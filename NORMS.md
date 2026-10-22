@@ -208,6 +208,8 @@ Subsections of a prototype follow these conventions: heading levels (band, bold-
 Rules: inputs green only; never hard-code values in unfilled calculation cells; keep the legacy font (Arial; title 14pt bold) on legacy-replicating sheets.
 
 ## 3. Other conventions
+
+- **Money units (user 2026-10-22, v8.1).** One vocabulary, currency first, scale and price basis as words: `USD`, `USD m`, `USD bn`, `LCU`, `LCU bn`, `USD/GJ`, `USD/kWh`, `USD/tCO2`, each with `real` or `nominal` where it matters; never `$`. The builder applies `unit_norm()` to every unit of the variable dictionary. Scaling (bn, m, thousand) lives in the unit label and, where a module converts, in one scale column of its input section: no formula body multiplies by a hard-coded `Billion` or `Thousand` outside that conversion.
 - Formulas live in Excel; no macros in prototypes unless documented (build via Python scripts, see `...\build_workbook.py`).
 - Every prototype records: source legacy sheet, version, and a validation table vs. legacy values (and vs. `coded` where available).
 - Codes (`Input Code`, `Output Code`) must be identical between Excel and Python (`coded\cpat_model\mappings`).

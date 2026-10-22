@@ -4531,6 +4531,22 @@ VARIABLES += [TR_VARINFO[v] for v in TR_VARS] + [
      'lkcb last year + the sum of lkb; base year 0 (LEAKCUM)', 'legacy total 5560 (SUM of the changes)'),
     ('lks', 'Residential leakage to biomass: net change in residential fuel use (summary row of section 6b)', 'ktoe',
      'e', 'Sum of lkc and lkcb', 'new (v5.1)')]
+UNIT_FIX = {'USD per tCO2': 'USD/tCO2', 'USD per tCO2 real': 'USD/tCO2 real', 'USD per ton of CO2 eq': 'USD/tCO2e',
+            'USD per t CH4': 'USD/tCH4', 'USD per ktoe': 'USD/ktoe', 'USD m per ktoe': 'USD m/ktoe',
+            'nom. USD/tCO2': 'USD/tCO2 nominal', '$/kwh nom': 'USD/kWh nominal', '$/kW/y': 'USD/kW/yr',
+            'bn, current prices': 'bn nominal (LCU or USD, by row)', 'per $/tCO2': 'per USD/tCO2', 'LCU per USD': 'LCU/USD'}
+
+
+def unit_norm(u):
+    """v8.1 (M1, user 2026-10-22): one money-unit vocabulary, currency first: USD, USD m, USD bn, LCU, USD/GJ, ...,
+    with real or nominal where it matters; never $ (labels only, values unchanged)."""
+    if not isinstance(u, str):
+        return u
+    u = UNIT_FIX.get(u, u)
+    return re.sub(r'(?<![A-Za-z])\$(?=/| |$)', 'USD', u)
+
+
+VARIABLES = [(v[0], v[1], unit_norm(v[2])) + tuple(v[3:]) for v in VARIABLES]
 assert len({v[0] for v in VARIABLES}) == len(VARIABLES), [v for v in VARIABLES if [w[0] for w in VARIABLES].count(v[0]) > 1][:3]
 VR0 = 5
 VR1 = VR0 + 1200                        # v3.1: room for more variables (269 in v3.1; v3.5: section 5b)
@@ -12836,7 +12852,7 @@ def _dist_layout(mitrow):
     row('deco', 'aspq', 'aspq', '', 'ove', 'ASPIRE quintile of the decile', 'quintile', 'legacy row 2558',
         '=ROUNDUP({c}$1/DecPerQuint,0)', fmt='0')
     row('deco', 'aspt', 'aspt', '', 'ove', 'ASPIRE benefit per capita of the transfer program (quintile of the '
-        'decile)', 'PPP $ per day', 'ASPIRE (legacy row 2617; v6.0)',
+        'decile)', 'PPP USD/day', 'ASPIRE (legacy row 2617; v6.0)',
         '=IFERROR(INDEX(DAspVal,MATCH(CtryCode&"."&{c}${tgtcode}&{c}{aspq}&"_preT_tot",DAspKey,0)),0)')
     row('deco', 'plraw', 'plraw', '', 'ove', 'Poverty line: HHSurvey value of the decile (overall, mean)', '% / 10',
         'HHSurvey pct_belowpl_* (legacy row 2649; mean as legacy)',
@@ -12877,7 +12893,7 @@ def _dist_layout(mitrow):
     gap()
     head('Current spending (ASPIRE incidence by quintile)')
     row('deco', 'aspbase', 'aspbase', '', 'ove', 'ASPIRE benefit per capita of the program (quintile of the decile)',
-        'PPP $ per day', 'ASPIRE (legacy row 2633)',
+        'PPP USD/day', 'ASPIRE (legacy row 2633)',
         '=IFERROR(INDEX(DAspVal,MATCH(CtryCode&"."&{c}${aspcode}&{c}{aspq}&"_preT_tot",DAspKey,0)),0)')
     row('scal', 'ctsamt', 'ctsamt', '', '', 'Scale: current spending / ASPIRE benefits of the population', 'ratio',
         'legacy P2642', '=IFERROR({c}${rcts}/SUMPRODUCT({d1}{aspbase}:{d10}{aspbase},{d1}{pop.ove}:{d10}{pop.ove}),0)',

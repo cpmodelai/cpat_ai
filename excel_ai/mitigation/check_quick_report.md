@@ -1,6 +1,6 @@
 # Quick check, CPAT-AI-Mitigation-Prototype v8.0
 
-**PASS** (94 s; the full check is check_full.py, run on request). Changes of output codes are reported, not failed: compare them with what the change intended.
+**PASS** (91 s; the full check is check_full.py, run on request). Changes of output codes are reported, not failed: compare them with what the change intended.
 
 - tab order (main, inputs, data, reference last; 55 tabs): OK
 - 399839 formulas; plain formulas over 100 characters: []: OK
