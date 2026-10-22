@@ -2836,3 +2836,8 @@ Earlier work was logged in the task documents themselves; they remain the detail
   - Seven old session branches remain on GitHub with the old history (deleting them was refused by the permission system): delete them on GitHub to drop the history there.
   - `LegacyBugFixes.md` stays as an intermediate source of the register spreadsheet; the replication lists and the register are regenerated from `issues_register.py`.
   - The method chapters are mechanical merges of the notes (one section per former note); their text is not yet rewritten for flow.
+
+## 2026-10-22 - Interim register spreadsheet with the legacy bug-fix status (`excel_ai/bugsfixed/`)
+- **Outputs:** `excel_ai/bugsfixed/CPAT-AI_BugsAndIssues_interim_fixedbugs.xlsx`, a copy of `CPAT-AI_BugsAndIssues_latest.xlsx` with Status set from `FixedBugsToConfirm.txt`: 54 items "Fixed in legacy (to confirm)", 10 "Fixed in legacy with caveats (to confirm)" with the caveat in a new column L; all 64 refs matched; other rows keep their v8.0 status; ReadMe note added.
+- **Caveats:**
+  - Edited copy, not regenerated: the statuses are not in `issues_register.py`, so `make_documentation.py` does not carry them; add them to the register once the fixes are confirmed.
