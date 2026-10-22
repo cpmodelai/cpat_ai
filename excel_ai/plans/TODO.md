@@ -14,9 +14,9 @@ Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logg
 
 ## 3. Modular CPAT ([`Modules.md`](Modules.md); after 2)
 
-- ☐ **M1 money units**: one vocabulary (`USD`, `USD m`, `USD bn`, `LCU`, `USD/GJ`, ... real/nominal; never `$`); labels only.
-- ☐ **M2 prototype exports**: Mitigation section 15 (air pollution) moved to the end; new section 19 "Exports to modules" (19a Distribution, 19b AP right after section 15, 19c TCB; one defined name each, plain copies, codes as keys, a scale column); a `FromMitigation` tab first for Distribution, which reads only it (no hard-coded `Billion`/`Thousand` scaling).
-- ☐ **M3 standalone Distribution v1.0 (priority)**: own workbook built from the same code, data-link Cover to `CPAT-AI-Mitigation_latest.xlsm` and the data workbook, its scenario inputs and data tabs; one scenario at a time (no batch interaction); check: equal to the prototype's Distribution cell for cell.
+- ☑ **M1 money units** (v8.1): one vocabulary (`USD`, `USD m`, `USD bn`, `LCU`, `USD/GJ`, ... real/nominal; never `$`); labels only.
+- ☑ **M2 prototype exports** (v8.1; 19b/19c come with M4): Mitigation section 15 (air pollution) moved to the end; new section 19 "Exports to modules" (19a Distribution, 19b AP right after section 15, 19c TCB; one defined name each, plain copies, codes as keys, a scale column); a `FromMitigation` tab first for Distribution, which reads only it (no hard-coded `Billion`/`Thousand` scaling).
+- ☑ **M3 standalone Distribution v1.0**: `excel_ai/distribution/` (cut from the built prototype; Cover with the link to `CPAT-AI-Mitigation-Prototype_latest.xlsm`, button Update from Mitigation; check PASS: equal to the prototype cell for cell, and end to end). Left: a data-workbook link for its data tabs (Update data tables), and Excel 365 test of the macro.
 - ☐ **M4 AP and TCB v0.1**: export blocks and small workbooks with the data import and export only (no model).
 - ☐ **M5 documents** for the modules.
 

@@ -4,6 +4,7 @@ One line per release, newest first. Full notes: the version log in the workbook 
 
 | Version | Date | Change |
 |---|---|---|
+| 8.1 | 2026-10-22 | Modules M1-M2: one money-unit vocabulary (USD, never $); section 15 moved to the end; new section 19 Exports to modules (19a Distribution, defined name ExportDistn); tab FromMitigation is Distribution's only Mitigation input. |
 | 8.0 | 2026-10-22 | Renamed CPAT-AI-Mitigation-Prototype (was MVP). |
 | 7.2 | 2026-10-22 | Codes (CPAT code protocol, plan R0-R9): one rename map (data/mvp_legacy_extracts/code_renames_v7_2.csv) applied where text is written: Mitigation columns A-C... |
 | 7.1 | 2026-10-21 | Linked data tables: nine tabs refresh from the data workbook (was Balances only): Balances, EnergyCons, Prices_dom, HHSurvey, IO_GTAP, HH_Elast (rows of the ... |
@@ -94,3 +95,9 @@ One line per release, newest first. Full notes: the version log in the workbook 
 | 0.3 | 2026-10-08 | Variable codes in column A; |
 | 0.2 | 2026-10-08 | Inputs sheet by fuel/subsector (lookups separated from formulas); |
 | 0.1 | 2026-10-08 | First build: design 2 price -> fuel-use prototype, Egypt base data, 2 scenarios. |
+
+## CPAT-AI Distribution Prototype (standalone module, `excel_ai/distribution/`)
+
+| Version | Date | Change |
+|---|---|---|
+| 1.0 | 2026-10-22 | First standalone module, cut from the mitigation prototype v8.1; input from Mitigation by the button Update from Mitigation (section 19a). |

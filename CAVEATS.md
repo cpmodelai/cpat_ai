@@ -2836,3 +2836,17 @@ Earlier work was logged in the task documents themselves; they remain the detail
   - Seven old session branches remain on GitHub with the old history (deleting them was refused by the permission system): delete them on GitHub to drop the history there.
   - `LegacyBugFixes.md` stays as an intermediate source of the register spreadsheet; the replication lists and the register are regenerated from `issues_register.py`.
   - The method chapters are mechanical merges of the notes (one section per former note); their text is not yet rewritten for flow.
+
+## 2026-10-22 - Modules M1-M3: v8.1 and the standalone Distribution v1.0
+
+- **Task (user 2026-10-22):** modular CPAT: Distribution, air pollution and transport co-benefits become modules; first consistent money units (M1), the prototype's exports (M2) and the standalone Distribution module (M3, the priority). One scenario at a time; no interaction with the batch runs.
+- **Inputs:** the prototype v8.0; plan `excel_ai/plans/Modules.md`.
+- **Outputs:**
+  - Prototype v8.1 (`excel_ai/releases/CPAT-AI-Mitigation-Prototype_v8.1.xlsm`, `_latest`): one money-unit vocabulary (NORMS section 3); section 15 moved to the end; section 19 Exports to modules, 19a Distribution (plain copies, defined name `ExportDistn`); tab `FromMitigation`, Distribution's only Mitigation input. Quick check PASS (0 change vs v8.0), paste test PASS.
+  - Distribution module v1.0 (`excel_ai/distribution/`; `excel_ai/CPAT-AI-Distribution-Prototype_latest.xlsm`, `releases/..._v1.0.xlsm`): cut from the built prototype (tabs Cover, ScenarioDefinition with only the distribution rows shown, FromMitigation as values, Distribution, Settings, the distribution data tabs; 66 of 768 names kept); VBA `CPATDistribution.bas` (UpdateFromMitigation, RecalculateNow, ToggleRecalculation). `check_distribution.py` PASS: Distribution equals the prototype's (25,190 cells); FromMitigation equals 19a through the macro's row mapping; end to end (live carbon price 60 instead of 20, prototype recalculated, module updated and recalculated: 0 differences, 4,670 values moved); VBA scan; lint.
+- **Caveats:**
+  - The macro UpdateFromMitigation is tested by a Python emulation of its copy, not run in Excel (Excel 365 review, TODO section 5). It opens the mitigation workbook read-only with macros off and the calculation manual, or uses it as it stands if it is open.
+  - 41 Settings formulas that read dropped tabs (country lists, GHG and WEO lookups) are values of Egypt; the module's data tabs have no data-workbook link yet.
+  - The module's ScenarioDefinition keeps every row (hidden but the distribution ones) so that the row numbers Distribution reads stay those of the prototype.
+  - v8.1 is not on main yet (quick and paste checks only; a full check before main).
+
