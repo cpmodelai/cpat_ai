@@ -112,7 +112,7 @@ def load():
     for c, t, d_, st in R.DIST_ISSUES:
         rep = st.startswith('Replicated')
         out.append(row(c, 'Issue (distribution)', '', t, 'Yes' if rep else 'No', st, d_, '',
-                       'Distribution_Method.md', 'Open' if rep else 'Closed'))
+                       'Methods, chapter Distribution', 'Open' if rep else 'Closed'))
     for c, t, when, what, fix in R.MVP_BUGS:
         out.append(row(c, 'Prototype bug', '', t, 'n/a', 'Fixed', what, fix, f'prototype {when}', 'Closed'))
     return out

@@ -439,7 +439,7 @@ pres.addSection({ title: "Model and results" });
     BL("Switch TrModel per scenario (default: elasticities, as Egypt)"),
     BL("Feebates, distance tax, EV subsidies, purchase taxes, charging subsidies", true),
   ]);
-  caption(s, `The road bugs: register section 3.2 (${REG}); method: Transport_Method.md.`, 0.6, 6.75, 12.1);
+  caption(s, `The road bugs: register section 3.2 (${REG}); method: Methods, chapter Transport.`, 0.6, 6.75, 12.1);
   s.addNotes("Legacy computes the engineer road model but the Egypt run uses the elasticity approach. The fixes cut the "
     + "engineer baseline by about a third by 2035, mainly through the ownership calibration (L27). Further work on "
     + "the engineer road model was dropped by the user (2026-10-20).");
@@ -491,7 +491,7 @@ pres.addSection({ title: "Model and results" });
   caption(s, "Deciles across, one analysis year (ScenarioDefinition YearDistn); scenario groups as on Mitigation.",
     0.6, 6.6, 12.1);
   s.addNotes(`Distribution tab, scenario group 2. Gini change with recycling: ${D.gini_rec.toFixed(2)}%. Eleven charts `
-    + "on the tab. Method: Distribution_Method.md.");
+    + "on the tab. Method: Methods, chapter Distribution.");
 }
 
 // 13. Results sections ---------------------------------------------------------------------------------------------
@@ -520,7 +520,7 @@ pres.addSection({ title: "Model and results" });
     b(`Efficiency cost, ${W}: ${f1(at("eff", 3, W))} bn USD (negative = gain)`),
     b(`National welfare, ${W}: ${f1(at("wel_usd", 3, W))} bn USD`, true),
   ]);
-  caption(s, "Method: ResultsSections_Method.md. Every new row is recomputed in Python in every scenario.", 0.6, 6.6, 12.1);
+  caption(s, "Method: Methods, chapter Macro and results. Every new row is recomputed in Python in every scenario.", 0.6, 6.6, 12.1);
   s.addNotes("Legacy's results area moved into the scenario sections, as memos or lettered sub-blocks, plus sections "
     + "17 and 18. Values from StoredOutputs (scenario 3 = the $20 carbon price of scenario 2). A negative implicit "
     + "carbon price means fossil fuels are subsidised on balance.");
@@ -572,7 +572,7 @@ pres.addSection({ title: "Next steps" });
     { text: "Historical GHGs 2018-2020 (I68)", options: { bullet: true } },
   ], { x: 8.35, y: 1.75, w: 4.1, h: 4.6, fontSize: 14, color: "FFFFFF", valign: "top", margin: 0, paraSpaceAfter: 8,
     isTextBox: true, objectName: nm("next") });
-  s.addNotes(`Files: CPAT-AI-Mitigation-Prototype-v${VER}.xlsm (repository root), QuickStart.md, `
+  s.addNotes(`Files: CPAT-AI-Mitigation-Prototype-v${VER}.xlsm (repository root), the Documentation, `
     + `documentation/${REG}. Also open: reconcile with legacy file 459 (U2); ETS goal seek user test (I30). `
     + "Open items from issues_register.py; I52 and I53 wait for features not planned.");
 }

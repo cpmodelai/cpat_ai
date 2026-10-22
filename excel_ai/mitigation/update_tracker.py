@@ -60,7 +60,7 @@ def current_rows():
         rows.setdefault(c, [c, 'Legacy bug (distribution)', 'Low', t, 'No', 'Fixed', what, '', st, w, 'Closed'])
     for c, t, d, st in R.DIST_ISSUES:
         rows.setdefault(c, [c, 'Issue (distribution)', '', t, 'Yes' if st.startswith('Replicated') else 'No', st,
-                            d, '', '', 'Distribution_Method.md', 'Open' if st.startswith('Replicated') else
+                            d, '', '', 'Methods, chapter Distribution', 'Open' if st.startswith('Replicated') else
                             'Closed'])
     for c, t, when, what, fix in R.MVP_BUGS:
         rows.setdefault(c, [c, 'Prototype bug', '', t, 'n/a', 'Fixed', what, '', fix, f'prototype {when}', 'Closed'])

@@ -162,7 +162,7 @@ Rebuilding the legacy CPAT mitigation sheet found these bugs in legacy CPAT itse
 
 - Legacy: Livestock, rice and waste CH4 are the inventory values divided by the GWP, constant over time; the abatement shares of the methane fee are computed (rows 6182, 6194, 6206) but not applied, so a methane fee on agriculture and waste has no effect.
 - Fix: Grow livestock, rice and waste methane with their drivers (income, population) and apply the abatement shares already computed in rows 6182, 6194, 6206.
-- Effect: Non-energy methane is flat and a methane fee on agriculture and waste has no effect. prototype: Fixed in v2.8: the sources grow with income and population and the fee abates them along their curves (GHG_Method.md).
+- Effect: Non-energy methane is flat and a methane fee on agriculture and waste has no effect. prototype: Fixed in v2.8: the sources grow with income and population and the fee abates them along their curves (Methods, chapter Emissions).
 
 **L19 (High). Flaring CO2 counted as methane.** Mitigation rows 6155-6156.
 
@@ -216,7 +216,7 @@ Rebuilding the legacy CPAT mitigation sheet found these bugs in legacy CPAT itse
 
 - Legacy: With pass-through 0.5 or 0.8 the floating tax multiplies its last value by (1 - pass-through) a second time, so taxes jump in the first projected year.
 - Fix: Apply (1 - pass-through) once in the first projected year.
-- Effect: Taxes jump in the first projected year when pass-through is between 0 and 1 (none for Egypt: 0 or 1). prototype: Fixed in v4.10 (user rule: bugs are never replicated): the floating part is (1 - pass-through) x (last tax + fall in supply cost), applied once (txf; PriceProjection_Method.md A10); no effect for Egypt (pass-through 0 or 1).
+- Effect: Taxes jump in the first projected year when pass-through is between 0 and 1 (none for Egypt: 0 or 1). prototype: Fixed in v4.10 (user rule: bugs are never replicated): the floating part is (1 - pass-through) x (last tax + fall in supply cost), applied once (txf; Methods, chapter Prices A10); no effect for Egypt (pass-through 0 or 1).
 
 **L15 (Medium). ETS: hardcoded relative price 1.1.** Mitigation row 1843.
 
@@ -246,55 +246,55 @@ Rebuilding the legacy CPAT mitigation sheet found these bugs in legacy CPAT itse
 
 - Legacy: Ownership calibration MAX(1, actual/expected) at 2024 (column N).
 - Fix: Actual/expected in both directions at the last data year found in the data.
-- Effect: Egypt engineer baseline 2035: gasoline -33.9%, diesel -37.9%, road electricity -52.4%, passenger EV sales share -2.6 points. prototype: Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).
+- Effect: Egypt engineer baseline 2035: gasoline -33.9%, diesel -37.9%, road electricity -52.4%, passenger EV sales share -2.6 points. prototype: Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).
 
 **L28 (Medium). Road: freight-share cap and 2-3 wheeler peak use 2024.** Mitigation rows $N2168, J2169 (engineer road model, survey B3b).
 
 - Legacy: Freight-share cap and 2-3 wheeler peak read 2024 (column N).
 - Fix: Last data year.
-- Effect: Egypt engineer baseline 2035: gasoline +0.0%, diesel +0.0%, road electricity -0.6%, passenger EV sales share -0.1 points. prototype: Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).
+- Effect: Egypt engineer baseline 2035: gasoline +0.0%, diesel +0.0%, road electricity -0.6%, passenger EV sales share -0.1 points. prototype: Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).
 
 **L30 (Medium). Road: bus fuel scaled by the wrong rows.** Mitigation rows 5310-5314, 5318 (engineer road model, survey B6).
 
 - Legacy: Bus fuel scaled by the wrong rows (LPG, gas and PHEV distance, BEV vehicles) and bus electricity from a sum of liters and kWh.
 - Fix: Passenger fuel use by fuel in ktoe (5195-5198) and passenger electricity (5223), base bus energy in ktoe.
-- Effect: Egypt engineer baseline 2035: gasoline +0.0%, diesel -0.3%, road electricity -16.8%, passenger EV sales share +0.0 points. prototype: Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).
+- Effect: Egypt engineer baseline 2035: gasoline +0.0%, diesel -0.3%, road electricity -16.8%, passenger EV sales share +0.0 points. prototype: Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).
 
 **L31 (Medium). Road: bus share grossed up as x(1+share).** Mitigation rows O5171:O5173 (engineer road model, survey B6b).
 
 - Legacy: Bus share added to the bottom-up fuel use as x(1+bus share).
 - Fix: /(1-bus share).
-- Effect: Egypt engineer baseline 2035: gasoline -0.0%, diesel +0.0%, road electricity -0.3%, passenger EV sales share +0.0 points. prototype: Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).
+- Effect: Egypt engineer baseline 2035: gasoline -0.0%, diesel +0.0%, road electricity -0.3%, passenger EV sales share +0.0 points. prototype: Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).
 
 **L33 (Medium). Road: wrong elasticities and rows in freight and 2-3 wheeler distance.** Mitigation rows M5261, M5295, M5232, M4646 (engineer road model, survey B8).
 
 - Legacy: BEV freight distance uses the 2-3 wheeler income elasticity; BEV 2-3 wheeler distance uses the cost ratio twice and no income term; LPG freight base row; freight ICE depreciation switches to the passenger discount rate from 2023.
 - Fix: As the sibling rows.
-- Effect: Egypt engineer baseline 2035: gasoline -0.0%, diesel -0.2%, road electricity +4.0%, passenger EV sales share +0.0 points. prototype: Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).
+- Effect: Egypt engineer baseline 2035: gasoline -0.0%, diesel -0.2%, road electricity +4.0%, passenger EV sales share +0.0 points. prototype: Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).
 
 **L34 (Medium). Road: freight discounted at the power-sector WACC.** Mitigation rows K4329 (engineer road model, survey B8w).
 
 - Legacy: Freight discounted at the average power-sector WACC.
 - Fix: The consumer discount rate (row 4531).
-- Effect: Egypt engineer baseline 2035: gasoline +0.0%, diesel +0.2%, road electricity -1.0%, passenger EV sales share -0.0 points. prototype: Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).
+- Effect: Egypt engineer baseline 2035: gasoline +0.0%, diesel +0.2%, road electricity -1.0%, passenger EV sales share -0.0 points. prototype: Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).
 
 **L35 (Medium). Road: negative PHEV sales share.** Mitigation rows 4850 L:O (engineer road model, survey B9).
 
 - Legacy: PHEV sales share = passenger EV share - blended passenger/light BEV share (negative).
 - Fix: (EV - BEV passenger share) x passenger share, ICE shares scaled to the rest.
-- Effect: Egypt engineer baseline 2035: gasoline -0.0%, diesel +0.1%, road electricity +0.2%, passenger EV sales share +0.0 points. prototype: Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).
+- Effect: Egypt engineer baseline 2035: gasoline -0.0%, diesel +0.1%, road electricity +0.2%, passenger EV sales share +0.0 points. prototype: Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).
 
 **L37 (Medium). Road: new BEV maintenance at the ICEV rate.** Mitigation rows 4573 (engineer road model, survey B19).
 
 - Legacy: New BEV maintenance uses the ICEV maintenance cost (J4327).
 - Fix: EV maintenance (J4328).
-- Effect: Egypt engineer baseline 2035: gasoline -0.1%, diesel -0.0%, road electricity +1.2%, passenger EV sales share +0.5 points. prototype: Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).
+- Effect: Egypt engineer baseline 2035: gasoline -0.1%, diesel -0.0%, road electricity +1.2%, passenger EV sales share +0.5 points. prototype: Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).
 
 **L38 (Medium). Road: used ICEV and BEV depreciation over different periods.** Mitigation rows 4598 (engineer road model, survey B20).
 
 - Legacy: Used ICEV depreciation annuity over own_years-1 (6) years, used BEV over 12.
 - Fix: Used ownership period - 1 (J4323-1) for both.
-- Effect: Egypt engineer baseline 2035: gasoline +5.1%, diesel +3.1%, road electricity -50.7%, passenger EV sales share -10.0 points. prototype: Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).
+- Effect: Egypt engineer baseline 2035: gasoline +5.1%, diesel +3.1%, road electricity -50.7%, passenger EV sales share -10.0 points. prototype: Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).
 
 **L42 (Medium). Domestic aviation: GDP growth and shock swapped.** Mitigation rows 5483-5492.
 
@@ -504,49 +504,49 @@ Rebuilding the legacy CPAT mitigation sheet found these bugs in legacy CPAT itse
 
 - Legacy: Passenger distance tax and 2-3 wheeler EV subsidy test ($C2227>1), text "res" > 1 is TRUE, so they also apply in the baseline.
 - Fix: Scenario number > 1.
-- Effect: None in the Egypt engineer run (the policy or fuel is zero there). prototype: Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).
+- Effect: None in the Egypt engineer run (the policy or fuel is zero there). prototype: Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).
 
 **L26 (Low). Road: freight and 2-3 wheeler income growth read coal subsidies from 2038.** Mitigation rows 4487 AB:AE (also 4501) (engineer road model, survey B2).
 
 - Legacy: Freight and 2-3 wheeler income growth read row 2455 (coal producer subsidies) from 2038.
 - Fix: Lagged GDP growth (row 2446) in all years.
-- Effect: None in the Egypt engineer run (the policy or fuel is zero there). prototype: Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).
+- Effect: None in the Egypt engineer run (the policy or fuel is zero there). prototype: Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).
 
 **L29 (Low). Road: ownership of cars and trucks cannot fall.** Mitigation rows T4328, U4328 (engineer road model, survey B4).
 
 - Legacy: Ownership cannot fall (max annual decrease 0 for passenger and freight).
 - Fix: Allow a decrease of up to own_decline_fix a year (legacy 2-3 wheeler value, 10%).
-- Effect: None in the Egypt engineer run (the policy or fuel is zero there). prototype: Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).
+- Effect: None in the Egypt engineer run (the policy or fuel is zero there). prototype: Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).
 
 **L32 (Low). Road: industry emission factors for road diesel and LPG.** Mitigation rows G4376-G4378, G4419-G4421 (engineer road model, survey B7).
 
 - Legacy: Stale emission-factor names: diesel and LPG use industry EFs, CNG/LNG the residential gas EF.
 - Fix: Road EFs.
-- Effect: None in the Egypt engineer run (the policy or fuel is zero there). prototype: Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).
+- Effect: None in the Egypt engineer run (the policy or fuel is zero there). prototype: Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).
 
 **L36 (Low). Road: charging-station subsidy ramp.** Mitigation rows 4343 (engineer road model, survey B10).
 
 - Legacy: Charging-station subsidy ramp accumulates before the start year and is not capped at the target year.
 - Fix: 0 before the start year, linear to the target level, then constant.
-- Effect: None in the Egypt engineer run (the policy or fuel is zero there). prototype: Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).
+- Effect: None in the Egypt engineer run (the policy or fuel is zero there). prototype: Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).
 
 **L39 (Low). Road: freight distance output omits LPG and LNG trucks.** Mitigation rows 5267 (engineer road model, survey B21).
 
 - Legacy: Freight distance output omits LPG and LNG trucks.
 - Fix: All fuels.
-- Effect: None in the Egypt engineer run (the policy or fuel is zero there). prototype: Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).
+- Effect: None in the Egypt engineer run (the policy or fuel is zero there). prototype: Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).
 
 **L40 (Low). Road: wrong rows in average gas and EV fuel economy.** Mitigation rows 5368, 5373 (engineer road model, survey B22).
 
 - Legacy: Average gas fuel economy weights freight by LPG freight fuel (5244) instead of LNG (5245); the EV fuel-economy fallback tests diesel (5326) instead of electricity.
 - Fix: Right rows.
-- Effect: None in the Egypt engineer run (the policy or fuel is zero there). prototype: Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).
+- Effect: None in the Egypt engineer run (the policy or fuel is zero there). prototype: Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).
 
 **L41 (Low). Road: PHEVs carry the full BEV range anxiety.** Mitigation rows 4555 (engineer road model, survey B23).
 
 - Legacy: PHEV TCO includes the full BEV range anxiety (about 100,000 $/vehicle), so PHEV sales vanish.
 - Fix: No range anxiety for PHEVs (they refuel with gasoline).
-- Effect: None in the Egypt engineer run (the policy or fuel is zero there). prototype: Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).
+- Effect: None in the Egypt engineer run (the policy or fuel is zero there). prototype: Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).
 
 **L44 (Low). Residential other oil products priced at the biomass price.** Mitigation row 5559.
 

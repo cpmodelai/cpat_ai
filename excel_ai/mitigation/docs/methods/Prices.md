@@ -3,7 +3,7 @@
 
 Equations: `Equations.md`; workbook formulas: `Formulas.md`.
 
-How the model projects fuel supply costs and retail prices, following legacy CPAT cut down to the basics, and the existing carbon pricing on top of them (section 5b). Subsidy phase-outs and price liberalisation are left out; electricity prices are in `PowerPrices_Method.md`. The workbook sheet `LegacyDiff` lists all differences with legacy. Two data rules differ from legacy by user decision (A10, A11); legacy bug L14 is fixed (A10).
+How the model projects fuel supply costs and retail prices, following legacy CPAT cut down to the basics, and the existing carbon pricing on top of them (section 5b). Subsidy phase-outs and price liberalisation are left out; electricity prices are in chapter Power. The workbook sheet `LegacyDiff` lists all differences with legacy. Two data rules differ from legacy by user decision (A10, A11); legacy bug L14 is fixed (A10).
 
 Sources: CPAT documentation, Mitigation chapter 3.2 (github.com/cpmodel/cpat_public); legacy workbook `CPAT 1.0pre_456_NoPropData.xlsb`, sheet `Mitigation` (rows 452/455 US deflator and CPI, 456/467/725 inflation indices, 633-695 international prices by source) and sheet `Prices_int` (regional assumptions); `coded/cpat_model/mitigation/prices/` (`prices.py`, `domestic_prices.py`, `international_prices.py`), which ports the legacy formulas line by line.
 
@@ -100,7 +100,7 @@ Per price fuel and year, real $/GJ:
 | Existing consumer subsidy | min(txo, 0) | negative (subsidies are negative) |
 | Subsidy per price unit | subsidy x GJ per price unit | in ScenarioDefinition price units ($/liter, $/bbl, $/GJ), for a later per-fuel subsidy reform through the fuel price reform inputs, which use the same units |
 
-Legacy splits `txo` into a fixed tax, a fixed subsidy and a floating part; the sign split gives the same totals. VAT on oil products is (sp + txo) x rate x household share; legacy divides the retail price by 1 + the full rate (bug L60). Revenue, as fuel use (PJ) x the rate: existing taxes = excise + VAT + `xcpd x (1 + vr)`; existing subsidies = the subsidy (negative); net existing = taxes + subsidies; new = new carbon tax + new excise + ETS x revenue factor + VAT on new policies. Power adds its rows (`PowerPrices_Method.md`).
+Legacy splits `txo` into a fixed tax, a fixed subsidy and a floating part; the sign split gives the same totals. VAT on oil products is (sp + txo) x rate x household share; legacy divides the retail price by 1 + the full rate (bug L60). Revenue, as fuel use (PJ) x the rate: existing taxes = excise + VAT + `xcpd x (1 + vr)`; existing subsidies = the subsidy (negative); net existing = taxes + subsidies; new = new carbon tax + new excise + ETS x revenue factor + VAT on new policies. Power adds its rows (chapter Power).
 
 ### 6b. Subsidy and price-control phase-outs, producer subsidies (v4.16; LD18, LD19)
 

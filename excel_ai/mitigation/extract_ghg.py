@@ -1,4 +1,4 @@
-"""v2.8: data for the non-CO2 GHG and methane rows of CPAT-AI-Mitigation-Prototype (GHG_Method.md).
+"""v2.8: data for the non-CO2 GHG and methane rows of CPAT-AI-Mitigation-Prototype (Methods, chapter Emissions).
 
 Source: legacy CPAT `excel_ai/legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb` (read-only), values:
 - `GHGs` rows 8-946: GHG inventory by country, year, UNFCCC category and gas (Mt CO2e; legacy key inputs 7 read

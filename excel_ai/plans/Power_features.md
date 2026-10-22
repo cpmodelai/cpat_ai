@@ -1,6 +1,6 @@
 # Power engineer model: features to add (plan, 2026-10-18; decisions recorded)
 
-**Status (v5.6, 2026-10-19): P1-P5 done** (P3 manual capacity and investment, P5 coal implicit cost and memo rows in v5.6; the optional GoalSeekCoal calibration script is not built: the stored legacy values are used). Earlier status: **(v5.4) P1, P2 and P4 done.** Item 1 in v4.14; items 3, 4 (P1), 2 (P2) and 5, 6, 7, 12 (P4) in v5.4 (`PowerModel_Method.md`, `PowerPrices_Method.md`). Open: P3 item 8 (manual capacity and investment) and P5 (items 10, 13), planned for v5.5. Dropped: items 11 and 14.
+**Status (v5.6, 2026-10-19): P1-P5 done** (P3 manual capacity and investment, P5 coal implicit cost and memo rows in v5.6; the optional GoalSeekCoal calibration script is not built: the stored legacy values are used). Earlier status: **(v5.4) P1, P2 and P4 done.** Item 1 in v4.14; items 3, 4 (P1), 2 (P2) and 5, 6, 7, 12 (P4) in v5.4 (Methods, chapter Power, Methods, chapter Power). Open: P3 item 8 (manual capacity and investment) and P5 (items 10, 13), planned for v5.5. Dropped: items 11 and 14.
 
 User request (2026-10-18): plan the features of the power engineer model that the prototype does not have yet. This is a plan, not a method note; each release gets its method text in `PowerModel_Method` / `PowerPrices_Method` when it is built.
 

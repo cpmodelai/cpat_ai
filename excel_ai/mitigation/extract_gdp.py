@@ -1,4 +1,4 @@
-"""v3.1: data for the GDP effects of CPAT-AI-Mitigation-Prototype (section 16, GDP_Method.md).
+"""v3.1: data for the GDP effects of CPAT-AI-Mitigation-Prototype (section 16, Methods, chapter Macro and results).
 
 Source: legacy CPAT `excel_ai/legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb` (read-only), cached values:
 - `Multipliers` rows 90-144 (median fiscal multipliers from MFMod by group: Global, HIC, UMIC, LMIC, LIC) and

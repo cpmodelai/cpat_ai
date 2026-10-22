@@ -20,21 +20,6 @@ OUT = os.path.join(HERE,   # excel_ai/mitigation/ (restructure 2026-10-22; was r
                    'CPAT-AI-Mitigation_Documentation.docx')   # v7.0: root documentation/
 WORKBOOK = __import__('build').OUT   # v8.0: the release copy
 REPORT = os.path.join(HERE, 'check_report.md')
-PARTS = [('Quick start', 'QuickStart.md'),
-         ('The model in equations', 'Equations.md'),
-         ('Method: domestic energy prices and existing carbon pricing', 'PriceProjection_Method.md'),
-         ('Method: power generation costs and electricity prices', 'PowerPrices_Method.md'),
-         ('Method: power engineer model', 'PowerModel_Method.md'),
-         ('Method: road transport, engineer model', 'Transport_Method.md'),
-         ('Method: new ETS', 'ETS_Method.md'),
-         ('Method: multiple scenarios and stored results', 'Scenarios_Method.md'),
-         ('Method: non-CO2 GHGs and methane', 'GHG_Method.md'),
-         ('Method: local air pollutants', 'AirPollutants_Method.md'),
-         ('Method: GDP effects', 'GDP_Method.md'),
-         ('Method: calibration of energy CO2', 'CO2Calibration_Method.md'),
-         ('Method: results sections (memos, 11b-17, 18)', 'ResultsSections_Method.md'),   # v3.13-v3.18
-         ('Method: distribution module', 'Distribution_Method.md'),   # v6.4: distribution and data tabs added
-         ('Data tabs: legacy tables and how to load a country', 'DataTabs.md')]
 
 
 def part(title, name):

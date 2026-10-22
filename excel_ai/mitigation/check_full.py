@@ -1137,7 +1137,7 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
     return res
 
 
-# v3.1: section 16 (GDP effects), an independent copy from the CSVs (GDP_Method.md)
+# v3.1: section 16 (GDP effects), an independent copy from the CSVs (Methods, chapter Macro and results)
 MULT = {(r['group'], r['stat'], r['instrument']): [float(r[f'lag{k}']) for k in range(20)] for r in read('multipliers.csv')}
 GDP_USD = {int(k): float(v) for k, v in read('gdp_level.csv')[0].items() if k.isdigit()}
 INCOME = {r['code']: r['income_group'] for r in read('countries.csv')}
@@ -1251,7 +1251,7 @@ def recompute(mt, controls=None, **kw):
 
 def tr_inputs(res, mt):
     """v3.5: inputs of the engineer road model from the recomputation: an independent copy of the input mapping of
-    section 5b (Transport_Workbook_Notes.md): road after-tax prices of section 5 in $/liter (gas $/GJ),
+    section 5b (Methods, chapter Transport): road after-tax prices of section 5 in $/liter (gas $/GJ),
     industrial gas price with the road new policies, power prices (section 3), GDP growth after the feedback,
     population, GDP per capita, carbon price and road feebate coverage, road elasticities, EFs and energy balance."""
     T = res[('TRIN', '', '')]
@@ -1479,7 +1479,7 @@ def _recompute_gdp(mt, controls=None, **kw):
     return res
 
 
-# v2.8: section 14 (non-CO2 GHGs and methane), an independent copy from the CSVs (GHG_Method.md)
+# v2.8: section 14 (non-CO2 GHGs and methane), an independent copy from the CSVs (Methods, chapter Emissions)
 BIO_EB = {f: next((float(r[f] or 0) for r in read('legacy_Balances.csv') if r['country_code'] == ISO
                    and r['flow_code'] == 'road'), 0.0) for f in ('bgs', 'bdi', 'obf')}   # v4.12 (LD62)
 class _MFeeOn(dict):
@@ -3181,20 +3181,10 @@ def check_consistency(ws):
     log(f'- equations: {os.path.basename(EQ.OUT)} regenerated from the workbook, {n_eq} variables; every variable of the '
         f'dictionary has its equation {"OK" if good else "FAIL " + str(miss_eq[:8])}')
     cur = [f for d in ('', 'presentation') for f in os.listdir(os.path.join(HERE, d))
-           if re.search(r'_v\d+[._]\d+', f) and os.path.isfile(os.path.join(HERE, d, f))
-           and not f.startswith('Plan_')]                 # v3.13: a plan keeps the name of its span
-    tags = {B.VERSION, B.SCRIPTS_TAG.replace('_', '.')}   # v7.1: point release: scripts and notes keep the x.0 tag
-    off = [f for f in cur if not any(re.search(r'_v' + t.replace('.', r'[._]') + r'\.\w+$', f)
-                                     or re.search(r'-v' + t.replace('.', r'\.') + r'\.\w+$', f) for t in tags)]
-    vnum = lambda f: tuple(int(x) for x in re.search(r'[_-]v(\d+)[._](\d+)', f).groups())
-    cur_v = tuple(int(x) for x in B.VERSION.split('.'))
-    nxt = [f for f in off if vnum(f) > cur_v]          # v3.4: work in progress for the next version is allowed
-    base_v = tuple(int(x) for x in B.SCRIPTS_TAG.split('_'))
-    pnt = [f for f in off if base_v < vnum(f) < cur_v]  # v7.2: a file new at a point release keeps its tag
-    off = [f for f in off if f not in nxt and f not in pnt]
+           if os.path.isfile(os.path.join(HERE, d, f)) and f.endswith(('.py', '.md', '.js', '.bas'))]
+    off = [f for f in cur if re.search(r'[_-]v\d+[._]\d+', f)]   # v8.0: stable names (releases are git tags)
     ok &= not off
-    log(f'- every current versioned file of the folder carries version {B.VERSION} or the scripts tag '
-        f'{B.SCRIPTS_TAG} ({len(cur)} files; new at a point release, keeping its tag: {pnt}): '
+    log(f'- scripts and notes have stable names, no version in the name ({len(cur)} files): '
         f'{"OK" if not off else "FAIL " + str(off)}')
     import issues_register as IR
     ids = [i for i, *_ in IR.items()]
@@ -3208,14 +3198,12 @@ def check_consistency(ws):
     ok &= good
     log(f'- issues register (issues_register.py, Word register): {len(ids)} items, unique IDs; LegacyDiff rows of '
         f'type {", ".join(IR.LD_TYPES)} all included ({ld_in} of {ld_n}) {"OK" if good else "FAIL"}')
-    notes = [f for f in os.listdir(HERE) if f.endswith('.md') and DOC_REF.fullmatch(f)]
-    stems = {}
-    for f in notes:
-        stems.setdefault(re.sub(r'_v\d.*', '', f), []).append(f)
-    dup = {k: x for k, x in stems.items() if len(x) > 1}
-    ok &= not dup
-    log(f'- one current version of each method note in the folder ({len(notes)} notes): '
-        f'{"OK" if not dup else "FAIL " + str(dup)}')
+    chapters = sorted(os.listdir(os.path.join(HERE, 'docs', 'methods')))
+    stray = [f for f in os.listdir(HERE) if f.endswith('_Method.md')]   # v8.0: methods only in docs/methods/
+    good = len(chapters) == 8 and not stray
+    ok &= good
+    log(f'- method chapters in docs/methods/ ({len(chapters)}: {", ".join(chapters)}); no method note left in the '
+        f'folder {"OK" if good else "FAIL " + str(stray)}')
     return ok
 
 

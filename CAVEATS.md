@@ -2824,3 +2824,15 @@ Earlier work was logged in the task documents themselves; they remain the detail
 
 ## 2026-10-22 - Bugs and issues register renamed v7.1.5 (`documentation/`)
 - `CPAT-AI-Mitigation-MVP_BugsAndIssues_v7.1.5.docx` and `.json` replace the v7.1 files (same content, regenerated; user asked for a new version number so the update is visible). The register now has its own version, `REGISTER_VERSION` in `issues_register_v7_0.py`; the workbook stays v7.1. References updated (READMEs, QuickStart, deck builder, make_docs, update_tracker); the title page states the register version and date.
+
+## 2026-10-22 - Clean-up and restructure; v8.0 (prototype naming, stable names, few documents)
+
+- **Task (user 2026-10-22):** a total rethink of the repository and its documents, after v7.2 reached main: no `documentation/` folder, no `cpat_` prefix, the three main files at the top of `excel_ai/`, short lists `BUGS.md`/`ISSUES.md`, history dropped, versioned and `_latest` copies, few and simple documents; the mitigation MVP renamed a prototype.
+- **Outputs:**
+  - Layout: `excel_ai/` (workbook, bug-fix register, register spreadsheet, deck as `_latest`; `releases/` with the `_v<n>` copies from v7.2; `mitigation/` sources and checks; `legacy/` legacy workbooks, fix-plan sources and tools, surveys, finished codes work; `plans/` one file per open plan and the TODO; `shared/`, `templates/`), `data/`, `coded/`, `other/`. Git history reset to one commit (`2fb1c31`); `Old/` folders and earlier variants deleted.
+  - v8.0: `CPAT-AI-Mitigation-Prototype`; scripts and notes with stable names; one NORMS (sections 0-8; section 5 rewritten); `CHANGELOG.md`; documents: a 5-page Documentation (`docs/Documentation.md`) and a Methods volume (13 method notes merged into 6 chapters + distribution, equations and data tabs appendices).
+  - Checks: data tests 15 pass, Python tests 48 pass, quick check PASS (0 change vs v7.2), paste test PASS, full check PASS (sections 0-13 in the run; section 14 rerun after its version rule was rewritten for stable names).
+- **Caveats:**
+  - Seven old session branches remain on GitHub with the old history (deleting them was refused by the permission system): delete them on GitHub to drop the history there.
+  - `LegacyBugFixes.md` stays as an intermediate source of the register spreadsheet; the replication lists and the register are regenerated from `issues_register.py`.
+  - The method chapters are mechanical merges of the notes (one section per former note); their text is not yet rewritten for flow.

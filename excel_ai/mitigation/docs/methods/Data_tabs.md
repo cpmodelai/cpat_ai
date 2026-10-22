@@ -35,7 +35,7 @@ can be copied in. Then (same day): align more fully, going with the recommendati
     values, each a defined name Ps...), Inputs_ptech (one row per generation type, the former PowerTech: country, else
     world parameters, efficiency and generation from Balances, WACC from CoC, capacity factors), Inputs_ppath (year
     paths, the former PowerPaths: capex time factors, storage, income factor, fuel price shocks, prices) and
-    Inputs_ppar (parameters, the former PowerParams). The chains are mapped in `PowerData_Chain.md`.
+    Inputs_ppar (parameters, the former PowerParams). The chains are mapped in chapter Power.
   The Egypt values reproduce legacy's cached values (macro series to 1e-15; power data to 1e-12), apart from one legacy
   bug fixed (L51: the coal trade balance was valued at the oil price) and one stale value in legacy's stored run (I38:
   the wind and solar capex time factors for 2039-2041 differ from the legacy Power cells they reference; the prototype

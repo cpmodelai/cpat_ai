@@ -1,4 +1,4 @@
-# Check report - CPAT-AI-Mitigation-Prototype-v7.2
+# Check report - CPAT-AI-Mitigation-Prototype v8.0
 
 ## 0. Formula length (at most 100 characters per cell formula)
 - LAMBDA calls only in the LAMBDA year 2041 of Mitigation and the LAMBDA test group 2 (Mitigation, Distribution): 111991 cells OK
@@ -2108,9 +2108,9 @@ Effect of each bug fix on the legacy Egypt inputs (2040; % change against legacy
 - scenario 5 (complementary): new carbon tax rate 2030 = carbon price 20.00 x (1 - existing ETS sector coverage): power 0.00, cement 8.00, road 20.00 OK
 - check rows ener.chk, rev.chk, co2.chk in groups 1-5: max abs 0 OK
 
-## 6. Regression vs v7.1 (shared output codes, 2022-2041: no change)
-- 6514 output codes in both versions (6882 intended changes), 2022-2041: max abs diff 1e-11 OK
-- variables added: 
+## 6. Regression vs v7.2 (shared output codes, 2022-2041: no change)
+- 6510 output codes in both versions (6876 intended changes), 2022-2041: max abs diff 0 OK
+- variables added: ch4, trafts, traftsc, trbkmt, trstt
 - intended changes that differ: ndc.over, swd.2, swi.2
 
 ## 6b. MTOutputs and Charts
@@ -2341,15 +2341,15 @@ Generation cost by type, scenario 1, 2022 and 2040 ($/kWh): Coal 0.197 / 0.120, 
 - ScenarioCompare time series, block 3: 200 cells, 1 formula OK
 - ScenarioCompare time series, block 4: 200 cells, 1 formula OK
   - CO2 2030 (MtCO2): Base: 232.0, CP20-b: 215.9, PkgA: 195.2, PkgB: 216.5, CP50: 196.4
-- LibreOffice ran the embedded macro: VBAProject.CPATScenarios.RunAll returned 4 in 463.3 s
+- LibreOffice ran the embedded macro: VBAProject.CPATScenarios.RunAll returned 4 in 539.3 s
   - macro stored IDs [1, 3, 4, 5, 6] with the same names; values vs the Python emulation: max rel diff 1.01e-12 at (4, 'mit.rev.usd.tot', 2034) (by ID: 1 5.0e-15, 3 5.7e-14, 4 1.0e-12, 5 8.8e-01, 6 1.2e-13; new-ETS IDs [5] re-solved by the macro goal seek, a memo: the build stores them at the fast estimate) OK
   - live column K restored (0 cells differ) and ETS override row empty again OK
 
 ## 13. First-run test macro CheckBatchRun (v1.04)
 - sheet MacroCheck as shipped: "not run yet" OK
-- LibreOffice ran CheckBatch: VBAProject.CPATScenarios.CheckBatch returned 1.0051088102780473e-12 in 2494.5 s
+- LibreOffice ran CheckBatch: VBAProject.CPATScenarios.CheckBatch returned 1.0051088102780473e-12 in 2427.9 s
   - Result: PASS
-  - Started: 2026-10-22 06:56:08 in Microsoft Excel 11.0
+  - Started: 2026-10-22 10:31:29 in Microsoft Excel 11.0
   - MTInputs: column of scenario 1 (baseline): OK (10)
   - MTInputs: column of scenario 2 (live): OK (11)
   - MTInputs: row of D_NewETS: OK (84)
@@ -2373,20 +2373,23 @@ Generation cost by type, scenario 1, 2022 and 2040 ($/kWh): Coal 0.197 / 0.120, 
   - Stored cells compared after the run: 9840
   - Cells differing by more than 1E-06 (relative): 0
   - Largest relative difference (baseline and batch): 1e-12
-  - Finished: 2026-10-22 07:37:43
+  - Finished: 2026-10-22 11:11:57
 - first-run test: Result PASS, 15 lookups found, largest relative difference 1.0e-12 OK
-- negative test (row code ets.ovr broken): CheckBatch -1 in 2.9 s; Result "FAIL: 1 lookup(s) not found (see below)"; failed lookup: ['Mitigation: row ets.ovr (ETS override prices)'] OK
+- negative test (row code ets.ovr broken): CheckBatch -1 in 3.0 s; Result "FAIL: 1 lookup(s) not found (see below)"; failed lookup: ['Mitigation: row ets.ovr (ETS override prices)'] OK
 
-## 14. Consistency (v1.09, v2.4): check rows, identities, references, versions, stale texts
+
+## 14. Consistency (rerun after the section's version rule was updated to stable names)
 - check rows in groups [1, 2]: ener.chk 0, rev.chk 0, co2.chk 0, bco2.chk 0, ch4bs.chk 0 OK
 - identities in every column: rnet = rtx + rsub (subsidies negative), rtot = rnet + rnew, fuel use = sector totals + power, power fuel use = fuel types of pe, power CO2 = CO2 by type = ETS sector power: max abs 5.6e-10 OK
-- file references in the workbook texts (15): current ones exist in the folder: OK
+- file references in the workbook texts (2): current ones exist in the folder: OK
 - stale statements about power, revenues or interim data in the workbook texts: none OK
-- versions: Settings log ends with 7.2, Mitigation title "Mitigation Module", folder README names the workbook and builder of v7.2 OK
+- versions: Settings log ends with 8.0, Mitigation title "Mitigation Module", folder README names the workbook and builder of v8.0 OK
 - v2.8: newer Excel functions (MAXIFS, MINIFS, AGGREGATE, IFNA, ...) carry the _xlfn. prefix in the file (else Excel removes the formula on repair): OK
 - equations: Formulas.md regenerated from the workbook, 1127 variables; every variable of the dictionary has its equation OK
-- every current versioned file of the folder carries version 7.2 or the scripts tag 7_0 (72 files; new at a point release, keeping its tag: ['Codes_Remediation_Plan_v7_1.md', 'make_codes_map_v7_1.py', 'CPAT_CodesMap_v7_1.xlsx', 'check_links.py']): OK
+- scripts and notes have stable names, no version in the name (44 files): OK
 - issues register (issues_register.py, Word register): 230 items, unique IDs; LegacyDiff rows of type Not yet, Simplification, To check (bucket 5) all included (7 of 7) OK
-- one current version of each method note in the folder (31 notes): OK
+- method chapters in docs/methods/ (8: Data_tabs.md, Distribution.md, ETS.md, Emissions.md, Macro_and_results.md, Power.md, Prices.md, Transport.md); no method note left in the folder OK
 
-**Overall: PASS**
+Sections that failed: none
+
+**Overall: PASS** (sections 0-13 in the full run; section 14 rerun)

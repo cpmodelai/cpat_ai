@@ -4,7 +4,7 @@
 
 Equations: `Equations.md`; workbook formulas: `Formulas.md`.
 
-How the prototype models a new emissions trading system. Background on the legacy algorithm and the design choice: `ETS_Legacy_Algorithm.md` and `Old/ETS_Cap_Design_Options_v3_6.md`.
+How the prototype models a new emissions trading system. Background on the legacy algorithm and the design choice: chapter ETS and `Old/ETS_Cap_Design_Options_v3_6.md`.
 
 ### 1. Inputs
 
@@ -69,7 +69,7 @@ The values are those the goal seek has always used here; the legacy defaults are
 
 Equations: `Equations.md`; workbook formulas: `Formulas.md`.
 
-Background note on the legacy algorithm and the design choice behind the prototype's ETS; the prototype method is in `ETS_Method.md`.
+Background note on the legacy algorithm and the design choice behind the prototype's ETS; the prototype method is in chapter ETS.
 
 Source: `CPAT 1.0pre_456_NoPropData.xlsb`, sheet Mitigation rows 1797–1969 and 2244–2425, sheet Manual inputs O15:AB15, and VBA Module1 (`OverrideETSFast`, `SolveFast`). Row numbers are legacy rows. Formulas not stored in the dump are inferred from the row labels and cached values and marked *(inferred)*.
 

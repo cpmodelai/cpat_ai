@@ -39,7 +39,7 @@ The methane fee (ScenarioDefinition) runs linearly from `MPLevelStart` in `MPInt
 
 ### 3. Energy methane and N2O
 
-- Combustion methane = fuel use x emission factor, by subsector and fuel, and for power by generation type. A fuel that its GAINS subsector has no factor for takes the nearest GAINS match (v4.12, legacy bug L59, as the local pollutants: `AirPollutants_Method.md`). The factor moves linearly from its base-year value to its final value in 2039 (`EFEndYear`, the legacy column), flat after.
+- Combustion methane = fuel use x emission factor, by subsector and fuel, and for power by generation type. A fuel that its GAINS subsector has no factor for takes the nearest GAINS match (v4.12, legacy bug L59, as the local pollutants: chapter Emissions). The factor moves linearly from its base-year value to its final value in 2039 (`EFEndYear`, the legacy column), flat after.
 - Energy methane = calibration factor x (combustion + fossil supply methane) x fossil GWP. The factor = inventory energy methane / modelled energy methane in GHGYear (scenario 1). Energy methane thus equals the inventory in GHGYear and later moves with fuel use, supply activity and abatement. v6.2: the modelled GHGYear combustion and supply methane of scenario 1 are stored on sheet BaselineCO2 (rows ch4c, ch4sup, refreshed by the build), so the factor, used in every year, reads no later model year (circular-reference rule, user 2026-10-20).
 - Energy N2O and F-gases: the inventory while it has the year; then N2O moves with energy CO2 and F-gases are held.
 - Energy CO2 = fuel combustion (power included) + flaring.
@@ -65,12 +65,12 @@ Totals by gas and by category; total GHGs excluding and including LULUCF; the ch
 - `check_full.py` recomputes every GHG and combustion-methane row in Python from the data files (scenarios 1 and 2, every year).
 - When introduced (v2.8), every earlier output was unchanged (the methane fee is 0 in the shipped scenarios).
 - The non-energy elasticities reproduce the legacy run exactly where the legacy method is kept.
-- Sheet LegacyDiff lists the differences with legacy; the register of bugs, issues and upgrades describes the legacy bugs fixed: L18 (non-energy methane constant, abatement not applied), L19 (flaring CO2 counted as methane), L20 (population growth path), L21 (waste abated with the livestock curve). Local air pollutants: `AirPollutants_Method.md`.
+- Sheet LegacyDiff lists the differences with legacy; the register of bugs, issues and upgrades describes the legacy bugs fixed: L18 (non-energy methane constant, abatement not applied), L19 (flaring CO2 counted as methane), L20 (population growth path), L21 (waste abated with the livestock curve). Local air pollutants: chapter Emissions.
 
 ### 6. Open issues
 
 - **Egypt's inventory breaks after 2021** (I17): energy CH4 is 21.9 Mt CO2e in 2021 and 1.9-2.0 in 2022-2024, while the fugitive-emissions memo alone is 20.3 in 2023. Calibrating to 2024 (as legacy) may understate energy methane by about 19 Mt CO2e.
-- **Energy CO2 calibration to the inventory (as legacy since v4.11; switch on)**: every CO2 emission factor is scaled by the 2021 inventory over the 2022 estimate (Egypt 0.930; `CO2Calibration_Method.md`); the 2021-2022 inventory break (I17) carries into every year, as legacy.
+- **Energy CO2 calibration to the inventory (as legacy since v4.11; switch on)**: every CO2 emission factor is scaled by the 2021 inventory over the 2022 estimate (Egypt 0.930; chapter Emissions); the 2021-2022 inventory break (I17) carries into every year, as legacy.
 - **Combustion factors** use only the GAINS base and final values (the yearly paths are proprietary). Combustion methane exceeds inventory energy methane, so the calibration factor is about 0.25 for Egypt.
 - **Oil, gas and coal production** is held at the base year (no production model).
 

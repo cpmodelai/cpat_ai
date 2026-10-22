@@ -3,7 +3,7 @@
 Proposal for one policy taxonomy that serves both CPAT projects (ScenarioDefinition, the prototype scenario definitions and `coded/cpat_model/constants.py`). It keeps every policy CPAT has today and adds every policy instrument in the FTT (Future Technology Transformations) models, so that a policy in either model has a slot in the taxonomy.
 
 Sources:
-- CPAT: `templates/MTInputs_template.xlsx` (legacy MTInputs rows), the prototype road and power rows (`Transport_Method.md` section 2, excel_ai/plans/Power_features.md), the main-scenario list (`Scenarios_Method.md` section 2b; `constants.py` `ALL_SCENARIOS`).
+- CPAT: `templates/MTInputs_template.xlsx` (legacy MTInputs rows), the prototype road and power rows (Methods, chapter Transport section 2, excel_ai/plans/Power_features.md), the main-scenario list (Methods, chapter Macro and results section 2b; `constants.py` `ALL_SCENARIOS`).
 - FTT: the open-source stand-alone FTT, `github.com/cpmodel/FTT_StandAlone` at commit 8cf4bfd (2026-10-13): `Utilities/titles/VariableListing.csv`, `ftt_source/ftt_core/` (mandates, emissions regulation, exogenous sales and capacity), `ftt_source/Power/ftt_p_phase_out.py` and the LCOE/LCOT/LCOH cost functions where each policy enters. Modules: FTT:Power (P), FTT:Transport, passenger road (Tr), FTT:Freight (Fr), FTT:Heat, residential (H), FTT:Industrial Heat (IH: chemicals CHI, food-beverages-tobacco FBT, machinery and transport equipment MTM, non-metallic minerals NMM, other industry OIS).
 
 ## 1. Structure

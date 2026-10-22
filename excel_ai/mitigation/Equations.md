@@ -274,7 +274,7 @@ E69e cumulative changes:       Lk[m,res](t) = Lk[m,res](t−1) + d_m(t),     Lk[
 - The change is computed on last year's actual use Q(t−1), which already includes earlier leakage; Qᵉ stays the elasticity model. Every product of the fuel follows Q: CO2, CH4, local pollutants, revenues, the price-block weights and the distribution module.
  Road transport, engineer model (switch TrModel; default off)
 
-Classes c ∈ {passenger new, passenger used, freight, 2-3 wheeler}; powertrains i ∈ ICE fuels (gasoline, diesel, LPG, CNG/LNG), PHEV (passenger), BEV. Years up to the last data year Tᴰ take the data (Transport1); the equations below are for later years. Bugs fixed against legacy: `Transport_vs_Legacy.md`.
+Classes c ∈ {passenger new, passenger used, freight, 2-3 wheeler}; powertrains i ∈ ICE fuels (gasoline, diesel, LPG, CNG/LNG), PHEV (passenger), BEV. Years up to the last data year Tᴰ take the data (Transport1); the equations below are for later years. Bugs fixed against legacy: Methods, chapter Transport.
 
 | Symbol | Meaning (source) |
 |---|---|

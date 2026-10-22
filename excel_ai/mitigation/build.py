@@ -5,7 +5,7 @@ v1.00: the prototype is renamed CPAT-AI-Mitigation-Prototype (earlier versions: 
 v1.01: sheet MTOutputs collects key results for every scenario by output code (one row block per scenario,
     copy-pasteable: copy the last block below to add a scenario; its number goes up by one), and sheet Charts plots
     them (CO2, fuel use, fiscal effect, carbon price by scenario).
-v1.02: new ETS with a cap (ETS_Legacy_Algorithm.md). The cap is a change relative to baseline covered emissions
+v1.02: new ETS with a cap (Methods, chapter ETS). The cap is a change relative to baseline covered emissions
     (MTInputs 85-87); baseline CO2 by ETS sector is a data block in section 1 (refreshed from scenario 1 by the
     build, option A of Old/ETS_Cap_Design_Options_v3_6.md). Permit price: fast estimate LN(cap / baseline) / (covered
     semi-elasticity x allocation effectiveness x volatility adjustment), or an override row (MTInputs
@@ -776,7 +776,7 @@ NAMED_CONSTANTS = [  # defined name, value, unit, description, source
     ('TrPivotLag', 2, 'years', 'Feebate pivot: blank in the first years of the horizon (base year counted as 1)',
      'Legacy Mitigation rows 4517, 4633, 4690 (from column N)'),
     ('TrOwnDecline', 0.1, 'share per year', 'Maximum annual decrease of passenger and freight ownership (fix B4: '
-     'the legacy 2-3 wheeler value; legacy 0)', 'Transport_vs_Legacy.md B4'),
+     'the legacy 2-3 wheeler value; legacy 0)', 'Methods, chapter Transport B4'),
     ('TrFEWGso', 0.75, 'share', 'Average gasoline fuel economy without fuel use: weight of passenger vehicles '
      '(2-3 wheelers the rest)', 'Legacy Mitigation row 5356'),
     ('TrFEWHalf', 0.5, 'share', 'Average diesel, LPG and gas fuel economy without fuel use: weight of passenger '
@@ -1171,7 +1171,7 @@ VSTEP = NF + 2                          # blank row (v3.9), label row (parameter
 SB = 2 + NVAR * VSTEP                   # subsector block: heading line, electricity memo line (v1.07), variables
 VOFF = {v: 4 + k * VSTEP for k, v in enumerate(VARS)}   # first row of each variable relative to the heading
 # ---------------------------------------------------------------- 5b. Road transport: engineer model (v3.5)
-# Transport_Plan.md, Transport_vs_Legacy.md: the legacy engineer road model (Mitigation key inputs 15 and
+# Transport_Plan.md, Methods, chapter Transport: the legacy engineer road model (Mitigation key inputs 15 and
 # section 5, rows 2017-5378) with every bug fixed (transport_model_ref.engine(fix=ALL_FIXES)). Row keys are the
 # legacy row numbers (baseline numbering) where a row reproduces one; other keys name helper rows. Data: sheets
 # Transport1 (data/transport_data.csv), Transport2 (vehicle_prices.csv), Transport3 (range_anxiety.csv),
@@ -3222,7 +3222,7 @@ EMI_ROWS = ([(f'co2.{g}', 'co2', 'all', g) for _n, g, _t in SECTIONS]
             + [(k, k, 'all', 'all') for k in ('co2.ets', 'co2.cap', 'co2.gap', 'ets.lr', 'ets.next', 'bco2.chk',
                                               'co2.chk')]
             + [('co2.all', 'co2', 'all', 'all'), ('co2.chg', 'co2.chg', 'all', 'all')])   # v4.1: summary rows last
-# v2.8: 14. GHG emissions: non-CO2 GHGs and methane (GHG_Method.md)
+# v2.8: 14. GHG emissions: non-CO2 GHGs and methane (Methods, chapter Emissions)
 CH4_TIER = {'Oil and Natural Gas': 'oil', 'Coal Mining': 'coa', 'Livestock': 'liv', 'Rice Cultivation': 'ric',
             'Total Waste': 'tot'}       # v4.5: CH4Inputs tier3 -> code of the key column (LOWER(LEFT(tier3, 3)))
 CH4_SOURCES = [  # code, label, CH4Inputs source code (abatement curve), share column, GWP name, inventory category
@@ -3320,7 +3320,7 @@ GHG_LAM = ({'pop.g', 'gdppc.g', 'ghg.m', 'ghg.gi', 'ghg.k', 'ghg.flr', 'ch4.rev'
            | {f'ch4.act.{j}' for j in ('liv', 'ric', 'wst')} | {f'ch4.abt.{j}' for j, *_ in CH4_SOURCES}
            | {f'ch4.em.{j}' for j, *_ in CH4_SOURCES} | {f'ch4.pw.{f}' for f in CH4_PW}
            | {f'ghg.{c}.{g}' for c in GHG_CATS for g in GHG_GASES} - {'ghg.enr.co2'})   # rows calling a LAMBDA in 2041
-# v2.9: 15. Local air pollutants (AirPollutants_Method.md)
+# v2.9: 15. Local air pollutants (Methods, chapter Emissions)
 AP_SECS = [('cpp', 'Coal power plants'), ('gpp', 'Gas power plants'), ('opp', 'Other power plants (oil, biomass)'),
            ('rod', 'Ground level road'), ('gro', 'Ground level other (residential, services, construction)'),
            ('oth', 'Other (rail, aviation, navigation, industry, other energy use)'), ('foo', 'Food & forestry')]
@@ -3397,7 +3397,7 @@ AP_LAM = ({'ap.w'} | {f'ap.{p}.{x[0]}' for p, _l in AP_POLS for x in SUBSECTORS}
           | {f'apf.{p}' for p in AP_GWP}
           | {f'aps.{p}.{s_}' for p, _l in AP_POLS for s_ in ('cpp', 'gpp')}
           | {f'aps.{p}.{s_}' for p, _l in AP_PM for s_, _n in AP_SECS})                 # v3.0
-# v3.1: 16. GDP effects (GDP_Method.md)
+# v3.1: 16. GDP effects (Methods, chapter Macro and results)
 GDP_BLOCKS = [
     ('Inputs (MTInputs rows 197-201: revenue use in %; 226, 263: multipliers; 236: start year; 267: switch)',
      [(p, p, 'all', 'all') for p in GDP_PARAMS]),
@@ -6556,11 +6556,11 @@ def build_settings(wb):
                               'constant from the build. CO2 calibration: switch Settings C27, default No (EFCalib = 1).',
          'Scenario 1 fuel use, prices, revenues: 0 vs v3.3; CO2 back to uncalibrated (v3.1 levels)'),
         ('3.5', '2026-10-14', 'Engineer road transport model (legacy section 5 with 17 bugs fixed, '
-                              'Transport_vs_Legacy.md) as section 5b of every scenario group: data sheets '
+                              'Methods, chapter Transport) as section 5b of every scenario group: data sheets '
                               'Transport1-3, TransportParams, TransportPaths; transport policies in MTInputs rows '
                               f'{MT_TR0 + 1}-{MT_TR_END}; switch TrModel (MTInputs row 340, default Elasticity): Engineer '
                               'replaces road gasoline, diesel, LPG, gas and biofuels (section 5, ener) and road '
-                              'electricity demand (section 3 H) (Transport_Workbook_Notes.md).',
+                              'electricity demand (section 3 H) (Methods, chapter Transport).',
          '0 on all v3.4 codes (Elasticity by default)'),
         ('3.6', '2026-10-15', 'Tabs consolidated (user request): Inputs = Inputs + Inputs_prices + Inputs_power; '
                               'Settings = Settings + Constants + Mapping; Version Log and Reference = version log + '
@@ -6662,7 +6662,7 @@ def build_settings(wb):
                               'named ranges sized for all countries; Egypt-only tables alone or at the bottom; '
                               'base-year energy use from Balances (legacy flow mapping); CO2 emission factors '
                               'selected from the legacy EF_GHG table as legacy rows 980-1011; all-country clone test '
-                              '(DataTabs.md).', '0 on shared codes; clone country = Egypt (0)'),
+                              '(Methods, chapter Data tabs).', '0 on shared codes; clone country = Egypt (0)'),
         ('4.6', '2026-10-17', 'Data tabs aligned more fully (user request): legacy tabs with several tables kept at '
                               'their legacy cell addresses (Countries, Elasticities, ETS+LTS, Multipliers, Prices_int, '
                               'ECP; Transport3 rows 5+), WEO as the legacy table; what legacy Mitigation computes from '
@@ -7480,7 +7480,7 @@ def build_inputs_ef(wb):
 
 
 # v4.7: power data of the country (data step) from the legacy Power, CoC, Balances, WEO and GHGs tabs, as legacy
-# Mitigation section 4 (rows 2954-4130; chains in PowerData_Chain.md). v4.10 (user rule: bugs are never
+# Mitigation section 4 (rows 2954-4130; chains in Methods, chapter Power). v4.10 (user rule: bugs are never
 # replicated): the legacy bugs the v4.7 data step still copied are fixed: L52 renewables take the country parameters
 # where they exist, L53 actual capacity factors used within the CFOverride bounds, L54 hydro invests from the base year
 # only when its generation share is above HydInvShare, L55 country rows looked up in the country block, L56 countries
@@ -7942,7 +7942,7 @@ def build_inputs_power(wb):
         put(ws, f'B{r}', qv[key], FONT, None, '0.000000')
         put(ws, f'C{r}', desc)
     notes = [
-        'Derived constants follow PowerPrices_Method.md: amortised fixed cost = caxav x acap + afix + stoav '
+        'Derived constants follow Methods, chapter Power: amortised fixed cost = caxav x acap + afix + stoav '
         '(legacy B3-B7 in one line); levelised fixed cost = cax x lcap + lfix + VRE x msc (legacy C1-C6); variable '
         'cost = vfix + rpb x k (legacy D4, with k = 0.0036 / efficiency).',
         'Types without a price fuel (nuclear, wind, solar, hydro, other renewables) take position 1 with factor 0 '
@@ -8109,7 +8109,7 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
     ('Power: generation costs (v1.05)', 'Tables B3-B8 (amortised), C1-C7 (levelised), A5-A6 discount factors',
      'One row per type for amortised and for levelised fixed cost; discounted lifetime in closed form; '
      'constants derived in Inputs_power',
-     'Fewer, readable rows (PowerPrices_Method.md S1-S3); same numbers as legacy (1e-15); relabelled' ' v4.11',
+     'Fewer, readable rows (Methods, chapter Power S1-S3); same numbers as legacy (1e-15); relabelled' ' v4.11',
      'None (method test: legacy rows reproduced to 1e-15)', 'Same'),
     ('Power: fuel prices', '5-year moving average of fuel prices (A18; spot prices a dashboard option)',
      'Same (v2.3): centred average of the price before new policies over t-2 .. t+2 within 2022-2041 (row fpp); '
@@ -8267,15 +8267,15 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
      'A benchmark for the GDP block once a scenario with the legacy carbon price path is run', 'Data'),
     ('Road transport: engineer model (v3.5)', 'Key inputs 15 and section 5 (rows 2017-5378), switch TrModel '
      '(MTInputs F340; template default Engineer, Egypt run Elasticity)', 'Section 5b of every scenario group, every '
-     'row live (Transport_Workbook_Notes.md); TrModel default Elasticity, Engineer by switch; the 17 legacy bugs '
-     'of Transport_vs_Legacy.md section 3 fixed (B1-B23)', 'User rule 2026-10-14: match legacy except where '
+     'row live (Methods, chapter Transport); TrModel default Elasticity, Engineer by switch; the 17 legacy bugs '
+     'of Methods, chapter Transport section 3 fixed (B1-B23)', 'User rule 2026-10-14: match legacy except where '
      'legacy has a bug; results unchanged until the engineer run is reviewed', 'None by default; with Engineer: road '
-     'fuel use and EV shares as in Transport_vs_Legacy.md section 4', 'Decision'),
+     'fuel use and EV shares as in Methods, chapter Transport section 4', 'Decision'),
     ('Road transport: policy inputs (v3.5)', 'Dashboard rows 61-98 and 540-559 (outside MTInputs)', 'Policies: '
      f'MTInputs rows {MT_TR0 + 1}-{MT_TR_END} after the template (scenario-specific, legacy Dashboard defaults, all off); '
      'parameters and hardcoded literals (Gompertz constant, gas liters per GJ, PHEV kWh per liter, insurance factor, '
      'BEV distance caps, price elasticities): sheets TransportParams, TransportPaths and named constants',
-     'Scenarios carry the transport policies; no literal in a formula (Transport_vs_Legacy.md section 2)',
+     'Scenarios carry the transport policies; no literal in a formula (Methods, chapter Transport section 2)',
      'None', 'Decision'),
     ('Road transport: inputs from the rest of the model (v3.5)', 'Legacy rows of the price, power and macro blocks',
      'Section 5 road after-tax prices x GJ per liter (gas $/GJ / gas liters per GJ); industrial gas: section 2 price '
@@ -8297,11 +8297,11 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
      'None for Egypt (no road biofuels)', 'Not yet'),
     ('Road transport: range anxiety (v3.5)', 'Transport3: per-country solver results for the legacy model',
      'Same stored values; fit (calculated - actual EV sales share, data years) reported in rows trraf', 'General; a '
-     'goal seek for the corrected model comes later (Transport_vs_Legacy.md section 6)', 'Egypt passenger EV '
+     'goal seek for the corrected model comes later (Methods, chapter Transport section 6)', 'Egypt passenger EV '
      'sales share 2025: model 0.09%, actual 0.15%', 'Not yet'),
     ('Road transport: kept as legacy (v3.5)', 'Freight distance (survey B14), data years of customs, VAT and '
      'import shares, the externality sheet Transport', 'Kept (freight distance, data years: parameters) or not built '
-     '(externalities)', 'Data decisions; scope (Transport_vs_Legacy.md section 6)', 'None by default',
+     '(externalities)', 'Data decisions; scope (Methods, chapter Transport section 6)', 'None by default',
      'To check (bucket 5)'),
     ('Residential leakage to biomass (v5.1)', 'Rows 5571-5593 (switch BiomassLeakage, MTInputs row 325): the most-used '
      'cooking fuel (WHOCooking) moves to biomass by MIN((1 + change in the new policy / last year\'s after-tax '
@@ -10575,7 +10575,7 @@ def build_mitigation(wb):
                             FONT_LAMBDA if lam else FONT, F_LAMBDA if lam else (F_BASE if is_base else None), fmt)
                     each_col(cell)
 
-    # 5b. Road transport: engineer model (v3.5; Transport_Workbook_Notes.md)
+    # 5b. Road transport: engineer model (v3.5; Methods, chapter Transport)
     band(ws, B_TR, '5b. Road engineer model', last)
     for r, what, it in TR_LAYOUT:
         if what == 'head':
@@ -10995,7 +10995,7 @@ def build_mitigation(wb):
         return '=' + (call('SAFEDIV', x, x0) if lam else f'IF({x0}=0,0,{x}/{x0})'), '0.000'
     sub_blocks(E13B_BLOCKS, R_E13B, R_E13B_LAB, R_E13B_HEAD, c13b)
 
-    # 14. GHG emissions (v2.8): non-CO2 GHGs and methane; GHG_Method.md
+    # 14. GHG emissions (v2.8): non-CO2 GHGs and methane; Methods, chapter Emissions
     band(ws, B_GHG, '14. GHG emissions', last)
     g1 = group_cols(1)
     b1, e1 = L(g1[1]), L(g1[2][-1])                          # scenario 1 columns (history is the same in all)
@@ -11258,7 +11258,7 @@ def build_mitigation(wb):
         return f'={col}{R_GHG["ghg.c.enr"]}+{col}{R_AP["apf.all"]}', '#,##0.0'
     sub_blocks(E14B_BLOCKS, R_E14B, R_E14B_LAB, R_E14B_HEAD, c14b)
 
-    # 14c (v5.7, item 8B): NDC comparison; legacy bugs L119-L123 fixed (GHG_Method.md)
+    # 14c (v5.7, item 8B): NDC comparison; legacy bugs L119-L123 fixed (Methods, chapter Emissions)
     def c14c(col, r, key, var, fu, sec, is_base, lam):
         N = lambda k: f'{col}{R_NDC[k]}'
         g1_ = group_cols(1)
@@ -11341,7 +11341,7 @@ def build_mitigation(wb):
         raise ValueError(key)
     sub_blocks(NDC_BLOCKS, R_NDC, R_NDC_LAB, R_NDC_HEAD, c14c)
 
-    # 15. Local air pollutants (v2.9): AirPollutants_Method.md
+    # 15. Local air pollutants (v2.9): Methods, chapter Emissions
     band(ws, B_AP, '15. Local air pollutants', last)
     A = R_AP
     for head, rows_ in AP_BLOCKS:
@@ -11450,7 +11450,7 @@ def build_mitigation(wb):
                              'OC) and other PM2.5 (PM2.5 - BC - POM, at least 0) for the air-pollution module.',
         FONT_NOTE)
 
-    # 16. GDP effects (v3.1): GDP_Method.md
+    # 16. GDP effects (v3.1): Methods, chapter Macro and results
     band(ws, B_GDP, '16. GDP effects and external balance', last)   # v3.16: renamed (Q39)
     Q = R_GDPS
     for head, rows_ in GDP_BLOCKS:
@@ -11602,7 +11602,7 @@ def build_mitigation(wb):
                                          'account is #NAME? (bug L50): the prototype shows the energy trade balance (data) '
                                          'instead, until WEO current-account data are added.', FONT_NOTE)
 
-    # 17. Carbon pricing (v3.15): ResultsSections_Method.md
+    # 17. Carbon pricing (v3.15): Methods, chapter Macro and results
     band(ws, B_CPR, '17. Carbon pricing', last)
     subs_of = {g: [x[0] for x in SUBSECTORS if x[2] == g] for g in CHG_GROUPS if g != 'pow'}
     subs_of['pow'] = ['pow']
@@ -11646,7 +11646,7 @@ def build_mitigation(wb):
                                         'whose switch is on, in sectors with a carbon tax rate above 0 (ETS sectors '
                                         'not complementary have none).', FONT_NOTE)
 
-    # 18. Welfare and externalities, climate part (v3.17): ResultsSections_Method.md
+    # 18. Welfare and externalities, climate part (v3.17): Methods, chapter Macro and results
     band(ws, B_WEL, '18. Welfare and externalities', last)
     cy = lambda col: f'{col}${R_YEAR}'
     lvl18 = {**{f: R_FUEL0 + i for i, (f, *_x) in enumerate(FUELS)}, 'ecy': R_ELD['all']}
@@ -11829,7 +11829,7 @@ def about_rows(B):
                                 '(header row 3; key formula column right of the table where needed): paste the full '
                                 'legacy data rows (all countries) at A4. Prices_dom: paste legacy rows 4 onwards at '
                                 'A1. Tables with Egypt only are alone on their tab or at the bottom. See '
-                                'DataTabs.md.'),
+                                'Methods, chapter Data tabs.'),
         ('Layout', 'Inputs', 'MTInputs is the main input sheet (one column per scenario, rows as legacy). Manual inputs '
                              'is the second source: the legacy tab of that name at its legacy addresses (paste the '
                              'legacy tab from row 3); the note on each block\'s title row says what reads it (v5.2).'),
@@ -11875,7 +11875,7 @@ def about_rows(B):
                                      'across: price changes from Mitigation (household fuels; consumption categories '
                                      'through GTAP), budget shares, effects, survey to national accounts, revenue '
                                      'recycling, net effect, compensation, Gini; legacy codes in MTOutputs '
-                                     '(Distribution_Method.md).'),
+                                     '(Methods, chapter Distribution).'),
         ('Use', 'More scenarios', 'Up to five policy scenarios: copy scenario group 2 of Mitigation and of '
                                   'Distribution into the next free group (right of the LAMBDA test group); each '
                                   'numbers itself and reads its MTInputs definition (1-6).'),
@@ -12463,7 +12463,7 @@ def build_macro_check(wb):
 # One analysis year (MTInputs YearDistn of each scenario), deciles across: per scenario group a code column, the
 # basket (whole population) and deciles 1-10, then a spacer; the same group order, scenario row and LAMBDA test group
 # as Mitigation (NORMS 1.1b). Group n reads Mitigation group n through row 7 (column of the analysis year). The chain
-# and the bug fixes follow distribution_ref.py (Python reference) and Distribution_Method.md.
+# and the bug fixes follow distribution_ref.py (Python reference) and Methods, chapter Distribution.
 DGW = 13                                  # code column, basket, deciles 1-10, spacer
 DGROUPS = 2                               # v6.6: group 1 (baseline, plain formulas), group 2 (live scenario, LAMBDAs)
 DCOL_W = 9                                # v4.8: basket and decile columns (Mitigation years: COL_W)
@@ -12586,7 +12586,7 @@ def _dist_layout(mitrow):
         fmt='General')
     gap()
     row('scal', 'support', 'support', '', '', 'Options check: OK, or the reason an option is not applied', 'check',
-        'Distribution_Method.md (v6.0: every legacy option modelled)',
+        'Methods, chapter Distribution (v6.0: every legacy option modelled)',
         '=IF(AND({c}${tgtcode}<>"Cash",{c}${tgtdata}=0),"TransferType: no ASPIRE data, cash used","OK")',
         fmt='General', summary=True)
     gap()

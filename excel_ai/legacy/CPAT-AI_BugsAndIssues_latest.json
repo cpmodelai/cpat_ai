@@ -546,7 +546,7 @@
    "where": "Mitigation txo rows (cs)",
    "what_legacy_does": "With pass-through 0.5 or 0.8 the floating tax multiplies its last value by (1 - pass-through) a second time, so taxes jump in the first projected year.",
    "fix": "Apply (1 - pass-through) once in the first projected year.",
-   "in_prototype": "Fixed in v4.10 (user rule: bugs are never replicated): the floating part is (1 - pass-through) x (last tax + fall in supply cost), applied once (txf; PriceProjection_Method.md A10); no effect for Egypt (pass-through 0 or 1).",
+   "in_prototype": "Fixed in v4.10 (user rule: bugs are never replicated): the floating part is (1 - pass-through) x (last tax + fall in supply cost), applied once (txf; Methods, chapter Prices A10); no effect for Egypt (pass-through 0 or 1).",
    "priority": "Medium",
    "effect": "Taxes jump in the first projected year when pass-through is between 0 and 1 (none for Egypt: 0 or 1).",
    "area": "Prices, taxes and subsidies",
@@ -693,7 +693,7 @@
    "where": "Mitigation rows 6172-6227 (livestock, rice, waste)",
    "what_legacy_does": "Livestock, rice and waste CH4 are the inventory values divided by the GWP, constant over time; the abatement shares of the methane fee are computed (rows 6182, 6194, 6206) but not applied, so a methane fee on agriculture and waste has no effect.",
    "fix": "Grow livestock, rice and waste methane with their drivers (income, population) and apply the abatement shares already computed in rows 6182, 6194, 6206.",
-   "in_prototype": "Fixed in v2.8: the sources grow with income and population and the fee abates them along their curves (GHG_Method.md).",
+   "in_prototype": "Fixed in v2.8: the sources grow with income and population and the fee abates them along their curves (Methods, chapter Emissions).",
    "priority": "High",
    "effect": "Non-energy methane is flat and a methane fee on agriculture and waste has no effect.",
    "area": "GHG and local pollutants",
@@ -922,7 +922,7 @@
    "where": "Mitigation rows 4451, 4720 (engineer road model, survey B1)",
    "what_legacy_does": "Passenger distance tax and 2-3 wheeler EV subsidy test ($C2227>1), text \"res\" > 1 is TRUE, so they also apply in the baseline.",
    "fix": "Scenario number > 1.",
-   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).",
+   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).",
    "priority": "Low",
    "effect": "None in the Egypt engineer run (the policy or fuel is zero there).",
    "cell_plan": {
@@ -954,7 +954,7 @@
    "where": "Mitigation rows 4487 AB:AE (also 4501) (engineer road model, survey B2)",
    "what_legacy_does": "Freight and 2-3 wheeler income growth read row 2455 (coal producer subsidies) from 2038.",
    "fix": "Lagged GDP growth (row 2446) in all years.",
-   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).",
+   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).",
    "priority": "Low",
    "effect": "None in the Egypt engineer run (the policy or fuel is zero there).",
    "cell_plan": {
@@ -979,7 +979,7 @@
    "where": "Mitigation rows H4787:J4787, H4903:J4903 (engineer road model, survey B3)",
    "what_legacy_does": "Ownership calibration MAX(1, actual/expected) at 2024 (column N).",
    "fix": "Actual/expected in both directions at the last data year found in the data.",
-   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).",
+   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).",
    "priority": "Medium",
    "effect": "Egypt engineer baseline 2035: gasoline -33.9%, diesel -37.9%, road electricity -52.4%, passenger EV sales share -2.6 points.",
    "cell_plan": {
@@ -1039,7 +1039,7 @@
    "where": "Mitigation rows $N2168, J2169 (engineer road model, survey B3b)",
    "what_legacy_does": "Freight-share cap and 2-3 wheeler peak read 2024 (column N).",
    "fix": "Last data year.",
-   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).",
+   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).",
    "priority": "Medium",
    "effect": "Egypt engineer baseline 2035: gasoline +0.0%, diesel +0.0%, road electricity -0.6%, passenger EV sales share -0.1 points.",
    "cell_plan": {
@@ -1078,7 +1078,7 @@
    "where": "Mitigation rows T4328, U4328 (engineer road model, survey B4)",
    "what_legacy_does": "Ownership cannot fall (max annual decrease 0 for passenger and freight).",
    "fix": "Allow a decrease of up to own_decline_fix a year (legacy 2-3 wheeler value, 10%).",
-   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).",
+   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).",
    "priority": "Low",
    "effect": "None in the Egypt engineer run (the policy or fuel is zero there).",
    "cell_plan": {
@@ -1110,7 +1110,7 @@
    "where": "Mitigation rows 5310-5314, 5318 (engineer road model, survey B6)",
    "what_legacy_does": "Bus fuel scaled by the wrong rows (LPG, gas and PHEV distance, BEV vehicles) and bus electricity from a sum of liters and kWh.",
    "fix": "Passenger fuel use by fuel in ktoe (5195-5198) and passenger electricity (5223), base bus energy in ktoe.",
-   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).",
+   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).",
    "priority": "Medium",
    "effect": "Egypt engineer baseline 2035: gasoline +0.0%, diesel -0.3%, road electricity -16.8%, passenger EV sales share +0.0 points.",
    "cell_plan": {
@@ -1170,7 +1170,7 @@
    "where": "Mitigation rows O5171:O5173 (engineer road model, survey B6b)",
    "what_legacy_does": "Bus share added to the bottom-up fuel use as x(1+bus share).",
    "fix": "/(1-bus share).",
-   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).",
+   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).",
    "priority": "Medium",
    "effect": "Egypt engineer baseline 2035: gasoline -0.0%, diesel +0.0%, road electricity -0.3%, passenger EV sales share +0.0 points.",
    "cell_plan": {
@@ -1209,7 +1209,7 @@
    "where": "Mitigation rows G4376-G4378, G4419-G4421 (engineer road model, survey B7)",
    "what_legacy_does": "Stale emission-factor names: diesel and LPG use industry EFs, CNG/LNG the residential gas EF.",
    "fix": "Road EFs.",
-   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).",
+   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).",
    "priority": "Low",
    "effect": "None in the Egypt engineer run (the policy or fuel is zero there).",
    "cell_plan": {
@@ -1269,7 +1269,7 @@
    "where": "Mitigation rows M5261, M5295, M5232, M4646 (engineer road model, survey B8)",
    "what_legacy_does": "BEV freight distance uses the 2-3 wheeler income elasticity; BEV 2-3 wheeler distance uses the cost ratio twice and no income term; LPG freight base row; freight ICE depreciation switches to the passenger discount rate from 2023.",
    "fix": "As the sibling rows.",
-   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).",
+   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).",
    "priority": "Medium",
    "effect": "Egypt engineer baseline 2035: gasoline -0.0%, diesel -0.2%, road electricity +4.0%, passenger EV sales share +0.0 points.",
    "cell_plan": {
@@ -1308,7 +1308,7 @@
    "where": "Mitigation rows K4329 (engineer road model, survey B8w)",
    "what_legacy_does": "Freight discounted at the average power-sector WACC.",
    "fix": "The consumer discount rate (row 4531).",
-   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).",
+   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).",
    "priority": "Medium",
    "effect": "Egypt engineer baseline 2035: gasoline +0.0%, diesel +0.2%, road electricity -1.0%, passenger EV sales share -0.0 points.",
    "cell_plan": {
@@ -1368,7 +1368,7 @@
    "where": "Mitigation rows 4850 L:O (engineer road model, survey B9)",
    "what_legacy_does": "PHEV sales share = passenger EV share - blended passenger/light BEV share (negative).",
    "fix": "(EV - BEV passenger share) x passenger share, ICE shares scaled to the rest.",
-   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).",
+   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).",
    "priority": "Medium",
    "effect": "Egypt engineer baseline 2035: gasoline -0.0%, diesel +0.1%, road electricity +0.2%, passenger EV sales share +0.0 points.",
    "cell_plan": {
@@ -1428,7 +1428,7 @@
    "where": "Mitigation rows 4343 (engineer road model, survey B10)",
    "what_legacy_does": "Charging-station subsidy ramp accumulates before the start year and is not capped at the target year.",
    "fix": "0 before the start year, linear to the target level, then constant.",
-   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).",
+   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).",
    "priority": "Low",
    "effect": "None in the Egypt engineer run (the policy or fuel is zero there).",
    "cell_plan": {
@@ -1453,7 +1453,7 @@
    "where": "Mitigation rows 4573 (engineer road model, survey B19)",
    "what_legacy_does": "New BEV maintenance uses the ICEV maintenance cost (J4327).",
    "fix": "EV maintenance (J4328).",
-   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).",
+   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).",
    "priority": "Medium",
    "effect": "Egypt engineer baseline 2035: gasoline -0.1%, diesel -0.0%, road electricity +1.2%, passenger EV sales share +0.5 points.",
    "cell_plan": {
@@ -1478,7 +1478,7 @@
    "where": "Mitigation rows 4598 (engineer road model, survey B20)",
    "what_legacy_does": "Used ICEV depreciation annuity over own_years-1 (6) years, used BEV over 12.",
    "fix": "Used ownership period - 1 (J4323-1) for both.",
-   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).",
+   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).",
    "priority": "Medium",
    "effect": "Egypt engineer baseline 2035: gasoline +5.1%, diesel +3.1%, road electricity -50.7%, passenger EV sales share -10.0 points.",
    "cell_plan": {
@@ -1503,7 +1503,7 @@
    "where": "Mitigation rows 5267 (engineer road model, survey B21)",
    "what_legacy_does": "Freight distance output omits LPG and LNG trucks.",
    "fix": "All fuels.",
-   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).",
+   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).",
    "priority": "Low",
    "effect": "None in the Egypt engineer run (the policy or fuel is zero there).",
    "cell_plan": {
@@ -1528,7 +1528,7 @@
    "where": "Mitigation rows 5368, 5373 (engineer road model, survey B22)",
    "what_legacy_does": "Average gas fuel economy weights freight by LPG freight fuel (5244) instead of LNG (5245); the EV fuel-economy fallback tests diesel (5326) instead of electricity.",
    "fix": "Right rows.",
-   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).",
+   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).",
    "priority": "Low",
    "effect": "None in the Egypt engineer run (the policy or fuel is zero there).",
    "cell_plan": {
@@ -1560,7 +1560,7 @@
    "where": "Mitigation rows 4555 (engineer road model, survey B23)",
    "what_legacy_does": "PHEV TCO includes the full BEV range anxiety (about 100,000 $/vehicle), so PHEV sales vanish.",
    "fix": "No range anxiety for PHEVs (they refuel with gasoline).",
-   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Transport_vs_Legacy.md); latent in the legacy Egypt run (elasticity road model).",
+   "in_prototype": "Fixed in the prototype engineer road model (v3.5; Methods, chapter Transport); latent in the legacy Egypt run (elasticity road model).",
    "priority": "Low",
    "effect": "None in the Egypt engineer run (the policy or fuel is zero there).",
    "cell_plan": {
@@ -6685,7 +6685,7 @@
    "severity": "Major",
    "status": "Open",
    "next": "Review in Excel 365 (TODO).",
-   "where": "TODO; Scenarios_Method.md"
+   "where": "TODO; Methods, chapter Macro and results"
   },
   {
    "code": "I2",
@@ -6715,7 +6715,7 @@
    "severity": "Major",
    "status": "Accepted",
    "next": "Decided 2026-10-15: 2022 as legacy.",
-   "where": "legacy_comparison_v6_4.md; PriceProjection_Method.md A7"
+   "where": "legacy_comparison_v6_4.md; Methods, chapter Prices A7"
   },
   {
    "code": "I5",
@@ -6735,7 +6735,7 @@
    "severity": "Minor",
    "status": "Accepted",
    "next": "Exception by decision (v2.4): sign convention only, values as legacy.",
-   "where": "PowerPrices_Method.md 3.9"
+   "where": "Methods, chapter Power 3.9"
   },
   {
    "code": "I9",
@@ -6755,7 +6755,7 @@
    "severity": "Minor",
    "status": "Accepted",
    "next": "",
-   "where": "check report section 1; PowerModel_Method.md"
+   "where": "check report section 1; Methods, chapter Power"
   },
   {
    "code": "I11",
@@ -6825,7 +6825,7 @@
    "severity": "Major",
    "status": "Accepted",
    "next": "Decided 2026-10-15: calibrate to 2024 as legacy.",
-   "where": "GHG_Method.md (Data); CAVEATS v2.8"
+   "where": "Methods, chapter Emissions (Data); CAVEATS v2.8"
   },
   {
    "code": "I18",
@@ -6835,7 +6835,7 @@
    "severity": "Minor",
    "status": "Resolved",
    "next": "v3.2 (switch, off by default as legacy since v3.4).",
-   "where": "CO2Calibration_Method.md; CAVEATS v3.2"
+   "where": "Methods, chapter Emissions; CAVEATS v3.2"
   },
   {
    "code": "I19",
@@ -6855,7 +6855,7 @@
    "severity": "Major",
    "status": "Accepted",
    "next": "Exception by user decision (corrected data, 2026-10-09).",
-   "where": "PowerPrices_Method.md; LegacyDiff"
+   "where": "Methods, chapter Power; LegacyDiff"
   },
   {
    "code": "I21",
@@ -6865,7 +6865,7 @@
    "severity": "Major",
    "status": "Accepted",
    "next": "v4.15 (user 2026-10-18): benchmarks = 1 - the MTInputs auctioned share (rows 90-91, one share for all sectors, as legacy); benchmarks by sector later.",
-   "where": "ETS_Method.md; ETS_Legacy_Algorithm.md; LegacyDiff"
+   "where": "Methods, chapter ETS; Methods, chapter ETS; LegacyDiff"
   },
   {
    "code": "I22",
@@ -6895,7 +6895,7 @@
    "severity": "Minor",
    "status": "Resolved",
    "next": "Checked (v5.6): energy N2O moves with energy CO2 as legacy (row 7563 = previous x CO2 ratio). Production for fuel-supply methane differs: now issue I66.",
-   "where": "GHG_Method.md; CAVEATS v2.8"
+   "where": "Methods, chapter Emissions; CAVEATS v2.8"
   },
   {
    "code": "I28",
@@ -6905,7 +6905,7 @@
    "severity": "Minor",
    "status": "Dropped",
    "next": "Parked, then dropped by the user (2026-10-20).",
-   "where": "Transport_vs_Legacy.md"
+   "where": "Methods, chapter Transport"
   },
   {
    "code": "I29",
@@ -6945,7 +6945,7 @@
    "severity": "Major",
    "status": "Accepted",
    "next": "Replicated in v4.11 (user 2026-10-18: go with legacy); the inventory break (I17) stays in the factor, as legacy.",
-   "where": "ResultsSections_Method.md; CO2Calibration_Method.md; CAVEATS v4.11"
+   "where": "Methods, chapter Macro and results; Methods, chapter Emissions; CAVEATS v4.11"
   },
   {
    "code": "I33",
@@ -6965,7 +6965,7 @@
    "severity": "Minor",
    "status": "Accepted",
    "next": "As legacy (v3.12); to confirm: combustion CH4 added, all fuel supply methane under other.",
-   "where": "AirPollutants_Method.md; CAVEATS v3.12"
+   "where": "Methods, chapter Emissions; CAVEATS v3.12"
   },
   {
    "code": "I36",
@@ -6975,7 +6975,7 @@
    "severity": "Minor",
    "status": "Accepted",
    "next": "As legacy (v3.15); an OECD-style rate (carbon taxes, excises, permits) could be added as a memo.",
-   "where": "ResultsSections_Method.md; CAVEATS v3.15"
+   "where": "Methods, chapter Macro and results; CAVEATS v3.15"
   },
   {
    "code": "I37",
@@ -6985,7 +6985,7 @@
    "severity": "Minor",
    "status": "Accepted",
    "next": "As legacy (v3.18); set the renewable efficiencies to 1 if the data are confirmed.",
-   "where": "ResultsSections_Method.md"
+   "where": "Methods, chapter Macro and results"
   },
   {
    "code": "I38",
@@ -6995,7 +6995,7 @@
    "severity": "Minor",
    "status": "Accepted",
    "next": "v4.7: the formula follows the Power tab; recheck against a fresh legacy run.",
-   "where": "DataTabs.md; CAVEATS v4.7"
+   "where": "Methods, chapter Data tabs; CAVEATS v4.7"
   },
   {
    "code": "I39",
@@ -7005,7 +7005,7 @@
    "severity": "Minor",
    "status": "Accepted",
    "next": "Replicated v4.12 (user 2026-10-18); a share by sector would need data by sector.",
-   "where": "PriceProjection_Method.md 5; LegacyDiff"
+   "where": "Methods, chapter Prices 5; LegacyDiff"
   },
   {
    "code": "I40",
@@ -7015,7 +7015,7 @@
    "severity": "Minor",
    "status": "Accepted",
    "next": "Replicated v4.12 (user 2026-10-18); revisit if road fuels are modelled as blends.",
-   "where": "Transport_Method.md; LegacyDiff"
+   "where": "Methods, chapter Transport; LegacyDiff"
   },
   {
    "code": "I41",
@@ -7025,7 +7025,7 @@
    "severity": "Major",
    "status": "Accepted",
    "next": "Replicated v4.15 (user 2026-10-18); the prototype form (change of the GDP share) is one line.",
-   "where": "GDP_Method.md; LegacyDiff"
+   "where": "Methods, chapter Macro and results; LegacyDiff"
   },
   {
    "code": "I42",
@@ -7035,7 +7035,7 @@
    "severity": "Minor",
    "status": "Accepted",
    "next": "Replicated v4.15.",
-   "where": "GDP_Method.md"
+   "where": "Methods, chapter Macro and results"
   },
   {
    "code": "I43",
@@ -7045,7 +7045,7 @@
    "severity": "Minor",
    "status": "Resolved",
    "next": "Replicated v5.7: rows fis.impp and fis.lagp (impulse 0 before CPIntro) feed every revenue use but the excise drag, as legacy rows 96-100.",
-   "where": "GDP_Method.md"
+   "where": "Methods, chapter Macro and results"
   },
   {
    "code": "I44",
@@ -7055,7 +7055,7 @@
    "severity": "Minor",
    "status": "Accepted",
    "next": "Replicated v4.15.",
-   "where": "GDP_Method.md"
+   "where": "Methods, chapter Macro and results"
   },
   {
    "code": "I45",
@@ -7065,7 +7065,7 @@
    "severity": "Minor",
    "status": "Accepted",
    "next": "Replicated v4.15.",
-   "where": "GDP_Method.md"
+   "where": "Methods, chapter Macro and results"
   },
   {
    "code": "I46",
@@ -7085,7 +7085,7 @@
    "severity": "Minor",
    "status": "Accepted",
    "next": "v6.2 (user 2026-10-20: as close to legacy as possible with no vulnerability to circular references): the fee revenue is in the fiscal space (fis.rev + ch4.revf). ch4.revf is the legacy fee revenue with the stored scenario-1 activity of downstream gas and biomass use (sheet BaselineCO2 rows dg, bm, refreshed by the build; check row ch4bs.chk = 0 in scenario 1); fee, abatement and the other sources are the scenario's own. So the fiscal space reads no fuel use, and no later change to the power or demand blocks can close a loop through it. Reported revenue (rmf, rtot, 12e) keeps the own activity. The v6.0-v6.1 loop came from price-block average ranges that ran into section 11 (fixed v6.2), not from the L67 fix. No effect in the shipped scenarios (no methane fee).",
-   "where": "GDP_Method.md; LegacyDiff 55"
+   "where": "Methods, chapter Macro and results; LegacyDiff 55"
   },
   {
    "code": "I48",
@@ -7095,7 +7095,7 @@
    "severity": "Minor",
    "status": "Accepted",
    "next": "Replicated v4.16; a price-control share would need an MTInputs row.",
-   "where": "PriceProjection_Method.md 6"
+   "where": "Methods, chapter Prices 6"
   },
   {
    "code": "I49",
@@ -7105,7 +7105,7 @@
    "severity": "Minor",
    "status": "Resolved",
    "next": "v6.1: replicated: rows psd (demand: world oil; half world, half domestic coal and gas; domestic biomass), psu (existing subsidy per unit, held after the last price year) and block row psp ($/GJ) in the supply cost, as legacy rows 825-829, 2455-2708; legacy bugs L124, L125 fixed. v6.2 (user 2026-10-20: reforms separate from the before-tax build-up): the phase-out is the wedge ppsw = psr (= -psu x (1 - psf)) per GJ x pass-through, subsector line psw beside csw and pcw, VAT on it in rsr. Legacy puts it in the supply cost, where the price controls absorb (1 - pass-through) of it, so results equal legacy except where the excise floor binds. Electricity producer subsidies stay with the power model. Egypt: no data (0).",
-   "where": "PriceProjection_Method.md 6"
+   "where": "Methods, chapter Prices 6"
   },
   {
    "code": "I50",
@@ -7115,7 +7115,7 @@
    "severity": "Minor",
    "status": "Accepted",
    "next": "None (as legacy).",
-   "where": "PriceProjection_Method.md 5; LegacyDiff 66"
+   "where": "Methods, chapter Prices 5; LegacyDiff 66"
   },
   {
    "code": "I51",
@@ -7155,7 +7155,7 @@
    "severity": "Minor",
    "status": "Accepted",
    "next": "None (user decision 2026-10-18).",
-   "where": "PowerModel_Method.md; LegacyDiff 75"
+   "where": "Methods, chapter Power; LegacyDiff 75"
   },
   {
    "code": "I55",
@@ -7165,7 +7165,7 @@
    "severity": "Minor",
    "status": "Resolved",
    "next": "Reclassified as legacy bug L114 (user 2026-10-19).",
-   "where": "PowerPrices_Method.md; LegacyDiff 76"
+   "where": "Methods, chapter Power; LegacyDiff 76"
   },
   {
    "code": "I56",
@@ -7175,7 +7175,7 @@
    "severity": "Minor",
    "status": "Accepted",
    "next": "Decided (user 2026-10-19): legacy kept (base-year intensity); the yearly intensity would be an upgrade.",
-   "where": "PowerPrices_Method.md; LegacyDiff 77"
+   "where": "Methods, chapter Power; LegacyDiff 77"
   },
   {
    "code": "I57",
@@ -7185,7 +7185,7 @@
    "severity": "Minor",
    "status": "Accepted",
    "next": "None (user decision: Settings, as legacy).",
-   "where": "PowerModel_Method.md; LegacyDiff 78"
+   "where": "Methods, chapter Power; LegacyDiff 78"
   },
   {
    "code": "I58",
@@ -7195,7 +7195,7 @@
    "severity": "Minor",
    "status": "Resolved",
    "next": "Reclassified as legacy bug L113 (user 2026-10-19).",
-   "where": "PowerPrices_Method.md; LegacyDiff 77"
+   "where": "Methods, chapter Power; LegacyDiff 77"
   },
   {
    "code": "I59",
@@ -7205,7 +7205,7 @@
    "severity": "Minor",
    "status": "Resolved",
    "next": "Replicated in v5.6: the electricity fuel price reform path enters the excise of policy scenarios (row entx).",
-   "where": "PowerPrices_Method.md"
+   "where": "Methods, chapter Power"
   },
   {
    "code": "I60",
@@ -7215,7 +7215,7 @@
    "severity": "Minor",
    "status": "Resolved",
    "next": "Replicated in v5.6: end-user electricity prices floored at MinPostSubsidyPowerPrice (row rp).",
-   "where": "PowerPrices_Method.md"
+   "where": "Methods, chapter Power"
   },
   {
    "code": "I61",
@@ -7225,7 +7225,7 @@
    "severity": "Major",
    "status": "Dropped",
    "next": "Parked, then dropped by the user (2026-10-20).",
-   "where": "Transport_Method.md; TODO"
+   "where": "Methods, chapter Transport; TODO"
   },
   {
    "code": "I62",
@@ -7235,7 +7235,7 @@
    "severity": "Major",
    "status": "Accepted",
    "next": "Legacy issue, not a bug: high priority for the CPAT team, not for the prototype (user 2026-10-20); replicated as legacy. Recommendation: add a partial-adjustment option: fuel use moves a share of the way to its long-run level each year (short-run and long-run elasticities), as an upgrade over legacy, switch off = legacy.",
-   "where": "PriceProjection_Method.md; TODO"
+   "where": "Methods, chapter Prices; TODO"
   },
   {
    "code": "I63",
@@ -7245,7 +7245,7 @@
    "severity": "Major",
    "status": "Dropped",
    "next": "Parked, then dropped by the user (2026-10-20).",
-   "where": "PriceProjection_Method.md; TODO"
+   "where": "Methods, chapter Prices; TODO"
   },
   {
    "code": "I64",
@@ -7255,7 +7255,7 @@
    "severity": "Major",
    "status": "Open",
    "next": "prototype fill kept (user 2026-10-19). Data request: a legacy file with the GAINS combustion factor paths (high priority, user 2026-10-19).",
-   "where": "GHG_Method.md; LegacyDiff"
+   "where": "Methods, chapter Emissions; LegacyDiff"
   },
   {
    "code": "I65",
@@ -7265,7 +7265,7 @@
    "severity": "Major",
    "status": "Open",
    "next": "prototype fill kept (user 2026-10-19). Data request: raise the blank VAT cells with the data team (high priority, user 2026-10-19); the prototype fill stays until then.",
-   "where": "PriceProjection_Method.md; LegacyDiff"
+   "where": "Methods, chapter Prices; LegacyDiff"
   },
   {
    "code": "I66",
@@ -7275,7 +7275,7 @@
    "severity": "Major",
    "status": "Resolved",
    "next": "Replicated in v5.6: rows ch4.wd, ch4.fk, ch4.pi, ch4.prd (inventory-year activity = base production, to avoid a loop; legacy holds 2022-2023 at the base anyway). Note: legacy CHOOSE reads the Net Zero row for the third and fourth demand scenarios.",
-   "where": "GHG_Method.md"
+   "where": "Methods, chapter Emissions"
   },
   {
    "code": "I67",
@@ -7285,7 +7285,7 @@
    "severity": "Minor",
    "status": "Accepted",
    "next": "v5.7: no hard-coded value; data or model (departure by design, user rule: data not typed).",
-   "where": "GHG_Method.md"
+   "where": "Methods, chapter Emissions"
   },
   {
    "code": "I68",
@@ -7295,7 +7295,7 @@
    "severity": "Minor",
    "status": "Open",
    "next": "v5.7: GDP solved (WEO NGDP_R, 2000-2040). v6.1: reference years 2021-2024 read the GHGs inventory (rows ndc.hc, ndc.hv), 2022 onwards the model. Still open: historical GHGs 2018-2020 (GHGHist ends 2017, CO2 2020): data request.",
-   "where": "GHG_Method.md"
+   "where": "Methods, chapter Emissions"
   },
   {
    "code": "I69",
@@ -7305,7 +7305,7 @@
    "severity": "Major",
    "status": "Dropped",
    "next": "Module dropped by the user (2026-10-20); plan kept for reference.",
-   "where": "Plans.md (section Plan_AirPollution)"
+   "where": "excel_ai/plans/Air_pollution.md"
   },
   {
    "code": "I70",
@@ -7315,7 +7315,7 @@
    "severity": "Major",
    "status": "Dropped",
    "next": "Module dropped by the user (2026-10-20); plan kept for reference.",
-   "where": "Plans.md (section Plan_TransportExternalities)"
+   "where": "excel_ai/plans/Transport_cobenefits.md"
   },
   {
    "code": "I71",
@@ -7325,7 +7325,7 @@
    "severity": "Major",
    "status": "Accepted",
    "next": "Legacy issue, not a bug: high priority for the CPAT team, not for the prototype (user 2026-10-20); replicated as legacy. Recommendation: split the driver: fuel use x (1 + population growth)^1 x (1 + per-capita income growth)^income elasticity, keeping the price and efficiency terms separate; switch off = legacy.",
-   "where": "Equations.md E53-E56; PriceProjection_Method.md"
+   "where": "Equations.md E53-E56; Methods, chapter Prices"
   },
   {
    "code": "I72",
@@ -7334,8 +7334,8 @@
    "legacy": "replicated",
    "severity": "Major",
    "status": "Resolved",
-   "next": "Stated as a rule (user 2026-10-20): GDP_Method.md section Timing rule and NORMS (circular references): revenue of year t moves GDP only from year t+1, the fiscal space reads revenue of year t only, and no same-year GDP effect reaches same-year demand. Recommendation to the CPAT team: state it in the legacy method too.",
-   "where": "GDP_Method.md; NORMS (circular references)"
+   "next": "Stated as a rule (user 2026-10-20): Methods, chapter Macro and results section Timing rule and NORMS (circular references): revenue of year t moves GDP only from year t+1, the fiscal space reads revenue of year t only, and no same-year GDP effect reaches same-year demand. Recommendation to the CPAT team: state it in the legacy method too.",
+   "where": "Methods, chapter Macro and results; NORMS (circular references)"
   },
   {
    "code": "I73",
@@ -7355,7 +7355,7 @@
    "severity": "Major",
    "status": "Resolved",
    "next": "Legacy checked: no bug. The source allocation uses energy-balance data (row 894) and the energy CH4 calibration (row 7562) uses the first two years and applies the factor from the third (it reads only earlier years). The prototype calibrated on GHGYear (2024) in every year (its own design) and now reads stored scenario-1 values; the fiscal space uses the stored scenario-1 activity (I47).",
-   "where": "GHG_Method.md"
+   "where": "Methods, chapter Emissions"
   },
   {
    "code": "I75",
@@ -7687,9 +7687,9 @@
    "code": "LD59",
    "area": "Road transport: engineer model (v3.5)",
    "legacy": "Key inputs 15 and section 5 (rows 2017-5378), switch TrModel (MTInputs F340; template default Engineer, Egypt run Elasticity)",
-   "model": "Section 5b of every scenario group, every row live (Transport_Workbook_Notes.md); TrModel default Elasticity, Engineer by switch; the 17 legacy bugs of Transport_vs_Legacy.md section 3 fixed (B1-B23)",
+   "model": "Section 5b of every scenario group, every row live (Methods, chapter Transport); TrModel default Elasticity, Engineer by switch; the 17 legacy bugs of Methods, chapter Transport section 3 fixed (B1-B23)",
    "why": "User rule 2026-10-14: match legacy except where legacy has a bug; results unchanged until the engineer run is reviewed",
-   "effect": "None by default; with Engineer: road fuel use and EV shares as in Transport_vs_Legacy.md section 4",
+   "effect": "None by default; with Engineer: road fuel use and EV shares as in Methods, chapter Transport section 4",
    "type": "Decision"
   },
   {
@@ -7697,7 +7697,7 @@
    "area": "Road transport: policy inputs (v3.5)",
    "legacy": "Dashboard rows 61-98 and 540-559 (outside MTInputs)",
    "model": "Policies: MTInputs rows 418-479 after the template (scenario-specific, legacy Dashboard defaults, all off); parameters and hardcoded literals (Gompertz constant, gas liters per GJ, PHEV kWh per liter, insurance factor, BEV distance caps, price elasticities): sheets TransportParams, TransportPaths and named constants",
-   "why": "Scenarios carry the transport policies; no literal in a formula (Transport_vs_Legacy.md section 2)",
+   "why": "Scenarios carry the transport policies; no literal in a formula (Methods, chapter Transport section 2)",
    "effect": "None",
    "type": "Decision"
   },
@@ -7724,7 +7724,7 @@
    "area": "Road transport: range anxiety (v3.5)",
    "legacy": "Transport3: per-country solver results for the legacy model",
    "model": "Same stored values; fit (calculated - actual EV sales share, data years) reported in rows trraf",
-   "why": "General; a goal seek for the corrected model comes later (Transport_vs_Legacy.md section 6)",
+   "why": "General; a goal seek for the corrected model comes later (Methods, chapter Transport section 6)",
    "effect": "Egypt passenger EV sales share 2025: model 0.09%, actual 0.15%",
    "type": "Not yet"
   },
@@ -7733,7 +7733,7 @@
    "area": "Road transport: kept as legacy (v3.5)",
    "legacy": "Freight distance (survey B14), data years of customs, VAT and import shares, the externality sheet Transport",
    "model": "Kept (freight distance, data years: parameters) or not built (externalities)",
-   "why": "Data decisions; scope (Transport_vs_Legacy.md section 6)",
+   "why": "Data decisions; scope (Methods, chapter Transport section 6)",
    "effect": "None by default",
    "type": "To check (bucket 5)"
   },
