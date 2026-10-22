@@ -1,0 +1,262 @@
+{
+ "file": "CPAT 1.0pre_465 - No Prop Data.xlsb",
+ "checked": "2026-10-22",
+ "bugs": {
+  "L1": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L2": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L3": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L4": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L5": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L6": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L7": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L8": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L9": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L10": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L11": {
+   "status": "Confirmed fixed",
+   "note": "exactly the planned fix (the $G4291 term is gone)"
+  },
+  "L12": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L42": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L44": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L46": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L47": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L48": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L52": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L53": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L54": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L55": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L57": {
+   "status": "Confirmed fixed",
+   "note": "log form as planned, plus a guard for a zero semi-elasticity"
+  },
+  "L61": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L64": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L65": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L67": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L78": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L80": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L83": {
+   "status": "Confirmed fixed",
+   "note": "all three cells as planned"
+  },
+  "L86": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L88": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L89": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L90": {
+   "status": "Confirmed fixed",
+   "note": "fixed in the L45 form (=-(M5578+M5584+M5591)), which the plan says covers L90"
+  },
+  "L91": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L93": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L98": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L99": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L100": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L102": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L105": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L106": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L107": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L108": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L110": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L111": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L112": {
+   "status": "Confirmed fixed",
+   "note": "the switch still reads $D$2369, which is the same formula as the policy switch (both from G259)"
+  },
+  "L113": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L118": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L124": {
+   "status": "Confirmed fixed",
+   "note": "K2547:N2547 and the policy copy now read row 826 (the L82 change)"
+  },
+  "L125": {
+   "status": "Confirmed fixed",
+   "note": "exactly the planned fix"
+  },
+  "L126": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L128": {
+   "status": "Confirmed fixed",
+   "note": ""
+  },
+  "L62": {
+   "status": "Not fixed",
+   "note": "L1760:AE1762 are unchanged from 456 (still rate x rate x coverage)"
+  },
+  "L63": {
+   "status": "Not fixed",
+   "note": "J1741:J1749 still MATCH on ECP!$E$133:$E$403, while the ECP block still runs to row 425 (Ukraine, Uruguay, United Kingdom miss out)"
+  },
+  "L115": {
+   "status": "Fixed with caveats",
+   "note": "changed, but to the wrong row: K2555:AE2555 and the policy copy read K$1735 (existing carbon tax fuel rate, biomass), not K$1715 (ETS, natural gas, residential)"
+  },
+  "L95": {
+   "status": "Fixed with caveats",
+   "note": "rows 3691-3709 and 2827, 2828, 2834 read M2198 and row 3719 was cleared, but P2823:AE2823 (total power demand) and M2836:AE2836 (direct rebound) still read $M3719, now empty, so the additional power-demand efficiency drops out of those rows (same in the policy block, $M10035); point them at $M2198"
+  },
+  "L87": {
+   "status": "Fixed with caveats",
+   "note": "C2371 fixed as planned; I2403:I2419 (and policy I8719:I8735) dropped the E2189=\"Yes\" condition as well as adding *$F$90: the share now applies whether or not that switch is on; check this is intended"
+  },
+  "L84": {
+   "status": "Fixed with caveats",
+   "note": "the formulas are fixed (O2214); the option text MTInputs!C138 still reads “Exempt/Include*” (plan: “DoNotPhaseOut*/Include”)"
+  },
+  "L16": {
+   "status": "Fixed with caveats",
+   "note": "log form in L1868 only; M1868:P1868 are still the constant 0 (plan: fill L1868:AE1868); Q onward is the L57 formula"
+  },
+  "L45": {
+   "status": "Fixed with caveats",
+   "note": "10 of 12 planned cells fixed; M5588:AE5588 (change in kerosene) is unchanged (still $C5591 and the LPG share row 5582, plan: =-L5566*M5589*$E$1785) and M5590 is =M5589 (a percent change), not =M5588 (the energy change), so the kerosene equivalent biomass M5591 is in the wrong units"
+  },
+  "L56": {
+   "status": "Fixed with caveats",
+   "note": "still Sri Lanka, now an explicit Default row 198 (=row 172); no flag, as the user noted"
+  },
+  "L109": {
+   "status": "Fixed with caveats",
+   "note": "fallback implemented as planned and accepted (user 2026-10-19); the real Low and Vhigh series are still missing (data gap)"
+  },
+  "I18": {
+   "status": "Fixed with caveats",
+   "note": "a prototype issue resolved in the prototype, not a legacy cell: nothing to confirm in 465"
+  },
+  "I29": {
+   "status": "Fixed with caveats",
+   "note": "a prototype issue resolved in the prototype, not a legacy cell: nothing to confirm in 465"
+  }
+ }
+}

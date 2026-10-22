@@ -1,0 +1,78 @@
+Checked 2026-10-22 against CPAT 1.0pre_465 - No Prop Data.xlsb, by comparing every cell of the register's cell plans
+(baseline row, filled range and policy-block copy) with the 456 file the register was written from. Cell references
+below are the register's (456) cells; from about row 5590 down, rows in 465 sit 15 rows higher (e.g. 456 row 7897 is
+465 row 7883; policy block +6,316 instead of +6,331).
+
+Where the results are: the bug fix plan (CPAT-AI-Mitigation-MVP_BugsAndIssues_v7.1.5_fixedbugs.docx) has the
+confirmed bugs moved whole to Appendix C (last) and those with caveats to Appendix B, each with a red note; the log
+excel_ai/legacy/workbooks/Tracking issues.xlsx has column S "Status in legacy 465" (from legacy465_check.json).
+
+Confirmed fixed (52)
+
+L1 (services electricity demand grows with the industrial multiple after 2023: cell mitN3731)
+L2 (efficiency elasticity used instead of usage elasticity: cell mitM3691)
+L3 (income factor on the GDP elasticity applied twice: cell mitM3692)
+L4 (storage cost allocation of 33% applied twice: cell mitL3911)
+L5 (investment spending uses capital cost at time factor 1: cell mitL4276)
+L6 (investment logit normalized by the cheapest type, including types that can’t be built: cell mitL4046)
+L7 (early coal retirement mixes nameplate and effective capacity: cell mitM3973)
+L8 (effective coal retirement not capped: cell mitL4011)
+L9 (feebate rebate per kWh consumed added to cost per kWh generated: cell mitM3409)
+L10 (capacity needed comes from last year’s plan, not actual capacity: cell mitM4024)
+L11 (stray reference in dispatch: cell mitL3773); exactly the planned fix (the $G4291 term is gone); moved here from caveats
+L12 (total nameplate investment row is zero: cell mitL4273)
+L42 (domestic aviation GDP growth and shock swapped: cell mitM5483)
+L44 (residential other oil products priced at the biomass price: cell mitM5559)
+L46 (road other biofuels have the wrong price and terms: cell mitL5392)
+L47 (self-generated renewables in aviation and navigation read the shock from the wrong rows: cell mitM5491)
+L48 (residential initially-exempt rows have no income factor, plus the starred “Yes*” test: cell mitM5568)
+L52 (renewables take world power parameters, not country ones: cell mitP2981)
+L53 (actual capacity factors never used: cell mitN2999)
+L54 (hydro investment always starts in the first year: cell mitH4067)
+L55 (China, Japan and Korea take regional power data: cell mitK2977)
+L57 (new ETS quick price estimate linear in the semi-elasticity: cell mitQ1868); log form as planned, plus a guard for a zero semi-elasticity; moved here from caveats
+L61 (EU ETS price grows with carbon-tax growth: cell mitP1695)
+L64 (no existing ETS on other oil products outside power: cell mitK1717)
+L65 (carbon tax next to an existing ETS uses last year’s ETS coverage: cell mitL2270)
+L67 (capacity bought for this year’s demand though it comes online next year: cell mitL4027)
+L78 (ETS auctioned share drops to 0 after the target year: cell mitQ1863)
+L80 (carbon-tax trajectory rescaled when the ETS is on: cell mitL2251)
+L83 (electricity producer subsidy compounds the factor and lags a year: cell mitO3592); all three cells as planned; moved here from caveats
+L86 (no manual override for the electricity producer subsidy: name _manual_codes)
+L88 (regulations never reach power: cell mitL3398)
+L89 (coal in road, residential and services reads the residential coal shadow price: cell mitM5396)
+L90 (residential leakage breaks the useful-energy balance: cell mitM5593); fixed in the L45 form (=-(M5578+M5584+M5591)), which the plan says covers L90; moved here from caveats
+L91 (exempt residential fuel still leaks to biomass: cell mitM5580)
+L93 (fuel coverage rows test text labels and contain REF: cell mitE2259)
+L98 (industry feebate inclusion reads the ETS industry flag: cell ‘Manual inputs’!P54)
+L99 (ETS inclusion of machinery and manufacturing uses the buildings flag: cell ‘Manual inputs’!S11)
+L100 (manual electricity prices never read: names _manual_prices and _manual_codes)
+L102 (manual non-energy elasticities can never take effect: cell K366)
+L105 (dashboard industry feebate rates are lost: cell MTInputs!E56)
+L106 (manual inputs memo swaps the renewables and electricity price elasticities)
+L107 (start year of the extra renewable subsidy reuses the consumer-subsidy phase-out year: cell mitE2736)
+L108 (renewable subsidy cost counts the base subsidy twice: cell mitL7897)
+L110 (power revenue rebate counts VAT that was never collected: cell mitL3663)
+L111 (manual electricity excise counts the whole excise: cell mitL3660)
+L112 (policy shadow-price rows read the baseline carbon price: cell mitL8708); the switch still reads $D$2369, which is the same formula as the policy switch (both from G259)
+L113 (power switches tested for the exact “Yes”: cell G261)
+L118 (need net of manual power investment never used: cell mitL4110)
+L124 (residential gas producer subsidy reads the oil subsidy: cell mitN2547); K2547:N2547 and the policy copy now read row 826 (the L82 change); moved here from caveats
+L125 (other oil products add a per-liter value to a per-barrel price: cell mitK2685); exactly the planned fix; moved here from caveats
+L126 (fuel price for power averages later years: cell mitL3155)
+L128 (net revenue report rows read the next year: cell mitK6252)
+
+Fixed with caveats (12)
+
+L62 (existing carbon tax on diesel, LPG and kerosene uses the rate row as coverage: cell mitL1760); NOT FIXED in 465: L1760:AE1762 are unchanged from 456 (still rate x rate x coverage); moved here from confirmed
+L63 (existing carbon tax coverage lookup range cut short: cell mitJ1741); NOT FIXED in 465: J1741:J1749 still MATCH on ECP!$E$133:$E$403, while the ECP block still runs to row 425 (Ukraine, Uruguay, United Kingdom miss out); moved here from confirmed
+L115 (residential gas ETS price reads the LPG transport row: cell mitK2555); changed, but to the wrong row: K2555:AE2555 and the policy copy read K$1735 (existing carbon tax fuel rate, biomass), not K$1715 (ETS, natural gas, residential); moved here from confirmed
+L95 (efficiency increment sits on the net-exports row: cell mitM3691); rows 3691-3709 and 2827, 2828, 2834 read M2198 and row 3719 was cleared, but P2823:AE2823 (total power demand) and M2836:AE2836 (direct rebound) still read $M3719, now empty, so the additional power-demand efficiency drops out of those rows (same in the policy block, $M10035); point them at $M2198; moved here from confirmed
+L87 (regulations never act: cell mitC2371); C2371 fixed as planned; I2403:I2419 (and policy I8719:I8735) dropped the E2189="Yes" condition as well as adding *$F$90: the share now applies whether or not that switch is on; check this is intended; moved here from confirmed
+L84 (electricity consumer subsidy phased with the price-control factor: cell mitO3606); the formulas are fixed (O2214); the option text MTInputs!C138 still reads “Exempt/Include*” (plan: “DoNotPhaseOut*/Include”); moved here from confirmed
+L16 (ETS quick estimate linear in the semi-elasticity: cell mitL1868); log form in L1868 only; M1868:P1868 are still the constant 0 (plan: fill L1868:AE1868); Q onward is the L57 formula
+L45 (residential leakage to biomass inconsistent: cell mitM5564); 10 of 12 planned cells fixed; M5588:AE5588 (change in kerosene) is unchanged (still $C5591 and the LPG share row 5582, plan: =-L5566*M5589*$E$1785) and M5590 is =M5589 (a percent change), not =M5588 (the energy change), so the kerosene equivalent biomass M5591 is in the wrong units
+L56 (countries without cost-of-capital risk data get Sri Lanka’s WACC: cell CoC!D202); still Sri Lanka, now an explicit Default row 198 (=row 172); no flag, as the user noted
+L109 (capex decline options Low and Vhigh have no wind and solar series: cell mitI3042); fallback implemented as planned and accepted (user 2026-10-19); the real Low and Vhigh series are still missing (data gap)
+I18 (GHG totals use energy CO2 without the inventory adjustment: resolved in v3.2); a prototype issue resolved in the prototype, not a legacy cell: nothing to confirm in 465; moved here from confirmed
+I29 (Excel repair prompt: resolved in v3.7); a prototype issue resolved in the prototype, not a legacy cell: nothing to confirm in 465; moved here from confirmed

@@ -2837,6 +2837,18 @@ Earlier work was logged in the task documents themselves; they remain the detail
   - `LegacyBugFixes.md` stays as an intermediate source of the register spreadsheet; the replication lists and the register are regenerated from `issues_register.py`.
   - The method chapters are mechanical merges of the notes (one section per former note); their text is not yet rewritten for flow.
 
+## 2026-10-22 - Legacy fixes in CPAT 1.0pre_465 checked (`excel_ai/bugsfixed/`)
+- **Task (user 2026-10-22):** confirm the bugs the CPAT team marked fixed in `CPAT 1.0pre_465 - No Prop Data.xlsb`; split `FixedBugsToConfirm.txt` into "Confirmed fixed" and "Fixed with caveats"; mark each heading of the bug register `CPAT-AI-Mitigation-MVP_BugsAndIssues_v7.1.5_fixedbugs.docx` in red.
+- **Inputs:** the 465 and 456 legacy workbooks (converted to xlsx with LibreOffice; formulas that use defined names cross-checked with pyxlsb2, because LibreOffice drops those names); the cell plans of the register (formula now, new formula, fill range, policy copy). Rows were matched between 456 and 465 by their labels and codes.
+- **Outputs:** `FixedBugsToConfirm.txt` (52 confirmed, 12 with caveats; moved up from caveats: L11, L57, L83, L90, L124, L125; moved down: L62, L63, L84, L87, L95, L115, I18, I29); the docx headings carry red "CONFIRMED / FIXED WITH CAVEATS / NOT FIXED in 465" marks and a red note where there is a caveat, plus a red summary under "Legacy version" in section 1. The sections of the checked bugs are moved whole out of sections 3 and 4: confirmed fixes to a new Appendix C (last), fixes with caveats to a new Appendix B (headings become Heading 2). `legacy465_check.json` holds the results; `update_tracker.py` writes them to the new column S "Status in legacy 465" of `legacy/workbooks/Tracking issues.xlsx` (codes not in the list: "Not marked fixed"). That rerun also brought the tracker up to date with the register (v8.0 wording "prototype", method references, cell-plan flags, 4 new codes).
+- **Caveats:**
+  - Not fixed in 465: L62 (L1760:AE1762 unchanged) and L63 (lookup still stops at ECP row 403).
+  - L115 changed to the wrong row (K$1735, existing carbon tax fuel rate for biomass, instead of K$1715).
+  - L95 cleared row 3719, but P2823:AE2823 and M2836:AE2836 (and the policy copies on $M10035) still read it: the additional power-demand efficiency now drops out there.
+  - L45 kerosene leg (M5588, M5590) not as planned; L16 only in L1868; L87 dropped the E2189="Yes" test; L84 option text unchanged; L56 still Sri Lanka; L109 real Low/Vhigh series still missing.
+  - Formula text was compared, not results: nothing was recalculated (no Excel on Linux). From about row 5590 down, 465 rows sit 15 rows above the 456 rows the register quotes.
+  - The register itself (`issues_register.py`, `BUGS.md`) is not updated with "fixed in legacy 465"; that is the next step (register section 2.7).
+
 ## 2026-10-22 - Modules M1-M3: v8.1 and the standalone Distribution v1.0
 
 - **Task (user 2026-10-22):** modular CPAT: Distribution, air pollution and transport co-benefits become modules; first consistent money units (M1), the prototype's exports (M2) and the standalone Distribution module (M3, the priority). One scenario at a time; no interaction with the batch runs.

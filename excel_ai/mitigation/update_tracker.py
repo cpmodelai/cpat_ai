@@ -6,7 +6,8 @@ Sheet BUGSandISSUES (an export of our register, v3.18): every row is refreshed f
 make_replication_lists and make_bugs_issues_sheet first); codes no longer in the register stay, marked "Retired"
 with where they went; new codes (later legacy bugs, distribution bugs D and issues DI, prototype bugs M) are
 appended. Extra columns: type (as the Word bug list), code group, prototype version that settled it, cell-level fix plan,
-status in the 459 legacy file, related items of the team's own sheets, last update.
+status in the 459 legacy file, related items of the team's own sheets, last update, and the status in the 465 legacy
+file (bugsfixed/legacy465_check.json: confirmed fixed, fixed with caveats or not fixed, with the caveat).
 
 The team's sheets (CPAT_issues, Mit+Disn_DeepDive, MT_issues, Slicer_issues) keep their content and get two extra
 columns: our code(s) and a short note, from data/tracker_mapping.json (or the file given as the first argument;
@@ -35,9 +36,10 @@ SHEET_SRC = os.path.join(HERE, '..', 'CPAT-AI_BugsAndIssues_latest.xlsx')
 HEAD = 3                                                   # header row of BUGSandISSUES
 BASE = 11                                                  # columns A-K: as our register export
 EXTRA = ['Type', 'Code group', 'Settled in (prototype version)', 'Cell-level fix plan', 'Status in legacy 459',
-         'Related CPAT team items', 'Updated']
-EXTRA_W = [18, 20, 14, 12, 18, 26, 12]
+         'Related CPAT team items', 'Updated', 'Status in legacy 465']
+EXTRA_W = [18, 20, 14, 12, 18, 26, 12, 48]
 MAPPING = os.path.join(HERE, '..', '..', 'data', 'mvp_legacy_extracts', 'tracker_mapping.json')   # team items -> our codes (kept with the register)
+CHECK465 = os.path.join(HERE, '..', 'bugsfixed', 'legacy465_check.json')   # fixes checked in legacy 465 (2026-10-22)
 TEAM = ['CPAT_issues', 'Mit+Disn_DeepDive', 'MT_issues', 'Slicer_issues']
 GROUP = {'L': 'Legacy bug (mitigation)', 'D': 'Legacy bug (distribution)', 'DI': 'Issue (distribution)',
          'I': 'Issue (mitigation)', 'M': 'Prototype bug', 'LD': 'LegacyDiff row'}
@@ -164,7 +166,8 @@ def update_register_sheet(wb, mapping, plans):
     ws['A2'].value = (f'Updated from the register (issues_register.py) by '
                       'update_tracker.py. Details, fix procedure and cell-level plans: '
                       'excel_ai/CPAT-AI_BugsAndIssues_latest.docx. Columns L-R added. Codes '
-                      'are keyed to legacy file 456; the 459 file is not reconciled yet.')
+                      'are keyed to legacy file 456; the 459 file is not reconciled yet. Column S: the fixes '
+                      'checked in legacy 465 (excel_ai/bugsfixed/).')
     ws['A2'].font = Font(name='Arial', size=9, italic=True)
     return last - HEAD
 
@@ -173,10 +176,18 @@ def fill_extra(ws, r, code, vals, mapping, plans, retired):
     legacy = re.match(r'(L|D|I|DI)\d', code) and not code.startswith('LD')
     extra = [type_of(code, vals[1]), group(code), settled(vals),
              'Yes' if code in plans else '', 'Not reconciled yet' if legacy and not retired else 'n/a',
-             related(code, mapping), f'v{VERSION}']
+             related(code, mapping), f'v{VERSION}', status465(code) if legacy else 'n/a']
     for j, v in enumerate(extra, BASE + 1):
         ws.cell(r, j).value = v
         ws.cell(r, j).alignment = Alignment(wrap_text=True, vertical='top')
+
+
+def status465(code):
+    bugs = json.load(open(CHECK465, encoding='utf-8'))['bugs'] if os.path.exists(CHECK465) else {}
+    if code not in bugs:
+        return 'Not marked fixed'
+    b = bugs[code]
+    return b['status'] + (': ' + b['note'] if b['note'] else '')
 
 
 def update_team_sheets(wb, mapping):
