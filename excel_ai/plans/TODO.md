@@ -31,7 +31,7 @@ Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logg
 - ☐ **ETS goal seek (I30)**: tested by the user.
 - ☐ **Data requests**: I64 GAINS factor paths, I65 blank VAT cells, I13 proprietary tables for other countries, I68 historical GHGs 2018-2020.
 - ☐ **Report the legacy bugs to the CPAT team** (the register); high-priority legacy issues for them: I62, I71, I72-I74.
-- ☐ **Policy taxonomy with the FTT policies** (PolicyTaxonomy_Plan): user decisions first.
+- ☐ **Policy taxonomy with the FTT policies** ([`Policy_taxonomy.md`](Policy_taxonomy.md)): user decisions first.
 
 ## 6. AI backlog
 
