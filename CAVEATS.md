@@ -2866,3 +2866,9 @@ Earlier work was logged in the task documents themselves; they remain the detail
 - **Outputs:** `excel_ai/bugsfixed/CPAT-AI_BugsAndIssues_interim_fixedbugs.xlsx`, a copy of `CPAT-AI_BugsAndIssues_latest.xlsx` with Status set from `legacy465_check.json` (the cell-by-cell check above): 52 "Confirmed fixed in legacy 465", 10 "Fixed with caveats in legacy 465", 2 "Not fixed in legacy 465" (L62, L63), the check's note in a new column L; all 64 refs matched; other rows keep their v8.0 status; ReadMe note added.
 - **Caveats:**
   - Edited copy, not regenerated: the statuses are not in `issues_register.py`, so `make_documentation.py` does not carry them; add them to the register when the 465 fixes are accepted.
+
+## 2026-10-22 - Bug fix plan: cell references moved to legacy 465 (`excel_ai/bugsfixed/`)
+- **Task (user 2026-10-22):** update the cell references of the bug fix plan (`CPAT-AI-Mitigation-MVP_BugsAndIssues_v7.1.5_fixedbugs.docx`) from legacy 456 to the latest legacy file, CPAT 1.0pre_465; revenue section first.
+- **Inputs:** 456 and 465 workbooks; row map built by aligning the rows of both files on their labels and codes (formula digits ignored). Mitigation: rows 1-5666 unchanged, rows 5667-5677, 5727-5728, 5856, 5880 and 8404 deleted, then -11, -13, -14 (rows 5881-8403) and -15 (8405 on); MTInputs rows 329-330 deleted, -2 from 331. The policy block now sits a uniform +6,316 below the baseline (456: +6,331 above row ~5667, +6,317 below).
+- **Outputs (step 1, revenue):** section 3.3.9 (L70, L71, L72, L73, L75, L85) and L128: every reference in the legacy-cells, what-legacy-does, fix, note and cell-plan fields remapped; each "Formula now" checked against the 465 cell (all 18 cells hold the bug; L128 is already fixed in 465). Red note under the 3.3.9 heading.
+- **Caveats:** the Effect and In-the-prototype fields are left as they are (they quote values and prototype rows, not legacy rows).
