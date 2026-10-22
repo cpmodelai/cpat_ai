@@ -150,7 +150,7 @@ from openpyxl.workbook.defined_name import DefinedName
 
 VERSION = '8.0'   # also in version.json (read by the deck builder)
 SCRIPTS_TAG = None   # v8.0: scripts and notes have stable names (releases are git tags); v7.1: a point release renames only the builder, VBA module, workbook and reports; the scripts and
-                      # notes keep the tag of the full release (excel_ai/NORMS.md section 5)
+                      # notes keep the tag of the full release (NORMS.md section 5)
 COUNTRY = 'EGY'   # v3.3: default of Settings C4 (user input); country data only in the data sheets, by this key
 LAMBDA_ROWS = []                        # v2.3: LAMBDA year 2041; v1.08: (row, variable, fuel, sector, LAMBDA formula of the scenario-1 right
                                         # column) - the optional LAMBDA library, written to sheet Lambdas, not to cells

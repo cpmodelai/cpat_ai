@@ -1,6 +1,6 @@
 """
 Write every CSV of one Coded CPAT data version (e.g. data/dummy) into one Excel workbook, the data
-source the Excel prototype links to (plan: excel_ai/mitigation/Plans_v7_0.md (section DataSeparation_Plan)).
+source the Excel prototype links to (plan: CAVEATS.md (finished plan)).
 
     Index sheet         one row per table: sheet, source file, layout, rows, columns, countries, licence
                         class (proposed), MVP tab, MD5 of the source CSV
@@ -14,7 +14,7 @@ source the Excel prototype links to (plan: excel_ai/mitigation/Plans_v7_0.md (se
 Every table has a header in row 1, data from row 2, and, where it has a country column, a last column
 FilterISO3 (upper-case ISO code) so that every query filters the same way. Header cells are made unique
 (case-insensitive, as Excel requires: "iso3" and "ISO3" clash) and non-blank; the Index lists any header that
-was changed. The finished file is checked with excel_ai/shared/excel_lint.py (excel_ai/NORMS.md section 3g).
+was changed. The finished file is checked with excel_ai/shared/excel_lint.py (NORMS.md section 3g).
 
 Run from data/:
     python scripts/build_data_workbook.py                     # dummy -> workbooks/CPAT_Data_dummy_python.xlsx

@@ -1,20 +1,18 @@
-# TODO - Excel-AI, open work only (one list, in order)
+# TODO - Excel-AI, open work (one list, in order)
 
-Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logged in [`../CAVEATS.md`](../CAVEATS.md). Plans with details: [`mitigation/Plans.md`](mitigation/Plans.md) (sections named below). Python work: [`../coded/TODO.md`](../coded/TODO.md).
+Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logged in [`../../CAVEATS.md`](../../CAVEATS.md). Plans with details: one file per plan in this folder. Python work: [`../../coded/TODO.md`](../../coded/TODO.md).
 
-## 1. Now: release v7.2 (codes on the protocol)
+## 1. Release v7.2 and the clean-up: done (2026-10-22)
 
-- ◐ Full check of v7.2 running; when it passes: report committed, v7.2 pushed to main.
+- ☑ v7.2 full check PASS, on main; restructure (`excel_ai/`, `data/`, `coded/`, `other/`); history reset; v8.0 prototype naming, stable script names, `_latest` and `_v8.0` copies; one NORMS; plans split; short documentation and Methods volume.
 
-## 2. Clean-up and restructure (Plan_Restructure, section 10; starts as soon as 1 is done)
+## 2. Clean-up, finishing
 
-- ☐ **Move**: `excel_ai` -> `excel_ai` (mitigation in `excel_ai/mitigation/`, legacy CPAT in `excel_ai/legacy/`, plans in `excel_ai/plans/`, shared code in `excel_ai/shared/`), `data` -> `data`, `coded` -> `coded`; `documentation/` abolished (Excel documents to `excel_ai/`, the rest to `other/`: research, other decks, archive). Old copies (`Old/`, `excel_ai/old`, old images and variants) removed. Every path in scripts and notes updated; quick check, codes check, data tests and document builds rerun.
-- ☐ **History reset**: one fresh commit of the cleaned tree, force-pushed to main and the branch (user: drop outright).
-- ☐ **Rename to prototype, v8.0**: `CPAT-AI-Mitigation-Prototype`; every main file twice, `_latest` (top of `excel_ai/`) and `_v8.0` (`excel_ai/releases/`), with one version table (`releases.md` = the workbook's version log); scripts and notes with stable names, releases as git tags.
-- ☐ **Documents, few and simple**: top of `excel_ai/`: the workbook, the one bug-fix Word document (register with every fix plan), the register spreadsheet, the deck, `BUGS.md`, `ISSUES.md`, README. In `excel_ai/mitigation/`: a short main documentation (about 20 pages) and a Methods volume (6 merged method notes, equations appendix). One NORMS, one TODO (this file), one README per folder, a short CHANGELOG. Dropped: separate fix-plan Word/PDF files, `LegacyBugFixes`, the duplicate replication lists, finished plans.
-- ☐ **Scripts**: about 20 for build, checks and documents (one `make_documents.py` entry); one-off extractors and tools to `excel_ai/legacy/tools/`.
+- ◐ v8.0 full check running; then: the old method notes in `mitigation/` replaced by `docs/` (builder texts point to the Methods chapters), commit, push v8.0 to main.
+- ☐ Old session branches on GitHub (7, old history): the user deletes them (or allows the AI to).
+- ☐ The register spreadsheet without `LegacyBugFixes.md` as an intermediate source.
 
-## 3. Modular CPAT (Plan_Modules, section 9; after 2)
+## 3. Modular CPAT ([`Modules.md`](Modules.md); after 2)
 
 - ☐ **M1 money units**: one vocabulary (`USD`, `USD m`, `USD bn`, `LCU`, `USD/GJ`, ... real/nominal; never `$`); labels only.
 - ☐ **M2 prototype exports**: Mitigation section 15 (air pollution) moved to the end; new section 19 "Exports to modules" (19a Distribution, 19b AP right after section 15, 19c TCB; one defined name each, plain copies, codes as keys, a scale column); a `FromMitigation` tab first for Distribution, which reads only it (no hard-coded `Billion`/`Thousand` scaling).
@@ -48,6 +46,6 @@ Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logg
 - Power engineer model: final deficit to gas, MaximumGasCF, storage factor; planned retirement data; elasticity-based power model.
 - Regulations as shadow prices; green public investment; ETS benchmarks by sector; inventory-adjusted EFs and process CO2; legacy block F reports (social costs, Kaya, CBAM, policy coverage).
 - Data for more countries; Python port (`../coded/TODO.md`).
-- AP and TCB models (Plan_AirPollution, Plan_TransportExternalities) beyond the data parts.
+- AP and TCB models ([`Air_pollution.md`](Air_pollution.md), [`Transport_cobenefits.md`](Transport_cobenefits.md)) beyond the data parts.
 
 Dropped by the user: engineer road model follow-ups (I61), demand on real local-currency prices (I63).

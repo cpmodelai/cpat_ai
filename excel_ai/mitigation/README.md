@@ -1,66 +1,36 @@
-# CPAT-AI-Mitigation-Prototype
+# Mitigation prototype: sources
 
-The mitigation module of CPAT (Climate Policy Assessment Tool) rebuilt as one readable, copy-pasteable Excel workbook for one country at a time: no country-specific number outside the reference tables (data sheets keyed by country; the shipped data are complete for Egypt, see `QuickStart.md`, Another country). Every formula is at most 100 characters, one formula per block, valid across years and down rows; a whole scenario is a column group that can be copied.
+The sources of `../CPAT-AI-Mitigation-Prototype_latest.xlsm`: the builder, the VBA module, the checks and the documents. Rules: [`../../NORMS.md`](../../NORMS.md). Open work: [`../plans/TODO.md`](../plans/TODO.md).
 
-**Current version: `CPAT-AI-Mitigation-Prototype-v7.2.xlsm`** (Excel 365; macros enabled; built by `build.py` with module `CPATScenarios.bas`; v7.2: codes on the CPAT code protocol (`code_renames_v7_2.csv`, checked by `check_codes_v7_2.py`; LiveOutputs column AB keeps the v7.1 stem, macro `UpgradeStoredCodes`); v7.1: nine linked data tabs, tested by `check_links.py` (report `check_links_report_v7.1.md`); every script and note of the release carries v7.0). Front tabs: **Cover** (status of the linked data tables, contents), **ScenarioCompare** (the dashboard: every user entry, Live or Stored results, year, data source; key results vs the baseline, one bar chart, time series with their chart beside them and an indicator dropdown; core buttons Recalculate now, Recalculation on/off, Run stored scenarios, Update data tables, the others in grey), **ScenarioDefinition** (legacy MTInputs; short names in row 2). LiveOutputs (legacy MTOutputs) and StoredOutputs follow Mitigation and Distribution. Ships with its calculated values in manual calculation; two scenario groups, the live one in LAMBDAs. Earlier versions are in `Old/`; the version log is on tab `Version Log, About, and Diff`, and each task is logged in the root `CAVEATS.md`.
+## Read
 
-## What it models (2022-2041, scenarios as column groups)
-
-**Inputs (v5.2):** ScenarioDefinition (one column per scenario, as legacy) is the main input sheet; **'Manual inputs'** is the second source: the whole legacy tab at its legacy addresses (17 blocks, paste-compatible), read by the prototype for the ETS goal-seek settings (E10:E12), price controls (J167:J180), the methane fee scope (J196:J200), manual international prices (J221:AF225), the manual SCC (row 237), fiscal multipliers (J261:U268), non-energy GHG elasticities (K325:M327) and the fuel economy of new BEVs (J375:AC377); the blocks of features not built are placed and marked "Not read". Plan for the rest: `Plans.md` (section MTInputs_Appendix_Plan).
-
-Every section opens rolled up to its summary row(s); scenario groups are copy-pasteable left to right (`../NORMS.md` 2.5, 2.6, 3e).
-
-| Section | Content |
+| File | What it is |
 |---|---|
-| 0 Scenario assumptions | Scenario name and number, GDP, deflators, exchange rate; summary: GDP growth after the feedback |
-| 1 Policies | Carbon tax, new ETS (cap, benchmarks, goal seek), feebates, fuel price reform, methane fee, existing carbon pricing; v4.16: consumer subsidy and price-control phase-outs by sector and fuel, producer subsidies by fuel, regulations as shadow prices of the main scenario (legacy scenario table on Mapping) |
-| 2 Prices | (v4.16: phase-out wedges pcsw, ppcw as separate lines after the price before new taxes; v4.15: average prices and the reported price index as legacy F5b, Settings C54) Retail prices by fuel and sector: settings (italic), full retail price incl. new policies (bold), existing build-up to the price before new taxes and subsidies, then the new taxes and subsidies weighted by subsector |
-| 3 Power | Engineer model: costs, electricity prices, demand, dispatch, retirement, investment; v5.4: every ScenarioDefinition power input per scenario (section 1 "Power sector settings", sub-table A0), PPAs, renewable subsidies, power revenue rebate, electricity excise (carbon-based and manual), gas maximum capacity factor, long-term storage factor, final deficit to gas (Settings C45) |
-| 5-8 Sectors | Fuel use by 16 subsectors and 8 fuels (income, price, efficiency and autonomous efficiency terms); v5.1: residential LPG and kerosene can be exempted from all new policy (ScenarioDefinition AlwaysExemptResLPGKer, per scenario) |
-| 6b Residential leakage | v5.1: leakage of the most-used cooking fuel to biomass as legacy (switch BiomassLeakage, Settings C59; legacy bugs L45, L90, L91 fixed); fuel use = elasticity model + cumulative change |
-| 5b Road engineer model | Vehicles, purchases, total cost of ownership, EV choice, fuel economy, distance and road fuel use by class; switch `TrModel` (default: elasticity approach) |
-| 11-13 Results | Energy use, revenues (v4.15: 12e, total revenue by policy as legacy; v4.16: subsidy reform rsr, producer subsidies rpsu), CO2 (calibrated to the GHG inventory as legacy since v4.11) |
-| 14-15 Emissions | Non-CO2 GHGs and methane by source; local air pollutants and their forcing |
-| 16 GDP effects | Fiscal space from total revenue (v4.15, as legacy), fiscal multipliers (global, income group, country estimates or sheet Manual inputs), feedback to GDP growth |
-| 17-18 Carbon pricing, welfare | Implicit and effective carbon rates, coverage; SCC, climate damages avoided, efficiency costs, national welfare |
+| `CPAT-AI-Mitigation_Documentation.docx` | **The short documentation**: what it is, quick start, how it works, results, limits (from `docs/Documentation.md`) |
+| `CPAT-AI-Mitigation_Methods.docx` | **Methods**: one chapter per block (prices, power, transport, emissions, ETS, macro and results, distribution); equations and data tabs as appendices (from `docs/methods/`, `Equations.md`) |
+| `Formulas.md` | Every workbook formula, generated (implementation reference) |
+| `check_report.md`, `check_quick_report.md` | The last full check and quick check |
 
-## Documents
+## Build and check
 
-| Read | For |
-|---|---|
-| `QuickStart.md` | Opening, testing and running the workbook (15 minutes) |
-| `Equations.md` | **The model in equations**: mathematics only, by section |
-| `NotReplicated.md`, `Replicated.md` (copies: `../BUGS.md`, `../ISSUES.md`) | **What the prototype does not replicate from legacy (bugs fixed, exceptions) and what it replicates on purpose (issues, tracked)** |
-| `LegacyBugFixes.md` | **Bugs in legacy CPAT that the legacy team needs to fix** (78, by priority; 17 in the engineer road model) |
-| `Reviews_and_Surveys.md` (section Results_Assessment) | **Every results row of legacy Mitigation (scenario sections 11-17 and blocks E, F, G): health scan, bugs, prototype status, and a strategy to fix them** |
-| `Transport_vs_Legacy.md` | **Engineer road model against legacy: every bug fixed and every decision**, with effects for Egypt |
-| Method notes `*_Method_v7_0.md` | What each part does and why: prices, power prices, power model, road transport, ETS (and `ETS_Legacy_Algorithm`), scenarios, GHGs, air pollutants, GDP effects, CO2 calibration |
-| `Plans.md` (section PowerFeatures_Plan) | **Plan: power engineer features still to add** (14 features, five releases P1-P5, decisions needed) |
-| `Formulas.md` | Implementation reference: every workbook formula, the LAMBDA library and the changes against legacy (generated) |
-| `../../documentation/CPAT-AI-Mitigation_Documentation_v7.2.docx` (`make_docs.py`) | The documentation above in one Word file |
-| `../../documentation/CPAT-AI_BugsAndIssues_v7.2.docx` (`make_bugfix_book.py`) | **The one register of bugs, issues and upgrades** (legacy CPAT and the prototype): summary; the bug-fixing procedure for legacy CPAT; every legacy bug by type (engineer power with the effect of each fix, engineer transport, other mitigation, distribution) with its cell-level fix plan from `../../excel_ai/legacy/bugfixes/data/` (other mitigation in 10 areas by priority); prototype bugs; issues; LegacyDiff departures; upgrades and improvements; a reference table in code order. The same register as one JSON file for code: `../../documentation/CPAT-AI_BugsAndIssues_v7.2.json` (written with the Word file). As one table for the CPAT team tracker: `BUGSandISSUES.xlsx` (`make_bugs_issues_sheet.py`) |
-| `Plans.md` (section MTInputs_Appendix_Plan) | **Plan (not built)** for the remaining switches and inputs at the bottom of ScenarioDefinition: (1) inputs legacy takes straight from the Dashboard, road engineer model and elsewhere; (2) the switches and settings the prototype added (Settings, Constants, rows read for scenario 1 only); layout, order, checks |
-| `../legacy/workbooks/Tracking issues.xlsx` (`update_tracker.py`) | **The CPAT team's tracker, kept up to date with our codes** (user 2026-10-18): sheet BUGSandISSUES holds every code of the register (L, D, I, DI, M, LD; retired codes kept and marked), with extra columns (type, code group, version settled, cell-level plan, status in the 459 file, related team items); the team's own sheets (CPAT_issues, Mit+Disn_DeepDive, MT_issues, Slicer_issues) get our code(s) and a note. Run after the register documents at every release |
-| `presentation/build_deck.js`, `presentation/make_screenshots.py` | The overview deck and its screenshots; the current deck (`CPAT-AI_Overview_v6.3.pptx`, to be rebuilt for v6.4 with the full check) is in the root folder `other/presentations/` |
-| `legacy_comparison_v6_4.md`, `check_report_v7.2.md` | Results against legacy; output of the last full check |
+Python 3, openpyxl, LibreOffice (no Excel needed).
 
-Inside the workbook: tab `Cover` (status of the linked data tables, contents, colours, abbreviations); tab `ScenarioCompare`, the dashboard (every user entry: Live or Stored results, year, data source; key results against the baseline; a bar chart; time series with their chart beside them and an indicator dropdown; core buttons green, the others grey); tab `ScenarioDefinition` (legacy MTInputs; short names in row 2); divider tabs list their group's tabs and the matching legacy tab; tab `Version Log, About, and Diff` (version log, about this workbook, every difference with legacy CPAT with its register code and status) and tab `Check, Variables, Lambdas` (MacroCheck report, variable dictionary, LAMBDA formulas by pattern). Inputs: `ScenarioDefinition` (scenarios), `Settings` (settings, constants, mappings), `Inputs` (data step: fuel, price and power tables); data sheets follow; the reference tabs are last.
+```
+python build.py                # writes ../releases/CPAT-AI-Mitigation-Prototype_v<version>.xlsm and ../..._latest.xlsm (about 8 min)
+QUICK=1 python build.py        # quick build, no batch (CPAT-AI-Mitigation-Prototype_quick.xlsx)
+python check_quick.py          # after every change (about 2 min)
+python check_paste.py <file>   # copy-paste test, at every release (about 3.5 min)
+python check_full.py           # full check, at a milestone (several hours with the macro tests)
+python make_documentation.py   # the Word documents, the register and its spreadsheet, BUGS.md and ISSUES.md
+python presentation/make_screenshots.py && node presentation/build_deck.js   # the deck
+```
 
 ## Scripts
 
-| Script | Does |
+| Group | Files |
 |---|---|
-| `build.py` | Builds the workbook from `data/` and the MTInputs template |
-| `check_quick.py` | **Quick check (about 1.5 minutes; full build about 2-3 minutes since v4.9), run after every change**: structure, names, literals, formula length, one recalculation with no errors, every output code against the last release (`check_quick_report_v5.5.md`) |
-| `check_full.py` (full check, on request: milestones, end of day) | Recalculates in LibreOffice and checks everything against an independent Python recomputation; writes `check_report_v5.5.md` and `Formulas.md` |
-| `extract_data.py`, `extract_power.py`, `extract_ecp.py`, `extract_ghg.py`, `extract_gdp.py`, `extract_ets.py`, `extract_transport.py`, `update_prices_egypt.py` | Data steps: legacy workbook and source files to `data/*.csv` (run only when sources change; since v4.7 `data/power_*.csv` gives only the layout and the technology classes (price code, VRE, dispatch) of the power data step on Inputs, and its values are the reference that step is compared with) |
-| `power_model_ref.py`, `transport_model_ref.py`, `ets_goalseek.py` | Python references: power and road engineer models (with switches for the legacy bugs; both reproduce the cached legacy run), ETS goal seek |
-| `make_docs.py`, `make_bugfix_book.py`, `make_legacy_fixes.py`, `make_replication_lists.py`, `make_transport_doc.py`, `make_equations.py`, `legacy_compare.py` | Word documentation, register, the two replication lists (also at the top of `excel_ai/`), formula reference, legacy comparison |
-| `presentation/Old/make_screenshots_v4_0.py`, `presentation/Old/build_deck_v4_0.js` | Deck screenshots and deck (v4.0) |
-| `check_paste.py` | Copy-paste test, scenario capacity (NORMS 3e; every release that touches the column groups) (about 3.5 minutes): pastes scenario group 2 of Mitigation and Distribution into groups 4-7 (scenarios 3-6), recalculates, checks no errors and the stored batch results |
-| `Distribution_Method.md`, `distribution_ref.py`, `extract_distn.py` | **Distribution module** (sheet Distribution, v4.4): method and bug fixes against legacy; Python reference (reproduces legacy's cached Egypt results; the quick check compares the sheet with it); mappings (`data/distn_catmap.csv`, `data/distn_programs.csv`) |
-| `DataTabs.md`, `extract_legacy_tables.py`, `check_allcountry.py` | **Data tabs (v4.5-v4.7)**: legacy order; which tabs hold the single legacy table unchanged (paste the full legacy table at A4) and which keep the legacy tab at its legacy addresses (paste from row 3); the country selections as data steps on Inputs (power, v4.7: `PowerData_Chain.md`, every legacy chain of Mitigation section 4); the extract of the legacy tables (`data/legacy_<Tab>.csv`, verbatim); the all-country test (every Egypt row cloned as a dummy country must give identical outputs; on request) |
-| `lo_session.py` | **Fast full build and checks (v4.9)**: LibreOffice as UNO sessions (load once, recalculate in memory, read only the cells needed), three in parallel in the build; the LAMBDA-expanded copy for the checks written from the file's XML (the paste test's paste too), so the structure checks run while LibreOffice recalculates; the build and the quick check print the time of each stage |
-| `vba_project.py`, `CPATScenarios.bas`, `lo_run_macro.py` | The macro module and its embedding and test |
-
-Rebuild: `python build.py && python check_quick.py` (full check `check_full.py` only on request), then the `make_*` scripts and the deck. Rules for every change: `../NORMS.md` (Excel norms) and the root `NORMS.md`.
+| Build | `build.py` (version in `VERSION`, also `version.json`), `CPATScenarios.bas` (VBA), `vba_project.py`, `extract_data.py`, `tabs.json` |
+| Checks | `check_quick.py`, `check_full.py`, `check_paste.py`, `check_links.py`, `check_allcountry.py`; independent recalculations `power_model_ref.py`, `transport_model_ref.py`, `distribution_ref.py`; LibreOffice `lo_session.py`, `lo_run_macro.py`; `legacy_compare.py` |
+| Register and documents | `issues_register.py` (the register's data), `make_bugfix_book.py`, `make_bugs_issues_sheet.py`, `make_legacy_fixes.py`, `make_replication_lists.py`, `make_docs.py`, `make_equations.py`, `make_documentation.py`, `update_tracker.py` |
+| Deck | `presentation/build_deck.js`, `presentation/make_screenshots.py`, `presentation/img/` |
+| Tools | `ets_goalseek.py` (the user's ETS goal-seek test), `make_variants.py`, `extract_*.py` (legacy extracts), `update_prices_egypt.py` |

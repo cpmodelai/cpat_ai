@@ -1,6 +1,6 @@
 """v2.3 (version number aligned with CPAT-AI-Mitigation-Prototype v4.7; content as the previous version in Old/). 
 
-v5.4 (power features P1, P2, P4; Plans.md (section PowerFeatures_Plan)): every MTInputs power input of the scenario (inp['par'],
+v5.4 (power features P1, P2, P4; excel_ai/plans/Power_features.md): every MTInputs power input of the scenario (inp['par'],
 the per-scenario settings; mvp_data(s) with the scenario's own settings: capacity factor and efficiency bounds, WACC,
 scale-up rates, capex decline scenario, long-term storage hours); final deficit to gas (par['dgas'], legacy row 4252);
 maximum capacity factor of gas (par['maxcf_nga'], legacy row 3784); long-term storage factor for 100% VRE

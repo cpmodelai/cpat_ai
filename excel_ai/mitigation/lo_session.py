@@ -84,7 +84,7 @@ class Session:
     def calc(doc):
         doc.calculateAll()
         doc.calculateAll()       # v7.1: one calculateAll leaves differences of up to 2e-3 (stored results, fiscal
-                                 # impulse): every recalculation is two (excel_ai/NORMS.md 3i.2)
+                                 # impulse): every recalculation is two (NORMS.md 3i.2)
 
     @staticmethod
     def grid(doc, sheet, r0, c0, r1, c1):

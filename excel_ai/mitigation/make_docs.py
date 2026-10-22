@@ -100,23 +100,36 @@ def appendices():
     return '\n'.join(text)
 
 
-def main():
-    head = (f'---\ntitle: "CPAT-AI-Mitigation-Prototype v{IR.B.VERSION}: documentation"\n'
-            'subtitle: "The CPAT mitigation module rebuilt as a readable Excel workbook (Egypt data)"\n'
-            f'date: "{datetime.date.today().isoformat()}"\n---\n\n'
-            f'# About this document\n\nWorkbook: `CPAT-AI-Mitigation-Prototype_latest.xlsm` (version {IR.B.VERSION}). Chapters: quick start; '
-            'the model in equations; one method note per part of the model; a pointer to the register of bugs and '
-            'issues. Appendices: version log, verification. Every workbook formula is listed in '
-            '`Formulas.md` (implementation reference, generated); task notes are in `CAVEATS.md` at the '
-            'repository root.\n\n')
-    import make_equations as EQ                       # keeps Formulas.md current (not part of this document)
-    EQ.main()
-    md = head + '\n'.join(part(t, n) for t, n in PARTS) + '\n' + appendices()
+METHODS = ['Prices.md', 'Power.md', 'Transport.md', 'Emissions.md', 'ETS.md', 'Macro_and_results.md',
+           'Distribution.md']                       # v8.0: the six merged method chapters (+ distribution)
+METHODS_OUT = os.path.join(HERE, 'CPAT-AI-Mitigation_Methods.docx')
+
+
+def pandoc(md, out, toc=2):
     src = os.path.join(tempfile.mkdtemp(), 'doc.md')
     open(src, 'w', encoding='utf-8').write(md)
-    subprocess.run(['pandoc', src, '-o', OUT, '--toc', '--toc-depth=2', '-f', 'markdown-yaml_metadata_block+yaml_metadata_block-tex_math_dollars'],
-                   check=True)
-    print('wrote', OUT)
+    subprocess.run(['pandoc', src, '-o', out, '--toc', f'--toc-depth={toc}',
+                    '-f', 'markdown-yaml_metadata_block+yaml_metadata_block-tex_math_dollars'], check=True)
+    print('wrote', out)
+
+
+def meta(title, subtitle):
+    return (f'---\ntitle: "{title}"\nsubtitle: "{subtitle}"\n'
+            f'date: "{datetime.date.today().isoformat()}"\n---\n\n')
+
+
+def main():
+    """v8.0: two documents (user 2026-10-22): the short documentation (docs/Documentation.md, hand-written) and the
+    Methods volume (docs/methods/, one chapter per block; the equations and the data tabs as appendices)."""
+    import make_equations as EQ                       # keeps Formulas.md current (not part of the documents)
+    EQ.main()
+    d = os.path.join(HERE, 'docs')
+    doc = re.sub(r'\A# .*\n', '', open(os.path.join(d, 'Documentation.md'), encoding='utf-8').read())
+    pandoc(meta(f'CPAT-AI Mitigation Prototype v{IR.B.VERSION}', 'Documentation') + doc, OUT)
+    chapters = [open(os.path.join(d, 'methods', m), encoding='utf-8').read() for m in METHODS]
+    appx = [part('Appendix A: the model in equations', 'Equations.md'),
+            part('Appendix B: data tabs', os.path.join('docs', 'methods', 'Data_tabs.md'))]
+    pandoc(meta(f'CPAT-AI Mitigation Prototype v{IR.B.VERSION}', 'Methods') + '\n'.join(chapters + appx), METHODS_OUT)
 
 
 if __name__ == '__main__':

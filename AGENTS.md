@@ -6,20 +6,20 @@ Tool-neutral entry point (Claude, Codex, Gemini, Copilot, Cursor, ...). `CLAUDE.
 Two separate projects around the World Bank **Climate Policy Assessment Tool (CPAT)**: **Excel-AI** (`excel_ai/`, Excel prototypes replicating and extending the legacy model) and **Coded CPAT** (`coded/`, a Python reimplementation). Who reads what: [`README.md`](README.md).
 
 ## Bugs and issues: what to replicate
-**Never replicate a legacy bug; always replicate a legacy issue, and track it.** Read [`excel_ai/BUGS.md`](excel_ai/BUGS.md) and [`excel_ai/ISSUES.md`](excel_ai/ISSUES.md) first. The full rule, with the definitions of bug and issue: [`excel_ai/NORMS.md`](excel_ai/NORMS.md) section 0.
+**Never replicate a legacy bug; always replicate a legacy issue, and track it.** Read [`excel_ai/BUGS.md`](excel_ai/BUGS.md) and [`excel_ai/ISSUES.md`](excel_ai/ISSUES.md) first. The full rule, with the definitions of bug and issue: [`NORMS.md`](NORMS.md) section 0.
 
 ## Read before you start
 1. [`README.md`](README.md) - who reads what, repo map.
 2. [`NORMS.md`](NORMS.md) - rules for every task: task completion and caveats log (section 6), method vs version notes (section 7).
 3. The project's own documents:
-   - Excel: [`excel_ai/README.md`](excel_ai/README.md), [`excel_ai/NORMS.md`](excel_ai/NORMS.md) (columns, visual style guide, formulas, MTInputs, versioning), [`excel_ai/plans/TODO.md`](excel_ai/plans/TODO.md).
+   - Excel: [`excel_ai/README.md`](excel_ai/README.md), [`NORMS.md`](NORMS.md) (columns, visual style guide, formulas, MTInputs, versioning), [`excel_ai/plans/TODO.md`](excel_ai/plans/TODO.md).
    - Python: [`coded/README.md`](coded/README.md), [`coded/TODO.md`](coded/TODO.md).
 4. [`CAVEATS.md`](CAVEATS.md) - log of completed tasks and their caveats. Read before building on earlier work.
 
 ## Hard rules (summary; authority is the documents above)
 - All data live in the root folder `data/`, in subfolders, with the scripts that convert them; new data go there too (`NORMS.md` section 8, `data/README.md`).
 - The legacy workbook in `excel_ai/legacy/workbooks/` is read-only ground truth; the `CPAT_LegacyData_dummy*` files in `data/legacy_dummy/` are generated and must agree with `data/dummy/` (`NORMS.md` section 8).
-- Never edit a released workbook in place; build the next version (released workbooks are kept in `excel_ai/releases/`; `excel_ai/NORMS.md` section 5).
+- Never edit a released workbook in place; build the next version (released workbooks are kept in `excel_ai/releases/`; `NORMS.md` section 5).
 - Every finished task ends with a new entry at the bottom of `CAVEATS.md`, plus the bookkeeping in `NORMS.md` section 6. Earlier entries may be corrected (stale paths, resolved caveats) but not deleted.
 - Final methodology and version notes are always different documents (`NORMS.md` section 7). A methodology describes the current method only: no change history, no version log, no before/after columns.
 - Do not commit unless the user asks.

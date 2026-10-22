@@ -19,4 +19,4 @@
 | [`plans/`](plans/TODO.md) | The to-do list and the plans |
 | `shared/`, `templates/` | Code and templates used by every builder |
 
-Rules: [`NORMS.md`](NORMS.md) (Excel) and [`../NORMS.md`](../NORMS.md) (every task).
+Rules: [`../NORMS.md`](../NORMS.md).

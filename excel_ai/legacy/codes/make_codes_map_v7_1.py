@@ -39,7 +39,7 @@ FONT = Font(name='Arial', size=10)
 FONT_B = Font(name='Arial', size=10, bold=True)
 FONT_T = Font(name='Arial', size=14, bold=True)
 F_HEAD = PatternFill('solid', fgColor='D9D9D9')
-F_CODE = PatternFill('solid', fgColor='DCE6F1')     # code cells (excel_ai/NORMS.md 2.x colours)
+F_CODE = PatternFill('solid', fgColor='DCE6F1')     # code cells (NORMS.md 2.x colours)
 F_FLAG = PatternFill('solid', fgColor='FCE4D6')     # a deviation from legacy or from the protocol
 WRAP = Alignment(wrap_text=True, vertical='top')
 
@@ -142,7 +142,7 @@ PROTOCOL = [
      'Followed in the model rows; inputs and settings in Mitigation have no number ({leg_noscen} codes).',
      'Every model row has the number.'),
     ('C9', 'Data keys (legacy data tabs)',
-     'A data tab keeps the legacy table and its keys unchanged (paste compatibility, excel_ai/NORMS.md 1.6 '
+     'A data tab keeps the legacy table and its keys unchanged (paste compatibility, NORMS.md 1.6 '
      'rule 2): mit.<variable>.<fuel>.<sector>, no country and no scenario (Prices_dom mit.sp.coa.pow; EnergyCons '
      '<iso>.mit.enc.<fuel>; ECP <iso>.mit.ecr.<fuel>). Fuel before sector is the legacy data order; new data keys '
      'follow it. A model row that reads a data key shows the key in Input Code and its own code (C2) in Output '

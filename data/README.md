@@ -65,4 +65,4 @@ The four proprietary input tables in the legacy layout, ready to paste into the 
 
 - Only dummy data are committed. `CPAT_Data_*.xlsx` and `CPAT_LegacyData*.xlsx` are git-ignored except the dummy files; an export of real data (`--data` pointing at `REAL_DATA_PATH`) stays outside the repository.
 - When `dummy/` changes, rebuild in the same task: `workbooks/` (both formats), `legacy_dummy/` (`NORMS.md` section 8), and run `pytest tests`.
-- Every workbook a script writes passes `excel_ai/shared/excel_lint.py` (`excel_ai/NORMS.md` section 3g).
+- Every workbook a script writes passes `excel_ai/shared/excel_lint.py` (`NORMS.md` section 3g).
