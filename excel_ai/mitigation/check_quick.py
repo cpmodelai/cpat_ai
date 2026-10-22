@@ -307,7 +307,7 @@ def protocol(wbf, data):
             own = set(B.rn_body(v0, c_, b_).split('.')) if v0 in B.VAR_SFX else set()   # variable name, members
             if k.split('.')[-2] in MODEL_LETTERS and k.split('.')[-2] not in own:
                 bad7.append(k)
-            if k in seen:
+            if k in seen and r < getattr(B, 'B_EXP', 10 ** 9):   # v8.1: section 19 copies keep their code (the key)
                 dup.append(k)
             seen.add(k)
             if g == 1:
@@ -570,6 +570,11 @@ def main():
     stored_complete(B.OUT)
     vba_names()
     protocol(wbf, data)                            # v7.2 (codes R9)
+    if 'FromMitigation' in wbf.sheetnames:         # v8.1 (M2): a module tab reads Mitigation only through its input tab
+        direct = [f'Distribution!{c.coordinate}' for row in wbf['Distribution'].iter_rows() for c in row
+                  if isinstance(c.value, str) and 'Mitigation!' in c.value.replace('FromMitigation!', '')]
+        log(f'Distribution reads Mitigation only through FromMitigation (section 19a): direct references {len(direct)} '
+            f'{direct[:4]}', not direct)
     stage('LAMBDA groups and Distribution checked')
     excel_open()
     rel = last_release()

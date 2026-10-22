@@ -148,7 +148,7 @@ from openpyxl.utils import get_column_letter as L, column_index_from_string as C
 from openpyxl.utils.cell import coordinate_from_string
 from openpyxl.workbook.defined_name import DefinedName
 
-VERSION = '8.0'   # also in version.json (read by the deck builder)
+VERSION = '8.1'   # also in version.json (read by the deck builder)
 SCRIPTS_TAG = None   # v8.0: scripts and notes have stable names (releases are git tags); v7.1: a point release renames only the builder, VBA module, workbook and reports; the scripts and
                       # notes keep the tag of the full release (NORMS.md section 5)
 COUNTRY = 'EGY'   # v3.3: default of Settings C4 (user input); country data only in the data sheets, by this key
@@ -3377,21 +3377,6 @@ R_NDC, R_NDC_LAB, R_NDC_HEAD, _r = layout_blocks(NDC_BLOCKS, _r)
 R_GHG_NOTE = _r
 R_GHG['ghg.all'] = R_GHG_NOTE + 2       # total GHGs excluding LULUCF: the section's summary line
 R_GHG['ghg.chg'] = R_GHG_NOTE + 3       # v4.1: second summary row: change against scenario 1
-B_AP = R_GHG['ghg.chg'] + 2             # 15. Local air pollutants
-R_AP, R_AP_LAB = {}, {}
-_r = B_AP + 2                          # v3.9: one blank row after the band
-R_AP_HEAD = {}                         # v3.9: sub-heading row (column B) above each block's label row
-for _i, (_h, _rows) in enumerate(AP_BLOCKS):   # v4.1: one blank row before each sub-heading (the block's own)
-    R_AP_HEAD[_h] = _r
-    _r += 1
-    R_AP_LAB[_h] = _r
-    _r += 1
-    for _k, *_x in _rows:
-        R_AP[_k] = _r
-        _r += 1
-    _r += 1
-R_AP_NOTE = _r
-R_AP['ap.pm2.all'] = R_AP_NOTE + 2      # total PM2.5: the section's summary line
 AP_ROWS = [x for _h, rows_ in AP_BLOCKS for x in rows_] + [('ap.pm2.all', 'ap', 'pm2', 'all')]
 AP_LAM = ({'ap.w'} | {f'ap.{p}.{x[0]}' for p, _l in AP_POLS for x in SUBSECTORS} | {f'ap.{p}.pow' for p, _l in AP_POLS}
           | {f'apf.{p}' for p in AP_GWP}
@@ -3420,7 +3405,7 @@ GDP_BLOCKS = [
      'column where N is shown (legacy rows 16183-16194)', [('gdpy', 'gdpy', 'all', 'all')]),
     ('Memo: change in real GDP level (gdp.pos.usd - gdp.usd; legacy rows 16199-16201)',
      [('gdp.chg.usd', 'gdp.chg.usd', 'all', 'all')])]
-B_GDP = R_AP['ap.pm2.all'] + 2           # 16. GDP effects (v4.1: one blank row before the band)
+B_GDP = R_GHG['ghg.chg'] + 2             # 16. GDP effects (v8.1: right after section 14; section 15 moved to the end)
 R_GDPS, R_GDPS_LAB = {}, {}
 _r = B_GDP + 2                          # v3.9: one blank row after the band
 R_GDPS_HEAD = {}                         # v3.9: sub-heading row (column B) above each block's label row
@@ -3498,6 +3483,38 @@ B_WEL = R_CPR['ecr'] + 2               # 18. Welfare (v4.1: one blank row before
 R_WEL, R_WEL_LAB, R_WEL_HEAD, _r = layout_blocks(WEL_BLOCKS, B_WEL + 2)
 R_WEL_NOTE = _r
 R_WEL['wel.usd'] = R_WEL_NOTE + 2       # v4.1: national welfare gain, the section's summary row
+B_AP = R_WEL['wel.usd'] + 2             # 15. Local air pollutants (v8.1: last, before the exports to modules)
+R_AP, R_AP_LAB = {}, {}
+_r = B_AP + 2                          # v3.9: one blank row after the band
+R_AP_HEAD = {}                         # v3.9: sub-heading row (column B) above each block's label row
+for _i, (_h, _rows) in enumerate(AP_BLOCKS):   # v4.1: one blank row before each sub-heading (the block's own)
+    R_AP_HEAD[_h] = _r
+    _r += 1
+    R_AP_LAB[_h] = _r
+    _r += 1
+    for _k, *_x in _rows:
+        R_AP[_k] = _r
+        _r += 1
+    _r += 1
+R_AP_NOTE = _r
+R_AP['ap.pm2.all'] = R_AP_NOTE + 2      # total PM2.5: the section's summary line
+# v8.1 (Plan_Modules M2): 19. Exports to modules, after section 15. 19a Distribution: plain copies of the Mitigation rows
+# the distribution module reads (its tab FromMitigation reads only these rows; the standalone module imports them).
+B_EXP = R_AP['ap.pm2.all'] + 2
+R_EXP_HEAD = B_EXP + 2                   # sub-heading 19a
+EXP_HEADER_ROWS = [(1, 'Years (row 1)'), (5, 'Scenario numbers (row 5)')]
+DIST_EXPORT_KEYS = list(dict.fromkeys(
+    [('gdp.lcu', 'all', 'all'), ('xr', 'all', 'all'), ('pop', 'all', 'all'), ('rnew', 'all', 'all')]
+    + [('atp', f, 'res') for f in ('coa', 'nga', 'oop', 'gso', 'die', 'ker', 'lpg')] + [('rp', 'ecy', 'res')]
+    + [('rpn', 'coa', 'ind'), ('rpn', 'nga', 'ind')] + [('rpn', f, 'all') for f in ('oop', 'gso', 'die', 'lpg', 'ker')]
+    + [('rp', 'ecy', 'ind')] + [('pav.sp', f, 'all') for f in ('coa', 'nga', 'oop', 'gso', 'die', 'lpg', 'ker', 'ecy')]))
+EXP_SCALE = {'gdp.lcu': (1e9, 'LCU'), 'pop': (1e3, 'persons'), 'rnew': (1e6, 'USD')}   # to the module's base units
+R_EXP = {}
+_r = R_EXP_HEAD + 1
+for _k in [('row', str(h), '') for h, _l in EXP_HEADER_ROWS] + DIST_EXPORT_KEYS:
+    R_EXP[_k] = _r
+    _r += 1
+R_EXP_LAST = _r - 1
 WEL_SUM = [('wel.usd', 'wel', 'usd', 'all')]
 WEL_LAM = ({f'scc.{k}' for k in ('tgt', 'rkn', 'rkg', 'epa')} | {'dmg.nat', 'dmg.glo'} | {f'wdg.{f}' for f in WDG_FUELS}
            | {f'eff.{f}' for f in WDG_FUELS} | {f'mfp.{j}' for j, *_x in CH4_SOURCES}
@@ -3518,7 +3535,7 @@ SECTION_GROUPS = ([(B_POL, R_CP, R_CP), (B_PRI, R_PRI_SUM, R_PRI_SUM), (B_POW, R
                      (B_EMI, R_EMI['co2.all'], R_EMI['co2.chg']), (B_GHG, R_GHG['ghg.all'], R_GHG['ghg.chg']),
                      (B_AP, R_AP['ap.pm2.all'], R_AP['ap.pm2.all']),
                      (B_GDP, R_GDPS['gdp.eff'], R_GDPS['gdp.eff']), (B_CPR, R_CPR['ecr'], R_CPR['ecr']),
-                     (B_WEL, R_WEL['wel.usd'], R_WEL['wel.usd'])])
+                     (B_WEL, R_WEL['wel.usd'], R_WEL['wel.usd']), (B_EXP, R_EXP_LAST, R_EXP_LAST)])
 SUMMARY2 = {R_E11B['echg.all'], R_REV['rtot.chg'], R_EMI['co2.chg'], R_GHG['ghg.chg']}   # v4.1: second summary rows
 R_SEC0 = 3                              # v4.1: band of section 0 (scenario assumptions); rows R_SCEN+1..R_GDP-1 roll up
 BAND_ROWS = {2, R_SEC0} | {b for b, _t, _z in SECTION_GROUPS}
@@ -6862,7 +6879,12 @@ def build_settings(wb):
         ('8.0', '2026-10-22', 'Renamed CPAT-AI-Mitigation-Prototype (was MVP). Repository restructured: the '
                               'workbook as excel_ai/CPAT-AI-Mitigation-Prototype_latest.xlsm and, the same file, '
                               'excel_ai/releases/CPAT-AI-Mitigation-Prototype_v8.0.xlsm; scripts and notes with '
-                              'stable names. Results unchanged.')]
+                              'stable names. Results unchanged.'),
+        ('8.1', '2026-10-22', 'Modules (Plan_Modules M1-M2): one money-unit vocabulary (USD, never $); section 15 '
+                              'moved to the end; new section 19 Exports to modules (19a Distribution: plain copies, '
+                              'defined name ExportDistn); tab FromMitigation, the only Mitigation input of '
+                              'Distribution, with a scale column (no Billion/Thousand factors in Distribution). '
+                              'Results unchanged.')]
     for i, row in enumerate(log, SET_LOG + 2):
         for j, v in enumerate(row, 1):
             c_ = put(ws, f'{L(j)}{i}', v)
@@ -12484,9 +12506,10 @@ DGW = 13                                  # code column, basket, deciles 1-10, s
 DGROUPS = 2                               # v6.6: group 1 (baseline, plain formulas), group 2 (live scenario, LAMBDAs)
 DCOL_W = 9                                # v4.8: basket and decile columns (Mitigation years: COL_W)
 DCOL_OUTLINE = list('CDEFGIJK')           # v4.8: column groups as Mitigation (COL_OUTLINE): B stays visible
-DFMT_BIG = {**dict.fromkeys(['gdp', 'nacons'], '#,##0,,,"bn"'),   # v4.8: totals that do not fit the narrower
-            **dict.fromkeys(['tot_cons_na', 'pitbase', 'pitcum', 'postx', 'posti'], '#,##0.0,,,"bn"'),   # columns
-            **dict.fromkeys(['pop', 'popw', 'pop_tot_adj', 'poptot'], '#,##0.0,,"m"')}
+DFMT_BIG = {**dict.fromkeys(['gdp', 'nacons'], '#,##0,,,'),   # v4.8: totals that do not fit the narrower
+            **dict.fromkeys(['tot_cons_na', 'pitbase', 'pitcum', 'postx', 'posti'], '#,##0.0,,,'),   # columns
+            **dict.fromkeys(['pop', 'popw', 'pop_tot_adj', 'poptot'], '#,##0.0,,')}   # v8.1: scale in the unit, not the number
+DFMT_SCALE = lambda fmt: ' bn' if fmt.endswith(',,,') else ' m'   # v8.1 (user 2026-10-22): unit says the shown scale
 DIST_FUELS = [('coa', 'Coal', 'coa', ('atp', 'coa', 'res')), ('ely', 'Electricity', 'ely', ('rp', 'ecy', 'res')),
               ('nga', 'Natural gas', 'nga', ('atp', 'nga', 'res')), ('oil', 'Other oil products', 'oil',
               ('atp', 'oop', 'res')), ('gso', 'Gasoline', 'gso', ('atp', 'gso', 'res')),
@@ -12570,7 +12593,8 @@ def _dist_layout(mitrow):
         r[0] += 1
 
     R = DROW
-    mit = lambda v, f, s: f'Mitigation!$K${mitrow[(v, f, s)]}:$IZ${mitrow[(v, f, s)]}'
+    mit = lambda v, f, s: f'FromMitigation!$K${mitrow[(v, f, s)]}:$IZ${mitrow[(v, f, s)]}'   # v8.1: FromMitigation
+    scale = lambda v: f'FromMitigation!$D${mitrow[(v, "all", "all")]}'   # v8.1: scale to the base unit
     # 1. Settings
     band('1. Settings (MTInputs, distributional module assumptions)')
     for n in DIST_MT:
@@ -12625,18 +12649,18 @@ def _dist_layout(mitrow):
         m = mit('pav.sp', f_, 'all')
         row('scal', f'spend.{f_}', 'spend', f_, '', f'{lab}: spending, scenario 1, base year (legacy exp.usd.1)',
             'USD m', 'Mitigation pav.sp (fossil: $/GJ x ktoe x PJ/ktoe)',
-            f'=INDEX({m},MATCH(BaseYr,Mitigation!$K$1:$AF$1,0))' + ('*Settings!$C$13' if fossil else ''), d=grp,
+            f'=INDEX({m},MATCH(BaseYr,FromMitigation!$K$1:$AF$1,0))' + ('*Settings!$C$13' if fossil else ''), d=grp,
             fmt='#,##0')
     gap()
     head('Macro totals (local currency)')
     row('scal', 'gdp', 'gdp', '', '', 'Real GDP, baseline (local currency)', 'LCU', 'Mitigation gdp.lcu (header row 12)',
-        f'=INDEX(Mitigation!$K${R_GDPLCU}:$IZ${R_GDPLCU},{{c}}$8)*Billion', fmt='#,##0')
+        f'=INDEX({mit("gdp.lcu", "all", "all")},{{c}}$8)*{scale("gdp.lcu")}', fmt='#,##0')
     row('scal', 'pop', 'pop', '', '', 'Population', 'persons', 'Mitigation pop',
-        f'=INDEX({mit("pop", "all", "all")},{{c}}$8)*Thousand', fmt='#,##0')
+        f'=INDEX({mit("pop", "all", "all")},{{c}}$8)*{scale("pop")}', fmt='#,##0')
     gap()
     row('scal', 'rev', 'rev', '', '', 'Revenue from new policies (carbon pricing; legacy CP revenue)', 'LCU',
-        'Mitigation rnew x xr', f'=INDEX({mit("rnew", "all", "all")},{{c}}$8)*INDEX(Mitigation!$K${R_XR}:$IZ${R_XR},{{c}}$8)'
-        '*USDperM', fmt='#,##0', summary=True)
+        'Mitigation rnew x xr', f'=INDEX({mit("rnew", "all", "all")},{{c}}$8)*{scale("rnew")}'
+        f'*INDEX({mit("xr", "all", "all")},{{c}}$8)', fmt='#,##0', summary=True)
     gap()
     # 3. Indirect price changes
     band('3. Indirect price changes of consumption categories (legacy C.I)')
@@ -13127,19 +13151,90 @@ def _dist_fill(tmpl, g, col, r):
     return re.sub(r'\{([A-Za-z0-9_.]+)\}', lambda m: fills.get(m.group(1)) or str(DROW[m.group(1)]), tmpl)
 
 
+def build_exports(wb):
+    """v8.1 (Plan_Modules M2): section 19 of Mitigation, the exports to modules. 19a Distribution: one plain copy of
+    each Mitigation row the distribution module reads (every column of the scenario groups), and of the year and
+    scenario-number rows; defined name ExportDistn. Copies only: no calculation in this section (user 2026-10-22)."""
+    ws = wb['Mitigation']
+    last = COL_G0 + len(SCENARIOS) * GW - 1
+    band(ws, B_EXP, '19. Exports to modules', last)
+    subhead(ws, R_EXP_HEAD, '19a Distribution: copies of the rows the distribution module reads (tab FromMitigation; '
+                            'standalone module: Update from Mitigation)')
+    src = {}
+    for r in range(1, B_EXP):
+        a = ws.cell(r, 1).value
+        if isinstance(a, str) and a:
+            src.setdefault((a, ws.cell(r, 2).value or '', ws.cell(r, 3).value or ''), r)
+    for k, r in R_EXP.items():
+        sr = int(k[1]) if k[0] == 'row' else src[k]
+        if k[0] == 'row':
+            put(ws, f'H{r}', dict(EXP_HEADER_ROWS)[sr], FONT)
+        else:
+            for j in (1, 2, 3):
+                put(ws, f'{L(j)}{r}', ws.cell(sr, j).value, Font(name='Arial', size=10, color=C_VARNAME) if j == 1
+                    else FONT)
+            for j in (8, 9):
+                put(ws, f'{L(j)}{r}', f'={L(j)}{sr}', FONT)
+            put(ws, f'J{r}', f'Mitigation row {sr}', FONT)
+        for c in range(COL_G0, last + 1):
+            v = ws.cell(sr, c).value
+            if v is not None and not (k[0] == 'row' and c < COL_G0):
+                put(ws, f'{L(c)}{r}', f'={L(c)}{sr}', FONT, None, ws.cell(sr, c).number_format)
+    wb.defined_names['ExportDistn'] = DefinedName('ExportDistn',
+                                                  attr_text=f'Mitigation!$A${R_EXP_HEAD + 1}:${L(last)}${R_EXP_LAST}')
+
+
+FM_R0 = 8                                 # first data row of FromMitigation (rows 1 and 5: years, scenario numbers)
+FM_ROW = {k: FM_R0 + i for i, k in enumerate(DIST_EXPORT_KEYS)}
+
+
+def build_from_mitigation(wb):
+    """v8.1 (Plan_Modules M2): tab FromMitigation before Distribution, in the Mitigation column layout: the rows of
+    Mitigation section 19a (in the prototype by formula; in the standalone module as values from Update from
+    Mitigation), with the scale of each row to the module's base unit (column D) and the base unit (column E).
+    Distribution reads only this tab."""
+    ws = wb.create_sheet('FromMitigation', wb.sheetnames.index('Distribution') if 'Distribution' in wb.sheetnames
+                         else len(wb.sheetnames))
+    last = COL_G0 + len(SCENARIOS) * GW - 1
+    title(ws, 'FromMitigation - the inputs of the distribution module from Mitigation (section 19a)', last)
+    for j, h in ((1, 'Variable'), (2, 'Fuel'), (3, 'Sector'), (4, 'Scale to base unit'), (5, 'Base unit'),
+                 (8, 'Description'), (9, 'Unit (Mitigation)'), (10, 'Source')):
+        put(ws, f'{L(j)}{FM_R0 - 1}', h, FONT_B, F_INPUT)
+    span = range(COL_G0, CI_('IZ') + 1)           # every column Distribution can read (pasted groups included)
+    for (hr, _lab), fr in zip(EXP_HEADER_ROWS, (1, 5)):
+        r = R_EXP[('row', str(hr), '')]
+        for c in span:
+            put(ws, f'{L(c)}{fr}', f'=Mitigation!{L(c)}{r}', FONT_B, None, '0')
+    put(ws, 'H1', 'Year', FONT_B)
+    put(ws, 'H5', 'Scenario number', FONT_B)
+    for k, fr in FM_ROW.items():
+        r = R_EXP[k]
+        sc, base = EXP_SCALE.get(k[0], (1, ''))
+        put(ws, f'A{fr}', rn_var(k[0]), Font(name='Arial', size=10, color=C_VARNAME))
+        put(ws, f'B{fr}', k[1])
+        put(ws, f'C{fr}', k[2])
+        put(ws, f'D{fr}', sc, FONT, F_INPUT, '0E+0' if sc != 1 else '0')
+        put(ws, f'E{fr}', base or None)
+        put(ws, f'H{fr}', f'=Mitigation!H{r}')
+        put(ws, f'I{fr}', f'=Mitigation!I{r}')
+        put(ws, f'J{fr}', 'Mitigation section 19a')
+        for c in span:
+            put(ws, f'{L(c)}{fr}', f'=Mitigation!{L(c)}{r}', FONT, None,
+                wb['Mitigation'].cell(r, min(c, last)).number_format)
+    ws.freeze_panes = f'{L(COL_G0)}{FM_R0}'
+    ws.column_dimensions['H'].width = 50
+    return ws
+
+
 def build_distribution(wb):
     """v4.4: sheet Distribution (NORMS 1.1b): sections 1-9; v6.6: group 1 plain formulas, group 2 (the live scenario)
     named LAMBDAs; more groups by copy-paste of group 2."""
     ws = wb.create_sheet('Distribution')
-    wm = wb['Mitigation']
-    mitrow = {}
-    for r in range(1, wm.max_row + 1):
-        a = wm.cell(r, 1).value
-        if isinstance(a, str) and a:
-            mitrow.setdefault((a, wm.cell(r, 2).value or '', wm.cell(r, 3).value or ''), r)
-    for key in (('atp', 'coa', 'res'), ('rp', 'ecy', 'res'), ('rpn', 'coa', 'ind'), ('rpn', 'oop', 'all'),
-                ('pav.sp', 'ecy', 'all'), ('pop', 'all', 'all'), ('rnew', 'all', 'all')):
-        assert key in mitrow, key
+    build_exports(wb)                              # v8.1: Mitigation section 19a and tab FromMitigation
+    build_from_mitigation(wb)
+    mitrow = dict(FM_ROW)                          # v8.1: Distribution reads FromMitigation only
+    used = {x[3] for x in DIST_FUELS} | {x[3] for x in DIST_MITFUEL} | {('pav.sp', x[0], 'all') for x in DIST_MITFUEL}
+    assert used <= set(mitrow), used - set(mitrow)
     last_row = _dist_layout(mitrow)
     last_col = dist_group_cols(DGROUPS)[3]
     title(ws, 'Distribution - household incidence of the scenario in the analysis year (deciles across)', last_col)
@@ -13174,7 +13269,7 @@ def build_distribution(wb):
             if k == 0:
                 put(ws, f'{col}{R_DPOS}', f'=COUNTIF(${L(COL_G0)}$1:{cc}$1,"*output code")', FONT, None, '0')
                 put(ws, f'{col}{R_DYEAR}', f'={col}${DROW["YearDistn"]}', FONT_B, None, '0')
-                put(ws, f'{col}{R_DMCOL1}', f'=MATCH({col}${R_DYEAR},Mitigation!$K$1:$AF$1,0)', FONT, None, '0')
+                put(ws, f'{col}{R_DMCOL1}', f'=MATCH({col}${R_DYEAR},FromMitigation!$K$1:$AF$1,0)', FONT, None, '0')
                 put(ws, f'{col}{R_DMCOL}', f'={col}${R_DMCOL1}+({col}${R_DPOS}-1)*MitGW', FONT, None, '0')
                 put(ws, f'{col}{R_DSTAT}', f'={col}${DROW["QuantilesStatistic"]}', FONT)
             else:
@@ -13187,7 +13282,9 @@ def build_distribution(wb):
         subhead(ws, r_, text)
     lam_test = []
     for (r, kind, key, a, b, c, d, e, desc, unit, src, fmt, plain, lam) in DSPEC:
-        fmt = DFMT_BIG.get(a, fmt)                # v4.8: large totals shown in bn / m (values unchanged)
+        if a in DFMT_BIG:                         # v4.8: large totals shown in bn / m (values unchanged); v8.1: the
+            unit = f'{unit}{DFMT_SCALE(DFMT_BIG[a])}'   # unit column says it (no "bn" text in the number format)
+        fmt = DFMT_BIG.get(a, fmt)
         put(ws, f'A{r}', a, Font(name='Arial', size=10, color=C_VARNAME))
         put(ws, f'B{r}', b)
         put(ws, f'C{r}', c)
@@ -13798,7 +13895,7 @@ def main():
     assert not clash, f'defined names clash with LAMBDA names (case-insensitive): {clash}'
     for name, ref in {**defined_names(), **dist_names()}.items():
         wb.defined_names[name] = DefinedName(name, attr_text=ref)
-    order = (['Cover', 'ScenarioCompare', 'ScenarioDefinition', 'MAIN->>', 'Mitigation', 'Distribution', 'LiveOutputs',
+    order = (['Cover', 'ScenarioCompare', 'ScenarioDefinition', 'MAIN->>', 'Mitigation', 'FromMitigation', 'Distribution', 'LiveOutputs',
               'StoredOutputs', 'INPUTS->>', 'Manual inputs', 'Settings', 'Inputs', 'Inputs_prices', 'Inputs_power', 'Inputs_ef', 'Inputs_ela', 'Inputs_mult', 'Inputs_macro', 'Inputs_pint', 'Inputs_ecp', 'Inputs_pset',
               'Inputs_ptech', 'Inputs_ppath', 'Inputs_ppar', 'Mapping',
               'Constants', 'REF->>', 'VersionLog', 'ReadMe', 'LegacyDiff', 'Lambdas', 'Variables', 'MacroCheck']
@@ -13942,7 +14039,7 @@ MERGES = [('Inputs', ['Inputs', 'Inputs_prices', 'Inputs_power', 'Inputs_ef', 'I
           (TAB_REF, ['VersionLog', 'ReadMe', 'LegacyDiff']),
           (TAB_CHECK, ['Variables', 'Lambdas', 'MacroCheck'])]   # v5.3 (user): MacroCheck last, so the 300 rows the
 MERGE_GAP = 3                                                    # macro clears below its report end the tab
-TAB_ORDER = ['Cover', 'ScenarioCompare', 'ScenarioDefinition', 'MAIN->>', 'Mitigation', 'Distribution', 'LiveOutputs',
+TAB_ORDER = ['Cover', 'ScenarioCompare', 'ScenarioDefinition', 'MAIN->>', 'Mitigation', 'FromMitigation', 'Distribution', 'LiveOutputs',
              'StoredOutputs', 'INPUTS->>', 'Manual inputs', 'Settings', 'Inputs', 'DATA_MITIGATION->>']   # v4.2: then the data tabs, REF
 # v4.5 (user request 2026-10-17): data tabs grouped by module and ordered as legacy CPAT (DATA_MITIGATION->,
 # DATA_DISTN->, DATA_TRAN->, DATA_OUTPUT->); tabs with no legacy data tab last (DATA_OTHER)
