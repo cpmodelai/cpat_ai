@@ -1,7 +1,7 @@
 Checked 2026-10-22 against CPAT 1.0pre_465 - No Prop Data.xlsb, by comparing every cell of the register's cell plans
 (baseline row, filled range and policy-block copy) with the 456 file the register was written from. Cell references
-below are the register's (456) cells; from about row 5590 down, rows in 465 sit 15 rows higher (e.g. 456 row 7897 is
-465 row 7883; policy block +6,316 instead of +6,331).
+below are 465 cells (as the bug fix plan since 2026-10-22): Mitigation rows up to 5666 are as in 456, later rows sit
+11 to 15 rows higher (e.g. 456 row 7897 is 465 row 7883); the policy block sits +6,316 below the baseline.
 
 Where the results are: the bug fix plan (CPAT-AI-Mitigation-MVP_BugsAndIssues_v7.1.5_fixedbugs.docx) has the
 confirmed bugs moved whole to Appendix C (last) and those with caveats to Appendix B, each with a red note; the log
@@ -51,16 +51,16 @@ L102 (manual non-energy elasticities can never take effect: cell K366)
 L105 (dashboard industry feebate rates are lost: cell MTInputs!E56)
 L106 (manual inputs memo swaps the renewables and electricity price elasticities)
 L107 (start year of the extra renewable subsidy reuses the consumer-subsidy phase-out year: cell mitE2736)
-L108 (renewable subsidy cost counts the base subsidy twice: cell mitL7897)
+L108 (renewable subsidy cost counts the base subsidy twice: cell mitL7883)
 L110 (power revenue rebate counts VAT that was never collected: cell mitL3663)
 L111 (manual electricity excise counts the whole excise: cell mitL3660)
-L112 (policy shadow-price rows read the baseline carbon price: cell mitL8708); the switch still reads $D$2369, which is the same formula as the policy switch (both from G259)
+L112 (policy shadow-price rows read the baseline carbon price: cell mitL8693); the switch still reads $D$2369, which is the same formula as the policy switch (both from G259)
 L113 (power switches tested for the exact “Yes”: cell G261)
 L118 (need net of manual power investment never used: cell mitL4110)
 L124 (residential gas producer subsidy reads the oil subsidy: cell mitN2547); K2547:N2547 and the policy copy now read row 826 (the L82 change); moved here from caveats
 L125 (other oil products add a per-liter value to a per-barrel price: cell mitK2685); exactly the planned fix; moved here from caveats
 L126 (fuel price for power averages later years: cell mitL3155)
-L128 (net revenue report rows read the next year: cell mitK6252)
+L128 (net revenue report rows read the next year: cell mitK6238)
 
 Fixed with caveats (12)
 
