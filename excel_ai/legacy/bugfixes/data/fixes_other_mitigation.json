@@ -1,0 +1,873 @@
+[
+ {
+  "id": "L13",
+  "pri": "High",
+  "title": "Other oil products: hardcoded pass-through 1 and margin 0",
+  "where": "Mitigation price-parameter table, row 759 (oop.all)",
+  "why": "Row 759 holds typed constants: raw price-control coefficient M759 = 1 and margin O759 = 0, while every other oil product (rows 755-758) reads both from the IMF price dataset.",
+  "fixes": [
+   {
+    "cell": "M759",
+    "now": "1",
+    "new": "=IFERROR(AVERAGE(INDEX(_prices_main,MATCH(_Country_code & FirstYearCalculations,_prices_country_years,0),MATCH(M$745 & \".\" & $G759,_prices_codes,0))),1)",
+    "fill": "single cell",
+    "policy": "none (above the scenario blocks)"
+   },
+   {
+    "cell": "O759",
+    "now": "0",
+    "new": "=IFERROR(AVERAGE(INDEX(_prices_main,MATCH(_Country_code & FirstYearCalculations, _prices_country_years,0),MATCH(O$745 & \".\" & $G759,_prices_codes,0))),0)",
+    "fill": "single cell",
+    "policy": "none (above the scenario blocks)"
+   }
+  ],
+  "ref": "M758 and O758 (kerosene), the same formulas with $G758. IFERROR keeps the old constant if the dataset has no oop entry.",
+  "effect": "Egypt: pass-through 0 and margin about 7.95 $/bbl from the dataset (as the MVP). The other-oil-products retail price no longer falls with the oil price to the floor, and the tenfold rise in their fuel use by 2030 goes away.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L20",
+  "pri": "High",
+  "title": "Population growth path",
+  "where": "Mitigation row 428 (feeds 429, 481, 2428, 6210 and the policy block)",
+  "why": "From 2026 the population row carries 2% a year, then 3% (2030) and 4% (2031 on, by repeating the last growth): Egypt 185.2 million in 2041. The legacy sheet UNPop (UN WPP 2024) gives 147.0 million.",
+  "fixes": [
+   {
+    "cell": "P428",
+    "now": "=IF($E$413,IF(P$415<=$F428,INDEX(WEO_upd,$I428,MATCH(P$415,WEO_years,0)),O428*(1+P429)),IF(P$415<=$F428,INDEX(WDI_data,$I428,MATCH(P$415,WDI_years,0))/10^6,O428*(1+P429)))",
+    "new": "=O428*INDEX(UNPop!$E$7:$AJ$243,MATCH(LOWER(_Country_code)&\".lp\",UNPop!$B$7:$B$243,0),MATCH(P$415,UNPop!$E$6:$AJ$6,0))/INDEX(UNPop!$E$7:$AJ$243,MATCH(LOWER(_Country_code)&\".lp\",UNPop!$B$7:$B$243,0),MATCH(O$415,UNPop!$E$6:$AJ$6,0))",
+    "fill": "P428:AE428 (2026-2041); K428:O428 stay as data",
+    "policy": "none (above the scenario blocks)"
+   }
+  ],
+  "ref": "Sheet UNPop, row egy.lp (UN World Population Prospects 2024), already in legacy. Growth is chained on the 2025 WEO level so there is no break in 2026.",
+  "effect": "Egypt population 2040: 178.1 to 132.4 million; 2041: 185.2 to 134.0 million. Rows 429, 481 and 2428 follow automatically, so agriculture, waste and per-capita GDP drivers fall after 2026.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L24",
+  "pri": "High",
+  "title": "GDP effect added to GDP growth every year",
+  "where": "Mitigation rows 2443 and 2446",
+  "why": "Post-policy growth = g + e (row 2446 = SUM(2444:2445)), so a steady GDP level effect e adds e to growth every year and compounds; row 2443 then chains on the pre-policy level.",
+  "fixes": [
+   {
+    "cell": "L2446",
+    "now": "=SUM(L2444:L2445)",
+    "new": "=(1+L2444)*(1+L2445)/(1+K2445)-1",
+    "fill": "L2446:AE2446",
+    "policy": "paste into L8777:AE8777 (+6,331)"
+   },
+   {
+    "cell": "L2443",
+    "now": "=K2442*(1+L2446)",
+    "new": "=L2442*(1+L2445)",
+    "fill": "L2443:AE2443",
+    "policy": "paste into L8774:AE8774 (+6,331)"
+   }
+  ],
+  "ref": "Row 2445 is already the level effect lagged one year (= previous year of row 8288); the fix uses it as a level, as the label of 2443 (\"GDP post-policy\") says.",
+  "effect": "No change on the NoPropData file (row 8288 is stripped to 0). With a steady effect of 0.5%, GDP is +0.5% instead of about +10% after 20 years.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L18",
+  "pri": "High",
+  "title": "Non-energy methane never changes",
+  "where": "Mitigation rows 6172-6227",
+  "why": "Not reproduced in this file. Livestock, rice and waste production grow with income and population (rows 6212-6214), emissions apply (1 - abatement share) (rows 6217, 6220, 6226), and the reported inventory rows read them from 2024 (7572 = 7308, 7582 = 7309). Cached Egypt values: agriculture CH4 15.8 (2022) to 28.9 Mt CO2e (2040), waste 35.1 to 59.1.",
+  "fixes": [],
+  "ref": "n/a",
+  "effect": "None.",
+  "note": "No cell to change for L18. Mark the register entry as \"not reproduced in CPAT 1.0pre_456\". A related defect that does exist is listed as N1 below.",
+  "status": "none"
+ },
+ {
+  "id": "L19",
+  "pri": "High",
+  "title": "Flaring CO2 counted as methane",
+  "where": "Mitigation rows 6156, 7561, 7608",
+  "why": "Row 6156 adds the flaring CO2 (row 6155) divided by the CH4 GWP ($I$1030) to the oil-and-gas CH4 row, so CO2 is reported as methane.",
+  "fixes": [
+   {
+    "cell": "L6156",
+    "now": "= L6154 + L6155 / $I$1030",
+    "new": "=L6154",
+    "fill": "L6156:AE6156",
+    "policy": "paste into L12473:AE12473 (+6,317)"
+   },
+   {
+    "cell": "L7561",
+    "now": "=L6602",
+    "new": "=L6602+L6155",
+    "fill": "L7561:AE7561 (energy CO2 in the inventory table)",
+    "policy": "paste into L13878:AE13878 (+6,317)"
+   },
+   {
+    "cell": "L7608",
+    "now": "=L6587+L7452*$B7562",
+    "new": "=L6587+L7452*$B7562+L6155",
+    "fill": "L7608:AE7608 (power sector GHGs, where legacy books oil and gas extraction CH4, row 7223)",
+    "policy": "paste into L13925:AE13925 (+6,317)"
+   }
+  ],
+  "ref": "Row 6155 is already in Mt CO2 (44/16 x flared CH4). Adding it to both 7561 and 7608 keeps legacy's own check in B7640 (\"OK\" when the by-sector and by-gas totals agree).",
+  "effect": "None in the baseline (row 6155 = 0). With a methane fee on oil and gas, CH4 falls by the flared amount and CO2 rises by 44/16 of it; fee revenue (row 6157) is charged on methane only.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L15",
+  "pri": "Medium",
+  "title": "ETS: hardcoded relative price 1.1",
+  "where": "Mitigation D1843",
+  "why": "Not reproduced in this file. D1843 = (1+E1811*$E$1812)/(1+D1813*$E$1812) reads the volatility (0.42), impact (0.5) and policy-risk (0.2) inputs; 1.1 is the result, not a constant.",
+  "fixes": [],
+  "ref": "n/a",
+  "effect": "None.",
+  "note": "No cell to change. Mark the register entry as \"not reproduced\"; the MVP volatility adjustment (1/1.1) equals legacy.",
+  "status": "none"
+ },
+ {
+  "id": "L16",
+  "pri": "Medium",
+  "title": "ETS quick estimate linear in the semi-elasticity",
+  "where": "Mitigation row 1868",
+  "why": "The quick price estimate divides the reduction by the semi-elasticity. In the NoPropData file L1868:AE1868 hold stored zeros (formula stripped); in a full file they hold the linear quotient.",
+  "fixes": [
+   {
+    "cell": "L1868",
+    "now": "0",
+    "new": "=IF(L1867=0,0,LN(1+L1860)/L1867)",
+    "fill": "L1868:AE1868",
+    "policy": "none (above the scenario blocks)"
+   }
+  ],
+  "ref": "Row 1867 is the adjusted semi-elasticity (dlnE per $/t); row 1860 is the reduction left for the ETS as a share. Legacy's own note on rows 1875-1885 says \"arguably exp/ln\".",
+  "effect": "Only the starting price of the ETS goal seek changes (closer to the solution for large cuts); converged results do not change.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L21",
+  "pri": "Medium",
+  "title": "Waste abated with the livestock curve",
+  "where": "Mitigation row 6206",
+  "why": "Waste reduction = M6182 (livestock share) although the waste curve inputs (rows 6200-6204) are computed.",
+  "fixes": [
+   {
+    "cell": "L6206",
+    "now": "=L6182",
+    "new": "=MAX(0,MIN(1,$L6202*L6204^$M6202))",
+    "fill": "L6206:AE6206",
+    "policy": "paste into L12523:AE12523 (+6,317)"
+   }
+  ],
+  "ref": "Rows 6182 (livestock) and 6194 (rice): = MAX(0, MIN(1, $L curve x fee ^ $M curve)).",
+  "effect": "None in the baseline (no methane fee). With a fee, waste CH4 follows its own abatement curve.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L22",
+  "pri": "Medium",
+  "title": "Navigation missing from the local pollutant totals",
+  "where": "Mitigation pollutant blocks (sections 13-14)",
+  "why": "Each pollutant block has transport rows rod gso/die/lpg/ker/nga, ral die and avi jfu, but no navigation row, so navigation never enters the transport, \"Other\" or total rows. This cannot be fixed by editing an existing cell.",
+  "fixes": [],
+  "ref": "The \"ral die\" row of the same block (e.g. 6822 for SO2) for the formula; navigation fuel use is rows 5508-5515.",
+  "effect": "Adds navigation emissions (Egypt navigation: about 291 ktoe of other oil products in 2022).",
+  "note": "Steps, in the 8 pollutant blocks (PM2.5 6604, NOx 6706, SO2 6808, VOC 6910, BC 7012, OC 7114, CH4 7216, CO 7323) of the baseline and of the policy block (+6,317): (1) select the \"avi jfu\" row (6619, 6721, 6823, 6925, 7027, 7129, 7232, 7338) and insert one row above it, so the transport SUM ranges and the totals expand by themselves; (2) in the new row type B = \"nav\", C = \"oop\" and copy the year formula of the \"ral die\" row directly above; (3) add the new cell to the \"Other\" (oth) air-pollution row of the block (6700, 6802, 6904, 7006, 7108, 7210, 7419; CH4: no such row). Do all baseline blocks first, then the policy blocks, and check that BaselineFirstRow/PolicyScenarioFirstRow moved with them. In the NoPropData file every emission row holds 0 (GAINS factors stripped), so check the copied formula in the full file.",
+  "status": "struct"
+ },
+ {
+  "id": "L42",
+  "pri": "Medium",
+  "title": "Domestic aviation: GDP growth and shock swapped",
+  "where": "Mitigation rows 5483-5490, 5492 (5491: see L47)",
+  "why": "Aviation rows raise the shock (1+M2439) to eps_Y x income factor and multiply by (1+M2446) with elasticity 1; coal and gas multiply by (1+M2439) a second time; jet fuel uses the diesel income elasticity _el_inc_die_rod.",
+  "fixes": [
+   {
+    "cell": "M5483",
+    "now": "=L5483*((1+M2439)^(_el_inc_coa_rod*M2433))*(1+M2446)*((M5472/L5472)^_el_dem_coa_rod)*((((M5472+M2379*M2406)/(L5472+L2379*L2406))^(_el_eff_coa_rod))/(1+_eff_imp_coa_rod+$M2199))^(1+_el_dem_coa_rod)*(1+M2439)",
+    "new": "=L5483*((1+M2446)^(_el_inc_coa_rod*M2433))*(1+M2439)*((M5472/L5472)^_el_dem_coa_rod)*((((M5472+M2379*M2406)/(L5472+L2379*L2406))^(_el_eff_coa_rod))/(1+_eff_imp_coa_rod+$M2199))^(1+_el_dem_coa_rod)",
+    "fill": "M5483:AE5483",
+    "policy": "paste into M11814:AE11814 (+6,331)"
+   },
+   {
+    "cell": "M5484",
+    "now": "=L5484*((1+M2439)^(_el_inc_nga_rod*M2433))*(1+M2446)*((M5473/L5473)^_el_dem_nga_rod)*((((M5473+M2382*M2406)/(L5473+L2382*L2406))^(_el_eff_nga_rod))/(1+_eff_imp_nga_rod+$M2199))^(1+_el_dem_nga_rod)*(1+M2439)",
+    "new": "=L5484*((1+M2446)^(_el_inc_nga_rod*M2433))*(1+M2439)*((M5473/L5473)^_el_dem_nga_rod)*((((M5473+M2382*M2406)/(L5473+L2382*L2406))^(_el_eff_nga_rod))/(1+_eff_imp_nga_rod+$M2199))^(1+_el_dem_nga_rod)",
+    "fill": "M5484:AE5484",
+    "policy": "paste into M11815:AE11815 (+6,331)"
+   },
+   {
+    "cell": "M5485",
+    "now": "=L5485*((1+M2439)^(_el_inc_gso_rod*M2433))*(1+M2446)*((M5474/L5474)^_el_dem_gso_rod)*((((M5474+M2383*M2406)/(L5474+L2383*L2406))^(_el_eff_gso_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_gso_rod)",
+    "new": "=L5485*((1+M2446)^(_el_inc_gso_rod*M2433))*(1+M2439)*((M5474/L5474)^_el_dem_gso_rod)*((((M5474+M2383*M2406)/(L5474+L2383*L2406))^(_el_eff_gso_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_gso_rod)",
+    "fill": "M5485:AE5485",
+    "policy": "paste into M11816:AE11816 (+6,331)"
+   },
+   {
+    "cell": "M5486",
+    "now": "=L5486*((1+M2439)^(_el_inc_die_rod*M2433))*(1+M2446)*((M5475/L5475)^_el_dem_die_rod)*((((M5475+M2384*M2406)/(L5475+L2384*L2406))^(_el_eff_die_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_die_rod)",
+    "new": "=L5486*((1+M2446)^(_el_inc_die_rod*M2433))*(1+M2439)*((M5475/L5475)^_el_dem_die_rod)*((((M5475+M2384*M2406)/(L5475+L2384*L2406))^(_el_eff_die_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_die_rod)",
+    "fill": "M5486:AE5486",
+    "policy": "paste into M11817:AE11817 (+6,331)"
+   },
+   {
+    "cell": "M5487",
+    "now": "=L5487*((1+M2439)^(_el_inc_oil_rod*M2433))*(1+M2446)*((M5476/L5476)^_el_dem_oil_rod)*((((M5476+M2385*M2406)/(L5476+L2385*L2406))^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_oil_rod)",
+    "new": "=L5487*((1+M2446)^(_el_inc_oil_rod*M2433))*(1+M2439)*((M5476/L5476)^_el_dem_oil_rod)*((((M5476+M2385*M2406)/(L5476+L2385*L2406))^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_oil_rod)",
+    "fill": "M5487:AE5487",
+    "policy": "paste into M11818:AE11818 (+6,331)"
+   },
+   {
+    "cell": "M5488",
+    "now": "=L5488*((1+M2439)^(_el_inc_oil_rod*M2433))*(1+M2446)*((M5477/L5477)^_el_dem_oil_rod)*((((M5477+M2386*M2406)/(L5477+L2386*L2406))^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_oil_rod)",
+    "new": "=L5488*((1+M2446)^(_el_inc_oil_rod*M2433))*(1+M2439)*((M5477/L5477)^_el_dem_oil_rod)*((((M5477+M2386*M2406)/(L5477+L2386*L2406))^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_oil_rod)",
+    "fill": "M5488:AE5488",
+    "policy": "paste into M11819:AE11819 (+6,331)"
+   },
+   {
+    "cell": "M5489",
+    "now": "=L5489*((1+M2439)^(_el_inc_oil_rod*M2433))*(1+M2446)*((M5478/L5478)^_el_dem_oil_rod)*((((M5478+M2387*M2406)/(L5478+L2387*L2406))^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_oil_rod)",
+    "new": "=L5489*((1+M2446)^(_el_inc_oil_rod*M2433))*(1+M2439)*((M5478/L5478)^_el_dem_oil_rod)*((((M5478+M2387*M2406)/(L5478+L2387*L2406))^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_oil_rod)",
+    "fill": "M5489:AE5489",
+    "policy": "paste into M11820:AE11820 (+6,331)"
+   },
+   {
+    "cell": "M5490",
+    "now": "=L5490*((1+M2439)^(_el_inc_bio_rod*M2433))*(1+M2446)*((M5479/L5479)^_el_dem_bio_rod)*((((M5479+M2388*M2406)/(L5479+L2388*L2406))^(_el_eff_bio_rod))/(1+_eff_imp_bio_rod+$M2199))^(1+_el_dem_bio_rod)",
+    "new": "=L5490*((1+M2446)^(_el_inc_bio_rod*M2433))*(1+M2439)*((M5479/L5479)^_el_dem_bio_rod)*((((M5479+M2388*M2406)/(L5479+L2388*L2406))^(_el_eff_bio_rod))/(1+_eff_imp_bio_rod+$M2199))^(1+_el_dem_bio_rod)",
+    "fill": "M5490:AE5490",
+    "policy": "paste into M11821:AE11821 (+6,331)"
+   },
+   {
+    "cell": "M5492",
+    "now": "=L5492*((1+M2439)^(_el_inc_die_rod*M2433))*(1+M2446)*((M5477/L5477)^_el_dem_oil_rod)*((((M5477+M2386*M2406)/(L5477+L2386*L2406))^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_oil_rod)",
+    "new": "=L5492*((1+M2446)^(_el_inc_oil_rod*M2433))*(1+M2439)*((M5477/L5477)^_el_dem_oil_rod)*((((M5477+M2386*M2406)/(L5477+L2386*L2406))^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_oil_rod)",
+    "fill": "M5492:AE5492",
+    "policy": "paste into M11823:AE11823 (+6,331)"
+   }
+  ],
+  "ref": "Standard row 5399 (road diesel): L x (1+M2446)^(eps_Y x M2433) x (1+M2439) x price terms. Jet fuel takes the oil income elasticity, as its other elasticities (_el_dem_oil_rod, _el_eff_oil_rod) already do.",
+  "effect": "Egypt jet fuel (707 ktoe in 2022): the 2023-2024 shock now enters in full (-20.8%, +9.2%) and GDP growth with eps_Y x income factor; the repo survey (Sector_Equations_Survey) puts the standard form at x0.90 (2023), x0.82 (2030) and x0.68 (2040) of legacy. Other aviation fuels are 0 for Egypt.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L43",
+  "pri": "Medium",
+  "title": "Other energy use: no GDP growth",
+  "where": "Mitigation rows 6077-6085 (policy 12394-12402)",
+  "why": "The income-factor reference is M2440, a blank row, so (1+g)^(eps_Y x 0) = 1: other energy use never grows with GDP. Rows 6077-6084 also lack the additional-efficiency term $M2201 that row 6085 and all industry rows have.",
+  "fixes": [
+   {
+    "cell": "M6077",
+    "now": "=L6077*((1+M2446)^(_el_inc_coa_ind*M2440))*(1+M2439)*((M6066/L6066)^_el_dem_coa_ind)*((((M6066+M2379*M2419)/(L6066+L2379*L2419))^(_el_eff_coa_ind))/(1+_eff_imp_coa_ind))^(1+_el_dem_coa_ind)",
+    "new": "=L6077*((1+M2446)^(_el_inc_coa_ind*M2433))*(1+M2439)*((M6066/L6066)^_el_dem_coa_ind)*((((M6066+M2379*M2419)/(L6066+L2379*L2419))^(_el_eff_coa_ind))/(1+_eff_imp_coa_ind+$M2201))^(1+_el_dem_coa_ind)",
+    "fill": "M6077:AE6077",
+    "policy": "policy row 12394: same edit with M8764 for M2433 and $M8532 for $M2201 (do not paste: this block is +6,317 but its drivers are +6,331)"
+   },
+   {
+    "cell": "M6078",
+    "now": "=L6078*((1+M2446)^(_el_inc_nga_ind*M2440))*(1+M2439)*((M6067/L6067)^_el_dem_nga_ind)*((((M6067+M2382*M2419)/(L6067+L2382*L2419))^(_el_eff_nga_ind))/(1+_eff_imp_nga_ind))^(1+_el_dem_nga_ind)",
+    "new": "=L6078*((1+M2446)^(_el_inc_nga_ind*M2433))*(1+M2439)*((M6067/L6067)^_el_dem_nga_ind)*((((M6067+M2382*M2419)/(L6067+L2382*L2419))^(_el_eff_nga_ind))/(1+_eff_imp_nga_ind+$M2201))^(1+_el_dem_nga_ind)",
+    "fill": "M6078:AE6078",
+    "policy": "policy row 12395: same edit with M8764 for M2433 and $M8532 for $M2201 (do not paste: this block is +6,317 but its drivers are +6,331)"
+   },
+   {
+    "cell": "M6079",
+    "now": "=L6079*((1+M2446)^(_el_inc_gso_ind*M2440))*(1+M2439)*((M6068/L6068)^_el_dem_gso_ind)*((((M6068+M2383*M2419)/(L6068+L2383*L2419))^(_el_eff_gso_ind))/(1+_eff_imp_oil_ind))^(1+_el_dem_gso_ind)",
+    "new": "=L6079*((1+M2446)^(_el_inc_gso_ind*M2433))*(1+M2439)*((M6068/L6068)^_el_dem_gso_ind)*((((M6068+M2383*M2419)/(L6068+L2383*L2419))^(_el_eff_gso_ind))/(1+_eff_imp_oil_ind+$M2201))^(1+_el_dem_gso_ind)",
+    "fill": "M6079:AE6079",
+    "policy": "policy row 12396: same edit with M8764 for M2433 and $M8532 for $M2201 (do not paste: this block is +6,317 but its drivers are +6,331)"
+   },
+   {
+    "cell": "M6080",
+    "now": "=L6080*((1+M2446)^(_el_inc_die_ind*M2440))*(1+M2439)*((M6069/L6069)^_el_dem_die_ind)*((((M6069+M2384*M2419)/(L6069+L2384*L2419))^(_el_eff_die_ind))/(1+_eff_imp_oil_ind))^(1+_el_dem_die_ind)",
+    "new": "=L6080*((1+M2446)^(_el_inc_die_ind*M2433))*(1+M2439)*((M6069/L6069)^_el_dem_die_ind)*((((M6069+M2384*M2419)/(L6069+L2384*L2419))^(_el_eff_die_ind))/(1+_eff_imp_oil_ind+$M2201))^(1+_el_dem_die_ind)",
+    "fill": "M6080:AE6080",
+    "policy": "policy row 12397: same edit with M8764 for M2433 and $M8532 for $M2201 (do not paste: this block is +6,317 but its drivers are +6,331)"
+   },
+   {
+    "cell": "M6081",
+    "now": "=L6081*((1+M2446)^(_el_inc_oil_ind*M2440))*(1+M2439)*((M6070/L6070)^_el_dem_oil_ind)*((((M6070+M2385*M2419)/(L6070+L2385*L2419))^(_el_eff_oil_ind))/(1+_eff_imp_oil_ind))^(1+_el_dem_oil_ind)",
+    "new": "=L6081*((1+M2446)^(_el_inc_oil_ind*M2433))*(1+M2439)*((M6070/L6070)^_el_dem_oil_ind)*((((M6070+M2385*M2419)/(L6070+L2385*L2419))^(_el_eff_oil_ind))/(1+_eff_imp_oil_ind+$M2201))^(1+_el_dem_oil_ind)",
+    "fill": "M6081:AE6081",
+    "policy": "policy row 12398: same edit with M8764 for M2433 and $M8532 for $M2201 (do not paste: this block is +6,317 but its drivers are +6,331)"
+   },
+   {
+    "cell": "M6082",
+    "now": "=L6082*((1+M2446)^(_el_inc_oil_ind*M2440))*(1+M2439)*((M6071/L6071)^_el_dem_oil_ind)*((((M6071+M2386*M2419)/(L6071+L2386*L2419))^(_el_eff_oil_ind))/(1+_eff_imp_oil_ind))^(1+_el_dem_oil_ind)",
+    "new": "=L6082*((1+M2446)^(_el_inc_oil_ind*M2433))*(1+M2439)*((M6071/L6071)^_el_dem_oil_ind)*((((M6071+M2386*M2419)/(L6071+L2386*L2419))^(_el_eff_oil_ind))/(1+_eff_imp_oil_ind+$M2201))^(1+_el_dem_oil_ind)",
+    "fill": "M6082:AE6082",
+    "policy": "policy row 12399: same edit with M8764 for M2433 and $M8532 for $M2201 (do not paste: this block is +6,317 but its drivers are +6,331)"
+   },
+   {
+    "cell": "M6083",
+    "now": "=L6083*((1+M2446)^(_el_inc_oil_ind*M2440))*(1+M2439)*((M6072/L6072)^_el_dem_oil_ind)*((((M6072+M2387*M2419)/(L6072+L2387*L2419))^(_el_eff_oil_ind))/(1+_eff_imp_oil_ind))^(1+_el_dem_oil_ind)",
+    "new": "=L6083*((1+M2446)^(_el_inc_oil_ind*M2433))*(1+M2439)*((M6072/L6072)^_el_dem_oil_ind)*((((M6072+M2387*M2419)/(L6072+L2387*L2419))^(_el_eff_oil_ind))/(1+_eff_imp_oil_ind+$M2201))^(1+_el_dem_oil_ind)",
+    "fill": "M6083:AE6083",
+    "policy": "policy row 12400: same edit with M8764 for M2433 and $M8532 for $M2201 (do not paste: this block is +6,317 but its drivers are +6,331)"
+   },
+   {
+    "cell": "M6084",
+    "now": "=L6084*((1+M2446)^(_el_inc_bio_ind*M2440))*(1+M2439)*((M6073/L6073)^_el_dem_bio_ind)*((((M6073+M2388*M2419)/(L6073+L2388*L2419))^(_el_eff_bio_ind))/(1+_eff_imp_bio_ind))^(1+_el_dem_bio_ind)",
+    "new": "=L6084*((1+M2446)^(_el_inc_bio_ind*M2433))*(1+M2439)*((M6073/L6073)^_el_dem_bio_ind)*((((M6073+M2388*M2419)/(L6073+L2388*L2419))^(_el_eff_bio_ind))/(1+_eff_imp_bio_ind+$M2201))^(1+_el_dem_bio_ind)",
+    "fill": "M6084:AE6084",
+    "policy": "policy row 12401: same edit with M8764 for M2433 and $M8532 for $M2201 (do not paste: this block is +6,317 but its drivers are +6,331)"
+   },
+   {
+    "cell": "M6085",
+    "now": "=L6085*((1+M2446)^(_el_inc_ren_ind*M2440))*(1+M2439)*((M6074/L6074)^_el_dem_ren_ind)*(((M6074/L6074)^(_el_eff_ren_ind))/(1+_eff_imp_ren_ind+$M2201))^(1+_el_dem_ren_ind)",
+    "new": "=L6085*((1+M2446)^(_el_inc_ren_ind*M2433))*(1+M2439)*((M6074/L6074)^_el_dem_ren_ind)*(((M6074/L6074)^(_el_eff_ren_ind))/(1+_eff_imp_ren_ind+$M2201))^(1+_el_dem_ren_ind)",
+    "fill": "M6085:AE6085",
+    "policy": "policy row 12402: same edit with M8764 for M2433 and $M8532 for $M2201 (do not paste: this block is +6,317 but its drivers are +6,331)"
+   }
+  ],
+  "ref": "Industry row 5691 (mining & chemicals coal): (1+M2446)^(eps_Y x M2433) and /(1+_eff_imp_... + $M2201). Quickest: select M6077:AE6085, Ctrl+H, replace \"2440)\" with \"2433)\"; then select M6077:AE6084 and replace \"_ind))^\" with \"_ind+$M2201))^\". Policy: select M12394:AE12402, replace \"8771)\" with \"8764)\"; then M12394:AE12401, replace \"_ind))^\" with \"_ind+$M8532))^\".",
+  "effect": "Egypt other energy use (mostly other oil products, 101 ktoe in 2022): about +46 ktoe in 2030 and +124 ktoe in 2040.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L14",
+  "pri": "Medium",
+  "title": "Pass-through applied twice in the first projected year",
+  "where": "Mitigation floating subsidy/tax rows (code cs), 12 fuel blocks",
+  "why": "The base value $J (= the 2024 value) already carries (1 - pass-through) from the history formula (columns K:N); the projection multiplies (2024 price - price + $J) by (1 - pass-through) again, so the floating subsidy jumps in the first projected year when pass-through is between 0 and 1.",
+  "fixes": [
+   {
+    "cell": "O2461",
+    "now": "= IF( $J2463 = 1, MAX( $J2461, ($J2452 - O2452 + $J2461) * (1 - $J2462)), ($J2452 - O2452 + $J2461) * (1 - $J2462)) * IF($J2463 = 1, O2217, O2216)",
+    "new": "= IF( $J2463 = 1, MAX( $J2461, ($J2461 + ($J2452 - O2452) * (1 - $J2462))), ($J2461 + ($J2452 - O2452) * (1 - $J2462))) * IF($J2463 = 1, O2217, O2216)",
+    "fill": "O2461:AE2461",
+    "policy": "paste into O8792:AE8792 (+6,331)"
+   },
+   {
+    "cell": "O2484",
+    "now": "= IF( $J2486 = 1, MAX( $J2484, ($J2475 - O2475 + $J2484) * (1 - $J2485)), ($J2475 - O2475 + $J2484) * (1 - $J2485)) * IF($J2486 = 1, O2217, O2216)",
+    "new": "= IF( $J2486 = 1, MAX( $J2484, ($J2484 + ($J2475 - O2475) * (1 - $J2485))), ($J2484 + ($J2475 - O2475) * (1 - $J2485))) * IF($J2486 = 1, O2217, O2216)",
+    "fill": "O2484:AE2484",
+    "policy": "paste into O8815:AE8815 (+6,331)"
+   },
+   {
+    "cell": "O2507",
+    "now": "= IF( $J2509 = 1, MAX( $J2507, ($J2498 - O2498 + $J2507) * (1 - $J2508)), ($J2498 - O2498 + $J2507) * (1 - $J2508)) * IF($J2509 = 1, O2217, O2216)",
+    "new": "= IF( $J2509 = 1, MAX( $J2507, ($J2507 + ($J2498 - O2498) * (1 - $J2508))), ($J2507 + ($J2498 - O2498) * (1 - $J2508))) * IF($J2509 = 1, O2217, O2216)",
+    "fill": "O2507:AE2507",
+    "policy": "paste into O8838:AE8838 (+6,331)"
+   },
+   {
+    "cell": "O2530",
+    "now": "= IF( $J2532 = 1, MAX( 0, ($J2521 - O2521 + $J2530) * (1 - $J2531)), ($J2521 - O2521 + $J2530) * (1 - $J2531)) * IF($J2532 = 1, O2217, O2216)",
+    "new": "= IF( $J2532 = 1, MAX( 0, ($J2530 + ($J2521 - O2521) * (1 - $J2531))), ($J2530 + ($J2521 - O2521) * (1 - $J2531))) * IF($J2532 = 1, O2217, O2216)",
+    "fill": "O2530:AE2530",
+    "policy": "paste into O8861:AE8861 (+6,331)"
+   },
+   {
+    "cell": "O2553",
+    "now": "= IF( $J2555 = 1, MAX( 0, ($J2544 - O2544 + $J2553) * (1 - $J2554)), ($J2544 - O2544 + $J2553) * (1 - $J2554)) * IF($J2555 = 1, O2217, O2216)",
+    "new": "= IF( $J2555 = 1, MAX( 0, ($J2553 + ($J2544 - O2544) * (1 - $J2554))), ($J2553 + ($J2544 - O2544) * (1 - $J2554))) * IF($J2555 = 1, O2217, O2216)",
+    "fill": "O2553:AE2553",
+    "policy": "paste into O8884:AE8884 (+6,331)"
+   },
+   {
+    "cell": "O2576",
+    "now": "= IF( $J2578 = 1, MAX( $J2576, ($J2567 - O2567 + $J2576) * (1 - $J2577)), ($J2567 - O2567 + $J2576) * (1 - $J2577)) * IF($J2578 = 1, O2217, O2216)",
+    "new": "= IF( $J2578 = 1, MAX( $J2576, ($J2576 + ($J2567 - O2567) * (1 - $J2577))), ($J2576 + ($J2567 - O2567) * (1 - $J2577))) * IF($J2578 = 1, O2217, O2216)",
+    "fill": "O2576:AE2576",
+    "policy": "paste into O8907:AE8907 (+6,331)"
+   },
+   {
+    "cell": "O2599",
+    "now": "= IF( $J2601 = 1, MAX( $J2599, ($J2590 - O2590 + $J2599) * (1 - $J2600)), ($J2590 - O2590 + $J2599) * (1 - $J2600))* IF($J2601 = 1, O2217, O2216)",
+    "new": "= IF( $J2601 = 1, MAX( $J2599, ($J2599 + ($J2590 - O2590) * (1 - $J2600))), ($J2599 + ($J2590 - O2590) * (1 - $J2600)))* IF($J2601 = 1, O2217, O2216)",
+    "fill": "O2599:AE2599",
+    "policy": "paste into O8930:AE8930 (+6,331)"
+   },
+   {
+    "cell": "O2622",
+    "now": "= IF( $J2624 = 1, MAX( $J2622, ($J2613 - O2613 + $J2622) * (1 - $J2623)), ($J2613 - O2613 + $J2622) * (1 - $J2623)) * IF($J2624 = 1, O2217, O2216)",
+    "new": "= IF( $J2624 = 1, MAX( $J2622, ($J2622 + ($J2613 - O2613) * (1 - $J2623))), ($J2622 + ($J2613 - O2613) * (1 - $J2623))) * IF($J2624 = 1, O2217, O2216)",
+    "fill": "O2622:AE2622",
+    "policy": "paste into O8953:AE8953 (+6,331)"
+   },
+   {
+    "cell": "O2645",
+    "now": "= IF( $J2647 = 1, MAX( $J2645, ($J2636 - O2636 + $J2645) * (1 - $J2646)), ($J2636 - O2636 + $J2645) * (1 - $J2646)) * IF($J2647 = 1, O2217, O2216)",
+    "new": "= IF( $J2647 = 1, MAX( $J2645, ($J2645 + ($J2636 - O2636) * (1 - $J2646))), ($J2645 + ($J2636 - O2636) * (1 - $J2646))) * IF($J2647 = 1, O2217, O2216)",
+    "fill": "O2645:AE2645",
+    "policy": "paste into O8976:AE8976 (+6,331)"
+   },
+   {
+    "cell": "O2668",
+    "now": "= IF( $J2670 = 1, MAX( $J2668, ($J2659 - O2659 + $J2668) * (1 - $J2669)), ($J2659 - O2659 + $J2668) * (1 - $J2669)) * IF($J2670 = 1, O2217, O2216)",
+    "new": "= IF( $J2670 = 1, MAX( $J2668, ($J2668 + ($J2659 - O2659) * (1 - $J2669))), ($J2668 + ($J2659 - O2659) * (1 - $J2669))) * IF($J2670 = 1, O2217, O2216)",
+    "fill": "O2668:AE2668",
+    "policy": "paste into O8999:AE8999 (+6,331)"
+   },
+   {
+    "cell": "O2691",
+    "now": "= IF( $J2693 = 1, MAX( $J2691, ($J2682 - O2682 + $J2691) * (1 - $J2692)), ($J2682 - O2682 + $J2691) * (1 - $J2692)) * IF($J2693 = 1, O2217, O2216)",
+    "new": "= IF( $J2693 = 1, MAX( $J2691, ($J2691 + ($J2682 - O2682) * (1 - $J2692))), ($J2691 + ($J2682 - O2682) * (1 - $J2692))) * IF($J2693 = 1, O2217, O2216)",
+    "fill": "O2691:AE2691",
+    "policy": "paste into O9022:AE9022 (+6,331)"
+   },
+   {
+    "cell": "O2714",
+    "now": "= IF( $J2716 = 1, MAX( $J2714, ($J2705 - O2705 + $J2714) * (1 - $J2715)), ($J2705 - O2705 + $J2714) * (1 - $J2715)) * IF($J2716 = 1, O2217, O2216)",
+    "new": "= IF( $J2716 = 1, MAX( $J2714, ($J2714 + ($J2705 - O2705) * (1 - $J2715))), ($J2714 + ($J2705 - O2705) * (1 - $J2715))) * IF($J2716 = 1, O2217, O2216)",
+    "fill": "O2714:AE2714",
+    "policy": "paste into O9045:AE9045 (+6,331)"
+   }
+  ],
+  "ref": "History formula of the same rows (K:N): (excise - other parts) x (1 - $J pass-through), applied once.",
+  "effect": "None for Egypt (bucketed pass-through 0 or 1). With pass-through 0.5 or 0.8 (Manual price controls, other countries), no jump in 2025.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L49",
+  "pri": "Medium",
+  "title": "Balance of payments: oil without the share traded",
+  "where": "Mitigation row 18181 (section 11, balance of payments)",
+  "why": "The value of the change in oil net imports is change in use x price, while gas (row 18187, x $H741) and coal (row 18193, x $H743) multiply by the share traded of the trade-balance table (rows 741-743). Oil products have a share of 0.47 (H742), so the oil effect is about twice too large.",
+  "fixes": [
+   {
+    "cell": "L18181",
+    "now": "=L18180*_conv_ktoe_to_barrel*L707/10^9",
+    "new": "=L18180*_conv_ktoe_to_barrel*L707/10^9*$H742",
+    "fill": "L18181:AE18181",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "Rows 18187 (gas) and 18193 (coal) of the same section; H742 = share traded of oil products.",
+  "effect": "Reported balance of payments only: the oil line falls to 47% (Egypt 2028: -1.75 to -0.83 bn USD); rows 18200, 18203, 18207, 18218 follow.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L23",
+  "pri": "Low",
+  "title": "Services and food & forestry missing from the pollutant totals",
+  "where": "Mitigation total row of each pollutant: 6704, 6806, 6908, 7010, 7112, 7214, 7423",
+  "why": "Each total sums residential (6 rows) but skips the 16 services and food & forestry rows directly below them.",
+  "fixes": [
+   {
+    "cell": "L6704",
+    "now": "=SUM(L6607:L6610,L6613:L6619,L6622:L6627,L6646:L6669,L6672:L6679)",
+    "new": "=SUM(L6607:L6610,L6613:L6619,L6622:L6643,L6646:L6669,L6672:L6679)",
+    "fill": "L6704:AE6704",
+    "policy": "paste into L13021:AE13021 (+6,317)"
+   },
+   {
+    "cell": "L6806",
+    "now": "=SUM(L6709:L6712,L6715:L6721,L6724:L6729,L6748:L6771,L6774:L6781)",
+    "new": "=SUM(L6709:L6712,L6715:L6721,L6724:L6745,L6748:L6771,L6774:L6781)",
+    "fill": "L6806:AE6806",
+    "policy": "paste into L13123:AE13123 (+6,317)"
+   },
+   {
+    "cell": "L6908",
+    "now": "=SUM(L6811:L6814,L6817:L6823,L6826:L6831,L6850:L6873,L6876:L6883)",
+    "new": "=SUM(L6811:L6814,L6817:L6823,L6826:L6847,L6850:L6873,L6876:L6883)",
+    "fill": "L6908:AE6908",
+    "policy": "paste into L13225:AE13225 (+6,317)"
+   },
+   {
+    "cell": "L7010",
+    "now": "=SUM(L6913:L6916,L6919:L6925,L6928:L6933,L6952:L6975,L6978:L6985)",
+    "new": "=SUM(L6913:L6916,L6919:L6925,L6928:L6949,L6952:L6975,L6978:L6985)",
+    "fill": "L7010:AE7010",
+    "policy": "paste into L13327:AE13327 (+6,317)"
+   },
+   {
+    "cell": "L7112",
+    "now": "=SUM(L7015:L7018,L7021:L7027,L7030:L7035,L7054:L7077,L7080:L7087)",
+    "new": "=SUM(L7015:L7018,L7021:L7027,L7030:L7051,L7054:L7077,L7080:L7087)",
+    "fill": "L7112:AE7112",
+    "policy": "paste into L13429:AE13429 (+6,317)"
+   },
+   {
+    "cell": "L7214",
+    "now": "=SUM(L7117:L7120,L7123:L7129,L7132:L7137,L7156:L7179,L7182:L7189)",
+    "new": "=SUM(L7117:L7120,L7123:L7129,L7132:L7153,L7156:L7179,L7182:L7189)",
+    "fill": "L7214:AE7214",
+    "policy": "paste into L13531:AE13531 (+6,317)"
+   },
+   {
+    "cell": "L7423",
+    "now": "=SUM(L7326:L7329,L7332:L7338,L7341:L7346,L7365:L7388,L7391:L7398)",
+    "new": "=SUM(L7326:L7329,L7332:L7338,L7341:L7362,L7365:L7388,L7391:L7398)",
+    "fill": "L7423:AE7423",
+    "policy": "paste into L13740:AE13740 (+6,317)"
+   }
+  ],
+  "ref": "The buildings subtotal of the same block (e.g. 6889 = SUM(6826:6847) for SO2) and the CH4 total 7321, which already include them.",
+  "effect": "None for Egypt (services and food & forestry emit 0 in the file); correct totals wherever they emit.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L44",
+  "pri": "Low",
+  "title": "Residential other oil products priced at the biomass price",
+  "where": "Mitigation row 5559",
+  "why": "The price terms read row 5549 (biomass) instead of 5548 (other oil products).",
+  "fixes": [
+   {
+    "cell": "M5559",
+    "now": "=L5559*((1+M2446)^(_el_inc_oil_res*M2433))*(1+M2439)*((M5549/L5549)^_el_dem_oil_res)*((((M5549+M2387*M2408)/(L5549+L2387*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)",
+    "new": "=L5559*((1+M2446)^(_el_inc_oil_res*M2433))*(1+M2439)*((M5548/L5548)^_el_dem_oil_res)*((((M5548+M2387*M2408)/(L5548+L2387*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)",
+    "fill": "M5559:AE5559",
+    "policy": "paste into M11890:AE11890 (+6,331)"
+   }
+  ],
+  "ref": "Row 5555 (residential gasoline) reads its own price row 5544.",
+  "effect": "None for Egypt (residential other oil products = 0).",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L45",
+  "pri": "Low",
+  "title": "Residential leakage to biomass inconsistent",
+  "where": "Mitigation rows 5554-5593",
+  "why": "(a) The not-exempt rows subtract the (negative) fossil change, so they rise, and the totals add the changes back cumulatively: fossil use is not reduced. (b) Kerosene uses the LPG price base (L5546 in 5587) and the LPG share (M5582 in 5588), and has two \"Change in kerosene\" rows. (c) The fossil change is multiplied by the fossil efficiency and the biomass gain by the biomass efficiency again, so energy is not conserved.",
+  "fixes": [
+   {
+    "cell": "M5564",
+    "now": "=L5564*((1+M2446)^(_el_inc_nga_res*M2433))*(1+M2439)*((M5543/L5543)^_el_dem_nga_res)*((((M5543+M2381*M2408)/(L5543+L2381*L2408))^(_el_eff_nga_res))/(1+_eff_imp_nga_res+$M2200))^(1+_el_dem_nga_res)-M5577",
+    "new": "=L5564*((1+M2446)^(_el_inc_nga_res*M2433))*(1+M2439)*((M5543/L5543)^_el_dem_nga_res)*((((M5543+M2381*M2408)/(L5543+L2381*L2408))^(_el_eff_nga_res))/(1+_eff_imp_nga_res+$M2200))^(1+_el_dem_nga_res)+M5577",
+    "fill": "M5564:AE5564",
+    "policy": "paste into M11895:AE11895 (+6,331)"
+   },
+   {
+    "cell": "M5565",
+    "now": "=L5565*((1+M2446)^(_el_inc_oil_res*M2433))*(1+M2439)*((M5546/L5546)^_el_dem_oil_res)*((((M5546+M2385*M2408)/(L5546+L2385*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)-M5583",
+    "new": "=L5565*((1+M2446)^(_el_inc_oil_res*M2433))*(1+M2439)*((M5546/L5546)^_el_dem_oil_res)*((((M5546+M2385*M2408)/(L5546+L2385*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)+M5583",
+    "fill": "M5565:AE5565",
+    "policy": "paste into M11896:AE11896 (+6,331)"
+   },
+   {
+    "cell": "M5566",
+    "now": "=L5566*((1+M2446)^(_el_inc_oil_res*M2433))*(1+M2439)*((M5547/L5547)^_el_dem_oil_res)*((((M5547+M2386*M2408)/(L5547+L2386*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)-M5588",
+    "new": "=L5566*((1+M2446)^(_el_inc_oil_res*M2433))*(1+M2439)*((M5547/L5547)^_el_dem_oil_res)*((((M5547+M2386*M2408)/(L5547+L2386*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)+M5588",
+    "fill": "M5566:AE5566",
+    "policy": "paste into M11897:AE11897 (+6,331)"
+   },
+   {
+    "cell": "M5554",
+    "now": "=M5564+M5568+SUM($M5577:M5577)",
+    "new": "=M5564+M5568",
+    "fill": "M5554:AE5554",
+    "policy": "paste into M11885:AE11885 (+6,331)"
+   },
+   {
+    "cell": "M5557",
+    "now": "=M5565+M5569+SUM($M5583:M5583)",
+    "new": "=M5565+M5569",
+    "fill": "M5557:AE5557",
+    "policy": "paste into M11888:AE11888 (+6,331)"
+   },
+   {
+    "cell": "M5558",
+    "now": "=M5566+M5570+SUM($M5588:M5588)",
+    "new": "=M5566+M5570",
+    "fill": "M5558:AE5558",
+    "policy": "paste into M11889:AE11889 (+6,331)"
+   },
+   {
+    "cell": "M5577",
+    "now": "=-L5564*$C5578*M5576*$E$1785",
+    "new": "=-L5564*M5576*$E$1785",
+    "fill": "M5577:AE5577",
+    "policy": "paste into M11908:AE11908 (+6,331)"
+   },
+   {
+    "cell": "M5583",
+    "now": "=-L5565*$C5584*M5582*$E$1785",
+    "new": "=-L5565*M5582*$E$1785",
+    "fill": "M5583:AE5583",
+    "policy": "paste into M11914:AE11914 (+6,331)"
+   },
+   {
+    "cell": "M5587",
+    "now": "=1+(M5586-L5586)/L5546",
+    "new": "=1+(M5586-L5586)/L5547",
+    "fill": "M5587:AE5587",
+    "policy": "paste into M11918:AE11918 (+6,331)"
+   },
+   {
+    "cell": "M5588",
+    "now": "=-L5566*$C5591*M5582*$E$1785",
+    "new": "=-L5566*M5589*$E$1785",
+    "fill": "M5588:AE5588",
+    "policy": "paste into M11919:AE11919 (+6,331)"
+   },
+   {
+    "cell": "M5590",
+    "now": "=-L5566*M5589",
+    "new": "=M5588",
+    "fill": "M5590:AE5590",
+    "policy": "paste into M11921:AE11921 (+6,331)"
+   },
+   {
+    "cell": "M5593",
+    "now": "=-$C5593*(M5578+M5584+M5591)*$E$1785",
+    "new": "=-(M5578+M5584+M5591)",
+    "fill": "M5593:AE5593",
+    "policy": "paste into M11924:AE11924 (+6,331)"
+   }
+  ],
+  "ref": "Labels of the block: \"Change in X\" is a change in fuel; \"Equivalent Biomass\" (rows 5578, 5584, 5591, already = change x fossil efficiency / biomass efficiency) is the biomass that replaces it. Biomass total 5560 keeps its cumulative SUM; the fossil rows carry the reduction forward themselves.",
+  "effect": "None while BiomassLeakage = No (E1785 = 0, Egypt). With leakage on, fossil cooking fuel falls and biomass rises by the same useful energy.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L46",
+  "pri": "Low",
+  "title": "Road other biofuels: wrong price and terms",
+  "where": "Mitigation rows 5392 and 5406",
+  "why": "Row 5406 uses the bioethanol price (5390) because the other-biofuels price row 5392 is empty, puts the shadow price through eps_U, has an efficiency term (M5390/M5390)^eps_F that is always 1, and uses $M2259 (coal exemption phase-out) as additional efficiency.",
+  "fixes": [
+   {
+    "cell": "L5392",
+    "now": "(empty)",
+    "new": "=(L2720)+L2721*L2271",
+    "fill": "L5392:AE5392 (empty today)",
+    "policy": "paste into L11723:AE11723 (+6,331)"
+   },
+   {
+    "cell": "M5406",
+    "now": "=L5406*((1+M2446)^(_el_inc_oil_rod*M2433))*(1+M2439)*((M5390/L5390)^_el_dem_oil_rod)*(((M5390+M2388*M2404)/(L5390+L2388*L2404))^_el_dem_oil_rod)*(((M5390/M5390)^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2259))^(1+_el_dem_oil_rod)",
+    "new": "=L5406*((1+M2446)^(_el_inc_oil_rod*M2433))*(1+M2439)*((M5392/L5392)^_el_dem_oil_rod)*((((M5392+M2388*M2404)/(L5392+L2388*L2404))^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_oil_rod)",
+    "fill": "M5406:AE5406",
+    "policy": "paste into M11737:AE11737 (+6,331)"
+   }
+  ],
+  "ref": "Row 5389 (road biomass price: = (M2720)+M2721*M2271) for the price; standard row 5399 for the form, with the biomass shadow price row 2388 and road additional efficiency $M2199. The elasticity names are those legacy already uses in 5406.",
+  "effect": "None for Egypt (no road other biofuels).",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L47",
+  "pri": "Low",
+  "title": "Self-generated renewables in aviation and navigation take the shock from wrong rows",
+  "where": "Mitigation rows 5491, 5516",
+  "why": "Row 5491 multiplies by (1+M2512) (coal industry new excise) and row 5516 by (1+M2473) (blank row) instead of the shock row 2439. Row 5491 also has the aviation swap of L42.",
+  "fixes": [
+   {
+    "cell": "M5491",
+    "now": "=L5491*((1+M2439)^(_el_inc_ren_rod*M2433))*(1+M2512)*((M5480/L5480)^_el_dem_ren_rod)*(((M5480/L5480)^(_el_eff_ren_rod))/(1+_eff_imp_ren_rod+$M2199))^(1+_el_dem_ren_rod)",
+    "new": "=L5491*((1+M2446)^(_el_inc_ren_rod*M2433))*(1+M2439)*((M5480/L5480)^_el_dem_ren_rod)*(((M5480/L5480)^(_el_eff_ren_rod))/(1+_eff_imp_ren_rod+$M2199))^(1+_el_dem_ren_rod)",
+    "fill": "M5491:AE5491",
+    "policy": "paste into M11822:AE11822 (+6,331)"
+   },
+   {
+    "cell": "M5516",
+    "now": "=L5516*((1+M2446)^(_el_inc_ren_rod*M2433))*(1+M2473)*((M5505/L5505)^_el_dem_ren_rod)*(((M5505/L5505)^(_el_eff_ren_rod))/(1+_eff_imp_ren_rod+$M2199))^(1+_el_dem_ren_rod)",
+    "new": "=L5516*((1+M2446)^(_el_inc_ren_rod*M2433))*(1+M2439)*((M5505/L5505)^_el_dem_ren_rod)*(((M5505/L5505)^(_el_eff_ren_rod))/(1+_eff_imp_ren_rod+$M2199))^(1+_el_dem_ren_rod)",
+    "fill": "M5516:AE5516",
+    "policy": "paste into M11847:AE11847 (+6,331)"
+   }
+  ],
+  "ref": "Row 5407 (road self-generated renewables).",
+  "effect": "None for Egypt (no self-generated renewables in these sectors).",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L48",
+  "pri": "Low",
+  "title": "Residential initially-exempt rows: no income factor; starred \"Yes*\" exemption test",
+  "where": "Mitigation rows 5546-5547, 5568-5570",
+  "why": "The exemption split itself works: L5564:L5566 = IFNA(IF($L$1784=B,(1-$K$1795)*base, base), base) and L5568:L5570 = IFNA(IF($L$1784=B, $K$1795*base, 0), 0) (text read from the .xlsb; the LibreOffice conversion had shown IFNA(0)). It is 0 in the Egypt run only because I1784 = 0 (ExemptMostCook off). Two defects remain: the initially-exempt rows M5568:M5570 grow with (1+g)^eps_Y without the income factor M2433 (the not-exempt rows 5564-5566 have it), and the AlwaysExemptResLPGKer test in rows 5546-5547 compares with \"Yes\" while the input list uses \"Yes*\"/\"No*\".",
+  "fixes": [
+   {
+    "cell": "M5568",
+    "now": "=L5568*((1+M2446)^_el_inc_nga_res)*(1+M2439)*((M5543/L5543)^(_el_dem_nga_res*MIN(M2258/ExemptPhaseoutPeriod,1))*((((M5543+M2381*M2408)/(L5543+L2381*L2408))^(_el_eff_nga_res))/(1+_eff_imp_nga_res+$M2200))^(1+_el_dem_nga_res))",
+    "new": "=L5568*((1+M2446)^(_el_inc_nga_res*M2433))*(1+M2439)*((M5543/L5543)^(_el_dem_nga_res*MIN(M2258/ExemptPhaseoutPeriod,1))*((((M5543+M2381*M2408)/(L5543+L2381*L2408))^(_el_eff_nga_res))/(1+_eff_imp_nga_res+$M2200))^(1+_el_dem_nga_res))",
+    "fill": "M5568:AE5568",
+    "policy": "paste into M11899:AE11899 (+6,331)"
+   },
+   {
+    "cell": "M5569",
+    "now": "=L5569*((1+M2446)^_el_inc_oil_res)*(1+M2439)*((M5546/L5546)^(_el_dem_oil_res*(MIN(M2258/ExemptPhaseoutPeriod,1))))*((((M5546+M2385*M2408)/(L5546+L2385*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)",
+    "new": "=L5569*((1+M2446)^(_el_inc_oil_res*M2433))*(1+M2439)*((M5546/L5546)^(_el_dem_oil_res*(MIN(M2258/ExemptPhaseoutPeriod,1))))*((((M5546+M2385*M2408)/(L5546+L2385*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)",
+    "fill": "M5569:AE5569",
+    "policy": "paste into M11900:AE11900 (+6,331)"
+   },
+   {
+    "cell": "M5570",
+    "now": "=L5570*((1+M2446)^_el_inc_oil_res)*(1+M2439)*((M5547/L5547)^(_el_dem_oil_res*(MIN(M2258/ExemptPhaseoutPeriod,1))))*((((M5547+M2386*M2408)/(L5547+L2386*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)",
+    "new": "=L5570*((1+M2446)^(_el_inc_oil_res*M2433))*(1+M2439)*((M5547/L5547)^(_el_dem_oil_res*(MIN(M2258/ExemptPhaseoutPeriod,1))))*((((M5547+M2386*M2408)/(L5547+L2386*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)",
+    "fill": "M5570:AE5570",
+    "policy": "paste into M11901:AE11901 (+6,331)"
+   },
+   {
+    "cell": "L5546",
+    "now": "=(L2651)+IF(AlwaysExemptResLPGKer=\"Yes\",0,L2652*L2275)",
+    "new": "=(L2651)+IF(LEFT(AlwaysExemptResLPGKer,3)=\"Yes\",0,L2652*L2275)",
+    "fill": "L5546:AE5546",
+    "policy": "paste into L11877:AE11877 (+6,331)"
+   },
+   {
+    "cell": "L5547",
+    "now": "=(L2674)+IF(AlwaysExemptResLPGKer=\"Yes\",0,L2675*L2275)",
+    "new": "=(L2674)+IF(LEFT(AlwaysExemptResLPGKer,3)=\"Yes\",0,L2675*L2275)",
+    "fill": "L5547:AE5547",
+    "policy": "paste into L11878:AE11878 (+6,331)"
+   }
+  ],
+  "ref": "The exempt share is legacy's own row 1795 (\"Exempted ... proportion\", most-used cooking fuel L1784). Income factor as in the not-exempt rows 5564-5566.",
+  "effect": "None in the default Egypt run (ExemptMostCook off; AlwaysExemptResLPGKer No). With ExemptMostCook on, the initially-exempt share grows like the rest; with \"Yes*\" the exemption applies.",
+  "note": "Redone from the .xlsb (2026-10-19): the earlier start-row edits of L5564:L5570 were built on converted text and are dropped (the split already exists). M5568:M5570 are also edited by L94 (exponent): apply both substitutions.",
+  "status": "fix"
+ },
+ {
+  "id": "L50",
+  "pri": "Low",
+  "title": "Balance of payments: current account #NAME?, column lag, label",
+  "where": "Mitigation rows 18197, 18206, 18213, 18215-18219",
+  "why": "(a) The WEO codes <iso>.bca_bp6 and <iso>.bca_gdp_bp6 are not on the WEO sheet (it has <iso>.BCA.A and <iso>.BCA_NGDPD.A), so J18197, J18206, J18213 are #N/A. (b) Rows 18197, 18206 and 18213 read INDEX(WEO, ...) and the defined name WEO is empty; the data range is WEO_upd (WEO!C9:AU3333, same rows as WEO_codes). (c) With the errors, the IFNA fallback of rows 18197 and 18206 (carry the previous column forward) leaves them empty. (Text read from the .xlsb; the conversion had shown =IFNA(K18197).) (d) The \"sign looks reversed\" in rows 18215-18219 is a label error: rows 741-743 are a trade balance.",
+  "fixes": [
+   {
+    "cell": "G18197",
+    "now": "=LOWER(_Country_code)&\".bca_bp6\"",
+    "new": "=LOWER(_Country_code)&\".bca.a\"",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "G18213",
+    "now": "=LOWER(_Country_code)&\".bca_bp6\"",
+    "new": "=LOWER(_Country_code)&\".bca.a\"",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "G18206",
+    "now": "=LOWER(_Country_code)&\".bca_gdp_bp6\"",
+    "new": "=LOWER(_Country_code)&\".bca_ngdpd.a\"",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18197",
+    "now": "{=_xlfn.IFNA(IF(INDEX(WEO,$J18206,MATCH(L$18196,WEO_years,0))<>0,INDEX(WEO,$J18197,MATCH(L$18196,WEO_years,0)),K18197),K18197)}",
+    "new": "{=_xlfn.IFNA(IF(INDEX(WEO_upd,$J18206,MATCH(L$18196,WEO_years,0))<>0,INDEX(WEO_upd,$J18197,MATCH(L$18196,WEO_years,0)),K18197),K18197)}",
+    "fill": "L18197:AE18197 (array formula: edit L, copy across)",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18206",
+    "now": "{=_xlfn.IFNA(IF(INDEX(WEO,$J18206,MATCH(L$18196,WEO_years,0))<>0,INDEX(WEO,$J18206,MATCH(L$18196,WEO_years,0)),K18206),K18206)}",
+    "new": "{=_xlfn.IFNA(IF(INDEX(WEO_upd,$J18206,MATCH(L$18196,WEO_years,0))<>0,INDEX(WEO_upd,$J18206,MATCH(L$18196,WEO_years,0)),K18206),K18206)}",
+    "fill": "L18206:AE18206 (array formula: edit L, copy across)",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18213",
+    "now": "{=INDEX(WEO,$J18213,MATCH(L$18196,WEO_years,0))}",
+    "new": "{=INDEX(WEO_upd,$J18213,MATCH(L$18196,WEO_years,0))}",
+    "fill": "L18213:AE18213 (array formula: edit L, copy across)",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "D18215",
+    "now": "Baseline (net imports of oil and gas, USD bln)",
+    "new": "Baseline (trade balance of oil, gas and coal, USD bln)",
+    "fill": "label",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "D18217",
+    "now": "Baseline (net imports of oil and gas, % of GDP)",
+    "new": "Baseline (trade balance of oil, gas and coal, % of GDP)",
+    "fill": "label",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "D18218",
+    "now": "Policy (net imports of oil and gas, USD bln)",
+    "new": "Policy (trade balance of oil, gas and coal, USD bln)",
+    "fill": "label",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "D18219",
+    "now": "Policy (net imports of oil and gas, % of GDP)",
+    "new": "Policy (trade balance of oil, gas and coal, % of GDP)",
+    "fill": "label",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "Row 420 (GDP growth): INDEX(WEO_upd, row, MATCH(year, WEO_years, 0)) with codes <iso>.<WEO subject>.a; sheet WEO holds EGY.BCA.A (current account, USD bn) and EGY.BCA_NGDPD.A (% of GDP). Row 740 heads rows 741-743 as \"Trade balance\".",
+  "effect": "Reported balance of payments only: the current-account panel (rows 18197-18210) shows values instead of errors; no other result changes. Note: WEO data run to the WEO horizon (2029/2031); later years return #N/A until extended.",
+  "note": "Redone from the .xlsb (2026-10-19): rows 18197 and 18206 keep legacy's carry-forward (the previous column when the WEO year has no value); only the name and the codes change. WEO years beyond the data repeat the last value, as legacy intends.",
+  "status": "fix"
+ },
+ {
+  "id": "N1",
+  "pri": "Low (new)",
+  "title": "Methane intensity decline of agriculture and waste computed but not applied",
+  "where": "Mitigation rows 6217, 6220, 6226",
+  "why": "Rows 6173, 6185, 6197 (\"CH4 emissions factor, baseline\") fall by Manual inputs J187 (0.47%/y, agriculture) and J188 (0.5%/y, waste) but no emission row uses them.",
+  "fixes": [
+   {
+    "cell": "N6217",
+    "now": "= $M6217 * N6212 / $M6212 * (1-N6182)",
+    "new": "= $M6217 * N6212 / $M6212 * N6173 / $M6173 * (1-N6182)",
+    "fill": "N6217:AE6217",
+    "policy": "paste into N12534:AE12534 (+6,317)"
+   },
+   {
+    "cell": "N6220",
+    "now": "= $M6220 * N6213 / $M6213 * (1-N6194)",
+    "new": "= $M6220 * N6213 / $M6213 * N6185 / $M6185 * (1-N6194)",
+    "fill": "N6220:AE6220",
+    "policy": "paste into N12537:AE12537 (+6,317)"
+   },
+   {
+    "cell": "N6226",
+    "now": "= $M6226 * N6214 / $M6214 * (1-N6206)",
+    "new": "= $M6226 * N6214 / $M6214 * N6197 / $M6197 * (1-N6206)",
+    "fill": "N6226:AE6226",
+    "policy": "paste into N12543:AE12543 (+6,317)"
+   }
+  ],
+  "ref": "Labels of rows 6173/6185/6197 and Manual inputs C187/C188 (\"Reduction in intensity due to autonomous technological improvement\").",
+  "effect": "Egypt 2040: agriculture CH4 about -7.7%, waste about -8.2%.",
+  "note": "Not in the register; found while checking L18. Confirm it is intended before applying.",
+  "status": "fix"
+ },
+ {
+  "id": "N2",
+  "pri": "Low (new)",
+  "title": "Other oil products: new ETS left out of the new-policy total, VAT factor on a blank row",
+  "where": "Mitigation row 2698",
+  "why": "Row 2698 = (2694+2696) x (1 + VAT x M2703): the new ETS (2695) is missing, unlike every other fuel (e.g. kerosene 2675 = 2671+2672+2673), and M2703 is a blank row (the oop block has no \"portion used for residential\" row), so VAT on the new policy is dropped.",
+  "fixes": [
+   {
+    "cell": "K2698",
+    "now": "=(K2694+K2696) * (1 + K2686 * K2703)",
+    "new": "=(K2694+K2695+K2696)*(1+K2686)",
+    "fill": "K2698:AE2698",
+    "policy": "paste into K9029:AE9029 (+6,331)"
+   }
+  ],
+  "ref": "Row 2675 (kerosene) and 2721 (biomass). The oop VAT payment row 2687 applies VAT in full, so (1 + K2686) is consistent.",
+  "effect": "None in the baseline; under a new ETS covering other oil products their price now carries the permit price.",
+  "note": "Not in the register; confirm before applying.",
+  "status": "fix"
+ }
+]

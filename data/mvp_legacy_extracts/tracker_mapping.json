@@ -1,0 +1,527 @@
+{
+ "CPAT_issues": {
+  "1": {
+   "codes": [],
+   "note": "Out of scope: country energy-balance data (Iceland)."
+  },
+  "2": {
+   "codes": [
+    "L8",
+    "L7"
+   ],
+   "note": "Possibly the coal retirement bugs (effective retirement uncapped, mixed units); not confirmed for this case."
+  },
+  "3": {
+   "codes": [],
+   "note": "Out of scope: country data (Rwanda electricity balance 0) / lookup."
+  },
+  "4": {
+   "codes": [],
+   "note": "Out of scope: answered no issue (parameter settings)."
+  },
+  "5": {
+   "codes": [],
+   "note": "Out of scope: dashboard figure request."
+  },
+  "6": {
+   "codes": [],
+   "note": "Out of scope: country price data (India gas)."
+  },
+  "7": {
+   "codes": [],
+   "note": "Out of scope: country price data missing (Eritrea)."
+  },
+  "8": {
+   "codes": [
+    "LD28"
+   ],
+   "note": "Elasticity power model not built in the MVP (engineer model only); not reviewed."
+  },
+  "9": {
+   "codes": [],
+   "note": "Fixed in legacy before 456: scaledown row 3774 now fixed at 100%."
+  },
+  "10": {
+   "codes": [],
+   "note": "Fixed in legacy before 456: I2 minima rewritten (rows 3787-3788); stray reference in I1 is L11."
+  },
+  "11": {
+   "codes": [
+    "L54"
+   ],
+   "note": "That legacy fix introduced L54: the >50% test reads a year header, not the hydro share."
+  },
+  "12": {
+   "codes": [],
+   "note": "Fixed in legacy before 456: power consumption/generation balance (statistical difference)."
+  },
+  "13": {
+   "codes": [],
+   "note": "Fixed in legacy before 456: consumption-to-generation ratio added (row 3764); see item 12."
+  },
+  "14": {
+   "codes": [],
+   "note": "Fixed in legacy before 456: cross-fuel price effects (v303); no matching defect found in 456."
+  },
+  "15": {
+   "codes": [],
+   "note": "Fixed in legacy before 456: price-component unit conversion for TCP (v300); rows moved since."
+  },
+  "16": {
+   "codes": [],
+   "note": "Out of scope: country energy-balance data (North Macedonia, Kosovo)."
+  },
+  "17": {
+   "codes": [],
+   "note": "Out of scope: dashboard (learning rate)."
+  },
+  "18": {
+   "codes": [],
+   "note": "TCP (F5d) not built in the MVP; its definition is issue I36; units not yet checked."
+  },
+  "19": {
+   "codes": [
+    "L86"
+   ],
+   "note": "Manual inputs not built in the MVP; L86 is one broken legacy override."
+  },
+  "20": {
+   "codes": [],
+   "note": "Fixed in legacy before 456: fuel mix-up in other energy use totals (v340); MVP totals by code."
+  },
+  "21": {
+   "codes": [],
+   "note": "Fixed in legacy before 456: services double count (v340); MVP air-pollution split LD51 counts services once."
+  },
+  "22": {
+   "codes": [],
+   "note": "Out of scope: air-pollution module (intake-fraction method)."
+  },
+  "23": {
+   "codes": [],
+   "note": "Out of scope: air-pollution module / dashboard emission-factor settings."
+  },
+  "24": {
+   "codes": [],
+   "note": "Out of scope: country macro data (Libya deflator)."
+  },
+  "25": {
+   "codes": [],
+   "note": "Fixed in legacy before 456: power revenues (v377); description too vague to match."
+  },
+  "27": {
+   "codes": [],
+   "note": "Out of scope: dashboard graph title."
+  },
+  "28": {
+   "codes": [],
+   "note": "Out of scope: MTOutputs/TCP indexing of policy options (tooling)."
+  },
+  "29": {
+   "codes": [],
+   "note": "Out of scope: dashboard graph labels."
+  },
+  "30": {
+   "codes": [],
+   "note": "Fixed in legacy before 456: ETS policy table copy (v377)."
+  },
+  "31": {
+   "codes": [],
+   "note": "Fixed in legacy before 456: revenues read the wrong scenario (v377)."
+  },
+  "32": {
+   "codes": [],
+   "note": "Fixed in legacy before 456: covered CO2 by fuel, kerosene and gasoline (v377)."
+  },
+  "33": {
+   "codes": [],
+   "note": "Out of scope: MTOutputs tooling."
+  },
+  "34": {
+   "codes": [],
+   "note": "Out of scope: dashboard manual/default link."
+  },
+  "35": {
+   "codes": [],
+   "note": "Open question (real carbon price name); not specific enough to map."
+  },
+  "36": {
+   "codes": [],
+   "note": "Fixed in legacy before 456: kerosene in lpk revenue (v377); row 11185 is now transport."
+  },
+  "37": {
+   "codes": [
+    "L72"
+   ],
+   "note": "Coal power excise read from next year's column (S2466); lag question still open."
+  },
+  "38": {
+   "codes": [
+    "L71"
+   ],
+   "note": "Biomass taxes, subsidies and VAT divided by the unit conversion instead of multiplied."
+  },
+  "39": {
+   "codes": [],
+   "note": "Out of scope: MTOutputs air-pollution #REF! (tooling)."
+  },
+  "40": {
+   "codes": [],
+   "note": "Out of scope: MTOutputs markup codes (tooling)."
+  },
+  "41": {
+   "codes": [],
+   "note": "Out of scope: MTOutputs number format."
+  },
+  "42": {
+   "codes": [],
+   "note": "Fixed in legacy before 456: ETS permit price data references (v384)."
+  },
+  "43": {
+   "codes": [],
+   "note": "Out of scope: Slicer tool."
+  },
+  "44": {
+   "codes": [],
+   "note": "Fixed in legacy before 456: Libya Pigouvian tax #DIV/0! (v420)."
+  },
+  "45": {
+   "codes": [],
+   "note": "Fixed in legacy before 456: ETS switch (E8171 in v427; row now PIT effects)."
+  },
+  "46": {
+   "codes": [],
+   "note": "Out of scope: dashboard distribution graph."
+  },
+  "47": {
+   "codes": [],
+   "note": "Out of scope: country exchange-rate data (Liberia)."
+  },
+  "48": {
+   "codes": [],
+   "note": "Not in register; to trace in legacy (transport coverage vs road model and co-benefits)."
+  },
+  "49": {
+   "codes": [
+    "D1",
+    "D2",
+    "D3",
+    "D4",
+    "D5",
+    "D6",
+    "D7",
+    "D8"
+   ],
+   "note": "Distribution bugs, fixed in the MVP (Distribution_Method section 3)."
+  },
+  "50": {
+   "codes": [
+    "L42",
+    "L43",
+    "L48",
+    "L2",
+    "L3",
+    "LD15",
+    "L95",
+    "L96",
+    "L97",
+    "D9"
+   ],
+   "note": "The DeepDive tab; item-by-item codes on that sheet."
+  },
+  "51": {
+   "codes": [],
+   "note": "List not in hand; map when resent."
+  },
+  "52": {
+   "codes": [],
+   "note": "Out of scope: Egypt energy-balance data (industry subsectors blank)."
+  },
+  "53": {
+   "codes": [
+    "L13",
+    "LD2"
+   ],
+   "note": "Other oil products prices: hardcoded pass-through and margin; MVP from IMF data."
+  },
+  "54": {
+   "codes": [
+    "LD9"
+   ],
+   "note": "Legacy row 2402 notes the shares fail for policy mixes; MVP shadow prices by component."
+  },
+  "55": {
+   "codes": [
+    "I12",
+    "LD40"
+   ],
+   "note": "Legacy CPI held flat after 2031; MVP keeps the same indices."
+  },
+  "57": {
+   "codes": [
+    "L18",
+    "L20"
+   ],
+   "note": "Legacy waste CH4 flat at inventory (L18); MVP grows it with UN population (L20)."
+  },
+  "58": {
+   "codes": [
+    "L42",
+    "L43",
+    "L48",
+    "L2",
+    "L3",
+    "LD15",
+    "L95",
+    "L96",
+    "L97",
+    "D9"
+   ],
+   "note": "Presumably the DeepDive findings; see that sheet."
+  },
+  "59": {
+   "codes": [
+    "I31",
+    "L77"
+   ],
+   "note": "Average prices mix price and composition changes; MVP Laspeyres index as option."
+  },
+  "60": {
+   "codes": [],
+   "note": "Out of scope: MTOutputs tooling."
+  },
+  "61-115": {
+   "codes": [],
+   "note": "Our register export (sheet BUGSandISSUES); those rows carry our codes."
+  }
+ },
+ "Mit+Disn_DeepDive": {
+  "1": {
+   "codes": [
+    "L42",
+    "I19"
+   ],
+   "note": "Swapped GDP/shock exponents (L42); jet fuel on kerosene price replicated (I19)."
+  },
+  "2": {
+   "codes": [
+    "L43"
+   ],
+   "note": "Income factor read from blank row 2440: no GDP growth; fixed in MVP."
+  },
+  "3": {
+   "codes": [
+    "L48"
+   ],
+   "note": "Initially-exempt rows lack income factor; dead code (hard 0 start)."
+  },
+  "4": {
+   "codes": [
+    "L2"
+   ],
+   "note": "Efficiency exponent uses the efficiency (price) elasticity; MVP uses (1+eps_U)."
+  },
+  "5": {
+   "codes": [
+    "L3"
+   ],
+   "note": "Not cosmetic: $M3686 anchors 2023, so income factor enters squared over inc(2023)."
+  },
+  "6": {
+   "codes": [
+    "L95"
+   ],
+   "note": "New: row 3719 holds net exports and the efficiency increment."
+  },
+  "7": {
+   "codes": [
+    "L96"
+   ],
+   "note": "New (labels): 'Other oil pinducts' typo; no effect."
+  },
+  "8": {
+   "codes": [
+    "L96"
+   ],
+   "note": "New (labels): column C labels of rows 2199-2201 belong to column E."
+  },
+  "9": {
+   "codes": [
+    "LD15"
+   ],
+   "note": "MVP looks MTInputs rows up by name on Mapping, not by row number."
+  },
+  "10": {
+   "codes": [
+    "L97"
+   ],
+   "note": "New: unused iron & steel memo rows; 5667 reads next year's growth."
+  },
+  "11": {
+   "codes": [
+    "L96"
+   ],
+   "note": "New (labels): LPG 'Road', kerosene 'Industry' on all-sector rows; values right."
+  },
+  "Dist 1": {
+   "codes": [
+    "D9"
+   ],
+   "note": "New: rural rows labelled Urban (456: rows 2417, 2422)."
+  },
+  "Dist 2": {
+   "codes": [
+    "D9"
+   ],
+   "note": "New (labels): elasticity row 'oil' pairs with price row 'oop' by position."
+  },
+  "Dist 3": {
+   "codes": [],
+   "note": "No code: cosmetic header layout; MVP has its own layout."
+  },
+  "Dist 4": {
+   "codes": [],
+   "note": "No code: survey data; legacy and MVP rescale the shares to 100 (row 2731)."
+  },
+  "Dist 5": {
+   "codes": [],
+   "note": "No code: layout convention, no effect on values."
+  },
+  "Dist 6": {
+   "codes": [],
+   "note": "No code: data-table header; MVP de-duplicates on import."
+  },
+  "General 3": {
+   "codes": [
+    "DI6",
+    "DI4"
+   ],
+   "note": "MVP distribution reproduced by a Python reference; revenue identity per DI6."
+  },
+  "General 4": {
+   "codes": [],
+   "note": "Open: deaths are downstream (air pollution); see CPAT_issues 48."
+  },
+  "General 5": {
+   "codes": [
+    "I28",
+    "LD59"
+   ],
+   "note": "Engineer road model rebuilt; calibration open, inputs on MTInputs."
+  },
+  "General 6": {
+   "codes": [
+    "LD15"
+   ],
+   "note": "MVP codes checked by its build checks; legacy codes not audited."
+  },
+  "General 7": {
+   "codes": [],
+   "note": "Out of scope: air-pollution health module."
+  },
+  "General 8": {
+   "codes": [],
+   "note": "Out of scope: welfare module (deaths valuation)."
+  },
+  "General 9": {
+   "codes": [
+    "I14"
+   ],
+   "note": "MVP checks each block against legacy; distance tracked in I14."
+  },
+  "General 10": {
+   "codes": [],
+   "note": "Out of scope: welfare units; MVP uses one constant PctPerUnit."
+  }
+ },
+ "MT_issues": {
+  "1": {
+   "codes": [],
+   "note": "Out of scope: MT macro tool (inactive scenarios)."
+  },
+  "2": {
+   "codes": [],
+   "note": "Out of scope: MT macro tool (filters in MTOutputs)."
+  },
+  "3": {
+   "codes": [],
+   "note": "Out of scope: MT macro tool (output columns)."
+  },
+  "4": {
+   "codes": [],
+   "note": "Out of scope: MT macro tool (output columns)."
+  },
+  "5": {
+   "codes": [],
+   "note": "Out of scope: MT macro tool (stray empty tab)."
+  },
+  "6": {
+   "codes": [],
+   "note": "Out of scope: MT/MTOutputs markup indicators (tooling)."
+  },
+  "7": {
+   "codes": [],
+   "note": "Out of scope: Slicer tool."
+  },
+  "8": {
+   "codes": [],
+   "note": "Out of scope: dashboard with advanced scenarios."
+  }
+ },
+ "Slicer_issues": {
+  "1": {
+   "codes": [],
+   "note": "Out of scope: Slicer tool (GTAP regional data deleted)."
+  }
+ },
+ "new_codes": [
+  {
+   "code": "L95",
+   "kind": "Legacy bug",
+   "type": "Engineer power",
+   "title": "Power demand: efficiency increment sits on the net-exports row",
+   "where": "Mitigation row 3719 (D3719 = D3742 'Net Exports (Imports negative)', F:J net-export data egy.mit.nxp.ecy; L3719 'Additional Efficiency Improvements - Power demand', M3719 = M2198 = MTInputs F242); read as $M3719 in rows 3691, 3697, 3703, 3709",
+   "what": "One row carries two things: net-exports data (columns D-J) and the power-demand efficiency increment (L:M). The demand formulas read $M3719 as the efficiency term, so the row label misleads.",
+   "fix": "Put the efficiency increment on its own labelled row (or read M2198 directly); leave row 3719 to net exports.",
+   "effect": "None on values (increment 0 by default); a reader of the row label takes the efficiency term for a trade term.",
+   "priority": "Low",
+   "source": "Mit+Disn_DeepDive #6"
+  },
+  {
+   "code": "L96",
+   "kind": "Legacy bug",
+   "type": "Other mitigation",
+   "title": "Fuel-use block: mislabelled parameter and fuel rows",
+   "where": "Mitigation C2199:C2201 ('Tax in nominal or real terms?', 'Exponential option or linear' twice) beside K2199:M2201 (road, residential, industrial additional efficiency, MTInputs F243-F245); E2385 (LPG 'Road'), E2386 (kerosene 'Industry') on all-sector rows (codes shp.lpg.all, shp.ker.all); D5615, D5722, D6072, D6083 'Other oil pinducts'",
+   "what": "Column C of rows 2199-2201 labels the carbon-tax settings of column E, while every fuel row reads K:M of the same rows as the additional-efficiency term; the sector labels of the LPG and kerosene shadow prices do not match their all-sector codes; a typo in four rows.",
+   "fix": "Give the additional-efficiency increments their own labelled rows; label the LPG and kerosene shadow-price rows 'All'; correct the typo.",
+   "effect": "None on values; formula audits misread the additional-efficiency term as a carbon-price setting.",
+   "priority": "Low",
+   "source": "Mit+Disn_DeepDive #7, #8, #11"
+  },
+  {
+   "code": "L97",
+   "kind": "Legacy bug",
+   "type": "Other mitigation",
+   "title": "Iron & steel memo rows unused; one reads next year's growth",
+   "where": "Mitigation rows 5667-5676, 5714, 5727-5728 (iron & steel block; M5667 = N2446)",
+   "what": "An EF-weighted average price (5714), an elasticity table (5668-5676) and 'Fuel'/'Average' demand and efficiency multiples (5727-5728) are computed but referenced nowhere; M5667 takes next year's GDP growth (N2446).",
+   "fix": "Delete the memo rows (or move them to a diagnostics area with the year's own growth M2446).",
+   "effect": "None (dead calculation); would be wrong if anything used it.",
+   "priority": "Low",
+   "source": "Mit+Disn_DeepDive #10"
+  },
+  {
+   "code": "D9",
+   "kind": "Legacy bug",
+   "type": "Distribution",
+   "title": "Rural rows labelled Urban; fuel code oil vs oop",
+   "where": "Distribution H2417, H2422 (456 numbering; DeepDive cites 2416, 2421): '... - Urban Sample' on rows computed from the rural rows 2402, 2407, 2412; C.II row 746 code 'oil' against price rows 774 and 804 'oop'",
+   "what": "Post-CP consumption rows of the rural sample carry the urban label; the elasticity and price rows of other oil products use different codes and are paired by row position only.",
+   "fix": "Label rows 2417 and 2422 'Rural Sample'; use one code (oop) in C.II and pair by code.",
+   "effect": "None on values; the rural results look like a second urban series to a reader or a code lookup.",
+   "priority": "Low",
+   "source": "Mit+Disn_DeepDive Dist 1, Dist 2"
+  }
+ ]
+}

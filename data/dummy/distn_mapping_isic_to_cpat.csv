@@ -1,0 +1,114 @@
+"ISIC, Rev. 4 codes","ISIC, Rev. 4 Description",CPAT code,CPAT sector
+Division 01,"Crop and animal production, hunting and related service activities",foo,Food & forestry
+Division 02,Forestry and logging,foo,Food & forestry
+Division 03,Fishing and aquaculture,foo,Food & forestry
+Division 05,Mining of coal and lignite,ftr,Fuel transformation & transportation
+Division 06,Extraction of crude petroleum and natural gas,ftr,Fuel transformation & transportation
+Division 07,Mining of metal ores,…,…
+Group 071,Mining of iron ores,mch,Mining & Chemicals
+Group 072,Mining of non-ferrous metal ores,…,…
+Class 0721,Mining of uranium and thorium ores,ftr,Fuel transformation & transportation
+Class 0729,Mining of other non-ferrous metal ores,mch,Mining & Chemicals
+Division 08,Other mining and quarrying,…,…
+Group 081,"Quarrying of stone, sand and clay",mch,Mining & Chemicals
+Group 089,Mining and quarrying n.e.c.,mch,Mining & Chemicals
+Class 0891,Mining of chemical and fertilizer minerals,mch,Mining & Chemicals
+Class 0892,Extraction of peat,ftr,Fuel transformation & transportation
+Class 0893,Extraction of salt,mch,Mining & Chemicals
+Class 0899,Other mining and quarrying n.e.c.,mch,Mining & Chemicals
+Division 09,Mining support service activities,…,…
+Group 091,Support activities for petroleum and natural gas extraction,ftr,Fuel transformation & transportation
+Group 099,Support activities for other mining and quarrying,mch,Mining & Chemicals
+Division 10,Manufacture of food products,foo,Food & forestry
+Division 11,Manufacture of beverages,foo,Food & forestry
+Division 12,Manufacture of tobacco products,foo,Food & forestry
+Division 13,Manufacture of textiles,omn,Other manufacturing
+Division 14,Manufacture of wearing apparel,omn,Other manufacturing
+Division 15,Manufacture of leather and related products,omn,Other manufacturing
+Division 16,"Manufacture of wood and of products of wood and cork, except furniture; manufacture of articles of straw and plaiting materials",foo,Food & forestry
+Division 17,Manufacture of paper and paper products,omn,Other manufacturing
+Division 18,Printing and reproduction of recorded media,omn,Other manufacturing
+Division 19,Manufacture of coke and refined petroleum products,ftr,Fuel transformation & transportation
+Division 20,Manufacture of chemicals and chemical products,mch,Mining & Chemicals
+Division 21,"Manufacture of pharmaceuticals, medicinal chemical and botanical products",mch,Mining & Chemicals
+Division 22,Manufacture of rubber and plastics products,omn,Other manufacturing
+Division 23,Manufacture of other non-metallic mineral products,cem,Cement
+Division 24,Manufacture of basic metals,…,…
+Group 241,Manufacture of basic iron and steel,irn,Iron and steel
+Class 2431,Casting of iron and steel,irn,Iron and steel
+Group 242,Manufacture of basic precious and other non-ferrous metals,nfm,Non-ferrous metals
+Class 2432,Casting of non-ferrous metals,nfm,Non-ferrous metals
+Division 25,"Manufacture of fabricated metal products, except machinery and equipment",mac,Machinery
+Division 26,"Manufacture of computer, electronic and optical products",mac,Machinery
+Division 27,Manufacture of electrical equipment,mac,Machinery
+Division 28,Manufacture of machinery and equipment n.e.c,mac,Machinery
+Division 29,"Manufacture of motor vehicles, trailers and semi-trailers",mac,Machinery
+Division 30,Manufacture of other transport equipment,mac,Machinery
+Division 31,Manufacture of furniture,omn,Other manufacturing
+Division 32,Other manufacturing,omn,Other manufacturing
+Division 33,Repair and installation of machinery and equipment,srv,Services (public & private)
+Division 35,"Electricity, gas, steam and air conditioning supply",pow,Electricity production
+Division 36,"Water collection, treatment and supply",srv,Services (public & private)
+Division 37,Sewerage,srv,Services (public & private)
+Division 38,"Waste collection, treatment and disposal activities; materials recovery",srv,Services (public & private)
+Division 39,Remediation activities and other waste management services,srv,Services (public & private)
+Division 41,Construction of buildings,cst,Construction
+Division 42,Civil engineering,cst,Construction
+Division 43,Specialized construction activities,cst,Construction
+Division 45,Wholesale and retail trade and repair of motor vehicles and motorcycles,srv,Services (public & private)
+Division 46,"Wholesale trade, except of motor vehicles and motorcycles",srv,Services (public & private)
+Division 47,"Retail trade, except of motor vehicles and motorcycles",srv,Services (public & private)
+Division 49,Land transport and transport via pipelines,…,…
+Group 491,Transport via railways,ral,Rail
+Group 492,Other land transport,roa,Road
+Group 493,Transport via pipeline,ftr,Fuel transformation & transportation
+Division 50,Water transport,nav,Domestic navigation
+Division 51,Air transport,avi,Domestic aviation
+Division 52,Warehousing and support activities for transportation,srv,Services (public & private)
+Division 53,Postal and courier activities,srv,Services (public & private)
+Division 55,Accommodation,srv,Services (public & private)
+Division 56,Food and beverage service activities,srv,Services (public & private)
+Division 58,Publishing activities,srv,Services (public & private)
+Division 59,"Motion picture, video and television programme production, sound recording and music publishing activities",srv,Services (public & private)
+Division 60,Programming and broadcasting activities,srv,Services (public & private)
+Division 61,Telecommunications,srv,Services (public & private)
+Division 62,"Computer programming, consultancy and related activities",srv,Services (public & private)
+Division 63,Information service activities,srv,Services (public & private)
+Division 64,"Financial service activities, except insurance and pension funding",srv,Services (public & private)
+Division 65,"Insurance, reinsurance and pension funding, except compulsory social security",srv,Services (public & private)
+Division 66,Activities auxiliary to financial service and insurance activities,srv,Services (public & private)
+Division 68,Real estate activities,srv,Services (public & private)
+Division 69,Legal and accounting activities,srv,Services (public & private)
+Division 70,Activities of head offices; management consultancy activities,srv,Services (public & private)
+Division 71,Architectural and engineering activities; technical testing and analysis,srv,Services (public & private)
+Division 72,Scientific research and development,srv,Services (public & private)
+Division 73,Advertising and market research,srv,Services (public & private)
+Division 74,"Other professional, scientific and technical activities",srv,Services (public & private)
+Division 75,Veterinary activities,srv,Services (public & private)
+Division 77,Rental and leasing activities,srv,Services (public & private)
+Division 78,Employment activities,srv,Services (public & private)
+Division 79,"Travel agency, tour operator, reservation service and related activities",srv,Services (public & private)
+Division 80,Security and investigation activities,srv,Services (public & private)
+Division 81,Services to buildings and landscape activities,srv,Services (public & private)
+Division 82,"Office administrative, office support and other business support activities",srv,Services (public & private)
+Division 84,Public administration and defence; compulsory social security,…,…
+Group 841,Administration of the State and the economic and social policy of the community,srv,Services (public & private)
+Group 842,Provision of services to the community as a whole,…,…
+Class 8421,Foreign affairs,srv,Services (public & private)
+Class 8422,Defence activities,oen,Other
+Class 8423,Public order and safety activities,srv,Services (public & private)
+Group 843,Compulsory social security activities,srv,Services (public & private)
+Division 85,Education,srv,Services (public & private)
+Division 86,Human health activities,srv,Services (public & private)
+Division 87,Residential care activities,srv,Services (public & private)
+Division 88,Social work activities without accommodation,srv,Services (public & private)
+Division 90,"Creative, arts and entertainment activities",srv,Services (public & private)
+Division 91,"Libraries, archives, museums and other cultural activities",srv,Services (public & private)
+Division 92,Gambling and betting activities,srv,Services (public & private)
+Division 93,Sports activities and amusement and recreation activities,srv,Services (public & private)
+Division 94,Activities of membership organizations,srv,Services (public & private)
+Division 95,Repair of computers and personal and household goods,srv,Services (public & private)
+Division 96,Other personal service activities,srv,Services (public & private)
+Division 97,Activities of households as employers of domestic personnel,res,Residential sector
+Division 98,Undifferentiated goods- and services-producing activities of private households for own use,res,Residential sector
+Division 99,Activities of extraterritorial organizations and bodies,srv,Services (public & private)

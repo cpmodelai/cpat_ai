@@ -1,0 +1,23 @@
+name: cpat_p
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12      # as the repository's Windows environment cpat312; tested with 3.12.3
+  - pip=24.2
+
+  # Core scientific stack (install via conda)
+  - pandas=2.2.3      # the code also runs on pandas 3 (tested 3.0.5)
+  - numpy=2.2.0
+  - pyarrow=21.0.0
+  - matplotlib=3.9.2  # first releases built for numpy 2
+  - openpyxl=3.1.5
+  - xlsxwriter=3.1.1
+  - python-dotenv=1.0.1
+
+  # Pip for the rest
+  - pip:
+      - shiny==1.1.0
+      - plotly==5.24.1
+      - shinywidgets==0.3.3
+      - markdown==3.6
+      - pytest==8.3.5

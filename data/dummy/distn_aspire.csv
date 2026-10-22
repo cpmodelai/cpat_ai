@@ -1,0 +1,31 @@
+Series_Code,Country Name,ISO-3 Country Code,Year,(firstnm) Value,(firstnm) indicator_name,(firstnm) Sub_Topic5,(firstnm) Sub_Topic6
+EGY.per_allsp.avt_q1_preT_tot,"Egypt, Arab Rep.",EGY,2008,1.701829075813293,Average per capita transfer held by 1st quintile (poorest) -All Social Protection and Labor (preT),All Social Protection and Labor,All Social Protection and Labor
+EGY.per_allsp.avt_q2_preT_tot,"Egypt, Arab Rep.",EGY,2008,1.4042809009552,Average per capita transfer held by 2nd quintile -All Social Protection and Labor (preT),All Social Protection and Labor,All Social Protection and Labor
+EGY.per_allsp.avt_q3_preT_tot,"Egypt, Arab Rep.",EGY,2008,1.858706116676331,Average per capita transfer held by 3rd quintile -All Social Protection and Labor (preT),All Social Protection and Labor,All Social Protection and Labor
+EGY.per_allsp.avt_q4_preT_tot,"Egypt, Arab Rep.",EGY,2008,1.829251289367676,Average per capita transfer held by 4th quintile -All Social Protection and Labor (preT),All Social Protection and Labor,All Social Protection and Labor
+EGY.per_allsp.avt_q5_preT_tot,"Egypt, Arab Rep.",EGY,2008,4.406506061553955,Average per capita transfer held by 5th quintile (richest) -All Social Protection and Labor (preT),All Social Protection and Labor,All Social Protection and Labor
+EGY.per_sa_allsa.avt_q1_preT_tot,"Egypt, Arab Rep.",EGY,2008,0.3547559082508087,Average per capita transfer held by 1st quintile (poorest) - All Social Assistance (preT),Social Assistance,All Social Assistance
+EGY.per_sa_allsa.avt_q2_preT_tot,"Egypt, Arab Rep.",EGY,2008,0.2657167911529541,Average per capita transfer held by 2nd quintile - All Social Assistance (preT),Social Assistance,All Social Assistance
+EGY.per_sa_allsa.avt_q3_preT_tot,"Egypt, Arab Rep.",EGY,2008,0.3326095044612885,Average per capita transfer held by 3rd quintile - All Social Assistance (preT),Social Assistance,All Social Assistance
+EGY.per_sa_allsa.avt_q4_preT_tot,"Egypt, Arab Rep.",EGY,2008,0.3066478967666626,Average per capita transfer held by 4th quintile - All Social Assistance (preT),Social Assistance,All Social Assistance
+EGY.per_sa_allsa.avt_q5_preT_tot,"Egypt, Arab Rep.",EGY,2008,0.3710348010063171,Average per capita transfer held by 5th quintile (richest) - All Social Assistance (preT),Social Assistance,All Social Assistance
+EGY.per_sa_ct.avt_q1_preT_tot,"Egypt, Arab Rep.",EGY,2008,1.024693727493286,Average per capita transfer held by 1st quintile (poorest) - Cash Transfer (preT),Social Assistance,Cash Transfers
+EGY.per_sa_ct.avt_q2_preT_tot,"Egypt, Arab Rep.",EGY,2008,0.7078378796577454,Average per capita transfer held by 2nd quintile - Cash Transfer (preT),Social Assistance,Cash Transfers
+EGY.per_sa_ct.avt_q3_preT_tot,"Egypt, Arab Rep.",EGY,2008,1.08569598197937,Average per capita transfer held by 3rd quintile - Cash Transfer (preT),Social Assistance,Cash Transfers
+EGY.per_sa_ct.avt_q4_preT_tot,"Egypt, Arab Rep.",EGY,2008,0.784868061542511,Average per capita transfer held by 4th quintile - Cash Transfer (preT),Social Assistance,Cash Transfers
+EGY.per_sa_ct.avt_q5_preT_tot,"Egypt, Arab Rep.",EGY,2008,0.9650470614433289,Average per capita transfer held by 5th quintile (richest) - Cash Transfer (preT),Social Assistance,Cash Transfers
+EGY.per_sa_ik.avt_q1_preT_tot,"Egypt, Arab Rep.",EGY,2008,0.1784599423408508,Average per capita transfer held by 1st quintile (poorest) - In-Kind (preT),Social Assistance,In-Kind
+EGY.per_sa_ik.avt_q2_preT_tot,"Egypt, Arab Rep.",EGY,2008,0.1986256092786789,Average per capita transfer held by 2nd quintile - In-Kind (preT),Social Assistance,In-Kind
+EGY.per_sa_ik.avt_q3_preT_tot,"Egypt, Arab Rep.",EGY,2008,0.2165990024805069,Average per capita transfer held by 3rd quintile - In-Kind (preT),Social Assistance,In-Kind
+EGY.per_sa_ik.avt_q4_preT_tot,"Egypt, Arab Rep.",EGY,2008,0.2341246455907822,Average per capita transfer held by 4th quintile - In-Kind (preT),Social Assistance,In-Kind
+EGY.per_sa_ik.avt_q5_preT_tot,"Egypt, Arab Rep.",EGY,2008,0.3122527003288269,Average per capita transfer held by 5th quintile (richest) - In-Kind (preT),Social Assistance,In-Kind
+EGY.per_si_allsi.avt_q1_preT_tot,"Egypt, Arab Rep.",EGY,2008,3.410625696182251,Average per capita transfer held by 1st quintile (poorest) - All Social Insurance (preT),Social Insurance,All Social Insurance
+EGY.per_si_allsi.avt_q2_preT_tot,"Egypt, Arab Rep.",EGY,2008,3.653099775314331,Average per capita transfer held by 2nd quintile - All Social Insurance (preT),Social Insurance,All Social Insurance
+EGY.per_si_allsi.avt_q3_preT_tot,"Egypt, Arab Rep.",EGY,2008,4.544201850891113,Average per capita transfer held by 3rd quintile - All Social Insurance (preT),Social Insurance,All Social Insurance
+EGY.per_si_allsi.avt_q4_preT_tot,"Egypt, Arab Rep.",EGY,2008,4.691322326660156,Average per capita transfer held by 4th quintile - All Social Insurance (preT),Social Insurance,All Social Insurance
+EGY.per_si_allsi.avt_q5_preT_tot,"Egypt, Arab Rep.",EGY,2008,7.790436744689941,Average per capita transfer held by 5th quintile (richest) - All Social Insurance (preT),Social Insurance,All Social Insurance
+EGY.per_si_cp.avt_q1_preT_tot,"Egypt, Arab Rep.",EGY,2008,3.410625696182251,Average per capita transfer held by 1st quintile (poorest) - Contributory Pensions (preT),Social Insurance,Contributory Pensions
+EGY.per_si_cp.avt_q2_preT_tot,"Egypt, Arab Rep.",EGY,2008,3.653099775314331,Average per capita transfer held by 2nd quintile - Contributory Pensions (preT),Social Insurance,Contributory Pensions
+EGY.per_si_cp.avt_q3_preT_tot,"Egypt, Arab Rep.",EGY,2008,4.544201850891113,Average per capita transfer held by 3rd quintile - Contributory Pensions (preT),Social Insurance,Contributory Pensions
+EGY.per_si_cp.avt_q4_preT_tot,"Egypt, Arab Rep.",EGY,2008,4.691322326660156,Average per capita transfer held by 4th quintile - Contributory Pensions (preT),Social Insurance,Contributory Pensions
+EGY.per_si_cp.avt_q5_preT_tot,"Egypt, Arab Rep.",EGY,2008,7.790436744689941,Average per capita transfer held by 5th quintile (richest) - Contributory Pensions (preT),Social Insurance,Contributory Pensions

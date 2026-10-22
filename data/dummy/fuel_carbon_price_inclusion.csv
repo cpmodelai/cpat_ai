@@ -1,0 +1,11 @@
+FuelCode,Baseline,Carbon tax,ETS,Feebates,Energy efficiency regulations,TCP,Coal excise,Road fuel tax,Electricity emissions tax,Power feebate,Electricity excise,Vehicle fuel economy,Residential efficiency regulations,Industrial efficiency regulations
+coa,False,True,True,True,True,True,True,False,True,True,False,False,False,False
+nga,False,True,True,True,True,True,False,False,True,True,False,False,False,False
+gso,False,True,True,True,True,True,False,True,True,True,False,False,False,False
+die,False,True,True,True,True,True,False,True,True,True,False,False,False,False
+lpg,False,True,True,True,True,True,False,True,True,True,False,False,False,False
+ker,False,True,True,True,True,True,False,True,True,True,False,False,False,False
+oop,False,True,True,True,True,True,False,True,True,True,False,False,False,False
+bio,False,False,False,False,False,False,False,False,False,False,False,False,False,False
+ren,False,False,False,False,False,False,False,False,False,False,False,False,False,False
+jfu,False,False,False,False,False,False,False,False,False,False,False,False,False,False

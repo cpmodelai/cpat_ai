@@ -1,0 +1,7 @@
+code,iso3,year,sample,variable,value
+EGY.distn.pcoff.ove,EGY,2017,Overall,main_fuel,lpg
+EGY.distn.pcoff.ove,EGY,2017,Overall,max_share,74.05000305175781
+EGY.distn.pcoff.rur,EGY,2017,Rural,main_fuel,lpg
+EGY.distn.pcoff.rur,EGY,2017,Rural,max_share,96.4800033569336
+EGY.distn.pcoff.urb,EGY,2017,Urban,main_fuel,nga
+EGY.distn.pcoff.urb,EGY,2017,Urban,max_share,54.29499816894531

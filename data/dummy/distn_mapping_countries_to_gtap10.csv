@@ -1,0 +1,207 @@
+cname,iso3,gtapcode
+Rest of Oceania,XOC,XOC
+Fiji,FJI,XOC
+Kiribati,KIR,XOC
+Marshall Islands,MHL,XOC
+"Micronesia, Fed. Sts.",FSM,XOC
+Nauru,NRU,XOC
+Palau,PLW,XOC
+Papua New Guinea,PNG,XOC
+Samoa,WSM,XOC
+Solomon Islands,SLB,XOC
+Tonga,TON,XOC
+Tuvalu,TUV,XOC
+Vanuatu,VUT,XOC
+Rest of Southeast Asia,XSE,XSE
+Myanmar,MMR,XSE
+Timor-Leste,TLS,XSE
+Rest of South Asia,XSA,XSA
+Afghanistan,AFG,XSA
+Bhutan,BTN,XSA
+Maldives,MDV,XSA
+Rest of South America,XSM,XSM
+Guyana,GUY,XSM
+Suriname,SUR,XSM
+Rest of Caribbean,XCB,XCB
+Antigua and Barbuda,ATG,XCB
+"Bahamas, The",BHS,XCB
+Barbados,BRB,XCB
+Dominica,DMA,XCB
+Grenada,GRD,XCB
+Haiti,HTI,XCB
+St. Kitts and Nevis,KNA,XCB
+St. Lucia,LCA,XCB
+St. Vincent and the Grenadines,VCT,XCB
+Rest of European Free Trade Association,XEF,XEF
+Iceland,ISL,XEF
+Rest of Eastern Europe,XEE,XEE
+Moldova,MDA,XEE
+Rest of Europe,XER,XER
+Andorra,AND,XER
+Bosnia and Herzegovina,BIH,XER
+Kosovo,XKX,XER
+Montenegro,MNE,XER
+North Macedonia,MKD,XER
+San Marino,SMR,XER
+Serbia,SRB,SRB
+Rest of Former Soviet Union,XSU,XSU
+Turkmenistan,TKM,XSU
+Uzbekistan,UZB,XSU
+Rest of Western Asia,XWS,XWS
+Iraq,IRQ,XWS
+Lebanon,LBN,XWS
+Syrian Arab Republic,SYR,XWS
+"Yemen, Rep.",YEM,XWS
+Rest of North Africa,XNF,XNF
+Algeria,DZA,XNF
+Libya,LBY,XNF
+Rest of South African Customs Union,XSC,XSC
+Eswatini,SWZ,XSC
+Lesotho,LSO,XSC
+Rest of Western Africa,XWF,XWF
+Cabo Verde,CPV,XWF
+"Gambia, The",GMB,XWF
+Guinea-Bissau,GNB,XWF
+Liberia,LBR,XWF
+Mali,MLI,XWF
+Mauritania,MRT,XWF
+Niger,NER,XWF
+Rest of Central Africa,XCF,XCF
+Central African Republic,CAF,XCF
+Chad,TCD,XCF
+"Congo, Rep.",COG,XCF
+Equatorial Guinea,GNQ,XCF
+Gabon,GAB,XCF
+São Tomé and Principe,STP,XCF
+Rest of South Central Africa,XAC,XAC
+Angola,AGO,XAC
+"Congo, Dem. Rep.",COD,XAC
+Rest of Eastern Africa,XEC,XEC
+Burundi,BDI,XEC
+Comoros,COM,XEC
+Djibouti,DJI,XEC
+Eritrea,ERI,XEC
+Seychelles,SYC,XEC
+Somalia,SOM,XEC
+Sudan,SDN,XEC
+Albania,ALB,ALB
+United Arab Emirates,ARE,ARE
+Argentina,ARG,ARG
+Armenia,ARM,ARM
+Australia,AUS,AUS
+Austria,AUT,AUT
+Azerbaijan,AZE,AZE
+Belgium,BEL,BEL
+Benin,BEN,BEN
+Burkina Faso,BFA,BFA
+Bangladesh,BGD,BGD
+Bulgaria,BGR,BGR
+Bahrain,BHR,BHR
+Belarus,BLR,BLR
+Bolivia,BOL,BOL
+Brazil,BRA,BRA
+Brunei Darussalam,BRN,BRN
+Botswana,BWA,BWA
+Canada,CAN,CAN
+Switzerland,CHE,CHE
+Chile,CHL,CHL
+China,CHN,CHN
+Côte d'Ivoire,CIV,CIV
+Cameroon,CMR,CMR
+Colombia,COL,COL
+Costa Rica,CRI,CRI
+Cyprus,CYP,CYP
+Czechia,CZE,CZE
+Germany,DEU,DEU
+Denmark,DNK,DNK
+Dominican Republic,DOM,DOM
+Ecuador,ECU,ECU
+"Egypt, Arab Rep.",EGY,EGY
+Spain,ESP,ESP
+Estonia,EST,EST
+Ethiopia,ETH,ETH
+Finland,FIN,FIN
+France,FRA,FRA
+United Kingdom,GBR,GBR
+Georgia,GEO,GEO
+Ghana,GHA,GHA
+Guinea,GIN,GIN
+Greece,GRC,GRC
+Guatemala,GTM,GTM
+"Hong Kong SAR, China",HKG,HKG
+Honduras,HND,HND
+Croatia,HRV,HRV
+Hungary,HUN,HUN
+Indonesia,IDN,IDN
+India,IND,IND
+Ireland,IRL,IRL
+"Iran, Islamic Rep.",IRN,IRN
+Israel,ISR,ISR
+Italy,ITA,ITA
+Jamaica,JAM,JAM
+Jordan,JOR,JOR
+Japan,JPN,JPN
+Kazakhstan,KAZ,KAZ
+Kenya,KEN,KEN
+Kyrgyz Republic,KGZ,KGZ
+Cambodia,KHM,KHM
+"Korea, Rep.",KOR,KOR
+Kuwait,KWT,KWT
+Lao PDR,LAO,LAO
+Sri Lanka,LKA,LKA
+Lithuania,LTU,LTU
+Luxembourg,LUX,LUX
+Latvia,LVA,LVA
+Morocco,MAR,MAR
+Madagascar,MDG,MDG
+Mexico,MEX,MEX
+Malta,MLT,MLT
+Mongolia,MNG,MNG
+Mozambique,MOZ,MOZ
+Mauritius,MUS,MUS
+Malawi,MWI,MWI
+Malaysia,MYS,MYS
+Namibia,NAM,NAM
+Nigeria,NGA,NGA
+Nicaragua,NIC,NIC
+Netherlands,NLD,NLD
+Norway,NOR,NOR
+Nepal,NPL,NPL
+New Zealand,NZL,NZL
+Oman,OMN,OMN
+Pakistan,PAK,PAK
+Panama,PAN,PAN
+Peru,PER,PER
+Philippines,PHL,PHL
+Poland,POL,POL
+Puerto Rico,PRI,PRI
+Portugal,PRT,PRT
+Paraguay,PRY,PRY
+Qatar,QAT,QAT
+Romania,ROU,ROU
+Russian Federation,RUS,RUS
+Rwanda,RWA,RWA
+Saudi Arabia,SAU,SAU
+Senegal,SEN,SEN
+Singapore,SGP,SGP
+El Salvador,SLV,SLV
+Slovak Republic,SVK,SVK
+Slovenia,SVN,SVN
+Sweden,SWE,SWE
+Togo,TGO,TGO
+Thailand,THA,THA
+Tajikistan,TJK,TJK
+Trinidad and Tobago,TTO,TTO
+Tunisia,TUN,TUN
+Turkiye,TUR,TUR
+"Taiwan, China",TWN,TWN
+Tanzania,TZA,TZA
+Uganda,UGA,UGA
+Ukraine,UKR,UKR
+Uruguay,URY,URY
+United States,USA,USA
+"Venezuela, RB",VEN,VEN
+Vietnam,VNM,VNM
+South Africa,ZAF,ZAF
+Zambia,ZMB,ZMB
+Zimbabwe,ZWE,ZWE

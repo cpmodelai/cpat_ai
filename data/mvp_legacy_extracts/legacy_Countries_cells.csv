@@ -1,0 +1,4806 @@
+row,col,value
+3,1,World Bank list of economies (June 2018)
+4,1,(Bold indicates a change of classification)
+4,4, 
+5,1,x
+5,2,x
+5,3,Economy
+5,4,Code
+5,5,Code alpha2
+5,6,Region
+5,7,Income group
+5,9,Lending category
+5,10,Other
+5,14,Region Gains
+5,15,Region Gains code
+5,16,Using euro
+5,17,IFS codes
+5,18,WEO ISO
+5,19,Crude market
+5,20,IEA code
+5,21,IEA country
+5,22,Enerdata code
+5,23,Enerdata country
+5,24,VSL country grouping
+6,1,1
+6,3,Afghanistan
+6,4,AFG
+6,5,AF
+6,6,South Asia
+6,7,Low income
+6,8,LIC
+6,9,IDA
+6,10,HIPC
+6,11,Afghanistan
+6,12, Afghanistan
+6,13,AFG
+6,14,Asia & Oceania
+6,15,aso
+6,17,512
+6,18,512
+6,19,sng
+6,24,Low income
+7,1,2
+7,3,Albania
+7,4,ALB
+7,5,AL
+7,6,Europe & Central Asia
+7,7,Upper middle income
+7,8,UMIC
+7,9,IBRD
+7,11,Albania
+7,12, Albania
+7,13,ALB
+7,14,Europe
+7,15,eur
+7,17,914
+7,18,914
+7,19,rtd
+7,20,ALB
+7,21,Albania
+7,22,Albania
+7,24,Upper middle income
+8,1,3
+8,3,Algeria
+8,4,DZA
+8,5,DZ
+8,6,Middle East & North Africa
+8,7,Upper middle income
+8,8,UMIC
+8,9,IBRD
+8,11,Algeria
+8,12, Algeria
+8,13,DZA
+8,14,Africa
+8,15,afr
+8,17,612
+8,18,612
+8,19,rtd
+8,20,DZA
+8,21,Algeria
+8,22,Algeria
+8,24,Upper middle income
+9,1,4
+9,3,American Samoa
+9,4,ASM
+9,5,AS
+9,6,East Asia & Pacific
+9,7,Upper middle income
+9,8,UMIC
+9,9,..
+9,11,American Samoa
+9,12, American Samoa
+9,13,ASM
+9,14,Asia & Oceania
+9,15,aso
+9,17,859
+9,18,0x2a
+9,19,sng
+9,24,Upper middle income
+10,1,5
+10,3,Andorra
+10,4,AND
+10,5,AD
+10,6,Europe & Central Asia
+10,7,High income
+10,8,HIC
+10,9,..
+10,11,Andorra
+10,12, Andorra
+10,13,AND
+10,14,Europe
+10,15,eur
+10,17,0x2a
+10,18,171
+10,19,rtd
+10,24,High income
+11,1,6
+11,3,Angola
+11,4,AGO
+11,5,AO
+11,6,Sub-Saharan Africa
+11,7,Lower middle income
+11,8,LMIC
+11,9,IBRD
+11,11,Angola
+11,12, Angola
+11,13,AGO
+11,14,Africa
+11,15,afr
+11,17,614
+11,18,614
+11,19,rtd
+11,20,AGO
+11,21,Angola
+11,22,Angola
+11,24,Lower middle income
+12,1,7
+12,3,Anguilla
+12,4,AIA
+12,5,AI
+12,6,Latin America & Caribbean
+12,7,Upper middle income
+12,8,UMIC
+12,11,Anguilla
+12,12, Anguilla
+12,13,AIA
+12,14,North America
+12,15,nam
+12,17,312
+12,18,312
+12,19,usa
+12,24,Upper middle income
+13,1,8
+13,3,Antigua and Barbuda
+13,4,ATG
+13,5,AG
+13,6,Latin America & Caribbean
+13,7,High income
+13,8,HIC
+13,9,IBRD
+13,11,Antigua and Barbuda
+13,12, Antigua and Barbuda
+13,13,ATG
+13,14,North America
+13,15,nam
+13,17,311
+13,18,311
+13,19,usa
+13,24,High income
+14,1,9
+14,3,Argentina
+14,4,ARG
+14,5,AR
+14,6,Latin America & Caribbean
+14,7,High income
+14,8,HIC
+14,9,IBRD
+14,11,Argentina
+14,12, Argentina
+14,13,ARG
+14,14,North America
+14,15,nam
+14,17,213
+14,18,213
+14,19,usa
+14,20,ARG
+14,21,Argentina
+14,22,Argentina
+14,24,High income
+15,1,10
+15,3,Armenia
+15,4,ARM
+15,5,AM
+15,6,Europe & Central Asia
+15,7,Upper middle income
+15,8,UMIC
+15,9,IBRD
+15,11,Armenia
+15,12, Armenia
+15,13,ARM
+15,14,Eurasia
+15,15,eua
+15,17,911
+15,18,911
+15,19,rtd
+15,20,ARM
+15,21,Armenia
+15,22,Armenia
+15,24,Upper middle income
+16,1,11
+16,3,Aruba
+16,4,ABW
+16,5,AW
+16,6,Latin America & Caribbean
+16,7,High income
+16,8,HIC
+16,9,..
+16,11,Aruba
+16,12, Aruba
+16,13,ABW
+16,14,North America
+16,15,nam
+16,17,314
+16,18,314
+16,19,usa
+16,24,High income
+17,1,12
+17,3,Australia
+17,4,AUS
+17,5,AU
+17,6,East Asia & Pacific
+17,7,High income
+17,8,HIC
+17,9,..
+17,11,Australia
+17,12, Australia
+17,13,AUS
+17,14,Asia & Oceania
+17,15,aso
+17,17,193
+17,18,193
+17,19,sng
+17,20,AUS
+17,21,Australia
+17,22,Australia
+17,24,OECD
+18,1,13
+18,3,Austria
+18,4,AUT
+18,5,AT
+18,6,Europe & Central Asia
+18,7,High income
+18,8,HIC
+18,9,..
+18,10,EMU
+18,11,Austria
+18,12, Austria
+18,13,AUT
+18,14,Europe
+18,15,eur
+18,16,1
+18,17,122
+18,18,122
+18,19,rtd
+18,20,AUT
+18,21,Austria
+18,22,Austria
+18,24,EU
+19,1,14
+19,3,Azerbaijan
+19,4,AZE
+19,5,AZ
+19,6,Europe & Central Asia
+19,7,Upper middle income
+19,8,UMIC
+19,9,IBRD
+19,11,Azerbaijan
+19,12, Azerbaijan
+19,13,AZE
+19,14,Eurasia
+19,15,eua
+19,17,912
+19,18,912
+19,19,rtd
+19,20,AZE
+19,21,Azerbaijan
+19,22,Azerbaijan
+19,24,Upper middle income
+20,1,15
+20,3,"Bahamas, The"
+20,4,BHS
+20,5,BS
+20,6,Latin America & Caribbean
+20,7,High income
+20,8,HIC
+20,9,..
+20,11,"Bahamas, The"
+20,12," Bahamas, The"
+20,13,BHS
+20,14,North America
+20,15,nam
+20,17,313
+20,18,313
+20,19,usa
+20,24,High income
+21,1,16
+21,3,Bahrain
+21,4,BHR
+21,5,BH
+21,6,Middle East & North Africa
+21,7,High income
+21,8,HIC
+21,9,..
+21,11,Bahrain
+21,12, Bahrain
+21,13,BHR
+21,14,Middle East
+21,15,mea
+21,17,419
+21,18,419
+21,19,rtd
+21,20,BHR
+21,21,Bahrain
+21,22,Bahrain
+21,24,High income
+22,1,17
+22,3,Bangladesh
+22,4,BGD
+22,5,BD
+22,6,South Asia
+22,7,Lower middle income
+22,8,LMIC
+22,9,IDA
+22,11,Bangladesh
+22,12, Bangladesh
+22,13,BGD
+22,14,Asia & Oceania
+22,15,aso
+22,17,513
+22,18,513
+22,19,sng
+22,20,BGD
+22,21,Bangladesh
+22,22,Bangladesh
+22,24,Lower middle income
+23,1,18
+23,3,Barbados
+23,4,BRB
+23,5,BB
+23,6,Latin America & Caribbean
+23,7,High income
+23,8,HIC
+23,9,..
+23,11,Barbados
+23,12, Barbados
+23,13,BRB
+23,14,North America
+23,15,nam
+23,17,316
+23,18,316
+23,19,usa
+23,24,High income
+24,1,19
+24,3,Belarus
+24,4,BLR
+24,5,BY
+24,6,Europe & Central Asia
+24,7,Upper middle income
+24,8,UMIC
+24,9,IBRD
+24,11,Belarus
+24,12, Belarus
+24,13,BLR
+24,14,Eurasia
+24,15,eua
+24,17,913
+24,18,913
+24,19,rtd
+24,20,BLR
+24,21,Belarus
+24,22,Belarus
+24,24,Upper middle income
+25,1,20
+25,3,Belgium
+25,4,BEL
+25,5,BE
+25,6,Europe & Central Asia
+25,7,High income
+25,8,HIC
+25,9,..
+25,10,EMU
+25,11,Belgium
+25,12, Belgium
+25,13,BEL
+25,14,Europe
+25,15,eur
+25,16,1
+25,17,124
+25,18,124
+25,19,rtd
+25,20,BEL
+25,21,Belgium
+25,22,Belgium
+25,24,EU
+26,1,21
+26,3,Belize
+26,4,BLZ
+26,5,BZ
+26,6,Latin America & Caribbean
+26,7,Upper middle income
+26,8,UMIC
+26,9,IBRD
+26,11,Belize
+26,12, Belize
+26,13,BLZ
+26,14,North America
+26,15,nam
+26,17,339
+26,18,339
+26,19,usa
+26,24,Upper middle income
+27,1,22
+27,3,Benin
+27,4,BEN
+27,5,BJ
+27,6,Sub-Saharan Africa
+27,7,Low income
+27,8,LIC
+27,9,IDA
+27,10,HIPC
+27,11,Benin
+27,12, Benin
+27,13,BEN
+27,14,Africa
+27,15,afr
+27,17,638
+27,18,638
+27,19,rtd
+27,20,BEN
+27,21,Benin
+27,22,Benin
+27,24,Low income
+28,1,23
+28,3,Bermuda
+28,4,BMU
+28,5,BM
+28,6,North America
+28,7,High income
+28,8,HIC
+28,9,..
+28,11,Bermuda
+28,12, Bermuda
+28,13,BMU
+28,14,North America
+28,15,nam
+28,17,319
+28,18,0x2a
+28,19,usa
+28,24,High income
+29,1,24
+29,3,Bhutan
+29,4,BTN
+29,5,BT
+29,6,South Asia
+29,7,Lower middle income
+29,8,LMIC
+29,9,IDA
+29,11,Bhutan
+29,12, Bhutan
+29,13,BTN
+29,14,Asia & Oceania
+29,15,aso
+29,17,514
+29,18,514
+29,19,sng
+29,24,Lower middle income
+30,1,25
+30,3,Bolivia
+30,4,BOL
+30,5,BO
+30,6,Latin America & Caribbean
+30,7,Lower middle income
+30,8,LMIC
+30,9,IBRD
+30,10,HIPC
+30,11,Bolivia
+30,12, Bolivia
+30,13,BOL
+30,14,North America
+30,15,nam
+30,17,218
+30,18,218
+30,19,usa
+30,20,BOL
+30,21,Plurinational State of Bolivia
+30,22,Bolivia
+30,24,Lower middle income
+31,1,26
+31,3,Bosnia and Herzegovina
+31,4,BIH
+31,5,BA
+31,6,Europe & Central Asia
+31,7,Upper middle income
+31,8,UMIC
+31,9,IBRD
+31,11,Bosnia and Herzegovina
+31,12, Bosnia and Herzegovina
+31,13,BIH
+31,14,Europe
+31,15,eur
+31,17,963
+31,18,963
+31,19,rtd
+31,20,BIH
+31,21,Bosnia and Herzegovina
+31,22,Bosnia and Herzegovina
+31,24,Upper middle income
+32,1,27
+32,3,Botswana
+32,4,BWA
+32,5,BW
+32,6,Sub-Saharan Africa
+32,7,Upper middle income
+32,8,UMIC
+32,9,IBRD
+32,11,Botswana
+32,12, Botswana
+32,13,BWA
+32,14,Africa
+32,15,afr
+32,17,616
+32,18,616
+32,19,rtd
+32,20,BWA
+32,21,Botswana
+32,22,Botswana
+32,24,Upper middle income
+33,1,28
+33,3,Brazil
+33,4,BRA
+33,5,BR
+33,6,Latin America & Caribbean
+33,7,Upper middle income
+33,8,UMIC
+33,9,IBRD
+33,11,Brazil
+33,12, Brazil
+33,13,BRA
+33,14,North America
+33,15,nam
+33,17,223
+33,18,223
+33,19,usa
+33,20,BRA
+33,21,Brazil
+33,22,Brazil
+33,24,Upper middle income
+34,1,29
+34,3,British Virgin Islands
+34,4,VGB
+34,5,VG
+34,6,Latin America & Caribbean
+34,7,High income
+34,8,HIC
+34,9,..
+34,11,British Virgin Islands
+34,12, British Virgin Islands
+34,13,VGB
+34,14,North America
+34,15,nam
+34,17,0x2a
+34,18,0x2a
+34,19,usa
+34,24,High income
+35,1,30
+35,3,Brunei Darussalam
+35,4,BRN
+35,5,BN
+35,6,East Asia & Pacific
+35,7,High income
+35,8,HIC
+35,9,..
+35,11,Brunei Darussalam
+35,12, Brunei Darussalam
+35,13,BRN
+35,14,Asia & Oceania
+35,15,aso
+35,17,516
+35,18,516
+35,19,sng
+35,20,BRN
+35,21,Brunei Darussalam
+35,22,Brunei Darussalam
+35,24,High income
+36,1,31
+36,3,Bulgaria
+36,4,BGR
+36,5,BG
+36,6,Europe & Central Asia
+36,7,Upper middle income
+36,8,UMIC
+36,9,IBRD
+36,11,Bulgaria
+36,12, Bulgaria
+36,13,BGR
+36,14,Europe
+36,15,eur
+36,16,1
+36,17,918
+36,18,918
+36,19,rtd
+36,20,BGR
+36,21,Bulgaria
+36,22,Bulgaria
+36,24,EU
+37,1,32
+37,3,Burkina Faso
+37,4,BFA
+37,5,BF
+37,6,Sub-Saharan Africa
+37,7,Low income
+37,8,LIC
+37,9,IDA
+37,10,HIPC
+37,11,Burkina Faso
+37,12, Burkina Faso
+37,13,BFA
+37,14,Africa
+37,15,afr
+37,17,748
+37,18,748
+37,19,rtd
+37,20,BFA
+37,21,Burkina Faso
+37,22,Burkina Faso
+37,24,Low income
+38,1,33
+38,3,Burundi
+38,4,BDI
+38,5,BI
+38,6,Sub-Saharan Africa
+38,7,Low income
+38,8,LIC
+38,9,IDA
+38,10,HIPC
+38,11,Burundi
+38,12, Burundi
+38,13,BDI
+38,14,Africa
+38,15,afr
+38,17,618
+38,18,618
+38,19,rtd
+38,24,Low income
+39,1,34
+39,3,Cabo Verde
+39,4,CPV
+39,5,CV
+39,6,Sub-Saharan Africa
+39,7,Lower middle income
+39,8,LMIC
+39,9,Blend
+39,11,Cabo Verde
+39,12, Cabo Verde
+39,13,CPV
+39,14,Africa
+39,15,afr
+39,17,624
+39,18,624
+39,19,rtd
+39,24,Lower middle income
+40,1,35
+40,3,Cambodia
+40,4,KHM
+40,5,KH
+40,6,East Asia & Pacific
+40,7,Lower middle income
+40,8,LMIC
+40,9,IDA
+40,11,Cambodia
+40,12, Cambodia
+40,13,KHM
+40,14,Asia & Oceania
+40,15,aso
+40,17,522
+40,18,522
+40,19,sng
+40,20,KHM
+40,21,Cambodia
+40,22,Cambodia
+40,24,Lower middle income
+41,1,36
+41,3,Cameroon
+41,4,CMR
+41,5,CM
+41,6,Sub-Saharan Africa
+41,7,Lower middle income
+41,8,LMIC
+41,9,Blend
+41,10,HIPC
+41,11,Cameroon
+41,12, Cameroon
+41,13,CMR
+41,14,Africa
+41,15,afr
+41,17,622
+41,18,622
+41,19,rtd
+41,20,CMR
+41,21,Cameroon
+41,22,Cameroon
+41,24,Lower middle income
+42,1,37
+42,3,Canada
+42,4,CAN
+42,5,CA
+42,6,North America
+42,7,High income
+42,8,HIC
+42,9,..
+42,11,Canada
+42,12, Canada
+42,13,CAN
+42,14,North America
+42,15,nam
+42,17,156
+42,18,156
+42,19,usa
+42,20,CAN
+42,21,Canada
+42,22,Canada
+42,24,OECD
+43,1,38
+43,3,Cayman Islands
+43,4,CYM
+43,5,KY
+43,6,Latin America & Caribbean
+43,7,High income
+43,8,HIC
+43,9,..
+43,11,Cayman Islands
+43,12, Cayman Islands
+43,13,CYM
+43,14,North America
+43,15,nam
+43,17,377
+43,18,0x2a
+43,19,usa
+43,24,High income
+44,1,39
+44,3,Central African Republic
+44,4,CAF
+44,5,CF
+44,6,Sub-Saharan Africa
+44,7,Low income
+44,8,LIC
+44,9,IDA
+44,10,HIPC
+44,11,Central African Republic
+44,12, Central African Republic
+44,13,CAF
+44,14,Africa
+44,15,afr
+44,17,626
+44,18,626
+44,19,rtd
+44,24,Low income
+45,1,40
+45,3,Chad
+45,4,TCD
+45,5,TD
+45,6,Sub-Saharan Africa
+45,7,Low income
+45,8,LIC
+45,9,IDA
+45,10,HIPC
+45,11,Chad
+45,12, Chad
+45,13,TCD
+45,14,Africa
+45,15,afr
+45,17,628
+45,18,628
+45,19,rtd
+45,24,Low income
+46,1,41
+46,3,Channel Islands
+46,4,CHI
+46,6,Europe & Central Asia
+46,7,High income
+46,8,HIC
+46,9,..
+46,11,Channel Islands
+46,12, Channel Islands
+46,13,CHI
+46,14,Europe
+46,15,eur
+46,17,0x2a
+46,18,0x2a
+46,19,rtd
+46,24,High income
+47,1,42
+47,3,Chile
+47,4,CHL
+47,5,CL
+47,6,Latin America & Caribbean
+47,7,High income
+47,8,HIC
+47,9,IBRD
+47,11,Chile
+47,12, Chile
+47,13,CHL
+47,14,North America
+47,15,nam
+47,17,228
+47,18,228
+47,19,usa
+47,20,CHL
+47,21,Chile
+47,22,Chile
+47,24,High income
+48,1,43
+48,3,China
+48,4,CHN
+48,5,CN
+48,6,East Asia & Pacific
+48,7,Upper middle income
+48,8,UMIC
+48,9,IBRD
+48,11,China
+48,12, China
+48,13,CHN
+48,14,Asia & Oceania
+48,15,aso
+48,17,924
+48,18,924
+48,19,sng
+48,20,CHN
+48,21,China
+48,22,China
+48,24,Upper middle income
+49,1,44
+49,3,Colombia
+49,4,COL
+49,5,CO
+49,6,Latin America & Caribbean
+49,7,Upper middle income
+49,8,UMIC
+49,9,IBRD
+49,11,Colombia
+49,12, Colombia
+49,13,COL
+49,14,North America
+49,15,nam
+49,17,233
+49,18,233
+49,19,usa
+49,20,COL
+49,21,Colombia
+49,22,Colombia
+49,24,Upper middle income
+50,1,45
+50,3,Comoros
+50,4,COM
+50,5,KM
+50,6,Sub-Saharan Africa
+50,7,Low income
+50,8,LIC
+50,9,IDA
+50,10,HIPC
+50,11,Comoros
+50,12, Comoros
+50,13,COM
+50,14,Africa
+50,15,afr
+50,17,632
+50,18,632
+50,19,rtd
+50,24,Low income
+51,1,46
+51,3,"Congo, Democratic Republic of the"
+51,4,COD
+51,5,CD
+51,6,Sub-Saharan Africa
+51,7,Low income
+51,8,LIC
+51,9,IDA
+51,10,HIPC
+51,11,"Congo, Democratic Republic of the"
+51,12," Congo, Democratic Republic of the"
+51,13,COD
+51,14,Africa
+51,15,afr
+51,17,636
+51,18,636
+51,19,rtd
+51,20,COD
+51,21,"Congo, Democratic Republic of the"
+51,22,"Congo, Democratic Republic of the"
+51,24,Low income
+52,1,47
+52,3,"Congo, Republic of"
+52,4,COG
+52,5,CG
+52,6,Sub-Saharan Africa
+52,7,Lower middle income
+52,8,LMIC
+52,9,Blend
+52,10,HIPC
+52,11,"Congo, Republic of"
+52,12," Congo, Republic of"
+52,13,COG
+52,14,Africa
+52,15,afr
+52,17,634
+52,18,634
+52,19,rtd
+52,20,COG
+52,21,Republic of the Congo
+52,22,"Congo, Republic of"
+52,24,Lower middle income
+53,1,48
+53,3,Costa Rica
+53,4,CRI
+53,5,CR
+53,6,Latin America & Caribbean
+53,7,Upper middle income
+53,8,UMIC
+53,9,IBRD
+53,11,Costa Rica
+53,12, Costa Rica
+53,13,CRI
+53,14,North America
+53,15,nam
+53,17,238
+53,18,238
+53,19,usa
+53,20,CRI
+53,21,Costa Rica
+53,22,Costa Rica
+53,24,Upper middle income
+54,1,49
+54,3,Côte d'Ivoire
+54,4,CIV
+54,5,CI
+54,6,Sub-Saharan Africa
+54,7,Lower middle income
+54,8,LMIC
+54,9,IDA
+54,10,HIPC
+54,11,Côte d'Ivoire
+54,12, Côte d'Ivoire
+54,13,CIV
+54,14,Africa
+54,15,afr
+54,17,662
+54,18,662
+54,19,rtd
+54,20,CIV
+54,21,Côte d'Ivoire
+54,22,Côte d'Ivoire
+54,24,Lower middle income
+55,1,50
+55,3,Croatia
+55,4,HRV
+55,5,HR
+55,6,Europe & Central Asia
+55,7,High income
+55,8,HIC
+55,9,IBRD
+55,11,Croatia
+55,12, Croatia
+55,13,HRV
+55,14,Europe
+55,15,eur
+55,16,1
+55,17,960
+55,18,960
+55,19,rtd
+55,20,HRV
+55,21,Croatia
+55,22,Croatia
+55,24,EU
+56,1,51
+56,3,Cuba
+56,4,CUB
+56,5,CU
+56,6,Latin America & Caribbean
+56,7,Upper middle income
+56,8,UMIC
+56,9,..
+56,11,Cuba
+56,12, Cuba
+56,13,CUB
+56,14,North America
+56,15,nam
+56,17,928
+56,18,0x2a
+56,19,usa
+56,20,CUB
+56,21,Cuba
+56,22,Cuba
+56,24,Upper middle income
+57,1,52
+57,3,Curaçao
+57,4,CUW
+57,5,CW
+57,6,Latin America & Caribbean
+57,7,High income
+57,8,HIC
+57,9,..
+57,11,Curaçao
+57,12, Curaçao
+57,13,CUW
+57,14,North America
+57,15,nam
+57,17,0x2a
+57,18,0x2a
+57,19,usa
+57,20,CUW
+57,21,Curaçao/Netherlands Antilles
+57,22,Curaçao
+57,24,High income
+58,1,53
+58,3,Cyprus
+58,4,CYP
+58,5,CY
+58,6,Europe & Central Asia
+58,7,High income
+58,8,HIC
+58,9,..
+58,10,EMU
+58,11,Cyprus
+58,12, Cyprus
+58,13,CYP
+58,14,Europe
+58,15,eur
+58,16,1
+58,17,423
+58,18,423
+58,19,rtd
+58,20,CYP
+58,21,Cyprus
+58,22,Cyprus
+58,24,EU
+59,1,54
+59,3,Czechia
+59,4,CZE
+59,5,CZ
+59,6,Europe & Central Asia
+59,7,High income
+59,8,HIC
+59,9,..
+59,11,Czechia
+59,12, Czechia
+59,13,CZE
+59,14,Europe
+59,15,eur
+59,17,935
+59,18,935
+59,19,rtd
+59,20,CZE
+59,21,Czechia
+59,22,Czechia
+59,24,EU
+60,1,55
+60,3,Denmark
+60,4,DNK
+60,5,DK
+60,6,Europe & Central Asia
+60,7,High income
+60,8,HIC
+60,9,..
+60,11,Denmark
+60,12, Denmark
+60,13,DNK
+60,14,Europe
+60,15,eur
+60,17,128
+60,18,128
+60,19,rtd
+60,20,DNK
+60,21,Denmark
+60,22,Denmark
+60,24,EU
+61,1,56
+61,3,Djibouti
+61,4,DJI
+61,5,DJ
+61,6,Middle East & North Africa
+61,7,Lower middle income
+61,8,LMIC
+61,9,IDA
+61,11,Djibouti
+61,12, Djibouti
+61,13,DJI
+61,14,Africa
+61,15,afr
+61,17,611
+61,18,611
+61,19,rtd
+61,24,Lower middle income
+62,1,57
+62,3,Dominica
+62,4,DMA
+62,5,DM
+62,6,Latin America & Caribbean
+62,7,Upper middle income
+62,8,UMIC
+62,9,Blend
+62,11,Dominica
+62,12, Dominica
+62,13,DMA
+62,14,North America
+62,15,nam
+62,17,321
+62,18,321
+62,19,usa
+62,24,Upper middle income
+63,1,58
+63,3,Dominican Republic
+63,4,DOM
+63,5,DO
+63,6,Latin America & Caribbean
+63,7,Upper middle income
+63,8,UMIC
+63,9,IBRD
+63,11,Dominican Republic
+63,12, Dominican Republic
+63,13,DOM
+63,14,North America
+63,15,nam
+63,17,243
+63,18,243
+63,19,usa
+63,20,DOM
+63,21,Dominican Republic
+63,22,Dominican Republic
+63,24,Upper middle income
+64,1,59
+64,3,Ecuador
+64,4,ECU
+64,5,EC
+64,6,Latin America & Caribbean
+64,7,Upper middle income
+64,8,UMIC
+64,9,IBRD
+64,11,Ecuador
+64,12, Ecuador
+64,13,ECU
+64,14,North America
+64,15,nam
+64,17,248
+64,18,248
+64,19,usa
+64,20,ECU
+64,21,Ecuador
+64,22,Ecuador
+64,24,Upper middle income
+65,1,60
+65,3,Egypt
+65,4,EGY
+65,5,EG
+65,6,Middle East & North Africa
+65,7,Lower middle income
+65,8,LMIC
+65,9,IBRD
+65,11,Egypt
+65,12, Egypt
+65,13,EGY
+65,14,Africa
+65,15,afr
+65,17,469
+65,18,469
+65,19,rtd
+65,20,EGY
+65,21,Egypt
+65,22,Egypt
+65,24,Lower middle income
+66,1,61
+66,3,El Salvador
+66,4,SLV
+66,5,SV
+66,6,Latin America & Caribbean
+66,7,Lower middle income
+66,8,LMIC
+66,9,IBRD
+66,11,El Salvador
+66,12, El Salvador
+66,13,SLV
+66,14,North America
+66,15,nam
+66,17,253
+66,18,253
+66,19,usa
+66,20,SLV
+66,21,El Salvador
+66,22,El Salvador
+66,24,Lower middle income
+67,1,62
+67,3,Equatorial Guinea
+67,4,GNQ
+67,5,GQ
+67,6,Sub-Saharan Africa
+67,7,Upper middle income
+67,8,UMIC
+67,9,IBRD
+67,11,Equatorial Guinea
+67,12, Equatorial Guinea
+67,13,GNQ
+67,14,Africa
+67,15,afr
+67,17,642
+67,18,642
+67,19,rtd
+67,20,EQGUINEA
+67,21,Equatorial Guinea
+67,22,Equatorial Guinea
+67,24,Upper middle income
+68,1,63
+68,3,Eritrea
+68,4,ERI
+68,5,ER
+68,6,Sub-Saharan Africa
+68,7,Low income
+68,8,LIC
+68,9,IDA
+68,10,HIPC
+68,11,Eritrea
+68,12, Eritrea
+68,13,ERI
+68,14,Africa
+68,15,afr
+68,17,643
+68,18,643
+68,19,rtd
+68,20,ERI
+68,21,Eritrea
+68,22,Eritrea
+68,24,Low income
+69,1,64
+69,3,Estonia
+69,4,EST
+69,5,EE
+69,6,Europe & Central Asia
+69,7,High income
+69,8,HIC
+69,9,..
+69,10,EMU
+69,11,Estonia
+69,12, Estonia
+69,13,EST
+69,14,Eurasia
+69,15,eua
+69,16,1
+69,17,939
+69,18,939
+69,19,rtd
+69,20,EST
+69,21,Estonia
+69,22,Estonia
+69,24,EU
+70,1,65
+70,3,Eswatini
+70,4,SWZ
+70,5,SZ
+70,6,Sub-Saharan Africa
+70,7,Lower middle income
+70,8,LMIC
+70,9,IBRD
+70,11,Eswatini
+70,12, Eswatini
+70,13,SWZ
+70,14,Africa
+70,15,afr
+70,17,0x2a
+70,18,734
+70,19,rtd
+70,24,Lower middle income
+71,1,66
+71,3,Ethiopia
+71,4,ETH
+71,5,ET
+71,6,Sub-Saharan Africa
+71,7,Low income
+71,8,LIC
+71,9,IDA
+71,10,HIPC
+71,11,Ethiopia
+71,12, Ethiopia
+71,13,ETH
+71,14,Africa
+71,15,afr
+71,17,644
+71,18,644
+71,19,rtd
+71,20,ETH
+71,21,Ethiopia
+71,22,Ethiopia
+71,24,Low income
+72,1,67
+72,3,Faroe Islands
+72,4,FRO
+72,5,FO
+72,6,Europe & Central Asia
+72,7,High income
+72,8,HIC
+72,9,..
+72,11,Faroe Islands
+72,12, Faroe Islands
+72,13,FRO
+72,14,Europe
+72,15,eur
+72,17,0x2a
+72,18,0x2a
+72,19,rtd
+72,24,High income
+73,1,68
+73,3,Fiji
+73,4,FJI
+73,5,FJ
+73,6,East Asia & Pacific
+73,7,Upper middle income
+73,8,UMIC
+73,9,IBRD
+73,11,Fiji
+73,12, Fiji
+73,13,FJI
+73,14,Asia & Oceania
+73,15,aso
+73,17,819
+73,18,819
+73,19,sng
+73,24,Upper middle income
+74,1,69
+74,3,Finland
+74,4,FIN
+74,5,FI
+74,6,Europe & Central Asia
+74,7,High income
+74,8,HIC
+74,9,..
+74,10,EMU
+74,11,Finland
+74,12, Finland
+74,13,FIN
+74,14,Europe
+74,15,eur
+74,16,1
+74,17,172
+74,18,172
+74,19,rtd
+74,20,FIN
+74,21,Finland
+74,22,Finland
+74,24,EU
+75,1,70
+75,3,France
+75,4,FRA
+75,5,FR
+75,6,Europe & Central Asia
+75,7,High income
+75,8,HIC
+75,9,..
+75,10,EMU
+75,11,France
+75,12, France
+75,13,FRA
+75,14,Europe
+75,15,eur
+75,16,1
+75,17,132
+75,18,132
+75,19,rtd
+75,20,FRA
+75,21,France
+75,22,France
+75,24,EU
+76,1,71
+76,3,French Polynesia
+76,4,PYF
+76,5,PF
+76,6,East Asia & Pacific
+76,7,High income
+76,8,HIC
+76,9,..
+76,11,French Polynesia
+76,12, French Polynesia
+76,13,PYF
+76,14,Asia & Oceania
+76,15,aso
+76,17,887
+76,18,0x2a
+76,19,sng
+76,24,High income
+77,1,72
+77,3,Gabon
+77,4,GAB
+77,5,GA
+77,6,Sub-Saharan Africa
+77,7,Upper middle income
+77,8,UMIC
+77,9,IBRD
+77,11,Gabon
+77,12, Gabon
+77,13,GAB
+77,14,Africa
+77,15,afr
+77,17,646
+77,18,646
+77,19,rtd
+77,20,GAB
+77,21,Gabon
+77,22,Gabon
+77,24,Upper middle income
+78,1,73
+78,3,"Gambia, The"
+78,4,GMB
+78,5,GM
+78,6,Sub-Saharan Africa
+78,7,Low income
+78,8,LIC
+78,9,IDA
+78,10,HIPC
+78,11,"Gambia, The"
+78,12," Gambia, The"
+78,13,GMB
+78,14,Africa
+78,15,afr
+78,17,648
+78,18,648
+78,19,rtd
+78,24,Low income
+79,1,74
+79,3,Georgia
+79,4,GEO
+79,5,GE
+79,6,Europe & Central Asia
+79,7,Lower middle income
+79,8,LMIC
+79,9,IBRD
+79,11,Georgia
+79,12, Georgia
+79,13,GEO
+79,14,Eurasia
+79,15,eua
+79,17,915
+79,18,915
+79,19,rtd
+79,20,GEO
+79,21,Georgia
+79,22,Georgia
+79,24,Lower middle income
+80,1,75
+80,3,Germany
+80,4,DEU
+80,5,DE
+80,6,Europe & Central Asia
+80,7,High income
+80,8,HIC
+80,9,..
+80,10,EMU
+80,11,Germany
+80,12, Germany
+80,13,DEU
+80,14,Europe
+80,15,eur
+80,16,1
+80,17,134
+80,18,134
+80,19,rtd
+80,20,DEU
+80,21,Germany
+80,22,Germany
+80,24,EU
+81,1,76
+81,3,Ghana
+81,4,GHA
+81,5,GH
+81,6,Sub-Saharan Africa
+81,7,Lower middle income
+81,8,LMIC
+81,9,IDA
+81,10,HIPC
+81,11,Ghana
+81,12, Ghana
+81,13,GHA
+81,14,Africa
+81,15,afr
+81,17,652
+81,18,652
+81,19,rtd
+81,20,GHA
+81,21,Ghana
+81,22,Ghana
+81,24,Lower middle income
+82,1,77
+82,3,Gibraltar
+82,4,GIB
+82,5,GI
+82,6,Europe & Central Asia
+82,7,High income
+82,8,HIC
+82,9,..
+82,11,Gibraltar
+82,12, Gibraltar
+82,13,GIB
+82,14,Europe
+82,15,eur
+82,17,823
+82,18,0x2a
+82,19,rtd
+82,20,GIB
+82,21,Gibraltar
+82,22,Gibraltar
+82,24,High income
+83,1,78
+83,3,Greece
+83,4,GRC
+83,5,GR
+83,6,Europe & Central Asia
+83,7,High income
+83,8,HIC
+83,9,..
+83,10,EMU
+83,11,Greece
+83,12, Greece
+83,13,GRC
+83,14,Europe
+83,15,eur
+83,16,1
+83,17,174
+83,18,174
+83,19,rtd
+83,20,GRC
+83,21,Greece
+83,22,Greece
+83,24,EU
+84,1,79
+84,3,Greenland
+84,4,GRL
+84,5,GL
+84,6,Europe & Central Asia
+84,7,High income
+84,8,HIC
+84,9,..
+84,11,Greenland
+84,12, Greenland
+84,13,GRL
+84,14,Europe
+84,15,eur
+84,16,1
+84,17,326
+84,18,0x2a
+84,19,rtd
+84,20,GREENLAND
+84,21,Memo: Greenland
+84,22,Greenland
+84,24,High income
+85,1,80
+85,3,Grenada
+85,4,GRD
+85,5,GD
+85,6,Latin America & Caribbean
+85,7,Upper middle income
+85,8,UMIC
+85,9,Blend
+85,11,Grenada
+85,12, Grenada
+85,13,GRD
+85,14,North America
+85,15,nam
+85,17,328
+85,18,328
+85,19,usa
+85,24,Upper middle income
+86,1,81
+86,3,Guam
+86,4,GUM
+86,5,GU
+86,6,East Asia & Pacific
+86,7,High income
+86,8,HIC
+86,9,..
+86,11,Guam
+86,12, Guam
+86,13,GUM
+86,14,Asia & Oceania
+86,15,aso
+86,17,829
+86,18,0x2a
+86,19,sng
+86,24,High income
+87,1,82
+87,3,Guatemala
+87,4,GTM
+87,5,GT
+87,6,Latin America & Caribbean
+87,7,Upper middle income
+87,8,UMIC
+87,9,IBRD
+87,11,Guatemala
+87,12, Guatemala
+87,13,GTM
+87,14,North America
+87,15,nam
+87,17,258
+87,18,258
+87,19,usa
+87,20,GTM
+87,21,Guatemala
+87,22,Guatemala
+87,24,Upper middle income
+88,1,83
+88,3,Guinea
+88,4,GIN
+88,5,GN
+88,6,Sub-Saharan Africa
+88,7,Low income
+88,8,LIC
+88,9,IDA
+88,10,HIPC
+88,11,Guinea
+88,12, Guinea
+88,13,GIN
+88,14,Africa
+88,15,afr
+88,17,656
+88,18,656
+88,19,rtd
+88,24,Low income
+89,1,84
+89,3,Guinea-Bissau
+89,4,GNB
+89,5,GW
+89,6,Sub-Saharan Africa
+89,7,Low income
+89,8,LIC
+89,9,IDA
+89,10,HIPC
+89,11,Guinea-Bissau
+89,12, Guinea-Bissau
+89,13,GNB
+89,14,Africa
+89,15,afr
+89,17,654
+89,18,654
+89,19,rtd
+89,24,Low income
+90,1,85
+90,3,Guyana
+90,4,GUY
+90,5,GY
+90,6,Latin America & Caribbean
+90,7,Upper middle income
+90,8,UMIC
+90,9,IDA
+90,10,HIPC
+90,11,Guyana
+90,12, Guyana
+90,13,GUY
+90,14,North America
+90,15,nam
+90,17,336
+90,18,336
+90,19,usa
+90,20,MGUYANA
+90,21,Memo: Guyana
+90,22,Guyana
+90,24,Upper middle income
+91,1,86
+91,3,Haiti
+91,4,HTI
+91,5,HT
+91,6,Latin America & Caribbean
+91,7,Low income
+91,8,LIC
+91,9,IDA
+91,10,HIPC
+91,11,Haiti
+91,12, Haiti
+91,13,HTI
+91,14,North America
+91,15,nam
+91,17,263
+91,18,263
+91,19,usa
+91,20,HTI
+91,21,Haiti
+91,22,Haiti
+91,24,Low income
+92,1,87
+92,3,Honduras
+92,4,HND
+92,5,HN
+92,6,Latin America & Caribbean
+92,7,Lower middle income
+92,8,LMIC
+92,9,IDA
+92,10,HIPC
+92,11,Honduras
+92,12, Honduras
+92,13,HND
+92,14,North America
+92,15,nam
+92,17,268
+92,18,268
+92,19,usa
+92,20,HND
+92,21,Honduras
+92,22,Honduras
+92,24,Lower middle income
+93,1,88
+93,3,Hong Kong SAR
+93,4,HKG
+93,5,HK
+93,6,East Asia & Pacific
+93,7,High income
+93,8,HIC
+93,9,..
+93,11,Hong Kong SAR
+93,12, Hong Kong SAR
+93,13,HKG
+93,14,Asia & Oceania
+93,15,aso
+93,17,532
+93,18,532
+93,19,sng
+93,20,HKG
+93,21,Hong Kong (China)
+93,22,Hong Kong SAR
+93,24,High income
+94,1,89
+94,3,Hungary
+94,4,HUN
+94,5,HU
+94,6,Europe & Central Asia
+94,7,High income
+94,8,HIC
+94,9,..
+94,11,0x17
+94,12, Hungary
+94,13,HUN
+94,14,Europe
+94,15,eur
+94,17,944
+94,18,944
+94,19,rtd
+94,20,HUN
+94,21,Hungary
+94,22,Hungary
+94,24,EU
+95,1,90
+95,3,Iceland
+95,4,ISL
+95,5,IS
+95,6,Europe & Central Asia
+95,7,High income
+95,8,HIC
+95,9,..
+95,11,Iceland
+95,12, Iceland
+95,13,ISL
+95,14,Europe
+95,15,eur
+95,17,176
+95,18,176
+95,19,rtd
+95,20,ISL
+95,21,Iceland
+95,22,Iceland
+95,24,OECD
+96,1,91
+96,3,India
+96,4,IND
+96,5,IN
+96,6,South Asia
+96,7,Lower middle income
+96,8,LMIC
+96,9,IBRD
+96,11,India
+96,12, India
+96,13,IND
+96,14,Asia & Oceania
+96,15,aso
+96,17,534
+96,18,534
+96,19,sng
+96,20,IND
+96,21,India
+96,22,India
+96,24,Lower middle income
+97,1,92
+97,3,Indonesia
+97,4,IDN
+97,5,ID
+97,6,East Asia & Pacific
+97,7,Lower middle income
+97,8,LMIC
+97,9,IBRD
+97,11,Indonesia
+97,12, Indonesia
+97,13,IDN
+97,14,Asia & Oceania
+97,15,aso
+97,17,536
+97,18,536
+97,19,sng
+97,20,IDN
+97,21,Indonesia
+97,22,Indonesia
+97,24,Lower middle income
+98,1,93
+98,3,Iran
+98,4,IRN
+98,5,IR
+98,6,Middle East & North Africa
+98,7,Upper middle income
+98,8,UMIC
+98,9,IBRD
+98,11,Iran
+98,12, Iran
+98,13,IRN
+98,14,Middle East
+98,15,mea
+98,17,429
+98,18,429
+98,19,rtd
+98,20,IRN
+98,21,Iran
+98,22,Iran
+98,24,Upper middle income
+99,1,94
+99,3,Iraq
+99,4,IRQ
+99,5,IQ
+99,6,Middle East & North Africa
+99,7,Upper middle income
+99,8,UMIC
+99,9,IBRD
+99,11,Iraq
+99,12, Iraq
+99,13,IRQ
+99,14,Middle East
+99,15,mea
+99,17,433
+99,18,433
+99,19,rtd
+99,20,IRQ
+99,21,Iraq
+99,22,Iraq
+99,24,Upper middle income
+100,1,95
+100,3,Ireland
+100,4,IRL
+100,5,IE
+100,6,Europe & Central Asia
+100,7,High income
+100,8,HIC
+100,9,..
+100,10,EMU
+100,11,Ireland
+100,12, Ireland
+100,13,IRL
+100,14,Europe
+100,15,eur
+100,16,1
+100,17,178
+100,18,178
+100,19,rtd
+100,20,IRL
+100,21,Ireland
+100,22,Ireland
+100,24,EU
+101,1,96
+101,3,Isle of Man
+101,4,IMN
+101,5,IM
+101,6,Europe & Central Asia
+101,7,High income
+101,8,HIC
+101,9,..
+101,11,Isle of Man
+101,12, Isle of Man
+101,13,IMN
+101,14,Europe
+101,15,eur
+101,17,0x2a
+101,18,0x2a
+101,19,rtd
+101,24,High income
+102,1,97
+102,3,Israel
+102,4,ISR
+102,5,IL
+102,6,Middle East & North Africa
+102,7,High income
+102,8,HIC
+102,9,..
+102,11,Israel
+102,12, Israel
+102,13,ISR
+102,14,Middle East
+102,15,mea
+102,17,436
+102,18,436
+102,19,rtd
+102,20,ISR
+102,21,Israel
+102,22,Israel
+102,24,High income
+103,1,98
+103,3,Italy
+103,4,ITA
+103,5,IT
+103,6,Europe & Central Asia
+103,7,High income
+103,8,HIC
+103,9,..
+103,10,EMU
+103,11,Italy
+103,12, Italy
+103,13,ITA
+103,14,Europe
+103,15,eur
+103,16,1
+103,17,136
+103,18,136
+103,19,rtd
+103,20,ITA
+103,21,Italy
+103,22,Italy
+103,24,EU
+104,1,99
+104,3,Jamaica
+104,4,JAM
+104,5,JM
+104,6,Latin America & Caribbean
+104,7,Upper middle income
+104,8,UMIC
+104,9,IBRD
+104,11,Jamaica
+104,12, Jamaica
+104,13,JAM
+104,14,North America
+104,15,nam
+104,17,343
+104,18,343
+104,19,usa
+104,20,JAM
+104,21,Jamaica
+104,22,Jamaica
+104,24,Upper middle income
+105,1,100
+105,3,Japan
+105,4,JPN
+105,5,JP
+105,6,East Asia & Pacific
+105,7,High income
+105,8,HIC
+105,9,..
+105,11,Japan
+105,12, Japan
+105,13,JPN
+105,14,Asia & Oceania
+105,15,aso
+105,17,158
+105,18,158
+105,19,sng
+105,20,JPN
+105,21,Japan
+105,22,Japan
+105,24,OECD
+106,1,101
+106,3,Jordan
+106,4,JOR
+106,5,JO
+106,6,Middle East & North Africa
+106,7,Upper middle income
+106,8,UMIC
+106,9,IBRD
+106,11,Jordan
+106,12, Jordan
+106,13,JOR
+106,14,Middle East
+106,15,mea
+106,17,439
+106,18,439
+106,19,rtd
+106,20,JOR
+106,21,Jordan
+106,22,Jordan
+106,24,Upper middle income
+107,1,102
+107,3,Kazakhstan
+107,4,KAZ
+107,5,KZ
+107,6,Europe & Central Asia
+107,7,Upper middle income
+107,8,UMIC
+107,9,IBRD
+107,11,Kazakhstan
+107,12, Kazakhstan
+107,13,KAZ
+107,14,Eurasia
+107,15,eua
+107,17,916
+107,18,916
+107,19,rtd
+107,20,KAZ
+107,21,Kazakhstan
+107,22,Kazakhstan
+107,24,Upper middle income
+108,1,103
+108,3,Kenya
+108,4,KEN
+108,5,KE
+108,6,Sub-Saharan Africa
+108,7,Lower middle income
+108,8,LMIC
+108,9,Blend
+108,11,Kenya
+108,12, Kenya
+108,13,KEN
+108,14,Africa
+108,15,afr
+108,17,664
+108,18,664
+108,19,rtd
+108,20,KEN
+108,21,Kenya
+108,22,Kenya
+108,24,Lower middle income
+109,1,104
+109,3,Kiribati
+109,4,KIR
+109,5,KI
+109,6,East Asia & Pacific
+109,7,Lower middle income
+109,8,LMIC
+109,9,IDA
+109,11,Kiribati
+109,12, Kiribati
+109,13,KIR
+109,14,Asia & Oceania
+109,15,aso
+109,17,826
+109,18,826
+109,19,sng
+109,24,Lower middle income
+110,1,105
+110,3,Korea
+110,4,KOR
+110,5,KP
+110,6,East Asia & Pacific
+110,7,High income
+110,8,HIC
+110,9,..
+110,11,Korea
+110,12, Korea
+110,13,KOR
+110,14,Asia & Oceania
+110,15,aso
+110,17,542
+110,18,542
+110,19,sng
+110,20,KOR
+110,21,Korea
+110,22,Korea
+110,24,OECD
+111,1,106
+111,3,"Korea, Dem. People's Rep."
+111,4,PRK
+111,5,KR
+111,6,East Asia & Pacific
+111,7,Low income
+111,8,LIC
+111,9,..
+111,11,"Korea, Dem. People's Rep."
+111,12," Korea, Dem. People's Rep."
+111,13,PRK
+111,14,Asia & Oceania
+111,15,aso
+111,17,0x2a
+111,18,0x2a
+111,19,sng
+111,20,PRK
+111,21,Democratic People's Republic of Korea
+111,22,"Korea, Dem. People's Rep."
+111,24,Low income
+112,1,107
+112,3,Kosovo
+112,4,XKX
+112,5,XK
+112,6,Europe & Central Asia
+112,7,Lower middle income
+112,8,LMIC
+112,9,IDA
+112,11,Kosovo
+112,12, Kosovo
+112,13,XKX
+112,14,Europe
+112,15,eur
+112,17,967
+112,18,967
+112,19,rtd
+112,20,KOSOVO
+112,21,Kosovo
+112,22,Kosovo
+112,24,Lower middle income
+113,1,108
+113,3,Kuwait
+113,4,KWT
+113,5,KW
+113,6,Middle East & North Africa
+113,7,High income
+113,8,HIC
+113,9,..
+113,11,Kuwait
+113,12, Kuwait
+113,13,KWT
+113,14,Middle East
+113,15,mea
+113,17,443
+113,18,443
+113,19,rtd
+113,20,KWT
+113,21,Kuwait
+113,22,Kuwait
+113,24,High income
+114,1,109
+114,3,Kyrgyz Republic
+114,4,KGZ
+114,5,KG
+114,6,Europe & Central Asia
+114,7,Lower middle income
+114,8,LMIC
+114,9,IDA
+114,11,Kyrgyz Republic
+114,12, Kyrgyz Republic
+114,13,KGZ
+114,14,Eurasia
+114,15,eua
+114,17,917
+114,18,917
+114,19,rtd
+114,20,KGZ
+114,21,Kyrgyz Republic
+114,22,Kyrgyz Republic
+114,24,Lower middle income
+115,1,110
+115,3,Lao P.D.R.
+115,4,LAO
+115,5,LA
+115,6,East Asia & Pacific
+115,7,Lower middle income
+115,8,LMIC
+115,9,IDA
+115,11,Lao P.D.R.
+115,12, Lao P.D.R.
+115,13,LAO
+115,14,Asia & Oceania
+115,15,aso
+115,17,544
+115,18,544
+115,19,sng
+115,20,LAO
+115,21,Lao People's Democratic Republic
+115,22,Lao P.D.R.
+115,24,Lower middle income
+116,1,111
+116,3,Latvia
+116,4,LVA
+116,5,LV
+116,6,Europe & Central Asia
+116,7,High income
+116,8,HIC
+116,9,..
+116,10,EMU
+116,11,Latvia
+116,12, Latvia
+116,13,LVA
+116,14,Eurasia
+116,15,eua
+116,16,1
+116,17,941
+116,18,941
+116,19,rtd
+116,20,LVA
+116,21,Latvia
+116,22,Latvia
+116,24,EU
+117,1,112
+117,3,Lebanon
+117,4,LBN
+117,5,LB
+117,6,Middle East & North Africa
+117,7,Upper middle income
+117,8,UMIC
+117,9,IBRD
+117,11,Lebanon
+117,12, Lebanon
+117,13,LBN
+117,14,Middle East
+117,15,mea
+117,17,446
+117,18,446
+117,19,rtd
+117,20,LBN
+117,21,Lebanon
+117,22,Lebanon
+117,24,Upper middle income
+118,1,113
+118,3,Lesotho
+118,4,LSO
+118,5,LS
+118,6,Sub-Saharan Africa
+118,7,Lower middle income
+118,8,LMIC
+118,9,IDA
+118,11,Lesotho
+118,12, Lesotho
+118,13,LSO
+118,14,Africa
+118,15,afr
+118,17,666
+118,18,666
+118,19,rtd
+118,24,Lower middle income
+119,1,114
+119,3,Liberia
+119,4,LBR
+119,5,LR
+119,6,Sub-Saharan Africa
+119,7,Low income
+119,8,LIC
+119,9,IDA
+119,10,HIPC
+119,11,Liberia
+119,12, Liberia
+119,13,LBR
+119,14,Africa
+119,15,afr
+119,17,668
+119,18,668
+119,19,rtd
+119,24,Low income
+120,1,115
+120,3,Libya
+120,4,LBY
+120,5,LY
+120,6,Middle East & North Africa
+120,7,Upper middle income
+120,8,UMIC
+120,9,IBRD
+120,11,Libya
+120,12, Libya
+120,13,LBY
+120,14,Africa
+120,15,afr
+120,17,672
+120,18,672
+120,19,rtd
+120,20,LBY
+120,21,Libya
+120,22,Libya
+120,24,Upper middle income
+121,1,116
+121,3,Liechtenstein
+121,4,LIE
+121,5,LI
+121,6,Europe & Central Asia
+121,7,High income
+121,8,HIC
+121,9,..
+121,11,Liechtenstein
+121,12, Liechtenstein
+121,13,LIE
+121,14,Europe
+121,15,eur
+121,17,0x2a
+121,18,0x2a
+121,19,rtd
+121,24,High income
+122,1,117
+122,3,Lithuania
+122,4,LTU
+122,5,LT
+122,6,Europe & Central Asia
+122,7,High income
+122,8,HIC
+122,9,..
+122,10,EMU
+122,11,Lithuania
+122,12, Lithuania
+122,13,LTU
+122,14,Eurasia
+122,15,eua
+122,16,1
+122,17,946
+122,18,946
+122,19,rtd
+122,20,LTU
+122,21,Lithuania
+122,22,Lithuania
+122,24,EU
+123,1,118
+123,3,Luxembourg
+123,4,LUX
+123,5,LU
+123,6,Europe & Central Asia
+123,7,High income
+123,8,HIC
+123,9,..
+123,10,EMU
+123,11,Luxembourg
+123,12, Luxembourg
+123,13,LUX
+123,14,Europe
+123,15,eur
+123,16,1
+123,17,137
+123,18,137
+123,19,rtd
+123,20,LUX
+123,21,Luxembourg
+123,22,Luxembourg
+123,24,EU
+124,1,119
+124,3,Macao SAR
+124,4,MAC
+124,5,MO
+124,6,East Asia & Pacific
+124,7,High income
+124,8,HIC
+124,9,..
+124,11,Macao SAR
+124,12, Macao SAR
+124,13,MAC
+124,14,Asia & Oceania
+124,15,aso
+124,17,546
+124,18,546
+124,19,sng
+124,24,High income
+125,1,120
+125,3,Madagascar
+125,4,MDG
+125,5,MG
+125,6,Sub-Saharan Africa
+125,7,Low income
+125,8,LIC
+125,9,IDA
+125,10,HIPC
+125,11,Madagascar
+125,12, Madagascar
+125,13,MDG
+125,14,Africa
+125,15,afr
+125,17,674
+125,18,674
+125,19,rtd
+125,20,MMADAGASCA
+125,21,Memo: Madagascar
+125,22,Madagascar
+125,24,Low income
+126,1,121
+126,3,Malawi
+126,4,MWI
+126,5,MW
+126,6,Sub-Saharan Africa
+126,7,Low income
+126,8,LIC
+126,9,IDA
+126,10,HIPC
+126,11,Malawi
+126,12, Malawi
+126,13,MWI
+126,14,Africa
+126,15,afr
+126,17,676
+126,18,676
+126,19,rtd
+126,24,Low income
+127,1,122
+127,3,Malaysia
+127,4,MYS
+127,5,MY
+127,6,East Asia & Pacific
+127,7,Upper middle income
+127,8,UMIC
+127,9,IBRD
+127,11,Malaysia
+127,12, Malaysia
+127,13,MYS
+127,14,Asia & Oceania
+127,15,aso
+127,17,548
+127,18,548
+127,19,sng
+127,20,MYS
+127,21,Malaysia
+127,22,Malaysia
+127,24,Upper middle income
+128,1,123
+128,3,Maldives
+128,4,MDV
+128,5,MV
+128,6,South Asia
+128,7,Upper middle income
+128,8,UMIC
+128,9,IDA
+128,11,Maldives
+128,12, Maldives
+128,13,MDV
+128,14,Asia & Oceania
+128,15,aso
+128,17,556
+128,18,556
+128,19,sng
+128,24,Upper middle income
+129,1,124
+129,3,Mali
+129,4,MLI
+129,5,ML
+129,6,Sub-Saharan Africa
+129,7,Low income
+129,8,LIC
+129,9,IDA
+129,10,HIPC
+129,11,Mali
+129,12, Mali
+129,13,MLI
+129,14,Africa
+129,15,afr
+129,17,678
+129,18,678
+129,19,rtd
+129,20,MALI
+129,21,Memo: Mali
+129,22,Mali
+129,24,Low income
+130,1,125
+130,3,Malta
+130,4,MLT
+130,5,MT
+130,6,Middle East & North Africa
+130,7,High income
+130,8,HIC
+130,9,..
+130,10,EMU
+130,11,Malta
+130,12, Malta
+130,13,MLT
+130,14,Europe
+130,15,eur
+130,16,1
+130,17,181
+130,18,181
+130,19,rtd
+130,20,MLT
+130,21,Malta
+130,22,Malta
+130,24,EU
+131,1,126
+131,3,Marshall Islands
+131,4,MHL
+131,5,MH
+131,6,East Asia & Pacific
+131,7,Upper middle income
+131,8,UMIC
+131,9,IDA
+131,11,Marshall Islands
+131,12, Marshall Islands
+131,13,MHL
+131,14,Asia & Oceania
+131,15,aso
+131,17,867
+131,18,867
+131,19,sng
+131,24,Upper middle income
+132,1,127
+132,3,Mauritania
+132,4,MRT
+132,5,MR
+132,6,Sub-Saharan Africa
+132,7,Lower middle income
+132,8,LMIC
+132,9,IDA
+132,10,HIPC
+132,11,Mauritania
+132,12, Mauritania
+132,13,MRT
+132,14,Africa
+132,15,afr
+132,17,682
+132,18,682
+132,19,rtd
+132,24,Lower middle income
+133,1,128
+133,3,Mauritius
+133,4,MUS
+133,5,MU
+133,6,Sub-Saharan Africa
+133,7,Upper middle income
+133,8,UMIC
+133,9,IBRD
+133,11,Mauritius
+133,12, Mauritius
+133,13,MUS
+133,14,Africa
+133,15,afr
+133,17,684
+133,18,684
+133,19,rtd
+133,20,MAURITIUS
+133,21,Mauritius
+133,22,Mauritius
+133,24,Upper middle income
+134,1,129
+134,3,Mexico
+134,4,MEX
+134,5,MX
+134,6,Latin America & Caribbean
+134,7,Upper middle income
+134,8,UMIC
+134,9,IBRD
+134,11,Mexico
+134,12, Mexico
+134,13,MEX
+134,14,North America
+134,15,nam
+134,17,273
+134,18,273
+134,19,usa
+134,20,MEX
+134,21,Mexico
+134,22,Mexico
+134,24,OECD
+135,1,130
+135,3,Micronesia
+135,4,FSM
+135,5,FM
+135,6,East Asia & Pacific
+135,7,Lower middle income
+135,8,LMIC
+135,9,IDA
+135,11,Micronesia
+135,12, Micronesia
+135,13,FSM
+135,14,Asia & Oceania
+135,15,aso
+135,17,868
+135,18,868
+135,19,sng
+135,24,Lower middle income
+136,1,131
+136,3,Moldova
+136,4,MDA
+136,5,MD
+136,6,Europe & Central Asia
+136,7,Lower middle income
+136,8,LMIC
+136,9,Blend
+136,11,Moldova
+136,12, Moldova
+136,13,MDA
+136,14,Eurasia
+136,15,eua
+136,17,921
+136,18,921
+136,19,rtd
+136,20,MDA
+136,21,Republic of Moldova
+136,22,Moldova
+136,24,Lower middle income
+137,1,132
+137,3,Monaco
+137,4,MCO
+137,5,MC
+137,6,Europe & Central Asia
+137,7,High income
+137,8,HIC
+137,9,..
+137,11,Monaco
+137,12, Monaco
+137,13,MCO
+137,14,Europe
+137,15,eur
+137,17,948
+137,18,948
+137,19,rtd
+137,24,High income
+138,1,133
+138,3,Mongolia
+138,4,MNG
+138,5,MN
+138,6,East Asia & Pacific
+138,7,Lower middle income
+138,8,LMIC
+138,9,Blend
+138,11,Mongolia
+138,12, Mongolia
+138,13,MNG
+138,14,Asia & Oceania
+138,15,aso
+138,17,948
+138,18,948
+138,19,sng
+138,20,MNG
+138,21,Mongolia
+138,22,Mongolia
+138,24,Lower middle income
+139,1,134
+139,3,"Montenegro, Rep. of"
+139,4,MNE
+139,5,ME
+139,6,Europe & Central Asia
+139,7,Upper middle income
+139,8,UMIC
+139,9,IBRD
+139,11,"Montenegro, Rep. of"
+139,12," Montenegro, Rep. of"
+139,13,MNE
+139,14,Europe
+139,15,eur
+139,17,943
+139,18,943
+139,19,rtd
+139,20,MNE
+139,21,Montenegro
+139,22,"Montenegro, Rep. of"
+139,24,Upper middle income
+140,1,135
+140,3,Montserrat
+140,4,MSR
+140,5,MS
+140,6,Latin America & Caribbean
+140,7,Upper middle income
+140,8,UMIC
+140,11,Montserrat
+140,12, Montserrat
+140,13,MSR
+140,14,North America
+140,15,nam
+140,17,351
+140,18,351
+140,19,usa
+140,24,Upper middle income
+141,1,136
+141,3,Morocco
+141,4,MAR
+141,5,MA
+141,6,Middle East & North Africa
+141,7,Lower middle income
+141,8,LMIC
+141,9,IBRD
+141,11,Morocco
+141,12, Morocco
+141,13,MAR
+141,14,Africa
+141,15,afr
+141,17,686
+141,18,686
+141,19,rtd
+141,20,MAR
+141,21,Morocco
+141,22,Morocco
+141,24,Lower middle income
+142,1,137
+142,3,Mozambique
+142,4,MOZ
+142,5,MZ
+142,6,Sub-Saharan Africa
+142,7,Low income
+142,8,LIC
+142,9,IDA
+142,10,HIPC
+142,11,Mozambique
+142,12, Mozambique
+142,13,MOZ
+142,14,Africa
+142,15,afr
+142,17,688
+142,18,688
+142,19,rtd
+142,20,MOZ
+142,21,Mozambique
+142,22,Mozambique
+142,24,Low income
+143,1,138
+143,3,Myanmar
+143,4,MMR
+143,5,MM
+143,6,East Asia & Pacific
+143,7,Lower middle income
+143,8,LMIC
+143,9,IDA
+143,11,Myanmar
+143,12, Myanmar
+143,13,MMR
+143,14,Asia & Oceania
+143,15,aso
+143,17,518
+143,18,518
+143,19,sng
+143,20,MMR
+143,21,Myanmar
+143,22,Myanmar
+143,24,Lower middle income
+144,1,139
+144,3,Namibia
+144,4,NAM
+144,5,NA
+144,6,Sub-Saharan Africa
+144,7,Upper middle income
+144,8,UMIC
+144,9,IBRD
+144,11,Namibia
+144,12, Namibia
+144,13,NAM
+144,14,Africa
+144,15,afr
+144,17,728
+144,18,728
+144,19,rtd
+144,20,NAM
+144,21,Namibia
+144,22,Namibia
+144,24,Upper middle income
+145,1,140
+145,3,Nauru
+145,4,NRU
+145,5,NR
+145,6,East Asia & Pacific
+145,7,Upper middle income
+145,8,UMIC
+145,9,IBRD
+145,11,Nauru
+145,12, Nauru
+145,13,NRU
+145,14,Asia & Oceania
+145,15,aso
+145,17,836
+145,18,836
+145,19,sng
+145,24,Upper middle income
+146,1,141
+146,3,Nepal
+146,4,NPL
+146,5,NP
+146,6,South Asia
+146,7,Low income
+146,8,LIC
+146,9,IDA
+146,11,Nepal
+146,12, Nepal
+146,13,NPL
+146,14,Asia & Oceania
+146,15,aso
+146,17,558
+146,18,558
+146,19,sng
+146,20,NPL
+146,21,Nepal
+146,22,Nepal
+146,24,Low income
+147,1,142
+147,3,Netherlands
+147,4,NLD
+147,5,NL
+147,6,Europe & Central Asia
+147,7,High income
+147,8,HIC
+147,9,..
+147,10,EMU
+147,11,Netherlands
+147,12, Netherlands
+147,13,NLD
+147,14,Europe
+147,15,eur
+147,16,1
+147,17,138
+147,18,138
+147,19,rtd
+147,20,NLD
+147,21,Netherlands
+147,22,Netherlands
+147,24,EU
+148,1,143
+148,3,New Caledonia
+148,4,NCL
+148,5,NC
+148,6,East Asia & Pacific
+148,7,High income
+148,8,HIC
+148,9,..
+148,11,New Caledonia
+148,12, New Caledonia
+148,13,NCL
+148,14,Asia & Oceania
+148,15,aso
+148,17,839
+148,18,0x2a
+148,19,sng
+148,24,High income
+149,1,144
+149,3,New Zealand
+149,4,NZL
+149,5,NZ
+149,6,East Asia & Pacific
+149,7,High income
+149,8,HIC
+149,9,..
+149,11,New Zealand
+149,12, New Zealand
+149,13,NZL
+149,14,Asia & Oceania
+149,15,aso
+149,17,196
+149,18,196
+149,19,sng
+149,20,NZL
+149,21,New Zealand
+149,22,New Zealand
+149,24,OECD
+150,1,145
+150,3,Nicaragua
+150,4,NIC
+150,5,NI
+150,6,Latin America & Caribbean
+150,7,Lower middle income
+150,8,LMIC
+150,9,IDA
+150,10,HIPC
+150,11,Nicaragua
+150,12, Nicaragua
+150,13,NIC
+150,14,North America
+150,15,nam
+150,17,278
+150,18,278
+150,19,usa
+150,20,NIC
+150,21,Nicaragua
+150,22,Nicaragua
+150,24,Lower middle income
+151,1,146
+151,3,Niger
+151,4,NER
+151,5,NE
+151,6,Sub-Saharan Africa
+151,7,Low income
+151,8,LIC
+151,9,IDA
+151,10,HIPC
+151,11,Niger
+151,12, Niger
+151,13,NER
+151,14,Africa
+151,15,afr
+151,17,692
+151,18,692
+151,19,rtd
+151,20,NER
+151,21,Niger
+151,22,Niger
+151,24,Low income
+152,1,147
+152,3,Nigeria
+152,4,NGA
+152,5,NG
+152,6,Sub-Saharan Africa
+152,7,Lower middle income
+152,8,LMIC
+152,9,Blend
+152,11,Nigeria
+152,12, Nigeria
+152,13,NGA
+152,14,Africa
+152,15,afr
+152,17,694
+152,18,694
+152,19,rtd
+152,20,NGA
+152,21,Nigeria
+152,22,Nigeria
+152,24,Lower middle income
+153,1,148
+153,3,North Macedonia
+153,4,MKD
+153,5,MK
+153,6,Europe & Central Asia
+153,7,Upper middle income
+153,8,UMIC
+153,9,IBRD
+153,11,North Macedonia
+153,12, North Macedonia
+153,13,MKD
+153,14,Europe
+153,15,eur
+153,17,962
+153,18,962
+153,19,rtd
+153,20,MKD
+153,21,North Macedonia
+153,22,North Macedonia
+153,24,Upper middle income
+154,1,149
+154,3,Northern Mariana Islands
+154,4,MNP
+154,5,MP
+154,6,East Asia & Pacific
+154,7,High income
+154,8,HIC
+154,9,..
+154,11,Northern Mariana Islands
+154,12, Northern Mariana Islands
+154,13,MNP
+154,14,Asia & Oceania
+154,15,aso
+154,17,0x2a
+154,18,0x2a
+154,19,sng
+154,24,High income
+155,1,150
+155,3,Norway
+155,4,NOR
+155,5,NO
+155,6,Europe & Central Asia
+155,7,High income
+155,8,HIC
+155,9,..
+155,11,Norway
+155,12, Norway
+155,13,NOR
+155,14,Europe
+155,15,eur
+155,17,142
+155,18,142
+155,19,rtd
+155,20,NOR
+155,21,Norway
+155,22,Norway
+155,24,OECD
+156,1,151
+156,3,Oman
+156,4,OMN
+156,5,OM
+156,6,Middle East & North Africa
+156,7,High income
+156,8,HIC
+156,9,..
+156,11,Oman
+156,12, Oman
+156,13,OMN
+156,14,Middle East
+156,15,mea
+156,17,449
+156,18,449
+156,19,rtd
+156,20,OMN
+156,21,Oman
+156,22,Oman
+156,24,High income
+157,1,152
+157,3,Pakistan
+157,4,PAK
+157,5,PK
+157,6,South Asia
+157,7,Lower middle income
+157,8,LMIC
+157,9,Blend
+157,11,Pakistan
+157,12, Pakistan
+157,13,PAK
+157,14,Asia & Oceania
+157,15,aso
+157,17,564
+157,18,564
+157,19,sng
+157,20,PAK
+157,21,Pakistan
+157,22,Pakistan
+157,24,Lower middle income
+158,1,153
+158,3,Palau
+158,4,PLW
+158,5,PW
+158,6,East Asia & Pacific
+158,7,High income
+158,8,HIC
+158,9,IBRD
+158,11,Palau
+158,12, Palau
+158,13,PLW
+158,14,Asia & Oceania
+158,15,aso
+158,17,565
+158,18,565
+158,19,sng
+158,24,High income
+159,1,154
+159,3,Panama
+159,4,PAN
+159,5,PA
+159,6,Latin America & Caribbean
+159,7,High income
+159,8,HIC
+159,9,IBRD
+159,11,Panama
+159,12, Panama
+159,13,PAN
+159,14,North America
+159,15,nam
+159,17,283
+159,18,283
+159,19,usa
+159,20,PAN
+159,21,Panama
+159,22,Panama
+159,24,High income
+160,1,155
+160,3,Papua New Guinea
+160,4,PNG
+160,5,PG
+160,6,East Asia & Pacific
+160,7,Lower middle income
+160,8,LMIC
+160,9,Blend
+160,11,Papua New Guinea
+160,12, Papua New Guinea
+160,13,PNG
+160,14,Asia & Oceania
+160,15,aso
+160,17,853
+160,18,853
+160,19,sng
+160,24,Lower middle income
+161,1,156
+161,3,Paraguay
+161,4,PRY
+161,5,PY
+161,6,Latin America & Caribbean
+161,7,Upper middle income
+161,8,UMIC
+161,9,IBRD
+161,11,Paraguay
+161,12, Paraguay
+161,13,PRY
+161,14,North America
+161,15,nam
+161,17,288
+161,18,288
+161,19,usa
+161,20,PRY
+161,21,Paraguay
+161,22,Paraguay
+161,24,Upper middle income
+162,1,157
+162,3,Peru
+162,4,PER
+162,5,PE
+162,6,Latin America & Caribbean
+162,7,Upper middle income
+162,8,UMIC
+162,9,IBRD
+162,11,Peru
+162,12, Peru
+162,13,PER
+162,14,North America
+162,15,nam
+162,17,293
+162,18,293
+162,19,usa
+162,20,PER
+162,21,Peru
+162,22,Peru
+162,24,Upper middle income
+163,1,158
+163,3,Philippines
+163,4,PHL
+163,5,PH
+163,6,East Asia & Pacific
+163,7,Lower middle income
+163,8,LMIC
+163,9,IBRD
+163,11,Philippines
+163,12, Philippines
+163,13,PHL
+163,14,Asia & Oceania
+163,15,aso
+163,17,566
+163,18,566
+163,19,sng
+163,20,PHL
+163,21,Philippines
+163,22,Philippines
+163,24,Lower middle income
+164,1,159
+164,3,Poland
+164,4,POL
+164,5,PL
+164,6,Europe & Central Asia
+164,7,High income
+164,8,HIC
+164,9,IBRD
+164,11,Poland
+164,12, Poland
+164,13,POL
+164,14,Europe
+164,15,eur
+164,17,964
+164,18,964
+164,19,rtd
+164,20,POL
+164,21,Poland
+164,22,Poland
+164,24,EU
+165,1,160
+165,3,Portugal
+165,4,PRT
+165,5,PT
+165,6,Europe & Central Asia
+165,7,High income
+165,8,HIC
+165,9,..
+165,10,EMU
+165,11,Portugal
+165,12, Portugal
+165,13,PRT
+165,14,Europe
+165,15,eur
+165,16,1
+165,17,182
+165,18,182
+165,19,rtd
+165,20,PRT
+165,21,Portugal
+165,22,Portugal
+165,24,EU
+166,1,161
+166,3,Puerto Rico
+166,4,PRI
+166,5,PR
+166,6,Latin America & Caribbean
+166,7,High income
+166,8,HIC
+166,9,..
+166,11,Puerto Rico
+166,12, Puerto Rico
+166,13,PRI
+166,14,North America
+166,15,nam
+166,17,0x2a
+166,18,359
+166,19,usa
+166,24,High income
+167,1,162
+167,3,Qatar
+167,4,QAT
+167,5,QA
+167,6,Middle East & North Africa
+167,7,High income
+167,8,HIC
+167,9,..
+167,11,Qatar
+167,12, Qatar
+167,13,QAT
+167,14,Middle East
+167,15,mea
+167,17,453
+167,18,453
+167,19,rtd
+167,20,QAT
+167,21,Qatar
+167,22,Qatar
+167,24,High income
+168,1,163
+168,3,Romania
+168,4,ROU
+168,5,RO
+168,6,Europe & Central Asia
+168,7,Upper middle income
+168,8,UMIC
+168,9,IBRD
+168,11,Romania
+168,12, Romania
+168,13,ROU
+168,14,Europe
+168,15,eur
+168,17,968
+168,18,968
+168,19,rtd
+168,20,ROU
+168,21,Romania
+168,22,Romania
+168,24,EU
+169,1,164
+169,3,Russia
+169,4,RUS
+169,5,RU
+169,6,Europe & Central Asia
+169,7,Upper middle income
+169,8,UMIC
+169,9,IBRD
+169,11,Russia
+169,12, Russia
+169,13,RUS
+169,14,Eurasia
+169,15,eua
+169,17,922
+169,18,922
+169,19,rtd
+169,20,RUS
+169,21,Russia
+169,22,Russia
+169,24,Upper middle income
+170,1,165
+170,3,Rwanda
+170,4,RWA
+170,5,RW
+170,6,Sub-Saharan Africa
+170,7,Low income
+170,8,LIC
+170,9,IDA
+170,10,HIPC
+170,11,Rwanda
+170,12, Rwanda
+170,13,RWA
+170,14,Africa
+170,15,afr
+170,17,714
+170,18,714
+170,19,rtd
+170,20,RWA
+170,21,Rwanda
+170,22,Rwanda
+170,24,Low income
+171,1,166
+171,3,Samoa
+171,4,WSM
+171,5,WS
+171,6,East Asia & Pacific
+171,7,Upper middle income
+171,8,UMIC
+171,9,IDA
+171,11,Samoa
+171,12, Samoa
+171,13,WSM
+171,14,Asia & Oceania
+171,15,aso
+171,17,862
+171,18,862
+171,19,sng
+171,24,Upper middle income
+172,1,167
+172,3,San Marino
+172,4,SMR
+172,5,SM
+172,6,Europe & Central Asia
+172,7,High income
+172,8,HIC
+172,9,..
+172,11,San Marino
+172,12, San Marino
+172,13,SMR
+172,14,Europe
+172,15,eur
+172,17,135
+172,18,135
+172,19,rtd
+172,24,High income
+173,1,168
+173,3,São Tomé and Príncipe
+173,4,STP
+173,5,ST
+173,6,Sub-Saharan Africa
+173,7,Lower middle income
+173,8,LMIC
+173,9,IDA
+173,10,HIPC
+173,11,São Tomé and Príncipe
+173,12, São Tomé and Príncipe
+173,13,STP
+173,14,Africa
+173,15,afr
+173,17,716
+173,18,716
+173,19,rtd
+173,24,Lower middle income
+174,1,169
+174,3,Saudi Arabia
+174,4,SAU
+174,5,SA
+174,6,Middle East & North Africa
+174,7,High income
+174,8,HIC
+174,9,..
+174,11,Saudi Arabia
+174,12, Saudi Arabia
+174,13,SAU
+174,14,Middle East
+174,15,mea
+174,17,456
+174,18,456
+174,19,rtd
+174,20,SAU
+174,21,Saudi Arabia
+174,22,Saudi Arabia
+174,24,High income
+175,1,170
+175,3,Senegal
+175,4,SEN
+175,5,SN
+175,6,Sub-Saharan Africa
+175,7,Low income
+175,8,LIC
+175,9,IDA
+175,10,HIPC
+175,11,Senegal
+175,12, Senegal
+175,13,SEN
+175,14,Africa
+175,15,afr
+175,17,722
+175,18,722
+175,19,rtd
+175,20,SEN
+175,21,Senegal
+175,22,Senegal
+175,24,Low income
+176,1,171
+176,3,Serbia
+176,4,SRB
+176,5,RS
+176,6,Europe & Central Asia
+176,7,Upper middle income
+176,8,UMIC
+176,9,IBRD
+176,11,Serbia
+176,12, Serbia
+176,13,SRB
+176,14,Europe
+176,15,eur
+176,17,942
+176,18,942
+176,19,rtd
+176,20,SRB
+176,21,Serbia
+176,22,Serbia
+176,24,Upper middle income
+177,1,172
+177,3,Seychelles
+177,4,SYC
+177,5,SC
+177,6,Sub-Saharan Africa
+177,7,High income
+177,8,HIC
+177,9,IBRD
+177,11,Seychelles
+177,12, Seychelles
+177,13,SYC
+177,14,Africa
+177,15,afr
+177,17,718
+177,18,718
+177,19,rtd
+177,24,High income
+178,1,173
+178,3,Sierra Leone
+178,4,SLE
+178,5,SL
+178,6,Sub-Saharan Africa
+178,7,Low income
+178,8,LIC
+178,9,IDA
+178,10,HIPC
+178,11,Sierra Leone
+178,12, Sierra Leone
+178,13,SLE
+178,14,Africa
+178,15,afr
+178,17,724
+178,18,724
+178,19,rtd
+178,24,Low income
+179,1,174
+179,3,Singapore
+179,4,SGP
+179,5,SG
+179,6,East Asia & Pacific
+179,7,High income
+179,8,HIC
+179,9,..
+179,11,Singapore
+179,12, Singapore
+179,13,SGP
+179,14,Asia & Oceania
+179,15,aso
+179,17,576
+179,18,576
+179,19,sng
+179,20,SGP
+179,21,Singapore
+179,22,Singapore
+179,24,High income
+180,1,175
+180,3,Sint Maarten (Dutch part)
+180,4,SXM
+180,5,SX
+180,6,Latin America & Caribbean
+180,7,High income
+180,8,HIC
+180,9,..
+180,11,Sint Maarten (Dutch part)
+180,12, Sint Maarten (Dutch part)
+180,13,SXM
+180,14,North America
+180,15,nam
+180,17,0x2a
+180,18,0x2a
+180,19,usa
+180,24,High income
+181,1,176
+181,3,Slovak Republic
+181,4,SVK
+181,5,SK
+181,6,Europe & Central Asia
+181,7,High income
+181,8,HIC
+181,9,..
+181,10,EMU
+181,11,Slovak Republic
+181,12, Slovak Republic
+181,13,SVK
+181,14,Europe
+181,15,eur
+181,16,1
+181,17,936
+181,18,936
+181,19,rtd
+181,20,SVK
+181,21,Slovak Republic
+181,22,Slovak Republic
+181,24,EU
+182,1,177
+182,3,Slovenia
+182,4,SVN
+182,5,SI
+182,6,Europe & Central Asia
+182,7,High income
+182,8,HIC
+182,9,..
+182,10,EMU
+182,11,Slovenia
+182,12, Slovenia
+182,13,SVN
+182,14,Europe
+182,15,eur
+182,16,1
+182,17,961
+182,18,961
+182,19,rtd
+182,20,SVN
+182,21,Slovenia
+182,22,Slovenia
+182,24,EU
+183,1,178
+183,3,Solomon Islands
+183,4,SLB
+183,5,SB
+183,6,East Asia & Pacific
+183,7,Lower middle income
+183,8,LMIC
+183,9,IDA
+183,11,Solomon Islands
+183,12, Solomon Islands
+183,13,SLB
+183,14,Asia & Oceania
+183,15,aso
+183,17,813
+183,18,813
+183,19,sng
+183,24,Lower middle income
+184,1,179
+184,3,Somalia
+184,4,SOM
+184,5,SO
+184,6,Sub-Saharan Africa
+184,7,Low income
+184,8,LIC
+184,9,IDA
+184,10,HIPC
+184,11,Somalia
+184,12, Somalia
+184,13,SOM
+184,14,Africa
+184,15,afr
+184,17,726
+184,18,726
+184,19,rtd
+184,24,Low income
+185,1,180
+185,3,South Africa
+185,4,ZAF
+185,5,ZA
+185,6,Sub-Saharan Africa
+185,7,Upper middle income
+185,8,UMIC
+185,9,IBRD
+185,11,South Africa
+185,12, South Africa
+185,13,ZAF
+185,14,Africa
+185,15,afr
+185,17,199
+185,18,199
+185,19,rtd
+185,20,ZAF
+185,21,South Africa
+185,22,South Africa
+185,24,Upper middle income
+186,1,181
+186,3,South Sudan
+186,4,SSD
+186,5,SS
+186,6,Sub-Saharan Africa
+186,7,Low income
+186,8,LIC
+186,9,IDA
+186,11,South Sudan
+186,12, South Sudan
+186,13,SSD
+186,14,Africa
+186,15,afr
+186,17,733
+186,18,733
+186,19,rtd
+186,20,SSD
+186,21,South Sudan
+186,22,South Sudan
+186,24,Low income
+187,1,182
+187,3,Spain
+187,4,ESP
+187,5,ES
+187,6,Europe & Central Asia
+187,7,High income
+187,8,HIC
+187,9,..
+187,10,EMU
+187,11,Spain
+187,12, Spain
+187,13,ESP
+187,14,Europe
+187,15,eur
+187,16,1
+187,17,184
+187,18,184
+187,19,rtd
+187,20,ESP
+187,21,Spain
+187,22,Spain
+187,24,EU
+188,1,183
+188,3,Sri Lanka
+188,4,LKA
+188,5,LK
+188,6,South Asia
+188,7,Lower middle income
+188,8,LMIC
+188,9,IBRD
+188,11,Sri Lanka
+188,12, Sri Lanka
+188,13,LKA
+188,14,Asia & Oceania
+188,15,aso
+188,17,524
+188,18,524
+188,19,sng
+188,20,LKA
+188,21,Sri Lanka
+188,22,Sri Lanka
+188,24,Lower middle income
+189,1,184
+189,3,St. Kitts and Nevis
+189,4,KNA
+189,5,KN
+189,6,Latin America & Caribbean
+189,7,High income
+189,8,HIC
+189,9,IBRD
+189,11,St. Kitts and Nevis
+189,12, St. Kitts and Nevis
+189,13,KNA
+189,14,North America
+189,15,nam
+189,17,361
+189,18,361
+189,19,usa
+189,24,High income
+190,1,185
+190,3,St. Lucia
+190,4,LCA
+190,5,LC
+190,6,Latin America & Caribbean
+190,7,Upper middle income
+190,8,UMIC
+190,9,Blend
+190,11,St. Lucia
+190,12, St. Lucia
+190,13,LCA
+190,14,North America
+190,15,nam
+190,17,362
+190,18,362
+190,19,usa
+190,24,Upper middle income
+191,1,186
+191,3,St. Martin (French part)
+191,4,MAF
+191,5,MF
+191,6,Latin America & Caribbean
+191,7,High income
+191,8,HIC
+191,9,..
+191,11,St. Martin (French part)
+191,12, St. Martin (French part)
+191,13,MAF
+191,14,North America
+191,15,nam
+191,17,0x2a
+191,18,0x2a
+191,19,usa
+191,24,High income
+192,1,187
+192,3,St. Vincent and the Grenadines
+192,4,VCT
+192,5,VC
+192,6,Latin America & Caribbean
+192,7,Upper middle income
+192,8,UMIC
+192,9,Blend
+192,11,St. Vincent and the Grenadines
+192,12, St. Vincent and the Grenadines
+192,13,VCT
+192,14,North America
+192,15,nam
+192,17,364
+192,18,364
+192,19,usa
+192,24,Upper middle income
+193,1,188
+193,3,Sudan
+193,4,SDN
+193,5,SD
+193,6,Sub-Saharan Africa
+193,7,Lower middle income
+193,8,LMIC
+193,9,IDA
+193,10,HIPC
+193,11,Sudan
+193,12, Sudan
+193,13,SDN
+193,14,Africa
+193,15,afr
+193,17,732
+193,18,732
+193,19,rtd
+193,20,SDN
+193,21,Sudan
+193,22,Sudan
+193,24,Lower middle income
+194,1,189
+194,3,Suriname
+194,4,SUR
+194,5,SR
+194,6,Latin America & Caribbean
+194,7,Upper middle income
+194,8,UMIC
+194,9,IBRD
+194,11,Suriname
+194,12, Suriname
+194,13,SUR
+194,14,North America
+194,15,nam
+194,17,366
+194,18,366
+194,19,usa
+194,20,SUR
+194,21,Suriname
+194,22,Suriname
+194,24,Upper middle income
+195,1,190
+195,3,Sweden
+195,4,SWE
+195,5,SE
+195,6,Europe & Central Asia
+195,7,High income
+195,8,HIC
+195,9,..
+195,11,Sweden
+195,12, Sweden
+195,13,SWE
+195,14,Europe
+195,15,eur
+195,17,144
+195,18,144
+195,19,rtd
+195,20,SWE
+195,21,Sweden
+195,22,Sweden
+195,24,EU
+196,1,191
+196,3,Switzerland
+196,4,CHE
+196,5,CH
+196,6,Europe & Central Asia
+196,7,High income
+196,8,HIC
+196,9,..
+196,11,Switzerland
+196,12, Switzerland
+196,13,CHE
+196,14,Europe
+196,15,eur
+196,17,146
+196,18,146
+196,19,rtd
+196,20,CHE
+196,21,Switzerland
+196,22,Switzerland
+196,24,OECD
+197,1,192
+197,3,Syria
+197,4,SYR
+197,5,SY
+197,6,Middle East & North Africa
+197,7,Low income
+197,8,LIC
+197,9,IDA
+197,11,Syria
+197,12, Syria
+197,13,SYR
+197,14,Middle East
+197,15,mea
+197,17,463
+197,18,463
+197,19,rtd
+197,20,SYR
+197,21,Syria
+197,22,Syria
+197,24,Low income
+198,1,193
+198,3,Taiwan Province of China
+198,4,TWN
+198,5,TW
+198,6,East Asia & Pacific
+198,7,High income
+198,8,HIC
+198,9,..
+198,11,Taiwan Province of China
+198,12, Taiwan Province of China
+198,13,TWN
+198,14,Asia & Oceania
+198,15,aso
+198,17,528
+198,18,528
+198,19,sng
+198,20,TWN
+198,21,Chinese Taipei
+198,22,Taiwan Province of China
+198,24,High income
+199,1,194
+199,3,Tajikistan
+199,4,TJK
+199,5,TJ
+199,6,Europe & Central Asia
+199,7,Low income
+199,8,LIC
+199,9,IDA
+199,11,Tajikistan
+199,12, Tajikistan
+199,13,TJK
+199,14,Eurasia
+199,15,eua
+199,17,923
+199,18,923
+199,19,rtd
+199,20,TJK
+199,21,Tajikistan
+199,22,Tajikistan
+199,24,Low income
+200,1,195
+200,3,Tanzania
+200,4,TZA
+200,5,TZ
+200,6,Sub-Saharan Africa
+200,7,Low income
+200,8,LIC
+200,9,IDA
+200,10,HIPC
+200,11,Tanzania
+200,12, Tanzania
+200,13,TZA
+200,14,Africa
+200,15,afr
+200,17,738
+200,18,738
+200,19,rtd
+200,20,TZA
+200,21,United Republic of Tanzania
+200,22,Tanzania
+200,24,Low income
+201,1,196
+201,3,Thailand
+201,4,THA
+201,5,TH
+201,6,East Asia & Pacific
+201,7,Upper middle income
+201,8,UMIC
+201,9,IBRD
+201,11,Thailand
+201,12, Thailand
+201,13,THA
+201,14,Asia & Oceania
+201,15,aso
+201,17,578
+201,18,578
+201,19,sng
+201,20,THA
+201,21,Thailand
+201,22,Thailand
+201,24,Upper middle income
+202,1,197
+202,3,Timor-Leste
+202,4,TLS
+202,5,TL
+202,6,East Asia & Pacific
+202,7,Lower middle income
+202,8,LMIC
+202,9,Blend
+202,11,Timor-Leste
+202,12, Timor-Leste
+202,13,TLS
+202,14,Asia & Oceania
+202,15,aso
+202,17,537
+202,18,537
+202,19,sng
+202,24,Lower middle income
+203,1,198
+203,3,Togo
+203,4,TGO
+203,5,TG
+203,6,Sub-Saharan Africa
+203,7,Low income
+203,8,LIC
+203,9,IDA
+203,10,HIPC
+203,11,Togo
+203,12, Togo
+203,13,TGO
+203,14,Africa
+203,15,afr
+203,17,742
+203,18,742
+203,19,rtd
+203,20,TGO
+203,21,Togo
+203,22,Togo
+203,24,Low income
+204,1,199
+204,3,Tonga
+204,4,TON
+204,5,TO
+204,6,East Asia & Pacific
+204,7,Upper middle income
+204,8,UMIC
+204,9,IDA
+204,11,Tonga
+204,12, Tonga
+204,13,TON
+204,14,Asia & Oceania
+204,15,aso
+204,17,866
+204,18,866
+204,19,sng
+204,24,Upper middle income
+205,1,200
+205,3,Trinidad and Tobago
+205,4,TTO
+205,5,TT
+205,6,Latin America & Caribbean
+205,7,High income
+205,8,HIC
+205,9,IBRD
+205,11,Trinidad and Tobago
+205,12, Trinidad and Tobago
+205,13,TTO
+205,14,North America
+205,15,nam
+205,17,369
+205,18,369
+205,19,usa
+205,20,TTO
+205,21,Trinidad and Tobago
+205,22,Trinidad and Tobago
+205,24,High income
+206,1,201
+206,3,Tunisia
+206,4,TUN
+206,5,TN
+206,6,Middle East & North Africa
+206,7,Lower middle income
+206,8,LMIC
+206,9,IBRD
+206,11,Tunisia
+206,12, Tunisia
+206,13,TUN
+206,14,Africa
+206,15,afr
+206,17,744
+206,18,744
+206,19,rtd
+206,20,TUN
+206,21,Tunisia
+206,22,Tunisia
+206,24,Lower middle income
+207,1,202
+207,3,Turkiye
+207,4,TUR
+207,5,TR
+207,6,Europe & Central Asia
+207,7,Upper middle income
+207,8,UMIC
+207,9,IBRD
+207,11,Turkiye
+207,12, Turkiye
+207,13,TUR
+207,14,Europe
+207,15,eur
+207,17,186
+207,18,186
+207,19,rtd
+207,20,TUR
+207,21,Turkiye
+207,22,Turkiye
+207,24,Upper middle income
+208,1,203
+208,3,Turkmenistan
+208,4,TKM
+208,5,TM
+208,6,Europe & Central Asia
+208,7,Upper middle income
+208,8,UMIC
+208,9,IBRD
+208,11,Turkmenistan
+208,12, Turkmenistan
+208,13,TKM
+208,14,Eurasia
+208,15,eua
+208,17,925
+208,18,925
+208,19,rtd
+208,20,TKM
+208,21,Turkmenistan
+208,22,Turkmenistan
+208,24,Upper middle income
+209,1,204
+209,3,Turks and Caicos Islands
+209,4,TCA
+209,5,TC
+209,6,Latin America & Caribbean
+209,7,High income
+209,8,HIC
+209,9,..
+209,11,Turks and Caicos Islands
+209,12, Turks and Caicos Islands
+209,13,TCA
+209,14,North America
+209,15,nam
+209,17,0x2a
+209,18,0x2a
+209,19,usa
+209,24,High income
+210,1,205
+210,3,Tuvalu
+210,4,TUV
+210,5,TV
+210,6,East Asia & Pacific
+210,7,Upper middle income
+210,8,UMIC
+210,9,IDA
+210,11,Tuvalu
+210,12, Tuvalu
+210,13,TUV
+210,14,Asia & Oceania
+210,15,aso
+210,17,869
+210,18,869
+210,19,sng
+210,24,Upper middle income
+211,1,206
+211,3,Uganda
+211,4,UGA
+211,5,UG
+211,6,Sub-Saharan Africa
+211,7,Low income
+211,8,LIC
+211,9,IDA
+211,10,HIPC
+211,11,Uganda
+211,12, Uganda
+211,13,UGA
+211,14,Africa
+211,15,afr
+211,17,746
+211,18,746
+211,19,rtd
+211,20,MUGANDA
+211,21,Memo: Uganda
+211,22,Uganda
+211,24,Low income
+212,1,207
+212,3,Ukraine
+212,4,UKR
+212,5,UA
+212,6,Europe & Central Asia
+212,7,Lower middle income
+212,8,LMIC
+212,9,IBRD
+212,11,Ukraine
+212,12, Ukraine
+212,13,UKR
+212,14,Eurasia
+212,15,eua
+212,17,926
+212,18,926
+212,19,rtd
+212,20,UKR
+212,21,Ukraine
+212,22,Ukraine
+212,24,Lower middle income
+213,1,208
+213,3,United Arab Emirates
+213,4,ARE
+213,5,AE
+213,6,Middle East & North Africa
+213,7,High income
+213,8,HIC
+213,9,..
+213,11,United Arab Emirates
+213,12, United Arab Emirates
+213,13,ARE
+213,14,Middle East
+213,15,mea
+213,17,466
+213,18,466
+213,19,rtd
+213,20,ARE
+213,21,United Arab Emirates
+213,22,United Arab Emirates
+213,24,High income
+214,1,209
+214,3,United Kingdom
+214,4,GBR
+214,5,GB
+214,6,Europe & Central Asia
+214,7,High income
+214,8,HIC
+214,9,..
+214,11,United Kingdom
+214,12, United Kingdom
+214,13,GBR
+214,14,Europe
+214,15,eur
+214,17,112
+214,18,112
+214,19,rtd
+214,20,GBR
+214,21,United Kingdom
+214,22,United Kingdom
+214,24,OECD
+215,1,210
+215,3,United States
+215,4,USA
+215,5,US
+215,6,North America
+215,7,High income
+215,8,HIC
+215,9,..
+215,11,United States
+215,12, United States
+215,13,USA
+215,14,North America
+215,15,nam
+215,17,111
+215,18,111
+215,19,usa
+215,20,USA
+215,21,United States
+215,22,United States
+215,24,USA
+216,1,211
+216,3,Uruguay
+216,4,URY
+216,5,UY
+216,6,Latin America & Caribbean
+216,7,High income
+216,8,HIC
+216,9,IBRD
+216,11,Uruguay
+216,12, Uruguay
+216,13,URY
+216,14,North America
+216,15,nam
+216,17,298
+216,18,298
+216,19,usa
+216,20,URY
+216,21,Uruguay
+216,22,Uruguay
+216,24,High income
+217,1,212
+217,3,Uzbekistan
+217,4,UZB
+217,5,UZ
+217,6,Europe & Central Asia
+217,7,Lower middle income
+217,8,LMIC
+217,9,Blend
+217,11,Uzbekistan
+217,12, Uzbekistan
+217,13,UZB
+217,14,Eurasia
+217,15,eua
+217,17,927
+217,18,927
+217,19,rtd
+217,20,UZB
+217,21,Uzbekistan
+217,22,Uzbekistan
+217,24,Lower middle income
+218,1,213
+218,3,Vanuatu
+218,4,VUT
+218,5,VU
+218,6,East Asia & Pacific
+218,7,Lower middle income
+218,8,LMIC
+218,9,IDA
+218,11,Vanuatu
+218,12, Vanuatu
+218,13,VUT
+218,14,Asia & Oceania
+218,15,aso
+218,17,846
+218,18,846
+218,19,sng
+218,24,Lower middle income
+219,1,214
+219,3,Venezuela
+219,4,VEN
+219,5,VE
+219,6,Latin America & Caribbean
+219,7,Upper middle income
+219,8,UMIC
+219,9,IBRD
+219,11,Venezuela
+219,12, Venezuela
+219,13,VEN
+219,14,North America
+219,15,nam
+219,17,299
+219,18,299
+219,19,usa
+219,20,VEN
+219,21,Bolivarian Republic of Venezuela
+219,22,Venezuela
+219,24,Upper middle income
+220,1,215
+220,3,Vietnam
+220,4,VNM
+220,5,VN
+220,6,East Asia & Pacific
+220,7,Lower middle income
+220,8,LMIC
+220,9,IBRD
+220,11,Vietnam
+220,12, Vietnam
+220,13,VNM
+220,14,Asia & Oceania
+220,15,aso
+220,17,582
+220,18,582
+220,19,sng
+220,20,VNM
+220,21,Vietnam
+220,22,Vietnam
+220,24,Lower middle income
+221,1,216
+221,3,Virgin Islands (U.S.)
+221,4,VIR
+221,5,VI
+221,6,Latin America & Caribbean
+221,7,High income
+221,8,HIC
+221,9,..
+221,11,Virgin Islands (U.S.)
+221,12, Virgin Islands (U.S.)
+221,13,VIR
+221,14,North America
+221,15,nam
+221,17,0x2a
+221,18,0x2a
+221,19,usa
+221,24,High income
+222,1,217
+222,3,West Bank and Gaza
+222,4,PSE
+222,5,PS
+222,6,Middle East & North Africa
+222,7,Lower middle income
+222,8,LMIC
+222,9,..
+222,11,West Bank and Gaza
+222,12, West Bank and Gaza
+222,13,PSE
+222,14,Middle East
+222,15,mea
+222,17,0x2a
+222,18,487
+222,19,rtd
+222,20,MPALESTINE
+222,21,Memo: Palestinian Authority
+222,22,West Bank and Gaza
+222,24,Lower middle income
+223,1,221
+223,3,World aviation
+223,4,WAV
+223,5,WA
+223,6,World
+223,7,High income
+223,8,HIC
+223,9,..
+223,14,North America
+223,15,nam
+223,20,WORLDAV
+223,21,WORLDAV
+223,24,High income
+224,1,222
+224,3,World marine
+224,4,WMR
+224,5,WM
+224,6,World
+224,7,High income
+224,8,HIC
+224,9,..
+224,14,North America
+224,15,nam
+224,20,WORLDMAR
+224,21,World marine bunkers
+224,24,High income
+225,1,223
+225,3,Yemen
+225,4,YEM
+225,5,YE
+225,6,Middle East & North Africa
+225,7,Low income
+225,8,LIC
+225,9,IDA
+225,11,Yemen
+225,12, Yemen
+225,13,YEM
+225,14,Middle East
+225,15,mea
+225,17,474
+225,18,474
+225,19,rtd
+225,20,YEM
+225,21,Yemen
+225,22,Yemen
+225,24,Low income
+226,1,224
+226,3,Zambia
+226,4,ZMB
+226,5,ZM
+226,6,Sub-Saharan Africa
+226,7,Lower middle income
+226,8,LMIC
+226,9,IDA
+226,10,HIPC
+226,11,Zambia
+226,12, Zambia
+226,13,ZMB
+226,14,Africa
+226,15,afr
+226,17,754
+226,18,754
+226,19,rtd
+226,20,ZMB
+226,21,Zambia
+226,22,Zambia
+226,24,Lower middle income
+227,1,225
+227,3,Zimbabwe
+227,4,ZWE
+227,5,ZW
+227,6,Sub-Saharan Africa
+227,7,Low income
+227,8,LIC
+227,9,Blend
+227,11,Zimbabwe
+227,12, Zimbabwe
+227,13,ZWE
+227,14,Africa
+227,15,afr
+227,17,698
+227,18,698
+227,19,rtd
+227,20,ZWE
+227,21,Zimbabwe
+227,22,Zimbabwe
+227,24,Low income
+229,3,World
+229,4,WLD
+229,17,1
+229,18,1
+229,20,WLD
+229,21,World
+230,3,Memo: Africa (UN)
+230,4,AFRICATOT
+230,20,AFRICATOT
+230,21,Memo: Africa (UN)
+231,3,Memo: Americas (UN)
+231,4,AMERICAS
+231,20,AMERICAS
+231,21,Memo: Americas (UN)
+232,3,Memo: Asia (UN)
+232,4,ASIATOT
+232,20,ASIATOT
+232,21,Memo: Asia (UN)
+233,3,Memo: Europe (UN)
+233,4,EUROPE
+233,20,EUROPE
+233,21,Memo: Europe (UN)
+234,3,Memo: Oceania (UN)
+234,4,OCEANIA
+234,20,OCEANIA
+234,21,Memo: Oceania (UN)
+235,3,Europe & Central Asia (excluding high income)
+235,4,OEU
+235,20,OEU
+235,21,Europe & Central Asia (excluding high income)
+236,3,Africa
+236,4,AFRIC
+236,20,AFRIC
+236,21,Africa
+237,3,Memo: ASEAN
+237,4,MASEAN
+237,20,MASEAN
+237,21,Memo: ASEAN
+238,3,Memo: European Union-28
+238,4,EU28
+238,20,EU28
+238,21,Memo: European Union-28
+239,3,Memo: FSU 15
+239,4,FSU_15
+239,20,FSU_15
+239,21,Memo: FSU 15
+240,3,Memo: G7
+240,4,G7
+240,20,G7
+240,21,Memo: G7
+241,3,Memo: G8
+241,4,G8
+241,20,G8
+241,21,Memo: G8
+242,3,Memo: IEA Total
+242,4,IEATOT
+242,20,IEATOT
+242,21,Memo: IEA Total
+243,3,Memo: IEA and Accession/Association countries
+243,4,IEAFAMILY
+243,20,IEAFAMILY
+243,21,Memo: IEA and Accession/Association countries
+244,3,Memo: OPEC
+244,4,OPEC
+244,20,OPEC
+244,21,Memo: OPEC
+245,3,Middle East
+245,4,ASME
+245,20,ASME
+245,21,Middle East
+246,3,Non-OECD Americas
+246,4,LATAMER
+246,20,LATAMER
+246,21,Non-OECD Americas
+247,3,Non-OECD Asia (excluding China)
+247,4,ASIA
+247,20,ASIA
+247,21,Non-OECD Asia (excluding China)
+248,3,Non-OECD Europe and Eurasia
+248,4,NON-OECDEUROPEANDEURASIA
+248,20,NON-OECDEUROPEANDEURASIA
+248,21,Non-OECD Europe and Eurasia
+249,3,OECD Americas
+249,4,OENN
+249,20,OENN
+249,21,OECD Americas
+250,3,OECD Asia Oceania
+250,4,OEPN
+250,20,OEPN
+250,21,OECD Asia Oceania
+251,3,Other Africa
+251,4,OTHERAFRIC
+251,20,OTHERAFRIC
+251,21,Other Africa
+252,3,Other non-OECD Americas
+252,4,OTHERLATIN
+252,20,OTHERLATIN
+252,21,Other non-OECD Americas
+253,3,Other non-OECD Asia
+253,4,OTHERASIA
+253,20,OTHERASIA
+253,21,Other non-OECD Asia
+254,3,World aviation bunkers
+254,4,WORLDAV
+254,20,WORLDAV
+254,21,World aviation bunkers
+255,3,World marine bunkers
+255,4,WORLDMAR
+255,20,WORLDMAR
+255,21,World marine bunkers
+256,3,Non-OECD Total
+256,4,NOC
+256,20,NOC
+256,21,Memo: Non-OECD Total
+257,3,OECD Total
+257,4,OTO
+257,20,OTO
+257,21,Memo: OECD Total
+258,3,Former Yugoslavia
+258,4,YUG
+258,20,YUG
+258,21,Memo: Former Yugoslavia
+259,3,OECD Europe
+259,4,OEU
+259,20,OEU
+259,21,OECD Europe
+260,3,European Union-27
+260,4,EU27_2020
+260,20,EU27_2020
+260,21,Memo: European Union-27
+261,3,G20
+261,4,G20
+261,20,G20
+261,21,Memo: G20
+262,11,0
+262,12, 
+262,13,0
+263,11,0
+263,12, 
+263,13,0
+264,1,1
+264,3,Arab World
+264,4,ARB
+264,11,Arab World
+264,12, Arab World
+264,13,ARB
+265,1,2
+265,3,Caribbean small states
+265,4,CSS
+265,11,Caribbean small states
+265,12, Caribbean small states
+265,13,CSS
+266,1,3
+266,3,Central Europe and the Baltics
+266,4,CEB
+266,11,Central Europe and the Baltics
+266,12, Central Europe and the Baltics
+266,13,CEB
+267,1,4
+267,3,Early-demographic dividend
+267,4,EAR
+267,11,Early-demographic dividend
+267,12, Early-demographic dividend
+267,13,EAR
+268,1,5
+268,3,East Asia & Pacific
+268,4,EAS
+268,11,East Asia & Pacific
+268,12, East Asia & Pacific
+268,13,EAS
+269,1,6
+269,3,East Asia & Pacific (excluding high income)
+269,4,EAP
+269,11,East Asia & Pacific (excluding high income)
+269,12, East Asia & Pacific (excluding high income)
+269,13,EAP
+270,1,7
+270,3,East Asia & Pacific (IDA & IBRD)
+270,4,TEA
+270,11,East Asia & Pacific (IDA & IBRD)
+270,12, East Asia & Pacific (IDA & IBRD)
+270,13,TEA
+271,1,8
+271,3,Euro area
+271,4,EMU
+271,11,Euro area
+271,12, Euro area
+271,13,EMU
+272,1,9
+272,3,Europe & Central Asia
+272,4,ECS
+272,11,Europe & Central Asia
+272,12, Europe & Central Asia
+272,13,ECS
+272,21,EUROPE
+273,1,10
+273,3,Europe & Central Asia (excluding high income)
+273,4,ECA
+273,11,Europe & Central Asia (excluding high income)
+273,12, Europe & Central Asia (excluding high income)
+273,13,ECA
+273,21,OEU
+274,1,11
+274,3,Europe & Central Asia (IDA & IBRD)
+274,4,TEC
+274,11,Europe & Central Asia (IDA & IBRD)
+274,12, Europe & Central Asia (IDA & IBRD)
+274,13,TEC
+275,1,12
+275,3,European Union
+275,4,EUU
+275,11,European Union
+275,12, European Union
+275,13,EUU
+275,21,EU28
+276,1,13
+276,3,Fragile and conflict affected situations
+276,4,FCS
+276,11,Fragile and conflict affected situations
+276,12, Fragile and conflict affected situations
+276,13,FCS
+277,1,14
+277,3,Heavily indebted poor countries (HIPC)
+277,4,HPC
+277,11,Heavily indebted poor countries (HIPC)
+277,12, Heavily indebted poor countries (HIPC)
+277,13,HPC
+278,1,15
+278,3,High income
+278,4,HIC
+278,11,High income
+278,12, High income
+278,13,HIC
+279,1,16
+279,3,IBRD only
+279,4,IBD
+279,11,IBRD only
+279,12, IBRD only
+279,13,IBD
+280,1,17
+280,3,IDA & IBRD total
+280,4,IBT
+280,11,IDA & IBRD total
+280,12, IDA & IBRD total
+280,13,IBT
+281,1,18
+281,3,IDA blend
+281,4,IDB
+281,11,IDA blend
+281,12, IDA blend
+281,13,IDB
+282,1,19
+282,3,IDA only
+282,4,IDX
+282,11,IDA only
+282,12, IDA only
+282,13,IDX
+283,1,20
+283,3,IDA total
+283,4,IDA
+283,11,IDA total
+283,12, IDA total
+283,13,IDA
+284,1,21
+284,3,Late-demographic dividend
+284,4,LTE
+284,11,Late-demographic dividend
+284,12, Late-demographic dividend
+284,13,LTE
+285,1,22
+285,3,Latin America & Caribbean
+285,4,LCN
+285,11,Latin America & Caribbean
+285,12, Latin America & Caribbean
+285,13,LCN
+286,1,23
+286,3,Latin America & Caribbean (excluding high income)
+286,4,LAC
+286,11,Latin America & Caribbean (excluding high income)
+286,12, Latin America & Caribbean (excluding high income)
+286,13,LAC
+287,1,24
+287,3,Latin America & Caribbean (IDA & IBRD)
+287,4,TLA
+287,11,Latin America & Caribbean (IDA & IBRD)
+287,12, Latin America & Caribbean (IDA & IBRD)
+287,13,TLA
+288,1,25
+288,3,Least developed countries: UN classification
+288,4,LDC
+288,11,Least developed countries: UN classification
+288,12, Least developed countries: UN classification
+288,13,LDC
+289,1,26
+289,3,Low & middle income
+289,4,LMY
+289,11,Low & middle income
+289,12, Low & middle income
+289,13,LMY
+290,1,27
+290,3,Low income
+290,4,LIC
+290,11,Low income
+290,12, Low income
+290,13,LIC
+291,1,28
+291,3,Lower middle income
+291,4,LMC
+291,11,Lower middle income
+291,12, Lower middle income
+291,13,LMC
+292,1,29
+292,3,Middle East & North Africa
+292,4,MEA
+292,11,Middle East & North Africa
+292,12, Middle East & North Africa
+292,13,MEA
+292,21,ASME
+293,1,30
+293,3,Middle East & North Africa (excluding high income)
+293,4,MNA
+293,11,Middle East & North Africa (excluding high income)
+293,12, Middle East & North Africa (excluding high income)
+293,13,MNA
+294,1,31
+294,3,Middle East & North Africa (IDA & IBRD)
+294,4,TMN
+294,11,Middle East & North Africa (IDA & IBRD)
+294,12, Middle East & North Africa (IDA & IBRD)
+294,13,TMN
+295,1,32
+295,3,Middle income
+295,4,MIC
+295,11,Middle income
+295,12, Middle income
+295,13,MIC
+296,1,33
+296,3,North America
+296,4,NAC
+296,11,North America
+296,12, North America
+296,13,NAC
+297,1,34
+297,3,OECD members
+297,4,OED
+297,11,OECD members
+297,12, OECD members
+297,13,OED
+297,21,OTO
+298,1,35
+298,3,Other small states
+298,4,OSS
+298,11,Other small states
+298,12, Other small states
+298,13,OSS
+299,1,36
+299,3,Pacific island small states
+299,4,PSS
+299,11,Pacific island small states
+299,12, Pacific island small states
+299,13,PSS
+300,1,37
+300,3,Post-demographic dividend
+300,4,PST
+300,11,Post-demographic dividend
+300,12, Post-demographic dividend
+300,13,PST
+301,1,38
+301,3,Pre-demographic dividend
+301,4,PRE
+301,11,Pre-demographic dividend
+301,12, Pre-demographic dividend
+301,13,PRE
+302,1,39
+302,3,Small states
+302,4,SST
+302,11,Small states
+302,12, Small states
+302,13,SST
+303,1,40
+303,3,South Asia
+303,4,SAS
+303,11,South Asia
+303,12, South Asia
+303,13,SAS
+304,1,41
+304,3,South Asia (IDA & IBRD)
+304,4,TSA
+304,11,South Asia (IDA & IBRD)
+304,12, South Asia (IDA & IBRD)
+304,13,TSA
+305,1,42
+305,3,Sub-Saharan Africa
+305,4,SSF
+305,11,Sub-Saharan Africa
+305,12, Sub-Saharan Africa
+305,13,SSF
+306,1,43
+306,3,Sub-Saharan Africa (excluding high income)
+306,4,SSA
+306,11,Sub-Saharan Africa (excluding high income)
+306,12, Sub-Saharan Africa (excluding high income)
+306,13,SSA
+307,1,44
+307,3,Sub-Saharan Africa (IDA & IBRD)
+307,4,TSS
+307,11,Sub-Saharan Africa (IDA & IBRD)
+307,12, Sub-Saharan Africa (IDA & IBRD)
+307,13,TSS
+308,1,45
+308,3,Upper middle income
+308,4,UMC
+308,11,Upper middle income
+308,12, Upper middle income
+308,13,UMC
+309,1,46
+309,3,World
+309,4,WLD
+309,11,World
+309,12, World
+309,13,WLD
+309,21,WLD
+311,1,"This table classifies all World Bank member countries (189), and all other economies with populations of more than 30,000. For operational and analytical purposes, economies are divided among income groups according to 2017 gross national income (GNI) per capita, calculated using the World Bank Atlas method. The groups are: low income, $995 or less; lower middle income, $996–3,895; upper middle income, $3,896–12,055; and high income, $12,056 or more. The effective operational cutoff for IDA eligibility is $1,145 or less."
+313,1,Geographic classifications in this table cover all income levels.
+315,1,IDA countries are those that lack the financial ability to borrow from IBRD. IDA credits are deeply concessional—interest-free loans and grants for programs aimed at boosting economic growth and improving living conditions. IBRD loans are noncessional. Blend countries are eligible for IDA credits because of their low per capita incomes but are also eligible for IBRD because they are financially creditworthy.
+317,1,"Note: The term country, used interchangeably with economy, does not imply political independence but refers to any territory for which authorities report separate social or economic statistics. Income classifications set on 1 July 2018 remain in effect until 1 July 2019. Argentina, which was temporarily unclassified in July 2016 pending release of revised national accounts statistics, was classified as upper middle income for FY17 as of 29 September 2016 based on alternative conversion factors. Also effective 29 September 2016, Syrian Arab Republic is reclassified from IBRD lending category to IDA-only. On 29 March 2017, new country codes were introduced to align World Bank 3-letter codes with ISO 3-letter codes: Andorra (AND), Dem. Rep. Congo (COD), Isle of Man (IMN), Kosovo (XKX), Romania (ROU), Timor-Leste (TLS), and West Bank and Gaza (PSE)."
+319,3,IEA regions
+320,2,WLD
+320,3,World
+321,2,AFRICATOT
+321,3,Memo: Africa (UN)
+322,2,AMERICAS
+322,3,Memo: Americas (UN)
+323,2,ASIATOT
+323,3,Memo: Asia (UN)
+324,2,EUROPE
+324,3,Memo: Europe (UN)
+325,2,OCEANIA
+325,3,Memo: Oceania (UN)
+326,2,CHINAREG
+327,2,AFRIC
+327,3,Africa
+328,2,MASEAN
+328,3,Memo: ASEAN
+329,2,EU28
+329,3,Memo: European Union-28
+330,2,FSU_15
+330,3,Memo: FSU 15
+331,2,G7
+331,3,Memo: G7
+332,2,G8
+332,3,Memo: G8
+333,2,IEATOT
+333,3,Memo: IEA Total
+334,2,IEAFAMILY
+334,3,Memo: IEA and Accession/Association countries
+335,2,OPEC
+335,3,Memo: OPEC
+336,2,ASME
+336,3,Middle East
+337,2,LATAMER
+337,3,Non-OECD Americas
+338,2,ASIA
+338,3,Non-OECD Asia (excluding China)
+339,2,NON-OECDEUROPEANDEURASIA
+339,3,Non-OECD Europe and Eurasia
+340,2,OENN
+340,3,OECD Americas
+341,2,OEPN
+341,3,OECD Asia Oceania
+342,2,OTHERAFRIC
+342,3,Other Africa
+343,2,OTHERLATIN
+343,3,Other non-OECD Americas
+344,2,OTHERASIA
+344,3,Other non-OECD Asia
+345,2,WORLDAV
+345,3,World aviation bunkers
+346,2,WORLDMAR
+346,3,World marine bunkers

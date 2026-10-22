@@ -1,0 +1,585 @@
+round,country,code,type,ty1,ty2,ref,cond,u1,c1,u2,c2,lulucf,gases,submission
+Latest*,Afghanistan,AFG,Fixed,2030,2025,,Yes,,42.7,,40.3,Includes,"CO2, CH4, N2O",First
+Latest*,Albania,ALB,Fixed,2030,,,No,11.978,,,,Includes,"CO2, CH4, N2O, HFCs",Second
+Latest*,Algeria,DZA,BAU,2030,,,Yes,-0.07,-0.22,,,Includes,"CO2, CH4, N2O",First
+Latest*,Andorra,AND,Fixed,2035,,,No,0.137,,,,Includes,"CO2, CH4, N2O, SF6",Third
+Latest*,Angola,AGO,Fixed,2035,,,Yes,1.9019160000000002,1.89013,,,Includes,"CO2, CH4, N2O",Third
+Latest*,Antigua and Barbuda,ATG,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2,CH4, N2O, HFCs",Second
+Latest*,Argentina,ARG,Fixed,2030,,,No,349,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Latest*,Armenia,ARM,Fixed,2035,,,Yes,14.61,12.498,,,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,Australia,AUS,Historical,2035,2030,2005,No,-0.6599999999999999,,-0.43,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Austria,AUT,Historical,2035,,1990,No,-0.605140288235527,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Azerbaijan,AZE,Historical,2035,,1990,Yes,,-0.4,,,Includes,"CO2, CH4, N2O, HFC, CF4",Third
+Latest*,"Bahamas, The",BHS,Fixed,2035,,,No,4.148,,,,Includes,"CO2, CH4, N2O",Third
+Latest*,Bahrain,BHR,Unquantifiable,2035,,,No,n/q,,,,Includes,n/a,Third
+Latest*,Bangladesh,BGD,Fixed,2035,,,Yes,391.65999999999997,333.42999999999995,,,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,Barbados,BRB,Historical,2035,2030,2008,Yes,,-0.45,,-0.37,Includes,"CO2, CH4, N2O, HFCs, SF6",Third
+Latest*,Belarus,BLR,Historical,2030,,1990,Yes,-0.42,-0.47,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,Belgium,BEL,Historical,2035,,1990,No,-0.723228138272039,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Belize,BLZ,Unquantifiable,2035,2030,,Yes,n/q,n/q,,,Includes,"CO2, CH4, N2O",Third
+Latest*,Benin,BEN,Fixed,2030,,,Yes,25.39,22.84,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Bhutan,BTN,Fixed,2030,,,No,-2.292,,,,Includes,"CO2, CH4, N2O",Third
+Latest*,Bolivia,BOL,Unquantifiable,2035,,,No,n/q,,,,Includes,n/a,Third
+Latest*,Bosnia and Herzegovina,BIH,Historical,2030,,1990,Yes,-0.332,-0.368,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Botswana,BWA,Fixed,2030,,,Yes,21.791,18.602,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Brazil,BRA,Fixed,2035,,2005,No,947.2,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,Brunei Darussalam,BRN,Fixed,2035,,,Yes,,24.64,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,Bulgaria,BGR,Historical,2035,,1990,No,-0.7980599869121915,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Burkina Faso,BFA,Fixed,2035,2030,,Yes,59.462210000000006,42.72657000000001,65.99255,58.766589999999994,Includes,"CO2, CH4, N2O, NOX, CO",Third
+Latest*,Burundi,BDI,Fixed,2035,2030,,Yes,4.944768,3.527441,2.803502,1.561889,Includes,"CO2, CH4, N2O",Third
+Latest*,Cabo Verde,CPV,Fixed,2035,2030,,Yes,1.1006040000000001,0.81378,0.9908306,0.87401,Includes,"CO2, CH4, N2O",Third
+Latest*,Cambodia,KHM,Fixed,2035,2030,,Yes,112.1,60.4,107.8,73.2,Includes,"CO2, CH4, N2O",Third
+Latest*,Cameroon,CMR,Fixed,2030,,,Yes,104.18699,76.82572,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Canada,CAN,Fixed,2035,,2005,No,400,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Central African Republic,CAF,Fixed,2035,2030,,Yes,197,73,278,169,Includes,"CO2, CH4, N2O",Third
+Latest*,Chad,TCD,Fixed,2030,,,Yes,84.571,68.588,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Chile,CHL,Fixed,2035,,,No,90,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs",Third
+Latest*,China,CHN,Historical,2035,,2024,No,-0.085,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs",Third
+Latest*,Colombia,COL,Fixed,2035,,,No,158,,169.44,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,"Congo, Republic of",COG,Fixed,2035,2030,,Yes,-21.93231,-26.56947,-21.71686,-24.25406,Includes,"CO2, CH4, N2O",Third
+Latest*,Comoros,COM,Fixed,2035,2030,,Yes,0.754,0.377,0.607,0.321,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,Costa Rica,CRI,Fixed,2035,2030,,Yes,13.8777,10.034,13.8777,11.3081,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,Croatia,HRV,Historical,2035,,1990,No,-0.518389728958849,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Cuba,CUB,Unquantifiable,2035,,,No,n/q,,,,Includes,"CO2, CH4, N2O",Third
+Latest*,Cyprus,CYP,Historical,2035,,1990,No,-0.43953646932928087,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Czechia,CZE,Historical,2035,,1990,No,-0.7315204104392017,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Denmark,DNK,Historical,2035,,1990,No,-0.7643556201490607,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Djibouti,DJI,Fixed,2030,,,Yes,1.353035,0.9220000000000002,,,Includes,"CO2, CH4, N2O",Third
+Latest*,Dominica,DMA,Historical,2030,2025,2014,No,-0.45,,0.39,,Includes,"CO2, CH4, N2O, HFCs",Second
+Latest*,Dominican Republic,DOM,Fixed,2030,,,Yes,47.43,37.23,,,Includes,"CO2, CH4, N2O",Second
+Latest*,"Congo, Democratic Republic of the",COD,BAU,2030,,,Yes,-0.19,-0.21,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Cook Islands,COK,Unquantifiable,2030,,,Yes,,,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Ecuador,ECU,Fixed,2035,,,Yes,120.9,110.5,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Egypt,EGY,BAU,2030,,,No,-0.27,,,,Excludes,"CO2, CH4, N2O",Second
+Latest*,El Salvador,SLV,Fixed,2035,,,Yes,18.027,16.469,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Equatorial Guinea,GNQ,Fixed,2030,2050,,No,290.03999699999997,223.10769,-0.5,,Includes,"CO2, CH4, N2O",Second
+Latest*,Eritrea,ERI,Fixed,2030,2025,,Yes,4.590999999999999,3.7979999999999996,4.103999999999999,3.561,Includes,"CO2, CH4, N2O",Second
+Latest*,Estonia,EST,Historical,2035,,1990,No,-0.849979509749031,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Ethiopia,ETH,Fixed,2035,2030,,Yes,140.8,70.7,141.9,85.7,Includes,"CO2, CH4, N2O",Third
+Latest*,European Union,EU,Historical,2035,,1990,No,-0.69375,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Fiji,FJI,Unquantifiable,2035,,,Yes,n/q,,,,Includes,CO2,Third
+Latest*,Finland,FIN,Historical,2035,,1990,No,-0.6931745780377451,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,France,FRA,Historical,2035,,1990,No,-0.6790436952793899,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Micronesia,FSM,Unquantifiable,2035,2030,,Yes,n/q,,n/q,7.1802,Includes,"CO2, CH4, N2O",Third
+Latest*,Gabon,GAB,Fixed,2035,2030,,Yes,-92.4306,-121.5213,-88.9932,-93.7623,Includes,"CO2, CH4, N2O",Third
+Latest*,"Gambia, The",GMB,Fixed,2030,,,Yes,6.448,3.327,,,Includes,"CO2, CH4, N2O, NOx, PFCs, HFCs, SF6, NF3",Second
+Latest*,Georgia,GEO,Historical,2035,2030,1990,No,-0.5,,-0.47,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,Germany,DEU,Historical,2035,,1990,No,-0.7996122774700186,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Ghana,GHA,Fixed,2030,,,Yes,71.21666666666667,66.83888888888889,,,Includes,"CO2, CH4, N2O, HFC-22, HFC-410",Second
+Latest*,Greece,GRC,Historical,2035,,1990,No,-0.5007479186093389,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Grenada,GRD,Historical,2030,,2010,Yes,,-0.4,,,Includes,"CO2, CH4",Second
+Latest*,Guatemala,GTM,Fixed,2030,,,Yes,64.999,56.654,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Guinea,GIN,Fixed,2035,,,Yes,83.05229,51.03213,,,Includes,n/a,Third
+Latest*,Guinea-Bissau,GNB,Fixed,2030,,,Yes,16.38,12.739999999999998,,,Includes,"CO2, CH4, NOx",Second
+Latest*,Guyana,GUY,Unquantifiable,2030,,,No,n/q,,,,Includes,CO2,First
+Latest*,Haiti,HTI,Fixed,2030,,,Yes,17.771096,14.13265,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Honduras,HND,Fixed,2035,2030,,Yes,,52.769,,41.816,Includes,"CO2, CH4, N2O",Third
+Latest*,Hungary,HUN,Historical,2035,,1990,No,-0.6085619248917189,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Iceland,ISL,Historical,2035,,2005,No,-0.525,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,India,IND,Intensity,2035,,2005,No,-0.47,,,,Includes,"CO2, CH4",Third
+Latest*,Indonesia,IDN,Fixed,2035,2030,,Yes,1488.866,1257.717,1491.474,1345.707,Includes,"CO2, CH4, N2O",Third
+Latest*,Iran,IRN,Unquantifiable,2030,,,No,n/q,n/q,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",First
+Latest*,Iraq,IRQ,Fixed,2035,,,Yes,284.07849999999996,233.24339999999998,,,Includes,CO2,Third
+Latest*,Ireland,IRL,Historical,2035,,1990,No,-0.603471267715064,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Israel,ISR,Fixed,2030,2050,,No,58,,12,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Latest*,Italy,ITA,Historical,2035,,1990,No,-0.6548204274398272,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Côte d'Ivoire,CIV,Fixed,2035,2030,,Yes,104.659,40.19948,96.46865,53.6258,Includes,"CO2, CH4, N2O",Third
+Latest*,Jamaica,JAM,Historical,2035,2030,2012,Yes,-0.271,-0.417,-0.263,-0.306,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,Japan,JPN,Fixed,2035,2040,,No,562.8000000000001,,379.89000000000004,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Jordan,JOR,Unquantifiable,2035,,,No,n/q,n/q,,,Includes,"CO2, CH4, N2O, SF6, PFCs, HFCs",Third
+Latest*,Kazakhstan,KAZ,Fixed,2035,2030,,Yes,319.82,288.34,327.62,289.08,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,Kenya,KEN,Fixed,2035,,,Yes,199.95,139.75,,,Includes,"CO2, CH4, N2O",Third
+Latest*,Kiribati,KIR,BAU,2030,2025,,Yes,-0.08,-0.318,-0.095,-0.262,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Latest*,Kosovo,XKX,Historical,2030,,2016,Yes,-0.163,-0.42,,,Includes,"CO2, CH4, N2O, HFCs",First
+Latest*,Kuwait,KWT,Fixed,2035,,,No,131.7612345,,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Kyrgyz Republic,KGZ,Fixed,2035,2030,,Yes,20.044,14.717,14.501,12.505,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Lao P.D.R.,LAO,Fixed,2030,,,No,62,,,,Includes,n/a,Second
+Latest*,Latvia,LVA,Historical,2035,,1990,No,-0.6098381758175966,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Lebanon,LBN,BAU,2035,,,Yes,-0.22,-0.33,,,Includes,"CO2, CH4, N2O",Third
+Latest*,Lesotho,LSO,Fixed,2030,,,Yes,6.768,5.472,,,Includes,"CO2, N2O, CH4",Second
+Latest*,Liberia,LBR,Fixed,2035,,,Yes,49.956669,19.9826676,,,Includes,"CO2, CH4, N2O",Third
+Latest*,Liechtenstein,LIE,Historical,2035,2030,1990,No,-0.68,,-0.55,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Lithuania,LTU,Historical,2035,,1990,No,-0.779064030949115,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Luxembourg,LUX,Historical,2035,,1990,No,-0.6946742651721112,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,North Macedonia,MKD,Fixed,2030,,,No,6.058,,,,Includes,CO2,Second
+Latest*,Madagascar,MDG,Fixed,2030,,,No,-98.92699999999999,,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Malawi,MWI,Fixed,2040,,,Yes,32.6,16.9,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Malaysia,MYS,Unquantifiable,2035,,2005,No,n/q,,,,Includes,"CO2, CH4, N2O",Third
+Latest*,Maldives,MDV,Fixed,2035,,,Yes,,4.51,,,Excludes,"CO2, CH4, N2O",Third
+Latest*,Mali,MLI,Fixed,2030,,,No,26.63,,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Malta,MLT,Historical,2035,,1990,No,-0.6159430863928554,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Marshall Islands,MHL,Historical,2035,,2010,No,-0.58,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Mauritania,MRT,Fixed,2035,2030,,Yes,21.1091,7.4208,16.1679,5.9351,Includes,"CO2, CH4, N2O",Third
+Latest*,Mauritius,MUS,Fixed,2035,,,Yes,6.8,4.431,,,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,Mexico,MEX,Fixed,2035,,,Yes,384,347.5,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Moldova,MDA,Historical,2035,2030,1990,No,-0.75,,-0.71,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Monaco,MCO,Historical,2035,2030,1990,No,-0.676,,-0.55,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Mongolia,MNG,Fixed,2035,2030,,Yes,32.6,28.700000000000003,44.6,42.8,Includes,"CO2, CH4, N2O",Third
+Latest*,"Montenegro, Rep. of",MNE,Historical,2035,2030,1990,No,-0.6,,-0.55,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Morocco,MAR,Fixed,2035,,,Yes,130.46,78.24,,,Includes,"CO2, CH4, N2O, HFCs, NOx, SO2, NMVOCs,CO",Third
+Latest*,Mozambique,MOZ,BAU,2035,,,No,-0.175,,,,Includes,"CO2, CH4, N2O, (more GHG may be included in the future)",Third
+Latest*,Myanmar,MMR,Unquantifiable,2035,,,No,n/q,,,,Includes,n/a,Second
+Latest*,Namibia,NAM,Fixed,2030,,,Yes,,-102.615,,,Includes,"CO2, CH4, N2O, HFCs ",Second
+Latest*,Nauru,NRU,Unquantifiable,2035,,,No,n/q,,,,Includes,CO2,Third
+Latest*,Nepal,NPL,Fixed,2035,2030,,Yes,61.557655999999994,45.428689999999996,51.4260788,42.914210000000004,Includes,"CO2, CH4, N2O",Third
+Latest*,Netherlands,NLD,Historical,2035,,1990,No,-0.7364250749281486,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,New Zealand,NZL,Historical,2035,,2005,No,-0.53,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Nicaragua,NIC,Unquantifiable,2035,,,Yes,n/q,n/q,,,Includes,n/a,Third
+Latest*,Niger,NER,Fixed,2025,,,Yes,72.937,63.1676,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Nigeria,NGA,Historical,2035,2030,2018,Yes,,-0.32,,-0.29,Includes,"CO2, N2O, CH4, HFCs",Third
+Latest*,"Korea, Dem. People's Rep.",PRK,Fixed,2030,,,Yes,151.93,108.92999999999999,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Latest*,Norway,NOR,Historical,2035,2030,1990,No,-0.725,,-0.55,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Oman,OMN,Fixed,2030,,,Yes,99.24959999999999,84.3088,,,Includes,"CO2, CH4, N2O, HCFCs, PFCs",Second
+Latest*,Pakistan,PAK,Fixed,2035,2030,,Yes,2124,1279,1363,802,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,Palau,PLW,Fixed,2035,2030,,Yes,0.145,0.092,0.13,0.1122,Includes,"CO2, CH4",Third
+Latest*,West Bank and Gaza,PALEST,Fixed,2040,,,Yes,14.974195,,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Panama,PAN,BAU,2035,,,Yes,-0.11,-0.17,,,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,Papua New Guinea,PNG,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2 (all targeted sectors), CH4 (indigenous oil and gas sector)",Second
+Latest*,Paraguay,PRY,Fixed,2035,2030,,Yes,94.673,84.154,81.853,72.758,Includes,"CO2, CH4, N2O",Third
+Latest*,Peru,PER,Fixed,2035,,,Yes,,179,,,Includes,"CO2, CH4, N2O, HFCs, PFC, SF6",Third
+Latest*,Philippines,PHL,BAU,2030,,,Yes,-0.0271,-0.75,,,Excludes,n/a,Second
+Latest*,Poland,POL,Historical,2035,,1990,No,-0.6348116268424404,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Portugal,PRT,Historical,2035,,1990,No,-0.4459098749432466,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Qatar,QAT,Unquantifiable,2040,,,No,n/q,,,,Excludes,"CO2, CH4, N2O",Third
+Latest*,Romania,ROU,Historical,2035,,1990,No,-0.7544640513317693,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Russia,RUS,Historical,2035,,1990,No,-0.33999999999999997,,,,Includes,"CO2, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Rwanda,RWA,Fixed,2035,,,Yes,26,13,,,Includes,"CO2, N2O, CH4",Third
+Latest*,Samoa,WSM,Fixed,2035,,,Yes,,0.39222,,,Includes,CO2,Third
+Latest*,San Marino,SMR,Historical,2030,,2005,No,-0.2,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",First
+Latest*,São Tomé and Príncipe,STP,Fixed,2035,,,Yes,,0.2528,,,Excludes,"CO2, CH4, N2O",Third
+Latest*,Saudi Arabia,SAU,Unquantifiable,2040,,,No,n/q,,,,Excludes,n/a,Third
+Latest*,Senegal,SEN,Fixed,2030,2025,,Yes,21.523,14.048,18.022,12.615,Includes,"CO2, CH4, N2O",Second
+Latest*,Serbia,SRB,Historical,2035,,1990,Yes,,-0.401,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Seychelles,SYC,Fixed,2035,,,No,0.679,,,,Excludes,"CO2, CH4, N2O, HFCs",Third
+Latest*,Sierra Leone,SLE,Fixed,2035,,,Yes,69.955457728,49.18032864,,,Includes,"CO2, CH4, N2O",Third
+Latest*,Singapore,SGP,Fixed,2035,,,No,47.5,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,Slovak Republic,SVK,Historical,2035,,1990,No,-0.7116837757459675,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Slovenia,SVN,Historical,2035,,1990,No,-0.42288686098457123,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Solomon Islands,SLB,Fixed,2035,2030,,Yes,1.109,0.7977,1.014,0.9032,Includes,CO2,Third
+Latest*,Somalia,SOM,Fixed,2035,,,Yes,80.8,55.5,,,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,South Africa,ZAF,Fixed,2035,,,No,350,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,Korea,KOR,Fixed,2035,,,No,319.1889999999999,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,South Sudan,SSD,Fixed,2030,,,No,3.6,,,,Includes,CO2,Second
+Latest*,Spain,ESP,Historical,2035,,1990,No,-0.4349287025907598,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Sri Lanka,LKA,Fixed,2035,,,Yes,53.099149999999995,46.17730999999999,,,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,St. Kitts and Nevis,KNA,Historical,2030,,,Yes,0,-0.61,,,Includes,CO2,Second
+Latest*,St. Lucia,LCA,Unquantifiable,2035,,,No,n/q,,,,Includes,"CO2, CH4, N2O",Third
+Latest*,St. Vincent and the Grenadines,VCT,Fixed,2030,,,Yes,,0.5249999999999999,,,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,Sudan,SDN,Fixed,2030,,,No,41.90633,,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Suriname,SUR,Fixed,2035,,,No,-4.96,,,,Includes,"CO2, CH4, N2O",Third
+Latest*,Eswatini,SWZ,Fixed,2035,,,Yes,-1.56641,-2.7664100000000005,,,Includes,"CO2, CH4, HFCs",Third
+Latest*,Sweden,SWE,Historical,2035,,1990,No,-0.5069635356665297,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Switzerland,CHE,Historical,2035,,1990,No,-0.65,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Tajikistan,TJK,Fixed,2030,,,Yes,21.87,17.83,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Tanzania,TZA,Fixed,2030,,,No,148.14157500000002,,,,Includes,n/a,Second
+Latest*,Thailand,THA,Fixed,2035,,,Yes,,152,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,Timor-Leste,TLS,Unquantifiable,2025,,,No,n/q,,,,Includes,"CO2, CH4, N2O",First
+Latest*,Togo,TGO,Fixed,2030,,,Yes,24.172908999999997,15.031662999999998,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Tonga,TON,Unquantifiable,2035,,,No,n/q,,,,Includes,"CO2, CH4, N2O, CO, NOx",Third
+Latest*,Trinidad and Tobago,TTO,Unquantifiable,2035,,,Yes,,,,,Includes,"CO2, CH4, N2O",Third
+Latest*,Tunisia,TUN,Intensity,2035,2025,2010,Yes,-0.31,-0.62,-0.28,-0.462,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,Turkiye,TUR,Fixed,2035,,,No,643,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Turkmenistan,TKM,BAU,2030,,2010,No,-0.2,,,,Excludes,"CO2, CH4, N2O",First
+Latest*,Tuvalu,TUV,Unquantifiable,2035,2030,2014,Yes,n/q,n/q,n/q,n/q,Includes,"CO2, CH4, N2O, CO, SO2, NOx, NMVOC",Third
+Latest*,Uganda,UGA,Fixed,2030,,,Yes,140.0208,112.0464,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Latest*,Ukraine,UKR,Historical,2035,,1990,No,-0.65,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,United Arab Emirates,ARE,Fixed,2035,,,No,103.5,,,,Includes,n/a,Third
+Latest*,United Kingdom,GBR,Historical,2035,,1990,No,-0.81,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,United States,USA,Unquantifiable,2035,,2005,No,n/q,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,Uruguay,URY,Unquantifiable,2035,,,Yes,,,,,Includes,CO2,Third
+Latest*,Uzbekistan,UZB,Intensity,2035,,2010,No,-0.5,,,,Includes,"CO2, CH4, N2O",Third
+Latest*,Vanuatu,VUT,Fixed,2035,,,Yes,,0.34325,,,Includes,"CO2, CH4, NO2",Third
+Latest*,Venezuela,VEN,Unquantifiable,2030,,,Yes,,,,,Includes,n/a,Third
+Latest*,Vietnam,VNM,Fixed,2030,,,Yes,781.2918,524.2634999999999,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Latest*,Yemen,YEM,Unquantifiable,2030,,,Yes,n/q,,,,Includes,"CO2, CH4, N2O",Third
+Latest*,Zambia,ZMB,BAU,2030,,2010,Yes,-0.25,-0.47,,,Includes,"CO2, CH4, N2O",Second
+Latest*,Zimbabwe,ZWE,Fixed,2035,,,Yes,,50.10401,,,Includes,"CO2, CH4, N2O",Third
+Second round,Afghanistan,AFG,Fixed,2030,2025,,Yes,,42.7,,40.3,Includes,"CO2, CH4, N2O",First
+Second round,Albania,ALB,Fixed,2030,,,No,11.978,,,,Includes,"CO2, CH4, N2O, HFCs",Second
+Second round,Algeria,DZA,BAU,2030,,,Yes,-0.07,-0.22,,,Includes,"CO2, CH4, N2O",First
+Second round,Andorra,AND,BAU,2030,,,No,0.292,,,,Includes,"CO2, CH4, N2O, SF6",Second
+Second round,Angola,AGO,Fixed,2025,,,Yes,93.28711539999999,82.4397764,,,Includes,"CO2, CH4, N2O",Second
+Second round,Antigua and Barbuda,ATG,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2,CH4, N2O, HFCs",Second
+Second round,Argentina,ARG,Fixed,2030,,,No,349,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,Armenia,ARM,Historical,2030,,1990,Yes,,-0.4,,,Includes,"CO2, CH4, N2O, HFCs",Second
+Second round,Australia,AUS,Historical,2030,,2005,No,-0.43,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Austria,AUT,Historical,2030,,1990,No,-0.39804240906757293,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Azerbaijan,AZE,Historical,2030,,1990,No,-0.35,,,,Includes,"CO2, CH4, N2O, HFC, CF4",First
+Second round,"Bahamas, The",BHS,BAU,2030,,,No,-0.3,,,,Includes,"CO2, CH4, N2O",First
+Second round,Bahrain,BHR,Unquantifiable,n/a,,,No,n/q,,,,Excludes,n/a,Second
+Second round,Bangladesh,BGD,Fixed,2030,,,Yes,381.85,319.94,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,Barbados,BRB,Fixed,2030,2025,,Yes,1.2727,0.5874,1.5048000000000001,1.22265,Includes,"CO2, CH4, N2O, HFC, SF6",Second
+Second round,Belarus,BLR,Historical,2030,,1990,Yes,-0.35,-0.4,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,Belgium,BEL,Historical,2030,,1990,No,-0.5750879513125066,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Belize,BLZ,Unquantifiable,n/a,,,No,n/q,,,,Includes,"CO2, CH4",Second
+Second round,Benin,BEN,Fixed,2030,,,Yes,25,22,,,Includes,"CO2, CH4, N2O",Second
+Second round,Bhutan,BTN,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2, CH4, N2O",Second
+Second round,Bolivia,BOL,Unquantifiable,2030,,,No,n/q,,,,Includes,n/a,Second
+Second round,Bosnia and Herzegovina,BIH,Historical,2030,,1990,Yes,-0.332,-0.368,,,Includes,,Second
+Second round,Botswana,BWA,Historical,2030,,2010,No,-0.15,,,,Excludes,"CO2, CH4, N2O",First
+Second round,Brazil,BRA,Fixed,2030,2025,2005,No,1200,,1320,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,Brunei Darussalam,BRN,Fixed,2030,,,No,23.6,,,,Includes,CO2,First
+Second round,Bulgaria,BGR,Historical,2030,,1990,No,-0.7556919403940906,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Burkina Faso,BFA,Fixed,2030,2025,,Yes,86.44825884000001,75.889528718,82.55,77.48,Includes,"CO2, CH4, N2O, NOX, CO",Second
+Second round,Burundi,BDI,Fixed,2025,,,Yes,8.938504400000001,8.046652,,,Includes,"CO2, CH4, N2O",Second
+Second round,Cabo Verde,CPV,Fixed,2030,,,Yes,0.8249200000000001,0.76456,,,Includes,"CO2, CH4, N2O",Second
+Second round,Cambodia,KHM,Fixed,2030,,,No,52.300000000000004,,,,Includes,"CO2, CH4, N2O",Second
+Second round,Cameroon,CMR,Fixed,2030,,,Yes,104.18699,76.82572,,,Includes,"CO2, CH4, N2O",Second
+Second round,Canada,CAN,Historical,2030,,2005,No,-0.42500000000000004,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Central African Republic,CAF,Fixed,2030,2025,,Yes,15.558479199999999,13.360036799999998,12.8640677,12.0707576,Includes,"CO2, CH4, N2O",Second
+Second round,Chad,TCD,Fixed,2030,,,Yes,84.571,68.588,,,Includes,"CO2, CH4, N2O",Second
+Second round,Chile,CHL,Fixed,2030,,,No,95,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs",Second
+Second round,China,CHN,Intensity,2030,,2005,No,-0.65,,,,Excludes,CO2,Second
+Second round,Colombia,COL,Fixed,2030,,,No,169.44,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,"Congo, Republic of",COG,BAU,2025,2030,,Yes,-0.1709,-0.3988,-0.2146,-0.3219,Includes,"CO2, CH4, N2O",Second
+Second round,Comoros,COM,,,,,,,,,,,,
+Second round,Costa Rica,CRI,Fixed,2030,,,No,9.11,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,Croatia,HRV,Historical,2030,,1990,No,-0.4017612547194227,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Cuba,CUB,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2, CH4, N2O",Second
+Second round,Cyprus,CYP,Historical,2030,,1990,No,-0.16876811397364877,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Czechia,CZE,Historical,2030,,1990,No,-0.6103429141836751,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Denmark,DNK,Historical,2030,,1990,No,-0.6376133381655726,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Djibouti,DJI,Fixed,2030,,,Yes,2.685,1.79,,,Excludes,"CO2, CH4, N2O",First
+Second round,Dominica,DMA,Historical,2030,2025,2014,No,-0.45,,,0.39,Includes,"CO2, CH4, N2O, HFCs",Second
+Second round,Dominican Republic,DOM,Fixed,2030,,,Yes,47.43,37.23,,,Includes,"CO2, CH4, N2O",Second
+Second round,"Congo, Democratic Republic of the",COD,BAU,2030,,,Yes,-0.21,-0.28,,,Includes,"CO2, CH4, N2O",Second
+Second round,Cook islands,COK,,,,,,,,,,,,
+Second round,Ecuador,ECU,Fixed,2025,,,Yes,67.774,60.824,,,Excludes,"CO2, CH4, N2O",First
+Second round,Egypt,EGY,BAU,2030,,,No,-0.27,,,,Excludes,n/a,Second
+Second round,El Salvador,SLV,Unquantifiable,2025,,,No,n/q,,,,Includes,n/a,Second
+Second round,Equatorial Guinea,GNQ,Historical,2030,2050,2019,No,-0.35,-0.35,,-0.5,Includes,"CO2, CH4, N2O",First
+Second round,Eritrea,ERI,Fixed,2030,2025,,Yes,7.201,5.031,5.719,4.578,Includes,"CO2, CH4, N2O",First
+Second round,Estonia,EST,Historical,2030,,1990,No,-0.7608300964884281,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Ethiopia,ETH,Fixed,2030,,,Yes,347.3,125.8,,,Includes,"CO2, CH4, N2O",Second
+Second round,European Union,EU,Historical,2030,,1990,No,-0.4,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Fiji,FJI,Fixed,2030,,,Yes,1.35,1.0499999999999998,,,Excludes,CO2,Second
+Second round,Finland,FIN,Historical,2030,,1990,No,-0.3681349910922407,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,France,FRA,Historical,2030,,1990,No,-0.5168041323855398,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Micronesia,FSM,Unquantifiable,2025,,2000,Yes,n/q,n/q,,,Excludes,CO2,First
+Second round,Gabon,GAB,BAU,2050,,,No,-1,,,,Includes,"CO2, CH4, N2O",Second
+Second round,"Gambia, The",GMB,Fixed,2030,,,No,3.327,,,,Includes,"CO2, CH4, N2O, NOx, PFCs, HFCs, SF6, NF3",Second
+Second round,Georgia,GEO,Historical,2030,,1990,Yes,-0.35,-0.57,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,Germany,DEU,Historical,2030,,1990,No,-0.6950576545831144,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Ghana,GHA,Fixed,2030,,,Yes,71.21666666666667,66.83888888888889,,,Includes,"CO2, CH4, N2O, HFC-22, HFC-410",Second
+Second round,Greece,GRC,Historical,2030,,1990,No,-0.3003951734306438,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Grenada,GRD,Historical,2030,,2010,Yes,,-0.4,,,Includes,"CO2, CH4",Second
+Second round,Guatemala,GTM,Fixed,2030,,,Yes,64.999,56.654,,,Includes,"CO2, CH4, N2O",Second
+Second round,Guinea,GIN,BAU,2030,,,Yes,-0.097,-0.17,,,Excludes,n/a,Second
+Second round,Guinea-Bissau,GNB,Fixed,2030,,,Yes,16.38,12.739999999999998,,,Includes,"CO2, CH4, NOx",Second
+Second round,Guyana,GUY,Unquantifiable,n/a,,,No,n/q,,,,Includes,CO2,First
+Second round,Haiti,HTI,Fixed,2030,,,Yes,17.771096,14.13265,,,Includes,"CO2, CH4, N2O",Second
+Second round,Honduras,HND,BAU,2030,,,Yes,,-0.16,,,Excludes,"CO2, CH4, N2O",Second
+Second round,Hungary,HUN,Historical,2030,,1990,No,-0.485332800200573,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Iceland,ISL,Historical,2030,,1990,No,-0.4,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,India,IND,Intensity,2030,,2005,No,-0.45,,,,Includes,"CO2, CH4",Second
+Second round,Indonesia,IDN,Fixed,2030,,,Yes,1954.0759,1629.5919999999999,,,Includes,"CO2, CH4, N2O",Second
+Second round,Iran,IRN,BAU,2030,,,Yes,-0.04,-0.12,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",First
+Second round,Iraq,IRQ,BAU,2035,,,Yes,-0.01,-0.14,,,Excludes,CO2,First
+Second round,Ireland,IRL,Historical,2030,,1990,No,-0.4365146792197555,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Israel,ISR,Fixed,2030,2050,,No,58,,12,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,Italy,ITA,Historical,2030,,1990,No,-0.48866479123529005,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Côte d'Ivoire,CIV,Fixed,2030,,,Yes,39.7,35.69,,,Includes,"CO2, CH4, N2O",Second
+Second round,Jamaica,JAM,Fixed,2030,,,Yes,5.3712,5.148000000000001,,,Includes,"CO2, CH4, N2O, SO2, NOx, CO, NMVOCs",Second
+Second round,Japan,JPN,Historical,2030,,2013,No,-0.46,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Jordan,JOR,Fixed,2030,,,No,30.291,,,,Includes,"CO2, CH4, N2O, SF6, PFCs, HFCs",Second
+Second round,Kazakhstan,KAZ,Historical,2030,,1990,Yes,-0.15,-0.25,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,Kenya,KEN,Fixed,2030,,,Yes,,97.24,,,Includes,"CO2, CH4, N2O",Second
+Second round,Kiribati,KIR,BAU,2030,2025,,Yes,-0.08,-0.318,-0.095,-0.262,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,Kosovo,XKX,Fixed,2030,,,No,7.807799999999999,,,,Excludes,"CO2, CH4, N2O",Second
+Second round,Kuwait,KWT,Fixed,2035,,,No,131.7612345,,,,Includes,"CO2, CH4, N2O",Second
+Second round,Kyrgyz Republic,KGZ,Fixed,2030,2025,,Yes,12.507,8.392,7.572,5.757,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Lao P.D.R.,LAO,Fixed,2030,,,No,62,,,,Includes,n/a,Second
+Second round,Latvia,LVA,Historical,2030,,1990,No,-0.3887015723996532,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Lebanon,LBN,BAU,2030,,,Yes,-0.2,-0.31,,,Includes,"CO2, CH4, N2O",Second
+Second round,Lesotho,LSO,Fixed,2030,,,Yes,5.142,3.737,,,Includes,"CO2, N2O, CH4",Second
+Second round,Liberia,LBR,Fixed,2030,,,Yes,11.18683,4.53664,,,Includes,"CO2, CH4, N2O",Second
+Second round,Liechtenstein,LIE,Historical,2030,,1990,No,-0.4,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",First
+Second round,Lithuania,LTU,Historical,2030,,1990,No,-0.7093531410511423,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Luxembourg,LUX,Historical,2030,,1990,No,-0.5378224131872643,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,North Macedonia,MKD,Fixed,2030,,,No,6.058,,,,Includes,CO2,Second
+Second round,Madagascar,MDG,BAU,2030,,,No,-0.24,,,,Includes,"CO2, CH4, N2O",First
+Second round,Malawi,MWI,Fixed,2040,,,Yes,32.6,16.9,,,Includes,"CO2, CH4, N2O",Second
+Second round,Malaysia,MYS,Intensity,2030,,2005,No,-0.45,,,,Includes,"CO2, CH4, N2O",Second
+Second round,Maldives,MDV,Fixed,2030,,,No,2.43016,,,,Excludes,"CO2, CH4",Second
+Second round,Mali,MLI,Fixed,2030,,,No,26.63,,,,Includes,"CO2, CH4, N2O",Second
+Second round,Malta,MLT,Historical,2030,,1990,No,-0.4467510726780801,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Marshall Islands,MHL,Historical,2030,2025,2010,No,-0.45,,-0.32,,Excludes,"CO2, CH4, N2O",Second
+Second round,Mauritania,MRT,Fixed,2030,,,Yes,14.35926,1.2907199999999994,,,Includes,"CO2, CH4, N2O",Second
+Second round,Mauritius,MUS,Fixed,2030,,,Yes,,4.14,,,Includes,"CO2, Short Lived Climate Forces (SLCF)",Second
+Second round,Mexico,MEX,Fixed,2030,,,Yes,583.0999999999999,499.79999999999995,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Moldova,MDA,Historical,2030,,1990,Yes,-0.7,-0.88,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Monaco,MCO,Historical,2030,,1990,No,-0.55,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Mongolia,MNG,Fixed,2030,,,Yes,57.4,54.090399999999995,,,Excludes,"CO2, CH4, N2O",Second
+Second round,"Montenegro, Rep. of",MNE,Historical,2030,,1990,No,-0.35,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Morocco,MAR,Fixed,2030,,,Yes,116.134,77.573,,,Includes,"CO2, CH4, N2O",Second
+Second round,Mozambique,MOZ,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2, CH4, N2O, (more GHG may be included in the future)",Second
+Second round,Myanmar,MMR,Unquantifiable,n/a,,,No,n/q,,,,Includes,n/a,Second
+Second round,Namibia,NAM,BAU,2030,,,Yes,,-0.13,,,Includes,"CO2, CH4, N2O",Second
+Second round,Nauru,NRU,Unquantifiable,n/a,,,No,n/q,,,,Excludes,CO2,Second
+Second round,Nepal,NPL,Unquantifiable,n/a,,,No,n/q,,,,Includes,n/a,Second
+Second round,Netherlands,NLD,Historical,2030,,1990,No,-0.596639947042295,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,New Zealand,NZL,Historical,2030,2050,2005,No,-0.5,-1,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Nicaragua,NIC,Fixed,2030,,,No,71.231,69.573,,,Includes,,Second
+Second round,Niger,NER,Fixed,2025,,,Yes,72.937,63.1676,,,Includes,"CO2, CH4, N2O",Second
+Second round,Nigeria,NGA,Fixed,2030,,,Yes,362.40000000000003,240.09,,,Includes,"CO2, N2O, CH4",Second
+Second round,"Korea, Dem. People's Rep.",PRK,Fixed,2030,,,Yes,151.93,108.92999999999999,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,Norway,NOR,Historical,2030,,1990,No,-0.55,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Oman,OMN,Fixed,2030,,,Yes,99.24959999999999,84.25,,,Includes,"CO2, CH4, N2O, HCFCs, PFCs",Second
+Second round,Pakistan,PAK,Fixed,2030,,,Yes,1362.85,801.8,,,Includes,n/a,Second
+Second round,Palau,PLW,Fixed,2025,,,Yes,,0.068,,,Excludes,"CO2, CH4",First
+Second round,West Bank and Gaza,PALEST,Fixed,2040,,,No,14.974195,,,,Includes,"CO2, CH4, N2O",Second
+Second round,Panama,PAN,BAU,2030,2050,,Yes,,-0.115,,-0.24,Includes,"CO2, CH4, N2O",Second
+Second round,Papua New Guinea,PNG,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2 (all targeted sectors), CH4 (indigenous oil and gas sector)",Second
+Second round,Paraguay,PRY,Fixed,2030,,,Yes,92.287,82.0336,,,Includes,"CO2, CH4, N2O",Second
+Second round,Peru,PER,Fixed,2030,,,Yes,208.8,179,,,Includes,"CO2, CH4, N2O, HFCs, PFC, SF6",Second
+Second round,Philippines,PHL,BAU,2030,,,Yes,-0.0271,-0.75,,,Includes,n/a,Second
+Second round,Poland,POL,Historical,2030,,1990,No,-0.5011676088848651,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Portugal,PRT,Historical,2030,,1990,No,-0.30038820927212284,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Qatar,QAT,BAU,2030,,,Yes,,-0.25,,,Excludes,"CO2, CH4, N2O",Second
+Second round,Romania,ROU,Historical,2030,,1990,No,-0.7011384050296467,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Russia,RUS,Historical,2030,,1990,No,-0.3,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Rwanda,RWA,Fixed,2030,,,Yes,10.2,7.5,,,Excludes,"CO2, N2O, CH4",Second
+Second round,Samoa,WSM,Historical,2025,,2007,Yes,0,-0.26,,,Includes,"CO2, CH4, N2O",Second
+Second round,San Marino,SMR,Historical,2030,,2005,No,-0.2,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",First
+Second round,São Tomé and Príncipe,STP,Fixed,2030,,,Yes,0.4,0.29100000000000004,,,Excludes,"CO2, CH4, NOx",Second
+Second round,Saudi Arabia,SAU,Unquantifiable,2030,,,No,n/q,,,,Excludes,n/a,Second
+Second round,Senegal,SEN,Fixed,2030,,,Yes,28.844680000000004,5.224789999999999,,,Includes,"CO2, CH4, N2O",Second
+Second round,Serbia,SRB,Historical,2030,,2010,No,-0.132,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,Seychelles,SYC,Fixed,2030,,,Yes,1.110054347826087,0.817,,,Excludes,"CO2, CH4",Second
+Second round,Sierra Leone,SLE,BAU,2030,2050,,Yes,0,-0.1,,-0.25,Includes,"CO2, CH4, N2O",Second
+Second round,Singapore,SGP,Fixed,2030,,,No,60,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,Slovak Republic,SVK,Historical,2030,,1990,No,-0.5979465678622615,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Slovenia,SVN,Historical,2030,,1990,No,0.2843123535537462,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Solomon Islands,SLB,Fixed,2030,2025,,Yes,0.6719094999999999,0.22062699999999993,0.7777625,0.53358125,Includes,CO2,Second
+Second round,Somalia,SOM,Fixed,2030,,,Yes,107.4,75.17999999999999,,,Includes,"CO2, CH4, N2O",Second
+Second round,South Africa,ZAF,Fixed,2030,2025,2030,No,385,,454,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,Korea,KOR,Fixed,2030,,,No,435.96,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,South Sudan,SSD,BAU,2030,,,No,-0.4,,,,Includes,CO2,Second
+Second round,Spain,ESP,Historical,2030,,1990,No,-0.17618660194457503,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Sri Lanka,LKA,BAU,2030,,,Yes,-0.04,-0.145,,,Includes,"CO2, CH4, N2O",Second
+Second round,St. Kitts and Nevis,KNA,Historical,2030,,2010,Yes,0,-0.61,,,Includes,CO2,Second
+Second round,St. Lucia,LCA,Historical,2030,,2010,No,-0.147,,,,Excludes,"CO2, CH4, N2O",Third
+Second round,St. Vincent and the Grenadines,VCT,Fixed,2025,,,No,0.46799999999999997,,,,Includes,"CO2, CH4, N2O, HFCs",First
+Second round,Sudan,SDN,Fixed,2030,,,No,41.88650946,,,,Includes,"CO2, CH4, N2O",Second
+Second round,Suriname,SUR,Unquantifiable,2025,,,No,n/q,,,,Includes,"CO2, CH4, N2O",Second
+Second round,Eswatini,SWZ,BAU,2030,,,Yes,-0.05,-0.14,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,Sweden,SWE,Historical,2030,,1990,No,0,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Switzerland,CHE,Historical,2030,,1990,No,-0.5,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Tajikistan,TJK,Fixed,2030,,,Yes,21.87,17.83,,,Includes,"CO2, CH4, N2O",Second
+Second round,Tanzania,TZA,Fixed,2030,,,No,148.14157500000002,,,,Includes,n/a,Second
+Second round,Thailand,THA,Fixed,2030,,,Yes,388.5,333,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,Timor-Leste,TLS,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2, CH4, N2O",First
+Second round,Togo,TGO,Fixed,2030,,,Yes,24.173242858,15.031870605999998,,,Includes,"CO2, CH4, N2O",Second
+Second round,Tonga,TON,BAU,2030,,,No,0,-0.13,,,Excludes,"CO2, CH4, N2O",Second
+Second round,Trinidad and Tobago,TTO,BAU,2030,,,Yes,0,-0.15,,,Excludes,"CO2, CH4, N2O",First
+Second round,Tunisia,TUN,Intensity,2030,,,Yes,-0.27,-0.45,,,Includes,"CO2, CH4, N2O",Second
+Second round,Turkiye,TUR,Fixed,2030,,,No,695,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Turkmenistan,TKM,BAU,2030,,,No,-0.2,,,,Excludes,"CO2, CH4, N2O",Second
+Second round,Tuvalu,TUV,Historical,2030,,2010,No,-0.6,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Uganda,UGA,Fixed,2030,,,Yes,140.0208,112.0464,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Ukraine,UKR,Historical,2030,,1990,No,-0.595,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,United Arab Emirates,ARE,Fixed,2030,,,No,182,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,United Kingdom,GBR,Historical,2030,,1990,No,-0.68,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,United States,USA,Historical,2030,,2005,No,0,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,Uruguay,URY,Fixed,2030,,,Yes,38.453,35.422,,,Includes,"CO2, CH4, N2O",Second
+Second round,Uzbekistan,UZB,Intensity,2030,,2010,No,-0.35,,,,Includes,"CO2, CH4, N2O",Second
+Second round,Vanuatu,VUT,Unquantifiable,2030,,,No,n/q,,,,Includes,CO2,Second
+Second round,Venezuela,VEN,BAU,2030,,,Yes,0,-0.2,,,Includes,n/a,Second
+Second round,Vietnam,VNM,Fixed,2030,,,Yes,781.2918,524.2634999999999,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,Yemen,YEM,Fixed,2030,,,Yes,43.35,37.67,,,Includes,"CO2, CH4, N2O",First
+Second round,Zambia,ZMB,Historical,2030,,2010,Yes,0,-0.36,,,Includes,"CO2, CH4, N2O",Second
+Second round,Zimbabwe,ZWE,Fixed,2030,,,Yes,75.39,44.74,,,Includes,"CO2, CH4, N2O",Second
+First round,Afghanistan,AFG,Fixed,2030,2025,,Yes,,42.7,,40.3,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Albania,ALB,BAU,2030,2050,,No,-0.115,,,,Excludes,CO2,2015 NDC
+First round,Algeria,DZA,BAU,2030,,,Yes,-0.07,-0.22,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Andorra,AND,BAU,2030,,,No,-0.3699388846447669,,,,Excludes,"CO2, CH4, N2O, SF6",2015 NDC
+First round,Angola,AGO,Fixed,2030,2025,,Yes,125.612,96.625,124.656,113.748,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Antigua and Barbuda,ATG,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2,CH4, N2O, HFCs",2015 NDC
+First round,Argentina,ARG,Fixed,2030,,,Yes,483,369,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,Armenia,ARM,Fixed,2050,,,Yes,18.085714285714285,,,,Includes,"CO2, CH4, N2O, HFCs",2015 NDC
+First round,Australia,AUS,Historical,2030,,2005,No,-0.28,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Austria,AUT,Historical,2030,,1990,No,-0.16197583360765389,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Azerbaijan,AZE,Historical,2030,,1990,No,-0.35,,,,Excludes,"CO2, CH4, N2O, HFC, CF4",2015 NDC
+First round,Bahamas,BHS,BAU,2030,,,No,-0.3,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Bahrain,BHR,Unquantifiable,n/a,,,No,n/q,,,,Excludes,n/a,2015 NDC
+First round,Bangladesh,BGD,Fixed,2030,,,Yes,222,198,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,Barbados,BRB,Historical,2030,2025,2007,No,-0.23,,-0.21,,Includes,"CO2, CH4, N2O, HFC, SF6",2015 NDC
+First round,Belarus,BLR,Historical,2030,,1990,No,-0.28,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,Belgium,BEL,Historical,2030,,1990,No,-0.40554732508553104,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Belize,BLZ,Unquantifiable,n/a,,,No,n/q,,,,Includes,"CO2, CH4",2015 NDC
+First round,Benin,BEN,Fixed,2030,,,Yes,37.10245,33.66825,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,Bhutan,BTN,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Bolivia,BOL,Unquantifiable,2030,,,No,n/q,,,,Includes,n/a,2015 NDC
+First round,Bosnia-Herzegowina,BIH,Historical,2030,,1990,Yes,0.18,-0.03,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Botswana,BWA,Historical,2030,,2010,No,-0.15,,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,Brazil,BRA,Historical,2030,2025,2005,No,-0.43,,-0.37,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,Brunei,BRN,Fixed,2030,,,No,23.6,,,,Includes,CO2,2020 NDC
+First round,Bulgaria,BGR,Historical,2030,,1990,No,-0.7238531992079129,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Burkina Faso,BFA,Fixed,2030,,,Yes,110.51499999999999,96.74899999999998,,,Includes,"CO2, CH4, N2O, NOX, CO",2015 NDC
+First round,Burundi,BDI,Fixed,2030,,,Yes,72.25045,59.588,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Cabo Verde,CPV,Fixed,2030,,,Yes,0.8249200000000001,0.76456,,,Includes,"CO2, CH4, N2O",2021 NDC
+First round,Cambodia,KHM,Fixed,2030,,,No,8.5,,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,Cameroon,CMR,BAU,2035,,,Yes,,-0.32,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,Canada,CAN,Historical,2030,,2005,No,-0.3,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Central African Republic,CAF,BAU,2030,2050,,Yes,-0.03701009366190777,-0.05001364008365916,-0.05500079251862422,-0.25001320864373655,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Chad,TCD,Fixed,2030,,,Yes,23.449,8.229,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Chile,CHL,Intensity,2030,,2007,Yes,-0.3,-0.45,,,Includes,"CO2, CH4, N2O, HFCs, PFCs",2020 NDC
+First round,China,CHN,Intensity,2030,,2005,No,-0.625,,,,Excludes,CO2,2015 NDC
+First round,Colombia,COL,Fixed,2030,,,Yes,268,234.49999999999997,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,Congo,COG,BAU,2025,2035,,Yes,0,-0.4823321554770319,,-0.5468571428571429,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,Comoros,COM,,,,,,,,,,,,
+First round,Costa Rica,CRI,Fixed,2030,,,No,9.374,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,Croatia,HRV,Historical,2030,,1990,No,-0.32640054371361205,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Cuba,CUB,Unquantifiable,2030,,,No,n/q,,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,Cyprus,CYP,Historical,2030,,1990,No,0.1468049924328767,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Czechia,CZE,Historical,2030,,1990,No,-0.45889796545283257,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Denmark,DNK,Historical,2030,,1990,No,-0.4882393053141304,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Djibouti,DJI,Fixed,2030,,,Yes,2.685,1.79,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,Dominica,DMA,Historical,2030,2025,2014,Yes,0,-0.447,,-0.392,Includes,"CO2, CH4, N2O, HFCs",2015 NDC
+First round,Dominican Republic,DOM,Historical,2030,,2010,Yes,,-0.25,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,DR Congo,COD,BAU,2030,,,Yes,0,-0.17,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Cook islands,COK,,,,,,,,,,,,
+First round,Ecuador,ECU,Fixed,2025,,,Yes,67.774,60.824,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Egypt,EGY,Unquantifiable,2030,,,No,n/q,,,,Includes,n/a,2015 NDC
+First round,El Salvador,SLV,Unquantifiable,2025,,,No,n/q,,,,Includes,n/a,2015 NDC
+First round,Equatorial Guinea,GNQ,Historical,2030,2050,2010,Yes,0,-0.2,,-0.5,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Eritrea,ERI,Fixed,2030,2025,,Yes,7.201,5.031,5.719,4.578,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,Estonia,EST,Historical,2030,,1990,No,-0.6695563426692959,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Ethiopia,ETH,Fixed,2030,,,No,145,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,European Union,EU,Historical,2030,,1990,No,-0.4,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Fiji,FJI,BAU,2030,,,Yes,0,-0.3,,,Excludes,CO2,2015 NDC
+First round,Finland,FIN,Historical,2030,,1990,No,-0.3068429835677444,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,France,FRA,Historical,2030,,1990,No,-0.37671087870814013,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,FS Micronesia,FSM,Historical,2025,,2000,Yes,,-0.65,,,Excludes,CO2,2021 NDC
+First round,Gabon,GAB,BAU,2025,,,No,-0.5,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Gambia,GMB,BAU,2030,,,Yes,0,-0.454,,,Excludes,"CO2, CH4, N2O, NOx, PFCs, HFCs, SF6, NF3",2015 NDC
+First round,Georgia,GEO,BAU,2030,,,Yes,-0.14992191566892255,-0.24986985944820406,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,Germany,DEU,Historical,2030,,1990,No,-0.5513325134011172,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Ghana,GHA,Fixed,2030,,,Yes,62.8575,40.67250000000001,,,Includes,"CO2, CH4, N2O, HFC-22, HFC-410",2015 NDC
+First round,Greece,GRC,Historical,2030,,1990,No,-0.07561937150628173,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Grenada,GRD,Historical,2030,2025,2010,Yes,,-0.4,,-0.3,Includes,"CO2, CH4",2015 NDC
+First round,Guatemala,GTM,Fixed,2030,,,Yes,47.81,41.66,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Guinea,GIN,Historical,2030,,1994,Yes,0,-0.13,,,Excludes,n/a,2015 NDC
+First round,Guinea Bissau,GNB,Unquantifiable,n/a,,,No,n/q,,,,Includes,"CO2, CH4, NOx",2015 NDC
+First round,Guyana,GUY,Unquantifiable,n/a,,,No,n/q,,,,Includes,CO2,2015 NDC
+First round,Haiti,HTI,BAU,2025,,,Yes,-0.04999999999999993,-0.31009615384615385,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Honduras,HND,BAU,2030,,,Yes,,-0.15006915629322282,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Hungary,HUN,Historical,2030,,1990,No,-0.3552210263247032,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Iceland,ISL,Historical,2030,,1990,No,-0.4,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,India,IND,Intensity,2030,,2005,No,-0.33999999999999997,,,,Not stated,n/a,2015 NDC
+First round,Indonesia,IDN,Fixed,2030,,,Yes,2034,1787,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Iran,IRN,BAU,2030,,,Yes,-0.04,-0.12,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Iraq,IRQ,BAU,2035,,,Yes,-0.01,-0.14,,,Excludes,CO2,2015 NDC
+First round,Ireland,IRL,Historical,2030,,1990,No,-0.22439784718652667,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Israel,ISR,Fixed,2030,,,No,81.65,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,Italy,ITA,Historical,2030,,1990,No,-0.30191400993693485,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Ivory Coast,CIV,Fixed,2030,,,Yes,,24.576,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,Jamaica,JAM,Fixed,2030,2025,,Yes,13.368,13.043,12.37,12.099,Excludes,"CO2, CH4, N2O, SO2, NOx, CO, NMVOCs",2015 NDC
+First round,Japan,JPN,Historical,2030,,2013,No,-0.26,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Jordan,JOR,BAU,2030,,,Yes,-0.015089163237311465,-0.14011365863217717,,,Includes,"CO2, CH4, N2O, SF6, PFCs, HFCs",2015 NDC
+First round,Kazakhstan,KAZ,Historical,2030,,1990,Yes,-0.15,-0.25,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,Kenya,KEN,Fixed,2030,,,Yes,,100.1,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Kiribati,KIR,BAU,2030,2025,,Yes,-0.1279969554738044,-0.6180388177089939,-0.13699932111337387,-0.6249830278343517,Excludes,CO2,2015 NDC
+First round,Kuwait,KWT,Unquantifiable,n/a,,,No,n/q,,,,Excludes,n/a,2015 NDC
+First round,Kyrgyzstan,KGZ,BAU,2030,2050,,Yes,-0.1333333333333333,-0.2666666666666667,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Lao People’s Democratic Republic,LAO,Unquantifiable,2030,,,No,n/q,,,,Includes,n/a,2015 NDC
+First round,Latvia,LVA,Historical,2030,,1990,No,-0.2844082875127142,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Lebanon,LBN,BAU,2030,,,Yes,-0.1498845265588914,-0.29999999999999993,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Lesotho,LSO,BAU,2030,,,Yes,-0.1,-0.35,,,Includes,"CO2, N2O, CH4",2015 NDC
+First round,Liberia,LBR,Fixed,2030,,,Yes,4.505,,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,Liechtenstein,LIE,Historical,2030,,1990,No,-0.4,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Lithuania,LTU,Historical,2030,,1990,No,-0.6303679360250911,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Luxembourg,LUX,Historical,2030,,1990,No,-0.4104508203118903,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,North Macedonia,MKD,Fixed,2030,,,No,12.435,,,,Excludes,CO2,2015 NDC
+First round,Madagascar,MDG,Fixed,2030,,,No,184.206,,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,Malawi,MWI,Unquantifiable,2040,,,No,n/q,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Malaysia,MYS,Intensity,2030,,2005,Yes,-0.35,-0.45,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Maldives,MDV,Fixed,2030,,,Yes,2.9699999999999998,2.508,,,Excludes,"CO2, CH4",2015 NDC
+First round,Mali,MLI,BAU,2030,,,No,-0.31,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Malta,MLT,Historical,2030,,1990,No,-0.2508040722243565,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Marshall Islands,MHL,Historical,2030,2025,2010,No,-0.45,,-0.32,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,Mauritania,MRT,BAU,2030,,,Yes,-0.026539278131634814,-0.22292993630573243,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Mauritius,MUS,Fixed,2030,,,Yes,,4.8999999999999995,,,Includes,"CO2, Short Lived Climate Forces (SLCF)",2015 NDC
+First round,Mexico,MEX,Fixed,2030,,,Yes,832.5,666,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Moldova,MDA,Historical,2030,,1990,Yes,0.67,-0.78,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Monaco,MCO,Historical,2030,,1990,No,-0.5,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Mongolia,MNG,Fixed,2030,,,Yes,,44.032000000000004,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,Montenegro,MNE,Historical,2030,,1990,No,-0.3,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Morocco,MAR,Fixed,2030,,,Yes,148.7,98.9,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,Mozambique,MOZ,BAU,2030,2024,,No,n/q,,,,Includes,"CO2, CH4, N2O, (more GHG may be included in the future)",2015 NDC
+First round,Myanmar,MMR,BAU,2030,,,No,n/q,,,,Includes,n/a,2015 NDC
+First round,Namibia,NAM,Fixed,2030,,,Yes,n/q,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Nauru,NRU,Unquantifiable,n/a,,,No,n/q,,,,Excludes,CO2,2015 NDC
+First round,Nepal,NPL,Unquantifiable,n/a,,,No,n/q,,,,Includes,n/a,2015 NDC
+First round,Netherlands,NLD,Historical,2030,,1990,No,-0.43373852560569026,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,New Zealand,NZL,Historical,2030,,2005,No,-0.3,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Nicaragua,NIC,Unquantifiable,2030,,,No,n/q,n/q,,,Includes,,2015 NDC
+First round,Niger,NER,Fixed,2030,,,Yes,29.722965,20.143853999999997,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Nigeria,NGA,Fixed,2030,,,Yes,720,495.00000000000006,,,Includes,"CO2, N2O, CH4",2015 NDC
+First round,North Korea,PRK,Fixed,2030,,,Yes,172.73,112.18,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,Norway,NOR,Historical,2030,,1990,No,-0.4,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Oman,OMN,Fixed,2030,,,Yes,88.71352,,,,Excludes,"CO2, CH4, N2O, HCFCs, PFCs",2015 NDC
+First round,Pakistan,PAK,Fixed,2030,,,Yes,,1282.4,,,Includes,n/a,2015 NDC
+First round,Palau,PLW,Fixed,2025,,,Yes,,0.68,,,Excludes,"CO2, CH4",2015 NDC
+First round,Palestine,PALEST,BAU,2040,,,Yes,0,-0.186,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Panama,PAN,BAU,2030,2050,,Yes,,-0.115,,0.24,Excludes,CO2,2015 NDC
+First round,Papua New Guinea,PNG,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2 (all targeted sectors), CH4 (indigenous oil and gas sector)",2015 NDC
+First round,Paraguay,PRY,Fixed,2030,,,Yes,374.40000000000003,332.8,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Peru,PER,Fixed,2030,,,Yes,238.64000000000001,208.81,,,Includes,"CO2,CH4,N2O",2015 NDC
+First round,Philippines,PHL,BAU,2030,,,Yes,-0.0271,-0.75,,,Excludes,n/a,2020 NDC
+First round,Poland,POL,Historical,2030,,1990,No,-0.3383586622933512,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Portugal,PRT,Historical,2030,,1990,No,0.019495659273824018,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Qatar,QAT,Unquantifiable,2030,,,No,n/q,,,,Excludes,n/a,2015 NDC
+First round,Romania,ROU,Historical,2030,,1990,No,-0.6545909365923674,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Russia,RUS,Historical,2030,,1990,No,-0.3,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Rwanda,RWA,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2, N2O, CH4",2015 NDC
+First round,Samoa,WSM,Unquantifiable,2025,,,No,n/q,,,,Excludes,CO2,2015 NDC
+First round,San Marino,SMR,Historical,2030,,2005,No,-0.2,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Sao Tome & Principe,STP,Historical,2030,,2005,Yes,0,-0.24,,,Includes,"CO2, CH4, NOx",2015 NDC
+First round,Saudi Arabia,SAU,Unquantifiable,2030,,,No,n/q,,,,Not stated,n/a,2015 NDC
+First round,Senegal,SEN,BAU,2030,2025,,Yes,-0.05053191489361697,-0.21010638297872342,-0.04054054054054068,-0.14864864864864868,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Serbia,SRB,Historical,2030,,1990,No,-0.098,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,Seychelles,SYC,BAU,2030,2025,,Yes,0,-0.28998920252969307,0,-0.2140111809923131,Excludes,"CO2, CH4",2015 NDC
+First round,Sierra Leone,SLE,Unquantifiable,2035,2050,,No,n/q,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Singapore,SGP,Intensity,2030,,2005,No,-0.36,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,Slovak Republic,SVK,Historical,2030,,1990,No,-0.4546720378715462,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Slovenia,SVN,Historical,2030,,1990,No,0.7666177551234648,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Solomon Islands,SLB,BAU,2030,2025,,Yes,-0.3,-0.45,-0.12,-0.27,Includes,CO2,2015 NDC
+First round,Somalia,SOM,Unquantifiable,2030,,,No,n/q,,,,Not stated,n/a,2015 NDC
+First round,South Africa,ZAF,Fixed,2030,2030,2025,No,506,,614,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,South Korea,KOR,Fixed,2030,,,No,535.878,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,South Sudan,SSD,Unquantifiable,2030,,,No,n/q,,,,Includes,CO2,2015 NDC
+First round,Spain,ESP,Historical,2030,,1990,No,0.1209366090220414,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Sri Lanka,LKA,BAU,2030,,,Yes,-0.04,-0.2,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,St. Kitts and Nevis,KNA,Fixed,2030,,,Yes,,0.62832,,,Includes,CO2,2015 NDC
+First round,St. Lucia,LCA,Fixed,2030,2025,,Yes,,0.62832,,0.6854399999999999,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,St. Vincent and the Grenadines,VCT,BAU,2025,,,No,-0.22,,,,Includes,"CO2, CH4, N2O, HFCs",2015 NDC
+First round,Sudan,SDN,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Suriname,SUR,Unquantifiable,2025,,,No,n/q,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Swaziland,SWZ,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,Sweden,SWE,Historical,2030,,1990,No,0.06546180770615795,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Switzerland,CHE,Historical,2025,2030,1990,No,-0.35,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Tajikistan,TJK,Historical,2030,,1990,Yes,-0.15000000000000002,-0.3,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Tanzania,TZA,Fixed,2030,,,Yes,145.65,,,,Includes,n/a,2015 NDC
+First round,Thailand,THA,Fixed,2030,,,Yes,629.925,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,Timor-Leste,TLS,Unquantifiable,2025,,,No,n/q,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Togo,TGO,Fixed,2030,,,Yes,34.553,27.627,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Tonga,TON,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Trinidad & Tobago,TTO,BAU,2030,,,Yes,,-0.15,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,Tunisia,TUN,Historical,2030,2025,2010,Yes,-0.08529411764705874,-0.3764705882352941,-0.08139534883720934,-0.32170542635658916,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Turkiye,TUR,Fixed,2030,2025,,No,929,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Turkmenistan,TKM,BAU,2030,,,No,n/q,,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,Tuvalu,TUV,Historical,2025,,2010,No,-0.6,,,,Excludes,"CO2, CH4",2015 NDC
+First round,Uganda,UGA,Fixed,2030,,,Yes,,724.62,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Ukraine,UKR,Historical,2030,,1990,No,-0.4,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,United Arab Emirates,ARE,Unquantifiable,2030,,,No,n/q,,,,Excludes,n/a,2015 NDC
+First round,United Kingdom,GBR,Historical,2030,,1990,No,-0.491,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,United States,USA,Historical,2025,,2005,No,0,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,Uruguay,URY,Intensity,2025,,1990,Yes,-0.24,-0.29,,,Excludes,CO2,2015 NDC
+First round,Uzbekistan,UZB,Intensity,2030,,2010,No,-0.1,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Vanuatu,VUT,Unquantifiable,2030,,,No,n/q,,,,Includes,CO2,2015 NDC
+First round,Venezuela,VEN,BAU,2030,,,Yes,,-0.2,,,Includes,n/a,2015 NDC
+First round,Vietnam,VNM,Fixed,2030,,,Yes,724.408,590.55,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,Yemen,YEM,Fixed,2030,,,Yes,43.35,37.67,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Zambia,ZMB,Historical,2030,,2010,Yes,-0.25,-0.47,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,Zimbabwe,ZWE,BAU,2030,,,Yes,-0.33,,,,Excludes,"CO2, CH4, N2O",2015 NDC

@@ -1,0 +1,46 @@
+{
+ "counts": {
+  "High": 9,
+  "Medium": 43,
+  "Low": 79
+ },
+ "total": 131,
+ "high": [
+  {
+   "id": "L1",
+   "effect": "Services electricity demand follows the industry multiple: the largest single power-demand error"
+  },
+  {
+   "id": "L3",
+   "effect": "Income factor applied twice: the GDP elasticity drifts, error growing to 2040"
+  },
+  {
+   "id": "L13",
+   "effect": "Other oil products priced at the 0.01 floor: their fuel use rises tenfold by 2030"
+  },
+  {
+   "id": "L18",
+   "effect": "Non-energy methane flat: a methane fee on farming and waste does nothing"
+  },
+  {
+   "id": "L19",
+   "effect": "CO2 from flaring booked as methane"
+  },
+  {
+   "id": "L20",
+   "effect": "Population 185 million in 2041 instead of 147 million (UN)"
+  },
+  {
+   "id": "L24",
+   "effect": "GDP effect added to growth every year: +0.5% compounds to about +10% of GDP"
+  },
+  {
+   "id": "L53",
+   "effect": "Actual capacity factors never used: the studies value always applies, the override bounds never act"
+  },
+  {
+   "id": "L87",
+   "effect": "Regulation scenarios (energy efficiency, feebates, fuel economy) have no effect: share fixed at 0"
+  }
+ ]
+}

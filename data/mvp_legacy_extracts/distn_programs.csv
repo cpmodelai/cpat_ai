@@ -1,0 +1,23 @@
+key,kind,label,code
+infra|All Infr.,infra,All Infr.,all_acs_share
+infra|ICT Infr.,infra,ICT Infr.,ICT_acs_share
+infra|Electricity Infr.,infra,Electricity Infr.,ely_acs_share
+infra|Water Infr.,infra,Water Infr.,wtr_acs_share
+infra|Sanitation Infr.,infra,Sanitation Infr.,sani_acs_share
+infra|Public Transport Infr.,infra,Public Transport Infr.,transp_pub_acs_share
+aspire|Active Labor Market,aspire,Active Labor Market,per_lm_ac.avt_q
+aspire|All Labor Market,aspire,All Labor Market,per_lm_alllm.avt_q
+aspire|All Social Assistance,aspire,All Social Assistance,per_sa_allsa.avt_q
+aspire|All Social Insurance,aspire,All Social Insurance,per_si_allsi.avt_q
+aspire|All Social Protection and Labor,aspire,All Social Protection and Labor,per_allsp.avt_q
+aspire|Cash Transfers,aspire,Cash Transfers,per_sa_ct.avt_q
+aspire|Conditional Cash Transfers,aspire,Conditional Cash Transfers,per_sa_cc.avt_q
+aspire|Contributory Pensions,aspire,Contributory Pensions,per_si_cp.avt_q
+aspire|Fee waivers and targeted subsidies,aspire,Fee waivers and targeted subsidies,per_sa_fw.avt_q
+aspire|In-Kind,aspire,In-Kind,per_sa_ik.avt_q
+aspire|Other Social Assistance,aspire,Other Social Assistance,per_sa_os.avt_q
+aspire|Other Social Insurance,aspire,Other Social Insurance,per_si_ss.avt_q
+aspire|Passive Labor Market,aspire,Passive Labor Market,per_lm_pa.avt_q
+aspire|Public Works,aspire,Public Works,per_sa_pw.avt_q
+aspire|School Feeding,aspire,School Feeding,per_sa_sf.avt_q
+aspire|Social Pensions,aspire,Social Pensions,per_sa_sp.avt_q

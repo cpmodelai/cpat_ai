@@ -1,0 +1,52 @@
+CountryCode,Carbon tax (Yes/No),Single price?,ETS (Yes/No),Allocation: auctioning (Yes/No)*,Allocation: free allocation (Yes/No),"If free allocation, subcategory**",Intensity-based*** (Yes/No),Is it EU ETS?
+ALB,Yes,Yes,No,,,,,
+ARG,Yes,,No,,,,,
+AUS,No,,Yes,No ,Yes,Output based benchmarking ,Yes ,No
+AUT,No,,Yes,Yes,No ,,No,Both
+BEL,No,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+BGR,No,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+CAN,Yes,Yes,Yes,No ,Yes,Output based benchmarking ,Yes ,No
+CHL,Yes,Yes,No,,,,,
+CHN,No,,Yes,No ,Yes ,Output based benchmarking ,Yes ,No
+COL,Yes,Yes,No,,,,,
+HRV,No,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+CYP,No,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+CZE,No,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+DNK,Yes,Yes,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+EST,Yes,Yes,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+FIN,Yes,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+FRA,Yes,Yes,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+DEU,No,,Yes,Yes,Both,Fixed Benchmarking,Yes,Both
+GRC,No,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+HUN,Yes,Yes,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+ISL,Yes,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+IDN,No,,Yes,No ,Yes ,Output based benchmarking ,Yes ,No
+IRL,Yes,Yes,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+ITA,No,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+JPN,Yes,Yes,No,,,,,
+KAZ,No,,Yes,No ,Yes ,Output based benchmarking ,No,No
+KOR,No,,Yes,Yes,Yes,"Fixed benchmarking, Grandparenting ",Yes ,No
+LVA,Yes,Yes,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+LIE,Yes,Yes,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+LTU,No,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+LUX,Yes,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+MLT,No,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+MRT,Yes,Yes ,No ,,,,,
+MEX,Yes,,Yes,No ,Yes ,Grandparenting ,No,No
+MNE,No,,Yes,Yes ,Yes ,"Grandparenting, benchmarking (for new installations)",No ,No
+NLD,Yes,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+NZL,No,,Yes,Yes ,Yes ,Output and intensity based benchmarking ,Yes ,No
+NOR,Yes,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+POL,Yes,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+PRT,Yes,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+ROU,No,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+SGP,Yes,Yes,No,,,,,
+SVK,No,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+SVN,Yes,Yes,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+ZAF,Yes,Yes,No,,,,,
+ESP,Yes,Yes,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+SWE,Yes,,Yes,Yes,Yes,Fixed Benchmarking,No,Yes
+CHE,Yes,Yes,Yes,Yes,Yes ,Fixed benchmarking ,No ,No
+UKR,Yes,Yes,No,,,,,
+GBR,Yes,Yes,Yes,Yes,Yes,Fixed benchmarking ,No,No
+URY,Yes,Yes,No,,,,,

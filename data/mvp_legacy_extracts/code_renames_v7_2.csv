@@ -1,0 +1,270 @@
+step,kind,old,new,scope,crosswalk_ref,status
+R2,variable,gen,gen_mwy,,"power: legacy I3 rows 3804-3812",applied
+R1,codeend,,,,"D2: no model letters (C7)",applied
+R2,variable,usd,nid,,"power: legacy nid",applied
+R2,variable,reteff,rec,,"power: legacy K6 rows 4011-4019",applied
+R2,variable,ccp,xac,,"power: legacy D5 rows 3385-3393",applied
+R3,variable,psp,ps,,"prices: legacy rows 2455-2708",applied
+R3,variable,pets,etsnew,,"prices: legacy rows 2465...",applied
+R3,variable,rpb,pbc,,"prices: legacy rows 2467-2674",applied
+R3,variable,txfx,fadtx,,"prices: legacy rows 2459...",applied
+R3,variable,txfl,cs,,"prices: legacy rows 2461...",applied
+R3,variable,incf,inc.ela.adj,,"macro: legacy row 2433",applied
+R3,variable,cpi,tcp,,"section 17: legacy rows 16464-16642",applied
+R4,codevar,trevst,stockcalc,,"transport: crosswalk trevst",applied
+R4,row,trevst|pas|ev,ev|pass,,"transport: crosswalk trevst slots",applied
+R4,codevar,trevsf,stockcalc,,"transport: crosswalk trevsf",applied
+R4,row,trevsf|fre|bev,bev|fre,,"transport: crosswalk trevsf slots",applied
+R4,codevar,trevsc,stockcalc,,"transport: crosswalk trevsc",applied
+R4,row,trevsc|cyc|bev,bev|motor,,"transport: crosswalk trevsc slots",applied
+R4,codevar,trevcc,shrcalc,,"transport: crosswalk trevcc",applied
+R4,row,trevcc|pas|ev,ev|pass,,"transport: crosswalk trevcc slots",applied
+R4,codevar,trlgfb,shrcalc,,"transport: crosswalk trlgfb",applied
+R4,row,trlgfb|fre|bev,bev|fre,,"transport: crosswalk trlgfb slots",applied
+R4,codevar,trlgcb,shrcalc,,"transport: crosswalk trlgcb",applied
+R4,row,trlgcb|cyc|bev,bev|motor,,"transport: crosswalk trlgcb slots",applied
+R4,codevar,trevsh,shract,,"transport: crosswalk trevsh",applied
+R4,row,trevsh|pas|ev,ev|pass,,"transport: crosswalk trevsh slots",applied
+R4,codevar,trshfb,shract,,"transport: crosswalk trshfb",applied
+R4,row,trshfb|fre|bev,bev|fre,,"transport: crosswalk trshfb slots",applied
+R4,codevar,trshcb,shract,,"transport: crosswalk trshcb",applied
+R4,row,trshcb|cyc|bev,bev|motor,,"transport: crosswalk trshcb slots",applied
+R4,codevar,trkt,tot,,"transport: crosswalk trkt",applied
+R4,codevar,trkte,tot,,"transport: crosswalk trkte",applied
+R4,codevar,trkmp,pass,,"transport: crosswalk trkmp",applied
+R4,row,trkmp|pas|all,vkt|all,,"transport: crosswalk trkmp slots",applied
+R4,codevar,trkmf,fre,,"transport: crosswalk trkmf",applied
+R4,row,trkmf|fre|all,vkt|all,,"transport: crosswalk trkmf slots",applied
+R4,codevar,trkmc,motor,,"transport: crosswalk trkmc",applied
+R4,row,trkmc|cyc|all,vkt|all,,"transport: crosswalk trkmc slots",applied
+R4,codevar,trkmt,all,,"transport: crosswalk trkmt",applied
+R4,row,trkmt|all|all,vkt|all,,"transport: crosswalk trkmt slots",applied
+R4,codevar,trvht,pass,,"transport: crosswalk trvht",applied
+R4,row,trvht|pas|all,own|all,,"transport: crosswalk trvht slots",applied
+R4,codevar,trvhtf,fre,,"transport: crosswalk trvhtf",applied
+R4,row,trvhtf|fre|all,own|all,,"transport: crosswalk trvhtf slots",applied
+R4,codevar,trvhtc,motor,,"transport: crosswalk trvhtc",applied
+R4,row,trvhtc|cyc|all,own|all,,"transport: crosswalk trvhtc slots",applied
+R4,codevar,trvhta,all,,"transport: crosswalk trvhta",applied
+R4,row,trvhta|all|all,own|all,,"transport: crosswalk trvhta slots",applied
+R4,codevar,trafg,fecon,,"transport: crosswalk trafg",applied
+R4,codevar,trafo,fecon,,"transport: crosswalk trafo",applied
+R4,codevar,trafe,fecon,,"transport: crosswalk trafe",applied
+R4,member,pas,pass,,"road classes: legacy pass",applied
+R4,member,cyc,motor,,"road classes: legacy motor",applied
+R5,codevar,ap,em,,"emissions: crosswalk ap -> em.<sec>.all.<pol>",applied
+R5,member,bc,all.bc,ap,"crosswalk ap.pow.pm2 -> em.pow.all.pm2",applied
+R5,row,ap|all|bc,tot|bc,,"crosswalk ap.all.pm2 (total over sectors: tot, C5)",applied
+R5,member,co,all.co,ap,"crosswalk ap.pow.pm2 -> em.pow.all.pm2",applied
+R5,row,ap|all|co,tot|co,,"crosswalk ap.all.pm2 (total over sectors: tot, C5)",applied
+R5,member,nox,all.nox,ap,"crosswalk ap.pow.pm2 -> em.pow.all.pm2",applied
+R5,row,ap|all|nox,tot|nox,,"crosswalk ap.all.pm2 (total over sectors: tot, C5)",applied
+R5,member,oc,all.oc,ap,"crosswalk ap.pow.pm2 -> em.pow.all.pm2",applied
+R5,row,ap|all|oc,tot|oc,,"crosswalk ap.all.pm2 (total over sectors: tot, C5)",applied
+R5,member,pm2,all.pm2,ap,"crosswalk ap.pow.pm2 -> em.pow.all.pm2",applied
+R5,row,ap|all|pm2,tot|pm2,,"crosswalk ap.all.pm2 (total over sectors: tot, C5)",applied
+R5,member,so2,all.so2,ap,"crosswalk ap.pow.pm2 -> em.pow.all.pm2",applied
+R5,row,ap|all|so2,tot|so2,,"crosswalk ap.all.pm2 (total over sectors: tot, C5)",applied
+R5,member,voc,all.voc,ap,"crosswalk ap.pow.pm2 -> em.pow.all.pm2",applied
+R5,row,ap|all|voc,tot|voc,,"crosswalk ap.all.pm2 (total over sectors: tot, C5)",applied
+R5,codevar,aps,em,,"crosswalk aps.cpp.nox -> em.cpp.nox",applied
+R5,row,aps|all|bc,aps|all|bc,,"aps.all.<pol> kept: same code as ap.all.<pol> (R7 duplicate)",applied
+R5,row,aps|all|ch4,aps|all|ch4,,"aps.all.<pol> kept: same code as ap.all.<pol> (R7 duplicate)",applied
+R5,row,aps|all|co,aps|all|co,,"aps.all.<pol> kept: same code as ap.all.<pol> (R7 duplicate)",applied
+R5,row,aps|all|nox,aps|all|nox,,"aps.all.<pol> kept: same code as ap.all.<pol> (R7 duplicate)",applied
+R5,row,aps|all|oc,aps|all|oc,,"aps.all.<pol> kept: same code as ap.all.<pol> (R7 duplicate)",applied
+R5,row,aps|all|opm,aps|all|opm,,"aps.all.<pol> kept: same code as ap.all.<pol> (R7 duplicate)",applied
+R5,row,aps|all|pm2,aps|all|pm2,,"aps.all.<pol> kept: same code as ap.all.<pol> (R7 duplicate)",applied
+R5,row,aps|all|pom,aps|all|pom,,"aps.all.<pol> kept: same code as ap.all.<pol> (R7 duplicate)",applied
+R5,row,aps|all|so2,aps|all|so2,,"aps.all.<pol> kept: same code as ap.all.<pol> (R7 duplicate)",applied
+R5,row,aps|all|voc,aps|all|voc,,"aps.all.<pol> kept: same code as ap.all.<pol> (R7 duplicate)",applied
+R5,codevar,ch4,em,,"crosswalk ch4.pow.coa.e -> em.pow.coa.ch4",applied
+R5,member,bio,bio.ch4,ch4,"crosswalk ch4.pow.coa.e -> em.pow.coa.ch4",applied
+R5,member,coa,coa.ch4,ch4,"crosswalk ch4.pow.coa.e -> em.pow.coa.ch4",applied
+R5,member,die,die.ch4,ch4,"crosswalk ch4.pow.coa.e -> em.pow.coa.ch4",applied
+R5,member,gso,gso.ch4,ch4,"crosswalk ch4.pow.coa.e -> em.pow.coa.ch4",applied
+R5,member,jfu,jfu.ch4,ch4,"crosswalk ch4.pow.coa.e -> em.pow.coa.ch4",applied
+R5,member,ker,ker.ch4,ch4,"crosswalk ch4.pow.coa.e -> em.pow.coa.ch4",applied
+R5,member,lpg,lpg.ch4,ch4,"crosswalk ch4.pow.coa.e -> em.pow.coa.ch4",applied
+R5,member,nga,nga.ch4,ch4,"crosswalk ch4.pow.coa.e -> em.pow.coa.ch4",applied
+R5,member,oop,oop.ch4,ch4,"crosswalk ch4.pow.coa.e -> em.pow.coa.ch4",applied
+R5,row,apf|all|bc,bc|tot|,,"crosswalk apf.all.<pol> -> <pol>.tot",applied
+R5,row,apf|all|co,co|tot|,,"crosswalk apf.all.<pol> -> <pol>.tot",applied
+R5,row,apf|all|voc,voc|tot|,,"crosswalk apf.all.<pol> -> <pol>.tot",applied
+R5,row,apf|all|so2,so2|tot|,,"crosswalk apf.all.<pol> -> <pol>.tot",applied
+R5,row,apf|all|oc,oc|tot|,,"crosswalk apf.all.<pol> -> <pol>.tot",applied
+R5,row,apf|all|nox,nox|tot|,,"crosswalk apf.all.<pol> -> <pol>.tot",applied
+R5,row,ghg|all|n2o,n2o|tot|,,"crosswalk ghg.all.<gas> -> <gas>.tot",applied
+R5,row,ghg|all|fga,fga|tot|,,"crosswalk ghg.all.<gas> -> <gas>.tot",applied
+R5,row,ghg|all|ch4,ch4|tot|,,"crosswalk ghg.all.<gas> -> <gas>.tot",applied
+R5,row,ghg|all|co2,co2|tot|,,"crosswalk ghg.all.<gas> -> <gas>.tot",applied
+R6,row,rfu|all|coa,rev|usd.tot|coa,,"crosswalk rfu.all.coa -> rev.usd.tot.coa (legacy section 16)",applied
+R6,row,rfu|all|nga,rev|usd.tot|nga,,"crosswalk rfu.all.coa -> rev.usd.tot.coa (legacy section 16)",applied
+R6,row,rfu|all|gso,rev|usd.tot|gso,,"crosswalk rfu.all.coa -> rev.usd.tot.coa (legacy section 16)",applied
+R6,row,rfu|all|die,rev|usd.tot|die,,"crosswalk rfu.all.coa -> rev.usd.tot.coa (legacy section 16)",applied
+R6,row,rfu|all|lpg,rev|usd.tot|lpg,,"crosswalk rfu.all.coa -> rev.usd.tot.coa (legacy section 16)",applied
+R6,row,rfu|all|ker,rev|usd.tot|ker,,"crosswalk rfu.all.coa -> rev.usd.tot.coa (legacy section 16)",applied
+R6,row,rfu|all|jfu,rev|usd.tot|jfu,,"crosswalk rfu.all.coa -> rev.usd.tot.coa (legacy section 16)",applied
+R6,row,rfu|all|oop,rev|usd.tot|oop,,"crosswalk rfu.all.coa -> rev.usd.tot.coa (legacy section 16)",applied
+R6,row,rfu|all|bio,rev|usd.tot|bio,,"crosswalk rfu.all.coa -> rev.usd.tot.coa (legacy section 16)",applied
+R6,row,rtot|all|all,rev|usd|tot,,"crosswalk rtot.all.all -> rev.usd.tot",applied
+R6,row,rsr|all|all,rev|sr|usd,,"crosswalk rsr -> rev.sr.usd",applied
+R6,row,wel|all|cli,wel|cli|pct,,"crosswalk wel.all.cli -> wel.cli.pct",applied
+R6,row,wel|all|usd,wel|tot|,,"crosswalk wel.all.usd -> wel.tot",applied
+R6,row,wel|all|pct,wel|pct|tot,,"crosswalk wel.all.pct -> wel.pct.tot",applied
+R6,row,wel|all|eff,wel|eco.dwl|pct,,"crosswalk wel.all.eff -> wel.eco.dwl.pct",applied
+R6,row,gdpg|all|all,gdp|pct|tot,,"crosswalk gdpg.all.all -> gdp.pct.tot",applied
+R7,row,pnq|all|gso,tot|gso,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pnq|all|die,tot|die,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pnq|all|lpg,tot|lpg,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pnq|all|ker,tot|ker,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pnq|all|oop,tot|oop,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pnq|all|bio,tot|bio,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pav.q|all|coa,tot|coa,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pav.q|all|nga,tot|nga,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pav.q|all|gso,tot|gso,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pav.q|all|die,tot|die,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pav.q|all|lpg,tot|lpg,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pav.q|all|ker,tot|ker,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pav.q|all|jfu,tot|jfu,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pav.q|all|oop,tot|oop,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pav.q|all|bio,tot|bio,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pav.q|all|ecy,tot|ecy,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pav.sp|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pav.q|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pav.spr|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pav.sp0|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pavl.qr|all|coa,tot|coa,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pavl.qi|all|coa,tot|coa,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pavl.qp|all|coa,tot|coa,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pavl.qr|all|nga,tot|nga,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pavl.qi|all|nga,tot|nga,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,pavl.qp|all|nga,tot|nga,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|rod|all,rod|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|ral|all,ral|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|avi|all,avi|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|nav|all,nav|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|tra|all,tra|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,trstt|pas|all,pas|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,trafts|pas|all,pas|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,traftsf|fre|all,fre|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,traftsc|cyc|all,cyc|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,trbkmt|pas|all,pas|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,trbkmtf|fre|all,fre|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,trsum|rod|all,rod|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|res|all,res|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|foo|all,foo|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|srv|all,srv|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|bld|all,bld|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,lks|res|all,res|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|mch|all,mch|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|irn|all,irn|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|nfm|all,nfm|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|mac|all,mac|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|cem|all,cem|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|omn|all,omn|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|cst|all,cst|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|ftr|all,ftr|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|ind|all,ind|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|oen|all,oen|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|all|coa,tot|coa,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|all|nga,tot|nga,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|all|gso,tot|gso,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|all|die,tot|die,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|all|lpg,tot|lpg,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|all|ker,tot|ker,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|all|jfu,tot|jfu,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|all|oop,tot|oop,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|all|bio,tot|bio,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,eldem|all|ecy,tot|ecy,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ener|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rtx|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rtx|tra|all,tra|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rtx|bld|all,bld|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rtx|ind|all,ind|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rtx|oen|all,oen|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rtx|pow|all,pow|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rsub|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rsub|tra|all,tra|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rsub|bld|all,bld|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rsub|ind|all,ind|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rsub|oen|all,oen|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rsub|pow|all,pow|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rnew|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rnew|tra|all,tra|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rnew|bld|all,bld|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rnew|ind|all,ind|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rnew|oen|all,oen|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rnew|pow|all,pow|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rxcp|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rxcp|tra|all,tra|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rxcp|bld|all,bld|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rxcp|ind|all,ind|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rxcp|oen|all,oen|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rxcp|pow|all,pow|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rsr|tra|all,tra|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rsr|bld|all,bld|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rsr|ind|all,ind|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rsr|oen|all,oen|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rpol|all|exc,tot|exc,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rpol|all|vat,tot|vat,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rpol|all|psu,tot|psu,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rpol|all|ren,tot|ren,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,rpol|all|tot,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2|tra|all,tra|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2|bld|all,bld|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2|ind|all,ind|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2|oen|all,oen|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2|pow|all,pow|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2|all|coa,tot|coa,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2|all|nga,tot|nga,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2|all|gso,tot|gso,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2|all|die,tot|die,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2|all|lpg,tot|lpg,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2|all|ker,tot|ker,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2|all|jfu,tot|jfu,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2|all|oop,tot|oop,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2|all|bio,tot|bio,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2.sec|pow|all,pow|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2.sec|rod|all,rod|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2.sec|ral|all,ral|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2.sec|avi|all,avi|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2.sec|nav|all,nav|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2.sec|res|all,res|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2.sec|foo|all,foo|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2.sec|srv|all,srv|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2.sec|mch|all,mch|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2.sec|irn|all,irn|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2.sec|nfm|all,nfm|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2.sec|mac|all,mac|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2.sec|cem|all,cem|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2.sec|omn|all,omn|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2.sec|cst|all,cst|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2.sec|ftr|all,ftr|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2.sec|oen|all,oen|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,bco2.chk|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,co2|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ch4.c|tra|all,tra|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ch4.c|bld|all,bld|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ch4.c|ind|all,ind|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ch4.c|oen|all,oen|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ch4.c|pow|all,pow|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ch4.c|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ch4.sup|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ghg|enr|all,enr|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ghg|ipr|all,ipr|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ghg|agr|all,agr|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ghg|lucf|all,lucf|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ghg|wst|all,wst|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ghg|oth|all,oth|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,ghg|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,apf|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,xnim|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,xtb|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,gdp.eff|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,eff|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,row,mfc|all|all,tot|tot,,"total row: explicit sum in the year formula (C5)",applied
+R7,codevar,captot,cap.pow.tot,,"power totals: legacy <var>.pow.tot",applied
+R7,codevar,gtot,gen_mwy.pow.tot,,"power totals: legacy <var>.pow.tot",applied
+R7,codevar,nimtot,nim.pow.tot,,"power totals: legacy <var>.pow.tot",applied
+R7,codevar,usdtot,nid.pow.tot,,"power totals: legacy <var>.pow.tot",applied

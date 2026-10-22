@@ -1,0 +1,1975 @@
+[
+ {
+  "id": "L87",
+  "pri": "High",
+  "title": "Regulations never act: share 0 and the adjustments unused",
+  "where": "Mitigation C2371 (policy C8702), I2403:I2419 (policy I8734:I8750); F86:F90 = MTInputs F247:F251",
+  "why": "C2371 (share of the regulation shadow price on the efficiency margin, used by K2403:K2419) is IFNA(INDEX($F$86:$F$90,MATCH(C2370,$C$86:$C$90,0)),0), but C86:C90 hold \" - \"&MTInputs!B247:B251, so the scenario name in C2370 never matches and the share is 0. The feebate rows I2403:I2419 never use F90 (MTInputs F251).",
+  "fixes": [
+   {
+    "cell": "C2371",
+    "now": "=_xlfn.IFNA(INDEX($F$86:$F$90,MATCH(C2370,$C$86:$C$90,0)),0)",
+    "new": "=IFNA(INDEX($F$86:$F$90,MATCH(\" - \"&C2370,$C$86:$C$90,0)),0)",
+    "fill": "single cell",
+    "policy": "paste into C8702 (+6,331)"
+   },
+   {
+    "cell": "I2403",
+    "now": "=IF(AND(C2173>1,E2189=\"Yes\"),E$1982,0)",
+    "new": "=IF(AND(C2173>1,E2189=\"Yes\"),E$1982*$F$90,0)",
+    "fill": "I2403:I2419: select, Find/Replace \",0)\" by \"*$F$90,0)\" (one hit per cell; each row keeps its own E$1982...E$1998)",
+    "policy": "I8734:I8750: same Find/Replace ($F$90 is a shared row)"
+   }
+  ],
+  "ref": "The scenario names in Mitigation N223:AC223 equal MTInputs B247:B251 (\"Energy efficiency regulations\", \"Vehicle fuel economy\", \"Residential efficiency regulations\", \"Industrial efficiency regulations\", \"Feebates\"); K2403:K2419 already apply C2371 where the sector is covered (F2403:F2419).",
+  "effect": "Regulation scenarios have no effect at all in legacy; after the fix they cut fuel use through the efficiency margin. MVP v4.16: regulation shadow price = shadow carbon price x adjustment x sector coverage; feebate share x SPPEffAdjFeebates.",
+  "note": "The converted xlsx (q.py) shows these IFNA formulas mangled (e.g. \"=_xlfn.IFNA(0)\"); the \"now\" text here is decoded from the xlsb itself. The q.py text \"=_xlfn.IFNA(0)\" behind the register wording is a conversion artefact: the lookup exists, the \" - \" prefix breaks it. The F90 factor on the feebate share follows the MVP (to confirm). Decided (user 2026-10-19): the feebate part (*$F$90) is part of the fix (register: row 251 for feebates). Apply with L112.",
+  "status": "fix"
+ },
+ {
+  "id": "L57",
+  "pri": "Medium",
+  "title": "New ETS: the quick price estimate is linear in the semi-elasticity",
+  "where": "Mitigation ETS block, row 1868 (QuickEstimateOfETSPrices, Q1868:AD1868)",
+  "why": "Q1868 = MAX(Q1860/Q1867,0): the needed relative change of covered emissions (row 1860, from rows 1858-1859) divided by the adjusted semi-elasticity (row 1867 = D1845 x effectiveness row 1866). Emissions respond log-linearly to the price, so the linear estimate misses the cap and is left to the VBA goal seek.",
+  "fixes": [
+   {
+    "cell": "Q1868",
+    "now": "=MAX(Q1860/Q1867,0)",
+    "new": "=MAX(LN(1+Q1860)/Q1867,0)",
+    "fill": "Q1868:AD1868",
+    "policy": "none (shared row above 2173)"
+   }
+  ],
+  "ref": "Row 1860 is the change relative to baseline (cap / baseline - 1); D1845 already divides by the volatility ratio D1843, so row 1867 = semi-elasticity x effectiveness x volatility adjustment, as in the MVP. Row 1871 = IFERROR(Q1868,0) catches a reduction of 100% or more (LN of 0 or less).",
+  "effect": "New ETS scenarios: the quick estimate meets the cap (legacy relies on the VBA goal seek). MVP v1.02.",
+  "note": "The VBA goal seek (ETSMaxIterations, ETSErrorTolerance) still runs from this estimate; no macro change needed.",
+  "status": "fix"
+ },
+ {
+  "id": "L58",
+  "pri": "Medium",
+  "title": "Local pollutants: subsectors without a GAINS match get zero factors",
+  "where": "Mitigation EF tables rows 1052-1662 (8 blocks: PM2.5 1049, NOx 1126, SO2 1203, VOC 1280, BC 1357, OC 1434, CH4 1511, CO 1587), columns F and J; emissions rows 6607 ff. read them through Em_fact (I1052:AE1663)",
+  "why": "F1052 matches country, region, then world GAINS codes \"<sub>.<fuel>.<pollutant>\" (G1052) in EF_PM!A. GAINS has no \"srv\" or \"ral\" subsector, so F is #N/A and the EF (L, AC: IFNA(...,0)) is 0 for services (e.g. rows 1083-1090) and rail diesel (1063). Industry is already mapped to mnf/omn in the emission rows and other energy use takes the MAX (rows 1117 ff.).",
+  "fixes": [
+   {
+    "cell": "J1052",
+    "now": "",
+    "new": "=IF($C1052=\"srv\",\"res\",IF($C1052=\"ral\",\"rod\",$C1052))&MID($G1052,LEN($C1052)+1,99)",
+    "fill": "J of every non-oen data row of the 8 blocks: 1052:1055, 1058:1064, 1067:1072, 1075:1114, 1129:1132, 1135:1141, 1144:1149, 1152:1191, 1206:1209, 1212:1218, 1221:1226, 1229:1268, 1283:1286, 1289:1295, 1298:1303, 1306:1345, 1360:1363, 1366:1372, 1375:1380, 1383:1422, 1437:1440, 1443:1449, 1452:1457, 1460:1499, 1514:1517, 1520:1526, 1529:1534, 1537:1576, 1590:1593, 1596:1602, 1605:1610, 1613:1652",
+    "policy": "none (shared rows above 2173)"
+   },
+   {
+    "cell": "F1052",
+    "now": "=_xlfn.IFNA(_xlfn.IFNA(MATCH(_Country_code&\".mit.ef.\"&G1052,EF_PM!$A$3:$A$39323,0),MATCH(_region_code&\".mit.ef.\"&G1052,EF_PM!$A$3:$A$39323,0)),MATCH(\"wld.mit.ef.\"&G1052,EF_PM!$A$3:$A$39323,0))",
+    "new": "=IFNA(IFNA(IFNA(MATCH(_Country_code&\".mit.ef.\"&G1052,EF_PM!$A$3:$A$39323,0),MATCH(_region_code&\".mit.ef.\"&G1052,EF_PM!$A$3:$A$39323,0)),MATCH(\"wld.mit.ef.\"&G1052,EF_PM!$A$3:$A$39323,0)),IFNA(IFNA(MATCH(_Country_code&\".mit.ef.\"&$J1052,EF_PM!$A$3:$A$39323,0),MATCH(_region_code&\".mit.ef.\"&$J1052,EF_PM!$A$3:$A$39323,0)),MATCH(\"wld.mit.ef.\"&$J1052,EF_PM!$A$3:$A$39323,0)))",
+    "fill": "F of the same rows (1052:1055, 1058:1064, 1067:1072, 1075:1114, 1129:1132, 1135:1141, 1144:1149, 1152:1191, 1206:1209, 1212:1218, 1221:1226, 1229:1268, 1283:1286, 1289:1295, 1298:1303, 1306:1345, 1360:1363, 1366:1372, 1375:1380, 1383:1422, 1437:1440, 1443:1449, 1452:1457, 1460:1499, 1514:1517, 1520:1526, 1529:1534, 1537:1576, 1590:1593, 1596:1602, 1605:1610, 1613:1652): copy F1052 down/paste",
+    "policy": "none (shared rows above 2173)"
+   }
+  ],
+  "ref": "Column J is empty in rows 1049-1663 (Em_fact reads the year columns by MATCH on row 1051, so J is not picked up). Mapping as the MVP CH4 subsector (CH4_SUB): services -> residential, rail -> road; G (input/output code, H) stays.",
+  "effect": "Local pollutants of services and rail no longer zero. MVP v2.9 (each subsector takes the GAINS subsector of its CH4 factor).",
+  "note": "In the NoPropData file the emission rows (e.g. L6607 = IFNA(L6350*INDEX(Em_fact,$J6607,L6605),0)) and the EF values are #NAME?/stripped, so check the result in the full file. The converted xlsx (q.py) shows these IFNA formulas mangled (e.g. \"=_xlfn.IFNA(0)\"); the \"now\" text here is decoded from the xlsb itself. Apply before L59.",
+  "status": "fix"
+ },
+ {
+  "id": "L59",
+  "pri": "Medium",
+  "title": "Local pollutants and combustion CH4: fuels without a GAINS factor emit nothing",
+  "where": "Mitigation EF tables rows 1052-1662, helper column J (after L58); sheet EF_PM",
+  "why": "A subsector-fuel pair that GAINS does not cover (Egypt EF_PM: res has only nga and bio, foo no diesel, omn no diesel, mnf no LPG, pow no coal) finds no code in F, so all its pollutants and its combustion CH4 (block 1511) are 0, although the fuel burns (row 15939: food & forestry NOx about 1 t).",
+  "fixes": [
+   {
+    "cell": "J1052",
+    "now": "=IF($C1052=\"srv\",\"res\",IF($C1052=\"ral\",\"rod\",$C1052))&MID($G1052,LEN($C1052)+1,99)",
+    "new": "=IF(COUNTIF(EF_PM!$A$3:$A$39323,\"*.mit.ef.\"&IF($C1052=\"srv\",\"res\",IF($C1052=\"ral\",\"rod\",$C1052))&\".\"&$D1052&\".*\")>0,IF($C1052=\"srv\",\"res\",IF($C1052=\"ral\",\"rod\",$C1052))&\".\"&$D1052,IF($D1052=\"lpg\",IF($C1052=\"srv\",\"res\",IF($C1052=\"ral\",\"rod\",$C1052))&\".nga\",IF($C1052=\"foo\",\"cst.\"&$D1052,IF($D1052=\"bio\",\"res.bio\",IF($C1052=\"mnf\",\"cst\",\"mnf\")&\".\"&$D1052))))&MID($G1052,LEN($C1052)+LEN($D1052)+2,99)",
+    "fill": "J of the same rows as L58 (1052:1055, 1058:1064, 1067:1072, 1075:1114, 1129:1132, 1135:1141, 1144:1149, 1152:1191, 1206:1209, 1212:1218, 1221:1226, 1229:1268, 1283:1286, 1289:1295, 1298:1303, 1306:1345, 1360:1363, 1366:1372, 1375:1380, 1383:1422, 1437:1440, 1443:1449, 1452:1457, 1460:1499, 1514:1517, 1520:1526, 1529:1534, 1537:1576, 1590:1593, 1596:1602, 1605:1610, 1613:1652)",
+    "policy": "none (shared rows above 2173)"
+   }
+  ],
+  "ref": "MVP ef_fallback: LPG takes natural gas of the same (mapped) subsector; food & forestry takes construction; biomass takes residential; else manufacturing (construction for manufacturing itself). The COUNTIF keeps a missing pollutant of a covered fuel at 0 (GAINS omits zero factors), as the MVP. F1052 (L58) already looks the J code up.",
+  "effect": "Egypt 2022: NOx +11%, PM2.5 +5%, combustion CH4 +20% (MVP v4.12).",
+  "note": "Apply after L58 (\"now\" is L58's J). The COUNTIF tests any country/region/world code for the pair (MVP tests the country GAINS set): to confirm.",
+  "status": "fix"
+ },
+ {
+  "id": "L68",
+  "pri": "Medium",
+  "title": "GDP effects: the multiplier of lag 1 acts in the impulse year",
+  "where": "Mitigation row 8070 (lag counter of cohort 1; later cohorts copy it: M8081 = L8070, N8092 = M8081, ...), policy row 14387",
+  "why": "The cohort blocks (rows 8069-8244) read the multiplier at the lag in row 8070 (MATCH(L8070,$K8057:$AE8057,0); row 8057 = lag 0, 1, 2, ... of Multipliers D:G). L8070 = K8070+1 = 1, so each cohort gets the lag-1 multiplier in its own (impulse) year, although lag 0 (Multipliers column D, 0 in every table) is the impulse year; the GDP effect runs one year early.",
+  "fixes": [
+   {
+    "cell": "L8070",
+    "now": "=K8070+1",
+    "new": "=0",
+    "fill": "single cell (M8070:AE8070 = previous + 1 and the later cohorts' lag rows, e.g. M8081 = L8070, follow)",
+    "policy": "paste into L14387 (+6,317)"
+   }
+  ],
+  "ref": "Row 8057 (lags 0-20) = Multipliers row 61; lag 0 = Multipliers column D (0 in the global, income-group and country tables, e.g. D92:D99).",
+  "effect": "The GDP effect of every impulse comes one year later (lag 0 in the impulse year). MVP v4.15 (lag 0 in the impulse year, multiplier 0).",
+  "note": "Rows 8280-8287 / 14597-14604 (which turn the cohort sums 8267-8274 into the GDP-effect rows) are live formulas (IFNA(INDEX(...),0), read from the .xlsb), 0 in the baseline (no policy); the cohort rows need the L69 fix, so check L68 and L69 together in Excel. L69 (row 8071) reads the same lag row.",
+  "status": "fix"
+ },
+ {
+  "id": "L77",
+  "pri": "Medium",
+  "title": "Average prices: index rows point at the wrong rows, gas test on the policy total",
+  "where": "Mitigation rows 16317, 16387, 16398-16405",
+  "why": "Rows 16398-16405 (\"indexed vs. FirstYearCalculations\", labels electricity, coal, gas, oil, gasoline, diesel, LPG, kerosene) read rows 16331-16338 (electricity industry, electricity residential, coal industry, gas industry, coal residential, ...). E16317 (\"natural gas absent in baseline\") tests L16313, the policy gas total, where E16316 tests the baseline coal total. B16387 labels rows 16389-16396 \"(2022=100)\" although they are 100 + % change against the baseline.",
+  "fixes": [
+   {
+    "cell": "E16317",
+    "now": "=IF($L$16313=0,TRUE(),FALSE())",
+    "new": "=IF($L$16309=0,TRUE(),FALSE())",
+    "fill": "single cell",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "L16398",
+    "now": "=L16331/$L16331*100",
+    "new": "=L16345/$L16345*100",
+    "fill": "L16398:AE16398",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "L16399",
+    "now": "=L16332/$L16332*100",
+    "new": "=L16346/$L16346*100",
+    "fill": "L16399:AE16399",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "L16400",
+    "now": "=L16333/$L16333*100",
+    "new": "=L16347/$L16347*100",
+    "fill": "L16400:AE16400",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "L16401",
+    "now": "=L16334/$L16334*100",
+    "new": "=L16348/$L16348*100",
+    "fill": "L16401:AE16401",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "L16402",
+    "now": "=L16335/$L16335*100",
+    "new": "=L16349/$L16349*100",
+    "fill": "L16402:AE16402",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "L16403",
+    "now": "=L16336/$L16336*100",
+    "new": "=L16350/$L16350*100",
+    "fill": "L16403:AE16403",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "L16404",
+    "now": "=L16337/$L16337*100",
+    "new": "=L16351/$L16351*100",
+    "fill": "L16404:AE16404",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "L16405",
+    "now": "=L16338/$L16338*100",
+    "new": "=L16352/$L16352*100",
+    "fill": "L16405:AE16405",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "B16387",
+    "now": "=\"Domestic energy price changes in policy scenario (\"&FirstYearCalculations&\"=100)\"",
+    "new": "=\"Domestic energy price changes in policy scenario (baseline = 100)\"",
+    "fill": "single cell (label of rows 16389-16396)",
+    "policy": "none (report block)"
+   }
+  ],
+  "ref": "Rows 16345-16352: scenario average price by fuel (electricity, coal, gas, oil, gasoline, diesel, LPG, kerosene), weighted by consumption; L16309 = baseline gas in the three sectors.",
+  "effect": "The reported price indices are of the right fuels; the gas-absent switch follows the baseline. MVP v4.15 (pav.leg, pav.lidx per fuel against scenario 1).",
+  "note": "C16395 and C16404 are a hard-coded 2 (the other rows =$E$16792); labels only.",
+  "status": "fix"
+ },
+ {
+  "id": "L79",
+  "pri": "Medium",
+  "title": "ETS: industry and transport priced as a whole when one subsector is covered",
+  "where": "Mitigation rows 2323, 2325 (policy 8654, 8656); revenue rows 7790, 7792 follow",
+  "why": "L2323 (transport) and L2325 (industry) = MAX of the subsector coverage flags G2404:G2407 / G2409:G2418 x the auctioned permit price, so one covered subsector puts the full price on the whole sector; revenue rows 7790/7792 (= sector CO2 rows 7784/7786 x price rows 7779/7781 = L2323/L2325) then charge the whole sector, while the price estimate (K1815:K1831) counts covered subsectors only.",
+  "fixes": [
+   {
+    "cell": "L2323",
+    "now": "=MAX($G2404:$G2407)*IF(AND($C2173>1,$E2189=\"Yes\"),L$1877,0)",
+    "new": "=IFERROR(SUMPRODUCT($G2404:$G2407,$F$1816:$F$1819)/SUM($F$1816:$F$1819),MAX($G2404:$G2407))*IF(AND($C2173>1,$E2189=\"Yes\"),L$1877,0)",
+    "fill": "L2323:AE2323",
+    "policy": "policy L8654:AE8654: =IFERROR(SUMPRODUCT($G8735:$G8738,$F$1816:$F$1819)/SUM($F$1816:$F$1819),MAX($G8735:$G8738))*IF(AND($C8504>1,$E8520=\"Yes\"),L$1877,0) (type, do not paste: the policy row reads $G8735, $C8504, $E8520)"
+   },
+   {
+    "cell": "L2325",
+    "now": "=MAX($G2409:$G2418)*IF(AND($C2173>1,$E2189=\"Yes\"),L$1879,0)",
+    "new": "=IFERROR(SUMPRODUCT($G2409:$G2418,$F$1821:$F$1830)/SUM($F$1821:$F$1830),MAX($G2409:$G2418))*IF(AND($C2173>1,$E2189=\"Yes\"),L$1879,0)",
+    "fill": "L2325:AE2325",
+    "policy": "policy L8656:AE8656: =IFERROR(SUMPRODUCT($G8740:$G8749,$F$1821:$F$1830)/SUM($F$1821:$F$1830),MAX($G8740:$G8749))*IF(AND($C8504>1,$E8520=\"Yes\"),L$1879,0) (type, do not paste)"
+   }
+  ],
+  "ref": "Weights F1816:F1819 and F1821:F1830 are the country baseline emissions by subsector (2025, column O of rows 1889-1903), the same rows that define coverage in E1815:E1836. Revenue rows 7789-7792 need no change: sector CO2 x (price x covered share) = price x covered CO2. Rows 2322 (power) and 2324 (residential) are single subsectors.",
+  "effect": "Uncovered industry and transport subsectors no longer pay the full permit price; revenue on covered CO2 only. MVP: coverage, price and revenue by subsector (etsc, v1.07).",
+  "note": "Decided (user 2026-10-19): the emission-weighted covered share of the sector (no new rows; exact for revenue, average for the price signal). Separate subsector prices, as in the MVP, are an upgrade. IFERROR keeps the MAX when the sector has no baseline emissions.",
+  "status": "fix"
+ },
+ {
+  "id": "L98",
+  "pri": "Medium",
+  "title": "Feebate inclusion of industry reads the ETS industry flag",
+  "where": "Manual inputs P54:X54 (FeebateInclusion = H54:X54 -> MTInputs E66:E82)",
+  "why": "P54:X54 = AND(Dashboard!$R$30, P53): Dashboard R30 is the ETS industry switch; the feebate industry switch is Dashboard K44 (H44:J44 feed H54 and M54:O54).",
+  "fixes": [
+   {
+    "cell": "'Manual inputs'!P54",
+    "now": "=AND(Dashboard!$R$30,'Manual inputs'!P53)",
+    "new": "=AND(Dashboard!$K$44,'Manual inputs'!P53)",
+    "fill": "P54:X54 (copy across; the P53..X53 reference is relative)",
+    "policy": "none (sheet has no policy copy)"
+   }
+  ],
+  "ref": "Dashboard row 44 \"Included?\" (H power, J buildings, K industry) as read by H54 and M54:O54.",
+  "effect": "Industry feebate coverage follows the Dashboard feebate switch K44 instead of the ETS switch R30. None for the shipped Egypt run unless R30 or K44 is changed (both feebate values 0).",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L99",
+  "pri": "Medium",
+  "title": "ETS inclusion of machinery and other manufacturing uses the buildings flag",
+  "where": "Manual inputs S11, U11 (ETSInclusion = H11:X11)",
+  "why": "S11 (machinery) and U11 (other manufacturing) read Dashboard Q30 (buildings) while P11, Q11, R11, T11 read R30 (industry); Dashboard R31 counts P11:X11 as the industry subsectors.",
+  "fixes": [
+   {
+    "cell": "'Manual inputs'!S11",
+    "now": "=AND(Dashboard!$Q$30,'Manual inputs'!S10)",
+    "new": "=AND(Dashboard!$R$30,'Manual inputs'!S10)",
+    "fill": "single cell",
+    "policy": "none (sheet has no policy copy)"
+   },
+   {
+    "cell": "'Manual inputs'!U11",
+    "now": "=AND(Dashboard!$Q$30,'Manual inputs'!U10)",
+    "new": "=AND(Dashboard!$R$30,'Manual inputs'!U10)",
+    "fill": "single cell",
+    "policy": "none (sheet has no policy copy)"
+   }
+  ],
+  "ref": "Dashboard R30 = ETS \"In?\" for Industry, as in P11:R11 and T11.",
+  "effect": "Machinery and other manufacturing join the ETS with industry, not buildings. Egypt default: Q30 FALSE, R30 TRUE, so mch and omn enter the ETS when it is on (ETS off by default).",
+  "note": "V11:X11 (construction, fuel transformation, other energy use) also read Q30 although Dashboard R31 counts them under industry; register I52 treats this as a grouping choice: left unchanged (to confirm).",
+  "status": "fix"
+ },
+ {
+  "id": "L105",
+  "pri": "Medium",
+  "title": "Dashboard industry feebate rates are lost",
+  "where": "MTInputs E56:E64 (Dashboard H46:K47)",
+  "why": "E56:E58 = {TRANSPOSE(Dashboard!H$46:$J46)} and E61:E63 = {TRANSPOSE(Dashboard!H$47:$J47)} cover power, transport, buildings; E59 and E64 (industry, D_Feb_Level_Start_Ind / D_Feb_Level_Target_Ind) are empty, so Dashboard K46 / K47 never reach F59 / F64.",
+  "fixes": [
+   {
+    "cell": "'MTInputs'!E56",
+    "now": "{=TRANSPOSE(Dashboard!H$46:$J46)}",
+    "new": "{=TRANSPOSE(Dashboard!H$46:$K46)}",
+    "fill": "array over E56:E59: select E56:E59 (was E56:E58), enter, Ctrl+Shift+Enter",
+    "policy": "none (sheet has no policy copy)"
+   },
+   {
+    "cell": "'MTInputs'!E61",
+    "now": "{=TRANSPOSE(Dashboard!H$47:$J47)}",
+    "new": "{=TRANSPOSE(Dashboard!H$47:$K47)}",
+    "fill": "array over E61:E64: select E61:E64 (was E61:E63), enter, Ctrl+Shift+Enter",
+    "policy": "none (sheet has no policy copy)"
+   }
+  ],
+  "ref": "Dashboard H43:K43 = Power, Transport, Buildings, Industry; MTInputs rows 56-59 and 61-64 are in the same order.",
+  "effect": "Industry feebate rates set on the Dashboard take effect (user-defined path); none for Egypt (all rates 0).",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L112",
+  "pri": "Medium",
+  "title": "Policy copies of the shadow-price rows read the baseline carbon price in the regulation term",
+  "where": "Mitigation rows 8708-8719 (policy copies of 2377-2388)",
+  "why": "The policy copies keep the absolute baseline references $D$2369 (shadow pricing on/off) and L$2375 (general carbon price), so in the policy run the regulation term reads the baseline price (0). Once L87 is fixed, regulations still do nothing in the policy run.",
+  "fixes": [
+   {
+    "cell": "L8708",
+    "now": "=IF($D$2369,L$2375*INDEX($O$980:$O$1012,MATCH($G8639,$H$980:$H$1012,0)),0)+L8685",
+    "new": "=IF($D$8700,L$8706*INDEX($O$980:$O$1012,MATCH($G8639,$H$980:$H$1012,0)),0)+L8685",
+    "fill": "L8708:AE8719 (the 12 rows share the pattern: edit L8708, copy down and across; check that the EF code ($G86xx) of each row is kept)",
+    "policy": "is the policy block itself (rows 8708-8719)"
+   }
+  ],
+  "ref": "D8700 and row 8706 are the policy copies of D2369 and row 2375 (+6,331). The baseline rows 2377-2388 are right.",
+  "effect": "Regulations act in the policy run once L87 is fixed. None by default (explicit pricing).",
+  "note": "Apply together with L87 (user 2026-10-19). Registered in v5.5 (main).",
+  "status": "fix"
+ },
+ {
+  "id": "L115",
+  "pri": "Medium",
+  "title": "Residential gas: current ETS price reads the LPG transport row",
+  "where": "Mitigation row 2555 (policy 8886)",
+  "why": "Row 2555 (\"nga res - in which: current ETS permit price\") = K$1720, the effective permit price of LPG in transport/industry; the residential gas row of the ETS table is 1715 (the other blocks read their own row: 2486 = 1712, 2509 = 1713, 2532 = 1714, 2578 = 1716).",
+  "fixes": [
+   {
+    "cell": "K2555",
+    "now": "=K$1720",
+    "new": "=K$1715",
+    "fill": "K2555:AE2555",
+    "policy": "policy K8886:AE8886: =K$1715 (type, do not paste: row 1715 is shared, above the scenario blocks)"
+   }
+  ],
+  "ref": "Rows 2486, 2509, 2532, 2578 of the same price blocks; ETS table rows 1711-1723 (C column = sector).",
+  "effect": "Residential gas price includes the LPG permit price instead of its own wherever an existing ETS covers either fuel; none for Egypt (no existing ETS). Found 2026-10-19 while planning L64/L65.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L51",
+  "pri": "Low",
+  "title": "Energy trade balance of coal valued at the oil price",
+  "where": "Mitigation row 743 (K743:AE743)",
+  "why": "K743 = -(G504+E504) x conversion x K731, and row 731 is the crude oil price per GJ; the coal price per GJ is row 732. Egypt 2022: -1.4 bn USD instead of about -0.5.",
+  "fixes": [
+   {
+    "cell": "K743",
+    "now": "=-($G504+$E504)*_conv_ktoe_to_gj/10^9*K731",
+    "new": "=-($G504+$E504)*_conv_ktoe_to_gj/10^9*K732",
+    "fill": "K743:AE743",
+    "policy": "none (shared row above 2173)"
+   }
+  ],
+  "ref": "Row 732 = coal forecast, international, $/GJ real (K728/$G728); rows 741-742 use the gas (733) and oil (731) prices.",
+  "effect": "Reported energy trade balance only (Egypt: about 0.6 bn USD a year). MVP v4.6.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L60",
+  "pri": "Low",
+  "title": "VAT payment on oil products divided by the full VAT rate",
+  "where": "Mitigation K2595:N2595, K2618:N2618, K2641:N2641, K2664:N2664 (policy +6,331)",
+  "why": "The retail price carries VAT x household share (row 797 = (sp + txo) x (1 + K800 x K801), same for 802, 807, 812), but in the data years K:N the VAT payment is retail / (1 + rate) x rate x share (K2595), so VAT is understated where the share is below 1 and the excise residual (K2596 = rp - sp - VAT) absorbs the gap. From O the row is already (txo + sp) x rate x share.",
+  "fixes": [
+   {
+    "cell": "K2595",
+    "now": "= K2589 / (1 + K2594) * K2594 * K2611",
+    "new": "= K2589 / (1 + K2594 * K2611) * K2594 * K2611",
+    "fill": "K2595:N2595 (O:AE already = (sp + taxes) x rate x share)",
+    "policy": "paste into K8926:N8926 (+6,331)"
+   },
+   {
+    "cell": "K2618",
+    "now": "= K2612 / (1 + K2617) * K2617 * K2634",
+    "new": "= K2612 / (1 + K2617 * K2634) * K2617 * K2634",
+    "fill": "K2618:N2618 (O:AE already = (sp + taxes) x rate x share)",
+    "policy": "paste into K8949:N8949 (+6,331)"
+   },
+   {
+    "cell": "K2641",
+    "now": "= K2635 / (1 + K2640) * K2640 * K2657",
+    "new": "= K2635 / (1 + K2640 * K2657) * K2640 * K2657",
+    "fill": "K2641:N2641 (O:AE already = (sp + taxes) x rate x share)",
+    "policy": "paste into K8972:N8972 (+6,331)"
+   },
+   {
+    "cell": "K2664",
+    "now": "= K2658 / (1 + K2663) * K2663 * K2680",
+    "new": "= K2658 / (1 + K2663 * K2680) * K2663 * K2680",
+    "fill": "K2664:N2664 (O:AE already = (sp + taxes) x rate x share)",
+    "policy": "paste into K8995:N8995 (+6,331)"
+   }
+  ],
+  "ref": "Rows 2611, 2634, 2657, 2680 = household shares (rows 801, 806, 811, 816). retail / (1 + rate x share) = sp + taxes, so the new K:N equals (supply cost + taxes) x rate x share without a circular reference to row 2596.",
+  "effect": "None for Egypt (VAT 0 on oil). MVP v4.12.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L61",
+  "pri": "Low",
+  "title": "EU ETS price grows with the carbon-tax growth",
+  "where": "Mitigation P1695:AE1695",
+  "why": "After the last data year (O = 2025) P1695 = O1695 x (1 + ExistingCTGrowth) x $C$1677; ExistingCTGrowth is MTInputs F214 (carbon tax), the ETS growth input is ExistingETSGrowth (MTInputs F209).",
+  "fixes": [
+   {
+    "cell": "P1695",
+    "now": "=O1695*(1+ExistingCTGrowth)*Mitigation!$C$1677",
+    "new": "=O1695*(1+ExistingETSGrowth)*Mitigation!$C$1677",
+    "fill": "P1695:AE1695",
+    "policy": "none (shared row above 2173)"
+   }
+  ],
+  "ref": "Defined name ExistingETSGrowth = MTInputs!F209 (Dashboard Q149). The carbon tax rows 1727-1736 keep ExistingCTGrowth.",
+  "effect": "None for Egypt. MVP v4.12.",
+  "note": "The national ETS price row 1680 shows {=IFNA(0)} in all years in the converted file (no growth formula visible); check it in Excel and apply ExistingETSGrowth there too if it grows with ExistingCTGrowth.",
+  "status": "fix"
+ },
+ {
+  "id": "L62",
+  "pri": "Low",
+  "title": "Existing carbon tax on transport diesel, LPG and kerosene uses the rate row as coverage",
+  "where": "Mitigation L1760:AE1762",
+  "why": "From L, rows 1760-1762 = single rate x EF x INDEX(rows 1732:1749, MATCH(sector code)) x INDEX(rows 1732:1749, MATCH(fuel code)); the fuel-code MATCH finds the fuel rate row (1732-1734) before the coverage row (1745-1747), so the tax is rate x rate x sector coverage, and the single-price flag $K$81 and the fuel rate are ignored. K1760:K1762 hold the correct form.",
+  "fixes": [
+   {
+    "cell": "L1760",
+    "now": "=L$1727*INDEX($O$980:$O$1018,MATCH($G1760,$H$980:$H$1012,0),0)*INDEX(L$1732:L$1749,MATCH($C1760,$C$1732:$C$1749,0),0)*INDEX(L$1732:L$1749,MATCH($B1760,$B$1732:$B$1749,0),0)",
+    "new": "=IF($K$81=\"Yes\",L$1727,IF(ISNUMBER($J1732),L1732,L$1727))*INDEX($O$980:$O$1018,MATCH($G1760,$H$980:$H$1012,0))*L$1740*L1745",
+    "fill": "L1760:AE1760 (= K1760 copied across)",
+    "policy": "none (shared row above 2173)"
+   },
+   {
+    "cell": "L1761",
+    "now": "=L$1727*INDEX($O$980:$O$1018,MATCH($G1761,$H$980:$H$1012,0),0)*INDEX(L$1732:L$1749,MATCH($C1761,$C$1732:$C$1749,0),0)*INDEX(L$1732:L$1749,MATCH($B1761,$B$1732:$B$1749,0),0)",
+    "new": "=IF($K$81=\"Yes\",L$1727,IF(ISNUMBER($J1733),L1733,L$1727))*INDEX($O$980:$O$1018,MATCH($G1761,$H$980:$H$1012,0))*L$1740*L1746",
+    "fill": "L1761:AE1761 (= K1761 copied across)",
+    "policy": "none (shared row above 2173)"
+   },
+   {
+    "cell": "L1762",
+    "now": "=L$1727*INDEX($O$980:$O$1018,MATCH($G1762,$H$980:$H$1012,0),0)*INDEX(L$1732:L$1749,MATCH($C1762,$C$1732:$C$1749,0),0)*INDEX(L$1732:L$1749,MATCH($B1762,$B$1732:$B$1749,0),0)",
+    "new": "=IF($K$81=\"Yes\",L$1727,IF(ISNUMBER($J1734),L1734,L$1727))*INDEX($O$980:$O$1018,MATCH($G1762,$H$980:$H$1012,0))*L$1740*L1747",
+    "fill": "L1762:AE1762 (= K1762 copied across)",
+    "policy": "none (shared row above 2173)"
+   }
+  ],
+  "ref": "K1760:K1762 and rows 1759, 1763 (all years): IF(single price, single rate, fuel rate if any) x EF x transport coverage (row 1740) x fuel coverage (rows 1745-1747).",
+  "effect": "None for Egypt. MVP v4.12.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L63",
+  "pri": "Low",
+  "title": "Existing carbon tax fuel coverage: lookup range cut short",
+  "where": "Mitigation J1741:J1749",
+  "why": "J1741 = MATCH(G1741, ECP!$E$133:$E$403, 0), but the fuel coverage block of ECP runs from row 138 to 425 (header row 136): Ukraine (from ker), Uruguay and the United Kingdom are not found, so no fuel coverage and no existing carbon tax.",
+  "fixes": [
+   {
+    "cell": "J1741",
+    "now": "=MATCH(G1741,ECP!$E$133:$E$403,0)",
+    "new": "=MATCH(G1741,ECP!$E$133:$E$425,0)",
+    "fill": "single cell (J1741:J1749 each, or fill J1741 down)",
+    "policy": "none (shared row above 2173)"
+   },
+   {
+    "cell": "J1742",
+    "now": "=MATCH(G1742,ECP!$E$133:$E$403,0)",
+    "new": "=MATCH(G1742,ECP!$E$133:$E$425,0)",
+    "fill": "single cell (J1741:J1749 each, or fill J1741 down)",
+    "policy": "none (shared row above 2173)"
+   },
+   {
+    "cell": "J1743",
+    "now": "=MATCH(G1743,ECP!$E$133:$E$403,0)",
+    "new": "=MATCH(G1743,ECP!$E$133:$E$425,0)",
+    "fill": "single cell (J1741:J1749 each, or fill J1741 down)",
+    "policy": "none (shared row above 2173)"
+   },
+   {
+    "cell": "J1744",
+    "now": "=MATCH(G1744,ECP!$E$133:$E$403,0)",
+    "new": "=MATCH(G1744,ECP!$E$133:$E$425,0)",
+    "fill": "single cell (J1741:J1749 each, or fill J1741 down)",
+    "policy": "none (shared row above 2173)"
+   },
+   {
+    "cell": "J1745",
+    "now": "=MATCH(G1745,ECP!$E$133:$E$403,0)",
+    "new": "=MATCH(G1745,ECP!$E$133:$E$425,0)",
+    "fill": "single cell (J1741:J1749 each, or fill J1741 down)",
+    "policy": "none (shared row above 2173)"
+   },
+   {
+    "cell": "J1746",
+    "now": "=MATCH(G1746,ECP!$E$133:$E$403,0)",
+    "new": "=MATCH(G1746,ECP!$E$133:$E$425,0)",
+    "fill": "single cell (J1741:J1749 each, or fill J1741 down)",
+    "policy": "none (shared row above 2173)"
+   },
+   {
+    "cell": "J1747",
+    "now": "=MATCH(G1747,ECP!$E$133:$E$403,0)",
+    "new": "=MATCH(G1747,ECP!$E$133:$E$425,0)",
+    "fill": "single cell (J1741:J1749 each, or fill J1741 down)",
+    "policy": "none (shared row above 2173)"
+   },
+   {
+    "cell": "J1748",
+    "now": "=MATCH(G1748,ECP!$E$133:$E$403,0)",
+    "new": "=MATCH(G1748,ECP!$E$133:$E$425,0)",
+    "fill": "single cell (J1741:J1749 each, or fill J1741 down)",
+    "policy": "none (shared row above 2173)"
+   },
+   {
+    "cell": "J1749",
+    "now": "=MATCH(G1749,ECP!$E$133:$E$403,0)",
+    "new": "=MATCH(G1749,ECP!$E$133:$E$425,0)",
+    "fill": "single cell (J1741:J1749 each, or fill J1741 down)",
+    "policy": "none (shared row above 2173)"
+   }
+  ],
+  "ref": "ECP rows 136-425 \"Fuel coverage: carbon taxes\" (last row gbr.mit.ecf.bio); the sectoral block starts at 428.",
+  "effect": "None for Egypt. MVP v4.12.",
+  "note": "K1741:O1749 show as {=IFNA(0)} in the converted file: if their INDEX on ECP stops at row 403 (e.g. ECP!$F$133:$P$403), extend it to row 425 as well.",
+  "status": "fix"
+ },
+ {
+  "id": "L64",
+  "pri": "Low",
+  "title": "No existing ETS on other oil products outside power",
+  "where": "Mitigation K1717:AE1717",
+  "why": "Row 1717 (oop, pow) = EF x (national price x fuel coverage 1687 x POWER coverage 1681 + EU price x 1702 x POWER coverage 1696) and is the only oil-products ETS row; it feeds the all-sector oil-products price (row 2693 = K$1717, policy 9024), while the carbon tax row 1758 applies the industry coverage (K1739).",
+  "fixes": [
+   {
+    "cell": "K1717",
+    "now": "{=INDEX($O$980:$O$1018,MATCH($G1717,$H$980:$H$1012,0),0)*((K$1680*K1687*K1681)+(K$1695*K1702*K1696))}",
+    "new": "{=INDEX($O$980:$O$1018,MATCH($G1717,$H$980:$H$1012,0),0)*((K$1680*K1687*K1683)+(K$1695*K1702*K1698))}",
+    "fill": "K1717:AE1717 (single-cell array formulas: edit K, copy across)",
+    "policy": "none (shared row above 2173)"
+   }
+  ],
+  "ref": "Rows 1683 and 1698 = national and EU ETS industry coverage, as rows 1713 and 1716; row 1717 has no other reader than 2693/9024.",
+  "effect": "None for Egypt. MVP v4.12.",
+  "note": "Decided (user 2026-10-19): only the coverage rows change; C1717 stays (the power EF), as the EF is not part of the bug.",
+  "status": "fix"
+ },
+ {
+  "id": "L65",
+  "pri": "Low",
+  "title": "Carbon tax complementary to an existing ETS: last year's ETS coverage",
+  "where": "Mitigation L2270:AE2285, L2287:AE2288 (policy L8601:AE8616, L8618:AE8619)",
+  "why": "With CTaxComplimentaryToETS = \"Yes\" each coverage cell is 1 - INDEX(K$1681:K$1684, $J): column K in column L, i.e. the national ETS sector coverage of the previous year.",
+  "fixes": [
+   {
+    "cell": "L2270",
+    "now": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(K$1681:K$1684,$J2270),IF($C2173>1,IF(L2257>=CPIntro,IF($E2270=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "new": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(L$1681:L$1684,$J2270),IF($C2173>1,IF(L2257>=CPIntro,IF($E2270=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "fill": "L2270:AE2270 (single-cell array formula, copy across)",
+    "policy": "policy L8601:AE8601: {=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C8504>1),1-INDEX(L$1681:L$1684,$J8601),IF($C8504>1,IF(L8588>=CPIntro,IF($E8601=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L8588+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))} (type, do not paste: $C8504)"
+   },
+   {
+    "cell": "L2271",
+    "now": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(K$1681:K$1684,$J2271),IF($C2173>1,IF(L2257>=CPIntro,IF($E2271=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "new": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(L$1681:L$1684,$J2271),IF($C2173>1,IF(L2257>=CPIntro,IF($E2271=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "fill": "L2271:AE2271 (single-cell array formula, copy across)",
+    "policy": "policy L8602:AE8602: {=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C8504>1),1-INDEX(L$1681:L$1684,$J8602),IF($C8504>1,IF(L8588>=CPIntro,IF($E8602=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L8588+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))} (type, do not paste: $C8504)"
+   },
+   {
+    "cell": "L2272",
+    "now": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(K$1681:K$1684,$J2272),IF($C2173>1,IF(L2257>=CPIntro,IF($E2272=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "new": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(L$1681:L$1684,$J2272),IF($C2173>1,IF(L2257>=CPIntro,IF($E2272=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "fill": "L2272:AE2272 (single-cell array formula, copy across)",
+    "policy": "policy L8603:AE8603: {=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C8504>1),1-INDEX(L$1681:L$1684,$J8603),IF($C8504>1,IF(L8588>=CPIntro,IF($E8603=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L8588+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))} (type, do not paste: $C8504)"
+   },
+   {
+    "cell": "L2273",
+    "now": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(K$1681:K$1684,$J2273),IF($C2173>1,IF(L2257>=CPIntro,IF($E2273=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "new": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(L$1681:L$1684,$J2273),IF($C2173>1,IF(L2257>=CPIntro,IF($E2273=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "fill": "L2273:AE2273 (single-cell array formula, copy across)",
+    "policy": "policy L8604:AE8604: {=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C8504>1),1-INDEX(L$1681:L$1684,$J8604),IF($C8504>1,IF(L8588>=CPIntro,IF($E8604=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L8588+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))} (type, do not paste: $C8504)"
+   },
+   {
+    "cell": "L2274",
+    "now": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(K$1681:K$1684,$J2274),IF($C2173>1,IF(L2257>=CPIntro,IF($E2274=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "new": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(L$1681:L$1684,$J2274),IF($C2173>1,IF(L2257>=CPIntro,IF($E2274=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "fill": "L2274:AE2274 (single-cell array formula, copy across)",
+    "policy": "policy L8605:AE8605: {=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C8504>1),1-INDEX(L$1681:L$1684,$J8605),IF($C8504>1,IF(L8588>=CPIntro,IF($E8605=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L8588+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))} (type, do not paste: $C8504)"
+   },
+   {
+    "cell": "L2275",
+    "now": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(K$1681:K$1684,$J2275),IF($C2173>1,IF(L2257>=CPIntro,IF($E2275=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "new": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(L$1681:L$1684,$J2275),IF($C2173>1,IF(L2257>=CPIntro,IF($E2275=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "fill": "L2275:AE2275 (single-cell array formula, copy across)",
+    "policy": "policy L8606:AE8606: {=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C8504>1),1-INDEX(L$1681:L$1684,$J8606),IF($C8504>1,IF(L8588>=CPIntro,IF($E8606=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L8588+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))} (type, do not paste: $C8504)"
+   },
+   {
+    "cell": "L2276",
+    "now": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(K$1681:K$1684,$J2276),IF($C2173>1,IF(L2257>=CPIntro,IF($E2276=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "new": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(L$1681:L$1684,$J2276),IF($C2173>1,IF(L2257>=CPIntro,IF($E2276=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "fill": "L2276:AE2276 (single-cell array formula, copy across)",
+    "policy": "policy L8607:AE8607: {=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C8504>1),1-INDEX(L$1681:L$1684,$J8607),IF($C8504>1,IF(L8588>=CPIntro,IF($E8607=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L8588+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))} (type, do not paste: $C8504)"
+   },
+   {
+    "cell": "L2277",
+    "now": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(K$1681:K$1684,$J2277),IF($C2173>1,IF(L2257>=CPIntro,IF($E2277=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "new": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(L$1681:L$1684,$J2277),IF($C2173>1,IF(L2257>=CPIntro,IF($E2277=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "fill": "L2277:AE2277 (single-cell array formula, copy across)",
+    "policy": "policy L8608:AE8608: {=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C8504>1),1-INDEX(L$1681:L$1684,$J8608),IF($C8504>1,IF(L8588>=CPIntro,IF($E8608=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L8588+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))} (type, do not paste: $C8504)"
+   },
+   {
+    "cell": "L2278",
+    "now": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(K$1681:K$1684,$J2278),IF($C2173>1,IF(L2257>=CPIntro,IF($E2278=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "new": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(L$1681:L$1684,$J2278),IF($C2173>1,IF(L2257>=CPIntro,IF($E2278=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "fill": "L2278:AE2278 (single-cell array formula, copy across)",
+    "policy": "policy L8609:AE8609: {=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C8504>1),1-INDEX(L$1681:L$1684,$J8609),IF($C8504>1,IF(L8588>=CPIntro,IF($E8609=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L8588+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))} (type, do not paste: $C8504)"
+   },
+   {
+    "cell": "L2279",
+    "now": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(K$1681:K$1684,$J2279),IF($C2173>1,IF(L2257>=CPIntro,IF($E2279=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "new": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(L$1681:L$1684,$J2279),IF($C2173>1,IF(L2257>=CPIntro,IF($E2279=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "fill": "L2279:AE2279 (single-cell array formula, copy across)",
+    "policy": "policy L8610:AE8610: {=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C8504>1),1-INDEX(L$1681:L$1684,$J8610),IF($C8504>1,IF(L8588>=CPIntro,IF($E8610=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L8588+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))} (type, do not paste: $C8504)"
+   },
+   {
+    "cell": "L2280",
+    "now": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(K$1681:K$1684,$J2280),IF($C2173>1,IF(L2257>=CPIntro,IF($E2280=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "new": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(L$1681:L$1684,$J2280),IF($C2173>1,IF(L2257>=CPIntro,IF($E2280=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "fill": "L2280:AE2280 (single-cell array formula, copy across)",
+    "policy": "policy L8611:AE8611: {=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C8504>1),1-INDEX(L$1681:L$1684,$J8611),IF($C8504>1,IF(L8588>=CPIntro,IF($E8611=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L8588+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))} (type, do not paste: $C8504)"
+   },
+   {
+    "cell": "L2281",
+    "now": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(K$1681:K$1684,$J2281),IF($C2173>1,IF(L2257>=CPIntro,IF($E2281=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "new": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(L$1681:L$1684,$J2281),IF($C2173>1,IF(L2257>=CPIntro,IF($E2281=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "fill": "L2281:AE2281 (single-cell array formula, copy across)",
+    "policy": "policy L8612:AE8612: {=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C8504>1),1-INDEX(L$1681:L$1684,$J8612),IF($C8504>1,IF(L8588>=CPIntro,IF($E8612=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L8588+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))} (type, do not paste: $C8504)"
+   },
+   {
+    "cell": "L2282",
+    "now": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(K$1681:K$1684,$J2282),IF($C2173>1,IF(L2257>=CPIntro,IF($E2282=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "new": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(L$1681:L$1684,$J2282),IF($C2173>1,IF(L2257>=CPIntro,IF($E2282=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "fill": "L2282:AE2282 (single-cell array formula, copy across)",
+    "policy": "policy L8613:AE8613: {=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C8504>1),1-INDEX(L$1681:L$1684,$J8613),IF($C8504>1,IF(L8588>=CPIntro,IF($E8613=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L8588+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))} (type, do not paste: $C8504)"
+   },
+   {
+    "cell": "L2283",
+    "now": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(K$1681:K$1684,$J2283),IF($C2173>1,IF(L2257>=CPIntro,IF($E2283=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "new": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(L$1681:L$1684,$J2283),IF($C2173>1,IF(L2257>=CPIntro,IF($E2283=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "fill": "L2283:AE2283 (single-cell array formula, copy across)",
+    "policy": "policy L8614:AE8614: {=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C8504>1),1-INDEX(L$1681:L$1684,$J8614),IF($C8504>1,IF(L8588>=CPIntro,IF($E8614=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L8588+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))} (type, do not paste: $C8504)"
+   },
+   {
+    "cell": "L2284",
+    "now": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(K$1681:K$1684,$J2284),IF($C2173>1,IF(L2257>=CPIntro,IF($E2284=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "new": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(L$1681:L$1684,$J2284),IF($C2173>1,IF(L2257>=CPIntro,IF($E2284=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "fill": "L2284:AE2284 (single-cell array formula, copy across)",
+    "policy": "policy L8615:AE8615: {=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C8504>1),1-INDEX(L$1681:L$1684,$J8615),IF($C8504>1,IF(L8588>=CPIntro,IF($E8615=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L8588+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))} (type, do not paste: $C8504)"
+   },
+   {
+    "cell": "L2285",
+    "now": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(K$1681:K$1684,$J2285),IF($C2173>1,IF(L2257>=CPIntro,IF($E2285=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "new": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(L$1681:L$1684,$J2285),IF($C2173>1,IF(L2257>=CPIntro,IF($E2285=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "fill": "L2285:AE2285 (single-cell array formula, copy across)",
+    "policy": "policy L8616:AE8616: {=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C8504>1),1-INDEX(L$1681:L$1684,$J8616),IF($C8504>1,IF(L8588>=CPIntro,IF($E8616=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L8588+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))} (type, do not paste: $C8504)"
+   },
+   {
+    "cell": "L2287",
+    "now": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(K$1681:K$1684,$J2287),IF($C2173>1,IF(L2257>=CPIntro,IF($E2287=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "new": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(L$1681:L$1684,$J2287),IF($C2173>1,IF(L2257>=CPIntro,IF($E2287=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "fill": "L2287:AE2287 (single-cell array formula, copy across)",
+    "policy": "policy L8618:AE8618: {=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C8504>1),1-INDEX(L$1681:L$1684,$J8618),IF($C8504>1,IF(L8588>=CPIntro,IF($E8618=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L8588+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))} (type, do not paste: $C8504)"
+   },
+   {
+    "cell": "L2288",
+    "now": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(K$1681:K$1684,$J2288),IF($C2173>1,IF(L2257>=CPIntro,IF($E2288=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "new": "{=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C2173>1),1-INDEX(L$1681:L$1684,$J2288),IF($C2173>1,IF(L2257>=CPIntro,IF($E2288=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))}",
+    "fill": "L2288:AE2288 (single-cell array formula, copy across)",
+    "policy": "policy L8619:AE8619: {=IF(AND(CTaxComplimentaryToETS=\"Yes\",$C8504>1),1-INDEX(L$1681:L$1684,$J8619),IF($C8504>1,IF(L8588>=CPIntro,IF($E8619=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L8588+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0))} (type, do not paste: $C8504)"
+   }
+  ],
+  "ref": "Rows 1681-1684 = national ETS sector coverage by year (held after 2025, so only 2022-2026 change).",
+  "effect": "None for Egypt. MVP v4.12.",
+  "note": "Row 2286 (oen) has no complementary branch and is left as is.",
+  "status": "fix"
+ },
+ {
+  "id": "L66",
+  "pri": "Low",
+  "title": "Other energy use: no additional policy efficiency gains on fossil fuels",
+  "where": "Mitigation M6077:AE6084 (policy M12394:AE12401, +6,317)",
+  "why": "Rows 6077-6084 (coal ... biomass) divide by (1+_eff_imp_<fuel>_ind) without $M2201 (MTInputs F245, industrial additional efficiency); only the renewables row 6085 and the industry rows add it.",
+  "fixes": [],
+  "ref": "Plan L43 (fixes_other_mitigation) already edits the same cells: \"_ind))^\" -> \"_ind+$M2201))^\" in M6077:AE6084 and \"+$M8532\" in the policy rows 12394-12401 (do not paste: +6,317 block with +6,331 drivers).",
+  "effect": "None while the input is 0. MVP v4.13 (other energy use takes the industrial gain on every fuel).",
+  "note": "No separate edit: applying L43 fixes L66 (same cells, same term).",
+  "status": "fix"
+ },
+ {
+  "id": "L69",
+  "pri": "Low",
+  "title": "GDP effects: the first cohort's excise drag is lost",
+  "where": "Mitigation row 8071 (policy 14388)",
+  "why": "L8071 (excise, cohort 1) matches the lag L$8127, an empty cell of the cohort-6 block, instead of the cohort's own lag row L8070 like rows 8072-8078; the policy copy L14388 also reads L$8127. The MATCH fails, so the first cohort's excise revenue use has no GDP effect.",
+  "fixes": [
+   {
+    "cell": "L8071",
+    "now": "=INDEX($K8058:$AE8058,MATCH(L$8127,$K8057:$AE8057,0))*$F8071",
+    "new": "=INDEX($K8058:$AE8058,MATCH(L8070,$K8057:$AE8057,0))*$F8071",
+    "fill": "L8071:AE8071",
+    "policy": "paste into L14388:AE14388 (+6,317): gives MATCH(L14387, ...) as in L14389"
+   }
+  ],
+  "ref": "Rows 8072-8078 (e.g. L8072: MATCH(L8070,$K8057:$AE8057,0)); policy L14389.",
+  "effect": "The first year's revenue gets its contractionary excise effect (Egypt about 3e-5 of GDP). MVP: every cohort counts its revenue use (share -1).",
+  "note": "MATCH on the empty L$8127 returns #N/A in every column, so row 8267 (EXC total) may be #N/A, not only cohort 1: to confirm on recalculation (rows 8280+ are IFNA(0) in this file). Decided (user 2026-10-19): check in Excel when applying whether the MATCH on the empty L8127 wipes the whole row; the fix is the same either way.",
+  "status": "fix"
+ },
+ {
+  "id": "L70",
+  "pri": "Low",
+  "title": "Revenue: industry gas excise uses the coal rate and coal use",
+  "where": "Mitigation row 7761 (policy 14078)",
+  "why": "Additional excise revenue of gas in industry: L7761 = L2512 (coal industry new excise) x L6442 (gas industry use); M7761:AE7761 = coal rate x M6436 (coal industry use).",
+  "fixes": [
+   {
+    "cell": "L7761",
+    "now": "=L2512*_conv_ktoe_to_gj*L6442/10^9",
+    "new": "=L2581*_conv_ktoe_to_gj*L6442/10^9",
+    "fill": "L7761:AE7761 (M:AE now read row 6436, coal)",
+    "policy": "type L14078: =L8912*_conv_ktoe_to_gj*L12759/10^9 and fill L14078:AE14078 (rate rows +6,331, use rows +6,317; a pasted copy would point at row 8898)"
+   }
+  ],
+  "ref": "Row 2581 = \"nga ind - in which: new excise tax\" ($/GJ, code mit.ntx.ind.nga); row 6442 = natural gas, industry (ktoe); policy 8912 and 12759.",
+  "effect": "Gas industry excise revenue right wherever coal and gas excises (or uses) differ; none for Egypt (no new excise). MVP: rex per subsector and fuel (v4.15).",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L71",
+  "pri": "Low",
+  "title": "Revenue: biomass taxes, subsidies and VAT divided by the unit conversion",
+  "where": "Mitigation rows 7805, 7819, 7873 (policy 14122, 14136, 14190)",
+  "why": "Biomass existing taxes (7805), consumer subsidies (7819) and VAT (7873) = use (ktoe) x rate ($/GJ) / _conv_ktoe_to_gj (41,868 GJ/ktoe) / 10^9, so about 0; the coal and gas rows (7798, 7812) multiply.",
+  "fixes": [
+   {
+    "cell": "L7805",
+    "now": "=(L6477-L6482)*(L2714+L2713+L2712+L2715+L2716*IF(OR($L$81=\"Yes\",$L$81=\"Both\"),0,1))/_conv_ktoe_to_gj/10^9",
+    "new": "=(L6477-L6482)*(L2714+L2713+L2712+L2715+L2716*IF(OR($L$81=\"Yes\",$L$81=\"Both\"),0,1))*_conv_ktoe_to_gj/10^9",
+    "fill": "L7805:AE7805",
+    "policy": "type L14122: =(L12794-L12799)*(L9045+L9044+L9043+L9046+L9047*IF(OR($L$81=\"Yes\",$L$81=\"Both\"),0,1))*_conv_ktoe_to_gj/10^9 and fill L14122:AE14122 (or Find/Replace on the row)"
+   },
+   {
+    "cell": "L7819",
+    "now": "=-(L6477-L6482)*(L2714+L2713)/_conv_ktoe_to_gj/10^9",
+    "new": "=-(L6477-L6482)*(L2714+L2713)*_conv_ktoe_to_gj/10^9",
+    "fill": "L7819:AE7819",
+    "policy": "type L14136: =-(L12794-L12799)*(L9045+L9044)*_conv_ktoe_to_gj/10^9 and fill L14136:AE14136 (or Find/Replace on the row)"
+   },
+   {
+    "cell": "L7873",
+    "now": "=(L6477-L6482)*L2710/_conv_ktoe_to_gj/10^9",
+    "new": "=(L6477-L6482)*L2710*_conv_ktoe_to_gj/10^9",
+    "fill": "L7873:AE7873",
+    "policy": "type L14190: =(L12794-L12799)*L9041*_conv_ktoe_to_gj/10^9 and fill L14190:AE14190 (or Find/Replace on the row)"
+   }
+  ],
+  "ref": "Rows 7798 and 7812 (coal): ... *_conv_ktoe_to_gj/10^9; _conv_ktoe_to_gj = Mitigation E1035.",
+  "effect": "Biomass taxes, subsidies and VAT are no longer 0 (they enter rev.exi, csu.exi and total revenue via rows 7807, 7821, 7875, 8008). MVP: use x PJ/ktoe x rate for every fuel.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L72",
+  "pri": "Low",
+  "title": "Revenue: next-year references",
+  "where": "Mitigation rows 7671 (policy 13988), 7756 (policy 14073)",
+  "why": "LPG price-control revenue L7671 uses the price change M$738-K$738 (next year minus last year) where the other fuels (7666-7672) use L$73x-K$73x. Coal power new excise M7756:AE7756 = N2466 (next year's rate) x M6433 (L7756 is right).",
+  "fixes": [
+   {
+    "cell": "L7671",
+    "now": "=(L6456-L6461)*_conv_ktoe_liter_lpg*(L2231-1)*(M$738-K$738)/10^9",
+    "new": "=(L6456-L6461)*_conv_ktoe_liter_lpg*(L2231-1)*(L$738-K$738)/10^9",
+    "fill": "L7671:AE7671",
+    "policy": "type L13988: =(L12773-L12778)*_conv_ktoe_liter_lpg*(L8562-1)*(L$738-K$738)/10^9 and fill L13988:AE13988"
+   },
+   {
+    "cell": "M7756",
+    "now": "=N2466*_conv_ktoe_to_gj*M6433/10^9",
+    "new": "=M2466*_conv_ktoe_to_gj*M6433/10^9",
+    "fill": "M7756:AE7756 (= copy L7756 right)",
+    "policy": "type M14073: =M8797*_conv_ktoe_to_gj*M12750/10^9 and fill M14073:AE14073 (= copy L14073 right)"
+   }
+  ],
+  "ref": "Row 7670 (diesel: L$736-K$736) and L7756 / L14073 (=L2466 / =L8797).",
+  "effect": "Revenue of the year uses the year's rate and price change. None for Egypt's default run where these rates are 0 or flat. MVP: the year's own column.",
+  "note": "K7756 (=O2466/_conv_ktoe_to_gj) and K14073 are stray cells with no role; leave or clear.",
+  "status": "fix"
+ },
+ {
+  "id": "L73",
+  "pri": "Low",
+  "title": "Revenue: wrong coverage shares",
+  "where": "Mitigation rows 7691 (policy 14008), 7718 (policy 14035)",
+  "why": "Gas industry coverage L7691 divides by L6041 (energy-balance gas total of industry) where the other fuels divide by their row-64xx industry total (e.g. 7703 / L6448); kerosene power coverage L7718 = L2270 (power) x L2273 (domestic shipping) where the other fuels use fuel x power (e.g. 7712 = L2264*L2270).",
+  "fixes": [
+   {
+    "cell": "L7691",
+    "now": "=IF(L6041=0,0,L2260*(L5692*L2278+L5717*L2279+L5744*L2280+L5769*L2281+L5794*L2282+L5819*L2283+L5844*L2284+L5869*L2285)/L6041)",
+    "new": "=IF(L6442=0,0,L2260*(L5692*L2278+L5717*L2279+L5744*L2280+L5769*L2281+L5794*L2282+L5819*L2283+L5844*L2284+L5869*L2285)/L6442)",
+    "fill": "L7691:AE7691",
+    "policy": "type L14008: =IF(L12759=0,0,L8591*(L12012*L8609+L12037*L8610+L12062*L8611+L12087*L8612+L12112*L8613+L12137*L8614+L12162*L8615+L12187*L8616)/L12759) and fill L14008:AE14008"
+   },
+   {
+    "cell": "L7718",
+    "now": "=L2270*L2273",
+    "new": "=L2265*L2270",
+    "fill": "L7718:AE7718",
+    "policy": "type L14035: =L8596*L8601 and fill L14035:AE14035"
+   }
+  ],
+  "ref": "Row 2265 = kerosene coverage (fuel), row 2270 = power (sector); row 6442 = natural gas, industry; rows 7712 and 7703 as patterns.",
+  "effect": "Kerosene power coverage (info row, feeds the kerosene average 7717) right; the gas industry change is cosmetic (row 6442 = L6041 in every column, so no value change). MVP: coverage by subsector and fuel.",
+  "note": "Row 7691 does not reproduce as a value error in this file (6442 = 6041); the edit only aligns it with the other fuels.",
+  "status": "fix"
+ },
+ {
+  "id": "L75",
+  "pri": "Low",
+  "title": "Revenue reports: hard-coded row and mixed totals",
+  "where": "Mitigation rows 17160-17164, 17190, 17201",
+  "why": "In this file the excise report (17160-17163) has no hard-coded 759: J = MATCH($G...) on an empty column G, and the codes in H (mit.rev.blt/ct/rta/sr.pct) exist nowhere in the calculation block, so the rows are #N/A. In the revenue-by-fuel report, electricity (L17190 = L17216, L17201 = L17227) is the total electricity revenue (rev.tot.ecy) while the other fuel rows read the new-policy revenue (rev.new.<fuel>).",
+  "fixes": [
+   {
+    "cell": "L17160",
+    "now": "=INDEX(L$2173:L$14770,$J17160,0)",
+    "new": "=INDEX(L$2173:L$14770,MATCH(LOWER(_Country_code)&\".mit.rev.exi.usd.\"&$E$16792,$H$2173:$H$14770,0),0)-INDEX(L$2173:L$14770,MATCH(LOWER(_Country_code)&\".mit.rev.exi.usd.\"&1,$H$2173:$H$14770,0),0)-L17163",
+    "fill": "L17160:AE17160",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "G17161",
+    "now": "",
+    "new": "=LOWER(_Country_code)&\".mit.sub.new.usd.\"&C17161",
+    "fill": "single cell (J17161 and L17161:AE17161 then match it)",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "L17162",
+    "now": "=INDEX(L$2173:L$14770,$J17162,0)",
+    "new": "(clear L17162:AE17162; type in D or a note column \"tax evasion: not modelled\")",
+    "fill": "L17162:AE17162",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "L17163",
+    "now": "=INDEX(L$2173:L$14770,$J17163,0)",
+    "new": "=INDEX(L$2173:L$14770,MATCH(LOWER(_Country_code)&\".mit.csu.exi.usd.\"&$E$16792,$H$2173:$H$14770,0),0)-INDEX(L$2173:L$14770,MATCH(LOWER(_Country_code)&\".mit.csu.exi.usd.\"&1,$H$2173:$H$14770,0),0)",
+    "fill": "L17163:AE17163",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "G17190",
+    "now": "",
+    "new": "=LOWER(_Country_code)&\".mit.rev.new.elec.usd.\"&C17190",
+    "fill": "single cell; then type H17190 =G17190 and J17190 =MATCH($G17190,$H$2173:$H$14770,0) as in row 17189",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "L17190",
+    "now": "=L17216",
+    "new": "=INDEX(L$2173:L$14770,$J17190,0)",
+    "fill": "L17190:AE17190 (as L17189)",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "G17201",
+    "now": "",
+    "new": "=LOWER(_Country_code)&\".mit.rev.new.elec.usd.\"&C17201",
+    "fill": "copy G17200:AE17200 to G17201:AE17201, then edit G17201 as shown",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "L17201",
+    "now": "=L17227",
+    "new": "=IF($C17201=9,0,INDEX(L$2173:L$14770,$J17201,0))",
+    "fill": "L17201:AE17201 (comes with the copy of row 17200)",
+    "policy": "none (report block)"
+   }
+  ],
+  "ref": "Codes in the calculation block: rev.exi.usd (row 7807 / 14124), csu.exi.usd (7821 / 14138), sub.new.usd (7750 / 14067), rev.new.elec.usd (7749 / 14066); $E$16792 = ScenarioNum, 1 = baseline as in C17152.",
+  "effect": "The excise report shows the change in existing taxes (net of the subsidy change), the new-policy revenue and the subsidy saving instead of #N/A; revenue by fuel takes electricity's new-policy revenue like the other fuels. MVP: 12d and 12e read the revenue rows.",
+  "note": "Decided (user 2026-10-19): mapping as below (ours: the MVP has no such report); row 17162 (tax evasion, not modelled) is left empty with a note, not 0; ask the CPAT team about the intended split. Totals 17164 = SUM unchanged.",
+  "status": "fix"
+ },
+ {
+  "id": "L76",
+  "pri": "Low",
+  "title": "Multipliers: empty CIT table, WAGE on the GNFS table, approximate country match, default to Estimated",
+  "where": "Multipliers rows 19-21, 40, 45 (tables 412-610, 1018-1216, 1624-1822)",
+  "why": "With MultipliersSource = Estimated (D21 = 6), CIT lag 0 reads the labour-tax table (D$412:D$610) and lags 1+ the empty rows 1624-1822 (so 0); WAGE (row 45) reads the public-consumption (GNFS) table 1018-1216; D19 = MATCH(C19,C210:C408) is approximate, so a code missing from the sorted list takes its neighbour; D20 maps any unknown text to 4 (Estimated).",
+  "fixes": [
+   {
+    "cell": "Multipliers!D19",
+    "now": "=MATCH(C19,C210:C408)",
+    "new": "=MATCH(C19,C210:C408,0)",
+    "fill": "single cell",
+    "policy": "none (sheet Multipliers)"
+   },
+   {
+    "cell": "Multipliers!D20",
+    "now": "=IF(C20=\"GLOBAL\",1,IF(C20=\"INCOME-GRP*\",2,IF(C20=\"Manual\",3,IF(C20=\"Estimated\",4,4))))",
+    "new": "=IF(C20=\"GLOBAL\",1,IF(C20=\"INCOME-GRP*\",2,IF(C20=\"Manual\",3,IF(C20=\"Estimated\",4,2))))",
+    "fill": "single cell",
+    "policy": "none (sheet Multipliers)"
+   },
+   {
+    "cell": "Multipliers!D21",
+    "now": "=IF(D20=1,1,IF(D20=3,7,IF(D20=4,6,IF(C21=\"HIC\",2,IF(C21=\"UMIC\",3,IF(C21=\"LMIC\",4,IF(C21=\"LIC\",5,5)))))))",
+    "new": "=IF(D20=1,1,IF(D20=3,7,IF(AND(D20=4,ISNUMBER(D19)),6,IF(C21=\"HIC\",2,IF(C21=\"UMIC\",3,IF(C21=\"LMIC\",4,IF(C21=\"LIC\",5,5)))))))",
+    "fill": "single cell",
+    "policy": "none (sheet Multipliers)"
+   },
+   {
+    "cell": "Multipliers!D40",
+    "now": "{=IFERROR(CHOOSE($D$21,D94,D105,D117,D128,D139,INDEX(D$412:D$610,$D$19),D78),0)}",
+    "new": "{=IFERROR(CHOOSE($D$21,D94,D105,D117,D128,D139,CHOOSE($E$21,D94,D105,D117,D128,D139),D78),0)}",
+    "fill": "single cell (array formula: Ctrl+Shift+Enter)",
+    "policy": "none (sheet Multipliers)"
+   },
+   {
+    "cell": "Multipliers!E40",
+    "now": "{=IFERROR(CHOOSE($D$21,E94,E105,E117,E128,E139,INDEX(E$1624:E$1822,$D$19),E78),0)}",
+    "new": "{=IFERROR(CHOOSE($D$21,E94,E105,E117,E128,E139,CHOOSE($E$21,E94,E105,E117,E128,E139),E78),0)}",
+    "fill": "E40:O40 (array formulas, one cell at a time, or copy E40 right; P40:S40 = O40 stay)",
+    "policy": "none (sheet Multipliers)"
+   },
+   {
+    "cell": "Multipliers!D45",
+    "now": "{=IFERROR(CHOOSE($D$21,D99,D110,D122,D133,D144,INDEX(D$1018:D$1216,$D$19),D83),0)}",
+    "new": "{=IFERROR(CHOOSE($D$21,D99,D110,D122,D133,D144,CHOOSE($E$21,D99,D110,D122,D133,D144),D83),0)}",
+    "fill": "D45:O45 (array formulas, copy D45 right)",
+    "policy": "none (sheet Multipliers)"
+   }
+  ],
+  "ref": "Income-group tables: CIT rows 94 (global), 105 (HIC), 117 (UMIC), 128 (LMIC), 139 (LIC); WAGE rows 99, 110, 122, 133, 144; E21 = 1 (global) or the income group 2-5, as used by the \"Plus adjustment\" rows 50-57.",
+  "effect": "Estimated multipliers: CIT and WAGE take the income-group values, a country missing from the estimated tables falls back to its income group, unknown text means the income group. None for Egypt by default (MultipliersSource = Income-grp*). MVP v4.15.",
+  "note": "Seen while checking, not in the register: TRNS row 44 column D reads D$1218:D$1418 (title rows; E:O read $1220:$1418), so lag 0 of TRNS is off by two rows (lag 0 is 0 in every table, so no value effect).",
+  "status": "fix"
+ },
+ {
+  "id": "L78",
+  "pri": "Low",
+  "title": "ETS: auctioned share drops to 0 after the target year unless \"Constant\"",
+  "where": "Mitigation Q1863:AD1863 (MTInputs row 92)",
+  "why": "Q1863 = start share + slope until the target year $D$1805, then IF($D$1808 = \"Constant\", previous year, 0): any other continuation (MTInputs F92, D_ETSAuctCont) makes all permits free after the target year.",
+  "fixes": [
+   {
+    "cell": "Q1863",
+    "now": "=IF(Q1857>=$D$1804,IF(Q1857<=$D$1805,$D$1806+(Q1857-$D$1804)*$D$1842,IF($D$1808=\"Constant\",P1863,0)),0)",
+    "new": "=IF(Q1857>=$D$1804,IF(Q1857<=$D$1805,$D$1806+(Q1857-$D$1804)*$D$1842,P1863),0)",
+    "fill": "Q1863:AD1863",
+    "policy": "none (shared row above 2173)"
+   }
+  ],
+  "ref": "D1806/D1807 = auctioned share in the start/target year (MTInputs F90/F91); the target-year value is held, as the MVP.",
+  "effect": "An auctioned share no longer drops to 0 (all free) after the target year. MVP v4.15.",
+  "note": "MTInputs row 92 (D_ETSAuctCont, Dashboard I33) no longer acts; relabel it or drop it from the Dashboard.",
+  "status": "fix"
+ },
+ {
+  "id": "L80",
+  "pri": "Low",
+  "title": "ETS: the carbon-tax trajectory rescaled when the ETS is on",
+  "where": "Mitigation L2251:AE2251 (policy L8582:AE8582)",
+  "why": "L2251 = CHOOSE($E2200, ...) x IF($E2189 = \"Yes\", $E2191, 1), and E2191 = 1 / D1843 (volatility ratio), so the carbon-tax path is scaled whenever the new ETS applies.",
+  "fixes": [
+   {
+    "cell": "L2251",
+    "now": "=CHOOSE($E2200,L2249,L2248,L2250)*(IF($E2189=\"Yes\",$E2191,1))",
+    "new": "=CHOOSE($E2200,L2249,L2248,L2250)",
+    "fill": "L2251:AE2251",
+    "policy": "paste into L8582:AE8582 (+6,331)"
+   }
+  ],
+  "ref": "Rows 2248-2250 are the MTInputs carbon-price paths; the volatility adjustment stays in the ETS price (D1845 / D1843).",
+  "effect": "The carbon tax outside the ETS is no longer cut by the volatility ratio. MVP: the carbon tax path is the MTInputs path.",
+  "note": "Rows 7732-7735 (policy 14049-14052) still multiply by $E2191 when the scenario is \"ETS\"; not part of this bug.",
+  "status": "fix"
+ },
+ {
+  "id": "L81",
+  "pri": "Low",
+  "title": "Consumer subsidy phase-out: the fixed subsidy takes last year's factor",
+  "where": "Mitigation O:AE of the 12 \"fixed portion of subsidy\" rows 2460, 2483, ..., 2713 (policy +6,331)",
+  "why": "O2460 = $J2460 * N2214 (P = O2214, ...): the fixed subsidy uses the consumer phase-out factor of the previous column, while the floating rows (e.g. O2461: O2216/O2217) and the producer rows (O2455: O2213) use the year's own factor.",
+  "fixes": [
+   {
+    "cell": "O2460",
+    "now": "= $J2460 * N2214",
+    "new": "= $J2460 * O2214",
+    "fill": "O2460:AE2460",
+    "policy": "paste into O8791:AE8791 (+6,331)"
+   },
+   {
+    "cell": "O2483",
+    "now": "= $J2483 * N2214",
+    "new": "= $J2483 * O2214",
+    "fill": "O2483:AE2483",
+    "policy": "paste into O8814:AE8814 (+6,331)"
+   },
+   {
+    "cell": "O2506",
+    "now": "= $J2506 * N2214",
+    "new": "= $J2506 * O2214",
+    "fill": "O2506:AE2506",
+    "policy": "paste into O8837:AE8837 (+6,331)"
+   },
+   {
+    "cell": "O2529",
+    "now": "= $J2529 * N2214",
+    "new": "= $J2529 * O2214",
+    "fill": "O2529:AE2529",
+    "policy": "paste into O8860:AE8860 (+6,331)"
+   },
+   {
+    "cell": "O2552",
+    "now": "= $J2552 * N2214",
+    "new": "= $J2552 * O2214",
+    "fill": "O2552:AE2552",
+    "policy": "paste into O8883:AE8883 (+6,331)"
+   },
+   {
+    "cell": "O2575",
+    "now": "= $J2575 * N2214",
+    "new": "= $J2575 * O2214",
+    "fill": "O2575:AE2575",
+    "policy": "paste into O8906:AE8906 (+6,331)"
+   },
+   {
+    "cell": "O2598",
+    "now": "= $J2598 * N2214",
+    "new": "= $J2598 * O2214",
+    "fill": "O2598:AE2598",
+    "policy": "paste into O8929:AE8929 (+6,331)"
+   },
+   {
+    "cell": "O2621",
+    "now": "= $J2621 * N2214",
+    "new": "= $J2621 * O2214",
+    "fill": "O2621:AE2621",
+    "policy": "paste into O8952:AE8952 (+6,331)"
+   },
+   {
+    "cell": "O2644",
+    "now": "= $J2644 * N2214",
+    "new": "= $J2644 * O2214",
+    "fill": "O2644:AE2644",
+    "policy": "paste into O8975:AE8975 (+6,331)"
+   },
+   {
+    "cell": "O2667",
+    "now": "= $J2667 * N2214",
+    "new": "= $J2667 * O2214",
+    "fill": "O2667:AE2667",
+    "policy": "paste into O8998:AE8998 (+6,331)"
+   },
+   {
+    "cell": "O2690",
+    "now": "= $J2690 * N2214",
+    "new": "= $J2690 * O2214",
+    "fill": "O2690:AE2690",
+    "policy": "paste into O9021:AE9021 (+6,331)"
+   },
+   {
+    "cell": "O2713",
+    "now": "= $J2713 * N2214",
+    "new": "= $J2713 * O2214",
+    "fill": "O2713:AE2713",
+    "policy": "paste into O9044:AE9044 (+6,331)"
+   }
+  ],
+  "ref": "Row 2214 = consumer subsidy phase-out factor; J = 2024 value of the row.",
+  "effect": "A consumer subsidy phase-out no longer starts and ends a year late. MVP v4.16 (every wedge takes the factor of its year).",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L82",
+  "pri": "Low",
+  "title": "Residential gas producer subsidy reads the oil row",
+  "where": "Mitigation K2547:N2547 (policy K8878:N8878)",
+  "why": "The producer-subsidy row of the residential gas block reads K$827 (oil, $/liter) in the data years; the other gas blocks read K$826 (e.g. K2524, K2570). O:AE (= $J2548 * O2213, J2548 = N2547) carry it into the projection.",
+  "fixes": [
+   {
+    "cell": "K2547",
+    "now": "=K$827",
+    "new": "=K$826",
+    "fill": "K2547:N2547",
+    "policy": "paste into K8878:N8878 (+6,331)"
+   }
+  ],
+  "ref": "Row 826 = producer-side subsidy, natural gas ($/GJ); rows 2524 and 2570 (industry and power gas) already read it.",
+  "effect": "Residential gas no longer takes the oil producer subsidy. MVP v4.16 (producer subsidies by fuel; no price effect in the MVP, issue I49).",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L85",
+  "pri": "Low",
+  "title": "Electricity consumer subsidy info row subtracts industry",
+  "where": "Mitigation row 7820 (policy 14137)",
+  "why": "L7820 = -(MIN(0, L6330*L3606) - MIN(0, L6331*L3635))/1000: the industry part (6331 x 3635) is subtracted instead of added.",
+  "fixes": [
+   {
+    "cell": "L7820",
+    "now": "=-(MIN(0, L6330*L3606)-MIN(0, L6331*L3635))/1000",
+    "new": "=-(MIN(0, L6330*L3606)+MIN(0, L6331*L3635))/1000",
+    "fill": "L7820:AE7820",
+    "policy": "type L14137: =-(MIN(0, L12647*L9937)+MIN(0, L12648*L9966))/1000 and fill L14137:AE14137"
+   }
+  ],
+  "ref": "Row 7806 (existing electricity taxes): L6330*(...) + L6331*(...), both groups added.",
+  "effect": "Reported electricity consumer subsidies (csu.exi, row 7821) right. MVP: not applicable (info row; rgap sums both groups).",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L86",
+  "pri": "Low",
+  "title": "No manual override for the electricity producer subsidy",
+  "where": "Mitigation I828 (F828, K828:AE828); Manual inputs row 146; names _manual_codes, _manual_prices",
+  "why": "I828 = MATCH(\"mit.pros.ecy.all\", _manual_codes, 0) is #N/A: the manual row exists (Manual inputs G146, USD bln) but _manual_codes = G59:G133 and _manual_prices = G59:N133 stop above the electricity block (rows 135-146), so F828 stays \"CPAT\" and a manual value is ignored.",
+  "fixes": [
+   {
+    "cell": "Name _manual_codes",
+    "now": "Manual inputs!G59:G133",
+    "new": "Manual inputs!$G$59:$G$146",
+    "fill": "both definitions (workbook level and the sheet-level copy, sheet 17), Name Manager",
+    "policy": "none"
+   },
+   {
+    "cell": "Name _manual_prices",
+    "now": "Manual inputs!G59:N133",
+    "new": "Manual inputs!$G$59:$N$146",
+    "fill": "both definitions, Name Manager",
+    "policy": "none"
+   }
+  ],
+  "ref": "Manual inputs G146 = mit.pros.ecy.all (Electricity, Producer-side subsidy, USD bln), same layout as G125 (mit.pros.bio.all); I828 and K828 need no edit.",
+  "effect": "A manual electricity producer subsidy is used when EnergyPricesManualSwitch = Yes. MVP: not built (manual inputs to come).",
+  "note": "To confirm: the extension also brings the manual electricity prices (Manual inputs 136-144: mit.sp/vatrate/txo/rp.ecy.res/ind, read by Mitigation rows 789-791 and others) into the lookup, which are also ignored today. Decided (user 2026-10-19): accepted, including switching on the manual electricity price rows 136-144 (they exist to be read).",
+  "status": "struct"
+ },
+ {
+  "id": "L89",
+  "pri": "Low",
+  "title": "Coal in road reads the residential coal shadow price",
+  "where": "Mitigation M5396:AE5396 (policy M11727:AE11727)",
+  "why": "The efficiency term of road coal (M5396) adds M2378*M2404, the coal shadow price of the residential sector (2378 = reg. term + L2355 = $I2355 x residential price L2348); there is no road coal row. Residential coal (5553) reads 2378 rightly; services coal (5634) reads 2378 as services gas reads 2381.",
+  "fixes": [
+   {
+    "cell": "M5396",
+    "now": "=L5396*((1+M2446)^(_el_inc_coa_rod*M2433))*(1+M2439)*((M5382/L5382)^_el_dem_coa_rod)*((((M5382+M2378*M2404)/(L5382+L2378*L2404))^(_el_eff_coa_rod))/(1+_eff_imp_coa_rod+$M2199))^(1+_el_dem_coa_rod)",
+    "new": "=L5396*((1+M2446)^(_el_inc_coa_rod*M2433))*(1+M2439)*((M5382/L5382)^_el_dem_coa_rod)*((((M5382+(M2378+$I2355*(M2347-M2348))*M2404)/(L5382+(L2378+$I2355*(L2347-L2348))*L2404))^(_el_eff_coa_rod))/(1+_eff_imp_coa_rod+$M2199))^(1+_el_dem_coa_rod)",
+    "fill": "M5396:AE5396",
+    "policy": "paste into M11727:AE11727 (+6,331)"
+   }
+  ],
+  "ref": "Rows 2346-2349 are the feebate/ETS prices by sector (pow, rod, res, ind); 2355 = coal EF x residential price, so swapping L2348 for the transport price L2347 gives the road coal shadow price (regulation term unchanged).",
+  "effect": "Coal in road takes the transport shadow price (minor; Egypt road coal 0). MVP: shadow prices by coverage sector x EF.",
+  "note": "Decided (user 2026-10-19): services (5634) stay on the residential price: legacy has no services coal price, so that is a design choice (issue), not a wrong reference.",
+  "status": "fix"
+ },
+ {
+  "id": "L90",
+  "pri": "Low",
+  "title": "Residential leakage breaks the useful-energy balance",
+  "where": "Mitigation M5593:AE5593 (policy M11924:AE11924)",
+  "why": "M5593 = -$C5593*(M5578+M5584+M5591)*$E$1785: the equivalent biomass rows (5578 = change x e_fuel / e_bio) are multiplied by BioEff ($C5593) again, so the biomass gain is about 5 times too small.",
+  "fixes": [
+   {
+    "cell": "M5593",
+    "now": "=-$C5593*(M5578+M5584+M5591)*$E$1785",
+    "new": "=-(M5578+M5584+M5591)*$E$1785",
+    "fill": "M5593:AE5593",
+    "policy": "paste into M11924:AE11924 (+6,331)"
+   }
+  ],
+  "ref": "Equivalent biomass rows 5578, 5584, 5591 already carry the efficiency ratio.",
+  "effect": "Biomass gain no longer 5 times too small when leakage is on. MVP v5.1 (lkb = -lkd x e_m / e_b).",
+  "note": "Plan L45 (fixes_other_mitigation) rewrites the same cell as =-(M5578+M5584+M5591) (also drops the second $E$1785): if L45 is applied, nothing more to do.",
+  "status": "fix"
+ },
+ {
+  "id": "L91",
+  "pri": "Low",
+  "title": "Exempt residential fuel still leaks to biomass",
+  "where": "Mitigation M5580:AE5580, M5586:AE5586 (policy +6,331)",
+  "why": "The leakage tax rows read the new policy of the LPG and kerosene price blocks (M5580 = M2652*M2275, M5586 = M2675*M2275) even when AlwaysExemptResLPGKer removes it from the residential price (5546-5547).",
+  "fixes": [
+   {
+    "cell": "M5580",
+    "now": "=M2652*M2275",
+    "new": "=IF(LEFT(AlwaysExemptResLPGKer,3)=\"Yes\",0,M2652*M2275)",
+    "fill": "M5580:AE5580",
+    "policy": "paste into M11911:AE11911 (+6,331)"
+   },
+   {
+    "cell": "M5586",
+    "now": "=M2675*M2275",
+    "new": "=IF(LEFT(AlwaysExemptResLPGKer,3)=\"Yes\",0,M2675*M2275)",
+    "fill": "M5586:AE5586",
+    "policy": "paste into M11917:AE11917 (+6,331)"
+   }
+  ],
+  "ref": "Same exemption term as the after-tax prices L5546:AE5547; LEFT(...,3) because the input values are \"Yes*\"/\"No*\" (plan L48 makes 5546-5547 test it the same way).",
+  "effect": "An exempt LPG or kerosene no longer leaks to biomass. MVP v5.1 (lkt reads the row's own new policy).",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L92",
+  "pri": "Low",
+  "title": "ExemptMostCook never reaches Mitigation",
+  "where": "Mitigation I1784, K1795, L5564:L5570",
+  "why": "Does not reproduce in the 456 file: I1784 = IF(AND(H1784=\"Yes\",ISNUMBER(MATCH(L1784,{\"lpg\",\"nga\",\"ker\"},0))),1,0) with H1784 = MTInputs!F312 (ExemptMostCook), K1795 = exempt share x I1784, and the xlsb formulas L5568:L5570 = IFNA(IF($L$1784=B5568,$K$1795*L5554,0),0), L5564:L5566 = IFNA(IF($L$1784=B5564,(1-$K$1795)*L5554,L5554),L5554) split base-year demand with it.",
+  "fixes": [],
+  "ref": "The register (typed 0 in I1784, K1795 unused) matches an older file or the LibreOffice conversion, which shows L5564:L5570, K1790, G1788, L1784 as \"=_xlfn.IFNA(...)\" constants.",
+  "effect": "None in this file.",
+  "note": "The converted xlsx (q.py) shows these IFNA formulas mangled (e.g. \"=_xlfn.IFNA(0)\"); the \"now\" text here is decoded from the xlsb itself. Plan L48 (fixes_other_mitigation) was built on that converted text; its L5564:L5570 formulas are equivalent to the xlsb ones. The ExemptMostCook values are \"Yes\"/\"No\" (MTInputs G312 \"No\", no star), so I1784 needs no LEFT: to confirm.",
+  "status": "none"
+ },
+ {
+  "id": "L93",
+  "pri": "Low",
+  "title": "Fuel coverage rows test text labels and contain #REF!",
+  "where": "Mitigation E2259:E2268 (policy E8590:E8599)",
+  "why": "E2259 = {IF(D2312=1,IF(OR(#REF!=4,#REF!=9),\"Yes\",\"No\"),INDEX(...))}: D2312:D2320 and D2367 are fuel labels (\"Coal\", ...), never 1, and the scenario test is #REF!, so the shadow-pricing branch is never taken.",
+  "fixes": [
+   {
+    "cell": "E2259",
+    "now": "{=IF(D2312=1,IF(OR(#REF!=4,#REF!=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2259,F2258))}",
+    "new": "{=IF(D2369=1,IF(OR(C2173=4,C2173=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2259,F2258))}",
+    "fill": "single cell, array formula (Ctrl+Shift+Enter); type each cell, do not fill down (D2369 and C2173 must stay)",
+    "policy": "paste into E8590 (+6,331)"
+   },
+   {
+    "cell": "E2260",
+    "now": "{=IF(D2313=1,IF(OR(#REF!=4,#REF!=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2260,F2258))}",
+    "new": "{=IF(D2369=1,IF(OR(C2173=4,C2173=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2260,F2258))}",
+    "fill": "single cell, array formula (Ctrl+Shift+Enter); type each cell, do not fill down (D2369 and C2173 must stay)",
+    "policy": "paste into E8591 (+6,331)"
+   },
+   {
+    "cell": "E2261",
+    "now": "{=IF(D2314=1,IF(OR(#REF!=4,#REF!=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2261,F2258))}",
+    "new": "{=IF(D2369=1,IF(OR(C2173=4,C2173=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2261,F2258))}",
+    "fill": "single cell, array formula (Ctrl+Shift+Enter); type each cell, do not fill down (D2369 and C2173 must stay)",
+    "policy": "paste into E8592 (+6,331)"
+   },
+   {
+    "cell": "E2262",
+    "now": "{=IF(D2315=1,IF(OR(#REF!=4,#REF!=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2262,F2258))}",
+    "new": "{=IF(D2369=1,IF(OR(C2173=4,C2173=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2262,F2258))}",
+    "fill": "single cell, array formula (Ctrl+Shift+Enter); type each cell, do not fill down (D2369 and C2173 must stay)",
+    "policy": "paste into E8593 (+6,331)"
+   },
+   {
+    "cell": "E2263",
+    "now": "{=IF(D2316=1,IF(OR(#REF!=4,#REF!=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2263,F2258))}",
+    "new": "{=IF(D2369=1,IF(OR(C2173=4,C2173=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2263,F2258))}",
+    "fill": "single cell, array formula (Ctrl+Shift+Enter); type each cell, do not fill down (D2369 and C2173 must stay)",
+    "policy": "paste into E8594 (+6,331)"
+   },
+   {
+    "cell": "E2264",
+    "now": "{=IF(D2317=1,IF(OR(#REF!=4,#REF!=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2264,F2258))}",
+    "new": "{=IF(D2369=1,IF(OR(C2173=4,C2173=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2264,F2258))}",
+    "fill": "single cell, array formula (Ctrl+Shift+Enter); type each cell, do not fill down (D2369 and C2173 must stay)",
+    "policy": "paste into E8595 (+6,331)"
+   },
+   {
+    "cell": "E2265",
+    "now": "{=IF(D2318=1,IF(OR(#REF!=4,#REF!=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2265,F2258))}",
+    "new": "{=IF(D2369=1,IF(OR(C2173=4,C2173=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2265,F2258))}",
+    "fill": "single cell, array formula (Ctrl+Shift+Enter); type each cell, do not fill down (D2369 and C2173 must stay)",
+    "policy": "paste into E8596 (+6,331)"
+   },
+   {
+    "cell": "E2266",
+    "now": "{=IF(D2319=1,IF(OR(#REF!=4,#REF!=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2266,F2258))}",
+    "new": "{=IF(D2369=1,IF(OR(C2173=4,C2173=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2266,F2258))}",
+    "fill": "single cell, array formula (Ctrl+Shift+Enter); type each cell, do not fill down (D2369 and C2173 must stay)",
+    "policy": "paste into E8597 (+6,331)"
+   },
+   {
+    "cell": "E2267",
+    "now": "{=IF(D2320=1,IF(OR(#REF!=4,#REF!=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2267,F2258))}",
+    "new": "{=IF(D2369=1,IF(OR(C2173=4,C2173=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2267,F2258))}",
+    "fill": "single cell, array formula (Ctrl+Shift+Enter); type each cell, do not fill down (D2369 and C2173 must stay)",
+    "policy": "paste into E8598 (+6,331)"
+   },
+   {
+    "cell": "E2268",
+    "now": "{=IF(D2367=1,IF(OR(#REF!=4,#REF!=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2268,F2258))}",
+    "new": "{=IF(D2369=1,IF(OR(C2173=4,C2173=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2268,F2258))}",
+    "fill": "single cell, array formula (Ctrl+Shift+Enter); type each cell, do not fill down (D2369 and C2173 must stay)",
+    "policy": "paste into E8599 (+6,331)"
+   }
+  ],
+  "ref": "The sector rows use the same rule with live references: E2270 = {IF(D2369=1,IF(OR(C2173=4,C2173=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2270,F2258))} (D2369 = 1 for shadow pricing).",
+  "effect": "None (dead branch); under shadow pricing the fuels follow the sector rule. MVP: not built (coverage by switch).",
+  "note": "Copying E2259:E2268 to E8590:E8599 moves D2369 to D8700 and C2173 to C8504, the policy block's own cells.",
+  "status": "fix"
+ },
+ {
+  "id": "L94",
+  "pri": "Low",
+  "title": "Exemption phase-in rules differ between rows",
+  "where": "Mitigation L2266:AE2268 and M5568:AE5570 (policy +6,331)",
+  "why": "Rows 2259-2265 and 2270-2288 phase an exemption in with IF(ExemptPhaseout,MAX(MIN((t+1-YearPha)/ExemptPhaseoutPeriod,1),0),0) and test $C2173>1; biomass, renewables and jet fuel (2266-2268) and the exempt residential demand (5568-5570, MIN(M2258/ExemptPhaseoutPeriod,1)) count from CPIntro (row 2258) and ignore the switch.",
+  "fixes": [
+   {
+    "cell": "L2266",
+    "now": "=IF(L2257>=CPIntro,IF($E2266=\"Yes\",1,IF($E2266=\"No\",0,MIN(L2258/ExemptPhaseoutPeriod,1))),0)",
+    "new": "=IF($C2173>1,IF(L2257>=CPIntro,IF($E2266=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0)",
+    "fill": "L2266:AE2266",
+    "policy": "paste into L8597:AE8597 (+6,331)"
+   },
+   {
+    "cell": "L2267",
+    "now": "=IF(L2257>=CPIntro,IF($E2267=\"Yes\",1,IF($E2267=\"No\",0,MIN(L2258/ExemptPhaseoutPeriod,1))),0)",
+    "new": "=IF($C2173>1,IF(L2257>=CPIntro,IF($E2267=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0)",
+    "fill": "L2267:AE2267",
+    "policy": "paste into L8598:AE8598 (+6,331)"
+   },
+   {
+    "cell": "L2268",
+    "now": "=IF(L2257>=CPIntro,IF($E2268=\"Yes\",1,IF($E2268=\"No\",0,MIN(L2258/ExemptPhaseoutPeriod,1))),0)",
+    "new": "=IF($C2173>1,IF(L2257>=CPIntro,IF($E2268=\"Yes\",1,IF(ExemptPhaseout,MAX(MIN((L2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0)),0),0)",
+    "fill": "L2268:AE2268",
+    "policy": "paste into L8599:AE8599 (+6,331)"
+   },
+   {
+    "cell": "M5568",
+    "now": "=L5568*((1+M2446)^_el_inc_nga_res)*(1+M2439)*((M5543/L5543)^(_el_dem_nga_res*MIN(M2258/ExemptPhaseoutPeriod,1))*((((M5543+M2381*M2408)/(L5543+L2381*L2408))^(_el_eff_nga_res))/(1+_eff_imp_nga_res+$M2200))^(1+_el_dem_nga_res))",
+    "new": "=L5568*((1+M2446)^_el_inc_nga_res)*(1+M2439)*((M5543/L5543)^(_el_dem_nga_res*IF(ExemptPhaseout,MAX(MIN((M2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0))*((((M5543+M2381*M2408)/(L5543+L2381*L2408))^(_el_eff_nga_res))/(1+_eff_imp_nga_res+$M2200))^(1+_el_dem_nga_res))",
+    "fill": "M5568:AE5568",
+    "policy": "paste into M11899:AE11899 (+6,331)"
+   },
+   {
+    "cell": "M5569",
+    "now": "=L5569*((1+M2446)^_el_inc_oil_res)*(1+M2439)*((M5546/L5546)^(_el_dem_oil_res*(MIN(M2258/ExemptPhaseoutPeriod,1))))*((((M5546+M2385*M2408)/(L5546+L2385*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)",
+    "new": "=L5569*((1+M2446)^_el_inc_oil_res)*(1+M2439)*((M5546/L5546)^(_el_dem_oil_res*(IF(ExemptPhaseout,MAX(MIN((M2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0))))*((((M5546+M2385*M2408)/(L5546+L2385*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)",
+    "fill": "M5569:AE5569",
+    "policy": "paste into M11900:AE11900 (+6,331)"
+   },
+   {
+    "cell": "M5570",
+    "now": "=L5570*((1+M2446)^_el_inc_oil_res)*(1+M2439)*((M5547/L5547)^(_el_dem_oil_res*(MIN(M2258/ExemptPhaseoutPeriod,1))))*((((M5547+M2386*M2408)/(L5547+L2386*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)",
+    "new": "=L5570*((1+M2446)^_el_inc_oil_res)*(1+M2439)*((M5547/L5547)^(_el_dem_oil_res*(IF(ExemptPhaseout,MAX(MIN((M2257+1-YearPha)/ExemptPhaseoutPeriod,1),0),0))))*((((M5547+M2386*M2408)/(L5547+L2386*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)",
+    "fill": "M5570:AE5570",
+    "policy": "paste into M11901:AE11901 (+6,331)"
+   }
+  ],
+  "ref": "L2265 (kerosene) is the rule of the first group; M2257 is the year header of rows 2259-2288.",
+  "effect": "Biomass, renewables, jet fuel and the exempt residential demand phase in like the other fuels. MVP: not built (LegacyDiff 67).",
+  "note": "Rows 2266-2268 lose their own \"No\"/number handling (as rows 2259-2265). M5568:M5570 are also edited by plan L48 (income factor M2433): if L48 is applied first, make only the exponent substitution shown here. Decided (user 2026-10-19): one rule for all rows, the rule of rows 2259-2265.",
+  "status": "fix"
+ },
+ {
+  "id": "L96",
+  "pri": "Low",
+  "title": "Fuel-use block: mislabelled parameter and fuel rows",
+  "where": "Mitigation C2197:M2201, E2385:E2386, D5615/D5722/D6072/D6083 (+ policy copies)",
+  "why": "C2199:C2201 label the carbon-tax settings in E, and the additional-efficiency increments read by every fuel row ($M2198:$M2201 = MTInputs F242:F245) sit beside them under the bare headers K2197 \"Sector\" / M2197 \"Increment\"; C2201 repeats \"Exponential option or linear\" over a stray \"`\" in E2201. E2385/E2386 say Road/Industry on the all-sector LPG and kerosene shadow prices; D5615, D5722, D6072, D6083 read \"Other oil pinducts\".",
+  "fixes": [
+   {
+    "cell": "K2197",
+    "now": "Sector",
+    "new": "Additional efficiency gain pa: sector",
+    "fill": "label only",
+    "policy": "type K8528 the same"
+   },
+   {
+    "cell": "M2197",
+    "now": "Increment",
+    "new": "Additional efficiency increment (MTInputs F242:F245)",
+    "fill": "label only; M2198:M2201 read by the fuel rows as $M2198..$M2201",
+    "policy": "type M8528 the same"
+   },
+   {
+    "cell": "C2201",
+    "now": "Exponential option or linear",
+    "new": "",
+    "fill": "clear the duplicated label (its E2201 holds a stray \"`\" and is read by nothing)",
+    "policy": "clear C8532"
+   },
+   {
+    "cell": "E2201",
+    "now": "`",
+    "new": "",
+    "fill": "clear the stray \"`\"",
+    "policy": "clear E8532"
+   },
+   {
+    "cell": "E2385",
+    "now": "Road",
+    "new": "All",
+    "fill": "label only (code shp.lpg.all)",
+    "policy": "type E8716 = All"
+   },
+   {
+    "cell": "E2386",
+    "now": "Industry",
+    "new": "All",
+    "fill": "label only (code shp.ker.all)",
+    "policy": "type E8717 = All"
+   },
+   {
+    "cell": "D5615",
+    "now": "Other oil pinducts",
+    "new": "Other oil products",
+    "fill": "label only",
+    "policy": "type D11946 the same"
+   },
+   {
+    "cell": "D5722",
+    "now": "Other oil pinducts",
+    "new": "Other oil products",
+    "fill": "label only",
+    "policy": "type D12042 the same"
+   },
+   {
+    "cell": "D6072",
+    "now": "Other oil pinducts",
+    "new": "Other oil products",
+    "fill": "label only",
+    "policy": "type D12389 the same"
+   },
+   {
+    "cell": "D6083",
+    "now": "Other oil pinducts",
+    "new": "Other oil products",
+    "fill": "label only",
+    "policy": "type D12400 the same"
+   }
+  ],
+  "ref": "Policy copies found by label search: K8528/M8528, C8532/E8532, E8716/E8717, D11946, D12042 (offset +6,320), D12389, D12400 (+6,317). No formula reads E2201, C2201, K2197, M2197, E2385 or E2386 as text.",
+  "effect": "None on values (labels only). MVP: own labelled rows for additional efficiency, shadow prices by coverage sector, fuel names.",
+  "note": "Decided (user 2026-10-19): relabel in place.",
+  "status": "fix"
+ },
+ {
+  "id": "L97",
+  "pri": "Low",
+  "title": "Iron & steel memo rows unused; one reads next year's growth",
+  "where": "Mitigation D5667:AE5676, K5714:AE5714, I5715:K5725, D5727:AE5728",
+  "why": "Row 5714 averages the iron & steel prices with emission weights (K5716:K5724 = J/J$5725, J = EF in I x base-year demand); rows 5727-5728 build demand and efficiency multiples from it and from the elasticity table 5668-5676; M5667 = (N2446) is next year's GDP growth. No cell on any sheet reads 5667-5676, 5714, I:K 5715-5725 or 5727-5728.",
+  "fixes": [
+   {
+    "cell": "M5667",
+    "now": "=(N2446)",
+    "new": "=(M2446)",
+    "fill": "M5667:AE5667 (the year's own GDP growth)",
+    "policy": "none (memo rows, no policy copy)"
+   }
+  ],
+  "ref": "The live iron & steel demand rows 5716-5724 (columns L:AE) and their total L5725:AE5725 stay.",
+  "effect": "None (dead calculation).",
+  "note": "Decided (user 2026-10-19): the memo rows are kept (clearing would delete legacy content); only the next-year reference is fixed. Nothing reads them.",
+  "status": "fix"
+ },
+ {
+  "id": "L100",
+  "pri": "Low",
+  "title": "Manual domestic prices: the electricity rows are never read",
+  "where": "Manual inputs G59:N146 (names _manual_prices, _manual_codes)",
+  "why": "Mitigation rows 765-829 look up _manual_codes / _manual_prices (I = MATCH($G,_manual_codes,0)); both names stop at row 133, so the electricity codes mit.sp/txo/rp.ecy.res/ind (Manual inputs 136-144, read by Mitigation 789-795) and mit.pros.ecy.all (146, Mitigation 828) are never found and the CPAT values are used.",
+  "fixes": [
+   {
+    "cell": "Name _manual_prices",
+    "now": "='Manual inputs'!$G$59:$N$133",
+    "new": "='Manual inputs'!$G$59:$N$146",
+    "fill": "Name Manager: both copies (workbook scope and the sheet-scoped copy)",
+    "policy": "none (defined name)"
+   },
+   {
+    "cell": "Name _manual_codes",
+    "now": "='Manual inputs'!$G$59:$G$133",
+    "new": "='Manual inputs'!$G$59:$G$146",
+    "fill": "Name Manager: both copies (workbook scope and the sheet-scoped copy)",
+    "policy": "none (defined name)"
+   }
+  ],
+  "ref": "Manual inputs G135:N135 repeats the header (Code, years), so the extended names keep the same columns; _manual_years (G59:N59) is unchanged.",
+  "effect": "Manual electricity prices and producer subsidy are ignored; none for Egypt (prices not set to Manual).",
+  "note": "Also fixes the cause of L86 (manual electricity producer subsidy, Mitigation I828). Decided (user 2026-10-19): accepted, including switching on the manual electricity price rows 136-144 (they exist to be read).",
+  "status": "fix"
+ },
+ {
+  "id": "L101",
+  "pri": "Low",
+  "title": "Manual services income elasticities read the industries column",
+  "where": "Elasticities F51:F58 (Manual inputs N279:N286)",
+  "why": "F51:F58 (coal ... electricity, services) read Manual inputs M279:M286, the Industries column; Services is column N (N277 = \"Services\").",
+  "fixes": [
+   {
+    "cell": "'Elasticities'!F51",
+    "now": "=IF(ISBLANK('Manual inputs'!M279),\"no data\",'Manual inputs'!M279)",
+    "new": "=IF(ISBLANK('Manual inputs'!N279),\"no data\",'Manual inputs'!N279)",
+    "fill": "F51:F58 (copy down: F52 -> N280 ... F58 -> N286)",
+    "policy": "none (sheet has no policy copy)"
+   }
+  ],
+  "ref": "Manual inputs row 277: K Transport, L Residential, M Industries, N Services.",
+  "effect": "Manual services income elasticities equal the industry ones (defaults all 0.5: no effect on Egypt).",
+  "note": "Unrelated, seen in passing: Elasticities H53 = H173 and H54 = H174 while G53 = G169, G54 = G170 (gasoline/diesel services take the renewables/electricity column-H value); not part of L101, to confirm.",
+  "status": "fix"
+ },
+ {
+  "id": "L102",
+  "pri": "Low",
+  "title": "Manual non-energy elasticities can never take effect",
+  "where": "Manual inputs K326:M327; Mitigation K366:M367",
+  "why": "Manual inputs K326:M326, K327 = IF($E$293=\"Manual\",#REF!,default) (E293 is empty), and Mitigation K366:M367 = IF($E$288=\"Manual\",'Manual inputs'!K326, default) where E288 = MTInputs F261 (ElastIncAdjustment: Low/Base*/High), never \"Manual\".",
+  "fixes": [
+   {
+    "cell": "'Manual inputs'!K326",
+    "now": "=IF($E$293=\"Manual\",#REF!,0.9)",
+    "new": "0.9",
+    "fill": "typed input",
+    "policy": "none"
+   },
+   {
+    "cell": "'Manual inputs'!L326",
+    "now": "=IF($E$293=\"Manual\",#REF!,1)",
+    "new": "1",
+    "fill": "typed input",
+    "policy": "none"
+   },
+   {
+    "cell": "'Manual inputs'!M326",
+    "now": "=IF($E$293=\"Manual\",#REF!,1)",
+    "new": "1",
+    "fill": "typed input",
+    "policy": "none"
+   },
+   {
+    "cell": "'Manual inputs'!K327",
+    "now": "=IF($E$293=\"Manual\",#REF!,0.15)",
+    "new": "0.15",
+    "fill": "typed input",
+    "policy": "none"
+   },
+   {
+    "cell": "K366",
+    "now": "=IF($E$288=\"Manual\",'Manual inputs'!K326,0.9)",
+    "new": "='Manual inputs'!K326",
+    "fill": "single cell",
+    "policy": "none (shared row above 2173)"
+   },
+   {
+    "cell": "L366",
+    "now": "=IF($E$288=\"Manual\",'Manual inputs'!L326,1)",
+    "new": "='Manual inputs'!L326",
+    "fill": "single cell",
+    "policy": "none (shared row above 2173)"
+   },
+   {
+    "cell": "M366",
+    "now": "=IF($E$288=\"Manual\",'Manual inputs'!M326,1)",
+    "new": "='Manual inputs'!M326",
+    "fill": "single cell",
+    "policy": "none (shared row above 2173)"
+   },
+   {
+    "cell": "K367",
+    "now": "=IF($E$288=\"Manual\",'Manual inputs'!K327,0.15)",
+    "new": "='Manual inputs'!K327",
+    "fill": "single cell",
+    "policy": "none (shared row above 2173)"
+   }
+  ],
+  "ref": "Defaults 0.9 / 1 / 1 (population) and 0.15 (agriculture per capita income) as typed in the legacy fallbacks; L367:M367 stay \"na\".",
+  "effect": "None on values (same defaults); manual non-energy elasticities typed on Manual inputs now take effect. MVP v5.2 (LegacyDiff 72).",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L103",
+  "pri": "Low",
+  "title": "Manual SCC reads a path typed on Mitigation, not the Manual inputs block",
+  "where": "Manual inputs rows 234-240; Mitigation rows 17683, 17711",
+  "why": "NSCC \"Manual\" (CHOOSE($G$17674,...,L17683,...) in row 17685) takes the typed path L17683:AD17683 (80.8 in 2022 rising) and GSCC \"Manual\" (row 17711 = L17683, chosen in row 17713) reuses it; the Manual inputs SCC block (NSCC row 237, GSCC row 240) is read by nothing.",
+  "fixes": [
+   {
+    "cell": "'Manual inputs'!J237",
+    "now": "(empty)",
+    "new": "the values of Mitigation L17683:AD17683 (copy, Paste Special: Values)",
+    "fill": "'Manual inputs'!J237:AC237, before the edit below",
+    "policy": "none (sheet Manual inputs)"
+   },
+   {
+    "cell": "L17683",
+    "now": "80.7852148530728",
+    "new": "='Manual inputs'!J237",
+    "fill": "L17683:AE17683 (Manual inputs J:AC = 2022-2041; replaces the typed path L:AD and AE = AD*AD/AC)",
+    "policy": "none (single SCC block)"
+   },
+   {
+    "cell": "L17711",
+    "now": "=L17683",
+    "new": "='Manual inputs'!J240",
+    "fill": "L17711:AE17711",
+    "policy": "none (single SCC block)"
+   }
+  ],
+  "ref": "Mitigation L17680 and Manual inputs J236 are both FirstYearCalculations, so Mitigation L:AE match Manual inputs J:AC. Manual inputs J237 = J240 by default (NSCC = GSCC).",
+  "effect": "Manual SCC entered on Manual inputs is ignored; none for the shipped scenarios and Egypt (SCC source Target).",
+  "note": "Decided (user 2026-10-19): copy the typed path into Manual inputs J237:AC237 first, so legacy's values are kept and only their source moves. GSCC reads J240 as the register says.",
+  "status": "fix"
+ },
+ {
+  "id": "L104",
+  "pri": "Low",
+  "title": "Name CH4Feebate points to an empty cell",
+  "where": "Manual inputs J217 (name CH4Feebate)",
+  "why": "CH4Feebate refers to Manual inputs J217, an empty cell between the pass-through table (rows 205-215) and the energy price block (218); no formula in the workbook uses the name. The methane fee inputs are MTInputs rows 185-189 (CTforMethane = F185) and Manual inputs rows 185-200.",
+  "fixes": [
+   {
+    "cell": "Name CH4Feebate",
+    "now": "='Manual inputs'!$J$217",
+    "new": "(delete the name)",
+    "fill": "Name Manager",
+    "policy": "none (defined name)"
+   }
+  ],
+  "ref": "No reference to CH4Feebate found in any sheet formula.",
+  "effect": "None (unused name).",
+  "note": "Decided (user 2026-10-19): delete the name (nothing reads it; there is nothing it could correctly point to).",
+  "status": "struct"
+ },
+ {
+  "id": "L106",
+  "pri": "Low",
+  "title": "Manual inputs memo swaps the renewables and electricity price elasticities",
+  "where": "Manual inputs K315:N316",
+  "why": "The memo total elasticity of renewables (row 315) adds the electricity price elasticity (row 298) to the renewables efficiency elasticity (306); electricity (316) uses the renewables row 297 with 307.",
+  "fixes": [
+   {
+    "cell": "'Manual inputs'!K315",
+    "now": "=K298+K306+(K298*K306)",
+    "new": "=K297+K306+(K297*K306)",
+    "fill": "K315:N315",
+    "policy": "none (sheet has no policy copy)"
+   },
+   {
+    "cell": "'Manual inputs'!K316",
+    "now": "=K297+K307+(K297*K307)",
+    "new": "=K298+K307+(K298*K307)",
+    "fill": "K316:N316",
+    "policy": "none (sheet has no policy copy)"
+   }
+  ],
+  "ref": "Rows 297 (el_dem_ren) and 298 (el_dem_ecy); the other memo rows 309-314 pair row n with n+9.",
+  "effect": "None (memo only, read by nothing). MVP: fixed in the placed memo.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L116",
+  "pri": "Low",
+  "title": "Services gasoline and diesel income elasticities: step-change column reads the renewables and electricity rows",
+  "where": "Elasticities H53, H54",
+  "why": "In the services block of Elasticities, G53 = G169 and G54 = G170 (gasoline, diesel), but H53 = H173 (renewables, services) and H54 = H174 (electricity, services); every other row reads its own row (H51 = H167, H52 = H168, H55 = H171, H56 = H172).",
+  "fixes": [
+   {
+    "cell": "Elasticities!H53",
+    "now": "=H173",
+    "new": "=H169",
+    "fill": "single cell",
+    "policy": "none (sheet Elasticities)"
+   },
+   {
+    "cell": "Elasticities!H54",
+    "now": "=H174",
+    "new": "=H170",
+    "fill": "single cell",
+    "policy": "none (sheet Elasticities)"
+   }
+  ],
+  "ref": "Rows 51-56 against 167-174 of the same sheet.",
+  "effect": "None today (H169, H170, H173, H174 are all 0.13); matters when the regional values differ.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L117",
+  "pri": "Low",
+  "title": "Transfers multiplier (TRNS): estimated lag-0 table read two rows off",
+  "where": "Multipliers D44",
+  "why": "D44 reads INDEX(D$1218:D$1418,$D$19) while E44 (and the other lags) read $1220:$1418; rows 1218-1219 are title rows, so lag 0 takes the country two rows up.",
+  "fixes": [
+   {
+    "cell": "Multipliers!D44",
+    "now": "{=IFERROR(CHOOSE($D$21,D98,D109,D121,D132,D143,INDEX(D$1218:D$1418,$D$19),D82),0)}",
+    "new": "{=IFERROR(CHOOSE($D$21,D98,D109,D121,D132,D143,INDEX(D$1220:D$1418,$D$19),D82),0)}",
+    "fill": "single cell (array formula: Ctrl+Shift+Enter)",
+    "policy": "none (sheet Multipliers)"
+   }
+  ],
+  "ref": "E44:O44 (same row, other lags).",
+  "effect": "None today (lag 0 of the estimated transfers table is 0 for every country).",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L128",
+  "pri": "Low",
+  "title": "Net revenue report rows read the next year",
+  "where": "Mitigation rows 6252, 6257",
+  "why": "K6252 = L8038 ... AD6252 = AE8038 (and row 6257 from row 8043): each year shows the next year's net revenue, USD and % of GDP. Report only (rows 6253, 6258 read them). Found by the scan for reads of later years (v6.2, user 2026-10-20).",
+  "fixes": [
+   {
+    "cell": "K6252",
+    "now": "=L8038",
+    "new": "=K8038",
+    "fill": "K6252:AD6252",
+    "policy": "paste into K12569:AD12569 (+6,317)"
+   },
+   {
+    "cell": "K6257",
+    "now": "=L8043",
+    "new": "=K8043",
+    "fill": "K6257:AD6257",
+    "policy": "paste into K12574:AD12574 (+6,317)"
+   }
+  ],
+  "ref": "Rows 8038 and 8043 hold the net revenue of the same column's year (L8038 = L8037 - L8036).",
+  "effect": "Reported net revenue moves one year back; nothing else changes.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L113",
+  "pri": "Low",
+  "title": "Power and excise switches tested for the exact \"Yes\"",
+  "where": "Mitigation G261 (PowerRebates), L3150:AE3150 (RenewableSubsidyHydro; policy L9481:AE9481), F201 (AdditionalExcise)",
+  "why": "The three switches are tested with =\"Yes\". The MTInputs dropdowns offer starred options (e.g. \"Yes*\"), so a starred Yes counts as No and turns the feature off. Defaults today: PowerRebates \"No*\" (MTInputs F342), RenewableSubsidyHydro \"No\" (F357), AdditionalExcise \"No*\" (F215).",
+  "fixes": [
+   {
+    "cell": "G261",
+    "now": "=IF(PowerRebates=\"Yes\",\"Yes\",INDEX(N261:AC261,MATCH(G$224,$N$224:$AC$224,0)))",
+    "new": "=IF(LEFT(PowerRebates,3)=\"Yes\",\"Yes\",INDEX(N261:AC261,MATCH(G$224,$N$224:$AC$224,0)))",
+    "fill": "single cell",
+    "policy": "none (shared row above 2173)"
+   },
+   {
+    "cell": "L3150",
+    "now": "=IF(RenewableSubsidyHydro=\"Yes\",L3143,0)",
+    "new": "=IF(LEFT(RenewableSubsidyHydro,3)=\"Yes\",L3143,0)",
+    "fill": "L3150:AE3150",
+    "policy": "paste into L9481:AE9481 (+6,331)"
+   },
+   {
+    "cell": "F201",
+    "now": "= IF( E201 = \"Yes\", 1, 0)",
+    "new": "=IF(LEFT(E201,3)=\"Yes\",1,0)",
+    "fill": "single cell",
+    "policy": "none (shared row above 2173)"
+   }
+  ],
+  "ref": "LEFT(x,3)=\"Yes\" is true for \"Yes\" and \"Yes*\" and false for \"No\", \"No*\". Row 9481 is the policy copy of row 3150 (=IF(RenewableSubsidyHydro=\"Yes\",L9474,0)).",
+  "effect": "None for the shipped defaults (all No or No*). With a starred Yes chosen, power rebates, the hydro renewable subsidy and the additional excise now apply. MVP v5.4 accepts Yes or Yes*.",
+  "note": "F200 (AddEfficientTaxes, =IF(E200=\"Yes\",1,0); MTInputs F217 default \"No*\") uses the same exact test; not in the register, check its dropdown before applying the same change.",
+  "status": "fix"
+ },
+ {
+  "id": "L114",
+  "pri": "Low",
+  "title": "Renewable subsidies: nominal inputs used as real",
+  "where": "Mitigation rows 2743, 2745 (inputs E2734, E2735 = MTInputs F354:F355 via rows 275-276; policy rows 9074, 9076)",
+  "why": "MTInputs 354-355 are $/kWh nominal (E2734 is labelled \"Renewable energy subsidy (nominal)\"), but L2743 = -$E2734 and L2745 = L2743 - $E2735 x phase-out enter the cost rows labelled $/kwh real without deflation. Rows 2743 and 2745 feed the generation costs (2785-2788), the subsidy cost (2947-2951, 7897-7900) and the engineer model (3143).",
+  "fixes": [
+   {
+    "cell": "L2743",
+    "now": "=-$E2734",
+    "new": "=-$E2734*L$725",
+    "fill": "L2743:AE2743",
+    "policy": "paste into L9074:AE9074 (+6,331; L$725 stays, it is a shared row)"
+   },
+   {
+    "cell": "L2745",
+    "now": "=L2743-IF(L2741>=$E2736,$E2735*L2744)",
+    "new": "=L2743-IF(L2741>=$E2736,$E2735*L2744*L$725)",
+    "fill": "L2745:AE2745",
+    "policy": "paste into L9076:AE9076 (+6,331)"
+   }
+  ],
+  "ref": "Row 725 (\"Inflation index, 2026 = 100\", real 2026) = CPI(ResultsYear)/CPI(t) by year, from row 456; K725 = 2021 ... AE725 = 2041, so column L is 2022 in rows 725 and 2741 alike. Row 2249 converts the carbon price the same way (x row 456).",
+  "effect": "None for Egypt (both inputs 0). A non-zero nominal subsidy now falls in real terms over time (x 1.137 in 2022, x 1 in 2026, x 0.898 in 2041) instead of staying constant. MVP v5.6 (row rnsp).",
+  "note": "Inputs stay nominal; only the conversion is added. Alternative: relabel MTInputs 354-355 as real (no cell change). Not in the register: row 2745 already contains row 2743, so rows 2785-2788, 2947-2951 and 7897-7900 (= L2743+L2745) count the baseline subsidy twice; matters only when MTInputs 354 is non-zero.",
+  "status": "fix"
+ },
+ {
+  "id": "L118",
+  "pri": "Medium",
+  "title": "Manual power investment: the need net of manual investment is never used",
+  "where": "Mitigation L4110:AE4118 (policy L10441:AE10449)",
+  "why": "Row 4108 (= L4028 - L4107, effective investment needed after the manual investment) is computed but read by nothing. The logit investment rows 4110-4118 size the non-manual types on row 4028 (total need), so with a type set to Manual the logit investment comes on top of the manual capacity.",
+  "fixes": [
+   {
+    "cell": "L4110",
+    "now": "=IF($F4110=\"Manual\",L4097*$J4110,MAX(L4028,0)*L4085)",
+    "new": "=IF($F4110=\"Manual\",L4097*$J4110,MAX(L4108,0)*L4085)",
+    "fill": "L4110:AE4118: select, Find/Replace \"4028,0)\" by \"4108,0)\" (one hit per cell; each row keeps its own share row 4085...4093)",
+    "policy": "L10441:AE10449: Find/Replace \"10359,0)\" by \"10439,0)\" (+6,331; row 10439 = L10359-L10438)"
+   }
+  ],
+  "ref": "Row 4107 = SUMPRODUCT(manual capacity 4097:4105, availability 3049:3057), the effective manual investment; types with manual investment get logit weight 0 (rows 4061-4069), so the shares 4085-4093 spread the remainder over the other types. Row 4261 (\"Total Required (should match)\") = L4028 checks the total.",
+  "effect": "None while no type is Manual (Egypt: Wind and Solar \"Yes\", others \"If Present*\"). With manual investment, total new effective capacity falls from need + manual to the need. MVP v5.6 (P3): needm, first and deficit use the need net of manual investment.",
+  "note": "Legacy has no separate first-year or deficit rows: rows 4110-4118 are the only consumers. Row 4030 (capacity passed forward = 4026 + 4028) is unchanged, it uses the total need. MAX(...,0) keeps a manual investment larger than the need from making logit investment negative.",
+  "status": "fix"
+ },
+ {
+  "id": "L119",
+  "pri": "Medium",
+  "title": "NDC year adjustment applied twice for BAU targets and never for Fixed or Historical",
+  "where": "Mitigation F18414 (read by F18422:F18423, F18425:H18426, F18441:H18443, F18458:H18460)",
+  "why": "F18414 = IF(target year < 2030, (2030 - first year)/(target year - first year), 1) is at least 1, so the \"<1\" branches of the Fixed and Historical blocks never run, while the BAU block multiplies the reduction (18422) and the level (18425: BAU x (1 - reduction x adj) x adj) by it. All blocks already compare in the target year: the baseline (F18421) and the policy emissions (F18501) are read at F18405, the target year.",
+  "fixes": [
+   {
+    "cell": "F18414",
+    "now": "=IF(F18405<2030,F18413/F18412,1)",
+    "new": "=1",
+    "fill": "single cell",
+    "policy": "none (report block)"
+   }
+  ],
+  "ref": "Rows 18421 and 18501 look up F18405 (= MIN(_NDC_End, 2035)); the Fixed and Historical levels (18435, 18452) are levels in that year.",
+  "effect": "None for Egypt (target 2030, adj = 1). A BAU target before 2030 is no longer scaled up twice. MVP v5.7 (NDC comparison 14c) compares every NDC in its own target year, with no adjustment.",
+  "note": "Smallest change: the factor becomes 1, so the BAU rows apply the reduction once and the \"<1\" branches of rows 18441-18443 and 18458-18460 become dead. Optional cleanup: relabel D18414 (\"not used: comparison in the target year\") or drop the factor from the formulas that read it.",
+  "status": "fix"
+ },
+ {
+  "id": "L120",
+  "pri": "Low",
+  "title": "NDC index rows: unconditional and conditional ratios inverted against the average",
+  "where": "Mitigation F18497, F18498, L18509:AE18509",
+  "why": "F18497 and F18498 divide the start-year emissions by the target ($G$18446/F18494) while F18499 divides the target by them (F18496/$G$18446). The chart row 18509 (\"Target unconditional\") reads F18499 (the average) and row 18510 (\"Target conditional\") reads F18498 (inverted).",
+  "fixes": [
+   {
+    "cell": "F18497",
+    "now": "=IFERROR($G$18446/F18494,\"\")",
+    "new": "=IFERROR(F18494/$G$18446,\"\")",
+    "fill": "single cell",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "F18498",
+    "now": "=IFERROR($G$18446/F18495,\"\")",
+    "new": "=IFERROR(F18495/$G$18446,\"\")",
+    "fill": "single cell",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "L18509",
+    "now": "=IF(L18508<=NDCrefyear,$F$18499*100,NA())",
+    "new": "=IF(L18508<=NDCrefyear,$F$18497*100,NA())",
+    "fill": "L18509:AE18509",
+    "policy": "none (report block)"
+   }
+  ],
+  "ref": "F18499 (target / start-year GHGs incl. LULUCF) is the right ratio; rows 18511 and 18512 (levels) read the unconditional F18494 and conditional F18495; G18446 = start-year GHGs incl. LULUCF.",
+  "effect": "None for Egypt (unconditional target only: F18497 becomes 0.887 = F18499; row 18509 unchanged). With a conditional target the conditional index line is no longer the inverse (e.g. 1.13 instead of 0.89) and the unconditional line no longer shows the average. MVP v5.7: ndc.idx = target / base-year GHGs incl. LULUCF for both.",
+  "note": "The L18509 edit goes beyond the register sentence (rows 18497-18498 only); without it the unconditional index line keeps showing the average of the two targets.",
+  "status": "fix"
+ },
+ {
+  "id": "L121",
+  "pri": "Low",
+  "title": "Historical NDC: the target \"level\" is the emissions cut",
+  "where": "Mitigation F18458:H18460",
+  "why": "Rows 18458-18460 return the cut (F18455 x adj) when adj < 1 and the level (F18452) otherwise. The Fixed block returns start-year emissions minus the adjusted cut (F18430 - F18438 x adj). Harmless today: adj < 1 never happens (L119).",
+  "fixes": [
+   {
+    "cell": "F18458",
+    "now": "=IF($F$18414<1,F18455*$F$18414,F18452)",
+    "new": "=IF($F$18414<1,F$18446-F18455*$F$18414,F18452)",
+    "fill": "F18458:H18460 (one R1C1 pattern: each row reads the cut 3 rows up and the level 6 rows up)",
+    "policy": "none (report block)"
+   }
+  ],
+  "ref": "Rows 18441-18443 (Fixed block): =IF($F$18414<1,F18430-F18438*$F$18414,F18435). F18446 = start-year emissions, F18455 = F$18446 - F18452 (the cut).",
+  "effect": "None (branch never runs, and with the L119 fix adj is always 1). MVP v5.7: level = reference-year emissions x (1 - reduction).",
+  "note": "The register sentence (\"F18452 - F18455 x adj\") would subtract the cut from the target level; the Fixed-block analogue is start-year emissions minus the adjusted cut, used here.",
+  "status": "fix"
+ },
+ {
+  "id": "L122",
+  "pri": "Medium",
+  "title": "Intensity NDC incl. LULUCF adds non-CO2 emissions instead of LULUCF",
+  "where": "Mitigation F18476, F18477",
+  "why": "For a GHG intensity target that excludes LULUCF, F18476 = $F$18473 + $J$18465: J18465 = F18465 - H18465 is the non-CO2 emissions (254.9 Mt for Egypt), not blank as the register says, while the LULUCF emissions are I18465 (= G - F). The GHG target already contains non-CO2, so the target incl. LULUCF counts non-CO2 twice and misses LULUCF. The CO2 branch ($H + $J + $I) is right.",
+  "fixes": [
+   {
+    "cell": "F18476",
+    "now": "=IF($F$18403=\"Intensity\",IF($F$18409=\"GHGs\",IF($F$18408=\"Includes\",$G$18473,$F$18473+$J$18465),$H$18473+$J$18465+$I$18465),\"\")",
+    "new": "=IF($F$18403=\"Intensity\",IF($F$18409=\"GHGs\",IF($F$18408=\"Includes\",$G$18473,$F$18473+$I$18465),$H$18473+$J$18465+$I$18465),\"\")",
+    "fill": "single cell",
+    "policy": "none (report block)"
+   },
+   {
+    "cell": "F18477",
+    "now": "=IFERROR(IF($F$18403=\"Intensity\",IF($F$18409=\"GHGs\",IF($F$18408=\"Includes\",$G$18474,$F$18474+$J$18465),$H$18474+$J$18465+$I$18465),\"\"),\"N/A\")",
+    "new": "=IFERROR(IF($F$18403=\"Intensity\",IF($F$18409=\"GHGs\",IF($F$18408=\"Includes\",$G$18474,$F$18474+$I$18465),$H$18474+$J$18465+$I$18465),\"\"),\"N/A\")",
+    "fill": "single cell",
+    "policy": "none (report block)"
+   }
+  ],
+  "ref": "Row 18463 headers: F GHGs excl LULUCF, G incl LULUCF, H CO2, I LULUCF emissions, J non-CO2 no LULUCF; row 18465 = BAU in the target year.",
+  "effect": "None for Egypt (BAU target). For a GHG intensity target excluding LULUCF, the target incl. LULUCF falls by the non-CO2 emissions and takes the LULUCF emissions, so the required reduction (rows 18479-18481) changes accordingly. MVP v5.7 computes the reduction on the NDC basis and applies it to the BAU incl. LULUCF.",
+  "note": "The register says $J$18465 is blank; in the .xlsb it is F18465 - H18465 (non-CO2), so the error is larger than described.",
+  "status": "fix"
+ },
+ {
+  "id": "L123",
+  "pri": "Medium",
+  "title": "Intensity NDC: reference-year GDP read from a fixed cell",
+  "where": "Mitigation F18466, G469:G470",
+  "why": "Does not reproduce in the 456 file: F18466 = G470 and G470 = IFNA(INDEX(WEO_upd,MATCH(C470,WEO_codes,0),MATCH(Mitigation!G$469,WEO_years,0)),\"\") with G469 = _NDC_Year, so G470 is WEO real GDP (EGY.NGDP_R.A) in the NDC reference year, \"\" when there is none.",
+  "fixes": [],
+  "ref": "WEO_years = WEO!C9:AU9 (2000-2040). Egypt has no reference year (BAU target), so G469 and G470 are empty.",
+  "effect": "None in this file. Reference years before 2000 find no GDP: G470 = \"\" and the intensity rows 18468-18475 end as #VALUE! or \"N/A\"; the MVP returns N/A in the same case.",
+  "note": "The register text probably comes from a converted copy that lost the defined name in G469 (or the IFNA formula of G470). Not in the register: F18471 (conditional intensity) applies the reduction to the target-year BAU intensity F18469, while F18470 (unconditional) applies it to the reference-year intensity F18468.",
+  "status": "none"
+ },
+ {
+  "id": "L124",
+  "pri": "Low",
+  "title": "Producer subsidy: the residential gas block reads the oil subsidy",
+  "where": "Mitigation K2547:N2547 (policy K8878:N8878)",
+  "why": "The \"in which: producer-side subsidies\" row of the gas | residential block reads K$827 ... N$827 (oil, $/liter) where the other gas blocks (2524, 2570) read K$826 (gas, $/GJ); O:AE carry N2547 forward through J2548.",
+  "fixes": [],
+  "ref": "Plan L82 (this file) already makes the edit: K2547 =K$827 -> =K$826, fill K2547:N2547, paste into K8878:N8878 (+6,331).",
+  "effect": "None for Egypt (producer subsidies, rows 826-827, are 0). Otherwise residential gas no longer takes the oil producer subsidy. MVP v6.1 (I49).",
+  "note": "No separate edit: same cells and change as L82 (the register lists the bug twice).",
+  "status": "fix"
+ },
+ {
+  "id": "L125",
+  "pri": "Low",
+  "title": "Producer subsidy: other oil products add a per-liter value to a per-barrel price",
+  "where": "Mitigation K2685:N2685 (policy K9016:N9016)",
+  "why": "The other-oil-products block is in $/bbl (rows 2681-2690), but its producer-subsidy row reads K$827 (oil producer subsidy, $/liter) unconverted, about 159 times too small. The pre-tax price row 2682 and K2684 (= K2682 - K2683 - K2685) take it as $/bbl; O:AE carry N2685 forward through J2686.",
+  "fixes": [
+   {
+    "cell": "K2685",
+    "now": "=K$827",
+    "new": "=K$827*_conv_barrel_to_liter",
+    "fill": "K2685:N2685",
+    "policy": "paste into K9016:N9016 (+6,331)"
+   }
+  ],
+  "ref": "Defined name _conv_barrel_to_liter = Mitigation!E1038 = 158.987294928 (\"barrel to liter\"), already used in rows 819, 7767, 7800. The other oil blocks (2593, 2616, 2639, 2662) are in $/liter and read K$827 as is.",
+  "effect": "None for Egypt (row 827 is 0). Otherwise the oil producer subsidy on other oil products is 159 times larger, in $/bbl. MVP v6.1 (I49): x LitersPerBbl for a barrel-priced block.",
+  "note": "No new name needed: legacy has _conv_barrel_to_liter.",
+  "status": "fix"
+ }
+]

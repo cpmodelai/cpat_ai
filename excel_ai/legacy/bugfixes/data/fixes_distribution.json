@@ -1,0 +1,1272 @@
+[
+ {
+  "id": "D1",
+  "pri": "Low",
+  "title": "Targeted transfer capped at 10 points, not the decile's population share",
+  "where": "Distribution R2562:Z2562",
+  "why": "R2562:Z2562 give a decile MIN(targeted percentile - cumulative share of the deciles below, 10): the cap is 10 points instead of the decile's population share (row 2560, e.g. 10.56 for decile 2), so more than 100% of a decile can be targeted (105.6% of decile 2).",
+  "fixes": [
+   {
+    "cell": "Distribution!Q2562",
+    "now": "=IF($Q$2552>=SUM($Q$2560:Q$2560),Q2560,0)",
+    "new": "=MIN($Q$2552,Q2560)",
+    "fill": "single cell (decile 1)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!R2562",
+    "now": "=IF($Q$2552>=Q2561,MIN($Q$2552-Q2561,10),0)",
+    "new": "=IF($Q$2552>=Q2561,MIN($Q$2552-Q2561,R2560),0)",
+    "fill": "R2562:Z2562 (copy right)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Row 2560 is each decile's % of population (from the survey individuals, row 2572); row 2561 the cumulative share.",
+  "effect": "Targeted transfer shares by decile; Egypt: the targeted transfer in deciles 1-4 moves by up to 0.13 points of consumption (all distribution fixes together). MVP v4.4.",
+  "note": "Decided (user 2026-10-19): decile 1 is capped the same way: the targeted share of decile 1 = MIN(percentile, its population share) (it gave 0 when the percentile was below decile 1's share).",
+  "status": "fix"
+ },
+ {
+  "id": "D2",
+  "pri": "Low",
+  "title": "Basket uses decile 1's elasticity adjustment and exemption test",
+  "where": "Distribution C.V (rows 1580-1792) and C.VI (rows 1825-2185), Basket rows, column Q (e.g. Q1607); elasticity rows 743-765, factors 801-825",
+  "why": "The Basket rows (G = \"Basket\") of the direct effects (e.g. Q1607 = IF(AND($I$225=\"Yes\", $H1607=$I$226, Q$1579<=$I$228), 0, Q$772*Q$802*Q916)) sit in column Q, the column of decile 1, so they take decile 1's price-elasticity factor (Q$802) and the cooking-fuel exemption test of decile 1 (Q$1579 = 1). The indirect Basket rows (e.g. Q1825 = Q$782*Q$812*Q1214) take decile 1's factor too.",
+  "fixes": [
+   {
+    "cell": "Distribution!P743",
+    "now": "",
+    "new": "=INDEX(PELData, MATCH(SUBSTITUTE($L743,\".dec.\",\".bkt.\")&$Q$740, PELCODES, 0), $K743)",
+    "fill": "P743:P750 (column P is empty here; ordinary formula, no Ctrl+Shift+Enter)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!P752",
+    "now": "",
+    "new": "=INDEX(PELData, MATCH(SUBSTITUTE($L752,\".dec.\",\".bkt.\")&$Q$740, PELCODES, 0), $K752)",
+    "fill": "P752:P765 (column P is empty here; ordinary formula, no Ctrl+Shift+Enter)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!P801",
+    "now": "",
+    "new": "=IF(PEDs=\"Yes\", (1+Q771)^P743, 1)",
+    "fill": "P801:P808 (copy down)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!P812",
+    "now": "",
+    "new": "=IF(PEDs=\"Yes\", (1+Q782)^P752, 1)",
+    "fill": "P812:P825 (copy down)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q1580",
+    "now": "=IF(AND($I$225=\"Yes\", $H1580=$I$226, Q$1579<=$I$228), 0,Q$771*Q$801*Q889)",
+    "new": "=Q$771*P$801*Q889",
+    "fill": "copy to the other Basket rows of the block: Q1582, Q1584, Q1586, Q1588, Q1590, Q1592, Q1594, Q1596, Q1598, Q1600, Q1602 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q1607",
+    "now": "=IF(AND($I$225=\"Yes\", $H1607=$I$226, Q$1579<=$I$228), 0,Q$772*Q$802*Q916)",
+    "new": "=Q$772*P$802*Q916",
+    "fill": "copy to the other Basket rows of the block: Q1609, Q1611, Q1613, Q1615, Q1617, Q1619, Q1621, Q1623, Q1625, Q1627, Q1629 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q1634",
+    "now": "=IF(AND($I$225=\"Yes\", $H1634=$I$226, Q$1579<=$I$228), 0,Q$773*Q$803*Q943)",
+    "new": "=Q$773*P$803*Q943",
+    "fill": "copy to the other Basket rows of the block: Q1636, Q1638, Q1640, Q1642, Q1644, Q1646, Q1648, Q1650, Q1652, Q1654, Q1656 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q1661",
+    "now": "=IF(AND($I$225=\"Yes\", $H1661=$I$226, Q$1579<=$I$228), 0,Q$774*Q$804*Q970)",
+    "new": "=Q$774*P$804*Q970",
+    "fill": "copy to the other Basket rows of the block: Q1663, Q1665, Q1667, Q1669, Q1671, Q1673, Q1675, Q1677, Q1679, Q1681, Q1683 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q1688",
+    "now": "=IF(AND($I$225=\"Yes\", $H1688=$I$226, Q$1579<=$I$228), 0,Q$775*Q$805*Q997)",
+    "new": "=Q$775*P$805*Q997",
+    "fill": "copy to the other Basket rows of the block: Q1690, Q1692, Q1694, Q1696, Q1698, Q1700, Q1702, Q1704, Q1706, Q1708, Q1710 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q1715",
+    "now": "=IF(AND($I$225=\"Yes\", $H1715=$I$226, Q$1579<=$I$228), 0,Q$776*Q$806*Q1024)",
+    "new": "=Q$776*P$806*Q1024",
+    "fill": "copy to the other Basket rows of the block: Q1717, Q1719, Q1721, Q1723, Q1725, Q1727, Q1729, Q1731, Q1733, Q1735, Q1737 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q1742",
+    "now": "=IF(AND($I$225=\"Yes\", $H1742=$I$226, Q$1579<=$I$228), 0,Q$777*Q$807*Q1051)",
+    "new": "=Q$777*P$807*Q1051",
+    "fill": "copy to the other Basket rows of the block: Q1744, Q1746, Q1748, Q1750, Q1752, Q1754, Q1756, Q1758, Q1760, Q1762, Q1764 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q1769",
+    "now": "=IF(AND($I$225=\"Yes\", $H1769=$I$226, Q$1579<=$I$228), 0,Q$778*Q$808*Q1078)",
+    "new": "=Q$778*P$808*Q1078",
+    "fill": "copy to the other Basket rows of the block: Q1771, Q1773, Q1775, Q1777, Q1779, Q1781, Q1783, Q1785, Q1787, Q1789, Q1791 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q1825",
+    "now": "=Q$782*Q$812*Q1214",
+    "new": "=Q$782*P$812*Q1214",
+    "fill": "copy to the other Basket rows of the block: Q1827, Q1829, Q1831, Q1833, Q1835, Q1837, Q1839, Q1841, Q1843, Q1845, Q1847 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q1851",
+    "now": "=Q$783*Q$813*Q1240",
+    "new": "=Q$783*P$813*Q1240",
+    "fill": "copy to the other Basket rows of the block: Q1853, Q1855, Q1857, Q1859, Q1861, Q1863, Q1865, Q1867, Q1869, Q1871, Q1873 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q1877",
+    "now": "=Q$784*Q$814*Q1266",
+    "new": "=Q$784*P$814*Q1266",
+    "fill": "copy to the other Basket rows of the block: Q1879, Q1881, Q1883, Q1885, Q1887, Q1889, Q1891, Q1893, Q1895, Q1897, Q1899 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q1903",
+    "now": "=Q$785*Q$815*Q1292",
+    "new": "=Q$785*P$815*Q1292",
+    "fill": "copy to the other Basket rows of the block: Q1905, Q1907, Q1909, Q1911, Q1913, Q1915, Q1917, Q1919, Q1921, Q1923, Q1925 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q1929",
+    "now": "=Q$786*Q$816*Q1318",
+    "new": "=Q$786*P$816*Q1318",
+    "fill": "copy to the other Basket rows of the block: Q1931, Q1933, Q1935, Q1937, Q1939, Q1941, Q1943, Q1945, Q1947, Q1949, Q1951 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q1955",
+    "now": "=Q$787*Q$817*Q1344",
+    "new": "=Q$787*P$817*Q1344",
+    "fill": "copy to the other Basket rows of the block: Q1957, Q1959, Q1961, Q1963, Q1965, Q1967, Q1969, Q1971, Q1973, Q1975, Q1977 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q1981",
+    "now": "=Q$788*Q$818*Q1370",
+    "new": "=Q$788*P$818*Q1370",
+    "fill": "copy to the other Basket rows of the block: Q1983, Q1985, Q1987, Q1989, Q1991, Q1993, Q1995, Q1997, Q1999, Q2001, Q2003 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2007",
+    "now": "=Q$789*Q$819*Q1396",
+    "new": "=Q$789*P$819*Q1396",
+    "fill": "copy to the other Basket rows of the block: Q2009, Q2011, Q2013, Q2015, Q2017, Q2019, Q2021, Q2023, Q2025, Q2027, Q2029 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2033",
+    "now": "=Q$790*Q$820*Q1422",
+    "new": "=Q$790*P$820*Q1422",
+    "fill": "copy to the other Basket rows of the block: Q2035, Q2037, Q2039, Q2041, Q2043, Q2045, Q2047, Q2049, Q2051, Q2053, Q2055 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2059",
+    "now": "=Q$791*Q$821*Q1448",
+    "new": "=Q$791*P$821*Q1448",
+    "fill": "copy to the other Basket rows of the block: Q2061, Q2063, Q2065, Q2067, Q2069, Q2071, Q2073, Q2075, Q2077, Q2079, Q2081 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2085",
+    "now": "=Q$792*Q$822*Q1474",
+    "new": "=Q$792*P$822*Q1474",
+    "fill": "copy to the other Basket rows of the block: Q2087, Q2089, Q2091, Q2093, Q2095, Q2097, Q2099, Q2101, Q2103, Q2105, Q2107 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2111",
+    "now": "=Q$793*Q$823*Q1500",
+    "new": "=Q$793*P$823*Q1500",
+    "fill": "copy to the other Basket rows of the block: Q2113, Q2115, Q2117, Q2119, Q2121, Q2123, Q2125, Q2127, Q2129, Q2131, Q2133 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2137",
+    "now": "=Q$794*Q$824*Q1526",
+    "new": "=Q$794*P$824*Q1526",
+    "fill": "copy to the other Basket rows of the block: Q2139, Q2141, Q2143, Q2145, Q2147, Q2149, Q2151, Q2153, Q2155, Q2157, Q2159 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2163",
+    "now": "=Q$795*Q$825*Q1552",
+    "new": "=Q$795*P$825*Q1552",
+    "fill": "copy to the other Basket rows of the block: Q2165, Q2167, Q2169, Q2171, Q2173, Q2175, Q2177, Q2179, Q2181, Q2183, Q2185 (the Deciles rows between them stay)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "HH_Elast holds a basket elasticity row per country (code <ISO>.distn.bkt.ove.mean.9999, e.g. EGY row 639; 9999 = Q740); the price changes (rows 771-795) are the same in every decile column, so Q$771 serves the basket.",
+  "effect": "Basket (all-household) direct and indirect effects only; the decile rows are unchanged. With ExemptMostCook = No (Egypt default) only the elasticity factor changes. MVP v4.4.",
+  "note": "New helper column P: basket elasticities P743:P765 and basket factors P801:P825 (column P is empty in rows 740-830). 264 Basket cells in 22 blocks: total rows (e.g. 1796, 2189, 2217) sum them and need no change.",
+  "status": "fix"
+ },
+ {
+  "id": "D3",
+  "pri": "Low",
+  "title": "Current spending tests the ASPIRE flag of the targeted transfer",
+  "where": "Distribution Q2633:Z2633",
+  "why": "Q2633 (per-capita current spending by decile) returns 0 when $I$212 or $I$213 is \"No\"; I213 is the ASPIRE flag of the targeted transfer type, not of the current spending type (I214).",
+  "fixes": [
+   {
+    "cell": "Distribution!Q2633",
+    "now": "=IFERROR(IF(OR($I$212=\"No\", $I$213=\"No\"), 0, INDEX(ASPIREData, MATCH(_Country_code&\".\"&$Q$2549&Q2558&\"_preT_tot\", ASPIRECODES, 0))), 0)",
+    "new": "=IFERROR(IF(OR($I$212=\"No\", $I$214=\"No\"), 0, INDEX(ASPIREData, MATCH(_Country_code&\".\"&$Q$2549&Q2558&\"_preT_tot\", ASPIRECODES, 0))), 0)",
+    "fill": "Q2633:Z2633 (copy right)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Distribution I214 = \"ASPIRE data available for active current spending choice?\" (VLOOKUP of $I$217).",
+  "effect": "None for Egypt by default (cash transfer: I213 = \"n.a.\", so the test passes). Differs when the targeted-transfer type has no ASPIRE data but current spending does, or the reverse. MVP v4.4.",
+  "note": "Decided (user 2026-10-19): the wrong reference is fixed: I214 is the ASPIRE flag of the current spending type (I213 is the targeted transfer's); the flag test is kept.",
+  "status": "fix"
+ },
+ {
+  "id": "D4",
+  "pri": "Low",
+  "title": "Public investment and current spending vanish with the transfer settings",
+  "where": "Distribution rows 2701-2703, 2705-2707",
+  "why": "The chart rows of public investment (2701-2703) and current spending (2705-2707) are wrapped in IF(OR($Q$2553=0, $Q$2552=0), 0, ...): they are 0 whenever the targeted-transfer coverage (Q2553) or percentile (Q2552) is 0.",
+  "fixes": [
+   {
+    "cell": "Distribution!Q2701",
+    "now": "=IF(OR($Q$2553=0, $Q$2552=0), 0, Q2610*Q2685)",
+    "new": "=Q2610*Q2685",
+    "fill": "Q2701:Z2701 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2702",
+    "now": "=IF(OR($Q$2553=0, $Q$2552=0), 0, Q2611*Q2686)",
+    "new": "=Q2611*Q2686",
+    "fill": "Q2702:Z2702 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2703",
+    "now": "=IF(OR($Q$2553=0, $Q$2552=0), 0, Q2612*Q2687)",
+    "new": "=Q2612*Q2687",
+    "fill": "Q2703:Z2703 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2705",
+    "now": "=IF(OR($Q$2553=0, $Q$2552=0), 0, Q$2645*Q2685)",
+    "new": "=Q$2645*Q2685",
+    "fill": "Q2705:Z2705 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2706",
+    "now": "=IF(OR($Q$2553=0, $Q$2552=0), 0, Q$2645*Q2686)",
+    "new": "=Q$2645*Q2686",
+    "fill": "Q2706:Z2706 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2707",
+    "now": "=IF(OR($Q$2553=0, $Q$2552=0), 0, Q$2645*Q2687)",
+    "new": "=Q$2645*Q2687",
+    "fill": "Q2707:Z2707 (copy right)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Rows 2610-2612 (public investment per capita) and 2645 (current spending per capita) do not depend on the transfer settings.",
+  "effect": "None when coverage and percentile are positive (Egypt default). Otherwise public investment and current spending gains now show. MVP v4.4.",
+  "note": "The median flags (rows 2685-2687) still read row 2679, which is 0 when coverage or percentile is 0: with the median statistic these rows stay 0 (legacy behaviour kept).",
+  "status": "fix"
+ },
+ {
+  "id": "D5",
+  "pri": "Low",
+  "title": "Targeted exemption capped by all revenue; urban and rural not per capita",
+  "where": "Distribution Q2749:Z2749, Q2764:Z2765",
+  "why": "Q2749:Z2749 cap the cumulative targeted PIT exemption by all carbon-pricing revenue ($I$154) instead of the share recycled through PIT ($I$163, the cap used by the checks in P2743 and P2754). Q2764:Z2765 multiply the per-capita exemption (Q2760 = Q2751/Q2727) by urban or rural individuals / overall individuals, so the urban and rural values are no longer per capita.",
+  "fixes": [
+   {
+    "cell": "Distribution!Q2749",
+    "now": "=IF(SUM($Q$2748:Q2748)<$I$154, Q2748, MAX($I$154-SUM(P$2749:$P2749), 0))",
+    "new": "=IF(SUM($Q$2748:Q2748)<$I$163, Q2748, MAX($I$163-SUM(P$2749:$P2749), 0))",
+    "fill": "single cell (Q differs from R:Z)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!R2749",
+    "now": "=IF(SUM($Q$2748:R2748)<$I$154, R2748, MAX($I$154-SUM($P$2749:Q2749), 0))",
+    "new": "=IF(SUM($Q$2748:R2748)<$I$163, R2748, MAX($I$163-SUM($P$2749:Q2749), 0))",
+    "fill": "R2749:Z2749 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2764",
+    "now": "=IFERROR(IF($I$167=\"Proportional Compensation\", Q$2758, IF($I$167=\"Personal Allowance\", Q$2759, IF($I$167=\"Targeted Exemption\", Q$2760*Q2728/Q2727))), 0)",
+    "new": "=IFERROR(IF($I$167=\"Proportional Compensation\", Q$2758, IF($I$167=\"Personal Allowance\", Q$2759, IF($I$167=\"Targeted Exemption\", Q$2760))), 0)",
+    "fill": "Q2764:Z2764 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2765",
+    "now": "=IFERROR(IF($I$167=\"Proportional Compensation\", Q$2758, IF($I$167=\"Personal Allowance\", Q$2759, IF($I$167=\"Targeted Exemption\", Q$2760*Q2729/Q2727))), 0)",
+    "new": "=IFERROR(IF($I$167=\"Proportional Compensation\", Q$2758, IF($I$167=\"Personal Allowance\", Q$2759, IF($I$167=\"Targeted Exemption\", Q$2760))), 0)",
+    "fill": "Q2765:Z2765 (copy right)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "I163 = I154 x EXPLabortax; the personal-allowance and proportional rows (2758-2759) are already used per capita in every sample.",
+  "effect": "None for Egypt by default (PIT type Personal Allowance). With Targeted Exemption the PIT gain is capped at the PIT revenue and urban/rural gains are per capita. MVP v4.4.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "D6",
+  "pri": "Low",
+  "title": "Urban and rural compensation shares on overall weights",
+  "where": "Distribution Q3259:Z3259, Q3263:Z3263",
+  "why": "The urban (3259) and rural (3263) shares of revenue needed to compensate each decile divide by SUMPRODUCT(sample effect, overall consumption shares $Q$3254:$Z$3254) while the numerator uses the sample's own shares (3258, 3262), so they sum to about 52 and 47 instead of 100.",
+  "fixes": [
+   {
+    "cell": "Distribution!Q3259",
+    "now": "=(Q3257*Q3258)/SUMPRODUCT($Q$3257:$Z$3257, $Q$3254:$Z$3254)*100",
+    "new": "=(Q3257*Q3258)/SUMPRODUCT($Q$3257:$Z$3257, $Q$3258:$Z$3258)*100",
+    "fill": "Q3259:Z3259 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q3263",
+    "now": "=(Q3261*Q3262)/SUMPRODUCT($Q$3261:$Z$3261, $Q$3254:$Z$3254)*100",
+    "new": "=(Q3261*Q3262)/SUMPRODUCT($Q$3261:$Z$3261, $Q$3262:$Z$3262)*100",
+    "fill": "Q3263:Z3263 (copy right)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Rows 3258 and 3262 are the urban and rural consumption shares; the overall row 3255 uses its own row 3254.",
+  "effect": "Urban and rural compensation shares (and cumulative rows 3269-3271) each sum to 100; the largest change in Egypt among the distribution fixes. MVP v4.4.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "D7",
+  "pri": "Low",
+  "title": "Deadweight loss in mixed units",
+  "where": "Distribution rows 859-883 (DWL factors) and the effect rows 2828-2835, 2846-2859, 2920-2927, 2930-2943, 2989-2996, 2999-3012",
+  "why": "Rows 859-882 = IF(DWLs=\"Yes\", 0.5*(1-$I$145)*price change, 0), a fraction of the price, and the effect rows subtract it from the effect in % of consumption (Q2828 = effect*(-1)*Q830 - Q859*(Q2799>0)); the transport row 883 is empty.",
+  "fixes": [
+   {
+    "cell": "Distribution!Q859",
+    "now": "=IF(DWLs=\"Yes\", 0.5*(1-$I$145)*Q771, 0)",
+    "new": "=IF(DWLs=\"Yes\", 0.5*(1-$I$145), 0)",
+    "fill": "Q859:Z866 (copy right and down)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q870",
+    "now": "=IF(DWLs=\"Yes\", 0.5*(1-$I$145)*Q782, 0)",
+    "new": "=IF(DWLs=\"Yes\", 0.5*(1-$I$145), 0)",
+    "fill": "Q870:Z883 (copy right and down; row 883, tpu, is empty today and is filled too)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2828",
+    "now": "=(INDEX($Q$889:$Z$2242, MATCH($L2828,$N$889:$N$2242, 0), MATCH(Q$2796,$Q$888:$Z$888,0)))*(-1)*Q830-Q859*(Q2799>0)",
+    "new": "=(INDEX($Q$889:$Z$2242, MATCH($L2828,$N$889:$N$2242, 0), MATCH(Q$2796,$Q$888:$Z$888,0)))*(-1)*(Q830+Q859)",
+    "fill": "Q2828:Z2835 (copy right and down)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2846",
+    "now": "=(INDEX($Q$889:$Z$2242, MATCH($L2846,$N$889:$N$2242, 0), MATCH(Q$2796,$Q$888:$Z$888,0)))*(-1)*Q841-Q870*(Q2812>0)",
+    "new": "=(INDEX($Q$889:$Z$2242, MATCH($L2846,$N$889:$N$2242, 0), MATCH(Q$2796,$Q$888:$Z$888,0)))*(-1)*(Q841+Q870)",
+    "fill": "Q2846:Z2859 (copy right and down)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2920",
+    "now": "{=(INDEX($Q$889:$Z$2242,$P2920,Q$2796))*(-1)*Q830-Q859*(Q2891>0)}",
+    "new": "{=(INDEX($Q$889:$Z$2242,$P2920,Q$2796))*(-1)*(Q830+Q859)}",
+    "fill": "Q2920:Z2927 (copy right and down; array formulas: enter each cell with Ctrl+Shift+Enter, or as ordinary formulas)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2930",
+    "now": "=(INDEX($Q$889:$Z$2242, MATCH($L2930,$N$889:$N$2242, 0), MATCH(Q$2796,$Q$888:$Z$888,0)))*(-1)*Q841-Q870*(Q2904>0)",
+    "new": "=(INDEX($Q$889:$Z$2242, MATCH($L2930,$N$889:$N$2242, 0), MATCH(Q$2796,$Q$888:$Z$888,0)))*(-1)*(Q841+Q870)",
+    "fill": "Q2930:Z2943 (copy right and down)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2989",
+    "now": "{=(INDEX($Q$889:$Z$2242,$P2989,Q$2957)*(-1))*Q830-Q859*(Q2960>0)}",
+    "new": "{=(INDEX($Q$889:$Z$2242,$P2989,Q$2957)*(-1))*(Q830+Q859)}",
+    "fill": "Q2989:Z2996 (copy right and down; array formulas: enter each cell with Ctrl+Shift+Enter, or as ordinary formulas)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2999",
+    "now": "=(INDEX($Q$889:$Z$2242, MATCH($L2999,$N$889:$N$2242, 0), MATCH(Q$2796,$Q$888:$Z$888,0)))*(-1)*Q841-Q870*(Q2973>0)",
+    "new": "=(INDEX($Q$889:$Z$2242, MATCH($L2999,$N$889:$N$2242, 0), MATCH(Q$2796,$Q$888:$Z$888,0)))*(-1)*(Q841+Q870)",
+    "fill": "Q2999:Z3012 (copy right and down)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Row 830-854 = behavioural factor ($I$145 when InferredDist); DWLTri = 0.5 (the triangle). The MVP loss = effect x (factor + DWLTri x (1 - factor)).",
+  "effect": "None by default (DWLs = No). With DWLs on, the deadweight loss is 0.5 x (1 - factor) x the effect in % of consumption. MVP v4.4.",
+  "note": "The (budget share > 0) test is dropped: the effect is already 0 without spending.",
+  "status": "fix"
+ },
+ {
+  "id": "D8",
+  "pri": "Low",
+  "title": "Analysis year and statistic read MTInputs column D",
+  "where": "MTOutputs K1001:K1002",
+  "why": "K1001 (dist.year) = MTInputs!$D$304 and K1002 (dist.stat) = MTInputs!$D$319: column D is the MT scenario column, 0 in dashboard mode; the Distribution sheet uses the active values YearDistn (MTInputs!F304) and QuantilesStatistic (F319).",
+  "fixes": [
+   {
+    "cell": "MTOutputs!K1001",
+    "now": "=MTInputs!$D$304",
+    "new": "=YearDistn",
+    "fill": "single cell",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "MTOutputs!K1002",
+    "now": "=MTInputs!$D$319",
+    "new": "=QuantilesStatistic",
+    "fill": "single cell",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Distribution I133 (=YearDistn) and I138 (=QuantilesStatistic).",
+  "effect": "MT outputs dist.year and dist.stat show the analysis year and statistic actually used, also in dashboard mode. MVP v4.4.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "D9",
+  "pri": "Low",
+  "title": "Rural rows labelled Urban; fuel code oil vs oop",
+  "where": "Distribution H2417, H2422; C.II row 746",
+  "why": "H2417 and H2422 read \"... - Urban Sample\" on rows computed from the rural rows (Q2417 = Q2402-Q2407, Q2422 = Q2402-Q2407+Q2412). The elasticity row 746 has code \"oil\" while its price rows 774 and 804 have \"oop\"; they are paired by row position only.",
+  "fixes": [
+   {
+    "cell": "Distribution!H2417",
+    "now": "National Accounts-Adjusted Post-CP/Recycling Consumption from HH Survey - Urban Sample",
+    "new": "National Accounts-Adjusted Post-CP/Recycling Consumption from HH Survey - Rural Sample",
+    "fill": "label",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!H2422",
+    "now": "National Accounts-Adjusted Post-CP/Recycling Consumption from HH Survey - Urban Sample",
+    "new": "National Accounts-Adjusted Post-CP/Recycling Consumption from HH Survey - Rural Sample",
+    "fill": "label",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!G746",
+    "now": "=$H746&\"_elasticity\"",
+    "new": "oil_elasticity",
+    "fill": "constant (the HH_Elast column header, PELCategories), as G752:G765",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!H746",
+    "now": "oil",
+    "new": "oop",
+    "fill": "constant, after G746",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "HH_Elast column M is \"oil_elasticity\"; rows 774 and 804 carry \"oop\".",
+  "effect": "None (labels and codes only; the values are unchanged).",
+  "note": "G746 must become a constant before H746 changes, or K746 (MATCH of G746 in PELCategories) fails. The MVP pairs rural and urban rows and the oil rows by key; legacy keeps pairing by position.",
+  "status": "fix"
+ },
+ {
+  "id": "D10",
+  "pri": "Low",
+  "title": "ASPIRE transfer pays out more than the revenue",
+  "where": "Distribution Q2629:Z2629 (read by rows 2697-2699)",
+  "why": "Row 2629 = (1 + scale) x benefit x [decile targeted] - benefit x [decile targeted] = scale x benefit for every person of a decile with any targeted share (Q2562 <> 0). The scale P2626 = funds / P2624 is computed over the actual receivers (row 2621 = share receiving x population). So a partly targeted decile gets the full benefit for all its members, leakage receivers in untargeted deciles get nothing, and the payout is not the funds: 125-129% for Egypt.",
+  "fixes": [
+   {
+    "cell": "Distribution!Q2629",
+    "now": "=IF($Q$2545=\"No\", \"n.a.\",Q2628-Q2619*(Q$2562<>0))",
+    "new": "=IF($Q$2545=\"No\", \"n.a.\", $P$2626*Q2619*Q$2568/100)",
+    "fill": "Q2629:Z2629 (copy right)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "P2624 = SUM(row 2622) = sum of receivers (2621) x annual benefit (2619); row 2568 = % of the decile receiving.",
+  "effect": "ASPIRE path only (TransferType not Cash); none for Egypt by default. The payout, sum of row 2629 x row 2572, now equals the funds P2625. MVP v6.0.",
+  "note": "Row 2628 (display only) keeps the old basis; nothing reads it after the fix.",
+  "status": "fix"
+ },
+ {
+  "id": "D11",
+  "pri": "Low",
+  "title": "ASPIRE program without country data: the transfer vanishes",
+  "where": "Distribution I215; Dashboard C325",
+  "why": "When the chosen ASPIRE program has no data for the country (I213 = \"No\"), Q2617 returns 0, so P2624 = 0, the scale P2626 = IFERROR(.., 0) = 0 and row 2629 is 0: the targeted-transfer share of revenue disappears without error. I215 (\"Using ASPIRE?\") tests only TransferType.",
+  "fixes": [
+   {
+    "cell": "Distribution!I215",
+    "now": "=IF(TransferType=\"Cash\", \"No\", \"Yes\")",
+    "new": "=IF(OR(TransferType=\"Cash\", $I$213<>\"Yes\"), \"No\", \"Yes\")",
+    "fill": "single cell",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Dashboard!C325",
+    "now": "=IF(EXPTransfers=0, \"\", IF(Distribution!$I$213=\"No\",\"*Warning: no data; select different 'targeted transfer type'!\", \"\"))",
+    "new": "=IF(EXPTransfers=0, \"\", IF(Distribution!$I$213=\"No\",\"*Warning: no ASPIRE data for this transfer type; the cash transfer is used.\", \"\"))",
+    "fill": "single cell (label)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "I213 = \"Yes\"/\"No\" (ASPIRE data for the chosen type, from O195:O210); Q2545 = $I$215 switches rows 2628-2629, 2679-2681 and 2697-2699 between the ASPIRE and the cash path.",
+  "effect": "None for Egypt by default (cash). A program without data now falls back to the cash transfer and the Dashboard warning says so. MVP v6.0.",
+  "note": "Accepted as a bug (user 2026-10-20). Poverty targeting (Q2550) still needs TransferType = Cash, so the fallback is the plain cash transfer, as in the MVP.",
+  "status": "fix"
+ },
+ {
+  "id": "D12",
+  "pri": "Low",
+  "title": "ASPIRE branch skips the median flag and the zero-coverage test",
+  "where": "Distribution Q2697:Z2699",
+  "why": "Rows 2697-2699 = IF($Q$2545=\"Yes\", Q$2629, IF(OR(coverage=0, percentile=0), 0, ...)*flag): the ASPIRE branch sits outside the coverage/percentile test and the median flag (rows 2685-2687).",
+  "fixes": [
+   {
+    "cell": "Distribution!Q2697",
+    "now": "=IF($Q$2545=\"Yes\", Q$2629, IF(OR($Q$2553=0,$Q$2552=0),0,IF($Q$2550<>\"None\",Q2672,Q2603))*Q2685)",
+    "new": "=IF(OR($Q$2553=0,$Q$2552=0),0,IF($Q$2545=\"Yes\",Q$2629,IF($Q$2550<>\"None\",Q2672,Q2603)))*Q2685",
+    "fill": "Q2697:Z2697 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2698",
+    "now": "=IF($Q$2545=\"Yes\", Q$2629,IF(OR($Q$2553=0, $Q$2552=0), 0, IF($Q$2550<>\"None\",Q2673, Q2604))*Q2686)",
+    "new": "=IF(OR($Q$2553=0, $Q$2552=0), 0, IF($Q$2545=\"Yes\", Q$2629, IF($Q$2550<>\"None\",Q2673, Q2604)))*Q2686",
+    "fill": "Q2698:Z2699 (copy right and down; row 2699 reads 2674, 2605, 2687)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Rows 2685-2687: 1, or with the median statistic 1 only where more than half of the decile receives (row 2679).",
+  "effect": "ASPIRE path only; none for Egypt by default. With coverage or percentile 0 the ASPIRE transfer is 0; with the median statistic it shows only in deciles where more than half receive. MVP v6.0.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "D13",
+  "pri": "Low",
+  "title": "Public investment and current spending use the targeted-transfer median flag",
+  "where": "Distribution Q2701:Z2703, Q2705:Z2707",
+  "why": "Rows 2701-2707 multiply public investment (2610-2612) and current spending (2645) by the median flags 2685-2687, which come from the targeted transfer (row 2679). Under the median statistic, public investment of deciles 5-10 is zeroed by the transfer flag.",
+  "fixes": [
+   {
+    "cell": "Distribution!Q2701",
+    "now": "=IF(OR($Q$2553=0, $Q$2552=0), 0, Q2610*Q2685)",
+    "new": "=Q2610",
+    "fill": "Q2701:Z2703 (copy right and down)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2705",
+    "now": "=IF(OR($Q$2553=0, $Q$2552=0), 0, Q$2645*Q2685)",
+    "new": "=Q$2645",
+    "fill": "Q2705:Z2707 (copy right and down)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Rows 2610-2612 and 2645 are per-capita amounts of the whole decile; they do not depend on the transfer.",
+  "effect": "Median statistic only; none for Egypt by default (mean). MVP v6.0.",
+  "note": "Accepted as a bug (user 2026-10-20). Includes D4 (the IF on coverage and percentile is dropped too): apply these formulas instead of D4's for the same cells.",
+  "status": "fix"
+ },
+ {
+  "id": "D14",
+  "pri": "Low",
+  "title": "Poverty targeting: share receiving ignores targeting, coverage and leakage",
+  "where": "Distribution Q2679:Z2681",
+  "why": "With a poverty line (Q2550 <> \"None\") the share of the decile receiving (2679-2681) is the share below the line (2649-2651), while the amounts use receivers x poor (2657 = 2568 x 2653). The median flags 2685-2687 read these rows.",
+  "fixes": [
+   {
+    "cell": "Distribution!Q2679",
+    "now": "=IF(OR($Q$2553=0, $Q$2552=0), 0, IF($Q$2550<>\"None\",Q$2649, IF($Q$2545=\"Yes\", (Q$2621/Q$2620)*100, (Q$2577/Q$2572)*100)))",
+    "new": "=IF(OR($Q$2553=0, $Q$2552=0), 0, IF($Q$2550<>\"None\", (Q$2657/Q$2572)*100, IF($Q$2545=\"Yes\", (Q$2621/Q$2620)*100, (Q$2577/Q$2572)*100)))",
+    "fill": "Q2679:Z2679 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2680",
+    "now": "=IF(OR($Q$2553=0, $Q$2552=0), 0, IF($Q$2550<>\"None\",Q$2650, IF($Q$2545=\"Yes\", (Q$2621/Q$2620)*100, (Q$2578/Q$2573)*100)))",
+    "new": "=IF(OR($Q$2553=0, $Q$2552=0), 0, IF($Q$2550<>\"None\", (Q$2657/Q$2572)*100, IF($Q$2545=\"Yes\", (Q$2621/Q$2620)*100, (Q$2578/Q$2573)*100)))",
+    "fill": "Q2680:Z2680 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2681",
+    "now": "=IF(OR($Q$2553=0, $Q$2552=0), 0, IF($Q$2550<>\"None\",Q$2651, IF($Q$2545=\"Yes\", (Q$2621/Q$2620)*100, (Q$2579/Q$2574)*100)))",
+    "new": "=IF(OR($Q$2553=0, $Q$2552=0), 0, IF($Q$2550<>\"None\", (Q$2657/Q$2572)*100, IF($Q$2545=\"Yes\", (Q$2621/Q$2620)*100, (Q$2579/Q$2574)*100)))",
+    "fill": "Q2681:Z2681 (copy right)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Row 2657 = poor individuals receiving (2568/100 x 2653); 2657 / 2572 x 100 = % receiving x % below the line / 100.",
+  "effect": "Poverty targeting only (TargetBelow set, TransferType Cash); none for Egypt by default. Affects the median flags. MVP v6.0.",
+  "note": "Urban and rural use the overall share: after D15 their transfer per capita is the overall one (the cash and ASPIRE branches already use the overall share). The MVP has one flag for all samples.",
+  "status": "fix"
+ },
+ {
+  "id": "D15",
+  "pri": "Low",
+  "title": "Poverty targeting: urban and rural pay out about half of the funds",
+  "where": "Distribution Q2673:Z2674",
+  "why": "Urban and rural per-capita amounts (2673-2674) = sample poverty share x the overall receiving share x the overall amount P2666 / sample individuals. Urban plus rural recipients (P2663 + P2664) are about 52% of the overall ones (P2662), so the urban and rural samples receive about half of the funds.",
+  "fixes": [
+   {
+    "cell": "Distribution!Q2673",
+    "now": "=Q2669/Q2573",
+    "new": "=Q$2672",
+    "fill": "Q2673:Z2674 (copy right and down)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Row 2672 = overall per-capita transfer of the decile (funds / overall poor receivers x poor receivers / population).",
+  "effect": "Poverty targeting only; none for Egypt by default. Urban and rural poverty-targeted transfers about double. MVP v6.0 (issue DI4: urban and rural take the overall per-capita amount).",
+  "note": "Accepted as a bug (user 2026-10-20). Rows 2669-2670 are then unused.",
+  "status": "fix"
+ },
+ {
+  "id": "D16",
+  "pri": "Low",
+  "title": "Poverty share x 10 assumes deciles of 10%",
+  "where": "Distribution Q2649:Z2651",
+  "why": "The share of the decile below the poverty line = HHSurvey pct_belowpl x 10, capped at 100 (MIN). Decile 2 gives 111% before the cap.",
+  "fixes": [],
+  "ref": "HHSurvey pct_belowpl_215/365/685; row 2560 = decile population shares (9.4-10.6%).",
+  "effect": "None (no change).",
+  "note": "No cell change: kept with the cap, as in the MVP (data limitation). Dividing by the decile population share instead of x 10 still gives 105% for decile 2, so the variable is not the share of the whole population; confirm its definition with the data team before changing it.",
+  "status": "none"
+ },
+ {
+  "id": "D17",
+  "pri": "Low",
+  "title": "ASPIRE values converted without a PPP factor",
+  "where": "Distribution Q2618:Z2618, Q2634:Z2634; labels O2617:O2622, O2633:O2638",
+  "why": "Rows 2618 and 2634 turn the ASPIRE per-capita values (2011 PPP $ per day) into \"real LCU\" by the GDP deflator ratio I223 only, without a PPP exchange rate; the ASPIRE data year (I219) is not used. The scale factors P2626 and P2642 divide the funds by these totals, so the conversion cancels: the error is in the displayed rows only.",
+  "fixes": [
+   {
+    "cell": "Distribution!Q2618",
+    "now": "=Q2617*$I$223",
+    "new": "=Q2617",
+    "fill": "Q2618:Z2618 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q2634",
+    "now": "=Q2633*$I$223",
+    "new": "=Q2633",
+    "fill": "Q2634:Z2634 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!O2617",
+    "now": "=$I$130&\" real LCU\"",
+    "new": "=$I$130&\" PPP $ per day\"",
+    "fill": "O2617:O2618 and O2633:O2634 (labels)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!O2619",
+    "now": "=ResultsYear&\" real LCU\"",
+    "new": "=$I$130&\" PPP $ per year\"",
+    "fill": "O2619, O2622, O2635, O2638 (labels)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "I130 = 2011 (ASPIRE PPP year); I220-I223 deflators (then unused).",
+  "effect": "None on the results (the scale cancels); rows 2618-2624 and 2634-2640 are labelled in PPP $. MVP v6.0.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "D18",
+  "pri": "Low",
+  "title": "Horizontal p25/p75 effects inflated",
+  "where": "Distribution rows 3188, 3190, 3196, 3198, 3204, 3206 (Q:Z)",
+  "why": "The 25th and 75th percentile total effects = effect x (1 + effect / effect of the chosen statistic): the extra factor has no meaning. Egypt decile 1, p75: -3.09 becomes -6.77.",
+  "fixes": [
+   {
+    "cell": "Distribution!Q3188",
+    "now": "=(INDEX($Q$889:$Z$2242, MATCH($L3188,$N$889:$N$2242, 0), MATCH(Q$3186,$Q$888:$Z$888,0)))*(-1)*IF(InferredDist=\"Yes\",$I$145,1)*(1+(INDEX($Q$889:$Z$2242, MATCH($L3188,$N$889:$N$2242, 0), MATCH(Q$3186,$Q$888:$Z$888,0)))*(-1)*IF(InferredDist=\"Yes\",$I$145,1)/Q3189)",
+    "new": "=(INDEX($Q$889:$Z$2242, MATCH($L3188,$N$889:$N$2242, 0), MATCH(Q$3186,$Q$888:$Z$888,0)))*(-1)*IF(InferredDist=\"Yes\",$I$145,1)",
+    "fill": "Q3188:Z3188 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q3190",
+    "now": "=(INDEX($Q$889:$Z$2242, MATCH($L3190,$N$889:$N$2242, 0), MATCH(Q$3186,$Q$888:$Z$888,0)))*(-1)*IF(InferredDist=\"Yes\",$I$145,1)*(1+(INDEX($Q$889:$Z$2242, MATCH($L3190,$N$889:$N$2242, 0), MATCH(Q$3186,$Q$888:$Z$888,0)))*(-1)*IF(InferredDist=\"Yes\",$I$145,1)/Q3189)",
+    "new": "=(INDEX($Q$889:$Z$2242, MATCH($L3190,$N$889:$N$2242, 0), MATCH(Q$3186,$Q$888:$Z$888,0)))*(-1)*IF(InferredDist=\"Yes\",$I$145,1)",
+    "fill": "Q3190:Z3190 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q3196",
+    "now": "=(INDEX($Q$889:$Z$2242, MATCH($L3196,$N$889:$N$2242, 0), MATCH(Q$3186,$Q$888:$Z$888,0)))*(-1)*IF(InferredDist=\"Yes\",$I$145,1)*(1+(INDEX($Q$889:$Z$2242, MATCH($L3196,$N$889:$N$2242, 0), MATCH(Q$3186,$Q$888:$Z$888,0)))*(-1)*IF(InferredDist=\"Yes\",$I$145,1)/Q3197)",
+    "new": "=(INDEX($Q$889:$Z$2242, MATCH($L3196,$N$889:$N$2242, 0), MATCH(Q$3186,$Q$888:$Z$888,0)))*(-1)*IF(InferredDist=\"Yes\",$I$145,1)",
+    "fill": "Q3196:Z3196 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q3198",
+    "now": "=(INDEX($Q$889:$Z$2242, MATCH($L3198,$N$889:$N$2242, 0), MATCH(Q$3186,$Q$888:$Z$888,0)))*(-1)*IF(InferredDist=\"Yes\",$I$145,1)*(1+(INDEX($Q$889:$Z$2242, MATCH($L3198,$N$889:$N$2242, 0), MATCH(Q$3186,$Q$888:$Z$888,0)))*(-1)*IF(InferredDist=\"Yes\",$I$145,1)/Q3197)",
+    "new": "=(INDEX($Q$889:$Z$2242, MATCH($L3198,$N$889:$N$2242, 0), MATCH(Q$3186,$Q$888:$Z$888,0)))*(-1)*IF(InferredDist=\"Yes\",$I$145,1)",
+    "fill": "Q3198:Z3198 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q3204",
+    "now": "=(INDEX($Q$889:$Z$2242, MATCH($L3204,$N$889:$N$2242, 0), MATCH(Q$3186,$Q$888:$Z$888,0)))*(-1)*IF(InferredDist=\"Yes\",$I$145,1)*(1+(INDEX($Q$889:$Z$2242, MATCH($L3204,$N$889:$N$2242, 0), MATCH(Q$3186,$Q$888:$Z$888,0)))*(-1)*IF(InferredDist=\"Yes\",$I$145,1)/Q3205)",
+    "new": "=(INDEX($Q$889:$Z$2242, MATCH($L3204,$N$889:$N$2242, 0), MATCH(Q$3186,$Q$888:$Z$888,0)))*(-1)*IF(InferredDist=\"Yes\",$I$145,1)",
+    "fill": "Q3204:Z3204 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q3206",
+    "now": "=(INDEX($Q$889:$Z$2242, MATCH($L3206,$N$889:$N$2242, 0), MATCH(Q$3186,$Q$888:$Z$888,0)))*(-1)*IF(InferredDist=\"Yes\",$I$145,1)*(1+(INDEX($Q$889:$Z$2242, MATCH($L3206,$N$889:$N$2242, 0), MATCH(Q$3186,$Q$888:$Z$888,0)))*(-1)*IF(InferredDist=\"Yes\",$I$145,1)/Q3205)",
+    "new": "=(INDEX($Q$889:$Z$2242, MATCH($L3206,$N$889:$N$2242, 0), MATCH(Q$3186,$Q$888:$Z$888,0)))*(-1)*IF(InferredDist=\"Yes\",$I$145,1)",
+    "fill": "Q3206:Z3206 (copy right)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Rows 2217-2240 hold the total effects by statistic (e.g. 2236 tef.tot.dec.ove.p75 = 3.09 for decile 1); rows 3189, 3197, 3205 the chosen statistic.",
+  "effect": "Egypt decile 1: p75 overall -6.77 -> -3.09, p25 -2.52 -> -1.57 (horizontal-equity charts). MVP v6.0.",
+  "note": "With DWLs = Yes and D7 applied, the chosen-statistic rows include the deadweight loss; to include it here as the MVP does, use *(-1)*(Q$830+Q$859) instead of *(-1)*IF(InferredDist=\"Yes\",$I$145,1).",
+  "status": "fix"
+ },
+ {
+  "id": "D19",
+  "pri": "Low",
+  "title": "Horizontal \"chosen statistic\" recycling divides by median consumption",
+  "where": "Distribution L3193, L3201, L3209",
+  "why": "The recycling rows of the chosen statistic (3193, 3201, 3209; E = QuantilesStatistic) divide the recycled amount by per-capita consumption looked up with a code that ends in \".median\", whatever the statistic.",
+  "fixes": [
+   {
+    "cell": "Distribution!L3193",
+    "now": "=LOWER(_Country_code)&\".distn.cons_pc_na.dec.ove.median\"",
+    "new": "=LOWER(_Country_code)&\".distn.cons_pc_na.dec.ove.\"&$E3193",
+    "fill": "single cell",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!L3201",
+    "now": "=LOWER(_Country_code)&\".distn.cons_pc_na.dec.urb.median\"",
+    "new": "=LOWER(_Country_code)&\".distn.cons_pc_na.dec.urb.\"&$E3201",
+    "fill": "single cell",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!L3209",
+    "now": "=LOWER(_Country_code)&\".distn.cons_pc_na.dec.rur.median\"",
+    "new": "=LOWER(_Country_code)&\".distn.cons_pc_na.dec.rur.\"&$E3209",
+    "fill": "single cell",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Rows 2339-2362 = per-capita consumption by statistic (codes ...cons_pc_na.dec.<sample>.<stat>).",
+  "effect": "Egypt (mean), overall decile 1: 10.95 -> 10.66 (now equal to the recycling row 2882). MVP v6.0.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "D20",
+  "pri": "Low",
+  "title": "Decile brackets always divided by 1000",
+  "where": "Distribution I2774:AB2774",
+  "why": "J2774:AB2774 divide by IF(<previous bracket>,1000,1): the relative reference points to the bracket to the left, which is never 0, so every bracket but I2774 is divided by 1000 whatever the switch G2771. The brackets are also rounded to one significant digit (MROUND) and are survey-year values.",
+  "fixes": [
+   {
+    "cell": "Distribution!I2774",
+    "now": "=MROUND(I2773,10^(LEN(INT(I2773))-1))/IF(G2771,1000,1)",
+    "new": "=I2773*$I$249*$I$243",
+    "fill": "single cell",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!J2774",
+    "now": "=MROUND(J2773,10^(LEN(INT(J2773))-1))/IF(I2773,1000,1)",
+    "new": "=J2773*$I$249*$I$243",
+    "fill": "J2774:AB2774 (copy right)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "I249 = household consumption adjustment (national accounts / survey), I243 = deflator ratio to ResultsYear: the same factors as the per-capita consumption rows 2339-2362.",
+  "effect": "Decile labels only (MTInputs QuantilesLCU = Yes). Egypt: decile 1 bracket 68,867-147,634 real 2026 LCU (was \"3k-7k\"). MVP v6.0.",
+  "note": "Also carries the survey-year part of D21 (the analysis-year adjustment). G2771 (\"convert to thousands\") is then unused.",
+  "status": "fix"
+ },
+ {
+  "id": "D21",
+  "pri": "Low",
+  "title": "Decile bracket labels unusable",
+  "where": "Distribution H2775:H2784, I2775",
+  "why": "The labels append IF(G2771,\"k\",), which returns 0 when not in thousands, so \"0\" is appended; one significant digit gives labels such as \"10k-10k\" (Egypt deciles 4-6); the values are survey-year LCU. Each row reads its own pair of columns of row 2774 by absolute reference.",
+  "fixes": [
+   {
+    "cell": "Distribution!H2775",
+    "now": "=TEXT(ROUNDUP($I$2774,0),\"#,###\")&IF(G2771,\"k\",)&\"-\"&TEXT(ROUND($J$2774,0),\"#,###\")&\"\"&IF(G2771,\"k\",)",
+    "new": "=TEXT(INDEX($I$2774:$AB$2774,2*$C2775-1),\"#,##0\")&\"-\"&TEXT(INDEX($I$2774:$AB$2774,2*$C2775),\"#,##0\")",
+    "fill": "H2775:H2784 (copy down; C2775:C2784 hold 1-10, so each row reads its own pair)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!I2775",
+    "now": "=TEXT(ROUND($I$2774,0),\"#,###\")&IF(G2771,\"k\",)&\"-\"&TEXT(ROUND($J$2774,0),\"#,###\")&\"\"&IF(G2771,\"k\",)",
+    "new": "=H2775",
+    "fill": "single cell (J2775:R2775 already read H2776:H2784)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Row 2774 (after D20) = bracket bounds p1 and p99 of each decile in real LCU of ResultsYear.",
+  "effect": "Decile labels only. Egypt: \"68,867-147,634\" ... \"470,027-1,300,726\". MVP v6.0.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "D22",
+  "pri": "Low",
+  "title": "Sector table \"ordered by demand\" sorts each column independently",
+  "where": "Distribution G3300:K3310",
+  "why": "In the table ordered by household demand, F, G and H are each LARGE of their own column, and J, K read the sector of G and H: total output, exports and their shares in a row do not belong to the sector named in E.",
+  "fixes": [
+   {
+    "cell": "Distribution!G3300",
+    "now": "=LARGE($G$3285:$G$3296,ROWS($G$3285:G3285))",
+    "new": "=INDEX(G$3285:G$3296,MATCH($F3300,$F$3285:$F$3296,0))",
+    "fill": "G3300:K3310 (copy right and down; I3300:I3310 give the same values as now)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!H3300",
+    "now": "=LARGE($H$3285:$H$3296,ROWS($H$3285:H3285))",
+    "new": "=INDEX(H$3285:H$3296,MATCH($F3300,$F$3285:$F$3296,0))",
+    "fill": "covered by the G3300 fill",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!J3300",
+    "now": "=INDEX($J$3285:$J$3296,MATCH($G3300,$G$3285:$G$3296,0))",
+    "new": "=INDEX(J$3285:J$3296,MATCH($F3300,$F$3285:$F$3296,0))",
+    "fill": "covered by the G3300 fill",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!K3300",
+    "now": "=INDEX($K$3285:$K$3296,MATCH($H3300,$H$3285:$H$3296,0))",
+    "new": "=INDEX(K$3285:K$3296,MATCH($F3300,$F$3285:$F$3296,0))",
+    "fill": "covered by the G3300 fill",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Unordered table rows 3285-3296 (C code, E name, F HHD, G output, H exports, I:K shares).",
+  "effect": "Table only (not charted); Egypt row 1 (Services): output 1,119,645 and exports 41,514 (exports were fuel's 53,010). MVP v6.0.",
+  "note": "Ties in household demand (equal values) still make MATCH return the first sector twice; see D25 for the rank helper.",
+  "status": "fix"
+ },
+ {
+  "id": "D23",
+  "pri": "Low",
+  "title": "Ordered sector tables show 11 of 12 sectors",
+  "where": "Distribution rows 3311 and 3324; charts 19 and 20",
+  "why": "The unordered table has 12 sectors (3285-3296) but the two ordered tables have 11 rows (3300-3310, 3313-3323): the twelfth sector is never shown.",
+  "fixes": [
+   {
+    "cell": "Distribution!E3311",
+    "now": "(empty)",
+    "new": "=INDEX($E$3285:$E$3296,MATCH(F3311,$F$3285:$F$3296,0))",
+    "fill": "E3311:K3311 and P3311:U3311: copy row 3310 (E:K, P:U) down one row",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!C3324",
+    "now": "(empty)",
+    "new": "=INDEX(C$3285:C$3296,MATCH(ROWS(C$3313:C3324),$M$3285:$M$3296,0))",
+    "fill": "C3324:K3324 and P3324:U3324: copy row 3323 (C:K, P:U) down one row",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Rows 3311 and 3324 are empty; F uses ROWS(), so the copied row gives rank 12.",
+  "effect": "Charts 19 and 20 (Dashboard) show all 12 sectors. MVP v6.0.",
+  "note": "Apply after D22 and D25 (the \"new\" texts are their formulas one row down). Charts 19 and 20 are not cells: extend their series by hand from rows 3313:3323 to 3313:3324 (chart 19: E, T, U; chart 20: J, U).",
+  "status": "fix"
+ },
+ {
+  "id": "D24",
+  "pri": "Low",
+  "title": "Chemicals and power missing from the CPAT-sector table",
+  "where": "Distribution rows 3285-3296, 3300-3311, 3313-3324",
+  "why": "The CPAT-sector table lists 12 codes, but row 646 maps the GTAP sectors to 14: \"mch\" (chemicals, rubber and plastics, other extraction: bph, chm, oxt) and \"pow\" (ely, nga) are missing, so the most affected sector (chemicals, 2.28%) drops out of the CPAT-sector charts and shares, and the shares (I:K) leave out their demand and output.",
+  "fixes": [
+   {
+    "cell": "Distribution!3324:3325",
+    "now": "row 3324 = 12th row of the table ordered by output price (after D23)",
+    "new": "insert 2 rows above row 3324 (inside the table ordered by output price)",
+    "fill": "row insert (do the three inserts bottom-up)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!3311:3312",
+    "now": "row 3311 = 12th row of the table ordered by demand (after D23)",
+    "new": "insert 2 rows above row 3311 (inside the table ordered by demand)",
+    "fill": "row insert",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!3296:3297",
+    "now": "row 3296 = ftr, last row of the unordered table",
+    "new": "insert 2 rows above row 3296 (inside the unordered table)",
+    "fill": "row insert",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!C3296:E3297",
+    "now": "(inserted rows)",
+    "new": "C3296: mch, D3296: Mining & Chemicals, E3296: Chemicals; C3297: pow, D3297: Electricity production, E3297: Power",
+    "fill": "constants (row numbers after the inserts)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!F3296:U3297",
+    "now": "(inserted rows)",
+    "new": "copy F3295:U3295 (incl. helpers L, M) down into the two new rows",
+    "fill": "copy (row numbers after the inserts)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!E3313:U3314",
+    "now": "(inserted rows)",
+    "new": "copy row 3312 (E:K, P:U) down into the two new rows of the table ordered by demand",
+    "fill": "copy (after the inserts this table is 3302-3315)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!C3328:U3329",
+    "now": "(inserted rows)",
+    "new": "copy row 3327 (C:K, P:U) down into the two new rows of the table ordered by output price",
+    "fill": "copy (after the inserts this table is 3317-3330)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Row 646 (CPAT code of each GTAP sector); names from the pass-through table C470 (Electricity production) and C478 (Mining & Chemicals).",
+  "effect": "CPAT-sector table, charts 19 and 20 and the shares I:K: 14 sectors; chemicals (Egypt input price +2.28% for chm) shows. MVP v6.0.",
+  "note": "Structural: inserted rows. Apply last, after D22, D23 and D25. Inserting inside each range widens every reference ($3285:$3296 -> $3285:$3298, the totals row 3297 -> 3299, the chart 19/20 series) and the ROWS() counters of the last rows, so the copied rows rank 12 and 13 and the last row 14. MTOutputs ppic and outpriin (D27) have no rows for mch and pow: adding them needs new MTOutputs rows (not planned here).",
+  "status": "struct"
+ },
+ {
+  "id": "D25",
+  "pri": "Low",
+  "title": "Chart 19 labels ranked separately from their values; ties",
+  "where": "Distribution C3313:U3323, M3285:M3296; G3277:BR3277, row 662",
+  "why": "In the table ordered by output price (3313-3323, charts 19 and 20) the labels C, E and F, I follow the rank of Q, G and J follow U, H and K follow S, and P:U are each LARGE of their own column. MATCH on equal values (e.g. several sectors at 0) returns the first sector twice. The top-20 GTAP labels (row 3277) have the same tie problem.",
+  "fixes": [
+   {
+    "cell": "Distribution!M3284",
+    "now": "(empty)",
+    "new": "Rank (output price)",
+    "fill": "header (label, new)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!M3285",
+    "now": "(empty)",
+    "new": "=RANK(U3285,$U$3285:$U$3296)+COUNTIF(U$3284:U3284,U3285)",
+    "fill": "M3285:M3296 (copy down; new helper)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!C3313",
+    "now": "=INDEX($C$3285:$C$3296,MATCH($Q3313,$Q$3285:$Q$3296,0))",
+    "new": "=INDEX(C$3285:C$3296,MATCH(ROWS(C$3313:C3313),$M$3285:$M$3296,0))",
+    "fill": "C3313:C3323 (copy down)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!E3313",
+    "now": "=INDEX($E$3285:$E$3296,MATCH($Q3313,$Q$3285:$Q$3296,0))",
+    "new": "=INDEX(E$3285:E$3296,MATCH(ROWS(E$3313:E3313),$M$3285:$M$3296,0))",
+    "fill": "E3313:E3323 (copy down; same formula as C3313)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!F3313",
+    "now": "=INDEX($F$3285:$F$3296,MATCH($Q3313,$Q$3285:$Q$3296,0))",
+    "new": "=INDEX(F$3285:F$3296,MATCH(ROWS(F$3313:F3313),$M$3285:$M$3296,0))",
+    "fill": "F3313:F3323 (copy down; same formula as C3313)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!G3313",
+    "now": "=INDEX($G$3285:$G$3296,MATCH($U3313,$U$3285:$U$3296,0))",
+    "new": "=INDEX(G$3285:G$3296,MATCH(ROWS(G$3313:G3313),$M$3285:$M$3296,0))",
+    "fill": "G3313:G3323 (copy down; same formula as C3313)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!H3313",
+    "now": "=INDEX($H$3285:$H$3296,MATCH($S3313,$S$3285:$S$3296,0))",
+    "new": "=INDEX(H$3285:H$3296,MATCH(ROWS(H$3313:H3313),$M$3285:$M$3296,0))",
+    "fill": "H3313:H3323 (copy down; same formula as C3313)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!I3313",
+    "now": "=INDEX($I$3285:$I$3296,MATCH($Q3313,$Q$3285:$Q$3296,0))",
+    "new": "=INDEX(I$3285:I$3296,MATCH(ROWS(I$3313:I3313),$M$3285:$M$3296,0))",
+    "fill": "I3313:I3323 (copy down; same formula as C3313)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!J3313",
+    "now": "=INDEX($J$3285:$J$3296,MATCH($U3313,$U$3285:$U$3296,0))",
+    "new": "=INDEX(J$3285:J$3296,MATCH(ROWS(J$3313:J3313),$M$3285:$M$3296,0))",
+    "fill": "J3313:J3323 (copy down; same formula as C3313)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!K3313",
+    "now": "=INDEX($K$3285:$K$3296,MATCH($S3313,$S$3285:$S$3296,0))",
+    "new": "=INDEX(K$3285:K$3296,MATCH(ROWS(K$3313:K3313),$M$3285:$M$3296,0))",
+    "fill": "K3313:K3323 (copy down; same formula as C3313)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!P3313",
+    "now": "=LARGE($P$3285:$P$3296,ROWS($P$3285:P3285))",
+    "new": "=INDEX(P$3285:P$3296,MATCH(ROWS(P$3313:P3313),$M$3285:$M$3296,0))",
+    "fill": "P3313:P3323 (copy down; same formula as C3313)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!Q3313",
+    "now": "=LARGE($Q$3285:$Q$3296,ROWS($Q$3285:Q3285))",
+    "new": "=INDEX(Q$3285:Q$3296,MATCH(ROWS(Q$3313:Q3313),$M$3285:$M$3296,0))",
+    "fill": "Q3313:Q3323 (copy down; same formula as C3313)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!R3313",
+    "now": "=LARGE($R$3285:$R$3296,ROWS(R$3285:$R3285))",
+    "new": "=INDEX(R$3285:R$3296,MATCH(ROWS(R$3313:R3313),$M$3285:$M$3296,0))",
+    "fill": "R3313:R3323 (copy down; same formula as C3313)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!S3313",
+    "now": "=LARGE($S$3285:$S$3296,ROWS($S$3285:S3285))",
+    "new": "=INDEX(S$3285:S$3296,MATCH(ROWS(S$3313:S3313),$M$3285:$M$3296,0))",
+    "fill": "S3313:S3323 (copy down; same formula as C3313)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!T3313",
+    "now": "=LARGE($T$3285:$T$3296,ROWS($T$3285:T3285))",
+    "new": "=INDEX(T$3285:T$3296,MATCH(ROWS(T$3313:T3313),$M$3285:$M$3296,0))",
+    "fill": "T3313:T3323 (copy down; same formula as C3313)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!U3313",
+    "now": "=LARGE($U$3285:$U$3296,ROWS($U$3285:U3285))",
+    "new": "=INDEX(U$3285:U$3296,MATCH(ROWS(U$3313:U3313),$M$3285:$M$3296,0))",
+    "fill": "U3313:U3323 (copy down; same formula as C3313)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!G662",
+    "now": "(empty)",
+    "new": "=RANK(G661,$G$661:$BR$661)+COUNTIF($F661:F661,G661)",
+    "fill": "G662:BR662 (copy right; new helper)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!G3277",
+    "now": "=INDEX($G$645:$BR$645,MATCH(G$3279,$G$661:$BR$661,0))",
+    "new": "=INDEX($G$645:$BR$645,MATCH(COLUMNS($G$3277:G3277),$G$662:$BR$662,0))",
+    "fill": "G3277:BR3277 (copy right)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "U = output price change weighted by output (the values of charts 19 and 20); row 661 = GTAP output price change (top 20, row 3279 = LARGE of it).",
+  "effect": "Charts 19, 20 and the top-20 chart: one ranking, every sector once. MVP v6.0 (rank with ties broken by order).",
+  "note": "New helper column M (rows 3284-3296) and helper row 662 (G:BR); both are empty now. Row 3279 (LARGE) is unchanged and agrees with the new labels. Table 1 (D22) can use the same helper on F (column L) if ties in household demand occur.",
+  "status": "fix"
+ },
+ {
+  "id": "D26",
+  "pri": "Low",
+  "title": "Pass-through coefficients one row off",
+  "where": "Distribution G659:BR659, I470",
+  "why": "G659:BR659 = INDEX($I$471:$I$486, MATCH(code, $B$470:$B$486, 0)): the INDEX range starts one row below the MATCH range, so every sector takes the coefficient of the next row of the table (avi gets nav's, power gets rail's 0.905); power's own row (470) has no coefficient.",
+  "fixes": [
+   {
+    "cell": "Distribution!G659",
+    "now": "=_xlfn.IFNA(IF(PassthroughDist=\"Yes\",INDEX($I$471:$I$486,MATCH(G$646,$B$470:$B$486,0)),1),1)",
+    "new": "=IFNA(IF(PassthroughDist=\"Yes\",INDEX($I$470:$I$486,MATCH(G$646,$B$470:$B$486,0)),1),1)",
+    "fill": "G659:BR659 (copy right)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!I470",
+    "now": "(empty)",
+    "new": "1",
+    "fill": "single cell (new constant: power passes costs through fully)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Pass-through table B470:I486 (code, sector, coefficient I).",
+  "effect": "Only with PassthroughDist = Yes (Egypt default No): each sector gets its own coefficient; power 1. MVP v6.0.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "D27",
+  "pri": "Low",
+  "title": "MTOutputs outpriin labels do not match their values",
+  "where": "MTOutputs K1048:L1058",
+  "why": "K1048:L1058 read rows 3313-3323 of the table ordered by output price, but the labels (D, codes in E) are fixed: outpriin.avi gets the value of the top-ranked sector (iron and steel for Egypt), and so on.",
+  "fixes": [
+   {
+    "cell": "MTOutputs!K1048",
+    "now": "=Distribution!T3313",
+    "new": "=INDEX(Distribution!T$3285:T$3296,MATCH($D1048,Distribution!$E$3285:$E$3296,0))",
+    "fill": "K1048:L1058 (copy right and down; L reads column U)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "MTOutputs D1048:D1058 hold the sector names of Distribution E3285:E3296 (Aviation, Shipping, ... Services).",
+  "effect": "MT outputs outpriin.* carry their own sector's values. MVP v6.0 (by sector code).",
+  "note": "Legacy's columns are kept (T, U: input and output price change weighted by output). The MVP defines outpriin as the output price change weighted by household demand (column Q); change T/U to Q if that is intended.",
+  "status": "fix"
+ },
+ {
+  "id": "D28",
+  "pri": "Low",
+  "title": "MTOutputs codes without a dot",
+  "where": "MTOutputs E1006, E1013",
+  "why": "The codes are built as LOWER(_Country_code)&\"distn...\", giving \"egydistn.cts.tot.dec.ove.mean\" and \"egydistn.rec.tot.dec.rur.mean\".",
+  "fixes": [
+   {
+    "cell": "MTOutputs!E1006",
+    "now": "=LOWER(_Country_code)&\"distn.cts.tot.dec.ove.mean\"",
+    "new": "=LOWER(_Country_code)&\".distn.cts.tot.dec.ove.mean\"",
+    "fill": "single cell",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "MTOutputs!E1013",
+    "now": "=LOWER(_Country_code)&\"distn.rec.tot.dec.rur.mean\"",
+    "new": "=LOWER(_Country_code)&\".distn.rec.tot.dec.rur.mean\"",
+    "fill": "single cell",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "The neighbouring codes (E1004, E1005, E1007-E1012) have the dot.",
+  "effect": "Codes only (values unchanged). MVP: writes the right codes.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "D29",
+  "pri": "Low",
+  "title": "MTOutputs ppic.fuel empty",
+  "where": "MTOutputs K1046:L1046",
+  "why": "The ppic.fuel row (1046) has its label and code but no values; K1035:L1045 read rows 3285-3295 of the unordered table, and row 3296 (ftr) is not read.",
+  "fixes": [
+   {
+    "cell": "MTOutputs!K1046",
+    "now": "(empty)",
+    "new": "=Distribution!T3296",
+    "fill": "K1046:L1046 (copy right; same pattern as K1035:L1045)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Distribution row 3296 = fuel transformation (ftr).",
+  "effect": "MT output ppic.fuel filled (0 for Egypt: the fuel sectors carry no input-cost change). MVP v6.0.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "D30",
+  "pri": "Low",
+  "title": "Lorenz equality line in 10% steps",
+  "where": "Distribution Q2455:Z2457 (charts read rows 3109, 3147, 3182)",
+  "why": "The line of perfect equality is 0.1, 0.2, ... 1, while the Lorenz x-axis is the actual cumulative population share (rows 3104, 3142, 3177: 9.6, 19.1, 29.9 ... for Egypt), so the equality line is not the 45-degree line on the chart.",
+  "fixes": [
+   {
+    "cell": "Distribution!Q2455",
+    "now": "0.1",
+    "new": "=SUM($Q2727:Q2727)/SUM($Q2727:$Z2727)",
+    "fill": "Q2455:Z2457 (copy right and down; rows 2727-2729 = individuals, overall, urban, rural)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!R2455",
+    "now": "=Q2455+0.1",
+    "new": "=SUM($Q2727:R2727)/SUM($Q2727:$Z2727)",
+    "fill": "covered by the Q2455 fill",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "Rows 3109, 3147 and 3182 = row 2455, 2456, 2457 x 100; they need no change.",
+  "effect": "Lorenz charts: the equality line runs through the population points (Egypt overall: 9.64, 19.11, 29.88 ... 100). MVP v6.0.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "D31",
+  "pri": "Low",
+  "title": "Absolute overall rows carry wrong codes",
+  "where": "Distribution L3036:L3043, L3049:L3062",
+  "why": "The codes of the overall per-capita budget rows are typed per row with the wrong fuel and the rural sample (L3036 \"bsh.ely.dec.rur\" on the coal row, ... L3043 \"bsh.coa.dec.rur\" on LPG); the non-fuel rows 3049-3062 read their own item (D) but also say \".rur.\" on overall rows.",
+  "fixes": [
+   {
+    "cell": "Distribution!L3036",
+    "now": "=LOWER(_Country_code)&\".distn.bsh.ely.dec.rur.\"&E3036",
+    "new": "=LOWER(_Country_code)&\".distn.bsh.\"&$D3036&\".dec.ove.\"&E3036",
+    "fill": "L3036:L3043 (copy down)",
+    "policy": "none (sheet Distribution)"
+   },
+   {
+    "cell": "Distribution!L3049",
+    "now": "=LOWER(_Country_code)&\".distn.bsh.\"&D3049&\".dec.rur.\"&E3049",
+    "new": "=LOWER(_Country_code)&\".distn.bsh.\"&$D3049&\".dec.ove.\"&E3049",
+    "fill": "L3049:L3062 (copy down)",
+    "policy": "none (sheet Distribution)"
+   }
+  ],
+  "ref": "D3036:D3043 = coa, ely, nga, oil, gso, die, ker, lpg; F = \"Overall\".",
+  "effect": "None (labels only; no formula reads these codes). MVP: builds codes from the row ids.",
+  "note": "Rows 3049-3062 are not in the register (same error, found while planning).",
+  "status": "fix"
+ }
+]

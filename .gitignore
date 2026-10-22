@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.quickcheck/
+.buildcache/
+*_quick.xlsx
+
+# legacy_export output (holds proprietary data when run on real files)
+CPAT_LegacyData*.xlsx
+!data/legacy_dummy/CPAT_LegacyData_dummy.xlsx
+*.whl
+
+# data workbooks (real versions hold proprietary data; only the dummy one is committed)
+CPAT_Data_*.xlsx
+!data/workbooks/CPAT_Data_dummy_python.xlsx
+!data/workbooks/CPAT_Data_dummy_cpat.xlsx
