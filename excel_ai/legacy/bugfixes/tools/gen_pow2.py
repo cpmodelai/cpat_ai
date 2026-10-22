@@ -96,7 +96,7 @@ bug('L53', 'High', 'Actual capacity factors are never used', 'Mitigation A4, row
         'N2999:N3007')],
     'Power tab rows 357-1635 (installed capacity by country and type, years 2000-2023 in F:AC). Q2999 = IFERROR(M2999/N2999,0) '
     'and W2999 = IF(AND(Q<T,Q>S),Q,R) then work as written.',
-    'Egypt base year (MVP v4.10, same Power data): actual capacity factors gas 0.385 (studies 0.566), wind 0.436 (0.30), '
+    'Egypt base year (prototype v4.10, same Power data): actual capacity factors gas 0.385 (studies 0.566), wind 0.436 (0.30), '
     'solar 0.347 (0.18), hydro 0.592 (0.432); oil stays at the studies 0.134 (actual 1.59 is above CFOverrideIfAbove). '
     'Base-year gas capacity (Y3000) 52.0 GW instead of 35.4 GW. Changes capacities, dispatch and investment in every year.')
 
@@ -137,8 +137,8 @@ bug('L67', 'Medium', "Capacity bought for this year's demand, although it comes 
     'year (should be the same)" shows the gap. The system enters every year one year of demand growth short.',
     [pf('L4027', sub('L4027', ('L3752', 'M3752')), 'L4027:AE4027')],
     'Row label of 4027. Next year\'s demand depends only on this year\'s prices (rows 3688-3689 read the previous column), so '
-    'there is no circularity. AE4027 then reads AF3752, which already = AE3752 (2041: this year\'s demand, as in the MVP).',
-    'Egypt (legacy inputs, MVP v4.14): capacity +3% by 2030, gas generation -3%, wind and solar generation +4%.')
+    'there is no circularity. AE4027 then reads AF3752, which already = AE3752 (2041: this year\'s demand, as in the prototype).',
+    'Egypt (legacy inputs, prototype v4.14): capacity +3% by 2030, gas generation -3%, wind and solar generation +4%.')
 bug('L83', 'Medium', 'Electricity producer subsidy compounds the factor and lags a year', 'Mitigation G1/G2, rows 3592, 3601, 3630',
     'From 2025 (column O) the projection is last year\'s value x last year\'s phase-out factor (O3601 = N3601 * N2213), so '
     'the factors multiply year on year and act a year late; row 3630 uses the base value $J3630 but last year\'s factor.',
@@ -165,7 +165,7 @@ bug('L88', 'Medium', 'Regulations never reach power', 'Mitigation D6, rows 3398-
     'regulations" before and after and compare rows 3412-3420 and the generation mix (rows 3828-3836).',
     note='Not via rows 2377/2380: their policy copies (8708-8719) keep the absolute references $D$2369 and L$2375, so in '
          'the policy block their regulation term reads the baseline general carbon price (L2375, 0 in the file); the '
-         'new formulas use relative rows so the policy paste reads rows 8700, 8706 and 8734. The MVP also '
+         'new formulas use relative rows so the policy paste reads rows 8700, 8706 and 8734. The prototype also '
          'multiplies by the scenario\'s efficiency adjustment (0.7, Mitigation F86:F89); legacy\'s share C2371 is 0 '
          '(see L87), so it is left out here as in rows 2377-2388.')
 r108 = [(7897, 3148, 6308, 'Wind'), (7898, 3149, 6309, 'Solar'), (7899, 3150, 6310, 'Hydro'), (7900, 3151, 6311, 'Other renewables')]
@@ -225,7 +225,7 @@ bug('L56', 'Low', "Countries without CoC risk data get Sri Lanka's WACC paramete
     'countries missing from CoC; with #N/A in the row they take it.',
     'None for Egypt (own row, 9.9% in 2022). The 47 countries take the 7.5% default (plus the technology premium with '
     'WACCSource = Tech) instead of Sri Lanka\'s 17.8%.',
-    note='The cell text spans several lines (Alt+Enter). The #N/A of a country without data is itself the flag; the MVP '
+    note='The cell text spans several lines (Alt+Enter). The #N/A of a country without data is itself the flag; the prototype '
          'also flags it on its Inputs sheet (PsCoCData).')
 bug('L84', 'Low', 'Electricity consumer subsidy phased with the price-control factor; option text mismatch',
     'Mitigation G1/G2, rows 3606, 3635; MTInputs C138',
@@ -274,7 +274,7 @@ bug('L107', 'Low', 'Renewable subsidy: start year of the additional subsidy reus
          '=IF(MTAct,D416,IF(CPATDefaultsOrUserDefined="Default",IF(I416="Y",E416,G416),E416)), G416 2027, H416 '
          'RenSubsidyAddStartYear, I416 "Y"; give scenario columns N416:XAA416 the values of N132:XAA132 where set; define '
          'the name RenSubsidyAddStartYear = MTInputs!$F$416 (workbook scope). Appending (not inserting) keeps every '
-         'existing MTInputs row number. The MVP has the same input (MTInputs row 482, default 2027).',
+         'existing MTInputs row number. The prototype has the same input (MTInputs row 482, default 2027).',
     status='needs input row')
 i109 = fix('I3042', sub('I3042', ('),0)', '),IFERROR(MATCH(SUBSTITUTE(E3042,"ctf.","ctf.old"),Power!$A$25:$A$356,0),'
                                    'MATCH("wld.ctf.med."&B3042,Power!$A$25:$A$356,0)))')), 'I3042:I3046', pol('I3042:I3046'))
@@ -284,7 +284,7 @@ bug('L109', 'Low', 'Capex decline options Low and Vhigh have no wind and solar s
     'the Power tab (rows 303-330) does not hold (it has oldlow / oldvhg for wind and solar, and med.ore twice, rows 316 '
     'and 318). I3042 = IFERROR(MATCH(...),0) then gives 0 and INDEX(Power!F25:BE597, 0, year) in L3042:AE3046 errors.',
     [i109],
-    'Power rows 323-330 (wld.ctf.oldlow/oldvhg.sol/wnd) and 316 (wld.ctf.med.ore). The MVP uses the same fallback '
+    'Power rows 323-330 (wld.ctf.oldlow/oldvhg.sol/wnd) and 316 (wld.ctf.med.ore). The prototype uses the same fallback '
     '(Inputs_ppath tcf|<type>|<option>): the older series of the same option for wind and solar, else Medium.',
     'None for Egypt (Medium*). With Low or Vhigh, the capex time factors of wind, solar (and other renewables under '
     'Vhigh) become the older series (Medium for other renewables) instead of errors.',

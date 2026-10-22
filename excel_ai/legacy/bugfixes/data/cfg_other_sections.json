@@ -7,9 +7,9 @@
  "others": "the engineer power model plan, the engineer road-transport plan and the distribution plan",
  "policy": "Policy block: copy the fixed baseline row and Paste Special → Formulas onto the policy row given. Up to row ~6070 the policy block is the baseline + 6,331 rows; from the other-energy-use block (row 6066) on it is + 6,317. Where a paste would point at the wrong row (e.g. L43), the policy formula is spelled out.",
  "extra": [
-  "Expected effects from cached Egypt values, the registers (LegacyBugFixes_v7_0.md, LegacyBugFixes_v5_4.md) and the MVP, which fixes every one of these bugs. Nothing was recalculated in Excel or Python.",
+  "Expected effects from cached Egypt values, the registers (LegacyBugFixes.md, LegacyBugFixes_v5_4.md) and the prototype, which fixes every one of these bugs. Nothing was recalculated in Excel or Python.",
   "Formulas were read from the .xlsb itself where the LibreOffice conversion loses them (formulas with IFNA become constants); every 'formula now' of sheet Mitigation was checked against the .xlsb.",
-  "Items marked 'to confirm' in the notes take the MVP's choice; confirm before applying."
+  "Items marked 'to confirm' in the notes take the prototype's choice; confirm before applying."
  ],
  "summary": "82 other-mitigation bugs (everything outside the engineer power and road models and the distribution module), in 10 sections by model area. Sections are ordered roughly by priority (sections holding High bugs first), and bugs within a section High, Medium, Low. Each section has its own summary table followed by its cell plans. L15, L18, L92 and L123 do not reproduce in this file (no cell to change); L22 and L86 need new rows or names; L16/L57 and L82/L124 are duplicate register entries for the same cells.",
  "sections": [

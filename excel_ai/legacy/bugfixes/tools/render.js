@@ -47,7 +47,7 @@ const intro=[
  bullet([R('Policy block: copy the fixed baseline row and Paste Special → Formulas onto the policy row given. Up to row ~6070 the policy block is the baseline + 6,331 rows; from the other-energy-use block (row 6066) on it is + 6,317. A paste works in both cases except L43 (its formulas point back to driver rows at + 6,331), where the policy edit is spelled out.')]),
  bullet([R('Recalculate fully, check legacy\'s own check cells (e.g. B6602, B7640 must still read "OK"), and compare with the expected effect.')]),
  bullet([R('Expected effects: Part A from the repo\'s Python copy of the legacy power model (power_model_ref_v3_8.py, which matches the cached legacy rows to 1e-13, price feedback to other sectors excluded); Part B from cached values and the register. Nothing here was recalculated in Excel.')]),
- bullet([R('Out of scope: the engineer road-transport bugs L25-L41 (separate list) and L17 (an MVP bug, not legacy).')]),
+ bullet([R('Out of scope: the engineer road-transport bugs L25-L41 (separate list) and L17 (an prototype bug, not legacy).')]),
 ];
 const all=[...A,...B];
 const doc=new Document({

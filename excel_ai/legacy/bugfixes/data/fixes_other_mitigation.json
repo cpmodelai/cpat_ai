@@ -22,7 +22,7 @@
    }
   ],
   "ref": "M758 and O758 (kerosene), the same formulas with $G758. IFERROR keeps the old constant if the dataset has no oop entry.",
-  "effect": "Egypt: pass-through 0 and margin about 7.95 $/bbl from the dataset (as the MVP). The other-oil-products retail price no longer falls with the oil price to the floor, and the tenfold rise in their fuel use by 2030 goes away.",
+  "effect": "Egypt: pass-through 0 and margin about 7.95 $/bbl from the dataset (as the prototype). The other-oil-products retail price no longer falls with the oil price to the floor, and the tenfold rise in their fuel use by 2030 goes away.",
   "note": null,
   "status": "fix"
  },
@@ -128,7 +128,7 @@
   "fixes": [],
   "ref": "n/a",
   "effect": "None.",
-  "note": "No cell to change. Mark the register entry as \"not reproduced\"; the MVP volatility adjustment (1/1.1) equals legacy.",
+  "note": "No cell to change. Mark the register entry as \"not reproduced\"; the prototype volatility adjustment (1/1.1) equals legacy.",
   "status": "none"
  },
  {

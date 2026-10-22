@@ -1,0 +1,34 @@
+{
+ "quick": "PASS",
+ "formulas": "399,839",
+ "errors": "0",
+ "prev": "CPAT-AI-Mitigation-Prototype_v7.2.xlsm",
+ "shared": "13,396",
+ "codes": "13,396",
+ "changed": "0",
+ "distn_ref": [
+  "505",
+  "5.1e-13"
+ ],
+ "full_overall": "Overall: PASS**",
+ "bugs": {
+  "mit": 131,
+  "dist": 31
+ },
+ "issues": {
+  "mit": 53,
+  "dist": 10,
+  "replicated": 50
+ },
+ "links": [
+  "Balances",
+  "EnergyCons",
+  "Prices_dom",
+  "HHSurvey",
+  "IO_GTAP",
+  "HH_Elast",
+  "WEO",
+  "GDPRatios",
+  "UNPop"
+ ]
+}

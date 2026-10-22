@@ -1,6 +1,6 @@
 # TODO - Excel-AI, open work only (one list, in order)
 
-Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logged in [`../CAVEATS.md`](../CAVEATS.md). Plans with details: [`mitigation/Plans_v7_0.md`](mitigation/Plans_v7_0.md) (sections named below). Python work: [`../coded/TODO.md`](../coded/TODO.md).
+Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logged in [`../CAVEATS.md`](../CAVEATS.md). Plans with details: [`mitigation/Plans.md`](mitigation/Plans.md) (sections named below). Python work: [`../coded/TODO.md`](../coded/TODO.md).
 
 ## 1. Now: release v7.2 (codes on the protocol)
 
@@ -25,7 +25,7 @@ Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logg
 ## 4. Codes leftovers (after 3)
 
 - ☐ Crosswalk rows marked review (89): `rnew`, `rsub`, `rmf`, `rtx`, `rnet`, `rvt`, `rbe`, `gdp.*`, `scc`, `ch4.em`, `co2.sec`, `apf.all.all`, other price rows; applied only with evidence.
-- ☐ C6 vocabularies (MVP members `vkt`, `own`, `pit`... into the sheets); the legacy MTOutputs code as a second alias; `coded` `ele` -> `ecy` with the shared data (with the Coded CPAT owner).
+- ☐ C6 vocabularies (prototype members `vkt`, `own`, `pit`... into the sheets); the legacy MTOutputs code as a second alias; `coded` `ele` -> `ecy` with the shared data (with the Coded CPAT owner).
 
 ## 5. With the user
 

@@ -39,7 +39,7 @@ bug('L68','Medium','GDP effects: the multiplier of lag 1 acts in the impulse yea
  'The cohort blocks (rows 8069-8244) read the multiplier at the lag in row 8070 (MATCH(L8070,$K8057:$AE8057,0); row 8057 = lag 0, 1, 2, ... of Multipliers D:G). L8070 = K8070+1 = 1, so each cohort gets the lag-1 multiplier in its own (impulse) year, although lag 0 (Multipliers column D, 0 in every table) is the impulse year; the GDP effect runs one year early.',
  [fix('L8070',sub('L8070',('=K8070+1','=0')),'single cell (M8070:AE8070 = previous + 1 and the later cohorts\' lag rows, e.g. M8081 = L8070, follow)',pol('L8070'))],
  'Row 8057 (lags 0-20) = Multipliers row 61; lag 0 = Multipliers column D (0 in the global, income-group and country tables, e.g. D92:D99).',
- 'The GDP effect of every impulse comes one year later (lag 0 in the impulse year). MVP v4.15 (lag 0 in the impulse year, multiplier 0).',
+ 'The GDP effect of every impulse comes one year later (lag 0 in the impulse year). prototype v4.15 (lag 0 in the impulse year, multiplier 0).',
  note='Rows 8280-8287 / 14597-14604 (which turn the cohort sums 8267-8274 into the GDP-effect rows) are IFNA(0) in this NoPropData file (LD58), so the result can only be checked once they are restored. L69 (row 8071) reads the same lag row.')
 
 # ---------- L69
@@ -48,7 +48,7 @@ bug('L69','Low','GDP effects: the first cohort\'s excise drag is lost','Mitigati
  'L8071 (excise, cohort 1) matches the lag L$8127, an empty cell of the cohort-6 block, instead of the cohort\'s own lag row L8070 like rows 8072-8078; the policy copy L14388 also reads L$8127. The MATCH fails, so the first cohort\'s excise revenue use has no GDP effect.',
  [fix('L8071',sub('L8071',('MATCH(L$8127,','MATCH(L8070,')),'L8071:AE8071',pol('L8071:AE8071')+': gives MATCH(L14387, ...) as in L14389')],
  'Rows 8072-8078 (e.g. L8072: MATCH(L8070,$K8057:$AE8057,0)); policy L14389.',
- 'The first year\'s revenue gets its contractionary excise effect (Egypt about 3e-5 of GDP). MVP: every cohort counts its revenue use (share -1).',
+ 'The first year\'s revenue gets its contractionary excise effect (Egypt about 3e-5 of GDP). prototype: every cohort counts its revenue use (share -1).',
  note='MATCH on the empty L$8127 returns #N/A in every column, so row 8267 (EXC total) may be #N/A, not only cohort 1: to confirm on recalculation (rows 8280+ are IFNA(0) in this file).')
 
 # ---------- L70
@@ -58,7 +58,7 @@ bug('L70','Low','Revenue: industry gas excise uses the coal rate and coal use','
  [fix('L7761',sub('L7761',('L2512','L2581')),'L7761:AE7761 (M:AE now read row 6436, coal)',
       spell('L14078',('L8843','L8912'),fill='L14078:AE14078 (rate rows +6,331, use rows +6,317; a pasted copy would point at row 8898)'))],
  'Row 2581 = "nga ind - in which: new excise tax" ($/GJ, code mit.ntx.ind.nga); row 6442 = natural gas, industry (ktoe); policy 8912 and 12759.',
- 'Gas industry excise revenue right wherever coal and gas excises (or uses) differ; none for Egypt (no new excise). MVP: rex per subsector and fuel (v4.15).')
+ 'Gas industry excise revenue right wherever coal and gas excises (or uses) differ; none for Egypt (no new excise). prototype: rex per subsector and fuel (v4.15).')
 
 # ---------- L71
 L71=[]
@@ -69,7 +69,7 @@ for r,pr in ((7805,14122),(7819,14136),(7873,14190)):
 bug('L71','Low','Revenue: biomass taxes, subsidies and VAT divided by the unit conversion','Mitigation rows 7805, 7819, 7873 (policy 14122, 14136, 14190)',
  'Biomass existing taxes (7805), consumer subsidies (7819) and VAT (7873) = use (ktoe) x rate ($/GJ) / _conv_ktoe_to_gj (41,868 GJ/ktoe) / 10^9, so about 0; the coal and gas rows (7798, 7812) multiply.',
  L71,'Rows 7798 and 7812 (coal): ... *_conv_ktoe_to_gj/10^9; _conv_ktoe_to_gj = Mitigation E1035.',
- 'Biomass taxes, subsidies and VAT are no longer 0 (they enter rev.exi, csu.exi and total revenue via rows 7807, 7821, 7875, 8008). MVP: use x PJ/ktoe x rate for every fuel.')
+ 'Biomass taxes, subsidies and VAT are no longer 0 (they enter rev.exi, csu.exi and total revenue via rows 7807, 7821, 7875, 8008). prototype: use x PJ/ktoe x rate for every fuel.')
 
 # ---------- L72
 full('L7671'); full('M7756')
@@ -80,7 +80,7 @@ bug('L72','Low','Revenue: next-year references','Mitigation rows 7671 (policy 13
   fix('M7756',sub('M7756',('=N2466','=M2466')),'M7756:AE7756 (= copy L7756 right)',
       spell('M14073',('=N8797','=M8797'),fill='M14073:AE14073 (= copy L14073 right)'))],
  'Row 7670 (diesel: L$736-K$736) and L7756 / L14073 (=L2466 / =L8797).',
- 'Revenue of the year uses the year\'s rate and price change. None for Egypt\'s default run where these rates are 0 or flat. MVP: the year\'s own column.',
+ 'Revenue of the year uses the year\'s rate and price change. None for Egypt\'s default run where these rates are 0 or flat. prototype: the year\'s own column.',
  note='K7756 (=O2466/_conv_ktoe_to_gj) and K14073 are stray cells with no role; leave or clear.')
 
 # ---------- L73
@@ -92,7 +92,7 @@ bug('L73','Low','Revenue: wrong coverage shares','Mitigation rows 7691 (policy 1
   fix('L7718',sub('L7718',('=L2270*L2273','=L2265*L2270')),'L7718:AE7718',
       spell('L14035',('=L8601*L8604','=L8596*L8601'),fill='L14035:AE14035'))],
  'Row 2265 = kerosene coverage (fuel), row 2270 = power (sector); row 6442 = natural gas, industry; rows 7712 and 7703 as patterns.',
- 'Kerosene power coverage (info row, feeds the kerosene average 7717) right; the gas industry change is cosmetic (row 6442 = L6041 in every column, so no value change). MVP: coverage by subsector and fuel.',
+ 'Kerosene power coverage (info row, feeds the kerosene average 7717) right; the gas industry change is cosmetic (row 6442 = L6041 in every column, so no value change). prototype: coverage by subsector and fuel.',
  note='Row 7691 does not reproduce as a value error in this file (6442 = 6041); the edit only aligns it with the other fuels.')
 
 # ---------- L75
@@ -114,8 +114,8 @@ bug('L75','Low','Revenue reports: hard-coded row and mixed totals','Mitigation r
   fix('G17201',sub('G17200',('rev.new.lpk.usd','rev.new.elec.usd'),('C17200','C17201')),'copy G17200:AE17200 to G17201:AE17201, then edit G17201 as shown','none (report block)'),
   fix('L17201',sub('L17200',('$C17200','$C17201'),('$J17200','$J17201')).strip('{}'),'L17201:AE17201 (comes with the copy of row 17200)','none (report block)')],
  'Codes in the calculation block: rev.exi.usd (row 7807 / 14124), csu.exi.usd (7821 / 14138), sub.new.usd (7750 / 14067), rev.new.elec.usd (7749 / 14066); $E$16792 = ScenarioNum, 1 = baseline as in C17152.',
- 'The excise report shows the change in existing taxes (net of the subsidy change), the new-policy revenue and the subsidy saving instead of #N/A; revenue by fuel takes electricity\'s new-policy revenue like the other fuels. MVP: 12d and 12e read the revenue rows.',
- note='To confirm: the split of 17160-17163 is ours (the MVP has no such report): 17160 = change in rev.exi minus change in consumer subsidies, 17161 = new-policy revenue (sub.new), 17162 = 0 (tax evasion not modelled), 17163 = change in consumer subsidies (csu.exi). Totals 17164 = SUM unchanged.')
+ 'The excise report shows the change in existing taxes (net of the subsidy change), the new-policy revenue and the subsidy saving instead of #N/A; revenue by fuel takes electricity\'s new-policy revenue like the other fuels. prototype: 12d and 12e read the revenue rows.',
+ note='To confirm: the split of 17160-17163 is ours (the prototype has no such report): 17160 = change in rev.exi minus change in consumer subsidies, 17161 = new-policy revenue (sub.new), 17162 = 0 (tax evasion not modelled), 17163 = change in consumer subsidies (csu.exi). Totals 17164 = SUM unchanged.')
 
 # ---------- L76
 M='Multipliers!'
@@ -130,7 +130,7 @@ for c in 'FGHIJKLMNO':
 bug('L76','Low','Multipliers: empty CIT table, WAGE on the GNFS table, approximate country match, default to Estimated','Multipliers rows 19-21, 40, 45 (tables 412-610, 1018-1216, 1624-1822)',
  'With MultipliersSource = Estimated (D21 = 6), CIT lag 0 reads the labour-tax table (D$412:D$610) and lags 1+ the empty rows 1624-1822 (so 0); WAGE (row 45) reads the public-consumption (GNFS) table 1018-1216; D19 = MATCH(C19,C210:C408) is approximate, so a code missing from the sorted list takes its neighbour; D20 maps any unknown text to 4 (Estimated).',
  L76,'Income-group tables: CIT rows 94 (global), 105 (HIC), 117 (UMIC), 128 (LMIC), 139 (LIC); WAGE rows 99, 110, 122, 133, 144; E21 = 1 (global) or the income group 2-5, as used by the "Plus adjustment" rows 50-57.',
- 'Estimated multipliers: CIT and WAGE take the income-group values, a country missing from the estimated tables falls back to its income group, unknown text means the income group. None for Egypt by default (MultipliersSource = Income-grp*). MVP v4.15.',
+ 'Estimated multipliers: CIT and WAGE take the income-group values, a country missing from the estimated tables falls back to its income group, unknown text means the income group. None for Egypt by default (MultipliersSource = Income-grp*). prototype v4.15.',
  note='Seen while checking, not in the register: TRNS row 44 column D reads D$1218:D$1418 (title rows; E:O read $1220:$1418), so lag 0 of TRNS is off by two rows (lag 0 is 0 in every table, so no value effect).')
 
 # ---------- L77
@@ -142,7 +142,7 @@ L77.append(fix('B16387',sub('B16387',('("&FirstYearCalculations&"=100)','(baseli
 bug('L77','Medium','Average prices: index rows point at the wrong rows, gas test on the policy total','Mitigation rows 16317, 16387, 16398-16405',
  'Rows 16398-16405 ("indexed vs. FirstYearCalculations", labels electricity, coal, gas, oil, gasoline, diesel, LPG, kerosene) read rows 16331-16338 (electricity industry, electricity residential, coal industry, gas industry, coal residential, ...). E16317 ("natural gas absent in baseline") tests L16313, the policy gas total, where E16316 tests the baseline coal total. B16387 labels rows 16389-16396 "(2022=100)" although they are 100 + % change against the baseline.',
  L77,'Rows 16345-16352: scenario average price by fuel (electricity, coal, gas, oil, gasoline, diesel, LPG, kerosene), weighted by consumption; L16309 = baseline gas in the three sectors.',
- 'The reported price indices are of the right fuels; the gas-absent switch follows the baseline. MVP v4.15 (pav.leg, pav.lidx per fuel against scenario 1).',
+ 'The reported price indices are of the right fuels; the gas-absent switch follows the baseline. prototype v4.15 (pav.leg, pav.lidx per fuel against scenario 1).',
  note='C16395 and C16404 are a hard-coded 2 (the other rows =$E$16792); labels only.')
 
 # ---------- L85
@@ -152,7 +152,7 @@ bug('L85','Low','Electricity consumer subsidy info row subtracts industry','Miti
  [fix('L7820',sub('L7820',(')-MIN(0, L6331',')+MIN(0, L6331')),'L7820:AE7820',
       spell('L14137',(')-MIN(0, L12648',')+MIN(0, L12648'),fill='L14137:AE14137'))],
  'Row 7806 (existing electricity taxes): L6330*(...) + L6331*(...), both groups added.',
- 'Reported electricity consumer subsidies (csu.exi, row 7821) right. MVP: not applicable (info row; rgap sums both groups).')
+ 'Reported electricity consumer subsidies (csu.exi, row 7821) right. prototype: not applicable (info row; rgap sums both groups).')
 
 # ---------- L86
 bug('L86','Low','No manual override for the electricity producer subsidy','Mitigation I828 (F828, K828:AE828); Manual inputs row 146; names _manual_codes, _manual_prices',
@@ -160,7 +160,7 @@ bug('L86','Low','No manual override for the electricity producer subsidy','Mitig
  [fix('Name _manual_codes','Manual inputs!$G$59:$G$146','both definitions (workbook level and the sheet-level copy, sheet 17), Name Manager','none',now="Manual inputs!G59:G133"),
   fix('Name _manual_prices','Manual inputs!$G$59:$N$146','both definitions, Name Manager','none',now="Manual inputs!G59:N133")],
  'Manual inputs G146 = mit.pros.ecy.all (Electricity, Producer-side subsidy, USD bln), same layout as G125 (mit.pros.bio.all); I828 and K828 need no edit.',
- 'A manual electricity producer subsidy is used when EnergyPricesManualSwitch = Yes. MVP: not built (manual inputs to come).',
+ 'A manual electricity producer subsidy is used when EnergyPricesManualSwitch = Yes. prototype: not built (manual inputs to come).',
  note='To confirm: the extension also brings the manual electricity prices (Manual inputs 136-144: mit.sp/vatrate/txo/rp.ecy.res/ind, read by Mitigation rows 789-791 and others) into the lookup, which are also ignored today.',status='struct')
 
 json.dump(A,open(os.path.join(D,'part_C.json'),'w'),indent=1)

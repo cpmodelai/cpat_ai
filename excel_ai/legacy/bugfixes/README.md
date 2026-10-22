@@ -1,8 +1,8 @@
 # Legacy CPAT bug-fix plans (cell by cell)
 
-Manual fix plans for the legacy workbook `excel_ai/legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb` (sheet Mitigation). For every bug: the cell, its current formula, the new formula, the columns to fill and the policy-block row. Bug IDs follow the register (`excel_ai/mitigation/LegacyBugFixes_v7_0.md` for L1-L50; `excel_ai/mitigation/LegacyBugFixes_v5_4.md` and `issues_register_v5_4.py` for the later ones). All 49 legacy bugs of the v4.0 register (L1-L50; L17 was an MVP bug) are covered, plus two new ones (N1, N2), and 15 engineer-power bugs of the v5.4 register: L52-L56, L67, L83, L84, L88, L95, L107-L111 (64 bugs in all).
+Manual fix plans for the legacy workbook `excel_ai/legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb` (sheet Mitigation). For every bug: the cell, its current formula, the new formula, the columns to fill and the policy-block row. Bug IDs follow the register (`excel_ai/mitigation/LegacyBugFixes.md` for L1-L50; `excel_ai/mitigation/LegacyBugFixes_v5_4.md` and `issues_register_v5_4.py` for the later ones). All 49 legacy bugs of the v4.0 register (L1-L50; L17 was an prototype bug) are covered, plus two new ones (N1, N2), and 15 engineer-power bugs of the v5.4 register: L52-L56, L67, L83, L84, L88, L95, L107-L111 (64 bugs in all).
 
-**Since 2026-10-22 the plans are printed in the one register, `../CPAT-AI-Mitigation-MVP_BugsAndIssues_v7.2.docx` (section 3: power, transport, other mitigation in 10 areas by priority, distribution), and exported with it to `../CPAT-AI-Mitigation-MVP_BugsAndIssues_v7.2.json`** (`excel_ai/mitigation/make_bugfix_book_v7_0.py`). The separate Word and PDF plans were retired (git history). This folder keeps their sources:
+**Since 2026-10-22 the plans are printed in the one register, `../CPAT-AI_BugsAndIssues_v7.2.docx` (section 3: power, transport, other mitigation in 10 areas by priority, distribution), and exported with it to `../CPAT-AI_BugsAndIssues_v7.2.json`** (`excel_ai/mitigation/make_bugfix_book.py`). The separate Word and PDF plans were retired (git history). This folder keeps their sources:
 
 | File | Content |
 |---|---|

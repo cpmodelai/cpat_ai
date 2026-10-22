@@ -57,8 +57,8 @@ bug('L96','Low','Fuel-use block: mislabelled parameter and fuel rows','Mitigatio
  'C2199:C2201 label the carbon-tax settings in E, and the additional-efficiency increments read by every fuel row ($M2198:$M2201 = MTInputs F242:F245) sit beside them under the bare headers K2197 "Sector" / M2197 "Increment"; C2201 repeats "Exponential option or linear" over a stray "`" in E2201. E2385/E2386 say Road/Industry on the all-sector LPG and kerosene shadow prices; D5615, D5722, D6072, D6083 read "Other oil pinducts".',
  L96,
  'Policy copies found by label search: K8528/M8528, C8532/E8532, E8716/E8717, D11946, D12042 (offset +6,320), D12389, D12400 (+6,317). No formula reads E2201, C2201, K2197, M2197, E2385 or E2386 as text.',
- 'None on values (labels only). MVP: own labelled rows for additional efficiency, shadow prices by coverage sector, fuel names.',
- note='Relabelling the existing header row is the smallest fix; the MVP gives the increments rows of their own (to confirm if a move is wanted). The same typo is in 68 more output labels (Mitigation column E, rows 14808-15622): fix all with Find & Replace "pinducts" -> "products" on Mitigation (76 text cells, no formula contains the text).')
+ 'None on values (labels only). prototype: own labelled rows for additional efficiency, shadow prices by coverage sector, fuel names.',
+ note='Relabelling the existing header row is the smallest fix; the prototype gives the increments rows of their own (to confirm if a move is wanted). The same typo is in 68 more output labels (Mitigation column E, rows 14808-15622): fix all with Find & Replace "pinducts" -> "products" on Mitigation (76 text cells, no formula contains the text).')
 
 # ---------------- L97
 chk(M,'M5667','=(N2446)'); chk(M,'K5714','Price'); chk(M,'D5727','Fuel'); chk(M,'D5728','Average'); chk(M,'K5716','=J5716/J$5725'); chk(M,'J5725','=SUM(J5716:J5724)')
@@ -70,7 +70,7 @@ bug('L97','Low','Iron & steel memo rows unused; one reads next year\'s growth','
  'Row 5714 averages the iron & steel prices with emission weights (K5716:K5724 = J/J$5725, J = EF in I x base-year demand); rows 5727-5728 build demand and efficiency multiples from it and from the elasticity table 5668-5676; M5667 = (N2446) is next year\'s GDP growth. No cell on any sheet reads 5667-5676, 5714, I:K 5715-5725 or 5727-5728.',
  L97,'The live iron & steel demand rows 5716-5724 (columns L:AE) and their total L5725:AE5725 stay.',
  'None (dead calculation).',
- note='Alternative if the memo is kept as diagnostics: M5667 = (M2446), fill M5667:AE5667 (the year\'s own growth). Clearing follows the MVP (not built); to confirm.')
+ note='Alternative if the memo is kept as diagnostics: M5667 = (M2446), fill M5667:AE5667 (the year\'s own growth). Clearing follows the prototype (not built); to confirm.')
 
 # ---------------- L98
 L98=[fix(MI,'P54',sub(MI,'P54',('Dashboard!$R$30','Dashboard!$K$44')),'P54:X54 (copy across; the P53..X53 reference is relative)',NOPOL)]
@@ -115,7 +115,7 @@ L102=[fix(MI,'K326','0.9','typed input','none'),fix(MI,'L326','1','typed input',
 bug('L102','Low','Manual non-energy elasticities can never take effect','Manual inputs K326:M327; Mitigation K366:M367',
  'Manual inputs K326:M326, K327 = IF($E$293="Manual",#REF!,default) (E293 is empty), and Mitigation K366:M367 = IF($E$288="Manual",\'Manual inputs\'!K326, default) where E288 = MTInputs F261 (ElastIncAdjustment: Low/Base*/High), never "Manual".',
  L102,'Defaults 0.9 / 1 / 1 (population) and 0.15 (agriculture per capita income) as typed in the legacy fallbacks; L367:M367 stay "na".',
- 'None on values (same defaults); manual non-energy elasticities typed on Manual inputs now take effect. MVP v5.2 (LegacyDiff 72).')
+ 'None on values (same defaults); manual non-energy elasticities typed on Manual inputs now take effect. prototype v5.2 (LegacyDiff 72).')
 
 # ---------------- L103
 chk(M,'D17683','Manual'); chk(M,'D17711','Manual'); chk(M,'L17711','=L17683'); chk(M,'AE17683','=AD17683*AD17683/AC17683')
@@ -126,7 +126,7 @@ bug('L103','Low','Manual SCC reads a path typed on Mitigation, not the Manual in
  'NSCC "Manual" (CHOOSE($G$17674,...,L17683,...) in row 17685) takes the typed path L17683:AD17683 (80.8 in 2022 rising) and GSCC "Manual" (row 17711 = L17683, chosen in row 17713) reuses it; the Manual inputs SCC block (NSCC row 237, GSCC row 240) is read by nothing.',
  L103,'Mitigation L17680 and Manual inputs J236 are both FirstYearCalculations, so Mitigation L:AE match Manual inputs J:AC. Manual inputs J237 = J240 by default (NSCC = GSCC).',
  'Manual SCC entered on Manual inputs is ignored; none for the shipped scenarios and Egypt (SCC source Target).',
- note='The typed values on row 17683 are lost; if they are wanted as the manual default, type them into Manual inputs J237:AC237 first (to confirm). MVP reads row 237 only (scc.man); using J240 for GSCC follows the register.')
+ note='The typed values on row 17683 are lost; if they are wanted as the manual default, type them into Manual inputs J237:AC237 first (to confirm). prototype reads row 237 only (scc.man); using J240 for GSCC follows the register.')
 
 # ---------------- L104
 L104=[dict(cell='Name CH4Feebate',now="='Manual inputs'!$J$217",new='(delete the name)',fill='Name Manager',policy='none (defined name)')]
@@ -134,7 +134,7 @@ assert fx(MI,'J217')==''
 bug('L104','Low','Name CH4Feebate points to an empty cell','Manual inputs J217 (name CH4Feebate)',
  'CH4Feebate refers to Manual inputs J217, an empty cell between the pass-through table (rows 205-215) and the energy price block (218); no formula in the workbook uses the name. The methane fee inputs are MTInputs rows 185-189 (CTforMethane = F185) and Manual inputs rows 185-200.',
  L104,'No reference to CH4Feebate found in any sheet formula.',
- 'None (unused name).',note='Deleting follows the MVP (name not used); re-pointing it would need a choice of methane fee input (to confirm).',status='struct')
+ 'None (unused name).',note='Deleting follows the prototype (name not used); re-pointing it would need a choice of methane fee input (to confirm).',status='struct')
 
 # ---------------- L105
 chk('MTInputs','E56','{=TRANSPOSE(Dashboard!H$46:$J46)}'); chk('MTInputs','E61','{=TRANSPOSE(Dashboard!H$47:$J47)}')
@@ -153,7 +153,7 @@ L106=[fix(MI,'K315',sub(MI,'K315',('K298+','K297+'),('(K298*','(K297*')),'K315:N
 bug('L106','Low','Manual inputs memo swaps the renewables and electricity price elasticities','Manual inputs K315:N316',
  'The memo total elasticity of renewables (row 315) adds the electricity price elasticity (row 298) to the renewables efficiency elasticity (306); electricity (316) uses the renewables row 297 with 307.',
  L106,'Rows 297 (el_dem_ren) and 298 (el_dem_ecy); the other memo rows 309-314 pair row n with n+9.',
- 'None (memo only, read by nothing). MVP: fixed in the placed memo.')
+ 'None (memo only, read by nothing). prototype: fixed in the placed memo.')
 
 out=os.path.join(S,'parts','part_D.json')
 json.dump(A,open(out,'w'),indent=1,ensure_ascii=False)

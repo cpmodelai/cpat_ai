@@ -76,7 +76,7 @@
    }
   ],
   "ref": "Power tab rows 357-1635 (installed capacity by country and type, years 2000-2023 in F:AC). Q2999 = IFERROR(M2999/N2999,0) and W2999 = IF(AND(Q<T,Q>S),Q,R) then work as written.",
-  "effect": "Egypt base year (MVP v4.10, same Power data): actual capacity factors gas 0.385 (studies 0.566), wind 0.436 (0.30), solar 0.347 (0.18), hydro 0.592 (0.432); oil stays at the studies 0.134 (actual 1.59 is above CFOverrideIfAbove). Base-year gas capacity (Y3000) 52.0 GW instead of 35.4 GW. Changes capacities, dispatch and investment in every year.",
+  "effect": "Egypt base year (prototype v4.10, same Power data): actual capacity factors gas 0.385 (studies 0.566), wind 0.436 (0.30), solar 0.347 (0.18), hydro 0.592 (0.432); oil stays at the studies 0.134 (actual 1.59 is above CFOverrideIfAbove). Base-year gas capacity (Y3000) 52.0 GW instead of 35.4 GW. Changes capacities, dispatch and investment in every year.",
   "note": null,
   "status": "fix"
  },
@@ -223,7 +223,7 @@
     "policy": "paste into L10358:AE10358 (+6,331)"
    }
   ],
-  "ref": "Row label of 4027. Next year's required generation is estimated as this year's x (1 + growth from last year to this year) (user decision 2026-10-20). Reading next year's demand itself (M3752) would make the workbook circular once a revenue that reads fuel use incl. power (the methane fee, rows 6150-6151, 8024) feeds the GDP feedback: next year's demand reads next year's GDP, which reads this year's revenue. The estimate reads only this and last year, so it is free of circular references in legacy and in the MVP (v6.2). K3752 in the first year: IFERROR gives growth 0.",
+  "ref": "Row label of 4027. Next year's required generation is estimated as this year's x (1 + growth from last year to this year) (user decision 2026-10-20). Reading next year's demand itself (M3752) would make the workbook circular once a revenue that reads fuel use incl. power (the methane fee, rows 6150-6151, 8024) feeds the GDP feedback: next year's demand reads next year's GDP, which reads this year's revenue. The estimate reads only this and last year, so it is free of circular references in legacy and in the prototype (v6.2). K3752 in the first year: IFERROR gives growth 0.",
   "effect": "Egypt (legacy inputs, power_model_ref v6.2): installed capacity 77.9 GW in 2030 and 109.6 GW in 2040 against legacy 75.2 and 107.3 (next year's demand read directly, v4.14: 77.3 and 109.5). The estimate follows the demand shock (I22): the need is 4.3 GW in 2024 after the 2024 rebound and 0 in 2025.",
   "note": null,
   "status": "fix"
@@ -293,7 +293,7 @@
   ],
   "ref": "Rows 2377 and 2380 (coal and gas power: IF($D$2369, L$2375 x EF, 0) + row 2354/2357). Row 2403 F = 1 when the shadow-pricing scenario covers power. I2354, I2357, I2366 = EF of coal, gas and oil in power.",
   "effect": "None in the shipped Egypt runs (explicit carbon tax, D2369 = 0). In a regulation scenario covering power, dispatch and investment see the shadow carbon price (the carbon-tax path) x EF. To measure: run \"Energy efficiency regulations\" before and after and compare rows 3412-3420 and the generation mix (rows 3828-3836).",
-  "note": "Not via rows 2377/2380: their policy copies (8708-8719) keep the absolute references $D$2369 and L$2375, so in the policy block their regulation term reads the baseline general carbon price (L2375, 0 in the file); the new formulas use relative rows so the policy paste reads rows 8700, 8706 and 8734. The MVP also multiplies by the scenario's efficiency adjustment (0.7, Mitigation F86:F89); legacy's share C2371 is 0 (see L87), so it is left out here as in rows 2377-2388.",
+  "note": "Not via rows 2377/2380: their policy copies (8708-8719) keep the absolute references $D$2369 and L$2375, so in the policy block their regulation term reads the baseline general carbon price (L2375, 0 in the file); the new formulas use relative rows so the policy paste reads rows 8700, 8706 and 8734. The prototype also multiplies by the scenario's efficiency adjustment (0.7, Mitigation F86:F89); legacy's share C2371 is 0 (see L87), so it is left out here as in rows 2377-2388.",
   "status": "fix"
  },
  {
@@ -542,7 +542,7 @@
   ],
   "ref": "Mitigation I2988:I2996 and AB2988:AB2996 already read CoC!D202:D390 inside IFERROR(..., 0.075), the default used for countries missing from CoC; with #N/A in the row they take it.",
   "effect": "None for Egypt (own row, 9.9% in 2022). The 47 countries take the 7.5% default (plus the technology premium with WACCSource = Tech) instead of Sri Lanka's 17.8%.",
-  "note": "The cell text spans several lines (Alt+Enter). The #N/A of a country without data is itself the flag; the MVP also flags it on its Inputs sheet (PsCoCData).",
+  "note": "The cell text spans several lines (Alt+Enter). The #N/A of a country without data is itself the flag; the prototype also flags it on its Inputs sheet (PsCoCData).",
   "status": "fix"
  },
  {
@@ -686,7 +686,7 @@
   ],
   "ref": "MTInputs rows 354-357 (renewable subsidy inputs) and the layout of each MTInputs row (D = scenario value, E = Dashboard, F = value used, G = default, H = name).",
   "effect": "None in the shipped runs (additional subsidy 0; the default start year 2027 equals today's YearConsSubPha). After the fix the two policies can be timed apart.",
-  "note": "Do first (otherwise E2736 shows #NAME?): append MTInputs row 416 after the last input row (415), copying row 356: B416 \"New renewable energy subsidy, start year\", C416 \"year\", D416 =INDEX($N416:$XAA416,1,_ScenarioToRun), E416 =Dashboard!$R$6 (a free cell next to the renewable-subsidy inputs P6:Q6; type 2027 there), F416 =IF(MTAct,D416,IF(CPATDefaultsOrUserDefined=\"Default\",IF(I416=\"Y\",E416,G416),E416)), G416 2027, H416 RenSubsidyAddStartYear, I416 \"Y\"; give scenario columns N416:XAA416 the values of N132:XAA132 where set; define the name RenSubsidyAddStartYear = MTInputs!$F$416 (workbook scope). Appending (not inserting) keeps every existing MTInputs row number. The MVP has the same input (MTInputs row 482, default 2027).",
+  "note": "Do first (otherwise E2736 shows #NAME?): append MTInputs row 416 after the last input row (415), copying row 356: B416 \"New renewable energy subsidy, start year\", C416 \"year\", D416 =INDEX($N416:$XAA416,1,_ScenarioToRun), E416 =Dashboard!$R$6 (a free cell next to the renewable-subsidy inputs P6:Q6; type 2027 there), F416 =IF(MTAct,D416,IF(CPATDefaultsOrUserDefined=\"Default\",IF(I416=\"Y\",E416,G416),E416)), G416 2027, H416 RenSubsidyAddStartYear, I416 \"Y\"; give scenario columns N416:XAA416 the values of N132:XAA132 where set; define the name RenSubsidyAddStartYear = MTInputs!$F$416 (workbook scope). Appending (not inserting) keeps every existing MTInputs row number. The prototype has the same input (MTInputs row 482, default 2027).",
   "status": "needs input row"
  },
  {
@@ -704,7 +704,7 @@
     "policy": "paste into I9373:I9377 (+6,331)"
    }
   ],
-  "ref": "Power rows 323-330 (wld.ctf.oldlow/oldvhg.sol/wnd) and 316 (wld.ctf.med.ore). The MVP uses the same fallback (Inputs_ppath tcf|<type>|<option>): the older series of the same option for wind and solar, else Medium.",
+  "ref": "Power rows 323-330 (wld.ctf.oldlow/oldvhg.sol/wnd) and 316 (wld.ctf.med.ore). The prototype uses the same fallback (Inputs_ppath tcf|<type>|<option>): the older series of the same option for wind and solar, else Medium.",
   "effect": "None for Egypt (Medium*). With Low or Vhigh, the capex time factors of wind, solar (and other renewables under Vhigh) become the older series (Medium for other renewables) instead of errors.",
   "note": "The fallback is a choice: the user is to confirm it (the alternative is to add the missing series to the Power tab). Power row 318 is a second wld.ctf.med.ore, probably meant to be wld.ctf.vhg.ore. Decided (user 2026-10-19): the fallback is accepted; ask the CPAT team for the real Low and Vhigh series (data gap).",
   "status": "fix"
@@ -772,7 +772,7 @@
    }
   ],
   "ref": "Trailing 5-year average (this year and the 4 before; fewer in the first years), user decision 2026-10-20 (no formula reads a later year). The L-column 'now' text follows the pattern of P3155 and Q3155 (decoded from the .xlsb); check L:O before pasting.",
-  "effect": "Price changes reach power costs about two years later than in legacy. Not recalculated in Excel; the MVP v6.2 quick check reports the change.",
+  "effect": "Price changes reach power costs about two years later than in legacy. Not recalculated in Excel; the prototype v6.2 quick check reports the change.",
   "note": null,
   "status": "fix"
  },

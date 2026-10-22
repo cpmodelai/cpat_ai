@@ -4,9 +4,9 @@
 
 | File | What it is |
 |---|---|
-| `CPAT-AI-Mitigation-MVP-v7.2.xlsm` | **The integrated prototype** (mitigation, with the distribution tab): open it in Excel 365, macros on |
-| `CPAT-AI-Mitigation-MVP_BugsAndIssues_v7.2.docx` | **The bug-fix register**: every legacy CPAT bug with its cell-level fix plan, the issues, the departures from legacy |
-| `CPAT-AI-Mitigation-MVP_Overview_v7.2.pptx` | **The slide deck**: status, how to use it, results |
+| `CPAT-AI-Mitigation-Prototype-v7.2.xlsm` | **The integrated prototype** (mitigation, with the distribution tab): open it in Excel 365, macros on |
+| `CPAT-AI_BugsAndIssues_v7.2.docx` | **The bug-fix register**: every legacy CPAT bug with its cell-level fix plan, the issues, the departures from legacy |
+| `CPAT-AI_Overview_v7.2.pptx` | **The slide deck**: status, how to use it, results |
 | [`BUGS.md`](BUGS.md), [`ISSUES.md`](ISSUES.md) | The two short lists: legacy bugs (all fixed) and legacy issues (replicated, tracked) |
 
 ## Folders

@@ -28,7 +28,7 @@ bug('L13','High','Other oil products: hardcoded pass-through 1 and margin 0','Mi
  [fix('M759','=IFERROR(AVERAGE(INDEX(_prices_main,MATCH(_Country_code & FirstYearCalculations,_prices_country_years,0),MATCH(M$745 & "." & $G759,_prices_codes,0))),1)','single cell','none (above the scenario blocks)'),
   fix('O759','=IFERROR(AVERAGE(INDEX(_prices_main,MATCH(_Country_code & FirstYearCalculations, _prices_country_years,0),MATCH(O$745 & "." & $G759,_prices_codes,0))),0)','single cell','none (above the scenario blocks)')],
  'M758 and O758 (kerosene), the same formulas with $G758. IFERROR keeps the old constant if the dataset has no oop entry.',
- 'Egypt: pass-through 0 and margin about 7.95 $/bbl from the dataset (as the MVP). The other-oil-products retail price no longer falls with the oil price to the floor, and the tenfold rise in their fuel use by 2030 goes away.')
+ 'Egypt: pass-through 0 and margin about 7.95 $/bbl from the dataset (as the prototype). The other-oil-products retail price no longer falls with the oil price to the floor, and the tenfold rise in their fuel use by 2030 goes away.')
 bug('L20','High','Population growth path','Mitigation row 428 (feeds 429, 481, 2428, 6210 and the policy block)',
  'From 2026 the population row carries 2% a year, then 3% (2030) and 4% (2031 on, by repeating the last growth): Egypt 185.2 million in 2041. The legacy sheet UNPop (UN WPP 2024) gives 147.0 million.',
  [fix('P428','=O428*'+un('P')+'/'+un('O'),'P428:AE428 (2026-2041); K428:O428 stay as data','none (above the scenario blocks)')],
@@ -53,7 +53,7 @@ bug('L19','High','Flaring CO2 counted as methane','Mitigation rows 6156, 7561, 7
 # ---------- Medium
 bug('L15','Medium','ETS: hardcoded relative price 1.1','Mitigation D1843',
  'Not reproduced in this file. D1843 = (1+E1811*$E$1812)/(1+D1813*$E$1812) reads the volatility (0.42), impact (0.5) and policy-risk (0.2) inputs; 1.1 is the result, not a constant.',
- [], 'n/a','None.', note='No cell to change. Mark the register entry as "not reproduced"; the MVP volatility adjustment (1/1.1) equals legacy.', status='none')
+ [], 'n/a','None.', note='No cell to change. Mark the register entry as "not reproduced"; the prototype volatility adjustment (1/1.1) equals legacy.', status='none')
 bug('L16','Medium','ETS quick estimate linear in the semi-elasticity','Mitigation row 1868',
  'The quick price estimate divides the reduction by the semi-elasticity. In the NoPropData file L1868:AE1868 hold stored zeros (formula stripped); in a full file they hold the linear quotient.',
  [fix('L1868','=IF(L1867=0,0,LN(1+L1860)/L1867)','L1868:AE1868','none (above the scenario blocks)')],

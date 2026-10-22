@@ -22,8 +22,8 @@
    }
   ],
   "ref": "The scenario names in Mitigation N223:AC223 equal MTInputs B247:B251 (\"Energy efficiency regulations\", \"Vehicle fuel economy\", \"Residential efficiency regulations\", \"Industrial efficiency regulations\", \"Feebates\"); K2403:K2419 already apply C2371 where the sector is covered (F2403:F2419).",
-  "effect": "Regulation scenarios have no effect at all in legacy; after the fix they cut fuel use through the efficiency margin. MVP v4.16: regulation shadow price = shadow carbon price x adjustment x sector coverage; feebate share x SPPEffAdjFeebates.",
-  "note": "The converted xlsx (q.py) shows these IFNA formulas mangled (e.g. \"=_xlfn.IFNA(0)\"); the \"now\" text here is decoded from the xlsb itself. The q.py text \"=_xlfn.IFNA(0)\" behind the register wording is a conversion artefact: the lookup exists, the \" - \" prefix breaks it. The F90 factor on the feebate share follows the MVP (to confirm). Decided (user 2026-10-19): the feebate part (*$F$90) is part of the fix (register: row 251 for feebates). Apply with L112.",
+  "effect": "Regulation scenarios have no effect at all in legacy; after the fix they cut fuel use through the efficiency margin. prototype v4.16: regulation shadow price = shadow carbon price x adjustment x sector coverage; feebate share x SPPEffAdjFeebates.",
+  "note": "The converted xlsx (q.py) shows these IFNA formulas mangled (e.g. \"=_xlfn.IFNA(0)\"); the \"now\" text here is decoded from the xlsb itself. The q.py text \"=_xlfn.IFNA(0)\" behind the register wording is a conversion artefact: the lookup exists, the \" - \" prefix breaks it. The F90 factor on the feebate share follows the prototype (to confirm). Decided (user 2026-10-19): the feebate part (*$F$90) is part of the fix (register: row 251 for feebates). Apply with L112.",
   "status": "fix"
  },
  {
@@ -41,8 +41,8 @@
     "policy": "none (shared row above 2173)"
    }
   ],
-  "ref": "Row 1860 is the change relative to baseline (cap / baseline - 1); D1845 already divides by the volatility ratio D1843, so row 1867 = semi-elasticity x effectiveness x volatility adjustment, as in the MVP. Row 1871 = IFERROR(Q1868,0) catches a reduction of 100% or more (LN of 0 or less).",
-  "effect": "New ETS scenarios: the quick estimate meets the cap (legacy relies on the VBA goal seek). MVP v1.02.",
+  "ref": "Row 1860 is the change relative to baseline (cap / baseline - 1); D1845 already divides by the volatility ratio D1843, so row 1867 = semi-elasticity x effectiveness x volatility adjustment, as in the prototype. Row 1871 = IFERROR(Q1868,0) catches a reduction of 100% or more (LN of 0 or less).",
+  "effect": "New ETS scenarios: the quick estimate meets the cap (legacy relies on the VBA goal seek). prototype v1.02.",
   "note": "The VBA goal seek (ETSMaxIterations, ETSErrorTolerance) still runs from this estimate; no macro change needed.",
   "status": "fix"
  },
@@ -68,8 +68,8 @@
     "policy": "none (shared rows above 2173)"
    }
   ],
-  "ref": "Column J is empty in rows 1049-1663 (Em_fact reads the year columns by MATCH on row 1051, so J is not picked up). Mapping as the MVP CH4 subsector (CH4_SUB): services -> residential, rail -> road; G (input/output code, H) stays.",
-  "effect": "Local pollutants of services and rail no longer zero. MVP v2.9 (each subsector takes the GAINS subsector of its CH4 factor).",
+  "ref": "Column J is empty in rows 1049-1663 (Em_fact reads the year columns by MATCH on row 1051, so J is not picked up). Mapping as the prototype CH4 subsector (CH4_SUB): services -> residential, rail -> road; G (input/output code, H) stays.",
+  "effect": "Local pollutants of services and rail no longer zero. prototype v2.9 (each subsector takes the GAINS subsector of its CH4 factor).",
   "note": "In the NoPropData file the emission rows (e.g. L6607 = IFNA(L6350*INDEX(Em_fact,$J6607,L6605),0)) and the EF values are #NAME?/stripped, so check the result in the full file. The converted xlsx (q.py) shows these IFNA formulas mangled (e.g. \"=_xlfn.IFNA(0)\"); the \"now\" text here is decoded from the xlsb itself. Apply before L59.",
   "status": "fix"
  },
@@ -88,9 +88,9 @@
     "policy": "none (shared rows above 2173)"
    }
   ],
-  "ref": "MVP ef_fallback: LPG takes natural gas of the same (mapped) subsector; food & forestry takes construction; biomass takes residential; else manufacturing (construction for manufacturing itself). The COUNTIF keeps a missing pollutant of a covered fuel at 0 (GAINS omits zero factors), as the MVP. F1052 (L58) already looks the J code up.",
-  "effect": "Egypt 2022: NOx +11%, PM2.5 +5%, combustion CH4 +20% (MVP v4.12).",
-  "note": "Apply after L58 (\"now\" is L58's J). The COUNTIF tests any country/region/world code for the pair (MVP tests the country GAINS set): to confirm.",
+  "ref": "prototype ef_fallback: LPG takes natural gas of the same (mapped) subsector; food & forestry takes construction; biomass takes residential; else manufacturing (construction for manufacturing itself). The COUNTIF keeps a missing pollutant of a covered fuel at 0 (GAINS omits zero factors), as the prototype. F1052 (L58) already looks the J code up.",
+  "effect": "Egypt 2022: NOx +11%, PM2.5 +5%, combustion CH4 +20% (prototype v4.12).",
+  "note": "Apply after L58 (\"now\" is L58's J). The COUNTIF tests any country/region/world code for the pair (prototype tests the country GAINS set): to confirm.",
   "status": "fix"
  },
  {
@@ -109,7 +109,7 @@
    }
   ],
   "ref": "Row 8057 (lags 0-20) = Multipliers row 61; lag 0 = Multipliers column D (0 in the global, income-group and country tables, e.g. D92:D99).",
-  "effect": "The GDP effect of every impulse comes one year later (lag 0 in the impulse year). MVP v4.15 (lag 0 in the impulse year, multiplier 0).",
+  "effect": "The GDP effect of every impulse comes one year later (lag 0 in the impulse year). prototype v4.15 (lag 0 in the impulse year, multiplier 0).",
   "note": "Rows 8280-8287 / 14597-14604 (which turn the cohort sums 8267-8274 into the GDP-effect rows) are live formulas (IFNA(INDEX(...),0), read from the .xlsb), 0 in the baseline (no policy); the cohort rows need the L69 fix, so check L68 and L69 together in Excel. L69 (row 8071) reads the same lag row.",
   "status": "fix"
  },
@@ -192,7 +192,7 @@
    }
   ],
   "ref": "Rows 16345-16352: scenario average price by fuel (electricity, coal, gas, oil, gasoline, diesel, LPG, kerosene), weighted by consumption; L16309 = baseline gas in the three sectors.",
-  "effect": "The reported price indices are of the right fuels; the gas-absent switch follows the baseline. MVP v4.15 (pav.leg, pav.lidx per fuel against scenario 1).",
+  "effect": "The reported price indices are of the right fuels; the gas-absent switch follows the baseline. prototype v4.15 (pav.leg, pav.lidx per fuel against scenario 1).",
   "note": "C16395 and C16404 are a hard-coded 2 (the other rows =$E$16792); labels only.",
   "status": "fix"
  },
@@ -219,8 +219,8 @@
    }
   ],
   "ref": "Weights F1816:F1819 and F1821:F1830 are the country baseline emissions by subsector (2025, column O of rows 1889-1903), the same rows that define coverage in E1815:E1836. Revenue rows 7789-7792 need no change: sector CO2 x (price x covered share) = price x covered CO2. Rows 2322 (power) and 2324 (residential) are single subsectors.",
-  "effect": "Uncovered industry and transport subsectors no longer pay the full permit price; revenue on covered CO2 only. MVP: coverage, price and revenue by subsector (etsc, v1.07).",
-  "note": "Decided (user 2026-10-19): the emission-weighted covered share of the sector (no new rows; exact for revenue, average for the price signal). Separate subsector prices, as in the MVP, are an upgrade. IFERROR keeps the MAX when the sector has no baseline emissions.",
+  "effect": "Uncovered industry and transport subsectors no longer pay the full permit price; revenue on covered CO2 only. prototype: coverage, price and revenue by subsector (etsc, v1.07).",
+  "note": "Decided (user 2026-10-19): the emission-weighted covered share of the sector (no new rows; exact for revenue, average for the price signal). Separate subsector prices, as in the prototype, are an upgrade. IFERROR keeps the MAX when the sector has no baseline emissions.",
   "status": "fix"
  },
  {
@@ -353,7 +353,7 @@
    }
   ],
   "ref": "Row 732 = coal forecast, international, $/GJ real (K728/$G728); rows 741-742 use the gas (733) and oil (731) prices.",
-  "effect": "Reported energy trade balance only (Egypt: about 0.6 bn USD a year). MVP v4.6.",
+  "effect": "Reported energy trade balance only (Egypt: about 0.6 bn USD a year). prototype v4.6.",
   "note": null,
   "status": "fix"
  },
@@ -394,7 +394,7 @@
    }
   ],
   "ref": "Rows 2611, 2634, 2657, 2680 = household shares (rows 801, 806, 811, 816). retail / (1 + rate x share) = sp + taxes, so the new K:N equals (supply cost + taxes) x rate x share without a circular reference to row 2596.",
-  "effect": "None for Egypt (VAT 0 on oil). MVP v4.12.",
+  "effect": "None for Egypt (VAT 0 on oil). prototype v4.12.",
   "note": null,
   "status": "fix"
  },
@@ -414,7 +414,7 @@
    }
   ],
   "ref": "Defined name ExistingETSGrowth = MTInputs!F209 (Dashboard Q149). The carbon tax rows 1727-1736 keep ExistingCTGrowth.",
-  "effect": "None for Egypt. MVP v4.12.",
+  "effect": "None for Egypt. prototype v4.12.",
   "note": "The national ETS price row 1680 shows {=IFNA(0)} in all years in the converted file (no growth formula visible); check it in Excel and apply ExistingETSGrowth there too if it grows with ExistingCTGrowth.",
   "status": "fix"
  },
@@ -448,7 +448,7 @@
    }
   ],
   "ref": "K1760:K1762 and rows 1759, 1763 (all years): IF(single price, single rate, fuel rate if any) x EF x transport coverage (row 1740) x fuel coverage (rows 1745-1747).",
-  "effect": "None for Egypt. MVP v4.12.",
+  "effect": "None for Egypt. prototype v4.12.",
   "note": null,
   "status": "fix"
  },
@@ -524,7 +524,7 @@
    }
   ],
   "ref": "ECP rows 136-425 \"Fuel coverage: carbon taxes\" (last row gbr.mit.ecf.bio); the sectoral block starts at 428.",
-  "effect": "None for Egypt. MVP v4.12.",
+  "effect": "None for Egypt. prototype v4.12.",
   "note": "K1741:O1749 show as {=IFNA(0)} in the converted file: if their INDEX on ECP stops at row 403 (e.g. ECP!$F$133:$P$403), extend it to row 425 as well.",
   "status": "fix"
  },
@@ -544,7 +544,7 @@
    }
   ],
   "ref": "Rows 1683 and 1698 = national and EU ETS industry coverage, as rows 1713 and 1716; row 1717 has no other reader than 2693/9024.",
-  "effect": "None for Egypt. MVP v4.12.",
+  "effect": "None for Egypt. prototype v4.12.",
   "note": "Decided (user 2026-10-19): only the coverage rows change; C1717 stays (the power EF), as the EF is not part of the bug.",
   "status": "fix"
  },
@@ -683,7 +683,7 @@
    }
   ],
   "ref": "Rows 1681-1684 = national ETS sector coverage by year (held after 2025, so only 2022-2026 change).",
-  "effect": "None for Egypt. MVP v4.12.",
+  "effect": "None for Egypt. prototype v4.12.",
   "note": "Row 2286 (oen) has no complementary branch and is left as is.",
   "status": "fix"
  },
@@ -695,7 +695,7 @@
   "why": "Rows 6077-6084 (coal ... biomass) divide by (1+_eff_imp_<fuel>_ind) without $M2201 (MTInputs F245, industrial additional efficiency); only the renewables row 6085 and the industry rows add it.",
   "fixes": [],
   "ref": "Plan L43 (fixes_other_mitigation) already edits the same cells: \"_ind))^\" -> \"_ind+$M2201))^\" in M6077:AE6084 and \"+$M8532\" in the policy rows 12394-12401 (do not paste: +6,317 block with +6,331 drivers).",
-  "effect": "None while the input is 0. MVP v4.13 (other energy use takes the industrial gain on every fuel).",
+  "effect": "None while the input is 0. prototype v4.13 (other energy use takes the industrial gain on every fuel).",
   "note": "No separate edit: applying L43 fixes L66 (same cells, same term).",
   "status": "fix"
  },
@@ -715,7 +715,7 @@
    }
   ],
   "ref": "Rows 8072-8078 (e.g. L8072: MATCH(L8070,$K8057:$AE8057,0)); policy L14389.",
-  "effect": "The first year's revenue gets its contractionary excise effect (Egypt about 3e-5 of GDP). MVP: every cohort counts its revenue use (share -1).",
+  "effect": "The first year's revenue gets its contractionary excise effect (Egypt about 3e-5 of GDP). prototype: every cohort counts its revenue use (share -1).",
   "note": "MATCH on the empty L$8127 returns #N/A in every column, so row 8267 (EXC total) may be #N/A, not only cohort 1: to confirm on recalculation (rows 8280+ are IFNA(0) in this file). Decided (user 2026-10-19): check in Excel when applying whether the MATCH on the empty L8127 wipes the whole row; the fix is the same either way.",
   "status": "fix"
  },
@@ -735,7 +735,7 @@
    }
   ],
   "ref": "Row 2581 = \"nga ind - in which: new excise tax\" ($/GJ, code mit.ntx.ind.nga); row 6442 = natural gas, industry (ktoe); policy 8912 and 12759.",
-  "effect": "Gas industry excise revenue right wherever coal and gas excises (or uses) differ; none for Egypt (no new excise). MVP: rex per subsector and fuel (v4.15).",
+  "effect": "Gas industry excise revenue right wherever coal and gas excises (or uses) differ; none for Egypt (no new excise). prototype: rex per subsector and fuel (v4.15).",
   "note": null,
   "status": "fix"
  },
@@ -769,7 +769,7 @@
    }
   ],
   "ref": "Rows 7798 and 7812 (coal): ... *_conv_ktoe_to_gj/10^9; _conv_ktoe_to_gj = Mitigation E1035.",
-  "effect": "Biomass taxes, subsidies and VAT are no longer 0 (they enter rev.exi, csu.exi and total revenue via rows 7807, 7821, 7875, 8008). MVP: use x PJ/ktoe x rate for every fuel.",
+  "effect": "Biomass taxes, subsidies and VAT are no longer 0 (they enter rev.exi, csu.exi and total revenue via rows 7807, 7821, 7875, 8008). prototype: use x PJ/ktoe x rate for every fuel.",
   "note": null,
   "status": "fix"
  },
@@ -796,7 +796,7 @@
    }
   ],
   "ref": "Row 7670 (diesel: L$736-K$736) and L7756 / L14073 (=L2466 / =L8797).",
-  "effect": "Revenue of the year uses the year's rate and price change. None for Egypt's default run where these rates are 0 or flat. MVP: the year's own column.",
+  "effect": "Revenue of the year uses the year's rate and price change. None for Egypt's default run where these rates are 0 or flat. prototype: the year's own column.",
   "note": "K7756 (=O2466/_conv_ktoe_to_gj) and K14073 are stray cells with no role; leave or clear.",
   "status": "fix"
  },
@@ -823,7 +823,7 @@
    }
   ],
   "ref": "Row 2265 = kerosene coverage (fuel), row 2270 = power (sector); row 6442 = natural gas, industry; rows 7712 and 7703 as patterns.",
-  "effect": "Kerosene power coverage (info row, feeds the kerosene average 7717) right; the gas industry change is cosmetic (row 6442 = L6041 in every column, so no value change). MVP: coverage by subsector and fuel.",
+  "effect": "Kerosene power coverage (info row, feeds the kerosene average 7717) right; the gas industry change is cosmetic (row 6442 = L6041 in every column, so no value change). prototype: coverage by subsector and fuel.",
   "note": "Row 7691 does not reproduce as a value error in this file (6442 = 6041); the edit only aligns it with the other fuels.",
   "status": "fix"
  },
@@ -892,8 +892,8 @@
    }
   ],
   "ref": "Codes in the calculation block: rev.exi.usd (row 7807 / 14124), csu.exi.usd (7821 / 14138), sub.new.usd (7750 / 14067), rev.new.elec.usd (7749 / 14066); $E$16792 = ScenarioNum, 1 = baseline as in C17152.",
-  "effect": "The excise report shows the change in existing taxes (net of the subsidy change), the new-policy revenue and the subsidy saving instead of #N/A; revenue by fuel takes electricity's new-policy revenue like the other fuels. MVP: 12d and 12e read the revenue rows.",
-  "note": "Decided (user 2026-10-19): mapping as below (ours: the MVP has no such report); row 17162 (tax evasion, not modelled) is left empty with a note, not 0; ask the CPAT team about the intended split. Totals 17164 = SUM unchanged.",
+  "effect": "The excise report shows the change in existing taxes (net of the subsidy change), the new-policy revenue and the subsidy saving instead of #N/A; revenue by fuel takes electricity's new-policy revenue like the other fuels. prototype: 12d and 12e read the revenue rows.",
+  "note": "Decided (user 2026-10-19): mapping as below (ours: the prototype has no such report); row 17162 (tax evasion, not modelled) is left empty with a note, not 0; ask the CPAT team about the intended split. Totals 17164 = SUM unchanged.",
   "status": "fix"
  },
  {
@@ -947,7 +947,7 @@
    }
   ],
   "ref": "Income-group tables: CIT rows 94 (global), 105 (HIC), 117 (UMIC), 128 (LMIC), 139 (LIC); WAGE rows 99, 110, 122, 133, 144; E21 = 1 (global) or the income group 2-5, as used by the \"Plus adjustment\" rows 50-57.",
-  "effect": "Estimated multipliers: CIT and WAGE take the income-group values, a country missing from the estimated tables falls back to its income group, unknown text means the income group. None for Egypt by default (MultipliersSource = Income-grp*). MVP v4.15.",
+  "effect": "Estimated multipliers: CIT and WAGE take the income-group values, a country missing from the estimated tables falls back to its income group, unknown text means the income group. None for Egypt by default (MultipliersSource = Income-grp*). prototype v4.15.",
   "note": "Seen while checking, not in the register: TRNS row 44 column D reads D$1218:D$1418 (title rows; E:O read $1220:$1418), so lag 0 of TRNS is off by two rows (lag 0 is 0 in every table, so no value effect).",
   "status": "fix"
  },
@@ -966,8 +966,8 @@
     "policy": "none (shared row above 2173)"
    }
   ],
-  "ref": "D1806/D1807 = auctioned share in the start/target year (MTInputs F90/F91); the target-year value is held, as the MVP.",
-  "effect": "An auctioned share no longer drops to 0 (all free) after the target year. MVP v4.15.",
+  "ref": "D1806/D1807 = auctioned share in the start/target year (MTInputs F90/F91); the target-year value is held, as the prototype.",
+  "effect": "An auctioned share no longer drops to 0 (all free) after the target year. prototype v4.15.",
   "note": "MTInputs row 92 (D_ETSAuctCont, Dashboard I33) no longer acts; relabel it or drop it from the Dashboard.",
   "status": "fix"
  },
@@ -987,7 +987,7 @@
    }
   ],
   "ref": "Rows 2248-2250 are the MTInputs carbon-price paths; the volatility adjustment stays in the ETS price (D1845 / D1843).",
-  "effect": "The carbon tax outside the ETS is no longer cut by the volatility ratio. MVP: the carbon tax path is the MTInputs path.",
+  "effect": "The carbon tax outside the ETS is no longer cut by the volatility ratio. prototype: the carbon tax path is the MTInputs path.",
   "note": "Rows 7732-7735 (policy 14049-14052) still multiply by $E2191 when the scenario is \"ETS\"; not part of this bug.",
   "status": "fix"
  },
@@ -1084,7 +1084,7 @@
    }
   ],
   "ref": "Row 2214 = consumer subsidy phase-out factor; J = 2024 value of the row.",
-  "effect": "A consumer subsidy phase-out no longer starts and ends a year late. MVP v4.16 (every wedge takes the factor of its year).",
+  "effect": "A consumer subsidy phase-out no longer starts and ends a year late. prototype v4.16 (every wedge takes the factor of its year).",
   "note": null,
   "status": "fix"
  },
@@ -1104,7 +1104,7 @@
    }
   ],
   "ref": "Row 826 = producer-side subsidy, natural gas ($/GJ); rows 2524 and 2570 (industry and power gas) already read it.",
-  "effect": "Residential gas no longer takes the oil producer subsidy. MVP v4.16 (producer subsidies by fuel; no price effect in the MVP, issue I49).",
+  "effect": "Residential gas no longer takes the oil producer subsidy. prototype v4.16 (producer subsidies by fuel; no price effect in the prototype, issue I49).",
   "note": null,
   "status": "fix"
  },
@@ -1124,7 +1124,7 @@
    }
   ],
   "ref": "Row 7806 (existing electricity taxes): L6330*(...) + L6331*(...), both groups added.",
-  "effect": "Reported electricity consumer subsidies (csu.exi, row 7821) right. MVP: not applicable (info row; rgap sums both groups).",
+  "effect": "Reported electricity consumer subsidies (csu.exi, row 7821) right. prototype: not applicable (info row; rgap sums both groups).",
   "note": null,
   "status": "fix"
  },
@@ -1151,7 +1151,7 @@
    }
   ],
   "ref": "Manual inputs G146 = mit.pros.ecy.all (Electricity, Producer-side subsidy, USD bln), same layout as G125 (mit.pros.bio.all); I828 and K828 need no edit.",
-  "effect": "A manual electricity producer subsidy is used when EnergyPricesManualSwitch = Yes. MVP: not built (manual inputs to come).",
+  "effect": "A manual electricity producer subsidy is used when EnergyPricesManualSwitch = Yes. prototype: not built (manual inputs to come).",
   "note": "To confirm: the extension also brings the manual electricity prices (Manual inputs 136-144: mit.sp/vatrate/txo/rp.ecy.res/ind, read by Mitigation rows 789-791 and others) into the lookup, which are also ignored today. Decided (user 2026-10-19): accepted, including switching on the manual electricity price rows 136-144 (they exist to be read).",
   "status": "struct"
  },
@@ -1171,7 +1171,7 @@
    }
   ],
   "ref": "Rows 2346-2349 are the feebate/ETS prices by sector (pow, rod, res, ind); 2355 = coal EF x residential price, so swapping L2348 for the transport price L2347 gives the road coal shadow price (regulation term unchanged).",
-  "effect": "Coal in road takes the transport shadow price (minor; Egypt road coal 0). MVP: shadow prices by coverage sector x EF.",
+  "effect": "Coal in road takes the transport shadow price (minor; Egypt road coal 0). prototype: shadow prices by coverage sector x EF.",
   "note": "Decided (user 2026-10-19): services (5634) stay on the residential price: legacy has no services coal price, so that is a design choice (issue), not a wrong reference.",
   "status": "fix"
  },
@@ -1191,7 +1191,7 @@
    }
   ],
   "ref": "Equivalent biomass rows 5578, 5584, 5591 already carry the efficiency ratio.",
-  "effect": "Biomass gain no longer 5 times too small when leakage is on. MVP v5.1 (lkb = -lkd x e_m / e_b).",
+  "effect": "Biomass gain no longer 5 times too small when leakage is on. prototype v5.1 (lkb = -lkd x e_m / e_b).",
   "note": "Plan L45 (fixes_other_mitigation) rewrites the same cell as =-(M5578+M5584+M5591) (also drops the second $E$1785): if L45 is applied, nothing more to do.",
   "status": "fix"
  },
@@ -1218,7 +1218,7 @@
    }
   ],
   "ref": "Same exemption term as the after-tax prices L5546:AE5547; LEFT(...,3) because the input values are \"Yes*\"/\"No*\" (plan L48 makes 5546-5547 test it the same way).",
-  "effect": "An exempt LPG or kerosene no longer leaks to biomass. MVP v5.1 (lkt reads the row's own new policy).",
+  "effect": "An exempt LPG or kerosene no longer leaks to biomass. prototype v5.1 (lkt reads the row's own new policy).",
   "note": null,
   "status": "fix"
  },
@@ -1313,7 +1313,7 @@
    }
   ],
   "ref": "The sector rows use the same rule with live references: E2270 = {IF(D2369=1,IF(OR(C2173=4,C2173=9),\"Yes\",\"No\"),INDEX($D$223:$AG$257,F2270,F2258))} (D2369 = 1 for shadow pricing).",
-  "effect": "None (dead branch); under shadow pricing the fuels follow the sector rule. MVP: not built (coverage by switch).",
+  "effect": "None (dead branch); under shadow pricing the fuels follow the sector rule. prototype: not built (coverage by switch).",
   "note": "Copying E2259:E2268 to E8590:E8599 moves D2369 to D8700 and C2173 to C8504, the policy block's own cells.",
   "status": "fix"
  },
@@ -1368,7 +1368,7 @@
    }
   ],
   "ref": "L2265 (kerosene) is the rule of the first group; M2257 is the year header of rows 2259-2288.",
-  "effect": "Biomass, renewables, jet fuel and the exempt residential demand phase in like the other fuels. MVP: not built (LegacyDiff 67).",
+  "effect": "Biomass, renewables, jet fuel and the exempt residential demand phase in like the other fuels. prototype: not built (LegacyDiff 67).",
   "note": "Rows 2266-2268 lose their own \"No\"/number handling (as rows 2259-2265). M5568:M5570 are also edited by plan L48 (income factor M2433): if L48 is applied first, make only the exponent substitution shown here. Decided (user 2026-10-19): one rule for all rows, the rule of rows 2259-2265.",
   "status": "fix"
  },
@@ -1451,7 +1451,7 @@
    }
   ],
   "ref": "Policy copies found by label search: K8528/M8528, C8532/E8532, E8716/E8717, D11946, D12042 (offset +6,320), D12389, D12400 (+6,317). No formula reads E2201, C2201, K2197, M2197, E2385 or E2386 as text.",
-  "effect": "None on values (labels only). MVP: own labelled rows for additional efficiency, shadow prices by coverage sector, fuel names.",
+  "effect": "None on values (labels only). prototype: own labelled rows for additional efficiency, shadow prices by coverage sector, fuel names.",
   "note": "Decided (user 2026-10-19): relabel in place.",
   "status": "fix"
  },
@@ -1587,7 +1587,7 @@
    }
   ],
   "ref": "Defaults 0.9 / 1 / 1 (population) and 0.15 (agriculture per capita income) as typed in the legacy fallbacks; L367:M367 stay \"na\".",
-  "effect": "None on values (same defaults); manual non-energy elasticities typed on Manual inputs now take effect. MVP v5.2 (LegacyDiff 72).",
+  "effect": "None on values (same defaults); manual non-energy elasticities typed on Manual inputs now take effect. prototype v5.2 (LegacyDiff 72).",
   "note": null,
   "status": "fix"
  },
@@ -1668,7 +1668,7 @@
    }
   ],
   "ref": "Rows 297 (el_dem_ren) and 298 (el_dem_ecy); the other memo rows 309-314 pair row n with n+9.",
-  "effect": "None (memo only, read by nothing). MVP: fixed in the placed memo.",
+  "effect": "None (memo only, read by nothing). prototype: fixed in the placed memo.",
   "note": null,
   "status": "fix"
  },
@@ -1776,7 +1776,7 @@
    }
   ],
   "ref": "LEFT(x,3)=\"Yes\" is true for \"Yes\" and \"Yes*\" and false for \"No\", \"No*\". Row 9481 is the policy copy of row 3150 (=IF(RenewableSubsidyHydro=\"Yes\",L9474,0)).",
-  "effect": "None for the shipped defaults (all No or No*). With a starred Yes chosen, power rebates, the hydro renewable subsidy and the additional excise now apply. MVP v5.4 accepts Yes or Yes*.",
+  "effect": "None for the shipped defaults (all No or No*). With a starred Yes chosen, power rebates, the hydro renewable subsidy and the additional excise now apply. prototype v5.4 accepts Yes or Yes*.",
   "note": "F200 (AddEfficientTaxes, =IF(E200=\"Yes\",1,0); MTInputs F217 default \"No*\") uses the same exact test; not in the register, check its dropdown before applying the same change.",
   "status": "fix"
  },
@@ -1803,7 +1803,7 @@
    }
   ],
   "ref": "Row 725 (\"Inflation index, 2026 = 100\", real 2026) = CPI(ResultsYear)/CPI(t) by year, from row 456; K725 = 2021 ... AE725 = 2041, so column L is 2022 in rows 725 and 2741 alike. Row 2249 converts the carbon price the same way (x row 456).",
-  "effect": "None for Egypt (both inputs 0). A non-zero nominal subsidy now falls in real terms over time (x 1.137 in 2022, x 1 in 2026, x 0.898 in 2041) instead of staying constant. MVP v5.6 (row rnsp).",
+  "effect": "None for Egypt (both inputs 0). A non-zero nominal subsidy now falls in real terms over time (x 1.137 in 2022, x 1 in 2026, x 0.898 in 2041) instead of staying constant. prototype v5.6 (row rnsp).",
   "note": "Inputs stay nominal; only the conversion is added. Alternative: relabel MTInputs 354-355 as real (no cell change). Not in the register: row 2745 already contains row 2743, so rows 2785-2788, 2947-2951 and 7897-7900 (= L2743+L2745) count the baseline subsidy twice; matters only when MTInputs 354 is non-zero.",
   "status": "fix"
  },
@@ -1823,7 +1823,7 @@
    }
   ],
   "ref": "Row 4107 = SUMPRODUCT(manual capacity 4097:4105, availability 3049:3057), the effective manual investment; types with manual investment get logit weight 0 (rows 4061-4069), so the shares 4085-4093 spread the remainder over the other types. Row 4261 (\"Total Required (should match)\") = L4028 checks the total.",
-  "effect": "None while no type is Manual (Egypt: Wind and Solar \"Yes\", others \"If Present*\"). With manual investment, total new effective capacity falls from need + manual to the need. MVP v5.6 (P3): needm, first and deficit use the need net of manual investment.",
+  "effect": "None while no type is Manual (Egypt: Wind and Solar \"Yes\", others \"If Present*\"). With manual investment, total new effective capacity falls from need + manual to the need. prototype v5.6 (P3): needm, first and deficit use the need net of manual investment.",
   "note": "Legacy has no separate first-year or deficit rows: rows 4110-4118 are the only consumers. Row 4030 (capacity passed forward = 4026 + 4028) is unchanged, it uses the total need. MAX(...,0) keeps a manual investment larger than the need from making logit investment negative.",
   "status": "fix"
  },
@@ -1843,7 +1843,7 @@
    }
   ],
   "ref": "Rows 18421 and 18501 look up F18405 (= MIN(_NDC_End, 2035)); the Fixed and Historical levels (18435, 18452) are levels in that year.",
-  "effect": "None for Egypt (target 2030, adj = 1). A BAU target before 2030 is no longer scaled up twice. MVP v5.7 (NDC comparison 14c) compares every NDC in its own target year, with no adjustment.",
+  "effect": "None for Egypt (target 2030, adj = 1). A BAU target before 2030 is no longer scaled up twice. prototype v5.7 (NDC comparison 14c) compares every NDC in its own target year, with no adjustment.",
   "note": "Smallest change: the factor becomes 1, so the BAU rows apply the reduction once and the \"<1\" branches of rows 18441-18443 and 18458-18460 become dead. Optional cleanup: relabel D18414 (\"not used: comparison in the target year\") or drop the factor from the formulas that read it.",
   "status": "fix"
  },
@@ -1877,7 +1877,7 @@
    }
   ],
   "ref": "F18499 (target / start-year GHGs incl. LULUCF) is the right ratio; rows 18511 and 18512 (levels) read the unconditional F18494 and conditional F18495; G18446 = start-year GHGs incl. LULUCF.",
-  "effect": "None for Egypt (unconditional target only: F18497 becomes 0.887 = F18499; row 18509 unchanged). With a conditional target the conditional index line is no longer the inverse (e.g. 1.13 instead of 0.89) and the unconditional line no longer shows the average. MVP v5.7: ndc.idx = target / base-year GHGs incl. LULUCF for both.",
+  "effect": "None for Egypt (unconditional target only: F18497 becomes 0.887 = F18499; row 18509 unchanged). With a conditional target the conditional index line is no longer the inverse (e.g. 1.13 instead of 0.89) and the unconditional line no longer shows the average. prototype v5.7: ndc.idx = target / base-year GHGs incl. LULUCF for both.",
   "note": "The L18509 edit goes beyond the register sentence (rows 18497-18498 only); without it the unconditional index line keeps showing the average of the two targets.",
   "status": "fix"
  },
@@ -1897,7 +1897,7 @@
    }
   ],
   "ref": "Rows 18441-18443 (Fixed block): =IF($F$18414<1,F18430-F18438*$F$18414,F18435). F18446 = start-year emissions, F18455 = F$18446 - F18452 (the cut).",
-  "effect": "None (branch never runs, and with the L119 fix adj is always 1). MVP v5.7: level = reference-year emissions x (1 - reduction).",
+  "effect": "None (branch never runs, and with the L119 fix adj is always 1). prototype v5.7: level = reference-year emissions x (1 - reduction).",
   "note": "The register sentence (\"F18452 - F18455 x adj\") would subtract the cut from the target level; the Fixed-block analogue is start-year emissions minus the adjusted cut, used here.",
   "status": "fix"
  },
@@ -1924,7 +1924,7 @@
    }
   ],
   "ref": "Row 18463 headers: F GHGs excl LULUCF, G incl LULUCF, H CO2, I LULUCF emissions, J non-CO2 no LULUCF; row 18465 = BAU in the target year.",
-  "effect": "None for Egypt (BAU target). For a GHG intensity target excluding LULUCF, the target incl. LULUCF falls by the non-CO2 emissions and takes the LULUCF emissions, so the required reduction (rows 18479-18481) changes accordingly. MVP v5.7 computes the reduction on the NDC basis and applies it to the BAU incl. LULUCF.",
+  "effect": "None for Egypt (BAU target). For a GHG intensity target excluding LULUCF, the target incl. LULUCF falls by the non-CO2 emissions and takes the LULUCF emissions, so the required reduction (rows 18479-18481) changes accordingly. prototype v5.7 computes the reduction on the NDC basis and applies it to the BAU incl. LULUCF.",
   "note": "The register says $J$18465 is blank; in the .xlsb it is F18465 - H18465 (non-CO2), so the error is larger than described.",
   "status": "fix"
  },
@@ -1936,7 +1936,7 @@
   "why": "Does not reproduce in the 456 file: F18466 = G470 and G470 = IFNA(INDEX(WEO_upd,MATCH(C470,WEO_codes,0),MATCH(Mitigation!G$469,WEO_years,0)),\"\") with G469 = _NDC_Year, so G470 is WEO real GDP (EGY.NGDP_R.A) in the NDC reference year, \"\" when there is none.",
   "fixes": [],
   "ref": "WEO_years = WEO!C9:AU9 (2000-2040). Egypt has no reference year (BAU target), so G469 and G470 are empty.",
-  "effect": "None in this file. Reference years before 2000 find no GDP: G470 = \"\" and the intensity rows 18468-18475 end as #VALUE! or \"N/A\"; the MVP returns N/A in the same case.",
+  "effect": "None in this file. Reference years before 2000 find no GDP: G470 = \"\" and the intensity rows 18468-18475 end as #VALUE! or \"N/A\"; the prototype returns N/A in the same case.",
   "note": "The register text probably comes from a converted copy that lost the defined name in G469 (or the IFNA formula of G470). Not in the register: F18471 (conditional intensity) applies the reduction to the target-year BAU intensity F18469, while F18470 (unconditional) applies it to the reference-year intensity F18468.",
   "status": "none"
  },
@@ -1948,7 +1948,7 @@
   "why": "The \"in which: producer-side subsidies\" row of the gas | residential block reads K$827 ... N$827 (oil, $/liter) where the other gas blocks (2524, 2570) read K$826 (gas, $/GJ); O:AE carry N2547 forward through J2548.",
   "fixes": [],
   "ref": "Plan L82 (this file) already makes the edit: K2547 =K$827 -> =K$826, fill K2547:N2547, paste into K8878:N8878 (+6,331).",
-  "effect": "None for Egypt (producer subsidies, rows 826-827, are 0). Otherwise residential gas no longer takes the oil producer subsidy. MVP v6.1 (I49).",
+  "effect": "None for Egypt (producer subsidies, rows 826-827, are 0). Otherwise residential gas no longer takes the oil producer subsidy. prototype v6.1 (I49).",
   "note": "No separate edit: same cells and change as L82 (the register lists the bug twice).",
   "status": "fix"
  },
@@ -1968,7 +1968,7 @@
    }
   ],
   "ref": "Defined name _conv_barrel_to_liter = Mitigation!E1038 = 158.987294928 (\"barrel to liter\"), already used in rows 819, 7767, 7800. The other oil blocks (2593, 2616, 2639, 2662) are in $/liter and read K$827 as is.",
-  "effect": "None for Egypt (row 827 is 0). Otherwise the oil producer subsidy on other oil products is 159 times larger, in $/bbl. MVP v6.1 (I49): x LitersPerBbl for a barrel-priced block.",
+  "effect": "None for Egypt (row 827 is 0). Otherwise the oil producer subsidy on other oil products is 159 times larger, in $/bbl. prototype v6.1 (I49): x LitersPerBbl for a barrel-priced block.",
   "note": "No new name needed: legacy has _conv_barrel_to_liter.",
   "status": "fix"
  }
