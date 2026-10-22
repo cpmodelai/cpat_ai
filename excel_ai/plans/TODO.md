@@ -6,9 +6,9 @@ Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logg
 
 - ☑ v7.2 full check PASS, on main; restructure (`excel_ai/`, `data/`, `coded/`, `other/`); history reset; v8.0 prototype naming, stable script names, `_latest` and `_v8.0` copies; one NORMS; plans split; short documentation and Methods volume.
 
-## 2. Clean-up, finishing
+## 2. Clean-up, left over
 
-- ◐ v8.0 full check running; then: the old method notes in `mitigation/` replaced by `docs/` (builder texts point to the Methods chapters), commit, push v8.0 to main.
+- ☑ v8.0 full check PASS; old method notes replaced by `docs/methods/`; v8.0 on main.
 - ☐ Old session branches on GitHub (7, old history): the user deletes them (or allows the AI to).
 - ☐ The register spreadsheet without `LegacyBugFixes.md` as an intermediate source.
 
