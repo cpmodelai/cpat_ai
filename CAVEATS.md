@@ -2837,7 +2837,32 @@ Earlier work was logged in the task documents themselves; they remain the detail
   - `LegacyBugFixes.md` stays as an intermediate source of the register spreadsheet; the replication lists and the register are regenerated from `issues_register.py`.
   - The method chapters are mechanical merges of the notes (one section per former note); their text is not yet rewritten for flow.
 
-## 2026-10-22 - Interim register spreadsheet with the legacy bug-fix status (`excel_ai/bugsfixed/`)
-- **Outputs:** `excel_ai/bugsfixed/CPAT-AI_BugsAndIssues_interim_fixedbugs.xlsx`, a copy of `CPAT-AI_BugsAndIssues_latest.xlsx` with Status set from `FixedBugsToConfirm.txt`: 54 items "Fixed in legacy (to confirm)", 10 "Fixed in legacy with caveats (to confirm)" with the caveat in a new column L; all 64 refs matched; other rows keep their v8.0 status; ReadMe note added.
+## 2026-10-22 - Legacy fixes in CPAT 1.0pre_465 checked (`excel_ai/bugsfixed/`)
+- **Task (user 2026-10-22):** confirm the bugs the CPAT team marked fixed in `CPAT 1.0pre_465 - No Prop Data.xlsb`; split `FixedBugsToConfirm.txt` into "Confirmed fixed" and "Fixed with caveats"; mark each heading of the bug register `CPAT-AI-Mitigation-MVP_BugsAndIssues_v7.1.5_fixedbugs.docx` in red.
+- **Inputs:** the 465 and 456 legacy workbooks (converted to xlsx with LibreOffice; formulas that use defined names cross-checked with pyxlsb2, because LibreOffice drops those names); the cell plans of the register (formula now, new formula, fill range, policy copy). Rows were matched between 456 and 465 by their labels and codes.
+- **Outputs:** `FixedBugsToConfirm.txt` (52 confirmed, 12 with caveats; moved up from caveats: L11, L57, L83, L90, L124, L125; moved down: L62, L63, L84, L87, L95, L115, I18, I29); the docx headings carry red "CONFIRMED / FIXED WITH CAVEATS / NOT FIXED in 465" marks and a red note where there is a caveat, plus a red summary under "Legacy version" in section 1. The sections of the checked bugs are moved whole out of sections 3 and 4: confirmed fixes to a new Appendix C (last), fixes with caveats to a new Appendix B (headings become Heading 2). `legacy465_check.json` holds the results; `update_tracker.py` writes them to the new column S "Status in legacy 465" of `legacy/workbooks/Tracking issues.xlsx` (codes not in the list: "Not marked fixed"). That rerun also brought the tracker up to date with the register (v8.0 wording "prototype", method references, cell-plan flags, 4 new codes).
 - **Caveats:**
-  - Edited copy, not regenerated: the statuses are not in `issues_register.py`, so `make_documentation.py` does not carry them; add them to the register once the fixes are confirmed.
+  - Not fixed in 465: L62 (L1760:AE1762 unchanged) and L63 (lookup still stops at ECP row 403).
+  - L115 changed to the wrong row (K$1735, existing carbon tax fuel rate for biomass, instead of K$1715).
+  - L95 cleared row 3719, but P2823:AE2823 and M2836:AE2836 (and the policy copies on $M10035) still read it: the additional power-demand efficiency now drops out there.
+  - L45 kerosene leg (M5588, M5590) not as planned; L16 only in L1868; L87 dropped the E2189="Yes" test; L84 option text unchanged; L56 still Sri Lanka; L109 real Low/Vhigh series still missing.
+  - Formula text was compared, not results: nothing was recalculated (no Excel on Linux). From about row 5590 down, 465 rows sit 15 rows above the 456 rows the register quotes.
+  - The register itself (`issues_register.py`, `BUGS.md`) is not updated with "fixed in legacy 465"; that is the next step (register section 2.7).
+
+## 2026-10-22 - Modules M1-M3: v8.1 and the standalone Distribution v1.0
+
+- **Task (user 2026-10-22):** modular CPAT: Distribution, air pollution and transport co-benefits become modules; first consistent money units (M1), the prototype's exports (M2) and the standalone Distribution module (M3, the priority). One scenario at a time; no interaction with the batch runs.
+- **Inputs:** the prototype v8.0; plan `excel_ai/plans/Modules.md`.
+- **Outputs:**
+  - Prototype v8.1 (`excel_ai/releases/CPAT-AI-Mitigation-Prototype_v8.1.xlsm`, `_latest`): one money-unit vocabulary (NORMS section 3); section 15 moved to the end; section 19 Exports to modules, 19a Distribution (plain copies, defined name `ExportDistn`); tab `FromMitigation`, Distribution's only Mitigation input. Quick check PASS (0 change vs v8.0), paste test PASS.
+  - Distribution module v1.0 (`excel_ai/distribution/`; `excel_ai/CPAT-AI-Distribution-Prototype_latest.xlsm`, `releases/..._v1.0.xlsm`): cut from the built prototype (tabs Cover, ScenarioDefinition with only the distribution rows shown, FromMitigation as values, Distribution, Settings, the distribution data tabs; 66 of 768 names kept); VBA `CPATDistribution.bas` (UpdateFromMitigation, RecalculateNow, ToggleRecalculation). `check_distribution.py` PASS: Distribution equals the prototype's (25,190 cells); FromMitigation equals 19a through the macro's row mapping; end to end (live carbon price 60 instead of 20, prototype recalculated, module updated and recalculated: 0 differences, 4,670 values moved); VBA scan; lint.
+- **Caveats:**
+  - The macro UpdateFromMitigation is tested by a Python emulation of its copy, not run in Excel (Excel 365 review, TODO section 5). It opens the mitigation workbook read-only with macros off and the calculation manual, or uses it as it stands if it is open.
+  - 41 Settings formulas that read dropped tabs (country lists, GHG and WEO lookups) are values of Egypt; the module's data tabs have no data-workbook link yet.
+  - The module's ScenarioDefinition keeps every row (hidden but the distribution ones) so that the row numbers Distribution reads stay those of the prototype.
+  - v8.1 is not on main yet (quick and paste checks only; a full check before main).
+
+## 2026-10-22 - Interim register spreadsheet with the legacy 465 bug-fix status (`excel_ai/bugsfixed/`)
+- **Outputs:** `excel_ai/bugsfixed/CPAT-AI_BugsAndIssues_interim_fixedbugs.xlsx`, a copy of `CPAT-AI_BugsAndIssues_latest.xlsx` with Status set from `legacy465_check.json` (the cell-by-cell check above): 52 "Confirmed fixed in legacy 465", 10 "Fixed with caveats in legacy 465", 2 "Not fixed in legacy 465" (L62, L63), the check's note in a new column L; all 64 refs matched; other rows keep their v8.0 status; ReadMe note added.
+- **Caveats:**
+  - Edited copy, not regenerated: the statuses are not in `issues_register.py`, so `make_documentation.py` does not carry them; add them to the register when the 465 fixes are accepted.

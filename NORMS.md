@@ -208,6 +208,9 @@ Subsections of a prototype follow these conventions: heading levels (band, bold-
 Rules: inputs green only; never hard-code values in unfilled calculation cells; keep the legacy font (Arial; title 14pt bold) on legacy-replicating sheets.
 
 ## 3. Other conventions
+
+- **Exports to modules (user 2026-10-22, v8.1).** Mitigation section 19 (last, after section 15) holds plain copies of the rows each module reads: 19a Distribution (defined name `ExportDistn`), later 19b air pollution, 19c transport co-benefits; no calculation there. A copy keeps the code of the row it copies (the key the module matches on); the uniqueness rule C10 counts codes outside section 19. Each module reads only its input tab (`FromMitigation`, same column layout as Mitigation; scale to its base unit in column D), never a Mitigation row; the end-to-end process runs one scenario at a time (no batch).
+- **Money units (user 2026-10-22, v8.1).** One vocabulary, currency first, scale and price basis as words: `USD`, `USD m`, `USD bn`, `LCU`, `LCU bn`, `USD/GJ`, `USD/kWh`, `USD/tCO2`, each with `real` or `nominal` where it matters; never `$`. The builder applies `unit_norm()` to every unit of the variable dictionary. Scaling (bn, m, thousand) lives in the unit label and, where a module converts, in one scale column of its input section: no formula body multiplies by a hard-coded `Billion` or `Thousand` outside that conversion.
 - Formulas live in Excel; no macros in prototypes unless documented (build via Python scripts, see `...\build_workbook.py`).
 - Every prototype records: source legacy sheet, version, and a validation table vs. legacy values (and vs. `coded` where available).
 - Codes (`Input Code`, `Output Code`) must be identical between Excel and Python (`coded\cpat_model\mappings`).
