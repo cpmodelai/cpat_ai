@@ -89,7 +89,7 @@ Roll-up and columns (v4.8, user request): as Mitigation (2.5): one row group per
 - Row-banded header: `Fuels:` / `Sectors:` / `Indicators:` / `Units:` in column A (rows 4-7), then code row.
 - Key columns: `country_year` (A, e.g. `EGY2021`), `countrycode_weo` (B), `countrycode` (C), `countryname` (D), `year` (E); data from F.
 - Variable codes follow `mit.<indicator>.<fuel>.<sector>` (e.g. `mit.sp.coa.pow`).
-- Sector codes: `pow, ind, res, rod, ral, avi, nav, foo, srv, mch, ...`; fuel codes: `coa, gas, gso, die, lpg, ker, ele, bio, oop`.
+- Sector codes: `pow, ind, res, rod, ral, avi, nav, foo, srv, mch, ...`; fuel codes: `coa, nga, gso, die, lpg, ker, jfu, ecy, bio, oop` (corrected 2026-10-23: legacy uses `nga` and `ecy`, not `gas` and `ele`; code protocol: `excel_ai/legacy/codes/CPAT_CodesMap_v7_1.xlsx`, sheet Protocol).
 
 ### 1.4 Sheet order and naming
 Follow the legacy tab order: `Cover`, `Data sources`, `Dashboard`, `Manual inputs`, `MODULES->` (`Mitigation`, `Air pollution`, `Distribution`, `Transport`), then `DATA_*->` dividers followed by data tabs. Prototype workbooks keep the same sheet names as the legacy tab they replicate. Each workbook starts with a `Cover` tab (contents, colours, abbreviations; 2.7); the mitigation prototype keeps its about text on tab `Version Log, About, and Diff`.

@@ -24,6 +24,7 @@ Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logg
 
 - ☐ Crosswalk rows marked review (89): `rnew`, `rsub`, `rmf`, `rtx`, `rnet`, `rvt`, `rbe`, `gdp.*`, `scc`, `ch4.em`, `co2.sec`, `apf.all.all`, other price rows; applied only with evidence.
 - ☐ C6 vocabularies (prototype members `vkt`, `own`, `pit`... into the sheets); the legacy MTOutputs code as a second alias; `coded` `ele` -> `ecy` with the shared data (with the Coded CPAT owner).
+- ☐ NOx forcing value differs from legacy (prototype `apf.all.nox`, now `nox.tot`: -6.3 against legacy -5.5 Mt CO2e, Egypt 2022): a value question, not a code one; register it if not already explained.
 
 ## 5. With the user
 
