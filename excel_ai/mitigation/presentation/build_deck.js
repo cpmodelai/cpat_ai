@@ -22,6 +22,11 @@ const FACTS = JSON.parse(fs.readFileSync(IMG(`${PFX}_facts.json`), "utf8"));
 const LEG = JSON.parse(fs.readFileSync(IMG(`${PFX}_legacy.json`), "utf8"));
 const TR = JSON.parse(fs.readFileSync(IMG(`${PFX}_transport.json`), "utf8"));
 const BUGS = FACTS.bugs.mit + FACTS.bugs.dist, ISSUES = FACTS.issues.mit + FACTS.issues.dist;
+// v8.2: the CPAT team's fixes in legacy 465, checked (excel_ai/bugsfixed/legacy465_check.json)
+const CHK = (() => { const b = require(path.join(HERE, "..", "..", "bugsfixed", "legacy465_check.json")).bugs;
+  const v = Object.entries(b).filter(([k]) => k.startsWith("L")).map(([, x]) => x.status);
+  return { fixed: v.filter((x) => x === "Confirmed fixed").length, caveats: v.filter((x) => x === "Fixed with caveats").length,
+    not: v.filter((x) => x === "Not fixed").length }; })();
 const REG = `CPAT-AI_BugsAndIssues_v7.2.docx`;   // the register has its own version
 
 const THEME = {
@@ -257,7 +262,8 @@ pres.addSection({ title: "Overview" });
   stat(s, `${LEG.counts.Low} + ${FACTS.bugs.dist}`, "mitigation low (latent or reporting) + distribution", 9.6, 4.65, 3.1, GREY);
   caption(s, `${FACTS.bugs.mit} mitigation and ${FACTS.bugs.dist} distribution bugs, all fixed in the prototype; also ${ISSUES} `
     + `legacy issues (${FACTS.issues.mit} mitigation, ${FACTS.issues.dist} distribution), replicated and tracked. `
-    + `Fix plans: ${REG}.`, 0.6, 6.55, 12.1);
+    + `Fix plans: ${REG}. Legacy CPAT 1.0pre_465: the CPAT team marked ${CHK.fixed + CHK.caveats + CHK.not} fixed `
+    + `(${CHK.fixed} confirmed, ${CHK.caveats} with caveats, ${CHK.not} not fixed).`, 0.6, 6.55, 12.1);
   s.addNotes("Generated from the register (issues_register.py, make_legacy_fixes.py). The prototype never "
     + "replicates a legacy bug; it replicates legacy issues and tracks them (NORMS section 0).");
 }
@@ -573,7 +579,7 @@ pres.addSection({ title: "Next steps" });
   ], { x: 8.35, y: 1.75, w: 4.1, h: 4.6, fontSize: 14, color: "FFFFFF", valign: "top", margin: 0, paraSpaceAfter: 8,
     isTextBox: true, objectName: nm("next") });
   s.addNotes(`Files: CPAT-AI-Mitigation-Prototype-v${VER}.xlsm (repository root), the Documentation, `
-    + `documentation/${REG}. Also open: reconcile with legacy file 459 (U2); ETS goal seek user test (I30). `
+    + `${REG}. Also open: the numerical check on the latest legacy file, 465 (U2); ETS goal seek user test (I30). `
     + "Open items from issues_register.py; I52 and I53 wait for features not planned.");
 }
 

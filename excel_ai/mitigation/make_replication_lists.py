@@ -52,9 +52,11 @@ def issue_table(items):
 
 
 def bug_table(rows):
-    out = ['| ID | Priority | Bug | Where in legacy | Fix | In the prototype |', '|---|---|---|---|---|---|']
+    out = ['| ID | Priority | In legacy 465 | Bug | Where in legacy | Fix | In the prototype |',
+           '|---|---|---|---|---|---|---|']
     for lid, title, where, _what, fix, _eff in rows:
-        out.append(f'| {lid} | {F.PRIORITY[lid]} | {cell(title)} | {cell(where)} | {cell(fix)} | {F.mvp_status(lid)} |')
+        out.append(f'| {lid} | {F.PRIORITY[lid]} | {F.legacy465(lid)} | {cell(title)} | {cell(where)} | {cell(fix)} | '
+                   f'{F.mvp_status(lid)} |')
     return out
 
 
@@ -80,8 +82,9 @@ def main():
     no += [f'**{len(b_not)} legacy bugs not replicated; {len(i_not)} tracked issues not replicated ({n_open} open: '
            f'queued to be replicated), and {len(ld_not)} departures in sheet LegacyDiff.**', '',
            '## 1. Bugs not replicated', '',
-           'Legacy bugs the prototype fixes, or whose feature it leaves out. Legacy CPAT still needs the fixes: details and '
-           f'effects in the register `CPAT-AI_BugsAndIssues_latest.docx`.', ''] + bug_table(b_not)
+           'Legacy bugs the prototype fixes, or whose feature it leaves out. Legacy CPAT still needs the fixes, except '
+           'where column "In legacy 465" says Fixed (the CPAT team fixed them in CPAT 1.0pre_465; checked cell by cell): '
+           f'details and effects in the register `CPAT-AI_BugsAndIssues_latest.docx`.', ''] + bug_table(b_not)
     no += ['', '## 2. Issues not replicated (exceptions)', '',
            'Departures from legacy that are not bug fixes. Each one is either a user decision (Accepted) or open and '
            'queued to be replicated (TODO).', '', '### 2a. Tracked issues', ''] + issue_table(i_not)

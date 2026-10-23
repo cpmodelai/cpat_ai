@@ -7,6 +7,7 @@ those first, then run this (plain Python with openpyxl; it does not import the b
 
     python make_bugs_issues_sheet.py
 """
+import json
 import os
 import re
 from collections import Counter
@@ -17,12 +18,23 @@ from openpyxl.utils import get_column_letter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 TOP = os.path.join(HERE, '..')
-VERSION = '7.0'
+VERSION = json.load(open(os.path.join(HERE, 'version.json')))['version']   # v8.2: was a fixed '7.0'
+CHECK465 = os.path.join(HERE, '..', 'bugsfixed', 'legacy465_check.json')   # v8.2: the CPAT team's fixes in 465
 OUT = os.path.join(HERE, '..', 'CPAT-AI_BugsAndIssues_latest.xlsx')   # v8.0: the register spreadsheet, excel_ai/
 
 COLS = ['Ref', 'Kind', 'Priority / severity', 'Title', 'Replicated in the prototype?', 'How in the prototype',
-        'What legacy does', 'Effect', 'Fix / next step', 'Where in legacy / documented', 'Status']
-WIDTH = [8, 22, 12, 46, 20, 28, 60, 44, 52, 38, 12]
+        'What legacy does', 'Effect', 'Fix / next step', 'Where in legacy / documented', 'Status',
+        'Status in legacy 465']
+WIDTH = [8, 22, 12, 46, 20, 28, 60, 44, 52, 38, 12, 22]
+
+
+def legacy465(ref, kind):
+    """v8.2: a legacy bug in legacy CPAT 1.0pre_465: Open, or the check of the CPAT team's fix; '' for the rest."""
+    if not kind.startswith('Legacy bug'):
+        return ''
+    chk = json.load(open(CHECK465, encoding='utf-8'))['bugs'] if os.path.exists(CHECK465) else {}
+    return {'Confirmed fixed': 'Fixed', 'Fixed with caveats': 'Fixed with caveats',
+            'Not fixed': 'Not fixed (marked fixed)'}.get(chk.get(ref, {}).get('status'), 'Open')
 
 
 def tables(path):
@@ -127,7 +139,7 @@ def sort_key(r):
 
 
 def main():
-    data = sorted(load(), key=sort_key)
+    data = [r + [legacy465(r[0], r[1])] for r in sorted(load(), key=sort_key)]
     refs = [r[0] for r in data]
     assert len(refs) == len(set(refs)), [k for k, v in Counter(refs).items() if v > 1]
 
@@ -154,8 +166,9 @@ def main():
         'itself. Filter on Kind and on that column.',
         'Source: BUGS.md and ISSUES.md (generated from issues_register.py). '
         'Not included: potential upgrades (U), and bugs found and fixed in the prototype during development (M); both are '
-        'in the Word register CPAT-AI_BugsAndIssues_v7.0.docx. Details and effects of the legacy '
-        'bugs: LegacyBugFixes.md.',
+        'in the Word register CPAT-AI_BugsAndIssues_latest.docx. Details and effects of the legacy '
+        'bugs: LegacyBugFixes.md. Column "Status in legacy 465": the legacy bugs in the latest CPAT file '
+        '(CPAT 1.0pre_465), where the CPAT team fixed part of them (checked cell by cell); cell references are 465 rows.',
     ]
     for i, t in enumerate(lines, 3):
         ws0.cell(i, 1, t).alignment = Alignment(wrap_text=True, vertical='top')

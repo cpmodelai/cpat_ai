@@ -30,7 +30,7 @@
   "id": "L20",
   "pri": "High",
   "title": "Population growth path",
-  "where": "Mitigation row 428 (feeds 429, 481, 2428, 6210 and the policy block)",
+  "where": "Mitigation row 428 (feeds 429, 481, 2428, 6196 and the policy block)",
   "why": "From 2026 the population row carries 2% a year, then 3% (2030) and 4% (2031 on, by repeating the last growth): Egypt 185.2 million in 2041. The legacy sheet UNPop (UN WPP 2024) gives 147.0 million.",
   "fixes": [
    {
@@ -58,17 +58,17 @@
     "now": "=SUM(L2444:L2445)",
     "new": "=(1+L2444)*(1+L2445)/(1+K2445)-1",
     "fill": "L2446:AE2446",
-    "policy": "paste into L8777:AE8777 (+6,331)"
+    "policy": "paste into L8762:AE8762 (+6,316)"
    },
    {
     "cell": "L2443",
     "now": "=K2442*(1+L2446)",
     "new": "=L2442*(1+L2445)",
     "fill": "L2443:AE2443",
-    "policy": "paste into L8774:AE8774 (+6,331)"
+    "policy": "paste into L8759:AE8759 (+6,316)"
    }
   ],
-  "ref": "Row 2445 is already the level effect lagged one year (= previous year of row 8288); the fix uses it as a level, as the label of 2443 (\"GDP post-policy\") says.",
+  "ref": "Row 2445 is already the level effect lagged one year (= previous year of row 8274); the fix uses it as a level, as the label of 2443 (\"GDP post-policy\") says.",
   "effect": "No change on the NoPropData file (row 8288 is stripped to 0). With a steady effect of 0.5%, GDP is +0.5% instead of about +10% after 20 years.",
   "note": null,
   "status": "fix"
@@ -77,8 +77,8 @@
   "id": "L18",
   "pri": "High",
   "title": "Non-energy methane never changes",
-  "where": "Mitigation rows 6172-6227",
-  "why": "Not reproduced in this file. Livestock, rice and waste production grow with income and population (rows 6212-6214), emissions apply (1 - abatement share) (rows 6217, 6220, 6226), and the reported inventory rows read them from 2024 (7572 = 7308, 7582 = 7309). Cached Egypt values: agriculture CH4 15.8 (2022) to 28.9 Mt CO2e (2040), waste 35.1 to 59.1.",
+  "where": "Mitigation rows 6158-6213",
+  "why": "Not reproduced in this file. Livestock, rice and waste production grow with income and population (rows 6198-6200), emissions apply (1 - abatement share) (rows 6203, 6206, 6212), and the reported inventory rows read them from 2024 (7558 = 7294, 7568 = 7295). Cached Egypt values: agriculture CH4 15.8 (2022) to 28.9 Mt CO2e (2040), waste 35.1 to 59.1.",
   "fixes": [],
   "ref": "n/a",
   "effect": "None.",
@@ -89,32 +89,32 @@
   "id": "L19",
   "pri": "High",
   "title": "Flaring CO2 counted as methane",
-  "where": "Mitigation rows 6156, 7561, 7608",
-  "why": "Row 6156 adds the flaring CO2 (row 6155) divided by the CH4 GWP ($I$1030) to the oil-and-gas CH4 row, so CO2 is reported as methane.",
+  "where": "Mitigation rows 6142, 7547, 7594",
+  "why": "Row 6142 adds the flaring CO2 (row 6141) divided by the CH4 GWP ($I$1030) to the oil-and-gas CH4 row, so CO2 is reported as methane.",
   "fixes": [
    {
-    "cell": "L6156",
-    "now": "= L6154 + L6155 / $I$1030",
-    "new": "=L6154",
-    "fill": "L6156:AE6156",
-    "policy": "paste into L12473:AE12473 (+6,317)"
+    "cell": "L6142",
+    "now": "= L6140 + L6141 / $I$1030",
+    "new": "=L6140",
+    "fill": "L6142:AE6142",
+    "policy": "paste into L12458:AE12458 (+6,316)"
    },
    {
-    "cell": "L7561",
-    "now": "=L6602",
-    "new": "=L6602+L6155",
-    "fill": "L7561:AE7561 (energy CO2 in the inventory table)",
-    "policy": "paste into L13878:AE13878 (+6,317)"
+    "cell": "L7547",
+    "now": "=L6588",
+    "new": "=L6588+L6141",
+    "fill": "L7547:AE7547 (energy CO2 in the inventory table)",
+    "policy": "paste into L13863:AE13863 (+6,316)"
    },
    {
-    "cell": "L7608",
-    "now": "=L6587+L7452*$B7562",
-    "new": "=L6587+L7452*$B7562+L6155",
-    "fill": "L7608:AE7608 (power sector GHGs, where legacy books oil and gas extraction CH4, row 7223)",
-    "policy": "paste into L13925:AE13925 (+6,317)"
+    "cell": "L7594",
+    "now": "=L6573+L7438*$B7548",
+    "new": "=L6573+L7438*$B7548+L6141",
+    "fill": "L7594:AE7594 (power sector GHGs, where legacy books oil and gas extraction CH4, row 7209)",
+    "policy": "paste into L13910:AE13910 (+6,316)"
    }
   ],
-  "ref": "Row 6155 is already in Mt CO2 (44/16 x flared CH4). Adding it to both 7561 and 7608 keeps legacy's own check in B7640 (\"OK\" when the by-sector and by-gas totals agree).",
+  "ref": "Row 6141 is already in Mt CO2 (44/16 x flared CH4). Adding it to both 7547 and 7594 keeps legacy's own check in B7626 (\"OK\" when the by-sector and by-gas totals agree).",
   "effect": "None in the baseline (row 6155 = 0). With a methane fee on oil and gas, CH4 falls by the flared amount and CO2 rises by 44/16 of it; fee revenue (row 6157) is charged on methane only.",
   "note": null,
   "status": "fix"
@@ -155,18 +155,18 @@
   "id": "L21",
   "pri": "Medium",
   "title": "Waste abated with the livestock curve",
-  "where": "Mitigation row 6206",
-  "why": "Waste reduction = M6182 (livestock share) although the waste curve inputs (rows 6200-6204) are computed.",
+  "where": "Mitigation row 6192",
+  "why": "Waste reduction = M6168 (livestock share) although the waste curve inputs (rows 6186-6190) are computed.",
   "fixes": [
    {
-    "cell": "L6206",
-    "now": "=L6182",
-    "new": "=MAX(0,MIN(1,$L6202*L6204^$M6202))",
-    "fill": "L6206:AE6206",
-    "policy": "paste into L12523:AE12523 (+6,317)"
+    "cell": "L6192",
+    "now": "=L6168",
+    "new": "=MAX(0,MIN(1,$L6188*L6190^$M6188))",
+    "fill": "L6192:AE6192",
+    "policy": "paste into L12508:AE12508 (+6,316)"
    }
   ],
-  "ref": "Rows 6182 (livestock) and 6194 (rice): = MAX(0, MIN(1, $L curve x fee ^ $M curve)).",
+  "ref": "Rows 6168 (livestock) and 6180 (rice): = MAX(0, MIN(1, $L curve x fee ^ $M curve)).",
   "effect": "None in the baseline (no methane fee). With a fee, waste CH4 follows its own abatement curve.",
   "note": null,
   "status": "fix"
@@ -178,9 +178,9 @@
   "where": "Mitigation pollutant blocks (sections 13-14)",
   "why": "Each pollutant block has transport rows rod gso/die/lpg/ker/nga, ral die and avi jfu, but no navigation row, so navigation never enters the transport, \"Other\" or total rows. This cannot be fixed by editing an existing cell.",
   "fixes": [],
-  "ref": "The \"ral die\" row of the same block (e.g. 6822 for SO2) for the formula; navigation fuel use is rows 5508-5515.",
+  "ref": "The \"ral die\" row of the same block (e.g. 6808 for SO2) for the formula; navigation fuel use is rows 5508-5515.",
   "effect": "Adds navigation emissions (Egypt navigation: about 291 ktoe of other oil products in 2022).",
-  "note": "Steps, in the 8 pollutant blocks (PM2.5 6604, NOx 6706, SO2 6808, VOC 6910, BC 7012, OC 7114, CH4 7216, CO 7323) of the baseline and of the policy block (+6,317): (1) select the \"avi jfu\" row (6619, 6721, 6823, 6925, 7027, 7129, 7232, 7338) and insert one row above it, so the transport SUM ranges and the totals expand by themselves; (2) in the new row type B = \"nav\", C = \"oop\" and copy the year formula of the \"ral die\" row directly above; (3) add the new cell to the \"Other\" (oth) air-pollution row of the block (6700, 6802, 6904, 7006, 7108, 7210, 7419; CH4: no such row). Do all baseline blocks first, then the policy blocks, and check that BaselineFirstRow/PolicyScenarioFirstRow moved with them. In the NoPropData file every emission row holds 0 (GAINS factors stripped), so check the copied formula in the full file.",
+  "note": "Steps, in the 8 pollutant blocks (PM2.5 6590, NOx 6692, SO2 6794, VOC 6896, BC 6998, OC 7100, CH4 7202, CO 7309) of the baseline and of the policy block (+6,316): (1) select the \"avi jfu\" row (6605, 6707, 6809, 6911, 7013, 7115, 7218, 7324) and insert one row above it, so the transport SUM ranges and the totals expand by themselves; (2) in the new row type B = \"nav\", C = \"oop\" and copy the year formula of the \"ral die\" row directly above; (3) add the new cell to the \"Other\" (oth) air-pollution row of the block (6686, 6788, 6890, 6992, 7094, 7196, 7405; CH4: no such row). Do all baseline blocks first, then the policy blocks, and check that BaselineFirstRow/PolicyScenarioFirstRow moved with them. In the NoPropData file every emission row holds 0 (GAINS factors stripped), so check the copied formula in the full file.",
   "status": "struct"
  },
  {
@@ -195,63 +195,63 @@
     "now": "=L5483*((1+M2439)^(_el_inc_coa_rod*M2433))*(1+M2446)*((M5472/L5472)^_el_dem_coa_rod)*((((M5472+M2379*M2406)/(L5472+L2379*L2406))^(_el_eff_coa_rod))/(1+_eff_imp_coa_rod+$M2199))^(1+_el_dem_coa_rod)*(1+M2439)",
     "new": "=L5483*((1+M2446)^(_el_inc_coa_rod*M2433))*(1+M2439)*((M5472/L5472)^_el_dem_coa_rod)*((((M5472+M2379*M2406)/(L5472+L2379*L2406))^(_el_eff_coa_rod))/(1+_eff_imp_coa_rod+$M2199))^(1+_el_dem_coa_rod)",
     "fill": "M5483:AE5483",
-    "policy": "paste into M11814:AE11814 (+6,331)"
+    "policy": "paste into M11799:AE11799 (+6,316)"
    },
    {
     "cell": "M5484",
     "now": "=L5484*((1+M2439)^(_el_inc_nga_rod*M2433))*(1+M2446)*((M5473/L5473)^_el_dem_nga_rod)*((((M5473+M2382*M2406)/(L5473+L2382*L2406))^(_el_eff_nga_rod))/(1+_eff_imp_nga_rod+$M2199))^(1+_el_dem_nga_rod)*(1+M2439)",
     "new": "=L5484*((1+M2446)^(_el_inc_nga_rod*M2433))*(1+M2439)*((M5473/L5473)^_el_dem_nga_rod)*((((M5473+M2382*M2406)/(L5473+L2382*L2406))^(_el_eff_nga_rod))/(1+_eff_imp_nga_rod+$M2199))^(1+_el_dem_nga_rod)",
     "fill": "M5484:AE5484",
-    "policy": "paste into M11815:AE11815 (+6,331)"
+    "policy": "paste into M11800:AE11800 (+6,316)"
    },
    {
     "cell": "M5485",
     "now": "=L5485*((1+M2439)^(_el_inc_gso_rod*M2433))*(1+M2446)*((M5474/L5474)^_el_dem_gso_rod)*((((M5474+M2383*M2406)/(L5474+L2383*L2406))^(_el_eff_gso_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_gso_rod)",
     "new": "=L5485*((1+M2446)^(_el_inc_gso_rod*M2433))*(1+M2439)*((M5474/L5474)^_el_dem_gso_rod)*((((M5474+M2383*M2406)/(L5474+L2383*L2406))^(_el_eff_gso_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_gso_rod)",
     "fill": "M5485:AE5485",
-    "policy": "paste into M11816:AE11816 (+6,331)"
+    "policy": "paste into M11801:AE11801 (+6,316)"
    },
    {
     "cell": "M5486",
     "now": "=L5486*((1+M2439)^(_el_inc_die_rod*M2433))*(1+M2446)*((M5475/L5475)^_el_dem_die_rod)*((((M5475+M2384*M2406)/(L5475+L2384*L2406))^(_el_eff_die_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_die_rod)",
     "new": "=L5486*((1+M2446)^(_el_inc_die_rod*M2433))*(1+M2439)*((M5475/L5475)^_el_dem_die_rod)*((((M5475+M2384*M2406)/(L5475+L2384*L2406))^(_el_eff_die_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_die_rod)",
     "fill": "M5486:AE5486",
-    "policy": "paste into M11817:AE11817 (+6,331)"
+    "policy": "paste into M11802:AE11802 (+6,316)"
    },
    {
     "cell": "M5487",
     "now": "=L5487*((1+M2439)^(_el_inc_oil_rod*M2433))*(1+M2446)*((M5476/L5476)^_el_dem_oil_rod)*((((M5476+M2385*M2406)/(L5476+L2385*L2406))^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_oil_rod)",
     "new": "=L5487*((1+M2446)^(_el_inc_oil_rod*M2433))*(1+M2439)*((M5476/L5476)^_el_dem_oil_rod)*((((M5476+M2385*M2406)/(L5476+L2385*L2406))^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_oil_rod)",
     "fill": "M5487:AE5487",
-    "policy": "paste into M11818:AE11818 (+6,331)"
+    "policy": "paste into M11803:AE11803 (+6,316)"
    },
    {
     "cell": "M5488",
     "now": "=L5488*((1+M2439)^(_el_inc_oil_rod*M2433))*(1+M2446)*((M5477/L5477)^_el_dem_oil_rod)*((((M5477+M2386*M2406)/(L5477+L2386*L2406))^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_oil_rod)",
     "new": "=L5488*((1+M2446)^(_el_inc_oil_rod*M2433))*(1+M2439)*((M5477/L5477)^_el_dem_oil_rod)*((((M5477+M2386*M2406)/(L5477+L2386*L2406))^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_oil_rod)",
     "fill": "M5488:AE5488",
-    "policy": "paste into M11819:AE11819 (+6,331)"
+    "policy": "paste into M11804:AE11804 (+6,316)"
    },
    {
     "cell": "M5489",
     "now": "=L5489*((1+M2439)^(_el_inc_oil_rod*M2433))*(1+M2446)*((M5478/L5478)^_el_dem_oil_rod)*((((M5478+M2387*M2406)/(L5478+L2387*L2406))^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_oil_rod)",
     "new": "=L5489*((1+M2446)^(_el_inc_oil_rod*M2433))*(1+M2439)*((M5478/L5478)^_el_dem_oil_rod)*((((M5478+M2387*M2406)/(L5478+L2387*L2406))^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_oil_rod)",
     "fill": "M5489:AE5489",
-    "policy": "paste into M11820:AE11820 (+6,331)"
+    "policy": "paste into M11805:AE11805 (+6,316)"
    },
    {
     "cell": "M5490",
     "now": "=L5490*((1+M2439)^(_el_inc_bio_rod*M2433))*(1+M2446)*((M5479/L5479)^_el_dem_bio_rod)*((((M5479+M2388*M2406)/(L5479+L2388*L2406))^(_el_eff_bio_rod))/(1+_eff_imp_bio_rod+$M2199))^(1+_el_dem_bio_rod)",
     "new": "=L5490*((1+M2446)^(_el_inc_bio_rod*M2433))*(1+M2439)*((M5479/L5479)^_el_dem_bio_rod)*((((M5479+M2388*M2406)/(L5479+L2388*L2406))^(_el_eff_bio_rod))/(1+_eff_imp_bio_rod+$M2199))^(1+_el_dem_bio_rod)",
     "fill": "M5490:AE5490",
-    "policy": "paste into M11821:AE11821 (+6,331)"
+    "policy": "paste into M11806:AE11806 (+6,316)"
    },
    {
     "cell": "M5492",
     "now": "=L5492*((1+M2439)^(_el_inc_die_rod*M2433))*(1+M2446)*((M5477/L5477)^_el_dem_oil_rod)*((((M5477+M2386*M2406)/(L5477+L2386*L2406))^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_oil_rod)",
     "new": "=L5492*((1+M2446)^(_el_inc_oil_rod*M2433))*(1+M2439)*((M5477/L5477)^_el_dem_oil_rod)*((((M5477+M2386*M2406)/(L5477+L2386*L2406))^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_oil_rod)",
     "fill": "M5492:AE5492",
-    "policy": "paste into M11823:AE11823 (+6,331)"
+    "policy": "paste into M11808:AE11808 (+6,316)"
    }
   ],
   "ref": "Standard row 5399 (road diesel): L x (1+M2446)^(eps_Y x M2433) x (1+M2439) x price terms. Jet fuel takes the oil income elasticity, as its other elasticities (_el_dem_oil_rod, _el_eff_oil_rod) already do.",
@@ -263,74 +263,74 @@
   "id": "L43",
   "pri": "Medium",
   "title": "Other energy use: no GDP growth",
-  "where": "Mitigation rows 6077-6085 (policy 12394-12402)",
-  "why": "The income-factor reference is M2440, a blank row, so (1+g)^(eps_Y x 0) = 1: other energy use never grows with GDP. Rows 6077-6084 also lack the additional-efficiency term $M2201 that row 6085 and all industry rows have.",
+  "where": "Mitigation rows 6063-6071 (policy 12379-12387)",
+  "why": "The income-factor reference is M2440, a blank row, so (1+g)^(eps_Y x 0) = 1: other energy use never grows with GDP. Rows 6063-6070 also lack the additional-efficiency term $M2201 that row 6071 and all industry rows have.",
   "fixes": [
    {
-    "cell": "M6077",
-    "now": "=L6077*((1+M2446)^(_el_inc_coa_ind*M2440))*(1+M2439)*((M6066/L6066)^_el_dem_coa_ind)*((((M6066+M2379*M2419)/(L6066+L2379*L2419))^(_el_eff_coa_ind))/(1+_eff_imp_coa_ind))^(1+_el_dem_coa_ind)",
-    "new": "=L6077*((1+M2446)^(_el_inc_coa_ind*M2433))*(1+M2439)*((M6066/L6066)^_el_dem_coa_ind)*((((M6066+M2379*M2419)/(L6066+L2379*L2419))^(_el_eff_coa_ind))/(1+_eff_imp_coa_ind+$M2201))^(1+_el_dem_coa_ind)",
-    "fill": "M6077:AE6077",
-    "policy": "policy row 12394: same edit with M8764 for M2433 and $M8532 for $M2201 (do not paste: this block is +6,317 but its drivers are +6,331)"
+    "cell": "M6063",
+    "now": "=L6063*((1+M2446)^(_el_inc_coa_ind*M2440))*(1+M2439)*((M6052/L6052)^_el_dem_coa_ind)*((((M6052+M2379*M2419)/(L6052+L2379*L2419))^(_el_eff_coa_ind))/(1+_eff_imp_coa_ind))^(1+_el_dem_coa_ind)",
+    "new": "=L6063*((1+M2446)^(_el_inc_coa_ind*M2433))*(1+M2439)*((M6052/L6052)^_el_dem_coa_ind)*((((M6052+M2379*M2419)/(L6052+L2379*L2419))^(_el_eff_coa_ind))/(1+_eff_imp_coa_ind+$M2201))^(1+_el_dem_coa_ind)",
+    "fill": "M6063:AE6063",
+    "policy": "policy row 12379: same edit with M8749 for M2433 and $M8517 for $M2201 (in 465 this block and its drivers both sit +6,316 below the baseline, so a paste of the baseline row also works; in 456 they did not)"
    },
    {
-    "cell": "M6078",
-    "now": "=L6078*((1+M2446)^(_el_inc_nga_ind*M2440))*(1+M2439)*((M6067/L6067)^_el_dem_nga_ind)*((((M6067+M2382*M2419)/(L6067+L2382*L2419))^(_el_eff_nga_ind))/(1+_eff_imp_nga_ind))^(1+_el_dem_nga_ind)",
-    "new": "=L6078*((1+M2446)^(_el_inc_nga_ind*M2433))*(1+M2439)*((M6067/L6067)^_el_dem_nga_ind)*((((M6067+M2382*M2419)/(L6067+L2382*L2419))^(_el_eff_nga_ind))/(1+_eff_imp_nga_ind+$M2201))^(1+_el_dem_nga_ind)",
-    "fill": "M6078:AE6078",
-    "policy": "policy row 12395: same edit with M8764 for M2433 and $M8532 for $M2201 (do not paste: this block is +6,317 but its drivers are +6,331)"
+    "cell": "M6064",
+    "now": "=L6064*((1+M2446)^(_el_inc_nga_ind*M2440))*(1+M2439)*((M6053/L6053)^_el_dem_nga_ind)*((((M6053+M2382*M2419)/(L6053+L2382*L2419))^(_el_eff_nga_ind))/(1+_eff_imp_nga_ind))^(1+_el_dem_nga_ind)",
+    "new": "=L6064*((1+M2446)^(_el_inc_nga_ind*M2433))*(1+M2439)*((M6053/L6053)^_el_dem_nga_ind)*((((M6053+M2382*M2419)/(L6053+L2382*L2419))^(_el_eff_nga_ind))/(1+_eff_imp_nga_ind+$M2201))^(1+_el_dem_nga_ind)",
+    "fill": "M6064:AE6064",
+    "policy": "policy row 12380: same edit with M8749 for M2433 and $M8517 for $M2201 (in 465 this block and its drivers both sit +6,316 below the baseline, so a paste of the baseline row also works; in 456 they did not)"
    },
    {
-    "cell": "M6079",
-    "now": "=L6079*((1+M2446)^(_el_inc_gso_ind*M2440))*(1+M2439)*((M6068/L6068)^_el_dem_gso_ind)*((((M6068+M2383*M2419)/(L6068+L2383*L2419))^(_el_eff_gso_ind))/(1+_eff_imp_oil_ind))^(1+_el_dem_gso_ind)",
-    "new": "=L6079*((1+M2446)^(_el_inc_gso_ind*M2433))*(1+M2439)*((M6068/L6068)^_el_dem_gso_ind)*((((M6068+M2383*M2419)/(L6068+L2383*L2419))^(_el_eff_gso_ind))/(1+_eff_imp_oil_ind+$M2201))^(1+_el_dem_gso_ind)",
-    "fill": "M6079:AE6079",
-    "policy": "policy row 12396: same edit with M8764 for M2433 and $M8532 for $M2201 (do not paste: this block is +6,317 but its drivers are +6,331)"
+    "cell": "M6065",
+    "now": "=L6065*((1+M2446)^(_el_inc_gso_ind*M2440))*(1+M2439)*((M6054/L6054)^_el_dem_gso_ind)*((((M6054+M2383*M2419)/(L6054+L2383*L2419))^(_el_eff_gso_ind))/(1+_eff_imp_oil_ind))^(1+_el_dem_gso_ind)",
+    "new": "=L6065*((1+M2446)^(_el_inc_gso_ind*M2433))*(1+M2439)*((M6054/L6054)^_el_dem_gso_ind)*((((M6054+M2383*M2419)/(L6054+L2383*L2419))^(_el_eff_gso_ind))/(1+_eff_imp_oil_ind+$M2201))^(1+_el_dem_gso_ind)",
+    "fill": "M6065:AE6065",
+    "policy": "policy row 12381: same edit with M8749 for M2433 and $M8517 for $M2201 (in 465 this block and its drivers both sit +6,316 below the baseline, so a paste of the baseline row also works; in 456 they did not)"
    },
    {
-    "cell": "M6080",
-    "now": "=L6080*((1+M2446)^(_el_inc_die_ind*M2440))*(1+M2439)*((M6069/L6069)^_el_dem_die_ind)*((((M6069+M2384*M2419)/(L6069+L2384*L2419))^(_el_eff_die_ind))/(1+_eff_imp_oil_ind))^(1+_el_dem_die_ind)",
-    "new": "=L6080*((1+M2446)^(_el_inc_die_ind*M2433))*(1+M2439)*((M6069/L6069)^_el_dem_die_ind)*((((M6069+M2384*M2419)/(L6069+L2384*L2419))^(_el_eff_die_ind))/(1+_eff_imp_oil_ind+$M2201))^(1+_el_dem_die_ind)",
-    "fill": "M6080:AE6080",
-    "policy": "policy row 12397: same edit with M8764 for M2433 and $M8532 for $M2201 (do not paste: this block is +6,317 but its drivers are +6,331)"
+    "cell": "M6066",
+    "now": "=L6066*((1+M2446)^(_el_inc_die_ind*M2440))*(1+M2439)*((M6055/L6055)^_el_dem_die_ind)*((((M6055+M2384*M2419)/(L6055+L2384*L2419))^(_el_eff_die_ind))/(1+_eff_imp_oil_ind))^(1+_el_dem_die_ind)",
+    "new": "=L6066*((1+M2446)^(_el_inc_die_ind*M2433))*(1+M2439)*((M6055/L6055)^_el_dem_die_ind)*((((M6055+M2384*M2419)/(L6055+L2384*L2419))^(_el_eff_die_ind))/(1+_eff_imp_oil_ind+$M2201))^(1+_el_dem_die_ind)",
+    "fill": "M6066:AE6066",
+    "policy": "policy row 12382: same edit with M8749 for M2433 and $M8517 for $M2201 (in 465 this block and its drivers both sit +6,316 below the baseline, so a paste of the baseline row also works; in 456 they did not)"
    },
    {
-    "cell": "M6081",
-    "now": "=L6081*((1+M2446)^(_el_inc_oil_ind*M2440))*(1+M2439)*((M6070/L6070)^_el_dem_oil_ind)*((((M6070+M2385*M2419)/(L6070+L2385*L2419))^(_el_eff_oil_ind))/(1+_eff_imp_oil_ind))^(1+_el_dem_oil_ind)",
-    "new": "=L6081*((1+M2446)^(_el_inc_oil_ind*M2433))*(1+M2439)*((M6070/L6070)^_el_dem_oil_ind)*((((M6070+M2385*M2419)/(L6070+L2385*L2419))^(_el_eff_oil_ind))/(1+_eff_imp_oil_ind+$M2201))^(1+_el_dem_oil_ind)",
-    "fill": "M6081:AE6081",
-    "policy": "policy row 12398: same edit with M8764 for M2433 and $M8532 for $M2201 (do not paste: this block is +6,317 but its drivers are +6,331)"
+    "cell": "M6067",
+    "now": "=L6067*((1+M2446)^(_el_inc_oil_ind*M2440))*(1+M2439)*((M6056/L6056)^_el_dem_oil_ind)*((((M6056+M2385*M2419)/(L6056+L2385*L2419))^(_el_eff_oil_ind))/(1+_eff_imp_oil_ind))^(1+_el_dem_oil_ind)",
+    "new": "=L6067*((1+M2446)^(_el_inc_oil_ind*M2433))*(1+M2439)*((M6056/L6056)^_el_dem_oil_ind)*((((M6056+M2385*M2419)/(L6056+L2385*L2419))^(_el_eff_oil_ind))/(1+_eff_imp_oil_ind+$M2201))^(1+_el_dem_oil_ind)",
+    "fill": "M6067:AE6067",
+    "policy": "policy row 12383: same edit with M8749 for M2433 and $M8517 for $M2201 (in 465 this block and its drivers both sit +6,316 below the baseline, so a paste of the baseline row also works; in 456 they did not)"
    },
    {
-    "cell": "M6082",
-    "now": "=L6082*((1+M2446)^(_el_inc_oil_ind*M2440))*(1+M2439)*((M6071/L6071)^_el_dem_oil_ind)*((((M6071+M2386*M2419)/(L6071+L2386*L2419))^(_el_eff_oil_ind))/(1+_eff_imp_oil_ind))^(1+_el_dem_oil_ind)",
-    "new": "=L6082*((1+M2446)^(_el_inc_oil_ind*M2433))*(1+M2439)*((M6071/L6071)^_el_dem_oil_ind)*((((M6071+M2386*M2419)/(L6071+L2386*L2419))^(_el_eff_oil_ind))/(1+_eff_imp_oil_ind+$M2201))^(1+_el_dem_oil_ind)",
-    "fill": "M6082:AE6082",
-    "policy": "policy row 12399: same edit with M8764 for M2433 and $M8532 for $M2201 (do not paste: this block is +6,317 but its drivers are +6,331)"
+    "cell": "M6068",
+    "now": "=L6068*((1+M2446)^(_el_inc_oil_ind*M2440))*(1+M2439)*((M6057/L6057)^_el_dem_oil_ind)*((((M6057+M2386*M2419)/(L6057+L2386*L2419))^(_el_eff_oil_ind))/(1+_eff_imp_oil_ind))^(1+_el_dem_oil_ind)",
+    "new": "=L6068*((1+M2446)^(_el_inc_oil_ind*M2433))*(1+M2439)*((M6057/L6057)^_el_dem_oil_ind)*((((M6057+M2386*M2419)/(L6057+L2386*L2419))^(_el_eff_oil_ind))/(1+_eff_imp_oil_ind+$M2201))^(1+_el_dem_oil_ind)",
+    "fill": "M6068:AE6068",
+    "policy": "policy row 12384: same edit with M8749 for M2433 and $M8517 for $M2201 (in 465 this block and its drivers both sit +6,316 below the baseline, so a paste of the baseline row also works; in 456 they did not)"
    },
    {
-    "cell": "M6083",
-    "now": "=L6083*((1+M2446)^(_el_inc_oil_ind*M2440))*(1+M2439)*((M6072/L6072)^_el_dem_oil_ind)*((((M6072+M2387*M2419)/(L6072+L2387*L2419))^(_el_eff_oil_ind))/(1+_eff_imp_oil_ind))^(1+_el_dem_oil_ind)",
-    "new": "=L6083*((1+M2446)^(_el_inc_oil_ind*M2433))*(1+M2439)*((M6072/L6072)^_el_dem_oil_ind)*((((M6072+M2387*M2419)/(L6072+L2387*L2419))^(_el_eff_oil_ind))/(1+_eff_imp_oil_ind+$M2201))^(1+_el_dem_oil_ind)",
-    "fill": "M6083:AE6083",
-    "policy": "policy row 12400: same edit with M8764 for M2433 and $M8532 for $M2201 (do not paste: this block is +6,317 but its drivers are +6,331)"
+    "cell": "M6069",
+    "now": "=L6069*((1+M2446)^(_el_inc_oil_ind*M2440))*(1+M2439)*((M6058/L6058)^_el_dem_oil_ind)*((((M6058+M2387*M2419)/(L6058+L2387*L2419))^(_el_eff_oil_ind))/(1+_eff_imp_oil_ind))^(1+_el_dem_oil_ind)",
+    "new": "=L6069*((1+M2446)^(_el_inc_oil_ind*M2433))*(1+M2439)*((M6058/L6058)^_el_dem_oil_ind)*((((M6058+M2387*M2419)/(L6058+L2387*L2419))^(_el_eff_oil_ind))/(1+_eff_imp_oil_ind+$M2201))^(1+_el_dem_oil_ind)",
+    "fill": "M6069:AE6069",
+    "policy": "policy row 12385: same edit with M8749 for M2433 and $M8517 for $M2201 (in 465 this block and its drivers both sit +6,316 below the baseline, so a paste of the baseline row also works; in 456 they did not)"
    },
    {
-    "cell": "M6084",
-    "now": "=L6084*((1+M2446)^(_el_inc_bio_ind*M2440))*(1+M2439)*((M6073/L6073)^_el_dem_bio_ind)*((((M6073+M2388*M2419)/(L6073+L2388*L2419))^(_el_eff_bio_ind))/(1+_eff_imp_bio_ind))^(1+_el_dem_bio_ind)",
-    "new": "=L6084*((1+M2446)^(_el_inc_bio_ind*M2433))*(1+M2439)*((M6073/L6073)^_el_dem_bio_ind)*((((M6073+M2388*M2419)/(L6073+L2388*L2419))^(_el_eff_bio_ind))/(1+_eff_imp_bio_ind+$M2201))^(1+_el_dem_bio_ind)",
-    "fill": "M6084:AE6084",
-    "policy": "policy row 12401: same edit with M8764 for M2433 and $M8532 for $M2201 (do not paste: this block is +6,317 but its drivers are +6,331)"
+    "cell": "M6070",
+    "now": "=L6070*((1+M2446)^(_el_inc_bio_ind*M2440))*(1+M2439)*((M6059/L6059)^_el_dem_bio_ind)*((((M6059+M2388*M2419)/(L6059+L2388*L2419))^(_el_eff_bio_ind))/(1+_eff_imp_bio_ind))^(1+_el_dem_bio_ind)",
+    "new": "=L6070*((1+M2446)^(_el_inc_bio_ind*M2433))*(1+M2439)*((M6059/L6059)^_el_dem_bio_ind)*((((M6059+M2388*M2419)/(L6059+L2388*L2419))^(_el_eff_bio_ind))/(1+_eff_imp_bio_ind+$M2201))^(1+_el_dem_bio_ind)",
+    "fill": "M6070:AE6070",
+    "policy": "policy row 12386: same edit with M8749 for M2433 and $M8517 for $M2201 (in 465 this block and its drivers both sit +6,316 below the baseline, so a paste of the baseline row also works; in 456 they did not)"
    },
    {
-    "cell": "M6085",
-    "now": "=L6085*((1+M2446)^(_el_inc_ren_ind*M2440))*(1+M2439)*((M6074/L6074)^_el_dem_ren_ind)*(((M6074/L6074)^(_el_eff_ren_ind))/(1+_eff_imp_ren_ind+$M2201))^(1+_el_dem_ren_ind)",
-    "new": "=L6085*((1+M2446)^(_el_inc_ren_ind*M2433))*(1+M2439)*((M6074/L6074)^_el_dem_ren_ind)*(((M6074/L6074)^(_el_eff_ren_ind))/(1+_eff_imp_ren_ind+$M2201))^(1+_el_dem_ren_ind)",
-    "fill": "M6085:AE6085",
-    "policy": "policy row 12402: same edit with M8764 for M2433 and $M8532 for $M2201 (do not paste: this block is +6,317 but its drivers are +6,331)"
+    "cell": "M6071",
+    "now": "=L6071*((1+M2446)^(_el_inc_ren_ind*M2440))*(1+M2439)*((M6060/L6060)^_el_dem_ren_ind)*(((M6060/L6060)^(_el_eff_ren_ind))/(1+_eff_imp_ren_ind+$M2201))^(1+_el_dem_ren_ind)",
+    "new": "=L6071*((1+M2446)^(_el_inc_ren_ind*M2433))*(1+M2439)*((M6060/L6060)^_el_dem_ren_ind)*(((M6060/L6060)^(_el_eff_ren_ind))/(1+_eff_imp_ren_ind+$M2201))^(1+_el_dem_ren_ind)",
+    "fill": "M6071:AE6071",
+    "policy": "policy row 12387: same edit with M8749 for M2433 and $M8517 for $M2201 (in 465 this block and its drivers both sit +6,316 below the baseline, so a paste of the baseline row also works; in 456 they did not)"
    }
   ],
-  "ref": "Industry row 5691 (mining & chemicals coal): (1+M2446)^(eps_Y x M2433) and /(1+_eff_imp_... + $M2201). Quickest: select M6077:AE6085, Ctrl+H, replace \"2440)\" with \"2433)\"; then select M6077:AE6084 and replace \"_ind))^\" with \"_ind+$M2201))^\". Policy: select M12394:AE12402, replace \"8771)\" with \"8764)\"; then M12394:AE12401, replace \"_ind))^\" with \"_ind+$M8532))^\".",
+  "ref": "Industry row 5680 (mining & chemicals coal): (1+M2446)^(eps_Y x M2433) and /(1+_eff_imp_... + $M2201). Quickest: select M6063:AE6071, Ctrl+H, replace \"2440)\" with \"2433)\"; then select M6063:AE6070 and replace \"_ind))^\" with \"_ind+$M2201))^\". Policy: select M12379:AE12387, replace \"8756)\" with \"8749)\"; then M12379:AE12386, replace \"_ind))^\" with \"_ind+$M8517))^\".",
   "effect": "Egypt other energy use (mostly other oil products, 101 ktoe in 2022): about +46 ktoe in 2030 and +124 ktoe in 2040.",
   "note": null,
   "status": "fix"
@@ -347,84 +347,84 @@
     "now": "= IF( $J2463 = 1, MAX( $J2461, ($J2452 - O2452 + $J2461) * (1 - $J2462)), ($J2452 - O2452 + $J2461) * (1 - $J2462)) * IF($J2463 = 1, O2217, O2216)",
     "new": "= IF( $J2463 = 1, MAX( $J2461, ($J2461 + ($J2452 - O2452) * (1 - $J2462))), ($J2461 + ($J2452 - O2452) * (1 - $J2462))) * IF($J2463 = 1, O2217, O2216)",
     "fill": "O2461:AE2461",
-    "policy": "paste into O8792:AE8792 (+6,331)"
+    "policy": "paste into O8777:AE8777 (+6,316)"
    },
    {
     "cell": "O2484",
     "now": "= IF( $J2486 = 1, MAX( $J2484, ($J2475 - O2475 + $J2484) * (1 - $J2485)), ($J2475 - O2475 + $J2484) * (1 - $J2485)) * IF($J2486 = 1, O2217, O2216)",
     "new": "= IF( $J2486 = 1, MAX( $J2484, ($J2484 + ($J2475 - O2475) * (1 - $J2485))), ($J2484 + ($J2475 - O2475) * (1 - $J2485))) * IF($J2486 = 1, O2217, O2216)",
     "fill": "O2484:AE2484",
-    "policy": "paste into O8815:AE8815 (+6,331)"
+    "policy": "paste into O8800:AE8800 (+6,316)"
    },
    {
     "cell": "O2507",
     "now": "= IF( $J2509 = 1, MAX( $J2507, ($J2498 - O2498 + $J2507) * (1 - $J2508)), ($J2498 - O2498 + $J2507) * (1 - $J2508)) * IF($J2509 = 1, O2217, O2216)",
     "new": "= IF( $J2509 = 1, MAX( $J2507, ($J2507 + ($J2498 - O2498) * (1 - $J2508))), ($J2507 + ($J2498 - O2498) * (1 - $J2508))) * IF($J2509 = 1, O2217, O2216)",
     "fill": "O2507:AE2507",
-    "policy": "paste into O8838:AE8838 (+6,331)"
+    "policy": "paste into O8823:AE8823 (+6,316)"
    },
    {
     "cell": "O2530",
     "now": "= IF( $J2532 = 1, MAX( 0, ($J2521 - O2521 + $J2530) * (1 - $J2531)), ($J2521 - O2521 + $J2530) * (1 - $J2531)) * IF($J2532 = 1, O2217, O2216)",
     "new": "= IF( $J2532 = 1, MAX( 0, ($J2530 + ($J2521 - O2521) * (1 - $J2531))), ($J2530 + ($J2521 - O2521) * (1 - $J2531))) * IF($J2532 = 1, O2217, O2216)",
     "fill": "O2530:AE2530",
-    "policy": "paste into O8861:AE8861 (+6,331)"
+    "policy": "paste into O8846:AE8846 (+6,316)"
    },
    {
     "cell": "O2553",
     "now": "= IF( $J2555 = 1, MAX( 0, ($J2544 - O2544 + $J2553) * (1 - $J2554)), ($J2544 - O2544 + $J2553) * (1 - $J2554)) * IF($J2555 = 1, O2217, O2216)",
     "new": "= IF( $J2555 = 1, MAX( 0, ($J2553 + ($J2544 - O2544) * (1 - $J2554))), ($J2553 + ($J2544 - O2544) * (1 - $J2554))) * IF($J2555 = 1, O2217, O2216)",
     "fill": "O2553:AE2553",
-    "policy": "paste into O8884:AE8884 (+6,331)"
+    "policy": "paste into O8869:AE8869 (+6,316)"
    },
    {
     "cell": "O2576",
     "now": "= IF( $J2578 = 1, MAX( $J2576, ($J2567 - O2567 + $J2576) * (1 - $J2577)), ($J2567 - O2567 + $J2576) * (1 - $J2577)) * IF($J2578 = 1, O2217, O2216)",
     "new": "= IF( $J2578 = 1, MAX( $J2576, ($J2576 + ($J2567 - O2567) * (1 - $J2577))), ($J2576 + ($J2567 - O2567) * (1 - $J2577))) * IF($J2578 = 1, O2217, O2216)",
     "fill": "O2576:AE2576",
-    "policy": "paste into O8907:AE8907 (+6,331)"
+    "policy": "paste into O8892:AE8892 (+6,316)"
    },
    {
     "cell": "O2599",
     "now": "= IF( $J2601 = 1, MAX( $J2599, ($J2590 - O2590 + $J2599) * (1 - $J2600)), ($J2590 - O2590 + $J2599) * (1 - $J2600))* IF($J2601 = 1, O2217, O2216)",
     "new": "= IF( $J2601 = 1, MAX( $J2599, ($J2599 + ($J2590 - O2590) * (1 - $J2600))), ($J2599 + ($J2590 - O2590) * (1 - $J2600)))* IF($J2601 = 1, O2217, O2216)",
     "fill": "O2599:AE2599",
-    "policy": "paste into O8930:AE8930 (+6,331)"
+    "policy": "paste into O8915:AE8915 (+6,316)"
    },
    {
     "cell": "O2622",
     "now": "= IF( $J2624 = 1, MAX( $J2622, ($J2613 - O2613 + $J2622) * (1 - $J2623)), ($J2613 - O2613 + $J2622) * (1 - $J2623)) * IF($J2624 = 1, O2217, O2216)",
     "new": "= IF( $J2624 = 1, MAX( $J2622, ($J2622 + ($J2613 - O2613) * (1 - $J2623))), ($J2622 + ($J2613 - O2613) * (1 - $J2623))) * IF($J2624 = 1, O2217, O2216)",
     "fill": "O2622:AE2622",
-    "policy": "paste into O8953:AE8953 (+6,331)"
+    "policy": "paste into O8938:AE8938 (+6,316)"
    },
    {
     "cell": "O2645",
     "now": "= IF( $J2647 = 1, MAX( $J2645, ($J2636 - O2636 + $J2645) * (1 - $J2646)), ($J2636 - O2636 + $J2645) * (1 - $J2646)) * IF($J2647 = 1, O2217, O2216)",
     "new": "= IF( $J2647 = 1, MAX( $J2645, ($J2645 + ($J2636 - O2636) * (1 - $J2646))), ($J2645 + ($J2636 - O2636) * (1 - $J2646))) * IF($J2647 = 1, O2217, O2216)",
     "fill": "O2645:AE2645",
-    "policy": "paste into O8976:AE8976 (+6,331)"
+    "policy": "paste into O8961:AE8961 (+6,316)"
    },
    {
     "cell": "O2668",
     "now": "= IF( $J2670 = 1, MAX( $J2668, ($J2659 - O2659 + $J2668) * (1 - $J2669)), ($J2659 - O2659 + $J2668) * (1 - $J2669)) * IF($J2670 = 1, O2217, O2216)",
     "new": "= IF( $J2670 = 1, MAX( $J2668, ($J2668 + ($J2659 - O2659) * (1 - $J2669))), ($J2668 + ($J2659 - O2659) * (1 - $J2669))) * IF($J2670 = 1, O2217, O2216)",
     "fill": "O2668:AE2668",
-    "policy": "paste into O8999:AE8999 (+6,331)"
+    "policy": "paste into O8984:AE8984 (+6,316)"
    },
    {
     "cell": "O2691",
     "now": "= IF( $J2693 = 1, MAX( $J2691, ($J2682 - O2682 + $J2691) * (1 - $J2692)), ($J2682 - O2682 + $J2691) * (1 - $J2692)) * IF($J2693 = 1, O2217, O2216)",
     "new": "= IF( $J2693 = 1, MAX( $J2691, ($J2691 + ($J2682 - O2682) * (1 - $J2692))), ($J2691 + ($J2682 - O2682) * (1 - $J2692))) * IF($J2693 = 1, O2217, O2216)",
     "fill": "O2691:AE2691",
-    "policy": "paste into O9022:AE9022 (+6,331)"
+    "policy": "paste into O9007:AE9007 (+6,316)"
    },
    {
     "cell": "O2714",
     "now": "= IF( $J2716 = 1, MAX( $J2714, ($J2705 - O2705 + $J2714) * (1 - $J2715)), ($J2705 - O2705 + $J2714) * (1 - $J2715)) * IF($J2716 = 1, O2217, O2216)",
     "new": "= IF( $J2716 = 1, MAX( $J2714, ($J2714 + ($J2705 - O2705) * (1 - $J2715))), ($J2714 + ($J2705 - O2705) * (1 - $J2715))) * IF($J2716 = 1, O2217, O2216)",
     "fill": "O2714:AE2714",
-    "policy": "paste into O9045:AE9045 (+6,331)"
+    "policy": "paste into O9030:AE9030 (+6,316)"
    }
   ],
   "ref": "History formula of the same rows (K:N): (excise - other parts) x (1 - $J pass-through), applied once.",
@@ -436,18 +436,18 @@
   "id": "L49",
   "pri": "Medium",
   "title": "Balance of payments: oil without the share traded",
-  "where": "Mitigation row 18181 (section 11, balance of payments)",
-  "why": "The value of the change in oil net imports is change in use x price, while gas (row 18187, x $H741) and coal (row 18193, x $H743) multiply by the share traded of the trade-balance table (rows 741-743). Oil products have a share of 0.47 (H742), so the oil effect is about twice too large.",
+  "where": "Mitigation row 18166 (section 11, balance of payments)",
+  "why": "The value of the change in oil net imports is change in use x price, while gas (row 18172, x $H741) and coal (row 18178, x $H743) multiply by the share traded of the trade-balance table (rows 741-743). Oil products have a share of 0.47 (H742), so the oil effect is about twice too large.",
   "fixes": [
    {
-    "cell": "L18181",
-    "now": "=L18180*_conv_ktoe_to_barrel*L707/10^9",
-    "new": "=L18180*_conv_ktoe_to_barrel*L707/10^9*$H742",
-    "fill": "L18181:AE18181",
+    "cell": "L18166",
+    "now": "=L18165*_conv_ktoe_to_barrel*L707/10^9",
+    "new": "=L18165*_conv_ktoe_to_barrel*L707/10^9*$H742",
+    "fill": "L18166:AE18166",
     "policy": "none (results block, one copy only)"
    }
   ],
-  "ref": "Rows 18187 (gas) and 18193 (coal) of the same section; H742 = share traded of oil products.",
+  "ref": "Rows 18172 (gas) and 18178 (coal) of the same section; H742 = share traded of oil products.",
   "effect": "Reported balance of payments only: the oil line falls to 47% (Egypt 2028: -1.75 to -0.83 bn USD); rows 18200, 18203, 18207, 18218 follow.",
   "note": null,
   "status": "fix"
@@ -456,60 +456,60 @@
   "id": "L23",
   "pri": "Low",
   "title": "Services and food & forestry missing from the pollutant totals",
-  "where": "Mitigation total row of each pollutant: 6704, 6806, 6908, 7010, 7112, 7214, 7423",
+  "where": "Mitigation total row of each pollutant: 6690, 6792, 6894, 6996, 7098, 7200, 7409",
   "why": "Each total sums residential (6 rows) but skips the 16 services and food & forestry rows directly below them.",
   "fixes": [
    {
-    "cell": "L6704",
-    "now": "=SUM(L6607:L6610,L6613:L6619,L6622:L6627,L6646:L6669,L6672:L6679)",
-    "new": "=SUM(L6607:L6610,L6613:L6619,L6622:L6643,L6646:L6669,L6672:L6679)",
-    "fill": "L6704:AE6704",
-    "policy": "paste into L13021:AE13021 (+6,317)"
+    "cell": "L6690",
+    "now": "=SUM(L6593:L6596,L6599:L6605,L6608:L6613,L6632:L6655,L6658:L6665)",
+    "new": "=SUM(L6593:L6596,L6599:L6605,L6608:L6629,L6632:L6655,L6658:L6665)",
+    "fill": "L6690:AE6690",
+    "policy": "paste into L13006:AE13006 (+6,316)"
    },
    {
-    "cell": "L6806",
-    "now": "=SUM(L6709:L6712,L6715:L6721,L6724:L6729,L6748:L6771,L6774:L6781)",
-    "new": "=SUM(L6709:L6712,L6715:L6721,L6724:L6745,L6748:L6771,L6774:L6781)",
-    "fill": "L6806:AE6806",
-    "policy": "paste into L13123:AE13123 (+6,317)"
+    "cell": "L6792",
+    "now": "=SUM(L6695:L6698,L6701:L6707,L6710:L6715,L6734:L6757,L6760:L6767)",
+    "new": "=SUM(L6695:L6698,L6701:L6707,L6710:L6731,L6734:L6757,L6760:L6767)",
+    "fill": "L6792:AE6792",
+    "policy": "paste into L13108:AE13108 (+6,316)"
    },
    {
-    "cell": "L6908",
-    "now": "=SUM(L6811:L6814,L6817:L6823,L6826:L6831,L6850:L6873,L6876:L6883)",
-    "new": "=SUM(L6811:L6814,L6817:L6823,L6826:L6847,L6850:L6873,L6876:L6883)",
-    "fill": "L6908:AE6908",
-    "policy": "paste into L13225:AE13225 (+6,317)"
+    "cell": "L6894",
+    "now": "=SUM(L6797:L6800,L6803:L6809,L6812:L6817,L6836:L6859,L6862:L6869)",
+    "new": "=SUM(L6797:L6800,L6803:L6809,L6812:L6833,L6836:L6859,L6862:L6869)",
+    "fill": "L6894:AE6894",
+    "policy": "paste into L13210:AE13210 (+6,316)"
    },
    {
-    "cell": "L7010",
-    "now": "=SUM(L6913:L6916,L6919:L6925,L6928:L6933,L6952:L6975,L6978:L6985)",
-    "new": "=SUM(L6913:L6916,L6919:L6925,L6928:L6949,L6952:L6975,L6978:L6985)",
-    "fill": "L7010:AE7010",
-    "policy": "paste into L13327:AE13327 (+6,317)"
+    "cell": "L6996",
+    "now": "=SUM(L6899:L6902,L6905:L6911,L6914:L6919,L6938:L6961,L6964:L6971)",
+    "new": "=SUM(L6899:L6902,L6905:L6911,L6914:L6935,L6938:L6961,L6964:L6971)",
+    "fill": "L6996:AE6996",
+    "policy": "paste into L13312:AE13312 (+6,316)"
    },
    {
-    "cell": "L7112",
-    "now": "=SUM(L7015:L7018,L7021:L7027,L7030:L7035,L7054:L7077,L7080:L7087)",
-    "new": "=SUM(L7015:L7018,L7021:L7027,L7030:L7051,L7054:L7077,L7080:L7087)",
-    "fill": "L7112:AE7112",
-    "policy": "paste into L13429:AE13429 (+6,317)"
+    "cell": "L7098",
+    "now": "=SUM(L7001:L7004,L7007:L7013,L7016:L7021,L7040:L7063,L7066:L7073)",
+    "new": "=SUM(L7001:L7004,L7007:L7013,L7016:L7037,L7040:L7063,L7066:L7073)",
+    "fill": "L7098:AE7098",
+    "policy": "paste into L13414:AE13414 (+6,316)"
    },
    {
-    "cell": "L7214",
-    "now": "=SUM(L7117:L7120,L7123:L7129,L7132:L7137,L7156:L7179,L7182:L7189)",
-    "new": "=SUM(L7117:L7120,L7123:L7129,L7132:L7153,L7156:L7179,L7182:L7189)",
-    "fill": "L7214:AE7214",
-    "policy": "paste into L13531:AE13531 (+6,317)"
+    "cell": "L7200",
+    "now": "=SUM(L7103:L7106,L7109:L7115,L7118:L7123,L7142:L7165,L7168:L7175)",
+    "new": "=SUM(L7103:L7106,L7109:L7115,L7118:L7139,L7142:L7165,L7168:L7175)",
+    "fill": "L7200:AE7200",
+    "policy": "paste into L13516:AE13516 (+6,316)"
    },
    {
-    "cell": "L7423",
-    "now": "=SUM(L7326:L7329,L7332:L7338,L7341:L7346,L7365:L7388,L7391:L7398)",
-    "new": "=SUM(L7326:L7329,L7332:L7338,L7341:L7362,L7365:L7388,L7391:L7398)",
-    "fill": "L7423:AE7423",
-    "policy": "paste into L13740:AE13740 (+6,317)"
+    "cell": "L7409",
+    "now": "=SUM(L7312:L7315,L7318:L7324,L7327:L7332,L7351:L7374,L7377:L7384)",
+    "new": "=SUM(L7312:L7315,L7318:L7324,L7327:L7348,L7351:L7374,L7377:L7384)",
+    "fill": "L7409:AE7409",
+    "policy": "paste into L13725:AE13725 (+6,316)"
    }
   ],
-  "ref": "The buildings subtotal of the same block (e.g. 6889 = SUM(6826:6847) for SO2) and the CH4 total 7321, which already include them.",
+  "ref": "The buildings subtotal of the same block (e.g. 6875 = SUM(6812:6833) for SO2) and the CH4 total 7307, which already include them.",
   "effect": "None for Egypt (services and food & forestry emit 0 in the file); correct totals wherever they emit.",
   "note": null,
   "status": "fix"
@@ -526,7 +526,7 @@
     "now": "=L5559*((1+M2446)^(_el_inc_oil_res*M2433))*(1+M2439)*((M5549/L5549)^_el_dem_oil_res)*((((M5549+M2387*M2408)/(L5549+L2387*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)",
     "new": "=L5559*((1+M2446)^(_el_inc_oil_res*M2433))*(1+M2439)*((M5548/L5548)^_el_dem_oil_res)*((((M5548+M2387*M2408)/(L5548+L2387*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)",
     "fill": "M5559:AE5559",
-    "policy": "paste into M11890:AE11890 (+6,331)"
+    "policy": "paste into M11875:AE11875 (+6,316)"
    }
   ],
   "ref": "Row 5555 (residential gasoline) reads its own price row 5544.",
@@ -546,84 +546,84 @@
     "now": "=L5564*((1+M2446)^(_el_inc_nga_res*M2433))*(1+M2439)*((M5543/L5543)^_el_dem_nga_res)*((((M5543+M2381*M2408)/(L5543+L2381*L2408))^(_el_eff_nga_res))/(1+_eff_imp_nga_res+$M2200))^(1+_el_dem_nga_res)-M5577",
     "new": "=L5564*((1+M2446)^(_el_inc_nga_res*M2433))*(1+M2439)*((M5543/L5543)^_el_dem_nga_res)*((((M5543+M2381*M2408)/(L5543+L2381*L2408))^(_el_eff_nga_res))/(1+_eff_imp_nga_res+$M2200))^(1+_el_dem_nga_res)+M5577",
     "fill": "M5564:AE5564",
-    "policy": "paste into M11895:AE11895 (+6,331)"
+    "policy": "paste into M11880:AE11880 (+6,316)"
    },
    {
     "cell": "M5565",
     "now": "=L5565*((1+M2446)^(_el_inc_oil_res*M2433))*(1+M2439)*((M5546/L5546)^_el_dem_oil_res)*((((M5546+M2385*M2408)/(L5546+L2385*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)-M5583",
     "new": "=L5565*((1+M2446)^(_el_inc_oil_res*M2433))*(1+M2439)*((M5546/L5546)^_el_dem_oil_res)*((((M5546+M2385*M2408)/(L5546+L2385*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)+M5583",
     "fill": "M5565:AE5565",
-    "policy": "paste into M11896:AE11896 (+6,331)"
+    "policy": "paste into M11881:AE11881 (+6,316)"
    },
    {
     "cell": "M5566",
     "now": "=L5566*((1+M2446)^(_el_inc_oil_res*M2433))*(1+M2439)*((M5547/L5547)^_el_dem_oil_res)*((((M5547+M2386*M2408)/(L5547+L2386*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)-M5588",
     "new": "=L5566*((1+M2446)^(_el_inc_oil_res*M2433))*(1+M2439)*((M5547/L5547)^_el_dem_oil_res)*((((M5547+M2386*M2408)/(L5547+L2386*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)+M5588",
     "fill": "M5566:AE5566",
-    "policy": "paste into M11897:AE11897 (+6,331)"
+    "policy": "paste into M11882:AE11882 (+6,316)"
    },
    {
     "cell": "M5554",
     "now": "=M5564+M5568+SUM($M5577:M5577)",
     "new": "=M5564+M5568",
     "fill": "M5554:AE5554",
-    "policy": "paste into M11885:AE11885 (+6,331)"
+    "policy": "paste into M11870:AE11870 (+6,316)"
    },
    {
     "cell": "M5557",
     "now": "=M5565+M5569+SUM($M5583:M5583)",
     "new": "=M5565+M5569",
     "fill": "M5557:AE5557",
-    "policy": "paste into M11888:AE11888 (+6,331)"
+    "policy": "paste into M11873:AE11873 (+6,316)"
    },
    {
     "cell": "M5558",
     "now": "=M5566+M5570+SUM($M5588:M5588)",
     "new": "=M5566+M5570",
     "fill": "M5558:AE5558",
-    "policy": "paste into M11889:AE11889 (+6,331)"
+    "policy": "paste into M11874:AE11874 (+6,316)"
    },
    {
     "cell": "M5577",
     "now": "=-L5564*$C5578*M5576*$E$1785",
     "new": "=-L5564*M5576*$E$1785",
     "fill": "M5577:AE5577",
-    "policy": "paste into M11908:AE11908 (+6,331)"
+    "policy": "paste into M11893:AE11893 (+6,316)"
    },
    {
     "cell": "M5583",
     "now": "=-L5565*$C5584*M5582*$E$1785",
     "new": "=-L5565*M5582*$E$1785",
     "fill": "M5583:AE5583",
-    "policy": "paste into M11914:AE11914 (+6,331)"
+    "policy": "paste into M11899:AE11899 (+6,316)"
    },
    {
     "cell": "M5587",
     "now": "=1+(M5586-L5586)/L5546",
     "new": "=1+(M5586-L5586)/L5547",
     "fill": "M5587:AE5587",
-    "policy": "paste into M11918:AE11918 (+6,331)"
+    "policy": "paste into M11903:AE11903 (+6,316)"
    },
    {
     "cell": "M5588",
     "now": "=-L5566*$C5591*M5582*$E$1785",
     "new": "=-L5566*M5589*$E$1785",
     "fill": "M5588:AE5588",
-    "policy": "paste into M11919:AE11919 (+6,331)"
+    "policy": "paste into M11904:AE11904 (+6,316)"
    },
    {
     "cell": "M5590",
     "now": "=-L5566*M5589",
     "new": "=M5588",
     "fill": "M5590:AE5590",
-    "policy": "paste into M11921:AE11921 (+6,331)"
+    "policy": "paste into M11906:AE11906 (+6,316)"
    },
    {
     "cell": "M5593",
     "now": "=-$C5593*(M5578+M5584+M5591)*$E$1785",
     "new": "=-(M5578+M5584+M5591)",
     "fill": "M5593:AE5593",
-    "policy": "paste into M11924:AE11924 (+6,331)"
+    "policy": "paste into M11909:AE11909 (+6,316)"
    }
   ],
   "ref": "Labels of the block: \"Change in X\" is a change in fuel; \"Equivalent Biomass\" (rows 5578, 5584, 5591, already = change x fossil efficiency / biomass efficiency) is the biomass that replaces it. Biomass total 5560 keeps its cumulative SUM; the fossil rows carry the reduction forward themselves.",
@@ -643,14 +643,14 @@
     "now": "(empty)",
     "new": "=(L2720)+L2721*L2271",
     "fill": "L5392:AE5392 (empty today)",
-    "policy": "paste into L11723:AE11723 (+6,331)"
+    "policy": "paste into L11708:AE11708 (+6,316)"
    },
    {
     "cell": "M5406",
     "now": "=L5406*((1+M2446)^(_el_inc_oil_rod*M2433))*(1+M2439)*((M5390/L5390)^_el_dem_oil_rod)*(((M5390+M2388*M2404)/(L5390+L2388*L2404))^_el_dem_oil_rod)*(((M5390/M5390)^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2259))^(1+_el_dem_oil_rod)",
     "new": "=L5406*((1+M2446)^(_el_inc_oil_rod*M2433))*(1+M2439)*((M5392/L5392)^_el_dem_oil_rod)*((((M5392+M2388*M2404)/(L5392+L2388*L2404))^(_el_eff_oil_rod))/(1+_eff_imp_oil_rod+$M2199))^(1+_el_dem_oil_rod)",
     "fill": "M5406:AE5406",
-    "policy": "paste into M11737:AE11737 (+6,331)"
+    "policy": "paste into M11722:AE11722 (+6,316)"
    }
   ],
   "ref": "Row 5389 (road biomass price: = (M2720)+M2721*M2271) for the price; standard row 5399 for the form, with the biomass shadow price row 2388 and road additional efficiency $M2199. The elasticity names are those legacy already uses in 5406.",
@@ -670,14 +670,14 @@
     "now": "=L5491*((1+M2439)^(_el_inc_ren_rod*M2433))*(1+M2512)*((M5480/L5480)^_el_dem_ren_rod)*(((M5480/L5480)^(_el_eff_ren_rod))/(1+_eff_imp_ren_rod+$M2199))^(1+_el_dem_ren_rod)",
     "new": "=L5491*((1+M2446)^(_el_inc_ren_rod*M2433))*(1+M2439)*((M5480/L5480)^_el_dem_ren_rod)*(((M5480/L5480)^(_el_eff_ren_rod))/(1+_eff_imp_ren_rod+$M2199))^(1+_el_dem_ren_rod)",
     "fill": "M5491:AE5491",
-    "policy": "paste into M11822:AE11822 (+6,331)"
+    "policy": "paste into M11807:AE11807 (+6,316)"
    },
    {
     "cell": "M5516",
     "now": "=L5516*((1+M2446)^(_el_inc_ren_rod*M2433))*(1+M2473)*((M5505/L5505)^_el_dem_ren_rod)*(((M5505/L5505)^(_el_eff_ren_rod))/(1+_eff_imp_ren_rod+$M2199))^(1+_el_dem_ren_rod)",
     "new": "=L5516*((1+M2446)^(_el_inc_ren_rod*M2433))*(1+M2439)*((M5505/L5505)^_el_dem_ren_rod)*(((M5505/L5505)^(_el_eff_ren_rod))/(1+_eff_imp_ren_rod+$M2199))^(1+_el_dem_ren_rod)",
     "fill": "M5516:AE5516",
-    "policy": "paste into M11847:AE11847 (+6,331)"
+    "policy": "paste into M11832:AE11832 (+6,316)"
    }
   ],
   "ref": "Row 5407 (road self-generated renewables).",
@@ -697,35 +697,35 @@
     "now": "=L5568*((1+M2446)^_el_inc_nga_res)*(1+M2439)*((M5543/L5543)^(_el_dem_nga_res*MIN(M2258/ExemptPhaseoutPeriod,1))*((((M5543+M2381*M2408)/(L5543+L2381*L2408))^(_el_eff_nga_res))/(1+_eff_imp_nga_res+$M2200))^(1+_el_dem_nga_res))",
     "new": "=L5568*((1+M2446)^(_el_inc_nga_res*M2433))*(1+M2439)*((M5543/L5543)^(_el_dem_nga_res*MIN(M2258/ExemptPhaseoutPeriod,1))*((((M5543+M2381*M2408)/(L5543+L2381*L2408))^(_el_eff_nga_res))/(1+_eff_imp_nga_res+$M2200))^(1+_el_dem_nga_res))",
     "fill": "M5568:AE5568",
-    "policy": "paste into M11899:AE11899 (+6,331)"
+    "policy": "paste into M11884:AE11884 (+6,316)"
    },
    {
     "cell": "M5569",
     "now": "=L5569*((1+M2446)^_el_inc_oil_res)*(1+M2439)*((M5546/L5546)^(_el_dem_oil_res*(MIN(M2258/ExemptPhaseoutPeriod,1))))*((((M5546+M2385*M2408)/(L5546+L2385*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)",
     "new": "=L5569*((1+M2446)^(_el_inc_oil_res*M2433))*(1+M2439)*((M5546/L5546)^(_el_dem_oil_res*(MIN(M2258/ExemptPhaseoutPeriod,1))))*((((M5546+M2385*M2408)/(L5546+L2385*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)",
     "fill": "M5569:AE5569",
-    "policy": "paste into M11900:AE11900 (+6,331)"
+    "policy": "paste into M11885:AE11885 (+6,316)"
    },
    {
     "cell": "M5570",
     "now": "=L5570*((1+M2446)^_el_inc_oil_res)*(1+M2439)*((M5547/L5547)^(_el_dem_oil_res*(MIN(M2258/ExemptPhaseoutPeriod,1))))*((((M5547+M2386*M2408)/(L5547+L2386*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)",
     "new": "=L5570*((1+M2446)^(_el_inc_oil_res*M2433))*(1+M2439)*((M5547/L5547)^(_el_dem_oil_res*(MIN(M2258/ExemptPhaseoutPeriod,1))))*((((M5547+M2386*M2408)/(L5547+L2386*L2408))^(_el_eff_oil_res))/(1+_eff_imp_oil_res+$M2200))^(1+_el_dem_oil_res)",
     "fill": "M5570:AE5570",
-    "policy": "paste into M11901:AE11901 (+6,331)"
+    "policy": "paste into M11886:AE11886 (+6,316)"
    },
    {
     "cell": "L5546",
     "now": "=(L2651)+IF(AlwaysExemptResLPGKer=\"Yes\",0,L2652*L2275)",
     "new": "=(L2651)+IF(LEFT(AlwaysExemptResLPGKer,3)=\"Yes\",0,L2652*L2275)",
     "fill": "L5546:AE5546",
-    "policy": "paste into L11877:AE11877 (+6,331)"
+    "policy": "paste into L11862:AE11862 (+6,316)"
    },
    {
     "cell": "L5547",
     "now": "=(L2674)+IF(AlwaysExemptResLPGKer=\"Yes\",0,L2675*L2275)",
     "new": "=(L2674)+IF(LEFT(AlwaysExemptResLPGKer,3)=\"Yes\",0,L2675*L2275)",
     "fill": "L5547:AE5547",
-    "policy": "paste into L11878:AE11878 (+6,331)"
+    "policy": "paste into L11863:AE11863 (+6,316)"
    }
   ],
   "ref": "The exempt share is legacy's own row 1795 (\"Exempted ... proportion\", most-used cooking fuel L1784). Income factor as in the not-exempt rows 5564-5566.",
@@ -737,74 +737,74 @@
   "id": "L50",
   "pri": "Low",
   "title": "Balance of payments: current account #NAME?, column lag, label",
-  "where": "Mitigation rows 18197, 18206, 18213, 18215-18219",
-  "why": "(a) The WEO codes <iso>.bca_bp6 and <iso>.bca_gdp_bp6 are not on the WEO sheet (it has <iso>.BCA.A and <iso>.BCA_NGDPD.A), so J18197, J18206, J18213 are #N/A. (b) Rows 18197, 18206 and 18213 read INDEX(WEO, ...) and the defined name WEO is empty; the data range is WEO_upd (WEO!C9:AU3333, same rows as WEO_codes). (c) With the errors, the IFNA fallback of rows 18197 and 18206 (carry the previous column forward) leaves them empty. (Text read from the .xlsb; the conversion had shown =IFNA(K18197).) (d) The \"sign looks reversed\" in rows 18215-18219 is a label error: rows 741-743 are a trade balance.",
+  "where": "Mitigation rows 18182, 18191, 18198, 18200-18204",
+  "why": "(a) The WEO codes <iso>.bca_bp6 and <iso>.bca_gdp_bp6 are not on the WEO sheet (it has <iso>.BCA.A and <iso>.BCA_NGDPD.A), so J18182, J18191, J18198 are #N/A. (b) Rows 18182, 18191 and 18198 read INDEX(WEO, ...) and the defined name WEO is empty; the data range is WEO_upd (WEO!C9:AU3333, same rows as WEO_codes). (c) With the errors, the IFNA fallback of rows 18182 and 18191 (carry the previous column forward) leaves them empty. (Text read from the .xlsb; the conversion had shown =IFNA(K18182).) (d) The \"sign looks reversed\" in rows 18200-18204 is a label error: rows 741-743 are a trade balance.",
   "fixes": [
    {
-    "cell": "G18197",
+    "cell": "G18182",
     "now": "=LOWER(_Country_code)&\".bca_bp6\"",
     "new": "=LOWER(_Country_code)&\".bca.a\"",
     "fill": "single cell",
     "policy": "none (results block, one copy only)"
    },
    {
-    "cell": "G18213",
+    "cell": "G18198",
     "now": "=LOWER(_Country_code)&\".bca_bp6\"",
     "new": "=LOWER(_Country_code)&\".bca.a\"",
     "fill": "single cell",
     "policy": "none (results block, one copy only)"
    },
    {
-    "cell": "G18206",
+    "cell": "G18191",
     "now": "=LOWER(_Country_code)&\".bca_gdp_bp6\"",
     "new": "=LOWER(_Country_code)&\".bca_ngdpd.a\"",
     "fill": "single cell",
     "policy": "none (results block, one copy only)"
    },
    {
-    "cell": "L18197",
-    "now": "{=_xlfn.IFNA(IF(INDEX(WEO,$J18206,MATCH(L$18196,WEO_years,0))<>0,INDEX(WEO,$J18197,MATCH(L$18196,WEO_years,0)),K18197),K18197)}",
-    "new": "{=_xlfn.IFNA(IF(INDEX(WEO_upd,$J18206,MATCH(L$18196,WEO_years,0))<>0,INDEX(WEO_upd,$J18197,MATCH(L$18196,WEO_years,0)),K18197),K18197)}",
-    "fill": "L18197:AE18197 (array formula: edit L, copy across)",
+    "cell": "L18182",
+    "now": "{=_xlfn.IFNA(IF(INDEX(WEO,$J18191,MATCH(L$18181,WEO_years,0))<>0,INDEX(WEO,$J18182,MATCH(L$18181,WEO_years,0)),K18182),K18182)}",
+    "new": "{=_xlfn.IFNA(IF(INDEX(WEO_upd,$J18191,MATCH(L$18181,WEO_years,0))<>0,INDEX(WEO_upd,$J18182,MATCH(L$18181,WEO_years,0)),K18182),K18182)}",
+    "fill": "L18182:AE18182 (array formula: edit L, copy across)",
     "policy": "none (results block, one copy only)"
    },
    {
-    "cell": "L18206",
-    "now": "{=_xlfn.IFNA(IF(INDEX(WEO,$J18206,MATCH(L$18196,WEO_years,0))<>0,INDEX(WEO,$J18206,MATCH(L$18196,WEO_years,0)),K18206),K18206)}",
-    "new": "{=_xlfn.IFNA(IF(INDEX(WEO_upd,$J18206,MATCH(L$18196,WEO_years,0))<>0,INDEX(WEO_upd,$J18206,MATCH(L$18196,WEO_years,0)),K18206),K18206)}",
-    "fill": "L18206:AE18206 (array formula: edit L, copy across)",
+    "cell": "L18191",
+    "now": "{=_xlfn.IFNA(IF(INDEX(WEO,$J18191,MATCH(L$18181,WEO_years,0))<>0,INDEX(WEO,$J18191,MATCH(L$18181,WEO_years,0)),K18191),K18191)}",
+    "new": "{=_xlfn.IFNA(IF(INDEX(WEO_upd,$J18191,MATCH(L$18181,WEO_years,0))<>0,INDEX(WEO_upd,$J18191,MATCH(L$18181,WEO_years,0)),K18191),K18191)}",
+    "fill": "L18191:AE18191 (array formula: edit L, copy across)",
     "policy": "none (results block, one copy only)"
    },
    {
-    "cell": "L18213",
-    "now": "{=INDEX(WEO,$J18213,MATCH(L$18196,WEO_years,0))}",
-    "new": "{=INDEX(WEO_upd,$J18213,MATCH(L$18196,WEO_years,0))}",
-    "fill": "L18213:AE18213 (array formula: edit L, copy across)",
+    "cell": "L18198",
+    "now": "{=INDEX(WEO,$J18198,MATCH(L$18181,WEO_years,0))}",
+    "new": "{=INDEX(WEO_upd,$J18198,MATCH(L$18181,WEO_years,0))}",
+    "fill": "L18198:AE18198 (array formula: edit L, copy across)",
     "policy": "none (results block, one copy only)"
    },
    {
-    "cell": "D18215",
+    "cell": "D18200",
     "now": "Baseline (net imports of oil and gas, USD bln)",
     "new": "Baseline (trade balance of oil, gas and coal, USD bln)",
     "fill": "label",
     "policy": "none (results block, one copy only)"
    },
    {
-    "cell": "D18217",
+    "cell": "D18202",
     "now": "Baseline (net imports of oil and gas, % of GDP)",
     "new": "Baseline (trade balance of oil, gas and coal, % of GDP)",
     "fill": "label",
     "policy": "none (results block, one copy only)"
    },
    {
-    "cell": "D18218",
+    "cell": "D18203",
     "now": "Policy (net imports of oil and gas, USD bln)",
     "new": "Policy (trade balance of oil, gas and coal, USD bln)",
     "fill": "label",
     "policy": "none (results block, one copy only)"
    },
    {
-    "cell": "D18219",
+    "cell": "D18204",
     "now": "Policy (net imports of oil and gas, % of GDP)",
     "new": "Policy (trade balance of oil, gas and coal, % of GDP)",
     "fill": "label",
@@ -813,39 +813,39 @@
   ],
   "ref": "Row 420 (GDP growth): INDEX(WEO_upd, row, MATCH(year, WEO_years, 0)) with codes <iso>.<WEO subject>.a; sheet WEO holds EGY.BCA.A (current account, USD bn) and EGY.BCA_NGDPD.A (% of GDP). Row 740 heads rows 741-743 as \"Trade balance\".",
   "effect": "Reported balance of payments only: the current-account panel (rows 18197-18210) shows values instead of errors; no other result changes. Note: WEO data run to the WEO horizon (2029/2031); later years return #N/A until extended.",
-  "note": "Redone from the .xlsb (2026-10-19): rows 18197 and 18206 keep legacy's carry-forward (the previous column when the WEO year has no value); only the name and the codes change. WEO years beyond the data repeat the last value, as legacy intends.",
+  "note": "Redone from the .xlsb (2026-10-19): rows 18182 and 18191 keep legacy's carry-forward (the previous column when the WEO year has no value); only the name and the codes change. WEO years beyond the data repeat the last value, as legacy intends.",
   "status": "fix"
  },
  {
   "id": "N1",
   "pri": "Low (new)",
   "title": "Methane intensity decline of agriculture and waste computed but not applied",
-  "where": "Mitigation rows 6217, 6220, 6226",
-  "why": "Rows 6173, 6185, 6197 (\"CH4 emissions factor, baseline\") fall by Manual inputs J187 (0.47%/y, agriculture) and J188 (0.5%/y, waste) but no emission row uses them.",
+  "where": "Mitigation rows 6203, 6206, 6212",
+  "why": "Rows 6159, 6171, 6183 (\"CH4 emissions factor, baseline\") fall by Manual inputs J187 (0.47%/y, agriculture) and J188 (0.5%/y, waste) but no emission row uses them.",
   "fixes": [
    {
-    "cell": "N6217",
-    "now": "= $M6217 * N6212 / $M6212 * (1-N6182)",
-    "new": "= $M6217 * N6212 / $M6212 * N6173 / $M6173 * (1-N6182)",
-    "fill": "N6217:AE6217",
-    "policy": "paste into N12534:AE12534 (+6,317)"
+    "cell": "N6203",
+    "now": "= $M6203 * N6198 / $M6198 * (1-N6168)",
+    "new": "= $M6203 * N6198 / $M6198 * N6159 / $M6159 * (1-N6168)",
+    "fill": "N6203:AE6203",
+    "policy": "paste into N12519:AE12519 (+6,316)"
    },
    {
-    "cell": "N6220",
-    "now": "= $M6220 * N6213 / $M6213 * (1-N6194)",
-    "new": "= $M6220 * N6213 / $M6213 * N6185 / $M6185 * (1-N6194)",
-    "fill": "N6220:AE6220",
-    "policy": "paste into N12537:AE12537 (+6,317)"
+    "cell": "N6206",
+    "now": "= $M6206 * N6199 / $M6199 * (1-N6180)",
+    "new": "= $M6206 * N6199 / $M6199 * N6171 / $M6171 * (1-N6180)",
+    "fill": "N6206:AE6206",
+    "policy": "paste into N12522:AE12522 (+6,316)"
    },
    {
-    "cell": "N6226",
-    "now": "= $M6226 * N6214 / $M6214 * (1-N6206)",
-    "new": "= $M6226 * N6214 / $M6214 * N6197 / $M6197 * (1-N6206)",
-    "fill": "N6226:AE6226",
-    "policy": "paste into N12543:AE12543 (+6,317)"
+    "cell": "N6212",
+    "now": "= $M6212 * N6200 / $M6200 * (1-N6192)",
+    "new": "= $M6212 * N6200 / $M6200 * N6183 / $M6183 * (1-N6192)",
+    "fill": "N6212:AE6212",
+    "policy": "paste into N12528:AE12528 (+6,316)"
    }
   ],
-  "ref": "Labels of rows 6173/6185/6197 and Manual inputs C187/C188 (\"Reduction in intensity due to autonomous technological improvement\").",
+  "ref": "Labels of rows 6159/6171/6183 and Manual inputs C187/C188 (\"Reduction in intensity due to autonomous technological improvement\").",
   "effect": "Egypt 2040: agriculture CH4 about -7.7%, waste about -8.2%.",
   "note": "Not in the register; found while checking L18. Confirm it is intended before applying.",
   "status": "fix"
@@ -862,7 +862,7 @@
     "now": "=(K2694+K2696) * (1 + K2686 * K2703)",
     "new": "=(K2694+K2695+K2696)*(1+K2686)",
     "fill": "K2698:AE2698",
-    "policy": "paste into K9029:AE9029 (+6,331)"
+    "policy": "paste into K9014:AE9014 (+6,316)"
    }
   ],
   "ref": "Row 2675 (kerosene) and 2721 (biomass). The oop VAT payment row 2687 applies VAT in full, so (1 + K2686) is consistent.",

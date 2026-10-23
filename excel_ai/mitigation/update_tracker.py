@@ -33,7 +33,7 @@ import issues_register as R
 import make_bugfix_book as BK
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-VERSION = '7.0'
+VERSION = json.load(open(os.path.join(HERE, 'version.json')))['version']   # v8.2: was a fixed '7.0'
 TRACKER = os.path.join(HERE, '..', 'legacy', 'workbooks', 'Tracking issues.xlsx')
 SHEET_SRC = os.path.join(HERE, '..', 'CPAT-AI_BugsAndIssues_latest.xlsx')
 HEAD = 3                                                   # header row of BUGSandISSUES

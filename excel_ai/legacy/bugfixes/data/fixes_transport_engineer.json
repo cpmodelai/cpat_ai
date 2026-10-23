@@ -11,42 +11,42 @@
     "now": "= N4783 * EXP(-5.897 * EXP(N4784 * $T4323 / 1000))",
     "new": "= INDEX($L4783:$AE4783,MATCH($E$2089,$L$2033:$AE$2033,0)) * EXP(-5.897 * EXP(INDEX($L4784:$AE4784,MATCH($E$2089,$L$2033:$AE$2033,0)) * $T4323 / 1000))",
     "fill": "single cell",
-    "policy": "paste into H11118 (+6,331)"
+    "policy": "paste into H11103 (+6,316)"
    },
    {
     "cell": "I4787",
     "now": "= N4761 + N4742",
     "new": "= INDEX($L4761:$AE4761,MATCH($E$2089,$L$2033:$AE$2033,0)) + INDEX($L4742:$AE4742,MATCH($E$2089,$L$2033:$AE$2033,0))",
     "fill": "single cell",
-    "policy": "paste into I11118 (+6,331)"
+    "policy": "paste into I11103 (+6,316)"
    },
    {
     "cell": "J4787",
     "now": "= MAX(1, I4787 / H4787)",
     "new": "= I4787 / H4787",
     "fill": "single cell",
-    "policy": "paste into J11118 (+6,331)"
+    "policy": "paste into J11103 (+6,316)"
    },
    {
     "cell": "H4903",
     "now": "= N4899 * EXP(-5.897 * EXP(N4900 * $U4323 / 1000))",
     "new": "= INDEX($L4899:$AE4899,MATCH($E$2089,$L$2033:$AE$2033,0)) * EXP(-5.897 * EXP(INDEX($L4900:$AE4900,MATCH($E$2089,$L$2033:$AE$2033,0)) * $U4323 / 1000))",
     "fill": "single cell",
-    "policy": "paste into H11234 (+6,331)"
+    "policy": "paste into H11219 (+6,316)"
    },
    {
     "cell": "I4903",
     "now": "= N4886 + N4876",
     "new": "= INDEX($L4886:$AE4886,MATCH($E$2089,$L$2033:$AE$2033,0)) + INDEX($L4876:$AE4876,MATCH($E$2089,$L$2033:$AE$2033,0))",
     "fill": "single cell",
-    "policy": "paste into I11234 (+6,331)"
+    "policy": "paste into I11219 (+6,316)"
    },
    {
     "cell": "J4903",
     "now": "= MAX(1, I4903 / H4903)",
     "new": "= I4903 / H4903",
     "fill": "single cell",
-    "policy": "paste into J11234 (+6,331)"
+    "policy": "paste into J11219 (+6,316)"
    }
   ],
   "ref": "E2089 (\"Data available\" = last year with passenger data, 2025) and the year row 2033, both legacy rows. The same calibration ratio applied in both directions.",
@@ -100,42 +100,42 @@
     "now": "=L5191 * $E5310/10^3",
     "new": "=L5195/$E5310*10^9",
     "fill": "L5310:AE5310",
-    "policy": "paste into L11641:AE11641 (+6,331)"
+    "policy": "paste into L11626:AE11626 (+6,316)"
    },
    {
     "cell": "L5311",
     "now": "=L5192* $E5311/10^3",
     "new": "=L5196/$E5311*10^9",
     "fill": "L5311:AE5311",
-    "policy": "paste into L11642:AE11642 (+6,331)"
+    "policy": "paste into L11627:AE11627 (+6,316)"
    },
    {
     "cell": "L5312",
     "now": "=L5193* $E5312/10^3",
     "new": "=L5197/$E5312*10^9",
     "fill": "L5312:AE5312",
-    "policy": "paste into L11643:AE11643 (+6,331)"
+    "policy": "paste into L11628:AE11628 (+6,316)"
    },
    {
     "cell": "L5313",
     "now": "=L5194* $E5313/10^3",
     "new": "=L5198/$E5313*10^9",
     "fill": "L5313:AE5313",
-    "policy": "paste into L11644:AE11644 (+6,331)"
+    "policy": "paste into L11629:AE11629 (+6,316)"
    },
    {
     "cell": "L5314",
     "now": "=L5219* $E5314",
     "new": "=L5223*10^3/_conv_ktoe_to_gwh",
     "fill": "L5314:AE5314",
-    "policy": "paste into L11645:AE11645 (+6,331)"
+    "policy": "paste into L11630:AE11630 (+6,316)"
    },
    {
     "cell": "L5318",
     "now": "= SUMPRODUCT($L5306:$L5309, $E5306:$E5309)/10^9* L5314 / SUM($L5310:$L5314)",
     "new": "= SUM($L5306:$L5309)*_conv_ktoe_to_gwh/10^3 * L5314 / SUM($L5310:$L5314)",
     "fill": "L5318:AE5318",
-    "policy": "paste into L11649:AE11649 (+6,331)"
+    "policy": "paste into L11634:AE11634 (+6,316)"
    }
   ],
   "ref": "Column D of rows 5310-5314 already names the intended rows (=D5195 ... =D5198, =D5223); column F says ktoe. Rows 5195-5198 are passenger fuel use in bln liters, 5223 passenger electricity in bln kWh.",
@@ -155,21 +155,21 @@
     "now": "= L5171 / $N5171 * 10^9 * (1 + M5171)",
     "new": "= L5171 / $N5171 * 10^9 / (1 - M5171)",
     "fill": "single cell",
-    "policy": "paste into O11502 (+6,331)"
+    "policy": "paste into O11487 (+6,316)"
    },
    {
     "cell": "O5172",
     "now": "= L5172 / $N5172 * 10^9 * (1 + M5172)",
     "new": "= L5172 / $N5172 * 10^9 / (1 - M5172)",
     "fill": "single cell",
-    "policy": "paste into O11503 (+6,331)"
+    "policy": "paste into O11488 (+6,316)"
    },
    {
     "cell": "O5173",
     "now": "= L5173 / $N5173 * 10^9 * (1 + M5173)",
     "new": "= L5173 / $N5173 * 10^9 / (1 - M5173)",
     "fill": "single cell",
-    "policy": "paste into O11504 (+6,331)"
+    "policy": "paste into O11489 (+6,316)"
    }
   ],
   "ref": "Column header M5169 \"Share for buses\" (a share of the total).",
@@ -189,21 +189,21 @@
     "now": "= IF( ISNUMBER(L5126), L5126 * $G5232, K5232 * L5117 ^ _el_dem_die_rod * L5125 ^ $K4330)",
     "new": "= IF( ISNUMBER(L5230), L5230 * $G5232, K5232 * L5117 ^ _el_dem_die_rod * L5125 ^ $K4330)",
     "fill": "L5232:AE5232",
-    "policy": "paste into L11563:AE11563 (+6,331)"
+    "policy": "paste into L11548:AE11548 (+6,316)"
    },
    {
     "cell": "L5261",
     "now": "= IF( ISNUMBER(L5260), L5260 * $G5261, K5261 * L5258 ^ _el_dem_die_rod * L5125 ^ $L4330)",
     "new": "= IF( ISNUMBER(L5260), L5260 * $G5261, K5261 * L5258 ^ _el_dem_die_rod * L5125 ^ $K4330)",
     "fill": "L5261:AE5261",
-    "policy": "paste into L11592:AE11592 (+6,331)"
+    "policy": "paste into L11577:AE11577 (+6,316)"
    },
    {
     "cell": "L5295",
     "now": "= IF( ISNUMBER(L5294), L5294*$G5295, K5295 * L5292 ^ _el_dem_gso_rod * L5292 ^ $L4330)",
     "new": "= IF( ISNUMBER(L5294), L5294*$G5295, K5295 * L5292 ^ _el_dem_gso_rod * L5158 ^ $L4330)",
     "fill": "L5295:AE5295",
-    "policy": "paste into L11626:AE11626 (+6,331)"
+    "policy": "paste into L11611:AE11611 (+6,316)"
    }
   ],
   "ref": "Sibling rows 5231/5233 (base row 5230), 5231 ($K4330 for freight) and 5273 (2-3 wheeler gasoline: income term M5158 ^ $L4330).",
@@ -223,42 +223,42 @@
     "now": "=((L4642 - L4645) / ($K4324 - 1)) / $K4329 * (1 - (1 / (1 + $K4329) ^ ($K4324 - 1)))",
     "new": "=((L4642 - L4645) / ($K4324 - 1)) / L4531 * (1 - (1 / (1 + L4531) ^ ($K4324 - 1)))",
     "fill": "L4646 only (M4646:AE4646 already read row 4531)",
-    "policy": "paste into L10977 (+6,331)"
+    "policy": "paste into L10962 (+6,316)"
    },
    {
     "cell": "L4628",
     "now": "=PV($K4329, $K4324, L4627) * -1",
     "new": "=PV(L4531, $K4324, L4627) * -1",
     "fill": "L4628:AE4628",
-    "policy": "paste into L10959:AE10959 (+6,331)"
+    "policy": "paste into L10944:AE10944 (+6,316)"
    },
    {
     "cell": "L4630",
     "now": "=PV($K4329, $K4324, L4629) * -1",
     "new": "=PV(L4531, $K4324, L4629) * -1",
     "fill": "L4630:AE4630",
-    "policy": "paste into L10961:AE10961 (+6,331)"
+    "policy": "paste into L10946:AE10946 (+6,316)"
    },
    {
     "cell": "L4648",
     "now": "=(L4642 * $K4326) / $K4329 *(1 - (1 / (1 + $K4329) ^ ($K4324 + 1))) * 0.5 + $K4327 * L4628",
     "new": "=(L4642 * $K4326) / L4531 *(1 - (1 / (1 + L4531) ^ ($K4324 + 1))) * 0.5 + $K4327 * L4628",
     "fill": "L4648:AE4648",
-    "policy": "paste into L10979:AE10979 (+6,331)"
+    "policy": "paste into L10964:AE10964 (+6,316)"
    },
    {
     "cell": "L4670",
     "now": "=((L4666 - L4669) / ($K4324 - 1)) / $K4329 * (1 - (1 / (1 + $K4329) ^ ($K4324 - 1)))",
     "new": "=((L4666 - L4669) / ($K4324 - 1)) / L4531 * (1 - (1 / (1 + L4531) ^ ($K4324 - 1)))",
     "fill": "L4670:AE4670",
-    "policy": "paste into L11001:AE11001 (+6,331)"
+    "policy": "paste into L10986:AE10986 (+6,316)"
    },
    {
     "cell": "L4672",
     "now": "=(L4666 * $K4326) / $K4329 *(1 - (1 / (1 + $K4329) ^ ($K4324 + 1))) * 0.5 + $K4328 * L4630",
     "new": "=(L4666 * $K4326) / L4531 *(1 - (1 / (1 + L4531) ^ ($K4324 + 1))) * 0.5 + $K4328 * L4630",
     "fill": "L4672:AE4672",
-    "policy": "paste into L11003:AE11003 (+6,331)"
+    "policy": "paste into L10988:AE10988 (+6,316)"
    }
   ],
   "ref": "Passenger rows (e.g. 4573, 4598) and M4646:AE4646, which use the year's consumer discount rate (row 4531).",
@@ -278,42 +278,42 @@
     "now": "= L4845 - L4805",
     "new": "=MAX(0,L2063-L2065)*L2038",
     "fill": "L4850:O4850 (data years)",
-    "policy": "paste into L11181:O11181 (+6,331)"
+    "policy": "paste into L11166:O11166 (+6,316)"
    },
    {
     "cell": "P4850",
     "now": "= IF(ISNUMBER(P4845), P4845 - P4805, O4850 * (P4844 ^ $T4329) * ((O4847*P4841+O4848*P4842+O4849*P4843+O4846*P4840)/SUM(O4846:O4849)) ^ $T4330)",
     "new": "= IF(ISNUMBER(P4845), MAX(0,P2063-P2065)*P2038, O4850 * (P4844 ^ $T4329) * ((O4847*P4841+O4848*P4842+O4849*P4843+O4846*P4840)/SUM(O4846:O4849)) ^ $T4330)",
     "fill": "P4850:AE4850 (only the data branch changes)",
-    "policy": "paste into P11181:AE11181 (+6,331)"
+    "policy": "paste into P11166:AE11166 (+6,316)"
    },
    {
     "cell": "L4846",
     "now": "= L4835 / SUM(L4835:L4838) * (1 - L4845)",
     "new": "= L4835 / SUM(L4835:L4838) * (1 - L4805 - L4850)",
     "fill": "L4846:O4846",
-    "policy": "paste into L11177:O11177 (+6,331)"
+    "policy": "paste into L11162:O11162 (+6,316)"
    },
    {
     "cell": "L4847",
     "now": "= L4836 / SUM(L4835:L4838) * (1 - L4845)",
     "new": "= L4836 / SUM(L4835:L4838) * (1 - L4805 - L4850)",
     "fill": "L4847:O4847",
-    "policy": "paste into L11178:O11178 (+6,331)"
+    "policy": "paste into L11163:O11163 (+6,316)"
    },
    {
     "cell": "L4848",
     "now": "= L4837 / SUM(L4835:L4838) * (1 - L4845)",
     "new": "= L4837 / SUM(L4835:L4838) * (1 - L4805 - L4850)",
     "fill": "L4848:O4848",
-    "policy": "paste into L11179:O11179 (+6,331)"
+    "policy": "paste into L11164:O11164 (+6,316)"
    },
    {
     "cell": "L4849",
     "now": "= L4838 / SUM(L4835:L4838) * (1 - L4845)",
     "new": "= L4838 / SUM(L4835:L4838) * (1 - L4805 - L4850)",
     "fill": "L4849:O4849",
-    "policy": "paste into L11180:O11180 (+6,331)"
+    "policy": "paste into L11165:O11165 (+6,316)"
    }
   ],
   "ref": "Rows 2063 (PHEV+BEV passenger share), 2065 (BEV passenger share) and 2038 (passenger share of passenger/light).",
@@ -333,7 +333,7 @@
     "now": "=(L4562 * $J4326) /L4531 *(1 - (1 / (1 + L4531) ^ ($J4322 + 1))) * 0.5 + $J4327 * L4513",
     "new": "=(L4562 * $J4326) /L4531 *(1 - (1 / (1 + L4531) ^ ($J4322 + 1))) * 0.5 + $J4328 * L4513",
     "fill": "L4573:AE4573",
-    "policy": "paste into L10904:AE10904 (+6,331)"
+    "policy": "paste into L10889:AE10889 (+6,316)"
    }
   ],
   "ref": "Parameter table: J4327 ICEV, J4328 EV maintenance.",
@@ -353,7 +353,7 @@
     "now": "=((L4597) / ($J4322 - 1)) / L4531 * (1 - (1 / (1 + L4531) ^ ($J4322 - 1)))",
     "new": "=((L4597) / ($J4323 - 1)) / L4531 * (1 - (1 / (1 + L4531) ^ ($J4323 - 1)))",
     "fill": "L4598:AE4598",
-    "policy": "paste into L10929:AE10929 (+6,331)"
+    "policy": "paste into L10914:AE10914 (+6,316)"
    }
   ],
   "ref": "Row 4600 (used ICEV insurance) and the used BEV rows, which use $J4323 (\"Used vehicle useful life\").",
@@ -373,14 +373,14 @@
     "now": "= IF( L4450 = $P4304, $P4305, MIN($P4307, K4451 + ($P4307 - $P4305) / ($P4306 - $P4304))) * (L4450 >= $P4304) * ($C2227 > 1)",
     "new": "= IF( L4450 = $P4304, $P4305, MIN($P4307, K4451 + ($P4307 - $P4305) / ($P4306 - $P4304))) * (L4450 >= $P4304) * ($C2173 > 1)",
     "fill": "L4451:AE4451",
-    "policy": "paste into L10782:AE10782 (+6,331)"
+    "policy": "paste into L10767:AE10767 (+6,316)"
    },
    {
     "cell": "L4720",
     "now": "= IF( L4683 = $AD4304, $AD4305*-1, IF( L4683 > $AD4304, MIN(0, K4720 - $AD4306), 0)) * ($C2227 > 1)",
     "new": "= IF( L4683 = $AD4304, $AD4305*-1, IF( L4683 > $AD4304, MIN(0, K4720 - $AD4306), 0)) * ($C2173 > 1)",
     "fill": "L4720:AE4720",
-    "policy": "paste into L11051:AE11051 (+6,331)"
+    "policy": "paste into L11036:AE11036 (+6,316)"
    }
   ],
   "ref": "C2173 = scenario number (used by e.g. row 4343, IF($C2173 = 1, 0, ...)).",
@@ -400,7 +400,7 @@
     "now": "=AB2455",
     "new": "=AB4463",
     "fill": "AB4487:AE4487",
-    "policy": "paste into AB10818:AE10818 (+6,331)"
+    "policy": "paste into AB10803:AE10803 (+6,316)"
    }
   ],
   "ref": "L4487:AA4487 (= the same column of row 4463).",
@@ -420,14 +420,14 @@
     "now": "=Dashboard!L$555",
     "new": "=$V4328",
     "fill": "single cell",
-    "policy": "paste into T10659 (+6,331)"
+    "policy": "paste into T10644 (+6,316)"
    },
    {
     "cell": "U4328",
     "now": "=Dashboard!L$555",
     "new": "=$V4328",
     "fill": "single cell",
-    "policy": "paste into U10659 (+6,331)"
+    "policy": "paste into U10644 (+6,316)"
    }
   ],
   "ref": "V4328 (2-3 wheelers, 10%).",
@@ -447,42 +447,42 @@
     "now": "=_ef_co2_ker_ind_lit*$E$2147",
     "new": "=$O$990*$E$2147",
     "fill": "single cell",
-    "policy": "paste into G10707 (+6,331)"
+    "policy": "paste into G10692 (+6,316)"
    },
    {
     "cell": "G4377",
     "now": "=_ef_co2_jet_avi_lit",
     "new": "=$O$991",
     "fill": "single cell",
-    "policy": "paste into G10708 (+6,331)"
+    "policy": "paste into G10693 (+6,316)"
    },
    {
     "cell": "G4378",
     "now": "=_ef_co2_die_pow_lit/26",
     "new": "=$O$988/26",
     "fill": "single cell",
-    "policy": "paste into G10709 (+6,331)"
+    "policy": "paste into G10694 (+6,316)"
    },
    {
     "cell": "G4419",
     "now": "=_ef_co2_ker_ind_lit*$E$2147",
     "new": "=$O$990*$E$2147",
     "fill": "single cell",
-    "policy": "paste into G10750 (+6,331)"
+    "policy": "paste into G10735 (+6,316)"
    },
    {
     "cell": "G4420",
     "now": "=_ef_co2_jet_avi_lit",
     "new": "=$O$991",
     "fill": "single cell",
-    "policy": "paste into G10751 (+6,331)"
+    "policy": "paste into G10736 (+6,316)"
    },
    {
     "cell": "G4421",
     "now": "=_ef_co2_die_pow_lit/26",
     "new": "=$O$988/26",
     "fill": "single cell",
-    "policy": "paste into G10752 (+6,331)"
+    "policy": "paste into G10737 (+6,316)"
    }
   ],
   "ref": "Road rows of the EF table: O990 diesel road, O991 LPG road, O988 natural gas road; G4375 (gasoline) already uses the road row (O989). Rows 5196-5198 and 5243-5245 take these cells.",
@@ -502,7 +502,7 @@
     "now": "= IF( $C2173 = 1, 0, IF(L4334 = $P4317, $P4315, MIN(1, MAX(0, K4343 + ($P4316 - $P4315)/ ($P4318 - $P4317)))))",
     "new": "= IF( $C2173 = 1, 0, IF( L4334 < $P4317, 0, IF( L4334 >= $P4318, $P4316, $P4315 + ($P4316 - $P4315) * (L4334 - $P4317) / ($P4318 - $P4317))))",
     "fill": "L4343:AE4343",
-    "policy": "paste into L10674:AE10674 (+6,331)"
+    "policy": "paste into L10659:AE10659 (+6,316)"
    }
   ],
   "ref": "P4315 start level, P4316 target level, P4317 start year, P4318 target year (as the formula and the default values use them).",
@@ -522,7 +522,7 @@
     "now": "= SUM(L5239:L5239, L5264)",
     "new": "= SUM(L5239:L5241, L5264)",
     "fill": "L5267:AE5267",
-    "policy": "paste into L11598:AE11598 (+6,331)"
+    "policy": "paste into L11583:AE11583 (+6,316)"
    }
   ],
   "ref": "Rows 5239-5241 (diesel, LPG, gas freight VKT).",
@@ -542,14 +542,14 @@
     "now": "= IF(L5324 = 0, AVERAGE(L5367, L5366), L5366 * L5198 / (L5198 + L5244) + L5244 / (L5198 + L5244) * L5367)",
     "new": "= IF(L5324 = 0, AVERAGE(L5367, L5366), L5366 * L5198 / (L5198 + L5245) + L5245 / (L5198 + L5245) * L5367)",
     "fill": "L5368:AE5368",
-    "policy": "paste into L11699:AE11699 (+6,331)"
+    "policy": "paste into L11684:AE11684 (+6,316)"
    },
    {
     "cell": "L5373",
     "now": "= IF(L5326 = 0, L5370*0.5+L5371*0.25+L5372*0.25, L5370 * L5223 / (L5223 + L5265 + L5299) + L5265 / (L5223 + L5265 + L5299) * L5371 + L5299 / (L5223 + L5265 + L5299) * L5372)",
     "new": "= IF(L5330 = 0, L5370*0.5+L5371*0.25+L5372*0.25, L5370 * L5223 / (L5223 + L5265 + L5299) + L5265 / (L5223 + L5265 + L5299) * L5371 + L5299 / (L5223 + L5265 + L5299) * L5372)",
     "fill": "L5373:AE5373",
-    "policy": "paste into L11704:AE11704 (+6,331)"
+    "policy": "paste into L11689:AE11689 (+6,316)"
    }
   ],
   "ref": "Row 5324 (gas = 5198 + 5245 + 5317) and row 5330 (electricity, all).",
@@ -569,7 +569,7 @@
     "now": "= L4509 * L4456 + SUM(L4565:L4567) + L4541 + L4520 * L4396 / L4397 + L4579",
     "new": "= L4509 * L4456 + SUM(L4565:L4567) + L4541 + L4520 * L4396 / L4397",
     "fill": "L4555:AE4555",
-    "policy": "paste into L10886:AE10886 (+6,331)"
+    "policy": "paste into L10871:AE10871 (+6,316)"
    }
   ],
   "ref": "Rows 4551-4554 (ICE TCOs, no range anxiety). User decision 2026-10-14: PHEVs refuel with gasoline.",

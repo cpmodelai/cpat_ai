@@ -575,9 +575,10 @@ Rules:
 | File | What it is | Rule |
 |---|---|---|
 | `CPAT 1.0pre_456_NoPropData.xlsb` | The legacy CPAT workbook with the proprietary data stripped | Read-only ground truth. Never edit or re-save it; work on a copy in a scratch folder |
-| `CPAT 1.0pre_459_NoPropData.xlsb` | The updated legacy workbook (user 2026-10-18; a few bugs fixed by the CPAT team) | Read-only, as the 456 file; the register is keyed to 456 until it is reconciled |
+| `CPAT 1.0pre_459_NoPropData.xlsb` | An updated legacy workbook (user 2026-10-18; a few bugs fixed by the CPAT team) | Read-only; superseded by 465 (never reconciled on its own) |
+| `CPAT 1.0pre_465 - No Prop Data.xlsb` | **The latest legacy workbook** (user 2026-10-22; 62 of our bugs marked fixed by the CPAT team, checked in `excel_ai/bugsfixed/`) | Read-only, as the 456 file. Since v8.2 the register's cell references are 465 rows (`excel_ai/legacy/bugfixes/data/rowmap_456_465.json`); the prototype's data extracts and the Methods still read 456 |
 | `CPATMasterProcessesCodesAndDefaults.xlsx` | The CPAT team's master list of codes, processes and defaults | Read-only reference (may be inaccurate in places; an alignment exercise is planned) |
-| `Tracking issues.xlsx` | The CPAT team's bug and issue tracker | **Editable** (user 2026-10-18): add rows and columns, keep the team's content, use our codes (L, D, I, DI, M, LD); sheet BUGSandISSUES and the code columns are written by `excel_ai/mitigation/update_tracker_v<version>.py` at every release |
+| `Tracking issues.xlsx` | The CPAT team's bug and issue tracker | **Editable** (user 2026-10-18): add rows and columns, keep the team's content, use our codes (L, D, I, DI, M, LD); tabs AI-FOUND->>, BUGS, ISSUES-OTHER, PRIOR->> and the code columns of the team's sheets are written by `excel_ai/mitigation/update_tracker.py` at every release |
 
 `data/legacy_dummy/` holds the dummy legacy data:
 

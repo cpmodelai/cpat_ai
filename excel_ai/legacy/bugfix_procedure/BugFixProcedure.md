@@ -1,6 +1,8 @@
 # Procedure: fix a bug in the main CPAT workbook and confirm it all works
 
-Worked example: legacy bug **L1** (services electricity demand grows with the industrial multiple after 2023; register: [`../mitigation/LegacyBugFixes_v3_6.md`](../mitigation/LegacyBugFixes_v3_6.md)). Macro: [`FixL1_ServicesElectricity.bas`](FixL1_ServicesElectricity.bas).
+> **Legacy 465 (2026-10-23).** This test was run on `CPAT 1.0pre_456_NoPropData.xlsb`, and the rows and offsets below are 456 rows. In the latest file, `CPAT 1.0pre_465 - No Prop Data.xlsb`, L1 is fixed by the CPAT team, the L1 rows are 3713/10029, 3707/10023 and 3731/10047, and the policy block sits +6,316 rows below the baseline everywhere. The macro finds the rows by label and the offset from the defined names, so it runs on 465 unchanged (its preflight then stops at P5/P6, "state = FIXED").
+
+Worked example: legacy bug **L1** (services electricity demand grows with the industrial multiple after 2023; register: [`../../mitigation/LegacyBugFixes.md`](../../mitigation/LegacyBugFixes.md)). Macro: [`FixL1_ServicesElectricity.bas`](FixL1_ServicesElectricity.bas).
 
 ## 1. Why L1 is the example
 

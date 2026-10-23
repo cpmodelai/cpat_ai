@@ -3,9 +3,10 @@ Checked 2026-10-22 against CPAT 1.0pre_465 - No Prop Data.xlsb, by comparing eve
 below are 465 cells (as the bug fix plan since 2026-10-22): Mitigation rows up to 5666 are as in 456, later rows sit
 11 to 15 rows higher (e.g. 456 row 7897 is 465 row 7883); the policy block sits +6,316 below the baseline.
 
-Where the results are: the bug fix plan (CPAT-AI-Mitigation-MVP_BugsAndIssues_v7.1.5_fixedbugs.docx) has the
-confirmed bugs moved whole to Appendix C (last) and those with caveats to Appendix B, each with a red note; the log
-excel_ai/legacy/workbooks/Tracking issues.xlsx has column S "Status in legacy 465" (from legacy465_check.json).
+Where the results are (v8.2): the bug-fix register excel_ai/CPAT-AI_BugsAndIssues_latest.docx has the confirmed
+bugs in Appendix C (last) and those with caveats in Appendix B, each with its status in legacy in red; the register
+spreadsheet, BUGS.md and LegacyBugFixes.md have a column "Status in legacy 465"; the CPAT team's tracker
+excel_ai/legacy/workbooks/Tracking issues.xlsx has tab BUGS with "Status in legacy" (from legacy465_check.json).
 
 Confirmed fixed (52)
 

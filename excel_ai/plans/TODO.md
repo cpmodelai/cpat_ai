@@ -36,7 +36,9 @@ Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logg
 
 ## 6. AI backlog
 
-- ☐ **New legacy file 459**: reconcile the register and fix plans (keyed to 456); numerical check against the legacy Egypt run sector by sector (I14); `CPATMasterProcessesCodesAndDefaults.xlsx`; `Tracking issues.xlsx`.
+- ☑ **New legacy file**: the register, fix plans and lists moved to the latest file, 465 (v8.2, 2026-10-23; 459 superseded); the CPAT team's 62 fixes checked (52 confirmed, 8 with caveats, L62 and L63 not fixed; `../bugsfixed/`).
+- ☐ **Legacy 465 follow-up**: tell the CPAT team the caveats (L115 wrong row, L95 rows still reading the cleared row 3719, L62 and L63 not fixed, L45, L16, L87, L84; Appendix B of the register); numerical check against the legacy Egypt run sector by sector on 465 (U2, I14); `CPATMasterProcessesCodesAndDefaults.xlsx`.
+- ☐ **Prototype data extracts on 465**: the extracts (`extract_*.py`) and the Methods still read 456; move them when the numerical check (U2) is done.
 - ☐ **Data links, rest**: GHGs, EF_GHG, CH4Inputs, Elasticities, Prices_int, OilProductShares (converters to the prototype layout), Transport1-2 (no dummy data yet).
 - ☐ **Excel lint in every builder** (NORMS 3g).
 - ☐ **Copy-paste stress test**: add a fuel, a subsector and a scenario by dragging; fix what breaks.

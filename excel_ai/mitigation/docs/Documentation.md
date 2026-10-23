@@ -152,7 +152,8 @@ Household effects by decile in one analysis year: price changes reach households
 
 # 5. Limits and differences from legacy
 
-- **Legacy bugs:** the prototype fixes every one (131 in mitigation, 31 in distribution). The bug-fix register, `CPAT-AI_BugsAndIssues_latest.docx`, gives each bug and its cell-level fix for legacy CPAT.
+- **Legacy bugs:** the prototype fixes every one (131 in mitigation, 31 in distribution). The bug-fix register, `CPAT-AI_BugsAndIssues_latest.docx`, gives each bug and its cell-level fix for legacy CPAT. Its cell references are rows of the latest legacy file, `CPAT 1.0pre_465`, where the CPAT team marked 62 of the bugs fixed (52 confirmed, 8 with caveats, 2 not fixed); the register gives each bug's status in legacy.
+- **Legacy row numbers in the Methods volume** are rows of `CPAT 1.0pre_456_NoPropData.xlsb`, the file the prototype was built and checked against (its data extracts read that file). In `CPAT 1.0pre_465` Mitigation rows from 5667 on sit 11 to 15 rows higher.
 - **Legacy issues:** where legacy works as intended but is open to question, the prototype does the same and tracks the issue (same register; short list in `excel_ai/ISSUES.md`).
 - **Not built:** a few legacy features (listed in the register as upgrades), and the air-pollution co-benefits and transport externalities modules.
 - **Data:** the shipped data are Egypt's; proprietary tables for other countries must be pasted in or linked.

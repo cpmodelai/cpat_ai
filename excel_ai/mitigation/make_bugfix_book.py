@@ -14,6 +14,7 @@ needs), build.py (LegacyDiff), excel_ai/legacy/bugfixes/data (cell plans).
     python make_bugfix_book.py        (needs python-docx)
 """
 import datetime
+import functools
 import json
 import os
 import re
@@ -36,6 +37,11 @@ PLANS = os.path.join(ROOT, 'legacy', 'bugfixes', 'data')   # v7.1: was excel_ai/
 OUT = os.path.join(ROOT, 'releases', f'CPAT-AI_BugsAndIssues_v{R.REGISTER_VERSION}.docx')   # v8.0: + _latest copy in excel_ai/
 LATEST = os.path.join(ROOT, 'CPAT-AI_BugsAndIssues_latest.docx')   # v7.1.5: own version   # v6.4: root documentation/
 HEAD, LIGHT, PALE = 'D9E8C4', 'F2F2F2', 'EBF1DE'
+RED = RGBColor(0xC0, 0x00, 0x00)
+LEGACY_FILE = 'CPAT 1.0pre_465 - No Prop Data.xlsb'   # v8.2: cell references moved from 456 (legacy/bugfixes/data/rowmap_456_465.json)
+CHECK465 = os.path.join(ROOT, 'bugsfixed', 'legacy465_check.json')   # the fixes the CPAT team made in 465, checked 2026-10-22
+MARK = {'Confirmed fixed': 'CONFIRMED in 465', 'Fixed with caveats': 'FIXED WITH CAVEATS in 465',
+        'Not fixed': 'NOT FIXED in 465'}
 POWER = ({f'L{k}' for k in range(1, 13)} | {f'L{k}' for k in range(52, 57)}
          | {'L67', 'L83', 'L84', 'L88', 'L95'}
          | {f'L{k}' for k in range(107, 112)} | {'L126', 'L127'})   # v5.4: power features; v7.1: L126, L127   # engineer power model (L83, L84: electricity subsidies; L88: power)
@@ -110,6 +116,28 @@ def ld_open():
         if typ not in ('Same',):
             out.append((f'LD{k}', area, legacy, model, why, effect, typ))
     return out
+
+
+@functools.lru_cache(maxsize=None)
+def check465():
+    """{code: {status, note}} of the bugs the CPAT team marked fixed in legacy 465 (v8.2)."""
+    return json.load(open(CHECK465, encoding='utf-8'))['bugs'] if os.path.exists(CHECK465) else {}
+
+
+def legacy_status(code):
+    """(status in legacy 465, note) of a legacy bug."""
+    c = check465().get(code)
+    if c is None:
+        return 'Open in legacy 465 (not marked fixed by the CPAT team)', ''
+    return {'Confirmed fixed': 'Fixed in legacy 465 (confirmed)',
+            'Fixed with caveats': 'Fixed with caveats in legacy 465',
+            'Not fixed': 'Marked fixed by the CPAT team, but not fixed in legacy 465'}[c['status']], c['note']
+
+
+def moved(code):
+    """'B' (fixed with caveats or not fixed in 465) or 'C' (fixed, confirmed) for a bug that goes to an appendix."""
+    c = check465().get(code)
+    return None if c is None or code.startswith('I') else ('C' if c['status'] == 'Confirmed fixed' else 'B')
 
 
 # ---------------------------------------------------------------- Word helpers
@@ -226,6 +254,10 @@ def toc(doc):
 
 
 # ---------------------------------------------------------------- the document
+def top(codes):
+    return max(int(re.search(r'\d+', c).group(0)) for c in codes)
+
+
 def procedure(doc):
     doc.add_heading('1. Purpose, scope and the rule for bugs and issues', 1)
     para(doc, 'This document collects every defect found in the legacy CPAT workbook while it was rebuilt as the '
@@ -240,18 +272,25 @@ def procedure(doc):
               'the fix legacy needs. Issues are replicated (the prototype does what legacy does) and tracked, unless '
               'the user decided otherwise; the decision is recorded with the issue (repository rule NORMS 0, '
               '2026-10-15).', 'The rule.')
-    para(doc, 'Every bug was read from CPAT 1.0pre_456_NoPropData.xlsb (sheet Mitigation unless stated). A newer '
-              'file, CPAT 1.0pre_459_NoPropData.xlsb, arrived on 2026-10-18 with some bugs fixed by the CPAT team (one '
-              'transport bug is not); the register has not yet been reconciled with it. Before applying a fix, run '
-              'the preflight (section 2.3): it tells whether the cell still holds the bug.', 'Legacy version.')
+    para(doc, f'The bugs were found in CPAT 1.0pre_456_NoPropData.xlsb; every cell reference here is a row of the '
+              f'latest file from the CPAT team, {LEGACY_FILE} (sheet Mitigation unless stated), moved from 456 by '
+              'matching the rows of both files on their labels and codes (legacy/bugfixes/data/rowmap_456_465.json). '
+              'Mitigation: rows up to 5666 unchanged; rows 5667-5677, 5727-5728, 5856, 5880 and 8404 deleted; later '
+              'rows 11 to 15 higher; the policy block sits +6,316 rows below the baseline. MTInputs: rows 329-330 '
+              'deleted, later rows 2 higher. Other sheets keep their rows. The CPAT team fixed part of the bugs in 465 '
+              '(Appendices B and C; every bug says its status in legacy). Before applying a fix, run the preflight '
+              '(section 2.3): it tells whether the cell still holds the bug.', 'Legacy version.')
     table(doc, ['Code', 'Meaning'], [
-        ('L1-L80', 'Legacy bugs of the mitigation sheets (L17 was a prototype bug, L74 not used)'),
-        ('D1-D8', 'Legacy bugs of the distribution sheet'),
+        (f'L1-L{top([b[0] for b in legacy_bugs()])}', 'Legacy bugs of the mitigation sheets (L17 was a prototype '
+         'bug, L74 not used)'),
+        (f'D1-D{top([b[0] for b in dist_bugs()])}', 'Legacy bugs of the distribution sheet'),
         ('N1, N2', 'Defects found while writing the cell plans, not yet confirmed in the register'),
-        ('M1-M12', 'Bugs of the prototype itself (fixed), kept for the record'),
-        ('I1-I47', 'Issues of the mitigation module (replicated, not replicated by decision, or of the prototype)'),
-        ('DI1-DI10', 'Issues of the distribution module'),
-        ('LD1-LD66', 'Rows of the LegacyDiff sheet of the prototype: where it departs from legacy, and why')],
+        (f'M1-M{top([x[0] for x in R.MVP_BUGS])}', 'Bugs of the prototype itself (fixed), kept for the record'),
+        (f'I1-I{top([x[0] for x in issues()])}', 'Issues of the mitigation module (replicated, not replicated by '
+         'decision, or of the prototype)'),
+        (f'DI1-DI{top([x[0] for x in R.DIST_ISSUES])}', 'Issues of the distribution module'),
+        (f'LD1-LD{len(B.LEGACY_DIFFS)}', 'Rows of the LegacyDiff sheet of the prototype: where it departs from '
+         'legacy, and why')],
         [2.5, 13.5])
 
 
@@ -264,8 +303,9 @@ def procedure_steps(doc):
          'row can be dragged from its first year to the last.', 'One R1C1 formula per row from the first '
          'projected year to the last.'),
         ('Copy-paste baseline to policy', 'The policy block repeats the baseline block a fixed number of rows '
-         'down: +6,331 rows from row 2173 (names BaselineFirstRow, PolicyScenarioFirstRow) to about row 6070, and '
-         '+6,317 for the results sub-blocks after it (rows 6282-8404 map to 12599-14721).', 'The policy row equals '
+         'down: in legacy 465, +6,316 rows throughout, from row 2173 (names BaselineFirstRow, PolicyScenarioFirstRow; '
+         'policy row 8489) to the end of the results sub-blocks (row 8403 maps to 14719). In 456 it was +6,331 to '
+         'about row 6070 and +6,317 after it.', 'The policy row equals '
          'the baseline row in R1C1 form.')], [3.5, 8.0, 4.5])
     doc.add_heading('2.2 Before you start', 2)
     bullets(doc, [
@@ -273,7 +313,7 @@ def procedure_steps(doc):
         'Find the cells by label and code (column D labels, column B/C codes), never by a typed row number: rows move '
         'between legacy versions.',
         'Check the register entry still matches the file: the cell must hold the formula the register describes. If '
-        'it does not, stop and report (the bug may already be fixed, as in the 459 file).',
+        'it does not, stop and report (the bug may already be fixed, as many are in the 465 file).',
         'Fix in order of priority (High first): High changes the results of the standard Egypt runs; Medium changes '
         'some runs, countries or reported numbers; Low is latent or cosmetic.',
         'A fix in the baseline block is pasted into the policy block (section 2.1); rows above 2173 are shared and '
@@ -316,8 +356,10 @@ def procedure_steps(doc):
     doc.add_heading('2.5 Worked example: bug L1', 2)
     para(doc, 'L1 (services electricity demand grows with the industrial multiple after 2023) breaks both protocols, '
               'so one fix exercises every test: row 3731 holds =RC[-1]*R[-18]C in 2023 and =RC[-1]*R[-24]C from 2024 '
-              '(the row cannot be dragged), and policy row 10062 has the same wrong formula.')
-    table(doc, ['Check', 'Result (scratch copy of the NoPropData file, Excel 365, 2026-10-15)'], [
+              '(the row cannot be dragged), and policy row 10062 has the same wrong formula (456 rows: the run below '
+              'was on the 456 file; in 465 L1 is fixed and the rows are 3713/10029, 3707/10023, 3731/10047, offset '
+              '6,316).')
+    table(doc, ['Check', 'Result (scratch copy of the 456 NoPropData file, Excel 365, 2026-10-15)'], [
         ('Preflight P1-P6', 'PASS: rows 3713/10044, 3707/10038, 3731/10062; offset 6,331; bug formula in all 18 years '
          'of both blocks'),
         ('Run on a fixed file', 'stops at P5/P6 with FAIL "state = FIXED", nothing changed'),
@@ -358,8 +400,14 @@ def procedure_steps(doc):
 
 def bug_block(doc, b, plan, level=3):
     code, typ, title, where, what, fix, status, pri, effect = b
-    doc.add_heading(f'{code}  {title}', level)
-    rows = [('Type', TYPE_NAME.get(typ, typ)), ('Priority', pri), ('Legacy cells', where),
+    h = doc.add_heading(f'{code}  {title}', level)
+    c465 = check465().get(code)
+    if c465:                                         # v8.2: the check of the CPAT team's fix in 465, in red
+        r = h.add_run(f' - {MARK[c465["status"]]}')
+        r.font.color.rgb = RED
+    lst, lnote = legacy_status(code)
+    rows = [('Type', TYPE_NAME.get(typ, typ)), ('Priority', pri),
+            ('Status in legacy', lst + (f': {lnote}' if lnote else '') + '.'), ('Legacy cells', where),
             ('What legacy does', what)]
     if fix:
         rows.append(('Fix legacy needs', fix))
@@ -382,7 +430,9 @@ def bug_block(doc, b, plan, level=3):
         c = t.add_row().cells
         shade(c[0], LIGHT)
         text(c[0], k, bold=True)
-        text(c[1], v)
+        p_ = text(c[1], v)
+        if k == 'Status in legacy' and c465:
+            p_.runs[0].font.color.rgb = RED
     fit_widths(t, [3.0, 14.0])
     doc.add_paragraph()
     if plan and plan.get('fixes'):
@@ -398,10 +448,20 @@ def bugs_part(doc):
     groups = [('power', '3.1 Engineer power model'), ('transport', '3.2 Engineer road-transport model'),
               ('other', '3.3 Other mitigation (prices, policies, ETS, emissions, revenue, GDP, results)')]
     n_by = {g: [b for b in allb if b[1] == g] for g, _h in groups}
+    chk = check465()
+    nc = sum(1 for c in chk if moved(c) == 'C')
+    nb_ = sum(1 for c in chk if moved(c) == 'B')
     para(doc, f'{len(allb)} legacy bugs of the mitigation sheets ({len(n_by["power"])} engineer power, '
               f'{len(n_by["transport"])} engineer transport, {len(n_by["other"])} other), {len(R.DIST_BUGS)} of the '
               f'distribution sheet. Every one is fixed in the prototype; none is replicated. Within each type, the '
               f'order is by priority, then by code.')
+    nn = sum(1 for c, x in chk.items() if c.startswith('L') and x['status'] == 'Not fixed')
+    p_ = para(doc, f'Legacy 465: the CPAT team marked {nc + nb_} of these bugs fixed in {LEGACY_FILE}; each fix was '
+                   f'checked cell by cell against its plan (2026-10-22): {nc} confirmed (Appendix C), {nb_ - nn} fixed '
+                   f'with caveats and {nn} not fixed (Appendix B). This section holds the bugs still open in legacy. '
+                   'Every bug says its status in legacy.')
+    p_.runs[0].font.color.rgb = RED
+    n_by = {g: [b for b in v if not moved(b[0])] for g, v in n_by.items()}
     order = {'High': 0, 'Medium': 1, 'Low': 2}
     for g, h in groups:
         doc.add_heading(h, 2)
@@ -420,9 +480,10 @@ def bugs_part(doc):
               'change Egypt\'s legacy numbers only a little (the targeted transfer of deciles 1-4 by up to 0.13 points '
               'of consumption, the Gini change with recycling by 0.0006 points; the urban and rural compensation '
               'shares most, since each now sums to 100). Method: Distribution_Method (section 3).')
-    table(doc, ['Code', 'Title', 'Cell plan'], [(b[0], b[2], 'yes' if b[0] in pl else 'not yet') for b in dist_bugs()],
+    dist = [b for b in dist_bugs() if not moved(b[0])]
+    table(doc, ['Code', 'Title', 'Cell plan'], [(b[0], b[2], 'yes' if b[0] in pl else 'not yet') for b in dist],
           [1.4, 12.6, 2.0])
-    for b in dist_bugs():
+    for b in dist:
         bug_block(doc, b, pl.get(b[0]))
     doc.add_heading('3.5 Bugs of the prototype (fixed, for the record)', 2)
     table(doc, ['Code', 'Title', 'Found / fixed', 'What happened', 'Fix'],
@@ -432,7 +493,7 @@ def bugs_part(doc):
 def other_part(doc, bugs, pl, order):
     """v7.1: other mitigation by model area, sections in rough priority order, High/Medium/Low within each (the
     order of the section file within a priority). N1, N2 (found by the plans, not in the register) sit in their area."""
-    by = {b[0]: b for b in bugs + plan_only()}
+    by = {b[0]: b for b in bugs + plan_only() if not moved(b[0])}
     secs = other_sections()
     listed = {c for _t, _i, ids in secs for c in ids}
     rest = [c for c in by if c not in listed]
@@ -567,11 +628,14 @@ def appendix(doc):
     doc.add_heading('Appendix A. Reference table in code order', 1)
     pl = plans()
     rows = []
+    short = {'Confirmed fixed': 'fixed', 'Fixed with caveats': 'fixed with caveats', 'Not fixed': 'not fixed'}
+    chk = check465()
+    leg = lambda c: 'legacy 465: ' + short.get(chk.get(c, {}).get('status'), 'open')
     for b in legacy_bugs():
-        rows.append((b[0], f'Bug: {TYPE_NAME[b[1]].lower()}', b[2], b[7], 'fixed in the prototype',
+        rows.append((b[0], f'Bug: {TYPE_NAME[b[1]].lower()}', b[2], b[7], f'prototype: fixed; {leg(b[0])}',
                      'yes' if b[0] in pl else ''))
     for b in dist_bugs():
-        rows.append((b[0], 'Bug: distribution', b[2], '', 'fixed in the prototype', ''))
+        rows.append((b[0], 'Bug: distribution', b[2], '', f'prototype: fixed; {leg(b[0])}', ''))
     for b in plan_only():
         rows.append((b[0], 'Bug: to confirm', b[2], b[7], 'not in the register', 'yes'))
     for x in R.MVP_BUGS:
@@ -591,6 +655,45 @@ def appendix(doc):
           [1.3, 2.8, 7.3, 1.7, 3.2, 1.2], size=7.5)
 
 
+def doc_order():
+    """Every legacy bug in the order of section 3 (power, transport, other mitigation by area, distribution)."""
+    order = {'High': 0, 'Medium': 1, 'Low': 2}
+    allb = legacy_bugs() + plan_only()
+    out = []
+    for g in ('power', 'transport'):
+        out += sorted((b for b in allb if b[1] == g), key=lambda b: (order.get(b[7], 3), int(b[0][1:])))
+    by = {b[0]: b for b in allb if b[1] == 'other'}
+    for _t, _d, ids in other_sections():
+        out += sorted((by.pop(c) for c in ids if c in by), key=lambda b: order.get(b[7].split()[0], 3))
+    out += sorted(by.values(), key=lambda b: int(b[0][1:]))
+    return out + dist_bugs()
+
+
+def appendices_465(doc):
+    """v8.2: the bugs the CPAT team fixed in legacy 465, moved out of section 3 whole: B with caveats, C confirmed."""
+    pl = plans()
+    bugs = doc_order()
+    for key, title, intro in (
+            ('B', 'Appendix B. Bugs fixed with caveats in legacy CPAT 1.0pre_465',
+             f'Bugs the CPAT team marked fixed in {LEGACY_FILE} whose fix is incomplete, differs from the plan, or was '
+             'not found in the file (checked 2026-10-22, cell by cell against the plans). The red status says what '
+             'remains. The prototype issues I18 and I29, also on the team\'s list, stay in section 4 (nothing to fix '
+             'in legacy).'),
+            ('C', 'Appendix C. Bugs confirmed fixed in legacy CPAT 1.0pre_465',
+             f'Bugs fixed in {LEGACY_FILE} as their cell plan says (checked 2026-10-22: baseline cell, filled range '
+             'and policy copy compared with the plan). The "formula now" of these plans is the 456 formula moved to '
+             '465 rows; 465 holds the new formula.')):
+        sel = [b for b in bugs if moved(b[0]) == key]
+        doc.add_page_break()
+        doc.add_heading(title, 1)
+        p_ = para(doc, intro + f' {len(sel)} bugs.')
+        p_.runs[0].font.color.rgb = RED
+        table(doc, ['Code', 'Priority', 'Title', 'Status in legacy'],
+              [(b[0], b[7], b[2], legacy_status(b[0])[0]) for b in sel], [1.4, 1.8, 8.8, 4.0], size=8)
+        for b in sel:
+            bug_block(doc, b, pl.get(b[0]), 2)
+
+
 def export_json():
     """v7.1: the whole register as one JSON file next to the Word register (same content, for code)."""
     pl = plans()
@@ -604,11 +707,15 @@ def export_json():
             d['area'] = area.get(b[0], '')
         p_ = pl.get(b[0])
         d['cell_plan'] = None if p_ is None else {k: p_.get(k) for k in ('status', 'note', 'ref', 'fixes')}
+        lst, lnote = legacy_status(b[0])
+        d['legacy_465'] = {'status': lst, 'note': lnote}   # v8.2
         return d
     out = {
         'title': f'{B.NAME}: bugs, issues and upgrades v{R.REGISTER_VERSION} (workbook v{B.VERSION}; with legacy cell-level fix plans)',
         'generated_by': f'excel_ai/mitigation/make_bugfix_book.py',
         'word_version': os.path.basename(OUT),
+        'legacy_workbook': LEGACY_FILE,
+        'legacy_rows': 'every cell reference is a 465 row (moved from 456 with legacy/bugfixes/data/rowmap_456_465.json)',
         'codes': 'L legacy bug (mitigation), D legacy bug (distribution), N found by the cell plans (not in the '
                  'register), M prototype bug (fixed), I issue, DI distribution issue, LD LegacyDiff departure, U upgrade',
         'other_mitigation_areas': [{'area': t, 'about': d, 'codes': ids} for t, d, ids in other_sections()],
@@ -639,7 +746,8 @@ def main():
     t = doc.add_heading('CPAT-AI-Mitigation-Prototype: bugs, issues and upgrades, with the bug-fixing procedure for '
                         'legacy CPAT', 0)
     para(doc, f'Register version {R.REGISTER_VERSION}, {datetime.date.today().isoformat()}. Generated from the CPAT-AI '
-              f'repository for CPAT-AI-Mitigation-Prototype v{B.VERSION} ({os.path.basename(__file__)}). Legacy workbook: CPAT 1.0pre_456_NoPropData.xlsb.',
+              f'repository for CPAT-AI-Mitigation-Prototype v{B.VERSION} ({os.path.basename(__file__)}). Legacy workbook: {LEGACY_FILE} (cell references; the bugs were found in '
+              f'CPAT 1.0pre_456_NoPropData.xlsb).',
          size=9)
     doc.add_heading('Contents', 1)
     toc(doc)
@@ -655,6 +763,7 @@ def main():
     upgrades_part(doc)
     doc.add_page_break()
     appendix(doc)
+    appendices_465(doc)
     doc.save(OUT)
     import shutil
     shutil.copy(OUT, LATEST)                     # v8.0: the same file with a stable name

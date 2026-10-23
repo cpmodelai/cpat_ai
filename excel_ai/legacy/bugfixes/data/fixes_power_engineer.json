@@ -11,7 +11,7 @@
     "now": "=M3731*N3707",
     "new": "=M3731*N3713",
     "fill": "N3731:AE3731",
-    "policy": "paste into N10062:AE10062 (+6,331)"
+    "policy": "paste into N10047:AE10047 (+6,316)"
    }
   ],
   "ref": "M3731 (2023) = L3731*M3713. Already scripted: bugfix_procedure/FixL1_ServicesElectricity.bas.",
@@ -31,28 +31,28 @@
     "now": "=((1+M3682)^(($F3675/$M3686)*M3686*M2433))-1",
     "new": "=((1+M3682)^($F3675*M2433))-1",
     "fill": "M3692:AE3692",
-    "policy": "paste into M10023:AE10023 (+6,331)"
+    "policy": "paste into M10008:AE10008 (+6,316)"
    },
    {
     "cell": "M3698",
     "now": "=((1+M3682)^(($G3675/$M3686)*M3686*M2433))-1",
     "new": "=((1+M3682)^($G3675*M2433))-1",
     "fill": "M3698:AE3698",
-    "policy": "paste into M10029:AE10029 (+6,331)"
+    "policy": "paste into M10014:AE10014 (+6,316)"
    },
    {
     "cell": "M3704",
     "now": "=((1+M3682)^(($H3675/$M3686)*M3686*M2433))-1",
     "new": "=((1+M3682)^($H3675*M2433))-1",
     "fill": "M3704:AE3704",
-    "policy": "paste into M10035:AE10035 (+6,331)"
+    "policy": "paste into M10020:AE10020 (+6,316)"
    },
    {
     "cell": "M3710",
     "now": "=((1+M3682)^(($I3675/$M3686)*M3686*M2433))-1",
     "new": "=((1+M3682)^($I3675*M2433))-1",
     "fill": "M3710:AE3710",
-    "policy": "paste into M10041:AE10041 (+6,331)"
+    "policy": "paste into M10026:AE10026 (+6,316)"
    }
   ],
   "ref": "Legacy fuel rows (e.g. 5399): (1+g)^(eps_Y x M2433), the income factor once. Row 3686 is then read by nothing; leave it as a memo row.",
@@ -72,7 +72,7 @@
     "now": "=INDEX(Power!$F$358:$Y$1635,MATCH(G2999,Power!$C$358:$C$1635,0),MATCH(FirstYearCalculations,Power!$F$357:$Y$357,0))",
     "new": "=INDEX(Power!$F$358:$AC$1635,MATCH(G2999,Power!$C$358:$C$1635,0),MATCH(FirstYearCalculations,Power!$F$357:$AC$357,0))",
     "fill": "N2999:N3007",
-    "policy": "paste into N9330:N9338 (+6,331)"
+    "policy": "paste into N9315:N9323 (+6,316)"
    }
   ],
   "ref": "Power tab rows 357-1635 (installed capacity by country and type, years 2000-2023 in F:AC). Q2999 = IFERROR(M2999/N2999,0) and W2999 = IF(AND(Q<T,Q>S),Q,R) then work as written.",
@@ -92,28 +92,28 @@
     "now": "=1/(1+$F3678+$M3719)^(1+$F3677)-1",
     "new": "=1/(1+$F3678+$M3719)^(1+$F3676)-1",
     "fill": "M3691:AE3691",
-    "policy": "paste into M10022:AE10022 (+6,331)"
+    "policy": "paste into M10007:AE10007 (+6,316)"
    },
    {
     "cell": "M3697",
     "now": "=1/(1+$G3678+$M3719)^(1+$G3677)-1",
     "new": "=1/(1+$G3678+$M3719)^(1+$G3676)-1",
     "fill": "M3697:AE3697",
-    "policy": "paste into M10028:AE10028 (+6,331)"
+    "policy": "paste into M10013:AE10013 (+6,316)"
    },
    {
     "cell": "M3703",
     "now": "=1/(1+$H3678+$M3719)^(1+$H3677)-1",
     "new": "=1/(1+$H3678+$M3719)^(1+$H3676)-1",
     "fill": "M3703:AE3703",
-    "policy": "paste into M10034:AE10034 (+6,331)"
+    "policy": "paste into M10019:AE10019 (+6,316)"
    },
    {
     "cell": "M3709",
     "now": "=1/(1+$I3678+$M3719)^(1+$I3677)-1",
     "new": "=1/(1+$I3678+$M3719)^(1+$I3676)-1",
     "fill": "M3709:AE3709",
-    "policy": "paste into M10040:AE10040 (+6,331)"
+    "policy": "paste into M10025:AE10025 (+6,316)"
    }
   ],
   "ref": "Documentation equation 3.4.2.3 and the fuel rows: exponent (1 + eps_U), eps_U = row 3676 (\"Demand Elasticity\").",
@@ -133,7 +133,7 @@
     "now": "=$O2977*L4264/1000",
     "new": "=L3099*L4264/1000",
     "fill": "L4276:AE4276, then fill L4276:AE4276 down to row 4284 (rows 3099-3107 line up with 4264-4272)",
-    "policy": "paste into L10607:AE10615 (+6,331)"
+    "policy": "paste into L10592:AE10600 (+6,316)"
    }
   ],
   "ref": "Table A13 (rows 3099-3107 = capital cost x time factor), which the weighted-capex row 3181 already uses.",
@@ -153,14 +153,14 @@
     "now": "=INDEX(L4035:L4043,L4045)",
     "new": "=IFERROR(AGGREGATE(15,6,L4035:L4043/(L4061:L4069=1),1),MIN(L4035:L4043))",
     "fill": "L4046:AE4046",
-    "policy": "paste into L10377:AE10377 (+6,331)"
+    "policy": "paste into L10362:AE10362 (+6,316)"
    },
    {
     "cell": "L4045",
     "now": "=MATCH(MIN(L4035:L4043),L4035:L4043,0)",
     "new": "=MATCH(L4046,L4035:L4043,0)",
     "fill": "L4045:AE4045",
-    "policy": "paste into L10376:AE10376 (+6,331)"
+    "policy": "paste into L10361:AE10361 (+6,316)"
    }
   ],
   "ref": "The permitted flags of table L3 (rows 4061-4069), already multiplied into rows 4073-4081. Change 4046 first, then 4045 (no circularity).",
@@ -180,7 +180,7 @@
     "now": "=IFERROR(IF(ISERROR(INDEX(Power!G$25:G$356,$K2981)),INDEX(Power!G$25:G$356,$K2981),IF(ISERROR(INDEX(Power!G$25:G$356,$L2981)),INDEX(Power!G$25:G$356,$L2981),INDEX(Power!G$25:G$356,$M2981))),0)",
     "new": "=IFERROR(IF(INDEX(Power!G$25:G$356,$K2981)>0,INDEX(Power!G$25:G$356,$K2981),IF(INDEX(Power!G$25:G$356,$L2981)>0,INDEX(Power!G$25:G$356,$L2981),INDEX(Power!G$25:G$356,$M2981))),0)",
     "fill": "P2981:T2985 (25 cells, one pattern: copy P2981 and paste into P2981:T2985)",
-    "policy": "paste into P9312:T9316 (+6,331)"
+    "policy": "paste into P9297:T9301 (+6,316)"
    }
   ],
   "ref": "Rows 2977-2980, columns N:T of the same table (country value where > 0, else world). K2981:K2985 already fall back to the world row when the country has no row.",
@@ -200,10 +200,10 @@
     "now": "=IF($L$3827>50%,FirstYearCalculations,NewInvHydYear)",
     "new": "=IF($M3005/SUM($M2999:$M3007)>50%,FirstYearCalculations,NewInvHydYear)",
     "fill": "H4067 (single cell)",
-    "policy": "paste into H10398 (+6,331)"
+    "policy": "paste into H10383 (+6,316)"
    }
   ],
-  "ref": "The intended test is the base-year hydro share of generation (row 3846, L3846 = 6.7% for Egypt). The new formula takes it from table A4 (base-year power output, MWy), which equals L3846 and is data only, so no circularity; relative rows let the paste into the policy block read its own copy (rows 9330-9338).",
+  "ref": "The intended test is the base-year hydro share of generation (row 3846, L3846 = 6.7% for Egypt). The new formula takes it from table A4 (base-year power output, MWy), which equals L3846 and is data only, so no circularity; relative rows let the paste into the policy block read its own copy (rows 9315-9323).",
   "effect": "Egypt (hydro share 6.7% < 50%): hydro may invest only from NewInvHydYear = 2030. The legacy run invests in hydro in 2022-2029 (row 4257, new effective investment: 677 MWavg in total in the baseline, 1,015 MWavg in the carbon-tax run, policy row 10588); this goes to the other permitted types.",
   "note": null,
   "status": "fix"
@@ -220,10 +220,10 @@
     "now": "=L3752",
     "new": "=L3752*IFERROR(L3752/K3752,1)",
     "fill": "L4027:AE4027",
-    "policy": "paste into L10358:AE10358 (+6,331)"
+    "policy": "paste into L10343:AE10343 (+6,316)"
    }
   ],
-  "ref": "Row label of 4027. Next year's required generation is estimated as this year's x (1 + growth from last year to this year) (user decision 2026-10-20). Reading next year's demand itself (M3752) would make the workbook circular once a revenue that reads fuel use incl. power (the methane fee, rows 6150-6151, 8024) feeds the GDP feedback: next year's demand reads next year's GDP, which reads this year's revenue. The estimate reads only this and last year, so it is free of circular references in legacy and in the prototype (v6.2). K3752 in the first year: IFERROR gives growth 0.",
+  "ref": "Row label of 4027. Next year's required generation is estimated as this year's x (1 + growth from last year to this year) (user decision 2026-10-20). Reading next year's demand itself (M3752) would make the workbook circular once a revenue that reads fuel use incl. power (the methane fee, rows 6136-6137, 8010) feeds the GDP feedback: next year's demand reads next year's GDP, which reads this year's revenue. The estimate reads only this and last year, so it is free of circular references in legacy and in the prototype (v6.2). K3752 in the first year: IFERROR gives growth 0.",
   "effect": "Egypt (legacy inputs, power_model_ref v6.2): installed capacity 77.9 GW in 2030 and 109.6 GW in 2040 against legacy 75.2 and 107.3 (next year's demand read directly, v4.14: 77.3 and 109.5). The estimate follows the demand shock (I22): the need is 4.3 GW in 2024 after the 2024 rebound and 0 in 2025.",
   "note": null,
   "status": "fix"
@@ -240,21 +240,21 @@
     "now": "=N3601 * N2213",
     "new": "=$J3601 * O2213",
     "fill": "O3601:AE3601",
-    "policy": "paste into O9932:AE9932 (+6,331)"
+    "policy": "paste into O9917:AE9917 (+6,316)"
    },
    {
     "cell": "O3630",
     "now": "=$J3630 *  N2213",
     "new": "=$J3630 *  O2213",
     "fill": "O3630:AE3630",
-    "policy": "paste into O9961:AE9961 (+6,331)"
+    "policy": "paste into O9946:AE9946 (+6,316)"
    },
    {
     "cell": "O3592",
     "now": "=N3592 * N2213",
     "new": "=$N3592 * O2213",
     "fill": "O3592:AE3592",
-    "policy": "paste into O9923:AE9923 (+6,331)"
+    "policy": "paste into O9908:AE9908 (+6,316)"
    }
   ],
   "ref": "Row 2213 = share of the original producer subsidy kept in the year. J3601 and J3630 hold the last historical value (2024, column N); row 3592 has no J cell, so its base is $N3592.",
@@ -274,88 +274,88 @@
     "now": "=L2354*_conv_kWh_to_GJ/L3061",
     "new": "=(L2354+$F2403*IF($D2369,L2375*$I2354,0))*_conv_kWh_to_GJ/L3061",
     "fill": "L3398:AE3398",
-    "policy": "paste into L9729:AE9729 (+6,331)"
+    "policy": "paste into L9714:AE9714 (+6,316)"
    },
    {
     "cell": "L3399",
     "now": "=L2357*_conv_kWh_to_GJ/L3062",
     "new": "=(L2357+$F2403*IF($D2369,L2375*$I2357,0))*_conv_kWh_to_GJ/L3062",
     "fill": "L3399:AE3399",
-    "policy": "paste into L9730:AE9730 (+6,331)"
+    "policy": "paste into L9715:AE9715 (+6,316)"
    },
    {
     "cell": "L3400",
     "now": "=L2366*(_conv_kWh_to_GJ/_conv_barrel_to_gj)/L3063",
     "new": "=(L2366+$F2403*IF($D2369,L2375*$I2366,0))*(_conv_kWh_to_GJ/_conv_barrel_to_gj)/L3063",
     "fill": "L3400:AE3400",
-    "policy": "paste into L9731:AE9731 (+6,331)"
+    "policy": "paste into L9716:AE9716 (+6,316)"
    }
   ],
   "ref": "Rows 2377 and 2380 (coal and gas power: IF($D$2369, L$2375 x EF, 0) + row 2354/2357). Row 2403 F = 1 when the shadow-pricing scenario covers power. I2354, I2357, I2366 = EF of coal, gas and oil in power.",
   "effect": "None in the shipped Egypt runs (explicit carbon tax, D2369 = 0). In a regulation scenario covering power, dispatch and investment see the shadow carbon price (the carbon-tax path) x EF. To measure: run \"Energy efficiency regulations\" before and after and compare rows 3412-3420 and the generation mix (rows 3828-3836).",
-  "note": "Not via rows 2377/2380: their policy copies (8708-8719) keep the absolute references $D$2369 and L$2375, so in the policy block their regulation term reads the baseline general carbon price (L2375, 0 in the file); the new formulas use relative rows so the policy paste reads rows 8700, 8706 and 8734. The prototype also multiplies by the scenario's efficiency adjustment (0.7, Mitigation F86:F89); legacy's share C2371 is 0 (see L87), so it is left out here as in rows 2377-2388.",
+  "note": "Not via rows 2377/2380: their policy copies (8693-8704) keep the absolute references $D$2369 and L$2375, so in the policy block their regulation term reads the baseline general carbon price (L2375, 0 in the file); the new formulas use relative rows so the policy paste reads rows 8685, 8691 and 8719. The prototype also multiplies by the scenario's efficiency adjustment (0.7, Mitigation F86:F89); legacy's share C2371 is 0 (see L87), so it is left out here as in rows 2377-2388.",
   "status": "fix"
  },
  {
   "id": "L108",
   "pri": "Medium",
   "title": "Cost of renewable subsidies counts the base subsidy twice, ignores the hydro switch and omits biomass",
-  "where": "Mitigation revenue block, rows 7897-7903 (policy 14214-14220)",
-  "why": "Rows 7897-7900 = (row 2743 + row 2745) x generation, but row 2745 already = row 2743 minus the additional subsidy, so the base subsidy enters twice; hydro (7899) ignores RenewableSubsidyHydro; the \"Other renewables\" row 7900 reads biomass generation (row 6312, not 6311); biomass has no row. Row 7903 enters total revenue (row 8023).",
+  "where": "Mitigation revenue block, rows 7883-7889 (policy 14199-14205)",
+  "why": "Rows 7883-7886 = (row 2743 + row 2745) x generation, but row 2745 already = row 2743 minus the additional subsidy, so the base subsidy enters twice; hydro (7885) ignores RenewableSubsidyHydro; the \"Other renewables\" row 7886 reads biomass generation (row 6298, not 6297); biomass has no row. Row 7889 enters total revenue (row 8009).",
   "fixes": [
    {
-    "cell": "L7897",
-    "now": "=(L2743+L2745)*L6308*_conv_ktoe_to_gwh/1000",
-    "new": "=L3148*L6308*_conv_ktoe_to_gwh/1000",
-    "fill": "L7897:AE7897",
-    "policy": "type =L9479*L12625*_conv_ktoe_to_gwh/1000 into L14214, fill L14214:AE14214"
+    "cell": "L7883",
+    "now": "=(L2743+L2745)*L6294*_conv_ktoe_to_gwh/1000",
+    "new": "=L3148*L6294*_conv_ktoe_to_gwh/1000",
+    "fill": "L7883:AE7883",
+    "policy": "type =L9464*L12610*_conv_ktoe_to_gwh/1000 into L14199, fill L14199:AE14199"
    },
    {
-    "cell": "L7898",
-    "now": "=(L2743+L2745)*L6309*_conv_ktoe_to_gwh/1000",
-    "new": "=L3149*L6309*_conv_ktoe_to_gwh/1000",
-    "fill": "L7898:AE7898",
-    "policy": "type =L9480*L12626*_conv_ktoe_to_gwh/1000 into L14215, fill L14215:AE14215"
+    "cell": "L7884",
+    "now": "=(L2743+L2745)*L6295*_conv_ktoe_to_gwh/1000",
+    "new": "=L3149*L6295*_conv_ktoe_to_gwh/1000",
+    "fill": "L7884:AE7884",
+    "policy": "type =L9465*L12611*_conv_ktoe_to_gwh/1000 into L14200, fill L14200:AE14200"
    },
    {
-    "cell": "L7899",
-    "now": "=(L2743+L2745)*L6310*_conv_ktoe_to_gwh/1000",
-    "new": "=L3150*L6310*_conv_ktoe_to_gwh/1000",
-    "fill": "L7899:AE7899",
-    "policy": "type =L9481*L12627*_conv_ktoe_to_gwh/1000 into L14216, fill L14216:AE14216"
+    "cell": "L7885",
+    "now": "=(L2743+L2745)*L6296*_conv_ktoe_to_gwh/1000",
+    "new": "=L3150*L6296*_conv_ktoe_to_gwh/1000",
+    "fill": "L7885:AE7885",
+    "policy": "type =L9466*L12612*_conv_ktoe_to_gwh/1000 into L14201, fill L14201:AE14201"
    },
    {
-    "cell": "L7900",
-    "now": "=(L2743+L2745)*L6312*_conv_ktoe_to_gwh/1000",
-    "new": "=L3151*L6311*_conv_ktoe_to_gwh/1000",
-    "fill": "L7900:AE7900",
-    "policy": "type =L9482*L12628*_conv_ktoe_to_gwh/1000 into L14217, fill L14217:AE14217"
+    "cell": "L7886",
+    "now": "=(L2743+L2745)*L6298*_conv_ktoe_to_gwh/1000",
+    "new": "=L3151*L6297*_conv_ktoe_to_gwh/1000",
+    "fill": "L7886:AE7886",
+    "policy": "type =L9467*L12613*_conv_ktoe_to_gwh/1000 into L14202, fill L14202:AE14202"
    },
    {
-    "cell": "L7901",
+    "cell": "L7887",
     "now": "(empty)",
-    "new": "=L3152*L6312*_conv_ktoe_to_gwh/1000",
-    "fill": "L7901:AE7901 (empty today)",
-    "policy": "type =L9483*L12629*_conv_ktoe_to_gwh/1000 into L14218, fill L14218:AE14218"
+    "new": "=L3152*L6298*_conv_ktoe_to_gwh/1000",
+    "fill": "L7887:AE7887 (empty today)",
+    "policy": "type =L9468*L12614*_conv_ktoe_to_gwh/1000 into L14203, fill L14203:AE14203"
    },
    {
-    "cell": "D7901",
+    "cell": "D7887",
     "now": "(empty)",
     "new": "Biomass",
-    "fill": "D7901 (label; also E7901 = copy of E7900)",
-    "policy": "D14218 = Biomass, E14218 = copy of E14217"
+    "fill": "D7887 (label; also E7887 = copy of E7886)",
+    "policy": "D14203 = Biomass, E14203 = copy of E14202"
    },
    {
-    "cell": "L7903",
-    "now": "=SUM(L7897:L7900)",
-    "new": "=SUM(L7897:L7901)",
-    "fill": "L7903:AE7903",
-    "policy": "paste into L14220:AE14220 (+6,317)"
+    "cell": "L7889",
+    "now": "=SUM(L7883:L7886)",
+    "new": "=SUM(L7883:L7887)",
+    "fill": "L7889:AE7889",
+    "policy": "paste into L14205:AE14205 (+6,316)"
    }
   ],
-  "ref": "Table A17 (rows 3148-3152 = new subsidy per kWh by type, hydro only if RenewableSubsidyHydro = \"Yes\"), the same rows the engineer revenue memo 3665-3669 uses; generation by type rows 6308-6312.",
+  "ref": "Table A17 (rows 3148-3152 = new subsidy per kWh by type, hydro only if RenewableSubsidyHydro = \"Yes\"), the same rows the engineer revenue memo 3665-3669 uses; generation by type rows 6294-6298.",
   "effect": "None in the shipped Egypt runs (no renewable subsidy: E2734 = E2735 = 0). With a subsidy, the cost falls by the double-counted base part and changes by the hydro switch and biomass.",
-  "note": "Policy block: do not paste. Rows 14214-14220 sit at +6,317 but read the power rows at +6,331 (L14214 = (L9074+L9076)*L12625*...), so a paste of the baseline row would point 14 rows off; type the policy formulas given. The elasticity-model memo rows 2947-2951 (shown by 7890-7894 only when the elasticity model is chosen) carry the same (L2743+L2745); change them the same way if that memo is used.",
+  "note": "Policy block: in legacy 465 the policy rows and the power rows they read both sit +6,316 below the baseline (L14199 = (L9059+L9061)*L12610*...), so a paste of the baseline row now works; the policy formulas are also given (in 456 a paste pointed 14 rows off). The elasticity-model memo rows 2947-2951 (shown by 7876-7880 only when the elasticity model is chosen) carry the same (L2743+L2745); change them the same way if that memo is used.",
   "status": "fix"
  },
  {
@@ -370,7 +370,7 @@
     "now": "=L3909*L3906*$E3876",
     "new": "=L3909*L3906",
     "fill": "L3911:AE3911",
-    "policy": "paste into L10242:AE10242 (+6,331)"
+    "policy": "paste into L10227:AE10227 (+6,316)"
    }
   ],
   "ref": "Example table on the same row, F3911:J3911 (= F3909*F3906); total row 3912 applies $E3876 once.",
@@ -390,7 +390,7 @@
     "now": "=L4004",
     "new": "=SUM(L4012:L4019)",
     "fill": "M3973:AE3973",
-    "policy": "paste into M10304:AE10304 (+6,331)"
+    "policy": "paste into M10289:AE10289 (+6,316)"
    }
   ],
   "ref": "Rows 4012-4019 (non-coal effective retirements, table K6). L3973 stays 0.",
@@ -410,7 +410,7 @@
     "now": "=SUM(L4009:L4010)",
     "new": "=L3994*$W2999",
     "fill": "L4011:AE4011",
-    "policy": "paste into L10342:AE10342 (+6,331)"
+    "policy": "paste into L10327:AE10327 (+6,316)"
    }
   ],
   "ref": "Rows 4012-4019 = nameplate x capacity factor. Rows 4009-4010 stay as memo rows.",
@@ -430,7 +430,7 @@
     "now": "=-M3408",
     "new": "=-M3407",
     "fill": "M3409:AE3409",
-    "policy": "paste into M9740:AE9740 (+6,331)"
+    "policy": "paste into M9725:AE9725 (+6,316)"
    }
   ],
   "ref": "Rows 3412-3420 add the rebate to a cost per kWh generated, so the rebate must be per kWh generated (row 3407). Row 3408 becomes a memo row.",
@@ -450,7 +450,7 @@
     "now": "=L4030",
     "new": "=M3753",
     "fill": "M4024:AE4024",
-    "policy": "paste into M10355:AE10355 (+6,331)"
+    "policy": "paste into M10340:AE10340 (+6,316)"
    }
   ],
   "ref": "L4024 (base year) is actual effective capacity, SUMPRODUCT(capacity, capacity factor) = row 3753.",
@@ -470,14 +470,14 @@
     "now": "=MAX(L3780-L3772,$G4291*L3752)",
     "new": "=MAX(L3780-L3772,0)",
     "fill": "L3773:AE3773",
-    "policy": "paste into L10104:AE10104 (+6,331)"
+    "policy": "paste into L10089:AE10089 (+6,316)"
    },
    {
     "cell": "L3779",
     "now": "=MAX(L3780-L3778,$G4291*L3752)",
     "new": "=MAX(L3780-L3778,0)",
     "fill": "L3779:AE3779",
-    "policy": "paste into L10110:AE10110 (+6,331)"
+    "policy": "paste into L10095:AE10095 (+6,316)"
    }
   ],
   "ref": "Row meaning (\"required generation\", never negative).",
@@ -497,7 +497,7 @@
     "now": "=IF($F4273=\"Manual\",L4106,L4260*$X3008)",
     "new": "=SUM(L4264:L4272)",
     "fill": "L4273:AE4273",
-    "policy": "paste into L10604:AE10604 (+6,331)"
+    "policy": "paste into L10589:AE10589 (+6,316)"
    }
   ],
   "ref": "Total rows 4285 and 4003 of the same section.",
@@ -517,7 +517,7 @@
     "now": "=IFERROR(MATCH(G2977,Power!$A$25:$A$356,0),L2977)",
     "new": "=IFERROR(MATCH(G2977,Power!$A$112:$A$294,0)+87,L2977)",
     "fill": "K2977:K2985",
-    "policy": "paste into K9308:K9316 (+6,331)"
+    "policy": "paste into K9293:K9301 (+6,316)"
    }
   ],
   "ref": "Power tab: country block A112:A294 (header row 111); +87 converts the position in that block to the position in A25:A356 that the INDEX formulas in N:T use. The world fallback L2977 is unchanged.",
@@ -557,14 +557,14 @@
     "now": "=IF(AND($J3606<0,PowerSubsidyExemptInclude=\"Include\"),$J3606*O2216,$J3606)",
     "new": "=IF(AND($J3606<0,PowerSubsidyExemptInclude=\"Include\"),$J3606*O2214,$J3606)",
     "fill": "O3606:AE3606",
-    "policy": "paste into O9937:AE9937 (+6,331)"
+    "policy": "paste into O9922:AE9922 (+6,316)"
    },
    {
     "cell": "O3635",
     "now": "=IF(AND($J3635<0,PowerSubsidyExemptInclude=\"Include\"),$J3635*O2216,$J3635)",
     "new": "=IF(AND($J3635<0,PowerSubsidyExemptInclude=\"Include\"),$J3635*O2214,$J3635)",
     "fill": "O3635:AE3635",
-    "policy": "paste into O9966:AE9966 (+6,331)"
+    "policy": "paste into O9951:AE9951 (+6,316)"
    },
    {
     "cell": "MTInputs!C138",
@@ -591,70 +591,70 @@
     "now": "=1/(1+$F3678+$M3719)^(1+$F3677)-1",
     "new": "=1/(1+$F3678+$M2198)^(1+$F3677)-1",
     "fill": "M3691:AE3691",
-    "policy": "paste into M10022:AE10022 (+6,331)"
+    "policy": "paste into M10007:AE10007 (+6,316)"
    },
    {
     "cell": "M3697",
     "now": "=1/(1+$G3678+$M3719)^(1+$G3677)-1",
     "new": "=1/(1+$G3678+$M2198)^(1+$G3677)-1",
     "fill": "M3697:AE3697",
-    "policy": "paste into M10028:AE10028 (+6,331)"
+    "policy": "paste into M10013:AE10013 (+6,316)"
    },
    {
     "cell": "M3703",
     "now": "=1/(1+$H3678+$M3719)^(1+$H3677)-1",
     "new": "=1/(1+$H3678+$M2198)^(1+$H3677)-1",
     "fill": "M3703:AE3703",
-    "policy": "paste into M10034:AE10034 (+6,331)"
+    "policy": "paste into M10019:AE10019 (+6,316)"
    },
    {
     "cell": "M3709",
     "now": "=1/(1+$I3678+$M3719)^(1+$I3677)-1",
     "new": "=1/(1+$I3678+$M2198)^(1+$I3677)-1",
     "fill": "M3709:AE3709",
-    "policy": "paste into M10040:AE10040 (+6,331)"
+    "policy": "paste into M10025:AE10025 (+6,316)"
    },
    {
     "cell": "P2823",
     "now": "=(O2823/(1+AVERAGE($K$376:$N$376)+$M3719)*(1+P2941)^(AVERAGE($K$344:$N$344)))*((1+P2446)^($O$304*P2433))*((1/(1+AVERAGE($K$376:$N$376)+$M3719)*(1+P2941)^(AVERAGE($K$344:$N$344))*(1+P2941))^AVERAGE($K$335:$N$335))*(1+P2439/2)",
     "new": "=(O2823/(1+AVERAGE($K$376:$N$376)+$M2198)*(1+P2941)^(AVERAGE($K$344:$N$344)))*((1+P2446)^($O$304*P2433))*((1/(1+AVERAGE($K$376:$N$376)+$M2198)*(1+P2941)^(AVERAGE($K$344:$N$344))*(1+P2941))^AVERAGE($K$335:$N$335))*(1+P2439/2)",
     "fill": "P2823:AE2823",
-    "policy": "paste into P9154:AE9154 (+6,331)"
+    "policy": "paste into P9139:AE9139 (+6,316)"
    },
    {
     "cell": "M2827",
     "now": "=(L2823/(1+AVERAGE($K$376:$N$376)+$M3719)*(1+M2941)^AVERAGE($K$344:$N$344))/L2823-1",
     "new": "=(L2823/(1+AVERAGE($K$376:$N$376)+$M2198)*(1+M2941)^AVERAGE($K$344:$N$344))/L2823-1",
     "fill": "M2827:AE2827",
-    "policy": "paste into M9158:AE9158 (+6,331)"
+    "policy": "paste into M9143:AE9143 (+6,316)"
    },
    {
     "cell": "M2828",
     "now": "=L2823*((1/(1+AVERAGE($K$376:$N$376)+$M3719)*(1+M2941)^(AVERAGE($K$344:$N$344))*(1+M2941))^AVERAGE($K$335:$N$335))/L2823-1",
     "new": "=L2823*((1/(1+AVERAGE($K$376:$N$376)+$M2198)*(1+M2941)^(AVERAGE($K$344:$N$344))*(1+M2941))^AVERAGE($K$335:$N$335))/L2823-1",
     "fill": "M2828:AE2828",
-    "policy": "paste into M9159:AE9159 (+6,331)"
+    "policy": "paste into M9144:AE9144 (+6,316)"
    },
    {
     "cell": "M2834",
     "now": "=1/(1+(AVERAGE($K$376:$N$376))+$M3719)-1",
     "new": "=1/(1+(AVERAGE($K$376:$N$376))+$M2198)-1",
     "fill": "M2834:AE2834",
-    "policy": "paste into M9165:AE9165 (+6,331)"
+    "policy": "paste into M9150:AE9150 (+6,316)"
    },
    {
     "cell": "M2836",
     "now": "=(1/(1+AVERAGE($K$376:$N$376)+$M3719))^(AVERAGE($K$335:$N$335))-1",
     "new": "=(1/(1+AVERAGE($K$376:$N$376)+$M2198))^(AVERAGE($K$335:$N$335))-1",
     "fill": "M2836:AE2836",
-    "policy": "paste into M9167:AE9167 (+6,331)"
+    "policy": "paste into M9152:AE9152 (+6,316)"
    },
    {
     "cell": "L3719",
     "now": "Additional Efficiency Improvements - Power demand | M3719: =M2198",
     "new": "(clear L3719:M3719)",
     "fill": "L3719:M3719",
-    "policy": "clear L10050:M10050"
+    "policy": "clear L10035:M10035"
    }
   ],
   "ref": "Row 2198 (table K2197:M2201, \"Power\" increment) already holds the value; rows 2199-2201 serve road, residential and industry the same way.",
@@ -666,15 +666,15 @@
   "id": "L107",
   "pri": "Low",
   "title": "Renewable subsidy: start year of the additional subsidy reuses the consumer-subsidy phase-out year",
-  "where": "Mitigation E2736 (policy E9067), row 270; MTInputs (new row)",
-  "why": "E2736 \"Year to add additional RE subsidy\" = row 270 of the scenario = MTInputs F132 (YearConsSubPha), the year the consumer fuel subsidies start to be phased out; the additional renewable subsidy (MTInputs 355) has no start year of its own, and the label of row 276 says it starts in CPIntro.",
+  "where": "Mitigation E2736 (policy E9052), row 270; MTInputs (new row)",
+  "why": "E2736 \"Year to add additional RE subsidy\" = row 270 of the scenario = MTInputs F132 (YearConsSubPha), the year the consumer fuel subsidies start to be phased out; the additional renewable subsidy (MTInputs 353) has no start year of its own, and the label of row 276 says it starts in CPIntro.",
   "fixes": [
    {
     "cell": "E2736",
     "now": "=INDEX($F$270:$AA$270,MATCH(B2173,$F$223:$AG$223,0))",
     "new": "=RenSubsidyAddStartYear",
     "fill": "E2736 (single cell)",
-    "policy": "paste into E9067 (+6,331)"
+    "policy": "paste into E9052 (+6,316)"
    },
    {
     "cell": "D276",
@@ -684,9 +684,9 @@
     "policy": "none (above the scenario blocks)"
    }
   ],
-  "ref": "MTInputs rows 354-357 (renewable subsidy inputs) and the layout of each MTInputs row (D = scenario value, E = Dashboard, F = value used, G = default, H = name).",
+  "ref": "MTInputs rows 352-355 (renewable subsidy inputs) and the layout of each MTInputs row (D = scenario value, E = Dashboard, F = value used, G = default, H = name).",
   "effect": "None in the shipped runs (additional subsidy 0; the default start year 2027 equals today's YearConsSubPha). After the fix the two policies can be timed apart.",
-  "note": "Do first (otherwise E2736 shows #NAME?): append MTInputs row 416 after the last input row (415), copying row 356: B416 \"New renewable energy subsidy, start year\", C416 \"year\", D416 =INDEX($N416:$XAA416,1,_ScenarioToRun), E416 =Dashboard!$R$6 (a free cell next to the renewable-subsidy inputs P6:Q6; type 2027 there), F416 =IF(MTAct,D416,IF(CPATDefaultsOrUserDefined=\"Default\",IF(I416=\"Y\",E416,G416),E416)), G416 2027, H416 RenSubsidyAddStartYear, I416 \"Y\"; give scenario columns N416:XAA416 the values of N132:XAA132 where set; define the name RenSubsidyAddStartYear = MTInputs!$F$416 (workbook scope). Appending (not inserting) keeps every existing MTInputs row number. The prototype has the same input (MTInputs row 482, default 2027).",
+  "note": "Fixed in legacy 465 by the CPAT team in its own way: E2736 reads a start-year input on the Dashboard (L57) through a defined name. The steps below were written for 456: Do first (otherwise E2736 shows #NAME?): append MTInputs row 416 after the last input row (413), copying row 356: B416 \"New renewable energy subsidy, start year\", C416 \"year\", D416 =INDEX($N416:$XAA416,1,_ScenarioToRun), E416 =Dashboard!$R$6 (a free cell next to the renewable-subsidy inputs P6:Q6; type 2027 there), F416 =IF(MTAct,D416,IF(CPATDefaultsOrUserDefined=\"Default\",IF(I416=\"Y\",E416,G416),E416)), G416 2027, H416 RenSubsidyAddStartYear, I416 \"Y\"; give scenario columns N416:XAA416 the values of N132:XAA132 where set; define the name RenSubsidyAddStartYear = MTInputs!$F$416 (workbook scope). Appending (not inserting) keeps every existing MTInputs row number. The prototype has the same input (MTInputs row 482, default 2027).",
   "status": "needs input row"
  },
  {
@@ -701,7 +701,7 @@
     "now": "=IFERROR(MATCH(E3042,Power!$A$25:$A$356,0),0)",
     "new": "=IFERROR(MATCH(E3042,Power!$A$25:$A$356,0),IFERROR(MATCH(SUBSTITUTE(E3042,\"ctf.\",\"ctf.old\"),Power!$A$25:$A$356,0),MATCH(\"wld.ctf.med.\"&B3042,Power!$A$25:$A$356,0)))",
     "fill": "I3042:I3046",
-    "policy": "paste into I9373:I9377 (+6,331)"
+    "policy": "paste into I9358:I9362 (+6,316)"
    }
   ],
   "ref": "Power rows 323-330 (wld.ctf.oldlow/oldvhg.sol/wnd) and 316 (wld.ctf.med.ore). The prototype uses the same fallback (Inputs_ppath tcf|<type>|<option>): the older series of the same option for wind and solar, else Medium.",
@@ -713,15 +713,15 @@
   "id": "L110",
   "pri": "Low",
   "title": "Power revenue rebate counts VAT that was never collected",
-  "where": "Mitigation G4, row 3663 (feeds 7888, 7749)",
-  "why": "The rebate per kWh (rows 3615, 3644) = rebate switch x carbon cost x pass-through x (1 + VAT), and row 3663 multiplies it by consumption into fiscal revenue (7888, then 7749 in the carbon-tax revenue). The VAT part of the carbon cost passed through is never collected (the VAT revenue row 3659 counts only the VAT on the price before policy), so the rebate returns VAT the government never had.",
+  "where": "Mitigation G4, row 3663 (feeds 7874, 7735)",
+  "why": "The rebate per kWh (rows 3615, 3644) = rebate switch x carbon cost x pass-through x (1 + VAT), and row 3663 multiplies it by consumption into fiscal revenue (7874, then 7735 in the carbon-tax revenue). The VAT part of the carbon cost passed through is never collected (the VAT revenue row 3659 counts only the VAT on the price before policy), so the rebate returns VAT the government never had.",
   "fixes": [
    {
     "cell": "L3663",
     "now": "=(L3615*L3621+L3644*L3650)/1000",
     "new": "=(L3615/(1+L3611)*L3621+L3644/(1+L3640)*L3650)/1000",
     "fill": "L3663:AE3663",
-    "policy": "paste into L9994:AE9994 (+6,331)"
+    "policy": "paste into L9979:AE9979 (+6,316)"
    }
   ],
   "ref": "Rows 3611 and 3640 (VAT rates). The price rows 3614-3617 are unchanged: users still see the carbon cost and its VAT removed; only the fiscal rebate excludes the VAT.",
@@ -733,7 +733,7 @@
   "id": "L111",
   "pri": "Low",
   "title": "Manual electricity excise revenue counts the whole excise, also where the price does not include it",
-  "where": "Mitigation G4, row 3660 (feeds 7885, 7762)",
+  "where": "Mitigation G4, row 3660 (feeds 7871, 7748)",
   "why": "Row 3660 = manual excise (rows 3602, 3631) x consumption in every year. The price includes the excise only through the change of the sum of components since the last historical year (2024, column N) times the pass-through (rows 3607 and 3610), and not at all up to 2024, where the price is data.",
   "fixes": [
    {
@@ -741,7 +741,7 @@
     "now": "=(L3602*L3621+L3631*L3650)/1000",
     "new": "=IF(L3594>$I3600,((L3602-$N3602)*L3621+(L3631-$N3631)*L3650)*L3596/1000,0)",
     "fill": "L3660:AE3660",
-    "policy": "paste into L9991:AE9991 (+6,331)"
+    "policy": "paste into L9976:AE9976 (+6,316)"
    }
   ],
   "ref": "Row 3594 (year), I3600 (last historical year, 2024), N3602 / N3631 (excise in 2024), row 3596 (pass-through, the same for both groups).",
@@ -761,14 +761,14 @@
     "now": "=IF(UseSpotFuelPricesInEngineerModel=\"Yes\",L3072,AVERAGE(J3072:N3072))",
     "new": "=IF(UseSpotFuelPricesInEngineerModel=\"Yes\",L3072,AVERAGE($L3072:L3072))",
     "fill": "L3155:O3163 (rows 3155-3157, 3163)",
-    "policy": "paste into L9486:O9494 (+6,331)"
+    "policy": "paste into L9471:O9479 (+6,316)"
    },
    {
     "cell": "P3155",
     "now": "=IF(UseSpotFuelPricesInEngineerModel=\"Yes\",P3072,AVERAGE(N3072:R3072))",
     "new": "=IF(UseSpotFuelPricesInEngineerModel=\"Yes\",P3072,AVERAGE(L3072:P3072))",
     "fill": "P3155:AE3163 (rows 3155-3157, 3163)",
-    "policy": "paste into P9486:AE9494 (+6,331)"
+    "policy": "paste into P9471:AE9479 (+6,316)"
    }
   ],
   "ref": "Trailing 5-year average (this year and the 4 before; fewer in the first years), user decision 2026-10-20 (no formula reads a later year). The L-column 'now' text follows the pattern of P3155 and Q3155 (decoded from the .xlsb); check L:O before pasting.",

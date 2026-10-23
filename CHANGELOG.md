@@ -4,6 +4,7 @@ One line per release, newest first. Full notes: the version log in the workbook 
 
 | Version | Date | Change |
 |---|---|---|
+| 8.2 | 2026-10-23 | Register and documents: legacy cell references moved from CPAT 1.0pre_456 to the latest file, 1.0pre_465; the 62 bugs the CPAT team marked fixed in 465 checked cell by cell (52 confirmed, 8 with caveats, 2 not fixed): status in legacy in the register (Appendices B, C), BUGS.md, the register spreadsheet and the tracker (tabs BUGS, ISSUES-OTHER). Workbook formulas and results unchanged. |
 | 8.1 | 2026-10-22 | Modules M1-M2: one money-unit vocabulary (USD, never $); section 15 moved to the end; new section 19 Exports to modules (19a Distribution, defined name ExportDistn); tab FromMitigation is Distribution's only Mitigation input. |
 | 8.0 | 2026-10-22 | Renamed CPAT-AI-Mitigation-Prototype (was MVP). |
 | 7.2 | 2026-10-22 | Codes (CPAT code protocol, plan R0-R9): one rename map (data/mvp_legacy_extracts/code_renames_v7_2.csv) applied where text is written: Mitigation columns A-C... |

@@ -114,7 +114,11 @@ def main():
     chapters = [open(os.path.join(d, 'methods', m), encoding='utf-8').read() for m in METHODS]
     appx = [part('Appendix A: the model in equations', 'Equations.md'),
             part('Appendix B: data tabs', os.path.join('docs', 'methods', 'Data_tabs.md'))]
-    pandoc(meta(f'CPAT-AI Mitigation Prototype v{IR.B.VERSION}', 'Methods') + '\n'.join(chapters + appx), METHODS_OUT)
+    note = ('*Legacy row numbers in this volume are rows of CPAT 1.0pre_456_NoPropData.xlsb, the file the prototype '
+            'was built and checked against. In the latest file, CPAT 1.0pre_465, Mitigation rows from 5667 on sit 11 to '
+            '15 rows higher; the bug-fix register quotes 465 rows (v8.2).*\n\n')
+    pandoc(meta(f'CPAT-AI Mitigation Prototype v{IR.B.VERSION}', 'Methods') + note + '\n'.join(chapters + appx),
+           METHODS_OUT)
 
 
 if __name__ == '__main__':

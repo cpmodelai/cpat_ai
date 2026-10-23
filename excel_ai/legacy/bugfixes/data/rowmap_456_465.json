@@ -1,0 +1,86 @@
+{
+ "from": "CPAT 1.0pre_456_NoPropData.xlsb",
+ "to": "CPAT 1.0pre_465 - No Prop Data.xlsb",
+ "made": "2026-10-23",
+ "how": "rows of both files aligned on columns B-E and L (formula digits ignored); [first, last, offset] runs; rows missing from the runs were deleted in 465",
+ "sheets": {
+  "Mitigation": {
+   "runs": [
+    [
+     1,
+     5666,
+     0
+    ],
+    [
+     5678,
+     5726,
+     -11
+    ],
+    [
+     5729,
+     5853,
+     -13
+    ],
+    [
+     5854,
+     5855,
+     -12
+    ],
+    [
+     5857,
+     5879,
+     -13
+    ],
+    [
+     5881,
+     8403,
+     -14
+    ],
+    [
+     8405,
+     19219,
+     -15
+    ]
+   ],
+   "deleted": [
+    5667,
+    5668,
+    5669,
+    5670,
+    5671,
+    5672,
+    5673,
+    5674,
+    5675,
+    5676,
+    5677,
+    5727,
+    5728,
+    5856,
+    5880,
+    8404
+   ],
+   "last": 19219
+  },
+  "MTInputs": {
+   "runs": [
+    [
+     1,
+     328,
+     0
+    ],
+    [
+     331,
+     415,
+     -2
+    ]
+   ],
+   "deleted": [
+    329,
+    330
+   ],
+   "last": 415
+  }
+ },
+ "policy_offset_465": 6316
+}

@@ -1,4 +1,4 @@
-# Workbook formulas of CPAT-AI-Mitigation-Prototype v8.0 (implementation reference)
+# Workbook formulas of CPAT-AI-Mitigation-Prototype v8.2 (implementation reference)
 
 Generated from the workbook by `make_equations.py` (do not edit by hand): every formula of the Mitigation sheet, scenario 1, with cell references replaced by variable codes, the changes against legacy CPAT (section B) and the LAMBDA library (section C). For the model itself read the equations in mathematical form, `Equations.md`; this file is for checking and editing the workbook.
 
@@ -33,13 +33,17 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Legacy: legacy Mitigation row 464
 - Rows: all,all
   - 2022-2041: `gdp.lcu(t) = INDEX(WEOVal,MATCH(CtryCode&"|gdp_lcu",WEOKey,0),MATCH(year,WEOYear,0))`
+- Rows: all,all
+  - 2022-2041: `gdp.lcu(t) = gdp.lcu[f,s](t)`
 
-**E5. `xr`: Exchange rate implied by real GDP (local currency per USD; constant in real terms)** (LCU per USD)
+**E5. `xr`: Exchange rate implied by real GDP (local currency per USD; constant in real terms)** (LCU/USD)
 
 - Description: gdp.lcu / gdp.usd (header row, v3.13)
 - Legacy: legacy Mitigation rows 464-465
 - Rows: all,all
   - 2022-2041: `xr(t) = gdp.lcu[f,s](t)/gdp.usd[f,s](t)`
+- Rows: all,all
+  - 2022-2041: `xr(t) = xr[f,s](t)`
 
 **E6. `gdp.pos.pct`: Real GDP growth (after the GDP feedback of section 16)** (%)
 
@@ -367,33 +371,33 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Legacy: legacy rows 1958-1960
   - 2022-2041: `ets.cap(t) = IF(ets.on(t)=1,IF(AND(year>D_ETSOutro(t),LEFT(D_ETSCapCont(t),8)="Constant"),ets.cap(t-1),ets.bce(t)*(1+ets.chg(t))),0)`
 
-**E52. `ets.se`: Effective covered semi-elasticity (allocation effectiveness: auctioned 1, OBR 0.5)** (per $/tCO2)
+**E52. `ets.se`: Effective covered semi-elasticity (allocation effectiveness: auctioned 1, OBR 0.5)** (per USD/tCO2)
 
 - Description: Baseline-weighted semi-elasticities x (1 - 0.5 OBR)
 - Legacy: legacy rows 1845, 1866-1867
   - 2022-2041: `ets.se(t) = IF(ets.bce(t)>0,SUMPRODUCT(bco2[17 rows](t),etsc[17 rows](t),SemiEl,1-(1-OBREff)*obr[17 rows](t))/ets.bce(t),0)`
 
-**E53. `ets.est`: ETS price, fast estimate** ($/tCO2 real)
+**E53. `ets.est`: ETS price, fast estimate** (USD/tCO2 real)
 
 - Description: LN(cap / baseline) / (semi-elasticity x volatility adjustment)
 - Legacy: legacy row 1868 (QuickEstimateOfETSPrices; linear there)
 - Changes against legacy: LD6, L15, L16 (section B)
   - 2022-2041: `ets.est(t) = IF(AND(ets.on(t)=1,ets.cap(t)>0,ets.cap(t)<ets.bce(t),ets.se(t)<0,ets.vadj(t)>0),LN(ets.cap(t)/ets.bce(t))/(ets.se(t)*ets.vadj(t)),0)`
 
-**E54. `ets.ovr`: ETS price override (pasted values, e.g. from ets_goalseek.py)** ($/tCO2 real)
+**E54. `ets.ovr`: ETS price override (pasted values, e.g. from ets_goalseek.py)** (USD/tCO2 real)
 
 - Description: Typed / pasted values
 - Legacy: legacy Manual inputs O15:AB15 (OverrideOfETSPrices)
   - No values in the year columns: an input row left blank (or a row of parameters only, columns D:G)
 
-**E55. `ets.p`: ETS permit price used** ($/tCO2 real)
+**E55. `ets.p`: ETS permit price used** (USD/tCO2 real)
 
 - Description: Override row if D_ETSPriceOverride = Yes (blank: carbon price path), else the fast estimate
 - Legacy: legacy row 1873
 - Changes against legacy: LD6 (section B)
   - 2022-2041: `ets.p(t) = IF(ets.on(t)=1,IF(LEFT(D_ETSPriceOverride(t),3)="Yes",IF(ets.ovr(t)="",cptraj(t),ets.ovr(t)),ets.est(t)),0)`
 
-**E56. `ets.pe`: ETS tax-equivalent price (permit price x volatility adjustment)** ($/tCO2 real)
+**E56. `ets.pe`: ETS tax-equivalent price (permit price x volatility adjustment)** (USD/tCO2 real)
 
 - Description: ets.p x ets.vadj
 - Legacy: legacy row 2191 applied to the ETS price
@@ -505,13 +509,13 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Legacy: legacy row 259 "Explicit pricing variant?" (v4.16)
   - 2022-2041: `cp.exp(t) = IF(scn(t)=0,1,--(INDEX(ScnExpl,scn(t))="Yes"))`
 
-**E72. `cpx`: Explicit carbon price (the carbon tax rates ctr)** ($/tCO2 real)
+**E72. `cpx`: Explicit carbon price (the carbon tax rates ctr)** (USD/tCO2 real)
 
 - Description: cptraj x cp.exp
 - Legacy: legacy row 2306 (v4.16)
   - 2022-2041: `cpx(t) = cptraj(t)*cp.exp(t)`
 
-**E73. `cp.shd`: Shadow carbon price (regulations, feebate scenarios)** ($/tCO2 real)
+**E73. `cp.shd`: Shadow carbon price (regulations, feebate scenarios)** (USD/tCO2 real)
 
 - Description: cptraj - cpx
 - Legacy: legacy row 2375 "General carbon price" (v4.16)
@@ -1431,7 +1435,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `NewInvBioYear(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E201. `cptraj`: Carbon price trajectory used** ($/tCO2 real)
+**E201. `cptraj`: Carbon price trajectory used** (USD/tCO2 real)
 
 - Description: Calculation (legacy rows 2248, 2251); x infl if NomorReal = Nominal
 - Legacy: legacy Mitigation row 2251: egy.mit.cptraj.1
@@ -1497,7 +1501,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `gpi(t) = INDEX(gp[4 rows](t),<international price position (gp row) of pset[f,s]>)`
 
-**E210. `spf`: Supply cost: fixed part (margins; coal and gas also production cost)** ($/GJ real)
+**E210. `spf`: Supply cost: fixed part (margins; coal and gas also production cost)** (USD/GJ real)
 
 - Description: Inputs_prices fixsp in the base year, then constant
 - Legacy: legacy fixsp; coded prices.py
@@ -1513,14 +1517,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `esubpu(t) = esub[f,s](t)*<GJ per price unit of pset[f,s]>`
 
-**E212. `ps`: Existing producer subsidy of the block (negative; in the supply cost, before taxes)** ($/GJ real)
+**E212. `ps`: Existing producer subsidy of the block (negative; in the supply cost, before taxes)** (USD/GJ real)
 
 - Description: psu of the fuel (G position) x liters per barrel for other oil products / GJ per price unit
 - Legacy: legacy rows 2455-2708 "in which: producer-side subsidies" (v6.1, I49; L124, L125 fixed)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `ps(t) = INDEX(psu[4 rows](t),<international price position (gp row) of pset[f,s]>)*IF(f="oop",LitersPerBbl,1)/<GJ per price unit of pset[f,s]>`
 
-**E213. `sp`: Supply cost (pre-tax price)** ($/GJ real)
+**E213. `sp`: Supply cost (pre-tax price)** (USD/GJ real)
 
 - Description: Historical: Inputs_prices; then fixed part spf + floating part x gp(t) / gp(t-1)
 - Legacy: legacy Mitigation row 2498: egy.mit.sp.ind.coa.a.1; coded prices.py
@@ -1529,7 +1533,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022: `sp(t) = INDEX(IPsp,MATCH(f&"."&s,IPKey,0),MATCH(year,IPspY,0))`
   - 2023-2041: `sp(t) = spf[f,s](t)+(sp[f,s](t-1)-spf[f,s](t)-ps[f,s](t-1))*gpi[f,s](t)/gpi[f,s](t-1)+ps[f,s](t)`
 
-**E214. `txf`: Excise and other taxes before the floor (pass-through rule)** ($/GJ real)
+**E214. `txf`: Excise and other taxes before the floor (pass-through rule)** (USD/GJ real)
 
 - Description: txo_L + (sp_L - sp) x (1 - pcc) (v4.10: L14 fixed); year by year: last year - change in sp x (1 - pcc)
 - Legacy: legacy fadtx + cs; coded prices.py
@@ -1537,7 +1541,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022: `txf(t) = txo[f,s](t)`
   - 2023-2041: `txf(t) = txf[f,s](t-1)-(sp[f,s](t)-sp[f,s](t-1))*(1-<pass-through of pset[f,s]>)`
 
-**E215. `txo`: Excise and other taxes (before new policies)** ($/GJ real)
+**E215. `txo`: Excise and other taxes (before new policies)** (USD/GJ real)
 
 - Description: Historical: Inputs_prices; then txf, not below the last historical value txo_L if txo_L >= 0 (legacy rule)
 - Legacy: legacy txo = fadtx + fixs + cs (+ nce); coded prices.py
@@ -1546,7 +1550,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022: `txo(t) = INDEX(IPtxo,MATCH(f&"."&s,IPKey,0),MATCH(year,IPtxoY,0))`
   - 2023-2041: `txo(t) = IF(INDEX(txo[f,s](..t-1),lastHistCol(t))>=0,MAX(INDEX(txo[f,s](..t-1),lastHistCol(t)),txf[f,s](t)),txf[f,s](t))`
 
-**E216. `fadtx`: Fixed part of the existing taxes / subsidy (txo): pass-through x txo of the last historical year** ($/GJ real)
+**E216. `fadtx`: Fixed part of the existing taxes / subsidy (txo): pass-through x txo of the last historical year** (USD/GJ real)
 
 - Description: history: pcc x txo; projection: pcc x txo of the last historical year
 - Legacy: legacy rows 2597-2598 of each block (v4.16)
@@ -1554,14 +1558,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022: `fadtx(t) = <pass-through of pset[f,s]>*txo[f,s](t)`
   - 2023-2041: `fadtx(t) = <pass-through of pset[f,s]>*INDEX(txo[f,s](..t-1),lastHistCol(t))`
 
-**E217. `cs`: Floating part of txo (moves with the supply cost; price controls)** ($/GJ real)
+**E217. `cs`: Floating part of txo (moves with the supply cost; price controls)** (USD/GJ real)
 
 - Description: txo - txfx
 - Legacy: legacy row 2599 of each block (v4.16)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `cs(t) = txo[f,s](t)-fadtx[f,s](t)`
 
-**E218. `etx`: Existing excise and other taxes (positive part of txo)** ($/GJ real)
+**E218. `etx`: Existing excise and other taxes (positive part of txo)** (USD/GJ real)
 
 - Description: max(txo, 0)
 - Legacy: legacy fadtx + positive cs (split here by sign)
@@ -1569,7 +1573,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `etx(t) = MAX(txo[f,s](t),0)`
 
-**E219. `esub`: Existing consumer subsidy (negative part of txo; negative = subsidy)** ($/GJ real)
+**E219. `esub`: Existing consumer subsidy (negative part of txo; negative = subsidy)** (USD/GJ real)
 
 - Description: min(txo, 0)
 - Legacy: legacy fixs + negative cs (split here by sign)
@@ -1577,7 +1581,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `esub(t) = MIN(txo[f,s](t),0)`
 
-**E220. `vat`: VAT payment before new policies** ($/GJ real)
+**E220. `vat`: VAT payment before new policies** (USD/GJ real)
 
 - Description: (sp + txo) x VAT rate
 - Legacy: legacy vat; coded prices.py
@@ -1585,7 +1589,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `vat(t) = (sp[f,s](t)+txo[f,s](t))*<VAT rate of pset[f,s]>`
 
-**E221. `pbc`: Retail price before new taxes and subsidies** ($/GJ real)
+**E221. `pbc`: Retail price before new taxes and subsidies** (USD/GJ real)
 
 - Description: (sp + txo) x (1 + VAT rate)
 - Legacy: legacy retail price rp without nce; coded prices.py
@@ -1600,77 +1604,79 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `pnq(t) = SUMIFS(block@ener{ener, co2, ch4, rtx, ... 591 variables}(t),PVar,"atp",PPar,<price position>)`
   - Parameters: `<price position>` = `INDEX(Inputs!E158:E169,MATCH(f&"."&s,Inputs!A158:A169,0))`
 
-**E223. `pctx`: New carbon tax, weighted by subsector fuel use** ($/GJ real)
+**E223. `pctx`: New carbon tax, weighted by subsector fuel use** (USD/GJ real)
 
 - Description: SUMPRODUCT(ctxnew, ener) / pnq
 - Legacy: new (v4.1)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `pctx(t) = IF(pnq[f,s](t)=0,0,SUMPRODUCT(--(PVar&PPar="atp"&<price position of pnq[f,s]>),block@ctxnew{ctxnew, ets, ntx, nce, ... 591 variables}(t),block@ener{ener, co2, ch4, rtx, ... 591 variables}(t))/pnq[f,s](t))`
 
-**E224. `etsnew`: New ETS cost in the price, weighted by subsector fuel use** ($/GJ real)
+**E224. `etsnew`: New ETS cost in the price, weighted by subsector fuel use** (USD/GJ real)
 
 - Description: SUMPRODUCT(ets, ener) / pnq
 - Legacy: new (v4.1)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `etsnew(t) = IF(pnq[f,s](t)=0,0,SUMPRODUCT(--(PVar&PPar="atp"&<price position of pnq[f,s]>),block@ets{ets, ntx, nce, xcp, ... 591 variables}(t),block@ener{ener, co2, ch4, rtx, ... 591 variables}(t))/pnq[f,s](t))`
 
-**E225. `pntx`: New excise tax (fuel price reform), weighted by subsector fuel use** ($/GJ real)
+**E225. `pntx`: New excise tax (fuel price reform), weighted by subsector fuel use** (USD/GJ real)
 
 - Description: SUMPRODUCT(ntx, ener) / pnq
 - Legacy: new (v4.1)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `pntx(t) = IF(pnq[f,s](t)=0,0,SUMPRODUCT(--(PVar&PPar="atp"&<price position of pnq[f,s]>),block@ntx{ntx, nce, xcp, xcpd, ... 591 variables}(t),block@ener{ener, co2, ch4, rtx, ... 591 variables}(t))/pnq[f,s](t))`
 
-**E226. `pxcd`: Change in existing carbon pricing, weighted by subsector fuel use** ($/GJ real)
+**E226. `pxcd`: Change in existing carbon pricing, weighted by subsector fuel use** (USD/GJ real)
 
 - Description: SUMPRODUCT(xcpd, ener) / pnq
 - Legacy: new (v4.1)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `pxcd(t) = IF(pnq[f,s](t)=0,0,SUMPRODUCT(--(PVar&PPar="atp"&<price position of pnq[f,s]>),block@xcpd{xcpd, csw, pcw, psw, ... 591 variables}(t),block@ener{ener, co2, ch4, rtx, ... 591 variables}(t))/pnq[f,s](t))`
 
-**E227. `pcsw`: Consumer subsidy reform wedge of the block (before VAT)** ($/GJ real)
+**E227. `pcsw`: Consumer subsidy reform wedge of the block (before VAT)** (USD/GJ real)
 
 - Description: SUBREFORM: -(1 - csf) x MIN(txfx, 0)
 - Legacy: legacy row 2598 (fixed subsidy x factor; v4.16, LD18)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `pcsw(t) = -(1-INDEX(csf[12 rows](t),MATCH(f&"."&s,IPKey,0)))*MIN(fadtx[f,s](t),0)`
 
-**E228. `ppcw`: Price-control phase-out wedge of the block (before VAT)** ($/GJ real)
+**E228. `ppcw`: Price-control phase-out wedge of the block (before VAT)** (USD/GJ real)
 
 - Description: PCREFORM: -(1 - pcf) x txfl
 - Legacy: legacy row 2599 (floating part x factor; v4.16, LD18)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `ppcw(t) = -(1-INDEX(pcf[12 rows](t),MATCH(f&"."&s,IPKey,0)))*cs[f,s](t)`
 
-**E229. `ppsw`: Producer subsidy reform wedge of the block (before VAT; v6.2)** ($/GJ real)
+**E229. `ppsw`: Producer subsidy reform wedge of the block (before VAT; v6.2)** (USD/GJ real)
 
 - Description: PSWEDGE: psr of the fuel (G position) x liters per barrel if oop / GJ per price unit x pass-through (pcc)
 - Legacy: legacy rows 2455-2708 x 2213 (in legacy inside the supply cost; separate here, user 2026-10-20)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `ppsw(t) = INDEX(psr[4 rows](t),<international price position (gp row) of pset[f,s]>)*IF(f="oop",LitersPerBbl,1)/<GJ per price unit of pset[f,s]>*<pass-through of pset[f,s]>`
 
-**E230. `pvatn`: VAT on the new taxes and subsidies (and the price floor)** ($/GJ real)
+**E230. `pvatn`: VAT on the new taxes and subsidies (and the price floor)** (USD/GJ real)
 
 - Description: pnce - (pctx + pets + pntx + pxcd)
 - Legacy: new (v4.1)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `pvatn(t) = pnce[f,s](t)-SUM(block@pctx{pctx, etsnew, pntx, pxcd, ... 7 variables}(t))`
 
-**E231. `pnce`: Total new policy: new taxes and subsidies incl. VAT, weighted by subsector fuel use** ($/GJ real)
+**E231. `pnce`: Total new policy: new taxes and subsidies incl. VAT, weighted by subsector fuel use** (USD/GJ real)
 
 - Description: rpn - rpb
 - Legacy: new (v4.1)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `pnce(t) = rpn[f,s](t)-pbc[f,s](t)`
 
-**E232. `rpn`: Retail price incl. new taxes and subsidies (fuel-use weighted average of the after-tax prices atp of the subsectors priced by the block; rpb where they use none)** ($/GJ real)
+**E232. `rpn`: Retail price incl. new taxes and subsidies (fuel-use weighted average of the after-tax prices atp of the subsectors priced by the block; rpb where they use none)** (USD/GJ real)
 
 - Description: SUMPRODUCT(atp, ener) / pnq over the atp rows with D = block position
 - Legacy: new (v4.1; legacy F5b by price block)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `rpn(t) = IF(pnq[f,s](t)=0,pbc[f,s](t),SUMPRODUCT(--(PVar&PPar="atp"&<price position of pnq[f,s]>),block@atp{atp, shp, aef, enel, ... 591 variables}(t),block@ener{ener, co2, ch4, rtx, ... 591 variables}(t))/pnq[f,s](t))`
+- Rows: coa,ind, nga,ind, oop,all, gso,all, die,all, lpg,all, ker,all
+  - 2022-2041: `rpn(t) = rpn[f,s](t)`
 
-**E233. `pav.sp`: Spending on the fuel at after-tax prices (sum over subsectors of atp x fuel use; electricity: rp x consumption, USD m; all energy: USD m)** ($/GJ x ktoe)
+**E233. `pav.sp`: Spending on the fuel at after-tax prices (sum over subsectors of atp x fuel use; electricity: rp x consumption, USD m; all energy: USD m)** (USD/GJ x ktoe)
 
 - Description: SUMPRODUCT of the atp and ener rows of sections 5-8
 - Legacy: legacy F5b (16293-16352)
@@ -1680,6 +1686,8 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `pav.sp(t) = SUMPRODUCT(rp[2 rows](t),cons[2 rows](t))`
 - Rows: all,all
   - 2022-2041: `pav.sp(t) = SUMIFS(block{pav.sp, pav.q, pav.uv, pav.spr, ... 11 variables}(t),block{pav.sp, pav.q, pav.uv, pav.spr, ... 11 variables}(A),code,block{pav.sp, pav.q, pav.uv, pav.spr, ... 11 variables}(B),"<>ecy")*Settings[PJ per ktoe]+pav.sp[ecy,s](t)`
+- Rows: coa,all, nga,all, oop,all, gso,all, die,all, lpg,all, ker,all, ecy,all
+  - 2022-2041: `pav.sp(t) = pav.sp[f,s](t)`
 
 **E234. `pav.q`: Fuel use (sum over subsectors; electricity: consumption, GWh; all energy: ktoe incl. electricity)** (ktoe)
 
@@ -1692,14 +1700,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,all
   - 2022-2041: `pav.q(t) = SUMIFS(block{pav.sp, pav.q, pav.uv, pav.spr, ... 11 variables}(t),block{pav.sp, pav.q, pav.uv, pav.spr, ... 11 variables}(A),code,block{pav.sp, pav.q, pav.uv, pav.spr, ... 11 variables}(B),"<>ecy")+pav.q[ecy,s](t)*GJperkWh/Settings[PJ per ktoe]`
 
-**E235. `pav.uv`: Average price (unit value: spending / fuel use, own quantities of each scenario)** ($/GJ real)
+**E235. `pav.uv`: Average price (unit value: spending / fuel use, own quantities of each scenario)** (USD/GJ real)
 
 - Description: pav.sp / pav.q
 - Legacy: legacy F5b (consumption-weighted average price)
 - Rows: coa,all, nga,all, gso,all, die,all, lpg,all, ker,all, jfu,all, oop,all, bio,all, ecy,all, all,all
   - 2022-2041: `pav.uv(t) = IF(pav.q[f,s](t)=0,0,pav.sp[f,s](t)/pav.q[f,s](t))`
 
-**E236. `pav.spr`: Spending at scenario 1 quantities of the same year** ($/GJ x ktoe)
+**E236. `pav.spr`: Spending at scenario 1 quantities of the same year** (USD/GJ x ktoe)
 
 - Description: SUMPRODUCT of atp and scenario-1 ener (header row 10)
 - Legacy: new (v3.10)
@@ -1717,7 +1725,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: coa,all, nga,all, gso,all, die,all, lpg,all, ker,all, jfu,all, oop,all, bio,all, ecy,all, all,all
   - 2022-2041: `pav.las(t) = IF(INDEX(pav.sp[f,s](..t),row10(t))=0,0,pav.spr[f,s](t)/INDEX(pav.sp[f,s](..t),row10(t)))`
 
-**E238. `pav.sp0`: Spending at the base-year quantities** ($/GJ x ktoe)
+**E238. `pav.sp0`: Spending at the base-year quantities** (USD/GJ x ktoe)
 
 - Description: SUMPRODUCT of atp and base-year ener
 - Legacy: new (v3.10)
@@ -1742,7 +1750,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: coa,all, nga,all, gso,all, die,all, lpg,all, ker,all, jfu,all, oop,all, bio,all, ecy,all, all,all
   - 2022-2041: `pav.mix(t) = IF(INDEX(pav.uv[f,s](..t),row10(t))*pav.las[f,s](t)=0,0,pav.uv[f,s](t)/INDEX(pav.uv[f,s](..t),row10(t))/pav.las[f,s](t))`
 
-**E241. `pav.leg`: Average price as legacy F5b (coal, gas: power, residential, industry prices at scenario-1 quantities; electricity: own quantities; oil products: the price of the .all block; others: the unit value)** ($/GJ real)
+**E241. `pav.leg`: Average price as legacy F5b (coal, gas: power, residential, industry prices at scenario-1 quantities; electricity: own quantities; oil products: the price of the .all block; others: the unit value)** (USD/GJ real)
 
 - Description: LEGAVG / TOTAL / SHAREOF
 - Legacy: legacy rows 16320-16352 (v4.15, I31)
@@ -1790,14 +1798,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: coa,all, nga,all
   - 2022-2041: `pavl.qp(t) = SUMIFS(INDEX(pe[9 rows](..t),0,row10(t)),pe[9 rows](B),f)`
 
-**E247. `pavl.pp`: Power fuel price incl. new policies (pre-policy price + policy cost per GJ of the type)** ($/GJ real)
+**E247. `pavl.pp`: Power fuel price incl. new policies (pre-policy price + policy cost per GJ of the type)** (USD/GJ real)
 
 - Description: PWFUELPRICE
 - Legacy: legacy rows 16285-16286 (v4.15)
 - Rows: coa,all, nga,all
   - 2022-2041: `pavl.pp(t) = pbc[f,pow](t)+IF(pe[f,pow](t)=0,0,gen_mwy[f,pow](t)*MWyMkWh*xac[f,pow](t)/(pe[f,pow](t)*Settings[PJ per ktoe]))`
 
-**E248. `rpe`: Average retail energy price, all energy incl. new taxes and subsidies (summary row of section 2)** ($/GJ real)
+**E248. `rpe`: Average retail energy price, all energy incl. new taxes and subsidies (summary row of section 2)** (USD/GJ real)
 
 - Description: pav.uv of all energy (price memo)
 - Legacy: new (v4.1)
@@ -1959,13 +1967,13 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Legacy: legacy rows 2188-2193, 2218, 3801 (issue I54: switch only on "Yes*" and share to phase out typed 1)
   - 2022-2041: `ppa(t) = PPAProportionCoalGas(t)*IF(LEFT(IF(scenario(t)=1,PhaseOutCoalAndGasPPAsBaseline(t),PhaseOutCoalAndGasPPAsPolicy(t)),3)="Yes",MAX(0,1-MAX(0,year-YearPPACoalGas(t))/YearsToPhaseOutPPAs(t)),1)`
 
-**E271. `rnsp`: Renewable subsidy per kWh (negative = subsidy)** ($/kWh)
+**E271. `rnsp`: Renewable subsidy per kWh (negative = subsidy)** (USD/kWh)
 
 - Description: -(base + additional x phase-out factor from its own start year, policy scenarios)
 - Legacy: legacy rows 2733-2745 (L107 fixed: own start year; issue I55: nominal inputs used as real)
   - 2022-2041: `rnsp(t) = -(RenewableSubsidyBL(t)+IF(AND(scenario(t)>1,year>=RenSubsidyAddStartYear(t)),RenSubsidyAddUSDkwh(t)*MAX(0,1-(year-RenSubsidyAddStartYear(t))/RenSubsidyAddPhaseoutYrs(t)),0))*infl(t)`
 
-**E272. `rns`: Renewable subsidy by type (negative = subsidy)** ($/kWh)
+**E272. `rns`: Renewable subsidy by type (negative = subsidy)** (USD/kWh)
 
 - Description: rnsp x (wind, solar, other renewables, biomass; hydro if RenewableSubsidyHydro = Yes)
 - Legacy: legacy rows 3143-3152 (A17)
@@ -1979,7 +1987,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Legacy: legacy rows 261, 2188, J3595
   - 2022-2041: `rbs(t) = --AND(scenario(t)>1,OR(LEFT(PowerRebates(t),3)="Yes",IF(scn(t)=0,FALSE,INDEX(ScnReb,scn(t))="Yes")))`
 
-**E274. `exs`: Electricity excise (scenario Electricity excise)** ($/kWh)
+**E274. `exs`: Electricity excise (scenario Electricity excise)** (USD/kWh)
 
 - Description: grid CO2 intensity (PwGInt) x carbon price
 - Legacy: legacy rows 2190, 2253
@@ -1993,56 +2001,56 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `tcf(t) = INDEX(PPathVal,MATCH(CtryCode&"|"&<data key>&"|"&ctf(t),PPathKey,0),MATCH(year,PPathYear,0))`
   - Parameters: `<data key>` = `code&"|"&f`
 
-**E276. `cbat`: Battery storage capital cost** ($/kWh storage)
+**E276. `cbat`: Battery storage capital cost** (USD/kWh storage)
 
 - Description: PowerPaths
 - Legacy: legacy row 3887 (J2)
   - 2022-2041: `cbat(t) = INDEX(PPathVal,MATCH(CtryCode&"|"&<data key>,PPathKey,0),MATCH(year,PPathYear,0))`
   - Parameters: `<data key>` = `code`
 
-**E277. `cint`: Battery interface capital cost** ($/kW)
+**E277. `cint`: Battery interface capital cost** (USD/kW)
 
 - Description: PowerPaths
 - Legacy: legacy row 3888 (J2)
   - 2022-2041: `cint(t) = INDEX(PPathVal,MATCH(CtryCode&"|"&<data key>,PPathKey,0),MATCH(year,PPathYear,0))`
   - Parameters: `<data key>` = `code`
 
-**E278. `obat`: Battery storage operating cost** ($/kWh storage/yr)
+**E278. `obat`: Battery storage operating cost** (USD/kWh storage/yr)
 
 - Description: PowerPaths
 - Legacy: legacy row 3891 (J2)
   - 2022-2041: `obat(t) = INDEX(PPathVal,MATCH(CtryCode&"|"&<data key>,PPathKey,0),MATCH(year,PPathYear,0))`
   - Parameters: `<data key>` = `code`
 
-**E279. `elcx`: Electrolyser capital cost** ($/kW)
+**E279. `elcx`: Electrolyser capital cost** (USD/kW)
 
 - Description: PowerPaths
 - Legacy: legacy row 3893 (J2)
   - 2022-2041: `elcx(t) = INDEX(PPathVal,MATCH(CtryCode&"|"&<data key>,PPathKey,0),MATCH(year,PPathYear,0))`
   - Parameters: `<data key>` = `code`
 
-**E280. `eltk`: Long-term storage (tank) capital cost per kWh** ($/kWh)
+**E280. `eltk`: Long-term storage (tank) capital cost per kWh** (USD/kWh)
 
 - Description: PowerPaths
 - Legacy: legacy row 3895 (J2)
   - 2022-2041: `eltk(t) = INDEX(PPathVal,MATCH(CtryCode&"|"&<data key>,PPathKey,0),MATCH(year,PPathYear,0))`
   - Parameters: `<data key>` = `code`
 
-**E281. `elof`: Electrolyser fixed opex** ($/kW/y)
+**E281. `elof`: Electrolyser fixed opex** (USD/kW/yr)
 
 - Description: PowerPaths
 - Legacy: legacy row 3898 (J2)
   - 2022-2041: `elof(t) = INDEX(PPathVal,MATCH(CtryCode&"|"&<data key>,PPathKey,0),MATCH(year,PPathYear,0))`
   - Parameters: `<data key>` = `code`
 
-**E282. `elov`: Electrolyser variable opex** ($/kWh)
+**E282. `elov`: Electrolyser variable opex** (USD/kWh)
 
 - Description: PowerPaths
 - Legacy: legacy row 3899 (J2)
   - 2022-2041: `elov(t) = INDEX(PPathVal,MATCH(CtryCode&"|"&<data key>,PPathKey,0),MATCH(year,PPathYear,0))`
   - Parameters: `<data key>` = `code`
 
-**E283. `cel`: Long-term storage cost per marginal unit (electrolyser and storage capital, fixed and variable opex)** ($/kWh)
+**E283. `cel`: Long-term storage cost per marginal unit (electrolyser and storage capital, fixed and variable opex)** (USD/kWh)
 
 - Description: (elcx + eltk x StorageHoursForLTStorage) / (dlfr x 8,760) + elof / 8,760 + elov (v5.4: hours and WACC of the scenario)
 - Legacy: legacy rows 3893-3906 (J2)
@@ -2069,7 +2077,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `shock(t) = INDEX(PPathVal,MATCH(CtryCode&"|"&<data key>,PPathKey,0),MATCH(year,PPathYear,0))`
   - Parameters: `<data key>` = `code`
 
-**E287. `cax`: Capital cost of new plants** ($/kW real)
+**E287. `cax`: Capital cost of new plants** (USD/kW real)
 
 - Description: cax0 x capex time factor
 - Legacy: legacy rows 3099-3107 (A13)
@@ -2077,7 +2085,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `cax(t) = <cax0 (factor 1)>*tcf[f,s](t)`
   - Parameters: `<cax0 (factor 1)>` = `INDEX(Inputs!C184:C192,MATCH(f,Inputs!A184:A192,0))`
 
-**E288. `caxav`: Weighted average capital cost of the stock (vintages)** ($/kW real)
+**E288. `caxav`: Weighted average capital cost of the stock (vintages)** (USD/kW real)
 
 - Description: Base year cax; then caxav(t-1) x (1 - phi(t-1)) + cax(t-1) x phi(t-1)
 - Legacy: legacy rows 3181-3189 (B2)
@@ -2085,7 +2093,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022: `caxav(t) = cax[f,s](t)`
   - 2023-2041: `caxav(t) = caxav[f,s](t-1)*(1-phi[f,s](t-1))+cax[f,s](t-1)*phi[f,s](t-1)`
 
-**E289. `stoav`: Weighted average storage cost of the stock (vintages)** ($/kWh)
+**E289. `stoav`: Weighted average storage cost of the stock (vintages)** (USD/kWh)
 
 - Description: Base year msc x VRE flag; then stoav(t-1) x (1 - phi(t-1)) + msc(t) x VRE flag x phi(t-1)
 - Legacy: legacy rows 3225-3233 (B6)
@@ -2094,7 +2102,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2023-2041: `stoav(t) = stoav[f,s](t-1)*(1-phi[f,s](t-1))+<VRE flag>*msc(t)*phi[f,s](t-1)`
   - Parameters: `<VRE flag>` = `INDEX(Inputs!O184:O192,MATCH(f,Inputs!A184:A192,0))`
 
-**E290. `fix`: Amortised fixed cost of the existing stock (capital, interest, decommissioning, storage, fixed O&M)** ($/kWh)
+**E290. `fix`: Amortised fixed cost of the existing stock (capital, interest, decommissioning, storage, fixed O&M)** (USD/kWh)
 
 - Description: (caxav x (1/N + wacc/2) + decommissioning/N + fixed opex)/(cf x 8,760) + stoav (WACC, cf of the scenario)
 - Legacy: legacy rows 3247-3255 (B8 = B3 + B4 + B5 + B6 + B7)
@@ -2103,7 +2111,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `fix(t) = (caxav[f,s](t)*(<1 / lifetime>+wac[f,s](t)*CapAvgShr)+<decommissioning / N + fixed opex ($/kW/y)>)/(cfu[f,s](t)*HoursYr)+stoav[f,s](t)`
   - Parameters: `<1 / lifetime>` = `INDEX(Inputs!BF184:BF192,MATCH(f,Inputs!A184:A192,0))`; `<decommissioning / N + fixed opex ($/kW/y)>` = `INDEX(Inputs!BG184:BG192,MATCH(f,Inputs!A184:A192,0))`
 
-**E291. `lfx`: Levelised fixed cost of new plants** ($/kWh)
+**E291. `lfx`: Levelised fixed cost of new plants** (USD/kWh)
 
 - Description: (cax + decommissioning + transmission capex)/(cf x 8,760 x dlf) + fixed opex/(cf x 8,760) + rns + msc x VRE flag (of the scenario)
 - Legacy: legacy rows 3326-3334 (C7 = C1 + ... + C6)
@@ -2111,25 +2119,25 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `lfx(t) = (cax[f,s](t)+<decommissioning + transmission capex>)/(cfu[f,s](t)*HoursYr*dlf[f,s](t))+<fixed opex ($/kW/y)>/(cfu[f,s](t)*HoursYr)+rns[f,s](t)+<VRE flag>*msc(t)`
   - Parameters: `<decommissioning + transmission capex>` = `INDEX(Inputs!BH184:BH192,MATCH(f,Inputs!A184:A192,0))`; `<fixed opex ($/kW/y)>` = `INDEX(Inputs!BI184:BI192,MATCH(f,Inputs!A184:A192,0))`; `<VRE flag>` = `INDEX(Inputs!O184:O192,MATCH(f,Inputs!A184:A192,0))`
 
-**E292. `cics`: Coal implicit cost chosen, short term (first year of calculations)** ($/kWh)
+**E292. `cics`: Coal implicit cost chosen, short term (first year of calculations)** (USD/kWh)
 
 - Description: No = 0; Manual = ManualCoalIntangibleCostST; else GoalSeekCoal B by country (name CoalICSTc) (v5.6)
 - Legacy: legacy J89:J90
   - 2022-2041: `cics(t) = IF(LEFT(AdditionalCoalIntangibleCost(t),1)="N",0,IF(AdditionalCoalIntangibleCost(t)="Manual",ManualCoalIntangibleCostST(t),CoalICSTc))`
 
-**E293. `cicl`: Coal implicit cost chosen, long term (2030)** ($/kWh)
+**E293. `cicl`: Coal implicit cost chosen, long term (2030)** (USD/kWh)
 
 - Description: No = 0; Manual = ManualCoalIntangibleCostLT; else GoalSeekCoal C by country (CoalICLTc) (v5.6)
 - Legacy: legacy K89:K90
   - 2022-2041: `cicl(t) = IF(LEFT(AdditionalCoalIntangibleCost(t),1)="N",0,IF(AdditionalCoalIntangibleCost(t)="Manual",ManualCoalIntangibleCostLT(t),CoalICLTc))`
 
-**E294. `cic`: Coal implicit cost (short to long term by 2030)** ($/kWh)
+**E294. `cic`: Coal implicit cost (short to long term by 2030)** (USD/kWh)
 
 - Description: AdditionalCoalIntangibleCost: No = 0; Manual = MTInputs ST/LT; else GoalSeekCoal (B, C) by country; weight MIN(1, (t - base year)/(2030 - base year)). Added to the coal variable cost (dispatch, investment); in generation cost and tariffs if PwCoalICTariff = Yes (v5.6, P5)
 - Legacy: legacy rows 3360-3363 (D3), J89:K90
   - 2022-2041: `cic(t) = cics(t)+(cicl(t)-cics(t))*MIN(1,(year-BaseYr)/(CoalICYr-BaseYr))`
 
-**E295. `fpn`: Fuel price for power before new policies, this year (rpb of the price fuel)** ($/GJ real)
+**E295. `fpn`: Fuel price for power before new policies, this year (rpb of the price fuel)** (USD/GJ real)
 
 - Description: BLOCKPRICE: rpb of the price block at the price position
 - Legacy: legacy rows 3155-3163 (A18; v6.2: own row, so the average below reads one row, not the price-block area)
@@ -2137,7 +2145,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `fpn(t) = pbc[<price position (section 2)>](t)`
   - Parameters: `<price position (section 2)>` = `INDEX(Inputs!X184:X192,MATCH(f,Inputs!A184:A192,0))`
 
-**E296. `fpp`: Fuel price for power before new policies (centred 5-year moving average, or spot)** ($/GJ real)
+**E296. `fpp`: Fuel price for power before new policies (centred 5-year moving average, or spot)** (USD/GJ real)
 
 - Description: spot = 1 (Settings SpotPow or the scenario switch): fpn; else the average of fpn over t-4 .. t within 2022-2041 (v6.2, L126) (errors skipped)
 - Legacy: legacy rows 3155-3163 (A18; AVERAGE over five year columns, blanks ignored)
@@ -2145,7 +2153,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
   - 2022-2041: `fpp(t) = IF(spot(t)=1,fpn[f,s](t),AVERAGE(INDEX(fpn[f,s](..t),COLUMN()-MIN(year-BaseYr,PwAvgLag)):fpn[f,s](t)))`
 
-**E297. `xck`: Change in existing carbon pricing against the price data, per kWh generated** ($/kWh)
+**E297. `xck`: Change in existing carbon pricing against the price data, per kWh generated** (USD/kWh)
 
 - Description: tCO2/kWh x (carbon tax x factor + ETS x factor - embedded; Inputs_ecp tables, row pow | fuel; v4.12)
 - Legacy: new (legacy: existing pricing is part of txo of power fuels)
@@ -2154,7 +2162,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `xck(t) = <EF (tCO2/GJ; x kwh)>*kwh[f,s](t)*(INDEX(XCTVal,<ECP table row>,xct.c(t))*xct.p(t)+INDEX(XETSVal,<ECP table row>,xct.c(t))*xets.p(t)-<embedded ($/tCO2)>)`
   - Parameters: `<EF (tCO2/GJ; x kwh)>` = `INDEX(Inputs!Y184:Y192,MATCH(f,Inputs!A184:A192,0))`; `<ECP table row>` = `INDEX(Inputs!AU184:AU192,MATCH(f,Inputs!A184:A192,0))`; `<embedded ($/tCO2)>` = `INDEX(Inputs!AV184:AV192,MATCH(f,Inputs!A184:A192,0))`
 
-**E298. `vbc`: Variable cost before new policies (fuel and variable O&M)** ($/kWh)
+**E298. `vbc`: Variable cost before new policies (fuel and variable O&M)** (USD/kWh)
 
 - Description: Variable O&M + fixed fuel cost + fpp (fuel price for power, $/GJ) x kwh + xck
 - Legacy: legacy rows 3374-3382 (D4; moving-average fuel prices as legacy A18)
@@ -2162,7 +2170,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `vbc(t) = <var. O&M + fixed fuel>+fpp[f,s](t)*kwh[f,s](t)+xck[f,s](t)+(f="coa")*cic(t)`
   - Parameters: `<var. O&M + fixed fuel>` = `INDEX(Inputs!V184:V192,MATCH(f,Inputs!A184:A192,0))`; `<price position>` = `INDEX(Inputs!X184:X192,MATCH(f,Inputs!A184:A192,0))`
 
-**E299. `xac`: New policy cost per kWh generated (carbon tax, ETS, fuel price reform)** ($/kWh)
+**E299. `xac`: New policy cost per kWh generated (carbon tax, ETS, fuel price reform)** (USD/kWh)
 
 - Description: tCO2/kWh x (carbon tax rate of power x fuel coverage + ETS cost rate of power; section 1 ctr, etr) + fuel price reform x 0.0036/efficiency/GJ per unit
 - Legacy: legacy rows 3385-3393 (D5)
@@ -2170,7 +2178,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `xac(t) = <EF (tCO2/GJ; x kwh)>*kwh[f,s](t)*(ctr[all,s](t)*INDEX(ctcov[9 rows](t),<fuel position>)+etr[all,s](t))+INDEX(fpr[14 rows](t),<price-fuel position>)*kwh[f,s](t)/<GJ per price unit>`
   - Parameters: `<EF (tCO2/GJ; x kwh)>` = `INDEX(Inputs!Y184:Y192,MATCH(f,Inputs!A184:A192,0))`; `<fuel position>` = `INDEX(Inputs!AA184:AA192,MATCH(f,Inputs!A184:A192,0))`; `<price-fuel position>` = `INDEX(Inputs!AB184:AB192,MATCH(f,Inputs!A184:A192,0))`; `<GJ per price unit>` = `INDEX(Inputs!AC184:AC192,MATCH(f,Inputs!A184:A192,0))`
 
-**E300. `shk`: Shadow price per kWh generated (power feebates, ETS output-based part)** ($/kWh)
+**E300. `shk`: Shadow price per kWh generated (power feebates, ETS output-based part)** (USD/kWh)
 
 - Description: shadow price of power (shpx, section 1: feebate rate x share impacting efficiency + ETS tax-equivalent price x ETS coverage x OBR share) x tCO2/kWh
 - Legacy: legacy rows 3398-3406 (D6)
@@ -2178,7 +2186,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `shk(t) = shpx[all,s](t)*<EF (tCO2/GJ; x kwh)>*kwh[f,s](t)`
   - Parameters: `<EF (tCO2/GJ; x kwh)>` = `INDEX(Inputs!Y184:Y192,MATCH(f,Inputs!A184:A192,0))`; `<base-year generation share (rebate)>` = `INDEX(Inputs!AQ184:AQ192,MATCH(f,Inputs!A184:A192,0))`
 
-**E301. `reb`: Feebate rebate per kWh generated (fixed base-year shares; from the second year)** ($/kWh)
+**E301. `reb`: Feebate rebate per kWh generated (fixed base-year shares; from the second year)** (USD/kWh)
 
 - Description: -SUMPRODUCT(shk, base-year generation shares)
 - Legacy: legacy rows 3407-3409 (fixed: per kWh generated, legacy per kWh consumed)
@@ -2186,7 +2194,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022: `reb(t) = 0`
   - 2023-2041: `reb(t) = -SUMPRODUCT(shk[9 rows](t),shk[9 rows](E))`
 
-**E302. `tvc`: Total variable cost (dispatch; levelised for investment)** ($/kWh)
+**E302. `tvc`: Total variable cost (dispatch; levelised for investment)** (USD/kWh)
 
 - Description: vbc + ccp + shk + reb
 - Legacy: legacy rows 3423-3431 (D7)
@@ -2194,7 +2202,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
   - 2022-2041: `tvc(t) = vbc[f,s](t)+xac[f,s](t)+shk[f,s](t)+reb(t)`
 
-**E303. `tvcx`: Total variable cost used in the levelised window (tvc; last year's where the host cannot evaluate the LAMBDA year 2041)** ($/kWh)
+**E303. `tvcx`: Total variable cost used in the levelised window (tvc; last year's where the host cannot evaluate the LAMBDA year 2041)** (USD/kWh)
 
 - Description: IFERROR(tvc, tvc(t-1))
 - Legacy: new (no-LAMBDA fallback)
@@ -2209,7 +2217,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
   - 2022-2041: `dsum(t) = (1+wac[f,s](t))^(Settings[Base year]-year)+dsum[f,s](t+1)`
 
-**E305. `lvc`: Levelised variable cost: discounted average of tvc from the year to the end of the horizon** ($/kWh)
+**E305. `lvc`: Levelised variable cost: discounted average of tvc from the year to the end of the horizon** (USD/kWh)
 
 - Description: (df x tvc + (dsum - df) x lvc of next year) / dsum (df at the WACC used, wac)
 - Legacy: legacy rows 3439-3447 (D9; capacity factors constant)
@@ -2217,7 +2225,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
   - 2022-2041: `lvc(t) = ((1+wac[f,s](t))^(Settings[Base year]-year)*tvcx[f,s](t)+(dsum[f,s](t)-(1+wac[f,s](t))^(Settings[Base year]-year))*lvc[f,s](t+1))/dsum[f,s](t)`
 
-**E306. `gnc`: Generation cost before new policies (cost recovery)** ($/kWh)
+**E306. `gnc`: Generation cost before new policies (cost recovery)** (USD/kWh)
 
 - Description: fix + vbc
 - Legacy: legacy rows 3486-3494 (E3)
@@ -2225,28 +2233,28 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
   - 2022-2041: `gnc(t) = fix[f,s](t)+vbc[f,s](t)-IF(PwCoalICTariff="No",(f="coa")*cic(t),0)`
 
-**E307. `gncav`: Average generation cost (weighted by generation shares)** ($/kWh)
+**E307. `gncav`: Average generation cost (weighted by generation shares)** (USD/kWh)
 
 - Description: SUMPRODUCT(shr, gnc)
 - Legacy: legacy row 3495 (E3 weighted average)
   - 2022-2041: `gncav(t) = SUMPRODUCT(shr[9 rows](t),gnc[9 rows](t))*<factor (Constants)>`
   - Parameters: `<factor (Constants)>` = `INDEX(ConstVal,MATCH("pw.c|"&code,ConstKey,0))`
 
-**E308. `ccpav`: Average new policy cost per kWh consumed** ($/kWh)
+**E308. `ccpav`: Average new policy cost per kWh consumed** (USD/kWh)
 
 - Description: SUMPRODUCT(shr, ccp) x generation / consumption
 - Legacy: legacy row 3395 (D5 per kWh consumed)
   - 2022-2041: `ccpav(t) = SUMPRODUCT(shr[9 rows](t),xac[9 rows](t))*<generation / consumption>`
   - Parameters: `<generation / consumption>` = `INDEX(PParVal,MATCH(CtryCode&"|gen_per_cons",PParKey,0))`
 
-**E309. `tic`: Levelised investment cost (levelised fixed + levelised variable)** ($/kWh)
+**E309. `tic`: Levelised investment cost (levelised fixed + levelised variable)** (USD/kWh)
 
 - Description: MAX(lfx + lvc, MinPostSubsidyPowerPrice)
 - Legacy: legacy rows 3463-3471 (E1) = L1
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
   - 2022-2041: `tic(t) = MAX(lfx[f,s](t)+lvc[f,s](t),MinPostSubsidyPowerPrice(t))`
 
-**E310. `fce`: Memo: post-tax fuel cost per kWh generated** ($/kWh)
+**E310. `fce`: Memo: post-tax fuel cost per kWh generated** (USD/kWh)
 
 - Description: fpp x kwh (v5.6)
 - Legacy: legacy F2-F3 rows 3532-3552
@@ -2260,13 +2268,13 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
   - 2022-2041: `cik(t) = <EF (tCO2/GJ; x kwh) of xac[f,s]>*kwh[f,s](t)`
 
-**E312. `swi`: Memo: switching carbon price, gas over coal, new investment** ($/tCO2)
+**E312. `swi`: Memo: switching carbon price, gas over coal, new investment** (USD/tCO2)
 
 - Description: (tic gas - tic coal) / (cik coal - cik gas) (v5.6)
 - Legacy: legacy F7 row 3571 (F5 = tic)
   - 2022-2041: `swi(t) = IFERROR((tic[nga,pow](t)-tic[coa,pow](t))/(cik[coa,pow](t)-cik[nga,pow](t)),0)`
 
-**E313. `swd`: Memo: switching carbon price, gas over coal, dispatch** ($/tCO2)
+**E313. `swd`: Memo: switching carbon price, gas over coal, dispatch** (USD/tCO2)
 
 - Description: (tvc gas - tvc coal) / (cik coal - cik gas) (v5.6)
 - Legacy: legacy F7 row 3572 (F6 = tvc)
@@ -2283,7 +2291,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `cons(t) = (<weight on total>*demtot(t)+<weight on residential>*dem[f,res](t))*<GWh per ktoe>`
   - Parameters: `<weight on total>` = `INDEX(Inputs!D198:D199,MATCH(s,Inputs!A198:A199,0))`; `<weight on residential>` = `INDEX(Inputs!E198:E199,MATCH(s,Inputs!A198:A199,0))`; `<GWh per ktoe>` = `INDEX(PParVal,MATCH(CtryCode&"|ktoe_gwh",PParKey,0))`
 
-**E315. `sc`: Supply cost of electricity (average generation cost of the previous year + transmission and distribution)** ($/kWh)
+**E315. `sc`: Supply cost of electricity (average generation cost of the previous year + transmission and distribution)** (USD/kWh)
 
 - Description: gncav(t-1) + T&D add-on; base year gncav(t) + T&D
 - Legacy: legacy rows 3600, 3629
@@ -2293,7 +2301,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2023-2041: `sc(t) = gncav(t-1)+<T&D add-on>`
   - Parameters: `<T&D add-on>` = `INDEX(Inputs!F198:F199,MATCH(s,Inputs!A198:A199,0))`
 
-**E316. `rppre`: Electricity price before new policies (incl. VAT)** ($/kWh real)
+**E316. `rppre`: Electricity price before new policies (incl. VAT)** (USD/kWh real)
 
 - Description: Data up to the last historical year (x CPI index), then rppre(t-1) + pass-through x (sc - sc(t-1)) x (1 + VAT)
 - Legacy: legacy rows 3613, 3642 (telescoped: held components cancel; pass-through of the scenario)
@@ -2303,7 +2311,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2023-2041: `rppre(t) = rppre[f,s](t-1)+PowerSectorPriceChangePassOn(t)*(sc[f,s](t)-sc[f,s](t-1))*(1+<VAT rate>)`
   - Parameters: `<user-group position>` = `INDEX(Inputs!C198:C199,MATCH(s,Inputs!A198:A199,0))`; `<VAT rate>` = `INDEX(Inputs!H198:H199,MATCH(s,Inputs!A198:A199,0))`
 
-**E317. `entxd`: New electricity excise typed on 'Manual inputs' (rows 161-162)** ($/kWh)
+**E317. `entxd`: New electricity excise typed on 'Manual inputs' (rows 161-162)** (USD/kWh)
 
 - Description: Manual inputs J:AF of the year (blank = 0)
 - Legacy: legacy rows 195-196
@@ -2311,14 +2319,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `entxd(t) = IFERROR(INDEX(ManExcVal,MATCH(<Manual inputs code>,ManExcKey,0),MATCH(year,ManExcYr,0))+0,0)`
   - Parameters: `<Manual inputs code>` = `"mit.ntx.ecy."&s`
 
-**E318. `entx`: Manual electricity excise of policy scenarios with AdditionalExcise = Yes, plus the electricity fuel price reform (v5.6, I59)** ($/kWh real)
+**E318. `entx`: Manual electricity excise of policy scenarios with AdditionalExcise = Yes, plus the electricity fuel price reform (v5.6, I59)** (USD/kWh real)
 
 - Description: entxd x (1, or the deflator index if NomorReal is not Real)
 - Legacy: legacy rows 199-217, 3602, 3631
 - Rows: ecy,res, ecy,ind
   - 2022-2041: `entx(t) = IF(scenario(t)>1,IF(LEFT(AdditionalExcise(t),3)="Yes",entxd[f,s](t)*IF(LEFT(NomorReal(t),4)="Real",1,defl(t)),0)+fpr[f,s](t),0)`
 
-**E319. `pex`: Excise in the electricity price before VAT** ($/kWh real)
+**E319. `pex`: Excise in the electricity price before VAT** (USD/kWh real)
 
 - Description: exs + after the last historical year: pass-through x (entx - entx of the last historical year)
 - Legacy: legacy rows 3602-3616, 3631-3645 (the manual excise enters the price before policy, passed through like the supply cost)
@@ -2326,7 +2334,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022: `pex(t) = exs(t)`
   - 2023-2041: `pex(t) = exs(t)+IF(year>LastHist,PowerSectorPriceChangePassOn(t)*(entx[f,s](t)-INDEX(entx[f,s](..t-1),lastHistCol(t))),0)`
 
-**E320. `rp`: End-user electricity price** ($/kWh real)
+**E320. `rp`: End-user electricity price** (USD/kWh real)
 
 - Description: MAX(rppre + (ccpav x pass-through x (1 - rbs) + pex) x (1 + VAT), MinPostSubsidyPowerPrice) (v5.6: floor, I60)
 - Legacy: legacy rows 3614-3617, 3643-3646 (v5.4: rebate and excise)
@@ -2334,8 +2342,10 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: ecy,res, ecy,ind
   - 2022-2041: `rp(t) = MAX(rppre[f,s](t)+(ccpav(t)*PowerSectorPriceChangePassOn(t)*(1-rbs(t))+pex[f,s](t))*(1+<VAT rate>),MinPostSubsidyPowerPrice(t))`
   - Parameters: `<VAT rate>` = `INDEX(Inputs!H198:H199,MATCH(s,Inputs!A198:A199,0))`
+- Rows: ecy,res, ecy,ind
+  - 2022-2041: `rp(t) = rp[f,s](t)`
 
-**E321. `sgap`: Subsidy gap: price before VAT minus supply cost (negative = price below cost, a subsidy)** ($/kWh)
+**E321. `sgap`: Subsidy gap: price before VAT minus supply cost (negative = price below cost, a subsidy)** (USD/kWh)
 
 - Description: rppre / (1 + VAT rate) - sc
 - Legacy: new (legacy producer-subsidy and over/under-estimate rows)
@@ -2402,7 +2412,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `rgap(t) = sgap[f,s](t)*<factor (Constants)>*cons[f,s](t)`
   - Parameters: `<factor (Constants)>` = `INDEX(ConstVal,MATCH("pw.c|"&code,ConstKey,0))`
 
-**E330. `pdem`: Electricity price of the previous year used by demand (by demand group)** ($/kWh real)
+**E330. `pdem`: Electricity price of the previous year used by demand (by demand group)** (USD/kWh real)
 
 - Description: weight x residential price(t-1) + (1 - weight) x industrial price(t-1); base year: 2021 prices
 - Legacy: legacy rows 3687-3689 (deliberately lagged)
@@ -2479,7 +2489,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Legacy: legacy row 3779
   - 2022-2041: `reqcg(t) = MAX(req(t)-SUMPRODUCT(effcap[9 rows](t),1-PwCG),0)`
 
-**E338. `vcmin`: Lowest variable cost of coal and gas** ($/kWh)
+**E338. `vcmin`: Lowest variable cost of coal and gas** (USD/kWh)
 
 - Description: MAX(MIN over coal and gas of tvc, MinPostSubsidyPowerPrice)
 - Legacy: legacy rows 3790-3793
@@ -2595,14 +2605,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `vre(t) = SUMPRODUCT(shr[9 rows](t),shr[9 rows](D))*<factor (Constants)>`
   - Parameters: `<factor (Constants)>` = `INDEX(ConstVal,MATCH("pw.c|"&code,ConstKey,0))`
 
-**E352. `cph`: Short-term storage cost per marginal hour of storage** ($/kWh)
+**E352. `cph`: Short-term storage cost per marginal hour of storage** (USD/kWh)
 
 - Description: (battery capex + interface capex / kWh per kW)/(dlf of renewables x 8,760) + battery opex / 8,760
 - Legacy: legacy row 3905 (J2; ratio of the scenario, dlfr)
 - Changes against legacy: L4 (section B)
   - 2022-2041: `cph(t) = (cbat(t)+cint(t)/StorageToInterfaceRatioSTStorage(t))/(dlfr(t)*HoursYr)+obat(t)/HoursYr`
 
-**E353. `msc`: Marginal storage cost of variable renewables (wind, solar, other renewables)** ($/kWh)
+**E353. `msc`: Marginal storage cost of variable renewables (wind, solar, other renewables)** (USD/kWh)
 
 - Description: alloc x 2 x hours x vre x cph + 2 x MAX(0, vre - start)/(1 - start)^2 x cel x LT allocation x LT units for 100% VRE (settings of the scenario)
 - Legacy: legacy rows 3908-3912 (J1; fixed: LT allocation once; v5.4: LongTermStorageFor100pcVRE, row 3909)
@@ -2662,7 +2672,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022: `egrow(t) = MAX(0,maxinv[wnd,pow](t)+maxinv[sol,pow](t))`
   - 2023-2041: `egrow(t) = MAX(0,maxinv[wnd,pow](t)+maxinv[sol,pow](t)-dgen(t-1)-(SUM(rec[9 rows](t-1))-rec[coa,pow](t-1)))`
 
-**E361. `ecmin`: Early coal retirement: lowest of coal variable cost and wind and solar investment cost** ($/kWh)
+**E361. `ecmin`: Early coal retirement: lowest of coal variable cost and wind and solar investment cost** (USD/kWh)
 
 - Description: MIN(tvc coal, tic wind, tic solar)
 - Legacy: legacy row 3982
@@ -2716,7 +2726,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Legacy: legacy row 4108 (never used in legacy: logit investment came on top of the manual one, bug L118)
   - 2022-2041: `needm(t) = MAX(need(t)-SUM(mani[9 rows](t)),0)`
 
-**E369. `cmin`: Lowest levelised investment cost of the permitted types** ($/kWh)
+**E369. `cmin`: Lowest levelised investment cost of the permitted types** (USD/kWh)
 
 - Description: MAX(MIN over permitted, MinPostSubsidyPowerPrice)
 - Legacy: legacy row 4046 (fixed: permitted types only)
@@ -2916,7 +2926,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: ecy,tra, ecy,bld, ecy,ind, ecy,oen
   - 2022-2041: `eldem(t) = SUMIF(block@ener{ener, eldem, ctxnew, ets, ... 24 variables}(A),"eldem",block@ener{ener, eldem, ctxnew, ets, ... 24 variables}(t))`
 
-**E394. `ctxnew`: New carbon tax** ($/GJ)
+**E394. `ctxnew`: New carbon tax** (USD/GJ)
 
 - Description: Carbon tax rate of the sector (ctr, section 1) x EF x fuel coverage x exemption factor (exf, v5.1)
 - Legacy: legacy Mitigation row 2510: egy.mit.ctxnew.ind.coa.a.1
@@ -2925,7 +2935,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `ctxnew(t) = INDEX(ctr[17 rows](t),<sector position>)*<EF>*INDEX(ctcov[9 rows](t),<fuel position>)*INDEX(exf[2 rows](t),<exemption group>)`
   - Parameters: `<EF>` = `INDEX(Inputs!W5:W148,MATCH(f&"|"&s,Inputs!A5:A148,0))`; `<fuel position>` = `INDEX(Inputs!L5:L148,MATCH(f&"|"&s,Inputs!A5:A148,0))`; `<sector position>` = `INDEX(Inputs!M5:M148,MATCH(f&"|"&s,Inputs!A5:A148,0))`; `<exemption group>` = `INDEX(Inputs!BJ5:BJ148,MATCH(f&"|"&s,Inputs!A5:A148,0))`
 
-**E395. `ets`: New ETS cost in the fuel price (tax-equivalent, auctioned part)** ($/GJ)
+**E395. `ets`: New ETS cost in the fuel price (tax-equivalent, auctioned part)** (USD/GJ)
 
 - Description: ETS cost rate of the sector (etr, section 1) x EF x exemption factor (exf, v5.1)
 - Legacy: legacy ets inside txo; coded prices/ets.py
@@ -2934,7 +2944,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `ets(t) = INDEX(etr[17 rows](t),<sector position>)*<EF>*INDEX(exf[2 rows](t),<exemption group>)`
   - Parameters: `<EF>` = `INDEX(Inputs!W5:W148,MATCH(f&"|"&s,Inputs!A5:A148,0))`; `<sector position>` = `INDEX(Inputs!M5:M148,MATCH(f&"|"&s,Inputs!A5:A148,0))`; `<exemption group>` = `INDEX(Inputs!BJ5:BJ148,MATCH(f&"|"&s,Inputs!A5:A148,0))`
 
-**E396. `ntx`: New excise tax (fuel price reform)** ($/GJ)
+**E396. `ntx`: New excise tax (fuel price reform)** (USD/GJ)
 
 - Description: Fuel price reform path / GJ per unit x exemption factor (exf, v5.1)
 - Legacy: legacy Mitigation row 2512: egy.mit.ntx.ind.coa.a.1
@@ -2942,14 +2952,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `ntx(t) = INDEX(fpr[14 rows](t),<price-fuel position>)/<GJ per unit>*INDEX(exf[2 rows](t),<exemption group>)`
   - Parameters: `<price-fuel position>` = `INDEX(Inputs!N5:N148,MATCH(f&"|"&s,Inputs!A5:A148,0))`; `<GJ per unit>` = `INDEX(Inputs!K5:K148,MATCH(f&"|"&s,Inputs!A5:A148,0))`; `<exemption group>` = `INDEX(Inputs!BJ5:BJ148,MATCH(f&"|"&s,Inputs!A5:A148,0))`
 
-**E397. `nce`: Total new policy** ($/GJ)
+**E397. `nce`: Total new policy** (USD/GJ)
 
 - Description: New carbon tax + new excise tax
 - Legacy: legacy Mitigation row 2514: egy.mit.nce.ind.coa.a.1
 - Rows: coa,rod, nga,rod, gso,rod, die,rod, lpg,rod, ker,rod, jfu,rod, oop,rod, bio,rod, coa,ral, nga,ral, gso,ral, ... (144 rows)
   - 2022-2041: `nce(t) = ctxnew[f,s](t)+ets[f,s](t)+ntx[f,s](t)`
 
-**E398. `xcp`: Existing carbon pricing (carbon tax + ETS) per GJ** ($/GJ)
+**E398. `xcp`: Existing carbon pricing (carbon tax + ETS) per GJ** (USD/GJ)
 
 - Description: EF x (carbon tax x factor + ETS x factor) of the ECP sector | fuel (Inputs_ecp tables: rate x sector x fuel coverage of the data year; national and EU ETS; v4.12)
 - Legacy: legacy rows 1711-1723 (ets), 1752-1764 (ctx)
@@ -2958,7 +2968,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `xcp(t) = <EF>*(INDEX(XCTVal,<ECP table row>,xct.c(t))*xct.p(t)+INDEX(XETSVal,<ECP table row>,xct.c(t))*xets.p(t))`
   - Parameters: `<EF>` = `INDEX(Inputs!W5:W148,MATCH(f&"|"&s,Inputs!A5:A148,0))`; `<ECP table row>` = `INDEX(Inputs!Z5:Z148,MATCH(f&"|"&s,Inputs!A5:A148,0))`
 
-**E399. `xcpd`: Change in existing carbon pricing against the price data (enters the after-tax price)** ($/GJ)
+**E399. `xcpd`: Change in existing carbon pricing against the price data (enters the after-tax price)** (USD/GJ)
 
 - Description: EF x (carbon tax x factor + ETS x factor - the level embedded in the price data)
 - Legacy: new (legacy: ctx and ets are parts of txo)
@@ -2967,7 +2977,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `xcpd(t) = <EF>*(INDEX(XCTVal,<ECP table row>,xct.c(t))*xct.p(t)+INDEX(XETSVal,<ECP table row>,xct.c(t))*xets.p(t)-<embedded ($/tCO2)>)`
   - Parameters: `<EF>` = `INDEX(Inputs!W5:W148,MATCH(f&"|"&s,Inputs!A5:A148,0))`; `<ECP table row>` = `INDEX(Inputs!Z5:Z148,MATCH(f&"|"&s,Inputs!A5:A148,0))`; `<embedded ($/tCO2)>` = `INDEX(Inputs!AA5:AA148,MATCH(f&"|"&s,Inputs!A5:A148,0))`
 
-**E400. `csw`: Consumer subsidy reform wedge of the subsector (the block's pcsw)** ($/GJ real)
+**E400. `csw`: Consumer subsidy reform wedge of the subsector (the block's pcsw)** (USD/GJ real)
 
 - Description: BLOCKWEDGE
 - Legacy: v4.16 (LD18)
@@ -2975,7 +2985,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `csw(t) = pcsw[<price position>](t)`
   - Parameters: `<price position>` = `INDEX(Inputs!U5:U148,MATCH(f&"|"&s,Inputs!A5:A148,0))`
 
-**E401. `pcw`: Price-control phase-out wedge of the subsector (the block's ppcw)** ($/GJ real)
+**E401. `pcw`: Price-control phase-out wedge of the subsector (the block's ppcw)** (USD/GJ real)
 
 - Description: BLOCKWEDGE
 - Legacy: v4.16 (LD18)
@@ -2983,7 +2993,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `pcw(t) = ppcw[<price position>](t)`
   - Parameters: `<price position>` = `INDEX(Inputs!U5:U148,MATCH(f&"|"&s,Inputs!A5:A148,0))`
 
-**E402. `psw`: Producer subsidy reform wedge of the subsector (the block's ppsw; v6.2)** ($/GJ real)
+**E402. `psw`: Producer subsidy reform wedge of the subsector (the block's ppsw; v6.2)** (USD/GJ real)
 
 - Description: BLOCKWEDGE
 - Legacy: v6.2 (user 2026-10-20: reforms separate from the before-tax build-up)
@@ -2991,15 +3001,17 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `psw(t) = ppsw[<price position>](t)`
   - Parameters: `<price position>` = `INDEX(Inputs!U5:U148,MATCH(f&"|"&s,Inputs!A5:A148,0))`
 
-**E403. `atp`: After-tax price** ($/GJ real)
+**E403. `atp`: After-tax price** (USD/GJ real)
 
 - Description: max(rpb of the price fuel + nce x (1 + VAT rate), 0.01)
 - Legacy: legacy Mitigation row 5416: egy.mit.atp.rod.gso.e.1 (legacy unit $/liter for liquids)
 - Rows: coa,rod, nga,rod, gso,rod, die,rod, lpg,rod, ker,rod, jfu,rod, oop,rod, bio,rod, coa,ral, nga,ral, gso,ral, ... (144 rows)
   - 2022-2041: `atp(t) = MAX(pbc[<price position>](t)+(nce[f,s](t)+xcpd[f,s](t)+csw[f,s](t)+pcw[f,s](t)+psw[f,s](t))*(1+<VAT rate>),PriceFloor)`
   - Parameters: `<price position>` = `INDEX(Inputs!U5:U148,MATCH(f&"|"&s,Inputs!A5:A148,0))`; `<VAT rate>` = `INDEX(Inputs!V5:V148,MATCH(f&"|"&s,Inputs!A5:A148,0))`
+- Rows: coa,res, nga,res, oop,res, gso,res, die,res, ker,res, lpg,res
+  - 2022-2041: `atp(t) = atp[f,s](t)`
 
-**E404. `shp`: Shadow price on the efficiency margin** ($/GJ)
+**E404. `shp`: Shadow price on the efficiency margin** (USD/GJ)
 
 - Description: Shadow price of the sector (shpx, section 1) x EF
 - Legacy: legacy Mitigation row 2377: egy.mit.shp.coa.pow.1
@@ -3080,6 +3092,8 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `rnew(t) = SUMIFS(block@ener{ener, eldem, ctxnew, ets, ... 24 variables}(t),block@ener{ener, eldem, ctxnew, ets, ... 24 variables}(A),"rnew")`
 - Rows: all,pow
   - 2022-2041: `rnew(t) = SUM(prnew[9 rows](t))+SUM(rnvat[2 rows](t))+SUM(rreb[2 rows](t))+SUM(rpex[2 rows](t))`
+- Rows: all,all
+  - 2022-2041: `rnew(t) = rnew[f,s](t)`
 
 **E411. `rxcp`: Revenue from existing carbon pricing (memo: level; the part embedded in the price data is in rtx)** (USD m real)
 
@@ -4033,7 +4047,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - No values in the year columns: an input row left blank (or a row of parameters only, columns D:G)
   - Parameters: `<diesel>` = `<ktoe of trp.bsh[die,s]>`; `<LPG>` = `<ktoe of trp.bsh[lpg,s]>`; `<natural gas>` = `<ktoe of trp.bsh[nga,s]>`; `<electricity>` = `INDEX(trevo[ev,pas](2022..2041),<bus electricity year of trp.yrs[f,all]>-BaseYr+1)*SUM(trp.bus[f,s][D:F])`
 
-**E529. `trprl`: Road fuel price incl. new policies (after-tax price x GJ per liter)** ($/liter)
+**E529. `trprl`: Road fuel price incl. new policies (after-tax price x GJ per liter)** (USD/liter)
 
 - Description: Section 5 road atp
 - Legacy: legacy rows 2589, 2612, 2635 (L4367-L4369)
@@ -4041,21 +4055,21 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `trprl(t) = atp[f,s](t)*<GJ per liter (Inputs)>`
   - Parameters: `<GJ per liter (Inputs)>` = `INDEX(Inputs!K5:K148,MATCH(f&"|"&s,Inputs!A5:A148,0))`
 
-**E530. `trprg`: Road natural gas price incl. new policies per liter equivalent (residential gas, / gas liters per GJ)** ($/liter eq.)
+**E530. `trprg`: Road natural gas price incl. new policies per liter equivalent (residential gas, / gas liters per GJ)** (USD/liter eq.)
 
 - Description: Calculation
 - Legacy: legacy L4370 = L2543/26
 - Rows: nga,rod
   - 2022-2041: `trprg(t) = atp[f,s](t)/<gas liters per GJ of trp.ice[all,all]>`
 
-**E531. `trpphv`: PHEV fuel price: gasoline share x gasoline price + rest x EV electricity price x kWh per liter** ($/liter eq.)
+**E531. `trpphv`: PHEV fuel price: gasoline share x gasoline price + rest x EV electricity price x kWh per liter** (USD/liter eq.)
 
 - Description: Calculation
 - Legacy: legacy row 4371
 - Rows: phv,pas
   - 2022-2041: `trpphv(t) = trphg[f,s](t)*trprl[gso,rod](t)+(1-trphg[f,s](t))*(trpev[ecy,res](t)*<PHEV kWh per liter of trp.ice[all,all]>)`
 
-**E532. `trpri`: Industrial natural gas price incl. the road new policies (freight LNG)** ($/GJ)
+**E532. `trpri`: Industrial natural gas price incl. the road new policies (freight LNG)** (USD/GJ)
 
 - Description: Section 2 rpb + section 5 road nce, xcpd
 - Legacy: legacy L2566
@@ -4063,7 +4077,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `trpri(t) = MAX(pbc[<price position (nga.ind)>](t)+(nce[f,rod](t)+xcpd[f,rod](t))*(1+<VAT rate (nga.ind)>),PriceFloor)`
   - Parameters: `<price position (nga.ind)>` = `INDEX(Inputs!E158:E169,MATCH("nga.ind",Inputs!A158:A169,0))`; `<VAT rate (nga.ind)>` = `INDEX(Inputs!S158:S169,MATCH("nga.ind",Inputs!A158:A169,0))`
 
-**E533. `trprn`: Freight fuel price net of VAT** ($/liter)
+**E533. `trprn`: Freight fuel price net of VAT** (USD/liter)
 
 - Description: Calculation
 - Legacy: legacy L2612-L2618, L2635-L2641
@@ -4071,7 +4085,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `trprn(t) = trprl[f,s](t)/(1+<VAT rate (Inputs)>)`
   - Parameters: `<VAT rate (Inputs)>` = `INDEX(Inputs!V5:V148,MATCH(f&"|"&s,Inputs!A5:A148,0))`
 
-**E534. `trprm`: Freight LNG price net of VAT per liter equivalent** ($/liter eq.)
+**E534. `trprm`: Freight LNG price net of VAT per liter equivalent** (USD/liter eq.)
 
 - Description: Calculation
 - Legacy: legacy L4412 = (L2566-L2572)/26
@@ -4142,7 +4156,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: bev,pas
   - 2022-2041: `trfebm(t) = IF(tr.dk[all,all](t)=1,trfe[f,s](t)*trsps[all,s](t)+trfeb[f,lgt](t)*(1-trsps[all,s](t)),"")`
 
-**E544. `trpkg`: Gasoline cost per km before new policies (data years)** ($/km)
+**E544. `trpkg`: Gasoline cost per km before new policies (data years)** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 2054
@@ -4150,7 +4164,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `trpkg(t) = IF(tr.dk[all,all](t)=1,pbc[<price position (gso.all)>](t)*<GJ per liter>/trfem[f,s](t),"")`
   - Parameters: `<price position (gso.all)>` = `INDEX(Inputs!E158:E169,MATCH("gso.all",Inputs!A158:A169,0))`; `<GJ per liter>` = `<Gasoline of trp.gj[all,all]>`
 
-**E545. `trpke`: Electricity cost per km of BEVs, previous year's residential price before new policies (data years)** ($/km)
+**E545. `trpke`: Electricity cost per km of BEVs, previous year's residential price before new policies (data years)** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 2055
@@ -4322,7 +4336,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: bev,fre
   - 2022-2041: `trownfe(t) = IF(tr.dk[all,all](t)=1,trown[all,s](t)-trownf[ice,s](t),"")`
 
-**E567. `trpkd`: Diesel cost per km of freight before new policies, net of VAT (data years)** ($/km)
+**E567. `trpkd`: Diesel cost per km of freight before new policies, net of VAT (data years)** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 2112
@@ -4330,7 +4344,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `trpkd(t) = IF(tr.dk[all,all](t)=1,pbc[<price position (die.all)>](t)*<GJ per liter>/(1+<VAT rate (die.all)>)/trfe[f,s](t),"")`
   - Parameters: `<price position (die.all)>` = `INDEX(Inputs!E158:E169,MATCH("die.all",Inputs!A158:A169,0))`; `<GJ per liter>` = `<Diesel of trp.gj[all,all]>`; `<VAT rate (die.all)>` = `INDEX(Inputs!S158:S169,MATCH("die.all",Inputs!A158:A169,0))`
 
-**E568. `trpkef`: Electricity cost per km of BEV freight, industrial price before new policies (data years)** ($/km)
+**E568. `trpkef`: Electricity cost per km of BEV freight, industrial price before new policies (data years)** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 2113
@@ -4374,7 +4388,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: bev,cyc
   - 2022-2041: `trownce(t) = IF(tr.dk[all,all](t)=1,trown[all,s](t)-trownc[ice,s](t),"")`
 
-**E574. `trpkc`: Gasoline cost per km of 2-3 wheelers before new policies (data years)** ($/km)
+**E574. `trpkc`: Gasoline cost per km of 2-3 wheelers before new policies (data years)** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 2134
@@ -4382,7 +4396,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `trpkc(t) = IF(tr.dk[all,all](t)=1,pbc[<price position (gso.all)>](t)*<GJ per liter>/trfe[f,s](t),"")`
   - Parameters: `<price position (gso.all)>` = `INDEX(Inputs!E158:E169,MATCH("gso.all",Inputs!A158:A169,0))`; `<GJ per liter>` = `<Gasoline of trp.gj[all,all]>`
 
-**E575. `trpkec`: Electricity cost per km of BEV 2-3 wheelers, industrial price before new policies (data years)** ($/km)
+**E575. `trpkec`: Electricity cost per km of BEV 2-3 wheelers, industrial price before new policies (data years)** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 2135
@@ -4746,14 +4760,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,all
   - 2022-2041: `trsta(t) = IF(tr.dk[f,s](t)=1,trchs[f,s](t),trsta[f,s](t-1)*(trbevm[bev,s](t)/trbevm[bev,s](t-1))^<stations to the BEV stock of trp.chs[f,s]>*(trcsc[f,s](t)/trcsc[f,s](t-1))^<stations to their cost of trp.chs[f,s]>)`
 
-**E625. `trmku`: Charging mark-up on the electricity price** ($/kWh)
+**E625. `trmku`: Charging mark-up on the electricity price** (USD/kWh)
 
 - Description: Calculation
 - Legacy: legacy row 4350
 - Rows: all,all
   - 2022-2041: `trmku(t) = MAX(<minimum USD/kWh of trp.mku[f,s]>,<maximum USD/kWh of trp.mku[f,s]>*(<EV share of the minimum of trp.mku[f,s]>-trevst[ev,pas](t))/(1-<EV share of the minimum of trp.mku[f,s]>))*<share of public charging of trp.mku[f,s]>`
 
-**E626. `trpev`: EV electricity price: end-user price of the previous year (section 3) + charging mark-up** ($/kWh)
+**E626. `trpev`: EV electricity price: end-user price of the previous year (section 3) + charging mark-up** (USD/kWh)
 
 - Description: Calculation
 - Legacy: legacy rows 4351, 4352
@@ -4785,7 +4799,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: phv,pas
   - 2022-2041: `trphg(t) = IF(tr.dk[all,all](t)=1,trphs[f,s](t),trphg[f,s](t-1))`
 
-**E630. `trpav`: Average fuel price of passenger and light ICEVs** ($/liter)
+**E630. `trpav`: Average fuel price of passenger and light ICEVs** (USD/liter)
 
 - Description: Calculation
 - Legacy: legacy row 4372
@@ -4813,7 +4827,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,cyc
   - 2022-2041: `trfbtc(t) = (IF(year>=TrFbYearCyc[f,all](t),TrFbRateCyc[f,all](t),0)+reg[f,rod](t)*1)*tr.pol[f,all](t)`
 
-**E634. `trfbl`: Vehicle feebate per liter (rate x EF)** ($/liter)
+**E634. `trfbl`: Vehicle feebate per liter (rate x EF)** (USD/liter)
 
 - Description: Calculation
 - Legacy: legacy rows 4375-4379
@@ -4935,14 +4949,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: lpg,fre, nga,fre
   - 2022-2041: `trfewf(t) = IF(tr.dk[all,all](t)=1,trvsf[f,s](t),tricwf[f,s](t-1))`
 
-**E649. `trpavf`: Average fuel price of ICE freight vehicles (net of VAT)** ($/liter)
+**E649. `trpavf`: Average fuel price of ICE freight vehicles (net of VAT)** (USD/liter)
 
 - Description: Calculation
 - Legacy: legacy row 4416
 - Rows: all,fre
   - 2022-2041: `trpavf(t) = SUMPRODUCT(block@trprn{trprn, trprm}(t),trfewf[3 rows](t))/SUM(trfewf[3 rows](t))`
 
-**E650. `trfblf`: Vehicle feebate per liter, freight** ($/liter)
+**E650. `trfblf`: Vehicle feebate per liter, freight** (USD/liter)
 
 - Description: Calculation
 - Legacy: legacy rows 4419-4421
@@ -5006,7 +5020,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022: `trintsf(t) = ""`
   - 2023-2041: `trintsf(t) = triclf[ice,s](t)*trintaf[f,s](t-1)`
 
-**E658. `trfblc`: Vehicle feebate per liter, 2-3 wheelers** ($/liter)
+**E658. `trfblc`: Vehicle feebate per liter, 2-3 wheelers** (USD/liter)
 
 - Description: Calculation
 - Legacy: legacy row 4441
@@ -5074,7 +5088,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,cyc
   - 2022-2041: `trdtxc(t) = IF(year=TrDtYearCyc[f,all](t),TrDtStartCyc[f,all](t),MIN(TrDtTargetCyc[f,all](t),N(trdtxc[f,s](t-1))+(TrDtTargetCyc[f,all](t)-TrDtStartCyc[f,all](t))/(TrDtTargetYearCyc[f,all](t)-TrDtYearCyc[f,all](t))))*(year>=TrDtYearCyc[f,all](t))*tr.pol[f,all](t)`
 
-**E667. `trckm`: Cost per km of new ICEVs (fuel price / new fuel economy + distance tax)** ($/km)
+**E667. `trckm`: Cost per km of new ICEVs (fuel price / new fuel economy + distance tax)** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy rows 4452-4456
@@ -5107,7 +5121,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,pas
   - 2022-2041: `trvkna(t) = SUMPRODUCT(trvkn[5 rows](t),trfew[5 rows](t))/SUM(trfew[5 rows](t))`
 
-**E671. `trckbp`: Cost per km of new BEVs, pas (EV electricity price / fuel economy + distance tax)** ($/km)
+**E671. `trckbp`: Cost per km of new BEVs, pas (EV electricity price / fuel economy + distance tax)** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 4472
@@ -5128,14 +5142,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022: `trckbr(t) = ""`
   - 2023-2041: `trckbr(t) = trckbc[f,s](t)/trckbc[f,s](t-1)`
 
-**E673. `trckbf`: Cost per km of new BEVs, fre (EV electricity price / fuel economy + distance tax)** ($/km)
+**E673. `trckbf`: Cost per km of new BEVs, fre (EV electricity price / fuel economy + distance tax)** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 4492
 - Rows: bev,fre
   - 2022-2041: `trckbf(t) = trpev[ecy,ind](t)/trfen[f,s](t)+trdtxf[all,s](t)`
 
-**E674. `trckbc`: Cost per km of new BEVs, cyc (EV electricity price / fuel economy + distance tax)** ($/km)
+**E674. `trckbc`: Cost per km of new BEVs, cyc (EV electricity price / fuel economy + distance tax)** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 4503
@@ -5163,7 +5177,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: bev,pau
   - 2022-2041: `trvkub(t) = trvknb[f,pas](t)*(trfen[f,pas](t)/trfeub[f,s](t))^<usage, gasoline of trp.ela[all,all]>`
 
-**E678. `trckf`: Cost per km of new ICE freight vehicles (net of VAT)** ($/km)
+**E678. `trckf`: Cost per km of new ICE freight vehicles (net of VAT)** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy rows 4480-4482
@@ -5201,7 +5215,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: bev,fre
   - 2022-2041: `trvknbf(t) = IF(tr.dk[all,all](t)=1,trvkbf[f,s](t),MAX(<minimum freight km of trp.vkt[all,all]>,MIN(<maximum freight km of trp.vkt[all,all]>,trvknbf[f,s](t-1)*IF(<prices act (1 = yes) of trp.vkt[all,all]>,trckbr[f,s](t),1)^<usage, diesel of trp.ela[all,all]>*(1+trgdl[all,all](t))^<freight of trp.inc[all,all]>)))`
 
-**E683. `trckc`: Cost per km of new ICE 2-3 wheelers** ($/km)
+**E683. `trckc`: Cost per km of new ICE 2-3 wheelers** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 4498
@@ -5470,7 +5484,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: ice,pas
   - 2022-2041: `trtopin(t) = SUM(block@trdppin{trdppin, tranpin, trsvpin, trimpin, ... 5 variables}(t))`
 
-**E721. `trpkpin`: TCO per km, new ICEV passenger** ($/km)
+**E721. `trpkpin`: TCO per km, new ICEV passenger** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 4549
@@ -5547,7 +5561,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: bev,pas
   - 2022-2041: `trtopbn(t) = SUM(block@trdppbn{trdppbn, tranpbn, trsvpbn, trimpbn, ... 5 variables}(t))+trra[f,s](t)`
 
-**E732. `trpkpbn`: TCO per km, new BEV passenger** ($/km)
+**E732. `trpkpbn`: TCO per km, new BEV passenger** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 4582
@@ -5626,7 +5640,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: ice,pau
   - 2022-2041: `trtopiu(t) = SUM(block@tranpiu{tranpiu, trimpiu, trfupiu}(t))`
 
-**E743. `trpkpiu`: TCO per km, used ICEV passenger** ($/km)
+**E743. `trpkpiu`: TCO per km, used ICEV passenger** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 4608
@@ -5675,7 +5689,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: bev,pau
   - 2022-2041: `trtopbu(t) = SUM(block@tranpbu{tranpbu, trimpbu, trfupbu}(t))+trrau[f,s](t)`
 
-**E750. `trpkpbu`: TCO per km, used BEV passenger** ($/km)
+**E750. `trpkpbu`: TCO per km, used BEV passenger** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 4624
@@ -5761,7 +5775,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: ice,fre
   - 2022-2041: `trtofin(t) = SUM(block@trdpfin{trdpfin, tranfin, trimfin, trfufin}(t))`
 
-**E762. `trpkfin`: TCO per km, new ICE freight** ($/km)
+**E762. `trpkfin`: TCO per km, new ICE freight** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 4656
@@ -5817,7 +5831,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: bev,fre
   - 2022-2041: `trtofbn(t) = SUM(block@trdpfbn{trdpfbn, tranfbn, trimfbn, trfufbn}(t))+trra[f,s](t)`
 
-**E770. `trpkfbn`: TCO per km, new BEV freight** ($/km)
+**E770. `trpkfbn`: TCO per km, new BEV freight** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 4681
@@ -5903,7 +5917,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: ice,cyc
   - 2022-2041: `trtocin(t) = SUM(block@trdpcin{trdpcin, trancin, trimcin, trfucin}(t))`
 
-**E782. `trpkcin`: TCO per km, new ICE 2-3 wheeler** ($/km)
+**E782. `trpkcin`: TCO per km, new ICE 2-3 wheeler** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 4714
@@ -5952,7 +5966,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: bev,cyc
   - 2022-2041: `trtocbn(t) = SUM(block@trdpcbn{trdpcbn, trancbn, trimcbn, trfucbn}(t))+trra[f,s](t)`
 
-**E789. `trpkcbn`: TCO per km, new BEV 2-3 wheeler** ($/km)
+**E789. `trpkcbn`: TCO per km, new BEV 2-3 wheeler** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 4736
@@ -6057,7 +6071,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,pau
   - 2022-2041: `trbytu(t) = trbyt[f,pas](t)-trbytn[f,pas](t)`
 
-**E804. `trtcav`: Average TCO per km, new passenger (weighted by last year's ICE share)** ($/km)
+**E804. `trtcav`: Average TCO per km, new passenger (weighted by last year's ICE share)** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 4799
@@ -6099,7 +6113,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: bev,pas
   - 2022-2041: `trshnb(t) = 1-trshn[ice,s](t)`
 
-**E810. `trtcau`: Average TCO per km, used passenger (weighted by last year's ICE share)** ($/km)
+**E810. `trtcau`: Average TCO per km, used passenger (weighted by last year's ICE share)** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 4813
@@ -6298,7 +6312,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,fre
   - 2022-2041: `trbytf(t) = trdmcf[f,s](t)-traftsf[f,s](t)`
 
-**E837. `trtcaf`: Average TCO per km, freight (weighted by last year's ICE share)** ($/km)
+**E837. `trtcaf`: Average TCO per km, freight (weighted by last year's ICE share)** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 4910
@@ -6428,7 +6442,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,cyc
   - 2022-2041: `trbytc(t) = trdmcc[f,s](t)-traftsc[f,s](t)`
 
-**E855. `trtcac`: Average TCO per km, 2-3 wheelers (weighted by last year's ICE share)** ($/km)
+**E855. `trtcac`: Average TCO per km, 2-3 wheelers (weighted by last year's ICE share)** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 4986
@@ -6516,7 +6530,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: phv,pas
   - 2022-2041: `trfscp(t) = IF(ISNUMBER(trfe[f,s](t)),trfe[f,s](t),trfnp[f,s](t)*trtrn[all,s](t)+trfsop[f,s](t)*(1-trtrn[all,s](t)))`
 
-**E867. `trcks`: Cost per km of the passenger stock by fuel** ($/km)
+**E867. `trcks`: Cost per km of the passenger stock by fuel** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy rows 5040-5060
@@ -6585,7 +6599,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: die,fre, lpg,fre, nga,fre
   - 2022-2041: `trfscf(t) = IF(ISNUMBER(trfe[f,s](t)),trfe[f,s](t),trfnf[f,s](t)*(1/<useful life, freight of trp.life[all,all]>)+trfsof[f,s](t)*(1-(1/<useful life, freight of trp.life[all,all]>)))`
 
-**E876. `trcksf`: Cost per km of the freight stock by fuel** ($/km)
+**E876. `trcksf`: Cost per km of the freight stock by fuel** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy rows 5111, 5116, 5121
@@ -6630,7 +6644,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: gso,cyc
   - 2022-2041: `trfscc(t) = IF(ISNUMBER(trfe[f,s](t)),trfe[f,s](t),trfnc[f,s](t)*(1/<useful life, 2-3 wheeler of trp.life[all,all]>)+trfsoc[f,s](t)*(1-(1/<useful life, 2-3 wheeler of trp.life[all,all]>)))`
 
-**E882. `trcksc`: Cost per km of the 2-3 wheeler stock** ($/km)
+**E882. `trcksc`: Cost per km of the 2-3 wheeler stock** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 5154
@@ -6772,7 +6786,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: bev,pas
   - 2022-2041: `trfebs(t) = (trnwbn[f,s](t)+trnwbu[f,pau](t))*trfebn[f,s](t)+(1-(trnwbn[f,s](t)+trnwbu[f,pau](t)))*trfebo[f,s](t)`
 
-**E900. `trckb2`: Cost per km of the BEV stock, passenger** ($/km)
+**E900. `trckb2`: Cost per km of the BEV stock, passenger** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 5213
@@ -6872,7 +6886,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: bev,fre
   - 2022-2041: `trfebsf(t) = trnwf[f,s](t)*trfen[f,s](t)+(1-trnwf[f,s](t))*trfebof[f,s](t)`
 
-**E914. `trckbf2`: Cost per km of the BEV stock, freight** ($/km)
+**E914. `trckbf2`: Cost per km of the BEV stock, freight** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 5257
@@ -6964,7 +6978,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: bev,cyc
   - 2022-2041: `trfebsc(t) = trnwc[f,s](t)*trfen[f,s](t)+(1-trnwc[f,s](t))*trfeboc[f,s](t)`
 
-**E927. `trckbc2`: Cost per km of the BEV stock, 2-3 wheelers** ($/km)
+**E927. `trckbc2`: Cost per km of the BEV stock, 2-3 wheelers** (USD/km)
 
 - Description: Calculation
 - Legacy: legacy row 5291
@@ -7278,7 +7292,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 ### 6b; 7; 8
 
-**E969. `lkt`: Leakage: new policy in the residential price of the fuel (new carbon tax, ETS and excise, incl. VAT)** ($/GJ)
+**E969. `lkt`: Leakage: new policy in the residential price of the fuel (new carbon tax, ETS and excise, incl. VAT)** (USD/GJ)
 
 - Description: nce of the residential row of the fuel x (1 + VAT rate) (LEAKTAX)
 - Legacy: legacy rows 5574, 5580, 5586 (new policy x residential coverage; L91 fixed: an exempt fuel has none)
@@ -7505,7 +7519,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: be,all
   - 2022-2041: `rpct(t) = rbe[all,s](t)/(gdp.usd[all,s](t)*MperBn)`
 
-**E997. `gdpn`: Nominal GDP (local currency, USD)** (bn, current prices)
+**E997. `gdpn`: Nominal GDP (local currency, USD)** (bn nominal (LCU or USD, by row))
 
 - Description: WEO NGDP (LCU) and NGDPD (USD), extended with nominal growth past the last data year (Inputs_macro; v5.6)
 - Legacy: legacy rows 424 (NGDP); NGDPD new
@@ -7604,7 +7618,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,all
   - 2022-2041: `ets.lr(t) = IF(OR(ets.cap(t)<=0,ets.cap(t)>=ets.bce(t),co2.ets[f,s](t)>=ets.bce(t)),0,LN(ets.cap(t)/ets.bce(t))/LN(co2.ets[f,s](t)/ets.bce(t)))`
 
-**E1009. `ets.next`: ETS price proposal for the next iteration** ($/tCO2 real)
+**E1009. `ets.next`: ETS price proposal for the next iteration** (USD/tCO2 real)
 
 - Description: p x log ratio ^ convergence exponent (Settings); fast estimate if no price or no log ratio
 - Legacy: legacy PricesAdjustedByErrorFactor (row 1966)
@@ -7683,6 +7697,8 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Changes against legacy: LD45, L20 (section B)
 - Rows: all,all
   - 2022-2041: `pop(t) = INDEX(PopVal,MATCH(CtryCode,PopKey,0),MATCH(year,PopYear,0))`
+- Rows: all,all
+  - 2022-2041: `pop(t) = pop[f,s](t)`
 
 **E1018. `pop.g`: Population growth** (%)
 
@@ -7755,7 +7771,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `ch4.wd(t) = INDEX(WDData,<position of the fuel (Prices_int)>+WDIdx-1,MATCH(year,WDYear,0))`
   - Parameters: `<position of the fuel (Prices_int)>` = `MATCH("Oil",Prices_int!F323:F333,0)`
 
-**E1027. `ch4.fk`: Methane fee per ktoe produced (after abatement)** (USD per ktoe)
+**E1027. `ch4.fk`: Methane fee per ktoe produced (after abatement)** (USD/ktoe)
 
 - Description: fee per t CH4 x t CH4 per ktoe after abatement (v5.6)
 - Legacy: legacy rows 6112, 6129
@@ -8176,84 +8192,9 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,all
   - 2022-2041: `ghg.chg(t) = ghg[f,s](t)-ghg.ref[f,s](t)`
 
-### 15
-
-**E1077. `ap.w`: Weight of the final emission factor (local air pollutants)** (share)
-
-- Description: MIN(1, (year - base year) / (EFEndYear - base year))
-- Legacy: legacy Mitigation rows 1052-1663 (linear factor path)
-- Rows: all,all
-  - 2022-2041: `ap.w(t) = MIN(1,(year-BaseYr)/(EFEndYear-BaseYr))`
-
-**E1078. `apfd`: Food fuel use within food & forestry** (ktoe)
-
-- Description: Food & forestry fuel use x food share of the fuel (Balances info_food / info_agrc + info_fish + info_food + info_wood; v4.11, LD53)
-- Legacy: legacy Mitigation rows 501-504, 1666-1673
-- Rows: coa,foo
-  - 2022-2041: `apfd(t) = ener[f,s](t)*Inputs!BI50`
-- Rows: nga,foo
-  - 2022-2041: `apfd(t) = ener[f,s](t)*Inputs!BI51`
-- Rows: gso,foo
-  - 2022-2041: `apfd(t) = ener[f,s](t)*Inputs!BI52`
-- Rows: die,foo
-  - 2022-2041: `apfd(t) = ener[f,s](t)*Inputs!BI53`
-- Rows: lpg,foo
-  - 2022-2041: `apfd(t) = ener[f,s](t)*Inputs!BI54`
-- Rows: ker,foo
-  - 2022-2041: `apfd(t) = ener[f,s](t)*Inputs!BI55`
-- ... and 3 further row patterns (see the workbook)
-
-**E1079. `ap`: Local air pollutant emissions** (kt)
-
-- Description: Fuel use x emission factor (GAINS, sheet EF_PM; base-year and final factor weighted by ap.w), summed over the fuels; power: generation fuel use by type
-- Legacy: legacy Mitigation rows 6603-7423 (section 13)
-- Changes against legacy: LD49, LD50, L22, LD52, L23 (section B)
-- Rows: pm2,rod
-  - 2022-2041: `ap(t) = SUMPRODUCT(ener[9 rows](t),Inputs!AL5:AL13*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!AM5:AM13)/tPerKt`
-- Rows: pm2,ral
-  - 2022-2041: `ap(t) = SUMPRODUCT(ener[9 rows](t),Inputs!AL14:AL22*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!AM14:AM22)/tPerKt`
-- Rows: pm2,avi
-  - 2022-2041: `ap(t) = SUMPRODUCT(ener[9 rows](t),Inputs!AL23:AL31*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!AM23:AM31)/tPerKt`
-- Rows: pm2,nav
-  - 2022-2041: `ap(t) = SUMPRODUCT(ener[9 rows](t),Inputs!AL32:AL40*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!AM32:AM40)/tPerKt`
-- Rows: pm2,res
-  - 2022-2041: `ap(t) = SUMPRODUCT(ener[9 rows](t),Inputs!AL41:AL49*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!AM41:AM49)/tPerKt`
-- Rows: pm2,foo
-  - 2022-2041: `ap(t) = SUMPRODUCT(ener[9 rows](t),Inputs!AL50:AL58*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!AM50:AM58)/tPerKt`
-- ... and 125 further row patterns (see the workbook)
-
-**E1080. `apf`: Forcing of local air pollutants (memo, not in the GHG totals)** (Mt CO2e)
-
-- Description: Emissions (kt) x GWP100 of the GAINS region / ktPerMt
-- Legacy: legacy Mitigation rows 7459-7530
-- Rows: bc,all, oc,all, nox,all, so2,all, voc,all, co,all
-  - 2022-2041: `apf(t) = ap[f,s](t)*<GWP100 (sheet EF_GHG, gwp100 rows)>/ktPerMt`
-  - Parameters: `<GWP100 (sheet EF_GHG, gwp100 rows)>` = `INDEX(EFVal,MATCH(INDEX(RegVal,MATCH(CtryCode,RegKey,0))&".mit.gwp100.bc",EFKey,0))`
-- Rows: all,all
-  - 2022-2041: `apf(t) = SUM(apf[6 rows](t))`
-
-**E1081. `aps`: Local air pollutant emissions by air-pollution module sector** (kt)
-
-- Description: Coal and gas power plants: fuel use of the type x emission factor; other sectors: sums of the subsector rows; POM = PomPerOC x OC; other PM2.5 = MAX(0, PM2.5 - BC - POM); CH4 (v3.12, as legacy): combustion CH4 of the sector, plus fossil fuel supply methane in other and agriculture and waste methane in food & forestry; all = sum of the seven sectors
-- Legacy: legacy Mitigation rows 6693-6704 (each pollutant), 7310-7321, 7425-7446; input table 15859-15961
-- Changes against legacy: LD51, LD52 (section B)
-- Rows: nox,cpp
-  - 2022-2041: `aps(t) = SUMPRODUCT(pe[coa,pow](t),Inputs!BU184*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!BV184)/tPerKt`
-- Rows: so2,cpp
-  - 2022-2041: `aps(t) = SUMPRODUCT(pe[coa,pow](t),Inputs!BW184*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!BX184)/tPerKt`
-- Rows: bc,cpp
-  - 2022-2041: `aps(t) = SUMPRODUCT(pe[coa,pow](t),Inputs!CA184*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!CB184)/tPerKt`
-- Rows: pom,cpp, pom,gpp, pom,opp, pom,rod, pom,gro, pom,oth, pom,foo
-  - 2022-2041: `aps(t) = aps[oc,s](t)*PomPerOC`
-- Rows: opm,cpp, opm,gpp, opm,opp, opm,rod, opm,gro, opm,oth, opm,foo
-  - 2022-2041: `aps(t) = MAX(0,aps[pm2,s](t)-aps[bc,s](t)-aps[pom,s](t))`
-- Rows: voc,cpp
-  - 2022-2041: `aps(t) = SUMPRODUCT(pe[coa,pow](t),Inputs!BY184*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!BZ184)/tPerKt`
-- ... and 22 further row patterns (see the workbook)
-
 ### 16
 
-**E1082. `EXPLabortax`: Labor tax reductions** (% of revenues)
+**E1077. `EXPLabortax`: Labor tax reductions** (% of revenues)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 197
@@ -8261,7 +8202,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `EXPLabortax(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E1083. `EXPCIT`: Corporate taxes** (% of revenues)
+**E1078. `EXPCIT`: Corporate taxes** (% of revenues)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 198
@@ -8269,7 +8210,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `EXPCIT(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E1084. `EXPCapex`: Public investment** (% of revenues)
+**E1079. `EXPCapex`: Public investment** (% of revenues)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 199
@@ -8277,7 +8218,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `EXPCapex(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E1085. `EXPGoodsandserv`: Current spending** (% of revenues)
+**E1080. `EXPGoodsandserv`: Current spending** (% of revenues)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 200
@@ -8285,7 +8226,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `EXPGoodsandserv(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E1086. `EXPTransfers`: Targeted transfers** (% of revenues)
+**E1081. `EXPTransfers`: Targeted transfers** (% of revenues)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 201
@@ -8293,7 +8234,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `EXPTransfers(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E1087. `MultipliersSource`: Fiscal multipliers** (switch)
+**E1082. `MultipliersSource`: Fiscal multipliers** (switch)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 226
@@ -8301,7 +8242,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `MultipliersSource(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E1088. `GDPStartYear`: Start year for GDP calculations** (year)
+**E1083. `GDPStartYear`: Start year for GDP calculations** (year)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 236
@@ -8309,7 +8250,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `GDPStartYear(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E1089. `FmAdj`: Fiscal multipliers adjustment** (switch)
+**E1084. `FmAdj`: Fiscal multipliers adjustment** (switch)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 263
@@ -8317,7 +8258,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `FmAdj(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E1090. `GDPEndogenous`: Include endogenous GDP effects?** (switch)
+**E1085. `GDPEndogenous`: Include endogenous GDP effects?** (switch)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 267
@@ -8325,14 +8266,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `GDPEndogenous(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E1091. `gdp.base`: Real GDP growth, baseline (before the GDP feedback)** (%)
+**E1086. `gdp.base`: Real GDP growth, baseline (before the GDP feedback)** (%)
 
 - Description: WEO (lookup by country)
 - Legacy: legacy Mitigation row 2444
 - Rows: all,all
   - 2022-2041: `gdp.base(t) = INDEX(WEOVal,MATCH(CtryCode&"|gdp_growth",WEOKey,0),MATCH(year,WEOYear,0))`
 
-**E1092. `fis.rev`: Total revenue (existing taxes net of subsidies + new policies + methane fee)** (USD m real)
+**E1087. `fis.rev`: Total revenue (existing taxes net of subsidies + new policies + methane fee)** (USD m real)
 
 - Description: rnet + rnew + rsr + rpsu + ch4.revf (methane fee on the stored scenario-1 gas and biomass activity, I47)
 - Legacy: legacy Mitigation row 8024
@@ -8340,14 +8281,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,all
   - 2022-2041: `fis.rev(t) = rnet[f,s](t)+rnew[f,s](t)+rsr[f,s](t)+rpsu[f,s](t)+ch4.revf[f,s](t)`
 
-**E1093. `fis.ref`: Total revenue, scenario 1 (same year)** (USD m real)
+**E1088. `fis.ref`: Total revenue, scenario 1 (same year)** (USD m real)
 
 - Description: Lookup (scenario 1, up to this column)
 - Legacy: legacy Mitigation row 8036
 - Rows: all,all
   - 2022-2041: `fis.ref(t) = INDEX(fis.rev[f,s](..t),MATCH(year,year(..t),0))`
 
-**E1094. `fis.sp`: Fiscal space: total revenue above scenario 1** (share of GDP)
+**E1089. `fis.sp`: Fiscal space: total revenue above scenario 1** (share of GDP)
 
 - Description: (fis.rev - fis.ref) / (gdp.usd x MperBn)
 - Legacy: legacy Mitigation rows 8034, 8038, 14355
@@ -8355,7 +8296,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,all
   - 2022-2041: `fis.sp(t) = (fis.rev[f,s](t)-fis.ref[f,s](t))/(gdp.usd[f,s](t)*MperBn)`
 
-**E1095. `fis.imp`: Fiscal impulse of the year (change in revenue above scenario 1 / this year's GDP)** (share of GDP)
+**E1090. `fis.imp`: Fiscal impulse of the year (change in revenue above scenario 1 / this year's GDP)** (share of GDP)
 
 - Description: 0 before GDPStartYear; fis.sp - fis.sp(t-1) x gdp.usd(t-1) / gdp.usd
 - Legacy: legacy Mitigation row 14356 (v4.15)
@@ -8363,7 +8304,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022: `fis.imp(t) = IF(year<GDPStartYear[f,s](t),0,fis.sp[f,s](t))`
   - 2023-2041: `fis.imp(t) = IF(year<GDPStartYear[f,s](t),0,fis.sp[f,s](t)-fis.sp[f,s](t-1)*gdp.usd[f,s](t-1)/gdp.usd[f,s](t))`
 
-**E1096. `fis.lag`: Fiscal impulse k years back** (share of GDP)
+**E1091. `fis.lag`: Fiscal impulse k years back** (share of GDP)
 
 - Description: Previous column of the row above
 - Legacy: legacy Mitigation rows 8068-8244 (one block per year of the reform)
@@ -8387,14 +8328,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2023-2041: `fis.lag(t) = fis.lag[l5,s](t-1)`
 - ... and 13 further row patterns (see the workbook)
 
-**E1097. `fis.impp`: Fiscal impulse used by the revenue uses (0 before CPIntro)** (share of GDP)
+**E1092. `fis.impp`: Fiscal impulse used by the revenue uses (0 before CPIntro)** (share of GDP)
 
 - Description: IF(year < CPIntro, 0, fis.imp)
 - Legacy: legacy Mitigation rows 96-100 (v5.7, I43)
 - Rows: all,all
   - 2022-2041: `fis.impp(t) = IF(year<CPIntro(t),0,fis.imp[f,s](t))`
 
-**E1098. `fis.lagp`: Fiscal impulse used by the revenue uses, k years back** (share of GDP)
+**E1093. `fis.lagp`: Fiscal impulse used by the revenue uses, k years back** (share of GDP)
 
 - Description: Previous column of the row above
 - Legacy: legacy Mitigation rows 8068-8244 (v5.7, I43)
@@ -8418,14 +8359,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2023-2041: `fis.lagp(t) = fis.lagp[l5,s](t-1)`
 - ... and 13 further row patterns (see the workbook)
 
-**E1099. `fis.grp`: Multiplier group** (text)
+**E1094. `fis.grp`: Multiplier group** (text)
 
 - Description: global, est (Estimated), man (Manual), else the income group
 - Legacy: legacy sheet Multipliers rows 19-21 (v4.15: est, man)
 - Rows: all,all
   - 2022-2041: `fis.grp(t) = IFERROR(INDEX(MultSrcVal,MATCH(LEFT(MultipliersSource[f,s](t),3),MultSrcKey,0)),LOWER(IncomeGrp))`
 
-**E1100. `fis.key`: Multiplier key prefix (group|range|)** (text)
+**E1095. `fis.key`: Multiplier key prefix (group|range|)** (text)
 
 - Description: fis.grp & range (Base, Low, High from FmAdj)
 - Legacy: legacy sheet Multipliers rows 22, 36-57
@@ -8433,7 +8374,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,all
   - 2022-2041: `fis.key(t) = fis.grp[f,s](t)&"|"&LOWER(SUBSTITUTE(FmAdj[f,s](t),"*",""))&"|"`
 
-**E1101. `fis.eff`: GDP effect of a revenue use** (share of GDP)
+**E1096. `fis.eff`: GDP effect of a revenue use** (share of GDP)
 
 - Description: share x SUMPRODUCT(impulses of the year and the 19 years before, multipliers at those lags); revenue (exc) share -1
 - Legacy: legacy Mitigation rows 8267-8274
@@ -8457,7 +8398,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `fis.eff(t) = EXPTransfers[all,s](t)/PctPerUnit*SUMPRODUCT(block@fis.impp{fis.impp, fis.lagp}(t),INDEX(MultVal,0,MATCH(fis.key[all,s](t)&<Instrument (key on sheet Multipliers)>,MultKey,0)))`
   - Parameters: `<Instrument (key on sheet Multipliers)>` = `data`
 
-**E1102. `gdp.lvl`: GDP level factor used this year (1 + last year's GDP effect)** (factor)
+**E1097. `gdp.lvl`: GDP level factor used this year (1 + last year's GDP effect)** (factor)
 
 - Description: 1 + gdp.eff(t-1)
 - Legacy: new (legacy adds the effect to growth: L24)
@@ -8466,14 +8407,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022: `gdp.lvl(t) = 1`
   - 2023-2041: `gdp.lvl(t) = 1+gdp.eff[f,s](t-1)`
 
-**E1103. `gdp.pos.usd`: Real GDP after the feedback** (USD bn)
+**E1098. `gdp.pos.usd`: Real GDP after the feedback** (USD bn)
 
 - Description: gdp.usd x gdp.lvl
 - Legacy: legacy Mitigation row 2443
 - Rows: all,all
   - 2022-2041: `gdp.pos.usd(t) = gdp.usd[f,s](t)*gdp.lvl[f,s](t)`
 
-**E1104. `gdpg`: Real GDP growth effect of a revenue use (memo)** (share)
+**E1099. `gdpg`: Real GDP growth effect of a revenue use (memo)** (share)
 
 - Description: (1 + gdp.base) x (fis.eff(t-1) - fis.eff(t-2)) / gdp.lvl(t-1) if GDPEndogenous = Yes; all: from gdp.eff (sums to gdp.pos.pct - gdp.base)
 - Legacy: legacy Mitigation rows 16166-16175 (v5.7)
@@ -8486,21 +8427,21 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2023: `gdpg(t) = (1+gdp.base[f,s](t))*(gdp.eff[f,s](t-1)-0)/gdp.lvl[f,s](t-1)`
   - 2024-2041: `gdpg(t) = (1+gdp.base[f,s](t))*(gdp.eff[f,s](t-1)-gdp.eff[f,s](t-2))/gdp.lvl[f,s](t-1)`
 
-**E1105. `gdpy`: Year of the reform (memo; the growth effect of year N = gdpg.all where gdpy = N)** (year number)
+**E1100. `gdpy`: Year of the reform (memo; the growth effect of year N = gdpg.all where gdpy = N)** (year number)
 
 - Description: year - GDPStartYear + 1
 - Legacy: legacy Mitigation rows 16183-16194 (v6.0: a number row, not a shifted row)
 - Rows: all,all
   - 2022-2041: `gdpy(t) = year-GDPStartYear[f,s](t)+1`
 
-**E1106. `gdp.chg.usd`: Change in real GDP level against the baseline (memo)** (USD bn)
+**E1101. `gdp.chg.usd`: Change in real GDP level against the baseline (memo)** (USD bn)
 
 - Description: gdp.pos.usd - gdp.usd
 - Legacy: legacy Mitigation row 16201 (v5.7)
 - Rows: all,all
   - 2022-2041: `gdp.chg.usd(t) = gdp.pos.usd[f,s](t)-gdp.usd[f,s](t)`
 
-**E1107. `xnim`: Change in net energy imports against scenario 1 (positive = more imports)** (USD bn real)
+**E1102. `xnim`: Change in net energy imports against scenario 1 (positive = more imports)** (USD bn real)
 
 - Description: Fuels: echg x PJ per ktoe x supply price sp ($/GJ) x import share (D) / MperBn (REVENUE); groups: sums
 - Legacy: legacy rows 18181, 18187, 18193 (F11), v3.16; share also on oil (legacy bug L49)
@@ -8520,7 +8461,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,all
   - 2022-2041: `xnim(t) = SUM(xnim[3 rows](t))`
 
-**E1108. `xtb`: Energy trade balance, baseline (exports - imports) by fuel group** (USD bn real)
+**E1103. `xtb`: Energy trade balance, baseline (exports - imports) by fuel group** (USD bn real)
 
 - Description: Sheet WEO (EGY|tb_oil, tb_nga, tb_coa)
 - Legacy: legacy Mitigation rows 741-743
@@ -8533,28 +8474,28 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,all
   - 2022-2041: `xtb(t) = SUM(xtb[3 rows](t))`
 
-**E1109. `xtbp`: Energy trade balance of the scenario: baseline - change in net imports** (USD bn real)
+**E1104. `xtbp`: Energy trade balance of the scenario: baseline - change in net imports** (USD bn real)
 
 - Description: xtb.all - xnim.all
 - Legacy: legacy rows 18215, 18218 (F11), v3.16
 - Rows: all,all
   - 2022-2041: `xtbp(t) = xtb[f,s](t)-xnim[f,s](t)`
 
-**E1110. `xtb.pct`: Energy trade balance of the scenario, % of baseline real GDP** (%)
+**E1105. `xtb.pct`: Energy trade balance of the scenario, % of baseline real GDP** (%)
 
 - Description: xtbp / gdp.usd (SAFEDIV)
 - Legacy: legacy rows 18217, 18219, v3.16
 - Rows: all,all
   - 2022-2041: `xtb.pct(t) = IF(gdp.usd[f,s](t)=0,0,(xtbp[f,s](t))/gdp.usd[f,s](t))`
 
-**E1111. `xnim.pct`: Change in net energy imports, % of baseline real GDP** (%)
+**E1106. `xnim.pct`: Change in net energy imports, % of baseline real GDP** (%)
 
 - Description: xnim.all / gdp.usd (SAFEDIV)
 - Legacy: legacy rows 18207-18210, v3.16
 - Rows: all,all
   - 2022-2041: `xnim.pct(t) = IF(gdp.usd[f,s](t)=0,0,(xnim[f,s](t))/gdp.usd[f,s](t))`
 
-**E1112. `gdp.eff`: GDP effect of the revenue use (level, vs baseline)** (share of GDP)
+**E1107. `gdp.eff`: GDP effect of the revenue use (level, vs baseline)** (share of GDP)
 
 - Description: SUM(fis.eff) if GDPEndogenous = Yes
 - Legacy: legacy Mitigation rows 8288, 8290
@@ -8563,7 +8504,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 ### 17
 
-**E1113. `tcp`: Implicit carbon price by fuel: existing taxes, subsidies and new policies per tonne of CO2** (USD per tCO2)
+**E1108. `tcp`: Implicit carbon price by fuel: existing taxes, subsidies and new policies per tonne of CO2** (USD/tCO2)
 
 - Description: Fuels: (rfu + rfg of the fuel) / co2.f; all: fossil fuels / co2 (SAFEDIV); biomass left out
 - Legacy: legacy F5d (total carbon price by fuel), v3.15
@@ -8574,14 +8515,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,all
   - 2022-2041: `tcp(t) = IF(co2[f,s](t)=0,0,(SUM(rfu[8 rows](t))+rfg[coa,pow](t)+rfg[nga,pow](t)+rfg[oop,pow](t))/co2[f,s](t))`
 
-**E1114. `cpeff`: Effective carbon tax: carbon price x share of energy CO2 covered by it** (USD per tCO2)
+**E1109. `cpeff`: Effective carbon tax: carbon price x share of energy CO2 covered by it** (USD/tCO2)
 
 - Description: cptraj x cov.ct.all (SCALEBY)
 - Legacy: legacy row 16137, v3.15
 - Rows: all,all
   - 2022-2041: `cpeff(t) = cptraj(t)*cov.ct[f,s](t)`
 
-**E1115. `covct`: CO2 covered by the new carbon tax, by coverage sector** (MtCO2)
+**E1110. `covct`: CO2 covered by the new carbon tax, by coverage sector** (MtCO2)
 
 - Description: SUMPRODUCT(co2 of the fuels x fuel switch fc) x (carbon tax rate ctr of the sector > 0)
 - Legacy: new (v3.15)
@@ -8590,7 +8531,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,rod, all,ral, all,avi, all,nav, all,res, all,foo, all,srv, all,mch, all,irn, all,nfm, all,mac, all,cem, ... (16 rows)
   - 2022-2041: `covct(t) = SUMPRODUCT(co2[9 rows](t)*ctcov[9 rows](t))*(ctr[f,s](t)>0)`
 
-**E1116. `cov.ct`: Share of energy CO2 covered by the new carbon tax** (%)
+**E1111. `cov.ct`: Share of energy CO2 covered by the new carbon tax** (%)
 
 - Description: covct of the sectors / co2 (SAFEDIV)
 - Legacy: legacy rows 16152-16157, v3.15
@@ -8605,21 +8546,21 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,all
   - 2022-2041: `cov.ct(t) = IF(co2[f,s](t)=0,0,(SUM(covct[17 rows](t)))/co2[f,s](t))`
 
-**E1117. `cov.ets`: Share of energy CO2 covered by the new ETS** (%)
+**E1112. `cov.ets`: Share of energy CO2 covered by the new ETS** (%)
 
 - Description: co2.ets / co2 (SAFEDIV)
 - Legacy: new (v3.15)
 - Rows: all,all
   - 2022-2041: `cov.ets(t) = IF(co2[f,s](t)=0,0,(co2.ets[f,s](t))/co2[f,s](t))`
 
-**E1118. `cov.all`: Share of energy CO2 covered by the carbon tax or the ETS** (%)
+**E1113. `cov.all`: Share of energy CO2 covered by the carbon tax or the ETS** (%)
 
 - Description: cov.ct.all + cov.ets
 - Legacy: legacy row 16152, v3.15
 - Rows: all,all
   - 2022-2041: `cov.all(t) = cov.ct[f,s](t)+cov.ets[f,s](t)`
 
-**E1119. `ecr`: Effective carbon rate, economy-wide: revenue net of subsidies (incl. electricity VAT and subsidy gap) per tonne of energy CO2** (USD per tCO2)
+**E1114. `ecr`: Effective carbon rate, economy-wide: revenue net of subsidies (incl. electricity VAT and subsidy gap) per tonne of energy CO2** (USD/tCO2)
 
 - Description: (rnet + rnew) / co2 (SAFEDIV)
 - Legacy: legacy row 16662 (F5e), v3.15
@@ -8628,7 +8569,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 ### 18
 
-**E1120. `scc`: Social cost of carbon: target-consistent, Ricke national and global, manual, US EPA; selected national and global** (USD per tCO2 real)
+**E1115. `scc`: Social cost of carbon: target-consistent, Ricke national and global, manual, US EPA; selected national and global** (USD/tCO2 real)
 
 - Description: Target: SCCTgt x (1 + SCCGr) ^ (year - SCCTgtYr); Ricke (sheet SCC) and EPA: base-year value x (1 + SCCGr) ^ (year - base year); manual: data; selected: CHOOSE by NSCCSrc / GSCCSrc
 - Legacy: legacy rows 17671-17713, sheet SCC; v3.17
@@ -8646,21 +8587,21 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `scc(t) = CHOOSE(MATCH(LEFT(NSCCSrc,1),{"T","R","M","U","E"},0),scc[tgt,s](t),scc[rkn,s](t),scc[man,s](t),scc[epa,s](t),scc[epa,s](t))`
 - ... and 1 further row patterns (see the workbook)
 
-**E1121. `dmg`: Climate damages of GHG emissions excl. LULUCF (national SCC, global SCC)** (USD bn real)
+**E1116. `dmg`: Climate damages of GHG emissions excl. LULUCF (national SCC, global SCC)** (USD bn real)
 
 - Description: scc x ghg / MperBn (SCALEBY)
 - Legacy: legacy rows 17688-17689, 17704-17705; v3.17
 - Rows: nat,all, glo,all
   - 2022-2041: `dmg(t) = scc[f,s](t)*ghg[all,s](t)/MperBn`
 
-**E1122. `wcli`: Climate damages avoided against scenario 1 (national, global)** (USD bn real)
+**E1117. `wcli`: Climate damages avoided against scenario 1 (national, global)** (USD bn real)
 
 - Description: dmg of scenario 1 - dmg
 - Legacy: legacy rows 17690, 17729-17731; v3.17
 - Rows: nat,all, glo,all
   - 2022-2041: `wcli(t) = INDEX(dmg[f,s](..t),row10(t))-dmg[f,s](t)`
 
-**E1123. `wdg`: Tax wedge: revenue net of subsidies per unit of use (fuels incl. power generation; electricity demand)** (USD m per ktoe)
+**E1118. `wdg`: Tax wedge: revenue net of subsidies per unit of use (fuels incl. power generation; electricity demand)** (USD m/ktoe)
 
 - Description: (rfu + rfg) / fuel use (section 11); electricity: rfu.ecy / eldem (SAFEDIV)
 - Legacy: new (v3.17)
@@ -8671,7 +8612,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: ecy,all
   - 2022-2041: `wdg(t) = IF(eldem[f,s](t)=0,0,(rfu[f,pow](t))/eldem[f,s](t))`
 
-**E1124. `eff`: Efficiency (deadweight) cost of energy use (positive = cost; negative = gain from lower subsidised use)** (USD bn real)
+**E1119. `eff`: Efficiency (deadweight) cost of energy use (positive = cost; negative = gain from lower subsidised use)** (USD bn real)
 
 - Description: -(wedge + wedge of scenario 1) / 2 x change in use / MperBn (TRAPEZOID)
 - Legacy: legacy rows 17636-17648 (trapezoid); v3.17, the LPG, conversion and row-offset bugs not replicated
@@ -8682,14 +8623,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,all
   - 2022-2041: `eff(t) = SUM(eff[10 rows](t))`
 
-**E1125. `mfp`: Methane fee per t CH4 used on the abatement curve** (USD per t CH4)
+**E1120. `mfp`: Methane fee per t CH4 used on the abatement curve** (USD/tCH4)
 
 - Description: MIN(fee x GWP, fee where a x fee ^ b = 1) (MFEEPRICE)
 - Legacy: new (v3.17)
 - Rows: og,all, dg,all, cm,all, bm,all, liv,all, ric,all, wst,all
   - 2022-2041: `mfp(t) = IF(<curve a (CH4Inputs) of ch4.abt[f,s]>=0,0,MIN(mfee(t)*<GWP of ch4.abt[f,s]>*<fee applies (1 = yes; Settings, legacy Manual inputs J196-J200) of ch4.abt[f,s]>,(1/<curve a (CH4Inputs) of ch4.abt[f,s]>)^(1/<curve b (CH4Inputs) of ch4.abt[f,s]>)))`
 
-**E1126. `mfc`: Efficiency cost of the methane fee: area under the abatement curve** (USD bn real)
+**E1121. `mfc`: Efficiency cost of the methane fee: area under the abatement curve** (USD bn real)
 
 - Description: unabated emissions (kt CH4) x abatement share x price x b / (1 + b) / Million (MFEECOST)
 - Legacy: legacy rows 17628-17634 (integral); v3.17
@@ -8698,7 +8639,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,all
   - 2022-2041: `mfc(t) = SUM(mfc[7 rows](t))`
 
-**E1127. `wel`: Welfare summary, national: avoided damages - efficiency costs (USD bn real; % of baseline real GDP)** (mixed)
+**E1122. `wel`: Welfare summary, national: avoided damages - efficiency costs (USD bn real; % of baseline real GDP)** (mixed)
 
 - Description: usd = wcli.nat - eff.all - mfc.all; pct, cli, eff = shares of gdp.usd (SAFEDIV)
 - Legacy: legacy rows 17727-17742; v3.17
@@ -8710,6 +8651,81 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `wel(t) = IF(gdp.usd[all,s](t)=0,0,(eff[all,s](t)+mfc[all,s](t))/gdp.usd[all,s](t))`
 - Rows: usd,all
   - 2022-2041: `wel(t) = wcli[nat,s](t)-eff[all,s](t)-mfc[all,s](t)`
+
+### 15; 19
+
+**E1123. `ap.w`: Weight of the final emission factor (local air pollutants)** (share)
+
+- Description: MIN(1, (year - base year) / (EFEndYear - base year))
+- Legacy: legacy Mitigation rows 1052-1663 (linear factor path)
+- Rows: all,all
+  - 2022-2041: `ap.w(t) = MIN(1,(year-BaseYr)/(EFEndYear-BaseYr))`
+
+**E1124. `apfd`: Food fuel use within food & forestry** (ktoe)
+
+- Description: Food & forestry fuel use x food share of the fuel (Balances info_food / info_agrc + info_fish + info_food + info_wood; v4.11, LD53)
+- Legacy: legacy Mitigation rows 501-504, 1666-1673
+- Rows: coa,foo
+  - 2022-2041: `apfd(t) = ener[f,s](t)*Inputs!BI50`
+- Rows: nga,foo
+  - 2022-2041: `apfd(t) = ener[f,s](t)*Inputs!BI51`
+- Rows: gso,foo
+  - 2022-2041: `apfd(t) = ener[f,s](t)*Inputs!BI52`
+- Rows: die,foo
+  - 2022-2041: `apfd(t) = ener[f,s](t)*Inputs!BI53`
+- Rows: lpg,foo
+  - 2022-2041: `apfd(t) = ener[f,s](t)*Inputs!BI54`
+- Rows: ker,foo
+  - 2022-2041: `apfd(t) = ener[f,s](t)*Inputs!BI55`
+- ... and 3 further row patterns (see the workbook)
+
+**E1125. `ap`: Local air pollutant emissions** (kt)
+
+- Description: Fuel use x emission factor (GAINS, sheet EF_PM; base-year and final factor weighted by ap.w), summed over the fuels; power: generation fuel use by type
+- Legacy: legacy Mitigation rows 6603-7423 (section 13)
+- Changes against legacy: LD49, LD50, L22, LD52, L23 (section B)
+- Rows: pm2,rod
+  - 2022-2041: `ap(t) = SUMPRODUCT(ener[9 rows](t),Inputs!AL5:AL13*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!AM5:AM13)/tPerKt`
+- Rows: pm2,ral
+  - 2022-2041: `ap(t) = SUMPRODUCT(ener[9 rows](t),Inputs!AL14:AL22*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!AM14:AM22)/tPerKt`
+- Rows: pm2,avi
+  - 2022-2041: `ap(t) = SUMPRODUCT(ener[9 rows](t),Inputs!AL23:AL31*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!AM23:AM31)/tPerKt`
+- Rows: pm2,nav
+  - 2022-2041: `ap(t) = SUMPRODUCT(ener[9 rows](t),Inputs!AL32:AL40*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!AM32:AM40)/tPerKt`
+- Rows: pm2,res
+  - 2022-2041: `ap(t) = SUMPRODUCT(ener[9 rows](t),Inputs!AL41:AL49*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!AM41:AM49)/tPerKt`
+- Rows: pm2,foo
+  - 2022-2041: `ap(t) = SUMPRODUCT(ener[9 rows](t),Inputs!AL50:AL58*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!AM50:AM58)/tPerKt`
+- ... and 125 further row patterns (see the workbook)
+
+**E1126. `apf`: Forcing of local air pollutants (memo, not in the GHG totals)** (Mt CO2e)
+
+- Description: Emissions (kt) x GWP100 of the GAINS region / ktPerMt
+- Legacy: legacy Mitigation rows 7459-7530
+- Rows: bc,all, oc,all, nox,all, so2,all, voc,all, co,all
+  - 2022-2041: `apf(t) = ap[f,s](t)*<GWP100 (sheet EF_GHG, gwp100 rows)>/ktPerMt`
+  - Parameters: `<GWP100 (sheet EF_GHG, gwp100 rows)>` = `INDEX(EFVal,MATCH(INDEX(RegVal,MATCH(CtryCode,RegKey,0))&".mit.gwp100.bc",EFKey,0))`
+- Rows: all,all
+  - 2022-2041: `apf(t) = SUM(apf[6 rows](t))`
+
+**E1127. `aps`: Local air pollutant emissions by air-pollution module sector** (kt)
+
+- Description: Coal and gas power plants: fuel use of the type x emission factor; other sectors: sums of the subsector rows; POM = PomPerOC x OC; other PM2.5 = MAX(0, PM2.5 - BC - POM); CH4 (v3.12, as legacy): combustion CH4 of the sector, plus fossil fuel supply methane in other and agriculture and waste methane in food & forestry; all = sum of the seven sectors
+- Legacy: legacy Mitigation rows 6693-6704 (each pollutant), 7310-7321, 7425-7446; input table 15859-15961
+- Changes against legacy: LD51, LD52 (section B)
+- Rows: nox,cpp
+  - 2022-2041: `aps(t) = SUMPRODUCT(pe[coa,pow](t),Inputs!BU184*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!BV184)/tPerKt`
+- Rows: so2,cpp
+  - 2022-2041: `aps(t) = SUMPRODUCT(pe[coa,pow](t),Inputs!BW184*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!BX184)/tPerKt`
+- Rows: bc,cpp
+  - 2022-2041: `aps(t) = SUMPRODUCT(pe[coa,pow](t),Inputs!CA184*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!CB184)/tPerKt`
+- Rows: pom,cpp, pom,gpp, pom,opp, pom,rod, pom,gro, pom,oth, pom,foo
+  - 2022-2041: `aps(t) = aps[oc,s](t)*PomPerOC`
+- Rows: opm,cpp, opm,gpp, opm,opp, opm,rod, opm,gro, opm,oth, opm,foo
+  - 2022-2041: `aps(t) = MAX(0,aps[pm2,s](t)-aps[bc,s](t)-aps[pom,s](t))`
+- Rows: voc,cpp
+  - 2022-2041: `aps(t) = SUMPRODUCT(pe[coa,pow](t),Inputs!BY184*(1-ap.w[all,all](t))+ap.w[all,all](t)*Inputs!BZ184)/tPerKt`
+- ... and 22 further row patterns (see the workbook)
 
 ## B. Changes against legacy CPAT
 
@@ -8765,14 +8781,14 @@ Each change is described in the workbook sheet `LegacyDiff` (LD) or in the regis
 | LD46 | GHGs: methane fee scope (v2.8): As legacy (v4.12): a switch per source on sheet Manual inputs J196:J200 (v5.2: the legacy addresses; shown on Settings rows 47-51; biomass No; downstream gas, fossil fuel production, agriculture, waste Yes), in abatement and revenue; the fee only in policy scenarios (scenario number > 1, legacy row 2238) | Same | E132, E1031 |
 | LD47 | GHGs: combustion emission factors (v2.8): GAINS base and final factor (EF_PM FE in, FE fin), linear to EFEndYear (2039), flat after | Data | E407 |
 | LD48 | GHGs: local pollutants (v2.9): Built in v2.9: section 15, by subsector and power (fuel use x GAINS factor), totals by pollutant, forcing memo | Same | - |
-| LD49 | Local pollutants: factor mapping (v2.9): Each subsector takes the GAINS subsector of its CH4 factor (services as residential, rail as road, industry as manufacturing; Inputs column ch4s); v4.12: a fuel its GAINS subsector has no factor for takes the nearest GAINS match (LPG: natural gas of the same subsector; food & forestry: construction; else manufacturing; Inputs columns efxs:eff) | Bug fix | E1079 |
-| LD50 | Local pollutants: navigation (v2.9): Navigation included in the transport and total rows | Bug fix | E1079 |
-| LD51 | Local pollutants: air-pollution sectors (v3.0): Built in v3.0 (same sectors, POM = 1.3 x OC, other PM2.5 = MAX(0, PM2.5 - BC - POM)); the hand-off itself to an air-pollution module is not built | Same | E1081 |
-| LD52 | Local pollutants: total (v3.0): Total = all subsectors + power = sum of the seven air-pollution sectors | Bug fix | E1079, E1081 |
+| LD49 | Local pollutants: factor mapping (v2.9): Each subsector takes the GAINS subsector of its CH4 factor (services as residential, rail as road, industry as manufacturing; Inputs column ch4s); v4.12: a fuel its GAINS subsector has no factor for takes the nearest GAINS match (LPG: natural gas of the same subsector; food & forestry: construction; else manufacturing; Inputs columns efxs:eff) | Bug fix | E1125 |
+| LD50 | Local pollutants: navigation (v2.9): Navigation included in the transport and total rows | Bug fix | E1125 |
+| LD51 | Local pollutants: air-pollution sectors (v3.0): Built in v3.0 (same sectors, POM = 1.3 x OC, other PM2.5 = MAX(0, PM2.5 - BC - POM)); the hand-off itself to an air-pollution module is not built | Same | E1127 |
+| LD52 | Local pollutants: total (v3.0): Total = all subsectors + power = sum of the seven air-pollution sectors | Bug fix | E1125, E1127 |
 | LD53 | Local pollutants: food split (v3.0): Split as legacy (v4.11): the food share of each fuel = info_food / the four info_ flows of the processed Balances (legacy rows 501-504, 1666-1673); memo rows ap.<pollutant>.fod / .fag | Same | - |
-| LD54 | GDP effects: feedback (v3.1): GDP level raised by the effect: growth = (1 + baseline growth) x (1 + effect(t-1)) / (1 + effect(t-2)) - 1 | Bug fix | E1102, E6 |
-| LD55 | GDP effects: revenue (v3.1): As legacy (v4.15): total revenue rnet + rnew (existing taxes net of subsidies and new policies, incl. power) above scenario 1; impulse = change in USD over this year's GDP, 0 before GDPStartYear; lag 0 in the impulse year | Same | E1092, E1094 |
-| LD56 | GDP effects: multipliers (v3.1): As legacy (v4.15): Global, income group, Estimated (the country table of the legacy Multipliers tab, exact match, income group as fallback) or Manual (sheet Manual inputs J261:U268, legacy addresses); base, low, high with the income group's standard deviation | Same | E1101, E1100 |
+| LD54 | GDP effects: feedback (v3.1): GDP level raised by the effect: growth = (1 + baseline growth) x (1 + effect(t-1)) / (1 + effect(t-2)) - 1 | Bug fix | E1097, E6 |
+| LD55 | GDP effects: revenue (v3.1): As legacy (v4.15): total revenue rnet + rnew (existing taxes net of subsidies and new policies, incl. power) above scenario 1; impulse = change in USD over this year's GDP, 0 before GDPStartYear; lag 0 in the impulse year | Same | E1087, E1089 |
+| LD56 | GDP effects: multipliers (v3.1): As legacy (v4.15): Global, income group, Estimated (the country table of the legacy Multipliers tab, exact match, income group as fallback) or Manual (sheet Manual inputs J261:U268, legacy addresses); base, low, high with the income group's standard deviation | Same | E1096, E1095 |
 | LD57 | Energy CO2: calibration to the inventory (v3.2): v4.11 as legacy: every CO2 EF x EFCalib = inventory energy CO2 of the year before the base year / scenario-1 energy CO2 of the base year with uncalibrated EFs (Egypt: 2021 inventory against 2022, 0.930); switch Settings C27, default Yes (legacy Yes* for Annex I and non-Annex I) | Same | E350, E394, E395 |
 | LD58 | GDP effects: legacy values (v3.1): Computed | Data | - |
 | LD59 | Road transport: engineer model (v3.5): Section 5b of every scenario group, every row live (Methods, chapter Transport); TrModel default Elasticity, Engineer by switch; the 17 legacy bugs of Methods, chapter Transport section 3 fixed (B1-B23) | Decision | - |
@@ -8816,9 +8832,9 @@ Each change is described in the workbook sheet `LegacyDiff` (LD) or in the regis
 | L19 | Flaring CO2 counted as methane | Legacy bug | E1036 |
 | L20 | Population growth path | Legacy bug | E1017 |
 | L21 | Waste abated with the livestock curve | Legacy bug | E1031 |
-| L22 | Navigation missing from the local pollutant totals | Legacy bug | E1079 |
-| L23 | Services and food & forestry missing from the pollutant totals | Legacy bug | E1079 |
-| L24 | GDP effect added to GDP growth every year | Legacy bug | E1102, E6 |
+| L22 | Navigation missing from the local pollutant totals | Legacy bug | E1125 |
+| L23 | Services and food & forestry missing from the pollutant totals | Legacy bug | E1125 |
+| L24 | GDP effect added to GDP growth every year | Legacy bug | E1097, E6 |
 | L25 | Road: distance tax and 2-3 wheeler EV subsidy apply in the baseline | Legacy bug | - |
 | L26 | Road: freight and 2-3 wheeler income growth read coal subsidies from 2038 | Legacy bug | - |
 | L27 | Road: vehicle ownership calibration only scales up (and uses 2024) | Legacy bug | - |
@@ -9241,4 +9257,4 @@ Each 2041 cell calls one of these named LAMBDAs (sheet `Lambdas`, name manager).
 
 ## D. Index of variables
 
-`AdditionalCoalIntangibleCost` E180 · `AdditionalEfficiencyIndustrial` E123 · `AdditionalEfficiencyPower` E136 · `AdditionalEfficiencyResidential` E122 · `AdditionalEfficiencyRoadVehicle` E121 · `AdditionalExcise` E141 · `AdditionMitigationPoliciesNonEnergy` E133 · `aeef` E331 · `aef` E405 · `AllocateLTStorageToVRE` E166 · `AllocateSTStorageToVRE` E163 · `AlwaysExemptResLPGKer` E124 · `ap` E1079 · `ap.w` E1077 · `apf` E1080 · `apfd` E1078 · `aps` E1081 · `atp` E403 · `bco2` E44 · `bco2.chk` E1010 · `cap` E354 · `cap0` E257 · `captot` E355 · `cax` E287 · `caxav` E288 · `cbat` E276 · `cchg` E1012 · `ccpav` E308 · `cel` E283 · `CFOverrideIfAbove` E151 · `CFOverrideIfBelowFosOth` E150 · `CFOverrideIfBelowWndSol` E149 · `cfu` E249 · `ch4` E407 · `ch4.abt` E1031 · `ch4.act` E1030 · `ch4.c` E1033 · `ch4.em` E1032 · `ch4.emf` E1042 · `ch4.fk` E1027 · `ch4.pi` E1028 · `ch4.prd` E1029 · `ch4.rev` E1041 · `ch4.revf` E1043 · `ch4.src` E1025 · `ch4.sup` E1034 · `ch4.wd` E1026 · `ch4bs` E45 · `ch4bs.chk` E1044 · `cic` E294 · `cicl` E293 · `cics` E292 · `cik` E311 · `cint` E277 · `cmin` E369 · `co2` E350 · `co2.cap` E1006 · `co2.chg` E1016 · `co2.chk` E1011 · `co2.ets` E1005 · `co2.gap` E1007 · `co2.grid` E1013 · `co2.pct` E1003 · `co2.ref` E1002 · `co2.sec` E1004 · `cons` E314 · `ConsSubPha` E96 · `ConsSubPhaBaseline` E100 · `cov.all` E1118 · `cov.ct` E1116 · `cov.ets` E1117 · `covct` E1115 · `cp.exp` E71 · `cp.nom` E14 · `cp.shd` E73 · `cp.t` E13 · `cpeff` E1114 · `cph` E352 · `CPIntro` E7 · `CPLevelStart` E8 · `CPLevelTarget` E9 · `CPOutro` E10 · `cptraj` E201 · `cpx` E72 · `cs` E217 · `csf` E112 · `csi` E111 · `csw` E400 · `CTaxComplimentaryToETS` E85 · `ctcov` E19 · `ctf` E267 · `CTforMethane` E126 · `ctr` E78 · `ctxnew` E394 · `D_ETSAuctStart` E31 · `D_ETSAuctTarget` E32 · `D_ETSCapCont` E28 · `D_ETSChangeRelStart` E26 · `D_ETSChangeRelTarget` E27 · `D_ETSCTRisk` E36 · `D_ETSIntro` E29 · `D_ETSOutro` E30 · `D_ETSPriceOverride` E33 · `D_ETSVolatility` E34 · `D_ETSVolImpact` E35 · `D_NewETS` E25 · `deficit` E370 · `defl` E2 · `dem` E333 · `demg` E334 · `demtot` E335 · `dgas` E378 · `dgen` E347 · `dlf` E254 · `dlfr` E255 · `dmg` E1121 · `dsum` E304 · `early` E363 · `EarlyRetirementInBaseline` E158 · `echg` E985 · `ecmin` E361 · `ecr` E1119 · `ecshr` E362 · `eff` E1124 · `effcap` E356 · `egrow` E360 · `elcx` E279 · `eldem` E393 · `elof` E281 · `elov` E282 · `eltk` E280 · `enel` E406 · `ener` E392 · `ener.chk` E982 · `ener.pct` E984 · `ener.ref` E983 · `EngineerModelProportionOfCovidFactor` E138 · `entx` E318 · `entxd` E317 · `epct` E986 · `erf` E265 · `esub` E219 · `esubpu` E211 · `etr` E79 · `ets` E395 · `ets.bce` E49 · `ets.cap` E51 · `ets.chg` E50 · `ets.est` E53 · `ets.imp` E47 · `ets.lr` E1008 · `ets.next` E1009 · `ets.on` E37 · `ets.ovr` E54 · `ets.p` E55 · `ets.pe` E56 · `ets.rf` E57 · `ets.se` E52 · `ets.vadj` E48 · `ets.vol` E46 · `etsb` E42 · `etsb.s` E40 · `etsb.t` E41 · `etsc` E39 · `etscov` E38 · `etsnew` E224 · `etx` E218 · `ExemptPhaseout` E15 · `ExemptPhaseoutPeriod` E17 · `exf` E125 · `ExistingCTApply` E81 · `ExistingCTGrowth` E82 · `ExistingETSApply` E83 · `ExistingETSGrowth` E84 · `EXPCapex` E1084 · `EXPCIT` E1083 · `EXPGoodsandserv` E1085 · `exph` E18 · `EXPLabortax` E1082 · `EXPTransfers` E1086 · `exs` E274 · `ExtendCarbonPriceBeyondOutro` E11 · `fadtx` E216 · `fb` E62 · `fb.s` E60 · `fb.t` E61 · `fb.yr0` E58 · `fb.yr1` E59 · `fbcov` E63 · `fce` E310 · `FFPhaseOut` E98 · `FFSConsPhaseoutPeriodBA` E101 · `FFSProdPhaseoutPeriod` E91 · `FFSProdPhaseoutPeriodBA` E94 · `first` E375 · `fis.eff` E1101 · `fis.grp` E1099 · `fis.imp` E1095 · `fis.impp` E1097 · `fis.key` E1100 · `fis.lag` E1096 · `fis.lagp` E1098 · `fis.ref` E1093 · `fis.rev` E1092 · `fis.sp` E1094 · `fix` E290 · `FmAdj` E1089 · `fpn` E295 · `fpp` E296 · `fpr` E24 · `fpr.f` E23 · `fpr.s` E22 · `fpr.yr0` E20 · `fpr.yr1` E21 · `gchg` E1045 · `gdp.base` E1091 · `gdp.chg.usd` E1106 · `gdp.eff` E1112 · `gdp.lcu` E4 · `gdp.lvl` E1102 · `gdp.pos.pct` E6 · `gdp.pos.usd` E1103 · `gdp.usd` E3 · `GDPEndogenous` E1090 · `gdpg` E1104 · `gdpn` E997 · `gdppc.g` E1019 · `GDPStartYear` E1088 · `gdpy` E1105 · `gen_mwy` E345 · `ghg` E1037 · `ghg.chg` E1076 · `ghg.dr` E1023 · `ghg.enrp` E1046 · `ghg.flr` E1036 · `ghg.gi` E1022 · `ghg.h` E1020 · `ghg.inc` E1038 · `ghg.invb` E1024 · `ghg.k` E1035 · `ghg.m` E1021 · `ghg.pct` E1040 · `ghg.ref` E1039 · `glg` E343 · `gmin` E341 · `gmx` E340 · `gnc` E306 · `gncav` E307 · `gp` E207 · `gp.adj` E205 · `gp.src` E204 · `gpi` E209 · `gpn` E206 · `gtot` E346 · `HydroDoesntRetire` E156 · `inc.ela.adj` E285 · `IncElAdj` E137 · `incp` E284 · `IndustrialProcessEmissionsScaleEner` E134 · `infl` E1 · `IntEnerPricForecastAdjustment` E203 · `IntEnerPricForeSource` E202 · `invs` E258 · `kafter` E364 · `kaya` E1014 · `kDispatch` E142 · `kidx` E1015 · `kInvestment` E143 · `kwh` E256 · `lfx` E291 · `lgd` E342 · `lgi` E373 · `lkb` E972 · `lkc` E979 · `lkcb` E980 · `lkd` E971 · `lkp` E970 · `lks` E981 · `lkt` E969 · `lkx` E976 · `lkxa` E977 · `lkxe` E974 · `lkxp` E973 · `lkxr` E975 · `lkz` E978 · `LongTermStorageFor100pcVRE` E168 · `ltu` E269 · `LULUCFAnnualEmissionsDecline` E135 · `lvc` E305 · `mancap` E366 · `mani` E367 · `ManualCoalIntangibleCostLT` E182 · `ManualCoalIntangibleCostST` E181 · `MaxCostBasedEarlyRetirement` E157 · `MaximumCoalCF` E145 · `MaximumGasCF` E146 · `maxinv` E372 · `MaxNonNucOreBioAsPCOfTotalGen` E160 · `MaxNonVREAsPCOfTotalGen` E159 · `MaxScaleUpRateCategory` E162 · `MaxWindSolarScaleup` E161 · `mfc` E1126 · `mfee` E132 · `mfee.p` E131 · `mfp` E1125 · `MinimumThermalEfficiency` E148 · `MinimumWACC` E154 · `MinPostSubsidyPowerPrice` E144 · `MPIntro` E127 · `MPLevelStart` E128 · `MPLevelTarget` E129 · `MPOutro` E130 · `msc` E353 · `mult` E332 · `MultipliersSource` E1087 · `nce` E397 · `ndc.alt` E1051 · `ndc.bau` E1072 · `ndc.bi` E1059 · `ndc.bs` E1057 · `ndc.bty` E1058 · `ndc.co2` E1056 · `ndc.f` E1067 · `ndc.gap` E1074 · `ndc.gas` E1055 · `ndc.gdp` E1065 · `ndc.h` E1064 · `ndc.hc` E1062 · `ndc.hh` E1061 · `ndc.hi` E1066 · `ndc.hk` E1060 · `ndc.hv` E1063 · `ndc.idx` E1071 · `ndc.k` E1049 · `ndc.key` E1047 · `ndc.lu` E1054 · `ndc.lv` E1068 · `ndc.lvl` E1070 · `ndc.over` E1075 · `ndc.r` E1069 · `ndc.red` E1073 · `ndc.ref` E1052 · `ndc.ty` E1050 · `ndc.typ` E1048 · `ndc.x` E1053 · `need` E365 · `needm` E368 · `nei` E379 · `NewInvBio` E191 · `NewInvBioYear` E200 · `NewInvCoa` E183 · `NewInvCoaYear` E192 · `NewInvHyd` E189 · `NewInvHydYear` E198 · `NewInvNga` E184 · `NewInvNgaYear` E193 · `NewInvNuc` E186 · `NewInvNucYear` E195 · `NewInvOil` E185 · `NewInvOilYear` E194 · `NewInvOre` E190 · `NewInvOreYear` E199 · `NewInvSol` E188 · `NewInvSolYear` E197 · `NewInvWnd` E187 · `NewInvWndYear` E196 · `nid` E382 · `nim` E380 · `nimtot` E381 · `NomorReal` E12 · `ntx` E396 · `nuu` E250 · `obat` E278 · `obr` E43 · `pav.idx` E243 · `pav.las` E237 · `pav.leg` E241 · `pav.lidx` E242 · `pav.mix` E240 · `pav.q` E234 · `pav.sp` E233 · `pav.sp0` E238 · `pav.spr` E236 · `pav.time` E239 · `pav.uv` E235 · `pavl.pp` E247 · `pavl.qi` E245 · `pavl.qp` E246 · `pavl.qr` E244 · `pbc` E221 · `pcf` E114 · `pci` E113 · `pcsw` E227 · `pctx` E223 · `pcw` E401 · `pdem` E330 · `pe` E349 · `perm` E259 · `permit` E371 · `pet` E391 · `pex` E319 · `PhaseOutCoalAndGasPPAsBaseline` E171 · `PhaseOutCoalAndGasPPAsPolicy` E172 · `phi` E384 · `pnce` E231 · `pni` E374 · `pnq` E222 · `pntx` E225 · `po.n` E108 · `po.on` E107 · `po.sh` E109 · `pof` E110 · `pop` E1017 · `pop.g` E1018 · `PowerRebates` E139 · `PowerSectorPriceChangePassOn` E140 · `ppa` E270 · `PPAProportionCoalGas` E170 · `ppcw` E228 · `ppr` E344 · `ppsw` E229 · `PrcContPha` E103 · `PrcContPhaBaseline` E106 · `PrcControlPhaseout` E105 · `pret` E357 · `prnew` E388 · `ProdSubPh` E89 · `ProdSubPhaBaseline` E93 · `pros` E117 · `prrns` E390 · `prsub` E386 · `prtx` E385 · `prxc` E387 · `prxl` E389 · `ps` E212 · `psd` E118 · `pset` E208 · `psf` E116 · `psi` E115 · `psr` E120 · `psu` E119 · `psw` E402 · `pvatn` E230 · `pxcd` E226 · `rate` E263 · `rbe` E995 · `rbs` E273 · `rcarb` E322 · `reb` E301 · `rec` E359 · `reg` E76 · `regadj` E74 · `regc` E75 · `rem` E339 · `RenewableCostDeclineRate` E155 · `RenewableSubsidyBL` E175 · `RenewableSubsidyHydro` E179 · `RenSubsidyAddPhaseoutYrs` E177 · `RenSubsidyAddStartYear` E178 · `RenSubsidyAddUSDkwh` E176 · `req` E336 · `reqcg` E337 · `ret` E358 · `rev.chk` E991 · `rex` E412 · `rexm` E324 · `rexs` E323 · `rfg` E993 · `rfu` E992 · `rfu.chk` E994 · `rgap` E329 · `rmf` E987 · `rnet` E989 · `rnew` E410 · `rns` E272 · `rnsp` E271 · `rnvat` E326 · `rp` E320 · `rpct` E996 · `rpe` E248 · `rpex` E328 · `rpn` E232 · `rpol` E998 · `rpol.chk` E999 · `rppre` E316 · `rpsu` E988 · `rr` E264 · `rreb` E327 · `rsr` E414 · `rsub` E409 · `rtot` E1000 · `rtot.chg` E1001 · `rtot.ref` E990 · `rtx` E408 · `rvat` E325 · `rvt` E413 · `rxcp` E411 · `sc` E315 · `scat` E261 · `scc` E1120 · `ScenarioSelected` E64 · `scn` E70 · `scv` E262 · `second` E377 · `sgap` E321 · `ShareOfConsSubPha` E99 · `ShareofConsSubPhaBA` E102 · `ShareofProdSubPha` E92 · `ShareOfProdSubPhaBA` E95 · `shk` E300 · `shock` E286 · `shp` E404 · `shpx` E80 · `shr` E348 · `sp` E213 · `space` E376 · `spf` E210 · `spot` E266 · `SPPEffAdjEnergyEfficiencyRegulations` E65 · `SPPEffAdjFeebates` E69 · `SPPEffAdjInd` E68 · `SPPEffAdjRes` E67 · `SPPEffAdjVehicleFuelEconomy` E66 · `ssc` E77 · `start` E260 · `StartingPointWhenLTStorageIsNeeded` E167 · `stm` E268 · `stoav` E289 · `StorageHoursForLTStorage` E169 · `StorageToInterfaceRatioSTStorage` E165 · `swd` E313 · `swi` E312 · `tcf` E275 · `tcp` E1113 · `tic` E309 · `TotalHoursStorageFor100pcVRE` E164 · `tr.col` E418 · `tr.dk` E417 · `tr.pol` E419 · `tr.sw` E416 · `TrAdvBevBaseCyc` E461 · `TrAdvBevBaseFre` E460 · `TrAdvBevBasePas` E459 · `TrAdvBevPolCyc` E467 · `TrAdvBevPolFre` E466 · `TrAdvBevPolPas` E465 · `tradvcb` E705 · `tradvci` E704 · `tradvfb` E703 · `tradvfi` E702 · `TrAdvIceBaseCyc` E458 · `TrAdvIceBaseFre` E457 · `TrAdvIceBasePas` E456 · `TrAdvIcePolCyc` E464 · `TrAdvIcePolFre` E463 · `TrAdvIcePolPas` E462 · `tradvpb` E701 · `tradvpi` E700 · `TrAdvYearCyc` E470 · `TrAdvYearFre` E469 · `TrAdvYearPas` E468 · `trafe` E960 · `trafen` E959 · `trafg` E957 · `trafo` E958 · `traftc` E601 · `traftf` E600 · `traftn` E598 · `trafts` E618 · `traftsc` E620 · `traftsf` E619 · `traftu` E599 · `trancbn` E785 · `trancin` E778 · `tranfbn` E766 · `tranfin` E758 · `tranpbn` E727 · `tranpbu` E746 · `tranpin` E716 · `tranpiu` E739 · `travc` E593 · `travf` E592 · `travn` E590 · `travu` E591 · `trbevm` E621 · `trbio` E945 · `trbkm` E894 · `trbkm0` E871 · `trbkm0c` E885 · `trbkm0f` E879 · `trbkmb` E903 · `trbkmbc` E930 · `trbkmbf` E917 · `trbkmc` E922 · `trbkmf` E909 · `trbkmt` E906 · `trbkmtc` E932 · `trbkmtf` E919 · `trbu` E888 · `trbus0` E936 · `trbuse` E935 · `trbusel` E938 · `trbusf` E937 · `trbusp` E934 · `trbuyc` E605 · `trbuyf` E604 · `trbuyn` E602 · `trbuyu` E603 · `trbvu` E546 · `trbyt` E801 · `trbytc` E854 · `trbytf` E836 · `trbytn` E802 · `trbytu` E803 · `trcf2` E942 · `trcf2e` E943 · `trchs` E520 · `trckb2` E900 · `trckb2r` E901 · `trckbc` E674 · `trckbc2` E927 · `trckbc2r` E928 · `trckbf` E673 · `trckbf2` E914 · `trckbf2r` E915 · `trckbp` E671 · `trckbr` E672 · `trckc` E683 · `trckcr` E684 · `trckf` E678 · `trckfr` E679 · `trckm` E667 · `trckr` E668 · `trcks` E867 · `trcksc` E882 · `trckscr` E883 · `trcksf` E876 · `trcksfr` E877 · `trcksr` E868 · `trcloc` E613 · `trclof` E612 · `trclon` E610 · `trclou` E611 · `trco2c` E924 · `trco2f` E911 · `trco2p` E896 · `trcpp` E523 · `trcq` E889 · `trcrs` E824 · `trcrsf` E846 · `trcsc` E623 · `trcss` E622 · `TrCsStartLevel` E479 · `TrCsStartYear` E478 · `TrCsTargetLevel` E481 · `TrCsTargetYear` E480 · `trcuec` E708 · `trcuef` E707 · `trcuep` E706 · `TrCustPolFactor` E477 · `TrCustYearCyc` E473 · `TrCustYearFre` E472 · `TrCustYearPas` E471 · `trcyh` E580 · `trdemf` E834 · `trdemp` E799 · `trdfc` E892 · `trdff` E891 · `trdfp` E890 · `trdisc` E538 · `trdkmcycb` E694 · `trdkmcyci` E693 · `trdkmfreb` E692 · `trdkmfrei` E691 · `trdkmpasb` E688 · `trdkmpasi` E687 · `trdkmpaub` E690 · `trdkmpaui` E689 · `trdmcc` E853 · `trdmcf` E835 · `trdmcp` E800 · `trdpcbn` E784 · `trdpcin` E777 · `trdpfbn` E765 · `trdpfin` E757 · `trdppbn` E726 · `trdppin` E715 · `TrDtStartCyc` E440 · `TrDtStartFre` E439 · `TrDtStartPas` E438 · `TrDtTargetCyc` E446 · `TrDtTargetFre` E445 · `TrDtTargetPas` E444 · `TrDtTargetYearCyc` E443 · `TrDtTargetYearFre` E442 · `TrDtTargetYearPas` E441 · `trdtxc` E666 · `trdtxf` E665 · `trdtxp` E664 · `TrDtYearCyc` E437 · `TrDtYearFre` E436 · `TrDtYearPas` E435 · `trdut` E517 · `trelc` E931 · `trelf` E918 · `trelp` E905 · `trelph` E904 · `trelt` E941 · `trevac` E807 · `trevacc` E858 · `trevaf` E840 · `trevbm` E557 · `trevcc` E815 · `trevo` E516 · `trevom` E549 · `trevp` E515 · `trevpm` E560 · `trevsc` E617 · `trevsf` E616 · `trevsh` E816 · `trevst` E615 · `trfbl` E634 · `trfblc` E658 · `trfblf` E650 · `TrFbPivotChgCyc` E434 · `TrFbPivotChgFre` E433 · `TrFbPivotChgPas` E432 · `TrFbPivotCyc` E431 · `TrFbPivotFre` E430 · `TrFbPivotPas` E429 · `TrFbPivotTypeCyc` E428 · `TrFbPivotTypeFre` E427 · `TrFbPivotTypePas` E426 · `trfbr` E635 · `trfbr5` E636 · `TrFbRateCyc` E425 · `TrFbRateFre` E424 · `TrFbRatePas` E423 · `trfbrc` E659 · `trfbrf` E651 · `trfbtc` E633 · `trfbtf` E632 · `trfbtp` E631 · `trfbvcb` E775 · `trfbvci` E774 · `trfbvfb` E755 · `trfbvfi` E754 · `trfbvpb` E699 · `trfbvpi` E698 · `trfbvub` E737 · `trfbvui` E736 · `TrFbYearCyc` E422 · `TrFbYearFre` E421 · `TrFbYearPas` E420 · `trfcc` E956 · `trfcec` E954 · `trfcef` E953 · `trfcep` E952 · `trfcf` E955 · `trfcp` E951 · `trfe` E512 · `trfeb` E522 · `trfebm` E543 · `trfebn` E897 · `trfebo` E898 · `trfeboc` E925 · `trfebof` E912 · `trfebs` E899 · `trfebsc` E926 · `trfebsf` E913 · `trfem` E540 · `trfem2` E541 · `trfen` E524 · `trfeu` E642 · `trfeub` E644 · `trfew` E628 · `trfewf` E648 · `trfn` E637 · `trfna` E639 · `trfnaf` E653 · `trfnc` E660 · `trfnf` E652 · `trfnp` E638 · `trfsc` E865 · `trfscc` E881 · `trfscf` E875 · `trfscp` E866 · `trfsh` E578 · `trfso` E863 · `trfsoc` E880 · `trfsof` E874 · `trfsop` E864 · `trfu0` E873 · `trfu0c` E886 · `trfu0f` E887 · `trfu0g` E872 · `trfua` E939 · `trfub` E940 · `trfuc` E923 · `trfucbn` E787 · `trfucin` E780 · `trfuf` E910 · `trfufbn` E768 · `trfufin` E760 · `trfup` E895 · `trfupbn` E730 · `trfupbu` E748 · `trfupin` E719 · `trfupiu` E741 · `trgdl` E537 · `trgpc` E536 · `trgpcr` E869 · `trgtf` E833 · `trgtp` E798 · `tricd` E822 · `tricdp` E823 · `tricl` E645 · `triclc` E662 · `triclf` E656 · `triclu` E646 · `tricn` E826 · `tricnf` E848 · `trico` E827 · `tricof` E849 · `tricp` E825 · `tricpf` E847 · `trics` E820 · `tricsf` E844 · `tricw` E828 · `tricwf` E850 · `trimcbn` E786 · `trimcin` E779 · `trimfbn` E767 · `trimfin` E759 · `trimp` E518 · `trimpbn` E729 · `trimpbu` E747 · `trimpin` E718 · `trimpiu` E740 · `trint` E640 · `trinta` E641 · `trintaf` E655 · `trintc` E661 · `trintc2` E933 · `trintf` E654 · `trintf2` E920 · `trintp` E907 · `trints` E647 · `trintsc` E663 · `trintsf` E657 · `trintu` E643 · `trjc` E579 · `trjhf` E793 · `trjhp` E790 · `trjif` E794 · `trjip` E791 · `trjjf` E795 · `trjjp` E792 · `trkmc` E949 · `trkmf` E948 · `trkmp` E947 · `trkmt` E950 · `trkt` E944 · `trkte` E946 · `trlgc` E856 · `trlgcb` E857 · `trlgf` E838 · `trlgfb` E839 · `trlgn` E805 · `trlgnb` E806 · `trlgu` E811 · `trlgub` E812 · `trmku` E625 · `TrModel` E415 · `trnc` E577 · `trnwbn` E818 · `trnwbu` E819 · `trnwc` E861 · `trnwf` E843 · `tropc` E589 · `tropf` E588 · `tropn` E586 · `tropu` E587 · `trown` E513 · `trownb` E558 · `trownc` E572 · `trownce` E573 · `trowne` E559 · `trownf` E565 · `trownfe` E566 · `trowny` E582 · `trp.bsh` E526 · `trp.bus` E528 · `trp.cap` E494 · `trp.chs` E495 · `trp.dep` E483 · `trp.dsc` E497 · `trp.eb` E506 · `trp.eb2` E509 · `trp.ebb` E507 · `trp.ebc` E508 · `trp.ef` E505 · `trp.efa` E510 · `trp.ela` E501 · `trp.frs` E499 · `trp.gap` E488 · `trp.gj` E503 · `trp.ice` E498 · `trp.inc` E487 · `trp.ins` E484 · `trp.k` E489 · `trp.life` E482 · `trp.lpk` E504 · `trp.mev` E486 · `trp.mic` E485 · `trp.mku` E496 · `trp.mod` E502 · `trp.odc` E492 · `trp.ogr` E491 · `trp.own` E490 · `trp.tax` E527 · `trp.vkt` E493 · `trp.yrs` E500 · `trpav` E630 · `trpavf` E649 · `trpev` E626 · `trphg` E629 · `trphs` E542 · `trphv` E550 · `trphvs` E556 · `trpkc` E574 · `trpkcbn` E789 · `trpkcin` E782 · `trpkd` E567 · `trpke` E545 · `trpkec` E575 · `trpkef` E568 · `trpkfbn` E770 · `trpkfin` E762 · `trpkg` E544 · `trpkpbn` E732 · `trpkpbu` E750 · `trpkpin` E721 · `trpkpiu` E743 · `trplgc` E609 · `trplgf` E608 · `trplgn` E606 · `trplgu` E607 · `trpop` E535 · `trppbp` E725 · `trppcb` E783 · `trppci` E776 · `trppfb` E764 · `trppfi` E756 · `trpphv` E531 · `trppip` E714 · `trppub` E744 · `trppui` E738 · `trprg` E530 · `trpri` E532 · `trprl` E529 · `trprm` E534 · `trprn` E533 · `trpvac` E771 · `trpvaf` E751 · `trpvap` E695 · `trpvc` E773 · `trpvf` E753 · `trpvmc` E772 · `trpvmf` E752 · `trpvmp` E696 · `trpvp` E697 · `trra` E627 · `trrafc` E967 · `trraff` E966 · `trrafp` E965 · `trrau` E745 · `trresb` E734 · `trresgb` E735 · `trresgp` E723 · `trresp` E722 · `trretc` E597 · `trretf` E596 · `trretn` E594 · `trretu` E595 · `trsat` E521 · `trsatf` E831 · `trsatg` E832 · `trsatp` E796 · `trsatq` E797 · `trshc` E859 · `trshcb` E860 · `trshf` E511 · `trshfb` E842 · `trshfi` E841 · `trshn` E808 · `trshnb` E809 · `trshu` E813 · `trshub` E814 · `trsps` E539 · `trsta` E624 · `trstd` E583 · `trstdc` E585 · `trstdf` E584 · `trstt` E614 · `TrSubAmountCyc` E452 · `TrSubAmountFre` E451 · `TrSubAmountPas` E450 · `trsubc` E713 · `TrSubChgCyc` E455 · `TrSubChgFre` E454 · `TrSubChgPas` E453 · `trsubf` E712 · `trsubp` E711 · `TrSubYearCyc` E449 · `TrSubYearFre` E448 · `TrSubYearPas` E447 · `trsum` E968 · `trsvpbn` E728 · `trsvpin` E717 · `trtcac` E855 · `trtcaf` E837 · `trtcau` E810 · `trtcav` E804 · `trtcf` E724 · `trtcff` E763 · `trtcfp` E733 · `trtcr` E821 · `trtcrf` E845 · `trtocbn` E788 · `trtocin` E781 · `trtofbn` E769 · `trtofin` E761 · `trtopbn` E731 · `trtopbu` E749 · `trtopin` E720 · `trtopiu` E742 · `trtrn` E817 · `trusd` E519 · `trush` E581 · `trvatbc` E710 · `trvatbp` E709 · `TrVatPolFactor` E476 · `TrVatYearCyc` E475 · `TrVatYearPas` E474 · `trveh` E829 · `trvehb` E830 · `trvehc` E862 · `trvehf` E851 · `trvehfb` E852 · `trvht` E961 · `trvhta` E964 · `trvhtc` E963 · `trvhtf` E962 · `trvk0` E554 · `trvkb` E548 · `trvkbc` E576 · `trvkbf` E569 · `trvkc` E893 · `trvkcb` E902 · `trvkcbc` E929 · `trvkcbf` E916 · `trvkcc` E921 · `trvkcf` E908 · `trvkd` E514 · `trvkf` E552 · `trvkfb` E571 · `trvkfd` E570 · `trvkfr` E561 · `trvkg` E551 · `trvkm` E547 · `trvkn` E669 · `trvkna` E670 · `trvknaf` E681 · `trvknb` E675 · `trvknbf` E682 · `trvkncb` E686 · `trvkncg` E685 · `trvknf` E680 · `trvkp` E553 · `trvkr0` E562 · `trvku` E676 · `trvku0` E870 · `trvku0c` E884 · `trvku0f` E878 · `trvkub` E677 · `trvp` E525 · `trvsf` E564 · `trvsf1` E563 · `trvsh` E555 · `tvc` E302 · `tvcx` E303 · `txf` E214 · `txo` E215 · `usdtot` E383 · `UseSpotFuelPricesInEngineerModel` E147 · `vat` E220 · `vbc` E298 · `vcmin` E338 · `vre` E351 · `wac` E253 · `WACCSource` E152 · `WACCUserGlobal` E153 · `wcli` E1122 · `wdg` E1123 · `wel` E1127 · `wfx` E252 · `wsel` E251 · `xac` E299 · `xck` E297 · `xcp` E398 · `xcpd` E399 · `xct.c` E86 · `xct.p` E87 · `xets.p` E88 · `xnim` E1107 · `xnim.pct` E1111 · `xr` E5 · `xtb` E1108 · `xtb.pct` E1110 · `xtbp` E1109 · `YearConsSubPha` E97 · `YearPha` E16 · `YearPPACoalGas` E173 · `YearPrcContPha` E104 · `YearProdSubPha` E90 · `YearsToPhaseOutPPAs` E174
+`AdditionalCoalIntangibleCost` E180 · `AdditionalEfficiencyIndustrial` E123 · `AdditionalEfficiencyPower` E136 · `AdditionalEfficiencyResidential` E122 · `AdditionalEfficiencyRoadVehicle` E121 · `AdditionalExcise` E141 · `AdditionMitigationPoliciesNonEnergy` E133 · `aeef` E331 · `aef` E405 · `AllocateLTStorageToVRE` E166 · `AllocateSTStorageToVRE` E163 · `AlwaysExemptResLPGKer` E124 · `ap` E1125 · `ap.w` E1123 · `apf` E1126 · `apfd` E1124 · `aps` E1127 · `atp` E403 · `bco2` E44 · `bco2.chk` E1010 · `cap` E354 · `cap0` E257 · `captot` E355 · `cax` E287 · `caxav` E288 · `cbat` E276 · `cchg` E1012 · `ccpav` E308 · `cel` E283 · `CFOverrideIfAbove` E151 · `CFOverrideIfBelowFosOth` E150 · `CFOverrideIfBelowWndSol` E149 · `cfu` E249 · `ch4` E407 · `ch4.abt` E1031 · `ch4.act` E1030 · `ch4.c` E1033 · `ch4.em` E1032 · `ch4.emf` E1042 · `ch4.fk` E1027 · `ch4.pi` E1028 · `ch4.prd` E1029 · `ch4.rev` E1041 · `ch4.revf` E1043 · `ch4.src` E1025 · `ch4.sup` E1034 · `ch4.wd` E1026 · `ch4bs` E45 · `ch4bs.chk` E1044 · `cic` E294 · `cicl` E293 · `cics` E292 · `cik` E311 · `cint` E277 · `cmin` E369 · `co2` E350 · `co2.cap` E1006 · `co2.chg` E1016 · `co2.chk` E1011 · `co2.ets` E1005 · `co2.gap` E1007 · `co2.grid` E1013 · `co2.pct` E1003 · `co2.ref` E1002 · `co2.sec` E1004 · `cons` E314 · `ConsSubPha` E96 · `ConsSubPhaBaseline` E100 · `cov.all` E1113 · `cov.ct` E1111 · `cov.ets` E1112 · `covct` E1110 · `cp.exp` E71 · `cp.nom` E14 · `cp.shd` E73 · `cp.t` E13 · `cpeff` E1109 · `cph` E352 · `CPIntro` E7 · `CPLevelStart` E8 · `CPLevelTarget` E9 · `CPOutro` E10 · `cptraj` E201 · `cpx` E72 · `cs` E217 · `csf` E112 · `csi` E111 · `csw` E400 · `CTaxComplimentaryToETS` E85 · `ctcov` E19 · `ctf` E267 · `CTforMethane` E126 · `ctr` E78 · `ctxnew` E394 · `D_ETSAuctStart` E31 · `D_ETSAuctTarget` E32 · `D_ETSCapCont` E28 · `D_ETSChangeRelStart` E26 · `D_ETSChangeRelTarget` E27 · `D_ETSCTRisk` E36 · `D_ETSIntro` E29 · `D_ETSOutro` E30 · `D_ETSPriceOverride` E33 · `D_ETSVolatility` E34 · `D_ETSVolImpact` E35 · `D_NewETS` E25 · `deficit` E370 · `defl` E2 · `dem` E333 · `demg` E334 · `demtot` E335 · `dgas` E378 · `dgen` E347 · `dlf` E254 · `dlfr` E255 · `dmg` E1116 · `dsum` E304 · `early` E363 · `EarlyRetirementInBaseline` E158 · `echg` E985 · `ecmin` E361 · `ecr` E1114 · `ecshr` E362 · `eff` E1119 · `effcap` E356 · `egrow` E360 · `elcx` E279 · `eldem` E393 · `elof` E281 · `elov` E282 · `eltk` E280 · `enel` E406 · `ener` E392 · `ener.chk` E982 · `ener.pct` E984 · `ener.ref` E983 · `EngineerModelProportionOfCovidFactor` E138 · `entx` E318 · `entxd` E317 · `epct` E986 · `erf` E265 · `esub` E219 · `esubpu` E211 · `etr` E79 · `ets` E395 · `ets.bce` E49 · `ets.cap` E51 · `ets.chg` E50 · `ets.est` E53 · `ets.imp` E47 · `ets.lr` E1008 · `ets.next` E1009 · `ets.on` E37 · `ets.ovr` E54 · `ets.p` E55 · `ets.pe` E56 · `ets.rf` E57 · `ets.se` E52 · `ets.vadj` E48 · `ets.vol` E46 · `etsb` E42 · `etsb.s` E40 · `etsb.t` E41 · `etsc` E39 · `etscov` E38 · `etsnew` E224 · `etx` E218 · `ExemptPhaseout` E15 · `ExemptPhaseoutPeriod` E17 · `exf` E125 · `ExistingCTApply` E81 · `ExistingCTGrowth` E82 · `ExistingETSApply` E83 · `ExistingETSGrowth` E84 · `EXPCapex` E1079 · `EXPCIT` E1078 · `EXPGoodsandserv` E1080 · `exph` E18 · `EXPLabortax` E1077 · `EXPTransfers` E1081 · `exs` E274 · `ExtendCarbonPriceBeyondOutro` E11 · `fadtx` E216 · `fb` E62 · `fb.s` E60 · `fb.t` E61 · `fb.yr0` E58 · `fb.yr1` E59 · `fbcov` E63 · `fce` E310 · `FFPhaseOut` E98 · `FFSConsPhaseoutPeriodBA` E101 · `FFSProdPhaseoutPeriod` E91 · `FFSProdPhaseoutPeriodBA` E94 · `first` E375 · `fis.eff` E1096 · `fis.grp` E1094 · `fis.imp` E1090 · `fis.impp` E1092 · `fis.key` E1095 · `fis.lag` E1091 · `fis.lagp` E1093 · `fis.ref` E1088 · `fis.rev` E1087 · `fis.sp` E1089 · `fix` E290 · `FmAdj` E1084 · `fpn` E295 · `fpp` E296 · `fpr` E24 · `fpr.f` E23 · `fpr.s` E22 · `fpr.yr0` E20 · `fpr.yr1` E21 · `gchg` E1045 · `gdp.base` E1086 · `gdp.chg.usd` E1101 · `gdp.eff` E1107 · `gdp.lcu` E4 · `gdp.lvl` E1097 · `gdp.pos.pct` E6 · `gdp.pos.usd` E1098 · `gdp.usd` E3 · `GDPEndogenous` E1085 · `gdpg` E1099 · `gdpn` E997 · `gdppc.g` E1019 · `GDPStartYear` E1083 · `gdpy` E1100 · `gen_mwy` E345 · `ghg` E1037 · `ghg.chg` E1076 · `ghg.dr` E1023 · `ghg.enrp` E1046 · `ghg.flr` E1036 · `ghg.gi` E1022 · `ghg.h` E1020 · `ghg.inc` E1038 · `ghg.invb` E1024 · `ghg.k` E1035 · `ghg.m` E1021 · `ghg.pct` E1040 · `ghg.ref` E1039 · `glg` E343 · `gmin` E341 · `gmx` E340 · `gnc` E306 · `gncav` E307 · `gp` E207 · `gp.adj` E205 · `gp.src` E204 · `gpi` E209 · `gpn` E206 · `gtot` E346 · `HydroDoesntRetire` E156 · `inc.ela.adj` E285 · `IncElAdj` E137 · `incp` E284 · `IndustrialProcessEmissionsScaleEner` E134 · `infl` E1 · `IntEnerPricForecastAdjustment` E203 · `IntEnerPricForeSource` E202 · `invs` E258 · `kafter` E364 · `kaya` E1014 · `kDispatch` E142 · `kidx` E1015 · `kInvestment` E143 · `kwh` E256 · `lfx` E291 · `lgd` E342 · `lgi` E373 · `lkb` E972 · `lkc` E979 · `lkcb` E980 · `lkd` E971 · `lkp` E970 · `lks` E981 · `lkt` E969 · `lkx` E976 · `lkxa` E977 · `lkxe` E974 · `lkxp` E973 · `lkxr` E975 · `lkz` E978 · `LongTermStorageFor100pcVRE` E168 · `ltu` E269 · `LULUCFAnnualEmissionsDecline` E135 · `lvc` E305 · `mancap` E366 · `mani` E367 · `ManualCoalIntangibleCostLT` E182 · `ManualCoalIntangibleCostST` E181 · `MaxCostBasedEarlyRetirement` E157 · `MaximumCoalCF` E145 · `MaximumGasCF` E146 · `maxinv` E372 · `MaxNonNucOreBioAsPCOfTotalGen` E160 · `MaxNonVREAsPCOfTotalGen` E159 · `MaxScaleUpRateCategory` E162 · `MaxWindSolarScaleup` E161 · `mfc` E1121 · `mfee` E132 · `mfee.p` E131 · `mfp` E1120 · `MinimumThermalEfficiency` E148 · `MinimumWACC` E154 · `MinPostSubsidyPowerPrice` E144 · `MPIntro` E127 · `MPLevelStart` E128 · `MPLevelTarget` E129 · `MPOutro` E130 · `msc` E353 · `mult` E332 · `MultipliersSource` E1082 · `nce` E397 · `ndc.alt` E1051 · `ndc.bau` E1072 · `ndc.bi` E1059 · `ndc.bs` E1057 · `ndc.bty` E1058 · `ndc.co2` E1056 · `ndc.f` E1067 · `ndc.gap` E1074 · `ndc.gas` E1055 · `ndc.gdp` E1065 · `ndc.h` E1064 · `ndc.hc` E1062 · `ndc.hh` E1061 · `ndc.hi` E1066 · `ndc.hk` E1060 · `ndc.hv` E1063 · `ndc.idx` E1071 · `ndc.k` E1049 · `ndc.key` E1047 · `ndc.lu` E1054 · `ndc.lv` E1068 · `ndc.lvl` E1070 · `ndc.over` E1075 · `ndc.r` E1069 · `ndc.red` E1073 · `ndc.ref` E1052 · `ndc.ty` E1050 · `ndc.typ` E1048 · `ndc.x` E1053 · `need` E365 · `needm` E368 · `nei` E379 · `NewInvBio` E191 · `NewInvBioYear` E200 · `NewInvCoa` E183 · `NewInvCoaYear` E192 · `NewInvHyd` E189 · `NewInvHydYear` E198 · `NewInvNga` E184 · `NewInvNgaYear` E193 · `NewInvNuc` E186 · `NewInvNucYear` E195 · `NewInvOil` E185 · `NewInvOilYear` E194 · `NewInvOre` E190 · `NewInvOreYear` E199 · `NewInvSol` E188 · `NewInvSolYear` E197 · `NewInvWnd` E187 · `NewInvWndYear` E196 · `nid` E382 · `nim` E380 · `nimtot` E381 · `NomorReal` E12 · `ntx` E396 · `nuu` E250 · `obat` E278 · `obr` E43 · `pav.idx` E243 · `pav.las` E237 · `pav.leg` E241 · `pav.lidx` E242 · `pav.mix` E240 · `pav.q` E234 · `pav.sp` E233 · `pav.sp0` E238 · `pav.spr` E236 · `pav.time` E239 · `pav.uv` E235 · `pavl.pp` E247 · `pavl.qi` E245 · `pavl.qp` E246 · `pavl.qr` E244 · `pbc` E221 · `pcf` E114 · `pci` E113 · `pcsw` E227 · `pctx` E223 · `pcw` E401 · `pdem` E330 · `pe` E349 · `perm` E259 · `permit` E371 · `pet` E391 · `pex` E319 · `PhaseOutCoalAndGasPPAsBaseline` E171 · `PhaseOutCoalAndGasPPAsPolicy` E172 · `phi` E384 · `pnce` E231 · `pni` E374 · `pnq` E222 · `pntx` E225 · `po.n` E108 · `po.on` E107 · `po.sh` E109 · `pof` E110 · `pop` E1017 · `pop.g` E1018 · `PowerRebates` E139 · `PowerSectorPriceChangePassOn` E140 · `ppa` E270 · `PPAProportionCoalGas` E170 · `ppcw` E228 · `ppr` E344 · `ppsw` E229 · `PrcContPha` E103 · `PrcContPhaBaseline` E106 · `PrcControlPhaseout` E105 · `pret` E357 · `prnew` E388 · `ProdSubPh` E89 · `ProdSubPhaBaseline` E93 · `pros` E117 · `prrns` E390 · `prsub` E386 · `prtx` E385 · `prxc` E387 · `prxl` E389 · `ps` E212 · `psd` E118 · `pset` E208 · `psf` E116 · `psi` E115 · `psr` E120 · `psu` E119 · `psw` E402 · `pvatn` E230 · `pxcd` E226 · `rate` E263 · `rbe` E995 · `rbs` E273 · `rcarb` E322 · `reb` E301 · `rec` E359 · `reg` E76 · `regadj` E74 · `regc` E75 · `rem` E339 · `RenewableCostDeclineRate` E155 · `RenewableSubsidyBL` E175 · `RenewableSubsidyHydro` E179 · `RenSubsidyAddPhaseoutYrs` E177 · `RenSubsidyAddStartYear` E178 · `RenSubsidyAddUSDkwh` E176 · `req` E336 · `reqcg` E337 · `ret` E358 · `rev.chk` E991 · `rex` E412 · `rexm` E324 · `rexs` E323 · `rfg` E993 · `rfu` E992 · `rfu.chk` E994 · `rgap` E329 · `rmf` E987 · `rnet` E989 · `rnew` E410 · `rns` E272 · `rnsp` E271 · `rnvat` E326 · `rp` E320 · `rpct` E996 · `rpe` E248 · `rpex` E328 · `rpn` E232 · `rpol` E998 · `rpol.chk` E999 · `rppre` E316 · `rpsu` E988 · `rr` E264 · `rreb` E327 · `rsr` E414 · `rsub` E409 · `rtot` E1000 · `rtot.chg` E1001 · `rtot.ref` E990 · `rtx` E408 · `rvat` E325 · `rvt` E413 · `rxcp` E411 · `sc` E315 · `scat` E261 · `scc` E1115 · `ScenarioSelected` E64 · `scn` E70 · `scv` E262 · `second` E377 · `sgap` E321 · `ShareOfConsSubPha` E99 · `ShareofConsSubPhaBA` E102 · `ShareofProdSubPha` E92 · `ShareOfProdSubPhaBA` E95 · `shk` E300 · `shock` E286 · `shp` E404 · `shpx` E80 · `shr` E348 · `sp` E213 · `space` E376 · `spf` E210 · `spot` E266 · `SPPEffAdjEnergyEfficiencyRegulations` E65 · `SPPEffAdjFeebates` E69 · `SPPEffAdjInd` E68 · `SPPEffAdjRes` E67 · `SPPEffAdjVehicleFuelEconomy` E66 · `ssc` E77 · `start` E260 · `StartingPointWhenLTStorageIsNeeded` E167 · `stm` E268 · `stoav` E289 · `StorageHoursForLTStorage` E169 · `StorageToInterfaceRatioSTStorage` E165 · `swd` E313 · `swi` E312 · `tcf` E275 · `tcp` E1108 · `tic` E309 · `TotalHoursStorageFor100pcVRE` E164 · `tr.col` E418 · `tr.dk` E417 · `tr.pol` E419 · `tr.sw` E416 · `TrAdvBevBaseCyc` E461 · `TrAdvBevBaseFre` E460 · `TrAdvBevBasePas` E459 · `TrAdvBevPolCyc` E467 · `TrAdvBevPolFre` E466 · `TrAdvBevPolPas` E465 · `tradvcb` E705 · `tradvci` E704 · `tradvfb` E703 · `tradvfi` E702 · `TrAdvIceBaseCyc` E458 · `TrAdvIceBaseFre` E457 · `TrAdvIceBasePas` E456 · `TrAdvIcePolCyc` E464 · `TrAdvIcePolFre` E463 · `TrAdvIcePolPas` E462 · `tradvpb` E701 · `tradvpi` E700 · `TrAdvYearCyc` E470 · `TrAdvYearFre` E469 · `TrAdvYearPas` E468 · `trafe` E960 · `trafen` E959 · `trafg` E957 · `trafo` E958 · `traftc` E601 · `traftf` E600 · `traftn` E598 · `trafts` E618 · `traftsc` E620 · `traftsf` E619 · `traftu` E599 · `trancbn` E785 · `trancin` E778 · `tranfbn` E766 · `tranfin` E758 · `tranpbn` E727 · `tranpbu` E746 · `tranpin` E716 · `tranpiu` E739 · `travc` E593 · `travf` E592 · `travn` E590 · `travu` E591 · `trbevm` E621 · `trbio` E945 · `trbkm` E894 · `trbkm0` E871 · `trbkm0c` E885 · `trbkm0f` E879 · `trbkmb` E903 · `trbkmbc` E930 · `trbkmbf` E917 · `trbkmc` E922 · `trbkmf` E909 · `trbkmt` E906 · `trbkmtc` E932 · `trbkmtf` E919 · `trbu` E888 · `trbus0` E936 · `trbuse` E935 · `trbusel` E938 · `trbusf` E937 · `trbusp` E934 · `trbuyc` E605 · `trbuyf` E604 · `trbuyn` E602 · `trbuyu` E603 · `trbvu` E546 · `trbyt` E801 · `trbytc` E854 · `trbytf` E836 · `trbytn` E802 · `trbytu` E803 · `trcf2` E942 · `trcf2e` E943 · `trchs` E520 · `trckb2` E900 · `trckb2r` E901 · `trckbc` E674 · `trckbc2` E927 · `trckbc2r` E928 · `trckbf` E673 · `trckbf2` E914 · `trckbf2r` E915 · `trckbp` E671 · `trckbr` E672 · `trckc` E683 · `trckcr` E684 · `trckf` E678 · `trckfr` E679 · `trckm` E667 · `trckr` E668 · `trcks` E867 · `trcksc` E882 · `trckscr` E883 · `trcksf` E876 · `trcksfr` E877 · `trcksr` E868 · `trcloc` E613 · `trclof` E612 · `trclon` E610 · `trclou` E611 · `trco2c` E924 · `trco2f` E911 · `trco2p` E896 · `trcpp` E523 · `trcq` E889 · `trcrs` E824 · `trcrsf` E846 · `trcsc` E623 · `trcss` E622 · `TrCsStartLevel` E479 · `TrCsStartYear` E478 · `TrCsTargetLevel` E481 · `TrCsTargetYear` E480 · `trcuec` E708 · `trcuef` E707 · `trcuep` E706 · `TrCustPolFactor` E477 · `TrCustYearCyc` E473 · `TrCustYearFre` E472 · `TrCustYearPas` E471 · `trcyh` E580 · `trdemf` E834 · `trdemp` E799 · `trdfc` E892 · `trdff` E891 · `trdfp` E890 · `trdisc` E538 · `trdkmcycb` E694 · `trdkmcyci` E693 · `trdkmfreb` E692 · `trdkmfrei` E691 · `trdkmpasb` E688 · `trdkmpasi` E687 · `trdkmpaub` E690 · `trdkmpaui` E689 · `trdmcc` E853 · `trdmcf` E835 · `trdmcp` E800 · `trdpcbn` E784 · `trdpcin` E777 · `trdpfbn` E765 · `trdpfin` E757 · `trdppbn` E726 · `trdppin` E715 · `TrDtStartCyc` E440 · `TrDtStartFre` E439 · `TrDtStartPas` E438 · `TrDtTargetCyc` E446 · `TrDtTargetFre` E445 · `TrDtTargetPas` E444 · `TrDtTargetYearCyc` E443 · `TrDtTargetYearFre` E442 · `TrDtTargetYearPas` E441 · `trdtxc` E666 · `trdtxf` E665 · `trdtxp` E664 · `TrDtYearCyc` E437 · `TrDtYearFre` E436 · `TrDtYearPas` E435 · `trdut` E517 · `trelc` E931 · `trelf` E918 · `trelp` E905 · `trelph` E904 · `trelt` E941 · `trevac` E807 · `trevacc` E858 · `trevaf` E840 · `trevbm` E557 · `trevcc` E815 · `trevo` E516 · `trevom` E549 · `trevp` E515 · `trevpm` E560 · `trevsc` E617 · `trevsf` E616 · `trevsh` E816 · `trevst` E615 · `trfbl` E634 · `trfblc` E658 · `trfblf` E650 · `TrFbPivotChgCyc` E434 · `TrFbPivotChgFre` E433 · `TrFbPivotChgPas` E432 · `TrFbPivotCyc` E431 · `TrFbPivotFre` E430 · `TrFbPivotPas` E429 · `TrFbPivotTypeCyc` E428 · `TrFbPivotTypeFre` E427 · `TrFbPivotTypePas` E426 · `trfbr` E635 · `trfbr5` E636 · `TrFbRateCyc` E425 · `TrFbRateFre` E424 · `TrFbRatePas` E423 · `trfbrc` E659 · `trfbrf` E651 · `trfbtc` E633 · `trfbtf` E632 · `trfbtp` E631 · `trfbvcb` E775 · `trfbvci` E774 · `trfbvfb` E755 · `trfbvfi` E754 · `trfbvpb` E699 · `trfbvpi` E698 · `trfbvub` E737 · `trfbvui` E736 · `TrFbYearCyc` E422 · `TrFbYearFre` E421 · `TrFbYearPas` E420 · `trfcc` E956 · `trfcec` E954 · `trfcef` E953 · `trfcep` E952 · `trfcf` E955 · `trfcp` E951 · `trfe` E512 · `trfeb` E522 · `trfebm` E543 · `trfebn` E897 · `trfebo` E898 · `trfeboc` E925 · `trfebof` E912 · `trfebs` E899 · `trfebsc` E926 · `trfebsf` E913 · `trfem` E540 · `trfem2` E541 · `trfen` E524 · `trfeu` E642 · `trfeub` E644 · `trfew` E628 · `trfewf` E648 · `trfn` E637 · `trfna` E639 · `trfnaf` E653 · `trfnc` E660 · `trfnf` E652 · `trfnp` E638 · `trfsc` E865 · `trfscc` E881 · `trfscf` E875 · `trfscp` E866 · `trfsh` E578 · `trfso` E863 · `trfsoc` E880 · `trfsof` E874 · `trfsop` E864 · `trfu0` E873 · `trfu0c` E886 · `trfu0f` E887 · `trfu0g` E872 · `trfua` E939 · `trfub` E940 · `trfuc` E923 · `trfucbn` E787 · `trfucin` E780 · `trfuf` E910 · `trfufbn` E768 · `trfufin` E760 · `trfup` E895 · `trfupbn` E730 · `trfupbu` E748 · `trfupin` E719 · `trfupiu` E741 · `trgdl` E537 · `trgpc` E536 · `trgpcr` E869 · `trgtf` E833 · `trgtp` E798 · `tricd` E822 · `tricdp` E823 · `tricl` E645 · `triclc` E662 · `triclf` E656 · `triclu` E646 · `tricn` E826 · `tricnf` E848 · `trico` E827 · `tricof` E849 · `tricp` E825 · `tricpf` E847 · `trics` E820 · `tricsf` E844 · `tricw` E828 · `tricwf` E850 · `trimcbn` E786 · `trimcin` E779 · `trimfbn` E767 · `trimfin` E759 · `trimp` E518 · `trimpbn` E729 · `trimpbu` E747 · `trimpin` E718 · `trimpiu` E740 · `trint` E640 · `trinta` E641 · `trintaf` E655 · `trintc` E661 · `trintc2` E933 · `trintf` E654 · `trintf2` E920 · `trintp` E907 · `trints` E647 · `trintsc` E663 · `trintsf` E657 · `trintu` E643 · `trjc` E579 · `trjhf` E793 · `trjhp` E790 · `trjif` E794 · `trjip` E791 · `trjjf` E795 · `trjjp` E792 · `trkmc` E949 · `trkmf` E948 · `trkmp` E947 · `trkmt` E950 · `trkt` E944 · `trkte` E946 · `trlgc` E856 · `trlgcb` E857 · `trlgf` E838 · `trlgfb` E839 · `trlgn` E805 · `trlgnb` E806 · `trlgu` E811 · `trlgub` E812 · `trmku` E625 · `TrModel` E415 · `trnc` E577 · `trnwbn` E818 · `trnwbu` E819 · `trnwc` E861 · `trnwf` E843 · `tropc` E589 · `tropf` E588 · `tropn` E586 · `tropu` E587 · `trown` E513 · `trownb` E558 · `trownc` E572 · `trownce` E573 · `trowne` E559 · `trownf` E565 · `trownfe` E566 · `trowny` E582 · `trp.bsh` E526 · `trp.bus` E528 · `trp.cap` E494 · `trp.chs` E495 · `trp.dep` E483 · `trp.dsc` E497 · `trp.eb` E506 · `trp.eb2` E509 · `trp.ebb` E507 · `trp.ebc` E508 · `trp.ef` E505 · `trp.efa` E510 · `trp.ela` E501 · `trp.frs` E499 · `trp.gap` E488 · `trp.gj` E503 · `trp.ice` E498 · `trp.inc` E487 · `trp.ins` E484 · `trp.k` E489 · `trp.life` E482 · `trp.lpk` E504 · `trp.mev` E486 · `trp.mic` E485 · `trp.mku` E496 · `trp.mod` E502 · `trp.odc` E492 · `trp.ogr` E491 · `trp.own` E490 · `trp.tax` E527 · `trp.vkt` E493 · `trp.yrs` E500 · `trpav` E630 · `trpavf` E649 · `trpev` E626 · `trphg` E629 · `trphs` E542 · `trphv` E550 · `trphvs` E556 · `trpkc` E574 · `trpkcbn` E789 · `trpkcin` E782 · `trpkd` E567 · `trpke` E545 · `trpkec` E575 · `trpkef` E568 · `trpkfbn` E770 · `trpkfin` E762 · `trpkg` E544 · `trpkpbn` E732 · `trpkpbu` E750 · `trpkpin` E721 · `trpkpiu` E743 · `trplgc` E609 · `trplgf` E608 · `trplgn` E606 · `trplgu` E607 · `trpop` E535 · `trppbp` E725 · `trppcb` E783 · `trppci` E776 · `trppfb` E764 · `trppfi` E756 · `trpphv` E531 · `trppip` E714 · `trppub` E744 · `trppui` E738 · `trprg` E530 · `trpri` E532 · `trprl` E529 · `trprm` E534 · `trprn` E533 · `trpvac` E771 · `trpvaf` E751 · `trpvap` E695 · `trpvc` E773 · `trpvf` E753 · `trpvmc` E772 · `trpvmf` E752 · `trpvmp` E696 · `trpvp` E697 · `trra` E627 · `trrafc` E967 · `trraff` E966 · `trrafp` E965 · `trrau` E745 · `trresb` E734 · `trresgb` E735 · `trresgp` E723 · `trresp` E722 · `trretc` E597 · `trretf` E596 · `trretn` E594 · `trretu` E595 · `trsat` E521 · `trsatf` E831 · `trsatg` E832 · `trsatp` E796 · `trsatq` E797 · `trshc` E859 · `trshcb` E860 · `trshf` E511 · `trshfb` E842 · `trshfi` E841 · `trshn` E808 · `trshnb` E809 · `trshu` E813 · `trshub` E814 · `trsps` E539 · `trsta` E624 · `trstd` E583 · `trstdc` E585 · `trstdf` E584 · `trstt` E614 · `TrSubAmountCyc` E452 · `TrSubAmountFre` E451 · `TrSubAmountPas` E450 · `trsubc` E713 · `TrSubChgCyc` E455 · `TrSubChgFre` E454 · `TrSubChgPas` E453 · `trsubf` E712 · `trsubp` E711 · `TrSubYearCyc` E449 · `TrSubYearFre` E448 · `TrSubYearPas` E447 · `trsum` E968 · `trsvpbn` E728 · `trsvpin` E717 · `trtcac` E855 · `trtcaf` E837 · `trtcau` E810 · `trtcav` E804 · `trtcf` E724 · `trtcff` E763 · `trtcfp` E733 · `trtcr` E821 · `trtcrf` E845 · `trtocbn` E788 · `trtocin` E781 · `trtofbn` E769 · `trtofin` E761 · `trtopbn` E731 · `trtopbu` E749 · `trtopin` E720 · `trtopiu` E742 · `trtrn` E817 · `trusd` E519 · `trush` E581 · `trvatbc` E710 · `trvatbp` E709 · `TrVatPolFactor` E476 · `TrVatYearCyc` E475 · `TrVatYearPas` E474 · `trveh` E829 · `trvehb` E830 · `trvehc` E862 · `trvehf` E851 · `trvehfb` E852 · `trvht` E961 · `trvhta` E964 · `trvhtc` E963 · `trvhtf` E962 · `trvk0` E554 · `trvkb` E548 · `trvkbc` E576 · `trvkbf` E569 · `trvkc` E893 · `trvkcb` E902 · `trvkcbc` E929 · `trvkcbf` E916 · `trvkcc` E921 · `trvkcf` E908 · `trvkd` E514 · `trvkf` E552 · `trvkfb` E571 · `trvkfd` E570 · `trvkfr` E561 · `trvkg` E551 · `trvkm` E547 · `trvkn` E669 · `trvkna` E670 · `trvknaf` E681 · `trvknb` E675 · `trvknbf` E682 · `trvkncb` E686 · `trvkncg` E685 · `trvknf` E680 · `trvkp` E553 · `trvkr0` E562 · `trvku` E676 · `trvku0` E870 · `trvku0c` E884 · `trvku0f` E878 · `trvkub` E677 · `trvp` E525 · `trvsf` E564 · `trvsf1` E563 · `trvsh` E555 · `tvc` E302 · `tvcx` E303 · `txf` E214 · `txo` E215 · `usdtot` E383 · `UseSpotFuelPricesInEngineerModel` E147 · `vat` E220 · `vbc` E298 · `vcmin` E338 · `vre` E351 · `wac` E253 · `WACCSource` E152 · `WACCUserGlobal` E153 · `wcli` E1117 · `wdg` E1118 · `wel` E1122 · `wfx` E252 · `wsel` E251 · `xac` E299 · `xck` E297 · `xcp` E398 · `xcpd` E399 · `xct.c` E86 · `xct.p` E87 · `xets.p` E88 · `xnim` E1102 · `xnim.pct` E1106 · `xr` E5 · `xtb` E1103 · `xtb.pct` E1105 · `xtbp` E1104 · `YearConsSubPha` E97 · `YearPha` E16 · `YearPPACoalGas` E173 · `YearPrcContPha` E104 · `YearProdSubPha` E90 · `YearsToPhaseOutPPAs` E174

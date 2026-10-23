@@ -56,14 +56,14 @@ FIX = {  # L11 onwards (the register records what the prototype did; this is wha
     'L16': ('Use the log form: price = LN(cap / baseline) / (semi-elasticity x effectiveness).',
             'The fast ETS price estimate is off for large cuts, so the goal seek starts far from the answer.'),
     'L18': ('Grow livestock, rice and waste methane with their drivers (income, population) and apply the abatement '
-            'shares already computed in rows 6182, 6194, 6206.',
+            'shares already computed in rows 6168, 6180, 6192.',
             'Non-energy methane is flat and a methane fee on agriculture and waste has no effect.'),
     'L19': ('Report the CO2 from flaring as CO2 in energy, not divided by the CH4 GWP in the CH4 row.',
             'Methane overstated and CO2 understated when the fee abates oil and gas methane.'),
     'L20': ('Use the UN WPP population of sheet UNPop (or fix the growth path).',
             'Egypt reaches 185 million in 2041 instead of 147 million; agriculture, waste and other GHGs too high '
             'after 2030.'),
-    'L21': ('Use the waste curve of CH4Inputs for waste (row 6206 now = M6182, the livestock share).',
+    'L21': ('Use the waste curve of CH4Inputs for waste (row 6192 now = M6168, the livestock share).',
             'Waste methane is abated as if it were livestock.'),
     'L22': ('Add domestic navigation to the transport and total pollutant rows.', 'Pollutant totals miss navigation.'),
     'L23': ('Add services and food & forestry to the total of each pollutant.',
@@ -116,20 +116,20 @@ FIX = {  # L11 onwards (the register records what the prototype did; this is wha
             'Egypt (legacy inputs, v6.2 estimate): capacity 77.9 GW in 2030 and 109.6 GW in 2040 against legacy 75.2 and 107.3 (next year read directly: 77.3, 109.5); the need follows the 2023-2024 demand shock (4.3 GW in 2024, 0 in 2025).'),
     'L68': ('Apply multiplier(t - s) to the impulse of year s (lag 0 in the impulse year), as the multiplier notes '
             'define the lags.', 'The GDP effect of every impulse comes one year early.'),
-    'L69': ('Match the first cohort\'s excise use on its own row (L14387, baseline L8070), not L$8127.',
+    'L69': ('Match the first cohort\'s excise use on its own row (L14372, baseline L8056), not L$8113.',
             'The first year\'s revenue has no contractionary effect (Egypt about 3e-5 of GDP).'),
-    'L70': ('Use the gas industry excise rate (row 2581) and gas industry use in row 7761.',
+    'L70': ('Use the gas industry excise rate (row 2581) and gas industry use in row 7747.',
             'Gas industry excise revenue is wrong wherever coal and gas excises differ (none for Egypt).'),
-    'L71': ('Multiply by _conv_ktoe_to_gj in rows 7805, 7819, 7873.', 'Biomass taxes, subsidies and VAT are 0.'),
-    'L72': ('Read column R (the year) in rows 7671 and 7756.', 'Revenue of the year uses next year\'s rate.'),
-    'L73': ('Divide by the industry gas total (6442) in row 7691; use power x kerosene coverage (R2265 x R2270) in row '
-            '7718.', 'Coverage shares of gas industry and kerosene power are wrong (info rows).'),
+    'L71': ('Multiply by _conv_ktoe_to_gj in rows 7791, 7805, 7859.', 'Biomass taxes, subsidies and VAT are 0.'),
+    'L72': ('Read column R (the year) in rows 7657 and 7742.', 'Revenue of the year uses next year\'s rate.'),
+    'L73': ('Divide by the industry gas total (6428) in row 7677; use power x kerosene coverage (R2265 x R2270) in row '
+            '7704.', 'Coverage shares of gas industry and kerosene power are wrong (info rows).'),
     'L75': ('Index the excise report by the matched row instead of 759; take electricity from rev.new in the revenue '
             'by fuel report.', 'The excise report is all zeros; revenue by fuel mixes totals.'),
     'L76': ('Point CIT to the labour-tax or an own table (or the income group), WAGE to its own table, MATCH the country '
             'exactly (0), default unknown text to the income group.', 'Estimated multipliers: CIT 0, WAGE = GNFS, a '
             'missing country takes its neighbour\'s.'),
-    'L77': ('Point rows 16398-16405 to the average-price rows of each fuel; test the baseline gas total in E16317; '
+    'L77': ('Point rows 16383-16390 to the average-price rows of each fuel; test the baseline gas total in E16302; '
             'relabel "baseline = 100".', 'The reported price indices are of the wrong fuels.'),
     'L78': ('Hold the target auctioned share after the target year whatever the continuation (or offer a defined '
             'alternative).', 'An auctioned share drops to 0 (all free) after the target year.'),
@@ -172,7 +172,7 @@ FIX = {  # L11 onwards (the register records what the prototype did; this is wha
             'Manual services income elasticities equal the industry ones.'),
     'L102': ('Type the inputs and read them directly.',
             'Manual non-energy elasticities ignored.'),
-    'L103': ("Mitigation row 17683 = 'Manual inputs'!J237 (NSCC) / J240 (GSCC).",
+    'L103': ("Mitigation row 17668 = 'Manual inputs'!J237 (NSCC) / J240 (GSCC).",
             'Manual SCC entered on Manual inputs is ignored.'),
     'L104': ('Delete the name or point it at the methane fee input.',
             'None (unused name).'),
@@ -182,7 +182,7 @@ FIX = {  # L11 onwards (the register records what the prototype did; this is wha
             'None (memo only).'),
     'L107': ('Add an MTInputs row (and Dashboard cell) for the start year of the additional RE subsidy and point E2736 at it.',
             'The two policies cannot be timed apart.'),
-    'L108': ('Rows 7897-7901 = the subsidy by type (rows 3148-3152) x generation.',
+    'L108': ('Rows 7883-7887 = the subsidy by type (rows 3148-3152) x generation.',
             'Wrong total revenue whenever a renewable subsidy is set.'),
     'L109': ('Add the Low and Vhigh series to the Power tab, or map the options to the old series.',
             'Low and Vhigh options give errors.'),
@@ -190,33 +190,33 @@ FIX = {  # L11 onwards (the register records what the prototype did; this is wha
             'Revenue split inconsistent (total unchanged).'),
     'L111': ('Compute row 3660 from the excise in the price.',
             'Excise revenue overstated when AdditionalExcise is on.'),
-    'L112': ('In rows 8708-8719 refer to the policy block ($D$8700, L$8706) instead of $D$2369 and L$2375.',
+    'L112': ('In rows 8693-8704 refer to the policy block ($D$8685, L$8691) instead of $D$2369 and L$2375.',
             'Regulations have no effect in the policy run even after the L87 fix.'),
     'L113': ('Test LEFT(switch,3)="Yes" in G261, row 3150 and F201, so Yes and Yes* both count as Yes.',
             'Choosing the default option ("Yes*") of PowerRebates, RenewableSubsidyHydro or AdditionalExcise switches the feature off.'),
-    'L114': ('Deflate the nominal inputs (rows 2734-2735) by the CPI index before they enter row 2743, or relabel MTInputs 354-355 as real.',
+    'L114': ('Deflate the nominal inputs (rows 2734-2735) by the CPI index before they enter row 2743, or relabel MTInputs 352-353 as real.',
             'Renewable subsidies too large in real terms in later years (nominal value read as real).'),
-    'L115': ('Point row 2555 (and policy 8886) at the residential gas ETS row 1715.',
+    'L115': ('Point row 2555 (and policy 8871) at the residential gas ETS row 1715.',
             'Residential gas price carries the LPG permit price wherever an existing ETS covers either fuel.'),
     'L116': ('Point H53 and H54 at rows 169 and 170.',
             'None today (equal values); wrong step-change elasticity for services gasoline and diesel when regional values differ.'),
     'L117': ('Read D$1220:D$1418 in D44, as E44:O44.',
             'None today (lag 0 is 0); the lag-0 transfers multiplier would come from the wrong country.'),
     'L119': ('Drop the adjustment, or apply it once and to all types (compare in the target year).', 'BAU targets before 2030 scaled twice; Fixed and Historical never adjusted.'),
-    'L120': ('Use target / start-year emissions in rows 18497-18498, as 18499.', 'Conditional NDC line plotted as the inverse ratio.'),
-    'L121': ('Return F18452 - F18455 x adj (the level), as the Fixed block.', 'None today (branch never runs); a cut would be read as a level.'),
-    'L122': ('Add I18465 (LULUCF) instead of J18465 (non-CO2).', 'Intensity targets incl. LULUCF count non-CO2 twice and miss LULUCF.'),
+    'L120': ('Use target / start-year emissions in rows 18482-18483, as 18484.', 'Conditional NDC line plotted as the inverse ratio.'),
+    'L121': ('Return F18437 - F18440 x adj (the level), as the Fixed block.', 'None today (branch never runs); a cut would be read as a level.'),
+    'L122': ('Add I18450 (LULUCF) instead of J18450 (non-CO2).', 'Intensity targets incl. LULUCF count non-CO2 twice and miss LULUCF.'),
     'L123': ('None: not reproduced in the .xlsb (G470 already reads the reference year).', 'None.'),
     'L124': ('Read N$826 (gas) in row 2547, as the other gas blocks (same cells as the L82 plan).', 'A gas producer subsidy misses residential gas, which takes the oil value instead.'),
     'L125': ('Multiply by liters per barrel in row 2685.', 'The oil producer subsidy is about 159 times too small for other oil products.'),
     'L126': ('Average the fuel prices over t-4 .. t (rows 3155-3163): L3155 =IF(...,L3072,AVERAGE($L3072:L3072)) for L:O, P3155 =IF(...,P3072,AVERAGE(L3072:P3072)) for P:AE.', 'Power costs read the next two years\' prices: a circular reference as soon as a price depends on quantities.'),
     'L127': ('Keep the levelised variable cost (rows 3439-3447) on input-driven costs only; if an ETS price becomes endogenous, levelise the announced price path instead of the solved one.', 'Latent: investment would read future quantities through the cost path.'),
-    'L128': ('K6252 =K8038 and K6257 =K8043, filled K:AD; policy rows 12569, 12574 the same (+6,317).', 'Each year reports the next year\'s net revenue (USD and % of GDP).'),
-    'L129': ('In rows 2785-2788, 2947-2951 and 7897-7900 drop the + L2743 term (L2745 already includes it); policy rows the same (+6,331).', 'With a baseline renewable subsidy (MTInputs 354) the subsidy cost is counted twice.'),
+    'L128': ('K6238 =K8024 and K6243 =K8029, filled K:AD; policy rows 12554, 12559 the same (+6,316).', 'Each year reports the next year\'s net revenue (USD and % of GDP).'),
+    'L129': ('In rows 2785-2788, 2947-2951 and 7883-7886 drop the + L2743 term (L2745 already includes it); policy rows the same (+6,316).', 'With a baseline renewable subsidy (MTInputs 352) the subsidy cost is counted twice.'),
     'L131': ('Give each row its own code (e.g. gdp.pre.ln, gdp.pre.mn; sub.new.usd only on its own subtotal).', 'Lookups by code (MTOutputs, the data link) return the first row of a reused code.'),
     'L132': ('Write the codes in lower case and with a scenario number: em.pm2.all.<sector>, nox.tot.<n>.', 'Lookups of the protocol codes fail.'),
     'L133': ('Rename the N2O total n2o.tot and the NOx forcing row nox.tot.', 'A reader of the codes takes one gas for the other.'),
-    'L130': ('F18471: apply the cut to the reference-year intensity F18468, as F18470 does.', 'Conditional and unconditional intensity targets are not comparable.'),
+    'L130': ('F18456: apply the cut to the reference-year intensity F18453, as F18455 does.', 'Conditional and unconditional intensity targets are not comparable.'),
     'L118': ('Size the logit investment on row 4108 (need after manual investment), not row 4028.',
             'Over-investment whenever a type is set to Manual: logit investment comes on top of the manual capacity path.'),
     'L95': ('Put the efficiency increment on its own labelled row (or read M2198 directly); leave row 3719 to net exports.',
@@ -256,6 +256,16 @@ PRIORITY.update(TR_PRI)
 FIX.update(TR_FIX)
 
 
+CHECK465 = os.path.join(HERE, '..', 'bugsfixed', 'legacy465_check.json')   # v8.2: fixes the CPAT team made in 465
+
+
+def legacy465(lid):
+    """v8.2: the bug in legacy 465 (column "In legacy 465"): open, or the check of the CPAT team's fix."""
+    chk = json.load(open(CHECK465, encoding='utf-8'))['bugs'] if os.path.exists(CHECK465) else {}
+    return {'Confirmed fixed': 'Fixed', 'Fixed with caveats': 'Fixed with caveats',
+            'Not fixed': 'Not fixed (marked fixed)'}.get(chk.get(lid, {}).get('status'), 'Open')
+
+
 def mvp_status(lid):
     """v3.7: what the prototype does about the bug, in a word or two (column "In the prototype")."""
     st = {x[0]: x[4] for x in R.LEGACY}.get(lid, 'Fixed')
@@ -286,19 +296,21 @@ def main():
     n = {p: sum(PRIORITY[b[0]] == p for b in rows) for p in ORDER}
     lines = [f'# Legacy CPAT: bug fixes needed (CPAT-AI-Mitigation-Prototype v{B.VERSION})', '',
              'Rebuilding the legacy CPAT mitigation sheet found these bugs in legacy CPAT itself. The prototype fixes or '
-             'documents each of them; **legacy CPAT still needs the fixes**. File: `CPAT 1.0pre_456_NoPropData.xlsb`, '
-             'sheet Mitigation unless stated. Generated from the register (`issues_register.py`) by '
-             '`make_legacy_fixes.py`; the full register is `CPAT-AI_BugsAndIssues_v6.4.docx`.',
+             'documents each of them; **legacy CPAT still needs the fixes** unless column "In legacy 465" says Fixed. '
+             'File: `CPAT 1.0pre_465 - No Prop Data.xlsb` (the bugs were found in 456; rows moved to 465), sheet '
+             'Mitigation unless stated. Generated from the register (`issues_register.py`) by `make_legacy_fixes.py`; '
+             'the full register, with the check of each fix in 465, is `CPAT-AI_BugsAndIssues_latest.docx`.',
              '', f'**{len(rows)} bugs: {n["High"]} high, {n["Medium"]} medium, {n["Low"]} low priority.** High = '
              'changes the results of standard runs (Egypt); medium = changes results in some runs or countries, or a '
              'reported number; low = latent (no effect in the Egypt runs) or reporting only. (L17 turned out to be a bug of '
              'the prototype, not of legacy, and is not listed.)', '',
-             '| ID | Priority | Bug | Where in legacy | Fix | In the prototype |', '|---|---|---|---|---|---|']
+             '| ID | Priority | In legacy 465 | Bug | Where in legacy | Fix | In the prototype |',
+             '|---|---|---|---|---|---|---|']
     for lid, title, where, _what, fix, _eff in rows:
-        lines.append(f'| {lid} | {PRIORITY[lid]} | {title} | {where} | {fix} | {mvp_status(lid)} |')
+        lines.append(f'| {lid} | {PRIORITY[lid]} | {legacy465(lid)} | {title} | {where} | {fix} | {mvp_status(lid)} |')
     lines += ['', '## Details', '']
     for lid, title, where, what, fix, eff in rows:
-        lines += [f'**{lid} ({PRIORITY[lid]}). {title}.** {where}.', '',
+        lines += [f'**{lid} ({PRIORITY[lid]}; in legacy 465: {legacy465(lid).lower()}). {title}.** {where}.', '',
                   f'- Legacy: {what}', f'- Fix: {fix}', f'- Effect: {eff}', '']
     with open(OUT, 'w', encoding='utf-8') as f:
         f.write('\n'.join(lines))

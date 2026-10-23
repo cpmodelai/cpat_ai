@@ -1,8 +1,8 @@
 # Legacy CPAT bug-fix plans (cell by cell)
 
-Manual fix plans for the legacy workbook `excel_ai/legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb` (sheet Mitigation). For every bug: the cell, its current formula, the new formula, the columns to fill and the policy-block row. Bug IDs follow the register (`excel_ai/mitigation/LegacyBugFixes.md` for L1-L50; `excel_ai/mitigation/LegacyBugFixes_v5_4.md` and `issues_register_v5_4.py` for the later ones). All 49 legacy bugs of the v4.0 register (L1-L50; L17 was an prototype bug) are covered, plus two new ones (N1, N2), and 15 engineer-power bugs of the v5.4 register: L52-L56, L67, L83, L84, L88, L95, L107-L111 (64 bugs in all).
+Manual fix plans for the legacy workbook, sheet Mitigation unless stated. **Since v8.2 (2026-10-23) every cell reference is a row of the latest file from the CPAT team, `excel_ai/legacy/workbooks/CPAT 1.0pre_465 - No Prop Data.xlsb`**; the bugs were found, and the plans first written, in `CPAT 1.0pre_456_NoPropData.xlsb`. The move: `data/rowmap_456_465.json` (rows of both files matched on their labels and codes) applied by `tools/remap_465.py`; every plan's "formula now" was then checked against 465 (the CPAT team fixed 62 of the bugs there: `../../bugsfixed/`). For every bug: the cell, its current formula, the new formula, the columns to fill and the policy-block row. Bug IDs follow the register (`excel_ai/mitigation/LegacyBugFixes.md` for L1-L50; `excel_ai/mitigation/LegacyBugFixes_v5_4.md` and `issues_register_v5_4.py` for the later ones). All 49 legacy bugs of the v4.0 register (L1-L50; L17 was an prototype bug) are covered, plus two new ones (N1, N2), and 15 engineer-power bugs of the v5.4 register: L52-L56, L67, L83, L84, L88, L95, L107-L111 (64 bugs in all).
 
-**Since 2026-10-22 the plans are printed in the one register, `../CPAT-AI_BugsAndIssues_v7.2.docx` (section 3: power, transport, other mitigation in 10 areas by priority, distribution), and exported with it to `../CPAT-AI_BugsAndIssues_v7.2.json`** (`excel_ai/mitigation/make_bugfix_book.py`). The separate Word and PDF plans were retired (git history). This folder keeps their sources:
+**The plans are printed in the one register, `../../CPAT-AI_BugsAndIssues_latest.docx` (section 3: power, transport, other mitigation in 10 areas by priority, distribution; Appendices B and C: the bugs the CPAT team fixed in 465), and exported with it to `../CPAT-AI_BugsAndIssues_latest.json`** (`excel_ai/mitigation/make_bugfix_book.py`). The separate Word and PDF plans were retired (git history). This folder keeps their sources:
 
 | File | Content |
 |---|---|
@@ -13,14 +13,15 @@ Manual fix plans for the legacy workbook `excel_ai/legacy/workbooks/CPAT 1.0pre_
 | `data/fixes_distribution.json` | Distribution module, D1-D31 |
 | `data/fixes_*.json` (all) | Machine-readable (`cell`, `now`, `new`, `fill`, `policy` per cell); usable for a fix macro |
 | `data/cfg_*.json` (others) | Texts of the retired Word plans (title, intro, order) |
-| `data/legacy_defined_names.tsv` | All 1,942 defined names of the legacy file and the cells they point to |
+| `data/legacy_defined_names.tsv` | All 1,942 defined names of the legacy file (456) and the cells they point to |
+| `data/rowmap_456_465.json` | Row map from the 456 to the 465 file (Mitigation, MTInputs; other sheets unchanged); `tools/remap_465.py` applies it to the plans, the register sources and text files |
 | `tools/` | Scripts that produced the plans (below) |
 
 ## Findings to know before applying
 
 - L15 and L18 do not reproduce in this file (no cell to change); L22 needs inserted rows; L107 needs a new MTInputs input row and defined name (appended as row 416) besides its cell edits.
 - L50: the current-account rows read WEO codes the WEO sheet does not have and an empty defined name (WEO); the "reversed sign" of rows 18215-18219 is a label error (rows 741-743 are a trade balance).
-- Policy block: +6,331 rows below the baseline up to about row 6070, +6,317 after. L43's policy rows are edited by hand.
+- Policy block: in 465 the policy block sits +6,316 rows below the baseline everywhere (in 456: +6,331 up to about row 6070, +6,317 after, which is why L43 and L108 spell out their policy formulas; in 465 a paste of the baseline row also works).
 - The transport fixes change only the engineer run (the legacy Egypt run uses TrModel = Elasticity).
 - N1 and N2 are not in the register; confirm before applying.
 - L32: the defined names in G4376:G4378 and G4419:G4421 point to the wrong rows of the EF table; the fix references the road rows (O988, O990, O991) directly.
@@ -30,7 +31,7 @@ Manual fix plans for the legacy workbook `excel_ai/legacy/workbooks/CPAT 1.0pre_
 - The LibreOffice conversion drops the first argument of the newer functions (`_xlfn.IFNA`, `_xlfn.XLOOKUP`) and garbles `LET`: 23,115 Mitigation cells (rows 1-15000) read wrong in the .xlsx, e.g. L5568 shows `=_xlfn.IFNA(0)` for `=_xlfn.IFNA(IF($L$1784=B5568,$K$1795*L5554,0),0)`. `tools/dec.py` decodes the formulas from the .xlsb itself; `tools/chkplans.py` checks every plan's "now" against it. All power and transport cells agree; in the other-mitigation plan L48 (L5564-L5566, L5568-L5570) and L50 (L18197, L18206) were built from truncated texts and must be redone before use (L50 finding (c) is wrong: rows 18197 and 18206 do look up `INDEX(WEO, ...)`, the empty name). Not corrected here.
 - Register L87 rests on such a truncated text: C2371 is `=_xlfn.IFNA(INDEX($F$86:$F$90,MATCH(C2370,$C$86:$C$90,0)),0)`; it reads F86:F90 but never matches, because C86:C90 hold " - " & the scenario name. The share is still 0.
 - Rows 2377-2388 (shadow prices with the regulation term): their policy copies 8708-8719 keep `$D$2369` and `L$2375`, so in the policy block the regulation term reads the baseline general carbon price (0 in the file). Not in the register; the L88 fix does not use these rows.
-- L108: rows 7897-7903 sit at +6,317 in the policy block but read the power rows at +6,331, so their policy formulas are spelled out (as for L43).
+- L108 (456): rows 7897-7903 sat at +6,317 in the policy block but read the power rows at +6,331, so their policy formulas are spelled out (as for L43); in 465 (rows 7883-7889) both are +6,316.
 - The file holds 35,787 single-cell array formulas in Mitigation (e.g. P2981:T2985, L52); `tools/pol.py` now compares their text.
 - Nothing was recalculated in Excel. Effects: Python copies of the legacy power and road models (`excel_ai/mitigation/power_model_ref_v4_0.py`, `transport_model_ref_v4_0.py`; the same models as v3.8, when the plans were made), cached values and the register.
 - Log: `CAVEATS.md`, entries "Legacy CPAT bug-fix plans" (2026-10-16). 2026-10-19: power plan extended by the 15 v5.4-register bugs (L52-L56, L67, L83, L84, L88, L95, L107-L111; effects from the register and `power_model_ref_v5_4.py`); tools `dec.py`, `h.py`, `dumpo.py`, `gen_pow2.py`, `chkplans.py`, `arr.py` added, `pol.py` and `render.js` fixed (array formulas; multi-line formulas and non-"fix" statuses).
