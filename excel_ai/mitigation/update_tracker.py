@@ -2,12 +2,12 @@
 a bug tracker in legacy folder. You could edit that by adding extra rows and extra columns. Continue to use our
 codes").
 
-Sheet BUGSandISSUES (an export of our register, v3.18): every row is refreshed from BUGSandISSUES.xlsx (run
-make_replication_lists and make_bugs_issues_sheet first); codes no longer in the register stay, marked "Retired"
-with where they went; new codes (later legacy bugs, distribution bugs D and issues DI, prototype bugs M) are
-appended. Extra columns: type (as the Word bug list), code group, prototype version that settled it, cell-level fix plan,
-status in the 459 legacy file, related items of the team's own sheets, last update, and the status in the 465 legacy
-file (bugsfixed/legacy465_check.json: confirmed fixed, fixed with caveats or not fixed, with the caveat).
+Our part (user 2026-10-23): a divider sheet AI-FOUND->>, then BUGS (legacy bugs L, D) and ISSUES-OTHER (issues I, DI,
+prototype bugs M, LegacyDiff rows LD), both with the same columns and the status in legacy first (bugs: from the check
+of the fixes in legacy 465, bugsfixed/legacy465_check.json); Closed rows struck through, the filter shows Open rows.
+Every row is refreshed from CPAT-AI_BugsAndIssues_latest.xlsx (run make_replication_lists and make_bugs_issues_sheet
+first); codes no longer in the register stay, marked "Retired" with where they went; new codes are appended. Then a
+divider PRIOR->> and the CPAT team's own sheets.
 
 The team's sheets (CPAT_issues, Mit+Disn_DeepDive, MT_issues, Slicer_issues) keep their content and get two extra
 columns: our code(s) and a short note, from data/tracker_mapping.json (or the file given as the first argument;
@@ -24,7 +24,10 @@ import re
 import sys
 
 import openpyxl
-from openpyxl.styles import Alignment, Font
+from openpyxl.formatting.rule import FormulaRule
+from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
+from openpyxl.utils import get_column_letter
+from openpyxl.worksheet.filters import CustomFilter, CustomFilters, FilterColumn
 
 import issues_register as R
 import make_bugfix_book as BK
@@ -36,8 +39,7 @@ SHEET_SRC = os.path.join(HERE, '..', 'CPAT-AI_BugsAndIssues_latest.xlsx')
 HEAD = 3                                                   # header row of BUGSandISSUES
 BASE = 11                                                  # columns A-K: as our register export
 EXTRA = ['Type', 'Code group', 'Settled in (prototype version)', 'Cell-level fix plan', 'Status in legacy 459',
-         'Related CPAT team items', 'Updated', 'Status in legacy 465']
-EXTRA_W = [18, 20, 14, 12, 18, 26, 12, 48]
+         'Related CPAT team items', 'Updated']
 MAPPING = os.path.join(HERE, '..', '..', 'data', 'mvp_legacy_extracts', 'tracker_mapping.json')   # team items -> our codes (kept with the register)
 CHECK465 = os.path.join(HERE, '..', 'bugsfixed', 'legacy465_check.json')   # fixes checked in legacy 465 (2026-10-22)
 TEAM = ['CPAT_issues', 'Mit+Disn_DeepDive', 'MT_issues', 'Slicer_issues']
@@ -122,72 +124,162 @@ def style_like(ws, src_row, dst_row, ncols):
             d.alignment, d.number_format = copy.copy(s.alignment), s.number_format
 
 
-def update_register_sheet(wb, mapping, plans):
-    ws = wb['BUGSandISSUES']
-    ncol = BASE + len(EXTRA)
-    for j, (h, w) in enumerate(zip(EXTRA, EXTRA_W), BASE + 1):
-        c = ws.cell(HEAD, j, h)
-        src = ws.cell(HEAD, BASE)
-        c.font, c.fill, c.border, c.alignment = (copy.copy(src.font), copy.copy(src.fill), copy.copy(src.border),
-                                                 copy.copy(src.alignment))
-        ws.column_dimensions[openpyxl.utils.get_column_letter(j)].width = w
-    cur = current_rows()
-    seen, last = set(), HEAD
-    for r in range(HEAD + 1, ws.max_row + 1):
-        code = ws.cell(r, 1).value
-        if not code:
-            continue
-        last = r
-        seen.add(code)
-        vals = cur.get(code)
-        if vals is None:                                    # left the register: kept, marked
-            ws.cell(r, BASE).value = successor(code)
-            vals = [ws.cell(r, j).value for j in range(1, BASE + 1)]
-        else:
-            for j, v in enumerate(vals, 1):
-                ws.cell(r, j).value = v
-        fill_extra(ws, r, code, vals, mapping, plans, retired=code not in cur)
-    for code in sorted((c for c in cur if c not in seen), key=order):
-        last += 1
-        style_like(ws, HEAD + 1, last, ncol)
-        for j, v in enumerate(cur[code], 1):
-            ws.cell(last, j).value = v
-        fill_extra(ws, last, code, cur[code], mapping, plans, retired=False)
-    for r in range(HEAD + 1, last + 1):
-        for j in range(BASE + 1, ncol + 1):
-            if not ws.cell(r, j).has_style:
-                s = ws.cell(r, BASE)
-                ws.cell(r, j).font, ws.cell(r, j).border = copy.copy(s.font), copy.copy(s.border)
-                ws.cell(r, j).alignment = copy.copy(s.alignment)
-    ws.auto_filter.ref = f'A{HEAD}:{openpyxl.utils.get_column_letter(ncol)}{last}'
-    ws['A1'].value = (f'Bugs and issues of legacy CPAT and whether CPAT-AI-Mitigation-Prototype v{VERSION} replicates them '
-                      '(our codes: L legacy bugs, D distribution bugs, I issues, DI distribution issues, M prototype '
-                      'bugs, LD LegacyDiff rows)')
-    ws['A2'].value = (f'Updated from the register (issues_register.py) by '
-                      'update_tracker.py. Details, fix procedure and cell-level plans: '
-                      'excel_ai/CPAT-AI_BugsAndIssues_latest.docx. Columns L-R added. Codes '
-                      'are keyed to legacy file 456; the 459 file is not reconciled yet. Column S: the fixes '
-                      'checked in legacy 465 (excel_ai/bugsfixed/).')
+# Our part of the tracker (user 2026-10-23): divider AI-FOUND->>, sheets BUGS (legacy bugs L, D) and ISSUES-OTHER
+# (issues I, DI, prototype bugs M, LegacyDiff rows LD) with the same columns, status in legacy first; divider PRIOR->>,
+# then the CPAT team's own sheets. Rows whose status starts with "Closed" are struck through; the filter shows Open.
+OURS = ['AI-FOUND->>', 'BUGS', 'ISSUES-OTHER', 'PRIOR->>']
+COLS = [  # header, width, key (old BUGSandISSUES header the value comes from, or a computed field)
+    ('Ref', 8, 'Ref'), ('Status in legacy', 22, '_status'), ('Legacy check note (465)', 48, '_note'),
+    ('Priority / severity', 12, 'Priority / severity'), ('Title', 46, 'Title'), ('Code group', 20, 'Code group'),
+    ('Type', 18, 'Type'), ('Where in legacy / documented', 38, 'Where in legacy / documented'),
+    ('What legacy does', 60, 'What legacy does'), ('Fix / next step', 52, 'Fix / next step'),
+    ('Effect', 44, 'Effect'), ('Cell-level fix plan', 12, 'Cell-level fix plan'),
+    ('Status in legacy 459', 18, 'Status in legacy 459'),
+    ('Replicated in the prototype?', 20, 'Replicated in the prototype?'),
+    ('How in the prototype', 28, 'How in the prototype'), ('Status in the prototype', 14, 'Status'),
+    ('Settled in (prototype version)', 14, 'Settled in (prototype version)'),
+    ('Related CPAT team items', 26, 'Related CPAT team items'), ('Updated', 12, 'Updated'), ('Kind', 22, 'Kind')]
+OLD = ['Ref', 'Kind', 'Priority / severity', 'Title', 'Replicated in the prototype?', 'How in the prototype',
+       'What legacy does', 'Effect', 'Fix / next step', 'Where in legacy / documented', 'Status'] + EXTRA
+HEAD_FILL, CLOSED_GREY = 'FFEBF1DE', 'FF808080'
+
+
+def existing_rows(wb):
+    """{code: {old header: value}} from the sheet(s) of the previous run (BUGSandISSUES, or BUGS + ISSUES-OTHER)."""
+    rows = {}
+    if 'BUGSandISSUES' in wb.sheetnames:
+        ws = wb['BUGSandISSUES']
+        heads = [c.value for c in ws[HEAD]]
+        for r in ws.iter_rows(min_row=HEAD + 1, values_only=True):
+            if r[0]:
+                rows[r[0]] = dict(zip(heads, r))
+        return rows
+    back = {h: k for h, _, k in COLS}
+    for name in ('BUGS', 'ISSUES-OTHER'):
+        if name in wb.sheetnames:
+            ws = wb[name]
+            heads = [back.get(c.value, c.value) for c in ws[HEAD]]
+            for r in ws.iter_rows(min_row=HEAD + 1, values_only=True):
+                if r[0]:
+                    rows[r[0]] = dict(zip(heads, r))
+    return rows
+
+
+def is_bug(code):
+    return bool(re.match(r'(L|D)\d', code)) and not code.startswith(('LD', 'DI'))
+
+
+def legacy_status(code, row, check):
+    """Status as legacy CPAT stands (bugs) or as the register has it (issues and the rest): 'Open ...' or 'Closed ...'."""
+    st = str(row.get('Status') or '')
+    if st.startswith('Retired'):
+        return 'Closed (' + st[0].lower() + st[1:] + ')', ''
+    if is_bug(code):
+        c = check.get(code)
+        if c is None:
+            return 'Open', ''
+        return {'Confirmed fixed': 'Closed (fixed in 465)', 'Fixed with caveats': 'Open (fixed with caveats in 465)',
+                'Not fixed': 'Open (marked fixed, not fixed in 465)'}[c['status']], c['note']
+    if code in check:                                       # I18, I29: prototype issues on the team's list
+        return 'Closed (prototype issue; nothing to fix in legacy)', check[code]['note']
+    if code.startswith('M'):
+        return 'Closed (prototype bug, fixed)', ''
+    m = {'Resolved': 'Closed (resolved)', 'Dropped': 'Closed (dropped)', 'Closed': 'Closed',
+         'Accepted': 'Open (accepted: as legacy)', 'Open': 'Open'}
+    return m.get(st, 'Open' + (f' ({st})' if st else ' (LegacyDiff)')), ''
+
+
+def collect(wb, mapping, plans):
+    """Rows of our two sheets as {code: {old header or _status/_note: value}}, in register order."""
+    check = json.load(open(CHECK465, encoding='utf-8'))['bugs'] if os.path.exists(CHECK465) else {}
+    cur, old = current_rows(), existing_rows(wb)
+    codes = list(old) + sorted((c for c in cur if c not in old), key=order)
+    out = {}
+    for code in codes:
+        if code in cur:
+            row = dict(zip(OLD[:BASE], cur[code]))
+        else:                                               # left the register: kept, marked
+            row = {k: old[code].get(k) for k in OLD[:BASE]}
+            row['Status'] = successor(code)
+        vals = [row.get(k) for k in OLD[:BASE]]
+        legacy = re.match(r'(L|D|I|DI)\d', code) and not code.startswith('LD')
+        row.update({'Type': type_of(code, row.get('Kind')), 'Code group': group(code),
+                    'Settled in (prototype version)': settled(vals),
+                    'Cell-level fix plan': 'Yes' if code in plans else '',
+                    'Status in legacy 459': 'Not reconciled yet' if legacy and code in cur else 'n/a',
+                    'Related CPAT team items': related(code, mapping), 'Updated': f'v{VERSION}'})
+        row['_status'], row['_note'] = legacy_status(code, row, check)
+        out[code] = row
+    return out
+
+
+def write_sheet(wb, name, rows, title):
+    if name in wb.sheetnames:
+        del wb[name]
+    ws = wb.create_sheet(name)
+    body, head = Font(name='Arial', size=10), Font(name='Arial', size=10, bold=True)
+    ws['A1'], ws['A1'].font = title, Font(name='Arial', size=12, bold=True)
+    ws['A2'] = ('Our part of the tracker, written by excel_ai/mitigation/update_tracker.py from the register '
+                '(issues_register.py) and the check of the legacy fixes (excel_ai/bugsfixed/legacy465_check.json). '
+                'Status in legacy: Closed rows are struck through; the filter on column B shows the Open rows '
+                '(clear it to see all). Details, fix procedure and cell plans: excel_ai/CPAT-AI_BugsAndIssues_latest.docx.')
     ws['A2'].font = Font(name='Arial', size=9, italic=True)
-    return last - HEAD
+    fill = PatternFill('solid', fgColor=HEAD_FILL)
+    side = Side(style='thin', color='FFBFBFBF')
+    border = Border(left=side, right=side, top=side, bottom=side)
+    for j, (h, w, _) in enumerate(COLS, 1):
+        c = ws.cell(HEAD, j, h)
+        c.font, c.fill, c.border = head, fill, border
+        c.alignment = Alignment(wrap_text=True, vertical='top')
+        ws.column_dimensions[get_column_letter(j)].width = w
+    r = HEAD
+    for code, row in rows.items():
+        r += 1
+        for j, (_, _, k) in enumerate(COLS, 1):
+            c = ws.cell(r, j, row.get(k))
+            c.font, c.border = body, border
+            c.alignment = Alignment(wrap_text=True, vertical='top')
+        if str(row['_status']).startswith('Closed'):
+            ws.row_dimensions[r].hidden = True              # the saved filter shows Open rows only
+    last = get_column_letter(len(COLS))
+    ws.freeze_panes = 'C4'
+    ws.auto_filter.ref = f'A{HEAD}:{last}{r}'
+    ws.auto_filter.filterColumn.append(FilterColumn(colId=1, customFilters=CustomFilters(
+        customFilter=[CustomFilter(operator='notEqual', val='Closed*')])))
+    ws.conditional_formatting.add(f'A{HEAD + 1}:{last}{r}', FormulaRule(
+        formula=[f'LEFT($B{HEAD + 1},6)="Closed"'],
+        font=Font(strike=True, color=CLOSED_GREY)))
+    return ws, r - HEAD
 
 
-def fill_extra(ws, r, code, vals, mapping, plans, retired):
-    legacy = re.match(r'(L|D|I|DI)\d', code) and not code.startswith('LD')
-    extra = [type_of(code, vals[1]), group(code), settled(vals),
-             'Yes' if code in plans else '', 'Not reconciled yet' if legacy and not retired else 'n/a',
-             related(code, mapping), f'v{VERSION}', status465(code) if legacy else 'n/a']
-    for j, v in enumerate(extra, BASE + 1):
-        ws.cell(r, j).value = v
-        ws.cell(r, j).alignment = Alignment(wrap_text=True, vertical='top')
+def divider(wb, name, text, color):
+    if name in wb.sheetnames:
+        del wb[name]
+    ws = wb.create_sheet(name)
+    ws['A1'], ws['A1'].font = text, Font(name='Arial', size=14, bold=True)
+    ws.sheet_properties.tabColor = color
+    ws.column_dimensions['A'].width = 90
+    return ws
 
 
-def status465(code):
-    bugs = json.load(open(CHECK465, encoding='utf-8'))['bugs'] if os.path.exists(CHECK465) else {}
-    if code not in bugs:
-        return 'Not marked fixed'
-    b = bugs[code]
-    return b['status'] + (': ' + b['note'] if b['note'] else '')
+def update_register_sheets(wb, mapping, plans):
+    rows = collect(wb, mapping, plans)
+    bugs = {c: r for c, r in rows.items() if is_bug(c)}
+    other = {c: r for c, r in rows.items() if not is_bug(c)}
+    divider(wb, 'AI-FOUND->>', 'Found by CPAT-AI (our codes): BUGS = legacy bugs (L mitigation, D distribution); '
+            'ISSUES-OTHER = issues (I, DI), prototype bugs (M), LegacyDiff rows (LD). Same columns in both.', 'FF4F81BD')
+    _, nb = write_sheet(wb, 'BUGS', bugs, 'Legacy CPAT bugs found by CPAT-AI: status in legacy')
+    _, no = write_sheet(wb, 'ISSUES-OTHER', other, 'Issues, prototype bugs and LegacyDiff rows found by CPAT-AI')
+    divider(wb, 'PRIOR->>', "The CPAT team's own tracker sheets (earlier items), with our codes added "
+            '(columns CPAT-AI code(s), CPAT-AI note).', 'FF7F7F7F')
+    if 'BUGSandISSUES' in wb.sheetnames:
+        del wb['BUGSandISSUES']
+    first = [wb[n] for n in OURS]
+    wb._sheets = first + [s for s in wb._sheets if s.title not in OURS]
+    wb.active = 1
+    for s in wb._sheets:
+        s.sheet_view.tabSelected = s.title == 'BUGS'
+    return nb, no
 
 
 def update_team_sheets(wb, mapping):
@@ -236,10 +328,10 @@ def main():
     path = sys.argv[1] if len(sys.argv) > 1 else MAPPING
     mapping = json.load(open(path, encoding='utf-8')) if os.path.exists(path) else {}
     wb = openpyxl.load_workbook(TRACKER)
-    rows = update_register_sheet(wb, mapping, BK.plans())
+    nb, no = update_register_sheets(wb, mapping, BK.plans())
     n = update_team_sheets(wb, mapping)
     wb.save(TRACKER)
-    print(f'updated {TRACKER}: BUGSandISSUES {rows} rows; team items mapped {n}')
+    print(f'updated {TRACKER}: BUGS {nb} rows, ISSUES-OTHER {no} rows; team items mapped {n}')
 
 
 if __name__ == '__main__':
