@@ -10,7 +10,7 @@ Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logg
 
 - ☑ v8.0 full check PASS; old method notes replaced by `docs/methods/`; v8.0 on main.
 - ☐ Old session branches on GitHub (7, old history): the user deletes them (or allows the AI to).
-- ☐ The register spreadsheet without `LegacyBugFixes.md` as an intermediate source.
+- ☑ The register spreadsheet built straight from the register (v8.3; was parsed from `BUGS.md`, `ISSUES.md`, `LegacyBugFixes.md`).
 
 ## 3. Modular CPAT ([`Modules.md`](Modules.md); after 2)
 
@@ -24,25 +24,25 @@ Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logg
 
 - ☐ Crosswalk rows marked review (89): `rnew`, `rsub`, `rmf`, `rtx`, `rnet`, `rvt`, `rbe`, `gdp.*`, `scc`, `ch4.em`, `co2.sec`, `apf.all.all`, other price rows; applied only with evidence.
 - ☐ C6 vocabularies (prototype members `vkt`, `own`, `pit`... into the sheets); the legacy MTOutputs code as a second alias; `coded` `ele` -> `ecy` with the shared data (with the Coded CPAT owner).
-- ☐ NOx forcing value differs from legacy (prototype `apf.all.nox`, now `nox.tot`: -6.3 against legacy -5.5 Mt CO2e, Egypt 2022): a value question, not a code one; register it if not already explained.
+- ☑ NOx forcing -6.25 against legacy -5.54 Mt CO2e (Egypt 2022): explained (v8.3 check), the same GWP factor (-7.058 per Mt NOx) on 12.9% more NOx (885.9 against 785.0 kt) from the fixed legacy bugs L22, L23, L58, L59; nothing to register.
 
 ## 5. With the user
 
 - ☐ **Excel 365 review** on Windows (macros, no repair prompt, no circular warning, CheckBatchRun, LAMBDAs, dashboard).
 - ☐ **ETS goal seek (I30)**: tested by the user.
 - ☐ **Data requests**: I64 GAINS factor paths, I65 blank VAT cells, I13 proprietary tables for other countries, I68 historical GHGs 2018-2020.
-- ☐ **Report the legacy bugs to the CPAT team** (the register); high-priority legacy issues for them: I62, I71, I72-I74.
+- ☐ **Report the legacy bugs to the CPAT team**: send the register (`../CPAT-AI_BugsAndIssues_latest.docx`), first Appendix B, the caveats on their 465 fixes: L115 wrong row, L95 rows still reading the cleared row 3719, L62 and L63 not fixed, L45, L16, L87, L84; high-priority legacy issues for them: I62, I71, I72-I74.
 - ☐ **Policy taxonomy with the FTT policies** ([`Policy_taxonomy.md`](Policy_taxonomy.md)): user decisions first.
 
 ## 6. AI backlog
 
 - ☑ **New legacy file**: the register, fix plans and lists moved to the latest file, 465 (v8.2, 2026-10-23; 459 superseded); the CPAT team's 62 fixes checked (52 confirmed, 8 with caveats, L62 and L63 not fixed; `../bugsfixed/`).
-- ☐ **Legacy 465 follow-up**: tell the CPAT team the caveats (L115 wrong row, L95 rows still reading the cleared row 3719, L62 and L63 not fixed, L45, L16, L87, L84; Appendix B of the register); numerical check against the legacy Egypt run sector by sector on 465 (U2, I14); `CPATMasterProcessesCodesAndDefaults.xlsx`.
+- ☐ **Numerical check on legacy 465** (U2, I14): the legacy Egypt run against the prototype, sector by sector; align with `CPATMasterProcessesCodesAndDefaults.xlsx`. (The caveats for the CPAT team: section 5.)
 - ☐ **Prototype data extracts on 465**: the extracts (`extract_*.py`) and the Methods still read 456; move them when the numerical check (U2) is done.
 - ☐ **Data links, rest**: GHGs, EF_GHG, CH4Inputs, Elasticities, Prices_int, OilProductShares (converters to the prototype layout), Transport1-2 (no dummy data yet).
-- ☐ **Excel lint in every builder** (NORMS 3g).
+- ☑ **Excel lint in every writer** (v8.3; NORMS 3g): `excel_lint.check()` after every save (prototype, distribution, register spreadsheet, tracker, data workbooks, legacy-data export, `other/distribution`).
 - ☐ **Copy-paste stress test**: add a fuel, a subsector and a scenario by dragging; fix what breaks.
-- ☐ **Tracker leads**: legacy electricity price controls (Manual inputs J178:J179) read by nothing?; ScenarioDefinition 182-183 units.
+- ☑ **Tracker leads** (v8.3): Manual inputs J178:J179 are read (Mitigation L753:L754, chosen in K when the price-control option is manual): no bug. MTInputs 182-183 units: legacy bug L134 (labels), fixed in the prototype.
 
 ## Later (not now)
 

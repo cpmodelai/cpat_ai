@@ -148,7 +148,7 @@ from openpyxl.utils import get_column_letter as L, column_index_from_string as C
 from openpyxl.utils.cell import coordinate_from_string
 from openpyxl.workbook.defined_name import DefinedName
 
-VERSION = '8.2'   # also in version.json (read by the deck builder)
+VERSION = '8.3'   # also in version.json (read by the deck builder)
 SCRIPTS_TAG = None   # v8.0: scripts and notes have stable names (releases are git tags); v7.1: a point release renames only the builder, VBA module, workbook and reports; the scripts and
                       # notes keep the tag of the full release (NORMS.md section 5)
 COUNTRY = 'EGY'   # v3.3: default of Settings C4 (user input); country data only in the data sheets, by this key
@@ -5948,6 +5948,10 @@ def build_ecp(wb):
     ws.column_dimensions['B'].width = 36
 
 
+L134_UNITS = {'Price increase units, Other oil products': '$/bbl',   # legacy: "$/bbn", default "$/liter"
+              'Price increase units, Biomass': '$/GJ'}                # legacy default "$/liter"
+
+
 def build_mtinputs(wb):
     """MTInputs: the template copied cell by cell (values and styles, rows 1-415, columns A:H), plus one
     'Used for calculation' column per scenario from column J."""
@@ -5964,8 +5968,17 @@ def build_mtinputs(wb):
     for col, dim in src.column_dimensions.items():
         ws.column_dimensions[col].width = dim.width
         ws.column_dimensions[col].hidden = dim.hidden
+    unit_fix = {}                                          # v8.3: legacy bug L134, price-increase unit labels
+    for r in range(8, src.max_row + 1):
+        lab = str(src.cell(r, 2).value or '')
+        for k, u in L134_UNITS.items():
+            if lab.startswith(k):
+                unit_fix[r] = u
+                for j in (6, 7):
+                    ws.cell(r, j).value = u
+    assert len(unit_fix) == len(L134_UNITS), unit_fix
     names = {src.cell(r, 8).value: r for r in range(8, src.max_row + 1) if src.cell(r, 8).value}
-    rows_ = [(r, src.cell(r, 8).value, src.cell(r, 6).value) for r in range(8, src.max_row + 1)]
+    rows_ = [(r, src.cell(r, 8).value, unit_fix.get(r, src.cell(r, 6).value)) for r in range(8, src.max_row + 1)]
     put(ws, f'B{MT_TR0}', 'Transportation: engineer road model policies (legacy Dashboard rows 61-98, all off '
                           'by default; used when TrModel = Engineer)', FONT_B)
     for i, (k, n, lab, unit) in enumerate(TR_MT):          # v3.5: rows after the template (section 5b)
@@ -6890,7 +6903,11 @@ def build_settings(wb):
                               'bugs the CPAT team marked fixed in 465 checked cell by cell (62: 52 confirmed, 8 with caveats, '
                               '2 not fixed); '
                               'register v8.2 with the status in legacy of every bug (Appendices B and C); tracker tabs '
-                              'BUGS and ISSUES-OTHER. Workbook formulas unchanged; results unchanged.')]
+                              'BUGS and ISSUES-OTHER. Workbook formulas unchanged; results unchanged.'),
+        ('8.3', '2026-10-23', 'Legacy bug L134 fixed: ScenarioDefinition price-increase unit labels $/bbl (other oil '
+                              'products, was $/bbn) and $/GJ (biomass), defaults included (were $/liter). Register '
+                              'v8.3 (L134); register spreadsheet built from the register itself; Excel lint in every '
+                              'writer. Results unchanged.')]
     for i, row in enumerate(log, SET_LOG + 2):
         for j, v in enumerate(row, 1):
             c_ = put(ws, f'{L(j)}{i}', v)

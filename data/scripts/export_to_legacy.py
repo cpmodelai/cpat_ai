@@ -233,6 +233,9 @@ def write_workbook(out_path, sheets):
                     ws.cell(r, c, v)
         ws.freeze_panes = ws.cell(layout['first_data_row'], 1)
     wb.save(out_path)
+    sys.path.insert(0, os.path.join(HERE, '..', '..', 'excel_ai', 'shared'))
+    import excel_lint
+    excel_lint.check(out_path)                   # NORMS 3g
 
 
 def write_csvs(csv_dir, sheets):

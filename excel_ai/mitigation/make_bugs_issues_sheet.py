@@ -1,15 +1,16 @@
-"""BUGSandISSUES.xlsx: one consolidated table of legacy bugs, issues and departures, with a column that says
-whether the prototype (CPAT-AI-Mitigation-Prototype) replicates each one.
+"""CPAT-AI_BugsAndIssues_latest.xlsx: one consolidated table of legacy bugs, issues and departures, with a column
+that says whether the prototype (CPAT-AI-Mitigation-Prototype) replicates each one, and the status of each legacy bug in
+the latest legacy file (465).
 
-Source: the two generated lists at the top of excel_ai/ (BUGS.md, ISSUES.md),
-which make_replication_lists.py writes from the register (issues_register.py) at every release. Regenerate
-those first, then run this (plain Python with openpyxl; it does not import the builder):
+Source (v8.2): the register itself, through make_replication_lists.parts() (the content of BUGS.md and ISSUES.md) and
+make_legacy_fixes (what legacy does, the effect); before v8.2 it parsed BUGS.md, ISSUES.md and LegacyBugFixes.md.
 
     python make_bugs_issues_sheet.py
 """
 import json
 import os
 import re
+import sys
 from collections import Counter
 
 from openpyxl import Workbook
@@ -37,88 +38,49 @@ def legacy465(ref, kind):
             'Not fixed': 'Not fixed (marked fixed)'}.get(chk.get(ref, {}).get('status'), 'Open')
 
 
-def tables(path):
-    """Yield (section heading, header cells, list of row cells) for every markdown table in the file."""
-    sec, header, rows = '', None, []
-    with open(path, encoding='utf-8') as f:
-        for line in f:
-            line = line.rstrip('\n')
-            if line.startswith('#'):
-                if header:
-                    yield sec, header, rows
-                sec, header, rows = line.lstrip('# ').strip(), None, []
-            elif line.startswith('|'):
-                cells = [c.strip() for c in line.strip().strip('|').split('|')]
-                if header is None:
-                    header = cells
-                elif not re.match(r'^-+$', cells[0]):
-                    rows.append(cells)
-            elif header and not line.strip():
-                yield sec, header, rows
-                header, rows = None, []
-    if header:
-        yield sec, header, rows
-
-
 def row(ref, kind, prio, title, rep, how, what, fix, where, status, effect=''):
     return [ref, kind, prio, title, rep, how, what, effect, fix, where, status]
 
 
-def details():
-    """ID -> (what legacy does, effect) from the Details part of LegacyBugFixes.md."""
-    out, cur = {}, None
-    with open(os.path.join(HERE, 'LegacyBugFixes.md'), encoding='utf-8') as f:
-        for line in f:
-            m = re.match(r'\*\*(L\d+) \(', line)
-            if m:
-                cur = m.group(1)
-                out[cur] = ['', '']
-            elif cur and line.startswith('- Legacy:'):
-                out[cur][0] = line[len('- Legacy:'):].strip()
-            elif cur and line.startswith('- Effect:'):
-                out[cur][1] = line[len('- Effect:'):].strip()
-    return out
-
-
 def load():
+    """v8.2: straight from the register (make_replication_lists.parts(), the data of BUGS.md and ISSUES.md, and
+    make_legacy_fixes for what legacy does and the effect); it parsed the two lists and LegacyBugFixes.md before.
+    Texts as in the lists (cell(): no "|" or line breaks), so the sheet is unchanged."""
+    import make_legacy_fixes as F
+    import make_replication_lists as L
+    import issues_register as R
+    t = lambda x: L.cell(x).strip()
+    p = L.parts()
     out = []
-    det = details()
-    for fname in ('BUGS.md', 'ISSUES.md'):
-        for sec, hdr, rows in tables(os.path.join(TOP, fname)):
-            for r in rows:
-                d = dict(zip(hdr, r))
-                if sec.startswith('1. Bugs not replicated'):
-                    how = d['In the prototype']
-                    out.append(row(d['ID'], 'Legacy bug', d['Priority'], d['Bug'], 'No',
-                                   how if how.lower().startswith(('fixed', 'not built')) else f'Fixed or left out ({how})',
-                                   det.get(d['ID'], ['', ''])[0], d['Fix'], d['Where in legacy'], 'Closed',
-                                   det.get(d['ID'], ['', ''])[1]))
-                elif sec.startswith('2a'):
-                    out.append(row(d['ID'], 'Issue (departure from legacy)', d['Severity'], d['Issue'].strip('*'),
-                                   'No', {'Accepted': 'Departs from legacy by decision',
-                                          'Dropped': 'Departs from legacy: dropped by the user (v6.1)'}.get(
-                                       d['Status'], 'Departs from legacy; queued to replicate'),
-                                   d['What'], d['Next step'], d['Where'], d['Status']))
-                elif sec.startswith('2b'):
-                    out.append(row(d['Row'], 'LegacyDiff departure', d['Type'], d['Area'], 'No',
-                                   'Departs from legacy: ' + d['This model'], 'Legacy: ' + d['Legacy'],
-                                   '', 'Sheet LegacyDiff', '', d['Effect']))
-                elif sec.startswith('1. Issues replicated') and 'ID' in d:
-                    out.append(row(d['ID'], 'Issue (replicated)', d['Severity'], d['Issue'].strip('*'), 'Yes',
-                                   'Kept as legacy, tracked', d['What'], d['Next step'], d['Where'], d['Status']))
-                elif sec.startswith('1. Issues replicated'):
-                    out.append(row(d['Row'], 'LegacyDiff, kept as legacy', d['Type'], d['Area'], 'Yes',
-                                   'Kept as legacy: ' + d['This model'], 'Legacy: ' + d['Legacy'], '',
-                                   'Sheet LegacyDiff', '', d['Effect']))
-                elif sec.startswith('2. Bugs replicated'):
-                    out.append(row(d['ID'], 'Legacy bug', d['Priority'], d['Bug'], 'Yes (bug, to fix)',
-                                   'Copied from legacy; queued to be fixed', '', d['Fix'], d['Where in legacy'],
-                                   'Open'))
-                elif sec.startswith('3. Issues of the prototype'):
-                    out.append(row(d['ID'], 'Issue of the prototype', d['Severity'], d['Issue'].strip('*'),
-                                   'n/a (no legacy counterpart)', 'Limitation of the workbook and its tooling',
-                                   d['What'], d['Next step'], d['Where'], d['Status']))
-    import issues_register as R         # v6.1: the distribution register and prototype bugs (as the tracker)
+    for lid, title, where, what, fix, eff in p['b_not']:
+        how = F.mvp_status(lid)
+        out.append(row(lid, 'Legacy bug', F.PRIORITY[lid], t(title), 'No',
+                       how if how.lower().startswith(('fixed', 'not built')) else f'Fixed or left out ({how})',
+                       what.strip(), t(fix), t(where), 'Closed', eff.strip()))
+    for i, title, desc, where in p['i_not']:
+        sev, st, nxt = R.ISSUE_STATUS[i]
+        out.append(row(i, 'Issue (departure from legacy)', sev, t(title), 'No',
+                       {'Accepted': 'Departs from legacy by decision',
+                        'Dropped': 'Departs from legacy: dropped by the user (v6.1)'}.get(
+                           st, 'Departs from legacy; queued to replicate'), t(desc), t(nxt), t(where), st))
+    for k, d in p['ld_not']:
+        out.append(row(f'LD{k}', 'LegacyDiff departure', d[5], t(d[0]), 'No', 'Departs from legacy: ' + t(d[2]),
+                       'Legacy: ' + t(d[1]), '', 'Sheet LegacyDiff', '', t(d[4])))
+    for i, title, desc, where in p['i_rep']:
+        sev, st, nxt = R.ISSUE_STATUS[i]
+        out.append(row(i, 'Issue (replicated)', sev, t(title), 'Yes', 'Kept as legacy, tracked', t(desc), t(nxt),
+                       t(where), st))
+    for k, d in p['ld_rep']:
+        out.append(row(f'LD{k}', 'LegacyDiff, kept as legacy', d[5], t(d[0]), 'Yes', 'Kept as legacy: ' + t(d[2]),
+                       'Legacy: ' + t(d[1]), '', 'Sheet LegacyDiff', '', t(d[4])))
+    for lid, title, where, _what, fix, _eff in p['b_rep']:
+        out.append(row(lid, 'Legacy bug', F.PRIORITY[lid], t(title), 'Yes (bug, to fix)',
+                       'Copied from legacy; queued to be fixed', '', t(fix), t(where), 'Open'))
+    for i, title, desc, where in p['i_mvp']:
+        sev, st, nxt = R.ISSUE_STATUS[i]
+        out.append(row(i, 'Issue of the prototype', sev, t(title), 'n/a (no legacy counterpart)',
+                       'Limitation of the workbook and its tooling', t(desc), t(nxt), t(where), st))
+                                        # v6.1: the distribution register and prototype bugs (as the tracker)
     for c, t, w, what, st in R.DIST_BUGS:
         out.append(row(c, 'Legacy bug (distribution)', 'Low', t, 'No', 'Fixed', what, st, w, 'Closed'))
     for c, t, d_, st in R.DIST_ISSUES:
@@ -164,7 +126,7 @@ def main():
         'One row per item in sheet BUGSandISSUES. Column "Replicated in the prototype?": Yes = the prototype matches '
         'legacy; No = it departs (fixed, left out, or a decided/queued departure); n/a = the item is about the prototype '
         'itself. Filter on Kind and on that column.',
-        'Source: BUGS.md and ISSUES.md (generated from issues_register.py). '
+        'Source: the register (issues_register.py; the same content as BUGS.md and ISSUES.md). '
         'Not included: potential upgrades (U), and bugs found and fixed in the prototype during development (M); both are '
         'in the Word register CPAT-AI_BugsAndIssues_latest.docx. Details and effects of the legacy '
         'bugs: LegacyBugFixes.md. Column "Status in legacy 465": the legacy bugs in the latest CPAT file '
@@ -226,6 +188,9 @@ def main():
     ws.freeze_panes = 'E4'
     ws.auto_filter.ref = f'A3:{get_column_letter(len(COLS))}{3 + len(data)}'
     wb.save(OUT)
+    sys.path.insert(0, os.path.join(HERE, '..', 'shared'))
+    import excel_lint
+    excel_lint.check(OUT)                   # NORMS 3g
     print(f'{len(data)} rows -> {OUT}')
     for k in kinds:
         print(f'  {k}: ' + ', '.join(f'{v}={cnt[(k, v)]}' for v in ('Yes', 'No', 'n/a') if cnt[(k, v)]))

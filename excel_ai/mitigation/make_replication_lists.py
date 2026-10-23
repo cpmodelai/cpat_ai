@@ -67,15 +67,24 @@ def ld_table(rows):
     return out
 
 
-def main():
+def parts():
+    """The content of both lists (v8.2: also read by make_bugs_issues_sheet.py, which parsed the Markdown before):
+    bugs not replicated / replicated (id, title, where, what, fix, effect), issues not replicated / replicated / of the
+    prototype (id, title, description, where), LegacyDiff rows departing / kept as legacy (k, row), rows "Same"."""
     bugs = sorted(F.bugs(), key=lambda b: (F.ORDER[F.PRIORITY[b[0]]], int(b[0][1:])))
-    b_not = [b for b in bugs if b[0] not in R.BUGS_REPLICATED]
-    b_rep = [b for b in bugs if b[0] in R.BUGS_REPLICATED]
-    i_not, i_rep, i_mvp = issues('not replicated'), issues('replicated'), issues('mvp')
     lds = list(enumerate(B.LEGACY_DIFFS, 1))
-    ld_not = [(k, d) for k, d in lds if d[5] in DEPART and k not in R.LD_REPLICATED]
-    ld_rep = [(k, d) for k, d in lds if k in R.LD_REPLICATED]
-    n_same = sum(1 for _k, d in lds if d[5] == 'Same')
+    return {'b_not': [b for b in bugs if b[0] not in R.BUGS_REPLICATED],
+            'b_rep': [b for b in bugs if b[0] in R.BUGS_REPLICATED],
+            'i_not': issues('not replicated'), 'i_rep': issues('replicated'), 'i_mvp': issues('mvp'),
+            'ld_not': [(k, d) for k, d in lds if d[5] in DEPART and k not in R.LD_REPLICATED],
+            'ld_rep': [(k, d) for k, d in lds if k in R.LD_REPLICATED],
+            'n_same': sum(1 for _k, d in lds if d[5] == 'Same')}
+
+
+def main():
+    p = parts()
+    b_not, b_rep, i_not, i_rep, i_mvp = p['b_not'], p['b_rep'], p['i_not'], p['i_rep'], p['i_mvp']
+    ld_not, ld_rep, n_same = p['ld_not'], p['ld_rep'], p['n_same']
     n_open = sum(1 for x in i_not if R.ISSUE_STATUS[x[0]][1] == 'Open')
 
     no = [f'# NOT REPLICATED (mostly bugs): where CPAT-AI-Mitigation-Prototype v{B.VERSION} departs from legacy CPAT', ''] + RULE

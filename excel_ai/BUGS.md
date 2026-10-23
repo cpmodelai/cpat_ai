@@ -1,10 +1,10 @@
-# NOT REPLICATED (mostly bugs): where CPAT-AI-Mitigation-Prototype v8.2 departs from legacy CPAT
+# NOT REPLICATED (mostly bugs): where CPAT-AI-Mitigation-Prototype v8.3 departs from legacy CPAT
 
 **The rule (user, 2026-10-15).** **Bugs are never replicated:** the prototype fixes every legacy bug (or leaves the feature out). **Issues are replicated:** where legacy works as intended but is questionable (old data, simplifications, design choices), the prototype does what legacy does, and tracks the issue. A departure from legacy that is not a bug fix is an exception: it stays only by user decision; otherwise it is queued to be replicated. Bug = legacy does not do what it means to (wrong row, double application, a dead reference); issue = legacy does what it means to, but the choice is open to question.
 
 Both lists are generated from the register (`mitigation/issues_register.py`) by `mitigation/make_replication_lists.py` at every release. The other list: [`BUGS.md`](BUGS.md) (where the prototype departs from legacy) and [`ISSUES.md`](ISSUES.md) (where it matches legacy on purpose).
 
-**131 legacy bugs not replicated; 13 tracked issues not replicated (2 open: queued to be replicated), and 24 departures in sheet LegacyDiff.**
+**132 legacy bugs not replicated; 13 tracked issues not replicated (2 open: queued to be replicated), and 24 departures in sheet LegacyDiff.**
 
 ## 1. Bugs not replicated
 
@@ -143,6 +143,7 @@ Legacy bugs the prototype fixes, or whose feature it leaves out. Legacy CPAT sti
 | L131 | Low | Open | Codes: one output code on rows with different contents | Mitigation rows 466, 2442, 16170 (gdp.pre.lvl); 7722, 7742, 7985 (sub.new.usd); 7638-13962 (rev.ctr.coa) | Give each row its own code (e.g. gdp.pre.ln, gdp.pre.mn; sub.new.usd only on its own subtotal). | Fixed |
 | L132 | Low | Open | Codes: capitals and empty tokens | Mitigation rows 7606, 13922 (oc.tot.); em.pm2.All.<sector> rows | Write the codes in lower case and with a scenario number: em.pm2.all.<sector>, nox.tot.<n>. | Fixed |
 | L133 | Low | Open | Codes: nox.tot holds N2O, oc.tot. holds NOx | Mitigation rows 7606, 13922 and the GHG total rows (nox.tot) | Rename the N2O total n2o.tot and the NOx forcing row nox.tot. | Fixed |
+| L134 | Low | Open | Price-increase units: other oil products "$/bbn", default "$/liter" for other oil products and biomass | MTInputs rows 182-183 (columns E and G); Mitigation I177, I180 | Label the price-increase units USD/bbl (other oil products) and USD/GJ (biomass) in columns E and G of MTInputs rows 182-183. | Fixed |
 
 ## 2. Issues not replicated (exceptions)
 

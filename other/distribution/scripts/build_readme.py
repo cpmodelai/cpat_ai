@@ -174,6 +174,10 @@ def main():
     build_modules_sheet(wb)
     build_tables_sheet(wb)
     wb.save(OUT_PATH)
+    import sys                                 # NORMS 3g: stop if Excel would repair it
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "excel_ai", "shared"))
+    import excel_lint
+    excel_lint.check(OUT_PATH)
     print(f"Wrote {OUT_PATH}")
 
 

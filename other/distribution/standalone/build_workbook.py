@@ -1435,4 +1435,8 @@ style_cell(ws_r, 2, 2, 'Run RebuildDistributionModule.bas (Alt+F11 -> Insert -> 
                        "left blank in this file so it opens without a repair prompt.", ITALIC_FONT)
 
 wb.save(OUT)
+import sys                                     # NORMS 3g: stop if Excel would repair it
+sys.path.insert(0, os.path.join(HERE, "..", "..", "..", "excel_ai", "shared"))
+import excel_lint
+excel_lint.check(OUT)
 print("Saved", OUT)

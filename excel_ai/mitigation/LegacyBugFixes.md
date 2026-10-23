@@ -1,8 +1,8 @@
-# Legacy CPAT: bug fixes needed (CPAT-AI-Mitigation-Prototype v8.2)
+# Legacy CPAT: bug fixes needed (CPAT-AI-Mitigation-Prototype v8.3)
 
 Rebuilding the legacy CPAT mitigation sheet found these bugs in legacy CPAT itself. The prototype fixes or documents each of them; **legacy CPAT still needs the fixes** unless column "In legacy 465" says Fixed. File: `CPAT 1.0pre_465 - No Prop Data.xlsb` (the bugs were found in 456; rows moved to 465), sheet Mitigation unless stated. Generated from the register (`issues_register.py`) by `make_legacy_fixes.py`; the full register, with the check of each fix in 465, is `CPAT-AI_BugsAndIssues_latest.docx`.
 
-**131 bugs: 9 high, 43 medium, 79 low priority.** High = changes the results of standard runs (Egypt); medium = changes results in some runs or countries, or a reported number; low = latent (no effect in the Egypt runs) or reporting only. (L17 turned out to be a bug of the prototype, not of legacy, and is not listed.)
+**132 bugs: 9 high, 43 medium, 80 low priority.** High = changes the results of standard runs (Egypt); medium = changes results in some runs or countries, or a reported number; low = latent (no effect in the Egypt runs) or reporting only. (L17 turned out to be a bug of the prototype, not of legacy, and is not listed.)
 
 | ID | Priority | In legacy 465 | Bug | Where in legacy | Fix | In the prototype |
 |---|---|---|---|---|---|---|
@@ -137,6 +137,7 @@ Rebuilding the legacy CPAT mitigation sheet found these bugs in legacy CPAT itse
 | L131 | Low | Open | Codes: one output code on rows with different contents | Mitigation rows 466, 2442, 16170 (gdp.pre.lvl); 7722, 7742, 7985 (sub.new.usd); 7638-13962 (rev.ctr.coa) | Give each row its own code (e.g. gdp.pre.ln, gdp.pre.mn; sub.new.usd only on its own subtotal). | Fixed |
 | L132 | Low | Open | Codes: capitals and empty tokens | Mitigation rows 7606, 13922 (oc.tot.); em.pm2.All.<sector> rows | Write the codes in lower case and with a scenario number: em.pm2.all.<sector>, nox.tot.<n>. | Fixed |
 | L133 | Low | Open | Codes: nox.tot holds N2O, oc.tot. holds NOx | Mitigation rows 7606, 13922 and the GHG total rows (nox.tot) | Rename the N2O total n2o.tot and the NOx forcing row nox.tot. | Fixed |
+| L134 | Low | Open | Price-increase units: other oil products "$/bbn", default "$/liter" for other oil products and biomass | MTInputs rows 182-183 (columns E and G); Mitigation I177, I180 | Label the price-increase units USD/bbl (other oil products) and USD/GJ (biomass) in columns E and G of MTInputs rows 182-183. | Fixed |
 
 ## Details
 
@@ -925,3 +926,9 @@ Rebuilding the legacy CPAT mitigation sheet found these bugs in legacy CPAT itse
 - Legacy: The N2O total in CO2e carries the code nox.tot and the NOx forcing row the code oc.tot. (labels: Nitrous oxide; Nitrogen oxides): a reader of the codes takes one gas for the other. Found by the codes crosswalk (v7.1).
 - Fix: Rename the N2O total n2o.tot and the NOx forcing row nox.tot.
 - Effect: A reader of the codes takes one gas for the other. prototype: Fixed (v7.2, codes R5): n2o.tot and nox.tot carry their own gas.
+
+**L134 (Low; in legacy 465: open). Price-increase units: other oil products "$/bbn", default "$/liter" for other oil products and biomass.** MTInputs rows 182-183 (columns E and G); Mitigation I177, I180.
+
+- Legacy: The unit labels of the price-increase inputs read "$/bbn" (for $/bbl) for other oil products, and the default column says "$/liter" for other oil products and biomass, whose prices are per barrel and per GJ. No formula reads the labels (Mitigation rows 168-180 use the amounts in G and H only), so no value changes; a user typing an increase per liter for these fuels gets a wrong price path. Found by the tracker leads (2026-10-23).
+- Fix: Label the price-increase units USD/bbl (other oil products) and USD/GJ (biomass) in columns E and G of MTInputs rows 182-183.
+- Effect: Labels only: no value changes; a user may type an increase in the wrong unit. prototype: Fixed (v8.3): the prototype's ScenarioDefinition rows 182-183 read $/bbl and $/GJ, defaults included.

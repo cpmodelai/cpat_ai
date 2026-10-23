@@ -335,7 +335,16 @@ def write_tables_xlsx(path, tables, header_row=True, freeze=True):
             if data:
                 ws.auto_filter.ref = f"A1:{get_column_letter(ncols)}{len(data) + 1}"
     wb.save(path)
+    lint(path)
     return path
+
+
+def lint(path):
+    """NORMS 3g: stop if Excel would repair the file just written."""
+    import sys
+    sys.path.insert(0, os.path.join(REPO_DIR, 'excel_ai', 'shared'))
+    import excel_lint
+    excel_lint.check(path)
 
 
 def write_raw_grids_xlsx(path, grids):
@@ -356,6 +365,7 @@ def write_raw_grids_xlsx(path, grids):
         for c in range(1, ncols + 1):
             ws.column_dimensions[get_column_letter(c)].width = 14
     wb.save(path)
+    lint(path)
     return path
 
 

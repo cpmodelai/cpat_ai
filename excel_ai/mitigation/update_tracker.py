@@ -331,6 +331,9 @@ def main():
     nb, no = update_register_sheets(wb, mapping, BK.plans())
     n = update_team_sheets(wb, mapping)
     wb.save(TRACKER)
+    sys.path.insert(0, os.path.join(HERE, '..', 'shared'))
+    import excel_lint
+    excel_lint.check(TRACKER)                   # NORMS 3g
     print(f'updated {TRACKER}: BUGS {nb} rows, ISSUES-OTHER {no} rows; team items mapped {n}')
 
 

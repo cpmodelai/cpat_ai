@@ -1,7 +1,7 @@
 {
- "title": "CPAT-AI-Mitigation-Prototype: bugs, issues and upgrades v8.2 (workbook v8.2; with legacy cell-level fix plans)",
+ "title": "CPAT-AI-Mitigation-Prototype: bugs, issues and upgrades v8.3 (workbook v8.3; with legacy cell-level fix plans)",
  "generated_by": "excel_ai/mitigation/make_bugfix_book.py",
- "word_version": "CPAT-AI_BugsAndIssues_v8.2.docx",
+ "word_version": "CPAT-AI_BugsAndIssues_v8.3.docx",
  "legacy_workbook": "CPAT 1.0pre_465 - No Prop Data.xlsb",
  "legacy_rows": "every cell reference is a 465 row (moved from 456 with legacy/bugfixes/data/rowmap_456_465.json)",
  "codes": "L legacy bug (mitigation), D legacy bug (distribution), N found by the cell plans (not in the register), M prototype bug (fixed), I issue, DI distribution issue, LD LegacyDiff departure, U upgrade",
@@ -35,7 +35,8 @@
     "L125",
     "L113",
     "L114",
-    "N2"
+    "N2",
+    "L134"
    ]
   },
   {
@@ -5602,6 +5603,23 @@
    "priority": "Low",
    "effect": "A reader of the codes takes one gas for the other.",
    "area": "",
+   "cell_plan": null,
+   "legacy_465": {
+    "status": "Open in legacy 465 (not marked fixed by the CPAT team)",
+    "note": ""
+   }
+  },
+  {
+   "code": "L134",
+   "type": "Other mitigation",
+   "title": "Price-increase units: other oil products \"$/bbn\", default \"$/liter\" for other oil products and biomass",
+   "where": "MTInputs rows 182-183 (columns E and G); Mitigation I177, I180",
+   "what_legacy_does": "The unit labels of the price-increase inputs read \"$/bbn\" (for $/bbl) for other oil products, and the default column says \"$/liter\" for other oil products and biomass, whose prices are per barrel and per GJ. No formula reads the labels (Mitigation rows 168-180 use the amounts in G and H only), so no value changes; a user typing an increase per liter for these fuels gets a wrong price path. Found by the tracker leads (2026-10-23).",
+   "fix": "Label the price-increase units USD/bbl (other oil products) and USD/GJ (biomass) in columns E and G of MTInputs rows 182-183.",
+   "in_prototype": "Fixed (v8.3): the prototype's ScenarioDefinition rows 182-183 read $/bbl and $/GJ, defaults included.",
+   "priority": "Low",
+   "effect": "Labels only: no value changes; a user may type an increase in the wrong unit.",
+   "area": "Prices, taxes and subsidies",
    "cell_plan": null,
    "legacy_465": {
     "status": "Open in legacy 465 (not marked fixed by the CPAT team)",

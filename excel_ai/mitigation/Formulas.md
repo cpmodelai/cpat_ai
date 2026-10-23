@@ -1,4 +1,4 @@
-# Workbook formulas of CPAT-AI-Mitigation-Prototype v8.2 (implementation reference)
+# Workbook formulas of CPAT-AI-Mitigation-Prototype v8.3 (implementation reference)
 
 Generated from the workbook by `make_equations.py` (do not edit by hand): every formula of the Mitigation sheet, scenario 1, with cell references replaced by variable codes, the changes against legacy CPAT (section B) and the LAMBDA library (section C). For the model itself read the equations in mathematical form, `Equations.md`; this file is for checking and editing the workbook.
 
@@ -8943,6 +8943,7 @@ Each change is described in the workbook sheet `LegacyDiff` (LD) or in the regis
 | L131 | Codes: one output code on rows with different contents | Legacy bug | - |
 | L132 | Codes: capitals and empty tokens | Legacy bug | - |
 | L133 | Codes: nox.tot holds N2O, oc.tot. holds NOx | Legacy bug | - |
+| L134 | Price-increase units: other oil products "$/bbn", default "$/liter" for other oil products and biomass | Legacy bug | - |
 | M1 | Version-log rows rewritten with the current version | prototype bug (fixed) | - |
 | M2 | Power: VAT left out on the policy term | prototype bug (fixed) | E326 |
 | M3 | Power: long-term storage allocation left out | prototype bug (fixed) | E353 |

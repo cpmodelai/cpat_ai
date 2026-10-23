@@ -2899,3 +2899,14 @@ Earlier work was logged in the task documents themselves; they remain the detail
   - Counts: the team marked 62 bugs fixed: 52 confirmed, 8 with caveats, 2 not fixed (L62, L63); the "12 with caveats" of `FixedBugsToConfirm.txt` also hold the prototype issues I18 and I29.
   - The prototype's data extracts (`extract_*.py`), `build.py` (LegacyDiff texts) and the Methods chapters still quote 456 rows on purpose (the prototype was built and checked against 456); the Documentation and the Methods volume say so. Moving them is a TODO item, after the numerical check on 465 (U2).
   - Distribution bugs (D1-D31) keep their rows: the Distribution sheet did not move. Nothing was recalculated in Excel (formula text compared).
+
+## 2026-10-23 - v8.3: to-do leftovers (TODO tidy, register spreadsheet source, Excel lint everywhere, leads, L134)
+- **Task (user 2026-10-23):** check the to-do list and do the small items: stale entries, the register spreadsheet without `LegacyBugFixes.md` as a source, Excel lint in every builder, the tracker leads and the NOx value.
+- **Outputs:**
+  - TODO: the two CPAT-team items merged (send the register, Appendix B first); `coded/TODO.md` names the prototype and its current scripts.
+  - `make_replication_lists.parts()` (the data of BUGS.md and ISSUES.md); `make_bugs_issues_sheet.py` builds the register spreadsheet from it and `make_legacy_fixes` (no Markdown parsing): sheet BUGSandISSUES identical cell for cell (283 rows), only the ReadMe source line changed.
+  - `excel_lint.check(path)`; called after every save in `update_tracker.py`, `make_bugs_issues_sheet.py`, `data/scripts/export_to_legacy.py`, `other/distribution` (`build_workbook.py`, `build_readme.py`, `scripts/common.py`); the existing outputs lint clean.
+  - Leads: Manual inputs J178:J179 are read (Mitigation L753:L754, chosen in column K when the price-control option is manual): no bug. NOx forcing: the same factor (-7.058 Mt CO2e per Mt NOx) in both; the prototype's 12.9% more NOx (885.9 against 785.0 kt, 2022) comes from the fixed legacy bugs L22, L23, L58, L59: explained.
+  - New legacy bug **L134** (Low): MTInputs 182-183 price-increase unit labels ("$/bbn" for $/bbl; default "$/liter" for other oil products and biomass); no formula reads them. Fixed in the prototype (`build.py` L134_UNITS: $/bbl, $/GJ in ScenarioDefinition, scenario columns included).
+  - Release v8.3: workbook `_v8.3` and `_latest` (quick check PASS, 0 change in 13,396 output codes vs v8.2; paste test PASS; lint clean), register v8.3 (132 mitigation bugs), lists, register spreadsheet, tracker (BUGS 163 rows), Documentation and Methods, deck v8.3 (screenshots v83_*, v82_* removed), CHANGELOG.
+- **Caveats:** the `coded/` result savers (Shiny app, indicators) write users' files at run time and are not linted; the release tags (v7.2-v8.2, and now v8.3) still need creating by the user (this session cannot push tags).

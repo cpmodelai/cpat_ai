@@ -1,4 +1,4 @@
-# REPLICATED (mostly issues): where CPAT-AI-Mitigation-Prototype v8.2 matches legacy CPAT on purpose
+# REPLICATED (mostly issues): where CPAT-AI-Mitigation-Prototype v8.3 matches legacy CPAT on purpose
 
 **The rule (user, 2026-10-15).** **Bugs are never replicated:** the prototype fixes every legacy bug (or leaves the feature out). **Issues are replicated:** where legacy works as intended but is questionable (old data, simplifications, design choices), the prototype does what legacy does, and tracks the issue. A departure from legacy that is not a bug fix is an exception: it stays only by user decision; otherwise it is queued to be replicated. Bug = legacy does not do what it means to (wrong row, double application, a dead reference); issue = legacy does what it means to, but the choice is open to question.
 

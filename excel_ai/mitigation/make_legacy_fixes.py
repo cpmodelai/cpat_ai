@@ -29,7 +29,7 @@ PRIORITY = {'L1': 'High', 'L3': 'High', 'L13': 'High', 'L18': 'High', 'L19': 'Hi
             'L95': 'Low', 'L96': 'Low', 'L97': 'Low', 'L112': 'Medium', 'L113': 'Low', 'L114': 'Low', 'L115': 'Medium', 'L116': 'Low', 'L117': 'Low', 'L118': 'Medium', 'L119': 'Medium', 'L120': 'Low', 'L121': 'Low', 'L122': 'Medium', 'L123': 'Medium', 'L124': 'Low', 'L125': 'Low', 'L126': 'Medium', 'L127': 'Low', 'L128': 'Low', 'L129': 'Medium', 'L130': 'Low',
             'L107': 'Low', 'L108': 'Medium', 'L109': 'Low', 'L110': 'Low', 'L111': 'Low',   # v5.4
             'L98': 'Medium', 'L99': 'Medium', 'L100': 'Low', 'L101': 'Low', 'L102': 'Low', 'L103': 'Low', 'L104': 'Low', 'L105': 'Medium', 'L106': 'Low',   # v5.2                                             # v5.1: team tracker
-            'L4': 'Low', 'L7': 'Low', 'L8': 'Low', 'L9': 'Low', 'L10': 'Low', 'L11': 'Low', 'L12': 'Low', 'L23': 'Low', 'L131': 'Low', 'L132': 'Low', 'L133': 'Low'}
+            'L4': 'Low', 'L7': 'Low', 'L8': 'Low', 'L9': 'Low', 'L10': 'Low', 'L11': 'Low', 'L12': 'Low', 'L23': 'Low', 'L131': 'Low', 'L132': 'Low', 'L133': 'Low', 'L134': 'Low'}
 ORDER = {'High': 0, 'Medium': 1, 'Low': 2}
 DECK = os.path.join(HERE, 'presentation', 'img', f'v{B.VERSION.replace(".", "")}_legacy.json')   # for the deck
 SHORT = {  # one-line effect of each high-priority bug (deck)
@@ -216,6 +216,8 @@ FIX = {  # L11 onwards (the register records what the prototype did; this is wha
     'L131': ('Give each row its own code (e.g. gdp.pre.ln, gdp.pre.mn; sub.new.usd only on its own subtotal).', 'Lookups by code (MTOutputs, the data link) return the first row of a reused code.'),
     'L132': ('Write the codes in lower case and with a scenario number: em.pm2.all.<sector>, nox.tot.<n>.', 'Lookups of the protocol codes fail.'),
     'L133': ('Rename the N2O total n2o.tot and the NOx forcing row nox.tot.', 'A reader of the codes takes one gas for the other.'),
+    'L134': ('Label the price-increase units USD/bbl (other oil products) and USD/GJ (biomass) in columns E and G of MTInputs rows 182-183.',
+             'Labels only: no value changes; a user may type an increase in the wrong unit.'),
     'L130': ('F18456: apply the cut to the reference-year intensity F18453, as F18455 does.', 'Conditional and unconditional intensity targets are not comparable.'),
     'L118': ('Size the logit investment on row 4108 (need after manual investment), not row 4028.',
             'Over-investment whenever a type is set to Manual: logit investment comes on top of the manual capacity path.'),
@@ -271,6 +273,8 @@ def mvp_status(lid):
     st = {x[0]: x[4] for x in R.LEGACY}.get(lid, 'Fixed')
     if st.startswith('Kept'):
         return 'Kept as legacy'
+    if st.startswith('Copied'):                       # v8.2: L134, labels copied from legacy, queued to fix
+        return 'Copied (labels), to fix'
     if st.startswith(('Harmless', 'Not built')):
         return 'Not built'
     if 'engineer road model' in st:

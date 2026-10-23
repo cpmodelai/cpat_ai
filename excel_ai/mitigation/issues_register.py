@@ -9,7 +9,7 @@ workbook sheet LegacyDiff, row number), U = potential upgrade (priority High / M
 """
 import build as B
 
-REGISTER_VERSION = '8.2'   # version of the Word/JSON register (user 2026-10-22); the workbook stays at B.VERSION
+REGISTER_VERSION = '8.3'   # version of the Word/JSON register (user 2026-10-22); the workbook stays at B.VERSION
 
 BUGS = [  # key, title, legacy rows, what legacy does, what it should do, why it matters
     ('services', 'Services electricity demand grows with the industrial multiple after 2023', 'H3, row 3731',
@@ -461,6 +461,13 @@ LEGACY += [
     ('L131', 'Codes: one output code on rows with different contents', 'Mitigation rows 466, 2442, 16170 (gdp.pre.lvl); 7722, 7742, 7985 (sub.new.usd); 7638-13962 (rev.ctr.coa)', 'Legacy reuses a code for other quantities: gdp.pre.lvl for ln(GDP pc), GDP in $mn and in bn US$; sub.new.usd for revenue subtotals; rev.ctr.coa for the gasoline to electricity rows. A lookup by code finds the first row only. Found by the codes crosswalk (v7.1).', 'Fixed (v7.2, codes R7): every prototype code is unique (check_codes; the 18 copy rows carry no code).'),   # v7.2
     ('L132', 'Codes: capitals and empty tokens', 'Mitigation rows 7606, 13922 (oc.tot.); em.pm2.All.<sector> rows', 'Legacy codes mix capitals (All) into the lower-case protocol and end with an empty token (oc.tot., no scenario number), so a lookup of the protocol code fails. Found by the codes crosswalk (v7.1).', 'Fixed (v7.2): prototype codes are lower case with no empty token (code formula; check_codes).'),   # v7.2
     ('L133', 'Codes: nox.tot holds N2O, oc.tot. holds NOx', 'Mitigation rows 7606, 13922 and the GHG total rows (nox.tot)', 'The N2O total in CO2e carries the code nox.tot and the NOx forcing row the code oc.tot. (labels: Nitrous oxide; Nitrogen oxides): a reader of the codes takes one gas for the other. Found by the codes crosswalk (v7.1).', 'Fixed (v7.2, codes R5): n2o.tot and nox.tot carry their own gas.'),   # v7.2
+    ('L134', 'Price-increase units: other oil products "$/bbn", default "$/liter" for other oil products and biomass',
+     'MTInputs rows 182-183 (columns E and G); Mitigation I177, I180',
+     'The unit labels of the price-increase inputs read "$/bbn" (for $/bbl) for other oil products, and the default '
+     'column says "$/liter" for other oil products and biomass, whose prices are per barrel and per GJ. No formula '
+     'reads the labels (Mitigation rows 168-180 use the amounts in G and H only), so no value changes; a user typing an '
+     'increase per liter for these fuels gets a wrong price path. Found by the tracker leads (2026-10-23).',
+     'Fixed (v8.3): the prototype\'s ScenarioDefinition rows 182-183 read $/bbl and $/GJ, defaults included.'),   # v8.3
 ]
 
 # v4.15: the distribution module (legacy sheet Distribution; Methods, chapter Distribution sections 3-5). Bugs are fixed

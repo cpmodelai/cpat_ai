@@ -453,8 +453,10 @@ def bugs_part(doc):
     nb_ = sum(1 for c in chk if moved(c) == 'B')
     para(doc, f'{len(allb)} legacy bugs of the mitigation sheets ({len(n_by["power"])} engineer power, '
               f'{len(n_by["transport"])} engineer transport, {len(n_by["other"])} other), {len(R.DIST_BUGS)} of the '
-              f'distribution sheet. Every one is fixed in the prototype; none is replicated. Within each type, the '
-              f'order is by priority, then by code.')
+              f'distribution sheet. Every one is fixed in the prototype' + (
+                  f', except {", ".join(sorted(R.BUGS_REPLICATED))} (copied labels, no value effect; queued to fix)'
+                  if R.BUGS_REPLICATED else '; none is replicated') + '. Within each type, the order is by priority, '
+              'then by code.')
     nn = sum(1 for c, x in chk.items() if c.startswith('L') and x['status'] == 'Not fixed')
     p_ = para(doc, f'Legacy 465: the CPAT team marked {nc + nb_} of these bugs fixed in {LEGACY_FILE}; each fix was '
                    f'checked cell by cell against its plan (2026-10-22): {nc} confirmed (Appendix C), {nb_ - nn} fixed '

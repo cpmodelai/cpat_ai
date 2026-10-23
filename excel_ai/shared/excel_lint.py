@@ -182,6 +182,13 @@ def lint(path):
     return p
 
 
+def check(path):
+    """Lint a file a script has just written; stop the script if Excel would repair it (every writer calls this)."""
+    problems = lint(path)
+    if problems:
+        raise SystemExit(f'{path}: Excel would repair it:\n  ' + '\n  '.join(problems))
+
+
 def main(argv):
     bad = 0
     for f in argv:
