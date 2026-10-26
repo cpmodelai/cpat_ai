@@ -13,5 +13,6 @@ Where the result shows (v8.2):
 - **Bug-fix register** `../CPAT-AI_BugsAndIssues_latest.docx`: every bug says its status in legacy; the confirmed fixes are in Appendix C, the fixes with caveats in Appendix B (red notes). Every cell reference is a 465 row.
 - **Register spreadsheet** `../CPAT-AI_BugsAndIssues_latest.xlsx`, `../BUGS.md`, `../mitigation/LegacyBugFixes.md`: column "Status in legacy 465" / "In legacy 465".
 - **The CPAT team's tracker** `../legacy/workbooks/Tracking issues.xlsx`: tab BUGS, column B "Status in legacy" (Closed rows struck through, filtered to Open).
+- **The tracker as kept by the user** `../legacy/Tracking issues.xlsx` (the team's sheets only): front tab CPAT-AI_bugs, our L, N and D bugs in the columns of CPAT_issues, column F "Fixed" = Solved (confirmed fixed in 465), In progress (fixed with caveats), No (open, or marked fixed but not fixed); written by `../mitigation/tracker_status_tab.py`.
 
 The hand-edited copy of the register made on 2026-10-22 (`CPAT-AI-Mitigation-MVP_BugsAndIssues_v7.1.5_fixedbugs.docx`) and the interim spreadsheet (`CPAT-AI_BugsAndIssues_interim_fixedbugs.xlsx`) were retired in v8.2: the regenerated register and register spreadsheet carry the same content (git history keeps both files).

@@ -31,6 +31,6 @@ python presentation/make_screenshots.py && node presentation/build_deck.js   # t
 |---|---|
 | Build | `build.py` (version in `VERSION`, also `version.json`), `CPATScenarios.bas` (VBA), `vba_project.py`, `extract_data.py`, `tabs.json` |
 | Checks | `check_quick.py`, `check_full.py`, `check_paste.py`, `check_links.py`, `check_allcountry.py`; independent recalculations `power_model_ref.py`, `transport_model_ref.py`, `distribution_ref.py`; LibreOffice `lo_session.py`, `lo_run_macro.py`; `legacy_compare.py` |
-| Register and documents | `issues_register.py` (the register's data), `make_bugfix_book.py`, `make_bugs_issues_sheet.py`, `make_legacy_fixes.py`, `make_replication_lists.py`, `make_docs.py`, `make_equations.py`, `make_documentation.py`, `update_tracker.py` |
+| Register and documents | `issues_register.py` (the register's data), `make_bugfix_book.py`, `make_bugs_issues_sheet.py`, `make_legacy_fixes.py`, `make_replication_lists.py`, `make_docs.py`, `make_equations.py`, `make_documentation.py`, `update_tracker.py`, `tracker_status_tab.py` (front tab CPAT-AI_bugs of `../legacy/Tracking issues.xlsx`) |
 | Deck | `presentation/build_deck.js`, `presentation/make_screenshots.py`, `presentation/img/` |
 | Tools | `ets_goalseek.py` (the user's ETS goal-seek test), `make_variants.py`, `extract_*.py` (legacy extracts), `update_prices_egypt.py` |
