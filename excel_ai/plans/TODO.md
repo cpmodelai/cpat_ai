@@ -46,6 +46,7 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
 - ☐ **Prototype data extracts on 465**: the extracts (`extract_*.py`) and the Methods still read 456; move them when the numerical check (U2) is done.
 - ☐ **Data links, rest**: GHGs, EF_GHG, CH4Inputs, Elasticities, Prices_int, OilProductShares (converters to the prototype layout), Transport1-2 (no dummy data yet).
 - ☑ **Excel lint in every writer** (v8.3; NORMS 3g): `excel_lint.check()` after every save (prototype, distribution, register spreadsheet, tracker, data workbooks, legacy-data export, `other/distribution`).
+- ☐ **No Excel COM needed (checked 2026-10-28)**: the mitigation, distribution and air-pollution builders all write with openpyxl and recalculate in LibreOffice; COM appears only in the optional Excel-open test of `check_quick.py` (skipped on Linux). `AGENTS.md` and the hard rules still say builders run via COM: correct them. Distribution unchanged since v1.0 (2026-10-22; last touched by v8.3, 2026-10-23); the Excel 365 test of its macro (section 3, M3) stays with the user.
 - ☐ **Copy-paste stress test**: add a fuel, a subsector and a scenario by dragging; fix what breaks.
 - ☑ **Tracker leads** (v8.3): Manual inputs J178:J179 are read (Mitigation L753:L754, chosen in K when the price-control option is manual): no bug. MTInputs 182-183 units: legacy bug L134 (labels), fixed in the prototype.
 
