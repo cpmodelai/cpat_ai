@@ -561,6 +561,7 @@ When a task changes the method, rewrite the affected methodology text to describ
 | `data/legacy_dummy/` | The dummy legacy-data files (below) |
 | `data/mvp_legacy_extracts/` | The legacy extracts and derived tables the mitigation MVP is built from |
 | `data/distribution/` | The distribution data pipeline (`data_bymodule`, `data_tabular`, `data_standardized`, the `_regenerated` checks) |
+| `data/air_pollution/legacy_459/` | Nine public Air Pollution reference tables and manifest from legacy 459 NoPropData; read-only extractor and regression tests in `data/scripts/` and `data/tests/` |
 | `data/scripts/`, `data/tests/` | The conversion scripts (`export_to_legacy.py`, `build_data_workbook.py`, `convert_data_workbook.py`) and their tests |
 
 Rules:

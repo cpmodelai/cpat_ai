@@ -16,6 +16,7 @@
 |---|---|
 | [`mitigation/`](mitigation/README.md) | The prototype's sources: builder, VBA, checks, method notes, the Word documentation |
 | [`distribution/`](distribution/README.md) | The distribution module's sources: builder (cuts the module from the prototype), VBA, check |
+| [`air_pollution/`](air_pollution/README.md) | Recovered standalone v0.3 scaffold, public reference tables, equation inventory and Python comparison; calculations and numerical regression remain open |
 | `releases/` | Every released workbook since v7.2 (`_v<n>` copies; the files above are the `_latest` copies) |
 | `legacy/` | Legacy CPAT: the reference workbooks, codes master and tracker (`workbooks/`); the fix-plan sources and tools (`bugfixes/`, with the 456 to 465 row map); the bug-fix procedure; the register as JSON |
 | [`bugsfixed/`](bugsfixed/README.md) | The latest legacy file (CPAT 1.0pre_465) and the check of the bugs the CPAT team fixed in it |

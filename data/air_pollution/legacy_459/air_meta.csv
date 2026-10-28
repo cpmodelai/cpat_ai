@@ -1,0 +1,82 @@
+,Input data information and sources
+Code,Indicator Name,Long definition,Source
+SP.POP.1564.TO,"Population ages 15-64, total",,"World Bank, Health Nutrition and Population Statistics: Population estimates and projections"
+Earnings-2011 PPP $,"Mean montly earnings of employees, 2011 PPP $","Mean nominal monthly earnings of employees by sex and economic activity -- Harmonized series. Description: The concept of earnings, as applied in wages statistics, relates to gross remuneration in cash and in kind paid to employees, as a rule at regular intervals, for time worked or work done together with remuneration for time not worked, such as annual vacation, other type of paid leave or holidays.",ILOSTAT Labour statistics
+Earnings-Local currency,"Mean montly earnings of employees, Local currency","Mean nominal monthly earnings of employees by sex and economic activity -- Harmonized series. Description: The concept of earnings, as applied in wages statistics, relates to gross remuneration in cash and in kind paid to employees, as a rule at regular intervals, for time worked or work done together with remuneration for time not worked, such as annual vacation, other type of paid leave or holidays.",ILOSTAT Labour statistics
+Earnings-U.S. dollars,"Mean montly earnings of employees, U.S. dollars","Mean nominal monthly earnings of employees by sex and economic activity -- Harmonized series. Description: The concept of earnings, as applied in wages statistics, relates to gross remuneration in cash and in kind paid to employees, as a rule at regular intervals, for time worked or work done together with remuneration for time not worked, such as annual vacation, other type of paid leave or holidays.",ILOSTAT Labour statistics
+urb.pop,Urban population (% of total),,"Population Estimates and Projections, World Bank"
+Deaths,Deaths,Projected deaths,GBD Results Tool (Institute for Health Metrics and Evaluation 2020)
+YLL,Years of Life Lost,The years of life lost (YLL) are the number of deaths multiplied by a loss function specifying the years lost for deaths as a function of the age at which death occurs.,GBD Results Tool (Institute for Health Metrics and Evaluation 2020)
+YLD,Years lived with disease or disability,,GBD Results Tool (Institute for Health Metrics and Evaluation 2020)
+PM2.5-Rural Mean,"Ambient concentration, PM2.5, rural areas","Baseline PM2.5 concentration, year 2016, rural mean",GBD 2019 + WHO
+PM2.5-Urban Mean,"Ambient concentration, PM2.5, urban areas","Baseline PM2.5 concentration, year 2016, urban mean",GBD 2019 + WHO
+PM2.5-Total mean,"Ambient concentration, PM2.5, all areas","Baseline PM2.5 concentration, year 2016, total mean",GBD 2019 + WHO
+O3 ppm,O3 ppb 6mDMA8,"Baseline O3 concentrations, country level, ppb, mean of 6mADM8","Data provided by Michale Brauer, from GBD 2019"
+dm8.nox,NOx to 6mDMA8,"Source receptor matrix for ozone, diagonal coefficients, from TM5-FASST. 6mDMA8 per ton emitted NOx, voc, SO2, CH4. Assumption: Coefficients escaleted using population"
+dm8.voc,VOC to 6mDMA8
+dm8.so2,SO2 to 6mDMA8
+dm8.ch4,CH4 to 6mDMA8
+PM2.5-HAP prop,Proportion of households exposed to HAP,Proportion exposed to household air pollution.,"Data provided by Michale Brauer, from GBD 2019"
+PM2.5-Urban HAP,Urban exposure to HAP,"Exposure to household air pollution. Incremental exposure, above the ambient pollution level","Data provided by Michale Brauer, from GBD 2019"
+PM2.5-Rural HAP,Rural exposure to HAP
+FR.INR.RINR,Real interest rate (%),"Real interest rate is the lending interest rate adjusted for inflation as measured by the GDP deflator. The terms and conditions attached to lending rates differ by country, however, limiting their comparability.","World Development Indicators. International Monetary Fund, International Financial Statistics and data files using World Bank data on the GDP deflator."
+Lab_sh,Labor share of GDP,"Labor share (LS6) attributes the average employee's wage to all those workers who hold self-employment jobs but are not classified as employers, removing employers form the adjusted numerator","Guerriero, Marta. 2019. “THE LABOR SHARE OF INCOME AROUND THE WORLD: EVIDENCE FROM A PANEL DATASET.” 920. ADBI Working Paper Series. https://www.adb.org/publications/labor-share-income-around-world-evidence-panel-dataset."
+gou,Annual growth rate of output per worker (GDP constant 2010 US $) (%)," SDG indicator 8.2.1 - Annual growth rate of output per worker (GDP constant 2010 US $) (%). This indicator conveys the annual growth rates of labour productivity. Labour productivity represents the total volume of output (measured in terms of Gross Domestic Product, GDP) produced per unit of labour (measured in terms of the number of employed persons) during a given time reference period. The indicator allows data users to assess GDP-to-labour input levels and growth rates over time, thus providing general information about the efficiency and quality of human capital in the production process for a given economic and social context, including other complementary inputs and innovations used in production.",ILO indicators
+PM2.5-HAP prop,Proportion of households exposed to HAP,,"Data provided by Michale Brauer, from GBD 2019"
+Population Under ,Population ages 00-04,,World Bank. Health Nutrition and Population Statistics: Population estimates and projections
+Population 5 to 9,Population ages 05-09
+Population 10 to 14,Population ages 10-14
+Population 15 to 19,Population ages 15-19
+Population 20 to 24,Population ages 20-24
+Population 25 to 29,Population ages 25-29
+Population 30 to 34,Population ages 30-34
+Population 35 to 39,Population ages 35-39
+Population 40 to 44,Population ages 40-44
+Population 45 to 49,Population ages 45-49
+Population 50 to 54,Population ages 50-54
+Population 55 to 59,Population ages 55-59
+Population 60 to 64,Population ages 60-64
+Population 65 to 69,Population ages 65-69
+Population 70 to 74,Population ages 70-74
+Population 75 to 79,Population ages 75-79
+Population 80 plus,Population ages 80 and above
+pop.all,Population All ages
+Work_absence,Work absence due to illness,"OECD: Work absence due to illness per person. WHO: Absenteeism from work due to illness, days per employee per year","OECD Health Status Dataset, WHO Regional Office for Europe Indicators"
+Age distrib-Deaths,"Deaths by age group in 2017, excludes IHD and stroke",,GBD Results Tool (Institute for Health Metrics and Evaluation 2018)
+Age distrib-YLL
+Age distrib-YLD
+Pop age distrib
+ADM8,Source-receptor coefficients ADM8,"Source receptor matrix for ozone, diagonal coefficients, from TM5-FASST. Annual daily maximum 8-h concentration (ADM8) per ton emitted NOx, NMVOC, SO2, CH4. Assumption: Each country inside a region has the region's coefficient. Coeffcientes from dM6M * 0.87","Joint Research Centre, European Commission"
+Urban-Groundlevel-PM2.5-Inside,Intake fraction
+Rural-Groundlevel-PM2.5-Inside
+All-Gas Power Plants-SO2
+All-Coal Power Plants-NOx-Outside
+All-Coal Power Plants-NOx-Inside
+Prob_death,Probability of death,"The probability that a person dies during an interval of two ages (e.g., between birth and age 5), if the rates of all-cause mortality in a specified year of interest would remain constant into the future.","Global Burden of Disease Collaborative Network. Global Burden of Disease Study 2017 (GBD 2017) Life Tables 1950-2017. Seattle, United States: Institute for Health Metrics and Evaluation (IHME), 2018."
+ir_bl_deaths,"Incidence rate in the baseline (2017), mortality",Expressed as every 10^5 ,GBD Results Tool (Institute for Health Metrics and Evaluation 2018),DATA_Health_3
+ir_bl_YLDs,"Incidence rate in the baseline (2017), years lived with disability ",Expressed as every 10^5 ,GBD Results Tool (Institute for Health Metrics and Evaluation 2018)
+ir_bl_YLL,"Incidence rate in the baseline (2017), years of life lost",Expressed as every 10^5 ,GBD Results Tool (Institute for Health Metrics and Evaluation 2018)
+ncv,"Net calorific calue, Kcal/kg",,ENERGY PRICES AND TAXES FOR OECD COUNTRIES 4th Quarter 2019
+den,Density. Ton/m3,,ENERGY PRICES AND TAXES FOR OECD COUNTRIES 4th Quarter 2019
+the,Total Health Spending,Total Health Spending (thousands of 2018 USD). Data for year 2016,"Global Burden of Disease Health Financing Collaborator Network. Global Health Spending 1995-2016. Seattle, United States: Institute for Health Metrics and Evaluation (IHME), 2019."
+sh.gov,Share Government Spending,Share Government Spending (thousands of 2018 USD). Data for year 2016
+sh.priv,Share Prepaid Private Spending,Share Prepaid Private Spending (thousands of 2018 USD). Data for year 2016
+sh.poc,Share Out-of-Pocket Spending,Share Out-of-Pocket Spending (thousands of 2018 USD). Data for year 2016
+sh.dah,Share Development Assistance for Health,Share Development Assistance for Health (thousands of 2018 USD). Data for year 2016
+RR-ihd,Relative risk for ischemic heart disease,"For 25 years and older, RR changes with age and with PM2.5 levels",IER GBD 2019. Provided by Michael Brauer
+RR-str,Relative risk for stroke,"For 25 years and older, RR changes with age and with PM2.5 levels",IER GBD 2019. Provided by Michael Brauer
+RR-lri,Relative risk for lower respiratory infections,RR changes with PM2.5 levels,IER GBD 2019. Provided by Michael Brauer
+RR-lun,"Relative risk for tracheal, bronchus, and lung cancer",RR changes with PM2.5 levels,IER GBD 2019. Provided by Michael Brauer
+RR-cop,Relative risk for chronic obstructive pulmonary disease,RR changes with PM2.5 levels,IER GBD 2019. Provided by Michael Brauer
+RR-dme,Relative risk for diabetes mellitus type 2,RR changes with PM2.5 levels,IER GBD 2019. Provided by Michael Brauer
+
+Diseases codes
+
+Chronic obstructive pulmorary disease,cop
+Lower respiratory infections,lri
+Stroke,str
+Diabetes mellitus type 2,dme
+Ischemic heart disease,ihd
+"Tracheal, bronchus, and lung cancer",lun
+Depressive disorders,dep
+"Diseases for neonatals: Sudden infant death syndrome, Diarrheal diseases, Lower respiratory infections, Upper respiratory infections, Otitis media, Meningitis, Neonatal disorders, Encephalitis",dne

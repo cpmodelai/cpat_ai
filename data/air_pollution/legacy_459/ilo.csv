@@ -1,0 +1,603 @@
+Data from International Labour Organization Statistics
+
+Code,Country,Series Name,Atrib 1,2018.0,2019.0,2020.0,2021.0,2022.0,2023.0
+Earnings-2021 PPP $-afg,AFG,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,,836.263
+Earnings-Local currency-afg,AFG,"Mean montly earnings of employees, Local currency",Local currency,,,13202.245,,,,ILO doesn’t indicate if this values are constant dollars. I'll assume they are nominal dollars from the year of the value
+Earnings-U.S. dollars-afg,AFG,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,,171.874
+Earnings-2021 PPP $-alb,ALB,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,961.066,1026.797,1039.429,1094.765,1257.75
+Earnings-Local currency-alb,ALB,"Mean montly earnings of employees, Local currency",Local currency,50589.0,52380.0,53662.0,57191.0,61898.0
+Earnings-U.S. dollars-alb,ALB,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,468.464,476.828,493.898,552.463,547.568
+Earnings-2021 PPP $-ago,AGO,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,565.58,,445.183
+Earnings-Local currency-ago,AGO,"Mean montly earnings of employees, Local currency",Local currency,,82234.658,,90678.796
+Earnings-U.S. dollars-ago,AGO,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,225.408,,143.606
+Earnings-2021 PPP $-atg,ATG,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1128.264
+Earnings-Local currency-atg,ATG,"Mean montly earnings of employees, Local currency",Local currency,2672.81
+Earnings-U.S. dollars-atg,ATG,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,989.93
+Earnings-2021 PPP $-arg,ARG,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1262.229,1153.437,1209.431,1203.938,1210.281
+Earnings-Local currency-arg,ARG,"Mean montly earnings of employees, Local currency",Local currency,18457.024,25562.726,36282.026,51752.749,83060.662
+Earnings-U.S. dollars-arg,ARG,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,656.951,530.921,514.353,544.819,635.912
+Earnings-2021 PPP $-arm,ARM,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,736.883,793.885,794.994,864.538
+Earnings-Local currency-arm,ARM,"Mean montly earnings of employees, Local currency",Local currency,,119804.028,125733.844,130559.108,142818.811
+Earnings-U.S. dollars-arm,ARM,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,249.36,257.12,259.164,327.817
+Earnings-2021 PPP $-aus,AUS,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,3414.148,3525.53,3644.787,3925.805
+Earnings-Local currency-aus,AUS,"Mean montly earnings of employees, Local currency",Local currency,5323.882,5518.336,5629.683,5905.537
+Earnings-U.S. dollars-aus,AUS,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,3977.76,3836.156,3874.296,4436.17
+Earnings-2021 PPP $-aut,AUT,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,4671.052,4935.059,5307.237,5688.123,5804.09
+Earnings-Local currency-aut,AUT,"Mean montly earnings of employees, Local currency",Local currency,3865.847,3977.213,4161.638,4275.853,4256.412
+Earnings-U.S. dollars-aut,AUT,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,4565.39,4452.389,4753.406,5057.224,4482.209
+Earnings-2021 PPP $-aze,AZE,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1128.217,1337.855,1506.44,1516.499,1649.431
+Earnings-Local currency-aze,AZE,"Mean montly earnings of employees, Local currency",Local currency,544.6,634.8,707.3,732.1,839.4
+Earnings-U.S. dollars-aze,AZE,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,320.35,373.412,416.059,430.647,493.765
+Earnings-2021 PPP $-bhs,BHS,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,3902.373
+Earnings-Local currency-bhs,BHS,"Mean montly earnings of employees, Local currency",Local currency,,4585.317
+Earnings-U.S. dollars-bhs,BHS,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,4585.317
+Earnings-2021 PPP $-bhr,BHR,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,4245.981,1662.266,1780.188
+Earnings-Local currency-bhr,BHR,"Mean montly earnings of employees, Local currency",Local currency,853.0,329.593,353.0
+Earnings-U.S. dollars-bhr,BHR,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,2268.617,876.577,938.83
+Earnings-2021 PPP $-bgd,BGD,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,,,,460.09
+Earnings-Local currency-bgd,BGD,"Mean montly earnings of employees, Local currency",Local currency,,,,,13403.404
+Earnings-U.S. dollars-bgd,BGD,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,,,,146.093
+Earnings-2021 PPP $-bel,BEL,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,5556.231,6059.758,6324.27,6482.67,6840.743
+Earnings-Local currency-bel,BEL,"Mean montly earnings of employees, Local currency",Local currency,4701.583,4956.203,5043.15,5185.728,5417.902
+Earnings-U.S. dollars-bel,BEL,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,5552.355,5548.343,5760.266,6133.369,5705.315
+Earnings-2021 PPP $-blz,BLZ,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,922.072,994.237,861.13
+Earnings-Local currency-blz,BLZ,"Mean montly earnings of employees, Local currency",Local currency,1260.64,1269.442,1020.0
+Earnings-U.S. dollars-blz,BLZ,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,630.32,634.721,510.0
+Earnings-2021 PPP $-ben,BEN,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,347.71,,,411.27
+Earnings-Local currency-ben,BEN,"Mean montly earnings of employees, Local currency",Local currency,,74175.732,,,84524.927
+Earnings-U.S. dollars-ben,BEN,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,126.59,,,135.693
+Earnings-2021 PPP $-btn,BTN,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,776.738,949.0,959.991,974.462,1061.081
+Earnings-Local currency-btn,BTN,"Mean montly earnings of employees, Local currency",Local currency,15743.924,19387.236,19894.841,20815.641,22169.88
+Earnings-U.S. dollars-btn,BTN,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,230.21,275.307,268.488,281.604,282.043
+Earnings-2021 PPP $-bol,BOL,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1191.366,1206.997,1308.707,1250.148,1338.445
+Earnings-Local currency-bol,BOL,"Mean montly earnings of employees, Local currency",Local currency,3099.106,3118.589,3339.017,3060.153,3086.498
+Earnings-U.S. dollars-bol,BOL,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,448.496,451.315,483.215,442.859,446.671
+Earnings-2021 PPP $-bih,BIH,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,,1603.017,1683.073,1771.574
+Earnings-Local currency-bih,BIH,"Mean montly earnings of employees, Local currency",Local currency,,,1235.389,1282.689,1357.312
+Earnings-U.S. dollars-bih,BIH,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,,719.517,775.692,730.003
+Earnings-2021 PPP $-bwa,BWA,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,994.392,1032.946,1081.059,1155.018
+Earnings-Local currency-bwa,BWA,"Mean montly earnings of employees, Local currency",Local currency,,5122.271,5218.258,5511.695,6088.48
+Earnings-U.S. dollars-bwa,BWA,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,476.23,455.495,497.12,492.245
+Earnings-2021 PPP $-bra,BRA,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,910.73,970.768,1049.164,985.469,1054.676
+Earnings-Local currency-bra,BRA,"Mean montly earnings of employees, Local currency",Local currency,2135.624,2271.106,2459.159,2414.265,2614.37
+Earnings-U.S. dollars-bra,BRA,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,584.49,575.769,477.027,447.55,506.271
+Earnings-2021 PPP $-bgr,BGR,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1052.189,1463.285,1485.746,1507.04,2121.674
+Earnings-Local currency-bgr,BGR,"Mean montly earnings of employees, Local currency",Local currency,561.327,699.482,748.931,811.217,917.982
+Earnings-U.S. dollars-bgr,BGR,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,662.902,783.052,855.426,959.46,966.68
+Earnings-2021 PPP $-bfa,BFA,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,546.202,586.082,,,412.392
+Earnings-Local currency-bfa,BFA,"Mean montly earnings of employees, Local currency",Local currency,107024.67,111405.428,,,84008.694
+Earnings-U.S. dollars-bfa,BFA,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,192.682,190.141,,,134.681
+Earnings-2021 PPP $-bdi,BDI,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,,684.324
+Earnings-Local currency-bdi,BDI,"Mean montly earnings of employees, Local currency",Local currency,,,433782.57
+Earnings-U.S. dollars-bdi,BDI,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,,226.513
+Earnings-2021 PPP $-khm,KHM,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,678.794,681.023,685.499
+Earnings-Local currency-khm,KHM,"Mean montly earnings of employees, Local currency",Local currency,,1069006.114,1076082.625,1081316.447
+Earnings-U.S. dollars-khm,KHM,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,263.228,262.922,263.818
+Earnings-2021 PPP $-can,CAN,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,3392.038,3416.48,3706.211,3909.874,4158.489
+Earnings-Local currency-can,CAN,"Mean montly earnings of employees, Local currency",Local currency,4365.868,4476.324,4767.736,4863.344,5090.344
+Earnings-U.S. dollars-can,CAN,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,3369.199,3373.791,3554.954,3878.645,3910.972
+Earnings-2021 PPP $-tcd,TCD,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,529.902
+Earnings-Local currency-tcd,TCD,"Mean montly earnings of employees, Local currency",Local currency,121734.157
+Earnings-U.S. dollars-tcd,TCD,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,219.165
+Earnings-2021 PPP $-chl,CHL,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1330.392,1945.673,1580.86,1539.98,1539.746
+Earnings-Local currency-chl,CHL,"Mean montly earnings of employees, Local currency",Local currency,609735.19,878042.394,735678.593,740931.578,760766.442
+Earnings-U.S. dollars-chl,CHL,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,950.814,1249.176,928.035,976.252,871.126
+Earnings-2021 PPP $-chn,CHN,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1027.672,1104.326,1190.289,1305.895,1434.75
+Earnings-Local currency-chn,CHN,"Mean montly earnings of employees, Local currency",Local currency,4131.25,4467.0,4810.583,5240.333,5436.0
+Earnings-U.S. dollars-chn,CHN,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,624.437,646.606,697.109,812.584,806.868
+Earnings-2021 PPP $-col,COL,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,783.347,827.136,,817.197,1002.633
+Earnings-Local currency-col,COL,"Mean montly earnings of employees, Local currency",Local currency,1147142.232,1236686.667,,1263928.922,1574407.971
+Earnings-U.S. dollars-col,COL,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,388.111,376.852,,337.566,369.91
+Earnings-2021 PPP $-com,COM,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,,,461.987
+Earnings-Local currency-com,COM,"Mean montly earnings of employees, Local currency",Local currency,,,,105355.189
+Earnings-U.S. dollars-com,COM,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,,,253.285
+Earnings-Local currency-cok,COK,"Mean montly earnings of employees, Local currency",Local currency,,1530.868
+Earnings-2021 PPP $-cri,CRI,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1625.785,1863.33,1884.02,1731.216,1637.779
+Earnings-Local currency-cri,CRI,"Mean montly earnings of employees, Local currency",Local currency,590811.688,664902.403,697392.191,629003.315,615297.275
+Earnings-U.S. dollars-cri,CRI,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,1023.986,1132.145,1192.325,1013.239,950.801
+Earnings-2021 PPP $-hrv,HRV,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,14087.392,17251.726,17980.763,18114.186,23378.764
+Earnings-Local currency-hrv,HRV,"Mean montly earnings of employees, Local currency",Local currency,1359.636,1456.336,1541.129,1618.889,1682.082
+Earnings-U.S. dollars-hrv,HRV,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,1605.668,1630.331,1760.272,1914.725,1771.314
+Earnings-2021 PPP $-cuw,CUW,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1791.206
+Earnings-Local currency-cuw,CUW,"Mean montly earnings of employees, Local currency",Local currency,2675.09
+Earnings-U.S. dollars-cuw,CUW,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,1494.464
+Earnings-2021 PPP $-cyp,CYP,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,3007.267,3239.271,3523.299,3580.084,3959.722
+Earnings-Local currency-cyp,CYP,"Mean montly earnings of employees, Local currency",Local currency,2017.198,2106.047,2242.566,2296.837,2493.307
+Earnings-U.S. dollars-cyp,CYP,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,2382.219,2357.666,2561.45,2716.562,2625.573
+Earnings-2021 PPP $-cze,CZE,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1941.148,2485.714,2603.613,2276.407,2940.706
+Earnings-Local currency-cze,CZE,"Mean montly earnings of employees, Local currency",Local currency,1477.487,1664.638,1815.723,1838.401,1970.678
+Earnings-U.S. dollars-cze,CZE,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,1744.845,1863.52,2073.912,2174.351,2075.22
+Earnings-2021 PPP $-civ,CIV,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,582.184,,,554.592
+Earnings-Local currency-civ,CIV,"Mean montly earnings of employees, Local currency",Local currency,,135130.477,,,128952.459
+Earnings-U.S. dollars-civ,CIV,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,230.633,,,206.734
+Earnings-2021 PPP $-dnk,DNK,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,3149.605,3679.485,4048.726,4090.279,5128.342
+Earnings-Local currency-dnk,DNK,"Mean montly earnings of employees, Local currency",Local currency,4581.099,4707.56,5273.986,5583.08,5642.185
+Earnings-U.S. dollars-dnk,DNK,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,5410.069,5269.993,6023.926,6603.334,5941.495
+Earnings-2021 PPP $-dom,DOM,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,659.633,722.118,837.852,884.928,969.696
+Earnings-Local currency-dom,DOM,"Mean montly earnings of employees, Local currency",Local currency,15971.025,16884.531,19206.503,20473.529,22602.613
+Earnings-U.S. dollars-dom,DOM,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,322.582,329.166,339.791,357.797,409.906
+Earnings-2021 PPP $-ecu,ECU,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,926.098,954.773,920.214,993.959,1074.117
+Earnings-Local currency-ecu,ECU,"Mean montly earnings of employees, Local currency",Local currency,514.6,512.064,472.334,482.378,499.383
+Earnings-U.S. dollars-ecu,ECU,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,514.6,512.064,472.334,482.378,499.383
+Earnings-2021 PPP $-egy,EGY,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,612.203,651.951,664.189,707.953,747.032
+Earnings-Local currency-egy,EGY,"Mean montly earnings of employees, Local currency",Local currency,2245.307,2592.565,2705.454,2912.839,3241.331
+Earnings-U.S. dollars-egy,EGY,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,126.373,154.59,171.675,186.189,169.168
+Earnings-2021 PPP $-slv,SLV,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,695.977,754.486,,790.388,845.406
+Earnings-Local currency-slv,SLV,"Mean montly earnings of employees, Local currency",Local currency,358.185,380.286,,390.652,414.734
+Earnings-U.S. dollars-slv,SLV,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,358.185,380.286,,390.652,414.734
+Earnings-2021 PPP $-est,EST,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,2673.813,2802.994,3183.385,3240.816,3186.844
+Earnings-Local currency-est,EST,"Mean montly earnings of employees, Local currency",Local currency,1637.51,1693.642,1920.384,2044.395,2132.681
+Earnings-U.S. dollars-est,EST,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,1933.825,1895.989,2193.455,2417.988,2245.817
+Earnings-2021 PPP $-swz,SWZ,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,,,902.724
+Earnings-Local currency-swz,SWZ,"Mean montly earnings of employees, Local currency",Local currency,,,,5586.983
+Earnings-U.S. dollars-swz,SWZ,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,,,377.922
+Earnings-2021 PPP $-eth,ETH,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,,,312.275
+Earnings-Local currency-eth,ETH,"Mean montly earnings of employees, Local currency",Local currency,,,,4195.965
+Earnings-U.S. dollars-eth,ETH,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,,,95.943
+Earnings-2021 PPP $-fin,FIN,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,4436.409,4593.693,4768.496,4973.648,5438.058
+Earnings-Local currency-fin,FIN,"Mean montly earnings of employees, Local currency",Local currency,4115.657,4129.216,4229.336,4336.414,4620.305
+Earnings-U.S. dollars-fin,FIN,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,4860.404,4622.552,4830.732,5128.852,4865.406
+Earnings-2021 PPP $-fra,FRA,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,2297.633,2460.105,2542.694,4868.745,5222.693
+Earnings-Local currency-fra,FRA,"Mean montly earnings of employees, Local currency",Local currency,1931.652,1986.284,2015.55,3856.986,3958.107
+Earnings-U.S. dollars-fra,FRA,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,2281.193,2223.595,2302.154,4561.813,4168.079
+Earnings-2021 PPP $-gmb,GMB,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,267.582
+Earnings-Local currency-gmb,GMB,"Mean montly earnings of employees, Local currency",Local currency,3988.236
+Earnings-U.S. dollars-gmb,GMB,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,82.826
+Earnings-2021 PPP $-geo,GEO,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,593.154,625.664,610.776,618.324,670.388
+Earnings-Local currency-geo,GEO,"Mean montly earnings of employees, Local currency",Local currency,556.574,599.346,613.599,663.756,745.602
+Earnings-U.S. dollars-geo,GEO,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,219.633,212.674,197.361,206.036,255.676
+Earnings-2021 PPP $-deu,DEU,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,3768.336,4035.535,6055.462,5819.004
+Earnings-Local currency-deu,DEU,"Mean montly earnings of employees, Local currency",Local currency,2941.702,3074.658,4543.546,4321.553
+Earnings-U.S. dollars-deu,DEU,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,3474.017,3442.001,5189.621,5111.275
+Earnings-2021 PPP $-gha,GHA,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,,,,602.566
+Earnings-Local currency-gha,GHA,"Mean montly earnings of employees, Local currency",Local currency,,,,,1797.204
+Earnings-U.S. dollars-gha,GHA,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,,,,217.253
+Earnings-2021 PPP $-grc,GRC,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1382.812,1431.766,1459.996,3198.167,3163.902
+Earnings-Local currency-grc,GRC,"Mean montly earnings of employees, Local currency",Local currency,886.053,885.524,905.562,1933.513,1863.911
+Earnings-U.S. dollars-grc,GRC,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,1046.389,991.322,1034.33,2286.844,1962.789
+Earnings-2021 PPP $-gtm,GTM,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,723.931,766.059,,807.679,875.198
+Earnings-Local currency-gtm,GTM,"Mean montly earnings of employees, Local currency",Local currency,2662.159,2750.711,,2780.84,2982.123
+Earnings-U.S. dollars-gtm,GTM,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,354.05,357.388,,359.542,384.877
+Earnings-2021 PPP $-gin,GIN,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,586.523
+Earnings-Local currency-gin,GIN,"Mean montly earnings of employees, Local currency",Local currency,,1765988.126
+Earnings-U.S. dollars-gin,GIN,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,192.292
+Earnings-2021 PPP $-gnb,GNB,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,289.598,,,398.295
+Earnings-Local currency-gnb,GNB,"Mean montly earnings of employees, Local currency",Local currency,,64149.79,,,87940.423
+Earnings-U.S. dollars-gnb,GNB,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,109.487,,,140.984
+Earnings-2021 PPP $-guy,GUY,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,678.084,748.834
+Earnings-Local currency-guy,GUY,"Mean montly earnings of employees, Local currency",Local currency,76729.473,81867.118
+Earnings-U.S. dollars-guy,GUY,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,369.395,392.648
+Earnings-2021 PPP $-hnd,HND,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,596.48,641.912,716.084,714.069,774.532
+Earnings-Local currency-hnd,HND,"Mean montly earnings of employees, Local currency",Local currency,6650.171,7338.608,8296.334,8413.258,9217.472
+Earnings-U.S. dollars-hnd,HND,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,278.218,299.431,337.498,350.309,376.44
+Earnings-2021 PPP $-hun,HUN,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1249.96,1500.112,1597.224,1256.196,1967.37
+Earnings-Local currency-hun,HUN,"Mean montly earnings of employees, Local currency",Local currency,847.867,901.438,967.429,829.992,987.405
+Earnings-U.S. dollars-hun,HUN,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,1001.293,1009.137,1104.994,981.664,1039.785
+Earnings-2021 PPP $-isl,ISL,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,3531.993,4195.359
+Earnings-Local currency-isl,ISL,"Mean montly earnings of employees, Local currency",Local currency,6122.922,6056.891
+Earnings-U.S. dollars-isl,ISL,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,7230.892,6780.534
+Earnings-2021 PPP $-ind,IND,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,791.023,809.056,861.556,903.134,977.408
+Earnings-Local currency-ind,IND,"Mean montly earnings of employees, Local currency",Local currency,15678.987,15799.338,17037.051,17583.076,18799.404
+Earnings-U.S. dollars-ind,IND,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,229.26,224.358,229.921,237.873,239.165
+Earnings-2021 PPP $-idn,IDN,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,463.911,480.231,475.549,469.129,520.767
+Earnings-Local currency-idn,IDN,"Mean montly earnings of employees, Local currency",Local currency,2465848.915,2589312.729,2561509.932,2511508.115,2690034.686
+Earnings-U.S. dollars-idn,IDN,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,173.201,183.02,175.66,175.53,181.149
+Earnings-2021 PPP $-irl,IRL,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,3927.737,4106.213,4043.471,4463.437,4706.27
+Earnings-Local currency-irl,IRL,"Mean montly earnings of employees, Local currency",Local currency,3887.973,3985.112,4021.022,4278.008,4387.157
+Earnings-U.S. dollars-irl,IRL,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,4591.519,4461.232,4592.795,5059.773,4619.89
+Earnings-2021 PPP $-isr,ISR,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,2530.73,,,2699.581
+Earnings-Local currency-isr,ISR,"Mean montly earnings of employees, Local currency",Local currency,10584.0,,,10928.0
+Earnings-U.S. dollars-isr,ISR,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,2947.731,,,3383.074
+Earnings-2021 PPP $-ita,ITA,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1755.819,1873.179,1912.95,4397.403,4631.108
+Earnings-Local currency-ita,ITA,"Mean montly earnings of employees, Local currency",Local currency,1338.435,1354.972,1365.486,3077.83,3116.198
+Earnings-U.S. dollars-ita,ITA,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,1580.631,1516.856,1559.653,3640.274,3281.508
+Earnings-2021 PPP $-jpn,JPN,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,2670.603,2636.61,2723.276,2808.732
+Earnings-Local currency-jpn,JPN,"Mean montly earnings of employees, Local currency",Local currency,305300.0,306000.0,307700.0,307400.0
+Earnings-U.S. dollars-jpn,JPN,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,2764.818,2807.09,2881.772,2800.801
+Earnings-2021 PPP $-jor,JOR,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,961.838,936.104,946.144,979.506,1025.467
+Earnings-Local currency-jor,JOR,"Mean montly earnings of employees, Local currency",Local currency,331.572,320.031,321.731,337.059,340.545
+Earnings-U.S. dollars-jor,JOR,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,467.003,450.748,453.142,474.731,479.641
+Earnings-2021 PPP $-kaz,KAZ,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1240.119,1415.322,1557.964,,2043.695
+Earnings-Local currency-kaz,KAZ,"Mean montly earnings of employees, Local currency",Local currency,162673.0,186815.0,213003.0,,309867.0
+Earnings-U.S. dollars-kaz,KAZ,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,471.918,488.09,515.804,,673.382
+Earnings-2021 PPP $-ken,KEN,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,322.059
+Earnings-Local currency-ken,KEN,"Mean montly earnings of employees, Local currency",Local currency,,13932.869
+Earnings-U.S. dollars-ken,KEN,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,136.608
+Earnings-2021 PPP $-kir,KIR,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,537.325
+Earnings-Local currency-kir,KIR,"Mean montly earnings of employees, Local currency",Local currency,,499.046
+Earnings-U.S. dollars-kir,KIR,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,346.92
+Earnings-2021 PPP $-kgz,KGZ,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,719.638,771.958,798.801,,1079.341
+Earnings-Local currency-kgz,KGZ,"Mean montly earnings of employees, Local currency",Local currency,14760.0,16287.0,17198.0,,27684.0
+Earnings-U.S. dollars-kgz,KGZ,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,214.409,233.374,222.351,,329.116
+Earnings-2021 PPP $-lao,LAO,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,,,,674.632
+Earnings-Local currency-lao,LAO,"Mean montly earnings of employees, Local currency",Local currency,,,,,2503995.654
+Earnings-U.S. dollars-lao,LAO,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,,,,178.408
+Earnings-2021 PPP $-lva,LVA,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,2204.405,2486.313,2656.058,3021.214,2979.244
+Earnings-Local currency-lva,LVA,"Mean montly earnings of employees, Local currency",Local currency,1247.526,1378.653,1463.113,1573.225,1619.13
+Earnings-U.S. dollars-lva,LVA,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,1473.271,1543.367,1671.162,1860.716,1705.023
+Earnings-2021 PPP $-lbn,LBN,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,1571.45
+Earnings-Local currency-lbn,LBN,"Mean montly earnings of employees, Local currency",Local currency,,1175959.958
+Earnings-U.S. dollars-lbn,LBN,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,780.073
+Earnings-2021 PPP $-lso,LSO,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,604.407
+Earnings-Local currency-lso,LSO,"Mean montly earnings of employees, Local currency",Local currency,,3350.693
+Earnings-U.S. dollars-lso,LSO,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,231.907
+Earnings-Local currency-lie,LIE,"Mean montly earnings of employees, Local currency",Local currency,6675.0
+Earnings-2021 PPP $-ltu,LTU,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,2200.46,2448.037,2665.896,2977.921,2963.745
+Earnings-Local currency-ltu,LTU,"Mean montly earnings of employees, Local currency",Local currency,1096.164,1184.715,1308.616,1477.096,1577.433
+Earnings-U.S. dollars-ltu,LTU,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,1294.52,1326.259,1494.696,1747.021,1661.113
+Earnings-2021 PPP $-lux,LUX,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,3839.507,6588.44,6541.289,6917.473,7620.645
+Earnings-Local currency-lux,LUX,"Mean montly earnings of employees, Local currency",Local currency,3596.301,6190.946,6305.456,6645.866,7043.999
+Earnings-U.S. dollars-lux,LUX,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,4247.068,6930.606,7202.067,7860.333,7417.673
+Earnings-2021 PPP $-mac,MAC,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,2645.292
+Earnings-Local currency-mac,MAC,"Mean montly earnings of employees, Local currency",Local currency,15800.0
+Earnings-U.S. dollars-mac,MAC,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,1957.261
+Earnings-2021 PPP $-mys,MYS,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1891.088,1998.193,1865.889
+Earnings-Local currency-mys,MYS,"Mean montly earnings of employees, Local currency",Local currency,3087.0,3224.0,2933.0
+Earnings-U.S. dollars-mys,MYS,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,765.031,778.28,697.755
+Earnings-2021 PPP $-mdv,MDV,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,1140.515
+Earnings-Local currency-mdv,MDV,"Mean montly earnings of employees, Local currency",Local currency,,11551.156
+Earnings-U.S. dollars-mdv,MDV,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,750.951
+Earnings-2021 PPP $-mli,MLI,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,376.833,512.404,424.068,,471.59
+Earnings-Local currency-mli,MLI,"Mean montly earnings of employees, Local currency",Local currency,73226.196,97658.209,81011.207,,92314.674
+Earnings-U.S. dollars-mli,MLI,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,131.833,166.678,140.746,,147.997
+Earnings-2021 PPP $-mlt,MLT,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,3159.306,3384.6,3583.248,3782.856
+Earnings-Local currency-mlt,MLT,"Mean montly earnings of employees, Local currency",Local currency,2017.595,2082.988,2252.467,2401.398
+Earnings-U.S. dollars-mlt,MLT,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,2382.688,2331.852,2572.759,2840.23
+Earnings-2021 PPP $-mhl,MHL,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,803.603
+Earnings-Local currency-mhl,MHL,"Mean montly earnings of employees, Local currency",Local currency,,798.347
+Earnings-U.S. dollars-mhl,MHL,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,798.347
+Earnings-Local currency-mrt,MRT,"Mean montly earnings of employees, Local currency",Local currency,,60522.504
+Earnings-2021 PPP $-mus,MUS,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1175.882,1111.976,1060.054,1207.718,1206.946
+Earnings-Local currency-mus,MUS,"Mean montly earnings of employees, Local currency",Local currency,21977.675,20525.542,19745.578,22664.117,23230.734
+Earnings-U.S. dollars-mus,MUS,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,647.651,578.616,501.833,543.607,525.787
+Earnings-2021 PPP $-mex,MEX,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,610.599,614.555,631.29,669.065,746.122
+Earnings-Local currency-mex,MEX,"Mean montly earnings of employees, Local currency",Local currency,6320.605,6621.173,7048.628,7499.104,8060.331
+Earnings-U.S. dollars-mex,MEX,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,328.44,343.714,328.063,369.917,400.467
+Earnings-2021 PPP $-mng,MNG,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,631.951,822.726,912.019,941.596,1046.516
+Earnings-Local currency-mng,MNG,"Mean montly earnings of employees, Local currency",Local currency,585427.262,787549.528,850568.978,901897.734,1068709.455
+Earnings-U.S. dollars-mng,MNG,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,236.777,295.678,302.34,316.534,340.28
+Earnings-2021 PPP $-mne,MNE,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1804.341,1902.39,,,2129.616
+Earnings-Local currency-mne,MNE,"Mean montly earnings of employees, Local currency",Local currency,766.0,773.0,,,883.0
+Earnings-U.S. dollars-mne,MNE,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,904.611,865.413,,,928.579
+Earnings-2021 PPP $-mmr,MMR,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,461.598,488.764,431.386
+Earnings-Local currency-mmr,MMR,"Mean montly earnings of employees, Local currency",Local currency,192257.84,208855.024,187872.518
+Earnings-U.S. dollars-mmr,MMR,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,134.464,137.562,135.98
+Earnings-2021 PPP $-nam,NAM,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1008.173
+Earnings-Local currency-nam,NAM,"Mean montly earnings of employees, Local currency",Local currency,7233.303
+Earnings-U.S. dollars-nam,NAM,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,546.572
+Earnings-2021 PPP $-nld,NLD,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,5035.945,5220.928,5584.996,5834.962,6318.381
+Earnings-Local currency-nld,NLD,"Mean montly earnings of employees, Local currency",Local currency,4249.662,4350.85,4552.732,4668.565,4887.956
+Earnings-U.S. dollars-nld,NLD,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,5018.658,4870.665,5200.113,5521.699,5147.256
+Earnings-2021 PPP $-nzl,NZL,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,3268.208,3411.602,3602.308,4060.645
+Earnings-Local currency-nzl,NZL,"Mean montly earnings of employees, Local currency",Local currency,,5120.0,5270.0,5610.0,5990.0
+Earnings-U.S. dollars-nzl,NZL,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,3373.137,3417.51,3968.029,3797.91
+Earnings-2021 PPP $-ner,NER,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,375.191,,,369.316
+Earnings-Local currency-ner,NER,"Mean montly earnings of employees, Local currency",Local currency,,84228.541,,,75078.919
+Earnings-U.S. dollars-ner,NER,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,143.756,,,120.365
+Earnings-2021 PPP $-nga,NGA,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,343.656
+Earnings-Local currency-nga,NGA,"Mean montly earnings of employees, Local currency",Local currency,,45512.69
+Earnings-U.S. dollars-nga,NGA,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,148.288
+Earnings-2021 PPP $-nor,NOR,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,3628.087,4233.042,4542.818,3757.511,5307.766
+Earnings-Local currency-nor,NOR,"Mean montly earnings of employees, Local currency",Local currency,5433.003,5462.48,5630.716,5151.511,5617.962
+Earnings-U.S. dollars-nor,NOR,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,6416.129,6115.108,6431.382,6092.9,5915.987
+Earnings-Local currency-pse,PSE,"Mean montly earnings of employees, Local currency",Local currency,2621.965,2775.75,2893.606,2928.24,3067.468
+Earnings-2021 PPP $-pak,PAK,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,561.162,577.549,,565.942
+Earnings-Local currency-pak,PAK,"Mean montly earnings of employees, Local currency",Local currency,19192.732,21544.745,,24068.182
+Earnings-U.S. dollars-pak,PAK,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,157.545,143.597,,147.743
+Earnings-2021 PPP $-pan,PAN,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1659.525,1665.738,1679.377,1651.315,1543.428
+Earnings-Local currency-pan,PAN,"Mean montly earnings of employees, Local currency",Local currency,859.609,890.356,924.526,929.478,827.381
+Earnings-U.S. dollars-pan,PAN,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,859.609,890.356,924.526,929.478,827.381
+Earnings-2021 PPP $-pry,PRY,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,993.459,998.065,936.929,940.348,1001.51
+Earnings-Local currency-pry,PRY,"Mean montly earnings of employees, Local currency",Local currency,2590061.358,2646762.073,2505151.0,2590196.53,2803691.163
+Earnings-U.S. dollars-pry,PRY,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,451.852,424.111,369.977,382.364,401.517
+Earnings-2021 PPP $-per,PER,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,797.222,827.858,789.528,854.124,844.492
+Earnings-Local currency-per,PER,"Mean montly earnings of employees, Local currency",Local currency,1528.417,1585.081,1495.503,1638.272,1624.76
+Earnings-U.S. dollars-per,PER,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,465.045,474.964,427.905,422.175,423.646
+Earnings-2021 PPP $-phl,PHL,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,652.33,709.652,735.997,748.476,811.119
+Earnings-Local currency-phl,PHL,"Mean montly earnings of employees, Local currency",Local currency,13452.754,14623.306,15229.753,15528.057,16487.742
+Earnings-U.S. dollars-phl,PHL,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,255.457,282.326,306.902,315.261,302.651
+Earnings-2021 PPP $-pol,POL,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1588.708,1998.163,2149.584,1988.519,2781.017
+Earnings-Local currency-pol,POL,"Mean montly earnings of employees, Local currency",Local currency,974.301,1066.971,1159.714,1164.874,1279.565
+Earnings-U.S. dollars-pol,POL,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,1150.605,1194.447,1324.621,1377.743,1347.444
+Earnings-2021 PPP $-prt,PRT,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1345.333,1431.99,1489.379,1642.366,1763.452
+Earnings-Local currency-prt,PRT,"Mean montly earnings of employees, Local currency",Local currency,875.271,895.558,943.504,1005.916,1037.934
+Earnings-U.S. dollars-prt,PRT,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,1033.655,1002.554,1077.666,1189.738,1092.995
+Earnings-2021 PPP $-pri,PRI,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,,28577.365
+Earnings-Local currency-pri,PRI,"Mean montly earnings of employees, Local currency",Local currency,,,26793.419
+Earnings-U.S. dollars-pri,PRI,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,,26793.419
+Earnings-2021 PPP $-qat,QAT,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,4043.041,4153.355,4227.55,,4225.924
+Earnings-Local currency-qat,QAT,"Mean montly earnings of employees, Local currency",Local currency,11121.0,11308.0,11554.0,,11963.0
+Earnings-U.S. dollars-qat,QAT,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,3055.22,3106.593,3174.176,,3286.538
+Earnings-2021 PPP $-kor,KOR,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,3664.979,3780.113,3867.298,4014.617,4383.834
+Earnings-Local currency-kor,KOR,"Mean montly earnings of employees, Local currency",Local currency,3593000.0,3720000.0,3757000.0,3858000.0,4091000.0
+Earnings-U.S. dollars-kor,KOR,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,3265.879,3192.154,3183.181,3372.52,3167.765
+Earnings-2021 PPP $-mda,MDA,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,534.096,647.391,704.922,779.587,723.323
+Earnings-Local currency-mda,MDA,"Mean montly earnings of employees, Local currency",Local currency,3396.982,4134.908,4435.534,4936.973,5460.064
+Earnings-U.S. dollars-mda,MDA,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,202.177,235.293,256.066,279.233,288.935
+Earnings-2021 PPP $-rou,ROU,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,978.955,1613.42,1647.011,1759.163,2270.331
+Earnings-Local currency-rou,ROU,"Mean montly earnings of employees, Local currency",Local currency,561.465,798.701,833.648,954.474,1015.684
+Earnings-U.S. dollars-rou,ROU,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,663.065,894.126,952.19,1128.895,1069.565
+Earnings-2021 PPP $-rus,RUS,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,1754.866,,2222.435
+Earnings-Local currency-rus,RUS,"Mean montly earnings of employees, Local currency",Local currency,,44729.0,,57240.0
+Earnings-U.S. dollars-rus,RUS,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,690.927,,777.144
+Earnings-2021 PPP $-rwa,RWA,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,,,139.604,131.501
+Earnings-Local currency-rwa,RWA,"Mean montly earnings of employees, Local currency",Local currency,,,,40708.075,41784.348
+Earnings-U.S. dollars-rwa,RWA,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,,,41.176,40.555
+Earnings-2021 PPP $-wsm,WSM,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,,,,896.934
+Earnings-Local currency-wsm,WSM,"Mean montly earnings of employees, Local currency",Local currency,,,,,1648.438
+Earnings-U.S. dollars-wsm,WSM,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,,,,613.03
+Earnings-2021 PPP $-smr,SMR,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,2739.025,2771.295,2650.953,3322.61,2979.155
+Earnings-Local currency-smr,SMR,"Mean montly earnings of employees, Local currency",Local currency,2154.0,2161.0,2049.0,2516.0,2200.0
+Earnings-U.S. dollars-smr,SMR,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,2543.776,2419.349,2335.109,2976.189,2313.56
+Earnings-2021 PPP $-sen,SEN,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,369.635,,,535.932
+Earnings-Local currency-sen,SEN,"Mean montly earnings of employees, Local currency",Local currency,,85966.014,,,123334.164
+Earnings-U.S. dollars-sen,SEN,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,146.722,,,197.727
+Earnings-2021 PPP $-srb,SRB,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1339.245,1707.253,1285.539,1295.103,1648.959
+Earnings-Local currency-srb,SRB,"Mean montly earnings of employees, Local currency",Local currency,768.782,860.217,688.566,748.059,775.185
+Earnings-U.S. dollars-srb,SRB,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,907.896,962.991,786.477,884.76,816.307
+Earnings-2021 PPP $-syc,SYC,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1565.358,1636.501,,,1602.598
+Earnings-Local currency-syc,SYC,"Mean montly earnings of employees, Local currency",Local currency,14181.0,14732.615,,,14972.0
+Earnings-U.S. dollars-syc,SYC,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,1019.401,1049.836,,,1048.989
+Earnings-Local currency-sle,SLE,"Mean montly earnings of employees, Local currency",Local currency,2059613.435
+Earnings-2021 PPP $-sgp,SGP,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,4097.497,4265.551,4228.29,4419.631
+Earnings-Local currency-sgp,SGP,"Mean montly earnings of employees, Local currency",Local currency,4437.0,4563.0,4534.0,4680.0
+Earnings-U.S. dollars-sgp,SGP,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,3289.489,3344.92,3286.122,3483.482
+Earnings-2021 PPP $-svk,SVK,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1826.303,2040.546,2314.374,2334.377,2231.003
+Earnings-Local currency-svk,SVK,"Mean montly earnings of employees, Local currency",Local currency,1139.425,1249.534,1351.013,1332.586,1281.814
+Earnings-U.S. dollars-svk,SVK,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,1345.609,1398.822,1543.122,1576.103,1349.813
+Earnings-2021 PPP $-svn,SVN,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,3257.976,3538.513,3747.811,4046.598,4419.92
+Earnings-Local currency-svn,SVN,"Mean montly earnings of employees, Local currency",Local currency,2093.595,2187.969,2295.388,2443.081,2633.521
+Earnings-U.S. dollars-svn,SVN,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,2472.44,2449.375,2621.783,2889.53,2773.226
+Earnings-2021 PPP $-zaf,ZAF,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,499.168,524.749,1076.012
+Earnings-Local currency-zaf,ZAF,"Mean montly earnings of employees, Local currency",Local currency,3500.0,3800.0,7980.252
+Earnings-U.S. dollars-zaf,ZAF,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,264.472,263.004,484.853
+Earnings-2021 PPP $-esp,ESP,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,2734.072,3566.51,3826.18,3961.959,4291.206
+Earnings-Local currency-esp,ESP,"Mean montly earnings of employees, Local currency",Local currency,1944.42,2435.809,2626.703,2593.193,2708.794
+Earnings-U.S. dollars-esp,ESP,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,2296.272,2726.826,3000.21,3067.074,2852.492
+Earnings-2021 PPP $-lka,LKA,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,596.969,675.631,604.151,682.676,548.102
+Earnings-Local currency-lka,LKA,"Mean montly earnings of employees, Local currency",Local currency,31083.061,36468.978,37032.148,39797.378,44294.45
+Earnings-U.S. dollars-lka,LKA,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,191.322,204.028,199.535,200.224,137.291
+Earnings-2021 PPP $-sdn,SDN,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,,,,692.78
+Earnings-Local currency-sdn,SDN,"Mean montly earnings of employees, Local currency",Local currency,,,,,155379.238
+Earnings-U.S. dollars-sdn,SDN,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,,,,284.182
+Earnings-2021 PPP $-swe,SWE,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,3065.089,3424.357,3306.633,3181.537,4641.432
+Earnings-Local currency-swe,SWE,"Mean montly earnings of employees, Local currency",Local currency,3943.622,3762.35,3766.951,3969.069,4249.867
+Earnings-U.S. dollars-swe,SWE,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,4657.238,4211.855,4302.597,4694.378,4475.317
+Earnings-2021 PPP $-che,CHE,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,3592.258,4032.513,3833.82,3782.875,4750.878
+Earnings-Local currency-che,CHE,"Mean montly earnings of employees, Local currency",Local currency,5876.908,5934.202,6009.231,6093.755,6137.599
+Earnings-U.S. dollars-che,CHE,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,6940.362,6643.188,6863.72,7207.33,6463.19
+Earnings-2021 PPP $-tjk,TJK,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,445.188,459.982
+Earnings-Local currency-tjk,TJK,"Mean montly earnings of employees, Local currency",Local currency,1237.0,1335.52
+Earnings-U.S. dollars-tjk,TJK,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,135.173,140.133
+Earnings-2021 PPP $-tza,TZA,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,,613.086
+Earnings-Local currency-tza,TZA,"Mean montly earnings of employees, Local currency",Local currency,,,425957.245
+Earnings-U.S. dollars-tza,TZA,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,,185.671
+Earnings-2021 PPP $-tha,THA,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1204.276,1236.204,1279.989,1326.346,1424.349
+Earnings-Local currency-tha,THA,"Mean montly earnings of employees, Local currency",Local currency,14922.795,15128.268,15342.49,15534.329,16384.75
+Earnings-U.S. dollars-tha,THA,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,461.86,487.26,490.274,485.796,467.317
+Earnings-2021 PPP $-tls,TLS,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,,,578.152
+Earnings-Local currency-tls,TLS,"Mean montly earnings of employees, Local currency",Local currency,,,,257.594
+Earnings-U.S. dollars-tls,TLS,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,,,257.594
+Earnings-2021 PPP $-tgo,TGO,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,333.17,,,389.256
+Earnings-Local currency-tgo,TGO,"Mean montly earnings of employees, Local currency",Local currency,,76890.756,,,85868.237
+Earnings-U.S. dollars-tgo,TGO,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,131.233,,,137.662
+Earnings-2021 PPP $-ton,TON,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,759.005,,,741.803
+Earnings-Local currency-ton,TON,"Mean montly earnings of employees, Local currency",Local currency,1334.408,,,1287.277
+Earnings-U.S. dollars-ton,TON,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,596.631,,,568.344
+Earnings-2021 PPP $-tun,TUN,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,901.806
+Earnings-Local currency-tun,TUN,"Mean montly earnings of employees, Local currency",Local currency,,739.678
+Earnings-U.S. dollars-tun,TUN,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,252.068
+Earnings-2021 PPP $-tur,TUR,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1262.412,1378.928,1351.278,1308.458,1399.086
+Earnings-Local currency-tur,TUR,"Mean montly earnings of employees, Local currency",Local currency,2438.058,2951.546,3426.625,4025.438,6804.076
+Earnings-U.S. dollars-tur,TUR,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,504.944,520.204,488.917,454.831,411.151
+Earnings-2021 PPP $-uga,UGA,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,318.593,,439.209
+Earnings-Local currency-uga,UGA,"Mean montly earnings of employees, Local currency",Local currency,,407686.528,,577677.938
+Earnings-U.S. dollars-uga,UGA,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,110.065,,161.045
+Earnings-2021 PPP $-ukr,UKR,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1141.705,1329.764,1493.977,1617.74,1540.192
+Earnings-Local currency-ukr,UKR,"Mean montly earnings of employees, Local currency",Local currency,8865.0,10497.0,11591.0,14014.0,14847.0
+Earnings-U.S. dollars-ukr,UKR,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,325.913,406.143,429.973,513.593,459.058
+Earnings-2021 PPP $-gbr,GBR,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1881.789,2149.025,2311.844,2134.513,3019.988
+Earnings-Local currency-gbr,GBR,"Mean montly earnings of employees, Local currency",Local currency,2315.906,2320.009,2543.343,2553.992,2744.647
+Earnings-U.S. dollars-gbr,GBR,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,2734.98,2597.191,2904.997,3020.709,2890.247
+Earnings-2021 PPP $-usa,USA,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,4088.47,4233.085,4502.189,4600.127,4844.618
+Earnings-Local currency-usa,USA,"Mean montly earnings of employees, Local currency",Local currency,4088.47,4233.085,4502.189,4600.127,4844.618
+Earnings-U.S. dollars-usa,USA,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,4088.47,4233.085,4502.189,4600.127,4844.618
+Earnings-2021 PPP $-ury,URY,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1215.945,1270.342,1331.613,,1447.241
+Earnings-Local currency-ury,URY,"Mean montly earnings of employees, Local currency",Local currency,32084.575,34682.006,36970.875,,40944.092
+Earnings-U.S. dollars-ury,URY,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,1044.241,983.737,879.98,,994.487
+Earnings-2021 PPP $-uzb,UZB,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,986.842,1057.391,1030.181,1106.046,1294.37
+Earnings-Local currency-uzb,UZB,"Mean montly earnings of employees, Local currency",Local currency,1822687.4,2324614.663,2673284.531,3214812.9,3882157.089
+Earnings-U.S. dollars-uzb,UZB,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,225.871,263.061,265.886,303.014,351.322
+Earnings-Local currency-ven,VEN,"Mean montly earnings of employees, Local currency",Local currency,,,2942239.0
+Earnings-2021 PPP $-vnm,VNM,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,759.85,877.16,901.283,898.278,1040.023
+Earnings-Local currency-vnm,VNM,"Mean montly earnings of employees, Local currency",Local currency,5761241.246,6645391.302,6873959.591,6746802.381,7460916.469
+Earnings-U.S. dollars-vnm,VNM,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,254.899,288.3,296.184,291.315,320.607
+Earnings-Local currency-wlf,WLF,"Mean montly earnings of employees, Local currency",Local currency,,234174.38
+Earnings-2021 PPP $-zmb,ZMB,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,637.934,620.612,559.062,517.888,541.641
+Earnings-Local currency-zmb,ZMB,"Mean montly earnings of employees, Local currency",Local currency,2834.383,2947.291,2994.624,3205.514,3445.361
+Earnings-U.S. dollars-zmb,ZMB,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,271.017,228.649,163.247,160.128,203.415
+Earnings-2021 PPP $-zwe,ZWE,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,,,,184.712,212.044
+Earnings-Local currency-zwe,ZWE,"Mean montly earnings of employees, Local currency",Local currency,,,,13935.047,30320.301
+Earnings-U.S. dollars-zwe,ZWE,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,,,,157.365,80.864
+Earnings-2021 PPP $-xkx,XKX,"Mean montly earnings of employees, 2021 PPP $",2021 PPP $,1123.33,1186.858
+Earnings-Local currency-xkx,XKX,"Mean montly earnings of employees, Local currency",Local currency,453.241,476.748
+Earnings-U.S. dollars-xkx,XKX,"Mean montly earnings of employees, U.S. dollars",U.S. dollars,535.258,533.743
+gou-afg,AFG,output growth,,,,,1.4018749744,1.3176212334,1.3161758047
+gou-alb,ALB,output growth,,,,,4.3481247101,4.5908946779,4.5744785932
+gou-dza,DZA,output growth,,,,,1.62827637099999,1.8308128126,1.7669244342
+gou-ago,AGO,output growth,,,,,-1.572917588,-0.907940733,-0.332674339
+gou-arg,ARG,output growth,,,,,2.0860218224,1.7474143056,1.3418757539
+gou-arm,ARM,output growth,,,,,4.4195028281,4.4115764015,4.3236362096
+gou-aus,AUS,output growth,,,,,1.841681485,1.4626156071,1.3019688463
+gou-aut,AUT,output growth,,,,,1.2928896383,1.2347370365,1.2754556792
+gou-aze,AZE,output growth,,,,,3.2869391896,3.5869203451,3.4611993153
+gou-bhs,BHS,output growth,,,,,0.4955352079,0.5528702713,0.6813045714
+gou-bhr,BHR,output growth,,,,,2.4753487011,2.5701061469,2.464589146
+gou-bgd,BGD,output growth,,,,,4.870605136,4.770920724,4.748345479
+gou-brb,BRB,output growth,,,,,1.7583107433,1.9139561708,1.7702508817
+gou-blr,BLR,output growth,,,,,3.4999800134,3.6003905746,3.6003273216
+gou-bel,BEL,output growth,,,,,1.6460743769,1.5483291419,1.5346419065
+gou-blz,BLZ,output growth,,,,,-0.211810674,-0.157489474,-0.349347405
+gou-ben,BEN,output growth,,,,,3.327554447,2.4394696852,1.7005801529
+gou-btn,BTN,output growth,,,,,4.1817664138,3.97738153,2.7407927263
+gou-bol,BOL,output growth,,,,,1.6717701883,1.6397933828,1.6498954329
+gou-bih,BIH,output growth,,,,,4.4888698049,4.2273517649,4.0464558591
+gou-bwa,BWA,output growth,,,,,2.376159703,2.4705105016,2.1845710492
+gou-bra,BRA,output growth,,,,,1.6259608566,1.7031402325,1.6954670327
+gou-brn,BRN,output growth,,,,,2.16841167,1.2417433691,1.2917677766
+gou-bgr,BGR,output growth,,,,,3.4258757782,3.3373261969,3.5047889144
+gou-bfa,BFA,output growth,,,,,2.7995277806,2.8620165368,2.8830621924
+gou-bdi,BDI,output growth,,,,,1.8850522052,2.1503531328,2.1307651911
+gou-khm,KHM,output growth,,,,,5.4724789867,5.4334556019,5.3866392682
+gou-cmr,CMR,output growth,,,,,1.8075872974,1.7656050868,1.6847805385
+gou-can,CAN,output growth,,,,,1.261128642,1.0844892572,1.015372488
+gou-cpv,CPV,output growth,,,,,2.1834760643,2.1941641992,2.2855206449
+gou-caf,CAF,output growth,,,,,2.3184939676,2.4404982837,2.2916261173
+gou-tcd,TCD,output growth,,,,,0.5784852817,0.604116132,0.6258016178
+gou-chl,CHL,output growth,,,,,1.7711029402,1.692136574,1.7379956858
+gou-chn,CHN,output growth,,,,,5.8390650238,5.6216234161,5.5625104288
+gou-col,COL,output growth,,,,,2.0801034434,2.1280252393,2.0890574639
+gou-com,COM,output growth,,,,,1.1762166345,1.2198688871,1.2467917816
+gou-cog,COG,output growth,,,,,-2.173296918,-1.865413659,-1.448411571
+gou-cod,COD,output growth,,,,,2.4100012725,2.6875659163,2.7440590027
+gou-cri,CRI,output growth,,,,,2.5733193987,2.5547661351,2.7004129025
+gou-civ,CIV,output growth,,,,,3.2030149643,3.1559358557,2.9443445505
+gou-hrv,HRV,output growth,,,,,3.1464687428,3.0739535525,3.0464660207
+gou-cub,CUB,output growth,,,,,3.0426232832,3.2058489071,3.2135940178
+gou-cyp,CYP,output growth,,,,,2.0324289673,1.6826350967,1.461769545
+gou-cze,CZE,output growth,,,,,2.495454178,2.3530997302,1.5371704535
+gou-dnk,DNK,output growth,,,,,1.6696073642,1.4614897128,1.2488479593
+gou-dji,DJI,output growth,,,,,3.9152747709,4.1220770262,3.5790486467
+gou-dom,DOM,output growth,,,,,2.8236389033,2.4697155162,2.0932378913
+gou-ecu,ECU,output growth,,,,,0.7324957152,0.9172790677,0.982095253
+gou-egy,EGY,output growth,,,,,2.5295340537,3.1058741921,3.1754109928
+gou-slv,SLV,output growth,,,,,0.8247295201,0.8192333876,0.8777042556
+gou-gnq,GNQ,output growth,,,,,-2.200893785,-1.916574894,-2.049149304
+gou-eri,ERI,output growth,,,,,0.78762886,0.826520024,0.3175208112
+gou-est,EST,output growth,,,,,5.1995481124,4.880638538,4.4978338911
+gou-swz,SWZ,output growth,,,,,0.1089633679,0.7430102405,0.8903860901
+gou-eth,ETH,output growth,,,,,2.972692441,3.1084711846,2.9762615463
+gou-fji,FJI,output growth,,,,,3.6466563394,2.9526067625,2.8229438257
+gou-fin,FIN,output growth,,,,,1.7224840366,1.1127767437,1.1131930498
+gou-fra,FRA,output growth,,,,,1.5706475843,1.3862954345,1.285408223
+gou-gab,GAB,output growth,,,,,1.4720153477,1.5861345562,1.6922723986
+gou-gmb,GMB,output growth,,,,,0.4136333908,0.4471571755,0.4549143678
+gou-geo,GEO,output growth,,,,,4.7317891905,4.6343212797,4.6525453923
+gou-deu,DEU,output growth,,,,,1.3184907683,1.2061581733,1.2279052574
+gou-gha,GHA,output growth,,,,,2.9022089367,2.9162414792,2.8338049731
+gou-grc,GRC,output growth,,,,,2.5222150233,3.2550384556,3.229418871
+gou-gtm,GTM,output growth,,,,,0.8379223563,0.9114331636,0.9718871079
+gou-gin,GIN,output growth,,,,,1.7554861059,1.8849103903,1.9044944616
+gou-gnb,GNB,output growth,,,,,1.3539684642,1.3385840961,1.3233795142
+gou-guy,GUY,output growth,,,,,7.5608125718,7.0511961592,2.5340682238
+gou-hti,HTI,output growth,,,,,1.2323194172,1.3197099094,1.4574622515
+gou-hnd,HND,output growth,,,,,1.7396654588,1.6238241041,1.7604299161
+gou-hun,HUN,output growth,,,,,2.5980004324,2.7416027996,2.3077111905
+gou-isl,ISL,output growth,,,,,2.1663396064,2.1222855325,1.5110748565
+gou-ind,IND,output growth,,,,,5.3075879822,5.1160858197,4.9956325947
+gou-idn,IDN,output growth,,,,,4.1626184801,4.0942976098,4.0701405839
+gou-irn,IRN,output growth,,,,,3.5025582016,3.5567271713,3.4370893881
+gou-irq,IRQ,output growth,,,,,1.4657710196,1.7494785068,1.7047846403
+gou-irl,IRL,output growth,,,,,1.4860182394,1.4171767016,1.2893824852
+gou-isr,ISR,output growth,,,,,1.8449778734,1.9675569846,1.9618273002
+gou-ita,ITA,output growth,,,,,1.2519587009,1.3414776603,1.3249391695
+gou-jam,JAM,output growth,,,,,1.7510782961,1.5708882864,1.2768980433
+gou-jpn,JPN,output growth,,,,,1.3671775793,1.3217442034,1.2368393484
+gou-jor,JOR,output growth,,,,,1.8537073651,1.9715793722,2.0703979295
+gou-kaz,KAZ,output growth,,,,,4.6490610218,5.305540072,5.2223490509
+gou-ken,KEN,output growth,,,,,2.5999858085,2.6010822482,2.3742795468
+gou-prk,PRK,output growth,,,,,2.1105307023,2.2381890349,2.421854299
+gou-kor,KOR,output growth,,,,,2.300811251,2.3380893207,2.4062838361
+gou-kwt,KWT,output growth,,,,,2.3732031103,1.7666454144,1.8071083616
+gou-kgz,KGZ,output growth,,,,,3.6035969877,3.9346748985,4.194675151
+gou-lao,LAO,output growth,,,,,4.0862854021,3.9010502376,3.8079658344
+gou-lva,LVA,output growth,,,,,5.3665905608,5.2805689816,4.9898199082
+gou-lbn,LBN,output growth,,,,,4.3268341065,4.4943794146,4.5561398432
+gou-lso,LSO,output growth,,,,,1.6242119794,1.772527402,2.1829014303
+gou-lbr,LBR,output growth,,,,,3.0753605594,2.8813029013,2.1093334522
+gou-lby,LBY,output growth,,,,,5.644414007,5.3289524605,4.4667323761
+gou-ltu,LTU,output growth,,,,,5.4834331632,5.573906668,5.145427247
+gou-lux,LUX,output growth,,,,,2.7628601271,2.5020923038,2.3916958756
+gou-mdg,MDG,output growth,,,,,1.2159989129,1.3962886469,1.4652236952
+gou-mwi,MWI,output growth,,,,,1.5519136653,1.4560599418,1.4751531446
+gou-mys,MYS,output growth,,,,,2.2810029811,2.3288215906,2.340505163
+gou-mdv,MDV,output growth,,,,,3.2656934005,2.3932107683,2.6769527374
+gou-mli,MLI,output growth,,,,,2.9270539946,2.8984803386,2.9430621833
+gou-mlt,MLT,output growth,,,,,2.01419402,2.1166755594,2.1098395268
+gou-mrt,MRT,output growth,,,,,2.8834866558,2.9864347703,3.0822945941
+gou-mus,MUS,output growth,,,,,3.1980299963,3.1738181789,3.089783296
+gou-mex,MEX,output growth,,,,,0.7958588581,0.8173450445,0.9175711856
+gou-mda,MDA,output growth,,,,,5.1863769151,5.3301063628,5.2131673953
+gou-mng,MNG,output growth,,,,,5.5171108567,5.5627732084,5.1550015702
+gou-mne,MNE,output growth,,,,,3.0568188967,3.1605676386,2.909304036
+gou-mar,MAR,output growth,,,,,2.9816825312,2.9936955063,2.9908447979
+gou-moz,MOZ,output growth,,,,,3.4395575375,6.4653490481,9.5163060472
+gou-mmr,MMR,output growth,,,,,5.3344895968,4.9909690878,4.82112398
+gou-nam,NAM,output growth,,,,,0.9904737096,1.0928771951,1.5278838328
+gou-npl,NPL,output growth,,,,,1.6229382956,1.4614832591,1.4254696025
+gou-nld,NLD,output growth,,,,,1.1426336989,1.1061179102,1.3133808514
+gou-nzl,NZL,output growth,,,,,0.9548616673,0.7765678034,0.6800364576
+gou-nic,NIC,output growth,,,,,2.4528293719,2.3104302232,2.407845497
+gou-ner,NER,output growth,,,,,2.6180634423,3.0878695958,3.0337116744
+gou-nga,NGA,output growth,,,,,1.5587253145,1.5732504177,1.5455770839
+gou-mkd,MKD,output growth,,,,,3.5662400701,3.2260785357,2.5793696473
+gou-nor,NOR,output growth,,,,,1.3102536528,1.1664783499,1.077238257
+gou-pse,PSE,output growth,,,,,-0.292097191,1.7962701737,-0.335850697
+gou-omn,OMN,output growth,,,,,2.149035157,1.3470572656,1.3635803521
+gou-pak,PAK,output growth,,,,,3.0717283777,3.0466874981,3.1090284375
+gou-pan,PAN,output growth,,,,,3.7335824777,3.7874564789,3.8110327155
+gou-png,PNG,output growth,,,,,1.5047815793,1.4978452351,1.5192492582
+gou-pry,PRY,output growth,,,,,1.8161968701,1.8856259625,1.6791511863
+gou-per,PER,output growth,,,,,2.0925491496,2.1217818761,2.1651605655
+gou-phl,PHL,output growth,,,,,3.5286904569,3.4207463419,3.3505687196
+gou-pol,POL,output growth,,,,,4.2707200975,4.7026540625,3.3529841423
+gou-prt,PRT,output growth,,,,,1.6952463224,1.5393337231,1.53182062
+gou-qat,QAT,output growth,,,,,2.5063869466,2.3070840628,2.0518856343
+gou-rou,ROU,output growth,,,,,2.4879375123,2.2465130008,2.1582168294
+gou-rus,RUS,output growth,,,,,2.4957631686,2.4709022352,2.4619340296
+gou-rwa,RWA,output growth,,,,,4.0283445974,3.8950847726,3.793782843
+gou-lca,LCA,output growth,,,,,2.6689854501,3.1491818471,3.1421505854
+gou-vct,VCT,output growth,,,,,2.7367209826,2.7401238854,2.7613101697
+gou-wsm,WSM,output growth,,,,,1.3112833318,1.2664469806,1.3260771397
+gou-stp,STP,output growth,,,,,2.8282181318,2.50323868879999,2.5897453592
+gou-sau,SAU,output growth,,,,,2.5564401803,1.895108066,1.9317826687
+gou-sen,SEN,output growth,,,,,3.5817808273,3.4497647029,3.3302665362
+gou-srb,SRB,output growth,,,,,4.4162353469,4.2158841543,3.7477700465
+gou-sle,SLE,output growth,,,,,4.9146719618,4.6689158027,4.0634058768
+gou-sgp,SGP,output growth,,,,,1.8277717874,1.9976214763,2.2078633872
+gou-svk,SVK,output growth,,,,,3.3043408652,3.2321331341,3.4259498522
+gou-svn,SVN,output growth,,,,,4.4105662426,4.545246462,4.3898518611
+gou-slb,SLB,output growth,,,,,1.2150623479,1.3321007375,1.4633467029
+gou-som,SOM,output growth,,,,,0.2478951866,0.1098829999,0.020950347
+gou-zaf,ZAF,output growth,,,,,1.471673599,1.1213339231,1.5109760242
+gou-ssd,SSD,output growth,,,,,-8.601363866,-10.43400486,-8.812392144
+gou-esp,ESP,output growth,,,,,1.9230657837,1.7287470321,1.5792238191
+gou-lka,LKA,output growth,,,,,4.7099624159,4.7997909168,4.5193698697
+gou-sdn,SDN,output growth,,,,,0.7989792554,0.7695763939,0.9223758931
+gou-sur,SUR,output growth,,,,,3.2835536954,2.8647255936,2.8469003475
+gou-swe,SWE,output growth,,,,,1.4425537304,1.3476509304,1.3901262537
+gou-che,CHE,output growth,,,,,1.0352925784,1.3342008709,1.0122785703
+gou-syr,SYR,output growth,,,,,-1.396152982,-1.987293231,-2.361690034
+gou-tjk,TJK,output growth,,,,,4.198444058,4.2405351588,4.3388706357
+gou-tza,TZA,output growth,,,,,2.9210822778,2.8369998266,3.3803312894
+gou-tha,THA,output growth,,,,,3.096063869,3.1824531665,3.2742466263
+gou-tls,TLS,output growth,,,,,-0.354927583,-0.302468528,-0.274665769
+gou-tgo,TGO,output growth,,,,,2.546526305,2.5045348283,2.4319236702
+gou-ton,TON,output growth,,,,,0.1360218005,0.3382565878,0.3541762764
+gou-tto,TTO,output growth,,,,,1.5876964104,1.5960428194,1.5478301145
+gou-tun,TUN,output growth,,,,,2.4920277097,3.0818261627,3.3474753058
+gou-tur,TUR,output growth,,,,,2.2600797141,2.4224257527,2.4301563715
+gou-tkm,TKM,output growth,,,,,4.6735192059,4.9056960553,4.9636440457
+gou-uga,UGA,output growth,,,,,2.7909837386,1.7907377418,1.848407972
+gou-ukr,UKR,output growth,,,,,4.3559880978,4.4465746085,3.7523851258
+gou-are,ARE,output growth,,,,,2.8820435819,2.6497475428,2.5141553679
+gou-gbr,GBR,output growth,,,,,1.6938563398,1.7222539056,1.6918774689
+gou-usa,USA,output growth,,,,,1.4783251091,1.481110796,1.551493333
+gou-ury,URY,output growth,,,,,2.5866127639,2.4679418091,2.4603304268
+gou-uzb,UZB,output growth,,,,,5.2980582466,5.1814605412,5.11159218
+gou-vut,VUT,output growth,,,,,0.8737941365,0.9499683432,0.9100065411
+gou-ven,VEN,output growth,,,,,2.8020635684,2.3884539164,2.0365857574
+gou-vnm,VNM,output growth,,,,,5.2358020302,5.0767816607,4.888817116
+gou-yem,YEM,output growth,,,,,2.0574373076,2.7870475854,2.4544938314
+gou-zmb,ZMB,output growth,,,,,1.4960594569,1.5577200237,1.6841874163
+gou-zwe,ZWE,output growth,,,,,-3.334684997,-1.753334476,-0.561551109

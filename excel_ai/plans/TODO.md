@@ -20,6 +20,11 @@ Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logg
 - ☐ **M4 AP and TCB v0.1**: export blocks and small workbooks with the data import and export only (no model).
 - ☐ **M5 documents** for the modules.
 
+Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored under [`../air_pollution/`](../air_pollution/README.md), with public extracts under `data/air_pollution/legacy_459/`. This does not complete M4/M5 or the model work below.
+
+- [x] Recover the missing Paulina Air Pollution files without replacing current shared documents or workbook releases.
+- [ ] Reconcile the recovered legacy-459/v7.1 handoff with the current prototype and legacy 465; verify codes, years and kt-to-tonnes conversion, implement calculations and outputs, then run Senegal numerical regression.
+
 ## 4. Codes leftovers (after 3)
 
 - ☐ Crosswalk rows marked review (89): `rnew`, `rsub`, `rmf`, `rtx`, `rnet`, `rvt`, `rbe`, `gdp.*`, `scc`, `ch4.em`, `co2.sec`, `apf.all.all`, other price rows; applied only with evidence.
