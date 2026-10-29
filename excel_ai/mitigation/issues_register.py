@@ -1338,3 +1338,18 @@ ISSUE_STATUS.update({
              'with the 465 lookup section 15 equals legacy in 2022 (food & forestry BC 3.8 t) and modelled PM2.5 is '
              '33.06 against 30.17 ug/m3 (the difference: navigation, L22).'),
     'I149': ('Minor', 'Accepted', 'Replicated.')})
+
+# v9.0 (user 2026-10-29): legacy prices (I99): legacy 465 already carries the corrected Egypt block
+ISSUES += [
+    ('I150', 'Spot coal and gas prices of Egypt hold a year and 0 in legacy 465', 'Legacy 465 Prices_dom EGY2021-2024 '
+     'mit.spot.coa = 2024 and mit.spot.nga = 0 (the prototype data: 4.75-10.49 and 7.51-28.06 $/GJ). Read only with '
+     'the spot-price option for power (SpotPow / UseSpotFuelPricesInEngineerModel, default No): no effect by default.',
+     'Prices_dom; CAVEATS.md (2026-10-29)')]
+DATA_ISSUES.add('I150')
+ISSUE_LEGACY.update({'I99': 'replicated', 'I150': 'not replicated'})
+ISSUE_STATUS.update({
+    'I99': ('Major', 'Closed', 'v9.0 (user 2026-10-29: legacy prices): legacy 465 Prices_dom already holds the corrected '
+            'Egypt block; the prototype data equal it cell by cell except the spot coal and gas cells (I150). LD4 and '
+            'LD33 are Same.'),
+    'I150': ('Minor', 'Open', 'The CPAT data team fills the spot cells; the prototype keeps the module values (no '
+             'effect unless the spot option is chosen).')})

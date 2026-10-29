@@ -425,10 +425,25 @@ def last_release():
     return max(before or [f for f in files if ver(f) == cur], key=ver)
 
 
+def file_lambdas(path):
+    """v9.0: the LAMBDAs defined in the file itself (name -> (params, body)), so an older release is expanded with its
+    own definitions (a LAMBDA may change its arguments between releases)."""
+    import html
+    w = zipfile.ZipFile(path).read('xl/workbook.xml').decode('utf-8')
+    out = {}
+    for name, txt in re.findall(r'<definedName name="([A-Z][A-Z0-9]*)"[^>]*>_xlfn\.LAMBDA\((.*?)</definedName>', w):
+        parts = C.split_args(html.unescape(txt)[:-1])
+        params = [p.replace('_xlpm.', '') for p in parts[:-1]]
+        out[name] = (params, parts[-1].replace('_xlpm.', ''))
+    return out or B.LAMBDAS
+
+
 def recalc_values(path):
     """v4.9: Mitigation of path recalculated in a LibreOffice session (lo_session); v7.0: LAMBDAs expanded (since
-    v6.6 the live group 2 calls them, which LibreOffice cannot evaluate)."""
-    return LO.start_values(LO.expanded_zip(path, C.LAMBDA_CALL, C.expand), ['Mitigation'])()[0]
+    v6.6 the live group 2 calls them, which LibreOffice cannot evaluate); v9.0: with the file's own LAMBDAs."""
+    lam = file_lambdas(path)
+    call = re.compile(r'(?<![A-Za-z_.])(' + '|'.join(sorted(lam, key=len, reverse=True)) + r')\(')
+    return LO.start_values(LO.expanded_zip(path, call, lambda f: C.expand(f, lam)), ['Mitigation'])()[0]
 
 
 

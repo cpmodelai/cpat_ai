@@ -8953,10 +8953,10 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
      'industry, biomass. Only for blank cells (v0.14)',
      'Legacy bug L170 (v8.5, user 2026-10-29; was data bug DB2): a blank is a missing value, not a zero; the data '
      'problem is issue I97 (very high)', 'None for Egypt since v0.14 (corrected data fill every VAT cell)', 'Bug fix'),
-    ('Egypt price data', 'Price block in the legacy release', 'Corrected Egypt block supplied by the user '
-     '(2026-10-09; 291 cells, years 2019-2020 added); changed cells bright yellow in Prices_dom', 'User decision: the '
-     'corrected Egypt prices (issue I99, 2026-10-29)', 'Taxes and subsidies of gas and oil products; small supply-cost '
-     'changes', 'Decision'),
+    ('Egypt price data', 'Legacy 465 Prices_dom: the corrected Egypt block (the CPAT team took it into 465)',
+     'The same (checked cell by cell 2026-10-29: equal but the spot coal and gas cells, which 465 fills with a year and '
+     '0, issue I150); cells changed from the original module data still bright yellow in Prices_dom',
+     'User decision 2026-10-29: legacy prices (issue I99 closed)', 'None', 'Same'),
     ('Oil-product share in the VAT of transport fuels', 'VAT rate x oil-product share',
      'VAT rate x household share of the oil product (sheet OilProductShares, as legacy rows 801-816; '
      'v4.12); VAT payment = (supply cost + taxes) x rate x share',
@@ -9116,9 +9116,9 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
      'Simplification S4 with the legacy components (v9.0); relabelled v4.11',
      'Egypt: the residential residual (at LastHist) shrinks when the supply cost falls below its LastHist '
      'value: residential price up to +0.0008 $/kWh (2040: 0.0562 against 0.0510)', 'Same'),
-    ('Power: historical electricity prices and VAT', 'Legacy vintage (residential 0.112 $/kWh incl. 15.6% VAT in '
-     '2022)', 'Corrected Egypt block (residential 0.054, 0.048, 0.043 $/kWh nominal 2022-2024; VAT 0)', 'User data '
-     '(2026-10-09); issue I99, decision 2026-10-29', 'Electricity price levels', 'Decision'),
+    ('Power: historical electricity prices and VAT', 'Legacy 465: the corrected Egypt block (residential 0.054, '
+     '0.048, 0.043 $/kWh nominal 2022-2024; VAT 0)', 'The same', 'User decision 2026-10-29: legacy prices (issue I99 '
+     'closed)', 'None', 'Same'),
     ('Power: coal implicit cost', 'D3 (calibrated on the coal share, GoalSeekCoal; MTInputs 367-369)', 'Built v5.6 '
      '(P5): row cic from GoalSeekCoal (legacy table, 85 countries, not Egypt) or the Manual inputs of MTInputs 368-369, '
      'in the coal variable cost; in generation cost and tariffs unless Settings PwCoalICTariff = No (default Yes, as '
