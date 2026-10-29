@@ -83,6 +83,7 @@ PW_NOT_RECOMPUTED = ('sys', 'pcbcap', 'pcbom', 'pcbfu', 'pcbchk', 'rpnv', 'txg',
                      'psesh', 'pseu', 'pser', 'csd', 'spe')
 TR_NOT_RECOMPUTED = ('trbe.aef', 'trbe.obf', 'trbe.bio', 'trp.renaef', 'ener.avi.ren', 'ener.nav.ren')   # v0.9.2: R10 rows
 # (other road biofuels, aviation and navigation renewables: the fuel-use equation) not in the recomputation yet
+# v0.9.2: also ores (price-chain residual) before the last price year (a memo of the same chain; compared from then on)
 PW_MEMOS = ('cur', 'pcbcp', 'pcbrns', 'pcbct')     # v0.9.2: v0.9.0 memos recomputed after the section-3 rows
 VAT_CONSUMER = {'coa.res', 'nga.res', 'gso.all', 'die.all', 'lpg.all', 'ker.all', 'oop.all'}   # independent copy
 report = []
@@ -1079,6 +1080,10 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
                 res[(v, m, 'ecy')] = o['dem'][m]
             else:
                 res[(v, '', '')] = paths_p[v] if v in B.PW_DATA else o[v]
+    # v0.9.2: the price-chain residual before the last price year is a memo of the subsidy chain (v0.9.0 R9.12; prices
+    # come from the data there), not recomputed: compared from the last price year on, where it moves the prices
+    for g_ in ('res', 'ind'):
+        res[('ores', g_, 'ecy')] = [None if y < pinp['last_hist'] else v_ for y, v_ in zip(years, res[('ores', g_, 'ecy')])]
     # v0.9.2: cost memos added in v0.9.0 (R9.4, R9.10, R9.11), from the recomputed rows
     for m in POWER_TECH:
         res[('cur', 'pow', m)] = [max(a_ + b_, pset['par']['min_cost']) for a_, b_ in zip(res[('lfx', 'pow', m)],
@@ -1972,6 +1977,8 @@ def compare(ws, g, exp, label, focus=None):
                 continue
             for k, c in enumerate([base] + years):
                 v, e = ws.cell(r, c).value, exp[(var, s, f)][k]
+                if e is None:                                   # v0.9.2: a year the reference leaves out (ores)
+                    continue
                 d = float('inf') if not isinstance(v, (int, float)) else abs(v - e) / max(1.0, abs(e))
                 n += 1
                 if d > worst[0]:
