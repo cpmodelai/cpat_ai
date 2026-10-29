@@ -506,6 +506,30 @@ $$
 
 Excel-AI notation: $\bar{s}$ the average outstanding share of capital (CapAvgShr). User groups (residential, industry): transmission cost, pass-through, VAT and historical prices; demand groups (transport, residential, industry, services): electricity elasticities and the efficiency multiple; base-year demand by subsector from the energy balance or EnergyCons (BalancesOrConsumption). Source: Excel-AI: Inputs rows 204-252 (build_inputs_power).
 
+**A4.5  Scenario settings of the generation types, variable and levelised variable cost**  *(adjustment)*
+
+$$
+tvc_{k,t} = vfix_k + \bar{p}^{f}_{k,t}\,k^{fuel}_k + xck_{k,t} + cic_t\,\mathbb{1}[k = coal] + xac_{k,t} + shk_{k,t} + reb_t, \qquad lvc_{k,t} = \frac{\sum_{\tau \ge t} (1+r_k)^{t_0 - \tau}\,tvc_{k,\tau}}{\sum_{\tau \ge t} (1+r_k)^{t_0 - \tau}}
+$$
+
+Over generation types $k$, years $t$. Excel-AI notation. The scenario's A0 settings: capacity factor (actual within CFOverride bounds, else the studies value), efficiency (actual above MinimumThermalEfficiency), WACC by WACCSource. $\bar{p}^f$: the price before new policies of the type's fuel, the average over the year and up to PwAvgLag years before (spot prices if chosen); $xck$ the change in existing carbon pricing against the price data, $cic$ the coal implicit cost (GoalSeekCoal, short to long term by CoalICYr), $xac$ new carbon tax, ETS cost and the new taxes of the fuel price reform per kWh, $shk$ the shadow price, $reb$ the rebate of the shadow price. The levelised variable cost discounts the remaining years at the type's WACC. Source: Excel-AI: Mitigation section 3 (A0, B, C, D).
+
+**A4.6  Power cost breakdown (memo)**  *(adjustment)*
+
+$$
+cost_k = capex_k + O\&M_k + fuel_k + sys_k + policy_k + rns_k
+$$
+
+Excel-AI notation: levelised capital cost, fixed and variable O&M, fuel and existing carbon pricing, new policy costs, renewable subsidy; the check against the cost used. Source: Excel-AI: Mitigation section 3 (cost breakdown).
+
+**A4.7  Electricity excise and renewable subsidies of the scenario**  *(adjustment)*
+
+$$
+entx_{u,t} = \mathbb{1}[o \ne B]\left(\text{manual excise}_{u,t}\,\delta_t + FPR_{ecy,u,t}\right), \qquad rns_{k,t} = -\left(s^{BL} + s^{add}_t\right)\nu_t
+$$
+
+Excel-AI notation. The manual excise path applies with AdditionalExcise (nominal inputs deflated); the additional renewable subsidy phases out over RenSubsidyAddPhaseoutYrs from its start year; hydro by RenewableSubsidyHydro. Source: Excel-AI: Mitigation section 3 (entxd, entx, rnsp, rns, exs).
+
 ## A5 Road transport
 
 To complete from Methods Transport (T1-T18): retirement, purchases new and used, total cost of ownership, ICE fuel split, new and stock fuel economy, vehicle-km, calibration, buses, range anxiety (fitted offline), biofuels.

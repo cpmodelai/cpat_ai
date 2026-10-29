@@ -5,7 +5,7 @@ air_unit_costs,module_FromAirPollution_cells.csv,cells block,FromAirPollution,ke
 air_vpm,module_FromAirPollution_cells.csv,cells block,FromAirPollution,key,20,no
 aspire,legacy_ASPIRE.csv,table,ASPIRE,code,30,no
 ch4_inputs,legacy_CH4Inputs.csv,table,CH4Inputs,country source,1105,no
-coal_implicit_price,legacy_GoalSeekCoal.csv,table,GoalSeekCoal,country_name,85,no
+coal_implicit_price,legacy_GoalSeekCoal.csv,table,GoalSeekCoal,country_name country,85,no
 coc_as_of_date,legacy_CoC_cells.csv,cells block,CoC,item,1,no
 coc_country_parameters,legacy_CoC_cells.csv,cells block,CoC,country_name code,1263,no
 coc_rating,legacy_CoC_cells.csv,cells block,CoC,country_name code,189,no

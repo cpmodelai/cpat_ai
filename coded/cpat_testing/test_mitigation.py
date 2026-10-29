@@ -17,13 +17,19 @@ def section(first, last, without=()):
     return sorted(set(v.loc[i0:i1, 'variable']) - set(without))
 
 
-DEFERRED_1 = ['airpol.mc', 'pig.ap', 'cc.code', 'pig.tr', 'pigx', 'ntxg', 'xcpb', 'xpre', 'ntxb', 'pig.fe0', 'pig.wsh',
+DEFERRED_1 = ['airpol.mc', 'pig.ap', 'cc.code', 'pig.tr', 'pigx', 'xcpb', 'xpre', 'pig.fe0', 'pig.wsh',
               'pig.mu0', 'pig.rsh0', 'pig.kpl', 'pig.trb.acc', 'pig.trb.con', 'pig.trb.rdm', 'pig.phi', 'pig.efw', 'pig.vpm', 'pig.trk', 'pig.trg.acc', 'pig.trg.con', 'pig.trg.rdm']
 BUILT = {
     '3.1 header': ['infl', 'defl', 'gdp.usd', 'gdp.lcu', 'xr', 'gdp.base'],
     '3.2 policies': section('CPIntro', 'cptraj', DEFERRED_1),
     '3.3 prices': ['IntEnerPricForeSource', 'IntEnerPricForecastAdjustment', 'gp.src', 'gp.adj', 'gpn', 'gp', 'gpi',
                    'spf', 'esubpu', 'ps', 'sp', 'txf', 'txo', 'fadtx', 'cs', 'etx', 'esub', 'vat', 'pbc', 'pcsw', 'ppcw'],
+    '3.4 power costs': ['cfu', 'nuu', 'wsel', 'wfx', 'wac', 'dlf', 'dlfr', 'kwh', 'cap0', 'invs', 'perm', 'start', 'scat',
+                        'scv', 'rate', 'rr', 'erf', 'spot', 'ctf', 'stm', 'ltu', 'ppa', 'rnsp', 'rns', 'rbs', 'exs', 'tcf',
+                        'cbat', 'cint', 'obat', 'elcx', 'eltk', 'elof', 'elov', 'cel', 'incp', 'inc.ela.adj', 'shock',
+                        'cax', 'cics', 'cicl', 'cic', 'fpn', 'fpp', 'xck', 'vbc', 'xac', 'shk', 'reb', 'tvc', 'tvcx', 'dsum',
+                        'lvc', 'fce', 'cik', 'swd', 'cph', 'pcbcap', 'pcbom', 'pcbfu', 'pcbcp', 'pcbrns', 'pcbct', 'entxd',
+                        'entx', 'pret', 'permit', 'ntxg', 'ntxb'],
 }
 
 

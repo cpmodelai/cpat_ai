@@ -1,15 +1,15 @@
-selected,name,explicit,adjustment,pow,rod,ral,avi,nav,res,foo,srv,mch,irn,nfm,mac,cem,omn,cst,ftr,oen,power_rebated
-Baseline,Baseline,No,0,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No
- - Carbon tax,Carbon tax,Yes,0,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No
- - Feebates,Feebates,No,5,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
- - Feebates,Power Supply Feebates,No,5,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
- - Energy efficiency regulations,Energy efficiency regulations,No,1,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No
- - Total carbon price,TCP,Yes,0,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No
- - Coal excise,Coal excise,Yes,0,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No
- - Road fuel tax,Road fuel tax,Yes,0,No,Yes,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No
- - Electricity emissions tax,Electricity emissions tax,Yes,0,Yes,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No
- - Power feebate,Power feebate,No,5,Yes,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes
- - Electricity excise,Electricity excise,Yes,0,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No
- - Vehicle fuel economy,Vehicle fuel economy,No,2,No,Yes,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No
- - Residential efficiency regulations,Residential efficiency regulations,No,3,No,No,No,No,No,Yes,No,No,No,No,No,No,No,No,No,No,No,No
- - Industrial efficiency regulations,Industrial efficiency regulations,No,4,No,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No
+selected,name,explicit,adjustment,pow,rod,ral,avi,nav,res,foo,srv,mch,irn,nfm,mac,cem,omn,cst,ftr,oen,power_rebated,electricity_excise
+Baseline,Baseline,No,0,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No
+ - Carbon tax,Carbon tax,Yes,0,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No
+ - Feebates,Feebates,No,5,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No
+ - Feebates,Power Supply Feebates,No,5,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No
+ - Energy efficiency regulations,Energy efficiency regulations,No,1,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No
+ - Total carbon price,TCP,Yes,0,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No
+ - Coal excise,Coal excise,Yes,0,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No
+ - Road fuel tax,Road fuel tax,Yes,0,No,Yes,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No
+ - Electricity emissions tax,Electricity emissions tax,Yes,0,Yes,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No
+ - Power feebate,Power feebate,No,5,Yes,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,No
+ - Electricity excise,Electricity excise,Yes,0,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes
+ - Vehicle fuel economy,Vehicle fuel economy,No,2,No,Yes,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No
+ - Residential efficiency regulations,Residential efficiency regulations,No,3,No,No,No,No,No,Yes,No,No,No,No,No,No,No,No,No,No,No,No,No
+ - Industrial efficiency regulations,Industrial efficiency regulations,No,4,No,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No

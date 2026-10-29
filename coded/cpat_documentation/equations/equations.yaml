@@ -578,6 +578,34 @@ parts:
               \mathtt{acap}, \mathtt{afix}, \mathtt{lcap}, \mathtt{lfix}, \mathtt{k}, \mathtt{efk}, \mathtt{xcp0}; \quad \mathtt{aeef}_d = (1 + \alpha_d + a)^{-(1+\epsilon^U_d)}
             note: "Excel-AI notation: $\\bar{s}$ the average outstanding share of capital (CapAvgShr). User groups (residential, industry): transmission cost, pass-through, VAT and historical prices; demand groups (transport, residential, industry, services): electricity elasticities and the efficiency multiple; base-year demand by subsector from the energy balance or EnergyCons (BalancesOrConsumption)."
             excel: "Inputs rows 204-252 (build_inputs_power)"
+          - id: A4.5
+            title: Scenario settings of the generation types, variable and levelised variable cost
+            kind: adjustment
+            greek: |
+              tvc_{k,t} = vfix_k + \bar{p}^{f}_{k,t}\,k^{fuel}_k + xck_{k,t} + cic_t\,\mathbb{1}[k = coal] + xac_{k,t} + shk_{k,t} + reb_t, \qquad lvc_{k,t} = \frac{\sum_{\tau \ge t} (1+r_k)^{t_0 - \tau}\,tvc_{k,\tau}}{\sum_{\tau \ge t} (1+r_k)^{t_0 - \tau}}
+            codes: |
+              \mathtt{tvc}_{k,t} = \mathtt{vbc} + \mathtt{xac} + \mathtt{shk} + \mathtt{reb}, \quad \mathtt{lvc}_{k,t} = \frac{d_t\,\mathtt{tvcx}_t + (\mathtt{dsum}_t - d_t)\,\mathtt{lvc}_{t+1}}{\mathtt{dsum}_t}
+            over: "generation types $k$, years $t$"
+            note: "Excel-AI notation. The scenario's A0 settings: capacity factor (actual within CFOverride bounds, else the studies value), efficiency (actual above MinimumThermalEfficiency), WACC by WACCSource. $\\bar{p}^f$: the price before new policies of the type's fuel, the average over the year and up to PwAvgLag years before (spot prices if chosen); $xck$ the change in existing carbon pricing against the price data, $cic$ the coal implicit cost (GoalSeekCoal, short to long term by CoalICYr), $xac$ new carbon tax, ETS cost and the new taxes of the fuel price reform per kWh, $shk$ the shadow price, $reb$ the rebate of the shadow price. The levelised variable cost discounts the remaining years at the type's WACC."
+            excel: "Mitigation section 3 (A0, B, C, D)"
+          - id: A4.6
+            title: Power cost breakdown (memo)
+            kind: adjustment
+            greek: |
+              cost_k = capex_k + O\&M_k + fuel_k + sys_k + policy_k + rns_k
+            codes: |
+              \mathtt{pcbcap}, \mathtt{pcbom}, \mathtt{pcbfu}, \mathtt{pcbcp}, \mathtt{pcbrns}, \mathtt{pcbchk}
+            note: "Excel-AI notation: levelised capital cost, fixed and variable O&M, fuel and existing carbon pricing, new policy costs, renewable subsidy; the check against the cost used."
+            excel: "Mitigation section 3 (cost breakdown)"
+          - id: A4.7
+            title: Electricity excise and renewable subsidies of the scenario
+            kind: adjustment
+            greek: |
+              entx_{u,t} = \mathbb{1}[o \ne B]\left(\text{manual excise}_{u,t}\,\delta_t + FPR_{ecy,u,t}\right), \qquad rns_{k,t} = -\left(s^{BL} + s^{add}_t\right)\nu_t
+            codes: |
+              \mathtt{entx}_{u,t}, \mathtt{rnsp}_t, \mathtt{rns}_{k,t}, \mathtt{exs}_t = \mathtt{gint}\cdot \mathtt{cptraj}_t \cdot \mathbb{1}[\text{electricity excise scenario}]
+            note: "Excel-AI notation. The manual excise path applies with AdditionalExcise (nominal inputs deflated); the additional renewable subsidy phases out over RenSubsidyAddPhaseoutYrs from its start year; hydro by RenewableSubsidyHydro."
+            excel: "Mitigation section 3 (entxd, entx, rnsp, rns, exs)"
       - title: "A5 Road transport"
         text: "To complete from Methods Transport (T1-T18): retirement, purchases new and used, total cost of ownership, ICE fuel split, new and stock fuel economy, vehicle-km, calibration, buses, range anxiety (fitted offline), biofuels."
       - title: "A6 Revenues"

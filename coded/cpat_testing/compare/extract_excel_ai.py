@@ -121,7 +121,7 @@ SETTINGS_TABLES = {   # name: (first row, last row, columns {sheet column: csv c
     'main_scenarios': (819, 832, {1: 'selected', 2: 'name', 3: 'explicit', 4: 'adjustment',
                                   **{c: s for c, s in zip(range(5, 22), ['pow', 'rod', 'ral', 'avi', 'nav', 'res', 'foo',
                                      'srv', 'mch', 'irn', 'nfm', 'mac', 'cem', 'omn', 'cst', 'ftr', 'oen'])},
-                                  22: 'power_rebated'}),
+                                  22: 'power_rebated', 23: 'electricity_excise'}),
     'ets_volatility': (16, 18, {2: 'item', 3: 'Medium', 4: 'High', 5: 'Low', 6: 'Zero'}),
     'fuels': (229, 237, {1: 'fuel', 2: 'name', 3: 'elasticity_fuel', 4: 'aeei_fuel', 5: 'price_rule', 6: 'unit',
                          7: 'gj_per_unit', 8: 'position', 9: 'price_fuel'}),
@@ -138,7 +138,7 @@ def write(path, head, rows):
 
 
 def structure(wb):
-    rows = list(wb['Settings'].iter_rows(max_row=900, max_col=22, values_only=True))
+    rows = list(wb['Settings'].iter_rows(max_row=900, max_col=30, values_only=True))
     for name, (a, b, cols) in SETTINGS_TABLES.items():
         out = [[text(rows[r - 1][c - 1]) for c in cols] for r in range(a, b + 1)]
         out = [o for o in out if o[0]]

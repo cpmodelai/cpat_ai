@@ -202,6 +202,14 @@ def prepare(state, db, inputs, settings, baseline):
         R.put('fpra', after, se, fu)
         R.put('fpr', np.where(t < y0, 0.0, np.where((t < y1) | linear_after, s0 + slope * (t - y0), after)), se, fu)
 
+    # new taxes of the fuel price reform and the Pigouvian taxes, policy scenarios only (EQ-M1.5; Excel-AI R3.7, R3.9)
+    if yes(g('AddEfficientTaxes')):
+        raise NotImplementedError('the Pigouvian (efficient) taxes are not in Coded CPAT yet (AddEfficientTaxes = Yes)')
+    for pc in FPR_FUELS:
+        fu, se = pc.split('.')
+        ntxg = R.put('ntxg', R.of('fpr', se, fu), se, fu)
+        R.put('ntxb', ntxg * (n > 1), se, fu)
+
     # social cost of carbon (EQ-M1.6)
     gr, base_year = G('SCCRise'), settings.base_year
     scc = {'tgt': G('SCCTargetConsistentCP') * (1 + gr) ** (t - G('SCCTargetYear')),

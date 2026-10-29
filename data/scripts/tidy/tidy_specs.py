@@ -79,7 +79,7 @@ TABLES = {
         melt=None),
     'legacy_GoalSeekCoal.csv': dict(
         tidy='coal_implicit_price', sheet='GoalSeekCoal', header_row=7,
-        keys={'Country': 'country_name'}, attrs=['RowNumber', 'Region'], melt=None,
+        keys={'Country': 'country_name', 'Region': 'country'}, attrs=['RowNumber'], melt=None,   # Region holds the ISO3 code
         rename={'First Year of Calculations': 'first_year', 'Year 2030': 'year_2030'}),
     'legacy_NDCs.csv': dict(
         tidy='ndcs', sheet='NDCs', header_row=1,
