@@ -3337,7 +3337,8 @@ def check_consistency(ws):
     ld_in = sum(1 for i in ids if i.startswith('LD'))
     good = len(ids) == len(set(ids)) and ld_in == ld_n and all(t for _i, t, *_ in IR.items())
     st_ok = ({i for i, *_ in IR.ISSUES} == set(IR.ISSUE_STATUS) and
-             all(s in ('Major', 'Minor') and st in ('Open', 'Accepted', 'Resolved', 'Dropped') for s, st, _n in
+             all(s in ('Major', 'Minor', 'Very high', 'Extremely high')   # v0.9.2: data priorities (NORMS 0, v0.8.5)
+                 and st in ('Open', 'Accepted', 'Resolved', 'Closed', 'Dropped') for s, st, _n in
                  IR.ISSUE_STATUS.values()))    # v0.3.7: every issue has a severity and a status (issues list)
     good &= st_ok
     ok &= good
@@ -3838,8 +3839,8 @@ def check_v24_layout(ws):
     for row in wf.iter_rows(min_row=B.R_DEFL + 1):
         for c in row:
             v = c.value
-            if isinstance(v, (int, float, bool)) and c.row != ovr:
-                typed.append(c.coordinate)
+            if isinstance(v, (int, float, bool)) and c.row != ovr and v not in (0, 1):   # v0.9.2: NORMS 3 allows
+                typed.append(c.coordinate)                                              # 0 and 1 (flags)
             elif isinstance(v, str) and v.startswith('=') and not LAMBDA_CALL.search(v):
                 x = v
                 for rx, _why in ALLOWED:
