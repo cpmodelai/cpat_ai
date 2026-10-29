@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CPAT Documentation</title>
+<link rel="icon" type="image/png" href="CPAT_full_documentation_html/00/media/image1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Colours and type follow the Quarto "cosmo" theme of the two books */
+  :root {
+    --primary: #2780e3;
+    --nav-h: 52px;
+    --font: "Source Sans 3", "Source Sans Pro", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { font-family: var(--font); background: #fff; }
+
+  /* Top bar with the two tabs */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); z-index: 10;
+    display: flex; align-items: center; gap: 24px; padding: 0 20px;
+    background: var(--primary); color: #fff;
+  }
+  .brand { font-weight: 700; font-size: 1.15rem; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+  .brand img { height: 28px; width: 28px; object-fit: contain; background: #fff; border-radius: 4px; padding: 2px; }
+  .tabs { display: flex; height: 100%; gap: 4px; }
+  .tab {
+    display: flex; align-items: center; height: 100%; padding: 0 14px;
+    color: rgba(255,255,255,.8); text-decoration: none; font-weight: 600; white-space: nowrap;
+    border-bottom: 3px solid transparent;
+  }
+  .tab:hover { color: #fff; }
+  .tab[aria-selected="true"] { color: #fff; border-bottom-color: #fff; }
+  .topbar .spacer { flex: 1; }
+  .newwin { color: rgba(255,255,255,.85); font-size: .9rem; text-decoration: none; white-space: nowrap; }
+  .newwin:hover { color: #fff; text-decoration: underline; }
+
+  /* The two Quarto books */
+  .panel { position: absolute; top: var(--nav-h); left: 0; right: 0; bottom: 0; }
+  .panel[hidden] { display: none; }
+  .panel iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+  @media (max-width: 640px) {
+    .topbar { gap: 8px; padding: 0 12px; }
+    .brand span, .newwin { display: none; }
+    .tab { padding: 0 8px; font-size: .95rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand"><img src="CPAT_full_documentation_html/00/media/image1.png" alt=""><span>CPAT</span></div>
+  <nav class="tabs" role="tablist">
+    <a class="tab" role="tab" id="tab-documentation" href="#documentation" aria-controls="panel-documentation">CPAT Documentation</a>
+    <a class="tab" role="tab" id="tab-cpat-ai" href="#cpat-ai" aria-controls="panel-cpat-ai">CPAT-AI Project</a>
+  </nav>
+  <div class="spacer"></div>
+  <a class="newwin" id="newwin" href="CPAT_full_documentation_html/index.html" target="_blank" rel="noopener">Open in its own window &#8599;</a>
+</header>
+
+<!-- Tab 1: the CPAT documentation (Quarto book, sources in CPAT_full_documentation_qmd) -->
+<section class="panel" id="panel-documentation" role="tabpanel" aria-labelledby="tab-documentation">
+  <iframe data-src="CPAT_full_documentation_html/index.html" title="CPAT Documentation"></iframe>
+</section>
+
+<!-- Tab 2: the CPAT-AI project (Quarto book, sources in CPAT_ai_documentation_qmd) -->
+<section class="panel" id="panel-cpat-ai" role="tabpanel" aria-labelledby="tab-cpat-ai" hidden>
+  <iframe data-src="CPAT_ai_documentation_html/index.html" title="CPAT-AI Documentation"></iframe>
+</section>
+
+<script>
+  // Hash routing: #documentation or #cpat-ai; each book loads the first time its tab is shown
+  var tabs = ['documentation', 'cpat-ai'];
+
+  function route() {
+    var tab = location.hash.replace(/^#/, '');
+    if (tabs.indexOf(tab) < 0) tab = 'documentation';
+    tabs.forEach(function (name) {
+      var on = name === tab;
+      var panel = document.getElementById('panel-' + name);
+      var frame = panel.querySelector('iframe');
+      panel.hidden = !on;
+      document.getElementById('tab-' + name).setAttribute('aria-selected', on ? 'true' : 'false');
+      if (on) {
+        if (!frame.getAttribute('src')) frame.setAttribute('src', frame.getAttribute('data-src'));
+        document.getElementById('newwin').href = frame.getAttribute('data-src');
+      }
+    });
+  }
+
+  window.addEventListener('hashchange', route);
+  route();
+</script>
+</body>
+</html>

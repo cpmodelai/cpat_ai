@@ -12,7 +12,7 @@ The standalone workbook receives Mitigation's scenario emissions through the `ap
 
 $$E_{p,s,t,q} = FuelConsumption_{s,f,t,q} \times EF_{p,s,f,t} \tag{6.1, upstream}$$
 
-The v7.0 Mitigation method note specifies the handoff in kt. In the 1.0pre_459 workbook, the Air Pollution inputs are coded `country.mit.em.<pollutant>.<sector>.<scenario>` and labeled tonnes/year; scenario suffix `.1` is baseline and `.2` is policy. Convert current `aps` kt to legacy tonnes/year explicitly at the module boundary, after verifying the exact annual-rate convention. Preserve both codes, source unit, converted unit, country, and source version in the input section. `E` below denotes emissions after that checked boundary conversion.
+The v0.7.0 Mitigation method note specifies the handoff in kt. In the 1.0pre_459 workbook, the Air Pollution inputs are coded `country.mit.em.<pollutant>.<sector>.<scenario>` and labeled tonnes/year; scenario suffix `.1` is baseline and `.2` is policy. Convert current `aps` kt to legacy tonnes/year explicitly at the module boundary, after verifying the exact annual-rate convention. Preserve both codes, source unit, converted unit, country, and source version in the input section. `E` below denotes emissions after that checked boundary conversion.
 
 All calculations that vary by scenario are performed for both baseline and policy. Policy effects are reported as policy minus baseline or as averted burden (baseline minus policy), matching the output's meaning and the legacy implementation.
 

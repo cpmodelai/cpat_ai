@@ -1,4 +1,4 @@
-# Cell-level fix plans, group D: L96-L106 (register v5.4); legacy file CPAT 1.0pre_456
+# Cell-level fix plans, group D: L96-L106 (register v0.5.4); legacy file CPAT 1.0pre_456
 import json,sys,pickle,os
 S=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0,S)
@@ -115,7 +115,7 @@ L102=[fix(MI,'K326','0.9','typed input','none'),fix(MI,'L326','1','typed input',
 bug('L102','Low','Manual non-energy elasticities can never take effect','Manual inputs K326:M327; Mitigation K366:M367',
  'Manual inputs K326:M326, K327 = IF($E$293="Manual",#REF!,default) (E293 is empty), and Mitigation K366:M367 = IF($E$288="Manual",\'Manual inputs\'!K326, default) where E288 = MTInputs F261 (ElastIncAdjustment: Low/Base*/High), never "Manual".',
  L102,'Defaults 0.9 / 1 / 1 (population) and 0.15 (agriculture per capita income) as typed in the legacy fallbacks; L367:M367 stay "na".',
- 'None on values (same defaults); manual non-energy elasticities typed on Manual inputs now take effect. prototype v5.2 (LegacyDiff 72).')
+ 'None on values (same defaults); manual non-energy elasticities typed on Manual inputs now take effect. prototype v0.5.2 (LegacyDiff 72).')
 
 # ---------------- L103
 chk(M,'D17683','Manual'); chk(M,'D17711','Manual'); chk(M,'L17711','=L17683'); chk(M,'AE17683','=AD17683*AD17683/AC17683')

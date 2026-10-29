@@ -71,7 +71,7 @@ class EnergySectorReform(TypedDict):
 
 class DashboardInputsDict(TypedDict):
     """
-    Keys are the ScenarioDefinition names (NameOfParameter, legacy MTInputs column H; codes map tab Inputs), v8.4.
+    Keys are the ScenarioDefinition names (NameOfParameter, legacy MTInputs column H; codes map tab Inputs), v0.8.4.
     Groups keep a container key: energy_sector_reform, adj_eff_margins_shadow_pricing (SPPEffAdj*) and
     additional_eff_gains (AdditionalEfficiency*). CTaxTrajectoryType also carries ExtendCarbonPriceBeyondOutro.
     Dashboard inputs types defined.

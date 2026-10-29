@@ -1,0 +1,62 @@
+# Working in the repository {#sec-working}
+
+The project works under written norms (`NORMS.md` at the root of the repository). They bind people and AI agents alike; `AGENTS.md` routes any AI agent to them. This chapter summarises the norms that shape the files a reader meets; `NORMS.md` is the authority.
+
+## Files, versions and releases
+
+**Main files carry their version.** The current version of each main file sits at the top of `excel_ai/` as `<Name>_v<version>.<ext>`, for example `CPAT-AI-Mitigation-Prototype_v0.9.0.xlsm`:
+
+| File | What it is |
+|---|---|
+| `CPAT-AI-Mitigation-Prototype_v<version>.xlsm` | The integrated prototype |
+| `CPAT-AI-Distribution-Prototype_v<version>.xlsm` | The standalone distribution module |
+| `Legacy_CPAT_Bugs_v<version>.docx` | The legacy bugs, with every cell-level fix plan |
+| `Tracking_Legacy_Bugs_v<version>.xlsx` | The master list of bugs and issues |
+| `CPAT-AI_CodesMap_v<version>.xlsx` | The code protocol, vocabularies, variables, output codes and every input |
+| `CPAT-AI_Overview_v<version>.pptx` | The slide deck: status, how to use it, results |
+
+- **Older versions** move to `excel_ai/releases/` when a new version is written.
+- **`excel_ai/permalink/`** holds only what other files link to, under `<Name>_latest`: every module. **`excel_ai/permalink_countryeditable/`** is a copy for local, country-specific runs.
+- **Version numbers.** Three parts, `0.<major>.<minor>`, until the first full release `1.0.0`: the last part for fixes and small features, the middle part for structural or methodological change. Each module with its own builder (distribution, air pollution) has its own version and records which mitigation version it was built from. Files released before the change to three parts were renamed; their contents keep the old two-part numbers. The register documents, the tracker and the codes map carry the version of the mitigation prototype they were made with.
+- **One version table** per workbook and generated document, in the same columns: version, date, description (with register codes), and the largest regression difference against the previous release.
+
+## Checks
+
+| Check | When | What it does |
+|---|---|---|
+| Quick check (`check_quick.py`) | After every change; a few minutes | Structure, names, literals, formula length, a full recalculation with no error cells, the code protocol, the change of every output code against the last release |
+| Paste test (`check_paste.py`) | Every release | Pastes the live scenario's column group into further groups, as a user would, and checks that the pasted groups number themselves, show no errors and reproduce the stored results |
+| Full check (`check_full.py`) | At a milestone; several hours | Everything, including the macro tests |
+| Independent recomputation | Within the checks | Python reference models of the power, transport and distribution blocks reproduce the workbook's numbers |
+
+Every increment is a regression test: the new version's values are compared with the previous release, and every difference is zero or explained in the version table.
+
+## Excel written by code
+
+The Excel prototypes are written with openpyxl and recalculated in LibreOffice, so they build and check on Linux and in cloud sessions. Excel 365 is used for review only. The norms set the column layout of every sheet type, a visual style guide (colours, fonts, borders, sections), formula rules (at most 100 characters; one formula serves a whole block), copy-paste ability of scenario columns, and lint rules that every file passes before it ships so Excel never shows a repair prompt.
+
+## Task completion
+
+Every finished task ends with an entry at the bottom of `CAVEATS.md`, the single record of completed work: the task, its inputs, its outputs and its caveats. Earlier entries may be corrected but not deleted. Open work is listed in `excel_ai/plans/TODO.md` and `coded/TODO.md`.
+
+**Norms follow the lessons.** A mistake whose cause could recur ends with a norm and a check that would have caught it, added in the same task.
+
+## Methodology and version notes
+
+A methodology describes the method as it is now, for a reader who has never seen an earlier version. Change history goes in separate version notes: the version tables and `CAVEATS.md`.
+
+## This documentation
+
+| Folder | Contents |
+|---|---|
+| `docs/index.html` | The website: two tabs, the CPAT documentation and this documentation |
+| `docs/CPAT_full_documentation_qmd/`, `docs/CPAT_full_documentation_html/` | The CPAT documentation: Quarto sources and built pages |
+| `docs/CPAT_ai_documentation_qmd/`, `docs/CPAT_ai_documentation_html/` | This documentation: Quarto sources and built pages |
+
+The chapters on the mitigation prototype and the Coded CPAT developer guide are generated from the documents beside the code by `make_qmd.py`; edit those sources, not the generated chapters. To rebuild:
+
+```
+cd docs/CPAT_ai_documentation_qmd
+python make_qmd.py     # regenerate the chapters from excel_ai/mitigation/docs/ and coded/
+quarto render          # write ../CPAT_ai_documentation_html/
+```

@@ -8,7 +8,7 @@ lists what the move changed in `data/mvp_legacy_extracts/*.csv`. The prototype h
 
 - **Extractors moved to 465.** `extract_data.py`, `extract_legacy_tables.py`, `extract_ecp.py`, `extract_ets.py`,
   `extract_gdp.py`, `extract_ghg.py`, `extract_power.py` and `extract_transport.py` now read 465.
-  `extract_inputs.py` already read 465. Each docstring has a v8.5 (LD41) note.
+  `extract_inputs.py` already read 465. Each docstring has a v0.8.5 (LD41) note.
 - **Row numbers.** The Mitigation rows were mapped with `excel_ai/legacy/bugfixes/data/rowmap_456_465.json`. Rows
   1-5666 are the same in both files, so only rows below 5666 move:
 
@@ -24,7 +24,7 @@ lists what the move changed in `data/mvp_legacy_extracts/*.csv`. The prototype h
   ETS+LTS, WEO, EF_GHG, SCC, GDPRatios, Transport1, Transport2, Multipliers and Power are identical. Manual inputs,
   Elasticities, GHGs, CoC and Transport3 have a few value changes on the same layout. Balances has 161 value changes on
   the same layout. Every assertion in the extractors (labels, table ids) still passes.
-- **energy_use.csv and weo.csv no longer come from the kernel file.** Until v8.4 they came from
+- **energy_use.csv and weo.csv no longer come from the kernel file.** Until v0.8.4 they came from
   `CPAT_Industry_Kernel_Egypt_v1.6.xlsx`, a copy of 456 Mitigation rows 583-601 and 2446. They now come from legacy
   465 directly (new function `extract_data.extract_base_year`, cached values):
   - **energy_use.csv:** Mitigation rows **583-601**. Each row is a fuel, with the code in column C: coa 584, nga 585,

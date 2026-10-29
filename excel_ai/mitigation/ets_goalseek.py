@@ -1,4 +1,4 @@
-"""v2.3: imports build / check_full (previous version in Old/; method unchanged).
+"""v0.2.3: imports build / check_full (previous version in Old/; method unchanged).
 
 Goal seek for the new-ETS permit price of CPAT-AI-Mitigation-Prototype (replaces legacy VBA OverrideETSFast / SolveFast).
 
@@ -22,7 +22,7 @@ paste it into the override row ets.ovr of the scenario and set ETSPriceOverride 
     python ets_goalseek.py WORKBOOK.xlsx SCENARIO [SCENARIO ...] [--tol 0.005] [--max-iter 20]
     -> ets_override_s<scenario>.csv next to the workbook
 
-v5.2: the defaults of the tolerance, the maximum number of iterations and the start (step 1: StartFresh = always the
+v0.5.2: the defaults of the tolerance, the maximum number of iterations and the start (step 1: StartFresh = always the
 fast estimate) are the cells of sheet Manual inputs E12, E10 and E11 (legacy addresses; names ETSErrorTolerance,
 ETSMaxIterations, ETSStartFreshContinue), as the macro.
 """
@@ -91,7 +91,7 @@ def _evaluate(wb_path, groups, prices):
 
 
 def settings(wb):
-    """v5.2: (tolerance, maximum iterations, start fresh?) from sheet Manual inputs E10:E12 (legacy addresses); a cell
+    """v0.5.2: (tolerance, maximum iterations, start fresh?) from sheet Manual inputs E10:E12 (legacy addresses); a cell
     that is not a positive number falls back to the macro's constants (0.005, 20)."""
     mi = wb['Manual inputs']
     it, sf, tol = (mi[c].value for c in ('E10', 'E11', 'E12'))

@@ -21,7 +21,7 @@ import build as B
 import issues_register as R
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, 'Formulas.md')   # v3.2: was Equations; v7.1: the notes keep the release name v7_0
+OUT = os.path.join(HERE, 'Formulas.md')   # v0.3.2: was Equations; v0.7.1: the notes keep the release name v7_0
 _, BASE_COL, PROJ = B.group_cols(1)
 YCOLS = [BASE_COL] + PROJ                                  # L .. AE = 2022 .. 2041
 YEAR = {c: B.BASE_YEAR + i for i, c in enumerate(YCOLS)}
@@ -42,12 +42,12 @@ MODS = {
     'L13': ['sp', 'txo'], 'L14': ['txo'], 'L15': ['ets.est'], 'L16': ['ets.est'],
     'M2': ['rnvat'], 'M3': ['msc'], 'M4': ['vre'], 'M6': ['prnew'],
     'LD43': ['ch4.act', 'ch4.abt', 'ch4.em'], 'LD44': ['ghg.flr'], 'LD45': ['pop', 'pop.g'], 'LD46': ['mfee', 'ch4.abt'],
-    'LD47': ['ch4'], 'L18': ['ch4.act', 'ch4.em'], 'L19': ['ghg.flr'], 'L20': ['pop'], 'L21': ['ch4.abt'],   # v2.8
-    'LD49': ['ap'], 'LD50': ['ap'], 'L22': ['ap'],   # v2.9
-    'LD51': ['aps'], 'LD52': ['ap', 'aps'], 'L23': ['ap'],   # v3.0
+    'LD47': ['ch4'], 'L18': ['ch4.act', 'ch4.em'], 'L19': ['ghg.flr'], 'L20': ['pop'], 'L21': ['ch4.abt'],   # v0.2.8
+    'LD49': ['ap'], 'LD50': ['ap'], 'L22': ['ap'],   # v0.2.9
+    'LD51': ['aps'], 'LD52': ['ap', 'aps'], 'L23': ['ap'],   # v0.3.0
     'LD54': ['gdp.lvl', 'gdp.pos.pct'], 'LD55': ['fis.rev', 'fis.sp'], 'LD56': ['fis.eff', 'fis.key'],
-    'L24': ['gdp.lvl', 'gdp.pos.pct'],   # v3.1
-    'LD57': ['co2', 'ctxnew', 'ets'],   # v3.2: calibration
+    'L24': ['gdp.lvl', 'gdp.pos.pct'],   # v0.3.1
+    'LD57': ['co2', 'ctxnew', 'ets'],   # v0.3.2: calibration
 }
 
 REF = re.compile(r"(?:(?:'[^']+'|[A-Za-z_][\w.]*)!)?\$?[A-Z]{1,3}\$?\d+(?::\$?[A-Z]{1,3}\$?\d+)?(?![\w(])")
@@ -73,7 +73,7 @@ def key(rows, r):
             s if isinstance(s, str) and not s.startswith('=') else None)
 
 
-RN = getattr(B, 'rn_var', lambda v: v)          # v7.2: the dictionary key as the rename map writes it (column A)
+RN = getattr(B, 'rn_var', lambda v: v)          # v0.7.2: the dictionary key as the rename map writes it (column A)
 VARINFO = {RN(v[0]): v for v in B.VARIABLES}
 _TPL = [list(r) for r in openpyxl.load_workbook(B.MT_TEMPLATE, read_only=True).active.iter_rows(max_col=8,
                                                                                     values_only=True)]

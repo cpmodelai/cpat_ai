@@ -1,4 +1,4 @@
-# Reviews and surveys of legacy CPAT (CPAT-AI-Mitigation-Prototype v6.4)
+# Reviews and surveys of legacy CPAT (CPAT-AI-Mitigation-Prototype v0.6.4)
 
 Reviews of legacy CPAT made while rebuilding it, in one note: the health scan of every results row, the survey of the sector equations and the survey of what reads the legacy outputs downstream. Each section is a former note, unchanged apart from its headings; its former file name is in the section title.
 
@@ -116,12 +116,12 @@ Strategy codes (section 5):
 | Section | What it holds | Legacy quality | prototype status | Strategy |
 |---|---|---|---|---|
 | **11 Energy consumption** (6282-6506) | Power sector (model switch: elasticity or engineer); transport by fuel incl. jet fuel and biofuels; buildings, industry and other energy use by subsector and fuel; total energy consumption (TEC) by fuel and sector | The sector bugs feed in: aviation swapped form (L42), other energy use without GDP growth (L43), road engineer bugs (L25-L41, latent), power bugs (L1-L10). The fuel-use shock is applied in every row (I92, not replicated). 50 rows zero in both scenarios (elasticity power model, biofuels, unused fuels). | Section 11 (`ener`, `ener.pct`, totals incl. power). **Missing: jet fuel (I19) and the shock (I92).** The elasticity power model is not built (later item). | **V**; close I19, I92, I23, I24 |
-| **12 Energy-related CO2** (6507-6602) | CO2 by fuel and sector; power emission factor (t/MWh); totals by sector and fuel | Correct given fuel use. IIASA factors without inventory adjustment; legacy offers a switch (row 7534). | Section 13 (`co2`, `co2.chg`, by fuel and sector, power, ETS sectors); calibration switch (v3.2, off as legacy). No t/MWh row (F12 grid intensity uses it). | **V**; add the t/MWh row (R) |
-| **13 Non-CO2 GHGs and local pollutants** (6603-7447) | 8 pollutants (PM2.5, NOx, SO2, VOC, BC, OC, CH4, CO) by sector and subsector; totals by subsector and by the 8 air-pollution sectors; POM, other PM2.5 | Navigation left out of the totals (L22); services and food & forestry left out of the totals (L23). 310 rows zero in both scenarios: combustion CH4 (factor paths stripped), zero sectors. | Section 15 (v2.9-v3.0: `ap`, `aps`, POM, other PM2.5), bugs fixed. Factor mapping where GAINS has no match differs (I27, to replicate: zero as legacy). | **V**; I27 |
+| **12 Energy-related CO2** (6507-6602) | CO2 by fuel and sector; power emission factor (t/MWh); totals by sector and fuel | Correct given fuel use. IIASA factors without inventory adjustment; legacy offers a switch (row 7534). | Section 13 (`co2`, `co2.chg`, by fuel and sector, power, ETS sectors); calibration switch (v0.3.2, off as legacy). No t/MWh row (F12 grid intensity uses it). | **V**; add the t/MWh row (R) |
+| **13 Non-CO2 GHGs and local pollutants** (6603-7447) | 8 pollutants (PM2.5, NOx, SO2, VOC, BC, OC, CH4, CO) by sector and subsector; totals by subsector and by the 8 air-pollution sectors; POM, other PM2.5 | Navigation left out of the totals (L22); services and food & forestry left out of the totals (L23). 310 rows zero in both scenarios: combustion CH4 (factor paths stripped), zero sectors. | Section 15 (v0.2.9-v0.3.0: `ap`, `aps`, POM, other PM2.5), bugs fixed. Factor mapping where GAINS has no match differs (I27, to replicate: zero as legacy). | **V**; I27 |
 | **14 GWP of non-CO2 GHGs and pollutants** (7448-7531) | GWP100 of CH4 and of each local pollutant by sector; net forcers and net coolants; totals by pollutant and sector | Consistent. Memo values, not in the GHG totals. | Section 15 memo `apf` by pollutant (GAINS region GWP); not by sector | **V** (by-sector split: R if wanted) |
-| **15 GHGs** (7532-7640) | Option switches; non-energy growth (income, population, effort); categories (energy, industrial processes, agriculture, LULUCF, waste, other); totals by sector and by gas | Non-energy methane constant and abatement not applied (L18); flaring CO2 counted as methane (L19); population path (L20); waste on the livestock curve (L21). Industrial processes above the prototype for unexplained reasons (I25). | Section 14 (v2.8), bugs fixed. I25 and I26 open. | **V**; I25, I26 |
+| **15 GHGs** (7532-7640) | Option switches; non-energy growth (income, population, effort); categories (energy, industrial processes, agriculture, LULUCF, waste, other); totals by sector and by gas | Non-energy methane constant and abatement not applied (L18); flaring CO2 counted as methane (L19); population path (L20); waste on the livestock curve (L21). Industrial processes above the prototype for unexplained reasons (I25). | Section 14 (v0.2.8), bugs fixed. I25 and I26 open. | **V**; I25, I26 |
 | **16 Fiscal revenues** (7641-8027) | Info: fuel expenditures by fuel and sector, revenue lost to price controls; baseline coverage; revenue by fuel; additional excise; auctioned ETS; existing excises incl. consumer subsidies; consumer subsidies (info); producer subsidies; VAT; renewable subsidies cost; methane fee; vehicle purchases, vehicle feebates, ad-valorem vehicle taxes, vehicle subsidies, charging subsidies, distance tax, all transport revenue; totals by fuel and by policy | No error values. 75 rows zero in both scenarios (vehicle policies off, renewable subsidies, producer subsidies 0 for Egypt). | Section 12 (`rtx`, `rsub`, `rnew`, `rnet`, `rtot`, `rmf`, power rows `rvat`, `rgap`, `rcarb`, `rnvat`; `rtot.chg`). **Missing:**<br>- fuel expenditures;<br>- price-control losses;<br>- producer subsidies;<br>- renewable subsidies cost;<br>- the vehicle revenues of the engineer road model (feebates, purchase taxes, subsidies, charging, distance tax);<br>- revenues by fuel in the legacy layout. | **V** + **R** (expenditures, by-fuel table); vehicle revenues with the engineer road model (V) |
-| **17 GDP effects** (8028-8290) | Fiscal space by revenue use, multipliers, effect on GDP, adjusted GDP | GDP effect added to growth every year (L24). The NoPropData file strips the effect rows (S5), so 77 rows are zero in both scenarios. | Section 16 (v3.1), L24 fixed, multipliers by income group | **V** (no legacy benchmark: issue) |
+| **17 GDP effects** (8028-8290) | Fiscal space by revenue use, multipliers, effect on GDP, adjusted GDP | GDP effect added to growth every year (L24). The NoPropData file strips the effect rows (S5), so 77 rows are zero in both scenarios. | Section 16 (v0.3.1), L24 fixed, multipliers by income group | **V** (no legacy benchmark: issue) |
 | **Cross-check tests** (8291-8403) | Subsection checks (totals = sum of parts, "PASSED") | 69 cells PASSED in the baseline | Replaced by the prototype check scripts (`check_quick`, `check`) and check rows (`rev.chk`, `bco2.chk`) | **X** |
 
 #### B. Results area (blocks E, F, G)
@@ -134,7 +134,7 @@ Strategy codes (section 5):
 | **F2 Macro drivers** (16086-16125) | GDP, population, international prices, elasticities, implied CO2 income elasticity | 2 issues in the survey | Inputs exist; summary rows missing | **R** |
 | **F3 Policy coverage** (16127-16157) | Coverage of CO2 by the carbon tax and by sector; revenue-recycling shares | No bugs found | Coverage switches and ETS coverage exist; % covered missing | **R** |
 | **F4 GDP effects** (16160-16201) | Growth decomposition; year-of-reform profile | 2 issues; stripped data (S5) | Section 16 has the effects; the decomposition and profile are missing | **R** |
-| **F5 Prices** (16204-16725) | Price components; consumption-weighted average prices; policy/baseline change; index 2022 = 100; total (implicit) carbon price by fuel and sector; effective carbon rate (ECR); price breakdown chart | Unit values as price changes (I31, major); coal ECR sums price ratios; ECR "CO2 reduction" row computes the ECR change, so the implied elasticity is garbage; biomass total carbon price `#DIV/0!`; misleading title; a code built from the wrong row | Section 2 builds every price; no averages, indices, total carbon price or ECR | **R** (v3.9 for the averages and indices; then total carbon price and ECR) |
+| **F5 Prices** (16204-16725) | Price components; consumption-weighted average prices; policy/baseline change; index 2022 = 100; total (implicit) carbon price by fuel and sector; effective carbon rate (ECR); price breakdown chart | Unit values as price changes (I31, major); coal ECR sums price ratios; ECR "CO2 reduction" row computes the ECR change, so the implied elasticity is garbage; biomass total carbon price `#DIV/0!`; misleading title; a code built from the wrong row | Section 2 builds every price; no averages, indices, total carbon price or ECR | **R** (v0.3.9 for the averages and indices; then total carbon price and ECR) |
 | **F6 Power generation costs** (16726-16784) | Generation costs, switching prices, tipping points, system costs | No bugs found | Section 3 has the costs; the report tables are missing | **R** |
 | **F7 Energy consumption** (16788-16983) | Energy by fuel and sector, changes | No bugs found | Section 11 by sector and totals; by fuel only on Mitigation | **V** + **R** (by-fuel change table, MTOutputs) |
 | **F8 Power** (16987-17145) | Generation, shares, demand, capacity, investment | One `#DIV/0!` row | Section 3; MTOutputs rows | **V** |
@@ -181,14 +181,14 @@ Strategy codes (section 5):
 
 | Step | Version (proposed) | Content | Strategy code | Why now |
 |---|---|---|---|---|
-| 1 | v3.9 | Average prices, Laspeyres price index against the baseline, time index, mix effect (I31) | R | Agreed; memo only, no result changes |
-| 2 | v3.10 | Fuel-use shock (I92) and jet fuel (I19) | V | They move every result (energy, CO2, GHG, pollutants, revenue); later reports should be compared with legacy only after them |
-| 3 | v3.11 | Energy and CO2 change tables by fuel, grid intensity (t/MWh), Kaya (F7, F12 grid, F13, F14) | R | Pure arithmetic; fixes the Kaya bug by construction |
-| 4 | v3.12 | Revenues: by fuel net of subsidies, % of GDP, base erosion, consumer/producer split, fuel expenditures (F9, section 16 info rows) | R | Pure arithmetic on section 12 |
-| 5 | v3.13 | Policy coverage, total (implicit) carbon price, effective carbon rate (F3, F5d-e) | R | Uses step 1 and step 4 |
-| 6 | v3.14 | GHG by broad sector and abatement (F12) | R | The allocation must be documented, not hardcoded |
-| 7 | v3.15 | Efficiency (deadweight) costs and climate welfare with SCC options (F10a-e, climate part) | R + D | Needs the SCC data sheet; fixes the F10 conversion and LPG bugs |
-| 8 | v3.16 | Balance of payments and NDC comparison (F11, F12 NDC) | D | Small data tables; fixes `#NAME?`, sign and double-adjustment bugs |
+| 1 | v0.3.9 | Average prices, Laspeyres price index against the baseline, time index, mix effect (I31) | R | Agreed; memo only, no result changes |
+| 2 | v0.3.10 | Fuel-use shock (I92) and jet fuel (I19) | V | They move every result (energy, CO2, GHG, pollutants, revenue); later reports should be compared with legacy only after them |
+| 3 | v0.3.11 | Energy and CO2 change tables by fuel, grid intensity (t/MWh), Kaya (F7, F12 grid, F13, F14) | R | Pure arithmetic; fixes the Kaya bug by construction |
+| 4 | v0.3.12 | Revenues: by fuel net of subsidies, % of GDP, base erosion, consumer/producer split, fuel expenditures (F9, section 16 info rows) | R | Pure arithmetic on section 12 |
+| 5 | v0.3.13 | Policy coverage, total (implicit) carbon price, effective carbon rate (F3, F5d-e) | R | Uses step 1 and step 4 |
+| 6 | v0.3.14 | GHG by broad sector and abatement (F12) | R | The allocation must be documented, not hardcoded |
+| 7 | v0.3.15 | Efficiency (deadweight) costs and climate welfare with SCC options (F10a-e, climate part) | R + D | Needs the SCC data sheet; fixes the F10 conversion and LPG bugs |
+| 8 | v0.3.16 | Balance of payments and NDC comparison (F11, F12 NDC) | D | Small data tables; fixes `#NAME?`, sign and double-adjustment bugs |
 | 9 | later | Hand-off tables E1-E3 in the legacy layout, then the Distribution, Transport-externality and Air pollution modules; F10f-h (externalities, subsidies, Pigouvian taxes) | R, then M | Large; each module is its own project (survey, reference, build) |
 | 10 | later | Vehicle revenues of the engineer road model; power report tables (F6); energy-balance export (G); EV and VKT rows in MTOutputs (F16); CBAM | V / R | When the related feature is next touched |
 
@@ -264,14 +264,14 @@ The module results flow back into section 18 (co-benefits, unit damages) through
 
 | Version (proposed) | Content |
 |---|---|
-| v3.9 | Section 2 memo: average prices, price indices, mix effect (I31) |
-| v3.10 | Fuel-use shock and jet fuel (I92, I19); they move every result |
-| v3.11 | Section 15 input table: `aps.ch4.*`, `aps.*.all`, legacy order |
-| v3.12 | Header rows (GDP level up, exchange rate, nominal GDP); section 12 consolidation and 12d fiscal reports |
-| v3.13 | Sub-blocks 11b, 13b, 14b (energy and CO2 changes, energy balance, grid intensity, Kaya, GHG by broad sector) |
-| v3.14 | Section 17 Carbon pricing |
-| v3.15 | Sub-block 16b External balance (import data) |
-| v3.16 | Section 18 Welfare, climate part (SCC data) |
+| v0.3.9 | Section 2 memo: average prices, price indices, mix effect (I31) |
+| v0.3.10 | Fuel-use shock and jet fuel (I92, I19); they move every result |
+| v0.3.11 | Section 15 input table: `aps.ch4.*`, `aps.*.all`, legacy order |
+| v0.3.12 | Header rows (GDP level up, exchange rate, nominal GDP); section 12 consolidation and 12d fiscal reports |
+| v0.3.13 | Sub-blocks 11b, 13b, 14b (energy and CO2 changes, energy balance, grid intensity, Kaya, GHG by broad sector) |
+| v0.3.14 | Section 17 Carbon pricing |
+| v0.3.15 | Sub-block 16b External balance (import data) |
+| v0.3.16 | Section 18 Welfare, climate part (SCC data) |
 | later | Memos in 3 and 16a; NDC in 14b; vehicle revenues in 12b; module sheets (air pollution, distribution, transport externalities) and their feedback into 18 |
 
 ## 2. Legacy fuel-use equations by subsector against the prototype: survey (Sector_Equations_Survey)
@@ -380,14 +380,14 @@ C1 is by far the largest equation difference. It lowers all legacy fuel use (abo
 | D6 | Other energy use: blank income-factor row 2440, no GDP growth; no additional efficiency | 1 (+4 for documentation) | No | prototype +46 ktoe (2030), +124 (2040) vs legacy |
 | D7 | Residential biomass: BiomassNormal switch (Egypt No, so no income growth) | 2 | No | prototype +48 ktoe (2030), +108 (2040) |
 | D8 | Residential exemption split (not-exempt / initially-exempt rows, phase-out of the usage elasticity) | 5 (dead: the initial exempt share is a NoPropData stub, cached 0; ExemptMostCook never reaches Mitigation, L92) | Yes (LegacyDiff "Exemption phase-out", not built) | 0 |
-| D9 | Residential leakage to biomass (switch BiomassLeakage) incl. bugs (a)-(c) | 2 + 1 | Yes (v5.1: section 6b; L45, L90, L91 fixed; LegacyDiff "Residential leakage") | 0 (switch No) |
+| D9 | Residential leakage to biomass (switch BiomassLeakage) incl. bugs (a)-(c) | 2 + 1 | Yes (v0.5.1: section 6b; L45, L90, L91 fixed; LegacyDiff "Residential leakage") | 0 (switch No) |
 | D10 | Residential oop uses the biomass price | 1 | No | 0 |
 | D11 | Road other biofuels: wrong price, shadow price via εU, efficiency term ≡ 1, coal-exemption row as add. efficiency | 1 | No | 0 |
 | D12 | Self-generated renewables: no shadow price; avi/nav ren shock rows 2512/2473 | 1 / 5 | – | 0 (prototype has no ren; Egypt ren 0 outside power) |
 | D13 | Road bgs/bdi follow gasoline/diesel | 3 | Yes ("Road transport: biofuels") | 0 |
-| D14 | Food & forestry elasticities ind (legacy) vs srv (prototype) | 3 | Yes (decision v0.11) | Food & forestry diesel response |
+| D14 | Food & forestry elasticities ind (legacy) vs srv (prototype) | 3 | Yes (decision v0.0.11) | Food & forestry diesel response |
 | D15 | Services/rail/aviation/navigation coal and gas shadow price rows (res vs ind EF) | 5 | – | 0 (no coal/gas use; shadow 0 in baseline) |
-| D16 | Res LPG/ker price switch AlwaysExemptResLPGKer (string test "Yes" never matches starred defaults) | 2 / 1 (low) | Yes (v5.1: rows exf, starred test fixed; LegacyDiff "Residential LPG and kerosene always exempted") | 0 (switch No*) |
+| D16 | Res LPG/ker price switch AlwaysExemptResLPGKer (string test "Yes" never matches starred defaults) | 2 / 1 (low) | Yes (v0.5.1: rows exf, starred test fixed; LegacyDiff "Residential LPG and kerosene always exempted") | 0 (switch No*) |
 | D17 | Iron & steel memo rows (5667 uses next year's growth N2446), unused | 5 | – | 0 |
 | D18 | oop price rows: IF(coverage = 0, retail price 2681, pre-policy 2697 + policy × coverage) in every sector except oen | to check (price block) | – | 0 in baseline |
 
@@ -404,15 +404,15 @@ C1 is by far the largest equation difference. It lowers all legacy fuel use (abo
    - Name the shock (row 2439 = row 483, −20.8% in 2023 and +9.2% in 2024).
    - Give the real effect: −13.5% level on all legacy fuel use from 2024.
    - Consider letting Settings C19 switch the shock into FUELUSE as well, for like-for-like legacy checks.
-3. **D3: apply the income factor `incf(t)` in FUELUSE** (exponent εY × incf). The data is already in PowerPaths, and it makes fuels consistent with E136. The alternative is to add a LegacyDiff row. *Done in v4.12 (user decision 2026-10-18, issue I23 closed): Mitigation row 14 = (1 + g)^incf − 1 feeds every fuel row; Egypt fuel use outside power +0.1% in 2025, −0.9% in 2040.*
+3. **D3: apply the income factor `incf(t)` in FUELUSE** (exponent εY × incf). The data is already in PowerPaths, and it makes fuels consistent with E136. The alternative is to add a LegacyDiff row. *Done in v0.4.12 (user decision 2026-10-18, issue I23 closed): Mitigation row 14 = (1 + g)^incf − 1 feeds every fuel row; Egypt fuel use outside power +0.1% in 2025, −0.9% in 2040.*
 4. **D6: add a LegacyDiff and a bug entry.** Legacy other energy use has no GDP growth because the income-factor row 2440 is blank. The prototype grows other energy use with GDP; mark this as a bug fix.
-5. **D7: decide on `BiomassNormal`.** Either add a switch (Egypt: No, meaning residential biomass has no income growth) or document the difference as a decision. *Done in v4.13 (I24): MTInputs `BiomassNormal`, scenario 1 (Settings C53), as legacy.*
-6. **D4: extend the LegacyDiff text with the legacy grouping**, for when additional efficiency is built: road vehicles → rod, ral, avi, nav; residential → res; industrial → foo, srv, industry; none for oen. *Built in v4.13 with this grouping; other energy use takes the industrial gain on every fuel (legacy bug L66).*
+5. **D7: decide on `BiomassNormal`.** Either add a switch (Egypt: No, meaning residential biomass has no income growth) or document the difference as a decision. *Done in v0.4.13 (I24): MTInputs `BiomassNormal`, scenario 1 (Settings C53), as legacy.*
+6. **D4: extend the LegacyDiff text with the legacy grouping**, for when additional efficiency is built: road vehicles → rod, ral, avi, nav; residential → res; industrial → foo, srv, industry; none for oen. *Built in v0.4.13 with this grouping; other energy use takes the industrial gain on every fuel (legacy bug L66).*
 
 **Features to add later (legacy features, no Egypt effect today)**
 
-- Residential leakage to biomass (D9), with the bugs fixed: subtract the fossil change once, use the kerosene rows for kerosene, conserve the substituted energy. *Done in v5.1: section 6b (`Equations.md` 4a); legacy bugs L45, L90, L91 fixed; the legacy design kept (most-used cooking fuel only, coefficient σ e_b / e_m / lag capped at 1, reversible, permanent level shift, efficiency-weighted fossil change: issue I51).*
-- The AlwaysExemptResLPGKer price switch (D16). *Done in v5.1: Section-1 rows `AlwaysExemptResLPGKer` (per scenario) and `exf`, Inputs column `exg`; no new carbon tax, ETS or excise (nor their VAT) on residential LPG and kerosene; the starred test fixed (LEFT(x, 3)); issue I50.*
+- Residential leakage to biomass (D9), with the bugs fixed: subtract the fossil change once, use the kerosene rows for kerosene, conserve the substituted energy. *Done in v0.5.1: section 6b (`Equations.md` 4a); legacy bugs L45, L90, L91 fixed; the legacy design kept (most-used cooking fuel only, coefficient σ e_b / e_m / lag capped at 1, reversible, permanent level shift, efficiency-weighted fossil change: issue I51).*
+- The AlwaysExemptResLPGKer price switch (D16). *Done in v0.5.1: Section-1 rows `AlwaysExemptResLPGKer` (per scenario) and `exf`, Inputs column `exg`; no new carbon tax, ETS or excise (nor their VAT) on residential LPG and kerosene; the starred test fixed (LEFT(x, 3)); issue I50.*
 - Self-generated renewables (D12).
 - The exemption phase-out demand split (D8) only if exemptions by demand share are wanted; it is inactive in legacy.
 
@@ -865,7 +865,7 @@ No sheet is named "Results" or "Summary". The output layers are F (charts), Dash
 
 ---
 
-### 5. Mapping: legacy downstream item → prototype v4.7 status
+### 5. Mapping: legacy downstream item → prototype v0.4.7 status
 
 **What the prototype has.** The prototype runs N scenarios as column groups. Results live in Mitigation sections 11-16. MTOutputs holds 71 indicators per scenario block (`MTO_INDICATORS`, `build.py` l.5157). StoredResults keeps the stored runs as values (macro `RunAllScenarios`). ScenarioCompare compares one year against the baseline. Charts has 15 line charts.
 
@@ -876,12 +876,12 @@ No sheet is named "Results" or "Summary". The output layers are F (charts), Dash
 | E3 Air-pollution hand-off | 15825-16078 | **Built (data), not handed off** | Section 15: `ap`, `aps` (kt by the 8 air-module sectors), `apf`. Missing: power/residential energy tables in the hand-off layout and the Air pollution module itself |
 | F2 Macro drivers | 16086-16125 | **Partial** | GDP, population, international prices and elasticities are inputs. Missing: the income-elasticity summary and the implied CO2 income elasticity (trivial) |
 | F3 Policy coverage, revenue-recycling shares | 16127-16157 | **Partial** | `cptraj`, `ctcov` switches, ETS coverage `co2.ets`, `EXP*` shares (section 16). Missing: % of CO2 covered by the carbon tax and the coverage contribution by sector; effective carbon tax |
-| F4 GDP effects | 16160-16201 | **Partial** | Section 16 (v3.1): `fis.sp`, `fis.eff` by revenue use, `gdp.eff`, `gdp.pos.usd`; in MTOutputs. Missing: the growth-decomposition table and the year-of-reform profile |
+| F4 GDP effects | 16160-16201 | **Partial** | Section 16 (v0.3.1): `fis.sp`, `fis.eff` by revenue use, `gdp.eff`, `gdp.pos.usd`; in MTOutputs. Missing: the growth-decomposition table and the year-of-reform profile |
 | F5a-c Prices by fuel/sector; weighted price changes | 16204-16402 | **Partial** | Section 2 per scenario (`rp`, `atp`, `rpb`); MTOutputs has 7 price rows. Missing: consumption-weighted averages, % change against the baseline, index 2022=100 |
 | F5d-e Total carbon price; ECR | 16408-16676 | **Not built** | `xcp`/`ccp` are carbon-price components only. Implicit carbon price of taxes and subsidies and the ECR not built |
 | F6 Power generation costs, switching prices | 16726-16784 | **Partial** | Power section 3 (costs, `ccp`, `gncav`, `ccpav`). Missing: the tipping-point and system-cost report tables |
 | F7 Energy consumption by fuel/sector, changes | 16788-16983 | **Built** (by sector, totals); **partial** (by fuel) | Section 11 `ener`, `ener.pct`; MTOutputs `mit.ener.*`. Fuel-by-fuel changes only on Mitigation, not in MTOutputs |
-| F8 Power: generation, shares, demand, capacity, investment | 16987-17145 | **Built** | Section 3 `gen`, `shr`, `vre`, `eldem`, `cap`, `nim`, `usd`; MTOutputs v1.07 rows. The investment difference against the baseline is via ScenarioCompare |
+| F8 Power: generation, shares, demand, capacity, investment | 16987-17145 | **Built** | Section 3 `gen`, `shr`, `vre`, `eldem`, `cap`, `nim`, `usd`; MTOutputs v0.1.07 rows. The investment difference against the baseline is via ScenarioCompare |
 | F9a-b Revenues total and by fuel | 17148-17240 | **Built** (totals, by sector and power); **partial** (by fuel) | Section 12 `rtx`, `rsub`, `rnew`, `rnet`, `rtot`, `rtot.chg`, `rmf`. Missing: the by-fuel net table in the legacy layout and % of GDP |
 | F9c PIIE: base erosion, sector carbon tax revenue | 17242-17345 | **Not built** | Easy from `rtx` at baseline taxes (needs a counterfactual: policy consumption × baseline taxes) |
 | F9d Consumer/producer subsidies | 17347-17389 | **Partial** | `rsub`/`esub` give the subsidy cost by fuel and sector. Missing: the consumer/producer split and % of GDP |

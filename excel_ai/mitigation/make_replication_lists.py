@@ -1,4 +1,4 @@
-"""The two lists at the top of excel_ai/, generated from the register (register.py) at every release (v8.4: every
+"""The two lists at the top of excel_ai/, generated from the register (register.py) at every release (v0.8.4: every
 module and kind, the same columns as the tracker).
 
 - BUGS.md: the bugs. Legacy bugs (L), with the prototype's fix and the status in legacy 465; the

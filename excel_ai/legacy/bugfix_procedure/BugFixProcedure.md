@@ -37,7 +37,7 @@ The result is written to a new sheet `FixLog` (Overall = PASS / REVIEW / FAIL). 
 
 ## 3. How to use it
 
-1. Copy the workbook; never fix the only copy (repo rule: [`../NORMS.md`](../NORMS.md) section 5, new version for every saved change).
+1. Copy the workbook; never fix the only copy (repo rule: [`NORMS.md`](../../../NORMS.md) section 5, new version for every saved change).
 2. Open the copy, enable macros. `Alt+F11`, `File > Import File...` and pick `FixL1_ServicesElectricity.bas` (or `Insert > Module` and paste its text).
 3. `Alt+F8`, run `FixL1_ApplyAndVerify`. Takes about 1 minute on the NoPropData file (two full recalculations).
 4. Read `FixLog`. FAIL: close without saving. REVIEW: open the cells named, decide, write the decision down. PASS: `Save As` the next version.

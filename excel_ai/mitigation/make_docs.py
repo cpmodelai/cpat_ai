@@ -1,8 +1,8 @@
-"""Word documentation of CPAT-AI-Mitigation-Prototype v4.7, assembled from the Markdown notes (pandoc): quick start, the
+"""Word documentation of CPAT-AI-Mitigation-Prototype v0.4.7, assembled from the Markdown notes (pandoc): quick start, the
 model in equations, the legacy bug fixes needed, the method notes; appendices read from the shipped workbook
 (differences with legacy CPAT, version log), the check report (verification) and the register (upgrades).
 
-    python make_docs.py  ->  CPAT-AI-Mitigation_Documentation_v7.0.docx
+    python make_docs.py  ->  CPAT-AI-Mitigation_Documentation_v0.7.0.docx
 """
 import datetime
 import glob
@@ -17,8 +17,8 @@ import issues_register as IR
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE,   # excel_ai/mitigation/ (restructure 2026-10-22; was root documentation/)
-                   'CPAT-AI-Mitigation_Documentation.docx')   # v7.0: root documentation/
-WORKBOOK = __import__('build').OUT   # v8.0: the release copy
+                   'CPAT-AI-Mitigation_Documentation.docx')   # v0.7.0: root documentation/
+WORKBOOK = __import__('build').OUT   # v0.8.0: the release copy
 REPORT = os.path.join(HERE, 'check_report.md')
 
 
@@ -43,12 +43,12 @@ def table(header, rows, widths=None):
 
 def appendices():
     wb = openpyxl.load_workbook(WORKBOOK, read_only=True)
-    ld = [(r[4], r[1], r[3], r[2], r[5], r[6], r[0]) for r in   # v4.2 columns: Type, Area, This model, Legacy, #, ...
+    ld = [(r[4], r[1], r[3], r[2], r[5], r[6], r[0]) for r in   # v0.4.2 columns: Type, Area, This model, Legacy, #, ...
           IR.B.tab(wb, 'LegacyDiff').iter_rows(min_row=5, max_col=7, values_only=True) if r[1]]
     log = [r[0:4] for r in IR.B.tab(wb, 'VersionLog').iter_rows(min_row=IR.B.SET_LOG + 2, max_col=4, values_only=True)
            if r[0]]
-    # v7.1 (user 2026-10-22): the legacy bugs, the road-model bugs, the differences with legacy (LegacyDiff) and the
-    # upgrades are in the register (v8.4: Legacy_CPAT_Bugs_v<n>.docx, the tracker, the appendices); this document points to it
+    # v0.7.1 (user 2026-10-22): the legacy bugs, the road-model bugs, the differences with legacy (LegacyDiff) and the
+    # upgrades are in the register (v0.8.4: Legacy_CPAT_Bugs_v<n>.docx, the tracker, the appendices); this document points to it
     text = ['# Bugs, issues, differences with legacy and upgrades', '',
             'In the register (`excel_ai/Legacy_CPAT_Bugs_v<version>.docx`, the tracker `excel_ai/Tracking_Legacy_Bugs_v<version>.xlsx`): the legacy '
             f'CPAT bugs ({len(ld)} differences with legacy are listed there too) with the bug-fixing procedure and '
@@ -60,7 +60,7 @@ def appendices():
             '*Source: `check_report.md` (`python check_full.py`, LibreOffice recalculation). Every check '
             'section and its result:*', '']
     rep = REPORT if os.path.exists(REPORT) else max(glob.glob(os.path.join(HERE, 'Old', 'check_report_v*.md')),
-                                                    key=os.path.getmtime)   # v6.4: last full check if none yet
+                                                    key=os.path.getmtime)   # v0.6.4: last full check if none yet
     if rep != REPORT:
         text[-2] = (f'*Source: `{os.path.basename(rep)}`, the last full check (not yet run on this version; the '
                     f'quick check passes). Every check section and its result:*')
@@ -86,7 +86,7 @@ def appendices():
 
 
 def register_appendices():
-    """v8.4 (user 2026-10-28): the issues, data issues, departures, upgrades, prototype bugs and the bug-fixing procedure
+    """v0.8.4 (user 2026-10-28): the issues, data issues, departures, upgrades, prototype bugs and the bug-fixing procedure
     as appendices of the Documentation (the bugs: Legacy_CPAT_Bugs_v<version>.docx; everything: the tracker)."""
     import make_bugfix_book as BB
     import register as G
@@ -101,7 +101,7 @@ def register_appendices():
            f'Every bug and issue of legacy CPAT and of the prototypes has a code. The master list is the tracker '
            f'`excel_ai/Tracking_Legacy_Bugs_v{v}.xlsx` (tabs Bugs and Issues, every module in the same columns); the '
            f'bugs are documented in `excel_ai/Legacy_CPAT_Bugs_v{v}.docx`, the rest in these appendices. Codes '
-           f'renumbered in v8.4 give their former code.', '',
+           f'renumbered in v0.8.4 give their former code.', '',
            table(['Code', 'Number', 'Kind', 'What the prototype does', 'Where'],
                  [(p_, G.counts()[p_], d, w, G.KINDS[p_][2]) for p_, d, w in G.DEFINITIONS], [1, 1, 8, 4, 3]),
            '# Appendix B. Data problems', '',
@@ -147,7 +147,7 @@ def register_appendices():
 
 
 METHODS = ['Prices.md', 'Power.md', 'Transport.md', 'Emissions.md', 'ETS.md', 'Macro_and_results.md',
-           'Distribution.md']                       # v8.0: the six merged method chapters (+ distribution)
+           'Distribution.md']                       # v0.8.0: the six merged method chapters (+ distribution)
 METHODS_OUT = os.path.join(HERE, 'CPAT-AI-Mitigation_Methods.docx')
 
 
@@ -165,7 +165,7 @@ def meta(title, subtitle):
 
 
 def main():
-    """v8.0: two documents (user 2026-10-22): the short documentation (docs/Documentation.md, hand-written) and the
+    """v0.8.0: two documents (user 2026-10-22): the short documentation (docs/Documentation.md, hand-written) and the
     Methods volume (docs/methods/, one chapter per block; the equations and the data tabs as appendices)."""
     import make_equations as EQ                       # keeps Formulas.md current (not part of the documents)
     EQ.main()
@@ -178,7 +178,7 @@ def main():
             part('Appendix B: data tabs', os.path.join('docs', 'methods', 'Data_tabs.md'))]
     note = ('*Legacy row numbers in this volume are rows of CPAT 1.0pre_456_NoPropData.xlsb, the file the prototype '
             'was built and checked against. In the latest file, CPAT 1.0pre_465, Mitigation rows from 5667 on sit 11 to '
-            '15 rows higher; the bug-fix register quotes 465 rows (v8.2).*\n\n')
+            '15 rows higher; the bug-fix register quotes 465 rows (v0.8.2).*\n\n')
     pandoc(meta(f'CPAT-AI Mitigation Prototype v{IR.B.VERSION}', 'Methods') + note + '\n'.join(chapters + appx),
            METHODS_OUT)
 

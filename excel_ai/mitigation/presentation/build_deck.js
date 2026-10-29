@@ -1,8 +1,8 @@
-// Build documentation/CPAT-AI_Overview_v<version>.pptx, the one core deck of CPAT-AI (v7.1: the prototype
+// Build documentation/CPAT-AI_Overview_v<version>.pptx, the one core deck of CPAT-AI (v0.7.1: the prototype
 // overview and user guide merged with the management briefing; earlier decks in other/presentations/Old/).
-// Legacy CPAT bugs up front (img/v71_legacy.json from make_legacy_fixes.py; register counts in v71_facts.json).
-// Same style as v4.0: navy / teal / amber, Cambria headings, Calibri body. Screenshots and numbers:
-// presentation/img/v71_*.png, v71_data.json, v71_facts.json and v71_transport.json from make_screenshots.py
+// Legacy CPAT bugs up front (img/v0_7_1_legacy.json from make_legacy_fixes.py; register counts in v0_7_1_facts.json).
+// Same style as v0.4.0: navy / teal / amber, Cambria headings, Calibri body. Screenshots and numbers:
+// presentation/img/v0_7_1_*.png, v0_7_1_data.json, v0_7_1_facts.json and v0_7_1_transport.json from make_screenshots.py
 // (rendered from the current workbook and its check reports).
 //
 //   PPTX_SKILL=<pptx skill dir> node presentation/build_deck.js
@@ -14,20 +14,20 @@ const { applyTheme } = require(process.env.PPTX_SKILL + "/scripts/apply_theme.js
 
 const HERE = __dirname;
 const IMG = (f) => path.join(HERE, "img", f);
-const VER = require(path.join(HERE, "..", "version.json")).version, PFX = "v" + VER.replace(".", "");
-const OUT = path.join(HERE, "..", "..", `CPAT-AI_Overview_v${VER}.pptx`);   // v8.4: excel_ai/<name>_v<version> (NORMS 5a)
+const VER = require(path.join(HERE, "..", "version.json")).version, PFX = "v" + VER.replace(/\./g, "_");   // 0.9.0 -> v0_9_0
+const OUT = path.join(HERE, "..", "..", `CPAT-AI_Overview_v${VER}.pptx`);   // v0.8.4: excel_ai/<name>_v<version> (NORMS 5a)
 const RELEASES = path.join(HERE, "..", "..", "releases");
 const DATA = JSON.parse(fs.readFileSync(IMG(`${PFX}_data.json`), "utf8"));
 const FACTS = JSON.parse(fs.readFileSync(IMG(`${PFX}_facts.json`), "utf8"));
 const LEG = JSON.parse(fs.readFileSync(IMG(`${PFX}_legacy.json`), "utf8"));
 const TR = JSON.parse(fs.readFileSync(IMG(`${PFX}_transport.json`), "utf8"));
 const BUGS = FACTS.bugs.mit + FACTS.bugs.dist, ISSUES = FACTS.issues.mit + FACTS.issues.dist;
-// v8.2: the CPAT team's fixes in legacy 465, checked (v8.4: excel_ai/legacy/bugfixes/check465/legacy465_check.json)
+// v0.8.2: the CPAT team's fixes in legacy 465, checked (v0.8.4: excel_ai/legacy/bugfixes/check465/legacy465_check.json)
 const CHK = (() => { const b = require(path.join(HERE, "..", "..", "legacy", "bugfixes", "check465", "legacy465_check.json")).bugs;
   const v = Object.entries(b).filter(([k]) => k.startsWith("L")).map(([, x]) => x.status);
   return { fixed: v.filter((x) => x === "Confirmed fixed").length, caveats: v.filter((x) => x === "Fixed with caveats").length,
     not: v.filter((x) => x === "Not fixed").length }; })();
-const REG = `Legacy_CPAT_Bugs_v${VER}.docx`;   // v8.4: the bugs document carries the prototype version
+const REG = `Legacy_CPAT_Bugs_v${VER}.docx`;   // v0.8.4: the bugs document carries the prototype version
 
 const THEME = {
   name: "CPAT AI Mitigation",
@@ -148,7 +148,7 @@ function barChart(slide, series, x, y, w, h, title, colors, valFmt = "#,##0") {
     ...CHART_TXT, objectName: nm("chart"),
   });
 }
-// numbers from the workbook (v62_data.json): value of a stored scenario in a year
+// numbers from the workbook (v0_6_2_data.json): value of a stored scenario in a year
 const years = DATA.years.map(String);
 const at = (key, sid, year) => DATA[key][String(sid)][DATA.years.indexOf(year)];
 const f0 = (v) => Math.round(v).toLocaleString("en-US");
@@ -184,7 +184,7 @@ pres.addSection({ title: "Overview" });
     + "GDP) and the distribution module. Generated and checked by AI; every value is recomputed independently.");
 }
 
-// 1b. Where we are (from the management briefing, v6.3; updated to v7.2) -------------------------------------------
+// 1b. Where we are (from the management briefing, v0.6.3; updated to v0.7.2) -------------------------------------------
 {
   const s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Overview" });
   header(s, "WHERE WE ARE", "Mitigation: substantial progress. Distribution: done.");
@@ -201,11 +201,11 @@ pres.addSection({ title: "Overview" });
     BL(`All ${FACTS.bugs.dist} legacy distribution bugs fixed`, true),
   ]);
   card(s, 8.85, 1.5, 3.85, 2.95, AMBER_T, "F2D9B6", [
-    HA("SINCE v6.3"),
+    HA("SINCE v0.6.3"),
     BL("Ships with its values: opens without recalculating"),
     BL("Dashboard: Live or Stored results, key table, charts"),
     BL(`${FACTS.links.length} data tabs linked to the data workbook`),
-    BL("Codes on the CPAT code protocol (v7.2)"),
+    BL("Codes on the CPAT code protocol (v0.7.2)"),
     BL("Every result checked again in a full check", true),
   ]);
   stat(s, String(BUGS), `legacy bugs found (${FACTS.bugs.mit} mitigation, ${FACTS.bugs.dist} distribution), none `
@@ -215,8 +215,8 @@ pres.addSection({ title: "Overview" });
   stat(s, FACTS.codes, "output codes, checked against an independent Python recomputation", 8.85, 4.75, 3.85, TEAL);
   caption(s, `Source: CPAT-AI repo, release ${VER} and the bug and issue register (${REG}).`, 0.6, 6.6, 12.1);
   s.addNotes("Around it: quick start, equations, method notes, every formula listed; the bug register with cell-by-cell "
-    + "fix plans for legacy CPAT; the Python model (Coded CPAT) shares the same codes. v7.2: every prototype code follows the "
-    + "CPAT code protocol (legacy variable names, no model letters, tot for totals, each code once); the v7.1 stems stay "
+    + "fix plans for legacy CPAT; the Python model (Coded CPAT) shares the same codes. v0.7.2: every prototype code follows the "
+    + "CPAT code protocol (legacy variable names, no model letters, tot for totals, each code once); the v0.7.1 stems stay "
     + "as aliases for one release.");
 }
 
@@ -321,7 +321,7 @@ pres.addSection({ title: "Using the workbook" });
       options: { fontSize: 14, color: INK } }]);
   s.addNotes("Every section is rolled up to its summary row on open; columns B:G and I:K are grouped. Row 5 holds the "
     + "scenario number (a formula); every input row looks up its value in that ScenarioDefinition column. Two groups "
-    + "ship (v6.6); more by pasting group 2 to the right.");
+    + "ship (v0.6.6); more by pasting group 2 to the right.");
 }
 
 // 6. Many scenarios ----------------------------------------------------------------------------------------------
@@ -338,7 +338,7 @@ pres.addSection({ title: "Using the workbook" });
     + "reads Live (LiveOutputs) or Stored results; charts show only scenarios with results.");
 }
 
-// 6b. Speed, dashboard and data (v6.6-v7.1) -----------------------------------------------------------------------
+// 6b. Speed, dashboard and data (v0.6.6-v0.7.1) -----------------------------------------------------------------------
 {
   const s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Using the workbook" });
   header(s, "USER GUIDE · SPEED AND SIZE", "Half the recalculation time of legacy, about half the file size");
@@ -357,7 +357,7 @@ pres.addSection({ title: "Using the workbook" });
     { text: FACTS.links.join("  ·  "), options: { fontSize: 15, color: INK } }]);
   s.addNotes("Timings and sizes measured by the user in Excel 365 (2026-10-22): legacy about 10 s per recalculation, "
     + "CPAT-AI about 5 s; CPAT-AI about 10 MB as .xlsb, legacy over 21 MB. Why: short formulas, one formula per block, "
-    + "two scenario groups shipped, values stored. v6.6: values stored, OFFSET and COUNTIFS replaced (formulas 568k -> 404k). v7.1: Balances, EnergyCons, "
+    + "two scenario groups shipped, values stored. v0.6.6: values stored, OFFSET and COUNTIFS replaced (formulas 568k -> 404k). v0.7.1: Balances, EnergyCons, "
     + "Prices_dom, HHSurvey, IO_GTAP, HH_Elast (rows of the country); WEO, GDPRatios, UNPop (all rows). Data workbook: "
     + "data/workbooks/CPAT_Data_dummy_python.xlsx (dummy values).");
 }
@@ -422,7 +422,7 @@ pres.addSection({ title: "Model and results" });
   ]);
   const p = picture(s, `${PFX}_03_power.png`, 6.5, 1.5, 6.2, 4.7);
   caption(s, "Section 3, baseline: generation, VRE share, capacity, investment, prices", 6.5, p.y + p.h + 0.12, 6.2);
-  s.addNotes("Power plan P1-P5 (v5.4, v5.6): every ScenarioDefinition power input is read in the scenario's own column; section "
+  s.addNotes("Power plan P1-P5 (v0.5.4, v0.5.6): every ScenarioDefinition power input is read in the scenario's own column; section "
     + "3 sub-table A0 applies them. Defaults keep Egypt's results. Legacy bugs fixed on the way: L107, L108, L114, L118.");
 }
 
@@ -586,7 +586,7 @@ pres.addSection({ title: "Next steps" });
 (async () => {
   await pres.writeFile({ fileName: OUT });
   await applyTheme(OUT, THEME);
-  for (const f of fs.readdirSync(path.dirname(OUT)))   // v8.4: older versions to releases/ (NORMS 5a)
+  for (const f of fs.readdirSync(path.dirname(OUT)))   // v0.8.4: older versions to releases/ (NORMS 5a)
     if (/^CPAT-AI_Overview_v[\d.]+\.pptx$/.test(f) && path.join(path.dirname(OUT), f) !== OUT)
       fs.renameSync(path.join(path.dirname(OUT), f), path.join(RELEASES, f));
   console.log("wrote", OUT);

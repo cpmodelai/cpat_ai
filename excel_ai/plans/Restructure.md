@@ -9,7 +9,7 @@
 | `excel_ai/mitigation/` (top) | 76 | | 36 scripts, 33 notes, workbook, reports in one folder; every name carries a version (`_v7_0`, `_v7_2`) |
 | `.../mitigation/Old/` | 3,701 | 646 MB | every earlier script, note, workbook (69 .xlsm), already in git history |
 | `.../presentation/` | 394 | | deck builder and screenshots of every version |
-| `excel_ai/old/`, `standalone_initial_prototypes/`, `tecp_and_validation/`, `bugfix_procedure/` (v6.4 variants), `distribution/` (the pre-prototype distribution pipeline) | 131 | 230 MB | earlier prototypes and procedures, not current |
+| `excel_ai/old/`, `standalone_initial_prototypes/`, `tecp_and_validation/`, `bugfix_procedure/` (v0.6.4 variants), `distribution/` (the pre-prototype distribution pipeline) | 131 | 230 MB | earlier prototypes and procedures, not current |
 | `documentation/` (root) | 119 | 112 MB | decks and Word outputs, legacy fix plans with their tools and JSON, research PDFs; method notes live elsewhere |
 | Root notes | | | `NORMS.md` (120 lines) and `NORMS.md` (509), `CAVEATS.md` (2,811 lines), `Plans.md` (1,500) |
 | `.git` | | 966 MB | the binaries of every release |
@@ -17,7 +17,7 @@
 ## Principles
 
 1. **One folder per product, self-contained**: what it is (README), the workbook, its sources, its checks, its documents. A reader finds everything for a model in one place; nothing generated sits beside a hand-written note.
-2. **Versions live in git, not in file names**: scripts and notes have stable names (`build.py`, `check_full.py`, `Methods/Prices.md`); a release is a git tag (`mitigation-v8.0`) and a versioned workbook in `releases/`. No `Old/` folders: the history and the tags keep every earlier file. (Replaces NORMS 5's versioned names and `Old/` rule.)
+2. **Versions live in git, not in file names**: scripts and notes have stable names (`build.py`, `check_full.py`, `Methods/Prices.md`); a release is a git tag (`mitigation-v0.8.0`) and a versioned workbook in `releases/`. No `Old/` folders: the history and the tags keep every earlier file. (Replaces NORMS 5's versioned names and `Old/` rule.)
 3. **Separate what people read from what machines run**: `docs/` (hand-written and generated documents) vs `src/` (builders, VBA, deck builder) vs `checks/` (check scripts and their latest reports).
 4. **Legacy CPAT and archived work in one clearly named place each**: `legacy/` (the reference workbook, codes master, tracker, our cell-level fix plans), `archive/` (earlier prototypes, kept only if still useful; otherwise only in history).
 5. **Names say what things are**: prototype (not prototype), module names (mitigation, distribution, air_pollution, transport_cobenefits), no `copypaste`.
@@ -68,7 +68,7 @@ The separate root `documentation/` disappears: each product's documents move int
 | `Old/`, `excel_ai/old/`, `standalone_initial_prototypes/`, `tecp_and_validation/`, `distribution/` (pre-prototype pipeline), `bugfix_procedure/` variants | removed from the tree (git tag `archive-2026-10` keeps them); anything still used moves first |
 | `data/`, `coded/` | `data/`, `coded/` (paths updated in scripts and tests) |
 
-## Steps (after the v7.2 full check; before the modules, so they are born in the new layout)
+## Steps (after the v0.7.2 full check; before the modules, so they are born in the new layout)
 
 - **S0 - inventory and tag**: tag `archive-2026-10`; list every file the current builds, checks and documents read (a script trace), so nothing in use is removed.
 - **S1 - move and rename** in one commit per product (git mv keeps history): mitigation, legacy, docs, shared, data, coded; scripts get stable names and a `PATHS` module instead of hard-coded `../..` paths; the full build and quick check run from the new place.
@@ -84,8 +84,8 @@ The separate root `documentation/` disappears: each product's documents move int
 3. **`excel_ai/` shows three main files at its top**: the latest prototype workbook, the bug-fix documentation (the register of bugs and issues, Word) and the integrated slide deck. The integrated mitigation tool is the special one and is shown there; its sources live in `excel_ai/mitigation/` (src, checks, docs). Modules in `excel_ai/distribution/`, `excel_ai/air_pollution/`, `excel_ai/transport_cobenefits/`; `excel_ai/shared/`, `excel_ai/legacy/` as above.
 4. **`BUGS.md` and `ISSUES.md`** (short names, in `excel_ai/`) replace `BUGS.md` and `ISSUES.md`.
 5. **History removed**: the repository restarts from one commit of the cleaned tree (966 MB of history dropped; nobody else works on it yet). Dropped outright, no archive (user 2026-10-22).
-6. **Versioned and latest copies, both kept**: each main file exists twice with equivalent contents, `..._v8.0` and `..._latest` (workbook, register, deck); the version table (the workbook's version log) is the same in both, and `excel_ai/releases.md` lists every release (version, date, summary, files). The `_latest` copies sit at the top of `excel/`, the versioned copies of every release from v7.2 on in `excel_ai/releases/`. Scripts and notes keep stable names (the git tag of each release marks their state).
-7. **When**: as soon as it is safe, i.e. right after the v7.2 full check has passed and v7.2 is on main, with no build or check running; before the modules (plan section 9), so the modules start in the new layout.
+6. **Versioned and latest copies, both kept**: each main file exists twice with equivalent contents, `..._v0.8.0` and `..._latest` (workbook, register, deck); the version table (the workbook's version log) is the same in both, and `excel_ai/releases.md` lists every release (version, date, summary, files). The `_latest` copies sit at the top of `excel/`, the versioned copies of every release from v0.7.2 on in `excel_ai/releases/`. Scripts and notes keep stable names (the git tag of each release marks their state).
+7. **When**: as soon as it is safe, i.e. right after the v0.7.2 full check has passed and v0.7.2 is on main, with no build or check running; before the modules (plan section 9), so the modules start in the new layout.
 
 ## Target layout (as decided)
 
@@ -97,7 +97,7 @@ excel_ai/
   CPAT-AI_BugsAndIssues_latest.docx           Bug-fix documentation: every legacy bug and issue, fix plans
   CPAT-AI_Overview_latest.pptx                The integrated slide deck
   BUGS.md, ISSUES.md                          The two short lists (generated)
-  releases.md, releases/                      Every release from v7.2: the three files with _v<n>, one table
+  releases.md, releases/                      Every release from v0.7.2: the three files with _v<n>, one table
   mitigation/   src/ (build, VBA, extractors, deck builder), checks/ (and reports/), docs/ (quick start,
                 methods, equations, formulas, the Word documentation)
   distribution/, air_pollution/, transport_cobenefits/   Modules (same sub-layout, own releases)

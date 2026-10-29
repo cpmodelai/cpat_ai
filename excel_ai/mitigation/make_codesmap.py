@@ -1,13 +1,13 @@
-"""CPAT-AI_CodesMap_v<version>.xlsx (excel_ai/): the single codes map (v8.4, user 2026-10-28), inputs included.
+"""CPAT-AI_CodesMap_v<version>.xlsx (excel_ai/): the single codes map (v0.8.4, user 2026-10-28), inputs included.
 
-The codes map of v7.1 (excel_ai/legacy/codes/CPAT_CodesMap_v7_1.xlsx: protocol, vocabularies, variables, crosswalk;
-built by legacy/codes/make_codes_map_v7_1.py) with the current state added in front:
+The codes map of v0.7.1 (excel_ai/legacy/codes/CPAT_CodesMap_v0_7_1.xlsx: protocol, vocabularies, variables, crosswalk;
+built by legacy/codes/make_codes_map_v0_7_1.py) with the current state added in front:
   - Inputs: every row of ScenarioDefinition (legacy MTInputs 465 rows 8-413, then the inputs the prototype adds): row,
     label, unit, the name (NameOfParameter, the code of the input in Excel and Python), the legacy name and what changed
     with its register code (bug L137, issue I87), the Name Manager names, the Dashboard twin and the Python key;
-  - CodeRenames: the code renames applied since v7.2 (data/mvp_legacy_extracts/code_renames_v7_2.csv);
+  - CodeRenames: the code renames applied since v0.7.2 (data/mvp_legacy_extracts/code_renames_v0_7_2.csv);
   - Outputs: every output code of the workbook (LiveOutputs) with its description.
-The v7.1 tabs keep their content (their names are as of v7.1; the renames tab says what changed since).
+The v0.7.1 tabs keep their content (their names are as of v0.7.1; the renames tab says what changed since).
 
     python make_codesmap.py          (after build.py)
 """
@@ -24,9 +24,9 @@ import issues_register as R
 HERE = os.path.dirname(os.path.abspath(__file__))
 XL = os.path.join(HERE, '..')
 ROOT = os.path.join(XL, '..')
-BASE = os.path.join(XL, 'legacy', 'codes', 'CPAT_CodesMap_v7_1.xlsx')
+BASE = os.path.join(XL, 'legacy', 'codes', 'CPAT_CodesMap_v0_7_1.xlsx')
 INPUTS = os.path.join(ROOT, 'data', 'mvp_legacy_extracts', 'mtinputs_465.csv')
-RENAMES = os.path.join(ROOT, 'data', 'mvp_legacy_extracts', 'code_renames_v7_2.csv')
+RENAMES = os.path.join(ROOT, 'data', 'mvp_legacy_extracts', 'code_renames_v0_7_2.csv')
 PY = [os.path.join(ROOT, 'coded', 'cpat_model', f) for f in ('dashboard_inputs.py', 'distribution_inputs.py')]
 OUT = B.REL.versioned('CPAT-AI_CodesMap', R.REGISTER_VERSION, 'xlsx')
 HEAD = PatternFill('solid', fgColor='D9E8C4')
@@ -110,18 +110,18 @@ def main():
         for c in row:
             c.value = None
     lines = [f'CPAT codes map v{R.REGISTER_VERSION} (the single codes map; CPAT-AI-Mitigation-Prototype v{B.VERSION})',
-             f'Built by excel_ai/mitigation/make_codesmap.py from the v7.1 codes map (legacy/codes/CPAT_CodesMap_v7_1.xlsx), '
+             f'Built by excel_ai/mitigation/make_codesmap.py from the v0.7.1 codes map (legacy/codes/CPAT_CodesMap_v0_7_1.xlsx), '
              f'the input names (data/mvp_legacy_extracts/mtinputs_465.csv, extract_inputs.py), the code renames since '
-             f'v7.2 and the workbook. Do not edit: change the scripts or their sources.', None, 'Sheets',
+             f'v0.7.2 and the workbook. Do not edit: change the scripts or their sources.', None, 'Sheets',
              f'Inputs - every input row of ScenarioDefinition ({len(inputs)}): legacy MTInputs 465 rows, then the '
              'inputs the prototype adds. Name = the code of the input in Excel (column H) and Python. Orange rows: a '
              'name that changed or was added (register: bug L137, issue I87). Legacy inconsistencies kept as issues: '
              'I85 (percentages typed as whole numbers), I86 (spelling), I88 (one Dashboard cell for two inputs).',
-             'CodeRenames - the output-code renames applied since v7.2 (code_renames_v7_2.csv).',
+             'CodeRenames - the output-code renames applied since v0.7.2 (code_renames_v0_7_2.csv).',
              f'Outputs - every output code of LiveOutputs ({len(outs)}).',
              'Protocol, Positions, vocabularies (Tab ... CountryCode), Variables, Crosswalk, LiveOutputs, MVPOnly, Checks '
-             '- as of v7.1 (make_codes_map_v7_1.py); codes renamed since are in CodeRenames.', None,
-             'Remediation plan of v7.1: legacy/codes/Codes_Remediation_Plan_v7_1.md. Bugs and issues: tracker '
+             '- as of v0.7.1 (make_codes_map_v0_7_1.py); codes renamed since are in CodeRenames.', None,
+             'Remediation plan of v0.7.1: legacy/codes/Codes_Remediation_Plan_v0_7_1.md. Bugs and issues: tracker '
              f'Tracking_Legacy_Bugs_v{R.REGISTER_VERSION}.xlsx.']
     for i, t in enumerate(lines, 1):
         ws.cell(i, 1, t)

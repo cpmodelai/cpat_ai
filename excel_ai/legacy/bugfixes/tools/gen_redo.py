@@ -44,7 +44,7 @@ B.append(dict(id='L112',pri='Medium',title='Policy copies of the shadow-price ro
  why='The policy copies keep the absolute baseline references $D$2369 (shadow pricing on/off) and L$2375 (general carbon price), so in the policy run the regulation term reads the baseline price (0). Once L87 is fixed, regulations still do nothing in the policy run.',
  fixes=[fx('L8708',sub('L8708',[('$D$2369','$D$8700'),('L$2375','L$8706')]),'L8708:AE8719 (the 12 rows share the pattern: edit L8708, copy down and across; check that the EF code ($G86xx) of each row is kept)','is the policy block itself (rows 8708-8719)')],
  ref='D8700 and row 8706 are the policy copies of D2369 and row 2375 (+6,331). The baseline rows 2377-2388 are right.',
- effect='Regulations act in the policy run once L87 is fixed. None by default (explicit pricing).',note='Apply together with L87 (user 2026-10-19). Registered in v5.5 (main).',status='fix'))
+ effect='Regulations act in the policy run once L87 is fixed. None by default (explicit pricing).',note='Apply together with L87 (user 2026-10-19). Registered in v0.5.5 (main).',status='fix'))
 B.append(dict(id='L115',pri='Medium',title='Residential gas: current ETS price reads the LPG transport row',where='Mitigation row 2555 (policy 8886)',
  why='Row 2555 ("nga res - in which: current ETS permit price") = K$1720, the effective permit price of LPG in transport/industry; the residential gas row of the ETS table is 1715 (the other blocks read their own row: 2486 = 1712, 2509 = 1713, 2532 = 1714, 2578 = 1716).',
  fixes=[fx('K2555','=K$1715','K2555:AE2555','policy K8886:AE8886: =K$1715 (type, do not paste: row 1715 is shared, above the scenario blocks)')],

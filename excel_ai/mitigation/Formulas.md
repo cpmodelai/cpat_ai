@@ -1,4 +1,4 @@
-# Workbook formulas of CPAT-AI-Mitigation-Prototype v9.0 (implementation reference)
+# Workbook formulas of CPAT-AI-Mitigation-Prototype v0.9.0 (implementation reference)
 
 Generated from the workbook by `make_equations.py` (do not edit by hand): every formula of the Mitigation sheet, scenario 1, with cell references replaced by variable codes, the changes against legacy CPAT (section B) and the LAMBDA library (section C). For the model itself read the equations in mathematical form, `Equations.md`; this file is for checking and editing the workbook.
 
@@ -22,14 +22,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E3. `gdp.usd`: Real GDP, baseline** (USD bn)
 
-- Description: Sheet WEO (EGY|gdp_usd); v3.13: header row
+- Description: Sheet WEO (EGY|gdp_usd); v0.3.13: header row
 - Legacy: legacy Mitigation row 465
 - Rows: all,all
   - 2022-2041: `gdp.usd(t) = INDEX(WEOVal,MATCH(CtryCode&"|gdp_usd",WEOKey,0),MATCH(year,WEOYear,0))`
 
 **E4. `gdp.lcu`: Real GDP, baseline, local currency** (LCU bn)
 
-- Description: Sheet WEO (EGY|gdp_lcu); header row (v3.13)
+- Description: Sheet WEO (EGY|gdp_lcu); header row (v0.3.13)
 - Legacy: legacy Mitigation row 464
 - Rows: all,all
   - 2022-2041: `gdp.lcu(t) = INDEX(WEOVal,MATCH(CtryCode&"|gdp_lcu",WEOKey,0),MATCH(year,WEOYear,0))`
@@ -38,7 +38,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E5. `xr`: Exchange rate implied by real GDP (local currency per USD; constant in real terms)** (LCU/USD)
 
-- Description: gdp.lcu / gdp.usd (header row, v3.13)
+- Description: gdp.lcu / gdp.usd (header row, v0.3.13)
 - Legacy: legacy Mitigation rows 464-465
 - Rows: all,all
   - 2022-2041: `xr(t) = gdp.lcu[f,s](t)/gdp.usd[f,s](t)`
@@ -132,13 +132,13 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E18. `exph`: Exemption phase-out: share of an uncovered fuel or sector taxed** (share)
 
-- Description: policy scenarios with ExemptPhaseout = TRUE, from CPIntro: MAX(MIN((year + 1 - YearPha) / ExemptPhaseoutPeriod, 1), 0) (v5.6)
+- Description: policy scenarios with ExemptPhaseout = TRUE, from CPIntro: MAX(MIN((year + 1 - YearPha) / ExemptPhaseoutPeriod, 1), 0) (v0.5.6)
 - Legacy: legacy rows 2259-2265 (rule chosen for every row, L94)
   - 2022-2041: `exph(t) = IF(AND(scenario(t)>1,ExemptPhaseout(t)=TRUE,year>=CPIntro(t)),MAX(MIN((year+1-YearPha(t))/ExemptPhaseoutPeriod(t),1),0),0)`
 
 **E19. `ctcov`: Carbon tax coverage (Apply tax?)** (switch)
 
-- Description: MTInputs (scenario column); v5.6: if not covered, exph
+- Description: MTInputs (scenario column); v0.5.6: if not covered, exph
 - Legacy: MTInputs MCov* rows 23-47; biomass has no switch (EF 0)
 - Changes against legacy: LD13 (section B)
 - Rows: coa,all, nga,all, gso,all, die,all, lpg,all, ker,all, jfu,all, oop,all, bio,all, all,pow, all,rod, all,ral, ... (26 rows)
@@ -206,7 +206,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E28. `fpr`: Fuel price reform: price increase path** (price unit)
 
 - Description: Linear to the target; after it linear (Linear*), annual rate (Percentage) or held (No); FPRPATH
-- Legacy: legacy rows 167-180 (v9.0; L171, L173 fixed)
+- Legacy: legacy rows 167-180 (v0.9.0; L171, L173 fixed)
 - Changes against legacy: LD10, LD18 (section B)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, ecy,res, ecy,ind, gso,all, die,all, lpg,all, ker,all, ... (14 rows)
   - 2022-2041: `fpr(t) = IF(year<fpr.yr0(t),0,IF(OR(year<fpr.yr1(t),ExtendCarbonPriceBeyondOutro(t)="Linear*"),fpr.s[f,s](t)+fprj[f,s](t)*(year-fpr.yr0(t)),fpra[f,s](t)))`
@@ -214,7 +214,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E29. `scc`: Social cost of carbon: target-consistent, Ricke national and global, manual, US EPA; selected national and global** (USD/tCO2 real)
 
 - Description: Target: SCCTgt x (1 + SCCGr) ^ (year - SCCTgtYr); Ricke (sheet SCC) and EPA: base-year value x (1 + SCCGr) ^ (year - base year); manual: data; selected: CHOOSE by NSCCSrc / GSCCSrc
-- Legacy: legacy rows 17671-17713, sheet SCC; v3.17
+- Legacy: legacy rows 17671-17713, sheet SCC; v0.3.17
 - Rows: tgt,all
   - 2022-2041: `scc(t) = SCCTgt*(1+SCCGr)^(year-SCCTgtYr)`
 - Rows: rkn,all
@@ -265,19 +265,19 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E35. `pig.efw`: Emission-factor path weight (EFEndYear factors), as section 15 ap.w** (share)
 
-- Description: EFFinShare x (year - BaseYr) / (EFEndYear - BaseYr) (v9.0 PIGAP)
+- Description: EFFinShare x (year - BaseYr) / (EFEndYear - BaseYr) (v0.9.0 PIGAP)
 - Legacy: legacy rows 1052-1663 (EF path)
   - 2022-2041: `pig.efw(t) = EFFinShare*(year-BaseYr)/(EFEndYear-BaseYr)`
 
 **E36. `pig.vpm`: Value of averted modelled ambient PM2.5 for the marginal damages** (USD bn per ug/m3)
 
-- Description: FromAirPollution air.vpm of the year; 2022: 2023 (legacy has no change in PM2.5 in 2022, so no value) (v9.0 PIGAP)
+- Description: FromAirPollution air.vpm of the year; 2022: 2023 (legacy has no change in PM2.5 in 2022, so no value) (v0.9.0 PIGAP)
 - Legacy: legacy AP rows 3217, 981, 1814
   - 2022-2041: `pig.vpm(t) = IFERROR(INDEX(ApVal,MATCH(CtryCode&"|air.vpm",ApKey,0),MATCH(MAX(year,BaseYr+1),ApYear,0)),0)`
 
 **E37. `airpol.mc`: Marginal air-pollution damage per GJ of the fuel in the subsector (power: by plant type)** (USD/GJ)
 
-- Description: pig.vpm x (D x (1 - pig.efw) + E x pig.efw) x Billion / PJperKtoe / Million: value of averted PM2.5 x sum over pollutants of coefficient of the module sector x emission factor (v9.0 PIGAP; legacy average damages, I104 fixed)
+- Description: pig.vpm x (D x (1 - pig.efw) + E x pig.efw) x Billion / PJperKtoe / Million: value of averted PM2.5 x sum over pollutants of coefficient of the module sector x emission factor (v0.9.0 PIGAP; legacy average damages, I104 fixed)
 - Legacy: legacy AP rows 442-522, 974-981, 3217 (module); Mitigation rows 1052-1663 (EF)
 - Rows: coa,mch, coa,irn, coa,nfm, coa,mac, coa,cem, coa,omn, coa,cst, coa,ftr, coa,res, coa,foo, coa,srv, coa,pow, ... (97 rows)
   - 2022-2041: `airpol.mc(t) = pig.vpm(t)*(<ug/m3 per ktoe, base-year EF>*(1-pig.efw(t))+<ug/m3 per ktoe, EFEndYear EF>*pig.efw(t))*Billion/PJperKtoe/Million`
@@ -285,14 +285,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E38. `pig.trk`: Transport1 row of the country's base year** (row)
 
-- Description: MATCH(country|BaseYr, Transport1 key) (v9.0 PIGAP)
+- Description: MATCH(country|BaseYr, Transport1 key) (v0.9.0 PIGAP)
 - Legacy: legacy rows 2017-2121 (data year)
   - 2022-2041: `pig.trk(t) = <row>`
   - Parameters: `<row>` = `IFERROR(MATCH(CtryCode&"|"&BaseYr,TrKey,0),0)`
 
 **E39. `pig.fe0`: Base-year fuel economy of the road fuel (pas: passenger and light by ownership; all: with 2-3 wheelers or freight by fuel share)** (km/l)
 
-- Description: pas: (FE pas x own pas + FE light x own light) / (own pas + own light) (legacy trfem); all: w x FE pas + (1 - w) x D, w = pig.wsh (legacy AVGFE with data shares) (v9.0 PIGAP)
+- Description: pas: (FE pas x own pas + FE light x own light) / (own pas + own light) (legacy trfem); all: w x FE pas + (1 - w) x D, w = pig.wsh (legacy AVGFE with data shares) (v0.9.0 PIGAP)
 - Legacy: legacy rows 2034-2121, 5356, 5360
 - Rows: gso,pas, die,pas
   - 2022-2041: `pig.fe0(t) = IF(<Transport1 value 3>+<Transport1 value 4>=0,<Transport1 value 1>,(<Transport1 value 1>*<Transport1 value 3>+<Transport1 value 2>*<Transport1 value 4>)/(<Transport1 value 3>+<Transport1 value 4>))`
@@ -303,7 +303,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E40. `pig.wsh`: Base-year passenger and light share of the road use of the fuel (Transport1 fuel shares; diesel without buses)** (share)
 
-- Description: gasoline: 1 - cycle share; diesel: 1 - freight / (1 - bus) (v9.0 PIGAP)
+- Description: gasoline: 1 - cycle share; diesel: 1 - freight / (1 - bus) (v0.9.0 PIGAP)
 - Legacy: legacy rows 2017-2031; 15723-15730 (weights)
 - Rows: gso,rod
   - 2022-2041: `pig.wsh(t) = 1-<Transport1 share 1>`
@@ -314,7 +314,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E41. `pig.mu0`: Base-year driving share of the response of the fuel** (share)
 
-- Description: (D + w x E) / (F + w x G), w = pig.wsh (gasoline: eps_U / (eps_U + eps_F)) (v9.0 PIGAP, R1.8)
+- Description: (D + w x E) / (F + w x G), w = pig.wsh (gasoline: eps_U / (eps_U + eps_F)) (v0.9.0 PIGAP, R1.8)
 - Legacy: legacy rows 15721-15730
 - Rows: gso,rod
   - 2022-2041: `pig.mu0(t) = IF(<eps_U diesel (gasoline: eps_U)>+<eps_U gasoline - diesel (gasoline: eps_F)>=0,0,<eps_U diesel (gasoline: eps_U)>/(<eps_U diesel (gasoline: eps_U)>+<eps_U gasoline - diesel (gasoline: eps_F)>))`
@@ -325,7 +325,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E42. `pig.rsh0`: Base-year road share of the fuel (subsector use)** (share)
 
-- Description: base-year road use / base-year use of all subsectors (Inputs; power use not counted) (v9.0 PIGAP)
+- Description: base-year road use / base-year use of all subsectors (Inputs; power use not counted) (v0.9.0 PIGAP)
 - Legacy: legacy rows 15768-15786
 - Rows: gso,rod, die,rod
   - 2022-2041: `pig.rsh0(t) = IF(<use of all subsectors (ktoe)>=0,0,<road use (ktoe)>/<use of all subsectors (ktoe)>)`
@@ -333,56 +333,56 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E43. `pig.kpl`: Base-year driving-weighted km per litre of all use** (km/l)
 
-- Description: pig.fe0 x pig.mu0 x pig.rsh0 (v9.0 PIGAP)
+- Description: pig.fe0 x pig.mu0 x pig.rsh0 (v0.9.0 PIGAP)
 - Legacy: legacy Transport rows 186-237 (factors)
 - Rows: gso,rod, die,rod
   - 2022-2041: `pig.kpl(t) = pig.fe0[f,all](t)*pig.mu0[f,s](t)*pig.rsh0[f,s](t)`
 
 **E44. `pig.trg.acc`: Growth of the accident cost per vehicle-km relative to the base year** (ratio)
 
-- Description: a(year) / a(BaseYr) (FromTransportCB) (v9.0 PIGAP)
+- Description: a(year) / a(BaseYr) (FromTransportCB) (v0.9.0 PIGAP)
 - Legacy: legacy Transport row 185
   - 2022-2041: `pig.trg.acc(t) = IF(<base-year value (USD/km)>=0,0,INDEX(TcbVal,<row>,MATCH(year,TcbYear,0))/<base-year value (USD/km)>)`
   - Parameters: `<data key>` = `data`; `<row>` = `IFERROR(MATCH(CtryCode&<data key>,TcbKey,0),0)`; `<base-year value (USD/km)>` = `IF(<row>=0,0,INDEX(TcbVal,<row>,MATCH(BaseYr,TcbYear,0)))`
 
 **E45. `pig.trg.con`: Growth of the congestion cost per vehicle-km relative to the base year** (ratio)
 
-- Description: k(year) / k(BaseYr) (FromTransportCB) (v9.0 PIGAP)
+- Description: k(year) / k(BaseYr) (FromTransportCB) (v0.9.0 PIGAP)
 - Legacy: legacy Transport row 220
   - 2022-2041: `pig.trg.con(t) = IF(<base-year value (USD/km)>=0,0,INDEX(TcbVal,<row>,MATCH(year,TcbYear,0))/<base-year value (USD/km)>)`
   - Parameters: `<data key>` = `data`; `<row>` = `IFERROR(MATCH(CtryCode&<data key>,TcbKey,0),0)`; `<base-year value (USD/km)>` = `IF(<row>=0,0,INDEX(TcbVal,<row>,MATCH(BaseYr,TcbYear,0)))`
 
 **E46. `pig.trg.rdm`: Growth of the road damage cost per freight vehicle-km relative to the base year (constant)** (ratio)
 
-- Description: r(year) / r(BaseYr) (FromTransportCB) (v9.0 PIGAP)
+- Description: r(year) / r(BaseYr) (FromTransportCB) (v0.9.0 PIGAP)
 - Legacy: legacy Transport row 232
   - 2022-2041: `pig.trg.rdm(t) = IF(<base-year value (USD/km)>=0,0,INDEX(TcbVal,<row>,MATCH(year,TcbYear,0))/<base-year value (USD/km)>)`
   - Parameters: `<data key>` = `data`; `<row>` = `IFERROR(MATCH(CtryCode&<data key>,TcbKey,0),0)`; `<base-year value (USD/km)>` = `IF(<row>=0,0,INDEX(TcbVal,<row>,MATCH(BaseYr,TcbYear,0)))`
 
 **E47. `pig.trb.acc`: Base-year accident cost per litre** (USD/l)
 
-- Description: a(BaseYr) x pig.kpl (v9.0 PIGAP)
+- Description: a(BaseYr) x pig.kpl (v0.9.0 PIGAP)
 - Legacy: legacy Transport rows 322, 324 (base year)
 - Rows: gso,rod, die,rod
   - 2022-2041: `pig.trb.acc(t) = <base-year value (USD/km) of pig.trg.acc>*pig.kpl[f,s](t)`
 
 **E48. `pig.trb.con`: Base-year congestion cost per litre** (USD/l)
 
-- Description: k(BaseYr) x pig.kpl (v9.0 PIGAP)
+- Description: k(BaseYr) x pig.kpl (v0.9.0 PIGAP)
 - Legacy: legacy Transport rows 333, 335 (base year)
 - Rows: gso,rod, die,rod
   - 2022-2041: `pig.trb.con(t) = <base-year value (USD/km) of pig.trg.con>*pig.kpl[f,s](t)`
 
 **E49. `pig.trb.rdm`: Base-year road damage cost per litre** (USD/l)
 
-- Description: r(BaseYr) x pig.kpl x (1 - pig.wsh) (v9.0 PIGAP)
+- Description: r(BaseYr) x pig.kpl x (1 - pig.wsh) (v0.9.0 PIGAP)
 - Legacy: legacy Transport row 344 (base year)
 - Rows: die,rod
   - 2022-2041: `pig.trb.rdm(t) = <base-year value (USD/km) of pig.trg.rdm>*pig.kpl[f,s](t)*(1-pig.wsh[f,s](t))`
 
 **E50. `pig.ap`: Pigouvian tax component: air-pollution cost per price unit (marginal damages)** (USD per price unit)
 
-- Description: airpol.mc of the subsectors of the fuel and sector group weighted by base-year fuel use x GJ per price unit (other oil products: power cost x GJ per barrel, L194 fixed); residential coal x [base-year coal > ApCoalResMin x buildings use]; electricity, biomass 0 (R3.4, issue I119; v9.0 PIGAP: marginal, I104 fixed)
+- Description: airpol.mc of the subsectors of the fuel and sector group weighted by base-year fuel use x GJ per price unit (other oil products: power cost x GJ per barrel, L194 fixed); residential coal x [base-year coal > ApCoalResMin x buildings use]; electricity, biomass 0 (R3.4, issue I119; v0.9.0 PIGAP: marginal, I104 fixed)
 - Legacy: legacy rows 113-123
 - Rows: coa,pow, nga,pow
   - 2022-2041: `pig.ap(t) = airpol.mc[f,s](t)*<GJ per price unit>`
@@ -416,7 +416,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E52. `pig.tr`: Pigouvian tax component: road transport externalities per litre (base-year value x growth)** (USD per price unit)
 
-- Description: pig.trb.acc x pig.trg.acc + pig.trb.con x pig.trg.con (+ pig.trb.rdm x pig.trg.rdm for diesel); 0 for other fuels (R3.5, issue I118; v9.0 PIGAP: proxy of scenario 1, issue I151)
+- Description: pig.trb.acc x pig.trg.acc + pig.trb.con x pig.trg.con (+ pig.trb.rdm x pig.trg.rdm for diesel); 0 for other fuels (R3.5, issue I118; v0.9.0 PIGAP: proxy of scenario 1, issue I151)
 - Legacy: legacy rows 128-133 (Transport I322-I344)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, ecy,res, ecy,ind, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `pig.tr(t) = 0`
@@ -574,14 +574,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E73. `etsb.s`: ETS benchmark at the start year (share of emission intensity allocated free)** (share)
 
 - Description: 1 - ETSAuctStart (FREESHARE)
-- Legacy: legacy rows 1806, 1863-1864 (MTInputs row 90; v4.15)
+- Legacy: legacy rows 1806, 1863-1864 (MTInputs row 90; v0.4.15)
 - Rows: all,pow, all,tra, all,res, all,ind
   - 2022-2041: `etsb.s(t) = 1-ETSAuctStart(t)`
 
 **E74. `etsb.t`: ETS benchmark at the target year (share of emission intensity allocated free)** (share)
 
 - Description: 1 - ETSAuctTarget (FREESHARE)
-- Legacy: legacy rows 1807, 1863-1864 (MTInputs row 91; v4.15)
+- Legacy: legacy rows 1807, 1863-1864 (MTInputs row 91; v0.4.15)
 - Rows: all,pow, all,tra, all,res, all,ind
   - 2022-2041: `etsb.t(t) = 1-ETSAuctTarget(t)`
 
@@ -612,7 +612,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E78. `ch4bs`: Methane activity of scenario 1 (downstream gas, biomass use; data)** (ktoe)
 
 - Description: Values of scenario 1 ch4.act (sheet BaselineCO2)
-- Legacy: new (v6.2, I47)
+- Legacy: new (v0.6.2, I47)
 - Rows: all,dg, all,bm
   - 2022-2041: `ch4bs(t) = INDEX(BaseCO2Val,MATCH(CtryCode&"|"&s,BaseCO2Key,0),MATCH(year,BaseCO2Year,0))`
 
@@ -724,7 +724,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E95. `fb`: Feebates: rate path** (USD/tCO2)
 
-- Description: Linear to the target year, flat after (v9.0, as legacy)
+- Description: Linear to the target year, flat after (v0.9.0, as legacy)
 - Legacy: legacy rows 2000-2004 (L174 fixed)
 - Changes against legacy: LD10, LD12 (section B)
 - Rows: all,pow, all,tra, all,res, all,ind
@@ -783,37 +783,37 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E103. `scn`: Row of the main scenario in the legacy scenario table (Mapping; 0 = not found: explicit pricing)** (row)
 
 - Description: SCNROW(ScenarioSelected)
-- Legacy: legacy Mitigation rows 222-262 (v4.16, LD9)
+- Legacy: legacy Mitigation rows 222-262 (v0.4.16, LD9)
   - 2022-2041: `scn(t) = IFERROR(MATCH(ScenarioSelected(t),ScnName,0),0)`
 
 **E104. `cp.exp`: Explicit carbon pricing of the main scenario (1) or shadow pricing (0)** (0/1)
 
 - Description: EXPLICIT(scn)
-- Legacy: legacy row 259 "Explicit pricing variant?" (v4.16)
+- Legacy: legacy row 259 "Explicit pricing variant?" (v0.4.16)
   - 2022-2041: `cp.exp(t) = IF(scn(t)=0,1,--(INDEX(ScnExpl,scn(t))="Yes"))`
 
 **E105. `cpx`: Explicit carbon price (the carbon tax rates ctr)** (USD/tCO2 real)
 
 - Description: cptraj x cp.exp
-- Legacy: legacy row 2306 (v4.16)
+- Legacy: legacy row 2306 (v0.4.16)
   - 2022-2041: `cpx(t) = cptraj(t)*cp.exp(t)`
 
 **E106. `cp.shd`: Shadow carbon price (regulations, feebate scenarios)** (USD/tCO2 real)
 
 - Description: cptraj - cpx
-- Legacy: legacy row 2375 "General carbon price" (v4.16)
+- Legacy: legacy row 2375 "General carbon price" (v0.4.16)
   - 2022-2041: `cp.shd(t) = cptraj(t)-cpx(t)`
 
 **E107. `regadj`: Efficiency adjustment of the scenario's regulation (MTInputs rows 247-251)** (share)
 
 - Description: REGADJ(scn, rows 247-251)
-- Legacy: legacy Mitigation F86:F90 (read, never used in legacy: bug L87; v4.16)
+- Legacy: legacy Mitigation F86:F90 (read, never used in legacy: bug L87; v0.4.16)
   - 2022-2041: `regadj(t) = IF(scn(t)=0,0,IF(INDEX(ScnAdj,scn(t))=0,0,INDEX(block@SPPEffAdjEnergyEfficiencyRegulations{SPPEffAdjEnergyEfficiencyRegulations, SPPEffAdjVehicleFuelEconomy, SPPEffAdjRes, SPPEffAdjInd, ... 5 variables}(t),INDEX(ScnAdj,scn(t)))))`
 
 **E108. `regc`: Sector covered by the scenario's regulation** (0/1)
 
 - Description: REGCOVER(scn, sector)
-- Legacy: legacy rows 240-257 of the scenario table (v4.16)
+- Legacy: legacy rows 240-257 of the scenario table (v0.4.16)
 - Rows: all,pow, all,rod, all,ral, all,avi, all,nav, all,res, all,foo, all,srv, all,mch, all,irn, all,nfm, all,mac, ... (17 rows)
   - 2022-2041: `regc(t) = IF(scn(t)=0,0,--(INDEX(ScnCov,scn(t),<column of the sector in the scenario table>)="Yes"))`
   - Parameters: `<column of the sector in the scenario table>` = `MATCH(s,CovKey,0)`
@@ -821,21 +821,21 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E109. `reg`: Regulation shadow price on the efficiency margin** (USD/tCO2)
 
 - Description: cp.shd x regadj x regc
-- Legacy: legacy rows 2369-2388 (shp by fuel = shadow carbon price x EF), share C2371 = 0 in legacy (bug L87; v4.16)
+- Legacy: legacy rows 2369-2388 (shp by fuel = shadow carbon price x EF), share C2371 = 0 in legacy (bug L87; v0.4.16)
 - Changes against legacy: LD9 (section B)
 - Rows: all,pow, all,rod, all,ral, all,avi, all,nav, all,res, all,foo, all,srv, all,mch, all,irn, all,nfm, all,mac, ... (17 rows)
   - 2022-2041: `reg(t) = cp.shd(t)*regadj(t)*regc[f,s](t)`
 
 **E110. `ssc`: Share of the feebate shadow price impacting efficiency** (share)
 
-- Description: Feebate coverage x SPPEffAdjFeebates (MTInputs row 251; v4.16, was the constant 1.0)
+- Description: Feebate coverage x SPPEffAdjFeebates (MTInputs row 251; v0.4.16, was the constant 1.0)
 - Legacy: legacy Mitigation rows 2403-2419: egy.mit.ssc.rod.1
 - Rows: all,pow, all,rod, all,ral, all,avi, all,nav, all,res, all,foo, all,srv, all,mch, all,irn, all,nfm, all,mac, ... (17 rows)
   - 2022-2041: `ssc(t) = IF(fbcov[f,s](t),1,0)*SPPEffAdjFeebates(t)`
 
 **E111. `ctr`: New carbon tax rate by sector (not where the new ETS covers the sector)** (USD/tCO2)
 
-- Description: carbon price x sector coverage x (1 - ETS coverage); complementary to an existing ETS: sector coverage = 1 - national ETS sector coverage of the year (v4.12)
+- Description: carbon price x sector coverage x (1 - ETS coverage); complementary to an existing ETS: sector coverage = 1 - national ETS sector coverage of the year (v0.4.12)
 - Legacy: legacy Mitigation row 2510 (before EF and fuel coverage); rows 2270-2288
 - Rows: all,pow, all,rod, all,ral, all,avi, all,nav, all,res, all,foo, all,srv, all,mch, all,irn, all,nfm, all,mac, ... (17 rows)
   - 2022-2041: `ctr(t) = cpx(t)*IF(LEFT(CTaxComplimentaryToETS(t),3)="Yes",1-INDEX(ECPVal,<existing ETS coverage (ECP)>,xct.c(t)),ctcov[f,s](t))*(1-etsc[f,s](t))`
@@ -899,13 +899,13 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E120. `xct.p`: Existing carbon tax: factor on the data rates** (factor)
 
-- Description: ExistingCTApply x (1 + ExistingCTGrowth)^(years after the last data year); v4.12: rates by fuel and coverage by year in Inputs_ecp
+- Description: ExistingCTApply x (1 + ExistingCTGrowth)^(years after the last data year); v0.4.12: rates by fuel and coverage by year in Inputs_ecp
 - Legacy: legacy rows 1727-1736 (growth after the data), MTInputs 213-214
   - 2022-2041: `xct.p(t) = IF(LEFT(ExistingCTApply(t),3)="Yes",(1+ExistingCTGrowth(t))^MAX(0,year-ECPLast),0)`
 
 **E121. `xets.p`: Existing ETS: factor on the data prices (national and EU ETS)** (factor)
 
-- Description: ExistingETSApply x (1 + ExistingETSGrowth)^(years after the last data year); v4.12: national and EU ETS in Inputs_ecp
+- Description: ExistingETSApply x (1 + ExistingETSGrowth)^(years after the last data year); v0.4.12: national and EU ETS in Inputs_ecp
 - Legacy: legacy rows 1680, 1695 (legacy grows the EU ETS with ExistingCTGrowth: bug L61), MTInputs 208-209
   - 2022-2041: `xets.p(t) = IF(LEFT(ExistingETSApply(t),3)="Yes",(1+ExistingETSGrowth(t))^MAX(0,year-ECPLast),0)`
 
@@ -1038,7 +1038,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E140. `po.on`: Phase-out applies (scenario 1: the baseline switch; others: the policy switch)** (0/1)
 
 - Description: PHASEON / PCON
-- Legacy: legacy rows 264-274, I2188-I2201 (v4.16, LD18, LD19)
+- Legacy: legacy rows 264-274, I2188-I2201 (v0.4.16, LD18, LD19)
 - Rows: all,ps
   - 2022-2041: `po.on(t) = IF(scenario(t)=1,OR(ProdSubPhaBaseline(t)=TRUE,LEFT(ProdSubPhaBaseline(t),3)="Yes"),OR(ProdSubPh(t)=TRUE,LEFT(ProdSubPh(t),3)="Yes"))*1`
 - Rows: all,cs
@@ -1077,10 +1077,10 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,pc
   - 2022-2041: `pof(t) = MAX(1-po.sh[f,s](t),IF(po.on[f,s](t)*(year>YearPrcContPha(t)),1-po.sh[f,s](t)*(year-YearPrcContPha(t))/MAX(po.n[f,s](t),1),1))`
 
-**E144. `csi`: Consumer subsidy phase-out applies to the price block (MTInputs ConsSubPhaseScope_*, per scenario; v5.6)** (switch)
+**E144. `csi`: Consumer subsidy phase-out applies to the price block (MTInputs ConsSubPhaseScope_*, per scenario; v0.5.6)** (switch)
 
 - Description: Constant (prototype: by price fuel | sector)
-- Legacy: new (v4.16)
+- Legacy: new (v0.4.16)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `csi(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -1088,14 +1088,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E145. `csf`: Consumer subsidy factor of the price block** (share)
 
 - Description: INCLFACTOR(csi, pof.cs)
-- Legacy: legacy row 2214 (v4.16)
+- Legacy: legacy row 2214 (v0.4.16)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `csf(t) = 1-csi[f,s](t)*(1-pof[all,cs](t))`
 
-**E146. `pci`: Price-control phase-out applies to the price block (MTInputs PriceCtrlPhaseScope_*, per scenario; v5.6)** (switch)
+**E146. `pci`: Price-control phase-out applies to the price block (MTInputs PriceCtrlPhaseScope_*, per scenario; v0.5.6)** (switch)
 
 - Description: Constant (prototype: by price fuel | sector)
-- Legacy: new (v4.16)
+- Legacy: new (v0.4.16)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `pci(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -1103,14 +1103,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E147. `pcf`: Price-control factor of the price block** (share)
 
 - Description: INCLFACTOR(pci, pof.pc)
-- Legacy: legacy rows 2216-2217 (v4.16)
+- Legacy: legacy rows 2216-2217 (v0.4.16)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `pcf(t) = 1-pci[f,s](t)*(1-pof[all,pc](t))`
 
-**E148. `psi`: Producer subsidy phase-out applies to the fuel (MTInputs ProdSubPhaseScope_*, per scenario; v5.6)** (switch)
+**E148. `psi`: Producer subsidy phase-out applies to the fuel (MTInputs ProdSubPhaseScope_*, per scenario; v0.5.6)** (switch)
 
 - Description: Constant
-- Legacy: new (v4.16)
+- Legacy: new (v0.4.16)
 - Rows: coa,all, nga,all, oil,all, bio,all, ecy,all
   - 2022-2041: `psi(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -1118,14 +1118,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E149. `psf`: Producer subsidy factor of the fuel** (share)
 
 - Description: INCLFACTOR(psi, pof.ps)
-- Legacy: legacy row 2213 (v4.16)
+- Legacy: legacy row 2213 (v0.4.16)
 - Rows: coa,all, nga,all, oil,all, bio,all, ecy,all
   - 2022-2041: `psf(t) = 1-psi[f,s](t)*(1-pof[all,ps](t))`
 
 **E150. `pros`: Producer subsidy of the fuel before the phase-out** (USD m real)
 
 - Description: PRODSUB: Prices_dom mit.pros (USD bn nominal) x CPI factor up to the last price year, then held
-- Legacy: legacy rows 825-829 (v4.16)
+- Legacy: legacy rows 825-829 (v0.4.16)
 - Rows: coa,all, nga,all, oil,all, bio,all, ecy,all
   - 2022-2041: `pros(t) = IF(year<=LastHist,IFERROR(INDEX(MPU,MATCH(year,MPUYr,0),<Prices_dom column>)+0,0)*infl(t)*MperBn,pros[f,s](t-1))`
   - Parameters: `<Prices_dom column>` = `MATCH("mit.pros."&f&".all",MPUHdr,0)`
@@ -1133,7 +1133,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E151. `psd`: Demand spreading the producer subsidy (oil: liters; coal, gas, biomass: GJ)** (liters | GJ)
 
 - Description: oil: world demand x liters per ktoe; coal, gas: average of world demand and domestic consumption x GJ per ktoe; biomass: domestic consumption x GJ per ktoe
-- Legacy: legacy rows 717-719, 584-597, 825-829 (v6.1, I49)
+- Legacy: legacy rows 717-719, 584-597, 825-829 (v0.6.1, I49)
 - Rows: oil,all
   - 2022-2041: `psd(t) = ch4.wd[f,s](t)*Thousand*LitersPerKtoeOil`
 - Rows: coa,all
@@ -1145,8 +1145,8 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E152. `psu`: Producer subsidy per unit of the fuel after the phase-out (negative; $/liter oil, $/GJ coal, gas, biomass)** (per unit real)
 
-- Description: PRODSUBUNIT: -pros / demand (oil: world; coal, gas: half world, half domestic; biomass: domestic) up to the last price year, then the last value x psf (v9.0, R7.1: the phase-out in the supply cost, as legacy)
-- Legacy: legacy rows 825-829, 2213 (v6.1, I49)
+- Description: PRODSUBUNIT: -pros / demand (oil: world; coal, gas: half world, half domestic; biomass: domestic) up to the last price year, then the last value x psf (v0.9.0, R7.1: the phase-out in the supply cost, as legacy)
+- Legacy: legacy rows 825-829, 2213 (v0.6.1, I49)
 - Rows: oil,all, coa,all, nga,all, bio,all
   - 2022-2041: `psu(t) = IF(year<=LastHist,IFERROR(-pros[f,s](t)*USDperM/psd[f,s](t),0),INDEX(psu[f,s](..t-1),lastHistCol(t))*psf[f,s](t))`
 
@@ -1178,7 +1178,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `AlwaysExemptResLPGKer(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E157. `exf`: Exemption factor of the new policies (1 = taxed, 0 = exempt; v5.1)** (factor)
+**E157. `exf`: Exemption factor of the new policies (1 = taxed, 0 = exempt; v0.5.1)** (factor)
 
 - Description: exf.all: 1 (sheet Constants); exf.res: 0 if AlwaysExemptResLPGKer = Yes (EXEMPTFACTOR; LEFT(switch, 3), so a starred Yes* counts)
 - Legacy: legacy rows 5546-5547: IF(AlwaysExemptResLPGKer="Yes",0,new policy x coverage)
@@ -1230,7 +1230,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E164. `mfee`: Methane fee used** (USD/tCO2e real)
 
-- Description: mfee.p in policy scenarios (scenario number > 1; v4.12) + carbon price if CTforMethane = Yes
+- Description: mfee.p in policy scenarios (scenario number > 1; v0.4.12) + carbon price if CTforMethane = Yes
 - Legacy: legacy Mitigation rows 2238-2240
 - Changes against legacy: LD46 (section B)
   - 2022-2041: `mfee(t) = mfee.p(t)*(scenario(t)>1)+IF(LEFT(CTforMethane(t),3)="Yes",cptraj(t),0)`
@@ -1809,8 +1809,8 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E246. `ps`: Producer subsidy of the block after the phase-out (negative; in the supply cost, before taxes)** (USD/GJ real)
 
-- Description: psu of the fuel (G position) x liters per barrel for other oil products / GJ per price unit (v9.0, R7.1: psu carries the phase-out factor psf, as legacy O2455 = $J2456 x O2213)
-- Legacy: legacy rows 2455-2708 "in which: producer-side subsidies" (v6.1, I49; L124, L125 fixed)
+- Description: psu of the fuel (G position) x liters per barrel for other oil products / GJ per price unit (v0.9.0, R7.1: psu carries the phase-out factor psf, as legacy O2455 = $J2456 x O2213)
+- Legacy: legacy rows 2455-2708 "in which: producer-side subsidies" (v0.6.1, I49; L124, L125 fixed)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `ps(t) = INDEX(psu[4 rows](t),<international price position (gp row) of pset[f,s]>)*IF(f="oop",LitersPerBbl,1)/<GJ per price unit of pset[f,s]>`
 
@@ -1825,7 +1825,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E248. `txf`: Excise and other taxes before the floor (pass-through rule)** (USD/GJ real)
 
-- Description: txo_L + (sp_L - sp) x (1 - pcc) (v4.10: L14 fixed); year by year: last year - change in sp x (1 - pcc)
+- Description: txo_L + (sp_L - sp) x (1 - pcc) (v0.4.10: L14 fixed); year by year: last year - change in sp x (1 - pcc)
 - Legacy: legacy fadtx + cs; coded prices.py
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2024: `txf(t) = txo[f,s](t)`
@@ -1843,7 +1843,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E250. `fadtx`: Fixed part of the existing taxes / subsidy (txo): pass-through x txo of the last historical year** (USD/GJ real)
 
 - Description: history: pcc x txo; projection: pcc x txo of the last historical year
-- Legacy: legacy rows 2597-2598 of each block (v4.16)
+- Legacy: legacy rows 2597-2598 of each block (v0.4.16)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2024: `fadtx(t) = <pass-through of pset[f,s]>*txo[f,s](t)`
   - 2025-2041: `fadtx(t) = <pass-through of pset[f,s]>*INDEX(txo[f,s](..t-1),lastHistCol(t))`
@@ -1851,7 +1851,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E251. `cs`: Floating part of txo (moves with the supply cost; price controls)** (USD/GJ real)
 
 - Description: txo - txfx
-- Legacy: legacy row 2599 of each block (v4.16)
+- Legacy: legacy row 2599 of each block (v0.4.16)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `cs(t) = txo[f,s](t)-fadtx[f,s](t)`
 
@@ -1889,7 +1889,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E256. `pnq`: Fuel use of the subsectors priced by the block (weights of the new-policy rows)** (ktoe)
 
 - Description: SUMIFS of the ener rows aligned with the atp rows whose D = block position
-- Legacy: new (v4.1)
+- Legacy: new (v0.4.1)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `pnq(t) = SUMIFS(block@ener{ener, co2, ch4, rtx, ... 599 variables}(t),PVar,"atp",PPar,<price position>)`
   - Parameters: `<price position>` = `INDEX(Inputs!E158:E169,MATCH(f&"."&s,Inputs!A158:A169,0))`
@@ -1897,63 +1897,63 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E257. `pctx`: New carbon tax, weighted by subsector fuel use** (USD/GJ real)
 
 - Description: SUMPRODUCT(ctxnew, ener) / pnq
-- Legacy: new (v4.1)
+- Legacy: new (v0.4.1)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `pctx(t) = IF(pnq[f,s](t)=0,0,SUMPRODUCT(--(PVar&PPar="atp"&<price position of pnq[f,s]>),block@ctxnew{ctxnew, ets, ntx, nce, ... 599 variables}(t),block@ener{ener, co2, ch4, rtx, ... 599 variables}(t))/pnq[f,s](t))`
 
 **E258. `etsnew`: New ETS cost in the price, weighted by subsector fuel use** (USD/GJ real)
 
 - Description: SUMPRODUCT(ets, ener) / pnq
-- Legacy: new (v4.1)
+- Legacy: new (v0.4.1)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `etsnew(t) = IF(pnq[f,s](t)=0,0,SUMPRODUCT(--(PVar&PPar="atp"&<price position of pnq[f,s]>),block@ets{ets, ntx, nce, xcp, ... 599 variables}(t),block@ener{ener, co2, ch4, rtx, ... 599 variables}(t))/pnq[f,s](t))`
 
 **E259. `pntx`: New excise tax (fuel price reform), weighted by subsector fuel use** (USD/GJ real)
 
 - Description: SUMPRODUCT(ntx, ener) / pnq
-- Legacy: new (v4.1)
+- Legacy: new (v0.4.1)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `pntx(t) = IF(pnq[f,s](t)=0,0,SUMPRODUCT(--(PVar&PPar="atp"&<price position of pnq[f,s]>),block@ntx{ntx, nce, xcp, xcpd, ... 599 variables}(t),block@ener{ener, co2, ch4, rtx, ... 599 variables}(t))/pnq[f,s](t))`
 
 **E260. `pxcd`: Change in existing carbon pricing, weighted by subsector fuel use** (USD/GJ real)
 
 - Description: SUMPRODUCT(xcpd, ener) / pnq
-- Legacy: new (v4.1)
+- Legacy: new (v0.4.1)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `pxcd(t) = IF(pnq[f,s](t)=0,0,SUMPRODUCT(--(PVar&PPar="atp"&<price position of pnq[f,s]>),block@xcpd{xcpd, csw, pcw, atp, ... 599 variables}(t),block@ener{ener, co2, ch4, rtx, ... 599 variables}(t))/pnq[f,s](t))`
 
 **E261. `pcsw`: Consumer subsidy reform wedge of the block (before VAT)** (USD/GJ real)
 
 - Description: SUBREFORM: -(1 - csf) x MIN(txfx, 0)
-- Legacy: legacy row 2598 (fixed subsidy x factor; v4.16, LD18)
+- Legacy: legacy row 2598 (fixed subsidy x factor; v0.4.16, LD18)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `pcsw(t) = -(1-INDEX(csf[12 rows](t),MATCH(f&"."&s,IPKey,0)))*MIN(fadtx[f,s](t),0)`
 
 **E262. `ppcw`: Price-control phase-out wedge of the block (before VAT)** (USD/GJ real)
 
 - Description: PCREFORM: -(1 - pcf) x txfl
-- Legacy: legacy row 2599 (floating part x factor; v4.16, LD18)
+- Legacy: legacy row 2599 (floating part x factor; v0.4.16, LD18)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `ppcw(t) = -(1-INDEX(pcf[12 rows](t),MATCH(f&"."&s,IPKey,0)))*cs[f,s](t)`
 
 **E263. `pvatn`: VAT on the new taxes and subsidies (and the price floor)** (USD/GJ real)
 
 - Description: pnce - (pctx + pets + pntx + pxcd)
-- Legacy: new (v4.1)
+- Legacy: new (v0.4.1)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `pvatn(t) = pnce[f,s](t)-SUM(block@pctx{pctx, etsnew, pntx, pxcd, ... 6 variables}(t))`
 
 **E264. `pnce`: Total new policy: new taxes and subsidies incl. VAT, weighted by subsector fuel use** (USD/GJ real)
 
 - Description: rpn - rpb
-- Legacy: new (v4.1)
+- Legacy: new (v0.4.1)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `pnce(t) = rpn[f,s](t)-pbc[f,s](t)`
 
 **E265. `rpn`: Retail price incl. new taxes and subsidies (fuel-use weighted average of the after-tax prices atp of the subsectors priced by the block; rpb where they use none)** (USD/GJ real)
 
 - Description: SUMPRODUCT(atp, ener) / pnq over the atp rows with D = block position
-- Legacy: new (v4.1; legacy F5b by price block)
+- Legacy: new (v0.4.1; legacy F5b by price block)
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, gso,all, die,all, lpg,all, ker,all, oop,all, bio,all
   - 2022-2041: `rpn(t) = IF(pnq[f,s](t)=0,pbc[f,s](t),SUMPRODUCT(--(PVar&PPar="atp"&<price position of pnq[f,s]>),block@atp{atp, shp, aef, enel, ... 599 variables}(t),block@ener{ener, co2, ch4, rtx, ... 599 variables}(t))/pnq[f,s](t))`
 - Rows: coa,ind, nga,ind, oop,all, gso,all, die,all, lpg,all, ker,all
@@ -1993,7 +1993,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E269. `pav.spr`: Spending at scenario 1 quantities of the same year** (USD/GJ x ktoe)
 
 - Description: SUMPRODUCT of atp and scenario-1 ener (header row 10)
-- Legacy: new (v3.10)
+- Legacy: new (v0.3.10)
 - Rows: coa,all, nga,all, gso,all, die,all, lpg,all, ker,all, jfu,all, oop,all, bio,all
   - 2022-2041: `pav.spr(t) = SUMPRODUCT(--(SecVar="atp"),--(SecFuel=f),block{ener, eldem, ctxnew, ets, ... 599 variables}(t),INDEX(block@nce{nce, xcp, xcpd, csw, ... 602 variables}(..t),0,row10(t)))`
 - Rows: ecy,all
@@ -2004,14 +2004,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E270. `pav.las`: Price index against scenario 1 (Laspeyres: scenario 1 quantities; scenario 1 = 1)** (index)
 
 - Description: pav.spr / pav.sp of scenario 1
-- Legacy: new (v3.10; I31)
+- Legacy: new (v0.3.10; I31)
 - Rows: coa,all, nga,all, gso,all, die,all, lpg,all, ker,all, jfu,all, oop,all, bio,all, ecy,all, all,all
   - 2022-2041: `pav.las(t) = IF(INDEX(pav.sp[f,s](..t),row10(t))=0,0,pav.spr[f,s](t)/INDEX(pav.sp[f,s](..t),row10(t)))`
 
 **E271. `pav.sp0`: Spending at the base-year quantities** (USD/GJ x ktoe)
 
 - Description: SUMPRODUCT of atp and base-year ener
-- Legacy: new (v3.10)
+- Legacy: new (v0.3.10)
 - Rows: coa,all, nga,all, gso,all, die,all, lpg,all, ker,all, jfu,all, oop,all, bio,all
   - 2022-2041: `pav.sp0(t) = SUMPRODUCT(--(SecVar="atp"),--(SecFuel=f),block{ener, eldem, ctxnew, ets, ... 599 variables}(t),block@nce{nce, xcp, xcpd, csw, ... 602 variables}(2022))`
 - Rows: ecy,all
@@ -2022,21 +2022,21 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E272. `pav.time`: Price index over time (base-year quantities; base year = 1)** (index)
 
 - Description: pav.sp0 / pav.sp of the base year
-- Legacy: new (v3.10; I31)
+- Legacy: new (v0.3.10; I31)
 - Rows: coa,all, nga,all, gso,all, die,all, lpg,all, ker,all, jfu,all, oop,all, bio,all, ecy,all, all,all
   - 2022-2041: `pav.time(t) = IF(pav.sp[f,s](2022)=0,0,pav.sp0[f,s](t)/pav.sp[f,s](2022))`
 
 **E273. `pav.mix`: Mix effect: unit-value ratio against scenario 1 / price index (1 = no composition change)** (index)
 
 - Description: (pav.uv / pav.uv of scenario 1) / pav.las
-- Legacy: new (v3.10; I31: legacy F5c mixes both)
+- Legacy: new (v0.3.10; I31: legacy F5c mixes both)
 - Rows: coa,all, nga,all, gso,all, die,all, lpg,all, ker,all, jfu,all, oop,all, bio,all, ecy,all, all,all
   - 2022-2041: `pav.mix(t) = IF(INDEX(pav.uv[f,s](..t),row10(t))*pav.las[f,s](t)=0,0,pav.uv[f,s](t)/INDEX(pav.uv[f,s](..t),row10(t))/pav.las[f,s](t))`
 
 **E274. `pav.leg`: Average price as legacy F5b (coal, gas: power, residential, industry prices at scenario-1 quantities; electricity: own quantities; oil products: the price of the .all block; others: the unit value)** (USD/GJ real)
 
 - Description: LEGAVG / TOTAL / SHAREOF
-- Legacy: legacy rows 16320-16352 (v4.15, I31)
+- Legacy: legacy rows 16320-16352 (v0.4.15, I31)
 - Rows: coa,all, nga,all
   - 2022-2041: `pav.leg(t) = IF(SUM(block@pavl.qr{pavl.qr, pavl.qi, pavl.qp}(t))=0,pav.uv[f,s](t),(rpn[f,res](t)*pavl.qr[f,s](t)+rpn[f,ind](t)*pavl.qi[f,s](t)+pavl.pp[f,s](t)*pavl.qp[f,s](t))/SUM(block@pavl.qr{pavl.qr, pavl.qi, pavl.qp}(t)))`
 - Rows: gso,all, die,all, lpg,all, ker,all, oop,all
@@ -2047,7 +2047,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E275. `pav.lidx`: Legacy average price against scenario 1 (scenario 1 = 1; fuels without a legacy average: pav.las)** (index)
 
 - Description: pav.leg / pav.leg of scenario 1
-- Legacy: legacy rows 16379-16396 (100 x index; v4.15)
+- Legacy: legacy rows 16379-16396 (100 x index; v0.4.15)
 - Rows: coa,all, nga,all, gso,all, die,all, lpg,all, ker,all, oop,all, ecy,all
   - 2022-2041: `pav.lidx(t) = IF(INDEX(pav.leg[f,s](..t),row10(t))=0,0,pav.leg[f,s](t)/INDEX(pav.leg[f,s](..t),row10(t)))`
 - Rows: jfu,all, bio,all, all,all
@@ -2056,42 +2056,42 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E276. `pav.idx`: Price index reported (Settings C54: Legacy* = pav.lidx, Laspeyres = pav.las)** (index)
 
 - Description: PICKINDEX
-- Legacy: new (v4.15, I31)
+- Legacy: new (v0.4.15, I31)
 - Rows: coa,all, nga,all, gso,all, die,all, lpg,all, ker,all, jfu,all, oop,all, bio,all, ecy,all, all,all
   - 2022-2041: `pav.idx(t) = IF(LEFT(PavMethod,3)="Leg",pav.lidx[f,s](t),pav.las[f,s](t))`
 
 **E277. `pavl.qr`: Legacy average weights: residential fuel use of scenario 1 (same year)** (ktoe)
 
 - Description: SUBQTY
-- Legacy: legacy rows 16296-16309 (v4.15)
+- Legacy: legacy rows 16296-16309 (v0.4.15)
 - Rows: coa,all, nga,all
   - 2022-2041: `pavl.qr(t) = SUMIFS(INDEX(block@ener{ener, eldem, ctxnew, ets, ... 23 variables}(..t),0,row10(t)),block@ener{ener, eldem, ctxnew, ets, ... 23 variables}(A),"ener",block@ener{ener, eldem, ctxnew, ets, ... 23 variables}(B),f)`
 
 **E278. `pavl.qi`: Legacy average weights: fuel use of the 8 industry subsectors, scenario 1 (same year)** (ktoe)
 
 - Description: SUBQTY
-- Legacy: legacy rows 16296-16309 (v4.15)
+- Legacy: legacy rows 16296-16309 (v0.4.15)
 - Rows: coa,all, nga,all
   - 2022-2041: `pavl.qi(t) = SUMIFS(INDEX(block@ener{ener, eldem, ctxnew, ets, ... 23 variables}(..t),0,row10(t)),block@ener{ener, eldem, ctxnew, ets, ... 23 variables}(A),"ener",block@ener{ener, eldem, ctxnew, ets, ... 23 variables}(B),f)`
 
 **E279. `pavl.qp`: Legacy average weights: power generation fuel use of scenario 1 (same year)** (ktoe)
 
 - Description: SUMOF
-- Legacy: legacy rows 16296-16309 (v4.15)
+- Legacy: legacy rows 16296-16309 (v0.4.15)
 - Rows: coa,all, nga,all
   - 2022-2041: `pavl.qp(t) = SUMIFS(INDEX(pe[9 rows](..t),0,row10(t)),pe[9 rows](B),f)`
 
 **E280. `pavl.pp`: Power fuel price incl. new policies (pre-policy price + policy cost per GJ of the type)** (USD/GJ real)
 
 - Description: PWFUELPRICE
-- Legacy: legacy rows 16285-16286 (v4.15)
+- Legacy: legacy rows 16285-16286 (v0.4.15)
 - Rows: coa,all, nga,all
   - 2022-2041: `pavl.pp(t) = pbc[f,pow](t)+IF(pe[f,pow](t)=0,0,gen_mwy[f,pow](t)*MWyMkWh*xac[f,pow](t)/(pe[f,pow](t)*Settings[PJ per ktoe]))`
 
 **E281. `rpe`: Average retail energy price, all energy incl. new taxes and subsidies (summary row of section 2)** (USD/GJ real)
 
 - Description: pav.uv of all energy (price memo)
-- Legacy: new (v4.1)
+- Legacy: new (v0.4.1)
 - Rows: all,all
   - 2022-2041: `rpe(t) = pav.uv[f,s](t)`
 
@@ -2241,7 +2241,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E302. `ltu`: Long-term storage: units for 100% VRE allocated to VRE** (factor)
 
 - Description: AllocateLTStorageToVRE x LongTermStorageFor100pcVRE
-- Legacy: legacy rows 3876, 3878 (v5.4: wired, row 3909)
+- Legacy: legacy rows 3876, 3878 (v0.5.4: wired, row 3909)
   - 2022-2041: `ltu(t) = AllocateLTStorageToVRE(t)*LongTermStorageFor100pcVRE(t)`
 
 **E303. `ppa`: PPA share of coal and gas generation (runs at its capacity factor whatever its cost)** (share)
@@ -2335,7 +2335,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E316. `cel`: Long-term storage cost per marginal unit (electrolyser and storage capital, fixed and variable opex)** (USD/kWh)
 
-- Description: (elcx + eltk x StorageHoursForLTStorage) / (dlfr x 8,760) + elof / 8,760 + elov (v5.4: hours and WACC of the scenario)
+- Description: (elcx + eltk x StorageHoursForLTStorage) / (dlfr x 8,760) + elof / 8,760 + elov (v0.5.4: hours and WACC of the scenario)
 - Legacy: legacy rows 3893-3906 (J2)
   - 2022-2041: `cel(t) = (elcx(t)+eltk(t)*StorageHoursForLTStorage(t))/(dlfr(t)*HoursYr)+elof(t)/HoursYr+elov(t)`
 
@@ -2404,33 +2404,33 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E325. `cics`: Coal implicit cost chosen, short term (first year of calculations)** (USD/kWh)
 
-- Description: No = 0; Manual = ManualCoalIntangibleCostST; else GoalSeekCoal B by country (name CoalICSTc) (v5.6)
+- Description: No = 0; Manual = ManualCoalIntangibleCostST; else GoalSeekCoal B by country (name CoalICSTc) (v0.5.6)
 - Legacy: legacy J89:J90
   - 2022-2041: `cics(t) = IF(LEFT(AdditionalCoalIntangibleCost(t),1)="N",0,IF(AdditionalCoalIntangibleCost(t)="Manual",ManualCoalIntangibleCostST(t),CoalICSTc))`
 
 **E326. `cicl`: Coal implicit cost chosen, long term (2030)** (USD/kWh)
 
-- Description: No = 0; Manual = ManualCoalIntangibleCostLT; else GoalSeekCoal C by country (CoalICLTc) (v5.6)
+- Description: No = 0; Manual = ManualCoalIntangibleCostLT; else GoalSeekCoal C by country (CoalICLTc) (v0.5.6)
 - Legacy: legacy K89:K90
   - 2022-2041: `cicl(t) = IF(LEFT(AdditionalCoalIntangibleCost(t),1)="N",0,IF(AdditionalCoalIntangibleCost(t)="Manual",ManualCoalIntangibleCostLT(t),CoalICLTc))`
 
 **E327. `cic`: Coal implicit cost (short to long term by 2030)** (USD/kWh)
 
-- Description: AdditionalCoalIntangibleCost: No = 0; Manual = MTInputs ST/LT; else GoalSeekCoal (B, C) by country; weight MIN(1, (t - base year)/(2030 - base year)). Added to the coal variable cost (dispatch, investment); in generation cost and tariffs if PwCoalICTariff = Yes (v5.6, P5)
+- Description: AdditionalCoalIntangibleCost: No = 0; Manual = MTInputs ST/LT; else GoalSeekCoal (B, C) by country; weight MIN(1, (t - base year)/(2030 - base year)). Added to the coal variable cost (dispatch, investment); in generation cost and tariffs if PwCoalICTariff = Yes (v0.5.6, P5)
 - Legacy: legacy rows 3360-3363 (D3), J89:K90
   - 2022-2041: `cic(t) = cics(t)+(cicl(t)-cics(t))*MIN(1,(year-BaseYr)/(CoalICYr-BaseYr))`
 
 **E328. `fpn`: Fuel price for power before new policies, this year (rpb of the price fuel)** (USD/GJ real)
 
 - Description: BLOCKPRICE: rpb of the price block at the price position
-- Legacy: legacy rows 3155-3163 (A18; v6.2: own row, so the average below reads one row, not the price-block area)
+- Legacy: legacy rows 3155-3163 (A18; v0.6.2: own row, so the average below reads one row, not the price-block area)
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
   - 2022-2041: `fpn(t) = pbc[<price position (section 2)>](t)`
   - Parameters: `<price position (section 2)>` = `INDEX(Inputs!X207:X215,MATCH(f,Inputs!A207:A215,0))`
 
 **E329. `fpp`: Fuel price for power before new policies (trailing 5-year moving average, or spot)** (USD/GJ real)
 
-- Description: spot = 1 (Settings SpotPow or the scenario switch): fpn; else the average of fpn over t-4 .. t within 2022-2041 (v6.2, L126) (errors skipped)
+- Description: spot = 1 (Settings SpotPow or the scenario switch): fpn; else the average of fpn over t-4 .. t within 2022-2041 (v0.6.2, L126) (errors skipped)
 - Legacy: legacy rows 3155-3163 (A18; legacy 465: AVERAGE over t-4 .. t from 2022, L126 fixed)
 - Changes against legacy: LD31 (section B)
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
@@ -2438,7 +2438,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E330. `xck`: Change in existing carbon pricing against the price data, per kWh generated** (USD/kWh)
 
-- Description: tCO2/kWh x (carbon tax x factor + ETS x factor - embedded; Inputs_ecp tables, row pow | fuel; v4.12)
+- Description: tCO2/kWh x (carbon tax x factor + ETS x factor - embedded; Inputs_ecp tables, row pow | fuel; v0.4.12)
 - Legacy: new (legacy: existing pricing is part of txo of power fuels)
 - Changes against legacy: LD38 (section B)
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
@@ -2539,27 +2539,27 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E343. `fce`: Memo: post-tax fuel cost per kWh generated** (USD/kWh)
 
-- Description: fpp x kwh (v5.6)
+- Description: fpp x kwh (v0.5.6)
 - Legacy: legacy F2-F3 rows 3532-3552
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
   - 2022-2041: `fce(t) = fpp[f,s](t)*kwh[f,s](t)`
 
 **E344. `cik`: Memo: carbon intensity of generation** (tCO2/kWh)
 
-- Description: EF x GJ per kWh (v5.6)
+- Description: EF x GJ per kWh (v0.5.6)
 - Legacy: legacy F4 rows 3554-3557
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
   - 2022-2041: `cik(t) = <EF (tCO2/GJ; x kwh) of xac[f,s]>*kwh[f,s](t)`
 
 **E345. `swi`: Memo: switching carbon price, gas over coal, new investment** (USD/tCO2)
 
-- Description: (tic gas - tic coal) / (cik coal - cik gas) (v5.6)
+- Description: (tic gas - tic coal) / (cik coal - cik gas) (v0.5.6)
 - Legacy: legacy F7 row 3571 (F5 = tic)
   - 2022-2041: `swi(t) = IFERROR((tic[nga,pow](t)-tic[coa,pow](t))/(cik[coa,pow](t)-cik[nga,pow](t)),0)`
 
 **E346. `swd`: Memo: switching carbon price, gas over coal, dispatch** (USD/tCO2)
 
-- Description: (tvc gas - tvc coal) / (cik coal - cik gas) (v5.6)
+- Description: (tvc gas - tvc coal) / (cik coal - cik gas) (v0.5.6)
 - Legacy: legacy F7 row 3572 (F6 = tvc)
   - 2022-2041: `swd(t) = IFERROR((tvc[nga,pow](t)-tvc[coa,pow](t))/(cik[coa,pow](t)-cik[nga,pow](t)),0)`
 
@@ -2651,7 +2651,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E358. `rppre`: Electricity price before new policies (incl. VAT)** (USD/kWh real)
 
-- Description: Data up to the last historical year (x CPI index), then rppre(t-1) + pass-through x (change in sc + pseu + csd + ores) x (1 + VAT) (v9.0, R7.9, R9.3)
+- Description: Data up to the last historical year (x CPI index), then rppre(t-1) + pass-through x (change in sc + pseu + csd + ores) x (1 + VAT) (v0.9.0, R7.9, R9.3)
 - Legacy: legacy rows 3613, 3642 (telescoped: held components cancel; pass-through of the scenario)
 - Changes against legacy: LD32, LD33 (section B)
 - Rows: ecy,res, ecy,ind
@@ -2667,7 +2667,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `entxd(t) = IFERROR(INDEX(ManExcVal,MATCH(<Manual inputs code>,ManExcKey,0),MATCH(year,ManExcYr,0))+0,0)`
   - Parameters: `<Manual inputs code>` = `"mit.ntx.ecy."&s`
 
-**E360. `entx`: Manual electricity excise of policy scenarios with AdditionalExcise = Yes, plus the electricity fuel price reform (v5.6, I59)** (USD/kWh real)
+**E360. `entx`: Manual electricity excise of policy scenarios with AdditionalExcise = Yes, plus the electricity fuel price reform (v0.5.6, I59)** (USD/kWh real)
 
 - Description: entxd x (1, or the deflator index if NomorReal is not Real)
 - Legacy: legacy rows 199-217, 3602, 3631
@@ -2684,8 +2684,8 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E362. `rp`: End-user electricity price** (USD/kWh real)
 
-- Description: MAX(rppre + (ccpav x pass-through x (1 - rbs) + pex) x (1 + VAT), MinPostSubsidyPowerPrice) (v5.6: floor, I60)
-- Legacy: legacy rows 3614-3617, 3643-3646 (v5.4: rebate and excise)
+- Description: MAX(rppre + (ccpav x pass-through x (1 - rbs) + pex) x (1 + VAT), MinPostSubsidyPowerPrice) (v0.5.6: floor, I60)
+- Legacy: legacy rows 3614-3617, 3643-3646 (v0.5.4: rebate and excise)
 - Changes against legacy: LD32 (section B)
 - Rows: ecy,res, ecy,ind
   - 2022-2041: `rp(t) = MAX(rppre[f,s](t)+(ccpav(t)*PowerSectorPriceChangePassOn(t)*(1-rbs(t))+pex[f,s](t))*(1+<VAT rate>),MinPostSubsidyPowerPrice(t))`
@@ -2882,7 +2882,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E387. `dem`: Electricity demand** (ktoe)
 
-- Description: demand(t-1) x multiple of the demand group (v3.5: road from section 5b where TrModel = Engineer)
+- Description: demand(t-1) x multiple of the demand group (v0.3.5: road from section 5b where TrModel = Engineer)
 - Legacy: legacy rows 3725-3739 (H3; fixed: services keep the services multiple)
 - Changes against legacy: LD23, LD24, LD25, LD27 (section B)
 - Rows: ecy,rod
@@ -2937,7 +2937,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E394. `gmx`: Maximum generation of coal and gas** (MWy)
 
 - Description: cap x (coal x MaximumCoalCF + gas x MaximumGasCF)
-- Legacy: legacy rows 3783-3786 (v5.4: gas with its own maximum)
+- Legacy: legacy rows 3783-3786 (v0.5.4: gas with its own maximum)
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
   - 2022-2041: `gmx(t) = cap[f,s](t)*(<coal (1/0)>*MaximumCoalCF(t)+<gas (1/0)>*MaximumGasCF(t))`
   - Parameters: `<coal (1/0)>` = `INDEX(Inputs!AO207:AO215,MATCH(f,Inputs!A207:A215,0))`; `<gas (1/0)>` = `INDEX(Inputs!BM207:BM215,MATCH(f,Inputs!A207:A215,0))`
@@ -2975,7 +2975,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E399. `gen_mwy`: Generation** (MWy)
 
 - Description: Base year: data; coal and gas: glg + ppa x (effcap x ppr - glg); others: effective capacity
-- Legacy: legacy rows 3804-3812 (I3; v5.4: PPAs; scale-down not used)
+- Legacy: legacy rows 3804-3812 (I3; v0.5.4: PPAs; scale-down not used)
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
   - 2022: `gen_mwy(t) = <base-year generation>`
   - 2023-2041: `gen_mwy(t) = glg[f,s](t)+<coal/gas flag>*ppa(t)*(effcap[f,s](t)*ppr(t)-glg[f,s](t))`
@@ -3048,7 +3048,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E407. `msc`: Marginal storage cost of variable renewables (wind, solar, other renewables)** (USD/kWh)
 
 - Description: alloc x 2 x hours x vre x cph + 2 x MAX(0, vre - start)/(1 - start)^2 x cel x LT allocation x LT units for 100% VRE (settings of the scenario)
-- Legacy: legacy rows 3908-3912 (J1; fixed: LT allocation once; v5.4: LongTermStorageFor100pcVRE, row 3909)
+- Legacy: legacy rows 3908-3912 (J1; fixed: LT allocation once; v0.5.4: LongTermStorageFor100pcVRE, row 3909)
 - Changes against legacy: LD23, L4, M3 (section B)
   - 2022-2041: `msc(t) = stm(t)*vre(t)*cph(t)+2*MAX(0,vre(t)-StartingPointWhenLTStorageIsNeeded(t))/(1-StartingPointWhenLTStorageIsNeeded(t))^2*cel(t)*ltu(t)`
 
@@ -3120,7 +3120,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E417. `early`: Cost-based early coal retirement (nameplate)** (MW)
 
 - Description: MAX(0, MIN(coal effective capacity x 0.8, room) x (1 - coal share of the logit)) / cf x erf x (1 - ppa)
-- Legacy: legacy rows 3975-3993 (K4; v5.4: not the PPA share, rows 3987, 3993)
+- Legacy: legacy rows 3975-3993 (K4; v0.5.4: not the PPA share, rows 3987, 3993)
 - Changes against legacy: LD23, L7 (section B)
   - 2022-2041: `early(t) = MAX(0,MIN(effcap[coa,pow](t)*<maximum share>,egrow(t))*(1-ecshr(t)))/cfu[coa,pow](t)*erf(t)*(1-ppa(t))`
   - Parameters: `<maximum share>` = `INDEX(PParVal,MATCH(CtryCode&"|early_max",PParKey,0))`
@@ -3133,14 +3133,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E419. `need`: Effective capacity investment needed** (MW)
 
-- Description: MAX(next year's required generation (v4.14; 2041: this year's) - kafter, 0)
+- Description: MAX(next year's required generation (v0.4.14; 2041: this year's) - kafter, 0)
 - Legacy: legacy rows 4027-4028 (legacy: this year's demand under the label "Next Year Demand": bug L67)
 - Changes against legacy: LD23, L10 (section B)
   - 2022-2041: `need(t) = MAX(req(t)*IFERROR(req(t)/req(t-1),1)-kafter(t),0)`
 
 **E420. `mancap`: Manual capacity path (Manual inputs rows 349-357 scenario 1, 363-371 other scenarios)** (MW)
 
-- Description: INDEX(Manual inputs capacity block of the scenario group, type, year); blank = 0 (v5.6, P3)
+- Description: INDEX(Manual inputs capacity block of the scenario group, type, year); blank = 0 (v0.5.6, P3)
 - Legacy: legacy rows 3944-3952 (from Manual inputs 342-371)
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
   - 2022-2041: `mancap(t) = IFERROR(INDEX(ManCapVal,<type position>+IF(scenario(t)=1,0,ManCapOff),MATCH(year,ManCapYr,0))+0,0)`
@@ -3148,14 +3148,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E421. `mani`: Manual new effective investment (NewInv<type> = Manual)** (MW)
 
-- Description: IF(setting = Manual, MAX(0, next year's path - this year's path + retirement) x cfu, 0); 2041: 0 (v5.6, P3)
+- Description: IF(setting = Manual, MAX(0, next year's path - this year's path + retirement) x cfu, 0); 2041: 0 (v0.5.6, P3)
 - Legacy: legacy rows 4097-4105, 4110-4118
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
   - 2022-2041: `mani(t) = IF(AND(invs[f,s](t)="Manual",ISNUMBER(mancap[f,s](t+1))),MAX(0,mancap[f,s](t+1)-mancap[f,s](t)+ret[f,s](t))*cfu[f,s](t),0)`
 
 **E422. `needm`: Effective investment needed after manual investment** (MW)
 
-- Description: MAX(need - SUM(mani), 0) (v5.6, P3)
+- Description: MAX(need - SUM(mani), 0) (v0.5.6, P3)
 - Legacy: legacy row 4108 (never used in legacy: logit investment came on top of the manual one, bug L118)
   - 2022-2041: `needm(t) = MAX(need(t)-SUM(mani[9 rows](t)),0)`
 
@@ -3231,7 +3231,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E433. `nei`: New effective investment** (MW)
 
-- Description: first + second (+ dgas for gas) + mani (v5.6)
+- Description: first + second (+ dgas for gas) + mani (v0.5.6)
 - Legacy: legacy rows 4251-4259 (L18)
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
   - 2022-2041: `nei(t) = first[f,s](t)+(second[f,s](t)+<gas (1/0)>*dgas(t)+mani[f,s](t))`
@@ -3306,7 +3306,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E443. `prxl`: Existing carbon pricing revenue (memo: level)** (USD m real)
 
-- Description: CO2 x (carbon tax x factor + ETS x factor; Inputs_ecp tables, v4.12)
+- Description: CO2 x (carbon tax x factor + ETS x factor; Inputs_ecp tables, v0.4.12)
 - Legacy: legacy ECP revenue
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
   - 2022-2041: `prxl(t) = co2[f,s](t)*(INDEX(XCTVal,<ECP table row>,xct.c(t))*xct.p(t)+INDEX(XETSVal,<ECP table row>,xct.c(t))*xets.p(t))`
@@ -3330,7 +3330,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E446. `ener`: Fuel use** (ktoe)
 
-- Description: enel; road gasoline, diesel, LPG, gas and biofuels from section 5b where TrModel = Engineer (v3.5); + the cumulative residential leakage to biomass of section 6b (v5.1)
+- Description: enel; road gasoline, diesel, LPG, gas and biofuels from section 5b where TrModel = Engineer (v0.3.5); + the cumulative residential leakage to biomass of section 6b (v0.5.1)
 - Legacy: legacy Mitigation rows 5430-5440 (road: engineer or elasticity model), 5554-5560 (residential: + leakage)
 - Changes against legacy: LD1, LD21, LD39 (section B)
 - Rows: all,rod, all,ral, all,res, all,foo, all,srv, all,mch, all,irn, all,nfm, all,mac, all,cem, all,omn, all,cst, ... (14 rows)
@@ -3363,7 +3363,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E448. `ctxnew`: New carbon tax** (USD/GJ)
 
-- Description: Carbon tax rate of the sector (ctr, section 1) x EF x fuel coverage x exemption factor (exf, v5.1)
+- Description: Carbon tax rate of the sector (ctr, section 1) x EF x fuel coverage x exemption factor (exf, v0.5.1)
 - Legacy: legacy Mitigation row 2510: egy.mit.ctxnew.ind.coa.a.1
 - Changes against legacy: LD57 (section B)
 - Rows: coa,rod, nga,rod, gso,rod, die,rod, lpg,rod, ker,rod, jfu,rod, oop,rod, bio,rod, coa,ral, nga,ral, gso,ral, ... (144 rows)
@@ -3372,7 +3372,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E449. `ets`: New ETS cost in the fuel price (tax-equivalent, auctioned part)** (USD/GJ)
 
-- Description: ETS cost rate of the sector (etr, section 1) x EF x exemption factor (exf, v5.1)
+- Description: ETS cost rate of the sector (etr, section 1) x EF x exemption factor (exf, v0.5.1)
 - Legacy: legacy ets inside txo; coded prices/ets.py
 - Changes against legacy: LD57 (section B)
 - Rows: coa,rod, nga,rod, gso,rod, die,rod, lpg,rod, ker,rod, jfu,rod, oop,rod, bio,rod, coa,ral, nga,ral, gso,ral, ... (144 rows)
@@ -3381,7 +3381,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E450. `ntx`: New excise tax (fuel price reform)** (USD/GJ)
 
-- Description: Fuel price reform path / GJ per unit x exemption factor (exf, v5.1)
+- Description: Fuel price reform path / GJ per unit x exemption factor (exf, v0.5.1)
 - Legacy: legacy Mitigation row 2512: egy.mit.ntx.ind.coa.a.1
 - Rows: coa,rod, nga,rod, gso,rod, die,rod, lpg,rod, ker,rod, jfu,rod, oop,rod, bio,rod, coa,ral, nga,ral, gso,ral, ... (144 rows)
   - 2022-2041: `ntx(t) = INDEX(ntxb[14 rows](t),<price-fuel position>)/<GJ per unit>*INDEX(exf[2 rows](t),<exemption group>)`
@@ -3396,7 +3396,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E452. `xcp`: Existing carbon pricing (carbon tax + ETS) per GJ** (USD/GJ)
 
-- Description: EF x (carbon tax x factor + ETS x factor) of the ECP sector | fuel (Inputs_ecp tables: rate x sector x fuel coverage of the data year; national and EU ETS; v4.12)
+- Description: EF x (carbon tax x factor + ETS x factor) of the ECP sector | fuel (Inputs_ecp tables: rate x sector x fuel coverage of the data year; national and EU ETS; v0.4.12)
 - Legacy: legacy rows 1711-1723 (ets), 1752-1764 (ctx)
 - Changes against legacy: LD38 (section B)
 - Rows: coa,rod, nga,rod, gso,rod, die,rod, lpg,rod, ker,rod, jfu,rod, oop,rod, bio,rod, coa,ral, nga,ral, gso,ral, ... (144 rows)
@@ -3415,7 +3415,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E454. `csw`: Consumer subsidy reform wedge of the subsector (the block's pcsw)** (USD/GJ real)
 
 - Description: BLOCKWEDGE
-- Legacy: v4.16 (LD18)
+- Legacy: v0.4.16 (LD18)
 - Rows: coa,rod, nga,rod, gso,rod, die,rod, lpg,rod, ker,rod, jfu,rod, oop,rod, bio,rod, coa,ral, nga,ral, gso,ral, ... (144 rows)
   - 2022-2041: `csw(t) = pcsw[<price position>](t)`
   - Parameters: `<price position>` = `INDEX(Inputs!U5:U148,MATCH(f&"|"&s,Inputs!A5:A148,0))`
@@ -3423,7 +3423,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E455. `pcw`: Price-control phase-out wedge of the subsector (the block's ppcw)** (USD/GJ real)
 
 - Description: BLOCKWEDGE
-- Legacy: v4.16 (LD18)
+- Legacy: v0.4.16 (LD18)
 - Rows: coa,rod, nga,rod, gso,rod, die,rod, lpg,rod, ker,rod, jfu,rod, oop,rod, bio,rod, coa,ral, nga,ral, gso,ral, ... (144 rows)
   - 2022-2041: `pcw(t) = ppcw[<price position>](t)`
   - Parameters: `<price position>` = `INDEX(Inputs!U5:U148,MATCH(f&"|"&s,Inputs!A5:A148,0))`
@@ -3448,7 +3448,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E458. `aef`: Efficiency factor of fuel use: autonomous plus additional policy-induced efficiency gains** (factor)
 
-- Description: (1 / (1 + alpha + additional efficiency of the group))^(1 + eps_U); additional efficiency: MTInputs 243-245 (road vehicles, residential, industrial; section 1), v4.13
+- Description: (1 / (1 + alpha + additional efficiency of the group))^(1 + eps_U); additional efficiency: MTInputs 243-245 (road vehicles, residential, industrial; section 1), v0.4.13
 - Legacy: legacy fuel rows: /(1 + _eff_imp + $M2199:$M2201)
 - Rows: coa,rod, nga,rod, gso,rod, die,rod, lpg,rod, ker,rod, jfu,rod, oop,rod, bio,rod, coa,ral, nga,ral, gso,ral, ... (144 rows)
   - 2022-2041: `aef(t) = (1/(1+<alpha (AEEI)>+AdditionalEfficiencyRoadVehicle[<additional efficiency group>](t)))^(1+<eps_U>)`
@@ -3457,7 +3457,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E459. `enel`: Fuel use, elasticity model** (ktoe)
 
 - Description: Inputs (base year), CPAT eq. 3.3.3
-- Legacy: legacy Mitigation row 5430: egy.mit.ener.rod.gso.e.1 (v3.5: the elasticity part of ener)
+- Legacy: legacy Mitigation row 5430: egy.mit.ener.rod.gso.e.1 (v0.3.5: the elasticity part of ener)
 - Rows: coa,rod, nga,rod, gso,rod, die,rod, lpg,rod, ker,rod, jfu,rod, oop,rod, bio,rod, coa,ral, nga,ral, gso,ral, ... (144 rows)
   - 2022: `enel(t) = INDEX(Inputs!X5:X148,MATCH(f&"|"&s,Inputs!A5:A148,0))`
   - 2023-2041: `enel(t) = enel[f,s](t-1)*aef[f,s](t)*(1+row14(t))^<eps_Y>*(atp[f,s](t)/atp[f,s](t-1))^<eps_U>*((atp[f,s](t)+shp[f,s](t))/(atp[f,s](t-1)+shp[f,s](t-1)))^<efficiency exponent eps_F x (1 + eps_U)>*row6(t)`
@@ -3538,22 +3538,22 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E465. `rex`: Revenue from the new excise (fuel price reform; part of rnew)** (USD m real)
 
 - Description: Fuel use x PJ/ktoe x ntx
-- Legacy: legacy rows 7753-7771 (additional excise), v4.15
+- Legacy: legacy rows 7753-7771 (additional excise), v0.4.15
 - Rows: coa,rod, nga,rod, gso,rod, die,rod, lpg,rod, ker,rod, jfu,rod, oop,rod, bio,rod, coa,ral, nga,ral, gso,ral, ... (144 rows)
   - 2022-2041: `rex(t) = ener[f,s](t)*Settings[PJ per ktoe]*(ntx[f,s](t))`
 
 **E466. `rvt`: VAT revenue (on the price with existing taxes, and on the changes from existing and new pricing)** (USD m real)
 
 - Description: Fuel use x PJ/ktoe x (vat + (xcpd + nce) x VAT rate)
-- Legacy: legacy rows 7864-7876 (VAT), v4.15
+- Legacy: legacy rows 7864-7876 (VAT), v0.4.15
 - Rows: coa,rod, nga,rod, gso,rod, die,rod, lpg,rod, ker,rod, jfu,rod, oop,rod, bio,rod, coa,ral, nga,ral, gso,ral, ... (144 rows)
   - 2022-2041: `rvt(t) = ener[f,s](t)*Settings[PJ per ktoe]*(vat[<price position>](t)+(xcpd[f,s](t)+nce[f,s](t)+csw[f,s](t)+pcw[f,s](t))*<VAT rate>)`
   - Parameters: `<price position>` = `INDEX(Inputs!U5:U148,MATCH(f&"|"&s,Inputs!A5:A148,0))`; `<VAT rate>` = `INDEX(Inputs!V5:V148,MATCH(f&"|"&s,Inputs!A5:A148,0))`
 
 **E467. `rsr`: Subsidy reform revenue (consumer subsidy and price-control phase-outs incl. VAT)** (USD m real)
 
-- Description: Fuel use x PJ/ktoe x (csw + pcw) x (1 + VAT rate) (v9.0, R7.3: the producer subsidy phase-out is in the supply cost, its VAT in rvt through vat)
-- Legacy: legacy rows 7798-7807 (part of existing revenue; v4.16)
+- Description: Fuel use x PJ/ktoe x (csw + pcw) x (1 + VAT rate) (v0.9.0, R7.3: the producer subsidy phase-out is in the supply cost, its VAT in rvt through vat)
+- Legacy: legacy rows 7798-7807 (part of existing revenue; v0.4.16)
 - Rows: coa,rod, nga,rod, gso,rod, die,rod, lpg,rod, ker,rod, jfu,rod, oop,rod, bio,rod, coa,ral, nga,ral, gso,ral, ... (144 rows)
   - 2022-2041: `rsr(t) = ener[f,s](t)*Settings[PJ per ktoe]*((csw[f,s](t)+pcw[f,s](t))*(1+<VAT rate>))`
   - Parameters: `<VAT rate>` = `INDEX(Inputs!V5:V148,MATCH(f&"|"&s,Inputs!A5:A148,0))`
@@ -3605,7 +3605,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E473. `TrFbYearPas`: Vehicle feebate: year of introduction, passenger** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 416 (v3.5; legacy Dashboard G63)
+- Legacy: MTInputs row 416 (v0.3.5; legacy Dashboard G63)
 - Rows: all,all
   - 2022-2041: `TrFbYearPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3613,7 +3613,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E474. `TrFbYearFre`: Vehicle feebate: year of introduction, freight** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 417 (v3.5; legacy Dashboard L63)
+- Legacy: MTInputs row 417 (v0.3.5; legacy Dashboard L63)
 - Rows: all,all
   - 2022-2041: `TrFbYearFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3621,7 +3621,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E475. `TrFbYearCyc`: Vehicle feebate: year of introduction, 2-3 wheeler** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 418 (v3.5; legacy Dashboard Q63)
+- Legacy: MTInputs row 418 (v0.3.5; legacy Dashboard Q63)
 - Rows: all,all
   - 2022-2041: `TrFbYearCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3629,7 +3629,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E476. `TrFbRatePas`: Vehicle feebate: rate, passenger** (USD/tCO2)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 419 (v3.5; legacy Dashboard G64)
+- Legacy: MTInputs row 419 (v0.3.5; legacy Dashboard G64)
 - Rows: all,all
   - 2022-2041: `TrFbRatePas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3637,7 +3637,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E477. `TrFbRateFre`: Vehicle feebate: rate, freight** (USD/tCO2)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 420 (v3.5; legacy Dashboard L64)
+- Legacy: MTInputs row 420 (v0.3.5; legacy Dashboard L64)
 - Rows: all,all
   - 2022-2041: `TrFbRateFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3645,7 +3645,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E478. `TrFbRateCyc`: Vehicle feebate: rate, 2-3 wheeler** (USD/tCO2)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 421 (v3.5; legacy Dashboard Q64)
+- Legacy: MTInputs row 421 (v0.3.5; legacy Dashboard Q64)
 - Rows: all,all
   - 2022-2041: `TrFbRateCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3653,7 +3653,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E479. `TrFbPivotTypePas`: Vehicle feebate: pivot type (Average / Manual), passenger** (option)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 422 (v3.5; legacy Dashboard G65)
+- Legacy: MTInputs row 422 (v0.3.5; legacy Dashboard G65)
 - Rows: all,all
   - 2022-2041: `TrFbPivotTypePas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3661,7 +3661,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E480. `TrFbPivotTypeFre`: Vehicle feebate: pivot type (Average / Manual), freight** (option)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 423 (v3.5; legacy Dashboard L65)
+- Legacy: MTInputs row 423 (v0.3.5; legacy Dashboard L65)
 - Rows: all,all
   - 2022-2041: `TrFbPivotTypeFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3669,7 +3669,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E481. `TrFbPivotTypeCyc`: Vehicle feebate: pivot type (Average / Manual), 2-3 wheeler** (option)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 424 (v3.5; legacy Dashboard Q65)
+- Legacy: MTInputs row 424 (v0.3.5; legacy Dashboard Q65)
 - Rows: all,all
   - 2022-2041: `TrFbPivotTypeCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3677,7 +3677,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E482. `TrFbPivotPas`: Vehicle feebate: manual pivot point, passenger** (gCO2/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 425 (v3.5; legacy Dashboard G66)
+- Legacy: MTInputs row 425 (v0.3.5; legacy Dashboard G66)
 - Rows: all,all
   - 2022-2041: `TrFbPivotPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3685,7 +3685,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E483. `TrFbPivotFre`: Vehicle feebate: manual pivot point, freight** (gCO2/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 426 (v3.5; legacy Dashboard L66)
+- Legacy: MTInputs row 426 (v0.3.5; legacy Dashboard L66)
 - Rows: all,all
   - 2022-2041: `TrFbPivotFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3693,7 +3693,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E484. `TrFbPivotCyc`: Vehicle feebate: manual pivot point, 2-3 wheeler** (gCO2/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 427 (v3.5; legacy Dashboard Q66)
+- Legacy: MTInputs row 427 (v0.3.5; legacy Dashboard Q66)
 - Rows: all,all
   - 2022-2041: `TrFbPivotCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3701,7 +3701,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E485. `TrFbPivotChgPas`: Vehicle feebate: annual decline of the manual pivot, passenger** (gCO2/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 428 (v3.5; legacy Dashboard G67)
+- Legacy: MTInputs row 428 (v0.3.5; legacy Dashboard G67)
 - Rows: all,all
   - 2022-2041: `TrFbPivotChgPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3709,7 +3709,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E486. `TrFbPivotChgFre`: Vehicle feebate: annual decline of the manual pivot, freight** (gCO2/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 429 (v3.5; legacy Dashboard L67)
+- Legacy: MTInputs row 429 (v0.3.5; legacy Dashboard L67)
 - Rows: all,all
   - 2022-2041: `TrFbPivotChgFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3717,7 +3717,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E487. `TrFbPivotChgCyc`: Vehicle feebate: annual decline of the manual pivot, 2-3 wheeler** (gCO2/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 430 (v3.5; legacy Dashboard Q67)
+- Legacy: MTInputs row 430 (v0.3.5; legacy Dashboard Q67)
 - Rows: all,all
   - 2022-2041: `TrFbPivotChgCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3725,7 +3725,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E488. `TrDtYearPas`: Distance tax: year of introduction, passenger** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 431 (v3.5; legacy Dashboard G73)
+- Legacy: MTInputs row 431 (v0.3.5; legacy Dashboard G73)
 - Rows: all,all
   - 2022-2041: `TrDtYearPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3733,7 +3733,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E489. `TrDtYearFre`: Distance tax: year of introduction, freight** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 432 (v3.5; legacy Dashboard L73)
+- Legacy: MTInputs row 432 (v0.3.5; legacy Dashboard L73)
 - Rows: all,all
   - 2022-2041: `TrDtYearFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3741,7 +3741,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E490. `TrDtYearCyc`: Distance tax: year of introduction, 2-3 wheeler** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 433 (v3.5; legacy Dashboard Q73)
+- Legacy: MTInputs row 433 (v0.3.5; legacy Dashboard Q73)
 - Rows: all,all
   - 2022-2041: `TrDtYearCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3749,7 +3749,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E491. `TrDtStartPas`: Distance tax: amount in the first year, passenger** (USD/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 434 (v3.5; legacy Dashboard G74)
+- Legacy: MTInputs row 434 (v0.3.5; legacy Dashboard G74)
 - Rows: all,all
   - 2022-2041: `TrDtStartPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3757,7 +3757,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E492. `TrDtStartFre`: Distance tax: amount in the first year, freight** (USD/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 435 (v3.5; legacy Dashboard L74)
+- Legacy: MTInputs row 435 (v0.3.5; legacy Dashboard L74)
 - Rows: all,all
   - 2022-2041: `TrDtStartFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3765,7 +3765,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E493. `TrDtStartCyc`: Distance tax: amount in the first year, 2-3 wheeler** (USD/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 436 (v3.5; legacy Dashboard Q74)
+- Legacy: MTInputs row 436 (v0.3.5; legacy Dashboard Q74)
 - Rows: all,all
   - 2022-2041: `TrDtStartCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3773,7 +3773,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E494. `TrDtTargetYearPas`: Distance tax: target year, passenger** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 437 (v3.5; legacy Dashboard G75)
+- Legacy: MTInputs row 437 (v0.3.5; legacy Dashboard G75)
 - Rows: all,all
   - 2022-2041: `TrDtTargetYearPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3781,7 +3781,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E495. `TrDtTargetYearFre`: Distance tax: target year, freight** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 438 (v3.5; legacy Dashboard L75)
+- Legacy: MTInputs row 438 (v0.3.5; legacy Dashboard L75)
 - Rows: all,all
   - 2022-2041: `TrDtTargetYearFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3789,7 +3789,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E496. `TrDtTargetYearCyc`: Distance tax: target year, 2-3 wheeler** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 439 (v3.5; legacy Dashboard Q75)
+- Legacy: MTInputs row 439 (v0.3.5; legacy Dashboard Q75)
 - Rows: all,all
   - 2022-2041: `TrDtTargetYearCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3797,7 +3797,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E497. `TrDtTargetPas`: Distance tax: amount in the target year, passenger** (USD/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 440 (v3.5; legacy Dashboard G76)
+- Legacy: MTInputs row 440 (v0.3.5; legacy Dashboard G76)
 - Rows: all,all
   - 2022-2041: `TrDtTargetPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3805,7 +3805,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E498. `TrDtTargetFre`: Distance tax: amount in the target year, freight** (USD/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 441 (v3.5; legacy Dashboard L76)
+- Legacy: MTInputs row 441 (v0.3.5; legacy Dashboard L76)
 - Rows: all,all
   - 2022-2041: `TrDtTargetFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3813,7 +3813,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E499. `TrDtTargetCyc`: Distance tax: amount in the target year, 2-3 wheeler** (USD/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 442 (v3.5; legacy Dashboard Q76)
+- Legacy: MTInputs row 442 (v0.3.5; legacy Dashboard Q76)
 - Rows: all,all
   - 2022-2041: `TrDtTargetCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3821,7 +3821,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E500. `TrSubYearPas`: EV purchase subsidy: year of introduction, passenger** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 443 (v3.5; legacy Dashboard G69)
+- Legacy: MTInputs row 443 (v0.3.5; legacy Dashboard G69)
 - Rows: all,all
   - 2022-2041: `TrSubYearPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3829,7 +3829,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E501. `TrSubYearFre`: EV purchase subsidy: year of introduction, freight** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 444 (v3.5; legacy Dashboard L69)
+- Legacy: MTInputs row 444 (v0.3.5; legacy Dashboard L69)
 - Rows: all,all
   - 2022-2041: `TrSubYearFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3837,7 +3837,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E502. `TrSubYearCyc`: EV purchase subsidy: year of introduction, 2-3 wheeler** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 445 (v3.5; legacy Dashboard Q69)
+- Legacy: MTInputs row 445 (v0.3.5; legacy Dashboard Q69)
 - Rows: all,all
   - 2022-2041: `TrSubYearCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3845,7 +3845,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E503. `TrSubAmountPas`: EV purchase subsidy: amount, passenger** (USD/vehicle)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 446 (v3.5; legacy Dashboard G70)
+- Legacy: MTInputs row 446 (v0.3.5; legacy Dashboard G70)
 - Rows: all,all
   - 2022-2041: `TrSubAmountPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3853,7 +3853,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E504. `TrSubAmountFre`: EV purchase subsidy: amount, freight** (USD/vehicle)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 447 (v3.5; legacy Dashboard L70)
+- Legacy: MTInputs row 447 (v0.3.5; legacy Dashboard L70)
 - Rows: all,all
   - 2022-2041: `TrSubAmountFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3861,7 +3861,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E505. `TrSubAmountCyc`: EV purchase subsidy: amount, 2-3 wheeler** (USD/vehicle)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 448 (v3.5; legacy Dashboard Q70)
+- Legacy: MTInputs row 448 (v0.3.5; legacy Dashboard Q70)
 - Rows: all,all
   - 2022-2041: `TrSubAmountCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3869,7 +3869,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E506. `TrSubChgPas`: EV purchase subsidy: annual change, passenger** (USD/vehicle)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 449 (v3.5; legacy Dashboard G71)
+- Legacy: MTInputs row 449 (v0.3.5; legacy Dashboard G71)
 - Rows: all,all
   - 2022-2041: `TrSubChgPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3877,7 +3877,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E507. `TrSubChgFre`: EV purchase subsidy: annual change, freight** (USD/vehicle)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 450 (v3.5; legacy Dashboard L71)
+- Legacy: MTInputs row 450 (v0.3.5; legacy Dashboard L71)
 - Rows: all,all
   - 2022-2041: `TrSubChgFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3885,7 +3885,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E508. `TrSubChgCyc`: EV purchase subsidy: annual change, 2-3 wheeler** (USD/vehicle)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 451 (v3.5; legacy Dashboard Q71)
+- Legacy: MTInputs row 451 (v0.3.5; legacy Dashboard Q71)
 - Rows: all,all
   - 2022-2041: `TrSubChgCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3893,7 +3893,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E509. `TrAdvIceBasePas`: Ad-valorem purchase tax on ICEVs, baseline, passenger** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 452 (v3.5; legacy Dashboard G89)
+- Legacy: MTInputs row 452 (v0.3.5; legacy Dashboard G89)
 - Rows: all,all
   - 2022-2041: `TrAdvIceBasePas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3901,7 +3901,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E510. `TrAdvIceBaseFre`: Ad-valorem purchase tax on ICEVs, baseline, freight** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 453 (v3.5; legacy Dashboard L89)
+- Legacy: MTInputs row 453 (v0.3.5; legacy Dashboard L89)
 - Rows: all,all
   - 2022-2041: `TrAdvIceBaseFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3909,7 +3909,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E511. `TrAdvIceBaseCyc`: Ad-valorem purchase tax on ICEVs, baseline, 2-3 wheeler** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 454 (v3.5; legacy Dashboard Q89)
+- Legacy: MTInputs row 454 (v0.3.5; legacy Dashboard Q89)
 - Rows: all,all
   - 2022-2041: `TrAdvIceBaseCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3917,7 +3917,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E512. `TrAdvBevBasePas`: Ad-valorem purchase tax on BEVs, baseline, passenger** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 455 (v3.5; legacy Dashboard G90)
+- Legacy: MTInputs row 455 (v0.3.5; legacy Dashboard G90)
 - Rows: all,all
   - 2022-2041: `TrAdvBevBasePas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3925,7 +3925,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E513. `TrAdvBevBaseFre`: Ad-valorem purchase tax on BEVs, baseline, freight** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 456 (v3.5; legacy Dashboard L90)
+- Legacy: MTInputs row 456 (v0.3.5; legacy Dashboard L90)
 - Rows: all,all
   - 2022-2041: `TrAdvBevBaseFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3933,7 +3933,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E514. `TrAdvBevBaseCyc`: Ad-valorem purchase tax on BEVs, baseline, 2-3 wheeler** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 457 (v3.5; legacy Dashboard Q90)
+- Legacy: MTInputs row 457 (v0.3.5; legacy Dashboard Q90)
 - Rows: all,all
   - 2022-2041: `TrAdvBevBaseCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3941,7 +3941,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E515. `TrAdvIcePolPas`: Ad-valorem purchase tax on ICEVs, policy, passenger** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 458 (v3.5; legacy Dashboard G91)
+- Legacy: MTInputs row 458 (v0.3.5; legacy Dashboard G91)
 - Rows: all,all
   - 2022-2041: `TrAdvIcePolPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3949,7 +3949,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E516. `TrAdvIcePolFre`: Ad-valorem purchase tax on ICEVs, policy, freight** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 459 (v3.5; legacy Dashboard L91)
+- Legacy: MTInputs row 459 (v0.3.5; legacy Dashboard L91)
 - Rows: all,all
   - 2022-2041: `TrAdvIcePolFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3957,7 +3957,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E517. `TrAdvIcePolCyc`: Ad-valorem purchase tax on ICEVs, policy, 2-3 wheeler** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 460 (v3.5; legacy Dashboard Q91)
+- Legacy: MTInputs row 460 (v0.3.5; legacy Dashboard Q91)
 - Rows: all,all
   - 2022-2041: `TrAdvIcePolCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3965,7 +3965,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E518. `TrAdvBevPolPas`: Ad-valorem purchase tax on BEVs, policy, passenger** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 461 (v3.5; legacy Dashboard G92)
+- Legacy: MTInputs row 461 (v0.3.5; legacy Dashboard G92)
 - Rows: all,all
   - 2022-2041: `TrAdvBevPolPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3973,7 +3973,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E519. `TrAdvBevPolFre`: Ad-valorem purchase tax on BEVs, policy, freight** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 462 (v3.5; legacy Dashboard L92)
+- Legacy: MTInputs row 462 (v0.3.5; legacy Dashboard L92)
 - Rows: all,all
   - 2022-2041: `TrAdvBevPolFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3981,7 +3981,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E520. `TrAdvBevPolCyc`: Ad-valorem purchase tax on BEVs, policy, 2-3 wheeler** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 463 (v3.5; legacy Dashboard Q92)
+- Legacy: MTInputs row 463 (v0.3.5; legacy Dashboard Q92)
 - Rows: all,all
   - 2022-2041: `TrAdvBevPolCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3989,7 +3989,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E521. `TrAdvYearPas`: Ad-valorem purchase tax: year of the policy rate, passenger** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 464 (v3.5; legacy Dashboard G93)
+- Legacy: MTInputs row 464 (v0.3.5; legacy Dashboard G93)
 - Rows: all,all
   - 2022-2041: `TrAdvYearPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3997,7 +3997,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E522. `TrAdvYearFre`: Ad-valorem purchase tax: year of the policy rate, freight** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 465 (v3.5; legacy Dashboard L93)
+- Legacy: MTInputs row 465 (v0.3.5; legacy Dashboard L93)
 - Rows: all,all
   - 2022-2041: `TrAdvYearFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -4005,7 +4005,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E523. `TrAdvYearCyc`: Ad-valorem purchase tax: year of the policy rate, 2-3 wheeler** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 466 (v3.5; legacy Dashboard Q93)
+- Legacy: MTInputs row 466 (v0.3.5; legacy Dashboard Q93)
 - Rows: all,all
   - 2022-2041: `TrAdvYearCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -4013,7 +4013,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E524. `TrCustYearPas`: Customs duty on BEVs: year of the policy rate, passenger** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 467 (v3.5; legacy Dashboard G86)
+- Legacy: MTInputs row 467 (v0.3.5; legacy Dashboard G86)
 - Rows: all,all
   - 2022-2041: `TrCustYearPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -4021,7 +4021,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E525. `TrCustYearFre`: Customs duty on BEVs: year of the policy rate, freight** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 468 (v3.5; legacy Dashboard L86)
+- Legacy: MTInputs row 468 (v0.3.5; legacy Dashboard L86)
 - Rows: all,all
   - 2022-2041: `TrCustYearFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -4029,7 +4029,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E526. `TrCustYearCyc`: Customs duty on BEVs: year of the policy rate, 2-3 wheeler** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 469 (v3.5; legacy Dashboard Q86)
+- Legacy: MTInputs row 469 (v0.3.5; legacy Dashboard Q86)
 - Rows: all,all
   - 2022-2041: `TrCustYearCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -4037,7 +4037,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E527. `TrVatYearPas`: VAT on BEVs: year of the policy rate, passenger** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 470 (v3.5; legacy Dashboard G81)
+- Legacy: MTInputs row 470 (v0.3.5; legacy Dashboard G81)
 - Rows: all,all
   - 2022-2041: `TrVatYearPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -4045,7 +4045,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E528. `TrVatYearCyc`: VAT on BEVs: year of the policy rate, 2-3 wheeler** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 471 (v3.5; legacy Dashboard Q81)
+- Legacy: MTInputs row 471 (v0.3.5; legacy Dashboard Q81)
 - Rows: all,all
   - 2022-2041: `TrVatYearCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -4053,7 +4053,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E529. `TrVatPolFactor`: VAT on BEVs, policy: factor on the baseline VAT rate** (factor)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 472 (v3.5; legacy formula literal *1)
+- Legacy: MTInputs row 472 (v0.3.5; legacy formula literal *1)
 - Rows: all,all
   - 2022-2041: `TrVatPolFactor(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -4061,7 +4061,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E530. `TrCustPolFactor`: Customs duty on BEVs, policy: factor on the baseline duty** (factor)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 473 (v3.5; legacy formula literal *1)
+- Legacy: MTInputs row 473 (v0.3.5; legacy formula literal *1)
 - Rows: all,all
   - 2022-2041: `TrCustPolFactor(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -4069,7 +4069,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E531. `TrCsStartYear`: Charging-station subsidy: start year** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 474 (v3.5; legacy Dashboard G97, labelled "target year")
+- Legacy: MTInputs row 474 (v0.3.5; legacy Dashboard G97, labelled "target year")
 - Rows: all,all
   - 2022-2041: `TrCsStartYear(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -4077,7 +4077,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E532. `TrCsStartLevel`: Charging-station subsidy: share of the cost in the start year** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 475 (v3.5; legacy Dashboard G95, labelled "start year")
+- Legacy: MTInputs row 475 (v0.3.5; legacy Dashboard G95, labelled "start year")
 - Rows: all,all
   - 2022-2041: `TrCsStartLevel(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -4085,7 +4085,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E533. `TrCsTargetYear`: Charging-station subsidy: target year** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 476 (v3.5; legacy Dashboard G98, labelled "target level")
+- Legacy: MTInputs row 476 (v0.3.5; legacy Dashboard G98, labelled "target level")
 - Rows: all,all
   - 2022-2041: `TrCsTargetYear(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -4093,7 +4093,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E534. `TrCsTargetLevel`: Charging-station subsidy: share of the cost in the target year** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 477 (v3.5; legacy Dashboard G96, labelled "start level")
+- Legacy: MTInputs row 477 (v0.3.5; legacy Dashboard G96, labelled "start level")
 - Rows: all,all
   - 2022-2041: `TrCsTargetLevel(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -4436,7 +4436,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E577. `trfen`: BEV fuel economy of new vehicles (path)** (km/kWh)
 
-- Description: Sheet Manual inputs J375:AC377 (legacy addresses; v5.2)
+- Description: Sheet Manual inputs J375:AC377 (legacy addresses; v0.5.2)
 - Legacy: legacy Manual inputs rows 375-377 (Mitigation rows 4399, 4433, 4446)
 - Rows: bev,pas, bev,fre, bev,cyc
   - 2022-2041: `trfen(t) = INDEX(BEVFEVal,MATCH(<Label of the row in Manual inputs D375:D377 (legacy label)>,BEVFELab,0),MATCH(year,BEVFEYr,0))`
@@ -7815,7 +7815,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1033. `lkd`: Leakage: change in residential fossil fuel use in the year** (ktoe)
 
-- Description: - (fuel use last year - initially exempt use lkx last year) x cookstove efficiency of the fuel x lkp; base year 0 (LEAKCHANGE; v9.0, R6.7: exempt use does not leak, I138)
+- Description: - (fuel use last year - initially exempt use lkx last year) x cookstove efficiency of the fuel x lkp; base year 0 (LEAKCHANGE; v0.9.0, R6.7: exempt use does not leak, I138)
 - Legacy: legacy rows 5577, 5583, 5588 (L45 fixed: on actual use; as legacy on the not-exempt rows 5564-5566)
 - Rows: nga,res, lpg,res, ker,res
   - 2022: `lkd(t) = 0`
@@ -7832,14 +7832,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1035. `lkxp`: Initially exempt demand: phase-in of the usage elasticity** (share)
 
-- Description: PHASEIN (ExemptPhaseout, YearPha, ExemptPhaseoutPeriod; v5.6)
+- Description: PHASEIN (ExemptPhaseout, YearPha, ExemptPhaseoutPeriod; v0.5.6)
 - Legacy: legacy rows 5568-5570 (rule of 2259-2265, L94)
 - Rows: none,res
   - 2022-2041: `lkxp(t) = IF(ExemptPhaseout(t)=TRUE,MAX(MIN((year+1-YearPha(t))/ExemptPhaseoutPeriod(t),1),0),0)`
 
 **E1036. `lkxe`: Initially exempt demand: growth of the fuel use of the row (enel)** (ratio)
 
-- Description: XRATIO (v5.6)
+- Description: XRATIO (v0.5.6)
 - Legacy: new
 - Rows: nga,res, lpg,res, ker,res
   - 2022: `lkxe(t) = 1`
@@ -7848,7 +7848,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1037. `lkxr`: Initially exempt demand: ratio of the after-tax price** (ratio)
 
-- Description: XRATIO (v5.6)
+- Description: XRATIO (v0.5.6)
 - Legacy: new
 - Rows: nga,res, lpg,res, ker,res
   - 2022: `lkxr(t) = 1`
@@ -7857,7 +7857,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1038. `lkx`: Initially exempt fuel use of the most-used cooking fuel** (ktoe)
 
-- Description: base: ExemptCookShare x fuel use; then XPATH: the usage elasticity phased in (v5.6; income factor as the row, L48 fixed)
+- Description: base: ExemptCookShare x fuel use; then XPATH: the usage elasticity phased in (v0.5.6; income factor as the row, L48 fixed)
 - Legacy: legacy rows 5568-5570
 - Rows: nga,res, lpg,res, ker,res
   - 2022: `lkx(t) = <initially exempt share>*INDEX(enel[9 rows](t),<fuel position (Inputs)>)`
@@ -7866,7 +7866,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1039. `lkxa`: Initially exempt demand: adjustment added to fuel use (through lkc)** (ktoe)
 
-- Description: lkx - share x enel (v5.6)
+- Description: lkx - share x enel (v0.5.6)
 - Legacy: legacy totals 5554, 5557, 5558 (not-exempt + initially exempt)
 - Rows: nga,res, lpg,res, ker,res
   - 2022: `lkxa(t) = 0`
@@ -7876,7 +7876,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1040. `lkz`: Leakage: none (position 1 of the rows added to fuel use)** (ktoe)
 
 - Description: 0
-- Legacy: new (v5.1)
+- Legacy: new (v0.5.1)
 - Rows: none,res
   - 2022-2041: `lkz(t) = 0`
 
@@ -7899,7 +7899,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1043. `lks`: Residential leakage to biomass: net change in residential fuel use (summary row of section 6b)** (ktoe)
 
 - Description: Sum of lkc and lkcb
-- Legacy: new (v5.1)
+- Legacy: new (v0.5.1)
 - Rows: all,res
   - 2022-2041: `lks(t) = SUM(block@lkc{lkc, lkcb}(t))`
 
@@ -7928,14 +7928,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1047. `echg`: Energy consumption: change against scenario 1 (same year)** (ktoe)
 
 - Description: Row of section 11 (fuel incl. power generation; sector total; power fuels) - scenario 1
-- Legacy: legacy F7, v3.14
+- Legacy: legacy F7, v0.3.14
 - Rows: coa,all, nga,all, gso,all, die,all, lpg,all, ker,all, jfu,all, oop,all, bio,all, all,tra, all,bld, all,ind, ... (15 rows)
   - 2022-2041: `echg(t) = ener[f,s](t)-INDEX(ener[f,s](..t),row10(t))`
 
 **E1048. `epct`: Energy consumption: % change against scenario 1** (%)
 
 - Description: echg / (level - echg); 0 when 0
-- Legacy: legacy F7, v3.14
+- Legacy: legacy F7, v0.3.14
 - Rows: coa,all, nga,all, gso,all, die,all, lpg,all, ker,all, jfu,all, oop,all, bio,all, all,tra, all,bld, all,ind, ... (14 rows)
   - 2022-2041: `epct(t) = IF(ener[f,s](t)-echg[f,s](t)=0,0,echg[f,s](t)/(ener[f,s](t)-echg[f,s](t)))`
 
@@ -7951,7 +7951,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1050. `rpsu`: Producer subsidies after the phase-out (negative = fiscal cost)** (USD m real)
 
 - Description: -SUMPRODUCT(pros, psf)
-- Legacy: legacy rows 7824-7862 (v4.16, LD19)
+- Legacy: legacy rows 7824-7862 (v0.4.16, LD19)
 - Rows: all,all
   - 2022-2041: `rpsu(t) = -SUMPRODUCT(pros[5 rows](t),psf[5 rows](t))`
 
@@ -7979,7 +7979,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1054. `rfu`: Revenue by fuel net of subsidies: final use (fuels), electricity (VAT, subsidy gap, VAT on new policies)** (USD m real)
 
 - Description: Fuels: rtx + rsub + rnew of the fuel over all subsectors; electricity: rvat + rgap + rnvat (section 3 G)
-- Legacy: legacy section 16 info rows (F9), v3.13
+- Legacy: legacy section 16 info rows (F9), v0.3.13
 - Rows: coa,all, nga,all, gso,all, die,all, lpg,all, ker,all, jfu,all, oop,all, bio,all
   - 2022-2041: `rfu(t) = SUMPRODUCT(SUMIFS(block{ener, eldem, ctxnew, ets, ... 599 variables}(t),SecVar,{"rtx","rsub","rnew","rsr"},SecFuel,f))`
 - Rows: ecy,pow
@@ -7988,28 +7988,28 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1055. `rfg`: Revenue from fuels burnt in power generation, net of subsidies** (USD m real)
 
 - Description: prtx + prxc + prsub + prnew of the generation type (section 3 M)
-- Legacy: legacy section 16 info rows (F9), v3.13
+- Legacy: legacy section 16 info rows (F9), v0.3.13
 - Rows: coa,pow, nga,pow, oop,pow, bio,pow
   - 2022-2041: `rfg(t) = prtx[f,s](t)+prxc[f,s](t)+prsub[f,s](t)+prnew[f,s](t)`
 
 **E1056. `rfu.chk`: Check: revenue by fuel minus (rnet + rnew), all sectors (0 = consistent)** (USD m real)
 
 - Description: ABS(sum of rfu and rfg - rnet.all - rnew.all)
-- Legacy: new (v3.13)
+- Legacy: new (v0.3.13)
 - Rows: all,all
   - 2022-2041: `rfu.chk(t) = ABS(SUM(block@rfu{rfu, rfg}(t))-rnet[f,s](t)-rnew[f,s](t)-rsr[f,s](t))`
 
 **E1057. `rbe`: Base erosion: change in existing taxes net of subsidies against scenario 1** (USD m real)
 
 - Description: rnet - rnet of scenario 1 (same year)
-- Legacy: legacy section 16 info rows (base erosion), v3.13
+- Legacy: legacy section 16 info rows (base erosion), v0.3.13
 - Rows: all,all
   - 2022-2041: `rbe(t) = rnet[f,s](t)-INDEX(rnet[f,s](..t),row10(t))`
 
 **E1058. `rpct`: Revenue as a share of baseline real GDP** (% of GDP)
 
 - Description: USD m / (gdp.usd x MperBn); GDPSHARE
-- Legacy: legacy section 16 info rows (% of GDP), v3.13
+- Legacy: legacy section 16 info rows (% of GDP), v0.3.13
 - Rows: tot,all
   - 2022-2041: `rpct(t) = rtot[all,s](t)/(gdp.usd[all,s](t)*MperBn)`
 - Rows: net,all
@@ -8025,7 +8025,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1059. `gdpn`: Nominal GDP (local currency, USD)** (bn nominal (LCU or USD, by row))
 
-- Description: WEO NGDP (LCU) and NGDPD (USD), extended with nominal growth past the last data year (Inputs_macro; v5.6)
+- Description: WEO NGDP (LCU) and NGDPD (USD), extended with nominal growth past the last data year (Inputs_macro; v0.5.6)
 - Legacy: legacy rows 424 (NGDP); NGDPD new
 - Rows: lcu,all
   - 2022-2041: `gdpn(t) = INDEX(WEOVal,MATCH(CtryCode&"|ngdp",WEOKey,0),MATCH(year,WEOYear,0))/Billion`
@@ -8035,7 +8035,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1060. `rpol`: Total revenue by policy (12e, legacy rows 8016-8027): ct new carbon tax, exc new excise, exi existing taxes and subsidies, vat VAT, ets auctioned ETS, psu producer subsidies (electricity subsidy gap), ren renewable subsidies, mf methane fee, trs transport; ctp, etp: of which power** (USD m real)
 
 - Description: ct = SUMPRODUCT(covct, ctr); ets = SUMPRODUCT(co2.sec, etr) x revenue factor; exc = rex + power prnew - ctp - etp; vat = rvt + electricity VAT; psu = rgap; exi = rnet + rnew - the others; ren, trs 0 (not modelled)
-- Legacy: legacy rows 8016-8027 (v4.15, LD37)
+- Legacy: legacy rows 8016-8027 (v0.4.15, LD37)
 - Rows: ct,all
   - 2022-2041: `rpol(t) = SUMPRODUCT(covct[17 rows](t),ctr[17 rows](t))+SUM(rreb[2 rows](t))+rexs(t)`
 - Rows: exc,all
@@ -8089,7 +8089,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1066. `co2.sec`: CO2 emissions by ETS sector** (MtCO2)
 
-- Description: Sum over fuels (power: section 3, v1.06)
+- Description: Sum over fuels (power: section 3, v0.1.06)
 - Legacy: new
 - Rows: all,pow, all,rod, all,ral, all,avi, all,nav, all,res, all,foo, all,srv, all,mch, all,irn, all,nfm, all,mac, ... (17 rows)
   - 2022-2041: `co2.sec(t) = SUMIFS(block{ener, eldem, ctxnew, ets, ... 599 variables}(t),SecVar,"co2",SecSub,s)+SUMIF(co2[9 rows](C),s,co2[9 rows](t))`
@@ -8146,21 +8146,21 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1074. `cchg`: CO2 from fuel combustion: change against scenario 1** (MtCO2)
 
 - Description: Row of section 13 - scenario 1
-- Legacy: legacy F13, v3.14
+- Legacy: legacy F13, v0.3.14
 - Rows: coa,all, nga,all, gso,all, die,all, lpg,all, ker,all, jfu,all, oop,all, bio,all, all,tra, all,bld, all,ind, ... (14 rows)
   - 2022-2041: `cchg(t) = co2[f,s](t)-INDEX(co2[f,s](..t),row10(t))`
 
 **E1075. `co2.grid`: Grid emission intensity** (tCO2 per MWh)
 
 - Description: co2.pow x Million / (gtot x HoursYr); SAFEDIV
-- Legacy: legacy Mitigation row 6582, v3.14
+- Legacy: legacy Mitigation row 6582, v0.3.14
 - Rows: all,pow
   - 2022-2041: `co2.grid(t) = IF(gtot(t)*HoursYr=0,0,co2[f,s](t)*Million/(gtot(t)*HoursYr))`
 
 **E1076. `kaya`: Kaya identity: population (mn), GDP per capita (thousand USD), total primary energy supply (ktoe), energy intensity (ktoe per USD bn), carbon intensity (ktCO2 per ktoe)** (mixed)
 
-- Description: Baseline real GDP (header), total primary energy supply = fuel use incl. power generation (section 11) + primary electricity (pe of nuclear and renewables, section 3; v3.18), total CO2 incl. processes (ghg.g.co2); SAFEDIV
-- Legacy: legacy rows 18877-18885 (F14), v3.14
+- Description: Baseline real GDP (header), total primary energy supply = fuel use incl. power generation (section 11) + primary electricity (pe of nuclear and renewables, section 3; v0.3.18), total CO2 incl. processes (ghg.g.co2); SAFEDIV
+- Legacy: legacy rows 18877-18885 (F14), v0.3.14
 - Rows: pop,all
   - 2022-2041: `kaya(t) = IF(Thousand=0,0,pop[all,s](t)/Thousand)`
 - Rows: gpc,all
@@ -8175,7 +8175,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1077. `kidx`: Kaya identity against the base year (base year = 1); chk = product of the four factors = CO2 index** (index)
 
 - Description: Level / level of the base year (scenario 1)
-- Legacy: legacy rows 18887-18893 (F14), v3.14
+- Legacy: legacy rows 18887-18893 (F14), v0.3.14
 - Rows: pop,all, gpc,all, ei,all, ci,all
   - 2022-2041: `kidx(t) = IF(kaya[f,s](2022)=0,0,kaya[f,s](t)/kaya[f,s](2022))`
 - Rows: gdp,all
@@ -8269,7 +8269,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1088. `ch4.wd`: World demand of the fuel (global demand scenario, MTOE)** (MTOE)
 
-- Description: Prices_int rows 323-333 (GlobalEnergyDemand of scenario 1; legacy CHOOSE: the 3rd and 4th options both read the Net Zero row) (v5.6)
+- Description: Prices_int rows 323-333 (GlobalEnergyDemand of scenario 1; legacy CHOOSE: the 3rd and 4th options both read the Net Zero row) (v0.5.6)
 - Legacy: legacy rows 717-719
 - Rows: oil,all, coa,all, nga,all
   - 2022-2041: `ch4.wd(t) = INDEX(WDData,<position of the fuel (Prices_int)>+WDIdx-1,MATCH(year,WDYear,0))`
@@ -8277,7 +8277,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1089. `ch4.fk`: Methane fee per ktoe produced (after abatement)** (USD/ktoe)
 
-- Description: fee per t CH4 x t CH4 per ktoe after abatement (v5.6)
+- Description: fee per t CH4 x t CH4 per ktoe after abatement (v0.5.6)
 - Legacy: legacy rows 6112, 6129
 - Rows: og,all, cm,all
   - 2022: `ch4.fk(t) = 0`
@@ -8286,7 +8286,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1090. `ch4.pi`: Producer price index from the methane fee** (index)
 
-- Description: 1 + change of the fee per unit / international price x pass-through (Manual inputs J194) (v5.6)
+- Description: 1 + change of the fee per unit / international price x pass-through (Manual inputs J194) (v0.5.6)
 - Legacy: legacy rows 6137-6144
 - Rows: oil,all, nga,all
   - 2022: `ch4.pi(t) = 1`
@@ -8299,7 +8299,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1091. `ch4.prd`: Fuel production** (ktoe)
 
-- Description: Balances production in the base year and the next; then previous x price index ^ elasticity (Manual inputs J190:J192) x world demand growth of the year before (v5.6, I66)
+- Description: Balances production in the base year and the next; then previous x price index ^ elasticity (Manual inputs J190:J192) x world demand growth of the year before (v0.5.6, I66)
 - Legacy: legacy rows 6146-6149
 - Rows: oil,all, coa,all, nga,all
   - 2022-2041: `ch4.prd(t) = IF(year<=BaseYr+1,<base production (Balances, ktoe)>,ch4.prd[f,s](t-1)*ch4.pi[f,s](t)^<price elasticity of production>*ch4.wd[f,s](t-1)/ch4.wd[f,s](t-2))`
@@ -8336,7 +8336,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1094. `ch4.int`: Methane source: intensity index (autonomous technological improvement)** (index)
 
-- Description: INTDECLINE: (1 - rate)^MAX(0, year - GHGYear); rate: Manual inputs J185 oil and gas (also downstream gas and biomass, I141), J186 coal, J187 agriculture, J188 waste (v9.0, R8.6)
+- Description: INTDECLINE: (1 - rate)^MAX(0, year - GHGYear); rate: Manual inputs J185 oil and gas (also downstream gas and biomass, I141), J186 coal, J187 agriculture, J188 waste (v0.9.0, R8.6)
 - Legacy: legacy Mitigation rows 6077-6079, 6103, 6159, 6171, 6183 (Manual inputs J185:J188)
 - Rows: og,all, dg,all, cm,all, bm,all, liv,all, ric,all, wst,all
   - 2022-2041: `ch4.int(t) = (1-<rate of decline (% per year; Manual inputs J185:J188)>)^MAX(0,year-GHGYear)`
@@ -8344,7 +8344,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1095. `ch4.em`: Methane source: emissions** (kt CH4)
 
-- Description: base-year emissions x activity / activity in GHGYear x intensity index x (1 - abatement) (v9.0, R8.7; L135 fixed: livestock, rice and waste also decline)
+- Description: base-year emissions x activity / activity in GHGYear x intensity index x (1 - abatement) (v0.9.0, R8.7; L135 fixed: livestock, rice and waste also decline)
 - Legacy: legacy Mitigation rows 6154-6165, 6203, 6206, 6212, 6217-6226
 - Changes against legacy: LD43, L18 (section B)
 - Rows: og,all, dg,all, cm,all, bm,all, liv,all, ric,all, wst,all
@@ -8446,7 +8446,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1105. `ch4.emf`: Methane of a source for the fiscal space (kt): as ch4.em, with the scenario-1 activity for downstream gas and biomass use** (kt CH4)
 
 - Description: METHSOURCE(base kt, ch4bs, base activity, abatement); other sources = ch4.em
-- Legacy: new (v6.2, I47)
+- Legacy: new (v0.6.2, I47)
 - Rows: og,all, cm,all, liv,all, ric,all, wst,all
   - 2022-2041: `ch4.emf(t) = ch4.em[f,s](t)`
 - Rows: dg,all
@@ -8454,31 +8454,31 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: bm,all
   - 2022-2041: `ch4.emf(t) = IF(<activity in the base year (data) of ch4.src[f,s]>=0,0,<emissions in GHGYear (kt CH4) of ch4.em[f,s]>*ch4bs[all,bm](t)/<activity in the base year (data) of ch4.src[f,s]>*ch4.int[f,s](t)*(1-ch4.abt[f,s](t)))`
 
-**E1106. `ch4.revf`: Memo: methane fee revenue on the stored scenario-1 activity (v6.2-v8.5 fiscal space; not used since v9.0, I47)** (USD m real)
+**E1106. `ch4.revf`: Memo: methane fee revenue on the stored scenario-1 activity (v0.6.2-v0.8.5 fiscal space; not used since v0.9.0, I47)** (USD m real)
 
 - Description: FEEREV over ch4.emf
-- Legacy: new (v6.2, I47)
+- Legacy: new (v0.6.2, I47)
 - Rows: all,all
   - 2022-2041: `ch4.revf(t) = SUMPRODUCT(ch4.emf[7 rows](t),ch4.abt[7 rows](F),ch4.abt[7 rows](G))*mfee(t)*tPerKt/USDperM`
 
 **E1107. `ch4bs.chk`: Check: stored scenario-1 methane activity minus own activity in scenario 1 (0 = data up to date)** (ktoe)
 
 - Description: ABS(ch4bs - ch4.act), scenario 1 only
-- Legacy: new (v6.2, I47)
+- Legacy: new (v0.6.2, I47)
 - Rows: all,all
   - 2022-2041: `ch4bs.chk(t) = IF(scenario(t)=1,ABS(ch4bs[f,dg](t)-ch4.act[dg,s](t))+ABS(ch4bs[f,bm](t)-ch4.act[bm,s](t)),0)`
 
 **E1108. `gchg`: GHG emissions: change against scenario 1 by inventory category and gas** (Mt CO2e)
 
 - Description: Row of section 14 - scenario 1
-- Legacy: legacy F12 rows 18229-18264, v3.14
+- Legacy: legacy F12 rows 18229-18264, v0.3.14
 - Rows: all,enr, all,ipr, all,agr, all,lucf, all,wst, all,oth, co2,all, ch4,all, n2o,all, fga,all
   - 2022-2041: `gchg(t) = ghg[f,s](t)-INDEX(ghg[f,s](..t),row10(t))`
 
 **E1109. `ghg.enrp`: Energy-related GHGs including the forcing of the local pollutants** (Mt CO2e)
 
 - Description: ghg.c.enr + apf.all
-- Legacy: legacy rows 18310, 18321 (F12), v3.14
+- Legacy: legacy rows 18310, 18321 (F12), v0.3.14
 - Rows: all,enr
   - 2022-2041: `ghg.enrp(t) = ghg[f,s](t)+apf[f,all](t)`
 
@@ -8593,24 +8593,24 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,all
   - 2022-2041: `ndc.hh(t) = IFERROR(INDEX(GHHTab,MATCH(CtryCode,GHHIso,0),MATCH(ndc.hk[f,s](t),GHHHdr,0)),"N/A")`
 
-**E1125. `ndc.hc`: GHGs inventory column of the NDC basis (v6.1, I95)** (text)
+**E1125. `ndc.hc`: GHGs inventory column of the NDC basis (v0.6.1, I95)** (text)
 
 - Description: texc or tinc & .tot or .co2
-- Legacy: new (v6.1, I95)
+- Legacy: new (v0.6.1, I95)
 - Rows: all,all
   - 2022-2041: `ndc.hc(t) = IF(ndc.lu[f,s](t)="Includes","tinc","texc")&IF(ndc.gas[f,s](t)="CO2",".co2",".tot")`
 
-**E1126. `ndc.hv`: Inventory emissions on the NDC basis in the reference year (sheet GHGs, 2021-2024; v6.1, I95)** (Mt CO2e)
+**E1126. `ndc.hv`: Inventory emissions on the NDC basis in the reference year (sheet GHGs, 2021-2024; v0.6.1, I95)** (Mt CO2e)
 
 - Description: sheet GHGs
-- Legacy: new (v6.1, I95)
+- Legacy: new (v0.6.1, I95)
 - Rows: all,all
   - 2022-2041: `ndc.hv(t) = IFERROR(INDEX(GHGVal,MATCH(CtryCode&"|"&ndc.ref[f,s](t),GHGKey,0),MATCH(ndc.hc[f,s](t),GHGCol,0)),"N/A")`
 
 **E1127. `ndc.h`: Emissions on the NDC basis in the reference year** (Mt CO2e)
 
 - Description: scenario 1 if the year is modelled, else the GHGs inventory (ndc.hv), else GHGHist (ndc.hh)
-- Legacy: legacy rows 18446-18447, 18464 (v6.1: + inventory, I95)
+- Legacy: legacy rows 18446-18447, 18464 (v0.6.1: + inventory, I95)
 - Rows: all,all
   - 2022-2041: `ndc.h(t) = IFERROR(INDEX(ndc.bs[f,s](2022..2041),MATCH(ndc.ref[f,s](t),year(2022..2041),0)),IF(ISNUMBER(ndc.hv[f,s](t)),ndc.hv[f,s](t),ndc.hh[f,s](t)))`
 
@@ -8787,7 +8787,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1150. `fis.rev`: Total revenue (existing taxes net of subsidies + new policies + methane fee)** (USD m real)
 
-- Description: rnet + rnew + rsr + rpsu + ch4.rev (methane fee on the scenario's own activity, as legacy; v9.0, I47)
+- Description: rnet + rnew + rsr + rpsu + ch4.rev (methane fee on the scenario's own activity, as legacy; v0.9.0, I47)
 - Legacy: legacy Mitigation row 8024
 - Changes against legacy: LD55 (section B)
 - Rows: all,all
@@ -8811,7 +8811,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1153. `fis.imp`: Fiscal impulse of the year (change in revenue above scenario 1 / this year's GDP)** (share of GDP)
 
 - Description: 0 before GDPStartYear; fis.sp - fis.sp(t-1) x gdp.usd(t-1) / gdp.usd
-- Legacy: legacy Mitigation row 14356 (v4.15)
+- Legacy: legacy Mitigation row 14356 (v0.4.15)
 - Rows: all,all
   - 2022: `fis.imp(t) = IF(year<GDPStartYear[f,s](t),0,fis.sp[f,s](t))`
   - 2023-2041: `fis.imp(t) = IF(year<GDPStartYear[f,s](t),0,fis.sp[f,s](t)-fis.sp[f,s](t-1)*gdp.usd[f,s](t-1)/gdp.usd[f,s](t))`
@@ -8843,14 +8843,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1155. `fis.impp`: Fiscal impulse used by the revenue uses (0 before CPIntro)** (share of GDP)
 
 - Description: IF(year < CPIntro, 0, fis.imp)
-- Legacy: legacy Mitigation rows 96-100 (v5.7, I43)
+- Legacy: legacy Mitigation rows 96-100 (v0.5.7, I43)
 - Rows: all,all
   - 2022-2041: `fis.impp(t) = IF(year<CPIntro(t),0,fis.imp[f,s](t))`
 
 **E1156. `fis.lagp`: Fiscal impulse used by the revenue uses, k years back** (share of GDP)
 
 - Description: Previous column of the row above
-- Legacy: legacy Mitigation rows 8068-8244 (v5.7, I43)
+- Legacy: legacy Mitigation rows 8068-8244 (v0.5.7, I43)
 - Rows: l1,all
   - 2022: `fis.lagp(t) = 0`
   - 2023-2041: `fis.lagp(t) = fis.impp[all,s](t-1)`
@@ -8874,7 +8874,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1157. `fis.grp`: Multiplier group** (text)
 
 - Description: global, est (Estimated), man (Manual), else the income group
-- Legacy: legacy sheet Multipliers rows 19-21 (v4.15: est, man)
+- Legacy: legacy sheet Multipliers rows 19-21 (v0.4.15: est, man)
 - Rows: all,all
   - 2022-2041: `fis.grp(t) = IFERROR(INDEX(MultSrcVal,MATCH(LEFT(MultipliersSource[f,s](t),3),MultSrcKey,0)),LOWER(IncomeGrp))`
 
@@ -8929,7 +8929,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1162. `gdpg`: Real GDP growth effect of a revenue use (memo)** (share)
 
 - Description: (1 + gdp.base) x (fis.eff(t-1) - fis.eff(t-2)) / gdp.lvl(t-1) if GDPEndogenous = Yes; all: from gdp.eff (sums to gdp.pos.pct - gdp.base)
-- Legacy: legacy Mitigation rows 16166-16175 (v5.7)
+- Legacy: legacy Mitigation rows 16166-16175 (v0.5.7)
 - Rows: exc,all, pit,all, cit,all, capt,all, gnfs,all, trns,all
   - 2022: `gdpg(t) = 0`
   - 2023: `gdpg(t) = (1+gdp.base[all,s](t))*(fis.eff[f,s](t-1)-0)/gdp.lvl[all,s](t-1)*(LEFT(GDPEndogenous[all,s](t),3)="Yes")`
@@ -8942,21 +8942,21 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1163. `gdpy`: Year of the reform (memo; the growth effect of year N = gdpg.all where gdpy = N)** (year number)
 
 - Description: year - GDPStartYear + 1
-- Legacy: legacy Mitigation rows 16183-16194 (v6.0: a number row, not a shifted row)
+- Legacy: legacy Mitigation rows 16183-16194 (v0.6.0: a number row, not a shifted row)
 - Rows: all,all
   - 2022-2041: `gdpy(t) = year-GDPStartYear[f,s](t)+1`
 
 **E1164. `gdp.chg.usd`: Change in real GDP level against the baseline (memo)** (USD bn)
 
 - Description: gdp.pos.usd - gdp.usd
-- Legacy: legacy Mitigation row 16201 (v5.7)
+- Legacy: legacy Mitigation row 16201 (v0.5.7)
 - Rows: all,all
   - 2022-2041: `gdp.chg.usd(t) = gdp.pos.usd[f,s](t)-gdp.usd[f,s](t)`
 
 **E1165. `xnim`: Change in net energy imports against scenario 1 (positive = more imports)** (USD bn real)
 
 - Description: Fuels: echg x PJ per ktoe x supply price sp ($/GJ) x import share (D) / MperBn (REVENUE); groups: sums
-- Legacy: legacy rows 18181, 18187, 18193 (F11), v3.16; share also on oil (legacy bug L49)
+- Legacy: legacy rows 18181, 18187, 18193 (F11), v0.3.16; share also on oil (legacy bug L49)
 - Rows: coa,all, nga,all
   - 2022-2041: `xnim(t) = echg[f,s](t)*Settings[PJ per ktoe]*sp[f,ind](t)*<share traded (sheet WEO)>/MperBn`
   - Parameters: `<share traded (sheet WEO)>` = `INDEX(WEOVal,MATCH(CtryCode&"|ts_coa",WEOKey,0),1)`
@@ -8989,21 +8989,21 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1167. `xtbp`: Energy trade balance of the scenario: baseline - change in net imports** (USD bn real)
 
 - Description: xtb.all - xnim.all
-- Legacy: legacy rows 18215, 18218 (F11), v3.16
+- Legacy: legacy rows 18215, 18218 (F11), v0.3.16
 - Rows: all,all
   - 2022-2041: `xtbp(t) = xtb[f,s](t)-xnim[f,s](t)`
 
 **E1168. `xtb.pct`: Energy trade balance of the scenario, % of baseline real GDP** (%)
 
 - Description: xtbp / gdp.usd (SAFEDIV)
-- Legacy: legacy rows 18217, 18219, v3.16
+- Legacy: legacy rows 18217, 18219, v0.3.16
 - Rows: all,all
   - 2022-2041: `xtb.pct(t) = IF(gdp.usd[f,s](t)=0,0,(xtbp[f,s](t))/gdp.usd[f,s](t))`
 
 **E1169. `xnim.pct`: Change in net energy imports, % of baseline real GDP** (%)
 
 - Description: xnim.all / gdp.usd (SAFEDIV)
-- Legacy: legacy rows 18207-18210, v3.16
+- Legacy: legacy rows 18207-18210, v0.3.16
 - Rows: all,all
   - 2022-2041: `xnim.pct(t) = IF(gdp.usd[f,s](t)=0,0,(xnim[f,s](t))/gdp.usd[f,s](t))`
 
@@ -9082,7 +9082,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1180. `tcp`: Implicit carbon price by fuel: existing taxes, subsidies and new policies per tonne of CO2** (USD/tCO2)
 
 - Description: Fuels: (rfu + rfg of the fuel) / co2.f; all: fossil fuels / co2 (SAFEDIV); biomass left out
-- Legacy: legacy F5d (total carbon price by fuel), v3.15
+- Legacy: legacy F5d (total carbon price by fuel), v0.3.15
 - Rows: coa,all, nga,all, oop,all
   - 2022-2041: `tcp(t) = IF(co2[f,s](t)=0,0,(rfu[f,s](t)+rfg[f,pow](t))/co2[f,s](t))`
 - Rows: gso,all, die,all, lpg,all, ker,all, jfu,all
@@ -9093,14 +9093,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1181. `cpeff`: Effective carbon tax: carbon price x share of energy CO2 covered by it** (USD/tCO2)
 
 - Description: cptraj x cov.ct.all (SCALEBY)
-- Legacy: legacy row 16137, v3.15
+- Legacy: legacy row 16137, v0.3.15
 - Rows: all,all
   - 2022-2041: `cpeff(t) = cptraj(t)*cov.ct[f,s](t)`
 
 **E1182. `covct`: CO2 covered by the new carbon tax, by coverage sector** (MtCO2)
 
 - Description: SUMPRODUCT(co2 of the fuels x fuel switch fc) x (carbon tax rate ctr of the sector > 0)
-- Legacy: new (v3.15)
+- Legacy: new (v0.3.15)
 - Rows: all,pow
   - 2022-2041: `covct(t) = (co2[coa,s](t)*ctcov[coa,all](t)+co2[nga,s](t)*ctcov[nga,all](t)+co2[oop,s](t)*ctcov[oop,all](t))*(ctr[f,s](t)>0)`
 - Rows: all,rod, all,ral, all,avi, all,nav, all,res, all,foo, all,srv, all,mch, all,irn, all,nfm, all,mac, all,cem, ... (16 rows)
@@ -9109,7 +9109,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1183. `cov.ct`: Share of energy CO2 covered by the new carbon tax** (%)
 
 - Description: covct of the sectors / co2 (SAFEDIV)
-- Legacy: legacy rows 16152-16157, v3.15
+- Legacy: legacy rows 16152-16157, v0.3.15
 - Rows: all,tra
   - 2022-2041: `cov.ct(t) = IF(co2[f,all](t)=0,0,(SUM(covct[4 rows](t)))/co2[f,all](t))`
 - Rows: all,bld
@@ -9124,21 +9124,21 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1184. `cov.ets`: Share of energy CO2 covered by the new ETS** (%)
 
 - Description: co2.ets / co2 (SAFEDIV)
-- Legacy: new (v3.15)
+- Legacy: new (v0.3.15)
 - Rows: all,all
   - 2022-2041: `cov.ets(t) = IF(co2[f,s](t)=0,0,(co2.ets[f,s](t))/co2[f,s](t))`
 
 **E1185. `cov.all`: Share of energy CO2 covered by the carbon tax or the ETS** (%)
 
 - Description: cov.ct.all + cov.ets
-- Legacy: legacy row 16152, v3.15
+- Legacy: legacy row 16152, v0.3.15
 - Rows: all,all
   - 2022-2041: `cov.all(t) = cov.ct[f,s](t)+cov.ets[f,s](t)`
 
 **E1186. `ecr`: Effective carbon rate, economy-wide: revenue net of subsidies (incl. electricity VAT and subsidy gap) per tonne of energy CO2** (USD/tCO2)
 
 - Description: (rnet + rnew) / co2 (SAFEDIV)
-- Legacy: legacy row 16662 (F5e), v3.15
+- Legacy: legacy row 16662 (F5e), v0.3.15
 - Rows: all,all
   - 2022-2041: `ecr(t) = IF(co2[f,s](t)=0,0,(rnet[f,s](t)+rnew[f,s](t)+rsr[f,s](t))/co2[f,s](t))`
 
@@ -9146,7 +9146,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1187. `airpol.cost`: Air-pollution cost per unit of fuel, marginal damages (coal, gas, other oil products USD/GJ; gasoline, diesel, LPG, kerosene USD/l)** (USD per unit)
 
-- Description: airpol.mc of the subsectors of the line weighted by the scenario's own fuel use (fus) x GJ per price unit (R1.1; v9.0 PIGAP: legacy average damages, I104 fixed; the legacy values are a memo on FromAirPollution)
+- Description: airpol.mc of the subsectors of the line weighted by the scenario's own fuel use (fus) x GJ per price unit (R1.1; v0.9.0 PIGAP: legacy average damages, I104 fixed; the legacy values are a memo on FromAirPollution)
 - Legacy: legacy rows 17738-17749
 - Rows: coa,ind, nga,ind, oop,ind
   - 2022-2041: `airpol.cost(t) = IFERROR(SUMPRODUCT(airpol.mc[8 rows](t),fus[8 rows](t))/SUM(fus[8 rows](t)),AVERAGE(airpol.mc[8 rows](t)))*<GJ per price unit>`
@@ -9163,7 +9163,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1188. `fus`: Fuel use of the subsector (weights of the air-pollution cost lines)** (ktoe)
 
-- Description: ener of the subsector and fuel (sections 5-8), scenario's own (v9.0 PIGAP)
+- Description: ener of the subsector and fuel (sections 5-8), scenario's own (v0.9.0 PIGAP)
 - Legacy: legacy rows 16849-16930
 - Rows: coa,mch, coa,irn, coa,nfm, coa,mac, coa,cem, coa,omn, coa,cst, coa,ftr, coa,res, coa,foo, coa,srv, nga,mch, ... (94 rows)
   - 2022-2041: `fus(t) = ener[f,s](t)`
@@ -9329,21 +9329,21 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1206. `dmg`: Climate damages of GHG emissions excl. LULUCF (national SCC, global SCC)** (USD bn real)
 
 - Description: scc x ghg / MperBn (SCALEBY)
-- Legacy: legacy rows 17688-17689, 17704-17705; v3.17
+- Legacy: legacy rows 17688-17689, 17704-17705; v0.3.17
 - Rows: nat,all, glo,all
   - 2022-2041: `dmg(t) = scc[f,s](t)*ghg[all,s](t)/MperBn`
 
 **E1207. `wcli`: Climate damages avoided against scenario 1 (national, global)** (USD bn real)
 
 - Description: dmg of scenario 1 - dmg
-- Legacy: legacy rows 17690, 17729-17731; v3.17
+- Legacy: legacy rows 17690, 17729-17731; v0.3.17
 - Rows: nat,all, glo,all
   - 2022-2041: `wcli(t) = INDEX(dmg[f,s](..t),row10(t))-dmg[f,s](t)`
 
 **E1208. `wdg`: Tax wedge: revenue net of subsidies per unit of use (fuels incl. power generation; electricity demand)** (USD m/ktoe)
 
 - Description: (rfu + rfg) / fuel use (section 11); electricity: rfu.ecy / eldem (SAFEDIV)
-- Legacy: new (v3.17)
+- Legacy: new (v0.3.17)
 - Rows: coa,all, nga,all, oop,all, bio,all
   - 2022-2041: `wdg(t) = IF(ener[f,s](t)=0,0,(rfu[f,s](t)+rfg[f,pow](t))/ener[f,s](t))`
 - Rows: gso,all, die,all, lpg,all, ker,all, jfu,all
@@ -9354,7 +9354,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1209. `eff`: Efficiency (deadweight) cost of energy use (positive = cost; negative = gain from lower subsidised use)** (USD bn real)
 
 - Description: -(wedge + wedge of scenario 1) / 2 x change in use / MperBn (TRAPEZOID)
-- Legacy: legacy rows 17636-17648 (trapezoid); v3.17, the LPG, conversion and row-offset bugs not replicated
+- Legacy: legacy rows 17636-17648 (trapezoid); v0.3.17, the LPG, conversion and row-offset bugs not replicated
 - Rows: coa,all, nga,all, gso,all, die,all, lpg,all, ker,all, jfu,all, oop,all, bio,all
   - 2022-2041: `eff(t) = -AVERAGE(wdg[f,s](t),INDEX(wdg[f,s](..t),row10(t)))*echg[f,s](t)/MperBn`
 - Rows: ecy,all
@@ -9365,14 +9365,14 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E1210. `mfp`: Methane fee per t CH4 used on the abatement curve** (USD/tCH4)
 
 - Description: MIN(fee x GWP, fee where a x fee ^ b = 1) (MFEEPRICE)
-- Legacy: new (v3.17)
+- Legacy: new (v0.3.17)
 - Rows: og,all, dg,all, cm,all, bm,all, liv,all, ric,all, wst,all
   - 2022-2041: `mfp(t) = IF(<curve a (CH4Inputs) of ch4.abt[f,s]>=0,0,MIN(mfee(t)*<GWP of ch4.abt[f,s]>*<fee applies (1 = yes; Settings, legacy Manual inputs J196-J200) of ch4.abt[f,s]>,(1/<curve a (CH4Inputs) of ch4.abt[f,s]>)^(1/<curve b (CH4Inputs) of ch4.abt[f,s]>)))`
 
 **E1211. `mfc`: Efficiency cost of the methane fee: area under the abatement curve** (USD bn real)
 
 - Description: unabated emissions (kt CH4) x abatement share x price x b / (1 + b) / Million (MFEECOST)
-- Legacy: legacy rows 17628-17634 (integral); v3.17
+- Legacy: legacy rows 17628-17634 (integral); v0.3.17
 - Rows: og,all, dg,all, cm,all, bm,all, liv,all, ric,all, wst,all
   - 2022-2041: `mfc(t) = IF(<activity in the base year (data) of ch4.src[f,s]>=0,0,<emissions in GHGYear (kt CH4) of ch4.em[f,s]>*ch4.act[f,s](t)/<activity in the base year (data) of ch4.src[f,s]>)*ch4.abt[f,s](t)*mfp[f,s](t)*<curve b (CH4Inputs) of ch4.abt[f,s]>/(1+<curve b (CH4Inputs) of ch4.abt[f,s]>)/Million`
 - Rows: all,all
@@ -9420,8 +9420,8 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1217. `wel`: Welfare, national: avoided damages and co-benefits - efficiency costs (USD bn real; % of baseline real GDP)** (mixed)
 
-- Description: usd = wcli.nat + wel.air.usd + wel.rod - eff.all - mfc.all (v9.0, R2.8); air.usd = air.vpm x (modelled PM2.5 of scenario 1 - own) (R2.5); pct, cli, eff, air.pct, rod.pct = shares of gdp.usd
-- Legacy: legacy rows 17716-17727; v3.17
+- Description: usd = wcli.nat + wel.air.usd + wel.rod - eff.all - mfc.all (v0.9.0, R2.8); air.usd = air.vpm x (modelled PM2.5 of scenario 1 - own) (R2.5); pct, cli, eff, air.pct, rod.pct = shares of gdp.usd
+- Legacy: legacy rows 17716-17727; v0.3.17
 - Rows: usd,air
   - 2022-2041: `wel(t) = air.vpm(t)*(INDEX(air.con.pm2[mod](..t),row10(t))-air.con.pm2[mod](t))`
 - Rows: pct,all
@@ -9490,7 +9490,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1222. `supcost`: Energy subsidies: supply cost** (USD/GJ, USD/kWh)
 
-- Description: sp of section 2 (electricity: spe of 3 G2, v9.0); other lines: use-weighted (R2.11, L187 fixed)
+- Description: sp of section 2 (electricity: spe of 3 G2, v0.9.0); other lines: use-weighted (R2.11, L187 fixed)
 - Legacy: legacy rows 17792-17944
 - Rows: gso,all, die,all, lpg,all, ker,all, oop,all, nga,ind, nga,res, nga,pow, coa,ind, coa,res, coa,pow
   - 2022-2041: `supcost(t) = sp[f,s](t)`
@@ -9630,7 +9630,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1236. `sup.cost`: Efficient price: supply cost of scenario 1** (USD per price unit)
 
-- Description: sp of scenario 1 x GJ per price unit (electricity: spe, v9.0) (R3.13)
+- Description: sp of scenario 1 x GJ per price unit (electricity: spe, v0.9.0) (R3.13)
 - Legacy: legacy rows 17963-18101 (16194-16206)
 - Rows: gso,all, die,all, lpg,all, ker,all, coa,ind, coa,res, coa,pow, nga,ind, nga,res, nga,pow
   - 2022-2041: `sup.cost(t) = INDEX(sp[f,s](..t),row10(t))*<GJ per price unit>`
@@ -9763,7 +9763,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1249. `apfd`: Food fuel use within food & forestry** (ktoe)
 
-- Description: Food & forestry fuel use x food share of the fuel (Balances info_food / info_agrc + info_fish + info_food + info_wood; v4.11, LD53)
+- Description: Food & forestry fuel use x food share of the fuel (Balances info_food / info_agrc + info_fish + info_food + info_wood; v0.4.11, LD53)
 - Legacy: legacy Mitigation rows 501-504, 1666-1673
 - Rows: coa,foo
   - 2022-2041: `apfd(t) = ener[f,s](t)*Inputs!BD50`
@@ -9810,7 +9810,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E1252. `aps`: Local air pollutant emissions by air-pollution module sector** (kt)
 
-- Description: Coal and gas power plants: fuel use of the type x emission factor; other sectors: sums of the subsector rows; POM = PomPerOC x OC; other PM2.5 = MAX(0, PM2.5 - BC - POM); CH4 (v3.12, as legacy): combustion CH4 of the sector, plus fossil fuel supply methane in other and agriculture and waste methane in food & forestry; all = sum of the seven sectors
+- Description: Coal and gas power plants: fuel use of the type x emission factor; other sectors: sums of the subsector rows; POM = PomPerOC x OC; other PM2.5 = MAX(0, PM2.5 - BC - POM); CH4 (v0.3.12, as legacy): combustion CH4 of the sector, plus fossil fuel supply methane in other and agriculture and waste methane in food & forestry; all = sum of the seven sectors
 - Legacy: legacy Mitigation rows 6693-6704 (each pollutant), 7310-7321, 7425-7446; input table 15859-15961
 - Changes against legacy: LD51, LD52 (section B)
 - Rows: nox,cpp
@@ -9850,97 +9850,97 @@ Each change is described in the workbook sheet `LegacyDiff` (LD) or in the regis
 
 | ID | Area | Type | Equations |
 |---|---|---|---|
-| LD1 | Elasticities: food & forestry: The same (v9.0; v0.11-v8.5: services elasticities) | Same | E446 |
+| LD1 | Elasticities: food & forestry: The same (v0.9.0; v0.0.11-v0.8.5: services elasticities) | Same | E446 |
 | LD2 | Other oil products: pass-through and margin: From the IMF dataset like the other oil products (Egypt 0 and 7.95 $/bbl) | Decision | E247, E249 |
-| LD3 | VAT rate where the dataset is blank: General VAT rate VAT_WEO for residential coal and gas and all-sector oil products; 0 for power, industry, biomass. Only for blank cells (v0.14) | Bug fix | E254 |
+| LD3 | VAT rate where the dataset is blank: General VAT rate VAT_WEO for residential coal and gas and all-sector oil products; 0 for power, industry, biomass. Only for blank cells (v0.0.14) | Bug fix | E254 |
 | LD4 | Egypt price data: The same (checked cell by cell 2026-10-29: equal but the spot coal and gas cells, which 465 fills with a year and 0, issue I150); cells changed from the original module data still bright yellow in Prices_dom | Same | E247, E249 |
-| LD5 | Oil-product share in the VAT of transport fuels: VAT rate x household share of the oil product (sheet OilProductShares, as legacy rows 801-816; v4.12); VAT payment = (supply cost + taxes) x rate x share | Bug fix | E254 |
+| LD5 | Oil-product share in the VAT of transport fuels: VAT rate x household share of the oil product (sheet OilProductShares, as legacy rows 801-816; v0.4.12); VAT payment = (supply cost + taxes) x rate x share | Bug fix | E254 |
 | LD6 | New ETS price: Same cap; fast estimate in log form LN(cap/baseline)/(semi x effectiveness x volatility adjustment); override row pasted from ets_goalseek.py (Python, same damped log-space step, no VBA); baseline covered emissions are data from scenario 1 (bco2) | Bug fix | E86, E88 |
-| LD7 | ETS allocation: As legacy (v4.15, user 2026-10-18; issue I21): one auctioned share of the scenario (MTInputs rows 90-91) for every sector; benchmark = 1 - auctioned share (sector groups pow, tra, res, ind kept for benchmarks by sector later), linear from the start to the target year, held after it; OBR share = benchmark | Same | E76, E75 |
+| LD7 | ETS allocation: As legacy (v0.4.15, user 2026-10-18; issue I21): one auctioned share of the scenario (MTInputs rows 90-91) for every sector; benchmark = 1 - auctioned share (sector groups pow, tra, res, ind kept for benchmarks by sector later), linear from the start to the target year, held after it; OBR share = benchmark | Same | E76, E75 |
 | LD8 | ETS volatility: Volatility adjustment (1 + policy risk x impact)/(1 + volatility x impact) from MTInputs 95-97 (1/1.1 at Medium) on the tax-equivalent price and in the fast estimate | Bug fix | E81, E79 |
-| LD9 | Sectoral shadow prices: As legacy, bugs fixed (v4.16, LD9): feebates x MTInputs row 251 + regulation shadow price + OBR part of the ETS; the main scenario (MTInputs row 13, ScenarioSelected; legacy scenario table on Mapping) sets explicit or shadow pricing, the efficiency adjustment (rows 247-251) and the sectors covered; under shadow pricing the carbon price path is a shadow price (reg = shadow carbon price x adjustment x coverage) and there is no explicit carbon tax; power included | Same | E109 |
-| LD10 | Policy paths after the target year: The same (v9.0; v0.8-v8.5: linear for the reform and feebates); legacy bugs L171 (hold the target under No) and L173 (1 + rate) fixed; ETS benchmarks constant; ETS cap per MTInputs switch | Bug fix | E235, E28, E95 |
+| LD9 | Sectoral shadow prices: As legacy, bugs fixed (v0.4.16, LD9): feebates x MTInputs row 251 + regulation shadow price + OBR part of the ETS; the main scenario (MTInputs row 13, ScenarioSelected; legacy scenario table on Mapping) sets explicit or shadow pricing, the efficiency adjustment (rows 247-251) and the sectors covered; under shadow pricing the carbon price path is a shadow price (reg = shadow carbon price x adjustment x coverage) and there is no explicit carbon tax; power included | Same | E109 |
+| LD10 | Policy paths after the target year: The same (v0.9.0; v0.0.8-v0.8.5: linear for the reform and feebates); legacy bugs L171 (hold the target under No) and L173 (1 + rate) fixed; ETS benchmarks constant; ETS cap per MTInputs switch | Bug fix | E235, E28, E95 |
 | LD11 | Scenario batch runs: Same idea: RunAllScenarios copies each definition (MTInputs L onwards, Run? = Yes) into the live column K, runs the ETS goal seek when needed, stores MTOutputs values in StoredResults; ScenarioCompare compares one year | Same | - |
 | LD12 | Feebate grouping: Same: food & forestry and services take the residential rate; other energy use the industry rate | Same | E95 |
 | LD13 | Biomass carbon-tax coverage: TRUE (EF 0) | Decision | E19 |
 | LD14 | Sign of subsidies: Subsidies negative: esub, esubpu, rsub, prsub, sgap, rgap; net existing revenue rnet = rtx + rsub | Decision | E462, E253, E245 |
 | LD15 | Constants and row pointers: Looked up: named constants and policy assumptions on sheet Constants, MTInputs rows on Mapping (by NameOfParameter or label), baseline CO2 on sheet BaselineCO2 | Decision | - |
-| LD16 | Margins and production costs: The same years and weight (v9.0), converted to real with the CPI index of the year read | Bug fix | E247 |
+| LD16 | Margins and production costs: The same years and weight (v0.9.0), converted to real with the CPI index of the year read | Bug fix | E247 |
 | LD17 | Existing taxes and subsidies: Split by the sign of txo: etx = max(txo, 0), esub = min(txo, 0) (subsidies negative) | Same | E252, E253 |
-| LD18 | Subsidy and price-control phase-outs: As legacy (v4.16, LD18): separate policy lines, not in the pre-policy build-up (user 2026-10-18): phase-out factors (MTInputs 123-137, 191-195; baseline / policy as legacy rows 264-274), lines by price fuel | sector (inclusion switches on Constants, default every block), txo split into a fixed and a floating part, wedges pcsw (consumer subsidy reform: the fixed subsidy) and ppcw (price-control phase-out: the floating part) by price block, csw and pcw in every subsector block (after-tax price), revenue rsr | Same | E28 |
-| LD19 | Producer subsidies: In the supply cost as legacy (v9.0, R7): per-unit subsidy psu (Prices_dom mit.pros, or Manual inputs) up to the last price year, then x the phase-out factor psf; block row psp in the supply cost, so the floating taxes and price controls absorb (1 - pass-through) of the phase-out; fiscal line rpsu by fuel. Electricity: allocation by the pre-tax gap (psesh), per kWh floored at -0.3 $/kWh (pseu), residual memo (pser), passed through in the price before policies (rppre). v4.16-v8.5: fiscal line only; v6.2-v8.5: a separate wedge (psw, ppsw, psr; removed) | Same | - |
-| LD20 | Ad-valorem baseline taxes; Europe LNG shift: v5.6: as legacy (Inputs_pint series nga.eus, row 3 share path; Settings C12 = eus for Europe markets); fixed taxes as legacy | Same | E249 |
-| LD21 | Fuel-use equation: CPAT eq. 3.3.3 x the shock factor (v3.11, header row 6, switch Settings C19 on, as legacy; issue I92); v4.12: GDP growth with the income factor (row 14; was issue I23); v4.13: additional policy efficiency gains as legacy (MTInputs 243-245 by scenario: road vehicles = road, rail, aviation, navigation; residential; industrial = the other subsectors; row aef of each subsector); v5.4: power demand takes MTInputs 242 of its own scenario, like every power input (section-1 row AdditionalEfficiencyPower, section 3 row aeef) | Same | E446 |
-| LD22 | Power engineer model (v1.06): Same method, year by year (method test: 208 legacy rows of the baseline and the carbon-tax run reproduced to 1e-13 with the bugs switched on) | Same | - |
-| LD23 | Power: bug fixes (v1.06): Fixed | Bug fix | E386, E387, E427, E434, E334, E423, E417, E419, E407 |
-| LD24 | Power demand: 2023-2024 demand shock: Same: switch Settings C19, on by default since v3.11 (fuels and power, as legacy; issue I92) | Same | E319, E387 |
+| LD18 | Subsidy and price-control phase-outs: As legacy (v0.4.16, LD18): separate policy lines, not in the pre-policy build-up (user 2026-10-18): phase-out factors (MTInputs 123-137, 191-195; baseline / policy as legacy rows 264-274), lines by price fuel | sector (inclusion switches on Constants, default every block), txo split into a fixed and a floating part, wedges pcsw (consumer subsidy reform: the fixed subsidy) and ppcw (price-control phase-out: the floating part) by price block, csw and pcw in every subsector block (after-tax price), revenue rsr | Same | E28 |
+| LD19 | Producer subsidies: In the supply cost as legacy (v0.9.0, R7): per-unit subsidy psu (Prices_dom mit.pros, or Manual inputs) up to the last price year, then x the phase-out factor psf; block row psp in the supply cost, so the floating taxes and price controls absorb (1 - pass-through) of the phase-out; fiscal line rpsu by fuel. Electricity: allocation by the pre-tax gap (psesh), per kWh floored at -0.3 $/kWh (pseu), residual memo (pser), passed through in the price before policies (rppre). v0.4.16-v0.8.5: fiscal line only; v0.6.2-v0.8.5: a separate wedge (psw, ppsw, psr; removed) | Same | - |
+| LD20 | Ad-valorem baseline taxes; Europe LNG shift: v0.5.6: as legacy (Inputs_pint series nga.eus, row 3 share path; Settings C12 = eus for Europe markets); fixed taxes as legacy | Same | E249 |
+| LD21 | Fuel-use equation: CPAT eq. 3.3.3 x the shock factor (v0.3.11, header row 6, switch Settings C19 on, as legacy; issue I92); v0.4.12: GDP growth with the income factor (row 14; was issue I23); v0.4.13: additional policy efficiency gains as legacy (MTInputs 243-245 by scenario: road vehicles = road, rail, aviation, navigation; residential; industrial = the other subsectors; row aef of each subsector); v0.5.4: power demand takes MTInputs 242 of its own scenario, like every power input (section-1 row AdditionalEfficiencyPower, section 3 row aeef) | Same | E446 |
+| LD22 | Power engineer model (v0.1.06): Same method, year by year (method test: 208 legacy rows of the baseline and the carbon-tax run reproduced to 1e-13 with the bugs switched on) | Same | - |
+| LD23 | Power: bug fixes (v0.1.06): Fixed | Bug fix | E386, E387, E427, E434, E334, E423, E417, E419, E407 |
+| LD24 | Power demand: 2023-2024 demand shock: Same: switch Settings C19, on by default since v0.3.11 (fuels and power, as legacy; issue I92) | Same | E319, E387 |
 | LD25 | Power demand and sector policies: Same; electricity demand shown as memo lines in the sector blocks and section 11 (not in the fuel totals) | Same | E387 |
 | LD26 | Power: planned retirement: Every type: switch planned_retirement (PowerTech) and data rows pret|<type> (PowerPaths); retirement = MIN(planned or rate-based + early coal, capacity) | Same | E411, E412 |
-| LD27 | Power demand: road electricity: v3.5: from section 5b (engineer road model) where TrModel = Engineer; else grows with the transport multiple (legacy fallback) | Same | E387 |
-| LD28 | Power: features not built: Dropped (user decisions 4 and 5 of the power plan; the rebate covers the demand-side feebate). Built: v5.4 PPAs, deficit to gas, renewable subsidies, rebate, electricity excise, every power input by scenario; v5.6 manual capacity and investment (P3: rows mancap, mani, needm; Manual inputs 349-357 scenario 1, 363-371 other scenarios; legacy bug L118 fixed: logit investment sized on the need net of manual investment) | Simplification | - |
-| LD29 | Power: levelised variable cost window: To the last model year 2041 (v2.3); without LAMBDA support the 2041 cost is last year's (tvcx) | Same | E338, E337 |
-| LD30 | Power: generation costs (v1.05): One row per type for amortised and for levelised fixed cost; discounted lifetime in closed form; constants derived in Inputs_power | Same | E323, E339 |
+| LD27 | Power demand: road electricity: v0.3.5: from section 5b (engineer road model) where TrModel = Engineer; else grows with the transport multiple (legacy fallback) | Same | E387 |
+| LD28 | Power: features not built: Dropped (user decisions 4 and 5 of the power plan; the rebate covers the demand-side feebate). Built: v0.5.4 PPAs, deficit to gas, renewable subsidies, rebate, electricity excise, every power input by scenario; v0.5.6 manual capacity and investment (P3: rows mancap, mani, needm; Manual inputs 349-357 scenario 1, 363-371 other scenarios; legacy bug L118 fixed: logit investment sized on the need net of manual investment) | Simplification | - |
+| LD29 | Power: levelised variable cost window: To the last model year 2041 (v0.2.3); without LAMBDA support the 2041 cost is last year's (tvcx) | Same | E338, E337 |
+| LD30 | Power: generation costs (v0.1.05): One row per type for amortised and for levelised fixed cost; discounted lifetime in closed form; constants derived in Inputs_power | Same | E323, E339 |
 | LD31 | Power: fuel prices: Trailing average of the price before new policies over t-4 .. t from 2022 (row fpp; L126 fixed, as legacy 465 rows 3155-3157); Settings C21 SpotPow = Yes for spot prices | Same | E329 |
-| LD32 | Power: end-user prices: Telescoped (S4) with every legacy component: price(t) = price(t-1) + pass-through x change in (supply cost + producer subsidy pseu + consumer subsidy phase-out csd + price-chain residual ores) x (1 + VAT) after the last historical year (v9.0, R7.9, R9.3; ores as legacy 465 rows 3607, 3636: held, a negative one scaled by MIN(sc, sc of the last price year)); row spe = the supply cost removing the estimation (legacy 3620, 3649), read by the subsidy and efficient-price lines of section 18 | Same | E357, E358, E362 |
+| LD32 | Power: end-user prices: Telescoped (S4) with every legacy component: price(t) = price(t-1) + pass-through x change in (supply cost + producer subsidy pseu + consumer subsidy phase-out csd + price-chain residual ores) x (1 + VAT) after the last historical year (v0.9.0, R7.9, R9.3; ores as legacy 465 rows 3607, 3636: held, a negative one scaled by MIN(sc, sc of the last price year)); row spe = the supply cost removing the estimation (legacy 3620, 3649), read by the subsidy and efficient-price lines of section 18 | Same | E357, E358, E362 |
 | LD33 | Power: historical electricity prices and VAT: The same | Same | E358 |
-| LD34 | Power: coal implicit cost: Built v5.6 (P5): row cic from GoalSeekCoal (legacy table, 85 countries, not Egypt) or the Manual inputs of MTInputs 368-369, in the coal variable cost; in generation cost and tariffs unless Settings PwCoalICTariff = No (default Yes, as legacy); memo rows fce, cik, swi, swd (legacy F2-F4, F7; F1, F5, F6 = rows lfx/tic, tvc). The calibration script (goal seek) is not built: the stored legacy values are used | Same | - |
-| LD35 | Power: new-policy revenue: v1.09: by generation type (prnew): policy cost x generation, the ETS part at the permit price (as the subsectors); rcarb (ccpav x consumption) kept as a memo | Same | E442 |
-| LD36 | Emissions: As legacy: CO2 from fuel combustion (IIASA EFs adjusted to the inventory as legacy since v4.11, issue I32 replicated; power from v1.06); v2.8: CH4 from combustion and fuel supply, the inventory categories (process, agriculture, LULUCF, waste, other) and N2O in section 14; v2.9: local pollutants in section 15 | Same | E404, E1100 |
-| LD37 | Revenue structure: As legacy (v4.15, user 2026-10-18: replicate legacy, note issues): the three calculations per subsector and fuel (existing taxes incl. VAT, consumer subsidies, new policies) and power as before, plus block 12e, total revenue by policy as legacy rows 8016-8027: new carbon tax, new excise, existing taxes and subsidies, VAT, auctioned ETS, producer subsidies (electricity subsidy gap), renewable subsidies, methane fee, transport, total (= rtot, check row); per pair rex (excise) and rvt (VAT) | Same | E461, E462, E463 |
-| LD38 | Existing carbon pricing: As legacy (v4.12): carbon tax with the single rate or fuel rates (single price? flag), national ETS and the EU ETS (EU ETS? = Yes or Both) added up, coverage of each data year (blank = 0), the last data year after; each scheme read from its own block of sheet ECP; the sector of the price fuel (oil products: transport; other oil products: industry); only the change against the level in the price data enters prices and revenue (legacy: ctx and ets inside txo, same numbers); existing ETS revenue at full price and free-allocation and revenue data unused, as legacy | Bug fix | E452, E453, E330 |
-| LD39 | Power in the totals: v1.09: generation fuel use (coal, gas, oil, biomass) in the fuel totals of section 11; power revenues in section 12; electricity final demand a memo | Same | E446, E404, E439 |
-| LD40 | Horizon and indices: To 2041 (v2.3; the last year is the LAMBDA year); same indices; values after 2030 not a legacy target | Decision | - |
-| LD41 | Data vintage: The same: every extract re-read from legacy 465 (v9.0; was 456): balances, base-year fuel use (465 rows 583-601), power plant data, GTAP, non-CO2 EFs changed; prices, CO2 EFs, elasticities identical; HHSurvey and HH_Elast still from 456 (465 holds only headers) | Same | - |
-| LD42 | Formula structure: One plain formula per variable block for 2022-2040 (at most 100 characters, no LAMBDA needed); the last year 2041 calls the named LAMBDA of each calculated row (v2.3); sheet Lambdas lists them | Same | - |
-| LD43 | GHGs: non-energy methane (v2.8): Grow with income and population (legacy elasticities); the methane fee abates each source along its own CH4Inputs curve | Bug fix | E1092, E1093, E1095 |
-| LD44 | GHGs: flaring (v2.8): Reported as CO2 in energy (ghg.flr) | Bug fix | E1099 |
-| LD45 | GHGs: population (v2.8): UN WPP (sheet UNPop) | Bug fix | E1079, E1080 |
-| LD46 | GHGs: methane fee scope (v2.8): As legacy (v4.12): a switch per source on sheet Manual inputs J196:J200 (v5.2: the legacy addresses; shown on Settings rows 47-51; biomass No; downstream gas, fossil fuel production, agriculture, waste Yes), in abatement and revenue; the fee only in policy scenarios (scenario number > 1, legacy row 2238) | Same | E164, E1093 |
-| LD47 | GHGs: combustion emission factors (v2.8): The same (v8.4, issue I98; was a departure: final factor FE fin, flat after) | Same | E460 |
-| LD48 | GHGs: local pollutants (v2.9): Built in v2.9: section 15, by subsector and power (fuel use x GAINS factor), totals by pollutant, forcing memo | Same | - |
-| LD49 | Local pollutants: factor mapping (v2.9): The same (v9.0; table Inputs_nc; v2.9-v8.5: own subsector mapping and nearest-match fallback) | Same | E1250 |
-| LD50 | Local pollutants: navigation (v2.9): Navigation included in the transport and total rows | Bug fix | E1250 |
-| LD51 | Local pollutants: air-pollution sectors (v3.0): Built in v3.0 (same sectors, POM = 1.3 x OC, other PM2.5 = MAX(0, PM2.5 - BC - POM)); the hand-off itself to an air-pollution module is not built | Same | E1252 |
-| LD52 | Local pollutants: total (v3.0): Total = all subsectors + power = sum of the seven air-pollution sectors | Bug fix | E1250, E1252 |
-| LD53 | Local pollutants: food split (v3.0): Split as legacy (v4.11): the food share of each fuel = info_food / the four info_ flows of the processed Balances (legacy rows 501-504, 1666-1673); memo rows ap.<pollutant>.fod / .fag | Same | - |
-| LD54 | GDP effects: feedback (v3.1): GDP level raised by the effect: growth = (1 + baseline growth) x (1 + effect(t-1)) / (1 + effect(t-2)) - 1 | Bug fix | E1160, E6 |
-| LD55 | GDP effects: revenue (v3.1): As legacy (v4.15): total revenue rnet + rnew (existing taxes net of subsidies and new policies, incl. power) above scenario 1; impulse = change in USD over this year's GDP, 0 before GDPStartYear; lag 0 in the impulse year | Same | E1150, E1152 |
-| LD56 | GDP effects: multipliers (v3.1): As legacy (v4.15): Global, income group, Estimated (the country table of the legacy Multipliers tab, exact match, income group as fallback) or Manual (sheet Manual inputs J261:U268, legacy addresses); base, low, high with the income group's standard deviation | Same | E1159, E1158 |
-| LD57 | Energy CO2: calibration to the inventory (v3.2): v4.11 as legacy: every CO2 EF x EFCalib = inventory energy CO2 of the year before the base year / scenario-1 energy CO2 of the base year with uncalibrated EFs (Egypt: 2021 inventory against 2022, 0.930); switch Settings C27, default Yes (legacy Yes* for Annex I and non-Annex I) | Same | E404, E448, E449 |
-| LD58 | GDP effects: legacy values (v3.1): Computed, the same equations (v9.0: classified Same) | Same | - |
-| LD59 | Road transport: engineer model (v3.5): Section 5b of every scenario group, every row live (Methods, chapter Transport); TrModel default Elasticity, Engineer by switch; the 17 legacy bugs of Methods, chapter Transport section 3 fixed (B1-B23) | Decision | - |
-| LD60 | Road transport: policy inputs (v3.5): Policies: MTInputs rows 416-477 after the template (scenario-specific, legacy Dashboard defaults, all off); parameters and hardcoded literals (Gompertz constant, gas liters per GJ, PHEV kWh per liter, insurance factor, BEV distance caps, price elasticities): sheets TransportParams, TransportPaths and named constants | Decision | - |
-| LD61 | Road transport: inputs from the rest of the model (v3.5): Section 5 road after-tax prices x GJ per liter (gas $/GJ / gas liters per GJ); industrial gas: section 2 price + road new policies; power prices of section 3 G (last year); GDP growth of row 7 (last year); population and real GDP after the feedback; carbon price x road feebate coverage; 2-3 wheelers: the gasoline price incl. new policies (legacy row 4438: before new policies); VAT on vehicles: VAT_WEO of the customs year (Egypt 0.14; legacy 0.1531) | Assumption | - |
-| LD62 | Road transport: biofuels (v3.5): Engineer road model as legacy (v4.12): bioethanol and other biofuels follow road gasoline, biodiesel follows diesel (base year x use / base-year use; Balances or EnergyCons); the feebate CO2 per liter of gasoline and diesel x their fossil share (E2146:E2147). Elasticity road model (the default): as legacy (v9.0, R10, rows 5403-5406, 5435): bioethanol and biodiesel follow the elasticity-model gasoline and diesel (trbe.bgs, trbe.bdi), other biofuels the fuel-use equation with oil elasticities and the biomass price (trbe.obf; issue I143; L46 not reproduced in 465) | Same | - |
-| LD63 | Road transport: range anxiety (v3.5): Goal seek on the prototype's model (v9.0, R10.8-R10.9: ra_goalseek.py, scenario 1, 2025, stored in data/range_anxiety_fit, written over the country's Transport3 cells, bright yellow); fit reported in rows trraf | Same | - |
-| LD64 | Road transport: kept as legacy (v3.5): Kept (freight distance, data years: parameters) or not built (externalities) | To check (bucket 5) | - |
-| LD65 | Residential leakage to biomass (v5.1): Section 6b (rows lkt, lkp, lkd, lkb, lkc, lkcb): the legacy design replicated (most-used fuel only, coefficient, cap at 1, reversible, permanent level shift, fossil change dF = -F x e_fuel x share: issue I51); fuel use = the elasticity model + the cumulative change on last year's actual use, one row set per fuel, biomass with the same useful energy dB = -dF x e_fuel / e_bio, the new policy of the row itself (an exempt fuel does not leak); the switch on Settings C59 (BioLeak, MTInputs scenario 1) as BiomassNormal | Same | - |
-| LD66 | Residential LPG and kerosene always exempted (v5.1): Section 1 rows AlwaysExemptResLPGKer (per scenario) and exf (exf.all 1, exf.res 0 if the switch starts with Yes); Inputs column exg = 2 for residential LPG and kerosene: the new carbon tax, ETS cost and new excise of those rows are 0, so their new-policy VAT and revenue (rnew, rex, rvt) are 0 too; existing taxes, existing carbon pricing, subsidy phase-outs and the shadow price stay, as legacy; ETS-covered emissions still count the exempt fuels where the residential sector is in an ETS | Same | - |
-| LD67 | Exemption phase-out of uncovered fuels and sectors: v5.6: built. The phase-out of uncovered fuels and sectors (rows fc, sc: 1 if covered, else exph) and the initially exempt residential demand of the most-used cooking fuel (section 6b rows lkxp, lkxe, lkxr, lkx, lkxa through lkc; share ExemptCookShare on Settings C83 from HHSurvey; usage elasticity phased in; income factor as the row, L48 fixed). v9.0 (R6): share over the economy-wide basket spend (I136), lpg if the WHOCooking code is missing (I137), leakage on the not-exempt use (I138) | Same | - |
-| LD68 | Manual inputs tab (v5.2): The whole tab at the legacy addresses (paste the legacy tab from row 3; legacy values typed, formulas of other tabs replaced by the prototype equivalent or their default). Read where the prototype has the feature: ETS goal-seek settings, price controls, methane fee scope, manual international prices, fiscal multipliers, non-energy GHG elasticities, fuel economy of new BEVs; v9.0 (R8): manual domestic prices (G59:N146; I139), manual elasticities (K279:N307, L319; L101, L220 fixed), methane intensity decline (J185:J188; L135 fixed, I141); the other blocks are placed and not read (features not built; the note on each block's title row says which) | Same | - |
-| LD69 | ETS goal-seek settings (v5.2): The same cells and names, read by the macro SolveETS and ets_goalseek.py (before v5.2: constants in the code); values 20, Continue, 0.005, the prototype error being the worst yearly |covered / cap - 1|; StartFresh starts from the fast estimate ets.est, Continue from the override row if it holds prices | Decision | - |
-| LD70 | Price controls when GovPriceControls = Manual (v5.2): The same cells, by code (column G), in Inputs_prices column pcm (blank = 1); before v5.2 one constant PassManual = 0.8 for every block. Electricity rows not read (electricity prices from the power section) | Same | - |
-| LD71 | Manual international prices (v5.2): Inputs_pint rows Manual: IMF to 2025, from 2026 Manual inputs D221:AF225 by label and year (before v5.2 typed copies of the same values) | Same | - |
-| LD72 | Non-energy GHG elasticities (v5.2): Read from Manual inputs K326:M327 (legacy default values typed; text "na" = 0) by the rows ghg.dr and ch4.act of section 14; before v5.2 sheet Constants (ghg.el) | Bug fix | - |
-| LD73 | Fuel economy of new BEVs (v5.2): The same cells by year (row 374) in section 5b rows trfen; before v5.2 sheet TransportPaths (bev_fe_new) | Same | - |
-| LD74 | Power: inputs by scenario (v5.4, P2): Every MTInputs power input (rows 242, 262, 340-413, 482) read in the scenario's own column (section-1 rows; section 3 sub-table A0 applies them to the power data); scenario 1 is the baseline of every scenario, so a technical input changed in a policy scenario changes that scenario only | Decision | - |
-| LD75 | Power: PPAs (v5.4): Same (rows ppa, ppr, glg, gen, early); the switch accepts Yes or Yes* (issue I54) | Same | - |
-| LD76 | Power: renewable subsidies (v5.4): Rows rnsp, rns, lfx, prrns: own start year RenSubsidyAddStartYear (MTInputs row 482, default 2027 = the default of row 132); revenue = subsidy x generation by type, in the power subsidies and 12e row ren; nominal inputs used as real, as legacy | Bug fix | - |
-| LD77 | Power: revenue rebate and electricity excise (v5.4): Rows rbs, exs, entxd, entx, pex, rp, rnvat, rreb, rpex, rexs, rexm: rebate = carbon cost x pass-through (its VAT falls out of rnvat); excise revenue = the excise in the price x consumption; switches accept Yes or Yes* (issue I58) | Bug fix | - |
-| LD78 | Power: final deficit to gas, maximum gas capacity factor, long-term storage factor (v5.4, P1): Same: Settings C45 (PwDeficitGas, default No; global as legacy, issue I57), row dgas; row gmx; row ltu. Before v5.4 gas used MaximumCoalCF and the storage factor was 1 | Same | - |
-| LD79 | Power: capex decline options Low and Vhigh (v5.4): The missing series falls back to the older series of the same option (wind, solar) or Medium (Inputs_ppath rows tcf|<type>|<option>) | Bug fix | - |
-| LD80 | Fixed supply cost of coal and gas: domestic production: The same (v9.0; v3.4-v8.5 and coded CPAT: x bucketed pass-through, Egypt gas 0) | Same | - |
-| LD81 | Welfare: co-benefits: wel.usd = climate + air pollution (value per ug/m3 x change in the modelled PM2.5 of the prototype's emissions, section 17b) + road co-benefits (accidents, congestion, road damage per litre) - efficiency costs (v9.0, R1-R2); typed Egypt inputs on the module tabs FromAirPollution and FromTransportCB (other countries 0) | Bug fix | - |
-| LD82 | Social costs, FFS and subsidies: Section 18 (v9.0, R2): climate costs per GJ, own-sector quantities, consumption-weighted other lines, GDP of the year; explicit and implicit subsidies (16 lines x 8 variables) in every scenario group (I110) | Bug fix | - |
-| LD83 | Pigouvian taxes: Section 1 rows pig.*, cc.code, xcpb, ntxb (v9.0, R3): the same option and netting; the transport and residential coal parts: base-year value x growth of the per-km costs, live in every group (I151); marginal air-pollution costs (L224); electricity Pigouvian 0 (I119) | Same | - |
-| LD84 | Efficient prices: Section 18 (v9.0, R3.13-R3.22): by price fuel in every scenario group; the year table at YearFuelPrices (R3.23) not built (it belongs to the output sheets) | Same | - |
-| LD85 | Electricity subsidies and efficient prices: Row spe (ELSUPPLY: sc + ores + carbon cost passed through + excise) read by the subsidy lines and the efficient prices (v9.0, R1R2 hand-off; was the power-model supply cost sc) | Same | - |
-| LD86 | Methane intensity decline: Section 14 rows ch4.int.<source> = (1 - rate)^MAX(0, year - GHGYear) for every source (v9.0, R8.6-R8.7) | Same | - |
-| LD87 | Power cost memos E4, E5, F1: Section 3 sub-table E2 (v9.0, R9.4-R9.13): yearly rows cur, sys, pcbcap, pcbom, pcbfu, pcbcp, pcbrns, pcbchk, pcbct; the CostBreakdownYear value is that year's column | Same | - |
-| LD88 | Self-generated renewables in aviation and navigation: Section 5b rows trp.ren, trp.renaef, ener.avi.ren, ener.nav.ren (v9.0, R10.5-R10.7), in the totals | Same | - |
-| LD89 | External balance (current account): Section 16b rows bca.* (v9.0, R11): typed WEO values for Egypt (held at 2031), change = - xnim by fuel group, % of GDP over the implied GDP, coal included; other countries 0 (I148) | Bug fix | - |
+| LD34 | Power: coal implicit cost: Built v0.5.6 (P5): row cic from GoalSeekCoal (legacy table, 85 countries, not Egypt) or the Manual inputs of MTInputs 368-369, in the coal variable cost; in generation cost and tariffs unless Settings PwCoalICTariff = No (default Yes, as legacy); memo rows fce, cik, swi, swd (legacy F2-F4, F7; F1, F5, F6 = rows lfx/tic, tvc). The calibration script (goal seek) is not built: the stored legacy values are used | Same | - |
+| LD35 | Power: new-policy revenue: v0.1.09: by generation type (prnew): policy cost x generation, the ETS part at the permit price (as the subsectors); rcarb (ccpav x consumption) kept as a memo | Same | E442 |
+| LD36 | Emissions: As legacy: CO2 from fuel combustion (IIASA EFs adjusted to the inventory as legacy since v0.4.11, issue I32 replicated; power from v0.1.06); v0.2.8: CH4 from combustion and fuel supply, the inventory categories (process, agriculture, LULUCF, waste, other) and N2O in section 14; v0.2.9: local pollutants in section 15 | Same | E404, E1100 |
+| LD37 | Revenue structure: As legacy (v0.4.15, user 2026-10-18: replicate legacy, note issues): the three calculations per subsector and fuel (existing taxes incl. VAT, consumer subsidies, new policies) and power as before, plus block 12e, total revenue by policy as legacy rows 8016-8027: new carbon tax, new excise, existing taxes and subsidies, VAT, auctioned ETS, producer subsidies (electricity subsidy gap), renewable subsidies, methane fee, transport, total (= rtot, check row); per pair rex (excise) and rvt (VAT) | Same | E461, E462, E463 |
+| LD38 | Existing carbon pricing: As legacy (v0.4.12): carbon tax with the single rate or fuel rates (single price? flag), national ETS and the EU ETS (EU ETS? = Yes or Both) added up, coverage of each data year (blank = 0), the last data year after; each scheme read from its own block of sheet ECP; the sector of the price fuel (oil products: transport; other oil products: industry); only the change against the level in the price data enters prices and revenue (legacy: ctx and ets inside txo, same numbers); existing ETS revenue at full price and free-allocation and revenue data unused, as legacy | Bug fix | E452, E453, E330 |
+| LD39 | Power in the totals: v0.1.09: generation fuel use (coal, gas, oil, biomass) in the fuel totals of section 11; power revenues in section 12; electricity final demand a memo | Same | E446, E404, E439 |
+| LD40 | Horizon and indices: To 2041 (v0.2.3; the last year is the LAMBDA year); same indices; values after 2030 not a legacy target | Decision | - |
+| LD41 | Data vintage: The same: every extract re-read from legacy 465 (v0.9.0; was 456): balances, base-year fuel use (465 rows 583-601), power plant data, GTAP, non-CO2 EFs changed; prices, CO2 EFs, elasticities identical; HHSurvey and HH_Elast still from 456 (465 holds only headers) | Same | - |
+| LD42 | Formula structure: One plain formula per variable block for 2022-2040 (at most 100 characters, no LAMBDA needed); the last year 2041 calls the named LAMBDA of each calculated row (v0.2.3); sheet Lambdas lists them | Same | - |
+| LD43 | GHGs: non-energy methane (v0.2.8): Grow with income and population (legacy elasticities); the methane fee abates each source along its own CH4Inputs curve | Bug fix | E1092, E1093, E1095 |
+| LD44 | GHGs: flaring (v0.2.8): Reported as CO2 in energy (ghg.flr) | Bug fix | E1099 |
+| LD45 | GHGs: population (v0.2.8): UN WPP (sheet UNPop) | Bug fix | E1079, E1080 |
+| LD46 | GHGs: methane fee scope (v0.2.8): As legacy (v0.4.12): a switch per source on sheet Manual inputs J196:J200 (v0.5.2: the legacy addresses; shown on Settings rows 47-51; biomass No; downstream gas, fossil fuel production, agriculture, waste Yes), in abatement and revenue; the fee only in policy scenarios (scenario number > 1, legacy row 2238) | Same | E164, E1093 |
+| LD47 | GHGs: combustion emission factors (v0.2.8): The same (v0.8.4, issue I98; was a departure: final factor FE fin, flat after) | Same | E460 |
+| LD48 | GHGs: local pollutants (v0.2.9): Built in v0.2.9: section 15, by subsector and power (fuel use x GAINS factor), totals by pollutant, forcing memo | Same | - |
+| LD49 | Local pollutants: factor mapping (v0.2.9): The same (v0.9.0; table Inputs_nc; v0.2.9-v0.8.5: own subsector mapping and nearest-match fallback) | Same | E1250 |
+| LD50 | Local pollutants: navigation (v0.2.9): Navigation included in the transport and total rows | Bug fix | E1250 |
+| LD51 | Local pollutants: air-pollution sectors (v0.3.0): Built in v0.3.0 (same sectors, POM = 1.3 x OC, other PM2.5 = MAX(0, PM2.5 - BC - POM)); the hand-off itself to an air-pollution module is not built | Same | E1252 |
+| LD52 | Local pollutants: total (v0.3.0): Total = all subsectors + power = sum of the seven air-pollution sectors | Bug fix | E1250, E1252 |
+| LD53 | Local pollutants: food split (v0.3.0): Split as legacy (v0.4.11): the food share of each fuel = info_food / the four info_ flows of the processed Balances (legacy rows 501-504, 1666-1673); memo rows ap.<pollutant>.fod / .fag | Same | - |
+| LD54 | GDP effects: feedback (v0.3.1): GDP level raised by the effect: growth = (1 + baseline growth) x (1 + effect(t-1)) / (1 + effect(t-2)) - 1 | Bug fix | E1160, E6 |
+| LD55 | GDP effects: revenue (v0.3.1): As legacy (v0.4.15): total revenue rnet + rnew (existing taxes net of subsidies and new policies, incl. power) above scenario 1; impulse = change in USD over this year's GDP, 0 before GDPStartYear; lag 0 in the impulse year | Same | E1150, E1152 |
+| LD56 | GDP effects: multipliers (v0.3.1): As legacy (v0.4.15): Global, income group, Estimated (the country table of the legacy Multipliers tab, exact match, income group as fallback) or Manual (sheet Manual inputs J261:U268, legacy addresses); base, low, high with the income group's standard deviation | Same | E1159, E1158 |
+| LD57 | Energy CO2: calibration to the inventory (v0.3.2): v0.4.11 as legacy: every CO2 EF x EFCalib = inventory energy CO2 of the year before the base year / scenario-1 energy CO2 of the base year with uncalibrated EFs (Egypt: 2021 inventory against 2022, 0.930); switch Settings C27, default Yes (legacy Yes* for Annex I and non-Annex I) | Same | E404, E448, E449 |
+| LD58 | GDP effects: legacy values (v0.3.1): Computed, the same equations (v0.9.0: classified Same) | Same | - |
+| LD59 | Road transport: engineer model (v0.3.5): Section 5b of every scenario group, every row live (Methods, chapter Transport); TrModel default Elasticity, Engineer by switch; the 17 legacy bugs of Methods, chapter Transport section 3 fixed (B1-B23) | Decision | - |
+| LD60 | Road transport: policy inputs (v0.3.5): Policies: MTInputs rows 416-477 after the template (scenario-specific, legacy Dashboard defaults, all off); parameters and hardcoded literals (Gompertz constant, gas liters per GJ, PHEV kWh per liter, insurance factor, BEV distance caps, price elasticities): sheets TransportParams, TransportPaths and named constants | Decision | - |
+| LD61 | Road transport: inputs from the rest of the model (v0.3.5): Section 5 road after-tax prices x GJ per liter (gas $/GJ / gas liters per GJ); industrial gas: section 2 price + road new policies; power prices of section 3 G (last year); GDP growth of row 7 (last year); population and real GDP after the feedback; carbon price x road feebate coverage; 2-3 wheelers: the gasoline price incl. new policies (legacy row 4438: before new policies); VAT on vehicles: VAT_WEO of the customs year (Egypt 0.14; legacy 0.1531) | Assumption | - |
+| LD62 | Road transport: biofuels (v0.3.5): Engineer road model as legacy (v0.4.12): bioethanol and other biofuels follow road gasoline, biodiesel follows diesel (base year x use / base-year use; Balances or EnergyCons); the feebate CO2 per liter of gasoline and diesel x their fossil share (E2146:E2147). Elasticity road model (the default): as legacy (v0.9.0, R10, rows 5403-5406, 5435): bioethanol and biodiesel follow the elasticity-model gasoline and diesel (trbe.bgs, trbe.bdi), other biofuels the fuel-use equation with oil elasticities and the biomass price (trbe.obf; issue I143; L46 not reproduced in 465) | Same | - |
+| LD63 | Road transport: range anxiety (v0.3.5): Goal seek on the prototype's model (v0.9.0, R10.8-R10.9: ra_goalseek.py, scenario 1, 2025, stored in data/range_anxiety_fit, written over the country's Transport3 cells, bright yellow); fit reported in rows trraf | Same | - |
+| LD64 | Road transport: kept as legacy (v0.3.5): Kept (freight distance, data years: parameters) or not built (externalities) | To check (bucket 5) | - |
+| LD65 | Residential leakage to biomass (v0.5.1): Section 6b (rows lkt, lkp, lkd, lkb, lkc, lkcb): the legacy design replicated (most-used fuel only, coefficient, cap at 1, reversible, permanent level shift, fossil change dF = -F x e_fuel x share: issue I51); fuel use = the elasticity model + the cumulative change on last year's actual use, one row set per fuel, biomass with the same useful energy dB = -dF x e_fuel / e_bio, the new policy of the row itself (an exempt fuel does not leak); the switch on Settings C59 (BioLeak, MTInputs scenario 1) as BiomassNormal | Same | - |
+| LD66 | Residential LPG and kerosene always exempted (v0.5.1): Section 1 rows AlwaysExemptResLPGKer (per scenario) and exf (exf.all 1, exf.res 0 if the switch starts with Yes); Inputs column exg = 2 for residential LPG and kerosene: the new carbon tax, ETS cost and new excise of those rows are 0, so their new-policy VAT and revenue (rnew, rex, rvt) are 0 too; existing taxes, existing carbon pricing, subsidy phase-outs and the shadow price stay, as legacy; ETS-covered emissions still count the exempt fuels where the residential sector is in an ETS | Same | - |
+| LD67 | Exemption phase-out of uncovered fuels and sectors: v0.5.6: built. The phase-out of uncovered fuels and sectors (rows fc, sc: 1 if covered, else exph) and the initially exempt residential demand of the most-used cooking fuel (section 6b rows lkxp, lkxe, lkxr, lkx, lkxa through lkc; share ExemptCookShare on Settings C83 from HHSurvey; usage elasticity phased in; income factor as the row, L48 fixed). v0.9.0 (R6): share over the economy-wide basket spend (I136), lpg if the WHOCooking code is missing (I137), leakage on the not-exempt use (I138) | Same | - |
+| LD68 | Manual inputs tab (v0.5.2): The whole tab at the legacy addresses (paste the legacy tab from row 3; legacy values typed, formulas of other tabs replaced by the prototype equivalent or their default). Read where the prototype has the feature: ETS goal-seek settings, price controls, methane fee scope, manual international prices, fiscal multipliers, non-energy GHG elasticities, fuel economy of new BEVs; v0.9.0 (R8): manual domestic prices (G59:N146; I139), manual elasticities (K279:N307, L319; L101, L220 fixed), methane intensity decline (J185:J188; L135 fixed, I141); the other blocks are placed and not read (features not built; the note on each block's title row says which) | Same | - |
+| LD69 | ETS goal-seek settings (v0.5.2): The same cells and names, read by the macro SolveETS and ets_goalseek.py (before v0.5.2: constants in the code); values 20, Continue, 0.005, the prototype error being the worst yearly |covered / cap - 1|; StartFresh starts from the fast estimate ets.est, Continue from the override row if it holds prices | Decision | - |
+| LD70 | Price controls when GovPriceControls = Manual (v0.5.2): The same cells, by code (column G), in Inputs_prices column pcm (blank = 1); before v0.5.2 one constant PassManual = 0.8 for every block. Electricity rows not read (electricity prices from the power section) | Same | - |
+| LD71 | Manual international prices (v0.5.2): Inputs_pint rows Manual: IMF to 2025, from 2026 Manual inputs D221:AF225 by label and year (before v0.5.2 typed copies of the same values) | Same | - |
+| LD72 | Non-energy GHG elasticities (v0.5.2): Read from Manual inputs K326:M327 (legacy default values typed; text "na" = 0) by the rows ghg.dr and ch4.act of section 14; before v0.5.2 sheet Constants (ghg.el) | Bug fix | - |
+| LD73 | Fuel economy of new BEVs (v0.5.2): The same cells by year (row 374) in section 5b rows trfen; before v0.5.2 sheet TransportPaths (bev_fe_new) | Same | - |
+| LD74 | Power: inputs by scenario (v0.5.4, P2): Every MTInputs power input (rows 242, 262, 340-413, 482) read in the scenario's own column (section-1 rows; section 3 sub-table A0 applies them to the power data); scenario 1 is the baseline of every scenario, so a technical input changed in a policy scenario changes that scenario only | Decision | - |
+| LD75 | Power: PPAs (v0.5.4): Same (rows ppa, ppr, glg, gen, early); the switch accepts Yes or Yes* (issue I54) | Same | - |
+| LD76 | Power: renewable subsidies (v0.5.4): Rows rnsp, rns, lfx, prrns: own start year RenSubsidyAddStartYear (MTInputs row 482, default 2027 = the default of row 132); revenue = subsidy x generation by type, in the power subsidies and 12e row ren; nominal inputs used as real, as legacy | Bug fix | - |
+| LD77 | Power: revenue rebate and electricity excise (v0.5.4): Rows rbs, exs, entxd, entx, pex, rp, rnvat, rreb, rpex, rexs, rexm: rebate = carbon cost x pass-through (its VAT falls out of rnvat); excise revenue = the excise in the price x consumption; switches accept Yes or Yes* (issue I58) | Bug fix | - |
+| LD78 | Power: final deficit to gas, maximum gas capacity factor, long-term storage factor (v0.5.4, P1): Same: Settings C45 (PwDeficitGas, default No; global as legacy, issue I57), row dgas; row gmx; row ltu. Before v0.5.4 gas used MaximumCoalCF and the storage factor was 1 | Same | - |
+| LD79 | Power: capex decline options Low and Vhigh (v0.5.4): The missing series falls back to the older series of the same option (wind, solar) or Medium (Inputs_ppath rows tcf|<type>|<option>) | Bug fix | - |
+| LD80 | Fixed supply cost of coal and gas: domestic production: The same (v0.9.0; v0.3.4-v0.8.5 and coded CPAT: x bucketed pass-through, Egypt gas 0) | Same | - |
+| LD81 | Welfare: co-benefits: wel.usd = climate + air pollution (value per ug/m3 x change in the modelled PM2.5 of the prototype's emissions, section 17b) + road co-benefits (accidents, congestion, road damage per litre) - efficiency costs (v0.9.0, R1-R2); typed Egypt inputs on the module tabs FromAirPollution and FromTransportCB (other countries 0) | Bug fix | - |
+| LD82 | Social costs, FFS and subsidies: Section 18 (v0.9.0, R2): climate costs per GJ, own-sector quantities, consumption-weighted other lines, GDP of the year; explicit and implicit subsidies (16 lines x 8 variables) in every scenario group (I110) | Bug fix | - |
+| LD83 | Pigouvian taxes: Section 1 rows pig.*, cc.code, xcpb, ntxb (v0.9.0, R3): the same option and netting; the transport and residential coal parts: base-year value x growth of the per-km costs, live in every group (I151); marginal air-pollution costs (L224); electricity Pigouvian 0 (I119) | Same | - |
+| LD84 | Efficient prices: Section 18 (v0.9.0, R3.13-R3.22): by price fuel in every scenario group; the year table at YearFuelPrices (R3.23) not built (it belongs to the output sheets) | Same | - |
+| LD85 | Electricity subsidies and efficient prices: Row spe (ELSUPPLY: sc + ores + carbon cost passed through + excise) read by the subsidy lines and the efficient prices (v0.9.0, R1R2 hand-off; was the power-model supply cost sc) | Same | - |
+| LD86 | Methane intensity decline: Section 14 rows ch4.int.<source> = (1 - rate)^MAX(0, year - GHGYear) for every source (v0.9.0, R8.6-R8.7) | Same | - |
+| LD87 | Power cost memos E4, E5, F1: Section 3 sub-table E2 (v0.9.0, R9.4-R9.13): yearly rows cur, sys, pcbcap, pcbom, pcbfu, pcbcp, pcbrns, pcbchk, pcbct; the CostBreakdownYear value is that year's column | Same | - |
+| LD88 | Self-generated renewables in aviation and navigation: Section 5b rows trp.ren, trp.renaef, ener.avi.ren, ener.nav.ren (v0.9.0, R10.5-R10.7), in the totals | Same | - |
+| LD89 | External balance (current account): Section 16b rows bca.* (v0.9.0, R11): typed WEO values for Egypt (held at 2031), change = - xnim by fuel group, % of GDP over the implied GDP, coal included; other countries 0 (I148) | Bug fix | - |
 | LD90 | CBAM process emissions, green public investment, emissions intensity of industrial output: Not built (R4, R5, R12 deferred by the user 2026-10-29; designs on branch wip-r4-r5-r12) | Not yet | - |
-| LD91 | Air-pollution unit costs: Marginal damages (v9.0): value of averted PM2.5 x concentration coefficients x emission factors, lines weighted by fuel use; legacy values kept as a memo on FromAirPollution | Bug fix | - |
+| LD91 | Air-pollution unit costs: Marginal damages (v0.9.0): value of averted PM2.5 x concentration coefficients x emission factors, lines weighted by fuel use; legacy values kept as a memo on FromAirPollution | Bug fix | - |
 | L1 | Services electricity demand grows with the industrial multiple after 2023 | Legacy bug (fixed) | E386 |
 | L2 | Autonomous efficiency gains use the efficiency elasticity instead of the usage elasticity | Legacy bug (fixed) | E386 |
 | L3 | Income factor on the GDP elasticity applied twice and anchored to 2023 | Legacy bug (fixed) | E386 |
@@ -10081,7 +10081,7 @@ Each change is described in the workbook sheet `LegacyDiff` (LD) or in the regis
 | M6 | Power ETS revenue valued at the tax-equivalent price | prototype bug (fixed) | E442 |
 | M7 | Stale texts in the workbook and notes | prototype bug (fixed) | - |
 | M8 | LegacyDiff rows out of date | prototype bug (fixed) | - |
-| M9 | Legacy comparison note from v1.01 | prototype bug (fixed) | - |
+| M9 | Legacy comparison note from v0.1.01 | prototype bug (fixed) | - |
 | M10 | Total rows labelled "All subsectors" | prototype bug (fixed) | - |
 | M11 | Macros read 19 year columns | prototype bug (fixed) | - |
 | M12 | Sheet Lambdas: formula texts named merged sheets | prototype bug (fixed) | - |
@@ -10100,7 +10100,7 @@ Each 2041 cell calls one of these named LAMBDAs (sheet `Lambdas`, name manager).
 | `FPRRATE` | start_yr, target_yr, start, target, incr | `IF(AND(target_yr>start_yr,MAX(start,target)>0),(target/IF(start>0,start,start+incr))^(1/(target_yr-start_yr))-1,0)` | Fuel price reform: annual rate (target/start)^(1/n) - 1, start 0: target/(start + increase) (legacy column K) |
 | `FPRBASE` | start_yr, target_yr, start, incr | `start+incr*MAX(target_yr-start_yr-1,0)` | Fuel price reform: value of the year before the target year (base of the Percentage continuation) |
 | `FPRAFTER` | year, start_yr, target_yr, ext, start, target, pbase, rate | `IF(ext="Percentage",pbase*(1+rate)^(year-target_yr+1),IF(target_yr>start_yr,target,start))` | Fuel price reform after the target year: Percentage: base x (1 + rate)^years (L173 fixed: legacy rate x last year); otherwise held at the target (L171 fixed: legacy 0) |
-| `FPRPATH` | year, start_yr, target_yr, ext, start, incr, after | `IF(year<start_yr,0,IF(OR(year<target_yr,ext="Linear*"),start+incr*(year-start_yr),after))` | Fuel price reform path (v9.0, as legacy rows 167-180): 0 before the start year, linear to the target year and after it with Linear*, else the value after the target (FPRAFTER) |
+| `FPRPATH` | year, start_yr, target_yr, ext, start, incr, after | `IF(year<start_yr,0,IF(OR(year<target_yr,ext="Linear*"),start+incr*(year-start_yr),after))` | Fuel price reform path (v0.9.0, as legacy rows 167-180): 0 before the start year, linear to the target year and after it with Linear*, else the value after the target (FPRAFTER) |
 | `NOMFACTOR` | basis, cpi_index | `IF(LEFT(basis,7)="Nominal",cpi_index,1)` | Nominal-to-real factor of the carbon price inputs: the CPI index if they are nominal, else 1 |
 | `ETSON` | apply, year, start_year | `IF(AND(LEFT(apply,3)="Yes",year>=start_year),1,0)` | 1 if the new ETS applies (Yes) and has started, else 0 |
 | `ETSPRICE` | ets_on, override, override_price, estimate, carbon_price | `IF(ets_on=1,IF(LEFT(override,3)="Yes",IF(override_price="",carbon_price,override_price),estimate),0)` | ETS permit price ($/tCO2) once a new ETS applies: override row if the override switch is Yes (blank cell: carbon price path), else the fast estimate |
@@ -10114,13 +10114,13 @@ Each 2041 cell calls one of these named LAMBDAs (sheet `Lambdas`, name manager).
 | `ETSESTIMATE` | ets_on, cap, base, semi, vadj | `IF(AND(ets_on=1,cap>0,cap<base,semi<0,vadj>0),LN(cap/base)/(semi*vadj),0)` | Fast ETS price estimate: LN(cap / baseline covered emissions) / (semi-elasticity x volatility adjustment), 0 if the cap does not bind |
 | `TAXEQUIV` | price, vadj | `price*vadj` | ETS tax-equivalent price: permit price x volatility adjustment |
 | `REVFACTOR` | vadj | `IF(vadj>0,1/vadj,0)` | ETS revenue factor: permit price per $ of tax-equivalent price (1 / volatility adjustment) |
-| `FREESHARE` | auctioned | `1-auctioned` | ETS benchmark (share allocated free) = 1 - auctioned share (v4.15, I21: MTInputs rows 90-91) |
+| `FREESHARE` | auctioned | `1-auctioned` | ETS benchmark (share allocated free) = 1 - auctioned share (v0.4.15, I21: MTInputs rows 90-91) |
 | `ETSCOVER` | ets_on, covered | `IF(ets_on=1,IF(covered,1,0),0)` | Effective ETS coverage of a sector: 1 if the new ETS applies, has started and covers it |
 | `SHADOWSHARE` | coverage, adjustment | `IF(coverage,1,0)*adjustment` | Share of the shadow price impacting efficiency: coverage x efficiency-margin adjustment |
-| `SUPPLYCOST` | year, key, fix_sp, sp_prev, gp_now, gp_prev, ps_now, ps_prev | `IF(year<=LastHist,IFERROR(INDEX(IPsp,MATCH(key,IPKey,0),MATCH(year,IPspY,0)),0),fix_sp+(sp_prev-fix_sp-ps_prev)*gp_now/gp_prev+ps_now)` | Supply cost: data up to the last historical year (Inputs_prices, price code key), then fixed part + floating part x gp(t)/gp(t-1) + producer subsidy per price unit (v6.1, I49: floating part = sp - fixed - producer subsidy) |
-| `PRODSUBUNIT` | yr, subsidy, demand, last_unit, kept | `IF(yr<=LastHist,IFERROR(-subsidy*USDperM/demand,0),last_unit*kept)` | Producer subsidy per unit (v6.1, I49): -subsidy / demand up to the last price year, then the last value x the phase-out factor psf (v9.0, R7.1; legacy rows 825-829, 2213) |
-| `PSDEMAND` | world, domestic, unit | `AVERAGE(world,domestic)*unit` | Demand spreading the producer subsidy (v6.2, I49): average of world and domestic demand x units per ktoe (oil: world only, biomass: domestic only) |
-| `PSPRICEUNIT` | per_unit, per_barrel, gj | `per_unit*IF(per_barrel,LitersPerBbl,1)/gj` | Existing producer subsidy of a block ($/GJ): per unit x liters per barrel for a barrel-priced block (L125) / GJ per price unit (v6.1, I49; v6.2: $/GJ) |
+| `SUPPLYCOST` | year, key, fix_sp, sp_prev, gp_now, gp_prev, ps_now, ps_prev | `IF(year<=LastHist,IFERROR(INDEX(IPsp,MATCH(key,IPKey,0),MATCH(year,IPspY,0)),0),fix_sp+(sp_prev-fix_sp-ps_prev)*gp_now/gp_prev+ps_now)` | Supply cost: data up to the last historical year (Inputs_prices, price code key), then fixed part + floating part x gp(t)/gp(t-1) + producer subsidy per price unit (v0.6.1, I49: floating part = sp - fixed - producer subsidy) |
+| `PRODSUBUNIT` | yr, subsidy, demand, last_unit, kept | `IF(yr<=LastHist,IFERROR(-subsidy*USDperM/demand,0),last_unit*kept)` | Producer subsidy per unit (v0.6.1, I49): -subsidy / demand up to the last price year, then the last value x the phase-out factor psf (v0.9.0, R7.1; legacy rows 825-829, 2213) |
+| `PSDEMAND` | world, domestic, unit | `AVERAGE(world,domestic)*unit` | Demand spreading the producer subsidy (v0.6.2, I49): average of world and domestic demand x units per ktoe (oil: world only, biomass: domestic only) |
+| `PSPRICEUNIT` | per_unit, per_barrel, gj | `per_unit*IF(per_barrel,LitersPerBbl,1)/gj` | Existing producer subsidy of a block ($/GJ): per unit x liters per barrel for a barrel-priced block (L125) / GJ per price unit (v0.6.1, I49; v0.6.2: $/GJ) |
 | `OTHERTAX` | year, key, txo_last, before_floor | `IF(year<=LastHist,IFERROR(INDEX(IPtxo,MATCH(key,IPKey,0),MATCH(year,IPtxoY,0)),0),IF(txo_last>=0,MAX(txo_last,before_floor),before_floor))` | Excise and other taxes: data up to the last historical year, then the value before the floor, not below its last historical value if that is >= 0 (legacy rule) |
 | `RETAILPRICE` | sp, txo, vat_rate | `(sp+txo)*(1+vat_rate)` | Retail price before new policies: (supply cost + excise and other taxes) x (1 + VAT rate) |
 | `VATPAY` | sp, txo, vat_rate | `(sp+txo)*vat_rate` | VAT payment before new policies: (supply cost + excise and other taxes) x VAT rate |
@@ -10128,61 +10128,61 @@ Each 2041 cell calls one of these named LAMBDAs (sheet `Lambdas`, name manager).
 | `SUBSIDYPART` | txo | `MIN(txo,0)` | Existing consumer subsidy: negative part of excise and other taxes (subsidies are negative) |
 | `PERUNIT` | value_gj, gj_per_unit | `value_gj*gj_per_unit` | Value per GJ converted to the price unit (MTInputs units: $/liter, $/bbl, $/GJ) |
 | `SECTORTAX` | price, sector_cov, ets_cov, complement, xets_cov | `price*IF(LEFT(complement,3)="Yes",1-xets_cov,sector_cov)*(1-ets_cov)` | Carbon tax rate of a sector ($/tCO2): carbon price x sector coverage (complementary to an existing ETS: 1 - its sector coverage), not where the new ETS covers |
-| `ECPFACTOR` | apply, growth, year | `IF(LEFT(apply,3)="Yes",(1+growth)^MAX(0,year-ECPLast),0)` | Existing carbon pricing factor on the data (v4.12): (1 + growth) after the last data year if the existing scheme applies (Yes), else 0 |
-| `XCARBON` | ef, ct_data, ct_factor, ets_data, ets_factor, embedded | `ef*(ct_data*ct_factor+ets_data*ets_factor-embedded)` | Existing carbon pricing per unit (v4.12): EF (or CO2) x (carbon tax of the ECP sector / fuel x its factor + ETS x its factor - the level embedded in the price data, for the change; 0 for the level) |
+| `ECPFACTOR` | apply, growth, year | `IF(LEFT(apply,3)="Yes",(1+growth)^MAX(0,year-ECPLast),0)` | Existing carbon pricing factor on the data (v0.4.12): (1 + growth) after the last data year if the existing scheme applies (Yes), else 0 |
+| `XCARBON` | ef, ct_data, ct_factor, ets_data, ets_factor, embedded | `ef*(ct_data*ct_factor+ets_data*ets_factor-embedded)` | Existing carbon pricing per unit (v0.4.12): EF (or CO2) x (carbon tax of the ECP sector / fuel x its factor + ETS x its factor - the level embedded in the price data, for the change; 0 for the level) |
 | `SECTORETS` | price, ets_cov, obr | `price*ets_cov*(1-obr)` | ETS cost rate of a sector in the fuel price ($/tCO2): tax-equivalent price x effective ETS coverage x auctioned share (1 - OBR) |
-| `CARBONTAX` | rate, ef, fuel_cov, exempt_fac | `rate*ef*fuel_cov*exempt_fac` | New carbon tax ($/GJ): carbon tax rate of the sector x EF x fuel coverage x exemption factor (v5.1) |
-| `ETSCOST` | rate, ef, exempt_fac | `rate*ef*exempt_fac` | New ETS in the fuel price ($/GJ): ETS cost rate of the sector x EF; ETS rate x effective coverage and auctioned share are in the rate. Legacy: tax-equivalent price x EF x effective ETS coverage x auctioned share (1 - OBR); x exemption factor (v5.1) |
-| `NEWEXCISE` | increase, gj_per_unit, exempt_fac | `increase/gj_per_unit*exempt_fac` | New excise (fuel price reform): increase per price unit / GJ per price unit x exemption factor (v5.1) |
-| `EXEMPTFACTOR` | exempt_sw | `IF(LEFT(exempt_sw,3)="Yes",0,1)` | Exemption factor of the new policies: 0 if the exemption switch starts with Yes (Yes, Yes*), else 1 (v5.1; legacy rows 5546-5547 test the exact "Yes") |
-| `LEAKTAX` | new_policy, vat_rate | `new_policy*(1+vat_rate)` | Leakage to biomass: new policy in the residential price of the fuel, new carbon tax + ETS + new excise incl. VAT (legacy rows 5574, 5580, 5586; v5.1) |
-| `LEAKSHARE` | leak_on, tax_now, tax_prev, p_prev, coef | `leak_on*MIN((1+(tax_now-tax_prev)/p_prev)^coef-1,1)` | Leakage to biomass: share of the fuel moving to biomass, on x MIN((1 + change in the new policy / last year's after-tax price)^coef - 1, 1); negative when the policy falls (legacy rows 5576, 5582, 5589; v5.1) |
-| `LEAKCHANGE` | f_prev, cook_eff, leak_share | `-f_prev*cook_eff*leak_share` | Leakage to biomass: change in fossil fuel use = - last year's fuel use x cookstove efficiency x share (legacy rows 5577, 5583, 5588; v5.1) |
-| `LEAKBIOMASS` | change, cook_eff, bio_eff | `-change*cook_eff/bio_eff` | Leakage to biomass: biomass with the same useful energy, - change x efficiency of the fuel / efficiency of biomass (legacy rows 5578-5593; L90 fixed, v5.1) |
-| `LEAKCUM` | cum_prev, flow | `cum_prev+flow` | Leakage to biomass: cumulative change = last year's + this year's flow (legacy totals 5554-5560, SUM of the flows; v5.1) |
-| `PHASEIN` | phase_on, yr, start, period | `IF(phase_on=TRUE,MAX(MIN((yr+1-start)/period,1),0),0)` | Exemption phase-in share: (year + 1 - YearPha) / ExemptPhaseoutPeriod within 0-1 if ExemptPhaseout (legacy rows 5568-5570 with the rule of 2259-2265, L94; v5.6) |
-| `XRATIO` | this_yr, last_yr | `IF(last_yr=0,1,this_yr/last_yr)` | Ratio of this year to last year (1 if last year is 0) (v5.6) |
-| `XPATH` | prev, demand_ratio, price_ratio, eps_u, phase | `prev*demand_ratio*price_ratio^(eps_u*(phase-1))` | Initially exempt fuel use: last year x the growth of the fuel use of the row x the price ratio ^ (usage elasticity x (phase - 1)), so the usage elasticity is phased in (legacy rows 5568-5570; v5.6) |
-| `XADJ` | path, share, fuel_use | `path-share*fuel_use` | Adjustment of fuel use for the initially exempt part: exempt path - exempt share x fuel use of the row (v5.6) |
+| `CARBONTAX` | rate, ef, fuel_cov, exempt_fac | `rate*ef*fuel_cov*exempt_fac` | New carbon tax ($/GJ): carbon tax rate of the sector x EF x fuel coverage x exemption factor (v0.5.1) |
+| `ETSCOST` | rate, ef, exempt_fac | `rate*ef*exempt_fac` | New ETS in the fuel price ($/GJ): ETS cost rate of the sector x EF; ETS rate x effective coverage and auctioned share are in the rate. Legacy: tax-equivalent price x EF x effective ETS coverage x auctioned share (1 - OBR); x exemption factor (v0.5.1) |
+| `NEWEXCISE` | increase, gj_per_unit, exempt_fac | `increase/gj_per_unit*exempt_fac` | New excise (fuel price reform): increase per price unit / GJ per price unit x exemption factor (v0.5.1) |
+| `EXEMPTFACTOR` | exempt_sw | `IF(LEFT(exempt_sw,3)="Yes",0,1)` | Exemption factor of the new policies: 0 if the exemption switch starts with Yes (Yes, Yes*), else 1 (v0.5.1; legacy rows 5546-5547 test the exact "Yes") |
+| `LEAKTAX` | new_policy, vat_rate | `new_policy*(1+vat_rate)` | Leakage to biomass: new policy in the residential price of the fuel, new carbon tax + ETS + new excise incl. VAT (legacy rows 5574, 5580, 5586; v0.5.1) |
+| `LEAKSHARE` | leak_on, tax_now, tax_prev, p_prev, coef | `leak_on*MIN((1+(tax_now-tax_prev)/p_prev)^coef-1,1)` | Leakage to biomass: share of the fuel moving to biomass, on x MIN((1 + change in the new policy / last year's after-tax price)^coef - 1, 1); negative when the policy falls (legacy rows 5576, 5582, 5589; v0.5.1) |
+| `LEAKCHANGE` | f_prev, cook_eff, leak_share | `-f_prev*cook_eff*leak_share` | Leakage to biomass: change in fossil fuel use = - last year's fuel use x cookstove efficiency x share (legacy rows 5577, 5583, 5588; v0.5.1) |
+| `LEAKBIOMASS` | change, cook_eff, bio_eff | `-change*cook_eff/bio_eff` | Leakage to biomass: biomass with the same useful energy, - change x efficiency of the fuel / efficiency of biomass (legacy rows 5578-5593; L90 fixed, v0.5.1) |
+| `LEAKCUM` | cum_prev, flow | `cum_prev+flow` | Leakage to biomass: cumulative change = last year's + this year's flow (legacy totals 5554-5560, SUM of the flows; v0.5.1) |
+| `PHASEIN` | phase_on, yr, start, period | `IF(phase_on=TRUE,MAX(MIN((yr+1-start)/period,1),0),0)` | Exemption phase-in share: (year + 1 - YearPha) / ExemptPhaseoutPeriod within 0-1 if ExemptPhaseout (legacy rows 5568-5570 with the rule of 2259-2265, L94; v0.5.6) |
+| `XRATIO` | this_yr, last_yr | `IF(last_yr=0,1,this_yr/last_yr)` | Ratio of this year to last year (1 if last year is 0) (v0.5.6) |
+| `XPATH` | prev, demand_ratio, price_ratio, eps_u, phase | `prev*demand_ratio*price_ratio^(eps_u*(phase-1))` | Initially exempt fuel use: last year x the growth of the fuel use of the row x the price ratio ^ (usage elasticity x (phase - 1)), so the usage elasticity is phased in (legacy rows 5568-5570; v0.5.6) |
+| `XADJ` | path, share, fuel_use | `path-share*fuel_use` | Adjustment of fuel use for the initially exempt part: exempt path - exempt share x fuel use of the row (v0.5.6) |
 | `NEWPOLICY` | carbon_tax, ets, excise | `carbon_tax+ets+excise` | Total new policy: new carbon tax + ETS + new excise |
 | `POSTTAX` | pre_policy_p, new_policy, vat_rate | `MAX(pre_policy_p+new_policy*(1+vat_rate),PriceFloor)` | After-tax price: retail price before new policies + new policies x (1 + VAT rate), at least PriceFloor |
-| `SHADOWTOTAL` | feebate, share, regulation, ets_price, ets_cov, obr | `feebate*share+regulation+ets_price*ets_cov*obr` | Shadow price on the efficiency margin of a sector ($/tCO2): sector shadow price x share impacting efficiency + regulation shadow price (v4.16) + ETS tax-equivalent price x ETS coverage x OBR share |
-| `SCNROW` | scenario | `IFERROR(MATCH(scenario,ScnName,0),0)` | Column of the legacy scenario table (Mapping; legacy Mitigation rows 222-262) of the scenario's ScenarioSelected (MTInputs row 13); 0 if not found (v4.16) |
-| `EXPLICIT` | scn_row | `IF(scn_row=0,1,--(INDEX(ScnExpl,scn_row)="Yes"))` | Explicit carbon pricing (1) or shadow pricing (0) of the scenario (legacy row 259; v4.16) |
-| `REGADJ` | scn_row, adjustments | `IF(scn_row=0,0,IF(INDEX(ScnAdj,scn_row)=0,0,INDEX(adjustments,INDEX(ScnAdj,scn_row))))` | Efficiency adjustment of the scenario's regulation (MTInputs rows 247-251; legacy F86:F90, unused there: bug; v4.16) |
-| `REGCOVER` | scn_row, sector_pos | `IF(scn_row=0,0,--(INDEX(ScnCov,scn_row,sector_pos)="Yes"))` | Sector covered by the scenario's regulation (legacy rows 240-257; v4.16) |
-| `REGSHADOW` | shadow_price, adjustment, covered | `shadow_price*adjustment*covered` | Regulation shadow price ($/tCO2) = shadow carbon price x adjustment x covered (v4.16) |
-| `PHASEON` | scen, baseline_sw, policy_sw | `IF(scen=1,OR(baseline_sw=TRUE,LEFT(baseline_sw,3)="Yes"),OR(policy_sw=TRUE,LEFT(policy_sw,3)="Yes"))*1` | Phase-out applies: scenario 1 the baseline switch, other scenarios the policy switch (legacy rows 264-271; v4.16) |
+| `SHADOWTOTAL` | feebate, share, regulation, ets_price, ets_cov, obr | `feebate*share+regulation+ets_price*ets_cov*obr` | Shadow price on the efficiency margin of a sector ($/tCO2): sector shadow price x share impacting efficiency + regulation shadow price (v0.4.16) + ETS tax-equivalent price x ETS coverage x OBR share |
+| `SCNROW` | scenario | `IFERROR(MATCH(scenario,ScnName,0),0)` | Column of the legacy scenario table (Mapping; legacy Mitigation rows 222-262) of the scenario's ScenarioSelected (MTInputs row 13); 0 if not found (v0.4.16) |
+| `EXPLICIT` | scn_row | `IF(scn_row=0,1,--(INDEX(ScnExpl,scn_row)="Yes"))` | Explicit carbon pricing (1) or shadow pricing (0) of the scenario (legacy row 259; v0.4.16) |
+| `REGADJ` | scn_row, adjustments | `IF(scn_row=0,0,IF(INDEX(ScnAdj,scn_row)=0,0,INDEX(adjustments,INDEX(ScnAdj,scn_row))))` | Efficiency adjustment of the scenario's regulation (MTInputs rows 247-251; legacy F86:F90, unused there: bug; v0.4.16) |
+| `REGCOVER` | scn_row, sector_pos | `IF(scn_row=0,0,--(INDEX(ScnCov,scn_row,sector_pos)="Yes"))` | Sector covered by the scenario's regulation (legacy rows 240-257; v0.4.16) |
+| `REGSHADOW` | shadow_price, adjustment, covered | `shadow_price*adjustment*covered` | Regulation shadow price ($/tCO2) = shadow carbon price x adjustment x covered (v0.4.16) |
+| `PHASEON` | scen, baseline_sw, policy_sw | `IF(scen=1,OR(baseline_sw=TRUE,LEFT(baseline_sw,3)="Yes"),OR(policy_sw=TRUE,LEFT(policy_sw,3)="Yes"))*1` | Phase-out applies: scenario 1 the baseline switch, other scenarios the policy switch (legacy rows 264-271; v0.4.16) |
 | `PCON` | scen, baseline_sw, policy_sw | `AND(OR(policy_sw=TRUE,LEFT(policy_sw,3)="Yes"),OR(scen>1,OR(baseline_sw=TRUE,LEFT(baseline_sw,3)="Yes")))*1` | Price-control phase-out applies: policy switch and (scenario > 1 or the baseline switch) (legacy I2189) |
-| `PICKSCEN` | scen, baseline, policy | `IF(scen=1,baseline,policy)` | Scenario 1 takes the baseline input, the others the policy input (v4.16) |
+| `PICKSCEN` | scen, baseline, policy | `IF(scen=1,baseline,policy)` | Scenario 1 takes the baseline input, the others the policy input (v0.4.16) |
 | `PHASESHARE` | scen, baseline, policy | `IF(scen=1,baseline,MAX(baseline,policy))` | Share to phase out: scenario 1 the baseline share, others MAX(baseline, policy) (legacy G267, G271) |
-| `PHASEOUT` | yr, on, start, period, share | `MAX(1-share,IF(on*(yr>start),1-share*(yr-start)/MAX(period,1),1))` | Phase-out factor (share of the original kept): MAX(1 - share, 1 - share x (year - start) / period after the start year) (legacy rows 2213-2216; v4.16) |
-| `INCLFACTOR` | included, factor | `1-included*(1-factor)` | Factor of one price fuel / sector: 1 - included x (1 - phase-out factor) (v4.16) |
-| `PRODSUB` | yr, last_yr, usd_bn, cpi, held | `IF(yr<=last_yr,usd_bn*cpi*MperBn,held)` | Producer subsidy (USD m real): data (USD bn nominal x CPI factor) up to the last price year, then held (v4.16) |
-| `SUBREFORM` | factor, fixed_part | `-(1-factor)*MIN(fixed_part,0)` | Consumer subsidy reform wedge ($/GJ): -(1 - factor) x the fixed subsidy (fixed part of txo, <= 0) (legacy rows 2598 ff.; v4.16) |
+| `PHASEOUT` | yr, on, start, period, share | `MAX(1-share,IF(on*(yr>start),1-share*(yr-start)/MAX(period,1),1))` | Phase-out factor (share of the original kept): MAX(1 - share, 1 - share x (year - start) / period after the start year) (legacy rows 2213-2216; v0.4.16) |
+| `INCLFACTOR` | included, factor | `1-included*(1-factor)` | Factor of one price fuel / sector: 1 - included x (1 - phase-out factor) (v0.4.16) |
+| `PRODSUB` | yr, last_yr, usd_bn, cpi, held | `IF(yr<=last_yr,usd_bn*cpi*MperBn,held)` | Producer subsidy (USD m real): data (USD bn nominal x CPI factor) up to the last price year, then held (v0.4.16) |
+| `SUBREFORM` | factor, fixed_part | `-(1-factor)*MIN(fixed_part,0)` | Consumer subsidy reform wedge ($/GJ): -(1 - factor) x the fixed subsidy (fixed part of txo, <= 0) (legacy rows 2598 ff.; v0.4.16) |
 | `PCREFORM` | factor, floating_part | `-(1-factor)*floating_part` | Price-control phase-out wedge ($/GJ): -(1 - factor) x the floating part of txo (legacy rows 2599 ff.) |
-| `BLOCKWEDGE` | block_wedge | `block_wedge` | The wedge of the subsector's price block (lookup; v4.16) |
-| `BLOCKPRICE` | block_price | `block_price` | The price before new policies of the fuel's price block (lookup; v6.2) |
-| `FIXEDPART` | year, share, txo_now, txo_last | `share*IF(year<=LastHist,txo_now,txo_last)` | Fixed part of txo: share x txo up to the last historical year, then share x txo of that year (v4.16) |
+| `BLOCKWEDGE` | block_wedge | `block_wedge` | The wedge of the subsector's price block (lookup; v0.4.16) |
+| `BLOCKPRICE` | block_price | `block_price` | The price before new policies of the fuel's price block (lookup; v0.6.2) |
+| `FIXEDPART` | year, share, txo_now, txo_last | `share*IF(year<=LastHist,txo_now,txo_last)` | Fixed part of txo: share x txo up to the last historical year, then share x txo of that year (v0.4.16) |
 | `SHADOWGJ` | shadow_price, ef | `shadow_price*ef` | Shadow price per unit of energy: shadow price ($/tCO2) x emission factor (tCO2 per GJ or per kWh) |
 | `KWHPOLICY` | intensity, ct_rate, fuel_cov, ets_rate, reform, reform_factor | `intensity*(ct_rate*fuel_cov+ets_rate)+reform*reform_factor` | New policy cost per kWh generated: tCO2/kWh x (carbon tax x fuel coverage + ETS cost) + fuel price reform x its kWh factor |
-| `FLOATTAX` | year, key, pcc, prev, sp_now, sp_prev | `IF(year<=LastHist,IFERROR(INDEX(IPtxo,MATCH(key,IPKey,0),MATCH(year,IPtxoY,0)),0),prev-(sp_now-sp_prev)*(1-pcc))` | Excise and other taxes before the floor: txo_L + (sp_L - sp) x (1 - pcc), computed year by year: history txo, then last year - change in sp x (1 - pcc) (v4.10: L14 fixed; legacy applied (1 - pcc) twice in the first projected year) |
+| `FLOATTAX` | year, key, pcc, prev, sp_now, sp_prev | `IF(year<=LastHist,IFERROR(INDEX(IPtxo,MATCH(key,IPKey,0),MATCH(year,IPtxoY,0)),0),prev-(sp_now-sp_prev)*(1-pcc))` | Excise and other taxes before the floor: txo_L + (sp_L - sp) x (1 - pcc), computed year by year: history txo, then last year - change in sp x (1 - pcc) (v0.4.10: L14 fixed; legacy applied (1 - pcc) twice in the first projected year) |
 | `REVENUE` | fuel_use, pj_per_ktoe, rate | `fuel_use*pj_per_ktoe*rate` | Revenue (USD million real): fuel use (ktoe) x PJ per ktoe x rate ($/GJ) |
 | `EMISSIONS` | fuel_use, pj_per_ktoe, ef | `fuel_use*pj_per_ktoe*ef` | CO2 emissions (MtCO2): fuel use (ktoe) x PJ per ktoe x emission factor (tCO2/GJ) |
 | `NONCO2` | fuel_use, ef_start, ef_end, year | `fuel_use*(ef_start+(ef_end-ef_start)*EFFinShare*(year-BaseYr)/(EFEndYear-BaseYr))/tPerKt` | Non-CO2 combustion emissions (kt): fuel use (ktoe) x emission factor (t/ktoe) on a linear path from the base-year factor to the final factor of EFSel in EFEndYear, continued after (as legacy) |
-| `METHANEFEE` | fee_path, policy_scen, ct_switch, carbon_price | `fee_path*policy_scen+IF(LEFT(ct_switch,3)="Yes",carbon_price,0)` | Methane fee used (USD/tCO2e): the fee path in policy scenarios (scenario number > 1, legacy row 2238; v4.12), plus the carbon price if the carbon tax applies to methane (CTforMethane = Yes) |
+| `METHANEFEE` | fee_path, policy_scen, ct_switch, carbon_price | `fee_path*policy_scen+IF(LEFT(ct_switch,3)="Yes",carbon_price,0)` | Methane fee used (USD/tCO2e): the fee path in policy scenarios (scenario number > 1, legacy row 2238; v0.4.12), plus the carbon price if the carbon tax applies to methane (CTforMethane = Yes) |
 | `GROWTHRATE` | cur, prev | `IF(prev=0,0,cur/prev-1)` | Growth rate: now / previous - 1 (0 if the previous value is 0) |
 | `EFWEIGHT` | yr | `EFFinShare*(yr-BaseYr)/(EFEndYear-BaseYr)` | Weight of the final emission factor (FE fin): 0 in the base year, rising linearly to EFFinShare in EFEndYear (EFSel: Constant 0, Variable 1, Average 0.5), continuing after, as legacy |
 | `OTHERPM` | total_pm, black_carbon, organic_matter | `MAX(0,total_pm-black_carbon-organic_matter)` | Other PM2.5: PM2.5 less black carbon and primary organic matter, at least 0 |
 | `FISCALSPACE` | revenue, revenue_ref, gdp_bn | `(revenue-revenue_ref)/(gdp_bn*MperBn)` | Fiscal space (share of GDP): revenue above scenario 1 / GDP (USD bn x MperBn) |
-| `GDPSHARE` | usd_m, gdp_bn | `usd_m/(gdp_bn*MperBn)` | Share of GDP: USD m / (GDP in USD bn x MperBn) (v3.13, 12d) |
-| `SAFEDIV` | amount, activity | `IF(activity=0,0,amount/activity)` | Amount per unit of activity, 0 when the activity is 0 (v3.14: grid intensity, Kaya) |
-| `GROWPATH` | level, growth, years | `level*(1+growth)^years` | Level x (1 + real growth) ^ years (v3.17: social cost of carbon paths) |
-| `TRAPEZOID` | wedge, wedge_ref, change | `-AVERAGE(wedge,wedge_ref)*change/MperBn` | Efficiency cost (USD bn): -average of the wedge and the scenario-1 wedge x change in use (v3.17) |
-| `MFEEPRICE` | coef_a, coef_b, fee | `IF(coef_a=0,0,MIN(fee,(1/coef_a)^(1/coef_b)))` | Methane fee per t CH4 used on the abatement curve, capped where abatement reaches 1 (v3.17) |
-| `MFEECOST` | base_kt, abated, price, coef_b | `base_kt*abated*price*coef_b/(1+coef_b)/Million` | Area under the abatement curve a x fee ^ b: base x abated share x price x b / (1 + b) (v3.17) |
-| `IMPULSE` | year, start, space, space_prev, gdp_prev, gdp | `IF(year<start,0,space-space_prev*gdp_prev/gdp)` | Fiscal impulse (legacy row 14356, v4.15): change in revenue above scenario 1 (USD) / this year's GDP, 0 before GDPStartYear |
-| `MULTGROUP` | mult_source, income_group | `IFERROR(INDEX(MultSrcVal,MATCH(LEFT(mult_source,3),MultSrcKey,0)),LOWER(income_group))` | Multiplier group: global, est (country estimates), man (Manual inputs), else the income group of the country (v4.15, LD56) |
+| `GDPSHARE` | usd_m, gdp_bn | `usd_m/(gdp_bn*MperBn)` | Share of GDP: USD m / (GDP in USD bn x MperBn) (v0.3.13, 12d) |
+| `SAFEDIV` | amount, activity | `IF(activity=0,0,amount/activity)` | Amount per unit of activity, 0 when the activity is 0 (v0.3.14: grid intensity, Kaya) |
+| `GROWPATH` | level, growth, years | `level*(1+growth)^years` | Level x (1 + real growth) ^ years (v0.3.17: social cost of carbon paths) |
+| `TRAPEZOID` | wedge, wedge_ref, change | `-AVERAGE(wedge,wedge_ref)*change/MperBn` | Efficiency cost (USD bn): -average of the wedge and the scenario-1 wedge x change in use (v0.3.17) |
+| `MFEEPRICE` | coef_a, coef_b, fee | `IF(coef_a=0,0,MIN(fee,(1/coef_a)^(1/coef_b)))` | Methane fee per t CH4 used on the abatement curve, capped where abatement reaches 1 (v0.3.17) |
+| `MFEECOST` | base_kt, abated, price, coef_b | `base_kt*abated*price*coef_b/(1+coef_b)/Million` | Area under the abatement curve a x fee ^ b: base x abated share x price x b / (1 + b) (v0.3.17) |
+| `IMPULSE` | year, start, space, space_prev, gdp_prev, gdp | `IF(year<start,0,space-space_prev*gdp_prev/gdp)` | Fiscal impulse (legacy row 14356, v0.4.15): change in revenue above scenario 1 (USD) / this year's GDP, 0 before GDPStartYear |
+| `MULTGROUP` | mult_source, income_group | `IFERROR(INDEX(MultSrcVal,MATCH(LEFT(mult_source,3),MultSrcKey,0)),LOWER(income_group))` | Multiplier group: global, est (country estimates), man (Manual inputs), else the income group of the country (v0.4.15, LD56) |
 | `MULTPREFIX` | mult_group, mult_range | `mult_group&"/"&LOWER(SUBSTITUTE(mult_range,"*",""))&"/"` | Multiplier key prefix: group/range/ (range Base, Low or High) |
 | `FISCALEFFECT` | use_share, impulses, mults | `use_share*SUMPRODUCT(impulses,mults)` | GDP effect of one revenue use: share x SUMPRODUCT(impulses by lag, multipliers by lag) |
 | `GDPEFFECT` | effects, endogenous | `effects*(LEFT(endogenous,3)="Yes")` | GDP effect (share of GDP): the sum of the uses, if endogenous GDP effects are switched on |
@@ -10194,27 +10194,27 @@ Each 2041 cell calls one of these named LAMBDAs (sheet `Lambdas`, name manager).
 | `DRIVER` | growth_inc, el_inc, growth_pop, el_pop, effort, effort_prev | `(1+growth_inc)^el_inc*(1+growth_pop)^el_pop*effort/effort_prev` | Growth factor of a non-energy category: income and population growth with their elasticities, times the change in the mitigation effort |
 | `GROWINDEX` | prev, growth_inc, el_inc, growth_pop, el_pop | `prev*(1+growth_inc)^el_inc*(1+growth_pop)^el_pop` | Activity index of a methane source: previous x income and population growth with elasticities |
 | `ABATE` | coef_a, coef_b, fee | `MIN(1,MAX(0,coef_a*fee^coef_b))` | Methane abatement share: MIN(1, MAX(0, a x fee ^ b)), fee in USD per t CH4 (curves of sheet CH4Inputs) |
-| `METHSOURCE` | base_kt, activity, activity_base, intensity, abate | `IF(activity_base=0,0,base_kt*activity/activity_base*intensity*(1-abate))` | Methane of a source (kt): base-year emissions x activity / base-year activity x intensity index x (1 - abatement) (v9.0, R8.7: intensity decline as legacy rows 6077-6079, 6103, 6159-6183; L135 fixed) |
-| `INTDECLINE` | decline, cur_year | `(1-decline)^MAX(0,cur_year-GHGYear)` | Methane intensity index (v9.0, R8.6): (1 - rate of decline)^MAX(0, year - GHGYear) (legacy rows 6077-6079, 6103, 6159, 6171, 6183; Manual inputs J185:J188) |
+| `METHSOURCE` | base_kt, activity, activity_base, intensity, abate | `IF(activity_base=0,0,base_kt*activity/activity_base*intensity*(1-abate))` | Methane of a source (kt): base-year emissions x activity / base-year activity x intensity index x (1 - abatement) (v0.9.0, R8.7: intensity decline as legacy rows 6077-6079, 6103, 6159-6183; L135 fixed) |
+| `INTDECLINE` | decline, cur_year | `(1-decline)^MAX(0,cur_year-GHGYear)` | Methane intensity index (v0.9.0, R8.6): (1 - rate of decline)^MAX(0, year - GHGYear) (legacy rows 6077-6079, 6103, 6159, 6171, 6183; Manual inputs J185:J188) |
 | `FLARING` | flare_share, base_kt, activity, activity_base, abate | `IF(activity_base=0,0,FlareCO2perCH4*flare_share*base_kt*activity/activity_base*abate/ktPerMt)` | CO2 from flaring the abated oil and gas methane (Mt): FlareCO2perCH4 x flared share x abated CH4 |
 | `CALIBRATE` | inventory, modelled | `IF(modelled=0,0,inventory/modelled)` | Calibration factor: inventory / modelled (0 if nothing is modelled) |
 | `INVORMODEL` | hist, inventory, model | `IF(hist>0,inventory,model)` | Inventory value while the inventory has the year (hist > 0), else the model |
 | `IPPU` | hist, inventory, prev, on_flag, growth | `IF(hist>0,inventory,prev*(1+IF(LEFT(on_flag,3)="Yes",growth,0)))` | Industrial processes: inventory, else the previous value grown with industrial energy CO2 (increases only, legacy) if the switch is Yes |
 | `LULUCF` | hist, inventory, prev, effort, effort_prev, decline | `IF(hist>0,inventory,IF(prev<0,prev,prev/effort_prev*effort-decline))` | LULUCF CO2: inventory, else (if positive) the previous value with the effort change, minus the annual decline (share of the last inventory value) |
-| `FEEREV` | emissions_kt, gwp, applies, fee | `SUMPRODUCT(emissions_kt,gwp,applies)*fee*tPerKt/USDperM` | Methane fee revenue (USD million): SUMPRODUCT of CH4 by source (kt), its GWP and whether the fee applies (v4.12, legacy Manual inputs J196-J200) x fee (USD/tCO2e) x tPerKt / USDperM |
+| `FEEREV` | emissions_kt, gwp, applies, fee | `SUMPRODUCT(emissions_kt,gwp,applies)*fee*tPerKt/USDperM` | Methane fee revenue (USD million): SUMPRODUCT of CH4 by source (kt), its GWP and whether the fee applies (v0.4.12, legacy Manual inputs J196-J200) x fee (USD/tCO2e) x tPerKt / USDperM |
 | `NEWREVRATE` | carbon_tax, excise, ets, rev_factor, new_policy, vat_rate | `carbon_tax+excise+ets*rev_factor+new_policy*vat_rate` | New-policy revenue rate ($/GJ): carbon tax + new excise + ETS x revenue factor + VAT on new policies (feebates are revenue-neutral) |
 | `FUELUSE` | f_prev, p_now, p_prev, shp_now, shp_prev, gdp_g, eps_y, eps_u, eff_exp, aeei_factor, shock_f | `f_prev*aeei_factor*(1+gdp_g)^eps_y*(p_now/p_prev)^eps_u*((p_now+shp_now)/(p_prev+shp_prev))^eff_exp*shock_f` | Fuel use, CPAT documentation 3.3.3, shadow price on the efficiency margin, x the fuel-use shock factor (legacy row 2439); efficiency exponent = eps_F x (1+eps_U); aeei_factor = row aef; gdp_g = GDP growth with the income factor |
 | `CAPEX` | capex_base, time_factor | `capex_base*time_factor` | Capital cost of new plants ($/kW): capital cost at factor 1 x capex time factor |
-| `AEEIFACTOR` | alpha, extra_eff, eps_u | `(1/(1+alpha+extra_eff))^(1+eps_u)` | Efficiency factor of fuel use (v4.13): (1/(1 + autonomous efficiency gain + additional policy-induced gain of the group, MTInputs 243-245))^(1 + usage elasticity), legacy fuel rows |
+| `AEEIFACTOR` | alpha, extra_eff, eps_u | `(1/(1+alpha+extra_eff))^(1+eps_u)` | Efficiency factor of fuel use (v0.4.13): (1/(1 + autonomous efficiency gain + additional policy-induced gain of the group, MTInputs 243-245))^(1 + usage elasticity), legacy fuel rows |
 | `VINTAGE` | avg_prev, new_value, share_prev | `avg_prev*(1-share_prev)+new_value*share_prev` | Vintage average: last year's average x (1 - last year's investment share) + new value x last year's investment share (legacy B2, B6) |
-| `AMORTISED` | capex_avg, inv_life, wacc, cap_factor, other_fixed, storage_avg | `(capex_avg*(inv_life+wacc*CapAvgShr)+other_fixed)/(cap_factor*HoursYr)+storage_avg` | Amortised fixed cost ($/kWh): (average capex x (1 / lifetime + WACC x CapAvgShr) + decommissioning / lifetime + fixed opex) / (capacity factor x 8,760) + storage average (v5.4: WACC and capacity factor of the scenario) |
-| `LEVELISED` | capex, dtc_tcx, cap_factor, dlf, opex_fix, subsidy, vre_flag, storage | `(capex+dtc_tcx)/(cap_factor*HoursYr*dlf)+opex_fix/(cap_factor*HoursYr)+subsidy+vre_flag*storage` | Levelised fixed cost of new plants ($/kWh): (capex + decommissioning + transmission capex) / (capacity factor x 8,760 x discounted lifetime) + fixed opex / (capacity factor x 8,760) + renewable subsidy + storage if VRE (v5.4: of the scenario) |
+| `AMORTISED` | capex_avg, inv_life, wacc, cap_factor, other_fixed, storage_avg | `(capex_avg*(inv_life+wacc*CapAvgShr)+other_fixed)/(cap_factor*HoursYr)+storage_avg` | Amortised fixed cost ($/kWh): (average capex x (1 / lifetime + WACC x CapAvgShr) + decommissioning / lifetime + fixed opex) / (capacity factor x 8,760) + storage average (v0.5.4: WACC and capacity factor of the scenario) |
+| `LEVELISED` | capex, dtc_tcx, cap_factor, dlf, opex_fix, subsidy, vre_flag, storage | `(capex+dtc_tcx)/(cap_factor*HoursYr*dlf)+opex_fix/(cap_factor*HoursYr)+subsidy+vre_flag*storage` | Levelised fixed cost of new plants ($/kWh): (capex + decommissioning + transmission capex) / (capacity factor x 8,760 x discounted lifetime) + fixed opex / (capacity factor x 8,760) + renewable subsidy + storage if VRE (v0.5.4: of the scenario) |
 | `VARCOST` | fixed_part, fuel_price, gj_per_kwh, xcarbon | `fixed_part+fuel_price*gj_per_kwh+xcarbon` | Variable cost ($/kWh): variable O&M and fixed fuel + fuel price ($/GJ) x GJ per kWh + change in existing carbon pricing |
-| `EXEMPTPHASE` | scen, phase_on, yr, intro, start, period | `IF(AND(scen>1,phase_on=TRUE,yr>=intro),MAX(MIN((yr+1-start)/period,1),0),0)` | Exemption phase-out: share of an uncovered fuel or sector taxed in policy scenarios (legacy rows 2259-2265; v5.6) |
-| `COALICPICK` | setting, manual, data | `IF(LEFT(setting,1)="N",0,IF(setting="Manual",manual,data))` | Coal implicit cost chosen ($/kWh): No = 0, Manual = MTInputs, else GoalSeekCoal by country (v5.6, P5) |
-| `COALIC` | short_term, long_term, year | `short_term+(long_term-short_term)*MIN(1,(year-BaseYr)/(CoalICYr-BaseYr))` | Coal implicit cost ($/kWh): short term to long term by CoalICYr (2030), linear (v5.6, P5; legacy D3) |
-| `GENCOSTIC` | fixed_cost, variable_cost, coal_ic | `fixed_cost+variable_cost-IF(PwCoalICTariff="No",coal_ic,0)` | Generation cost: fixed + variable cost, less the coal implicit cost if PwCoalICTariff = No (v5.6, P5) |
-| `POWFUELPRICE` | spot, price_now, prices | `IF(spot=1,price_now,AVERAGE(prices))` | Fuel price for power ($/GJ; v6.2: trailing 5-year average, legacy bug L126): spot price if the spot switch is 1 (SpotPow or the scenario's MTInputs switch), else the average of the years t-4 to t from the base year (legacy 465 A18) |
+| `EXEMPTPHASE` | scen, phase_on, yr, intro, start, period | `IF(AND(scen>1,phase_on=TRUE,yr>=intro),MAX(MIN((yr+1-start)/period,1),0),0)` | Exemption phase-out: share of an uncovered fuel or sector taxed in policy scenarios (legacy rows 2259-2265; v0.5.6) |
+| `COALICPICK` | setting, manual, data | `IF(LEFT(setting,1)="N",0,IF(setting="Manual",manual,data))` | Coal implicit cost chosen ($/kWh): No = 0, Manual = MTInputs, else GoalSeekCoal by country (v0.5.6, P5) |
+| `COALIC` | short_term, long_term, year | `short_term+(long_term-short_term)*MIN(1,(year-BaseYr)/(CoalICYr-BaseYr))` | Coal implicit cost ($/kWh): short term to long term by CoalICYr (2030), linear (v0.5.6, P5; legacy D3) |
+| `GENCOSTIC` | fixed_cost, variable_cost, coal_ic | `fixed_cost+variable_cost-IF(PwCoalICTariff="No",coal_ic,0)` | Generation cost: fixed + variable cost, less the coal implicit cost if PwCoalICTariff = No (v0.5.6, P5) |
+| `POWFUELPRICE` | spot, price_now, prices | `IF(spot=1,price_now,AVERAGE(prices))` | Fuel price for power ($/GJ; v0.6.2: trailing 5-year average, legacy bug L126): spot price if the spot switch is 1 (SpotPow or the scenario's MTInputs switch), else the average of the years t-4 to t from the base year (legacy 465 A18) |
 | `PNEWREV` | gen, policy_cost, emissions, ets_rate, rev_factor | `gen*MWyMkWh*policy_cost-emissions*ets_rate*(1-rev_factor)` | Power new-policy revenue (USD million): generation (MWy) x MWyMkWh x policy cost ($/kWh) - CO2 x ETS cost rate x (1 - revenue factor) |
 | `GENCOST` | fixed_cost, variable_cost | `fixed_cost+variable_cost` | Generation cost before new policies ($/kWh): fixed + variable |
 | `WEIGHTED` | shares, values, factor | `SUMPRODUCT(shares,values)*factor` | Generation-weighted sum: SUMPRODUCT(shares, values) x factor |
@@ -10222,53 +10222,53 @@ Each 2041 cell calls one of these named LAMBDAs (sheet `Lambdas`, name manager).
 | `STORAGECOST` | st_hours, vre, cph, lt_start, lt_cost, lt_units | `st_hours*vre*cph+2*MAX(0,vre-lt_start)/(1-lt_start)^2*lt_cost*lt_units` | Marginal storage cost of variable renewables ($/kWh): short-term (allocated marginal hours x VRE share x cph) + long-term (2 x MAX(0, VRE share - start)/(1 - start)^2 x cost per unit x allocated units for 100% VRE) |
 | `POWERSUPPLY` | gen_cost, tmc | `gen_cost+tmc` | Supply cost of electricity: generation cost (previous year) + transmission and distribution |
 | `POWERPRICE` | year, pos, price_prev, pass, sc_now, sc_prev, vat_rate | `IF(year<=Settings!$C$10,IFERROR(INDEX(PwRpHist,pos,MATCH(year,PwRpYear,0)),0),price_prev+pass*(sc_now-sc_prev)*(1+vat_rate))` | Electricity price before new policies: data up to the last historical year (Inputs_power, row pos), then the previous price + pass-through x change in supply cost x (1 + VAT) |
-| `ENDUSERPOWER` | pre_policy_p, policy_cost, pass, vat_rate, rebate, excise, min_price | `MAX(pre_policy_p+(policy_cost*pass*(1-rebate)+excise)*(1+vat_rate),min_price)` | End-user electricity price: price before new policies + (average new policy cost x pass-through x (1 - rebate switch) + excise) x (1 + VAT), floored at MinPostSubsidyPowerPrice (v5.4: rebate and excise; v5.6: floor, legacy rows 3614-3617, I60) |
+| `ENDUSERPOWER` | pre_policy_p, policy_cost, pass, vat_rate, rebate, excise, min_price | `MAX(pre_policy_p+(policy_cost*pass*(1-rebate)+excise)*(1+vat_rate),min_price)` | End-user electricity price: price before new policies + (average new policy cost x pass-through x (1 - rebate switch) + excise) x (1 + VAT), floored at MinPostSubsidyPowerPrice (v0.5.4: rebate and excise; v0.5.6: floor, legacy rows 3614-3617, I60) |
 | `SUBSIDYGAP` | supply_cost, pre_policy_p, vat_rate | `pre_policy_p/(1+vat_rate)-supply_cost` | Subsidy gap ($/kWh): price before VAT - supply cost (negative = subsidy) |
 | `POWERREV` | unit_value, factor, consumption | `unit_value*factor*consumption` | Power revenue (USD million): rate ($/kWh) x factor x consumption (GWh) |
 | `REBATE` | fees, shares | `-SUMPRODUCT(fees,shares)` | Feebate rebate per kWh generated: -SUMPRODUCT(shadow price per kWh, base-year generation shares) |
 | `VARTOTAL` | base_cost, policy_cost, shadow, rebate | `base_cost+policy_cost+shadow+rebate` | Total variable cost: before new policies + new policy cost + shadow price + rebate |
 | `INVCOST` | levelised_fixed, levelised_var, minimum | `MAX(levelised_fixed+levelised_var,minimum)` | Levelised investment cost: MAX(levelised fixed + levelised variable cost, minimum) |
-| `SYSCOST` | dtc_tcx, cap_factor, dlf, vre_flag, storage, coal_ic | `dtc_tcx/(cap_factor*HoursYr*dlf)+vre_flag*storage+coal_ic` | System cost by type ($/kWh; v9.0, R9.5, legacy F1): (decommissioning + transmission share) / (capacity factor x 8,760 x discounted lifetime) + storage if VRE + coal implicit cost |
-| `LEVCAPEX` | capex, cap_factor, dlf | `capex/(cap_factor*HoursYr*dlf)` | Levelised capital cost by type ($/kWh; v9.0, R9.6, legacy E5 C1): capex / (capacity factor x 8,760 x discounted lifetime) |
-| `OMCOST` | opex_fix, cap_factor, opex_var | `opex_fix/(cap_factor*HoursYr)+opex_var` | O&M cost by type ($/kWh; v9.0, R9.7, legacy E5 A16 + D1): fixed O&M / (capacity factor x 8,760) + variable O&M |
-| `MEMOOF` | amount | `amount` | Memo copy of a value of the same column (v9.0, R9.10-R9.11) |
-| `HISTHOLD` | cur_year, amount, held | `IF(cur_year<=LastHist,amount,held)` | Value up to the last historical price year, then held (v9.0, R7, R9) |
-| `PRICEGAP` | net_price, supply, excise | `net_price-supply-excise` | Electricity price before VAT less the supply cost and the manual excise (v9.0, R9.1, legacy N3605) |
-| `ELTAXBASE` | cur_year, data_val, gap, scds, held | `IF(cur_year<=LastHist,IFERROR(data_val+0,gap*(scds="Yes")),held)` | Electricity consumer tax / subsidy (v9.0, R9.1, legacy rows 3604-3606): the dataset value up to the last price year (blank: the price gap if SupplyCostDeltaSubsidy = Yes, else 0), then held |
-| `PREGAP` | supply, net_price, tax, cons | `MAX(0,supply-(net_price-tax))*cons` | Pre-tax gap x consumption: MAX(0, supply cost - (price before VAT - tax)) x GWh (v9.0, R7.5, legacy 3588) |
-| `PSALLOC` | cur_year, gap_u, gaps, cons_u, conss, fallback, held | `IF(cur_year<=LastHist,IFERROR(gap_u/gaps,IFERROR(cons_u/conss,fallback)),held)` | Share of the electricity producer subsidy (v9.0, R7.5, legacy 3588-3589): by the pre-tax gap, else by consumption, else the fallback; held after the last price year |
-| `PSELEC` | cur_year, pros, alloc, cons, last_unit, kept | `IF(cur_year<=LastHist,IFERROR(MAX(PsElFloor,-pros*alloc/cons),0),last_unit*kept)` | Electricity producer subsidy per kWh (v9.0, R7.6, R7.8, legacy 3590-3591, 3601): -subsidy x share / consumption, at least PsElFloor (I146); after the last price year the last value x the phase-out factor |
-| `PSERESID` | cur_year, pros, used, last_val, kept | `IF(cur_year<=LastHist,-pros-used,last_val*kept)` | Electricity producer subsidy above the floor (USD m; v9.0, R7.7, legacy 3592): -subsidy - consumption x per kWh; after the last price year x the phase-out factor |
-| `CSELEC` | cur_year, tax, incl, kept | `IF(AND(cur_year>LastHist,tax<0,incl="Include"),tax*(kept-1),0)` | Electricity consumer subsidy phase-out (v9.0, R9.2, legacy O3606): tax of the last price year x (factor - 1) if it is a subsidy and PowerSubsidyExemptInclude = Include |
-| `ELSUPPLY` | supply, resid, policy_cost, pass, rebate, excise | `supply+resid+policy_cost*pass*(1-rebate)+excise` | Electricity supply cost of the subsidy lines (v9.0, R9; legacy rows 3620, 3649 "supply costs (removing estimation)"): supply cost + price-chain residual + new carbon cost passed through (less the rebate) + excise |
-| `CAPLAST` | cur_year, supply, supply_last | `IF(cur_year<=LastHist,supply,MIN(supply,supply_last))` | Supply cost up to the last price year, then capped at its value then (v9.0, R9.3, legacy O3607) |
-| `ORESID` | cur_year, hist_val, prev_val, capped, capped_prev | `IF(cur_year<=LastHist,hist_val,IF(prev_val<0,prev_val*capped/capped_prev,prev_val))` | Electricity price-chain residual (v9.0, R9.3, legacy rows 3607, 3636): price gap - tax - producer subsidy up to the last price year; then held, a negative one x capped supply cost / last year's |
+| `SYSCOST` | dtc_tcx, cap_factor, dlf, vre_flag, storage, coal_ic | `dtc_tcx/(cap_factor*HoursYr*dlf)+vre_flag*storage+coal_ic` | System cost by type ($/kWh; v0.9.0, R9.5, legacy F1): (decommissioning + transmission share) / (capacity factor x 8,760 x discounted lifetime) + storage if VRE + coal implicit cost |
+| `LEVCAPEX` | capex, cap_factor, dlf | `capex/(cap_factor*HoursYr*dlf)` | Levelised capital cost by type ($/kWh; v0.9.0, R9.6, legacy E5 C1): capex / (capacity factor x 8,760 x discounted lifetime) |
+| `OMCOST` | opex_fix, cap_factor, opex_var | `opex_fix/(cap_factor*HoursYr)+opex_var` | O&M cost by type ($/kWh; v0.9.0, R9.7, legacy E5 A16 + D1): fixed O&M / (capacity factor x 8,760) + variable O&M |
+| `MEMOOF` | amount | `amount` | Memo copy of a value of the same column (v0.9.0, R9.10-R9.11) |
+| `HISTHOLD` | cur_year, amount, held | `IF(cur_year<=LastHist,amount,held)` | Value up to the last historical price year, then held (v0.9.0, R7, R9) |
+| `PRICEGAP` | net_price, supply, excise | `net_price-supply-excise` | Electricity price before VAT less the supply cost and the manual excise (v0.9.0, R9.1, legacy N3605) |
+| `ELTAXBASE` | cur_year, data_val, gap, scds, held | `IF(cur_year<=LastHist,IFERROR(data_val+0,gap*(scds="Yes")),held)` | Electricity consumer tax / subsidy (v0.9.0, R9.1, legacy rows 3604-3606): the dataset value up to the last price year (blank: the price gap if SupplyCostDeltaSubsidy = Yes, else 0), then held |
+| `PREGAP` | supply, net_price, tax, cons | `MAX(0,supply-(net_price-tax))*cons` | Pre-tax gap x consumption: MAX(0, supply cost - (price before VAT - tax)) x GWh (v0.9.0, R7.5, legacy 3588) |
+| `PSALLOC` | cur_year, gap_u, gaps, cons_u, conss, fallback, held | `IF(cur_year<=LastHist,IFERROR(gap_u/gaps,IFERROR(cons_u/conss,fallback)),held)` | Share of the electricity producer subsidy (v0.9.0, R7.5, legacy 3588-3589): by the pre-tax gap, else by consumption, else the fallback; held after the last price year |
+| `PSELEC` | cur_year, pros, alloc, cons, last_unit, kept | `IF(cur_year<=LastHist,IFERROR(MAX(PsElFloor,-pros*alloc/cons),0),last_unit*kept)` | Electricity producer subsidy per kWh (v0.9.0, R7.6, R7.8, legacy 3590-3591, 3601): -subsidy x share / consumption, at least PsElFloor (I146); after the last price year the last value x the phase-out factor |
+| `PSERESID` | cur_year, pros, used, last_val, kept | `IF(cur_year<=LastHist,-pros-used,last_val*kept)` | Electricity producer subsidy above the floor (USD m; v0.9.0, R7.7, legacy 3592): -subsidy - consumption x per kWh; after the last price year x the phase-out factor |
+| `CSELEC` | cur_year, tax, incl, kept | `IF(AND(cur_year>LastHist,tax<0,incl="Include"),tax*(kept-1),0)` | Electricity consumer subsidy phase-out (v0.9.0, R9.2, legacy O3606): tax of the last price year x (factor - 1) if it is a subsidy and PowerSubsidyExemptInclude = Include |
+| `ELSUPPLY` | supply, resid, policy_cost, pass, rebate, excise | `supply+resid+policy_cost*pass*(1-rebate)+excise` | Electricity supply cost of the subsidy lines (v0.9.0, R9; legacy rows 3620, 3649 "supply costs (removing estimation)"): supply cost + price-chain residual + new carbon cost passed through (less the rebate) + excise |
+| `CAPLAST` | cur_year, supply, supply_last | `IF(cur_year<=LastHist,supply,MIN(supply,supply_last))` | Supply cost up to the last price year, then capped at its value then (v0.9.0, R9.3, legacy O3607) |
+| `ORESID` | cur_year, hist_val, prev_val, capped, capped_prev | `IF(cur_year<=LastHist,hist_val,IF(prev_val<0,prev_val*capped/capped_prev,prev_val))` | Electricity price-chain residual (v0.9.0, R9.3, legacy rows 3607, 3636): price gap - tax - producer subsidy up to the last price year; then held, a negative one x capped supply cost / last year's |
 | `CONSUMPTION` | total, res, w_total, w_res, gwh_per_ktoe | `(w_total*total+w_res*res)*gwh_per_ktoe` | Electricity consumption (GWh) of a price group: (w_total x total + w_res x residential demand) x GWh per ktoe |
 | `PRICEMIX` | w_res, p_res, p_ind | `w_res*p_res+(1-w_res)*p_ind` | Price used by a demand group: weighted residential and industrial price |
 | `DEMANDMULT` | eff_mult, gdp_g, eps_y, income, p_now, p_prev, eps_p, shock, shock_on | `eff_mult*(1+gdp_g)^(eps_y*income)*(p_now/p_prev)^eps_p*(1+shock*shock_on)` | Growth multiple of electricity demand: efficiency multiple x GDP term x price term x (1 + shock x switch) |
 | `GROW` | prev, multiple | `prev*multiple` | Previous value x multiple |
 | `SCALEBY` | value, factor | `value*factor` | Value x factor |
-| `SWITCHPRICE` | cost_gas, cost_coal, int_coal, int_gas | `IFERROR((cost_gas-cost_coal)/(int_coal-int_gas),0)` | Switching carbon price gas over coal ($/tCO2): cost difference / carbon intensity difference (v5.6, P5 memo, legacy F7) |
+| `SWITCHPRICE` | cost_gas, cost_coal, int_coal, int_gas | `IFERROR((cost_gas-cost_coal)/(int_coal-int_gas),0)` | Switching carbon price gas over coal ($/tCO2): cost difference / carbon intensity difference (v0.5.6, P5 memo, legacy F7) |
 | `RESIDUAL` | total, part | `MAX(total-part,0)` | MAX(total - part, 0) |
-| `NEEDNEXT` | req_now, req_prev, kafter | `MAX(req_now*IFERROR(req_now/req_prev,1)-kafter,0)` | Effective capacity needed (v4.14, legacy bug L67 fixed): next year's required generation (this year's in the last year) - capacity after retirements, not below 0; bought this year, online next year |
+| `NEEDNEXT` | req_now, req_prev, kafter | `MAX(req_now*IFERROR(req_now/req_prev,1)-kafter,0)` | Effective capacity needed (v0.4.14, legacy bug L67 fixed): next year's required generation (this year's in the last year) - capacity after retirements, not below 0; bought this year, online next year |
 | `FLOORMIN` | values, flags, min_value | `MAX(_xlfn.MINIFS(values,flags,1),min_value)` | Lowest value among flagged members (flag = 1), at least the floor |
 | `MINDISPATCH` | flag, required, max_all, max_own | `flag*MIN(MAX(required-(max_all-max_own),0),max_own)` | Minimum generation of coal or gas: what is still needed if the other runs at its maximum |
 | `LOGITW` | flag, k, cost, lowest | `flag*EXP(-k*cost/lowest)` | Logit weight: flag x EXP(-K x cost / lowest cost) |
 | `DISPATCH` | flag, fixed_output, max_gen, min_gen, remainder, weight, weight_sum | `IF(flag=1,MIN(max_gen,min_gen+remainder*weight/weight_sum),fixed_output)` | Generation: coal and gas MIN(maximum, minimum + remainder x logit share); other types their effective capacity |
 | `INCREASE` | value_now, value_prev | `MAX(0,value_now-value_prev)` | MAX(0, value - previous value) |
 | `SHAREOF` | part, total | `IF(total=0,0,part/total)` | Part / total (0 if the total is 0) |
-| `SUBQTY` | values, vars, fuels, fuel | `SUMIFS(values,vars,"ener",fuels,fuel)` | Fuel use of a fuel in a range of subsector rows (I31 legacy weights; v4.15) |
-| `SUMOF` | values, keys, key | `SUMIFS(values,keys,key)` | Sum of the values whose key equals the key (SUMIFS; v4.15) |
-| `PWFUELPRICE` | rpb, gen, ccp, fuel_use, pj_per_ktoe, mwy | `rpb+IF(fuel_use=0,0,gen*mwy*ccp/(fuel_use*pj_per_ktoe))` | Power fuel price incl. new policies ($/GJ): pre-policy price + policy cost of the type / its fuel use (v4.15, I31) |
-| `LEGAVG` | p_res, q_res, p_ind, q_ind, p_pow, q_pow, fallback | `IF(q_res+q_ind+q_pow=0,fallback,(p_res*q_res+p_ind*q_ind+p_pow*q_pow)/(q_res+q_ind+q_pow))` | Average price as legacy F5b (v4.15, I31): residential, industry and power prices weighted by scenario-1 quantities |
-| `PICKINDEX` | method, legacy, laspeyres | `IF(LEFT(method,3)="Leg",legacy,laspeyres)` | Price index reported: the legacy average price index or the Laspeyres index (Settings C54; v4.15) |
-| `FUELSPEND` | fuel, prices, qty | `SUMPRODUCT(--(SecVar="atp"),--(SecFuel=fuel),prices,qty)` | Spending on one fuel: sum over the sector rows of after-tax price x fuel use (v3.10) |
-| `FUELQTY` | fuel, qty | `SUMIFS(qty,SecVar,"ener",SecFuel,fuel)` | Fuel use of one fuel: sum over the sector rows (v3.10) |
-| `BLOCKQTY` | pos, qty | `SUMIFS(qty,PVar,"atp",PPar,pos)` | Fuel use of the subsectors priced by one section-2 price block (atp rows whose D = the block position; qty = the ener rows aligned with the atp rows) (v4.1) |
-| `BLOCKAVG` | pos, vals, qty, total, before | `IF(total=0,before,SUMPRODUCT(--(PVar&PPar="atp"&pos),vals,qty)/total)` | Fuel-use weighted average over the subsectors priced by one section-2 price block of a subsector row (vals, aligned with the atp rows); before if the block has no fuel use (v4.1) |
-| `SPENDSUM` | prices, qty | `SUMPRODUCT(prices,qty)` | Spending: SUMPRODUCT of prices and quantities (electricity, v3.10) |
-| `ALLSPEND` | fuel_sum, factor, ele | `fuel_sum*factor+ele` | All energy: fuel spending x PJ per ktoe + electricity spending (USD m, v3.10) |
-| `MIXEFFECT` | ratio_uv, ref_uv, laspeyres | `IF(ref_uv*laspeyres=0,0,ratio_uv/ref_uv/laspeyres)` | Mix effect: unit value / unit value of scenario 1 / price index (v3.10) |
+| `SUBQTY` | values, vars, fuels, fuel | `SUMIFS(values,vars,"ener",fuels,fuel)` | Fuel use of a fuel in a range of subsector rows (I31 legacy weights; v0.4.15) |
+| `SUMOF` | values, keys, key | `SUMIFS(values,keys,key)` | Sum of the values whose key equals the key (SUMIFS; v0.4.15) |
+| `PWFUELPRICE` | rpb, gen, ccp, fuel_use, pj_per_ktoe, mwy | `rpb+IF(fuel_use=0,0,gen*mwy*ccp/(fuel_use*pj_per_ktoe))` | Power fuel price incl. new policies ($/GJ): pre-policy price + policy cost of the type / its fuel use (v0.4.15, I31) |
+| `LEGAVG` | p_res, q_res, p_ind, q_ind, p_pow, q_pow, fallback | `IF(q_res+q_ind+q_pow=0,fallback,(p_res*q_res+p_ind*q_ind+p_pow*q_pow)/(q_res+q_ind+q_pow))` | Average price as legacy F5b (v0.4.15, I31): residential, industry and power prices weighted by scenario-1 quantities |
+| `PICKINDEX` | method, legacy, laspeyres | `IF(LEFT(method,3)="Leg",legacy,laspeyres)` | Price index reported: the legacy average price index or the Laspeyres index (Settings C54; v0.4.15) |
+| `FUELSPEND` | fuel, prices, qty | `SUMPRODUCT(--(SecVar="atp"),--(SecFuel=fuel),prices,qty)` | Spending on one fuel: sum over the sector rows of after-tax price x fuel use (v0.3.10) |
+| `FUELQTY` | fuel, qty | `SUMIFS(qty,SecVar,"ener",SecFuel,fuel)` | Fuel use of one fuel: sum over the sector rows (v0.3.10) |
+| `BLOCKQTY` | pos, qty | `SUMIFS(qty,PVar,"atp",PPar,pos)` | Fuel use of the subsectors priced by one section-2 price block (atp rows whose D = the block position; qty = the ener rows aligned with the atp rows) (v0.4.1) |
+| `BLOCKAVG` | pos, vals, qty, total, before | `IF(total=0,before,SUMPRODUCT(--(PVar&PPar="atp"&pos),vals,qty)/total)` | Fuel-use weighted average over the subsectors priced by one section-2 price block of a subsector row (vals, aligned with the atp rows); before if the block has no fuel use (v0.4.1) |
+| `SPENDSUM` | prices, qty | `SUMPRODUCT(prices,qty)` | Spending: SUMPRODUCT of prices and quantities (electricity, v0.3.10) |
+| `ALLSPEND` | fuel_sum, factor, ele | `fuel_sum*factor+ele` | All energy: fuel spending x PJ per ktoe + electricity spending (USD m, v0.3.10) |
+| `MIXEFFECT` | ratio_uv, ref_uv, laspeyres | `IF(ref_uv*laspeyres=0,0,ratio_uv/ref_uv/laspeyres)` | Mix effect: unit value / unit value of scenario 1 / price index (v0.3.10) |
 | `CARRY` | cap_prev, ret_prev, inv_prev | `cap_prev-ret_prev+inv_prev` | Capacity: last year less last year's retirements plus last year's new investment |
 | `RETIRE` | cap, ret_rate, early_flag, early, planned_on, planned | `MIN(IF(planned_on=1,planned,cap*ret_rate)+early_flag*early,cap)` | Retirement: MIN(planned retirement (data, if switched on) or capacity x rate, + early retirement (coal), capacity) |
 | `EARLYROOM` | add_wind, add_solar, demand_increase, retirements | `MAX(0,add_wind+add_solar-demand_increase-(retirements))` | Room for early coal retirement: maximum wind and solar additions less demand increase and retirements |
@@ -10293,8 +10293,8 @@ Each 2041 cell calls one of these named LAMBDAs (sheet `Lambdas`, name manager).
 | `PAIRMEAN` | value_a, value_b | `AVERAGE(value_a,value_b)` | Average of two values |
 | `FUELPERKWH` | has_fuel, efficiency | `has_fuel*GJperkWh/efficiency` | Fuel per kWh (GJ/kWh): GJperkWh / efficiency for types with a price fuel, else 0 |
 | `PICKTYPE` | settings, pos | `INDEX(settings,pos)` | The setting of the type: INDEX(settings, position) |
-| `MANCAP` | pos, scen, year | `IFERROR(INDEX(ManCapVal,pos+IF(scen=1,0,ManCapOff),MATCH(year,ManCapYr,0))+0,0)` | Manual capacity path of the type (MW): Manual inputs rows 349-357 (scenario 1) or 363-371 (other scenarios), by year; blank = 0 (v5.6, P3) |
-| `MANINV` | setting, cap_next, cap_now, retired, cf | `IF(AND(setting="Manual",ISNUMBER(cap_next)),MAX(0,cap_next-cap_now+retired)*cf,0)` | Manual new effective investment (MW): if NewInv<type> = Manual, MAX(0, next year's path - this year's path + retirement) x capacity factor; 0 in the last year (v5.6, P3; legacy rows 4097-4118) |
+| `MANCAP` | pos, scen, year | `IFERROR(INDEX(ManCapVal,pos+IF(scen=1,0,ManCapOff),MATCH(year,ManCapYr,0))+0,0)` | Manual capacity path of the type (MW): Manual inputs rows 349-357 (scenario 1) or 363-371 (other scenarios), by year; blank = 0 (v0.5.6, P3) |
+| `MANINV` | setting, cap_next, cap_now, retired, cf | `IF(AND(setting="Manual",ISNUMBER(cap_next)),MAX(0,cap_next-cap_now+retired)*cf,0)` | Manual new effective investment (MW): if NewInv<type> = Manual, MAX(0, next year's path - this year's path + retirement) x capacity factor; 0 in the last year (v0.5.6, P3; legacy rows 4097-4118) |
 | `INVPRESENT` | setting, cap_type, cap_all | `IF(setting="If Present*",IF(cap_type/SUM(cap_all)>InvPresentShare,"Yes","No"),setting)` | New investment permitted: "If Present*" = Yes if the type has more than InvPresentShare of base-year capacity, else the setting |
 | `INVSTART` | hydro, gen_share, start_in | `IF(AND(hydro=1,gen_share>HydInvShare),BaseYr,start_in)` | Start year of new investment: the base year for hydro with a generation share above HydInvShare (L54), else the MTInputs year |
 | `SCALECAT` | category | `IFERROR(INDEX(PowScRate,MATCH(category,PowScCat,0)),0)` | Scale-up rate of a category (Low, Medium*, High, Vhigh; Power I20:J23), 0 if not found |
@@ -10314,7 +10314,7 @@ Each 2041 cell calls one of these named LAMBDAs (sheet `Lambdas`, name manager).
 | `MAXOUTPUT` | cap, coal, cf_coal, gas, cf_gas | `cap*(coal*cf_coal+gas*cf_gas)` | Maximum generation of coal (MaximumCoalCF) or gas (MaximumGasCF): capacity x maximum capacity factor |
 | `PPARATIO` | required, eff_cap | `IF(eff_cap=0,1,required/eff_cap)` | Coal and gas need / their effective capacity (1 if none; legacy row 3794) |
 | `PPAMIX` | logit_gen, flag, ppa, eff_cap, ratio | `logit_gen+flag*ppa*(eff_cap*ratio-logit_gen)` | Generation of coal or gas with PPAs: logit dispatch + PPA share x (effective capacity x ratio - logit dispatch) (legacy rows 3804-3805) |
-| `MANEXCISE` | scen, switch_on, excise, basis, defl, reform | `IF(scen>1,IF(LEFT(switch_on,3)="Yes",excise*IF(LEFT(basis,4)="Real",1,defl),0)+reform,0)` | Manual electricity excise of policy scenarios with AdditionalExcise = Yes (Manual inputs rows 161-162), x deflator index if NomorReal is not Real, plus the electricity fuel price reform path of the scenario (legacy rows 199-217, 3602; v5.6, I59) |
+| `MANEXCISE` | scen, switch_on, excise, basis, defl, reform | `IF(scen>1,IF(LEFT(switch_on,3)="Yes",excise*IF(LEFT(basis,4)="Real",1,defl),0)+reform,0)` | Manual electricity excise of policy scenarios with AdditionalExcise = Yes (Manual inputs rows 161-162), x deflator index if NomorReal is not Real, plus the electricity fuel price reform path of the scenario (legacy rows 199-217, 3602; v0.5.6, I59) |
 | `EXCISEPRICE` | excise_ct, after, pass, excise, excise_last | `excise_ct+IF(after,pass*(excise-excise_last),0)` | Excise in the price before VAT: electricity excise + pass-through x (manual excise - its value in the last historical year) after that year |
 | `GASDEFICIT` | switch_on, deficit, second_all | `IF(switch_on="Yes",deficit-SUM(second_all),0)` | Investment deficit left after the second round, to gas if the switch is Yes (legacy rows 4247-4252) |
 | `ENGINEERON` | choice | `IF(LEFT(choice,8)="Engineer",1,0)` | 1 if the MTInputs choice TrModel starts with Engineer, else 0 |
@@ -10388,15 +10388,15 @@ Each 2041 cell calls one of these named LAMBDAs (sheet `Lambdas`, name manager).
 | `AVGFE` | test, fe_a, use_a, fe_b, use_b, weight | `IF(test=0,fe_a*weight+fe_b*(1-weight),(fe_a*use_a+fe_b*use_b)/(use_a+use_b))` | Average fuel economy weighted by fuel use (fixed weights without fuel use) |
 | `AVGFEEV` | test, fe_a, fe_b, fe_c, weighted, e_sum | `IF(test=0,fe_a*TrFEWEvP+(fe_b+fe_c)*TrFEWEvO,weighted/e_sum)` | Average EV fuel economy weighted by electricity use (fixed weights without electricity use) |
 | `PROD3SUM` | value_a, w_a, value_b, w_b, value_c, w_c | `value_a*w_a+value_b*w_b+value_c*w_c` | Sum of three products: a x weight a + b x weight b + c x weight c |
-| `BIOFOLLOW` | prev_val, fuel_now, fuel_prev | `IF(fuel_prev=0,prev_val,prev_val*fuel_now/fuel_prev)` | Road bioethanol / biodiesel of the elasticity road model (v9.0, R10.1-R10.2, legacy 5404-5405): last year x gasoline / diesel use of this year / last year (held if last year is 0) |
-| `BIOSPLIT` | gso_bio, die_bio, gso_base, die_base, gso_now, die_now | `IF(gso_base=0,gso_bio,gso_bio*gso_now/gso_base)+IF(die_base=0,die_bio,die_bio*die_now/die_base)` | Road biofuels (v4.12, legacy rows 5436-5438): bioethanol and other biofuels x gasoline / base year, biodiesel x diesel / base year |
+| `BIOFOLLOW` | prev_val, fuel_now, fuel_prev | `IF(fuel_prev=0,prev_val,prev_val*fuel_now/fuel_prev)` | Road bioethanol / biodiesel of the elasticity road model (v0.9.0, R10.1-R10.2, legacy 5404-5405): last year x gasoline / diesel use of this year / last year (held if last year is 0) |
+| `BIOSPLIT` | gso_bio, die_bio, gso_base, die_base, gso_now, die_now | `IF(gso_base=0,gso_bio,gso_bio*gso_now/gso_base)+IF(die_base=0,die_bio,die_bio*die_now/die_base)` | Road biofuels (v0.4.12, legacy rows 5436-5438): bioethanol and other biofuels x gasoline / base year, biodiesel x diesel / base year |
 | `HOLD` | prev | `prev` | Value of the previous year (base year: own formula) |
 | `DISCRATE` | inc, top_rate, low_rate, inc_low, inc_high | `MIN(top_rate,MAX(low_rate,top_rate-(inc-inc_low)/(inc_high-inc_low)*(top_rate-low_rate)))` | Consumer discount rate, linear in GDP per capita between the two income levels |
 | `FRESHARE` | flag, own_f, own_pl, cap_v, target, inc, inc_t | `IF(flag=1,own_f/own_pl,MIN(cap_v,MAX(target,cap_v-(cap_v-target)*inc/inc_t)))` | Freight share of ownership: data, else falling with income to the target, capped |
 | `CYCHUMP` | flag, own, peak_v, peak_inc, inc | `IF(flag=1,own,(peak_v+peak_v)/(inc/peak_inc+peak_inc/inc))` | 2-3 wheeler ownership: data, else the income hump 2 x peak / (inc / peak inc + peak inc / inc) |
 | `BEVUPLIFT` | flag, p_ev, p_ice, cap_v, el_p | `IF(flag=1,IF(p_ev=0,1,MIN(cap_v,(p_ev/p_ice)^el_p)),"")` | BEV / ICEV distance ratio in the data years: cost-per-km ratio^usage elasticity, capped |
 | `INTAVG` | wts, efs, fe | `SUMPRODUCT(wts,efs)/SUM(wts)/fe*Million` | Average CO2 intensity of new ICEVs: SUMPRODUCT(weights, EF) / SUM(weights) / fuel economy x Million |
-| `ROADSWITCH` | pos, switch_on, eng_rows, elastic, leak_rows, leak_pos | `IF(pos*switch_on>0,INDEX(eng_rows,pos),elastic)+INDEX(leak_rows,leak_pos)` | Fuel use: the engineer road row (section 5b) at the position where switched on, else the elasticity model; + the cumulative residential leakage to biomass of section 6b at its position (1 = none; v5.1) |
+| `ROADSWITCH` | pos, switch_on, eng_rows, elastic, leak_rows, leak_pos | `IF(pos*switch_on>0,INDEX(eng_rows,pos),elastic)+INDEX(leak_rows,leak_pos)` | Fuel use: the engineer road row (section 5b) at the position where switched on, else the elasticity model; + the cumulative residential leakage to biomass of section 6b at its position (1 = none; v0.5.1) |
 | `DEMROAD` | flag, switch_on, eng, prev, multiple | `IF(flag*switch_on>0,eng,prev*multiple)` | Electricity demand: road electricity of section 5b where the engineer model is on, else last year x the growth multiple |
 | `DPCHG` | p_new, p_ref | `p_new/p_ref-1` | Distribution: relative price change of the analysis year against scenario 1 (fraction) |
 | `DFAC` | peds, dp, eps | `dp*IF(LEFT(peds,3)="Yes",(1+dp)^eps,1)` | Distribution: price factor dp x (1 + dp)^eps of a decile (elasticity adjustment if PEDs = Yes) |

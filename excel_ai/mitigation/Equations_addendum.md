@@ -1,4 +1,4 @@
-# Equations addendum: remaining functionality R1-R13 and the reverts to legacy (v9.0)
+# Equations addendum: remaining functionality R1-R13 and the reverts to legacy (v0.9.0)
 
 Addendum to [`Equations.md`](Equations.md) (same notation, section 0). It defines, before the build, every new
 variable of the remaining functionality agreed on 2026-10-29 (plan:
@@ -534,7 +534,7 @@ R11.7  fuel effect, % GDP:      Δca_g(t) = ΔCA_g(t) / Ŷ(t)
 R11.8  after policy, % GDP:     ca1(t) = ca0(t) + Σ_g Δca_g(t)                                     (bug L214 fixed)
 R11.9  current prices (memo):   CAn(t) = BCA_EGY(t) for t ≤ 2031;  0 for 2032-2041                 (as legacy, I130)
 ```
-Legacy fuel import bill (R11.4 source; the prototype's `xnim` replaces it, v3.16): ΔNI_oil = ΔQ_oil · bbl/ktoe ·
+Legacy fuel import bill (R11.4 source; the prototype's `xnim` replaces it, v0.3.16): ΔNI_oil = ΔQ_oil · bbl/ktoe ·
 P_crude($/bbl real)/10⁹ (no share traded: L49); ΔNI_gas = ΔQ_gas · GJ/ktoe · P_gas($/MMBtu real)/10⁹ · s_gas (bug
 L215, unit); ΔNI_coal = ΔQ_coal · GJ/ktoe · P_coal($/GJ real)/10⁹ · s_coal; ΔQ = total use of the scenario
 − scenario 1 (ktoe; oil = gasoline, diesel, LPG, kerosene, other oil products); ΔCA_g = −ΔNI_g.
@@ -602,7 +602,7 @@ Typed values and the Egypt results: `Equations_addendum_notes.md` (R12).
 `popw` of `distn.bsh.dec.ove.mean.<d>` and of the basket `distn.bsh.bkt.ove.mean.9999`; WHOCooking `distn.pcoff.ove`.
 Prototype codes read: `enel`, `ener`, `atp` (residential), `lkp`, `lkx`, `lkxp`, `CookFuel`, `ExemptCookShare`.
 
-The prototype v5.6 split (Equations.md last section; section 6b rows `lkxp`, `lkxe`, `lkxr`, `lkx`, `lkxa`) already
+The prototype v0.5.6 split (Equations.md last section; section 6b rows `lkxp`, `lkxe`, `lkxr`, `lkx`, `lkxa`) already
 matches legacy rows 5568-5570 algebraically (enel ratio × price ratio^(εU(phase−1)) = legacy income, shock, efficiency
 terms with the usage term εU·phase). Three changes make it legacy-exact: R6.1 (cooking-fuel default), R6.3 (basket
 denominator), R6.7 (leakage on the not-exempt part only).
@@ -638,7 +638,7 @@ taxes (2461, 2553) = (sp_L − sp(t) + cs_L)(1 − π), floored, × price-contro
 `mit.pros.<f>.all` (coa, nga, oil, bio, ecy), `mit.txo.ecy.res/ind` (new read), `mit.rp.ecy.*`. Prototype codes
 read: `psu`, `psd`, `psf`, `pros`, `psp`, `spf`, `gpi`, `pcc` (D), `sc`, `cons`, `rppre`, `pass`.
 
-The fossil price effect is built (v6.1-6.2, I49): `psp` in the supply cost, reform as a separate wedge `ppsw`
+The fossil price effect is built (v0.6.1-0.6.2, I49): `psp` in the supply cost, reform as a separate wedge `ppsw`
 (= π·Δps), equal to legacy except where the floor of E22 or the price-control phase-out acts on the floating part.
 As legacy, the reform moves into the supply cost (R7.1-R7.2), so E21-E22 and the price-control wedge see it.
 

@@ -1,6 +1,6 @@
 # Plan: the distribution module in the CPAT-AI-Mitigation-MVP workbook
 
-Status: built as a prototype in CPAT-AI-Mitigation-MVP v4.4 (2026-10-17), following the revised design below; method and bug fixes in `../mitigation/Distribution_Method_v4_4.md`. Steps 1-6 done for the default options (cash transfer, no poverty-line target); open items in `../TODO.md`. Inputs: the standalone prototype (`standalone/`), the legacy sheet `Distribution` of `../legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb`, the Python port `../../coded/cpat_model/distribution/`, the specification `../../other/more/CPAT_Distribution_Module_Pseudocode.docx`, and the MVP norms (`../NORMS.md`).
+Status: built as a prototype in CPAT-AI-Mitigation-MVP v0.4.4 (2026-10-17), following the revised design below; method and bug fixes in `../mitigation/Distribution_Method_v4_4.md`. Steps 1-6 done for the default options (cash transfer, no poverty-line target); open items in `../TODO.md`. Inputs: the standalone prototype (`standalone/`), the legacy sheet `Distribution` of `../legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb`, the Python port `../../coded/cpat_model/distribution/`, the specification `../../other/more/CPAT_Distribution_Module_Pseudocode.docx`, and the MVP norms (`../NORMS.md`).
 
 ## 1. What exists
 

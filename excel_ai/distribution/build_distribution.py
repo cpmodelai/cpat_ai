@@ -27,24 +27,24 @@ sys.path.insert(0, os.path.join(HERE, '..', 'mitigation'))
 sys.path.insert(0, os.path.join(HERE, '..', 'shared'))
 import build as P                                      # noqa: E402  the prototype builder (helpers, layout)
 
-VERSION = '1.3'
+VERSION = '0.1.3'
 NAME = 'CPAT-AI-Distribution-Prototype'
-OUT = P.REL.versioned(NAME, VERSION, 'xlsm')     # v1.1: excel_ai/<name>_v<version>.xlsm (_latest copies: NORMS 5a)
+OUT = P.REL.versioned(NAME, VERSION, 'xlsm')     # v0.1.1: excel_ai/<name>_v<version>.xlsm (_latest copies: NORMS 5a)
 SOURCE = P.LATEST                                     # the mitigation prototype the module is cut from
 BAS = os.path.join(HERE, 'CPATDistribution.bas')
 MIT_FILE = os.path.basename(P.LATEST)
 
 VERSION_LOG = [  # version, date, change
-    ('1.0', '2026-10-22', f'First standalone module, cut from the mitigation prototype v{P.VERSION}: its Distribution '
+    ('0.1.0', '2026-10-22', f'First standalone module, cut from the mitigation prototype v{P.VERSION}: its Distribution '
                           'and FromMitigation tabs, the distribution data tabs, the distribution rows of '
                           'ScenarioDefinition and Settings. Inputs from Mitigation by the button Update from '
                           'Mitigation (section 19a, defined name ExportDistn).'),
-    ('1.1', '2026-10-28', f'Cut from the mitigation prototype v{P.VERSION}: ScenarioDefinition on the rows of legacy '
+    ('0.1.1', '2026-10-28', f'Cut from the mitigation prototype v{P.VERSION}: ScenarioDefinition on the rows of legacy '
                           '465 with a complete set of names (bug L137, issue I87); the mitigation workbook is looked '
-                          'for in permalink/ too; file named _v1.1 at the top of excel_ai/ (NORMS 5a).'),
-    ('1.2', '2026-10-29', f'Cut from the mitigation prototype v{P.VERSION} (combustion emission factors as legacy, '
+                          'for in permalink/ too; file named _v0.1.1 at the top of excel_ai/ (NORMS 5a).'),
+    ('0.1.2', '2026-10-29', f'Cut from the mitigation prototype v{P.VERSION} (combustion emission factors as legacy, '
                           'issue I98; data problems as issues).'),
-    ('1.3', '2026-10-29', f'Cut from the mitigation prototype v{P.VERSION} (remaining functionality, reverts to legacy, '
+    ('0.1.3', '2026-10-29', f'Cut from the mitigation prototype v{P.VERSION} (remaining functionality, reverts to legacy, '
                           'data from legacy 465, last historical price year 2024); the Distribution method unchanged.'),
 ]
 
@@ -258,7 +258,7 @@ def main():
     problems = excel_lint.lint(OUT)
     if problems:
         raise SystemExit(f'{OUT}: Excel would repair it:\n  ' + '\n  '.join(problems))
-    P.REL.publish(OUT, link=True)                      # v1.1: older versions to releases/; _latest in both permalink folders
+    P.REL.publish(OUT, link=True)                      # v0.1.1: older versions to releases/; _latest in both permalink folders
     stage(f'calculated values stored, linted; saved {OUT}')
 
 

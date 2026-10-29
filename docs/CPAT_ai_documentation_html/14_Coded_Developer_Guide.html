@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>14&nbsp; Coded CPAT: developer guide – CPAT-AI Documentation</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./15_Data.html" rel="next">
+<link href="./13_Coded_CPAT.html" rel="prev">
+<link href="././00/media/image1.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d8e5dfa8330daa7b2a69354212dbf2ec.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13_Coded_CPAT.html">Coded CPAT</a></li><li class="breadcrumb-item"><a href="./14_Coded_Developer_Guide.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Coded CPAT: developer guide</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">CPAT-AI Documentation</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Cover</strong></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_Project_Overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Project overview</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_Bugs_and_Issues.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bugs and issues</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Excel-AI: the mitigation prototype</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_Mitigation_Prototype.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The mitigation prototype</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_Prices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Prices and energy demand</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_Power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_Transport.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Road transport</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_Emissions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Emissions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_ETS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Emissions trading (new ETS)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_Macro_and_Results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Macro, revenues and results</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_Distribution_Tab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The distribution tab</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_Data_Tabs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Data tabs</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Excel-AI: other modules</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_Other_Excel_Modules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Distribution and air-pollution modules</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Coded CPAT</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_Coded_CPAT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Coded CPAT</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14_Coded_Developer_Guide.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Coded CPAT: developer guide</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data and working practice</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15_Data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16_Working_in_the_Repository.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Working in the repository</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title"><strong><em>Chapter Contents</em></strong></h2>
+   
+  <ul>
+  <li><a href="#project-structure" id="toc-project-structure" class="nav-link active" data-scroll-target="#project-structure">Project structure</a></li>
+  <li><a href="#environment-setup" id="toc-environment-setup" class="nav-link" data-scroll-target="#environment-setup">Environment setup</a></li>
+  <li><a href="#data-structure" id="toc-data-structure" class="nav-link" data-scroll-target="#data-structure">Data structure</a></li>
+  <li><a href="#cpat_documentation" id="toc-cpat_documentation" class="nav-link" data-scroll-target="#cpat_documentation">cpat_documentation</a></li>
+  <li><a href="#cpat_model" id="toc-cpat_model" class="nav-link" data-scroll-target="#cpat_model">cpat_model</a></li>
+  <li><a href="#cpat_shiny" id="toc-cpat_shiny" class="nav-link" data-scroll-target="#cpat_shiny">cpat_shiny</a>
+  <ul>
+  <li><a href="#server" id="toc-server" class="nav-link" data-scroll-target="#server">Server</a></li>
+  <li><a href="#ui" id="toc-ui" class="nav-link" data-scroll-target="#ui">UI</a></li>
+  <li><a href="#validation" id="toc-validation" class="nav-link" data-scroll-target="#validation">Validation</a></li>
+  <li><a href="#mapping" id="toc-mapping" class="nav-link" data-scroll-target="#mapping">Mapping</a></li>
+  </ul></li>
+  <li><a href="#cpat_testing" id="toc-cpat_testing" class="nav-link" data-scroll-target="#cpat_testing">cpat_testing</a></li>
+  <li><a href="#data-folder-structure-and-data-reading" id="toc-data-folder-structure-and-data-reading" class="nav-link" data-scroll-target="#data-folder-structure-and-data-reading">Data folder structure and data reading</a></li>
+  <li><a href="#running-the-model" id="toc-running-the-model" class="nav-link" data-scroll-target="#running-the-model">Running the model</a></li>
+  <li><a href="#run_model.py" id="toc-run_model.py" class="nav-link" data-scroll-target="#run_model.py">run_model.py</a></li>
+  <li><a href="#running-shiny-app-localy" id="toc-running-shiny-app-localy" class="nav-link" data-scroll-target="#running-shiny-app-localy">Running Shiny app localy</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
+  <li><a href="#todos" id="toc-todos" class="nav-link" data-scroll-target="#todos">TODOs:</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./13_Coded_CPAT.html">Coded CPAT</a></li><li class="breadcrumb-item"><a href="./14_Coded_Developer_Guide.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Coded CPAT: developer guide</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-coded-dev" class="quarto-section-identifier"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Coded CPAT: developer guide</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- Generated by make_qmd.py from coded/cpat_documentation/developer/dev_documetation.md: edit the source, then run python make_qmd.py -->
+<p><em>Source: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/developer/dev_documetation.md"><code>coded/cpat_documentation/developer/dev_documetation.md</code></a>.</em></p>
+<section id="project-structure" class="level2">
+<h2 class="anchored" data-anchor-id="project-structure">Project structure</h2>
+<p>Folders located in the root directory:</p>
+<pre><code>├── data
+├── cpat_documentation
+├── cpat_model
+├── cpat_shiny
+├── cpat_testing</code></pre>
+<p>Files contained in the root folder are: - <code>run_model.py</code> - entry point for running model without the Shiny application - <code>config.py</code> - used to define scenarios for <code>run_model.py</code> and contain <code>DATA_PATH</code> for the input data. The keys in <code>CONFIG</code> define the scenario names, and the values define the <code>DashboardInputs</code> that overwrite the default inputs for each scenario. Also holds <code>DATA_PATH</code> for the input data. - <code>app.py</code> - servs as the main entry point to the Shiny application - <code>environment.yml</code> - Defines the Conda environment, including the Python version and all core dependencies installed via Conda (e.g.&nbsp;pandas, numpy, pyarrow, matplotlib) - <code>requirements.txt</code> - lists runtime Python packages installed via <code>pip</code> that are not handled by Conda - <code>dev-requirements.txt</code> - lists additional development dependencies (e.g.&nbsp;testing tools) and extends <code>requirements.txt</code></p>
+</section>
+<section id="environment-setup" class="level2">
+<h2 class="anchored" data-anchor-id="environment-setup">Environment setup</h2>
+<p>This project uses Conda for environment management. The instructions below show an example of how to set up the environment using Conda and the provided <code>environment.yml</code> file.</p>
+<p>Create the Conda environment from the project root:</p>
+<pre><code>conda env create -f environment.yml</code></pre>
+<p>Activate it:</p>
+<pre><code>conda activate cpat_p</code></pre>
+<p>Install development dependencies (optional, for developers):</p>
+<pre><code>pip install -r dev-requirements.txt</code></pre>
+<p>To update an existing environment:</p>
+<pre><code>conda env update -f environment.yml --prune
+pip install -r dev-requirements.txt --upgrade</code></pre>
+</section>
+<section id="data-structure" class="level2">
+<h2 class="anchored" data-anchor-id="data-structure">Data structure</h2>
+<p>Data handled in the model uses the <code>pd.DataFrame</code> type (or <code>pd.Sereis</code>), typically indexed with 3 main index levels defined as <code>ID_COL_NAMES = ['CountryCode', 'SectorCode', 'FuelCode']</code>. Not all data require all three index levels; when a level is redundant or not optimal for calculations. For time series data frames - columns representing years are stored as strings, e.g.&nbsp;<code>'2025'</code>.</p>
+<p>Index and columns of the data are marked at the bottom of docstrings each dosctring as “(index), columns”, eg <code>(c, s), 'Scenario', &lt;simulation_years[0] - 1, simulation_years[1]&gt;</code>, meaning it has <code>MultiIndex</code> with 2 index levels <code>'CountryCode'</code> and <code>'SectorCode'</code>, 1 column named <code>Scenario</code> and rest of the columns representing time series for years in range of <code>&lt;simulation_years[0] - 1, simulation_years[1]&gt;</code>. In index description <code>c</code> relates to <code>CountryCode</code>, <code>s</code> to <code>SectorCode</code> and <code>f</code> to <code>FuelCode</code>.</p>
+</section>
+<section id="cpat_documentation" class="level2">
+<h2 class="anchored" data-anchor-id="cpat_documentation">cpat_documentation</h2>
+<p>In <code>cpat_documentation/user</code> there are <code>.md</code> files that are used in the application documentation section. Their content is read and embedded in: <code>cpat_shiny\ui\sections\documentation_section.py</code>.</p>
+<p><code>cpat_documentation/developer</code> contains developer documentation.</p>
+</section>
+<section id="cpat_model" class="level2">
+<h2 class="anchored" data-anchor-id="cpat_model">cpat_model</h2>
+<p>This folder contains all the logic used for running the model and processing the results. (TODO: elaborate when WiP code is finished.)</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Path</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>mitigation/</code></td>
+<td>The mitigation module: GDP, policies, carbon pricing, emission factors, elasticities, prices, energy consumption, emissions, power, CH4, GHGs, methane fee, fiscal revenues, aggregations</td>
+</tr>
+<tr class="even">
+<td><code>distribution/</code></td>
+<td>The household distribution (incidence) module: one file per step group of the pseudocode (<code>other/more/CPAT_Distribution_Module_Pseudocode.docx</code>): <code>data.py</code> (loaders), <code>price_changes.py</code> (step 1), <code>budget_shares.py</code> (2-3), <code>effects.py</code> (4-6), <code>rebasing.py</code> (7), <code>recycling.py</code> (8), <code>welfare.py</code> (9-12), <code>sectoral.py</code> (13), <code>distribution.py</code> (14, the <code>Distribution</code> class)</td>
+</tr>
+<tr class="odd">
+<td><code>data_read/input_data.py</code></td>
+<td><code>InputData</code>: every data table, mitigation and distribution (<code>distn_*</code>)</td>
+</tr>
+<tr class="even">
+<td><code>dashboard_inputs.py</code>, <code>distribution_inputs.py</code></td>
+<td>Default inputs of the mitigation module and of the distribution module (the Excel Distribution sheet has its own input block)</td>
+</tr>
+<tr class="odd">
+<td><code>scenario_results.py</code></td>
+<td><code>ScenarioResults</code>: one finished scenario run, so Distribution can compare a policy scenario with the baseline</td>
+</tr>
+<tr class="even">
+<td><code>indicators/</code></td>
+<td>Result indicators and their Excel export</td>
+</tr>
+<tr class="odd">
+<td><code>constants.py</code></td>
+<td>Codes shared with the Excel models (distribution codes at the end; note: <code>hea</code> is heat in mitigation and health services in distribution)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Distribution in <code>run_model.py</code>.</strong> After all scenarios have run, <code>run_distribution</code> takes the baseline scenario (<code>scenario_type == c.BASELINE</code>) and, for every policy scenario and every selected country with household survey data (Egypt so far), derives the direct price change by fuel (residential retail prices; oil products their all-sector price; electricity the power model’s price, <code>power.demand.rp_demand</code>, which covers the projected years) and the carbon-pricing revenue, and builds a <code>Distribution</code> for the analysis year (<code>DistributionInputs</code>, default the last simulated year). <code>run_model()</code> returns <code>(scenario_results, distributions)</code>.</p>
+</section>
+<section id="cpat_shiny" class="level2">
+<h2 class="anchored" data-anchor-id="cpat_shiny">cpat_shiny</h2>
+<p>Folder containing Shiny logic. Server and UI are further divided into <code>server_logic</code> and <code>ui</code> folders.</p>
+<section id="server" class="level3">
+<h3 class="anchored" data-anchor-id="server">Server</h3>
+<p><code>../server_logic/reactive/</code> stores definitions and handlers for reactive values that are used to hold the state of different sections while navigating through the application. <br> Globally relevant reactive values (eg results) are defined in <code>../server_logic/server.py</code>.</p>
+<p><code>../server_logic/visualization/</code> contains all the logic for graph generation. <br> There are 2 types of graphs implemented for visuzlization. <code>Graph</code> class implements <code>plotly</code> graphs (embedded in Visualization section), whereas <code>GraphXL</code> class <code>Matplotlib</code> graphs (used in <code>indicators.xlsx</code> result file). The only reason of using 2 separates libs is because <code>shinyapps.io</code> does not provide <code>kaleido</code> nor <code>orca</code> for static image export from <code>plotly</code> graphs. <br> Graphs generation takes place in <code>GraphGenerator</code> class where depending on user selection different graph processors are called. These processors are <code>ECGraphs</code>, <code>EMGraphs</code> and <code>PGraphs</code>, all of them extend from a generic <code>GraphProcessor</code>.</p>
+<p>Rest of the files in <code>../server_logic/</code> are the main <code>../server_logic/server.py</code> file and handlers further used in the <code>server.py</code> file.</p>
+</section>
+<section id="ui" class="level3">
+<h3 class="anchored" data-anchor-id="ui">UI</h3>
+<p>In <code>../ui/components/common/</code> shared components are located. Shared components are or potentially can be reused in various sections of the application.</p>
+<p><code>../ui/css/head.py</code> contains global styles included in head content.</p>
+<p><code>../ui/sections/</code> hold UI for all the sections availble in the sections selector Section is selected based on the selector state: <code>../ui/sections/section_selection.py</code></p>
+<p><code>../ui/labels.py</code> stores all the UI labels/text so it can be reused in all the application.</p>
+</section>
+<section id="validation" class="level3">
+<h3 class="anchored" data-anchor-id="validation">Validation</h3>
+<p><code>../validation/</code> includes UI validation logic for user input. It is created in a custom way as at the time of creating the application Python Shiny did not provide any validation logic.</p>
+</section>
+<section id="mapping" class="level3">
+<h3 class="anchored" data-anchor-id="mapping">Mapping</h3>
+<p><code>.../mapping.py</code> holds all the mappings that are used in UI components. Some mappings are provided from an Excel file <code>.../mappings.xlxs</code>, that are loaded in <code>.../mapping.py</code></p>
+</section>
+</section>
+<section id="cpat_testing" class="level2">
+<h2 class="anchored" data-anchor-id="cpat_testing">cpat_testing</h2>
+<p>Contains unit tests for the new logic. <code>cpat_testing</code> should follow the project structure. <code>cpat_testing/model</code> folder holds unit tests covering functions from <code>cpat_model</code>. Folders inside <code>cpat_testing/model</code> are organised consistant to the <code>cpat_model</code> directory.</p>
+<p>Some unit tests from <code>cpat_testing/model</code> read expected data frames from <code>.csv</code> files located in <code>cpat_model/model/data_expected</code>. Remeber to update share drive files after changing/creating tests that load expected data frames.</p>
+<p><code>pytest</code>: Please name test files <code>test_{tested_file}.py</code> and try to define test functions names so they indicate what they check, eg: <code>def test_{tested_function}(...):</code> or <code>def test_{tested_functionality}(...):</code>. Please mind that by default, <code>pytest</code> looks for files that match the pattern <code>test_*.py</code> or <code>*_test.py</code>, as well as test functions that start with <code>test_</code>.</p>
+<p><code>../conftest.py</code> holds configuration for all <code>cpat_testing</code> dir. Used to ensure that the root directory is always added to the Python path whenever pytest is ran. We could also hold here fixtures used accross multiple files.</p>
+<p>For running all tests:</p>
+<pre><code>pytest cpat_testing</code></pre>
+<p>For running tests only in a given dir, eg in <code>model</code>:</p>
+<pre><code>pytest cpat_testing/model</code></pre>
+<p>For running just 1 test:</p>
+<pre><code>pytest -k "test_my_func"</code></pre>
+<p>Adding <code>-s</code> (<code>pytest -s -k "test_my_func"</code>) disables output capturing, allowing print statements to appear in the terminal. (for test debugging)</p>
+</section>
+<section id="data-folder-structure-and-data-reading" class="level2">
+<h2 class="anchored" data-anchor-id="data-folder-structure-and-data-reading">Data folder structure and data reading</h2>
+<p>All the data used in the model resides in <code>data/</code> folder that has the following structure:</p>
+<pre><code>├── data
+│   ├── dummy</code></pre>
+<p>The distribution tables (<code>data/dummy/distn_*.csv</code>, Egypt household survey, IO_GTAP, HH_Elast, ASPIRE, WHO cooking, GDP ratios, mappings) are real data exported from <code>data/distribution/data_standardized/CPAT_DistributionalData.xlsx</code> by <code>excel_ai/distribution/scripts/build_distribution_model_data.py</code> (rerun it after changing that workbook; it writes to <code>data/dummy/</code>, or to a folder given as its argument, e.g.&nbsp;<code>REAL_DATA_PATH</code>).</p>
+<p>The target format for data files is <code>.pkl.bz2</code>. Currently, many data input files are still stored as <code>.csv</code> in <code>data/dummy/</code>, but these are temporary and will be migrated to <code>.pkl.bz2</code> format.</p>
+<p>Input data loading is handled in <code>cpat_model\data_read\input_data.py</code>. All functions that are used to load the data should have <code>[Data Loading]</code> tag in their docstring.</p>
+</section>
+<section id="running-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="running-the-model">Running the model</h2>
+<p>Shiny application is not updated to recent changes and the only way to run the model now is by running <code>python run_model.py</code>. The pinned stack is Python 3.12, pandas 2.2.3, numpy 2.2.0 (<code>environment.yml</code>); the model and the tests also run with pandas 3.x (copy-on-write: write through <code>.iloc</code>/<code>.loc</code>, never into <code>.values</code>).</p>
+</section>
+<section id="run_model.py" class="level2">
+<h2 class="anchored" data-anchor-id="run_model.py">run_model.py</h2>
+<p>Dashboard inputs (manual inputs) can be adjusted in <code>config.py</code> file by modifying <code>SCENARIOS</code>. Each key, value pair in <code>SCENARIOS</code> dictionary represents name of a scenario and parameters that overwrite the default dashboard input values for this specific scenario.</p>
+<p>Parameters that can be adjusted from the code are: <code>selected_countries</code> and <code>last_simulation_year</code>. Please do not change <code>base_year = 2022</code>.</p>
+<p>Saving the results is not handled by <code>run_model.py</code> and can be easily implemented in a custom way by identifying the scenario via the keys in <code>config.SCENARIOS</code> and saving the desired variables or tables to CSV/XLSX files.</p>
+</section>
+<section id="running-shiny-app-localy" class="level2">
+<h2 class="anchored" data-anchor-id="running-shiny-app-localy">Running Shiny app localy</h2>
+<p>Run from the project root:</p>
+<pre><code>python -m shiny run app.py</code></pre>
+<p>Tip: flag <code>--reload</code> automatically reloads the app when the code is eddited.</p>
+<p>By default the app can be accessed on:</p>
+<pre><code>http://127.0.0.1:8000/</code></pre>
+</section>
+<section id="notes" class="level2">
+<h2 class="anchored" data-anchor-id="notes">Notes</h2>
+<p>Please try to use type hinting. <br> Please try to use docstrings. <br> Please use feature branches and create Pull Requests. <br> Please try to follow coding standards: https://peps.python.org/pep-0008/ <br> Using a linter is recommended (Pylint)</p>
+</section>
+<section id="todos" class="level2">
+<h2 class="anchored" data-anchor-id="todos">TODOs:</h2>
+<ul>
+<li><p>update ec after implementing ‘Post policy GDP’</p></li>
+<li><p>update em after implementing co2_adjustment_factor</p></li>
+<li><p>remaining unit tests (and docstrings) for prices, power, ec and em code</p></li>
+<li><p>unify constants, including all conversions, …</p></li>
+<li><p>input data -&gt; <code>.csv</code> to <code>.pkl.bz2</code> files, clean up data paths, create 1 const with data path name</p></li>
+<li><p>class for Manual Inputs (like we have 1 for Dashboard inputs)</p></li>
+<li><p>clean up .gitignore</p></li>
+<li><p>co_benefits_ffs.csv - some of the ISO codes are missing</p></li>
+<li><p>[Post policy GDP] contains code for: ‘Post policy GDP’, ‘Multipliers’ and ‘Revenues’ that needs to be included after Power model implementation, file <code>tmp_logic.py</code> contains order of how the functions should be called. Please mind some of the logic was already moved when implementig prices, therefore all the functions from there should be checked. Data loading functions should be imported and called into InputData. Input data files should be updated to at least v407 so they match <code>base_year = 2022</code>. Tests withs <span class="citation" data-cites="pytest.mark.skip">@pytest.mark.skip</span>(reason=“Related to [Post policy GDP], needs reassessment”) should be reassest.</p></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./13_Coded_CPAT.html" class="pagination-link" aria-label="Coded CPAT">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Coded CPAT</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./15_Data.html" class="pagination-link" aria-label="Data">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Data</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

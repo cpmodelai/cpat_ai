@@ -1,4 +1,4 @@
-"""v2.3 (version number aligned with CPAT-AI-Mitigation-Prototype v4.7; content as the previous version in Old/). 
+"""v0.2.3 (version number aligned with CPAT-AI-Mitigation-Prototype v0.4.7; content as the previous version in Old/). 
 
 Run a VBA macro of an .xlsm in headless LibreOffice (VBA compatibility mode) and save the result as .xlsx.
 
@@ -52,7 +52,7 @@ def main():
     try:
         doc = desk.loadComponentFromURL('file://' + os.path.abspath(src), '_blank', 0,
                                         (pv('Hidden', True), pv('MacroExecutionMode', 4)))
-        doc.calculateAll()          # v7.1: the file has formulas without values (an openpyxl copy of a workbook that
+        doc.calculateAll()          # v0.7.1: the file has formulas without values (an openpyxl copy of a workbook that
         doc.calculateAll()          # ships in manual calculation): calculate them first, twice (NORMS 3i.2-3i.3)
         mod, sub = macro.split('.')
         libs, lib = doc.BasicLibraries, None

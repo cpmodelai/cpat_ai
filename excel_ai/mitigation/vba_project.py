@@ -1,4 +1,4 @@
-"""v2.3 (version number aligned with CPAT-AI-Mitigation-Prototype v4.7; content as the previous version in Old/). 
+"""v0.2.3 (version number aligned with CPAT-AI-Mitigation-Prototype v0.4.7; content as the previous version in Old/). 
 
 Write an Excel VBA project (xl/vbaProject.bin) from VBA source text, without Excel, and embed it in a workbook.
 

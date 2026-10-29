@@ -4,15 +4,15 @@ about an hour) runs only when the user asks (milestones, end of the day): user r
 1. Structure of the shipped file (no recalculation): tab order; every plain formula at most 100 characters; no
    numeric literal in any formula (same rules as the full check); no defined name or LAMBDA parameter that reads like
    a cell reference; every sheet a formula or name points to exists; newer functions carry the _xlfn. prefix.
-2. One LibreOffice recalculation with the LAMBDA calls expanded (LibreOffice cannot evaluate LAMBDAs; v4.9: the
+2. One LibreOffice recalculation with the LAMBDA calls expanded (LibreOffice cannot evaluate LAMBDAs; v0.4.9: the
    expanded copy written from the file's XML and recalculated in a LibreOffice session while 1 runs): no error
    value anywhere.
 3. Every output code (all scenario groups, all years but the LAMBDA year) against the last release in Old/
    (recalculated once and cached in .quickcheck/): shared codes, max difference, the codes that change.
-4. v3.7: Excel (Windows with Excel only, else skipped): the shipped file opens without a repair (v3.6 lost the
+4. v0.3.7: Excel (Windows with Excel only, else skipped): the shipped file opens without a repair (v0.3.6 lost the
    formulas calling the LAMBDAs SCALE and SHARE) and a full recalculation, LAMBDAs live, gives no error value.
 
-    python check_quick.py            # report to the screen and check_quick_report_v7.0.md
+    python check_quick.py            # report to the screen and check_quick_report_v0.7.0.md
 """
 import glob
 import json
@@ -29,10 +29,10 @@ import check_full as C
 import lo_session as LO
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-if os.environ.get('QUICK'):                         # v3.9: check the quick build (QUICK=1 build_v<n>.py)
+if os.environ.get('QUICK'):                         # v0.3.9: check the quick build (QUICK=1 build_v<n>.py)
     B.OUT = B.QUICK_OUT
 RESERVED = {l.strip().upper() for l in open(os.path.join(HERE, 'excel_reserved_names.txt'), encoding='utf-8')
-            if l.strip() and not l.startswith('#')}     # v3.9: NORMS 3d rule 1
+            if l.strip() and not l.startswith('#')}     # v0.3.9: NORMS 3d rule 1
 GRANDFATHERED = {'base', 'growth', 'price', 'rate', 'share', 'value', 'year'}   # LAMBDA parameters accepted by Excel
 CACHE = os.path.join(HERE, '.quickcheck')
 REPORT = os.path.join(HERE, 'check_quick_report.md')
@@ -111,7 +111,7 @@ def structure(wb):
 
 
 def tabs(wb):
-    """v4.2 (NORMS 2.7): Cover first; every tab but Mitigation, MTInputs, Prices_dom and the Cover has a dark green
+    """v0.4.2 (NORMS 2.7): Cover first; every tab but Mitigation, MTInputs, Prices_dom and the Cover has a dark green
     title bar in row 2 and its light green sub-heading bars across the same width; no table header has a fill."""
     dark, light = '00AE49', '92D050'
     rgb = lambda c: str(c.fill.fgColor.rgb)[-6:] if c.fill and c.fill.fill_type else ''
@@ -132,15 +132,15 @@ def tabs(wb):
                   if c.font and c.font.b and rgb(c) == 'EBF1DE']
     log(f'tab title bars and sub-heading bars of equal width on every tab: exceptions {bad[:5]}', not bad)
     log(f'table headers without the input fill: exceptions {heads[:5]}', not heads)
-    log(f'v6.7: front tabs Cover, ScenarioCompare, ScenarioDefinition, then the MAIN divider and Mitigation: '
+    log(f'v0.6.7: front tabs Cover, ScenarioCompare, ScenarioDefinition, then the MAIN divider and Mitigation: '
         f'{wb.sheetnames[:5]}', wb.sheetnames[:5] == ['Cover', 'ScenarioCompare', 'ScenarioDefinition', 'MAIN->>',
                                                        'Mitigation'])
 
 
 def style(wb):
-    """v3.9: style guide (NORMS 2) on Mitigation: one blank row before each section band (v4.1) and one after;
+    """v0.3.9: style guide (NORMS 2) on Mitigation: one blank row before each section band (v0.4.1) and one after;
     sub-section headings bold underlined in column B; label (header) rows bold with a bottom border; Arial 10 body;
-    v4.1: every section rolls up to its summary row(s); notes not italic; scenario groups copy-pasteable."""
+    v0.4.1: every section rolls up to its summary row(s); notes not italic; scenario groups copy-pasteable."""
     ws = wb['Mitigation']
     w = min(ws.max_column, 12)
     empty = lambda r: all(ws.cell(r, c).value is None for c in range(1, w + 1))
@@ -162,7 +162,7 @@ def style(wb):
     log(f'notes in column H not italic: exceptions {ital[:6]}', not ital)
     log(f'section 0 numbered: A{B.R_SEC0} = {ws.cell(B.R_SEC0, 1).value!r}', str(ws.cell(B.R_SEC0, 1).value) == '0')
     copy_paste(ws)
-    forward_reads(ws)                       # v6.2: no reads of later years (circular-reference robustness)
+    forward_reads(ws)                       # v0.6.2: no reads of later years (circular-reference robustness)
     heads = [r for r in range(1, ws.max_row + 1) if ws.cell(r, 2).font.u and ws.cell(r, 2).value]
     badh = [r for r in heads if not (ws.cell(r, 2).font.b and ws.cell(r, 8).value is None)]
     log(f'{len(heads)} sub-section headings bold underlined in column B, nothing in H: exceptions {badh[:6]}',
@@ -176,7 +176,7 @@ def style(wb):
 
 
 def copy_paste(ws):
-    """v4.1: scenario groups are copy-pasteable left to right: every cell of group 2 has the same relative (R1C1)
+    """v0.4.1: scenario groups are copy-pasteable left to right: every cell of group 2 has the same relative (R1C1)
     formula or value as the cell of group 1 in the same position (a third group pasted from the next code column
     works the same way)."""
     tok = re.compile(r"(?<![A-Za-z_\d\.!$])(\$?)([A-Z]{1,3})(\$?)(\d+)(?![\d\(A-Za-z_])")
@@ -191,7 +191,7 @@ def copy_paste(ws):
             return (f'R{rr}' if rdl else f'R[{rr - r}]') + (f'C{cc}' if cd else f'C[{cc - c}]')
         return ''.join(p if p.startswith('"') else tok.sub(sub, p) for p in re.split(r'("[^"]*")', v))
     g1, g2 = B.group_cols(1)[0], B.group_cols(2)[0]
-    lam = lambda v: isinstance(v, str) and C.LAMBDA_CALL.search(v)   # v6.6: group 2 calls the LAMBDAs (tested by the regression)
+    lam = lambda v: isinstance(v, str) and C.LAMBDA_CALL.search(v)   # v0.6.6: group 2 calls the LAMBDAs (tested by the regression)
     bad = [f'{openpyxl.utils.get_column_letter(g1 + k)}{r}' for r in range(1, ws.max_row + 1) for k in range(B.GW)
            if not lam(ws.cell(r, g2 + k).value)
            and rel(ws.cell(r, g1 + k).value, r, g1 + k) != rel(ws.cell(r, g2 + k).value, r, g2 + k)]
@@ -200,7 +200,7 @@ def copy_paste(ws):
 
 
 def rename_code(k):
-    """v7.2: an output code of the last release as the rename map (code_renames_v7_2.csv) writes it."""
+    """v0.7.2: an output code of the last release as the rename map (code_renames_v0_7_2.csv) writes it."""
     parts = k.split('.')
     if not hasattr(B, 'rn_stem') or len(parts) < 3:
         return k
@@ -241,9 +241,9 @@ VBA_CONSTS = {'vbcrlf', 'vbexclamation', 'vbinformation', 'vblf', 'vbobjecterror
 
 
 def vba_names():
-    """v7.1: every identifier the VBA module uses is declared in it, a VBA keyword or built-in, an Excel object-model
+    """v0.7.1: every identifier the VBA module uses is declared in it, a VBA keyword or built-in, an Excel object-model
     name (members after a dot are not checked) or a listed xl/vb constant. The embedded project references only the
-    Excel library and stdole, so an Office constant (msoTrue: v7.0) is "Variable not defined" under Option Explicit;
+    Excel library and stdole, so an Office constant (msoTrue: v0.7.0) is "Variable not defined" under Option Explicit;
     LibreOffice Basic does not report it."""
     lines = []
     for ln in open(B.BAS, encoding='utf-8', errors='ignore').read().splitlines():
@@ -284,7 +284,7 @@ MODEL_LETTERS = {'e', 'a', 't', 's', 'b'}
 
 
 def protocol(wbf, data):
-    """v7.2 (codes R9): the CPAT code protocol on the Mitigation codes the workbook computes: C1 characters, C7 no
+    """v0.7.2 (codes R9): the CPAT code protocol on the Mitigation codes the workbook computes: C1 characters, C7 no
     model letter, C10 one code per row of a scenario group, C5 a total row (explicit SUM, SUMIF or SUMIFS in its year
     formula) writes tot, not all, unless the rename map names the row's code. A new row in the old style fails."""
     if not hasattr(B, 'rn_body'):
@@ -307,7 +307,7 @@ def protocol(wbf, data):
             own = set(B.rn_body(v0, c_, b_).split('.')) if v0 in B.VAR_SFX else set()   # variable name, members
             if k.split('.')[-2] in MODEL_LETTERS and k.split('.')[-2] not in own:
                 bad7.append(k)
-            if k in seen and r < getattr(B, 'B_EXP', 10 ** 9):   # v8.1: section 19 copies keep their code (the key)
+            if k in seen and r < getattr(B, 'B_EXP', 10 ** 9):   # v0.8.1: section 19 copies keep their code (the key)
                 dup.append(k)
             seen.add(k)
             if g == 1:
@@ -320,12 +320,12 @@ def protocol(wbf, data):
     log(f'code protocol C7 (no model letter): {len(bad7)} codes end in a model letter {bad7[:5]}', not bad7)
     log(f'code protocol C10 (unique in a scenario group): {len(dup)} duplicates {dup[:5]}', not dup)
     log(f'code protocol C5 (a total row writes tot): {len(bad5)} explicit-sum rows write all {bad5[:5]} (a row whose '
-        f'code the rename map code_renames_v7_2.csv writes is decided)', not bad5)
+        f'code the rename map code_renames_v0_7_2.csv writes is decided)', not bad5)
 
 
 def stored_complete(path):
-    """v6.7: every stored scenario (StoredOutputs, values written by the build's emulation of the batch run) has its
-    indicator rows found and numeric (v6.6 shipped the definitions empty: the batch copy blanked the live group)."""
+    """v0.6.7: every stored scenario (StoredOutputs, values written by the build's emulation of the batch run) has its
+    indicator rows found and numeric (v0.6.6 shipped the definitions empty: the batch copy blanked the live group)."""
     ws = openpyxl.load_workbook(path, read_only=True, data_only=True)['StoredOutputs']
     ids, bad = {}, []
     for r in ws.iter_rows(min_row=B.SR_FIRST, values_only=True):
@@ -334,7 +334,7 @@ def stored_complete(path):
         ids[r[0]] = ids.get(r[0], 0) + 1
         if r[4] == 'code not found' or not any(isinstance(v, (int, float)) for v in r[B.SR_Y0 - 1:]):
             bad.append((r[0], r[2]))
-    if not ids and os.environ.get('QUICK'):      # v7.2: the quick build runs no batch (StoredOutputs empty)
+    if not ids and os.environ.get('QUICK'):      # v0.7.2: the quick build runs no batch (StoredOutputs empty)
         lines.append('- StoredOutputs: empty in the quick build (no batch run): skipped')
         print(lines[-1])
         return
@@ -342,9 +342,9 @@ def stored_complete(path):
 
 
 def lambda_group(data):
-    """v6.6: group 2 (the live scenario) calls the named LAMBDAs in every year (v4.3-v6.5: a third LAMBDA test group
+    """v0.6.6: group 2 (the live scenario) calls the named LAMBDAs in every year (v0.4.3-v0.6.5: a third LAMBDA test group
     running group 2's scenario). The LAMBDAs are tested by the regression below: every output code of every group
-    (every Mitigation row, base year to 2040) against the last release, whose group 2 was plain formulas up to v6.5;
+    (every Mitigation row, base year to 2040) against the last release, whose group 2 was plain formulas up to v0.6.5;
     and on Distribution by the Python reference. Here: group 2 holds LAMBDA calls and no error value."""
     ws = data['Mitigation']
     _c2, b2, y2 = B.group_cols(B.LAMBDA_GROUP)
@@ -356,7 +356,7 @@ def lambda_group(data):
 
 
 def distribution(data):
-    """v4.4: Distribution (NORMS 1.1b): group 2 (v6.6: the LAMBDA group) equals the
+    """v0.4.4: Distribution (NORMS 1.1b): group 2 (v0.6.6: the LAMBDA group) equals the
     Python reference (distribution_ref.run) fed with the sheet's own section-1 settings and section-2 inputs."""
     import distribution_ref as DR
     ws = data['Distribution']
@@ -371,13 +371,13 @@ def distribution(data):
     v = lambda key, k=0: ws.cell(B.DROW[key], b2 + k).value
     st = {n_: v(n_) for n_ in B.DIST_MT}
     st['aspire_code'], st['exempt_fuel'] = v('aspcode'), v('exfuel')
-    st['tgt_code'] = v('tgtcode')                    # v6.0: transfer program (Cash or ASPIRE code)
+    st['tgt_code'] = v('tgtcode')                    # v0.6.0: transfer program (Cash or ASPIRE code)
     inp = {'dp_res': {it: v(f'dpr.{it}') for it, *_x in B.DIST_FUELS},
            'dp_all': {f: v(f'dpa.{f}') for f, *_x in B.DIST_MITFUEL},
            'spend': {f: v(f'spend.{f}') for f, *_x in B.DIST_MITFUEL},
            'defl_gtap': None, 'gdp_lcu': v('gdp'), 'pop': v('pop'), 'rev_lcu': v('rev'), 'cons_gdp': v('consgdp'),
            'settings': st}
-    dm = data['DistMapping']                        # v4.7: the input-output tables of the country are on DistMapping
+    dm = data['DistMapping']                        # v0.4.7: the input-output tables of the country are on DistMapping
     inp['defl_gtap'] = next(dm.cell(r_, 5).value for r_ in range(1, dm.max_row + 1)
                             if dm.cell(r_, 1).value == 'Deflator ratio (ResultsYear / GTAP year)')
     out = DR.run(inp)
@@ -418,15 +418,15 @@ def distribution(data):
 def last_release():
     """The last released workbook in excel_ai/releases/ before this version (restructure 2026-10-22: was Old/); the
     release of this version itself while it is the only one."""
-    files = B.REL.all_versions(B.NAME, 'xlsm')             # v8.4: current at the top, older in releases/
-    ver = lambda f: tuple(int(x) for x in re.search(r'_v(\d+)\.(\d+)\.xlsm$', f).groups())
+    files = B.REL.all_versions(B.NAME, 'xlsm')             # v0.8.4: current at the top, older in releases/
+    ver = lambda f: tuple(int(x) for x in re.search(r'_v(\d+(?:\.\d+)*)\.xlsm$', f).group(1).split('.'))
     cur = tuple(int(x) for x in B.VERSION.split('.'))
     before = [f for f in files if ver(f) < cur]
     return max(before or [f for f in files if ver(f) == cur], key=ver)
 
 
 def file_lambdas(path):
-    """v9.0: the LAMBDAs defined in the file itself (name -> (params, body)), so an older release is expanded with its
+    """v0.9.0: the LAMBDAs defined in the file itself (name -> (params, body)), so an older release is expanded with its
     own definitions (a LAMBDA may change its arguments between releases)."""
     import html
     w = zipfile.ZipFile(path).read('xl/workbook.xml').decode('utf-8')
@@ -439,8 +439,8 @@ def file_lambdas(path):
 
 
 def recalc_values(path):
-    """v4.9: Mitigation of path recalculated in a LibreOffice session (lo_session); v7.0: LAMBDAs expanded (since
-    v6.6 the live group 2 calls them, which LibreOffice cannot evaluate); v9.0: with the file's own LAMBDAs."""
+    """v0.4.9: Mitigation of path recalculated in a LibreOffice session (lo_session); v0.7.0: LAMBDAs expanded (since
+    v0.6.6 the live group 2 calls them, which LibreOffice cannot evaluate); v0.9.0: with the file's own LAMBDAs."""
     lam = file_lambdas(path)
     call = re.compile(r'(?<![A-Za-z_.])(' + '|'.join(sorted(lam, key=len, reverse=True)) + r')\(')
     return LO.start_values(LO.expanded_zip(path, call, lambda f: C.expand(f, lam)), ['Mitigation'])()[0]
@@ -449,7 +449,7 @@ def recalc_values(path):
 
 
 def excel_open():
-    """v3.7: open the shipped file in Excel (macros disabled, alerts off): Excel fails to open a file it would have to
+    """v0.3.7: open the shipped file in Excel (macros disabled, alerts off): Excel fails to open a file it would have to
     repair, and writes a repair log error*.xml to %TEMP%. Then recalculate fully and count error values."""
     try:
         import win32com.client
@@ -489,12 +489,12 @@ def excel_open():
         xl.Quit()
 
 
-FWD_OK = {'mani', 'dsum', 'lvc'}   # v6.2 (NORMS circular references): rows allowed to read a later year
+FWD_OK = {'mani', 'dsum', 'lvc'}   # v0.6.2 (NORMS circular references): rows allowed to read a later year
 FWD_INPUT_ONLY = {'lvc': 'tvc'}    # ... and the row whose precedents must be inputs only (no quantity, no GDP)
 
 
 def forward_reads(ws):
-    """v6.2 (user 2026-10-20: robustness to circular references): (1) no formula of a scenario group reads a later
+    """v0.6.2 (user 2026-10-20: robustness to circular references): (1) no formula of a scenario group reads a later
     year except the whitelisted rows (mani: the manual capacity path, data; dsum, lvc: the levelised variable cost);
     (2) what lvc levelises (tvc) depends on inputs only: its precedents within the column never reach the fuel-use
     sections (5 onwards), the GDP rows or the power quantity rows. Ranges over the price-block area count as inputs
@@ -517,7 +517,7 @@ def forward_reads(ws):
                     bad.add(f'{var[r]} ({openpyxl.utils.get_column_letter(c)}{r})')
     log(f'no formula reads a later year except {sorted(FWD_OK)}: exceptions {sorted(bad)[:8]}', not bad)
     par = set()                                    # parameter cells (D:G) act in every year: no model year after the
-    first_years = {B.group_cols(g)[2][0] for g in range(1, 11)}   # base year (v6.2: ghg.k read GHGYear)
+    first_years = {B.group_cols(g)[2][0] for g in range(1, 11)}   # base year (v0.6.2: ghg.k read GHGYear)
     last_col = B.group_cols(10)[2][-1]
     for r in range(1, ws.max_row + 1):
         for c in range(4, 8):
@@ -567,8 +567,8 @@ def forward_reads(ws):
 
 def main():
     t0 = time.time()
-    stage = lambda what: print(f'[{time.time() - t0:5.0f} s] {what}', flush=True)   # v4.9: stage timings
-    wait = LO.start_values(LO.expanded_zip(B.OUT, C.LAMBDA_CALL, C.expand),   # v4.9: recalculated meanwhile
+    stage = lambda what: print(f'[{time.time() - t0:5.0f} s] {what}', flush=True)   # v0.4.9: stage timings
+    wait = LO.start_values(LO.expanded_zip(B.OUT, C.LAMBDA_CALL, C.expand),   # v0.4.9: recalculated meanwhile
                            ['Mitigation', 'Distribution', 'DistMapping'])
     stage('expanded copy written, LibreOffice session started')
     wbf = openpyxl.load_workbook(B.OUT)
@@ -576,7 +576,7 @@ def main():
     stage('structure checked')
     data, errs = wait()                            # LAMBDA calls expanded, so every cell is evaluated
     stage('recalculated values read')
-    gaps = [e for e in errs if B.cmp_na_only(*e)]  # v6.4: #N/A of the empty dashboard slots (chart gaps)
+    gaps = [e for e in errs if B.cmp_na_only(*e)]  # v0.6.4: #N/A of the empty dashboard slots (chart gaps)
     errs = [e for e in errs if e not in gaps]
     log(f'recalculated in LibreOffice (LAMBDAs expanded): error values {len(errs)} {errs[:6]} (accepted: the chart '
         f'data of empty ScenarioCompare slots, {gaps[:2]})', not errs)
@@ -584,8 +584,8 @@ def main():
     distribution(data)
     stored_complete(B.OUT)
     vba_names()
-    protocol(wbf, data)                            # v7.2 (codes R9)
-    if 'FromMitigation' in wbf.sheetnames:         # v8.1 (M2): a module tab reads Mitigation only through its input tab
+    protocol(wbf, data)                            # v0.7.2 (codes R9)
+    if 'FromMitigation' in wbf.sheetnames:         # v0.8.1 (M2): a module tab reads Mitigation only through its input tab
         direct = [f'Distribution!{c.coordinate}' for row in wbf['Distribution'].iter_rows() for c in row
                   if isinstance(c.value, str) and 'Mitigation!' in c.value.replace('FromMitigation!', '')]
         log(f'Distribution reads Mitigation only through FromMitigation (section 19a): direct references {len(direct)} '
@@ -601,9 +601,9 @@ def main():
         old = codes(rel, recalc_values(rel))
         json.dump(old, open(cfile, 'w'))
     if re.search(r'-v7\.[01]\.xlsm$', rel) or re.search(r'-v[1-6]\.\d+\.xlsm$', rel):   # releases before the codes map
-        old = {rename_code(k): v for k, v in old.items()}   # v7.2: the last release's codes through the rename map
+        old = {rename_code(k): v for k, v in old.items()}   # v0.7.2: the last release's codes through the rename map
     new = codes(B.OUT, data)
-    if os.environ.get('QC_DUMP'):                  # v4.15: the new codes for a review of the changes
+    if os.environ.get('QC_DUMP'):                  # v0.4.15: the new codes for a review of the changes
         json.dump(new, open(os.environ['QC_DUMP'], 'w'))
     shared = set(old) & set(new)
     num = lambda v: v if isinstance(v, (int, float)) else 0.0
