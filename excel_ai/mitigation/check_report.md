@@ -1,4 +1,4 @@
-# Check report - CPAT-AI-Mitigation-Prototype v8.0
+# Check report - CPAT-AI-Mitigation-Prototype v0.8.0
 
 ## 0. Formula length (at most 100 characters per cell formula)
 - LAMBDA calls only in the LAMBDA year 2041 of Mitigation and the LAMBDA test group 2 (Mitigation, Distribution): 111991 cells OK
@@ -1968,7 +1968,7 @@
 - DPITPICK: 4 parameters, 9 _xlpm. tokens, bare names [] OK
 - DPOST: 2 parameters, 4 _xlpm. tokens, bare names [] OK
 - DGINI: 2 parameters, 5 _xlpm. tokens, bare names [] OK
-- sheet Lambdas: formula texts naming a sheet merged away (v3.6 tab merge): 0 OK
+- sheet Lambdas: formula texts naming a sheet merged away (v0.3.6 tab merge): 0 OK
 
 ## 4. Values vs independent Python recomputation
 - A. as shipped, evaluated as a LAMBDA host (2041 LAMBDAs expanded), scenario 1: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at L7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
@@ -2065,7 +2065,7 @@ Effect of each bug fix on the legacy Egypt inputs (2040; % change against legacy
 - price controls Manual (global), scenario 2 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 2.91e-11 (at AV7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
 - MTOutputs with blocks 3-10 added by copying (scenario tests): 10 scenario blocks x 123 indicators, 24600 cells equal the Mitigation cell of their output code (max abs diff 0); block numbers 1..10 OK
 
-## 5d. Power features switched on (v5.4, power plan P1, P2, P4)
+## 5d. Power features switched on (v0.5.4, power plan P1, P2, P4)
 - power test, group 3 (Test 3: MaximumGasCF 0.6, long-term storage from 2% VRE x 2 (P1)) vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at BD7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
 - power test, group 4 (Test 4: power inputs of the scenario (P2)) vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at CB7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
 - power test, group 5 (Test 5: power inputs of the scenario, other options (P2; Low decline: L109)) vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at CV7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
@@ -2088,7 +2088,7 @@ Effect of each bug fix on the legacy Egypt inputs (2040; % change against legacy
 - PwDeficitGas = Yes, tight scale-up limits, scenario 2 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at AH7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
   - PwDeficitGas: deficit to gas 2025-2032 (scenario 1) [0, 1626.6, 1475.1, 2234.6, 1618.4, 1511.0, 1602.7, 1643.8] MW; gas investment 2030 1,684.6 MW, first + second round 173.6
 
-## 5a. Residential leakage to biomass switched on (v5.1, global setting BiomassLeakage)
+## 5a. Residential leakage to biomass switched on (v0.5.1, global setting BiomassLeakage)
 - leakage on, scenario 1 vs Python (Python with the sheet's GDP growth): carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 89160 cells, max relative diff 7.28e-12 (at L7479); judged on the focus rows (residential block, section 6b): max relative diff 5.14e-15 (at W4325) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'fis.eff.capt', 'fis.eff.cit', 'fis.eff.exc', 'fis.eff.gnfs', 'fis.eff.pit', 'fis.eff.trns', 'fis.imp', 'fis.impp', 'fis.lag.1', 'fis.lag.10', 'fis.lag.11', 'fis.lag.12', 'fis.lag.13', 'fis.lag.14', 'fis.lag.15', 'fis.lag.16', 'fis.lag.17', 'fis.lag.18', 'fis.lag.19', 'fis.lag.2', 'fis.lag.3', 'fis.lag.4', 'fis.lag.5', 'fis.lag.6', 'fis.lag.7', 'fis.lag.8', 'fis.lag.9', 'fis.lagp.1', 'fis.lagp.10', 'fis.lagp.11', 'fis.lagp.12', 'fis.lagp.13', 'fis.lagp.14', 'fis.lagp.15', 'fis.lagp.16', 'fis.lagp.17', 'fis.lagp.18', 'fis.lagp.19', 'fis.lagp.2', 'fis.lagp.3', 'fis.lagp.4', 'fis.lagp.5', 'fis.lagp.6', 'fis.lagp.7', 'fis.lagp.8', 'fis.lagp.9', 'fis.ref', 'fis.rev', 'fis.sp', 'gdp.base', 'gdp.chg.usd', 'gdp.eff', 'gdp.lvl', 'gdp.pos.usd', 'gdpg.all', 'gdpg.capt', 'gdpg.cit', 'gdpg.exc', 'gdpg.gnfs', 'gdpg.pit', 'gdpg.trns', 'gdpy', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
 - leakage on, scenario 2 ($20) vs Python (Python with the sheet's GDP growth): carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 89160 cells, max relative diff 7.28e-12 (at AH7479); judged on the focus rows (residential block, section 6b): max relative diff 5.27e-15 (at AS4336) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'fis.eff.capt', 'fis.eff.cit', 'fis.eff.exc', 'fis.eff.gnfs', 'fis.eff.pit', 'fis.eff.trns', 'fis.imp', 'fis.impp', 'fis.lag.1', 'fis.lag.10', 'fis.lag.11', 'fis.lag.12', 'fis.lag.13', 'fis.lag.14', 'fis.lag.15', 'fis.lag.16', 'fis.lag.17', 'fis.lag.18', 'fis.lag.19', 'fis.lag.2', 'fis.lag.3', 'fis.lag.4', 'fis.lag.5', 'fis.lag.6', 'fis.lag.7', 'fis.lag.8', 'fis.lag.9', 'fis.lagp.1', 'fis.lagp.10', 'fis.lagp.11', 'fis.lagp.12', 'fis.lagp.13', 'fis.lagp.14', 'fis.lagp.15', 'fis.lagp.16', 'fis.lagp.17', 'fis.lagp.18', 'fis.lagp.19', 'fis.lagp.2', 'fis.lagp.3', 'fis.lagp.4', 'fis.lagp.5', 'fis.lagp.6', 'fis.lagp.7', 'fis.lagp.8', 'fis.lagp.9', 'fis.ref', 'fis.rev', 'fis.sp', 'gdp.base', 'gdp.chg.usd', 'gdp.eff', 'gdp.lvl', 'gdp.pos.usd', 'gdpg.all', 'gdpg.capt', 'gdpg.cit', 'gdpg.exc', 'gdpg.gnfs', 'gdpg.pit', 'gdpg.trns', 'gdpy', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
 - leakage on, group 3 (scenario 3 = 2 + residential LPG/kerosene exempt) vs Python (Python with the sheet's GDP growth): carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 89160 cells, max relative diff 4.15e-02 (at BJ7467); judged on the focus rows (residential block, section 6b): max relative diff 4.88e-15 (at BN4358) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'fis.eff.capt', 'fis.eff.cit', 'fis.eff.exc', 'fis.eff.gnfs', 'fis.eff.pit', 'fis.eff.trns', 'fis.imp', 'fis.impp', 'fis.lag.1', 'fis.lag.10', 'fis.lag.11', 'fis.lag.12', 'fis.lag.13', 'fis.lag.14', 'fis.lag.15', 'fis.lag.16', 'fis.lag.17', 'fis.lag.18', 'fis.lag.19', 'fis.lag.2', 'fis.lag.3', 'fis.lag.4', 'fis.lag.5', 'fis.lag.6', 'fis.lag.7', 'fis.lag.8', 'fis.lag.9', 'fis.lagp.1', 'fis.lagp.10', 'fis.lagp.11', 'fis.lagp.12', 'fis.lagp.13', 'fis.lagp.14', 'fis.lagp.15', 'fis.lagp.16', 'fis.lagp.17', 'fis.lagp.18', 'fis.lagp.19', 'fis.lagp.2', 'fis.lagp.3', 'fis.lagp.4', 'fis.lagp.5', 'fis.lagp.6', 'fis.lagp.7', 'fis.lagp.8', 'fis.lagp.9', 'fis.ref', 'fis.rev', 'fis.sp', 'gdp.base', 'gdp.chg.usd', 'gdp.eff', 'gdp.lvl', 'gdp.pos.usd', 'gdpg.all', 'gdpg.capt', 'gdpg.cit', 'gdpg.exc', 'gdpg.gnfs', 'gdpg.pit', 'gdpg.trns', 'gdpy', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
@@ -2098,7 +2098,7 @@ Effect of each bug fix on the legacy Egypt inputs (2040; % change against legacy
 
 ## 5b. ETS goal seek (ets_goalseek.py): skipped (user rule 2026-10-19, NORMS 5: the user tests the goal seek separately, issue I30)
 
-## 5c. Existing carbon pricing with non-zero test data (v1.09)
+## 5c. Existing carbon pricing with non-zero test data (v0.1.09)
 - ECP test data, scenario 1 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at L7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
 - ECP test data, scenario 2 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at AH7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
 - ECP test data, scenario 3 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at BD7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
@@ -2108,14 +2108,14 @@ Effect of each bug fix on the legacy Egypt inputs (2040; % change against legacy
 - scenario 5 (complementary): new carbon tax rate 2030 = carbon price 20.00 x (1 - existing ETS sector coverage): power 0.00, cement 8.00, road 20.00 OK
 - check rows ener.chk, rev.chk, co2.chk in groups 1-5: max abs 0 OK
 
-## 6. Regression vs v7.2 (shared output codes, 2022-2041: no change)
+## 6. Regression vs v0.7.2 (shared output codes, 2022-2041: no change)
 - 6510 output codes in both versions (6876 intended changes), 2022-2041: max abs diff 0 OK
 - variables added: ch4, trafts, traftsc, trbkmt, trstt
 - intended changes that differ: ndc.over, swd.2, swi.2
 
 ## 6b. MTOutputs and Charts
 - MTOutputs as shipped: 2 scenario blocks x 123 indicators, 4920 cells equal the Mitigation cell of their output code (max abs diff 0); block numbers 1..2 OK
-- v7.0 dashboard charts: no Charts sheet; 5 charts on ScenarioCompare (1 bar on row 34, 4 line charts with [6, 6, 6, 6] series on the slot rows of their block, short-name labels) OK
+- v0.7.0 dashboard charts: no Charts sheet; 5 charts on ScenarioCompare (1 bar on row 34, 4 line charts with [6, 6, 6, 6] series on the slot rows of their block, short-name labels) OK
 
 ## 7. Labels and codes
 - column H: 6713 cells, 1 formula OK
@@ -2162,7 +2162,7 @@ Effect of each bug fix on the legacy Egypt inputs (2040; % change against legacy
 
 ## 8. Row outline
 - row group buttons below the groups (summaryBelow): OK
-- one level of row groups (v2.4, no nesting): max level 1 OK
+- one level of row groups (v0.2.4, no nesting): max level 1 OK
 - opens rolled up: every grouped row hidden; collapsed flag on the row after each group OK
 - front tabs Cover, ScenarioCompare, ScenarioDefinition, then MAIN->> and Mitigation; opens on ScenarioCompare: OK; Mitigation zoom 75%: OK
 - tab groups MAIN->>, INPUTS->>, DATA->>, REF->> (last) in that order: OK
@@ -2201,18 +2201,18 @@ Effect of each bug fix on the legacy Egypt inputs (2040; % change against legacy
 - section at row 8322: rows 8323-8396 grouped and hidden: 74 rows at level 1, hidden OK
 - section at row 8322: band and summary row visible: 2 rows at level 0, visible OK
 
-## 8b. Layout and constants (v2.4): years in row 1, labelled D:G, nothing typed
+## 8b. Layout and constants (v0.2.4): years in row 1, labelled D:G, nothing typed
 - years in row 1 of every scenario group (2022-2041): OK
 - 685 label rows; 4011 rows with values in D:G, each with a label in its label row above for every column it uses: OK
 - no typed numbers below the top rows (inputs: scenario number K5, ETS override row ets.ovr) and no numeric constants in the formulas of any sheet: OK
   allowed in formulas besides 0 and 1: choice codes of gp.adj (1 none, 2 High, 3 Low); AGGREGATE function codes (average, skip errors); text length in LEFT(switch, n) = "Yes" / "High" ...; functional form of the long-term storage cost (legacy: 2 x, squared); functional form of the long-term storage cost (squared)
 - sheet Constants: 66 named constants (ManCapOff, CoalICYr, MethGJperKtoe, MethGJperBbl, MethGJperT, MethGJperMMBtu, PwAvgLag, LitersPerKtoeOil, LitersPerBbl, NDCYrCap, HoursYr, kWperMW, USDperM, MWyMkWh, PriceFloor, GWPCH4F, GWPCH4NF, tPerKt, EFtPerKtoe, ktPerMt, GdpExtHalf, WaccDefault, HydInvShare, UraniumFuel, InvPresentShare, StMargFactor, EarlyMaxShare, KtoeGWh, IncfA, IncfB, IncfC, IncfD, IncfE, IncfLnCap, IncfNorm, MultLastLag, KgPerT, EFJetIEA, FlareCO2perCH4, EFEndYear, MperBn, PctPerUnit, PomPerOC, GJperkWh, CapAvgShr, TieBreak, PassLo, PassHi, PassMid, MethShareCap, Thousand, Million, Billion, TrRALag, TrPivotLag, TrOwnDecline, TrFEWGso, TrFEWHalf, TrFEWEvP, TrFEWEvO, ResSubstLag, MitGW, BasketQ, DecPerQuint, PlDecScale, DWLTri) and 13 policy assumptions by key OK; MWyMkWh = =HoursYr*kWperMW/USDperM
-- v2.6: variable, fuel and sector names (A:C) never bold; no fill colour in D:G outside the bands: OK
-- v2.7: bold only on the summary rows; variable names (column A) light green text, no fill: OK
-- v2.7: macro buttons on ScenarioCompare: RecalculateNow, ToggleRecalculation, RunAllScenarios, UpdateDataTables, StoreBaseline, StoreLiveScenario, SolveETSLive, ClearStoredScenarios, SortStoredOutputs, GroupBlankScenarios, RefreshDashboard, CheckBatchRun OK
-- v2.7: title "Mitigation Module", section bands at most 30 characters, summary rows without decimals: OK
-- v2.7: no defined name begins like a cell reference (Excel cannot parse formulas using them; v2.4-v2.6 had BCO2Key/Val/Year): OK
-- v2.7: no LAMBDA parameter reads as a cell reference (Excel removes every cell calling such a LAMBDA on repair; v2.3-v2.7 first build had y1, co2, c, tco2_kwh): OK
+- v0.2.6: variable, fuel and sector names (A:C) never bold; no fill colour in D:G outside the bands: OK
+- v0.2.7: bold only on the summary rows; variable names (column A) light green text, no fill: OK
+- v0.2.7: macro buttons on ScenarioCompare: RecalculateNow, ToggleRecalculation, RunAllScenarios, UpdateDataTables, StoreBaseline, StoreLiveScenario, SolveETSLive, ClearStoredScenarios, SortStoredOutputs, GroupBlankScenarios, RefreshDashboard, CheckBatchRun OK
+- v0.2.7: title "Mitigation Module", section bands at most 30 characters, summary rows without decimals: OK
+- v0.2.7: no defined name begins like a cell reference (Excel cannot parse formulas using them; v0.2.4-v0.2.6 had BCO2Key/Val/Year): OK
+- v0.2.7: no LAMBDA parameter reads as a cell reference (Excel removes every cell calling such a LAMBDA on repair; v0.2.3-v0.2.7 first build had y1, co2, c, tco2_kwh): OK
 - MTInputs rows found by the Mapping table (354 keys: NameOfParameter, or label below a heading) and looked up in Mitigation D (258 rows) = the template rows: OK
 - sheet BaselineCO2: 340 values (sectors x years) read by the bco2 rows OK
 - sheet BaselineCO2: 80 methane values (dg, bm, ch4c, ch4sup x years) read by the ch4bs rows and ghg.k OK
@@ -2308,12 +2308,12 @@ Power, scenario 1 (baseline) and 2 (carbon price $20 from 2027):
 
 Generation cost by type, scenario 1, 2022 and 2040 ($/kWh): Coal 0.197 / 0.120, Natural gas 0.072 / 0.072, Oil 0.190 / 0.190, Nuclear 0.068 / 0.068, Wind 0.052 / 0.056, Solar 0.055 / 0.048, Hydro 0.066 / 0.066, Other renewables 0.078 / 0.078, Biomass 0.260 / 0.260
 
-## 11c. Planned retirement switched on (v1.07)
+## 11c. Planned retirement switched on (v0.1.07)
 - planned retirement on (gas 1,500 MW/yr from 2025, oil 400 MW/yr from 2024), scenario 1 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 2.96e-11 (at X1968) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
 - planned retirement on (gas 1,500 MW/yr from 2025, oil 400 MW/yr from 2024), scenario 2 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at AH7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
 - retirement of gas and oil = the planned data (capped at capacity), max abs diff 0 MW; gas capacity 2030 60,250 MW, new investment 2030 6,227 MW OK
 
-## 11d. Electricity demand memo lines (v1.07)
+## 11d. Electricity demand memo lines (v0.1.07)
 - scenario 1: memo by subsector = power demand of the subsector (max abs 0); by sector = sum of its subsectors (5.09e-11); total = total power demand (0); demand by group sums to the total (5.09e-11) OK
 - scenario 2: memo by subsector = power demand of the subsector (max abs 0); by sector = sum of its subsectors (9.09e-11); total = total power demand (0); demand by group sums to the total (9.46e-11) OK
   - electricity demand by sector, scenario 1 (ktoe), 2022 / 2030 / 2040: all 15,496 / 21,014 / 33,829; tra 48 / 66 / 113; bld 11,661 / 16,164 / 26,489; ind 3,787 / 4,783 / 7,227; oen 0 / 0 / 0
@@ -2345,7 +2345,7 @@ Generation cost by type, scenario 1, 2022 and 2040 ($/kWh): Coal 0.197 / 0.120, 
   - macro stored IDs [1, 3, 4, 5, 6] with the same names; values vs the Python emulation: max rel diff 1.01e-12 at (4, 'mit.rev.usd.tot', 2034) (by ID: 1 5.0e-15, 3 5.7e-14, 4 1.0e-12, 5 8.8e-01, 6 1.2e-13; new-ETS IDs [5] re-solved by the macro goal seek, a memo: the build stores them at the fast estimate) OK
   - live column K restored (0 cells differ) and ETS override row empty again OK
 
-## 13. First-run test macro CheckBatchRun (v1.04)
+## 13. First-run test macro CheckBatchRun (v0.1.04)
 - sheet MacroCheck as shipped: "not run yet" OK
 - LibreOffice ran CheckBatch: VBAProject.CPATScenarios.CheckBatch returned 1.0051088102780473e-12 in 2427.9 s
   - Result: PASS
@@ -2383,8 +2383,8 @@ Generation cost by type, scenario 1, 2022 and 2040 ($/kWh): Coal 0.197 / 0.120, 
 - identities in every column: rnet = rtx + rsub (subsidies negative), rtot = rnet + rnew, fuel use = sector totals + power, power fuel use = fuel types of pe, power CO2 = CO2 by type = ETS sector power: max abs 5.6e-10 OK
 - file references in the workbook texts (2): current ones exist in the folder: OK
 - stale statements about power, revenues or interim data in the workbook texts: none OK
-- versions: Settings log ends with 8.0, Mitigation title "Mitigation Module", folder README names the workbook and builder of v8.0 OK
-- v2.8: newer Excel functions (MAXIFS, MINIFS, AGGREGATE, IFNA, ...) carry the _xlfn. prefix in the file (else Excel removes the formula on repair): OK
+- versions: Settings log ends with 8.0, Mitigation title "Mitigation Module", folder README names the workbook and builder of v0.8.0 OK
+- v0.2.8: newer Excel functions (MAXIFS, MINIFS, AGGREGATE, IFNA, ...) carry the _xlfn. prefix in the file (else Excel removes the formula on repair): OK
 - equations: Formulas.md regenerated from the workbook, 1127 variables; every variable of the dictionary has its equation OK
 - scripts and notes have stable names, no version in the name (44 files): OK
 - issues register (issues_register.py, Word register): 230 items, unique IDs; LegacyDiff rows of type Not yet, Simplification, To check (bucket 5) all included (7 of 7) OK

@@ -1,4 +1,4 @@
-# Model equations of CPAT-AI-Mitigation-Prototype v6.4
+# Model equations of CPAT-AI-Mitigation-Prototype v0.6.4
 
 CPAT-AI-Mitigation-Prototype is a carbon-pricing mitigation model for one country at a time, built on the method of legacy CPAT. The country is a setting; every country-specific number comes from the reference tables (data sheets), looked up by the country code. It projects energy prices, fuel use by subsector and fuel, the power sector, government revenue, CO2 and other greenhouse gases, local air pollutants and the GDP effect of the revenue. The model runs year by year from the base year t₀ (a setting) to 2041. Each scenario is a group of year columns with the same equations and its own policy inputs: scenario 1 is the baseline, scenario 2 the live policy scenario. This note gives the equations in mathematical form, for the projection years. `Formulas.md` is the implementation reference: every workbook formula, its rows and lookups.
 
@@ -50,7 +50,7 @@ Each section lists its parameters and data. The computed variables, with units a
 | vol, imp, risk | ETS price volatility, abatement-cost impact of volatility, carbon tax policy risk (scenario labels, Settings table) |
 | CO2base_e | baseline CO2 by ETS sector: scenario-1 CO2 of section 6, held as data |
 | a_ssc | share of the feebate shadow price on the efficiency margin (sheet Constants) |
-| XT[j,f](t), XE[j,f](t) | existing carbon tax and ETS of ECP sector j and fuel f in data year t, real $/tCO2 (sheet Inputs_ecp from the World Bank Carbon Pricing Dashboard and ICAP data of sheet ECP; v4.12, as legacy rows 1711-1764): XT = rate_f · scov_j · fcov_f, XE = p^nat · ncov_j · nfcov_f + p^EU · rcov_j · rfcov_f; Tx = last data year |
+| XT[j,f](t), XE[j,f](t) | existing carbon tax and ETS of ECP sector j and fuel f in data year t, real $/tCO2 (sheet Inputs_ecp from the World Bank Carbon Pricing Dashboard and ICAP data of sheet ECP; v0.4.12, as legacy rows 1711-1764): XT = rate_f · scov_j · fcov_f, XE = p^nat · ncov_j · nfcov_f + p^EU · rcov_j · rfcov_f; Tx = last data year |
 | γ^ct, γ^ets | assumed real growth of the existing carbon tax and ETS price after Tx |
 | xcov_e | national existing ETS coverage of sector e in the year (data year min(t, Tx)) |
 | ex | residential LPG and kerosene always exempted (switch AlwaysExemptResLPGKer, by scenario; legacy rows 5546-5547) |
@@ -111,7 +111,7 @@ E25  retail price:          R_c = (C_c + X_c) · (1 + v_c)
 ```
 
 - Other oil products take pass-through and margin from the dataset (fixes legacy bug L13).
-- E21: the floating part applies (1 − π) once, so X̃_c(t) = X_c(L) + (C_c(L) − C_c(t)) · (1 − π_c) (v4.10, legacy bug L14 fixed: legacy applies (1 − π) twice in the first projected year when the pass-through is 0.5 or 0.8; no effect for Egypt, pass-through 0 or 1).
+- E21: the floating part applies (1 − π) once, so X̃_c(t) = X_c(L) + (C_c(L) − C_c(t)) · (1 − π_c) (v0.4.10, legacy bug L14 fixed: legacy applies (1 − π) twice in the first projected year when the pass-through is 0.5 or 0.8; no effect for Egypt, pass-through 0 or 1).
 
 New policies and the after-tax price, by fuel f and subsector s (e = s):
 
@@ -170,7 +170,7 @@ E34  vintage averages:      cāx_k(t) = cāx_k(t−1)(1 − φ_k(t−1)) + cax_k
                             sto_k(t) = sto_k(t−1)(1 − φ_k(t−1)) + ℓ_k msc(t) φ_k(t−1);     sto_k(t₀) = ℓ_k msc(t₀)
 E35  amortised fixed:       fix_k = (cāx_k (1/N_k + w_k/2) + dtc_k/N_k) / (cf_k · H) + opf_k + sto_k
 E36  levelised fixed:       lfx_k = (cax_k + dtc_k + tcx_k) / (cf_k · H · dlf_k) + opf_k + rns_k + ℓ_k msc
-E37  fuel price:            fp_k(t) = mean of R_c(k)(τ) over τ ∈ [t−4, t] ∩ [t₀, t]   (spot option: R_c(k)(t); v6.2, legacy bug L126: legacy [t−2, t+2])
+E37  fuel price:            fp_k(t) = mean of R_c(k)(τ) over τ ∈ [t−4, t] ∩ [t₀, t]   (spot option: R_c(k)(t); v0.6.2, legacy bug L126: legacy [t−2, t+2])
 E38  existing carbon:       xc_k = e_k (XT[pow,f(k)](t*) φ^ct + XE[pow,f(k)](t*) φ^ets − XCP0_k)
 E39  variable cost:         vc_k = vop_k + fp_k · θ_e/ν_k + xc_k
 E40  new policy cost:       pc_k = e_k (T_pow · cov_f(k) + A_pow) + F_c(k) · θ_e/(ν_k u_c(k))
@@ -216,7 +216,7 @@ E61  retirement:            Ret_k = min(base_k + 1[coal] · Early, K_k);   Rete_
 E62  early coal retirement: room(t) = max(0, Max_wind + Max_solar − ΔG(t−1) − Σ_{k≠coal} Rete_k(t−1)),  ΔG = max(0, G(t) − G(t−1)); t₀: Max_wind + Max_solar
                             ec = 1 / (1 + exp(−K_i (tic_wind − tvc_coal)/c̲) + exp(−K_i (tic_solar − tvc_coal)/c̲)),  c̲ = min(tvc_coal, tic_wind, tic_solar)
                             Early = max(0, min(e_max · Ke_coal, room) · (1 − ec)) / cf_coal · e_f · (1 − p),   e_f = 0 in scenario 1 unless switched on
-E63  need:                  need(t) = max(Req(t) × Req(t)/Req(t−1) − (Σ_k Ke_k − Σ_k Rete_k), 0)     (v6.2: next year's requirement estimated with this year's growth, so no later year is read; legacy bug L67: legacy uses Req(t))
+E63  need:                  need(t) = max(Req(t) × Req(t)/Req(t−1) − (Σ_k Ke_k − Σ_k Rete_k), 0)     (v0.6.2: next year's requirement estimated with this year's growth, so no later year is read; legacy bug L67: legacy uses Req(t))
 E64  scale-up limit:        Max_k = q_k · Σ_j Ke_j · permit_k
 E65  first round (logit):   λi_k = permit_k exp(−K_i tic_k / cmin),  cmin = max(min_{permit} tic, c_min);   I1_k = min(Max_k, need · λi_k/Σ_j λi_j)
 E66  second round:          I2_k = permit_k · max(0, min(Max_k − I1_k, deficit − Σ_{j: tic_j+tb_j < tic_k+tb_k} (Max_j − I1_j) permit_j)),
@@ -244,7 +244,7 @@ E69  Qᵉ[f,s](t) = Qᵉ[f,s](t−1) · (1/(1+α+α⁺_G(s)))^(1+εU) · (1 + g(
 E70  Q[S] = Σ_{s∈S} Σ_f Q[f,s];     Q[f] = Σ_s Q[f,s] + Σ_{k: fuel f} FU_k;     Q = Σ_f Q[f]
 ```
 
-- P is the after-tax price (E31), Sh the shadow price (E32), g GDP growth (E95), inc(t) the income factor (legacy row 2433, as power demand E53; v4.12; in the workbook: section 0 row 14 = (1 + g)^inc − 1). α⁺_G(s) is the additional policy-induced efficiency gain of the subsector's legacy group (MTInputs 243-245 by scenario: road vehicles = road, rail, aviation, navigation; residential; industrial = the other subsectors, other energy use included: legacy bug L66), v4.13. Residential biomass has εY = 0 unless MTInputs `BiomassNormal` = Yes (legacy row 5567; v4.13). This is CPAT equation 3.3.3. shock(t) is legacy's exogenous shock on energy consumption (row 2439: −20.8% in 2023, +9.2% in 2024, 0 after), switch Settings C19, on as legacy; the same factor multiplies power demand (section 3). The shadow price of feebates and of the output-based part of the ETS acts on the efficiency margin only.
+- P is the after-tax price (E31), Sh the shadow price (E32), g GDP growth (E95), inc(t) the income factor (legacy row 2433, as power demand E53; v0.4.12; in the workbook: section 0 row 14 = (1 + g)^inc − 1). α⁺_G(s) is the additional policy-induced efficiency gain of the subsector's legacy group (MTInputs 243-245 by scenario: road vehicles = road, rail, aviation, navigation; residential; industrial = the other subsectors, other energy use included: legacy bug L66), v0.4.13. Residential biomass has εY = 0 unless MTInputs `BiomassNormal` = Yes (legacy row 5567; v0.4.13). This is CPAT equation 3.3.3. shock(t) is legacy's exogenous shock on energy consumption (row 2439: −20.8% in 2023, +9.2% in 2024, 0 after), switch Settings C19, on as legacy; the same factor multiplies power demand (section 3). The shadow price of feebates and of the output-based part of the ETS acts on the efficiency margin only.
 - Electricity demand D_s is shown in the sector blocks as a memo. It is not part of the fuel totals; generation fuel use FU_k is.
 - Qᵉ is the elasticity model (`enel`), Q the fuel use used everywhere else (`ener`): road fuels from the engineer model where TrModel = Engineer (section 4b), the residential fuels plus their leakage (section 4a).
 
@@ -498,6 +498,6 @@ Other deliberate differences from legacy CPAT are listed on the workbook sheet L
 | lvl, g, Y | GDP level factor, growth, GDP after feedback | factor, %, USD bn | `gdp.lvl`, `gdp.pos.pct`, `gdp.pos.usd` |
 
 
-## Initially exempt residential demand (v5.6, LegacyDiff 67)
+## Initially exempt residential demand (v0.5.6, LegacyDiff 67)
 
 With ExemptMostCook = Yes, the share s of the most-used cooking fuel spent by the bottom ExemptCookDeciles deciles (Settings C83: HHSurvey budget share x consumption per capita x weight) is initially exempt: its fuel use F_x(t) = F_x(t-1) x [enel(t)/enel(t-1)] x [p(t)/p(t-1)]^(e_U x (phase - 1)), phase = MIN(MAX((t + 1 - YearPha)/ExemptPhaseoutPeriod, 0), 1) if ExemptPhaseout (legacy rows 5568-5570, rule of 2259-2265, L94; income factor as the row, L48). Fuel use adds F_x - s x enel through section 6b (rows lkx, lkxa, lkc).

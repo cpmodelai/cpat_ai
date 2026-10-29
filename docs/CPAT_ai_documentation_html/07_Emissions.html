@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>7&nbsp; Emissions – CPAT-AI Documentation</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./08_ETS.html" rel="next">
+<link href="./06_Transport.html" rel="prev">
+<link href="././00/media/image1.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d8e5dfa8330daa7b2a69354212dbf2ec.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_Mitigation_Prototype.html">Excel-AI: the mitigation prototype</a></li><li class="breadcrumb-item"><a href="./07_Emissions.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Emissions</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">CPAT-AI Documentation</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Cover</strong></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_Project_Overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Project overview</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_Bugs_and_Issues.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bugs and issues</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Excel-AI: the mitigation prototype</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_Mitigation_Prototype.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The mitigation prototype</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_Prices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Prices and energy demand</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_Power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_Transport.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Road transport</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_Emissions.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Emissions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_ETS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Emissions trading (new ETS)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_Macro_and_Results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Macro, revenues and results</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_Distribution_Tab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The distribution tab</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_Data_Tabs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Data tabs</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Excel-AI: other modules</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_Other_Excel_Modules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Distribution and air-pollution modules</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Coded CPAT</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_Coded_CPAT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Coded CPAT</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14_Coded_Developer_Guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Coded CPAT: developer guide</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data and working practice</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15_Data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16_Working_in_the_Repository.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Working in the repository</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title"><strong><em>Chapter Contents</em></strong></h2>
+   
+  <ul>
+  <li><a href="#non-co2-ghgs-and-methane-method" id="toc-non-co2-ghgs-and-methane-method" class="nav-link active" data-scroll-target="#non-co2-ghgs-and-methane-method">Non-CO2 GHGs and methane: method</a>
+  <ul>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">1. Data</a></li>
+  <li><a href="#methane-by-source" id="toc-methane-by-source" class="nav-link" data-scroll-target="#methane-by-source">2. Methane by source</a></li>
+  <li><a href="#energy-methane-and-n2o" id="toc-energy-methane-and-n2o" class="nav-link" data-scroll-target="#energy-methane-and-n2o">3. Energy methane and N2O</a></li>
+  <li><a href="#other-inventory-categories" id="toc-other-inventory-categories" class="nav-link" data-scroll-target="#other-inventory-categories">4. Other inventory categories</a></li>
+  <li><a href="#validation-and-differences-with-legacy" id="toc-validation-and-differences-with-legacy" class="nav-link" data-scroll-target="#validation-and-differences-with-legacy">5. Validation and differences with legacy</a></li>
+  <li><a href="#open-issues" id="toc-open-issues" class="nav-link" data-scroll-target="#open-issues">6. Open issues</a></li>
+  <li><a href="#fuel-production-for-supply-methane-v0.5.6-i66" id="toc-fuel-production-for-supply-methane-v0.5.6-i66" class="nav-link" data-scroll-target="#fuel-production-for-supply-methane-v0.5.6-i66">Fuel production for supply methane (v0.5.6, I66)</a></li>
+  <li><a href="#ndc-comparison-v0.5.7-section-14c-legacy-f12-rows-18403-18518" id="toc-ndc-comparison-v0.5.7-section-14c-legacy-f12-rows-18403-18518" class="nav-link" data-scroll-target="#ndc-comparison-v0.5.7-section-14c-legacy-f12-rows-18403-18518">NDC comparison (v0.5.7, section 14c; legacy F12 rows 18403-18518)</a></li>
+  </ul></li>
+  <li><a href="#calibration-of-energy-co2-to-the-ghg-inventory-method" id="toc-calibration-of-energy-co2-to-the-ghg-inventory-method" class="nav-link" data-scroll-target="#calibration-of-energy-co2-to-the-ghg-inventory-method">Calibration of energy CO2 to the GHG inventory: method</a>
+  <ul>
+  <li><a href="#method" id="toc-method" class="nav-link" data-scroll-target="#method">1. Method</a></li>
+  <li><a href="#results-for-egypt-scenario-1-energy-co2-mt-v0.4.11" id="toc-results-for-egypt-scenario-1-energy-co2-mt-v0.4.11" class="nav-link" data-scroll-target="#results-for-egypt-scenario-1-energy-co2-mt-v0.4.11">2. Results for Egypt (scenario 1, energy CO2, Mt; v0.4.11)</a></li>
+  <li><a href="#differences-with-legacy-sheet-legacydiff" id="toc-differences-with-legacy-sheet-legacydiff" class="nav-link" data-scroll-target="#differences-with-legacy-sheet-legacydiff">3. Differences with legacy (sheet LegacyDiff)</a></li>
+  </ul></li>
+  <li><a href="#local-air-pollutants-method" id="toc-local-air-pollutants-method" class="nav-link" data-scroll-target="#local-air-pollutants-method">Local air pollutants: method</a>
+  <ul>
+  <li><a href="#data-1" id="toc-data-1" class="nav-link" data-scroll-target="#data-1">1. Data</a></li>
+  <li><a href="#method-1" id="toc-method-1" class="nav-link" data-scroll-target="#method-1">2. Method</a></li>
+  <li><a href="#results-for-egypt-scenario-1" id="toc-results-for-egypt-scenario-1" class="nav-link" data-scroll-target="#results-for-egypt-scenario-1">3. Results for Egypt (scenario 1)</a></li>
+  <li><a href="#differences-with-legacy-cpat-sheet-legacydiff" id="toc-differences-with-legacy-cpat-sheet-legacydiff" class="nav-link" data-scroll-target="#differences-with-legacy-cpat-sheet-legacydiff">4. Differences with legacy CPAT (sheet LegacyDiff)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_Mitigation_Prototype.html">Excel-AI: the mitigation prototype</a></li><li class="breadcrumb-item"><a href="./07_Emissions.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Emissions</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-emissions" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Emissions</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- Generated by make_qmd.py from excel_ai/mitigation/docs/methods/Emissions.md: edit the source, then run python make_qmd.py -->
+<p><em>Source: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/excel_ai/mitigation/docs/methods/Emissions.md"><code>excel_ai/mitigation/docs/methods/Emissions.md</code></a>.</em></p>
+<section id="non-co2-ghgs-and-methane-method" class="level2">
+<h2 class="anchored" data-anchor-id="non-co2-ghgs-and-methane-method">Non-CO2 GHGs and methane: method</h2>
+<p>Equations: <code>Equations.md</code>; workbook formulas: <code>Formulas.md</code>.</p>
+<p>The model adds methane, nitrous oxide and F-gases to energy CO2 and covers every UNFCCC inventory category, so it reports total GHG emissions. It includes a methane fee, its revenue, and combustion methane for every sector.</p>
+<p>Units: methane in kt CH4 where it is a physical quantity, otherwise Mt CO2e with IPCC AR6 GWP100 (fossil methane 29.8, non-fossil 27.2). GHGYear is the last year the country has in the inventory (Egypt: 2024).</p>
+<section id="data" class="level3">
+<h3 class="anchored" data-anchor-id="data">1. Data</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sheet</th>
+<th>Content</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>GHGs</td>
+<td>Inventory by country, year, category (energy, industrial processes, agriculture, LULUCF, waste, other) and gas (CO2, CH4, N2O, F-gases), Mt CO2e</td>
+<td>Legacy sheet GHGs</td>
+</tr>
+<tr class="even">
+<td>CH4Inputs</td>
+<td>Methane abatement curves (a, b) by country and source; shares that split inventory methane by source; flared share</td>
+<td>Legacy sheet CH4Inputs</td>
+</tr>
+<tr class="odd">
+<td>EF_NonCO2</td>
+<td>Combustion emission factors (kt per PJ) by country or region, subsector, fuel and pollutant, base year and final</td>
+<td>Legacy sheet EF_PM (GAINS; all countries and World Bank regions)</td>
+</tr>
+<tr class="even">
+<td>UNPop</td>
+<td>Population by country and year (thousands)</td>
+<td>Legacy sheet UNPop (UN WPP)</td>
+</tr>
+<tr class="odd">
+<td>Balances</td>
+<td>Base-year production of gas, oil, coal</td>
+<td>Legacy Mitigation rows 503-509</td>
+</tr>
+</tbody>
+</table>
+<p>The non-energy elasticities (section 4) are on sheet <code>Manual inputs</code> K325:M327, the legacy addresses (agriculture, waste, other: population elasticity row 326, per capita income elasticity row 327; a text entry such as “na” counts as 0). Their values reproduce the cached results of the legacy run exactly: legacy Mitigation uses the same values (it never reads the manual cells: their formula is broken, <code>#REF!</code>).</p>
+</section>
+<section id="methane-by-source" class="level3">
+<h3 class="anchored" data-anchor-id="methane-by-source">2. Methane by source</h3>
+<p>Seven sources: oil and gas extraction, downstream gas, coal mining and biomass use (fossil methane, part of energy); livestock and rice (agriculture); waste.</p>
+<ol type="1">
+<li><strong>Allocation.</strong> Inventory methane of each category in GHGYear is split between its sources. Fossil sources: weight = MIN(10 x the source’s share of the four activities, the country’s input share), normalized to sum to 1. Livestock and rice take their input shares; waste takes all waste methane.</li>
+<li><strong>Activity.</strong> Oil and gas: gas and oil production; coal: coal production (both held at the base-year balance). Downstream gas and biomass: total gas and biomass use of the scenario, power included. Livestock, rice, waste: an index (1 in the base year) that grows with income and population.</li>
+<li><strong>Abatement.</strong> Fee per tonne CH4 = methane fee (USD per t CO2e) x GWP x 1 if the fee applies to the source (below), else 0. Abatement share = MIN(1, MAX(0, a x fee^b)) on the source’s curve. Biomass and downstream gas use the oil-and-gas curve, as legacy.</li>
+<li><strong>Emissions</strong> = the source’s inventory methane x activity / activity in GHGYear x (1 - abatement). Shares and GHGYear activity are from scenario 1: the calibration is to the observed (baseline) inventory.</li>
+<li><strong>Flaring.</strong> The flared share of abated oil and gas methane burns to CO2 (44/16 t CO2 per t CH4), reported as energy CO2.</li>
+<li><strong>Revenue</strong> = fee x the sum over the sources the fee applies to of CH4 x GWP (fossil or non-fossil), USD million, part of total revenue.</li>
+<li><strong>Fiscal space (v0.6.2, I47; user 2026-10-20: as close to legacy as possible with no vulnerability to circular references).</strong> The GDP feedback counts the fee revenue as legacy (row 8024) through <code>ch4.revf</code>: the same sum over <code>ch4.emf</code>, which equals <code>ch4.em</code> except for downstream gas and biomass use. Those two read the stored scenario-1 activity (sheet BaselineCO2 rows dg, bm, refreshed by the build; check row <code>ch4bs.chk</code> = 0 in scenario 1), so the fiscal space reads no fuel use and no later change to the demand or power blocks can close a loop through it. Fee, abatement and the other sources are the scenario’s own. The reported revenue (rmf, rtot, block 12e) keeps the own activity. (The v0.6.0 loop came from price-block average ranges that ran into section 11, fixed in v0.6.2.)</li>
+</ol>
+<p>The methane fee (ScenarioDefinition) runs linearly from <code>MPLevelStart</code> in <code>MPIntro</code> to <code>MPLevelTarget</code> in <code>MPOutro</code> and keeps its slope after the target year (as legacy). It adds the carbon price when <code>CTforMethane</code> = Yes. As legacy (v0.4.12, user decision 2026-10-18; LD46):</p>
+<ul>
+<li>the fee path applies only in policy scenarios (scenario number above 1, legacy row 2238); the carbon price part has no such condition, as legacy row 2239;</li>
+<li>a switch per source on sheet <code>Manual inputs</code> J196:J200, the legacy addresses (names MFeeBio, MFeeDG, MFeeFF, MFeeAgr, MFeeWst; shown on Settings rows 47-51): biomass (No), downstream gas, fossil fuel production (oil, gas and coal), agriculture (livestock, rice), waste (all Yes). The switches are legacy inputs outside ScenarioDefinition (NORMS 4: main inputs on ScenarioDefinition, ‘Manual inputs’ the second source).</li>
+</ul>
+</section>
+<section id="energy-methane-and-n2o" class="level3">
+<h3 class="anchored" data-anchor-id="energy-methane-and-n2o">3. Energy methane and N2O</h3>
+<ul>
+<li>Combustion methane = fuel use x emission factor, by subsector and fuel, and for power by generation type. The factor is looked up by legacy EF code as for the local pollutants (v0.9.0: country, else World Bank region, else world; table Inputs_nc). Legacy 465 has these lookups but leaves the CH4 factors blank, so its combustion CH4 is zero (issue I34). The factor moves linearly from its base-year value to its final value in 2039 (<code>EFEndYear</code>, the legacy column), flat after.</li>
+<li>Energy methane = calibration factor x (combustion + fossil supply methane) x fossil GWP. The factor = inventory energy methane / modelled energy methane in GHGYear (scenario 1). Energy methane thus equals the inventory in GHGYear and later moves with fuel use, supply activity and abatement. v0.6.2: the modelled GHGYear combustion and supply methane of scenario 1 are stored on sheet BaselineCO2 (rows ch4c, ch4sup, refreshed by the build), so the factor, used in every year, reads no later model year (circular-reference rule, user 2026-10-20).</li>
+<li>Energy N2O and F-gases: the inventory while it has the year; then N2O moves with energy CO2 and F-gases are held.</li>
+<li>Energy CO2 = fuel combustion (power included) + flaring.</li>
+</ul>
+</section>
+<section id="other-inventory-categories" class="level3">
+<h3 class="anchored" data-anchor-id="other-inventory-categories">4. Other inventory categories</h3>
+<p>Each category and gas takes the inventory value while the inventory has the year. After that it grows with a growth factor = (1 + GDP per capita growth)^income elasticity x (1 + population growth)^population elasticity x the change in mitigation effort. GDP per capita growth = (1 + real GDP growth) / (1 + population growth) - 1. Effort is 1, or, if ScenarioDefinition <code>AdditionMitigationPoliciesNonEnergy</code> = Yes, the scenario’s energy CO2 divided by scenario 1’s.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Category</th>
+<th>Projection</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Industrial processes (all gases)</td>
+<td>grows with industrial energy CO2 year on year (it may decline, as legacy rows 7553 and 7566-7569; v0.5.6) if <code>IndustrialProcessEmissionsScaleEner</code> = Yes, else held</td>
+</tr>
+<tr class="even">
+<td>Agriculture CO2, N2O, F-gases</td>
+<td>growth factor (income 0.15, population 0.9)</td>
+</tr>
+<tr class="odd">
+<td>Agriculture CH4</td>
+<td>livestock + rice methane</td>
+</tr>
+<tr class="even">
+<td>Waste CO2, N2O, F-gases; other</td>
+<td>growth factor (population 1)</td>
+</tr>
+<tr class="odd">
+<td>Waste CH4</td>
+<td>waste methane</td>
+</tr>
+<tr class="even">
+<td>LULUCF CO2</td>
+<td>if positive: previous x effort change - <code>LULUCFAnnualEmissionsDecline</code> x the last inventory value; sinks (negative values) held</td>
+</tr>
+<tr class="odd">
+<td>LULUCF CH4, N2O, F-gases</td>
+<td>held</td>
+</tr>
+</tbody>
+</table>
+<p>Totals by gas and by category; total GHGs excluding and including LULUCF; the change against scenario 1.</p>
+</section>
+<section id="validation-and-differences-with-legacy" class="level3">
+<h3 class="anchored" data-anchor-id="validation-and-differences-with-legacy">5. Validation and differences with legacy</h3>
+<ul>
+<li><code>check_full.py</code> recomputes every GHG and combustion-methane row in Python from the data files (scenarios 1 and 2, every year).</li>
+<li>When introduced (v0.2.8), every earlier output was unchanged (the methane fee is 0 in the shipped scenarios).</li>
+<li>The non-energy elasticities reproduce the legacy run exactly where the legacy method is kept.</li>
+<li>Sheet LegacyDiff lists the differences with legacy; the register of bugs, issues and upgrades describes the legacy bugs fixed: L18 (non-energy methane constant, abatement not applied), L19 (flaring CO2 counted as methane), L20 (population growth path), L21 (waste abated with the livestock curve). Local air pollutants: chapter Emissions.</li>
+</ul>
+</section>
+<section id="open-issues" class="level3">
+<h3 class="anchored" data-anchor-id="open-issues">6. Open issues</h3>
+<ul>
+<li><strong>Egypt’s inventory breaks after 2021</strong> (I91): energy CH4 is 21.9 Mt CO2e in 2021 and 1.9-2.0 in 2022-2024, while the fugitive-emissions memo alone is 20.3 in 2023. Calibrating to 2024 (as legacy) may understate energy methane by about 19 Mt CO2e.</li>
+<li><strong>Energy CO2 calibration to the inventory (as legacy since v0.4.11; switch on)</strong>: every CO2 emission factor is scaled by the 2021 inventory over the 2022 estimate (Egypt 0.930; chapter Emissions); the 2021-2022 inventory break (I91) carries into every year, as legacy.</li>
+<li><strong>Combustion factors</strong> use only the GAINS base and final values (the yearly paths are proprietary). Combustion methane exceeds inventory energy methane, so the calibration factor is about 0.25 for Egypt.</li>
+<li><strong>Oil, gas and coal production</strong> is held at the base year (no production model).</li>
+</ul>
+</section>
+<section id="fuel-production-for-supply-methane-v0.5.6-i66" class="level3">
+<h3 class="anchored" data-anchor-id="fuel-production-for-supply-methane-v0.5.6-i66">Fuel production for supply methane (v0.5.6, I66)</h3>
+<p>Oil, gas and coal production (rows ch4.prd) start from Balances and hold in the base year and the next, then grow with the producer-price response to the methane fee (ch4.pi = 1 + change of the fee per unit / international price x pass-through, Manual inputs J194; elasticities J190:J192) and the growth of world demand of the global demand scenario a year earlier (ch4.wd, Prices_int rows 323-333), as legacy rows 6132-6149. The methane source shares use base production as the inventory-year activity (no loop).</p>
+</section>
+<section id="ndc-comparison-v0.5.7-section-14c-legacy-f12-rows-18403-18518" class="level3">
+<h3 class="anchored" data-anchor-id="ndc-comparison-v0.5.7-section-14c-legacy-f12-rows-18403-18518">NDC comparison (v0.5.7, section 14c; legacy F12 rows 18403-18518)</h3>
+<p>Data: sheet NDCs (legacy NDCs rows 48-242 latest, 250-444 second, 451-644 first round, columns C-P, stacked with a round column; key ISO|round) and sheet GHGHist (legacy GHGs rows 954-1189: GHGs excl./incl.&nbsp;LULUCF, CO2 excl. LULUCF, energy CO2 by year; header group|year). Both from <code>extract_legacy_tables.py ndc</code>.</p>
+<p>Choice (ScenarioDefinition scenario 1, as legacy): NDCs (First round, Second round, else the latest), NDCTargetYear (Main* = first target year, else the second where given), Conditionality (Unconditional, Conditional, else the average). Target year at most NDCYrCap (2035).</p>
+<p>Target on the NDC’s own basis (gases CO2 or GHGs; LULUCF included or excluded), against the modelled BAU = scenario 1 in the target year: BAU: BAU x (1 + x) (x the reduction as given, negative); Fixed: x (Mt CO2e); Historical: emissions of the reference year (scenario 1 where modelled, from 2022; else the GHGs inventory, 2021-2024, rows ndc.hc and ndc.hv, v0.6.1; else GHGHist) x (1 + x); Intensity: reference-year emissions x real GDP of the target year / real GDP of the reference year x (1 + x); Unquantifiable: BAU. Reduction = 1 - target / BAU, for the unconditional (u) and conditional (c) targets; a = their average (the one given if only one; 0 if none); sel = the Conditionality choice (a if the chosen one is not given). Target GHGs incl.&nbsp;LULUCF = MIN(BAU incl.&nbsp;LULUCF, BAU incl.&nbsp;LULUCF x (1 - reduction)), as legacy rows 18494-18496. Per scenario and year: reduction of GHGs incl.&nbsp;LULUCF against scenario 1 (ndc.red), share of the NDC reduction achieved (ndc.gap = ndc.red / ndc.r.sel, legacy “Gap to NDC”), GHGs above the chosen target (ndc.over; in the target year the legacy goal-seek difference, G18501). No goal seek (user 2026-10-19: comparison only).</p>
+<p>Legacy bugs fixed: L119 (year adjustment applied twice for BAU, never for Fixed or Historical: the prototype compares in the target year), L120 (index ratios inverted), L121 (Historical “level” is the cut), L122 (Intensity adds a blank cell for LULUCF), L123 (Intensity reference GDP from a fixed cell). Issues: L169 (China CO2 hard-coded in legacy: not replicated), I95 (reference years outside the data: N/A; v0.6.1 reads 2021-2024 from the GHGs inventory; 2018-2020 need data).</p>
+<p>Egypt (latest NDC: BAU, 2030, -27% unconditional, GHGs excl. LULUCF): target 344.3 Mt CO2e (legacy 355.7 = its BAU 487.2 x 0.73; the prototype BAU is 471.7, the known baseline GHG difference); scenario 2 achieves 21% of the required reduction in 2030 (legacy 51% for its cached policy scenario, which is not the prototype’s scenario 2).</p>
+</section>
+</section>
+<section id="calibration-of-energy-co2-to-the-ghg-inventory-method" class="level2">
+<h2 class="anchored" data-anchor-id="calibration-of-energy-co2-to-the-ghg-inventory-method">Calibration of energy CO2 to the GHG inventory: method</h2>
+<p>Equations: <code>Equations.md</code>; workbook formulas: <code>Formulas.md</code>. Decision and numbers: <code>Old/Calibration_Plan_v3_6.md</code>.</p>
+<section id="method" class="level3">
+<h3 class="anchored" data-anchor-id="method">1. Method</h3>
+<p>Every CO2 emission factor (EF), by subsector and fuel and by generation type, is multiplied by one factor, <code>EFCalib</code>. <strong>Since v0.4.11 this is legacy’s rule (user decision 2026-10-18: go with legacy; issue I32 replicated)</strong>: legacy Mitigation rows 623, 839 and 976-977.</p>
+<p><code>EFCalib</code> = inventory energy CO2 of the year before the base year / scenario-1 energy CO2 of the base year with uncalibrated EFs (the base-year energy balance x the EFs); 1 if the switch is off. <strong>The switch is Settings C27, Yes by default</strong>, as legacy (EFsAdjustmentAnnexI and EFsAdjustmentNonAnnexI are both Yes*). With the shipped data (Egypt): 2021 inventory 211.05 Mt against the 2022 estimate 226.97 Mt, <strong>EFCalib = 0.930</strong> (legacy: 0.930).</p>
+<p>The uncalibrated scenario-1 CO2 is data written by the build, like the ETS baseline: a live formula would be circular (EFs feed carbon prices, which feed fuel use). Scenario-1 fuel use does not depend on the EFs in value (no new carbon price; existing carbon pricing changes only after the historical years), so the calibrated baseline is the uncalibrated one times the factor. The rows are keyed by country (<code>EGY|raw</code>, <code>EGY|pow</code>, …), so another country finds no rows (#N/A) rather than Egypt’s: rebuild with its code (about 2 minutes since v0.4.9), or paste its scenario-1 values under its key.</p>
+<p>Everything downstream follows: CO2 by subsector, fuel and power type; carbon tax, ETS cost and existing carbon pricing per unit of fuel and their revenue; the ETS baseline; energy CO2 in the GHG totals. Scenario-1 fuel use and prices do not change. In policy scenarios, carbon prices per unit of fuel are 7% lower for Egypt, so fuel use, revenue and the GDP effect change.</p>
+</section>
+<section id="results-for-egypt-scenario-1-energy-co2-mt-v0.4.11" class="level3">
+<h3 class="anchored" data-anchor-id="results-for-egypt-scenario-1-energy-co2-mt-v0.4.11">2. Results for Egypt (scenario 1, energy CO2, Mt; v0.4.11)</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Year</th>
+<th>Inventory</th>
+<th>Uncalibrated</th>
+<th>Calibrated (x 0.930)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2022</td>
+<td>252.2</td>
+<td>227.0</td>
+<td>211.1</td>
+</tr>
+<tr class="even">
+<td>2023</td>
+<td>267.4</td>
+<td>196.7</td>
+<td>182.9</td>
+</tr>
+<tr class="odd">
+<td>2024</td>
+<td>285.3</td>
+<td>218.9</td>
+<td>203.5</td>
+</tr>
+</tbody>
+</table>
+<p>The calibrated base year equals the 2021 inventory (211.1), as legacy. Egypt’s inventory jumps 19% from 2021 to 2022 (register I91), and legacy’s rule carries that break into every year: calibrated CO2 is 16-29% below the 2022-2024 inventory. The 2023 dip is the fuel-use shock of legacy row 483 (I92, replicated).</p>
+</section>
+<section id="differences-with-legacy-sheet-legacydiff" class="level3">
+<h3 class="anchored" data-anchor-id="differences-with-legacy-sheet-legacydiff">3. Differences with legacy (sheet LegacyDiff)</h3>
+<ul>
+<li><strong>Year and switch</strong>: as legacy since v0.4.11 (before: the last inventory year GHGYear and the switch off, user decisions v0.3.2 and v0.3.4).</li>
+<li><strong>Switch</strong>: legacy reads one switch for Annex I countries (ScenarioDefinition row 237) and another for the others, both Yes*; the prototype has one switch on Settings (C27), Yes.</li>
+<li><strong>Scope</strong>: inventory energy CO2 includes fugitive CO2 (7.1 Mt in 2024), which the model does not compute separately. The factor absorbs it, as in legacy.</li>
+</ul>
+</section>
+</section>
+<section id="local-air-pollutants-method" class="level2">
+<h2 class="anchored" data-anchor-id="local-air-pollutants-method">Local air pollutants: method</h2>
+<p>Equations: <code>Equations.md</code>; workbook formulas: <code>Formulas.md</code>.</p>
+<p>The model computes emissions of seven local air pollutants from the fuel use of every subsector and of power generation: fine particulate matter (PM2.5), nitrogen oxides (NOx), sulphur dioxide (SO2), volatile organic compounds (VOC), black carbon (BC), organic carbon (OC) and carbon monoxide (CO). A memo converts them into CO2 equivalents (forcing). The emissions are also grouped into the sectors of the legacy air-pollution module, with primary organic matter and other PM2.5, its inputs. The pollutants are not part of the GHG totals. LiveOutputs reports total PM2.5, NOx, SO2, black carbon and the forcing for every scenario; the Charts sheet plots PM2.5 and SO2.</p>
+<p>Units: emissions in kt; factors in t per ktoe; forcing in Mt CO2e (GWP100).</p>
+<section id="data-1" class="level3">
+<h3 class="anchored" data-anchor-id="data-1">1. Data</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sheet</th>
+<th>Content</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>EF_NonCO2</td>
+<td>Combustion emission factors by country or World Bank region, GAINS subsector, fuel and pollutant, base year and final, kt per PJ</td>
+<td>Legacy sheet EF_PM (GAINS, all countries and regions); also used for combustion CH4</td>
+</tr>
+<tr class="even">
+<td>GWP_AP</td>
+<td>GWP100 of the pollutants by GAINS region</td>
+<td>Legacy GWP table of the pollutant forcing</td>
+</tr>
+<tr class="odd">
+<td>Countries (column O)</td>
+<td>GAINS region of every country (Egypt: <code>afr</code>)</td>
+<td>Legacy Countries tab</td>
+</tr>
+</tbody>
+</table>
+<p>The factors are those of legacy 465 (Mitigation rows 1052-1663; v0.9.0), in a table by legacy EF code on sheet Inputs_nc (Inputs, merged view):</p>
+<ul>
+<li>the legacy EF subsector of each subsector: road, rail, aviation (jet fuel), residential, services, construction, other manufacturing, food &amp; forestry and other energy keep their own code; mining &amp; chemicals, iron &amp; steel, other metals, machinery, cement and fuel transformation take manufacturing (<code>mnf</code>, legacy rows 6388-6395); navigation, which legacy leaves out (bug L22), takes its own GAINS code <code>nav</code>;</li>
+<li>the factor of the country (<code>egy.mit.ef.&lt;sub&gt;.&lt;fuel&gt;.&lt;pollutant&gt;</code>), else of its World Bank region (<code>CtryReg</code>, Egypt <code>mea</code>), else of the world (<code>wld</code>, absent from the data), else 0;</li>
+<li>other energy (<code>oen</code>) takes, for each fuel and pollutant, the maximum factor across the other legacy subsectors (power included), as the legacy note says (issue I147);</li>
+<li>only the fuel and subsector pairs of the legacy table have factors (power: coal, gas, oil, biomass; road: gasoline, diesel, LPG, kerosene, gas; rail: diesel; aviation: jet fuel; residential: no gasoline or diesel); a pair or pollutant with no factor in the chain gives 0, as legacy (for example power biomass, road kerosene, residential oil, construction coal, gas, oil and biomass, services and other manufacturing coal; organic carbon and SO2 of LPG). None of these pairs burns fuel in Egypt.</li>
+</ul>
+<p>The country-region-world chain covers the cases that bugs L58 (subsectors without a GAINS match) and L59 (fuels without a GAINS factor) fixed in v0.2.9 and v0.4.12 (nearest GAINS match): the CPAT team fixed them in 465. Egypt 2022: food &amp; forestry diesel, residential and fuel-transformation LPG, other-manufacturing diesel and LPG take the Middle East &amp; North Africa factors, as legacy.</p>
+</section>
+<section id="method-1" class="level3">
+<h3 class="anchored" data-anchor-id="method-1">2. Method</h3>
+<ol type="1">
+<li><strong>Factor path</strong>: the weight of the final factor rises linearly from 0 in the base year to 1 in 2039 (<code>EFEndYear</code>) and stays at 1, as for combustion CH4.</li>
+<li><strong>Emissions</strong>: for each subsector and pollutant, the sum over the eight fuels of fuel use x the weighted factor. Fuel use is the modelled one, so prices, policies and scenarios carry through. Power uses the same equation over the nine generation types.</li>
+<li><strong>Totals</strong>: transport, buildings and industry sum their subsectors, navigation included. A pollutant’s total is the subsectors plus power.</li>
+<li><strong>Forcing (memo)</strong>: emissions x the region’s GWP100 for BC, OC, NOx, SO2, VOC and CO, and their sum. Cooling pollutants (OC, SO2, NOx) have a negative GWP, so the net forcing can be negative: about -17.5 Mt CO2e for Egypt in 2022.</li>
+<li><strong>Air-pollution module sectors</strong>: coal power plants and gas power plants (fuel use of the type x the power factors); other power plants (power less coal and gas); ground level road (road); ground level other (residential, services, construction); other (rail, aviation, navigation, industry without construction, other energy use); food &amp; forestry. The seven sectors add up to the pollutant’s total.</li>
+<li><strong>Primary organic matter (POM) and other PM2.5</strong>, per sector: POM = 1.3 x organic carbon; other PM2.5 = MAX(0, PM2.5 - black carbon - POM).</li>
+<li><strong>The module’s input table (v0.3.12)</strong>: the block takes the layout of the legacy input table (Mitigation rows 15859-15961):
+<ul>
+<li>one block per module sector (coal, gas and other power plants, ground level road, ground level other, other, food &amp; forestry) and one for all sectors;</li>
+<li>in each block the ten pollutants in legacy order: NOx, SO2, BC, POM, other PM2.5, VOC, CH4, CO, PM2.5, OC;</li>
+<li>codes <code>aps.&lt;pollutant&gt;.&lt;sector&gt;</code>, in kt (legacy: tonnes).</li>
+</ul>
+The air-pollution module reads these rows directly (NORMS 3c).</li>
+<li><strong>CH4 in the table, as legacy (issue I34)</strong>:
+<ul>
+<li>coal, gas and other power plants: combustion CH4 of the generation types (section 14);</li>
+<li>road, ground level other: combustion CH4 of their subsectors (<code>ch4</code> rows of sections 5-8);</li>
+<li>other: combustion CH4 of its subsectors plus fossil fuel supply methane (<code>ch4.sup</code>; legacy has oil and gas extraction only);</li>
+<li>food &amp; forestry: combustion CH4 plus agriculture (livestock, rice) and waste methane, as legacy.</li>
+</ul>
+Legacy has no combustion CH4 factors, so its combustion part is zero. CH4 here is uncalibrated: it is not scaled to the inventory (<code>ghg.k</code>).</li>
+</ol>
+</section>
+<section id="results-for-egypt-scenario-1" class="level3">
+<h3 class="anchored" data-anchor-id="results-for-egypt-scenario-1">3. Results for Egypt (scenario 1)</h3>
+<p>v0.9.0 (factors of legacy 465): in 2022 every module sector equals the legacy input table (rows 15844-16053, tonnes) for every pollutant except “other”, which adds navigation (bug L22: NOx +14.8 kt, SO2 +13.7 kt, BC +0.6 kt, PM2.5 +1.5 kt), and CH4 (combustion CH4 and all fuel supply methane, issue I34). Gas power plants’ NOx is 96,931 t, road NOx 557,470 t, food &amp; forestry black carbon 3.8 t in both. Modelled ambient PM2.5 in 2022 is 33.06 ug/m3 against legacy 30.17; the difference is navigation’s (2.89). In 2030 the sectors differ from legacy by the fuel-use paths (gas plants 0.88, other plants 0.62, road 0.70-0.77, food &amp; forestry 0.58 of legacy), not by the factors.</p>
+<p>The check recomputes all rows of the block in Python for scenarios 1 and 2.</p>
+</section>
+<section id="differences-with-legacy-cpat-sheet-legacydiff" class="level3">
+<h3 class="anchored" data-anchor-id="differences-with-legacy-cpat-sheet-legacydiff">4. Differences with legacy CPAT (sheet LegacyDiff)</h3>
+<ul>
+<li>Legacy omits navigation from the pollutant totals (bug L22). It is included here.</li>
+<li>Legacy leaves services and food &amp; forestry out of each pollutant’s total (bug L23), although its air-pollution sectors include them. Here the total is the sum of the sectors.</li>
+<li>Bugs L58 and L59 (subsectors and fuels without a GAINS factor) were fixed by the CPAT team in 465 (country, else region, else world factors); the prototype follows 465 (v0.9.0) and keeps 0 where the 465 chain has no factor, as no such pair burns fuel in Egypt.</li>
+<li>Other energy takes the maximum factor of the fuel across the other subsectors (issue I147). Legacy takes the maximum year by year; the prototype the maximum of the base and of the final factors with the line between them, the same where one subsector holds the maximum throughout (Egypt: other oil products, the only fuel of other energy).</li>
+<li>Food &amp; forestry is split into food and forestry/agriculture as legacy (v0.4.11, LD53): the food share of each fuel is info_food over the four info_ flows of the processed Balances (legacy rows 501-504, 1666-1673); rows apfd (food fuel use) and ap.<pollutant>.fod / .fag (memo rows, not in the totals). The share is 0 for Egypt.</pollutant></li>
+<li>Legacy has no ammonia (NH3) from fuel combustion, so neither does the prototype.</li>
+<li>Legacy reads factor paths by year, which are proprietary and empty in the NoPropData file. The prototype draws a linear path between the base and final factors (simplification, as for CH4).</li>
+<li>Not built yet: the air-pollution (health) module that would use these sectors.</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./06_Transport.html" class="pagination-link" aria-label="Road transport">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Road transport</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./08_ETS.html" class="pagination-link" aria-label="Emissions trading (new ETS)">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Emissions trading (new ETS)</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

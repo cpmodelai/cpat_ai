@@ -1,4 +1,4 @@
-"""v4.5 all-country test (run on request, about 6 minutes): python check_allcountry.py [workbook]
+"""v0.4.5 all-country test (run on request, about 6 minutes): python check_allcountry.py [workbook]
 Would the workbook work with the full (all-country) data tables? Every row of a data tab that belongs to Egypt is
 cloned under the code XEG (country codes EGY/egy replaced by XEG/xeg) and appended below the last row of its tab, as
 pasted all-country data would arrive; key formulas are translated. Settings C4 is set to XEG, the workbook is
@@ -6,7 +6,7 @@ recalculated (LAMBDAs expanded), and every output code of the clone (xeg.*) must
 recalculation of the unchanged workbook, with no error values. It fails if a lookup range is too short, if a table
 with country rows is not the last on its tab, or if any formula depends on Egypt other than through the country code.
 Derived tables that the build computes for one country (BaselineCO2) are cloned like data.
-v4.6: tabs kept at their legacy cell addresses (fixed legacy ranges, already all countries) are tested by renaming
+v0.4.6: tabs kept at their legacy cell addresses (fixed legacy ranges, already all countries) are tested by renaming
 Egypt's codes to XEG in place instead of appending a clone."""
 import os, re, sys
 sys.path.insert(0, os.getcwd())
@@ -20,7 +20,7 @@ ROW_INDEX = ('.ghg.h.',)     # outputs that are row numbers of a data table (the
 ERRORS = ('#DIV/0!', '#N/A', '#NAME?', '#NULL!', '#NUM!', '#REF!', '#VALUE!', 'Err:')
 CLONE = {'EGY': 'XEG', 'egy': 'xeg'}
 IN_PLACE = {'Countries', 'Elasticities', 'ETS+LTS', 'Multipliers', 'Prices_int', 'ECP', 'Transport3', 'Power', 'CoC',
-            'GHGs'}   # v4.6; v4.7: Power, CoC, GHGs
+            'GHGs'}   # v0.4.6; v0.4.7: Power, CoC, GHGs
 
 
 def data_tabs(wb):
@@ -30,7 +30,7 @@ def data_tabs(wb):
 
 
 def rename_rows(ws):
-    """v4.6: rename Egypt's codes to XEG in place (tabs at legacy addresses); returns the rows changed."""
+    """v0.4.6: rename Egypt's codes to XEG in place (tabs at legacy addresses); returns the rows changed."""
     n = 0
     for row in ws.iter_rows(min_row=3):
         hit = False

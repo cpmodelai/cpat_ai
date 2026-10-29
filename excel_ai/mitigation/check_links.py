@@ -1,4 +1,4 @@
-"""v7.1: test of the linked data tables (DATA_LINKS) without Excel. Power Query does not run in LibreOffice, so the
+"""v0.7.1: test of the linked data tables (DATA_LINKS) without Excel. Power Query does not run in LibreOffice, so the
 macro UpdateDataTables is emulated in Python exactly as it copies (RefreshLink): the rows of the data-workbook table
 (the country's rows, or all rows), each column of the prototype tab filled from the data-workbook column of the same header
 name, the tab's header row and its formula columns left as they are, the old rows cleared.
@@ -11,7 +11,7 @@ link finds its table and every prototype column in it, the country has rows; the
 update has no error values in the plain scenario group (group 1) and LiveOutputs block 1; a link whose data fail the
 sanity check (negative retail prices: the model needs positive prices) is reported and left out of that run; the change
 of the key results is reported (dummy values differ from the shipped Egypt data).
-Report: check_links_report_v7.1.md.
+Report: check_links_report_v0.7.1.md.
 """
 import os
 import random
@@ -171,7 +171,7 @@ def main():
     errs_all = new_errors(C.recalc_wb(C.variant(wb, 'expand')), shipped)
     log(f'- all {len(B.DATA_LINKS)} links updated, recalculated in LibreOffice: new error values in group 1 '
         f'(2022-2040) and LiveOutputs block 1: {len(errs_all)} {errs_all[:6]}')
-    skip = {'Prices_dom'} if neg else set()           # v7.1: a link whose data fail the sanity check is left out
+    skip = {'Prices_dom'} if neg else set()           # v0.7.1: a link whose data fail the sanity check is left out
     wb = openpyxl.load_workbook(B.OUT, keep_vba=True)
     links = [l for l in B.DATA_LINKS if l[0] not in skip]
     saved, B.DATA_LINKS[:] = list(B.DATA_LINKS), links

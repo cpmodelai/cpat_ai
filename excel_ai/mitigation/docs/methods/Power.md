@@ -71,7 +71,7 @@ The levelised variable cost D9(t) averages the variable cost from t to the end o
 
 New policy cost per kWh (D5) = tCO2/kWh × (carbon tax × fuel coverage + ETS cost) + fuel price reform per kWh. The levelised fixed cost (C) includes the renewable subsidy per kWh of the scenario (chapter Power 3.3). The shadow price per kWh is the power shadow price × tCO2/kWh; the rebate returns it in proportion to base-year shares, per kWh generated. Total variable cost = cost before new policies + new policy cost + shadow price + rebate. D9 = discounted average of the total variable cost to 2041, the last year (as legacy). E1 = MAX(levelised fixed cost + D9, 0.01).
 
-### 3. Validation (`check_report_v6.4.md`)
+### 3. Validation (`check_report_v0.6.4.md`)
 
 1. **Method = legacy.** The Python reference, fed with the cached legacy inputs and the bugs switched on, reproduces 208 legacy rows of the baseline and the carbon-tax run.
 2. **Workbook = Python.** With all bugs fixed and the prototype inputs, the workbook matches the Python reference for every power row, in every scenario test.
@@ -82,11 +82,11 @@ New policy cost per kWh (D5) = tCO2/kWh × (carbon tax × fuel coverage + ETS co
 6. **Totals.** Fuel use, revenue and CO2 totals with power equal the Python reference; with non-zero existing carbon pricing test data, the power variable cost, revenues by type and totals match too. Check rows confirm that the totals equal their sector, power and fuel parts.
 
 
-### Manual capacity and investment (v5.6, power plan P3)
+### Manual capacity and investment (v0.5.6, power plan P3)
 
 Where a scenario's NewInv<type> = Manual (ScenarioDefinition rows 397-405), the type follows the capacity path of 'Manual inputs' (rows 349-357 for scenario 1, rows 363-371 for the other scenarios; names ManCapVal, ManCapYr). Row mancap reads the path; row mani is the manual new effective investment, MAX(0, next year's path - this year's path + retirement) x capacity factor (0 in 2041); the type gets no logit investment (permit 0). Row needm = MAX(need - SUM(mani), 0) sizes the logit and second-round investment: legacy computes this need (row 4108) but never uses it, so its logit investment comes on top of the manual one (legacy bug L118, fixed). New effective investment nei = first + second (+ gas deficit) + mani. Test (scenario 2, nuclear 2,400 MW from 2030): 2,400 MW nameplate built in 2029, then the retirements replaced.
 
-### Coal implicit cost (v5.6, power plan P5)
+### Coal implicit cost (v0.5.6, power plan P5)
 
 Rows cics, cicl and cic (sub-table D): AdditionalCoalIntangibleCost (ScenarioDefinition 369) No = 0, Manual = ScenarioDefinition 370-371, else the GoalSeekCoal table (legacy tab, 85 countries, not Egypt) by country; linear from the first year of calculations to CoalICYr (2030), as legacy rows 3360-3363. It is added to the coal variable cost (dispatch, levelised cost, investment) and, unless Settings PwCoalICTariff = No (default Yes, as legacy; decision 6), to the generation cost and tariffs. Memo rows (sub-table E): fce (post-tax fuel cost per kWh, legacy F2-F3), cik (tCO2 per kWh, F4), swi and swd (switching carbon prices gas over coal for new investment and dispatch, F7; F1, F5 and F6 are rows lfx/tic and tvc). The GoalSeekCoal calibration script is not built.
 
@@ -135,7 +135,7 @@ Each gives the same numbers as legacy (checked in the Python reference, section 
 | S2 | Six levelised tables (C1-C6) summed in C7; discount-factor tables A5, A6 | One levelised fixed cost per type (3.3), with the discounted lifetime in closed form | Yes |
 | S3 | Duplicates: A16 = B7 = C4 (fixed O&M), D7 = D8 (variable cost), E1 = E4 (investment cost), F2/F3 (fuel prices and fuel cost), E2 (cost before storage), E5 (breakdown memo) | Each quantity once | n/a |
 | S4 | Residential and industrial price: supply cost + producer subsidy + other tax + "over/under-estimated costs" residual, the last three held at their last-historical-year values, then VAT | Telescoped: after the last historical year the price before policies changes by pass-through × the change in supply cost × (1 + VAT); data before. The three held components cancel out of the change | Yes (pass-through 1, VAT constant after the last historical year, as legacy) |
-| S5 | Fuel prices for power: 5-year moving average (A18; spot prices are a dashboard option) | v6.2 (legacy bug L126, user 2026-10-20): trailing average of the price before new policies over t-4 .. t within the scenario's own years (legacy t-2 .. t+2 read later years); spot prices a switch | Price changes reach power costs about two years later | Bug fix |
+| S5 | Fuel prices for power: 5-year moving average (A18; spot prices are a dashboard option) | v0.6.2 (legacy bug L126, user 2026-10-20): trailing average of the price before new policies over t-4 .. t within the scenario's own years (legacy t-2 .. t+2 read later years); spot prices a switch | Price changes reach power costs about two years later | Bug fix |
 | S6 | Coal implicit cost (D3) and the additional shadow price (D6) | Not built (both 0 in the Egypt run, no coal in Egypt's mix) | Yes for Egypt |
 | S7 | Producer-side subsidies and the over/under-estimate residual as rows | Not needed for prices (S4). Reported as one subsidy gap = price before VAT − supply cost (negative = subsidy), for revenue analysis | Yes for prices |
 
@@ -177,7 +177,7 @@ Levelised fixed cost (S2) = (cax + dtc + tcx) / (cf × 8,760 × dlf) + marginal 
 
 #### 3.4 D. Current variable costs
 
-- Fuel price for power (A18; v6.2, legacy bug L126): average of the fuel price before new policies `fpn` over t-4 .. t from the base year (one year in 2022, five from 2026); legacy averages t-2 .. t+2, which reads later years. The spot price is a switch. Row `fpn` holds this year's price, so the average reads one row and only the scenario's own years.
+- Fuel price for power (A18; v0.6.2, legacy bug L126): average of the fuel price before new policies `fpn` over t-4 .. t from the base year (one year in 2022, five from 2026); legacy averages t-2 .. t+2, which reads later years. The spot price is a switch. Row `fpn` holds this year's price, so the average reads one row and only the scenario's own years.
 - Fuel cost per kWh = fuel price × 0.0036 / ν. Nuclear: 0.004 $/kWh. Renewables 0.
 - Change in existing carbon pricing against the price data (chapter Prices section 5b): tCO2/kWh × the change in the existing carbon tax and ETS price, weighted by their coverage of power and the fuel (0 for Egypt).
 - Variable cost before new policies = variable O&M + fuel cost + change in existing carbon pricing.
@@ -240,7 +240,7 @@ The revenue totals add a power row: existing taxes = fuel taxes + change in exis
 3. **Formula uniformity** and copies of scenario groups, as for the rest of the sheet.
 4. **Regression** against the previous version (shared output codes). The power block feeds total fuel use (generation fuel use), revenues and CO2.
 
-Result at the first build of the price block (`check_report_v1.05.md`, PASS): 80 legacy rows reproduced, largest relative difference 5.6e-17; all 28 power variables equal the Python reference in every scenario test, largest relative difference about 5e-15; one formula per block; 3,642 codes unchanged against the previous version.
+Result at the first build of the price block (`check_report_v0.1.05.md`, PASS): 80 legacy rows reproduced, largest relative difference 5.6e-17; all 28 power variables equal the Python reference in every scenario test, largest relative difference about 5e-15; one formula per block; 3,642 codes unchanged against the previous version.
 
 ### 5. Decisions
 
@@ -250,7 +250,7 @@ Result at the first build of the price block (`check_report_v1.05.md`, PASS): 80
 4. Producer-side subsidy data: the corrected block has none for electricity; legacy used −9.2 bn USD in 2022. The prototype reports the modelled subsidy gap instead (S7).
 
 
-### v5.6: fuel price reform, price floor, renewable subsidies in real terms
+### v0.5.6: fuel price reform, price floor, renewable subsidies in real terms
 
 - The electricity fuel price reform path of the scenario (section-1 rows fpr.ecy.res, fpr.ecy.ind; ScenarioDefinition 148-149, 162-163) enters the manual excise of policy scenarios (row entx), as legacy row 216 (issue I59, replicated).
 - End-user electricity prices are floored at MinPostSubsidyPowerPrice (row rp), as legacy rows 3617 and 3646 (issue I60, replicated; 0.01 $/kWh: not binding for Egypt).
@@ -265,7 +265,7 @@ Source: `CPAT 1.0pre_456_NoPropData.xlsb` (cached run: Egypt, EGY, baseline). It
 **Cross-check result:** I recomputed every copied cell from the cached Mitigation values (the `v_Mitigation` dump) and compared it with the three CSVs: **0 mismatches** (relative tolerance 1e-12). This covers all 9 techs × 17 traced tech columns, all 37 path rows × 20 years, and all 22 params.
 
 
-**v4.10: the legacy bugs this spec documents are fixed in the prototype's data step (user rule: bugs are never replicated).**
+**v0.4.10: the legacy bugs this spec documents are fixed in the prototype's data step (user rule: bugs are never replicated).**
 The chains below describe legacy as it is. The prototype departs from them in five places (register L52-L56): Rule-C for
 every type (L52, section 1.1); the actual capacity factor from installed capacity of the base year over Power F:AC,
 inside the CFOverride bounds (L53, section 1.2); hydro investment from the base year only above a 50% hydro share

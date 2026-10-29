@@ -33,7 +33,7 @@ AP_TABLES = (
 YEARS = tuple(range(2022, 2042))
 SCENARIOS = ("Baseline", "Policy")
 COUNTRY_DEFAULT = "SEN"
-MITIGATION_VERSION = "CPAT-AI-Mitigation-MVP-v7.1"
+MITIGATION_VERSION = "CPAT-AI-Mitigation-MVP-v0.7.1"
 
 POLLUTANTS = (
     ("nox", "NOx"),
@@ -291,7 +291,7 @@ def build_inputs(wb: Workbook) -> None:
     style_title(ws, last_col, "Mitigation Inputs: air-pollutant emissions")
 
     note = (
-        "Paste baseline and policy values by aps code and year. Mitigation v7.1 defines aps values in kt; "
+        "Paste baseline and policy values by aps code and year. Mitigation v0.7.1 defines aps values in kt; "
         "1.0pre_459 reads country.mit.em.<pollutant>.<sector>.<scenario> in Ton/year. "
         "The legacy code columns are a traceability crosswalk only; no conversion is applied in this scaffold."
     )

@@ -1,4 +1,4 @@
-"""v9.0 (R10.8-R10.9): goal seek of the range-anxiety start values on the prototype's own engineer road model.
+"""v0.9.0 (R10.8-R10.9): goal seek of the range-anxiety start values on the prototype's own engineer road model.
 
 Legacy CPAT stores, by country, the range anxiety (USD per vehicle) of passenger cars, freight and 2-3 wheelers that
 makes the model's EV sales share equal the actual one in the fit year (sheet Transport3, A1 = 2025; solver results in

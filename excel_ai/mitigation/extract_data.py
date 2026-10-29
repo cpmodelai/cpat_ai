@@ -1,12 +1,12 @@
-"""v2.3 (version number aligned with CPAT-AI-Mitigation-Prototype v4.7; content as the previous version in Old/). 
+"""v0.2.3 (version number aligned with CPAT-AI-Mitigation-Prototype v0.4.7; content as the previous version in Old/). 
 
-Extract the source data for CPAT_Mitigation_CopyPaste (v0.9 onwards) into data/*.csv.
+Extract the source data for CPAT_Mitigation_CopyPaste (v0.0.9 onwards) into data/*.csv.
 
 v0.2 adds: international price forecasts by source (legacy Mitigation rows 633-695), US CPI and GDP
 deflator (legacy Mitigation rows 452, 455) and the country price assumptions (Prices_int regional table).
 
 Sources (all non-proprietary, already in the repo):
-v8.5 (LD41, 2026-10-29): legacy source moved from CPAT 1.0pre_456 to CPAT 1.0pre_465 (same rows: all rows read here are
+v0.8.5 (LD41, 2026-10-29): legacy source moved from CPAT 1.0pre_456 to CPAT 1.0pre_465 (same rows: all rows read here are
 above the first row 465 deleted, Mitigation 5667); base-year energy use and GDP growth now read from legacy 465 itself
 (cached values of Mitigation rows 583-601 and 2446) instead of the Kernel v1.6 file (a copy of the 456 rows).
 
@@ -31,10 +31,10 @@ from pyxlsb import open_workbook
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..'))     # excel_ai/
-LEGACY = os.path.join(ROOT, 'legacy', 'workbooks', 'CPAT 1.0pre_465_NoPropData.xlsb')   # v8.5 (LD41): was 456
+LEGACY = os.path.join(ROOT, 'legacy', 'workbooks', 'CPAT 1.0pre_465_NoPropData.xlsb')   # v0.8.5 (LD41): was 456
 PRICES = os.path.join(ROOT, 'standalone_initial_prototypes', 'CPAT_PriceModule_Data_1.xlsx')
 OUT = os.path.join(HERE, '..', '..', 'data', 'mvp_legacy_extracts')
-SRC_ISO = 'EGY'   # v3.3: country of the source files (legacy run): the key of the rows written
+SRC_ISO = 'EGY'   # v0.3.3: country of the source files (legacy run): the key of the rows written
 
 GROUPS = ['LIC', 'LMIC', 'UMIC', 'HIC']
 SECTOR_CODE = {'Transport': 'tra', 'Residential': 'res', 'Industry': 'ind', 'Services': 'srv'}
@@ -43,13 +43,13 @@ FUEL_CODE = {'Coal': 'coa', 'Natural Gas': 'nga', 'Gasoline': 'gso', 'Diesel': '
              'Electricity': 'ecy'}
 SUBSECTORS = ['rod', 'ral', 'avi', 'nav', 'res', 'foo', 'srv',
               'mch', 'irn', 'nfm', 'mac', 'cem', 'omn', 'cst', 'ftr', 'oen']
-FUELS = ['coa', 'nga', 'gso', 'die', 'lpg', 'ker', 'jfu', 'oop', 'bio']   # v3.11: jet fuel (issue I19)
+FUELS = ['coa', 'nga', 'gso', 'die', 'lpg', 'ker', 'jfu', 'oop', 'bio']   # v0.3.11: jet fuel (issue I19)
 
 
 def write(name, header, rows):
     os.makedirs(OUT, exist_ok=True)
     with open(os.path.join(OUT, name), 'w', newline='', encoding='utf-8') as f:
-        w = csv.writer(f, lineterminator='\n')       # v5.7 (I33): LF line ends, as the files in the repository
+        w = csv.writer(f, lineterminator='\n')       # v0.5.7 (I33): LF line ends, as the files in the repository
         w.writerow(header)
         w.writerows(rows)
     print(f'{name}: {len(rows)} rows')
@@ -94,7 +94,7 @@ def extract_elasticities():
 def extract_ef():
     rows = legacy_sheet('Mitigation', 20)
     out, conv = [], {}
-    for i in range(979, 1011):  # rows 980-1011 (v3.11: 1010-1011 jet fuel)
+    for i in range(979, 1011):  # rows 980-1011 (v0.3.11: 1010-1011 jet fuel)
         r = rows[i]
         fuel, sec = r[1], r[2]
         if fuel not in FUELS:
@@ -124,15 +124,15 @@ def extract_prices():
 
 
 def extract_base_year():
-    """v8.5 (LD41): base-year energy use (Mitigation rows 583-601) and real GDP growth (row 2446) from the cached values
-    of legacy 465. Until v8.4 both came from Kernel v1.6 (Data_Energy, Data_Macro), a copy of the same 456 rows."""
+    """v0.8.5 (LD41): base-year energy use (Mitigation rows 583-601) and real GDP growth (row 2446) from the cached values
+    of legacy 465. Until v0.8.4 both came from Kernel v1.6 (Data_Energy, Data_Macro), a copy of the same 456 rows."""
     rows = legacy_sheet('Mitigation', 40)
     assert rows[0][10] == 2021 and rows[0][11] == 2022, rows[0][10:12]       # row 1: K = 2021, L = 2022
     sub = {v: j for j, v in enumerate(rows[580]) if v in SUBSECTORS}         # row 581: subsector codes E-V
     assert sorted(sub) == sorted(SUBSECTORS), sub
     fuel_row = {rows[i][2]: i for i in range(582, 601)}                        # rows 583-601: fuel code in column C
     out = []
-    for fuel in ['coa', 'nga', 'oop', 'gso', 'die', 'ker', 'lpg', 'jfu', 'bio']:   # order of the kernel file (v8.4)
+    for fuel in ['coa', 'nga', 'oop', 'gso', 'die', 'ker', 'lpg', 'jfu', 'bio']:   # order of the kernel file (v0.8.4)
         i = fuel_row[fuel]
         assert str(rows[i][1]).startswith(f'{SRC_ISO.lower()}.mit.enc.'), rows[i][1]
         for s in SUBSECTORS:
@@ -185,6 +185,6 @@ if __name__ == '__main__':
     extract_elasticities()
     extract_ef()
     extract_prices()
-    import update_prices_egypt          # v5.7 (I33): the corrected Egypt block goes back over the dataset
+    import update_prices_egypt          # v0.5.7 (I33): the corrected Egypt block goes back over the dataset
     update_prices_egypt.main()
     extract_base_year()

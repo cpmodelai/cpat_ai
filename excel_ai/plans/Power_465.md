@@ -1,4 +1,4 @@
-# Power engineer model: legacy 456 -> 465 (v9.0, group POW465)
+# Power engineer model: legacy 456 -> 465 (v0.9.0, group POW465)
 
 The prototype's power engineer model (Mitigation section 3; Python reference `excel_ai/mitigation/power_model_ref.py`)
 was written from legacy 456 with the legacy bugs fixed. LD41 moved the data extracts to legacy 465, and 465 changed
@@ -71,7 +71,7 @@ not repeated here (deferred, see the changes file).
   - L1-L12, L67: the engine runs with all of `power_model_ref.FIXES`.
   - L52-L55, L109: the data step.
   - L126: the trailing t-4 .. t average from the base year, which is exactly 465's coal, gas and oil formula.
-  - L83, L84, L88, L110, L111, L113, L118: built in v5.4-v6.2.
+  - L83, L84, L88, L110, L111, L113, L118: built in v0.5.4-v0.6.2.
 
   The prototype's data step (`power_model_ref.mvp_data`, as `check_full.power_data`) gives the same values as the 465
   cached A4 data (`power_tech.csv`) for all 9 types and 12 columns: capacity factors, efficiencies, cap0, gen0,
@@ -91,7 +91,7 @@ not repeated here (deferred, see the changes file).
     +0.00027 $/kWh in 2025 (0.044272 against 0.044002).
   - The residual needs the consumer tax/subsidy of the last price year, `txe`. That is the parallel group's R9 (rows
     3604-3606), which also edits the same `rppre` formula. So it was handed to the R6-R10 group and built there
-    (v9.0, R9.3a-b: row `ores`; LegacyDiff 32; `CAVEATS.md` 2026-10-29).
+    (v0.9.0, R9.3a-b: row `ores`; LegacyDiff 32; `CAVEATS.md` 2026-10-29).
 
 ## 5. Reference test (power_model_ref.py)
 

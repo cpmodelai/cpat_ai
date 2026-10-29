@@ -132,7 +132,7 @@ End Function
 
 Private Function MitPath() As String
     ' the mitigation workbook of Cover (MitSource): a full path or a web address as it is; a name alone next to this
-    ' workbook, in permalink\ next to it, one folder up, or in permalink\ one folder up (v1.1: the mitigation
+    ' workbook, in permalink\ next to it, one folder up, or in permalink\ one folder up (v0.1.1: the mitigation
     ' prototype's permalink copy is excel_ai\permalink\; release copies sit in excel_ai\releases\); not found: ask
     Dim s As String, cands As Variant, c As Variant, f As Variant
     s = Trim(CStr(ThisWorkbook.Names("MitSource").RefersToRange.Value))

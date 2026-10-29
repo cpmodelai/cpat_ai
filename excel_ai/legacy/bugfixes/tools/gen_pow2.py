@@ -96,7 +96,7 @@ bug('L53', 'High', 'Actual capacity factors are never used', 'Mitigation A4, row
         'N2999:N3007')],
     'Power tab rows 357-1635 (installed capacity by country and type, years 2000-2023 in F:AC). Q2999 = IFERROR(M2999/N2999,0) '
     'and W2999 = IF(AND(Q<T,Q>S),Q,R) then work as written.',
-    'Egypt base year (prototype v4.10, same Power data): actual capacity factors gas 0.385 (studies 0.566), wind 0.436 (0.30), '
+    'Egypt base year (prototype v0.4.10, same Power data): actual capacity factors gas 0.385 (studies 0.566), wind 0.436 (0.30), '
     'solar 0.347 (0.18), hydro 0.592 (0.432); oil stays at the studies 0.134 (actual 1.59 is above CFOverrideIfAbove). '
     'Base-year gas capacity (Y3000) 52.0 GW instead of 35.4 GW. Changes capacities, dispatch and investment in every year.')
 
@@ -138,7 +138,7 @@ bug('L67', 'Medium', "Capacity bought for this year's demand, although it comes 
     [pf('L4027', sub('L4027', ('L3752', 'M3752')), 'L4027:AE4027')],
     'Row label of 4027. Next year\'s demand depends only on this year\'s prices (rows 3688-3689 read the previous column), so '
     'there is no circularity. AE4027 then reads AF3752, which already = AE3752 (2041: this year\'s demand, as in the prototype).',
-    'Egypt (legacy inputs, prototype v4.14): capacity +3% by 2030, gas generation -3%, wind and solar generation +4%.')
+    'Egypt (legacy inputs, prototype v0.4.14): capacity +3% by 2030, gas generation -3%, wind and solar generation +4%.')
 bug('L83', 'Medium', 'Electricity producer subsidy compounds the factor and lags a year', 'Mitigation G1/G2, rows 3592, 3601, 3630',
     'From 2025 (column O) the projection is last year\'s value x last year\'s phase-out factor (O3601 = N3601 * N2213), so '
     'the factors multiply year on year and act a year late; row 3630 uses the base value $J3630 but last year\'s factor.',

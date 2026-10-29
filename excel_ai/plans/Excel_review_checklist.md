@@ -1,10 +1,10 @@
-# Excel 365 review checklist (CPAT-AI-Mitigation-Prototype v6.4; issue I1)
+# Excel 365 review checklist (CPAT-AI-Mitigation-Prototype v0.6.4; issue I1)
 
 The workbook is built with openpyxl and checked in LibreOffice, which does not run LAMBDAs or VBA the way Excel does. This list is the review in Excel 365 on Windows. For each step, note OK or what you see (sheet, cell, message) in the last column, and send the list back. Do not save over the shipped file: work on a copy.
 
 | # | Step | Expected | Result |
 |---|---|---|---|
-| 1 | Open a copy of `CPAT-AI-Mitigation-Prototype-v6.4.xlsm` and enable macros. | Opens without a repair prompt. No external-link warning. | |
+| 1 | Open a copy of `CPAT-AI-Mitigation-Prototype-v0.6.4.xlsm` and enable macros. | Opens without a repair prompt. No external-link warning. | |
 | 2 | Formulas > Calculate Now, then Ctrl+Alt+F9 (full recalculation). | No circular-reference warning; the status bar shows no "Circular References". | |
 | 3 | Formulas > Name Manager: filter the names for errors. | No name shows #REF! or #NAME?. The LAMBDA names (FUELUSE, SUPPLYCOST, PRODSUBUNIT, ...) are listed. | |
 | 4 | Sheet Mitigation, LAMBDA year 2041 and test group 3: look for error values (Home > Find & Select > Go To Special > Formulas > Errors). | None found. | |

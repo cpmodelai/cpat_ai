@@ -1,4 +1,4 @@
-"""Priorities, fixes and effects of the legacy bugs (read by register.py), and the deck counts (v8.4: LegacyBugFixes.md
+"""Priorities, fixes and effects of the legacy bugs (read by register.py), and the deck counts (v0.8.4: LegacyBugFixes.md
 retired; its content is in Legacy_CPAT_Bugs_v<version>.docx and the tracker).
 
 The register holds every bug found in legacy CPAT while rebuilding it (L1-L24). This script writes the short list the
@@ -22,16 +22,16 @@ PRIORITY = {'L1': 'High', 'L3': 'High', 'L13': 'High', 'L18': 'High', 'L19': 'Hi
             'L49': 'Medium', 'L50': 'Low', 'L51': 'Low',
             'L52': 'Medium', 'L53': 'High', 'L54': 'Medium', 'L55': 'Low', 'L56': 'Low', 'L57': 'Medium', 'L58': 'Medium', 'L59': 'Medium', 'L60': 'Low', 'L61': 'Low', 'L62': 'Low', 'L63': 'Low', 'L64': 'Low', 'L65': 'Low', 'L66': 'Low', 'L67': 'Medium',
             'L68': 'Medium', 'L69': 'Low', 'L70': 'Low', 'L71': 'Low', 'L72': 'Low', 'L73': 'Low', 'L75': 'Low',
-            'L76': 'Low', 'L77': 'Medium', 'L78': 'Low', 'L79': 'Medium', 'L80': 'Low',             # v4.15
+            'L76': 'Low', 'L77': 'Medium', 'L78': 'Low', 'L79': 'Medium', 'L80': 'Low',             # v0.4.15
             'L81': 'Low', 'L82': 'Low', 'L83': 'Medium', 'L84': 'Low', 'L85': 'Low', 'L86': 'Low', 'L87': 'High',
-            'L88': 'Medium', 'L89': 'Low',                                                        # v4.16
-            'L90': 'Low', 'L91': 'Low', 'L92': 'Low', 'L93': 'Low', 'L94': 'Low',                 # v5.1: residential
+            'L88': 'Medium', 'L89': 'Low',                                                        # v0.4.16
+            'L90': 'Low', 'L91': 'Low', 'L92': 'Low', 'L93': 'Low', 'L94': 'Low',                 # v0.5.1: residential
             'L95': 'Low', 'L96': 'Low', 'L97': 'Low', 'L112': 'Medium', 'L113': 'Low', 'L114': 'Low', 'L115': 'Medium', 'L116': 'Low', 'L117': 'Low', 'L118': 'Medium', 'L119': 'Medium', 'L120': 'Low', 'L121': 'Low', 'L122': 'Medium', 'L123': 'Medium', 'L124': 'Low', 'L125': 'Low', 'L126': 'Medium', 'L127': 'Low', 'L128': 'Low', 'L129': 'Medium', 'L130': 'Low',
-            'L107': 'Low', 'L108': 'Medium', 'L109': 'Low', 'L110': 'Low', 'L111': 'Low',   # v5.4
-            'L98': 'Medium', 'L99': 'Medium', 'L100': 'Low', 'L101': 'Low', 'L102': 'Low', 'L103': 'Low', 'L104': 'Low', 'L105': 'Medium', 'L106': 'Low',   # v5.2                                             # v5.1: team tracker
+            'L107': 'Low', 'L108': 'Medium', 'L109': 'Low', 'L110': 'Low', 'L111': 'Low',   # v0.5.4
+            'L98': 'Medium', 'L99': 'Medium', 'L100': 'Low', 'L101': 'Low', 'L102': 'Low', 'L103': 'Low', 'L104': 'Low', 'L105': 'Medium', 'L106': 'Low',   # v0.5.2                                             # v0.5.1: team tracker
             'L4': 'Low', 'L7': 'Low', 'L8': 'Low', 'L9': 'Low', 'L10': 'Low', 'L11': 'Low', 'L12': 'Low', 'L23': 'Low', 'L131': 'Low', 'L132': 'Low', 'L133': 'Low', 'L134': 'Low'}
 ORDER = {'High': 0, 'Medium': 1, 'Low': 2}
-DECK = os.path.join(HERE, 'presentation', 'img', f'v{B.VERSION.replace(".", "")}_legacy.json')   # for the deck
+DECK = os.path.join(HERE, 'presentation', 'img', f'v{B.VERSION.replace(".", "_")}_legacy.json')   # for the deck
 SHORT = {  # one-line effect of each high-priority bug (deck)
     'L1': 'Services electricity demand follows the industry multiple: the largest single power-demand error',
     'L3': 'Income factor applied twice: the GDP elasticity drifts, error growing to 2040',
@@ -113,7 +113,7 @@ FIX = {  # L11 onwards (the register records what the prototype did; this is wha
     'L66': ('Add the industrial additional efficiency to the fossil rows of other energy use.',
             'None while the input is 0.'),
     'L67': ('Size the investment need on next year\'s demand (row 4027), as its label says, estimated as this year\'s demand x (1 + growth from last year to this year): reading next year\'s demand itself would make the workbook circular through the GDP feedback once a revenue reads fuel use (the methane fee).',
-            'Egypt (legacy inputs, v6.2 estimate): capacity 77.9 GW in 2030 and 109.6 GW in 2040 against legacy 75.2 and 107.3 (next year read directly: 77.3, 109.5); the need follows the 2023-2024 demand shock (4.3 GW in 2024, 0 in 2025).'),
+            'Egypt (legacy inputs, v0.6.2 estimate): capacity 77.9 GW in 2030 and 109.6 GW in 2040 against legacy 75.2 and 107.3 (next year read directly: 77.3, 109.5); the need follows the 2023-2024 demand shock (4.3 GW in 2024, 0 in 2025).'),
     'L68': ('Apply multiplier(t - s) to the impulse of year s (lag 0 in the impulse year), as the multiplier notes '
             'define the lags.', 'The GDP effect of every impulse comes one year early.'),
     'L69': ('Match the first cohort\'s excise use on its own row (L14372, baseline L8056), not L$8113.',
@@ -226,11 +226,11 @@ FIX = {  # L11 onwards (the register records what the prototype did; this is wha
     'L96': ("Give the additional-efficiency increments their own labelled rows; label the LPG and kerosene shadow-price rows 'All'; correct the typo.",
             'None on values; formula audits misread the additional-efficiency term as a carbon-price setting.'),
     'L97': ("Delete the memo rows (or move them to a diagnostics area with the year's own growth M2446).",
-            'None (dead calculation); would be wrong if anything used it.')}   # v5.1: L95-L97 from the team tracker
+            'None (dead calculation); would be wrong if anything used it.')}   # v0.5.1: L95-L97 from the team tracker
 
 
 def _transport():
-    """v3.5: PRIORITY and FIX of the engineer road-model bugs (L25+), from transport_model_ref: the fix text of
+    """v0.3.5: PRIORITY and FIX of the engineer road-model bugs (L25+), from transport_model_ref: the fix text of
     FIXES and the Egypt effect of each fix alone in the engineer baseline, 2035. Medium = changes the Egypt engineer
     run (the legacy Egypt run itself uses the elasticity road model); Low = latent (policy or fuel zero in Egypt)."""
     import transport_model_ref as T
@@ -258,22 +258,22 @@ PRIORITY.update(TR_PRI)
 FIX.update(TR_FIX)
 
 
-CHECK465 = os.path.join(HERE, '..', 'legacy', 'bugfixes', 'check465', 'legacy465_check.json')   # v8.2: fixes the CPAT team made in 465
+CHECK465 = os.path.join(HERE, '..', 'legacy', 'bugfixes', 'check465', 'legacy465_check.json')   # v0.8.2: fixes the CPAT team made in 465
 
 
 def legacy465(lid):
-    """v8.2: the bug in legacy 465 (column "In legacy 465"): open, or the check of the CPAT team's fix."""
+    """v0.8.2: the bug in legacy 465 (column "In legacy 465"): open, or the check of the CPAT team's fix."""
     chk = json.load(open(CHECK465, encoding='utf-8'))['bugs'] if os.path.exists(CHECK465) else {}
     return {'Confirmed fixed': 'Fixed', 'Fixed with caveats': 'Fixed with caveats',
             'Not fixed': 'Not fixed (marked fixed)'}.get(chk.get(lid, {}).get('status'), 'Open')
 
 
 def mvp_status(lid):
-    """v3.7: what the prototype does about the bug, in a word or two (column "In the prototype")."""
+    """v0.3.7: what the prototype does about the bug, in a word or two (column "In the prototype")."""
     st = {x[0]: x[4] for x in R.LEGACY}.get(lid, 'Fixed')
     if st.startswith('Kept'):
         return 'Kept as legacy'
-    if st.startswith('Copied'):                       # v8.2: L134, labels copied from legacy, queued to fix
+    if st.startswith('Copied'):                       # v0.8.2: L134, labels copied from legacy, queued to fix
         return 'Copied (labels), to fix'
     if st.startswith(('Harmless', 'Not built')):
         return 'Not built'

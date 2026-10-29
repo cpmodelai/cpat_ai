@@ -204,7 +204,7 @@
   },
   "L126": {
    "status": "Fixed with caveats",
-   "note": "coal, gas and oil (L3155:AE3157) use the trailing t-4 .. t window, as the prototype; biomass L3163:AE3163 (policy row 9479) is still AVERAGE(J3080:N3080), the centred window that reads later years (re-checked 2026-10-29, v9.0 POW465; was \"Confirmed fixed\")"
+   "note": "coal, gas and oil (L3155:AE3157) use the trailing t-4 .. t window, as the prototype; biomass L3163:AE3163 (policy row 9479) is still AVERAGE(J3080:N3080), the centred window that reads later years (re-checked 2026-10-29, v0.9.0 POW465; was \"Confirmed fixed\")"
   },
   "L128": {
    "status": "Confirmed fixed",
@@ -224,7 +224,7 @@
   },
   "L95": {
    "status": "Fixed with caveats",
-   "note": "rows 3691-3709 and 2827, 2828, 2834 read M2198 and row 3719 was cleared, but P2823:AE2823 (total power demand) and M2836:AE2836 (direct rebound) still read $M3719, now empty, so the additional power-demand efficiency drops out of those rows (same in the policy block, $M10035); point them at $M2198; re-checked 2026-10-29 (v9.0 POW465): P2823:AE2823 still read the cleared $M3719"
+   "note": "rows 3691-3709 and 2827, 2828, 2834 read M2198 and row 3719 was cleared, but P2823:AE2823 (total power demand) and M2836:AE2836 (direct rebound) still read $M3719, now empty, so the additional power-demand efficiency drops out of those rows (same in the policy block, $M10035); point them at $M2198; re-checked 2026-10-29 (v0.9.0 POW465): P2823:AE2823 still read the cleared $M3719"
   },
   "L87": {
    "status": "Fixed with caveats",
@@ -260,7 +260,7 @@
   },
   "L82": {
    "status": "Confirmed fixed",
-   "note": "not reproduced in 465 (checked 2026-10-29, v9.0 R6R10): K2547 =K$826, O2547 =$J2548*O2213"
+   "note": "not reproduced in 465 (checked 2026-10-29, v0.9.0 R6R10): K2547 =K$826, O2547 =$J2548*O2213"
   }
  }
 }

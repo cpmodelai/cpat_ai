@@ -1,4 +1,4 @@
-"""v4.4: Python reference of the Distribution sheet (one scenario group, one analysis year), the independent check of
+"""v0.4.4: Python reference of the Distribution sheet (one scenario group, one analysis year), the independent check of
 its formulas. Same chain and data as the sheet (data/legacy_*.csv, distn_catmap.csv); inputs from Mitigation are passed in.
 python distribution_ref.py  ->  runs it on legacy's cached Egypt inputs and compares with legacy's cached
 outputs (legacy Distribution / MTOutputs, $50 carbon tax in 2030), listing the differences the bug fixes cause.
@@ -33,7 +33,7 @@ def num(x):
 
 
 def _hh_wide(name):
-    """v4.5: legacy HHSurvey / HH_Elast (one row per sample, statistic and quantile; variables across) as
+    """v0.4.5: legacy HHSurvey / HH_Elast (one row per sample, statistic and quantile; variables across) as
     {iso|sample|stat|variable: {'b': basket, '1'..'10': deciles}}."""
     out = {}
     for r in table(name):
@@ -45,7 +45,7 @@ def _hh_wide(name):
 
 
 HH = {**_hh_wide('legacy_HHSurvey.csv'), **_hh_wide('legacy_HH_Elast.csv')}
-IO = {}                                                   # v4.7: legacy IO_GTAP (series rows, sectors across)
+IO = {}                                                   # v0.4.7: legacy IO_GTAP (series rows, sectors across)
 for _r in table('legacy_IO_GTAP.csv'):
     _iso, _ser = _r['dis'].split('.', 1)
     for _k, _v in list(_r.items())[4:]:
@@ -172,7 +172,7 @@ def run(inp, iso='EGY', fix=True):
             t = min(pct - c0, 0.1) if pct >= c0 else 0        # later deciles capped at 10 points (bug)
         recv.append((t * cov + max(x - t, 0) * leak) / x if fix else (t * cov + (x - t) * leak) / x)
         c0 += x
-    w = [1.0] * len(D)                                       # v6.0: weight of the decile (cash: 1)
+    w = [1.0] * len(D)                                       # v0.6.0: weight of the decile (cash: 1)
     mode, code = 'Cash', s.get('tgt_code', 'Cash')
     if fix and code != 'Cash' and f'{iso}.{code}1_preT_tot' in ASP:   # ASPIRE incidence (fix D10, D11)
         mode, w = 'ASPIRE', [ASP.get(f'{iso}.{code}{math.ceil(d / 2)}_preT_tot', 0) for d in D]

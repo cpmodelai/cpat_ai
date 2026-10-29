@@ -1,4 +1,4 @@
-"""The register as one list of records, the same fields for every module and kind (v8.4, user 2026-10-28).
+"""The register as one list of records, the same fields for every module and kind (v0.8.4, user 2026-10-28).
 
 Source data: issues_register.py (bugs, issues, upgrades), build.py (LegacyDiff rows), make_legacy_fixes.py (priority,
 fix and effect of the legacy bugs), the cell plans (excel_ai/legacy/bugfixes/data) and the check of the CPAT team's
@@ -7,7 +7,7 @@ document (make_bugfix_book.py), the tracker (make_tracker.py), the documentation
 lists BUGS.md, ISSUES.md (make_replication_lists.py).
 
 The rule (NORMS 0): a bug is fixed, never replicated; an issue is replicated and tracked. Data problems are issues
-(area Data; v8.5: the kinds DB and DI are retired): replicated, or kept by user decision; where legacy needs a formula
+(area Data; v0.8.5: the kinds DB and DI are retired): replicated, or kept by user decision; where legacy needs a formula
 change for them, that change is a bug (L) with its cell plan.
 """
 import functools
@@ -54,19 +54,19 @@ POWER = ({f'L{k}' for k in range(1, 13)} | {f'L{k}' for k in range(52, 57)} | {'
 TRANSPORT = {f'L{k}' for k in range(25, 42)}
 DIST = {f'L{k}' for k in range(138, 169)} | {f'I{k}' for k in range(76, 85)} | {'I96'}
 INPUTS = {'L137', 'I85', 'I86', 'I87', 'I88'}
-DATA = R.DATA_ISSUES | {'L170'}                       # v8.5: the data problems (were DI, DB)
+DATA = R.DATA_ISSUES | {'L170'}                       # v0.8.5: the data problems (were DI, DB)
 EXTRA_STATUS = {  # legacy bugs not in R.LEGACY: status in the prototype
-    'L135': 'Fixed (v9.0, R8.6-R8.7): the methane intensity index (Manual inputs J185:J188) applies to every source, '
+    'L135': 'Fixed (v0.9.0, R8.6-R8.7): the methane intensity index (Manual inputs J185:J188) applies to every source, '
             'agriculture and waste included (section 14 rows ch4.int; issue I141); found by the cell plans '
             '(2026-10-20), to confirm with the CPAT team.',
     'L136': 'Fixed by construction: every fuel\'s new-policy price carries the new ETS and its VAT; found by the cell '
             'plans (2026-10-20), to confirm with the CPAT team.',
     'L170': 'Fixed: a blank VAT cell takes the general VAT rate (VAT_WEO) for residential coal and gas and the oil '
-            'products, 0 for power, industry and biomass (since v0.14; was departure LD3, data bug DB2).'}
+            'products, 0 for power, industry and biomass (since v0.0.14; was departure LD3, data bug DB2).'}
 SEE_ALSO = {'I98': ['L58', 'L59'], 'I97': ['L170', 'LD3'], 'L170': ['I97', 'LD3'], 'I99': ['LD4', 'LD33', 'I14'], 
             'LD3': ['L170', 'I97'], 'LD4': ['I99'], 'LD33': ['I99'], 'L58': ['I98'], 'L59': ['I98'], 'L63': [], 'L64': [],
             'L137': ['I86', 'I87', 'I88'], 'I86': ['L137'], 'I87': ['L137'], 'I88': ['L137'],
-            'I147': ['LD53', 'LD81'], 'I148': ['L50', 'LD89'], 'L50': ['I148', 'LD89']}   # v9.0
+            'I147': ['LD53', 'LD81'], 'I148': ['L50', 'LD89'], 'L50': ['I148', 'LD89']}   # v0.9.0
 
 
 def prefix(code):
@@ -80,7 +80,7 @@ def sort_key(code):
 @functools.lru_cache(maxsize=None)
 def plans():
     out = {}
-    for name in ('power_engineer', 'transport_engineer', 'other_mitigation', 'other_mitigation_2', 'distribution', 'v90'):
+    for name in ('power_engineer', 'transport_engineer', 'other_mitigation', 'other_mitigation_2', 'distribution', 'v0_9_0'):
         p = os.path.join(PLANS, f'fixes_{name}.json')
         if os.path.exists(p):
             for b in json.load(open(p, encoding='utf-8')):
@@ -149,12 +149,12 @@ def records():
         fx, eff = fix.get(c, ('', ''))
         out.append(_rec(id=c, title=title, where=where, description=what, fix=fx, effect=eff,
                         priority=pri.get(c, 'Low'), prototype=st))
-    for c in ('L135', 'L136', 'L170'):                                          # found by the cell plans; L170 v8.5
+    for c in ('L135', 'L136', 'L170'):                                          # found by the cell plans; L170 v0.8.5
         b = pl[c]
         out.append(_rec(id=c, title=b['title'], where=b.get('where', ''), description=b.get('why', ''),
                         fix=b.get('ref', ''), effect=b.get('effect', ''),
                         priority=(b.get('pri') or 'Low').split(' (')[0], prototype=EXTRA_STATUS[c]))
-    for c in sorted((k for k in pl if re.fullmatch(r'L(17[1-9]|1[89]\d|2\d\d)', k)), key=sort_key):   # v9.0
+    for c in sorted((k for k in pl if re.fullmatch(r'L(17[1-9]|1[89]\d|2\d\d)', k)), key=sort_key):   # v0.9.0
         b = pl[c]
         out.append(_rec(id=c, title=b['title'], where=b.get('where', ''), description=b.get('why', ''),
                         fix=b.get('ref', ''), effect=b.get('effect', ''),
@@ -170,7 +170,7 @@ def records():
         leg = R.ISSUE_LEGACY.get(c, '')
         if c.startswith('L'):                                                   # L169: an issue that is a bug
             out.append(_rec(id=c, title=title, where='Mitigation row 18449 H', description=desc, priority='Low',
-                            prototype=f'Fixed (v5.7): {nxt}', fix='Read the data (GHGs row 889).'))
+                            prototype=f'Fixed (v0.5.7): {nxt}', fix='Read the data (GHGs row 889).'))
             continue
         proto = {'replicated': 'Replicated', 'not replicated': 'Departs (user decision)',
                  'mvp': 'Prototype limitation'}.get(leg, leg)
@@ -220,14 +220,14 @@ if __name__ == '__main__':
     print(counts())
 
 
-TRACKER_OLD = os.path.join(XL, 'legacy', 'Tracking issues.xlsx')      # the tracker before v8.4 (tab CPAT-AI_bugs)
+TRACKER_OLD = os.path.join(XL, 'legacy', 'Tracking issues.xlsx')      # the tracker before v0.8.4 (tab CPAT-AI_bugs)
 NEW_DATE = '2026-10-28'
 
 
 @functools.lru_cache(maxsize=None)
 def _tracker_rows():
     """{code: (version found in, date, raised by)} from the latest tracker (Tracking_Legacy_Bugs_v*.xlsx, tab Bugs)
-    or, before v8.4, from tab CPAT-AI_bugs of legacy/Tracking issues.xlsx (keyed by the former codes)."""
+    or, before v0.8.4, from tab CPAT-AI_bugs of legacy/Tracking issues.xlsx (keyed by the former codes)."""
     import glob
     import openpyxl
     out = {}
@@ -256,7 +256,7 @@ def found(code):
     v = _tracker_rows().get(code)
     if v:
         return v
-    if code == 'L169':                                  # registered as issue I67 (v5.7)
+    if code == 'L169':                                  # registered as issue I67 (v0.5.7)
         return ('456', '2026-10-19', 'Stephen (CPAT-AI)')
     return ('465', NEW_DATE, 'Stephen (CPAT-AI)')
 
@@ -265,6 +265,6 @@ PRIORITY_ORDER = ['Extremely high', 'Very high', 'High', 'Major', 'Medium', 'Min
 
 
 def data_items():
-    """v8.5: the data problems (area Data): the bug L170 and the issues I89-I99, most urgent first."""
+    """v0.8.5: the data problems (area Data): the bug L170 and the issues I89-I99, most urgent first."""
     rank = lambda r: (PRIORITY_ORDER.index(r['priority']) if r['priority'] in PRIORITY_ORDER else 9, sort_key(r['id']))
     return sorted((r for r in records() if r['area'] == 'Data'), key=rank)

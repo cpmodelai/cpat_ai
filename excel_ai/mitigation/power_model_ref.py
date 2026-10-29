@@ -1,6 +1,6 @@
-"""v2.3 (version number aligned with CPAT-AI-Mitigation-Prototype v4.7; content as the previous version in Old/). 
+"""v0.2.3 (version number aligned with CPAT-AI-Mitigation-Prototype v0.4.7; content as the previous version in Old/). 
 
-v5.4 (power features P1, P2, P4; excel_ai/plans/Power_features.md): every MTInputs power input of the scenario (inp['par'],
+v0.5.4 (power features P1, P2, P4; excel_ai/plans/Power_features.md): every MTInputs power input of the scenario (inp['par'],
 the per-scenario settings; mvp_data(s) with the scenario's own settings: capacity factor and efficiency bounds, WACC,
 scale-up rates, capex decline scenario, long-term storage hours); final deficit to gas (par['dgas'], legacy row 4252);
 maximum capacity factor of gas (par['maxcf_nga'], legacy row 3784); long-term storage factor for 100% VRE
@@ -8,7 +8,7 @@ maximum capacity factor of gas (par['maxcf_nga'], legacy row 3784); long-term st
 subsidies (inp['rns'], legacy rows 2733-2745, 3142-3152, 3303-3313, 3665-3669); power revenue rebate (inp['reb'],
 legacy rows 3595, 3615, 3644, 3663); electricity excise (inp['exs'] policy type 11, legacy row 2253; inp['ntx'] the
 manual excise of 'Manual inputs' rows 161-162, legacy rows 3602, 3631, 216-217). With none of them given the engine
-is the v5.3 engine.
+is the v0.5.3 engine.
 
 v0.2: planned retirement by type (legacy K5 offers it for coal only): where a type's switch planned_retirement is
 Yes (power_tech.csv, or inp['pflag']), the planned retirement data pret|<type> (power_paths.csv, nameplate MW, or
@@ -17,16 +17,16 @@ coal adds the cost-based early retirement. Memo outputs: total capacity, total n
 the cheapest of coal variable cost and wind and solar investment cost (ecmin) and the coal logit share (ecshr).
 
 Python reference of the CPAT engineer power model (legacy Mitigation section 4, rows 2954-4297): demand (H),
-dispatch (I), storage (J), retirement and capacity (K), investment (L), with the price side of v1.05 (B, C, D, E, G).
+dispatch (I), storage (J), retirement and capacity (K), investment (L), with the price side of v0.1.05 (B, C, D, E, G).
 
 Year by year, as legacy: demand uses last year's electricity price; capacity of year t is last year's capacity less
 retirements plus new investment; dispatch fills demand with fixed-output types first, then coal and gas by a logit on
 variable cost; investment fills the gap between demand and capacity after retirements by a logit on levelised cost,
 capped by scale-up rates, with a second round that fills the rest cheapest first.
 
-fix: the bug fixes to apply (names in FIXES). The prototype runs with ALL_FIXES. v9.0 (Power_465, LD41): the data and
+fix: the bug fixes to apply (names in FIXES). The prototype runs with ALL_FIXES. v0.9.0 (Power_465, LD41): the data and
 the cached rows come from legacy 465, where the CPAT team fixed every bug of FIXES, so legacy_test runs with ALL_FIXES
-and reproduces both cached 465 runs (base, ctax) to 2e-12 (456: fix = frozenset(), 4e-13). v9.0 also adds the legacy
+and reproduces both cached 465 runs (base, ctax) to 2e-12 (456: fix = frozenset(), 4e-13). v0.9.0 also adds the legacy
 over/under-estimated cost residual of the price chain (rows 3607, 3636; inp txo_res/txo_ind, outputs ores_*), active
 when the residual of the last historical year is negative (Egypt 465 residential); without txo_* it is off. Used by check_v1_07.py and make_bugfix_book.py; independent of the
 workbook builder (reads data/*.csv only).
@@ -57,7 +57,7 @@ FIXES = {  # name: (legacy rows, short description)
     'kcheck': ('4024', 'capacity needed is computed from the planned capacity of last year, not the actual capacity '
                        '(differs when investment could not be placed)'),
     'nextyear': ('4027', 'capacity bought this year (online next year) is sized for this year\'s demand, although the row '
-                         'is labelled "Next Year Demand" (L67, was issue I8; v4.14; v6.2: fixed with this year\'s '
+                         'is labelled "Next Year Demand" (L67, was issue I8; v0.4.14; v0.6.2: fixed with this year\'s '
                          'demand x (1 + growth from last year))'),
 }
 ALL_FIXES = frozenset(FIXES)
@@ -69,12 +69,12 @@ def read(name):
 
 
 INCOME = {r['code']: r['income_group'] for r in read('countries.csv')}
-# v3.3: country of the cached legacy run (data/legacy_*.csv; output codes <country>.mit...): read from the data
+# v0.3.3: country of the cached legacy run (data/legacy_*.csv; output codes <country>.mit...): read from the data
 LEGACY_RUN = {'iso': read('legacy_cached_baseline.csv')[0]['code'].split('.')[0].upper()}
 
 
 def base_data(years, iso):
-    """v3.3: the power data of country iso (column country of the power CSVs)."""
+    """v0.3.3: the power data of country iso (column country of the power CSVs)."""
     tech = {r['code']: r for r in read('power_tech.csv') if r['country'] == iso}
     paths = {r['key']: [float(r[str(y)]) for y in years] for r in read('power_paths.csv') if r['country'] == iso}
     par = {r['key']: float(r['value']) for r in read('power_params.csv') if r['country'] == iso}
@@ -89,7 +89,7 @@ RENEW = ('wnd', 'sol', 'hyd', 'ore', 'bio')   # capex time factors of the renewa
 
 
 def mvp_data(iso, years, s, base_year, hyd_share, present_share):
-    """v5.2 (check): the prototype's power data step with the legacy data-step bugs fixed (register L52-L55; L56 and the
+    """v0.5.2 (check): the prototype's power data step with the legacy data-step bugs fixed (register L52-L55; L56 and the
     WACC are left to power_tech.csv, which has the CoC chain of the legacy Tech source), recomputed independently from
     the legacy Power tab (data/legacy_Power_cells.csv), the legacy Balances (data/legacy_Balances.csv) and the MTInputs
     settings s (NameOfParameter -> scenario-1 value):
@@ -149,7 +149,7 @@ def mvp_data(iso, years, s, base_year, hyd_share, present_share):
                     'retire_rate': 0.0 if f == 'hyd' and s['HydroDoesntRetire'] == 'Yes' else 1 / life})
         tech[f], gen0[f], cap0[f] = row, g0, g0 / cf
         rc = code_row.get(f'wld.ctf.{scen if f in RENEW else "med"}.{t}') or \
-            code_row[f'wld.ctf.{"old" + scen if f in ("wnd", "sol") else "med"}.{t}']   # v5.4: L109 (missing series)
+            code_row[f'wld.ctf.{"old" + scen if f in ("wnd", "sol") else "med"}.{t}']   # v0.5.4: L109 (missing series)
         paths[f'tcf|{f}'] = [fv(rc, yc[y]) for y in years]
     mt = {'oop': 'Oil'}
     for f in T:
@@ -161,7 +161,7 @@ def mvp_data(iso, years, s, base_year, hyd_share, present_share):
         if f == 'hyd' and gen0[f] / sum(gen0.values()) > hyd_share:      # L54
             start = base_year
         tech[f]['invest_permitted'], tech[f]['invest_start'] = perm, float(start)
-    if 'WACCSource' in s:                                  # v5.4: WACC of the scenario (legacy rows 2988-2996)
+    if 'WACCSource' in s:                                  # v0.5.4: WACC of the scenario (legacy rows 2988-2996)
         src = str(s['WACCSource'])
         wmin = float(s['MinimumWACC'])
         inc_code = INCOME[iso]
@@ -175,7 +175,7 @@ def mvp_data(iso, years, s, base_year, hyd_share, present_share):
             tech[f]['wacc'] = (coal if src.startswith('Country') else float(tech0[f]['wacc']) if src == 'Tech' else
                                max(float(s['WACCUserGlobal']) if src == 'User' else inc_w if src.startswith('Income')
                                    else stud, wmin))
-    if 'MaxScaleUpRateCategory' in s:                      # v5.4: scale-up rates of the scenario (legacy S85:S91)
+    if 'MaxScaleUpRateCategory' in s:                      # v0.5.4: scale-up rates of the scenario (legacy S85:S91)
         cat = str(s['MaxScaleUpRateCategory'])
         ctry = next((fv(r, 3) for r in range(2349, 2571) if cells.get((r, 2)) == iso), 0.0)
         catr = next((fv(r, 10) for r in range(20, 24) if cells.get((r, 9)) == cat), 0.0)
@@ -186,7 +186,7 @@ def mvp_data(iso, years, s, base_year, hyd_share, present_share):
     af = lambda f: (1 - (1 / (1 + float(tech[f]['wacc']))) ** float(tech[f]['life_years'])) / \
         (1 - 1 / (1 + float(tech[f]['wacc'])))
     par = {'dlf_ren': (af('wnd') + af('sol')) / 2}
-    if 'StorageHoursForLTStorage' in s:                    # v5.4: long-term storage cost of the scenario (J2)
+    if 'StorageHoursForLTStorage' in s:                    # v0.5.4: long-term storage cost of the scenario (J2)
         hdr = {c: int(float(cells[(1883, c)])) for c in range(6, 60) if cells.get((1883, c))}
         colof = lambda y: max(c for c, yy in hdr.items() if yy <= y)             # approximate match, as legacy
         for key, row in (('elcx', 1907), ('eltk', 1911), ('elof', 1908), ('elov', 1909)):
@@ -204,11 +204,11 @@ def engine(inp, years, fix=ALL_FIXES, shock=False):
     year for the D9 window, legacy 2041). Returns {name: series or [series by type]}."""
     n = len(years)
     tech, paths, par, dem0 = base_data(years, inp['iso'])
-    if 'data' in inp:                            # v5.2: the prototype data step (mvp_data: legacy data-step bugs fixed)
+    if 'data' in inp:                            # v0.5.2: the prototype data step (mvp_data: legacy data-step bugs fixed)
         tech = inp['data'][0]
         paths = {**paths, **inp['data'][1]}
         par = {**par, **inp['data'][2]}
-    par = {**par, **inp.get('par', {})}          # v5.4: settings of the scenario (MTInputs column of the scenario)
+    par = {**par, **inp.get('par', {})}          # v0.5.4: settings of the scenario (MTInputs column of the scenario)
     par.setdefault('maxcf_coa', par['maxcf_cg'])
     par.setdefault('maxcf_nga', par['maxcf_cg'])
     par.setdefault('lt100', 1.0)
@@ -229,11 +229,11 @@ def engine(inp, years, fix=ALL_FIXES, shock=False):
     pflag = inp.get('pflag', [1.0 if tf[i].get('planned_retirement') == 'Yes' else 0.0 for i in range(9)])
     pret = inp.get('pret', [paths.get(f'pret|{f}', [0.0] * n) for f in T])
     o['pret'] = [list(pret[i]) for i in range(9)]
-    ppa = list(inp.get('ppa', [0.0] * n))       # v5.4: PPA share of coal and gas generation (legacy row 3801)
-    rns = [list(x) for x in inp.get('rns', [[num(i, 'rns_usd_per_kwh')] * n for i in range(9)])]   # v5.4 (A17)
-    reb = float(inp.get('reb', 0.0))             # v5.4: power revenue rebate switch (legacy J3595 = -1)
-    exs = list(inp.get('exs', [0.0] * n))        # v5.4: electricity excise, policy type 11 ($/kWh; legacy row 2253)
-    ntx = {g: list(inp.get('ntx', {}).get(g, [0.0] * n)) for g in ('res', 'ind')}   # v5.4: manual excise ($/kWh)
+    ppa = list(inp.get('ppa', [0.0] * n))       # v0.5.4: PPA share of coal and gas generation (legacy row 3801)
+    rns = [list(x) for x in inp.get('rns', [[num(i, 'rns_usd_per_kwh')] * n for i in range(9)])]   # v0.5.4 (A17)
+    reb = float(inp.get('reb', 0.0))             # v0.5.4: power revenue rebate switch (legacy J3595 = -1)
+    exs = list(inp.get('exs', [0.0] * n))        # v0.5.4: electricity excise, policy type 11 ($/kWh; legacy row 2253)
+    ntx = {g: list(inp.get('ntx', {}).get(g, [0.0] * n)) for g in ('res', 'ind')}   # v0.5.4: manual excise ($/kWh)
     maxcf = [par['maxcf_coa'] if f == 'coa' else par['maxcf_nga'] if f == 'nga' else 0.0 for f in T]
     for k_ in ('glg', 'gmx', 'rns', 'prrns'):
         o[k_] = [[0.0] * n for _ in T]
@@ -250,14 +250,14 @@ def engine(inp, years, fix=ALL_FIXES, shock=False):
               'rcarb_res', 'rcarb_ind', 'rgap_res', 'rgap_ind', 'ores_res', 'ores_ind'):
         o[k] = [0.0] * n
     o['mult'] = {g: [0.0] * n for g in GROUPS}
-    o['aeef'] = {}                               # v5.4: efficiency multiple of the scenario (AdditionalEfficiencyPower)
+    o['aeef'] = {}                               # v0.5.4: efficiency multiple of the scenario (AdditionalEfficiencyPower)
     for g in GROUPS:
         ey, eu, epf, a = inp['elast'][g]
         o['aeef'][g] = [1 / (1 + a + par['extra_eff']) ** (1 + (eu if 'aee' in fix else epf))] * n
     o['pdem'] = {g: [0.0] * n for g in GROUPS}
     dem = {s: [0.0] * n for s in dem0}
     ef = {r['key']: float(r['ef_tco2_per_gj']) for r in read('ef_co2.csv')}
-    efp = [ef.get(f'{inp["iso"]}|{f}|pow', 0.0) * inp.get('co2k', 1.0) for f in T]   # v3.2: calibrated EF (EFCalib)
+    efp = [ef.get(f'{inp["iso"]}|{f}|pow', 0.0) * inp.get('co2k', 1.0) for f in T]   # v0.3.2: calibrated EF (EFCalib)
     shr0 = [num(i, 'gen0_mwy') / sum(num(j, 'gen0_mwy') for j in range(9)) for i in range(9)]
     for k in range(n):                           # D: variable cost incl. shadow price (D6) and rebate, all years
         for i in range(9):
@@ -277,7 +277,7 @@ def engine(inp, years, fix=ALL_FIXES, shock=False):
     k30 = 0.0
     done = set()
 
-    def demand(k):                               # v4.14: one year of block H (also next year's, for L67)
+    def demand(k):                               # v0.4.14: one year of block H (also next year's, for L67)
         y = years[k]
         done.add(k)
         # ---------------- H demand
@@ -308,7 +308,7 @@ def engine(inp, years, fix=ALL_FIXES, shock=False):
                 if s == 'srv' and y >= 2024 and 'services' not in fix:
                     g = 'ind'
                 dem[s][k] = dem[s][k - 1] * o['mult'][g][k]
-                if s in inp.get('dem_fixed', {}):     # v3.5: road demand from the engineer road model (prototype 5b)
+                if s in inp.get('dem_fixed', {}):     # v0.3.5: road demand from the engineer road model (prototype 5b)
                     dem[s][k] = inp['dem_fixed'][s][k]
         tot = sum(dem[s][k] for s in dem)
         o['demtot'][k] = tot
@@ -336,7 +336,7 @@ def engine(inp, years, fix=ALL_FIXES, shock=False):
                     o['gen'][i][k] = o['effcap'][i][k]
             reqcg = max(o['req'][k] - sum(o['gen'][i][k] for i in range(9) if i not in cg), 0.0)
             o['reqcg'][k] = reqcg
-            gmax = {i: o['cap'][i][k] * maxcf[i] for i in cg}          # v5.4: coal and gas maxima (rows 3783-3786)
+            gmax = {i: o['cap'][i][k] * maxcf[i] for i in cg}          # v0.5.4: coal and gas maxima (rows 3783-3786)
             for i in range(9):
                 o['gmx'][i][k] = o['cap'][i][k] * maxcf[i]
             gmin = {i: min(max(reqcg - sum(gmax[j] for j in cg if j != i), 0.0), gmax[i]) for i in cg}
@@ -347,7 +347,7 @@ def engine(inp, years, fix=ALL_FIXES, shock=False):
             o['rem'][k], o['vcmin'][k] = rem, m
             for i in cg:
                 o['gmin'][i][k], o['lgd'][i][k] = gmin[i], lg[i]
-            effcg = sum(o['effcap'][i][k] for i in cg)               # v5.4: PPAs (legacy rows 3794, 3804-3805)
+            effcg = sum(o['effcap'][i][k] for i in cg)               # v0.5.4: PPAs (legacy rows 3794, 3804-3805)
             ratio = 1.0 if effcg == 0 else reqcg / effcg
             o['ppr'][k] = ratio
             for i in range(9):
@@ -370,9 +370,9 @@ def engine(inp, years, fix=ALL_FIXES, shock=False):
         # ---------------- J storage
         cph = (paths['cbat'][k] + paths['cint'][k] / par['st_ratio']) / (par['dlf_ren'] * 8760) + paths['obat'][k] / 8760
         m_lt = 2 * (v - x) / (1 - x) ** 2 if v > x else 0.0
-        lt = m_lt * par['lt100'] * paths['cel'][k] * alloc_lt * (1 if 'lt_alloc' in fix else alloc_lt)   # v5.4: lt100
+        lt = m_lt * par['lt100'] * paths['cel'][k] * alloc_lt * (1 if 'lt_alloc' in fix else alloc_lt)   # v0.5.4: lt100
         o['cph'][k], o['msc'][k] = cph, par['st_alloc'] * par['st_marg_hours'] * v * cph + lt
-        # ---------------- B, C, E (v1.05) and D9, E1
+        # ---------------- B, C, E (v0.1.05) and D9, E1
         for i in range(9):
             N, w, cfi = num(i, 'life_years'), num(i, 'wacc'), cf[i]
             dlf = (1 - (1 + w) ** -N) / (1 - (1 + w) ** -1)
@@ -387,7 +387,7 @@ def engine(inp, years, fix=ALL_FIXES, shock=False):
             dtc, tcx, opf = num(i, 'dtc_usd_per_kw'), num(i, 'tcx_usd_per_kw'), num(i, 'opf_usd_per_kwh')
             o['fix'][i][k] = (o['caxav'][i][k] * (1 / N + w / 2) + dtc / N) / (cfi * 8760) + o['stoav'][i][k] + opf
             o['lfx'][i][k] = (o['cax'][i][k] + dtc + tcx) / (cfi * 8760 * dlf) + opf + rns[i][k] \
-                + vflag * o['msc'][k]                                          # v5.4: renewable subsidy (C5)
+                + vflag * o['msc'][k]                                          # v0.5.4: renewable subsidy (C5)
             o['gnc'][i][k] = o['fix'][i][k] + inp['vbc'][i][k]
         o['gncav'][k] = sum(o['shr'][i][k] * o['gnc'][i][k] for i in range(9))
         o['ccpav'][k] = sum(o['shr'][i][k] * inp['d5'][i][k] for i in range(9)) * par['gen_per_cons']
@@ -397,7 +397,7 @@ def engine(inp, years, fix=ALL_FIXES, shock=False):
             vat = inp['vat_' + g]
             pre = inp['rphist_' + g][k] if y <= inp['last_hist'] else \
                 o['rppre_' + g][k - 1] + par['pass'] * (sc - o['sc_' + g][k - 1]) * (1 + vat)
-            if 'txo_' + g in inp and y >= inp['last_hist']:    # v9.0 (Power_465): over/under-estimated costs
+            if 'txo_' + g in inp and y >= inp['last_hist']:    # v0.9.0 (Power_465): over/under-estimated costs
                 if y == inp['last_hist']:                       # (legacy rows 3607, 3636): the residual of the last
                     o['ores_' + g][k] = pre / (1 + vat) - sc - ntx[g][k] - inp['txo_' + g] - inp.get('ps_' + g, 0.0)
                 else:                                           # historical year; a negative residual (costs
@@ -405,18 +405,18 @@ def engine(inp, years, fix=ALL_FIXES, shock=False):
                     o['ores_' + g][k] = j_ * min(sc, scl) / scl if j_ < 0 and scl else j_   # when it falls
                     pre += par['pass'] * (o['ores_' + g][k] - o['ores_' + g][k - 1]) * (1 + vat)
             o['sc_' + g][k], o['rppre_' + g][k] = sc, pre
-            pex = exs[k] + (par['pass'] * (ntx[g][k] - ntx[g][kl]) if y > inp['last_hist'] else 0.0)   # v5.4
-            pol = o['ccpav'][k] * par['pass'] * (1 - reb) + pex     # v5.4: rebate (rows 3615, 3644), excise
+            pex = exs[k] + (par['pass'] * (ntx[g][k] - ntx[g][kl]) if y > inp['last_hist'] else 0.0)   # v0.5.4
+            pol = o['ccpav'][k] * par['pass'] * (1 - reb) + pex     # v0.5.4: rebate (rows 3615, 3644), excise
             o['pex_' + g][k] = pex
-            o['rp_' + g][k] = max(pre + pol * (1 + vat), cmin_floor)   # v7.0: floor as the sheet (v5.6, I60)
-            o['sgap_' + g][k] = pre / (1 + vat) - sc          # v2.4: negative = price below cost (subsidy)
+            o['rp_' + g][k] = max(pre + pol * (1 + vat), cmin_floor)   # v0.7.0: floor as the sheet (v0.5.6, I60)
+            o['sgap_' + g][k] = pre / (1 + vat) - sc          # v0.2.4: negative = price below cost (subsidy)
             cons = o['cons_' + g][k]
             o['rvat_' + g][k] = pre * vat / (1 + vat) * cons
             o['rcarb_' + g][k] = o['ccpav'][k] * cons
             o['rgap_' + g][k] = o['sgap_' + g][k] * cons
             o['rnvat_' + g][k] = pol * vat * cons                  # VAT on the new policies passed through
-            o['rreb_' + g][k] = -reb * o['ccpav'][k] * par['pass'] * cons   # v5.4: rebate (legacy row 3663)
-            o['rpex_' + g][k] = pex * cons                          # v5.4: excise revenue (rows 3660, 3664)
+            o['rreb_' + g][k] = -reb * o['ccpav'][k] * par['pass'] * cons   # v0.5.4: rebate (legacy row 3663)
+            o['rpex_' + g][k] = pex * cons                          # v0.5.4: excise revenue (rows 3660, 3664)
         for i in range(9):
             o['tic'][i][k] = max(o['lfx'][i][k] + o['lvc'][i][k], cmin_floor)
         # ---------------- K4 cost-based early coal retirement, K5/K6 retirements
@@ -431,7 +431,7 @@ def engine(inp, years, fix=ALL_FIXES, shock=False):
         e = [math.exp(-ki * c / min(cc)) for c in cc]
         o['ecmin'][k], o['ecshr'][k] = min(cc), e[0] / sum(e)
         early_np = max(0.0, mx * (1 - e[0] / sum(e))) / cf[0] * par['early_factor'] * (1 - ppa[k]) if cf[0] \
-            else 0.0                                 # v5.4: not the share under PPA (legacy rows 3987, 3993)
+            else 0.0                                 # v0.5.4: not the share under PPA (legacy rows 3987, 3993)
         o['early'][k] = early_np
         for i in range(9):
             planned = pret[i][k] if pflag[i] else o['cap'][i][k] * num(i, 'retire_rate')
@@ -444,7 +444,7 @@ def engine(inp, years, fix=ALL_FIXES, shock=False):
         # ---------------- K7 effective capacity needed (legacy: this year's demand; fixed: next year's)
         chk = toteff if (k == 0 or 'kcheck' in fix) else k30
         after = chk - sum(o['reteff'][i][k] for i in range(9))
-        req = o['req'][k]                        # v6.2 (L67): next year's estimated as this year's x (1 + growth from
+        req = o['req'][k]                        # v0.6.2 (L67): next year's estimated as this year's x (1 + growth from
         if 'nextyear' in fix:                    # last year): no later year is read (no circular reference)
             req *= (req / o['req'][k - 1]) if k > 0 and o['req'][k - 1] else 1.0
         need = max(req - after, 0.0)
@@ -468,7 +468,7 @@ def engine(inp, years, fix=ALL_FIXES, shock=False):
             cum = min(deficit, run_)
             second[i] = o['permit'][i][k] * (cum - cum_prev)
             cum_prev = cum
-        dgas = deficit - sum(second) if par.get('dgas') else 0.0   # v5.4: final deficit to gas (legacy 4247-4252)
+        dgas = deficit - sum(second) if par.get('dgas') else 0.0   # v0.5.4: final deficit to gas (legacy 4247-4252)
         o['dgas'][k] = dgas
         for i in range(9):
             o['pni'][i][k], o['first'][i][k], o['second'][i][k], o['maxinv'][i][k] = pni[i], first[i], second[i], maxinv[i]
@@ -487,11 +487,11 @@ def engine(inp, years, fix=ALL_FIXES, shock=False):
                      ('perm', [1.0 if permit_yes[i] else 0.0 for i in range(9)]),
                      ('start', [num(i, 'invest_start') for i in range(9)]),
                      ('dlf', [(1 - (1 + num(i, 'wacc')) ** -num(i, 'life_years')) / (1 - (1 + num(i, 'wacc')) ** -1)
-                              for i in range(9)])):     # v5.4: the data step of the scenario (section 3, A0)
+                              for i in range(9)])):     # v0.5.4: the data step of the scenario (section 3, A0)
         o[key] = [[v] * n for v in val]
     o['dlfr'] = [par['dlf_ren']] * n
     o['erf'] = [par['early_factor']] * n
-    for i in range(9):                           # v5.4: renewable subsidy revenue by type (legacy rows 3665-3669)
+    for i in range(9):                           # v0.5.4: renewable subsidy revenue by type (legacy rows 3665-3669)
         o['prrns'][i] = [rns[i][k] * o['gen'][i][k] * 8.76 for k in range(n)]
     o['dem'] = dem
     o['demg'] = {g: [sum(dem[s][k] for s in dem if GROUP_OF.get(s, 'ind') == g) for k in range(n)] for g in GROUPS}
@@ -517,12 +517,12 @@ def legacy_inputs(run):
         'rphist_res': ser('rppre_res'), 'rphist_ind': ser('rppre_ind'),
         'vat_res': val('vat_res', 2024), 'vat_ind': val('vat_ind', 2024), 'last_hist': 2024,
         'vbc': [ser(f'vbc|{f}') for f in T], 'd5': [ser(f'd5|{f}') for f in T], 'd6': [ser(f'd6|{f}') for f in T],
-        'txo_res': val('txo_res', 2024), 'txo_ind': val('txo_ind', 2024),     # v9.0 (Power_465): rows 3606, 3635
+        'txo_res': val('txo_res', 2024), 'txo_ind': val('txo_ind', 2024),     # v0.9.0 (Power_465): rows 3606, 3635
         'tvc_extra': [[val(f'tvc|{f}', 2041)] for f in T]}
 
 
 def legacy_test(run, fix=ALL_FIXES, shock=True):
-    """v9.0 (Power_465): legacy 465 has every fix of FIXES (the CPAT team fixed L1-L10, L67), so the test runs with
+    """v0.9.0 (Power_465): legacy 465 has every fix of FIXES (the CPAT team fixed L1-L10, L67), so the test runs with
     ALL_FIXES (456: fix = frozenset()). Engine on the legacy inputs vs the cached legacy rows: [(max relative diff, key, year, legacy, engine)]."""
     years = list(range(2022, 2041))
     o = engine(legacy_inputs(run), years, fix=fix, shock=shock)
@@ -542,7 +542,7 @@ def legacy_test(run, fix=ALL_FIXES, shock=True):
         else:
             got = o[name]
         leg = [float(r[str(y)]) for y in years]
-        if name in ('ores_res', 'ores_ind'):               # v9.0: the residual from the last historical year on
+        if name in ('ores_res', 'ores_ind'):               # v0.9.0: the residual from the last historical year on
             leg = [a if y >= 2024 else b for a, b, y in zip(leg, got, years)]
         d, yr = max((abs(a - b) / max(1.0, abs(a)), y) for a, b, y in zip(leg, got, years))
         out.append((d, key, yr))

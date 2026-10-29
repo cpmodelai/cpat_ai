@@ -3,7 +3,7 @@ Checked 2026-10-22 against CPAT 1.0pre_465 - No Prop Data.xlsb, by comparing eve
 below are 465 cells (as the bug fix plan since 2026-10-22): Mitigation rows up to 5666 are as in 456, later rows sit
 11 to 15 rows higher (e.g. 456 row 7897 is 465 row 7883); the policy block sits +6,316 below the baseline.
 
-Where the results are (v8.2): the bug-fix register excel_ai/CPAT-AI_BugsAndIssues_latest.docx has the confirmed
+Where the results are (v0.8.2): the bug-fix register excel_ai/CPAT-AI_BugsAndIssues_latest.docx has the confirmed
 bugs in Appendix C (last) and those with caveats in Appendix B, each with its status in legacy in red; the register
 spreadsheet, BUGS.md and LegacyBugFixes.md have a column "Status in legacy 465"; the CPAT team's tracker
 excel_ai/legacy/workbooks/Tracking issues.xlsx has tab BUGS with "Status in legacy" (from legacy465_check.json).
@@ -75,5 +75,5 @@ L16 (ETS quick estimate linear in the semi-elasticity: cell mitL1868); log form 
 L45 (residential leakage to biomass inconsistent: cell mitM5564); 10 of 12 planned cells fixed; M5588:AE5588 (change in kerosene) is unchanged (still $C5591 and the LPG share row 5582, plan: =-L5566*M5589*$E$1785) and M5590 is =M5589 (a percent change), not =M5588 (the energy change), so the kerosene equivalent biomass M5591 is in the wrong units
 L56 (countries without cost-of-capital risk data get Sri Lanka’s WACC: cell CoC!D202); still Sri Lanka, now an explicit Default row 198 (=row 172); no flag, as the user noted
 L109 (capex decline options Low and Vhigh have no wind and solar series: cell mitI3042); fallback implemented as planned and accepted (user 2026-10-19); the real Low and Vhigh series are still missing (data gap)
-I18 (GHG totals use energy CO2 without the inventory adjustment: resolved in v3.2); a prototype issue resolved in the prototype, not a legacy cell: nothing to confirm in 465; moved here from confirmed
-I29 (Excel repair prompt: resolved in v3.7); a prototype issue resolved in the prototype, not a legacy cell: nothing to confirm in 465; moved here from confirmed
+I18 (GHG totals use energy CO2 without the inventory adjustment: resolved in v0.3.2); a prototype issue resolved in the prototype, not a legacy cell: nothing to confirm in 465; moved here from confirmed
+I29 (Excel repair prompt: resolved in v0.3.7); a prototype issue resolved in the prototype, not a legacy cell: nothing to confirm in 465; moved here from confirmed

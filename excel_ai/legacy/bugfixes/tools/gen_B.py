@@ -46,7 +46,7 @@ bug('L87','High','Regulations never act: share 0 and the adjustments unused','Mi
  [fix('C2371',c2371,'single cell',pol('C2371')),
   fix('I2403',I_new,'I2403:I2419: select, Find/Replace ",0)" by "*$F$90,0)" (one hit per cell; each row keeps its own E$1982...E$1998)','I8734:I8750: same Find/Replace ($F$90 is a shared row)')],
  'The scenario names in Mitigation N223:AC223 equal MTInputs B247:B251 ("Energy efficiency regulations", "Vehicle fuel economy", "Residential efficiency regulations", "Industrial efficiency regulations", "Feebates"); K2403:K2419 already apply C2371 where the sector is covered (F2403:F2419).',
- 'Regulation scenarios have no effect at all in legacy; after the fix they cut fuel use through the efficiency margin. prototype v4.16: regulation shadow price = shadow carbon price x adjustment x sector coverage; feebate share x SPPEffAdjFeebates.',
+ 'Regulation scenarios have no effect at all in legacy; after the fix they cut fuel use through the efficiency margin. prototype v0.4.16: regulation shadow price = shadow carbon price x adjustment x sector coverage; feebate share x SPPEffAdjFeebates.',
  note=CONV+' The q.py text "=_xlfn.IFNA(0)" behind the register wording is a conversion artefact: the lookup exists, the " - " prefix breaks it. The F90 factor on the feebate share follows the prototype (to confirm).')
 
 # ------------------------------------------------------------------ L58, L59 (Medium): GAINS EF tables, rows 1052-1662 (8 pollutant blocks)
@@ -73,20 +73,20 @@ bug('L58','Medium','Local pollutants: subsectors without a GAINS match get zero 
  [fix('J1052',J58,'J of every non-oen data row of the 8 blocks: '+RNG,'none (shared rows above 2173)',now=''),
   fix('F1052',F_new,'F of the same rows ('+RNG+'): copy F1052 down/paste','none (shared rows above 2173)')],
  'Column J is empty in rows 1049-1663 (Em_fact reads the year columns by MATCH on row 1051, so J is not picked up). Mapping as the prototype CH4 subsector (CH4_SUB): services -> residential, rail -> road; G (input/output code, H) stays.',
- 'Local pollutants of services and rail no longer zero. prototype v2.9 (each subsector takes the GAINS subsector of its CH4 factor).',
+ 'Local pollutants of services and rail no longer zero. prototype v0.2.9 (each subsector takes the GAINS subsector of its CH4 factor).',
  note='In the NoPropData file the emission rows (e.g. L6607 = IFNA(L6350*INDEX(Em_fact,$J6607,L6605),0)) and the EF values are #NAME?/stripped, so check the result in the full file. '+CONV+' Apply before L59.')
 bug('L59','Medium','Local pollutants and combustion CH4: fuels without a GAINS factor emit nothing','Mitigation EF tables rows 1052-1662, helper column J (after L58); sheet EF_PM',
  'A subsector-fuel pair that GAINS does not cover (Egypt EF_PM: res has only nga and bio, foo no diesel, omn no diesel, mnf no LPG, pow no coal) finds no code in F, so all its pollutants and its combustion CH4 (block 1511) are 0, although the fuel burns (row 15939: food & forestry NOx about 1 t).',
  [fix('J1052',J59,'J of the same rows as L58 ('+RNG+')','none (shared rows above 2173)',now=J58)],
  'prototype ef_fallback: LPG takes natural gas of the same (mapped) subsector; food & forestry takes construction; biomass takes residential; else manufacturing (construction for manufacturing itself). The COUNTIF keeps a missing pollutant of a covered fuel at 0 (GAINS omits zero factors), as the prototype. F1052 (L58) already looks the J code up.',
- 'Egypt 2022: NOx +11%, PM2.5 +5%, combustion CH4 +20% (prototype v4.12).',
+ 'Egypt 2022: NOx +11%, PM2.5 +5%, combustion CH4 +20% (prototype v0.4.12).',
  note='Apply after L58 ("now" is L58\'s J). The COUNTIF tests any country/region/world code for the pair (prototype tests the country GAINS set): to confirm.')
 
 # ------------------------------------------------------------------ L66 (Low)
 bug('L66','Low','Other energy use: no additional policy efficiency gains on fossil fuels','Mitigation M6077:AE6084 (policy M12394:AE12401, +6,317)',
  'Rows 6077-6084 (coal ... biomass) divide by (1+_eff_imp_<fuel>_ind) without $M2201 (MTInputs F245, industrial additional efficiency); only the renewables row 6085 and the industry rows add it.',
  [],'Plan L43 (fixes_other_mitigation) already edits the same cells: "_ind))^" -> "_ind+$M2201))^" in M6077:AE6084 and "+$M8532" in the policy rows 12394-12401 (do not paste: +6,317 block with +6,331 drivers).',
- 'None while the input is 0. prototype v4.13 (other energy use takes the industrial gain on every fuel).',
+ 'None while the input is 0. prototype v0.4.13 (other energy use takes the industrial gain on every fuel).',
  note='No separate edit: applying L43 fixes L66 (same cells, same term).')
 
 # ------------------------------------------------------------------ L81 (Low)
@@ -97,14 +97,14 @@ for r in (2460,2483,2506,2529,2552,2575,2598,2621,2644,2667,2690,2713):
 bug('L81','Low','Consumer subsidy phase-out: the fixed subsidy takes last year\'s factor','Mitigation O:AE of the 12 "fixed portion of subsidy" rows 2460, 2483, ..., 2713 (policy +6,331)',
  'O2460 = $J2460 * N2214 (P = O2214, ...): the fixed subsidy uses the consumer phase-out factor of the previous column, while the floating rows (e.g. O2461: O2216/O2217) and the producer rows (O2455: O2213) use the year\'s own factor.',
  L81,'Row 2214 = consumer subsidy phase-out factor; J = 2024 value of the row.',
- 'A consumer subsidy phase-out no longer starts and ends a year late. prototype v4.16 (every wedge takes the factor of its year).')
+ 'A consumer subsidy phase-out no longer starts and ends a year late. prototype v0.4.16 (every wedge takes the factor of its year).')
 
 # ------------------------------------------------------------------ L82 (Low)
 bug('L82','Low','Residential gas producer subsidy reads the oil row','Mitigation K2547:N2547 (policy K8878:N8878)',
  'The producer-subsidy row of the residential gas block reads K$827 (oil, $/liter) in the data years; the other gas blocks read K$826 (e.g. K2524, K2570). O:AE (= $J2548 * O2213, J2548 = N2547) carry it into the projection.',
  [fix('K2547',sub('K2547',('K$827','K$826')),'K2547:N2547',pol('K2547:N2547'))],
  'Row 826 = producer-side subsidy, natural gas ($/GJ); rows 2524 and 2570 (industry and power gas) already read it.',
- 'Residential gas no longer takes the oil producer subsidy. prototype v4.16 (producer subsidies by fuel; no price effect in the prototype, issue I49).')
+ 'Residential gas no longer takes the oil producer subsidy. prototype v0.4.16 (producer subsidies by fuel; no price effect in the prototype, issue I49).')
 
 # ------------------------------------------------------------------ L89 (Low)
 m=fx('M5396'); assert 'M2378*M2404' in m and 'L2378*L2404' in m
@@ -120,7 +120,7 @@ bug('L90','Low','Residential leakage breaks the useful-energy balance','Mitigati
  'M5593 = -$C5593*(M5578+M5584+M5591)*$E$1785: the equivalent biomass rows (5578 = change x e_fuel / e_bio) are multiplied by BioEff ($C5593) again, so the biomass gain is about 5 times too small.',
  [fix('M5593',sub('M5593',('-$C5593*(','-(')),'M5593:AE5593',pol('M5593:AE5593'))],
  'Equivalent biomass rows 5578, 5584, 5591 already carry the efficiency ratio.',
- 'Biomass gain no longer 5 times too small when leakage is on. prototype v5.1 (lkb = -lkd x e_m / e_b).',
+ 'Biomass gain no longer 5 times too small when leakage is on. prototype v0.5.1 (lkb = -lkd x e_m / e_b).',
  note='Plan L45 (fixes_other_mitigation) rewrites the same cell as =-(M5578+M5584+M5591) (also drops the second $E$1785): if L45 is applied, nothing more to do.')
 
 # ------------------------------------------------------------------ L91 (Low)
@@ -129,7 +129,7 @@ bug('L91','Low','Exempt residential fuel still leaks to biomass','Mitigation M55
  [fix('M5580','=IF(LEFT(AlwaysExemptResLPGKer,3)="Yes",0,M2652*M2275)','M5580:AE5580',pol('M5580:AE5580')),
   fix('M5586','=IF(LEFT(AlwaysExemptResLPGKer,3)="Yes",0,M2675*M2275)','M5586:AE5586',pol('M5586:AE5586'))],
  'Same exemption term as the after-tax prices L5546:AE5547; LEFT(...,3) because the input values are "Yes*"/"No*" (plan L48 makes 5546-5547 test it the same way).',
- 'An exempt LPG or kerosene no longer leaks to biomass. prototype v5.1 (lkt reads the row\'s own new policy).')
+ 'An exempt LPG or kerosene no longer leaks to biomass. prototype v0.5.1 (lkt reads the row\'s own new policy).')
 
 # ------------------------------------------------------------------ L92 (Low)
 bug('L92','Low','ExemptMostCook never reaches Mitigation','Mitigation I1784, K1795, L5564:L5570',

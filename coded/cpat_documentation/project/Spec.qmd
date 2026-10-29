@@ -152,7 +152,7 @@ coded/
 |---|---|---|
 | Add `coded/NORMS.md`; rewrite `coded/TODO.md` as the plan | Requested: own norms and TODO for the Python project | Now |
 | Add `cpat_documentation/project/` and `equations/`, `make_docs.py` | Planning documents and the equation list, in qmd with Word copies, ready for the website | Now |
-| Rename `developer/dev_documetation.md` to `dev_documentation.md` (done) | Typo in a file name others link to | Now |
+| Rename `developer/dev_documetation.md` to `dev_documentation.md` (done; the website builder `docs/CPAT_ai_documentation_qmd/make_qmd.py` updated) | Typo in a file name others link to | Now |
 | Add `core/`, `inputs/`, `forms/`, `results/`, `air_pollution/`, `transport_cobenefits/` in `cpat_model/` | Section 3.2 | Phase 2 (after D1-D7 are decided) |
 | Rebuild `mitigation/` in Excel-AI block order; retire `mitigation/methan_fee/` (typo), `fiscal_revenues/tmp_logic.py`, `indicators/` into `results/`, `dashboard_inputs.py` and `distribution_inputs.py` into `inputs/`, `data_read/` into `data/` | One subpackage per block; no working files; inputs and data at the edge | Phases 3-5, block by block (D7) |
 | `cpat_testing/compare/` | Kept comparison scripts out of the model | Phase 2 |
@@ -374,7 +374,7 @@ flowchart LR
 | End to end | Every code, both scenario groups, every year | Excel-AI; then legacy CPAT through the LegacyDiff register | Phase 5; at every Excel-AI release |
 
 - Tolerance: relative 1e-9 (absolute 1e-9 near zero). A larger difference is a defect in one of the models: found, fixed or registered, never loosened.
-- `check_full.py` does not yet recompute the newest v9.0 rows (sections 17b and 18, the Pigouvian netting, R6, R10, the power memos): for those blocks the comparison uses Excel-AI values directly.
+- `check_full.py` does not yet recompute the newest rows of Excel-AI 0.9.0 (sections 17b and 18, the Pigouvian netting, R6, R10, the power memos): for those blocks the comparison uses Excel-AI values directly.
 - Every Python-Excel-AI difference report lists codes by block and the first year and largest difference, so the cause is found from the top of the chain.
 
 ## 9. Documents and the website
@@ -410,7 +410,7 @@ The user went through the choices on 2026-10-29. The table gives each decision; 
 | D11 | Performance | **Under 1 second** for the user interface (one country, two scenarios) |
 | D12 | Website | **One Quarto site at `docs/`**, tabs CPAT methodology, Excel-AI, Coded CPAT |
 | D13 | Equation list source | **One source** (`equations.yaml`), both versions generated |
-| D14 | Versioning | **Based on Excel-AI**: `<Excel-AI version>p<Python version>`, e.g. `0.9.1p0.1` = Python version 0.1 of the replication of Excel-AI 0.9.1. Excel-AI's numbering is being rebased (to be confirmed: today's v9.0 becomes 0.9.0) |
+| D14 | Versioning | **Based on Excel-AI**: `<Excel-AI version>p<Python version>`, e.g. `0.9.1p0.1` = Python version 0.1 of the replication of Excel-AI 0.9.1. Excel-AI's numbering was rebased on 2026-10-29 (mitigation 9.0 is now 0.9.0, distribution 1.3 is 0.1.3), so the first release replicating today's Excel-AI is `0.9.0p0.1` |
 | D15 | Baseline values read by policy scenarios | **n scenarios, run scenario by scenario: the baseline pass first**, then each policy scenario in turn, reading the baseline values it needs |
 | D16 | Scenario inputs acting as global settings | **Run settings**, taken from the baseline column, with a check that warns when another scenario column differs |
 

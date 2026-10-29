@@ -25,8 +25,8 @@ The current version of each main file, `<Name>_v<version>` (NORMS 5a); older ver
 | [`air_pollution/`](air_pollution/README.md) | Recovered standalone v0.3 scaffold, public reference tables, equation inventory and Python comparison; calculations and numerical regression remain open |
 | `permalink/` | Only what other files link to: every module as `<Name>_latest` (mitigation, distribution, air pollution; data transfer between the modules) |
 | `permalink_countryeditable/` | A copy of `permalink/` for local, country-specific runs: open and edit the copies here; the modules link to each other through it (NORMS 5a) |
-| `releases/` | Every earlier version of the main files since v7.2 |
-| `legacy/` | Legacy CPAT: the reference workbooks and codes master (`workbooks/`); the fix-plan sources and tools (`bugfixes/`, with the 456 to 465 row map and `check465/`, the check of the bugs the CPAT team fixed in 465); the bug-fix procedure; the register as JSON (`Legacy_CPAT_Register.json`); the v7.1 codes work (`codes/`) |
+| `releases/` | Every earlier version of the main files since v0.7.2 |
+| `legacy/` | Legacy CPAT: the reference workbooks and codes master (`workbooks/`); the fix-plan sources and tools (`bugfixes/`, with the 456 to 465 row map and `check465/`, the check of the bugs the CPAT team fixed in 465); the bug-fix procedure; the register as JSON (`Legacy_CPAT_Register.json`); the v0.7.1 codes work (`codes/`) |
 | [`plans/`](plans/TODO.md) | The to-do list and the plans |
 | `shared/`, `templates/` | Code (release layout, Excel lint) and the input row template used by the builders |
 

@@ -1,4 +1,4 @@
-# Builder notes for the equations addendum (v9.0)
+# Builder notes for the equations addendum (v0.9.0)
 
 Research notes behind [`Equations_addendum.md`](Equations_addendum.md): legacy 465 cell evidence for every new bug and issue, cell plans, the build.py hook points, missing inputs, typed Egypt values and cached legacy values for regression. Register codes are final (L173-L222, I101-I146, LD80). Legacy 465 Mitigation years: L = 2022 ... AE = 2041 (K = 2021).
 
@@ -191,7 +191,7 @@ Cell plans:
 ### 4. Where it hooks in build.py
 
 - **LD1**: line 174 `SUBSECTORS` row `('foo', ..., 'bld', 'srv', ...)` -> elasticity sector `'ind'`; update the comment
-  (v0.11) and `ISSUES.md`/register LD1 -> "Aligned". Inputs columns `esec`, `eY`, `eU`, `eF`, `a` follow (Inputs sheet,
+  (v0.0.11) and `ISSUES.md`/register LD1 -> "Aligned". Inputs columns `esec`, `eY`, `eU`, `eF`, `a` follow (Inputs sheet,
   build_inputs ~6960). `psec` (`ind`) and `AEG` (default 3, line 3240) already as legacy. Python reference:
   check_full.py elasticity sector of foo. Not covered by the decision (left as is): the shadow-price/feebate group of
   food (prototype feebate sector `res`, SUBSECTORS column 7; legacy uses `shp.*.ind` rows 2379/2382 and the industry
@@ -206,7 +206,7 @@ Cell plans:
   `ExtendCarbonPriceBeyondOutro` (`CP_PARAMS`, 391). Missing: none.
 - **I47**: `fis.rev` (11566-11570): `ch4.revf` -> `ch4.rev`. Remove `CH4S_SRC` (328), `CH4S_STORE` (329), the GHG block
   "Methane fee in the fiscal space" (3279-3281), docs 4046-4057, `ch4.emf`/`ch4bs.chk`/`ch4.revf` branches
-  (11298-11316), the BaselineCO2 rows dg/bm (6303, 12064, 12082, 12158) and `R_POL['ch4bs.*']`. Keep the v6.2
+  (11298-11316), the BaselineCO2 rows dg/bm (6303, 12064, 12082, 12158) and `R_POL['ch4bs.*']`. Keep the v0.6.2
   P_FIRST/P_LAST fix (3143) and `ref_formula` ending at the column: these keep every reference exact-year. Test:
   full recalculation (LibreOffice/Excel) with a methane fee and GDPEndogenous = Yes, no circular-reference warning.
   Register I47 -> replicated.
@@ -877,7 +877,7 @@ Years are read from each sheet's own year row (Mitigation K = 2021, L = 2022 ...
   Equations.md last section: replace "Σ deciles" wording.
 - **R7**: `price_formula` 'sp' (line ~9350, LAMBDA SUPPLYCOST): use `psp*psf` (new block row psb) in place of `psp`
   now and last year; `ppsw` -> 0 (or memo), `pvatn` parts and `rsr` (drop `psw x VAT`); LegacyDiff LD19 text is stale
-  (says "no price effect"; v6.1-6.2 built it): set to "Same" after R7. Power section G: new rows ps.ecy.sh, ps.ecy,
+  (says "no price effect"; v0.6.1-0.6.2 built it): set to "Same" after R7. Power section G: new rows ps.ecy.sh, ps.ecy,
   ps.ecy.res; `rppre` gets the Δps term; Inputs_power must read `mit.txo.ecy.res/ind` (Prices_dom) by year.
 - **R8**: Inputs_prices `dom()` helper (line ~7068) -> wrap with the manual override (Manual inputs I:N by code G,
   year row 59); Inputs_power `dom()` (line ~7953) likewise for ecy; policy `pros` (PRODSUB). Inputs_ela (line ~7495):

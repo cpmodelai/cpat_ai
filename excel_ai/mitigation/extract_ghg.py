@@ -1,12 +1,12 @@
-"""v2.8: data for the non-CO2 GHG and methane rows of CPAT-AI-Mitigation-Prototype (Methods, chapter Emissions).
+"""v0.2.8: data for the non-CO2 GHG and methane rows of CPAT-AI-Mitigation-Prototype (Methods, chapter Emissions).
 
-Source: legacy CPAT `excel_ai/legacy/workbooks/CPAT 1.0pre_465_NoPropData.xlsb` (read-only; v8.5, LD41: was 456), values:
+Source: legacy CPAT `excel_ai/legacy/workbooks/CPAT 1.0pre_465_NoPropData.xlsb` (read-only; v0.8.5, LD41: was 456), values:
 - `GHGs` rows 8-946: GHG inventory by country, year, UNFCCC category and gas (Mt CO2e; legacy key inputs 7 read
   columns H:AZ by position 1-43)                                                    -> data/ghg_inventory.csv
 - `CH4Inputs`: methane abatement curves (avg_pow_a, avg_pow_b, per_flare) and the shares used to split
   inventory CH4 by source (per_upstream_og ... per_rice), by country and source       -> data/ch4_inputs.csv
 - `EF_PM`: combustion emission factors of the country (kt per PJ, base value `FE in` and 2050 value `FE fin`), every
-  pollutant; v8.5: the 465 file holds all countries (456: Egypt only): the rows of SRC_ISO are kept (v9.0: no longer
+  pollutant; v0.8.5: the 465 file holds all countries (456: Egypt only): the rows of SRC_ISO are kept (v0.9.0: no longer
   read by check_full, which uses the all-country legacy_EF_PM.csv)                             -> data/ef_nonco2.csv
 - `UNPop` (rows below the header `CPAT code`): population by country and year (thousands; UN WPP)              -> data/population.csv
 - `EF_GHG` (gwp100 rows): GWP100 of the local pollutants by GAINS region                -> data/gwp_pollutants.csv
@@ -22,9 +22,9 @@ import os
 from pyxlsb import open_workbook
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-LEGACY = os.path.join(HERE, '..', 'legacy', 'workbooks', 'CPAT 1.0pre_465_NoPropData.xlsb')   # v8.5 (LD41): was 456
+LEGACY = os.path.join(HERE, '..', 'legacy', 'workbooks', 'CPAT 1.0pre_465_NoPropData.xlsb')   # v0.8.5 (LD41): was 456
 OUT = os.path.join(HERE, '..', '..', 'data', 'mvp_legacy_extracts')
-SRC_ISO = 'EGY'   # v3.3: country of the legacy run in the source file: the key (column country) of the rows written
+SRC_ISO = 'EGY'   # v0.3.3: country of the legacy run in the source file: the key (column country) of the rows written
 
 CATS = ['enr', 'ipr', 'agr', 'lucf', 'wst', 'oth', 'tinc', 'texc']   # legacy order of the column groups
 GASES = ['co2', 'ch4', 'n2o', 'fga', 'tot']

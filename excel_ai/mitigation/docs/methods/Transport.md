@@ -10,10 +10,10 @@ The "technoeconomic" road model of legacy CPAT and of the methodology note (`dat
 
 - **Vehicle classes:** passenger and light vehicles (new and used), freight trucks and 2-3 wheelers; buses follow passenger vehicles.
 - **Powertrains:** gasoline, diesel, LPG and CNG/LNG; PHEVs (passenger); BEVs.
-- **Fuels covered:** road gasoline, diesel, LPG, natural gas and electricity; road biofuels follow them as legacy (v4.12, LD62): bioethanol and other biofuels with gasoline, biodiesel with diesel (base year x use / base-year use). The vehicle feebate's CO2 per liter of gasoline and diesel is scaled by their fossil share in the base year (legacy E2146:E2147; issue I40, replicated). Coal, kerosene and other oil products in road, and rail, aviation and navigation, stay on the elasticity approach.
+- **Fuels covered:** road gasoline, diesel, LPG, natural gas and electricity; road biofuels follow them as legacy (v0.4.12, LD62): bioethanol and other biofuels with gasoline, biodiesel with diesel (base year x use / base-year use). The vehicle feebate's CO2 per liter of gasoline and diesel is scaled by their fossil share in the base year (legacy E2146:E2147; issue I40, replicated). Coal, kerosene and other oil products in road, and rail, aviation and navigation, stay on the elasticity approach.
 
 **Switch:** ScenarioDefinition `TrModel` (legacy row 340), per scenario.
-- **Elasticity (default):** results are exactly those of v3.4.
+- **Elasticity (default):** results are exactly those of v0.3.4.
 - **Engineer:** section 5b replaces road gasoline, diesel, LPG, gas and biofuels in section 5 in every year. Road electricity feeds power demand from the year after the base year. CO2, revenues, methane, air pollutants and the totals follow.
 
 Section 5b is computed in every scenario either way, so the two approaches can be compared side by side.
@@ -171,7 +171,7 @@ them through the Mapping table (`MT_KEYS`) like the other ScenarioDefinition row
 - Section 5: the elasticity fuel use is now variable `enel` (the former `ener` formula, `FUELUSE`, base year from
   Inputs). `ener` = `ROADSWITCH($D, tr.sw, result rows 2598:2603, enel)`; D = Inputs column `trpos` = position of the
   fuel in `TrFuelKey` for road (gasoline 1, diesel 2, LPG 3, gas 4, biofuels 6), 0 elsewhere. With `TrModel` =
-  Elasticity (default) `ener` = `enel` everywhere, so every v3.4 output is unchanged (regression 0). With Engineer the
+  Elasticity (default) `ener` = `enel` everywhere, so every v0.3.4 output is unchanged (regression 0). With Engineer the
   road gasoline, diesel, LPG, gas and biofuels of section 5 are those of section 5b in every year (base year: the
   calibrated value = the energy balance); CO2, revenues, CH4, air pollutants and the totals follow.
 - Section 3 H: `dem` = `DEMROAD($F, tr.sw, road electricity 2604, previous, multiple)`; F = Inputs_power column `tr`
@@ -200,7 +200,7 @@ The reference engine is reproduced exactly (section 6); the deviations are in th
 
 ### 6. Check results
 
-`check_full.py` (report `check_report_v6.4.md`):
+`check_full.py` (report `check_report_v0.6.4.md`):
 
 - Section 5b against `transport_model_ref.engine(fix=ALL_FIXES)`, inputs from the Python recomputation (an
   independent copy of the input mapping, `tr_inputs`): every row with year values and the side-table parameters
@@ -213,14 +213,14 @@ The reference engine is reproduced exactly (section 6); the deviations are in th
 - Directions (2035 unless noted): carbon tax lowers road fuel use (24,580 -> 22,564 ktoe); EV subsidy raises the
   passenger EV sales share in 2030 (0.55% -> 3.3%); distance tax lowers passenger distance (285 -> 183 bln km); all
   policies of 15 lower road fuel use (22,564 -> 14,177 ktoe).
-- Regression vs v3.4: 0 on every shared output code (Elasticity by default); new variables reported as added.
+- Regression vs v0.3.4: 0 on every shared output code (Elasticity by default); new variables reported as added.
 - The scenario-copy test (copy of 2 with carbon price 0 = scenario 1) skips the row `tr.pol` (scenario number > 1),
   as it skips the scenario number itself.
 - Python interface changes needed for the check: `power_model_ref.engine` takes an optional
   `inp['dem_fixed']` (road demand from the engineer model; default behaviour unchanged).
 
 
-## Engineer road transport model: data and Python reference (v3.5, phases 1-2)
+## Engineer road transport model: data and Python reference (v0.3.5, phases 1-2)
 
 Source: legacy CPAT `legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb` (cached values, read with pyxlsb), Mitigation key inputs 15 (rows 2017-2171) and section 5 (rows 4302-5378, policy copy at +6331), as mapped in `Transport_Legacy_Survey.md`. Plan and decisions: `Transport_Plan.md` section 3 (approved: Elasticity default, all bugs fixed with legacy switches in the reference, legacy parameter values by default, range anxiety from Transport3, two calibration steps kept).
 
@@ -237,7 +237,7 @@ Scripts:
 | `vehicle_prices.csv` | ICEV and EV prices (passenger, freight, 2-3 wheeler), 220 countries, 2022-2040 | Transport2 |
 | `range_anxiety.csv` | stored range anxiety per country ($/vehicle: passenger, freight, cycle), and the 2025 actual and calculated EV shares the solver fitted; 194 countries | Transport3 rows 5-226 |
 | `transport_params.csv` | key, value, unit, description, legacy cell, use. Policies and parameters of the side tables (Mitigation 4304-4332, the Dashboard cell in the description), Dashboard options (TrModel, range-anxiety source, Q551, Q556, freight-share and 2-3 wheeler hump parameters), formula literals (Gompertz -5.897, gas /26, PHEV x9, insurance x0.5, station life /15, BEV distance caps 1.2/1/1, own and cross elasticities, policy factors x1, data years 2024/2022 hardcoded in the Dashboard), the Transport3 average (fallback), and the methodology-note alternatives (`note|...`, use = note, not used by default) | Dashboard 61-98, 540-559; Mitigation side tables |
-| `transport_paths.csv` | BEV fuel economy of new vehicles (passenger, freight, 2-3 wheeler), BEV fuel economy light/freight/cycle (used in data years), charging cost per port, 2022-2041 | Manual inputs 375-377; Mitigation 2051, 2095, 2122, 2170 (v5.2: the workbook reads the BEV fuel economy of new vehicles from sheet Manual inputs J375:AC377, the same values; the CSV rows stay the reference input) |
+| `transport_paths.csv` | BEV fuel economy of new vehicles (passenger, freight, 2-3 wheeler), BEV fuel economy light/freight/cycle (used in data years), charging cost per port, 2022-2041 | Manual inputs 375-377; Mitigation 2051, 2095, 2122, 2170 (v0.5.2: the workbook reads the BEV fuel economy of new vehicles from sheet Manual inputs J375:AC377, the same values; the CSV rows stay the reference input) |
 | `legacy_transport_reference.csv` | cached legacy values, runs `base` and `pol`: every numeric row 4334-5378 (`r<row>`, baseline numbering; `legacy_row` gives the actual row), rows 2034-2171 (`r<row>`), side-table scalars (`c<cell>`: calibration tables 5170-5173, E/I/J5325-5331, H/I/J4787 and 4903, G5177/G5231/G5273, emission factors, VAT and customs cells, K4329, J2169, the 2017-2031 share/ktoe/liter block), and the inputs from the rest of Mitigation (`in|...`: retail prices 2589, 2590, 2594, 2596, 2612, 2618, 2635, 2641, 2543, 2566, 2572; power prices 3617, 3646; GDP growth 2446 incl. 2021; row 2455; carbon price 2375; feebate coverage 2404; population 428; GDP per capita 444; price block 789, 793, 797, 802, 805; scenario number; elasticities; conversions; emission factors; energy balance road column; VAT N726; power WACC average; range anxiety) | Mitigation |
 
 Country-specific Dashboard cells (VAT on vehicles = Mitigation N726; customs = Transport1 duties of 2024; import shares = Transport1 2022; 2-3 wheeler imports = passenger) are not stored as parameters: the engine derives them from the data and the inputs (`customs_year`, `import_year`).
@@ -390,7 +390,7 @@ Sources: legacy `CPAT 1.0pre_456_NoPropData.xlsb`, Mitigation key inputs 15 (row
 
 | Topic | Legacy | prototype | Reason |
 |---|---|---|---|
-| Default model | Template default Engineer; Egypt run Elasticity | Elasticity by default, Engineer by switch | Results unchanged until the engineer run is reviewed; a calibration that is not general stays off by default (user rule v3.4) |
+| Default model | Template default Engineer; Egypt run Elasticity | Elasticity by default, Engineer by switch | Results unchanged until the engineer run is reviewed; a calibration that is not general stays off by default (user rule v0.3.4) |
 | Bugs | As found | All fixed (list below); legacy behaviour kept as switches in the Python reference only | Same approach as the power model; the reference reproduces legacy to 4e-14 with the switches off |
 | Parameters | Side-table and Dashboard values; methodology note differs (discount rate 10-30%, distance income elasticity 0.05, driving elasticities -0.3/-0.2, wage-linked maintenance, ICEV prices rising with income) | Legacy values; the note's values listed as alternatives (`data/transport_params.csv`, use = note) | Match legacy; switch after review |
 | Range anxiety | Transport3: stored per-country solver results | The same stored values; the mismatch with the observed 2025 EV share is reported (legacy 0.35%, all fixes 0.09%, actual 0.15% for Egypt passenger) | General (194 countries); re-solving for the corrected model needs a goal seek (later) |

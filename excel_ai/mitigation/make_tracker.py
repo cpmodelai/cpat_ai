@@ -1,4 +1,4 @@
-"""Tracking_Legacy_Bugs_v<version>.xlsx (excel_ai/): the master list of bugs and issues (v8.4, user 2026-10-28).
+"""Tracking_Legacy_Bugs_v<version>.xlsx (excel_ai/): the master list of bugs and issues (v0.8.4, user 2026-10-28).
 
 The CPAT team's tracker (was excel_ai/legacy/Tracking issues.xlsx) with three tabs in front, written from the register
 (register.py): ReadMe (the rule, the codes, where each item is documented), Bugs (L legacy bugs, M prototype bugs)
@@ -30,7 +30,7 @@ XL = os.path.join(HERE, '..')
 NAME = 'Tracking_Legacy_Bugs'
 OUT = B.REL.versioned(NAME, R.REGISTER_VERSION, 'xlsx')
 OLD = os.path.join(XL, 'legacy', 'Tracking issues.xlsx')
-OURS = ('ReadMe', 'Bugs', 'Issues', 'CPAT-AI_bugs')        # tabs written here (CPAT-AI_bugs: the tab before v8.4)
+OURS = ('ReadMe', 'Bugs', 'Issues', 'CPAT-AI_bugs')        # tabs written here (CPAT-AI_bugs: the tab before v0.8.4)
 
 # style indices of the team's xl/styles.xml (as on CPAT_issues): header, centred, wrapped, Fixed = Solved / In progress / No
 S_HEAD, S_HEAD_WRAP, S_CENTRE, S_WRAP = 1, 23, 4, 3
@@ -116,7 +116,7 @@ def readme_rows():
             ('Bugs and issues', 'Bugs are in tab Bugs (L, M, DOC) and in the document Legacy_CPAT_Bugs_v'
                                 f'{R.REGISTER_VERSION}.docx (L). Issues are in tab Issues (I, LD, U; data problems: area Data) and in '
                                 'the appendices of the Documentation (CPAT-AI-Mitigation_Documentation.docx). Every row '
-                                'gives its code, its former code (renumbered in v8.4), the codes it relates to (See '
+                                'gives its code, its former code (renumbered in v0.8.4), the codes it relates to (See '
                                 'also) and where it is documented.')]
     for p, d, w in G.DEFINITIONS:
         rows.append((f'{p} ({c[p]})', f'{d} Prototype: {w}'))

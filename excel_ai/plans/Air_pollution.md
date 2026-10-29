@@ -211,7 +211,7 @@ Cosmetic, not built: row 432 J:AC (later-year population drift, unused); K2171-2
 
 | Legacy input | prototype source |
 |---|---|
-| Emissions 10 pollutants × 7 sectors + all, t (E3 15859-16065) | Section 15 `aps.<pol>.<sec>` (kt; ×tPerKt). Same layout and pollutant order (v3.12) |
+| Emissions 10 pollutants × 7 sectors + all, t (E3 15859-16065) | Section 15 `aps.<pol>.<sec>` (kt; ×tPerKt). Same layout and pollutant order (v0.3.12) |
 | Residential coal + biomass use (15837-15857) | Section 6 residential fuel-use rows (ener coa, bio) |
 | Baseline real GDP 2026 USD (15827) | `gdp.usd` of scenario 1 through a `.ref` row |
 | CO2 energy and GWP100 (16069-16073) | Section 13 CO2 total, `apf.all` (only for the temperature display) |

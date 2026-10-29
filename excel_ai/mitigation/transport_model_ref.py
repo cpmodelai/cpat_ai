@@ -1,4 +1,4 @@
-"""v3.5 (phase 2 of Transport_Plan.md): Python reference of the legacy CPAT engineer road transport model.
+"""v0.3.5 (phase 2 of Transport_Plan.md): Python reference of the legacy CPAT engineer road transport model.
 
 Source: legacy CPAT `CPAT 1.0pre_456_NoPropData.xlsb`, sheet Mitigation, key inputs 15 (rows 2017-2171) and section 5
 "Transport sector" (rows 4302-5378; policy copy at +6331), as surveyed in Transport_Legacy_Survey.md. Reads only

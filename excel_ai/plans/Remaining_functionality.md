@@ -2,11 +2,11 @@
 
 Scope (user 2026-10-29): build every legacy function the prototype lacks, **except the elasticity-based power model**
 (legacy Mitigation section C3, not built by decision). MTOutputs of the prototype: comprehensive, like legacy, without
-intermediate outputs such as the components of the price build-up. Reference: legacy `CPAT 1.0pre_465`; prototype v8.5.
+intermediate outputs such as the components of the price build-up. Reference: legacy `CPAT 1.0pre_465`; prototype v0.8.5.
 
 ## 1. Where we are: legacy blocks against the prototype
 
-| Legacy block (Mitigation sheet, 465) | Prototype v8.5 |
+| Legacy block (Mitigation sheet, 465) | Prototype v0.8.5 |
 |---|---|
 | B Key assumptions and inputs (MTInputs, Manual inputs, data) | Built (ScenarioDefinition on 465 rows; Manual inputs in part, below) |
 | C1 Policies, C2 Retail prices | Built, except the **Pigouvian (efficient) tax** options (rows 81-82, 111-147, 200, 2202; inputs AddEfficientTaxes, ClimateEffTax, ExternalityAddVAT, AddEfficientTaxesPhaseInYears) and **CBAM process emissions** in the carbon tax and ETS (rows 1832-1836, 1918, 2206, 5867-5874; inputs CBAMProc*) |
@@ -174,7 +174,7 @@ Not built, by decision: the elasticity-based power model (legacy C3).
 [`../mitigation/Equations_addendum.md`](../mitigation/Equations_addendum.md): the equations of R1-R13 and the reverts,
 from legacy 465, sections A-F; research, cell evidence, cell plans, hook points in `build.py` and Egypt values in
 [`../mitigation/Equations_addendum_notes.md`](../mitigation/Equations_addendum_notes.md). New register codes (entered
-with the v9.0 build): legacy bugs L173-L222, issues I101-I146, departure LD80. Points taken by default, open to the
+with the v0.9.0 build): legacy bugs L173-L222, issues I101-I146, departure LD80. Points taken by default, open to the
 user: `remaining_functionality.json` `open_points` (CBAM process emissions in the totals; electricity Pigouvian tax 0
 as legacy; transport candidates B-c, B-d, B-e kept as legacy; registered bugs not reproduced in 465 to check).
 - **Deferred (user 2026-10-29, later the same day)**: R4 CBAM process emissions and the ETS connection, R5 green

@@ -1,0 +1,43 @@
+# Data {#sec-data}
+
+All data of the project live in the root folder `data/`, in subfolders by kind, with the scripts that convert them. Code reads the data from there by a path relative to the repository; nothing is copied into the project folders.
+
+::: {.callout-note}
+## Only dummy or public data are committed
+
+The real data include proprietary tables (energy balances, domestic prices, household surveys, input-output tables). They stay outside the repository, on the restricted team site, and are read through `REAL_DATA_PATH`. The repository holds dummy data in the real formats, and public data.
+:::
+
+## Layout
+
+| Folder | Contents | Read by |
+|---|---|---|
+| `dummy/` | The Coded CPAT inputs, dummy version: CSVs with fake values in the real formats; the household survey and input-output tables are Egypt from the public legacy file | Coded CPAT |
+| `workbooks/` | The data workbook in two formats: Python format (one table per CSV) and CPAT format (the legacy data sheets at legacy cell addresses) | The Excel prototype's data links; people pasting into legacy CPAT |
+| `legacy_dummy/` | The four proprietary tables (`EnergyCons`, `Prices_dom`, `HHSurvey`, `IO_GTAP`) in the legacy layout, dummy version | Legacy CPAT (paste); checks |
+| `mvp_legacy_extracts/` | The tables the mitigation prototype is built from: verbatim extracts of legacy tabs, tabs kept at legacy addresses, derived tables, every input row of legacy 465 | The mitigation builder, checks, reference models |
+| `distribution/` | The distribution data pipeline, one workbook per stage | The distribution data of the prototype |
+| `air_pollution/legacy_459/` | Nine public air-pollution reference tables from legacy 459 | The air-pollution module |
+| `range_anxiety_fit/` | Range-anxiety start values fitted on the prototype's road model | The mitigation builder |
+| `scripts/`, `tests/` | The conversion scripts and their tests | |
+
+## The conversion scripts
+
+| Script | What it does |
+|---|---|
+| `export_to_legacy.py` | Writes the four proprietary tables in the legacy layout, from the Coded CPAT data |
+| `build_data_workbook.py` | Builds the data workbook in Python format from the CSVs |
+| `convert_data_workbook.py` | Converts the data workbook between Python format and CPAT format |
+
+**One change, every format.** When the dummy data change, the workbooks and the dummy legacy-data files are rebuilt in the same task and the tests are run:
+
+```
+cd data
+python scripts/build_data_workbook.py
+python scripts/convert_data_workbook.py to-cpat
+pytest tests
+```
+
+## The dummy legacy data
+
+`legacy_dummy/CPAT_LegacyData_dummy.xlsx` holds the four proprietary tables in the legacy layout, with the legacy sheet names, header rows and cell positions, so they can be pasted into legacy CPAT. Its CSV folder holds the same tabs cell for cell, and they agree with the corresponding files in `dummy/`. The mitigation tables are randomised and serve as a format sample; the household survey and input-output tables reproduce the public legacy workbook (Egypt).

@@ -1,4 +1,4 @@
-"""v4.9: one headless LibreOffice session driven through UNO (fast full build, user rule 2026-10-17).
+"""v0.4.9: one headless LibreOffice session driven through UNO (fast full build, user rule 2026-10-17).
 
 The workbook is loaded once; each run writes its inputs, recalculates in memory (calculateAll, about 17 s for the
 mitigation prototype) and reads only the cells it needs. This replaces one save, load, LAMBDA expansion, LibreOffice
@@ -83,7 +83,7 @@ class Session:
     @staticmethod
     def calc(doc):
         doc.calculateAll()
-        doc.calculateAll()       # v7.1: one calculateAll leaves differences of up to 2e-3 (stored results, fiscal
+        doc.calculateAll()       # v0.7.1: one calculateAll leaves differences of up to 2e-3 (stored results, fiscal
                                  # impulse): every recalculation is two (NORMS.md 3i.2)
 
     @staticmethod
@@ -137,7 +137,7 @@ def run_worker(k, path, spec, inbox, outbox):
                 return
             for sheet, r, c, v in msg[1]:
                 s.set_value(doc, sheet, r, c, v)
-            s.calc(doc)          # v7.0: a recalculation after loading, before the first definition
+            s.calc(doc)          # v0.7.0: a recalculation after loading, before the first definition
             for key, copies in spec['plan'][k]:
                 for sheet, r0, r1, cf, ct in copies:
                     s.copy_cells(doc, sheet, r0, r1, cf, ct)
@@ -195,8 +195,8 @@ def values_worker(path, sheets, outbox):
     try:
         with Session() as s:
             doc = s.load(path)
-            s.calc(doc)          # v6.0: a full recalculation after loading shows circular references (Err:522), which
-            outbox.put(('ok',) + _read(doc, sheets))   # loading alone does not (v6.0 I47: found by the stored results)
+            s.calc(doc)          # v0.6.0: a full recalculation after loading shows circular references (Err:522), which
+            outbox.put(('ok',) + _read(doc, sheets))   # loading alone does not (v0.6.0 I47: found by the stored results)
     except BaseException:
         outbox.put(('error', traceback.format_exc()))
 
@@ -247,7 +247,7 @@ def _letters(n):
 def _paste_xml(xml, c0, c1, dests, shift, overwrite=False):
     """A user's copy-paste in the sheet XML: the cells of columns c0..c1 copied to the columns starting at each of
     dests (right of every existing cell), formulas shifted by shift(formula, columns) as Excel's paste does.
-    v6.6: overwrite=True pastes over existing cells (the plain twin of the LAMBDA group: group 1 over group 2)."""
+    v0.6.6: overwrite=True pastes over existing cells (the plain twin of the LAMBDA group: group 1 over group 2)."""
     width = c1 - c0 + 1
 
     def cell_xml(col, r, attrs, inner):
@@ -276,7 +276,7 @@ def _paste_xml(xml, c0, c1, dests, shift, overwrite=False):
 def expanded_zip(src, call, expand, pastes=None, shift=None, overwrite=False):
     """The copy LibreOffice recalculates (check variant 'expand': LAMBDA calls expanded), written from the file's
     XML: every <f> element whose formula matches call (the LAMBDA call pattern) gets expand(formula). A few seconds,
-    no openpyxl load (same formulas as variant 'expand': checked on all 422,845 formulas of v4.9). pastes: {sheet:
+    no openpyxl load (same formulas as variant 'expand': checked on all 422,845 formulas of v0.4.9). pastes: {sheet:
     (first column, last column, [destination first columns])} copy-pasted in the XML, formulas shifted by shift
     (the paste test: scenario group 2 pasted to the right)."""
     def fix(m):
