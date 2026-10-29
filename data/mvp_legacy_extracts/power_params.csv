@@ -2,18 +2,18 @@ country,key,value,unit,description,legacy_row
 EGY,tmc|res,0.04,$/kWh,"transmission and distribution, residential (G1)",3599
 EGY,tmc|ind,0.015,$/kWh,"transmission and distribution, industrial (G2)",3628
 EGY,pass,1.0,share,pass-through of supply-cost changes to end users (G1),3596
-EGY,gen_per_cons,1.221168676519317,ratio,"generation / final consumption (H2, base year)",3723
+EGY,gen_per_cons,1.2347218600526237,ratio,"generation / final consumption (H2, base year)",3723
 EGY,dlf_ren,8.435036725735763,years,discounted lifetime of renewables (J2),3883
 EGY,st_alloc,1.0,share,allocation of short-term storage cost to VRE (J1),3871
 EGY,st_marg_hours,18.0,hours,marginal hours of short-term storage per unit VRE (J1),3873
 EGY,st_ratio,2.0,hours,kWh storage per kW interface (J1),3874
 EGY,lt_start,0.75,share,VRE share where long-term storage starts (J1),3877
 EGY,lt_alloc,0.33,share,allocation of long-term storage cost to VRE (J1),3876
-EGY,sh_nxp,0.009244530635078244,share,"net exports / final demand, base year (H2)",3719
-EGY,sh_tsd,0.18995797584605822,share,transmission and statistical differences / final demand (H2),3720
-EGY,sh_eou,0.038194002777357225,share,energy industry own use / final demand (H2),3721
-EGY,sh_add,-0.016227832739176756,share,additional statistical difference / final demand (H2),3722
-EGY,extra_eff,0.0,share,additional efficiency improvement of power demand (H2),3719
+EGY,sh_nxp,0.00925623804005078,share,"net exports / final demand, base year (H2)",3719
+EGY,sh_tsd,0.18672085273605965,share,transmission and statistical differences / final demand (H2),3720
+EGY,sh_eou,0.038744775031930745,share,energy industry own use / final demand (H2),3721
+EGY,sh_add,-5.755417299900324e-09,share,additional statistical difference / final demand (H2),3722
+EGY,extra_eff,0.0,share,additional efficiency improvement of power demand (H2; not in legacy 465: 0),3719
 EGY,maxcf_cg,0.9,share,maximum capacity factor of coal and gas (I2),3783
 EGY,k_dispatch,2.0,factor,"logit K parameter, dispatch (H2)",3720
 EGY,k_invest,2.0,factor,"logit K parameter, investment (H2)",3721

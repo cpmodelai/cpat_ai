@@ -1,12 +1,12 @@
 """v2.8: data for the non-CO2 GHG and methane rows of CPAT-AI-Mitigation-Prototype (Methods, chapter Emissions).
 
-Source: legacy CPAT `excel_ai/legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb` (read-only), values:
+Source: legacy CPAT `excel_ai/legacy/workbooks/CPAT 1.0pre_465_NoPropData.xlsb` (read-only; v8.5, LD41: was 456), values:
 - `GHGs` rows 8-946: GHG inventory by country, year, UNFCCC category and gas (Mt CO2e; legacy key inputs 7 read
   columns H:AZ by position 1-43)                                                    -> data/ghg_inventory.csv
 - `CH4Inputs`: methane abatement curves (avg_pow_a, avg_pow_b, per_flare) and the shares used to split
   inventory CH4 by source (per_upstream_og ... per_rice), by country and source       -> data/ch4_inputs.csv
-- `EF_PM`: combustion emission factors of the country (the NoPropData file holds Egypt only; kt per PJ, base
-  value `FE in` and 2050 value `FE fin`), every pollutant                             -> data/ef_nonco2.csv
+- `EF_PM`: combustion emission factors of the country (kt per PJ, base value `FE in` and 2050 value `FE fin`), every
+  pollutant; v8.5: the 465 file holds all countries (456: Egypt only): the rows of SRC_ISO are kept                             -> data/ef_nonco2.csv
 - `UNPop` (rows below the header `CPAT code`): population by country and year (thousands; UN WPP)              -> data/population.csv
 - `EF_GHG` (gwp100 rows): GWP100 of the local pollutants by GAINS region                -> data/gwp_pollutants.csv
 - `Countries` column O: GAINS region of each country                                   -> data/gains_region.csv
@@ -21,7 +21,7 @@ import os
 from pyxlsb import open_workbook
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-LEGACY = os.path.join(HERE, '..', 'legacy', 'workbooks', 'CPAT 1.0pre_456_NoPropData.xlsb')
+LEGACY = os.path.join(HERE, '..', 'legacy', 'workbooks', 'CPAT 1.0pre_465_NoPropData.xlsb')   # v8.5 (LD41): was 456
 OUT = os.path.join(HERE, '..', '..', 'data', 'mvp_legacy_extracts')
 SRC_ISO = 'EGY'   # v3.3: country of the legacy run in the source file: the key (column country) of the rows written
 
@@ -65,7 +65,7 @@ def main():
     write('ch4_inputs.csv', ['iso', 'source'] + head[3:12], ch4)
 
     ef = [[v[1], v[2], v[3], v[4], num(v.get(5)), num(v.get(6))] for r, v in rows('EF_PM')
-          if r >= 3 and isinstance(v.get(4), str) and isinstance(v.get(5), float)]
+          if r >= 3 and isinstance(v.get(4), str) and isinstance(v.get(5), float) and v.get(1) == SRC_ISO.lower()]
     write('ef_nonco2.csv', ['country', 'subsector', 'fuel', 'pollutant', 'fe_in', 'fe_fin'], ef)
 
     pop, years = [], None
