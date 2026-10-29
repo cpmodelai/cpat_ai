@@ -254,15 +254,16 @@ pres.addSection({ title: "Overview" });
 // 3. Legacy bugs ------------------------------------------------------------------------------------------------
 {
   const s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Overview" });
-  header(s, "LEGACY CPAT · FIXES NEEDED", `${BUGS} bugs found in legacy CPAT; ${LEG.counts.High} change today's results`);
+  const PRI = FACTS.bug_priority || LEG.counts;   // v1.0.0: the priorities of BUGS.md
+  header(s, "LEGACY CPAT · FIXES NEEDED", `${BUGS} bugs found in legacy CPAT; ${PRI.High} of high priority`);
   const rows = [[{ text: "ID", options: { bold: true, color: "FFFFFF", fill: { color: NAVY } } },
-                 { text: "High-priority bug and its effect", options: { bold: true, color: "FFFFFF", fill: { color: NAVY } } }]]
+                 { text: "Some high-priority bugs and their effect", options: { bold: true, color: "FFFFFF", fill: { color: NAVY } } }]]
     .concat(LEG.high.map((b) => [{ text: b.id, options: { bold: true, color: AMBER } }, { text: b.effect }]));
   s.addTable(rows, { x: 0.6, y: 1.5, w: 8.6, colW: [0.8, 7.8], fontSize: 12, color: INK, border: { type: "solid",
     color: LINE, pt: 0.75 }, rowH: 0.47, valign: "middle", margin: [2, 6, 2, 6], objectName: nm("bugTable") });
-  stat(s, String(LEG.counts.High), "mitigation, high: wrong results in standard runs", 9.6, 1.55, 3.1, AMBER);
-  stat(s, String(LEG.counts.Medium), "mitigation, medium: some runs or countries, or a reported number", 9.6, 3.1, 3.1);
-  stat(s, `${LEG.counts.Low} + ${FACTS.bugs.dist}`, "mitigation low (latent or reporting) + distribution", 9.6, 4.65, 3.1, GREY);
+  stat(s, String(PRI.High), "mitigation, high: wrong results in standard runs", 9.6, 1.55, 3.1, AMBER);
+  stat(s, String(PRI.Medium), "mitigation, medium: some runs or countries, or a reported number", 9.6, 3.1, 3.1);
+  stat(s, `${PRI.Low} + ${FACTS.bugs.dist}`, "mitigation low (latent or reporting) + distribution", 9.6, 4.65, 3.1, GREY);
   caption(s, `${FACTS.bugs.mit} mitigation and ${FACTS.bugs.dist} distribution bugs, all fixed in the prototype; also ${ISSUES} `
     + `legacy issues (${FACTS.issues.mit} mitigation, ${FACTS.issues.dist} distribution), replicated and tracked. `
     + `Fix plans: ${REG}. Legacy CPAT 1.0pre_465: the CPAT team marked ${CHK.fixed + CHK.caveats + CHK.not} fixed `
@@ -543,15 +544,16 @@ pres.addSection({ title: "Model and results" });
   stat(s, FACTS.formulas, "formulas, none longer than 100 characters", 3.7, 1.7, 2.8);
   stat(s, FACTS.codes, `output codes; ${FACTS.changed} of ${FACTS.shared} changed against the last release`, 6.8, 1.7, 2.8);
   stat(s, String(BUGS), "legacy bugs found; none replicated in the prototype", 9.9, 1.7, 2.8, AMBER);
-  item(s, 1, "Independent recomputation", "Python recomputes prices, fuel use, power, revenue, emissions and "
-    + "distribution from the source data for the test scenarios.", 0.6, 3.9, 6.0);
+  item(s, 1, "Independent recomputation", "Coded CPAT reproduces every output code; a Python "
+    + "reference recomputes the distribution at every check (the full mitigation recomputation is being repaired).",
+    0.6, 3.9, 6.0);
   item(s, 2, "Copy-paste and LAMBDAs tested", "Pasted groups equal the stored results; the LAMBDA group equals "
     + "the plain formulas of the last release.", 6.7, 3.9, 6.0);
   item(s, 3, "Differences listed", "Tab 'Version Log, About, and Diff' lists every difference with legacy CPAT and why.",
     0.6, 5.3, 6.0);
   item(s, 4, "Documented", "The model in equations, method notes and every formula; one register of bugs and issues.", 6.7, 5.3, 6.0);
   s.addNotes(`Quick check check_quick_report_v${VER}.md: ${FACTS.quick}.`
-    + (FACTS.full_overall ? ` Full check check_report_v${VER}.md: ${FACTS.full_overall}.` : ""));
+    + (FACTS.full_overall ? ` Full check (check_report.md, last run on v${FACTS.full_version || "?"}): ${FACTS.full_overall}.` : ""));
 }
 
 // 14b. Coded CPAT -----------------------------------------------------------------------------------------------

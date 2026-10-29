@@ -9,7 +9,7 @@
 
 intro:
   greek: |
-    **Status: complete** for Excel-AI 0.9.2 and Distribution 0.1.4: the core equations of every block, the adjustments in the appendices; every equation has its function in the code. Code version: `Equations_codes.qmd` (the same equations with CPAT code names).
+    **Status: complete** for Excel-AI 1.0.0 and Distribution 1.0.0: the core equations of every block, the adjustments in the appendices; every equation has its function in the code. Code version: `Equations_codes.qmd` (the same equations with CPAT code names).
 
     ## How to read this list
 

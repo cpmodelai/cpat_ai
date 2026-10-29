@@ -66,7 +66,7 @@ Decided 2026-10-29 (user): a block that still differs after a reasonable effort 
 
 Prototype bugs found by Coded CPAT (`../excel_ai/BUGS.md` section 2). Bugs are never replicated: Coded CPAT fixes them where the fix is obvious and lists the codes that then differ from Excel-AI in `cpat_testing/compare/known_differences.py` until Excel-AI ships the fix; otherwise it follows the prototype's fixed version. When Excel-AI ships a fix: a line here with its version, Python aligned with the prototype's fix, the known differences deleted.
 
-**All closed (2026-10-29): Excel-AI 0.9.2 and Distribution 0.1.4 fixed M15-M17 and M19-M22; M18 withdrawn. Coded CPAT 0.9.2p0.1 is aligned with them; no known differences remain; every reference code of scenarios 1 and 2 matches.**
+**All closed (2026-10-29): Excel-AI 0.9.2 and Distribution 0.1.4 fixed M15-M17 and M19-M22; M18 withdrawn. Coded CPAT 0.9.2p0.1 aligned with them, and 1.0.0p1.0 (the first full release) replicates Excel-AI 1.0.0 and Distribution 1.0.0; no known differences remain; every reference code of scenarios 1 and 2 matches.**
 
 - ☑ M15 VAT of the year in section 18: Python and Excel-AI 0.9.2 (row `vatgen`: VAT_WEO to LastHistPriceYear, then held).
 - ☑ M16 freight BEV feebate at the BEV distance: Python and Excel-AI 0.9.2.

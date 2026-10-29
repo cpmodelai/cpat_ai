@@ -169,7 +169,7 @@ card(s, 8.3, 4.55, 4.4, 2.15, CARD, LINE, [head("Checked by a test"), body(
 pres.addSection({ title: "Data" });
 s = content("Data", "THE DATABASE", "Tidy CSV, one table per file, the same numbers as Excel-AI");
 stat(s, String(F.tables), "tables in data/tidy/ (the dummy database)", 0.6, 1.8, 3.6);
-stat(s, String(F.proprietary), "proprietary tables: never committed", 0.6, 4.2, 3.6, AMBER);
+stat(s, String(F.proprietary), "tidy tables from the four proprietary tables: only Egypt's public rows committed", 0.6, 4.2, 3.6, AMBER);
 card(s, 4.5, 1.8, 8.2, 2.2, CARD, LINE, [head("Format"), body(
   "Long tables: keys first (country ISO3, year, codes), then the value. A converter turns them into Excel-AI's legacy layout and back, exactly, so both models read the same numbers.")]);
 card(s, 4.5, 4.2, 8.2, 2.4, AMBER_T, LINE, [head("Where", AMBER), body(
