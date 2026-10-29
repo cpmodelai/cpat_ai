@@ -28,7 +28,6 @@ coded/                            The Python model (Coded CPAT) and its Shiny ap
 docs/                             Documentation website: index.html (two tabs: CPAT documentation, CPAT-AI project);
                                   CPAT_full_documentation_qmd/ and CPAT_ai_documentation_qmd/ (Quarto sources),
                                   CPAT_full_documentation_html/ and CPAT_ai_documentation_html/ (built pages)
-                                  published to GitHub Pages by .github/workflows/pages.yml (built pages only)
 other/                            Research papers, other decks, earlier prototypes and notes
 users/                            Personal folders
 ```
