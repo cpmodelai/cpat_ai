@@ -510,6 +510,46 @@ $$
 
 Over residential fuels $f$ that may leak (gas, LPG, kerosene), years $t$ after the base year. Excel-AI notation (Mitigation section 6b). On only for the country's most-used cooking fuel (WHO) and when BiomassLeakage = Yes (off in Egypt's scenarios). $\tau$ the new taxes per GJ with VAT, $\sigma$ the substitution elasticity of biomass for LPG, $\eta$ stove efficiencies (NatGasEff, LPGEff, KerEff, BioEff), $L$ the substitution lag (ResSubstLag). $X$ the initially exempt use (lkx), phased out over ExemptPhaseoutPeriod from YearPha when ExemptPhaseout; ExemptMostCook = Yes needs the household survey and is not in Coded CPAT yet. The cumulative changes enter residential fuel use (M3.2). Source: Excel-AI: Mitigation section 6b (lkt to lks).
 
+**A3.5  Road engineer model, data**  *(adjustment)*
+
+$$
+Q_{c,f} = sh_{c,f}\,F_{rod,f,t_0}, \quad L_{c,f} = Q_{c,f}\,\lambda_f / 10^9, \quad sh_{lgt,f} = 1 - \textstyle\sum_{c \ne lgt} sh_{c,f}, \quad x_{c,t} = \text{data of year } t \ (\text{"" outside the data years})
+$$
+
+Over vehicle classes $c$ (passenger cars, light vehicles, freight vehicles, 2-3 wheelers, buses), road fuels $f$ (gasoline, diesel, LPG, gas), years $t$. Excel-AI notation. Country data by year (shares of road fuel use by vehicle class, fuel economy, ownership per thousand people, distance per vehicle, EV shares of purchases and of the stock, duties, import and used-vehicle shares, charging stations, ownership saturation) exist for the data years only (TrYr: 2022-2025); vehicle prices hold their last value; BEV fuel economy and the charging cost follow global paths. The parameters are the transport parameters (TransportParams), the road rows of the fuel | subsector table (gj, lambda = litres per ktoe, CO2 per litre, elasticities, AEEI, base-year use), duties and VAT of the customs data year, import shares of the import data year, range anxiety (Transport3, fitted values where the country has them). Source: Excel-AI: Mitigation section 5b rows 3611-3816 (TransportParams, Transport1, Transport2, Transport3, TransportPaths, Manual inputs BEV fuel economy).
+
+**A3.6  Road engineer model, vehicle stock and ownership**  *(adjustment)*
+
+$$
+S^{o}_{c,t} = \begin{cases} S^{data}_{c,t} & \text{data year} \\ S^{cl}_{c,t-1} & \text{otherwise} \end{cases}, \quad R_{c,t} = \min\!\left(\tfrac{1}{N_c}\,\overline{S^{o}_{c}}^{(n)},\ S^{o}_{c,t}\right), \quad O^{*}_t = \bar{S}\,(1-\phi_t)\,e^{a\,e^{b\,y^{pc}_t/1000}}\,J_{t-1}, \quad O_t = \min\!\left(O_{t-1}(1+g), \max\!\left(O_{t-1}(1-d), \mu O^{*}_t + (1-\mu) O_{t-1}\right)\right), \quad P_t = O_t - \textstyle\sum_c (S^{o}_{c,t} - R_{c,t}), \quad S^{cl}_{c,t} = S^{o}_{c,t} - R_{c,t} + s_{c,t} P_t
+$$
+
+Over vehicle classes $c$ (new and used passenger vehicles, freight, 2-3 wheelers; ICEV and BEV), years $t$. Excel-AI notation (vehicles per thousand people). Retirements: the average stock of the last $n = \min(N_c, t - t_0 + 1)$ years over the life $N_c$. Ownership demand: Gompertz in GDP per capita after the GDP feedback (a = gomp_a, b = own_gomp_b), scaled by the actual/expected ratio $J$ of the data years, partial adjustment $\mu$ (own_adj), growth and decline bounds; freight takes its share $\phi$ of the saturation level, falling with income towards fre_share_target; 2-3 wheelers follow a hump in income (cyc_peak_inc, cyc_scale). Purchases split new/used by the used-vehicle share; in data years the gap to the data stock closes the balance (trplg). Charging stations grow with the BEV stock and fall with their cost (charging-station subsidy); the charging mark-up falls with the EV share of the stock; range anxiety is held for TrRALag years, then falls with the stations. Source: Excel-AI: Mitigation section 5b rows 3839-3999, 4236-4249 (trsps to trstdc, tropn to trbevm, trcss to trra, trjhp to trbytu).
+
+**A3.7  Road engineer model, total cost of ownership and EV choice**  *(adjustment)*
+
+$$
+K = \textstyle\sum_{i=1}^{N} \frac{v_{i}}{(1+r)^i}, \quad TCO = d P + \frac{P - dP}{N - 1}\,\frac{1 - (1+r)^{-(N-1)}}{r} + SV + \frac{P\,\iota}{r}\left(1 - (1+r)^{-(n+1)}\right)\theta + m K + \left(\frac{p}{fe} + \tau_{km}\right) K, \quad c = \frac{TCO}{K}, \quad s^{ICE} = \frac{1}{1 + e^{-k (c^{BEV} - c^{ICE}) / \bar{c}}}
+$$
+
+Over vehicle classes (new and used passenger vehicles, freight, 2-3 wheelers), ICEV and BEV, years $t$. Excel-AI notation. Purchase price P with duties x import share, VAT, ad-valorem taxes (baseline or policy), BEV subsidies and the feebate (CO2 intensity minus the pivot, average or manual, times the feebate rate and the discounted distance); first-year depreciation d, annuity of the rest over N - 1 years, salvage value SV, insurance (rate iota, factor theta = ins_factor), maintenance m per km, fuel or electricity (with the charging mark-up) per km plus the distance tax; BEVs add range anxiety. The discount rate falls with GDP per capita between disc_max and disc_min. In data years the purchase shares are the data's; the logit gives them afterwards (k by vehicle class). Excel-AI uses the ICEV's discounted distance in the freight BEV feebate (row 4197) and the BEV's capital cost with the ICEV's insurance and maintenance for plug-in hybrids (row 4175). Source: Excel-AI: Mitigation section 5b rows 4081-4233, 4250-4263, 4318-4323, 4352-4357.
+
+**A3.8  Road engineer model, fuel economy, distance and fuel use**  *(adjustment)*
+
+$$
+fe^{new}_t = fe^{new}_{t-1}\left(\frac{p_t + \beta_t e}{p_{t-1} + \beta_{t-1} e}\right)^{|\epsilon_F|}(1+\alpha), \quad fe^{st}_t = fe^{new}_t\,\tau + fe^{st}_{t-1}(1-\tau), \quad v_t = v_{t-1}\left(\frac{c_t}{c_{t-1}}\right)^{\epsilon_U}\left(\frac{y^{pc}_t}{y^{pc}_{t-1}}\right)^{\epsilon_Y}, \quad B_{c,f,t} = V_{c,f,t}\,v_{c,f,t}\,\kappa_c / 1000, \quad F_{c,f,t} = B_{c,f,t} / fe^{st}_{c,f,t}, \quad \kappa_c = \frac{\sum_f F^{bal}_{f,t_0} w_{c,f}}{\sum_f F_{c,f,t_0} w_{c,f}}
+$$
+
+Over vehicle classes $c$, fuels $f$ (gasoline, diesel, LPG, gas, plug-in hybrid, electricity), years $t$. Excel-AI notation. New-vehicle fuel economy responds to the fuel price with the feebate ($\beta$ the feebate rate, $e$ the fossil CO2 per litre); the stock turns over at $\tau$ (passenger: 1 / the weighted ownership life; freight, 2-3 wheelers: 1 / life). ICE fuel shares of purchases follow the TCO ratio of the fuel (own elasticity) and of the other fuels (cross elasticity), then the stock shares turn over. Distance per vehicle is the data's in data years, then responds to the cost per km and to GDP per capita; the base year calibrates distance to the energy balance (trbu, trcq: held after the base year). Buses: base-year bus fuel use scaled with passenger fuel use. Source: Excel-AI: Mitigation section 5b rows 4003-4078, 4264-4522.
+
+**A3.9  Road engineer model, results**  *(adjustment)*
+
+$$
+F^{rod}_{f,t} = F_{f,t}\,\gamma_f \ (\gamma_f = F^{bal}_{f,t_0} / F_{f,t_0}), \quad F^{rod}_{bio,t} = B^{g}_{t_0} \frac{F^{rod}_{gso,t}}{F^{bal}_{gso,t_0}} + B^{d}_{t_0} \frac{F^{rod}_{die,t}}{F^{bal}_{die,t_0}}, \quad r_{f,t} = \frac{F_{rod,f,t}}{F_{all,f,t}}
+$$
+
+Over road fuels $f$, years $t$. Excel-AI notation. Road fuel use of the engineer model in ktoe, calibrated to the base-year balance (electricity only if recon_ele); it would replace road fuel use of sections 3 and 5 with TrModel = Engineer (not in Coded CPAT: tr.sw = 0 in Egypt's scenarios). Distance, fuel use and stock-average fuel economy by vehicle class, the range-anxiety fit targets of the data years, and road fuel use with its share of total use (trq, tran.rsh) go to the transport co-benefits module. Source: Excel-AI: Mitigation section 5b rows 4525-4616.
+
 ## A4 Power
 
 To complete: capacity factors and overrides; vintages of capital cost and storage (E34-E36); VRE share and storage (methodology: $sst = 9v^2$, long-term storage above 75%); early coal retirement (E62); investment need (E63, $Req_t^2/Req_{t-1}$); second-round investment; manual capacity; PPAs; supply cost lag (E48); subsidy gap; renewable subsidies and rebates.
