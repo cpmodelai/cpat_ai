@@ -3784,10 +3784,12 @@ COB_BLOCKS = [
      [(f'apm.{m}', 'air.con.pm2', '', m) for m, _n in AP_SECS] + [('air.vpm', 'air.vpm', '', '')]),
     ('17b. Road transport external costs per vehicle-km (USD/km, typed; legacy Transport rows 185, 220, 232)',
      [('tkm.acc', 'tran.acc.km', '', ''), ('tkm.con', 'tran.con.km', '', ''), ('tkm.rdm', 'tran.rdm.km', '', '')]),
-    ('17b. Road transport: class fuel use (bln liters or kWh), passenger weight (scenario 1), driving share, freight '
-     'share (legacy rows 15721-15786; Transport rows 120-157)',
-     [(f'tcls.{f}', 'tran.cls', f, 'rod') for f in COB_TRF] + [(f'twcl.{f}', 'tran.wcl', f, 'rod') for f in COB_TRF]
-     + [(f'tmrg.{f}', 'tran.mrg', f, 'rod') for f in COB_TRF] + [(f'tfsh.{f}', 'tran.fsh', f, 'rod') for f in COB_FRE]),
+    ('17b. Road transport: class fuel use (bln liters or kWh) and passenger weight (scenario 1) (legacy rows '
+     '15721-15786; Transport rows 120-157)',
+     [(f'tcls.{f}', 'tran.cls', f, 'rod') for f in COB_TRF] + [(f'twcl.{f}', 'tran.wcl', f, 'rod') for f in COB_TRF]),
+    ('17b. Road transport: driving share (elasticity combinations in D:G) and freight share (legacy rows 15721-15786; '
+     'Transport rows 120-157)',   # v1.0.1: own block, so the driving-share parameters have their label row
+     [(f'tmrg.{f}', 'tran.mrg', f, 'rod') for f in COB_TRF] + [(f'tfsh.{f}', 'tran.fsh', f, 'rod') for f in COB_FRE]),
     ('17b. Road transport external costs per unit of fuel (USD/l of all use; electricity USD/kWh; legacy Transport rows '
      '186-237, 322-351)', [(f'tacc.{f}', 'tran.acc.cost', f, 'all') for f in COB_TRF]
      + [(f'tcon.{f}', 'tran.con.cost', f, 'all') for f in COB_TRF]
@@ -7775,7 +7777,8 @@ def build_settings(wb):
                               'Egypt values unchanged.'),
         ('1.0.1', '2026-10-29', 'Layout and norms only (full check of 1.0.0): a label row above each variable of the '
                               'Pigouvian road-transport block of section 1; the air-pollution sector position of '
-                              'section 17b looked up by its code (ApKapHdr) instead of typed; the last row of section '
+                              'section 17b looked up by its code (ApKapHdr) instead of typed; the driving share of '
+                              'section 17b in its own block (label row); the last row of section '
                               '19 without decimals, as every summary row. Egypt values unchanged.')]
     for i, row in enumerate(log, SET_LOG + 2):
         for j, v in enumerate(row, 1):
