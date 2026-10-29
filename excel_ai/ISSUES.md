@@ -1,10 +1,10 @@
-# ISSUES: issues (data problems first), departures and upgrades (v0.9.1)
+# ISSUES: issues (data problems first), departures and upgrades (v0.9.2)
 
 **The rule (NORMS 0).** Never replicate a legacy bug; always replicate a legacy issue, and track it. A bug: legacy does not compute what it means to (a wrong row, a double application, a dead reference); the prototype fixes it. An issue: legacy does what it means to, but the choice is open to question; the prototype does the same and tracks it. A departure that is not a bug fix is kept only by user decision. Data problems are issues (area Data): replicated; where legacy needs a formula fix, that fix is a legacy bug (L) and the issue is Very high; where no cell plan is possible, the prototype aligns with legacy and the issue is Extremely high.
 
-Generated from the register (`mitigation/register.py`) by `mitigation/make_replication_lists.py`. The same items, every column: the tracker `Tracking_Legacy_Bugs_v0.9.1.xlsx` (the master list). Bugs in detail: `Legacy_CPAT_Bugs_v0.9.1.docx`. Issues in detail: the appendices of the Documentation (`mitigation/CPAT-AI-Mitigation_Documentation.docx`). Lists: [`BUGS.md`](BUGS.md), [`ISSUES.md`](ISSUES.md).
+Generated from the register (`mitigation/register.py`) by `mitigation/make_replication_lists.py`. The same items, every column: the tracker `Tracking_Legacy_Bugs_v0.9.2.xlsx` (the master list). Bugs in detail: `Legacy_CPAT_Bugs_v0.9.2.docx`. Issues in detail: the appendices of the Documentation (`mitigation/CPAT-AI-Mitigation_Documentation.docx`). Lists: [`BUGS.md`](BUGS.md), [`ISSUES.md`](ISSUES.md).
 
-**134 issues (14 data problems), 35 departures (LegacyDiff), 9 upgrades.**
+**135 issues (14 data problems), 35 departures (LegacyDiff), 9 upgrades.**
 
 ## 1. Data problems
 
@@ -167,6 +167,7 @@ Replicated, a departure by user decision, or a limitation of the prototype.
 | I149 |  | Mitigation | Minor | Accepted | Other energy use takes the largest emission factor of each fuel across the other subsectors | Replicated |  |
 | I150 |  | Data | Minor | Open | Spot coal and gas prices of Egypt hold a year and 0 in legacy 465 | Departs (user decision) |  |
 | I151 |  | Mitigation | Major | Accepted | Pigouvian road-transport component: base-year value x growth of the per-km costs | Departs (user decision) |  |
+| I152 |  | Mitigation | Minor | Open | Methane abatement curves: no fallback to the Average coefficients | Not replicated yet: queued to be replicated (no user decision) |  |
 
 ## 3. Departures (LD, sheet LegacyDiff)
 

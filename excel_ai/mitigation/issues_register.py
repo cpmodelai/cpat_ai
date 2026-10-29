@@ -625,8 +625,8 @@ MVP_BUGS = [  # id, title, found / fixed in, what happened, fix
     ('M21', 'Methane fee: marginal abatement price #DIV/0 where the curve exponent is 0', 'v0.9.1 (Coded CPAT) / v0.9.2',
      'mfp = MIN(fee, (1/a)^(1/b)) gave #DIV/0 where b = 0 and a <> 0, and #NUM! where b is about 1e-14 (45 country '
      'sources in the data, e.g. AFG coal mining; DMA livestock b = 0). Not in legacy (no cap): introduced in v0.3.17.',
-     'IF(OR(b <= 0, LN(1/a)/b > 700), fee, MIN(fee, (1/a)^(1/b))) (MFEEPRICE): the cap is beyond any fee there. Egypt '
-     'unchanged.'),
+     'IF(a = 0, 0, MIN(fee, IFERROR(a^(-1/b), fee))) (MFEEPRICE): no cap where b = 0 or where the cap overflows (it is '
+     'beyond any fee there). Egypt unchanged.'),
     ('M22', 'Distribution: percentile recycling rows added a % row to amounts in local currency',
      'v0.9.1 (Coded CPAT) / v0.9.2 (Distribution 0.1.4)',
      'hrec = (pit + pui + cts + tgt) / hcpc x 100 read the public-investment row by the key pui.<sample>, which the '
