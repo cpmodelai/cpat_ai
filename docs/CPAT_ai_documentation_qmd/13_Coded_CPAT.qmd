@@ -9,7 +9,7 @@ Version `0.9.1p0.1`: Python version 0.1 of the replication of Excel-AI 0.9.1 and
 - **Mitigation**: every output code of Excel-AI's stored values for Egypt, scenarios 1 and 2, is produced and matches within 1e-9, 2022-2041 (7,470 codes per scenario).
 - **Distribution**: every code of the Distribution sheet matches for Egypt, scenario groups 1 and 2 (1,684 codes, basket and deciles).
 - **Speed**: one country and two scenarios run in 0.8 s once the baseline is cached.
-- **Excel-AI bugs**: Coded CPAT replicates the open prototype bugs M15-M22 (see the bugs chapter) so the numbers stay equal, and follows when Excel-AI fixes them.
+- **Excel-AI bugs are not replicated** (issues are): of the prototype bugs Coded CPAT found (M15-M22), six are fixed in Python, M17 follows the prototype's fix and M18 was withdrawn; the codes that therefore differ from Excel-AI (M19, M22) are listed as known differences until the prototype is fixed.
 - **Next**: systematic comparisons against the recalculated release workbook, every country and legacy CPAT.
 
 ## Running it

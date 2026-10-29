@@ -61,18 +61,18 @@ Decided 2026-10-29 (user): a block that still differs after a reasonable effort 
 - ☑ 6.4 Website: the Coded CPAT tab of the Quarto site at `../docs/` (D12): a third book `../docs/CPAT_coded_documentation_qmd/` (generated from `coded/` by its `make_qmd.py`: overview, developer guide, spec, equation lists, norms, plan), rendered to `../docs/CPAT_coded_documentation_html/`, tab `#coded` in `../docs/index.html`.
 - ☐ 6.5 First release `<Excel-AI version>p0.1`.
 
-## Excel-AI bugs replicated (root NORMS 0 rule 6; coded NORMS 0.3)
+## Excel-AI bugs (root NORMS 0 rule 6; coded NORMS 0.3)
 
-Coded CPAT replicates these open prototype bugs (`../excel_ai/BUGS.md` section 2) so its numbers equal Excel-AI's; each is marked in the code (`# Excel-AI bug M<n>`). When Excel-AI fixes one, add a line here with the Excel-AI version, and change the Python in the release for that version. Fix brief for Excel-AI: `../excel_ai/plans/Fix_prototype_bugs_M15-M22.md`.
+Prototype bugs found by Coded CPAT (`../excel_ai/BUGS.md` section 2). Bugs are not replicated: Coded CPAT fixes them where the fix is obvious (`# bug M<n> fixed` at the line; the codes that then differ from Excel-AI in `cpat_testing/compare/known_differences.py`) and follows the prototype's fixed version otherwise. When Excel-AI ships a fix, add a line here with its version, align Python with the prototype's fix and delete the known differences. Fix brief for Excel-AI: `../excel_ai/plans/Fix_prototype_bugs_M15-M22.md`.
 
-- ☐ M15 VAT on efficient prices at the 2022 rate in every year (`mitigation/prices_data.py` VATGEN_YEAR; `welfare.py`). Fix to follow: the year's VAT_WEO to LastHistPriceYear, then held.
-- ☐ M16 freight BEV feebate at the ICEV distance (`mitigation/road.py`).
-- ☐ M17 plug-in hybrid cost basis (`mitigation/road.py`).
-- ☐ M18 bus electricity scaled by every fuel (`mitigation/road.py`).
-- ☐ M19 `gdpn` divided by a billion (`mitigation/totals.py`).
-- ☐ M20 World Bank gas series read by position (`mitigation/prices_data.py`).
-- ☐ M21 methane fee cap where b = 0 (`mitigation/welfare.py`; Excel-AI gives #DIV/0, Python 1).
-- ☐ M22 Distribution percentile recycling rows add a % row (`distribution/incidence.py`).
+- ☑ M15 VAT on efficient prices at the 2022 rate in every year: fixed (`welfare.py`: VAT_WEO of the year to LastHistPriceYear, then held; user 2026-10-29). Egypt: no change (14% throughout).
+- ☑ M16 freight BEV feebate at the ICEV distance: fixed (`road.py`: the freight BEV distance). Egypt: no change (no freight feebate).
+- ◐ M17 plug-in hybrid cost basis: replicated until the prototype's fixed version (decided 2026-10-29 in the prototype thread: BEV price, ICE maintenance).
+- ☒ M18 bus electricity: withdrawn 2026-10-29 (not a bug: all base-year bus energy electrifies with the passenger share, as legacy); Python as Excel-AI.
+- ☑ M19 `gdpn` divided by a billion: fixed (`totals.py`; Python = Excel-AI x 1e9, known difference).
+- ☑ M20 World Bank gas series read by position: fixed (`prices_data.py`: by name). Egypt: no change (IMF prices). To check against the prototype's fix in phase 5: after 2021 Excel-AI's World Bank gas rows are not a plain swap of the two series (the data-step test leaves the WB, AVG and IMF-WB gas rows out).
+- ☑ M21 methane fee cap where b = 0: fixed (`welfare.py`: no cap). Egypt: no change.
+- ☑ M22 Distribution percentile recycling rows: fixed (`incidence.py`: public investment per person; known difference, scenario group 2).
 
 ## Later (not now)
 

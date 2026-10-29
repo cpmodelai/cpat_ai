@@ -323,8 +323,8 @@ def group(data, inputs, scenario, baseline, years, base_year, iso):
                                                       for d in D[1:]]), p, s, deciles_only=True)
             hcpc = S.put('hcpc', np.array([np.nan] + [mapping.number(hh[rows[d]].get('cons_pc_acrent')) * consadj[0]
                                                       for d in D[1:]]), p, s, deciles_only=True)
-            pui_tot = S.get('pui', 'tot', s)              # Excel-AI bug M22: the % row of public investment
-            hrec = S.put('hrec', (pit + pui_tot + cts + tgt) / hcpc * pct, p, s, deciles_only=True)
+            # bug M22 fixed: public investment per person (Excel-AI adds its % of consumption row, pui.tot)
+            hrec = S.put('hrec', (pit + pui[s] + cts + tgt) / hcpc * pct, p, s, deciles_only=True)
             S.put('hnet', htef + hrec, p, s, deciles_only=True)
     for s in ('urb', 'rur', 'ove'):
         S.put('gini.ptx', g[s][1] - g[s][0], '', s)

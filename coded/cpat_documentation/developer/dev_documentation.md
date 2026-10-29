@@ -4,7 +4,7 @@ How the Python model is built and how to work on it. What it is and how to run i
 
 ## 1. The principle
 
-Coded CPAT replicates Excel-AI (`excel_ai/CPAT-AI-Mitigation-Prototype_v<version>.xlsm`, `CPAT-AI-Distribution-Prototype_v<version>.xlsm`) number for number, readable first. Excel-AI is the specification: every Excel-AI row has an output code (`core/variables.csv`), and the tests compare Python with Excel-AI's stored values code by code within 1e-9. Where Excel-AI is wrong, Python replicates it and the bug is registered (`excel_ai/BUGS.md`, open prototype bugs M; NORMS 0.3); the replicated lines carry `# Excel-AI bug M<n>`.
+Coded CPAT replicates Excel-AI (`excel_ai/CPAT-AI-Mitigation-Prototype_v<version>.xlsm`, `CPAT-AI-Distribution-Prototype_v<version>.xlsm`) number for number, readable first. Excel-AI is the specification: every Excel-AI row has an output code (`core/variables.csv`), and the tests compare Python with Excel-AI's stored values code by code within 1e-9. Where Excel-AI is wrong (a bug), Python does not replicate it: the bug is registered (`excel_ai/BUGS.md`, open prototype bugs M), fixed here where the fix is obvious (`# bug M<n> fixed`), and the codes that then differ are listed in `cpat_testing/compare/known_differences.py`; the tests leave them out of the match and check that they differ (NORMS 0.3). An issue (a potential improvement) is replicated and logged for later.
 
 ## 2. A run
 
