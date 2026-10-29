@@ -4298,9 +4298,9 @@ VARIABLES = [
      'BLOCKPRICE: rpb of the price block at the price position', 'legacy rows 3155-3163 (A18; v6.2: own row, so the '
      'average below reads one row, not the price-block area)',
      'price position (section 2)'),
-    ('fpp', 'Fuel price for power before new policies (centred 5-year moving average, or spot)', '$/GJ real', '',
+    ('fpp', 'Fuel price for power before new policies (trailing 5-year moving average, or spot)', '$/GJ real', '',
      'spot = 1 (Settings SpotPow or the scenario switch): fpn; else the average of fpn over t-4 .. t within 2022-2041 (v6.2, L126) '
-     '(errors skipped)', 'legacy rows 3155-3163 (A18; AVERAGE over five year columns, blanks ignored)',
+     '(errors skipped)', 'legacy rows 3155-3163 (A18; legacy 465: AVERAGE over t-4 .. t from 2022, L126 fixed)',
      'price position'),
     ('tvcx', 'Total variable cost used in the levelised window (tvc; last year\'s where the host cannot evaluate '
              'the LAMBDA year 2041)', '$/kWh', '', 'IFERROR(tvc, tvc(t-1))', 'new (no-LAMBDA fallback)'),
@@ -5058,7 +5058,7 @@ LAMBDA_NOTES = {
     'VARCOST': 'Variable cost ($/kWh): variable O&M and fixed fuel + fuel price ($/GJ) x GJ per kWh + change in '
                'existing carbon pricing',
     'POWFUELPRICE': 'Fuel price for power ($/GJ; v6.2: trailing 5-year average, legacy bug L126): spot price if the spot switch is 1 (SpotPow or the scenario\'s MTInputs '
-                    'switch), else the average of the years t-2 to t+2 within the horizon (legacy A18)',
+                    'switch), else the average of the years t-4 to t from the base year (legacy 465 A18)',
     'CFUSED': 'Capacity factor used: the actual one when strictly inside the bounds (CFOverride settings of the scenario), '
               'else the studies value (L53 fixed)',
     'EFFUSED': 'Efficiency used: the actual one unless below the minimum thermal efficiency (no input: -1), else the '
