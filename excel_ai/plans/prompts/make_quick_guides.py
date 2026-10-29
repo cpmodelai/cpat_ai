@@ -2,8 +2,8 @@
 
     python make_quick_guides.py [outdir]
 
-A quick guide is the starter file in Word, after six steps to start GitHub Copilot in local mode and a closing step
-(SyncRepo.bat). It is a minimal .docx written by hand (a few KB), small enough to attach to an e-mail; the illustrated
+A quick guide is the starter file in Word, after six steps to start GitHub Copilot in local mode.
+It is a minimal .docx written by hand (a few KB), small enough to attach to an e-mail; the illustrated
 guides are written by make_prompt_guides.js.
 """
 import re
