@@ -149,10 +149,12 @@ Not built, by decision: the elasticity-based power model (legacy C3).
   added unconverted, nominal, into real prices; cell plan: x the CPI index of the data year); LD41 re-extract the price
   forecasts and balances from 465 and compare (then "Same" or a data issue); LD58 "Same" (benchmark: legacy's stored
   carbon-tax run GDP effects, for phase A).
-- **Exports to modules**: section 19 holds 19a Distribution (plain copies, defined name ExportDistn, tab
-  FromMitigation). Add **19b Air pollution** (copies of the section 15 emissions and the fuel use by sector the air
-  pollution module reads, as legacy E3 rows 15810-16065) and **19c Transport co-benefits** (vehicle-km and road fuel
-  use, as legacy E2 rows 15707-15809), so every module reads one block. Section 15 sits just before section 19.
+- **Exports to modules** (user 2026-10-29): section 19 holds 19a Distribution (plain copies, defined name ExportDistn,
+  tab FromMitigation) and 19c Transport co-benefits (vehicle-km and road fuel use, as legacy E2 rows 15707-15809).
+  **Air pollution is not copied** (to save space): section 15 is itself the output block to the air pollution module.
+  Its heading says so: **"15. Local air pollutants: outputs to the air pollution module"**; the other rows the module
+  reads (fuel use by sector and fuel, as legacy E3 rows 15810-16065) sit next to it in the same section, not elsewhere.
+  Section 15 stays just before section 19, so all module outputs are together at the end of the sheet.
 - **Python build in parallel**: the equations of R1-R13 go in an addendum to the equation list,
   **`excel_ai/mitigation/Equations_addendum.md`** (one entry per new variable: code, equation, legacy rows, inputs),
   written with the build; `Equations.md` and the Methods volume take it in at the next release. Machine-readable plan:

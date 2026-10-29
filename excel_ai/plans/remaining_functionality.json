@@ -25,8 +25,8 @@
   }
  ],
  "exports_to_modules": {
-  "19a": "Distribution (built)",
-  "19b": "Air pollution: section 15 emissions and fuel use by sector (legacy E3 rows 15810-16065)",
+  "19a": "Distribution: plain copies (built)",
+  "15": "Air pollution: no copies; section 15 is the output block to the air pollution module, heading '15. Local air pollutants: outputs to the air pollution module', with the other rows the module reads (fuel use by sector and fuel, as legacy E3 rows 15810-16065) in the same section",
   "19c": "Transport co-benefits: vehicle-km and road fuel use (legacy E2 rows 15707-15809)"
  },
  "items": [
