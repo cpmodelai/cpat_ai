@@ -482,6 +482,16 @@ parts:
               \mathtt{ets.est}_t = \frac{\ln(\mathtt{ets.cap}_t / \mathtt{ets.bce}_t)}{\mathtt{ets.se}_t\cdot \mathtt{ets.vadj}}
             note: "Excel-AI notation. $bce$ is the baseline CO2 of the covered sectors: Excel-AI's stored scenario-1 values (sheet BaselineCO2), read as data until the baseline pass computes them (user 2026-10-29)."
             excel: "E7-E11"
+          - id: A1.2
+            title: Pigouvian taxes and existing pre-tax wedges
+            kind: adjustment
+            greek: |
+              mc^{ap}_{s,f,t} = v_t \sum_{p,i} \kappa_{m(s),p,i}\,e^{i}_{p,s,f}\ (\text{base } i = 0 \text{ and final } i = 1 \text{, weighted by } w_t), \quad \tau^{pig}_{c,t} = \phi_t\left(\overline{mc}^{ap}_{c,t} + [\text{ClimateEffTax}]\,SCC_t\,ef_c + mc^{tr}_{c,t}\right)
+            codes: |
+              \mathtt{airpol.mc}_{s,f}, \ \mathtt{pig.ap}_c, \ \mathtt{cc.code}_c, \ \mathtt{pig.tr}_c = \textstyle\sum_k \mathtt{pig.trb}_{k}\,\mathtt{pig.trg}_{k}, \ \mathtt{pigx}_c = \mathtt{pig.phi}\,(\cdots), \ \mathtt{xcpb}_c, \ \mathtt{xpre}_c = \mathtt{txo} + \mathtt{pcsw} + \mathtt{ppcw} + \mathtt{xcpb}
+            over: "subsectors $s$ and fuels $f$ (air pollution), price codes $c$, years $t$"
+            note: "Excel-AI notation (Mitigation section 1, rows 185-418). Air pollution: the value of averted PM2.5 $v_t$ (air pollution module, typed FromAirPollution; the base year reads the next year) times the module's concentration coefficients $\\kappa$ of the source (road, ground level, food, other; coal, gas and other power plants) times the combustion factors, per GJ; by price code weighted by base-year fuel use (residential coal only above ApCoalResMin of buildings use), per unit for oil products. Transport: accident, congestion and road-damage cost per km (typed FromTransportCB) relative to the base year, times base-year fuel economy, the elasticity share of usage and the road share of the fuel. Climate: the national SCC times the generic CO2 factor (Inputs rows 316-322). $\\phi_t$ phases the tax in over AddEfficientTaxesPhaseInYears from CPIntro. xcpb: existing carbon pricing against the year embedded in the price data. The tax enters ntxg only if AddEfficientTaxes = Yes (not in Coded CPAT yet)."
+            excel: "Mitigation section 1 (rows 185-418)"
       - title: "A2 Prices"
         text: "To complete: last historical year and price data; excise floor (E22); split of taxes and subsidies by sign (E23); producer subsidy (R7); existing carbon pricing level and change (E30); VAT on oil products by household share; other oil products (L13)."
         equations:
