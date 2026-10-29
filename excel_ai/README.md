@@ -1,5 +1,7 @@
 # Excel-AI: the CPAT prototypes in Excel
 
+New here? Read the human quick start first: [`../HumanReadme-QuickStart.docx`](../HumanReadme-QuickStart.docx).
+
 ## The main files
 
 The current version of each main file, `<Name>_v<version>` (NORMS 5a); older versions are in `releases/`.
@@ -22,6 +24,7 @@ The current version of each main file, `<Name>_v<version>` (NORMS 5a); older ver
 | [`distribution/`](distribution/README.md) | The distribution module's sources: builder (cuts the module from the prototype), VBA, check |
 | [`air_pollution/`](air_pollution/README.md) | Recovered standalone v0.3 scaffold, public reference tables, equation inventory and Python comparison; calculations and numerical regression remain open |
 | `permalink/` | Only what other files link to: `CPAT-AI-Mitigation-Prototype_latest.xlsm` (data transfer to the modules) |
+| `permalink_countryeditable/` | Planned (TODO): a copy of `permalink/` for local, country-specific runs; the modules link to it (NORMS 5a) |
 | `releases/` | Every earlier version of the main files since v7.2 |
 | `legacy/` | Legacy CPAT: the reference workbooks and codes master (`workbooks/`); the fix-plan sources and tools (`bugfixes/`, with the 456 to 465 row map and `check465/`, the check of the bugs the CPAT team fixed in 465); the bug-fix procedure; the register as JSON (`Legacy_CPAT_Register.json`); the v7.1 codes work (`codes/`) |
 | [`plans/`](plans/TODO.md) | The to-do list and the plans |
