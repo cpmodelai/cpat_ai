@@ -74,6 +74,11 @@ Coded CPAT replicates these open prototype bugs (`../excel_ai/BUGS.md` section 2
 - ☐ M21 methane fee cap where b = 0 (`mitigation/welfare.py`; Excel-AI gives #DIV/0, Python 1).
 - ☐ M22 Distribution percentile recycling rows add a % row (`distribution/incidence.py`).
 
+Excel-AI fixed these (user rule 2026-10-29, root NORMS 0 rule 6: prototype bugs are never put into Coded CPAT; Python moves to the fixed version):
+- Excel-AI v0.9.2 fixed M15 (new section-18 row `vatgen`: VAT_WEO of the year to LastHistPriceYear, then held; `vatext`/`vat.cost` column D is now the consumer flag x household share), M16 (freight BEV feebate at `trdkmfreb.fre.bev`), M17 (new row `trimphv.pas.phv`: insurance on the BEV price, ICEV maintenance x ICEV distance; `trtcfp` uses it), M19 (`gdpn` without /Billion), M20 (WB LNG = "Liquefied natural gas, Japan", Europe = "Natural gas, Europe"), M21 (`mfp` = fee where b = 0): Coded CPAT to follow.
+- Distribution v0.1.4 fixed M22 (`hrec` uses the public investment amount `pui` of the sample, LCU): Coded CPAT to follow.
+- M18 withdrawn (user 2026-10-29: not a bug; bus electricity = all base-year bus energy x passenger electricity share, as legacy): keep the formula, drop the bug marker.
+
 ## Later (not now)
 
 - ☐ Demand forms through `ModelForm`: `CPAT partial adjustment`, `CES partial adjustment` (CES-compatible service prices), `CDPM-FTT` (SISEPUEDE-like and FTT-like); each added to Excel-AI and Python together.

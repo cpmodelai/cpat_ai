@@ -2611,7 +2611,7 @@ def check_results_memos(ws):
                 ab = B.R_GHG[f'ch4.abt.{j}']
                 a_, b_, f_ = ws.cell(ab, 4).value or 0.0, ws.cell(ab, 5).value or 0.0, ws.cell(ab, 6).value or 0.0
                 fee = cell(B.R_POL['mfee'], c) * f_ * MFEE_ON[j]          # v0.4.12 (LD46)
-                ex[f'mfp.{j}'] = 0.0 if a_ == 0 else min(fee, (1 / a_) ** (1 / b_))
+                ex[f'mfp.{j}'] = 0.0 if a_ == 0 else fee if b_ == 0 else min(fee, (1 / a_) ** (1 / b_))   # M21
                 src = ws.cell(B.R_GHG[f'ch4.src.{j}'], 5).value or 0.0
                 base = 0.0 if src == 0 else ws.cell(B.R_GHG[f'ch4.em.{j}'], 4).value * cell(B.R_GHG[f'ch4.act.{j}'], c) / src
                 ex[f'mfc.{j}'] = base * cell(ab, c) * ex[f'mfp.{j}'] * b_ / (1 + b_) / 1e6

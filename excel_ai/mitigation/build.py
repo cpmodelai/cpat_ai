@@ -148,7 +148,7 @@ from openpyxl.utils import get_column_letter as L, column_index_from_string as C
 from openpyxl.utils.cell import coordinate_from_string
 from openpyxl.workbook.defined_name import DefinedName
 
-VERSION = '0.9.1'   # also in version.json (read by the deck builder)
+VERSION = '0.9.2'   # also in version.json (read by the deck builder)
 SCRIPTS_TAG = None   # v0.8.0: scripts and notes have stable names (releases are git tags); v0.7.1: a point release renames only the builder, VBA module, workbook and reports; the scripts and
                       # notes keep the tag of the full release (NORMS.md section 5)
 COUNTRY = 'EGY'   # v0.3.3: default of Settings C4 (user input); country data only in the data sheets, by this key
@@ -2261,9 +2261,15 @@ def _build_tr_spec():
                                                             f'{x.c(4561)}+N({x.c(4521)})']), fmt='#,##0')
     tco((4565, 4566, 4567, 4573, 4577, 4581, 4582), 'pbn', ('bev', 'pas'), 'new BEV passenger', 4513, 4562, 4351,
         4399, 4451, 'mev|pas', 'ins|pas', 'own|pas', 'life|pas', 'dep1|pas', ra=lambda x: x.ca(4354))
-    _tv('trtcfp', 'TCO of a new PHEV (BEV depreciation, no range anxiety: fix B23)', 'USD/vehicle', 'legacy row 4555')
+    _tv('trimphv', 'Insurance and maintenance, new PHEV (insurance on the BEV price, ICEV maintenance per km and '
+        'distance; bug M17 fixed)', 'USD/vehicle', 'legacy row 4555 (legacy used row 4541, the ICEV\'s)')
+    T('im.phv', 'trimphv', 'phv', 'pas', R('INSMAINT', lambda x: [x.c(4562), x.P('ins|pas'), r_(x), x.P('own|pas'),
+                                                                  x.P('insf'), x.P('mice|pas'), x.c(4509)]),
+      fmt='#,##0')   # v0.9.2 (user 2026-10-29): one price basis for the PHEV (BEV price; no PHEV price in the data)
+    _tv('trtcfp', 'TCO of a new PHEV (BEV depreciation, insurance on the BEV price, no range anxiety: fixes B23, M17)',
+        'USD/vehicle', 'legacy row 4555')
     T(4555, 'trtcfp', 'phv', 'pas', R('TCOFUEL', lambda x: [x.ca(4509), x.c(4456),
-                                                            f'SUM({x.rga(4565, 4567)})+{x.ca(4541)}',
+                                                            f'SUM({x.rga(4565, 4567)})+{x.ca("im.phv")}',
                                                             x.ca(4520), f'{x.c(4396)}/{x.ca(4397)}']), fmt='#,##0')
     _tv('trresb', 'Resale price of a 7-year-old BEV before taxes', 'USD/vehicle', 'legacy row 4569')
     T(4569, 'trresb', 'bev', 'pas', R('RESALE', lambda x: [x.c(2152), x.P('dep1|pas'), x.P('own|pas'), x.P('life|pas')]),
@@ -2289,9 +2295,9 @@ def _build_tr_spec():
         4403, 4451, 'mev|pas', 'ins|pas', None, 'life|pas', None, used='own|pas', ra=lambda x: x.c(4621))
     # freight
     pivot('fre', 'fre', 4435, 4633)
-    for key, b, inten, km in ((4636, 'ice', lambda x: x.c(4432), 4628), (4637, 'bev', lambda x: '0', 4628)):
-        vf = f'trfbvf{b[0]}'
-        _tv(vf, f'Vehicle feebate, freight {b} (BEV: ICEV discounted km, as legacy)', 'USD/vehicle', f'legacy row {key}')
+    for key, b, inten, km in ((4636, 'ice', lambda x: x.c(4432), 4628), (4637, 'bev', lambda x: '0', 4630)):
+        vf = f'trfbvf{b[0]}'   # v0.9.2: the BEV takes its own discounted km (bug M16 fixed; legacy read the ICEV's)
+        _tv(vf, f'Vehicle feebate, freight {b}', 'USD/vehicle', f'legacy row {key}')
         T(key, vf, b, 'fre', R('FBVEH', lambda x, inten=inten, km=km: [inten(x), x.ca(4633), x.ca(4418), x.ca(km)]),
           base=lambda x: '=""', fmt='#,##0')
     _tv('trppfi', 'Purchase price after taxes and feebate, new ICE freight vehicle (no VAT, as legacy)', 'USD/vehicle',
@@ -3804,7 +3810,7 @@ SUB_LINES = [('gso', 'all'), ('die', 'all'), ('lpg', 'all'), ('ker', 'all'), ('o
              ('coa', 'oth'), ('ecy', 'ind'), ('ecy', 'res'), ('ecy', 'oth')]
 SUB_VARS = [('supcost', 'sc', 'supply cost (USD/GJ; electricity USD/kWh)'),
             ('extcost', 'ext', 'externalities incl. climate (global SCC; electricity none, issue I108)'),
-            ('vatext', 'vat', 'VAT on supply cost and externalities (general rate x household share; issue I109)'),
+            ('vatext', 'vat', 'VAT on supply cost and externalities (general rate of the year x household share; issue I109)'),
             ('effprice', 'effp', 'efficient price = supply cost + externalities + VAT'),
             ('rpsub', 'rp', 'retail price of the scenario (post-tax)'),
             ('con', 'con', 'consumption (PJ; electricity GWh)'),
@@ -3815,7 +3821,7 @@ EP_VARS = [('sup.cost', 'supply cost of scenario 1'),
            ('airpol.cost.s', 'air-pollution cost (electricity: generation-share weighted, issue I121)'),
            ('scc.cost', 'climate damage (national SCC x generic EF, section 1)'),
            ('pig', 'Pigouvian tax: all externalities (R3.20)'),
-           ('vat.cost', 'potential VAT (general rate of the base year; externalities in the base if ExternalityAddVAT)'),
+           ('vat.cost', 'potential VAT (general rate of the year; externalities in the base if ExternalityAddVAT)'),
            ('eff.price', 'efficient price'), ('rp.eff', 'retail price of the scenario (post-tax, sections 2 and 3 G)'),
            ('tgap', 'tax gap: retail - efficient price'), ('pig.co2e', 'Pigouvian tax per tonne of CO2 (USD/tCO2, global SCC)'),
            ('app', 'air-pollution part of the Pigouvian tax (USD/tCO2)'),
@@ -3855,6 +3861,8 @@ WEL_BLOCKS = [
      'bugs L179, L180 fixed) and total national welfare (FFS)',
      [(f'ffs.{s_}.{f}', 'env.ffs.cost', f, s_) for f, s_ in FFS_LINES]
      + [('ffs.tot', 'env.ffs.cost', '', 'tot'), ('wel.ffs', 'wel.ffs', '', '')])]
+WEL_BLOCKS.append(('General VAT rate of the year: VAT_WEO up to the last historical price year, then held (energy '
+                   'subsidies and efficient prices; bug M15 fixed)', [('vatgen', 'vatgen', '', '')]))   # v0.9.2
 for _v, _a, _lab in SUB_VARS:            # v0.9.0 (R2.11-R2.12): explicit and implicit subsidies, one block per variable
     WEL_BLOCKS.append((f'Energy subsidies: {_lab} (legacy rows 17786-17946)',
                        [(f'{_a}.{s_}.{f}', _v, f, s_) for f, s_ in SUB_LINES]))
@@ -4534,9 +4542,11 @@ VARIABLES = [
      'other lines: use-weighted (R2.11, L187 fixed)', 'legacy rows 17792-17944'),
     ('extcost', 'Energy subsidies: externalities incl. climate (global SCC)', 'USD/GJ, USD/kWh', '',
      'cc.glo + local costs; electricity 0 (R2.11, issue I108; L183 fixed)', 'legacy rows 17794-17941'),
+    ('vatgen', 'General VAT rate of the year', 'share', '', 'VAT_WEO of the year up to LastHistPriceYear, then the '
+     'last historical year\'s rate (bug M15 fixed, v0.9.2)', 'legacy: one fixed cell'),
     ('vatext', 'Energy subsidies: VAT on supply cost and externalities', 'USD/GJ, USD/kWh', '',
-     '(supcost + extcost) x D (general VAT rate x household share; residential lines the rate; others 0) (R2.11, '
-     'issue I109; L184, L185 fixed)', 'legacy rows 17796-17943', 'VAT rate x household share'),
+     '(supcost + extcost) x D x vatgen (D: household share for oil products; residential lines 1; others 0) (R2.11, '
+     'issue I109; L184, L185, M15 fixed)', 'legacy rows 17796-17943', 'consumer flag x household share'),
     ('effprice', 'Energy subsidies: efficient price', 'USD/GJ, USD/kWh', '', 'supcost + extcost + vatext (R2.11)',
      'legacy rows 17795-17942'),
     ('rpsub', 'Energy subsidies: retail price of the scenario', 'USD/GJ, USD/kWh', '',
@@ -4570,8 +4580,8 @@ VARIABLES = [
     ('pig', 'Pigouvian tax: all externalities (reference)', 'USD per price unit', '', 'air pollution + climate + '
      'accidents + congestion + road damage (R3.20)', 'legacy rows 17974-18109'),
     ('vat.cost', 'Efficient price: potential VAT', 'USD per price unit', '', '(sup.cost + pig x [ExternalityAddVAT = '
-     'Yes]) x D (VAT_WEO of the base year for consumer fuels, else 0) (R3.16, issue I120)', 'legacy rows 17969-18104',
-     'VAT rate'),
+     'Yes]) x D x vatgen (D: 1 for consumer fuels, else 0) (R3.16, issue I120; M15 fixed)', 'legacy rows 17969-18104',
+     'consumer flag'),
     ('eff.price', 'Efficient price', 'USD per price unit', '', 'sup.cost + pig + vat.cost (R3.17)',
      'legacy rows 17962-18100'),
     ('rp.eff', 'Efficient price block: retail price of the scenario', 'USD per price unit', '', 'rpn x GJ per price '
@@ -5374,7 +5384,7 @@ LAMBDAS = {   # every calculated row calls one of these in the right column (LAS
     'SAFEDIV': (['amount', 'activity'], 'IF(activity=0,0,amount/activity)'),         # v0.3.14: 13b
     'GROWPATH': (['level', 'growth', 'years'], 'level*(1+growth)^years'),             # v0.3.17: section 18
     'TRAPEZOID': (['wedge', 'wedge_ref', 'change'], '-AVERAGE(wedge,wedge_ref)*change/MperBn'),
-    'MFEEPRICE': (['coef_a', 'coef_b', 'fee'], 'IF(coef_a=0,0,MIN(fee,(1/coef_a)^(1/coef_b)))'),
+    'MFEEPRICE': (['coef_a', 'coef_b', 'fee'], 'IF(coef_a=0,0,IF(coef_b=0,fee,MIN(fee,(1/coef_a)^(1/coef_b))))'),   # v0.9.2: M21
     'MFEECOST': (['base_kt', 'abated', 'price', 'coef_b'], 'base_kt*abated*price*coef_b/(1+coef_b)/Million'),
     'IMPULSE': (['year', 'start', 'space', 'space_prev', 'gdp_prev', 'gdp'],
                 'IF(year<start,0,space-space_prev*gdp_prev/gdp)'),
@@ -7747,7 +7757,15 @@ def build_settings(wb):
                               'marginal damages (L224); module tabs FromAirPollution and FromTransportCB. Egypt prices '
                               'equal legacy 465 (I99 closed).'),
         ('0.9.1', '2026-10-29', 'Data only: tab Prices_dom holds Egypt only, as the public legacy file (user '
-                              'decision). Egypt values unchanged.')]
+                              'decision). Egypt values unchanged.'),
+        ('0.9.2', '2026-10-29', 'Prototype bugs found by Coded CPAT fixed (user rule: prototype bugs are never put '
+                              'into Coded CPAT; the prototype is fixed to align): M15 VAT of the year in section 18 '
+                              '(row vatgen: VAT_WEO to LastHistPriceYear, then held), M16 freight BEV feebate at the '
+                              'BEV distance, M17 PHEV insurance on the BEV price with ICEV maintenance (row im.phv), '
+                              'M19 nominal GDP in bn, M20 World Bank LNG and Europe gas series, M21 methane fee where '
+                              'the curve exponent is 0, M22 Distribution percentile recycling rows. M18 withdrawn (not '
+                              'a bug). Egypt: only gdpn changes in Mitigation (scenarios 1-6); Distribution hrec and '
+                              'hnet of the percentiles where public investment is used.')]
     for i, row in enumerate(log, SET_LOG + 2):
         for j, v in enumerate(row, 1):
             c_ = put(ws, f'{L(j)}{i}', v)
@@ -8292,8 +8310,9 @@ EU_LNG = {2022: 0.58, 2023: 0.603, 2024: 1 - (0.303 + 0.229) / 2, 2025: 1 - (0.3
 IPI_SRC = {  # source: {commodity: (rule, legacy Prices_int row, year row, first extended year)}
     'IMF': {'oil': ('data', 24, 23, 2032), 'coa': ('data', 28, 23, 2032), 'nga.lng': ('data', 26, 23, 2032),
             'nga.nam': ('data', 27, 23, 2032), 'nga.eur': ('data', 25, 23, 2032)},
-    'WB': {'oil': ('data', 13, 11, 2027), 'coa': ('data', 14, 11, 2027), 'nga.lng': ('data', 15, 11, 2027),
-           'nga.nam': ('data', 16, 11, 2027), 'nga.eur': ('data', 17, 11, 2027)},
+    'WB': {'oil': ('data', 13, 11, 2027), 'coa': ('data', 14, 11, 2027), 'nga.lng': ('data', 17, 11, 2027),
+           'nga.nam': ('data', 16, 11, 2027), 'nga.eur': ('data', 15, 11, 2027)},   # v0.9.2 (M20): row 15 is
+    # "Natural gas, Europe", row 17 "Liquefied natural gas, Japan" (labels in Prices_int column E; legacy swapped them)
     'IEA': {'oil': ('data', 37, 36, 2100), 'coa': ('data', 38, 36, 2031), 'nga.lng': ('data', 39, 36, 2100),
             'nga.nam': ('data', 40, 36, 2100), 'nga.eur': ('data', 41, 36, 2100)},
     'EIA': {'oil': ('trend', 50, 49, 2051), 'coa': ('trend', 51, 49, 2041), 'nga.lng': ('IEA', None, None, None),
@@ -10158,7 +10177,9 @@ def defined_names():
         'TcbKey': f'FromTransportCB!$A${FTC_R0}:$A${FTC_R0 + len(TCB_TYPED) - 1}',
         'TcbVal': f'FromTransportCB!$C${FTC_R0}:${L(2 + NY)}${FTC_R0 + len(TCB_TYPED) - 1}',
         'TcbYear': f'FromTransportCB!$C${FTC_R0 - 1}:${L(2 + NY)}${FTC_R0 - 1}',
-        'VatGen': f'Inputs_prices!${IPC["vry" + str(BASE_YEAR)]}${IP_VATW}',     # v0.9.0: VAT_WEO of the base year
+        # v0.9.2 (bug M15 fixed): VAT_WEO of every historical year and the years (section 18 row vatgen reads them)
+        'VatWeo': f'Inputs_prices!${IPC["vry" + str(HIST_YEARS[0])]}${IP_VATW}:${IPC["vry" + str(HIST_YEARS[-1])]}${IP_VATW}',
+        'VatWeoYr': f'Inputs_prices!${IPC["vry" + str(HIST_YEARS[0])]}${IP_HDR}:${IPC["vry" + str(HIST_YEARS[-1])]}${IP_HDR}',
         'CtryReg': 'Settings!$C$43',
         **{n_: f'SUMPRODUCT(INDEX(EnergyCons!$E$4:$X$6000,MATCH(LOWER(Settings!$C$4)&".mit.enc.{f_}",EnergyCons!$A$4:$A$6000,0),0)'
                f'*(EnergyCons!$E$3:$X$3<>"elec")*(EnergyCons!$E$3:$X$3<>"wav"))' for n_, f_ in (('ConsGas', 'nga'), ('ConsBio', 'bio'), ('ConsCoa', 'coa'))},
@@ -12370,7 +12391,7 @@ def build_mitigation(wb):
                 fmt = '0.000'
             elif var == 'gdpn':                          # v0.5.6: nominal GDP, WEO NGDP / NGDPD (Inputs_macro)
                 f = (f'=INDEX(WEOVal,MATCH(CtryCode&"|{"ngdp" if fu == "lcu" else "ngdpd"}",WEOKey,0),'
-                     f'MATCH({col}${R_YEAR},WEOYear,0))/Billion')
+                     f'MATCH({col}${R_YEAR},WEOYear,0))')   # v0.9.2: WEO is in bn already (bug M19 fixed)
                 fmt = '#,##0.0'
             elif var == 'rbe':
                 rr = R_REV['rnet.all']
@@ -13285,6 +13306,8 @@ def build_mitigation(wb):
         q_all = lambda f: (f'({col}{R_FUEL0 + fk["ker"]}+{col}{R_FUEL0 + fk["jfu"]})' if f == 'ker'   # v0.9.0: kerosene
                            else f'{col}{R_FUEL0 + fk[f]}')   # and jet fuel, as legacy row 16879 (jet = kerosene price)
         fq = lambda g, f: cob(f'fuq.{g}.{f}')
+        if var == 'vatgen':                  # v0.9.2 (bug M15 fixed): VAT_WEO of the year to LastHistPriceYear, then held
+            return f'=INDEX(VatWeo,MATCH(MIN({cy(col)},Settings!$C$10),VatWeoYr,0))', '0.0%'
         if var in ('cc.nat', 'cc.glo'):      # R2.1 ($/GJ)
             return f'={pol("scc." + var[3:])}*$D{r}', '0.0000'
         if var == 'airpol.ecy':              # R2.2 (L177 fixed): fuel cost x fuel use / generation
@@ -13365,7 +13388,7 @@ def build_mitigation(wb):
                       else cur('apo.avg.oop') if fu == 'oop' else cob(f'apcg.{sec}.{fu}'))
                 return f'={cur("ccg." + fu)}+{u2}', '0.0000'
             if var == 'vatext':              # D: general VAT rate x household share (issue I109; L184, L185)
-                return f'=({s("supcost")}+{s("extcost")})*$D{r}', '0.0000'
+                return f'=({s("supcost")}+{s("extcost")})*$D{r}*{cur("vatgen")}', '0.0000'   # v0.9.2: M15
             if var == 'effprice':
                 return f'={s("supcost")}+{s("extcost")}+{s("vatext")}', '0.0000'
             if var == 'con':                 # PJ (electricity GWh; L186 fixed)
@@ -13408,7 +13431,8 @@ def build_mitigation(wb):
             parts = [ep('airpol.cost.s'), ep('scc.cost')] + [cur(f'ep.{v_}.{fu}') for v_, fs in EP_ROAD if fu in fs]
             return '=' + '+'.join(parts), '0.0000'
         if var == 'vat.cost':                # R3.16 (issue I120): D = general VAT rate of the base year or 0
-            return f'=({ep("sup.cost")}+{ep("pig")}*(LEFT({pol("ExternalityAddVAT")},3)="Yes"))*$D{r}', '0.0000'
+            return (f'=({ep("sup.cost")}+{ep("pig")}*(LEFT({pol("ExternalityAddVAT")},3)="Yes"))*$D{r}'
+                    f'*{cur("vatgen")}'), '0.0000'   # v0.9.2: M15
         if var == 'eff.price':               # R3.17
             return f'={ep("sup.cost")}+{ep("pig")}+{ep("vat.cost")}', '0.0000'
         if var == 'rp.eff':                  # R3.18
@@ -13478,7 +13502,7 @@ def build_mitigation(wb):
             ab = G18[f'ch4.abt.{fu}']
             a = (f'$D${ab}', f'$E${ab}', f'{col}${R_POL["mfee"]}*$F${ab}*$G${ab}')   # v0.4.12: x fee applies
             return '=' + (call('MFEEPRICE', *a) if lam else
-                          f'IF({a[0]}=0,0,MIN({a[2]},(1/{a[0]})^(1/{a[1]})))'), '#,##0.00'
+                          f'IF({a[0]}=0,0,IF({a[1]}=0,{a[2]},MIN({a[2]},(1/{a[0]})^(1/{a[1]}))))'), '#,##0.00'   # v0.9.2: M21
         if var == 'mfc' and fu != 'all':
             em, ab, src = G18[f'ch4.em.{fu}'], G18[f'ch4.abt.{fu}'], G18[f'ch4.src.{fu}']
             base = f'IF($E${src}=0,0,$D${em}*{col}{G18["ch4.act." + fu]}/$E${src})'
@@ -13499,15 +13523,13 @@ def build_mitigation(wb):
         v_ = None
         if var in ('cc.nat', 'cc.glo'):
             v_ = f'=IFERROR(INDEX(EFGen,MATCH($B{r},EFGenKey,0)),0)'
-        elif var == 'vatext' and sec != 'oth':
-            v_ = (f'=VatGen*Inputs_prices!${IPC["osh"]}${IP_R0 + [x for x, _l in PRICES].index(pc)}'
-                  if pc in OIL_SHARE else 'VatGen' if sec == 'res' else 0)
+        elif var == 'vatext' and sec != 'oth':   # v0.9.2 (M15): D = consumer flag x household share; rate: row vatgen
+            v_ = (f'=Inputs_prices!${IPC["osh"]}${IP_R0 + [x for x, _l in PRICES].index(pc)}'
+                  if pc in OIL_SHARE else 1 if sec == 'res' else 0)
         elif var in ('sup.cost', 'rp.eff', 'txo.co2e'):
             v_ = 1 if fu == 'ecy' else f'=$F{prow("pset", pc)}'
         elif var == 'vat.cost':
-            v_ = 'VatGen' if pc in OIL_SHARE or sec == 'res' else 0
-        if v_ == 'VatGen':
-            v_ = '=VatGen'
+            v_ = 1 if pc in OIL_SHARE or sec == 'res' else 0
         if v_ is not None:
             put(ws, f'D{r}', v_, FONT, None, '0.0000')
     put(ws, f'H{R_WEL_NOTE}', 'Climate part of legacy F10. SCC options and default (target-consistent price) '
@@ -14675,6 +14697,7 @@ def _dist_layout(mitrow):
     for smp, slab in DIST_SAMPLES:
         row('deco', f'pui.{smp}', 'pui', '', smp, f'Public investment per capita, {slab.lower()}', 'LCU',
             'legacy rows 2610-2612', f'={{c}}${{puiamt}}*{{c}}{R["noacc." + smp]}', fmt='#,##0')
+    pui_amt = {smp: R[f'pui.{smp}'] for smp, _l in DIST_SAMPLES}   # v0.9.2 (M22): key pui.<smp> is reused below (% row)
     gap()
     head('Current spending (ASPIRE incidence by quintile)')
     row('deco', 'aspbase', 'aspbase', '', 'ove', 'ASPIRE benefit per capita of the program (quintile of the decile)',
@@ -14823,7 +14846,7 @@ def _dist_layout(mitrow):
                 f'=INDEX(DHHVal,{{c}}{{hrow.{sfx}}},MATCH("cons_pc_acrent",DHHVar,0))*{{c}}${{consadj}}', fmt='#,##0')
             row('deco', f'hrec.{sfx}', 'hrec', st, smp, f'Gain from recycling, {slab.lower()}, {st}', '% consumption',
                 'recycling per capita / consumption of the percentile',
-                f'=({{c}}{{pit}}+{{c}}{{pui.{smp}}}+{{c}}{{cts}}+{{c}}{{tgt}})/{{c}}{{hcpc.{sfx}}}*PctPerUnit')
+                f'=({{c}}{{pit}}+{{c}}{pui_amt[smp]}+{{c}}{{cts}}+{{c}}{{tgt}})/{{c}}{{hcpc.{sfx}}}*PctPerUnit')   # M22 fixed
             row('deco', f'hnet.{sfx}', 'hnet', st, smp, f'Net effect, {slab.lower()}, {st}', '% consumption',
                 'total effect + recycling', f'={{c}}{{htef.{sfx}}}+{{c}}{{hrec.{sfx}}}')
     gap()

@@ -61,6 +61,9 @@ FIXES = {  # name: (legacy rows, short description)
                           'the EV fuel-economy fallback tests diesel (5326) instead of electricity; fix: right rows'),
     'B23': ('4555', 'PHEV TCO includes the full BEV range anxiety (about 100,000 $/vehicle), so PHEV sales vanish; fix '
                     '(user decision 2026-10-14): no range anxiety for PHEVs (they refuel with gasoline)'),
+    'M16': ('4637', 'freight BEV feebate valued at the ICEV discounted km (4628); fix (v0.9.2): the BEV\'s (4630)'),
+    'M17': ('4555', 'PHEV TCO adds the ICEV insurance and maintenance (4541, on the ICEV price) to the BEV depreciation; '
+                    'fix (user 2026-10-29, v0.9.2): insurance on the BEV price, ICEV maintenance per km (row im.phv)'),
 }
 ALL_FIXES = frozenset(FIXES)
 OWN_DECLINE_FIX = 0.1           # B4: maximum annual decrease of ownership once a decline is allowed
@@ -320,7 +323,7 @@ def engine(inp, years=YEARS, fix=ALL_FIXES):
     o[4530] = list(gpc)
     rfre = (lambda k: disc[k]) if 'B8w' in fix else (lambda k: wacc)
     # ================================================================ allocate section rows
-    rows_sec = [r for r in range(4334, 5379)]
+    rows_sec = [r for r in range(4334, 5379)] + ['im.phv']   # v0.9.2: im.phv (M17) has no legacy row
     for r in rows_sec:
         if r not in o:
             S(r)
@@ -632,8 +635,9 @@ def engine(inp, years=YEARS, fix=ALL_FIXES):
         put(4579, X(4354))
         put(4581, X(4565) + X(4566) + X(4567) + X(4573) + X(4577) + X(4579))
         put(4582, X(4581) / X(4513))
-        put(4555, X(4509) * X(4456) + X(4565) + X(4566) + X(4567) + X(4541) + z(X(4520)) * X(4396) / X(4397) +
-            (0.0 if 'B23' in fix else X(4579)))
+        put('im.phv', (X(4562) * J4326) / r_ * (1 - (1 / (1 + r_) ** (J4322 + 1))) * insf + J4327 * X(4509))
+        put(4555, X(4509) * X(4456) + X(4565) + X(4566) + X(4567) + X('im.phv' if 'M17' in fix else 4541)
+            + z(X(4520)) * X(4396) / X(4397) + (0.0 if 'B23' in fix else X(4579)))
         # ---------------- TCO, passenger used (4584-4624)
         put(4584, y)
         put(4585, X(4475)); put(4586, pv(r_, J4323, X(4585)))
@@ -669,7 +673,7 @@ def engine(inp, years=YEARS, fix=ALL_FIXES):
         put(4634, X(4418)); put(4635, X(4432))
         if k > 0:
             put(4636, (X(4635) - z(X(4633))) * X(4634) / 10 ** 6 * X(4628))
-            put(4637, (0 - z(X(4633))) * X(4634) / 10 ** 6 * X(4628))
+            put(4637, (0 - z(X(4633))) * X(4634) / 10 ** 6 * X(4630 if 'M16' in fix else 4628))
         put(4639, o[2153][k])
         put(4640, side['W4308'] * side['W4312'])
         put(4641, P['adv_ice_base|fre'] if scen == 1 or y < P['adv_year|fre'] else P['adv_ice_pol|fre'])

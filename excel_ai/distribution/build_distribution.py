@@ -27,7 +27,7 @@ sys.path.insert(0, os.path.join(HERE, '..', 'mitigation'))
 sys.path.insert(0, os.path.join(HERE, '..', 'shared'))
 import build as P                                      # noqa: E402  the prototype builder (helpers, layout)
 
-VERSION = '0.1.3'
+VERSION = '0.1.4'
 NAME = 'CPAT-AI-Distribution-Prototype'
 OUT = P.REL.versioned(NAME, VERSION, 'xlsm')     # v0.1.1: excel_ai/<name>_v<version>.xlsm (_latest copies: NORMS 5a)
 SOURCE = P.LATEST                                     # the mitigation prototype the module is cut from
@@ -46,6 +46,9 @@ VERSION_LOG = [  # version, date, change
                           'issue I98; data problems as issues).'),
     ('0.1.3', '2026-10-29', f'Cut from the mitigation prototype v{P.VERSION} (remaining functionality, reverts to legacy, '
                           'data from legacy 465, last historical price year 2024); the Distribution method unchanged.'),
+    ('0.1.4', '2026-10-29', f'Cut from the mitigation prototype v{P.VERSION}: bug M22 fixed (found by Coded CPAT): the '
+                          '25th/75th percentile recycling rows (hrec) add the public investment amount per person '
+                          '(pui of the sample, LCU), not its % row.'),
 ]
 
 # the tabs of the module, in order (Cover is added); everything else of the prototype is dropped

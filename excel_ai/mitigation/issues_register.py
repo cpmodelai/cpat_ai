@@ -155,7 +155,8 @@ TR_TITLES = {
 
 def _tr_legacy():
     import transport_model_ref as T
-    order = sorted(T.FIXES, key=lambda k: (int(''.join(c for c in k[1:] if c.isdigit())), k))
+    order = sorted([k for k in T.FIXES if k.startswith('B')],   # v0.9.2: M16, M17 are prototype bugs (OPEN/MVP)
+                   key=lambda k: (int(''.join(c for c in k[1:] if c.isdigit())), k))
     out = []
     for i, k in enumerate(order):
         rows, desc = T.FIXES[k]
@@ -595,62 +596,50 @@ MVP_BUGS = [  # id, title, found / fixed in, what happened, fix
      'tax is in the fuel price already (legacy adds the shadow carbon price, 0 under explicit pricing).',
      'The road regulation shadow price (reg.rod) replaces it; 0 under explicit pricing.'),
     ('M14', 'LAMBDA library texts named a merged-away sheet', 'v0.4.2 / v0.5.3', 'The 21 LAMBDA-library texts of the power pollutant rows (sheet Lambdas, column C) still named the sheet Inputs_power: the v0.3.13 fix (M12) re-pointed the texts only on sheets that stay in place, and Lambdas is an appended block since v0.4.2; pasted, they gave #NAME?.', 'merge_tabs re-points the Lambdas texts of an appended block too (host Mitigation); the full check lists any text naming a merged-away sheet.'),
+    # v0.9.2: found by Coded CPAT (v0.9.1), fixed in the prototype to align with it (NORMS 0, rule 6)
+    ('M15', 'Section 18: VAT on efficient prices at the 2022 general rate in every year', 'v0.9.1 (Coded CPAT) / v0.9.2',
+     'The defined name VatGen was one fixed cell, the general VAT rate (VAT_WEO) of 2022; every year of the energy-subsidy '
+     '(vatext) and efficient-price (vat.cost) rows applied it, whatever the year\'s rate.',
+     'New section-18 row vatgen: VAT_WEO of the year up to LastHistPriceYear, the last historical rate held after it '
+     '(user assumption 2026-10-29); column D keeps the consumer flag x household share. Egypt unchanged (14% throughout).'),
+    ('M16', 'Road: freight BEV feebate valued at the ICEV truck\'s distance', 'v0.9.1 (Coded CPAT) / v0.9.2',
+     'trfbvfb.fre.bev multiplied by the ICEV discounted km (trdkmfrei); the passenger and 2-3 wheeler BEV feebates use '
+     'the BEV distance.', 'The freight BEV discounted km (trdkmfreb.fre.bev, legacy row 4630). Engineer road model only.'),
+    ('M17', 'Road: plug-in hybrid cost mixed BEV capital cost with ICEV insurance and maintenance',
+     'v0.9.1 (Coded CPAT) / v0.9.2',
+     'trtcfp.pas.phv took the BEV depreciation and salvage with the ICEV insurance and maintenance (insurance on the ICEV '
+     'price).', 'One price basis (user 2026-10-29; no PHEV price in the data): new row trimphv.pas.phv, insurance on the '
+     'BEV price with the ICEV maintenance per km and the ICEV distance. Engineer road model only.'),
+    ('M19', 'Nominal GDP divided by a billion although WEO is in billions', 'v0.9.1 (Coded CPAT) / v0.9.2',
+     'gdpn = WEO NGDP / Billion: 1e9 too small (Egypt 7.8e-6 bn LCU).', 'No division; unit bn nominal. Output rows only.'),
+    ('M20', 'International prices: World Bank LNG and Europe gas series swapped', 'v0.9.1 (Coded CPAT) / v0.9.2',
+     'With IntEnerPricForeSource = WB the LNG price read Prices_int row 15 ("Natural gas, Europe") and the Europe price '
+     'row 17 ("Liquefied natural gas, Japan").', 'LNG reads row 17, Europe row 15 (by the series labels). Egypt '
+     'unchanged (IMF).'),
+    ('M21', 'Methane fee: marginal abatement price #DIV/0 where the curve exponent is 0', 'v0.9.1 (Coded CPAT) / v0.9.2',
+     'mfp = MIN(fee, (1/a)^(1/b)) gave #DIV/0 where b = 0 and a <> 0.', 'IF(b = 0, fee, MIN(...)) (MFEEPRICE). No source '
+     'has b = 0 in the current data.'),
+    ('M22', 'Distribution: percentile recycling rows added a % row to amounts in local currency',
+     'v0.9.1 (Coded CPAT) / v0.9.2 (Distribution 0.1.4)',
+     'hrec = (pit + pui + cts + tgt) / hcpc x 100 read the public-investment row by the key pui.<sample>, which the '
+     'recycling-gain % row reuses, so it added % of consumption to amounts per person.',
+     'hrec reads the public investment amount per person of the sample (LCU). Egypt: the 25th/75th percentile '
+     'recycling and net rows where public investment is used.'),
 ]
 
-# v0.9.1 (user 2026-10-29): prototype bugs found by Coded CPAT's replication, not fixed yet. Coded CPAT replicates
-# each until the prototype is fixed (NORMS 0, rule 6); the fix instructions: excel_ai/plans/Fix_prototype_bugs_M15-M22.md
+# v0.9.1 (user 2026-10-29): prototype bugs found by Coded CPAT, not fixed yet. Prototype bugs are never put into Coded
+# CPAT: Python has the correct formula and the prototype is fixed to align (NORMS 0, rule 6). Empty since v0.9.2.
 OPEN_PROTO_BUGS = [  # id, title, where, what, fix, effect, priority
-    ('M15', 'Section 18: VAT on efficient prices at the 2022 general rate in every year',
-     'Mitigation section 18 rows 8753-8768 (vatext) and 8943-8954 (vat.cost), column D; defined name VatGen = '
-     'Inputs!$BB$156',
-     'VatGen is one fixed cell: the general VAT rate (VAT_WEO) of 2022, the second column of the historical block. Every '
-     'year of the efficient-price and implicit-subsidy rows applies it, whatever the year\'s rate.',
-     'The VAT rate of the column year: VAT_WEO data up to the last historical year (LastHistPriceYear), the last value '
-     'held after it (user 2026-10-29: data up to the final historical year, passed forward unless known otherwise). '
-     'Column D keeps the consumer flag (x the household share for the oil products); the rate becomes a year row.',
-     'Egypt: none (VAT_WEO 14% in every historical year). Countries whose VAT changed after 2022: VAT and the '
-     'efficient price misstated.', 'Medium'),
-    ('M16', 'Road: freight BEV feebate valued at the ICEV truck\'s distance',
-     'Mitigation row 4197 (trfbvfb.fre.bev)',
-     'The freight BEV feebate multiplies by trdkmfrei.fre.ice (ICEV distance); the passenger (row 4138) and 2-3 wheeler '
-     '(row 4219) BEV feebates use the BEV distance.',
-     'Use the freight BEV distance (the BEV distance row of the freight block), as rows 4138 and 4219.',
-     'Only with freight feebates on (engineer road model); none for Egypt (TrModel = Elasticity).', 'Medium'),
-    ('M17', 'Road: plug-in hybrid cost mixes BEV capital cost with ICEV insurance and maintenance',
-     'Mitigation row 4175 (trtcfp.pas.phv)',
-     'The PHEV total cost takes the BEV depreciation and salvage (trdppbn:trsvpbn) with the ICEV insurance and '
-     'maintenance (trimpin.pas.ice) and the ICEV distance.',
-     'One basis for every PHEV cost component: the PHEV purchase price where the data have it, else the BEV one, with '
-     'insurance and maintenance on the same price; confirm the intended basis with the CPAT team.',
-     'Only in the engineer road model (PHEV choice); none for Egypt.', 'Low'),
-    ('M18', 'Road: bus electricity scaled by the bus energy of every fuel',
+]
+
+# v0.9.2: withdrawn prototype bugs (the register entry was wrong; the code stays as it is): id, title, where, why
+WITHDRAWN_PROTO_BUGS = [
+    ('M18', 'Road: bus electricity scaled by the bus energy of every fuel (withdrawn: not a bug)',
      'Mitigation row 4522 (trbusel.bus.ecy), column D',
-     'Column D = $D3816+$E3816+$F3816+$G3816: the base bus use of diesel, LPG, gas and electricity; the fuel rows '
-     '4517-4519 take their own column ($D, $E, $F).',
-     'Column D = $G3816 (the electricity column), as the fuel rows.',
-     'Bus electricity overstated in the engineer road model; output only for Egypt (elasticity model).', 'Medium'),
-    ('M19', 'Nominal GDP divided by a billion although WEO is in billions',
-     'Mitigation rows 7765-7766 (gdpn)',
-     'gdpn = WEO nominal GDP / Billion; WEO NGDP and NGDPD are already in billions, so the rows are 1e9 too small.',
-     'Drop the division (or label the unit) and check every reader (none in Mitigation; MTOutputs).',
-     'Output rows only; no Mitigation formula reads them.', 'Low'),
-    ('M20', 'International prices: World Bank gas series read by position, LNG and Europe swapped',
-     'Inputs, international price block (source WB); legacy Prices_int rows',
-     'With IntEnerPricForeSource = WB, the LNG price reads the row "Natural gas, Europe" and the Europe gas price the '
-     'row "Liquefied natural gas, Japan" (rows taken by position).',
-     'Look the series up by name. Check legacy: if legacy reads the same rows, this is a legacy bug (L) instead, '
-     'fixed in the prototype.', 'Only with World Bank prices; none for Egypt (IMF).', 'Low'),
-    ('M21', 'Methane fee: marginal abatement price #DIV/0 where the curve exponent is 0',
-     'Mitigation rows 8600-8606 (mfp)',
-     'mfp = MIN(fee, (1/a)^(1/b)) gives #DIV/0 where b = 0 and a <> 0 (an abatement share that does not respond to the '
-     'fee).', 'Where b = 0 the cap does not apply: mfp = the fee (IF(b=0, fee, MIN(...))).',
-     'None in the current data (no source has b = 0).', 'Low'),
-    ('M22', 'Distribution: percentile recycling rows add a % row to amounts in local currency',
-     'Distribution 0.1.3 rows 599, 604, 609, 614, 619, 624 (hrec.p25/p75 by sample)',
-     'hrec = (pit + pui.tot + cts + tgt) / hcpc x 100: pit, cts and tgt are local currency per person, pui.tot is '
-     'public investment in % of consumption.',
-     'Use the public investment amount per person (pui of the sample), as the other three terms.',
-     'The 25th and 75th percentile recycling and net rows (charts) are wrong where public investment is used.', 'Medium'),
+     'Registered in v0.9.1 as a bug (column D = base bus use of diesel, LPG, gas and electricity). Withdrawn by the user '
+     '(2026-10-29): it is the legacy method (legacy row 5318 sums every bus fuel): bus electricity = all base-year bus '
+     'energy x the passenger electricity share, which is how buses electrify. The proposed fix (base-year bus '
+     'electricity only) would keep bus electricity near zero where base-year bus electricity is ~0.'),
 ]
 
 ISSUES = [  # id, title, description, where it is documented

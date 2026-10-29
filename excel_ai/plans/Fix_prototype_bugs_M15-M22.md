@@ -1,6 +1,6 @@
 # Fix the prototype bugs M15-M22 (found by Coded CPAT), then check legacy
 
-Written 2026-10-29 (user request). These eight prototype bugs were found while Coded CPAT (`coded/`) replicated Excel-AI number for number. Coded CPAT still replicates them, so its results equal the prototype's (NORMS 0, rule 6). This file is the brief for the AI that fixes them in the prototype. The register entries are in `excel_ai/mitigation/issues_register.py` (`OPEN_PROTO_BUGS`), listed in [`../BUGS.md`](../BUGS.md) section 2.
+Written 2026-10-29 (user request). These eight prototype bugs were found while Coded CPAT (`coded/`) replicated Excel-AI number for number. **Status: done in v0.9.2 / Distribution 0.1.4** (M15-M17, M19-M22 fixed; M18 withdrawn by the user as not a bug: the legacy bus-electricity method; M17 basis decided by the user: insurance on the BEV price, ICEV maintenance and distance). The rule changed the same day: prototype bugs are never put into Coded CPAT; Python has the correct formula and the prototype is fixed to align (NORMS 0, rule 6). This file is the brief for the AI that fixes them in the prototype. The register entries are in `excel_ai/mitigation/issues_register.py` (`OPEN_PROTO_BUGS`), listed in [`../BUGS.md`](../BUGS.md) section 2.
 
 Read first: [`../../NORMS.md`](../../NORMS.md) (section 0, the replication rule; sections 3-6 on building, checks, versions and the caveats log) and [`../mitigation/README.md`](../mitigation/README.md) (build and check commands).
 

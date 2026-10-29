@@ -191,7 +191,11 @@ def records():
         out.append(_rec(id=c, title=title, where=where, description=what, fix=fx, effect=eff, priority=pr,
                         module='Distribution' if 'Distribution' in where else 'Mitigation',
                         area='Distribution' if 'Distribution' in where else 'Mitigation',
-                        prototype='Open: to fix (Coded CPAT replicates it until then)', status='Open'))
+                        prototype='Open: to fix (Coded CPAT has the correct formula; NORMS 0 rule 6)', status='Open'))
+    for c, title, where, why in R.WITHDRAWN_PROTO_BUGS:                       # v0.9.2: not a bug after all
+        out.append(_rec(id=c, title=title, where=where, description=why, fix='None: kept as legacy.',
+                        module='Mitigation', area='Mitigation', prototype='Withdrawn (not a bug, user 2026-10-29)',
+                        status='Withdrawn'))
     for c, title, where, what, fx, pr in R.DOC_BUGS:                          # user 2026-10-29
         out.append(_rec(id=c, title=title, where=where, description=what, fix=fx, priority=pr,
                         prototype='Not affected', status=R.DOC_STATUS))

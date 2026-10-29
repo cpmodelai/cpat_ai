@@ -55,10 +55,12 @@ def bugs_md():
                    [(r['id'], r['former'], r['area'], r['priority'], r['title'], r['where'], r['prototype'],
                      r['legacy465'], r['see_also']) for r in L])
     M = G.by_kind('M')
-    lines += ['## 2. Prototype bugs (M)', '', f'Defects of the prototype itself: {sum(r["status"] != "Open" for r in M)} '
-              f'fixed, {sum(r["status"] == "Open" for r in M)} open. The open ones were found by Coded CPAT, which '
-              'replicates them until the prototype is fixed (NORMS 0, rule 6); fix instructions: '
-              '[`plans/Fix_prototype_bugs_M15-M22.md`](plans/Fix_prototype_bugs_M15-M22.md).', '']
+    lines += ['## 2. Prototype bugs (M)', '', f'Defects of the prototype itself: '
+              f'{sum(r["status"] not in ("Open", "Withdrawn") for r in M)} fixed, '
+              f'{sum(r["status"] == "Open" for r in M)} open, {sum(r["status"] == "Withdrawn" for r in M)} withdrawn. '
+              'Prototype bugs are never put into Coded CPAT: it has the correct formula and the prototype is fixed to '
+              'align (NORMS 0, rule 6). M15-M22 were found by Coded CPAT and fixed in v0.9.2 '
+              '([`plans/Fix_prototype_bugs_M15-M22.md`](plans/Fix_prototype_bugs_M15-M22.md)).', '']
     lines += table(['Code', 'Priority', 'Bug', 'Where', 'Fix', 'Status'],
                    [(r['id'], r['priority'], r['title'], r['where'], r['fix'] if r['status'] == 'Open' else '',
                      r['prototype']) for r in M])
