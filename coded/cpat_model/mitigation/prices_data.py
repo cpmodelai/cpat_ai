@@ -108,6 +108,7 @@ PRICES = ['coa.pow', 'coa.res', 'coa.ind', 'nga.pow', 'nga.res', 'nga.ind', 'gso
           'ker.all', 'oop.all', 'bio.all']
 HIST_YEARS = [2021, 2022, 2023, 2024]
 MARGIN_YEAR = 2024                       # Excel-AI reads the coal and gas margins at 2024 (typed; issue I101)
+VATGEN_YEAR = 2022                       # Excel-AI VatGen (Inputs!BB156): the general VAT rate VAT_WEO of 2022 (fixed cell)
 RP_FROM_DATA = {'coa', 'nga', 'bio'}     # historical retail price from data; oil products: supply cost + taxes
 OIL_SHARE = {'gso.all', 'die.all', 'lpg.all', 'ker.all'}
 VAT_CONSUMER = {'coa.res', 'nga.res', 'gso.all', 'die.all', 'lpg.all', 'ker.all', 'oop.all'}
@@ -192,6 +193,7 @@ def domestic_prices(db, iso, settings, cpi_index, pass_lo, pass_mid, pass_hi, pr
             p[f'sp{y}'] = spn * cpi_index[y] / gj
             p[f'txo{y}'] = ((rpn / (1 + vry) - spn) if p['rpd'] == 1 else txn) * cpi_index[y] / gj
         p['vr'] = p[f'vry{last}'] * p['osh']
+        p['vatgen'] = d.value(VATGEN_YEAR, 'VAT_WEO')
         p['spL'], p['txoL'] = p[f'sp{last}'], p[f'txo{last}']
         out[pc] = p
     return out

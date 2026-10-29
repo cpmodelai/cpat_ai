@@ -709,7 +709,7 @@ Over pollutants $p$ (PM2.5, NOx, SO2, VOC, BC, OC, CO), subsectors $s$ and power
 
 ## A8 GDP and results
 
-To complete: current account (R11); carbon-pricing indicators (section 17); welfare, externalities, subsidies and efficient prices (section 18; methodology: efficiency cost $ddw = \tfrac{1}{2}(nc - xcp)(F_P - F_B)$).
+GDP multipliers, external balance, the inputs of the modules (section 17b), welfare, subsidies and efficient prices (section 18).
 
 **A8.1  Fiscal multipliers by lag**  *(adjustment)*
 
@@ -734,6 +734,30 @@ $$
 $$
 
 Over price codes $c$, sector groups $S$, sources (coal, gas and other power plants, road, ground level, other, food), years $t$. Excel-AI notation (Mitigation section 17b). As A1.2 but weighted by the current year's fuel use (the plain average where it is 0); per unit for oil products, per GJ in airpol.cost.gj; residential coal only above ApCoalResMin of buildings use. The concentration coefficients $\kappa$ are the module's (typed FromAirPollution). Source: Excel-AI: Mitigation section 17b.
+
+**A8.4  Transport externalities per unit of road fuel**  *(adjustment)*
+
+$$
+\mathtt{tran.}k\mathtt{.cost}_f = \mathtt{tran.}k\mathtt{.km}\cdot\mathtt{traf}_f\cdot\mathtt{tran.mrg}_f\cdot\mathtt{tran.rsh}_f\,(\cdot\,\mathtt{tran.fsh}_f), \quad \mathtt{tran.wcl}_f = 1 - \frac{\mathtt{trfcf}^{B}_f}{\mathtt{tran.cls}^{B}_f}, \quad \mathtt{tran.}k\mathtt{.gj} = \mathtt{tran.}k\mathtt{.cost} / gj
+$$
+
+Over kinds $k$ (accidents, congestion, road damage), road fuels $f$ (gasoline, diesel, LPG, gas, electricity), years $t$. Excel-AI notation (Mitigation section 17b, rows 8510-8556). The cost per vehicle-km of the transport co-benefits module times the average fuel economy of the road engineer model (km per liter or kWh), the marginal share of distance in a change of fuel use ($w_f$: the passenger share of the fuel's use in the baseline; gasoline 1), the road share of the fuel; road damage only for the freight share $\phi_f$. Per GJ for gasoline, diesel and LPG (A8.5). Source: Excel-AI: Mitigation section 17b.
+
+**A8.5  Welfare gains**  *(adjustment)*
+
+$$
+\mathtt{wel.all.usd} = \mathtt{wcli.all.nat} + \mathtt{wel.air.usd} + \textstyle\sum \mathtt{wel.rod.*.usd} - \mathtt{eff.tot.tot} - \mathtt{mfc.tot.tot}, \quad \mathtt{eff}_f = -\tfrac{1}{2}(\mathtt{wdg}_f + \mathtt{wdg}^{B}_f)\,\mathtt{echg}_f / 1000, \quad \mathtt{wdg}_f = \frac{\mathtt{rfu}_f + \mathtt{rfg.pow}_f}{\mathtt{ener}_f}
+$$
+
+Over fuels $f$, methane sources, years $t$; in USD bn and in % of GDP (wel.*.pct). Excel-AI notation (Mitigation section 18, rows 8566-8671, 9063). Climate at the national social cost of carbon; air pollution at the value of PM2.5 concentration (module); road transport at the module's cost per km of the change in distance (road engineer model); the efficiency cost at the average fuel tax per ktoe of the scenario and the baseline (methodology: $ddw = \tfrac{1}{2}(nc - xcp)(F_P - F_B)$); the abatement cost of the methane fee (marginal price capped at the source's full abatement, times $b/(1+b)$ of the abatement). Also the environmental gain of the change in fossil fuel use at the global climate cost plus the air pollution and transport costs per GJ (env.ffs.cost, wel.ffs). Source: Excel-AI: Mitigation section 18.
+
+**A8.6  Fossil fuel subsidies and efficient prices**  *(adjustment)*
+
+$$
+\mathtt{expsub.con}_i, \ \mathtt{impsub.con}_i, \ \mathtt{effprice} = \mathtt{supcost} + \mathtt{extcost} + \mathtt{vatext}; \quad \mathtt{eff.price}_c = \mathtt{sup.cost}_c + \mathtt{pig}_c + \mathtt{vat.cost}_c, \ \mathtt{tgap}_c = \mathtt{rp.eff}_c - \mathtt{eff.price}_c, \ \mathtt{pig.co2e}_c = \mathtt{pig}_c\,\frac{SCC^{glo}}{\mathtt{scc.cost}_c}
+$$
+
+Over price rows $i$ (oil products; gas, coal and electricity by industry, residential, power and other: the use-weighted average), price codes $c$, years $t$. Excel-AI notation (Mitigation section 18, rows 8675-9059). Subsidies: supply cost of the year, external cost (global climate, air pollution, road transport per GJ), VAT at the general rate (VAT_WEO of 2022, Excel-AI VatGen) on both where consumers pay VAT (oil products times the household share); use in PJ (GWh). Efficient prices per price unit: the baseline supply cost, the Pigouvian taxes (air pollution, climate cost of the price code, road transport), VAT on the supply cost and, where ExternalityAddVAT, on the Pigouvian taxes; the averages weighted by use. Source: Excel-AI: Mitigation section 18.
 
 # Appendix B: distribution adjustments
 

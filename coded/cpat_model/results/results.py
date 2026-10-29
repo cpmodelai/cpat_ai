@@ -51,7 +51,7 @@ def flatten(var, arr, country, n):
         yield f'{prefix}{slot}.{n}', a.values, years
         return
     rows = set(map(tuple, a.attrs.get('rows', [])))          # a sparse grid: only these (sector, fuel) are rows
-    labels = [list(a[d].values) for d in other]
+    labels = [[None if isinstance(x, float) and np.isnan(x) else x for x in a[d].values] for d in other]   # None: NaN in xarray
     values = a.values
     for idx in np.ndindex(*values.shape[:-1]):
         key = tuple(labels[k][i] for k, i in enumerate(idx))

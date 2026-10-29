@@ -831,7 +831,7 @@ parts:
             note: "Excel-AI notation (Mitigation section 15, read by the air pollution module). Combustion factors of the base year and the final year (A7.1), weighted by $w_t$ (EFSel share $\\omega$, final year EFEndYear); power by generation type. Food processing uses the food share of the energy balance; agriculture is the rest of food and forestry. By source, POM = 1.3 OC and other PM = PM2.5 - BC - POM (at least 0); methane by source from the CH4 rows. GWP100 of the GAINS region of the country."
             excel: "Mitigation section 15"
       - title: "A8 GDP and results"
-        text: "To complete: current account (R11); carbon-pricing indicators (section 17); welfare, externalities, subsidies and efficient prices (section 18; methodology: efficiency cost $ddw = \\tfrac{1}{2}(nc - xcp)(F_P - F_B)$)."
+        text: "GDP multipliers, external balance, the inputs of the modules (section 17b), welfare, subsidies and efficient prices (section 18)."
         equations:
           - id: A8.1
             title: Fiscal multipliers by lag
@@ -863,6 +863,37 @@ parts:
             over: "price codes $c$, sector groups $S$, sources (coal, gas and other power plants, road, ground level, other, food), years $t$"
             note: "Excel-AI notation (Mitigation section 17b). As A1.2 but weighted by the current year's fuel use (the plain average where it is 0); per unit for oil products, per GJ in airpol.cost.gj; residential coal only above ApCoalResMin of buildings use. The concentration coefficients $\\kappa$ are the module's (typed FromAirPollution)."
             excel: "Mitigation section 17b"
+
+          - id: A8.4
+            title: Transport externalities per unit of road fuel
+            kind: adjustment
+            greek: |
+              c^{k}_{f,t} = c^{k}_{km,t}\,\overline{fe}_{f,t}\,\mu_{f,t}\,\rho_{f,t}\,(\phi_{f,t})^{[k = rdm]}, \qquad \mu_f = \frac{\epsilon^{U}_{die} + w_f(\epsilon^{U}_{gso} - \epsilon^{U}_{die})}{\epsilon^{U}_{die} + \epsilon^{F}_{die} + w_f(\epsilon^{U}_{gso} + \epsilon^{F}_{gso} - \epsilon^{U}_{die} - \epsilon^{F}_{die})}
+            codes: |
+              \mathtt{tran.}k\mathtt{.cost}_f = \mathtt{tran.}k\mathtt{.km}\cdot\mathtt{traf}_f\cdot\mathtt{tran.mrg}_f\cdot\mathtt{tran.rsh}_f\,(\cdot\,\mathtt{tran.fsh}_f), \quad \mathtt{tran.wcl}_f = 1 - \frac{\mathtt{trfcf}^{B}_f}{\mathtt{tran.cls}^{B}_f}, \quad \mathtt{tran.}k\mathtt{.gj} = \mathtt{tran.}k\mathtt{.cost} / gj
+            over: "kinds $k$ (accidents, congestion, road damage), road fuels $f$ (gasoline, diesel, LPG, gas, electricity), years $t$"
+            note: "Excel-AI notation (Mitigation section 17b, rows 8510-8556). The cost per vehicle-km of the transport co-benefits module times the average fuel economy of the road engineer model (km per liter or kWh), the marginal share of distance in a change of fuel use ($w_f$: the passenger share of the fuel's use in the baseline; gasoline 1), the road share of the fuel; road damage only for the freight share $\\phi_f$. Per GJ for gasoline, diesel and LPG (A8.5)."
+            excel: "Mitigation section 17b"
+          - id: A8.5
+            title: Welfare gains
+            kind: adjustment
+            greek: |
+              W = (D^{B} - D) + v^{PM}(PM^{B} - PM) + \sum_k c^{k}_{km}(km^{B} - km) - \sum_f \tfrac{1}{2}(w_f + w^{B}_f)(F_f - F^{B}_f) - MC, \qquad D = SCC\cdot GHG
+            codes: |
+              \mathtt{wel.all.usd} = \mathtt{wcli.all.nat} + \mathtt{wel.air.usd} + \textstyle\sum \mathtt{wel.rod.*.usd} - \mathtt{eff.tot.tot} - \mathtt{mfc.tot.tot}, \quad \mathtt{eff}_f = -\tfrac{1}{2}(\mathtt{wdg}_f + \mathtt{wdg}^{B}_f)\,\mathtt{echg}_f / 1000, \quad \mathtt{wdg}_f = \frac{\mathtt{rfu}_f + \mathtt{rfg.pow}_f}{\mathtt{ener}_f}
+            over: "fuels $f$, methane sources, years $t$; in USD bn and in % of GDP (wel.*.pct)"
+            note: "Excel-AI notation (Mitigation section 18, rows 8566-8671, 9063). Climate at the national social cost of carbon; air pollution at the value of PM2.5 concentration (module); road transport at the module's cost per km of the change in distance (road engineer model); the efficiency cost at the average fuel tax per ktoe of the scenario and the baseline (methodology: $ddw = \\tfrac{1}{2}(nc - xcp)(F_P - F_B)$); the abatement cost of the methane fee (marginal price capped at the source's full abatement, times $b/(1+b)$ of the abatement). Also the environmental gain of the change in fossil fuel use at the global climate cost plus the air pollution and transport costs per GJ (env.ffs.cost, wel.ffs)."
+            excel: "Mitigation section 18"
+          - id: A8.6
+            title: Fossil fuel subsidies and efficient prices
+            kind: adjustment
+            greek: |
+              S^{exp}_{i} = \max(0, sp_i - p_i)\,Q_i, \qquad S^{imp}_{i} = [p_i \le p^{*}_i]\,(p^{*}_i - \max(p_i, sp_i))\,Q_i, \qquad p^{*}_i = (sp_i + ext_i)(1 + vat_i)
+            codes: |
+              \mathtt{expsub.con}_i, \ \mathtt{impsub.con}_i, \ \mathtt{effprice} = \mathtt{supcost} + \mathtt{extcost} + \mathtt{vatext}; \quad \mathtt{eff.price}_c = \mathtt{sup.cost}_c + \mathtt{pig}_c + \mathtt{vat.cost}_c, \ \mathtt{tgap}_c = \mathtt{rp.eff}_c - \mathtt{eff.price}_c, \ \mathtt{pig.co2e}_c = \mathtt{pig}_c\,\frac{SCC^{glo}}{\mathtt{scc.cost}_c}
+            over: "price rows $i$ (oil products; gas, coal and electricity by industry, residential, power and other: the use-weighted average), price codes $c$, years $t$"
+            note: "Excel-AI notation (Mitigation section 18, rows 8675-9059). Subsidies: supply cost of the year, external cost (global climate, air pollution, road transport per GJ), VAT at the general rate (VAT_WEO of 2022, Excel-AI VatGen) on both where consumers pay VAT (oil products times the household share); use in PJ (GWh). Efficient prices per price unit: the baseline supply cost, the Pigouvian taxes (air pollution, climate cost of the price code, road transport), VAT on the supply cost and, where ExternalityAddVAT, on the Pigouvian taxes; the averages weighted by use."
+            excel: "Mitigation section 18"
 
   - title: "Appendix B: distribution adjustments"
     text: "Excel-AI Distribution 0.1.3 (methodology chapter 5)."
