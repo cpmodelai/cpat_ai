@@ -56,6 +56,7 @@ BUILT = {
                                  'ndc.hk', 'ndc.hh', 'ndc.hc', 'ndc.hv', 'ndc.h', 'ndc.gdp', 'ndc.hi', 'ndc.f', 'ndc.lv',
                                  'ndc.r', 'ndc.lvl', 'ndc.idx', 'ndc.bau', 'ndc.red', 'ndc.gap', 'ndc.over'],
     '3.10b local air pollutants': ['ap.w', 'apfd', 'ap', 'apf', 'aps', 'apen', 'apco2', 'ghg.enrp'],
+    '3.12b air pollution inputs (17b)': ['airpol.cost', 'fus', 'fuq'],
     '3.12a carbon pricing indicators': ['tcp', 'cpeff', 'cov.ct', 'cov.ets', 'cov.all', 'ecr'],
     '3.11 GDP effects': ['gdp.pos.pct', 'fis.rev', 'fis.ref', 'fis.sp', 'fis.imp', 'fis.lag', 'fis.impp', 'fis.lagp',
                          'fis.grp', 'fis.key', 'fis.eff', 'gdp.lvl', 'gdp.pos.usd', 'gdpg', 'gdpy', 'gdp.chg.usd',
