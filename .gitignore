@@ -14,3 +14,8 @@ CPAT_Data_*.xlsx
 !data/workbooks/CPAT_Data_dummy_python.xlsx
 !data/workbooks/CPAT_Data_dummy_cpat.xlsx
 .claude/worktrees/
+
+# Coded CPAT run outputs (coded/NORMS.md section 2)
+coded/outputs/
+# temporary files of the document builders
+coded/cpat_documentation/**/tmp*.md

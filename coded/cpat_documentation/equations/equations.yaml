@@ -1,0 +1,500 @@
+# The equation list of Coded CPAT: one source for both versions (coded/NORMS.md section 8; spec D13).
+# Each equation: id, title, kind (core | adjustment), greek (notation of the methodology), codes (CPAT code names),
+# over (the indices it ranges over), note, doc (methodology reference), excel (Excel-AI reference).
+# Run make_equations.py after editing; never edit the generated qmd files.
+#
+# Status: FIRST DRAFT (2026-10-29). The executive summary (core equations) is complete in outline; the appendices of
+# adjustments are started and are completed block by block (coded/TODO.md phase 0). Code names marked with a dagger
+# are not yet confirmed in the codes map (see the appendix).
+
+intro:
+  greek: |
+    **Status: first draft.** The core equations are listed for every block; the appendices of adjustments are being completed block by block. Code version: `Equations_codes.qmd` (the same equations with CPAT code names).
+
+    ## How to read this list
+
+    - **What it is.** The equations Coded CPAT implements, in the order the model computes them. Coded CPAT replicates Excel-AI (`excel_ai/CPAT-AI-Mitigation-Prototype_v<version>.xlsm`); where the methodology and Excel-AI differ, the equation is Excel-AI's and the note says so. Each equation has an id (`M3.1`, ...) that the code cites (`EQ-M3.1`).
+    - **Notation** follows the CPAT methodology (`docs/01_MainDocumentation/03_Mitigation.qmd`, `05_Distribution.qmd`). Where the methodology has no symbol for a quantity, the symbol of the Excel-AI equation note (`excel_ai/mitigation/Equations.md`) is used and marked *(Excel-AI notation)*.
+    - **Indices** (methodology, "Dimensions"): scenario $o$ (baseline $B$, policy $P$), country $c$, UNFCCC sector $u$, sector group $g$, sector $s$, fuel or generation type $f$, pollutant $p$, year $t$. **Indices are omitted where they add nothing:** every mitigation equation holds for each scenario $o$ and country $c$, and for each year $t$ unless $t$ is shown; the line "Over ..." under an equation lists the other indices it ranges over. A previous-year value carries $t-1$; a baseline value of the same year carries the superscript $B$.
+    - **Distribution** uses its own indices (methodology chapter 5): household $j$, decile $d$, consumption category $g$, fuel $f$ (with $f \in g$), analysis year $y$.
+    - **Core and adjustments.** The first part is the executive summary: the core equations of each block. The appendices hold the adjustments (exceptions, floors, switches, calibration, memo items).
+  codes: |
+    **Status: first draft.** This is the parallel version of `Equations.qmd`: the same equations, ids and order, with the CPAT variable codes of the codes map (`excel_ai/CPAT-AI_CodesMap_v<version>.xlsx`) in place of the symbols. Inputs appear under their `NameOfParameter` (ScenarioDefinition / MTInputs). In the code, the variable of each equation carries the same name.
+
+    ## How to read this list
+
+    - A code is the stem of the full CPAT code `<iso>.mit.<variable>.<sector>.<fuel>.<scenario>`: here `ener` with subscripts $s, f, t$ stands for `ener.<sector>.<fuel>` in year $t$. Suffixes as in Excel-AI and the code: `_prev` is shown as the subscript $t-1$, the baseline value of the same year as the superscript $B$ (Excel-AI `.ref`).
+    - Indices and their omission as in the Greek version: every equation holds for each scenario and country, and each year unless shown; "Over ..." lists the rest. Sector codes (`rod`, `res`, `ind`, ...) and fuel codes (`coa`, `nga`, `gso`, `die`, `lpg`, `ker`, `oop`, `bio`, `ecy`, ...) are those of the codes map.
+    - A name marked $\dagger$ is not yet confirmed in the codes map; the appendix lists them.
+
+parts:
+
+  - title: "Executive summary: core equations"
+    text: |
+      One year of the model, in the order of the calculation chain (spec section 4.3): policies and prices (computed for all years before the year loop), then fuel use, power, revenues, emissions and GDP, then distribution in its analysis year.
+    sections:
+
+      - title: "M1 Policies"
+        text: "Every policy is a path from a start year to a target year, set per scenario."
+        equations:
+          - id: M1.1
+            title: Policy path (linear from a start to a target level)
+            greek: |
+              \Lambda(t; T_0, T_1, x_0, x_1) = \begin{cases} 0 & t < T_0 \\ x_0 + (x_1 - x_0)\,\dfrac{t - T_0}{\max(T_1 - T_0,\,1)} & t \ge T_0 \end{cases}
+            codes: |
+              \mathtt{path}(t;\ \mathtt{start\_year},\ \mathtt{target\_year},\ \mathtt{start\_level},\ \mathtt{target\_level})
+            note: "Excel-AI notation (the methodology describes the paths in words). Held flat after $T_1$ unless the input says the path continues."
+            excel: "Equations.md section 0 (Λ, Λ̄)"
+          - id: M1.2
+            title: National carbon tax per tonne
+            greek: |
+              NCT_t = \Lambda(t; T_0, T_1, x_0, x_1)\,\nu_t
+            codes: |
+              \mathtt{cptraj}_t = \mathtt{path}(t;\ \mathtt{CPIntro},\ \mathtt{CPOutro},\ \mathtt{CPLevelStart},\ \mathtt{CPLevelTarget})\cdot \mathtt{infl}_t
+            note: "$\\nu_t$ is the CPI index (US CPI of the results year over year $t$) if the inputs are nominal, else 1 (Excel-AI notation)."
+            doc: "03_Mitigation, Prices > Notation ($NCT$)"
+            excel: "E1"
+          - id: M1.3
+            title: New carbon tax and ETS cost by sector
+            greek: |
+              NCT_{s,t} = NCT_t\,\varphi_{NCT,s}\,(1 - \kappa_{s,t}), \qquad NETSP_{s,t} = \tilde{p}^{E}_t\,\kappa_{s,t}\,(1 - \omega_{s,t})
+            codes: |
+              \mathtt{ctr}_{s,t} = \mathtt{cptraj}_t\,\mathtt{ctcov}_{s}\,(1 - \mathtt{etsc}_{s,t}), \qquad \mathtt{etr}_{s,t} = \mathtt{ets.pe}_t\,\mathtt{etsc}_{s,t}\,(1 - \mathtt{obr}_{s,t})
+            over: "sectors $s$ (power and the 16 subsectors)"
+            note: "$\\kappa_s$ new-ETS coverage, $\\omega_s$ share allocated free (output-based), $\\tilde{p}^E$ the tax-equivalent ETS price (Excel-AI notation; methodology $NETSP$ is the national ETS price). Where the new tax complements an existing ETS, $\\varphi_{NCT,s}$ is one minus the existing ETS coverage."
+            doc: "03_Mitigation, Prices > Notation ($NCT$, $NETSP$, $\\varphi_{NCT/ETS}$)"
+            excel: "E5, E6, E13-E15"
+          - id: M1.4
+            title: Shadow price of non-pricing policies by sector
+            greek: |
+              \Sigma_{s,t} = \left(b_{g(s),t} + reg_{g(s),t}\right) a\,\mathbb{1}[\text{feebate covers } s] + \tilde{p}^{E}_t\,\kappa_{s,t}\,\omega_{s,t}
+            codes: |
+              \mathtt{shpx}_{s,t} = (\mathtt{fb}_{g(s),t} + \mathtt{reg}^{\dagger}_{g(s),t})\,\mathtt{ssc}\,\mathtt{fbcov}_{s} + \mathtt{ets.pe}_t\,\mathtt{etsc}_{s,t}\,\mathtt{obr}_{s,t}
+            over: "sectors $s$; $g(s)$ is the sector group of $s$"
+            note: "Excel-AI notation: $b_g$ feebate rate, $reg_g$ regulations (placeholder, 0), $a$ share of the feebate on the efficiency margin. The shadow price acts on the efficiency margin only (M3.1); it raises no revenue."
+            excel: "E3, E16"
+
+      - title: "M2 Energy prices"
+        text: "Prices before policies by sector group $g$ and fuel $f$ (the methodology's price sectors), then new policies and the after-tax price by sector $s$ and fuel $f$. All quantity-free: computed for all years before the year loop."
+        equations:
+          - id: M2.1
+            title: Supply price (fixed part plus a floating part that follows the international price)
+            greek: |
+              sp_{t} = fixsp + \left(sp_{t-1} - fixsp\right)\frac{gp_t}{gp_{t-1}}
+            codes: |
+              \mathtt{sp}_{t} = \mathtt{spf} + (\mathtt{sp}_{t-1} - \mathtt{spf})\,\frac{\mathtt{gpi}_t}{\mathtt{gpi}_{t-1}}
+            over: "sector groups $g$, fuels $f$; projection years $t > L$ (last historical price year)"
+            note: "The methodology writes $sp = fixsp + fltsp + ps$ with $fltsp_t = fltsp_{t-1}\\,gp_t/gp_{t-1}$; Excel-AI adds the producer subsidy $ps$ separately (appendix A2)."
+            doc: "03_Mitigation, Appendix C > Calculations (supply price, floating portion)"
+            excel: "E19, E20"
+          - id: M2.2
+            title: Excise and other taxes, floating with the pass-through
+            greek: |
+              txo_t = txo_{t-1} - \left(sp_t - sp_{t-1}\right)\left(1 - pcc\right)
+            codes: |
+              \mathtt{txf}_t = \mathtt{txf}_{t-1} - (\mathtt{sp}_t - \mathtt{sp}_{t-1})\,(1 - \mathtt{rp.ctrl})
+            over: "sector groups $g$, fuels $f$"
+            note: "$pcc$ is the price-control (pass-through) coefficient: 1 for a liberalised market, 0 for fixed prices. A positive tax does not fall below its last historical level (appendix A2). Here $txo$ holds existing taxes and subsidies only; the methodology's $txo$ also includes the carbon prices, which Excel-AI keeps apart (M2.5)."
+            doc: "03_Mitigation, Appendix C > Calculations ($flts$, $pcc$)"
+            excel: "E21-E23"
+          - id: M2.3
+            title: VAT and retail price before new policies
+            greek: |
+              vat_t = \left(sp_t + txo_t\right) vatrate, \qquad p^{0}_t = sp_t + txo_t + vat_t
+            codes: |
+              \mathtt{vat}_t = (\mathtt{sp}_t + \mathtt{txo}_t)\,\mathtt{vatr}^{\dagger}, \qquad \mathtt{rpb}_t = \mathtt{sp}_t + \mathtt{txo}_t + \mathtt{vat}_t
+            over: "sector groups $g$, fuels $f$"
+            doc: "03_Mitigation, Appendix C > Calculations (VAT, retail price)"
+            excel: "E24, E25"
+          - id: M2.4
+            title: New carbon price, ETS cost and excise per unit of energy
+            greek: |
+              nct_{s,f} = NCT_s\,ef_{s,f}\,\varphi_{NCT,f}\,x_{s,f}, \quad netsp_{s,f} = NETSP_s\,ef_{s,f}\,x_{s,f}, \quad nexc_{s,f} = \frac{F^{x}_{g,f}}{u_{g,f}}\,x_{s,f}
+            codes: |
+              \mathtt{ctxnew}_{s,f} = \mathtt{ctr}_s\,\mathtt{ef}_{s,f}\,\mathtt{ctcov}_f\,\mathtt{exf}_{s,f}, \quad \mathtt{ets}_{s,f} = \mathtt{etr}_s\,\mathtt{ef}_{s,f}\,\mathtt{exf}_{s,f}, \quad \mathtt{ntx}_{s,f} = \frac{\mathtt{fpr}_{g,f}}{\mathtt{gju}^{\dagger}_{g,f}}\,\mathtt{exf}_{s,f}
+            over: "sectors $s$, fuels $f$; $g$ is the price sector of $(s,f)$"
+            note: "$ef$ the calibrated CO2 emission factor (M7.1), $x$ the exemption factor (0 for an exempt fuel), $F^x$ the fuel-price reform path (M1.1) in price units and $u$ GJ per price unit (Excel-AI notation for $x$, $F^x$, $u$)."
+            doc: "03_Mitigation, Appendix C > Calculations ($ncp = nct + netsp$, $nexc$)"
+            excel: "E26-E29"
+          - id: M2.5
+            title: After-tax price
+            greek: |
+              p_{s,f} = \max\!\Big(p^{0}_{g,f} + \big(nct_{s,f} + netsp_{s,f} + nexc_{s,f} + \Delta xcp_{s,f}\big)\left(1 + vatrate_{g,f}\right),\ \underline{p}\Big)
+            codes: |
+              \mathtt{atp}_{s,f} = \max\!\big(\mathtt{rpb}_{g,f} + (\mathtt{ctxnew}_{s,f} + \mathtt{ets}_{s,f} + \mathtt{ntx}_{s,f} + \mathtt{xcpd}_{s,f})\,(1 + \mathtt{vatr}^{\dagger}_{g,f}),\ \mathtt{PriceFloor}\big)
+            over: "sectors $s$, fuels $f$"
+            note: "$\\Delta xcp$ is the change in existing carbon pricing against the price data, which already contain it (appendix A2). $\\underline{p}$ is the price floor (0.01)."
+            doc: "03_Mitigation, Appendix C > Calculations (retail price)"
+            excel: "E30, E31"
+          - id: M2.6
+            title: Shadow price per unit of energy
+            greek: |
+              sh_{s,f} = \Sigma_s\,ef_{s,f}
+            codes: |
+              \mathtt{shp}_{s,f} = \mathtt{shpx}_{s}\,\mathtt{ef}_{s,f}
+            over: "sectors $s$, fuels $f$"
+            note: "Excel-AI notation (the methodology names the shadow price in words only)."
+            excel: "E32"
+
+      - title: "M3 Fuel use"
+        text: "The core behavioural equation of CPAT (switchable slot *fuel demand*, spec section 7)."
+        equations:
+          - id: M3.1
+            title: Fuel use, constant-elasticity form
+            greek: |
+              \frac{F_{s,f,t}}{F_{s,f,t-1}} = \left(\frac{1}{1 + \alpha_{s,f} + \alpha^{+}_{s,t}}\right)^{1 + \epsilon_{U}} \Psi_t \left(\frac{Y_t}{Y_{t-1}}\right)^{\epsilon_{Y}\, inc_t} \left(\frac{p_{s,f,t}}{p_{s,f,t-1}}\right)^{\epsilon_{U}} \left(\frac{p_{s,f,t} + sh_{s,f,t}}{p_{s,f,t-1} + sh_{s,f,t-1}}\right)^{\epsilon_{F}(1 + \epsilon_{U})}
+            codes: |
+              \frac{\mathtt{enel}_{s,f,t}}{\mathtt{enel}_{s,f,t-1}} = \left(\frac{1}{1 + \mathtt{eff\_imp}_{s,f} + \mathtt{addeff}^{\dagger}_{s,t}}\right)^{1 + \mathtt{el\_dem}} \mathtt{shock}_t\,(1 + \mathtt{gdp.pos.pct}_t)^{\mathtt{el\_inc}\cdot\mathtt{incf}_t} \left(\frac{\mathtt{atp}_{s,f,t}}{\mathtt{atp}_{s,f,t-1}}\right)^{\mathtt{el\_dem}} \left(\frac{\mathtt{atp}_{s,f,t} + \mathtt{shp}_{s,f,t}}{\mathtt{atp}_{s,f,t-1} + \mathtt{shp}_{s,f,t-1}}\right)^{\mathtt{el\_eff}\,(1 + \mathtt{el\_dem})}
+            over: "sectors $s$, fuels $f$; the elasticities $\\epsilon_Y, \\epsilon_U, \\epsilon_F$ vary by country, sector and fuel"
+            note: "As the methodology, with three Excel-AI additions: the shadow price enters the efficiency term only; $\\alpha^{+}_{s}$ is the additional policy-induced efficiency gain of the sector's group (Excel-AI notation); $inc_t$ adjusts the income elasticity to the income level (Excel-AI notation). $\\Psi_t$ is the demand shock (methodology: Covid adjustment; in Excel-AI the 2023-2024 shock, switch on)."
+            doc: "03_Mitigation, Fuel Consumption Dynamics"
+            excel: "E69 (LAMBDAs FUELUSE, AEEIFACTOR)"
+          - id: M3.2
+            title: Fuel use used by the rest of the model
+            greek: |
+              F_{s,f} = \begin{cases} F^{T}_{s,f} & s = \text{road and the road model is the engineer model} \\ F^{e}_{s,f} + Lk_{s,f} & \text{otherwise} \end{cases}
+            codes: |
+              \mathtt{ener}_{s,f} = \begin{cases} \mathtt{trfc}^{\dagger}_{f} & s = \mathtt{rod},\ \mathtt{TrModel} = \text{Engineer} \\ \mathtt{enel}_{s,f} + \mathtt{lkc}_{s,f} & \text{otherwise} \end{cases}
+            over: "sectors $s$, fuels $f$"
+            note: "$F^e$ is M3.1, $F^T$ the road engineer model (M5), $Lk$ residential leakage to biomass (appendix A3, off by default). Excel-AI notation for the superscripts."
+            excel: "E69, ROADSWITCH, section 6b"
+
+      - title: "M4 Power"
+        text: "Electricity demand, generation, capacity and prices: the engineer model (standard-CPAT). Generation types $f$: coal, gas, oil, nuclear, wind, solar, hydro, other renewables, biomass."
+        equations:
+          - id: M4.1
+            title: Electricity demand by sector (last year's electricity price)
+            greek: |
+              \frac{E_{s,t}}{E_{s,t-1}} = \left(\frac{1}{1 + \alpha_{d} + \alpha^{+}_{t}}\right)^{1 + \epsilon_{U,d}} \Psi_t \left(\frac{Y_t}{Y_{t-1}}\right)^{\epsilon_{Y,d}\, inc_t} \left(\frac{\bar{p}^{T}_{d,t}}{\bar{p}^{T}_{d,t-1}}\right)^{\epsilon_{U,d} + \epsilon_{F,d} + \epsilon_{U,d}\epsilon_{F,d}}, \qquad \bar{p}^{T}_{d,t} = w_d\,p^{T}_{res,t-1} + (1 - w_d)\,p^{T}_{ind,t-1}
+            codes: |
+              \mathtt{dem}_{s,t} = \mathtt{dem}_{s,t-1}\cdot \mathtt{mult}_{d(s),t}, \qquad \mathtt{pdem}_{d,t} = w_d\,\mathtt{rp}_{res,t-1} + (1 - w_d)\,\mathtt{rp}_{ind,t-1}
+            over: "sectors $s$; $d = d(s)$ the demand group (transport, residential, industry, services), $w_d$ its price weight"
+            note: "The methodology's form, with Excel-AI's timing: the demand price $\\bar{p}^T$ is a blend of last year's residential and industrial end-user prices, so power demand does not depend on this year's power price. The methodology writes the GDP elasticity $\\epsilon_G$ (undefined there); Excel-AI uses $\\epsilon_Y$ with the income factor. Road electricity comes from the road engineer model."
+            doc: "03_Mitigation, Engineer model > Power demand"
+            excel: "E52-E54 (LAMBDA DEMANDMULT)"
+          - id: M4.2
+            title: Generation required
+            greek: |
+              g_t = \sum_s E_{s,t}\left(1 + net_{t_0} + eiu_{t_0} + \Delta^{dif}_{t_0}\right)
+            codes: |
+              \mathtt{req}_t = \mathtt{demtot}_t \cdot (1 + \mathtt{net}^{\dagger} + \mathtt{eiu}^{\dagger} + \mathtt{dif}^{\dagger})
+            doc: "03_Mitigation, Engineer model > Power demand"
+            excel: "E57"
+          - id: M4.3
+            title: Variable cost and levelised total investment cost
+            greek: |
+              vc_{f,t} = vop_{f,t} + \frac{\bar{p}_{f,t}}{\nu_f} + ip_{f,t} + ncp_{f,t}, \qquad tic_{f,t} = \overline{vc}_{f,t} + fix^{fl}_{f,t}
+            codes: |
+              \mathtt{tvc}_{f,t} = \mathtt{vop}^{\dagger}_{f,t} + \frac{\mathtt{fpp}_{f,t}}{\mathtt{nuu}_f} + \mathtt{ipc}^{\dagger}_{f,t} + \mathtt{ccp}_{f,t}, \qquad \mathtt{tic}_{f,t} = \mathtt{lvc}_{f,t} + \mathtt{lfx}_{f,t}
+            over: "generation types $f$"
+            note: "$\\bar{p}$ is the fuel price averaged over $[t-4, t]$; $\\overline{vc}$ the levelised variable cost, a discounted average of $vc$ from $t$ to the last year (computed before the year loop: it depends on prices and policies only)."
+            doc: "03_Mitigation, Power prices > Concepts 1-2"
+            excel: "E37-E43, E46"
+          - id: M4.4
+            title: Dispatch between coal and gas (logit)
+            greek: |
+              \lambda_f = \frac{e^{-K_{dispatch} H_f}}{\sum_{f'} e^{-K_{dispatch} H_{f'}}}, \qquad H_f = \frac{vc_f}{vc^{lc}}
+            codes: |
+              \mathtt{lgd}_{f} = \frac{\exp(-\mathtt{K\_dispatch}^{\dagger}\cdot \mathtt{tvc}_f/\min(\mathtt{tvc}))}{\sum_{f'}\exp(-\mathtt{K\_dispatch}^{\dagger}\cdot \mathtt{tvc}_{f'}/\min(\mathtt{tvc}))}
+            over: "$f \\in$ {coal, gas}; other types run at their capacity factors"
+            doc: "03_Mitigation, Engineer model > Dispatch decision"
+            excel: "E57-E60 (LAMBDAs DISPATCH, LOGITW)"
+          - id: M4.5
+            title: Capacity
+            greek: |
+              cap_{f,t} = cap_{f,t-1} - ret_{f,t-1} + inv_{f,t-1}, \qquad ret_{f,t} = \frac{cap_{f,t}}{lif_f}
+            codes: |
+              \mathtt{cap}_{f,t} = \mathtt{cap}_{f,t-1} - \mathtt{ret}_{f,t-1} + \mathtt{nim}_{f,t-1}, \qquad \mathtt{ret}_{f,t} = \mathtt{cap}_{f,t} / \mathtt{lif}^{\dagger}_f
+            over: "generation types $f$"
+            note: "The methodology writes the stock equation with $g$; it is capacity. Coal retirements follow plant data where available, plus cost-based early retirement (appendix A4)."
+            doc: "03_Mitigation, Engineer model > Retirement and capacity needed"
+            excel: "E56, E61, E62"
+          - id: M4.6
+            title: Investment allocation (logit with scale-up limits)
+            greek: |
+              \frac{ivp_{f,t}}{\sum_{f'} ivp_{f',t}} = \zeta_{f}\,\frac{e^{-K_i H_{i,f}}}{\sum_{f'} e^{-K_i H_{i,f'}}}, \qquad H_{i,f} = \frac{tic_{f}}{tic^{lc}}
+            codes: |
+              \mathtt{lgi}_{f,t} = \mathtt{zeta}^{\dagger}_f\,\frac{\exp(-\mathtt{K\_inv}^{\dagger}\cdot\mathtt{tic}_f/\min(\mathtt{tic}))}{\sum_{f'}\exp(-\mathtt{K\_inv}^{\dagger}\cdot\mathtt{tic}_{f'}/\min(\mathtt{tic}))}
+            over: "generation types $f$"
+            note: "A second round allocates what the scale-up limits leave unallocated to the cheapest types (appendix A4)."
+            doc: "03_Mitigation, Engineer model > Investment decision"
+            excel: "E63-E67 (LAMBDAs FIRSTROUND, CHEAPFILL)"
+          - id: M4.7
+            title: End-user electricity price
+            greek: |
+              sp^{T}_{g,t} = gnc^{av}_{t-1} + tmc_g, \qquad p^{0,T}_{g,t} = p^{0,T}_{g,t-1} + pcc_g\left(sp^{T}_{g,t} - sp^{T}_{g,t-1}\right)(1 + vatrate_g), \qquad p^{T}_{g,t} = p^{0,T}_{g,t} + \left(ncp^{av}_t\, pcc_g\,(1 - reb) + pex_{g,t}\right)(1 + vatrate_g)
+            codes: |
+              \mathtt{sc}_{g,t} = \mathtt{gncav}_{t-1} + \mathtt{tmc}^{\dagger}_g, \quad \mathtt{rppre}_{g,t} = \mathtt{rppre}_{g,t-1} + \mathtt{rp.ctrl}_g\,(\mathtt{sc}_{g,t} - \mathtt{sc}_{g,t-1})(1 + \mathtt{vatr}^{\dagger}_g), \quad \mathtt{rp}_{g,t} = \mathtt{rppre}_{g,t} + (\mathtt{ccpav}_t\,\mathtt{rp.ctrl}_g\,(1 - \mathtt{rbs}) + \mathtt{pex}_{g,t})(1 + \mathtt{vatr}^{\dagger}_g)
+            over: "user groups $g$ (residential, industry); $gnc^{av} = \\sum_f gns_f\\,gnc_f$ the generation-weighted generation cost"
+            note: "Excel-AI's form (data up to the last historical year, then cost changes passed through at $pcc_g$; the supply cost uses last year's generation cost). The methodology instead adds a markup $mu^T$ calibrated to historical retail prices; Excel-AI's subsidy gap $p^0/(1+vatrate) - sp^T$ plays that role (appendix A4). $reb$ is the rebate switch, $pex$ the power excise."
+            doc: "03_Mitigation, Power prices > Concept 4"
+            excel: "E48-E51"
+
+      - title: "M5 Road transport (engineer model)"
+        text: "Excel-AI notation throughout (the methodology's road chapter covers externalities, not the engineer model). Vehicle classes: passenger, freight, 2-3 wheelers; technologies: ICE, BEV, PHEV."
+        equations:
+          - id: M5.1
+            title: Vehicle ownership (Gompertz target, partial adjustment)
+            greek: |
+              O_t = \lambda\,O^{*}_t + (1 - \lambda)\,O_{t-1}, \qquad O^{*}_t = Sat \cdot e^{\beta_1 e^{\beta_2\, y_t}} J
+            codes: |
+              \mathtt{trown}^{\dagger}_t = \mathtt{TrOwnAdj}^{\dagger}\cdot \mathtt{trownt}^{\dagger}_t + (1 - \mathtt{TrOwnAdj}^{\dagger})\cdot \mathtt{trown}^{\dagger}_{t-1}
+            over: "vehicle classes; growth limited per year"
+            note: "$y_t$ GDP per capita, $Sat$ saturation level, $J$ calibration to observed ownership. The only partial-adjustment equation in Excel-AI."
+            excel: "Methods Transport, T1-T2 (LAMBDAs OWNDEM, GOMPTGT)"
+          - id: M5.2
+            title: Electric-vehicle share of purchases (logit on total cost of ownership)
+            greek: |
+              s^{EV}_t = \frac{e^{-k\,TCO^{EV}_t/\overline{TCO}_t}}{\sum_{v} e^{-k\,TCO^{v}_t/\overline{TCO}_t}}
+            codes: |
+              \mathtt{trev}^{\dagger}_t = \frac{\exp(-k\cdot\mathtt{tco}^{\dagger}_{ev,t}/\overline{\mathtt{tco}}_t)}{\sum_v \exp(-k\cdot \mathtt{tco}^{\dagger}_{v,t}/\overline{\mathtt{tco}}_t)}
+            over: "vehicle classes"
+            excel: "Methods Transport (demand and choice)"
+          - id: M5.3
+            title: Road fuel use
+            greek: |
+              F^{T}_{f,t} = \sum_{v} VKT_{v,f,t}\,FE_{v,f,t}
+            codes: |
+              \mathtt{trfc}^{\dagger}_{f,t} = \sum_{v} \mathtt{trkm}_{v,f,t}\cdot \mathtt{trafg}_{v,f,t}
+            over: "road fuels $f$; vehicle classes $v$"
+            note: "$VKT$ vehicle-km, $FE$ fuel use per km of the stock (Excel-AI notation)."
+            excel: "Methods Transport T16 (LAMBDA DEMROAD)"
+
+      - title: "M6 Revenues"
+        text: "Revenue in USD million: fuel use in ktoe times $\\theta$ (PJ per ktoe) times a price component in USD/GJ."
+        equations:
+          - id: M6.1
+            title: Revenue from new policies
+            greek: |
+              rev^{new}_{s,f} = \theta\,F_{s,f}\left(nct_{s,f} + nexc_{s,f} + \rho\,netsp_{s,f} + vatrate\,(nct_{s,f} + netsp_{s,f} + nexc_{s,f})\right)
+            codes: |
+              \mathtt{rnew}_{s,f} = \theta\,\mathtt{ener}_{s,f}\,\big(\mathtt{ctxnew}_{s,f} + \mathtt{ntx}_{s,f} + \mathtt{ets.rf}\cdot\mathtt{ets}_{s,f} + \mathtt{vatr}^{\dagger}\,(\mathtt{ctxnew}_{s,f} + \mathtt{ets}_{s,f} + \mathtt{ntx}_{s,f})\big)
+            over: "sectors $s$, fuels $f$ (power adds its own terms, appendix A6)"
+            note: "$\\rho$ the ETS revenue factor (auctioned part; Excel-AI notation)."
+            doc: "03_Mitigation, Fiscal revenues > Overview ($rev = F\\,\\varphi\\,ncp$)"
+            excel: "E73"
+          - id: M6.2
+            title: Revenue from existing taxes and cost of existing subsidies
+            greek: |
+              revExi_{s,f} = \theta\,F_{s,f}\left(txo^{+} + vat + \Delta xcp_{s,f}(1 + vatrate)\right), \qquad cs_{s,f} = \theta\,F_{s,f}\,txo^{-}
+            codes: |
+              \mathtt{rtx}_{s,f} = \theta\,\mathtt{ener}_{s,f}\,(\mathtt{etx} + \mathtt{vat} + \mathtt{xcpd}_{s,f}\,(1 + \mathtt{vatr}^{\dagger})), \qquad \mathtt{rsub}_{s,f} = \theta\,\mathtt{ener}_{s,f}\,\mathtt{esub}
+            over: "sectors $s$, fuels $f$"
+            note: "$txo^{+}$ and $txo^{-}$ are the positive (taxes) and negative (subsidies, negative) parts."
+            doc: "03_Mitigation, Fiscal revenues > Total revenues raised by policy"
+            excel: "E71, E72"
+          - id: M6.3
+            title: Total revenue
+            greek: |
+              rev = \sum_{s,f}\left(revExi_{s,f} + cs_{s,f} + rev^{new}_{s,f}\right) + rev^{pow} + rev^{mf}
+            codes: |
+              \mathtt{rtot} = \mathtt{rnet} + \mathtt{rnew} + \mathtt{rmf}, \qquad \mathtt{rnet} = \mathtt{rtx} + \mathtt{rsub}
+            note: "$rev^{pow}$ power-sector revenue (appendix A6), $rev^{mf}$ methane fee (appendix A7)."
+            excel: "E75, E76"
+
+      - title: "M7 Emissions"
+        equations:
+          - id: M7.1
+            title: Energy-related CO2
+            greek: |
+              em_{s,f,CO_2} = F_{s,f}\,ef_{s,f}, \qquad em_{CO_2} = \sum_{s}\sum_{f} em_{s,f,CO_2}
+            codes: |
+              \mathtt{co2}_{s,f} = \theta\,\mathtt{ener}_{s,f}\,\mathtt{ef}_{s,f}, \qquad \mathtt{co2.tot} = \sum_{s,f}\mathtt{co2}_{s,f}
+            over: "sectors $s$ (including power: generation fuel use), fuels $f$"
+            note: "$ef$ carries the calibration to the inventory (appendix A7; off by default in Excel-AI)."
+            doc: "03_Mitigation, Emissions > Energy-related emissions"
+            excel: "E77, E78"
+          - id: M7.2
+            title: Other greenhouse gases (pattern)
+            greek: |
+              em_{u,p,t} = em_{u,p,t-1}\,\frac{driver_{u,t}}{driver_{u,t-1}}
+            codes: |
+              \mathtt{ghg}_{u,p,t} = \mathtt{ghg}_{u,p,t-1}\cdot \mathtt{ghg.dr}_{u,t}
+            over: "UNFCCC sectors $u$, gases $p$"
+            note: "Each source grows with its driver (energy CO2, industrial energy CO2, GDP and population with elasticities); the source equations are in appendix A7."
+            doc: "03_Mitigation, Emissions (N2O, IPPU, agriculture, LULUCF, waste)"
+            excel: "E80-E86"
+
+      - title: "M8 GDP"
+        text: "Excel-AI notation throughout: the methodology describes the multipliers but gives no in-model equation."
+        equations:
+          - id: M8.1
+            title: Fiscal space and impulse
+            greek: |
+              fs_t = \frac{rev^{new}_t - rev^{new,B}_t}{Y^{0}_t}, \qquad imp_t = fs_t - fs_{t-1}
+            codes: |
+              \mathtt{fis.sp}_t = \frac{\mathtt{rnew}_t - \mathtt{rnew}^{B}_t}{\mathtt{gdp.usd}^{0}_t}, \qquad \mathtt{fis.imp}_t = \mathtt{fis.sp}_t - \mathtt{fis.sp}_{t-1}
+            excel: "E91, E92"
+          - id: M8.2
+            title: GDP effect of the use of revenue
+            greek: |
+              \varepsilon^{GDP}_t = \sum_i \frac{sh_i}{100} \sum_{k=0}^{19} imp_{t-k}\, m_i(k)
+            codes: |
+              \mathtt{gdp.eff}_t = \sum_i \mathtt{fis.eff}_{i,t}, \qquad \mathtt{fis.eff}_{i,t} = \frac{\mathtt{share}_i}{100}\sum_{k=0}^{19}\mathtt{fis.imp}_{t-k}\,\mathtt{fis.mul}_{i,k}
+            over: "uses of revenue $i$ (labour and corporate tax cuts, public investment, current spending, transfers; the revenue itself with excise multipliers)"
+            note: "Multipliers $m_i(k)$ by lag (methodology chapter 4, estimated offline). Applied only if endogenous GDP is switched on."
+            doc: "04_Multipliers"
+            excel: "E93, E94"
+          - id: M8.3
+            title: GDP feedback, one year later
+            greek: |
+              lvl_t = 1 + \varepsilon^{GDP}_{t-1}, \qquad Y_t = Y^{0}_t\,lvl_t, \qquad 1 + g_t = (1 + g^{0}_t)\frac{lvl_t}{lvl_{t-1}}
+            codes: |
+              \mathtt{gdp.lvl}_t = 1 + \mathtt{gdp.eff}_{t-1}, \qquad \mathtt{gdp.pos.usd}_t = \mathtt{gdp.usd}^{0}_t\,\mathtt{gdp.lvl}_t, \qquad 1 + \mathtt{gdp.pos.pct}_t = (1 + \mathtt{gdgg}_t)\,\frac{\mathtt{gdp.lvl}_t}{\mathtt{gdp.lvl}_{t-1}}
+            note: "The only link from year $t$ to year $t+1$ other than lags of a block's own quantities. Revenue of year $t$ moves GDP from $t+1$ (root NORMS 5c)."
+            excel: "E95"
+
+      - title: "D Distribution"
+        text: "One analysis year $y$; households $j$, deciles $d$, consumption categories $g$, fuels $f \\in g$ (methodology chapter 5)."
+        equations:
+          - id: D1.1
+            title: Budget shares
+            greek: |
+              \pi^{g}_{j} = \frac{C^{g}_{j}}{C_j}, \qquad \pi^{dg} = \text{population-weighted mean of } \pi^{g}_{j} \text{ over } j \in d
+            codes: |
+              \mathtt{bsh}_{g,d} = \text{weighted mean}_{j \in d}\ \frac{\mathtt{cons}^{\dagger}_{g,j}}{\mathtt{cons}^{\dagger}_{j}}
+            over: "categories $g$, deciles $d$; samples overall, urban, rural"
+            doc: "05_Distribution, eq-5_1"
+            excel: "Distribution tab, budget shares (HHSurvey)"
+          - id: D1.2
+            title: Energy intensities of consumption categories (input-output)
+            greek: |
+              e_{g} = f\left(I - A\right)^{-1}, \quad f \notin g
+            codes: |
+              \mathtt{eint}^{\dagger}_{f,g} = \big[\mathtt{io\_fuel}^{\dagger}\,(I - \mathtt{io\_A}^{\dagger})^{-1}\big]_{f,g}
+            over: "fuels $f$, categories $g$"
+            doc: "05_Distribution, eq-5_3"
+          - id: D1.3
+            title: Price change by fuel from mitigation
+            greek: |
+              t_{fg} = \frac{p^{P}_{f,y}}{p^{B}_{f,y}} - 1, \qquad t^{*}_{fg} = t_{fg}\,\gamma_g
+            codes: |
+              \mathtt{dp}^{\dagger}_{f,g} = \frac{\mathtt{atp}_{f,y}}{\mathtt{atp}^{B}_{f,y}} - 1, \qquad \mathtt{dp}^{*\dagger}_{f,g} = \mathtt{dp}^{\dagger}_{f,g}\cdot \mathtt{passthrough}^{\dagger}_g
+            over: "fuel-sector pairs (residential prices for direct effects; producer and electricity prices for indirect effects)"
+            note: "$\\gamma_g$ pass-through ($\\le 1$) where the option is on."
+            doc: "05_Distribution, sec 5.3.1, eq-5_8"
+          - id: D1.4
+            title: Additional expenditure (direct and indirect effect)
+            greek: |
+              p_j = \sum_{fg} p_{fgj} = \frac{\sum_{fg} \overline{e_{fg}}\; t_{fg}\; C_{gj}}{C_j}, \quad f \in g
+            codes: |
+              \mathtt{eff.tot}^{\dagger}_d = \sum_{f,g} \mathtt{eint}^{\dagger}_{f,g}\cdot \mathtt{dp}^{\dagger}_{f,g}\cdot \mathtt{bsh}_{g,d}
+            over: "households $j$ (deciles $d$)"
+            note: "As a share of consumption; the direct effect is the part with $g$ a fuel category, the indirect the rest."
+            doc: "05_Distribution, eq-5_2"
+          - id: D1.5
+            title: Revenue recycling, targeted transfer
+            greek: |
+              T^{y} = \frac{P^{y}_{M}}{pop^{y}_{T}}, \qquad T^{y}_{d} = T^{y}\,\frac{\sum pop^{dy}_{T}}{\sum pop^{dy}}
+            codes: |
+              \mathtt{trf}^{\dagger}_y = \frac{\mathtt{rnew.tot.tot}_y\cdot \mathtt{xr}}{\mathtt{pop}^{\dagger}_{T,y}}, \qquad \mathtt{trf}^{\dagger}_{d} = \mathtt{trf}^{\dagger}_y\cdot \mathtt{cov}^{\dagger}_d
+            over: "deciles $d$; other recycling options (PIT, existing schemes, infrastructure) in appendix B"
+            doc: "05_Distribution, eq-5_9 to eq-5_12"
+          - id: D1.6
+            title: Net effect by decile
+            greek: |
+              net_d = \frac{T^{y}_{d}}{C_d} - p_d
+            codes: |
+              \mathtt{net}^{\dagger}_d = \mathtt{trf}^{\dagger}_d / \mathtt{cons}^{\dagger}_d - \mathtt{eff.tot}^{\dagger}_d
+            over: "deciles $d$"
+            note: "Consumption effects are Laspeyres (upper-bound) estimates unless the behavioural option (eq-5_7) is on."
+            doc: "05_Distribution, sec 5.4"
+
+  - title: "Appendix A: mitigation adjustments"
+    text: "Started; completed block by block before each block is coded (coded/TODO.md phase 0). Sources for each block: `excel_ai/mitigation/Equations.md`, `Equations_addendum.md` and `Formulas.md` (the workbook formulas), and the Methods chapters in `excel_ai/mitigation/docs/methods/`."
+    sections:
+      - title: "A1 Policies"
+        text: "To complete: ETS (coverage, benchmarks, cap, semi-elasticity, fast price estimate, override, volatility adjustment: E4-E13); fuel-price reform path (E2); feebates (E3); existing carbon pricing growth (E17); methane fee (E18); exemptions (E18a); subsidy and price-control phase-outs; Pigouvian components (R3)."
+        equations:
+          - id: A1.1
+            title: ETS fast price estimate
+            kind: adjustment
+            greek: |
+              \hat{p}^{E}_t = \frac{\ln(cap_t / bce_t)}{\bar{\sigma}_t\,V} \quad \text{if the ETS is on and } 0 < cap_t < bce_t,\ \bar{\sigma}_t < 0;\ 0 \text{ otherwise}
+            codes: |
+              \mathtt{ets.est}_t = \frac{\ln(\mathtt{ets.cap}_t / \mathtt{ets.bce}_t)}{\mathtt{ets.se}_t\cdot \mathtt{ets.vadj}}
+            note: "Excel-AI notation. $bce$ is baseline CO2 covered, from the baseline pass (spec D15)."
+            excel: "E7-E11"
+      - title: "A2 Prices"
+        text: "To complete: last historical year and price data; excise floor (E22); split of taxes and subsidies by sign (E23); producer subsidy (R7); existing carbon pricing level and change (E30); VAT on oil products by household share; other oil products (L13)."
+        equations:
+          - id: A2.1
+            title: Excise floor
+            kind: adjustment
+            greek: |
+              txo_t = \max\left(txo_L,\ \widetilde{txo}_t\right) \text{ if } txo_L \ge 0, \qquad txo_t = \widetilde{txo}_t \text{ otherwise}
+            codes: |
+              \mathtt{txo}_t = \max(\mathtt{txo}_L,\ \mathtt{txf}_t) \text{ if } \mathtt{txo}_L \ge 0
+            note: "$\\widetilde{txo}$ is the floating value of M2.2; $L$ the last historical price year."
+            excel: "E22"
+          - id: A2.2
+            title: Change in existing carbon pricing
+            kind: adjustment
+            greek: |
+              xcp_{s,f,t} = ef_{s,f}\left(XCT_{t^*}(1 + \delta_{CT})^{\max(0,t - T_x)} + XETSP_{t^*}(1 + \delta_{ETS})^{\max(0,t - T_x)}\right), \quad \Delta xcp_{s,f,t} = xcp_{s,f,t} - ef_{s,f}\,XCP^{0}_{s,f}
+            codes: |
+              \mathtt{xcp}_{s,f,t} = \mathtt{ef}_{s,f}\,(\mathtt{XT}^{\dagger}\cdot \mathtt{xct.p}_t + \mathtt{XE}^{\dagger}\cdot \mathtt{xets.p}_t), \qquad \mathtt{xcpd}_{s,f,t} = \mathtt{xcp}_{s,f,t} - \mathtt{ef}_{s,f}\,\mathtt{XCP0}^{\dagger}_{s,f}
+            note: "$t^* = \\min(t, T_x)$, $T_x$ the last data year; $XCP^0$ the existing carbon pricing already in the price data."
+            doc: "03_Mitigation, Appendix C (existing carbon price)"
+            excel: "E17, E30"
+      - title: "A3 Fuel use"
+        text: "To complete: residential leakage to biomass (E69a-e; methodology: substitution share $\\epsilon_{bio,f}\\,Eff_{bio}/Eff_f$); initially exempt use (R6); biofuels in road, aviation and navigation (R10); self-generated renewables; income elasticity adjustment; residential biomass income elasticity (BiomassNormal)."
+      - title: "A4 Power"
+        text: "To complete: capacity factors and overrides; vintages of capital cost and storage (E34-E36); VRE share and storage (methodology: $sst = 9v^2$, long-term storage above 75%); early coal retirement (E62); investment need (E63, $Req_t^2/Req_{t-1}$); second-round investment; manual capacity; PPAs; supply cost lag (E48); subsidy gap; renewable subsidies and rebates."
+      - title: "A5 Road transport"
+        text: "To complete from Methods Transport (T1-T18): retirement, purchases new and used, total cost of ownership, ICE fuel split, new and stock fuel economy, vehicle-km, calibration, buses, range anxiety (fitted offline), biofuels."
+      - title: "A6 Revenues"
+        text: "To complete: power-sector revenues (E75: fuel taxes of generation, excise, VAT on electricity, subsidy gap, renewable subsidies, rebates); subsidy reform revenue; producer subsidies; price-control losses (memo)."
+      - title: "A7 Emissions"
+        text: "To complete: CO2 calibration factor (E77, off by default; baseline pass, spec D15); ETS check (E79); combustion CH4; methane from fuel production with abatement ($red = A\\,mf^{B}$); energy-CH4 calibration; N2O scaled to CO2; IPPU, agriculture, LULUCF, waste and other (methodology Emissions); local air pollutants by sector (section 15, E87-E90)."
+      - title: "A8 GDP and results"
+        text: "To complete: current account (R11); carbon-pricing indicators (section 17); welfare, externalities, subsidies and efficient prices (section 18; methodology: efficiency cost $ddw = \\tfrac{1}{2}(nc - xcp)(F_P - F_B)$)."
+
+  - title: "Appendix B: distribution adjustments"
+    text: "To complete from `excel_ai/mitigation/docs/methods/Distribution.md` and methodology chapter 5: scaling to national accounts (eq-5_4, eq-5_5); mitigation-adjusted incidence (eq-5_6); behavioural response (eq-5_7); targeting by infrastructure access (eq-5_13); scale-up of existing schemes (eq-5_14); PIT options (targeted exemption, personal allowance, proportional compensation); cooking-fuel exemption."
+    sections: []
+
+symbols_text: |
+  Main symbols, their CPAT code, meaning and unit. "Notation from" says whether the symbol is the methodology's (M) or Excel-AI's (X). A code marked † is not yet confirmed in the codes map: to be checked and, where the codes map has no code, proposed for it (root NORMS section 3, codes protocol C11).
+
+  **Notation clashes to keep in mind.** In the methodology, $g$ is the sector group in mitigation, generation in the power chapter and the consumption category in distribution; $E$ is both electricity and the energy UNFCCC sector; $\gamma$ is a generation share in power and the pass-through in distribution. This list uses $g$ for sector groups (and categories in distribution only), $g_t$ for required generation in M4.2 alone, and $\gamma_g$ only in distribution.
+
+symbols:
+  - {symbol: "F", code: "ener", meaning: "Fuel use (elasticity form $F^e$: enel)", unit: "ktoe", from: "M"}
+  - {symbol: "Y", code: "gdp.pos.usd", meaning: "Real GDP (baseline $Y^0$)", unit: "USD bn real", from: "M"}
+  - {symbol: "p", code: "atp", meaning: "After-tax (retail) price", unit: "USD/GJ", from: "M"}
+  - {symbol: "p^0", code: "rpb", meaning: "Retail price before new policies", unit: "USD/GJ", from: "X"}
+  - {symbol: "sp", code: "sp", meaning: "Supply price", unit: "USD/GJ", from: "M"}
+  - {symbol: "fixsp", code: "spf", meaning: "Fixed part of the supply price", unit: "USD/GJ", from: "M"}
+  - {symbol: "gp", code: "gp, gpi", meaning: "International price", unit: "source unit", from: "M"}
+  - {symbol: "txo", code: "txo (txf floating; etx, esub by sign)", meaning: "Excise and other taxes, net of subsidies", unit: "USD/GJ", from: "M"}
+  - {symbol: "pcc", code: "rp.ctrl", meaning: "Pass-through of international price changes", unit: "share", from: "M"}
+  - {symbol: "vat, vatrate", code: "vat, vatr†", meaning: "VAT payment, VAT rate", unit: "USD/GJ, share", from: "M"}
+  - {symbol: "NCT", code: "cptraj, ctr", meaning: "New carbon tax per tonne (national, by sector)", unit: "USD/tCO2", from: "M"}
+  - {symbol: "NETSP", code: "ets.p, etr", meaning: "New ETS price per tonne", unit: "USD/tCO2", from: "M"}
+  - {symbol: "nct, netsp, nexc", code: "ctxnew, ets, ntx", meaning: "New carbon tax, ETS cost, excise per unit of energy", unit: "USD/GJ", from: "M"}
+  - {symbol: "xcp, \\Delta xcp", code: "xcp, xcpd", meaning: "Existing carbon pricing; its change against the price data", unit: "USD/GJ", from: "M"}
+  - {symbol: "ef", code: "ef", meaning: "CO2 emission factor", unit: "tCO2/GJ", from: "M"}
+  - {symbol: "\\varphi_{NCT}", code: "ctcov", meaning: "Coverage of the new carbon tax", unit: "share", from: "M"}
+  - {symbol: "\\kappa, \\omega", code: "etsc, obr", meaning: "New ETS coverage; share allocated free", unit: "share", from: "X"}
+  - {symbol: "\\Sigma, sh", code: "shpx, shp", meaning: "Shadow price per tonne; per unit of energy", unit: "USD/tCO2, USD/GJ", from: "X"}
+  - {symbol: "\\alpha", code: "eff_imp", meaning: "Autonomous energy efficiency improvement", unit: "share per year", from: "M"}
+  - {symbol: "\\alpha^{+}", code: "addeff†", meaning: "Additional policy-induced efficiency gain", unit: "share per year", from: "X"}
+  - {symbol: "\\Psi", code: "shock", meaning: "Demand shock (methodology: Covid adjustment)", unit: "factor", from: "M"}
+  - {symbol: "\\epsilon_Y, \\epsilon_U, \\epsilon_F", code: "el_inc, el_dem, el_eff", meaning: "Income, usage and efficiency elasticities", unit: "", from: "M"}
+  - {symbol: "inc", code: "incf", meaning: "Income-elasticity adjustment for the income level", unit: "factor", from: "X"}
+  - {symbol: "E", code: "dem", meaning: "Electricity demand by sector", unit: "ktoe", from: "M"}
+  - {symbol: "g_t", code: "req", meaning: "Generation required", unit: "MWy", from: "M"}
+  - {symbol: "vc, \\overline{vc}", code: "tvc, lvc", meaning: "Variable cost; levelised variable cost", unit: "USD/kWh", from: "M"}
+  - {symbol: "tic, fix^{fl}", code: "tic, lfx", meaning: "Levelised total investment cost; levelised fixed cost", unit: "USD/kWh", from: "M"}
+  - {symbol: "cap, ret, inv", code: "cap, ret, nim", meaning: "Capacity, retirement, investment", unit: "MW", from: "M"}
+  - {symbol: "gns, gnc^{av}", code: "shr, gncav", meaning: "Generation share; average generation cost", unit: "share, USD/kWh", from: "M"}
+  - {symbol: "p^T, sp^T", code: "rp, sc", meaning: "End-user electricity price; supply cost", unit: "USD/kWh", from: "M"}
+  - {symbol: "rev^{new}, revExi, cs", code: "rnew, rtx, rsub", meaning: "Revenue: new policies, existing taxes, existing subsidies", unit: "USD m", from: "M"}
+  - {symbol: "em", code: "co2, ghg", meaning: "Emissions", unit: "MtCO2(e)", from: "M"}
+  - {symbol: "fs, imp", code: "fis.sp, fis.imp", meaning: "Fiscal space, impulse", unit: "share of GDP", from: "X"}
+  - {symbol: "\\varepsilon^{GDP}, lvl", code: "gdp.eff, gdp.lvl", meaning: "GDP effect; GDP level factor", unit: "share, factor", from: "X"}
+  - {symbol: "\\pi^{dg}", code: "bsh", meaning: "Budget share of category $g$ in decile $d$", unit: "share", from: "M"}
+  - {symbol: "t_{fg}", code: "dp†", meaning: "Price change of fuel $f$ in sector $g$", unit: "share", from: "M"}
+  - {symbol: "e_{fg}", code: "eint†", meaning: "Energy intensity (input-output)", unit: "USD/USD", from: "M"}
+  - {symbol: "T^y, T^y_d", code: "trf†", meaning: "Transfer per person; average by decile", unit: "LCU", from: "M"}

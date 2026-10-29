@@ -1,6 +1,8 @@
 # Coded CPAT (Python)
 
-A component-based Python reimplementation of the CPAT model: the mitigation module and the household distribution module, run by `run_model.py` (or the Shiny app, `app.py`). This page is for Python developers; the full developer guide is [`cpat_documentation/developer/dev_documetation.md`](cpat_documentation/developer/dev_documetation.md). Excel work is in [`../excel_ai/`](../excel_ai/README.md); rules for every task (logging in `CAVEATS.md`, method vs version notes) are in the root [`../NORMS.md`](../NORMS.md).
+A component-based Python reimplementation of the CPAT model: the mitigation module and the household distribution module, run by `run_model.py` (or the Shiny app, `app.py`). This page is for Python developers; the full developer guide is [`cpat_documentation/developer/dev_documentation.md`](cpat_documentation/developer/dev_documentation.md). Excel work is in [`../excel_ai/`](../excel_ai/README.md); rules for every task (logging in `CAVEATS.md`, method vs version notes) are in the root [`../NORMS.md`](../NORMS.md).
+
+**Project under way (2026-10-29): the full build.** Coded CPAT is being rebuilt to replicate Excel-AI (mitigation and distribution) number for number, with human readability first. Start with the spec and plan [`cpat_documentation/project/Spec.qmd`](cpat_documentation/project/Spec.qmd) (Word: `Spec.docx`), the Python norms [`NORMS.md`](NORMS.md), the plan's checklist [`TODO.md`](TODO.md) and the equation list [`cpat_documentation/equations/`](cpat_documentation/equations/) (`Equations.qmd`, code-name version `Equations_codes.qmd`, both generated from `equations.yaml`). The layout below is today's; the target layout is in the spec, section 3.
 
 ## Layout
 
@@ -13,7 +15,8 @@ A component-based Python reimplementation of the CPAT model: the mitigation modu
 | `../data/dummy/` | Input data used by default (all data are in the root [`data/`](../data/README.md)) (`.env`: `DATA_ENVIRONMENT=dummy`; `real` reads `REAL_DATA_PATH`). `energy_consumption.csv`, `prices_dom.csv`, `distn_hh_survey.csv` and `distn_io_gtap.csv` must agree with the dummy legacy-data files in `../data/legacy_dummy/` (root `NORMS.md` section 8) |
 | `../data/scripts/` | The data conversion scripts ([`../data/README.md`](../data/README.md)): `export_to_legacy.py` (the four proprietary tables in the legacy layout), `build_data_workbook.py` (data workbook, Python format), `convert_data_workbook.py` (Python format <-> CPAT format); tests in `../data/tests/` |
 | `cpat_testing/` | pytest suite mirroring `cpat_model/` |
-| [`TODO.md`](TODO.md) | Open Python work |
+| [`NORMS.md`](NORMS.md), [`TODO.md`](TODO.md) | Python norms (add to the root `NORMS.md`); open work and the plan |
+| `cpat_documentation/` | `project/` spec and plan (qmd, Word, diagrams), `equations/` equation list (source `equations.yaml`, generator, qmd, Word; `reference/` notation extracted from the methodology), `developer/` developer guide, `user/` pages read by the app; `make_docs.py` writes the Word copies |
 
 ## Conventions
 
