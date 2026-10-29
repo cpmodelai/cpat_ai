@@ -8294,9 +8294,11 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
     ('Horizon and indices', 'To 2050 (power block to 2041); CPI held flat after 2031', 'To 2041 (v2.3; the last '
      'year is the LAMBDA year); same indices; values after 2030 not a legacy target', 'User decisions v0.9 / v0.11 / '
      'v2.3', 'Post-2030', 'Decision'),
-    ('Data vintage', 'Proprietary price forecasts; IEA balances', 'NoPropData extracts; energy use via kernel v1.6; '
-     'IIASA EFs without inventory adjustment', 'No proprietary data', 'Levels; legacy price forecasts #N/A',
-     'Data'),
+    ('Data vintage', 'Legacy 465 NoPropData tables', 'The same: every extract re-read from legacy 465 (v9.0; was '
+     '456): balances, base-year fuel use (465 rows 583-601), power plant data, GTAP, non-CO2 EFs changed; prices, '
+     'CO2 EFs, elasticities identical; HHSurvey and HH_Elast still from 456 (465 holds only headers)',
+     'User decision 2026-10-29: re-extract from 465 (excel_ai/plans/LD41_data_465.md)',
+     'Egypt base-year fuel use -4.2%; power capacity data', 'Same'),
     ('Formula structure', 'Different formulas by block and year',
      'One plain formula per variable block for 2022-2040 (at most 100 characters, no LAMBDA needed); the '
      'last year 2041 calls the named LAMBDA of each calculated row (v2.3); sheet Lambdas lists them',
