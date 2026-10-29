@@ -2513,6 +2513,17 @@ def check_results_memos(ws):
             gdp = cell(B.R_GDPUSD, c)
             exp['xtb.pct'] = exp['xtbp'] / gdp
             exp['xnim.pct'] = exp['xnim.all'] / gdp
+            if hasattr(B, 'BCA_TYPED'):                  # v9.0 (R11): current account from the typed values
+                bt = lambda k: B.BCA_TYPED[k].get(y, 0) if ISO == 'EGY' else 0
+                exp['bca'], exp['bca.gdp'], exp['bca.n'] = bt('EGY|bca'), bt('EGY|bca_gdp'), bt('EGY|bca_n')
+                exp['bca.r'] = exp['bca'] * cell(B.R_CPI, c)
+                for gg in B.XG:
+                    exp[f'bca.d.{gg}'] = -exp[f'xnim.g.{gg}']
+                exp['bca.p'] = exp['bca.r'] + sum(exp[f'bca.d.{gg}'] for gg in B.XG)
+                exp['bca.y'] = abs(exp['bca.r'] / exp['bca.gdp']) if exp['bca.gdp'] else 0
+                for gg in B.XG:
+                    exp[f'bca.dp.{gg}'] = exp[f'bca.d.{gg}'] / exp['bca.y'] if exp['bca.y'] else 0
+                exp['bca.pp'] = exp['bca.gdp'] + sum(exp[f'bca.dp.{gg}'] for gg in B.XG)
             for key, x in exp.items():
                 got = cell(B.R_EXT[key], c)
                 d5 = abs(got - x) / max(1.0, abs(x))
