@@ -1,6 +1,6 @@
 # TODO - Codes increment (CPAT code protocol): done in v0.7.2
 
-Open items moved to [`TODO.md`](TODO.md) section 4. Record of the steps below; plan: [`mitigation/Codes_Remediation_Plan_v0_7_1.md`](mitigation/Codes_Remediation_Plan_v0_7_1.md).
+Open items moved to [`excel_ai/plans/TODO.md`](../../plans/TODO.md) section 4. Record of the steps below; plan: [`Codes_Remediation_Plan_v0_7_1.md`](Codes_Remediation_Plan_v0_7_1.md).
 
 ## Steps (each: build, `check_codes`, quick check with 0 changed / 0 new / 0 gone through the rename map, one commit)
 

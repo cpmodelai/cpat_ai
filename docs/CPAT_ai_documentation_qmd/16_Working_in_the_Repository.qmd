@@ -4,7 +4,7 @@ The project works under written norms (`NORMS.md` at the root of the repository)
 
 ## Files, versions and releases
 
-**Main files carry their version.** The current version of each main file sits at the top of `excel_ai/` as `<Name>_v<major>.<minor>.<ext>`:
+**Main files carry their version.** The current version of each main file sits at the top of `excel_ai/` as `<Name>_v<version>.<ext>`, for example `CPAT-AI-Mitigation-Prototype_v0.9.0.xlsm`:
 
 | File | What it is |
 |---|---|
@@ -17,7 +17,7 @@ The project works under written norms (`NORMS.md` at the root of the repository)
 
 - **Older versions** move to `excel_ai/releases/` when a new version is written.
 - **`excel_ai/permalink/`** holds only what other files link to, under `<Name>_latest`: every module. **`excel_ai/permalink_countryeditable/`** is a copy for local, country-specific runs.
-- **Version numbers.** Minor for fixes and small features, major for structural or methodological change. The register documents, the tracker and the codes map carry the version of the mitigation prototype they were made with.
+- **Version numbers.** Three parts, `0.<major>.<minor>`, until the first full release `1.0.0`: the last part for fixes and small features, the middle part for structural or methodological change. Each module with its own builder (distribution, air pollution) has its own version and records which mitigation version it was built from. Files released before the change to three parts were renamed; their contents keep the old two-part numbers. The register documents, the tracker and the codes map carry the version of the mitigation prototype they were made with.
 - **One version table** per workbook and generated document, in the same columns: version, date, description (with register codes), and the largest regression difference against the previous release.
 
 ## Checks

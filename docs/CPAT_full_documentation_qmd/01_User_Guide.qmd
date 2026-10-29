@@ -263,8 +263,8 @@ to the CPAT team so we can update the global CPAT version accordingly.
 
 ### Distributional consumption effects on households
 
-For distributional results, first, [check if household data for your
-country is already included in CPAT](\\l); if *not*, process your
+For distributional results, first, check if household data for your
+country is already included in CPAT; if *not*, process your
 microdata following the [Codebook and
 scripts](https://worldbankgroup-my.sharepoint.com/:f:/g/personal/dheine_worldbank_org/EkSiwIBBzxdGh7jePslDsUMBy-f_rMWlAFgC05Ag1wQ0vQ?e=igAOH2)
 (3-4 days’ resource commitment); if *yes*, define how to transfer

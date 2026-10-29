@@ -310,7 +310,7 @@ ul.task-list li input[type="checkbox"] {
 <p>The project works under written norms (<code>NORMS.md</code> at the root of the repository). They bind people and AI agents alike; <code>AGENTS.md</code> routes any AI agent to them. This chapter summarises the norms that shape the files a reader meets; <code>NORMS.md</code> is the authority.</p>
 <section id="files-versions-and-releases" class="level2">
 <h2 class="anchored" data-anchor-id="files-versions-and-releases">Files, versions and releases</h2>
-<p><strong>Main files carry their version.</strong> The current version of each main file sits at the top of <code>excel_ai/</code> as <code>&lt;Name&gt;_v&lt;major&gt;.&lt;minor&gt;.&lt;ext&gt;</code>:</p>
+<p><strong>Main files carry their version.</strong> The current version of each main file sits at the top of <code>excel_ai/</code> as <code>&lt;Name&gt;_v&lt;version&gt;.&lt;ext&gt;</code>, for example <code>CPAT-AI-Mitigation-Prototype_v0.9.0.xlsm</code>:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 50%">
@@ -352,7 +352,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><strong>Older versions</strong> move to <code>excel_ai/releases/</code> when a new version is written.</li>
 <li><strong><code>excel_ai/permalink/</code></strong> holds only what other files link to, under <code>&lt;Name&gt;_latest</code>: every module. <strong><code>excel_ai/permalink_countryeditable/</code></strong> is a copy for local, country-specific runs.</li>
-<li><strong>Version numbers.</strong> Minor for fixes and small features, major for structural or methodological change. The register documents, the tracker and the codes map carry the version of the mitigation prototype they were made with.</li>
+<li><strong>Version numbers.</strong> Three parts, <code>0.&lt;major&gt;.&lt;minor&gt;</code>, until the first full release <code>1.0.0</code>: the last part for fixes and small features, the middle part for structural or methodological change. Each module with its own builder (distribution, air pollution) has its own version and records which mitigation version it was built from. Files released before the change to three parts were renamed; their contents keep the old two-part numbers. The register documents, the tracker and the codes map carry the version of the mitigation prototype they were made with.</li>
 <li><strong>One version table</strong> per workbook and generated document, in the same columns: version, date, description (with register codes), and the largest regression difference against the previous release.</li>
 </ul>
 </section>

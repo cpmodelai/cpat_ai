@@ -1729,7 +1729,7 @@ World Bank regions. For the baseline scenario, we assume that the share
 of the population exposed, and the exposure level will be constant in
 time, and equal to the estimated value for 2019.
 
-![Share of the population (left) and level of additional population (right) exposed to households air pollution](./06/media/hhap.png){#fig-expoap}
+![Share of the population (left) and level of additional population (right) exposed to households air pollution](./06/media/HHAP.png){#fig-expoap}
 
 *Source: IHME/GBD, provided by Michel Brauer*
 

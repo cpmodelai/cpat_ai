@@ -126,7 +126,7 @@ The full legacy data (all countries, partly proprietary) must be usable by pasti
 
 ## 2. Visual style guide
 
-Every calculation sheet should look like the legacy `Mitigation` sheet: same fonts, colours, borders, heading levels and white space. The legacy values below were read from the legacy workbook (2026-10-13); where a prototype differs, the difference is listed in [`TODO.md`](TODO.md) until it is fixed.
+Every calculation sheet should look like the legacy `Mitigation` sheet: same fonts, colours, borders, heading levels and white space. The legacy values below were read from the legacy workbook (2026-10-13); where a prototype differs, the difference is listed in [`excel_ai/plans/TODO.md`](excel_ai/plans/TODO.md) until it is fixed.
 
 ### 2.1 Colours
 
@@ -244,7 +244,7 @@ Rules: inputs green only; never hard-code values in unfilled calculation cells; 
 
 ## 3b. Building workbooks with code: Excel encoding and LAMBDA rules
 
-Lessons from the distribution workbook ([`distribution/LESSONS_LEARNED.md`](distribution/LESSONS_LEARNED.md), the full account) and the mitigation prototype (repair errors in v0.2.4-v0.2.8). Every bug below opened without an error somewhere first (LibreOffice, a scalar test, one Excel build) and only failed in a specific case. Apply them to every workbook built by a script.
+Lessons from the distribution workbook ([`other/distribution/LESSONS_LEARNED.md`](other/distribution/LESSONS_LEARNED.md), the full account) and the mitigation prototype (repair errors in v0.2.4-v0.2.8). Every bug below opened without an error somewhere first (LibreOffice, a scalar test, one Excel build) and only failed in a specific case. Apply them to every workbook built by a script.
 
 1. **Let Excel encode LAMBDA and newer functions.** In the file, every newer function needs the `_xlfn.` prefix (`LAMBDA`, `LET`, `XLOOKUP`, `MAXIFS`, `MINIFS`, `AGGREGATE`, `IFNA`, ...), and every LAMBDA/LET parameter the `_xlpm.` prefix where it is declared and wherever it is used. Writing this encoding by hand (openpyxl) is fragile: Excel's repair pass silently removes a formula or name with a small mistake ("Removed Records: Formula / Named range") and LibreOffice accepts it, so the checks pass. Rule: ship LAMBDA names and the formulas that call them as text, and install them with a macro through `Names.Add` and `Range.Formula2` (Excel then does the encoding). Where a newer function must be written into the file, a build check fails on any missing `_xlfn.` prefix.
 2. **Names Excel cannot read.** No defined name, LAMBDA parameter or table name may read as a cell reference: A1 style (`y1`, `co2`) or a name beginning like one (`BCO2Key`), or R1C1 style (`r`, `c`, `R2C3`). Avoid function names as LAMBDA parameters (`now`, `base`, `switch`, `year`). A build check fails on each.
@@ -554,7 +554,7 @@ Applies to **every** task (Excel, Python, data, documentation). A task is not fi
 4. **Queue.** Tick the item in the project TODO ([`excel_ai/plans/TODO.md`](excel_ai/plans/TODO.md) or [`coded/TODO.md`](coded/TODO.md)). Follow-up work the task generated goes in as a new `TODO.md` item, not only as a caveat.
 6. **No commit unless asked.** Leave changes in the working tree; the user decides what to commit.
 
-`CAVEATS.md` summarises and points; detail stays where it is produced - the task spec, the workbook version log, and `excel_ai/distribution/LESSONS_LEARNED.md` for the LAMBDA/VBA workbook. The per-task conventions in `excel_ai/plans/TODO.md` (builders via Excel COM, codes/source/confidence for every new input, `Settings` version-log row, `Check`-sheet regression) remain in force and are the operational version of section sections 3-5.
+`CAVEATS.md` summarises and points; detail stays where it is produced - the task spec, the workbook version log, and `other/distribution/LESSONS_LEARNED.md` for the LAMBDA/VBA workbook. The per-task conventions in `excel_ai/plans/TODO.md` (builders via Excel COM, codes/source/confidence for every new input, `Settings` version-log row, `Check`-sheet regression) remain in force and are the operational version of section sections 3-5.
 
 
 ## 6b. Norms follow the lessons: update them in the same task (user rule 2026-10-22)
