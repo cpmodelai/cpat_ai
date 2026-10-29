@@ -8,6 +8,7 @@ import cpat_model
 from cpat_model.core.variables import PATH as VARIABLES_CSV
 from cpat_model.inputs import read_scenario_set
 from cpat_testing.compare.compare import compare, reference, summary
+from cpat_testing.compare.known_differences import KNOWN, bug_of
 
 
 def section(first, last, without=()):
@@ -83,8 +84,25 @@ def test_block_matches_excel_ai(results, block):
     stems = set(BUILT[block])
     codes = {c[:-2] for c, var in zip(v['code'], v['variable']) if var in stems}          # without the scenario
     expected = [c for c in ref.index if c[:-2] in codes and c[-1] in '12'
-                and ref.loc[c].notna().any()]           # rows with parameters only (no year values) are not results
+                and ref.loc[c].notna().any()            # rows with parameters only (no year values) are not results
+                and not bug_of(c)]                      # Excel-AI bugs Coded CPAT fixes: test_known_differences
     missing = sorted(set(expected) - set(results.index))
     assert not missing, missing[:20]
     report = compare(results.loc[expected], ref=ref)
     assert report['first_bad'].isna().all(), summary(report[report['first_bad'].notna()])
+
+
+def test_known_differences(results):
+    """The codes where Coded CPAT fixes an Excel-AI bug still open in the prototype differ from Excel-AI (and only as
+    the fix says). If one matches, the prototype has fixed the bug: delete its entry in known_differences.py."""
+    ref = reference()
+    for bug, stems in KNOWN.items():
+        for stem in (s for s in stems if s.startswith('mit.')):
+            for n in '12':
+                code = f'egy.{stem}.{n}'
+                py, xl = results.loc[code].astype(float), ref.loc[code].astype(float)
+                years = xl.dropna().index.intersection(py.index)
+                assert not (py[years] == xl[years]).all(), f'{code} ({bug}) matches Excel-AI: remove the entry'
+                if bug == 'M19':
+                    assert ((py[years] - xl[years] * 1e9).abs() <= 1e-6 * py[years].abs()).all(), code
+

@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Appendix A — Equation list: methodology notation – Coded CPAT</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./B_Equations_codes.html" rel="next">
+<link href="./11_Versions.html" rel="prev">
+<link href="././00/media/image1.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d8e5dfa8330daa7b2a69354212dbf2ec.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./A_Equations.html">Appendices</a></li><li class="breadcrumb-item"><a href="./A_Equations.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Equation list: methodology notation</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Coded CPAT</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Coded CPAT</strong></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part I: What you need to know</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_Quick_start.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Quick start</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_Database.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The database</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_Scenarios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scenarios and inputs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_Results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_Editing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Editing the model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_Testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part II: How it works</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_Architecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Architecture</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_Mitigation_blocks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">The mitigation blocks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_Distribution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The distribution module</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_App.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The app</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_Versions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Versions and releases</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A_Equations.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Equation list: methodology notation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./B_Equations_codes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Equation list: CPAT code names</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C_Database_tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Database tables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./D_Inputs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Inputs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./E_Variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./F_Bugs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Excel-AI bugs and known differences</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./G_Spec.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Specification and design decisions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./H_Norms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Python norms</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./I_Plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">I</span>&nbsp; <span class="chapter-title">The plan and open work</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./J_Glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">J</span>&nbsp; <span class="chapter-title">Glossary</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title"><strong><em>Chapter Contents</em></strong></h2>
+   
+  <ul>
+  <li><a href="#how-to-read-this-list" id="toc-how-to-read-this-list" class="nav-link active" data-scroll-target="#how-to-read-this-list">How to read this list</a></li>
+  <li><a href="#executive-summary-core-equations" id="toc-executive-summary-core-equations" class="nav-link" data-scroll-target="#executive-summary-core-equations"><span class="header-section-number">B</span> Executive summary: core equations</a>
+  <ul class="collapse">
+  <li><a href="#m0-header-macro-series" id="toc-m0-header-macro-series" class="nav-link" data-scroll-target="#m0-header-macro-series">M0 Header: macro series</a></li>
+  <li><a href="#m1-policies" id="toc-m1-policies" class="nav-link" data-scroll-target="#m1-policies">M1 Policies</a></li>
+  <li><a href="#m2-energy-prices" id="toc-m2-energy-prices" class="nav-link" data-scroll-target="#m2-energy-prices">M2 Energy prices</a></li>
+  <li><a href="#m3-fuel-use" id="toc-m3-fuel-use" class="nav-link" data-scroll-target="#m3-fuel-use">M3 Fuel use</a></li>
+  <li><a href="#m4-power" id="toc-m4-power" class="nav-link" data-scroll-target="#m4-power">M4 Power</a></li>
+  <li><a href="#m5-road-transport-engineer-model" id="toc-m5-road-transport-engineer-model" class="nav-link" data-scroll-target="#m5-road-transport-engineer-model">M5 Road transport (engineer model)</a></li>
+  <li><a href="#m6-revenues" id="toc-m6-revenues" class="nav-link" data-scroll-target="#m6-revenues">M6 Revenues</a></li>
+  <li><a href="#m7-emissions" id="toc-m7-emissions" class="nav-link" data-scroll-target="#m7-emissions">M7 Emissions</a></li>
+  <li><a href="#m8-gdp" id="toc-m8-gdp" class="nav-link" data-scroll-target="#m8-gdp">M8 GDP</a></li>
+  <li><a href="#d-distribution" id="toc-d-distribution" class="nav-link" data-scroll-target="#d-distribution">D Distribution</a></li>
+  </ul></li>
+  <li><a href="#appendix-a-mitigation-adjustments" id="toc-appendix-a-mitigation-adjustments" class="nav-link" data-scroll-target="#appendix-a-mitigation-adjustments"><span class="header-section-number">C</span> Appendix A: mitigation adjustments</a>
+  <ul class="collapse">
+  <li><a href="#a1-policies" id="toc-a1-policies" class="nav-link" data-scroll-target="#a1-policies">A1 Policies</a></li>
+  <li><a href="#a2-prices" id="toc-a2-prices" class="nav-link" data-scroll-target="#a2-prices">A2 Prices</a></li>
+  <li><a href="#a3-fuel-use" id="toc-a3-fuel-use" class="nav-link" data-scroll-target="#a3-fuel-use">A3 Fuel use</a></li>
+  <li><a href="#a4-power" id="toc-a4-power" class="nav-link" data-scroll-target="#a4-power">A4 Power</a></li>
+  <li><a href="#a5-road-transport" id="toc-a5-road-transport" class="nav-link" data-scroll-target="#a5-road-transport">A5 Road transport</a></li>
+  <li><a href="#a6-revenues" id="toc-a6-revenues" class="nav-link" data-scroll-target="#a6-revenues">A6 Revenues</a></li>
+  <li><a href="#a7-emissions" id="toc-a7-emissions" class="nav-link" data-scroll-target="#a7-emissions">A7 Emissions</a></li>
+  <li><a href="#a8-gdp-and-results" id="toc-a8-gdp-and-results" class="nav-link" data-scroll-target="#a8-gdp-and-results">A8 GDP and results</a></li>
+  </ul></li>
+  <li><a href="#appendix-b-distribution-adjustments" id="toc-appendix-b-distribution-adjustments" class="nav-link" data-scroll-target="#appendix-b-distribution-adjustments"><span class="header-section-number">D</span> Appendix B: distribution adjustments</a>
+  <ul class="collapse">
+  <li><a href="#b1-distribution" id="toc-b1-distribution" class="nav-link" data-scroll-target="#b1-distribution">B1 Distribution</a></li>
+  </ul></li>
+  <li><a href="#appendix-symbols-and-codes" id="toc-appendix-symbols-and-codes" class="nav-link" data-scroll-target="#appendix-symbols-and-codes"><span class="header-section-number">E</span> Appendix: symbols and codes</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./A_Equations.html">Appendices</a></li><li class="breadcrumb-item"><a href="./A_Equations.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Equation list: methodology notation</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-app-eq" class="quarto-section-identifier">Appendix A — Equation list: methodology notation</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- Generated by make_qmd.py from coded/cpat_documentation/equations/Equations.qmd: edit the source, then run python make_qmd.py -->
+<p><em>Source: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/equations/Equations.qmd"><code>coded/cpat_documentation/equations/Equations.qmd</code></a>.</em></p>
+<!-- Generated by make_equations.py from equations.yaml: do not edit by hand. Other version: Equations_codes.qmd. -->
+<p><strong>Status: first draft.</strong> The core equations are listed for every block; the appendices of adjustments are being completed block by block. Code version: <code>Equations_codes.qmd</code> (the same equations with CPAT code names).</p>
+<section id="how-to-read-this-list" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-read-this-list">How to read this list</h2>
+<ul>
+<li><strong>What it is.</strong> The equations Coded CPAT implements, in the order the model computes them. Coded CPAT replicates Excel-AI (<code>excel_ai/CPAT-AI-Mitigation-Prototype_v&lt;version&gt;.xlsm</code>); where the methodology and Excel-AI differ, the equation is Excel-AI’s and the note says so. Each equation has an id (<code>M3.1</code>, …) that the code cites (<code>EQ-M3.1</code>).</li>
+<li><strong>Notation</strong> follows the CPAT methodology (<code>docs/01_MainDocumentation/03_Mitigation.qmd</code>, <code>05_Distribution.qmd</code>). Where the methodology has no symbol for a quantity, the symbol of the Excel-AI equation note (<code>excel_ai/mitigation/Equations.md</code>) is used and marked <em>(Excel-AI notation)</em>.</li>
+<li><strong>Indices</strong> (methodology, “Dimensions”): scenario <span class="math inline">\(o\)</span> (baseline <span class="math inline">\(B\)</span>, policy <span class="math inline">\(P\)</span>), country <span class="math inline">\(c\)</span>, UNFCCC sector <span class="math inline">\(u\)</span>, sector group <span class="math inline">\(g\)</span>, sector <span class="math inline">\(s\)</span>, fuel or generation type <span class="math inline">\(f\)</span>, pollutant <span class="math inline">\(p\)</span>, year <span class="math inline">\(t\)</span>. <strong>Indices are omitted where they add nothing:</strong> every mitigation equation holds for each scenario <span class="math inline">\(o\)</span> and country <span class="math inline">\(c\)</span>, and for each year <span class="math inline">\(t\)</span> unless <span class="math inline">\(t\)</span> is shown; the line “Over …” under an equation lists the other indices it ranges over. A previous-year value carries <span class="math inline">\(t-1\)</span>; a baseline value of the same year carries the superscript <span class="math inline">\(B\)</span>.</li>
+<li><strong>Distribution</strong> uses its own indices (methodology chapter 5): household <span class="math inline">\(j\)</span>, decile <span class="math inline">\(d\)</span>, consumption category <span class="math inline">\(g\)</span>, fuel <span class="math inline">\(f\)</span> (with <span class="math inline">\(f \in g\)</span>), analysis year <span class="math inline">\(y\)</span>.</li>
+<li><strong>Core and adjustments.</strong> The first part is the executive summary: the core equations of each block. The appendices hold the adjustments (exceptions, floors, switches, calibration, memo items).</li>
+</ul>
+</section>
+<section id="executive-summary-core-equations" class="level1" data-number="B">
+<h1 data-number="B"><span class="header-section-number">B</span> Executive summary: core equations</h1>
+<p>One year of the model, in the order of the calculation chain (spec section 4.3): policies and prices (computed for all years before the year loop), then fuel use, power, revenues, emissions and GDP, then distribution in its analysis year.</p>
+<section id="m0-header-macro-series" class="level2">
+<h2 class="anchored" data-anchor-id="m0-header-macro-series">M0 Header: macro series</h2>
+<p>The macro series of the country and the header rows that read them (Excel-AI sheet Inputs_macro, legacy Mitigation rows 417-467). Quantity-free: computed for all years before the year loop.</p>
+<p><strong>M0.1 Macro series past the last data year</strong></p>
+<p><span class="math display">\[
+x_t = \begin{cases} x^{WEO}_t &amp; t \le T^{WEO}_x \\ \text{extension rule of } x &amp; t &gt; T^{WEO}_x \end{cases} \qquad
+g_t = \begin{cases} g_{t-1} &amp; g_{t-1} \ge g_{t-2} \\ \max\!\left(\tfrac{1}{2}\,\bar{g}_{t-3..t-1},\ 2g_{t-1} - g_{t-2}\right) &amp; g_{t-1} &lt; g_{t-2} \end{cases}
+\]</span></p>
+<p>Over macro years 2018-2045; series <span class="math inline">\(x\)</span>: US deflator and CPI, real GDP growth, real and nominal GDP, exchange rate, population. Excel-AI notation. Extensions: US deflator linear (<span class="math inline">\(2x_{t-1} - x_{t-2}\)</span>); US CPI, exchange rate flat; real GDP grown with <span class="math inline">\(g\)</span>; nominal GDP with its last growth rate, held from the last data year of nominal GDP (Excel-AI: the growth of the last data year is the year before’s); population with its last growth factor. The exchange rate of a euro country is the euro area’s (WEO G163). Source: Excel-AI: Inputs_macro (build_inputs_macro).</p>
+<p><strong>M0.2 Inflation and deflator indices, real GDP, exchange rate</strong></p>
+<p><span class="math display">\[
+\nu_t = \frac{CPI^{US}_{R}}{CPI^{US}_t}, \qquad \delta_t = \frac{D^{US}_{R}}{D^{US}_t}, \qquad e_t = \frac{Y^{LCU}_t}{Y^{USD}_t}
+\]</span></p>
+<p><span class="math inline">\(R\)</span> is the results year (MTInputs ResultsYear, read from the baseline column). <span class="math inline">\(\nu_t\)</span> converts nominal domestic prices and policy inputs to real, <span class="math inline">\(\delta_t\)</span> international prices. Excel-AI notation. Source: Excel-AI: Mitigation rows 8-13 (section 0).</p>
+</section>
+<section id="m1-policies" class="level2">
+<h2 class="anchored" data-anchor-id="m1-policies">M1 Policies</h2>
+<p>Every policy is a path from a start year to a target year, set per scenario.</p>
+<p><strong>M1.1 Policy path (linear from a start to a target level)</strong></p>
+<p><span class="math display">\[
+\Lambda(t; T_0, T_1, x_0, x_1) = \begin{cases} 0 &amp; t &lt; T_0 \\ x_0 + (x_1 - x_0)\,\dfrac{t - T_0}{\max(T_1 - T_0,\,1)} &amp; t \ge T_0 \end{cases}
+\]</span></p>
+<p>Excel-AI notation (the methodology describes the paths in words). Held flat after <span class="math inline">\(T_1\)</span> unless the input says the path continues. Source: Excel-AI: Equations.md section 0 (Λ, Λ̄).</p>
+<p><strong>M1.2 National carbon tax per tonne</strong></p>
+<p><span class="math display">\[
+NCT_t = \Lambda(t; T_0, T_1, x_0, x_1)\,\nu_t
+\]</span></p>
+<p><span class="math inline">\(\nu_t\)</span> is the CPI index (US CPI of the results year over year <span class="math inline">\(t\)</span>) if the inputs are nominal, else 1 (Excel-AI notation). Source: methodology: 03_Mitigation, Prices &gt; Notation (<span class="math inline">\(NCT\)</span>); Excel-AI: E1.</p>
+<p><strong>M1.3 New carbon tax and ETS cost by sector</strong></p>
+<p><span class="math display">\[
+NCT_{s,t} = NCT_t\,\varphi_{NCT,s}\,(1 - \kappa_{s,t}), \qquad NETSP_{s,t} = \tilde{p}^{E}_t\,\kappa_{s,t}\,(1 - \omega_{s,t})
+\]</span></p>
+<p>Over sectors <span class="math inline">\(s\)</span> (power and the 16 subsectors). <span class="math inline">\(\kappa_s\)</span> new-ETS coverage, <span class="math inline">\(\omega_s\)</span> share allocated free (output-based), <span class="math inline">\(\tilde{p}^E\)</span> the tax-equivalent ETS price (Excel-AI notation; methodology <span class="math inline">\(NETSP\)</span> is the national ETS price). Where the new tax complements an existing ETS, <span class="math inline">\(\varphi_{NCT,s}\)</span> is one minus the existing ETS coverage. Source: methodology: 03_Mitigation, Prices &gt; Notation (<span class="math inline">\(NCT\)</span>, <span class="math inline">\(NETSP\)</span>, <span class="math inline">\(\varphi_{NCT/ETS}\)</span>); Excel-AI: E5, E6, E13-E15.</p>
+<p><strong>M1.4 Shadow price of non-pricing policies by sector</strong></p>
+<p><span class="math display">\[
+\Sigma_{s,t} = \left(b_{g(s),t} + reg_{g(s),t}\right) a\,\mathbb{1}[\text{feebate covers } s] + \tilde{p}^{E}_t\,\kappa_{s,t}\,\omega_{s,t}
+\]</span></p>
+<p>Over sectors <span class="math inline">\(s\)</span>; <span class="math inline">\(g(s)\)</span> is the sector group of <span class="math inline">\(s\)</span>. Excel-AI notation: <span class="math inline">\(b_g\)</span> feebate rate of the feebate sector, <span class="math inline">\(a\)</span> share of the feebate on the efficiency margin (SPPEffAdjFeebates where the feebate covers <span class="math inline">\(s\)</span>). <span class="math inline">\(reg\)</span>: under a main scenario with shadow pricing (MTInputs ScenarioSelected; table of main scenarios), the shadow carbon price (<span class="math inline">\(\Lambda\)</span> less the explicit price) times the efficiency adjustment of the scenario, in the sectors it covers. The shadow price acts on the efficiency margin only (M3.1); it raises no revenue. Source: Excel-AI: E3, E16.</p>
+<p><strong>M1.5 Fuel price reform path</strong></p>
+<p><span class="math display">\[
+FPR_{c,t} = \begin{cases} 0 &amp; t &lt; T_0 \\ x_0 + j\,(t - T_0) &amp; t &lt; T_1 \text{ or the path continues linearly} \\ x_1 \text{ (or } p\,(1+k)^{t - T_1 + 1} \text{ if it continues by a rate)} &amp; \text{otherwise} \end{cases}
+\]</span></p>
+<p>Over price fuels <span class="math inline">\(c\)</span> (coal and gas by power, residential, industry; electricity residential and industry; oil products and biomass). Excel-AI notation. The path after the target year follows ExtendCarbonPriceBeyondOutro: Linear* continues the line, Percentage grows at the rate <span class="math inline">\(k\)</span> from <span class="math inline">\(p\)</span>, otherwise held at <span class="math inline">\(x_1\)</span>. Where the start is zero the rate divides by <span class="math inline">\(x_0 + j\)</span>. Source: Excel-AI: Mitigation section 1 (fprj, fprk, fprp, fpra, fpr).</p>
+<p><strong>M1.6 Social cost of carbon</strong></p>
+<p><span class="math display">\[
+SCC^{tgt}_t = SCC^{*}\,(1+g)^{t - T^{*}}, \quad SCC^{R}_t = SCC^{R}\,(1+g)^{t - t_0}, \quad SCC^{EPA}_t = SCC^{EPA}\,(1+g)^{t - t_0}
+\]</span></p>
+<p>Excel-AI notation. Target-consistent price, Ricke et al.&nbsp;(2018) national or global (sheet SCC, by discount rate and elasticity), manual path, US EPA; the national and global SCC are chosen by NSCCSource and GSCCSource (read from the baseline column). Source: Excel-AI: Mitigation section 1 (scc).</p>
+<p><strong>M1.7 Phase-out factor of subsidies and price controls</strong></p>
+<p><span class="math display">\[
+\phi_{k,t} = \max\!\left(1 - \bar{s}_k,\ 1 - \bar{s}_k\,\frac{t - T_k}{\max(N_k, 1)}\right) \text{ if the phase-out is on and } t &gt; T_k;\ 1 \text{ otherwise}
+\]</span></p>
+<p>Over phase-outs <span class="math inline">\(k\)</span>: producer subsidies, consumer subsidies, price controls; price fuels <span class="math inline">\(c\)</span> or producer fuels <span class="math inline">\(f\)</span>. Excel-AI notation. The baseline uses the baseline switch, period and share; a policy scenario its own switch and period and the larger of the two shares. Price controls are on only where the policy switch is on (and, in the baseline, the baseline switch too); they use the consumer-subsidy shares (Excel-AI issue I48). Source: Excel-AI: Mitigation section 1 (po.on, po.n, po.sh, pof, csf, pcf, psf).</p>
+<p><strong>M1.8 Methane fee</strong></p>
+<p><span class="math display">\[
+MF_t = \Lambda(t; T_0, T_1, x_0, x_1)\,\mathbb{1}[o \ne B] + NCT_t\,\mathbb{1}[\text{carbon tax applies to methane}]
+\]</span></p>
+<p>Excel-AI notation. The fee path continues linearly after its target year. Source: Excel-AI: Mitigation section 1 (mfee.p, mfee).</p>
+</section>
+<section id="m2-energy-prices" class="level2">
+<h2 class="anchored" data-anchor-id="m2-energy-prices">M2 Energy prices</h2>
+<p>Prices before policies by sector group <span class="math inline">\(g\)</span> and fuel <span class="math inline">\(f\)</span> (the methodology’s price sectors), then new policies and the after-tax price by sector <span class="math inline">\(s\)</span> and fuel <span class="math inline">\(f\)</span>. All quantity-free: computed for all years before the year loop.</p>
+<p><strong>M2.1 Supply price (fixed part plus a floating part that follows the international price)</strong></p>
+<p><span class="math display">\[
+sp_{t} = fixsp + \left(sp_{t-1} - fixsp - ps_{t-1}\right)\frac{gp_t}{gp_{t-1}} + ps_t
+\]</span></p>
+<p>Over sector groups <span class="math inline">\(g\)</span>, fuels <span class="math inline">\(f\)</span>; projection years <span class="math inline">\(t &gt; L\)</span> (last historical price year). The methodology writes <span class="math inline">\(sp = fixsp + fltsp + ps\)</span> with <span class="math inline">\(fltsp_t = fltsp_{t-1}\,gp_t/gp_{t-1}\)</span>. <span class="math inline">\(gp\)</span> is the international price of the price fuel’s commodity (oil, coal, the country’s gas market; biomass flat), real, times the High / Low factor after <span class="math inline">\(L\)</span>; <span class="math inline">\(ps\)</span> the producer subsidy per unit (A2.5). Historical years: data (A2.4). Source: methodology: 03_Mitigation, Appendix C &gt; Calculations (supply price, floating portion); Excel-AI: E19, E20.</p>
+<p><strong>M2.2 Excise and other taxes, floating with the pass-through</strong></p>
+<p><span class="math display">\[
+txo_t = txo_{t-1} - \left(sp_t - sp_{t-1}\right)\left(1 - pcc\right)
+\]</span></p>
+<p>Over sector groups <span class="math inline">\(g\)</span>, fuels <span class="math inline">\(f\)</span>. <span class="math inline">\(pcc\)</span> is the price-control (pass-through) coefficient: 1 for a liberalised market, 0 for fixed prices. A positive tax does not fall below its last historical level (appendix A2). Here <span class="math inline">\(txo\)</span> holds existing taxes and subsidies only; the methodology’s <span class="math inline">\(txo\)</span> also includes the carbon prices, which Excel-AI keeps apart (M2.5). Source: methodology: 03_Mitigation, Appendix C &gt; Calculations (<span class="math inline">\(flts\)</span>, <span class="math inline">\(pcc\)</span>); Excel-AI: E21-E23.</p>
+<p><strong>M2.3 VAT and retail price before new policies</strong></p>
+<p><span class="math display">\[
+vat_t = \left(sp_t + txo_t\right) vatrate, \qquad p^{0}_t = sp_t + txo_t + vat_t
+\]</span></p>
+<p>Over sector groups <span class="math inline">\(g\)</span>, fuels <span class="math inline">\(f\)</span>. Source: methodology: 03_Mitigation, Appendix C &gt; Calculations (VAT, retail price); Excel-AI: E24, E25.</p>
+<p><strong>M2.4 New carbon price, ETS cost and excise per unit of energy</strong></p>
+<p><span class="math display">\[
+nct_{s,f} = NCT_s\,ef_{s,f}\,\varphi_{NCT,f}\,x_{s,f}, \quad netsp_{s,f} = NETSP_s\,ef_{s,f}\,x_{s,f}, \quad nexc_{s,f} = \frac{F^{x}_{g,f}}{u_{g,f}}\,x_{s,f}
+\]</span></p>
+<p>Over sectors <span class="math inline">\(s\)</span>, fuels <span class="math inline">\(f\)</span>; <span class="math inline">\(g\)</span> is the price sector of <span class="math inline">\((s,f)\)</span>. <span class="math inline">\(ef\)</span> the calibrated CO2 emission factor (M7.1), <span class="math inline">\(x\)</span> the exemption factor (0 for an exempt fuel), <span class="math inline">\(F^x\)</span> the fuel-price reform path (M1.1) in price units and <span class="math inline">\(u\)</span> GJ per price unit (Excel-AI notation for <span class="math inline">\(x\)</span>, <span class="math inline">\(F^x\)</span>, <span class="math inline">\(u\)</span>). Source: methodology: 03_Mitigation, Appendix C &gt; Calculations (<span class="math inline">\(ncp = nct + netsp\)</span>, <span class="math inline">\(nexc\)</span>); Excel-AI: E26-E29.</p>
+<p><strong>M2.5 After-tax price</strong></p>
+<p><span class="math display">\[
+p_{s,f} = \max\!\Big(p^{0}_{g,f} + \big(nct_{s,f} + netsp_{s,f} + nexc_{s,f} + \Delta xcp_{s,f}\big)\left(1 + vatrate_{g,f}\right),\ \underline{p}\Big)
+\]</span></p>
+<p>Over sectors <span class="math inline">\(s\)</span>, fuels <span class="math inline">\(f\)</span>. <span class="math inline">\(\Delta xcp\)</span> is the change in existing carbon pricing against the price data, which already contain it (appendix A2). <span class="math inline">\(\underline{p}\)</span> is the price floor (0.01). Source: methodology: 03_Mitigation, Appendix C &gt; Calculations (retail price); Excel-AI: E30, E31.</p>
+<p><strong>M2.6 Shadow price per unit of energy</strong></p>
+<p><span class="math display">\[
+sh_{s,f} = \Sigma_s\,ef_{s,f}
+\]</span></p>
+<p>Over sectors <span class="math inline">\(s\)</span>, fuels <span class="math inline">\(f\)</span>. Excel-AI notation (the methodology names the shadow price in words only). Source: Excel-AI: E32.</p>
+</section>
+<section id="m3-fuel-use" class="level2">
+<h2 class="anchored" data-anchor-id="m3-fuel-use">M3 Fuel use</h2>
+<p>The core behavioural equation of CPAT (switchable slot <em>fuel demand</em>, spec section 7).</p>
+<p><strong>M3.1 Fuel use, constant-elasticity form</strong></p>
+<p><span class="math display">\[
+\frac{F_{s,f,t}}{F_{s,f,t-1}} = \left(\frac{1}{1 + \alpha_{s,f} + \alpha^{+}_{s,t}}\right)^{1 + \epsilon_{U}} \Psi_t \left(\frac{Y_t}{Y_{t-1}}\right)^{\epsilon_{Y}\, inc_t} \left(\frac{p_{s,f,t}}{p_{s,f,t-1}}\right)^{\epsilon_{U}} \left(\frac{p_{s,f,t} + sh_{s,f,t}}{p_{s,f,t-1} + sh_{s,f,t-1}}\right)^{\epsilon_{F}(1 + \epsilon_{U})}
+\]</span></p>
+<p>Over sectors <span class="math inline">\(s\)</span>, fuels <span class="math inline">\(f\)</span>; the elasticities <span class="math inline">\(\epsilon_Y, \epsilon_U, \epsilon_F\)</span> vary by country, sector and fuel. As the methodology, with three Excel-AI additions: the shadow price enters the efficiency term only; <span class="math inline">\(\alpha^{+}_{s}\)</span> is the additional policy-induced efficiency gain of the sector’s group (Excel-AI notation); <span class="math inline">\(inc_t\)</span> adjusts the income elasticity to the income level (Excel-AI notation). <span class="math inline">\(\Psi_t\)</span> is the demand shock (methodology: Covid adjustment; in Excel-AI the 2023-2024 shock, switch on). Source: methodology: 03_Mitigation, Fuel Consumption Dynamics; Excel-AI: E69 (LAMBDAs FUELUSE, AEEIFACTOR).</p>
+<p><strong>M3.2 Fuel use used by the rest of the model</strong></p>
+<p><span class="math display">\[
+F_{s,f} = \begin{cases} F^{T}_{s,f} &amp; s = \text{road and the road model is the engineer model} \\ F^{e}_{s,f} + Lk_{s,f} &amp; \text{otherwise} \end{cases}
+\]</span></p>
+<p>Over sectors <span class="math inline">\(s\)</span>, fuels <span class="math inline">\(f\)</span>. <span class="math inline">\(F^e\)</span> is M3.1, <span class="math inline">\(F^T\)</span> the road engineer model (M5), <span class="math inline">\(Lk\)</span> residential leakage to biomass (appendix A3, off by default). Excel-AI notation for the superscripts. Source: Excel-AI: E69, ROADSWITCH, section 6b.</p>
+<p><strong>M3.3 Energy use totals and change against the baseline</strong></p>
+<p><span class="math display">\[
+F_{S} = \sum_{s \in S}\sum_f F_{s,f}, \quad F_f = \sum_s F_{s,f} + F^{pow}_f, \quad F = \sum_{s,f} F_{s,f} + F^{pow}, \quad \Delta F_{x,t} = F_{x,t} - F^{base}_{x,t}
+\]</span></p>
+<p>Over sector groups <span class="math inline">\(S\)</span> (transport, buildings, industry, other energy use, power), fuels <span class="math inline">\(f\)</span>, years <span class="math inline">\(t\)</span>. Excel-AI notation. <span class="math inline">\(F^{pow}\)</span> the fuel input of power generation (A4); renewables in aviation and navigation count in the subsector and group totals and in the grand total, not in a fuel total. The baseline value is scenario 1’s of the same year (Excel-AI REFCOL). Electricity demand totals (eldem) sum the subsector demand by group. Source: Excel-AI: Mitigation section 11.</p>
+</section>
+<section id="m4-power" class="level2">
+<h2 class="anchored" data-anchor-id="m4-power">M4 Power</h2>
+<p>Electricity demand, generation, capacity and prices: the engineer model (standard-CPAT). Generation types <span class="math inline">\(f\)</span>: coal, gas, oil, nuclear, wind, solar, hydro, other renewables, biomass.</p>
+<p><strong>M4.1 Electricity demand by sector (last year’s electricity price)</strong></p>
+<p><span class="math display">\[
+\frac{E_{s,t}}{E_{s,t-1}} = \left(\frac{1}{1 + \alpha_{d} + \alpha^{+}_{t}}\right)^{1 + \epsilon_{U,d}} \Psi_t \left(\frac{Y_t}{Y_{t-1}}\right)^{\epsilon_{Y,d}\, inc_t} \left(\frac{\bar{p}^{T}_{d,t}}{\bar{p}^{T}_{d,t-1}}\right)^{\epsilon_{U,d} + \epsilon_{F,d} + \epsilon_{U,d}\epsilon_{F,d}}, \qquad \bar{p}^{T}_{d,t} = w_d\,p^{T}_{res,t-1} + (1 - w_d)\,p^{T}_{ind,t-1}
+\]</span></p>
+<p>Over sectors <span class="math inline">\(s\)</span>; <span class="math inline">\(d = d(s)\)</span> the demand group (transport, residential, industry, services), <span class="math inline">\(w_d\)</span> its price weight. The methodology’s form, with Excel-AI’s timing: the demand price <span class="math inline">\(\bar{p}^T\)</span> is a blend of last year’s residential and industrial end-user prices, so power demand does not depend on this year’s power price. The methodology writes the GDP elasticity <span class="math inline">\(\epsilon_G\)</span> (undefined there); Excel-AI uses <span class="math inline">\(\epsilon_Y\)</span> with the income factor. Road electricity comes from the road engineer model. Source: methodology: 03_Mitigation, Engineer model &gt; Power demand; Excel-AI: E52-E54 (LAMBDA DEMANDMULT).</p>
+<p><strong>M4.2 Generation required</strong></p>
+<p><span class="math display">\[
+g_t = \sum_s E_{s,t}\left(1 + net_{t_0} + eiu_{t_0} + \Delta^{dif}_{t_0}\right)
+\]</span></p>
+<p>Source: methodology: 03_Mitigation, Engineer model &gt; Power demand; Excel-AI: E57.</p>
+<p><strong>M4.3 Variable cost and levelised total investment cost</strong></p>
+<p><span class="math display">\[
+vc_{f,t} = vop_{f,t} + \frac{\bar{p}_{f,t}}{\nu_f} + ip_{f,t} + ncp_{f,t}, \qquad tic_{f,t} = \overline{vc}_{f,t} + fix^{fl}_{f,t}
+\]</span></p>
+<p>Over generation types <span class="math inline">\(f\)</span>. <span class="math inline">\(\bar{p}\)</span> is the fuel price averaged over <span class="math inline">\([t-4, t]\)</span>; <span class="math inline">\(\overline{vc}\)</span> the levelised variable cost, a discounted average of <span class="math inline">\(vc\)</span> from <span class="math inline">\(t\)</span> to the last year (computed before the year loop: it depends on prices and policies only). Source: methodology: 03_Mitigation, Power prices &gt; Concepts 1-2; Excel-AI: E37-E43, E46.</p>
+<p><strong>M4.4 Dispatch between coal and gas (logit)</strong></p>
+<p><span class="math display">\[
+\lambda_f = \frac{e^{-K_{dispatch} H_f}}{\sum_{f'} e^{-K_{dispatch} H_{f'}}}, \qquad H_f = \frac{vc_f}{vc^{lc}}
+\]</span></p>
+<p>Over <span class="math inline">\(f \in\)</span> {coal, gas}; other types run at their capacity factors. Source: methodology: 03_Mitigation, Engineer model &gt; Dispatch decision; Excel-AI: E57-E60 (LAMBDAs DISPATCH, LOGITW).</p>
+<p><strong>M4.5 Capacity</strong></p>
+<p><span class="math display">\[
+cap_{f,t} = cap_{f,t-1} - ret_{f,t-1} + inv_{f,t-1}, \qquad ret_{f,t} = \frac{cap_{f,t}}{lif_f}
+\]</span></p>
+<p>Over generation types <span class="math inline">\(f\)</span>. The methodology writes the stock equation with <span class="math inline">\(g\)</span>; it is capacity. Coal retirements follow plant data where available, plus cost-based early retirement (appendix A4). Source: methodology: 03_Mitigation, Engineer model &gt; Retirement and capacity needed; Excel-AI: E56, E61, E62.</p>
+<p><strong>M4.6 Investment allocation (logit with scale-up limits)</strong></p>
+<p><span class="math display">\[
+\frac{ivp_{f,t}}{\sum_{f'} ivp_{f',t}} = \zeta_{f}\,\frac{e^{-K_i H_{i,f}}}{\sum_{f'} e^{-K_i H_{i,f'}}}, \qquad H_{i,f} = \frac{tic_{f}}{tic^{lc}}
+\]</span></p>
+<p>Over generation types <span class="math inline">\(f\)</span>. A second round allocates what the scale-up limits leave unallocated to the cheapest types (appendix A4). Source: methodology: 03_Mitigation, Engineer model &gt; Investment decision; Excel-AI: E63-E67 (LAMBDAs FIRSTROUND, CHEAPFILL).</p>
+<p><strong>M4.7 End-user electricity price</strong></p>
+<p><span class="math display">\[
+sp^{T}_{g,t} = gnc^{av}_{t-1} + tmc_g, \qquad p^{0,T}_{g,t} = p^{0,T}_{g,t-1} + pcc_g\left(sp^{T}_{g,t} - sp^{T}_{g,t-1}\right)(1 + vatrate_g), \qquad p^{T}_{g,t} = p^{0,T}_{g,t} + \left(ncp^{av}_t\, pcc_g\,(1 - reb) + pex_{g,t}\right)(1 + vatrate_g)
+\]</span></p>
+<p>Over user groups <span class="math inline">\(g\)</span> (residential, industry); <span class="math inline">\(gnc^{av} = \sum_f gns_f\,gnc_f\)</span> the generation-weighted generation cost. Excel-AI’s form (data up to the last historical year, then cost changes passed through at <span class="math inline">\(pcc_g\)</span>; the supply cost uses last year’s generation cost). The methodology instead adds a markup <span class="math inline">\(mu^T\)</span> calibrated to historical retail prices; Excel-AI’s subsidy gap <span class="math inline">\(p^0/(1+vatrate) - sp^T\)</span> plays that role (appendix A4). <span class="math inline">\(reb\)</span> is the rebate switch, <span class="math inline">\(pex\)</span> the power excise. Source: methodology: 03_Mitigation, Power prices &gt; Concept 4; Excel-AI: E48-E51.</p>
+</section>
+<section id="m5-road-transport-engineer-model" class="level2">
+<h2 class="anchored" data-anchor-id="m5-road-transport-engineer-model">M5 Road transport (engineer model)</h2>
+<p>Excel-AI notation throughout (the methodology’s road chapter covers externalities, not the engineer model). Vehicle classes: passenger, freight, 2-3 wheelers; technologies: ICE, BEV, PHEV.</p>
+<p><strong>M5.1 Vehicle ownership (Gompertz target, partial adjustment)</strong></p>
+<p><span class="math display">\[
+O_t = \lambda\,O^{*}_t + (1 - \lambda)\,O_{t-1}, \qquad O^{*}_t = Sat \cdot e^{\beta_1 e^{\beta_2\, y_t}} J
+\]</span></p>
+<p>Over vehicle classes; growth limited per year. <span class="math inline">\(y_t\)</span> GDP per capita, <span class="math inline">\(Sat\)</span> saturation level, <span class="math inline">\(J\)</span> calibration to observed ownership. The only partial-adjustment equation in Excel-AI. Source: Excel-AI: Methods Transport, T1-T2 (LAMBDAs OWNDEM, GOMPTGT).</p>
+<p><strong>M5.2 Electric-vehicle share of purchases (logit on total cost of ownership)</strong></p>
+<p><span class="math display">\[
+s^{EV}_t = \frac{e^{-k\,TCO^{EV}_t/\overline{TCO}_t}}{\sum_{v} e^{-k\,TCO^{v}_t/\overline{TCO}_t}}
+\]</span></p>
+<p>Over vehicle classes. Source: Excel-AI: Methods Transport (demand and choice).</p>
+<p><strong>M5.3 Road fuel use</strong></p>
+<p><span class="math display">\[
+F^{T}_{f,t} = \sum_{v} VKT_{v,f,t}\,FE_{v,f,t}
+\]</span></p>
+<p>Over road fuels <span class="math inline">\(f\)</span>; vehicle classes <span class="math inline">\(v\)</span>. <span class="math inline">\(VKT\)</span> vehicle-km, <span class="math inline">\(FE\)</span> fuel use per km of the stock (Excel-AI notation). Source: Excel-AI: Methods Transport T16 (LAMBDA DEMROAD).</p>
+</section>
+<section id="m6-revenues" class="level2">
+<h2 class="anchored" data-anchor-id="m6-revenues">M6 Revenues</h2>
+<p>Revenue in USD million: fuel use in ktoe times <span class="math inline">\(\theta\)</span> (PJ per ktoe) times a price component in USD/GJ.</p>
+<p><strong>M6.1 Revenue from new policies</strong></p>
+<p><span class="math display">\[
+rev^{new}_{s,f} = \theta\,F_{s,f}\left(nct_{s,f} + nexc_{s,f} + \rho\,netsp_{s,f} + vatrate\,(nct_{s,f} + netsp_{s,f} + nexc_{s,f})\right)
+\]</span></p>
+<p>Over sectors <span class="math inline">\(s\)</span>, fuels <span class="math inline">\(f\)</span> (power adds its own terms, appendix A6). <span class="math inline">\(\rho\)</span> the ETS revenue factor (auctioned part; Excel-AI notation). Source: methodology: 03_Mitigation, Fiscal revenues &gt; Overview (<span class="math inline">\(rev = F\,\varphi\,ncp\)</span>); Excel-AI: E73.</p>
+<p><strong>M6.2 Revenue from existing taxes and cost of existing subsidies</strong></p>
+<p><span class="math display">\[
+revExi_{s,f} = \theta\,F_{s,f}\left(txo^{+} + vat + \Delta xcp_{s,f}(1 + vatrate)\right), \qquad cs_{s,f} = \theta\,F_{s,f}\,txo^{-}
+\]</span></p>
+<p>Over sectors <span class="math inline">\(s\)</span>, fuels <span class="math inline">\(f\)</span>. <span class="math inline">\(txo^{+}\)</span> and <span class="math inline">\(txo^{-}\)</span> are the positive (taxes) and negative (subsidies, negative) parts. Source: methodology: 03_Mitigation, Fiscal revenues &gt; Total revenues raised by policy; Excel-AI: E71, E72.</p>
+<p><strong>M6.3 Total revenue</strong></p>
+<p><span class="math display">\[
+rev = \sum_{s,f}\left(revExi_{s,f} + cs_{s,f} + rev^{new}_{s,f}\right) + rev^{pow} + rev^{mf}
+\]</span></p>
+<p><span class="math inline">\(rev^{pow}\)</span> power-sector revenue (appendix A6), <span class="math inline">\(rev^{mf}\)</span> methane fee (appendix A7). Source: Excel-AI: E75, E76.</p>
+</section>
+<section id="m7-emissions" class="level2">
+<h2 class="anchored" data-anchor-id="m7-emissions">M7 Emissions</h2>
+<p><strong>M7.1 Energy-related CO2</strong></p>
+<p><span class="math display">\[
+em_{s,f,CO_2} = F_{s,f}\,ef_{s,f}, \qquad em_{CO_2} = \sum_{s}\sum_{f} em_{s,f,CO_2}
+\]</span></p>
+<p>Over sectors <span class="math inline">\(s\)</span> (including power: generation fuel use), fuels <span class="math inline">\(f\)</span>. <span class="math inline">\(ef\)</span> carries the calibration to the inventory (appendix A7; off by default in Excel-AI). Source: methodology: 03_Mitigation, Emissions &gt; Energy-related emissions; Excel-AI: E77, E78.</p>
+<p><strong>M7.2 Other greenhouse gases (pattern)</strong></p>
+<p><span class="math display">\[
+em_{u,p,t} = em_{u,p,t-1}\,\frac{driver_{u,t}}{driver_{u,t-1}}
+\]</span></p>
+<p>Over UNFCCC sectors <span class="math inline">\(u\)</span>, gases <span class="math inline">\(p\)</span>. Each source grows with its driver (energy CO2, industrial energy CO2, GDP and population with elasticities); the source equations are in appendix A7. Source: methodology: 03_Mitigation, Emissions (N2O, IPPU, agriculture, LULUCF, waste); Excel-AI: E80-E86.</p>
+</section>
+<section id="m8-gdp" class="level2">
+<h2 class="anchored" data-anchor-id="m8-gdp">M8 GDP</h2>
+<p>Excel-AI notation throughout: the methodology describes the multipliers but gives no in-model equation.</p>
+<p><strong>M8.1 Fiscal space and impulse</strong></p>
+<p><span class="math display">\[
+fs_t = \frac{rev_t - rev^{B}_t}{Y^{0}_t}, \qquad imp_t = fs_t - fs_{t-1}\,\frac{Y^{0}_{t-1}}{Y^{0}_t} \ (t \ge t^{GDP};\ 0 \text{ before})
+\]</span></p>
+<p>Excel-AI notation: the revenue is the whole fiscal balance of the energy taxes and subsidies (existing, new, price-control wedges, producer subsidies, methane fee), against the baseline (<span class="math inline">\(\mathtt{fis.ref}\)</span>); the impulse starts in GDPStartYear (in the base year it is the whole fiscal space). <span class="math inline">\(\mathtt{fis.impp}\)</span> is the impulse from the carbon-pricing start year (CPIntro), used for the recycled revenue. <span class="math inline">\(\mathtt{fis.lag}_{l}\)</span>, <span class="math inline">\(\mathtt{fis.lagp}_{l}\)</span> hold the impulses of the 19 earlier years. Source: Excel-AI: E91, E92; Mitigation section 16.</p>
+<p><strong>M8.2 GDP effect of the revenue and of its use</strong></p>
+<p><span class="math display">\[
+\varepsilon^{GDP}_t = -\sum_{k=0}^{19} imp_{t-k}\, m_{exc}(k) + \sum_i \frac{sh_i}{100} \sum_{k=0}^{19} imp^{p}_{t-k}\, m_i(k)
+\]</span></p>
+<p>Over uses of revenue <span class="math inline">\(i\)</span> (labour tax cut EXPLabortax, corporate tax cut EXPCIT, public investment EXPCapex, goods and services EXPGoodsandserv, transfers EXPTransfers); the revenue itself with the excise multiplier. Multipliers <span class="math inline">\(m_i(k)\)</span> by lag from appendix A8.1. Applied only if GDPEndogenous = Yes. <span class="math inline">\(\mathtt{gdpg}_{i,t} = (1 + g^0_t)(\mathtt{fis.eff}_{i,t-1} - \mathtt{fis.eff}_{i,t-2}) / \mathtt{gdp.lvl}_{t-1}\)</span>: each instrument’s contribution to GDP growth (memo). Source: methodology: 04_Multipliers; Excel-AI: E93, E94; Mitigation section 16.</p>
+<p><strong>M8.3 GDP feedback, one year later</strong></p>
+<p><span class="math display">\[
+lvl_t = 1 + \varepsilon^{GDP}_{t-1}, \qquad Y_t = Y^{0}_t\,lvl_t, \qquad 1 + g_t = (1 + g^{0}_t)\frac{lvl_t}{lvl_{t-1}}
+\]</span></p>
+<p>The only link from year <span class="math inline">\(t\)</span> to year <span class="math inline">\(t+1\)</span> other than lags of a block’s own quantities. Revenue of year <span class="math inline">\(t\)</span> moves GDP from <span class="math inline">\(t+1\)</span> (root NORMS 5c). Source: Excel-AI: E95.</p>
+</section>
+<section id="d-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="d-distribution">D Distribution</h2>
+<p>One analysis year <span class="math inline">\(y\)</span>; households <span class="math inline">\(j\)</span>, deciles <span class="math inline">\(d\)</span>, consumption categories <span class="math inline">\(g\)</span>, fuels <span class="math inline">\(f \in g\)</span> (methodology chapter 5).</p>
+<p><strong>D1.1 Budget shares</strong></p>
+<p><span class="math display">\[
+\pi^{g}_{j} = \frac{C^{g}_{j}}{C_j}, \qquad \pi^{dg} = \text{population-weighted mean (or median) of } \pi^{g}_{j} \text{ over } j \in d
+\]</span></p>
+<p>Over fuels and categories <span class="math inline">\(g\)</span> (8 fuels, 14 categories, biomass), deciles <span class="math inline">\(d\)</span> and the basket; samples <span class="math inline">\(s\)</span> overall, urban, rural. The survey tables hold the decile statistics; Coded CPAT reads them (QuantilesStatistic: mean or median). Source: methodology: 05_Distribution, eq-5_1; Excel-AI: Distribution section 5 (HHSurvey).</p>
+<p><strong>D1.2 Indirect price change of consumption categories (input-output)</strong></p>
+<p><span class="math display">\[
+\phi_k = \frac{\sum_{f \in k} S_f\, t^{a}_f}{U_k}, \qquad t_g = \sum_k \bar{L}_{g,k}\,\phi_k, \qquad \bar{L}_{g,k} = \frac{\sum_{i \in g} H_i L_{i,k}}{\sum_{i \in g} H_i}
+\]</span></p>
+<p>Over fuel groups <span class="math inline">\(k\)</span> (coal, electricity, gas, crude oil, oil products), categories <span class="math inline">\(g\)</span>. Excel-AI uses GTAP’s total-requirement (Leontief) coefficients <span class="math inline">\(L\)</span> directly, weighted by household demand <span class="math inline">\(H\)</span> of the GTAP sectors in each category; the base-year spending <span class="math inline">\(S_f\)</span> on each fuel (pav.sp) at the industrial price change <span class="math inline">\(t^a_f\)</span>, over the group’s total use <span class="math inline">\(U_k\)</span> (B1.1). With ScaleGTAP = No, <span class="math inline">\(U_k\)</span> is the spending itself. Source: methodology: 05_Distribution, eq-5_3; Excel-AI: Distribution section 3; DistMapping DLcat, DIOTot.</p>
+<p><strong>D1.3 Price change by fuel from mitigation</strong></p>
+<p><span class="math display">\[
+t_{f} = \frac{p^{P}_{f,y}}{p^{B}_{f,y}} - 1
+\]</span></p>
+<p>Over household fuels <span class="math inline">\(f\)</span> (direct effect); fuels by industrial or average price (indirect effect, D1.2). Analysis year <span class="math inline">\(y\)</span> = YearDistn; the baseline is scenario 1. Source: methodology: 05_Distribution, sec 5.3.1, eq-5_8; Excel-AI: Distribution section 2 (FromMitigation).</p>
+<p><strong>D1.4 Direct, indirect and total effect</strong></p>
+<p><span class="math display">\[
+p_{d} = \lambda \sum_{i} \pi^{di}\, t_i\, (1 + t_i)^{\epsilon_{di}}
+\]</span></p>
+<p>Over fuels and categories <span class="math inline">\(i\)</span>, deciles <span class="math inline">\(d\)</span>, samples. In % of consumption. The elasticity factor applies when PEDs = Yes (behavioural response, eq-5_7); <span class="math inline">\(\lambda\)</span> = lscale (B1.3); the cooking fuel is exempt for the poorest deciles where chosen (B1.4). Source: methodology: 05_Distribution, eq-5_2, eq-5_7; Excel-AI: Distribution sections 4 and 6.</p>
+<p><strong>D1.5 Revenue recycling, targeted transfer</strong></p>
+<p><span class="math display">\[
+T_d = T\,r_d\,w_d, \qquad T = \frac{R\,\sigma_{T}}{\sum_d r_d\,w_d\,N_d}, \qquad r_d = \frac{\tau_d\,cov + (n_d - \tau_d)\,leak}{n_d}
+\]</span></p>
+<p>Over deciles <span class="math inline">\(d\)</span>. <span class="math inline">\(R\)</span> new revenue (rnew <span class="math inline">\(\times\)</span> xr, local currency), <span class="math inline">\(\sigma_T\)</span> the transfer share; <span class="math inline">\(\tau_d\)</span> the share of the decile’s population under the targeted percentile (popsh, popcum), <span class="math inline">\(cov\)</span>, <span class="math inline">\(leak\)</span> the coverage and leakage rates. The weight <span class="math inline">\(w_d\)</span> is 1, the poverty-line share (TargetBelow) or the ASPIRE programme’s benefit by quintile (TransferType). Other recycling options in B1.5 and B1.6. Source: methodology: 05_Distribution, eq-5_9 to eq-5_12; Excel-AI: Distribution section 8.</p>
+<p><strong>D1.6 Net effect by decile</strong></p>
+<p><span class="math display">\[
+net_d = p_d + \frac{PIT_d + PUI_d + CTS_d + T_d}{c_d}
+\]</span></p>
+<p>Over deciles <span class="math inline">\(d\)</span>, samples. Per person, in % of consumption per person scaled to national accounts (B1.2). Consumption effects are Laspeyres (upper-bound) estimates unless PEDs = Yes. Source: methodology: 05_Distribution, sec 5.4; Excel-AI: Distribution section 9.</p>
+</section>
+</section>
+<section id="appendix-a-mitigation-adjustments" class="level1" data-number="C">
+<h1 data-number="C"><span class="header-section-number">C</span> Appendix A: mitigation adjustments</h1>
+<p>Started; completed block by block before each block is coded (coded/TODO.md phase 0). Sources for each block: <code>excel_ai/mitigation/Equations.md</code>, <code>Equations_addendum.md</code> and <code>Formulas.md</code> (the workbook formulas), and the Methods chapters in <code>excel_ai/mitigation/docs/methods/</code>.</p>
+<section id="a1-policies" class="level2">
+<h2 class="anchored" data-anchor-id="a1-policies">A1 Policies</h2>
+<p>To complete: ETS (coverage, benchmarks, cap, semi-elasticity, fast price estimate, override, volatility adjustment: E4-E13); fuel-price reform path (E2); feebates (E3); existing carbon pricing growth (E17); methane fee (E18); exemptions (E18a); subsidy and price-control phase-outs; Pigouvian components (R3).</p>
+<p><strong>A1.1 ETS fast price estimate</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+\hat{p}^{E}_t = \frac{\ln(cap_t / bce_t)}{\bar{\sigma}_t\,V} \quad \text{if the ETS is on and } 0 &lt; cap_t &lt; bce_t,\ \bar{\sigma}_t &lt; 0;\ 0 \text{ otherwise}
+\]</span></p>
+<p>Excel-AI notation. <span class="math inline">\(bce\)</span> is the baseline CO2 of the covered sectors: Excel-AI’s stored scenario-1 values (sheet BaselineCO2), read as data until the baseline pass computes them (user 2026-10-29). Source: Excel-AI: E7-E11.</p>
+<p><strong>A1.2 Pigouvian taxes and existing pre-tax wedges</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+mc^{ap}_{s,f,t} = v_t \sum_{p,i} \kappa_{m(s),p,i}\,e^{i}_{p,s,f}\ (\text{base } i = 0 \text{ and final } i = 1 \text{, weighted by } w_t), \quad \tau^{pig}_{c,t} = \phi_t\left(\overline{mc}^{ap}_{c,t} + [\text{ClimateEffTax}]\,SCC_t\,ef_c + mc^{tr}_{c,t}\right)
+\]</span></p>
+<p>Over subsectors <span class="math inline">\(s\)</span> and fuels <span class="math inline">\(f\)</span> (air pollution), price codes <span class="math inline">\(c\)</span>, years <span class="math inline">\(t\)</span>. Excel-AI notation (Mitigation section 1, rows 185-418). Air pollution: the value of averted PM2.5 <span class="math inline">\(v_t\)</span> (air pollution module, typed FromAirPollution; the base year reads the next year) times the module’s concentration coefficients <span class="math inline">\(\kappa\)</span> of the source (road, ground level, food, other; coal, gas and other power plants) times the combustion factors, per GJ; by price code weighted by base-year fuel use (residential coal only above ApCoalResMin of buildings use), per unit for oil products. Transport: accident, congestion and road-damage cost per km (typed FromTransportCB) relative to the base year, times base-year fuel economy, the elasticity share of usage and the road share of the fuel. Climate: the national SCC times the generic CO2 factor (Inputs rows 316-322). <span class="math inline">\(\phi_t\)</span> phases the tax in over AddEfficientTaxesPhaseInYears from CPIntro. xcpb: existing carbon pricing against the year embedded in the price data. The tax enters ntxg only if AddEfficientTaxes = Yes (not in Coded CPAT yet). Source: Excel-AI: Mitigation section 1 (rows 185-418).</p>
+</section>
+<section id="a2-prices" class="level2">
+<h2 class="anchored" data-anchor-id="a2-prices">A2 Prices</h2>
+<p>To complete: last historical year and price data; excise floor (E22); split of taxes and subsidies by sign (E23); producer subsidy (R7); existing carbon pricing level and change (E30); VAT on oil products by household share; other oil products (L13).</p>
+<p><strong>A2.1 Excise floor</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+txo_t = \max\left(txo_L,\ \widetilde{txo}_t\right) \text{ if } txo_L \ge 0, \qquad txo_t = \widetilde{txo}_t \text{ otherwise}
+\]</span></p>
+<p><span class="math inline">\(\widetilde{txo}\)</span> is the floating value of M2.2; <span class="math inline">\(L\)</span> the last historical price year. Source: Excel-AI: E22.</p>
+<p><strong>A2.2 Change in existing carbon pricing</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+xcp_{s,f,t} = ef_{s,f}\left(XCT_{t^*}(1 + \delta_{CT})^{\max(0,t - T_x)} + XETSP_{t^*}(1 + \delta_{ETS})^{\max(0,t - T_x)}\right), \quad \Delta xcp_{s,f,t} = xcp_{s,f,t} - ef_{s,f}\,XCP^{0}_{s,f}
+\]</span></p>
+<p><span class="math inline">\(t^* = \min(t, T_x)\)</span>, <span class="math inline">\(T_x\)</span> the last data year; <span class="math inline">\(XCP^0\)</span> the existing carbon pricing already in the price data. Source: methodology: 03_Mitigation, Appendix C (existing carbon price); Excel-AI: E17, E30.</p>
+<p><strong>A2.3 International energy prices by source</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+P^{s,k}_t = \begin{cases} \text{data} &amp; t &lt; T^{s,k} \\ P^{s,k}_{t-1}\,(1 + \pi^{US}_t) &amp; t \ge T^{s,k} \text{ (IMF, WB, IEA)} \\ P^{s,k}_{t-1}\,P^{s,k}_{t-1}/P^{s,k}_{t-2} &amp; t \ge T^{s,k} \text{ (EIA)} \end{cases}
+\]</span></p>
+<p>Over sources <span class="math inline">\(s\)</span> (IMF, WB, IEA, EIA; averages AVG, IMF-IEA, IMF-WB; Manual), commodities <span class="math inline">\(k\)</span> (oil, coal, gas LNG, North America, Europe, global, Europe shifting to LNG). Excel-AI notation. <span class="math inline">\(T^{s,k}\)</span> the first extended year of the series, <span class="math inline">\(\pi^{US}\)</span> US GDP deflator inflation. Averages skip missing sources; global gas is the average of LNG, North America and Europe; Manual: IMF to 2025, then the manual path. Excel-AI reads the World Bank gas rows by position (its LNG is the Europe series and the reverse). Past its data (2041 on) the IEA series reads a misaligned cell in Excel-AI (issue I152); Python leaves it missing. Source: Excel-AI: Inputs_pint (build_inputs_pint); Mitigation section 2 (gpn, gp).</p>
+<p><strong>A2.4 Historical domestic prices and forecasting coefficients</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+sp_y = \frac{sp^{n}_y\,\nu_y}{\gamma}, \quad txo_y = \frac{\nu_y}{\gamma}\begin{cases} rp^{n}_y/(1+vat_y) - sp^{n}_y &amp; \text{coal, gas, biomass} \\ txo^{n}_y &amp; \text{oil products}\end{cases}, \quad fixsp = \frac{mar\,\nu_{m} + dsh\,pcost\,\nu_{0}}{\gamma}
+\]</span></p>
+<p>Over price fuels; historical years <span class="math inline">\(y\)</span> 2021 to <span class="math inline">\(L\)</span>. Excel-AI notation: <span class="math inline">\(\gamma\)</span> GJ per price unit, <span class="math inline">\(\nu\)</span> the CPI index. Pass-through: the base-year data bucketed (up to PassLo 0, up to PassHi PassMid, else 1; biomass 1), or the manual price control, or 1 (GovPriceControls). VAT: the data rate where filled, else the general rate for consumers (residential coal and gas, oil products) and 0 otherwise, times the household share of the oil product. Coal and gas margins are read at 2024 (issue I101). Source: Excel-AI: Inputs_prices (build_inputs_prices).</p>
+<p><strong>A2.5 Producer subsidies</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+ps_{f,t} = -\frac{PROS_{f,t}}{D_{f,t}} \ (t \le L), \qquad ps_{f,t} = ps_{f,L}\,\phi_{ps,t} \ (t &gt; L)
+\]</span></p>
+<p>Over producer fuels <span class="math inline">\(f\)</span> (oil, coal, gas, biomass). Excel-AI notation. <span class="math inline">\(PROS\)</span> producer subsidy (data, USD m real, held after <span class="math inline">\(L\)</span>), <span class="math inline">\(D\)</span> the demand it is spread over: world production (oil), the average of world production and domestic use (coal, gas), domestic use (biomass). Source: Excel-AI: Mitigation section 1 (pros, psd, psu), section 2 (ps).</p>
+<p><strong>A2.6 Prices averaged over fuel use</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+\bar{p}_c = \frac{\sum_{(s,f) \in c} p_{s,f}\,F_{s,f}}{\sum_{(s,f) \in c} F_{s,f}}, \quad L_f = \frac{\sum_s p_{s,f,t}\,F^{B}_{s,f,t}}{\sum_s p^{B}_{s,f,t}\,F^{B}_{s,f,t}}, \quad T_f = \frac{\sum_s p_{s,f,t}\,F^{B}_{s,f,t_0}}{\sum_s p^{B}_{s,f,t_0}\,F^{B}_{s,f,t_0}}
+\]</span></p>
+<p>Over price codes <span class="math inline">\(c\)</span> (fuel and price sector), fuels <span class="math inline">\(f\)</span> including electricity and the total, years <span class="math inline">\(t\)</span>. Excel-AI notation (Mitigation section 2, filled in the year loop because it reads fuel use). By price code: new carbon tax, ETS, new taxes, existing carbon pricing and after-tax price averaged over the subsectors that use the code (the pre-tax build-up pbc where no subsector does); VAT on new policies is the remainder. By fuel: unit value, Laspeyres index at scenario-1 quantities, time index at base-year quantities, mix effect; the legacy index (AveragePriceMethod = Legacy<em>): coal and gas weight residential, industry and power (generation cost) prices by scenario-1 quantities, oil products take the single price, the rest the unit value. Electricity uses the user tariffs and consumption; the total converts electricity at GJ per kWh. rpe = the average price of all energy. Source: Excel-AI: Mitigation section 2 (rows pnq-rpn, pav.</em>, pavl.*, rpe).</p>
+</section>
+<section id="a3-fuel-use" class="level2">
+<h2 class="anchored" data-anchor-id="a3-fuel-use">A3 Fuel use</h2>
+<p>To complete: initially exempt use from the household survey (ExemptMostCook, R6); self-generated renewables; income elasticity adjustment.</p>
+<p><strong>A3.1 Elasticities of the country</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+\epsilon^{k}_{f,g} = \text{value of the country in the row of the legacy Elasticities table}, \quad k \in \{Y, U, F, \alpha\}
+\]</span></p>
+<p>Over fuel groups <span class="math inline">\(f\)</span> (coal, gas, gasoline, diesel, oil, biomass, renewables, electricity), sector groups <span class="math inline">\(g\)</span> (transport, residential, industry, services). Excel-AI notation: income <span class="math inline">\(Y\)</span>, own-price usage <span class="math inline">\(U\)</span> and efficiency <span class="math inline">\(F\)</span> elasticities, autonomous efficiency improvement <span class="math inline">\(\alpha\)</span>. Several rows reuse another fuel’s or sector’s legacy row (core/excel_ai/elasticity_rows.csv). Manual elasticities (MTInputs ElIncMainSrc, ElPrcMainSrc) are not in Coded CPAT yet. Source: Excel-AI: Inputs_ela (build_inputs_ela).</p>
+<p><strong>A3.2 The fuel | subsector table</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+\epsilon^{Y,U,F}_{f,s} = \epsilon^{Y,U,F}_{f(f), g(s)}, \quad ef_{f,s} = ef_{f, e(s)}\,\chi, \quad F_{f,s,t_0} = \text{energy balance (flows of } s\text{) or EnergyCons}
+\]</span></p>
+<p>Over fuels <span class="math inline">\(f\)</span>, subsectors <span class="math inline">\(s\)</span>. Excel-AI notation: elasticities of the fuel’s elasticity fuel and the subsector’s elasticity sector (residential biomass income elasticity 0 unless BiomassNormal, I24); CO2 factor of the subsector’s EF sector, calibrated; base-year fuel use from the energy balance (flow 1 plus signed flow 2) or EnergyCons (BalancesOrConsumption); the existing carbon pricing embedded in the price data, by ECP sector; non-CO2 factors; positions of the road model and residential leakage rows. Source: Excel-AI: Inputs rows 5-148.</p>
+<p><strong>A3.3 Biofuels in road transport, renewables in aviation and navigation</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+B^{g}_{t} = B^{g}_{t-1}\,\frac{F_{rod,g,t}}{F_{rod,g,t-1}} \ (g = \text{gasoline, diesel}), \quad B^{o}_{t} = B^{o}_{t-1}\,a\,\Psi_t (1 + y_t)^{\epsilon_Y} \left(\frac{p_t}{p_{t-1}}\right)^{\epsilon_U} \left(\frac{p_t + sh_t}{p_{t-1} + sh_{t-1}}\right)^{\epsilon_F(1+\epsilon_U)}, \quad F_{rod,bio} = B^{gso} + B^{die} + B^{o}
+\]</span></p>
+<p>Over years <span class="math inline">\(t\)</span> after the base year. Excel-AI notation (Mitigation section 5b). Biogasoline and biodiesel are blended: they follow the road use of the fossil fuel. Other biofuels follow M3.1 with the oil | transport elasticities and the road biomass price. Base year: the energy balance road flow (bgs, bdi, obf) or EnergyCons (BalancesOrConsumption). Renewables in aviation and navigation (base year EnergyCons enc.ren) follow M3.1 with the renewables | transport elasticities and the price ratio of the solar investment cost (trpren = tic pow sol); the efficiency factors use AdditionalEfficiencyRoadVehicle. Source: Excel-AI: Mitigation section 5b (trp.eb2, trbe, trbea, trpren, trrena, trp.rn0).</p>
+<p><strong>A3.4 Residential leakage to biomass</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+p^{lk}_{f,t} = \min\!\left(\left(1 + \frac{\tau_{f,t} - \tau_{f,t-1}}{p_{f,t-1}}\right)^{\sigma \eta_{bio} / (\eta_f L)} - 1,\ 1\right), \quad \Delta_{f,t} = -(F_{f,t-1} - X_{f,t-1})\,\eta_f\,p^{lk}_{f,t}, \quad \Delta^{bio}_t = -\sum_f \Delta_{f,t}\,\frac{\eta_f}{\eta_{bio}}
+\]</span></p>
+<p>Over residential fuels <span class="math inline">\(f\)</span> that may leak (gas, LPG, kerosene), years <span class="math inline">\(t\)</span> after the base year. Excel-AI notation (Mitigation section 6b). On only for the country’s most-used cooking fuel (WHO) and when BiomassLeakage = Yes (off in Egypt’s scenarios). <span class="math inline">\(\tau\)</span> the new taxes per GJ with VAT, <span class="math inline">\(\sigma\)</span> the substitution elasticity of biomass for LPG, <span class="math inline">\(\eta\)</span> stove efficiencies (NatGasEff, LPGEff, KerEff, BioEff), <span class="math inline">\(L\)</span> the substitution lag (ResSubstLag). <span class="math inline">\(X\)</span> the initially exempt use (lkx), phased out over ExemptPhaseoutPeriod from YearPha when ExemptPhaseout; ExemptMostCook = Yes needs the household survey and is not in Coded CPAT yet. The cumulative changes enter residential fuel use (M3.2). Source: Excel-AI: Mitigation section 6b (lkt to lks).</p>
+<p><strong>A3.5 Road engineer model, data</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+Q_{c,f} = sh_{c,f}\,F_{rod,f,t_0}, \quad L_{c,f} = Q_{c,f}\,\lambda_f / 10^9, \quad sh_{lgt,f} = 1 - \textstyle\sum_{c \ne lgt} sh_{c,f}, \quad x_{c,t} = \text{data of year } t \ (\text{"" outside the data years})
+\]</span></p>
+<p>Over vehicle classes <span class="math inline">\(c\)</span> (passenger cars, light vehicles, freight vehicles, 2-3 wheelers, buses), road fuels <span class="math inline">\(f\)</span> (gasoline, diesel, LPG, gas), years <span class="math inline">\(t\)</span>. Excel-AI notation. Country data by year (shares of road fuel use by vehicle class, fuel economy, ownership per thousand people, distance per vehicle, EV shares of purchases and of the stock, duties, import and used-vehicle shares, charging stations, ownership saturation) exist for the data years only (TrYr: 2022-2025); vehicle prices hold their last value; BEV fuel economy and the charging cost follow global paths. The parameters are the transport parameters (TransportParams), the road rows of the fuel | subsector table (gj, lambda = litres per ktoe, CO2 per litre, elasticities, AEEI, base-year use), duties and VAT of the customs data year, import shares of the import data year, range anxiety (Transport3, fitted values where the country has them). Source: Excel-AI: Mitigation section 5b rows 3611-3816 (TransportParams, Transport1, Transport2, Transport3, TransportPaths, Manual inputs BEV fuel economy).</p>
+<p><strong>A3.6 Road engineer model, vehicle stock and ownership</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+S^{o}_{c,t} = \begin{cases} S^{data}_{c,t} &amp; \text{data year} \\ S^{cl}_{c,t-1} &amp; \text{otherwise} \end{cases}, \quad R_{c,t} = \min\!\left(\tfrac{1}{N_c}\,\overline{S^{o}_{c}}^{(n)},\ S^{o}_{c,t}\right), \quad O^{*}_t = \bar{S}\,(1-\phi_t)\,e^{a\,e^{b\,y^{pc}_t/1000}}\,J_{t-1}, \quad O_t = \min\!\left(O_{t-1}(1+g), \max\!\left(O_{t-1}(1-d), \mu O^{*}_t + (1-\mu) O_{t-1}\right)\right), \quad P_t = O_t - \textstyle\sum_c (S^{o}_{c,t} - R_{c,t}), \quad S^{cl}_{c,t} = S^{o}_{c,t} - R_{c,t} + s_{c,t} P_t
+\]</span></p>
+<p>Over vehicle classes <span class="math inline">\(c\)</span> (new and used passenger vehicles, freight, 2-3 wheelers; ICEV and BEV), years <span class="math inline">\(t\)</span>. Excel-AI notation (vehicles per thousand people). Retirements: the average stock of the last <span class="math inline">\(n = \min(N_c, t - t_0 + 1)\)</span> years over the life <span class="math inline">\(N_c\)</span>. Ownership demand: Gompertz in GDP per capita after the GDP feedback (a = gomp_a, b = own_gomp_b), scaled by the actual/expected ratio <span class="math inline">\(J\)</span> of the data years, partial adjustment <span class="math inline">\(\mu\)</span> (own_adj), growth and decline bounds; freight takes its share <span class="math inline">\(\phi\)</span> of the saturation level, falling with income towards fre_share_target; 2-3 wheelers follow a hump in income (cyc_peak_inc, cyc_scale). Purchases split new/used by the used-vehicle share; in data years the gap to the data stock closes the balance (trplg). Charging stations grow with the BEV stock and fall with their cost (charging-station subsidy); the charging mark-up falls with the EV share of the stock; range anxiety is held for TrRALag years, then falls with the stations. Source: Excel-AI: Mitigation section 5b rows 3839-3999, 4236-4249 (trsps to trstdc, tropn to trbevm, trcss to trra, trjhp to trbytu).</p>
+<p><strong>A3.7 Road engineer model, total cost of ownership and EV choice</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+K = \textstyle\sum_{i=1}^{N} \frac{v_{i}}{(1+r)^i}, \quad TCO = d P + \frac{P - dP}{N - 1}\,\frac{1 - (1+r)^{-(N-1)}}{r} + SV + \frac{P\,\iota}{r}\left(1 - (1+r)^{-(n+1)}\right)\theta + m K + \left(\frac{p}{fe} + \tau_{km}\right) K, \quad c = \frac{TCO}{K}, \quad s^{ICE} = \frac{1}{1 + e^{-k (c^{BEV} - c^{ICE}) / \bar{c}}}
+\]</span></p>
+<p>Over vehicle classes (new and used passenger vehicles, freight, 2-3 wheelers), ICEV and BEV, years <span class="math inline">\(t\)</span>. Excel-AI notation. Purchase price P with duties x import share, VAT, ad-valorem taxes (baseline or policy), BEV subsidies and the feebate (CO2 intensity minus the pivot, average or manual, times the feebate rate and the discounted distance); first-year depreciation d, annuity of the rest over N - 1 years, salvage value SV, insurance (rate iota, factor theta = ins_factor), maintenance m per km, fuel or electricity (with the charging mark-up) per km plus the distance tax; BEVs add range anxiety. The discount rate falls with GDP per capita between disc_max and disc_min. In data years the purchase shares are the data’s; the logit gives them afterwards (k by vehicle class). Excel-AI uses the ICEV’s discounted distance in the freight BEV feebate (row 4197) and the BEV’s capital cost with the ICEV’s insurance and maintenance for plug-in hybrids (row 4175). Source: Excel-AI: Mitigation section 5b rows 4081-4233, 4250-4263, 4318-4323, 4352-4357.</p>
+<p><strong>A3.8 Road engineer model, fuel economy, distance and fuel use</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+fe^{new}_t = fe^{new}_{t-1}\left(\frac{p_t + \beta_t e}{p_{t-1} + \beta_{t-1} e}\right)^{|\epsilon_F|}(1+\alpha), \quad fe^{st}_t = fe^{new}_t\,\tau + fe^{st}_{t-1}(1-\tau), \quad v_t = v_{t-1}\left(\frac{c_t}{c_{t-1}}\right)^{\epsilon_U}\left(\frac{y^{pc}_t}{y^{pc}_{t-1}}\right)^{\epsilon_Y}, \quad B_{c,f,t} = V_{c,f,t}\,v_{c,f,t}\,\kappa_c / 1000, \quad F_{c,f,t} = B_{c,f,t} / fe^{st}_{c,f,t}, \quad \kappa_c = \frac{\sum_f F^{bal}_{f,t_0} w_{c,f}}{\sum_f F_{c,f,t_0} w_{c,f}}
+\]</span></p>
+<p>Over vehicle classes <span class="math inline">\(c\)</span>, fuels <span class="math inline">\(f\)</span> (gasoline, diesel, LPG, gas, plug-in hybrid, electricity), years <span class="math inline">\(t\)</span>. Excel-AI notation. New-vehicle fuel economy responds to the fuel price with the feebate (<span class="math inline">\(\beta\)</span> the feebate rate, <span class="math inline">\(e\)</span> the fossil CO2 per litre); the stock turns over at <span class="math inline">\(\tau\)</span> (passenger: 1 / the weighted ownership life; freight, 2-3 wheelers: 1 / life). ICE fuel shares of purchases follow the TCO ratio of the fuel (own elasticity) and of the other fuels (cross elasticity), then the stock shares turn over. Distance per vehicle is the data’s in data years, then responds to the cost per km and to GDP per capita; the base year calibrates distance to the energy balance (trbu, trcq: held after the base year). Buses: base-year bus fuel use scaled with passenger fuel use. Source: Excel-AI: Mitigation section 5b rows 4003-4078, 4264-4522.</p>
+<p><strong>A3.9 Road engineer model, results</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+F^{rod}_{f,t} = F_{f,t}\,\gamma_f \ (\gamma_f = F^{bal}_{f,t_0} / F_{f,t_0}), \quad F^{rod}_{bio,t} = B^{g}_{t_0} \frac{F^{rod}_{gso,t}}{F^{bal}_{gso,t_0}} + B^{d}_{t_0} \frac{F^{rod}_{die,t}}{F^{bal}_{die,t_0}}, \quad r_{f,t} = \frac{F_{rod,f,t}}{F_{all,f,t}}
+\]</span></p>
+<p>Over road fuels <span class="math inline">\(f\)</span>, years <span class="math inline">\(t\)</span>. Excel-AI notation. Road fuel use of the engineer model in ktoe, calibrated to the base-year balance (electricity only if recon_ele); it would replace road fuel use of sections 3 and 5 with TrModel = Engineer (not in Coded CPAT: tr.sw = 0 in Egypt’s scenarios). Distance, fuel use and stock-average fuel economy by vehicle class, the range-anxiety fit targets of the data years, and road fuel use with its share of total use (trq, tran.rsh) go to the transport co-benefits module. Source: Excel-AI: Mitigation section 5b rows 4525-4616.</p>
+</section>
+<section id="a4-power" class="level2">
+<h2 class="anchored" data-anchor-id="a4-power">A4 Power</h2>
+<p>To complete: capacity factors and overrides; vintages of capital cost and storage (E34-E36); VRE share and storage (methodology: <span class="math inline">\(sst = 9v^2\)</span>, long-term storage above 75%); early coal retirement (E62); investment need (E63, <span class="math inline">\(Req_t^2/Req_{t-1}\)</span>); second-round investment; manual capacity; PPAs; supply cost lag (E48); subsidy gap; renewable subsidies and rebates.</p>
+<p><strong>A4.1 Generation types of the country</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+x_k = \begin{cases} x^{country}_k &amp; x^{country}_k &gt; 0 \\ x^{world}_k &amp; \text{otherwise} \end{cases}, \quad \eta_k = \frac{Out_k}{In_k\,\kappa} \ (\ge \eta^{min}), \quad cf_k = \frac{Gen_k}{IC_k} \ (\text{within the bounds, else the studies value})
+\]</span></p>
+<p>Over generation types <span class="math inline">\(k\)</span> (coal, gas, oil, nuclear, wind, solar, hydro, other renewables, biomass). Excel-AI notation. Costs, lifetime and capacity factor of the legacy Power table (country where positive, else world); efficiency and capacity factor from the base-year energy balance and installed capacity; WACC by WACCSource (country rate plus the coal or technology premium of the income group, the studies value, a user or income-group rate, at least MinimumWACC). Investment permitted (If Present*: when the type has more than InvPresentShare of capacity) and its first year (hydro from the base year when it has more than HydInvShare of generation). Source: Excel-AI: Inputs_ptech, Inputs_pset (build_inputs_powerdata).</p>
+<p><strong>A4.2 Power year paths</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+\text{capex time factors } \tau_{k,t}, \quad \text{storage costs}, \quad \iota_t = \max\!\left(0, P_4(\min(\ln y^{pc}_{t-1}, \bar{\ell}))\right)/n
+\]</span></p>
+<p>Over years <span class="math inline">\(t\)</span>. Excel-AI notation. Capex time factors of the RenewableCostDeclineRate scenario for renewables (missing series: the old series for wind and solar, medium otherwise), medium for the others; income factor a quartic polynomial in log GDP per capita of the previous year; demand shock of 2023-2024 (GHGs data); planned coal retirement where the data flag it. Source: Excel-AI: Inputs_ppath (build_inputs_powerdata).</p>
+<p><strong>A4.3 Power parameters and system shares</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+s_{nxp} = -\frac{M + X}{D}, \quad s_{tsd} = -\frac{SD + TR + DL}{D}, \quad s_{eou} = -\frac{OU}{D}, \quad s_{add} = \frac{G}{D} - 1 - s_{nxp} - s_{tsd} - s_{eou}
+\]</span></p>
+<p>Excel-AI notation. <span class="math inline">\(D\)</span> final electricity demand of the base year (energy balance), <span class="math inline">\(G\)</span> base-year generation (ktoe). Source: Excel-AI: Inputs_ppar; Inputs rows 254-263.</p>
+<p><strong>A4.4 Derived constants of the generation types, user and demand groups</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+acap_k = \frac{1/N_k + r_k\,\bar{s}}{cf_k \cdot 8760}, \quad lcap_k = \frac{1}{cf_k \cdot 8760 \cdot dlf_k}, \quad k^{fuel}_k = \frac{0.0036}{\eta_k}, \quad ef^{kWh}_k = ef_k\,k^{fuel}_k
+\]</span></p>
+<p>Excel-AI notation: <span class="math inline">\(\bar{s}\)</span> the average outstanding share of capital (CapAvgShr). User groups (residential, industry): transmission cost, pass-through, VAT and historical prices; demand groups (transport, residential, industry, services): electricity elasticities and the efficiency multiple; base-year demand by subsector from the energy balance or EnergyCons (BalancesOrConsumption). Source: Excel-AI: Inputs rows 204-252 (build_inputs_power).</p>
+<p><strong>A4.5 Scenario settings of the generation types, variable and levelised variable cost</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+tvc_{k,t} = vfix_k + \bar{p}^{f}_{k,t}\,k^{fuel}_k + xck_{k,t} + cic_t\,\mathbb{1}[k = coal] + xac_{k,t} + shk_{k,t} + reb_t, \qquad lvc_{k,t} = \frac{\sum_{\tau \ge t} (1+r_k)^{t_0 - \tau}\,tvc_{k,\tau}}{\sum_{\tau \ge t} (1+r_k)^{t_0 - \tau}}
+\]</span></p>
+<p>Over generation types <span class="math inline">\(k\)</span>, years <span class="math inline">\(t\)</span>. Excel-AI notation. The scenario’s A0 settings: capacity factor (actual within CFOverride bounds, else the studies value), efficiency (actual above MinimumThermalEfficiency), WACC by WACCSource. <span class="math inline">\(\bar{p}^f\)</span>: the price before new policies of the type’s fuel, the average over the year and up to PwAvgLag years before (spot prices if chosen); <span class="math inline">\(xck\)</span> the change in existing carbon pricing against the price data, <span class="math inline">\(cic\)</span> the coal implicit cost (GoalSeekCoal, short to long term by CoalICYr), <span class="math inline">\(xac\)</span> new carbon tax, ETS cost and the new taxes of the fuel price reform per kWh, <span class="math inline">\(shk\)</span> the shadow price, <span class="math inline">\(reb\)</span> the rebate of the shadow price. The levelised variable cost discounts the remaining years at the type’s WACC. Source: Excel-AI: Mitigation section 3 (A0, B, C, D).</p>
+<p><strong>A4.6 Power cost breakdown (memo)</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+cost_k = capex_k + O\&amp;M_k + fuel_k + sys_k + policy_k + rns_k
+\]</span></p>
+<p>Excel-AI notation: levelised capital cost, fixed and variable O&amp;M, fuel and existing carbon pricing, new policy costs, renewable subsidy; the check against the cost used. Source: Excel-AI: Mitigation section 3 (cost breakdown).</p>
+<p><strong>A4.7 Electricity excise and renewable subsidies of the scenario</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+entx_{u,t} = \mathbb{1}[o \ne B]\left(\text{manual excise}_{u,t}\,\delta_t + FPR_{ecy,u,t}\right), \qquad rns_{k,t} = -\left(s^{BL} + s^{add}_t\right)\nu_t
+\]</span></p>
+<p>Excel-AI notation. The manual excise path applies with AdditionalExcise (nominal inputs deflated); the additional renewable subsidy phases out over RenSubsidyAddPhaseoutYrs from its start year; hydro by RenewableSubsidyHydro. Source: Excel-AI: Mitigation section 3 (entxd, entx, rnsp, rns, exs).</p>
+<p><strong>A4.8 End-user electricity prices, subsidies and power-sector taxes</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+rp_{u,t} = \max\!\left(rp^{pre}_{u,t} + (\bar{c}_t\,\pi\,(1 - rb) + pex_{u,t})(1 + vat_u),\ p^{min}\right), \quad rp^{pre}_{u,t} = rp^{pre}_{u,t-1} + \pi\,\Delta(sc + ps + csd + ores)_{u,t}(1 + vat_u)
+\]</span></p>
+<p>Over user groups <span class="math inline">\(u\)</span> (residential, industry). Excel-AI notation. Historical years: the data price; after the last historical year the price moves with the supply cost (average generation cost of last year plus transmission), the producer subsidy per kWh, the consumer subsidy phase-out and the other residual, passed through at PowerSectorPriceChangePassOn; new policy costs (<span class="math inline">\(\bar{c}\)</span> the share-weighted policy cost per kWh, rebated if chosen) and the excise of the scenario. Producer subsidies are split between the groups by their supply-cost gap (floor PsElFloor). Source: Excel-AI: Mitigation section 3 (G1, G2).</p>
+<p><strong>A4.9 Early retirement and second-round investment</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+early_t = \frac{\max\!\left(0, \min(K^{eff}_{coal,t}\,\bar{e}, g^{re}_t)(1 - s^{ec}_t)\right)}{cf_{coal}}\,f^{early}(1 - ppa_t), \quad second_k = \min\!\left(space_k,\ deficit - \sum_{j: tic_j &lt; tic_k} space_j\right)
+\]</span></p>
+<p>Excel-AI notation: coal retires early up to EarlyMaxShare of its effective capacity, as far as wind and solar can grow and are cheaper (logit share <span class="math inline">\(s^{ec}\)</span>); the investment need left after the logit allocation goes to the cheapest permitted types with space under their scale-up limit (ties broken by the type order), the rest to gas if PwDeficitGas. Source: Excel-AI: Mitigation section 3 (K4, K5, investment).</p>
+</section>
+<section id="a5-road-transport" class="level2">
+<h2 class="anchored" data-anchor-id="a5-road-transport">A5 Road transport</h2>
+<p>To complete from Methods Transport (T1-T18): retirement, purchases new and used, total cost of ownership, ICE fuel split, new and stock fuel economy, vehicle-km, calibration, buses, range anxiety (fitted offline), biofuels.</p>
+</section>
+<section id="a6-revenues" class="level2">
+<h2 class="anchored" data-anchor-id="a6-revenues">A6 Revenues</h2>
+<p>To complete: power-sector revenues (E75: fuel taxes of generation, excise, VAT on electricity, subsidy gap, renewable subsidies, rebates); subsidy reform revenue; producer subsidies; price-control losses (memo).</p>
+<p><strong>A6.1 Power-sector revenues by generation type</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+R^{tax}_k = PE_k\,\kappa\,(etx + vat)_{f(k)}, \quad R^{new}_k = G_k\,c^{new}_k - CO2_k\,etr\,(1 - rf), \quad R^{xcp}_k = CO2_k\,(XCT\,\phi^{CT} + XETS\,\phi^{ETS})
+\]</span></p>
+<p>Excel-AI notation: existing taxes and subsidies on power fuels, the new policy cost of generation less the free part of the ETS, existing carbon pricing, renewable subsidies. Source: Excel-AI: Mitigation section 3 (revenues).</p>
+<p><strong>A6.2 Revenue by policy instrument</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+R^{ct} = \sum_e CO2^{cov}_e\,ct_e + R^{reb} + R^{xs}, \quad R^{ets} = \rho \sum_e CO2_e\,etr_e, \quad R^{exi} = R - R^{mf} - R^{ct} - R^{exc} - R^{vat} - R^{ets} - R^{psu} - R^{ren}
+\]</span></p>
+<p>Over coverage sectors <span class="math inline">\(e\)</span>, fuels <span class="math inline">\(f\)</span>, years <span class="math inline">\(t\)</span>. Excel-AI notation (Mitigation section 12). Carbon tax on covered CO2 (power: coal, gas, oil), electricity rebates and excise surplus; excises net of the power carbon tax and ETS; VAT; ETS at the auctioned share <span class="math inline">\(\rho\)</span>; producer subsidies and the power subsidy gap; renewable subsidies; the methane fee; existing taxes as the remainder. Revenue by fuel and by power fuel; shares of GDP; nominal GDP from WEO divided by Billion (the WEO values are already in billions). Source: Excel-AI: Mitigation section 12; covct section 17.</p>
+</section>
+<section id="a7-emissions" class="level2">
+<h2 class="anchored" data-anchor-id="a7-emissions">A7 Emissions</h2>
+<p>To complete: local air pollutants by sector (section 15, E87-E90).</p>
+<p><strong>A7.1 Emission factors of the country</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+ef_{f,s} = ef^{IIASA}_{country \to region \to world}(f', s') \cdot \chi, \qquad \chi = \frac{CO2^{inv}_{t_0 - 1}}{CO2^{B,raw}_{t_0}}
+\]</span></p>
+<p>Over fuels <span class="math inline">\(f\)</span>, EF sectors <span class="math inline">\(s\)</span> (power, road, residential, industry; jet fuel in aviation). Excel-AI notation. Some rows read another fuel or sector (<span class="math inline">\(f'\)</span>, <span class="math inline">\(s'\)</span>); jet fuel takes the IEA factor, biomass 0. The calibration factor <span class="math inline">\(\chi\)</span> uses Excel-AI’s stored scenario-1 CO2 (user 2026-10-29). Other combustion pollutants (GAINS, t/ktoe): country, else region, else world, else 0; other energy use the largest factor of the fuel across the subsectors above it (issue I149). Source: Excel-AI: Inputs rows 273-312, 933-1471; Settings C26-C30.</p>
+<p><strong>A7.2 Greenhouse gases by UNFCCC category</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+E_{c,g,t} = \begin{cases} \text{inventory}_{c,g,t} &amp; t \le t^{inv} \\ E_{c,g,t-1}\,d_{c,t} &amp; \text{otherwise} \end{cases}, \quad d_{c,t} = (1 + g^{pc}_t)^{\epsilon^{Y}_c} (1 + n_t)^{\epsilon^{N}_c} \frac{m_t}{m_{t-1}}, \quad E_{enr,CH_4} = k\,(CH_4^{comb} + CH_4^{sup})\,GWP
+\]</span></p>
+<p>Over categories <span class="math inline">\(c\)</span> (energy, industrial processes, agriculture, LULUCF, waste, other), gases <span class="math inline">\(g\)</span> (CO2, CH4, N2O, F-gases), years <span class="math inline">\(t\)</span>. Excel-AI notation (Mitigation section 14). Energy CO2 is the model’s plus flaring; energy CH4 is combustion and fuel-supply methane scaled to the inventory of the last inventory year (k, from the stored scenario-1 values); energy N2O follows energy CO2; industrial processes follow industrial energy CO2 (IndustrialProcessEmissionsScaleEner); agriculture, waste and other follow income and population with the non-energy elasticities (<span class="math inline">\(m\)</span>: the ratio of CO2 to the baseline when AdditionMitigationPoliciesNonEnergy); agriculture and waste CH4 come from the methane block (A7.3); LULUCF CO2 declines by LULUCFAnnualEmissionsDecline of the inventory value while positive. Totals exclude LULUCF; ghg.inc includes it. Kaya rows (section 13) index population, GDP per capita, energy and carbon intensity to the base year. Source: Excel-AI: Mitigation sections 13 (Kaya) and 14.</p>
+<p><strong>A7.3 Methane by source and the methane fee</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+a_{s,t} = \min(1, \max(0, A_s (mf_t\,GWP_s\,\iota_s)^{B_s})), \quad M_{s,t} = M_{s,0}\,\frac{X_{s,t}}{X_{s,0}}\,(1 - \delta_s)^{\max(0, t - t^{inv})}\,(1 - a_{s,t}), \quad R^{mf} = mf \sum_s M_s\,GWP_s\,\iota_s
+\]</span></p>
+<p>Over sources <span class="math inline">\(s\)</span> (oil and gas, downstream gas, coal mining, biomass, livestock, rice, waste), years <span class="math inline">\(t\)</span>. Excel-AI notation (Mitigation section 14). Abatement curve <span class="math inline">\(A, B\)</span> by source (CH4Inputs); <span class="math inline">\(\iota_s\)</span> whether the fee applies; activity: oil and gas and coal production (from the base year plus one, with world demand and the price response to the fee cost passed through), gas and biomass use, and income and population drivers for livestock, rice and waste; base emissions <span class="math inline">\(M_{s,0}\)</span> are the inventory CH4 of the last inventory year split by source shares (fuel sources capped by MethShareCap relative to activity). ch4.revf is the fee revenue with gas and biomass use of the stored baseline. Source: Excel-AI: Mitigation section 14 (ch4.*).</p>
+<p><strong>A7.4 NDC target and gap</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+L^{NDC} = \min(B_{ty}, B_{ty}(1 - r)), \quad r = 1 - \frac{\ell}{B^{NDC}_{ty}}, \quad gap_t = \frac{1 - E_t / E^{base}_t}{r}
+\]</span></p>
+<p>Over years <span class="math inline">\(t\)</span>. Excel-AI notation (Mitigation section 14, NDC rows; computed after the year loop because they read the baseline at the target year <span class="math inline">\(ty\)</span>). The NDC row (Latest<em>, or the first or second round) gives the type (BAU, fixed, historical, intensity, unquantifiable), target years, reference year, unconditional and conditional changes, LULUCF and gas coverage; the level <span class="math inline">\(\ell\)</span> by type; the reduction selected by Conditionality (average of the two where not chosen). Text rows and ‘N/A’ are not compared numerically. Source: Excel-AI: Mitigation section 14 (ndc.</em>).</p>
+<p><strong>A7.5 Carbon pricing indicators</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+tcp_f = \frac{R_f}{CO2_f}, \quad cov^{ct} = \frac{\sum_e CO2^{cov}_e}{CO2}, \quad cov^{ets} = \frac{\sum_e CO2_e\,etsc_e}{CO2}, \quad p^{eff} = ct\,cov^{ct}, \quad ecr = \frac{R^{net} + R^{new} + R^{sr}}{CO2}
+\]</span></p>
+<p>Over fuels <span class="math inline">\(f\)</span>, sector groups <span class="math inline">\(S\)</span>, years <span class="math inline">\(t\)</span>. Excel-AI notation (Mitigation section 17). Revenue by fuel includes the power fuel rows (coal, gas, oil); covered CO2 (covct, A6.2) and ETS-covered CO2 as shares of energy CO2. Source: Excel-AI: Mitigation section 17.</p>
+<p><strong>A7.6 Local air pollutants</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+AP_{p,s} = \sum_f F_{s,f}\,\frac{e^{0}_{p,s,f}(1 - w_t) + w_t\,e^{1}_{p,s,f}}{1000}, \quad w_t = \omega\,\frac{t - t_0}{t^{EF} - t_0}, \quad AP^{CO_2e} = \sum_p AP_{p}\,GWP100_{p,r}
+\]</span></p>
+<p>Over pollutants <span class="math inline">\(p\)</span> (PM2.5, NOx, SO2, VOC, BC, OC, CO), subsectors <span class="math inline">\(s\)</span> and power, sources (coal and gas plants, other power, road, ground level, other, food and agriculture). Excel-AI notation (Mitigation section 15, read by the air pollution module). Combustion factors of the base year and the final year (A7.1), weighted by <span class="math inline">\(w_t\)</span> (EFSel share <span class="math inline">\(\omega\)</span>, final year EFEndYear); power by generation type. Food processing uses the food share of the energy balance; agriculture is the rest of food and forestry. By source, POM = 1.3 OC and other PM = PM2.5 - BC - POM (at least 0); methane by source from the CH4 rows. GWP100 of the GAINS region of the country. Source: Excel-AI: Mitigation section 15.</p>
+</section>
+<section id="a8-gdp-and-results" class="level2">
+<h2 class="anchored" data-anchor-id="a8-gdp-and-results">A8 GDP and results</h2>
+<p>GDP multipliers, external balance, the inputs of the modules (section 17b), welfare, subsidies and efficient prices (section 18).</p>
+<p><strong>A8.1 Fiscal multipliers by lag</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+m_{i}(k) = \bar{m}_{g,i}(\min(k, k^{last})) + s\,\sigma_{g,i}(\min(k, k^{last})), \quad k = 0, \dots, 19
+\]</span></p>
+<p>Over instruments <span class="math inline">\(i\)</span> (exc, pit, cit, vat, capt, gnfs, trns, wage), lags <span class="math inline">\(k\)</span>. Excel-AI notation (Inputs rows 456-486): MFMOD median and standard deviation by income group (or global); lags past the last data lag (11) hold its value. Country-estimated and manual multipliers (Est<em>, Man</em>) are not in Coded CPAT yet. Source: Excel-AI: Inputs rows 454-486.</p>
+<p><strong>A8.2 External balance</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+\Delta NIM_f = \Delta F_f\,\theta\,sp_f\,ts_{g(f)}, \quad ts_g = \frac{M_g - X_g}{M_g + P_g - X_g}, \quad TB_g = -(M_g + X_g)\,\theta\,p^{int}_g, \quad CA^{p} = CA\,\pi - \sum_g \Delta NIM_g
+\]</span></p>
+<p>Over fuels <span class="math inline">\(f\)</span>, trade groups <span class="math inline">\(g\)</span> (oil products, gas, coal), years <span class="math inline">\(t\)</span>. Excel-AI notation (Mitigation section 16b; Inputs_macro trade rows, legacy rows 741-743). Base-year imports <span class="math inline">\(M\)</span>, production <span class="math inline">\(P\)</span>, exports <span class="math inline">\(X\)</span> (negative) from the energy balance; the change in use against the baseline (echg) at the supply price; the trade balance at the real international price of scenario 1’s source (GJ per barrel, MMBtu, tonne). The current account is WEO’s (USD bn and % of GDP), held after the last data year; bca.n (current prices) is 0 after it (issue I130). Excel-AI types Egypt’s WEO values; Coded CPAT reads WEO for any country. Source: Excel-AI: Mitigation section 16b; Inputs_macro.</p>
+<p><strong>A8.3 Air pollution costs and PM2.5 concentration from the module</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+c^{ap}_{c,t} = \frac{\sum_{s \in c} mc^{ap}_{s,f,t}\,F_{s,f,t}}{\sum_{s \in c} F_{s,f,t}}, \quad PM_{src,t} = 1000 \sum_p AP_{src,p,t}\,\kappa_{p,src}
+\]</span></p>
+<p>Over price codes <span class="math inline">\(c\)</span>, sector groups <span class="math inline">\(S\)</span>, sources (coal, gas and other power plants, road, ground level, other, food), years <span class="math inline">\(t\)</span>. Excel-AI notation (Mitigation section 17b). As A1.2 but weighted by the current year’s fuel use (the plain average where it is 0); per unit for oil products, per GJ in airpol.cost.gj; residential coal only above ApCoalResMin of buildings use. The concentration coefficients <span class="math inline">\(\kappa\)</span> are the module’s (typed FromAirPollution). Source: Excel-AI: Mitigation section 17b.</p>
+<p><strong>A8.4 Transport externalities per unit of road fuel</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+c^{k}_{f,t} = c^{k}_{km,t}\,\overline{fe}_{f,t}\,\mu_{f,t}\,\rho_{f,t}\,(\phi_{f,t})^{[k = rdm]}, \qquad \mu_f = \frac{\epsilon^{U}_{die} + w_f(\epsilon^{U}_{gso} - \epsilon^{U}_{die})}{\epsilon^{U}_{die} + \epsilon^{F}_{die} + w_f(\epsilon^{U}_{gso} + \epsilon^{F}_{gso} - \epsilon^{U}_{die} - \epsilon^{F}_{die})}
+\]</span></p>
+<p>Over kinds <span class="math inline">\(k\)</span> (accidents, congestion, road damage), road fuels <span class="math inline">\(f\)</span> (gasoline, diesel, LPG, gas, electricity), years <span class="math inline">\(t\)</span>. Excel-AI notation (Mitigation section 17b, rows 8510-8556). The cost per vehicle-km of the transport co-benefits module times the average fuel economy of the road engineer model (km per liter or kWh), the marginal share of distance in a change of fuel use (<span class="math inline">\(w_f\)</span>: the passenger share of the fuel’s use in the baseline; gasoline 1), the road share of the fuel; road damage only for the freight share <span class="math inline">\(\phi_f\)</span>. Per GJ for gasoline, diesel and LPG (A8.5). Source: Excel-AI: Mitigation section 17b.</p>
+<p><strong>A8.5 Welfare gains</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+W = (D^{B} - D) + v^{PM}(PM^{B} - PM) + \sum_k c^{k}_{km}(km^{B} - km) - \sum_f \tfrac{1}{2}(w_f + w^{B}_f)(F_f - F^{B}_f) - MC, \qquad D = SCC\cdot GHG
+\]</span></p>
+<p>Over fuels <span class="math inline">\(f\)</span>, methane sources, years <span class="math inline">\(t\)</span>; in USD bn and in % of GDP (wel.*.pct). Excel-AI notation (Mitigation section 18, rows 8566-8671, 9063). Climate at the national social cost of carbon; air pollution at the value of PM2.5 concentration (module); road transport at the module’s cost per km of the change in distance (road engineer model); the efficiency cost at the average fuel tax per ktoe of the scenario and the baseline (methodology: <span class="math inline">\(ddw = \tfrac{1}{2}(nc - xcp)(F_P - F_B)\)</span>); the abatement cost of the methane fee (marginal price capped at the source’s full abatement, times <span class="math inline">\(b/(1+b)\)</span> of the abatement). Also the environmental gain of the change in fossil fuel use at the global climate cost plus the air pollution and transport costs per GJ (env.ffs.cost, wel.ffs). Source: Excel-AI: Mitigation section 18.</p>
+<p><strong>A8.6 Fossil fuel subsidies and efficient prices</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+S^{exp}_{i} = \max(0, sp_i - p_i)\,Q_i, \qquad S^{imp}_{i} = [p_i \le p^{*}_i]\,(p^{*}_i - \max(p_i, sp_i))\,Q_i, \qquad p^{*}_i = (sp_i + ext_i)(1 + vat_i)
+\]</span></p>
+<p>Over price rows <span class="math inline">\(i\)</span> (oil products; gas, coal and electricity by industry, residential, power and other: the use-weighted average), price codes <span class="math inline">\(c\)</span>, years <span class="math inline">\(t\)</span>. Excel-AI notation (Mitigation section 18, rows 8675-9059). Subsidies: supply cost of the year, external cost (global climate, air pollution, road transport per GJ), VAT at the general rate (VAT_WEO of 2022, Excel-AI VatGen) on both where consumers pay VAT (oil products times the household share); use in PJ (GWh). Efficient prices per price unit: the baseline supply cost, the Pigouvian taxes (air pollution, climate cost of the price code, road transport), VAT on the supply cost and, where ExternalityAddVAT, on the Pigouvian taxes; the averages weighted by use. Source: Excel-AI: Mitigation section 18.</p>
+</section>
+</section>
+<section id="appendix-b-distribution-adjustments" class="level1" data-number="D">
+<h1 data-number="D"><span class="header-section-number">D</span> Appendix B: distribution adjustments</h1>
+<p>Excel-AI Distribution 0.1.3 (methodology chapter 5).</p>
+<section id="b1-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="b1-distribution">B1 Distribution</h2>
+<p><strong>B1.1 Input-output data of the country</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+U_k = \frac{D_{y}}{D_{GTAP}}\Big(\sum_{i \notin fuels} (TD_i + X_i)\,L_{i,k} + TD_k\Big)
+\]</span></p>
+<p>Over fuel groups <span class="math inline">\(k\)</span>, GTAP sectors <span class="math inline">\(i\)</span>, categories <span class="math inline">\(g\)</span>. Total use of fuel group <span class="math inline">\(k\)</span>: embedded in the total demand <span class="math inline">\(TD\)</span> and exports <span class="math inline">\(X\)</span> of non-fuel sectors plus its own demand, at ResultsYear prices (WEO GDP deflator <span class="math inline">\(D\)</span> over the GTAP year). Source: Excel-AI: DistMapping.</p>
+<p><strong>B1.2 Survey to national accounts</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+N_{d} = n_{d}\,\frac{POP_y}{\sum n}, \qquad c_d = c^{svy}_d\,\frac{C^{NA}_y}{c^{svy}\,POP_y}, \qquad C^{NA}_y = GDP_y\,\frac{C}{GDP}
+\]</span></p>
+<p>Over deciles, samples. Population and GDP (local currency) of the scenario in YearDistn; private consumption in % of GDP from WDI (NE.CON.PRVT.ZS) in its latest year. Source: methodology: 05_Distribution, eq-5_4, eq-5_5; Excel-AI: Distribution section 7.</p>
+<p><strong>B1.3 Mitigation-adjusted incidence and deadweight loss</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+\beta = \min\Big(1, \max\big(0, \frac{R}{\sum_d u_d C_d}\big)\Big), \qquad \lambda = \beta + \tfrac{1}{2}(1 - \beta)\ \text{(DWLs)}
+\]</span></p>
+<p>With InferredDist = Yes the burden is scaled to the revenue mitigation actually raises (<span class="math inline">\(\beta\)</span> = 1 otherwise); with DWLs = Yes the deadweight triangle is added. Source: methodology: 05_Distribution, eq-5_6; Excel-AI: Distribution section 6.</p>
+<p><strong>B1.4 Cooking-fuel exemption</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+t_{f^c,d} = 0 \quad \text{for } d \le \bar{d}
+\]</span></p>
+<p>Over deciles <span class="math inline">\(d \le\)</span> ExemptCookDeciles. The main cooking fuel of the country (WHO) when ExemptMostCook = Yes. Source: Excel-AI: Distribution sections 1 and 4.</p>
+<p><strong>B1.5 Personal income tax cut</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+PIT_d \in \Big\{\min(\bar{p}, p_d) + \tfrac{\sum_d (\bar{p} - p_d)^{+} N_d}{N},\ \ p_d\,\tfrac{R_{PIT}}{B},\ \ \min\big(p_d, \tfrac{(R_{PIT} - P_{d-1})^{+}}{N_d}\big)\Big\}, \quad p_d = \frac{B\,s_d}{\sum s\,N_d}, \ \bar{p} = \frac{R_{PIT}}{N}
+\]</span></p>
+<p>Over deciles <span class="math inline">\(d\)</span>. Personal allowance, proportional compensation or targeted exemption from the bottom up to decile DistExcCfDec (<span class="math inline">\(P_{d-1}\)</span> the PIT paid by the deciles below). PIT shares <span class="math inline">\(s_d\)</span> by MissingDataReplacement. Source: Excel-AI: Distribution section 8.</p>
+<p><strong>B1.6 Public investment and current spending</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+PUI_d = \frac{R_{PUI}\,(1 - a_d)}{\sum_d (1 - a_d) N_d}, \qquad CTS_d = \frac{R_{CTS}\,b_d}{\sum_d b_d N_d}
+\]</span></p>
+<p>Over deciles <span class="math inline">\(d\)</span>, samples (public investment). <span class="math inline">\(a_d\)</span> access to the infrastructure chosen (PublicInfrastructureInvType); <span class="math inline">\(b_d\)</span> the ASPIRE benefit of the programme chosen (CurrentSpendingType) by quintile. Source: methodology: 05_Distribution, eq-5_13, eq-5_14; Excel-AI: Distribution section 8.</p>
+<p><strong>B1.7 Gini coefficient</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+G = 1 - \frac{\sum_d x_d W_d}{\sum_d x_d}, \qquad L(q) = a q^2 + b q \text{ fitted to the cumulative shares}
+\]</span></p>
+<p>Over samples. The legacy Gini: a quadratic Lorenz curve through the origin fitted to the ten decile points (least squares), linear in the decile totals <span class="math inline">\(x_d\)</span> (weights <span class="math inline">\(W_d\)</span>, DistMapping DGiniW). Before (postx) and after (posti) recycling. Source: Excel-AI: Distribution section 9; DistMapping DGiniW.</p>
+<p><strong>B1.8 Price change by production sector</strong> <em>(adjustment)</em></p>
+<p><span class="math display">\[
+t_i = \sum_k L_{i,k}\,\phi_k\ (i \notin fuels), \qquad t^{*}_i = t_i\,\gamma_{s(i)}, \qquad \bar{t}_s = \frac{\sum_{i \in s} Q_i t^{*}_i}{\sum_{i \in s} Q_i}
+\]</span></p>
+<p>Over GTAP sectors <span class="math inline">\(i\)</span>, CPAT sectors <span class="math inline">\(s\)</span> (by output <span class="math inline">\(Q\)</span> or household demand). Pass-through <span class="math inline">\(\gamma\)</span> where PassthroughDist = Yes; the 20 sectors with the largest price change listed (ties by sheet order). Source: Excel-AI: Distribution section 11.</p>
+</section>
+</section>
+<section id="appendix-symbols-and-codes" class="level1" data-number="E">
+<h1 data-number="E"><span class="header-section-number">E</span> Appendix: symbols and codes</h1>
+<p>Main symbols, their CPAT code, meaning and unit. “Notation from” says whether the symbol is the methodology’s (M) or Excel-AI’s (X). A code marked † is not yet confirmed in the codes map: to be checked and, where the codes map has no code, proposed for it (root NORMS section 3, codes protocol C11).</p>
+<p><strong>Notation clashes to keep in mind.</strong> In the methodology, <span class="math inline">\(g\)</span> is the sector group in mitigation, generation in the power chapter and the consumption category in distribution; <span class="math inline">\(E\)</span> is both electricity and the energy UNFCCC sector; <span class="math inline">\(\gamma\)</span> is a generation share in power and the pass-through in distribution. This list uses <span class="math inline">\(g\)</span> for sector groups (and categories in distribution only), <span class="math inline">\(g_t\)</span> for required generation in M4.2 alone, and <span class="math inline">\(\gamma_g\)</span> only in distribution.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Code</th>
+<th>Meaning</th>
+<th>Unit</th>
+<th>Notation from</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(F\)</span></td>
+<td><code>ener</code></td>
+<td>Fuel use (elasticity form <span class="math inline">\(F^e\)</span>: enel)</td>
+<td>ktoe</td>
+<td>M</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(Y\)</span></td>
+<td><code>gdp.pos.usd</code></td>
+<td>Real GDP (baseline <span class="math inline">\(Y^0\)</span>)</td>
+<td>USD bn real</td>
+<td>M</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(p\)</span></td>
+<td><code>atp</code></td>
+<td>After-tax (retail) price</td>
+<td>USD/GJ</td>
+<td>M</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(p^0\)</span></td>
+<td><code>rpb</code></td>
+<td>Retail price before new policies</td>
+<td>USD/GJ</td>
+<td>X</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(sp\)</span></td>
+<td><code>sp</code></td>
+<td>Supply price</td>
+<td>USD/GJ</td>
+<td>M</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(fixsp\)</span></td>
+<td><code>spf</code></td>
+<td>Fixed part of the supply price</td>
+<td>USD/GJ</td>
+<td>M</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(gp\)</span></td>
+<td><code>gp, gpi</code></td>
+<td>International price</td>
+<td>source unit</td>
+<td>M</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(txo\)</span></td>
+<td><code>txo (txf floating; etx, esub by sign)</code></td>
+<td>Excise and other taxes, net of subsidies</td>
+<td>USD/GJ</td>
+<td>M</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(pcc\)</span></td>
+<td><code>rp.ctrl</code></td>
+<td>Pass-through of international price changes</td>
+<td>share</td>
+<td>M</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(vat, vatrate\)</span></td>
+<td><code>vat, vatr†</code></td>
+<td>VAT payment, VAT rate</td>
+<td>USD/GJ, share</td>
+<td>M</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(NCT\)</span></td>
+<td><code>cptraj, ctr</code></td>
+<td>New carbon tax per tonne (national, by sector)</td>
+<td>USD/tCO2</td>
+<td>M</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(NETSP\)</span></td>
+<td><code>ets.p, etr</code></td>
+<td>New ETS price per tonne</td>
+<td>USD/tCO2</td>
+<td>M</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(nct, netsp, nexc\)</span></td>
+<td><code>ctxnew, ets, ntx</code></td>
+<td>New carbon tax, ETS cost, excise per unit of energy</td>
+<td>USD/GJ</td>
+<td>M</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(xcp, \Delta xcp\)</span></td>
+<td><code>xcp, xcpd</code></td>
+<td>Existing carbon pricing; its change against the price data</td>
+<td>USD/GJ</td>
+<td>M</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(ef\)</span></td>
+<td><code>ef</code></td>
+<td>CO2 emission factor</td>
+<td>tCO2/GJ</td>
+<td>M</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\varphi_{NCT}\)</span></td>
+<td><code>ctcov</code></td>
+<td>Coverage of the new carbon tax</td>
+<td>share</td>
+<td>M</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\kappa, \omega\)</span></td>
+<td><code>etsc, obr</code></td>
+<td>New ETS coverage; share allocated free</td>
+<td>share</td>
+<td>X</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\Sigma, sh\)</span></td>
+<td><code>shpx, shp</code></td>
+<td>Shadow price per tonne; per unit of energy</td>
+<td>USD/tCO2, USD/GJ</td>
+<td>X</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\alpha\)</span></td>
+<td><code>eff_imp</code></td>
+<td>Autonomous energy efficiency improvement</td>
+<td>share per year</td>
+<td>M</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\alpha^{+}\)</span></td>
+<td><code>addeff†</code></td>
+<td>Additional policy-induced efficiency gain</td>
+<td>share per year</td>
+<td>X</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\Psi\)</span></td>
+<td><code>shock</code></td>
+<td>Demand shock (methodology: Covid adjustment)</td>
+<td>factor</td>
+<td>M</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\epsilon_Y, \epsilon_U, \epsilon_F\)</span></td>
+<td><code>el_inc, el_dem, el_eff</code></td>
+<td>Income, usage and efficiency elasticities</td>
+<td></td>
+<td>M</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(inc\)</span></td>
+<td><code>incf</code></td>
+<td>Income-elasticity adjustment for the income level</td>
+<td>factor</td>
+<td>X</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(E\)</span></td>
+<td><code>dem</code></td>
+<td>Electricity demand by sector</td>
+<td>ktoe</td>
+<td>M</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(g_t\)</span></td>
+<td><code>req</code></td>
+<td>Generation required</td>
+<td>MWy</td>
+<td>M</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(vc, \overline{vc}\)</span></td>
+<td><code>tvc, lvc</code></td>
+<td>Variable cost; levelised variable cost</td>
+<td>USD/kWh</td>
+<td>M</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(tic, fix^{fl}\)</span></td>
+<td><code>tic, lfx</code></td>
+<td>Levelised total investment cost; levelised fixed cost</td>
+<td>USD/kWh</td>
+<td>M</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(cap, ret, inv\)</span></td>
+<td><code>cap, ret, nim</code></td>
+<td>Capacity, retirement, investment</td>
+<td>MW</td>
+<td>M</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(gns, gnc^{av}\)</span></td>
+<td><code>shr, gncav</code></td>
+<td>Generation share; average generation cost</td>
+<td>share, USD/kWh</td>
+<td>M</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(p^T, sp^T\)</span></td>
+<td><code>rp, sc</code></td>
+<td>End-user electricity price; supply cost</td>
+<td>USD/kWh</td>
+<td>M</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(rev^{new}, revExi, cs\)</span></td>
+<td><code>rnew, rtx, rsub</code></td>
+<td>Revenue: new policies, existing taxes, existing subsidies</td>
+<td>USD m</td>
+<td>M</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(em\)</span></td>
+<td><code>co2, ghg</code></td>
+<td>Emissions</td>
+<td>MtCO2(e)</td>
+<td>M</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(fs, imp\)</span></td>
+<td><code>fis.sp, fis.imp</code></td>
+<td>Fiscal space, impulse</td>
+<td>share of GDP</td>
+<td>X</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\varepsilon^{GDP}, lvl\)</span></td>
+<td><code>gdp.eff, gdp.lvl</code></td>
+<td>GDP effect; GDP level factor</td>
+<td>share, factor</td>
+<td>X</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\pi^{dg}\)</span></td>
+<td><code>bsh</code></td>
+<td>Budget share of category <span class="math inline">\(g\)</span> in decile <span class="math inline">\(d\)</span></td>
+<td>share</td>
+<td>M</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(t_{fg}\)</span></td>
+<td><code>dpr, dpa</code></td>
+<td>Price change of fuel <span class="math inline">\(f\)</span> in sector <span class="math inline">\(g\)</span></td>
+<td>share</td>
+<td>M</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(e_{fg}\)</span></td>
+<td><code>DLcat</code></td>
+<td>Leontief coefficient of fuel group <span class="math inline">\(k\)</span> in category <span class="math inline">\(g\)</span> (input-output)</td>
+<td>USD/USD</td>
+<td>M</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(T^y, T^y_d\)</span></td>
+<td><code>tgtamt, tgt</code></td>
+<td>Transfer per person; by decile</td>
+<td>LCU</td>
+<td>M</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./11_Versions.html" class="pagination-link" aria-label="Versions and releases">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Versions and releases</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./B_Equations_codes.html" class="pagination-link" aria-label="Equation list: CPAT code names">
+        <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Equation list: CPAT code names</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

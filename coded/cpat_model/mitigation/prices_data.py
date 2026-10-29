@@ -19,11 +19,11 @@ SOURCES = {
     'IMF': {'oil': ('data', 'pint_imf', 'POILBRE', 2032), 'coa': ('data', 'pint_imf', 'PCOALAU', 2032),
             'nga.lng': ('data', 'pint_imf', 'PNGASJP', 2032), 'nga.nam': ('data', 'pint_imf', 'PNGASUS', 2032),
             'nga.eur': ('data', 'pint_imf', 'PNGASEU', 2032)},
-    # Excel-AI bug M20: World Bank rows read by position: LNG <- 'Natural gas, Europe', Europe <- 'LNG, Japan'
+    # bug M20 fixed: each World Bank series by its name (Excel-AI reads the rows by position: LNG <- Europe, Europe <- LNG)
     'WB': {'oil': ('data', 'pint_wb', 'Crude oil, Brent', 2027), 'coa': ('data', 'pint_wb', 'Coal, Australia', 2027),
-           'nga.lng': ('data', 'pint_wb', 'Natural gas, Europe', 2027),
+           'nga.lng': ('data', 'pint_wb', 'Liquefied natural gas, Japan', 2027),
            'nga.nam': ('data', 'pint_wb', 'Natural gas, US', 2027),
-           'nga.eur': ('data', 'pint_wb', 'Liquefied natural gas, Japan', 2027)},
+           'nga.eur': ('data', 'pint_wb', 'Natural gas, Europe', 2027)},
     'IEA': {'oil': ('data', 'pint_iea', 'Crude Oil', 2100), 'coa': ('data', 'pint_iea', 'Coal', 2031),
             'nga.lng': ('data', 'pint_iea', 'Natural Gas - LNG', 2100),
             'nga.nam': ('data', 'pint_iea', 'Natural Gas - North Am', 2100),
@@ -108,7 +108,6 @@ PRICES = ['coa.pow', 'coa.res', 'coa.ind', 'nga.pow', 'nga.res', 'nga.ind', 'gso
           'ker.all', 'oop.all', 'bio.all']
 HIST_YEARS = [2021, 2022, 2023, 2024]
 MARGIN_YEAR = 2024                       # Excel-AI reads the coal and gas margins at 2024 (typed; issue I101)
-VATGEN_YEAR = 2022                       # Excel-AI bug M15: VatGen (Inputs!BB156) is VAT_WEO of 2022 in every year
 RP_FROM_DATA = {'coa', 'nga', 'bio'}     # historical retail price from data; oil products: supply cost + taxes
 OIL_SHARE = {'gso.all', 'die.all', 'lpg.all', 'ker.all'}
 VAT_CONSUMER = {'coa.res', 'nga.res', 'gso.all', 'die.all', 'lpg.all', 'ker.all', 'oop.all'}
@@ -193,7 +192,7 @@ def domestic_prices(db, iso, settings, cpi_index, pass_lo, pass_mid, pass_hi, pr
             p[f'sp{y}'] = spn * cpi_index[y] / gj
             p[f'txo{y}'] = ((rpn / (1 + vry) - spn) if p['rpd'] == 1 else txn) * cpi_index[y] / gj
         p['vr'] = p[f'vry{last}'] * p['osh']
-        p['vatgen'] = d.value(VATGEN_YEAR, 'VAT_WEO')
+        p['vat_weo'] = {y: d.value(y, 'VAT_WEO') for y in HIST_YEARS}   # the general VAT rate (bug M15: by year)
         p['spL'], p['txoL'] = p[f'sp{last}'], p[f'txo{last}']
         out[pc] = p
     return out

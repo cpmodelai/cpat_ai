@@ -7,6 +7,7 @@ import pandas as pd
 import pytest
 
 import cpat_model
+from cpat_testing.compare.known_differences import KNOWN, bug_of
 from cpat_model.inputs import read_scenario_set
 
 REFERENCE = Path(__file__).parent / 'compare' / 'reference' / 'excel_ai_distribution_0.1.3.csv'
@@ -50,6 +51,18 @@ def test_section_matches_excel_ai(results, section):
     codes = section_codes(ref, *SECTIONS[section])
     missing = sorted(set(codes) - set(results.index))
     assert not missing, missing[:20]
-    bad = [(c, d, ref.loc[c, str(d)], results.loc[c, d]) for c in codes for d in range(11)
+    bad = [(c, d, ref.loc[c, str(d)], results.loc[c, d]) for c in codes if not bug_of(c) for d in range(11)
            if not matches(results.loc[c, d], ref.loc[c, str(d)])]
     assert not bad, bad[:10]
+
+
+def test_known_differences(results):
+    """M22 (fixed in Coded CPAT, open in Excel-AI): the percentile recycling rows of scenario group 2, which uses public
+    investment, differ from Excel-AI; group 1 (no recycling) still matches. Delete the entry when Excel-AI fixes it."""
+    ref = pd.read_csv(REFERENCE, index_col=0, dtype=str, keep_default_na=False)
+    for stem in (s for s in KNOWN.get('M22', []) if s.startswith('distn.')):
+        for n, differ in (('1', False), ('2', True)):
+            code = f'egy.{stem}.{n}'
+            same = all(matches(results.loc[code, d], ref.loc[code, str(d)]) for d in range(11))
+            assert same != differ, f'{code}: expected {"a difference" if differ else "a match"}'
+

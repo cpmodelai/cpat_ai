@@ -93,7 +93,7 @@ def revenues(state, db, inputs, settings, baseline, t):
     for key, v in (('tot', rtot), ('net', rnet), ('sub', tot('rsub')), ('new', tot('rnew')), ('chg', rchg), ('be', rbe)):
         R.set('rpct', k, v / gdp, 'all', key)
     for key, series in (('lcu', 'ngdp'), ('usd', 'ngdpd')):     # nominal GDP / Billion (WEO values are in billions)
-        R.set('gdpn', k, state[f'macro.{series}'].sel(country=R.countries, year=t).values / c('Billion'), 'all', key)   # Excel-AI bug M19
+        R.set('gdpn', k, state[f'macro.{series}'].sel(country=R.countries, year=t).values, 'all', key)   # bn; bug M19 fixed
 
     # revenue by policy instrument; covct (covered CO2) is a row of section 17
     cov = {}

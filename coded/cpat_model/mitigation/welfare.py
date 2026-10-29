@@ -51,7 +51,10 @@ def step(state, db, inputs, settings, baseline, t):
     col = lambda fn: np.array([fn(iso) for iso in countries])
     dp = state['_prices']['domestic']
     gj = lambda code: col(lambda iso: dp[iso][code]['gj'])
-    vatgen = col(lambda iso: dp[iso]['gso.all']['vatgen'])
+    # the general VAT rate of the year: VAT_WEO data up to the last historical year, then held (bug M15 fixed; user
+    # 2026-10-29; Excel-AI VatGen is the 2022 rate in every year)
+    vat_year = min(t, settings.last_hist_price_year)
+    vatgen = col(lambda iso: dp[iso]['gso.all']['vat_weo'][vat_year])
     osh = lambda f: col(lambda iso: dp[iso][f'{f}.all']['osh'])
     gdp = at('gdp.usd', 'all', 'all')
     mbn = c('MperBn')
@@ -84,9 +87,11 @@ def step(state, db, inputs, settings, baseline, t):
     mfee = at('mfee')
     for s in CH4_SOURCES:
         a, b = src(s, 'a'), src(s, 'b')
-        with np.errstate(divide='ignore', invalid='ignore'):        # Excel-AI bug M21: #DIV/0 where b = 0 (here 1)
+        fee = mfee * src(s, 'gwp') * src(s, 'fee')
+        with np.errstate(divide='ignore', invalid='ignore'):        # the price of full abatement, (1/a)^(1/b)
             cap = np.power(safe_div(1.0, a), safe_div(1.0, b))
-        mfp = put('mfp', np.where(a == 0, 0.0, np.minimum(mfee * src(s, 'gwp') * src(s, 'fee'), cap)), 'all', s)
+        # bug M21 fixed: no cap where b = 0 (Excel-AI: #DIV/0)
+        mfp = put('mfp', np.where(a == 0, 0.0, np.where(b == 0, fee, np.minimum(fee, cap))), 'all', s)
         em = safe_div(src(s, 'em0') * at('ch4.act', 'all', s), src(s, 'act0'))
         put('mfc', em * at('ch4.abt', 'all', s) * mfp * b / (1 + b) / c('Million'), 'all', s)
     mfc = put('mfc', sum(at('mfc', 'all', s) for s in CH4_SOURCES), 'all', 'all')

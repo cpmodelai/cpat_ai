@@ -16,6 +16,7 @@ from cpat_model.results import Results
 
 _BASELINES = {}                                           # baseline runs by their inputs and settings (phase 5.4)
 _CACHES = {}                                              # data steps shared by the runs of one baseline (rows.cached)
+_SCENARIOS = {}                                           # policy-scenario runs: a rerun computes only changed ones
 
 
 def run_scenarios(scenarios, settings):
@@ -30,11 +31,19 @@ def run_scenarios(scenarios, settings):
                 if len(_BASELINES) >= 4:
                     old = next(iter(_BASELINES))
                     _BASELINES.pop(old), _CACHES.pop(old, None)
+                    for k in [k for k in _SCENARIOS if k[0] == old]:
+                        _SCENARIOS.pop(k)
                 _CACHES[key] = {}
                 _BASELINES[key] = run_one(db, scenarios.inputs(1), settings, None, _CACHES[key])
             state = baseline = _BASELINES[key]
         else:
-            state = run_one(db, scenarios.inputs(number), settings, baseline, _CACHES[key])
+            inputs = scenarios.inputs(number)
+            skey = (key, number, tuple(sorted(inputs.values.items())))
+            if skey not in _SCENARIOS:
+                if len(_SCENARIOS) >= 16:
+                    _SCENARIOS.pop(next(iter(_SCENARIOS)))
+                _SCENARIOS[skey] = run_one(db, inputs, settings, baseline, _CACHES[key])
+            state = _SCENARIOS[skey]
         results.add(number, state)
     if 'YearDistn' in scenarios.inputs(1).values:
         results.distribution = incidence.run(results, db, settings, scenarios)

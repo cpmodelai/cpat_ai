@@ -463,7 +463,8 @@ def _year(x, state, inputs, settings, k, y):
     fupbn = put('trfupbn.pas.bev', (pev['res'] / x('trfen.pas.bev') + dtx['Pas']) * dkm['pas.bev'])
     topbn = put('trtopbn.pas.bev', dppbn + anpbn + svpbn + impbn + fupbn + x('trra.pas.bev'))
     pkpbn = put('trpkpbn.pas.bev', topbn / dkm['pas.bev'])
-    # Excel-AI bug M17: plug-in hybrids take the BEV's capital cost with the ICEV's insurance and maintenance (row 4175)
+    # Excel-AI bug M17, replicated until the prototype's fixed version (decided 2026-10-29: BEV price, ICE maintenance;
+    # coded/TODO.md): plug-in hybrids take the BEV's capital cost with the ICEV's insurance and maintenance (row 4175)
     put('trtcfp.pas.phv', dkm['pas.ice'] * x('trckm.pas.phv') + ((dppbn + anpbn + svpbn) + impin)
         + N(fbvpi) * (intn['phv'] / inta))
     resb = put('trresb.pas.bev', resale(vp('pas.bev')))
@@ -487,7 +488,7 @@ def _year(x, state, inputs, settings, k, y):
     # TCO of freight vehicles (rows 4193-4214)
     pvf = pivot('Fre', 'f.fre.all', intsf)
     fbvfi = fbv('trfbvfi.fre.ice', intaf, pvf, fbt['Fre'], dkm['fre.ice'])
-    fbvfb = fbv('trfbvfb.fre.bev', 0, pvf, fbt['Fre'], dkm['fre.ice'])   # Excel-AI bug M16: the ICEV's distance (row 4197)
+    fbvfb = fbv('trfbvfb.fre.bev', 0, pvf, fbt['Fre'], dkm['fre.bev'])   # bug M16 fixed (Excel-AI row 4197: ICEV distance)
     dep_f, ins_fr = par['dep1|fre'], par['ins|fre']
     ppfi = put('trppfi.fre.ice', vp('fre.ice') * icev_tax('fre') * (1 + adv[('Fre', 'ice')]) * (1 + 0) + N(fbvfi))
     dpfin = put('trdpfin.fre.ice', ppfi * dep_f)
@@ -817,7 +818,8 @@ def _fuel_use(x, k, par, p, prl, prn, pev, dtx, fn, fnf, fnc, trn, veh, vehb, ve
     bus0 = put('trbus0.pas.all', sum(busp.values()) + buse if k == 0 else prev('trbus0.pas.all'))
     busf = {f: put(f'trbusf.bus.{f}', p[f'bus|{f}'] * lpk[f] / c('Billion') * sum(busp.values()) / bus0)
             for f in FRE_FUELS}
-    bus_all = p['bus|die'] + p['bus|lpg'] + p['bus|nga'] + p['bus|ecy']     # Excel-AI bug M18: fuel + electricity (row 4522)
+    # all base-year bus energy electrifies with the passenger electricity share (M18 withdrawn 2026-10-29: as legacy)
+    bus_all = p['bus|die'] + p['bus|lpg'] + p['bus|nga'] + p['bus|ecy']
     busel = put('trbusel.bus.ecy', bus_all * p['ktoe_gwh'] / c('Thousand') * buse / bus0)
 
     # totals, the calibration to the energy balance, results by vehicle class (rows 4525-4573)

@@ -1,10 +1,9 @@
-from typing import Dict
+from typing import Dict, Optional
 
+import pandas as pd
 from shiny import ui
 from shiny.reactive._reactives import Value
 from htmltools import Tag
-
-from cpat_model.indicators.indicators import MitIndicators
 
 from cpat_shiny.ui.components.common.multiple_selectize import multiple_selectize
 from cpat_shiny.ui.components.common.section_empty import section_empty
@@ -17,9 +16,9 @@ from cpat_shiny.mapping import ALL_INDICATORS
 from cpat_shiny.ui.labels import RESULTS
 
 def download_indicators_btn(
-        indicators: MitIndicators
+        indicators: Optional[pd.DataFrame]
         ) -> Tag:
-    if indicators:
+    if indicators is not None:
         return (
             ui.download_button("download_indicators", RESULTS["downloadIndicators"])
         )
@@ -28,15 +27,15 @@ def download_indicators_btn(
     )
 
 def get_filter_choices(
-        indicators: MitIndicators 
+        indicators: Optional[pd.DataFrame]
         ) -> Dict[str, Dict[str, str]]:
     col_names = ['Unit', 'Indicator header']
-    if indicators:
+    if indicators is not None:
         choices = {
             code: {
                 unique_code: unique_code
                 for unique_code in
-                indicators.grouped_indicators[code].unique()
+                indicators[code].unique()
             }
             for code in col_names
         }
@@ -55,7 +54,7 @@ def indicators_section(
                 multiple_selectize({
                     'id': "indicators_input",
                     'label': RESULTS["selectIndicators"],
-                    'choices': {"All": {"all": "All indicators"}, "Sectors": ALL_INDICATORS},
+                    'choices': {"All": {"all": "All indicators"}, "Indicators": ALL_INDICATORS},
                     'selected': list(results_inputs_selection()['indicators_input'])
                 }),
                 ui.input_action_button("create_indicators", RESULTS["createIndicators"]),

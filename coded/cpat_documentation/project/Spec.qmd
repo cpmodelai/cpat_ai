@@ -7,7 +7,7 @@ format:
     toc: true
 ---
 
-**Status (2026-10-29).** Phases 0-4 done and phase 5.4 (speed): the mitigation and distribution modules match Excel-AI's stored values for Egypt, scenarios 1 and 2 (every output code, within 1e-9); phase 6 (running the model: command line, app, website, first release `0.9.1p0.1`) under way; phases 5.1-5.3 (systematic comparisons) next. The design choices of section 10 are decided and `coded/NORMS.md` states the rules that follow; section 11 is the detailed plan, its checklist `coded/TODO.md`. Companion documents: the equation list ([`../equations/Equations.qmd`](../equations/Equations.qmd), code-name version [`Equations_codes.qmd`](../equations/Equations_codes.qmd)), the checklist of the plan ([`coded/TODO.md`](../../TODO.md)).
+**Status (2026-10-29).** Phases 0-4 done and phase 5.4 (speed): the mitigation and distribution modules match Excel-AI's stored values for Egypt, scenarios 1 and 2 (every output code, within 1e-9); phase 6 done (command line, app, website, first release `0.9.1p0.1`); phases 5.0-5.3 (systematic comparisons) next. The design choices of section 10 are decided and `coded/NORMS.md` states the rules that follow; section 11 is the detailed plan, its checklist `coded/TODO.md`. Companion documents: the equation list ([`../equations/Equations.qmd`](../equations/Equations.qmd), code-name version [`Equations_codes.qmd`](../equations/Equations_codes.qmd)), the checklist of the plan ([`coded/TODO.md`](../../TODO.md)).
 
 | Section | Contents |
 |---|---|

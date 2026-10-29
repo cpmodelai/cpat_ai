@@ -1,0 +1,6 @@
+# Versions and releases {#sec-versions}
+
+- **Version number** (D14): `<Excel-AI version>p<Python version>`. `0.9.1p0.1` is Python version 0.1 of the replication of Excel-AI 0.9.1. `cpat_model.__version__` holds it.
+- **Changelog**: `coded/CHANGELOG.md`, one row per release (version, date, what changed, the largest difference against Excel-AI).
+- **A release**: all tests pass; the comparison with the Excel-AI version named in the number is complete (known differences listed); `CHANGELOG.md` row; `CAVEATS.md` entry; this book and the Word copies regenerated; git tag `coded-v<version>`.
+- **When Excel-AI releases**: re-extract the reference values, align Python with the prototype's bug fixes (delete their known differences), run the tests, and release `<new Excel-AI version>p0.1`.

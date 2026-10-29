@@ -738,7 +738,7 @@
     "href": "13_Coded_CPAT.html#status-2026-10-29",
     "title": "13  Coded CPAT",
     "section": "",
-    "text": "Mitigation: every output code of Excel-AI’s stored values for Egypt, scenarios 1 and 2, is produced and matches within 1e-9, 2022-2041 (7,470 codes per scenario).\nDistribution: every code of the Distribution sheet matches for Egypt, scenario groups 1 and 2 (1,684 codes, basket and deciles).\nSpeed: one country and two scenarios run in 0.8 s once the baseline is cached.\nExcel-AI bugs: Coded CPAT replicates the open prototype bugs M15-M22 (see the bugs chapter) so the numbers stay equal, and follows when Excel-AI fixes them.\nNext: systematic comparisons against the recalculated release workbook, every country and legacy CPAT.",
+    "text": "Mitigation: every output code of Excel-AI’s stored values for Egypt, scenarios 1 and 2, is produced and matches within 1e-9, 2022-2041 (7,470 codes per scenario).\nDistribution: every code of the Distribution sheet matches for Egypt, scenario groups 1 and 2 (1,684 codes, basket and deciles).\nSpeed: one country and two scenarios run in 0.8 s once the baseline is cached.\nExcel-AI bugs are not replicated (issues are): of the prototype bugs Coded CPAT found (M15-M22), six are fixed in Python, M17 follows the prototype’s fix and M18 was withdrawn; the codes that therefore differ from Excel-AI (M19, M22) are listed as known differences until the prototype is fixed.\nNext: systematic comparisons against the recalculated release workbook, every country and legacy CPAT.",
     "crumbs": [
       "Coded CPAT",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Coded CPAT</span>"
@@ -760,84 +760,7 @@
     "href": "14_Coded_Developer_Guide.html",
     "title": "14  Coded CPAT: developer guide",
     "section": "",
-    "text": "1. The principle\nSource: coded/cpat_documentation/developer/dev_documentation.md.\nHow the Python model is built and how to work on it. What it is and how to run it: ../../README.md. The rules: ../../NORMS.md (Python) and the root ../../../NORMS.md. The design and the plan: ../project/Spec.qmd. The equations: ../equations/Equations.qmd.\nCoded CPAT replicates Excel-AI (excel_ai/CPAT-AI-Mitigation-Prototype_v&lt;version&gt;.xlsm, CPAT-AI-Distribution-Prototype_v&lt;version&gt;.xlsm) number for number, readable first. Excel-AI is the specification: every Excel-AI row has an output code (core/variables.csv), and the tests compare Python with Excel-AI’s stored values code by code within 1e-9. Where Excel-AI is wrong, Python replicates it and the bug is registered (excel_ai/BUGS.md, open prototype bugs M; NORMS 0.3); the replicated lines carry # Excel-AI bug M&lt;n&gt;.",
-    "crumbs": [
-      "Coded CPAT",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
-    ]
-  },
-  {
-    "objectID": "14_Coded_Developer_Guide.html#a-run",
-    "href": "14_Coded_Developer_Guide.html#a-run",
-    "title": "14  Coded CPAT: developer guide",
-    "section": "2. A run",
-    "text": "2. A run\ncpat_model.run(scenarios, settings) (core/loop.py):\n\nSettings (settings.py): database (dummy = ../data/tidy/, or full), countries, years 2022-2041, the global inputs read from scenario 1 (D16).\nScenario 1, the baseline, first; then each scenario (D15). Each scenario runs in three stages over the blocks listed in mitigation/chain.py, the only place the order is written:\n\nPREPARE: blocks that read no model quantity, all years at once (header, policies, prices, power costs, fuel prices, Pigouvian taxes, road data).\nYEAR: for t = 2022 … 2041, every year block in order (GDP level, power, fuel use, totals, emissions, revenues, GDP effects, road engineer model, module inputs, welfare). A block reads year t of any earlier row and earlier years of any row.\nFINISH: rows that need all years (NDC).\n\nDistribution: every scenario against scenario 1 in the analysis year (distribution/incidence.py), where the scenario set has the distribution inputs.\nResults (results/results.py): by_code(country) and distribution_by_code(country).\n\nThe baseline run and the data steps are cached per baseline (loop.baseline_key: scenario-1 inputs, database folder, settings): a second run with the same baseline computes only the policy scenarios (0.8 s for one country and two scenarios).",
-    "crumbs": [
-      "Coded CPAT",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
-    ]
-  },
-  {
-    "objectID": "14_Coded_Developer_Guide.html#rows-the-state-and-a-block",
-    "href": "14_Coded_Developer_Guide.html#rows-the-state-and-a-block",
-    "title": "14  Coded CPAT: developer guide",
-    "section": "3. Rows, the state and a block",
-    "text": "3. Rows, the state and a block\n\nA row is an Excel-AI row: variable, sector, fuel (as core/variables.csv: Excel columns A, C, B), values by country and year. Its output code is &lt;iso&gt;.mit.&lt;code&gt;.&lt;scenario&gt;.\nRows (core/rows.py) holds the rows of a block as numpy arrays (country, year): R.put(var, values, sector, fuel) (all years), R.set(var, k, values, sector, fuel) (year index k), R.at(var, k, sector, fuel), R.of(var, sector, fuel); R.finish() stores them. Year blocks share one Rows (gdp.year_rows).\nState (core/rows.py): the rows of one scenario. Block rows stay numpy; state[var] builds the labelled xarray array only when something outside the blocks reads it. Working data start with _ (not result rows).\nBaseline values (Excel-AI REFCOL): totals.reference(R, baseline, k, var, sector, fuel).\nData steps (what Excel-AI computes on its Inputs sheet): *_data.py modules, by country; cached with rows.cached(state, key, fn) when they read no scenario input.\nA block is a function (state, db, inputs, settings, baseline) (prepare, finish) or (..., t) (year). Each equation of the equation list is one small function or one marked line, citing its id (EQ-M3.1); test_equation_ids.py checks every cited id exists.",
-    "crumbs": [
-      "Coded CPAT",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
-    ]
-  },
-  {
-    "objectID": "14_Coded_Developer_Guide.html#adding-or-changing-a-block",
-    "href": "14_Coded_Developer_Guide.html#adding-or-changing-a-block",
-    "title": "14  Coded CPAT: developer guide",
-    "section": "4. Adding or changing a block",
-    "text": "4. Adding or changing a block\n\nRead the Excel-AI rows: the formula explainers turn cell references into row names (var.sector.fuel[t]); the stored values are in cpat_testing/compare/reference/excel_ai_&lt;version&gt;.csv.\nWrite the rows in the block’s module, in sheet order, with the equation ids; add the block to chain.py.\nAdd the variables to BUILT in cpat_testing/test_mitigation.py (all codes of those variables, scenarios 1 and 2, must be produced and match).\nAdd or update the equations in cpat_documentation/equations/equations.yaml and run make_equations.py.\nLog the task in ../../CAVEATS.md and tick TODO.md.",
-    "crumbs": [
-      "Coded CPAT",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
-    ]
-  },
-  {
-    "objectID": "14_Coded_Developer_Guide.html#tests-and-comparisons",
-    "href": "14_Coded_Developer_Guide.html#tests-and-comparisons",
-    "title": "14  Coded CPAT: developer guide",
-    "section": "5. Tests and comparisons",
-    "text": "5. Tests and comparisons\npytest from coded/ (about one minute):\n\n\n\n\n\n\n\nTest\nChecks\n\n\n\n\ntest_mitigation.py\nevery block against Excel-AI’s stored values, scenarios 1 and 2, 2022-2041\n\n\ntest_distribution_incidence.py\nthe Distribution sheet, by section, groups 1 and 2, basket and deciles\n\n\ntest_data_steps.py, test_foundations.py\ndata steps, index sets, inputs, the loop\n\n\ntest_equation_ids.py\nequation ids cited in the code exist\n\n\ntest_speed.py\nthe cached two-scenario run is fast and equal to a fresh run\n\n\ntest_run_model.py, test_shiny_app.py\nthe command line and the app\n\n\nmodel/distribution/\nthe earlier distribution package (until retired)\n\n\n\nThe reference values come from the Excel-AI workbooks: python cpat_testing/compare/extract_excel_ai.py (mitigation) and --distribution.",
-    "crumbs": [
-      "Coded CPAT",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
-    ]
-  },
-  {
-    "objectID": "14_Coded_Developer_Guide.html#the-app",
-    "href": "14_Coded_Developer_Guide.html#the-app",
-    "title": "14  Coded CPAT: developer guide",
-    "section": "6. The app",
-    "text": "6. The app\napp.py and cpat_shiny/: the scenarios built in the app (carbon tax start and target year and level, price source) become a scenario set over Excel-AI’s (scenario 1 = Excel-AI’s baseline) and run through cpat_model.run; raw results, indicators and graphs read Results.by_code. Run: shiny run app.py. Details in cpat_shiny/.",
-    "crumbs": [
-      "Coded CPAT",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
-    ]
-  },
-  {
-    "objectID": "14_Coded_Developer_Guide.html#data",
-    "href": "14_Coded_Developer_Guide.html#data",
-    "title": "14  Coded CPAT: developer guide",
-    "section": "7. Data",
-    "text": "7. Data\nThe model reads tidy CSV tables only (../data/tidy/; the interface for the data person: ../data/INTERFACE.md). dummy is in this repository (Egypt has the Excel-AI data); full (every country, the proprietary tables) lives in a private repository: set DATA_ENVIRONMENT and the path in .env. Never commit proprietary data or results computed from them (NORMS 5.2).",
-    "crumbs": [
-      "Coded CPAT",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
-    ]
-  },
-  {
-    "objectID": "14_Coded_Developer_Guide.html#environment",
-    "href": "14_Coded_Developer_Guide.html#environment",
-    "title": "14  Coded CPAT: developer guide",
-    "section": "8. Environment",
-    "text": "8. Environment\nconda env create -f environment.yml && conda activate cpat_p\npip install -r dev-requirements.txt          # tests and tools\nconda env update -f environment.yml --prune   # update",
+    "text": "Source: coded/cpat_documentation/developer/dev_documentation.md.\nThe developer guide is now the Coded CPAT documentation (the website’s Coded CPAT tab, docs/index.html#coded), written in ../guide/ and generated into a Quarto book by docs/CPAT_coded_documentation_qmd/make_qmd.py:\n\nPart I, what you need to know: quick start; the database (format and where it is); scenarios and inputs; results; editing the model; testing (with the current test status).\nPart II, how it works: architecture; the mitigation blocks; the distribution module; the app; versions and releases.\nAppendices: both equation lists, every database table, every input, every variable, the Excel-AI bugs and known differences, the spec, the Python norms, the plan, a glossary.\n\nEdit the chapters in coded/cpat_documentation/guide/; then python make_qmd.py (add --tests to rerun the tests and update the status) and quarto render in docs/CPAT_coded_documentation_qmd/.",
     "crumbs": [
       "Coded CPAT",
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
