@@ -470,6 +470,14 @@ $$
 
 Over fuel groups $f$ (coal, gas, gasoline, diesel, oil, biomass, renewables, electricity), sector groups $g$ (transport, residential, industry, services). Excel-AI notation: income $Y$, own-price usage $U$ and efficiency $F$ elasticities, autonomous efficiency improvement $\alpha$. Several rows reuse another fuel's or sector's legacy row (core/excel_ai/elasticity_rows.csv). Manual elasticities (MTInputs ElIncMainSrc, ElPrcMainSrc) are not in Coded CPAT yet. Source: Excel-AI: Inputs_ela (build_inputs_ela).
 
+**A3.2  The fuel | subsector table**  *(adjustment)*
+
+$$
+\epsilon^{Y,U,F}_{f,s} = \epsilon^{Y,U,F}_{f(f), g(s)}, \quad ef_{f,s} = ef_{f, e(s)}\,\chi, \quad F_{f,s,t_0} = \text{energy balance (flows of } s\text{) or EnergyCons}
+$$
+
+Over fuels $f$, subsectors $s$. Excel-AI notation: elasticities of the fuel's elasticity fuel and the subsector's elasticity sector (residential biomass income elasticity 0 unless BiomassNormal, I24); CO2 factor of the subsector's EF sector, calibrated; base-year fuel use from the energy balance (flow 1 plus signed flow 2) or EnergyCons (BalancesOrConsumption); the existing carbon pricing embedded in the price data, by ECP sector; non-CO2 factors; positions of the road model and residential leakage rows. Source: Excel-AI: Inputs rows 5-148.
+
 ## A4 Power
 
 To complete: capacity factors and overrides; vintages of capital cost and storage (E34-E36); VRE share and storage (methodology: $sst = 9v^2$, long-term storage above 75%); early coal retirement (E62); investment need (E63, $Req_t^2/Req_{t-1}$); second-round investment; manual capacity; PPAs; supply cost lag (E48); subsidy gap; renewable subsidies and rebates.

@@ -19,6 +19,7 @@ class Rows:
         self.t = np.array(years, dtype=float)
         self.shape = (len(self.countries), len(self.years))
         self._rows = {}                                   # var -> {(sector, fuel) or None: array}
+        self._cache = {}                                  # var -> (values, sector index, fuel index) of the state
 
     def full(self, values):
         if isinstance(values, xr.DataArray):
@@ -38,10 +39,17 @@ class Rows:
         key = None if sector is None and fuel is None else (sector, fuel)
         if var in self._rows and key in self._rows[var]:
             return self._rows[var][key]
-        a = self.state[var]
-        if key is not None:
-            a = a.sel(sector=sector, fuel=fuel)
-        return a.sel(country=self.countries, year=self.years).transpose('country', 'year').values
+        if var not in self._cache:                        # numpy view of a state array, made once per block
+            a = self.state[var]
+            if 'sector' in a.dims:
+                a = a.sel(country=self.countries, year=self.years).transpose('sector', 'fuel', 'country', 'year')
+                self._cache[var] = (a.values, {s: i for i, s in enumerate(a['sector'].values)},
+                                    {f: i for i, f in enumerate(a['fuel'].values)})
+            else:
+                a = a.sel(country=self.countries, year=self.years).transpose('country', 'year')
+                self._cache[var] = (a.values, None, None)
+        values, si, fi = self._cache[var]
+        return values if key is None else values[si[sector], fi[fuel]]
 
     def finish(self):
         """Every row to the state. The rows of a variable with sectors or fuels form one (sector, fuel, country, year)

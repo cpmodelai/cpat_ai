@@ -10,7 +10,7 @@ from cpat_model import EXCEL_AI_VERSION
 from cpat_model.core.excel_ai_tables import constant as c
 from cpat_model.data import open_database
 from cpat_model.inputs import read_scenario_set
-from cpat_model.mitigation import ef_data, elasticity_data, header, policies, power_data, prices_data
+from cpat_model.mitigation import ef_data, elasticity_data, fuel_data, header, policies, power_data, prices_data
 from cpat_model.settings import Settings
 from cpat_testing.compare.compare import REFERENCE
 
@@ -107,3 +107,24 @@ def test_elasticities_and_efs(ctx):
     nc = ef_data.nonco2_efs(ctx['db'], ISO, c)
     assert not differences([(ref(r, 1), nc[ref(r, 1)][k], ref(r, 9 + k)) for r in range(936, 1472) if ref(r, 1) in nc
                             for k in (0, 1)])
+
+
+def test_fuel_table(ctx):
+    st, db = ctx['st'], ctx['db']
+    ela = elasticity_data.elasticities(db, ISO, st.base)
+    co2 = ef_data.co2_efs(db, ISO, c)
+    raw = float(policies.stored_baseline(policies.settings_stored_path(st), (ISO,), tuple(st.years))['raw']
+                .sel(country=ISO, year=st.base_year))
+    dp = prices_data.domestic_prices(db, ISO, st, ctx['cpi'], 0.25, 0.5, 0.5, 'Bucketed*', False)
+    ft = fuel_data.fuel_table(db, ISO, st, ela, co2, ef_data.co2_calibration(db, ISO, st, raw),
+                              policies.ecp_table(db, ISO, ctx['cpi']), policies.ecp_embedded_year(st),
+                              ef_data.nonco2_efs(db, ISO, c), dp)
+    cols = {4: 'ela_sector', 5: 'ela_fuel', 6: 'aeei_fuel', 7: 'price_rule', 8: 'price_sector', 9: 'price_code',
+            10: 'ef_sector', 11: 'gj', 12: 'fpos', 13: 'spos', 14: 'pfpos', 15: 'ey', 16: 'eu', 17: 'ef', 18: 'alpha',
+            19: 'eff_group', 20: 'eff_exp', 22: 'vat', 23: 'co2ef', 24: 'ener0', 25: 'ecp_sector', 26: 'ecpk', 27: 'xcp0',
+            30: 'ef0_ch4', 31: 'ef1_ch4', 32: 'road_pos', 47: 'flow1', 48: 'sign1', 49: 'flow2', 50: 'sign2', 51: 'bal1',
+            52: 'bal2', 53: 'cons', 54: 'food', 55: 'food_all', 56: 'food_share', 57: 'exempt_group', 58: 'leak_pos'}
+    for j, pol in enumerate(power_data.POLLUTANTS):
+        cols[33 + 2 * j], cols[34 + 2 * j] = f'ef0_{pol}', f'ef1_{pol}'
+    assert not differences([(f'{(ref(r, 2), ref(r, 3))}.{k}', ft[(ref(r, 2), ref(r, 3))][k], ref(r, col))
+                            for r in range(5, 149) for col, k in cols.items()])
