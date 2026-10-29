@@ -84,6 +84,7 @@ function copilotSteps(m) {
     para('Click the mode chip and pick **Interactive**: Copilot asks before it runs commands or edits files, and you approve each step. Do not use Autopilot for this task.'),
     ...img('04_mode_chip.png', 'Mode chip: pick Interactive'),
     H2('Step 5. Give it the prompt'),
+    para(`You only type a short **starter prompt**. The long instructions are a file in the repo (\`excel_ai/plans/prompts/${m.file}\`) that Copilot reads itself; the starter and the follow-up prompts are in \`excel_ai/plans/prompts/${m.starter}\` and in Appendix B.`),
     para(`Option A (the prompt file is in your checkout): type **@**, pick \`AGENTS.md\`, type **@** again, pick \`excel_ai/plans/prompts/${m.file}\`, then add the words below and press Enter.`),
     box(`@AGENTS.md @excel_ai/plans/prompts/${m.file} Follow these files. Do phase 0 only, then stop and report.`, 19),
     spacer(),
@@ -96,6 +97,7 @@ function copilotSteps(m) {
     para('Send these one at a time. Read each report and check it (the third column) before sending the next.'),
     table(['Send', 'What it does', 'Check before going on'], m.phases, [2300, 3700, 3360]),
     spacer(),
+    para('More example follow-ups (answering its decisions, asking for an explanation, a failing check, stopping and resuming in a new session): **Appendix B**.'),
     H2('Step 8. Look at the changes'),
     para('Type `Show me the changes before you save them.` or open **Changes** under the prompt box: every edited file as a diff. Open the new workbook in Excel 365 (enable macros) and look at it. Do not edit a built workbook by hand: ask Copilot to change the builder and rebuild.'),
     ...img('07_changes_view.png', 'The Changes view: every edit as a diff before you keep it'),
@@ -136,11 +138,11 @@ function before(m) {
     ...[
       'The Setup guide (`other/SetupGuide.docx`) Parts 1 and 3 are done: Git, the GitHub Copilot app signed in, the repo in `C:\\Users\\WB<PID>\\Repos\\CPAT-AI`.',
       'The repo is up to date: double-click `SyncRepo.bat` once before you start (section 4).',
-      'Python 3 with openpyxl, and **LibreOffice** installed (the builders and checks recalculate in it). Excel 365 for your own review.',
       `The prompt file \`excel_ai/plans/prompts/${m.file}\` is in your checkout once the CPAT-AI branch that adds it is merged into main and you have synced; until then use Appendix A (the same text).`,
       'Time and credits: each phase is a long task. Send one phase, read the report, then the next. Type `/context` to see the credits used.',
       ...m.before,
     ].map(bullet),
+    para('**Optional** (not needed to start): Copilot runs the builders and checks with Python and recalculates the workbooks in LibreOffice. If either is missing on your desktop, the prompt tells Copilot to say so, install nothing without your OK, and list what it could not run; you then review the workbook in Excel 365.'),
   ];
 }
 
@@ -149,15 +151,35 @@ function appendix(m) {
     new Paragraph({ children: [new PageBreak()] }),
     H1('Appendix A. The prompt (exact text)'),
     para(`The full content of \`excel_ai/plans/prompts/${m.file}\`. Paste all of it (Step 5, option B).`),
-    box(fs.readFileSync(path.join(HERE, m.file), 'utf8').trim(), 16),
+    box(fs.readFileSync(path.join(HERE, m.file), 'utf8').trim(), 18),
+    new Paragraph({ children: [new PageBreak()] }),
+    H1('Appendix B. Starter and follow-up prompts'),
+    para(`The content of \`excel_ai/plans/prompts/${m.starter}\`. Type or paste one box at a time.`),
+    ...starterBlocks(m.starter),
   ];
+}
+
+// the starter-prompt file as headings, paragraphs and one box per code block
+function starterBlocks(file) {
+  const out = [];
+  let code = null;
+  for (const line of fs.readFileSync(path.join(HERE, file), 'utf8').split('\n')) {
+    if (line.startsWith('```')) {
+      if (code === null) code = [];
+      else { out.push(box(code.join('\n'), 18), spacer()); code = null; }
+    } else if (code !== null) code.push(line);
+    else if (line.startsWith('## ')) out.push(H2(line.slice(3)));
+    else if (line.startsWith('# ') || !line.trim()) continue;
+    else out.push(para(line.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')));
+  }
+  return out;
 }
 
 // ---------------------------------------------------------------- the three guides
 const PHASES = (rows) => rows.map(([n, what, check]) => [`Go ahead with phase ${n}.`, what, check]);
 
 const TCB = {
-  key: 'TCB', file: 'TCB_module_prompt.md', docx: 'CPAT-AI_Prompt_TransportCobenefits.docx',
+  key: 'TCB', file: 'TCB_module_prompt.md', starter: 'TCB_starter_prompts.md',  docx: 'CPAT-AI_Prompt_TransportCobenefits.docx',
   title: 'Transport co-benefits module: the prompt and how to run it',
   commit: 'Transport co-benefits module v0.1.0',
   phases: PHASES([
@@ -170,7 +192,7 @@ const TCB = {
   before: ['Read the transport co-benefits plan `excel_ai/plans/Transport_cobenefits.md` section 7 (decisions D1-D9): Copilot will ask you about them.'],
 };
 const AP = {
-  key: 'AP', file: 'AP_module_prompt.md', docx: 'CPAT-AI_Prompt_AirPollution.docx',
+  key: 'AP', file: 'AP_module_prompt.md', starter: 'AP_starter_prompts.md',  docx: 'CPAT-AI_Prompt_AirPollution.docx',
   title: 'Air pollution module: the prompt and how to run it',
   commit: 'Air pollution module v0.1.0',
   phases: PHASES([
@@ -183,7 +205,7 @@ const AP = {
   before: ['Read `excel_ai/plans/Air_pollution.md` section 7 (decisions, above all B1): Copilot will ask you about them.'],
 };
 const DIST = {
-  key: 'Distribution', file: 'Distribution_module_prompt.md', docx: 'CPAT-AI_HowTo_Distribution.docx',
+  key: 'Distribution', file: 'Distribution_module_prompt.md', starter: 'Distribution_starter_prompts.md',  docx: 'CPAT-AI_HowTo_Distribution.docx',
   title: 'Distribution module: how to use it, and the prompt to update it',
   commit: 'Distribution module v0.1.4: permalink_countryeditable link, legacy 465 check',
   phases: PHASES([

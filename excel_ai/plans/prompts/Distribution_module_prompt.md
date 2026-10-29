@@ -12,7 +12,7 @@ You are working in the CPAT-AI repository on the local checkout. Follow `AGENTS.
 2. **The distribution formulas have one source**: `excel_ai/mitigation/build.py`. The module is cut from the built prototype. Change a formula there, rebuild the prototype, then rebuild the module; never edit the module workbook by hand.
 3. **Column norms**: the distribution layout of `NORMS.md` 1.1b (A-J descriptors as Mitigation; per group a code column, basket, deciles 1-10, spacer; group *n* reads Mitigation group *n*); `FromMitigation` keeps the Mitigation column layout (1.1, 9.2).
 4. **Encapsulated**: the `Distribution` sheet reads only `FromMitigation`, `ScenarioDefinition`, its data tabs and Settings constants (NORMS 9.2); its results stay on the `Distribution` sheet under the LiveOutputs codes `<iso>.distn.*`, because no other workbook reads them yet (an output tab of plain copies, NORMS 9.2, is added only if I agree).
-5. Excel rules as `NORMS.md` 3, 3b, 3d, 3g, 3h. Never commit real data. Do not commit or push unless I ask.
+5. Excel rules as `NORMS.md` 3, 3b, 3d, 3g, 3h. If Python, openpyxl or LibreOffice is missing on this computer, say so before you start: install nothing without my OK; where LibreOffice is missing, skip the recalculation steps and list what was not run (I review in Excel 365). Never commit real data. Do not commit or push unless I ask.
 
 ## Phases (one per message; stop after each and report)
 
