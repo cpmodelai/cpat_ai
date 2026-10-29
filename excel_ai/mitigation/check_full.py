@@ -77,6 +77,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ISO = B.COUNTRY                 # v0.3.3: country of the build (Settings C4); its data come from the CSVs by this key
 REF = re.compile(r"(?<![A-Za-z_\d.\"])(\$?)([A-Z]{1,3})(\$?)(\d+)(?![\d(])")
 TOL = 1e-9
+# v1.0.4: MTOutputs rows in the legacy layout: (item index, code stem) of the rows the prototype has (stored), and of
+# its Mitigation rows (compared with the Mitigation cell of their code)
+MTO_STORED = list({f"{it['tab']}.{it['var']}": k for k, (kind, it) in reversed(list(enumerate(B.MTO_ITEMS)))
+                   if kind == 'row' and it['var']}.items())
+MTO_STORED = sorted(((k, st) for st, k in MTO_STORED))                          # each stem once, its first row
+MTO_MIT = [k for k, (kind, it) in enumerate(B.MTO_ITEMS) if kind == 'row' and it['var'] and it['tab'] == 'mit']
 # v0.9.2: section-3 rows added in v0.9.0 (R7, R9: cost memos, electricity subsidies and the price-chain residual) that
 # power_model_ref does not recompute yet: listed in the report as not recomputed, so a gap is never silent
 PW_NOT_RECOMPUTED = ('sys', 'pcbcap', 'pcbom', 'pcbfu', 'pcbchk', 'rpnv', 'txg', 'txe', 'scl', 'psegap', 'psegs',
@@ -159,7 +165,7 @@ def recalc_wb(path):
 
 def add_mto_blocks(wb, groups):
     """Add MTOutputs blocks as a user would: copy the last block (header to blank row) directly below."""
-    ws = wb['LiveOutputs']
+    ws = wb['MTOutputs']
     for g in groups:
         s0, d0 = B.mto_row(g - 1, 0) - 1, B.mto_row(g, 0) - 1
         for k in range(B.MTO_BLOCK):
@@ -173,7 +179,7 @@ def add_mto_blocks(wb, groups):
 
 def check_mto(wbv, groups, label):
     """Every MTOutputs indicator cell equals the Mitigation cell of its output code (searched in Python)."""
-    wm, wo = wbv['Mitigation'], wbv['LiveOutputs']
+    wm, wo = wbv['Mitigation'], wbv['MTOutputs']
     found, worst, n, missing = {}, 0.0, 0, []
     for g in groups:
         code, base, years = B.group_cols(g)
@@ -182,10 +188,12 @@ def check_mto(wbv, groups, label):
             if isinstance(k, str):
                 found[k] = [wm.cell(r, c).value for c in [base] + years]
     for g in groups:
-        num = wo.cell(B.mto_row(g, 0) - 1, 5).value
-        for k, (stem, _f) in enumerate(B.MTO_INDICATORS):
+        num = wo.cell(B.mto_row(g, 0) - 1, 10).value         # v1.0.4: J SubScenario, E code
+        for k, (kind, it) in enumerate(B.MTO_ITEMS):
+            if kind != 'row' or not it['var'] or it['tab'] != 'mit':
+                continue
             r = B.mto_row(g, k)
-            key = wo.cell(r, 1).value
+            key = wo.cell(r, 5).value
             if key not in found or num != g:
                 missing.append(key)
                 continue
@@ -195,7 +203,7 @@ def check_mto(wbv, groups, label):
                             else float('inf'))
                 n += 1
     ok = not missing and worst < TOL
-    log(f'- MTOutputs {label}: {len(groups)} scenario blocks x {len(B.MTO_INDICATORS)} indicators, {n} cells equal '
+    log(f'- MTOutputs {label}: {len(groups)} scenario blocks x {len(MTO_MIT)} Mitigation rows, {n} cells equal '
         f'the Mitigation cell of their output code (max abs diff {worst:.3g}); block numbers 1..{groups[-1]} '
         f'{"OK" if ok else "FAIL " + str(missing[:5])}')
     return ok
@@ -2017,7 +2025,7 @@ def check_shipped(ws_x):
     last = {B.group_cols(g)[2][-1] for g, *_ in B.SCENARIOS}
     ok, parts, n41 = True, [], 0
     for wsx in wbv.worksheets:
-        y41 = {c.column for c in wsx[4] if c.value == B.LAST_YEAR} if wsx.title == 'LiveOutputs' else set()
+        y41 = {c.column for c in wsx[4] if c.value == B.LAST_YEAR} if wsx.title == 'MTOutputs' else set()
         errs, lam3 = [], lam_cols(wsx.title)
         for row in wsx.iter_rows():
             for c in row:
@@ -4126,14 +4134,14 @@ def check_stored(ws_vals):
     wb = openpyxl.load_workbook(B.OUT, data_only=True)
     st, names = stored_blocks(wb['StoredOutputs'])
     ok = sorted(st) == [1] + [n for n, _nm, run, _e in B.DEFINITIONS if run == 'Yes'] and \
-        all(len(v) == len(B.MTO_INDICATORS) for v in st.values())
-    log(f'- StoredResults: scenario IDs {sorted(st)}, {len(B.MTO_INDICATORS)} rows each; values only: '
+        all(len(v) == len(MTO_STORED) for v in st.values())
+    log(f'- StoredResults: scenario IDs {sorted(st)}, {len(MTO_STORED)} rows each; values only: '
         f'{"OK" if ok else "FAIL"}')
-    mo = ws_vals['LiveOutputs']
+    mo = ws_vals['MTOutputs']
     for sid, src in ((1, 1), (3, 2)):
         h = B.MTO_R0 + (src - 1) * B.MTO_BLOCK
         d = max(rel(st[sid][stem][j], mo.cell(h + 1 + k, B.MTO_C0 + j).value)
-                for k, (stem, _f) in enumerate(B.MTO_INDICATORS) for j in range(B.NY)
+                for k, stem in MTO_STORED for j in range(B.NY)
                 if isinstance(mo.cell(h + 1 + k, B.MTO_C0 + j).value, (int, float)))
         ok &= d < 1e-9
         log(f'- stored ID {sid} = MTOutputs block {src} of the shipped workbook recalculated (same inputs): max rel diff '

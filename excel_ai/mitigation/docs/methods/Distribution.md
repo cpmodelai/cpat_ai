@@ -1,7 +1,7 @@
 # Distribution
 
 
-The household incidence of a scenario in one analysis year, by decile. It follows legacy CPAT's sheet `Distribution` and its LiveOutputs rows 911-1033, with legacy's bugs fixed.
+The household incidence of a scenario in one analysis year, by decile. It follows legacy CPAT's sheet `Distribution` and its MTOutputs rows 911-1033, with legacy's bugs fixed.
 
 - **Builder:** `build.py` (`build_distribution`, `build_distribution_data`, `build_mto_distribution`).
 - **Data:** `extract_distn.py` writes `data/distn_*.csv`.
@@ -17,7 +17,7 @@ The household incidence of a scenario in one analysis year, by decile. It follow
 | Columns | A variable, B item, C sample (`ove`, `urb`, `rur`), D-E parameters (data variable, sample label), H description, I unit, J source (legacy rows). Per group: code column, basket, deciles 1-10, spacer (13 columns, from K; v0.4.8: deciles 9 wide; totals in local currency shown in bn and population in m, values unchanged). |
 | Groups | 1 = scenario 1 (levels; effects 0), 2 = the policy scenario, 3 = the LAMBDA test group (runs group 2's scenario and reads Mitigation's LAMBDA group). Pasting group 2 to the right adds scenarios 3-6 (NORMS 3e, scenario capacity). |
 | Row kinds | Settings and one-value rows: the value in the basket column, repeated across the deciles (so every cell refers to its own column). Decile rows: one formula across basket and deciles. Decile-only rows (recycling): the basket column is blank. |
-| Codes | `iso.distn.<variable>[.<item>][.dec.<sample>].<scenario>`. LiveOutputs reads the legacy codes without the scenario suffix, from the group of the scenario in its column E. |
+| Codes | `iso.distn.<variable>[.<item>][.dec.<sample>].<scenario>`. MTOutputs (v1.0.4) reads them in each scenario block (deciles 1-10 in K:T); its column F gives the legacy code (without the scenario suffix, as legacy). |
 
 ### 2. Chain (sections of the sheet)
 
@@ -56,7 +56,7 @@ Two identities let the sheet stay short:
 | Q2749 | The targeted exemption is capped by all carbon-pricing revenue (I154), not the PIT share (I163); urban and rural values are not per capita. | Capped by the PIT revenue; per capita in every sample. |
 | Q3259, Q3263 | The urban and rural compensation shares divide by overall consumption weights (they sum to 52 and 47). | Each sample's own weights: each sums to 100. |
 | 859-883 | Deadweight loss is a price fraction subtracted from a % of consumption. | DWLTri x (1 - factor) x the effect (same units). |
-| LiveOutputs 1001-1002 | dist.year and dist.stat read ScenarioDefinition column D (0 in dashboard mode). | The analysis year and statistic of the group. |
+| MTOutputs 1001-1002 | dist.year and dist.stat read ScenarioDefinition column D (0 in dashboard mode). | The analysis year and statistic of the group. |
 
 The bug fixes change Egypt's legacy numbers only a little: the targeted transfer in deciles 1-4 moves by up to 0.13 points of consumption, and the Gini change with recycling by 0.0006 points. The urban and rural compensation shares move most, because each now sums to 100.
 
@@ -87,7 +87,7 @@ The bug fixes change Egypt's legacy numbers only a little: the targeted transfer
 - **Production sectors** (section 11, legacy D.VI): input-cost price change of each GTAP sector (Leontief
   coefficients x fuel-group factors, the identity of section 2), output price after pass-through (PassthroughDist;
   coefficients by CPAT sector, L163), rank and top 20 (ties broken, L162), 14 CPAT sectors (chemicals and power added, L161)
-  with demand and output shares and weighted prices; LiveOutputs `ppic`, `ppici`, `outpriin` by sector code (L164).
+  with demand and output shares and weighted prices; MTOutputs `ppic`, `ppici`, `outpriin` by sector code (L164).
   Data: `data/distn_gtapmap.csv` (legacy Mapping F/R/H), `data/distn_passthrough.csv` (legacy Distribution I470:I486).
 - **Charts** (sheet Charts, below the mitigation charts): the legacy Dashboard distribution charts from group 2.
 

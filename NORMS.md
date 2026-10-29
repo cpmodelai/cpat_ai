@@ -101,7 +101,7 @@ Roll-up and columns (v0.4.8, user request): as Mitigation (2.5): one row group p
 4. **Samples:** Overall for every item. Urban and Rural rows only where legacy outputs them (total effect, recycling, Gini, compensation).
 5. **Differences against scenario 1** as Mitigation (3e rule 2). Effects are against scenario 1 by construction: group 1 shows baseline levels and zero effects.
 6. **LAMBDA group** as Mitigation (section 3): group 2, the live scenario, calls the named LAMBDAs; group 1 (the baseline) holds plain formulas.
-7. **Outputs** go to the LiveOutputs distribution section under legacy's codes (`<iso>.distn.*`), deciles across, from group 2.
+7. **Outputs** go to the MTOutputs scenario blocks (legacy MTOutputs order) under the prototype's codes (`<iso>.distn.*`, legacy code in column F), deciles 1-10 in K:T.
 
 ### 1.2 Time-series data sheets (e.g. `Power`)
 - Columns A-E: descriptors (section / methodology / unit / data level / source in the documentation header block; `Data section`, `Methodology` in C, `Unit` in K, `Data level` in N, `Data source` in P).
@@ -268,7 +268,7 @@ User decision 2026-10-15. It applies to every result that legacy computes after 
 
 1. **Results belong to the scenario.**
    - A number that depends on one scenario (with the baseline as reference at most) is a model quantity. It is computed in that scenario's column group on `Mitigation`, one formula per row, like every other row.
-   - Output sheets only select, compare between scenarios and format: `LiveOutputs` (curated indicators by output code), `StoredOutputs` (values of stored runs), `ScenarioCompare`, `Charts`. No output sheet computes a model quantity.
+   - Output sheets only select, compare between scenarios and format: `MTOutputs` (results by output code in the legacy MTOutputs layout; rule 5 below), `StoredOutputs` (values of stored runs), `ScenarioCompare`, `Charts`. No output sheet computes a model quantity.
    - Legacy's results area (blocks E, F, G) is not rebuilt as a block. Its calculations are rebuilt as rows in the scenario sections, and its cross-scenario tables as output-sheet rows.
 2. **Differences: computed in the model only where the model uses them.**
    - A difference against the baseline that feeds another calculation (fiscal effect, GDP effect, deadweight cost, price index, efficiency costs) is a scenario row:
@@ -292,6 +292,8 @@ User decision 2026-10-15. It applies to every result that legacy computes after 
    - A downstream module reads its inputs straight from the `Mitigation` rows of the same scenario column group, by output code, and reads the baseline through its own `.ref` rows.
    - Transformations that only the module needs (ratios to the baseline, unit conversions, its own layout) live on the module sheet.
    - `Mitigation` holds levels as rows with stable codes, ordered where useful like the module's input table (section 15 like the legacy air-pollution input).
+
+7. **`MTOutputs` in the legacy layout (user 2026-10-29, v1.0.4).** The outputs tab keeps legacy MTOutputs' columns and their order: A Include?, B Country, C Scenario, D CPATIndicator, E CPATCode, F the legacy CPAT code (legacy's MTCode column, always N/A, repurposed), G Tab, H Variable, I Unit, J SubScenario, years K:AD; extra columns only right of the years (lookups, legacy code body and row, match). Columns are repurposed rather than added. Codes build themselves from the component columns: E = country, Tab, Variable, SubScenario (our codes); F = country, the legacy code body and the scenario. The rows are legacy MTOutputs' (latest legacy file), section by section in legacy order, one row per quantity in each scenario block; a row the prototype does not have stays, with Include? = No and the reason; legacy intermediates and junk rows are not added beyond what legacy lists. The mapping lives in `data/mvp_legacy_extracts/mtoutputs_map_465.csv` (match: exact, reordered, renamed, guess, none). Purpose: comparing the prototype with legacy row by row.
 
 ## 3d. Names, keywords and cell references
 
@@ -339,7 +341,7 @@ A row that cannot follow a rule (e.g. a data row) says so in its source column, 
 **Scenario capacity (user rule 2026-10-17; 2026-10-20: two groups shipped, plenty of room).** The user can paste live scenarios to the right of the live group (group 2) by copy-paste. We ship two groups (baseline, one live policy scenario in LAMBDAs), but the whole workbook must work with at least the full set of scenarios 1-6 (groups 1-6; ranges reach group 7):
 1. A group pasted into any free group to the right numbers itself, finds its inputs and works with no edit: groups 3-6 run scenarios 3-6.
 2. ScenarioDefinition holds a scenario definition for every scenario number 1-6. A missing definition is an error, never a silent zero.
-3. Every range that spans the groups (`ref_formula`, the lookups of module sheets, names, LiveOutputs, checks, outline and column widths) reaches at least the last column of group 7. Nothing is sized to the shipped groups only.
+3. Every range that spans the groups (`ref_formula`, the lookups of module sheets, names, MTOutputs, checks, outline and column widths) reaches at least the last column of group 7. Nothing is sized to the shipped groups only.
 4. Module sheets (distribution and others) follow the same capacity: Distribution group *n* reads Mitigation group *n* for every *n* up to 7.
 5. The paste test (`check_paste_v<n>.py`) pastes group 2 into groups 3-6. It passes when there are no error values, the scenario numbers read 3-6, and the groups that match a stored scenario equal it. It runs at every release that touches the column groups.
 
@@ -688,7 +690,7 @@ Column norms: **a time-series module (AP, TCB) has exactly the Mitigation column
 
 | Module | Reads (source block in the source workbook) | Writes (its `To` tab) | Read by |
 |---|---|---|---|
-| Distribution | Mitigation section 19a (defined name `ExportDistn`) | Results by decile (LiveOutputs codes `<iso>.distn.*`) | (reports) |
+| Distribution | Mitigation section 19a (defined name `ExportDistn`) | Results by decile (MTOutputs codes `<iso>.distn.*`) | (reports) |
 | Air pollution | Mitigation section 15 "Local air pollutants: outputs to the air pollution module" (emissions `aps.<pol>.<sec>`, fuel use, GDP, population, deflator) | `ToMitigation`: the rows of Mitigation tab `FromAirPollution` (value of averted PM2.5, concentration coefficients, unit costs); `ToTransportCB`: VSL, daily earnings | Mitigation; TCB |
 | Transport co-benefits | Mitigation section 5b "Road transport: engineer model and outputs to the transport co-benefits module" (vehicle-km, freight vehicle-km, fuel economy, class splits, road share of each fuel, road and total fuel use), GDP, population; AP `ToTransportCB` | `ToMitigation`: the rows of Mitigation tab `FromTransportCB` (per-km costs `tran.acc.km`, `tran.con.km`, `tran.rdm.km`), plus $/l and welfare under legacy codes | Mitigation |
 

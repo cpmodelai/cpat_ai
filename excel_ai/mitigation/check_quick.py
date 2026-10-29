@@ -479,7 +479,7 @@ def excel_open():
             return
         xl.CalculateFull()
         errs = []
-        for name in ('Mitigation', 'LiveOutputs', 'ScenarioCompare', 'StoredOutputs'):
+        for name in ('Mitigation', 'MTOutputs', 'ScenarioCompare', 'StoredOutputs'):
             vals = wb.Worksheets(name).UsedRange.Value or ()
             errs += [(name, i, j) for i, row in enumerate(vals, 1) for j, v in enumerate(row, 1)
                      if isinstance(v, int) and v < -2146820000]                 # COM error values (#NAME? etc.)

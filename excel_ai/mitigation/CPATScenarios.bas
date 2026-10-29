@@ -36,7 +36,7 @@ Option Explicit
 
 Private Const SH_MT As String = "ScenarioDefinition"
 Private Const SH_MIT As String = "Mitigation"
-Private Const SH_OUT As String = "LiveOutputs"
+Private Const SH_OUT As String = "MTOutputs"      ' v1.0.4: legacy MTOutputs layout (was LiveOutputs)
 Private Const SH_SR As String = "StoredOutputs"
 Private Const SH_CHECK As String = "Check, Variables, Lambdas"
 Private Const CHK_FIRST As Long = 2430           ' MacroCheck: first report row (A = check, B = result)
@@ -53,7 +53,12 @@ Private Const MT_COL_FIRST As Long = 10       ' J: scenario 1
 Private Const MIT_ROW_SCEN As Long = 5
 Private Const MIT_COL_FIRST As Long = 11      ' K: code column of scenario group 1
 Private Const MIT_MAX_ROW As Long = 12000
-Private Const OUT_COL_Y0 As Long = 6          ' MTOutputs: first year column (F)
+Private Const OUT_COL_Y0 As Long = 11         ' MTOutputs: first year column (K; v1.0.4 legacy layout, was F)
+Private Const OUT_COL_DESC As Long = 4        ' v1.0.4: D CPATIndicator
+Private Const OUT_COL_TAB As Long = 7         ' v1.0.4: G Tab (mit, distn)
+Private Const OUT_COL_VAR As Long = 8         ' v1.0.4: H Variable (the code stem after the tab)
+Private Const OUT_COL_UNIT As Long = 9        ' v1.0.4: I Unit
+Private Const OUT_COL_SCEN As Long = 10       ' v1.0.4: J SubScenario (scenario number)
 Private Const SR_FIRST As Long = 6            ' StoredResults: first data row
 Private Const SR_COL_Y0 As Long = 8           ' StoredResults: first year column (H)
 Private Const NYEARS As Long = 20             ' 2022-2041 (the builder asserts NYEARS = years of the workbook)
@@ -516,14 +521,14 @@ End Function
 
 '---------------------------------------------------------------- storing results as values
 Private Sub StoreScenario(ByVal id As Long, ByVal srcScen As Long, ByVal nm As String)
-    Dim mo As Worksheet, sr As Worksheet, h As Long, r As Long, n As Long, d As Long, k As Long, j As Long
-    Dim code As String, country As String, stamp As Date
+    Dim mo As Worksheet, sr As Worksheet, h As Long, r As Long, n As Long, d As Long, k As Long, j As Long, m As Long
+    Dim stem As String, country As String, stamp As Date, seen As New Collection
     UpgradeStoredCodes                                    ' v0.7.2: v0.7.1 stems renamed first
     Set mo = ThisWorkbook.Worksheets(SH_OUT)
     Set sr = ThisWorkbook.Worksheets(SH_SR)
     For r = 5 To 2000                                     ' header row of the MTOutputs block
         If CStr(mo.Cells(r, 1).Value) = "Scenario block" Then
-            If Num(mo.Cells(r, 5).Value) = srcScen Then
+            If Num(mo.Cells(r, OUT_COL_SCEN).Value) = srcScen Then
                 h = r
                 Exit For
             End If
@@ -531,27 +536,52 @@ Private Sub StoreScenario(ByVal id As Long, ByVal srcScen As Long, ByVal nm As S
     Next r
     If h = 0 Then Err.Raise vbObjectError + 1, , "No MTOutputs block for scenario " & srcScen
     If Len(nm) = 0 Then nm = CStr(mo.Cells(h, 3).Value)
-    Do While Len(CStr(mo.Cells(h + 1 + n, 2).Value)) > 0
+    Do While Len(CStr(mo.Cells(h + 1 + n, 1).Value)) > 0    ' v1.0.4: the block ends at its blank row
         n = n + 1
     Loop
     DeleteStored id                                       ' v0.6.7: the ID's rows wherever they are (sorted sheet)
     d = FirstFreeRow()
-    code = CStr(mo.Cells(h + 1, 1).Value)
-    country = Left(code, InStr(code, ".") - 1)
+    country = LCase(CStr(ThisWorkbook.Names("CtryCode").RefersToRange.Value))
     stamp = Now
+    m = 0
     For k = 0 To n - 1
-        sr.Cells(d + k, 1).Value = id
-        sr.Cells(d + k, 2).Value = nm
-        sr.Cells(d + k, 3).Value = mo.Cells(h + 1 + k, 2).Value
-        sr.Cells(d + k, 4).Value = country & "." & CStr(mo.Cells(h + 1 + k, 2).Value) & "." & id
-        sr.Cells(d + k, 5).Value = mo.Cells(h + 1 + k, 3).Value
-        sr.Cells(d + k, 6).Value = mo.Cells(h + 1 + k, 4).Value
-        sr.Cells(d + k, 7).Value = stamp
-        For j = 1 To NYEARS
-            sr.Cells(d + k, SR_COL_Y0 + j - 1).Value = mo.Cells(h + 1 + k, OUT_COL_Y0 + j - 1).Value
-        Next j
+        stem = OutStem(mo, h + 1 + k)                     ' v1.0.4: rows the prototype has (Include? = Yes),
+        If Len(stem) > 0 Then                             ' each stem once (a quantity legacy lists twice)
+            If Not FirstOf(seen, stem) Then stem = ""
+        End If
+        If Len(stem) > 0 Then
+            sr.Cells(d + m, 1).Value = id
+            sr.Cells(d + m, 2).Value = nm
+            sr.Cells(d + m, 3).Value = stem
+            sr.Cells(d + m, 4).Value = country & "." & stem & "." & id
+            sr.Cells(d + m, 5).Value = mo.Cells(h + 1 + k, OUT_COL_DESC).Value
+            sr.Cells(d + m, 6).Value = mo.Cells(h + 1 + k, OUT_COL_UNIT).Value
+            sr.Cells(d + m, 7).Value = stamp
+            For j = 1 To NYEARS
+                sr.Cells(d + m, SR_COL_Y0 + j - 1).Value = mo.Cells(h + 1 + k, OUT_COL_Y0 + j - 1).Value
+            Next j
+            m = m + 1
+        End If
     Next k
 End Sub
+
+Private Function FirstOf(ByVal seen As Collection, ByVal key As String) As Boolean
+    ' v1.0.4: True the first time a key is met (Collection keys: works on Windows and Mac)
+    On Error GoTo Taken
+    seen.Add key, key
+    FirstOf = True
+    Exit Function
+Taken:
+    FirstOf = False
+End Function
+
+Private Function OutStem(ByVal mo As Worksheet, ByVal r As Long) As String
+    ' v1.0.4: the code stem of an MTOutputs row, Tab.Variable (G.H); "" for a section row or a row the prototype
+    ' does not have (Include? = No)
+    If CStr(mo.Cells(r, 1).Value) <> "Yes" Then Exit Function
+    If Len(CStr(mo.Cells(r, OUT_COL_VAR).Value)) = 0 Then Exit Function
+    OutStem = CStr(mo.Cells(r, OUT_COL_TAB).Value) & "." & CStr(mo.Cells(r, OUT_COL_VAR).Value)
+End Function
 
 Private Sub DeleteStored(ByVal id As Long)
     ' v0.6.7: delete every stored row of the ID and close the gaps (the rows may be anywhere after a sort)
@@ -589,7 +619,7 @@ Public Sub UpgradeStoredCodes()
             ReDim Preserve olds(1 To n)
             ReDim Preserve news(1 To n)
             olds(n) = CStr(mo.Cells(r, ac).Value)
-            news(n) = CStr(mo.Cells(r, 2).Value)
+            news(n) = OutStem(mo, r)                         ' v1.0.4: Tab.Variable
         End If
     Next r
     If n = 0 Then Exit Sub
@@ -818,7 +848,7 @@ Public Function CheckBatch() As Double
     Dim items As Variant, i As Long, n As Long, m As Long, j As Long, r As Long, q As Long, h As Long, k As Long
     Dim oldId() As Double, oldStem() As String, oldVal() As Double, newId() As Double, newStem() As String
     Dim newVal() As Double, d As Double, worst As Double, worstB As Double, nBad As Long, nCells As Long
-    Dim nMissing As Long, hit As Long, stem As String, nEts As Long, worstEts As Double   ' v0.5.2: new-ETS definitions
+    Dim nMissing As Long, hit As Long, stem As String, nEts As Long, worstEts As Double, nCmp As Long   ' v0.5.2: new-ETS definitions
     Set mc = ThisWorkbook.Worksheets(SH_CHECK)
     Set sr = ThisWorkbook.Worksheets(SH_SR)
     Set mo = ThisWorkbook.Worksheets(SH_OUT)
@@ -864,15 +894,18 @@ Public Function CheckBatch() As Double
     Recalc
     h = OutBlockRow(BASE_SCEN)
     k = 0
-    Do While Len(CStr(mo.Cells(h + 1 + k, 2).Value)) > 0
-        stem = CStr(mo.Cells(h + 1 + k, 2).Value)
+    Do While Len(CStr(mo.Cells(h + 1 + k, 1).Value)) > 0    ' v1.0.4: to the blank row; section rows skipped
+        stem = OutStem(mo, h + 1 + k)
         hit = 0
         For r = 1 To n
             If oldId(r) = BASE_SCEN And oldStem(r) = stem Then hit = r
         Next r
-        If hit = 0 Then
+        If Len(stem) = 0 Then
+            hit = -1
+        ElseIf hit = 0 Then
             nMissing = nMissing + 1
         Else
+            nCmp = nCmp + 1
             For j = 1 To NYEARS
                 d = RelDiff(Num(mo.Cells(h + 1 + k, OUT_COL_Y0 + j - 1).Value), oldVal(hit, j))
                 If d > worstB Then worstB = d
@@ -880,7 +913,7 @@ Public Function CheckBatch() As Double
         End If
         k = k + 1
     Loop
-    Note mc, wr, "Baseline recalculated here vs stored ID 1: rows compared", CStr(k - nMissing)
+    Note mc, wr, "Baseline recalculated here vs stored ID 1: rows compared", CStr(nCmp)
     Note mc, wr, "Baseline: largest relative difference", Format(worstB, "0.0E+00")
     ' 4. batch run and comparison of every stored value
     Note mc, wr, "RunAll: definitions run and stored", CStr(RunAll())
@@ -954,7 +987,7 @@ Private Function OutBlockRow(ByVal scen As Long) As Long
     Set mo = ThisWorkbook.Worksheets(SH_OUT)
     For r = 5 To 2000
         If CStr(mo.Cells(r, 1).Value) = "Scenario block" Then
-            If Num(mo.Cells(r, 5).Value) = scen Then
+            If Num(mo.Cells(r, OUT_COL_SCEN).Value) = scen Then
                 OutBlockRow = r
                 Exit Function
             End If

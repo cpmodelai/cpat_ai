@@ -1902,5 +1902,68 @@
   "note": "Found by the legacy check of prototype bug M20 (2026-10-29). Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
   "status": "fix",
   "prototype": "Fixed (v0.9.2, M20)."
+ },
+ {
+  "id": "L231",
+  "pri": "Medium",
+  "title": "MTOutputs \"Disaggregated energy consumption (Policy)\": rows read shifted, stale Mitigation rows",
+  "where": "MTOutputs rows 590-776 (K:AD and the codes in E)",
+  "why": "Almost every cell of the section reads a Mitigation row other than the one its label names (shifted and stale references): e.g. K591 \"road, coal\" reads L11644 (road natural gas, 495.2); K615 \"navigation, other oil products\" reads L11730 (an after-tax price); others read blank rows or headings. The codes in E are taken from the rows actually read, so they are wrong too; rows 767-776 show #REF!.",
+  "fixes": [
+   {
+    "cell": "MTOutputs K590:AD776, E590:E776",
+    "now": "references to shifted rows (e.g. K591 =Mitigation!L11644)",
+    "new": "each row reads the Mitigation row its label names (fuel use of the subsector and fuel, policy group); the code formula from the same row",
+    "fill": "K:AD",
+    "policy": ""
+   }
+  ],
+  "ref": "The prototype MTOutputs (v1.0.4) maps each row by its label (data/mvp_legacy_extracts/mtoutputs_map_465.csv, column reason gives the cell legacy reads).",
+  "effect": "Reports only (MTOutputs, the MT exports): the disaggregated fuel use by subsector is wrong in legacy outputs; no model value changes.",
+  "note": "Found by the MTOutputs mapping of 2026-10-29.",
+  "status": "fix",
+  "prototype": "Fixed (v1.0.4): MTOutputs rows map to the quantities their labels name."
+ },
+ {
+  "id": "L232",
+  "pri": "Low",
+  "title": "MTOutputs: methane-fee price-change codes of coal and gas swapped",
+  "where": "MTOutputs E1221:E1222",
+  "why": "Row 1221 (label and value: natural gas) carries the code mfpct.coa, row 1222 (coal) the code mfpct.nga.",
+  "fixes": [
+   {
+    "cell": "MTOutputs E1221, E1222",
+    "now": "...mfpct.coa (row 1221), ...mfpct.nga (row 1222)",
+    "new": "...mfpct.nga (row 1221), ...mfpct.coa (row 1222)",
+    "fill": "",
+    "policy": ""
+   }
+  ],
+  "ref": "",
+  "effect": "Reports only: a reader by code takes the coal value for gas and the reverse.",
+  "note": "Found by the MTOutputs mapping of 2026-10-29.",
+  "status": "fix",
+  "prototype": "Not applicable: the prototype codes come from the row (v1.0.4)."
+ },
+ {
+  "id": "L233",
+  "pri": "Low",
+  "title": "MTOutputs: rows that read cells other than their labels name (Markups, capacity, GHG)",
+  "where": "MTOutputs rows 1152-1174 (Markups), 1099-1100 (Capacity), 109-111 (Emissions)",
+  "why": "Markups block: labels and codes shifted against each other, the cells read unrelated rows. Row 1099 (nameplate capacity) reads a hydro storage cost; row 1100 (effective capacity, total) reads the manual capacity of oil. Rows 109-111 read GHG including LULUCF though labelled excluding.",
+  "fixes": [
+   {
+    "cell": "MTOutputs K1152:AD1174, K1099:AD1100, K109:AD111",
+    "now": "references to unrelated or neighbouring rows",
+    "new": "each row reads the Mitigation row its label names (GHG excluding LULUCF for 109-111)",
+    "fill": "K:AD",
+    "policy": ""
+   }
+  ],
+  "ref": "The prototype MTOutputs (v1.0.4) maps by the label (data/mvp_legacy_extracts/mtoutputs_map_465.csv).",
+  "effect": "Reports only (MTOutputs and the MT exports).",
+  "note": "Found by the MTOutputs mapping of 2026-10-29.",
+  "status": "fix",
+  "prototype": "Fixed (v1.0.4): MTOutputs rows map to the quantities their labels name; legacy-only rows kept with Include? = No."
  }
 ]

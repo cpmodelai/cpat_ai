@@ -27,7 +27,7 @@ sys.path.insert(0, os.path.join(HERE, '..', 'mitigation'))
 sys.path.insert(0, os.path.join(HERE, '..', 'shared'))
 import build as P                                      # noqa: E402  the prototype builder (helpers, layout)
 
-VERSION = '1.0.3'
+VERSION = '1.0.4'
 NAME = 'CPAT-AI-Distribution-Prototype'
 OUT = P.REL.versioned(NAME, VERSION, 'xlsm')     # v0.1.1: excel_ai/<name>_v<version>.xlsm (_latest copies: NORMS 5a)
 SOURCE = P.LATEST                                     # the mitigation prototype the module is cut from
@@ -56,6 +56,8 @@ VERSION_LOG = [  # version, date, change
     ('1.0.3', '2026-10-29', f'Cut from the mitigation prototype v{P.VERSION}. Update from Mitigation also looks in '
                           'permalink_countryeditable\\ (next to this workbook and one folder up) before permalink\\. '
                           'The Distribution method unchanged.'),
+    ('1.0.4', '2026-10-29', f'Cut from the mitigation prototype v{P.VERSION} (outputs tab MTOutputs in the legacy layout); '
+                          'versions aligned. The Distribution method unchanged.'),
 ]
 
 # the tabs of the module, in order (Cover is added); everything else of the prototype is dropped

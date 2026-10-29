@@ -109,7 +109,7 @@ Egypt, carbon tax scenario, 2030: carbon tax 4.2 bn USD (power 1.8), existing ta
 
   Egypt 2022: total revenue -8.6% of GDP, because consumer subsidies exceed taxes.
 
-LiveOutputs rows: `rpct.all.tot`, `.chg`, `.sub`, `.be`; `rbe.all.all`.
+MTOutputs rows: `rpct.all.tot`, `.chg`, `.sub`, `.be`; `rbe.all.all`.
 
 **Not built (TODO; decisions taken during the run, to confirm):**
 - **Producer subsidies (Q26).** There are no data for Egypt, and NORMS 3c bars zero placeholders.
@@ -198,7 +198,7 @@ Biomass is left out (Q34): it has no CO2, and legacy gives `#DIV/0!`. Egypt 2022
 
 The `cpi`, `ecr`, `cpeff` and coverage-share rows call `SAFEDIV` / `SCALEBY` in the LAMBDA column.
 
-LiveOutputs: `cpi.all.all`, `ecr.all.all`, `cpeff.all.all`, `cov.all.all.all`.
+MTOutputs: `cpi.all.all`, `ecr.all.all`, `cpeff.all.all`, `cov.all.all.all`.
 
 ### 7. 16b External balance (v0.3.16; legacy F11, data rows 741-743)
 
@@ -227,7 +227,7 @@ Legacy's balance-of-payments panel (rows 18195-18219) is not replicated (bug L50
 
 The current-account level (WEO `BCA`, Q38) waits for WEO data in the data step.
 
-LiveOutputs: `xnim.all.all`, `xtbp.all.all`, `xtb.pct.all.all`.
+MTOutputs: `xnim.all.all`, `xtbp.all.all`, `xtb.pct.all.all`.
 
 ### 8. Section 18 Welfare and externalities, climate part (v0.3.17; legacy F10, rows 17392-17742)
 
@@ -285,7 +285,7 @@ Egypt, carbon tax 20 USD, 2031: +3.2 bn USD (0.39% of GDP).
 
 **Not as rows (Q42, NORMS 3c):** the air-pollution and transport co-benefits, externalities per unit, explicit and implicit subsidies, efficient prices. They come with their modules.
 
-LiveOutputs: `scc.all.nat`, `wcli.all.nat`, `eff.all.all`, `mfc.all.all`, `wel.all.usd`, `wel.all.pct`.
+MTOutputs: `scc.all.nat`, `wcli.all.nat`, `eff.all.all`, `mfc.all.all`, `wel.all.usd`, `wel.all.pct`.
 
 
 ## Multiple scenarios: definitions, batch run, stored results, comparison
@@ -301,10 +301,10 @@ The model calculates two scenarios at a time: the baseline and one live policy s
 | ScenarioDefinition, scenario 1 | The **baseline**, stored once. |
 | ScenarioDefinition, scenario 2 | The **live policy scenario**. The batch run overwrites it with each definition and restores it at the end. |
 | ScenarioDefinition, columns to the right | **Scenario definitions**, one full ScenarioDefinition column each: short name (row 2, the legend in the charts), Run? (Yes/No), number (previous + 1), name, then the inputs. Red cells differ from the template. To add one, copy the last definition one column to the right and edit it. Blank columns are grouped and collapsed. |
-| Mitigation, Distribution | Two scenario groups: 1 = the baseline (plain formulas), 2 = the live scenario (every calculated cell calls its named LAMBDA). More live scenarios: copy group 2 to the right and set its scenario number; LiveOutputs has room for 12 scenario blocks. |
-| LiveOutputs | The key indicators of every scenario group, one block per scenario, found on Mitigation by output code. |
-| StoredOutputs | Results as **values only**: the LiveOutputs indicators of each scenario, under its ID and output code (country.stem.ID). ID 1 is the baseline; a definition keeps its ScenarioDefinition number. Sorted by indicator, then ID (like variables together); every lookup matches the output code, so any order works. |
-| ScenarioCompare | The **dashboard** and every user entry of the front: results from Live (LiveOutputs) or Stored (StoredOutputs), the year, the data source of the linked tables. Core buttons (green) and the others (grey); key results for one year of up to 10 scenarios against the baseline; a bar chart; time series with their chart beside them. |
+| Mitigation, Distribution | Two scenario groups: 1 = the baseline (plain formulas), 2 = the live scenario (every calculated cell calls its named LAMBDA). More live scenarios: copy group 2 to the right and set its scenario number; MTOutputs has room for 12 scenario blocks. |
+| MTOutputs | The results of every scenario group in the **legacy MTOutputs layout** (v1.0.4): columns A Include?, B Country, C Scenario, D CPATIndicator, E CPATCode (our code, from Country, Tab, Variable, SubScenario), F the legacy CPAT code, G Tab, H Variable, I Unit, J SubScenario, years K:AD (distribution rows: deciles 1-10 in K:T); legacy's sections and rows in legacy order, one block per scenario; a row legacy lists and the prototype does not have stays with Include? = No and the reason (helper columns right of the years: lookups, legacy code body and row, match). Found on Mitigation and Distribution by output code. |
+| StoredOutputs | Results as **values only**: the MTOutputs indicators of each scenario, under its ID and output code (country.stem.ID). ID 1 is the baseline; a definition keeps its ScenarioDefinition number. Sorted by indicator, then ID (like variables together); every lookup matches the output code, so any order works. |
+| ScenarioCompare | The **dashboard** and every user entry of the front: results from Live (MTOutputs) or Stored (StoredOutputs), the year, the data source of the linked tables. Core buttons (green) and the others (grey); key results for one year of up to 10 scenarios against the baseline; a bar chart; time series with their chart beside them. |
 | VBA module CPATScenarios | The macros below. The workbook is an .xlsm; the source is also in `CPATScenarios.bas`. |
 | MacroCheck | Report of the first-run test macro CheckBatchRun. |
 
@@ -350,21 +350,21 @@ The VBA project (written by `vba_project.py`) and the stored results were produc
 
 1. If the file was downloaded, unblock it first (file Properties > Unblock), or Excel opens it with macros disabled.
 2. Open it and choose Enable Content.
-3. Run **CheckBatchRun** (Alt+F8); it takes a minute or two. It checks the 12 lookups the macros rely on (sheets, rows by code, scenario columns, LiveOutputs blocks); compares Excel's own recalculation of the baseline with the stored baseline (plain formulas only, so Excel and LibreOffice calculate it the same way); and reruns RunAllScenarios, ETS goal seek included, comparing every stored value with the value stored before.
+3. Run **CheckBatchRun** (Alt+F8); it takes a minute or two. It checks the 12 lookups the macros rely on (sheets, rows by code, scenario columns, MTOutputs blocks); compares Excel's own recalculation of the baseline with the stored baseline (plain formulas only, so Excel and LibreOffice calculate it the same way); and reruns RunAllScenarios, ETS goal seek included, comparing every stored value with the value stored before.
 4. MacroCheck shows **Result PASS** when no value differs by more than 1e-6 (relative). CHECK lists how many values differ; FAIL names the lookup that was not found.
 5. If Excel cannot load the VBA project, or Alt+F8 lists no macros: remove the project if one is listed, import `CPATScenarios.bas` (Alt+F11 > File > Import), save as .xlsm and run CheckBatchRun again.
 
 ### 5. Comparing and keeping results
 
-- **Source and year.** On ScenarioCompare choose Results from (Stored or Live) and the year, then Recalculate now. Stored reads StoredOutputs (every stored scenario); Live reads LiveOutputs (the scenario groups of Mitigation: the baseline and the live scenario, and any group added by copy-paste). The names SCVal, SCCode and SCYear choose the range with CHOOSE; every value is `INDEX(SCVal, MATCH(country.stem.ID, SCCode, 0), year column)`, so the order of the rows never matters.
+- **Source and year.** On ScenarioCompare choose Results from (Stored or Live) and the year, then Recalculate now. Stored reads StoredOutputs (every stored scenario); Live reads MTOutputs (the scenario groups of Mitigation: the baseline and the live scenario, and any group added by copy-paste). The names SCVal, SCCode and SCYear choose the range with CHOOSE; every value is `INDEX(SCVal, MATCH(country.stem.ID, SCCode, 0), year column)`, so the order of the rows never matters.
 - **Scenario slots.** Up to 10, in ScenarioDefinition order: ID, short name (the legend), name. A scenario with no result in the chosen source shows blank (key table) or #N/A (time series, hidden by a conditional format, a gap in the charts); the charts leave it out.
 - **Key table.** Energy CO2 emissions, GHG emissions excluding LULUCF, revenue as a share of GDP, the GDP effect of the revenue use and the net welfare effect: level, difference from the baseline, and % difference for the two emission levels. The bar chart beside it shows the % difference of energy CO2 by scenario.
-- **Time series.** Four tables (default: energy CO2, GHGs, revenue, GDP effect), scenarios down and years across, each with its line chart beside it. The title of each table is a dropdown of the indicator list at the bottom of the tab: every LiveOutputs indicator except the price and Kaya indices.
+- **Time series.** Four tables (default: energy CO2, GHGs, revenue, GDP effect), scenarios down and years across, each with its line chart beside it. The title of each table is a dropdown of the indicator list at the bottom of the tab: every MTOutputs indicator except the price and Kaya indices.
 - StoredOutputs holds values only, so results from other files can be pasted in as values under new IDs, as long as its column layout is kept (output code in column D).
 - The baseline changes only when StoreBaseline is run.
 
 ### 6. Limits
 
 - The batch run calculates one policy scenario at a time. Further Mitigation scenario groups (copies of group 2) show on the dashboard under Live; the batch macros use the live scenario (group 2) only.
-- LiveOutputs (123 indicators, incl. power, fuel use and revenues with power, existing carbon pricing, GHGs, GDP effects) defines what is stored. To store more, add rows to the LiveOutputs blocks first.
+- MTOutputs (the legacy MTOutputs rows the prototype has, about 1,000 per scenario, and its own key outputs) defines what is stored. To store more, add rows to the MTOutputs blocks first.
 
