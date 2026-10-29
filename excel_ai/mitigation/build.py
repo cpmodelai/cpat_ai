@@ -4604,14 +4604,14 @@ LAMBDAS = {   # every calculated row calls one of these in the right column (LAS
     'PATHYEARS': (['year', 'start_yr', 'target_yr', 'cont'], 'IF(cont,year,MIN(year,target_yr))-start_yr'),
     'FPRSLOPE': (['start_yr', 'target_yr', 'start', 'target'],
                  'IF(target_yr>start_yr,(target-start)/(target_yr-start_yr),0)'),
-    'FPRRATE': (['start_yr', 'target_yr', 'start', 'target', 'slope'],
+    'FPRRATE': (['start_yr', 'target_yr', 'start', 'target', 'incr'],
                 'IF(AND(target_yr>start_yr,MAX(start,target)>0),'
-                '(target/IF(start>0,start,start+slope))^(1/(target_yr-start_yr))-1,0)'),
-    'FPRBASE': (['start_yr', 'target_yr', 'start', 'slope'], 'start+slope*MAX(target_yr-start_yr-1,0)'),
+                '(target/IF(start>0,start,start+incr))^(1/(target_yr-start_yr))-1,0)'),
+    'FPRBASE': (['start_yr', 'target_yr', 'start', 'incr'], 'start+incr*MAX(target_yr-start_yr-1,0)'),
     'FPRAFTER': (['year', 'start_yr', 'target_yr', 'ext', 'start', 'target', 'pbase', 'rate'],
                  'IF(ext="Percentage",pbase*(1+rate)^(year-target_yr+1),IF(target_yr>start_yr,target,start))'),
-    'FPRPATH': (['year', 'start_yr', 'target_yr', 'ext', 'start', 'slope', 'after'],
-                'IF(year<start_yr,0,IF(OR(year<target_yr,ext="Linear*"),start+slope*(year-start_yr),after))'),
+    'FPRPATH': (['year', 'start_yr', 'target_yr', 'ext', 'start', 'incr', 'after'],
+                'IF(year<start_yr,0,IF(OR(year<target_yr,ext="Linear*"),start+incr*(year-start_yr),after))'),
     'NOMFACTOR': (['basis', 'cpi_index'], 'IF(LEFT(basis,7)="Nominal",cpi_index,1)'),
     'ETSON': (['apply', 'year', 'start_year'], 'IF(AND(LEFT(apply,3)="Yes",year>=start_year),1,0)'),
     'ETSPRICE': (['ets_on', 'override', 'override_price', 'estimate', 'carbon_price'],
@@ -4887,7 +4887,7 @@ LAMBDAS = {   # every calculated row calls one of these in the right column (LAS
 LAMBDA_NOTES = {
     'PATH': 'Policy path: 0 before start_yr, linear from start (start_yr) to target (target_yr); after target_yr linear if cont, else flat',
     'FPRSLOPE': 'Fuel price reform: linear increase per year (legacy column J; 0 unless the target year is later)',
-    'FPRRATE': 'Fuel price reform: annual rate (target/start)^(1/n) - 1, start 0: target/(start + slope) (legacy column K)',
+    'FPRRATE': 'Fuel price reform: annual rate (target/start)^(1/n) - 1, start 0: target/(start + increase) (legacy column K)',
     'FPRBASE': 'Fuel price reform: value of the year before the target year (base of the Percentage continuation)',
     'FPRAFTER': 'Fuel price reform after the target year: Percentage: base x (1 + rate)^years (L173 fixed: legacy rate '
                 'x last year); otherwise held at the target (L171 fixed: legacy 0)',
@@ -9133,6 +9133,7 @@ def defined_names():
         'SRYear': f'StoredOutputs!${L(SR_Y0)}${SR_HEAD}:${yl}${SR_HEAD}',
         'CodePrefix': 'Settings!$C$20', 'CPfx': 'Settings!$C$20', 'SpotPow': 'Settings!$C$21', 'CPIRes': 'Settings!$C$22', 'DeflRes': 'Settings!$C$23',
         'PDomBase': 'Settings!$C$24', 'PDomLast': 'Settings!$C$25', 'OBREff': 'Settings!$C$14',
+        'PJperKtoe': 'Settings!$C$13',   # v9.0: PJ per ktoe (named where a formula would pass 100 characters)
         # v1.09: existing carbon pricing (sheet ECP): selected country, all countries
         'ECPKey': f'Inputs_ecp!$A${ECP_R0}:$A${ECP_R1}', 'ECPCov': f'Inputs_ecp!$D${ECP_R0}:$D${ECP_R1}',   # v4.6
         'ECPVal': f'Inputs_ecp!$E${ECP_R0}:${ECP_YL}${ECP_R1}', 'ECPYear': f'Inputs_ecp!$E${ECP_HDR}:${ECP_YL}${ECP_HDR}',
@@ -10556,7 +10557,7 @@ def build_mitigation(wb):
                         f = '=' + (call('TOTAL', *a) if lam else f'SUM({a[0]})')
                     elif f_ == 'all':
                         a = (f'SUMIFS({col}${m0}:{col}${m1},$A${m0}:$A${m1},$A{r},$B${m0}:$B${m1},"<>ecy")',
-                             f'{col}{R_PIX[("pav.q", "ecy")]}*GJperkWh/Settings!$C$13')
+                             f'{col}{R_PIX[("pav.q", "ecy")]}*GJperkWh/PJperKtoe')
                         f = '=' + (call('ADDED', *a) if lam else f'{a[0]}+{a[1]}')
                     else:
                         a = (f'$B{r}', f'{col}${s0}:{col}${s1}')
