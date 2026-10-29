@@ -84,7 +84,7 @@ def step(state, db, inputs, settings, baseline, t):
     mfee = at('mfee')
     for s in CH4_SOURCES:
         a, b = src(s, 'a'), src(s, 'b')
-        with np.errstate(divide='ignore', invalid='ignore'):
+        with np.errstate(divide='ignore', invalid='ignore'):        # Excel-AI bug M21: #DIV/0 where b = 0 (here 1)
             cap = np.power(safe_div(1.0, a), safe_div(1.0, b))
         mfp = put('mfp', np.where(a == 0, 0.0, np.minimum(mfee * src(s, 'gwp') * src(s, 'fee'), cap)), 'all', s)
         em = safe_div(src(s, 'em0') * at('ch4.act', 'all', s), src(s, 'act0'))

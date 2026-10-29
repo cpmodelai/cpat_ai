@@ -19,7 +19,7 @@ SOURCES = {
     'IMF': {'oil': ('data', 'pint_imf', 'POILBRE', 2032), 'coa': ('data', 'pint_imf', 'PCOALAU', 2032),
             'nga.lng': ('data', 'pint_imf', 'PNGASJP', 2032), 'nga.nam': ('data', 'pint_imf', 'PNGASUS', 2032),
             'nga.eur': ('data', 'pint_imf', 'PNGASEU', 2032)},
-    # Excel-AI reads the World Bank rows by position: LNG <- 'Natural gas, Europe', Europe <- 'LNG, Japan' (legacy rows)
+    # Excel-AI bug M20: World Bank rows read by position: LNG <- 'Natural gas, Europe', Europe <- 'LNG, Japan'
     'WB': {'oil': ('data', 'pint_wb', 'Crude oil, Brent', 2027), 'coa': ('data', 'pint_wb', 'Coal, Australia', 2027),
            'nga.lng': ('data', 'pint_wb', 'Natural gas, Europe', 2027),
            'nga.nam': ('data', 'pint_wb', 'Natural gas, US', 2027),
@@ -108,7 +108,7 @@ PRICES = ['coa.pow', 'coa.res', 'coa.ind', 'nga.pow', 'nga.res', 'nga.ind', 'gso
           'ker.all', 'oop.all', 'bio.all']
 HIST_YEARS = [2021, 2022, 2023, 2024]
 MARGIN_YEAR = 2024                       # Excel-AI reads the coal and gas margins at 2024 (typed; issue I101)
-VATGEN_YEAR = 2022                       # Excel-AI VatGen (Inputs!BB156): the general VAT rate VAT_WEO of 2022 (fixed cell)
+VATGEN_YEAR = 2022                       # Excel-AI bug M15: VatGen (Inputs!BB156) is VAT_WEO of 2022 in every year
 RP_FROM_DATA = {'coa', 'nga', 'bio'}     # historical retail price from data; oil products: supply cost + taxes
 OIL_SHARE = {'gso.all', 'die.all', 'lpg.all', 'ker.all'}
 VAT_CONSUMER = {'coa.res', 'nga.res', 'gso.all', 'die.all', 'lpg.all', 'ker.all', 'oop.all'}

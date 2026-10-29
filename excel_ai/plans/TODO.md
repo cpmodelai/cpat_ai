@@ -64,6 +64,7 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
 
 ## 6. AI backlog
 
+- ☐ **Prototype bugs M15-M22, found by Coded CPAT (user 2026-10-29; NORMS 0 rule 6):** fix all eight in the builder (Mitigation and Distribution), then check each in legacy CPAT (registered? fixed in 465?); brief and steps: [`Fix_prototype_bugs_M15-M22.md`](Fix_prototype_bugs_M15-M22.md). M15 VAT rate of the year (data to LastHistPriceYear, then held; user assumption), M16 freight BEV feebate distance, M17 PHEV cost basis (confirm), M18 bus electricity column, M19 gdpn units, M20 World Bank gas series by name, M21 methane fee b = 0, M22 Distribution percentile recycling rows.
 - ☑ **New legacy file**: the register, fix plans and lists moved to the latest file, 465 (v0.8.2, 2026-10-23; 459 superseded); the CPAT team's 62 fixes checked (52 confirmed, 8 with caveats, L62 and L63 not fixed; `../legacy/bugfixes/check465/`).
 - ☐ **Numerical check on legacy 465** (U2, I14): the legacy Egypt run against the prototype, sector by sector; align with `CPATMasterProcessesCodesAndDefaults.xlsx`. (The caveats for the CPAT team: section 5.)
 - ☐ **Prototype data extracts on 465**: the extracts (`extract_*.py`) and the Methods still read 456; move them when the numerical check (U2) is done.

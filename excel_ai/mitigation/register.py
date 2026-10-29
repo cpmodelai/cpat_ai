@@ -36,7 +36,9 @@ DEFINITIONS = [  # prefix, definition, what the prototype does
     ('L', 'Legacy bug: legacy CPAT does not compute what it means to (a wrong row, a double application, a dead '
           'reference, a blank read as 0 where a value is meant); the fix is a change of formulas, with a cell plan.',
      'Fixes it; never replicated.'),
-    ('M', 'Prototype bug: a defect of the prototype itself, found and fixed during development.', 'Fixed.'),
+    ('M', 'Prototype bug: a defect of the prototype itself, found during development or by Coded CPAT\'s '
+          'replication (user 2026-10-29).', 'Fixed; an open one is listed with its fix, and Coded CPAT replicates it '
+                                           'until the prototype is fixed.'),
     ('DOC', 'Documentation bug: the CPAT methodology documentation is wrong, missing or contradicts itself (an '
             'equation, a sign, a symbol, a unit, a reference); the models are not affected (user 2026-10-29).',
      'Follows the workbooks; the documentation is to be corrected.'),
@@ -185,6 +187,11 @@ def records():
                         else st, status='Accepted', priority='Minor'))
     for c, title, found, what, fx in R.MVP_BUGS:
         out.append(_rec(id=c, title=title, description=what, fix=fx, prototype=f'Fixed ({found})', status='Closed'))
+    for c, title, where, what, fx, eff, pr in R.OPEN_PROTO_BUGS:              # v0.9.1: found by Coded CPAT, open
+        out.append(_rec(id=c, title=title, where=where, description=what, fix=fx, effect=eff, priority=pr,
+                        module='Distribution' if 'Distribution' in where else 'Mitigation',
+                        area='Distribution' if 'Distribution' in where else 'Mitigation',
+                        prototype='Open: to fix (Coded CPAT replicates it until then)', status='Open'))
     for c, title, where, what, fx, pr in R.DOC_BUGS:                          # user 2026-10-29
         out.append(_rec(id=c, title=title, where=where, description=what, fix=fx, priority=pr,
                         prototype='Not affected', status=R.DOC_STATUS))

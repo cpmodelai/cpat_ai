@@ -1,10 +1,10 @@
-# BUGS: legacy CPAT bugs, prototype bugs and documentation bugs (v0.9.0)
+# BUGS: legacy CPAT bugs, prototype bugs and documentation bugs (v0.9.1)
 
 **The rule (NORMS 0).** Never replicate a legacy bug; always replicate a legacy issue, and track it. A bug: legacy does not compute what it means to (a wrong row, a double application, a dead reference); the prototype fixes it. An issue: legacy does what it means to, but the choice is open to question; the prototype does the same and tracks it. A departure that is not a bug fix is kept only by user decision. Data problems are issues (area Data): replicated; where legacy needs a formula fix, that fix is a legacy bug (L) and the issue is Very high; where no cell plan is possible, the prototype aligns with legacy and the issue is Extremely high.
 
-Generated from the register (`mitigation/register.py`) by `mitigation/make_replication_lists.py`. The same items, every column: the tracker `Tracking_Legacy_Bugs_v0.9.0.xlsx` (the master list). Bugs in detail: `Legacy_CPAT_Bugs_v0.9.0.docx`. Issues in detail: the appendices of the Documentation (`mitigation/CPAT-AI-Mitigation_Documentation.docx`). Lists: [`BUGS.md`](BUGS.md), [`ISSUES.md`](ISSUES.md).
+Generated from the register (`mitigation/register.py`) by `mitigation/make_replication_lists.py`. The same items, every column: the tracker `Tracking_Legacy_Bugs_v0.9.1.xlsx` (the master list). Bugs in detail: `Legacy_CPAT_Bugs_v0.9.1.docx`. Issues in detail: the appendices of the Documentation (`mitigation/CPAT-AI-Mitigation_Documentation.docx`). Lists: [`BUGS.md`](BUGS.md), [`ISSUES.md`](ISSUES.md).
 
-**222 legacy bugs, 14 prototype bugs, 20 documentation bugs.** Legacy 465: 52 fixed (confirmed), 9 fixed with caveats, 2 marked fixed but not fixed, 159 open.
+**222 legacy bugs, 22 prototype bugs, 20 documentation bugs.** Legacy 465: 52 fixed (confirmed), 9 fixed with caveats, 2 marked fixed but not fixed, 159 open.
 
 ## 1. Legacy bugs (L)
 
@@ -237,24 +237,32 @@ Fixed in the prototype (or the feature not built); never replicated.
 
 ## 2. Prototype bugs (M)
 
-Defects of the prototype itself, all fixed.
+Defects of the prototype itself: 14 fixed, 8 open. The open ones were found by Coded CPAT, which replicates them until the prototype is fixed (NORMS 0, rule 8); fix instructions: [`plans/Fix_prototype_bugs_M15-M22.md`](plans/Fix_prototype_bugs_M15-M22.md).
 
-| Code | Bug | Fixed |
-|---|---|---|
-| M1 | Version-log rows rewritten with the current version | Fixed (v0.0.3-v0.0.4 / v0.0.5) |
-| M2 | Power: VAT left out on the policy term | Fixed (v0.1.05 / v0.1.06) |
-| M3 | Power: long-term storage allocation left out | Fixed (v0.1.05 / v0.1.06) |
-| M4 | Power: VRE share without other renewables | Fixed (v0.1.05 / v0.1.06) |
-| M5 | Defined name clashed with a LAMBDA name | Fixed (v0.1.07 build / v0.1.07) |
-| M6 | Power ETS revenue valued at the tax-equivalent price | Fixed (v0.1.05 / v0.1.09) |
-| M7 | Stale texts in the workbook and notes | Fixed (v0.1.08 / v0.1.09) |
-| M8 | LegacyDiff rows out of date | Fixed (v0.1.09 / v0.2.2) |
-| M9 | Legacy comparison note from v0.1.01 | Fixed (v0.1.02-v0.1.09 / v0.2.2) |
-| M10 | Total rows labelled "All subsectors" | Fixed (v0.1.09 / v0.2.3) |
-| M11 | Macros read 19 year columns | Fixed (v0.2.3 build / v0.2.3) |
-| M12 | Sheet Lambdas: formula texts named merged sheets | Fixed (v0.3.6 / v0.3.13) |
-| M13 | Road vehicle feebate counted the carbon price twice | Fixed (v0.3.5 / v0.4.16) |
-| M14 | LAMBDA library texts named a merged-away sheet | Fixed (v0.4.2 / v0.5.3) |
+| Code | Priority | Bug | Where | Fix | Status |
+|---|---|---|---|---|---|
+| M1 |  | Version-log rows rewritten with the current version |  |  | Fixed (v0.0.3-v0.0.4 / v0.0.5) |
+| M2 |  | Power: VAT left out on the policy term |  |  | Fixed (v0.1.05 / v0.1.06) |
+| M3 |  | Power: long-term storage allocation left out |  |  | Fixed (v0.1.05 / v0.1.06) |
+| M4 |  | Power: VRE share without other renewables |  |  | Fixed (v0.1.05 / v0.1.06) |
+| M5 |  | Defined name clashed with a LAMBDA name |  |  | Fixed (v0.1.07 build / v0.1.07) |
+| M6 |  | Power ETS revenue valued at the tax-equivalent price |  |  | Fixed (v0.1.05 / v0.1.09) |
+| M7 |  | Stale texts in the workbook and notes |  |  | Fixed (v0.1.08 / v0.1.09) |
+| M8 |  | LegacyDiff rows out of date |  |  | Fixed (v0.1.09 / v0.2.2) |
+| M9 |  | Legacy comparison note from v0.1.01 |  |  | Fixed (v0.1.02-v0.1.09 / v0.2.2) |
+| M10 |  | Total rows labelled "All subsectors" |  |  | Fixed (v0.1.09 / v0.2.3) |
+| M11 |  | Macros read 19 year columns |  |  | Fixed (v0.2.3 build / v0.2.3) |
+| M12 |  | Sheet Lambdas: formula texts named merged sheets |  |  | Fixed (v0.3.6 / v0.3.13) |
+| M13 |  | Road vehicle feebate counted the carbon price twice |  |  | Fixed (v0.3.5 / v0.4.16) |
+| M14 |  | LAMBDA library texts named a merged-away sheet |  |  | Fixed (v0.4.2 / v0.5.3) |
+| M15 | Medium | Section 18: VAT on efficient prices at the 2022 general rate in every year | Mitigation section 18 rows 8753-8768 (vatext) and 8943-8954 (vat.cost), column D; defined name VatGen = Inputs!$BB$156 | The VAT rate of the column year: VAT_WEO data up to the last historical year (LastHistPriceYear), the last value held after it (user 2026-10-29: data up to the final historical year, passed forward unless known otherwise). Column D keeps the consumer flag (x the household share for the oil products); the rate becomes a year row. | Open: to fix (Coded CPAT replicates it until then) |
+| M16 | Medium | Road: freight BEV feebate valued at the ICEV truck's distance | Mitigation row 4197 (trfbvfb.fre.bev) | Use the freight BEV distance (the BEV distance row of the freight block), as rows 4138 and 4219. | Open: to fix (Coded CPAT replicates it until then) |
+| M17 | Low | Road: plug-in hybrid cost mixes BEV capital cost with ICEV insurance and maintenance | Mitigation row 4175 (trtcfp.pas.phv) | One basis for every PHEV cost component: the PHEV purchase price where the data have it, else the BEV one, with insurance and maintenance on the same price; confirm the intended basis with the CPAT team. | Open: to fix (Coded CPAT replicates it until then) |
+| M18 | Medium | Road: bus electricity scaled by the bus energy of every fuel | Mitigation row 4522 (trbusel.bus.ecy), column D | Column D = $G3816 (the electricity column), as the fuel rows. | Open: to fix (Coded CPAT replicates it until then) |
+| M19 | Low | Nominal GDP divided by a billion although WEO is in billions | Mitigation rows 7765-7766 (gdpn) | Drop the division (or label the unit) and check every reader (none in Mitigation; MTOutputs). | Open: to fix (Coded CPAT replicates it until then) |
+| M20 | Low | International prices: World Bank gas series read by position, LNG and Europe swapped | Inputs, international price block (source WB); legacy Prices_int rows | Look the series up by name. Check legacy: if legacy reads the same rows, this is a legacy bug (L) instead, fixed in the prototype. | Open: to fix (Coded CPAT replicates it until then) |
+| M21 | Low | Methane fee: marginal abatement price #DIV/0 where the curve exponent is 0 | Mitigation rows 8600-8606 (mfp) | Where b = 0 the cap does not apply: mfp = the fee (IF(b=0, fee, MIN(...))). | Open: to fix (Coded CPAT replicates it until then) |
+| M22 | Medium | Distribution: percentile recycling rows add a % row to amounts in local currency | Distribution 0.1.3 rows 599, 604, 609, 614, 619, 624 (hrec.p25/p75 by sample) | Use the public investment amount per person (pui of the sample), as the other three terms. | Open: to fix (Coded CPAT replicates it until then) |
 
 ## 3. Documentation bugs (DOC)
 

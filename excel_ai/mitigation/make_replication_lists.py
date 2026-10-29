@@ -54,8 +54,14 @@ def bugs_md():
                     'Legacy 465', 'See also'],
                    [(r['id'], r['former'], r['area'], r['priority'], r['title'], r['where'], r['prototype'],
                      r['legacy465'], r['see_also']) for r in L])
-    lines += ['## 2. Prototype bugs (M)', '', 'Defects of the prototype itself, all fixed.', '']
-    lines += table(['Code', 'Bug', 'Fixed'], [(r['id'], r['title'], r['prototype']) for r in G.by_kind('M')])
+    M = G.by_kind('M')
+    lines += ['## 2. Prototype bugs (M)', '', f'Defects of the prototype itself: {sum(r["status"] != "Open" for r in M)} '
+              f'fixed, {sum(r["status"] == "Open" for r in M)} open. The open ones were found by Coded CPAT, which '
+              'replicates them until the prototype is fixed (NORMS 0, rule 6); fix instructions: '
+              '[`plans/Fix_prototype_bugs_M15-M22.md`](plans/Fix_prototype_bugs_M15-M22.md).', '']
+    lines += table(['Code', 'Priority', 'Bug', 'Where', 'Fix', 'Status'],
+                   [(r['id'], r['priority'], r['title'], r['where'], r['fix'] if r['status'] == 'Open' else '',
+                     r['prototype']) for r in M])
     lines += ['## 3. Documentation bugs (DOC)', '', 'Errors in the CPAT methodology documentation '
               '(`docs/01_MainDocumentation/`); no model is affected, the documentation is to be corrected.', '']
     lines += table(['Code', 'Priority', 'Bug', 'Where', 'Correction'],
