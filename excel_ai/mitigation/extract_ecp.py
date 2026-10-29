@@ -1,13 +1,13 @@
 """Existing carbon pricing (ECP) data from the legacy CPAT workbook, sheet ECP -> data/ecp.csv (v2.3; written for model v1.09, version
 number aligned with CPAT-AI-Mitigation-Prototype v4.7).
 
-Legacy sheet ECP (CPAT 1.0pre_456_NoPropData.xlsb; 'as of Apr 1, 2025'; sources WB Carbon Pricing Dashboard, ICAP)
+Legacy sheet ECP (CPAT 1.0pre_465_NoPropData.xlsb, v8.5 (LD41; 456 until v8.4: sheet ECP identical); 'as of Apr 1, 2025'; sources WB Carbon Pricing Dashboard, ICAP)
 holds, by country and year 2015-2025, indicator codes <iso3>.mit.<code>:
   carbon tax: ecr.all (rate, $/tCO2 nominal), ecr.<fuel> (fuel-specific rates, a few countries), ecf.<fuel> (fuel
               coverage share), ecs.<pow|res|ind|trs> (sector coverage share), crv.all (revenue, not used);
   ETS:        eer.all (permit price, $/tCO2 nominal; national block, plus eu.mit.eer.all for the regional EU ETS),
               eef.<fuel>, ees.<sector> (coverage; national and regional blocks), erv.all, efa.all (not used).
-Legacy Mitigation rows 1675-1764 read these (two ETS blocks: national and regional) and legacy rows 2270-2288 use the
+Legacy Mitigation rows 1675-1764 (same rows in 456 and 465) read these (two ETS blocks: national and regional) and legacy rows 2270-2288 use the
 existing ETS sector coverage for the switch CTaxComplimentaryToETS.
 
 Output (one ETS per country): key = ISO3|code, with
@@ -24,7 +24,7 @@ import os
 from pyxlsb import open_workbook
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-LEGACY = os.path.join(HERE, '..', 'legacy', 'workbooks', 'CPAT 1.0pre_456_NoPropData.xlsb')
+LEGACY = os.path.join(HERE, '..', 'legacy', 'workbooks', 'CPAT 1.0pre_465_NoPropData.xlsb')   # v8.5 (LD41): was 456
 OUT = os.path.join(HERE, '..', '..', 'data', 'mvp_legacy_extracts', 'ecp.csv')
 YEARS = list(range(2021, 2026))
 CODES = (['ecr.all'] + [f'ecr.{f}' for f in ('coa', 'nga', 'gso', 'die', 'lpg', 'ker', 'oop', 'jfu', 'bio')]
@@ -95,7 +95,7 @@ def main():
                         src[y] = last
                 out[(iso, c)] = src
     with open(OUT, 'w', newline='', encoding='utf-8') as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator='\n')   # v8.5: LF, as the file in the repository
         w.writerow(['key', 'country', 'code'] + YEARS)
         for (iso, c), vals in sorted(out.items()):
             w.writerow([f'{iso}|{c}', iso, c] + ['' if vals[y] is None else round(vals[y], 6) for y in YEARS])

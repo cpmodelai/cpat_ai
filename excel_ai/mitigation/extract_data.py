@@ -6,16 +6,19 @@ v0.2 adds: international price forecasts by source (legacy Mitigation rows 633-6
 deflator (legacy Mitigation rows 452, 455) and the country price assumptions (Prices_int regional table).
 
 Sources (all non-proprietary, already in the repo):
-- Legacy CPAT `excel_ai/legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb` (read-only):
+v8.5 (LD41, 2026-10-29): legacy source moved from CPAT 1.0pre_456 to CPAT 1.0pre_465 (same rows: all rows read here are
+above the first row 465 deleted, Mitigation 5667); base-year energy use and GDP growth now read from legacy 465 itself
+(cached values of Mitigation rows 583-601 and 2446) instead of the Kernel v1.6 file (a copy of the 456 rows).
+
+- Legacy CPAT `excel_ai/legacy/workbooks/CPAT 1.0pre_465_NoPropData.xlsb` (read-only):
     * `Elasticities` rows 138-141 (country list, region, income group),
       rows 143-174 (income), 178-209 (usage), 211-242 (efficiency),
       rows 256-282 (autonomous efficiency improvement), income-group columns LIC..HIC.
     * `Mitigation` rows 980-1009 (IIASA CO2 EFs, Egypt, tCO2/GJ, and volume-unit-to-GJ factors).
+    * `Mitigation` rows 583-601 (base-year energy use by fuel, column C codes, and subsector, row 581 codes; Egypt,
+      ktoe, cached values) and row 2446 (post-policy real GDP growth, scenario 1 = baseline; cached values).
 - `excel_ai/standalone_initial_prototypes/CPAT_PriceModule_Data_1.xlsx`, sheet `DomesticPrices`
   (221 countries, 2021-2024).
-- `excel_ai/old/standalone_working_version/CPAT_Industry_Kernel_Egypt_v1.6.xlsx`:
-    * `Data_Energy` (base-year energy use, Egypt, ktoe; from legacy Mitigation rows 583-602),
-    * `Data_Macro` (real GDP growth, Egypt, scenario 1; legacy Mitigation row 2446).
 
 Needs pyxlsb (pip install pyxlsb). Run from the repo root or anywhere:
     python extract_data_v0_1.py
@@ -28,11 +31,10 @@ from pyxlsb import open_workbook
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..'))     # excel_ai/
-LEGACY = os.path.join(ROOT, 'legacy', 'workbooks', 'CPAT 1.0pre_456_NoPropData.xlsb')
+LEGACY = os.path.join(ROOT, 'legacy', 'workbooks', 'CPAT 1.0pre_465_NoPropData.xlsb')   # v8.5 (LD41): was 456
 PRICES = os.path.join(ROOT, 'standalone_initial_prototypes', 'CPAT_PriceModule_Data_1.xlsx')
-KERNEL = os.path.join(ROOT, 'old', 'standalone_working_version', 'CPAT_Industry_Kernel_Egypt_v1.6.xlsx')
 OUT = os.path.join(HERE, '..', '..', 'data', 'mvp_legacy_extracts')
-SRC_ISO = 'EGY'   # v3.3: country of the source files (legacy run, kernel): the key of the rows written
+SRC_ISO = 'EGY'   # v3.3: country of the source files (legacy run): the key of the rows written
 
 GROUPS = ['LIC', 'LMIC', 'UMIC', 'HIC']
 SECTOR_CODE = {'Transport': 'tra', 'Residential': 'res', 'Industry': 'ind', 'Services': 'srv'}
@@ -121,28 +123,29 @@ def extract_prices():
           [list(r) for r in rows[:4]])
 
 
-def extract_kernel():
-    wb = openpyxl.load_workbook(KERNEL, read_only=True, data_only=True)
-    rows = list(wb['Data_Energy'].iter_rows(values_only=True))
-    hdr = rows[1]
-    col = {h: j for j, h in enumerate(hdr) if h}
+def extract_base_year():
+    """v8.5 (LD41): base-year energy use (Mitigation rows 583-601) and real GDP growth (row 2446) from the cached values
+    of legacy 465. Until v8.4 both came from Kernel v1.6 (Data_Energy, Data_Macro), a copy of the same 456 rows."""
+    rows = legacy_sheet('Mitigation', 40)
+    assert rows[0][10] == 2021 and rows[0][11] == 2022, rows[0][10:12]       # row 1: K = 2021, L = 2022
+    sub = {v: j for j, v in enumerate(rows[580]) if v in SUBSECTORS}         # row 581: subsector codes E-V
+    assert sorted(sub) == sorted(SUBSECTORS), sub
+    fuel_row = {rows[i][2]: i for i in range(582, 601)}                        # rows 583-601: fuel code in column C
     out = []
-    for r in rows[2:]:
-        fuel = r[2]
-        if fuel not in FUELS:
-            continue
+    for fuel in ['coa', 'nga', 'oop', 'gso', 'die', 'ker', 'lpg', 'jfu', 'bio']:   # order of the kernel file (v8.4)
+        i = fuel_row[fuel]
+        assert str(rows[i][1]).startswith(f'{SRC_ISO.lower()}.mit.enc.'), rows[i][1]
         for s in SUBSECTORS:
-            out.append([f'{SRC_ISO}|2022|{s}|{fuel}', SRC_ISO, 2022, s, fuel, r[col[s]] or 0.0,
-                        'Kernel v1.6 Data_Energy = legacy Mitigation rows 583-602'])
+            out.append([f'{SRC_ISO}|2022|{s}|{fuel}', SRC_ISO, 2022, s, fuel, rows[i][sub[s]] or 0.0,
+                        f'legacy 465 Mitigation row {i + 1} (cached values)'])
     write('energy_use.csv', ['key', 'country', 'year', 'subsector', 'fuel', 'ktoe', 'source'], out)
 
-    rows = list(wb['Data_Macro'].iter_rows(values_only=True))
-    ycols = [(j, int(y)) for j, y in enumerate(rows[0]) if isinstance(y, (int, float))]
-    g = next(r for r in rows if r[0] == f'{SRC_ISO.lower()}.mit.gdp.pos.pct.1')
-    write('weo.csv', ['key', 'country', 'variable', 'unit', 'source'] + [y for _, y in ycols],
+    g = rows[2445]
+    assert g[3] == 'Post-policy GDP growth', g[3]
+    write('weo.csv', ['key', 'country', 'variable', 'unit', 'source'] + YEARS_LEGACY,
           [[f'{SRC_ISO}|gdp_growth', SRC_ISO, 'Real GDP growth', 'fraction',
-            'Kernel v1.6 Data_Macro egy.mit.gdp.pos.pct.1 = legacy Mitigation row 2446']
-           + [g[j] for j, _ in ycols]])
+            'legacy 465 Mitigation row 2446 (egy.mit.gdp.pos.pct.1, cached values)']
+           + [g[10 + j] if isinstance(g[10 + j], (int, float)) else '' for j in range(len(YEARS_LEGACY))]])
 
 
 YEARS_LEGACY = list(range(2021, 2046))      # legacy Mitigation columns K..AI (index 10..34)
@@ -184,4 +187,4 @@ if __name__ == '__main__':
     extract_prices()
     import update_prices_egypt          # v5.7 (I33): the corrected Egypt block goes back over the dataset
     update_prices_egypt.main()
-    extract_kernel()
+    extract_base_year()

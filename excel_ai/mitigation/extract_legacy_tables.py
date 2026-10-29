@@ -1,4 +1,4 @@
-"""v4.5: data tables copied unchanged from legacy CPAT (CPAT 1.0pre_456_NoPropData.xlsb), so that the full
+"""v4.5: data tables copied unchanged from legacy CPAT (CPAT 1.0pre_465_NoPropData.xlsb; 456 until v8.4), so that the full
 (proprietary, all-country) legacy tables can be pasted over them: the workbook keeps each legacy table's columns and
 order from column A (same column letters as legacy; leading empty legacy columns stay empty), header in row 3, data
 from row 4; where legacy has no unique key, the workbook adds a key formula column right of the table.
@@ -24,12 +24,22 @@ v5.7 (NDC comparison, item 8B): the three NDC submission tables of legacy tab ND
 451-644 first round; columns C-P) stacked with a round column: data/legacy_NDCs.csv; the historical GHG table of legacy
 tab GHGs (rows 954-1189: GHGs excl./incl. LULUCF, CO2 excl. LULUCF, energy CO2 by year): data/legacy_GHGHist.csv.
 Only this part:
-    python3 extract_legacy_tables.py ndc"""
+    python3 extract_legacy_tables.py ndc
+v8.5 (LD41, 2026-10-29): source moved from CPAT 1.0pre_456 to CPAT 1.0pre_465 (sheet layouts of every tab read here are
+the same in both files). Two exceptions:
+  - HHSurvey and HH_Elast are still read from 456: the 465 NoPropData file holds only their header rows.
+  - EF_PM, IO_GTAP, ASPIRE and WHOCooking hold all countries in 465 (Egypt only in 456): the rows of the country of
+    the legacy run (Egypt) are kept (EGYPT_ONLY), so the prototype tables keep their size; the Egypt rows are the same
+    as in 456. Set EGYPT_ONLY = {} to write the all-country tables."""
 import csv, os
 from pyxlsb import open_workbook
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-LEGACY = os.path.join(HERE, '..', 'legacy', 'workbooks', 'CPAT 1.0pre_456_NoPropData.xlsb')
+LEGACY = os.path.join(HERE, '..', 'legacy', 'workbooks', 'CPAT 1.0pre_465_NoPropData.xlsb')   # v8.5 (LD41): was 456
+LEGACY_456 = os.path.join(HERE, '..', 'legacy', 'workbooks', 'CPAT 1.0pre_456_NoPropData.xlsb')
+FROM_456 = ('HHSurvey', 'HH_Elast')    # v8.5: empty (header only) in the 465 NoPropData file: still read from 456
+EGYPT_ONLY = {'EF_PM': (1, 'egy'), 'IO_GTAP': (1, 'egy'), 'ASPIRE': (2, 'EGY'), 'WHOCooking': (1, 'EGY')}   # v8.5:
+# all countries in 465: keep the rows whose column (0-based) holds the code of the legacy run's country
 DATA = os.path.join(HERE, '..', '..', 'data', 'mvp_legacy_extracts')
 HEADER_ROW = {'Balances': 13, 'EF_PM': 2, 'IO_GTAP': 1, 'HHSurvey': 1, 'HH_Elast': 1, 'ASPIRE': 1,
               'WHOCooking': 1, 'GDPRatios': 1, 'WEO': 9, 'SCC': 7, 'UNPop': 6, 'CH4Inputs': 1, 'GHGs': 7,
@@ -63,6 +73,9 @@ def table(wb, name):
     body = [r[:n] + [None] * (n - len(r[:n])) for r in rows[h + 1:]]
     if name in CONTIGUOUS:
         body = body[:next((i for i, r in enumerate(body) if all(v in (None, '') for v in r)), len(body))]
+    if name in EGYPT_ONLY:                                           # v8.5
+        j, code = EGYPT_ONLY[name]
+        body = [r for r in body if r[j] == code]
     return head[:n], [r for r in body if any(v not in (None, '') for v in r)]
 
 
@@ -148,11 +161,13 @@ def main():
         with open_workbook(LEGACY) as wb:
             manual_inputs(wb)
         return
+    with open_workbook(LEGACY_456) as wb456:                        # v8.5: tables the 465 NoPropData file lacks
+        old = {name: table(wb456, name) for name in FROM_456}
     with open_workbook(LEGACY) as wb:
         manual_inputs(wb)
         for name in ('Balances', 'EF_PM', 'IO_GTAP', 'HHSurvey', 'HH_Elast', 'ASPIRE', 'WHOCooking', 'GDPRatios',
                      'SCC', 'UNPop', 'CH4Inputs', 'GHGs', 'Transport1', 'Transport2', 'EF_GHG', 'OilProductShares'):
-            head, body = table(wb, name)
+            head, body = old[name] if name in FROM_456 else table(wb, name)
             if name == 'Balances':
                 bal_head, bal = head, body
             write(name, head, body)

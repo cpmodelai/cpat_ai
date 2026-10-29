@@ -50,7 +50,7 @@ row,col,value,formula
 10,24,True,0
 11,4,StartFresh or Continue old Goal Seek?,0
 11,5,Continue,0
-11,8,True,1
+11,8,False,1
 11,9,False,1
 11,10,False,1
 11,11,False,1
@@ -58,11 +58,11 @@ row,col,value,formula
 11,13,False,1
 11,14,False,1
 11,15,False,1
-11,16,True,1
-11,17,True,1
-11,18,True,1
+11,16,False,1
+11,17,False,1
+11,18,False,1
 11,19,False,1
-11,20,True,1
+11,20,False,1
 11,21,False,1
 11,22,False,1
 11,23,False,1
@@ -452,7 +452,7 @@ bench",0
 53,14,True,0
 53,15,True,0
 53,16,True,0
-53,17,False,0
+53,17,True,0
 53,18,True,0
 53,19,True,0
 53,20,True,0
@@ -468,15 +468,15 @@ bench",0
 54,13,False,1
 54,14,False,1
 54,15,False,1
-54,16,True,1
+54,16,False,1
 54,17,False,1
-54,18,True,1
-54,19,True,1
-54,20,True,1
-54,21,True,1
-54,22,True,1
-54,23,True,1
-54,24,True,1
+54,18,False,1
+54,19,False,1
+54,20,False,1
+54,21,False,1
+54,22,False,1
+54,23,False,1
+54,24,False,1
 57,1,.,0
 57,2,Domestic energy prices & taxes,0
 57,4,Energy prices & taxes set to 'manual'? (see Advanced options in 'Dashboard') -->,0
@@ -2440,10 +2440,10 @@ bench",0
 297,14,-0.5,0
 298,4, - electricity,0
 298,8,el_dem_ecy,0
-298,11,0,0
-298,12,0,0
-298,13,0,0
-298,14,0,0
+298,11,-0.5,0
+298,12,-0.5,0
+298,13,-0.5,0
+298,14,-0.5,0
 299,4,Own-price elasticities of demand - efficiency and extenstive margin (fuel economy of energy-using capital and ownership),0
 300,4, - coal,0
 300,8,el_eff_coa,0
@@ -2489,10 +2489,10 @@ bench",0
 306,14,-0.5,0
 307,4, - electricity,0
 307,8,el_eff_ecy,0
-307,11,0,0
-307,12,0,0
-307,13,0,0
-307,14,0,0
+307,11,-0.5,0
+307,12,-0.5,0
+307,13,-0.5,0
+307,14,-0.5,0
 308,4,Memo: implied total demand elasticities (taking into account rebound from endogenous energy efficiency improvements),0
 309,4, - coal,0
 309,11,-0.75,1
@@ -2525,15 +2525,15 @@ bench",0
 314,13,-0.75,1
 314,14,-0.75,1
 315,4, - renewables,0
-315,11,-0.5,1
-315,12,-0.5,1
-315,13,-0.5,1
-315,14,-0.5,1
+315,11,-0.75,1
+315,12,-0.75,1
+315,13,-0.75,1
+315,14,-0.75,1
 316,4, - electricity,0
-316,11,-0.5,1
-316,12,-0.5,1
-316,13,-0.5,1
-316,14,-0.5,1
+316,11,-0.75,1
+316,12,-0.75,1
+316,13,-0.75,1
+316,14,-0.75,1
 318,4,Substitution elasticities,0
 318,8,Code,0
 318,10,Sector -->,0
@@ -2567,11 +2567,11 @@ bench",0
 325,12,Waste,0
 325,13,Other,0
 326,4,Population elasticity,0
-326,11,0.9,1
-326,12,1,1
-326,13,1,1
+326,11,0.9,0
+326,12,1,0
+326,13,1,0
 327,4,Per capita income elasticity,0
-327,11,0.15,1
+327,11,0.15,0
 327,12,na,0
 327,13,na,0
 330,1,.,0

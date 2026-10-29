@@ -1,6 +1,6 @@
 """v3.5 (phase 1 of Transport_Plan.md): data of the engineer road transport model.
 
-Source: legacy CPAT `excel_ai/legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb` (read-only), cached values read
+Source: legacy CPAT `excel_ai/legacy/workbooks/CPAT 1.0pre_465_NoPropData.xlsb` (read-only), cached values read
 with pyxlsb. Layout and formulas are documented in Transport_Legacy_Survey.md (formulas were read from the xlsx
 conversion with the defined names restored; this script needs the xlsb only).
 
@@ -18,9 +18,13 @@ Writes (data/):
                               charging-station cost per port (row 2170)
   legacy_transport_reference.csv
                               cached legacy values of both scenario blocks (run base: rows 4334-5378; run pol: the
-                              policy copy at +6331), the key-input block rows 2017-2171 (shared), side-table scalars
+                              policy copy at +6316; 456: +6331), the key-input block rows 2017-2171 (shared), side-table scalars
                               (calibration factors etc.), and the legacy inputs the engineer model takes from the rest
                               of Mitigation (keys in|...), for transport_model_ref.legacy_inputs/legacy_test
+
+v8.5 (LD41, 2026-10-29): source moved from legacy 456 to 465. Rows up to 5666 are the same in both files; the policy
+block moved up by 15 rows (OFF 6331 -> 6316; row map legacy/bugfixes/data/rowmap_456_465.json). The 465 policy run is
+the 465 Dashboard's carbon tax of US$5 (2040), not US$50.
 
 Every year row is checked against its legacy label (column D) so a changed legacy file fails loudly.
 
@@ -33,13 +37,13 @@ import re
 from pyxlsb import open_workbook
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-LEGACY = os.path.join(HERE, '..', 'legacy', 'workbooks', 'CPAT 1.0pre_456_NoPropData.xlsb')
+LEGACY = os.path.join(HERE, '..', 'legacy', 'workbooks', 'CPAT 1.0pre_465_NoPropData.xlsb')   # v8.5 (LD41): was 456
 DATA = os.path.join(HERE, '..', '..', 'data', 'mvp_legacy_extracts')
-SRC = 'CPAT 1.0pre_456_NoPropData.xlsb'
+SRC = 'CPAT 1.0pre_465_NoPropData.xlsb'
 YEARS = list(range(2022, 2042))              # legacy Mitigation L (2022) .. AE (2041)
 YEARS_X = list(range(2021, 2042))            # with K (2021) for the lagged inputs
 COL = {y: y - 2011 for y in YEARS_X}         # 0-based column index: K = 10, L = 11
-OFF = 6331                                   # policy scenario block = baseline block + 6331 rows (survey 1)
+OFF = 6316                                   # policy scenario block = baseline block + 6316 rows (465; 456: 6331)
 SEC = (4334, 5378)                           # engineer section 5 rows tested (baseline numbering)
 KEYB = (2017, 2171)                          # key inputs 15 (shared by both scenarios)
 SRC_ISO = None                               # country of the legacy run: Dashboard!D644 (_Country_code), set in main
