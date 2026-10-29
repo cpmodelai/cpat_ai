@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Coded CPAT: developer guide – Coded CPAT</title>
+<title>2&nbsp; The database – Coded CPAT</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -36,8 +36,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./03_Spec.html" rel="next">
-<link href="./01_Overview.html" rel="prev">
+<link href="./03_Scenarios.html" rel="next">
+<link href="./01_Quick_start.html" rel="prev">
 <link href="././00/media/image1.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -89,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02_Developer_Guide.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Coded CPAT: developer guide</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_Quick_start.html">Part I: What you need to know</a></li><li class="breadcrumb-item"><a href="./02_Database.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The database</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -127,22 +127,10 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><strong>Coded CPAT</strong></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./01_Overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Coded CPAT: overview</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./02_Developer_Guide.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Coded CPAT: developer guide</span></span></a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Design and equations</span></a>
+ <span class="menu-text">Part I: What you need to know</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -150,20 +138,38 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_Spec.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Specification and plan</span></span></a>
+  <a href="./01_Quick_start.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Quick start</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_Equations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Equation list: methodology notation</span></span></a>
+  <a href="./02_Database.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The database</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_Equations_codes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Equation list: CPAT code names</span></span></a>
+  <a href="./03_Scenarios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scenarios and inputs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_Results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_Editing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Editing the model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_Testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
   </div>
 </li>
       </ul>
@@ -171,7 +177,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Rules and plan</span></a>
+ <span class="menu-text">Part II: How it works</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -179,14 +185,103 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_Norms.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Python norms</span></span></a>
+  <a href="./07_Architecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Architecture</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07_Plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">The plan and open work</span></span></a>
+  <a href="./08_Mitigation_blocks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">The mitigation blocks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_Distribution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The distribution module</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_App.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The app</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_Versions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Versions and releases</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A_Equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Equation list: methodology notation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./B_Equations_codes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Equation list: CPAT code names</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C_Database_tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Database tables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./D_Inputs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Inputs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./E_Variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./F_Bugs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Excel-AI bugs and known differences</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./G_Spec.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Specification and design decisions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./H_Norms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Python norms</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./I_Plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">I</span>&nbsp; <span class="chapter-title">The plan and open work</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./J_Glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">J</span>&nbsp; <span class="chapter-title">Glossary</span></span></a>
   </div>
 </li>
       </ul>
@@ -197,14 +292,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title"><strong><em>Chapter Contents</em></strong></h2>
    
   <ul>
-  <li><a href="#the-principle" id="toc-the-principle" class="nav-link active" data-scroll-target="#the-principle">1. The principle</a></li>
-  <li><a href="#a-run" id="toc-a-run" class="nav-link" data-scroll-target="#a-run">2. A run</a></li>
-  <li><a href="#rows-the-state-and-a-block" id="toc-rows-the-state-and-a-block" class="nav-link" data-scroll-target="#rows-the-state-and-a-block">3. Rows, the state and a block</a></li>
-  <li><a href="#adding-or-changing-a-block" id="toc-adding-or-changing-a-block" class="nav-link" data-scroll-target="#adding-or-changing-a-block">4. Adding or changing a block</a></li>
-  <li><a href="#tests-and-comparisons" id="toc-tests-and-comparisons" class="nav-link" data-scroll-target="#tests-and-comparisons">5. Tests and comparisons</a></li>
-  <li><a href="#the-app" id="toc-the-app" class="nav-link" data-scroll-target="#the-app">6. The app</a></li>
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">7. Data</a></li>
-  <li><a href="#environment" id="toc-environment" class="nav-link" data-scroll-target="#environment">8. Environment</a></li>
+  <li><a href="#in-short" id="toc-in-short" class="nav-link active" data-scroll-target="#in-short">In short</a></li>
+  <li><a href="#what-a-table-looks-like" id="toc-what-a-table-looks-like" class="nav-link" data-scroll-target="#what-a-table-looks-like">What a table looks like</a></li>
+  <li><a href="#the-tables-by-group" id="toc-the-tables-by-group" class="nav-link" data-scroll-target="#the-tables-by-group">The tables, by group</a></li>
+  <li><a href="#adding-or-updating-data" id="toc-adding-or-updating-data" class="nav-link" data-scroll-target="#adding-or-updating-data">Adding or updating data</a></li>
   </ul>
 </nav>
 </nav>
@@ -215,9 +306,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_Quick_start.html">Part I: What you need to know</a></li><li class="breadcrumb-item"><a href="./02_Database.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The database</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-developer" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Coded CPAT: developer guide</span></span></h1>
+<h1 class="title"><span id="sec-database" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The database</span></span></h1>
 </div>
 
 
@@ -234,149 +325,120 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<!-- Generated by make_qmd.py from coded/cpat_documentation/developer/dev_documentation.md: edit the source, then run python make_qmd.py -->
-<p><em>Source: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/developer/dev_documentation.md"><code>coded/cpat_documentation/developer/dev_documentation.md</code></a>.</em></p>
-<p>How the Python model is built and how to work on it. What it is and how to run it: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/README.md"><code>../../README.md</code></a>. The rules: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/NORMS.md"><code>../../NORMS.md</code></a> (Python) and the root <a href="https://github.com/cpmodelai/cpat_ai/blob/main/NORMS.md"><code>../../../NORMS.md</code></a>. The design and the plan: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/project/Spec.qmd"><code>../project/Spec.qmd</code></a>. The equations: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/equations/Equations.qmd"><code>../equations/Equations.qmd</code></a>.</p>
-<section id="the-principle" class="level2">
-<h2 class="anchored" data-anchor-id="the-principle">1. The principle</h2>
-<p>Coded CPAT replicates Excel-AI (<code>excel_ai/CPAT-AI-Mitigation-Prototype_v&lt;version&gt;.xlsm</code>, <code>CPAT-AI-Distribution-Prototype_v&lt;version&gt;.xlsm</code>) number for number, readable first. Excel-AI is the specification: every Excel-AI row has an output code (<code>core/variables.csv</code>), and the tests compare Python with Excel-AI’s stored values code by code within 1e-9. Where Excel-AI is wrong (a bug), Python does not replicate it: the bug is registered (<code>excel_ai/BUGS.md</code>, open prototype bugs M), fixed here where the fix is obvious (<code># bug M&lt;n&gt; fixed</code>), and the codes that then differ are listed in <code>cpat_testing/compare/known_differences.py</code>; the tests leave them out of the match and check that they differ (NORMS 0.3). An issue (a potential improvement) is replicated and logged for later.</p>
-</section>
-<section id="a-run" class="level2">
-<h2 class="anchored" data-anchor-id="a-run">2. A run</h2>
-<p><code>cpat_model.run(scenarios, settings)</code> (<code>core/loop.py</code>):</p>
-<ol type="1">
-<li><strong>Settings</strong> (<code>settings.py</code>): database (<code>dummy</code> = <code>../data/tidy/</code>, or <code>full</code>), countries, years 2022-2041, the global inputs read from scenario 1 (D16).</li>
-<li><strong>Scenario 1, the baseline, first; then each scenario</strong> (D15). Each scenario runs in three stages over the blocks listed in <code>mitigation/chain.py</code>, the only place the order is written:
+<section id="in-short" class="level2">
+<h2 class="anchored" data-anchor-id="in-short">In short</h2>
 <ul>
-<li><code>PREPARE</code>: blocks that read no model quantity, all years at once (header, policies, prices, power costs, fuel prices, Pigouvian taxes, road data).</li>
-<li><code>YEAR</code>: for t = 2022 … 2041, every year block in order (GDP level, power, fuel use, totals, emissions, revenues, GDP effects, road engineer model, module inputs, welfare). A block reads year t of any earlier row and earlier years of any row.</li>
-<li><code>FINISH</code>: rows that need all years (NDC).</li>
-</ul></li>
-<li><strong>Distribution</strong>: every scenario against scenario 1 in the analysis year (<code>distribution/incidence.py</code>), where the scenario set has the distribution inputs.</li>
-<li><strong>Results</strong> (<code>results/results.py</code>): <code>by_code(country)</code> and <code>distribution_by_code(country)</code>.</li>
-</ol>
-<p>The baseline run, the data steps and each policy-scenario run are cached (<code>loop.baseline_key</code>: scenario-1 inputs, database folder, settings; a scenario by its number and inputs): a rerun computes only the scenarios that changed (0.8 s for one country and two scenarios with a new policy scenario).</p>
-</section>
-<section id="rows-the-state-and-a-block" class="level2">
-<h2 class="anchored" data-anchor-id="rows-the-state-and-a-block">3. Rows, the state and a block</h2>
-<ul>
-<li><strong>A row</strong> is an Excel-AI row: variable, sector, fuel (as <code>core/variables.csv</code>: Excel columns A, C, B), values by country and year. Its output code is <code>&lt;iso&gt;.mit.&lt;code&gt;.&lt;scenario&gt;</code>.</li>
-<li><strong><code>Rows</code></strong> (<code>core/rows.py</code>) holds the rows of a block as numpy arrays (country, year): <code>R.put(var, values, sector, fuel)</code> (all years), <code>R.set(var, k, values, sector, fuel)</code> (year index k), <code>R.at(var, k, sector, fuel)</code>, <code>R.of(var, sector, fuel)</code>; <code>R.finish()</code> stores them. Year blocks share one <code>Rows</code> (<code>gdp.year_rows</code>).</li>
-<li><strong><code>State</code></strong> (<code>core/rows.py</code>): the rows of one scenario. Block rows stay numpy; <code>state[var]</code> builds the labelled xarray array only when something outside the blocks reads it. Working data start with <code>_</code> (not result rows).</li>
-<li><strong>Baseline values</strong> (Excel-AI <code>REFCOL</code>): <code>totals.reference(R, baseline, k, var, sector, fuel)</code>.</li>
-<li><strong>Data steps</strong> (what Excel-AI computes on its Inputs sheet): <code>*_data.py</code> modules, by country; cached with <code>rows.cached(state, key, fn)</code> when they read no scenario input.</li>
-<li><strong>A block</strong> is a function <code>(state, db, inputs, settings, baseline)</code> (prepare, finish) or <code>(..., t)</code> (year). Each equation of the equation list is one small function or one marked line, citing its id (<code>EQ-M3.1</code>); <code>test_equation_ids.py</code> checks every cited id exists.</li>
+<li><strong>Format: tidy CSV.</strong> One table per file; long format, one observation per row; standard keys first, then <code>value</code> (or one column per variable). Country codes are ISO3 in upper case (<code>EGY</code>).</li>
+<li><strong>Where: <code>data/tidy/</code></strong> in this repository: the <strong>dummy</strong> database. It holds the public data and Egypt’s rows of the proprietary tables that the public legacy file contains; every country can be added. The <strong>full</strong> database (every country, the proprietary tables) lives in a private repository, never in this one.</li>
+<li><strong>Choosing a database:</strong> <code>Settings(database='dummy')</code> (default) reads <code>data/tidy/</code>; <code>Settings(database='full')</code> reads the folder named by the environment variable <code>FULL_DATA_PATH</code> (set it in <code>coded/.env</code> or your shell). Command line: <code>--database full</code>.</li>
+<li><strong>One table list:</strong> <code>data/tidy/_manifest.csv</code> lists every table (218 tables, plus the layout entries of the 13 tabs kept at their cell addresses), its kind, its legacy source, its keys, rows and whether it is proprietary. <a href="./C_Database_tables.html">Appendix C</a> shows them all with their columns.</li>
+<li><strong>Same numbers as Excel-AI.</strong> Excel-AI reads the same data in the legacy layout. A converter (<code>data/scripts/tidy/tidy_convert.py</code>) turns one form into the other exactly (tested both ways), so both models read the same numbers.</li>
 </ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Proprietary data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Four tables are proprietary: energy balances and energy consumption (<code>energy_balances</code>, <code>energy_consumption</code>), domestic prices (<code>prices_domestic</code>), the GTAP input-output tables (<code>io_gtap</code>) and the household survey (<code>hh_survey</code>). Their full versions, and anything computed from them, are <strong>never committed to this repository</strong>. The repository holds dummy values, or Egypt’s rows that the public legacy file contains.</p>
+</div>
+</div>
 </section>
-<section id="adding-or-changing-a-block" class="level2">
-<h2 class="anchored" data-anchor-id="adding-or-changing-a-block">4. Adding or changing a block</h2>
+<section id="what-a-table-looks-like" class="level2">
+<h2 class="anchored" data-anchor-id="what-a-table-looks-like">What a table looks like</h2>
+<pre class="text"><code>data/tidy/energy_balances.csv            data/tidy/prices_domestic.csv
+country,year,unit,flow,fuel,value        country,year,code,value
+EGY,2022,ktoe,cement,ecy,1158.39         EGY,2019,VAT_WEO,0.14
+EGY,2022,ktoe,cement,coa,1422.24         EGY,2019,mit.sp.coa.pow,3.88</code></pre>
+<p>Keys come first (country, year, codes), then the value. Years, fuels, sectors and price codes are columns of keys, not column headers. A blank is a missing value.</p>
+</section>
+<section id="the-tables-by-group" class="level2">
+<h2 class="anchored" data-anchor-id="the-tables-by-group">The tables, by group</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Group</th>
+<th>Examples</th>
+<th>What for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Energy</td>
+<td><code>energy_balances</code>, <code>energy_consumption</code></td>
+<td>Base-year fuel use by sector and fuel</td>
+</tr>
+<tr class="even">
+<td>Prices</td>
+<td><code>prices_domestic</code>, <code>pint_imf</code>, <code>pint_wb</code>, <code>pint_iea</code></td>
+<td>Domestic price build-up; international price forecasts</td>
+</tr>
+<tr class="odd">
+<td>Macro</td>
+<td><code>weo</code>, <code>gdp_ratios</code>, <code>un_population</code></td>
+<td>GDP, deflators, exchange rates, population</td>
+</tr>
+<tr class="even">
+<td>Power</td>
+<td><code>power_*</code></td>
+<td>Power plants, costs, capacity paths</td>
+</tr>
+<tr class="odd">
+<td>Elasticities</td>
+<td><code>ela_*</code></td>
+<td>Price, income and efficiency elasticities</td>
+</tr>
+<tr class="even">
+<td>Emissions</td>
+<td><code>ef_ghg</code>, <code>ef_local_pollutants</code>, <code>ghg_*</code>, <code>ch4_inputs</code></td>
+<td>Emission factors, other gases, methane</td>
+</tr>
+<tr class="odd">
+<td>Carbon pricing</td>
+<td><code>ecp_*</code>, <code>ets_assumptions</code></td>
+<td>Existing carbon taxes and ETSs</td>
+</tr>
+<tr class="even">
+<td>Transport</td>
+<td><code>transport_*</code></td>
+<td>The road engineer model</td>
+</tr>
+<tr class="odd">
+<td>Distribution</td>
+<td><code>hh_survey</code>, <code>hh_elasticities</code>, <code>io_gtap</code>, <code>aspire</code>, <code>who_cooking</code>, <code>distn_*</code></td>
+<td>Household survey, input-output, social programmes</td>
+</tr>
+<tr class="even">
+<td>Modules</td>
+<td><code>air_*</code>, <code>transport_cost_per_km</code></td>
+<td>Values from the air-pollution and transport co-benefits modules</td>
+</tr>
+<tr class="odd">
+<td>Manual inputs</td>
+<td><code>mi_*</code></td>
+<td>Excel-AI’s Manual inputs tab</td>
+</tr>
+</tbody>
+</table>
+<p><code>data/tidy/_layout/</code> holds what is not data (legacy headers, row order, notes) so the legacy form can be rebuilt; never edit it.</p>
+</section>
+<section id="adding-or-updating-data" class="level2">
+<h2 class="anchored" data-anchor-id="adding-or-updating-data">Adding or updating data</h2>
 <ol type="1">
-<li>Read the Excel-AI rows: the formula explainers turn cell references into row names (<code>var.sector.fuel[t]</code>); the stored values are in <code>cpat_testing/compare/reference/excel_ai_&lt;version&gt;.csv</code>.</li>
-<li>Write the rows in the block’s module, in sheet order, with the equation ids; add the block to <code>chain.py</code>.</li>
-<li>Add the variables to <code>BUILT</code> in <code>cpat_testing/test_mitigation.py</code> (all codes of those variables, scenarios 1 and 2, must be produced and match).</li>
-<li>Add or update the equations in <code>cpat_documentation/equations/equations.yaml</code> and run <code>make_equations.py</code>.</li>
-<li>Log the task in <code>../../CAVEATS.md</code> and tick <code>TODO.md</code>.</li>
+<li><strong>Edit the tidy table</strong> (add the country’s rows with the same keys), or deliver the legacy layout and run the converter (<code>python data/scripts/tidy/tidy_convert.py</code>, see <code>data/scripts/tidy/README.md</code>).</li>
+<li><strong>Run the data tests</strong>: <code>cd data &amp;&amp; pytest tests</code> (the round trip legacy to tidy to legacy must give every cell back).</li>
+<li><strong>Run the model</strong> for the country (<code>python run_model.py --countries XXX</code>). A country needs at least its energy balance and domestic prices; the app offers only countries that have both.</li>
 </ol>
-</section>
-<section id="tests-and-comparisons" class="level2">
-<h2 class="anchored" data-anchor-id="tests-and-comparisons">5. Tests and comparisons</h2>
-<p><code>pytest</code> from <code>coded/</code> (about one minute):</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Test</th>
-<th>Checks</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>test_mitigation.py</code></td>
-<td>every block against Excel-AI’s stored values, scenarios 1 and 2, 2022-2041</td>
-</tr>
-<tr class="even">
-<td><code>test_distribution_incidence.py</code></td>
-<td>the Distribution sheet, by section, groups 1 and 2, basket and deciles</td>
-</tr>
-<tr class="odd">
-<td><code>test_data_steps.py</code>, <code>test_foundations.py</code></td>
-<td>data steps, index sets, inputs, the loop</td>
-</tr>
-<tr class="even">
-<td><code>test_equation_ids.py</code></td>
-<td>equation ids cited in the code exist</td>
-</tr>
-<tr class="odd">
-<td><code>test_speed.py</code></td>
-<td>the cached two-scenario run is fast and equal to a fresh run</td>
-</tr>
-<tr class="even">
-<td><code>test_run_model.py</code>, <code>test_shiny_app.py</code></td>
-<td>the command line and the app</td>
-</tr>
-</tbody>
-</table>
-<p>The reference values come from the Excel-AI workbooks: <code>python cpat_testing/compare/extract_excel_ai.py</code> (mitigation) and <code>--distribution</code>.</p>
-</section>
-<section id="the-app" class="level2">
-<h2 class="anchored" data-anchor-id="the-app">6. The app</h2>
-<p><code>app.py</code> and <code>cpat_shiny/</code>; run <code>shiny run app.py</code> from <code>coded/</code>. The adapter <code>cpat_shiny/server_logic/run_model.py</code> turns the scenarios built in the app into a scenario set: scenario 1 is Excel-AI’s baseline column, each app scenario a copy of Excel-AI’s carbon-tax column with the app’s values written over it:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>App input</th>
-<th>Model input</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Scenario name</td>
-<td><code>ScenarioName</code></td>
-</tr>
-<tr class="even">
-<td>Countries</td>
-<td><code>Settings.countries</code> (only countries the database has data for)</td>
-</tr>
-<tr class="odd">
-<td>Carbon tax start, target year</td>
-<td><code>CPIntro</code>, <code>CPOutro</code></td>
-</tr>
-<tr class="even">
-<td>Carbon tax start, target level</td>
-<td><code>CPLevelStart</code>, <code>CPLevelTarget</code></td>
-</tr>
-<tr class="odd">
-<td>After the target year</td>
-<td><code>ExtendCarbonPriceBeyondOutro</code></td>
-</tr>
-<tr class="even">
-<td>International price source</td>
-<td><code>IntEnerPricForeSource</code> (baseline too)</td>
-</tr>
-<tr class="odd">
-<td>Fuels, sectors covered</td>
-<td><code>MCov&lt;Fuel&gt;</code>, <code>MCov&lt;Sector&gt;</code> (none selected: Excel-AI’s coverage)</td>
-</tr>
-</tbody>
-</table>
-<p>Raw results, indicators (carbon price, CO2, energy use, revenue, real GDP) and the graphs (energy by sector and fuel, change by fuel, prices, emissions by sector, net effect by decile) read <code>Results.by_code</code> and <code>distribution_by_code</code> (<code>results_tables.py</code>, <code>visualization/figures.py</code>). Every app scenario shares one baseline, so the scenarios of a run must share their countries and price source.</p>
-</section>
-<section id="data" class="level2">
-<h2 class="anchored" data-anchor-id="data">7. Data</h2>
-<p>The model reads tidy CSV tables only (<code>../data/tidy/</code>; the interface for the data person: <code>../data/INTERFACE.md</code>). <code>dummy</code> is in this repository (Egypt has the Excel-AI data); <code>full</code> (every country, the proprietary tables) lives in a private repository: set <code>DATA_ENVIRONMENT</code> and the path in <code>.env</code>. Never commit proprietary data or results computed from them (NORMS 5.2).</p>
-</section>
-<section id="environment" class="level2">
-<h2 class="anchored" data-anchor-id="environment">8. Environment</h2>
-<pre><code>conda env create -f environment.yml &amp;&amp; conda activate cpat_p
-pip install -r dev-requirements.txt          # tests and tools
-conda env update -f environment.yml --prune   # update</code></pre>
+<p>The full interface for the data person (every table, column, key and unit the model reads, and what the full database must contain): <code>data/INTERFACE.md</code>.</p>
 
 
 </section>
@@ -784,13 +846,13 @@ conda env update -f environment.yml --prune   # update</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./01_Overview.html" class="pagination-link" aria-label="Coded CPAT: overview">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Coded CPAT: overview</span></span>
+      <a href="./01_Quick_start.html" class="pagination-link" aria-label="Quick start">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Quick start</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./03_Spec.html" class="pagination-link" aria-label="Specification and plan">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Specification and plan</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./03_Scenarios.html" class="pagination-link" aria-label="Scenarios and inputs">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scenarios and inputs</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

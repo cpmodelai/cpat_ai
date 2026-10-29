@@ -1,6 +1,6 @@
 # Coded CPAT (Python)
 
-The Python model of CPAT (Coded CPAT): it replicates Excel-AI's mitigation and distribution modules number for number, readable first; the one entry point is `cpat_model.run`. This page is for Python developers; the developer guide is [`cpat_documentation/developer/dev_documentation.md`](cpat_documentation/developer/dev_documentation.md) and the website has a Coded CPAT tab (`../docs/index.html#coded`). Excel work is in [`../excel_ai/`](../excel_ai/README.md); rules for every task (logging in `CAVEATS.md`, method vs version notes) are in the root [`../NORMS.md`](../NORMS.md).
+The Python model of CPAT (Coded CPAT): it replicates Excel-AI's mitigation and distribution modules number for number, readable first; the one entry point is `cpat_model.run`. This page is for Python developers; the full documentation (quick start, the database, scenarios, results, editing, testing with the current status, architecture, and appendices with every equation, table, input and variable) is the website's Coded CPAT tab (`../docs/index.html#coded`), written in [`cpat_documentation/guide/`](cpat_documentation/guide/). Excel work is in [`../excel_ai/`](../excel_ai/README.md); rules for every task (logging in `CAVEATS.md`, method vs version notes) are in the root [`../NORMS.md`](../NORMS.md).
 
 **Status (2026-10-29).** Version `0.9.1p0.1` (first release; [`CHANGELOG.md`](CHANGELOG.md)): Python version 0.1 of the replication of Excel-AI 0.9.1 (mitigation) and Distribution 0.1.3.
 
@@ -30,7 +30,7 @@ Start with the spec and plan [`cpat_documentation/project/Spec.qmd`](cpat_docume
 | `cpat_shiny/`, `app.py` | Shiny application on `cpat_model.run`: scenarios (carbon tax path, price source, fuel and sector coverage) over Excel-AI's carbon-tax scenario; raw results, indicators, graphs (`server_logic/run_model.py`, `results_tables.py`, `visualization/figures.py`); start it from `coded/` |
 | `cpat_testing/` | pytest suite: each mitigation block and the distribution sheet against Excel-AI's stored values; `compare/` extracts the reference values (`extract_excel_ai.py`, `reference/`) |
 | [`NORMS.md`](NORMS.md), [`TODO.md`](TODO.md) | Python norms (add to the root `NORMS.md`); the plan and open work |
-| `cpat_documentation/` | `project/` spec and plan, `equations/` equation list, `developer/` developer guide, `user/` texts of the app; `make_docs.py` writes the Word copies |
+| `cpat_documentation/` | `guide/` the documentation book's chapters (website tab Coded CPAT), `project/` spec and plan, `equations/` equation list, `user/` texts of the app; `make_docs.py` writes the Word copies |
 
 ## Running
 

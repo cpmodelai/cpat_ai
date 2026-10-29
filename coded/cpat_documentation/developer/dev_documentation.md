@@ -1,81 +1,9 @@
 # Coded CPAT: developer guide
 
-How the Python model is built and how to work on it. What it is and how to run it: [`../../README.md`](../../README.md). The rules: [`../../NORMS.md`](../../NORMS.md) (Python) and the root [`../../../NORMS.md`](../../../NORMS.md). The design and the plan: [`../project/Spec.qmd`](../project/Spec.qmd). The equations: [`../equations/Equations.qmd`](../equations/Equations.qmd).
+The developer guide is now the **Coded CPAT documentation** (the website's Coded CPAT tab, `docs/index.html#coded`), written in [`../guide/`](../guide/) and generated into a Quarto book by `docs/CPAT_coded_documentation_qmd/make_qmd.py`:
 
-## 1. The principle
+- **Part I, what you need to know:** quick start; the database (format and where it is); scenarios and inputs; results; editing the model; testing (with the current test status).
+- **Part II, how it works:** architecture; the mitigation blocks; the distribution module; the app; versions and releases.
+- **Appendices:** both equation lists, every database table, every input, every variable, the Excel-AI bugs and known differences, the spec, the Python norms, the plan, a glossary.
 
-Coded CPAT replicates Excel-AI (`excel_ai/CPAT-AI-Mitigation-Prototype_v<version>.xlsm`, `CPAT-AI-Distribution-Prototype_v<version>.xlsm`) number for number, readable first. Excel-AI is the specification: every Excel-AI row has an output code (`core/variables.csv`), and the tests compare Python with Excel-AI's stored values code by code within 1e-9. Where Excel-AI is wrong (a bug), Python does not replicate it: the bug is registered (`excel_ai/BUGS.md`, open prototype bugs M), fixed here where the fix is obvious (`# bug M<n> fixed`), and the codes that then differ are listed in `cpat_testing/compare/known_differences.py`; the tests leave them out of the match and check that they differ (NORMS 0.3). An issue (a potential improvement) is replicated and logged for later.
-
-## 2. A run
-
-`cpat_model.run(scenarios, settings)` (`core/loop.py`):
-
-1. **Settings** (`settings.py`): database (`dummy` = `../data/tidy/`, or `full`), countries, years 2022-2041, the global inputs read from scenario 1 (D16).
-2. **Scenario 1, the baseline, first; then each scenario** (D15). Each scenario runs in three stages over the blocks listed in `mitigation/chain.py`, the only place the order is written:
-   - `PREPARE`: blocks that read no model quantity, all years at once (header, policies, prices, power costs, fuel prices, Pigouvian taxes, road data).
-   - `YEAR`: for t = 2022 ... 2041, every year block in order (GDP level, power, fuel use, totals, emissions, revenues, GDP effects, road engineer model, module inputs, welfare). A block reads year t of any earlier row and earlier years of any row.
-   - `FINISH`: rows that need all years (NDC).
-3. **Distribution**: every scenario against scenario 1 in the analysis year (`distribution/incidence.py`), where the scenario set has the distribution inputs.
-4. **Results** (`results/results.py`): `by_code(country)` and `distribution_by_code(country)`.
-
-The baseline run, the data steps and each policy-scenario run are cached (`loop.baseline_key`: scenario-1 inputs, database folder, settings; a scenario by its number and inputs): a rerun computes only the scenarios that changed (0.8 s for one country and two scenarios with a new policy scenario).
-
-## 3. Rows, the state and a block
-
-- **A row** is an Excel-AI row: variable, sector, fuel (as `core/variables.csv`: Excel columns A, C, B), values by country and year. Its output code is `<iso>.mit.<code>.<scenario>`.
-- **`Rows`** (`core/rows.py`) holds the rows of a block as numpy arrays (country, year): `R.put(var, values, sector, fuel)` (all years), `R.set(var, k, values, sector, fuel)` (year index k), `R.at(var, k, sector, fuel)`, `R.of(var, sector, fuel)`; `R.finish()` stores them. Year blocks share one `Rows` (`gdp.year_rows`).
-- **`State`** (`core/rows.py`): the rows of one scenario. Block rows stay numpy; `state[var]` builds the labelled xarray array only when something outside the blocks reads it. Working data start with `_` (not result rows).
-- **Baseline values** (Excel-AI `REFCOL`): `totals.reference(R, baseline, k, var, sector, fuel)`.
-- **Data steps** (what Excel-AI computes on its Inputs sheet): `*_data.py` modules, by country; cached with `rows.cached(state, key, fn)` when they read no scenario input.
-- **A block** is a function `(state, db, inputs, settings, baseline)` (prepare, finish) or `(..., t)` (year). Each equation of the equation list is one small function or one marked line, citing its id (`EQ-M3.1`); `test_equation_ids.py` checks every cited id exists.
-
-## 4. Adding or changing a block
-
-1. Read the Excel-AI rows: the formula explainers turn cell references into row names (`var.sector.fuel[t]`); the stored values are in `cpat_testing/compare/reference/excel_ai_<version>.csv`.
-2. Write the rows in the block's module, in sheet order, with the equation ids; add the block to `chain.py`.
-3. Add the variables to `BUILT` in `cpat_testing/test_mitigation.py` (all codes of those variables, scenarios 1 and 2, must be produced and match).
-4. Add or update the equations in `cpat_documentation/equations/equations.yaml` and run `make_equations.py`.
-5. Log the task in `../../CAVEATS.md` and tick `TODO.md`.
-
-## 5. Tests and comparisons
-
-`pytest` from `coded/` (about one minute):
-
-| Test | Checks |
-|---|---|
-| `test_mitigation.py` | every block against Excel-AI's stored values, scenarios 1 and 2, 2022-2041 |
-| `test_distribution_incidence.py` | the Distribution sheet, by section, groups 1 and 2, basket and deciles |
-| `test_data_steps.py`, `test_foundations.py` | data steps, index sets, inputs, the loop |
-| `test_equation_ids.py` | equation ids cited in the code exist |
-| `test_speed.py` | the cached two-scenario run is fast and equal to a fresh run |
-| `test_run_model.py`, `test_shiny_app.py` | the command line and the app |
-
-The reference values come from the Excel-AI workbooks: `python cpat_testing/compare/extract_excel_ai.py` (mitigation) and `--distribution`.
-
-## 6. The app
-
-`app.py` and `cpat_shiny/`; run `shiny run app.py` from `coded/`. The adapter `cpat_shiny/server_logic/run_model.py` turns the scenarios built in the app into a scenario set: scenario 1 is Excel-AI's baseline column, each app scenario a copy of Excel-AI's carbon-tax column with the app's values written over it:
-
-| App input | Model input |
-|---|---|
-| Scenario name | `ScenarioName` |
-| Countries | `Settings.countries` (only countries the database has data for) |
-| Carbon tax start, target year | `CPIntro`, `CPOutro` |
-| Carbon tax start, target level | `CPLevelStart`, `CPLevelTarget` |
-| After the target year | `ExtendCarbonPriceBeyondOutro` |
-| International price source | `IntEnerPricForeSource` (baseline too) |
-| Fuels, sectors covered | `MCov<Fuel>`, `MCov<Sector>` (none selected: Excel-AI's coverage) |
-
-Raw results, indicators (carbon price, CO2, energy use, revenue, real GDP) and the graphs (energy by sector and fuel, change by fuel, prices, emissions by sector, net effect by decile) read `Results.by_code` and `distribution_by_code` (`results_tables.py`, `visualization/figures.py`). Every app scenario shares one baseline, so the scenarios of a run must share their countries and price source.
-
-## 7. Data
-
-The model reads tidy CSV tables only (`../data/tidy/`; the interface for the data person: `../data/INTERFACE.md`). `dummy` is in this repository (Egypt has the Excel-AI data); `full` (every country, the proprietary tables) lives in a private repository: set `DATA_ENVIRONMENT` and the path in `.env`. Never commit proprietary data or results computed from them (NORMS 5.2).
-
-## 8. Environment
-
-```
-conda env create -f environment.yml && conda activate cpat_p
-pip install -r dev-requirements.txt          # tests and tools
-conda env update -f environment.yml --prune   # update
-```
+Edit the chapters in `coded/cpat_documentation/guide/`; then `python make_qmd.py` (add `--tests` to rerun the tests and update the status) and `quarto render` in `docs/CPAT_coded_documentation_qmd/`.

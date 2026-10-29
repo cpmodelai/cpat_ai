@@ -1,0 +1,51 @@
+# The database {#sec-database}
+
+## In short
+
+- **Format: tidy CSV.** One table per file; long format, one observation per row; standard keys first, then `value` (or one column per variable). Country codes are ISO3 in upper case (`EGY`).
+- **Where: `data/tidy/`** in this repository: the **dummy** database. It holds the public data and Egypt's rows of the proprietary tables that the public legacy file contains; every country can be added. The **full** database (every country, the proprietary tables) lives in a private repository, never in this one.
+- **Choosing a database:** `Settings(database='dummy')` (default) reads `data/tidy/`; `Settings(database='full')` reads the folder named by the environment variable `FULL_DATA_PATH` (set it in `coded/.env` or your shell). Command line: `--database full`.
+- **One table list:** `data/tidy/_manifest.csv` lists every table (218 tables, plus the layout entries of the 13 tabs kept at their cell addresses), its kind, its legacy source, its keys, rows and whether it is proprietary. [Appendix C](C_Database_tables.qmd) shows them all with their columns.
+- **Same numbers as Excel-AI.** Excel-AI reads the same data in the legacy layout. A converter (`data/scripts/tidy/tidy_convert.py`) turns one form into the other exactly (tested both ways), so both models read the same numbers.
+
+::: {.callout-warning}
+## Proprietary data
+Four tables are proprietary: energy balances and energy consumption (`energy_balances`, `energy_consumption`), domestic prices (`prices_domestic`), the GTAP input-output tables (`io_gtap`) and the household survey (`hh_survey`). Their full versions, and anything computed from them, are **never committed to this repository**. The repository holds dummy values, or Egypt's rows that the public legacy file contains.
+:::
+
+## What a table looks like
+
+```text
+data/tidy/energy_balances.csv            data/tidy/prices_domestic.csv
+country,year,unit,flow,fuel,value        country,year,code,value
+EGY,2022,ktoe,cement,ecy,1158.39         EGY,2019,VAT_WEO,0.14
+EGY,2022,ktoe,cement,coa,1422.24         EGY,2019,mit.sp.coa.pow,3.88
+```
+
+Keys come first (country, year, codes), then the value. Years, fuels, sectors and price codes are columns of keys, not column headers. A blank is a missing value.
+
+## The tables, by group
+
+| Group | Examples | What for |
+|---|---|---|
+| Energy | `energy_balances`, `energy_consumption` | Base-year fuel use by sector and fuel |
+| Prices | `prices_domestic`, `pint_imf`, `pint_wb`, `pint_iea` | Domestic price build-up; international price forecasts |
+| Macro | `weo`, `gdp_ratios`, `un_population` | GDP, deflators, exchange rates, population |
+| Power | `power_*` | Power plants, costs, capacity paths |
+| Elasticities | `ela_*` | Price, income and efficiency elasticities |
+| Emissions | `ef_ghg`, `ef_local_pollutants`, `ghg_*`, `ch4_inputs` | Emission factors, other gases, methane |
+| Carbon pricing | `ecp_*`, `ets_assumptions` | Existing carbon taxes and ETSs |
+| Transport | `transport_*` | The road engineer model |
+| Distribution | `hh_survey`, `hh_elasticities`, `io_gtap`, `aspire`, `who_cooking`, `distn_*` | Household survey, input-output, social programmes |
+| Modules | `air_*`, `transport_cost_per_km` | Values from the air-pollution and transport co-benefits modules |
+| Manual inputs | `mi_*` | Excel-AI's Manual inputs tab |
+
+`data/tidy/_layout/` holds what is not data (legacy headers, row order, notes) so the legacy form can be rebuilt; never edit it.
+
+## Adding or updating data
+
+1. **Edit the tidy table** (add the country's rows with the same keys), or deliver the legacy layout and run the converter (`python data/scripts/tidy/tidy_convert.py`, see `data/scripts/tidy/README.md`).
+2. **Run the data tests**: `cd data && pytest tests` (the round trip legacy to tidy to legacy must give every cell back).
+3. **Run the model** for the country (`python run_model.py --countries XXX`). A country needs at least its energy balance and domestic prices; the app offers only countries that have both.
+
+The full interface for the data person (every table, column, key and unit the model reads, and what the full database must contain): `data/INTERFACE.md`.

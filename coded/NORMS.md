@@ -97,6 +97,7 @@ The purpose of the code is that a person with the equation list open can find, r
 2. **Diagrams** are mermaid blocks in the qmd (Quarto draws them); `make_docs.py` renders them to PNG for Word.
 3. **Notation.** The equation list uses the Greek letters and index letters of the methodology (`../docs/01_MainDocumentation/`); where the methodology has none, it says so and uses the Excel-AI note (`../excel_ai/mitigation/Equations.md`). Its code version uses the codes map.
 4. **Methodology, not history** (root `NORMS.md` section 7): the equation list and method notes describe the current model only.
+5. **The documentation book (user 2026-10-29).** The Coded CPAT documentation is a Quarto book, the website's Coded CPAT tab, in the style of the methodology documentation: Part I what you need to know (concise: quick start, the database first, scenarios, results, editing, testing), Part II how it works, the complete reference in appendices. Chapters are written in `cpat_documentation/guide/`; the appendices are generated from the code and data (`../docs/CPAT_coded_documentation_qmd/make_qmd.py`). A task that changes how to run, edit or test the model, the database, the inputs or the results updates its chapter the same day; a task that changes the tests reruns `make_qmd.py --tests` (the test status) before `quarto render`.
 
 ## 9. Task completion and bookkeeping
 

@@ -1,0 +1,57 @@
+# Quick start {#sec-quick-start}
+
+## What Coded CPAT is
+
+- **A replication.** Coded CPAT computes what the Excel-AI prototypes compute: the mitigation model (prices, power, fuel use, emissions, revenues, GDP effects, welfare, for 2022-2041) and the household distribution module (incidence by decile). The tests check every output code against Excel-AI's values.
+- **Readable code.** Each equation of the [equation list](A_Equations.qmd) is one small function or one marked line, with the code names of the Excel models (`ener` energy use, `atp` after-tax price, `co2` emissions, ...).
+- **One entry point.** `cpat_model.run(scenarios, settings)` serves the command line, the Shiny app and the tests.
+- **Bugs are not copied.** Where Excel-AI has a bug, Coded CPAT fixes it and registers it ([Appendix F](F_Bugs.qmd)); everything else follows Excel-AI exactly.
+
+## Install
+
+Python 3.12 (3.13 works), from the `coded/` folder of the repository:
+
+```bash
+conda env create -f environment.yml && conda activate cpat_p
+# or, without conda:
+pip install -r requirements.txt -r dev-requirements.txt
+```
+
+## Run it
+
+**Command line**: a scenario-set file in, results out.
+
+```bash
+python run_model.py                                      # Excel-AI's six scenarios for Egypt
+python run_model.py my_set.csv --scenarios 1 2 --xlsx    # your own scenario set; also one workbook
+```
+
+Results go to `coded/outputs/` (or `--out`): `mitigation_EGY.csv` (one row per output code, years 2022-2041) and `distribution_EGY.csv` (basket and ten deciles).
+
+**From Python:**
+
+```python
+import cpat_model
+from cpat_model.inputs import read_scenario_set
+
+results = cpat_model.run(read_scenario_set())                   # dummy database, Egypt
+results.by_code('EGY').loc['egy.mit.co2.tot.tot.2']             # CO2 of scenario 2, by year
+results.distribution_by_code('EGY').loc['egy.distn.net.tot.dec.ove.2']   # net effect by decile
+```
+
+**The app:** `shiny run app.py` (from `coded/`), then open the address it prints. Build carbon-tax scenarios, run them, and look at tables and graphs.
+
+## Speed
+
+A first run in a session takes about 3 seconds (reading the data and the baseline). After that, a run of one country and two scenarios takes under a second: the baseline, the data steps and every scenario already run are cached, so only changed scenarios are computed.
+
+## Where things are
+
+| Path | What |
+|---|---|
+| `coded/cpat_model/` | The model |
+| `coded/run_model.py`, `coded/app.py`, `coded/cpat_shiny/` | Command line and app |
+| `coded/cpat_testing/` | Tests and the comparison with Excel-AI |
+| `data/tidy/` | The database (tidy CSV) |
+| `data/inputs/scenarios_excel_ai.csv` | Excel-AI's scenario set (the example) |
+| `coded/NORMS.md`, `coded/TODO.md` | The rules for working on the code; the plan |

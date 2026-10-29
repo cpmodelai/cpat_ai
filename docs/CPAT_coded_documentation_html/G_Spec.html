@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; Specification and plan – Coded CPAT</title>
+<title>Appendix G — Specification and design decisions – Coded CPAT</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -36,8 +36,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./04_Equations.html" rel="next">
-<link href="./02_Developer_Guide.html" rel="prev">
+<link href="./H_Norms.html" rel="next">
+<link href="./F_Bugs.html" rel="prev">
 <link href="././00/media/image1.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -121,7 +121,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_Spec.html">Design and equations</a></li><li class="breadcrumb-item"><a href="./03_Spec.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Specification and plan</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./A_Equations.html">Appendices</a></li><li class="breadcrumb-item"><a href="./G_Spec.html"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Specification and design decisions</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -159,22 +159,10 @@ window.Quarto = {
  <span class="menu-text"><strong>Coded CPAT</strong></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./01_Overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Coded CPAT: overview</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./02_Developer_Guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Coded CPAT: developer guide</span></span></a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Design and equations</span></a>
+ <span class="menu-text">Part I: What you need to know</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -182,20 +170,38 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_Spec.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Specification and plan</span></span></a>
+  <a href="./01_Quick_start.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Quick start</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_Equations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Equation list: methodology notation</span></span></a>
+  <a href="./02_Database.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The database</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_Equations_codes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Equation list: CPAT code names</span></span></a>
+  <a href="./03_Scenarios.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scenarios and inputs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_Results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_Editing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Editing the model</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_Testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
   </div>
 </li>
       </ul>
@@ -203,7 +209,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Rules and plan</span></a>
+ <span class="menu-text">Part II: How it works</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -211,14 +217,103 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_Norms.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Python norms</span></span></a>
+  <a href="./07_Architecture.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Architecture</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07_Plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">The plan and open work</span></span></a>
+  <a href="./08_Mitigation_blocks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">The mitigation blocks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_Distribution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The distribution module</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_App.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The app</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_Versions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Versions and releases</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A_Equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Equation list: methodology notation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./B_Equations_codes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Equation list: CPAT code names</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C_Database_tables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Database tables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./D_Inputs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Inputs</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./E_Variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./F_Bugs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Excel-AI bugs and known differences</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./G_Spec.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Specification and design decisions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./H_Norms.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Python norms</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./I_Plan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">I</span>&nbsp; <span class="chapter-title">The plan and open work</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./J_Glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">J</span>&nbsp; <span class="chapter-title">Glossary</span></span></a>
   </div>
 </li>
       </ul>
@@ -230,7 +325,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#the-request-user-2026-10-29-cleaned-up" id="toc-the-request-user-2026-10-29-cleaned-up" class="nav-link active" data-scroll-target="#the-request-user-2026-10-29-cleaned-up">1. The request (user, 2026-10-29), cleaned up</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#goal" id="toc-goal" class="nav-link" data-scroll-target="#goal">1.1 Goal</a></li>
   <li><a href="#ways-the-model-is-run" id="toc-ways-the-model-is-run" class="nav-link" data-scroll-target="#ways-the-model-is-run">1.2 Ways the model is run</a></li>
   <li><a href="#data-databases" id="toc-data-databases" class="nav-link" data-scroll-target="#data-databases">1.3 Data: databases</a></li>
@@ -241,13 +336,13 @@ window.Quarto = {
   </ul></li>
   <li><a href="#principles" id="toc-principles" class="nav-link" data-scroll-target="#principles">2. Principles</a></li>
   <li><a href="#folder-structure" id="toc-folder-structure" class="nav-link" data-scroll-target="#folder-structure">3. Folder structure</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#principles-1" id="toc-principles-1" class="nav-link" data-scroll-target="#principles-1">3.1 Principles</a></li>
   <li><a href="#target-layout" id="toc-target-layout" class="nav-link" data-scroll-target="#target-layout">3.2 Target layout</a></li>
   <li><a href="#changes-to-the-existing-structure" id="toc-changes-to-the-existing-structure" class="nav-link" data-scroll-target="#changes-to-the-existing-structure">3.3 Changes to the existing structure</a></li>
   </ul></li>
   <li><a href="#how-a-run-works" id="toc-how-a-run-works" class="nav-link" data-scroll-target="#how-a-run-works">4. How a run works</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#from-inputs-to-results" id="toc-from-inputs-to-results" class="nav-link" data-scroll-target="#from-inputs-to-results">4.1 From inputs to results</a></li>
   <li><a href="#two-passes-three-stages-d1-d15-recommended-options" id="toc-two-passes-three-stages-d1-d15-recommended-options" class="nav-link" data-scroll-target="#two-passes-three-stages-d1-d15-recommended-options">4.2 Two passes, three stages (D1, D15: recommended options)</a></li>
   <li><a href="#one-year-of-the-loop-the-chain" id="toc-one-year-of-the-loop-the-chain" class="nav-link" data-scroll-target="#one-year-of-the-loop-the-chain">4.3 One year of the loop (the chain)</a></li>
@@ -260,12 +355,12 @@ window.Quarto = {
   <li><a href="#tests-and-comparisons" id="toc-tests-and-comparisons" class="nav-link" data-scroll-target="#tests-and-comparisons">8. Tests and comparisons</a></li>
   <li><a href="#documents-and-the-website" id="toc-documents-and-the-website" class="nav-link" data-scroll-target="#documents-and-the-website">9. Documents and the website</a></li>
   <li><a href="#design-choices-decided-user-2026-10-29" id="toc-design-choices-decided-user-2026-10-29" class="nav-link" data-scroll-target="#design-choices-decided-user-2026-10-29">10. Design choices: decided (user 2026-10-29)</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#structure-and-computation" id="toc-structure-and-computation" class="nav-link" data-scroll-target="#structure-and-computation">Structure and computation</a></li>
   <li><a href="#scope-and-behaviour" id="toc-scope-and-behaviour" class="nav-link" data-scroll-target="#scope-and-behaviour">Scope and behaviour</a></li>
   </ul></li>
   <li><a href="#the-plan" id="toc-the-plan" class="nav-link" data-scroll-target="#the-plan">11. The plan</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#phase-2-foundations" id="toc-phase-2-foundations" class="nav-link" data-scroll-target="#phase-2-foundations">Phase 2: foundations</a></li>
   <li><a href="#phase-3-mitigation-block-by-block-chain-order" id="toc-phase-3-mitigation-block-by-block-chain-order" class="nav-link" data-scroll-target="#phase-3-mitigation-block-by-block-chain-order">Phase 3: mitigation, block by block (chain order)</a></li>
   <li><a href="#phase-4-distribution" id="toc-phase-4-distribution" class="nav-link" data-scroll-target="#phase-4-distribution">Phase 4: distribution</a></li>
@@ -274,7 +369,7 @@ window.Quarto = {
   <li><a href="#later" id="toc-later" class="nav-link" data-scroll-target="#later">Later</a></li>
   </ul></li>
   <li><a href="#excel-ai-choices-to-flag" id="toc-excel-ai-choices-to-flag" class="nav-link" data-scroll-target="#excel-ai-choices-to-flag">12. Excel-AI choices to flag</a>
-  <ul>
+  <ul class="collapse">
   <li><a href="#b.-apparent-errors-in-the-methodology-documentation" id="toc-b.-apparent-errors-in-the-methodology-documentation" class="nav-link" data-scroll-target="#b.-apparent-errors-in-the-methodology-documentation">12b. Apparent errors in the methodology documentation</a></li>
   </ul></li>
   </ul>
@@ -287,9 +382,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_Spec.html">Design and equations</a></li><li class="breadcrumb-item"><a href="./03_Spec.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Specification and plan</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./A_Equations.html">Appendices</a></li><li class="breadcrumb-item"><a href="./G_Spec.html"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Specification and design decisions</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-spec" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Specification and plan</span></span></h1>
+<h1 class="title"><span id="sec-app-spec" class="quarto-section-identifier">Appendix G — Specification and design decisions</span></h1>
 </div>
 
 
@@ -1970,13 +2065,13 @@ window.Quarto = {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./02_Developer_Guide.html" class="pagination-link" aria-label="Coded CPAT: developer guide">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Coded CPAT: developer guide</span></span>
+      <a href="./F_Bugs.html" class="pagination-link" aria-label="Excel-AI bugs and known differences">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Excel-AI bugs and known differences</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./04_Equations.html" class="pagination-link" aria-label="Equation list: methodology notation">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Equation list: methodology notation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./H_Norms.html" class="pagination-link" aria-label="Python norms">
+        <span class="nav-page-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Python norms</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
