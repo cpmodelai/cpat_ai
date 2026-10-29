@@ -8,11 +8,11 @@ The current version of each main file, `<Name>_v<version>` (NORMS 5a); older ver
 |---|---|
 | `CPAT-AI-Mitigation-Prototype_v<version>.xlsm` | **The integrated prototype** (mitigation, with the distribution tab): open it in Excel 365, macros on |
 | `CPAT-AI-Distribution-Prototype_v<version>.xlsm` | **The standalone distribution module**: household effects by decile of a mitigation scenario; its Cover links to the prototype in `permalink/` (button Update from Mitigation) |
-| `Legacy_CPAT_Bugs_v<version>.docx` | **The legacy CPAT bugs**: the rule (bugs, issues, data issues, data bugs), the stock table of every legacy bug found and fixed (prototype and legacy 465), the data bugs with their plans, each bug with its cell-level fix plan |
+| `Legacy_CPAT_Bugs_v<version>.docx` | **The legacy CPAT bugs**: the rule (bugs and issues; data problems are issues), the stock table of every legacy bug found and fixed (prototype and legacy 465), the data problems by priority, each bug with its cell-level fix plan |
 | `Tracking_Legacy_Bugs_v<version>.xlsx` | **The master list of bugs and issues** (every module, the same columns): tabs ReadMe, Bugs, Issues, then the CPAT team's tabs |
 | `CPAT-AI_CodesMap_v<version>.xlsx` | **The codes map**: the code protocol, vocabularies, variables, output codes and every input (tab Inputs: row, name, legacy name, Python key) |
 | `CPAT-AI_Overview_v<version>.pptx` | **The slide deck**: status, how to use it, results |
-| [`BUGS.md`](BUGS.md), [`ISSUES.md`](ISSUES.md) | The two short lists: bugs (L, DB, M) and issues (DI, I, LD, U) |
+| [`BUGS.md`](BUGS.md), [`ISSUES.md`](ISSUES.md) | The two short lists: bugs (L, M) and issues (I, data problems first; LD, U) |
 
 ## Folders
 

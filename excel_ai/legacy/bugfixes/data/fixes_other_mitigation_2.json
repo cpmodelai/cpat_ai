@@ -1971,5 +1971,67 @@
   "effect": "None for Egypt (row 827 is 0). Otherwise the oil producer subsidy on other oil products is 159 times larger, in $/bbl. prototype v6.1 (I49): x LitersPerBbl for a barrel-priced block.",
   "note": "No new name needed: legacy has _conv_barrel_to_liter.",
   "status": "fix"
+ },
+ {
+  "id": "L170",
+  "pri": "Medium",
+  "title": "Blank VAT cells of the price dataset read as a VAT rate of 0",
+  "where": "Mitigation K772:AE772, K784:AE784, K800:AE800, K805:AE805, K810:AE810, K815:AE815, K820:AE820 (VAT rate rows of the historical price block; VAT_WEO row 726)",
+  "why": "The VAT rate rows read the IMF price dataset with INDEX(_prices_main, ..., $J); a blank cell returns 0, so a country whose dataset leaves the VAT rate of a household fuel blank gets no VAT on it, although its general VAT rate (row 726, VAT_WEO) applies. Blank cells are missing values, not zeros (an explicit 0 stays 0).",
+  "fixes": [
+   {
+    "cell": "K772",
+    "now": "=IF(AND($F772=\"Manual\",ISNUMBER(INDEX(_manual_prices,$I772,MATCH(K$764,_manual_years,0)))),INDEX(_manual_prices,$I772,MATCH(K$764,_manual_years,0)),INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J772))",
+    "new": "=IF(AND($F772=\"Manual\",ISNUMBER(INDEX(_manual_prices,$I772,MATCH(K$764,_manual_years,0)))),INDEX(_manual_prices,$I772,MATCH(K$764,_manual_years,0)),IF(INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J772)=\"\",K$726,INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J772)))",
+    "fill": "K772:AE772",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   },
+   {
+    "cell": "K784",
+    "now": "=IF(AND($F784=\"Manual\",ISNUMBER(INDEX(_manual_prices,$I784,MATCH(K$764,_manual_years,0)))),INDEX(_manual_prices,$I784,MATCH(K$764,_manual_years,0)),INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J784))",
+    "new": "=IF(AND($F784=\"Manual\",ISNUMBER(INDEX(_manual_prices,$I784,MATCH(K$764,_manual_years,0)))),INDEX(_manual_prices,$I784,MATCH(K$764,_manual_years,0)),IF(INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J784)=\"\",K$726,INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J784)))",
+    "fill": "K784:AE784",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   },
+   {
+    "cell": "K800",
+    "now": "=IF(AND($F800=\"Manual\",ISNUMBER(INDEX(_manual_prices,$I800,MATCH(K$764,_manual_years,0)))),INDEX(_manual_prices,$I800,MATCH(K$764,_manual_years,0)),INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J800))",
+    "new": "=IF(AND($F800=\"Manual\",ISNUMBER(INDEX(_manual_prices,$I800,MATCH(K$764,_manual_years,0)))),INDEX(_manual_prices,$I800,MATCH(K$764,_manual_years,0)),IF(INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J800)=\"\",K$726,INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J800)))",
+    "fill": "K800:AE800",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   },
+   {
+    "cell": "K805",
+    "now": "=IF(AND($F805=\"Manual\",ISNUMBER(INDEX(_manual_prices,$I805,MATCH(K$764,_manual_years,0)))),INDEX(_manual_prices,$I805,MATCH(K$764,_manual_years,0)),INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J805))",
+    "new": "=IF(AND($F805=\"Manual\",ISNUMBER(INDEX(_manual_prices,$I805,MATCH(K$764,_manual_years,0)))),INDEX(_manual_prices,$I805,MATCH(K$764,_manual_years,0)),IF(INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J805)=\"\",K$726,INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J805)))",
+    "fill": "K805:AE805",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   },
+   {
+    "cell": "K810",
+    "now": "=IF(AND($F810=\"Manual\",ISNUMBER(INDEX(_manual_prices,$I810,MATCH(K$764,_manual_years,0)))),INDEX(_manual_prices,$I810,MATCH(K$764,_manual_years,0)),INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J810))",
+    "new": "=IF(AND($F810=\"Manual\",ISNUMBER(INDEX(_manual_prices,$I810,MATCH(K$764,_manual_years,0)))),INDEX(_manual_prices,$I810,MATCH(K$764,_manual_years,0)),IF(INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J810)=\"\",K$726,INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J810)))",
+    "fill": "K810:AE810",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   },
+   {
+    "cell": "K815",
+    "now": "=IF(AND($F815=\"Manual\",ISNUMBER(INDEX(_manual_prices,$I815,MATCH(K$764,_manual_years,0)))),INDEX(_manual_prices,$I815,MATCH(K$764,_manual_years,0)),INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J815))",
+    "new": "=IF(AND($F815=\"Manual\",ISNUMBER(INDEX(_manual_prices,$I815,MATCH(K$764,_manual_years,0)))),INDEX(_manual_prices,$I815,MATCH(K$764,_manual_years,0)),IF(INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J815)=\"\",K$726,INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J815)))",
+    "fill": "K815:AE815",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   },
+   {
+    "cell": "K820",
+    "now": "=IF(AND($F820=\"Manual\",ISNUMBER(INDEX(_manual_prices,$I820,MATCH(K$764,_manual_years,0)))),INDEX(_manual_prices,$I820,MATCH(K$764,_manual_years,0)),INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J820))",
+    "new": "=IF(AND($F820=\"Manual\",ISNUMBER(INDEX(_manual_prices,$I820,MATCH(K$764,_manual_years,0)))),INDEX(_manual_prices,$I820,MATCH(K$764,_manual_years,0)),IF(INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J820)=\"\",K$726,INDEX(_prices_main,MATCH(_Country_code&K$764,_prices_country_years,0),$J820)))",
+    "fill": "K820:AE820",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   }
+  ],
+  "ref": "Row 726 (VAT_WEO, the general VAT rate of the year, from the same dataset). Rows 768, 776, 780, 788, 792, 796, 824 (power, industry, electricity, biomass) are not changed: a blank there stays 0, as in the prototype.",
+  "effect": "None for Egypt (no blank VAT cells). For a country with blanks, the household fuels carry the general VAT rate: higher retail prices, lower demand, VAT revenue counted.",
+  "note": "Was data bug DB2 (before that issue I65); the data problem itself stays tracked as issue I97 (very high): the data team should say which blanks are true zeros. INDEX(...)=\"\" is TRUE for an empty cell and FALSE for an explicit 0.",
+  "status": "fix"
  }
 ]

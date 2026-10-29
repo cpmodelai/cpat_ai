@@ -148,7 +148,7 @@ from openpyxl.utils import get_column_letter as L, column_index_from_string as C
 from openpyxl.utils.cell import coordinate_from_string
 from openpyxl.workbook.defined_name import DefinedName
 
-VERSION = '8.4'   # also in version.json (read by the deck builder)
+VERSION = '8.5'   # also in version.json (read by the deck builder)
 SCRIPTS_TAG = None   # v8.0: scripts and notes have stable names (releases are git tags); v7.1: a point release renames only the builder, VBA module, workbook and reports; the scripts and
                       # notes keep the tag of the full release (NORMS.md section 5)
 COUNTRY = 'EGY'   # v3.3: default of Settings C4 (user input); country data only in the data sheets, by this key
@@ -751,8 +751,9 @@ NAMED_CONSTANTS = [  # defined name, value, unit, description, source
     ('EFJetIEA', 0.0715, 'tCO2/GJ', 'CO2 emission factor of jet fuel, IEA global (19.5 tC/TJ x 44/12): legacy uses it '
      'for aviation and for jet fuel in every sector', 'Legacy Mitigation rows 970, 1010-1011'),
     ('FlareCO2perCH4', 2.75, 't CO2 per t CH4', 'CO2 from burning (flaring) one tonne of methane (44/16)', 'Definition'),
-    ('EFEndYear', 2039, 'year', 'Year of the final combustion emission factor (FE fin): linear path from the base '
-     'year, flat after', 'Legacy Mitigation rows 1052-1663 (column AC = 2039)'),
+    ('EFEndYear', 2039, 'year', 'Year of the final combustion emission factor: linear path from the base year, '
+     'continued after it, as legacy (v8.4, I98; the final factor follows EFSel, name EFFinShare)',
+     'Legacy Mitigation rows 1052-1663 (column AC = 2039; AD, AE extrapolate)'),
     ('MperBn', 1000, 'USD million per USD billion', 'Millions in a billion (GDP in USD bn, revenue in USD m)',
      'Definition'),
     ('PctPerUnit', 100, 'percent per unit', 'MTInputs revenue-use shares are in percent', 'Definition'),
@@ -3861,7 +3862,8 @@ VARIABLES = [
      'engineer road row (position in section 5b; 0 = elasticity model)',
      'leakage row (position in section 6b; 1 = none)'),
     ('ch4', 'CH4 emissions from fuel combustion', 'kt CH4', 'e', 'Fuel use (ktoe) x CH4 EF (t/ktoe; GAINS, sheet '
-     'EF_PM, linear from the base year to EFEndYear) / tPerKt; power: section 14',
+     'EF_PM, linear from the base year to the EFSel final factor in EFEndYear, continued after) / tPerKt; power: '
+     'section 14',
      'legacy Mitigation rows 7216-7294 (ch4 block of section 13)', 'CH4 EF, base year (t/ktoe)',
      'CH4 EF, EFEndYear (t/ktoe)'),
     ('co2', 'CO2 emissions from fuel combustion', 'MtCO2', 'e', 'Fuel use x PJ/ktoe x EF (power generation, section '
@@ -4085,7 +4087,7 @@ VARIABLES = [
     ('gdp.chg.usd', 'Change in real GDP level against the baseline (memo)', 'USD bn', '', 'gdp.pos.usd - gdp.usd',
      'legacy Mitigation row 16201 (v5.7)'),
     ('ap.w', 'Weight of the final emission factor (local air pollutants)', 'share', '',
-     'MIN(1, (year - base year) / (EFEndYear - base year))', 'legacy Mitigation rows 1052-1663 (linear factor path)'),
+     'EFFinShare x (year - base year) / (EFEndYear - base year)', 'legacy Mitigation rows 1052-1663 (linear factor path)'),
     ('apf', 'Forcing of local air pollutants (memo, not in the GHG totals)', 'Mt CO2e', '',
      'Emissions (kt) x GWP100 of the GAINS region / ktPerMt', 'legacy Mitigation rows 7459-7530', 'GWP100 (sheet EF_GHG, gwp100 rows)'),
     ('pop', 'Population', 'thousand', '', 'UN World Population Prospects (sheet UNPop)', 'legacy Mitigation row 2428 '
@@ -4151,9 +4153,9 @@ VARIABLES = [
     ('ndc.bi', 'Modelled BAU (scenario 1) GHGs incl. LULUCF in the target year', 'Mt CO2e', '', 'scenario-1 ghg.inc in ndc.ty', 'legacy row 18421 G'),
     ('ndc.hk', 'Historical emissions key (group|reference year, sheet GHGHist)', 'text', '', 'exc, inc or co2 & | & ndc.ref', 'legacy rows 884-889'),
     ('ndc.hh', 'Historical emissions on the NDC basis in the reference year', 'Mt CO2e', '', 'sheet GHGHist', 'legacy rows 885-889'),
-    ('ndc.hc', 'GHGs inventory column of the NDC basis (v6.1, DI7)', 'text', '', 'texc or tinc & .tot or .co2', 'new (v6.1, DI7)'),
-    ('ndc.hv', 'Inventory emissions on the NDC basis in the reference year (sheet GHGs, 2021-2024; v6.1, DI7)', 'Mt CO2e', '', 'sheet GHGs', 'new (v6.1, DI7)'),
-    ('ndc.h', 'Emissions on the NDC basis in the reference year', 'Mt CO2e', '', 'scenario 1 if the year is modelled, else the GHGs inventory (ndc.hv), else GHGHist (ndc.hh)', 'legacy rows 18446-18447, 18464 (v6.1: + inventory, DI7)'),
+    ('ndc.hc', 'GHGs inventory column of the NDC basis (v6.1, I95)', 'text', '', 'texc or tinc & .tot or .co2', 'new (v6.1, I95)'),
+    ('ndc.hv', 'Inventory emissions on the NDC basis in the reference year (sheet GHGs, 2021-2024; v6.1, I95)', 'Mt CO2e', '', 'sheet GHGs', 'new (v6.1, I95)'),
+    ('ndc.h', 'Emissions on the NDC basis in the reference year', 'Mt CO2e', '', 'scenario 1 if the year is modelled, else the GHGs inventory (ndc.hv), else GHGHist (ndc.hh)', 'legacy rows 18446-18447, 18464 (v6.1: + inventory, I95)'),
     ('ndc.gdp', 'Real GDP in the reference (ref) or target (ty) year', 'USD bn', '', 'WEO gdp_usd', 'legacy rows 18466-18467 (fixed: L123)'),
     ('ndc.hi', 'Intensity NDC: reference-year emissions x target-year GDP / reference-year GDP', 'Mt CO2e', '', 'ndc.h / ndc.gdp.ref x ndc.gdp.ty', 'legacy rows 18468-18473'),
     ('ndc.f', 'NDC: 1 + target value (N/A if none)', 'factor', '', '1 + ndc.x', 'legacy rows 18406-18407'),
@@ -4670,12 +4672,12 @@ LAMBDAS = {   # every calculated row calls one of these in the right column (LAS
                  f'IF(year<=LastHist,{IP_HIST("txo")},prev-(sp_now-sp_prev)*(1-pcc))'),
     'REVENUE': (['fuel_use', 'pj_per_ktoe', 'rate'], 'fuel_use*pj_per_ktoe*rate'),
     'EMISSIONS': (['fuel_use', 'pj_per_ktoe', 'ef'], 'fuel_use*pj_per_ktoe*ef'),
-    'NONCO2': (['fuel_use', 'ef_start', 'ef_end', 'year'],
-               'fuel_use*(ef_start+(ef_end-ef_start)*MIN(1,(year-BaseYr)/(EFEndYear-BaseYr)))/tPerKt'),
+    'NONCO2': (['fuel_use', 'ef_start', 'ef_end', 'year'],   # v8.4 (I98): as legacy, EFSel share, no cap after EFEndYear
+               'fuel_use*(ef_start+(ef_end-ef_start)*EFFinShare*(year-BaseYr)/(EFEndYear-BaseYr))/tPerKt'),
     'METHANEFEE': (['fee_path', 'policy_scen', 'ct_switch', 'carbon_price'],
                    'fee_path*policy_scen+IF(LEFT(ct_switch,3)="Yes",carbon_price,0)'),
     'GROWTHRATE': (['cur', 'prev'], 'IF(prev=0,0,cur/prev-1)'),
-    'EFWEIGHT': (['yr'], 'MIN(1,(yr-BaseYr)/(EFEndYear-BaseYr))'),
+    'EFWEIGHT': (['yr'], 'EFFinShare*(yr-BaseYr)/(EFEndYear-BaseYr)'),   # v8.4 (I98): as legacy rows 1052-1663
     'OTHERPM': (['total_pm', 'black_carbon', 'organic_matter'], 'MAX(0,total_pm-black_carbon-organic_matter)'),
     'FISCALSPACE': (['revenue', 'revenue_ref', 'gdp_bn'], '(revenue-revenue_ref)/(gdp_bn*MperBn)'),
     'GDPSHARE': (['usd_m', 'gdp_bn'], 'usd_m/(gdp_bn*MperBn)'),                     # v3.13: 12d
@@ -4959,7 +4961,7 @@ LAMBDA_NOTES = {
     'REVENUE': 'Revenue (USD million real): fuel use (ktoe) x PJ per ktoe x rate ($/GJ)',
     'EMISSIONS': 'CO2 emissions (MtCO2): fuel use (ktoe) x PJ per ktoe x emission factor (tCO2/GJ)',
     'NONCO2': 'Non-CO2 combustion emissions (kt): fuel use (ktoe) x emission factor (t/ktoe) on a linear path from '
-              'the base year to EFEndYear, flat after',
+              'the base-year factor to the final factor of EFSel in EFEndYear, continued after (as legacy)',
     'METHANEFEE': 'Methane fee used (USD/tCO2e): the fee path in policy scenarios (scenario number > 1, legacy row '
                   '2238; v4.12), plus the carbon price if the carbon tax applies to methane (CTforMethane = Yes)',
     'GROWTHRATE': 'Growth rate: now / previous - 1 (0 if the previous value is 0)',
@@ -4974,7 +4976,8 @@ LAMBDA_NOTES = {
     'GDPEFFECT': 'GDP effect (share of GDP): the sum of the uses, if endogenous GDP effects are switched on',
     'LEVELFACTOR': 'GDP level factor of the year: 1 + last year\'s GDP effect (one-year lag, no circularity)',
     'GDPGROWTH': 'Real GDP growth after the feedback: (1 + baseline growth) x level factor / last year\'s - 1',
-    'EFWEIGHT': 'Weight of the final emission factor: 0 in the base year, rising linearly to 1 in EFEndYear, 1 after',
+    'EFWEIGHT': 'Weight of the final emission factor (FE fin): 0 in the base year, rising linearly to EFFinShare in '
+                'EFEndYear (EFSel: Constant 0, Variable 1, Average 0.5), continuing after, as legacy',
     'POLLUTANT': 'Emissions of a pollutant (kt): fuel use (ktoe) x emission factor (t/ktoe, between the base-year and '
                  'final factor by weight), summed over the fuels, / tPerKt',
     'PERCAPITA': 'Per-capita growth: (1 + total growth) / (1 + population growth) - 1',
@@ -6180,7 +6183,7 @@ MT_APPX_SETTINGS = [  # block C (2b) and the duplicates of 2a whose coding is th
     ('C10', 'LastHistPriceYear', 'Last historical price year (LastHist)', 'year', 'prototype'),
     ('C14', 'ETSOBREffectiveness', 'ETS: relative effectiveness of output-based allocation (OBREff)', 'share', 'legacy hardcoded'),
     ('C15', 'ETSNextPriceExponent', 'ETS: convergence exponent of the next-price proposal', 'exponent', 'legacy row 1966'),
-    ('C19', 'ApplyDemandShock', 'Apply the legacy 2023-2024 energy demand shock (1 = yes)', '0/1', 'legacy (always on, DI4)'),
+    ('C19', 'ApplyDemandShock', 'Apply the legacy 2023-2024 energy demand shock (1 = yes)', '0/1', 'legacy (always on, I92)'),
     ('C34', 'SCCTargetYear', 'Year of the target-consistent carbon price (SCCTgtYr)', 'year', 'prototype'),
     ('C40', 'SCCEpaBaseYear', 'US EPA SCC in the base year (SCCEpa)', '$/tCO2', 'legacy row 17684'),
     ('C54', 'AveragePriceMethod', 'Average price change reported: Legacy* / Laspeyres (PavMethod)', 'option', 'prototype (I31)'),
@@ -6347,7 +6350,7 @@ def build_settings(wb):
     put(ws, 'B18', 'Abatement cost increase per unit of volatility (impact)')
     put(ws, 'B19', 'Fuel use and power demand: apply the legacy 2023-2024 energy demand shock (1 = yes, as legacy; '
                    'legacy rows 2439 and 483, data PowerPaths shock)')
-    put(ws, 'C19', 1, FONT, F_INPUT, '0')      # v3.11: on, as legacy (issue DI4 replicated)
+    put(ws, 'C19', 1, FONT, F_INPUT, '0')      # v3.11: on, as legacy (issue I92 replicated)
     put(ws, 'B21', 'Power: use spot fuel prices (Yes / No; legacy option; No = centred 5-year moving average of the '
                    'price before new policies, as legacy A18; defined name SpotPow)')
     put(ws, 'C21', 'No', FONT, F_INPUT)
@@ -6636,7 +6639,7 @@ def build_settings(wb):
                                '(base-year quantities), mix effect; helper row 10 (scenario 1 column). 11 MTOutputs rows.',
          '0 on all v3.9 codes (new rows only)'),
         ('3.11', '2026-10-16', 'Replicated from legacy: the 2023-2024 fuel-use shock on every fuel row and on power demand '
-                               '(header row 11, Settings C19 on; DI4) and jet fuel (fuel jfu, aviation, kerosene price '
+                               '(header row 11, Settings C19 on; I92) and jet fuel (fuel jfu, aviation, kerosene price '
                                'build-up, legacy EF row 1011; I19, bug L42 fixed).',
          'Intended: fuel use, prices of power, emissions, revenues and all that follows; new jfu codes'),
         ('3.12', '2026-10-16', 'Section 15 hand-off as the air-pollution module input table (legacy rows 15859-15961): '
@@ -6824,13 +6827,13 @@ def build_settings(wb):
                               'legacy (ASPIRE and poverty-line transfers, median flags, chart outputs, production-sector '
                               'prices and top-20 ranking; bugs D10-D31 fixed); I43 replicated (revenue '
                               'uses count impulses from CPIntro: rows fis.impp, fis.lagp), I33 (data step keeps the '
-                              'corrected Egypt prices, LF line ends), DI7 in part (Intensity NDCs: real GDP from sheet '
+                              'corrected Egypt prices, LF line ends), I95 in part (Intensity NDCs: real GDP from sheet '
                               'WEO, 2000-2040); I47 methane intensities as legacy (fee revenue outside the fiscal space: '
                               'circular).'),
         ('6.1', '2026-10-20', 'Open items without new data: I49 producer subsidies enter the supply cost as legacy '
                               '(rows psd, psu, block row psp; legacy bugs L124, L125 fixed); I47 methane fee in the fiscal '
                               'space on the stored scenario-1 gas and biomass activity (sheet BaselineCO2 rows dg, bm; '
-                              'rows ch4.emf, ch4.revf, check ch4b.chk); DI7 NDC reference years 2021-2024 from the GHGs '
+                              'rows ch4.emf, ch4.revf, check ch4b.chk); I95 NDC reference years 2021-2024 from the GHGs '
                               'inventory (ndc.hc, ndc.hv); I46 closed (renewable subsidies since v5.4; transport dropped). '
                               'Dropped by the user: I28, I61-I63, air-pollution co-benefits (I69), transport '
                               'externalities (I70).'),
@@ -6914,7 +6917,12 @@ def build_settings(wb):
                               '329-330 gone, later rows 2 higher) and a complete set of names (legacy bug L137: no '
                               'D_ prefix, no trailing space; issue I87: 87 names added). One register for every '
                               'module (codes L, DB, M, I, DI, LD, U); files named <name>_v8.4 at the top of '
-                              'excel_ai/, the workbook also in permalink/. Results unchanged.')]
+                              'excel_ai/, the workbook also in permalink/. Results unchanged.'),
+        ('8.5', '2026-10-29', 'Data problems as issues (codes DB, DI retired): combustion emission factors as legacy '
+                              '465 (issue I98: final factor of EFSel, Average by default, extrapolated after 2039; was '
+                              'FE fin, flat); blank VAT cells a legacy bug with a cell plan (L170) and issue I97; the '
+                              'corrected Egypt prices a departure by user decision (I99). Local pollutants and '
+                              'combustion CH4 change; other results unchanged.')]
     for i, row in enumerate(log, SET_LOG + 2):
         for j, v in enumerate(row, 1):
             c_ = put(ws, f'{L(j)}{i}', v)
@@ -8038,12 +8046,12 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
     ('VAT rate where the dataset is blank', '0',
      'General VAT rate VAT_WEO for residential coal and gas and all-sector oil products; 0 for power, '
      'industry, biomass. Only for blank cells (v0.14)',
-     'Data issue (user 2026-10-18): blank VAT cells in the IMF price dataset, to raise with the data team '
-     '(TODO); the prototype fill stays until the data are complete (user decision v0.10)',
-     'None for Egypt since v0.14 (corrected data fill every VAT cell)', 'Data'),
+     'Legacy bug L170 (v8.5, user 2026-10-29; was data bug DB2): a blank is a missing value, not a zero; the data '
+     'problem is issue I97 (very high)', 'None for Egypt since v0.14 (corrected data fill every VAT cell)', 'Bug fix'),
     ('Egypt price data', 'Price block in the legacy release', 'Corrected Egypt block supplied by the user '
-     '(2026-10-09; 291 cells, years 2019-2020 added); changed cells bright yellow in Prices_dom', 'User data '
-     'correction', 'Taxes and subsidies of gas and oil products; small supply-cost changes', 'Data'),
+     '(2026-10-09; 291 cells, years 2019-2020 added); changed cells bright yellow in Prices_dom', 'User decision: the '
+     'corrected Egypt prices (issue I99, 2026-10-29)', 'Taxes and subsidies of gas and oil products; small supply-cost '
+     'changes', 'Decision'),
     ('Oil-product share in the VAT of transport fuels', 'VAT rate x oil-product share',
      'VAT rate x household share of the oil product (sheet OilProductShares, as legacy rows 801-816; '
      'v4.12); VAT payment = (supply cost + taxes) x rate x share',
@@ -8131,12 +8139,12 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
      '+9.2% in 2024), the income factor on the GDP elasticity (row 2433: GDP growth^(eps_Y x factor), 1.03'
      ' falling to 0.95 by 2040) and additional policy efficiency gains (MTInputs 242-245)',
      'CPAT eq. 3.3.3 x the shock factor (v3.11, header row 6, switch Settings C19 on, as legacy; issue '
-     'DI4); v4.12: GDP growth with the income factor (row 14; was issue I23); v4.13: additional policy '
+     'I92); v4.12: GDP growth with the income factor (row 14; was issue I23); v4.13: additional policy '
      'efficiency gains as legacy (MTInputs 243-245 by scenario: road vehicles = road, rail, aviation, '
      'navigation; residential; industrial = the other subsectors; row aef of each subsector); v5.4: power demand'
      ' takes MTInputs 242 of its own scenario, like every power input (section-1 row AdditionalEfficiencyPower, '
      'section 3 row aeef)',
-     'User decisions 2026-10-18 (DI4, I23, LD21: replicate legacy); legacy bug L66 fixed (other energy use'
+     'User decisions 2026-10-18 (I92, I23, LD21: replicate legacy); legacy bug L66 fixed (other energy use'
      ' fossil rows have no additional efficiency)', 'None while the inputs are 0 (shipped scenarios)', 'Same'),
     ('Power engineer model (v1.06)', 'Tables H (demand), I (dispatch), K (retirement, capacity), L (investment)',
      'Same method, year by year (method test: 208 legacy rows of the baseline and the carbon-tax run reproduced to '
@@ -8152,7 +8160,7 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
      'Legacy Egypt inputs: generation 2040 +12.6% (baseline), +9.2% (carbon tax); power CO2 2040 +10.8%; '
      'the last six are latent for Egypt', 'Bug fix'),
     ('Power demand: 2023-2024 demand shock', 'Exogenous shock -20.8% (2023), +9.2% (2024) on power demand',
-     'Same: switch Settings C19, on by default since v3.11 (fuels and power, as legacy; issue DI4)', 'Replication rule '
+     'Same: switch Settings C19, on by default since v3.11 (fuels and power, as legacy; issue I92)', 'Replication rule '
      '(user, 2026-10-15)', 'None', 'Same'),
     ('Power demand and sector policies', 'Power demand from its own elasticities (H); sector policies act on fuels '
      'only', 'Same; electricity demand shown as memo lines in the sector blocks and section 11 (not in the fuel '
@@ -8190,7 +8198,7 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
      'None (same numbers)', 'Same'),
     ('Power: historical electricity prices and VAT', 'Legacy vintage (residential 0.112 $/kWh incl. 15.6% VAT in '
      '2022)', 'Corrected Egypt block (residential 0.054, 0.048, 0.043 $/kWh nominal 2022-2024; VAT 0)', 'User data '
-     '(2026-10-09)', 'Electricity price levels', 'Data'),
+     '(2026-10-09); issue I99, decision 2026-10-29', 'Electricity price levels', 'Decision'),
     ('Power: coal implicit cost', 'D3 (calibrated on the coal share, GoalSeekCoal; MTInputs 367-369)', 'Built v5.6 '
      '(P5): row cic from GoalSeekCoal (legacy table, 85 countries, not Egypt) or the Manual inputs of MTInputs 368-369, '
      'in the coal variable cost; in generation cost and tariffs unless Settings PwCoalICTariff = No (default Yes, as '
@@ -8264,10 +8272,10 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
      'User decision 2026-10-18 (replicate legacy); the switches are legacy inputs outside MTInputs (NORMS '
      'rule on inputs)', 'None in the shipped scenarios (methane fee 0)', 'Same'),
     ('GHGs: combustion emission factors (v2.8)',
-     'GAINS factor paths by year (proprietary; zero in the NoPropData file)',
-     'GAINS base and final factor (EF_PM FE in, FE fin), linear to EFEndYear (2039), flat after',
-     'Data (user 2026-10-18): the NoPropData file has no factor paths; a new legacy file with the GAINS '
-     'paths is needed (TODO)', 'Combustion CH4 (scaled by the calibration to the inventory)', 'Data'),
+     'Linear from the GAINS base factor (EF_PM FE in) in the base year to the final factor of EFSel (Average: '
+     'mean of FE in and FE fin) in 2039 (column AC), extrapolated after (rows 1052-1663)',
+     'The same (v8.4, issue I98; was a departure: final factor FE fin, flat after)',
+     'Replicated (user 2026-10-29): data bug I98 retired', 'None', 'Same'),
     ('GHGs: local pollutants (v2.9)', 'PM2.5, NOx, SO2, VOC, BC, OC, CO by subsector and fuel, forcing (sections 13-14)',
      'Built in v2.9: section 15, by subsector and power (fuel use x GAINS factor), totals by pollutant, forcing memo',
      'User request v2.9', 'Pollutant levels', 'Same'),
@@ -8324,7 +8332,7 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
      'scenario-1 energy CO2 of the base year with uncalibrated EFs (Egypt: 2021 inventory against 2022, '
      '0.930); switch Settings C27, default Yes (legacy Yes* for Annex I and non-Annex I)',
      'User 2026-10-18: go with legacy (before: user decisions v3.2 GHGYear and v3.4 switch off); the '
-     '2021-2022 inventory break (DI3) stays in the factor, as legacy; issue I32',
+     '2021-2022 inventory break (I91) stays in the factor, as legacy; issue I32',
      'Energy CO2, carbon tax and ETS costs per unit of fuel', 'Same'),
     ('GDP effects: legacy values (v3.1)',
      'Baseline GDP effect rows 8280-8287 are 0 (live formulas, IFNA(INDEX(...),0); the baseline has no policy); the policy rows 14584-14607 '
@@ -9123,6 +9131,8 @@ def defined_names():
         'GHHTab': 'GHGHist!$C$4:$AP$299', 'GHHIso': 'GHGHist!$B$4:$B$299', 'GHHHdr': 'GHGHist!$C$3:$AP$3',
         'NDCTypes': '{' + ','.join(f'"{t}"' for t in NDC_TYPES) + '}',
         'NDCSub': 'INDEX(ScenarioDefinition!$J:$J,MATCH("NDCs",ScenarioDefinition!$H:$H,0))',
+        'EFFinShare': ('IF(INDEX(ScenarioDefinition!$J:$J,MATCH("EFSel",ScenarioDefinition!$H:$H,0))="constant",0,'   # v8.4 (I98):
+                       'IF(INDEX(ScenarioDefinition!$J:$J,MATCH("EFSel",ScenarioDefinition!$H:$H,0))="Variable",1,0.5))'),   # legacy AC1052
         'NDCTyr': 'INDEX(ScenarioDefinition!$J:$J,MATCH("NDCTargetYear",ScenarioDefinition!$H:$H,0))',
         'NDCCond': 'INDEX(ScenarioDefinition!$J:$J,MATCH("Conditionality",ScenarioDefinition!$H:$H,0))',
         'CoalICKey': 'GoalSeekCoal!$E$4:$E$200', 'CoalICST': 'GoalSeekCoal!$B$4:$B$200',
@@ -9302,7 +9312,7 @@ def nonco2_formula(use, r, col, use_lambda):
     y = f'{col}${R_YEAR}'
     if use_lambda:
         return call('NONCO2', use, f'$D{r}', f'$E{r}', y)
-    return f'{use}*($D{r}+($E{r}-$D{r})*MIN(1,({y}-BaseYr)/(EFEndYear-BaseYr)))/tPerKt'
+    return f'{use}*($D{r}+($E{r}-$D{r})*EFFinShare*({y}-BaseYr)/(EFEndYear-BaseYr))/tPerKt'   # v8.4 (I98)
 
 
 LH = 'Settings!$C$10'                   # last historical price year
@@ -11367,18 +11377,18 @@ def build_mitigation(wb):
             return f'=IF({N("ndc.gas")}="CO2","co2|",IF({N("ndc.lu")}="Includes","inc|","exc|"))&{N("ndc.ref")}', '@'
         if key == 'ndc.hh':
             return f'=IFERROR(INDEX(GHHTab,MATCH(CtryCode,GHHIso,0),MATCH({N("ndc.hk")},GHHHdr,0)),"N/A")', '#,##0.0'
-        if key == 'ndc.hc':                  # v6.1 (DI7): inventory column of the NDC basis
+        if key == 'ndc.hc':                  # v6.1 (I95): inventory column of the NDC basis
             return (f'=IF({N("ndc.lu")}="Includes","tinc","texc")&IF({N("ndc.gas")}="CO2",".co2",".tot")'), '@'
-        if key == 'ndc.hv':                  # v6.1 (DI7): GHGs inventory (2021-2024) in the reference year
+        if key == 'ndc.hv':                  # v6.1 (I95): GHGs inventory (2021-2024) in the reference year
             return (f'=IFERROR(INDEX(GHGVal,MATCH(CtryCode&"|"&{N("ndc.ref")},GHGKey,0),'
                     f'MATCH({N("ndc.hc")},GHGCol,0)),"N/A")'), '#,##0.0'
         if key == 'ndc.h':                   # reference-year emissions: scenario 1 in model years, else inventory,
-            v_ = N('ndc.hv')                 # else history (v6.1, DI7)
+            v_ = N('ndc.hv')                 # else history (v6.1, I95)
             return f'=IFERROR({at(R_NDC["ndc.bs"], N("ndc.ref"))},IF(ISNUMBER({v_}),{v_},{N("ndc.hh")}))', '#,##0.0'
         if var == 'ndc.gdp':                 # real GDP in the reference or target year (fix L123)
             y_ = N('ndc.ref') if fu == 'ref' else N('ndc.ty')
             return (f'=IFERROR(INDEX(WEOData,MATCH(CtryCode&".NGDP_R.A",WEOCode,0),MATCH({y_},WEOYr,0)),"N/A")',
-                    '#,##0')               # v5.7 (DI7): legacy WEO real GDP in LCU, 2000-2040 (only the ratio is used)
+                    '#,##0')               # v5.7 (I95): legacy WEO real GDP in LCU, 2000-2040 (only the ratio is used)
         if key == 'ndc.hi':                  # intensity target base: reference intensity x target-year GDP
             return f'=IFERROR({N("ndc.h")}/{N("ndc.gdp.ref")}*{N("ndc.gdp.ty")},"N/A")', '#,##0.0'
         if var == 'ndc.f':                   # 1 + target value (1 - reduction); N/A where the NDC gives none
@@ -11436,7 +11446,7 @@ def build_mitigation(wb):
             fmt = '#,##0.0'
             if key == 'ap.w':
                 y = f'{col}${R_YEAR}'
-                f = '=' + (call('EFWEIGHT', y) if lam else f'MIN(1,({y}-BaseYr)/(EFEndYear-BaseYr))')
+                f = '=' + (call('EFWEIGHT', y) if lam else f'EFFinShare*({y}-BaseYr)/(EFEndYear-BaseYr)')
                 fmt = '0.000'
             elif var == 'ap' and sec == 'pow':
                 q0, q1 = R_PW[('pe', PW_TECH[0][0])], R_PW[('pe', PW_TECH[-1][0])]
@@ -11511,7 +11521,7 @@ def build_mitigation(wb):
         each_col(acell)
     put(ws, f'H{R_AP_NOTE}', 'Local air pollutants (kt): per subsector, fuel use of its eight fuels (section 5-8 '
                              'blocks) x emission factor (GAINS, sheet EF_PM via Inputs; base-year factor moving '
-                             'linearly to the final factor in EFEndYear, weight ap.w); power: generation fuel use by '
+                             'linearly to the EFSel final factor in EFEndYear and on, weight ap.w); power: generation fuel use by '
                              'type x the power factors (Inputs_power). Forcing (memo): emissions x GWP100 of the GAINS '
                              'region (sheet EF_GHG, gwp100 rows), not part of the GHG totals of section 14. v3.0: the same '
                              'emissions by air-pollution module sector (coal, gas, other power plants; ground level '

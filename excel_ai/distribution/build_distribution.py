@@ -27,7 +27,7 @@ sys.path.insert(0, os.path.join(HERE, '..', 'mitigation'))
 sys.path.insert(0, os.path.join(HERE, '..', 'shared'))
 import build as P                                      # noqa: E402  the prototype builder (helpers, layout)
 
-VERSION = '1.1'
+VERSION = '1.2'
 NAME = 'CPAT-AI-Distribution-Prototype'
 OUT = P.REL.versioned(NAME, VERSION, 'xlsm')     # v1.1: excel_ai/<name>_v<version>.xlsm (no _latest copy, NORMS 5a)
 SOURCE = P.LATEST                                     # the mitigation prototype the module is cut from
@@ -42,6 +42,8 @@ VERSION_LOG = [  # version, date, change
     ('1.1', '2026-10-28', f'Cut from the mitigation prototype v{P.VERSION}: ScenarioDefinition on the rows of legacy '
                           '465 with a complete set of names (bug L137, issue I87); the mitigation workbook is looked '
                           'for in permalink/ too; file named _v1.1 at the top of excel_ai/ (NORMS 5a).'),
+    ('1.2', '2026-10-29', f'Cut from the mitigation prototype v{P.VERSION} (combustion emission factors as legacy, '
+                          'issue I98; data problems as issues).'),
 ]
 
 # the tabs of the module, in order (Cover is added); everything else of the prototype is dropped

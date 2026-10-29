@@ -104,12 +104,14 @@ def register_appendices():
            f'renumbered in v8.4 give their former code.', '',
            table(['Code', 'Number', 'Kind', 'What the prototype does', 'Where'],
                  [(p_, G.counts()[p_], d, w, G.KINDS[p_][2]) for p_, d, w in G.DEFINITIONS], [1, 1, 8, 4, 3]),
-           '# Appendix B. Data issues (DI)', '',
-           'Issues of the input data. The prototype replicates them exactly: it does what legacy does with the data as '
-           'they are. (Data bugs, DB, are not replicated: Legacy_CPAT_Bugs, section 3.)', '', full(G.by_kind('DI')),
+           '# Appendix B. Data problems', '',
+           'Problems of the input data (issues of area Data, and the legacy bug L170 that covers one), most urgent '
+           'first. The prototype does what legacy does with the data, unless the user decided otherwise.', '',
+           full(G.data_items()),
            '# Appendix C. Issues (I)', '',
            'Legacy does what it means to, but the choice is open to question; replicated unless the user decided '
-           'otherwise. Also the limitations of the prototype itself.', '', full(G.by_kind('I')),
+           'otherwise. Also the limitations of the prototype itself. (The data problems: appendix B.)', '',
+           full([r for r in G.by_kind('I') if r['area'] != 'Data']),
            '# Appendix D. Departures from legacy (LD, sheet LegacyDiff)', '',
            table(['Code', 'Type', 'Area', 'Departure', 'Why'],
                  [(r['id'], r['priority'], r['title'], r['description'], r['fix']) for r in G.by_kind('LD')],

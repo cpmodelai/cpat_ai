@@ -1,25 +1,29 @@
-# ISSUES: data issues, issues, departures and upgrades (v8.4)
+# ISSUES: issues (data problems first), departures and upgrades (v8.5)
 
-**The rule (NORMS 0).** Never replicate a legacy bug; always replicate a legacy issue, and track it. A bug: legacy does not compute what it means to (a wrong row, a double application, a dead reference); the prototype fixes it. An issue: legacy does what it means to, but the choice is open to question; the prototype does the same and tracks it. A departure that is not a bug fix is kept only by user decision. Data: a data issue (DI) is replicated exactly; a data bug (DB) is not replicated and is fixed by changing the input data (it has a plan); when the fix needs formulas, it is a legacy bug (L).
+**The rule (NORMS 0).** Never replicate a legacy bug; always replicate a legacy issue, and track it. A bug: legacy does not compute what it means to (a wrong row, a double application, a dead reference); the prototype fixes it. An issue: legacy does what it means to, but the choice is open to question; the prototype does the same and tracks it. A departure that is not a bug fix is kept only by user decision. Data problems are issues (area Data): replicated; where legacy needs a formula fix, that fix is a legacy bug (L) and the issue is Very high; where no cell plan is possible, the prototype aligns with legacy and the issue is Extremely high.
 
-Generated from the register (`mitigation/register.py`) by `mitigation/make_replication_lists.py`. The same items, every column: the tracker `Tracking_Legacy_Bugs_v8.4.xlsx` (the master list). Bugs in detail: `Legacy_CPAT_Bugs_v8.4.docx`. Issues in detail: the appendices of the Documentation (`mitigation/CPAT-AI-Mitigation_Documentation.docx`). Lists: [`BUGS.md`](BUGS.md), [`ISSUES.md`](ISSUES.md).
+Generated from the register (`mitigation/register.py`) by `mitigation/make_replication_lists.py`. The same items, every column: the tracker `Tracking_Legacy_Bugs_v8.5.xlsx` (the master list). Bugs in detail: `Legacy_CPAT_Bugs_v8.5.docx`. Issues in detail: the appendices of the Documentation (`mitigation/CPAT-AI-Mitigation_Documentation.docx`). Lists: [`BUGS.md`](BUGS.md), [`ISSUES.md`](ISSUES.md).
 
-**8 data issues, 71 issues, 41 departures (LegacyDiff), 9 upgrades.**
+**82 issues (12 data problems), 40 departures (LegacyDiff), 9 upgrades.**
 
-## 1. Data issues (DI)
+## 1. Data problems
 
-Replicated exactly: the prototype does what legacy does with the data as they are.
+Most urgent first. Extremely high: no cell plan possible, the prototype does exactly what legacy does. Very high: a legacy bug (L) covers it; the data still need fixing.
 
-| Code | Former | Severity | Status | Data issue | In the prototype | Next step |
-|---|---|---|---|---|---|---|
-| DI1 | I4 | Major | Accepted | Price vintage: data prices end in 2022, as legacy | Replicated | Decided 2026-10-15: 2022 as legacy. |
-| DI2 | I13 | Major | Open | Data for other countries: proprietary tables are Egypt only | Replicated | Data for other countries (TODO). |
-| DI3 | I17 | Major | Accepted | Egypt GHG inventory: energy CH4 breaks after 2021 | Replicated | Decided 2026-10-15: calibrate to 2024 as legacy. |
-| DI4 | I22 | Major | Accepted | Fuel-use shock of 2023-2024 (replicated v3.11) | Replicated | Replicated v3.11; source of the values to trace. |
-| DI5 | I37 | Minor | Accepted | Primary energy of renewables: efficiencies not exactly 1 | Replicated | As legacy (v3.18); set the renewable efficiencies to 1 if the data are confirmed. |
-| DI6 | I38 | Minor | Accepted | Legacy's stored run: wind and solar capex time factors 2039-2041 differ from its Power tab | Replicated | v4.7: the formula follows the Power tab; recheck against a fresh legacy run. |
-| DI7 | I68 | Minor | Open | NDC reference years outside the data | Replicated | v5.7: GDP solved (WEO NGDP_R, 2000-2040). v6.1: reference years 2021-2024 read the GHGs inventory (rows ndc.hc, ndc.hv), 2022 onwards the model. Still open: historical GHGs 2018-2020 (GHGHist ends 2017, CO2 2020): data request. |
-| DI8 | DI3 | Minor | Accepted | Elasticities always overall, mean | Replicated |  |
+| Code | Former | Kind | Priority | Status | Title | In the prototype | Next step |
+|---|---|---|---|---|---|---|---|
+| I98 | DB1 < I64 | Issue | Extremely high | Open | Combustion emission factors: GAINS base and final factors only | Replicated | The prototype now does exactly what legacy 465 does (v8.5). Plan: get the GAINS factor paths by year (proprietary) or confirm that the base and final factors are the intended data; check the 2040-2041 extrapolation and the EFSel average with the CPAT team. |
+| I97 | DB2 < I65 | Issue | Very high | Open | Blank VAT cells in the IMF price dataset | The prototype has the fix of bug L170 (a blank takes the general VAT rate) | Plan: the data team says which blank VAT cells of the IMF price dataset are missing values and which are true zeros, and fills the dataset. Legacy: apply the cell plan of bug L170 (a blank reads the general VAT rate for the household fuels); the prototype has that fix. No effect for Egypt. |
+| I89 | DI1 < I4 | Issue | Major | Accepted | Price vintage: data prices end in 2022, as legacy | Replicated | Decided 2026-10-15: 2022 as legacy. |
+| I90 | DI2 < I13 | Issue | Major | Open | Data for other countries: proprietary tables are Egypt only | Prototype limitation | Data for other countries (TODO). |
+| I91 | DI3 < I17 | Issue | Major | Accepted | Egypt GHG inventory: energy CH4 breaks after 2021 | Replicated | Decided 2026-10-15: calibrate to 2024 as legacy. |
+| I92 | DI4 < I22 | Issue | Major | Accepted | Fuel-use shock of 2023-2024 (replicated v3.11) | Replicated | Replicated v3.11; source of the values to trace. |
+| I99 | DB3 < I20 | Issue | Major | Accepted | Electricity price data differ from legacy | Departs (user decision) | Departure by user decision (2026-10-29: the prototype keeps the corrected Egypt prices). Plan: send the corrected block to the CPAT data team for the legacy Prices_dom table; when legacy carries it, the two read the same data and LD4, LD33 close. |
+| L170 | DB2 < I65 | Legacy bug | Medium | Open in legacy | Blank VAT cells of the price dataset read as a VAT rate of 0 | Fixed: a blank VAT cell takes the general VAT rate (VAT_WEO) for residential coal and gas and the oil products, 0 for power, industry and biomass (since v0.14; was departure LD3, data bug DB2). | Row 726 (VAT_WEO, the general VAT rate of the year, from the same dataset). Rows 768, 776, 780, 788, 792, 796, 824 (power, industry, electricity, biomass) are not changed: a blank there stays 0, as in the prototype. |
+| I93 | DI5 < I37 | Issue | Minor | Accepted | Primary energy of renewables: efficiencies not exactly 1 | Replicated | As legacy (v3.18); set the renewable efficiencies to 1 if the data are confirmed. |
+| I94 | DI6 < I38 | Issue | Minor | Accepted | Legacy's stored run: wind and solar capex time factors 2039-2041 differ from its Power tab | Replicated | v4.7: the formula follows the Power tab; recheck against a fresh legacy run. |
+| I95 | DI7 < I68 | Issue | Minor | Open | NDC reference years outside the data | Replicated | v5.7: GDP solved (WEO NGDP_R, 2000-2040). v6.1: reference years 2021-2024 read the GHGs inventory (rows ndc.hc, ndc.hv), 2022 onwards the model. Still open: historical GHGs 2018-2020 (GHGHist ends 2017, CO2 2020): data request. |
+| I96 | DI8 < distribution DI3 | Issue | Minor | Accepted | Elasticities always overall, mean | Replicated |  |
 
 ## 2. Issues (I)
 
@@ -85,19 +89,30 @@ Replicated, a departure by user decision, or a limitation of the prototype.
 | I73 |  | Mitigation | Major | Resolved | Scenario-1 lookups must end at the current column | Prototype limitation |  |
 | I74 |  | Mitigation | Major | Resolved | Methane calibration bases must be data or base-year values | Prototype limitation |  |
 | I75 |  | Mitigation | Minor | Resolved | Legacy code inconsistencies (CPAT code protocol) | Departs (user decision) |  |
-| I76 | DI1 | Distribution | Minor | Accepted | Spending in the base year | Replicated |  |
-| I77 | DI2 | Distribution | Minor | Accepted | GTAP values converted with the local GDP deflator | Replicated |  |
-| I78 | DI4 | Distribution | Minor | Accepted | Recycled amounts per capita from the overall sample | Replicated |  |
-| I79 | DI5 | Distribution | Minor | Accepted | Gini from a fitted Lorenz curve | Replicated |  |
-| I80 | DI6 | Distribution | Minor | Accepted | Carbon-pricing revenue stands for the revenue to recycle | Replicated |  |
-| I81 | DI7 | Distribution | Minor | Accepted | ASPIRE-targeted transfers (TransferType other than Cash) | Replicated |  |
-| I82 | DI8 | Distribution | Minor | Accepted | Poverty-line targeting (TargetBelow, with Cash only) | Replicated |  |
-| I83 | DI9 | Distribution | Minor | Accepted | Pass-through switch wired into the production-sector prices only | Replicated |  |
-| I84 | DI10 | Distribution | Minor | Accepted | Median statistic: the targeted transfer only reaches deciles where more than half receive | Replicated |  |
+| I76 | distribution DI1 | Distribution | Minor | Accepted | Spending in the base year | Replicated |  |
+| I77 | distribution DI2 | Distribution | Minor | Accepted | GTAP values converted with the local GDP deflator | Replicated |  |
+| I78 | distribution DI4 | Distribution | Minor | Accepted | Recycled amounts per capita from the overall sample | Replicated |  |
+| I79 | distribution DI5 | Distribution | Minor | Accepted | Gini from a fitted Lorenz curve | Replicated |  |
+| I80 | distribution DI6 | Distribution | Minor | Accepted | Carbon-pricing revenue stands for the revenue to recycle | Replicated |  |
+| I81 | distribution DI7 | Distribution | Minor | Accepted | ASPIRE-targeted transfers (TransferType other than Cash) | Replicated |  |
+| I82 | distribution DI8 | Distribution | Minor | Accepted | Poverty-line targeting (TargetBelow, with Cash only) | Replicated |  |
+| I83 | distribution DI9 | Distribution | Minor | Accepted | Pass-through switch wired into the production-sector prices only | Replicated |  |
+| I84 | distribution DI10 | Distribution | Minor | Accepted | Median statistic: the targeted transfer only reaches deciles where more than half receive | Replicated |  |
 | I85 |  | Inputs (ScenarioDefinition) | Minor | Accepted | Percentages typed as whole numbers on 8 inputs | Replicated |  |
 | I86 |  | Inputs (ScenarioDefinition) | Minor | Accepted | Input names: spelling not uniform | Replicated | L137 |
 | I87 |  | Inputs (ScenarioDefinition) | Minor | Accepted | Inputs without a name | Departs (user decision) | L137 |
 | I88 |  | Inputs (ScenarioDefinition) | Minor | Accepted | One Dashboard cell feeds two inputs | Replicated | L137 |
+| I89 | DI1 < I4 | Data | Major | Accepted | Price vintage: data prices end in 2022, as legacy | Replicated |  |
+| I90 | DI2 < I13 | Data | Major | Open | Data for other countries: proprietary tables are Egypt only | Prototype limitation |  |
+| I91 | DI3 < I17 | Data | Major | Accepted | Egypt GHG inventory: energy CH4 breaks after 2021 | Replicated |  |
+| I92 | DI4 < I22 | Data | Major | Accepted | Fuel-use shock of 2023-2024 (replicated v3.11) | Replicated |  |
+| I93 | DI5 < I37 | Data | Minor | Accepted | Primary energy of renewables: efficiencies not exactly 1 | Replicated |  |
+| I94 | DI6 < I38 | Data | Minor | Accepted | Legacy's stored run: wind and solar capex time factors 2039-2041 differ from its Power tab | Replicated |  |
+| I95 | DI7 < I68 | Data | Minor | Open | NDC reference years outside the data | Replicated |  |
+| I96 | DI8 < distribution DI3 | Data | Minor | Accepted | Elasticities always overall, mean | Replicated |  |
+| I97 | DB2 < I65 | Data | Very high | Open | Blank VAT cells in the IMF price dataset | The prototype has the fix of bug L170 (a blank takes the general VAT rate) | L170, LD3 |
+| I98 | DB1 < I64 | Data | Extremely high | Open | Combustion emission factors: GAINS base and final factors only | Replicated | L58, L59 |
+| I99 | DB3 < I20 | Data | Major | Accepted | Electricity price data differ from legacy | Departs (user decision) | LD4, LD33, I14 |
 
 ## 3. Departures (LD, sheet LegacyDiff)
 
@@ -105,8 +120,8 @@ Replicated, a departure by user decision, or a limitation of the prototype.
 |---|---|---|---|---|---|
 | LD1 | Decision | Elasticities: food & forestry | Legacy: Industry elasticities (coded EC_SECTORS). Prototype: Services (buildings) elasticities. | User decision v0.11; legacy groups food & forestry with services as Commercial |  |
 | LD2 | Decision | Other oil products: pass-through and margin | Legacy: Hardcoded 1 and 0. Prototype: From the IMF dataset like the other oil products (Egypt 0 and 7.95 $/bbl). | User decision v0.10: the legacy rule drove the retail price to the 0.01 floor and fuel use 10x by 2030 |  |
-| LD3 | Data | VAT rate where the dataset is blank | Legacy: 0. Prototype: General VAT rate VAT_WEO for residential coal and gas and all-sector oil products; 0 for power, industry, biomass. Only for blank cells (v0.14). | Data issue (user 2026-10-18): blank VAT cells in the IMF price dataset, to raise with the data team (TODO); the prototype fill stays until the data are complete (user decision v0.10) | DB2 |
-| LD4 | Data | Egypt price data | Legacy: Price block in the legacy release. Prototype: Corrected Egypt block supplied by the user (2026-10-09; 291 cells, years 2019-2020 added); changed cells bright yellow in Prices_dom. | User data correction | DB3 |
+| LD3 | Bug fix | VAT rate where the dataset is blank | Legacy: 0. Prototype: General VAT rate VAT_WEO for residential coal and gas and all-sector oil products; 0 for power, industry, biomass. Only for blank cells (v0.14). | Legacy bug L170 (v8.5, user 2026-10-29; was data bug DB2): a blank is a missing value, not a zero; the data problem is issue I97 (very high) | L170, I97 |
+| LD4 | Decision | Egypt price data | Legacy: Price block in the legacy release. Prototype: Corrected Egypt block supplied by the user (2026-10-09; 291 cells, years 2019-2020 added); changed cells bright yellow in Prices_dom. | User decision: the corrected Egypt prices (issue I99, 2026-10-29) | I99 |
 | LD5 | Bug fix | Oil-product share in the VAT of transport fuels | Legacy: VAT rate x oil-product share. Prototype: VAT rate x household share of the oil product (sheet OilProductShares, as legacy rows 801-816; v4.12); VAT payment = (supply cost + taxes) x rate x share. | Replicated (user decision 2026-10-18: an issue, not a bug: legacy means to charge VAT only on the household share, firms reclaim it; issue I39); legacy bug L60 fixed (VAT payment divided by 1 + full rate) |  |
 | LD6 | Bug fix | New ETS price | Legacy: Cap relative to baseline; quick estimate (linear in the semi-elasticity) and a VBA goal seek on an override row. Prototype: Same cap; fast estimate in log form LN(cap/baseline)/(semi x effectiveness x volatility adjustment); override row pasted from ets_goalseek.py (Python, same damped log-space step, no VBA); baseline covered emissions are data from scenario 1 (bco2). | Legacy bug L57 (user 2026-10-18): the quick estimate is linear in the semi-elasticity, while the cap is a relative change of emissions (legacy note "arguably exp/ln"); the log form hits the cap. No circular reference |  |
 | LD8 | Bug fix | ETS volatility | Legacy: Relative price ETS vs tax hardcoded 1.1 (row 1843); volatility inputs feed a factor not used. Prototype: Volatility adjustment (1 + policy risk x impact)/(1 + volatility x impact) from MTInputs 95-97 (1/1.1 at Medium) on the tax-equivalent price and in the fast estimate. | Legacy bug L15: the relative price is a hardcoded 1.1 and the volatility inputs are not used (user suggestion v1.02: volatility-dependent effectiveness) |  |
@@ -118,14 +133,13 @@ Replicated, a departure by user decision, or a limitation of the prototype.
 | LD19 | Simplification | Producer subsidies | Legacy: In the supply cost. Prototype: Fiscal line by fuel (v4.16, LD19): producer subsidies (Prices_dom mit.pros, USD m real) x phase-out factor, in total revenue (rpsu), 12e and the fiscal space; no price effect. | User 2026-10-18 (add producer subsidies); legacy bugs L82, L83 fixed; issue I49: no price effect (legacy spreads the subsidy over world demand, so near zero for oil, coal and gas) |  |
 | LD23 | Bug fix | Power: bug fixes (v1.06) | Legacy: Ten defects (CPAT-AI-Mitigation-Prototype_BugsIssuesUpgrades_v6.4.docx): services demand with the industrial multiple from 2024; efficiency exponent with eps_F; income factor twice; LT storage allocation twice; investment spending at base capital cost; investment logit normalised by non-permitted types; early-retirement units; coal effective retirement uncapped; feebate rebate x 1.22; capacity check on the plan; v4.14: new capacity sized for this year's demand although it comes online next year (L67, was I8). Prototype: Fixed. | User request v1.06; L67 by user decision 2026-10-18 |  |
 | LD28 | Simplification | Power: features not built | Legacy: Power demand from the elasticity model, carbon price on power use (feebate on demand). Prototype: Dropped (user decisions 4 and 5 of the power plan; the rebate covers the demand-side feebate). Built: v5.4 PPAs, deficit to gas, renewable subsidies, rebate, electricity excise, every power input by scenario; v5.6 manual capacity and investment (P3: rows mancap, mani, needm; Manual inputs 349-357 scenario 1, 363-371 other scenarios; legacy bug L118 fixed: logit investment sized on the need net of manual investment). | Scope (power plan) |  |
-| LD33 | Data | Power: historical electricity prices and VAT | Legacy: Legacy vintage (residential 0.112 $/kWh incl. 15.6% VAT in 2022). Prototype: Corrected Egypt block (residential 0.054, 0.048, 0.043 $/kWh nominal 2022-2024; VAT 0). | User data (2026-10-09) | DB3 |
+| LD33 | Decision | Power: historical electricity prices and VAT | Legacy: Legacy vintage (residential 0.112 $/kWh incl. 15.6% VAT in 2022). Prototype: Corrected Egypt block (residential 0.054, 0.048, 0.043 $/kWh nominal 2022-2024; VAT 0). | User data (2026-10-09); issue I99, decision 2026-10-29 | I99 |
 | LD38 | Bug fix | Existing carbon pricing | Legacy: ECP data by country (national and regional ETS blocks, carbon tax with fuel-specific rates), coverage by year; ctx and ets inside txo; free allocation and revenue data. Prototype: As legacy (v4.12): carbon tax with the single rate or fuel rates (single price? flag), national ETS and the EU ETS (EU ETS? = Yes or Both) added up, coverage of each data year (blank = 0), the last data year after; each scheme read from its own block of sheet ECP; the sector of the price fuel (oil products: transport; other oil products: industry); only the change against the level in the price data enters prices and revenue (legacy: ctx and ets inside txo, same numbers); existing ETS revenue at full price and free-allocation and revenue data unused, as legacy. | User decision 2026-10-18 (replicate legacy, several schemes; was issue I7); legacy bugs fixed: L61 (EU ETS grows with the carbon-tax growth), L62 (transport diesel, LPG, kerosene tax rows take the rate row as coverage), L63 (fuel coverage range cut short), L64 (no ETS on other oil products outside power), L65 (complementary tax with last year's ETS coverage) |  |
 | LD40 | Decision | Horizon and indices | Legacy: To 2050 (power block to 2041); CPI held flat after 2031. Prototype: To 2041 (v2.3; the last year is the LAMBDA year); same indices; values after 2030 not a legacy target. | User decisions v0.9 / v0.11 / v2.3 |  |
 | LD41 | Data | Data vintage | Legacy: Proprietary price forecasts; IEA balances. Prototype: NoPropData extracts; energy use via kernel v1.6; IIASA EFs without inventory adjustment. | No proprietary data |  |
 | LD43 | Bug fix | GHGs: non-energy methane (v2.8) | Legacy: Livestock, rice and waste CH4 constant (inventory); abatement computed but not applied; waste uses the livestock curve. Prototype: Grow with income and population (legacy elasticities); the methane fee abates each source along its own CH4Inputs curve. | Legacy bugs L18, L21 |  |
 | LD44 | Bug fix | GHGs: flaring (v2.8) | Legacy: CO2 from flaring abated oil and gas methane added to CH4 (divided by the CH4 GWP). Prototype: Reported as CO2 in energy (ghg.flr). | Legacy bug L19 |  |
 | LD45 | Bug fix | GHGs: population (v2.8) | Legacy: Growth path 2-4% a year from 2027 (rows 481, 2428). Prototype: UN WPP (sheet UNPop). | Legacy bug L20 |  |
-| LD47 | Data | GHGs: combustion emission factors (v2.8) | Legacy: GAINS factor paths by year (proprietary; zero in the NoPropData file). Prototype: GAINS base and final factor (EF_PM FE in, FE fin), linear to EFEndYear (2039), flat after. | Data (user 2026-10-18): the NoPropData file has no factor paths; a new legacy file with the GAINS paths is needed (TODO) | DB1 |
 | LD49 | Bug fix | Local pollutants: factor mapping (v2.9) | Legacy: GAINS factors looked up by subsector; subsectors without a GAINS match get 0. Prototype: Each subsector takes the GAINS subsector of its CH4 factor (services as residential, rail as road, industry as manufacturing; Inputs column ch4s); v4.12: a fuel its GAINS subsector has no factor for takes the nearest GAINS match (LPG: natural gas of the same subsector; food & forestry: construction; else manufacturing; Inputs columns efxs:eff). | Legacy bugs L58 (user 2026-10-18; was issue I27) and L59 (user 2026-10-18; was issue I35): a subsector or fuel without a GAINS match silently gets zero factors although it burns fuel |  |
 | LD50 | Bug fix | Local pollutants: navigation (v2.9) | Legacy: Navigation missing from the pollutant totals. Prototype: Navigation included in the transport and total rows. | Legacy bug L22 |  |
 | LD52 | Bug fix | Local pollutants: total (v3.0) | Legacy: Total of a pollutant leaves out services and food & forestry (the sectors include them). Prototype: Total = all subsectors + power = sum of the seven air-pollution sectors. | Legacy bug L23 |  |
@@ -155,6 +169,6 @@ Replicated, a departure by user decision, or a limitation of the prototype.
 | U5 | Medium | Copy-paste stress test | Add a fuel, a subsector and a scenario by dragging; fix what breaks. |
 | U6 | Medium | Other gases, local pollutants and process emissions | CH4 and N2O done (v2.8), local pollutants (v2.9); inventory-adjusted EFs and process CO2 remain. |
 | U7 | Medium | Regulations as shadow prices | Fill the regulation rows (placeholder 0) and their efficiency-margin adjustments (MTInputs 247-250). |
-| U10 | Medium | Data for more countries | Energy balances, GDP and EFs beyond Egypt (DI2). |
+| U10 | Medium | Data for more countries | Energy balances, GDP and EFs beyond Egypt (I90). |
 | U13 | Low | Planned retirement data for Egypt | Enter PowerPaths pret/<type> where plans exist. |
 | U14 | Low | Python port | The check script already recomputes every value in Python. |

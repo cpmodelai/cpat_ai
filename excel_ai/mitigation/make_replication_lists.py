@@ -1,9 +1,9 @@
 """The two lists at the top of excel_ai/, generated from the register (register.py) at every release (v8.4: every
 module and kind, the same columns as the tracker).
 
-- BUGS.md: the bugs. Legacy bugs (L) and data bugs (DB), with the prototype's fix and the status in legacy 465; the
+- BUGS.md: the bugs. Legacy bugs (L), with the prototype's fix and the status in legacy 465; the
   prototype's own bugs (M).
-- ISSUES.md: the issues. Data issues (DI) and issues (I), replicated or departures by user decision; the departures
+- ISSUES.md: the issues (I; the data problems first), replicated or departures by user decision; the departures
   of the LegacyDiff sheet (LD); the upgrades (U).
 
     python make_replication_lists.py
@@ -19,9 +19,10 @@ V = R.REGISTER_VERSION
 RULE = ['**The rule (NORMS 0).** Never replicate a legacy bug; always replicate a legacy issue, and track it. A bug: '
         'legacy does not compute what it means to (a wrong row, a double application, a dead reference); the prototype '
         'fixes it. An issue: legacy does what it means to, but the choice is open to question; the prototype does the '
-        'same and tracks it. A departure that is not a bug fix is kept only by user decision. Data: a data issue (DI) '
-        'is replicated exactly; a data bug (DB) is not replicated and is fixed by changing the input data (it has a '
-        'plan); when the fix needs formulas, it is a legacy bug (L).', '',
+        'same and tracks it. A departure that is not a bug fix is kept only by user decision. Data problems are '
+        'issues (area Data): replicated; where legacy needs a formula fix, that fix is a legacy bug (L) and the issue '
+        'is Very high; where no cell plan is possible, the prototype aligns with legacy and the issue is Extremely '
+        'high.', '',
         f'Generated from the register (`mitigation/register.py`) by `mitigation/make_replication_lists.py`. The same '
         f'items, every column: the tracker `Tracking_Legacy_Bugs_v{V}.xlsx` (the master list). Bugs in detail: '
         f'`Legacy_CPAT_Bugs_v{V}.docx`. Issues in detail: the appendices of the Documentation '
@@ -41,8 +42,8 @@ def table(header, rows):
 def bugs_md():
     c = G.counts()
     L = G.by_kind('L')
-    lines = [f'# BUGS: legacy CPAT bugs, data bugs and prototype bugs (v{V})', ''] + RULE + [
-        f'**{c["L"]} legacy bugs, {c["DB"]} data bugs, {c["M"]} prototype bugs.** Legacy 465: '
+    lines = [f'# BUGS: legacy CPAT bugs and prototype bugs (v{V})', ''] + RULE + [
+        f'**{c["L"]} legacy bugs, {c["M"]} prototype bugs.** Legacy 465: '
         f'{sum(r["legacy465"] == "Fixed" for r in L)} fixed (confirmed), '
         f'{sum(r["legacy465"] == "Fixed with caveats" for r in L)} fixed with caveats, '
         f'{sum(r["legacy465"] == "Not fixed (marked fixed)" for r in L)} marked fixed but not fixed, '
@@ -53,24 +54,21 @@ def bugs_md():
                     'Legacy 465', 'See also'],
                    [(r['id'], r['former'], r['area'], r['priority'], r['title'], r['where'], r['prototype'],
                      r['legacy465'], r['see_also']) for r in L])
-    lines += ['## 2. Data bugs (DB)', '', 'Not replicated; fixed by changing the input data, each with its plan.', '']
-    lines += table(['Code', 'Former', 'Severity', 'Status', 'Data bug', 'Plan', 'See also'],
-                   [(r['id'], r['former'], r['priority'], r['status'], r['title'], r['fix'], r['see_also'])
-                    for r in G.by_kind('DB')])
-    lines += ['## 3. Prototype bugs (M)', '', 'Defects of the prototype itself, all fixed.', '']
+    lines += ['## 2. Prototype bugs (M)', '', 'Defects of the prototype itself, all fixed.', '']
     lines += table(['Code', 'Bug', 'Fixed'], [(r['id'], r['title'], r['prototype']) for r in G.by_kind('M')])
     return lines
 
 
 def issues_md():
     c = G.counts()
-    lines = [f'# ISSUES: data issues, issues, departures and upgrades (v{V})', ''] + RULE + [
-        f'**{c["DI"]} data issues, {c["I"]} issues, {c["LD"]} departures (LegacyDiff), {c["U"]} upgrades.**', '',
-        '## 1. Data issues (DI)', '', 'Replicated exactly: the prototype does what legacy does with the data as they '
-                                      'are.', '']
-    lines += table(['Code', 'Former', 'Severity', 'Status', 'Data issue', 'In the prototype', 'Next step'],
-                   [(r['id'], r['former'], r['priority'], r['status'], r['title'], r['prototype'], r['fix'])
-                    for r in G.by_kind('DI')])
+    lines = [f'# ISSUES: issues (data problems first), departures and upgrades (v{V})', ''] + RULE + [
+        f'**{c["I"]} issues ({len(G.data_items())} data problems), {c["LD"]} departures (LegacyDiff), {c["U"]} upgrades.**',
+        '', '## 1. Data problems', '', 'Most urgent first. Extremely high: no cell plan possible, the prototype does '
+                                     'exactly what legacy does. Very high: a legacy bug (L) covers it; the data still '
+                                     'need fixing.', '']
+    lines += table(['Code', 'Former', 'Kind', 'Priority', 'Status', 'Title', 'In the prototype', 'Next step'],
+                   [(r['id'], r['former'], r['kind'], r['priority'], r['status'], r['title'], r['prototype'], r['fix'])
+                    for r in G.data_items()])
     lines += ['## 2. Issues (I)', '', 'Replicated, a departure by user decision, or a limitation of the prototype.', '']
     lines += table(['Code', 'Former', 'Module', 'Severity', 'Status', 'Issue', 'In the prototype', 'See also'],
                    [(r['id'], r['former'], r['area'], r['priority'], r['status'], r['title'], r['prototype'],

@@ -1,10 +1,10 @@
-# BUGS: legacy CPAT bugs, data bugs and prototype bugs (v8.4)
+# BUGS: legacy CPAT bugs and prototype bugs (v8.5)
 
-**The rule (NORMS 0).** Never replicate a legacy bug; always replicate a legacy issue, and track it. A bug: legacy does not compute what it means to (a wrong row, a double application, a dead reference); the prototype fixes it. An issue: legacy does what it means to, but the choice is open to question; the prototype does the same and tracks it. A departure that is not a bug fix is kept only by user decision. Data: a data issue (DI) is replicated exactly; a data bug (DB) is not replicated and is fixed by changing the input data (it has a plan); when the fix needs formulas, it is a legacy bug (L).
+**The rule (NORMS 0).** Never replicate a legacy bug; always replicate a legacy issue, and track it. A bug: legacy does not compute what it means to (a wrong row, a double application, a dead reference); the prototype fixes it. An issue: legacy does what it means to, but the choice is open to question; the prototype does the same and tracks it. A departure that is not a bug fix is kept only by user decision. Data problems are issues (area Data): replicated; where legacy needs a formula fix, that fix is a legacy bug (L) and the issue is Very high; where no cell plan is possible, the prototype aligns with legacy and the issue is Extremely high.
 
-Generated from the register (`mitigation/register.py`) by `mitigation/make_replication_lists.py`. The same items, every column: the tracker `Tracking_Legacy_Bugs_v8.4.xlsx` (the master list). Bugs in detail: `Legacy_CPAT_Bugs_v8.4.docx`. Issues in detail: the appendices of the Documentation (`mitigation/CPAT-AI-Mitigation_Documentation.docx`). Lists: [`BUGS.md`](BUGS.md), [`ISSUES.md`](ISSUES.md).
+Generated from the register (`mitigation/register.py`) by `mitigation/make_replication_lists.py`. The same items, every column: the tracker `Tracking_Legacy_Bugs_v8.5.xlsx` (the master list). Bugs in detail: `Legacy_CPAT_Bugs_v8.5.docx`. Issues in detail: the appendices of the Documentation (`mitigation/CPAT-AI-Mitigation_Documentation.docx`). Lists: [`BUGS.md`](BUGS.md), [`ISSUES.md`](ISSUES.md).
 
-**167 legacy bugs, 3 data bugs, 14 prototype bugs.** Legacy 465: 52 fixed (confirmed), 8 fixed with caveats, 2 marked fixed but not fixed, 105 open.
+**168 legacy bugs, 14 prototype bugs.** Legacy 465: 52 fixed (confirmed), 8 fixed with caveats, 2 marked fixed but not fixed, 106 open.
 
 ## 1. Legacy bugs (L)
 
@@ -68,8 +68,8 @@ Fixed in the prototype (or the feature not built); never replicated.
 | L55 |  | Mitigation: engineer power | Low | China, Japan and Korea take regional power data | Mitigation rows 2977-2985 K (Power A25:A356) | Fixed in v4.10: the country rows are looked up in the country block (Power rows 112-294) first; no effect for Egypt. | Fixed |  |
 | L56 |  | Mitigation: engineer power | Low | Countries without CoC risk data get Sri Lanka's WACC parameters | CoC rows 202-390 D:V | Fixed in v4.10: such countries take the default WACC (as countries missing from CoC), flagged on Inputs (PsCoCData); no effect for Egypt. | Fixed with caveats |  |
 | L57 |  | Mitigation | Medium | New ETS: the quick price estimate is linear in the semi-elasticity | Mitigation ETS block (quick estimate, override row) | Fixed (v1.02; bug by user decision 2026-10-18, was LegacyDiff row 6): the fast estimate in log form, LN(cap / baseline) / (semi-elasticity x effectiveness x volatility adjustment); the build stores it (no goal seek). | Fixed |  |
-| L58 |  | Mitigation | Medium | Local pollutants: subsectors without a GAINS match get zero factors | Mitigation rows 15885-16685 (GAINS factor lookups) | Fixed (v2.9; bug by user decision 2026-10-18, was issue I27 and LegacyDiff row 49): each subsector takes the GAINS subsector of its CH4 factor (services as residential, rail as road, industry as manufacturing). | Open | DB1 |
-| L59 |  | Mitigation | Medium | Local pollutants and combustion CH4: fuels without a GAINS factor emit nothing | Mitigation rows 15885-16685 (GAINS factor lookups; sheet EF_PM) | Fixed (v4.12; bug by user decision 2026-10-18, was issue I35): the nearest GAINS match (LPG: natural gas of the same GAINS subsector; food & forestry: construction, off-road machinery; biomass: residential; else manufacturing). A fuel the subsector has factors for keeps a missing pollutant at 0 (GAINS omits zero factors). | Open | DB1 |
+| L58 |  | Mitigation | Medium | Local pollutants: subsectors without a GAINS match get zero factors | Mitigation rows 15885-16685 (GAINS factor lookups) | Fixed (v2.9; bug by user decision 2026-10-18, was issue I27 and LegacyDiff row 49): each subsector takes the GAINS subsector of its CH4 factor (services as residential, rail as road, industry as manufacturing). | Open | I98 |
+| L59 |  | Mitigation | Medium | Local pollutants and combustion CH4: fuels without a GAINS factor emit nothing | Mitigation rows 15885-16685 (GAINS factor lookups; sheet EF_PM) | Fixed (v4.12; bug by user decision 2026-10-18, was issue I35): the nearest GAINS match (LPG: natural gas of the same GAINS subsector; food & forestry: construction, off-road machinery; biomass: residential; else manufacturing). A fuel the subsector has factors for keeps a missing pollutant at 0 (GAINS omits zero factors). | Open | I98 |
 | L60 |  | Mitigation | Low | VAT payment on oil products divided by the full VAT rate | Mitigation rows 2595, 2618, 2641, 2664 (VAT payment) | Fixed (v4.12): VAT = (supply cost + taxes) x rate x share, consistent with the retail price. | Open |  |
 | L61 |  | Mitigation | Low | EU ETS price grows with the carbon-tax growth | Mitigation row 1695 (from the column after the last data year) | Fixed (v4.12): ETS prices grow with ExistingETSGrowth, carbon tax rates with ExistingCTGrowth. | Fixed |  |
 | L62 |  | Mitigation | Low | Existing carbon tax on transport diesel, LPG and kerosene uses the rate row as coverage | Mitigation rows 1760-1762 | Fixed (v4.12): every fuel takes rate x sector coverage x fuel coverage, the fuel rate only where the country has one and no single price. | Not fixed (marked fixed) |  |
@@ -179,18 +179,9 @@ Fixed in the prototype (or the feature not built); never replicated.
 | L167 | D30 | Distribution | Low | Lorenz equality line in 10% steps | Distribution rows 2455-2457, 3109 | Fixed (v6.0): equality line = cumulative population share. | Open |  |
 | L168 | D31 | Distribution | Low | Absolute overall rows carry wrong codes | Distribution L3036:L3043 | Not replicated: the prototype builds codes from the row ids. | Open |  |
 | L169 | I67 | Mitigation | Low | Intensity NDC: China CO2 hard-coded | Mitigation row 18449 H | Fixed (v5.7): v5.7: no hard-coded value; data or model (departure by design, user rule: data not typed). | Open |  |
+| L170 | DB2 < I65 | Data | Medium | Blank VAT cells of the price dataset read as a VAT rate of 0 | Mitigation K772:AE772, K784:AE784, K800:AE800, K805:AE805, K810:AE810, K815:AE815, K820:AE820 (VAT rate rows of the historical price block; VAT_WEO row 726) | Fixed: a blank VAT cell takes the general VAT rate (VAT_WEO) for residential coal and gas and the oil products, 0 for power, industry and biomass (since v0.14; was departure LD3, data bug DB2). | Open | I97, LD3 |
 
-## 2. Data bugs (DB)
-
-Not replicated; fixed by changing the input data, each with its plan.
-
-| Code | Former | Severity | Status | Data bug | Plan | See also |
-|---|---|---|---|---|---|---|
-| DB1 | I64 | Major | Open | Combustion emission factor paths missing (GAINS, proprietary) | Get a legacy file with the GAINS combustion factor paths (CH4, N2O, local pollutants by fuel, sector and year; proprietary). Add them to data/ with their converter; then the prototype reads the paths as legacy does and drops the fill (base and final factor, linear to EFEndYear); regression on the pollutant and combustion CH4 rows. Data request (plans/Data_request.md), high priority. | LD47, L58, L59 |
-| DB2 | I65 | Major | Open | Blank VAT cells in the IMF price dataset | Ask the data team which blank VAT cells of the IMF price dataset are missing values and which are true zeros, and fill the dataset (legacy Prices_dom layout). Then the prototype reads the dataset as legacy does (a blank is 0) and drops the fill with the general VAT rate. No effect for Egypt (no blanks). Data request, high priority. | LD3 |
-| DB3 | I20 | Major | Accepted | Electricity price data differ from legacy | Send the corrected Egypt price block (user, 2026-10-09: 291 cells, years 2019-2020 added; electricity 0.054, 0.048, 0.043 USD/kWh nominal 2022-2024) to the CPAT data team for the legacy Prices_dom table. When legacy carries it, the prototype and legacy read the same data and LD4, LD33 close. | LD4, LD33, I14 |
-
-## 3. Prototype bugs (M)
+## 2. Prototype bugs (M)
 
 Defects of the prototype itself, all fixed.
 

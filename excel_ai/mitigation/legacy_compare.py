@@ -117,7 +117,7 @@ def main():
              'Legacy: cached values of the last full run stored in `CPAT 1.0pre_456_NoPropData.xlsb` (Egypt, real '
              f'data), extracted to `data/legacy_cached_baseline.csv`. prototype: v{B.VERSION} scenario 1 recalculated in '
              'LibreOffice, (a) as shipped, last historical price year 2022 (as legacy); (b) last historical price year '
-             '2024, the latest IMF data (Settings C10, LAMBDAs copied over whole rows; issue DI1). Single-run tables: '
+             '2024, the latest IMF data (Settings C10, LAMBDAs copied over whole rows; issue I89). Single-run tables: '
              'as shipped. Fuel use ktoe, CO2 MtCO2.', '',
              f'Legacy codes not found: {", ".join(missing) or "none"}.', '']
     for var, unit in (('ener', 'ktoe'), ('co2', 'MtCO2')):

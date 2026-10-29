@@ -6,7 +6,7 @@ Tool-neutral entry point (Claude, Codex, Gemini, Copilot, Cursor, ...). `CLAUDE.
 Two separate projects around the World Bank **Climate Policy Assessment Tool (CPAT)**: **Excel-AI** (`excel_ai/`, Excel prototypes replicating and extending the legacy model) and **Coded CPAT** (`coded/`, a Python reimplementation). Who reads what: [`README.md`](README.md).
 
 ## Bugs and issues: what to replicate
-**Never replicate a legacy bug; always replicate a legacy issue, and track it.** Data issues (DI) are replicated; data bugs (DB) are not, and are fixed by changing the data. Read [`excel_ai/BUGS.md`](excel_ai/BUGS.md) and [`excel_ai/ISSUES.md`](excel_ai/ISSUES.md) first; the master list is the tracker `excel_ai/Tracking_Legacy_Bugs_v<version>.xlsx`. The full rule, the codes (L, DB, M, I, DI, LD, U) and where each is kept: [`NORMS.md`](NORMS.md) section 0.
+**Never replicate a legacy bug; always replicate a legacy issue, and track it.** Data problems are issues (Very high where a legacy bug with a cell plan covers them, Extremely high where the prototype aligns with legacy). Read [`excel_ai/BUGS.md`](excel_ai/BUGS.md) and [`excel_ai/ISSUES.md`](excel_ai/ISSUES.md) first; the master list is the tracker `excel_ai/Tracking_Legacy_Bugs_v<version>.xlsx`. The full rule, the codes (L, M, I, LD, U) and where each is kept: [`NORMS.md`](NORMS.md) section 0.
 
 ## Read before you start
 1. [`README.md`](README.md) - who reads what, repo map.

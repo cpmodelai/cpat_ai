@@ -16,7 +16,7 @@ Rules for every task in this repository. Sections 0-5: the Excel prototypes (`ex
 
 ## 0. Replication rule: never replicate bugs; always replicate issues, and track them
 
-User rules 2026-10-15 and 2026-10-28 (data issues, one register for every module). It decides every difference between a prototype and legacy CPAT, in every module (mitigation, distribution, air pollution, transport co-benefits, the inputs).
+User rules 2026-10-15, 2026-10-28 (one register for every module) and 2026-10-29 (data problems are issues). It decides every difference between a prototype and legacy CPAT, in every module (mitigation, distribution, air pollution, transport co-benefits, the inputs).
 
 | | Bug | Issue |
 |---|---|---|
@@ -24,21 +24,20 @@ User rules 2026-10-15 and 2026-10-28 (data issues, one register for every module
 | **What we do** | **Do not replicate it.** Fix it (or leave the feature out) | **Replicate it.** Do exactly what legacy does |
 | **Exceptions** | none: a bug is never replicated | An issue we do not replicate is allowed **only by explicit user decision**, recorded with the issue. Without that decision it is queued to be replicated |
 
-**Data.** The same rule holds for the input data:
+**Data (user rule 2026-10-29, v8.5).** Problems of the input data are **issues** (area Data), with the same rule: the prototype does exactly what legacy does with the data, unless the user decided otherwise.
 
-- **Data issue (`DI`)**: an issue of the input data (vintage, gaps, conventions) that the prototype replicates exactly: it does what legacy does with the data as they are.
-- **Data bug (`DB`)**: a data problem the prototype does **not** replicate (it fills or corrects the data) and whose fix is a **change of the input data**. Every data bug has a plan (how the data get fixed, then the prototype reads them as legacy does).
-- When the fix needs **formulas** to change, it is a legacy bug (`L`), even where data are involved.
+- Where legacy reads the data wrongly (for example a blank read as 0 where a value is meant), the fix is a formula change: a **legacy bug (`L`) with a cell-level fix plan**, and the data problem stays an issue with priority **Very high**.
+- Where no cell plan is possible (legacy's formula is not wrong; the data are missing or poor), the prototype **aligns with legacy** and the issue gets priority **Extremely high**.
+- A data choice the user wants kept (for example the corrected Egypt prices) is an issue that departs from legacy by user decision.
+- The codes `DB` (data bug) and `DI` (data issue) of v8.4 are retired (now `I89`-`I99`, `L170`; former codes kept).
 
-**Codes, the same in every module** (one kind per prefix; a module is a field, not a prefix):
+**Codes, the same in every module** (one kind per prefix; a module or area is a field, not a prefix):
 
 | Code | Kind |
 |---|---|
-| `L` | Legacy bug (any module, including the inputs) |
-| `DB` | Data bug (with a plan) |
+| `L` | Legacy bug (any module, including the inputs and the data), with a cell-level fix plan where one is possible |
 | `M` | Prototype bug (a defect of the prototype itself, fixed) |
-| `I` | Issue (replicated, a departure by user decision, or a limitation of the prototype) |
-| `DI` | Data issue (replicated) |
+| `I` | Issue (replicated, a departure by user decision, or a limitation of the prototype; data problems in area Data). Priority: Minor, Major; data problems Very high or Extremely high |
 | `LD` | Departure: a row of the LegacyDiff sheet that is not "Same" |
 | `U` | Upgrade |
 
@@ -46,9 +45,9 @@ Rules that follow:
 
 1. **Default is legacy.** When in doubt whether something is a bug or an issue, treat it as an issue (replicate it), register it, and ask the user.
 2. **Never "improve" legacy silently.** A better method, newer data or a cleaner design is an issue, not a bug: replicate legacy, and propose the improvement as an upgrade (`U` item) for the user to decide.
-3. **One register, stored the same way for every module.** Every bug found and every issue met goes in the register the same day: data in `excel_ai/mitigation/issues_register.py` (bugs as `L` items with priority and fix in `make_legacy_fixes.py`; issues, data issues and data bugs with severity, status, next step and legacy side in `ISSUE_STATUS`, `ISSUE_LEGACY`; data-bug plans in `DATA_BUG_PLANS`), read through `register.py`, which gives every item the same fields (code, former code, kind, module, area, title, where, description, fix or plan, effect, priority, in the prototype, status, legacy 465, see also, documented in). A departure also gets a row in sheet LegacyDiff. A module with its own bugs (distribution, air pollution, ...) adds them to the same register with the same codes; it keeps no list of its own.
-4. **Where each kind is kept.** The master list is the tracker `excel_ai/Tracking_Legacy_Bugs_v<version>.xlsx` (tabs Bugs: L, DB, M; Issues: DI, I, LD, U; then the CPAT team's tabs, kept as they are). Bugs (L, DB) are documented in `excel_ai/Legacy_CPAT_Bugs_v<version>.docx`, which opens with this rule and a stock table of every legacy bug found and fixed; issues (I, DI), departures, prototype bugs and upgrades in the appendices of the Documentation. `excel_ai/BUGS.md` and `excel_ai/ISSUES.md` are the short lists. All are regenerated at every release from `register.py` (`make_tracker.py`, `make_bugfix_book.py`, `make_docs.py`, `make_replication_lists.py`).
-5. **Cross-reference everywhere.** Every entry gives its code, its former code where it was renumbered, and the codes it relates to (a data bug and its LegacyDiff row, a bug and the issue next to it). Codes are never reused; a renumbering keeps the former code in `FORMER`.
+3. **One register, stored the same way for every module.** Every bug found and every issue met goes in the register the same day: data in `excel_ai/mitigation/issues_register.py` (bugs as `L` items with priority and fix in `make_legacy_fixes.py`; issues with severity or priority, status, next step and legacy side in `ISSUE_STATUS`, `ISSUE_LEGACY`; the data problems listed in `DATA_ISSUES`), read through `register.py`, which gives every item the same fields (code, former code, kind, module, area, title, where, description, fix or plan, effect, priority, in the prototype, status, legacy 465, see also, documented in). A departure also gets a row in sheet LegacyDiff. A module with its own bugs (distribution, air pollution, ...) adds them to the same register with the same codes; it keeps no list of its own.
+4. **Where each kind is kept.** The master list is the tracker `excel_ai/Tracking_Legacy_Bugs_v<version>.xlsx` (tabs Bugs: L, M; Issues: I, LD, U; then the CPAT team's tabs, kept as they are). Legacy bugs are documented in `excel_ai/Legacy_CPAT_Bugs_v<version>.docx`, which opens with this rule, a stock table of every legacy bug found and fixed and the data problems by priority; issues, departures, prototype bugs and upgrades in the appendices of the Documentation. `excel_ai/BUGS.md` and `excel_ai/ISSUES.md` are the short lists. All are regenerated at every release from `register.py` (`make_tracker.py`, `make_bugfix_book.py`, `make_docs.py`, `make_replication_lists.py`).
+5. **Cross-reference everywhere.** Every entry gives its code, its former code where it was renumbered, and the codes it relates to (a data issue and the bug that fixes it, an issue and its LegacyDiff row). Codes are never reused; a renumbering keeps the former code in `FORMER`.
 
 ## 1. Column norms
 
@@ -507,7 +506,7 @@ Every workbook and every generated document keeps **one** version table, in the 
 |---|---|
 | Version | `<major>.<minor>`, the version in the file name |
 | Date | `YYYY-MM-DD` |
-| Description | One or two sentences: what changed, with register codes (L, DB, I, ...) where a bug or issue is involved |
+| Description | One or two sentences: what changed, with register codes (L, I, ...) where a bug or issue is involved |
 | Max abs regression diff | Against the previous release (quick check): `0`, or the largest difference and why (workbooks; `n/a` for documents) |
 
 - Where: a workbook in its version tab (mitigation: `Version Log, About, and Diff`; others: `Settings` or `ReadMe`); a generated document in its first lines (version, date, the prototype version) and, for the change history, `CAVEATS.md`; never in a methodology (section 7).

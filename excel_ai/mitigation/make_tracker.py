@@ -1,8 +1,8 @@
 """Tracking_Legacy_Bugs_v<version>.xlsx (excel_ai/): the master list of bugs and issues (v8.4, user 2026-10-28).
 
 The CPAT team's tracker (was excel_ai/legacy/Tracking issues.xlsx) with three tabs in front, written from the register
-(register.py): ReadMe (the rule, the codes, where each item is documented), Bugs (L legacy bugs, DB data bugs, M
-prototype bugs) and Issues (DI data issues, I issues, LD departures, U upgrades). Every module in the same columns: the
+(register.py): ReadMe (the rule, the codes, where each item is documented), Bugs (L legacy bugs, M prototype bugs)
+and Issues (I issues, data included; LD departures; U upgrades). Every module in the same columns: the
 team's columns A-I (as on CPAT_issues), then ours. The team's own tabs are kept as they are: the tabs are written
 into the file's XML, so threaded comments and the rest of the team's file survive.
 
@@ -79,10 +79,10 @@ def bug_rows():
     rows = []
     for r in G.records():
         p = G.prefix(r['id'])
-        if p not in ('L', 'DB', 'M'):
+        if p not in ('L', 'M'):
             continue
         ver, date, by = G.found(r['id']) if p == 'L' else ('', '', 'Stephen (CPAT-AI)')
-        fixed = (FIXED[r['legacy465']] if p == 'L' else 'No' if p == 'DB' else 'Solved')
+        fixed = FIXED[r['legacy465']] if p == 'L' else 'Solved'
         solved = ('CPAT team (465)' if p == 'L' and fixed != 'No' else 'CPAT-AI (prototype)' if p == 'M' else '')
         rows.append([r['id'], r['title'], ver, date, PRI.get(r['priority'], r['priority']), fixed, by, solved,
                      comment(r), r['kind'], r['former'], r['module'], r['area'], r['prototype'], r['status'],
@@ -94,7 +94,7 @@ def bug_rows():
 def issue_rows():
     rows = []
     for r in G.records():
-        if G.prefix(r['id']) not in ('DI', 'I', 'LD', 'U'):
+        if G.prefix(r['id']) not in ('I', 'LD', 'U'):
             continue
         rows.append([r['id'], r['title'], '', '', r['priority'], r['status'], '', '', '', r['kind'], r['former'],
                      r['module'], r['area'], r['prototype'], r['status'], '', r['where'], r['description'], r['fix'],
@@ -112,8 +112,8 @@ def readme_rows():
                          'legacy does not compute what it means to; the prototype fixes it. An issue: legacy does what '
                          'it means to, but the choice is open to question; the prototype does the same and tracks '
                          'it. A departure from legacy that is not a bug fix is kept only by user decision.'),
-            ('Bugs and issues', 'Bugs are in tab Bugs (L, DB, M) and in the document Legacy_CPAT_Bugs_v'
-                                f'{R.REGISTER_VERSION}.docx (L, DB). Issues are in tab Issues (DI, I, LD, U) and in '
+            ('Bugs and issues', 'Bugs are in tab Bugs (L, M) and in the document Legacy_CPAT_Bugs_v'
+                                f'{R.REGISTER_VERSION}.docx (L). Issues are in tab Issues (I, LD, U; data problems: area Data) and in '
                                 'the appendices of the Documentation (CPAT-AI-Mitigation_Documentation.docx). Every row '
                                 'gives its code, its former code (renumbered in v8.4), the codes it relates to (See '
                                 'also) and where it is documented.')]

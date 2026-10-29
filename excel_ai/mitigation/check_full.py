@@ -1512,9 +1512,10 @@ def nc_sub(s_, f_):
 
 def ap_section(res, years, pe):
     """v2.9: local air pollutants (kt), independent copy: fuel use x EF (kt/PJ x 41.868 = t/ktoe), the base-year
-    factor moving linearly to the final factor in 2039, flat after; forcing = total x GWP100 (Egypt: region afr)."""
+    factor moving linearly to the EFSel final factor in 2039 and on (v8.4, I98: as legacy); forcing = total x GWP100
+    (Egypt: region afr)."""
     ny = len(years)
-    w = [min(1.0, (y - B.BASE_YEAR) / (K['EFEndYear'] - B.BASE_YEAR)) for y in years]
+    w = [ef_share() * (y - B.BASE_YEAR) / (K['EFEndYear'] - B.BASE_YEAR) for y in years]
     ef = lambda sub, fu, p, k: ((lambda a: (a[0] * (1 - w[k]) + a[1] * w[k]) * K['EFtPerKtoe'])(NC_ALL.get((sub, fu, p), (0.0, 0.0))))
     out = {'ap.w': w}
     grp = {x[0]: x[2] for x in B.SUBSECTORS}
@@ -1569,9 +1570,15 @@ def ap_section(res, years, pe):
         res[(f'S15:{k_}', '', '')] = v_
 
 
+def ef_share():
+    """v8.4 (I98): weight of FE fin in the final factor, from EFSel of scenario 1 (legacy AC1052)."""
+    v = str(mt_used()[B.MT_NAMES['EFSel']])
+    return 0.0 if v == 'constant' else 1.0 if v == 'Variable' else 0.5
+
+
 def ch4_ef(ef0, ef1, y):
-    """CH4 EF in t/ktoe: kt/PJ x 41.868, linear from the base year to 2039, flat after."""
-    w = min(1.0, (y - B.BASE_YEAR) / (K['EFEndYear'] - B.BASE_YEAR))
+    """CH4 EF in t/ktoe: kt/PJ x 41.868, linear from the base year to the EFSel final factor in 2039 and on."""
+    w = ef_share() * (y - B.BASE_YEAR) / (K['EFEndYear'] - B.BASE_YEAR)
     return (ef0 + (ef1 - ef0) * w) * K['EFtPerKtoe']
 
 

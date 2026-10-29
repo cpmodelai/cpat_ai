@@ -30,7 +30,7 @@ Bug ids L.. and issue ids I.. refer to the register. Row numbers are legacy rows
    - **Scenario blocks.** Sections 11-17 are about 2,100 rows per scenario, and most of them are computed values: energy use, CO2, non-CO2 and local pollutants, GHGs, revenues, GDP effects.
    - **Results area.** Its blocks E, F and G (about 4,400 rows) mostly re-arrange scenario rows by code lookup. Real computation happens only in a few report sections: prices (F5), welfare and externalities (F10), balance of payments (F11), NDC (F12) and Kaya (F14).
 2. **The values that matter have errors, in the scenario blocks and the results area alike.**
-   - **Scenario blocks.** Their 1,757 numeric rows (sections 11-17) have no error values, but the sector and power bugs feed into them (L1-L24, L42-L48), and so do the missing fuel-use shock and jet fuel (DI4, I19).
+   - **Scenario blocks.** Their 1,757 numeric rows (sections 11-17) have no error values, but the sector and power bugs feed into them (L1-L24, L42-L48), and so do the missing fuel-use shock and jet fuel (I92, I19).
    - **Results area.** Error values cluster in the sections that compute: F10 welfare (15 rows, including the total welfare benefits), F11 balance of payments (9 rows of `#NAME?`), F12 NDC (6) and G (14).
 3. **A large share of rows carry nothing in the Egypt run.** 525 of the 1,757 numeric rows in sections 11-17 are zero in both the baseline and the carbon-tax run. The reasons:
    - features switched off (the elasticity power model, biomass leakage, renewable subsidies, vehicle policies);
@@ -53,7 +53,7 @@ Bug ids L.. and issue ids I.. refer to the register. Row numbers are legacy rows
 | S5 | **Proprietary data stripped.** The NoPropData file lacks the price forecasts and the factor paths. | C17, F4, C13 | 189 of 231 numeric GDP rows are zero in the baseline (77 in both scenarios); combustion CH4 is zero. The legacy GDP effects cannot be validated. | Data (issue) |
 | S6 | **Dead and inactive rows.** Rows for switched-off features, or always zero. | All sections (counts in section 3) | Hard to tell a feature that is off from a broken row. Dead code: residential exemption rows (L48), aviation and navigation renewables (L47). | Mixed: dead code is a bug, inactive features are issues |
 | S7 | **Hard-coded ranges and offsets.** Lookup ranges that stop early (E3 `oc` range to 15266), one-row offsets (F9 17336-17339 columns L:M), fixed-column sums (F11 18215 uses column K for L). | E, F | Mostly harmless today; wrong as soon as data or years change. | Bugs |
-| S8 | **Labels that mis-state the effect.** The fuel-use shock is called "Covid factor" with effect "Small" (DI4). F5 titles name a carbon price for a year before the policy starts. F12 16672 is labelled CO2 change but computes the change in ECR. | C, F | Readers draw wrong conclusions. | Bugs in labels |
+| S8 | **Labels that mis-state the effect.** The fuel-use shock is called "Covid factor" with effect "Small" (I92). F5 titles name a carbon price for a year before the policy starts. F12 16672 is labelled CO2 change but computes the change in ECR. | C, F | Readers draw wrong conclusions. | Bugs in labels |
 
 ---
 
@@ -115,7 +115,7 @@ Strategy codes (section 5):
 
 | Section | What it holds | Legacy quality | prototype status | Strategy |
 |---|---|---|---|---|
-| **11 Energy consumption** (6282-6506) | Power sector (model switch: elasticity or engineer); transport by fuel incl. jet fuel and biofuels; buildings, industry and other energy use by subsector and fuel; total energy consumption (TEC) by fuel and sector | The sector bugs feed in: aviation swapped form (L42), other energy use without GDP growth (L43), road engineer bugs (L25-L41, latent), power bugs (L1-L10). The fuel-use shock is applied in every row (DI4, not replicated). 50 rows zero in both scenarios (elasticity power model, biofuels, unused fuels). | Section 11 (`ener`, `ener.pct`, totals incl. power). **Missing: jet fuel (I19) and the shock (DI4).** The elasticity power model is not built (later item). | **V**; close I19, DI4, I23, I24 |
+| **11 Energy consumption** (6282-6506) | Power sector (model switch: elasticity or engineer); transport by fuel incl. jet fuel and biofuels; buildings, industry and other energy use by subsector and fuel; total energy consumption (TEC) by fuel and sector | The sector bugs feed in: aviation swapped form (L42), other energy use without GDP growth (L43), road engineer bugs (L25-L41, latent), power bugs (L1-L10). The fuel-use shock is applied in every row (I92, not replicated). 50 rows zero in both scenarios (elasticity power model, biofuels, unused fuels). | Section 11 (`ener`, `ener.pct`, totals incl. power). **Missing: jet fuel (I19) and the shock (I92).** The elasticity power model is not built (later item). | **V**; close I19, I92, I23, I24 |
 | **12 Energy-related CO2** (6507-6602) | CO2 by fuel and sector; power emission factor (t/MWh); totals by sector and fuel | Correct given fuel use. IIASA factors without inventory adjustment; legacy offers a switch (row 7534). | Section 13 (`co2`, `co2.chg`, by fuel and sector, power, ETS sectors); calibration switch (v3.2, off as legacy). No t/MWh row (F12 grid intensity uses it). | **V**; add the t/MWh row (R) |
 | **13 Non-CO2 GHGs and local pollutants** (6603-7447) | 8 pollutants (PM2.5, NOx, SO2, VOC, BC, OC, CH4, CO) by sector and subsector; totals by subsector and by the 8 air-pollution sectors; POM, other PM2.5 | Navigation left out of the totals (L22); services and food & forestry left out of the totals (L23). 310 rows zero in both scenarios: combustion CH4 (factor paths stripped), zero sectors. | Section 15 (v2.9-v3.0: `ap`, `aps`, POM, other PM2.5), bugs fixed. Factor mapping where GAINS has no match differs (I27, to replicate: zero as legacy). | **V**; I27 |
 | **14 GWP of non-CO2 GHGs and pollutants** (7448-7531) | GWP100 of CH4 and of each local pollutant by sector; net forcers and net coolants; totals by pollutant and sector | Consistent. Memo values, not in the GHG totals. | Section 15 memo `apf` by pollutant (GAINS region GWP); not by sector | **V** (by-sector split: R if wanted) |
@@ -182,7 +182,7 @@ Strategy codes (section 5):
 | Step | Version (proposed) | Content | Strategy code | Why now |
 |---|---|---|---|---|
 | 1 | v3.9 | Average prices, Laspeyres price index against the baseline, time index, mix effect (I31) | R | Agreed; memo only, no result changes |
-| 2 | v3.10 | Fuel-use shock (DI4) and jet fuel (I19) | V | They move every result (energy, CO2, GHG, pollutants, revenue); later reports should be compared with legacy only after them |
+| 2 | v3.10 | Fuel-use shock (I92) and jet fuel (I19) | V | They move every result (energy, CO2, GHG, pollutants, revenue); later reports should be compared with legacy only after them |
 | 3 | v3.11 | Energy and CO2 change tables by fuel, grid intensity (t/MWh), Kaya (F7, F12 grid, F13, F14) | R | Pure arithmetic; fixes the Kaya bug by construction |
 | 4 | v3.12 | Revenues: by fuel net of subsidies, % of GDP, base erosion, consumer/producer split, fuel expenditures (F9, section 16 info rows) | R | Pure arithmetic on section 12 |
 | 5 | v3.13 | Policy coverage, total (implicit) carbon price, effective carbon rate (F3, F5d-e) | R | Uses step 1 and step 4 |
@@ -265,7 +265,7 @@ The module results flow back into section 18 (co-benefits, unit damages) through
 | Version (proposed) | Content |
 |---|---|
 | v3.9 | Section 2 memo: average prices, price indices, mix effect (I31) |
-| v3.10 | Fuel-use shock and jet fuel (DI4, I19); they move every result |
+| v3.10 | Fuel-use shock and jet fuel (I92, I19); they move every result |
 | v3.11 | Section 15 input table: `aps.ch4.*`, `aps.*.all`, legacy order |
 | v3.12 | Header rows (GDP level up, exchange rate, nominal GDP); section 12 consolidation and 12d fiscal reports |
 | v3.13 | Sub-blocks 11b, 13b, 14b (energy and CO2 changes, energy balance, grid intensity, Kaya, GHG by broad sector) |

@@ -1,9 +1,9 @@
 """Legacy_CPAT_Bugs_v<version>.docx (excel_ai/): the legacy CPAT bugs, kept like a stock book (v8.4, user 2026-10-28).
 
-Front: the rule (bugs, issues, data issues, data bugs), then one table of every legacy bug found, fixed in the prototype
-and fixed (or not) in legacy 465, then the data bugs with their plans. Then each bug in detail by type (engineer power,
+Front: the rule (bugs and issues; data problems are issues), then one table of every legacy bug found, fixed in the
+prototype and fixed (or not) in legacy 465, then the data problems with their priority. Then each bug in detail by type (engineer power,
 engineer road transport, other mitigation by area, distribution, inputs), with its cell-level fix plan; the bugs the
-CPAT team fixed in 465 in appendices. Issues, data issues, prototype bugs, departures, upgrades and the bug-fixing
+CPAT team fixed in 465 in appendices. Issues (data included), prototype bugs, departures, upgrades and the bug-fixing
 procedure are in the Documentation (appendices) and the tracker Tracking_Legacy_Bugs_v<version>.xlsx; every code
 cross-refers.
 
@@ -546,17 +546,17 @@ def rule_part(doc):
               'purpose that is open to question (a method, a default, a convention): the prototype does what legacy '
               'does, and the issue is tracked. A departure from legacy that is not a bug fix is an exception, kept only '
               'by user decision.', 'The rule.')
-    para(doc, 'Problems of the input data follow the same rule. A data issue (DI) is replicated: the prototype does '
-              'exactly what legacy does with the data as they are. A data bug (DB) is a data problem the prototype '
-              'does not replicate (it fills or corrects the data) and whose fix is a change of the input data; each '
-              'has a plan (section 3). When the fix needs formulas to change, it is a legacy bug (L), even where data '
-              'are involved (L58, L59, L63, L64).', 'Data.')
+    para(doc, 'Problems of the input data are issues (area Data): the prototype does exactly what legacy does with '
+              'the data, unless the user decided otherwise. Where legacy reads the data wrongly (a blank read as 0), '
+              'the fix is a formula change: a legacy bug with its cell plan, and the data problem stays an issue with '
+              'priority Very high. Where no cell plan is possible, the prototype aligns with legacy and the issue has '
+              'priority Extremely high (section 3).', 'Data.')
     table(doc, ['Code', 'Kind', 'What the prototype does', 'Where it is kept'],
           [(f'{p_}1-{p_}{max(int(re.search(r"[0-9]+", r["id"]).group(0)) for r in G.by_kind(p_))}', d,
             w, G.KINDS[p_][2] + f'; tracker {TRACKER_NAME}_v{R.REGISTER_VERSION}.xlsx')
            for p_, d, w in G.DEFINITIONS], [1.8, 7.4, 3.6, 3.2], size=8)
-    para(doc, f'This document is about bugs only: the legacy bugs (L) and the data bugs (DB). The issues (I), data '
-              f'issues (DI), prototype bugs (M), departures (LD) and upgrades (U) are in the appendices of the '
+    para(doc, f'This document is about the legacy bugs (L). The issues (I, data included), prototype bugs (M), '
+              f'departures (LD) and upgrades (U) are in the appendices of the '
               f'Documentation (CPAT-AI-Mitigation_Documentation.docx) and, with the bugs, in the tracker '
               f'{TRACKER_NAME}_v{R.REGISTER_VERSION}.xlsx, the master list (tabs Bugs and Issues). Every entry gives its '
               f'code, its former code where it was renumbered in v8.4, and the codes it relates to.', size=9)
@@ -582,7 +582,7 @@ def stock_part(doc):
         ('Fixed with caveats in legacy 465', st['Fixed with caveats']),
         ('Marked fixed by the CPAT team but not fixed in 465', st['Not fixed (marked fixed)']),
         ('Still open in legacy 465', st['Open']),
-        ('Data bugs (DB, section 3)', len(G.by_kind('DB')))], [12.0, 4.0], size=9)
+        ('Data problems (section 3: bug L170, issues of area Data)', len(G.data_items()))], [12.0, 4.0], size=9)
     para(doc, 'One row per bug, in code order. Found: the legacy version and date of the find. In the prototype: '
               'what the prototype does. Legacy 465: the status of the CPAT team\'s fix. Details in part 4 (bugs '
               'still open in legacy) or Appendices A and B (fixed in 465).', size=9)
@@ -595,24 +595,14 @@ def stock_part(doc):
 
 
 def databugs_part(doc):
-    """v8.4: data bugs with their plans."""
-    doc.add_heading('3. Data bugs and their plans', 1)
-    para(doc, 'Problems of the input data that the prototype does not replicate, each fixed by changing the data. '
-              'Until then the prototype departs from legacy (its LegacyDiff row says how). The data issues the '
-              'prototype replicates (DI) are in the Documentation and the tracker.')
-    for r in G.by_kind('DB'):
-        doc.add_heading(f'{r["id"]}  {r["title"]}', 2)
-        t_ = doc.add_table(rows=0, cols=2)
-        t_.style = 'Table Grid'
-        for k, v in (('Former code', r['former']), ('Severity / status', f'{r["priority"]} / {r["status"]}'),
-                     ('The problem', r['description']), ('In the prototype', r['prototype']),
-                     ('Plan', r['fix']), ('See also', r['see_also'])):
-            c = t_.add_row().cells
-            shade(c[0], LIGHT)
-            text(c[0], k, bold=True)
-            text(c[1], v)
-        fit_widths(t_, [3.0, 14.0])
-        doc.add_paragraph()
+    """v8.5 (user 2026-10-29): the data problems, most urgent first: the bug with a cell plan and the issues."""
+    doc.add_heading('3. Data problems', 1)
+    para(doc, 'Problems of the input data, most urgent first. Extremely high: no cell plan is possible; the prototype '
+              'does exactly what legacy does. Very high: a legacy bug covers it (cell plan in part 4); the data still '
+              'need fixing. The issues are in full in the Documentation (appendix B) and the tracker.')
+    table(doc, ['Code', 'Former', 'Kind', 'Priority', 'Title', 'In the prototype', 'Plan / next step', 'See also'],
+          [(r['id'], r['former'], r['kind'], r['priority'], r['title'], r['prototype'], r['fix'], r['see_also'])
+           for r in G.data_items()], [1.1, 1.6, 1.4, 1.5, 3.4, 2.8, 4.0, 1.2], size=7)
 
 
 def export_json():

@@ -6,9 +6,9 @@ fixes in legacy 465 (excel_ai/legacy/bugfixes/check465). Every output reads reco
 document (make_bugfix_book.py), the tracker (make_tracker.py), the documentation appendices (make_docs.py) and the
 lists BUGS.md, ISSUES.md (make_replication_lists.py).
 
-The rule (NORMS 0): a bug is fixed, never replicated; an issue is replicated and tracked. A data issue (DI) is an issue
-of the input data that the prototype replicates; a data bug (DB) is a data problem the prototype does not replicate
-and whose fix is a change of the input data (it has a plan). When the fix needs formulas, it is a bug (L).
+The rule (NORMS 0): a bug is fixed, never replicated; an issue is replicated and tracked. Data problems are issues
+(area Data; v8.5: the kinds DB and DI are retired): replicated, or kept by user decision; where legacy needs a formula
+change for them, that change is a bug (L) with its cell plan.
 """
 import functools
 import json
@@ -26,25 +26,21 @@ LEGACY_FILE = 'CPAT 1.0pre_465_NoPropData.xlsb'
 
 KINDS = {  # prefix: (kind, plural, where the full entry is)
     'L': ('Legacy bug', 'Legacy bugs', 'Legacy CPAT bugs document'),
-    'DB': ('Data bug', 'Data bugs', 'Legacy CPAT bugs document'),
     'M': ('Prototype bug', 'Prototype bugs', 'Documentation, appendix'),
     'I': ('Issue', 'Issues', 'Documentation, appendix'),
-    'DI': ('Data issue', 'Data issues', 'Documentation, appendix'),
     'LD': ('Departure', 'Departures (LegacyDiff)', 'Documentation, appendix'),
     'U': ('Upgrade', 'Upgrades', 'Documentation, appendix')}
-ORDER = ['L', 'DB', 'M', 'DI', 'I', 'LD', 'U']
+ORDER = ['L', 'M', 'I', 'LD', 'U']
 DEFINITIONS = [  # prefix, definition, what the prototype does
     ('L', 'Legacy bug: legacy CPAT does not compute what it means to (a wrong row, a double application, a dead '
-          'reference); the fix is a change of formulas.', 'Fixes it; never replicated.'),
-    ('DB', 'Data bug: a problem in the input data that the prototype does not replicate (it fills or corrects the '
-           'data); the fix is a change of the input data, and each data bug has a plan.',
-     'Departs until the data are fixed; then reads the data as legacy.'),
+          'reference, a blank read as 0 where a value is meant); the fix is a change of formulas, with a cell plan.',
+     'Fixes it; never replicated.'),
     ('M', 'Prototype bug: a defect of the prototype itself, found and fixed during development.', 'Fixed.'),
     ('I', 'Issue: legacy does what it means to, but the choice is open to question (a method, a default, a '
-          'convention), or a limitation of the prototype.', 'Replicates it and tracks it; a departure only by user '
-                                                            'decision, recorded with the issue.'),
-    ('DI', 'Data issue: an issue of the input data (vintage, gaps, conventions) that the prototype replicates: it does '
-           'what legacy does with the data as they are.', 'Replicates it exactly.'),
+          'convention, the input data: area Data), or a limitation of the prototype. Priority: Major or Minor; data '
+          'problems Very high (a bug fix covers them) or Extremely high (no cell plan possible; the prototype does '
+          'exactly what legacy does).', 'Replicates it and tracks it; a departure only by user decision, recorded '
+                                        'with the issue.'),
     ('LD', 'Departure: a row of the prototype\'s LegacyDiff sheet that is not "Same" (a decision, a simplification, '
            'a part not built yet).', 'Departs; each says why.'),
     ('U', 'Upgrade: a possible improvement beyond legacy.', 'Not built.')]
@@ -52,15 +48,18 @@ DEFINITIONS = [  # prefix, definition, what the prototype does
 POWER = ({f'L{k}' for k in range(1, 13)} | {f'L{k}' for k in range(52, 57)} | {'L67', 'L83', 'L84', 'L88', 'L95'}
          | {f'L{k}' for k in range(107, 112)} | {'L126', 'L127'})
 TRANSPORT = {f'L{k}' for k in range(25, 42)}
-DIST = {f'L{k}' for k in range(138, 169)} | {f'I{k}' for k in range(76, 85)} | {'DI8'}
+DIST = {f'L{k}' for k in range(138, 169)} | {f'I{k}' for k in range(76, 85)} | {'I96'}
 INPUTS = {'L137', 'I85', 'I86', 'I87', 'I88'}
+DATA = R.DATA_ISSUES | {'L170'}                       # v8.5: the data problems (were DI, DB)
 EXTRA_STATUS = {  # legacy bugs not in R.LEGACY: status in the prototype
     'L135': 'Not built in the prototype (Manual inputs J185:J188 not read), so the prototype gives legacy\'s values; '
             'found by the cell plans (2026-10-20), to confirm with the CPAT team.',
     'L136': 'Fixed by construction: every fuel\'s new-policy price carries the new ETS and its VAT; found by the cell '
-            'plans (2026-10-20), to confirm with the CPAT team.'}
-SEE_ALSO = {'DB1': ['LD47', 'L58', 'L59'], 'DB2': ['LD3'], 'DB3': ['LD4', 'LD33', 'I14'], 'LD47': ['DB1'],
-            'LD3': ['DB2'], 'LD4': ['DB3'], 'LD33': ['DB3'], 'L58': ['DB1'], 'L59': ['DB1'], 'L63': [], 'L64': [],
+            'plans (2026-10-20), to confirm with the CPAT team.',
+    'L170': 'Fixed: a blank VAT cell takes the general VAT rate (VAT_WEO) for residential coal and gas and the oil '
+            'products, 0 for power, industry and biomass (since v0.14; was departure LD3, data bug DB2).'}
+SEE_ALSO = {'I98': ['L58', 'L59'], 'I97': ['L170', 'LD3'], 'L170': ['I97', 'LD3'], 'I99': ['LD4', 'LD33', 'I14'], 
+            'LD3': ['L170', 'I97'], 'LD4': ['I99'], 'LD33': ['I99'], 'L58': ['I98'], 'L59': ['I98'], 'L63': [], 'L64': [],
             'L137': ['I86', 'I87', 'I88'], 'I86': ['L137'], 'I87': ['L137'], 'I88': ['L137']}
 
 
@@ -104,6 +103,8 @@ def _fixes():
 
 
 def _area(code):
+    if code in DATA:
+        return 'Data'
     if code in INPUTS:
         return 'Inputs (ScenarioDefinition)'
     if code in DIST:
@@ -128,7 +129,7 @@ def _rec(**k):
 
 @functools.lru_cache(maxsize=None)
 def records():
-    """Every item of the register, in code order (L, DB, M, DI, I, LD, U)."""
+    """Every item of the register, in code order (L, M, I, LD, U)."""
     pri, fix = _fixes()
     pl = plans()
     out = []
@@ -140,11 +141,11 @@ def records():
         fx, eff = fix.get(c, ('', ''))
         out.append(_rec(id=c, title=title, where=where, description=what, fix=fx, effect=eff,
                         priority=pri.get(c, 'Low'), prototype=st))
-    for c in ('L135', 'L136'):                                                  # found by the cell plans
+    for c in ('L135', 'L136', 'L170'):                                          # found by the cell plans; L170 v8.5
         b = pl[c]
         out.append(_rec(id=c, title=b['title'], where=b.get('where', ''), description=b.get('why', ''),
-                        fix=b.get('ref', ''), effect=b.get('effect', ''), priority='Low',
-                        prototype=EXTRA_STATUS[c]))
+                        fix=b.get('ref', ''), effect=b.get('effect', ''),
+                        priority=(b.get('pri') or 'Low').split(' (')[0], prototype=EXTRA_STATUS[c]))
     for c, title, where, what, st in R.INPUT_BUGS:                              # L137
         out.append(_rec(id=c, title=title, where=where, description=what, priority='Low', prototype=st,
                         fix='Name the MTInputs values without the D_ prefix and without the space.'))
@@ -159,14 +160,10 @@ def records():
             continue
         proto = {'replicated': 'Replicated', 'not replicated': 'Departs (user decision)',
                  'mvp': 'Prototype limitation'}.get(leg, leg)
-        if c.startswith('DB'):
-            proto = 'Departs until the data are fixed (fill in the prototype)'
-            related, plan = R.DATA_BUG_PLANS[c]
-            out.append(_rec(id=c, title=title, description=desc, fix=plan, priority=sev, prototype=proto, status=st,
-                            documented=f'{KINDS["DB"][2]}; {where}'))
-            continue
-        if c.startswith('DI'):
+        if c in R.DATA_ISSUES and leg == 'replicated':
             proto = 'Replicated'
+        if c == 'I97':
+            proto = 'The prototype has the fix of bug L170 (a blank takes the general VAT rate)'
         out.append(_rec(id=c, title=title, description=desc, fix=nxt, priority=sev, prototype=proto, status=st,
                         documented=f'{KINDS[prefix(c)][2]}; {where}'))
     for c, title, desc, st in R.DIST_ISSUES:
@@ -245,3 +242,12 @@ def found(code):
     if code == 'L169':                                  # registered as issue I67 (v5.7)
         return ('456', '2026-10-19', 'Stephen (CPAT-AI)')
     return ('465', NEW_DATE, 'Stephen (CPAT-AI)')
+
+
+PRIORITY_ORDER = ['Extremely high', 'Very high', 'High', 'Major', 'Medium', 'Minor', 'Low']
+
+
+def data_items():
+    """v8.5: the data problems (area Data): the bug L170 and the issues I89-I99, most urgent first."""
+    rank = lambda r: (PRIORITY_ORDER.index(r['priority']) if r['priority'] in PRIORITY_ORDER else 9, sort_key(r['id']))
+    return sorted((r for r in records() if r['area'] == 'Data'), key=rank)
