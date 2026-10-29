@@ -2,6 +2,8 @@
 import numpy as np
 import pandas as pd
 
+from cpat_model.core import variables
+
 
 class Results:
     def __init__(self, settings):
@@ -35,9 +37,10 @@ def flatten(var, arr, country, n):
     years = list(a['year'].values)
     other = [d for d in a.dims if d != 'year']
     a = a.transpose(*other, 'year')
-    prefix = f'{country.lower()}.mit.{var}'
+    prefix = f'{country.lower()}.mit.'
+    codes = variables.slots()                                 # Excel-AI's code of the row where it has one
     if not other:
-        yield f'{prefix}.{n}', a.values, years
+        yield f'{prefix}{codes.get((var, None, None), var)}.{n}', a.values, years
         return
     rows = set(map(tuple, a.attrs.get('rows', [])))          # a sparse grid: only these (sector, fuel) are rows
     labels = [list(a[d].values) for d in other]
@@ -46,4 +49,5 @@ def flatten(var, arr, country, n):
         key = tuple(labels[k][i] for k, i in enumerate(idx))
         if rows and key not in rows:
             continue
-        yield f'{prefix}.{".".join(map(str, key))}.{n}', values[idx], years
+        slot = codes.get((var, *key)) if len(key) == 2 else None
+        yield f'{prefix}{slot or ".".join(map(str, (var, *key)))}.{n}', values[idx], years
