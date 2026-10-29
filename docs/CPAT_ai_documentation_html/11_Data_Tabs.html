@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>11&nbsp; Data tabs – CPAT-AI Documentation</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./12_Other_Excel_Modules.html" rel="next">
+<link href="./10_Distribution_Tab.html" rel="prev">
+<link href="././00/media/image1.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d8e5dfa8330daa7b2a69354212dbf2ec.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_Mitigation_Prototype.html">Excel-AI: the mitigation prototype</a></li><li class="breadcrumb-item"><a href="./11_Data_Tabs.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Data tabs</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">CPAT-AI Documentation</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Cover</strong></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_Project_Overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Project overview</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_Bugs_and_Issues.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bugs and issues</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Excel-AI: the mitigation prototype</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_Mitigation_Prototype.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The mitigation prototype</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_Prices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Prices and energy demand</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_Power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_Transport.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Road transport</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_Emissions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Emissions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_ETS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Emissions trading (new ETS)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_Macro_and_Results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Macro, revenues and results</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_Distribution_Tab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The distribution tab</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_Data_Tabs.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Data tabs</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Excel-AI: other modules</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_Other_Excel_Modules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Distribution and air-pollution modules</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Coded CPAT</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_Coded_CPAT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Coded CPAT</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14_Coded_Developer_Guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Coded CPAT: developer guide</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data and working practice</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15_Data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16_Working_in_the_Repository.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Working in the repository</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title"><strong><em>Chapter Contents</em></strong></h2>
+   
+  <ul>
+  <li><a href="#summary" id="toc-summary" class="nav-link active" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#manual-inputs-the-second-input-source-at-the-legacy-addresses" id="toc-manual-inputs-the-second-input-source-at-the-legacy-addresses" class="nav-link" data-scroll-target="#manual-inputs-the-second-input-source-at-the-legacy-addresses">Manual inputs: the second input source, at the legacy addresses</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_Mitigation_Prototype.html">Excel-AI: the mitigation prototype</a></li><li class="breadcrumb-item"><a href="./11_Data_Tabs.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Data tabs</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-data-tabs" class="quarto-section-identifier"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Data tabs</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- Generated by make_qmd.py from excel_ai/mitigation/docs/methods/Data_tabs.md: edit the source, then run python make_qmd.py -->
+<p><em>Source: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/excel_ai/mitigation/docs/methods/Data_tabs.md"><code>excel_ai/mitigation/docs/methods/Data_tabs.md</code></a>.</em></p>
+<p>User request (2026-10-17): align the data tabs with legacy CPAT (grouped by module, legacy order, legacy names and content where possible, without undoing principled decisions); check that the model would work with the full all-country data; put every Egypt-only table alone on its tab or at the bottom; check how far the legacy data tables can be copied in. Then (same day): align more fully, going with the recommendations. The norm is NORMS.md 1.5.</p>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<ul>
+<li><strong>Order.</strong> The data tabs sit under the legacy dividers in legacy order: <code>DATA_MITIGATION-&gt;&gt;</code>, <code>DATA_DISTN-&gt;&gt;</code>, <code>DATA_TRAN-&gt;&gt;</code>, <code>DATA_OUTPUT-&gt;&gt;</code>; tabs without a legacy data tab come last under <code>DATA_OTHER-&gt;&gt;</code> (BaselineCO2 only).</li>
+<li><strong>Copy-in rules (NORMS 1.5).</strong>
+<ul>
+<li><strong>L, a single legacy table:</strong> the table itself, unchanged (same columns, column letters and codes; header row 3, data from A4; a key formula column right of the table where legacy has no unique key). Paste the legacy data rows at A4. 17 tabs: Balances, EnergyCons, CH4Inputs, UNPop, OilProductShares (v4.12), WEO, EF_GHG, SCC, EF_PM, IO_GTAP, HHSurvey, HH_Elast, ASPIRE, WHOCooking, GDPRatios, Transport1, Transport2.</li>
+<li><strong>A, a legacy tab with several tables:</strong> kept at its legacy cell addresses from row 3 (rows 1-2: source line and title bar). Paste the legacy tab from row 3. 10 tabs: Countries, Elasticities, ETS+LTS, Multipliers, Prices_int, ECP, Transport3 (stored results, rows 5+) and, since v4.7, Power, CoC and GHGs (the inventory and, rows 1201-1388, the 2023-2024 emission shocks of the power model).</li>
+<li>**L*, Prices_dom:** legacy header rows and codes; paste legacy rows 4 onwards at A1.</li>
+</ul></li>
+<li><strong>Country selection is a data step (NORMS 1.5, rule 2c).</strong> What legacy Mitigation computes from these tabs for the selected country sits in blocks of the Inputs tab, by formula, under the keys the model already used:
+<ul>
+<li>Inputs_ela: elasticities (the country’s column of Elasticities, as legacy column G);</li>
+<li>Inputs_mult: multipliers (median ± standard deviation by group, instrument and lag);</li>
+<li>Inputs_macro: GDP growth and levels, deflators, exchange rate (WEO series with legacy’s extension past the last data year, rows 417-467) and the energy trade balance and share traded (rows 741-743, from Balances);</li>
+<li>Inputs_pint: international price series by source (rows 633-695);</li>
+<li>Inputs_ecp: existing carbon pricing (rows 1675-1764; v4.12: carbon tax with single and fuel rates, national ETS and EU ETS, each code looked up in its own legacy block of ECP, coverage by data year, and two tables by ECP sector and fuel: carbon tax and ETS in $/tCO2);</li>
+<li>Inputs_ef: CO2 emission factors (rows 980-1011);</li>
+<li>Inputs_nc (v9.0): non-CO2 combustion emission factors of local pollutants and CH4 by legacy EF code (rows 1052-1663: country, else World Bank region, else world, from the all-country EF_PM; other energy the maximum across the other subsectors);</li>
+<li>v4.7, power (legacy section 4, rows 2954-4300): Inputs_pset (the power settings of ScenarioDefinition scenario 1 and derived values, each a defined name Ps…), Inputs_ptech (one row per generation type, the former PowerTech: country, else world parameters, efficiency and generation from Balances, WACC from CoC, capacity factors), Inputs_ppath (year paths, the former PowerPaths: capex time factors, storage, income factor, fuel price shocks, prices) and Inputs_ppar (parameters, the former PowerParams). The chains are mapped in chapter Power. The Egypt values reproduce legacy’s cached values (macro series to 1e-15; power data to 1e-12), apart from one legacy bug fixed (L51: the coal trade balance was valued at the oil price) and one stale value in legacy’s stored run (I38: the wind and solar capex time factors for 2039-2041 differ from the legacy Power cells they reference; the prototype follows the Power tab).</li>
+</ul></li>
+<li><strong>Proprietary tables.</strong> The public legacy file (<code>CPAT 1.0pre_456_NoPropData.xlsb</code>) holds Egypt only in Balances, EnergyCons (empty), Prices_dom, EF_PM, IO_GTAP, HHSurvey, ASPIRE, WHOCooking, CalVal and Tran_Scatter. The model uses the first eight; all eight paste in directly.</li>
+<li><strong>All-country test: PASS.</strong> <code>check_allcountry.py</code> clones every Egypt row of every single-table tab under a dummy country (XEG) at the bottom of its table, renames Egypt’s codes to XEG in place on the tabs kept at legacy addresses, selects XEG and recalculates: no error values, every output of Mitigation and Distribution identical to Egypt’s.</li>
+<li><strong>No table from legacy’s cached Egypt run is left (v4.7).</strong> The former PowerTech, PowerPaths and PowerParams are computed from the legacy tabs on Inputs. BaselineCO2 (the scenario-1 CO2 the calibration uses) is derived by the build.</li>
+<li><strong>Legacy bugs in the power data: all fixed (v4.10, NORMS 0; v4.7 still copied them):</strong> L52 every generation type takes the country parameters where they exist (Egypt: solar fixed O&amp;M 11.831 instead of 15 $/kW/y); L53 the actual capacity factor of the base year (installed capacity, Power rows 358-1635) is used inside the CFOverride bounds (Egypt: gas 0.385, wind 0.436, solar 0.347, hydro 0.592; base-year gas capacity 52 GW instead of 35); L54 hydro invests from the base year only when its generation share is above 50% (Egypt: from 2030); L55 the country rows are looked up in the country block first (China, Japan, Korea); L56 countries without CoC risk data take the default WACC, flagged.</li>
+<li>Balances, EnergyCons, EF_PM, IO_GTAP, HHSurvey, HH_Elast, ASPIRE, WHOCooking and GDPRatios became legacy tables (v4.5). Then GHGs, CH4Inputs, UNPop, EF_GHG, SCC, Transport1 and Transport2 followed. The tables come from <code>extract_legacy_tables.py</code>, which writes <code>data/mvp_legacy_extracts/legacy_&lt;Tab&gt;.csv</code> verbatim from the legacy file.</li>
+<li>Base-year fuel use and power demand now come from Balances through legacy’s flow mapping (Mapping columns J-M), as legacy does with BalancesOrConsumption = Balances; the old PowerDemand tab was dropped.</li>
+<li>CO2 emission factors: the legacy EF_GHG table replaces the Egypt factors copied from legacy’s run. The selection of legacy Mitigation rows 980-1011 is now a data step on Inputs, and it reproduces the Egypt factors exactly:
+<ul>
+<li>the country’s code, else its World Bank region, else the world;</li>
+<li>LPG and kerosene in power, and coal, LPG, kerosene and other oil products in road, take the row legacy points to;</li>
+<li>jet fuel uses the IEA factor (EFJetIEA);</li>
+<li>biomass is zero.</li>
+</ul></li>
+<li>GHGs: the legacy table adds Zimbabwe 2021 (legacy row 947). The previous extract stopped at row 946.</li>
+<li>All named ranges over data tables reach the capacity of the full legacy tables, with margin.</li>
+<li>v4.6: Countries, Elasticities, ETS+LTS, Multipliers, Prices_int, ECP and Transport3 became legacy tabs at legacy addresses (<code>data/mvp_legacy_extracts/legacy_&lt;Tab&gt;_cells.csv</code>), WEO the legacy table; the selections legacy makes for the country became the Inputs blocks above; the GHG inventory year and every other lookup are unchanged.</li>
+<li>v4.6 results against v4.5: unchanged except the coal trade balance (L51 fixed; external balance rows xtb, about 0.6 bn USD a year for Egypt) and the base-year lagged GDP growth of the road model (trgdl, 2022: the WEO 2021 growth 3.25 % instead of 0, transport bug B2 now fixed, as the builder intended; the old WEO copy had no 2021 growth).</li>
+<li>v4.7: Power, CoC and GHGs became legacy tabs at legacy addresses; the power data of the country (the former tabs PowerTech, PowerPaths and PowerParams, copied from legacy’s Egypt run) became the Inputs power blocks, formulas only (country, else world parameters; efficiency and generation from Balances; WACC from CoC; capex time factors, storage, income factor, emission shocks; settings from ScenarioDefinition scenario 1). The values reproduce the former tables, except the wind and solar capex time factors for 2039-2041 (I94). Effect on Egypt’s results: none before 2039; from 2039 new capacity and investment of solar, wind and gas, then power fuel use and emissions (525 output codes; largest: new solar investment in the baseline, by up to 149 MW a year).</li>
+<li>Dropped in v4.7: PowerTech, PowerPaths, PowerParams (now Inputs blocks from Power, CoC, Balances, WEO, GHGs).</li>
+<li>v4.12: OilProductShares (legacy table, all countries; household share of diesel, kerosene, LPG and gasoline, and their road shares) after UNPop, as legacy. Inputs_prices multiplies the VAT rate of gasoline, diesel, LPG and kerosene by the household share, as legacy rows 797-816 (LD5, issue I39). Settings rows 46-51: the methane fee switches per source of legacy Manual inputs J196-J200 (LD46; since v5.2 on sheet Manual inputs, shown on Settings). Inputs columns efxs:eff (v9.0: removed, legacy 465 factors; nearest GAINS factors, bug L59) and ecpk, xcp0 (existing carbon pricing), which replace ctc and etc.</li>
+</ul>
+</section>
+<section id="manual-inputs-the-second-input-source-at-the-legacy-addresses" class="level2">
+<h2 class="anchored" data-anchor-id="manual-inputs-the-second-input-source-at-the-legacy-addresses">Manual inputs: the second input source, at the legacy addresses</h2>
+<p>Sheet <code>Manual inputs</code> (tab group INPUTS-&gt;&gt;, after ScenarioDefinition) is the whole legacy tab of that name, rows 3-378 at their legacy cell addresses (rows 1-2: source line and title bar), so the legacy tab pasted from row 3 replaces it. The cells come from <code>data/mvp_legacy_extracts/legacy_ManualInputs_cells.csv</code> (<code>extract_legacy_tables.py manual</code>): legacy values typed, light green on the input cells. Legacy formulas within the sheet are kept (unit labels, the SCC path, the memo rows, the residual of the PM2.5 apportionment); formulas that read other legacy tabs are replaced by the prototype equivalent (country name and code, ScenarioDefinition scenario 1, the Elasticities tab) or typed as their legacy default value, and the note on the block’s title row (column J) says which. ScenarioDefinition stays the main input sheet (NORMS 4).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rows</th>
+<th>Block</th>
+<th>Read by the prototype</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5-15</td>
+<td>ETS: advanced parameters, sector inclusion, override price</td>
+<td>E10:E12, the goal-seek settings (names ETSMaxIterations, ETSStartFreshContinue, ETSErrorTolerance; prototype values 20, Continue, 0.005; legacy 30, Continue, 0.001): macro SolveETS and <code>ets_goalseek.py</code>. Not read: E7:E9, the inclusion rows and the override row, which the prototype holds per scenario (ScenarioDefinition rows 95-97, 99-115; row ets.ovr of each scenario group)</td>
+</tr>
+<tr class="even">
+<td>18-47</td>
+<td>Process emissions (CBAM goods): coverage, emission factors, half elasticities</td>
+<td>No: feature not built</td>
+</tr>
+<tr class="odd">
+<td>49-54</td>
+<td>Feebates: sector flags</td>
+<td>No: ScenarioDefinition rows 66-82 per scenario</td>
+</tr>
+<tr class="even">
+<td>57-146</td>
+<td>Domestic energy prices and taxes (manual)</td>
+<td>No: feature not built (prices: Prices_dom)</td>
+</tr>
+<tr class="odd">
+<td>148-163</td>
+<td>Excise reform (additional excise)</td>
+<td>No: feature not built</td>
+</tr>
+<tr class="even">
+<td>165-180</td>
+<td>Domestic energy price controls</td>
+<td>J167:J180 by code (names PCtrlKey, PCtrlVal): Inputs_prices column pcm, the pass-through when GovPriceControls = Manual (blank = 1, as legacy); electricity rows not read</td>
+</tr>
+<tr class="odd">
+<td>183-200</td>
+<td>Methane fee</td>
+<td>J196:J200, the fee scope by source (names MFeeBio, MFeeDG, MFeeFF, MFeeAgr, MFeeWst; shown on Settings rows 47-51). Not read: J185:J194 (not built)</td>
+</tr>
+<tr class="even">
+<td>202-215</td>
+<td>Imperfect pass-through (Distribution)</td>
+<td>No: not built (legacy does not wire it either)</td>
+</tr>
+<tr class="odd">
+<td>218-225</td>
+<td>International energy price forecasts (manual)</td>
+<td>J221:AF225 by label and year (names PIntManVal, PIntManLab, PIntManYear): Inputs_pint rows Manual from 2026, when IntEnerPricForeSource = Manual</td>
+</tr>
+<tr class="even">
+<td>228-231</td>
+<td>GDP forecasts (manual)</td>
+<td>No: feature not built</td>
+</tr>
+<tr class="odd">
+<td>234-240</td>
+<td>Social cost of carbon</td>
+<td>Yes since v5.2: row 237 is the Manual option of NSCCSource / GSCCSource (legacy bug L103: legacy reads the path typed on Mitigation row 17683 and leaves this block dead)</td>
+</tr>
+<tr class="even">
+<td>243-254</td>
+<td>PM2.5 source apportionment</td>
+<td>No: feature not built</td>
+</tr>
+<tr class="odd">
+<td>257-269</td>
+<td>Fiscal multipliers</td>
+<td>J261:U268 (names MultMan, MultManKey): Inputs_mult, when MultipliersSource = Manual</td>
+</tr>
+<tr class="even">
+<td>271-327</td>
+<td>Elasticities and efficiency improvements</td>
+<td>K326:M327, the non-energy GHG elasticities (names GhgElCat, GhgElPop, GhgElInc): section 14 rows ghg.dr and ch4.act. Not read: the manual energy elasticities (not built)</td>
+</tr>
+<tr class="odd">
+<td>330-340</td>
+<td>Additional mitigation effort (non-energy)</td>
+<td>No: feature not built</td>
+</tr>
+<tr class="even">
+<td>342-372</td>
+<td>New investments in power (manual capacity)</td>
+<td>No: built later with the power features</td>
+</tr>
+<tr class="odd">
+<td>373-378</td>
+<td>Transport: fuel economy of new EVs</td>
+<td>J375:AC377 by label (D375:D377) and year (names BEVFEVal, BEVFELab, BEVFEYr): section 5b rows trfen</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./10_Distribution_Tab.html" class="pagination-link" aria-label="The distribution tab">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The distribution tab</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./12_Other_Excel_Modules.html" class="pagination-link" aria-label="Distribution and air-pollution modules">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Distribution and air-pollution modules</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

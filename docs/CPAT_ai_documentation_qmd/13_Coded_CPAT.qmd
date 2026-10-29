@@ -1,0 +1,38 @@
+# Coded CPAT {#sec-coded}
+
+Coded CPAT is a component-based Python reimplementation of CPAT. It runs the mitigation module and the household distribution module, either from the command line (`run_model.py`) or through a Shiny application (`app.py`). Its developer guide is the next chapter (@sec-coded-dev).
+
+## Layout
+
+| Path | Contents |
+|---|---|
+| `cpat_model/mitigation/` | Mitigation module components: GDP, policies, carbon pricing, emission factors, elasticities, prices, energy consumption, emissions, power, methane, revenues, aggregations |
+| `cpat_model/distribution/` | Distribution module: household incidence by decile, revenue recycling, welfare |
+| `cpat_model/data_read/` | `InputData`: every data table, mitigation and distribution |
+| `cpat_model/dashboard_inputs.py`, `distribution_inputs.py` | The default inputs of the two modules |
+| `cpat_model/scenario_results.py` | One finished scenario run, so that Distribution can compare a policy scenario with the baseline |
+| `cpat_model/indicators/` | Result indicators and their Excel export |
+| `cpat_model/constants.py` | Codes shared with the Excel models |
+| `cpat_shiny/`, `app.py` | The Shiny application |
+| `cpat_testing/` | pytest suite mirroring `cpat_model/` |
+| `config.py` | The scenarios run by `run_model.py` and the data path |
+
+## Conventions
+
+- **Same codes as Excel.** `Input Code`, `Output Code` and `NameOfParameter` are identical to the Excel models. The input keys of `dashboard_inputs.py` and `distribution_inputs.py` are the `ScenarioDefinition` names, in legacy units (percentages typed as whole numbers where legacy does).
+- **Legacy is the reference.** Values are checked against the legacy workbook; validated Excel prototypes are ported here once checked.
+- **Data.** By default the model reads the dummy data in `data/dummy/` (`DATA_ENVIRONMENT=dummy` in `.env`); `real` reads the proprietary data from `REAL_DATA_PATH`, outside the repository.
+- **Environment.** Python 3.12, pandas 2.2, numpy 2.2 (`environment.yml`, `requirements.txt`); the code also runs on pandas 3.
+
+## Running the model
+
+```
+cd coded
+conda env create -f environment.yml && conda activate cpat_p
+#   or: pip install -r requirements.txt -r dev-requirements.txt   (Python 3.12)
+python run_model.py    # mitigation for the scenarios in config.py, then distribution against the baseline
+pytest                 # the test suite
+shiny run app.py       # the application
+```
+
+`run_model.py` runs every scenario in `config.py`, then takes the baseline scenario and, for every policy scenario and every country with household survey data, runs the distribution module against it.

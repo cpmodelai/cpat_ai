@@ -1,0 +1,2768 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>5&nbsp; Power – CPAT-AI Documentation</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./06_Transport.html" rel="next">
+<link href="./04_Prices.html" rel="prev">
+<link href="././00/media/image1.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d8e5dfa8330daa7b2a69354212dbf2ec.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_Mitigation_Prototype.html">Excel-AI: the mitigation prototype</a></li><li class="breadcrumb-item"><a href="./05_Power.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Power</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">CPAT-AI Documentation</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Cover</strong></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_Project_Overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Project overview</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_Bugs_and_Issues.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bugs and issues</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Excel-AI: the mitigation prototype</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_Mitigation_Prototype.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The mitigation prototype</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_Prices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Prices and energy demand</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_Power.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_Transport.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Road transport</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_Emissions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Emissions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_ETS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Emissions trading (new ETS)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_Macro_and_Results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Macro, revenues and results</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_Distribution_Tab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The distribution tab</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_Data_Tabs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Data tabs</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Excel-AI: other modules</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_Other_Excel_Modules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Distribution and air-pollution modules</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Coded CPAT</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_Coded_CPAT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Coded CPAT</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14_Coded_Developer_Guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Coded CPAT: developer guide</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data and working practice</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15_Data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16_Working_in_the_Repository.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Working in the repository</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title"><strong><em>Chapter Contents</em></strong></h2>
+   
+  <ul>
+  <li><a href="#power-engineer-model-method" id="toc-power-engineer-model-method" class="nav-link active" data-scroll-target="#power-engineer-model-method">Power engineer model: method</a>
+  <ul>
+  <li><a href="#order-within-a-year-and-across-years" id="toc-order-within-a-year-and-across-years" class="nav-link" data-scroll-target="#order-within-a-year-and-across-years">1. Order within a year and across years</a></li>
+  <li><a href="#method-with-fixes" id="toc-method-with-fixes" class="nav-link" data-scroll-target="#method-with-fixes">2. Method (with fixes)</a></li>
+  <li><a href="#validation-check_report_v6.4.md" id="toc-validation-check_report_v6.4.md" class="nav-link" data-scroll-target="#validation-check_report_v6.4.md">3. Validation (<code>check_report_v6.4.md</code>)</a></li>
+  <li><a href="#manual-capacity-and-investment-v5.6-power-plan-p3" id="toc-manual-capacity-and-investment-v5.6-power-plan-p3" class="nav-link" data-scroll-target="#manual-capacity-and-investment-v5.6-power-plan-p3">Manual capacity and investment (v5.6, power plan P3)</a></li>
+  <li><a href="#coal-implicit-cost-v5.6-power-plan-p5" id="toc-coal-implicit-cost-v5.6-power-plan-p5" class="nav-link" data-scroll-target="#coal-implicit-cost-v5.6-power-plan-p5">Coal implicit cost (v5.6, power plan P5)</a></li>
+  </ul></li>
+  <li><a href="#power-generation-costs-and-power-prices-method" id="toc-power-generation-costs-and-power-prices-method" class="nav-link" data-scroll-target="#power-generation-costs-and-power-prices-method">Power generation costs and power prices: method</a>
+  <ul>
+  <li><a href="#interactions" id="toc-interactions" class="nav-link" data-scroll-target="#interactions">1. Interactions</a></li>
+  <li><a href="#simplifications-against-legacy" id="toc-simplifications-against-legacy" class="nav-link" data-scroll-target="#simplifications-against-legacy">2. Simplifications against legacy</a></li>
+  <li><a href="#method-by-legacy-sub-table" id="toc-method-by-legacy-sub-table" class="nav-link" data-scroll-target="#method-by-legacy-sub-table">3. Method by legacy sub-table</a>
+  <ul class="collapse">
+  <li><a href="#a.-inputs-one-row-of-constants-per-generation-type-and-a-few-year-paths" id="toc-a.-inputs-one-row-of-constants-per-generation-type-and-a-few-year-paths" class="nav-link" data-scroll-target="#a.-inputs-one-row-of-constants-per-generation-type-and-a-few-year-paths">3.1 A. Inputs (one row of constants per generation type, and a few year paths)</a></li>
+  <li><a href="#b.-amortised-cost-recovery-fixed-costs-the-cost-of-the-existing-stock" id="toc-b.-amortised-cost-recovery-fixed-costs-the-cost-of-the-existing-stock" class="nav-link" data-scroll-target="#b.-amortised-cost-recovery-fixed-costs-the-cost-of-the-existing-stock">3.2 B. Amortised (cost-recovery) fixed costs: the cost of the existing stock</a></li>
+  <li><a href="#c.-levelised-forward-looking-fixed-costs-new-plants-investment" id="toc-c.-levelised-forward-looking-fixed-costs-new-plants-investment" class="nav-link" data-scroll-target="#c.-levelised-forward-looking-fixed-costs-new-plants-investment">3.3 C. Levelised (forward-looking) fixed costs: new plants (investment)</a></li>
+  <li><a href="#b-renewable-subsidies-a17-c5" id="toc-b-renewable-subsidies-a17-c5" class="nav-link" data-scroll-target="#b-renewable-subsidies-a17-c5">3.3b Renewable subsidies (A17, C5)</a></li>
+  <li><a href="#d.-current-variable-costs" id="toc-d.-current-variable-costs" class="nav-link" data-scroll-target="#d.-current-variable-costs">3.4 D. Current variable costs</a></li>
+  <li><a href="#e.-total-costs" id="toc-e.-total-costs" class="nav-link" data-scroll-target="#e.-total-costs">3.5 E. Total costs</a></li>
+  <li><a href="#f.-memos" id="toc-f.-memos" class="nav-link" data-scroll-target="#f.-memos">3.6 F. Memos</a></li>
+  <li><a href="#j.-systems-integration-cost-of-renewables-storage" id="toc-j.-systems-integration-cost-of-renewables-storage" class="nav-link" data-scroll-target="#j.-systems-integration-cost-of-renewables-storage">3.7 J. Systems integration cost of renewables (storage)</a></li>
+  <li><a href="#g.-end-user-prices-residential-and-industrial" id="toc-g.-end-user-prices-residential-and-industrial" class="nav-link" data-scroll-target="#g.-end-user-prices-residential-and-industrial">3.8 G. End-user prices (residential and industrial)</a></li>
+  <li><a href="#g4-and-m.-revenues-usd-million-real-and-the-revenue-totals" id="toc-g4-and-m.-revenues-usd-million-real-and-the-revenue-totals" class="nav-link" data-scroll-target="#g4-and-m.-revenues-usd-million-real-and-the-revenue-totals">3.9 G4 and M. Revenues (USD million real) and the revenue totals</a></li>
+  </ul></li>
+  <li><a href="#validation" id="toc-validation" class="nav-link" data-scroll-target="#validation">4. Validation</a></li>
+  <li><a href="#decisions" id="toc-decisions" class="nav-link" data-scroll-target="#decisions">5. Decisions</a></li>
+  <li><a href="#v5.6-fuel-price-reform-price-floor-renewable-subsidies-in-real-terms" id="toc-v5.6-fuel-price-reform-price-floor-renewable-subsidies-in-real-terms" class="nav-link" data-scroll-target="#v5.6-fuel-price-reform-price-floor-renewable-subsidies-in-real-terms">v5.6: fuel price reform, price floor, renewable subsidies in real terms</a></li>
+  </ul></li>
+  <li><a href="#legacy-cpat-power-input-chains-spec-for-a-formula-re-implementation" id="toc-legacy-cpat-power-input-chains-spec-for-a-formula-re-implementation" class="nav-link" data-scroll-target="#legacy-cpat-power-input-chains-spec-for-a-formula-re-implementation">Legacy CPAT power-input chains: spec for a formula re-implementation</a>
+  <ul>
+  <li><a href="#conventions-and-caveats-read-first" id="toc-conventions-and-caveats-read-first" class="nav-link" data-scroll-target="#conventions-and-caveats-read-first">0. Conventions and caveats (read first)</a></li>
+  <li><a href="#shared-building-blocks" id="toc-shared-building-blocks" class="nav-link" data-scroll-target="#shared-building-blocks">1. Shared building blocks</a>
+  <ul class="collapse">
+  <li><a href="#a2-main-parameters-power-technoeconomic-lookup-mitigation-rows-29762985" id="toc-a2-main-parameters-power-technoeconomic-lookup-mitigation-rows-29762985" class="nav-link" data-scroll-target="#a2-main-parameters-power-technoeconomic-lookup-mitigation-rows-29762985">1.1 A2 “Main Parameters”: Power technoeconomic lookup (Mitigation rows 2976–2985)</a></li>
+  <li><a href="#a1-a4-energy-balance-block-country-data-from-balances" id="toc-a1-a4-energy-balance-block-country-data-from-balances" class="nav-link" data-scroll-target="#a1-a4-energy-balance-block-country-data-from-balances">1.2 A1 / A4: energy-balance block (country data from Balances)</a></li>
+  <li><a href="#a7-capex-time-factors-rows-30363046" id="toc-a7-capex-time-factors-rows-30363046" class="nav-link" data-scroll-target="#a7-capex-time-factors-rows-30363046">1.3 A7: capex time factors (rows 3036–3046)</a></li>
+  <li><a href="#a3-wacc-rows-29872996-coa-bio-rows-29882996" id="toc-a3-wacc-rows-29872996-coa-bio-rows-29882996" class="nav-link" data-scroll-target="#a3-wacc-rows-29872996-coa-bio-rows-29882996">1.4 A3: WACC (rows 2987–2996; coa … bio = rows 2988–2996)</a></li>
+  <li><a href="#a5-a6-discounted-lifetime-used-by-dlf_ren-and-cel" id="toc-a5-a6-discounted-lifetime-used-by-dlf_ren-and-cel" class="nav-link" data-scroll-target="#a5-a6-discounted-lifetime-used-by-dlf_ren-and-cel">1.5 A5 / A6: discounted lifetime (used by dlf_ren and cel)</a></li>
+  </ul></li>
+  <li><a href="#powertech-items-power_tech.csv" id="toc-powertech-items-power_tech.csv" class="nav-link" data-scroll-target="#powertech-items-power_tech.csv">2. PowerTech items (power_tech.csv)</a>
+  <ul class="collapse">
+  <li><a href="#cax0_usd_per_kw-capital-cost-at-time-factor-1" id="toc-cax0_usd_per_kw-capital-cost-at-time-factor-1" class="nav-link" data-scroll-target="#cax0_usd_per_kw-capital-cost-at-time-factor-1">2.1 cax0_usd_per_kw: capital cost at time factor 1</a></li>
+  <li><a href="#life_years" id="toc-life_years" class="nav-link" data-scroll-target="#life_years">2.2 life_years</a></li>
+  <li><a href="#efficiency" id="toc-efficiency" class="nav-link" data-scroll-target="#efficiency">2.3 efficiency</a></li>
+  <li><a href="#capacity_factor" id="toc-capacity_factor" class="nav-link" data-scroll-target="#capacity_factor">2.4 capacity_factor</a></li>
+  <li><a href="#wacc" id="toc-wacc" class="nav-link" data-scroll-target="#wacc">2.5 wacc</a></li>
+  <li><a href="#dtc_usd_per_kw-decommissioning-cost" id="toc-dtc_usd_per_kw-decommissioning-cost" class="nav-link" data-scroll-target="#dtc_usd_per_kw-decommissioning-cost">2.6 dtc_usd_per_kw: decommissioning cost</a></li>
+  <li><a href="#tcx_usd_per_kw-transmission-capex-legacy-label-not-used-in-the-model-at-all" id="toc-tcx_usd_per_kw-transmission-capex-legacy-label-not-used-in-the-model-at-all" class="nav-link" data-scroll-target="#tcx_usd_per_kw-transmission-capex-legacy-label-not-used-in-the-model-at-all">2.7 tcx_usd_per_kw: transmission capex (legacy label: “not used in the model at all”)</a></li>
+  <li><a href="#opf_usd_per_kwh-fixed-om-per-kwh" id="toc-opf_usd_per_kwh-fixed-om-per-kwh" class="nav-link" data-scroll-target="#opf_usd_per_kwh-fixed-om-per-kwh">2.8 opf_usd_per_kwh: fixed O&amp;M per kWh</a></li>
+  <li><a href="#vop_usd_per_kwh-variable-om" id="toc-vop_usd_per_kwh-variable-om" class="nav-link" data-scroll-target="#vop_usd_per_kwh-variable-om">2.9 vop_usd_per_kwh: variable O&amp;M</a></li>
+  <li><a href="#fuel_fixed_usd_per_kwh-nuclear-only-0-for-the-others-by-script" id="toc-fuel_fixed_usd_per_kwh-nuclear-only-0-for-the-others-by-script" class="nav-link" data-scroll-target="#fuel_fixed_usd_per_kwh-nuclear-only-0-for-the-others-by-script">2.10 fuel_fixed_usd_per_kwh (nuclear only; 0 for the others by script)</a></li>
+  <li><a href="#cap0_mw-base-year-effective-capacity" id="toc-cap0_mw-base-year-effective-capacity" class="nav-link" data-scroll-target="#cap0_mw-base-year-effective-capacity">2.11 cap0_mw: base-year effective capacity</a></li>
+  <li><a href="#gen0_mwy-base-year-generation" id="toc-gen0_mwy-base-year-generation" class="nav-link" data-scroll-target="#gen0_mwy-base-year-generation">2.12 gen0_mwy: base-year generation</a></li>
+  <li><a href="#retire_rate" id="toc-retire_rate" class="nav-link" data-scroll-target="#retire_rate">2.13 retire_rate</a></li>
+  <li><a href="#invest_permitted" id="toc-invest_permitted" class="nav-link" data-scroll-target="#invest_permitted">2.14 invest_permitted</a></li>
+  <li><a href="#invest_start" id="toc-invest_start" class="nav-link" data-scroll-target="#invest_start">2.15 invest_start</a></li>
+  <li><a href="#scaleup_rate" id="toc-scaleup_rate" class="nav-link" data-scroll-target="#scaleup_rate">2.16 scaleup_rate</a></li>
+  <li><a href="#planned_retirement-coal-no-for-the-others-by-script" id="toc-planned_retirement-coal-no-for-the-others-by-script" class="nav-link" data-scroll-target="#planned_retirement-coal-no-for-the-others-by-script">2.17 planned_retirement (coal; “No” for the others by script)</a></li>
+  <li><a href="#script-constants-no-legacy-chain" id="toc-script-constants-no-legacy-chain" class="nav-link" data-scroll-target="#script-constants-no-legacy-chain">2.18 Script constants (no legacy chain)</a></li>
+  </ul></li>
+  <li><a href="#powerpaths-items-power_paths.csv-years-20222041-mitigation-l..ae" id="toc-powerpaths-items-power_paths.csv-years-20222041-mitigation-l..ae" class="nav-link" data-scroll-target="#powerpaths-items-power_paths.csv-years-20222041-mitigation-l..ae">3. PowerPaths items (power_paths.csv; years 2022–2041 = Mitigation L..AE)</a>
+  <ul class="collapse">
+  <li><a href="#tcf-capex-time-factor" id="toc-tcf-capex-time-factor" class="nav-link" data-scroll-target="#tcf-capex-time-factor">3.1 tcf|<t>: capex time factor</t></a></li>
+  <li><a href="#cbat-cint-obat-battery-capex-interface-capex-battery-opex" id="toc-cbat-cint-obat-battery-capex-interface-capex-battery-opex" class="nav-link" data-scroll-target="#cbat-cint-obat-battery-capex-interface-capex-battery-opex">3.2 cbat, cint, obat: battery capex, interface capex, battery opex</a></li>
+  <li><a href="#cel-electrolyser-cost-per-marginal-unit-lt-storage" id="toc-cel-electrolyser-cost-per-marginal-unit-lt-storage" class="nav-link" data-scroll-target="#cel-electrolyser-cost-per-marginal-unit-lt-storage">3.3 cel: electrolyser cost per marginal unit (LT storage)</a></li>
+  <li><a href="#incf-income-dependent-factor-on-gdp-elasticities" id="toc-incf-income-dependent-factor-on-gdp-elasticities" class="nav-link" data-scroll-target="#incf-income-dependent-factor-on-gdp-elasticities">3.4 incf: income-dependent factor on GDP elasticities</a></li>
+  <li><a href="#shock-exogenous-shock-on-energy-consumption" id="toc-shock-exogenous-shock-on-energy-consumption" class="nav-link" data-scroll-target="#shock-exogenous-shock-on-energy-consumption">3.5 shock: exogenous shock on energy consumption</a></li>
+  <li><a href="#pret-planned-retirement-nameplate-mw" id="toc-pret-planned-retirement-nameplate-mw" class="nav-link" data-scroll-target="#pret-planned-retirement-nameplate-mw">3.6 pret|<t>: planned retirement, nameplate MW</t></a></li>
+  </ul></li>
+  <li><a href="#powerparams-items-power_params.csv" id="toc-powerparams-items-power_params.csv" class="nav-link" data-scroll-target="#powerparams-items-power_params.csv">4. PowerParams items (power_params.csv)</a></li>
+  <li><a href="#legacy-power-tab-layout-copy-at-the-same-cell-addresses" id="toc-legacy-power-tab-layout-copy-at-the-same-cell-addresses" class="nav-link" data-scroll-target="#legacy-power-tab-layout-copy-at-the-same-cell-addresses">5. Legacy <strong>Power</strong> tab layout (copy at the same cell addresses)</a></li>
+  <li><a href="#legacy-coc-tab-wacc-block-used-by-a3-copy-rows-200390-at-the-same-addresses" id="toc-legacy-coc-tab-wacc-block-used-by-a3-copy-rows-200390-at-the-same-addresses" class="nav-link" data-scroll-target="#legacy-coc-tab-wacc-block-used-by-a3-copy-rows-200390-at-the-same-addresses">6. Legacy <strong>CoC</strong> tab, WACC block used by A3 (copy rows 200–390 at the same addresses)</a></li>
+  <li><a href="#other-data-tabs-and-settings-touched" id="toc-other-data-tabs-and-settings-touched" class="nav-link" data-scroll-target="#other-data-tabs-and-settings-touched">7. Other data tabs and settings touched</a></li>
+  <li><a href="#legacy-bugs-and-oddities-in-these-chains" id="toc-legacy-bugs-and-oddities-in-these-chains" class="nav-link" data-scroll-target="#legacy-bugs-and-oddities-in-these-chains">8. Legacy bugs and oddities in these chains</a></li>
+  <li><a href="#summary-table" id="toc-summary-table" class="nav-link" data-scroll-target="#summary-table">9. Summary table</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_Mitigation_Prototype.html">Excel-AI: the mitigation prototype</a></li><li class="breadcrumb-item"><a href="./05_Power.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Power</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-power" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Power</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- Generated by make_qmd.py from excel_ai/mitigation/docs/methods/Power.md: edit the source, then run python make_qmd.py -->
+<p><em>Source: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/excel_ai/mitigation/docs/methods/Power.md"><code>excel_ai/mitigation/docs/methods/Power.md</code></a>.</em></p>
+<section id="power-engineer-model-method" class="level2">
+<h2 class="anchored" data-anchor-id="power-engineer-model-method">Power engineer model: method</h2>
+<p>Equations: <code>Equations.md</code>; workbook formulas: <code>Formulas.md</code>.</p>
+<p><strong>Scope.</strong> The quantity side of the power sector: power demand (legacy table H), dispatch (I), capacity and retirement (K), investment (L), and the cost rows investment needs: shadow price and rebate (D6), levelised variable cost (D9) and levelised investment cost (E1). The price side is in chapter Power. The legacy reference is Mitigation section 4 of <code>CPAT 1.0pre_456_NoPropData.xlsb</code>: rows 2954-4297 for the baseline, rows 9285-10628 for the carbon-tax run.</p>
+<p><strong>Inputs by scenario.</strong> Every ScenarioDefinition power input is read in the scenario’s own ScenarioDefinition column (section 1, “Power sector settings”: rows 242, 262, 342-415 and 482), as legacy runs each column with its own runs. Sub-table A0 of section 3 applies them to the power data of the country (Inputs): capacity factor, efficiency, WACC and discounted lifetime, fuel per kWh, base-year capacity, new investment permitted and its start year, scale-up and retirement rates, the early-retirement factor, the capex decline scenario, storage, PPA, renewable subsidy, rebate and excise settings. Scenario 1 is the baseline of every scenario, so a technical input (logit constants, WACC, capacity-factor bounds, storage, cost decline) changed in a policy scenario changes that scenario only, and its difference to scenario 1 mixes the input change with the policy; technical inputs are not usually changed across scenarios. Not read (no prototype feature): CostBreakdownYear, ElasticityModel, PowGenCostsOldNew, UseElasticityModelPowerDemandInEngineerModel, SupplyCostDeltaSubsidy, the coal implicit cost (369-371). The final deficit to gas is a global switch (Settings C45, PwDeficitGas), as legacy’s typed cell.</p>
+<p><strong>Alignment.</strong> The prototype follows legacy formula by formula, except for ten bugs, which are fixed; <code>Legacy_CPAT_Bugs_v&lt;version&gt;.docx</code> lists them with their effects. <code>power_model_ref.py</code> implements the method in Python with one switch per bug; with all switches off it reproduces 208 cached legacy rows of both runs to 1e-13. Planned retirement is available for every generation type; legacy offers it for coal only.</p>
+<p><strong>Links with the rest of the model.</strong> Power demand follows its own elasticities (H). Sector policies (carbon tax, ETS, feebates, fuel price reform) act on the fuel blocks only, not on power demand; electricity demand by sector is a memo, not part of the fuel totals, so nothing is counted twice. Power CO2 enters the CO2 totals (by fuel and as ETS sector power, so a new ETS covering power sees it, and the baseline CO2 data include it). Generation fuel use of coal, gas, oil and biomass enters total fuel use; nuclear, wind, solar, hydro and other renewables have no fuel. Power revenues enter the revenue totals: fuel taxes and subsidies on generation, the change in existing carbon pricing, electricity VAT and subsidy gap, and new policies with the ETS at the permit price. Existing carbon pricing changes the variable cost before new policies (chapter Prices section 5b). A Settings switch turns the legacy 2023-2024 demand shock on (default off, as for fuels).</p>
+<p>Units: generation and capacity in MW / MWy; demand in ktoe; costs in real $/kWh of 2026.</p>
+<section id="order-within-a-year-and-across-years" class="level3">
+<h3 class="anchored" data-anchor-id="order-within-a-year-and-across-years">1. Order within a year and across years</h3>
+<pre><code>year t:  H  demand(t)        &lt;- demand(t-1), GDP(t), price(t-1)              (no circularity: price lagged)
+         K1 capacity(t)      &lt;- capacity(t-1) - retirement(t-1) + investment(t-1)
+         I  dispatch(t)      &lt;- capacity(t), required generation(t), variable costs(t)
+            shares(t)        -&gt; J VRE share -&gt; storage cost(t) -&gt; B (vintages), C (levelised)
+            shares(t)        -&gt; E average generation cost(t) -&gt; G supply cost(t+1) -&gt; price(t+1) -&gt; demand(t+2)
+         K  retirement(t)    &lt;- capacity(t), early coal retirement (coal variable cost vs wind and solar costs)
+         L  investment(t)    &lt;- required generation(t) - capacity after retirement(t); logit on E1(t)
+                             -&gt; capacity(t+1); share in the stock phi(t) -&gt; B vintages(t+1)</code></pre>
+<p>The levelised variable cost D9(t) averages the variable cost from t to the end of the horizon. Variable costs depend only on prices and policies, not on the generation mix, so D9 is computed before the year loop, backwards from the last year.</p>
+</section>
+<section id="method-with-fixes" class="level3">
+<h3 class="anchored" data-anchor-id="method-with-fixes">2. Method (with fixes)</h3>
+<p><strong>H Demand.</strong> Four demand groups (transport, residential, industry, services), with electricity elasticities to income, usage, efficiency and autonomous efficiency (eps_Y, eps_U, eps_F, alpha). - Each group’s price is last year’s residential and industrial prices weighted 0.5/0.5 for transport, 1/0 for residential, 0/1 for industry and services. - Each group’s demand multiple combines autonomous efficiency, GDP growth (with the income factor), the price change and an optional shock: (1 / (1 + alpha + extra))^(1 + eps_U) × (1 + GDP growth)^(eps_Y × inc) × (price ratio)^(eps_U + eps_F + eps_U eps_F) × (1 + shock × switch). - Demand of each of the 15 subsectors = last year’s × its group’s multiple (services use the services multiple in every year). - Required generation (MWy) = demand × (1 + net exports + transmission + own use + statistical difference shares), converted from ktoe. In the base year it is actual generation. - Memo: demand by group, and electricity demand by subsector, sector and in total.</p>
+<p><strong>A0 Data of the scenario.</strong> - Capacity factor = actual (base-year output / installed capacity) when strictly between the CFOverride bounds of the scenario (wind and solar: CFOverrideIfBelowWndSol; others: CFOverrideIfBelowFosOth; upper CFOverrideIfAbove), else the studies value. Efficiency = actual (output / input) unless below MinimumThermalEfficiency (or without input), else the studies value. - WACC: Country* (country WACC + coal premium), Tech (country WACC + technology premium), else MAX(WACCUserGlobal (User), the income-group WACC (Income<em>) or the studies WACC, MinimumWACC). Discounted lifetime = (1 − (1 + WACC)^−N) / (1 − (1 + WACC)^−1); renewables use the average of wind and solar. - New investment: the type’s NewInv setting; “If Present</em>” = Yes when the type has more than 0.1% of base-year capacity; from the NewInv year (hydro from the base year when its generation share is above one half). - Scale-up rates: coal, gas, hydro MaxNonVREAsPCOfTotalGen; wind and solar the country default (CtryDefault<em>), MaxWindSolarScaleup (UserDefined) or the category rate (Low, Medium</em>, High, Vhigh); the others MaxNonNucOreBioAsPCOfTotalGen. Retirement rate 1/N, hydro 0 if HydroDoesntRetire = Yes. - Capex time factors of the decline scenario of RenewableCostDeclineRate (renewables; others medium); where the Power tab has no series for the option (Low and Vhigh for wind and solar, Vhigh for other renewables), the older series of the same option, else medium.</p>
+<p><strong>I Dispatch.</strong> - Fixed-output types (wind, solar, hydro, other renewables, oil, nuclear, biomass) generate capacity × capacity factor. - Coal and gas cover the rest. Each first gets the minimum it must supply given the other’s maximum (maximum = capacity × MaximumCoalCF for coal, × MaximumGasCF for gas; 0.9 by default); the remainder is shared by a logit EXP(-kDispatch × variable cost / lowest variable cost), capped at the maximum. - PPAs: a share p of coal and gas generation (PPAProportionCoalGas × phase-out factor) runs at its capacity factor, scaled to the need, whatever its cost: generation = logit dispatch × (1 − p) + effective capacity × (coal and gas need / coal and gas effective capacity) × p.&nbsp;The phase-out factor falls linearly to 0 over YearsToPhaseOutPPAs years after YearPPACoalGas when the switch of the scenario (PhaseOutCoalAndGasPPAsBaseline in scenario 1, PhaseOutCoalAndGasPPAsPolicy in the others) is Yes or Yes*; else 1. - Fuel use = generation / efficiency (ktoe); CO2 = fuel use × EF.</p>
+<p><strong>K Capacity and retirement.</strong> - Retirement = planned retirement (data in nameplate MW per year, if the type’s switch is Yes) or else capacity / lifetime; plus early retirement for coal; at most the capacity. Hydro does not retire. Effective retirement = retirement × capacity factor. - For Egypt the legacy file has no planned-retirement data, so every switch is No. - Early coal retirement: room = MAX(0, maximum wind and solar additions − last year’s increase in generation − last year’s non-coal effective retirements); early = MAX(0, MIN(0.8 × coal effective capacity, room) × (1 − coal share of a logit over coal variable cost and wind and solar investment costs)) / coal capacity factor × factor × (1 − PPA share). The factor is MaxCostBasedEarlyRetirement, and 0 in scenario 1 unless EarlyRetirementInBaseline = Yes (legacy F3993); plants under PPA do not retire early. - Capacity needed = MAX(required generation − (effective capacity − effective retirement), 0). Capacity bought in year t is available in t+1.</p>
+<p><strong>L Investment.</strong> - First round, permitted types only: logit share EXP(-2 × E1 / lowest permitted E1), limited by a scale-up limit (rate × total effective capacity). - Second round: the remaining deficit goes to types with space left, cheapest first. - Final deficit: with PwDeficitGas = Yes (Settings C45; default No, as legacy’s typed switch E4248) the deficit left after the second round goes to gas (legacy row 4252). - Nameplate investment = effective / capacity factor; USD = nameplate × capital cost of the year. - phi = nameplate / (capacity + nameplate − retirement), the new-vintage share used in the vintage averages B2 and B6.</p>
+<p><strong>D5, D6, D9, E1.</strong> Each sector has three policy rates ($/tCO2), the same for the fuel blocks and power: - carbon tax = carbon price × sector coverage × (1 − ETS coverage); - ETS cost = ETS tax-equivalent price × ETS coverage × (1 − OBR share); - shadow price = feebate (and regulation) rate × share impacting efficiency + ETS tax-equivalent price × ETS coverage × OBR share.</p>
+<p>New policy cost per kWh (D5) = tCO2/kWh × (carbon tax × fuel coverage + ETS cost) + fuel price reform per kWh. The levelised fixed cost (C) includes the renewable subsidy per kWh of the scenario (chapter Power 3.3). The shadow price per kWh is the power shadow price × tCO2/kWh; the rebate returns it in proportion to base-year shares, per kWh generated. Total variable cost = cost before new policies + new policy cost + shadow price + rebate. D9 = discounted average of the total variable cost to 2041, the last year (as legacy). E1 = MAX(levelised fixed cost + D9, 0.01).</p>
+</section>
+<section id="validation-check_report_v6.4.md" class="level3">
+<h3 class="anchored" data-anchor-id="validation-check_report_v6.4.md">3. Validation (<code>check_report_v6.4.md</code>)</h3>
+<ol type="1">
+<li><strong>Method = legacy.</strong> The Python reference, fed with the cached legacy inputs and the bugs switched on, reproduces 208 legacy rows of the baseline and the carbon-tax run.</li>
+<li><strong>Workbook = Python.</strong> With all bugs fixed and the prototype inputs, the workbook matches the Python reference for every power row, in every scenario test.</li>
+<li><strong>Properties:</strong> generation = required generation; the capacity balance holds; investment is at most the capacity needed (scale-up limits can leave part unplaced); the supply cost lag holds; a carbon price raises the VRE share and lowers power CO2.</li>
+<li><strong>Planned retirement.</strong> With the switch on for gas and oil and test data, the workbook matches the Python reference, and retirement equals the data. 4b. <strong>Power features.</strong> One test scenario per feature (check section 5d): MaximumGasCF and long-term storage; the power inputs of the scenario (two scenarios with many inputs changed, including WACC options, capacity-factor and efficiency bounds, permits, scale-up categories, decline options, storage, logit constants, pass-through, spot prices); PPAs; renewable subsidies; the rebate; the electricity excise and the manual excise; the final deficit to gas with tight scale-up limits. Each matches the Python reference.</li>
+<li><strong>Memo lines</strong> equal power demand by subsector and add up by sector and in total.</li>
+<li><strong>Totals.</strong> Fuel use, revenue and CO2 totals with power equal the Python reference; with non-zero existing carbon pricing test data, the power variable cost, revenues by type and totals match too. Check rows confirm that the totals equal their sector, power and fuel parts.</li>
+</ol>
+</section>
+<section id="manual-capacity-and-investment-v5.6-power-plan-p3" class="level3">
+<h3 class="anchored" data-anchor-id="manual-capacity-and-investment-v5.6-power-plan-p3">Manual capacity and investment (v5.6, power plan P3)</h3>
+<p>Where a scenario’s NewInv<type> = Manual (ScenarioDefinition rows 397-405), the type follows the capacity path of ‘Manual inputs’ (rows 349-357 for scenario 1, rows 363-371 for the other scenarios; names ManCapVal, ManCapYr). Row mancap reads the path; row mani is the manual new effective investment, MAX(0, next year’s path - this year’s path + retirement) x capacity factor (0 in 2041); the type gets no logit investment (permit 0). Row needm = MAX(need - SUM(mani), 0) sizes the logit and second-round investment: legacy computes this need (row 4108) but never uses it, so its logit investment comes on top of the manual one (legacy bug L118, fixed). New effective investment nei = first + second (+ gas deficit) + mani. Test (scenario 2, nuclear 2,400 MW from 2030): 2,400 MW nameplate built in 2029, then the retirements replaced.</type></p>
+</section>
+<section id="coal-implicit-cost-v5.6-power-plan-p5" class="level3">
+<h3 class="anchored" data-anchor-id="coal-implicit-cost-v5.6-power-plan-p5">Coal implicit cost (v5.6, power plan P5)</h3>
+<p>Rows cics, cicl and cic (sub-table D): AdditionalCoalIntangibleCost (ScenarioDefinition 369) No = 0, Manual = ScenarioDefinition 370-371, else the GoalSeekCoal table (legacy tab, 85 countries, not Egypt) by country; linear from the first year of calculations to CoalICYr (2030), as legacy rows 3360-3363. It is added to the coal variable cost (dispatch, levelised cost, investment) and, unless Settings PwCoalICTariff = No (default Yes, as legacy; decision 6), to the generation cost and tariffs. Memo rows (sub-table E): fce (post-tax fuel cost per kWh, legacy F2-F3), cik (tCO2 per kWh, F4), swi and swd (switching carbon prices gas over coal for new investment and dispatch, F7; F1, F5 and F6 are rows lfx/tic and tvc). The GoalSeekCoal calibration script is not built.</p>
+</section>
+</section>
+<section id="power-generation-costs-and-power-prices-method" class="level2">
+<h2 class="anchored" data-anchor-id="power-generation-costs-and-power-prices-method">Power generation costs and power prices: method</h2>
+<p>Equations: <code>Equations.md</code>; workbook formulas: <code>Formulas.md</code>.</p>
+<p><strong>Scope.</strong> The price side of the power sector: - what each generation type costs per kWh; - what the generation mix costs on average; - the end-user electricity prices for residential and industrial users; - the power-sector carbon cost and its revenue, by user group and by generation type, and the power part of the revenue totals.</p>
+<p>It follows legacy CPAT section 4 (“Technoeconomic (‘engineer’) power model”, Mitigation rows 2954-3672 and 3867-3927) and documentation chapter 3, sections 3.4.1 and 3.4.2.5, keeping legacy’s sub-table letters (A Inputs, B Amortised costs, C Levelised costs, D Variable costs, E Total costs, F Memos, G End-user prices, J Storage, plus M Revenues by type). The quantities (demand H, dispatch I, capacity K, investment L) come from the engineer model (chapter Power): generation shares, investment shares and consumption. A policy scenario’s power prices therefore respond to its own generation mix, investment and demand.</p>
+<p>Units: real US dollars of the results year (2026) per kWh, unless stated. Every ScenarioDefinition power setting (pass-through, minimum cost, storage, WACC, capacity factor and efficiency bounds, renewable subsidy, rebate, excise) is read in the scenario’s own ScenarioDefinition column (chapter Power, inputs by scenario). Generation types <em>f</em>: coal, natural gas, oil, nuclear, wind, solar, hydro, other renewables, biomass (legacy order).</p>
+<section id="interactions" class="level3">
+<h3 class="anchored" data-anchor-id="interactions">1. Interactions</h3>
+<p>The price block is mostly a one-way chain. The table lists its links with the rest of the model and how legacy keeps them free of circular references; the prototype implements all of them.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>From</th>
+<th>To</th>
+<th>What flows</th>
+<th>How the loop is broken (legacy)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>I1</td>
+<td>Fuel prices (coal and gas for power, oil, biomass)</td>
+<td>D Variable costs</td>
+<td>Fuel price before new policies ($/GJ, $/bbl)</td>
+<td>One way</td>
+</tr>
+<tr class="even">
+<td>I2</td>
+<td>Policies (carbon price, ETS power coverage, fuel price reform)</td>
+<td>D Carbon cost; G end-user prices; revenues</td>
+<td>Carbon cost per kWh by generation type</td>
+<td>One way</td>
+</tr>
+<tr class="odd">
+<td>I3</td>
+<td>Generation mix (dispatch I, investment L)</td>
+<td>E average generation cost; J storage (via the VRE share)</td>
+<td>Generation shares by type</td>
+<td>Dispatch uses current variable costs, which do not depend on the average cost; prices use last year’s average cost (I5)</td>
+</tr>
+<tr class="even">
+<td>I4</td>
+<td>Investment (L)</td>
+<td>B weighted average capex and storage cost of vintages</td>
+<td>New investment as a share of remaining capacity Φ</td>
+<td>B uses last year’s Φ (exact match with legacy, see 3.2)</td>
+</tr>
+<tr class="odd">
+<td>I5</td>
+<td>E average generation cost</td>
+<td>G end-user prices</td>
+<td>Supply cost = average generation cost + transmission</td>
+<td><strong>Deliberately lagged one year</strong>: the price in <em>t</em> uses the cost of <em>t</em>−1</td>
+</tr>
+<tr class="even">
+<td>I6</td>
+<td>G end-user prices</td>
+<td>Electricity demand → generation → I3</td>
+<td>Residential and industrial electricity prices</td>
+<td>Through I5’s lag; demand (H) uses last year’s prices, by demand group</td>
+</tr>
+<tr class="odd">
+<td>I7</td>
+<td>J storage (systems cost of renewables)</td>
+<td>B (vintage storage cost) and C (levelised, for investment)</td>
+<td>Marginal storage cost of wind, solar, other renewables</td>
+<td>Uses the current VRE share from dispatch</td>
+</tr>
+<tr class="even">
+<td>I8</td>
+<td>C levelised costs, D9 levelised variable costs</td>
+<td>Investment logit; F7 switching carbon prices</td>
+<td>Levelised total investment cost by type</td>
+<td>Investment only: not in end-user prices</td>
+</tr>
+<tr class="odd">
+<td>I9</td>
+<td>G revenues and M revenues by type</td>
+<td>Revenue totals</td>
+<td>USD million</td>
+<td>One way</td>
+</tr>
+</tbody>
+</table>
+<p>Two consequences shape the design: 1. <strong>End-user prices depend on generation costs only through the weighted average</strong> (E) and the transmission add-on. Variable, amortised and storage costs matter for prices only as far as they enter that average. 2. <strong>The renewables systems cost is an interaction inside the price block.</strong> The VRE share sets the marginal storage cost (J), which enters the cost of wind and solar in two ways: <strong>amortised</strong>, through vintages, in the cost of the existing stock (B), which goes into end-user prices; and <strong>levelised</strong>, in the cost of new plants (C), which goes into investment. So a scenario that adds renewables raises their storage cost per kWh, which feeds back into the average generation cost a year later.</p>
+</section>
+<section id="simplifications-against-legacy" class="level3">
+<h3 class="anchored" data-anchor-id="simplifications-against-legacy">2. Simplifications against legacy</h3>
+<p>Each gives the same numbers as legacy (checked in the Python reference, section 4) unless stated.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Legacy</th>
+<th>prototype</th>
+<th>Same numbers?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S1</td>
+<td>Five amortised-cost tables (B3 capital, B4 interest, B5 decommissioning, B6 storage, B7 fixed O&amp;M) summed in B8</td>
+<td>One amortised fixed cost per type (3.2)</td>
+<td>Yes (algebraically identical)</td>
+</tr>
+<tr class="even">
+<td>S2</td>
+<td>Six levelised tables (C1-C6) summed in C7; discount-factor tables A5, A6</td>
+<td>One levelised fixed cost per type (3.3), with the discounted lifetime in closed form</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>S3</td>
+<td>Duplicates: A16 = B7 = C4 (fixed O&amp;M), D7 = D8 (variable cost), E1 = E4 (investment cost), F2/F3 (fuel prices and fuel cost), E2 (cost before storage), E5 (breakdown memo)</td>
+<td>Each quantity once</td>
+<td>n/a</td>
+</tr>
+<tr class="even">
+<td>S4</td>
+<td>Residential and industrial price: supply cost + producer subsidy + other tax + “over/under-estimated costs” residual, the last three held at their last-historical-year values, then VAT</td>
+<td>Telescoped: after the last historical year the price before policies changes by pass-through × the change in supply cost × (1 + VAT); data before. The three held components cancel out of the change</td>
+<td>Yes (pass-through 1, VAT constant after the last historical year, as legacy)</td>
+</tr>
+<tr class="odd">
+<td>S5</td>
+<td>Fuel prices for power: 5-year moving average (A18; spot prices are a dashboard option)</td>
+<td>v6.2 (legacy bug L126, user 2026-10-20): trailing average of the price before new policies over t-4 .. t within the scenario’s own years (legacy t-2 .. t+2 read later years); spot prices a switch</td>
+<td>Price changes reach power costs about two years later</td>
+</tr>
+<tr class="even">
+<td>S6</td>
+<td>Coal implicit cost (D3) and the additional shadow price (D6)</td>
+<td>Not built (both 0 in the Egypt run, no coal in Egypt’s mix)</td>
+<td>Yes for Egypt</td>
+</tr>
+<tr class="odd">
+<td>S7</td>
+<td>Producer-side subsidies and the over/under-estimate residual as rows</td>
+<td>Not needed for prices (S4). Reported as one subsidy gap = price before VAT − supply cost (negative = subsidy), for revenue analysis</td>
+<td>Yes for prices</td>
+</tr>
+</tbody>
+</table>
+<p>The price chain for one scenario has about 330 rows in legacy (A5-G4, J1-J3) and about 140 in the prototype.</p>
+</section>
+<section id="method-by-legacy-sub-table" class="level3">
+<h3 class="anchored" data-anchor-id="method-by-legacy-sub-table">3. Method by legacy sub-table</h3>
+<section id="a.-inputs-one-row-of-constants-per-generation-type-and-a-few-year-paths" class="level4">
+<h4 class="anchored" data-anchor-id="a.-inputs-one-row-of-constants-per-generation-type-and-a-few-year-paths">3.1 A. Inputs (one row of constants per generation type, and a few year paths)</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+<th>Legacy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>cax0, N</td>
+<td>Capital cost at capex time factor 1 ($/kW; legacy base-year cost ÷ base-year factor), lifetime (years)</td>
+<td>A2, B2</td>
+</tr>
+<tr class="even">
+<td>tcf(t)</td>
+<td>Capex time factor (renewables fall; others 1)</td>
+<td>A7</td>
+</tr>
+<tr class="odd">
+<td>cax(t) = cax0 × tcf(t)</td>
+<td>Capital cost path</td>
+<td>A13</td>
+</tr>
+<tr class="even">
+<td>wacc</td>
+<td>Country WACC + technology premium</td>
+<td>A3, B4 “Final WACC”</td>
+</tr>
+<tr class="odd">
+<td>cf</td>
+<td>Capacity factor (constant)</td>
+<td>A8</td>
+</tr>
+<tr class="even">
+<td>ν</td>
+<td>Thermal efficiency, NCV (constant)</td>
+<td>A9</td>
+</tr>
+<tr class="odd">
+<td>dtc, tcx</td>
+<td>Decommissioning cost; levelised transmission capex ($/kW)</td>
+<td>A14, A15</td>
+</tr>
+<tr class="even">
+<td>opf</td>
+<td>Fixed O&amp;M ($/kWh)</td>
+<td>A16</td>
+</tr>
+<tr class="odd">
+<td>vop</td>
+<td>Variable O&amp;M ($/kWh); nuclear fuel 0.004 $/kWh included as fuel</td>
+<td>D1, D2</td>
+</tr>
+<tr class="even">
+<td>rns</td>
+<td>Renewable subsidy ($/kWh, negative = subsidy; 3.3b)</td>
+<td>A17</td>
+</tr>
+<tr class="odd">
+<td>dlf</td>
+<td>Discounted lifetime (1 − (1+wacc)^−N) / (1 − (1+wacc)^−1)</td>
+<td>A6</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="b.-amortised-cost-recovery-fixed-costs-the-cost-of-the-existing-stock" class="level4">
+<h4 class="anchored" data-anchor-id="b.-amortised-cost-recovery-fixed-costs-the-cost-of-the-existing-stock">3.2 B. Amortised (cost-recovery) fixed costs: the cost of the existing stock</h4>
+<ul>
+<li>Weighted average capex of the stock: last year’s average and last year’s new capex, weighted by last year’s Φ; in the base year, the base-year capex. Exact match with legacy.</li>
+<li>Weighted average storage cost of vintages: the same, but new vintages take the current-year marginal storage cost. Exact match with legacy.</li>
+<li>Amortised fixed cost (S1) = (average capex × (1/N + wacc/2) + dtc/N) / (cf × 8,760) + average storage cost + opf.</li>
+</ul>
+</section>
+<section id="c.-levelised-forward-looking-fixed-costs-new-plants-investment" class="level4">
+<h4 class="anchored" data-anchor-id="c.-levelised-forward-looking-fixed-costs-new-plants-investment">3.3 C. Levelised (forward-looking) fixed costs: new plants (investment)</h4>
+<p>Levelised fixed cost (S2) = (cax + dtc + tcx) / (cf × 8,760 × dlf) + marginal storage cost + opf + rns.</p>
+</section>
+<section id="b-renewable-subsidies-a17-c5" class="level4">
+<h4 class="anchored" data-anchor-id="b-renewable-subsidies-a17-c5">3.3b Renewable subsidies (A17, C5)</h4>
+<ul>
+<li>Subsidy per kWh rns(t) = −(base subsidy RenewableSubsidyBL + additional subsidy RenSubsidyAddUSDkwh × MAX(0, 1 − (t − start)/n) from the start year RenSubsidyAddStartYear, policy scenarios only), with n = RenSubsidyAddPhaseoutYrs. The inputs are labelled nominal and used as real, as legacy.</li>
+<li>It applies to wind, solar, other renewables and biomass, and to hydro if RenewableSubsidyHydro = Yes.</li>
+<li>It enters the levelised fixed cost (investment), not the cost of the existing stock or the end-user price; its revenue is rns × generation by type (negative), in the power subsidies and in row ren of the revenue by policy.</li>
+</ul>
+</section>
+<section id="d.-current-variable-costs" class="level4">
+<h4 class="anchored" data-anchor-id="d.-current-variable-costs">3.4 D. Current variable costs</h4>
+<ul>
+<li>Fuel price for power (A18; v6.2, legacy bug L126): average of the fuel price before new policies <code>fpn</code> over t-4 .. t from the base year (one year in 2022, five from 2026); legacy averages t-2 .. t+2, which reads later years. The spot price is a switch. Row <code>fpn</code> holds this year’s price, so the average reads one row and only the scenario’s own years.</li>
+<li>Fuel cost per kWh = fuel price × 0.0036 / ν. Nuclear: 0.004 $/kWh. Renewables 0.</li>
+<li>Change in existing carbon pricing against the price data (chapter Prices section 5b): tCO2/kWh × the change in the existing carbon tax and ETS price, weighted by their coverage of power and the fuel (0 for Egypt).</li>
+<li>Variable cost before new policies = variable O&amp;M + fuel cost + change in existing carbon pricing.</li>
+<li>Carbon cost per kWh generated = the new policy wedge on the fuel in power ($/GJ) × 0.0036 / ν. The wedge sums the carbon tax (carbon price × EF × fuel coverage × power coverage × (1 − ETS coverage of power)), the ETS (tax-equivalent price × EF × ETS coverage of power × (1 − OBR share of power)) and the fuel price reform for coal and gas in power.</li>
+<li>Total variable cost = cost before new policies + carbon cost + shadow price + rebate (feebates and the output-based part of the ETS). Dispatch uses it.</li>
+</ul>
+</section>
+<section id="e.-total-costs" class="level4">
+<h4 class="anchored" data-anchor-id="e.-total-costs">3.5 E. Total costs</h4>
+<ul>
+<li>Generation cost before carbon (cost recovery, legacy E3) = amortised fixed cost + variable cost before new policies.</li>
+<li>Average generation cost = generation-share-weighted average of that cost.</li>
+<li>Average carbon cost per kWh consumed = share-weighted carbon cost × generation / consumption. The ratio covers losses, own use and net exports, from the base-year balance.</li>
+</ul>
+<p>Carbon is kept out of the average generation cost and added separately (legacy, documentation 3.4.1.7), so a rebate can be computed against it.</p>
+</section>
+<section id="f.-memos" class="level4">
+<h4 class="anchored" data-anchor-id="f.-memos">3.6 F. Memos</h4>
+<p>F7 switching carbon prices, F1 system cost and F4 carbon intensity are memos. Only F4 (tCO2 per kWh = EF × 0.0036/ν) is built, as a parameter.</p>
+</section>
+<section id="j.-systems-integration-cost-of-renewables-storage" class="level4">
+<h4 class="anchored" data-anchor-id="j.-systems-integration-cost-of-renewables-storage">3.7 J. Systems integration cost of renewables (storage)</h4>
+<ul>
+<li>VRE share v = share of wind + solar + other renewables (legacy row 3851).</li>
+<li>Short-term storage (batteries): marginal hours = ast × 18 × v, with ast = 1 the share allocated to VRE and 18 = d(9 v²)/dv. Cost per hour per kWh = (battery capex + interface capex / 2 hours kWh/kW) / (dlf of renewables × 8,760) + battery opex / 8,760.</li>
+<li>Long-term storage (electrolysers): marginal units = LongTermStorageFor100pcVRE × 2 × max(0, v − x) / (1 − x)², with x = StartingPointWhenLTStorageIsNeeded (0.75). Cost per unit = (electrolyser capex + LT storage capex per kWh × StorageHoursForLTStorage) / (dlf of renewables × 8,760) + fixed opex / 8,760 + variable opex.</li>
+<li>Marginal storage cost of wind, solar and other renewables = hours × cost per hour + units × cost per unit; 0 for other types.</li>
+</ul>
+<p>Legacy has a 33% “allocation of LT storage to VRE” parameter and applies it twice (rows 3911 and 3912, a bug). The prototype applies it once.</p>
+</section>
+<section id="g.-end-user-prices-residential-and-industrial" class="level4">
+<h4 class="anchored" data-anchor-id="g.-end-user-prices-residential-and-industrial">3.8 G. End-user prices (residential and industrial)</h4>
+<ul>
+<li>Supply cost (I5, lagged) = last year’s average generation cost + transmission (0.040 $/kWh residential, 0.015 industrial). In the base year, the base-year average cost.</li>
+<li>Price before new policies (S4): up to the last historical year L, the historical retail price including VAT from the price dataset (nominal → real with the CPI index); after L, last year’s value + pass-through × change in supply cost × (1 + VAT of L), with pass-through 1 (legacy hardcode).</li>
+<li>End-user price = price before new policies + (average carbon cost × pass-through × (1 − rebate switch) + excise) × (1 + VAT). As in legacy (rows 3614-3617), VAT is charged on the new policy terms.</li>
+<li>Rebate switch (legacy rows 261, 2188, J3595): 1 in policy scenarios with PowerRebates = Yes (or Yes*) or a feebate scenario of the legacy scenario table (Feebates, Power Supply Feebates, Power feebate); the carbon cost is then not passed to electricity users.</li>
+<li>Excise per kWh before VAT = electricity excise + pass-through × (manual excise − its value in the last historical year) after that year. The electricity excise (scenario Electricity excise, policy scenarios; legacy row 2253) = grid CO2 intensity of the base year (CO2 of the fuel input to power / power output, Balances) × carbon price. The manual excise (policy scenarios with AdditionalExcise = Yes; legacy rows 3602, 3631) is the new electricity excise of ‘Manual inputs’ rows 161-162 (real, or nominal × the deflator index if NomorReal is not Real); like legacy it enters the price before policy, so up to the last historical year it is absorbed by the price data and later its change is passed through.</li>
+<li>Subsidy gap (S7) = price before new policies / (1 + VAT) − supply cost. Negative = price below the modelled supply cost (subsidies are negative).</li>
+</ul>
+</section>
+<section id="g4-and-m.-revenues-usd-million-real-and-the-revenue-totals" class="level4">
+<h4 class="anchored" data-anchor-id="g4-and-m.-revenues-usd-million-real-and-the-revenue-totals">3.9 G4 and M. Revenues (USD million real) and the revenue totals</h4>
+<p>By user group (G), each × consumption of the group: - VAT = price before new policies × VAT / (1 + VAT); - VAT on the new-policy cost passed through = (average carbon cost × pass-through × (1 − rebate switch) + excise) × VAT; - rebate (negative) = − rebate switch × average carbon cost × pass-through: the carbon cost returned to users (the VAT on it is not collected); - excise = excise per kWh × consumption, of which the electricity excise of the scenario (carbon-based) and the manual excise; - subsidy gap (signed: negative = fiscal cost, positive when the price is above the modelled supply cost); - new-policy cost (memo; it values the ETS at the tax-equivalent price) = average carbon cost.</p>
+<p>By generation type (M), with a fuel flag of 1 for coal, gas, oil and biomass: - existing taxes on generation fuels = flag × fuel use × (excise + VAT) of the price fuel; - existing subsidies on generation fuels = flag × fuel use × subsidy (negative); - change in existing carbon pricing × generation; - new policies = generation × carbon cost − CO2 × the power ETS cost rate × (1 − revenue factor): the ETS part at the permit price, as in the subsectors; - existing carbon pricing level (memo) = CO2 × the covered existing carbon tax and ETS prices.</p>
+<p>The revenue totals add a power row: existing taxes = fuel taxes + change in existing carbon pricing + electricity VAT; subsidies = fuel subsidies + subsidy gap + renewable subsidies; new policies = new-policy revenue by type + VAT on new policies + rebate + excise; existing carbon pricing level = the memo by type. In the revenue by policy (12e), the rebate and the carbon-based excise count with the carbon tax, the manual excise with the excise, and the renewable subsidies in their own row (as legacy rows 7749, 7762, 7903, the base subsidy once). The fuel subsidy and the subsidy gap do not overlap: the supply cost already uses the subsidised fuel price, so the gap is what remains between that cost and the tariff.</p>
+</section>
+</section>
+<section id="validation" class="level3">
+<h3 class="anchored" data-anchor-id="validation">4. Validation</h3>
+<ol type="1">
+<li><strong>Method = legacy.</strong> A Python reference feeds the legacy inputs (its fuel prices, shares, Φ, prices and VAT) into this method and reproduces the cached legacy rows B2, B6, B8, C7, D4, E3, the weighted average, J storage, and G1/G2 supply cost and prices, to a relative error below 1e-6.</li>
+<li><strong>Workbook = Python</strong> for the prototype’s own inputs (corrected Egypt prices, moving-average fuel prices as legacy), as for the other checks.</li>
+<li><strong>Formula uniformity</strong> and copies of scenario groups, as for the rest of the sheet.</li>
+<li><strong>Regression</strong> against the previous version (shared output codes). The power block feeds total fuel use (generation fuel use), revenues and CO2.</li>
+</ol>
+<p>Result at the first build of the price block (<code>check_report_v1.05.md</code>, PASS): 80 legacy rows reproduced, largest relative difference 5.6e-17; all 28 power variables equal the Python reference in every scenario test, largest relative difference about 5e-15; one formula per block; 3,642 codes unchanged against the previous version.</p>
+</section>
+<section id="decisions" class="level3">
+<h3 class="anchored" data-anchor-id="decisions">5. Decisions</h3>
+<ol type="1">
+<li>Fuel prices for power: moving average as legacy (user decision); spot prices remain a switch (S5).</li>
+<li>VAT on power policy terms: legacy charges VAT (row 3614); the prototype does too, as for fuels.</li>
+<li>Historical electricity prices: the corrected Egypt block (residential 0.054, 0.048, 0.043 $/kWh nominal, 2022-2024) differs from legacy’s vintage (0.097 in 2022). The prototype uses the corrected block.</li>
+<li>Producer-side subsidy data: the corrected block has none for electricity; legacy used −9.2 bn USD in 2022. The prototype reports the modelled subsidy gap instead (S7).</li>
+</ol>
+</section>
+<section id="v5.6-fuel-price-reform-price-floor-renewable-subsidies-in-real-terms" class="level3">
+<h3 class="anchored" data-anchor-id="v5.6-fuel-price-reform-price-floor-renewable-subsidies-in-real-terms">v5.6: fuel price reform, price floor, renewable subsidies in real terms</h3>
+<ul>
+<li>The electricity fuel price reform path of the scenario (section-1 rows fpr.ecy.res, fpr.ecy.ind; ScenarioDefinition 148-149, 162-163) enters the manual excise of policy scenarios (row entx), as legacy row 216 (issue I59, replicated).</li>
+<li>End-user electricity prices are floored at MinPostSubsidyPowerPrice (row rp), as legacy rows 3617 and 3646 (issue I60, replicated; 0.01 $/kWh: not binding for Egypt).</li>
+<li>The renewable subsidy inputs (ScenarioDefinition 354-355, labelled nominal) are converted to real with the CPI factor of the year (row rnsp; legacy bug L114, fixed).</li>
+<li>The levelised cost includes TransmissionCostShare (ScenarioDefinition appendix block B, default 1) of the transmission capex (legacy IncludeTransmissionCostsInGenerationCostsPercent).</li>
+</ul>
+</section>
+</section>
+<section id="legacy-cpat-power-input-chains-spec-for-a-formula-re-implementation" class="level2">
+<h2 class="anchored" data-anchor-id="legacy-cpat-power-input-chains-spec-for-a-formula-re-implementation">Legacy CPAT power-input chains: spec for a formula re-implementation</h2>
+<p>Source: <code>CPAT 1.0pre_456_NoPropData.xlsb</code> (cached run: Egypt, EGY, baseline). Items: every column of <code>data/power_tech.csv</code>, every key of <code>data/power_paths.csv</code> and <code>data/power_params.csv</code>, as copied by <code>excel_ai/mitigation/extract_power_v4_5.py</code>.</p>
+<p><strong>Cross-check result:</strong> I recomputed every copied cell from the cached Mitigation values (the <code>v_Mitigation</code> dump) and compared it with the three CSVs: <strong>0 mismatches</strong> (relative tolerance 1e-12). This covers all 9 techs × 17 traced tech columns, all 37 path rows × 20 years, and all 22 params.</p>
+<p><strong>v4.10: the legacy bugs this spec documents are fixed in the prototype’s data step (user rule: bugs are never replicated).</strong> The chains below describe legacy as it is. The prototype departs from them in five places (register L52-L56): Rule-C for every type (L52, section 1.1); the actual capacity factor from installed capacity of the base year over Power F:AC, inside the CFOverride bounds (L53, section 1.2); hydro investment from the base year only above a 50% hydro share (L54, section 2.15); country rows looked up in the country block, Power rows 112-294 (L55); default WACC for countries without CoC risk data (L56, section 6). —</p>
+<section id="conventions-and-caveats-read-first" class="level3">
+<h3 class="anchored" data-anchor-id="conventions-and-caveats-read-first">0. Conventions and caveats (read first)</h3>
+<ul>
+<li><strong>Year columns on Mitigation:</strong> K = 2021, <strong>L = 2022</strong> (= <code>FirstYearCalculations</code>), M = 2023 … AE = 2041. Row 1 holds the year headers (<code>L1 = FirstYearCalculations</code>, <code>K1 = L1-1</code>).</li>
+<li><strong>Tech row order</strong> in every Mitigation engineer-model table: coa, nga, oil/oop, nuc, wnd, sol, hyd, ore, bio (row offset 0..8). Tables A2, A4, A7 and A14/A15 use the code <code>oil</code> (column B). Tables A16, B<em>, D</em> and later use <code>oop</code>. The Power tab and the CoC tab use <code>oil</code>.</li>
+<li><strong>Defined names:</strong> use the workbook-level names (sheet index −1 in <code>names.tsv</code>). The sheet-index-17 copies (index 17 = sheet <strong>ECP</strong>) point one row higher in ScenarioDefinition, for example <code>CFOverrideIfAbove</code> → F376 instead of F377. They do not apply to Mitigation formulas. pyxlsb2 decoding of the xlsb confirms this: <code>FirstYearCalculations</code> → <code>ScenarioDefinition!$F$232</code>.</li>
+<li><strong>ScenarioDefinition column F = Dashboard.</strong> Every setting has the form <code>ScenarioDefinition!F&lt;r&gt; = IF(ScenarioDefinition!$C$5, D&lt;r&gt;, IF(ScenarioDefinition!$F$16="Default", IF(I&lt;r&gt;="Y", E&lt;r&gt;, G&lt;r&gt;), E&lt;r&gt;))</code>, with <code>C5 = FALSE</code> (“MT is active”) and <code>F16 = "Manual*"</code>. So F = E = a Dashboard cell (<code>ScenarioDefinition!E&lt;r&gt; = Dashboard!&lt;cell&gt;</code>). The settings table in section 7 lists every Dashboard cell used.</li>
+<li><strong>XLOOKUP caveat in the <code>f_</code> dumps:</strong> the LibreOffice conversion <strong>drops the first argument of every <code>_xlfn.XLOOKUP</code></strong>. Example: the dump shows <code>XLOOKUP(CoC!$B$202:$B$390,CoC!$D$202:$D$390,0.075)</code>. The true formula, decoded from the xlsb tokens with pyxlsb2, is <code>XLOOKUP(G2988, CoC!$B$202:$B$390, CoC!$D$202:$D$390, 0.075)</code>. Section 1.4 gives the corrected formulas, which the cached values confirm.</li>
+<li><strong>Scenario index:</strong> <code>Mitigation!C2173</code> = 1 in the baseline block (rows 2954–4300), from <code>INDEX($N$224:$AC$224, MATCH(B2173,$N$223:$AC$223,0))</code>. The carbon-tax copy of the engineer model sits at rows +6331 (row 9285 onwards) with C-index &gt; 1.</li>
+<li><strong>Country identity:</strong> <code>_Countryname = ScenarioDefinition!F8 = Dashboard!E2</code> (“Egypt”). <code>_Country_code = Dashboard!D644 = VLOOKUP(_Countryname, Countries!$C$6:$D$227, 2, FALSE)</code> (“EGY”). Formulas use <code>LOWER(_Country_code)</code> (“egy”) for the Power codes. MATCH and XLOOKUP are case-insensitive, so “egy” also matches “EGY”.</li>
+<li><strong>Constants:</strong> <code>_conv_ktoe_to_gwh = Mitigation!E1033 = 11.63</code> (typed value). <code>_conv_gwh_to_mwy = Mitigation!E1044 = 1000/(365*24)</code>. <code>_conv_ktoe_to_mwy = Mitigation!E1034 = E1033*E1044 = 1.32762557…</code>. <code>_conv_kWh_to_GJ = Mitigation!E1045 = 0.0036</code>.</li>
+</ul>
+<hr>
+</section>
+<section id="shared-building-blocks" class="level3">
+<h3 class="anchored" data-anchor-id="shared-building-blocks">1. Shared building blocks</h3>
+<section id="a2-main-parameters-power-technoeconomic-lookup-mitigation-rows-29762985" class="level4">
+<h4 class="anchored" data-anchor-id="a2-main-parameters-power-technoeconomic-lookup-mitigation-rows-29762985">1.1 A2 “Main Parameters”: Power technoeconomic lookup (Mitigation rows 2976–2985)</h4>
+<p>Row r = 2977 + i, with tech code <code>B&lt;r&gt;</code> ∈ {coa, nga, oil, nuc, wnd, sol, hyd, ore, bio}.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Cell</th>
+<th>Formula (names restored)</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>E<r></r></td>
+<td><code>="wld.mpp."&amp;B&lt;r&gt;</code></td>
+<td>world code</td>
+</tr>
+<tr class="even">
+<td>G<r></r></td>
+<td><code>=LOWER(_Country_code)&amp;".mpp."&amp;B&lt;r&gt;</code></td>
+<td>country code, e.g.&nbsp;<code>egy.mpp.coa</code></td>
+</tr>
+<tr class="odd">
+<td>L<r></r></td>
+<td><code>=IFERROR(MATCH(E&lt;r&gt;,Power!$A$25:$A$356,0),0)</code></td>
+<td>world index</td>
+</tr>
+<tr class="even">
+<td>K<r></r></td>
+<td><code>=IFERROR(MATCH(G&lt;r&gt;,Power!$A$25:$A$356,0),L&lt;r&gt;)</code></td>
+<td>country index, falls back to world</td>
+</tr>
+<tr class="odd">
+<td>M<r></r></td>
+<td><code>=L&lt;r&gt;</code></td>
+<td>“3rd helper”, = world</td>
+</tr>
+<tr class="even">
+<td>N<r> (CapacityFactor)</r></td>
+<td><code>=IF(INDEX(Power!E$25:E$355,$K)&gt;0, INDEX(..,$K), IF(INDEX(..,$L)&gt;0, INDEX(..,$L), INDEX(..,$M)))</code></td>
+<td><strong>country if &gt; 0, else world</strong> (all 9 techs)</td>
+</tr>
+<tr class="odd">
+<td>O<r> (CapEx $/kW)</r></td>
+<td>same pattern on <code>Power!F$25:F$356</code></td>
+<td>country if &gt; 0, else world (all techs)</td>
+</tr>
+<tr class="even">
+<td>P..T, rows 2977–2980 (coa, nga, oil, nuc)</td>
+<td>same “&gt; 0” pattern on Power!G (Efficiency.NCV), H (OpexFixed $/kW/y), I (OpexVariable $/kWh), J (WACC), K (TotalLifetime)</td>
+<td>country if &gt; 0, else world</td>
+</tr>
+<tr class="odd">
+<td>P..T, rows 2981–2985 (wnd, sol, hyd, ore, bio)</td>
+<td><code>=IFERROR(IF(ISERROR(INDEX(Power!G$25:G$356,$K)), INDEX(..,$K), IF(ISERROR(INDEX(..,$L)), INDEX(..,$L), INDEX(..,$M))),0)</code></td>
+<td><strong>bug:</strong> inverted ISERROR logic, so the result is always the <strong>world</strong> value (M); country data is ignored</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The index is relative to Power row 25: Power row = 24 + index. MATCH searches <code>Power!A25:A356</code>, which spans the world, regional, country, ctf and dtc blocks. <strong>The regional block is never looked up deliberately.</strong></li>
+<li>Egypt indices: coa 4 (row 28), nga <strong>142 (row 166, <code>egy.mpp.nga</code>)</strong>, oil 6 (row 30), nuc 7 (31), wnd 9 (33), sol <strong>206 (row 230, <code>egy.mpp.sol</code>)</strong>, hyd 8 (32), ore 11 (35), bio 12 (36). The world rows are 28–36, in the order coa nga oil nuc hyd wnd sol ore bio.</li>
+<li>Egypt results:</li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>coa</th>
+<th>nga</th>
+<th>oil</th>
+<th>nuc</th>
+<th>wnd</th>
+<th>sol</th>
+<th>hyd</th>
+<th>ore</th>
+<th>bio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>N (CF)</td>
+<td>.535</td>
+<td>.566</td>
+<td>.134</td>
+<td>.934</td>
+<td>.3</td>
+<td>.18</td>
+<td>.43229</td>
+<td>.75120</td>
+<td>.68577</td>
+</tr>
+<tr class="even">
+<td>O (capex)</td>
+<td>2000</td>
+<td><strong>1304.195</strong> (country)</td>
+<td>1345.38</td>
+<td>4000</td>
+<td>1300</td>
+<td><strong>1222.683</strong> (country)</td>
+<td>3300</td>
+<td>3500</td>
+<td>2000</td>
+</tr>
+<tr class="odd">
+<td>P (eff.)</td>
+<td>.34354</td>
+<td><strong>.594</strong> (country)</td>
+<td>.37660</td>
+<td>.38</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>.38142</td>
+<td>.25275</td>
+</tr>
+<tr class="even">
+<td>Q (opex fix)</td>
+<td>60</td>
+<td><strong>32.05</strong> (country)</td>
+<td>23.525</td>
+<td>150</td>
+<td>40</td>
+<td><strong>15</strong> (world; country H230 = 11.831 ignored)</td>
+<td>50</td>
+<td>100</td>
+<td>100</td>
+</tr>
+<tr class="odd">
+<td>R (opex var)</td>
+<td>.003</td>
+<td><strong>.004</strong></td>
+<td>.00517</td>
+<td>.004</td>
+<td>0</td>
+<td>0</td>
+<td>.001</td>
+<td>0</td>
+<td>.003</td>
+</tr>
+<tr class="even">
+<td>S (WACC)</td>
+<td>.08039</td>
+<td>.07710</td>
+<td>.07757</td>
+<td>.07397</td>
+<td>.06877</td>
+<td>.07478</td>
+<td>.08295</td>
+<td>.09869</td>
+<td>.07106</td>
+</tr>
+<tr class="odd">
+<td>T (life)</td>
+<td>30</td>
+<td>30</td>
+<td>35</td>
+<td>50</td>
+<td>30</td>
+<td>25</td>
+<td>50</td>
+<td>30</td>
+<td>30</td>
+</tr>
+</tbody>
+</table>
+<p>For nga, the country row 166 has blank E, J and K, so those fall back to world row 29. The S column (Power J) is not used under the current WACC setting (section 1.4).</p>
+</section>
+<section id="a1-a4-energy-balance-block-country-data-from-balances" class="level4">
+<h4 class="anchored" data-anchor-id="a1-a4-energy-balance-block-country-data-from-balances">1.2 A1 / A4: energy-balance block (country data from Balances)</h4>
+<ol type="1">
+<li><strong>Mitigation rows 503–520</strong> (fuels <code>C503:C520</code> = ecy coa nga oop gso die ker lpg jfu wnd sol hyd ore nuc bio bgs bdi obf; flows <code>E501:W501</code> = imports production exports stockcha worldav worldnav tes · statdiff transfer ownuse distloss tottranf power tfc · eloutput info_agrc): <code>X&lt;r&gt; = INDEX(_balances, MATCH($C$501&amp;X$501, _bal_countries&amp;_bal_flows, 0), MATCH($C&lt;r&gt;, _bal_fuels, 0))</code>. This is an array MATCH on a concatenated key. <code>_balances = Balances!A13:Z4044</code>, <code>_bal_countries = Balances!A13:A4044</code>, <code>_bal_flows = Balances!E13:E4044</code>, <code>_bal_fuels = Balances!A13:Z13</code>, and <code>C501 = _Country_code</code>. <strong>The year is not part of the key</strong>, so the Balances tab must hold a single year per country (this file has EGY 2022 only, rows 14–50).</li>
+<li><strong>Rows 584–597</strong> (C584:C597 = coa nga oop gso die ker lpg jfu wnd sol hyd ore nuc bio). With <code>C578 = (BalancesOrConsumption="Balances")</code> = TRUE:
+<ul>
+<li><code>E&lt;r&gt; = IF($C$578, V&lt;r−80&gt;, …EnergyCons…)</code>: power output, GWh (flow <code>eloutput</code>).</li>
+<li><code>F&lt;r&gt; = IF($C$578, −S&lt;r−80&gt;, …)</code>: fuel input, ktoe (minus flow <code>power</code>).</li>
+<li>Example: <code>E584 = V504</code>, <code>F584 = −S504</code>.</li>
+</ul></li>
+<li><strong>A1 rows 2959–2973:</strong>
+<ul>
+<li><code>L&lt;r&gt; = $F$&lt;584+k&gt;</code> (input ktoe) and <code>M&lt;r&gt; = $E$&lt;584+k&gt;</code> (output GWh), for k = 0..13.</li>
+<li>Row 2973 “All oil products” (code <code>oil</code>): <code>L2973 = SUM(L2961:L2966)</code>, <code>M2973 = SUM(M2961:M2966)</code> (oop gso die ker lpg jfu).</li>
+</ul></li>
+<li><strong>A4 rows 2999–3007</strong> (<code>B</code> = coa nga oil nuc wnd sol hyd ore bio):</li>
+</ol>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Cell</th>
+<th>Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>K</td>
+<td><code>=MATCH(B,$B2959:$B2973,0)</code> (oil → row 2973)</td>
+</tr>
+<tr class="even">
+<td>L (primary energy MWy)</td>
+<td><code>=INDEX(L2959:L2973,$K,0)*_conv_ktoe_to_mwy</code></td>
+</tr>
+<tr class="odd">
+<td>M (power output MWy)</td>
+<td><code>=INDEX(M2959:M2973,$K,0)*_conv_gwh_to_mwy</code></td>
+</tr>
+<tr class="even">
+<td>N (capacity actual MW)</td>
+<td><code>=INDEX(Power!$F$358:$Y$1635, MATCH(LOWER(_Country_code)&amp;"."&amp;B, Power!$C$358:$C$1635,0), MATCH(FirstYearCalculations, Power!$F$357:$Y$357,0))</code> → <strong>#N/A</strong> (bug: 2022 sits in column AB, outside F:Y = 2000–2019)</td>
+</tr>
+<tr class="odd">
+<td>O (eff. actual)</td>
+<td><code>=M/L</code> (#DIV/0! when there is no input)</td>
+</tr>
+<tr class="even">
+<td>P (eff. studies)</td>
+<td>coa, nga, oil, nuc, bio: <code>=P&lt;A2 row&gt;</code>; wnd, sol, hyd, ore: typed constant <strong>1.0</strong></td>
+</tr>
+<tr class="odd">
+<td>Q (CF actual)</td>
+<td><code>=IFERROR(M/N,0)</code> → 0 (N is #N/A)</td>
+</tr>
+<tr class="even">
+<td>R (CF studies)</td>
+<td><code>=N&lt;A2 row&gt;</code></td>
+</tr>
+<tr class="odd">
+<td>S (min CF)</td>
+<td>wnd, sol: <code>CFOverrideIfBelowWndSol</code> (ScenarioDefinition!F375 = Dashboard!G196 = 0.1); others: <code>CFOverrideIfBelowFosOth</code> (F376 = G197 = 0.01)</td>
+</tr>
+<tr class="even">
+<td>T (max CF)</td>
+<td><code>CFOverrideIfAbove</code> (F377 = G198 = 1)</td>
+</tr>
+<tr class="odd">
+<td><strong>V (eff. used)</strong></td>
+<td><code>=IFERROR(IF(O&lt;MinimumThermalEfficiency,P,O),P)</code>, with MinimumThermalEfficiency = ScenarioDefinition!F380 = Dashboard!G194 = 0.1</td>
+</tr>
+<tr class="even">
+<td><strong>W (CF used)</strong></td>
+<td><code>=IFERROR(IF(AND(Q&lt;T,Q&gt;S),Q,R),R)</code> → always R, because Q = 0</td>
+</tr>
+<tr class="odd">
+<td>X</td>
+<td><code>=1/W</code></td>
+</tr>
+<tr class="even">
+<td><strong>Y (capacity used, MW)</strong></td>
+<td><code>=M*X</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="a7-capex-time-factors-rows-30363046" class="level4">
+<h4 class="anchored" data-anchor-id="a7-capex-time-factors-rows-30363046">1.3 A7: capex time factors (rows 3036–3046)</h4>
+<ul>
+<li><code>L3036 = FirstYearCalculations</code>.</li>
+<li><code>L3037 = MATCH(L3036, CapexTimeFactorYearRange, 0)</code>, where <code>CapexTimeFactorYearRange = Power!F302:BD302</code> (2000..2050). So 2022 → 23 → Power column AB.</li>
+<li>Row r = 3038 + i:
+<ul>
+<li><code>E = "wld.ctf."&amp;scen&amp;"."&amp;B</code>. scen = <code>"med"</code> (typed) for coa, nga, oil, nuc. For wnd, sol, hyd, ore, bio, scen = <code>IF(RenewableCostDeclineRate="Low","low",IF(RenewableCostDeclineRate="Medium*","med",IF(RenewableCostDeclineRate="High","hgh","vhg")))</code>, with <code>RenewableCostDeclineRate</code> = ScenarioDefinition!F367 = Dashboard!G52 = “Medium*“.</li>
+<li><code>F = LOWER(_Country_code)&amp;"."&amp;scen&amp;".ctf."&amp;B</code> (<code>egy.med.ctf.coa</code>). The segment order differs from the world codes and the Power tab has no country ctf rows, so this <strong>never matches</strong>.</li>
+<li><code>I = IFERROR(MATCH(E,Power!$A$25:$A$356,0),0)</code>, <code>J = IFERROR(MATCH(F,Power!$A$25:$A$356,0),I)</code>.</li>
+<li><code>L..AE = INDEX(Power!F$25:$BE$597, $J, L$3037)</code>.</li>
+</ul></li>
+<li>Egypt indices → Power rows: coa 283 → 307, nga 288 → 312, oil 290 → 314, nuc 289 → 313, wnd 296 → 320, sol 295 → 319, hyd 285 → 309, ore 292 → 316 (the code <code>wld.ctf.med.ore</code> also appears at row 318; the first match wins), bio 280 → 304.</li>
+</ul>
+</section>
+<section id="a3-wacc-rows-29872996-coa-bio-rows-29882996" class="level4">
+<h4 class="anchored" data-anchor-id="a3-wacc-rows-29872996-coa-bio-rows-29882996">1.4 A3: WACC (rows 2987–2996; coa … bio = rows 2988–2996)</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Cell</th>
+<th>Formula (first XLOOKUP argument restored)</th>
+<th>Egypt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>G</td>
+<td><code>=LOWER(_Country_code)</code></td>
+<td>egy</td>
+</tr>
+<tr class="even">
+<td>AA</td>
+<td><code>=INDEX(Countries!$H$6:$H$227, MATCH(_Countryname, Countries!$C$6:$C$227,0),1)</code>, income code (Countries!H = IF(G=“Low income”,“LIC”,…,“HIC”))</td>
+<td>LMIC (Countries row 65)</td>
+</tr>
+<tr class="odd">
+<td>AC</td>
+<td>typed tech code: coa nga oil nuc wnd sol hyd ore bio</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>AB (“Tech”)</td>
+<td><code>=IFERROR(XLOOKUP(G, CoC!$B$202:$B$390, CoC!$D$202:$D$390, 0.075), 0.075) + XLOOKUP(AC, CoC!$X$203:$X$211, XLOOKUP(AA, CoC!$Y$202:$AB$202, CoC!$Y$203:$AB$211))</code></td>
+<td>.0994764 + tech adjustment</td>
+</tr>
+<tr class="odd">
+<td>I (“Country*“)</td>
+<td><code>=IFERROR(XLOOKUP(G, CoC!$B$202:$B$390, CoC!$D$202:$D$390, 0.075), 0.075) + XLOOKUP(AA, CoC!$Y$202:$AB$202, CoC!$Y$205:$AB$205)</code> (coal adjustment, row 205, applied to all techs)</td>
+<td>.124126</td>
+</tr>
+<tr class="even">
+<td>Q</td>
+<td><code>=S&lt;A2 row&gt;</code> (Power J)</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>R</td>
+<td><code>=IF(WACCSource="User", WACCUserGlobal, IF(WACCSource="Income*", IncomeDepWACC, Q))</code>. <code>IncomeDepWACC = Mitigation!S82 = INDEX(Power!$N$20:$N$23, MATCH(S81, Power!$M$20:$M$23,0))</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>S, T, U, V, W</td>
+<td><code>S = IF(L="Yes",M,R)</code>; <code>T = IF(C2173&gt;1, N, "No*")</code>; <code>U = IF(T="Delta",O,0)</code>; <code>V = IF(T="Override",P,"")</code>; <code>W = MinimumWACC</code> (ScenarioDefinition F348 = Dashboard Q193 = 0.01)</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>X (Final WACC)</strong></td>
+<td><code>=IF(D_WACCSource="Country*", I, IF(D_WACCSource="Tech", AB, MAX(IF(T="Override",V,S+U),W)))</code>, with <code>D_WACCSource = Dashboard!Q191</code> = <strong>“Tech”</strong> (<code>WACCSource</code> = ScenarioDefinition!F365 is the same cell)</td>
+<td>= AB</td>
+</tr>
+<tr class="even">
+<td>Y</td>
+<td><code>=1/(1+X)</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Only CoC column <strong>D (2022)</strong> is used: WACC is constant over time.</li>
+<li>CoC tech-adjustment table (X203:X211 × Y..AB = HIC/UMIC/LMIC/LIC), LMIC column AA: bio .03215 (row 203), nga .02465 (204), coa .02465 (205), ore .04425 (206), hyd .02725 (207), sol .02935 (208), oil .02465 (209), nuc .02725 (210), wnd .02935 (211).</li>
+<li><code>CoC!D253</code> (EGY) = 0.09947642998297449.</li>
+</ul>
+</section>
+<section id="a5-a6-discounted-lifetime-used-by-dlf_ren-and-cel" class="level4">
+<h4 class="anchored" data-anchor-id="a5-a6-discounted-lifetime-used-by-dlf_ren-and-cel">1.5 A5 / A6: discounted lifetime (used by dlf_ren and cel)</h4>
+<p><code>G3026+i = (1-$Y&lt;2988+i&gt;^$G&lt;3012+i&gt;)/(1-$Y&lt;2988+i&gt;)</code>, where <code>G3012+i = T&lt;2977+i&gt;</code> (lifetime). This is the sum over k = 0..n−1 of (1+wacc)^−k. Egypt: wnd G3030 = 8.531278484, sol G3031 = 8.338794967.</p>
+<hr>
+</section>
+</section>
+<section id="powertech-items-power_tech.csv" class="level3">
+<h3 class="anchored" data-anchor-id="powertech-items-power_tech.csv">2. PowerTech items (power_tech.csv)</h3>
+<p>Notation: i = tech offset (coa 0 … bio 8). “Rule-C” means “country Power row if &gt; 0, else world”. “Rule-W” means “world row only” (the bug in section 1.1).</p>
+<section id="cax0_usd_per_kw-capital-cost-at-time-factor-1" class="level4">
+<h4 class="anchored" data-anchor-id="cax0_usd_per_kw-capital-cost-at-time-factor-1">2.1 cax0_usd_per_kw: capital cost at time factor 1</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!H(3181+i) / Mitigation!L(3038+i)</code>.</li>
+<li><strong>Chain:</strong>
+<ul>
+<li><code>H3181 = L3099</code> (B2, “assumed capex for existing capital stock”).</li>
+<li><code>L3099 = $O2977*L3038</code> (A13: capex × time factor).</li>
+<li>So <strong>cax0 = O(2977+i)</strong>, the A2 CapEx (Power!F, Rule-C for all techs).</li>
+</ul></li>
+<li><strong>Country-specific:</strong> yes, via the Power country row <code>iso.mpp.&lt;t&gt;</code> (Egypt: nga row 166, sol row 230). Otherwise global (world rows 28–36).</li>
+<li><strong>Egypt:</strong> coa 2000, nga 1304.195, oop 1345.3800, nuc 4000, wnd 1300, sol 1222.683, hyd 3300, ore 3500, bio 2000. Matches the CSV.</li>
+</ol>
+</section>
+<section id="life_years" class="level4">
+<h4 class="anchored" data-anchor-id="life_years">2.2 life_years</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!T(2977+i)</code> (A2 TotalLifetime).</li>
+<li><strong>Chain:</strong> Power!K lookup. coa, nga, oil, nuc use Rule-C. <strong>wnd, sol, hyd, ore, bio use Rule-W (bug)</strong>.</li>
+<li><strong>Country-specific:</strong> coa..nuc only, when the country row has K (Egypt’s rows have none). Otherwise global.</li>
+<li><strong>Egypt:</strong> 30, 30, 35, 50, 30, 25, 50, 30, 30. Matches the CSV.</li>
+</ol>
+</section>
+<section id="efficiency" class="level4">
+<h4 class="anchored" data-anchor-id="efficiency">2.3 efficiency</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!L(3061+i)</code> (A9; <code>L3061 = V2999</code>, M.. = L).</li>
+<li><strong>Chain:</strong> <code>V = IFERROR(IF(O&lt;MinimumThermalEfficiency, P, O), P)</code>.
+<ul>
+<li>O = actual efficiency = Balances eloutput (GWh × 1000/8760) / (−Balances power (ktoe) × 11.63 × 1000/8760). For <code>oil</code>, the fuel sums oop + gso + die + ker + lpg + jfu.</li>
+<li>Fallback P = A2 P (Power!G: Rule-C for coa..nuc; Rule-W for bio), or the constant 1.0 for wnd, sol, hyd, ore.</li>
+<li>MinimumThermalEfficiency = Dashboard!G194 = 0.1.</li>
+</ul></li>
+<li><strong>Country-specific:</strong> yes (Balances). The fallback is the Power G column.</li>
+<li><strong>Egypt:</strong> coa .343545 (no input → P = world G28), nga .4749917 (Balances: 175355.62 GWh / 31743.44 ktoe), oop .3214695, nuc .38 (P), wnd 1.0038548, sol 1.0261872, hyd .9374616, ore 1.0 (P), bio .2527459 (P). Matches the CSV.</li>
+</ol>
+</section>
+<section id="capacity_factor" class="level4">
+<h4 class="anchored" data-anchor-id="capacity_factor">2.4 capacity_factor</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!L(3049+i)</code> (A8; <code>L3049 = W2999</code>, later years = L).</li>
+<li><strong>Chain:</strong> <code>W = IFERROR(IF(AND(Q&lt;T,Q&gt;S),Q,R),R)</code>. Q is always 0 because of the installed-capacity lookup bug (section 1.2). So <strong>CF = R = A2 N = Power!E, Rule-C (all techs)</strong>. The bounds S and T (CFOverride*) never act.</li>
+<li><strong>Country-specific:</strong> only through a country E value (Egypt’s rows have none). Effectively global for Egypt.</li>
+<li><strong>Egypt:</strong> .535, .566, .134, .934, .3, .18, .4322928214, .7512024819, .6857673941. Matches the CSV.</li>
+</ol>
+</section>
+<section id="wacc" class="level4">
+<h4 class="anchored" data-anchor-id="wacc">2.5 wacc</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!H(3203+i)</code> (B4 “Final WACC”; <code>H3203 = X2988</code> … <code>H3211 = X2996</code>).</li>
+<li><strong>Chain:</strong> section 1.4. With D_WACCSource = “Tech”: <code>wacc = IFERROR(XLOOKUP(iso, CoC!B202:B390, CoC!D202:D390, 0.075), 0.075) + XLOOKUP(tech, CoC!X203:X211, XLOOKUP(income, CoC!Y202:AB202, CoC!Y203:AB211))</code>. The income code comes from Countries!H6:H227 by country name (Countries!C6:C227).</li>
+<li><strong>Country-specific:</strong> yes (CoC country WACC 2022 plus the income-group tech adjustment).</li>
+<li><strong>Egypt:</strong> coa/nga/oop .12412642998, nuc/hyd .12672642998, wnd/sol .12882642998, ore .14372642998, bio .13162642998. Matches the CSV.</li>
+</ol>
+</section>
+<section id="dtc_usd_per_kw-decommissioning-cost" class="level4">
+<h4 class="anchored" data-anchor-id="dtc_usd_per_kw-decommissioning-cost">2.6 dtc_usd_per_kw: decommissioning cost</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!L(3110+i)</code> (A14).</li>
+<li><strong>Chain:</strong> <code>L3110 = INDEX(Power!$E$25:$E$355, $K3110)*$O2977</code>, with <code>K3110 = IFERROR(MATCH("wld.dtc."&amp;B3110, Power!$A$25:$A$356,0),0)</code> (rows 346–354). In words: world decommissioning share × A2 capex.</li>
+<li><strong>Country-specific:</strong> only via capex (O). The share is global.</li>
+<li><strong>Egypt:</strong> 100, 13.04195, 33.0210467, 532.133695, 39, 73.36098, 660, 253.788727, 145.02213. Matches the CSV.</li>
+</ol>
+</section>
+<section id="tcx_usd_per_kw-transmission-capex-legacy-label-not-used-in-the-model-at-all" class="level4">
+<h4 class="anchored" data-anchor-id="tcx_usd_per_kw-transmission-capex-legacy-label-not-used-in-the-model-at-all">2.7 tcx_usd_per_kw: transmission capex (legacy label: “not used in the model at all”)</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!L(3121+i)</code> (A15).</li>
+<li><strong>Chain:</strong> <code>L3121 = INDEX(Power!$F$25:$F$355, $K3110)*$O2977</code>. It reuses A14’s helper K3110 instead of its own K3121 (same value). In words: world transmission share (Power F346:F354) × capex.</li>
+<li><strong>Country-specific:</strong> via capex only.</li>
+<li><strong>Egypt:</strong> 597.474101, 382.180237, 447.878551, 449.426341, 405.468607, 335.334508, 756.528401, 347.657362, 267.624027. Matches the CSV.</li>
+</ol>
+</section>
+<section id="opf_usd_per_kwh-fixed-om-per-kwh" class="level4">
+<h4 class="anchored" data-anchor-id="opf_usd_per_kwh-fixed-om-per-kwh">2.8 opf_usd_per_kwh: fixed O&amp;M per kWh</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!L(3132+i)</code> (A16).</li>
+<li><strong>Chain:</strong> <code>L3132 = $Q2977/(365*24*L3049)</code>, that is Power!H (opex fixed $/kW/y; Rule-C for coa..nuc, <strong>Rule-W for wnd..bio</strong>) / (8760 × CF used).</li>
+<li><strong>Country-specific:</strong> via H (coa..nuc country rows) and CF. For Egypt: nga uses country H166 = 32.05. <strong>sol uses world 15, not country 11.831 (bug).</strong></li>
+<li><strong>Egypt:</strong> .0128024581, .0064640915, .0200410618, .0183332844, .0152207002, .0095129376, .0132034637, .0151963357, .0166463515. Matches the CSV.</li>
+</ol>
+</section>
+<section id="vop_usd_per_kwh-variable-om" class="level4">
+<h4 class="anchored" data-anchor-id="vop_usd_per_kwh-variable-om">2.9 vop_usd_per_kwh: variable O&amp;M</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!L(3339+i)</code> (D1).</li>
+<li><strong>Chain:</strong> <code>L3339 = $R2977</code> (Power!I; Rule-C for coa..nuc, Rule-W for wnd..bio). The H column code <code>egy.mit.vro.pow.&lt;t&gt;.t.1</code> is a label only.</li>
+<li><strong>Country-specific:</strong> coa..nuc via the country row (Egypt nga = .004 from row 166, world .002).</li>
+<li><strong>Egypt:</strong> .003, .004, .00517, .004, 0, 0, .001, 0, .003. Matches the CSV.</li>
+</ol>
+</section>
+<section id="fuel_fixed_usd_per_kwh-nuclear-only-0-for-the-others-by-script" class="level4">
+<h4 class="anchored" data-anchor-id="fuel_fixed_usd_per_kwh-nuclear-only-0-for-the-others-by-script">2.10 fuel_fixed_usd_per_kwh (nuclear only; 0 for the others by script)</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!L3353</code> (D2, nuclear row). The script writes 0 for the other techs (their D2 rows are fuel prices, handled through price_code).</li>
+<li><strong>Chain:</strong> <code>L3353 = K2727</code> (<strong>column shift:</strong> the 2022 cell takes the 2021 value; <code>M3353 = L2727</code>). <code>K2727 = K$710</code>, and <code>Mitigation!K710:AE710</code> hold the <strong>typed constant 0.004</strong> (“Uranium Fuel Cost”, $/kWhe). Power!G22 = 0.004 is the documented source but is not linked.</li>
+<li><strong>Country-specific:</strong> no (global constant).</li>
+<li><strong>Egypt:</strong> nuc 0.004, others 0. Matches the CSV.</li>
+</ol>
+</section>
+<section id="cap0_mw-base-year-effective-capacity" class="level4">
+<h4 class="anchored" data-anchor-id="cap0_mw-base-year-effective-capacity">2.11 cap0_mw: base-year effective capacity</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!Y&lt;A4 row&gt;</code> (A4, rows 2999–3007 matched by code; oop → <code>oil</code> row 3001).</li>
+<li><strong>Chain:</strong> <code>Y = M*(1/W)</code>, that is gen0 / CF used.</li>
+<li><strong>Country-specific:</strong> yes (Balances).</li>
+<li><strong>Egypt:</strong> 0, 35367.0761395, 15765.4362799, 0, 2387.25143731, 3326.62425071, 3879.79648188, 0, 0. Matches the CSV.</li>
+</ol>
+</section>
+<section id="gen0_mwy-base-year-generation" class="level4">
+<h4 class="anchored" data-anchor-id="gen0_mwy-base-year-generation">2.12 gen0_mwy: base-year generation</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!M&lt;A4 row&gt;</code>.</li>
+<li><strong>Chain:</strong> <code>M = INDEX(M2959:M2973,K,0)*_conv_gwh_to_mwy</code>, where M2959.. = E584.. = Balances flow <code>eloutput</code> (GWh) for the fuel. oil = sum of oop..jfu.</li>
+<li><strong>Country-specific:</strong> yes (Balances).</li>
+<li><strong>Egypt:</strong> 0, 20017.765095, 2112.5684615, 0, 716.17543119, 598.79236513, 1677.2081677, 0, 0. Matches the CSV.</li>
+</ol>
+</section>
+<section id="retire_rate" class="level4">
+<h4 class="anchored" data-anchor-id="retire_rate">2.13 retire_rate</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!J(4011+i)</code> (K6).</li>
+<li><strong>Chain:</strong>
+<ul>
+<li><code>J = 1/I</code>, with <code>I(4011+i) = T(2977+i)</code> (lifetime).</li>
+<li>Hydro: <code>J4017 = IF(HydroDoesntRetire="Yes",0,1/I4017)</code>, where HydroDoesntRetire = ScenarioDefinition F350 = Dashboard V198 = “Yes”.</li>
+</ul></li>
+<li><strong>Country-specific:</strong> only via lifetime (coa..nuc country K). Effectively global.</li>
+<li><strong>Egypt:</strong> 1/30, 1/30, 1/35, 1/50, 1/30, 1/25, 0, 1/30, 1/30. Matches the CSV.</li>
+</ol>
+</section>
+<section id="invest_permitted" class="level4">
+<h4 class="anchored" data-anchor-id="invest_permitted">2.14 invest_permitted</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!G(4061+i)</code> (L3).</li>
+<li><strong>Chain:</strong>
+<ul>
+<li><code>G = IF(E="If Present*", F, E)</code>.</li>
+<li><code>E = ScenarioDefinition!F$397..F$405</code> (NewInvCoa..NewInvBio = Dashboard U51:U59). Egypt: “If Present*” except wnd and sol = “Yes”.</li>
+<li><code>F = IF(OR(_Country_code="WAV",_Country_code="WMR"),"Yes", IF(L(3932+i)/L3941&gt;0.001,"Yes","No"))</code>, where <code>L3932+i = Y(A4)</code> is cap0 and <code>L3941 = SUM(L3932:L3940)</code>.</li>
+</ul></li>
+<li><strong>Country-specific:</strong> yes (capacity share from Balances), unless the Dashboard overrides it.</li>
+<li><strong>Egypt:</strong> No, Yes, Yes, No, Yes, Yes, Yes, No, No.&nbsp;Matches the CSV.</li>
+</ol>
+</section>
+<section id="invest_start" class="level4">
+<h4 class="anchored" data-anchor-id="invest_start">2.15 invest_start</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!H(4061+i)</code>.</li>
+<li><strong>Chain:</strong>
+<ul>
+<li><code>H = NewInv&lt;Tech&gt;Year</code>, that is ScenarioDefinition F407..F415 = Dashboard V51:V59 (2022, 2022, 2022, 2030, 2022, 2022, 2030, 2030, 2022).</li>
+<li><strong>Hydro bug:</strong> <code>H4067 = IF($L$3827&gt;50%, FirstYearCalculations, NewInvHydYear)</code>. L3827 is the year header of table I5 (2022), so the test is always true and hydro always starts in FirstYearCalculations (2022) instead of 2030. Probably intended: the hydro generation share L3846.</li>
+</ul></li>
+<li><strong>Country-specific:</strong> no (Dashboard).</li>
+<li><strong>Egypt:</strong> 2022, 2022, 2022, 2030, 2022, 2022, <strong>2022</strong>, 2030, 2022. Matches the CSV, including the hydro bug.</li>
+</ol>
+</section>
+<section id="scaleup_rate" class="level4">
+<h4 class="anchored" data-anchor-id="scaleup_rate">2.16 scaleup_rate</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!G(4130+i)</code>.</li>
+<li><strong>Chain:</strong>
+<ul>
+<li>coa, nga, hyd: <code>MaxNonVREAsPCOfTotalGen</code> (ScenarioDefinition F359 = Dashboard Q194 = 0.05).</li>
+<li>oop, nuc, ore, bio: <code>MaxNonNucOreBioAsPCOfTotalGen</code> (F360 = Q195 = 0.02).</li>
+<li>wnd, sol: <code>VREMaxPercentagePointofTotalGen = Mitigation!S91 = INDEX(S85:S90, MATCH($O91, O85:O90, 0))</code>, where <code>O91 = ScenarioDefinition!F362</code> (MaxScaleUpRateCategory = Dashboard G53 = “CtryDefault*“). The options:
+<ul>
+<li>“CtryDefault*” → <code>S85 = INDEX(Power!$C$2349:$C$2570, MATCH(LOWER(_Country_code), Power!$B$2349:$B$2570, 0))</code></li>
+<li>Low → Power!J20 (.01); Medium → J21 (.02); High → J22 (.03); Vhigh → J23 (.04)</li>
+<li>UserDefined → MaxWindSolarScaleup (F361 = Dashboard Q196 = .05)</li>
+</ul></li>
+</ul></li>
+<li><strong>Country-specific:</strong> wnd and sol under CtryDefault* (Power B2349:C2570; EGY row 2408 = 0.02). The others are global.</li>
+<li><strong>Egypt:</strong> .05, .05, .02, .02, .02, .02, .05, .02, .02. Matches the CSV.</li>
+</ol>
+</section>
+<section id="planned_retirement-coal-no-for-the-others-by-script" class="level4">
+<h4 class="anchored" data-anchor-id="planned_retirement-coal-no-for-the-others-by-script">2.17 planned_retirement (coal; “No” for the others by script)</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!J3991</code> (K5 “Use Data?”).</li>
+<li><strong>Chain:</strong>
+<ul>
+<li><code>J3991 = INDEX(Power!$F$1750:$F$1857, Mitigation!I3992)</code>, with <code>I3992 = MATCH(_Country_code, Power!$D$1750:$D$1878, 0)</code> = 25 → Power row 1774 (EGY).</li>
+<li><code>Power!F1750.. = IF(AVERAGE(Z:AJ)&lt;0.1,"No","Yes")</code> over the 5-year-averaged retirements.</li>
+<li>Use: <code>L3991 = IFERROR(IF(OR(ISNA(INDEX(Power!$D$1749:$BD$1878,$I3992,L3990)), $J3991="No"),"DoNotUse","UseData"),"DoNotUse")</code>. The ISNA probe is offset by one row and three columns (bug, harmless).</li>
+</ul></li>
+<li><strong>Country-specific:</strong> yes (Power planned-retirement block).</li>
+<li><strong>Egypt:</strong> No (all 9). Matches the CSV.</li>
+</ol>
+</section>
+<section id="script-constants-no-legacy-chain" class="level4">
+<h4 class="anchored" data-anchor-id="script-constants-no-legacy-chain">2.18 Script constants (no legacy chain)</h4>
+<ul>
+<li><code>code</code> and <code>name</code>: labels.</li>
+<li><code>price_code</code> (coa.pow, nga.pow, oop.all, bio.all): the section-2 fuel price rows that D2 uses.</li>
+<li><code>vre</code> (wnd, sol, ore = 1) and <code>vre_share</code>: legacy C3 and rows 3851 / 3907 use these sets.</li>
+<li><code>dispatch</code> (coa, nga = cg).</li>
+<li><code>rns_usd_per_kwh = 0</code>. The nearest legacy analogue is RenewableSubsidyBL = ScenarioDefinition F354 = Dashboard L55 = 0.</li>
+<li><code>source</code>.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="powerpaths-items-power_paths.csv-years-20222041-mitigation-l..ae" class="level3">
+<h3 class="anchored" data-anchor-id="powerpaths-items-power_paths.csv-years-20222041-mitigation-l..ae">3. PowerPaths items (power_paths.csv; years 2022–2041 = Mitigation L..AE)</h3>
+<section id="tcf-capex-time-factor" class="level4">
+<h4 class="anchored" data-anchor-id="tcf-capex-time-factor">3.1 tcf|<t>: capex time factor</t></h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!L..AE(3038+i)</code> (A7).</li>
+<li><strong>Chain:</strong> section 1.3, that is <code>INDEX(Power!F$25:$BE$597, MATCH("wld.ctf."&amp;scen&amp;"."&amp;t, Power!$A$25:$A$356,0), MATCH(year, Power!$F$302:$BD$302,0))</code>.</li>
+<li><strong>Country-specific:</strong> no (world rows only). It depends on the Dashboard G52 scenario for the renewables.</li>
+<li><strong>Egypt:</strong> coa, nga, oop, nuc, hyd, ore, bio are 1.0 every year. wnd (Power row 320): 1.05 (2022), 1.0, .993, … .909 (2041). sol (row 319): 1.05, 1.0, .955, … .533. Matches the CSV.</li>
+</ol>
+</section>
+<section id="cbat-cint-obat-battery-capex-interface-capex-battery-opex" class="level4">
+<h4 class="anchored" data-anchor-id="cbat-cint-obat-battery-capex-interface-capex-battery-opex">3.2 cbat, cint, obat: battery capex, interface capex, battery opex</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!L..AE 3887 / 3888 / 3891</code> (J2).</li>
+<li><strong>Chain:</strong>
+<ul>
+<li><code>L3882 = MATCH(L3881, Power!$F$1883:$BD$1883)</code>. This is an <strong>approximate</strong> match (no third argument; the years are sorted ascending). L3881 = FirstYearCalculations + k.</li>
+<li><code>L3887 = INDEX(Power!$F$1899:$BD$1899,1,L3882)</code> (Battery Capex $/kWh).</li>
+<li><code>L3888 = INDEX(Power!$F$1903:$BD$1903,1,L3882)</code> (Batteryinterface Capex $/kW).</li>
+<li><code>L3891 = INDEX(Power!$F$1900:$BD$1900,1,L3882)</code> (Battery OpexFix $/kWh/y).</li>
+<li>Power rows 1899–1911 are themselves formulas: € rows 1884–1895 converted to $ (2021 EUR→USD factor Power!D1897 = 1.18).</li>
+</ul></li>
+<li><strong>Country-specific:</strong> no.</li>
+<li><strong>Egypt:</strong> cbat 300.61444 (2022) … ; cint 150.30722 … ; obat 9.47422 … . Matches the CSV.</li>
+</ol>
+</section>
+<section id="cel-electrolyser-cost-per-marginal-unit-lt-storage" class="level4">
+<h4 class="anchored" data-anchor-id="cel-electrolyser-cost-per-marginal-unit-lt-storage">3.3 cel: electrolyser cost per marginal unit (LT storage)</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!L3900 + L3901 + L3902</code> (per year).</li>
+<li><strong>Chain:</strong>
+<ul>
+<li><code>L3900 = L3897/L3885</code>, where <code>L3897 = INDEX(Power!$F$1907:$BD$1907,1,L3882) + L3896</code> (electrolyser capex). Here <code>L3896 = L3895*L3894</code>, <code>L3895 = INDEX(Power!$F$1911:$BD$1911,1,L3882)</code> (storage tank $/kWh), and <code>L3894 = $E3879 = StorageHoursForLTStorage</code> (ScenarioDefinition F395 = Dashboard V196 = 1000).</li>
+<li><code>L3885 = L3883*365*24</code>, with <code>L3883 = AVERAGE($G3030:$G3031)</code> (dlf_ren, section 1.5).</li>
+<li><code>L3901 = L3898/L3884</code>, with <code>L3898 = INDEX(Power!$F$1908:$BD$1908,…)</code> (opex fixed) and <code>L3884 = 8760</code>.</li>
+<li><code>L3902 = L3899 = INDEX(Power!$F$1909:$BD$1909,…)</code> (variable opex).</li>
+</ul></li>
+<li><strong>Country-specific:</strong> <strong>yes</strong>, through dlf_ren (the country WACC of wnd and sol, plus their lifetimes). The Power costs are global.</li>
+<li><strong>Egypt:</strong> 0.0698625848 (2022), 0.0675552617, … . Matches the CSV.</li>
+</ol>
+</section>
+<section id="incf-income-dependent-factor-on-gdp-elasticities" class="level4">
+<h4 class="anchored" data-anchor-id="incf-income-dependent-factor-on-gdp-elasticities">3.4 incf: income-dependent factor on GDP elasticities</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!L..AE2433</code>.</li>
+<li><strong>Chain:</strong>
+<ul>
+<li><code>L2433 = IF($E2425, L2432/$G2432, 1)</code>. <code>E2425 = IF(D2425="Yes*",1,0)</code>, with <code>D2425 = IncElAdj</code> (ScenarioDefinition F262 = Dashboard L24 = “Yes*“). <code>G2432 = 0.74</code> (typed).</li>
+<li><code>L2432 = MAX(0, 0.012019x⁴ − 0.365464x³ + 4.011846x² − 18.722243x + 31.59949 + 0.16)</code>, with <code>x = L2431 = MIN(10, LN(L2429))</code>.</li>
+<li>GDP per capita, <code>$ per capita</code>:
+<ul>
+<li>2022: <code>L2429 = L2442/L2428*10^3</code> (not lagged).</li>
+<li>Later years: <code>M2429 = L2443/L2428*10^3</code> (previous year’s post-policy GDP / previous year’s population).</li>
+</ul></li>
+<li><code>L2443 (GDP post) = K2442*(1+L2446)</code>. <code>L2446 = L2444 + L2445</code>, where L2444 = row 480 = row 463 × F287 and L2445 = endogenous change K8288 (0 in the baseline). <code>L2442 (GDP pre) = L$465</code>.</li>
+<li>Row 465 (USD bn, ResultsYear constant prices):
+<ul>
+<li>J and K (2020–2021): <code>= CHOOSE($E$460, J423, J423, J443)</code> = row 422 × row 467. Row 422 = WEO NGDP (LCU bn, row 424) / WEO XDC_USD.PA_RT (row 432). Row 467 = CHOOSE(H467, row 453, row 418); with DfSelection “World” this is row 453 = USA NGDP_D(ResultsYear) / USA NGDP_D(y).</li>
+<li>From L: <code>= K465*(1+L463)</code>, with <code>L463 = CHOOSE($E$460, L420, 'Manual inputs'!J231, L441)</code>. E460 = MATCH(GDPScenario “WEO*“, {”WEO”,“Manual”,“SSPs”}, 0) = 1.</li>
+</ul></li>
+<li>Row 420 = WEO NGDP_RPCH/100 up to the WEO last year (2031), extrapolated after that. <code>F287 = CHOOSE(MATCH(GdpAdj,{"Low","Base","High"},0), 50%, 100%, 150%)</code> = 1, with GdpAdj = Dashboard V20 = “Base<em>” (the </em> acts as a wildcard).</li>
+<li>Row 428 population = WEO LP.A (millions), extrapolated <code>prev*(1+growth)</code>.</li>
+<li>WEO lookups: <code>INDEX(WEO!$C$9:$AU$3333, MATCH(iso&amp;"."&amp;code, WEO!$D$9:$D$3333, 0), MATCH(year, WEO!$C$9:$AU$9, 0))</code>.</li>
+</ul></li>
+<li><strong>Country-specific:</strong> yes (WEO GDP and population).</li>
+<li><strong>Egypt:</strong> 1.0271517247 (2022), 1.0271517247 (2023), 1.0205698359, … , 0.9460252655 (2041). Matches the CSV.</li>
+</ol>
+</section>
+<section id="shock-exogenous-shock-on-energy-consumption" class="level4">
+<h4 class="anchored" data-anchor-id="shock-exogenous-shock-on-energy-consumption">3.5 shock: exogenous shock on energy consumption</h4>
+<ol type="1">
+<li><strong>Copied:</strong> <code>Mitigation!L..AE2439</code> (<code>= L$483</code> …).</li>
+<li><strong>Chain:</strong>
+<ul>
+<li>Row 483: L (2022) is empty (0). M483 = E478 (2023) and N483 = F478 (2024). O483 onwards are empty (0).</li>
+<li><code>E478 = IF(M479=FirstYearCalculations+1, IFERROR(INDEX(GHGs!$G$1202:$G$1388, MATCH(_Country_code, GHGs!$B$1202:$B$1388,0)),"0%"), 0)</code>. The test is always true. The fallback is the text “0%”.</li>
+<li><code>F478 = IF(N479=FirstYearCalculations+2, IFERROR(INDEX(GHGs!$H$1202:$H$1388, …),0%),0)</code>.</li>
+<li>GHGs!G1202:H1388 are typed calibration values, with key <code>GHGs!B</code> = ISO (B = INDEX(Countries!D, MATCH(name D, Countries!C))). Egypt is row 1224: G = −0.2081330830, H = 0.0923714286.</li>
+</ul></li>
+<li><strong>Country-specific:</strong> yes (GHGs).</li>
+<li><strong>Egypt:</strong> 0, −0.20813308302, 0.09237142857, then 0 to 2041. Matches the CSV.</li>
+</ol>
+</section>
+<section id="pret-planned-retirement-nameplate-mw" class="level4">
+<h4 class="anchored" data-anchor-id="pret-planned-retirement-nameplate-mw">3.6 pret|<t>: planned retirement, nameplate MW</t></h4>
+<ol type="1">
+<li><strong>Legacy:</strong> coal only, <code>Mitigation!L..3992</code>. The script writes zeros for all techs. <code>L3992 = IF(L3991="DoNotUse", L3932*$J4011, INDEX(Power!$G$1750:$BD$1878, $I3992, L3990))</code>, with <code>L3990 = MATCH(L3989, Power!$G$1749:$BD$1749, 0)</code> (2022 → 22 → column AB).</li>
+<li><strong>Data:</strong> the Power averaged block 1750–1857 (5-year centred mean of the raw block 1639–1746: <code>H1750 = AVERAGE(F1639:J1639)</code> …). When the data are not used, legacy row 3992 holds the exponential retirement (capacity × rate), which is <strong>not</strong> the planned-retirement series.</li>
+<li><strong>Country-specific:</strong> yes (coal only).</li>
+<li><strong>Egypt:</strong> the data row (Power 1774) is all 0. The legacy row 3992 is 0 because coal capacity = 0. The CSV holds 0 everywhere, which is consistent.</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="powerparams-items-power_params.csv" class="level3">
+<h3 class="anchored" data-anchor-id="powerparams-items-power_params.csv">4. PowerParams items (power_params.csv)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Key</th>
+<th>Copied cell</th>
+<th>Chain to data</th>
+<th>Country?</th>
+<th>Egypt (CSV = legacy)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>tmc|res</td>
+<td>Mitigation!L3599</td>
+<td><code>=ResidentialTransmissionCost</code> = <strong>Power!G20</strong></td>
+<td>no</td>
+<td>0.04</td>
+</tr>
+<tr class="even">
+<td>tmc|ind</td>
+<td>Mitigation!L3628</td>
+<td><code>=IndustrialTransmissionCost</code> = <strong>Power!G21</strong></td>
+<td>no</td>
+<td>0.015</td>
+</tr>
+<tr class="odd">
+<td>pass</td>
+<td>Mitigation!L3596</td>
+<td><code>=$J3596</code>; <code>J3596 = PowerSectorPriceChangePassOn</code> = ScenarioDefinition F343 = <strong>Dashboard!L51</strong></td>
+<td>no</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td>gen_per_cons</td>
+<td>Mitigation!I3723</td>
+<td><code>=1+SUM(I3719:I3722)</code>; telescopes to <strong>L3748/L3741</strong> = generation (ktoe) / final power demand (ktoe), see below</td>
+<td>yes (Balances)</td>
+<td>1.2211686765</td>
+</tr>
+<tr class="odd">
+<td>dlf_ren</td>
+<td>Mitigation!L3883</td>
+<td><code>=AVERAGE($G3030:$G3031)</code> (section 1.5: wnd and sol annuity sums with country WACC)</td>
+<td>yes (CoC)</td>
+<td>8.4350367257</td>
+</tr>
+<tr class="even">
+<td>st_alloc</td>
+<td>Mitigation!E3871</td>
+<td><code>=ScenarioDefinition!F$388</code> (AllocateSTStorageToVRE) = <strong>Dashboard!V190</strong></td>
+<td>no</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td>st_marg_hours</td>
+<td>Mitigation!E3873</td>
+<td><code>=2*E3872</code>; <code>E3872 = ScenarioDefinition!F$389</code> (TotalHoursStorageFor100pcVRE) = <strong>Dashboard!V191</strong> (9)</td>
+<td>no</td>
+<td>18</td>
+</tr>
+<tr class="even">
+<td>st_ratio</td>
+<td>Mitigation!E3874</td>
+<td><code>=ScenarioDefinition!F$390</code> (StorageToInterfaceRatioSTStorage) = <strong>Dashboard!V192</strong></td>
+<td>no</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>lt_start</td>
+<td>Mitigation!E3877</td>
+<td><code>=StartingPointWhenLTStorageIsNeeded</code> = ScenarioDefinition F393 = <strong>Dashboard!V194</strong></td>
+<td>no</td>
+<td>0.75</td>
+</tr>
+<tr class="even">
+<td>lt_alloc</td>
+<td>Mitigation!E3876</td>
+<td><code>=ScenarioDefinition!F$392</code> (AllocateLTStorageToVRE) = <strong>Dashboard!V193</strong></td>
+<td>no</td>
+<td>0.33</td>
+</tr>
+<tr class="odd">
+<td>sh_nxp</td>
+<td>Mitigation!I3719</td>
+<td><code>=IF(L3741=0,0,L3742/L3741)</code>; <code>L3742 = F3719 = −SUM($E$503,$G$503)</code> = −(imports + exports) of Balances <code>ecy</code></td>
+<td>yes</td>
+<td>0.0092445306</td>
+</tr>
+<tr class="even">
+<td>sh_tsd</td>
+<td>Mitigation!I3720</td>
+<td><code>=L3743/L3741</code>; <code>L3743 = F3720 = −SUM($N$503,$O$503,$Q$503)</code> = −(statdiff + transfer + distloss), ecy</td>
+<td>yes</td>
+<td>0.1899579758</td>
+</tr>
+<tr class="odd">
+<td>sh_eou</td>
+<td>Mitigation!I3721</td>
+<td><code>=L3744/L3741</code>; <code>L3744 = F3721 = −$P$503</code> = −ownuse, ecy</td>
+<td>yes</td>
+<td>0.0381940028</td>
+</tr>
+<tr class="even">
+<td>sh_add</td>
+<td>Mitigation!I3722</td>
+<td><code>=L3745/L3741</code>; <code>L3745 = L3748 − SUM(L3741:L3744)</code> (residual)</td>
+<td>yes</td>
+<td>−0.0162278327</td>
+</tr>
+<tr class="odd">
+<td>extra_eff</td>
+<td>Mitigation!M3719</td>
+<td><code>=M2198</code>; <code>M2198 = ScenarioDefinition!$F$242</code> (AdditionalEfficiencyPower) = <strong>Dashboard!L134</strong></td>
+<td>no</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>maxcf_cg</td>
+<td>Mitigation!L3783</td>
+<td><code>=MaximumCoalCF</code> = ScenarioDefinition F372 = <strong>Dashboard!G192</strong>. Gas has its own <code>L3784 = MaximumGasCF</code> (F373 = G193, also 0.9); the CSV keeps one value</td>
+<td>no</td>
+<td>0.9</td>
+</tr>
+<tr class="odd">
+<td>k_dispatch</td>
+<td>Mitigation!M3720</td>
+<td><code>=kDispatch</code> = ScenarioDefinition F346 = <strong>Dashboard!G190</strong></td>
+<td>no</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>k_invest</td>
+<td>Mitigation!M3721</td>
+<td><code>=kInvestment</code> = ScenarioDefinition F347 = <strong>Dashboard!Q190</strong></td>
+<td>no</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>min_cost</td>
+<td>Mitigation!K3463</td>
+<td><code>=MinPostSubsidyPowerPrice</code> = ScenarioDefinition F351 = <strong>Dashboard!L192</strong></td>
+<td>no</td>
+<td>0.01</td>
+</tr>
+<tr class="even">
+<td>early_max</td>
+<td>Mitigation!J3975</td>
+<td><strong>typed constant 0.8</strong> (not linked to MaxCostBasedEarlyRetirement)</td>
+<td>no</td>
+<td>0.8</td>
+</tr>
+<tr class="odd">
+<td>early_factor</td>
+<td>Mitigation!F3993</td>
+<td><code>=IF(C2173=1, IF(EarlyRetirementInBaseline="Yes", MaxCostBasedEarlyRetirement, 0%), MaxCostBasedEarlyRetirement)</code>; F379 = <strong>Dashboard!Q52</strong> (“Yes”), F378 = <strong>Dashboard!Q51</strong> (0.8)</td>
+<td>no</td>
+<td>0.8</td>
+</tr>
+<tr class="even">
+<td>ktoe_gwh</td>
+<td>(script constant)</td>
+<td>legacy <code>_conv_ktoe_to_gwh</code> = Mitigation!E1033 = 11.63 (typed)</td>
+<td>no</td>
+<td>11.63</td>
+</tr>
+</tbody>
+</table>
+<p><strong>gen_per_cons and sh_* details (base year L = 2022):</strong></p>
+<ul>
+<li><strong>L3741, total final power demand (ktoe):</strong> <code>=SUM(L3725:L3739)</code>, with <code>L37xx = E37xx</code>.
+<ul>
+<li><code>D3725:E3738 = TRANSPOSE(_Power_Use_Formatted)</code>, where <code>_Power_Use_Formatted = Mitigation!G582:T583</code>.</li>
+<li><code>E3739 = $V$583</code>.</li>
+<li><code>G583..T583 = IF($C$578, E531..R531, …)</code> and <code>V583 = T531</code>.</li>
+<li>Row 531 = Balances <code>ecy</code> (C503) for the flows in <code>E529:R529, T529</code>: road, rail, domesair, domesnav, resident, food_forest, services, mining_chemicals, ironstl, nonferrmet, machinery, cement, other_manufact, construc, plus ononspec. Excluded: U583 (fuel transformation / own use) and nonenuse.</li>
+<li>Egypt: 15495.7198104.</li>
+</ul></li>
+<li><strong>L3748, actual generation (ktoe):</strong> <code>=L3751/_conv_ktoe_to_gwh</code>; <code>L3751 = L3754/_conv_gwh_to_mwy</code>; <code>L3754 = L3813 = SUM(L3804:L3812)</code>; <code>L3804+i = M(A4 row)</code> (gen0). In short: Σ gen0 (MWy) × 8.76 / 11.63. Egypt: 18922.8876526.</li>
+<li><code>I3722 = (L3748 − L3741 − L3742 − L3743 − L3744)/L3741</code>, so <code>I3723 = L3748/L3741</code> exactly.</li>
+<li>The <code>BalancesOrConsumption="Consumption"</code> branch (ScenarioDefinition F234 = Dashboard G136; Egypt = “Balances”) would take the shares from <code>J3719:J3721 = $H$573:$H$575</code> instead.</li>
+</ul>
+<hr>
+</section>
+<section id="legacy-power-tab-layout-copy-at-the-same-cell-addresses" class="level3">
+<h3 class="anchored" data-anchor-id="legacy-power-tab-layout-copy-at-the-same-cell-addresses">5. Legacy <strong>Power</strong> tab layout (copy at the same cell addresses)</h3>
+<p>Values are typed except where noted. Code keys are always in <strong>column A</strong> (lower-case); a copy of old data sits to the right (columns Q/R..AA, “OLD DATA”; not used). All lookups that A2, A7 and A14 make use <code>MATCH(code, Power!$A$25:$A$356, 0)</code> with <code>INDEX(Power!&lt;col&gt;$25:&lt;col&gt;$356, idx)</code>, so rows 25–356 must keep their exact positions, <strong>including the regional block and the order of duplicates</strong>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Block</th>
+<th>Rows</th>
+<th>Title / header</th>
+<th>Key column and code pattern</th>
+<th>Value columns</th>
+<th>Used by</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Year header</td>
+<td>1</td>
+<td>F1:BD1 = 2000..2050</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>Overview</td>
+<td>2–14</td>
+<td>text (A data section, C method, K unit, N level, P source)</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>Misc. parameters</td>
+<td>15–23</td>
+<td>title A15, A16 “Global level”, header row 19 (B Quantity, D Sector, E Source, F Unit, G Value)</td>
+<td>rows 20–23 by position</td>
+<td>G20 res T&amp;D 0.04 (<code>ResidentialTransmissionCost</code>); G21 ind T&amp;D 0.015 (<code>IndustrialTransmissionCost</code>); G22 nuclear fuel 0.004 (not linked); G23 <code>=ROUND(AVERAGE(#REF!),2)</code> (broken, unused)</td>
+<td>tmc|res, tmc|ind</td>
+</tr>
+<tr class="even">
+<td>RE scale-up categories</td>
+<td>19–23</td>
+<td>I19 header; I20:I23 = Low, Medium*, High, Vhigh</td>
+<td>position</td>
+<td>J20:J23 = .01 .02 .03 .04</td>
+<td>scaleup (wnd, sol) if category ≠ CtryDefault</td>
+</tr>
+<tr class="odd">
+<td>WACC by income</td>
+<td>18–23</td>
+<td>M18 “WACC Assumptions (user set)”, M19/N19 header</td>
+<td>M20:M23 = HIC, UMIC, LMIC, LIC</td>
+<td>N20:N23 = .075 .1 .125 .15</td>
+<td><code>IncomeDepWACC</code> (Mitigation!S82), only if WACCSource=“Income*”</td>
+</tr>
+<tr class="even">
+<td>mpp world</td>
+<td>25–39</td>
+<td>title A25, A26 “Global level”, <strong>header row 27</strong>: B Item Code, C CPAT World Code, D Tech, E CapacityFactor, F CapEx.USD_kW, G Efficiency.NCV, H OpexFixed.USD_kW_y, I OpexVariable.USD_kWh, J WACC, K TotalLifetime, L Construction</td>
+<td>A28:A39 <code>wld.mpp.&lt;t&gt;</code>, t = coa nga oil nuc hyd wnd sol ore bio eys bat bat-int (rows 28..39)</td>
+<td>E..L</td>
+<td>A2 (L, M indices)</td>
+</tr>
+<tr class="odd">
+<td>mpp regional</td>
+<td>40–109</td>
+<td>A40 “Regional level”, header row 41 (C CPAT Region Code; E..J as above)</td>
+<td>A42:A109 <code>&lt;reg&gt;.mpp.&lt;t&gt;</code>, reg ∈ {nac, chn, eas, ecs, jpn, kor, lcn, mea, sas, ssf} (name <code>reg_mpp</code> = A41:BD109)</td>
+<td>E..J</td>
+<td>not deliberately; <strong>shadows</strong> the country codes chn, jpn and kor (bug)</td>
+</tr>
+<tr class="even">
+<td>mpp country</td>
+<td>110–294</td>
+<td>A110 “Country level”, header row 111 (C CPAT Country Code; J “WACC (Not used)”, K “TotalLifetime (Not used)”)</td>
+<td>A112:A294 <code>&lt;iso3&gt;.mpp.&lt;t&gt;</code> (63 countries; name <code>mpp_cntr</code> = A112:BD299). Egypt: A166 <code>egy.mpp.nga</code>, A230 <code>egy.mpp.sol</code></td>
+<td>E..K (sparse; a blank or 0 means “use world”)</td>
+<td>A2 (K index)</td>
+</tr>
+<tr class="odd">
+<td>Capex time factor (ctf)</td>
+<td>300–330</td>
+<td>A300 title, row 301 “Global level”, <strong>header row 302</strong>: B Item Code, C world, D Scenarios, E tech, <strong>F302:BD302 = 2000..2050</strong> (<code>CapexTimeFactorYearRange</code>)</td>
+<td>A303:A330 <code>=C&amp;"."&amp;B&amp;"."&amp;D&amp;"."&amp;E</code> → <code>wld.ctf.&lt;scen&gt;.&lt;t&gt;</code>, scen ∈ {low, med, hgh, vhg, oldlow, oldmed, oldhgh, oldvhg}; <code>wld.ctf.med.ore</code> is duplicated (316, 318). Name <code>reg_ctf</code> = A302:BE343</td>
+<td>F..BD by year (index 2020 = 1)</td>
+<td>A7 (tcf)</td>
+</tr>
+<tr class="even">
+<td>Yearly change sol/wnd</td>
+<td>331–340</td>
+<td>helper (D category, E tech, F hist avg, G.. formulas)</td>
+<td>—</td>
+<td>—</td>
+<td>feeds the ctf rows</td>
+</tr>
+<tr class="odd">
+<td>Decommissioning &amp; transmission (dtc)</td>
+<td>344–354</td>
+<td>A344 title, <strong>header row 345</strong>: B Item Code, C world, D tech, E Decommissioning costs (share of capex), F Transmission costs (share of capex)</td>
+<td>A346:A354 <code>wld.dtc.&lt;t&gt;</code>, t = coa nga oil nuc wnd sol hyd ore bio; E353:E354 <code>=AVERAGE(E346:E352)</code></td>
+<td>E, F</td>
+<td>A14 (dtc), A15 (tcx)</td>
+</tr>
+<tr class="even">
+<td>Installed capacity</td>
+<td>355–1635</td>
+<td>A355 title, <strong>header row 357</strong>: B “ic”, C Code, D CountryCode, E FuelType, <strong>F357:AC357 = 2000..2023</strong></td>
+<td><strong>column C</strong> <code>&lt;iso3&gt;.&lt;t&gt;</code>, t = coa nga oil nuc wnd sol hyd ore bio (9 rows per country; Egypt C691:C699). Name <code>instcap_cntr</code> = A358:BD1635</td>
+<td>F..AC MW</td>
+<td>A4 col N (broken: range F:Y)</td>
+</tr>
+<tr class="odd">
+<td>Planned retirement, raw (coal)</td>
+<td>1636–1746</td>
+<td>A1636 title, A1637 source, <strong>header row 1638</strong>: D CountryCode, E CountryName, F1638:AT1638 = 2000..2040</td>
+<td><strong>column D</strong> ISO3 upper-case (Egypt D1663). Name <code>cpp_retir</code> = A1639:BD1746</td>
+<td>F..AT MW/y</td>
+<td>feeds the averaged block</td>
+</tr>
+<tr class="even">
+<td>Planned retirement, averaged</td>
+<td>1748–1857</td>
+<td>A1748 title, <strong>header row 1749</strong>: D CountryCode, E CountryName, <strong>F DataAvailable</strong>, G1749:AT1749 = 2001..2040</td>
+<td><strong>column D</strong> ISO3 (Egypt D1774). All formulas: <code>D=D1639</code>, <code>F=IF(AVERAGE(Z:AJ)&lt;0.1,"No","Yes")</code>, <code>H1750=AVERAGE(F1639:J1639)</code> … (G typed 0). Name <code>avg_data_cntr</code> = A1750:BD1857</td>
+<td>F flag; G..AT MW/y</td>
+<td>K5 (planned_retirement, pret)</td>
+</tr>
+<tr class="odd">
+<td>Battery storage</td>
+<td>1882–1911</td>
+<td>A1882 title; <strong>row 1883 years F:BD</strong> (<code>Z1883 = 2020</code> typed, the rest ±1 formulas); rows 1884–1895 € values (C tech, D item, E unit); D1896 2015 EUR→USD 1.085, D1897 2021 EUR→USD 1.18; row 1898 years; rows 1899–1911 $ values (formulas)</td>
+<td>by <strong>position</strong>: 1899 Battery Capex $/kWh, 1900 Battery OpexFix, 1901 OpexVar, 1902 Lifetime, 1903 Batteryinterface Capex $/kW, 1904–1906 its OpexFix, OpexVar, Lifetime, 1907 WaterElectrolysis Capex, 1908 OpexFix, 1909 VariableOpex, 1910 Lifetime, 1911 StorageTank Capex $/kWh</td>
+<td>F..BD by year</td>
+<td>J2 (cbat, cint, obat, cel)</td>
+</tr>
+<tr class="even">
+<td>Max/avg RE growth</td>
+<td>1917–2335</td>
+<td>header row 1921: A Code, B CountryCode, C FuelType, D AveGrowthMW, E MaxGrowthMW, F TotalCap, G..J rates; H1919 = <code>MinimumGrowthRateRenewables</code></td>
+<td>A <code>=B&amp;"."&amp;C</code> → <code>&lt;iso&gt;.&lt;sol\|wnd&gt;</code>; <code>wld.sol</code> and <code>wld.wnd</code> at 2334–2335 (names <code>_AvGrowthRate_World_*</code>). Name <code>max_avg_cap_inc</code> = A1921:BD2335</td>
+<td>D..J</td>
+<td>engineer-model scale-up (not one of these items)</td>
+</tr>
+<tr class="odd">
+<td>VRE max invest (gen share add)</td>
+<td>2343–2570</td>
+<td>A2343, A2344 titles; header row 2348: A Economy, B Code (ISO3 upper), C historical country max RE scale-up rate</td>
+<td><strong>column B</strong> ISO3 (Egypt row 2408)</td>
+<td>C (0.02 default; CHN and IND 0.03)</td>
+<td>scaleup_rate wnd/sol (CtryDefault*)</td>
+</tr>
+<tr class="even">
+<td>sol_wind by carbon-price band</td>
+<td>2572–4792</td>
+<td>header row 2572: A Code, B CountryCode, C FuelType, D CarbonPriceLevel, E2572:Z2572 = 2019..2040</td>
+<td>A <code>=LOWER(B)&amp;"."&amp;C&amp;"."&amp;D</code> → <code>&lt;iso&gt;.&lt;sol\|wnd&gt;.&lt;band&gt;</code>. Name <code>sol_wind</code> = A2573:BD4792</td>
+<td>E..Z</td>
+<td>Mitigation L4126:L4127 (dead code for these items)</td>
+</tr>
+<tr class="odd">
+<td>Previous WACC</td>
+<td>4795–4985</td>
+<td>A4796 Country, B Region, C Default WACC</td>
+<td>name</td>
+<td>C</td>
+<td>unused</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="legacy-coc-tab-wacc-block-used-by-a3-copy-rows-200390-at-the-same-addresses" class="level3">
+<h3 class="anchored" data-anchor-id="legacy-coc-tab-wacc-block-used-by-a3-copy-rows-200390-at-the-same-addresses">6. Legacy <strong>CoC</strong> tab, WACC block used by A3 (copy rows 200–390 at the same addresses)</h3>
+<ul>
+<li><strong>Title:</strong> A200 “&gt;&gt;&gt; Real WACC”. <strong>Header row 201:</strong> A Country, B Country_Code, C S&amp;P, <strong>D201:V201 = 2022..2040</strong>, X201 “Tech Adjustment”.</li>
+<li><strong>Rows 202–390</strong> (189 countries, alphabetical): A name, <strong>B ISO3 upper-case (lookup key)</strong>, C rating (or “Not Found”).
+<ul>
+<li><strong>D..V</strong>: real WACC by year. The model uses only <strong>D (2022)</strong>. Egypt is row <strong>253</strong>: D253 = 0.09947642998297449.</li>
+<li>These are <code>LET</code> formulas (the WACC calculator): <code>rf + β·(ERP_US + CRP)</code> weighted by the equity share, plus <code>(rf + default spread + lender margin)·(1−tax)·(1−equity share)</code>.
+<ul>
+<li>rf = <code>XLOOKUP(year, A24:A34, C24:C34)</code> (real risk-free rate).</li>
+<li>β, CRP, default spread, tax, equity weight and lender margin = <code>XLOOKUP(code, B41:B197, H/F/D/G/I/J41:197, &lt;row 172&gt;)</code>.</li>
+<li>ERP_US = E192.</li>
+</ul></li>
+<li>Countries missing from the fixed data (65 rows, C = “Not Found”) get <strong>row 172 (Sri Lanka)</strong> parameters through the if_not_found argument (for example AFG = LKA = 0.177883…).</li>
+<li>From M (2031) onwards the values repeat the previous year. Copy D202:V390 as values, or copy the calculator rows 18–197 as well.</li>
+</ul></li>
+<li><strong>Tech adjustment table:</strong>
+<ul>
+<li>X202 “(CPAT) Tech”, Y202:AB202 = HIC, UMIC, LMIC, LIC (income keys).</li>
+<li>X203:X211 = bio, nga, coa, ore, hyd, sol, oil, nuc, wnd (tech keys).</li>
+<li><strong>Y203:AB211</strong> = additive adjustments (typed). Example LMIC column AA: .03215 .02465 .02465 .04425 .02725 .02935 .02465 .02725 .02935.</li>
+</ul></li>
+<li><strong>Lookups used:</strong> country <code>XLOOKUP(LOWER(iso), CoC!$B$202:$B$390, CoC!$D$202:$D$390, 0.075)</code> (0.075 when the country is missing). Tech adjustment <code>XLOOKUP(tech, CoC!$X$203:$X$211, XLOOKUP(income, CoC!$Y$202:$AB$202, CoC!$Y$203:$AB$211))</code>. The “Country*” option uses <code>CoC!$Y$205:$AB$205</code> (coal row) for every tech.</li>
+<li><strong>Calculator inputs, if the formulas are wanted:</strong> rows 22–36 time data (A year, B nominal yield, C real rf = <code>EXP(LN(1+B)−LN(1+$F$24))−1</code>, D US deflator, F24 = <code>(D31/D24)^(1/7)−1</code>); rows 40–197 fixed data (A country, B code, C region/income, D default spread, E ERP, F CRP, G tax, H β, I equity weight, J lender margin; some B/C/H/I cells are <code>=#N/A</code>).</li>
+</ul>
+<hr>
+</section>
+<section id="other-data-tabs-and-settings-touched" class="level3">
+<h3 class="anchored" data-anchor-id="other-data-tabs-and-settings-touched">7. Other data tabs and settings touched</h3>
+<ul>
+<li><strong>Balances</strong> (copy as is): A13:Z13 header (country_code, country, year, measure, flow_code, ecy, coa, nga, oop, gso, die, ker, lpg, jfu, wnd, sol, hyd, ore, nuc, bio, hea, totren, bgs, bdi, obf, total). Data rows 14..4044, keyed by <strong>A (ISO3) &amp; E (flow_code)</strong>; one year per country. Units: ktoe, except <code>eloutput</code> (gwh).
+<ul>
+<li>Flows used: imports, exports, statdiff, transfer, ownuse, distloss, power, eloutput, and the 15 demand flows of section 4.</li>
+</ul></li>
+<li><strong>Countries:</strong> C6:C227 name, D6:D227 ISO3, F region, G WB income group, <strong>H6:H227 income code</strong> (formula from G), N GHG region, P euro flag.</li>
+<li><strong>GHGs:</strong> rows 1201–1388. B ISO3 (formula), G1201 = FirstYear+1 (2023), H1201 = 2024. <strong>G1202:H1388 typed shocks.</strong></li>
+<li><strong>WEO:</strong> row 9 header (A last year, B ISO, C dataset, D series code <code>ISO.INDICATOR</code>, E country, F indicator, G9:… = 2000..). Data rows 10..3333. Used for incf: LP.A, NGDP.A, NGDP_D.A, NGDP_R.A, NGDP_RPCH.A, XDC_USD.PA_RT.A, plus usa.NGDP_D.A.</li>
+<li><strong>Mitigation constants used:</strong> K710:AE710 (uranium 0.004), E1033 (11.63), E1044, E1045, J3975 (0.8), G2432 (0.74), A4 P3003:P3006 (1.0).</li>
+</ul>
+<p><strong>Dashboard settings in the chains</strong> (all through ScenarioDefinition!F = ScenarioDefinition!E = Dashboard; cached values):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name (ScenarioDefinition row)</th>
+<th>Dashboard cell</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>_Countryname (F8)</td>
+<td>E2</td>
+<td>Egypt</td>
+</tr>
+<tr class="even">
+<td>_Country_code</td>
+<td>D644 (formula <code>VLOOKUP(_Countryname, Countries!$C$6:$D$227,2,FALSE)</code>)</td>
+<td>EGY</td>
+</tr>
+<tr class="odd">
+<td>FirstYearCalculations (F232)</td>
+<td>G134</td>
+<td>2022</td>
+</tr>
+<tr class="even">
+<td>BalancesOrConsumption (F234)</td>
+<td>G136</td>
+<td>Balances</td>
+</tr>
+<tr class="odd">
+<td>AdditionalEfficiencyPower (F242)</td>
+<td>L134</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>GdpAdj (F259)</td>
+<td>V20</td>
+<td>Base*</td>
+</tr>
+<tr class="odd">
+<td>IncElAdj (F262)</td>
+<td>L24</td>
+<td>Yes*</td>
+</tr>
+<tr class="even">
+<td>GDPScenario (F222)</td>
+<td>Q20</td>
+<td>WEO*</td>
+</tr>
+<tr class="odd">
+<td>ResultsYear (F233)</td>
+<td>G135</td>
+<td>2026</td>
+</tr>
+<tr class="even">
+<td>DfSelection (F296)</td>
+<td>G142</td>
+<td>World</td>
+</tr>
+<tr class="odd">
+<td>PowerSectorPriceChangePassOn (F343)</td>
+<td>L51</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>kDispatch (F346), kInvestment (F347)</td>
+<td>G190, Q190</td>
+<td>2, 2</td>
+</tr>
+<tr class="odd">
+<td>MinimumWACC (F348)</td>
+<td>Q193</td>
+<td>0.01</td>
+</tr>
+<tr class="even">
+<td>HydroDoesntRetire (F350)</td>
+<td>V198</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<td>MinPostSubsidyPowerPrice (F351)</td>
+<td>L192</td>
+<td>0.01</td>
+</tr>
+<tr class="even">
+<td>RenewableSubsidyBL (F354)</td>
+<td>L55</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>MaxNonVREAsPCOfTotalGen (F359), MaxNonNucOreBioAsPCOfTotalGen (F360), MaxWindSolarScaleup (F361)</td>
+<td>Q194, Q195, Q196</td>
+<td>.05, .02, .05</td>
+</tr>
+<tr class="even">
+<td>MaxScaleUpRateCategory (F362)</td>
+<td>G53</td>
+<td>CtryDefault*</td>
+</tr>
+<tr class="odd">
+<td>WACCSource (F365) / D_WACCSource</td>
+<td>Q191</td>
+<td>Tech</td>
+</tr>
+<tr class="even">
+<td>WACCUserGlobal (F366)</td>
+<td>Q192</td>
+<td>0.075</td>
+</tr>
+<tr class="odd">
+<td>RenewableCostDeclineRate (F367)</td>
+<td>G52</td>
+<td>Medium*</td>
+</tr>
+<tr class="even">
+<td>MaximumCoalCF (F372), MaximumGasCF (F373)</td>
+<td>G192, G193</td>
+<td>.9, .9</td>
+</tr>
+<tr class="odd">
+<td>CFOverrideIfBelowWndSol (F375), …FosOth (F376), CFOverrideIfAbove (F377)</td>
+<td>G196, G197, G198</td>
+<td>.1, .01, 1</td>
+</tr>
+<tr class="even">
+<td>MaxCostBasedEarlyRetirement (F378), EarlyRetirementInBaseline (F379)</td>
+<td>Q51, Q52</td>
+<td>0.8, Yes</td>
+</tr>
+<tr class="odd">
+<td>MinimumThermalEfficiency (F380)</td>
+<td>G194</td>
+<td>0.1</td>
+</tr>
+<tr class="even">
+<td>AllocateSTStorageToVRE (F388), TotalHoursStorageFor100pcVRE (F389), StorageToInterfaceRatioSTStorage (F390)</td>
+<td>V190, V191, V192</td>
+<td>1, 9, 2</td>
+</tr>
+<tr class="odd">
+<td>AllocateLTStorageToVRE (F392), StartingPointWhenLTStorageIsNeeded (F393), LongTermStorageFor100pcVRE (F394), StorageHoursForLTStorage (F395)</td>
+<td>V193, V194, V195, V196</td>
+<td>.33, .75, 1, 1000</td>
+</tr>
+<tr class="even">
+<td>NewInvCoa..NewInvBio (F397:F405)</td>
+<td>U51:U59</td>
+<td>If Present* (wnd, sol: Yes)</td>
+</tr>
+<tr class="odd">
+<td>NewInvCoaYear..NewInvBioYear (F407:F415)</td>
+<td>V51:V59</td>
+<td>2022 2022 2022 2030 2022 2022 2030 2030 2022</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="legacy-bugs-and-oddities-in-these-chains" class="level3">
+<h3 class="anchored" data-anchor-id="legacy-bugs-and-oddities-in-these-chains">8. Legacy bugs and oddities in these chains</h3>
+<ol type="1">
+<li><strong>A2 rows 2981–2985 (wnd, sol, hyd, ore, bio), columns P..T:</strong> the <code>IF(ISERROR(INDEX(K)),INDEX(K),IF(ISERROR(INDEX(L)),INDEX(L),INDEX(M)))</code> logic is inverted, so the result is always the world value. Country efficiency, fixed opex, variable opex, WACC and lifetime for these techs are ignored. Egypt: solar fixed opex uses 15 instead of the country 11.831, which changes opf|sol.</li>
+<li><strong>A4 column N (installed capacity):</strong> the column range <code>Power!$F$357:$Y$357</code> (2000–2019) does not contain FirstYearCalculations (2022, column AB), so N = #N/A. Actual capacity factors are never used; CF = study values, and the CFOverride bounds are dead.</li>
+<li><strong>Hydro investment start (H4067):</strong> <code>IF($L$3827&gt;50%, …)</code> tests a year header (2022 &gt; 0.5), so hydro always starts in the first year (2022 instead of NewInvHydYear = 2030).</li>
+<li><strong>Regional/country code shadowing:</strong> MATCH over <code>Power!A25:A356</code> finds the regional rows (42–109) first for <code>chn.mpp.*</code>, <code>jpn.mpp.*</code> and <code>kor.mpp.*</code>. For China, Japan and Korea, region data replace country data (18 codes).</li>
+<li><strong>A7 country ctf code</strong> <code>iso.med.ctf.t</code> uses a different segment order from the world code <code>wld.ctf.med.t</code>, and there are no country/regional ctf rows, so the country branch is dead.</li>
+<li><strong>D2 nuclear fuel:</strong> <code>L3353 = K2727</code> (shifted one column: 2022 takes the 2021 value). The value is the typed constant Mitigation!K710:AE710 = 0.004, not Power!G22. No numeric effect.</li>
+<li><strong>A15 (tcx)</strong> uses A14’s helper <code>$K3110</code> instead of <code>$K3121</code> (same value). A15 is labelled “not used in the model at all”.</li>
+<li><strong>K5 planned-retirement probe:</strong> <code>INDEX(Power!$D$1749:$BD$1878,$I3992,L3990)</code> is offset by one row and three columns from the data range <code>G1750:BD1878</code>; the flag J3991 uses <code>F1750:F1857</code> while the MATCH uses <code>D1750:D1878</code>. Harmless today.</li>
+<li><strong>CoC:</strong> countries without fixed data silently get Sri Lanka’s parameters (row 172) as the XLOOKUP if_not_found. Countries absent from CoC rows 202–390 get 0.075 + the tech adjustment.</li>
+<li><strong>WACC is time-invariant:</strong> only CoC column D (2022) is used, although D:V hold 2022–2040.</li>
+<li><strong>“Country*” WACC option</strong> applies the coal adjustment (CoC row 205) to every tech.</li>
+<li><strong>early_max (J3975 = 0.8) is typed</strong> and not linked to MaxCostBasedEarlyRetirement (0.8 today). The label says “80%”.</li>
+<li><strong>Power!G23</strong> <code>=ROUND(AVERAGE(#REF!),2)</code> is broken (unused).</li>
+<li><strong>shock:</strong> the IFERROR fallback in E478 is the text <code>"0%"</code>; the IF test <code>M479=FirstYearCalculations+1</code> is always true.</li>
+<li><strong>incf:</strong> the 2022 GDP per capita uses the current year (<code>L2429 = L2442/L2428</code>) while later years are lagged. Post-policy GDP <code>L2443 = K2442*(1+L2446)</code> rebases on the previous <strong>pre-policy</strong> level, so endogenous GDP changes do not accumulate (zero in the baseline).</li>
+<li><strong>Balances lookup ignores the year column.</strong> Only one year per country is allowed in the Balances tab.</li>
+<li><strong>A2 N column range</strong> <code>Power!E$25:E$355</code>, while the other columns use <code>:356</code>. No effect.</li>
+</ol>
+<hr>
+</section>
+<section id="summary-table" class="level3">
+<h3 class="anchored" data-anchor-id="summary-table">9. Summary table</h3>
+<p>Notation: <code>iso</code> = LOWER(country code); <code>idxC(t)</code> = <code>IFERROR(MATCH(iso&amp;".mpp."&amp;t, Power!$A$25:$A$356,0), idxW(t))</code>; <code>idxW(t)</code> = <code>MATCH("wld.mpp."&amp;t, Power!$A$25:$A$356,0)</code>; <code>PC(col,t)</code> = <code>IF(INDEX(Power!col$25:col$356,idxC)&gt;0, INDEX(..,idxC), INDEX(..,idxW))</code>; <code>PW(col,t)</code> = <code>INDEX(Power!col$25:col$356, idxW)</code>; <code>P*(col,t)</code> = PC for coa, nga, oil, nuc and PW for wnd, sol, hyd, ore, bio (legacy bug replicated); <code>BAL(flow,fuel)</code> = <code>INDEX(Balances!$A$13:$Z$4044, MATCH(ISO&amp;flow, Balances!$A$13:$A$4044&amp;Balances!$E$13:$E$4044,0), MATCH(fuel, Balances!$A$13:$Z$13,0))</code>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Data source</th>
+<th>Country-specific?</th>
+<th>Formula sketch</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>cax0_usd_per_kw</td>
+<td>Power F (mpp)</td>
+<td>yes (country mpp row, else world)</td>
+<td><code>PC("F",t)</code></td>
+</tr>
+<tr class="even">
+<td>life_years</td>
+<td>Power K</td>
+<td>coa..nuc only (if country K)</td>
+<td><code>P*("K",t)</code></td>
+</tr>
+<tr class="odd">
+<td>efficiency</td>
+<td>Balances, fallback Power G</td>
+<td>yes</td>
+<td><code>IFERROR(IF(g/i&lt;MinTE, P, g/i), P)</code>; g = BAL(“eloutput”,f)·1000/8760, i = −BAL(“power”,f)·11.63·1000/8760 (oil = Σ oop..jfu); P = P*(“G”,t) for coa, nga, oil, nuc, bio and 1.0 for wnd, sol, hyd, ore</td>
+</tr>
+<tr class="even">
+<td>capacity_factor</td>
+<td>Power E</td>
+<td>only via a country E</td>
+<td><code>PC("E",t)</code> (actual-CF branch dead)</td>
+</tr>
+<tr class="odd">
+<td>wacc</td>
+<td>CoC D202:D390 + Y203:AB211, Countries H</td>
+<td>yes</td>
+<td><code>IFERROR(XLOOKUP(iso,CoC!$B$202:$B$390,CoC!$D$202:$D$390,0.075),0.075)+XLOOKUP(t,CoC!$X$203:$X$211,XLOOKUP(inc,CoC!$Y$202:$AB$202,CoC!$Y$203:$AB$211))</code></td>
+</tr>
+<tr class="even">
+<td>dtc_usd_per_kw</td>
+<td>Power E346:E354 × capex</td>
+<td>via capex</td>
+<td><code>INDEX(Power!$E$25:$E$355,MATCH("wld.dtc."&amp;t,Power!$A$25:$A$356,0))*cax0</code></td>
+</tr>
+<tr class="odd">
+<td>tcx_usd_per_kw</td>
+<td>Power F346:F354 × capex</td>
+<td>via capex</td>
+<td>same with column F</td>
+</tr>
+<tr class="even">
+<td>opf_usd_per_kwh</td>
+<td>Power H, CF</td>
+<td>via H (coa..nuc) and CF</td>
+<td><code>P*("H",t)/(8760*CF)</code></td>
+</tr>
+<tr class="odd">
+<td>vop_usd_per_kwh</td>
+<td>Power I</td>
+<td>coa..nuc</td>
+<td><code>P*("I",t)</code></td>
+</tr>
+<tr class="even">
+<td>fuel_fixed_usd_per_kwh</td>
+<td>Mitigation K710 (typed)</td>
+<td>no</td>
+<td>nuc: 0.004; others 0</td>
+</tr>
+<tr class="odd">
+<td>rns_usd_per_kwh</td>
+<td>script</td>
+<td>no</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>cap0_mw</td>
+<td>Balances, CF</td>
+<td>yes</td>
+<td><code>gen0/CF</code></td>
+</tr>
+<tr class="odd">
+<td>gen0_mwy</td>
+<td>Balances eloutput</td>
+<td>yes</td>
+<td><code>BAL("eloutput",f)*1000/8760</code></td>
+</tr>
+<tr class="even">
+<td>retire_rate</td>
+<td>lifetime</td>
+<td>effectively no</td>
+<td><code>1/life</code>; hyd <code>IF(HydroDoesntRetire="Yes",0,1/life)</code></td>
+</tr>
+<tr class="odd">
+<td>invest_permitted</td>
+<td>Dashboard U51:U59, cap0 shares</td>
+<td>yes</td>
+<td><code>IF(set="If Present*",IF(cap0/SUM(cap0)&gt;0.001,"Yes","No"),set)</code></td>
+</tr>
+<tr class="even">
+<td>invest_start</td>
+<td>Dashboard V51:V59</td>
+<td>no</td>
+<td><code>NewInv&lt;T&gt;Year</code>; hyd = FirstYearCalculations (bug)</td>
+</tr>
+<tr class="odd">
+<td>scaleup_rate</td>
+<td>Dashboard Q194/Q195/G53, Power B2349:C2570</td>
+<td>wnd/sol (CtryDefault*)</td>
+<td>coa, nga, hyd: Q194; oil, nuc, ore, bio: Q195; wnd, sol: <code>INDEX(Power!$C$2349:$C$2570,MATCH(iso,Power!$B$2349:$B$2570,0))</code> (or J20:J23 / Q196 per G53)</td>
+</tr>
+<tr class="even">
+<td>planned_retirement</td>
+<td>Power F1750:F1857</td>
+<td>yes (coal)</td>
+<td>coa: <code>INDEX(Power!$F$1750:$F$1857,MATCH(ISO,Power!$D$1750:$D$1878,0))</code>; others “No”</td>
+</tr>
+<tr class="odd">
+<td>price_code, vre, vre_share, dispatch, code, name</td>
+<td>script</td>
+<td>no</td>
+<td>constants</td>
+</tr>
+<tr class="even">
+<td>tcf|t (path)</td>
+<td>Power ctf F303:BD330</td>
+<td>no</td>
+<td><code>INDEX(Power!$F$25:$BE$597,MATCH("wld.ctf."&amp;scen&amp;"."&amp;t,Power!$A$25:$A$356,0),MATCH(y,Power!$F$302:$BD$302,0))</code></td>
+</tr>
+<tr class="odd">
+<td>cbat / cint / obat</td>
+<td>Power 1899 / 1903 / 1900</td>
+<td>no</td>
+<td><code>INDEX(Power!$F$1899:$BD$1899,1,MATCH(y,Power!$F$1883:$BD$1883))</code> etc.</td>
+</tr>
+<tr class="even">
+<td>cel</td>
+<td>Power 1907, 1908, 1909, 1911; dlf</td>
+<td>yes (via WACC)</td>
+<td><code>(P1907(y)+P1911(y)*StorageHoursForLTStorage)/(dlf*8760)+P1908(y)/8760+P1909(y)</code></td>
+</tr>
+<tr class="odd">
+<td>incf</td>
+<td>WEO (GDP, population)</td>
+<td>yes</td>
+<td><code>IF(IncElAdj="Yes*",MAX(0,poly(MIN(10,LN(gdppc))))/0.74,1)</code>; gdppc = USD GDP (row 465 chain) / population, lagged one year from 2023</td>
+</tr>
+<tr class="even">
+<td>shock</td>
+<td>GHGs G1202:H1388</td>
+<td>yes</td>
+<td>2023: <code>IFERROR(INDEX(GHGs!$G$1202:$G$1388,MATCH(ISO,GHGs!$B$1202:$B$1388,0)),0)</code>; 2024: column H; else 0</td>
+</tr>
+<tr class="odd">
+<td>pret|t</td>
+<td>Power G1750:BD1878 (coal)</td>
+<td>yes</td>
+<td>coa: <code>INDEX(Power!$G$1750:$BD$1878,MATCH(ISO,Power!$D$1750:$D$1878,0),MATCH(y,Power!$G$1749:$BD$1749,0))</code> when used; others 0</td>
+</tr>
+<tr class="even">
+<td>tmc|res, tmc|ind</td>
+<td>Power G20, G21</td>
+<td>no</td>
+<td><code>=Power!G20</code>, <code>=Power!G21</code></td>
+</tr>
+<tr class="odd">
+<td>pass</td>
+<td>Dashboard L51</td>
+<td>no</td>
+<td>setting</td>
+</tr>
+<tr class="even">
+<td>gen_per_cons</td>
+<td>Balances</td>
+<td>yes</td>
+<td><code>(SUM(gen0)*8.76/11.63)/SUM(BAL(demand flows,"ecy"))</code></td>
+</tr>
+<tr class="odd">
+<td>dlf_ren</td>
+<td>CoC (WACC), lifetimes</td>
+<td>yes</td>
+<td><code>AVERAGE over t∈{wnd,sol} of (1-(1/(1+wacc_t))^life_t)/(1-1/(1+wacc_t))</code></td>
+</tr>
+<tr class="even">
+<td>st_alloc, st_ratio, lt_alloc, lt_start</td>
+<td>Dashboard V190, V192, V193, V194</td>
+<td>no</td>
+<td>settings</td>
+</tr>
+<tr class="odd">
+<td>st_marg_hours</td>
+<td>Dashboard V191</td>
+<td>no</td>
+<td><code>2*V191</code></td>
+</tr>
+<tr class="even">
+<td>sh_nxp</td>
+<td>Balances ecy</td>
+<td>yes</td>
+<td><code>-(BAL("imports","ecy")+BAL("exports","ecy"))/D</code></td>
+</tr>
+<tr class="odd">
+<td>sh_tsd</td>
+<td>Balances ecy</td>
+<td>yes</td>
+<td><code>-(BAL("statdiff")+BAL("transfer")+BAL("distloss"))/D</code></td>
+</tr>
+<tr class="even">
+<td>sh_eou</td>
+<td>Balances ecy</td>
+<td>yes</td>
+<td><code>-BAL("ownuse","ecy")/D</code></td>
+</tr>
+<tr class="odd">
+<td>sh_add</td>
+<td>Balances</td>
+<td>yes</td>
+<td><code>gen_per_cons-1-sh_nxp-sh_tsd-sh_eou</code></td>
+</tr>
+<tr class="even">
+<td>extra_eff</td>
+<td>Dashboard L134</td>
+<td>no</td>
+<td>setting</td>
+</tr>
+<tr class="odd">
+<td>maxcf_cg</td>
+<td>Dashboard G192 (gas G193)</td>
+<td>no</td>
+<td>setting</td>
+</tr>
+<tr class="even">
+<td>k_dispatch, k_invest</td>
+<td>Dashboard G190, Q190</td>
+<td>no</td>
+<td>settings</td>
+</tr>
+<tr class="odd">
+<td>min_cost</td>
+<td>Dashboard L192</td>
+<td>no</td>
+<td>setting</td>
+</tr>
+<tr class="even">
+<td>early_max</td>
+<td>Mitigation J3975 (typed)</td>
+<td>no</td>
+<td>0.8</td>
+</tr>
+<tr class="odd">
+<td>early_factor</td>
+<td>Dashboard Q51, Q52</td>
+<td>no</td>
+<td><code>IF(baseline,IF(Q52="Yes",Q51,0),Q51)</code></td>
+</tr>
+<tr class="even">
+<td>ktoe_gwh</td>
+<td>constant</td>
+<td>no</td>
+<td>11.63</td>
+</tr>
+</tbody>
+</table>
+<p>(D = total final power demand, ktoe = Σ Balances <code>ecy</code> over road, rail, domesair, domesnav, resident, food_forest, services, mining_chemicals, ironstl, nonferrmet, machinery, cement, other_manufact, construc, ononspec.)</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./04_Prices.html" class="pagination-link" aria-label="Prices and energy demand">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Prices and energy demand</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./06_Transport.html" class="pagination-link" aria-label="Road transport">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Road transport</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

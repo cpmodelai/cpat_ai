@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>4&nbsp; Prices and energy demand – CPAT-AI Documentation</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./05_Power.html" rel="next">
+<link href="./03_Mitigation_Prototype.html" rel="prev">
+<link href="././00/media/image1.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d8e5dfa8330daa7b2a69354212dbf2ec.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_Mitigation_Prototype.html">Excel-AI: the mitigation prototype</a></li><li class="breadcrumb-item"><a href="./04_Prices.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Prices and energy demand</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">CPAT-AI Documentation</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><strong>Cover</strong></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_Project_Overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Project overview</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_Bugs_and_Issues.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bugs and issues</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Excel-AI: the mitigation prototype</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_Mitigation_Prototype.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The mitigation prototype</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_Prices.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Prices and energy demand</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_Power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_Transport.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Road transport</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_Emissions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Emissions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_ETS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Emissions trading (new ETS)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_Macro_and_Results.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Macro, revenues and results</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_Distribution_Tab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The distribution tab</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_Data_Tabs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Data tabs</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Excel-AI: other modules</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_Other_Excel_Modules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Distribution and air-pollution modules</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Coded CPAT</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_Coded_CPAT.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Coded CPAT</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14_Coded_Developer_Guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Coded CPAT: developer guide</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data and working practice</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15_Data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16_Working_in_the_Repository.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Working in the repository</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title"><strong><em>Chapter Contents</em></strong></h2>
+   
+  <ul>
+  <li><a href="#assumptions-what-the-numbers-mean" id="toc-assumptions-what-the-numbers-mean" class="nav-link active" data-scroll-target="#assumptions-what-the-numbers-mean">0. Assumptions: what the numbers mean</a></li>
+  <li><a href="#dimensions-and-units" id="toc-dimensions-and-units" class="nav-link" data-scroll-target="#dimensions-and-units">1. Dimensions and units</a></li>
+  <li><a href="#international-prices-gp" id="toc-international-prices-gp" class="nav-link" data-scroll-target="#international-prices-gp">2. International prices <code>gp</code></a></li>
+  <li><a href="#supply-cost-sp" id="toc-supply-cost-sp" class="nav-link" data-scroll-target="#supply-cost-sp">3. Supply cost <code>sp</code></a></li>
+  <li><a href="#excise-and-other-taxes-txo-pass-through" id="toc-excise-and-other-taxes-txo-pass-through" class="nav-link" data-scroll-target="#excise-and-other-taxes-txo-pass-through">4. Excise and other taxes <code>txo</code> (pass-through)</a></li>
+  <li><a href="#retail-price-before-new-policies-rpb-and-the-after-tax-price-atp" id="toc-retail-price-before-new-policies-rpb-and-the-after-tax-price-atp" class="nav-link" data-scroll-target="#retail-price-before-new-policies-rpb-and-the-after-tax-price-atp">5. Retail price before new policies <code>rpb</code> and the after-tax price <code>atp</code></a>
+  <ul>
+  <li><a href="#layout-of-a-price-block-and-the-price-incl.-new-policies-by-block" id="toc-layout-of-a-price-block-and-the-price-incl.-new-policies-by-block" class="nav-link" data-scroll-target="#layout-of-a-price-block-and-the-price-incl.-new-policies-by-block">Layout of a price block and the price incl.&nbsp;new policies by block</a></li>
+  </ul></li>
+  <li><a href="#b.-existing-carbon-pricing" id="toc-b.-existing-carbon-pricing" class="nav-link" data-scroll-target="#b.-existing-carbon-pricing">5b. Existing carbon pricing</a></li>
+  <li><a href="#existing-taxes-and-subsidies" id="toc-existing-taxes-and-subsidies" class="nav-link" data-scroll-target="#existing-taxes-and-subsidies">6. Existing taxes and subsidies</a></li>
+  <li><a href="#b.-subsidy-and-price-control-phase-outs-producer-subsidies-v4.16-ld18-ld19" id="toc-b.-subsidy-and-price-control-phase-outs-producer-subsidies-v4.16-ld18-ld19" class="nav-link" data-scroll-target="#b.-subsidy-and-price-control-phase-outs-producer-subsidies-v4.16-ld18-ld19">6b. Subsidy and price-control phase-outs, producer subsidies (v4.16; LD18, LD19)</a></li>
+  <li><a href="#average-prices-and-price-indices-memo-at-the-end-of-section-2" id="toc-average-prices-and-price-indices-memo-at-the-end-of-section-2" class="nav-link" data-scroll-target="#average-prices-and-price-indices-memo-at-the-end-of-section-2">7. Average prices and price indices (memo at the end of section 2)</a></li>
+  <li><a href="#left-out-later-steps" id="toc-left-out-later-steps" class="nav-link" data-scroll-target="#left-out-later-steps">8. Left out (later steps)</a></li>
+  <li><a href="#europe-gas-market-shift-to-lng-v5.6-ld20" id="toc-europe-gas-market-shift-to-lng-v5.6-ld20" class="nav-link" data-scroll-target="#europe-gas-market-shift-to-lng-v5.6-ld20">Europe gas market: shift to LNG (v5.6, LD20)</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03_Mitigation_Prototype.html">Excel-AI: the mitigation prototype</a></li><li class="breadcrumb-item"><a href="./04_Prices.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Prices and energy demand</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-prices" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Prices and energy demand</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- Generated by make_qmd.py from excel_ai/mitigation/docs/methods/Prices.md: edit the source, then run python make_qmd.py -->
+<p><em>Source: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/excel_ai/mitigation/docs/methods/Prices.md"><code>excel_ai/mitigation/docs/methods/Prices.md</code></a>.</em></p>
+<p>Equations: <code>Equations.md</code>; workbook formulas: <code>Formulas.md</code>.</p>
+<p>How the model projects fuel supply costs and retail prices, following legacy CPAT cut down to the basics, and the existing carbon pricing on top of them (section 5b). Subsidy phase-outs and price liberalisation are left out; electricity prices are in chapter Power. The workbook sheet <code>LegacyDiff</code> lists all differences with legacy. Two data rules differ from legacy by user decision (A10, A11); legacy bug L14 is fixed (A10).</p>
+<p>Sources: CPAT documentation, Mitigation chapter 3.2 (github.com/cpmodel/cpat_public); legacy workbook <code>CPAT 1.0pre_456_NoPropData.xlsb</code>, sheet <code>Mitigation</code> (rows 452/455 US deflator and CPI, 456/467/725 inflation indices, 633-695 international prices by source) and sheet <code>Prices_int</code> (regional assumptions); <code>coded/cpat_model/mitigation/prices/</code> (<code>prices.py</code>, <code>domestic_prices.py</code>, <code>international_prices.py</code>), which ports the legacy formulas line by line.</p>
+<section id="assumptions-what-the-numbers-mean" class="level2">
+<h2 class="anchored" data-anchor-id="assumptions-what-the-numbers-mean">0. Assumptions: what the numbers mean</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Assumption</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A1</td>
+<td><strong>Every price, tax and policy value is in real US dollars of the results year</strong> (ScenarioDefinition <code>ResultsYear</code>, 2026, from scenario 1), per GJ. A constant real price is a constant number. There is no inflation after the conversion, and fuel use responds only to real price changes.</td>
+</tr>
+<tr class="even">
+<td>A2</td>
+<td><strong>Two indices, both 1 in the results year.</strong> The CPI index (US CPI of the results year / of the year) converts nominal <em>domestic</em> values; the deflator index (US GDP deflator, same form) converts nominal <em>international</em> prices. This is the legacy split (CPI rows 456/725, deflator row 467; row 630 is its reciprocal). Up to 2030 they differ by up to 1.2% (2022: 1.137 vs 1.124; 2030: 0.918 vs 0.929), so one index would not reproduce legacy.</td>
+</tr>
+<tr class="odd">
+<td>A3</td>
+<td><strong>Domestic price data are nominal USD of their own year</strong> (IMF price dataset, <code>Prices_dom</code>: supply cost, excise and other taxes, retail price). Each is converted with that year’s CPI index and divided by GJ per price unit. Units: $/liter for gasoline, diesel, LPG and kerosene; $/bbl for other oil products; $/GJ for coal, gas and biomass.</td>
+</tr>
+<tr class="even">
+<td>A4</td>
+<td><strong>Forecasting coefficients are base-year (2022) nominal values</strong>: the margin over international prices and the domestic production cost. They are converted with the 2022 CPI index and held constant in real terms. (<code>coded</code> applies no conversion here; to check against legacy in bucket 5.)</td>
+</tr>
+<tr class="odd">
+<td>A5</td>
+<td><strong>International prices are nominal by source</strong> (IMF, WB, IEA, EIA, averages, Manual: IMF to 2025, then sheet <code>Manual inputs</code> D221:AF225 at the legacy addresses, by label and year), converted with the deflator. Only their year-on-year ratio moves the supply cost, so their units and level drop out. Beyond a source’s horizon the data hold them constant in real terms.</td>
+</tr>
+<tr class="even">
+<td>A6</td>
+<td><strong>ScenarioDefinition policy inputs are real (results-year USD)</strong>: the carbon price, feebate rates and fuel price reform increases (in price units, e.g.&nbsp;$/liter real). Only the carbon price has a nominal option: <code>NomorReal</code> = Nominal makes the path nominal, then multiplied by the CPI index (legacy row 2249).</td>
+</tr>
+<tr class="odd">
+<td>A7</td>
+<td><strong>History vs projection.</strong> Prices up to the last historical price year (Settings C10; default 2022, as legacy) come from data; later years are projected. Fuel use is data in the base year (2022) and modelled from 2023. The IMF dataset also holds 2023-2024; setting C10 to 2024 uses them (issue I89).</td>
+</tr>
+<tr class="even">
+<td>A8</td>
+<td><strong>Global vs per scenario.</strong> Global (Settings, ScenarioDefinition scenario 1): results year, government price controls (pass-through), last historical year, the country’s gas market. Per scenario: international price source and High/Low adjustment, carbon price and its nominal/real switch, fuel price reform, feebates, coverage.</td>
+</tr>
+<tr class="odd">
+<td>A9</td>
+<td><strong>Horizon.</strong> Values after 2030 are not compared with legacy. The legacy CPI is held flat after 2031 (WEO horizon), the deflator is not, and some legacy rules (A10) misbehave over long horizons. The model computes to 2041 (the legacy horizon of the power block), but 2031-2041 are not a target.</td>
+</tr>
+<tr class="even">
+<td>A10</td>
+<td><strong>Legacy rules are copied as they are, except the bugs.</strong> v4.10 (user rule: bugs are never replicated): legacy bug L14 is fixed: with pass-through 0.5 or 0.8, legacy’s other taxes jumped in the first projected year (the floating subsidy multiplied by (1 - pcc) a second time); the prototype applies (1 - pcc) once (no effect for Egypt, pass-through 0 or 1). <strong>Changed (user decision): other oil products are treated like the other oil products</strong>, taking pass-through and margin from the dataset (Egypt: 0 and 7.95 $/bbl) instead of the legacy hardcodes 1 and 0. Under the legacy rule their retail price fell with the oil price to the 0.01 floor (3.79 $/GJ in 2024, 0.23 in 2030), and their fuel use rose 10x by 2030.</td>
+</tr>
+<tr class="odd">
+<td>A11</td>
+<td><strong>VAT rate (user decision).</strong> Use the dataset’s VAT rate where it is filled. Otherwise use the country’s general VAT rate (Egypt 14%) for residential coal and gas and the all-sector oil products (gasoline, diesel, LPG, kerosene, other oil products), and 0 for power, industry (VAT is credited to firms) and biomass (largely informal). For Egypt the dataset’s own retail prices imply exactly this: rp = (sp + txo) x 1.14 for residential gas and the oil products, and rp = sp + txo for power and industry. So historical oil-product retail prices equal the dataset’s (14% higher than without the rule), and new policies pay 14% VAT in those sectors.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="dimensions-and-units" class="level2">
+<h2 class="anchored" data-anchor-id="dimensions-and-units">1. Dimensions and units</h2>
+<ul>
+<li>Prices are kept by <strong>fuel x price sector</strong>, as in the IMF dataset: 12 price fuels, namely coal and natural gas for power, residential and industry; gasoline, diesel, LPG, kerosene, other oil products and biomass for all sectors. Electricity is left to the power module. Subsectors take the price of their price sector (road and residential use the residential coal and gas prices).</li>
+<li>All in real $/GJ of the results year (A1-A3).</li>
+</ul>
+</section>
+<section id="international-prices-gp" class="level2">
+<h2 class="anchored" data-anchor-id="international-prices-gp">2. International prices <code>gp</code></h2>
+<p><code>gp_t</code> = international price of the source and commodity x deflator x adjustment factor.</p>
+<ul>
+<li>Source: ScenarioDefinition <code>IntEnerPricForeSource</code>, asterisk dropped (<code>IMF-WB*</code> = average of IMF and WB).</li>
+<li>Commodity: crude oil (gasoline, diesel, LPG, kerosene, other oil products); coal; gas of the country’s market (Egypt <em>Global</em> = average of LNG, North America and Europe); a flat 1 (biomass).</li>
+<li>Factor (ScenarioDefinition <code>IntEnerPricForecastAdjustment</code>): <em>Base</em> = 1; <em>High</em> / <em>Low</em> = 1.5 / 0.5 for oil and 1.25 / 0.75 for gas and coal, after the last historical year.</li>
+</ul>
+</section>
+<section id="supply-cost-sp" class="level2">
+<h2 class="anchored" data-anchor-id="supply-cost-sp">3. Supply cost <code>sp</code></h2>
+<p>Data up to the last historical year L; then <code>sp_t = fixsp + (sp_{t-1} - fixsp - ps_{t-1}) x gp_t / gp_{t-1} + ps_t</code>: a fixed part, a part that floats with the international price, and the existing producer subsidy <code>ps</code> (block row <code>psp</code>, $/GJ; legacy <code>sp = fixsp + fltsp + ps</code>, rows 2455-2708; v6.1, I49). The producer subsidy phase-out is not in <code>sp</code>: it is a separate new-policy wedge (section 6b; v6.2).</p>
+<p><code>fixsp = (margin + bucketed pass-through x production cost [coal, gas]) x CPI index(2022) / GJ per unit</code>. The margin of biomass is 0 (legacy hardcode; other oil products from data, A10). Producer subsidies enter through <code>ps</code> (section 6b; 0 for Egypt).</p>
+</section>
+<section id="excise-and-other-taxes-txo-pass-through" class="level2">
+<h2 class="anchored" data-anchor-id="excise-and-other-taxes-txo-pass-through">4. Excise and other taxes <code>txo</code> (pass-through)</h2>
+<ul>
+<li>Pass-through <code>pcc</code>: raw = the dataset’s base-year value (blank = 0; biomass = 1; other oil products from data, A10). Bucketed: &lt;= 0.25 -&gt; 0, &lt;= 0.5 -&gt; 0.5, else 1. Settings <code>GovPriceControls</code> chooses <em>Bucketed</em> (default), <em>Manual</em> or <em>None</em> = 1. <em>Manual</em> takes the retail price control (pass-through) of the block from sheet <code>Manual inputs</code> J167:J180, the legacy addresses, by the code in column G (<code>mit.rp.&lt;fuel&gt;.&lt;sector&gt;.ctrl</code>; legacy default 0.8 for every block); a blank cell gives 1, as legacy rows 747-760. The electricity rows (J178:J179) are not read: electricity prices come from the power section. Egypt bucketed: coal 1, gas 0, oil products incl.&nbsp;other oil products 0, biomass 1.</li>
+<li>Historical <code>txo</code> (as legacy): coal, gas and biomass <code>rp / (1 + vr) - sp</code>; oil products the dataset’s <code>txo</code> (legacy builds their retail price as <code>sp + txo</code>, times <code>(1 + vr)</code>).</li>
+<li>Projected: <code>txo_t = txo_L x pcc + cs_t</code>, with the floating subsidy <code>cs_t = (sp_L - sp_t + txo_L(1 - pcc)) x (1 - pcc)</code>, and <code>cs_t</code> not below <code>txo_L(1 - pcc)</code> when that is &gt;= 0.</li>
+<li>pcc = 1: supply-cost changes are passed on in full. pcc = 0: the retail price before new policies stays at its value in L, and the floating subsidy absorbs the change.</li>
+</ul>
+</section>
+<section id="retail-price-before-new-policies-rpb-and-the-after-tax-price-atp" class="level2">
+<h2 class="anchored" data-anchor-id="retail-price-before-new-policies-rpb-and-the-after-tax-price-atp">5. Retail price before new policies <code>rpb</code> and the after-tax price <code>atp</code></h2>
+<p><code>rpb = (sp + txo) x (1 + vr)</code>, with <code>vr</code> the VAT rate of L (A11). For gasoline, diesel, LPG and kerosene <code>vr</code> is the VAT rate x the household share of the product (sheet <code>OilProductShares</code>; Egypt: gasoline 1, diesel 0.03, LPG 0.99, kerosene 0.39), as legacy rows 797-816: VAT is charged on the household part only, firms reclaim it (v4.12, LD5; issue I39). Other oil products and the other fuels take the full rate, as legacy.</p>
+<p>By subsector: <code>atp = max(rpb + (nce + xcpd) x (1 + vr), 0.01)</code>. New policies (<code>nce</code> = new carbon tax + new ETS cost + new excise) are passed through in full and pay VAT (legacy <code>vat = (sp + txo) x vr</code> with <code>nce</code> inside <code>txo</code>); <code>xcpd</code> is the change in existing carbon pricing (section 5b). The 0.01 floor is legacy’s.</p>
+<p><strong>Residential LPG and kerosene always exempted</strong> (ScenarioDefinition <code>AlwaysExemptResLPGKer</code>, row 268, by scenario; default No<em>; legacy rows 5546-5547). If the switch starts with “Yes” (Yes or Yes</em>), the new carbon tax, the new ETS cost and the new excise of the residential LPG and kerosene rows are 0: each is multiplied by the exemption factor of Section-1 rows <code>exf</code> (<code>exf.all</code> = 1, <code>exf.res</code> = 0 if Yes), at the row’s position in Inputs column <code>exg</code> (2 for residential LPG and kerosene, 1 elsewhere). Their <code>nce</code> is then 0, so <code>atp = max(rpb + (xcpd + csw + pcw) x (1 + vr), 0.01)</code>: no new policy and no VAT on it, while existing taxes, the change in existing carbon pricing and the subsidy phase-outs stay, as legacy (row 2651, the price before new policies). The shadow price <code>shp</code> is not exempted, as legacy. The new-policy revenue of these rows (<code>rnew</code>, the excise revenue <code>rex</code> and the VAT on the new policies in <code>rvt</code>) is 0 with the price. ETS-covered emissions still count them where the residential sector is in an ETS. The residential leakage to biomass reads the row’s own <code>nce</code>, so an exempt fuel does not leak (<code>Equations.md</code> 4a).</p>
+<section id="layout-of-a-price-block-and-the-price-incl.-new-policies-by-block" class="level3">
+<h3 class="anchored" data-anchor-id="layout-of-a-price-block-and-the-price-incl.-new-policies-by-block">Layout of a price block and the price incl.&nbsp;new policies by block</h3>
+<p>Each fuel | sector block of section 2 reads: settings (italic: parameter row, international reference price <code>gpi</code>, fixed supply cost <code>spf</code>, existing subsidy per price unit <code>esubpu</code>); the <strong>full retail price <code>rpn</code></strong> (bold); the build-up <code>sp</code>, <code>txf</code>, <code>txo</code>, <code>etx</code>, <code>esub</code>, <code>vat</code> ending with <code>rpb</code>; then the new taxes and subsidies.</p>
+<p>New policies act by subsector (sections 5-8). The block shows them as averages over the subsectors priced by the block (the <code>atp</code> rows whose D is the block position), weighted by their fuel use <code>ener</code>:</p>
+<ul>
+<li><code>pnq = sum of ener</code> over those subsectors (ktoe);</li>
+<li><code>pctx</code>, <code>pets</code>, <code>pntx</code>, <code>pxcd</code> = fuel-use weighted averages of <code>ctxnew</code>, <code>ets</code>, <code>ntx</code>, <code>xcpd</code>;</li>
+<li><code>rpn = sum(atp x ener) / pnq</code> (<code>rpb</code> where <code>pnq = 0</code>);</li>
+<li><code>pnce = rpn - rpb</code>, the total new policy; <code>pvatn = pnce - (pctx + pets + pntx + pxcd)</code>, the VAT on the new policies (and the 0.01 floor).</li>
+</ul>
+<p>These are weighted averages with each scenario’s own quantities, not price indices; price changes between scenarios are the indices of section 7.</p>
+</section>
+</section>
+<section id="b.-existing-carbon-pricing" class="level2">
+<h2 class="anchored" data-anchor-id="b.-existing-carbon-pricing">5b. Existing carbon pricing</h2>
+<p>Legacy CPAT adds existing carbon taxes and ETS from its sheet <code>ECP</code> (WB Carbon Pricing Dashboard, ICAP; as of 1 April 2025) as parts of <code>txo</code> (Mitigation rows 1675-1764). Since v4.12 the prototype follows legacy with several schemes (user decision 2026-10-18; was issue I7), with legacy bugs L61-L65 fixed. It differs in how the level enters: the IMF retail prices already contain whatever existing carbon pricing a country had, so only the change against that level enters (below); legacy subtracts the same level from the fixed part of <code>txo</code>, which gives the same numbers.</p>
+<ul>
+<li><strong>Data</strong> (sheet <code>ECP</code> at its legacy addresses, 52 countries; Egypt has none). Each code is looked up in its own legacy block (sheet <code>Inputs_ecp</code>, columns K:L give the block’s first and last row):
+<ul>
+<li>carbon tax: single rate <code>ecr.all</code>, fuel rates <code>ecr.&lt;fuel&gt;</code>, sector coverage <code>ecs.&lt;sector&gt;</code>, fuel coverage <code>ecf.&lt;fuel&gt;</code> (rows 69-559);</li>
+<li>national ETS: price <code>eer.all</code>, coverage <code>ees</code>, <code>eef</code> (rows 600-615, 619-737, 1040-1093);</li>
+<li>regional EU ETS: the EU price (row 616) and the country’s regional coverage (rows 738-1036, 1094-1223), where the country’s “EU ETS?” flag (general information, column K) is Yes or Both (legacy row 1695).</li>
+</ul></li>
+<li><strong>Prices</strong> in real USD of ResultsYear (nominal x CPI index). <strong>Coverage</strong> of each data year (2021-2025; blank = 0, as legacy), the last data year after.</li>
+<li><strong>Carbon tax rate by fuel</strong> (legacy rows 1752-1764): the fuel rate where the country has one and no “single price” flag (general information, column E), else the single rate.</li>
+<li><strong>Sector of a price</strong>: the ECP sector of the price fuel, as legacy: coal and gas by their price sector (power, residential, industry); oil products, biomass and jet fuel transport; other oil products industry (power: power).</li>
+<li><strong>Tables</strong> (sheet <code>Inputs_ecp</code>), by ECP sector | fuel and data year, $/tCO2: carbon tax = rate x sector coverage x fuel coverage; ETS = national price x its coverage + EU price x the regional coverage (the two schemes add up, as legacy).</li>
+<li><strong>Scenario factors</strong> (section 1, ScenarioDefinition): <code>xct.p</code> = 1 if <code>ExistingCTApply</code> = Yes, x (1 + <code>ExistingCTGrowth</code>)^(years after the last data year), else 0; <code>xets.p</code> the same with <code>ExistingETSApply</code>, <code>ExistingETSGrowth</code> (legacy grows the EU ETS with the carbon-tax growth: bug L61). <code>xct.c</code> is the data column of the year.</li>
+<li><strong>Per subsector and fuel</strong>: level <code>xcp</code> = EF x (carbon tax x <code>xct.p</code> + ETS x <code>xets.p</code>) ($/GJ); change <code>xcpd</code> = the level minus the level embedded in the price data (<code>xcp0</code>, Inputs: the tables in the last historical price year L). Only the change enters the after-tax price, so a country’s history is not counted twice: switching a scheme off lowers the price by its embedded level; growth or new data raise it.</li>
+<li><strong>Power</strong>: the same change per kWh (row pow | fuel of the tables) is part of the variable cost before new policies, so dispatch, investment and electricity prices respond.</li>
+<li><strong>New carbon tax</strong>: if <code>CTaxComplimentaryToETS</code> = Yes (legacy rows 2270-2288), it covers 1 - the national ETS sector coverage of the year (legacy: of the previous year, bug L65). Otherwise new instruments add to existing ones.</li>
+<li><strong>Revenue</strong>: existing-tax revenue includes <code>xcpd x (1 + vr)</code>; a memo shows the level, fuel use x <code>xcp</code>. Existing ETS revenue is valued at the full permit price, as legacy; legacy’s free-allocation and revenue data (ECP rows 560-597, 1225-1322) are not used in legacy’s model either.</li>
+<li><strong>Legacy bugs fixed</strong> (register): L61 (EU ETS growth), L62 (transport diesel, LPG and kerosene take the rate row as coverage), L63 (fuel coverage lookup stops at row 403 of a block that ends at 425), L64 (no ETS on other oil products outside power), L65 (complementary tax with last year’s coverage).</li>
+</ul>
+</section>
+<section id="existing-taxes-and-subsidies" class="level2">
+<h2 class="anchored" data-anchor-id="existing-taxes-and-subsidies">6. Existing taxes and subsidies</h2>
+<p>Per price fuel and year, real $/GJ:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Formula</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VAT</td>
+<td>(sp + txo) x vr</td>
+<td>VAT before new policies (revenue)</td>
+</tr>
+<tr class="even">
+<td>Existing excise and other taxes</td>
+<td>max(txo, 0)</td>
+<td>revenue</td>
+</tr>
+<tr class="odd">
+<td>Existing consumer subsidy</td>
+<td>min(txo, 0)</td>
+<td>negative (subsidies are negative)</td>
+</tr>
+<tr class="even">
+<td>Subsidy per price unit</td>
+<td>subsidy x GJ per price unit</td>
+<td>in ScenarioDefinition price units ($/liter, $/bbl, $/GJ), for a later per-fuel subsidy reform through the fuel price reform inputs, which use the same units</td>
+</tr>
+</tbody>
+</table>
+<p>Legacy splits <code>txo</code> into a fixed tax, a fixed subsidy and a floating part; the sign split gives the same totals. VAT on oil products is (sp + txo) x rate x household share; legacy divides the retail price by 1 + the full rate (bug L60). Revenue, as fuel use (PJ) x the rate: existing taxes = excise + VAT + <code>xcpd x (1 + vr)</code>; existing subsidies = the subsidy (negative); net existing = taxes + subsidies; new = new carbon tax + new excise + ETS x revenue factor + VAT on new policies. Power adds its rows (chapter Power).</p>
+</section>
+<section id="b.-subsidy-and-price-control-phase-outs-producer-subsidies-v4.16-ld18-ld19" class="level2">
+<h2 class="anchored" data-anchor-id="b.-subsidy-and-price-control-phase-outs-producer-subsidies-v4.16-ld18-ld19">6b. Subsidy and price-control phase-outs, producer subsidies (v4.16; LD18, LD19)</h2>
+<p>User decision 2026-10-18: separate policy lines by sector and fuel, not meshed with the pre-policy price build-up. <code>sp</code>, <code>txo</code> and <code>rpb</code> are unchanged; the reforms are wedges added to the after-tax price, like the new policies.</p>
+<ul>
+<li><strong>Factors (section 1, legacy rows 2211-2218).</strong> One per phase-out: producer subsidies (ScenarioDefinition 123-129), consumer subsidies (131-137) and price controls (191-195). Scenario 1 reads the baseline switch, period and share; other scenarios the policy switch and period, with share = MAX(baseline, policy) (legacy rows 264-274). The price-control phase-out applies if its switch is on and the scenario is a policy scenario or its baseline switch is on, and it takes the consumer share (as legacy: issue I48). Factor <code>pof</code> = MAX(1 - share, 1 - share x (year - start) / period after the start year): the share of the original kept, the same year for every line (legacy lags the fixed subsidy a year: bug L81).</li>
+<li><strong>Lines by price fuel | sector.</strong> <code>csf.&lt;block&gt;</code> = 1 - <code>csi</code> x (1 - factor), <code>pcf.&lt;block&gt;</code> likewise with <code>pci</code>; the inclusion switches <code>csi</code>, <code>pci</code> (sheet Constants, default 1 for every block, as legacy) let a reform cover some fuels and sectors only. Producer subsidies by fuel (coal, gas, oil, biomass, electricity): <code>psi</code>, <code>psf</code>.</li>
+<li><strong>Split of <code>txo</code> (each price block).</strong> Fixed part <code>txfx</code> = pass-through x <code>txo</code> (history: of the year; projection: of the last historical year); floating part <code>txfl</code> = <code>txo</code> - <code>txfx</code> (it absorbs the supply-cost changes not passed through). As legacy rows 2597-2599.</li>
+<li><strong>Wedges (each block, $/GJ before VAT).</strong> Consumer subsidy reform <code>pcsw</code> = -(1 - <code>csf</code>) x MIN(<code>txfx</code>, 0): only a fixed subsidy goes (legacy: the fixed subsidy x factor). Price-control phase-out <code>ppcw</code> = -(1 - <code>pcf</code>) x <code>txfl</code>: the floating part goes, subsidy or tax (legacy row 2599). For Egypt every subsidised fuel has pass-through 0, so only the price-control phase-out removes subsidies, as in legacy.</li>
+<li><strong>Subsectors.</strong> <code>csw</code>, <code>pcw</code> = the wedges of the subsector’s block; <code>atp</code> = MAX(<code>rpb</code> + (<code>nce</code> + <code>xcpd</code> + <code>csw</code> + <code>pcw</code>) x (1 + vr), floor). Revenue <code>rsr</code> = fuel use x PJ/ktoe x (<code>csw</code> + <code>pcw</code>) x (1 + vr): the subsidy saved plus VAT on it (section 12; 12e books it under existing taxes and subsidies, its VAT under VAT). <code>rnet</code> stays the pre-reform existing revenue.</li>
+<li><strong>Producer subsidies (fiscal line).</strong> <code>pros.&lt;fuel&gt;</code> = Prices_dom <code>mit.pros.&lt;fuel&gt;.all</code> (USD bn nominal) x CPI factor, held after the last price year; <code>rpsu.all</code> = -SUMPRODUCT(<code>pros</code>, <code>psf</code>) in section 12 (negative = cost), in the total revenue and the fiscal space; 12e producer subsidies = the electricity subsidy gap + <code>rpsu</code>. <strong>Price effect (v6.1, I49, as legacy rows 825-829):</strong> section-1 rows <code>psd.&lt;fuel&gt;</code> hold the demand that carries the subsidy: oil, world demand x liters per ktoe (legacy <code>_conv_ktoe_liter_oil</code> = 1,108,792); coal and gas, the average of world demand and domestic consumption (EnergyCons, excluding electricity and heat) x GJ per ktoe; biomass, domestic consumption x GJ per ktoe. <code>psu.&lt;fuel&gt;</code> = -<code>pros</code> x USDperM / <code>psd</code> up to the last price year, then held: the existing subsidy. Each price block reads the <code>psu</code> of its fuel by its international price position (G) into <code>psp</code> ($/GJ: x liters per barrel for other oil products, / GJ per price unit), which stays in the supply cost and so in the price before new policies <code>rpb</code>.</li>
+</ul>
+<p><strong>Producer subsidy reform (v6.2, user rule 2026-10-20: subsidy reforms are always separate from the before-tax build-up).</strong> <code>psr.&lt;fuel&gt;</code> = -<code>psu</code> x (1 - <code>psf</code>) (legacy: the base value x the phase-out factor, row 2213). The block wedge <code>ppsw</code> = <code>psr</code> of its fuel ($/GJ as <code>psp</code>) x the block’s pass-through <code>pcc</code>, beside the consumer subsidy and price-control wedges <code>pcsw</code> and <code>ppcw</code>; the subsectors read it as <code>psw</code> into the after-tax price (<code>atp</code> = <code>rpb</code> + (new taxes + <code>xcpd</code> + <code>csw</code> + <code>pcw</code> + <code>psw</code>) x (1 + VAT)), and the VAT on it is in the subsidy-reform revenue <code>rsr</code>. Legacy puts the phase-out into the supply cost, where the price controls absorb (1 - <code>pcc</code>) of it; the wedge x <code>pcc</code> gives the same price except where the excise floor binds. Legacy bugs fixed: L124 (residential gas read the oil value) and L125 (other oil products added a per-liter value to a per-barrel price). Egypt: no producer subsidy data (0). - <strong>Not yet:</strong> electricity consumer subsidy phase-out (PowerSubsidyExemptInclude, default DoNotPhaseOut) and the electricity producer subsidy in the power price: with the power features (legacy bugs L83, L84 to fix then).</p>
+</section>
+<section id="average-prices-and-price-indices-memo-at-the-end-of-section-2" class="level2">
+<h2 class="anchored" data-anchor-id="average-prices-and-price-indices-memo-at-the-end-of-section-2">7. Average prices and price indices (memo at the end of section 2)</h2>
+<p>The memo summarises the after-tax prices including new policies (<code>atp</code>, sections 5-8; electricity <code>rp</code>, section 3). There is one block per fuel, one for electricity and one for all energy. Sums run over the 16 subsectors; electricity runs over the residential and industry price groups.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Row</th>
+<th>Formula</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>pav.sp</code></td>
+<td>Σ p·q</td>
+<td>Spending, own quantities</td>
+</tr>
+<tr class="even">
+<td><code>pav.q</code></td>
+<td>Σ q</td>
+<td>Fuel use</td>
+</tr>
+<tr class="odd">
+<td><code>pav.uv</code></td>
+<td>Σ p·q / Σ q</td>
+<td>Average price (unit value); legacy F5b</td>
+</tr>
+<tr class="even">
+<td><code>pav.spr</code></td>
+<td>Σ p·q₁</td>
+<td>Spending at scenario 1 quantities of the same year</td>
+</tr>
+<tr class="odd">
+<td><code>pav.las</code></td>
+<td>Σ p·q₁ / Σ p₁·q₁</td>
+<td><strong>Price index against scenario 1</strong> (Laspeyres; scenario 1 = 1)</td>
+</tr>
+<tr class="even">
+<td><code>pav.sp0</code></td>
+<td>Σ p·q₀</td>
+<td>Spending at base-year quantities</td>
+</tr>
+<tr class="odd">
+<td><code>pav.time</code></td>
+<td>Σ p·q₀ / Σ p₀·q₀</td>
+<td><strong>Price index over time</strong> (base year = 1)</td>
+</tr>
+<tr class="even">
+<td><code>pav.mix</code></td>
+<td>(uv / uv₁) / las</td>
+<td>Mix effect: what the unit-value ratio adds to the price index</td>
+</tr>
+<tr class="odd">
+<td><code>pav.leg</code></td>
+<td>see below</td>
+<td><strong>Average price as legacy F5b</strong> (v4.15, I31)</td>
+</tr>
+<tr class="even">
+<td><code>pav.lidx</code></td>
+<td>leg / leg₁</td>
+<td>Legacy average price against scenario 1 (fuels without a legacy average: <code>pav.las</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>pav.idx</code></td>
+<td>Settings C54</td>
+<td><strong>Price index reported</strong> (LiveOutputs <code>mit.pav.idx</code>): Legacy* = <code>pav.lidx</code> (default), Laspeyres = <code>pav.las</code></td>
+</tr>
+</tbody>
+</table>
+<p>Legacy averages (v4.15, issue I31, user 2026-10-18: legacy as the default; legacy rows 16293-16405): coal and gas average the prices of power generation, residential and industry (section 2 blocks <code>.res</code>, <code>.ind</code>: <code>rpn</code>; power: the pre-policy price <code>rpb</code> of <code>.pow</code> plus the policy cost per GJ of the power type, <code>pavl.pp</code>) with the scenario-1 quantities of the same year (residential subsector <code>pavl.qr</code>, the 8 industry subsectors <code>pavl.qi</code>, power generation <code>pavl.qp</code>): a Laspeyres index on three sectors. Electricity averages residential and industry with each scenario’s own consumption (= <code>pav.uv</code>). Oil products take the single price of their <code>.all</code> block. Biomass, jet fuel and all energy have no legacy average: their reported index is the Laspeyres one. Legacy bug L77 fixed (its index rows read the wrong fuels).</p>
+<p>Notes on the rows: - <strong>Subscripts.</strong> ₁ is scenario 1 in the same year; ₀ is the base year. Base-year quantities and prices are data, so they are equal in every scenario. - <strong>Unit-value ratio = price index × mix effect.</strong> Legacy reports the unit-value ratio as the price change (issue I31); here the two parts are separate. - <strong>All energy.</strong> Spending is in USD million: fuel spending × PJ per ktoe, plus electricity spending (USD/kWh × GWh). Fuel use is in ktoe, with electricity converted (GWh × GJ per kWh / PJ per ktoe). - <strong>Electricity.</strong> Units are USD/kWh and GWh. - <strong>Lookups.</strong> Header row 10 gives the position of scenario 1’s column for each year, so the scenario-1 quantities are a lookup (<code>INDEX(...,0,row 10)</code>).</p>
+</section>
+<section id="left-out-later-steps" class="level2">
+<h2 class="anchored" data-anchor-id="left-out-later-steps">8. Left out (later steps)</h2>
+<ul>
+<li>Electricity subsidy phase-outs (power features).</li>
+<li>The Europe shift to LNG.</li>
+<li>Ad-valorem baseline taxes (Egypt: Fixed).</li>
+</ul>
+</section>
+<section id="europe-gas-market-shift-to-lng-v5.6-ld20" class="level2">
+<h2 class="anchored" data-anchor-id="europe-gas-market-shift-to-lng-v5.6-ld20">Europe gas market: shift to LNG (v5.6, LD20)</h2>
+<p>For countries in the European gas market, the international gas price is Europe x (1 - s) + LNG x s, with s the share of gas from outside Russia (Inputs_pint row 3: 0.58 in 2022, 0.603 in 2023, 0.734 in 2024, 0.834 from 2025; legacy rows 699, 706), series nga.eus by source. Legacy reads a per-country ad-valorem flag for baseline taxes (Prices_int H, Mitigation F77) but no formula uses it: taxes are fixed in both.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./03_Mitigation_Prototype.html" class="pagination-link" aria-label="The mitigation prototype">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The mitigation prototype</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./05_Power.html" class="pagination-link" aria-label="Power">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Power</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
