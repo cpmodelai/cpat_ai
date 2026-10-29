@@ -1,4 +1,4 @@
-"""Legacy_CPAT_Bugs_v<version>.docx (excel_ai/): the legacy CPAT bugs, kept like a stock book (v8.4, user 2026-10-28).
+"""Legacy_CPAT_Bugs_v<version>.docx (excel_ai/): the legacy CPAT bugs, kept like a stock book (v0.8.4, user 2026-10-28).
 
 Front: the rule (bugs and issues; data problems are issues), then one table of every legacy bug found, fixed in the
 prototype and fixed (or not) in legacy 465, then the data problems with their priority. Then each bug in detail by type (engineer power,
@@ -33,19 +33,19 @@ import register as G
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)                 # excel_ai/ (restructure 2026-10-22)
-PLANS = os.path.join(ROOT, 'legacy', 'bugfixes', 'data')   # v7.1: was excel_ai/legacy/bugfixes/
+PLANS = os.path.join(ROOT, 'legacy', 'bugfixes', 'data')   # v0.7.1: was excel_ai/legacy/bugfixes/
 DOC_NAME = 'Legacy_CPAT_Bugs'
-OUT = B.REL.versioned(DOC_NAME, R.REGISTER_VERSION, 'docx')   # v8.4: excel_ai/Legacy_CPAT_Bugs_v<version>.docx
+OUT = B.REL.versioned(DOC_NAME, R.REGISTER_VERSION, 'docx')   # v0.8.4: excel_ai/Legacy_CPAT_Bugs_v<version>.docx
 TRACKER_NAME = 'Tracking_Legacy_Bugs'
 HEAD, LIGHT, PALE = 'D9E8C4', 'F2F2F2', 'EBF1DE'
 RED = RGBColor(0xC0, 0x00, 0x00)
-LEGACY_FILE = 'CPAT 1.0pre_465_NoPropData.xlsb'   # v8.4: the copy in legacy/workbooks (bugsfixed/ retired)
+LEGACY_FILE = 'CPAT 1.0pre_465_NoPropData.xlsb'   # v0.8.4: the copy in legacy/workbooks (bugsfixed/ retired)
 CHECK465 = os.path.join(ROOT, 'legacy', 'bugfixes', 'check465', 'legacy465_check.json')   # the fixes the CPAT team made in 465, checked 2026-10-22
 MARK = {'Confirmed fixed': 'CONFIRMED in 465', 'Fixed with caveats': 'FIXED WITH CAVEATS in 465',
         'Not fixed': 'NOT FIXED in 465'}
 POWER = ({f'L{k}' for k in range(1, 13)} | {f'L{k}' for k in range(52, 57)}
          | {'L67', 'L83', 'L84', 'L88', 'L95'}
-         | {f'L{k}' for k in range(107, 112)} | {'L126', 'L127'})   # v5.4: power features; v7.1: L126, L127   # engineer power model (L83, L84: electricity subsidies; L88: power)
+         | {f'L{k}' for k in range(107, 112)} | {'L126', 'L127'})   # v0.5.4: power features; v0.7.1: L126, L127   # engineer power model (L83, L84: electricity subsidies; L88: power)
 TRANSPORT = {f'L{k}' for k in range(25, 42)}                                          # engineer road model
 TYPE_NAME = {'power': 'Engineer power', 'transport': 'Engineer transport', 'other': 'Other mitigation',
              'dist': 'Distribution', 'inputs': 'Inputs (ScenarioDefinition)'}
@@ -57,7 +57,7 @@ def bug_type(code):
 
 
 def plans():
-    """Cell-level plans by bug id (excel_ai/legacy/bugfixes/data; v7.1: every plan file, distribution included)."""
+    """Cell-level plans by bug id (excel_ai/legacy/bugfixes/data; v0.7.1: every plan file, distribution included)."""
     out = {}
     for name in ('power_engineer', 'transport_engineer', 'other_mitigation', 'other_mitigation_2', 'distribution'):
         p = os.path.join(PLANS, f'fixes_{name}.json')
@@ -68,7 +68,7 @@ def plans():
 
 
 def other_sections():
-    """v7.1: other-mitigation bugs by model area (excel_ai/legacy/bugfixes/data/cfg_other_sections.json), sections in
+    """v0.7.1: other-mitigation bugs by model area (excel_ai/legacy/bugfixes/data/cfg_other_sections.json), sections in
     rough priority order; a bug the file does not list goes to a last section."""
     cfg = json.load(open(os.path.join(PLANS, 'cfg_other_sections.json'), encoding='utf-8'))
     return [(s['title'], s['intro'], s['ids']) for s in cfg['sections']]
@@ -94,7 +94,7 @@ def dist_bugs():
 
 @functools.lru_cache(maxsize=None)
 def check465():
-    """{code: {status, note}} of the bugs the CPAT team marked fixed in legacy 465 (v8.2)."""
+    """{code: {status, note}} of the bugs the CPAT team marked fixed in legacy 465 (v0.8.2)."""
     return json.load(open(CHECK465, encoding='utf-8'))['bugs'] if os.path.exists(CHECK465) else {}
 
 
@@ -132,11 +132,11 @@ def repeat_header(row):
 
 
 TEXT_W = 17.0                           # cm between the margins (A4, 2 cm margins)
-BREAK = re.compile(r'([,;:(+\-*/=<>&!])')   # v5.4: break opportunities in long formulas (zero-width space after)
+BREAK = re.compile(r'([,;:(+\-*/=<>&!])')   # v0.5.4: break opportunities in long formulas (zero-width space after)
 
 
 def fit_widths(t, widths):
-    """v5.4 (user: tables overflowed on the right, left columns too wide): fixed layout, the grid and every cell
+    """v0.5.4 (user: tables overflowed on the right, left columns too wide): fixed layout, the grid and every cell
     set to the column widths (Word lays out by the grid), scaled down to the text width when wider."""
     k = min(1.0, TEXT_W / sum(widths))
     w = [Cm(x * k) for x in widths]
@@ -336,7 +336,7 @@ def bug_block(doc, b, plan, level=3):
     code, typ, title, where, what, fix, status, pri, effect = b
     h = doc.add_heading(f'{code}  {title}', level)
     c465 = check465().get(code)
-    if c465:                                         # v8.2: the check of the CPAT team's fix in 465, in red
+    if c465:                                         # v0.8.2: the check of the CPAT team's fix in 465, in red
         r = h.add_run(f' - {MARK[c465["status"]]}')
         r.font.color.rgb = RED
     lst, lnote = legacy_status(code)
@@ -407,18 +407,18 @@ def bugs_part(doc):
     order = {'High': 0, 'Medium': 1, 'Low': 2}
     for g, h in groups:
         doc.add_heading(h, 2)
-        if g == 'other':                             # v7.1: one table and set of cell plans per model area
+        if g == 'other':                             # v0.7.1: one table and set of cell plans per model area
             other_part(doc, n_by[g], pl, order)
             continue
         rows = sorted(n_by[g], key=lambda b: (order.get(b[7], 3), int(b[0][1:])))
         table(doc, ['Code', 'Priority', 'Title', 'Cell plan'],
               [(b[0], b[7], b[2], 'yes' if b[0] in pl else 'not yet') for b in rows], [1.4, 1.8, 10.8, 2.0])
-        if g == 'power':                             # v6.4: from the former BugsIssuesUpgrades register
+        if g == 'power':                             # v0.6.4: from the former BugsIssuesUpgrades register
             power_effects(doc)
         for b in rows:
             bug_block(doc, b, pl.get(b[0]))
     doc.add_heading('4.4 Distribution', 2)
-    para(doc, 'Legacy sheet Distribution (household incidence by decile). Fixed in the prototype v4.4; the fixes '
+    para(doc, 'Legacy sheet Distribution (household incidence by decile). Fixed in the prototype v0.4.4; the fixes '
               'change Egypt\'s legacy numbers only a little (the targeted transfer of deciles 1-4 by up to 0.13 points '
               'of consumption, the Gini change with recycling by 0.0006 points; the urban and rural compensation '
               'shares most, since each now sums to 100). Method: Distribution_Method (section 3).')
@@ -437,7 +437,7 @@ def bugs_part(doc):
 
 
 def other_part(doc, bugs, pl, order):
-    """v7.1: other mitigation by model area, sections in rough priority order, High/Medium/Low within each (the
+    """v0.7.1: other mitigation by model area, sections in rough priority order, High/Medium/Low within each (the
     order of the section file within a priority). N1, N2 (found by the plans, not in the register) sit in their area."""
     by = {b[0]: b for b in bugs if not moved(b[0])}
     secs = other_sections()
@@ -465,7 +465,7 @@ def other_part(doc, bugs, pl, order):
 
 
 def power_effects(doc):
-    """v6.4: the effect of each legacy power-model fix on the legacy Egypt inputs (power_model_ref)."""
+    """v0.6.4: the effect of each legacy power-model fix on the legacy Egypt inputs (power_model_ref)."""
     years = list(range(2022, 2041))
     k30, k40 = years.index(2030), years.index(2040)
 
@@ -512,7 +512,7 @@ def doc_order():
 
 
 def appendices_465(doc):
-    """v8.2: the bugs the CPAT team fixed in legacy 465, moved out of section 3 whole: B with caveats, C confirmed."""
+    """v0.8.2: the bugs the CPAT team fixed in legacy 465, moved out of section 3 whole: B with caveats, C confirmed."""
     pl = plans()
     bugs = doc_order()
     for key, title, intro in (
@@ -537,7 +537,7 @@ def appendices_465(doc):
 
 
 def rule_part(doc):
-    """v8.4 (user 2026-10-28): the rule up front; bugs here, issues in the Documentation and the tracker."""
+    """v0.8.4 (user 2026-10-28): the rule up front; bugs here, issues in the Documentation and the tracker."""
     doc.add_heading('1. The rule: bugs and issues', 1)
     para(doc, 'Never replicate a legacy bug; always replicate a legacy issue, and track it (repository rule, NORMS 0). '
               'A bug is something legacy CPAT computes that it plainly does not intend: a reference to the wrong row, '
@@ -559,7 +559,7 @@ def rule_part(doc):
               f'departures (LD) and upgrades (U) are in the appendices of the '
               f'Documentation (CPAT-AI-Mitigation_Documentation.docx) and, with the bugs, in the tracker '
               f'{TRACKER_NAME}_v{R.REGISTER_VERSION}.xlsx, the master list (tabs Bugs and Issues). Every entry gives its '
-              f'code, its former code where it was renumbered in v8.4, and the codes it relates to.', size=9)
+              f'code, its former code where it was renumbered in v0.8.4, and the codes it relates to.', size=9)
     para(doc, f'Every cell reference is a row of the latest file from the CPAT team, {LEGACY_FILE} (sheet Mitigation '
               'unless stated); the bugs found in CPAT 1.0pre_456_NoPropData.xlsb were moved to 465 rows by matching '
               'labels and codes (legacy/bugfixes/data/rowmap_456_465.json). The procedure to fix a bug in the legacy '
@@ -567,7 +567,7 @@ def rule_part(doc):
 
 
 def stock_part(doc):
-    """v8.4: one table of every legacy bug: found, fixed in the prototype, status in legacy 465."""
+    """v0.8.4: one table of every legacy bug: found, fixed in the prototype, status in legacy 465."""
     doc.add_heading('2. Stock of legacy bugs: found and fixed', 1)
     bugs = G.by_kind('L')
     n = len(bugs)
@@ -595,7 +595,7 @@ def stock_part(doc):
 
 
 def databugs_part(doc):
-    """v8.5 (user 2026-10-29): the data problems, most urgent first: the bug with a cell plan and the issues."""
+    """v0.8.5 (user 2026-10-29): the data problems, most urgent first: the bug with a cell plan and the issues."""
     doc.add_heading('3. Data problems', 1)
     para(doc, 'Problems of the input data, most urgent first. Extremely high: no cell plan is possible; the prototype '
               'does exactly what legacy does. Very high: a legacy bug covers it (cell plan in part 4); the data still '
@@ -606,7 +606,7 @@ def databugs_part(doc):
 
 
 def export_json():
-    """The whole register as one JSON file for code (v8.4: every kind and module, from register.py)."""
+    """The whole register as one JSON file for code (v0.8.4: every kind and module, from register.py)."""
     pl = G.plans()
     recs = []
     for r in G.records():
@@ -651,7 +651,7 @@ def main():
     bugs_part(doc)
     appendices_465(doc)
     doc.save(OUT)
-    B.REL.publish(OUT)                            # v8.4: older versions to releases/
+    B.REL.publish(OUT)                            # v0.8.4: older versions to releases/
     print('wrote', OUT)
     export_json()
 

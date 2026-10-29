@@ -1,11 +1,11 @@
 Attribute VB_Name = "CPATScenarios"
 Option Explicit
 '==========================================================================
-' CPAT-AI-Mitigation-Prototype v4.7 (module file CPATScenarios.bas): batch runs of scenario definitions into StoredResults (values).
+' CPAT-AI-Mitigation-Prototype v0.4.7 (module file CPATScenarios.bas): batch runs of scenario definitions into StoredResults (values).
 '
 ' MTInputs holds one column per scenario: J = scenario 1 (baseline), K = scenario 2 (the live policy
 ' scenario that Mitigation group 2 calculates), L onwards = scenario definitions (row 4 "Run?" = Yes/No,
-' row 5 number, row 6 name, rows 8-479 the inputs; v3.5: transport rows after 413; v8.4: legacy 465 rows 8-413).
+' row 5 number, row 6 name, rows 8-479 the inputs; v0.3.5: transport rows after 413; v0.8.4: legacy 465 rows 8-413).
 '
 ' Public macros (Alt+F8):
 '   RunAllScenarios       stores the baseline (only if not stored yet), then for every definition with
@@ -15,7 +15,7 @@ Option Explicit
 '                         number and name. Column K and the ETS override row are restored at the end.
 '   StoreBaseline         (re)stores scenario 1 under ID 1 (replaces the stored baseline).
 '   StoreLiveScenario     stores the live scenario 2 as it stands, under an ID you choose.
-'   UpdateDataTables      v6.5: refreshes the linked data tabs (sheet DataLinks) for the country of Settings C4
+'   UpdateDataTables      v0.6.5: refreshes the linked data tabs (sheet DataLinks) for the country of Settings C4
 '                         from the data source chosen on DataLinks (Power Query, one query per tab).
 '   SolveETSLive          ETS goal seek for the live scenario only (fills its override row ets.ovr).
 '   ClearStoredScenarios  deletes every stored scenario except the baseline.
@@ -28,7 +28,7 @@ Option Explicit
 ' ETS goal seek: legacy damped log-space iteration (OverrideETSFast / SolveFast) on the workbook's proposal
 ' row ets.next: p <- p x (proposal / p) ^ alpha, mixing 0.3 with the previous iterate, 5% centred 3-year
 ' smoothing, adaptive alpha; stops when the worst |covered / cap - 1| is below the tolerance. Same steps as
-' ets_goalseek.py. v5.2: the settings are on sheet Manual inputs at the legacy addresses, read through the
+' ets_goalseek.py. v0.5.2: the settings are on sheet Manual inputs at the legacy addresses, read through the
 ' names ETSMaxIterations (E10), ETSStartFreshContinue (E11: StartFresh = start from the fast estimate ets.est;
 ' Continue = from the override row ets.ovr if it holds prices) and ETSErrorTolerance (E12); ETS_MAXITER and
 ' ETS_TOL apply only when a cell is not a positive number.
@@ -61,23 +61,23 @@ Private Const LIVE_SCEN As Long = 2
 Private Const BASE_SCEN As Long = 1
 Private Const ETS_TOL As Double = 0.005
 Private Const ETS_MAXITER As Long = 20
-Private Const SH_DL As String = "ScenarioCompare"      ' v6.7: the data-source entries sit on the dashboard
-Private Const SH_SC As String = "ScenarioCompare"      ' v6.7: the dashboard
-Private Const MT_COL_CAP As Long = 52                   ' v6.7: last scenario column of ScenarioDefinition (AZ)
+Private Const SH_DL As String = "ScenarioCompare"      ' v0.6.7: the data-source entries sit on the dashboard
+Private Const SH_SC As String = "ScenarioCompare"      ' v0.6.7: the dashboard
+Private Const MT_COL_CAP As Long = 52                   ' v0.6.7: last scenario column of ScenarioDefinition (AZ)
 Private Const DL_MAXROWS As Long = 9000
-' v7.1: Office-library constants by value (the embedded project references Excel and stdole only, so msoTrue,
+' v0.7.1: Office-library constants by value (the embedded project references Excel and stdole only, so msoTrue,
 ' msoLineDash and msoLineSolid are undefined there: "Variable not defined" under Option Explicit)
 Private Const MSO_TRUE As Long = -1
 Private Const MSO_LINE_SOLID As Long = 1
 Private Const MSO_LINE_DASH As Long = 4
 Private Const DATA_FILE As String = "CPAT_Data_dummy_python.xlsx"
-Private Const ALIAS_HEAD As String = "Code stem v7.1 (alias)"   ' v7.2: LiveOutputs alias column (codes R8)
+Private Const ALIAS_HEAD As String = "Code stem v0.7.1 (alias)"   ' v0.7.2: LiveOutputs alias column (codes R8)
 
 '---------------------------------------------------------------- public macros
 Public Sub RunAllScenarios()
     Dim n As Long
     n = RunAll()
-    SortStoredOutputs                                     ' v6.7: like variables together, then the dashboard
+    SortStoredOutputs                                     ' v0.6.7: like variables together, then the dashboard
     GroupBlankScenarios
     RefreshDashboard
     MsgBox n & " scenario definition(s) run and stored in " & SH_SR & ".", vbInformation, "CPAT scenarios"
@@ -115,12 +115,12 @@ Public Sub ClearStoredScenarios()
     KeepOnlyBaseline
 End Sub
 
-'---------------------------------------------------------------- v6.5: linked data tables (v6.7: entries on ScenarioCompare)
+'---------------------------------------------------------------- v0.6.5: linked data tables (v0.6.7: entries on ScenarioCompare)
 ' ScenarioCompare holds the data-source dropdown (DataSource), the table of sources (DataSrcTable: name, kind, path or
 ' URL); Cover the table of linked tabs (DataLinkTable: prototype tab, data-workbook table, header cell, columns, rows
 ' (country / all), status). For every linked tab the macro writes the query text (path/URL and country as literals,
 ' so Power Query raises no privacy-firewall error), loads it in a staging sheet and copies it by column name
-' (v7.1; before: a query table at the tab's header cell, columns in the data-workbook order).
+' (v0.7.1; before: a query table at the tab's header cell, columns in the data-workbook order).
 
 Public Sub UpdateDataTables()
     Dim src As String, kind As String, loc As String, srcExpr As String, iso As String
@@ -146,7 +146,7 @@ Public Sub UpdateDataTables()
         srcExpr = "Web.Contents(""" & loc & """)"
     End If
     ThisWorkbook.Names("DataUsed").RefersToRange.Value = loc
-    ThisWorkbook.Names("DataSavedIn").RefersToRange.Value = ThisWorkbook.Path   ' v6.6: was CELL("filename")
+    ThisWorkbook.Names("DataSavedIn").RefersToRange.Value = ThisWorkbook.Path   ' v0.6.6: was CELL("filename")
     iso = UCase(CStr(ThisWorkbook.Names("CtryCode").RefersToRange.Value))
     calc = Application.Calculation
     Application.Calculation = xlCalculationManual
@@ -217,7 +217,7 @@ End Function
 Private Function RefreshLink(ByVal tabName As String, ByVal tbl As String, ByVal hdr As String, ByVal ncol As Long, _
                              ByVal rowsOf As String, ByVal srcExpr As String, ByVal iso As String, _
                              ByRef warn As String) As Long
-    ' v7.1: the query loads into a staging sheet; its columns are copied to the tab by the names in the tab's own
+    ' v0.7.1: the query loads into a staging sheet; its columns are copied to the tab by the names in the tab's own
     ' header row (any column order in the data workbook; the header row and the formula columns of the tab stay),
     ' rows of the country only ("country") or every row ("all"); with no rows the shipped data stay
     Dim m As String, qn As String, q As Object, ws As Worksheet, st As Worksheet, lo As ListObject
@@ -305,7 +305,7 @@ Private Function HeaderKey(ByVal v As Variant) As String
 End Function
 
 Private Sub Recalc()
-    ' v7.1: recalculate twice. In Excel the second pass finds nothing left to calculate (no cost); LibreOffice, where
+    ' v0.7.1: recalculate twice. In Excel the second pass finds nothing left to calculate (no cost); LibreOffice, where
     ' the macros are tested, leaves differences of up to 2e-3 after one pass (excel_ai/NORMS.md 3i.2)
     Application.Calculate
     Application.Calculate
@@ -320,14 +320,14 @@ Public Sub CalculationOff()
     Application.Calculation = xlCalculationManual
 End Sub
 
-' v6.6: the workbook ships with its values and opens in manual calculation (no recalculation on open)
+' v0.6.6: the workbook ships with its values and opens in manual calculation (no recalculation on open)
 Public Sub RecalculateNow()
     Dim t As Double
     t = Timer
     Application.StatusBar = "Recalculating CPAT..."
     Application.CalculateFull
     Application.StatusBar = False
-    RefreshDashboard                                      ' v6.7: charts follow the scenarios with results
+    RefreshDashboard                                      ' v0.6.7: charts follow the scenarios with results
     MsgBox "Recalculated in " & Format(Timer - t, "0.0") & " seconds.", vbInformation, "CPAT"
 End Sub
 
@@ -359,7 +359,7 @@ Public Function RunAll() As Long
         savedOvr(j) = ThisWorkbook.Worksheets(SH_MIT).Cells(ovr, ovrBase + j - 1).Value
     Next j
     Dim calcWas As Long
-    calcWas = Application.Calculation                     ' v6.6: restored at the end (the workbook ships manual)
+    calcWas = Application.Calculation                     ' v0.6.6: restored at the end (the workbook ships manual)
     On Error Resume Next
     Application.ScreenUpdating = False
     Application.Calculation = xlCalculationManual
@@ -415,7 +415,7 @@ Public Function SolveETS() As Double
     Dim resp(1 To NYEARS) As Double, gap As Double, cap As Double, sm As Double
     Dim alpha As Double, worst As Double, prevWorst As Double, converged As Boolean
     Dim maxIt As Long, tol As Double, fresh As Boolean
-    maxIt = CLng(Num(NamedValue("ETSMaxIterations")))     ' v5.2: Manual inputs E10:E12 (legacy addresses)
+    maxIt = CLng(Num(NamedValue("ETSMaxIterations")))     ' v0.5.2: Manual inputs E10:E12 (legacy addresses)
     If maxIt < 1 Then maxIt = ETS_MAXITER
     tol = Num(NamedValue("ETSErrorTolerance"))
     If tol <= 0 Then tol = ETS_TOL
@@ -497,7 +497,7 @@ Public Function SolveETS() As Double
 End Function
 
 Private Function NamedValue(ByVal nm As String) As Variant
-    NamedValue = ThisWorkbook.Names(nm).RefersToRange.Value  ' v5.2: a single-cell workbook name
+    NamedValue = ThisWorkbook.Names(nm).RefersToRange.Value  ' v0.5.2: a single-cell workbook name
 End Function
 
 Private Function LogStep(ByVal pc As Double, ByVal pr As Double, ByVal alpha As Double) As Double
@@ -513,7 +513,7 @@ End Function
 Private Sub StoreScenario(ByVal id As Long, ByVal srcScen As Long, ByVal nm As String)
     Dim mo As Worksheet, sr As Worksheet, h As Long, r As Long, n As Long, d As Long, k As Long, j As Long
     Dim code As String, country As String, stamp As Date
-    UpgradeStoredCodes                                    ' v7.2: v7.1 stems renamed first
+    UpgradeStoredCodes                                    ' v0.7.2: v0.7.1 stems renamed first
     Set mo = ThisWorkbook.Worksheets(SH_OUT)
     Set sr = ThisWorkbook.Worksheets(SH_SR)
     For r = 5 To 2000                                     ' header row of the MTOutputs block
@@ -529,7 +529,7 @@ Private Sub StoreScenario(ByVal id As Long, ByVal srcScen As Long, ByVal nm As S
     Do While Len(CStr(mo.Cells(h + 1 + n, 2).Value)) > 0
         n = n + 1
     Loop
-    DeleteStored id                                       ' v6.7: the ID's rows wherever they are (sorted sheet)
+    DeleteStored id                                       ' v0.6.7: the ID's rows wherever they are (sorted sheet)
     d = FirstFreeRow()
     code = CStr(mo.Cells(h + 1, 1).Value)
     country = Left(code, InStr(code, ".") - 1)
@@ -549,7 +549,7 @@ Private Sub StoreScenario(ByVal id As Long, ByVal srcScen As Long, ByVal nm As S
 End Sub
 
 Private Sub DeleteStored(ByVal id As Long)
-    ' v6.7: delete every stored row of the ID and close the gaps (the rows may be anywhere after a sort)
+    ' v0.6.7: delete every stored row of the ID and close the gaps (the rows may be anywhere after a sort)
     Dim sr As Worksheet, r As Long, last As Long
     Set sr = ThisWorkbook.Worksheets(SH_SR)
     last = FirstFreeRow() - 1
@@ -560,10 +560,10 @@ Private Sub DeleteStored(ByVal id As Long)
     Next r
 End Sub
 
-'---------------------------------------------------------------- v7.2 (codes R8): v7.1 code stems accepted
+'---------------------------------------------------------------- v0.7.2 (codes R8): v0.7.1 code stems accepted
 Public Sub UpgradeStoredCodes()
-    ' stored rows of v7.1 carry the old prototype code stems: each is renamed to its protocol stem through the alias column
-    ' of LiveOutputs ("Code stem v7.1 (alias)"), and its output code with it; kept for one release
+    ' stored rows of v0.7.1 carry the old prototype code stems: each is renamed to its protocol stem through the alias column
+    ' of LiveOutputs ("Code stem v0.7.1 (alias)"), and its output code with it; kept for one release
     Dim mo As Worksheet, sr As Worksheet, ac As Long, c As Long, r As Long, q As Long, last As Long, n As Long
     Dim olds() As String, news() As String, s As String, cd As String
     Set mo = ThisWorkbook.Worksheets(SH_OUT)
@@ -602,7 +602,7 @@ Public Sub UpgradeStoredCodes()
     Next r
 End Sub
 
-'---------------------------------------------------------------- v6.7: dashboard helpers
+'---------------------------------------------------------------- v0.6.7: dashboard helpers
 Public Sub SortStoredOutputs()
     ' like variables together: by code stem, then scenario ID (every lookup matches the output code, so any order works)
     Dim sr As Worksheet, last As Long
@@ -813,7 +813,7 @@ Public Function CheckBatch() As Double
     Dim items As Variant, i As Long, n As Long, m As Long, j As Long, r As Long, q As Long, h As Long, k As Long
     Dim oldId() As Double, oldStem() As String, oldVal() As Double, newId() As Double, newStem() As String
     Dim newVal() As Double, d As Double, worst As Double, worstB As Double, nBad As Long, nCells As Long
-    Dim nMissing As Long, hit As Long, stem As String, nEts As Long, worstEts As Double   ' v5.2: new-ETS definitions
+    Dim nMissing As Long, hit As Long, stem As String, nEts As Long, worstEts As Double   ' v0.5.2: new-ETS definitions
     Set mc = ThisWorkbook.Worksheets(SH_CHECK)
     Set sr = ThisWorkbook.Worksheets(SH_SR)
     Set mo = ThisWorkbook.Worksheets(SH_OUT)
@@ -889,7 +889,7 @@ Public Function CheckBatch() As Double
             nMissing = nMissing + 1
             Note mc, wr, "Missing after the run", "ID " & oldId(r) & ", " & oldStem(r)
         ElseIf NeedsETS(MTColumn(CLng(oldId(r)))) Then
-            ' v5.2: a new-ETS definition is stored by the build at the fast price estimate (no goal seek, user rule
+            ' v0.5.2: a new-ETS definition is stored by the build at the fast price estimate (no goal seek, user rule
             ' 2026-10-17); the run goal-seeks it, so it is reported, not compared
             For j = 1 To NYEARS
                 d = RelDiff(newVal(hit, j), oldVal(r, j))
@@ -960,7 +960,7 @@ End Function
 
 Private Function ReadStored(ByRef ids() As Double, ByRef stems() As String, ByRef vals() As Double) As Long
     Dim sr As Worksheet, n As Long, r As Long, j As Long
-    UpgradeStoredCodes                                    ' v7.2: v7.1 stems renamed first
+    UpgradeStoredCodes                                    ' v0.7.2: v0.7.1 stems renamed first
     Set sr = ThisWorkbook.Worksheets(SH_SR)
     n = FirstFreeRow() - SR_FIRST
     ReDim ids(1 To n + 1)

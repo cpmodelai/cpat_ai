@@ -7,7 +7,7 @@ source the Excel prototype links to (plan: CAVEATS.md (finished plan)).
     README sheet        version, source, how to query one table for one country
     c_<file>            one sheet per CSV, the file as it is, as an Excel table named c_<file>
     L_<tab>             the legacy-layout tables the MVP loads directly (EnergyCons, Prices_dom, HHSurvey,
-                        IO_GTAP, built as export_to_legacy.py does; v7.1: WEO, GDPRatios, HH_Elast, UNPop, built by
+                        IO_GTAP, built as export_to_legacy.py does; v0.7.1: WEO, GDPRatios, HH_Elast, UNPop, built by
                         the converters of convert_data_workbook.py; Balances, the MVP's own Egypt table), one
                         header row (the code row)
 
@@ -60,7 +60,7 @@ MVP_TAB = {
     'distn_mapping_countries_to_gtap10': 'DistMapping', 'distn_mapping_sector_crosswalk': 'DistMapping',
     'L_EnergyCons': 'EnergyCons', 'L_Prices_dom': 'Prices_dom', 'L_HHSurvey': 'HHSurvey', 'L_IO_GTAP': 'IO_GTAP',
     'L_Balances': 'Balances'}
-# v7.1: Coded CPAT table -> L_ table in the legacy layout, through the converters of convert_data_workbook.py
+# v0.7.1: Coded CPAT table -> L_ table in the legacy layout, through the converters of convert_data_workbook.py
 LEGACY_CONVERTED = {'weo': 'L_WEO', 'distn_gdp_ratios': 'L_GDPRatios', 'distn_hh_elast': 'L_HH_Elast',
                     'un_pop': 'L_UNPop'}
 L_SOURCE = {'L_EnergyCons': 'energy_consumption.csv', 'L_Prices_dom': 'prices_dom.csv',
@@ -144,7 +144,7 @@ def _legacy_tables(data_dir):
         l = lay[name[2:]]
         rows, notes = fn(l)
         out[name] = (list(l['header_rows'][-1]), [list(r) for r in rows], notes)
-    # v7.1: tables the MVP keeps in the legacy layout, built by the CPAT-format converters (convert_data_workbook.py);
+    # v0.7.1: tables the MVP keeps in the legacy layout, built by the CPAT-format converters (convert_data_workbook.py);
     # header = the legacy column-header row, which is the MVP header row 3
     import convert_data_workbook as cdw
     tables = cdw.read_python_tables(data_dir)

@@ -1,9 +1,9 @@
-"""v4.5: the two mapping tables of the distribution module that have no legacy data tab (data/):
+"""v0.4.5: the two mapping tables of the distribution module that have no legacy data tab (data/):
   distn_catmap.csv    gtap sector (IO_GTAP code), CPAT consumption category of legacy C.I rows 668-736 (fuel sectors:
                       their fuel group; they reach households through the direct effect only)
   distn_programs.csv  recycling choices of MTInputs: kind, label, data code (legacy Distribution rows 184-189 and
                       195-210: infrastructure access variables; ASPIRE program codes per_<program>.avt_q)
-The data tables themselves are legacy's, unchanged: extract_legacy_tables.py (v4.4 wrote reshaped copies)."""
+The data tables themselves are legacy's, unchanged: extract_legacy_tables.py (v0.4.4 wrote reshaped copies)."""
 import csv, os
 
 HERE = os.path.dirname(os.path.abspath(__file__))

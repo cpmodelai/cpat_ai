@@ -1,4 +1,4 @@
-"""The inputs (legacy MTInputs, the prototype's ScenarioDefinition): names and rows of legacy 465 (v8.4, user 2026-10-28).
+"""The inputs (legacy MTInputs, the prototype's ScenarioDefinition): names and rows of legacy 465 (v0.8.4, user 2026-10-28).
 
 Reads sheet MTInputs and the Name Manager of CPAT 1.0pre_465_NoPropData.xlsb and writes
   - data/mvp_legacy_extracts/mtinputs_465.csv: one row per input row of MTInputs: row, label, unit, legacy defaults,

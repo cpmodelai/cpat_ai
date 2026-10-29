@@ -1,18 +1,18 @@
-"""CPAT codes map for the mitigation prototype (v7.1): the legacy codes map updated for the prototype, with the code protocol.
+"""CPAT codes map for the mitigation prototype (v0.7.1): the legacy codes map updated for the prototype, with the code protocol.
 
 Reads (read only):
   - the legacy codes map    ../legacy/workbooks/CPATMasterProcessesCodesAndDefaults.xlsx (CodesAndLookups sheets)
   - the legacy workbook     ../legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb (Mitigation codes G/H, MTOutputs)
-  - the prototype                 CPAT-AI-Mitigation-Prototype-v7.1.xlsm (Mitigation code column, LiveOutputs, variable dictionary)
-  - the crosswalk           <repo>/data/mvp_legacy_extracts/codes_crosswalk_v7_1.csv (prototype variable -> legacy code,
+  - the prototype                 CPAT-AI-Mitigation-Prototype-v0.7.1.xlsm (Mitigation code column, LiveOutputs, variable dictionary)
+  - the crosswalk           <repo>/data/mvp_legacy_extracts/codes_crosswalk_v0_7_1.csv (prototype variable -> legacy code,
                             curated: every prototype variable whose quantity legacy codes differently)
 Writes:
-  - CPAT_CodesMap_v7_1.xlsx (sheets: Cover, Protocol, Positions, the vocabularies, Variables, Crosswalk, LiveOutputs,
+  - CPAT_CodesMap_v0_7_1.xlsx (sheets: Cover, Protocol, Positions, the vocabularies, Variables, Crosswalk, LiveOutputs,
     MVPOnly, Checks) and lints it (../excel_lint.py).
 
-    python make_codes_map_v7_1.py
+    python make_codes_map_v0_7_1.py
 
-The protocol (sheet Protocol) is the rule set; Codes_Remediation_Plan_v7_1.md is the plan to bring the prototype onto it.
+The protocol (sheet Protocol) is the rule set; Codes_Remediation_Plan_v0_7_1.md is the plan to bring the prototype onto it.
 """
 import csv
 import os
@@ -29,10 +29,10 @@ ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
 ORIG = os.path.join(HERE, '..', 'legacy', 'workbooks')
 MASTER = os.path.join(ORIG, 'CPATMasterProcessesCodesAndDefaults.xlsx')
 LEGACY = os.path.join(ORIG, 'CPAT 1.0pre_456_NoPropData.xlsb')
-prototype = os.path.join(HERE, 'CPAT-AI-Mitigation-Prototype-v7.1.xlsm')
-XWALK = os.path.join(ROOT, 'data', 'mvp_legacy_extracts', 'codes_crosswalk_v7_1.csv')
-OUT = os.path.join(HERE, 'CPAT_CodesMap_v7_1.xlsx')
-VERSION = '7.1'
+prototype = os.path.join(HERE, 'CPAT-AI-Mitigation-Prototype-v0.7.1.xlsm')
+XWALK = os.path.join(ROOT, 'data', 'mvp_legacy_extracts', 'codes_crosswalk_v0_7_1.csv')
+OUT = os.path.join(HERE, 'CPAT_CodesMap_v0_7_1.xlsx')
+VERSION = '0.7.1'
 DATE = '2026-10-21'
 
 FONT = Font(name='Arial', size=10)
@@ -46,7 +46,7 @@ WRAP = Alignment(wrap_text=True, vertical='top')
 MODULES = ('mit', 'distn', 'air', 'ap', 'tra', 'dist', 'tran', 'emi')
 
 # ---------------------------------------------------------------------------------------------------------------
-# The protocol. Each rule: id, rule, legacy practice (what legacy does, counted on the 456 file), prototype v7.1 practice.
+# The protocol. Each rule: id, rule, legacy practice (what legacy does, counted on the 456 file), prototype v0.7.1 practice.
 # Counts in {braces} are filled from the checks below.
 # ---------------------------------------------------------------------------------------------------------------
 PROTOCOL = [
@@ -165,7 +165,7 @@ PROTOCOL = [
      'GHGs) and legacy\'s NOx row (-5.5 Mt CO2e, a cooling forcing) is coded oc.tot. (the organic-carbon code, no '
      'scenario): in the prototype N2O is n2o.tot and NOx is nox.tot. (d) A quantity legacy does not code follows the protocol.',
      '-',
-     'Not yet: see sheet Crosswalk and Codes_Remediation_Plan_v7_1.md (incremental steps R0-R8).'),
+     'Not yet: see sheet Crosswalk and Codes_Remediation_Plan_v0_7_1.md (incremental steps R0-R8).'),
 ]
 
 
@@ -210,7 +210,7 @@ def read_legacy():
 
 
 def read_mvp():
-    """prototype v7.1: Mitigation rows with a code, LiveOutputs codes, the variable dictionary."""
+    """prototype v0.7.1: Mitigation rows with a code, LiveOutputs codes, the variable dictionary."""
     wb = openpyxl.load_workbook(prototype, read_only=True, data_only=True)
     mit = []
     for i, r in enumerate(wb['Mitigation'].iter_rows(max_col=11, values_only=True), 1):
@@ -357,7 +357,7 @@ def legacy_template(code, fuels, sectors, pols, models):
 
 
 def checks(leg_mit, leg_mto, mvp_mit, live):
-    """Counts for the protocol rules (C1, C3, C5-C8, C10) on legacy (456) and prototype (v7.1)."""
+    """Counts for the protocol rules (C1, C3, C5-C8, C10) on legacy (456) and prototype (v0.7.1)."""
     lo = [r['code'] for r in leg_mit if r['kind'] == 'output']
     la = [r['code'] for r in leg_mit]
     mc = [r['code'] for r in mvp_mit]
@@ -440,9 +440,9 @@ def build():
     ws.title = 'Cover'
     cover = [
         ('CPAT codes map - mitigation prototype v' + VERSION, FONT_T),
-        (f'Built {DATE} by make_codes_map_v7_1.py from the legacy codes map (CPATMasterProcessesCodesAndDefaults.xlsx, '
-         'CodesAndLookups), the legacy workbook (CPAT 1.0pre_456_NoPropData.xlsb) and CPAT-AI-Mitigation-Prototype-v7.1.xlsm. '
-         'Do not edit: change the script or the crosswalk (data/mvp_legacy_extracts/codes_crosswalk_v7_1.csv).', FONT),
+        (f'Built {DATE} by make_codes_map_v0_7_1.py from the legacy codes map (CPATMasterProcessesCodesAndDefaults.xlsx, '
+         'CodesAndLookups), the legacy workbook (CPAT 1.0pre_456_NoPropData.xlsb) and CPAT-AI-Mitigation-Prototype-v0.7.1.xlsm. '
+         'Do not edit: change the script or the crosswalk (data/mvp_legacy_extracts/codes_crosswalk_v0_7_1.csv).', FONT),
         ('', FONT),
         ('Sheets', FONT_B),
         ('Protocol - the rules for every CPAT code (C0-C11): what the rule is, what legacy does, what the prototype does.', FONT),
@@ -458,7 +458,7 @@ def build():
         ('MVPOnly - prototype variables with no legacy counterpart, with the protocol rules each one breaks.', FONT),
         ('Checks - the protocol checks on legacy and on the prototype (duplicates, characters, slots).', FONT),
         ('', FONT),
-        ('Remediation plan: Codes_Remediation_Plan_v7_1.md (next to this file). Fill colours: blue = code, '
+        ('Remediation plan: Codes_Remediation_Plan_v0_7_1.md (next to this file). Fill colours: blue = code, '
          'orange = a deviation from legacy or from the protocol.', FONT),
     ]
     for i, (t, f) in enumerate(cover, 1):
@@ -468,9 +468,9 @@ def build():
     # Protocol (inline)
     rows = [(rid, name, rule, legacy.format(**k), mvp.format(**k)) for rid, name, rule, legacy, mvp in PROTOCOL]
     ws = sheet(wb, 'Protocol', 'CPAT code protocol',
-               'The rule set for every CPAT code. Legacy practice counted on the 456 file; prototype practice on v7.1. '
+               'The rule set for every CPAT code. Legacy practice counted on the 456 file; prototype practice on v0.7.1. '
                'Examples drop the country and scenario where they do not matter.',
-               ['Rule', 'Topic', 'Rule', 'Legacy practice', 'prototype v7.1 practice'], rows, [6, 22, 90, 60, 60])
+               ['Rule', 'Topic', 'Rule', 'Legacy practice', 'prototype v0.7.1 practice'], rows, [6, 22, 90, 60, 60])
     for row in ws.iter_rows(min_row=5):
         for c in row:
             c.alignment = WRAP
@@ -560,7 +560,7 @@ def build():
     sheet(wb, 'Crosswalk', 'Crosswalk: prototype codes that differ from legacy',
           'One row per prototype variable (or pattern) that computes a legacy quantity under a different code. Fix: the code '
           'the prototype should carry (C11: legacy variable name in the protocol structure); the legacy code is its alias. '
-          'Review = yes: a person settles the row before its step (partial or unsure match, or no mechanical fix). Source: data/mvp_legacy_extracts/codes_crosswalk_v7_1.csv.',
+          'Review = yes: a person settles the row before its step (partial or unsure match, or no mechanical fix). Source: data/mvp_legacy_extracts/codes_crosswalk_v0_7_1.csv.',
           ['prototype variable', 'prototype example code', 'prototype rows', 'Legacy variable', 'Legacy example code', 'Legacy rows (456)',
            'Match', 'Difference', 'Fix: code for the prototype (protocol)', 'Review', 'Evidence'],
           [[x[c] for c in cols] for x in xw], [12, 30, 12, 14, 34, 14, 16, 30, 34, 8, 70], code_cols=(2, 5, 9),
@@ -618,7 +618,7 @@ def build():
     # Checks
     crow = [
         ['C10', 'Duplicated output codes, legacy Mitigation (456)', k['leg_dup'], ', '.join(k['leg_dup_list'][:40])],
-        ['C10', 'Duplicated codes, prototype Mitigation (v7.1)', k['mvp_dup'], ', '.join(k['mvp_dup_list'])],
+        ['C10', 'Duplicated codes, prototype Mitigation (v0.7.1)', k['mvp_dup'], ', '.join(k['mvp_dup_list'])],
         ['C1', 'Legacy codes with capitals', k['leg_upper'], 'em.<pollutant>.All.<sector>'],
         ['C1', 'Legacy codes with an empty token or trailing full stop', k['leg_empty'], 'e.g. fix.pow.coa.t.'],
         ['C1', 'prototype codes with capitals (NameOfParameter pass-throughs)', k['mvp_upper'], 'allowed'],
@@ -632,7 +632,7 @@ def build():
         ['C4', 'prototype variables / with a legacy variable token / renamed legacy quantities',
          f"{k['mvp_vars']} / {k['mvp_common']} / {k['xw_renamed']}", 'sheet Crosswalk'],
     ]
-    sheet(wb, 'Checks', 'Protocol checks', 'Counted by make_codes_map_v7_1.py on the 456 file and on v7.1.',
+    sheet(wb, 'Checks', 'Protocol checks', 'Counted by make_codes_map_v0_7_1.py on the 456 file and on v0.7.1.',
           ['Rule', 'Check', 'Count', 'Detail'], crow, [6, 60, 14, 120])
     for w in wb.worksheets:
         w.sheet_view.zoomScale = 85

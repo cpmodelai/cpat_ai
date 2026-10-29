@@ -25,7 +25,7 @@
   "effect": "None for Egypt (no fuel price reform; switch Linear*). With option No the reform keeps its target level instead of falling to 0 from the target year (prices, demand, revenue).",
   "note": "The test is t < target (strict), so the target year itself already takes the No/Percentage branch; with the fix the target year gets the hold level = the linear value, so the strict test no longer matters. Column L reads K (the rate column) as 'previous year' in the Percentage branch; see L173.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): the fuel price reform path holds the target level under option No (FPRPATH helper rows; Equations_addendum LD10.3)."
+  "prototype": "Fixed (v0.9.0): the fuel price reform path holds the target level under option No (FPRPATH helper rows; Equations_addendum LD10.3)."
  },
  {
   "id": "L172",
@@ -67,7 +67,7 @@
   "effect": "Egypt fixed supply cost ($/GJ, $/l): coal pow 1.324 -> 1.404, res 7.944 -> 8.424, ind 3.972 -> 4.212; gas pow 7.607 -> 8.570, res 13.406 -> 14.719, ind 8.534 -> 9.553; gasoline/diesel/LPG/kerosene 0.123 -> 0.140. The historical pre-tax price is unchanged (data); the floating part falls by the same amount, so projected supply costs follow international prices less.",
   "note": "The year 2024 of the coal and gas margins is typed (issue I101, replicated); the conversion uses the CPI index of the year actually read.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): the margin and the production cost are converted with the CPI index of the year read (Inputs_prices mcpi, bcpi; Equations_addendum R13.3)."
+  "prototype": "Fixed (v0.9.0): the margin and the production cost are converted with the CPI index of the year read (Inputs_prices mcpi, bcpi; Equations_addendum R13.3)."
  },
  {
   "id": "L173",
@@ -95,7 +95,7 @@
   "effect": "None for Egypt (no fuel price reform; Linear*). With Percentage, the reform path grows at the rate after the target year instead of falling to rate x price.",
   "note": "Column L only reaches the branch if the target year is 2022 or earlier; there it takes the hold level.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): under Percentage the reform path grows at (1 + rate) x last year from the hold level (FPRPATH helper rows; Equations_addendum LD10.3)."
+  "prototype": "Fixed (v0.9.0): under Percentage the reform path grows at (1 + rate) x last year from the hold level (FPRPATH helper rows; Equations_addendum LD10.3)."
  },
  {
   "id": "L174",
@@ -116,7 +116,7 @@
   "effect": "None for Egypt (feebate years 2027/2035, rates 0).",
   "note": "",
   "status": "fix",
-  "prototype": "Fixed (v9.0): the feebate slope divides by max(target - start, 1), no #DIV/0! (Equations_addendum LD10.4)."
+  "prototype": "Fixed (v0.9.0): the feebate slope divides by max(target - start, 1), no #DIV/0! (Equations_addendum LD10.4)."
  },
  {
   "id": "L175",
@@ -158,7 +158,7 @@
   "effect": "oop externality 2022 34.77 -> 15.86 $/GJ; implicit oop subsidy 2022 11.19 -> 5.11, 2030 28.78 -> 11.01, 2041 42.65 -> 16.26 bn; FFS oop rows 2030 0.301 -> 0.151 bn.",
   "note": "Equations_addendum code L-R2-1.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): climate cost per unit in $/GJ for every fuel, oop included (Equations_addendum R2.1)."
+  "prototype": "Fixed (v0.9.0): climate cost per unit in $/GJ for every fuel, oop included (Equations_addendum R2.1)."
  },
  {
   "id": "L177",
@@ -179,7 +179,7 @@
   "effect": "2022 0.01103 -> 0.00882 $/kWh (-20%); R3 efficient electricity prices.",
   "note": "Equations_addendum code L-R2-2. The R3 efficient-price block keeps the legacy form as issue I121.",
   "status": "fix",
-  "prototype": "Fixed (v9.0) in the subsidy and welfare rows: cost weighted by fuel use per kWh generated (Equations_addendum R2.2); the R3 efficient price keeps legacy 18090 (issue I121)."
+  "prototype": "Fixed (v0.9.0) in the subsidy and welfare rows: cost weighted by fuel use per kWh generated (Equations_addendum R2.2); the R3 efficient price keeps legacy 18090 (issue I121)."
  },
  {
   "id": "L178",
@@ -207,7 +207,7 @@
   "effect": "coal other 2022 0.7475 -> 2.374 $/GJ (no Egypt use); gas other 0.350 -> 0.465 $/GJ (FFS nga.oth line, small).",
   "note": "Equations_addendum code L-R2-3.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): other-use cost weighted by each sector's own fuel use (Equations_addendum R2.3)."
+  "prototype": "Fixed (v0.9.0): other-use cost weighted by each sector's own fuel use (Equations_addendum R2.3)."
  },
  {
   "id": "L179",
@@ -256,7 +256,7 @@
   "effect": "the 5 lines 2030 0.0957 -> 0.0989 bn, 2041 0.575 -> 0.586 bn.",
   "note": "Equations_addendum code L-R2-4.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): each FFS line takes its own sector's fuel use change (Equations_addendum R2.9)."
+  "prototype": "Fixed (v0.9.0): each FFS line takes its own sector's fuel use change (Equations_addendum R2.9)."
  },
  {
   "id": "L180",
@@ -277,7 +277,7 @@
   "effect": "diesel road line 2030 0.0538 -> 0.0658 bn.",
   "note": "Plan T B-i. Equations_addendum code L-R2-5.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): FFS diesel road line in GJ with the road damage (Equations_addendum R2.4, R2.9)."
+  "prototype": "Fixed (v0.9.0): FFS diesel road line in GJ with the road damage (Equations_addendum R2.4, R2.9)."
  },
  {
   "id": "L181",
@@ -298,7 +298,7 @@
   "effect": "coal res explicit 2022 0.00103 -> 0, implicit 0.00061 -> 0.00040 bn.",
   "note": "Equations_addendum code L-R2-6.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): each subsidy line reads its own after-tax price (Equations_addendum R2.11)."
+  "prototype": "Fixed (v0.9.0): each subsidy line reads its own after-tax price (Equations_addendum R2.11)."
  },
  {
   "id": "L182",
@@ -319,7 +319,7 @@
   "effect": "0 (no coal power).",
   "note": "Equations_addendum code L-R2-7.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): each subsidy line reads its own after-tax price (Equations_addendum R2.11)."
+  "prototype": "Fixed (v0.9.0): each subsidy line reads its own after-tax price (Equations_addendum R2.11)."
  },
  {
   "id": "L183",
@@ -340,7 +340,7 @@
   "effect": "0 while NSCC and GSCC sources agree (default Target).",
   "note": "Equations_addendum code L-R2-8.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): nga.pow uses the global-SCC climate cost as every line (Equations_addendum R2.11)."
+  "prototype": "Fixed (v0.9.0): nga.pow uses the global-SCC climate cost as every line (Equations_addendum R2.11)."
  },
  {
   "id": "L184",
@@ -361,7 +361,7 @@
   "effect": "LPG VAT 0 -> 0.20 $/l; LPG implicit subsidy 2022 6.76 -> 8.52, 2030 11.25 -> 13.67, 2041 15.92 -> 19.24 bn.",
   "note": "Equations_addendum code L-R2-9.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): LPG VAT on the LPG household share (Equations_addendum R2.11, h_lpg)."
+  "prototype": "Fixed (v0.9.0): LPG VAT on the LPG household share (Equations_addendum R2.11, h_lpg)."
  },
  {
   "id": "L185",
@@ -382,7 +382,7 @@
   "effect": "0.",
   "note": "Equations_addendum code L-R2-10.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): oop household share 0 (Equations_addendum R2.11)."
+  "prototype": "Fixed (v0.9.0): oop household share 0 (Equations_addendum R2.11)."
  },
  {
   "id": "L186",
@@ -403,7 +403,7 @@
   "effect": "kerosene subsidy lines x conv_ker/conv_die (prototype: in PJ, no conversion).",
   "note": "Equations_addendum code L-R2-11.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): consumption in PJ, no litre conversion (Equations_addendum R2.11)."
+  "prototype": "Fixed (v0.9.0): consumption in PJ, no litre conversion (Equations_addendum R2.11)."
  },
  {
   "id": "L187",
@@ -424,7 +424,7 @@
   "effect": "electricity-other explicit 2030 0.228 -> 0.044, implicit 0.069 -> 0.004 bn.",
   "note": "Equations_addendum code L-R2-12.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): oth lines are consumption-weighted averages in every year (Equations_addendum R2.11)."
+  "prototype": "Fixed (v0.9.0): oth lines are consumption-weighted averages in every year (Equations_addendum R2.11)."
  },
  {
   "id": "L188",
@@ -445,7 +445,7 @@
   "effect": "explicit subsidy 2022 7.54% -> 7.07% of GDP.",
   "note": "Equations_addendum code L-R2-13.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): totals divided by the GDP of the same year (Equations_addendum R2.12)."
+  "prototype": "Fixed (v0.9.0): totals divided by the GDP of the same year (Equations_addendum R2.12)."
  },
  {
   "id": "L189",
@@ -466,7 +466,7 @@
   "effect": "res. gas 2022 0.00148 -> 0.0371 $/GJ.",
   "note": "Plan AP B2.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): typed airpol.cost.nga.res from AP 4378 in $/GJ (Equations_addendum R1.1, table T1)."
+  "prototype": "Fixed (v0.9.0): typed airpol.cost.nga.res from AP 4378 in $/GJ (Equations_addendum R1.1, table T1)."
  },
  {
   "id": "L190",
@@ -487,7 +487,7 @@
   "effect": "LPG 2030 0.675 -> 0.689 $/l.",
   "note": "Plan AP B3.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): typed airpol.cost.lpg.all by year (Equations_addendum R1.1, table T1)."
+  "prototype": "Fixed (v0.9.0): typed airpol.cost.lpg.all by year (Equations_addendum R1.1, table T1)."
  },
  {
   "id": "L191",
@@ -515,7 +515,7 @@
   "effect": "wel.air 2040 0.2856 -> 0.3183 bn; diesel 2040 0.2887 -> 0.3259 $/l.",
   "note": "Plan AP B4.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): typed AP values to 2040, 2041 = 2040 (Equations_addendum R1.1, R1.4; issue I112)."
+  "prototype": "Fixed (v0.9.0): typed AP values to 2040, 2041 = 2040 (Equations_addendum R1.1, R1.4; issue I112)."
  },
  {
   "id": "L192",
@@ -536,7 +536,7 @@
   "effect": "0.",
   "note": "Plan AP B12.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): switch on residential coal over the residential total of the year (Equations_addendum R1.3)."
+  "prototype": "Fixed (v0.9.0): switch on residential coal over the residential total of the year (Equations_addendum R1.3)."
  },
  {
   "id": "L193",
@@ -557,7 +557,7 @@
   "effect": "0.",
   "note": "Plan T B-b.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): driving share 0 when the class use is 0 (Equations_addendum R1.8)."
+  "prototype": "Fixed (v0.9.0): driving share 0 when the class use is 0 (Equations_addendum R1.8)."
  },
  {
   "id": "L194",
@@ -578,7 +578,7 @@
   "effect": "0 by default (AddEfficientTaxes No*). With Yes: oop Pigouvian 2030 36.62 -> 65.77 $/bbl (AP 5.69 $/GJ -> 34.82 $/bbl).",
   "note": "",
   "status": "fix",
-  "prototype": "Fixed (v9.0): ap_oop = ap.cost[oop,pow] x GJ per bbl (Equations_addendum R3.4)."
+  "prototype": "Fixed (v0.9.0): ap_oop = ap.cost[oop,pow] x GJ per bbl (Equations_addendum R3.4)."
  },
  {
   "id": "L195",
@@ -599,7 +599,7 @@
   "effect": "0 (CPIntro 2026).",
   "note": "",
   "status": "fix",
-  "prototype": "Fixed (v9.0): one phase-in formula in every year (Equations_addendum R3.1)."
+  "prototype": "Fixed (v0.9.0): one phase-in formula in every year (Equations_addendum R3.1)."
  },
  {
   "id": "L196",
@@ -620,7 +620,7 @@
   "effect": "0 (5 years).",
   "note": "",
   "status": "fix",
-  "prototype": "Fixed (v9.0): divide by max(n, 1) (Equations_addendum R3.1)."
+  "prototype": "Fixed (v0.9.0): divide by max(n, 1) (Equations_addendum R3.1)."
  },
  {
   "id": "L197",
@@ -802,7 +802,7 @@
   "effect": "display only.",
   "note": "",
   "status": "fix",
-  "prototype": "Fixed (v9.0): CO2e rows n.a. where the climate cost is 0 (Equations_addendum R3.21); the year table at YearFuelPrices (R3.23) is not built (it would read later years; it belongs to the output sheets)."
+  "prototype": "Fixed (v0.9.0): CO2e rows n.a. where the climate cost is 0 (Equations_addendum R3.21); the year table at YearFuelPrices (R3.23) is not built (it would read later years; it belongs to the output sheets)."
  },
  {
   "id": "L204",
@@ -1047,7 +1047,7 @@
   "effect": "Coal effect left out of the % GDP total (2041: 0.0037 pp; coal use change -102.5 ktoe).",
   "note": "",
   "status": "fix",
-  "prototype": "Fixed (v9.0, R11): coal in the current account % of GDP total"
+  "prototype": "Fixed (v0.9.0, R11): coal in the current account % of GDP total"
  },
  {
   "id": "L215",
@@ -1068,7 +1068,7 @@
   "effect": "Gas effect 5.5 % too large (1.055 GJ per MMBtu).",
   "note": "",
   "status": "fix",
-  "prototype": "Fixed (v9.0, R11): the fuel effect uses xnim (gas in $/GJ), not $/MMBtu x GJ"
+  "prototype": "Fixed (v0.9.0, R11): the fuel effect uses xnim (gas in $/GJ), not $/MMBtu x GJ"
  },
  {
   "id": "L216",
@@ -1180,7 +1180,7 @@
   "effect": "None by default (ElPrcMainSrc = Simple*). With Manual: the biomass/LPG substitution elasticity of the leakage (C131 -> _ResLpgKerBioSubstElasticity, E5572) turns -0.4, reversing leakage.",
   "note": "",
   "status": "fix",
-  "prototype": "Fixed (v9.0): the manual default is the simple cross-price value (Equations_addendum R8.5)."
+  "prototype": "Fixed (v0.9.0): the manual default is the simple cross-price value (Equations_addendum R8.5)."
  },
  {
   "id": "L221",
@@ -1229,7 +1229,7 @@
   "effect": "Policy scenario 2030: carbon-tax memo 0 instead of 1.4286 $/tCO2 (L9400 row = cptraj); header shows \"Baseline\" in both blocks.",
   "note": "",
   "status": "fix",
-  "prototype": "Fixed (v9.0): tau_b = cptraj(T_b) x 1[scenario > 1] (Equations_addendum R9.13)."
+  "prototype": "Fixed (v0.9.0): tau_b = cptraj(T_b) x 1[scenario > 1] (Equations_addendum R9.13)."
  },
  {
   "id": "L223",
@@ -1264,7 +1264,7 @@
   "effect": "Egypt 2022 combustion CH4 about 152 kt (about 4 Mt CO2e, 2% of energy GHGs); energy CH4 is calibrated to the inventory in GHGYear, so only the source mix and the path after it change.",
   "note": "Was described in issue I34 (no combustion CH4 in legacy); a cell-level fix exists, so a bug (user 2026-10-29).",
   "status": "fix",
-  "prototype": "Fixed (v9.0, EF465): the prototype fills the CH4 factors with the same 465 lookup (table Inputs_nc)."
+  "prototype": "Fixed (v0.9.0, EF465): the prototype fills the CH4 factors with the same 465 lookup (table Inputs_nc)."
  },
  {
   "id": "L224",
@@ -1285,6 +1285,6 @@
   "effect": "Egypt scenario 1, 2030: implicit subsidies 60.3 -> 44.4 bn; LPG efficient price 1.45 -> 0.66 $/l; most lines x0.68; LPG x0.004, kerosene x0.07 (household air pollution not in the concentration model).",
   "note": "Was issue I104 (user 2026-10-29: a bug). The fix uses the concentration model of the AP sheet.",
   "status": "fix",
-  "prototype": "Fixed (v9.0): section 1 rows airpol.mc by fuel and subsector; lines weighted by fuel use; legacy averages kept as a memo on FromAirPollution."
+  "prototype": "Fixed (v0.9.0): section 1 rows airpol.mc by fuel and subsector; lines weighted by fuel use; legacy averages kept as a memo on FromAirPollution."
  }
 ]

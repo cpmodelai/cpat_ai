@@ -1,4 +1,4 @@
-"""v2.3: imports build / check_full (previous version in Old/; method unchanged).
+"""v0.2.3: imports build / check_full (previous version in Old/; method unchanged).
 
 Compare CPAT-AI-Mitigation-Prototype (scenario 1, baseline) with the cached baseline results in the legacy workbook.
 
@@ -6,7 +6,7 @@ The legacy file CPAT 1.0pre_456_NoPropData.xlsb keeps the cached values of its l
 fuel use and after-tax prices by subsector and fuel, CO2 by subsector. This script
   1. extracts them by output code (egy.mit.ener.<sub>.<fuel>.e.1, egy.mit.atp.<sub>.<fuel>.e.1,
      egy.mit.co2.<grp>.<sub>.1) -> data/legacy_cached_baseline.csv;
-  2. recalculates the prototype twice in LibreOffice: as shipped (last historical price year 2022, as legacy; v3.7) and
+  2. recalculates the prototype twice in LibreOffice: as shipped (last historical price year 2022, as legacy; v0.3.7) and
      with the last historical price year set to 2024 (Settings C10; the LAMBDA formulas are copied over whole rows,
      so the history / projection switch follows the setting);
   3. writes legacy_comparison_v6_4.md: totals by sector, selected prices, and the fit of each variant.
@@ -32,12 +32,12 @@ SUBS = [s[0] for s in B.SUBSECTORS]
 GRP = {s[0]: s[2] for s in B.SUBSECTORS}
 LEG_GRP = {'tra': 'tra', 'bld': 'bld', 'ind': 'ind', 'oen': 'ind'}    # legacy co2 codes: oen sits in 'oth'
 FUELS = [f[0] for f in B.FUELS]
-P = B.COUNTRY.lower()   # v3.3: output-code prefix; the legacy file's cached run must be of the same country
+P = B.COUNTRY.lower()   # v0.3.3: output-code prefix; the legacy file's cached run must be of the same country
 
 
 def extract():
     from pyxlsb import open_workbook
-    # v3.11: legacy has jet fuel in domestic aviation only; the other jfu rows count as zero
+    # v0.3.11: legacy has jet fuel in domestic aviation only; the other jfu rows count as zero
     sf = [(s, f) for s in SUBS for f in FUELS if f != 'jfu' or s == 'avi']
     want = {f'{P}.mit.ener.{s}.{f}.e.1' for s, f in sf} | \
         {f'{P}.mit.atp.{s}.{f}.e.1' for s, f in sf} | \
@@ -60,7 +60,7 @@ def extract():
 
 
 class V71(dict):
-    """v7.2 (codes R9): prototype values by output code, also found by the v7.1 code the comparison names (rename map)."""
+    """v0.7.2 (codes R9): prototype values by output code, also found by the v0.7.1 code the comparison names (rename map)."""
     def __getitem__(self, k):
         return dict.__getitem__(self, k if dict.__contains__(self, k) else C.RC(k))
 
@@ -90,7 +90,7 @@ def model(last_hist):
 
 def main():
     leg, missing = extract()
-    leg = defaultdict(lambda: [None] * len(YEARS), leg)    # v3.11: rows legacy does not have (jfu outside aviation)
+    leg = defaultdict(lambda: [None] * len(YEARS), leg)    # v0.3.11: rows legacy does not have (jfu outside aviation)
     ours = {2022: model(2022), 2024: model(2024)}
     units = {r['fuel']: float(r['gj_per_price_unit']) for r in csv.DictReader(open(os.path.join(HERE, '..', '..', 'data', 'mvp_legacy_extracts',
                                                                                                 'fuel_units.csv')))}
@@ -130,7 +130,7 @@ def main():
                 lines.append(f'| | prototype, prices to {lh} | ' + ' | '.join(fmt(x) for x in osum(ours[lh], var, grp))
                              + ' |')
         lines.append('')
-    # v2.8: GHG emissions by inventory category (legacy section 15, cached rows)
+    # v0.2.8: GHG emissions by inventory category (legacy section 15, cached rows)
     from pyxlsb import open_workbook
     grows = {7565: 'enr', 7570: 'ipr', 7575: 'agr', 7580: 'lucf', 7585: 'wst', 7590: 'oth', 7600: 'all'}
     lg = {}
@@ -144,7 +144,7 @@ def main():
     gshow = [2022, 2024, 2025, 2030, 2035, 2040]
     names = {'enr': 'Energy', 'ipr': 'Industrial processes', 'agr': 'Agriculture', 'lucf': 'LULUCF', 'wst': 'Waste',
              'oth': 'Other', 'all': 'Total excluding LULUCF'}
-    lines += ['## GHG emissions by inventory category (Mt CO2e), scenario 1 (v2.8)', '',
+    lines += ['## GHG emissions by inventory category (Mt CO2e), scenario 1 (v0.2.8)', '',
               '| Category | Run | ' + ' | '.join(map(str, gshow)) + ' |', '|---|---|' + '---|' * len(gshow)]
     for c, nm in names.items():
         key = f'{P}.mit.ghg.{c}.all.1' if c != 'all' else f'{P}.mit.ghg.all.all.1'
@@ -157,7 +157,7 @@ def main():
               'methane is fuel supply only; the legacy population path grows 2-4% a year from 2027 (L20), which '
               'raises agriculture, waste and other after 2030; legacy livestock, rice and waste methane are constant '
               '(L18); industrial processes follow industrial energy CO2 in both.', '']
-    # v3.0: local air pollutants (legacy section 13 totals by air-pollution sector, section 14 forcing; cached rows)
+    # v0.3.0: local air pollutants (legacy section 13 totals by air-pollution sector, section 14 forcing; cached rows)
     pblk = {'pm2': 6693, 'nox': 6795, 'so2': 6897, 'voc': 6999, 'bc': 7101, 'oc': 7203, 'co': 7412}
     secs = [s_ for s_, _n in B.AP_SECS]
     want = {pblk[p] + 2 + i: (p, s_) for p in pblk for i, s_ in enumerate(secs)}
@@ -178,7 +178,7 @@ def main():
                 break
     m24 = ours[B.LAST_HIST]
     pnames = dict(B.AP_POLS)
-    lines += ['## Local air pollutants: total emissions by pollutant (kt), scenario 1 (v3.0)', '',
+    lines += ['## Local air pollutants: total emissions by pollutant (kt), scenario 1 (v0.3.0)', '',
               '| Pollutant | Run | ' + ' | '.join(map(str, gshow)) + ' |', '|---|---|' + '---|' * len(gshow)]
     for p in pblk:
         ssum = [sum(lp[(p, s_)][k] for s_ in secs) for k in range(len(YEARS))]
@@ -187,14 +187,14 @@ def main():
         mine = m24.get(f'{P}.mit.ap.all.{p}.1')
         if mine:
             lines.append('| | prototype | ' + ' | '.join(f'{mine[yi[y]]:,.1f}' for y in gshow) + ' |')
-    lines += ['', '## PM2.5 by air-pollution module sector (kt), scenario 1 (v3.0)', '',
+    lines += ['', '## PM2.5 by air-pollution module sector (kt), scenario 1 (v0.3.0)', '',
               '| Sector | Run | ' + ' | '.join(map(str, gshow)) + ' |', '|---|---|' + '---|' * len(gshow)]
     for s_, nm in B.AP_SECS:
         lines.append(f'| {nm} | legacy | ' + ' | '.join(f'{lp[("pm2", s_)][yi[y]]:,.1f}' for y in gshow) + ' |')
         mine = m24.get(f'{P}.mit.aps.{s_}.pm2.1')
         if mine:
             lines.append('| | prototype | ' + ' | '.join(f'{mine[yi[y]]:,.1f}' for y in gshow) + ' |')
-    lines += ['', '## Forcing of local air pollutants (Mt CO2e, GWP100), scenario 1 (v3.0)', '',
+    lines += ['', '## Forcing of local air pollutants (Mt CO2e, GWP100), scenario 1 (v0.3.0)', '',
               '| Pollutant | Run | ' + ' | '.join(map(str, gshow)) + ' |', '|---|---|' + '---|' * len(gshow)]
     for p in ['bc', 'co', 'voc', 'oc', 'nox', 'so2', 'all']:
         lines.append(f'| {pnames.get(p, "Total")} | legacy | ' + ' | '.join(f'{lf[p][yi[y]]:,.2f}' for y in gshow) + ' |')

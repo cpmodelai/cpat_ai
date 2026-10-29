@@ -1,10 +1,10 @@
-"""v2.3: years to 2041 (the horizon of CPAT-AI-Mitigation-Prototype v4.7); otherwise as the previous version in Old/. 
+"""v0.2.3: years to 2041 (the horizon of CPAT-AI-Mitigation-Prototype v0.4.7); otherwise as the previous version in Old/. 
 
-v9.0 (Power_465, excel_ai/plans/Power_465.md): legacy_engineer_reference.csv adds sc_ind (row 3629), the consumer
+v0.9.0 (Power_465, excel_ai/plans/Power_465.md): legacy_engineer_reference.csv adds sc_ind (row 3629), the consumer
 tax/subsidy txo_res, txo_ind (rows 3606, 3635) and the over/under-estimated costs ores_res, ores_ind (rows 3607, 3636),
 for the method test of the price chain on 465 (the other files are unchanged).
 
-v8.5 (LD41, 2026-10-29): source moved from legacy 456 to 465. Rows up to 5666 are the same in both files; the
+v0.8.5 (LD41, 2026-10-29): source moved from legacy 456 to 465. Rows up to 5666 are the same in both files; the
 carbon-tax copy of the engineer model starts at row 9270 (456: 9285), offset 6316 (456: 6331; row map
 legacy/bugfixes/data/rowmap_456_465.json). The 465 carbon-tax run is the 465 Dashboard's US$5 (2040), not US$50.
 
@@ -41,10 +41,10 @@ import os
 from pyxlsb import open_workbook
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-LEGACY = os.path.join(HERE, '..', 'legacy', 'workbooks', 'CPAT 1.0pre_465_NoPropData.xlsb')   # v8.5 (LD41): was 456
+LEGACY = os.path.join(HERE, '..', 'legacy', 'workbooks', 'CPAT 1.0pre_465_NoPropData.xlsb')   # v0.8.5 (LD41): was 456
 DATA = os.path.join(HERE, '..', '..', 'data', 'mvp_legacy_extracts')
-SRC_ISO = 'EGY'   # v3.3: country of the legacy run in the source file: the key (column country) of the rows written
-YEARS = list(range(2022, 2042))   # v2.3: horizon to 2041 (legacy horizon)
+SRC_ISO = 'EGY'   # v0.3.3: country of the legacy run in the source file: the key (column country) of the rows written
+YEARS = list(range(2022, 2042))   # v0.2.3: horizon to 2041 (legacy horizon)
 YEARS_X = list(range(2021, 2042))          # legacy reference: 2021 (demand price lag) to 2041 (D9 window)
 COL = {y: y - 2011 for y in YEARS_X}          # legacy Mitigation: 2022 in column L (index 11)
 TECH = [('coa', 'Coal'), ('nga', 'Natural gas'), ('oop', 'Oil'), ('nuc', 'Nuclear'), ('wnd', 'Wind'),
@@ -60,7 +60,7 @@ def read_rows():
     with open_workbook(LEGACY) as wb, wb.get_sheet('Mitigation') as sh:
         for i, row in enumerate(sh.rows()):
             r = i + 1
-            if 2950 <= r <= 4300 or 2430 <= r <= 2450 or 8745 <= r <= 8765 or 9265 <= r <= 10625:   # v8.5: 465 rows
+            if 2950 <= r <= 4300 or 2430 <= r <= 2450 or 8745 <= r <= 8765 or 9265 <= r <= 10625:   # v0.8.5: 465 rows
                 rows[r] = [c.v for c in row]
             if r > 10625:
                 break
@@ -121,7 +121,7 @@ def main():
     paths = []
     label(3725, 'Road', col=3)
     with open(os.path.join(DATA, 'power_demand.csv'), 'w', newline='', encoding='utf-8') as fh:
-        w = csv.writer(fh, lineterminator='\n')   # v8.5: LF, as the files in the repository
+        w = csv.writer(fh, lineterminator='\n')   # v0.8.5: LF, as the files in the repository
         w.writerow(['country', 'subsector', 'name', 'ktoe_2022', 'legacy_row'])
         for j in range(15):
             w.writerow([SRC_ISO, R[3725 + j][2], R[3725 + j][3], R[3725 + j][11], 3725 + j])
@@ -142,7 +142,7 @@ def main():
                       3992 if f == 'coa' else ''] + [0.0] * len(YEARS))
     label(2433, 'Discount factor (proportion'); label(2439, 'Exogenous shock'); label(2446, 'Post-policy GDP')
     with open(os.path.join(DATA, 'power_paths.csv'), 'w', newline='', encoding='utf-8') as fh:
-        w = csv.writer(fh, lineterminator='\n')   # v8.5: LF, as the files in the repository
+        w = csv.writer(fh, lineterminator='\n')   # v0.8.5: LF, as the files in the repository
         w.writerow(['country', 'key', 'unit', 'description', 'legacy_row'] + YEARS)
         w.writerows([SRC_ISO] + p for p in paths)
     # scalars
@@ -165,7 +165,7 @@ def main():
               ('sh_tsd', R[3720][8], 'share', 'transmission and statistical differences / final demand (H2)', 3720),
               ('sh_eou', R[3721][8], 'share', 'energy industry own use / final demand (H2)', 3721),
               ('sh_add', R[3722][8], 'share', 'additional statistical difference / final demand (H2)', 3722),
-              ('extra_eff', (R[3719] + [None] * 13)[12] or 0.0, 'share',     # v8.5: cell gone in 465 (456: M3719 = 0)
+              ('extra_eff', (R[3719] + [None] * 13)[12] or 0.0, 'share',     # v0.8.5: cell gone in 465 (456: M3719 = 0)
                'additional efficiency improvement of power demand (H2; not in legacy 465: 0)', 3719),
               ('maxcf_cg', R[3783][11], 'share', 'maximum capacity factor of coal and gas (I2)', 3783),
               ('k_dispatch', R[3720][12], 'factor', 'logit K parameter, dispatch (H2)', 3720),
@@ -175,7 +175,7 @@ def main():
               ('early_factor', R[3993][5], 'share', 'factor on cost-based early coal retirement (K5)', 3993),
               ('ktoe_gwh', 11.63, 'GWh/ktoe', 'GWh per ktoe', '')]
     with open(os.path.join(DATA, 'power_params.csv'), 'w', newline='', encoding='utf-8') as fh:
-        w = csv.writer(fh, lineterminator='\n')   # v8.5: LF, as the files in the repository
+        w = csv.writer(fh, lineterminator='\n')   # v0.8.5: LF, as the files in the repository
         w.writerow(['country', 'key', 'value', 'unit', 'description', 'legacy_row'])
         w.writerows([SRC_ISO] + list(p) for p in params)
     # legacy results and inputs for the method test
@@ -195,18 +195,18 @@ def main():
     for name, r in (('B1 phi|' + f, 3169 + i) for i, (f, _n) in enumerate(TECH)):
         ref.append([name, r] + path(r))
     with open(os.path.join(DATA, 'legacy_power_reference.csv'), 'w', newline='', encoding='utf-8') as fh:
-        w = csv.writer(fh, lineterminator='\n')   # v8.5: LF, as the files in the repository
+        w = csv.writer(fh, lineterminator='\n')   # v0.8.5: LF, as the files in the repository
         w.writerow(['key', 'legacy_row'] + YEARS)
         w.writerows(ref)
     # engineer model: cached inputs and results of the baseline and the carbon-tax run (rows + 6316; 456: + 6331)
     eng = []
-    off = {'base': 0, 'ctax': 9270 - 2954}             # v8.5: 465 row 9270 (456: 9285)
+    off = {'base': 0, 'ctax': 9270 - 2954}             # v0.8.5: 465 row 9270 (456: 9285)
 
     assert str(R[9270][1]).startswith("Technoeconomic") and "Carbon tax" in str(R[9270][1]), R[9270][:3]
     single = {'gdp': 2446, 'inc': 2433, 'shock': 2439, 'cpf': 3683, 'rp_res': 3617, 'rp_ind': 3646, 'rppre_res': 3613,
               'rppre_ind': 3642, 'vat_res': 3611, 'vat_ind': 3640, 'req': 3752, 'vre': 3907, 'msc': 3912,
               'gncav': 3495, 'ccpav': 3395, 'need': 4028, 'early': 3993, 'sc_res': 3600, 'demtot': 3741,
-              # v9.0 (Power_465): G1/G2 consumer tax/subsidy (input) and over/under-estimated costs (result)
+              # v0.9.0 (Power_465): G1/G2 consumer tax/subsidy (input) and over/under-estimated costs (result)
               'sc_ind': 3629, 'txo_res': 3606, 'txo_ind': 3635, 'ores_res': 3607, 'ores_ind': 3636}
     per_tech = {'vbc': 3374, 'd5': 3385, 'd6': 3412, 'tvc': 3423, 'cfp': 3049, 'df': 3012, 'cap': 3932, 'gen': 3804,
                 'shr': 3840, 'pe': 3855, 'ret': 3994, 'reteff': 4011, 'pni': 4085, 'first': 4143, 'second': 4238,
@@ -221,7 +221,7 @@ def main():
         for j in range(15):
             eng.append([f'dem|{R[3725 + j][2]}', run, 3725 + o + j] + [R[3725 + o + j][COL[y]] for y in YEARS_X])
     with open(os.path.join(DATA, 'legacy_engineer_reference.csv'), 'w', newline='', encoding='utf-8') as fh:
-        w = csv.writer(fh, lineterminator='\n')   # v8.5: LF, as the files in the repository
+        w = csv.writer(fh, lineterminator='\n')   # v0.8.5: LF, as the files in the repository
         w.writerow(['key', 'run', 'legacy_row'] + YEARS_X)
         w.writerows(eng)
     print(f'wrote power_demand.csv, legacy_engineer_reference.csv ({len(eng)})')

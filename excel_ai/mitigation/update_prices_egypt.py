@@ -1,4 +1,4 @@
-"""v2.3 (version number aligned with CPAT-AI-Mitigation-Prototype v4.7; content as the previous version in Old/). 
+"""v0.2.3 (version number aligned with CPAT-AI-Mitigation-Prototype v0.4.7; content as the previous version in Old/). 
 
 Replace the Egypt rows of data/prices_dom.csv with the corrected Egypt price block supplied by the user.
 
@@ -64,7 +64,7 @@ def main():
         i = next(k for k, r in enumerate(data) if r['countrycode'] == added[0]['countrycode'])
         data[i:i] = added                         # original row order otherwise kept
     with open(DOM, 'w', encoding='utf-8', newline='') as f:
-        w = csv.DictWriter(f, fieldnames=cols, lineterminator='\n')   # v5.7 (I33): LF, as extract_data
+        w = csv.DictWriter(f, fieldnames=cols, lineterminator='\n')   # v0.5.7 (I33): LF, as extract_data
         w.writeheader()
         w.writerows(data)
     with open(CHANGES, 'w', encoding='utf-8', newline='') as f:

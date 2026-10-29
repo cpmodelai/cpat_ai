@@ -1,4 +1,4 @@
-# Legacy CPAT road transport (engineer) model: survey (for CPAT-AI-Mitigation-Prototype v4.7)
+# Legacy CPAT road transport (engineer) model: survey (for CPAT-AI-Mitigation-Prototype v0.4.7)
 
 Source: `legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb`/xlsx (formulas) and `.xlsb` (cached values, Egypt run). Read-only survey, 2026-10-14.
 
@@ -404,6 +404,6 @@ Bus fuel (5315-5318) is then scaled by these meaningless ratios. The bus-share g
 
 - `coded` (Python CPAT) has **no transport engineer module**. Transport appears only as sector codes (`rod`, `ral`, `avi`, `nav`), the externality codes `acc`/`con`/`rdm`, the scenario name `VEHICLE_FUEL_ECONOMY` in `constants.py`, and the elasticity-based road fuel use in `components/energy_consumption/ec.py` (the same equation as Mitigation 5396-5402, with notes on legacy bugs for road biofuels).
 - `excel_ai/plans/TODO.md` item 6 lists "transport detail (section 5, key inputs 15, sheets Transport1-Transport3)" as later work.
-- `CAVEATS.md` v0.13/v0.14 notes that the legacy transport trajectory (falling in 2024, then rising steeply) differs from the prototype. This is consistent with the legacy run using the *elasticity* model with the exogenous shock in row 2439 (-20.8% in 2023), not the engineer model.
-- The mitigation v3.4 docs mention transport only at sector level (`legacy_comparison_v6_4.md`, `LegacyBugFixes.md` L22 on navigation).
+- `CAVEATS.md` v0.0.13/v0.0.14 notes that the legacy transport trajectory (falling in 2024, then rising steeply) differs from the prototype. This is consistent with the legacy run using the *elasticity* model with the exogenous shock in row 2439 (-20.8% in 2023), not the engineer model.
+- The mitigation v0.3.4 docs mention transport only at sector level (`legacy_comparison_v6_4.md`, `LegacyBugFixes.md` L22 on navigation).
 - The methodology note "Methodology for Modelling the Road Transportation Sector" is `data/source/Transportation_methodology.docx`.

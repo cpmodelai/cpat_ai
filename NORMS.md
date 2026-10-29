@@ -24,12 +24,12 @@ User rules 2026-10-15, 2026-10-28 (one register for every module) and 2026-10-29
 | **What we do** | **Do not replicate it.** Fix it (or leave the feature out) | **Replicate it.** Do exactly what legacy does |
 | **Exceptions** | none: a bug is never replicated | An issue we do not replicate is allowed **only by explicit user decision**, recorded with the issue. Without that decision it is queued to be replicated |
 
-**Data (user rule 2026-10-29, v8.5).** Problems of the input data are **issues** (area Data), with the same rule: the prototype does exactly what legacy does with the data, unless the user decided otherwise.
+**Data (user rule 2026-10-29, v0.8.5).** Problems of the input data are **issues** (area Data), with the same rule: the prototype does exactly what legacy does with the data, unless the user decided otherwise.
 
 - Where legacy reads the data wrongly (for example a blank read as 0 where a value is meant), the fix is a formula change: a **legacy bug (`L`) with a cell-level fix plan**, and the data problem stays an issue with priority **Very high**.
 - Where no cell plan is possible (legacy's formula is not wrong; the data are missing or poor), the prototype **aligns with legacy** and the issue gets priority **Extremely high**.
 - A data choice the user wants kept (for example the corrected Egypt prices) is an issue that departs from legacy by user decision.
-- The codes `DB` (data bug) and `DI` (data issue) of v8.4 are retired (now `I89`-`I99`, `L170`; former codes kept).
+- The codes `DB` (data bug) and `DI` (data issue) of v0.8.4 are retired (now `I89`-`I99`, `L170`; former codes kept).
 
 **Codes, the same in every module** (one kind per prefix; a module or area is a field, not a prefix):
 
@@ -72,7 +72,7 @@ Matches legacy `Mitigation` exactly. Row 1 = column headers; row 2 = title band;
 
 Reference implementation: the `Mitigation` sheet of `excel_ai/mitigation/CPAT-AI-Mitigation-Prototype-v<version>.xlsm`.
 
-### 1.1b Distribution-layout sheets (`Distribution`; user decisions 2026-10-17, mitigation prototype v4.4)
+### 1.1b Distribution-layout sheets (`Distribution`; user decisions 2026-10-17, mitigation prototype v0.4.4)
 Distribution is a short-term, single-year analysis (to 2030), close to legacy's outputs. The sheet keeps Mitigation's rows, descriptor columns and scenario logic, with a narrower column group:
 
 | Col / row | Content |
@@ -83,9 +83,9 @@ Distribution is a short-term, single-year analysis (to 2030), close to legacy's 
 | Group | Code column, basket, deciles 1-10, spacer (13 columns), from column K; up to 7 groups (scenario capacity, 3e) |
 | Row 1 | Header: `Scenario n: output code` in the code column, `Basket`, `1` ... `10` |
 | Row 4, 5 | Scenario name, scenario number (the same formulas as Mitigation) |
-| Rows 6-12 | Position of the group, Mitigation column of the analysis year (group 1, this group), statistic, survey code parts (rows 10-11), analysis year (row 12, the summary of section 0; v4.8). Mitigation column offset of the group: (position - 1) x Mitigation group width + analysis year - base year + 2, where position counts every group header from `$K$1` (`COUNTIF($K$1:K$1,"*output code")`, the LAMBDA test group included) |
+| Rows 6-12 | Position of the group, Mitigation column of the analysis year (group 1, this group), statistic, survey code parts (rows 10-11), analysis year (row 12, the summary of section 0; v0.4.8). Mitigation column offset of the group: (position - 1) x Mitigation group width + analysis year - base year + 2, where position counts every group header from `$K$1` (`COUNTIF($K$1:K$1,"*output code")`, the LAMBDA test group included) |
 
-Roll-up and columns (v4.8, user request): as Mitigation (2.5): one row group per section, the summary row last and one blank row visible; columns C:G and I:K in one column group each, rolled up; zoom 75.
+Roll-up and columns (v0.4.8, user request): as Mitigation (2.5): one row group per section, the summary row last and one blank row visible; columns C:G and I:K in one column group each, rolled up; zoom 75.
 
 1. **One analysis year and one statistic per scenario**, from ScenarioDefinition (`YearDistn`, `QuantilesStatistic`; legacy `dist.year`, `dist.stat`), normally the same for all. The year can be 2023-2030. Price changes compare the group with scenario 1 in the group's own analysis year.
 2. **Group *n* is Mitigation group *n*.** Section 1 reads every Mitigation input with `INDEX(Mitigation!$K$r:$IZ$r, <col>$6)`. Nothing else reads Mitigation.
@@ -106,18 +106,18 @@ Roll-up and columns (v4.8, user request): as Mitigation (2.5): one row group per
 - Row-banded header: `Fuels:` / `Sectors:` / `Indicators:` / `Units:` in column A (rows 4-7), then code row.
 - Key columns: `country_year` (A, e.g. `EGY2021`), `countrycode_weo` (B), `countrycode` (C), `countryname` (D), `year` (E); data from F.
 - Variable codes follow `mit.<indicator>.<fuel>.<sector>` (e.g. `mit.sp.coa.pow`).
-- Sector codes: `pow, ind, res, rod, ral, avi, nav, foo, srv, mch, ...`; fuel codes: `coa, nga, gso, die, lpg, ker, jfu, ecy, bio, oop` (corrected 2026-10-23: legacy uses `nga` and `ecy`, not `gas` and `ele`; code protocol: `excel_ai/legacy/codes/CPAT_CodesMap_v7_1.xlsx`, sheet Protocol).
+- Sector codes: `pow, ind, res, rod, ral, avi, nav, foo, srv, mch, ...`; fuel codes: `coa, nga, gso, die, lpg, ker, jfu, ecy, bio, oop` (corrected 2026-10-23: legacy uses `nga` and `ecy`, not `gas` and `ele`; code protocol: `excel_ai/legacy/codes/CPAT_CodesMap_v0_7_1.xlsx`, sheet Protocol).
 
 ### 1.4 Sheet order and naming
 Follow the legacy tab order: `Cover`, `Data sources`, `Dashboard`, `Manual inputs`, `MODULES->` (`Mitigation`, `Air pollution`, `Distribution`, `Transport`), then `DATA_*->` dividers followed by data tabs. Prototype workbooks keep the same sheet names as the legacy tab they replicate. Each workbook starts with a `Cover` tab (contents, colours, abbreviations; 2.7); the mitigation prototype keeps its about text on tab `Version Log, About, and Diff`.
 
-### 1.5 Data tabs: legacy groups, legacy tables, all-country ranges (user request 2026-10-17, mitigation prototype v4.5)
+### 1.5 Data tabs: legacy groups, legacy tables, all-country ranges (user request 2026-10-17, mitigation prototype v0.4.5)
 The full legacy data (all countries, partly proprietary) must be usable by pasting it in. The public copy holds Egypt only for the proprietary tables; the model must work unchanged when they are expanded.
 
 1. **Groups and order as legacy.** Data tabs sit under the legacy dividers in legacy order: `DATA_MITIGATION->>` (Power tabs, GHGs, Countries, ECP, Balances, EnergyCons, CH4Inputs, UNPop, Prices_int, Prices_dom, Elasticities, ETSSemi, WEO, EF_GHG, SCC, EF_PM), `DATA_DISTN->>` (DistMapping, IO_GTAP, HHSurvey, HH_Elast, ASPIRE, WHOCooking, GDPRatios), `DATA_TRAN->>` (Transport1-3, TransportParams, TransportPaths), `DATA_OUTPUT->>` (Multipliers). Tabs with no legacy data tab go last under `DATA_OTHER->>`.
 2. **Legacy tables unchanged.** Where a tab matches a legacy data table, the legacy table is reproduced unchanged (same columns, same order, same codes): header in row 3, data from **A4**, so the legacy table pasted at A4 replaces it. Rows 1-2 carry the title bar (2.7).
-2b. **Tabs with several legacy tables stay at their legacy cell addresses** (v4.6: Countries, Elasticities, ETS+LTS, Multipliers, Prices_int, ECP; Transport3 from row 5; v4.7: Power, CoC, GHGs): rows 1-2 are the workbook's source line and title bar, everything from row 3 keeps its legacy address, so the legacy tab pasted from row 3 replaces it. Lookups into them use legacy addresses or legacy row numbers, as legacy does.
-2c. **Country selection is a data step.** What legacy Mitigation computes from a data tab for the selected country (the country's column of Elasticities, its multipliers, its WEO series and their extension, its ECP rows, the international price series) is a block of the Inputs tab (Inputs_ela, Inputs_mult, Inputs_macro, Inputs_pint, Inputs_ecp, Inputs_ef; v4.7, the power data of legacy Mitigation section 4: Inputs_pset, Inputs_ptech, Inputs_ppath, Inputs_ppar), formulas only, keyed as before, so Mitigation formulas do not change and every value follows Settings C4.
+2b. **Tabs with several legacy tables stay at their legacy cell addresses** (v0.4.6: Countries, Elasticities, ETS+LTS, Multipliers, Prices_int, ECP; Transport3 from row 5; v0.4.7: Power, CoC, GHGs): rows 1-2 are the workbook's source line and title bar, everything from row 3 keeps its legacy address, so the legacy tab pasted from row 3 replaces it. Lookups into them use legacy addresses or legacy row numbers, as legacy does.
+2c. **Country selection is a data step.** What legacy Mitigation computes from a data tab for the selected country (the country's column of Elasticities, its multipliers, its WEO series and their extension, its ECP rows, the international price series) is a block of the Inputs tab (Inputs_ela, Inputs_mult, Inputs_macro, Inputs_pint, Inputs_ecp, Inputs_ef; v0.4.7, the power data of legacy Mitigation section 4: Inputs_pset, Inputs_ptech, Inputs_ppath, Inputs_ppar), formulas only, keyed as before, so Mitigation formulas do not change and every value follows Settings C4.
 3. **Keys to the right.** Where legacy has no unique key column, the workbook adds one as a formula column right of the table (e.g. Balances `country|flow`), prefilled to the capacity of its named range, in the help font. It is never inside the pasted block.
 4. **Egypt-only tables alone or at the bottom.** A table that holds Egypt only (because the full table is proprietary) is the only table on its tab, or the last table on it, so that pasting all countries can extend it downwards.
 5. **Ranges sized for all countries.** Every named range over a data table reaches the row capacity of the full legacy table with margin (e.g. HHSurvey 40,000 rows, EF_PM 60,000); lookups go by code (`MATCH`), never by position.
@@ -134,7 +134,7 @@ CPAT greens are the primary palette. Values below are the actual legacy fills.
 
 | Use | Hex | Notes |
 |---|---|---|
-| Module and tab title bar (row 2) | `00AE49` fill, white bold text; on every tab (2.7) | legacy value; the mitigation prototype since v3.9 (earlier prototypes `00B050`: align when next touched) |
+| Module and tab title bar (row 2) | `00AE49` fill, white bold text; on every tab (2.7) | legacy value; the mitigation prototype since v0.3.9 (earlier prototypes `00B050`: align when next touched) |
 | Section band; sub-heading bar of other tabs | `92D050` fill | full width: A..last year column; on other tabs as wide as the title bar (2.7) |
 | Input cells | `EBF1DE` (light green) | user-editable values only (user rule 2026-10-16: table headers, mappings and data have no fill; 2.7) |
 | Code cells (Input/Output Code) | `DCE6F1` (light blue) | |
@@ -178,7 +178,7 @@ CPAT greens are the primary palette. Values below are the actual legacy fills.
 | Between a sub-section heading and its table | none, or one blank row when a settings line sits in between |
 | Inside a build-up | no blank rows between blocks; the block's top border separates them |
 
-### 2.5 Sections, roll-up and summary rows (user rules 2026-10-16, mitigation prototype v4.1)
+### 2.5 Sections, roll-up and summary rows (user rules 2026-10-16, mitigation prototype v0.4.1)
 
 1. **Every section is numbered and rolled up by default**, including section 0 (scenario assumptions) at the top of the sheet: its band carries the number 0, rows 1-5 are frozen (years, title band, band 0, scenario name, scenario number) and the rows below them roll up.
 2. **Every section ends with its summary row**, the only row visible when rolled up (bold values, no decimals). The workbook opens showing only the bands and the summary rows.
@@ -197,13 +197,13 @@ Each fuel | sector block reads from top to bottom:
 | Settings (inputs) | parameter row (pass-through, VAT rate, GJ per price unit, international price position), international reference price, fixed part of the supply cost, existing consumer subsidy per price unit, existing producer subsidy | *italic* (not part of the build-up) |
 | Existing build-up | supply cost, excise and other taxes, VAT, ending with the **retail price before new taxes and subsidies**; the memo splits of the taxes (taxes before the floor, fixed and floating parts, existing taxes, existing subsidies) | normal; memo splits *italic* |
 | New taxes and subsidies | label row (D: price position), fuel use of the subsectors priced by the block (weights, *italic*), new carbon tax, new ETS cost, new excise (fuel price reform), change in existing carbon pricing, subsidy and price-control reform wedges, VAT on the new policies (and price floor), **total new policy** | normal |
-| Post-tax price (last row) | retail price including all new taxes and subsidies | **bold** values; thin top border and thick bottom border across the whole row, titles and numbers (user rule 2026-10-20, v6.3) |
+| Post-tax price (last row) | retail price including all new taxes and subsidies | **bold** values; thin top border and thick bottom border across the whole row, titles and numbers (user rule 2026-10-20, v0.6.3) |
 
 **Rule (user 2026-10-20):** in a build-up, every row that is not part of the build-up is in italics, and the build-up ends with its total (here the post-tax price) in bold, with a thin top and a thick bottom border across the titles and the numbers.
 
 The new-policy rows and the full retail price are standard fuel-use weighted averages over the subsectors priced by the block (sections 5-8). They are not price indices: price changes between scenarios are measured by the price indices of the section 2 memo (3c rule 3.2).
 
-### 2.7 Tabs other than Mitigation (user rules 2026-10-16, mitigation prototype v4.2)
+### 2.7 Tabs other than Mitigation (user rules 2026-10-16, mitigation prototype v0.4.2)
 
 1. **Title bar.** Row 2 of every tab is a dark green (`00AE49`) bar with white bold text: the tab name and, in a few words, what the tab is for. Mitigation, ScenarioDefinition and Prices_dom keep their legacy layouts.
 2. **Sub-heading bars.** Each sub-table of a tab (each block of a consolidated tab) starts with a light green (`92D050`) bar, white bold text.
@@ -218,7 +218,7 @@ The new-policy rows and the full retail price are standard fuel-use weighted ave
 11. **Lambdas table**: one line per formula pattern (variable, LAMBDA, formula of the first row, the Mitigation rows that share it as a list such as `257-265, 435-457`), in the order of the build-up. It serves readers and the check (which copies each formula back over its rows).
 12. **Constants** are true constants only (definitions, conversion factors, policy assumptions without an ScenarioDefinition row). Groupings and positions are mappings (sheet Mapping); country values are data (data tabs), looked up where used.
 
-**Collapsed columns (mitigation prototype, v3.9).** Column B stays visible, because the band titles, the sub-section headings and the fuel sit there; C:G, I:K and 2030-2039 roll up. A heading in B spills over the hidden columns into H, which is therefore empty on heading rows.
+**Collapsed columns (mitigation prototype, v0.3.9).** Column B stays visible, because the band titles, the sub-section headings and the fuel sit there; C:G, I:K and 2030-2039 roll up. A heading in B spills over the hidden columns into H, which is therefore empty on heading rows.
 
 Subsections of a prototype follow these conventions: heading levels (band, bold-underlined sub-section heading, sub-sub-section heading), the table header row with its bottom border, top borders between blocks, settings boxes, and the blank rows around them. Where a user rule overrides the legacy (for example bold only on summary rows, short section bands, light green variable names), the user rule wins and is stated in section 3.
 
@@ -226,14 +226,14 @@ Rules: inputs green only; never hard-code values in unfilled calculation cells; 
 
 ## 3. Other conventions
 
-- **Exports to modules (user 2026-10-22, v8.1).** Mitigation section 19 (last, after section 15) holds plain copies of the rows each module reads: 19a Distribution (defined name `ExportDistn`), later 19b air pollution, 19c transport co-benefits; no calculation there. A copy keeps the code of the row it copies (the key the module matches on); the uniqueness rule C10 counts codes outside section 19. Each module reads only its input tab (`FromMitigation`, same column layout as Mitigation; scale to its base unit in column D), never a Mitigation row; the end-to-end process runs one scenario at a time (no batch).
-- **Money units (user 2026-10-22, v8.1).** One vocabulary, currency first, scale and price basis as words: `USD`, `USD m`, `USD bn`, `LCU`, `LCU bn`, `USD/GJ`, `USD/kWh`, `USD/tCO2`, each with `real` or `nominal` where it matters; never `$`. The builder applies `unit_norm()` to every unit of the variable dictionary. Scaling (bn, m, thousand) lives in the unit label and, where a module converts, in one scale column of its input section: no formula body multiplies by a hard-coded `Billion` or `Thousand` outside that conversion.
+- **Exports to modules (user 2026-10-22, v0.8.1).** Mitigation section 19 (last, after section 15) holds plain copies of the rows each module reads: 19a Distribution (defined name `ExportDistn`), later 19b air pollution, 19c transport co-benefits; no calculation there. A copy keeps the code of the row it copies (the key the module matches on); the uniqueness rule C10 counts codes outside section 19. Each module reads only its input tab (`FromMitigation`, same column layout as Mitigation; scale to its base unit in column D), never a Mitigation row; the end-to-end process runs one scenario at a time (no batch).
+- **Money units (user 2026-10-22, v0.8.1).** One vocabulary, currency first, scale and price basis as words: `USD`, `USD m`, `USD bn`, `LCU`, `LCU bn`, `USD/GJ`, `USD/kWh`, `USD/tCO2`, each with `real` or `nominal` where it matters; never `$`. The builder applies `unit_norm()` to every unit of the variable dictionary. Scaling (bn, m, thousand) lives in the unit label and, where a module converts, in one scale column of its input section: no formula body multiplies by a hard-coded `Billion` or `Thousand` outside that conversion.
 - Formulas live in Excel; no macros in prototypes unless documented (build via Python scripts, see `...\build_workbook.py`).
 - Every prototype records: source legacy sheet, version, and a validation table vs. legacy values (and vs. `coded` where available).
 - Codes (`Input Code`, `Output Code`) must be identical between Excel and Python (`coded\cpat_model\mappings`).
 - Country-specific additions are flagged with the country code in the `Scenario`/`Statistic` columns; do not alter the replicated legacy logic.
-- Short formulas (user rule, 2026-10-11): keep cell formulas short, at most 100 characters as Excel shows them. A named LAMBDA may hold more complex logic. To shorten a formula, use defined names for data tables, or split it into visible helper rows or columns. Applied in CPAT-AI-Mitigation-Prototype from v1.07, and checked there.
-- LAMBDA group (user rule 2026-10-20; replaces the LAMBDA test group of 2026-10-17 and the LAMBDA year of 2026-10-12): two scenario groups ship. Group 1 (the baseline) holds plain formulas in every year, the last one included, so the baseline works without LAMBDA support. Group 2 (the live scenario) calls the named LAMBDA of every calculated row in every year, from the base year (unless the row's base year is data) to the last year, so a LAMBDA holds its own switches (e.g. the IF between history and projection) instead of relying on separate column blocks. The test: the quick check's regression of every output code of every group against the last release (whose group 2 was plain up to v6.5), and on Distribution the Python reference; a third copy of the model in the shipped file is no longer needed.
+- Short formulas (user rule, 2026-10-11): keep cell formulas short, at most 100 characters as Excel shows them. A named LAMBDA may hold more complex logic. To shorten a formula, use defined names for data tables, or split it into visible helper rows or columns. Applied in CPAT-AI-Mitigation-Prototype from v0.1.07, and checked there.
+- LAMBDA group (user rule 2026-10-20; replaces the LAMBDA test group of 2026-10-17 and the LAMBDA year of 2026-10-12): two scenario groups ship. Group 1 (the baseline) holds plain formulas in every year, the last one included, so the baseline works without LAMBDA support. Group 2 (the live scenario) calls the named LAMBDA of every calculated row in every year, from the base year (unless the row's base year is data) to the last year, so a LAMBDA holds its own switches (e.g. the IF between history and projection) instead of relying on separate column blocks. The test: the quick check's regression of every output code of every group against the last release (whose group 2 was plain up to v0.6.5), and on Distribution the Python reference; a third copy of the model in the shipped file is no longer needed.
 - Labelled parameters (user rule, 2026-10-13): every number in the parameter columns (D:G of the Mitigation sheet) is labelled: a label row above each block names the variable and each parameter column (looked up from the variable dictionary).
 - One level of row groups (user rule, 2026-10-13): no nested row groups (outline level at most 1).
 - Years in row 1 (user rule, 2026-10-13): on time-series calculation sheets the years sit in row 1 above each column block; no separate year label is needed.
@@ -244,7 +244,7 @@ Rules: inputs green only; never hard-code values in unfilled calculation cells; 
 
 ## 3b. Building workbooks with code: Excel encoding and LAMBDA rules
 
-Lessons from the distribution workbook ([`distribution/LESSONS_LEARNED.md`](distribution/LESSONS_LEARNED.md), the full account) and the mitigation prototype (repair errors in v2.4-v2.8). Every bug below opened without an error somewhere first (LibreOffice, a scalar test, one Excel build) and only failed in a specific case. Apply them to every workbook built by a script.
+Lessons from the distribution workbook ([`distribution/LESSONS_LEARNED.md`](distribution/LESSONS_LEARNED.md), the full account) and the mitigation prototype (repair errors in v0.2.4-v0.2.8). Every bug below opened without an error somewhere first (LibreOffice, a scalar test, one Excel build) and only failed in a specific case. Apply them to every workbook built by a script.
 
 1. **Let Excel encode LAMBDA and newer functions.** In the file, every newer function needs the `_xlfn.` prefix (`LAMBDA`, `LET`, `XLOOKUP`, `MAXIFS`, `MINIFS`, `AGGREGATE`, `IFNA`, ...), and every LAMBDA/LET parameter the `_xlpm.` prefix where it is declared and wherever it is used. Writing this encoding by hand (openpyxl) is fragile: Excel's repair pass silently removes a formula or name with a small mistake ("Removed Records: Formula / Named range") and LibreOffice accepts it, so the checks pass. Rule: ship LAMBDA names and the formulas that call them as text, and install them with a macro through `Names.Add` and `Range.Formula2` (Excel then does the encoding). Where a newer function must be written into the file, a build check fails on any missing `_xlfn.` prefix.
 2. **Names Excel cannot read.** No defined name, LAMBDA parameter or table name may read as a cell reference: A1 style (`y1`, `co2`) or a name beginning like one (`BCO2Key`), or R1C1 style (`r`, `c`, `R2C3`). Avoid function names as LAMBDA parameters (`now`, `base`, `switch`, `year`). A build check fails on each.
@@ -289,7 +289,7 @@ User decision 2026-10-15. It applies to every result that legacy computes after 
 
 ## 3d. Names, keywords and cell references
 
-The LAMBDA repair errors (v2.4-v2.8; SCALE and SHARE in v3.6) all came from names. Rules for every defined name, LAMBDA name, LAMBDA parameter and Table name. The quick check enforces rules 1-5.
+The LAMBDA repair errors (v0.2.4-v0.2.8; SCALE and SHARE in v0.3.6) all came from names. Rules for every defined name, LAMBDA name, LAMBDA parameter and Table name. The quick check enforces rules 1-5.
 
 1. **Reserved names.** No name may equal a name in `mitigation/excel_reserved_names.txt` (case-insensitive):
    - Excel worksheet functions, including the newer ones;
@@ -297,18 +297,18 @@ The LAMBDA repair errors (v2.4-v2.8; SCALE and SHARE in v3.6) all came from name
    - `TRUE` and `FALSE`;
    - names Excel 365 rejected in practice (`SCALE`, `SHARE`, 2026-10-15).
 
-   Add a name to the file the day Excel rejects it. Exception, grandfathered: seven existing LAMBDA parameters that equal function names (`base`, `growth`, `price`, `rate`, `share`, `value`, `year`). Excel accepted them in the v3.7 test, but no new parameter may equal a function name.
+   Add a name to the file the day Excel rejects it. Exception, grandfathered: seven existing LAMBDA parameters that equal function names (`base`, `growth`, `price`, `rate`, `share`, `value`, `year`). Excel accepted them in the v0.3.7 test, but no new parameter may equal a function name.
 2. **No cell-like names.**
    - A1 style: 1-3 letters then digits, up to XFD1048576 (`co2`, `pm2`, `x1`, `nh3`).
    - R1C1 style: `r`, `c`, `rc`, `r2`, `c3`, `r1c1`.
    - A name that begins like a cell reference (`BCO2Key`).
    - Pollutant and fuel codes such as `co2`, `pm2`, `so2`, `nh3`, `ch4` are therefore never names. They appear only as text inside codes (`mit.co2.pow.all`).
-3. **One namespace.** Defined names, LAMBDA names and Table names are one case-insensitive namespace (3b.3). A LAMBDA name and a defined name differing only in case clash (`ETSSemi` / `ETSSEMI`, v1.07).
+3. **One namespace.** Defined names, LAMBDA names and Table names are one case-insensitive namespace (3b.3). A LAMBDA name and a defined name differing only in case clash (`ETSSemi` / `ETSSEMI`, v0.1.07).
 4. **Form of new names.**
    - LAMBDA names are upper case, at least two words joined (`SCALEBY`, `SHAREOF`, `FUELUSE`), letters only. Single common words are not used for new LAMBDAs: Excel adds functions with such names.
    - Parameters are lower case, at least three characters, letters and underscores only, no digits.
    - Defined names for data use CamelCase with a role suffix (`...Key`, `...Val`, `...Year`, `...Col`).
-5. **No sheet names inside a LAMBDA body.** A body reads data through defined names only. Since v3.6 merged tabs, a sheet name in a body breaks when blocks move.
+5. **No sheet names inside a LAMBDA body.** A body reads data through defined names only. Since v0.3.6 merged tabs, a sheet name in a body breaks when blocks move.
 6. **Newer functions in the file.**
    - They carry `_xlfn.`; `FILTER`, `SORT`, `SORTBY` and `UNIQUE` carry `_xlfn._xlws.`; LAMBDA and LET parameters carry `_xlpm.`.
    - A function newer than the target Excel (2019 for the baseline group, 365 for the LAMBDA group) is not used in a plain formula.
@@ -344,13 +344,13 @@ A row that cannot follow a rule (e.g. a data row) says so in its source column, 
 
 ## 3f. Running several versions in one go (overnight runs)
 
-For a chain of versions run without the user (e.g. v3.9-v3.18). The questions of the chain are answered in advance in its plan (`mitigation/Old/Plan_v3_9_to_v3_17.md`).
+For a chain of versions run without the user (e.g. v0.3.9-v0.3.18). The questions of the chain are answered in advance in its plan (`mitigation/Old/Plan_v3_9_to_v3_17.md`).
 
 1. **One version per step**, in the plan's order. Each step:
    1. Bump the version (previous files to `Old/`).
    2. Build quick (`QUICK=1`, about 2 minutes) and run `check_quick` after the first structural change of the step. Fix before continuing: a half-way build catches row, name and copy errors early.
    3. Finish the step. Build quick and run `check_quick` again: the changed codes must be only the intended ones.
-   4. Full build (about 2 minutes since v4.9), then `check_quick` on the full build.
+   4. Full build (about 2 minutes since v0.4.9), then `check_quick` on the full build.
    5. Regenerate the lists and the notes the step touches. Add the CAVEATS entry, version-log row and TODO update. Commit and push.
 2. **No hangs.**
    - Every LibreOffice call runs under `timeout`.
@@ -381,7 +381,7 @@ in the file itself.
      the autoFilter range equals the table range;
    - table and defined names: valid characters, not cell-like (A1 or R1C1), not TRUE/FALSE, at most 255 characters,
      one case-insensitive namespace (section 3d);
-   - defined-name comments at most 255 characters (cause: FUELUSE, v6.2, 2026-10-20); defined-name formulas at most
+   - defined-name comments at most 255 characters (cause: FUELUSE, v0.6.2, 2026-10-20); defined-name formulas at most
      8,192 characters;
    - cell formulas at most 8,192 characters; cell text at most 32,767 characters; in-cell list validations at most
      255 characters;
@@ -396,7 +396,7 @@ in the file itself.
    rebuild, lint, and log it in `CAVEATS.md`.
 4. A file that has been repaired by Excel and saved is not the fix: the builder is.
 
-## 3h. VBA modules embedded by the build (user rule 2026-10-22, after v7.1)
+## 3h. VBA modules embedded by the build (user rule 2026-10-22, after v0.7.1)
 
 The build writes the VBA project itself (`vba_project_v<n>.py`). It references **only the Excel library and stdole**,
 and the only macro test in the cloud runs in LibreOffice Basic, which is lax: it runs code Excel will not compile.
@@ -404,68 +404,68 @@ and the only macro test in the cloud runs in LibreOffice Basic, which is lax: it
 1. **Only Excel and VBA names.** No constant or type from another library: no `mso...` (Office), `ado...`, `fm...`,
    `Scripting.Dictionary` as a declared type. Use the value as a module constant (`MSO_TRUE = -1`, `MSO_LINE_DASH = 4`)
    or late binding (`CreateObject`, `As Object`). Found 2026-10-22: `msoTrue`, `msoLineDash`, `msoLineSolid` in
-   StyleSeries (v6.7-v7.1, "Variable not defined"). Check: `check_quick` `vba_names` (every identifier declared, VBA,
+   StyleSeries (v0.6.7-v0.7.1, "Variable not defined"). Check: `check_quick` `vba_names` (every identifier declared, VBA,
    Excel or a listed xl/vb constant); add a new Excel constant to its list after checking it in the Excel object model.
 2. **Declarations first.** Every module-level `Const`, `Dim` and `Type` sits above the first procedure (VBA compile
-   error otherwise; found v6.5, the DataLinks constants). `Option Explicit` on every module.
+   error otherwise; found v0.6.5, the DataLinks constants). `Option Explicit` on every module.
 3. **No silent errors** (3b.4): an `On Error Resume Next` covers one statement and is followed by `On Error GoTo 0`;
    a handler restores what the macro changed (calculation mode, ScreenUpdating, DisplayAlerts) and re-raises or
-   reports. A macro that changes `Application.Calculation` restores the mode it found (v6.6: RunAll).
+   reports. A macro that changes `Application.Calculation` restores the mode it found (v0.6.6: RunAll).
 4. **No volatile state in cells for macros:** a value the macro needs (the workbook folder) is written by the macro,
-   not computed by a volatile formula (`CELL("filename")`, removed v6.6).
+   not computed by a volatile formula (`CELL("filename")`, removed v0.6.6).
 5. **Generated strings round-trip** (3b.7): chunk, then escape, then parse back.
 6. **Excel-only behaviour is listed as untested.** Charts, Power Query, `ListObjects`, `Queries`, `Formula2` and
    anything LibreOffice does not implement are reported in CAVEATS as "not run in Excel" until the user has run them;
    the first-run checklist (QuickStart) asks the user to run Debug > Compile VBAProject once per release.
-7. **Power Query loads never sit on a model tab:** load into a staging sheet and copy by column name (v7.1
+7. **Power Query loads never sit on a model tab:** load into a staging sheet and copy by column name (v0.7.1
    `RefreshLink`), so the tab keeps its header row, formula columns and named ranges.
 
-## 3i. Testing LAMBDAs and values without Excel (LibreOffice; lessons of v6.6-v7.0)
+## 3i. Testing LAMBDAs and values without Excel (LibreOffice; lessons of v0.6.6-v0.7.0)
 
 LibreOffice evaluates neither named LAMBDAs nor, reliably, a workbook on loading. Every check that reads values:
 
 1. **Expands the LAMBDAs** (the bodies substituted into the calls) before LibreOffice recalculates, for the current
-   file and for the earlier release a regression compares with (v7.0: the quick check compared v7.0 with an
-   unexpanded v6.7 whose LAMBDA group read as errors).
+   file and for the earlier release a regression compares with (v0.7.0: the quick check compared v0.7.0 with an
+   unexpanded v0.6.7 whose LAMBDA group read as errors).
 2. **Every recalculation is two `calculateAll`** (`lo_session` `Session.calc`, used by the build's batch, the checks'
    `hard_recalc` and the value sessions): the recalculation on load gave wrong trailing averages (fpp, up to 31%),
    and one `calculateAll` after loading or after copying a definition left differences of 5e-5 to 2.4e-3 (stored
    results of the batch, fiscal impulse); `soffice --convert-to` is not used for values.
-3. **Puts the file in automatic calculation first** when it ships in manual calculation (since v6.6): otherwise the
+3. **Puts the file in automatic calculation first** when it ships in manual calculation (since v0.6.6): otherwise the
    formulas of an openpyxl copy, which has no cached values, stay uncalculated.
 4. **Tests the LAMBDA group by its results:** group 2 (LAMBDAs) against the plain group's earlier release and the
-   Python reference; a build step that copies or blanks "the LAMBDA group" is checked by the stored results (v6.6
+   Python reference; a build step that copies or blanks "the LAMBDA group" is checked by the stored results (v0.6.6
    shipped empty stored definitions: `stored_complete`).
 5. **Tests by scenario group number, not position:** a pasted group numbers itself from the group on its left, so a
-   test pastes into the next free group (v7.0: tests that pasted into group 4 with an empty group 3).
+   test pastes into the next free group (v0.7.0: tests that pasted into group 4 with an empty group 3).
 
 ## 3j. Lessons register: LAMBDA and VBA (every issue found, its norm and its check)
 
 | Found | Issue | Norm | Check |
 |---|---|---|---|
 | distribution workbook | hand-written `_xlfn`/`_xlpm` encoding removed by Excel's repair | 3b.1, 3d.6 | quick check (prefixes); LAMBDAs installed by macro where possible |
-| v2.4-v2.8 | names and LAMBDA parameters read as cells (`y1`, `co2`, `c`, `tco2_kwh`) | 3b.2, 3d.2 | quick check, `excel_lint.py` |
-| v1.07 | LAMBDA and defined name differing only in case (`ETSSemi`/`ETSSEMI`) | 3b.3, 3d.3 | quick check, `excel_lint.py` |
+| v0.2.4-v0.2.8 | names and LAMBDA parameters read as cells (`y1`, `co2`, `c`, `tco2_kwh`) | 3b.2, 3d.2 | quick check, `excel_lint.py` |
+| v0.1.07 | LAMBDA and defined name differing only in case (`ETSSemi`/`ETSSEMI`) | 3b.3, 3d.3 | quick check, `excel_lint.py` |
 | v2.x | `MAXIFS` without `_xlfn.` (found before shipping) | 3b.1, 3d.6 | quick check |
-| v3.6 | LAMBDA names `SCALE`, `SHARE` rejected by Excel 365 | 3d.1, 3d.4 | `excel_reserved_names.txt`, quick check |
-| v3.6, v5.3 (M12, M14) | LAMBDA-library texts naming merged-away sheets (`#REF!` when copied) | 3d.5 | full check section 3 (sheet names in LAMBDA texts) |
+| v0.3.6 | LAMBDA names `SCALE`, `SHARE` rejected by Excel 365 | 3d.1, 3d.4 | `excel_reserved_names.txt`, quick check |
+| v0.3.6, v0.5.3 (M12, M14) | LAMBDA-library texts naming merged-away sheets (`#REF!` when copied) | 3d.5 | full check section 3 (sheet names in LAMBDA texts) |
 | v4.x | a LAMBDA name defined twice (`INTENSITY`); the later one silently won | 3d.3 | build assertion (no LAMBDA defined twice) |
 | distribution | `MIN`/`MAX` over arrays, `INDEX(range, 0, X)` with an array X | 3b.5 | array-shape tests (distribution) |
 | distribution | VBA string literals escaped before chunking | 3b.7, 3h.5 | parse-back test of generated code |
-| v6.2 | defined-name comment over 255 characters (FUELUSE) | 3g | `excel_lint.py` |
-| v6.5 | VBA module constants after the first procedure (compile error) | 3h.2 | `vba_names` (declarations); Excel compile by the user |
-| v6.6 | build's batch copy blanked the live (LAMBDA) group: empty stored results | 3i.4 | quick check `stored_complete` |
-| v6.6 | `CELL("filename")` volatile cell read by a macro | 3h.4 | review (no volatile functions: 3d.7) |
-| v6.7-v7.1 | Office constants `msoTrue`, `msoLineDash`, `msoLineSolid` undefined ("Variable not defined") | 3h.1 | quick check `vba_names` |
-| v7.0-v7.1 | LibreOffice: wrong values on load, errors up to 2.4e-3 after one `calculateAll` (stored results of IDs 3-5) | 3i.2-3i.3 | `Session.calc` = two `calculateAll`; full check stored results vs Python |
-| v7.0 | regression against an unexpanded earlier release | 3i.1 | quick check (`recalc_values` expands) |
-| v7.0 | tests pasting into group 4 with group 3 empty | 3i.5 | full check (exemption, leakage) |
+| v0.6.2 | defined-name comment over 255 characters (FUELUSE) | 3g | `excel_lint.py` |
+| v0.6.5 | VBA module constants after the first procedure (compile error) | 3h.2 | `vba_names` (declarations); Excel compile by the user |
+| v0.6.6 | build's batch copy blanked the live (LAMBDA) group: empty stored results | 3i.4 | quick check `stored_complete` |
+| v0.6.6 | `CELL("filename")` volatile cell read by a macro | 3h.4 | review (no volatile functions: 3d.7) |
+| v0.6.7-v0.7.1 | Office constants `msoTrue`, `msoLineDash`, `msoLineSolid` undefined ("Variable not defined") | 3h.1 | quick check `vba_names` |
+| v0.7.0-v0.7.1 | LibreOffice: wrong values on load, errors up to 2.4e-3 after one `calculateAll` (stored results of IDs 3-5) | 3i.2-3i.3 | `Session.calc` = two `calculateAll`; full check stored results vs Python |
+| v0.7.0 | regression against an unexpanded earlier release | 3i.1 | quick check (`recalc_values` expands) |
+| v0.7.0 | tests pasting into group 4 with group 3 empty | 3i.5 | full check (exemption, leakage) |
 
 Add a row in the task that finds a new issue (root `NORMS.md` section 6b).
 
 ## 4. Policy and parameter input norms (ScenarioDefinition)
 
-**Where inputs live (user rule 2026-10-18, mitigation prototype v4.12).** The main inputs are on `ScenarioDefinition`. Policy inputs elsewhere (Settings, data tabs) are allowed, but they should mostly come from legacy (for example legacy `Manual inputs` switches) or from bug fixes, not extend the functionality. An prototype input that extends legacy (for example the ETS benchmarks by sector group, issue I21) is a departure: it needs a user decision, and the legacy `ScenarioDefinition` input it replaces must still work.
+**Where inputs live (user rule 2026-10-18, mitigation prototype v0.4.12).** The main inputs are on `ScenarioDefinition`. Policy inputs elsewhere (Settings, data tabs) are allowed, but they should mostly come from legacy (for example legacy `Manual inputs` switches) or from bug fixes, not extend the functionality. An prototype input that extends legacy (for example the ETS benchmarks by sector group, issue I21) is a departure: it needs a user decision, and the legacy `ScenarioDefinition` input it replaces must still work.
 
 All new models take their policy and parameter inputs from a dedicated input tab/file built on the legacy MTInputs structure (the prototype's `ScenarioDefinition`). Master list of the inputs: tab Inputs of the codes map `excel_ai/CPAT-AI_CodesMap_v<version>.xlsx` (row, label, unit, name, legacy name, Name Manager names, Python key). Its sources: `data/mvp_legacy_extracts/mtinputs_465.csv` and the build's row template `excel_ai/templates/MTInputs_template.xlsx`, both written by `excel_ai/mitigation/extract_inputs.py` from the legacy workbook (never edit them by hand).
 
@@ -488,16 +488,16 @@ All new models take their policy and parameter inputs from a dedicated input tab
 - **Lookup by name.** Read parameters with `INDEX(ScenarioDefinition!$F$8:$F$415, MATCH("<NameOfParameter>", ScenarioDefinition!$H$8:$H$415, 0))`, not by row reference.
 - **Names (user rule 2026-10-28).** `NameOfParameter` (column H) is the name of every input in Excel and Python: Excel looks inputs up by it, and the Python input keys (`coded/cpat_model/dashboard_inputs.py`, `distribution_inputs.py`) are the same names. The set is complete: every input row has a name. Names are legacy column H as it is, with two exceptions: a legacy name that is wrong is a bug and is corrected (L137: no `D_` prefix, which in legacy names the Dashboard cell, not the MTInputs value; no spaces); a row legacy leaves without a name gets one (I87), built from its section and label (`FbCov<Sector>`, `ETSCov<Sector>`, `CBAMProc<Sector>`, `Fpr<Start|Final|Unit><Fuel><Sector>`). The legacy name is kept in the codes map. Inconsistencies of legacy names and values that are not wrong are issues and are replicated (I85 percentages typed as whole numbers, I86 spelling). A name is never reused for another input.
 
-## 5. Versions, releases and documents (user rules 2026-10-22, v8.0; 2026-10-28, v8.4)
+## 5. Versions, releases and documents (user rules 2026-10-22, v0.8.0; 2026-10-28, v0.8.4)
 
 ### 5a. File naming and the release layout (user rule 2026-10-28)
 
-- **Main files carry their version.** The current version of each main file sits at the top of `excel_ai/` as `<Name>_v<major>.<minor>.<ext>`: `CPAT-AI-Mitigation-Prototype_v8.4.xlsm`, `CPAT-AI-Distribution-Prototype_v<n>.xlsm`, `Legacy_CPAT_Bugs_v8.4.docx`, `Tracking_Legacy_Bugs_v8.4.xlsx`, `CPAT-AI_CodesMap_v8.4.xlsx`, `CPAT-AI_Overview_v8.4.pptx`. The register documents, the tracker and the codes map carry the version of the mitigation prototype they were made with.
-- **Older versions go to `excel_ai/releases/`.** Writing a new version moves the older ones there (`excel_ai/shared/release.py`, `publish`); every builder and document script uses it. `releases/` keeps every release from v7.2 on.
+- **Main files carry their version.** The current version of each main file sits at the top of `excel_ai/` as `<Name>_v<version>.<ext>` (`<version>` = `0.<major>.<minor>`, section 5a Version numbers): `CPAT-AI-Mitigation-Prototype_v0.8.4.xlsm`, `CPAT-AI-Distribution-Prototype_v<n>.xlsm`, `Legacy_CPAT_Bugs_v0.8.4.docx`, `Tracking_Legacy_Bugs_v0.8.4.xlsx`, `CPAT-AI_CodesMap_v0.8.4.xlsx`, `CPAT-AI_Overview_v0.8.4.pptx`. The register documents, the tracker and the codes map carry the version of the mitigation prototype they were made with.
+- **Older versions go to `excel_ai/releases/`.** Writing a new version moves the older ones there (`excel_ai/shared/release.py`, `publish`); every builder and document script uses it. `releases/` keeps every release from v0.7.2 on.
 - **`excel_ai/permalink/`** holds only what other files and tools link to for data transfer, under `<Name>_latest.<ext>`: every module (today mitigation, distribution and the air-pollution standalone; the distribution module and other modules read the mitigation copy). Nothing else gets a `_latest` copy.
 - **`excel_ai/permalink_countryeditable/`** (memo, user 2026-10-29; created 2026-10-29, Power Query links still to do: `excel_ai/plans/TODO.md` M6): a copy of `permalink/`, and **both hold every module** (mitigation, distribution, air pollution, transport co-benefits) under `<Name>_latest.<ext>`. It lets a user run a module for a particular country on the local drive and edit it there. The modules link to each other through it: each module reads the mitigation export block (section 19) from the copy in `permalink_countryeditable/` by Power Query. Builders publish to both (`excel_ai/shared/release.py`, `publish(link=True)`); the air-pollution standalone, which has no versioned top-level file yet, is copied by hand. Never commit a copy filled with real data (section 8).
 - **Names.** `<Name>` in words joined by hyphens or underscores, no spaces, no dates; `_v<version>` last, before the extension. Scripts and notes have stable names (`build.py`, `check_full.py`, `check_quick.py`, `make_docs.py`, method chapters in `mitigation/docs/methods/`), never a version. A release is a git tag; the history keeps every earlier file. No `Old/` folders.
-- **Version numbers.** `VERSION` in `build.py` (also `mitigation/version.json` for the deck): minor for fixes and small features, major for structural or methodological change. `REGISTER_VERSION` (`issues_register.py`) equals it. A module with its own builder (distribution, air pollution) has its own `VERSION` and says in its version log which mitigation version it was built from.
+- **Version numbers.** Three parts, `0.<major>.<minor>` (e.g. `0.9.0`), until the first full release `1.0.0` (user 2026-10-29). Rebased 2026-10-29: Mitigation `X.Y` -> `0.X.Y` (9.0 -> 0.9.0, 1.07 -> 0.1.07, the early 0.Y -> 0.0.Y), Distribution `1.Y` -> `0.1.Y`; the released files were renamed, their contents keep the old numbers. Code that reads a version from a file name or `VERSION` compares all parts as integers (`excel_ai/shared/release.py`, `all_versions`). `VERSION` in `build.py` (also `mitigation/version.json` for the deck): the last part for fixes and small features, the middle part for structural or methodological change. `REGISTER_VERSION` (`issues_register.py`) equals it. A module with its own builder (distribution, air pollution) has its own `VERSION` and says in its version log which mitigation version it was built from.
 
 ### 5b. Version tables (user rule 2026-10-28)
 
@@ -505,7 +505,7 @@ Every workbook and every generated document keeps **one** version table, in the 
 
 | Column | Content |
 |---|---|
-| Version | `<major>.<minor>`, the version in the file name |
+| Version | `0.<major>.<minor>`, the version in the file name |
 | Date | `YYYY-MM-DD` |
 | Description | One or two sentences: what changed, with register codes (L, I, ...) where a bug or issue is involved |
 | Max abs regression diff | Against the previous release (quick check): `0`, or the largest difference and why (workbooks; `n/a` for documents) |
@@ -519,10 +519,10 @@ Every workbook and every generated document keeps **one** version table, in the 
 
 - **Documents, few and simple.** At the top of `excel_ai/`: the workbooks, `Legacy_CPAT_Bugs_v<version>.docx` (the legacy bugs, with every cell-level fix plan; the register as JSON in `legacy/Legacy_CPAT_Register.json`), the tracker `Tracking_Legacy_Bugs_v<version>.xlsx` (the master list of bugs and issues), the codes map `CPAT-AI_CodesMap_v<version>.xlsx` (codes and inputs), the deck, `BUGS.md`, `ISSUES.md`, a README. In `excel_ai/mitigation/`: the short **Documentation** (`docs/Documentation.md`, hand-written, about 5-20 pages: what it is, quick start, how each block works with its key equations, results, limits) and the **Methods** volume (`docs/methods/`, one chapter per block; equations and data tabs as appendices). `make_documentation.py` rebuilds them all. The documentation points to the register; it does not repeat bugs, issues or version history. Every release regenerates the deck so its counts match the register.
 - **Plans and lists.** Open work in `excel_ai/plans/TODO.md` (one list); one file per open plan in `excel_ai/plans/`; finished plans leave (their record: `CAVEATS.md`). Legacy material (legacy workbooks, fix-plan sources and tools, surveys of legacy, one-off extraction tools) in `excel_ai/legacy/`.
-- **GDP timing rule (v6.2, I72, user 2026-10-20).** Revenue of year t changes GDP only from year t+1 (`gdp.lvl`(t+1) = 1 + `gdp.eff`(t), as legacy row 8776); the fiscal space reads revenue of year t only; no same-year GDP effect reaches same-year demand. Keep it in every change to the GDP block (`GDP_Method_v6_2.md` 2b).
-- **Circular references (v6.0; v6.2).** A LibreOffice load computes a workbook with a circular reference without complaint; only a full recalculation (`calculateAll`) shows Err:522, so the quick check and the checks recalculate fully after loading. Rules: (1) no formula reads a later year (L67 is fixed with this year's growth, not next year's demand); (2) every range is exact: a range shifted by a row offset must not run past its block into other sections (v6.2: the price-block averages ran into section 11 and made the methane fee circular); (3) an average over several years reads one row, never a block area (v6.2: `fpn`/`fpp`); (4) the GDP fiscal space reads no fuel use: where legacy counts a revenue that depends on fuel use incl. power, use the stored scenario-1 activity (sheet BaselineCO2, refreshed by the build, with a check row), as v6.2 does for the methane fee (I47). Excel and LibreOffice treat every cell of a referenced range as a precedent. (5) No parameter cell (D:G), which acts in every year, reads a model year after the base year: store the scenario-1 value instead (v6.2: the methane calibration ghg.k read GHGYear). (6) A running range from the left (INDEX($A..:this year)) keeps the spacer test of the group on its left blank. Tests (quick check, v6.2): no formula reads a later year except the whitelist (mani: data; dsum, lvc: levelised input-driven costs); no parameter cell reads a later model row that is not data; the levelised cost reaches no fuel use, GDP or power quantity row; plus the full recalculation (Err:522).
+- **GDP timing rule (v0.6.2, I72, user 2026-10-20).** Revenue of year t changes GDP only from year t+1 (`gdp.lvl`(t+1) = 1 + `gdp.eff`(t), as legacy row 8776); the fiscal space reads revenue of year t only; no same-year GDP effect reaches same-year demand. Keep it in every change to the GDP block (`GDP_Method_v6_2.md` 2b).
+- **Circular references (v0.6.0; v0.6.2).** A LibreOffice load computes a workbook with a circular reference without complaint; only a full recalculation (`calculateAll`) shows Err:522, so the quick check and the checks recalculate fully after loading. Rules: (1) no formula reads a later year (L67 is fixed with this year's growth, not next year's demand); (2) every range is exact: a range shifted by a row offset must not run past its block into other sections (v0.6.2: the price-block averages ran into section 11 and made the methane fee circular); (3) an average over several years reads one row, never a block area (v0.6.2: `fpn`/`fpp`); (4) the GDP fiscal space reads no fuel use: where legacy counts a revenue that depends on fuel use incl. power, use the stored scenario-1 activity (sheet BaselineCO2, refreshed by the build, with a check row), as v0.6.2 does for the methane fee (I47). Excel and LibreOffice treat every cell of a referenced range as a precedent. (5) No parameter cell (D:G), which acts in every year, reads a model year after the base year: store the scenario-1 value instead (v0.6.2: the methane calibration ghg.k read GHGYear). (6) A running range from the left (INDEX($A..:this year)) keeps the spacer test of the group on its left blank. Tests (quick check, v0.6.2): no formula reads a later year except the whitelist (mani: data; dsum, lvc: levelised input-driven costs); no parameter cell reads a later model row that is not data; the levelised cost reaches no fuel use, GDP or power quantity row; plus the full recalculation (Err:522).
 - **No ETS goal-seek runs (user rule 2026-10-19).** Do not run the ETS goal seek (`ets_goalseek_v<n>.py`, the macro `SolveETS`/`SolveETSLive`, or any convergence test of it) in builds, checks or tasks, and skip the goal-seek parts of the full check. The user tests the goal seek (issue I30) separately; run it only when the user asks in so many words.
-- **Build speed (user rules 2026-10-17): the full build as fast as possible; speed comes first, as the builds give no errors.** The full build of the mitigation prototype took about 70 minutes in v4.6 and takes about 2 minutes since v4.9. Keep it that way:
+- **Build speed (user rules 2026-10-17): the full build as fast as possible; speed comes first, as the builds give no errors.** The full build of the mitigation prototype took about 70 minutes in v0.4.6 and takes about 2 minutes since v0.4.9. Keep it that way:
   1. **No ETS goal seek in the build.** The emulation of RunAllScenarios stores a definition with a new ETS at the workbook's own price estimate; the macro still goal-seeks in Excel.
   2. **Load once, recalculate in memory.** LibreOffice runs as UNO sessions (`lo_session_v<n>.py`): each session loads the recalculation copy once; each run writes its inputs, recalculates in memory and reads only the cells it needs. No save, reload or file conversion per run.
   3. **Parallel sessions.** The runs (baseline, definitions) are shared among 3 sessions, one spawned process each, on the 4 cores; Python merges the tabs meanwhile. More sessions do not help: the cores are the limit.
@@ -530,7 +530,7 @@ Every workbook and every generated document keeps **one** version table, in the 
   5. **No per-row scans and no slow helpers in loops.** Hoist `ws.max_row` / `ws.max_column` out of loops (openpyxl scans every cell for them); copy formulas along a row with the column shifter (`shift_cols`), not openpyxl's Translator.
   6. **Every speed change keeps the output identical:** compare the new build with the previous one cell by cell (all sheets) and the stored results to 1e-12, before it ships.
   7. **Measure first.** The build prints the time of each stage; profile (cProfile) before optimising, and optimise the largest stage.
-  8. **Checks the same way (v4.9).** The quick check and the paste test write their LAMBDA-expanded copy from the file's XML (seconds; no openpyxl load and save) and recalculate it in a LibreOffice session in a spawned process while Python runs the structure checks; error values come from LibreOffice's own query, not a scan of every cell. The paste test writes its paste into the XML (the column shifter: identical to openpyxl's Translator on all 574,168 pasted cells). Never paste with UNO (`copyRange` recalculates after each paste; with automatic calculation off the results are wrong). Quick check about 1.5 minutes (was 3.3), paste test about 3.5 (was 5).
+  8. **Checks the same way (v0.4.9).** The quick check and the paste test write their LAMBDA-expanded copy from the file's XML (seconds; no openpyxl load and save) and recalculate it in a LibreOffice session in a spawned process while Python runs the structure checks; error values come from LibreOffice's own query, not a scan of every cell. The paste test writes its paste into the XML (the column shifter: identical to openpyxl's Translator on all 574,168 pasted cells). Never paste with UNO (`copyRange` recalculates after each paste; with automatic calculation off the results are wrong). Quick check about 1.5 minutes (was 3.3), paste test about 3.5 (was 5).
 - **Regression test on every increment.** Recalculate old and new versions in Excel and diff all values (baseline plus input shifts); differences must be zero or explained in the version log. Check sheets must stay at ~0 vs legacy CPAT.
 - **Checks (user rule 2026-10-15): optimise for (a) it works and (b) speed.** After every change run only the quick check (`check_quick.py`, a few minutes: structure, names, literals, formula length, a recalculation with no error cells, the code protocol, the change of every output code against the last release in `releases/`). The full check (`check_full.py`, several hours with the macro tests) runs at a completed milestone or when the user asks. The paste test (`check_paste.py`) runs at every release.
 
@@ -543,7 +543,7 @@ Every .xlsx/.xlsm a script writes, in any project, is checked with `python excel
 Applies to **every** task (Excel, Python, data, documentation). A task is not finished until it is logged. When a task is done:
 
 1. **Add an entry to [`CAVEATS.md`](CAVEATS.md) (repo root).** This is the single record of completed work. Use the template at the top of that file and record:
-   - **Task** - what was asked and what was done, with the task id or version (e.g. `v2.3`);
+   - **Task** - what was asked and what was done, with the task id or version (e.g. `v0.2.3`);
    - **Inputs** - files, sheets/ranges, data sources, specs and prior versions used;
    - **Outputs** - files created or changed (paths), version numbers, documents updated;
    - **Caveats** - placeholders, assumptions, known gaps, deferred items, regression differences that were explained rather than zero, decisions still open; anything the next person must know before building on the result.
@@ -577,7 +577,7 @@ norm, not only a fix. In the same task that fixes it:
 
 ## 7. Methodology and version notes are always different documents
 
-A **methodology document** describes the method as it is now: equations, inputs, conventions, results and open issues. It is written for a reader who has never seen an earlier version, so it contains no change history: no "v0.3 changes (vs v0.2)", no "was X, now Y", no version log, no "superseded" commentary and no per-version result columns.
+A **methodology document** describes the method as it is now: equations, inputs, conventions, results and open issues. It is written for a reader who has never seen an earlier version, so it contains no change history: no "v0.0.3 changes (vs v0.0.2)", no "was X, now Y", no version log, no "superseded" commentary and no per-version result columns.
 
 Version and change history goes in **separate version notes**, never in the methodology:
 
@@ -617,9 +617,9 @@ Rules:
 |---|---|---|
 | `CPAT 1.0pre_456_NoPropData.xlsb` | The legacy CPAT workbook with the proprietary data stripped | Read-only ground truth. Never edit or re-save it; work on a copy in a scratch folder |
 | `CPAT 1.0pre_459_NoPropData.xlsb` | An updated legacy workbook (user 2026-10-18; a few bugs fixed by the CPAT team) | Read-only; superseded by 465 (never reconciled on its own) |
-| `CPAT 1.0pre_465_NoPropData.xlsb` | **The latest legacy workbook** (user 2026-10-22; 62 of our bugs marked fixed by the CPAT team, checked in `excel_ai/legacy/bugfixes/check465/`) | Read-only, as the 456 file. Since v8.2 the register's cell references are 465 rows (`excel_ai/legacy/bugfixes/data/rowmap_456_465.json`); since v8.4 ScenarioDefinition has the 465 MTInputs rows; the prototype's data extracts and the Methods still read 456 |
+| `CPAT 1.0pre_465_NoPropData.xlsb` | **The latest legacy workbook** (user 2026-10-22; 62 of our bugs marked fixed by the CPAT team, checked in `excel_ai/legacy/bugfixes/check465/`) | Read-only, as the 456 file. Since v0.8.2 the register's cell references are 465 rows (`excel_ai/legacy/bugfixes/data/rowmap_456_465.json`); since v0.8.4 ScenarioDefinition has the 465 MTInputs rows; the prototype's data extracts and the Methods still read 456 |
 | `CPATMasterProcessesCodesAndDefaults.xlsx` | The CPAT team's master list of codes, processes and defaults | Read-only reference (may be inaccurate in places; an alignment exercise is planned) |
-| (tracker) | The CPAT team's bug and issue tracker became the master list `excel_ai/Tracking_Legacy_Bugs_v<version>.xlsx` (v8.4, user 2026-10-28; was `excel_ai/legacy/Tracking issues.xlsx`) | **Editable** (user 2026-10-18): the team's tabs are kept as they are; tabs ReadMe, Bugs and Issues are written from the register by `make_tracker.py` at every release (the columns Date, CPAT Version and Issue raised by of tab Bugs are read back, so edits there stay) |
+| (tracker) | The CPAT team's bug and issue tracker became the master list `excel_ai/Tracking_Legacy_Bugs_v<version>.xlsx` (v0.8.4, user 2026-10-28; was `excel_ai/legacy/Tracking issues.xlsx`) | **Editable** (user 2026-10-18): the team's tabs are kept as they are; tabs ReadMe, Bugs and Issues are written from the register by `make_tracker.py` at every release (the columns Date, CPAT Version and Issue raised by of tab Bugs are read back, so edits there stay) |
 
 `data/legacy_dummy/` holds the dummy legacy data:
 

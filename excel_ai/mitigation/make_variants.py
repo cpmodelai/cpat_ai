@@ -1,4 +1,4 @@
-"""Variants of the shipped CPAT-AI-Mitigation-Prototype v4.7 workbook without macros and/or without LAMBDAs.
+"""Variants of the shipped CPAT-AI-Mitigation-Prototype v0.4.7 workbook without macros and/or without LAMBDAs.
 
 Works on the file package (zip) of the shipped .xlsm, so charts, styles and every other part stay byte-identical:
 - noMacros (.xlsx): drops the VBA project; the macro buttons stay as plain shapes (no macro assigned).
@@ -6,7 +6,7 @@ Works on the file package (zip) of the shipped .xlsm, so charts, styles and ever
   arguments substituted (recursively), and the LAMBDA defined names are removed. Excel recalculates on open.
 - noMacros_noLambdas (.xlsx): both.
 
-Usage: python make_variants.py [source.xlsm]   (default: ../CPAT-AI-Mitigation-Prototype-v7.0.xlsm)
+Usage: python make_variants.py [source.xlsm]   (default: ../CPAT-AI-Mitigation-Prototype-v0.7.0.xlsm)
 """
 import html
 import os
@@ -15,7 +15,7 @@ import sys
 import zipfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SRC = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, '..', 'CPAT-AI-Mitigation-Prototype-v7.0.xlsm')
+SRC = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, '..', 'CPAT-AI-Mitigation-Prototype-v0.7.0.xlsm')
 STEM = os.path.splitext(os.path.abspath(SRC))[0]
 MAX_LEN = 8192                        # Excel limit on formula length (characters)
 

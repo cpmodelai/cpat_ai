@@ -1,4 +1,4 @@
-"""v3.5 (phase 1 of Transport_Plan.md): data of the engineer road transport model.
+"""v0.3.5 (phase 1 of Transport_Plan.md): data of the engineer road transport model.
 
 Source: legacy CPAT `excel_ai/legacy/workbooks/CPAT 1.0pre_465_NoPropData.xlsb` (read-only), cached values read
 with pyxlsb. Layout and formulas are documented in Transport_Legacy_Survey.md (formulas were read from the xlsx
@@ -22,7 +22,7 @@ Writes (data/):
                               (calibration factors etc.), and the legacy inputs the engineer model takes from the rest
                               of Mitigation (keys in|...), for transport_model_ref.legacy_inputs/legacy_test
 
-v8.5 (LD41, 2026-10-29): source moved from legacy 456 to 465. Rows up to 5666 are the same in both files; the policy
+v0.8.5 (LD41, 2026-10-29): source moved from legacy 456 to 465. Rows up to 5666 are the same in both files; the policy
 block moved up by 15 rows (OFF 6331 -> 6316; row map legacy/bugfixes/data/rowmap_456_465.json). The 465 policy run is
 the 465 Dashboard's carbon tax of US$5 (2040), not US$50.
 
@@ -37,7 +37,7 @@ import re
 from pyxlsb import open_workbook
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-LEGACY = os.path.join(HERE, '..', 'legacy', 'workbooks', 'CPAT 1.0pre_465_NoPropData.xlsb')   # v8.5 (LD41): was 456
+LEGACY = os.path.join(HERE, '..', 'legacy', 'workbooks', 'CPAT 1.0pre_465_NoPropData.xlsb')   # v0.8.5 (LD41): was 456
 DATA = os.path.join(HERE, '..', '..', 'data', 'mvp_legacy_extracts')
 SRC = 'CPAT 1.0pre_465_NoPropData.xlsb'
 YEARS = list(range(2022, 2042))              # legacy Mitigation L (2022) .. AE (2041)

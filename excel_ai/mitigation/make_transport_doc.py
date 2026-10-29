@@ -30,7 +30,7 @@ SCOPE = [  # topic, legacy, prototype
 DECISIONS = [  # topic, legacy, prototype, reason
     ('Default model', 'Template default Engineer; Egypt run Elasticity', 'Elasticity by default, Engineer by switch',
      'Results unchanged until the engineer run is reviewed; a calibration that is not general stays off by default '
-     '(user rule v3.4)'),
+     '(user rule v0.3.4)'),
     ('Bugs', 'As found', 'All fixed (list below); legacy behaviour kept as switches in the Python reference only',
      'Same approach as the power model; the reference reproduces legacy to 4e-14 with the switches off'),
     ('Parameters', 'Side-table and Dashboard values; methodology note differs (discount rate 10-30%, distance income '
@@ -82,7 +82,7 @@ def main():
     base = [r for r in T.legacy_test('base', fix=frozenset())]
     pol = [r for r in T.legacy_test('pol', fix=frozenset())]
     worst = lambda res: max(r[0] for r in res) if res else 0.0
-    lines = ['# Engineer road transport model against legacy CPAT: bugs and decisions (CPAT-AI-Mitigation-Prototype v4.7)', '',
+    lines = ['# Engineer road transport model against legacy CPAT: bugs and decisions (CPAT-AI-Mitigation-Prototype v0.4.7)', '',
              RULE, '',
              'Sources: legacy `CPAT 1.0pre_456_NoPropData.xlsb`, Mitigation key inputs 15 (rows 2015-2171), section 5 '
              '(rows 4302-5378; policy copy +6331), sheets Transport1-3, Dashboard, Manual inputs; methodology note '
@@ -134,7 +134,7 @@ def main():
             'ev_legacy': [leg[y]['ev_pass'] for y in (2030, 2035, 2041)],
             'ev_fixed': [fixed[y]['ev_pass'] for y in (2030, 2035, 2041)]}
     import json
-    with open(os.path.join(HERE, 'presentation', 'img', 'v40_transport.json'), 'w', encoding='utf-8') as f:
+    with open(os.path.join(HERE, 'presentation', 'img', 'v0_4_0_transport.json'), 'w', encoding='utf-8') as f:
         json.dump(deck, f, indent=1)
     print(f'wrote {OUT}')
 

@@ -1,31 +1,31 @@
-"""Checks for CPAT-AI-Mitigation-Prototype-v6.4.xlsm (v3.5: section 5b, the engineer road transport model, row by row
+"""Checks for CPAT-AI-Mitigation-Prototype-v0.6.4.xlsm (v0.3.5: section 5b, the engineer road transport model, row by row
 against transport_model_ref.engine with all bug fixes in scenarios 1 and 2 and in copied scenarios with TrModel =
 Engineer and transport policies, the whole model with the engine's road fuels and electricity, policy directions;
-regression vs v3.4 0) (v2.7: short bands and title, summary rows without decimals,
-macro buttons on ScenarioCompare; regression vs v2.6 0) (v2.6: price blocks with a parameter row, international
+regression vs v0.3.4 0) (v0.2.7: short bands and title, summary rows without decimals,
+macro buttons on ScenarioCompare; regression vs v0.2.6 0) (v0.2.6: price blocks with a parameter row, international
 reference price row gpi, one row group per section with its summary row last, tab groups, names not bold, plain D:G;
-regression vs v2.5 0) (v2.5: section 2 reordered into price build-ups by fuel and sector,
-new row spf, txf = excise and other taxes before the floor; regression vs v2.4 0 apart from txf) (v2.4: years in row 1, every number in D:G labelled by a label row, one
-level of row groups, no constant typed or written into a Mitigation formula, subsidies negative: regression vs v2.3
-with the subsidy rows compared as new = -old) (v2.2: one version number for every current file, regression 0
-against v1.09, consistency of versions, file references, LegacyDiff and the issues register) (v1.09: existing carbon
-pricing with test data, power in the fuel and revenue totals, consistency section) (v1.08: the workbook works without LAMBDA support: no cell calls a
+regression vs v0.2.5 0) (v0.2.5: section 2 reordered into price build-ups by fuel and sector,
+new row spf, txf = excise and other taxes before the floor; regression vs v0.2.4 0 apart from txf) (v0.2.4: years in row 1, every number in D:G labelled by a label row, one
+level of row groups, no constant typed or written into a Mitigation formula, subsidies negative: regression vs v0.2.3
+with the subsidy rows compared as new = -old) (v0.2.2: one version number for every current file, regression 0
+against v0.1.09, consistency of versions, file references, LegacyDiff and the issues register) (v0.1.09: existing carbon
+pricing with test data, power in the fuel and revenue totals, consistency section) (v0.1.08: the workbook works without LAMBDA support: no cell calls a
 LAMBDA, the shipped file recalculates in LibreOffice without a single error, every value equals the independent Python
 recomputation; the optional LAMBDA library (sheet Lambdas) is tested by copying each row's LAMBDA formula over the
-whole row) (v1.07: every cell formula at most 100 characters (section 0);
+whole row) (v0.1.07: every cell formula at most 100 characters (section 0);
 LAMBDAs also outside the right column (ROWLABEL in column H), so every variant expands all LAMBDA calls; planned
 retirement by type vs power_model_ref (test with data switched on); electricity demand memo lines; power
-indicators on MTOutputs and Charts; regression vs v1.06 on every shared code with no intended change)
-(v1.06: power engineer model, section 3 H-L: power_model_ref_v0_1 = cached legacy
-rows with the bugs switched on; workbook = Python with all bug fixes; power CO2 in section 13; regression vs v1.05 apart
-from the intended power and CO2 changes) (v1.05: power generation costs and electricity prices, section 3: Python
+indicators on MTOutputs and Charts; regression vs v0.1.06 on every shared code with no intended change)
+(v0.1.06: power engineer model, section 3 H-L: power_model_ref_v0_1 = cached legacy
+rows with the bugs switched on; workbook = Python with all bug fixes; power CO2 in section 13; regression vs v0.1.05 apart
+from the intended power and CO2 changes) (v0.1.05: power generation costs and electricity prices, section 3: Python
 reference = cached legacy rows with the legacy inputs, workbook = Python with the prototype inputs, uniformity, outline)
-(v1.04: first-run test macro CheckBatchRun and sheet MacroCheck,
-run in LibreOffice, including a negative test) (v1.03: scenario definitions, VBA batch run, StoredResults,
+(v0.1.04: first-run test macro CheckBatchRun and sheet MacroCheck,
+run in LibreOffice, including a negative test) (v0.1.03: scenario definitions, VBA batch run, StoredResults,
 ScenarioCompare; the macro itself is run in LibreOffice and compared with the Python emulation)
-(v1.02: new ETS with cap, benchmarks, volatility, goal seek)
-(v1.01: MTOutputs and Charts sheets) (v0.12 revenues; v0.13 CO2; v0.14 corrected Egypt prices;
-v0.15 layout: row group buttons below, rolled up, Mitigation first at 75%; v0.16: one level of column groups incl.
+(v0.1.02: new ETS with cap, benchmarks, volatility, goal seek)
+(v0.1.01: MTOutputs and Charts sheets) (v0.0.12 revenues; v0.0.13 CO2; v0.0.14 corrected Egypt prices;
+v0.0.15 layout: row group buttons below, rolled up, Mitigation first at 75%; v0.0.16: one level of column groups incl.
 2030-2039, light beige for the LAMBDA column and the price history block, blank column between scenario groups). Needs LibreOffice (soffice) to recalculate.
 
 LibreOffice 24.2 cannot evaluate LAMBDA, so the 2035 LAMBDA cells are checked by expansion (body with the
@@ -42,11 +42,11 @@ arguments substituted) and by dragging the plain 2034 formula forward.
    baseline; legacy Egypt carbon-tax settings = legacy row 8582; fuel price reform, feebates, price source
    IMF-WB* with High adjustment and a nominal carbon price vs Python; feebates lower fuel use only where covered;
    global price controls None and Manual vs Python.
-6. Regression vs v0.9 on every output code the two versions share, except the intended price changes
+6. Regression vs v0.0.9 on every output code the two versions share, except the intended price changes
    (other oil products like the other oil products; VAT-rate assumption).
 7. Labels and codes; 8. outline; 9. MTInputs = template; 10. format; 11. sanity and results.
 
-    python check_full.py   ->  writes check_report_v6.4.md
+    python check_full.py   ->  writes check_report_v0.6.4.md
 """
 import csv
 import importlib.util
@@ -63,18 +63,18 @@ from openpyxl.formula.translate import Translator
 from openpyxl.utils import get_column_letter as L, column_index_from_string as CI
 
 import build as B
-RS = getattr(B, 'rn_stem', lambda st: st)   # v7.2 (codes R9): a v7.1 code stem as the rename map writes it
+RS = getattr(B, 'rn_stem', lambda st: st)   # v0.7.2 (codes R9): a v0.7.1 code stem as the rename map writes it
 
 
 def RC(code):
-    """v7.2: a v7.1 output code country.mit.<stem>.<scenario> as the rename map writes it."""
+    """v0.7.2: a v0.7.1 output code country.mit.<stem>.<scenario> as the rename map writes it."""
     p = code.split('.')
     return '.'.join([p[0], RS('.'.join(p[1:-1])), p[-1]]) if len(p) > 3 else code
 import power_model_ref as PM
 import transport_model_ref as TM
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ISO = B.COUNTRY                 # v3.3: country of the build (Settings C4); its data come from the CSVs by this key
+ISO = B.COUNTRY                 # v0.3.3: country of the build (Settings C4); its data come from the CSVs by this key
 REF = re.compile(r"(?<![A-Za-z_\d.\"])(\$?)([A-Z]{1,3})(\$?)(\d+)(?![\d(])")
 TOL = 1e-9
 VAT_CONSUMER = {'coa.res', 'nga.res', 'gso.all', 'die.all', 'lpg.all', 'ker.all', 'oop.all'}   # independent copy
@@ -87,8 +87,8 @@ def log(line=''):
 
 
 def auto_calc(path, tmp):
-    """v7.0: a copy in automatic calculation with a full calculation on load, if the file is in manual calculation
-    (the shipped workbook since v6.6; calcId of an older Excel, as openpyxl writes, so LibreOffice recalculates every cell): LibreOffice leaves the formulas of an openpyxl copy (no cached values)
+    """v0.7.0: a copy in automatic calculation with a full calculation on load, if the file is in manual calculation
+    (the shipped workbook since v0.6.6; calcId of an older Excel, as openpyxl writes, so LibreOffice recalculates every cell): LibreOffice leaves the formulas of an openpyxl copy (no cached values)
     uncalculated in manual mode."""
     import zipfile
     with zipfile.ZipFile(path) as z:
@@ -105,8 +105,8 @@ def auto_calc(path, tmp):
 
 
 def hard_recalc(path, res):
-    """v7.0: load in a LibreOffice session, calculateAll, save as xlsx. The conversion on load (soffice --convert-to,
-    v4.16-v6.5) gives wrong values for the trailing averages of the power fuel prices (fpp; then swi, swd) in
+    """v0.7.0: load in a LibreOffice session, calculateAll, save as xlsx. The conversion on load (soffice --convert-to,
+    v0.4.16-v0.6.5) gives wrong values for the trailing averages of the power fuel prices (fpp; then swi, swd) in
     this LibreOffice: its recalculation on load evaluates some INDEX(...):cell ranges before their inputs."""
     import lo_session as LO
     with LO.Session(timeout=600) as s_:
@@ -118,7 +118,7 @@ def hard_recalc(path, res):
 
 
 def recalc_path(path):
-    cache = os.environ.get('CHECK_CACHE')            # v5.0: reuse LibreOffice results of identical files (debugging)
+    cache = os.environ.get('CHECK_CACHE')            # v0.5.0: reuse LibreOffice results of identical files (debugging)
     if cache:
         import hashlib
         import zipfile
@@ -132,7 +132,7 @@ def recalc_path(path):
         if os.path.exists(hit):
             return hit
     out = tempfile.mkdtemp()
-    path = auto_calc(path, out)                      # v7.0: the shipped file is in manual calculation
+    path = auto_calc(path, out)                      # v0.7.0: the shipped file is in manual calculation
     res = os.path.join(out, os.path.splitext(os.path.basename(path))[0] + '.xlsx')
     hard_recalc(path, res)
     if cache:
@@ -190,7 +190,7 @@ def check_mto(wbv, groups, label):
 
 
 def check_charts():
-    """v7.0: the dashboard charts (ScenarioCompare; the Charts sheet is gone): one bar chart on the chart-data row,
+    """v0.7.0: the dashboard charts (ScenarioCompare; the Charts sheet is gone): one bar chart on the chart-data row,
     one line chart per time-series block, each series on one slot row of its block with its short name as label."""
     wb = openpyxl.load_workbook(B.OUT)
     good = 'Charts' not in wb.sheetnames
@@ -209,7 +209,7 @@ def check_charts():
                 and m.group(1) == L(B.SC_C0) and m.group(3) == L(B.SC_Y1) \
                 and s.tx.strRef.f.replace("'", '').replace('$', '') == f'ScenarioCompare!C{m.group(2)}'
         nser.append(len(ch.series))
-    log(f'- v7.0 dashboard charts: no Charts sheet; {len(charts)} charts on ScenarioCompare (1 bar on row {B.SC_BAR_R}, '
+    log(f'- v0.7.0 dashboard charts: no Charts sheet; {len(charts)} charts on ScenarioCompare (1 bar on row {B.SC_BAR_R}, '
         f'{len(charts) - 1} line charts with {nser} series on the slot rows of their block, short-name labels) '
         f'{"OK" if good else "FAIL"}')
     return good
@@ -269,7 +269,7 @@ def expand(formula, lambdas=None):
 def rows_of(var):
     """(row, sector-or-subsector, fuel) of a variable: section 2 price rows or sector-section rows."""
     if var in B.PVARS:
-        return [(B.prow(var, pc), pc.split('.')[1], pc.split('.')[0]) for pc, _l in B.PRICES]   # v2.5: fuel blocks
+        return [(B.prow(var, pc), pc.split('.')[1], pc.split('.')[0]) for pc, _l in B.PRICES]   # v0.2.5: fuel blocks
     if var in B.VARS:                      # subsector variables first (power CO2 shares the name co2)
         return B.var_rows(var)
     return [(r, c_, b_) for r, v, b_, c_, _k in B.PW_ROWS if v == var]
@@ -289,7 +289,7 @@ def lambda_rows(ws, c):
 
 
 def lambda_table(lam):
-    """v4.2: sheet Lambdas -> {Mitigation row: (first row of its line, formula of the first row)}."""
+    """v0.4.2: sheet Lambdas -> {Mitigation row: (first row of its line, formula of the first row)}."""
     out = {}
     for i in range(5, lam.max_row + 1):
         rows, f = lam.cell(i, 4).value, lam.cell(i, 3).value
@@ -309,20 +309,20 @@ def variant(wb, how):
     dragged into the right column; 'everywhere': the right-column LAMBDA formula copied back over the whole row
     (base year included, except fuel use whose base year is data), then expanded."""
     ws = wb['Mitigation']
-    if how == 'everywhere':                # v1.08: the optional LAMBDA library (sheet Lambdas) over whole rows
+    if how == 'everywhere':                # v0.1.08: the optional LAMBDA library (sheet Lambdas) over whole rows
         lam = B.tab(wb, 'Lambdas')
         src_c = B.group_cols(1)[2][-1]
         ener = ({r for r, *_ in B.var_rows('enel')} | {r for r, v, *_ in B.PW_ROWS if v in B.PW_BASE}
-                | B.TR_OWNBASE | B.LK_OWNBASE                 # v3.5: section 5b rows with their own base year (v5.1: 6b)
-                | {B.R_GHG[k] for k in B.GHG_LAM}             # v2.8: section 14 rows have their own base year
-                | {B.R_GDPS[k] for k in B.GDP_OWNBASE} | {B.R_GDP})                 # v3.1
-        for r, (r0, f) in lambda_table(lam).items():     # v4.2: one line per formula pattern, rows in column D
+                | B.TR_OWNBASE | B.LK_OWNBASE                 # v0.3.5: section 5b rows with their own base year (v0.5.1: 6b)
+                | {B.R_GHG[k] for k in B.GHG_LAM}             # v0.2.8: section 14 rows have their own base year
+                | {B.R_GDPS[k] for k in B.GDP_OWNBASE} | {B.R_GDP})                 # v0.3.1
+        for r, (r0, f) in lambda_table(lam).items():     # v0.4.2: one line per formula pattern, rows in column D
             for g in groups_in(ws):
                 _, base, years = B.group_cols(g)
                 for k in ([base] if r not in ener else []) + years:
                     ws.cell(r, k).value = expand(Translator('=' + f, origin=f'{L(src_c)}{r0}')
                                                  .translate_formula(f'{L(k)}{r}'))
-    for wsx in wb.worksheets:              # v1.07: LAMBDA calls elsewhere (ROWLABEL in column H)
+    for wsx in wb.worksheets:              # v0.1.07: LAMBDA calls elsewhere (ROWLABEL in column H)
         for row in wsx.iter_rows():
             for cell in row:
                 if isinstance(cell.value, str) and cell.value.startswith('=') and LAMBDA_CALL.search(cell.value):
@@ -342,15 +342,15 @@ _MT_TPL = {}
 
 
 def mt_used():
-    if not _MT_TPL:                              # v5.1: the template read once (scenario_mt is called per recompute)
+    if not _MT_TPL:                              # v0.5.1: the template read once (scenario_mt is called per recompute)
         tpl = openpyxl.load_workbook(B.MT_TEMPLATE)['MTInputs']
         _MT_TPL.update({r: tpl.cell(r, 6).value for r in range(8, tpl.max_row + 1)})
     mt = dict(_MT_TPL)
-    par = {r['key']: r['value'] for r in read('transport_params.csv')}     # v3.5: transport policy rows (defaults)
+    par = {r['key']: r['value'] for r in read('transport_params.csv')}     # v0.3.5: transport policy rows (defaults)
     for i, (k, *_x) in enumerate(B.TR_MT):
         v = TM.fnum(par[k])
         mt[B.MT_TR0 + 1 + i] = int(v) if isinstance(v, float) and v.is_integer() and v >= 1000 else v
-    for name, _lab, _unit, v in B.PW_MT_NEW:        # v5.4: power rows after the transport rows
+    for name, _lab, _unit, v in B.PW_MT_NEW:        # v0.5.4: power rows after the transport rows
         mt[B.MT_NAMES[name]] = v
     return mt
 
@@ -360,16 +360,16 @@ def series(row, years):
 
 
 ETS_VOL = {lab: (v, i) for lab, v, i in B.ETS_VOL}                 # legacy table (Settings C16:F18)
-K = B.const_values()                # v3.4: sheet Constants values (no literals in the recomputation)
+K = B.const_values()                # v0.3.4: sheet Constants values (no literals in the recomputation)
 _PC = {(int(r['row']), int(r['col'])): r['value'] for r in csv.DictReader(open(os.path.join(HERE, '..', '..', 'data', 'mvp_legacy_extracts',
                                                                                    'legacy_Power_cells.csv'),
                                                                       encoding='utf-8')) if int(r['row']) < 30}
-K_SCALE = {_PC[(r, 9)]: float(_PC[(r, 10)]) for r in range(20, 24) if (r, 9) in _PC}   # v5.4: Power I20:J23
+K_SCALE = {_PC[(r, 9)]: float(_PC[(r, 10)]) for r in range(20, 24) if (r, 9) in _PC}   # v0.5.4: Power I20:J23
 _MI = {}
 
 
 def mi(cell=None):
-    """v5.2: the typed values of sheet Manual inputs (legacy addresses) of the shipped file, read once: the
+    """v0.5.2: the typed values of sheet Manual inputs (legacy addresses) of the shipped file, read once: the
     recomputation reads these inputs (never the formulas that read them). mi('J196') = one value; mi() = all."""
     if not _MI:
         from openpyxl.utils import get_column_letter
@@ -383,13 +383,13 @@ def mi(cell=None):
 
 
 def mi_row(r, c0, c1):
-    """v5.2: values of Manual inputs row r, columns c0..c1 (numbers)."""
+    """v0.5.2: values of Manual inputs row r, columns c0..c1 (numbers)."""
     from openpyxl.utils import get_column_letter
     return [mi(f'{get_column_letter(c)}{r}') for c in range(c0, c1 + 1)]
 
 
 def mi_controls():
-    """v5.2: price control (pass-through) of each price code when GovPriceControls = Manual: Manual inputs J167:J180
+    """v0.5.2: price control (pass-through) of each price code when GovPriceControls = Manual: Manual inputs J167:J180
     by code (G); blank = 1, as legacy L747:L760."""
     out = {}
     for r in range(167, 181):
@@ -399,7 +399,7 @@ def mi_controls():
 
 
 def mi_pint(years):
-    """v5.2: manual international prices {commodity: {year: value}}, Manual inputs D221:AF225 (years row 220; blank
+    """v0.5.2: manual international prices {commodity: {year: value}}, Manual inputs D221:AF225 (years row 220; blank
     = 0, as a reference to an empty cell), global gas = average of LNG, North America, Europe."""
     yrs = mi_row(220, 10, 32)
     out = {}
@@ -413,7 +413,7 @@ def mi_pint(years):
 
 
 def mi_bev(years):
-    """v5.2: BEV fuel economy of new vehicles (km/kWh), Manual inputs J375:AC377 by year (row 374), as the
+    """v0.5.2: BEV fuel economy of new vehicles (km/kWh), Manual inputs J375:AC377 by year (row 374), as the
     transport reference's paths bev_fe_new|pass, fre, cyc."""
     yrs = [int(y) for y in mi_row(374, 10, 29)]
     return {k: [float(dict(zip(yrs, mi_row(r, 10, 29)))[y]) for y in years]
@@ -431,7 +431,7 @@ def baseline_co2():
 
 
 def _ecp_cells():
-    """v4.12: the legacy ECP tab as {(row, column): value} (data/legacy_ECP_cells.csv; error values left out)."""
+    """v0.4.12: the legacy ECP tab as {(row, column): value} (data/legacy_ECP_cells.csv; error values left out)."""
     out = {}
     for r in read('legacy_ECP_cells.csv'):
         v = r['value']
@@ -449,7 +449,7 @@ ECP_CELLS = _ecp_cells()
 
 
 def ecp_tables(cells, cpi):
-    """v4.12, independent copy of Inputs_ecp (legacy rows 1677-1764): each code looked up by key (column E) in its
+    """v0.4.12, independent copy of Inputs_ecp (legacy rows 1677-1764): each code looked up by key (column E) in its
     legacy block; country information rows 11-66 (C code, E single price, K EU ETS); prices x CPI factor, blanks 0;
     fuel tax rate = single rate where the country has a single price or no fuel rate. Returns the carbon tax and ETS
     tables {(ECP sector, fuel): {year: $/tCO2 real}} and the national ETS sector coverage {sector: {year: share}}."""
@@ -492,17 +492,17 @@ ECP_SEC = lambda s: 'pow' if s == 'pow' else {'tra': 'trs', 'bld': 'res'}.get(  
 
 
 def co2k():
-    """v3.2: CO2 calibration factor: inventory energy CO2 / scenario-1 energy CO2 with uncalibrated EFs (independent
-    copy of Settings C29; the template's scenario-1 switch). v4.11, as legacy: the inventory of the year before the
+    """v0.3.2: CO2 calibration factor: inventory energy CO2 / scenario-1 energy CO2 with uncalibrated EFs (independent
+    copy of Settings C29; the template's scenario-1 switch). v0.4.11, as legacy: the inventory of the year before the
     base year against the base-year estimate."""
     if _CO2K.get('busy'):                  # inside the uncalibrated run (its scenario-1 reference): uncalibrated
         return 1.0
     if 'k' not in _CO2K:
         _CO2K['busy'] = True
         inv = {int(r['year']): float(r['enr.co2']) for r in read('ghg_inventory.csv') if r['iso'] == ISO}
-        on = str(B.CO2_CALIB)[:3] == 'Yes'                 # Settings C27 (v4.11: on, as legacy)
+        on = str(B.CO2_CALIB)[:3] == 'Yes'                 # Settings C27 (v0.4.11: on, as legacy)
         raw = _recompute_once(scenario_mt(1), base={}, k_co2=1.0)[('co2', 'all', 'all')]
-        _CO2K['k'] = inv[B.BASE_YEAR - 1] / raw[0] if on else 1.0   # v4.11: legacy rows 623, 839
+        _CO2K['k'] = inv[B.BASE_YEAR - 1] / raw[0] if on else 1.0   # v0.4.11: legacy rows 623, 839
         _CO2K['busy'] = False
     return _CO2K['k']
 
@@ -521,8 +521,8 @@ PDATA_NAMES = [n for n in B.MT_NAMES if n.startswith('NewInv')] + [
 
 
 def power_data(years, mt=None):
-    """v5.2: power data of the country as the prototype's data step computes them (power_model_ref.mvp_data: legacy
-    data-step bugs L52-L55 fixed), from the legacy Power tab and Balances. v5.4 (P2): with the settings of the
+    """v0.5.2: power data of the country as the prototype's data step computes them (power_model_ref.mvp_data: legacy
+    data-step bugs L52-L55 fixed), from the legacy Power tab and Balances. v0.5.4 (P2): with the settings of the
     scenario (mt: its MTInputs column; default the template, scenario 1)."""
     mt = mt or mt_used()
     s = {nm: mt[B.MT_NAMES[nm]] for nm in PDATA_NAMES}
@@ -532,12 +532,12 @@ def power_data(years, mt=None):
     return _PDATA[key]
 
 
-DEFICIT_GAS = {'on': False}     # v5.4: Settings C45 PwDeficitGas (global switch) of the run
-MI_EXCISE = {}                  # v5.4: 'Manual inputs' new electricity excise of the run {group: {year: $/kWh}}
+DEFICIT_GAS = {'on': False}     # v0.5.4: Settings C45 PwDeficitGas (global switch) of the run
+MI_EXCISE = {}                  # v0.5.4: 'Manual inputs' new electricity excise of the run {group: {year: $/kWh}}
 
 
 def power_settings(mt, years, cp, defl, cpi=None):
-    """v5.4 (power plan P1, P2, P4): the power settings of the scenario (MTInputs column mt) and the power policy
+    """v0.5.4 (power plan P1, P2, P4): the power settings of the scenario (MTInputs column mt) and the power policy
     paths (PPA share, renewable subsidy, rebate switch, electricity excise, manual excise), recomputed from the
     inputs independently of the workbook. cp: carbon price trajectory {year: $/tCO2}; defl: deflator index."""
     n = B.MT_NAMES
@@ -560,7 +560,7 @@ def power_settings(mt, years, cp, defl, cpi=None):
     s0, sa, ys, yn = (float(g('RenewableSubsidyBL')), float(g('RenSubsidyAddUSDkwh')),
                       float(g('RenSubsidyAddStartYear')), float(g('RenSubsidyAddPhaseoutYrs')))
     rnsp = [-(s0 + (sa * max(0.0, 1 - (y - ys) / yn) if scen > 1 and y >= ys else 0.0)) * (cpi[y] if cpi else 1.0)
-            for y in years]                                # v6.0: nominal inputs to real (L114 fixed, v5.6)
+            for y in years]                                # v0.6.0: nominal inputs to real (L114 fixed, v0.5.6)
     elig = [1.0 if f in ('wnd', 'sol', 'ore', 'bio') else 1.0 if f == 'hyd' and yes(g('RenewableSubsidyHydro'))
             else 0.0 for f in POWER_TECH]
     scn = [r[1] for r in B.SCN_TABLE]                       # legacy scenario table (MTInputs ScenarioSelected)
@@ -578,7 +578,7 @@ def power_settings(mt, years, cp, defl, cpi=None):
 
 
 def grid_intensity():
-    """v5.4: base-year CO2 of the fuel input to power / power output (tCO2 per kWh; legacy C2253 = G623 / E603), with
+    """v0.5.4: base-year CO2 of the fuel input to power / power output (tCO2 per kWh; legacy C2253 = G623 / E603), with
     the power EFs of the prototype (calibrated) and the Balances of the country."""
     bal = {r['flow_code']: r for r in read('legacy_Balances.csv') if r['country_code'] == ISO}
     kc = co2k()
@@ -596,17 +596,17 @@ def grid_intensity():
 def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on=1, power=None, ecp=None,
                     spot=False, gdp=None, k_co2=None, road=None):
     """mt: MTInputs row -> value for one scenario; controls: global GovPriceControls (default: template); bench:
-    {group: (start, target)} ETS benchmarks (default 1 - the MTInputs auctioned shares, v4.15); ovr: {year: price} override row (default blank);
+    {group: (start, target)} ETS benchmarks (default 1 - the MTInputs auctioned shares, v0.4.15); ovr: {year: price} override row (default blank);
     base: baseline CO2 by ETS sector (default: scenario 1 recomputed); ecp: {code: {year: nominal value}} existing
     carbon pricing data of the country (default: data/ecp.csv rows of the country).
-    v1.09: existing carbon pricing, power fuel use in the fuel totals, power revenues in the revenue totals.
+    v0.1.09: existing carbon pricing, power fuel use in the fuel totals, power revenues in the revenue totals.
     Returns {(var, sector-or-subsector, fuel): [values base..last]} for gp, sp, txo, rpb and the subsector
     variables, all from the CSVs."""
     tpl = mt_used()
     ry, controls = tpl[B.MT_NAMES['ResultsYear']], controls or tpl[B.MT_NAMES['GovPriceControls']]
     units = {r['fuel']: float(r['gj_per_price_unit']) for r in read('fuel_units.csv')}
     dom = {r['country_year']: r for r in read('prices_dom.csv')}
-    kc = co2k() if k_co2 is None else k_co2                         # v3.2: calibrated CO2 EFs
+    kc = co2k() if k_co2 is None else k_co2                         # v0.3.2: calibrated CO2 EFs
     ef = {r['key']: float(r['ef_tco2_per_gj']) * kc for r in read('ef_co2.csv')}
     el = {r['key']: float(r[INCOME[ISO]]) for r in read('elasticities.csv')}
     use0 = {(r['subsector'], r['fuel']): float(r['ktoe']) for r in read('energy_use.csv')}
@@ -616,7 +616,7 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
     cpi = {y: us['USA|pcpi'][ry] / us['USA|pcpi'][y] for y in us['USA|pcpi']}
     dfl = {y: us['USA|ngdp_d'][ry] / us['USA|ngdp_d'][y] for y in us['USA|ngdp_d']}
     pint = {r['key']: series(r, yrs_all) for r in read('prices_int.csv')}
-    for c_, vals in mi_pint(yrs_all).items():          # v5.2: Manual from 2026 = sheet Manual inputs D221:AF225
+    for c_, vals in mi_pint(yrs_all).items():          # v0.5.2: Manual from 2026 = sheet Manual inputs D221:AF225
         pint[f'Manual|{c_}'].update({y: v for y, v in vals.items() if y >= 2026})
     pctrl = mi_controls()
     gas = {'Global': 'glo', 'LNG': 'lng', 'Europe': 'eur', 'North Am': 'nam'}[
@@ -626,7 +626,7 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
     years = [B.BASE_YEAR] + B.YEARS
     last_hist = B.LAST_HIST
     n = B.MT_NAMES
-    gdpg = list(gdp) if gdp is not None else [float(weo[str(y)]) for y in years]   # v3.1: growth after the feedback
+    gdpg = list(gdp) if gdp is not None else [float(weo[str(y)]) for y in years]   # v0.3.1: growth after the feedback
 
     def val(col, y):
         v = dom[f'{ISO}{y}'].get(col, '')
@@ -642,7 +642,7 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
                   mt[n['ExtendCarbonPriceBeyondOutro']] == 'Linear*') * (cpi[y] if nominal else 1) for y in years}
     ext = str(mt[n['ExtendCarbonPriceBeyondOutro']])
 
-    def fpath(y, y0, y1, s0, s1):        # v9.0 (LD10 reverted): legacy rows 167-180, L171 and L173 fixed
+    def fpath(y, y0, y1, s0, s1):        # v0.9.0 (LD10 reverted): legacy rows 167-180, L171 and L173 fixed
         nn = y1 - y0
         if y < y0:
             return 0.0
@@ -656,12 +656,12 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
     fpr = {pc: {y: fpath(y, mt[140], mt[141], mt[r0] or 0, mt[r1] or 0) for y in years}
            for pc, _l, r0, r1 in B.PRICE_FUELS}
     fb = {s: {y: path(y, mt[n['FeebateIntro']], mt[n['FeebateOutro']], mt[n[a]], mt[n[b]], linear=False)
-              for y in years} for s, a, b in B.FEEBATE_SECTORS}   # v9.0: flat after the target year, as legacy
+              for y in years} for s, a, b in B.FEEBATE_SECTORS}   # v0.9.0: flat after the target year, as legacy
     y0, y1 = mt[n['ETSIntro']], mt[n['ETSOutro']]
     ets_on = {y: str(mt[n['NewETS']]).startswith('Yes') and y >= y0 for y in years}
     ets_cov = {s: {y: 1.0 if ets_on[y] and bool(mt[B.MT_ROWS_FIXED['etscov0'] + k]) else 0.0 for y in years}
                for k, s in enumerate(B.COV_SECTORS)}
-    auct = (float(mt[n['ETSAuctStart']] or 0), float(mt[n['ETSAuctTarget']] or 0))   # v4.15 (I21): MTInputs 90-91
+    auct = (float(mt[n['ETSAuctStart']] or 0), float(mt[n['ETSAuctTarget']] or 0))   # v0.4.15 (I21): MTInputs 90-91
     bench = bench or {g: (1 - auct[0], 1 - auct[1]) for g, *_ in B.ETS_GROUPS}
     bm = {g: {y: 0.0 if y < y0 else b0 + (b1 - b0) / max(y1 - y0, 1) * (min(y, y1) - y0) for y in years}
           for g, (b0, b1) in bench.items()}
@@ -682,7 +682,7 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
             cap[y] = cap[y - 1]
         else:
             cap[y] = bce[y] * (1 + rs + (rt - rs) / max(y1 - y0, 1) * (min(y, y1) - y0))
-    es = next(r for r in read('ets_semi.csv') if r['iso'] == ISO)   # v3.3: legacy ETS+LTS table, by country
+    es = next(r for r in read('ets_semi.csv') if r['iso'] == ISO)   # v0.3.3: legacy ETS+LTS table, by country
     semi = {s: float(es[B.ETS_SEMI_OF[s]]) for s in B.COV_SECTORS}   # sector -> group (also tested in Variables)
     se = {y: (sum(bco2[s][yi[y]] * ets_cov[s][y] * semi[s] * (1 - (1 - B.OBR_EFF) * obr[s][y]) for s in B.COV_SECTORS) / bce[y]
               if bce[y] > 0 else 0.0) for y in years}
@@ -692,7 +692,7 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
     ets_p = {y: ((cp[y] if (ovr or {}).get(y) in (None, '') else ovr[y]) if override else est[y]) if ets_on[y]
              else 0.0 for y in years}
     ets_pe = {y: ets_p[y] * vadj for y in years}
-    # existing carbon pricing (v4.12, as legacy rows 1677-1764): tables by ECP sector | fuel from the legacy ECP tab
+    # existing carbon pricing (v0.4.12, as legacy rows 1677-1764): tables by ECP sector | fuel from the legacy ECP tab
     if ecp is None:
         ecp = ECP_CELLS
     XT, XE, ees_nat = ecp_tables(ecp, cpi)
@@ -727,7 +727,7 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
         gp[fu] = [1.0 if comm is None else pint[f'{src}|{comm}'][y] * dfl[y] * (fac if y > last_hist else 1)
                   for y in years]
         res[('gp', 'int', fu)] = gp[fu]
-    # v4.16 (LD18, LD19): phase-out factors (legacy rows 2211-2218), lines by price fuel | sector and by fuel
+    # v0.4.16 (LD18, LD19): phase-out factors (legacy rows 2211-2218), lines by price fuel | sector and by fuel
     yes = lambda v: v is True or str(v).startswith('Yes')
     sc_ = mt.get('scen', 2)
     pof = {}
@@ -737,7 +737,7 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
         sh = float(mt[n[bsh]]) if sc_ == 1 else max(float(mt[n[bsh]]), float(mt[n[psh]]))
         t0 = float(mt[n[yr_]])
         pof[k_] = {y: max(1 - sh, 1 - sh * (y - t0) / max(per, 1) if on and y > t0 else 1.0) for y in years}
-    def scope(incl):                    # v6.0: v5.6 moved the scope switches from Constants to MTInputs rows
+    def scope(incl):                    # v0.6.0: v0.5.6 moved the scope switches from Constants to MTInputs rows
         pre, a_, b_ = incl.split('|')
         name = {'csi': 'ConsSubPhaseScope_', 'pci': 'PriceCtrlPhaseScope_', 'psi': 'ProdSubPhaseScope_'}[pre] \
             + (a_ if pre == 'psi' else f'{a_}_{b_}')
@@ -754,7 +754,7 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
         pros[f] = []
         for y in years:
             pros[f].append(val(f'mit.pros.{f}.all', y) * cpi[y] * 1000 if y <= last_hist else pros[f][-1])
-    # v4.16 (LD9): regulations as shadow prices (main scenario, legacy scenario table)
+    # v0.4.16 (LD9): regulations as shadow prices (main scenario, legacy scenario table)
     srow = next((i for i, t in enumerate(B.SCN_TABLE) if t[0] == mt[n['ScenarioSelected']]), None)
     expl = srow is None or B.SCN_TABLE[srow][2] == 'Yes'
     adjpos = 0 if srow is None else B.SCN_TABLE[srow][3]
@@ -772,18 +772,18 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
         pccr = 1.0 if fuel == 'bio' else val(f'mit.ps.{pc}', B.BASE_YEAR)
         pccb = 0.0 if pccr <= K['PassLo'] else (K['PassMid'] if pccr <= K['PassHi'] else 1.0)
         pcc = pctrl[f'mit.rp.{pc}.ctrl'] if controls.startswith('Manual') else (1.0 if controls.startswith('None')
-                                                                                 else pccb)   # v5.2: Manual inputs
-        mary = B.MARGIN_YEAR if fuel in ('coa', 'nga') else B.BASE_YEAR   # v9.0 (LD16): legacy margin year
+                                                                                 else pccb)   # v0.5.2: Manual inputs
+        mary = B.MARGIN_YEAR if fuel in ('coa', 'nga') else B.BASE_YEAR   # v0.9.0 (LD16): legacy margin year
         mar = 0.0 if fuel == 'bio' else val(f'mit.mar.{pc}', mary)
         pcost = val(f'mit.{fuel}.prod.cost', B.BASE_YEAR) if fuel in ('coa', 'nga') else 0.0
         dsh = max(0.0, min(1.0, val(f'mit.{fuel}.prod', B.BASE_YEAR))) if fuel in ('coa', 'nga') else 0.0   # LD80
-        fixsp = (mar * cpi[mary] + dsh * pcost * cpi[B.BASE_YEAR]) / gj   # v9.0: L172 fixed (margin to real)
+        fixsp = (mar * cpi[mary] + dsh * pcost * cpi[B.BASE_YEAR]) / gj   # v0.9.0: L172 fixed (margin to real)
         def vat(y):                      # dataset rate if the cell is filled (0 included), else the assumption
             raw = dom[f'{ISO}{y}'].get(f'mit.vatrate.{pc}', '')
             if raw not in ('', None):
                 return float(raw)
             return val('VAT_WEO', y) if pc in VAT_CONSUMER else 0.0
-        vr = vat(last_hist) * OIL_SHARE.get(pc, 1.0)     # v4.12 (LD5): VAT x household share, as legacy 801-816
+        vr = vat(last_hist) * OIL_SHARE.get(pc, 1.0)     # v0.4.12 (LD5): VAT x household share, as legacy 801-816
         vrate[pc] = vr
 
         def hist_txo(y):
@@ -801,84 +801,84 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
             else:
                 sp.append(fixsp + (sp[-1] - fixsp) * g[k] / g[k - 1])
                 cs_l = txo_l * (1 - pcc)
-                cs = cs_l + (sp_l - sp[-1]) * (1 - pcc)          # v4.10: L14 fixed (legacy: (sp_l - sp + cs_l)(1 - pcc))
+                cs = cs_l + (sp_l - sp[-1]) * (1 - pcc)          # v0.4.10: L14 fixed (legacy: (sp_l - sp + cs_l)(1 - pcc))
                 txo.append(txo_l * pcc + (max(cs_l, cs) if cs_l >= 0 else cs))
         rpb[pc] = [(a + b) * (1 + vr) for a, b in zip(sp, txo)]
         res[('sp', sec, fuel)], res[('txo', sec, fuel)], res[('rpb', sec, fuel)] = sp, txo, rpb[pc]
-        res[('txf', sec, fuel)] = [t_ if y <= last_hist          # v2.5: before the floor; v4.10: L14 fixed
+        res[('txf', sec, fuel)] = [t_ if y <= last_hist          # v0.2.5: before the floor; v0.4.10: L14 fixed
                                    else txo_l + (sp_l - s_) * (1 - pcc)
                                    for y, s_, t_ in zip(years, sp, txo)]
         res[('spf', sec, fuel)] = [fixsp] * len(years)
-        res[('gpi', sec, fuel)] = list(g)                                 # v2.6: international reference price
+        res[('gpi', sec, fuel)] = list(g)                                 # v0.2.6: international reference price
         res[('vat', sec, fuel)] = [(a + b) * vr for a, b in zip(sp, txo)]
         res[('etx', sec, fuel)] = [max(t, 0.0) for t in txo]
-        res[('esub', sec, fuel)] = [min(t, 0.0) for t in txo]          # v2.4: subsidies negative
-        txfx = [pcc * (t_ if y <= last_hist else txo_l) for y, t_ in zip(years, txo)]   # v4.16: fixed, floating part
+        res[('esub', sec, fuel)] = [min(t, 0.0) for t in txo]          # v0.2.4: subsidies negative
+        txfx = [pcc * (t_ if y <= last_hist else txo_l) for y, t_ in zip(years, txo)]   # v0.4.16: fixed, floating part
         res[('txfx', sec, fuel)], res[('txfl', sec, fuel)] = txfx, [a - b for a, b in zip(txo, txfx)]
         res[('pcsw', sec, fuel)] = [-(1 - csf[pc][y]) * min(x_, 0.0) for y, x_ in zip(years, txfx)]
         res[('ppcw', sec, fuel)] = [-(1 - pcf[pc][y]) * x_ for y, x_ in zip(years, res[('txfl', sec, fuel)])]
         res[('esubpu', sec, fuel)] = [min(t, 0.0) * gj for t in txo]
     shock_f = [float(r[str(y)]) for r in read('power_paths.csv') if r['country'] == ISO and r['key'] == 'shock'
-               for y in years]                       # v3.11: fuel-use shock (legacy row 2439), Settings C19
+               for y in years]                       # v0.3.11: fuel-use shock (legacy row 2439), Settings C19
     incf = [float(r[str(y)]) for r in read('power_paths.csv') if r['country'] == ISO and r['key'] == 'incf'
-            for y in years]                          # v4.12: income factor on eps_Y (legacy row 2433; I23)
-    incp = list(incf)                                # v5.4: IncElAdj of the scenario (power data: Yes*)
+            for y in years]                          # v0.4.12: income factor on eps_Y (legacy row 2433; I23)
+    incp = list(incf)                                # v0.5.4: IncElAdj of the scenario (power data: Yes*)
     if str(mt[n['IncElAdj']])[:3] != 'Yes':
         incf = [1.0] * len(years)
-    exi_ = {}                                         # v4.15 (LD37): existing taxes and subsidies by pair (12e)
-    # v5.1 (D9): residential leakage to biomass (section 6b), global settings of scenario 1 (as BiomassNormal);
+    exi_ = {}                                         # v0.4.15 (LD37): existing taxes and subsidies by pair (12e)
+    # v0.5.1 (D9): residential leakage to biomass (section 6b), global settings of scenario 1 (as BiomassNormal);
     # the most-used cooking fuel from WHOCooking, sigma from the legacy Elasticities cell C131, lag from Constants
     mt1 = scenario_mt(1)
     leak = str(mt1[n['BiomassLeakage']]).startswith('Yes')
     cook = next((r['main_fuel'] for r in read('legacy_WHOCooking.csv') if r['code'] == f'{ISO}.distn.pcoff.ove'),
-                'lpg')                                    # v9.0 (R6.1, I137): lpg if the WHOCooking code is missing
+                'lpg')                                    # v0.9.0 (R6.1, I137): lpg if the WHOCooking code is missing
     e_ck = {f_: float(mt1[n[nm]]) for f_, nm in (('nga', 'NatGasEff'), ('lpg', 'LPGEff'), ('ker', 'KerEff'),
                                                  ('bio', 'BioEff'))}
     sigma = float(next(r['value'] for r in read('legacy_Elasticities_cells.csv') if r['row'] == '131' and r['col'] == '3'))
     lk_on = {f_: 1.0 if leak and f_ == cook else 0.0 for f_ in B.LK_FUELS}
     lk_coef = {f_: sigma * e_ck['bio'] / e_ck[f_] / K['ResSubstLag'] for f_ in B.LK_FUELS}
     lkb = [0.0] * len(years)                          # biomass replacing the fuels, by year (sum over the fuels)
-    exempt = str(mt[n['AlwaysExemptResLPGKer']]).strip().upper().startswith('YES')   # v5.1 (D16, I50): per scenario
+    exempt = str(mt[n['AlwaysExemptResLPGKer']]).strip().upper().startswith('YES')   # v0.5.1 (D16, I50): per scenario
     for s, f in B.PAIRS:
         _, _, grp, es, efs, cgs, fbs = sub[s]
         _, _, elf, aef, rule, _ = fue[f]
-        pf = B.PRICE_FUEL_OF.get(f, f)                 # v3.11: jet fuel takes the kerosene price build-up
+        pf = B.PRICE_FUEL_OF.get(f, f)                 # v0.3.11: jet fuel takes the kerosene price build-up
         code = f'{pf}.{cgs if rule == "sub" else "all"}'
         e = ef[f'{ISO}|{f}|{efs}']
         fcov = 1 if f == 'bio' else bool(mt[n['MCov' + pf.capitalize()]])
         swc = mt[n['MCov' + s.capitalize()]]
-        xj = cgs if rule == 'sub' else ('ind' if f == 'oop' else 'trs')   # v4.12: ECP sector of the price fuel
+        xj = cgs if rule == 'sub' else ('ind' if f == 'oop' else 'trs')   # v0.4.12: ECP sector of the price fuel
         fbcov = bool(mt[66 + B.COV_SECTORS.index(s)])
         eY, eU, eF = el[f'inc|{elf}|{es}'], el[f'usg|{elf}|{es}'], el[f'eff|{elf}|{es}']
         if (s, f) == ('res', 'bio') and not str(scenario_mt(1)[n['BiomassNormal']]).startswith('Yes'):
-            eY = 0.0                                  # v4.13 (I24): legacy row 5567, BiomassNormal (scenario 1)
-        a = el[f'aei|{aef}|{es}'] + float(mt[n[B.ADDEFF_PARAMS[B.AEG.get(s, 3) - 1]]] or 0)   # v4.13 (LD21)
+            eY = 0.0                                  # v0.4.13 (I24): legacy row 5567, BiomassNormal (scenario 1)
+        a = el[f'aei|{aef}|{es}'] + float(mt[n[B.ADDEFF_PARAMS[B.AEG.get(s, 3) - 1]]] or 0)   # v0.4.13 (LD21)
         v = {k: [] for k in B.VARS}
-        exf = 0.0 if exempt and s == 'res' and f in ('lpg', 'ker') else 1.0   # v5.1: exemption factor
-        lk = {k_: [] for k_ in ('lkt', 'lkp', 'lkd', 'lkb', 'lkc')}            # v5.1: section 6b rows of the pair
+        exf = 0.0 if exempt and s == 'res' and f in ('lpg', 'ker') else 1.0   # v0.5.1: exemption factor
+        lk = {k_: [] for k_ in ('lkt', 'lkp', 'lkd', 'lkb', 'lkc')}            # v0.5.1: section 6b rows of the pair
         for k, y in enumerate(years):
-            v['ctxnew'].append(cpx[y] * e * fcov * sc_used(s, swc, y) * (1 - ets_cov[s][y]) * exf)   # v4.16: explicit
+            v['ctxnew'].append(cpx[y] * e * fcov * sc_used(s, swc, y) * (1 - ets_cov[s][y]) * exf)   # v0.4.16: explicit
             v['ets'].append(ets_pe[y] * e * ets_cov[s][y] * (1 - obr[s][y]) * exf)
             v['ntx'].append(fpr[code][y] / units[f] * exf)
             v['nce'].append(v['ctxnew'][-1] + v['ets'][-1] + v['ntx'][-1])
             v['xcp'].append(e * xlev(xj, f, y))
             v['xcpd'].append(e * (xlev(xj, f, y) - xemb(xj, f)))
-            v['csw'].append(res[('pcsw', code.split('.')[1], pf)][k])            # v4.16 (LD18): phase-out wedges
+            v['csw'].append(res[('pcsw', code.split('.')[1], pf)][k])            # v0.4.16 (LD18): phase-out wedges
             v['pcw'].append(res[('ppcw', code.split('.')[1], pf)][k])
             v['atp'].append(max(rpb[code][k] + (v['nce'][-1] + v['xcpd'][-1] + v['csw'][-1] + v['pcw'][-1])
                                 * (1 + vrate[code]), K['PriceFloor']))
             v['shp'].append((fb[fbs][y] * fbcov * fbadj + reg[s][y] + ets_pe[y] * ets_cov[s][y] * obr[s][y]) * e)
-            v['aef'].append((1 / (1 + a)) ** (1 + eU))   # v5.1: the efficiency factor row (v4.13), compared too
+            v['aef'].append((1 / (1 + a)) ** (1 + eU))   # v0.5.1: the efficiency factor row (v0.4.13), compared too
             if y == B.BASE_YEAR:
                 v['enel'].append(use0[(s, f)])
             else:
                 ratio = v['atp'][-1] / v['atp'][-2]
                 eff = (v['atp'][-1] + v['shp'][-1]) / (v['atp'][-2] + v['shp'][-2])
                 v['enel'].append(v['enel'][-1] * (1 / (1 + a)) ** (1 + eU) * (1 + gdpg[k]) ** (eY * incf[k])
-                                 * ratio ** eU * eff ** (eF * (1 + eU)) * (1 + shock_f[k] * shock_on))   # v3.11
-            # v3.5: road fuels from the engineer road model where TrModel = Engineer (section 5b)
+                                 * ratio ** eU * eff ** (eF * (1 + eU)) * (1 + shock_f[k] * shock_on))   # v0.3.11
+            # v0.3.5: road fuels from the engineer road model where TrModel = Engineer (section 5b)
             q = road[f][k] if road and s == 'rod' and f in road else v['enel'][-1]
-            if s == 'res' and f in B.LK_FUELS:          # v5.1 (D9): leakage of the most-used cooking fuel to biomass
+            if s == 'res' and f in B.LK_FUELS:          # v0.5.1 (D9): leakage of the most-used cooking fuel to biomass
                 lk['lkt'].append(v['nce'][-1] * (1 + vrate[code]))
                 p_ = 0.0 if k == 0 else lk_on[f] * min((1 + (lk['lkt'][-1] - lk['lkt'][-2]) / v['atp'][-2])
                                                        ** lk_coef[f] - 1, 1)
@@ -896,17 +896,17 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
         k_code = [pc for pc, _l in B.PRICES].index(code)
         v['co2'] = [u * kpj * e for u in v['ener']]
         _f = 'jfu' if (s, f) == ('avi', 'ker') else f
-        ef0, ef1 = NC_EF.get(nc_sub(s, _f), (0.0, 0.0))           # v4.12: bug L59 fallback
-        v['ch4'] = [u * ch4_ef(ef0, ef1, y) / 1000 for u, y in zip(v['ener'], years)]   # v2.8: kt CH4
+        ef0, ef1 = NC_EF.get(nc_sub(s, _f), (0.0, 0.0))           # v0.4.12: bug L59 fallback
+        v['ch4'] = [u * ch4_ef(ef0, ef1, y) / 1000 for u, y in zip(v['ener'], years)]   # v0.2.8: kt CH4
         for k, y in enumerate(years):
             ext = res[('etx', code.split('.')[1], pf)][k] + res[('vat', code.split('.')[1], pf)][k]
             v['rtx'].append(v['ener'][k] * kpj * (ext + v['xcpd'][k] * (1 + vrate[code])))
             v['rxcp'].append(v['ener'][k] * kpj * v['xcp'][k])
             vat_ = res[('vat', code.split('.')[1], pf)][k]
-            v['rex'].append(v['ener'][k] * kpj * v['ntx'][k])                       # v4.15 (LD37)
+            v['rex'].append(v['ener'][k] * kpj * v['ntx'][k])                       # v0.4.15 (LD37)
             v['rvt'].append(v['ener'][k] * kpj * (vat_ + (v['xcpd'][k] + v['nce'][k] + v['csw'][k] + v['pcw'][k])
                                                   * vrate[code]))
-            v['rsr'].append(v['ener'][k] * kpj * (v['csw'][k] + v['pcw'][k]) * (1 + vrate[code]))   # v4.16
+            v['rsr'].append(v['ener'][k] * kpj * (v['csw'][k] + v['pcw'][k]) * (1 + vrate[code]))   # v0.4.16
             v['rsub'].append(v['ener'][k] * kpj * res[('esub', code.split('.')[1], pf)][k])
             exi_.setdefault((s, f), []).append(v['ener'][k] * kpj * (res[('etx', code.split('.')[1], pf)][k]
                                                                      + v['xcpd'][k]) + v['rsub'][k])
@@ -929,16 +929,16 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
                                                                  res[('rsub', 'all', 'all')],
                                                                  res[('rnew', 'all', 'all')])]
     # 3. Power (engineer model, power_model_ref with all bug fixes): prototype prices and policies as inputs
-    pdata = power_data(years, mt)                   # v5.2: the prototype data step (L52-L55 fixed, tcf from the Power tab);
-    tech = pdata[0]                                 # v5.4: with the settings of the scenario
+    pdata = power_data(years, mt)                   # v0.5.2: the prototype data step (L52-L55 fixed, tcf from the Power tab);
+    tech = pdata[0]                                 # v0.5.4: with the settings of the scenario
     paths_p = {**{r['key']: [float(r[str(y)]) for y in years] for r in read('power_paths.csv') if r['country'] == ISO},
                **pdata[1]}
     paths_p['incp'], paths_p['incf'] = incp, incf
     pset, pext = power_settings(mt, years, cp, dfl, cpi)
-    spot = spot or str(mt[n['UseSpotFuelPricesInEngineerModel']])[:3] == 'Yes'   # v5.4: or the scenario's switch
+    spot = spot or str(mt[n['UseSpotFuelPricesInEngineerModel']])[:3] == 'Yes'   # v0.5.4: or the scenario's switch
     spow = lambda y: sc_used('pow', mt[n['MCovPow']], y)
     xck, fpps, fpns = [], [], []
-    # v6.0 (v5.6 P5): coal implicit cost, $/kWh (COALICPICK, COALIC; GoalSeekCoal by country or Manual)
+    # v0.6.0 (v0.5.6 P5): coal implicit cost, $/kWh (COALICPICK, COALIC; GoalSeekCoal by country or Manual)
     icset = str(mt[n['AdditionalCoalIntangibleCost']])
     gsc = {r['Region']: r for r in read('legacy_GoalSeekCoal.csv')}
 
@@ -965,13 +965,13 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
         fixed = float(t['vop_usd_per_kwh']) + float(t['fuel_fixed_usd_per_kwh'])
         isfuel = f in [x[0] for x in B.FUELS]
         xck.append([e * k_ * (xlev('pow', f, y) - xemb('pow', f)) if isfuel else 0.0 for y in years])
-        n_ = len(years)                  # v2.3: fuel price for power = moving average (A18); v6.2 (L126): t-4 .. t
+        n_ = len(years)                  # v0.2.3: fuel price for power = moving average (A18); v0.6.2 (L126): t-4 .. t
         w_ = lambda x, k: x[max(0, k - 4):k + 1]
         fpp = [(rpb[pc][k] if spot else sum(w_(rpb[pc], k)) / len(w_(rpb[pc], k)))
                if pc else rpb['coa.pow'][k] if spot else
                sum(w_(rpb['coa.pow'], k)) / len(w_(rpb['coa.pow'], k)) for k in range(n_)]
         fpps.append(fpp)
-        fpns.append(list(rpb[pc] if pc else rpb['coa.pow']))   # v6.2: fpn, this year's rpb (fpp averages it)
+        fpns.append(list(rpb[pc] if pc else rpb['coa.pow']))   # v0.6.2: fpn, this year's rpb (fpp averages it)
         efs.append(e)
         vbc.append([fixed + (fpp[k] * k_ if pc else 0.0) + xck[-1][k] + (cic[k] if f == 'coa' else 0.0)
                     for k in range(n_)])
@@ -985,21 +985,21 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
             'rp2021_res': val('mit.rp.ecy.res', 2021) * cpi[2021], 'rp2021_ind': val('mit.rp.ecy.ind', 2021) * cpi[2021],
             'rphist_res': hist['res'], 'rphist_ind': hist['ind'], 'vat_res': val('mit.vatrate.ecy.res', last_hist),
             'vat_ind': val('mit.vatrate.ecy.ind', last_hist), 'last_hist': last_hist, 'vbc': vbc, 'd5': d5,
-            # v9.0 (R9.1, R9.3): consumer tax / subsidy of the last price year -> price-chain residual (ores)
+            # v0.9.0 (R9.1, R9.3): consumer tax / subsidy of the last price year -> price-chain residual (ores)
             'txo_res': val('mit.txo.ecy.res', last_hist) * cpi[last_hist],
             'txo_ind': val('mit.txo.ecy.ind', last_hist) * cpi[last_hist],
             'shp_gj': shp, 'co2k': kc, 'data': pdata, **pset, **(power or {})}
-    if road:                                          # v3.5: road electricity from the engineer road model
+    if road:                                          # v0.3.5: road electricity from the engineer road model
         pinp['dem_fixed'] = {'rod': road['ele']}
     res[('TRIN', '', '')] = {'vrate': dict(vrate), 'units': units, 'el': el, 'use0': use0, 'ef': ef, 'gdpg': gdpg,
-                             'rp2021_res': pinp['rp2021_res'], 'cp': [reg['rod'][y] for y in years],   # v4.16
+                             'rp2021_res': pinp['rp2021_res'], 'cp': [reg['rod'][y] for y in years],   # v0.4.16
                              'fbcov_rod': 1.0,
                              'vat_weo': {y: val('VAT_WEO', y) for y in range(2019, 2026) if f'{ISO}{y}' in dom},
                              'gwh': PM.base_data(years, ISO)[2]['ktoe_gwh'],
                              'd0_rod': next(float(r['ktoe_2022']) for r in read('power_demand.csv')
                                             if r['country'] == ISO and r['subsector'] == 'rod')}
     o = PM.engine(pinp, years, fix=PM.ALL_FIXES, shock=bool(shock_on))
-    ny_ = len(years)                                  # v5.4: the singles of A0 and G recomputed here
+    ny_ = len(years)                                  # v0.5.4: the singles of A0 and G recomputed here
     g_ = lambda nm: mt[n[nm]]
     cat = str(g_('MaxScaleUpRateCategory'))
     o['scat'] = [K_SCALE.get(cat, 0.0)] * ny_
@@ -1008,7 +1008,7 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
     o['stm'] = [pset['par']['st_alloc'] * pset['par']['st_marg_hours']] * ny_
     o['ltu'] = [pset['par']['lt_alloc'] * pset['par']['lt100']] * ny_
     o['rnsp'], o['rbs'], o['exs'] = pext['rnsp'], [pset['reb']] * ny_, pset['exs']
-    # v6.0 (v5.6 P3, P5): manual capacity and investment, need net of it, coal implicit cost, memo rows
+    # v0.6.0 (v0.5.6 P3, P5): manual capacity and investment, need net of it, coal implicit cost, memo rows
     o['cics'], o['cicl'], o['cic'] = [cics] * ny_, [cicl] * ny_, cic
     mi = {}
     for r_ in read('legacy_ManualInputs_cells.csv'):
@@ -1070,7 +1070,7 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
                 res[(v, m, 'ecy')] = o['dem'][m]
             else:
                 res[(v, '', '')] = paths_p[v] if v in B.PW_DATA else o[v]
-    # v1.09: power revenues by type (M), VAT on the passed-through policy cost (G), totals with power
+    # v0.1.09: power revenues by type (M), VAT on the passed-through policy cost (G), totals with power
     par = PM.base_data(years, ISO)[2]
     ny = len(years)
     fflag = [1.0 if f in [x[0] for x in B.FUELS] else 0.0 for f in POWER_TECH]
@@ -1090,11 +1090,11 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
             pw['prnew'][i][k] = o['gen'][i][k] * K['MWyMkWh'] * d5[i][k] - o['co2'][i][k] * etr_pow[k] * (1 - rf)
             pw['prxl'][i][k] = o['co2'][i][k] * (xlev('pow', f, y) if isfuel else 0.0)
     vat_g = {'res': pinp['vat_res'], 'ind': pinp['vat_ind']}
-    rnvat = {g: o[f'rnvat_{g}'] for g in ('res', 'ind')}     # v5.4: less the rebate, plus the excise (engine)
+    rnvat = {g: o[f'rnvat_{g}'] for g in ('res', 'ind')}     # v0.5.4: less the rebate, plus the excise (engine)
     for v in pw:
         for i, m in enumerate(POWER_TECH):
             res[(v, 'pow', m)] = pw[v][i]
-    for i, m in enumerate(POWER_TECH):                 # v2.3
+    for i, m in enumerate(POWER_TECH):                 # v0.2.3
         res[('fpp', 'pow', m)] = fpps[i]
         res[('fpn', 'pow', m)] = fpns[i]
         res[('tvcx', 'pow', m)] = o['tvc'][i]
@@ -1102,19 +1102,19 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
         res[('rnvat', g, 'ecy')] = rnvat[g]
     tsum = lambda v: [sum(pw[v][i][k] for i in range(9)) for k in range(ny)]
     gsum = lambda v: [o[f'{v}_res'][k] + o[f'{v}_ind'][k] for k in range(ny)]
-    for i, m in enumerate(POWER_TECH):                # v5.4: renewable subsidies by type (engine)
+    for i, m in enumerate(POWER_TECH):                # v0.5.4: renewable subsidies by type (engine)
         pw.setdefault('prrns', [None] * 9)[i] = o['prrns'][i]
     rpow = {'rtx': [a_ + b_ + c_ for a_, b_, c_ in zip(tsum('prtx'), tsum('prxc'), gsum('rvat'))],
             'rsub': [a_ + b_ + c_ for a_, b_, c_ in zip(tsum('prsub'), gsum('rgap'), tsum('prrns'))],
             'rnew': [a_ + b_ + c_ + d_ for a_, b_, c_, d_ in zip(tsum('prnew'), rnvat['res'], gsum('rreb'),
                                                                   gsum('rpex'))],
-            'rxcp': tsum('prxl'), 'rsr': [0.0] * ny}        # v4.16: no electricity phase-out
+            'rxcp': tsum('prxl'), 'rsr': [0.0] * ny}        # v0.4.16: no electricity phase-out
     rpow['rnew'] = [a_ + b_ for a_, b_ in zip(rpow['rnew'], rnvat['ind'])]
     for v in B.REV_VARS:
         res[(v, 'pow', 'all')] = rpow[v]
         res[(v, 'all', 'all')] = [a_ + b_ for a_, b_ in zip(res[(v, 'all', 'all')], rpow[v])]
     res[('rpsu', 'all', 'all')] = [-sum(pros[f][k] * psf[f][y] for f, _l in B.PROS_FUELS)
-                                   for k, y in enumerate(years)]                         # v4.16 (LD19)
+                                   for k, y in enumerate(years)]                         # v0.4.16 (LD19)
     res[('rtot', 'all', 'all')] = [a + b + c + d + e_ for a, b, c, d, e_ in zip(
         res[('rtx', 'all', 'all')], res[('rsub', 'all', 'all')], res[('rnew', 'all', 'all')],
         res[('rsr', 'all', 'all')], res[('rpsu', 'all', 'all')])]
@@ -1129,9 +1129,9 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
     ref_fn = lambda: _recompute_once(scenario_mt(1), controls=controls, base=base, shock_on=shock_on, power=power,
                                      ecp=ecp, spot=spot)     # scenario 1 (baseline calibration, effort reference)
     res[('gdp.pos.pct', '', '')] = list(gdpg)
-    ghg_section(res, mt, years, {t: o['pe'][i] for i, t in enumerate(POWER_TECH)}, ref_fn)   # v2.8: section 14
-    ap_section(res, years, {t: o['pe'][i] for i, t in enumerate(POWER_TECH)})                 # v2.9: section 15
-    # v4.15 (LD37): 12e, total revenue by policy (legacy rows 8016-8027), each policy explicitly
+    ghg_section(res, mt, years, {t: o['pe'][i] for i, t in enumerate(POWER_TECH)}, ref_fn)   # v0.2.8: section 14
+    ap_section(res, years, {t: o['pe'][i] for i, t in enumerate(POWER_TECH)})                 # v0.2.9: section 15
+    # v0.4.15 (LD37): 12e, total revenue by policy (legacy rows 8016-8027), each policy explicitly
     kpj = B.PJ_PER_KTOE
     psum = lambda var, fac=1.0: [sum(res[('ener', s, f)][k] * kpj * res[(var, s, f)][k] * fac for s, f in B.PAIRS)
                                  for k in range(ny)]
@@ -1140,14 +1140,14 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
     ctr_pow = [cpx[y] * spow(y) * (1 - ets_cov['pow'][y]) for y in years]
     ctp = [sum(o['co2'][i][k] * fct[i] for i in range(9)) * ctr_pow[k] for k in range(ny)]
     etp = [pco2[k] * etr_pow[k] * rf for k in range(ny)]
-    rp = {'ct': [a + b + c + d for a, b, c, d in zip(psum('ctxnew'), ctp, gsum('rreb'), o['rexs'])],   # v5.4
+    rp = {'ct': [a + b + c + d for a, b, c, d in zip(psum('ctxnew'), ctp, gsum('rreb'), o['rexs'])],   # v0.5.4
           'ets': [a + b for a, b in zip(psum('ets', rf), etp)],
           'exc': [a + b - c - d + e_ for a, b, c, d, e_ in zip(vsum('rex'), tsum('prnew'), ctp, etp, o['rexm'])],
           'vat': [a + b + c + d for a, b, c, d in zip(vsum('rvt'), gsum('rvat'), rnvat['res'], rnvat['ind'])],
-          'psu': [a + b for a, b in zip(gsum('rgap'), res[('rpsu', 'all', 'all')])],      # v4.16: + producer
+          'psu': [a + b for a, b in zip(gsum('rgap'), res[('rpsu', 'all', 'all')])],      # v0.4.16: + producer
           'exi': [sum(exi_[p][k] for p in B.PAIRS) + a + b + c + d for k, (a, b, c, d) in
                   enumerate(zip(tsum('prtx'), tsum('prxc'), tsum('prsub'), res[('rsr', 'all', 'all')]))],
-          'ren': tsum('prrns'), 'trs': [0.0] * ny,      # v5.4: renewable subsidies
+          'ren': tsum('prrns'), 'trs': [0.0] * ny,      # v0.5.4: renewable subsidies
           'mf': res[('rmf', 'all', 'all')], 'ctp': ctp, 'etp': etp}
     rp['tot'] = [sum(rp[q][k] for q in B.RPOL_SUM) for k in range(ny)]
     rp['chk'] = [abs(a - b) for a, b in zip(rp['tot'], res[('rtot', 'all', 'all')])]
@@ -1156,25 +1156,25 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
     return res
 
 
-# v3.1: section 16 (GDP effects), an independent copy from the CSVs (Methods, chapter Macro and results)
+# v0.3.1: section 16 (GDP effects), an independent copy from the CSVs (Methods, chapter Macro and results)
 MULT = {(r['group'], r['stat'], r['instrument']): [float(r[f'lag{k}']) for k in range(20)] for r in read('multipliers.csv')}
 GDP_USD = {int(k): float(v) for k, v in read('gdp_level.csv')[0].items() if k.isdigit()}
 INCOME = {r['code']: r['income_group'] for r in read('countries.csv')}
-NAME = {r['code']: r['name'] for r in read('countries.csv')}[ISO]   # v3.3
+NAME = {r['code']: r['name'] for r in read('countries.csv')}[ISO]   # v0.3.3
 REGION = {r['iso']: r['gains_region'] for r in read('gains_region.csv')}[ISO]
 USES = [('exc', None), ('pit', 'EXPLabortax'), ('cit', 'EXPCIT'), ('capt', 'EXPCapex'), ('gnfs', 'EXPGoodsandserv'),
         ('trns', 'EXPTransfers')]
 
 
 def total_rev(res):
-    """v4.15 (LD55): total revenue without the methane fee (rtot - rmf; v4.16: + subsidy reform, producer subsidies)."""
+    """v0.4.15 (LD55): total revenue without the methane fee (rtot - rmf; v0.4.16: + subsidy reform, producer subsidies)."""
     return [a + b + c + d + e for a, b, c, d, e in zip(res[('rtx', 'all', 'all')], res[('rsub', 'all', 'all')],
                                                        res[('rnew', 'all', 'all')], res[('rsr', 'all', 'all')],
-                                                       res[('rpsu', 'all', 'all')])]   # v4.16: + reform, producer
+                                                       res[('rpsu', 'all', 'all')])]   # v0.4.16: + reform, producer
 
 
 def _mult_est():
-    """v4.15 (LD56): the country's estimated multipliers, lags 0-19 (lags past 11 hold lag 11), from the legacy
+    """v0.4.15 (LD56): the country's estimated multipliers, lags 0-19 (lags past 11 hold lag 11), from the legacy
     Multipliers tab (independent copy): table by its label in column B, the country in column C (exact match)."""
     cells = {(int(r['row']), int(r['col'])): r['value'] for r in read('legacy_Multipliers_cells.csv')}
     lab = {'exc': 'Excise tax', 'pit': 'Labor tax', 'capt': 'Public investment', 'gnfs': 'Public consumption',
@@ -1205,14 +1205,14 @@ def gdp_section(res, mt, ref_rev):
     weo = read('weo.csv')[0]
     gb = [float(weo[str(y)]) for y in years]
     usd = [GDP_USD[y] for y in years]
-    rev = total_rev(res)                                   # v4.15 (LD55): total revenue (legacy rev.new.usd)
-    if ('rmf', 'all', 'all') in res:                       # v9.0 (I47 as legacy): + methane fee on the own activity
+    rev = total_rev(res)                                   # v0.4.15 (LD55): total revenue (legacy rev.new.usd)
+    if ('rmf', 'all', 'all') in res:                       # v0.9.0 (I47 as legacy): + methane fee on the own activity
         rev = [a + b for a, b in zip(rev, res[('rmf', 'all', 'all')])]
     sp = [(rev[k] - ref_rev[k]) / (usd[k] * 1000) for k in range(ny)]
-    st = int(m_('GDPStartYear'))                           # v4.15 (LD55): legacy row 14356, from GDPStartYear
+    st = int(m_('GDPStartYear'))                           # v0.4.15 (LD55): legacy row 14356, from GDPStartYear
     imp = [0.0 if years[k] < st else sp[k] - (sp[k - 1] * usd[k - 1] / usd[k] if k else 0.0) for k in range(ny)]
     cpi0 = float(m_('CPIntro'))
-    impp = [0.0 if years[k] < cpi0 else imp[k] for k in range(ny)]   # v6.0 (I43): legacy rows 96-100
+    impp = [0.0 if years[k] < cpi0 else imp[k] for k in range(ny)]   # v0.6.0 (I43): legacy rows 96-100
     src = str(m_('MultipliersSource'))
     inc = INCOME[ISO].lower()
     grp = 'global' if src.startswith('Glo') else src[:3].lower() if src[:3] in ('Est', 'Man') else inc
@@ -1224,7 +1224,7 @@ def gdp_section(res, mt, ref_rev):
             else MULT[(grp, 'median', i)]
         mult = [a + sg * b for a, b in zip(med, MULT[(inc if grp in ('est', 'man') else grp, 'sd', i)])]
         share = -1.0 if mt_name is None else float(m_(mt_name)) / K['PctPerUnit']
-        im_ = imp if mt_name is None else impp            # v6.0 (I43): the uses count impulses from CPIntro
+        im_ = imp if mt_name is None else impp            # v0.6.0 (I43): the uses count impulses from CPIntro
         eff[i] = [share * sum(im_[t - k] * mult[k] for k in range(min(t, 19) + 1)) for t in range(ny)]
     on = str(m_('GDPEndogenous'))[:3] == 'Yes'
     tot = [sum(eff[i][t] for i, _m in USES) * (1 if on else 0) for t in range(ny)]
@@ -1232,11 +1232,11 @@ def gdp_section(res, mt, ref_rev):
     g = [gb[0]] + [(1 + gb[t]) * lvl[t] / lvl[t - 1] - 1 for t in range(1, ny)]
     lags = {f'fis.lag.{k}': [0.0] * k + imp[:ny - k] for k in range(1, 20)}
     lags.update({f'fis.lagp.{k}': [0.0] * k + impp[:ny - k] for k in range(1, 20)})
-    # v6.0 (8A): memo rows: growth effect by use, by year of the reform, change in GDP level
+    # v0.6.0 (8A): memo rows: growth effect by use, by year of the reform, change in GDP level
     gg = lambda e: [0.0] + [(1 + gb[t]) * (e[t - 1] - (e[t - 2] if t > 1 else 0.0)) / lvl[t - 1] for t in range(1, ny)]
     memo = {f'gdpg.{i}': [x * (1 if on else 0) for x in gg(eff[i])] for i, _m in USES}
     memo['gdpg.all'] = gg(tot)
-    memo['gdpy'] = [float(y - int(m_('GDPStartYear')) + 1) for y in years]   # v6.0: year of the reform
+    memo['gdpy'] = [float(y - int(m_('GDPStartYear')) + 1) for y in years]   # v0.6.0: year of the reform
     memo['gdp.chg.usd'] = [a * b - a for a, b in zip(usd, lvl)]
     memo['fis.impp'] = impp
     out = {'gdp.base': gb, 'gdp.usd': usd, 'fis.rev': rev, 'fis.ref': list(ref_rev), 'fis.sp': sp, 'fis.imp': imp,
@@ -1248,7 +1248,7 @@ def gdp_section(res, mt, ref_rev):
 
 
 def recompute(mt, controls=None, **kw):
-    """v3.5: the recomputation with the GDP feedback (_recompute_gdp) and the engineer road model
+    """v0.3.5: the recomputation with the GDP feedback (_recompute_gdp) and the engineer road model
     (transport_model_ref.engine with all bug fixes, inputs from the recomputation). Where TrModel = Engineer the
     road fuels and road electricity come from the engine: the engine's inputs depend on the rest of the model only
     through earlier years (power price, GDP feedback) or not at all (fuel prices), so iterating converges."""
@@ -1268,7 +1268,7 @@ def recompute(mt, controls=None, **kw):
 
 
 def tr_inputs(res, mt):
-    """v3.5: inputs of the engineer road model from the recomputation: an independent copy of the input mapping of
+    """v0.3.5: inputs of the engineer road model from the recomputation: an independent copy of the input mapping of
     section 5b (Methods, chapter Transport): road after-tax prices of section 5 in $/liter (gas $/GJ),
     industrial gas price with the road new policies, power prices (section 3), GDP growth after the feedback,
     population, GDP per capita, carbon price and road feebate coverage, road elasticities, EFs and energy balance."""
@@ -1288,7 +1288,7 @@ def tr_inputs(res, mt):
                      for a, b, c in zip(res[('rpb', 'ind', 'nga')], res[('nce', 'rod', 'nga')], res[('xcpd', 'rod', 'nga')])]
     amt = lambda xs, rate: [x_ * rate / (1 + rate) for x_ in xs]           # VAT amount in a price incl. VAT
     pop_th = res[('S14:pop', '', '')]
-    g21 = next((r['2021'] for r in read('legacy_WEO.csv')      # v5.2: WEO growth of the year before the base year
+    g21 = next((r['2021'] for r in read('legacy_WEO.csv')      # v0.5.2: WEO growth of the year before the base year
                 if r['SERIES_CODE'] == f'{ISO}.NGDP_RPCH.A'), '')    # (trgdl 2022, fix B2; CAVEATS v4.x)
     g21 = float(g21) / 100 if g21 not in ('', None) else ''
     efr = lambda f: ef[f'{ISO}|{f}|rod']
@@ -1328,7 +1328,7 @@ def tr_run(res, mt):
 
 
 def tr_road(o, inp):
-    """Road fuel use (ktoe) of the engineer model: gasoline, diesel, LPG, gas, biofuels (v4.12, LD62 as legacy rows
+    """Road fuel use (ktoe) of the engineer model: gasoline, diesel, LPG, gas, biofuels (v0.4.12, LD62 as legacy rows
     5436-5438: bioethanol and other biofuels x gasoline / base year, biodiesel x diesel / base year) and road
     electricity."""
     eb = inp['eb']
@@ -1341,7 +1341,7 @@ TR_PIV = {'pas': ('pass', 4407), 'fre': ('fre', 4435), 'cyc': ('cyc', 4448)}
 
 
 def tr_expected(o, inp, mt):
-    """v3.5: expected values of every section-5b row with year values, by row key: the engine row (legacy row
+    """v0.3.5: expected values of every section-5b row with year values, by row key: the engine row (legacy row
     number) or the helper rows of the workbook rebuilt from the engine (held base-year factors, data-year values
     held from the last data year, the two feebate pivot types, inputs)."""
     years = [B.BASE_YEAR] + B.YEARS
@@ -1430,7 +1430,7 @@ TR_PAR_CHECK = {  # section-5b parameter rows compared with the engine's side-ta
 
 
 def check_transport(ws, g, res, label):
-    """v3.5: every section-5b row with year values (and the side-table parameter rows) vs the engine."""
+    """v0.3.5: every section-5b row with year values (and the side-table parameter rows) vs the engine."""
     o, inp = res[('TR', '', '')]
     e = tr_expected(o, inp, res[('TRMT', '', '')])
     _, base, years = B.group_cols(g)
@@ -1470,7 +1470,7 @@ def check_transport(ws, g, res, label):
                 worst = (d, f'{L(c)}{r} ({key}, {B.BASE_YEAR + k})')
     ok = worst[0] < TOL and not missing
     bad = sorted(((d, k_, at) for k_, (d, at) in by_key.items() if d >= TOL), key=lambda t: t[0], reverse=True)
-    if bad:                                       # v5.2: the rows over the tolerance, worst first
+    if bad:                                       # v0.5.2: the rows over the tolerance, worst first
         log(f'  - {label}: section-5b rows over the tolerance (worst first, {len(bad)} rows): '
             f'{[(k_, at, float(f"{d:.3g}")) for d, k_, at in bad[:30]]}')
     log(f'- {label}: section 5b, {sum(1 for _r, w, _i in B.TR_LAYOUT if w == "row")} rows ({n} cells incl. the '
@@ -1480,7 +1480,7 @@ def check_transport(ws, g, res, label):
 
 
 def _recompute_gdp(mt, controls=None, **kw):
-    """v3.1: the recomputation with the GDP feedback: growth depends on earlier years only, so iterating the
+    """v0.3.1: the recomputation with the GDP feedback: growth depends on earlier years only, so iterating the
     whole recomputation on the growth path converges (exactly after at most one pass per year)."""
     kw.pop('gdp', None)
     kw['controls'] = controls
@@ -1497,11 +1497,11 @@ def _recompute_gdp(mt, controls=None, **kw):
     return res
 
 
-# v2.8: section 14 (non-CO2 GHGs and methane), an independent copy from the CSVs (Methods, chapter Emissions)
+# v0.2.8: section 14 (non-CO2 GHGs and methane), an independent copy from the CSVs (Methods, chapter Emissions)
 BIO_EB = {f: next((float(r[f] or 0) for r in read('legacy_Balances.csv') if r['country_code'] == ISO
-                   and r['flow_code'] == 'road'), 0.0) for f in ('bgs', 'bdi', 'obf')}   # v4.12 (LD62)
+                   and r['flow_code'] == 'road'), 0.0) for f in ('bgs', 'bdi', 'obf')}   # v0.4.12 (LD62)
 class _MFeeOn(dict):
-    """v5.2: 1 where the methane fee applies to the source: sheet Manual inputs J196:J200 (legacy addresses; v4.12,
+    """v0.5.2: 1 where the methane fee applies to the source: sheet Manual inputs J196:J200 (legacy addresses; v0.4.12,
     LD46), read on first use."""
     def __missing__(self, j):
         sw = {nm: mi(f'J{lr}') for _r, nm, _l, _v, lr in B.MFEE_SETTINGS}
@@ -1511,20 +1511,20 @@ class _MFeeOn(dict):
 
 MFEE_ON = _MFeeOn()
 OIL_SHARE = {pc: float(r[pc.split('.')[0] + '_share']) for r in read('legacy_OilProductShares.csv')
-             if r['countrycode'] == ISO for pc in B.OIL_SHARE}      # v4.12 (LD5)
+             if r['countrycode'] == ISO for pc in B.OIL_SHARE}      # v0.4.12 (LD5)
 _GHG_REF = {}
 GWP_AP = {r['pollutant']: float(r['gwp100']) for r in read('gwp_pollutants.csv') if r['region'] == REGION}
 
 
 def _wb_region():
-    """v9.0 (EF465): World Bank region code of the country, lower case (Settings C43 CtryReg; legacy _region_code)."""
+    """v0.9.0 (EF465): World Bank region code of the country, lower case (Settings C43 CtryReg; legacy _region_code)."""
     cells = {(int(r['row']), int(r['col'])): r['value'] for r in read('legacy_Countries_cells.csv')}
     reg = cells[(next(r for (r, c), v in cells.items() if c == 4 and v == ISO and r < 260), 6)]
     return next(cells[(r, 4)] for r in range(264, 310) if cells.get((r, 3)) == reg).lower()
 
 
 def _nc_table():
-    """v9.0 (EF465): non-CO2 factors (kt/PJ, base and final) by legacy EF code (subsector, fuel, pollutant), as legacy
+    """v0.9.0 (EF465): non-CO2 factors (kt/PJ, base and final) by legacy EF code (subsector, fuel, pollutant), as legacy
     Mitigation rows 1052-1663 (build.NC_ROWS): the first EF_PM row of the country, else of its World Bank region, else
     of the world, else 0; other energy (oen) the maximum of the fuel across the other legacy subsectors (issue I147)."""
     first = {}
@@ -1550,14 +1550,14 @@ NC_EF = {(s_, f_): v for (s_, f_, p), v in NC_ALL.items() if p == 'ch4'}
 
 
 def nc_sub(s_, f_):
-    """v9.0 (EF465): legacy EF code (subsector, fuel) of prototype subsector s_ and EF_PM fuel f_ (build.CH4_SUB; the
+    """v0.9.0 (EF465): legacy EF code (subsector, fuel) of prototype subsector s_ and EF_PM fuel f_ (build.CH4_SUB; the
     bug L59 fallback retired: legacy 465 covers the fuels Egypt uses)."""
     return B.CH4_SUB.get(s_, 'mnf'), f_
 
 
 def ap_section(res, years, pe):
-    """v2.9: local air pollutants (kt), independent copy: fuel use x EF (kt/PJ x 41.868 = t/ktoe), the base-year
-    factor moving linearly to the EFSel final factor in 2039 and on (v8.4, I98: as legacy); forcing = total x GWP100
+    """v0.2.9: local air pollutants (kt), independent copy: fuel use x EF (kt/PJ x 41.868 = t/ktoe), the base-year
+    factor moving linearly to the EFSel final factor in 2039 and on (v0.8.4, I98: as legacy); forcing = total x GWP100
     (Egypt: region afr)."""
     ny = len(years)
     w = [ef_share() * (y - B.BASE_YEAR) / (K['EFEndYear'] - B.BASE_YEAR) for y in years]
@@ -1574,7 +1574,7 @@ def ap_section(res, years, pe):
             out[f'ap.{p}.{g_}'] = [sum(out[f'ap.{p}.{s_}'][k] for s_ in grp if grp[s_] == g_) for k in range(ny)]
         out[f'ap.{p}.all'] = [sum(out[f'ap.{p}.{s_}'][k] for s_ in grp) + out[f'ap.{p}.pow'][k] for k in range(ny)]
     bal = {r['flow_code']: r for r in read('legacy_Balances.csv') if r['country_code'] == ISO}
-    for f_ in [x[0] for x in B.FUELS]:               # v5.2 (v4.11, LD53): food share of food & forestry by fuel
+    for f_ in [x[0] for x in B.FUELS]:               # v0.5.2 (v0.4.11, LD53): food share of food & forestry by fuel
         num = float(bal.get('info_food', {}).get(f_) or 0)
         den = sum(float(bal.get(fl, {}).get(f_) or 0) for fl in ('info_agrc', 'info_fish', 'info_food', 'info_wood'))
         out[f'apfd.{f_}'] = [res[('ener', 'foo', f_)][k] * (num / den if den else 0.0) for k in range(ny)]
@@ -1582,7 +1582,7 @@ def ap_section(res, years, pe):
         out[f'ap.{p}.fod'] = [sum(out[f'apfd.{f_}'][k] * ef(*nc_sub('foo', f_), p, k) for f_ in [x[0] for x in B.FUELS])
                               / 1000 for k in range(ny)]
         out[f'ap.{p}.fag'] = [a - b for a, b in zip(out[f'ap.{p}.foo'], out[f'ap.{p}.fod'])]
-    for p, _l in B.AP_POLS:                          # v3.0: air-pollution module sectors (legacy rows 6693-6704)
+    for p, _l in B.AP_POLS:                          # v0.3.0: air-pollution module sectors (legacy rows 6693-6704)
         pw = lambda t, k: pe[t][k] * ef('pow', t, p, k) / 1000
         sec = {'cpp': lambda k: pw('coa', k), 'gpp': lambda k: pw('nga', k),
                'opp': lambda k: sum(pw(t, k) for t in POWER_TECH if t not in ('coa', 'nga')),
@@ -1596,7 +1596,7 @@ def ap_section(res, years, pe):
         out[f'aps.pom.{s_}'] = [K['PomPerOC'] * x for x in out[f'aps.oc.{s_}']]
         out[f'aps.opm.{s_}'] = [max(0.0, a - b - c) for a, b, c in zip(out[f'aps.pm2.{s_}'], out[f'aps.bc.{s_}'],
                                                                          out[f'aps.pom.{s_}'])]
-    g14 = lambda k_, k: res[(f'S14:{k_}', '', '')][k]          # v3.12: CH4 as legacy (section 14 rows)
+    g14 = lambda k_, k: res[(f'S14:{k_}', '', '')][k]          # v0.3.12: CH4 as legacy (section 14 rows)
     chs = lambda subs, k: sum(res[('ch4', s_, f_)][k] for s_, f_ in B.PAIRS if s_ in subs)
     oth = [s_ for s_ in grp if s_ not in ('rod', 'res', 'srv', 'cst', 'foo')]
     agw = [j for j, *x in B.CH4_SOURCES if x[4] in ('agr', 'wst')]
@@ -1606,7 +1606,7 @@ def ap_section(res, years, pe):
            'foo': lambda k: chs(['foo'], k) + sum(g14(f'ch4.em.{j}', k) for j in agw)}
     for s_, fn in sec.items():
         out[f'aps.ch4.{s_}'] = [fn(k) for k in range(ny)]
-    for q in B.APS_POLS:                             # v3.12: a total for every pollutant
+    for q in B.APS_POLS:                             # v0.3.12: a total for every pollutant
         out[f'aps.{q}.all'] = [sum(out[f'aps.{q}.{s_}'][k] for s_, _n in B.AP_SECS) for k in range(ny)]
     for p in B.AP_GWP:
         out[f'apf.{p}'] = [x * GWP_AP[p] / 1000 for x in out[f'ap.{p}.all']]
@@ -1616,7 +1616,7 @@ def ap_section(res, years, pe):
 
 
 def ef_share():
-    """v8.4 (I98): weight of FE fin in the final factor, from EFSel of scenario 1 (legacy AC1052)."""
+    """v0.8.4 (I98): weight of FE fin in the final factor, from EFSel of scenario 1 (legacy AC1052)."""
     v = str(mt_used()[B.MT_NAMES['EFSel']])
     return 0.0 if v == 'constant' else 1.0 if v == 'Variable' else 0.5
 
@@ -1640,7 +1640,7 @@ def ghg_section(res, mt, years, pe, ref_fn):
     ch4i = {B.CH4_TIER[r['source']]: r for r in read('ch4_inputs.csv') if r['iso'] == iso}
     bal = {r['fuel']: float(r['production'] or 0) for r in read('energy_balance.csv') if r['country'] == ISO}
     gwp = {n: K[n] for n in ('GWPCH4F', 'GWPCH4NF')}
-    el = {}                         # v5.2: Manual inputs K325:M327 (legacy addresses; text such as "na" = 0, as N())
+    el = {}                         # v0.5.2: Manual inputs K325:M327 (legacy addresses; text such as "na" = 0, as N())
     for col, c_ in zip('KLM', [next(k for k, v in B.MI_GHG_CAT.items() if v == mi(f'{x}325')) for x in 'KLM']):
         for d_, r in (('pop', 326), ('gdppc', 327)):
             v = mi(f'{col}{r}')
@@ -1652,12 +1652,12 @@ def ghg_section(res, mt, years, pe, ref_fn):
     y0, y1, s0, s1 = (float(m_(x)) for x in ('MPIntro', 'MPOutro', 'MPLevelStart', 'MPLevelTarget'))
     path = [0.0 if y < y0 else s0 + (s1 - s0) / max(y1 - y0, 1) * (y - y0) for y in years]
     cp = res[('cptraj', '', '')]
-    pol = 1.0 if mt.get('scen', 1) > 1 else 0.0          # v4.12 (LD46): the fee only in policy scenarios (legacy 2238)
+    pol = 1.0 if mt.get('scen', 1) > 1 else 0.0          # v0.4.12 (LD46): the fee only in policy scenarios (legacy 2238)
     fee = [p * pol + (cp[k] if yes(m_('CTforMethane')) else 0.0) for k, p in enumerate(path)]
     res[('mfee.p', '', '')], res[('mfee', '', '')] = path, fee
     pop = [popd[y] for y in years]
     popg = [pop[0] / popd[years[0] - 1] - 1] + [pop[k] / pop[k - 1] - 1 for k in range(1, ny)]
-    gpc = [(1 + res[('gdp.pos.pct', '', '')][k]) / (1 + popg[k]) - 1 for k, y in enumerate(years)]   # v3.1
+    gpc = [(1 + res[('gdp.pos.pct', '', '')][k]) / (1 + popg[k]) - 1 for k, y in enumerate(years)]   # v0.3.1
     co2 = res[('co2', 'all', 'all')]
     ref1 = None                                        # scenario 1 results (None while computing scenario 1)
     if not _GHG_REF.get('busy'):
@@ -1687,7 +1687,7 @@ def ghg_section(res, mt, years, pe, ref_fn):
     for j, (lab, tier, sc, gw, cat) in src.items():
         a_, b_ = float(ch4i[tier]['avg_pow_a']), float(ch4i[tier]['avg_pow_b'])
         abt_[j] = [min(1.0, max(0.0, a_ * (fee[k] * gwp[gw] * MFEE_ON[j]) ** b_)) for k in range(ny)]
-    # v6.0 (v5.6, I66): oil, gas and coal production grow with world demand and the producer price (legacy 6132-6149)
+    # v0.6.0 (v0.5.6, I66): oil, gas and coal production grow with world demand and the producer price (legacy 6132-6149)
     pic = {}
     for r_ in read('legacy_Prices_int_cells.csv'):
         pic[(int(r_['row']), int(r_['col']))] = r_['value']
@@ -1713,7 +1713,7 @@ def ghg_section(res, mt, years, pe, ref_fn):
     cons = lambda f_: sum(float(v or 0) for k_, v in enc.get(f'{iso.lower()}.mit.enc.{f_}', {}).items()
                           if k_ not in ('CPAT Code', 'Year', 'CountryName', 'FuelType', 'elec', 'wav'))
     e_gy0 = {'og': d_fk['og'], 'cm': d_fk['cm'], 'dg': cons('nga'), 'bm': cons('bio'),
-             'liv': 1.0, 'ric': 1.0, 'wst': 1.0}                  # v6.0 (I47): data activity, as legacy row 894
+             'liv': 1.0, 'ric': 1.0, 'wst': 1.0}                  # v0.6.0 (I47): data activity, as legacy row 894
     w0 = {j: min(K['MethShareCap'] * e_gy0[j] / sum(e_gy0[i] for i in B.CH4_FOSSIL), per[j]) for j in B.CH4_FOSSIL}
     sh0 = {j: (w0[j] / sum(w0.values()) if sum(w0.values()) else 0.0) if j in w0 else per[j] for j in src}
     invb0 = {c: inv[gy][f'{c}.{g_}'] for c, g_ in (('enr', 'ch4'), ('agr', 'ch4'), ('wst', 'ch4'))}
@@ -1740,15 +1740,15 @@ def ghg_section(res, mt, years, pe, ref_fn):
         for k in range(1, ny):
             a.append(a[-1] * (1 + gpc[k]) ** el[(c, 'gdppc')] * (1 + popg[k]) ** el[(c, 'pop')])
         act[j] = a
-    e_gy = dict(e_gy0)                                    # v6.0 (I47): data activity (legacy row 894)
+    e_gy = dict(e_gy0)                                    # v0.6.0 (I47): data activity (legacy row 894)
     w = {j: min(K['MethShareCap'] * e_gy[j] / sum(e_gy[i] for i in B.CH4_FOSSIL), per[j]) for j in B.CH4_FOSSIL}
     share = {j: (w[j] / sum(w.values()) if sum(w.values()) else 0.0) if j in w else per[j] for j in src}
     invb = {c: inv[gy][f'{c}.{g_}'] for c, g_ in (('enr', 'ch4'), ('agr', 'ch4'), ('wst', 'ch4'), ('lucf', 'co2'))}
     em = {}
     for j, (lab, tier, sc, gw, cat) in src.items():
         base = invb[cat] * share[j] * 1000 / gwp[gw]
-        abt = abt_[j]                                     # v4.12 (LD46): Settings switch of the source
-        dec = float(mi(f'J{B.CH4_INTROW[j]}') or 0)    # v9.0 (R8.6-R8.7): intensity decline from GHGYear
+        abt = abt_[j]                                     # v0.4.12 (LD46): Settings switch of the source
+        dec = float(mi(f'J{B.CH4_INTROW[j]}') or 0)    # v0.9.0 (R8.6-R8.7): intensity decline from GHGYear
         put(f'ch4.int.{j}', [(1 - dec) ** max(0, y - gy) for y in years])
         em[j] = [0.0 if e_gy[j] == 0 else base * act[j][k] / e_gy[j] * (1 - dec) ** max(0, years[k] - gy)
                  * (1 - abt[k]) for k in range(ny)]
@@ -1765,9 +1765,9 @@ def ghg_section(res, mt, years, pe, ref_fn):
     put('ch4.c.pow', [sum(out[f'ch4.pw.{f_}'][k] for f_ in B.CH4_PW) for k in range(ny)])
     put('ch4.c.all', [sum(out[f'ch4.c.{g_}'][k] for g_ in ['tra', 'bld', 'ind', 'oen', 'pow']) for k in range(ny)])
     put('ch4.sup', [sum(em[j][k] for j in B.CH4_FOSSIL) for k in range(ny)])
-    if 'default' not in _GHG_REF and not _GHG_REF.get('busy') and not _CO2K.get('busy'):   # v7.0: ghg.k reads the
+    if 'default' not in _GHG_REF and not _GHG_REF.get('busy') and not _CO2K.get('busy'):   # v0.7.0: ghg.k reads the
         # stored baseline methane; never inside the uncalibrated CO2 pass of co2k (its results would be cached)
-        _GHG_REF['busy'] = True                                    # (sheet BaselineCO2, v6.2 I47): the shipped
+        _GHG_REF['busy'] = True                                    # (sheet BaselineCO2, v0.6.2 I47): the shipped
         try:                                                       # baseline, also when a test changes a global
             _GHG_REF['default'] = _recompute_once(scenario_mt(1))  # setting (price controls, PwDeficitGas)
         finally:
@@ -1814,7 +1814,7 @@ def ghg_section(res, mt, years, pe, ref_fn):
     put('ghg.all', [sum(out[f'ghg.g.{g_}'][k] for g_ in B.GHG_GASES) for k in range(ny)])
     put('ghg.inc', [a_ + b_ for a_, b_ in zip(out['ghg.all'], out['ghg.c.lucf'])])
     nonf = [sum(em[j][k] * MFEE_ON[j] for j in ('liv', 'ric', 'wst')) for k in range(ny)]
-    fosf = [sum(em[j][k] * MFEE_ON[j] for j in B.CH4_FOSSIL) for k in range(ny)]   # v4.12: liable sources only
+    fosf = [sum(em[j][k] * MFEE_ON[j] for j in B.CH4_FOSSIL) for k in range(ny)]   # v0.4.12: liable sources only
     put('ch4.rev', [(fosf[k] * gwp['GWPCH4F'] + nonf[k] * gwp['GWPCH4NF']) * fee[k] * 1000 / 1e6 for k in range(ny)])
     for k_, v_ in out.items():
         res[(f'S14:{k_}', '', '')] = v_
@@ -1827,7 +1827,7 @@ POWER_TECH = ['coa', 'nga', 'oop', 'nuc', 'wnd', 'sol', 'hyd', 'ore', 'bio']    
 
 
 def check_power_method():
-    """Method = legacy: power_model_ref with the bug fixes of legacy 465 (all of FIXES; v9.0, Power_465) and the legacy
+    """Method = legacy: power_model_ref with the bug fixes of legacy 465 (all of FIXES; v0.9.0, Power_465) and the legacy
     demand shock, fed with the cached legacy
     inputs (fuel and policy costs D4-D6, GDP, prices of 2021 and the historical years), reproduces every cached legacy
     row of the engineer model and the price chain, for the baseline and the carbon-tax run."""
@@ -1864,7 +1864,7 @@ def check_power_method():
     return ok
 
 
-GLOBAL_MT = {}                  # v5.1: global settings edited in a test (MTInputs scenario-1 column, e.g. BiomassLeakage)
+GLOBAL_MT = {}                  # v0.5.1: global settings edited in a test (MTInputs scenario-1 column, e.g. BiomassLeakage)
 
 
 def scenario_mt(g):
@@ -1873,7 +1873,7 @@ def scenario_mt(g):
         mt[B.MT_NAMES[k]] = v
     for k, v in GLOBAL_MT.items():
         mt[B.MT_NAMES[k]] = v
-    mt['scen'] = g                              # v3.5: scenario number (section 5b policies act above 1)
+    mt['scen'] = g                              # v0.3.5: scenario number (section 5b policies act above 1)
     return mt
 
 
@@ -1881,16 +1881,16 @@ def gp_rows():
     return [(B.R_GP0 + k, 'int', fu) for k, (fu, *_r) in enumerate(B.GP_ROWS)]
 
 
-FOCUS = {}                      # v5.1: label -> (max relative difference, cell) over the focus rows of compare
+FOCUS = {}                      # v0.5.1: label -> (max relative difference, cell) over the focus rows of compare
 
 
 def compare(ws, g, exp, label, focus=None):
-    """Group g against the Python recomputation exp. v5.1: focus = rows whose largest difference is also kept in
+    """Group g against the Python recomputation exp. v0.5.1: focus = rows whose largest difference is also kept in
     FOCUS[label] (a test of one feature, apart from known differences elsewhere)."""
     _, base, years = B.group_cols(g)
     worst, n, fworst, missing = (0.0, None), 0, (0.0, None), set()
     pk = ('cptraj', 'ets.p', 'ets.pe', 'ets.cap', 'ets.est', 'ets.bce', 'ets.se', 'xct.p', 'xets.p',
-          'xct.c', 'mfee.p', 'mfee', 'cpx')    # v4.15: data column of the year (v4.12); v4.16: explicit price
+          'xct.c', 'mfee.p', 'mfee', 'cpx')    # v0.4.15: data column of the year (v0.4.12); v0.4.16: explicit price
     rev = [(B.R_REV[f'{v}.all'], 'all', 'all') for v in B.REV_VARS + ['rtot']]
     for var, rows in ([(k, [(B.R_POL[k], '', '')]) for k in pk]
                       + [(v, [(B.R_POL[f'{v}.{s}'], s, '') for s in B.COV_SECTORS]) for v in ('bco2', 'obr')]
@@ -1903,18 +1903,18 @@ def compare(ws, g, exp, label, focus=None):
                       + [(v, rows_of(v)) for v in B.PVARS + B.VARS if v not in PB_ONLY]
                       + [(v, [(r, c_, b_) for r, v_, b_, c_, _k in B.PW_ROWS if v_ == v]) for v in B.PW_VARS]
                       + [('rmf', [(B.R_REV['rmf.all'], 'all', 'all')])]
-                      + [('rpsu', [(B.R_REV['rpsu.all'], 'all', 'all')])]                          # v4.16
-                      + [(f'rpol.{q}', [(B.R_FIS[f'rpol.{q}'], '', '')]) for q in B.RPOL_KEYS + ['chk']]   # v4.15
-                      + [(f'S14:{k}', [(B.R_GHG[k], '', '')]) for k, *_x in B.GHG_ROWS     # v2.8: section 14
+                      + [('rpsu', [(B.R_REV['rpsu.all'], 'all', 'all')])]                          # v0.4.16
+                      + [(f'rpol.{q}', [(B.R_FIS[f'rpol.{q}'], '', '')]) for q in B.RPOL_KEYS + ['chk']]   # v0.4.15
+                      + [(f'S14:{k}', [(B.R_GHG[k], '', '')]) for k, *_x in B.GHG_ROWS     # v0.2.8: section 14
                          if k not in B.GHG_PARONLY | {'ghg.h', 'ghg.ref', 'ghg.chg', 'ghg.pct'}]
-                      + [(f'S15:{k}', [(B.R_AP[k], '', '')]) for k, *_x in B.AP_ROWS]       # v2.9: section 15
-                      + [(f'S16:{k}', [(B.R_GDPS[k], '', '')]) for k, *_x in B.GDP_ROWS     # v3.1: section 16
+                      + [(f'S15:{k}', [(B.R_AP[k], '', '')]) for k, *_x in B.AP_ROWS]       # v0.2.9: section 15
+                      + [(f'S16:{k}', [(B.R_GDPS[k], '', '')]) for k, *_x in B.GDP_ROWS     # v0.3.1: section 16
                          if k not in ('fis.grp', 'fis.key') and k not in B.GDP_PARAMS]
                       + [('gdp.pos.pct', [(B.R_GDP, '', '')])]
-                      + [(it['var'], [(B.R_LK[it['key']], 'res', it['b'])]) for it in B.LK_ROWS   # v5.1: 6b
+                      + [(it['var'], [(B.R_LK[it['key']], 'res', it['b'])]) for it in B.LK_ROWS   # v0.5.1: 6b
                          if it['kind'] != 'head'] + [('lks', [(B.R_LKSUM, 'res', 'all')])]):
         for r, s, f in rows:
-            if len(exp.get((var, s, f), ())) < 1 + len(years):    # v5.1: rows the Python reference does not
+            if len(exp.get((var, s, f), ())) < 1 + len(years):    # v0.5.1: rows the Python reference does not
                 missing.add(var.split(':')[-1])                     # recompute are reported, not compared
                 continue
             for k, c in enumerate([base] + years):
@@ -1926,7 +1926,7 @@ def compare(ws, g, exp, label, focus=None):
                 if focus and r in focus and d > fworst[0]:
                     fworst = (d, f'{L(c)}{r}')
     ok = worst[0] < TOL
-    if focus:                                  # v5.1: judged on the focus rows; the rest reported
+    if focus:                                  # v0.5.1: judged on the focus rows; the rest reported
         FOCUS[label] = fworst
         ok = fworst[0] < TOL
     log(f'- {label}: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, '
@@ -1943,7 +1943,7 @@ def compare(ws, g, exp, label, focus=None):
 
 # ------------------------------------------------------------------ checks
 def check_shipped(ws_x):
-    """v2.3: a host without LAMBDA support (LibreOffice here; Excel before 365) cannot evaluate the LAMBDA year 2041.
+    """v0.2.3: a host without LAMBDA support (LibreOffice here; Excel before 365) cannot evaluate the LAMBDA year 2041.
     Errors may appear only in the 2041 columns (Mitigation, and the 2041 column of MTOutputs); every year 2022-2040
     calculates. The years 2022-2040 then equal the LAMBDA host (ws_x: LAMBDAs expanded) everywhere except the power
     rows and the totals that include power: there the levelised window (D9) uses tvcx = last year's cost for 2041 and
@@ -1959,7 +1959,7 @@ def check_shipped(ws_x):
             for c in row:
                 if is_err(c.value):
                     if wsx.title == 'ScenarioCompare' and c.value == '#N/A' and \
-                            B.cmp_na_only('ScenarioCompare', f'ScenarioCompare.{c.coordinate}'):   # v7.0: no result
+                            B.cmp_na_only('ScenarioCompare', f'ScenarioCompare.{c.coordinate}'):   # v0.7.0: no result
                         continue
                     if (wsx.title == 'Mitigation' and c.column in last) or c.column in y41 | lam3:
                         n41 += 1
@@ -1974,7 +1974,7 @@ def check_shipped(ws_x):
     subs = {r for v in B.PVARS + B.VARS for r, *_ in rows_of(v)} - pw_rows
     d_sub, d_pow = 0.0, 0.0
     for g, *_ in B.SCENARIOS:
-        if g == B.LAMBDA_GROUP:            # v7.0: group 2 is the LAMBDA group (every year calls the LAMBDAs)
+        if g == B.LAMBDA_GROUP:            # v0.7.0: group 2 is the LAMBDA group (every year calls the LAMBDAs)
             continue
         _c, b, ys = B.group_cols(g)
         for c in [b] + ys[:-1]:
@@ -2003,21 +2003,21 @@ def uniform(ws, cells, label):
 def check_uniformity(wb):
     """One relative-R1C1 formula per variable and column block: section-2 prices have a history block (base year to
     the last historical year, data) and a projection block; every other variable a base-year column and a plain
-    block to 2040; the last year 2041 calls the named LAMBDA of the row (v2.3: the LAMBDA year, one formula per row
+    block to 2040; the last year 2041 calls the named LAMBDA of the row (v0.2.3: the LAMBDA year, one formula per row
     block too); sheet Lambdas lists the LAMBDA formula of every calculated row."""
     LAMY = (f'LAMBDA year {B.LAST_YEAR}', lambda b, ys: [ys[-1]])
     ws = wb['Mitigation']
     ok = True
-    grp = [B.group_cols(g) for g, *_ in B.SCENARIOS if g != B.LAMBDA_GROUP]   # v7.0: the plain groups (group 1)
-    grp3 = [B.group_cols(B.LAMBDA_GROUP)]   # v4.16: since v4.3 only the LAMBDA test group calls the LAMBDAs (groups
+    grp = [B.group_cols(g) for g, *_ in B.SCENARIOS if g != B.LAMBDA_GROUP]   # v0.7.0: the plain groups (group 1)
+    grp3 = [B.group_cols(B.LAMBDA_GROUP)]   # v0.4.16: since v0.4.3 only the LAMBDA test group calls the LAMBDAs (groups
     on = lambda label: grp3 if label == LAMY[0] else grp   # 1-2 are plain in 2041 too): the LAMBDA year is group 3's
     nh = B.LAST_HIST - B.BASE_YEAR           # plain years in the history block after the base year
     for var in B.PVARS + B.VARS:
         rows = [r for r, _s, _f in rows_of(var)]
-        if var in ('sp', 'txo', 'txf', 'txfx'):          # v4.16: txfx has a history and a projection formula
+        if var in ('sp', 'txo', 'txf', 'txfx'):          # v0.4.16: txfx has a history and a projection formula
             blocks = [(f'history {B.BASE_YEAR}-{B.LAST_HIST}', lambda b, ys: [b] + ys[:nh]),
                       (f'projection {B.LAST_HIST + 1}-{B.YEARS[-2]}', lambda b, ys: ys[nh:-1]), LAMY]
-        elif var in ('spf', 'gpi'):            # v2.5/v2.6: data rows (no LAMBDA)
+        elif var in ('spf', 'gpi'):            # v0.2.5/v0.2.6: data rows (no LAMBDA)
             blocks = [('base year', lambda b, ys: [b]), (f'{B.YEARS[0]}-{B.LAST_YEAR}', lambda b, ys: ys)]
         elif var in B.PVARS:
             blocks = [(f'{B.BASE_YEAR}-{B.YEARS[-2]}', lambda b, ys: [b] + ys[:-1]), LAMY]
@@ -2029,7 +2029,7 @@ def check_uniformity(wb):
             good &= g
             forms.append(f)
         g4 = all(uniform(ws, [(r, CI(pc)) for r in rows], f'`{var}` column {pc}')[0] for pc in B.PARAM_COLS)
-        if not (var in ('spf', 'gpi') or LAMBDA_CALL.search(forms[-1])):   # v7.2: logged (NORMS 3b.4)
+        if not (var in ('spf', 'gpi') or LAMBDA_CALL.search(forms[-1])):   # v0.7.2: logged (NORMS 3b.4)
             log(f'  - `{var}` LAMBDA year: the formula calls no named LAMBDA FAIL')
             good = False
         for f in forms:
@@ -2044,7 +2044,7 @@ def check_uniformity(wb):
                + [B.R_PRI[p] for p in B.PRI_PARAMS])
     ok &= uniform(ws, [(r, c) for r in mt_rows for _, b, ys in grp for c in [b] + ys],
                   'Section 1 and 2 MTInputs rows')[0]
-    cov_rows = [B.R_POL[k] for k, v_, _f, _s, kind, _m in B.POL if kind == 'mt' and v_ == 'ctcov']   # v5.6: phase-out
+    cov_rows = [B.R_POL[k] for k, v_, _f, _s, kind, _m in B.POL if kind == 'mt' and v_ == 'ctcov']   # v0.5.6: phase-out
     ok &= uniform(ws, [(r, c) for r in cov_rows for _, b, ys in grp for c in [b] + ys],
                   'Section 1 carbon-tax coverage rows (MTInputs, uncovered share phased in: exph)')[0]
     ok &= uniform(ws, [(r, c) for r, *_ in gp_rows() for _, b, ys in grp for c in [b] + ys],
@@ -2060,9 +2060,9 @@ def check_uniformity(wb):
         ok &= uniform(ws, [(r, c) for _, b, ys in grp for c in [b] + ys], f'index row `{lab}`')[0]
     calc = [k for k, _v, _f, _s, kind, _m in B.POL if kind == 'calc']
     exact = ('cptraj', 'cp.t', 'cp.nom', 'ets.on', 'ets.vol', 'ets.imp', 'ets.vadj', 'ets.bce', 'ets.chg', 'ets.cap',
-             'ets.se', 'ets.est', 'ets.p', 'ets.pe', 'ets.rf', 'scn', 'cp.exp', 'cpx', 'cp.shd', 'regadj',   # v4.16
-             'exf.res')                                                                                    # v5.1
-    exact += tuple(f'{v}.{k}' for v in ('po.on', 'po.n', 'po.sh', 'pof') for k, *_x in B.PHASEOUTS)   # v4.16
+             'ets.se', 'ets.est', 'ets.p', 'ets.pe', 'ets.rf', 'scn', 'cp.exp', 'cpx', 'cp.shd', 'regadj',   # v0.4.16
+             'exf.res')                                                                                    # v0.5.1
+    exact += tuple(f'{v}.{k}' for v in ('po.on', 'po.n', 'po.sh', 'pof') for k, *_x in B.PHASEOUTS)   # v0.4.16
     for prefix in exact + ('fpr.', 'fb.', 'etsc.', 'etsb.', 'obr.', 'regc.', 'reg.', 'ssc.', 'ctr.', 'etr.', 'shpx.',
                            'csf.', 'pcf.', 'psf.', 'pros.'):
         keys = [k for k in calc if (k == prefix if prefix in exact else k.startswith(prefix))]
@@ -2092,11 +2092,11 @@ def check_uniformity(wb):
                            f'power `{var}` {label}')
             good &= g and (label != LAMY[0] or bool(LAMBDA_CALL.search(f)))
             log(f'  - `{f[:150]}`')
-            if g and label == LAMY[0] and not LAMBDA_CALL.search(f):           # v7.2: logged (NORMS 3b.4)
+            if g and label == LAMY[0] and not LAMBDA_CALL.search(f):           # v0.7.2: logged (NORMS 3b.4)
                 log(f'  - power `{var}` LAMBDA year: the formula calls no named LAMBDA FAIL')
         good &= all(uniform(ws, [(r, CI(pc)) for r in rows], f'power `{var}` column {pc}')[0] for pc in B.PARAM_COLS)
         ok &= good
-    bad_tr, n_tr = [], 0                         # v3.5: section 5b, one formula per row and column block
+    bad_tr, n_tr = [], 0                         # v0.3.5: section 5b, one formula per row and column block
     for r, what, it in B.TR_LAYOUT:
         if what != 'row' or it['kind'] == 'par':
             continue
@@ -2108,15 +2108,15 @@ def check_uniformity(wb):
         else:
             blocks = [lambda b, ys: [b] + ys]
         forms = [{r1c1(ws.cell(r, c).value, r, c) for _, b, ys in (grp3 if it['kind'] == 'calc' and i == 2 else grp)
-                  for c in cols(b, ys)} for i, cols in enumerate(blocks)]       # v4.16: LAMBDA year of group 3
-        lam_need = it['kind'] == 'calc' and r in B.TR_LAMROWS          # v4.15: rows with a LAMBDA (TR_LAMROWS)
+                  for c in cols(b, ys)} for i, cols in enumerate(blocks)]       # v0.4.16: LAMBDA year of group 3
+        lam_need = it['kind'] == 'calc' and r in B.TR_LAMROWS          # v0.4.15: rows with a LAMBDA (TR_LAMROWS)
         if any(len(f) != 1 for f in forms) or (lam_need and not LAMBDA_CALL.search(next(iter(forms[-1])))):
             bad_tr.append(r)
     ok &= not bad_tr
     log(f'- section 5b (road engineer model): {n_tr} rows, one relative formula per row for the base year, 2023-2040 '
         f'and the LAMBDA year {B.LAST_YEAR} (which calls a named LAMBDA where the row has one) in every scenario group '
         f'{"OK" if not bad_tr else "FAIL " + str(bad_tr[:8])}')
-    by_var = {}                                  # v5.1: section 6b, one relative formula per variable and column block
+    by_var = {}                                  # v0.5.1: section 6b, one relative formula per variable and column block
     for r, what, it in B.LK_LAYOUT:
         if what == 'row':
             by_var.setdefault(it['var'], []).append((r, it))
@@ -2128,31 +2128,31 @@ def check_uniformity(wb):
         forms = [{r1c1(ws.cell(r, c).value, r, c) for r in rows for _, b, ys in (grp3 if calc_ and i == 2 else grp)
                   for c in cols(b, ys)} for i, cols in enumerate(blocks)]
         pars = [{r1c1(ws.cell(r, CI(pc)).value, r, CI(pc)) for r in rows
-                 if str(ws.cell(r, CI(pc)).value).startswith('=')} for pc in B.PARAM_COLS]   # v6.0: data by row
+                 if str(ws.cell(r, CI(pc)).value).startswith('=')} for pc in B.PARAM_COLS]   # v0.6.0: data by row
         pars = [p_ or {None} for p_ in pars]
         if any(len(f) != 1 for f in forms + pars) or (calc_ and not LAMBDA_CALL.search(next(iter(forms[-1])))):
             bad_lk.append(var)
-    n_lk = len(by_var) == 12                     # v7.2: 12 since v6.x (was 7, failing silently: NORMS 3b.4)
+    n_lk = len(by_var) == 12                     # v0.7.2: 12 since v6.x (was 7, failing silently: NORMS 3b.4)
     ok &= not bad_lk and n_lk
     log(f'- section 6b (residential leakage): {len(by_var)} variables (expected 12), one relative formula per variable '
         f'for the base year, 2023-2040 and the LAMBDA year {B.LAST_YEAR} (a named LAMBDA in test group '
         f'{B.LAMBDA_GROUP}), one per D:G column {"OK" if not bad_lk and n_lk else "FAIL " + str(bad_lk)}')
     lam = B.tab(wb, 'Lambdas')
-    lam_rows = {r: f for r, (_r0, f) in lambda_table(lam).items()}   # v4.2: condensed sheet
+    lam_rows = {r: f for r, (_r0, f) in lambda_table(lam).items()}   # v0.4.2: condensed sheet
     calc_rows = ({r for v in B.PVARS + B.VARS if v not in ('spf', 'gpi') for r, *_ in rows_of(v)}
                  | {B.R_POL[k] for k in calc}
                  | {r for r, v, *_ in B.PW_ROWS if v not in B.PW_DATA | B.PW_SUMS | B.PW_NOLAM}
-                 | {B.R_GHG[k] for k in B.GHG_LAM}                        # v2.8: section 14
-                 | {B.R_AP[k] for k in B.AP_LAM}                          # v2.9: section 15
-                 | {B.R_GDPS[k] for k in B.GDP_LAM} | {B.R_GDP}           # v3.1: section 16, GDP growth
-                 | B.TR_LAMROWS                                           # v3.5: section 5b
-                 | B.LK_LAMROWS                                           # v5.1: section 6b
-                 | set(B.R_PIX.values()) | {B.R_XR}                       # v3.10 memo, v3.13 exchange rate
-                 | {B.R_FIS[k] for k in B.FIS_LAM}                        # v3.13: 12d shares of GDP
-                 | {B.R_E13B[k] for k in B.E13B_LAM}                      # v3.14: 13b grid intensity, Kaya
-                 | {B.R_CPR[k] for k in B.CPR_LAM}                        # v3.15: section 17
-                 | {B.R_EXT[k] for k in B.EXT_LAM}                        # v3.16: 16b
-                 | {B.R_WEL[k] for k in B.WEL_LAM})                       # v3.17: section 18
+                 | {B.R_GHG[k] for k in B.GHG_LAM}                        # v0.2.8: section 14
+                 | {B.R_AP[k] for k in B.AP_LAM}                          # v0.2.9: section 15
+                 | {B.R_GDPS[k] for k in B.GDP_LAM} | {B.R_GDP}           # v0.3.1: section 16, GDP growth
+                 | B.TR_LAMROWS                                           # v0.3.5: section 5b
+                 | B.LK_LAMROWS                                           # v0.5.1: section 6b
+                 | set(B.R_PIX.values()) | {B.R_XR}                       # v0.3.10 memo, v0.3.13 exchange rate
+                 | {B.R_FIS[k] for k in B.FIS_LAM}                        # v0.3.13: 12d shares of GDP
+                 | {B.R_E13B[k] for k in B.E13B_LAM}                      # v0.3.14: 13b grid intensity, Kaya
+                 | {B.R_CPR[k] for k in B.CPR_LAM}                        # v0.3.15: section 17
+                 | {B.R_EXT[k] for k in B.EXT_LAM}                        # v0.3.16: 16b
+                 | {B.R_WEL[k] for k in B.WEL_LAM})                       # v0.3.17: section 18
     good = set(lam_rows) == calc_rows and all(LAMBDA_CALL.search('=' + f) for f in lam_rows.values())
     ok &= good
     log(f'- sheet Lambdas: an optional LAMBDA formula for each of the {len(calc_rows)} calculated rows '
@@ -2160,21 +2160,21 @@ def check_uniformity(wb):
         f'{"OK" if good else "FAIL " + str(sorted(calc_rows ^ set(lam_rows))[:10])}')
     cd = ws.column_dimensions
     ycols = [L(c) for _, b, ys in grp for c in ys if 2030 <= B.year_of(c) <= 2039]
-    grouped = list(B.COL_OUTLINE) + ycols                 # v3.9: column B stays visible
+    grouped = list(B.COL_OUTLINE) + ycols                 # v0.3.9: column B stays visible
     visible = ['A', 'B', 'H'] + [L(c) for _, b, ys in grp for c in [b] + ys if not 2030 <= B.year_of(c) <= 2039]
     hidden = (all(cd[c].hidden and cd[c].outline_level == 1 for c in grouped)
               and not any(cd[c].hidden or (cd[c].outline_level or 0) > 0 for c in visible)
               and max((cd[c].outline_level or 0) for c in cd) == 1)
     log(f'- column groups, one level: C:G, I:K and 2030-2039 of each scenario ({len(ycols)} columns), rolled up; '
         f'other columns visible: {"OK" if hidden else "FAIL"}')
-    test_ok = lambda v, code: v is None or (isinstance(v, str) and v.startswith(   # v4.3: spacer test formulas
+    test_ok = lambda v, code: v is None or (isinstance(v, str) and v.startswith(   # v0.4.3: spacer test formulas
         f'=IF({L(code + B.GW)}${B.R_SCEN}={L(code)}${B.R_SCEN},'))
     spacer = all(test_ok(ws.cell(r, ys[-1] + 1).value, code) for code, b, ys in grp for r in range(1, ws.max_row + 1)) \
         and all(code == B.COL_G0 + (g - 1) * B.GW for g, (code, b, ys) in enumerate(grp, 1)) and B.GW == B.NY + 2
     log(f'- spacer column after each scenario group (group width {B.GW}): blank or the group test formula '
         f'{"OK" if spacer else "FAIL"}')
     light = 'EEECE1'
-    _c3, _b3, ys3 = B.group_cols(B.LAMBDA_GROUP)   # v4.15: the LAMBDA cells of test group 3 are light beige
+    _c3, _b3, ys3 = B.group_cols(B.LAMBDA_GROUP)   # v0.4.15: the LAMBDA cells of test group 3 are light beige
     lcells = [(r, c) for r in calc_rows for c in ys3 if LAMBDA_CALL.search(str(ws.cell(r, c).value))]
     lam_ok = bool(lcells) and all(ws.cell(r, c).fill.start_color.rgb.endswith(light) for r, c in lcells)
     nh = B.LAST_HIST - B.BASE_YEAR
@@ -2199,8 +2199,8 @@ def check_encoding():
         ok &= good
         log(f'- {name}: {len(params)} parameters, {xml.count("_xlpm.")} _xlpm. tokens, bare names {bare} '
             f'{"OK" if good else "FAIL"}')
-    # v5.2: the formula texts of the LAMBDA library (sheet Lambdas, column C) must name sheets that exist: the tabs
-    # merged in v3.6 (Inputs_power, Constants, ...) are gone, so a text naming one fails when pasted (bug M12)
+    # v0.5.2: the formula texts of the LAMBDA library (sheet Lambdas, column C) must name sheets that exist: the tabs
+    # merged in v0.3.6 (Inputs_power, Constants, ...) are gone, so a text naming one fails when pasted (bug M12)
     lam = B.tab(openpyxl.load_workbook(B.OUT, read_only=False), 'Lambdas')
     tmap = B.tab_map()
     gone = sorted(b for b, (t, _o, _h) in tmap.items() if t != b)
@@ -2213,7 +2213,7 @@ def check_encoding():
                 stale.append((rows, hit[0]))
     good = not stale
     ok &= good
-    log(f'- sheet Lambdas: formula texts naming a sheet merged away (v3.6 tab merge): {len(stale)}'
+    log(f'- sheet Lambdas: formula texts naming a sheet merged away (v0.3.6 tab merge): {len(stale)}'
         f'{" (Mitigation rows " + ", ".join(str(r) for r, _g in stale[:30]) + "; sheet " + stale[0][1] + ")" if stale else ""} '
         f'{"OK" if good else "FAIL"}')
     return ok
@@ -2225,7 +2225,7 @@ def mt_set(wsm, col, row_or_name, value):
 
 
 def add_scenario(wb, src_g, dst_g, name, edits, mit_edits=None, mt_g=None):
-    """Copy MTInputs column of src_g to dst_g's column (keeping the auto number) and the Mitigation group. v5.1: mt_g =
+    """Copy MTInputs column of src_g to dst_g's column (keeping the auto number) and the Mitigation group. v0.5.1: mt_g =
     the MTInputs column (scenario number) the pasted group reads when it differs from dst_g (a group pasted right of the
     LAMBDA test group, which repeats the scenario on its left)."""
     ws, wsm = wb['Mitigation'], wb['ScenarioDefinition']
@@ -2255,27 +2255,27 @@ def add_scenario(wb, src_g, dst_g, name, edits, mit_edits=None, mt_g=None):
 LEGACY_CP = {2022: 0, 2023: 0, 2024: 0, 2025: 0, 2026: 0, 2027: 12.5, 2028: 25, 2029: 37.5, 2030: 50,
              2031: 62.5, 2032: 75, 2033: 87.5, 2034: 100, 2035: 112.5}   # legacy Mitigation row 8582
 FPR_TEST = {140: 2027, 141: 2030, 150: 0.05, 164: 0.20, 146: 0.5, 160: 2.0,   # gasoline $/l, gas res $/GJ
-            'ConsSubPha': True, 'YearConsSubPha': 2026, 'FFPhaseOut': 4, 'PrcContPha': True,   # v4.16 (LD18):
+            'ConsSubPha': True, 'YearConsSubPha': 2026, 'FFPhaseOut': 4, 'PrcContPha': True,   # v0.4.16 (LD18):
             'YearPrcContPha': 2027, 'PrcControlPhaseout': 5, 'ProdSubPh': True}               # phase-outs too
 ETS_TEST = {'NewETS': 'Yes', 'ETSIntro': 2027, 'ETSOutro': 2035, 'ETSChangeRelStart': -0.02,
             'ETSChangeRelTarget': -0.15, 'ETSCapCont': 'Constant'}   # template coverage: power, mch, irn, nfm, cem
 ETS_EQUIV = {**ETS_TEST, 'ETSPriceOverride': 'Yes', 'ETSVolatility': 'Zero',   # blank override: carbon price;
-             'ETSCTRisk': 0, 'ETSAuctStart': 1, 'ETSAuctTarget': 1}         # adjustment 1; full auctioning (v4.15)
+             'ETSCTRisk': 0, 'ETSAuctStart': 1, 'ETSAuctTarget': 1}         # adjustment 1; full auctioning (v0.4.15)
 PRICE_TEST = {'IntEnerPricForeSource': 'IMF-WB*', 'IntEnerPricForecastAdjustment': 'High',
-              'NomorReal': 'Nominal', 'MultipliersSource': 'Estimated', 'FmAdj': 'High',   # v4.15: country multipliers
-              'ScenarioSelected': ' - Energy efficiency regulations'}   # v4.16 (LD9): shadow pricing, no carbon tax
-EXEMPT_TEST = {'AlwaysExemptResLPGKer': 'Yes'}   # v5.1 (D16, I50): residential LPG and kerosene always exempted
+              'NomorReal': 'Nominal', 'MultipliersSource': 'Estimated', 'FmAdj': 'High',   # v0.4.15: country multipliers
+              'ScenarioSelected': ' - Energy efficiency regulations'}   # v0.4.16 (LD9): shadow pricing, no carbon tax
+EXEMPT_TEST = {'AlwaysExemptResLPGKer': 'Yes'}   # v0.5.1 (D16, I50): residential LPG and kerosene always exempted
 FB_TEST = {'FeebateIntro': 2027, 'FeebateOutro': 2030, 'Feb_Level_Start_Trans': 10,
            'Feb_Level_Target_Trans': 50, 'Feb_Level_Start_Ind': 5, 'Feb_Level_Target_Ind': 25,
            67: True, 74: True, 75: True,                                  # feebate coverage: rod, mch, irn
-           'MultipliersSource': 'Manual', 'FmAdj': 'Low', 'GDPStartYear': 2028}   # v4.15: Manual inputs, start year
+           'MultipliersSource': 'Manual', 'FmAdj': 'Low', 'GDPStartYear': 2028}   # v0.4.15: Manual inputs, start year
 
 
 TR_POL_SUB = {'TrSubYearPas': 2027, 'TrSubAmountPas': 5000, 'TrSubChgPas': 250}
 TR_POL_DT = {'TrDtYearPas': 2027, 'TrDtStartPas': 0.01, 'TrDtTargetYearPas': 2030, 'TrDtTargetPas': 0.05}
 TR_POL_FB = {'TrFbYearPas': 2027, 'TrFbRatePas': 100, 'TrFbYearFre': 2028, 'TrFbRateFre': 50, 'TrCsStartYear': 2026,
              'TrCsStartLevel': 0.2, 'TrCsTargetYear': 2030, 'TrCsTargetLevel': 0.5}
-TR_TESTS = {  # v3.5: group -> (source group, name, MTInputs edits); engineer road model switched on
+TR_TESTS = {  # v0.3.5: group -> (source group, name, MTInputs edits); engineer road model switched on
     11: (1, 'Test 11: engineer road model, no carbon price (copy of 1)', {'TrModel': 'Engineer'}),
     12: (2, 'Test 12: engineer road model, carbon tax (copy of 2)', {'TrModel': 'Engineer'}),
     13: (2, 'Test 13: as 12 + EV purchase subsidy', {'TrModel': 'Engineer', **TR_POL_SUB}),
@@ -2284,12 +2284,12 @@ TR_TESTS = {  # v3.5: group -> (source group, name, MTInputs edits); engineer ro
          {'TrModel': 'Engineer', **TR_POL_SUB, **TR_POL_DT, **TR_POL_FB})}
 
 
-PB_ONLY = {'rpn', 'pnq', 'pctx', 'pets', 'pntx', 'pxcd', 'pvatn', 'pnce'}   # v5.0: weighted from the subsector rows
+PB_ONLY = {'rpn', 'pnq', 'pctx', 'pets', 'pntx', 'pxcd', 'pvatn', 'pnce'}   # v0.5.0: weighted from the subsector rows
 # of the sheet, checked by price_blocks (not recomputed by pair here)
 
 
 def price_blocks(ws):
-    """v4.1: recompute the new-policy rows of every section-2 price block from the subsector rows: the atp rows whose
+    """v0.4.1: recompute the new-policy rows of every section-2 price block from the subsector rows: the atp rows whose
     D is the block position, weights ener; returns (max relative difference, cells)."""
     num = lambda v: v if isinstance(v, (int, float)) and not isinstance(v, bool) else 0.0
     off = lambda v: B.VOFF[v] - B.VOFF['atp']
@@ -2306,7 +2306,7 @@ def price_blocks(ws):
                 exp = {'pnq': q, 'pctx': avg('ctxnew'), 'pets': avg('ets'), 'pntx': avg('ntx'), 'pxcd': avg('xcpd'),
                        'rpn': avg('atp') if q else rpb}
                 exp['pnce'] = exp['rpn'] - rpb
-                wedge = sum(num(ws.cell(B.prow(w_, pc), c).value) for w_ in ('pcsw', 'ppcw'))   # v4.16 (own rows)
+                wedge = sum(num(ws.cell(B.prow(w_, pc), c).value) for w_ in ('pcsw', 'ppcw'))   # v0.4.16 (own rows)
                 exp['pvatn'] = exp['pnce'] - exp['pctx'] - exp['pets'] - exp['pntx'] - exp['pxcd'] - wedge
                 for var, x in exp.items():
                     got = num(ws.cell(B.prow(var, pc), c).value)
@@ -2314,12 +2314,12 @@ def price_blocks(ws):
     return worst, n
 
 
-PAV_METHOD = 'Legacy*'                  # v4.15 (I31): Settings C54 default
+PAV_METHOD = 'Legacy*'                  # v0.4.15 (I31): Settings C54 default
 LEG_SUBS = {'qr': ['res'], 'qi': ['mch', 'irn', 'nfm', 'mac', 'cem', 'omn', 'cst', 'ftr']}   # legacy F5b weights
 
 
 def legacy_avg(ws, f, c, cq, num, parts=False):
-    """v4.15 (I31): legacy F5b average price of fuel f in column c with the quantities of column cq (scenario 1):
+    """v0.4.15 (I31): legacy F5b average price of fuel f in column c with the quantities of column cq (scenario 1):
     coal, gas = residential, industry and power prices (section 2 blocks; power: pre-policy price + policy cost per GJ)
     weighted by residential, 8-industry and power fuel use; oil products: the price of the .all block."""
     cell = lambda r, c_: num(ws.cell(r, c_).value)
@@ -2345,8 +2345,8 @@ TRADE_GJ = {'oil': (['oop', 'gso', 'die', 'ker', 'lpg', 'jfu'], 6.12), 'nga': ([
 
 
 def trade_balance():
-    """v5.2: energy trade balance (exports - imports, USD bn real) by group and year, as legacy rows 741-743 with bug
-    L51 fixed (v4.6: coal valued at the coal price, legacy at the crude oil price; oil and gas equal the legacy values
+    """v0.5.2: energy trade balance (exports - imports, USD bn real) by group and year, as legacy rows 741-743 with bug
+    L51 fixed (v0.4.6: coal valued at the coal price, legacy at the crude oil price; oil and gas equal the legacy values
     of gdp_level.csv): base-year net imports (legacy Balances) x the international price of the scenario-1 source
     (prices_int.csv, real with the US GDP deflator, no High/Low adjustment)."""
     tpl = mt_used()
@@ -2368,8 +2368,8 @@ def trade_balance():
 
 
 def check_results_memos(ws):
-    """v3.10 onwards: independent Python recomputation of the results memos and sections added from legacy's
-    post-processing (NORMS 3f rule 3), in every scenario group against scenario 1. v3.10: section 2 price indices."""
+    """v0.3.10 onwards: independent Python recomputation of the results memos and sections added from legacy's
+    post-processing (NORMS 3f rule 3), in every scenario group against scenario 1. v0.3.10: section 2 price indices."""
     num = lambda v: v if isinstance(v, (int, float)) and not isinstance(v, bool) else 0.0
     d = B.VOFF['ener'] - B.VOFF['atp']
     _, b1, y1 = B.group_cols(1)
@@ -2390,8 +2390,8 @@ def check_results_memos(ws):
                 uv, uv1 = (sp / q if q else 0.0), (sp1 / q1 if q1 else 0.0)
                 exp = {'pav.sp': sp, 'pav.q': q, 'pav.uv': uv, 'pav.spr': spr, 'pav.las': las, 'pav.sp0': sp0,
                        'pav.time': sp0 / sp1b if sp1b else 0.0, 'pav.mix': uv / uv1 / las if uv1 * las else 0.0}
-                leg = lambda c_, cq: legacy_avg(ws, f, c_, cq, num)          # v4.15 (I31)
-                lg, lg1 = (leg(cB, cA), leg(cA, cA)) if f in B.PAVL_FUELS + B.PAVL_OIL else (0.0, 0.0)   # v5.2: jfu,
+                leg = lambda c_, cq: legacy_avg(ws, f, c_, cq, num)          # v0.4.15 (I31)
+                lg, lg1 = (leg(cB, cA), leg(cA, cA)) if f in B.PAVL_FUELS + B.PAVL_OIL else (0.0, 0.0)   # v0.5.2: jfu,
                 # bio have no legacy average (and no power type)
                 lidx = (lg / lg1 if lg1 else 0.0) if f in B.PAVL_FUELS + B.PAVL_OIL else las
                 exp.update({'pav.leg': lg if f in B.PAVL_FUELS + B.PAVL_OIL else uv, 'pav.lidx': lidx,
@@ -2404,12 +2404,12 @@ def check_results_memos(ws):
     good = worst < 1e-9
     log(f'- section 2 price indices (unit value, Laspeyres, time index, mix) vs Python, every scenario group and fuel: '
         f'{n} cells, max relative diff {worst:.3g} {"OK" if good else "FAIL"}')
-    wb_, nb_ = price_blocks(ws)                        # v4.1: new taxes and subsidies by price block
+    wb_, nb_ = price_blocks(ws)                        # v0.4.1: new taxes and subsidies by price block
     good &= wb_ < 1e-9
     log(f'- section 2 price blocks: full retail price, weights and new taxes and subsidies (fuel-use weighted over the '
         f'subsectors of the block) vs Python, every scenario group: {nb_} cells, max relative diff {wb_:.3g} '
         f'{"OK" if wb_ < 1e-9 else "FAIL"}')
-    # v3.13: 12d fiscal reports, from the subsector rows (columns A, B) and section 3 rows
+    # v0.3.13: 12d fiscal reports, from the subsector rows (columns A, B) and section 3 rows
     w2, n2 = 0.0, 0
     cell = lambda r, c: num(ws.cell(r, c).value)
     s_rows = [(r, ws.cell(r, 1).value, ws.cell(r, 2).value) for r in range(B.S_FIRST, B.S_LAST + 1)]
@@ -2437,7 +2437,7 @@ def check_results_memos(ws):
                 w2, n2 = max(w2, abs(got - x) / max(1.0, abs(x))), n2 + 1
             w2 = max(w2, exp['rfu.chk'] / max(1.0, tot))
     ok2 = w2 < 1e-9
-    # v3.14: 11b, 13b, 14b from their source rows
+    # v0.3.14: 11b, 13b, 14b from their source rows
     w3, n3, at3 = 0.0, 0, None
     lv11 = {**{f: B.R_FUEL0 + i for i, (f, *_x) in enumerate(B.FUELS)}, **{g: B.SEC_SUM[g] for _n, g, _t in B.SECTIONS},
             'pow': B.R_EPOW, 'all': B.R_TOTAL}
@@ -2457,7 +2457,7 @@ def check_results_memos(ws):
                 exp[('13', key)] = cell(lv, c) - cell(lv, c1)
             gt = cell(B.R_PW[('gtot', '')], c) * 8760
             exp[('13', 'co2.grid')] = cell(B.R_EMI['co2.pow'], c) * 1e6 / gt if gt else 0.0
-            tp = lambda cc: cell(B.R_TOTAL, cc) + sum(cell(B.R_PW[('pe', t)], cc) for t in B.PRIM_ELEC)   # v3.18
+            tp = lambda cc: cell(B.R_TOTAL, cc) + sum(cell(B.R_PW[('pe', t)], cc) for t in B.PRIM_ELEC)   # v0.3.18
             pop, gdp, en, co2 = (cell(B.R_GHG['pop'], c) / 1000, cell(B.R_GDPUSD, c), tp(c),
                                  cell(B.R_GHG['ghg.g.co2'], c))
             pop0, gdp0, en0, co20 = (cell(B.R_GHG['pop'], b1_) / 1000, cell(B.R_GDPUSD, b1_), tp(b1_),
@@ -2482,7 +2482,7 @@ def check_results_memos(ws):
                     w3, at3 = d3, (key, c, got, x)
                 n3 += 1
     ok3 = w3 < 1e-9
-    # v3.15: section 17 from its source rows (independent of the formulas: switches, rates, CO2 by fuel)
+    # v0.3.15: section 17 from its source rows (independent of the formulas: switches, rates, CO2 by fuel)
     w4, n4, at4 = 0.0, 0, None
     fl = lambda r, c: float(bool(ws.cell(r, c).value)) if isinstance(ws.cell(r, c).value, bool) else cell(r, c)
     sd = lambda a, b: a / b if b else 0.0
@@ -2524,10 +2524,10 @@ def check_results_memos(ws):
                     w4, at4 = d4, (key, c, got, x)
                 n4 += 1
     ok4 = w4 < 1e-9
-    # v3.16: 16b from section 11b, the supply prices and the data
+    # v0.3.16: 16b from section 11b, the supply prices and the data
     w5, n5, at5 = 0.0, 0, None
     dat = {r['key']: r for r in read('gdp_level.csv')}
-    tb = trade_balance()                               # v5.2: L51 fixed (coal at the coal price), from the CSVs
+    tb = trade_balance()                               # v0.5.2: L51 fixed (coal at the coal price), from the CSVs
     for g, *_r in B.SCENARIOS:
         _, bg, yg = B.group_cols(g)
         for c in [bg] + yg:
@@ -2548,7 +2548,7 @@ def check_results_memos(ws):
             gdp = cell(B.R_GDPUSD, c)
             exp['xtb.pct'] = exp['xtbp'] / gdp
             exp['xnim.pct'] = exp['xnim.all'] / gdp
-            if hasattr(B, 'BCA_TYPED'):                  # v9.0 (R11): current account from the typed values
+            if hasattr(B, 'BCA_TYPED'):                  # v0.9.0 (R11): current account from the typed values
                 bt = lambda k: B.BCA_TYPED[k].get(y, 0) if ISO == 'EGY' else 0
                 exp['bca'], exp['bca.gdp'], exp['bca.n'] = bt('EGY|bca'), bt('EGY|bca_gdp'), bt('EGY|bca_n')
                 exp['bca.r'] = exp['bca'] * cell(B.R_CPI, c)
@@ -2566,18 +2566,18 @@ def check_results_memos(ws):
                     w5, at5 = d5, (key, c, got, x)
                 n5 += 1
     ok5 = w5 < 1e-9
-    # v3.17: section 18 from the settings, the data and the source rows
+    # v0.3.17: section 18 from the settings, the data and the source rows
     w6, n6, at6 = 0.0, 0, None
     st = ws.parent['Settings']
     sv = lambda r: st.cell(r, 3).value
     tgt, tyr, gr, nsrc, gsrc, rho, eta, epa = (sv(r) for r in range(33, 41))
     rk = {r['code']: float(r['central_usd_per_tco2']) for r in read('scc.csv')}
     rho = int(rho) if isinstance(rho, float) and rho.is_integer() else rho
-    if '%' in str(rho):                                  # v6.0: v5.6 Settings C38-C39 hold the legacy texts (C41-C42)
+    if '%' in str(rho):                                  # v0.6.0: v0.5.6 Settings C38-C39 hold the legacy texts (C41-C42)
         rho = str(rho)[0]
     if '%' in str(eta):
         eta = str(eta).split('%')[0].replace('.', 'p')
-    mi_ = ws.parent['Manual inputs']                    # v5.2 (L103 fixed): the Manual inputs SCC block, rows 236-240:
+    mi_ = ws.parent['Manual inputs']                    # v0.5.2 (L103 fixed): the Manual inputs SCC block, rows 236-240:
     g0, gr_m = float(mi_['F238'].value), float(mi_['F239'].value)   # 2025 level (column M), real growth back and forward
     man = {str(y): g0 * ((1 + gr_m) ** (y - 2025) if y >= 2025 else (1 - gr_m) ** (2025 - y)) for y in range(2022, 2045)}
     fu11 = {**{f: B.R_FUEL0 + i for i, (f, *_x) in enumerate(B.FUELS)}, 'ecy': B.R_ELD['all']}
@@ -2590,7 +2590,7 @@ def check_results_memos(ws):
                   'scc.rkn': rk[f'{ISO.lower()}.{rho}.{eta}'] * (1 + gr) ** (y - B.BASE_YEAR),
                   'scc.rkg': rk[f'wld.{rho}.{eta}'] * (1 + gr) ** (y - B.BASE_YEAR),
                   'scc.man': man[str(y)], 'scc.epa': epa * (1 + gr) ** (y - B.BASE_YEAR)}
-            pick = lambda src, r_: ex[{'T': 'scc.tgt', 'R': r_, 'M': 'scc.man', 'U': 'scc.epa', 'E': 'scc.epa'}[str(src)[:1]]]   # v5.6 texts
+            pick = lambda src, r_: ex[{'T': 'scc.tgt', 'R': r_, 'M': 'scc.man', 'U': 'scc.epa', 'E': 'scc.epa'}[str(src)[:1]]]   # v0.5.6 texts
             ex['scc.nat'], ex['scc.glo'] = pick(nsrc, 'scc.rkn'), pick(gsrc, 'scc.rkg')
             ghg_c, ghg_1 = cell(B.R_GHG['ghg.all'], c), cell(B.R_GHG['ghg.all'], c1)
             for q in ('nat', 'glo'):
@@ -2610,7 +2610,7 @@ def check_results_memos(ws):
             for j, *_x in B.CH4_SOURCES:
                 ab = B.R_GHG[f'ch4.abt.{j}']
                 a_, b_, f_ = ws.cell(ab, 4).value or 0.0, ws.cell(ab, 5).value or 0.0, ws.cell(ab, 6).value or 0.0
-                fee = cell(B.R_POL['mfee'], c) * f_ * MFEE_ON[j]          # v4.12 (LD46)
+                fee = cell(B.R_POL['mfee'], c) * f_ * MFEE_ON[j]          # v0.4.12 (LD46)
                 ex[f'mfp.{j}'] = 0.0 if a_ == 0 else min(fee, (1 / a_) ** (1 / b_))
                 src = ws.cell(B.R_GHG[f'ch4.src.{j}'], 5).value or 0.0
                 base = 0.0 if src == 0 else ws.cell(B.R_GHG[f'ch4.em.{j}'], 4).value * cell(B.R_GHG[f'ch4.act.{j}'], c) / src
@@ -2619,7 +2619,7 @@ def check_results_memos(ws):
             ex['mfc.all'] = mfc
             gdp = cell(B.R_GDPUSD, c)
             cob = cell(B.R_WEL['wel.air.usd'], c) + sum(cell(B.R_WEL[f'wel.rod.{k}'], c) for k in ('aci', 'con', 'dmg'))
-            ex['wel.usd'] = ex['wcli.nat'] + cob - eff - mfc   # v9.0 (R2.8): + co-benefits (rows of the sheet)
+            ex['wel.usd'] = ex['wcli.nat'] + cob - eff - mfc   # v0.9.0 (R2.8): + co-benefits (rows of the sheet)
             ex['wel.pct'], ex['wel.cli'], ex['wel.eff'] = ex['wel.usd'] / gdp, ex['wcli.nat'] / gdp, (eff + mfc) / gdp
             for key, x in ex.items():
                 got = cell(B.R_WEL[key], c)
@@ -2643,7 +2643,7 @@ def check_results_memos(ws):
 
 
 def check_transport_scenarios(ws):
-    """v3.5: the engineer road model switched on (TrModel = Engineer) in copied groups, with and without policies:
+    """v0.3.5: the engineer road model switched on (TrModel = Engineer) in copied groups, with and without policies:
     every section-5b row vs the engine and the whole model vs the Python recomputation (road fuels and road
     electricity from the engine); road fuel use = section 5b; policy directions."""
     ok = True
@@ -2683,7 +2683,7 @@ def check_transport_scenarios(ws):
 
 
 def compare_res(ws, g, mt, label):
-    """v5.1: group g against _recompute_once with the sheet's own GDP growth (row R_GDP), judged on the residential block
+    """v0.5.1: group g against _recompute_once with the sheet's own GDP growth (row R_GDP), judged on the residential block
     and section 6b: the GDP feedback carries the known differences of the Python power reference into every fuel row."""
     _, base, years = B.group_cols(g)
     gdp = [ws.cell(B.R_GDP, c).value for c in [base] + years]
@@ -2692,14 +2692,14 @@ def compare_res(ws, g, mt, label):
 
 
 def res_focus():
-    """v5.1: rows of the residential subsector block (prices, fuel use, CO2, CH4, revenues), section 6b and its summary
+    """v0.5.1: rows of the residential subsector block (prices, fuel use, CO2, CH4, revenues), section 6b and its summary
     (the totals include power, whose Python reference has known differences)."""
     h = B.SUB_HEAD['res']
     return set(range(h, h + B.SB)) | set(B.R_LK.values()) | {B.R_LKSUM}
 
 
 def check_exempt(ws, g):
-    """v5.1 (D16, I50): group g = scenario 2 ($20 carbon price) with AlwaysExemptResLPGKer = Yes. Residential LPG and
+    """v0.5.1 (D16, I50): group g = scenario 2 ($20 carbon price) with AlwaysExemptResLPGKer = Yes. Residential LPG and
     kerosene: no new carbon tax, ETS or excise, so the after-tax price equals scenario 1 and the new-policy revenue,
     excise revenue and VAT on the new policies are 0; residential gas keeps the carbon tax."""
     (_c1, b1, y1), (_c2, b2, y2), (_c, bg, yg) = B.group_cols(1), B.group_cols(2), B.group_cols(g)
@@ -2724,11 +2724,11 @@ def check_exempt(ws, g):
 
 
 def check_exempt_scenario():
-    """v5.1 (D16, I50): a group pasted right of the LAMBDA test group runs scenario 3 = scenario 2 ($20) with
+    """v0.5.1 (D16, I50): a group pasted right of the LAMBDA test group runs scenario 3 = scenario 2 ($20) with
     AlwaysExemptResLPGKer = Yes (own small workbook: the 15-group scenario workbook is at the LibreOffice time limit);
     against the Python recomputation (residential rows) and the properties of check_exempt."""
     wb = openpyxl.load_workbook(B.OUT)
-    add_scenario(wb, 2, 3, 'Test: carbon price $20, residential LPG and kerosene exempt', EXEMPT_TEST)   # v7.0: group 3
+    add_scenario(wb, 2, 3, 'Test: carbon price $20, residential LPG and kerosene exempt', EXEMPT_TEST)   # v0.7.0: group 3
     ws = recalc_wb(variant(wb, 'expand'))['Mitigation']
     mt3 = scenario_mt(2)
     mt3[B.MT_NAMES['AlwaysExemptResLPGKer']] = 'Yes'
@@ -2737,7 +2737,7 @@ def check_exempt_scenario():
 
 
 def check_leakage():
-    """v5.1 (D9): BiomassLeakage = Yes (global: MTInputs scenario-1 column, Settings C59). Scenarios 1, 2 ($20) and a
+    """v0.5.1 (D9): BiomassLeakage = Yes (global: MTInputs scenario-1 column, Settings C59). Scenarios 1, 2 ($20) and a
     group pasted right of the LAMBDA test group running scenario 3 = scenario 2 with AlwaysExemptResLPGKer = Yes, against
     the Python recomputation; the LAMBDA test group (LAMBDA bodies expanded) against group 2 on the section-6b rows and
     residential fuel use; useful energy conserved (sum of efficiency x cumulative change = 0); an exempt fuel does not
@@ -2757,7 +2757,7 @@ def check_leakage():
             ok &= compare_res(ws, g, mt_, lab)
     finally:
         GLOBAL_MT.clear()
-    (_c2, b2, y2), (_c3, b3, y3), (_c4, b4, y4) = (B.group_cols(g) for g in (2, B.LAMBDA_GROUP, 3))   # v7.0: group 3
+    (_c2, b2, y2), (_c3, b3, y3), (_c4, b4, y4) = (B.group_cols(g) for g in (2, B.LAMBDA_GROUP, 3))   # v0.7.0: group 3
     h = B.SUB_HEAD['res']
     fi = [x[0] for x in B.FUELS].index
     rows = [B.R_LK[it['key']] for it in B.LK_ROWS if it['kind'] != 'head'] + [B.R_LKSUM]
@@ -2788,7 +2788,7 @@ def check_leakage():
     return ok
 
 
-# v5.4 (power plan P1, P2, P4): a test scenario per power feature (MTInputs edits in a pasted group), recomputed in Python
+# v0.5.4 (power plan P1, P2, P4): a test scenario per power feature (MTInputs edits in a pasted group), recomputed in Python
 PW_TESTS = {  # group -> (source group, name, MTInputs edits)
     3: (2, 'Test 3: MaximumGasCF 0.6, long-term storage from 2% VRE x 2 (P1)',
         {'MaximumGasCF': 0.6, 'StartingPointWhenLTStorageIsNeeded': 0.02, 'LongTermStorageFor100pcVRE': 2}),
@@ -2821,7 +2821,7 @@ PW_GLOBAL = {'EarlyRetirementInBaseline': 'No', 'MaxNonVREAsPCOfTotalGen': 0.005
 
 
 def check_power_features():
-    """v5.4: power plan P1, P2, P4 switched on, one test scenario per feature (PW_TESTS, groups 3-9 pasted from groups 1
+    """v0.5.4: power plan P1, P2, P4 switched on, one test scenario per feature (PW_TESTS, groups 3-9 pasted from groups 1
     and 2), each against the Python recomputation (power_model_ref.engine with the scenario's settings); the global
     switch PwDeficitGas (Settings C45) with tight scale-up limits in scenarios 1 and 2."""
     ok = True
@@ -2901,7 +2901,7 @@ def check_scenarios():
     add_scenario(wb, 2, 8, 'Test 8: IMF-WB*, High, nominal carbon price', PRICE_TEST)
     add_scenario(wb, 2, 9, 'Test 9: new ETS with cap (fast estimate) + carbon tax elsewhere', ETS_TEST)
     add_scenario(wb, 2, 10, 'Test 10: ETS override blank, no volatility, full auctioning', ETS_EQUIV)
-    for g, (src, name, edits) in TR_TESTS.items():       # v3.5: engineer road model switched on, with policies
+    for g, (src, name, edits) in TR_TESTS.items():       # v0.3.5: engineer road model switched on, with policies
         add_scenario(wb, src, g, name, edits)
     wb_t = recalc_wb(variant(add_mto_blocks(wb, range(3, 11)), 'expand'))
     ws = wb_t['Mitigation']
@@ -2911,11 +2911,11 @@ def check_scenarios():
         ca, cb = B.group_cols(a), B.group_cols(b)
         diff, n = 0.0, 0
         for r in range(B.R_YEAR, ws.max_row + 1):
-            if r in (B.R_SCEN, B.R_NAME, B.R_LHCOL):     # v2.5: row 4 holds the group's own column numbers
+            if r in (B.R_SCEN, B.R_NAME, B.R_LHCOL):     # v0.2.5: row 4 holds the group's own column numbers
                 continue
-            if r == B.R_TR['tr.pol']:            # v3.5: policy-scenario flag (scenario number > 1, fix B1)
+            if r == B.R_TR['tr.pol']:            # v0.3.5: policy-scenario flag (scenario number > 1, fix B1)
                 continue
-            if b == 4 and r in PO_SCEN_ROWS:     # v5.2 (v4.16, LD18/LD19): scenario 1 takes the baseline phase-out
+            if b == 4 and r in PO_SCEN_ROWS:     # v0.5.2 (v0.4.16, LD18/LD19): scenario 1 takes the baseline phase-out
                 continue                         # switch, period and share, the others the policy ones (by design)
             for x, y in zip([ca[1]] + ca[2], [cb[1]] + cb[2]):
                 va, vb = ws.cell(r, x).value, ws.cell(r, y).value
@@ -2932,7 +2932,7 @@ def check_scenarios():
         code, base, _ = B.group_cols(g)
         num_, name = ws.cell(B.R_SCEN, code).value, ws.cell(B.R_NAME, base).value
         c = ws.cell(B.SUB_HEAD['rod'] + B.VOFF['ener'], code).value
-        good = (num_ == g and c == RC(f'{B.COUNTRY.lower()}.mit.ener.rod.coa.e.{g}')   # v7.2: through the map
+        good = (num_ == g and c == RC(f'{B.COUNTRY.lower()}.mit.ener.rod.coa.e.{g}')   # v0.7.2: through the map
                 and str(name).startswith(f'Test {g}'))
         ok &= good
         log(f'- pasted group {g}: number {num_}, name "{name}", code `{c}` {"OK" if good else "FAIL"}')
@@ -2951,7 +2951,7 @@ def check_scenarios():
             mt[k if isinstance(k, int) else B.MT_NAMES[k]] = v
         ok &= compare(ws, g, recompute(mt), f'scenario {g} vs Python')
     ok &= check_transport_scenarios(ws)
-    ok &= check_results_memos(ws)          # v3.10: memos and results sections recomputed in Python
+    ok &= check_results_memos(ws)          # v0.3.10: memos and results sections recomputed in Python
     r_ntx = B.SUB_HEAD['rod'] + B.VOFF['ntx'] + 2
     r_shp = B.SUB_HEAD['rod'] + B.VOFF['shp'] + 2
     _, b6, y6 = B.group_cols(6)
@@ -2967,7 +2967,7 @@ def check_scenarios():
     rate = {s: mt7[B.MT_NAMES[b]] for s, a, b in B.FEEBATE_SECTORS}
     fbsec = {s[0]: s[6] for s in B.SUBSECTORS}
     covered = {s for s, *_ in B.SUBSECTORS if mt7[66 + B.COV_SECTORS.index(s)] and rate[fbsec[s]]}
-    # v5.2: since the GDP feedback (v3.1, section 16) the other subsectors change with GDP growth only: their fuel use
+    # v0.5.2: since the GDP feedback (v0.3.1, section 16) the other subsectors change with GDP growth only: their fuel use
     # in scenario 7 = the Python scenario 1 run at scenario 7's growth path (relative diff)
     g7 = recompute(mt7)[('gdp.pos.pct', '', '')]
     r1g = _recompute_once(scenario_mt(1), gdp=g7)
@@ -3037,7 +3037,7 @@ POWER_OLD = {'tcf', 'gns', 'phi', 'cbat', 'cint', 'obat', 'cel', 'cons', 'cax', 
              'ccp', 'gnc', 'gncav', 'ccpav', 'sc', 'rppre', 'rp', 'sgap', 'rvat', 'rcarb', 'rgap', 'vre', 'cph', 'msc'}
 
 
-SIGN_FLIP = set()                       # v2.4 (vs v2.3): esub, esubpu, rsub, prsub, sgap, rgap changed sign
+SIGN_FLIP = set()                       # v0.2.4 (vs v0.2.3): esub, esubpu, rsub, prsub, sgap, rgap changed sign
 
 
 V60_S1 = {'ch4', 'ghg', 'gchg', 'aps', 'ap', 'apf', 'ndc', 'dmg', 'wcli', 'wel', 'kaya', 'kidx', 'ch4.em', 'ch4.act',
@@ -3045,7 +3045,7 @@ V60_S1 = {'ch4', 'ghg', 'gchg', 'aps', 'ap', 'apf', 'ndc', 'dmg', 'wcli', 'wel',
 
 
 def foo_dependent(k):
-    """v6.0 intended changes against v5.7: I47 (methane intensities on base-year data activity: methane by source,
+    """v0.6.0 intended changes against v0.5.7: I47 (methane intensities on base-year data activity: methane by source,
     GHG totals, the local-pollutant table, NDC rows and climate damages in every scenario), I43 (revenue uses from
     CPIntro: the GDP feedback of scenario 2 and everything downstream of it), the NDC GDP rows (local currency)."""
     parts = k.split('.')
@@ -3053,29 +3053,29 @@ def foo_dependent(k):
 
 
 def _foo_dependent_v313(k):
-    """v3.13: none against the previous version (new rows only)."""
+    """v0.3.13: none against the previous version (new rows only)."""
     return False
 
 
 def _foo_dependent_v34(k):
-    """v3.4: the CO2 calibration is off by default (EFCalib = 1): the v3.2 set changes back (CO2 rows and the GHG rows
+    """v0.3.4: the CO2 calibration is off by default (EFCalib = 1): the v0.3.2 set changes back (CO2 rows and the GHG rows
     built on energy CO2 in every scenario; scenario 2 throughout)."""
     return _foo_dependent_v32(k)
 
 
 def _foo_dependent_v33(k):
-    """v3.3: none: the country data moved into keyed tables, the Egypt values are the same."""
+    """v0.3.3: none: the country data moved into keyed tables, the Egypt values are the same."""
     return False
 
 
 def _foo_dependent_v32(k):
-    """v3.2: CO2 rows (and the GHG rows built on energy CO2) scale by the calibration factor in every scenario;
+    """v0.3.2: CO2 rows (and the GHG rows built on energy CO2) scale by the calibration factor in every scenario;
     scenario 2 (policies priced per tonne) changes throughout. Fuel use, prices and revenues of scenario 1 do not."""
     return k.endswith('.2') or k.split('.')[2] in ('co2', 'bco2', 'ghg', 'ef', 'efk')
 
 
 def _foo_dependent_v23(k):
-    """v2.3 intended changes: power (moving-average fuel prices, levelised window to 2041) and everything that
+    """v0.2.3 intended changes: power (moving-average fuel prices, levelised window to 2041) and everything that
     includes power (totals, ETS baseline and cap, revenues, electricity memo lines). Price and subsector rows of the
     sector blocks must not change."""
     p = k.split('.')
@@ -3085,33 +3085,33 @@ def _foo_dependent_v23(k):
 
 
 def _foo_dependent_v22(k):
-    """v2.2: none. (v1.09 intended changes: power generation fuel use enters the fuel totals (total, by fuel, reference and
+    """v0.2.2: none. (v0.1.09 intended changes: power generation fuel use enters the fuel totals (total, by fuel, reference and
     change rows of section 11) and power revenues enter the revenue totals (rtx, rsub, rnew, rnet, rtot and the
     reference and change rows).)"""
-    return False                     # v2.2: no intended change against v1.09
+    return False                     # v0.2.2: no intended change against v0.1.09
 
 
 def _unused(k):
-    """Fuel-use codes that change with the food & forestry elasticities (v0.11): foo itself and its aggregates."""
+    """Fuel-use codes that change with the food & forestry elasticities (v0.0.11): foo itself and its aggregates."""
     p = k.split('.')
     return p[2] == 'ener' and (p[3] in ('foo', 'all', 'bld', 'ref', 'pct', 'chk'))
 
 
 def _prev_version():
-    """v5.2: the previous version = the highest build_v<major>_<minor>.py in Old/ below this version (v3.13: minor - 1,
-    which gave 5.-1 after v4.16); minor - 1 when Old/ has none."""
+    """v0.5.2: the previous version = the highest build_v<major>_<minor>.py in Old/ below this version (v0.3.13: minor - 1,
+    which gave 5.-1 after v0.4.16); minor - 1 when Old/ has none."""
     cur = tuple(int(x) for x in B.VERSION.split('.'))
-    vs = [tuple(int(x) for x in re.search(r'_v(\d+)\.(\d+)\.xlsm$', f).groups())   # v8.4: top and releases/
+    vs = [tuple(int(x) for x in re.search(r'_v(\d+(?:\.\d+)*)\.xlsm$', f).group(1).split('.'))   # v0.8.4: top and releases/
           for f in B.REL.all_versions(B.NAME, 'xlsm')]
     below = [v for v in vs if v < cur]
-    return '.'.join(map(str, max(below or [v for v in vs if v == cur] or [(cur[0], cur[1] - 1)])))
+    return '.'.join(map(str, max(below or [v for v in vs if v == cur] or [cur[:-1] + (cur[-1] - 1,)])))
 
 
-PREV = _prev_version()                   # v3.13: the previous version
+PREV = _prev_version()                   # v0.3.13: the previous version
 
 
 def check_regression(ws_new):
-    """v3.13: against the previous version (v3.11 changed every result on purpose; each version since adds rows only,
+    """v0.3.13: against the previous version (v0.3.11 changed every result on purpose; each version since adds rows only,
     so every shared output code keeps its value)."""
     pv = PREV.replace('.', '_')
     bo = B                                         # restructure 2026-10-22: the release's layout = this builder's
@@ -3133,11 +3133,11 @@ def check_regression(ws_new):
             for r in range(1, src.max_row + 1):
                 k = src.cell(r, code).value
                 if isinstance(k, str) and k.startswith(B.COUNTRY.lower() + '.'):
-                    dst[RC(k) if dst is vo else k] = [src.cell(r, c).value for c in [base] + years]   # v7.2: map
+                    dst[RC(k) if dst is vo else k] = [src.cell(r, c).value for c in [base] + years]   # v0.7.2: map
     shared = set(vo) & set(vn)
     intended = {k for k in shared if foo_dependent(k)}
     common = sorted(shared - intended)
-    sgn = lambda k: -1 if k.split('.')[2] in SIGN_FLIP else 1           # v2.4: subsidy rows: new = -old
+    sgn = lambda k: -1 if k.split('.')[2] in SIGN_FLIP else 1           # v0.2.4: subsidy rows: new = -old
     dk = {k: max([abs(a - sgn(k) * b) for a, b in zip(vo[k], vn[k])
                   if isinstance(a, (int, float)) and isinstance(b, (int, float))] or [0]) for k in common}
     flipped = [k for k in common if sgn(k) < 0 and any(abs(a) > TOL for a in vo[k] if isinstance(a, (int, float)))]
@@ -3161,7 +3161,7 @@ ECP_TEST = {  # existing carbon pricing test data for the country (nominal $/tCO
     'ecf.gso': 1.0, 'ecf.die': 1.0, 'ecf.nga': 1.0, 'ecf.lpg': 0.5,
     'eer.all': {2021: 0.0, 2022: 0.0, 2023: 0.0, 2024: 15.0, 2025: 20.0}, 'ees.pow': 1.0, 'ees.ind': 0.6,
     'eef.coa': 1.0, 'eef.nga': 1.0, 'eef.oop': 1.0,
-    'res.trs': 0.3, 'ref.die': 1.0}   # v4.15: regional EU ETS coverage (EU price from the legacy data)
+    'res.trs': 0.3, 'ref.die': 1.0}   # v0.4.15: regional EU ETS coverage (EU price from the legacy data)
 ECP_SCEN = {3: ('Test 3: existing pricing grows 3% / 2% a year', {'ExistingCTGrowth': 0.03, 'ExistingETSGrowth': 0.02}),
             4: ('Test 4: existing pricing switched off', {'ExistingCTApply': 'No', 'ExistingETSApply': 'No'}),
             5: ('Test 5: new carbon tax complementary to the existing ETS', {'CTaxComplimentaryToETS': 'Yes'})}
@@ -3175,7 +3175,7 @@ DOC_REF = re.compile(r'[A-Za-z][\w-]*_v\d+(?:[._]\d+)*\.(?:md|py|docx|bas)')
 
 
 def check_consistency(ws):
-    """v1.09 full consistency check of the shipped workbook: check rows and accounting identities in every scenario
+    """v0.1.09 full consistency check of the shipped workbook: check rows and accounting identities in every scenario
     group, file references in the workbook texts exist (current versions, not Old/), version strings, no stale
     statements about power or existing carbon pricing."""
     ok = True
@@ -3185,7 +3185,7 @@ def check_consistency(ws):
     chk = {k: max(abs(v(r, c)) for c in cols) for k, r in (('ener.chk', B.R_CHK), ('rev.chk', B.R_REV['rev.chk']),
                                                           ('co2.chk', B.R_EMI['co2.chk']),
                                                           ('bco2.chk', B.R_EMI['bco2.chk']),
-                                                          ('ch4bs.chk', B.R_GHG['ch4bs.chk']))}   # v6.2 (I47)
+                                                          ('ch4bs.chk', B.R_GHG['ch4bs.chk']))}   # v0.6.2 (I47)
     good = all(x < 1e-6 for x in chk.values())
     ok &= good
     log(f'- check rows in groups {groups}: ' + ', '.join(f'{k} {x:.2g}' for k, x in chk.items()) +
@@ -3212,7 +3212,7 @@ def check_consistency(ws):
              if isinstance(c.value, str) and not c.value.startswith('=')]
     refs = sorted({m for _t, _c, s in texts for m in DOC_REF.findall(s)})
     hist = {m for _t, _c, s in texts if s.startswith(('v0.', 'v1.')) for m in DOC_REF.findall(s)}
-    vlog = {m for t, _c, s in texts if t == B.TAB_REF for m in DOC_REF.findall(s)}   # v3.6: version log tab
+    vlog = {m for t, _c, s in texts if t == B.TAB_REF for m in DOC_REF.findall(s)}   # v0.3.6: version log tab
     missing = [m for m in refs if m not in hist | vlog and not os.path.exists(os.path.join(HERE, m))
                and not os.path.exists(os.path.join(HERE, 'presentation', m))]
     ok &= not missing
@@ -3224,10 +3224,10 @@ def check_consistency(ws):
         f'{"none OK" if not stale else "FAIL " + str(stale[:6])}')
     st = B.tab(wbf, 'VersionLog')
     last_log = max((r for r in range(B.SET_LOG + 2, st.max_row + 1) if st.cell(r, 1).value), default=None)
-    title_ok = wbf['Mitigation']['A2'].value == 'Mitigation Module'   # v2.7: version in Settings log, ReadMe, file name
+    title_ok = wbf['Mitigation']['A2'].value == 'Mitigation Module'   # v0.2.7: version in Settings log, ReadMe, file name
     readme = open(os.path.join(HERE, 'README.md'), encoding='utf-8').read()
     good = (st.cell(last_log, 1).value == B.VERSION and title_ok and f'{B.NAME}_latest.xlsm' in readme
-            and 'build.py' in readme)   # v8.0: stable names
+            and 'build.py' in readme)   # v0.8.0: stable names
     ok &= good
     log(f'- versions: Settings log ends with {st.cell(last_log, 1).value}, Mitigation title "Mitigation Module", folder README '
         f'names the workbook and builder of v{B.VERSION} {"OK" if good else "FAIL"}')
@@ -3239,7 +3239,7 @@ def check_consistency(ws):
         if d_.attr_text and fut.search(d_.attr_text.replace('_xlfn.', '_xlfn_')):
             nofx.append(('name', n_))
     ok &= not nofx
-    log(f'- v2.8: newer Excel functions (MAXIFS, MINIFS, AGGREGATE, IFNA, ...) carry the _xlfn. prefix in the file '
+    log(f'- v0.2.8: newer Excel functions (MAXIFS, MINIFS, AGGREGATE, IFNA, ...) carry the _xlfn. prefix in the file '
         f'(else Excel removes the formula on repair): {"OK" if not nofx else "FAIL " + str(nofx[:6])}')
     import make_equations as EQ                    # equation list regenerated from the shipped workbook
     n_eq, miss_eq = EQ.main()
@@ -3249,7 +3249,7 @@ def check_consistency(ws):
         f'dictionary has its equation {"OK" if good else "FAIL " + str(miss_eq[:8])}')
     cur = [f for d in ('', 'presentation') for f in os.listdir(os.path.join(HERE, d))
            if os.path.isfile(os.path.join(HERE, d, f)) and f.endswith(('.py', '.md', '.js', '.bas'))]
-    off = [f for f in cur if re.search(r'[_-]v\d+[._]\d+', f)]   # v8.0: stable names (releases are git tags)
+    off = [f for f in cur if re.search(r'[_-]v\d+[._]\d+', f)]   # v0.8.0: stable names (releases are git tags)
     ok &= not off
     log(f'- scripts and notes have stable names, no version in the name ({len(cur)} files): '
         f'{"OK" if not off else "FAIL " + str(off)}')
@@ -3260,13 +3260,13 @@ def check_consistency(ws):
     good = len(ids) == len(set(ids)) and ld_in == ld_n and all(t for _i, t, *_ in IR.items())
     st_ok = ({i for i, *_ in IR.ISSUES} == set(IR.ISSUE_STATUS) and
              all(s in ('Major', 'Minor') and st in ('Open', 'Accepted', 'Resolved', 'Dropped') for s, st, _n in
-                 IR.ISSUE_STATUS.values()))    # v3.7: every issue has a severity and a status (issues list)
+                 IR.ISSUE_STATUS.values()))    # v0.3.7: every issue has a severity and a status (issues list)
     good &= st_ok
     ok &= good
     log(f'- issues register (issues_register.py, Word register): {len(ids)} items, unique IDs; LegacyDiff rows of '
         f'type {", ".join(IR.LD_TYPES)} all included ({ld_in} of {ld_n}) {"OK" if good else "FAIL"}')
     chapters = sorted(os.listdir(os.path.join(HERE, 'docs', 'methods')))
-    stray = [f for f in os.listdir(HERE) if f.endswith('_Method.md')]   # v8.0: methods only in docs/methods/
+    stray = [f for f in os.listdir(HERE) if f.endswith('_Method.md')]   # v0.8.0: methods only in docs/methods/
     good = len(chapters) == 8 and not stray
     ok &= good
     log(f'- method chapters in docs/methods/ ({len(chapters)}: {", ".join(chapters)}); no method note left in the '
@@ -3275,8 +3275,8 @@ def check_consistency(ws):
 
 
 def check_ecp():
-    """v1.09: existing carbon pricing with non-zero test data for Egypt, in the shipped scenarios and three test
-    scenarios, against the Python recomputation; properties. v4.15: the test data are written into the legacy layout
+    """v0.1.09: existing carbon pricing with non-zero test data for Egypt, in the shipped scenarios and three test
+    scenarios, against the Python recomputation; properties. v0.4.15: the test data are written into the legacy layout
     of sheet ECP (an information row for the country, and one row per code at the end of its legacy block)."""
     wb = openpyxl.load_workbook(B.OUT)
     we = wb['ECP']
@@ -3313,7 +3313,7 @@ def check_ecp():
                             [B.group_cols(g)[1]] + B.group_cols(g)[2]))
     c2, c4 = yr(2), yr(4)
     lh = B.LAST_HIST
-    d_hist = max(abs(ws.cell(r_, c2[lh]).value or 0) for r_, *_ in B.var_rows('xcpd'))   # v4.12: embedded year
+    d_hist = max(abs(ws.cell(r_, c2[lh]).value or 0) for r_, *_ in B.var_rows('xcpd'))   # v0.4.12: embedded year
     d_after = max(ws.cell(r_, c2[2030]).value for r_, *_ in B.var_rows('xcpd'))
     lvl = sum(ws.cell(r_, c2[2030]).value for r_, *_ in B.var_rows('xcp'))
     off = min(ws.cell(r_, c4[2030]).value for r_, *_ in B.var_rows('xcpd'))
@@ -3343,17 +3343,17 @@ def check_codes(wsf, wsv):
     ok = True
     described = [r for r in range(1, wsf.max_row + 1)
                  if isinstance(wsf[f'H{r}'].value, str) and wsf[f'H{r}'].value.startswith('=INDEX(VarLab')
-                 and wsf[f'A{r}'].value]                 # v2.4: label rows (A empty) name the block, no code
+                 and wsf[f'A{r}'].value]                 # v0.2.4: label rows (A empty) name the block, no code
     for col in 'HIJ':
         ok &= uniform(wsf, [(r, CI(col)) for r in described], f'column {col}')[0]
     for g, *_ in B.SCENARIOS:
         code = B.group_cols(g)[0]
-        blank = {r for r in described if wsf.cell(r, code).value is None}   # v7.2 (codes R7): the copy rows carry no
-        own = {r for r in described if 'RowCode' in str(wsf.cell(r, code).value)}   # v7.2: rows coded by the map
+        blank = {r for r in described if wsf.cell(r, code).value is None}   # v0.7.2 (codes R7): the copy rows carry no
+        own = {r for r in described if 'RowCode' in str(wsf.cell(r, code).value)}   # v0.7.2: rows coded by the map
         ok &= uniform(wsf, [(r, code) for r in described if r not in blank | own], f'code column {L(code)} (scenario {g})')[0]
         if own:
             ok &= uniform(wsf, [(r, code) for r in own], f'code column {L(code)} (scenario {g}), rows with their own code')[0]
-        good = len(blank) == (18 if hasattr(B, 'copy_rows') else 0)       # code: the 18 copies of v7.2
+        good = len(blank) == (18 if hasattr(B, 'copy_rows') else 0)       # code: the 18 copies of v0.7.2
         ok &= good
         log(f'- code column {L(code)}: {len(blank)} rows without a code (the section 11 copies, R7) '
             f'{"OK" if good else "FAIL " + str(sorted(blank)[:8])}')
@@ -3362,7 +3362,7 @@ def check_codes(wsf, wsv):
     expected = [(h + B.VOFF['ener'] + 2, k1, f'{ISO.lower()}.mit.ener.rod.gso.e.1', 'Fuel use | Road | Gasoline'),
                 (B.prow('sp', 'coa.pow'), k1, f'{ISO.lower()}.mit.sp.pow.coa.a.1', 'Supply cost (pre-tax price) | Power | Coal'),
                 (B.prow('rpb', 'gso.all'), k2, f'{ISO.lower()}.mit.rpb.all.gso.a.2',
-                 'Retail price before new taxes and subsidies | All sectors | Gasoline'),   # v5.2: label of the dictionary
+                 'Retail price before new taxes and subsidies | All sectors | Gasoline'),   # v0.5.2: label of the dictionary
                 (B.R_GP0, k1, f'{ISO.lower()}.mit.gp.int.oil.1', 'International energy price (real; source and adjustment from '
                                                      'MTInputs) | International | Crude oil'),
                 (B.R_CPI, k1, f'{ISO.lower()}.mit.infl.1', None),
@@ -3409,7 +3409,7 @@ def check_outline(wsf):
     log(f'- row group buttons below the groups (summaryBelow): {"OK" if ok else "FAIL"}')
     lv = lambda r: (wsf.row_dimensions[r].outlineLevel or 0, bool(wsf.row_dimensions[r].hidden))
     checks = []
-    for band, tot, last in B.SECTION_GROUPS:     # v2.6: one group per section; only its summary row shows
+    for band, tot, last in B.SECTION_GROUPS:     # v0.2.6: one group per section; only its summary row shows
         inner = list(range(band + 1, tot if tot else last + 1))
         checks.append((f'section at row {band}: rows {band + 1}-{(tot or last + 1) - 1} grouped and hidden', inner,
                        (1, True)))
@@ -3418,7 +3418,7 @@ def check_outline(wsf):
     lvl = {r: wsf.row_dimensions[r].outlineLevel or 0 for r in range(1, wsf.max_row + 2)}
     one = max(lvl.values()) == 1 and wsf.sheet_format.outlineLevelRow == 1
     ok &= one
-    log(f'- one level of row groups (v2.4, no nesting): max level {max(lvl.values())} {"OK" if one else "FAIL"}')
+    log(f'- one level of row groups (v0.2.4, no nesting): max level {max(lvl.values())} {"OK" if one else "FAIL"}')
     rolled = all(wsf.row_dimensions[r].hidden for r in lvl if lvl[r])
     flags = all(bool(wsf.row_dimensions[r + 1].collapsed) == (lvl[r + 1] < lvl[r])
                 for r in range(1, wsf.max_row) if lvl[r])
@@ -3427,13 +3427,13 @@ def check_outline(wsf):
         f'{"OK" if rolled and flags else "FAIL"}')
     wbf = openpyxl.load_workbook(B.OUT)
     first = (wbf.sheetnames[:5] == ['Cover', 'ScenarioCompare', 'ScenarioDefinition', 'MAIN->>', 'Mitigation']
-             and wbf.active.title == 'ScenarioCompare')   # v4.2; v6.7: the front tabs, opens on the dashboard
+             and wbf.active.title == 'ScenarioCompare')   # v0.4.2; v0.6.7: the front tabs, opens on the dashboard
     zoom = wbf['Mitigation'].sheet_view.zoomScale == 75
     ok &= first and zoom
     log(f'- front tabs Cover, ScenarioCompare, ScenarioDefinition, then MAIN->> and Mitigation; opens on '
         f'ScenarioCompare: {"OK" if first else "FAIL"}; Mitigation zoom 75%: '
         f'{"OK" if zoom else "FAIL"}')
-    want = B.TAB_ORDER                                   # v3.6: consolidated tabs; reference group last
+    want = B.TAB_ORDER                                   # v0.3.6: consolidated tabs; reference group last
     tail = ['REF->>'] + [t for t, _b in B.MERGES[2:]]
     tabs = wbf.sheetnames[:len(want)] == want and wbf.sheetnames[-len(tail):] == tail
     ok &= tabs
@@ -3451,7 +3451,7 @@ def check_mtinputs():
     ws = openpyxl.load_workbook(B.OUT)['ScenarioDefinition']
     diffs = [f'{L(c)}{r}' for r in range(1, tpl.max_row + 1) for c in range(1, 9)
              if tpl.cell(r, c).value != ws.cell(r, c).value
-             and (r, c) != (B.MT_ROW_SHORT, 8)]          # v6.7: H2 labels the short names (legends) of row 2
+             and (r, c) != (B.MT_ROW_SHORT, 8)]          # v0.6.7: H2 labels the short names (legends) of row 2
     ok = not diffs and ws.column_dimensions['D'].hidden and ws.column_dimensions['E'].hidden
     log(f'- columns A:H, rows 1-{tpl.max_row}: {len(diffs)} cells differ from the template; D:E hidden '
         f'{"OK" if ok else "FAIL " + str(diffs[:10])}')
@@ -3460,7 +3460,7 @@ def check_mtinputs():
 
 def check_format(wsf):
     bands = [3, B.B_POL, B.B_PRI, B.B_POW, B.B_RES, B.B_REV, B.B_EMI] + list(B.SEC_BAND.values())
-    t_ = lambda r: 'B'                                # v3.9: number in A, title in B (legacy band)
+    t_ = lambda r: 'B'                                # v0.3.9: number in A, title in B (legacy band)
     ok = all(str(wsf[f'{t_(r)}{r}'].font.color.rgb).endswith('FFFFFF') and wsf[f'{t_(r)}{r}'].font.b for r in bands)
     texts = [str(wsf[f'{t_(r)}{r}'].value)[:22] for r in sorted(bands)]
     log(f'- section bands {texts}: white bold text {"OK" if ok else "FAIL"}')
@@ -3490,7 +3490,7 @@ def check_format(wsf):
     ld = B.tab(openpyxl.load_workbook(B.OUT), 'LegacyDiff')
     n_ld = sum(1 for r in range(5, ld.max_row + 1) if ld.cell(r, 2).value)
     names = openpyxl.load_workbook(B.OUT).sheetnames
-    good_ld = n_ld == len(B.LEGACY_DIFFS) >= 20 and B.TAB_REF in names    # v2.6: tab order checked in section 8
+    good_ld = n_ld == len(B.LEGACY_DIFFS) >= 20 and B.TAB_REF in names    # v0.2.6: tab order checked in section 8
     ok &= good_ld
     log(f'- tabs {names[:8]}; sheet LegacyDiff: {n_ld} differences listed {"OK" if good_ld else "FAIL"}')
     log(f'- Inputs_prices: data changed by assumption marked bright yellow (columns {marked}; other oil products '
@@ -3507,7 +3507,7 @@ def check_sanity(ws):
     ok &= pre < TOL
     log(f'- scenario 1 vs 2 before 2027 (fuel use): max abs diff {pre:.3g} {"OK" if pre < TOL else "FAIL"}')
     oen = max(abs(ws.cell(r, y).value) for r, s, f in B.var_rows('ctxnew') if s == 'oen' for y in cols2)
-    ok &= oen < TOL                  # v3.1: its fuel use now moves with GDP (section 16), so test the tax itself
+    ok &= oen < TOL                  # v0.3.1: its fuel use now moves with GDP (section 16), so test the tax itself
     log(f'- other energy use not taxed (MCovOen FALSE): new carbon tax ctxnew in scenario 2 = 0, max abs {oen:.3g} '
         f'{"OK" if oen < TOL else "FAIL"}')
     chk = max(abs(ws.cell(B.R_CHK, c).value) for c in cols1 + cols2)
@@ -3626,9 +3626,9 @@ def check_power_results(ws):
     log(f'- supply cost = average generation cost of the previous year + constant T&D add-on (max abs {lag:.3g}) '
         f'{"OK" if lag < TOL else "FAIL"}')
     c40_1, c40_2 = cols1[-1], cols2[-1]
-    # v5.2: the carbon price shifts the investment choice (cost-based logit shares pni) towards wind, solar and other
+    # v0.5.2: the carbon price shifts the investment choice (cost-based logit shares pni) towards wind, solar and other
     # renewables in every year, and lowers power CO2. The VRE share of generation is reported only: since the data
-    # fixes of v4.10 (L52-L56) and L67 (v4.14) the lower demand of scenario 2 lowers new investment, wind and solar
+    # fixes of v0.4.10 (L52-L56) and L67 (v0.4.14) the lower demand of scenario 2 lowers new investment, wind and solar
     # stay at their scale-up caps (a share of the smaller total effective capacity) and the existing gas fleet runs
     # more, so the VRE share of generation can fall (Egypt 2041: 0.394 -> 0.387) although CO2 falls.
     vre_t = [f for f in tech if f in ('wnd', 'sol', 'ore')]
@@ -3665,7 +3665,7 @@ def check_power_results(ws):
 
 
 def lam_cols(sheet):
-    """v4.15: columns of the LAMBDA test group (v4.3: group 3 calls the LAMBDA of every row in every year) and the
+    """v0.4.15: columns of the LAMBDA test group (v0.4.3: group 3 calls the LAMBDA of every row in every year) and the
     spacer test column on its left, which compares group 3 with group 2 (Mitigation and Distribution)."""
     if sheet == 'Mitigation':
         code = B.group_cols(B.LAMBDA_GROUP)[0]
@@ -3677,8 +3677,8 @@ def lam_cols(sheet):
 
 
 def check_formula_length():
-    """v1.07: every plain cell formula of the shipped workbook has at most 100 characters (as Excel shows it, without
-    the file prefixes _xlfn. / _xlpm.); v2.3: cells that call a named LAMBDA sit in the LAMBDA year 2041 of
+    """v0.1.07: every plain cell formula of the shipped workbook has at most 100 characters (as Excel shows it, without
+    the file prefixes _xlfn. / _xlpm.); v0.2.3: cells that call a named LAMBDA sit in the LAMBDA year 2041 of
     Mitigation only (their arguments may make them longer)."""
     last = {B.group_cols(g)[2][-1] for g, *_ in B.SCENARIOS}
     misplaced = []
@@ -3723,7 +3723,7 @@ ALLOWED = [(re.compile(r'"High",2,IF\(LEFT\([^)]*\)="Low",3,1\)'), 'choice codes
 
 
 def check_v24_layout(ws):
-    """v2.4 (user rules 2026-10-13): years in row 1; a label row names D:G above every block, so every number in
+    """v0.2.4 (user rules 2026-10-13): years in row 1; a label row names D:G above every block, so every number in
     D:G is labelled; no constant typed or written into a Mitigation formula (only 0 and 1, function codes, text
     lengths and the functional form of the storage cost; inputs: the scenario number and the ETS override row)."""
     ok = True
@@ -3771,7 +3771,7 @@ def check_v24_layout(ws):
                 for m in re.finditer(r'(?<![A-Za-z_\d.])(\d+\.?\d*)', x):
                     if m.group(1) not in ('0', '1'):
                         lits.setdefault(m.group(1), c.coordinate)
-    for wso in wbf.worksheets:                     # v3.4: every other sheet's formulas too (data cells are data)
+    for wso in wbf.worksheets:                     # v0.3.4: every other sheet's formulas too (data cells are data)
         if wso.title == 'Mitigation':
             continue
         for row in wso.iter_rows():
@@ -3799,20 +3799,20 @@ def check_v24_layout(ws):
     log(f'- sheet Constants: {len(B.NAMED_CONSTANTS)} named constants ({", ".join(n for n, *_r in B.NAMED_CONSTANTS)}) '
         f'and {len(B.POLICY_CONSTANTS)} policy assumptions by key {"OK" if named else "FAIL"}; MWyMkWh = '
         f'{cst.cell(B.CONST_ROW["MWyMkWh"], 2).value}')
-    heads = {r for r in range(1, wf.max_row + 1) if wf.cell(r, 2).font.u and wf.cell(r, 2).value}   # v3.9: headings
+    heads = {r for r in range(1, wf.max_row + 1) if wf.cell(r, 2).font.u and wf.cell(r, 2).value}   # v0.3.9: headings
     labs = {r for r in range(1, wf.max_row + 1) if wf.cell(r, 8).font.b and wf.cell(r, 8).border.bottom.style == 'thin'}
-    keep = B.BAND_ROWS | heads | labs                 # v3.9: sub-headings and label (header) rows are bold
+    keep = B.BAND_ROWS | heads | labs                 # v0.3.9: sub-headings and label (header) rows are bold
     bold = [f'{c}{r}' for r in range(1, wf.max_row + 1) for c in 'ABC' if wf[f'{c}{r}'].font.b and r not in keep
             and r > 1]
     fills = [f'{c}{r}' for r in range(1, wf.max_row + 1) for c in B.PARAM_COLS if r not in B.BAND_ROWS
              and wf[f'{c}{r}'].fill.fill_type]
     good = not bold and not fills
     ok &= good
-    log(f'- v2.6: variable, fuel and sector names (A:C) never bold; no fill colour in D:G outside the bands: '
+    log(f'- v0.2.6: variable, fuel and sector names (A:C) never bold; no fill colour in D:G outside the bands: '
         f'{"OK" if good else "FAIL " + str(bold[:5]) + str(fills[:5])}')
     sums = {t for _b, t, _z in B.SECTION_GROUPS if t}
-    sums |= {B.prow('rpn', pc) for pc, _l in B.PRICES} | B.SUMMARY2   # v5.2: the retail price incl. new policies of
-    # each price block and the second summary rows (change vs scenario 1) are bold since v4.1 (builder BOLD_ROWS,
+    sums |= {B.prow('rpn', pc) for pc, _l in B.PRICES} | B.SUMMARY2   # v0.5.2: the retail price incl. new policies of
+    # each price block and the second summary rows (change vs scenario 1) are bold since v0.4.1 (builder BOLD_ROWS,
     # filled only while building; SUMMARY2)
     bold = [f'{L(c)}{r}' for r in range(B.B_POL + 1, wf.max_row + 1) if r not in keep and r not in sums
             for c in range(1, wf.max_column + 1) if wf.cell(r, c).font.b]
@@ -3822,29 +3822,29 @@ def check_v24_layout(ws):
                   or wf.cell(r, 1).fill.fill_type)]
     good = not bold and not green
     ok &= good
-    log(f'- v2.7: bold only on the summary rows; variable names (column A) light green text, no fill: '
+    log(f'- v0.2.7: bold only on the summary rows; variable names (column A) light green text, no fill: '
         f'{"OK" if good else "FAIL " + str(bold[:5]) + str(green[:5])}')
     import zipfile
     z = zipfile.ZipFile(B.OUT)
     dr = [n for n in z.namelist() if n.startswith('xl/drawings/drawing')]
     btn = [m.decode() for n in dr for m in re.findall(rb'macro="\[0\]!(\w+)"', z.read(n))]
-    good = btn == [m for _l, m in B.MACRO_BUTTONS + B.MORE_BUTTONS]   # v6.7: core then other buttons
+    good = btn == [m for _l, m in B.MACRO_BUTTONS + B.MORE_BUTTONS]   # v0.6.7: core then other buttons
     ok &= good
-    log(f'- v2.7: macro buttons on ScenarioCompare: {", ".join(btn)} {"OK" if good else "FAIL"}')
+    log(f'- v0.2.7: macro buttons on ScenarioCompare: {", ".join(btn)} {"OK" if good else "FAIL"}')
     t2 = wf['A2'].value
     t0 = all(wf.cell(t, c).number_format == '#,##0' for _b, t, _z in B.SECTION_GROUPS if t
              for g, *_ in B.SCENARIOS for c in [B.group_cols(g)[1]] + B.group_cols(g)[2])
     bands = all(len(str(wf.cell(b, 1).value)) <= 30 for b, _t, _z in B.SECTION_GROUPS)
     good = t2 == 'Mitigation Module' and t0 and bands
     ok &= good
-    log(f'- v2.7: title "{t2}", section bands at most 30 characters, summary rows without decimals: '
+    log(f'- v0.2.7: title "{t2}", section bands at most 30 characters, summary rows without decimals: '
         f'{"OK" if good else "FAIL"}')
     from openpyxl.utils import column_index_from_string as ci_
     celllike = [n for n in wbf.defined_names
                 if (m_ := re.match(r'([A-Za-z]{1,3})(\d+)', n)) and ci_(m_.group(1).upper()) <= 16384]
     good = not celllike
     ok &= good
-    log(f'- v2.7: no defined name begins like a cell reference (Excel cannot parse formulas using them; v2.4-v2.6 '
+    log(f'- v0.2.7: no defined name begins like a cell reference (Excel cannot parse formulas using them; v0.2.4-v0.2.6 '
         f'had BCO2Key/Val/Year): {"OK" if good else "FAIL " + str(celllike)}')
     def reflike(t):                           # A1 (or starts like one) or R1C1 (r, c, R2, C3, R2C3)
         m_ = re.match(r'([A-Za-z]{1,3})(\d+)', t)
@@ -3852,8 +3852,8 @@ def check_v24_layout(ws):
     badp = sorted({(n, p) for n, (ps, _b) in B.LAMBDAS.items() for p in ps if reflike(p)})
     good = not badp
     ok &= good
-    log(f'- v2.7: no LAMBDA parameter reads as a cell reference (Excel removes every cell calling such a LAMBDA on '
-        f'repair; v2.3-v2.7 first build had y1, co2, c, tco2_kwh): {"OK" if good else "FAIL " + str(badp)}')
+    log(f'- v0.2.7: no LAMBDA parameter reads as a cell reference (Excel removes every cell calling such a LAMBDA on '
+        f'repair; v0.2.3-v0.2.7 first build had y1, co2, c, tco2_kwh): {"OK" if good else "FAIL " + str(badp)}')
     mp = B.tab(ws.parent, 'Mapping')                # recalculated values
     bad = [k for i, (k, row) in enumerate(B.MT_KEYS) if mp.cell(B.MAP_MT0 + i, 6).value != row]
     rows = {B.R_POL[k]: mt for k, *_r, mt in B.POL if mt}
@@ -3871,7 +3871,7 @@ def check_v24_layout(ws):
     ok &= good
     log(f'- sheet BaselineCO2: {n_b} values (sectors x years) read by the bco2 rows {"OK" if good else "FAIL"}')
     n_m = sum(isinstance(bco.cell(B.BCO2_RAW + 1 + i, 4 + k).value, (int, float)) for i in range(len(B.CH4S_STORE))
-              for k in range(B.NY))          # v6.2 (I47, ghg.k): stored scenario-1 methane rows
+              for k in range(B.NY))          # v0.6.2 (I47, ghg.k): stored scenario-1 methane rows
     good = n_m == len(B.CH4S_STORE) * B.NY
     ok &= good
     log(f'- sheet BaselineCO2: {n_m} methane values (dg, bm, ch4c, ch4sup x years) read by the ch4bs rows and ghg.k '
@@ -3886,7 +3886,7 @@ def check_planned_retirement():
     """Planned retirement switched on for gas and oil with data (PowerTech, PowerPaths edited as a user would):
     workbook = power_model_ref in scenarios 1 and 2; retirement = the data; capacity balance holds."""
     wb = openpyxl.load_workbook(B.OUT)
-    pt, pp = B.tab(wb, 'Inputs_ptech'), B.tab(wb, 'Inputs_ppath')   # v5.2: the data-step blocks (v4.7; tabs
+    pt, pp = B.tab(wb, 'Inputs_ptech'), B.tab(wb, 'Inputs_ppath')   # v0.5.2: the data-step blocks (v0.4.7; tabs
     hdr = {pt.cell(B.IPT_HDR, j).value: j for j in range(1, pt.max_column + 1)}   # PowerTech, PowerPaths before)
     years = [B.BASE_YEAR] + B.YEARS
     ycol = {pp.cell(B.IPP_HDR, j).value: j for j in range(B.IPP_Y0, pp.max_column + 1)}
@@ -3956,7 +3956,7 @@ def check_goalseek():
     path = os.path.join(tempfile.mkdtemp(), 'goalseek.xlsx')
     wb.save(path)
     lines = []
-    tol, max_it, fresh = G.settings(wb)                 # v5.2: Manual inputs E10:E12, as the macro
+    tol, max_it, fresh = G.settings(wb)                 # v0.5.2: Manual inputs E10:E12, as the macro
     p, worst, it = G.solve(path, [3], log=lines.append)
     for ln in lines:
         log(ln)
@@ -3971,7 +3971,7 @@ def check_goalseek():
     return ok
 
 
-# ------------------------------------------------------------------ v1.03: scenarios, stored results, macro
+# ------------------------------------------------------------------ v0.1.03: scenarios, stored results, macro
 STEM_KEYS = {RS(k_): v_ for k_, v_ in {'mit.co2.all.all.e': ('co2', 'all', 'all'), 'mit.rtx.all.all': ('rtx', 'all', 'all'),
              'mit.rsub.all.all': ('rsub', 'all', 'all'), 'mit.rnew.all.all': ('rnew', 'all', 'all'),
              'mit.rtot.all.all': ('rtot', 'all', 'all'), 'mit.cptraj': ('cptraj', '', ''),
@@ -4007,7 +4007,7 @@ def rel(a, b):
 
 
 def check_definitions():
-    ws = openpyxl.load_workbook(B.OUT, read_only=True)['ScenarioDefinition']     # v6.0: read-only (memory)
+    ws = openpyxl.load_workbook(B.OUT, read_only=True)['ScenarioDefinition']     # v0.6.0: read-only (memory)
     ok = True
     for n, nm, run, edits in B.DEFINITIONS:
         c = B.MT_COL0 + n - 1
@@ -4072,7 +4072,7 @@ def check_stored(ws_vals):
         log(f'- stored ID {sid} ({names[sid][:40]}...) vs independent Python recomputation ({len(STEM_KEYS)} '
             f'indicators: CO2, revenues, carbon and ETS price, covered CO2, cap, electricity prices, generation cost): max rel diff {d:.2e} '
             f'{"OK" if d < 1e-9 else "FAIL"}')
-    # v5.2: the build runs no ETS goal seek (user rule 2026-10-17, CAVEATS v4.9): definition 5 is stored at the
+    # v0.5.2: the build runs no ETS goal seek (user rule 2026-10-17, CAVEATS v0.4.9): definition 5 is stored at the
     # workbook's own price estimate (fast estimate ets.est); RunAllScenarios in Excel goal-seeks the cap (section 5b
     # tests the goal seek). The cap gap of the stored estimate is a memo (issue I30).
     cov, cap = st[5][RS('mit.co2.ets.all.all')], st[5][RS('mit.co2.cap.all.all')]
@@ -4088,7 +4088,7 @@ def check_stored(ws_vals):
 
 
 def check_compare():
-    """v7.0: the dashboard (Stored by default): slot IDs and short names follow ScenarioDefinition; the key table
+    """v0.7.0: the dashboard (Stored by default): slot IDs and short names follow ScenarioDefinition; the key table
     (level, difference, % difference vs the baseline) and the time series equal StoredOutputs by output code; a slot
     without stored results is blank in the table and #N/A in the chart data."""
     wbf = openpyxl.load_workbook(B.OUT)
@@ -4101,7 +4101,7 @@ def check_compare():
     ids = [wv.cell(B.SC_R_ID, c).value for c in cols]
     shorts = [wv.cell(B.SC_R_SHORT, c).value for c in cols]
     ok = wv.cell(B.SC_R_SRC, 3).value == 'Stored'
-    if not ok:                             # v7.2: every failing condition is logged (NORMS 3b.4)
+    if not ok:                             # v0.7.2: every failing condition is logged (NORMS 3b.4)
         log(f'- ScenarioCompare source switch: {wv.cell(B.SC_R_SRC, 3).value!r}, expected Stored FAIL')
     sdv = vals['ScenarioDefinition']
     exp_ids = [sdv.cell(B.MT_ROW_SCEN, B.MT_COL0 + k).value if sdv.cell(B.MT_ROW_NAME, B.MT_COL0 + k).value else ''
@@ -4177,7 +4177,7 @@ def check_macro():
     for row in sr.iter_rows(min_row=B.SR_FIRST, max_row=sr.max_row):
         for c in row:
             c.value = None
-    for num, _n, _r, e in B.DEFINITIONS:   # v6.0 (NORMS 5): no goal seek in the macro run: new-ETS definitions at the
+    for num, _n, _r, e in B.DEFINITIONS:   # v0.6.0 (NORMS 5): no goal seek in the macro run: new-ETS definitions at the
         if str(e.get('NewETS', '')).startswith('Yes'):                    # override (not compared, as before)
             wb['ScenarioDefinition'].cell(B.MT_NAMES['ETSPriceOverride'], B.MT_COL0 + num - 1).value = 'Yes'
     xlsx = variant(wb, 'expand')
@@ -4195,7 +4195,7 @@ def check_macro():
     ship, snames = stored_blocks(openpyxl.load_workbook(B.OUT, data_only=True)['StoredOutputs'])
     worst, where = 0.0, None
     ets_ids = {num for num, _n, _r, e in B.DEFINITIONS if str(e.get('NewETS', '')).startswith('Yes')
-               and not str(e.get('ETSPriceOverride', '')).startswith('Yes')}   # v5.2: goal-seeked by the macro
+               and not str(e.get('ETSPriceOverride', '')).startswith('Yes')}   # v0.5.2: goal-seeked by the macro
     for sid in ship:
         if sid in ets_ids:          # the build stores them at the fast estimate (no goal seek, user rule 2026-10-17)
             continue
@@ -4206,7 +4206,7 @@ def check_macro():
                     worst, where = d, (sid, stem, B.BASE_YEAR + j)
     good = sorted(got) == sorted(ship) and gnames == snames and worst < 1e-6
     by_id = {sid: max([rel(got.get(sid, {}).get(st_, [None] * B.NY)[j], ship[sid][st_][j]) for st_ in ship[sid]
-                       for j in range(B.NY)] or [0.0]) for sid in ship}       # v5.2: per stored ID
+                       for j in range(B.NY)] or [0.0]) for sid in ship}       # v0.5.2: per stored ID
     log(f'  - macro stored IDs {sorted(got)} with the same names; values vs the Python emulation: max rel diff '
         f'{worst:.2e}{" at " + str(where) if where else ""} (by ID: '
         f'{", ".join(f"{k} {v:.1e}" for k, v in sorted(by_id.items()))}; new-ETS IDs {sorted(ets_ids)} re-solved by the '
@@ -4228,7 +4228,7 @@ def check_macro():
 def run_macro_lo(wb, proc, tag):
     """Expanded variant of wb with the VBA module embedded, run proc in LibreOffice; (stdout line, values workbook)."""
     from vba_project import embed_vba
-    xlsx = auto_calc(variant(wb, 'expand'), tempfile.mkdtemp())   # v7.1: the shipped file is in manual calculation;
+    xlsx = auto_calc(variant(wb, 'expand'), tempfile.mkdtemp())   # v0.7.1: the shipped file is in manual calculation;
     xlsm = xlsx[:-5] + f'_{tag}.xlsm'                              # an openpyxl copy has no values (NORMS 3i.3)
     embed_vba(xlsx, xlsm, {'CPATScenarios': B.vba_module_source()})
     out = xlsx[:-5] + f'_{tag}_ran.xlsx'
@@ -4239,7 +4239,7 @@ def run_macro_lo(wb, proc, tag):
 
 
 def check_first_run():
-    """v1.04: the first-run test macro CheckBatch, run in LibreOffice on the shipped workbook (stored results kept):
+    """v0.1.04: the first-run test macro CheckBatch, run in LibreOffice on the shipped workbook (stored results kept):
     Result PASS and the largest relative difference below 1e-6; and on a copy where a row code is broken: FAIL
     before any run."""
     ok = True
@@ -4259,7 +4259,7 @@ def check_first_run():
     result = dict(rows).get('Result')
     worst = float(dict(rows).get('Largest relative difference (baseline and batch)', 'inf'))
     lookups = sum(1 for a, b in rows if str(b).startswith('OK ('))
-    good = result == 'PASS' and worst < 1e-6 and lookups == 15          # v5.2: + the three goal-seek names
+    good = result == 'PASS' and worst < 1e-6 and lookups == 15          # v0.5.2: + the three goal-seek names
     ok &= good
     log(f'- first-run test: Result {result}, {lookups} lookups found, largest relative difference {worst:.1e} '
         f'{"OK" if good else "FAIL"}')
@@ -4282,14 +4282,14 @@ FAILED = []
 
 
 def named(name, value):
-    """v7.1: the result of a check section; a failing section is named in the report (no silent FAIL, NORMS 3b.4)."""
+    """v0.7.1: the result of a check section; a failing section is named in the report (no silent FAIL, NORMS 3b.4)."""
     if not value:
         FAILED.append(name)
     return value
 
 
 def main():
-    partial = os.environ.get('CHECK_PARTIAL') == '1'   # v6.2: time-efficient run (sections 0-4b, 7, 8b, 14; the
+    partial = os.environ.get('CHECK_PARTIAL') == '1'   # v0.6.2: time-efficient run (sections 0-4b, 7, 8b, 14; the
     log(f'# Check report - {B.NAME} v{B.VERSION}'      # regression is the quick check's; variant B and 5-13 skipped)
         + (' (partial: CHECK_PARTIAL=1, sections 0-4b, 7, 8b, 14; LAMBDA-library variant B skipped)' if partial else ''))
     results = []
@@ -4311,10 +4311,10 @@ def main():
         if ws_c is not None:
             results.append(named('compare', compare(ws_c, g, exp, f'B. optional LAMBDA library (sheet Lambdas) copied over every '
                                                  f'calculated row, LAMBDAs expanded, scenario {g}')))
-        results.append(named('check_transport', check_transport(ws_a, g, exp, f'A. as shipped, scenario {g}')))   # v3.5: section 5b
+        results.append(named('check_transport', check_transport(ws_a, g, exp, f'A. as shipped, scenario {g}')))   # v0.3.5: section 5b
         if ws_c is not None:
             results.append(named('check_transport', check_transport(ws_c, g, exp, f'B. LAMBDA library over every row, scenario {g}')))
-    del ws_c                               # v5.2: free the variant-B workbook (memory: the run was OOM-killed)
+    del ws_c                               # v0.5.2: free the variant-B workbook (memory: the run was OOM-killed)
     import gc
     gc.collect()
     log('\n## 4b. Power method = legacy (Python reference with the legacy inputs vs cached legacy rows)')
@@ -4322,9 +4322,9 @@ def main():
     if partial:
         log('\n## 7. Labels and codes')
         results.append(named('check_codes', check_codes(openpyxl.load_workbook(B.OUT)['Mitigation'], ws_a)))
-        log('\n## 8b. Layout and constants (v2.4): years in row 1, labelled D:G, nothing typed')
+        log('\n## 8b. Layout and constants (v0.2.4): years in row 1, labelled D:G, nothing typed')
         results.append(named('check_v24_layout', check_v24_layout(ws_a)))
-        log('\n## 14. Consistency (v1.09, v2.4): check rows, identities, references, versions, stale texts')
+        log('\n## 14. Consistency (v0.1.09, v0.2.4): check rows, identities, references, versions, stale texts')
         results.append(named('check_consistency', check_consistency(ws_a)))
         log(f'\n**Overall (partial): {"PASS" if all(results) else "FAIL"}**')
         with open(os.path.join(HERE, 'check_report.md'), 'w', encoding='utf-8') as f:
@@ -4332,14 +4332,14 @@ def main():
         return
     log('\n## 5. Scenario tests (copied MTInputs column + Mitigation group)')
     results.append(named('check_scenarios', check_scenarios()))
-    log('\n## 5d. Power features switched on (v5.4, power plan P1, P2, P4)')
+    log('\n## 5d. Power features switched on (v0.5.4, power plan P1, P2, P4)')
     results.append(named('check_power_features', check_power_features()))
-    log('\n## 5a. Residential leakage to biomass switched on (v5.1, global setting BiomassLeakage)')
+    log('\n## 5a. Residential leakage to biomass switched on (v0.5.1, global setting BiomassLeakage)')
     results.append(named('check_leakage', check_leakage()))
     results.append(named('check_exempt_scenario', check_exempt_scenario()))
     log('\n## 5b. ETS goal seek (ets_goalseek.py): skipped (user rule 2026-10-19, NORMS 5: the user tests the '
         'goal seek separately, issue I30)')
-    log('\n## 5c. Existing carbon pricing with non-zero test data (v1.09)')
+    log('\n## 5c. Existing carbon pricing with non-zero test data (v0.1.09)')
     results.append(named('check_ecp', check_ecp()))
     log(f'\n## 6. Regression vs v{PREV} (shared output codes, 2022-2041: no change)')
     results.append(named('check_regression', check_regression(ws_a)))
@@ -4350,7 +4350,7 @@ def main():
     results.append(named('check_codes', check_codes(openpyxl.load_workbook(B.OUT)['Mitigation'], ws_a)))
     log('\n## 8. Row outline')
     results.append(named('check_outline', check_outline(openpyxl.load_workbook(B.OUT)['Mitigation'])))
-    log('\n## 8b. Layout and constants (v2.4): years in row 1, labelled D:G, nothing typed')
+    log('\n## 8b. Layout and constants (v0.2.4): years in row 1, labelled D:G, nothing typed')
     results.append(named('check_v24_layout', check_v24_layout(ws_a)))
     log('\n## 9. MTInputs')
     results.append(named('check_mtinputs', check_mtinputs()))
@@ -4360,22 +4360,22 @@ def main():
     results.append(named('check_sanity', check_sanity(ws_a)))
     log('\n## 11b. Power sector: properties and results')
     results.append(named('check_power_results', check_power_results(ws_a)))
-    log('\n## 11c. Planned retirement switched on (v1.07)')
+    log('\n## 11c. Planned retirement switched on (v0.1.07)')
     results.append(named('check_planned_retirement', check_planned_retirement()))
-    log('\n## 11d. Electricity demand memo lines (v1.07)')
+    log('\n## 11d. Electricity demand memo lines (v0.1.07)')
     results.append(named('check_memo', check_memo(ws_a)))
     log('\n## 12. Scenario definitions, VBA module, stored results, comparison, macro run')
     import gc
-    gc.collect()                           # v6.0: free the earlier sections' workbooks before the large loads (memory)
+    gc.collect()                           # v0.6.0: free the earlier sections' workbooks before the large loads (memory)
     results.append(named('check_definitions', check_definitions()))
     gc.collect()
     results.append(named('check_vba', check_vba()))
     results.append(named('check_stored', check_stored(recalc_wb(variant(openpyxl.load_workbook(B.OUT), 'expand')))))
     results.append(named('check_compare', check_compare()))
     results.append(named('check_macro', check_macro()))
-    log('\n## 13. First-run test macro CheckBatchRun (v1.04)')
+    log('\n## 13. First-run test macro CheckBatchRun (v0.1.04)')
     results.append(named('check_first_run', check_first_run()))
-    log('\n## 14. Consistency (v1.09, v2.4): check rows, identities, references, versions, stale texts')
+    log('\n## 14. Consistency (v0.1.09, v0.2.4): check rows, identities, references, versions, stale texts')
     results.append(named('check_consistency', check_consistency(ws_a)))
     if FAILED:
         log(f'\nSections that failed: {", ".join(FAILED)}')

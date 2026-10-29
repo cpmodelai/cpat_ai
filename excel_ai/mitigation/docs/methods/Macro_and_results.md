@@ -10,18 +10,18 @@ The model estimates how spending the revenue gained by the policies changes GDP.
 
 - Revenue use, % of revenue (ScenarioDefinition): labour tax cuts 30, corporate tax cuts 0, public investment 50, current spending 0, targeted transfers 20.
 - Multiplier source (ScenarioDefinition row 226): Global, income group, Estimated or Manual; Egypt: income group (LMIC). Range Base/Low/High (row 263): Base. Start year for GDP calculations (row 236, GDPStartYear): 2025. Endogenous GDP effects: Yes.
-- Fiscal multipliers by group, instrument and lag 0-19 (sheet Multipliers, from the legacy sheet: MFMod medians). Low and high are the median minus and plus one standard deviation. Lags 12-19 hold the lag-11 value, as in legacy. v4.15 (LD56): "Estimated" takes the country's table of the legacy Multipliers tab (rows 210-1620, exact match of the country code; the income group where the country is missing, and for CIT and WAGE, whose legacy tables are empty or wrong: bug L76); "Manual" takes sheet Manual inputs J261:U268 (legacy addresses, lags 0-11, blank = 0). Low and high add -/+ the income group's standard deviation to these too, as legacy (issue I44). Any other source text means the income group.
+- Fiscal multipliers by group, instrument and lag 0-19 (sheet Multipliers, from the legacy sheet: MFMod medians). Low and high are the median minus and plus one standard deviation. Lags 12-19 hold the lag-11 value, as in legacy. v0.4.15 (LD56): "Estimated" takes the country's table of the legacy Multipliers tab (rows 210-1620, exact match of the country code; the income group where the country is missing, and for CIT and WAGE, whose legacy tables are empty or wrong: bug L76); "Manual" takes sheet Manual inputs J261:U268 (legacy addresses, lags 0-11, blank = 0). Low and high add -/+ the income group's standard deviation to these too, as legacy (issue I44). Any other source text means the income group.
 - Baseline real GDP (sheet WEO): 547 USD bn in 2022.
 
 ### 2. Method
 
-1. **Fiscal space** (v4.15, LD55): total revenue of the scenario (existing taxes net of subsidies plus new policies, power included: rnet + rnew, v4.16 + subsidy reform rsr and producer subsidies rpsu, as legacy's rev.new.usd = row 8026, the total of all instruments) minus that of scenario 1, as a share of GDP. Lower fuel use also lowers the cost of existing subsidies (base erosion), and that counts. Scenario 1 has no GDP effect.
-2. **Impulse** (v4.15, as legacy row 14356): the change of that revenue gain in USD over this year's GDP, 0 before GDPStartYear (issues I41, I42). Each impulse starts a cohort that acts for 20 years (lags 0-19), lag 0 in the impulse year (legacy applies lag 1 there: bug L68).
+1. **Fiscal space** (v0.4.15, LD55): total revenue of the scenario (existing taxes net of subsidies plus new policies, power included: rnet + rnew, v0.4.16 + subsidy reform rsr and producer subsidies rpsu, as legacy's rev.new.usd = row 8026, the total of all instruments) minus that of scenario 1, as a share of GDP. Lower fuel use also lowers the cost of existing subsidies (base erosion), and that counts. Scenario 1 has no GDP effect.
+2. **Impulse** (v0.4.15, as legacy row 14356): the change of that revenue gain in USD over this year's GDP, 0 before GDPStartYear (issues I41, I42). Each impulse starts a cohort that acts for 20 years (lags 0-19), lag 0 in the impulse year (legacy applies lag 1 there: bug L68).
 3. **Effect of each use**: its share x the sum of impulse x multiplier over the lags. The revenue itself counts as an energy-tax increase (instrument `exc`, share -1). The uses map to labour tax (`pit`), corporate tax (`cit`), public investment (`capt`), current spending (`gnfs`) and transfers (`trns`).
 4. **GDP effect**: the sum over uses (0 if endogenous effects are off): the change of the GDP level against the baseline, as a share of GDP.
 5. **Feedback**: the GDP level is 1 + last year's GDP effect, and growth follows from the baseline growth and the change in that level. The one-year lag avoids a circular reference (revenue depends on fuel use, which depends on growth). Legacy instead adds the effect to the growth rate every year, so a steady effect compounds (L24).
 
-### 2b. Timing rule (stated v6.2, issue I72; user 2026-10-20)
+### 2b. Timing rule (stated v0.6.2, issue I72; user 2026-10-20)
 
 **Revenue of year t changes GDP only from year t+1.** `gdp.lvl`(t+1) = 1 + `gdp.eff`(t), and GDP growth after the feedback reads that level (as legacy row 8776, which reads the previous column). Three consequences, kept as rules:
 
@@ -38,24 +38,24 @@ The quick check tests the reads of later years; a change that breaks the lag mus
 | Fiscal space (share of GDP) | 0.74% | 0.75% | 0.65% | 0.57% |
 | GDP effect (level) | 0.00% | -0.02% | 0.17% | 0.39% |
 
-Fiscal space jumps to about 0.75% of GDP when the policies start (v4.15: total revenue; v4.14, new-policy revenue only: 0.55% in 2030). The revenue first lowers GDP: the excise multiplier peaks two years after the impulse. From the early 2030s public investment and transfers outweigh it, and GDP ends about 0.4% above the baseline. The effect raises fuel use a little through the income elasticities.
+Fiscal space jumps to about 0.75% of GDP when the policies start (v0.4.15: total revenue; v0.4.14, new-policy revenue only: 0.55% in 2030). The revenue first lowers GDP: the excise multiplier peaks two years after the impulse. From the early 2030s public investment and transfers outweigh it, and GDP ends about 0.4% above the baseline. The effect raises fuel use a little through the income elasticities.
 
 ### 4. Choices and differences with legacy (sheet LegacyDiff)
 
 - **L24 fixed**: the effect raises the GDP level, not the growth rate every year.
-- **Revenue** (v4.15): total revenue, as legacy (the v3.1 reading "new-policy revenue only" misread legacy's code rev.new.usd, which is the total). v6.2: the methane fee revenue is included as legacy, on the stored scenario-1 activity of downstream gas and biomass use (`ch4.revf`, issue I47: no vulnerability to circular references; none for Egypt). v4.16: fis.rev adds its parts (rnet + rnew + rsr + rpsu); the v4.15 form rtot - rmf still referenced the methane fee and LibreOffice reported a circular reference (Err:522) on a full recalculation (found by the paste test's batch emulation).
-- **Impulse and start year** (v4.15): as legacy (I41, I42). Not replicated: legacy sets the revenue-use shares to 0 before CPIntro, so earlier impulses count only as an excise drag (I43, tiny for Egypt).
+- **Revenue** (v0.4.15): total revenue, as legacy (the v0.3.1 reading "new-policy revenue only" misread legacy's code rev.new.usd, which is the total). v0.6.2: the methane fee revenue is included as legacy, on the stored scenario-1 activity of downstream gas and biomass use (`ch4.revf`, issue I47: no vulnerability to circular references; none for Egypt). v0.4.16: fis.rev adds its parts (rnet + rnew + rsr + rpsu); the v0.4.15 form rtot - rmf still referenced the methane fee and LibreOffice reported a circular reference (Err:522) on a full recalculation (found by the paste test's batch emulation).
+- **Impulse and start year** (v0.4.15): as legacy (I41, I42). Not replicated: legacy sets the revenue-use shares to 0 before CPIntro, so earlier impulses count only as an excise drag (I43, tiny for Egypt).
 - **Legacy bugs fixed**: L68 (lag 1 in the impulse year), L69 (first cohort's excise drag lost), L76 (Estimated multipliers).
 - **Scenario-1 lookups stop at the current year**, which avoids a circular reference with the GDP feedback. Values are unchanged.
 - **Legacy benchmark**: the NoPropData file strips the baseline GDP-effect rows to 0, but the policy rows 14584-14607 hold the cached values of its carbon-tax run (GDP effect 2030 -0.07%, 2035 +0.34%, 2040 +1.22%; its carbon price rises to about 175 $/t in 2041, so it is not the prototype scenario). The check compares the workbook with an independent Python recomputation that iterates the whole model on the growth path until it converges (growth depends only on earlier years).
 
-### 5. Memo rows (v5.7; legacy F4 rows 16163-16201)
+### 5. Memo rows (v0.5.7; legacy F4 rows 16163-16201)
 
 - gdpg.<use>: contribution of each revenue use to real GDP growth: (1 + baseline growth) x (fis.eff(t-1) - fis.eff(t-2))
   / gdp.lvl(t-1) when GDPEndogenous = Yes; gdpg.all, from gdp.eff, equals gdp.pos.pct - gdp.base (the channels sum to
   it). Legacy rows 16166-16175 add the effects to growth every year (L24), so its channel values are not comparable.
 - gdpy: year of the reform, N = year - GDPStartYear + 1; the growth effect of reform year N (legacy rows 16183-16194)
-  is gdpg.all in the column where gdpy = N. (v6.0: a row shifted to later columns read forward through the GDP chain
+  is gdpg.all in the column where gdpy = N. (v0.6.0: a row shifted to later columns read forward through the GDP chain
   and made a circular reference.)
 - gdp.chg.usd: real GDP after the feedback - baseline real GDP (legacy rows 16199-16201).
 
@@ -80,7 +80,7 @@ Row 14 is real GDP growth after the GDP feedback (`gdp.pos.pct`), the summary ro
 
 **Not built: nominal GDP (WEO `NGDP`, `NGDPD`).** The legacy file holds no nominal series: its rows 470-472 are empty in the NoPropData file. Nominal GDP waits until WEO data are added to the data step (TODO). This is a decision taken during the run, to confirm.
 
-### 2. 12d Fiscal reports (v3.13; legacy section 16 info rows, F9)
+### 2. 12d Fiscal reports (v0.3.13; legacy section 16 info rows, F9)
 
 **Revenue by fuel, net of subsidies (USD m real).** Each fuel covers existing taxes, subsidies and new-policy revenue:
 - `rfu.<fuel>`: `rtx + rsub + rnew` of the fuel over all subsectors. The formula is `SUMPRODUCT(SUMIFS(..., SecVar, {"rtx","rsub","rnew"}, SecFuel, fuel))`.
@@ -88,7 +88,7 @@ Row 14 is real GDP growth after the GDP feedback (`gdp.pos.pct`), the summary ro
 - `rfg.<type>`: fuels burnt in power generation (coal, gas, oil, biomass): `prtx + prxc + prsub + prnew` of the type (section 3 M; Q28).
 - `rfu.chk`: `ABS(sum of the rows - rnet.all - rnew.all)`. It is 0, because the rows split the section 12 totals exactly. The methane fee (`rmf`) is not a fuel revenue.
 
-**12e. Total revenue by policy (v4.15, LD37; legacy rows 8016-8027, USD m real).** The legacy split of total revenue by instrument:
+**12e. Total revenue by policy (v0.4.15, LD37; legacy rows 8016-8027, USD m real).** The legacy split of total revenue by instrument:
 - `rpol.ct` new carbon tax = `SUMPRODUCT(covct, ctr)` over the coverage sectors (covered CO2 x the sector's carbon tax rate; power included); `rpol.ets` auctioned ETS = `SUMPRODUCT(co2.sec, etr) x ets.rf`; of which power: `rpol.ctp`, `rpol.etp`.
 - `rpol.exc` new excise (fuel price reform) = the per-pair rows `rex` (fuel use x PJ/ktoe x `ntx`) + power `prnew` - `ctp` - `etp`.
 - `rpol.vat` VAT = the per-pair rows `rvt` (fuel use x PJ/ktoe x (vat + (xcpd + nce) x VAT rate)) + electricity VAT (`rvat`, `rnvat`).
@@ -114,10 +114,10 @@ LiveOutputs rows: `rpct.all.tot`, `.chg`, `.sub`, `.be`; `rbe.all.all`.
 **Not built (TODO; decisions taken during the run, to confirm):**
 - **Producer subsidies (Q26).** There are no data for Egypt, and NORMS 3c bars zero placeholders.
 - **Revenue lost to price controls (Q29).** Legacy holds only pass-through coefficients (rows 746-760, 2216-2220), not a revenue row.
-- **Fuel expenditures.** These are the spending rows of the section 2 memo (`pav.sp`, v3.10), so they are not repeated here.
+- **Fuel expenditures.** These are the spending rows of the section 2 memo (`pav.sp`, v0.3.10), so they are not repeated here.
 - **Vehicle revenues of the road engineer model in 12b (Q27).** Planned for later.
 
-### 3. 11b Energy consumption: change against scenario 1 (v3.14; legacy F7)
+### 3. 11b Energy consumption: change against scenario 1 (v0.3.14; legacy F7)
 
 `echg` rows give the change against scenario 1 in the same year, in ktoe. The levels come from section 11:
 - by fuel, from the fuel rows (power generation fuels included);
@@ -131,18 +131,18 @@ The change is read through helper row 10 (`INDEX(scenario 1 .. this column, posi
 
 Not as rows: the energy-balance matrix (legacy G; Q30). It is a rearrangement of section 11 and goes to an output sheet later.
 
-### 4. 13b CO2 change, grid emission intensity, Kaya identity (v3.14; legacy F13, row 6582, F14)
+### 4. 13b CO2 change, grid emission intensity, Kaya identity (v0.3.14; legacy F13, row 6582, F14)
 
 **CO2 change.** `cchg` gives the change of CO2 from fuel combustion against scenario 1, by fuel and by sector group, power included (MtCO2).
 
 **Grid intensity.** `co2.grid` = CO2 of power generation x Million / (total generation in MWy x `HoursYr`), in tCO2 per MWh. Egypt: 0.41 in 2022 (legacy 0.38) and 0.33 in 2030.
 
-**Kaya identity (legacy rows 18877-18893), as legacy (v3.18):**
+**Kaya identity (legacy rows 18877-18893), as legacy (v0.3.18):**
 - **GDP:** baseline real GDP (the header row), in every scenario.
 - **CO2:** total CO2 including industrial processes (`ghg.g.co2`).
 - **Energy:** total primary energy supply, `kaya.tpes` (legacy row 18880). It is the fuel use of section 11 (fuels burnt in power plants included, biomass included), plus primary electricity: the energy input `pe` of nuclear, wind, solar, hydro and other renewables in section 3. The input is generation divided by the type's efficiency (physical energy content method: nuclear at 38%, renewables at about 1). Egypt 2022: 89,471 ktoe = legacy 89,471. Energy intensity 163.57 ktoe per USD bn = legacy.
 
-  v3.14-v3.17 used fuel use only (2.6% lower in 2022). This was corrected at the user's request (2026-10-16). Legacy's broken "simplified Kaya" row (18931, -97%) is a different row and is not used.
+  v0.3.14-v0.3.17 used fuel use only (2.6% lower in 2022). This was corrected at the user's request (2026-10-16). Legacy's broken "simplified Kaya" row (18931, -97%) is a different row and is not used.
 
 `kaya.*` levels:
 
@@ -166,7 +166,7 @@ Population is the prototype's UN series: 111.7 mn in 2022, against legacy's 103.
 
 LAMBDA `SAFEDIV` (amount / activity, 0 when the activity is 0) is used in the LAMBDA column.
 
-### 5. 14b GHG change and energy GHGs including forcing (v3.14; legacy F12)
+### 5. 14b GHG change and energy GHGs including forcing (v0.3.14; legacy F12)
 
 **GHG change.** `gchg` gives the change against scenario 1 by inventory category (energy, industrial processes, agriculture, LULUCF, waste, other) and by gas (Mt CO2e).
 
@@ -176,7 +176,7 @@ LAMBDA `SAFEDIV` (amount / activity, 0 when the activity is 0) is used in the LA
 
 **Later:** the NDC comparison (Q33; needs the NDC table).
 
-### 6. Section 17 Carbon pricing (v3.15; legacy F3, F5d-e)
+### 6. Section 17 Carbon pricing (v0.3.15; legacy F3, F5d-e)
 
 **Implicit carbon price by fuel (`cpi.<fuel>`, USD per tCO2).** Revenue net of subsidies of the fuel, divided by its CO2:
 - revenue: existing taxes + subsidies + new policies, final use (`rfu`) and power generation (`rfg`);
@@ -200,7 +200,7 @@ The `cpi`, `ecr`, `cpeff` and coverage-share rows call `SAFEDIV` / `SCALEBY` in 
 
 LiveOutputs: `cpi.all.all`, `ecr.all.all`, `cpeff.all.all`, `cov.all.all.all`.
 
-### 7. 16b External balance (v3.16; legacy F11, data rows 741-743)
+### 7. 16b External balance (v0.3.16; legacy F11, data rows 741-743)
 
 Section 16 is renamed "GDP effects and external balance" (Q39).
 
@@ -229,7 +229,7 @@ The current-account level (WEO `BCA`, Q38) waits for WEO data in the data step.
 
 LiveOutputs: `xnim.all.all`, `xtbp.all.all`, `xtb.pct.all.all`.
 
-### 8. Section 18 Welfare and externalities, climate part (v3.17; legacy F10, rows 17392-17742)
+### 8. Section 18 Welfare and externalities, climate part (v0.3.17; legacy F10, rows 17392-17742)
 
 **Settings (rows 32-42; legacy rows 17671-17677).** Defaults as legacy:
 
@@ -249,7 +249,7 @@ LiveOutputs: `xnim.all.all`, `xtbp.all.all`, `xtb.pct.all.all`.
 | `scc.tgt` | SCCTgt x (1 + SCCGr)^(year - SCCTgtYr) | 54.8 |
 | `scc.rkn` | Ricke national value (new data sheet `SCC`, key `egy.2.1p5`) x (1 + SCCGr)^(year - base year) | 6.87 |
 | `scc.rkg` | Ricke global value (`wld.2.1p5`), same growth | 462 |
-| `scc.man` | manual path: 'Manual inputs' row 237 (v5.2, L103 fixed; legacy reads the path typed on Mitigation row 17683) | 50.0 in 2025, +4% a year |
+| `scc.man` | manual path: 'Manual inputs' row 237 (v0.5.2, L103 fixed; legacy reads the path typed on Mitigation row 17683) | 50.0 in 2025, +4% a year |
 | `scc.epa` | US EPA value, same growth | 62 |
 | `scc.nat`, `scc.glo` | the selected options (CHOOSE) | |
 
@@ -318,7 +318,7 @@ The model calculates two scenarios at a time: the baseline and one live policy s
 
 Paths continue after their target year as set in the model: the carbon price follows its ScenarioDefinition switch, and feebates continue linearly.
 
-### 2b. Main scenario choice and regulations as shadow prices (v4.16, LD9)
+### 2b. Main scenario choice and regulations as shadow prices (v0.4.16, LD9)
 
 ScenarioDefinition row 13 (`ScenarioSelected`, " - Carbon tax" in every shipped scenario) picks a row of the legacy scenario table (legacy Mitigation rows 222-262, columns N:AC; sheet Mapping, block "Main scenarios"): whether the scenario prices carbon explicitly (legacy row 259), its efficiency adjustment (ScenarioDefinition rows 247-251) and the sectors its shadow price covers (rows 240-257).
 

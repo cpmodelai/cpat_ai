@@ -1,4 +1,4 @@
-# Group C: cell-level fix plans for legacy bugs L68-L73, L75-L77, L85, L86 (register v5.4); legacy file CPAT 1.0pre_456_NoPropData
+# Group C: cell-level fix plans for legacy bugs L68-L73, L75-L77, L85, L86 (register v0.5.4); legacy file CPAT 1.0pre_456_NoPropData
 import json,sys,os,re
 D=os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0,D); sys.path.insert(0,os.path.dirname(D))
 from qC import fm            # Mitigation, rows 1-17400 (rows > 15000 read from l456.xlsx)
@@ -39,7 +39,7 @@ bug('L68','Medium','GDP effects: the multiplier of lag 1 acts in the impulse yea
  'The cohort blocks (rows 8069-8244) read the multiplier at the lag in row 8070 (MATCH(L8070,$K8057:$AE8057,0); row 8057 = lag 0, 1, 2, ... of Multipliers D:G). L8070 = K8070+1 = 1, so each cohort gets the lag-1 multiplier in its own (impulse) year, although lag 0 (Multipliers column D, 0 in every table) is the impulse year; the GDP effect runs one year early.',
  [fix('L8070',sub('L8070',('=K8070+1','=0')),'single cell (M8070:AE8070 = previous + 1 and the later cohorts\' lag rows, e.g. M8081 = L8070, follow)',pol('L8070'))],
  'Row 8057 (lags 0-20) = Multipliers row 61; lag 0 = Multipliers column D (0 in the global, income-group and country tables, e.g. D92:D99).',
- 'The GDP effect of every impulse comes one year later (lag 0 in the impulse year). prototype v4.15 (lag 0 in the impulse year, multiplier 0).',
+ 'The GDP effect of every impulse comes one year later (lag 0 in the impulse year). prototype v0.4.15 (lag 0 in the impulse year, multiplier 0).',
  note='Rows 8280-8287 / 14597-14604 (which turn the cohort sums 8267-8274 into the GDP-effect rows) are IFNA(0) in this NoPropData file (LD58), so the result can only be checked once they are restored. L69 (row 8071) reads the same lag row.')
 
 # ---------- L69
@@ -58,7 +58,7 @@ bug('L70','Low','Revenue: industry gas excise uses the coal rate and coal use','
  [fix('L7761',sub('L7761',('L2512','L2581')),'L7761:AE7761 (M:AE now read row 6436, coal)',
       spell('L14078',('L8843','L8912'),fill='L14078:AE14078 (rate rows +6,331, use rows +6,317; a pasted copy would point at row 8898)'))],
  'Row 2581 = "nga ind - in which: new excise tax" ($/GJ, code mit.ntx.ind.nga); row 6442 = natural gas, industry (ktoe); policy 8912 and 12759.',
- 'Gas industry excise revenue right wherever coal and gas excises (or uses) differ; none for Egypt (no new excise). prototype: rex per subsector and fuel (v4.15).')
+ 'Gas industry excise revenue right wherever coal and gas excises (or uses) differ; none for Egypt (no new excise). prototype: rex per subsector and fuel (v0.4.15).')
 
 # ---------- L71
 L71=[]
@@ -130,7 +130,7 @@ for c in 'FGHIJKLMNO':
 bug('L76','Low','Multipliers: empty CIT table, WAGE on the GNFS table, approximate country match, default to Estimated','Multipliers rows 19-21, 40, 45 (tables 412-610, 1018-1216, 1624-1822)',
  'With MultipliersSource = Estimated (D21 = 6), CIT lag 0 reads the labour-tax table (D$412:D$610) and lags 1+ the empty rows 1624-1822 (so 0); WAGE (row 45) reads the public-consumption (GNFS) table 1018-1216; D19 = MATCH(C19,C210:C408) is approximate, so a code missing from the sorted list takes its neighbour; D20 maps any unknown text to 4 (Estimated).',
  L76,'Income-group tables: CIT rows 94 (global), 105 (HIC), 117 (UMIC), 128 (LMIC), 139 (LIC); WAGE rows 99, 110, 122, 133, 144; E21 = 1 (global) or the income group 2-5, as used by the "Plus adjustment" rows 50-57.',
- 'Estimated multipliers: CIT and WAGE take the income-group values, a country missing from the estimated tables falls back to its income group, unknown text means the income group. None for Egypt by default (MultipliersSource = Income-grp*). prototype v4.15.',
+ 'Estimated multipliers: CIT and WAGE take the income-group values, a country missing from the estimated tables falls back to its income group, unknown text means the income group. None for Egypt by default (MultipliersSource = Income-grp*). prototype v0.4.15.',
  note='Seen while checking, not in the register: TRNS row 44 column D reads D$1218:D$1418 (title rows; E:O read $1220:$1418), so lag 0 of TRNS is off by two rows (lag 0 is 0 in every table, so no value effect).')
 
 # ---------- L77
@@ -142,7 +142,7 @@ L77.append(fix('B16387',sub('B16387',('("&FirstYearCalculations&"=100)','(baseli
 bug('L77','Medium','Average prices: index rows point at the wrong rows, gas test on the policy total','Mitigation rows 16317, 16387, 16398-16405',
  'Rows 16398-16405 ("indexed vs. FirstYearCalculations", labels electricity, coal, gas, oil, gasoline, diesel, LPG, kerosene) read rows 16331-16338 (electricity industry, electricity residential, coal industry, gas industry, coal residential, ...). E16317 ("natural gas absent in baseline") tests L16313, the policy gas total, where E16316 tests the baseline coal total. B16387 labels rows 16389-16396 "(2022=100)" although they are 100 + % change against the baseline.',
  L77,'Rows 16345-16352: scenario average price by fuel (electricity, coal, gas, oil, gasoline, diesel, LPG, kerosene), weighted by consumption; L16309 = baseline gas in the three sectors.',
- 'The reported price indices are of the right fuels; the gas-absent switch follows the baseline. prototype v4.15 (pav.leg, pav.lidx per fuel against scenario 1).',
+ 'The reported price indices are of the right fuels; the gas-absent switch follows the baseline. prototype v0.4.15 (pav.leg, pav.lidx per fuel against scenario 1).',
  note='C16395 and C16404 are a hard-coded 2 (the other rows =$E$16792); labels only.')
 
 # ---------- L85

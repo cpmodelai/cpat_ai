@@ -3,9 +3,9 @@
 Status: **plan, not built; blocked until the prototype rebuild in progress is finished** (queue: `../TODO_Codes.md`). The user's decisions of 2026-10-21 are in. The work goes in small steps (R0-R9). Each step is built and checked on its own and can be undone on its own.
 
 References:
-- **Protocol:** sheet `Protocol` of `CPAT_CodesMap_v7_1.xlsx`, rules C0-C11. The workbook also holds the evidence: sheets `Crosswalk`, `LiveOutputs`, `MVPOnly` and `Checks`.
-- **Builder:** `make_codes_map_v7_1.py`.
-- **Crosswalk data:** `data/mvp_legacy_extracts/codes_crosswalk_v7_1.csv` (233 rows).
+- **Protocol:** sheet `Protocol` of `CPAT_CodesMap_v0_7_1.xlsx`, rules C0-C11. The workbook also holds the evidence: sheets `Crosswalk`, `LiveOutputs`, `MVPOnly` and `Checks`.
+- **Builder:** `make_codes_map_v0_7_1.py`.
+- **Crosswalk data:** `data/mvp_legacy_extracts/codes_crosswalk_v0_7_1.csv` (233 rows).
 
 ## 1. Decisions (user, 2026-10-21)
 
@@ -41,7 +41,7 @@ The code cell formula (`code_formula`) is unchanged. It still builds the code fr
 
 These variables keep their names. A `tot` total row must stay out of their fuel matches (it does: they match a single fuel). The step check below catches any other text match.
 
-**The map file.** `data/mvp_legacy_extracts/code_renames_v7_2.csv` has these columns:
+**The map file.** `data/mvp_legacy_extracts/code_renames_v0_7_2.csv` has these columns:
 - `step`;
 - `kind`: variable, member, row (one row's sector or fuel token, for totals) or codeend (a variable's code end);
 - `old`, `new`;
@@ -57,12 +57,12 @@ The build, the checks and the codes map all read this one file. A step is undone
 |---|---|---|
 | 1 | Set the step's map rows to applied | - |
 | 2 | Build (`build.py`) | 2-3 min |
-| 3 | `check_codes_v7_2.py`, a new structural check with no recalculation (detail below) | about 1 min |
+| 3 | `check_codes_v0_7_2.py`, a new structural check with no recalculation (detail below) | about 1 min |
 | 4 | Quick check with a rename-aware regression: old codes are mapped before comparing. The pass condition is 0 changed, 0 new, 0 gone, and no error values | 1.5-3 min |
-| 5 | Rerun `make_codes_map_v7_1.py`: Crosswalk rows done, the Checks counts | seconds |
+| 5 | Rerun `make_codes_map_v0_7_1.py`: Crosswalk rows done, the Checks counts | seconds |
 | 6 | One commit per step (when the user wants commits) | - |
 
-What `check_codes_v7_2.py` checks:
+What `check_codes_v0_7_2.py` checks:
 - it compares every cell of the new workbook with the last release, and every difference must be explained by the map;
 - every code is unique;
 - every code that LiveOutputs, StoredOutputs or ScenarioCompare reads exists in Mitigation.

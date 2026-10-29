@@ -1,8 +1,8 @@
 """Screenshots of the current CPAT-AI-Mitigation-Prototype workbook for the core deck (presentation/img/v<version>_*.png,
-e.g. v71_) and the deck's numbers (img/v71_data.json, v71_facts.json with the register counts, v71_transport.json). Every view is rendered from the real
+e.g. v0_7_1_) and the deck's numbers (img/v0_7_1_data.json, v0_7_1_facts.json with the register counts, v0_7_1_transport.json). Every view is rendered from the real
 workbook: recalculated in LibreOffice (LAMBDA calls expanded), one sheet turned into a values copy (chosen cells show
 their formula text), rows / columns / print area set, printed to PDF by LibreOffice and cut to a PNG. The legacy-bug
-counts (img/v62_legacy.json) come from make_legacy_fixes.py.
+counts (img/v0_6_2_legacy.json) come from make_legacy_fixes.py.
 
     python presentation/make_screenshots.py
 """
@@ -25,8 +25,8 @@ import build as B                      # noqa: E402
 import check_full as C                      # noqa: E402
 
 IMG = os.path.join(HERE, 'img')
-PFX = 'v' + B.VERSION.replace('.', '')      # v62
-LO_PROFILE = 'file://' + os.path.join(tempfile.gettempdir(), 'lo_shots_profile_v62')
+PFX = 'v' + B.VERSION.replace('.', '_')     # v0_6_2
+LO_PROFILE = 'file://' + os.path.join(tempfile.gettempdir(), 'lo_shots_profile_v0_6_2')
 
 
 def recalculated():
@@ -133,7 +133,7 @@ def facts():
         ft = open(full, encoding='utf-8').read()
         m = re.search(r'Overall[^\n]*', ft)
         out['full_overall'] = m.group(0) if m else None
-    import issues_register as IR                 # v7.1: counts of the register (as the management briefing)
+    import issues_register as IR                 # v0.7.1: counts of the register (as the management briefing)
     from collections import Counter
     st = Counter(IR.ISSUE_LEGACY.values())
     out['bugs'] = {'mit': len(IR.LEGACY) + len(IR.BUGS), 'dist': len(IR.DIST_BUGS)}
@@ -193,7 +193,7 @@ def main():
     rows = {1, 4, 5, B.B_POW} | {B.R_PW[k] for k in keep if k in B.R_PW}
     render(f'{PFX}_03_power', 'Mitigation', values, f'A1:{L(y1[-1])}{max(rows)}', rows=rows, hide_cols=['I', 'J', 'K'])
 
-    # 5. ScenarioCompare (v7.1): the entries, the scenario slots and the key table (six slots)
+    # 5. ScenarioCompare (v0.7.1): the entries, the scenario slots and the key table (six slots)
     k1 = B.SC_KEY_R0 + 3 * len(B.SC_KEY) - 1
     rows = {1, 4, 5, 6, B.SC_R_ID, B.SC_R_SHORT, B.SC_R_NAME} | set(range(B.SC_KEY_R0 - 1, k1 + 1))
     last_c = L(B.SC_C0 + 5)
@@ -232,7 +232,7 @@ def main():
                       ('cov', 'mit.cov.all.all.all'), ('cpi', 'mit.cpi.all.all'), ('xnim', 'mit.xnim.all.all'),
                       ('scc', 'mit.scc.all.nat'), ('wcli', 'mit.wcli.all.nat'), ('eff', 'mit.eff.all.all'),
                       ('wel_usd', 'mit.wel.all.usd'), ('wel_pct', 'mit.wel.all.pct'), ('cptraj', 'mit.cptraj')):
-        stem = getattr(B, 'rn_stem', lambda x: x)(stem)    # v7.2: the stems through the code rename map
+        stem = getattr(B, 'rn_stem', lambda x: x)(stem)    # v0.7.2: the stems through the code rename map
         data[key] = {str(k): get(k, stem) for k in st}
     rs = getattr(B, 'rn_stem', lambda x: x)
     data.update(ets_p=st[5][rs('mit.ets.p')], co2_ets=st[5][rs('mit.co2.ets.all.all')], co2_cap=st[5][rs('mit.co2.cap.all.all')])

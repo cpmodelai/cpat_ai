@@ -22,7 +22,7 @@
    }
   ],
   "ref": "Row 2560 is each decile's % of population (from the survey individuals, row 2572); row 2561 the cumulative share.",
-  "effect": "Targeted transfer shares by decile; Egypt: the targeted transfer in deciles 1-4 moves by up to 0.13 points of consumption (all distribution fixes together). prototype v4.4.",
+  "effect": "Targeted transfer shares by decile; Egypt: the targeted transfer in deciles 1-4 moves by up to 0.13 points of consumption (all distribution fixes together). prototype v0.4.4.",
   "note": "Decided (user 2026-10-19): decile 1 is capped the same way: the targeted share of decile 1 = MIN(percentile, its population share) (it gave 0 when the percentile was below decile 1's share).",
   "status": "fix"
  },
@@ -217,7 +217,7 @@
    }
   ],
   "ref": "HH_Elast holds a basket elasticity row per country (code <ISO>.distn.bkt.ove.mean.9999, e.g. EGY row 639; 9999 = Q740); the price changes (rows 771-795) are the same in every decile column, so Q$771 serves the basket.",
-  "effect": "Basket (all-household) direct and indirect effects only; the decile rows are unchanged. With ExemptMostCook = No (Egypt default) only the elasticity factor changes. prototype v4.4.",
+  "effect": "Basket (all-household) direct and indirect effects only; the decile rows are unchanged. With ExemptMostCook = No (Egypt default) only the elasticity factor changes. prototype v0.4.4.",
   "note": "New helper column P: basket elasticities P743:P765 and basket factors P801:P825 (column P is empty in rows 740-830). 264 Basket cells in 22 blocks: total rows (e.g. 1796, 2189, 2217) sum them and need no change.",
   "status": "fix"
  },
@@ -237,7 +237,7 @@
    }
   ],
   "ref": "Distribution I214 = \"ASPIRE data available for active current spending choice?\" (VLOOKUP of $I$217).",
-  "effect": "None for Egypt by default (cash transfer: I213 = \"n.a.\", so the test passes). Differs when the targeted-transfer type has no ASPIRE data but current spending does, or the reverse. prototype v4.4.",
+  "effect": "None for Egypt by default (cash transfer: I213 = \"n.a.\", so the test passes). Differs when the targeted-transfer type has no ASPIRE data but current spending does, or the reverse. prototype v0.4.4.",
   "note": "Decided (user 2026-10-19): the wrong reference is fixed: I214 is the ASPIRE flag of the current spending type (I213 is the targeted transfer's); the flag test is kept.",
   "status": "fix"
  },
@@ -292,7 +292,7 @@
    }
   ],
   "ref": "Rows 2610-2612 (public investment per capita) and 2645 (current spending per capita) do not depend on the transfer settings.",
-  "effect": "None when coverage and percentile are positive (Egypt default). Otherwise public investment and current spending gains now show. prototype v4.4.",
+  "effect": "None when coverage and percentile are positive (Egypt default). Otherwise public investment and current spending gains now show. prototype v0.4.4.",
   "note": "The median flags (rows 2685-2687) still read row 2679, which is 0 when coverage or percentile is 0: with the median statistic these rows stay 0 (legacy behaviour kept).",
   "status": "fix"
  },
@@ -333,7 +333,7 @@
    }
   ],
   "ref": "I163 = I154 x EXPLabortax; the personal-allowance and proportional rows (2758-2759) are already used per capita in every sample.",
-  "effect": "None for Egypt by default (PIT type Personal Allowance). With Targeted Exemption the PIT gain is capped at the PIT revenue and urban/rural gains are per capita. prototype v4.4.",
+  "effect": "None for Egypt by default (PIT type Personal Allowance). With Targeted Exemption the PIT gain is capped at the PIT revenue and urban/rural gains are per capita. prototype v0.4.4.",
   "note": null,
   "status": "fix"
  },
@@ -360,7 +360,7 @@
    }
   ],
   "ref": "Rows 3258 and 3262 are the urban and rural consumption shares; the overall row 3255 uses its own row 3254.",
-  "effect": "Urban and rural compensation shares (and cumulative rows 3269-3271) each sum to 100; the largest change in Egypt among the distribution fixes. prototype v4.4.",
+  "effect": "Urban and rural compensation shares (and cumulative rows 3269-3271) each sum to 100; the largest change in Egypt among the distribution fixes. prototype v0.4.4.",
   "note": null,
   "status": "fix"
  },
@@ -429,7 +429,7 @@
    }
   ],
   "ref": "Row 830-854 = behavioural factor ($I$145 when InferredDist); DWLTri = 0.5 (the triangle). The prototype loss = effect x (factor + DWLTri x (1 - factor)).",
-  "effect": "None by default (DWLs = No). With DWLs on, the deadweight loss is 0.5 x (1 - factor) x the effect in % of consumption. prototype v4.4.",
+  "effect": "None by default (DWLs = No). With DWLs on, the deadweight loss is 0.5 x (1 - factor) x the effect in % of consumption. prototype v0.4.4.",
   "note": "The (budget share > 0) test is dropped: the effect is already 0 without spending.",
   "status": "fix"
  },
@@ -456,7 +456,7 @@
    }
   ],
   "ref": "Distribution I133 (=YearDistn) and I138 (=QuantilesStatistic).",
-  "effect": "MT outputs dist.year and dist.stat show the analysis year and statistic actually used, also in dashboard mode. prototype v4.4.",
+  "effect": "MT outputs dist.year and dist.stat show the analysis year and statistic actually used, also in dashboard mode. prototype v0.4.4.",
   "note": null,
   "status": "fix"
  },
@@ -517,7 +517,7 @@
    }
   ],
   "ref": "P2624 = SUM(row 2622) = sum of receivers (2621) x annual benefit (2619); row 2568 = % of the decile receiving.",
-  "effect": "ASPIRE path only (TransferType not Cash); none for Egypt by default. The payout, sum of row 2629 x row 2572, now equals the funds P2625. prototype v6.0.",
+  "effect": "ASPIRE path only (TransferType not Cash); none for Egypt by default. The payout, sum of row 2629 x row 2572, now equals the funds P2625. prototype v0.6.0.",
   "note": "Row 2628 (display only) keeps the old basis; nothing reads it after the fix.",
   "status": "fix"
  },
@@ -544,7 +544,7 @@
    }
   ],
   "ref": "I213 = \"Yes\"/\"No\" (ASPIRE data for the chosen type, from O195:O210); Q2545 = $I$215 switches rows 2628-2629, 2679-2681 and 2697-2699 between the ASPIRE and the cash path.",
-  "effect": "None for Egypt by default (cash). A program without data now falls back to the cash transfer and the Dashboard warning says so. prototype v6.0.",
+  "effect": "None for Egypt by default (cash). A program without data now falls back to the cash transfer and the Dashboard warning says so. prototype v0.6.0.",
   "note": "Accepted as a bug (user 2026-10-20). Poverty targeting (Q2550) still needs TransferType = Cash, so the fallback is the plain cash transfer, as in the prototype.",
   "status": "fix"
  },
@@ -571,7 +571,7 @@
    }
   ],
   "ref": "Rows 2685-2687: 1, or with the median statistic 1 only where more than half of the decile receives (row 2679).",
-  "effect": "ASPIRE path only; none for Egypt by default. With coverage or percentile 0 the ASPIRE transfer is 0; with the median statistic it shows only in deciles where more than half receive. prototype v6.0.",
+  "effect": "ASPIRE path only; none for Egypt by default. With coverage or percentile 0 the ASPIRE transfer is 0; with the median statistic it shows only in deciles where more than half receive. prototype v0.6.0.",
   "note": null,
   "status": "fix"
  },
@@ -598,7 +598,7 @@
    }
   ],
   "ref": "Rows 2610-2612 and 2645 are per-capita amounts of the whole decile; they do not depend on the transfer.",
-  "effect": "Median statistic only; none for Egypt by default (mean). prototype v6.0.",
+  "effect": "Median statistic only; none for Egypt by default (mean). prototype v0.6.0.",
   "note": "Accepted as a bug (user 2026-10-20). Includes L141 (the IF on coverage and percentile is dropped too): apply these formulas instead of L141's for the same cells.",
   "status": "fix"
  },
@@ -632,7 +632,7 @@
    }
   ],
   "ref": "Row 2657 = poor individuals receiving (2568/100 x 2653); 2657 / 2572 x 100 = % receiving x % below the line / 100.",
-  "effect": "Poverty targeting only (TargetBelow set, TransferType Cash); none for Egypt by default. Affects the median flags. prototype v6.0.",
+  "effect": "Poverty targeting only (TargetBelow set, TransferType Cash); none for Egypt by default. Affects the median flags. prototype v0.6.0.",
   "note": "Urban and rural use the overall share: after L152 their transfer per capita is the overall one (the cash and ASPIRE branches already use the overall share). The prototype has one flag for all samples.",
   "status": "fix"
  },
@@ -652,7 +652,7 @@
    }
   ],
   "ref": "Row 2672 = overall per-capita transfer of the decile (funds / overall poor receivers x poor receivers / population).",
-  "effect": "Poverty targeting only; none for Egypt by default. Urban and rural poverty-targeted transfers about double. prototype v6.0 (issue DI4: urban and rural take the overall per-capita amount).",
+  "effect": "Poverty targeting only; none for Egypt by default. Urban and rural poverty-targeted transfers about double. prototype v0.6.0 (issue DI4: urban and rural take the overall per-capita amount).",
   "note": "Accepted as a bug (user 2026-10-20). Rows 2669-2670 are then unused.",
   "status": "fix"
  },
@@ -705,7 +705,7 @@
    }
   ],
   "ref": "I130 = 2011 (ASPIRE PPP year); I220-I223 deflators (then unused).",
-  "effect": "None on the results (the scale cancels); rows 2618-2624 and 2634-2640 are labelled in PPP $. prototype v6.0.",
+  "effect": "None on the results (the scale cancels); rows 2618-2624 and 2634-2640 are labelled in PPP $. prototype v0.6.0.",
   "note": null,
   "status": "fix"
  },
@@ -760,7 +760,7 @@
    }
   ],
   "ref": "Rows 2217-2240 hold the total effects by statistic (e.g. 2236 tef.tot.dec.ove.p75 = 3.09 for decile 1); rows 3189, 3197, 3205 the chosen statistic.",
-  "effect": "Egypt decile 1: p75 overall -6.77 -> -3.09, p25 -2.52 -> -1.57 (horizontal-equity charts). prototype v6.0.",
+  "effect": "Egypt decile 1: p75 overall -6.77 -> -3.09, p25 -2.52 -> -1.57 (horizontal-equity charts). prototype v0.6.0.",
   "note": "With DWLs = Yes and L144 applied, the chosen-statistic rows include the deadweight loss; to include it here as the prototype does, use *(-1)*(Q$830+Q$859) instead of *(-1)*IF(InferredDist=\"Yes\",$I$145,1).",
   "status": "fix"
  },
@@ -794,7 +794,7 @@
    }
   ],
   "ref": "Rows 2339-2362 = per-capita consumption by statistic (codes ...cons_pc_na.dec.<sample>.<stat>).",
-  "effect": "Egypt (mean), overall decile 1: 10.95 -> 10.66 (now equal to the recycling row 2882). prototype v6.0.",
+  "effect": "Egypt (mean), overall decile 1: 10.95 -> 10.66 (now equal to the recycling row 2882). prototype v0.6.0.",
   "note": null,
   "status": "fix"
  },
@@ -821,7 +821,7 @@
    }
   ],
   "ref": "I249 = household consumption adjustment (national accounts / survey), I243 = deflator ratio to ResultsYear: the same factors as the per-capita consumption rows 2339-2362.",
-  "effect": "Decile labels only (MTInputs QuantilesLCU = Yes). Egypt: decile 1 bracket 68,867-147,634 real 2026 LCU (was \"3k-7k\"). prototype v6.0.",
+  "effect": "Decile labels only (MTInputs QuantilesLCU = Yes). Egypt: decile 1 bracket 68,867-147,634 real 2026 LCU (was \"3k-7k\"). prototype v0.6.0.",
   "note": "Also carries the survey-year part of L158 (the analysis-year adjustment). G2771 (\"convert to thousands\") is then unused.",
   "status": "fix"
  },
@@ -848,7 +848,7 @@
    }
   ],
   "ref": "Row 2774 (after L157) = bracket bounds p1 and p99 of each decile in real LCU of ResultsYear.",
-  "effect": "Decile labels only. Egypt: \"68,867-147,634\" ... \"470,027-1,300,726\". prototype v6.0.",
+  "effect": "Decile labels only. Egypt: \"68,867-147,634\" ... \"470,027-1,300,726\". prototype v0.6.0.",
   "note": null,
   "status": "fix"
  },
@@ -889,7 +889,7 @@
    }
   ],
   "ref": "Unordered table rows 3285-3296 (C code, E name, F HHD, G output, H exports, I:K shares).",
-  "effect": "Table only (not charted); Egypt row 1 (Services): output 1,119,645 and exports 41,514 (exports were fuel's 53,010). prototype v6.0.",
+  "effect": "Table only (not charted); Egypt row 1 (Services): output 1,119,645 and exports 41,514 (exports were fuel's 53,010). prototype v0.6.0.",
   "note": "Ties in household demand (equal values) still make MATCH return the first sector twice; see L162 for the rank helper.",
   "status": "fix"
  },
@@ -916,7 +916,7 @@
    }
   ],
   "ref": "Rows 3311 and 3324 are empty; F uses ROWS(), so the copied row gives rank 12.",
-  "effect": "Charts 19 and 20 (Dashboard) show all 12 sectors. prototype v6.0.",
+  "effect": "Charts 19 and 20 (Dashboard) show all 12 sectors. prototype v0.6.0.",
   "note": "Apply after L159 and L162 (the \"new\" texts are their formulas one row down). Charts 19 and 20 are not cells: extend their series by hand from rows 3313:3323 to 3313:3324 (chart 19: E, T, U; chart 20: J, U).",
   "status": "fix"
  },
@@ -978,7 +978,7 @@
    }
   ],
   "ref": "Row 646 (CPAT code of each GTAP sector); names from the pass-through table C470 (Electricity production) and C478 (Mining & Chemicals).",
-  "effect": "CPAT-sector table, charts 19 and 20 and the shares I:K: 14 sectors; chemicals (Egypt input price +2.28% for chm) shows. prototype v6.0.",
+  "effect": "CPAT-sector table, charts 19 and 20 and the shares I:K: 14 sectors; chemicals (Egypt input price +2.28% for chm) shows. prototype v0.6.0.",
   "note": "Structural: inserted rows. Apply last, after L159, L160 and L162. Inserting inside each range widens every reference ($3285:$3296 -> $3285:$3298, the totals row 3297 -> 3299, the chart 19/20 series) and the ROWS() counters of the last rows, so the copied rows rank 12 and 13 and the last row 14. MTOutputs ppic and outpriin (L164) have no rows for mch and pow: adding them needs new MTOutputs rows (not planned here).",
   "status": "struct"
  },
@@ -1117,7 +1117,7 @@
    }
   ],
   "ref": "U = output price change weighted by output (the values of charts 19 and 20); row 661 = GTAP output price change (top 20, row 3279 = LARGE of it).",
-  "effect": "Charts 19, 20 and the top-20 chart: one ranking, every sector once. prototype v6.0 (rank with ties broken by order).",
+  "effect": "Charts 19, 20 and the top-20 chart: one ranking, every sector once. prototype v0.6.0 (rank with ties broken by order).",
   "note": "New helper column M (rows 3284-3296) and helper row 662 (G:BR); both are empty now. Row 3279 (LARGE) is unchanged and agrees with the new labels. Table 1 (L159) can use the same helper on F (column L) if ties in household demand occur.",
   "status": "fix"
  },
@@ -1144,7 +1144,7 @@
    }
   ],
   "ref": "Pass-through table B470:I486 (code, sector, coefficient I).",
-  "effect": "Only with PassthroughDist = Yes (Egypt default No): each sector gets its own coefficient; power 1. prototype v6.0.",
+  "effect": "Only with PassthroughDist = Yes (Egypt default No): each sector gets its own coefficient; power 1. prototype v0.6.0.",
   "note": null,
   "status": "fix"
  },
@@ -1164,7 +1164,7 @@
    }
   ],
   "ref": "MTOutputs D1048:D1058 hold the sector names of Distribution E3285:E3296 (Aviation, Shipping, ... Services).",
-  "effect": "MT outputs outpriin.* carry their own sector's values. prototype v6.0 (by sector code).",
+  "effect": "MT outputs outpriin.* carry their own sector's values. prototype v0.6.0 (by sector code).",
   "note": "Legacy's columns are kept (T, U: input and output price change weighted by output). The prototype defines outpriin as the output price change weighted by household demand (column Q); change T/U to Q if that is intended.",
   "status": "fix"
  },
@@ -1211,7 +1211,7 @@
    }
   ],
   "ref": "Distribution row 3296 = fuel transformation (ftr).",
-  "effect": "MT output ppic.fuel filled (0 for Egypt: the fuel sectors carry no input-cost change). prototype v6.0.",
+  "effect": "MT output ppic.fuel filled (0 for Egypt: the fuel sectors carry no input-cost change). prototype v0.6.0.",
   "note": null,
   "status": "fix"
  },
@@ -1238,7 +1238,7 @@
    }
   ],
   "ref": "Rows 3109, 3147 and 3182 = row 2455, 2456, 2457 x 100; they need no change.",
-  "effect": "Lorenz charts: the equality line runs through the population points (Egypt overall: 9.64, 19.11, 29.88 ... 100). prototype v6.0.",
+  "effect": "Lorenz charts: the equality line runs through the population points (Egypt overall: 9.64, 19.11, 29.88 ... 100). prototype v0.6.0.",
   "note": null,
   "status": "fix"
  },

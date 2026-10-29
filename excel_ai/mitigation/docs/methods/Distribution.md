@@ -12,9 +12,9 @@ The household incidence of a scenario in one analysis year, by decile. It follow
 
 | Part | Content |
 |---|---|
-| Rows 1-12 | Row 1 holds 0 (shown as `Basket`) and the deciles 1-10. Rows 4-5: scenario name and number, formatted as Mitigation (frozen with rows 1-3). Row 6: position of the group. Rows 7-8: Mitigation column of the analysis year in group 1 and in this group. Row 9: statistic. Rows 10-11: survey code parts. Row 12: analysis year, the summary of section 0 (v4.8; row 10 before). |
-| Roll-up (v4.8, NORMS 2.5) | One row group per section: the band and, below the hidden rows, the summary row (last in its section) and one blank row stay visible. Summaries, all overall: 0 analysis year, 1 options check, 2 revenue, 3 average indirect price change of the consumption categories (budget-share weighted), 4 average price factor of the household fuels (budget-share weighted), 5 energy budget share (fuels and biomass), 6 total effect, 7 total consumption, 8 recycling gain, 9 net effect after recycling. Sections 6-9 list urban and rural first, overall last. Columns C:G and I:K are one column group each, rolled up, as Mitigation; zoom 75. |
-| Columns | A variable, B item, C sample (`ove`, `urb`, `rur`), D-E parameters (data variable, sample label), H description, I unit, J source (legacy rows). Per group: code column, basket, deciles 1-10, spacer (13 columns, from K; v4.8: deciles 9 wide; totals in local currency shown in bn and population in m, values unchanged). |
+| Rows 1-12 | Row 1 holds 0 (shown as `Basket`) and the deciles 1-10. Rows 4-5: scenario name and number, formatted as Mitigation (frozen with rows 1-3). Row 6: position of the group. Rows 7-8: Mitigation column of the analysis year in group 1 and in this group. Row 9: statistic. Rows 10-11: survey code parts. Row 12: analysis year, the summary of section 0 (v0.4.8; row 10 before). |
+| Roll-up (v0.4.8, NORMS 2.5) | One row group per section: the band and, below the hidden rows, the summary row (last in its section) and one blank row stay visible. Summaries, all overall: 0 analysis year, 1 options check, 2 revenue, 3 average indirect price change of the consumption categories (budget-share weighted), 4 average price factor of the household fuels (budget-share weighted), 5 energy budget share (fuels and biomass), 6 total effect, 7 total consumption, 8 recycling gain, 9 net effect after recycling. Sections 6-9 list urban and rural first, overall last. Columns C:G and I:K are one column group each, rolled up, as Mitigation; zoom 75. |
+| Columns | A variable, B item, C sample (`ove`, `urb`, `rur`), D-E parameters (data variable, sample label), H description, I unit, J source (legacy rows). Per group: code column, basket, deciles 1-10, spacer (13 columns, from K; v0.4.8: deciles 9 wide; totals in local currency shown in bn and population in m, values unchanged). |
 | Groups | 1 = scenario 1 (levels; effects 0), 2 = the policy scenario, 3 = the LAMBDA test group (runs group 2's scenario and reads Mitigation's LAMBDA group). Pasting group 2 to the right adds scenarios 3-6 (NORMS 3e, scenario capacity). |
 | Row kinds | Settings and one-value rows: the value in the basket column, repeated across the deciles (so every cell refers to its own column). Decile rows: one formula across basket and deciles. Decile-only rows (recycling): the basket column is blank. |
 | Codes | `iso.distn.<variable>[.<item>][.dec.<sample>].<scenario>`. LiveOutputs reads the legacy codes without the scenario suffix, from the group of the scenario in its column E. |
@@ -23,7 +23,7 @@ The household incidence of a scenario in one analysis year, by decile. It follow
 
 | Section | Formula | Legacy |
 |---|---|---|
-| 1 Settings | The 23 ScenarioDefinition distribution settings of the group's scenario (rows 197-205, 304-319). Derived: infrastructure-access variable, ASPIRE program, most-used cooking fuel. A support check names any option v4.4 does not model. | B.I |
+| 1 Settings | The 23 ScenarioDefinition distribution settings of the group's scenario (rows 197-205, 304-319). Derived: infrastructure-access variable, ASPIRE program, most-used cooking fuel. A support check names any option v0.4.4 does not model. | B.I |
 | 2 Inputs | **Household price change by fuel:** residential after-tax price `atp.<f>.res` (electricity: retail price `rp.ecy.res`) / scenario 1 - 1. **Economy-wide change:** `rpn` (coal and gas: industry; oil products: all sectors; electricity: `rp.ecy.ind`). **Scenario-1 base-year spending:** `pav.sp`. **Macro inputs:** GDP (LCU), population, new-policy revenue (`rnew` x `xr`). | B.II-B.III, C.I 528-556, I152-I237 |
 | 3 Indirect prices | Category price change = Σ_f Lcat(c,f) x g_f. Lcat is the household-demand weighted Leontief coefficient (IO_GTAP table). g_f = R_f / T_f, with R_f = Σ spending x price change of the fuel group and T_f = total embedded plus own use. | C.I 496-736 |
 | 4 Price factors | dp x (1 + dp)^ε (HH_Elast, decile-specific; PEDs). The exempt cooking fuel is 0 for the bottom deciles. | C.II 801-825 |
@@ -47,7 +47,7 @@ Two identities let the sheet stay short:
 
 ### 3. Bugs fixed (not replicated; NORMS 0)
 
-| Legacy | Bug | v4.4 |
+| Legacy | Bug | v0.4.4 |
 |---|---|---|
 | R2562:Z2562 | The targeted share of a decile is capped at 10 points, not its population share: 105.6% of decile 2 receives the transfer. | Capped at the decile's population share. |
 | C.V/C.VI basket (e.g. Q1607) | The basket uses decile 1's elasticity adjustment and exemption test. | The basket uses the basket elasticity and is never exempt. |
@@ -69,7 +69,7 @@ The bug fixes change Egypt's legacy numbers only a little: the targeted transfer
 - **Lorenz-fit Gini** (section 2).
 - **Revenue:** revenue from new policies (`rnew`) stands for legacy's carbon-pricing revenue (carbon tax, VAT on it, auctioned ETS).
 
-### 5. Options and outputs added in v6.0 (every legacy option now modelled)
+### 5. Options and outputs added in v0.6.0 (every legacy option now modelled)
 
 - **Targeted transfer** (section 8): one formula for the three legacy modes. Weight per decile w = 1 (Cash), the share
   below the poverty line (TargetBelow, with Cash only; HHSurvey `pct_belowpl_*` x 10, at most 100%, mean as legacy) or

@@ -1,10 +1,10 @@
-"""v7.2 (codes plan R0-R9): structural check of the code renames, no recalculation (about a minute).
+"""v0.7.2 (codes plan R0-R9): structural check of the code renames, no recalculation (about a minute).
 
-    python check_codes_v7_2.py [new.xlsx|xlsm]     (default: the quick build CPAT-AI-Mitigation-Prototype-v7.2_quick.xlsx,
+    python check_codes_v0_7_2.py [new.xlsx|xlsm]     (default: the quick build CPAT-AI-Mitigation-Prototype-v0.7.2_quick.xlsx,
                                                     else the full build)
 
 1. Cell by cell against the last release (Old/ or this folder): every cell equals the release's cell after the rename
-   map (code_renames_v7_2.csv) is applied to its text; texts that name the version are compared with the version
+   map (code_renames_v0_7_2.csv) is applied to its text; texts that name the version are compared with the version
    numbers neutralised; the version log is not compared (nor, for a quick build, the sheets the batch fills:
    StoredOutputs, BaselineCO2).
 2. Codes: every Mitigation code (code variable, code slots, row codes; the map) is unique in a scenario group (R7: the
@@ -50,11 +50,11 @@ def renamed_text(sheet, r, c, v, var_sfx_rows):
         return v
     if sheet == 'Mitigation' and v.startswith('=CodePrefix&$A') and r in COPY_ROWS:   # R7: copies drop their code
         return None
-    if sheet == 'Mitigation' and v.startswith('=CodePrefix&$A'):    # v7.2: code formula reads the code variable
+    if sheet == 'Mitigation' and v.startswith('=CodePrefix&$A'):    # v0.7.2: code formula reads the code variable
         m = OLD_CODE.match(v)
         return B.code_formula(int(m.group(1)), re.match(r'([A-Z]+)\$', m.group(3)).group(1),
                               var_sfx_rows.get(r)) if m else v
-    if sheet == 'Mitigation' and c == 1 and r in var_sfx_rows:   # columns B and C stay internal (v7.2)
+    if sheet == 'Mitigation' and c == 1 and r in var_sfx_rows:   # columns B and C stay internal (v0.7.2)
         return B.rn_var(var_sfx_rows[r][0])
     if sheet in VAR_SHEETS and c == 1 and v in B.VAR_SFX:      # the Variables key
         return B.rn_var(v)
@@ -71,7 +71,7 @@ def RC(code):
 
 def codes(ws, wv, release=False):
     """{row: code without country and scenario} of every calculated Mitigation row (Python, as code_formula; the
-    release: column A and its suffix; v7.2: the code variable of Variables column L, no suffix)."""
+    release: column A and its suffix; v0.7.2: the code variable of Variables column L, no suffix)."""
     if release:
         sfx = {wv.cell(r, 1).value: (wv.cell(r, 4).value or '') for r in range(B.VR0, wv.max_row + 1)
                if wv.cell(r, 1).value}
@@ -107,11 +107,11 @@ def main():
     skip = {'VersionLog', 'Version Log, About, and Diff'}
     if new.endswith('_quick.xlsx'):                # the quick build has no batch: stored results and baseline CO2 empty
         skip |= {'StoredOutputs', 'BaselineCO2'}
-    so = B.tab(wo, 'Mapping')                     # v7.2: code-slot columns G, I, J beside the member labels (new cells)
+    so = B.tab(wo, 'Mapping')                     # v0.7.2: code-slot columns G, I, J beside the member labels (new cells)
     mem0 = next(r for r in range(1, so.max_row + 1)
                 if isinstance(so.cell(r, 1).value, str) and so.cell(r, 1).value.startswith('Member labels'))
     alias_col = B.MTO_C0 + len([B.BASE_YEAR] + B.YEARS) + 2
-    lo_n = wn['LiveOutputs']                      # R8: the alias column holds the v7.1 stem of every renamed stem
+    lo_n = wn['LiveOutputs']                      # R8: the alias column holds the v0.7.1 stem of every renamed stem
     bad_alias = [r for r in range(1, lo_n.max_row + 1) if isinstance(lo_n.cell(r, 2).value, str)
                  and lo_n.cell(r, 2).value.startswith('mit.')
                  and lo_n.cell(r, alias_col).value != B.MTO_ALIAS.get(lo_n.cell(r, 2).value)]
@@ -158,7 +158,7 @@ def main():
           f'{diffs[:8]}; sheets added/removed {extra} {"OK" if good else "FAIL"}')
     good = not bad_alias
     ok &= good
-    print(f'- LiveOutputs alias column {B.L(alias_col)}: the v7.1 stem of each of the {len(B.MTO_ALIAS)} renamed stems '
+    print(f'- LiveOutputs alias column {B.L(alias_col)}: the v0.7.1 stem of each of the {len(B.MTO_ALIAS)} renamed stems '
           f'{"OK" if good else "FAIL rows " + str(bad_alias[:8])}')
     # 2. unique codes
     wv_n, wv_o = B.tab(wn, 'Variables'), B.tab(wo, 'Variables')
