@@ -467,6 +467,14 @@ $$
 
 Over fuel groups $f$ (coal, gas, gasoline, diesel, oil, biomass, renewables, electricity), sector groups $g$ (transport, residential, industry, services). Excel-AI notation: income $Y$, own-price usage $U$ and efficiency $F$ elasticities, autonomous efficiency improvement $\alpha$. Several rows reuse another fuel's or sector's legacy row (core/excel_ai/elasticity_rows.csv). Manual elasticities (MTInputs ElIncMainSrc, ElPrcMainSrc) are not in Coded CPAT yet. Source: Excel-AI: Inputs_ela (build_inputs_ela).
 
+**A3.2  The fuel | subsector table**  *(adjustment)*
+
+$$
+\mathtt{ey}, \mathtt{eu}, \mathtt{ef}, \mathtt{alpha}, \mathtt{co2ef}, \mathtt{ener0}, \mathtt{xcp0}, \mathtt{vat}
+$$
+
+Over fuels $f$, subsectors $s$. Excel-AI notation: elasticities of the fuel's elasticity fuel and the subsector's elasticity sector (residential biomass income elasticity 0 unless BiomassNormal, I24); CO2 factor of the subsector's EF sector, calibrated; base-year fuel use from the energy balance (flow 1 plus signed flow 2) or EnergyCons (BalancesOrConsumption); the existing carbon pricing embedded in the price data, by ECP sector; non-CO2 factors; positions of the road model and residential leakage rows. Source: Excel-AI: Inputs rows 5-148.
+
 ## A4 Power
 
 To complete: capacity factors and overrides; vintages of capital cost and storage (E34-E36); VRE share and storage (methodology: $sst = 9v^2$, long-term storage above 75%); early coal retirement (E62); investment need (E63, $Req_t^2/Req_{t-1}$); second-round investment; manual capacity; PPAs; supply cost lag (E48); subsidy gap; renewable subsidies and rebates.
@@ -527,6 +535,22 @@ $$
 
 Excel-AI notation. The manual excise path applies with AdditionalExcise (nominal inputs deflated); the additional renewable subsidy phases out over RenSubsidyAddPhaseoutYrs from its start year; hydro by RenewableSubsidyHydro. Source: Excel-AI: Mitigation section 3 (entxd, entx, rnsp, rns, exs).
 
+**A4.8  End-user electricity prices, subsidies and power-sector taxes**  *(adjustment)*
+
+$$
+\mathtt{rp}_{u,t}, \mathtt{rppre}_{u,t}, \mathtt{sc}_{u,t} = \mathtt{gncav}_{t-1} + \mathtt{tmc}_u, \mathtt{pseu}, \mathtt{ores}, \mathtt{csd}, \mathtt{txe}, \mathtt{rpnv}
+$$
+
+Over user groups $u$ (residential, industry). Excel-AI notation. Historical years: the data price; after the last historical year the price moves with the supply cost (average generation cost of last year plus transmission), the producer subsidy per kWh, the consumer subsidy phase-out and the other residual, passed through at PowerSectorPriceChangePassOn; new policy costs ($\bar{c}$ the share-weighted policy cost per kWh, rebated if chosen) and the excise of the scenario. Producer subsidies are split between the groups by their supply-cost gap (floor PsElFloor). Source: Excel-AI: Mitigation section 3 (G1, G2).
+
+**A4.9  Early retirement and second-round investment**  *(adjustment)*
+
+$$
+\mathtt{early}, \mathtt{egrow}, \mathtt{ecshr}, \mathtt{second}, \mathtt{deficit}, \mathtt{dgas}
+$$
+
+Excel-AI notation: coal retires early up to EarlyMaxShare of its effective capacity, as far as wind and solar can grow and are cheaper (logit share $s^{ec}$); the investment need left after the logit allocation goes to the cheapest permitted types with space under their scale-up limit (ties broken by the type order), the rest to gas if PwDeficitGas. Source: Excel-AI: Mitigation section 3 (K4, K5, investment).
+
 ## A5 Road transport
 
 To complete from Methods Transport (T1-T18): retirement, purchases new and used, total cost of ownership, ICE fuel split, new and stock fuel economy, vehicle-km, calibration, buses, range anxiety (fitted offline), biofuels.
@@ -534,6 +558,14 @@ To complete from Methods Transport (T1-T18): retirement, purchases new and used,
 ## A6 Revenues
 
 To complete: power-sector revenues (E75: fuel taxes of generation, excise, VAT on electricity, subsidy gap, renewable subsidies, rebates); subsidy reform revenue; producer subsidies; price-control losses (memo).
+
+**A6.1  Power-sector revenues by generation type**  *(adjustment)*
+
+$$
+\mathtt{prtx}, \mathtt{prsub}, \mathtt{prxc}, \mathtt{prnew}, \mathtt{prxl}, \mathtt{prrns}
+$$
+
+Excel-AI notation: existing taxes and subsidies on power fuels, the new policy cost of generation less the free part of the ETS, existing carbon pricing, renewable subsidies. Source: Excel-AI: Mitigation section 3 (revenues).
 
 ## A7 Emissions
 

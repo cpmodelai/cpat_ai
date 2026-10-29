@@ -1,7 +1,8 @@
 """The run: the baseline first, then each policy scenario in turn (D15); each in three stages (D1).
 
     prepare   everything that depends on no model quantity, for all years at once
-    year loop for t = base year + 1 ... last year, every block of mitigation/chain.py in order
+    year loop for t = base year ... last year, every block of mitigation/chain.py in order (the base year sets the
+              starting values)
     finish    all-year results
 Spec section 4.2. The blocks are added in phase 3.
 """
@@ -28,9 +29,11 @@ def run_one(db, inputs, settings, baseline):
     state = {}
     for block in chain.PREPARE:
         block(state, db, inputs, settings, baseline)
-    for t in settings.years[1:]:
+    for t in settings.years:
         for block in chain.YEAR:
             block(state, db, inputs, settings, baseline, t)
     for block in chain.FINISH:
         block(state, db, inputs, settings, baseline)
+    if '_year' in state:                                  # the rows filled year by year, to the state
+        state.pop('_year').finish()
     return state

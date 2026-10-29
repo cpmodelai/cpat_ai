@@ -30,6 +30,7 @@ BUILT = {
                         'cax', 'cics', 'cicl', 'cic', 'fpn', 'fpp', 'xck', 'vbc', 'xac', 'shk', 'reb', 'tvc', 'tvcx', 'dsum',
                         'lvc', 'fce', 'cik', 'swd', 'cph', 'pcbcap', 'pcbom', 'pcbfu', 'pcbcp', 'pcbrns', 'pcbct', 'entxd',
                         'entx', 'pret', 'permit', 'ntxg', 'ntxb'],
+    '3.7a fuel prices by subsector': ['ctxnew', 'ets', 'ntx', 'nce', 'xcp', 'xcpd', 'csw', 'pcw', 'atp', 'shp', 'aef'],
 }
 
 

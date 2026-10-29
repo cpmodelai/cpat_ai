@@ -8,6 +8,9 @@ labelled arrays when the block finishes (xarray for the results, numpy for speed
     R.of('infl'), R.of('ctr', 'pow', 'all')   a row of this or an earlier block, (country, year)
     R.finish()                     every row to the state; rows of one variable stacked (sector, fuel, country, year)
 Values broadcast to (country, year): a scalar, a year array (year,), a country array (country, 1).
+
+In the year loop a block fills one year at a time: R.set(var, k, values) writes year index k (a row starts as NaN),
+R.at(var, k) reads it; R.of(var) gives the whole row as filled so far.
 """
 import numpy as np
 import xarray as xr
@@ -19,6 +22,7 @@ class Rows:
         self.t = np.array(years, dtype=float)
         self.shape = (len(self.countries), len(self.years))
         self._rows = {}                                   # var -> {(sector, fuel) or None: array}
+        self._cache = {}                                  # var -> (values, sector index, fuel index) of the state
 
     def full(self, values):
         if isinstance(values, xr.DataArray):
@@ -34,14 +38,34 @@ class Rows:
         self._rows.setdefault(var, {})[None if sector is None and fuel is None else (sector, fuel)] = a
         return a
 
+    def set(self, var, k, values, sector=None, fuel=None):
+        """Year index k of a row filled year by year: values per country (country,) or a scalar."""
+        key = None if sector is None and fuel is None else (sector, fuel)
+        rows = self._rows.setdefault(var, {})
+        if key not in rows:
+            rows[key] = np.full(self.shape, np.nan)
+        rows[key][:, k] = values
+        return rows[key][:, k]
+
+    def at(self, var, k, sector=None, fuel=None):
+        """Year index k of a row (this block's or an earlier one's): (country,)."""
+        return self.of(var, sector, fuel)[:, k]
+
     def of(self, var, sector=None, fuel=None):
         key = None if sector is None and fuel is None else (sector, fuel)
         if var in self._rows and key in self._rows[var]:
             return self._rows[var][key]
-        a = self.state[var]
-        if key is not None:
-            a = a.sel(sector=sector, fuel=fuel)
-        return a.sel(country=self.countries, year=self.years).transpose('country', 'year').values
+        if var not in self._cache:                        # numpy view of a state array, made once per block
+            a = self.state[var]
+            if 'sector' in a.dims:
+                a = a.sel(country=self.countries, year=self.years).transpose('sector', 'fuel', 'country', 'year')
+                self._cache[var] = (a.values, {s: i for i, s in enumerate(a['sector'].values)},
+                                    {f: i for i, f in enumerate(a['fuel'].values)})
+            else:
+                a = a.sel(country=self.countries, year=self.years).transpose('country', 'year')
+                self._cache[var] = (a.values, None, None)
+        values, si, fi = self._cache[var]
+        return values if key is None else values[si[sector], fi[fuel]]
 
     def finish(self):
         """Every row to the state. The rows of a variable with sectors or fuels form one (sector, fuel, country, year)
