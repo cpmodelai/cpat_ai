@@ -90,8 +90,8 @@ not repeated here (deferred, see the changes file).
     (`J3607` = -0.0205). The residential price before policy is therefore higher than the telescoped one, by
     +0.00027 $/kWh in 2025 (0.044272 against 0.044002).
   - The residual needs the consumer tax/subsidy of the last price year, `txe`. That is the parallel group's R9 (rows
-    3604-3606), which also edits the same `rppre` formula. So it is specified for the integrator in
-    `excel_ai/mitigation/v90_POW465_changes.md` and not built here.
+    3604-3606), which also edits the same `rppre` formula. So it was handed to the R6-R10 group and built there
+    (v9.0, R9.3a-b: row `ores`; LegacyDiff 32; `CAVEATS.md` 2026-10-29).
 
 ## 5. Reference test (power_model_ref.py)
 

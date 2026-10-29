@@ -14,7 +14,7 @@ Units: methane in kt CH4 where it is a physical quantity, otherwise Mt CO2e with
 |---|---|---|
 | GHGs | Inventory by country, year, category (energy, industrial processes, agriculture, LULUCF, waste, other) and gas (CO2, CH4, N2O, F-gases), Mt CO2e | Legacy sheet GHGs |
 | CH4Inputs | Methane abatement curves (a, b) by country and source; shares that split inventory methane by source; flared share | Legacy sheet CH4Inputs |
-| EF_NonCO2 | Combustion emission factors (kt per PJ) by subsector, fuel and pollutant, base year and final | Legacy sheet EF_PM (GAINS) |
+| EF_NonCO2 | Combustion emission factors (kt per PJ) by country or region, subsector, fuel and pollutant, base year and final | Legacy sheet EF_PM (GAINS; all countries and World Bank regions) |
 | UNPop | Population by country and year (thousands) | Legacy sheet UNPop (UN WPP) |
 | Balances | Base-year production of gas, oil, coal | Legacy Mitigation rows 503-509 |
 
@@ -39,7 +39,7 @@ The methane fee (ScenarioDefinition) runs linearly from `MPLevelStart` in `MPInt
 
 ### 3. Energy methane and N2O
 
-- Combustion methane = fuel use x emission factor, by subsector and fuel, and for power by generation type. A fuel that its GAINS subsector has no factor for takes the nearest GAINS match (v4.12, legacy bug L59, as the local pollutants: chapter Emissions). The factor moves linearly from its base-year value to its final value in 2039 (`EFEndYear`, the legacy column), flat after.
+- Combustion methane = fuel use x emission factor, by subsector and fuel, and for power by generation type. The factor is looked up by legacy EF code as for the local pollutants (v9.0: country, else World Bank region, else world; table Inputs_nc). Legacy 465 has these lookups but leaves the CH4 factors blank, so its combustion CH4 is zero (issue I34). The factor moves linearly from its base-year value to its final value in 2039 (`EFEndYear`, the legacy column), flat after.
 - Energy methane = calibration factor x (combustion + fossil supply methane) x fossil GWP. The factor = inventory energy methane / modelled energy methane in GHGYear (scenario 1). Energy methane thus equals the inventory in GHGYear and later moves with fuel use, supply activity and abatement. v6.2: the modelled GHGYear combustion and supply methane of scenario 1 are stored on sheet BaselineCO2 (rows ch4c, ch4sup, refreshed by the build), so the factor, used in every year, reads no later model year (circular-reference rule, user 2026-10-20).
 - Energy N2O and F-gases: the inventory while it has the year; then N2O moves with energy CO2 and F-gases are held.
 - Energy CO2 = fuel combustion (power included) + flaring.
@@ -153,20 +153,18 @@ Units: emissions in kt; factors in t per ktoe; forcing in Mt CO2e (GWP100).
 
 | Sheet | Content | Source |
 |---|---|---|
-| EF_NonCO2 | Combustion emission factors by GAINS subsector, fuel and pollutant, base year and final, kt per PJ | Legacy sheet EF_PM (GAINS); also used for combustion CH4 |
+| EF_NonCO2 | Combustion emission factors by country or World Bank region, GAINS subsector, fuel and pollutant, base year and final, kt per PJ | Legacy sheet EF_PM (GAINS, all countries and regions); also used for combustion CH4 |
 | GWP_AP | GWP100 of the pollutants by GAINS region | Legacy GWP table of the pollutant forcing |
 | Countries (column O) | GAINS region of every country (Egypt: `afr`) | Legacy Countries tab |
 
-Each subsector takes the GAINS subsector of its CH4 factor: services use the residential factors, rail the road factors, and industry and other energy use the manufacturing factors (legacy bug L58). Power uses factors by generation type.
+The factors are those of legacy 465 (Mitigation rows 1052-1663; v9.0), in a table by legacy EF code on sheet Inputs_nc (Inputs, merged view):
 
-A fuel that its GAINS subsector has no factor for takes the nearest GAINS match (v4.12, legacy bug L59, user decision 2026-10-18; was issue I35; Inputs columns `efxs` to `eff`):
+- the legacy EF subsector of each subsector: road, rail, aviation (jet fuel), residential, services, construction, other manufacturing, food & forestry and other energy keep their own code; mining & chemicals, iron & steel, other metals, machinery, cement and fuel transformation take manufacturing (`mnf`, legacy rows 6388-6395); navigation, which legacy leaves out (bug L22), takes its own GAINS code `nav`;
+- the factor of the country (`egy.mit.ef.<sub>.<fuel>.<pollutant>`), else of its World Bank region (`CtryReg`, Egypt `mea`), else of the world (`wld`, absent from the data), else 0;
+- other energy (`oen`) takes, for each fuel and pollutant, the maximum factor across the other legacy subsectors (power included), as the legacy note says (issue I147);
+- only the fuel and subsector pairs of the legacy table have factors (power: coal, gas, oil, biomass; road: gasoline, diesel, LPG, kerosene, gas; rail: diesel; aviation: jet fuel; residential: no gasoline or diesel); a pair or pollutant with no factor in the chain gives 0, as legacy (for example power biomass, road kerosene, residential oil, construction coal, gas, oil and biomass, services and other manufacturing coal; organic carbon and SO2 of LPG). None of these pairs burns fuel in Egypt.
 
-- LPG takes natural gas of the same GAINS subsector (both are gaseous fuels burnt in similar appliances; the only LPG factors in the data are for construction, i.e. off-road engines, with a CO factor about 300 times that of a gas stove);
-- food & forestry takes construction (off-road machinery);
-- biomass takes residential;
-- any other fuel takes manufacturing (construction for manufacturing itself).
-
-Egypt 2022: residential LPG (3,182 ktoe) takes residential gas, other mining diesel (3,819) and fuel transformation LPG (2,466; manufacturing gas) the manufacturing factors, food & forestry diesel (927) construction diesel. A pollutant missing for a fuel that the subsector does have factors for (for example organic carbon of manufacturing coal) stays 0: GAINS lists no zero factors.
+The country-region-world chain covers the cases that bugs L58 (subsectors without a GAINS match) and L59 (fuels without a GAINS factor) fixed in v2.9 and v4.12 (nearest GAINS match): the CPAT team fixed them in 465. Egypt 2022: food & forestry diesel, residential and fuel-transformation LPG, other-manufacturing diesel and LPG take the Middle East & North Africa factors, as legacy.
 
 ### 2. Method
 
@@ -192,18 +190,16 @@ Egypt 2022: residential LPG (3,182 ktoe) takes residential gas, other mining die
 
 ### 3. Results for Egypt (scenario 1)
 
-v4.12 (with the nearest GAINS factors, bug L59): PM2.5 is 95.6 kt in 2022 and 94.8 kt in 2040; NOx 886 kt in 2022. The check recomputes all rows of the block in Python for scenarios 1 and 2.
+v9.0 (factors of legacy 465): in 2022 every module sector equals the legacy input table (rows 15844-16053, tonnes) for every pollutant except "other", which adds navigation (bug L22: NOx +14.8 kt, SO2 +13.7 kt, BC +0.6 kt, PM2.5 +1.5 kt), and CH4 (combustion CH4 and all fuel supply methane, issue I34). Gas power plants' NOx is 96,931 t, road NOx 557,470 t, food & forestry black carbon 3.8 t in both. Modelled ambient PM2.5 in 2022 is 33.06 ug/m3 against legacy 30.17; the difference is navigation's (2.89). In 2030 the sectors differ from legacy by the fuel-use paths (gas plants 0.88, other plants 0.62, road 0.70-0.77, food & forestry 0.58 of legacy), not by the factors.
 
-The module's input table in 2022 (kt): NOx 886, SO2 317, BC 33.2, POM 48.3, other PM2.5 14.1, VOC 377, CH4 2,150, CO 2,473, PM2.5 95.6, OC 37.2. Sectors without the fuels of bug L59 match the legacy input table (rows 15861-15948, in tonnes): gas power plants' NOx is 104,502 t and road NOx 569,560 t in both. Before v4.12 (fuels without a factor at 0, as legacy) the totals were NOx 801, SO2 300, PM2.5 90.8: the fix adds residential LPG (as gas), mining and food & forestry diesel and fuel transformation LPG. CH4 is above legacy's 1,936 kt also because the prototype adds combustion CH4 and all fuel-supply methane, while legacy has extraction only (I34).
-
-Forcing in 2022: total -18.6 Mt CO2e (v4.11: -17.5; legacy cached -16.3); black carbon 11.9, CO 4.9, VOC 2.3, organic carbon -4.5, NOx -6.3, SO2 -27.0. The legacy values differ by the fuels of bug L59, and by 2040 also because fuel use and the factor paths differ.
+The check recomputes all rows of the block in Python for scenarios 1 and 2.
 
 ### 4. Differences with legacy CPAT (sheet LegacyDiff)
 
 - Legacy omits navigation from the pollutant totals (bug L22). It is included here.
 - Legacy leaves services and food & forestry out of each pollutant's total (bug L23), although its air-pollution sectors include them. Here the total is the sum of the sectors.
-- Legacy gives fuels with no GAINS factor zero emissions (legacy bug L59, user decision 2026-10-18; was issue I35). Egypt 2022: residential LPG, mining diesel, food & forestry diesel and fuel transformation LPG, about 10 Mtoe in all; food & forestry shows about 1 t of NOx in legacy (row 15939). Here they take the nearest GAINS match (section 1).
-- Legacy gives a zero factor to subsectors with no GAINS match (legacy bug L58, user decision 2026-10-18; was issue I27). Here every subsector is mapped to a GAINS subsector.
+- Bugs L58 and L59 (subsectors and fuels without a GAINS factor) were fixed by the CPAT team in 465 (country, else region, else world factors); the prototype follows 465 (v9.0) and keeps 0 where the 465 chain has no factor, as no such pair burns fuel in Egypt.
+- Other energy takes the maximum factor of the fuel across the other subsectors (issue I147). Legacy takes the maximum year by year; the prototype the maximum of the base and of the final factors with the line between them, the same where one subsector holds the maximum throughout (Egypt: other oil products, the only fuel of other energy).
 - Food & forestry is split into food and forestry/agriculture as legacy (v4.11, LD53): the food share of each fuel is info_food over the four info_ flows of the processed Balances (legacy rows 501-504, 1666-1673); rows apfd (food fuel use) and ap.<pollutant>.fod / .fag (memo rows, not in the totals). The share is 0 for Egypt.
 - Legacy has no ammonia (NH3) from fuel combustion, so neither does the prototype.
 - Legacy reads factor paths by year, which are proprietary and empty in the NoPropData file. The prototype draws a linear path between the base and final factors (simplification, as for CH4).

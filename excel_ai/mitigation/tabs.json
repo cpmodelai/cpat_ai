@@ -69,6 +69,11 @@
   931,
   34
  ],
+ "Inputs_nc": [
+  "Inputs",
+  968,
+  540
+ ],
  "Settings": [
   "Settings",
   0,
@@ -87,17 +92,17 @@
  "VersionLog": [
   "Version Log, About, and Diff",
   0,
-  99
+  100
  ],
  "ReadMe": [
   "Version Log, About, and Diff",
-  102,
+  103,
   33
  ],
  "LegacyDiff": [
   "Version Log, About, and Diff",
-  138,
-  84
+  139,
+  94
  ],
  "Variables": [
   "Check, Variables, Lambdas",

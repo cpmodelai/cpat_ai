@@ -186,16 +186,19 @@ LEGACY += [
      'switch (BiomassLeakage, Settings C59).'),
     ('L46', 'Road other biofuels: wrong price and terms', 'Mitigation row 5406',
      'Uses the bioethanol price, applies the shadow price through eps_U, has an efficiency term equal to 1 and uses '
-     'M2259 (coal exemption phase-out) as additional efficiency.', 'Not built in the prototype (road biofuels follow '
-     'gasoline and diesel; none in Egypt).'),
+     'M2259 (coal exemption phase-out) as additional efficiency.', 'Fixed (v9.0, R10.3): other road biofuels of the '
+     'elasticity road model built as legacy 465 (the road biomass price, the shadow price in the efficiency term, oil '
+     'elasticities and AEEI; issue I143); not reproduced in legacy 465. None in Egypt.'),
     ('L47', 'Self-generated renewables in aviation and navigation take the shock from wrong rows',
      'Mitigation rows 5491, 5516', 'The "shock" is row 2512 (coal industry new excise) or row 2473 (blank).',
-     'Not built in the prototype (no self-generated renewables outside power).'),
+     'Fixed (v9.0, R10.6): self-generated renewables of aviation and navigation built with the shock row like every '
+     'fuel row (issue I144); not reproduced in legacy 465. None in Egypt.'),
     ('L48', 'Residential initially-exempt rows: no income factor; starred "Yes*" exemption test', 'Mitigation rows 5546-5547, 5568-5570',
      'The initially-exempt rows M5568:M5570 grow without the income factor M2433; the AlwaysExemptResLPGKer test misses the starred defaults. '
      'The split itself works in the .xlsb (L5564:L5570 = IFNA(IF($L$1784=B, ... $K$1795 ...))); it is 0 in Egypt because ExemptMostCook is off (v5.5 check from the .xlsb; the LibreOffice conversion had shown IFNA(0)).',
-     'Not built (the D8 initially-exempt split stays dead; LegacyDiff 67). The starred AlwaysExemptResLPGKer test is '
-     'fixed in v5.1 (LEFT(x,3)="Yes", rows exf).'),
+     'Fixed: the initially-exempt split is built with the income factor (v5.6, section 6b lkx; v9.0 R6 as legacy 465, '
+     'LegacyDiff 67; legacy 465 M5568 has the income factor); the starred AlwaysExemptResLPGKer test is fixed in v5.1 '
+     '(LEFT(x,3)="Yes", rows exf).'),
     ('L49', 'Balance of payments: oil without the share traded', 'Mitigation rows 18162-18166, 742',
      'The value of the change in net imports of oil is the change in use x the price, while gas (and coal) apply the '
      'share traded of rows 741-743 (oil products 0.47), so the oil effect is about twice too large (Egypt 2030: '
@@ -204,8 +207,9 @@ LEGACY += [
      'The pre-policy current account (WEO BCA) is #NAME?, so the whole % of GDP panel errors (v5.5: the rows do look '
      'up INDEX(WEO,...); the cell plan L50 was built from texts the LibreOffice conversion truncated and is to be '
      'redone); the policy rows lag one '
-     'column; the sign of policy net imports looks reversed.', 'Not replicated (v3.16): the energy trade balance '
-     '(data) and its change in the scenario year, no current-account level until WEO data are added.'),
+     'column; the sign of policy net imports looks reversed.', 'Fixed (v9.0, R11): current account in section 16b from '
+     'the corrected WEO values typed for Egypt (EGY.BCA.A, EGY.BCA_NGDPD.A; held at 2031 by legacy\'s own rule; other '
+     'countries 0, issue I148); the column lag not replicated (16b xtb, since v3.16).'),
     ('L51', 'Energy trade balance of coal valued at the oil price', 'Mitigation row 743',
      'The coal trade balance multiplies coal net imports by the crude oil price per GJ (row 731) instead of the coal '
      'price (row 732); Egypt 2022: -1.4 bn USD instead of about -0.5.',
@@ -345,21 +349,23 @@ LEGACY += [
      'year.'),
     ('L82', 'Residential gas producer subsidy reads the oil row', 'Mitigation row 2547', 'The producer subsidy of the '
      'residential gas block reads row 827 (oil, $/liter) instead of 826 (gas, $/GJ).', 'Fixed (v4.16): producer '
-     'subsidies by fuel (pros, psf); no price effect in the prototype (issue I49).'),
+     'subsidies by fuel (pros, psf); v9.0 (R7): in the supply cost as legacy (issue I49).'),
     ('L83', 'Electricity producer subsidy compounds the factor and lags a year', 'Mitigation rows 3592, 3601, 3630',
      'The projection is the previous value x the previous factor (N3601 x N2213), so the factors multiply year on '
-     'year and lag.', 'Fixed (v4.16): base value x the factor of the year (fiscal line rpsu; the electricity price '
-     'effect waits for the power features).'),
+     'year and lag.', 'Fixed (v4.16): base value x the factor of the year (fiscal line rpsu); v9.0 (R7.6-R7.9): the '
+     'electricity producer subsidy per kWh (pseu) and residual (pser) x psf.ecy as legacy 465, passed through in the '
+     'price before policies.'),
     ('L84', 'Electricity consumer subsidy phased with the price-control factor; option text mismatch', 'Mitigation '
      'rows 3606, 3635; MTInputs row 138', 'The electricity consumer subsidy (PowerSubsidyExemptInclude = Include) is '
      'phased with the price-control factor (row 2216), not the consumer factor (2214); the unit says Exempt/Include* '
-     'while the value is DoNotPhaseOut*.', 'Not built (power parked); to fix with the power features: the consumer '
-     'factor, one option text.'),
+     'while the value is DoNotPhaseOut*.', 'Fixed (v9.0, R9.2): the consumer subsidy phase-out csd uses the consumer '
+     'factor when PowerSubsidyExemptInclude = Include (read per scenario), as legacy 465 O3606.'),
     ('L85', 'Electricity consumer subsidy info row subtracts industry', 'Mitigation row 7806', 'The info row is '
      '-(MIN(0, res) - MIN(0, ind)) instead of -(MIN(0, res) + MIN(0, ind)).', 'Not applicable (info row; the prototype '
      'subsidy gap rgap sums both groups).'),
     ('L86', 'No manual override for the electricity producer subsidy', 'Mitigation I828', 'The manual-input row of '
-     'the electricity producer subsidy is #N/A, so a manual value is ignored.', 'Not built (Manual inputs to come).'),
+     'the electricity producer subsidy is #N/A, so a manual value is ignored.', 'Fixed (v9.0, R8.1-R8.2): the manual '
+     'price table (Inputs_prices MPU) covers Manual inputs rows 60-146, the electricity producer subsidy included.'),
     ('L87', 'Regulations never act: share 0 and the adjustments unused', 'Mitigation C2371, F86:F90 (MTInputs rows '
      '247-251)', 'The share of the regulation shadow price on the efficiency margin, C2371 = IFNA(INDEX($F$86:$F$90, '
      'MATCH(C2370,$C$86:$C$90,0)),0), is 0: C86:C90 hold " - " plus the scenario name, so the MATCH never hits '
@@ -405,10 +411,11 @@ LEGACY += [
      'Not applicable in the prototype (ETS coverage typed per scenario, MTInputs rows 99-115).'),   # v5.2 (Manual inputs survey)
     ('L100', 'Manual domestic prices: the electricity rows are never read', 'Manual inputs G59:N146 (names _manual_prices, _manual_codes)',
      '_manual_prices (G59:N133) and _manual_codes (G59:G133) stop at row 133, so the electricity prices and producer subsidy (rows 136-146) are never read (the cause of L86).',
-     'Not applicable in the prototype (manual domestic prices not built; block placed, not read).'),   # v5.2 (Manual inputs survey)
+     'Fixed (v9.0, R8.1-R8.2): manual domestic prices read for rows 60-146 (Inputs_prices MPU), electricity '
+     'included.'),   # v5.2 (Manual inputs survey)
     ('L101', 'Manual services income elasticities read the industries column', 'Elasticities F51:F58 (Manual inputs rows 279-286)',
      'F51:F58 (services) read Manual inputs column M (industries) instead of N; the price and efficiency rows are right.',
-     'Not applicable in the prototype (manual elasticities not built; block placed, not read).'),   # v5.2 (Manual inputs survey)
+     'Fixed (v9.0, R8.3-R8.4): manual elasticities read (Inputs_ela columns I:M); services read column N.'),   # v5.2 (Manual inputs survey)
     ('L102', 'Manual non-energy elasticities can never take effect', 'Manual inputs K326:K327; Mitigation K366:M367',
      'K326:K327 are IF($E$293="Manual",#REF!,...) and Mitigation K366:M367 test E288 (MTInputs ElastIncAdjustment), which never equals "Manual".',
      'Fixed in v5.2 (typed inputs on Manual inputs K325:M327, read directly; same values; LegacyDiff 72).'),   # v5.2 (Manual inputs survey)
@@ -453,7 +460,7 @@ LEGACY += [
     ('L123', 'Intensity NDC: reference-year GDP read from a fixed cell', 'Mitigation row 18451', 'Not reproduced in the .xlsb (cell plan 2026-10-20): G469 = _NDC_Year, so G470 is the WEO real GDP of the reference year and F18466 = G470 is right; the fixed-cell reading came from the LibreOffice conversion. Only gap: reference years before 2000 find no GDP (#VALUE! or N/A; the prototype also gives N/A). Kept for the record. Found by the item 8 plan (v5.7).', 'Fixed (v5.7, NDC comparison 14c): ndc.gdp.ref looks the reference year up (WEO real GDP; N/A when the year is not in the data).'),   # v5.7
     ('L124', 'Producer subsidy: the residential gas block reads the oil subsidy', 'Mitigation row 2547 (N2547)', 'The "in which: producer-side subsidies" row of the gas | residential block reads N$827 (oil, $/liter) where the other gas blocks read N$826 (gas, $/GJ). Found by I49 (v6.1). The same cells as L82 (fix plan L82 covers it).', 'Fixed (v6.1, I49): every block reads the per-unit subsidy of its own fuel by its international price position (psp).'),   # v6.1
     ('L125', 'Producer subsidy: other oil products add a per-liter value to a per-barrel price', 'Mitigation row 2685 (N2685)', 'The other-oil-products block ($/bbl) adds the oil subsidy per liter (row 827) unconverted, about 159 times too small. Found by I49 (v6.1).', 'Fixed (v6.1, I49): x liters per barrel (LitersPerBbl) for a barrel-priced block.'),   # v6.1
-    ('L126', 'Power: fuel price for power averages later years', 'Mitigation rows 3155-3163 (A18)', 'The fuel price for power is a centred 5-year average, AVERAGE(t-2 .. t+2) of the fuel prices (rows 3072-3080), so this year\'s power costs read the next two years. Safe only while those prices depend on inputs alone: any quantity-dependent price (an endogenous ETS price, a supply-cost feedback) closes a circular reference through the GDP feedback. Found by the circular-reference review (v6.2, user 2026-10-20).', 'Fixed (v6.2): trailing average t-4 .. t (fpp over the row fpn; AVERAGEIFS on the year row keeps the scenario\'s own years). Price changes reach power costs about two years later than in legacy.'),   # v6.2
+    ('L126', 'Power: fuel price for power averages later years', 'Mitigation rows 3155-3163 (A18)', 'The fuel price for power is a centred 5-year average, AVERAGE(t-2 .. t+2) of the fuel prices (rows 3072-3080), so this year\'s power costs read the next two years. Safe only while those prices depend on inputs alone: any quantity-dependent price (an endogenous ETS price, a supply-cost feedback) closes a circular reference through the GDP feedback. Found by the circular-reference review (v6.2, user 2026-10-20).', 'Fixed (v6.2): trailing average t-4 .. t (fpp over the row fpn; AVERAGEIFS on the year row keeps the scenario\'s own years); legacy 465 has the same fix for coal, gas and oil, not for biomass (row 3163). Price changes reach power costs about two years later than in legacy 456 (465: biomass only).'),   # v6.2
     ('L127', 'Power: levelised variable cost reads the variable cost to 2041', 'Mitigation rows 3439-3447 (D9)', 'Investment choices use the variable cost levelised from the year to the end of the horizon (perfect foresight of the cost path). Safe only while that cost is built from inputs alone (prices before new policies, announced policy rates); a variable cost that reads quantities would close a circular reference. Latent today. Found by the circular-reference review (v6.2, user 2026-10-20).', 'Fixed (v6.2) as a rule with a test: the levelised cost reads only input-driven costs (tvc: fuel price for power, variable O&M, policy rates, shadow price, rebate); the quick check tests that no other row reads a later year and that tvc reaches no fuel use, GDP or power quantity row.'),   # v6.2
     ('L128', 'Net revenue report rows read the next year', 'Mitigation rows 6238, 6243 (policy 12554, 12559)', 'The net revenue rows (USD and % of GDP) read the next column of rows 8024 and 8029 (K6238 = L8024 ... AD6238 = AE8024), so each year shows the next year\'s net revenue. Report only (rows 6239, 6244 read them). Found by the read-of-later-years scan of legacy (v6.2, user 2026-10-20).', 'Not in the prototype (its revenue rows read the same year; reporting rebuilt). Legacy fix: K6238 =K8024 and K6243 =K8029, filled K:AD.'),   # v6.2
     ('L129', 'Baseline renewable subsidy counted twice', 'Mitigation rows 2785-2788, 2947-2951, 7883-7886 (against 2743, 2745)', 'The rows add L2743 + L2745, but L2745 already includes L2743, so the baseline renewable subsidy is counted twice. Only when MTInputs row 352 (RenewableSubsidyBL) is not zero; 0 for Egypt. Found by the cell plans (user 2026-10-20: a bug).', 'Fixed (prototype: one renewable subsidy row rnsp = baseline + additional, counted once).'),   # v6.3
@@ -598,8 +605,9 @@ ISSUES = [  # id, title, description, where it is documented
      'LAMBDA year and needs Excel 365.', 'README; NORMS (LAMBDA year)'),
     ('I3', 'New sector | fuel pairs need a label', 'A new pair on Mitigation needs a row in the member-label table on '
      'Mapping, or its description shows #N/A (20 spare rows in the defined name).', 'CAVEATS v1.08'),
-    ('I89', 'Price vintage: data prices end in 2022, as legacy', 'The last historical price year is 2022 (Settings C10, '
-     'v3.7), as legacy, whose prices stay near their 2022 USD level. The IMF dataset also holds 2023-2024, when Egypt '
+    ('I89', 'Price vintage: data prices end in 2022 (legacy 465: 2024)', 'The last historical price year is 2022 (Settings C10, '
+     'v3.7), as legacy 456, whose prices stay near their 2022 USD level; legacy 465 uses 2024 (v9.0 check: the '
+     'electricity tax and price-chain residual are those of 2022 in the prototype). The IMF dataset also holds 2023-2024, when Egypt '
      'prices fell sharply in USD after the devaluation (gasoline 0.60 to 0.34 $/l); with C10 = 2024, fuel use and '
      'electricity demand jump in 2023 and the gap to legacy fuel use grows from 17% to 46%. Demand responds to real '
      'USD prices, as legacy.', 'legacy_comparison_v6_4.md; Methods, chapter Prices A7'),
@@ -754,11 +762,12 @@ ISSUES = [  # id, title, description, where it is documented
      'the floor and slope of the price-control factor from the consumer subsidy share (I2201): there is no '
      'price-control share, and a baseline price-control phase-out (share 0) has no effect. The phase-out also scales a '
      'floating tax, not only a floating subsidy. Replicated in v4.16 (po.sh.pc).', 'Methods, chapter Prices 6'),
-    ('I49', 'Producer subsidies: fiscal line only, no price effect (not replicated)', 'Legacy spreads a producer '
-     'subsidy over world demand (oil) or half world, half domestic demand (coal, gas), and over domestic use '
-     '(biomass): the per-unit subsidy is then near zero for oil, coal and gas, and enters the supply cost (the '
-     'pass-through share reaches retail). The prototype has the fiscal line (pros x factor, rpsu) and no price effect; '
-     'electricity producer subsidies enter the power price in legacy (power parked). None for Egypt (data 0).',
+    ('I49', 'Producer subsidies spread over world or domestic demand, in the supply cost (replicated v9.0)', 'Legacy '
+     'spreads a producer subsidy over world demand (oil) or half world, half domestic demand (coal, gas), and over '
+     'domestic use (biomass): the per-unit subsidy is then near zero for oil, coal and gas, and enters the supply cost '
+     '(the pass-through share reaches retail; the price controls absorb the rest). The prototype does the same since '
+     'v9.0 (R7: psu x psf, block row psp in the supply cost; fiscal line rpsu); electricity producer subsidies enter '
+     'the power price before policies (pseu, R7.5-R7.9). None for Egypt (data 0).',
      'Methods, chapter Prices 6'),
     ('I54', 'PPAs: phase-out switch only on the exact text "Yes*"; share to phase out typed 1', 'Q2190 = IF(Q2189 = "Yes*", 1, 0): a plain "Yes" means no phase-out; the share of PPAs to phase out is typed 1 (Mitigation Q2190, Q2193, row 2218). Replicated with Yes or Yes* (LEFT 3), share 1.', 'Methods, chapter Power; LegacyDiff 75'),   # v5.4
     ('I55', 'Renewable subsidies: nominal inputs used as real', 'MTInputs 352-353 are labelled $/kWh nominal and enter the real cost and revenue without deflation (Mitigation row 2743). Replicated (rows rnsp, rns).', 'Methods, chapter Power; LegacyDiff 76'),   # v5.4
@@ -801,7 +810,7 @@ ISSUES = [  # id, title, description, where it is documented
     ('I75', 'Legacy code inconsistencies (CPAT code protocol)', 'Legacy codes do not follow one protocol: variable names differ by module (trevst vs stockcalc), slots differ in order (fuel.sector and sector.fuel), totals are written all or tot, model letters (.e, .a, .t) end some codes. The prototype follows the protocol from v7.2 (codes R0-R9: legacy variable names, sector before fuel, tot for totals, no model letters); legacy codes that differ are aliases in the crosswalk.', 'Codes_Remediation_Plan_v7_1.md; codes_crosswalk_v7_1.csv; code_renames_v7_2.csv'),   # v7.2
     ('I66', 'Fuel production for supply methane held at the base year (not replicated)', 'Legacy grows crude oil, natural gas and coal production (rows 6132-6135) from 2024 with the producer-price response to the methane fee (rows 6123-6130: price increase x pass-through, Manual inputs J190:J194 elasticities) and the growth of world demand of the global demand scenario (Prices_int rows 323-333, lagged one year). The prototype holds production at the base year (rows ch4.act og, cm). Found 2026-10-19 checking I26.', 'Methods, chapter Emissions'),   # v5.6
     ('I52', 'ETS inclusion: construction, fuel transformation and other energy use follow the buildings flag', 'Manual inputs V11:X11 read Dashboard Q30 (buildings) for construction, fuel transformation and other energy use: a grouping choice. The prototype types ETS coverage per scenario (MTInputs rows 99-115).', 'Manual inputs survey (v5.2)'),
-    ('I53', 'Manual domestic prices switch on only with a 2021 value', 'A manual price row is "Manual" only if its 2021 value is filled (Mitigation F765:F829 test K$764); years without a value fall back to the data year by year. Could be a bug (intent unclear). The prototype does not build manual domestic prices (block placed, not read).', 'Manual inputs survey (v5.2)'),
+    ('I53', 'Manual domestic prices switch on only with a 2021 value', 'A manual price row is "Manual" only if its 2021 value is filled (Mitigation F765:F829 test K$764); years without a value fall back to the data year by year. Could be a bug (intent unclear). Replicated since v9.0 (R8.1-R8.2, Inputs_prices MPU; I139).', 'Manual inputs survey (v5.2)'),
     ('I50', 'Residential LPG and kerosene always exempted: all new policy removed (replicated v5.1)', 'AlwaysExemptResLPGKer (MTInputs 268, per scenario) removes the carbon tax, the ETS and the new excise with their VAT from the residential LPG and kerosene price (legacy rows 5546-5547); the shadow price is kept, and ETS-covered emissions still count the fuels.', 'Methods, chapter Prices 5; LegacyDiff 66'),
     ('I51', 'Residential leakage: the fossil change is efficiency-weighted (replicated v5.1)', 'dF = -F x e_m x p, as legacy (p read as a share of useful energy). The alternative dF = -F x p is equally defensible (Egypt, $20 scenario, 2027: about -45 ktoe LPG and +127 ktoe biomass instead of -25 and +71).', 'Equations.md 4a; LegacyDiff 65'),
     ('I40', 'Road biofuels: feebate CO2 per liter scaled by the fossil share (replicated v4.12)', 'Legacy scales the '
@@ -1249,3 +1258,83 @@ ISSUE_STATUS.update({
     'I144': ('Minor', 'Accepted', 'Replicated (Equations_addendum R10.5-R10.6).'),
     'I145': ('Minor', 'Accepted', 'Replicated (Equations_addendum R10.8-R10.9).'),
     'I146': ('Minor', 'Accepted', 'Replicated (Equations_addendum R7.6-R7.7).')})
+
+# v9.0 (2026-10-29): status after the build of R1-R3, R6-R11 (integrator notes v90_*_changes.md, applied and deleted;
+# record in CAVEATS.md). R4, R5, R12 deferred by the user (branch wip-r4-r5-r12): their issues are not built yet.
+_DEFERRED = 'Not built: deferred by the user (2026-10-29; legacy work in progress)'
+ISSUE_LEGACY.update({c: _DEFERRED for c in ('I123', 'I124', 'I125', 'I126', 'I127', 'I128', 'I131', 'I132', 'I133',
+                                            'I134')})
+ISSUE_LEGACY.update({'I53': 'replicated', 'I89': 'not replicated'})
+ISSUE_STATUS.update({
+    'I49': ('Minor', 'Resolved', 'Replicated as legacy (v9.0, R7): the phase-out in the supply cost (psu x psf, block '
+            'row psp), the price controls absorb (1 - pass-through); the v6.2 wedge rows (psw, ppsw, psr) removed. '
+            'Electricity producer subsidies built (R7.5-R7.9; I146). Egypt: no data (0).'),
+    'I53': ('Minor', 'Accepted', 'Replicated (v9.0, R8.1-R8.2; I139): a manual row switches on with a 2021 value; manual '
+            'years 2021-2026. Ask the CPAT team about the intent.'),
+    'I61': ('Major', 'Accepted', 'v9.0: the range-anxiety goal seek (ra_goalseek.py, LegacyDiff 63) and the elasticity '
+            'branch of road biofuels (R10, LegacyDiff 62) are built; the review of the engineer run in Excel and the '
+            'vehicle revenues in 12b stay parked.'),
+    'I89': ('Major', 'Accepted', 'Kept at 2022 by user decision (2026-10-15), although legacy 465 uses 2024 (v9.0 '
+            'check): a departure; the electricity tax and price-chain residual are those of 2022 (res txe +0.0021, '
+            'ores -0.063 $/kWh; legacy 2024: -0.0551, -0.0205).'),
+    'I119': ('Minor', 'Accepted', 'Replicated 0 (v9.0, R3.12: electricity entx unchanged); filling it would tax '
+             'power-plant air pollution twice.'),
+    'I136': ('Major', 'Accepted', 'Replicated (v9.0, R6.3): Settings C83 basket denominator; Egypt 4 deciles LPG '
+             '0.27259 = legacy 0.2726.'),
+    'I137': ('Minor', 'Accepted', 'Replicated (v9.0, R6.1): Settings C65 fallback "lpg".'),
+    'I138': ('Minor', 'Accepted', 'Replicated (v9.0, R6.7): lkd on the not-exempt use.')})
+ISSUE_STATUS.update({c: (ISSUE_STATUS[c][0], 'Open', 'Not built: R4, R5, R12 deferred by the user (2026-10-29); '
+                         'replicate when built (' + ISSUE_STATUS[c][2] + ')')
+                     for c in ('I123', 'I124', 'I125', 'I126', 'I127', 'I128', 'I131', 'I132', 'I133', 'I134')})
+
+ISSUES += [
+    ('I147', 'Food & forestry local pollutants far above the legacy air-pollution input', 'The modelled PM2.5 of '
+     'section 17b (coefficients x section-15 emissions, R1.5) matches legacy for power and road (AP 975-977, 2022) but '
+     'food & forestry gives 85.3 ug/m3 against 2.74 in legacy: the prototype\'s section-15 food & forestry emissions '
+     'are far above the legacy AP input (BC 2,199 t against 3.8 t; NOx 40 kt against 5.5 kt; SO2 0.78 kt against 3.3 '
+     'kt); total 115.6 against 30.2 ug/m3. The food & forestry change drives wel.air (Egypt $20 tax, 2030: 3.76 bn). '
+     'Cause not found yet (section 15 food & forestry block, LegacyDiff 53, against the legacy E3 rows).',
+     'CAVEATS.md 2026-10-29 (v9.0 R1-R3)'),
+    ('I148', 'Current account data typed for Egypt only', 'Legacy reads the current account from WEO codes that no '
+     'longer exist (L50); the prototype types the corrected Egypt values (EGY.BCA.A, EGY.BCA_NGDPD.A, 2022-2041, '
+     'held at 2031 as legacy) on Inputs (block Inputs_macro); other countries read 0, so their current-account rows '
+     'are 0 (bca.y and bca.dp give 0 where legacy would give #DIV/0!).', 'CAVEATS.md 2026-10-29 (v9.0 R11)')]
+DATA_ISSUES.add('I148')
+ISSUE_LEGACY.update({'I147': 'Open: cause not found (prototype or legacy)', 'I148': 'replicated'})
+ISSUE_STATUS.update({
+    'I147': ('Major', 'Open', 'Reconcile the section-15 food & forestry emissions with the legacy AP input (a bug of '
+             'the prototype or of legacy, or a data difference); read wel.air with this caveat until then.'),
+    'I148': ('Extremely high', 'Open', 'No cell plan possible (the data are missing): Egypt typed, as legacy\'s '
+             'corrected values. Plan: the data team adds the current account (BCA, BCA_NGDPD) to the WEO table for '
+             'every country; then read it instead of the typed values.')})
+
+# v9.0 (user 2026-10-29): the last historical price year is 2024, as legacy 456 and 465 (I89 closed)
+ISSUE_LEGACY.update({'I89': 'replicated'})
+ISSUE_STATUS.update({'I89': ('Major', 'Closed', 'v9.0 (user 2026-10-29): the last historical price year is 2024, as '
+                             'legacy (price data through 2024, projection from 2025). v3.7-v8.5 held 2022, to stay close '
+                             'to the legacy cached run of an older price vintage (2026-10-09 comparison).')})
+
+# v9.0 (EF465, 2026-10-29): combustion emission factors as legacy 465 (table Inputs_nc)
+_EF465_L = {
+    'L58': 'Fixed by the CPAT team in 465: legacy 465 has EF codes for services, rail, construction, other '
+           'manufacturing, food & forestry and other energy, and maps mining & chemicals, iron & steel, other metals, '
+           'machinery, cement and fuel transformation to manufacturing (rows 6388-6395); the prototype follows 465 '
+           '(v9.0, table Inputs_nc). Navigation is still missing in 465 (bug L22, our fix kept).',
+    'L59': 'Fixed by the CPAT team in 465: each factor is the country\'s, else its World Bank region\'s, else the '
+           'world\'s (rows 1052-1663 F); the prototype follows 465 (v9.0) and retires its nearest-match fallback '
+           '(where the 465 chain gives 0, no fuel is burnt in Egypt).'}
+LEGACY = [(c, t, ('Mitigation rows 1052-1663 (465)' if c in _EF465_L else w), d, _EF465_L.get(c, st))
+          for c, t, w, d, st in LEGACY]
+ISSUES += [
+    ('I149', 'Other energy use takes the largest emission factor of each fuel across the other subsectors',
+     'Legacy 465 rows 1117-1124 and the oen rows of every pollutant block (note "The EF of this sector is equal to the '
+     'max across other sectors"), power included; CH4 rows blank in legacy. Replicated (Inputs_nc oen rows, MAXIFS). '
+     'Legacy takes the maximum year by year, the prototype on the base and final factors and the line between: exact '
+     'for Egypt (other energy burns only other oil products).', 'CAVEATS.md (2026-10-29, EF465)')]
+ISSUE_LEGACY.update({'I147': 'replicated', 'I149': 'replicated'})
+ISSUE_STATUS.update({
+    'I147': ('Major', 'Closed', 'Resolved in v9.0 (EF465): the cause was the emission factors (our L58/L59 fallback gave '
+             'food & forestry diesel the construction factor, 2.51 t BC/ktoe against legacy 465\'s regional 0.0044); '
+             'with the 465 lookup section 15 equals legacy in 2022 (food & forestry BC 3.8 t) and modelled PM2.5 is '
+             '33.06 against 30.17 ug/m3 (the difference: navigation, L22).'),
+    'I149': ('Minor', 'Accepted', 'Replicated.')})
