@@ -742,6 +742,16 @@ parts:
             over: "years $t$"
             note: "Excel-AI notation (Mitigation section 14, NDC rows; computed after the year loop because they read the baseline at the target year $ty$). The NDC row (Latest*, or the first or second round) gives the type (BAU, fixed, historical, intensity, unquantifiable), target years, reference year, unconditional and conditional changes, LULUCF and gas coverage; the level $\\ell$ by type; the reduction selected by Conditionality (average of the two where not chosen). Text rows and 'N/A' are not compared numerically."
             excel: "Mitigation section 14 (ndc.*)"
+          - id: A7.5
+            title: Carbon pricing indicators
+            kind: adjustment
+            greek: |
+              tcp_f = \frac{R_f}{CO2_f}, \quad cov^{ct} = \frac{\sum_e CO2^{cov}_e}{CO2}, \quad cov^{ets} = \frac{\sum_e CO2_e\,etsc_e}{CO2}, \quad p^{eff} = ct\,cov^{ct}, \quad ecr = \frac{R^{net} + R^{new} + R^{sr}}{CO2}
+            codes: |
+              \mathtt{tcp}_f, \ \mathtt{cov.ct}_S, \ \mathtt{cov.ets}, \ \mathtt{cov.all}, \ \mathtt{cpeff} = \mathtt{cptraj}\cdot\mathtt{cov.ct}, \ \mathtt{ecr}
+            over: "fuels $f$, sector groups $S$, years $t$"
+            note: "Excel-AI notation (Mitigation section 17). Revenue by fuel includes the power fuel rows (coal, gas, oil); covered CO2 (covct, A6.2) and ETS-covered CO2 as shares of energy CO2."
+            excel: "Mitigation section 17"
       - title: "A8 GDP and results"
         text: "To complete: current account (R11); carbon-pricing indicators (section 17); welfare, externalities, subsidies and efficient prices (section 18; methodology: efficiency cost $ddw = \\tfrac{1}{2}(nc - xcp)(F_P - F_B)$)."
         equations:

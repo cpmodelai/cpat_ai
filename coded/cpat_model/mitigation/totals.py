@@ -8,7 +8,7 @@ import numpy as np
 
 from cpat_model.core import excel_ai_tables as xt
 from cpat_model.core.dims import COVERAGE_SECTORS, FUELS, SECTOR_GROUP, SECTORS
-from cpat_model.core.rows import safe_div
+from cpat_model.core.rows import Rows, safe_div
 from cpat_model.mitigation.gdp import year_rows
 from cpat_model.mitigation.power import TYPES
 
@@ -20,10 +20,9 @@ def reference(R, baseline, k, var, sector=None, fuel=None):
     baseline itself, the row."""
     if baseline is None:
         return R.at(var, k, sector, fuel)
-    a = baseline[var]
-    if sector is not None:
-        a = a.sel(sector=sector, fuel=fuel)
-    return a.sel(country=R.countries, year=R.years[k]).values
+    if getattr(R, 'base', None) is None or R.base.state is not baseline:      # numpy views of the baseline, made once
+        R.base = Rows(baseline, R.countries, R.years)
+    return R.base.at(var, k, sector, fuel)
 
 
 def energy(state, db, inputs, settings, baseline, t):

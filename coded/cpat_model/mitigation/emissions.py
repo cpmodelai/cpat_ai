@@ -6,6 +6,7 @@ ghg       section 14: population, non-energy drivers, methane by source (fee aba
           category and gas (data years from the inventory, later years by drivers), methane fee revenue
 kaya      section 13 (end): Kaya identity, reads section 14
 ndc       section 14 NDC rows: after the year loop (they read the baseline at the NDC target year)
+carbon_pricing  section 17: carbon pricing indicators
 """
 import numpy as np
 
@@ -421,3 +422,28 @@ def ndc(state, db, inputs, settings, baseline):
 def _fmt(x):
     """A number as Excel shows it in a text join (2010, not 2010.0)."""
     return str(int(x)) if isinstance(x, float) and x == int(x) else str(x)
+
+
+def carbon_pricing(state, db, inputs, settings, baseline, t):
+    """EQ-A7.5: carbon pricing indicators (Mitigation section 17): revenue per tonne of CO2 by fuel, the share of CO2
+    covered by the carbon tax and the ETS, effective carbon price, revenue per tonne."""
+    R = year_rows(state, settings)
+    k = settings.years.index(t)
+    at = lambda var, sector=None, fuel=None: R.at(var, k, sector, fuel)
+    co2 = at('co2', 'all', 'all')
+    per_t = lambda v: np.where(co2 == 0, 0.0, safe_div(v, co2))
+    power = {'coa', 'nga', 'oop'}                        # power fuels with revenue rows rfg
+    for f in ('coa', 'nga', 'gso', 'die', 'lpg', 'ker', 'jfu', 'oop'):
+        rev = at('rfu', 'all', f) + (at('rfg', 'pow', f) if f in power else 0.0)
+        cf = at('co2', 'all', f)
+        R.set('tcp', k, np.where(cf == 0, 0.0, safe_div(rev, cf)), 'all', f)
+    R.set('tcp', k, per_t(sum(at('rfu', 'all', f) for f in ('coa', 'nga', 'gso', 'die', 'lpg', 'ker', 'jfu', 'oop'))
+                          + sum(at('rfg', 'pow', f) for f in power)), 'all', 'all')
+    for g in GROUPS:
+        R.set('cov.ct', k, per_t(sum(at('covct', s, 'all') for s in SECTORS if SECTOR_GROUP[s] == g)), g, 'all')
+    R.set('cov.ct', k, per_t(at('covct', 'pow', 'all')), 'pow', 'all')
+    ct = R.set('cov.ct', k, per_t(sum(at('covct', e, 'all') for e in COVERAGE_SECTORS)), 'all', 'all')
+    ets = R.set('cov.ets', k, per_t(at('co2.ets', 'all', 'all')), 'all', 'all')
+    R.set('cov.all', k, ct + ets, 'all', 'all')
+    R.set('cpeff', k, at('cptraj') * ct, 'all', 'all')
+    R.set('ecr', k, per_t(at('rnet', 'all', 'all') + at('rnew', 'all', 'all') + at('rsr', 'all', 'all')), 'all', 'all')

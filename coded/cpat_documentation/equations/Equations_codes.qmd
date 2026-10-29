@@ -643,6 +643,14 @@ $$
 
 Over years $t$. Excel-AI notation (Mitigation section 14, NDC rows; computed after the year loop because they read the baseline at the target year $ty$). The NDC row (Latest*, or the first or second round) gives the type (BAU, fixed, historical, intensity, unquantifiable), target years, reference year, unconditional and conditional changes, LULUCF and gas coverage; the level $\ell$ by type; the reduction selected by Conditionality (average of the two where not chosen). Text rows and 'N/A' are not compared numerically. Source: Excel-AI: Mitigation section 14 (ndc.*).
 
+**A7.5  Carbon pricing indicators**  *(adjustment)*
+
+$$
+\mathtt{tcp}_f, \ \mathtt{cov.ct}_S, \ \mathtt{cov.ets}, \ \mathtt{cov.all}, \ \mathtt{cpeff} = \mathtt{cptraj}\cdot\mathtt{cov.ct}, \ \mathtt{ecr}
+$$
+
+Over fuels $f$, sector groups $S$, years $t$. Excel-AI notation (Mitigation section 17). Revenue by fuel includes the power fuel rows (coal, gas, oil); covered CO2 (covct, A6.2) and ETS-covered CO2 as shares of energy CO2. Source: Excel-AI: Mitigation section 17.
+
 ## A8 GDP and results
 
 To complete: current account (R11); carbon-pricing indicators (section 17); welfare, externalities, subsidies and efficient prices (section 18; methodology: efficiency cost $ddw = \tfrac{1}{2}(nc - xcp)(F_P - F_B)$).

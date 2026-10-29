@@ -57,6 +57,7 @@ BUILT = {
                                  'ndc.ref', 'ndc.x', 'ndc.lu', 'ndc.gas', 'ndc.co2', 'ndc.bs', 'ndc.bty', 'ndc.bi',
                                  'ndc.hk', 'ndc.hh', 'ndc.hc', 'ndc.hv', 'ndc.h', 'ndc.gdp', 'ndc.hi', 'ndc.f', 'ndc.lv',
                                  'ndc.r', 'ndc.lvl', 'ndc.idx', 'ndc.bau', 'ndc.red', 'ndc.gap', 'ndc.over'],
+    '3.12a carbon pricing indicators': ['tcp', 'cpeff', 'cov.ct', 'cov.ets', 'cov.all', 'ecr'],
     '3.11 GDP effects': ['gdp.pos.pct', 'fis.rev', 'fis.ref', 'fis.sp', 'fis.imp', 'fis.lag', 'fis.impp', 'fis.lagp',
                          'fis.grp', 'fis.key', 'fis.eff', 'gdp.lvl', 'gdp.pos.usd', 'gdpg', 'gdpy', 'gdp.chg.usd',
                          'gdp.eff', 'EXPLabortax', 'EXPCIT', 'EXPCapex', 'EXPGoodsandserv', 'EXPTransfers',
