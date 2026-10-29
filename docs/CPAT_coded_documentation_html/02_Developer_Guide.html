@@ -239,7 +239,7 @@ ul.task-list li input[type="checkbox"] {
 <p>How the Python model is built and how to work on it. What it is and how to run it: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/README.md"><code>../../README.md</code></a>. The rules: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/NORMS.md"><code>../../NORMS.md</code></a> (Python) and the root <a href="https://github.com/cpmodelai/cpat_ai/blob/main/NORMS.md"><code>../../../NORMS.md</code></a>. The design and the plan: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/project/Spec.qmd"><code>../project/Spec.qmd</code></a>. The equations: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/equations/Equations.qmd"><code>../equations/Equations.qmd</code></a>.</p>
 <section id="the-principle" class="level2">
 <h2 class="anchored" data-anchor-id="the-principle">1. The principle</h2>
-<p>Coded CPAT replicates Excel-AI (<code>excel_ai/CPAT-AI-Mitigation-Prototype_v&lt;version&gt;.xlsm</code>, <code>CPAT-AI-Distribution-Prototype_v&lt;version&gt;.xlsm</code>) number for number, readable first. Excel-AI is the specification: every Excel-AI row has an output code (<code>core/variables.csv</code>), and the tests compare Python with Excel-AI’s stored values code by code within 1e-9. Where Excel-AI is wrong, Python replicates it and the bug is registered (<code>excel_ai/BUGS.md</code>, open prototype bugs M; NORMS 0.3); the replicated lines carry <code># Excel-AI bug M&lt;n&gt;</code>.</p>
+<p>Coded CPAT replicates Excel-AI (<code>excel_ai/CPAT-AI-Mitigation-Prototype_v&lt;version&gt;.xlsm</code>, <code>CPAT-AI-Distribution-Prototype_v&lt;version&gt;.xlsm</code>) number for number, readable first. Excel-AI is the specification: every Excel-AI row has an output code (<code>core/variables.csv</code>), and the tests compare Python with Excel-AI’s stored values code by code within 1e-9. Where Excel-AI is wrong (a bug), Python does not replicate it: the bug is registered (<code>excel_ai/BUGS.md</code>, open prototype bugs M), fixed here where the fix is obvious (<code># bug M&lt;n&gt; fixed</code>), and the codes that then differ are listed in <code>cpat_testing/compare/known_differences.py</code>; the tests leave them out of the match and check that they differ (NORMS 0.3). An issue (a potential improvement) is replicated and logged for later.</p>
 </section>
 <section id="a-run" class="level2">
 <h2 class="anchored" data-anchor-id="a-run">2. A run</h2>
@@ -255,7 +255,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Distribution</strong>: every scenario against scenario 1 in the analysis year (<code>distribution/incidence.py</code>), where the scenario set has the distribution inputs.</li>
 <li><strong>Results</strong> (<code>results/results.py</code>): <code>by_code(country)</code> and <code>distribution_by_code(country)</code>.</li>
 </ol>
-<p>The baseline run and the data steps are cached per baseline (<code>loop.baseline_key</code>: scenario-1 inputs, database folder, settings): a second run with the same baseline computes only the policy scenarios (0.8 s for one country and two scenarios).</p>
+<p>The baseline run, the data steps and each policy-scenario run are cached (<code>loop.baseline_key</code>: scenario-1 inputs, database folder, settings; a scenario by its number and inputs): a rerun computes only the scenarios that changed (0.8 s for one country and two scenarios with a new policy scenario).</p>
 </section>
 <section id="rows-the-state-and-a-block" class="level2">
 <h2 class="anchored" data-anchor-id="rows-the-state-and-a-block">3. Rows, the state and a block</h2>
@@ -317,17 +317,56 @@ ul.task-list li input[type="checkbox"] {
 <td><code>test_run_model.py</code>, <code>test_shiny_app.py</code></td>
 <td>the command line and the app</td>
 </tr>
-<tr class="odd">
-<td><code>model/distribution/</code></td>
-<td>the earlier distribution package (until retired)</td>
-</tr>
 </tbody>
 </table>
 <p>The reference values come from the Excel-AI workbooks: <code>python cpat_testing/compare/extract_excel_ai.py</code> (mitigation) and <code>--distribution</code>.</p>
 </section>
 <section id="the-app" class="level2">
 <h2 class="anchored" data-anchor-id="the-app">6. The app</h2>
-<p><code>app.py</code> and <code>cpat_shiny/</code>: the scenarios built in the app (carbon tax start and target year and level, price source) become a scenario set over Excel-AI’s (scenario 1 = Excel-AI’s baseline) and run through <code>cpat_model.run</code>; raw results, indicators and graphs read <code>Results.by_code</code>. Run: <code>shiny run app.py</code>. Details in <code>cpat_shiny/</code>.</p>
+<p><code>app.py</code> and <code>cpat_shiny/</code>; run <code>shiny run app.py</code> from <code>coded/</code>. The adapter <code>cpat_shiny/server_logic/run_model.py</code> turns the scenarios built in the app into a scenario set: scenario 1 is Excel-AI’s baseline column, each app scenario a copy of Excel-AI’s carbon-tax column with the app’s values written over it:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>App input</th>
+<th>Model input</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Scenario name</td>
+<td><code>ScenarioName</code></td>
+</tr>
+<tr class="even">
+<td>Countries</td>
+<td><code>Settings.countries</code> (only countries the database has data for)</td>
+</tr>
+<tr class="odd">
+<td>Carbon tax start, target year</td>
+<td><code>CPIntro</code>, <code>CPOutro</code></td>
+</tr>
+<tr class="even">
+<td>Carbon tax start, target level</td>
+<td><code>CPLevelStart</code>, <code>CPLevelTarget</code></td>
+</tr>
+<tr class="odd">
+<td>After the target year</td>
+<td><code>ExtendCarbonPriceBeyondOutro</code></td>
+</tr>
+<tr class="even">
+<td>International price source</td>
+<td><code>IntEnerPricForeSource</code> (baseline too)</td>
+</tr>
+<tr class="odd">
+<td>Fuels, sectors covered</td>
+<td><code>MCov&lt;Fuel&gt;</code>, <code>MCov&lt;Sector&gt;</code> (none selected: Excel-AI’s coverage)</td>
+</tr>
+</tbody>
+</table>
+<p>Raw results, indicators (carbon price, CO2, energy use, revenue, real GDP) and the graphs (energy by sector and fuel, change by fuel, prices, emissions by sector, net effect by decile) read <code>Results.by_code</code> and <code>distribution_by_code</code> (<code>results_tables.py</code>, <code>visualization/figures.py</code>). Every app scenario shares one baseline, so the scenarios of a run must share their countries and price source.</p>
 </section>
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">7. Data</h2>

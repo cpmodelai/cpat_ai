@@ -48,6 +48,7 @@ Decided 2026-10-29 (user): a block that still differs after a reasonable effort 
 
 ## Phase 5 - Systematic comparisons
 
+- ☐ 5.0 Against the Python recomputations written for Excel-AI (`../excel_ai/mitigation/check_full.py`, `power_model_ref.py`, `transport_model_ref.py`, `distribution_ref.py`; spec D8): Coded CPAT's blocks against them where they cover the same rows, Egypt, after the prototype's bug fixes M15-M22 (a second, independent check of Python's fixes) (user 2026-10-29).
 - ☐ 5.1 Excel-AI values by code from the recalculated release workbook; Python against them, Egypt.
 - ☐ 5.2 Every country (`full` where available, else `dummy`).
 - ☐ 5.3 Against legacy CPAT: Egypt, then every country, through LegacyDiff.
@@ -56,10 +57,10 @@ Decided 2026-10-29 (user): a block that still differs after a reasonable effort 
 ## Phase 6 - Running the model
 
 - ☑ 6.1 `run_model.py` for scenario-set files (many countries, many scenarios): `python run_model.py [set.csv] --countries --scenarios --database --out --xlsx`; writes `mitigation_<ISO>.csv` (code, variable, sector, fuel, description, unit, years) and `distribution_<ISO>.csv`; `test_run_model.py`.
-- ☐ 6.2 Shiny on `cpat_model.run`; rerun only changed scenarios.
-- ☐ 6.3 Retire the replaced code (old `mitigation/` subpackages, `dashboard_inputs.py`, `distribution_inputs.py`, `data_read/`, `indicators/`).
+- ☑ 6.2 Shiny on `cpat_model.run`: done 2026-10-29 (`cpat_shiny/server_logic/run_model.py`: the app's scenarios over Excel-AI's carbon-tax column, scenario 1 = Excel-AI's baseline; raw results, five indicators, six graphs incl. the net effect by decile, from `Results`; countries with data only; `test_shiny_app.py`; HTTP 200). Reruns compute only changed scenarios (`core/loop.py` caches each scenario run by its inputs and baseline). Left: a faster `Results.by_code` (1-2 s for three scenarios); no fuel-subsidy, ETS or feebate controls in the app.
+- ☑ 6.3 Retire the replaced code: done 2026-10-29: the earlier distribution package (`distribution.py`, `budget_shares.py`, `effects.py`, `price_changes.py`, `rebasing.py`, `recycling.py`, `welfare.py`, `sectoral.py`, `data.py`) and its 13 tests, `distribution_inputs.py`, `constants.py`, `config.py` (the old mitigation subpackages, `dashboard_inputs.py`, `data_read/`, `indicators/` went at the phase-2 clean break). Left for the data person: the old Python-format data `../data/dummy/` and its scripts (`convert_data_workbook.py`, `export_to_legacy.py`) serve no Coded CPAT code now; retire them with the data tests (`../data/tests`) or keep them as the legacy-layout converters.
 - ☑ 6.4 Website: the Coded CPAT tab of the Quarto site at `../docs/` (D12): a third book `../docs/CPAT_coded_documentation_qmd/` (generated from `coded/` by its `make_qmd.py`: overview, developer guide, spec, equation lists, norms, plan), rendered to `../docs/CPAT_coded_documentation_html/`, tab `#coded` in `../docs/index.html`.
-- ☐ 6.5 First release `<Excel-AI version>p0.1`.
+- ☑ 6.5 First release `0.9.1p0.1` (2026-10-29): `CHANGELOG.md`, git tag `coded-v0.9.1p0.1`.
 
 ## Excel-AI bugs (root NORMS 0 rule 6; coded NORMS 0.3)
 

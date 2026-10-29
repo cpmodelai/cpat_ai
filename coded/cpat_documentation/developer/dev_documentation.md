@@ -18,7 +18,7 @@ Coded CPAT replicates Excel-AI (`excel_ai/CPAT-AI-Mitigation-Prototype_v<version
 3. **Distribution**: every scenario against scenario 1 in the analysis year (`distribution/incidence.py`), where the scenario set has the distribution inputs.
 4. **Results** (`results/results.py`): `by_code(country)` and `distribution_by_code(country)`.
 
-The baseline run and the data steps are cached per baseline (`loop.baseline_key`: scenario-1 inputs, database folder, settings): a second run with the same baseline computes only the policy scenarios (0.8 s for one country and two scenarios).
+The baseline run, the data steps and each policy-scenario run are cached (`loop.baseline_key`: scenario-1 inputs, database folder, settings; a scenario by its number and inputs): a rerun computes only the scenarios that changed (0.8 s for one country and two scenarios with a new policy scenario).
 
 ## 3. Rows, the state and a block
 
@@ -49,13 +49,24 @@ The baseline run and the data steps are cached per baseline (`loop.baseline_key`
 | `test_equation_ids.py` | equation ids cited in the code exist |
 | `test_speed.py` | the cached two-scenario run is fast and equal to a fresh run |
 | `test_run_model.py`, `test_shiny_app.py` | the command line and the app |
-| `model/distribution/` | the earlier distribution package (until retired) |
 
 The reference values come from the Excel-AI workbooks: `python cpat_testing/compare/extract_excel_ai.py` (mitigation) and `--distribution`.
 
 ## 6. The app
 
-`app.py` and `cpat_shiny/`: the scenarios built in the app (carbon tax start and target year and level, price source) become a scenario set over Excel-AI's (scenario 1 = Excel-AI's baseline) and run through `cpat_model.run`; raw results, indicators and graphs read `Results.by_code`. Run: `shiny run app.py`. Details in `cpat_shiny/`.
+`app.py` and `cpat_shiny/`; run `shiny run app.py` from `coded/`. The adapter `cpat_shiny/server_logic/run_model.py` turns the scenarios built in the app into a scenario set: scenario 1 is Excel-AI's baseline column, each app scenario a copy of Excel-AI's carbon-tax column with the app's values written over it:
+
+| App input | Model input |
+|---|---|
+| Scenario name | `ScenarioName` |
+| Countries | `Settings.countries` (only countries the database has data for) |
+| Carbon tax start, target year | `CPIntro`, `CPOutro` |
+| Carbon tax start, target level | `CPLevelStart`, `CPLevelTarget` |
+| After the target year | `ExtendCarbonPriceBeyondOutro` |
+| International price source | `IntEnerPricForeSource` (baseline too) |
+| Fuels, sectors covered | `MCov<Fuel>`, `MCov<Sector>` (none selected: Excel-AI's coverage) |
+
+Raw results, indicators (carbon price, CO2, energy use, revenue, real GDP) and the graphs (energy by sector and fuel, change by fuel, prices, emissions by sector, net effect by decile) read `Results.by_code` and `distribution_by_code` (`results_tables.py`, `visualization/figures.py`). Every app scenario shares one baseline, so the scenarios of a run must share their countries and price source.
 
 ## 7. Data
 

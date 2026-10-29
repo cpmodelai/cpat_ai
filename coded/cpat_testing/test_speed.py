@@ -17,10 +17,11 @@ def two_scenarios():
 
 
 def test_cached_run_is_fast_and_identical(capsys):
-    loop._BASELINES.clear(), loop._CACHES.clear()
+    loop._BASELINES.clear(), loop._CACHES.clear(), loop._SCENARIOS.clear()
     fresh = cpat_model.run(two_scenarios())
     times = []
     for _ in range(3):
+        loop._SCENARIOS.clear()                           # time the policy scenario, with the baseline cached
         t0 = time.perf_counter()
         warm = cpat_model.run(two_scenarios())
         times.append(time.perf_counter() - t0)

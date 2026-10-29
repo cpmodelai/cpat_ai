@@ -203,7 +203,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#phase-4---distribution" id="toc-phase-4---distribution" class="nav-link" data-scroll-target="#phase-4---distribution">Phase 4 - Distribution</a></li>
   <li><a href="#phase-5---systematic-comparisons" id="toc-phase-5---systematic-comparisons" class="nav-link" data-scroll-target="#phase-5---systematic-comparisons">Phase 5 - Systematic comparisons</a></li>
   <li><a href="#phase-6---running-the-model" id="toc-phase-6---running-the-model" class="nav-link" data-scroll-target="#phase-6---running-the-model">Phase 6 - Running the model</a></li>
-  <li><a href="#excel-ai-bugs-replicated-root-norms-0-rule-6-coded-norms-0.3" id="toc-excel-ai-bugs-replicated-root-norms-0-rule-6-coded-norms-0.3" class="nav-link" data-scroll-target="#excel-ai-bugs-replicated-root-norms-0-rule-6-coded-norms-0.3">Excel-AI bugs replicated (root NORMS 0 rule 6; coded NORMS 0.3)</a></li>
+  <li><a href="#excel-ai-bugs-root-norms-0-rule-6-coded-norms-0.3" id="toc-excel-ai-bugs-root-norms-0-rule-6-coded-norms-0.3" class="nav-link" data-scroll-target="#excel-ai-bugs-root-norms-0-rule-6-coded-norms-0.3">Excel-AI bugs (root NORMS 0 rule 6; coded NORMS 0.3)</a></li>
   <li><a href="#later-not-now" id="toc-later-not-now" class="nav-link" data-scroll-target="#later-not-now">Later (not now)</a></li>
   <li><a href="#existing-open-items-before-the-project-to-be-absorbed-by-the-phases-above" id="toc-existing-open-items-before-the-project-to-be-absorbed-by-the-phases-above" class="nav-link" data-scroll-target="#existing-open-items-before-the-project-to-be-absorbed-by-the-phases-above">Existing open items (before the project; to be absorbed by the phases above)</a></li>
   </ul>
@@ -293,6 +293,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="phase-5---systematic-comparisons" class="level2">
 <h2 class="anchored" data-anchor-id="phase-5---systematic-comparisons">Phase 5 - Systematic comparisons</h2>
 <ul>
+<li><label><input type="checkbox">5.0 Against the Python recomputations written for Excel-AI (<code>../excel_ai/mitigation/check_full.py</code>, <code>power_model_ref.py</code>, <code>transport_model_ref.py</code>, <code>distribution_ref.py</code>; spec D8): Coded CPAT’s blocks against them where they cover the same rows, Egypt, after the prototype’s bug fixes M15-M22 (a second, independent check of Python’s fixes) (user 2026-10-29).</label></li>
 <li><label><input type="checkbox">5.1 Excel-AI values by code from the recalculated release workbook; Python against them, Egypt.</label></li>
 <li><label><input type="checkbox">5.2 Every country (<code>full</code> where available, else <code>dummy</code>).</label></li>
 <li><label><input type="checkbox">5.3 Against legacy CPAT: Egypt, then every country, through LegacyDiff.</label></li>
@@ -303,24 +304,24 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="phase-6---running-the-model">Phase 6 - Running the model</h2>
 <ul>
 <li>☑ 6.1 <code>run_model.py</code> for scenario-set files (many countries, many scenarios): <code>python run_model.py [set.csv] --countries --scenarios --database --out --xlsx</code>; writes <code>mitigation_&lt;ISO&gt;.csv</code> (code, variable, sector, fuel, description, unit, years) and <code>distribution_&lt;ISO&gt;.csv</code>; <code>test_run_model.py</code>.</li>
-<li><label><input type="checkbox">6.2 Shiny on <code>cpat_model.run</code>; rerun only changed scenarios.</label></li>
-<li><label><input type="checkbox">6.3 Retire the replaced code (old <code>mitigation/</code> subpackages, <code>dashboard_inputs.py</code>, <code>distribution_inputs.py</code>, <code>data_read/</code>, <code>indicators/</code>).</label></li>
+<li>☑ 6.2 Shiny on <code>cpat_model.run</code>: done 2026-10-29 (<code>cpat_shiny/server_logic/run_model.py</code>: the app’s scenarios over Excel-AI’s carbon-tax column, scenario 1 = Excel-AI’s baseline; raw results, five indicators, six graphs incl.&nbsp;the net effect by decile, from <code>Results</code>; countries with data only; <code>test_shiny_app.py</code>; HTTP 200). Reruns compute only changed scenarios (<code>core/loop.py</code> caches each scenario run by its inputs and baseline). Left: a faster <code>Results.by_code</code> (1-2 s for three scenarios); no fuel-subsidy, ETS or feebate controls in the app.</li>
+<li>☑ 6.3 Retire the replaced code: done 2026-10-29: the earlier distribution package (<code>distribution.py</code>, <code>budget_shares.py</code>, <code>effects.py</code>, <code>price_changes.py</code>, <code>rebasing.py</code>, <code>recycling.py</code>, <code>welfare.py</code>, <code>sectoral.py</code>, <code>data.py</code>) and its 13 tests, <code>distribution_inputs.py</code>, <code>constants.py</code>, <code>config.py</code> (the old mitigation subpackages, <code>dashboard_inputs.py</code>, <code>data_read/</code>, <code>indicators/</code> went at the phase-2 clean break). Left for the data person: the old Python-format data <code>../data/dummy/</code> and its scripts (<code>convert_data_workbook.py</code>, <code>export_to_legacy.py</code>) serve no Coded CPAT code now; retire them with the data tests (<code>../data/tests</code>) or keep them as the legacy-layout converters.</li>
 <li>☑ 6.4 Website: the Coded CPAT tab of the Quarto site at <code>../docs/</code> (D12): a third book <code>../docs/CPAT_coded_documentation_qmd/</code> (generated from <code>coded/</code> by its <code>make_qmd.py</code>: overview, developer guide, spec, equation lists, norms, plan), rendered to <code>../docs/CPAT_coded_documentation_html/</code>, tab <code>#coded</code> in <code>../docs/index.html</code>.</li>
-<li><label><input type="checkbox">6.5 First release <code>&lt;Excel-AI version&gt;p0.1</code>.</label></li>
+<li>☑ 6.5 First release <code>0.9.1p0.1</code> (2026-10-29): <code>CHANGELOG.md</code>, git tag <code>coded-v0.9.1p0.1</code>.</li>
 </ul>
 </section>
-<section id="excel-ai-bugs-replicated-root-norms-0-rule-6-coded-norms-0.3" class="level2">
-<h2 class="anchored" data-anchor-id="excel-ai-bugs-replicated-root-norms-0-rule-6-coded-norms-0.3">Excel-AI bugs replicated (root NORMS 0 rule 6; coded NORMS 0.3)</h2>
-<p>Coded CPAT replicates these open prototype bugs (<code>../excel_ai/BUGS.md</code> section 2) so its numbers equal Excel-AI’s; each is marked in the code (<code># Excel-AI bug M&lt;n&gt;</code>). When Excel-AI fixes one, add a line here with the Excel-AI version, and change the Python in the release for that version. Fix brief for Excel-AI: <code>../excel_ai/plans/Fix_prototype_bugs_M15-M22.md</code>.</p>
-<ul class="task-list">
-<li><label><input type="checkbox">M15 VAT on efficient prices at the 2022 rate in every year (<code>mitigation/prices_data.py</code> VATGEN_YEAR; <code>welfare.py</code>). Fix to follow: the year’s VAT_WEO to LastHistPriceYear, then held.</label></li>
-<li><label><input type="checkbox">M16 freight BEV feebate at the ICEV distance (<code>mitigation/road.py</code>).</label></li>
-<li><label><input type="checkbox">M17 plug-in hybrid cost basis (<code>mitigation/road.py</code>).</label></li>
-<li><label><input type="checkbox">M18 bus electricity scaled by every fuel (<code>mitigation/road.py</code>).</label></li>
-<li><label><input type="checkbox">M19 <code>gdpn</code> divided by a billion (<code>mitigation/totals.py</code>).</label></li>
-<li><label><input type="checkbox">M20 World Bank gas series read by position (<code>mitigation/prices_data.py</code>).</label></li>
-<li><label><input type="checkbox">M21 methane fee cap where b = 0 (<code>mitigation/welfare.py</code>; Excel-AI gives #DIV/0, Python 1).</label></li>
-<li><label><input type="checkbox">M22 Distribution percentile recycling rows add a % row (<code>distribution/incidence.py</code>).</label></li>
+<section id="excel-ai-bugs-root-norms-0-rule-6-coded-norms-0.3" class="level2">
+<h2 class="anchored" data-anchor-id="excel-ai-bugs-root-norms-0-rule-6-coded-norms-0.3">Excel-AI bugs (root NORMS 0 rule 6; coded NORMS 0.3)</h2>
+<p>Prototype bugs found by Coded CPAT (<code>../excel_ai/BUGS.md</code> section 2). Bugs are not replicated: Coded CPAT fixes them where the fix is obvious (<code># bug M&lt;n&gt; fixed</code> at the line; the codes that then differ from Excel-AI in <code>cpat_testing/compare/known_differences.py</code>) and follows the prototype’s fixed version otherwise. When Excel-AI ships a fix, add a line here with its version, align Python with the prototype’s fix and delete the known differences. Fix brief for Excel-AI: <code>../excel_ai/plans/Fix_prototype_bugs_M15-M22.md</code>.</p>
+<ul>
+<li>☑ M15 VAT on efficient prices at the 2022 rate in every year: fixed (<code>welfare.py</code>: VAT_WEO of the year to LastHistPriceYear, then held; user 2026-10-29). Egypt: no change (14% throughout).</li>
+<li>☑ M16 freight BEV feebate at the ICEV distance: fixed (<code>road.py</code>: the freight BEV distance). Egypt: no change (no freight feebate).</li>
+<li>◐ M17 plug-in hybrid cost basis: replicated until the prototype’s fixed version (decided 2026-10-29 in the prototype thread: BEV price, ICE maintenance).</li>
+<li><label><input type="checkbox" checked="">M18 bus electricity: withdrawn 2026-10-29 (not a bug: all base-year bus energy electrifies with the passenger share, as legacy); Python as Excel-AI.</label></li>
+<li>☑ M19 <code>gdpn</code> divided by a billion: fixed (<code>totals.py</code>; Python = Excel-AI x 1e9, known difference).</li>
+<li>☑ M20 World Bank gas series read by position: fixed (<code>prices_data.py</code>: by name). Egypt: no change (IMF prices). To check against the prototype’s fix in phase 5: after 2021 Excel-AI’s World Bank gas rows are not a plain swap of the two series (the data-step test leaves the WB, AVG and IMF-WB gas rows out).</li>
+<li>☑ M21 methane fee cap where b = 0: fixed (<code>welfare.py</code>: no cap). Egypt: no change.</li>
+<li>☑ M22 Distribution percentile recycling rows: fixed (<code>incidence.py</code>: public investment per person; known difference, scenario group 2).</li>
 </ul>
 </section>
 <section id="later-not-now" class="level2">
