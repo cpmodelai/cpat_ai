@@ -4,7 +4,8 @@ order from column A (same column letters as legacy; leading empty legacy columns
 from row 4; where legacy has no unique key, the workbook adds a key formula column right of the table.
 Writes data/legacy_<Tab>.csv (header + data rows):
   Balances     legacy Balances rows 13+ (energy balance by flow and fuel; NoPropData: Egypt)
-  EF_PM        legacy EF_PM rows 2+ (combustion emission factors of non-CO2 gases and local pollutants; Egypt)
+  EF_PM        legacy EF_PM rows 2+ (combustion emission factors of non-CO2 gases and local pollutants; v9.0: all
+               countries and regions, as the prototype looks up country, else region, else world like legacy)
   EnergyCons   legacy EnergyCons layout (empty in NoPropData): filled from Balances with legacy's mapping
                (Mitigation rows 529-601: subsector = Balances flow; pow = -power; ftr = -(ownuse + heat))
   IO_GTAP, HHSurvey, ASPIRE, WHOCooking   legacy tabs (Egypt in NoPropData)
@@ -30,7 +31,11 @@ the same in both files). Two exceptions:
   - HHSurvey and HH_Elast are still read from 456: the 465 NoPropData file holds only their header rows.
   - EF_PM, IO_GTAP, ASPIRE and WHOCooking hold all countries in 465 (Egypt only in 456): the rows of the country of
     the legacy run (Egypt) are kept (EGYPT_ONLY), so the prototype tables keep their size; the Egypt rows are the same
-    as in 456. Set EGYPT_ONLY = {} to write the all-country tables."""
+    as in 456. Set EGYPT_ONLY = {} to write the all-country tables.
+  - v9.0 (EF465): EF_PM is written whole (all countries and World Bank regions, legacy order; the 465 lookup range
+    ends at row 39323, past the last data row): legacy Mitigation rows 1052-1663 take the factor of the country,
+    else of its region, else of the world. Only this table:
+    python3 extract_legacy_tables.py efpm"""
 import csv, os
 from pyxlsb import open_workbook
 
@@ -38,7 +43,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 LEGACY = os.path.join(HERE, '..', 'legacy', 'workbooks', 'CPAT 1.0pre_465_NoPropData.xlsb')   # v8.5 (LD41): was 456
 LEGACY_456 = os.path.join(HERE, '..', 'legacy', 'workbooks', 'CPAT 1.0pre_456_NoPropData.xlsb')
 FROM_456 = ('HHSurvey', 'HH_Elast')    # v8.5: empty (header only) in the 465 NoPropData file: still read from 456
-EGYPT_ONLY = {'EF_PM': (1, 'egy'), 'IO_GTAP': (1, 'egy'), 'ASPIRE': (2, 'EGY'), 'WHOCooking': (1, 'EGY')}   # v8.5:
+EGYPT_ONLY = {'IO_GTAP': (1, 'egy'), 'ASPIRE': (2, 'EGY'), 'WHOCooking': (1, 'EGY')}   # v8.5 (v9.0: EF_PM whole):
 # all countries in 465: keep the rows whose column (0-based) holds the code of the legacy run's country
 DATA = os.path.join(HERE, '..', '..', 'data', 'mvp_legacy_extracts')
 HEADER_ROW = {'Balances': 13, 'EF_PM': 2, 'IO_GTAP': 1, 'HHSurvey': 1, 'HH_Elast': 1, 'ASPIRE': 1,
@@ -156,6 +161,10 @@ def main():
     if sys.argv[1:] == ['ndc']:
         with open_workbook(LEGACY) as wb:
             ndc_tables(wb)
+        return
+    if sys.argv[1:] == ['efpm']:                                   # v9.0 (EF465): EF_PM only
+        with open_workbook(LEGACY) as wb:
+            write('EF_PM', *table(wb, 'EF_PM'))
         return
     if sys.argv[1:] == ['manual']:
         with open_workbook(LEGACY) as wb:

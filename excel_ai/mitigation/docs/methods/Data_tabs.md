@@ -31,6 +31,9 @@ can be copied in. Then (same day): align more fully, going with the recommendati
     EU ETS, each code looked up in its own legacy block of ECP, coverage by data year, and two tables by ECP sector and
     fuel: carbon tax and ETS in $/tCO2);
   - Inputs_ef: CO2 emission factors (rows 980-1011);
+  - Inputs_nc (v9.0): non-CO2 combustion emission factors of local pollutants and CH4 by legacy EF code (rows
+    1052-1663: country, else World Bank region, else world, from the all-country EF_PM; other energy the maximum
+    across the other subsectors);
   - v4.7, power (legacy section 4, rows 2954-4300): Inputs_pset (the power settings of ScenarioDefinition scenario 1 and derived
     values, each a defined name Ps...), Inputs_ptech (one row per generation type, the former PowerTech: country, else
     world parameters, efficiency and generation from Balances, WACC from CoC, capacity factors), Inputs_ppath (year
@@ -85,7 +88,7 @@ can be copied in. Then (same day): align more fully, going with the recommendati
 - v4.12: OilProductShares (legacy table, all countries; household share of diesel, kerosene, LPG and gasoline, and
   their road shares) after UNPop, as legacy. Inputs_prices multiplies the VAT rate of gasoline, diesel, LPG and
   kerosene by the household share, as legacy rows 797-816 (LD5, issue I39). Settings rows 46-51: the methane fee
-  switches per source of legacy Manual inputs J196-J200 (LD46; since v5.2 on sheet Manual inputs, shown on Settings). Inputs columns efxs:eff (nearest GAINS factors, bug
+  switches per source of legacy Manual inputs J196-J200 (LD46; since v5.2 on sheet Manual inputs, shown on Settings). Inputs columns efxs:eff (v9.0: removed, legacy 465 factors; nearest GAINS factors, bug
   L59) and ecpk, xcp0 (existing carbon pricing), which replace ctc and etc.
 
 ### Manual inputs: the second input source, at the legacy addresses

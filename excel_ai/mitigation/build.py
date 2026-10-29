@@ -439,12 +439,8 @@ INPUT_COLS = [
     ('Row of ECP sector | fuel in the existing carbon pricing tables (Inputs_ecp; v4.12)', 'ecpk'),
     ('Existing carbon pricing embedded in the price data: carbon tax + ETS of the last historical price year '
      '($/tCO2 real; v4.12)', 'xcp0'),
-    ('CH4 EF subsector (sheet EF_PM)', 'ch4s'), ('CH4 EF fuel (sheet EF_PM)', 'ch4f'),   # v2.8
-    ('Fallback GAINS subsector (bug L59: where the GAINS subsector has no factor for the fuel)', 'efxs'),   # v4.12:
-    ('Fallback GAINS fuel (bug L59)', 'efxf'),                                                     # legacy bug L59
-    ('GAINS subsector has factors for the fuel (1 / 0)', 'efok'),                                  # (was issue I35)
-    ('GAINS subsector of the factors (ch4s, else the fallback)', 'efs'),
-    ('GAINS fuel of the factors (ch4f, else the fallback)', 'eff'),
+    ('Non-CO2 EF subsector: legacy EF code of the subsector (Inputs_ef table NCEf; legacy rows 6336-6413: mnf = '
+     'mch, irn, nfm, mac, cem, ftr)', 'ch4s'), ('Non-CO2 EF fuel (Inputs_ef table NCEf)', 'ch4f'),   # v9.0 (EF465)
     ('CH4 EF, base year (t CH4/ktoe)', 'ch4a'), ('CH4 EF, EFEndYear (t CH4/ktoe)', 'ch4b'),
     ('Engineer road model: position of the fuel in the result rows of section 5b (0 = elasticity model)', 'trpos'),
 ] + [(f'{_lab} EF, {_w} (t/ktoe)', f'ap{_k}_{_p}') for _p, _lab in [('pm2', 'PM2.5'), ('nox', 'NOx'), ('so2', 'SO2'),
@@ -469,22 +465,17 @@ SUB_BAL = {'rod': ('road', 1), 'ral': ('rail', 1), 'avi': ('domesair', 1), 'nav'
 AP_POLS = [('pm2', 'PM2.5'), ('nox', 'NOx'), ('so2', 'SO2'), ('voc', 'VOC'), ('bc', 'Black carbon'),
            ('oc', 'Organic carbon'), ('co', 'CO')]                             # v2.9: local air pollutants (GAINS)
 AP_GWP = ['bc', 'oc', 'nox', 'so2', 'voc', 'co']                              # pollutants with a GWP100 (forcing)
-CH4_SUB = {'rod': 'rod', 'ral': 'rod', 'avi': 'avi', 'nav': 'nav', 'res': 'res', 'foo': 'foo', 'srv': 'res',
-           'cst': 'cst', 'omn': 'omn'}      # v2.8: GAINS subsector of the CH4 EF (others: manufacturing mnf)
-
-
-def ef_fallback(sub, fuel):
-    """v4.12 (legacy bug L59, was issue I35): the GAINS subsector and fuel whose factors a fuel takes when its own GAINS
-    subsector has none for it (the nearest GAINS match): LPG burns like natural gas, so it takes natural gas of the same
-    GAINS subsector; food & forestry takes construction (off-road machinery); biomass takes residential; other fuels
-    take manufacturing (construction for manufacturing itself)."""
-    if fuel == 'lpg':
-        return CH4_SUB.get(sub, 'mnf'), 'nga'
-    if sub == 'foo':
-        return 'cst', fuel
-    if fuel == 'bio':
-        return 'res', fuel
-    return ('cst' if CH4_SUB.get(sub, 'mnf') == 'mnf' else 'mnf'), fuel
+CH4_SUB = {'rod': 'rod', 'ral': 'ral', 'avi': 'avi', 'nav': 'nav', 'res': 'res', 'foo': 'foo', 'srv': 'srv',
+           'cst': 'cst', 'omn': 'omn', 'oen': 'oen'}   # v9.0 (EF465): legacy 465 EF subsector code (others: mnf, as
+# legacy rows 6388-6395: manufacturing = mch, irn, nfm, mac, cem, ftr); navigation: GAINS nav (legacy 465 has no
+# navigation emissions: our bug fix L22 stays)
+NC_FUELS8 = ['coa', 'nga', 'oop', 'gso', 'die', 'lpg', 'ker', 'bio']
+NC_SUBS = [('pow', ['coa', 'nga', 'oop', 'bio']), ('rod', ['gso', 'die', 'lpg', 'ker', 'nga']), ('ral', ['die']),
+           ('avi', ['jfu']), ('res', ['coa', 'nga', 'oop', 'lpg', 'ker', 'bio'])] + [
+          (s_, NC_FUELS8) for s_ in ('cst', 'srv', 'mnf', 'omn', 'foo', 'oen')] + [('nav', ['die', 'oop'])]
+NC_POLS = [p for p, _l in AP_POLS[:6]] + ['ch4', 'co']           # legacy order of the blocks (rows 1049-1663)
+NC_ROWS = [(s_, f_, p) for p in NC_POLS for s_, fs in NC_SUBS for f_ in fs]   # v9.0 (EF465): legacy codes
+# sub.fuel.pol of Mitigation rows 1052-1663 (+ navigation, bug L22); oen = the maximum across the other legacy rows
 
 
 IC = {code: L(j) for j, (_, code) in enumerate(INPUT_COLS, 1)}
@@ -4250,9 +4241,10 @@ VARIABLES = [
      'engineer road row (position in section 5b; 0 = elasticity model)',
      'leakage row (position in section 6b; 1 = none)'),
     ('ch4', 'CH4 emissions from fuel combustion', 'kt CH4', 'e', 'Fuel use (ktoe) x CH4 EF (t/ktoe; GAINS, sheet '
-     'EF_PM, linear from the base year to the EFSel final factor in EFEndYear, continued after) / tPerKt; power: '
+     'EF_PM by legacy EF code, country else region else world, Inputs_ef; linear from the base year to the EFSel final factor in EFEndYear, continued after) / tPerKt; power: '
      'section 14',
-     'legacy Mitigation rows 7216-7294 (ch4 block of section 13)', 'CH4 EF, base year (t/ktoe)',
+     'legacy Mitigation rows 1514-1586 (factors), 7203-7307 (ch4 block of section 13; legacy 465 factors blank: '
+     'I34)', 'CH4 EF, base year (t/ktoe)',
      'CH4 EF, EFEndYear (t/ktoe)'),
     ('co2', 'CO2 emissions from fuel combustion', 'MtCO2', 'e', 'Fuel use x PJ/ktoe x EF (power generation, section '
      '3: generation fuel use (ktoe) x MtCO2 per ktoe)', 'legacy CO2 emissions by sector and fuel (inventory-adjusted '
@@ -4334,9 +4326,10 @@ VARIABLES = [
     ('rtot', 'Total revenue (net existing + new policies + methane fee)', 'USD m real', '', 'rnet + rnew + rmf',
      'new'),
     ('rmf', 'Revenue from the methane fee', 'USD m real', '', 'ch4.rev (section 14)', 'legacy Mitigation row 6169'),
-    ('ap', 'Local air pollutant emissions', 'kt', '', 'Fuel use x emission factor (GAINS, sheet EF_PM; '
-     'base-year and final factor weighted by ap.w), summed over the fuels; power: generation fuel use by type',
-     'legacy Mitigation rows 6603-7423 (section 13)'),
+    ('ap', 'Local air pollutant emissions', 'kt', '', 'Fuel use x emission factor (GAINS, sheet EF_PM by '
+     'legacy EF code: country, else region, else world; other energy the maximum of the other subsectors; '
+     'Inputs_ef; base-year and final factor weighted by ap.w), summed over the fuels; power: generation fuel use by type',
+     'legacy Mitigation rows 1052-1663 (factors), 6591-7409 (section 13)'),
     ('apfd', 'Food fuel use within food & forestry', 'ktoe', '', 'Food & forestry fuel use x food share of the fuel '
      '(Balances info_food / info_agrc + info_fish + info_food + info_wood; v4.11, LD53)', 'legacy Mitigation rows '
      '501-504, 1666-1673'),
@@ -7658,7 +7651,11 @@ def build_settings(wb):
                               'R11 current account in section 16b (L50, L214, L215). R4, R5, R12 deferred by the user. '
                               'Power model aligned with legacy 465 (no formula change). New legacy bugs L171-L222, '
                               'issues I101-I148. Results change: wel.usd (co-benefits), electricity prices and demand '
-                              '(price-chain residual), methane (intensity decline), the road model (range anxiety).')]
+                              '(price-chain residual), methane (intensity decline), the road model (range anxiety). '
+                              'Last historical price year 2024, as legacy (user; I89 closed). Local-pollutant and '
+                              'combustion-CH4 factors as legacy 465 (table Inputs_nc: country, else region, else world; '
+                              'other energy the maximum, I149; L58, L59 fixed by the CPAT team): section 15 equals '
+                              'legacy in 2022 except navigation (L22) and CH4 (I34).')]
     for i, row in enumerate(log, SET_LOG + 2):
         for j, v in enumerate(row, 1):
             c_ = put(ws, f'{L(j)}{i}', v)
@@ -7718,15 +7715,11 @@ def build_inputs(wb):
             'ecpk': f'=IFERROR(MATCH(${IC["ecps"]}{r}&"|"&$B{r},XKey,0),1)',   # sector of the price fuel (1711-1764)
             'xcp0': f'=INDEX(XCTVal,${IC["ecpk"]}{r},ECPEmb)+INDEX(XETSVal,${IC["ecpk"]}{r},ECPEmb)',
             'ch4s': CH4_SUB.get(s, 'mnf'), 'ch4f': 'jfu' if (s, f) == ('avi', 'ker') else f,
-            'efxs': ef_fallback(s, 'jfu' if (s, f) == ('avi', 'ker') else f)[0],      # v4.12: bug L59 (was I35)
-            'efxf': ef_fallback(s, 'jfu' if (s, f) == ('avi', 'ker') else f)[1],
-            'efok': (f'=IF(ISNUMBER(MATCH(CodePrefix&"ef."&${IC["ch4s"]}{r}&"."&${IC["ch4f"]}{r}&".*",NCKey,0)),'
-                     f'1,0)'),                    # v6.6: a key match with a wildcard (was COUNTIFS on three columns)
-            'efs': f'=IF(${IC["efok"]}{r}=1,${IC["ch4s"]}{r},${IC["efxs"]}{r})',
-            'eff': f'=IF(${IC["efok"]}{r}=1,${IC["ch4f"]}{r},${IC["efxf"]}{r})',
-            'ch4a': nc_ef(1, f'${IC["efs"]}{r}', f'${IC["eff"]}{r}'),
-            'ch4b': nc_ef(2, f'${IC["efs"]}{r}', f'${IC["eff"]}{r}'),
-            **{f'ap{k}_{p}': nc_ef(k + 1, f'${IC["efs"]}{r}', f'${IC["eff"]}{r}', p) for p, _l in AP_POLS
+            # v9.0 (EF465): factors of the legacy EF code (country, else region, else world; bugs L58, L59 fixed by
+            # the CPAT team in 465): a fuel the legacy code has no factor for emits nothing, as legacy
+            'ch4a': nc_ef(1, f'${IC["ch4s"]}{r}', f'${IC["ch4f"]}{r}'),
+            'ch4b': nc_ef(2, f'${IC["ch4s"]}{r}', f'${IC["ch4f"]}{r}'),
+            **{f'ap{k}_{p}': nc_ef(k + 1, f'${IC["ch4s"]}{r}', f'${IC["ch4f"]}{r}', p) for p, _l in AP_POLS
                for k in (0, 1)},
             'trpos': f'=IF($C{r}="rod",IFERROR(MATCH($B{r},TrFuelKey,0),0),0)',   # v3.5: section 5b switch
             'bfl1': '=' + map_sub('J', r), 'bsg1': '=' + map_sub('K', r),
@@ -7743,7 +7736,7 @@ def build_inputs(wb):
         for _, code in INPUT_COLS:
             fmt = {**{f'ap{k}_{p}': '0.0000' for p, _l in AP_POLS for k in (0, 1)}, 'ch4a': '0.0000', 'ch4b': '0.0000', 'ecpk': '0', 'xcp0': '0.00', 'vr': '0.0%', 'ef': '0.0000', 'f0': '#,##0.0', 'aeg': '0', 'exg': '0', 'lkpos': '0', 'effx': '0.00',
                    'eY': '0.00', 'eU': '0.00', 'eF': '0.00', 'a': '0.0%'}.get(code)
-            put(ws, f'{IC[code]}{r}', vals[code], FONT, F_INPUT if code in ('fuel', 'sub', 'ch4s', 'ch4f', 'efxs', 'efxf', 'aeg', 'exg') else None,
+            put(ws, f'{IC[code]}{r}', vals[code], FONT, F_INPUT if code in ('fuel', 'sub', 'ch4s', 'ch4f', 'aeg', 'exg') else None,
                 fmt)
     ws.freeze_panes = 'D5'
     ws.column_dimensions['A'].width = 10
@@ -7753,18 +7746,22 @@ def build_inputs(wb):
 
 
 def nc_ef(k, sub, fuel, pol='ch4'):
-    """v2.8: non-CO2 combustion EF of the country (sheet EF_PM, kt/PJ; k = 1 base year, 2 final) in t/ktoe.
+    """v2.8: non-CO2 combustion EF of the country (t/ktoe; k = 1 base year, 2 final). v9.0 (EF465): read from the
+    table of legacy EF codes on Inputs_ef (NCEfKey, e.g. mnf.coa.voc; factor of the country, else of its region, else
+    of the world, as legacy rows 1052-1663); a code missing from the table gives 0, as legacy.
     sub, fuel: cell references, or plain codes (quoted literals are merged into one string)."""
-    rng = 'NCIn' if k == 1 else 'NCFin'
-    key, lit = 'CodePrefix', 'ef.'                   # v4.5: legacy EF_PM code, e.g. egy.mit.ef.mnf.coa.voc
+    rng = 'NCEfIn' if k == 1 else 'NCEfFin'
+    parts, lit = [], ''
     for x in (sub, fuel):
         if x.startswith('"'):
             lit += x.strip('"') + '.'
         else:
-            key += f'&"{lit}"&{x}'
+            if lit:
+                parts.append(f'"{lit}"')
+            parts.append(x)
             lit = '.'
-    key += f'&"{lit}{pol}"'
-    return f'=IFERROR(INDEX({rng},MATCH({key},NCKey,0)),0)*EFtPerKtoe'
+    parts.append(f'"{lit}{pol}"')
+    return f'=IFERROR(INDEX({rng},MATCH({"&".join(parts)},NCEfKey,0)),0)'
 
 
 def ip_lookup(code, key):
@@ -8336,6 +8333,12 @@ IEF_COL = {k: L(j) for j, (_h, k) in enumerate(IEF_COLS, 1)}
 EF_GEN = [('coa', ('pow', 'res', 'ind')), ('nga', ('pow', 'res', 'ind')), ('gso', ('rod', 'res')), ('die', ('rod', 'res')),
           ('lpg', ('res', 'res', 'ind')), ('ker', ('res', 'ind')), ('oop', ())]   # v9.0: legacy 961-967 (I116)
 IEF_G0 = IEF_R0 + len(EF_SEL) + 3        # v9.0: first row of the generic-factor table on Inputs_ef
+INC_R0 = 5                               # v9.0 (EF465): Inputs_nc, header in row 4 (legacy rows 1052-1663)
+INC_COLS = [('Key (legacy EF code: subsector.fuel.pollutant)', 'key'), ('Legacy EF subsector', 'sub'), ('Fuel', 'fu'),
+            ('Pollutant', 'pol'), ('Code: country', 'cc'), ('Code: region (CtryReg)', 'rc'), ('Code: world', 'wc'),
+            ('Code used (other energy: the maximum across the other subsectors)', 'used'),
+            ('FE in: base-year factor (t/ktoe)', 'in'), ('FE fin: final factor (t/ktoe)', 'fin')]
+INC_COL = {k: L(j) for j, (_h, k) in enumerate(INC_COLS, 1)}
 
 
 def build_inputs_ef(wb):
@@ -8376,6 +8379,44 @@ def build_inputs_ef(wb):
         f = ('=AVERAGE(' + ','.join(f'${c["ef"]}${pos[(fu, se)]}' for se in secs) + ')') if secs else '=EFOilIEA'
         put(ws, f'{c["ef"]}{r}', f, FONT, None, '0.000000')
     for col, w in {'A': 14, 'G': 26, 'H': 26, 'I': 26, 'J': 26}.items():
+        ws.column_dimensions[col].width = w
+
+
+def build_inputs_nc(wb):
+    """v9.0 (EF465): data step for the non-CO2 combustion emission factors (local pollutants and CH4) by legacy EF code,
+    as legacy Mitigation rows 1052-1663, from the legacy EF_PM table (all countries and regions)."""
+    ws = wb.create_sheet('Inputs_nc')
+    title(ws, 'Non-CO2 combustion emission factors by legacy EF code (data step; legacy Mitigation rows 1052-1663)',
+          len(INC_COLS))
+    n0, d = INC_R0, INC_COL
+    put(ws, 'A3', 'From sheet EF_PM (GAINS, kt/PJ x EFtPerKtoe), as legacy Mitigation rows 1052-1663 F, I, L: the '
+                  'factor of the country, else of its World Bank region (CtryReg), else of the world, else 0; other '
+                  'energy (oen) takes the maximum of the fuel across the other subsectors (legacy note; issue I147); '
+                  'navigation (not in legacy) its GAINS factors (bug L22). Inputs ch4a to ap1_co and Inputs_power '
+                  'ap0_ to ap1_ read this table by key (NCEfKey).', FONT)
+    for j, (h, _k) in enumerate(INC_COLS, 1):
+        put(ws, f'{L(j)}{n0 - 1}', h, FONT_B, F_INPUT)
+    blk = len(NC_ROWS) // len(NC_POLS)       # rows per pollutant block (same subsectors and fuels in each)
+    n_other = sum(len(fs) for s_, fs in NC_SUBS[:[x for x, _f in NC_SUBS].index('oen')])
+    for i, (s_, fu, p) in enumerate(NC_ROWS):
+        r = n0 + i
+        a, b = n0 + (i // blk) * blk, n0 + (i // blk) * blk + n_other - 1   # rows of the other subsectors
+        vals = {'key': f'=$B{r}&"."&$C{r}&"."&$D{r}', 'sub': s_, 'fu': fu, 'pol': p}
+        if s_ == 'oen':                      # legacy rows 1117-1124: MAX(IF(fuel = fuel, factors of the block))
+            vals.update({'used': 'max', **{k: f'=_xlfn.MAXIFS(${d[k]}${a}:${d[k]}${b},$C${a}:$C${b},$C{r})'
+                                           for k in ('in', 'fin')}})
+        else:
+            vals.update({'cc': f'=CodePrefix&"ef."&$A{r}', 'rc': f'=CtryReg&".mit.ef."&$A{r}',
+                         'wc': f'="wld.mit.ef."&$A{r}',
+                         'used': (f'=IF(ISNUMBER(MATCH($E{r},NCKey,0)),$E{r},IF(ISNUMBER(MATCH($F{r},NCKey,0)),'
+                                  f'$F{r},$G{r}))'),
+                         **{k: f'=IFERROR(INDEX({rng},MATCH($H{r},NCKey,0)),0)*EFtPerKtoe'
+                            for k, rng in (('in', 'NCIn'), ('fin', 'NCFin'))}})
+        for j, (_h, k) in enumerate(INC_COLS, 1):
+            if k in vals:
+                put(ws, f'{L(j)}{r}', vals[k], FONT, F_INPUT if k in ('sub', 'fu', 'pol') else None,
+                    '0.000000' if k in ('in', 'fin') else None)
+    for col, w in {'A': 16, 'E': 26, 'F': 26, 'G': 26, 'H': 26}.items():
         ws.column_dimensions[col].width = w
 
 
@@ -9161,15 +9202,11 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
      'Built in v2.9: section 15, by subsector and power (fuel use x GAINS factor), totals by pollutant, forcing memo',
      'User request v2.9', 'Pollutant levels', 'Same'),
     ('Local pollutants: factor mapping (v2.9)',
-     'GAINS factors looked up by subsector; subsectors without a GAINS match get 0',
-     'Each subsector takes the GAINS subsector of its CH4 factor (services as residential, rail as road, '
-     'industry as manufacturing; Inputs column ch4s); v4.12: a fuel its GAINS subsector has no factor for '
-     'takes the nearest GAINS match (LPG: natural gas of the same subsector; food & forestry: '
-     'construction; else manufacturing; Inputs columns efxs:eff)',
-     'Legacy bugs L58 (user 2026-10-18; was issue I27) and L59 (user 2026-10-18; was issue I35): a '
-     'subsector or fuel without a GAINS match silently gets zero factors although it burns fuel',
-     'Services, rail and industry pollutants; v4.12: residential LPG, mining and food & forestry diesel, '
-     'fuel transformation LPG (Egypt 2022: NOx +11%, PM2.5 +5%, combustion CH4 +20%)', 'Bug fix'),
+     '465: factors by legacy EF code (country, else World Bank region, else world; mnf = mch, irn, nfm, mac, cem, '
+     'ftr; other energy the maximum of the other subsectors, issue I149; no factor -> 0)',
+     'The same (v9.0; table Inputs_nc; v2.9-v8.5: own subsector mapping and nearest-match fallback)',
+     'Legacy bugs L58 and L59 fixed by the CPAT team in 465', 'None for Egypt in 2022 (every module sector equals '
+     'legacy but navigation, L22)', 'Same'),
     ('Local pollutants: navigation (v2.9)', 'Navigation missing from the pollutant totals', 'Navigation included in '
      'the transport and total rows', 'Legacy bug L22', 'Totals include domestic navigation', 'Bug fix'),
     ('Local pollutants: air-pollution sectors (v3.0)', 'Split into the air-pollution module sectors; primary organic '
@@ -9966,6 +10003,8 @@ def defined_names():
         'EFSel': f'Inputs_ef!${IEF_COL["ef"]}${IEF_R0}:${IEF_COL["ef"]}${IEF_R0 + len(EF_SEL) - 1}',
         'EFGenKey': f'Inputs_ef!$A${IEF_G0}:$A${IEF_G0 + len(EF_GEN) - 1}',          # v9.0 (R2.1, R3.2)
         'EFGen': f'Inputs_ef!${IEF_COL["ef"]}${IEF_G0}:${IEF_COL["ef"]}${IEF_G0 + len(EF_GEN) - 1}',
+        **{n_: f'Inputs_nc!${INC_COL[k_]}${INC_R0}:${INC_COL[k_]}${INC_R0 + len(NC_ROWS) - 1}'   # v9.0 (EF465)
+           for n_, k_ in (('NCEfKey', 'key'), ('NCEfIn', 'in'), ('NCEfFin', 'fin'))},
         'CobKey': f'Inputs_cob!$A${ICOB_R0}:$A${ICOB_R0 + len(COB_DATA) - 1}',        # v9.0 (R1): typed Egypt values
         'CobVal': f'Inputs_cob!$C${ICOB_R0}:${L(2 + NY)}${ICOB_R0 + len(COB_DATA) - 1}',
         'CobYear': f'Inputs_cob!$C${ICOB_R0 - 1}:${L(2 + NY)}${ICOB_R0 - 1}',
@@ -15316,6 +15355,7 @@ def main():
     build_inputs_power(wb)
     build_inputs_ef(wb)                            # v4.5: CO2 EFs selected from the legacy EF_GHG table
     build_inputs_cob(wb)                           # v9.0 (R1): typed inputs from the co-benefits modules
+    build_inputs_nc(wb)                            # v9.0 (EF465): non-CO2 factors by legacy EF code
     build_inputs_ela(wb)                           # v4.6: elasticities from the legacy Elasticities tab
     build_inputs_mult(wb)                          # v4.6: multipliers from the legacy Multipliers tab
     build_inputs_macro(wb)                         # v4.6: macro series from the legacy WEO tab
@@ -15358,7 +15398,7 @@ def main():
         wb.defined_names[name] = DefinedName(name, attr_text=ref)
     order = (['Cover', 'ScenarioCompare', 'ScenarioDefinition', 'MAIN->>', 'Mitigation', 'FromMitigation', 'Distribution', 'LiveOutputs',
               'StoredOutputs', 'INPUTS->>', 'Manual inputs', 'Settings', 'Inputs', 'Inputs_prices', 'Inputs_power', 'Inputs_ef', 'Inputs_ela', 'Inputs_mult', 'Inputs_macro', 'Inputs_pint', 'Inputs_ecp', 'Inputs_pset',
-              'Inputs_ptech', 'Inputs_ppath', 'Inputs_ppar', 'Inputs_cob', 'Mapping',
+              'Inputs_ptech', 'Inputs_ppath', 'Inputs_ppar', 'Inputs_cob', 'Inputs_nc', 'Mapping',
               'Constants', 'REF->>', 'VersionLog', 'ReadMe', 'LegacyDiff', 'Lambdas', 'Variables', 'MacroCheck']
              + [t for div, tabs in DATA_GROUPS for t in [div] + tabs])   # v4.5: data tabs grouped as legacy
     assert set(order) == set(wb.sheetnames), set(wb.sheetnames) ^ set(order)   # v3.17: no sheet dropped silently
@@ -15493,7 +15533,7 @@ TAB_REF = 'Version Log, About, and Diff'          # v4.2
 TAB_CHECK = 'Check, Variables, Lambdas'         # v4.2
 MERGES = [('Inputs', ['Inputs', 'Inputs_prices', 'Inputs_power', 'Inputs_ef', 'Inputs_ela', 'Inputs_mult',
                       'Inputs_macro', 'Inputs_pint', 'Inputs_ecp', 'Inputs_pset', 'Inputs_ptech', 'Inputs_ppath',
-                      'Inputs_ppar', 'Inputs_cob']),          # target tab, blocks top to bottom (v9.0: Inputs_cob)
+                      'Inputs_ppar', 'Inputs_cob', 'Inputs_nc']),   # target tab, blocks top to bottom (v9.0: Inputs_cob, _nc)
           ('Settings', ['Settings', 'Constants', 'Mapping']),
           (TAB_REF, ['VersionLog', 'ReadMe', 'LegacyDiff']),
           (TAB_CHECK, ['Variables', 'Lambdas', 'MacroCheck'])]   # v5.3 (user): MacroCheck last, so the 300 rows the

@@ -1313,3 +1313,28 @@ ISSUE_LEGACY.update({'I89': 'replicated'})
 ISSUE_STATUS.update({'I89': ('Major', 'Closed', 'v9.0 (user 2026-10-29): the last historical price year is 2024, as '
                              'legacy (price data through 2024, projection from 2025). v3.7-v8.5 held 2022, to stay close '
                              'to the legacy cached run of an older price vintage (2026-10-09 comparison).')})
+
+# v9.0 (EF465, 2026-10-29): combustion emission factors as legacy 465 (table Inputs_nc)
+_EF465_L = {
+    'L58': 'Fixed by the CPAT team in 465: legacy 465 has EF codes for services, rail, construction, other '
+           'manufacturing, food & forestry and other energy, and maps mining & chemicals, iron & steel, other metals, '
+           'machinery, cement and fuel transformation to manufacturing (rows 6388-6395); the prototype follows 465 '
+           '(v9.0, table Inputs_nc). Navigation is still missing in 465 (bug L22, our fix kept).',
+    'L59': 'Fixed by the CPAT team in 465: each factor is the country\'s, else its World Bank region\'s, else the '
+           'world\'s (rows 1052-1663 F); the prototype follows 465 (v9.0) and retires its nearest-match fallback '
+           '(where the 465 chain gives 0, no fuel is burnt in Egypt).'}
+LEGACY = [(c, t, ('Mitigation rows 1052-1663 (465)' if c in _EF465_L else w), d, _EF465_L.get(c, st))
+          for c, t, w, d, st in LEGACY]
+ISSUES += [
+    ('I149', 'Other energy use takes the largest emission factor of each fuel across the other subsectors',
+     'Legacy 465 rows 1117-1124 and the oen rows of every pollutant block (note "The EF of this sector is equal to the '
+     'max across other sectors"), power included; CH4 rows blank in legacy. Replicated (Inputs_nc oen rows, MAXIFS). '
+     'Legacy takes the maximum year by year, the prototype on the base and final factors and the line between: exact '
+     'for Egypt (other energy burns only other oil products).', 'CAVEATS.md (2026-10-29, EF465)')]
+ISSUE_LEGACY.update({'I147': 'replicated', 'I149': 'replicated'})
+ISSUE_STATUS.update({
+    'I147': ('Major', 'Closed', 'Resolved in v9.0 (EF465): the cause was the emission factors (our L58/L59 fallback gave '
+             'food & forestry diesel the construction factor, 2.51 t BC/ktoe against legacy 465\'s regional 0.0044); '
+             'with the 465 lookup section 15 equals legacy in 2022 (food & forestry BC 3.8 t) and modelled PM2.5 is '
+             '33.06 against 30.17 ug/m3 (the difference: navigation, L22).'),
+    'I149': ('Minor', 'Accepted', 'Replicated.')})
