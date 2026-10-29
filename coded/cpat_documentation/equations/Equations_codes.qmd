@@ -181,6 +181,14 @@ $$
 
 Over sectors $s$, fuels $f$. $F^e$ is M3.1, $F^T$ the road engineer model (M5), $Lk$ residential leakage to biomass (appendix A3, off by default). Excel-AI notation for the superscripts. Source: Excel-AI: E69, ROADSWITCH, section 6b.
 
+**M3.3  Energy use totals and change against the baseline**
+
+$$
+\mathtt{ener}_{S,all}, \ \mathtt{ener}_{all,f} = \textstyle\sum_s \mathtt{ener}_{s,f} + \mathtt{pe}_{pow,f}, \ \mathtt{ener}_{all,all} = \textstyle\sum_s \mathtt{ener}_{s,all} + \mathtt{pet}, \ \mathtt{echg} = \mathtt{ener} - \mathtt{ener}^{base}, \ \mathtt{epct} = \mathtt{echg} / (\mathtt{ener} - \mathtt{echg})
+$$
+
+Over sector groups $S$ (transport, buildings, industry, other energy use, power), fuels $f$, years $t$. Excel-AI notation. $F^{pow}$ the fuel input of power generation (A4); renewables in aviation and navigation count in the subsector and group totals and in the grand total, not in a fuel total. The baseline value is scenario 1's of the same year (Excel-AI REFCOL). Electricity demand totals (eldem) sum the subsector demand by group. Source: Excel-AI: Mitigation section 11.
+
 ## M4 Power
 
 Electricity demand, generation, capacity and prices: the engineer model (standard-CPAT). Generation types $f$: coal, gas, oil, nuclear, wind, solar, hydro, other renewables, biomass.
@@ -457,7 +465,7 @@ Over producer fuels $f$ (oil, coal, gas, biomass). Excel-AI notation. $PROS$ pro
 
 ## A3 Fuel use
 
-To complete: residential leakage to biomass (E69a-e; methodology: substitution share $\epsilon_{bio,f}\,Eff_{bio}/Eff_f$); initially exempt use (R6); biofuels in road, aviation and navigation (R10); self-generated renewables; income elasticity adjustment; residential biomass income elasticity (BiomassNormal).
+To complete: initially exempt use from the household survey (ExemptMostCook, R6); self-generated renewables; income elasticity adjustment.
 
 **A3.1  Elasticities of the country**  *(adjustment)*
 
@@ -474,6 +482,22 @@ $$
 $$
 
 Over fuels $f$, subsectors $s$. Excel-AI notation: elasticities of the fuel's elasticity fuel and the subsector's elasticity sector (residential biomass income elasticity 0 unless BiomassNormal, I24); CO2 factor of the subsector's EF sector, calibrated; base-year fuel use from the energy balance (flow 1 plus signed flow 2) or EnergyCons (BalancesOrConsumption); the existing carbon pricing embedded in the price data, by ECP sector; non-CO2 factors; positions of the road model and residential leakage rows. Source: Excel-AI: Inputs rows 5-148.
+
+**A3.3  Biofuels in road transport, renewables in aviation and navigation**  *(adjustment)*
+
+$$
+\mathtt{trbe}_{rod,bgs|bdi}, \ \mathtt{trbe}_{rod,obf} \ (\mathtt{trbea}, \text{oil | transport elasticities}), \ \mathtt{trbe}_{rod,bio}; \quad \mathtt{ener}_{avi|nav,ren,t} = \mathtt{ener}_{t-1}\,\mathtt{trrena}\,\Psi_t (1 + \mathtt{GDPI}_t)^{\epsilon_Y} r_t^{\epsilon_U + \epsilon_F(1+\epsilon_U)}, \ r_t = \mathtt{trpren}_t / \mathtt{trpren}_{t-1}
+$$
+
+Over years $t$ after the base year. Excel-AI notation (Mitigation section 5b). Biogasoline and biodiesel are blended: they follow the road use of the fossil fuel. Other biofuels follow M3.1 with the oil | transport elasticities and the road biomass price. Base year: the energy balance road flow (bgs, bdi, obf) or EnergyCons (BalancesOrConsumption). Renewables in aviation and navigation (base year EnergyCons enc.ren) follow M3.1 with the renewables | transport elasticities and the price ratio of the solar investment cost (trpren = tic pow sol); the efficiency factors use AdditionalEfficiencyRoadVehicle. Source: Excel-AI: Mitigation section 5b (trp.eb2, trbe, trbea, trpren, trrena, trp.rn0).
+
+**A3.4  Residential leakage to biomass**  *(adjustment)*
+
+$$
+\mathtt{lkt}_f = \mathtt{nce}_{res,f}(1 + vat_f), \ \mathtt{lkp}_f, \ \mathtt{lkd}_f, \ \mathtt{lkb}_f, \ \mathtt{lkc}_{f,t} = \mathtt{lkc}_{f,t-1} + \mathtt{lkd}_{f,t} + \Delta\mathtt{lkxa}_{f,t}, \ \mathtt{lkcb}_t = \mathtt{lkcb}_{t-1} + \textstyle\sum_f \mathtt{lkb}_{f,t}
+$$
+
+Over residential fuels $f$ that may leak (gas, LPG, kerosene), years $t$ after the base year. Excel-AI notation (Mitigation section 6b). On only for the country's most-used cooking fuel (WHO) and when BiomassLeakage = Yes (off in Egypt's scenarios). $\tau$ the new taxes per GJ with VAT, $\sigma$ the substitution elasticity of biomass for LPG, $\eta$ stove efficiencies (NatGasEff, LPGEff, KerEff, BioEff), $L$ the substitution lag (ResSubstLag). $X$ the initially exempt use (lkx), phased out over ExemptPhaseoutPeriod from YearPha when ExemptPhaseout; ExemptMostCook = Yes needs the household survey and is not in Coded CPAT yet. The cumulative changes enter residential fuel use (M3.2). Source: Excel-AI: Mitigation section 6b (lkt to lks).
 
 ## A4 Power
 
