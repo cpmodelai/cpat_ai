@@ -3458,9 +3458,17 @@ EXT_BLOCKS = [
     ('16b. Energy trade balance (exports - imports, USD bn real; legacy rows 741-743, 18215-18219)',
      [(f'xtb.{g}', 'xtb', g, 'all') for g in XG] + [('xtb.all', 'xtb', 'all', 'all'), ('xtbp', 'xtbp', 'all', 'all'),
                                                    ('xtb.pct', 'xtb.pct', 'all', 'all'),
-                                                   ('xnim.pct', 'xnim.pct', 'all', 'all')])]
+                                                   ('xnim.pct', 'xnim.pct', 'all', 'all')]),
+    # v9.0 (R11): current account (legacy rows 18180-18198, block F11; bugs L50, L214 fixed; L215 avoided by xnim)
+    ('16b. Current account, balance of payments (legacy rows 18180-18198): typed WEO values (Inputs, EGY|bca*), '
+     'change by fuel group = - change in net energy imports (USD bn real; % of GDP in percent units)',
+     [('bca', 'bca', 'all', 'all'), ('bca.gdp', 'bca.gdp', 'all', 'all'), ('bca.r', 'bca.r', 'all', 'all')]
+     + [(f'bca.d.{g}', 'bca.d', g, 'all') for g in XG]
+     + [('bca.p', 'bca.p', 'all', 'all'), ('bca.y', 'bca.y', 'all', 'all')]
+     + [(f'bca.dp.{g}', 'bca.dp', g, 'all') for g in XG]
+     + [('bca.pp', 'bca.pp', 'all', 'all'), ('bca.n', 'bca.n', 'all', 'all')])]
 R_EXT, R_EXT_LAB, R_EXT_HEAD, _r = layout_blocks(EXT_BLOCKS, R_GDPS_AFTER)   # v4.1: before the summary row
-EXT_LAM = {f'xnim.{f}' for f in CPI_FUELS} | {'xtb.pct', 'xnim.pct'}
+EXT_LAM = {f'xnim.{f}' for f in CPI_FUELS} | {'xtb.pct', 'xnim.pct'} | {f'bca.dp.{g}' for g in XG}   # v9.0: R11
 R_GDPS_NOTE, R_EXT_NOTE = _r, _r + 1   # notes of section 16 and of 16b
 R_GDPS['gdp.eff'] = R_GDPS_NOTE + 3     # GDP effect (share of GDP): the section's summary line
 B_CPR = R_GDPS['gdp.eff'] + 2           # 17. Carbon pricing (v4.1: one blank row before the band)
@@ -4016,6 +4024,27 @@ VARIABLES = [
      'legacy rows 18217, 18219, v3.16'),
     ('xnim.pct', 'Change in net energy imports, % of baseline real GDP', '%', '', 'xnim.all / gdp.usd (SAFEDIV)',
      'legacy rows 18207-18210, v3.16'),
+    # v9.0 (R11): current account (Equations_addendum R11.1-R11.9)
+    ('bca', 'Current account balance, pre-policy (typed WEO EGY.BCA.A, held at 2031)', 'USD bn nominal', '',
+     'Inputs EGY|bca (typed; other countries 0)', 'legacy row 18182 (bug L50 fixed: stale WEO codes)'),
+    ('bca.gdp', 'Current account balance, pre-policy, % of GDP (typed WEO EGY.BCA_NGDPD.A, held at 2031)',
+     '% of GDP (percent units)', '', 'Inputs EGY|bca_gdp (typed; other countries 0)',
+     'legacy row 18191 (bug L50 fixed)'),
+    ('bca.r', 'Current account balance, pre-policy, real', 'USD bn real', '', 'bca x US CPI index (infl)',
+     'legacy row 18184 (18183 = row 456)'),
+    ('bca.d', 'Change in the current account by fuel group (positive = fewer net imports)', 'USD bn real', '',
+     '- xnim of the fuel group (section 16b: supply price, share traded also on oil)',
+     'legacy rows 18185-18187 (L49 fixed; gas unit bug L215 not replicated: xnim prices in USD/GJ)'),
+    ('bca.p', 'Current account balance after the policy', 'USD bn real', '', 'bca.r + bca.d of oil, gas and coal',
+     'legacy row 18188'),
+    ('bca.y', 'Implied GDP / 100 (helper): real current account over its share of GDP', 'USD bn real', '',
+     'ABS(bca.r / bca.gdp); 0 if bca.gdp = 0', 'legacy rows 18192-18194 (as legacy, issue I129)'),
+    ('bca.dp', 'Change in the current account by fuel group, % of GDP', '% of GDP (percent units)', '',
+     'bca.d / bca.y (SAFEDIV)', 'legacy rows 18192-18194'),
+    ('bca.pp', 'Current account balance after the policy, % of GDP', '% of GDP (percent units)', '',
+     'bca.gdp + bca.dp of oil, gas and coal', 'legacy row 18195 (bug L214 fixed: coal included)'),
+    ('bca.n', 'Current account balance, current prices (memo, typed)', 'USD bn nominal', '',
+     'Inputs EGY|bca_n (typed; 0 after 2031 as legacy, issue I130)', 'legacy row 18198'),
     ('cpi', 'Implicit carbon price by fuel: existing taxes, subsidies and new policies per tonne of CO2', 'USD per tCO2',
      '', 'Fuels: (rfu + rfg of the fuel) / co2.f; all: fossil fuels / co2 (SAFEDIV); biomass left out',
      'legacy F5d (total carbon price by fuel), v3.15'),
@@ -7324,8 +7353,26 @@ TRADE_GROUPS = [('oil', ['oop', 'gso', 'die', 'ker', 'lpg', 'jfu'], '"|oil"', 6.
 IMAC_ROWS = (['USA|ngdp_d', 'USA|pcpi', 'USA|deflidx', 'USA|infl', 'c|gdp_growth', 'c|gdp_ext', 'c|ngdp_r', 'c|ngdp', 'c|ngdp_g',
               'c|xr', 'c|gdp_usd', 'c|gdp_lcu', 'c|lp', 'c|gdppc', 'c|scc_manual', 'c|psrc', 'c|ngdpd']
              + [f'c|bal_{f}' for f in BAL_FUELS]
-             + [k for g, *_x in TRADE_GROUPS for k in (f'c|ts_{g}', f'c|px_{g}', f'c|tb_{g}')])
+             + [k for g, *_x in TRADE_GROUPS for k in (f'c|ts_{g}', f'c|px_{g}', f'c|tb_{g}')]
+             + ['EGY|bca', 'EGY|bca_gdp', 'EGY|bca_n'])
 IMAC = {k: IMAC_R0 + i for i, k in enumerate(IMAC_ROWS)}
+# v9.0 (R11, decision R11; bug L50 fixed): typed Egypt current account, the WEO values legacy reads once its stale codes
+# are fixed (EGY.BCA.A, USD bn nominal; EGY.BCA_NGDPD.A, % of GDP), held at the last data year 2031 by legacy's own rule;
+# bca_n = legacy row 18198 (current prices, no hold rule: 0 for 2032-2041, issue I130). Keyed by country code (EGY): other
+# countries find no row and read 0 (data issue).
+_BCA = {2022: (-16.5513, -3.48279), 2023: (-4.7105, -1.196082), 2024: (-20.8066, -5.43104),
+        2025: (-15.4246, -4.230086), 2026: (-17.834583, -4.151002), 2027: (-20.950561, -4.583618),
+        2028: (-19.674211, -3.869298), 2029: (-19.613478, -3.501898), 2030: (-19.398187, -3.17492),
+        2031: (-17.756772, -2.667806)}
+BCA_TYPED = {'EGY|bca': {y: _BCA[min(y, 2031)][0] for y in range(2022, 2042)},
+             'EGY|bca_gdp': {y: _BCA[min(y, 2031)][1] for y in range(2022, 2042)},
+             'EGY|bca_n': {y: (_BCA[y][0] if y <= 2031 else 0) for y in range(2022, 2042)}}
+BCA_LABELS = {'EGY|bca': 'Current account balance, Egypt, USD bn nominal (typed: WEO EGY.BCA.A, held at 2031; '
+                         'legacy row 18182, bug L50 fixed)',
+              'EGY|bca_gdp': 'Current account balance, Egypt, % of GDP (typed: WEO EGY.BCA_NGDPD.A, held at 2031; '
+                             'legacy row 18191, bug L50 fixed)',
+              'EGY|bca_n': 'Current account balance, Egypt, current prices, USD bn (typed; legacy row 18198: 0 after '
+                           '2031, issue I130)'}
 
 
 def build_inputs_macro(wb):
@@ -7363,8 +7410,8 @@ def build_inputs_macro(wb):
     grp_of = {f: g for g, fs, *_x in TRADE_GROUPS for f in fs}
     for key in IMAC_ROWS:
         r = IMAC[key]
-        put(ws, f'A{r}', key if key.startswith('USA') else f'=CtryCode&"|{key[2:]}"', FONT)
-        put(ws, f'B{r}', lab.get(key, ''), FONT)
+        put(ws, f'A{r}', key if key.startswith(('USA', 'EGY')) else f'=CtryCode&"|{key[2:]}"', FONT)
+        put(ws, f'B{r}', lab.get(key, BCA_LABELS.get(key, '')), FONT)
         if key in series:
             put(ws, f'C{r}', '=' + series[key], FONT)
             put(ws, f'D{r}', f'=MATCH($C{r},WEOCode,0)', FONT, None, '0')
@@ -7418,6 +7465,10 @@ def build_inputs_macro(wb):
             if key == 'c|scc_manual':
                 v = gl['scc_manual'][gl_years.index(y)] if y in gl_years else ''
                 put(ws, f'{c}{r}', num(v), FONT, F_INPUT, '0.00')
+                continue
+            if key in BCA_TYPED:                  # v9.0 (R11): typed Egypt values (bright yellow: set by assumption)
+                if y in BCA_TYPED[key]:
+                    put(ws, f'{c}{r}', BCA_TYPED[key][y], FONT_CHANGED, F_CHANGED, '0.000')
                 continue
             for g, *_x in TRADE_GROUPS:
                 t = IMAC[f'c|ts_{g}']
@@ -11738,6 +11789,21 @@ def build_mitigation(wb):
             return f'={cur("xtb.all")}-{cur("xnim.all")}', '#,##0.000'
         if var == 'xtb.pct':
             return div(cur('xtbp'), gdp), '0.00%'
+        if var in ('bca', 'bca.gdp', 'bca.n'):              # v9.0 (R11): typed Egypt values (Inputs, key EGY|...)
+            k = {'bca': 'bca', 'bca.gdp': 'bca_gdp', 'bca.n': 'bca_n'}[var]
+            return (f'=IFERROR(INDEX(WEOVal,MATCH(CtryCode&"|{k}",WEOKey,0),MATCH({col}${R_YEAR},WEOYear,0)),0)',
+                    '#,##0.000')
+        if var == 'bca.r':
+            return f'={cur("bca")}*{col}${R_CPI}', '#,##0.000'
+        if var == 'bca.d':                                  # change in net imports: positive = more imports
+            return f'=-{cur("xnim.g." + fu)}', '#,##0.000'
+        if var in ('bca.p', 'bca.pp'):
+            a, d = ('bca.r', 'bca.d') if var == 'bca.p' else ('bca.gdp', 'bca.dp')
+            return '=' + cur(a) + ''.join(f'+{cur(d + "." + g)}' for g in XG), '#,##0.000'
+        if var == 'bca.y':                                  # as legacy (I129); 0 without data (no #DIV/0!)
+            return f'=IF({cur("bca.gdp")}=0,0,ABS({cur("bca.r")}/{cur("bca.gdp")}))', '#,##0.000'
+        if var == 'bca.dp':
+            return div(cur('bca.d.' + fu), cur('bca.y')), '0.0000'
         return div(cur('xnim.all'), gdp), '0.00%'
     sub_blocks(EXT_BLOCKS, R_EXT, R_EXT_LAB, R_EXT_HEAD, c16b)
     for f in CPI_FUELS:                                  # import share of the fuel's group (data), parameter column D
@@ -11746,9 +11812,12 @@ def build_mitigation(wb):
     put(ws, f'H{R_EXT_NOTE}', 'External balance (legacy F11): a change in energy use changes net imports '
                                          'by the change x the supply price of section 2 x the share traded of the '
                                          'fuel group (D; legacy rows 741-743: gas 0.19, oil products 0.47, coal 1). '
-                                         'Legacy leaves the share out for oil (bug L49) and its pre-policy current '
-                                         'account is #NAME? (bug L50): the prototype shows the energy trade balance (data) '
-                                         'instead, until WEO current-account data are added.', FONT_NOTE)
+                                         'Legacy leaves the share out for oil (bug L49). Current account (v9.0, '
+                                         'R11): typed WEO values for Egypt (legacy reads them through stale codes, '
+                                         'bug L50), held at 2031; the policy changes it by minus the change in net '
+                                         'energy imports of each fuel group; % of GDP over the GDP implied by the '
+                                         'current account and its share (as legacy); coal included (bug L214).',
+        FONT_NOTE)
 
     # 17. Carbon pricing (v3.15): Methods, chapter Macro and results
     band(ws, B_CPR, '17. Carbon pricing', last)
