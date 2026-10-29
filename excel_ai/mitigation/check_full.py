@@ -81,6 +81,8 @@ TOL = 1e-9
 # power_model_ref does not recompute yet: listed in the report as not recomputed, so a gap is never silent
 PW_NOT_RECOMPUTED = ('sys', 'pcbcap', 'pcbom', 'pcbfu', 'pcbchk', 'rpnv', 'txg', 'txe', 'scl', 'psegap', 'psegs',
                      'psesh', 'pseu', 'pser', 'csd', 'spe')
+TR_NOT_RECOMPUTED = ('trbe.aef', 'trbe.obf', 'trbe.bio', 'trp.renaef', 'ener.avi.ren', 'ener.nav.ren')   # v0.9.2: R10 rows
+# (other road biofuels, aviation and navigation renewables: the fuel-use equation) not in the recomputation yet
 PW_MEMOS = ('cur', 'pcbcp', 'pcbrns', 'pcbct')     # v0.9.2: v0.9.0 memos recomputed after the section-3 rows
 VAT_CONSUMER = {'coa.res', 'nga.res', 'gso.all', 'die.all', 'lpg.all', 'ker.all', 'oop.all'}   # independent copy
 report = []
@@ -1295,6 +1297,11 @@ def tr_inputs(res, mt):
         par[k] = mt[B.MT_NAMES[name]]
     data, prices, _ra = TM.country_data(ISO)
     ra = TM.range_anxiety(ISO, par)[0]
+    if os.path.exists(B.RA_FIT):                   # v0.9.0 (R10.8): the fitted start values replace Transport3's (build)
+        fit = {r['iso']: r for r in csv.DictReader(open(B.RA_FIT, encoding='utf-8'))}.get(ISO)
+        if fit:
+            ra = {c: float(fit[k]) if fit.get(k) not in (None, '') else ra[c]
+                  for c, k in (('pass', 'passenger'), ('fre', 'freight'), ('cyc', 'cycle'))}
     atp = lambda f: res[('atp', 'rod', f)]
     rp = {f: [a * u[f] for a in atp(f)] for f in ('gso', 'die', 'lpg')}
     rp['nga_res'] = list(atp('nga'))
@@ -1444,10 +1451,29 @@ TR_PAR_CHECK = {  # section-5b parameter rows compared with the engine's side-ta
     'tax.cyc': ('cX4304', 'cX4308', 'cX4309', 'cX4312'), 'tr.bus': ('cL2140', 'cL2141', 'cL2142', 'cL2143')}
 
 
+def TR_COPY_SRC(key):
+    """v0.9.2: source row of a copy row trq.<sec>.<fuel> (road use: section 6 road subsector; total: section 11 fuel
+    use, electricity demand) and the two rows of the road share tran.rsh.<fuel>, from the build's layout."""
+    _v, sec, f = key.rsplit('.', 2) if key.startswith('tran.rsh.') else key.split('.')
+    fk = {x[0]: k for k, x in enumerate(B.FUELS)}
+    road = B.SUB_HEAD['rod'] + 1 if f == 'ecy' else B.SUB_HEAD['rod'] + B.VOFF['ener'] + fk[f]
+    total = B.R_ELD['all'] if f == 'ecy' else B.R_FUEL0 + fk[f]
+    if key.startswith('tran.rsh.'):
+        rr = {it['key']: r for r, w, it in B.TR_LAYOUT if w == 'row'}
+        return ('ratio', rr[f'trq.rod.{f}'], rr[f'trq.all.{f}'])
+    return ('copy', road if sec == 'rod' else total)
+
+
 def check_transport(ws, g, res, label):
     """v0.3.5: every section-5b row with year values (and the side-table parameter rows) vs the engine."""
     o, inp = res[('TR', '', '')]
     e = tr_expected(o, inp, res[('TRMT', '', '')])
+    for f_, fo in (('bgs', 'gso'), ('bdi', 'die')):   # v0.9.2: R10 road bioethanol / biodiesel follow gasoline / diesel
+        q, v_ = res[('enel', 'rod', fo)], [inp['eb'][f_]]
+        for k in range(1, len(q)):
+            v_.append(v_[-1] if q[k - 1] == 0 else v_[-1] * q[k] / q[k - 1])
+        e[f'trbe.{f_}'] = v_
+    e['trp.ren'] = list(res[('tic', 'pow', 'sol')])     # R10: solar levelised investment cost (section 3 E)
     _, base, years = B.group_cols(g)
     worst, n, missing, by_key = (0.0, None), 0, [], {}
     blank = lambda v: v is None or v == ''
@@ -1464,6 +1490,17 @@ def check_transport(ws, g, res, label):
                 n += 1
                 if d > worst[0]:
                     worst = (d, f'{L(4 + j)}{r} ({key})')
+            continue
+        if str(key).startswith(('trq.', 'tran.rsh.')):   # v0.9.2: copies of sections 6 and 11 for the transport
+            src = TR_COPY_SRC(key)                      # co-benefits module: each equals the cell it reads
+            e[key] = [None] * (1 + len(years))
+            for k, c in enumerate([base] + years):
+                if src[0] == 'ratio':
+                    q, t = ws.cell(src[1], c).value, ws.cell(src[2], c).value
+                    e[key][k] = 0 if not t else q / t
+                else:
+                    e[key][k] = ws.cell(src[1], c).value
+        if key in TR_NOT_RECOMPUTED:
             continue
         if key not in e:
             missing.append(key)
@@ -1490,7 +1527,8 @@ def check_transport(ws, g, res, label):
             f'{[(k_, at, float(f"{d:.3g}")) for d, k_, at in bad[:30]]}')
     log(f'- {label}: section 5b, {sum(1 for _r, w, _i in B.TR_LAYOUT if w == "row")} rows ({n} cells incl. the '
         f'side-table parameters) vs transport_model_ref.engine (all fixes), max relative diff {worst[0]:.2e} '
-        f'(at {worst[1]}){"; no expected value for " + str(missing[:8]) if missing else ""} {"OK" if ok else "FAIL"}')
+        f'(at {worst[1]}){"; no expected value for " + str(missing[:8]) if missing else ""}; not recomputed yet (v0.9.0 R10, '
+        f'listed): {", ".join(TR_NOT_RECOMPUTED)} {"OK" if ok else "FAIL"}')
     return ok
 
 
