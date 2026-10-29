@@ -606,6 +606,9 @@ for pc, _lab, r0, r1 in PRICE_FUELS:
     _pol(f'fprs.{pc}', 'fpr.s', pc.split('.')[0], pc.split('.')[1], mt=r0)
 for pc, _lab, r0, r1 in PRICE_FUELS:
     _pol(f'fprf.{pc}', 'fpr.f', pc.split('.')[0], pc.split('.')[1], mt=r1)
+for v_ in ('fprj', 'fprk', 'fprp', 'fpra'):                                # v9.0 (LD10 reverted): helper rows of the
+    for pc, *_ in PRICE_FUELS:                                            # fuel price reform path, as legacy J, K
+        _pol(f'{v_}.{pc}', v_, pc.split('.')[0], pc.split('.')[1], kind='calc')
 for pc, *_ in PRICE_FUELS:
     _pol(f'fpr.{pc}', 'fpr', pc.split('.')[0], pc.split('.')[1], kind='calc')
 for p_ in ETS_PARAMS:
@@ -3640,6 +3643,13 @@ VARIABLES = [
      'MTInputs rows 142-155'),
     ('fpr.f', 'Fuel price reform: final price increase', 'price unit', '', 'MTInputs (scenario column)',
      'MTInputs rows 156-169'),
+    ('fprj', 'Fuel price reform: linear increase per year', 'price unit', '', 'FPRSLOPE', 'legacy rows 167-180 J'),
+    ('fprk', 'Fuel price reform: annual rate of increase (Percentage continuation)', 'share', '', 'FPRRATE',
+     'legacy rows 167-180 K'),
+    ('fprp', 'Fuel price reform: value of the year before the target year', 'price unit', '', 'FPRBASE',
+     'legacy rows 167-180 (column before the target year)'),
+    ('fpra', 'Fuel price reform: value after the target year (Percentage: rate; No: held)', 'price unit', '',
+     'FPRAFTER', 'legacy rows 167-180 (L171, L173 fixed)'),
     ('fpr', 'Fuel price reform: price increase path', 'price unit', '',
      'Linear to the target; after it linear (Linear*), annual rate (Percentage) or held (No); FPRPATH',
      'legacy rows 167-180 (v9.0; L171, L173 fixed)'),
@@ -4592,8 +4602,16 @@ LAMBDAS = {   # every calculated row calls one of these in the right column (LAS
     'PATH': (['year', 'start_yr', 'target_yr', 'start', 'target', 'cont'],
              'IF(year<start_yr,0,start+(target-start)/MAX(target_yr-start_yr,1)*IF(OR(year<=target_yr,cont),year-start_yr,target_yr-start_yr))'),
     'PATHYEARS': (['year', 'start_yr', 'target_yr', 'cont'], 'IF(cont,year,MIN(year,target_yr))-start_yr'),
-    'FPRPATH': (['year', 'start_yr', 'target_yr', 'start', 'target', 'ext'],
-                None),   # v9.0: body from fpr_formula (set below LAMBDAS)
+    'FPRSLOPE': (['start_yr', 'target_yr', 'start', 'target'],
+                 'IF(target_yr>start_yr,(target-start)/(target_yr-start_yr),0)'),
+    'FPRRATE': (['start_yr', 'target_yr', 'start', 'target', 'slope'],
+                'IF(AND(target_yr>start_yr,MAX(start,target)>0),'
+                '(target/IF(start>0,start,start+slope))^(1/(target_yr-start_yr))-1,0)'),
+    'FPRBASE': (['start_yr', 'target_yr', 'start', 'slope'], 'start+slope*MAX(target_yr-start_yr-1,0)'),
+    'FPRAFTER': (['year', 'start_yr', 'target_yr', 'ext', 'start', 'target', 'pbase', 'rate'],
+                 'IF(ext="Percentage",pbase*(1+rate)^(year-target_yr+1),IF(target_yr>start_yr,target,start))'),
+    'FPRPATH': (['year', 'start_yr', 'target_yr', 'ext', 'start', 'slope', 'after'],
+                'IF(year<start_yr,0,IF(OR(year<target_yr,ext="Linear*"),start+slope*(year-start_yr),after))'),
     'NOMFACTOR': (['basis', 'cpi_index'], 'IF(LEFT(basis,7)="Nominal",cpi_index,1)'),
     'ETSON': (['apply', 'year', 'start_year'], 'IF(AND(LEFT(apply,3)="Yes",year>=start_year),1,0)'),
     'ETSPRICE': (['ets_on', 'override', 'override_price', 'estimate', 'carbon_price'],
@@ -4868,8 +4886,13 @@ LAMBDAS = {   # every calculated row calls one of these in the right column (LAS
 }
 LAMBDA_NOTES = {
     'PATH': 'Policy path: 0 before start_yr, linear from start (start_yr) to target (target_yr); after target_yr linear if cont, else flat',
-    'FPRPATH': 'Fuel price reform path (v9.0, as legacy rows 167-180): linear from start to target; after the target year '
-               'linear (ext Linear*), growing by the annual rate (Percentage) or held at the target (No); L171, L173 fixed',
+    'FPRSLOPE': 'Fuel price reform: linear increase per year (legacy column J; 0 unless the target year is later)',
+    'FPRRATE': 'Fuel price reform: annual rate (target/start)^(1/n) - 1, start 0: target/(start + slope) (legacy column K)',
+    'FPRBASE': 'Fuel price reform: value of the year before the target year (base of the Percentage continuation)',
+    'FPRAFTER': 'Fuel price reform after the target year: Percentage: base x (1 + rate)^years (L173 fixed: legacy rate '
+                'x last year); otherwise held at the target (L171 fixed: legacy 0)',
+    'FPRPATH': 'Fuel price reform path (v9.0, as legacy rows 167-180): 0 before the start year, linear to the target '
+               'year and after it with Linear*, else the value after the target (FPRAFTER)',
     'PATHYEARS': 'Years along a policy path: year - start_yr, held at target_yr - start_yr after the target year unless cont',
     'NOMFACTOR': 'Nominal-to-real factor of the carbon price inputs: the CPI index if they are nominal, else 1',
     'ETSON': '1 if the new ETS applies (Yes) and has started, else 0',
@@ -9908,24 +9931,9 @@ def path_formula(col, y0, y1, start, target, linear_ext=None):
             f'*IF(OR({y}<={y1},{linear_ext}="Linear*"),{y}-{y0},{y1}-{y0}))')
 
 
-def fpr_formula(y, y0, y1, s0, s1, ext, eq=True):
-    """v9.0 (LD10 reverted; legacy rows 167-180, bugs L171 and L173 fixed): fuel price reform path. Linear from the
-    starting increase (y0) to the target (y1), continued linearly with ExtendCarbonPriceBeyondOutro = Linear*; with
-    Percentage it grows by the annual rate K = (target/start)^(1/n) - 1 (start 0: target/(start + slope)) from the year
-    before the target year, (1 + K) x last year (L173: legacy K x last year); with No it holds the target level (L171:
-    legacy 0). Slope and rate 0 when the target year is not after the start year, as legacy J, K."""
-    n = f'({y1}-{y0})'
-    slope = f'IF({n}>0,({s1}-{s0})/{n},0)'
-    rate = (f'IF(MAX({s0},{s1})>0,IF({s0}>0,({s1}/{s0})^(1/{n})-1,({s1}/({s0}+({s1}-{s0})/{n}))^(1/{n})-1),0)')
-    hold = f'IF({n}>0,{s1},{s0})'
-    pct = f'({s0}+({s1}-{s0})/{n}*({y1}-1-{y0}))*(1+{rate})^({y}-{y1}+1)'
-    f = (f'IF({y}<{y0},0,IF(OR({y}<{y1},{ext}="Linear*"),{s0}+{slope}*({y}-{y0}),'
-         f'IF(AND({ext}="Percentage",{n}>0),{pct},{hold})))')
-    return ('=' + f) if eq else f
-
-
-LAMBDAS['FPRPATH'] = (LAMBDAS['FPRPATH'][0], fpr_formula('year', 'start_yr', 'target_yr', 'start', 'target', 'ext',
-                                                         eq=False))
+def lam_or_plain(name, args, use_lambda):
+    """v9.0: a LAMBDA call, or its plain formula (the body with the arguments substituted)."""
+    return call(name, *args) if use_lambda else lambda_plain(name, args)
 
 
 def pol_calc(key, col, use_lambda=False):
@@ -9967,8 +9975,17 @@ def pol_calc(key, col, use_lambda=False):
             if use_lambda:                   # year, as legacy rows 2001-2004 (L174: no #DIV/0! when start = target)
                 return '=' + call('PATH', y, y0, y1, s0, s1, 'FALSE')
             return f'=IF({y}<{y0},0,{s0}+({s1}-{s0})/MAX({y1}-{y0},1)*(MIN({y},{y1})-{y0}))'
-        a = (y, y0, y1, s0, s1, c('ExtendCarbonPriceBeyondOutro'))   # v9.0 (LD10 reverted): fuel price reform
-        return '=' + (call('FPRPATH', *a) if use_lambda else fpr_formula(*a))   # follows the switch (legacy 167-180)
+        a = (y, y0, y1, c('ExtendCarbonPriceBeyondOutro'), s0, rel('fprj.' + k), rel('fpra.' + k))   # v9.0 (LD10
+        return '=' + lam_or_plain('FPRPATH', a, use_lambda)      # reverted): follows the switch (legacy 167-180)
+    if key.split('.')[0] in ('fprj', 'fprk', 'fprp', 'fpra'):   # v9.0: helper rows of the fuel price reform path
+        v, k = key.split('.', 1)
+        y0, y1, s0, s1 = c('fpr.yr0'), c('fpr.yr1'), rel('fprs.' + k), rel('fprf.' + k)
+        ext = c('ExtendCarbonPriceBeyondOutro')
+        a = {'fprj': ('FPRSLOPE', (y0, y1, s0, s1)),
+             'fprk': ('FPRRATE', (y0, y1, s0, s1, rel('fprj.' + k))),
+             'fprp': ('FPRBASE', (y0, y1, s0, rel('fprj.' + k))),
+             'fpra': ('FPRAFTER', (y, y0, y1, ext, s0, s1, rel('fprp.' + k), rel('fprk.' + k)))}[v]
+        return '=' + lam_or_plain(*a, use_lambda)
     on = f'{c("ets.on")}=1'
     bco2 = pol_range(col, 'bco2.pow', len(COV_SECTORS))
     etsc = pol_range(col, 'etsc.pow', len(COV_SECTORS))
@@ -10703,7 +10720,7 @@ def build_mitigation(wb):
                     each_col(cell)
 
     # 5b. Road transport: engineer model (v3.5; Methods, chapter Transport)
-    band(ws, B_TR, '5b. Road engineer model', last)
+    band(ws, B_TR, '5b. Road transport: engineer model and outputs to the transport co-benefits module', last)   # v9.0 (user 2026-10-29: no copies)
     for r, what, it in TR_LAYOUT:
         if what == 'head':
             subhead(ws, r, it['text'])   # v3.9
@@ -11469,7 +11486,7 @@ def build_mitigation(wb):
     sub_blocks(NDC_BLOCKS, R_NDC, R_NDC_LAB, R_NDC_HEAD, c14c)
 
     # 15. Local air pollutants (v2.9): Methods, chapter Emissions
-    band(ws, B_AP, '15. Local air pollutants', last)
+    band(ws, B_AP, '15. Local air pollutants: outputs to the air pollution module', last)   # v9.0 (user 2026-10-29: no copies)
     A = R_AP
     for head, rows_ in AP_BLOCKS:
         subhead(ws, R_AP_HEAD[head], head)   # v3.9: sub-heading row (column B)
