@@ -23,15 +23,15 @@ Status key: ☐ not started · ◐ in progress · ☑ done (ticked items leave a
 - ☑ 2.1 Data interface for the data person: `../data/INTERFACE.md` and `../data/interface_manifest.csv` (41 files in three groups; legacy layout as Excel-AI; `full` and `dummy`; input files in `../data/inputs/`; 8 open points). The check (loaders read only what the manifest lists) comes with the loaders (2.6).
 - ☑ Tidy CSV as the input of Coded CPAT, with two-way converters legacy layout <-> tidy (`../data/scripts/tidy/`, `../data/tidy/`; user 2026-10-29). Domestic prices cut to Egypt (user 2026-10-29).
 - ☐ Data, from 2.1: assemble the `dummy` database (public files plus dummy Balances, EnergyCons, Prices_dom in the 99-column layout, HHSurvey, IO_GTAP); bring ASPIRE and WHOCooking back whole; extract the FromAirPollution and FromTransportCB values from `build.py` to a data file (2.10).
-- ☐ 2.2 Package skeleton (`cpat_model/` folders, `run()`, `settings.py`), versions `EXCEL_AI_VERSION` and `__version__` = `<Excel-AI>p<Python>` (D14; Excel-AI numbering rebased 2026-10-29: 0.9.0, distribution 0.1.3).
-- ☐ 2.3 Index sets (`core/dims.py`) from the codes map. Check: equal to the codes map.
+- ☑ 2.2 Package skeleton (`cpat_model/` folders, `run()`, `settings.py`), versions `EXCEL_AI_VERSION` and `__version__` = `<Excel-AI>p<Python>` (D14; Excel-AI numbering rebased 2026-10-29: 0.9.0, distribution 0.1.3).
+- ☑ 2.3 Index sets (`core/dims.py`) from the codes map. Check: equal to the codes map.
 - ☐ 2.4 Variable registry (`core/variables.py`) from the codes map with the symbols of `equations.yaml`; resolve the 33 code names marked †. Check: every name in the equation list is in the registry.
-- ☐ 2.5 Loop (`core/loop.py`): baseline first, then each scenario (D15); prepare, year loop, finish; `mitigation/chain.py`; policy paths and price indices (`core/paths.py`).
-- ☐ 2.6 Data layer (`data/`): reads the tidy tables of `../data/tidy/` (`DATA_ENVIRONMENT` = `full` or `dummy`, path of the private tidy folder); loaders to labelled arrays; exact float parsing; cache. The old Python-format data (`../data/dummy/`, `convert_data_workbook.py`, `export_to_legacy.py`) serve the old code only and retire with it (6.3).
-- ☐ 2.7 Inputs (`inputs/`): scenario-set table (MTInputs rows + Excel-AI additions + `ModelForm`), advanced-inputs workbook, validation, global-settings check (D16). Check: Excel-AI `ScenarioDefinition` J, K read back unchanged.
-- ☐ 2.8 Forms (`forms/`): registry, slots, the `CPAT` form; with Excel-AI, the `ModelForm` row in `ScenarioDefinition` (default CPAT; Excel quick check unchanged) (D4).
-- ☐ 2.9 Results (`results/`) by output code; export in the Excel layout.
-- ☐ 2.10 Placeholder modules `air_pollution/`, `transport_cobenefits/`: `prepare` (FromAirPollution, FromTransportCB values) and empty `step(t)` (D10).
+- ☑ 2.5 Loop (`core/loop.py`): baseline first, then each scenario (D15); prepare, year loop, finish; `mitigation/chain.py`; policy paths and price indices (`core/paths.py`).
+- ☑ 2.6 Data layer (`data/`): reads the tidy tables of `../data/tidy/` (`DATA_ENVIRONMENT` = `full` or `dummy`, path of the private tidy folder); loaders to labelled arrays; exact float parsing; cache. The old Python-format data (`../data/dummy/`, `convert_data_workbook.py`, `export_to_legacy.py`) serve the old code only and retire with it (6.3).
+- ☑ 2.7 Inputs (`inputs/`): scenario-set table (MTInputs rows + Excel-AI additions + `ModelForm`), advanced-inputs workbook, validation, global-settings check (D16). Check: Excel-AI `ScenarioDefinition` J, K read back unchanged.
+- ☑ 2.8 Forms (`forms/`): registry, slots, the `CPAT` form (its equations come with phase 3); `ModelForm` in the Python scenario set. ☐ The `ModelForm` row in Excel-AI's `ScenarioDefinition`: at its next release (user 2026-10-29).
+- ☑ 2.9 Results (`results/`) by output code; export in the Excel layout.
+- ☑ 2.10 Placeholder modules `air_pollution/`, `transport_cobenefits/`: `prepare` (FromAirPollution, FromTransportCB values) and empty `step(t)` (D10).
 - ☐ 2.11 Comparison harness (`cpat_testing/compare/`): reference values by code for Egypt from the existing Python recomputations (D8), then from Excel-AI.
 - ☐ 2.12 Equation-id test (every id has a function and every cited id exists).
 

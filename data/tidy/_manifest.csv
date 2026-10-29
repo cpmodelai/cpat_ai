@@ -1,4 +1,8 @@
 table,legacy_source,kind,legacy_tab,keys,rows,proprietary
+air_coefficients,module_FromAirPollution_cells.csv,cells block,FromAirPollution,key,196,no
+air_kappa,module_FromAirPollution_cells.csv,cells block,FromAirPollution,key,70,no
+air_unit_costs,module_FromAirPollution_cells.csv,cells block,FromAirPollution,key,240,no
+air_vpm,module_FromAirPollution_cells.csv,cells block,FromAirPollution,key,20,no
 aspire,legacy_ASPIRE.csv,table,ASPIRE,code,30,no
 ch4_inputs,legacy_CH4Inputs.csv,table,CH4Inputs,country source,1105,no
 coal_implicit_price,legacy_GoalSeekCoal.csv,table,GoalSeekCoal,country_name,85,no
@@ -73,6 +77,8 @@ ets_semi_el_raw_1,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,country,60,no
 ets_semi_el_raw_2,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,country_name country,360,no
 ets_semi_elasticities,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,country_name country,842,no
 ets_unit_codes,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,unit,7,no
+from_air_pollution_tab (layout),module_FromAirPollution_cells.csv,cells layout,FromAirPollution,row col,149,no
+from_transport_cb_tab (layout),module_FromTransportCB_cells.csv,cells layout,FromTransportCB,row col,31,no
 fuel_units,fuel_units.csv,table,FuelUnits,fuel,9,no
 gdp_ratios,legacy_GDPRatios.csv,table,GDPRatios,country indicator,22154,no
 ghg_adjustment_egypt,legacy_GHGs_cells.csv,cells block,GHGs,item,9,no
@@ -216,6 +222,7 @@ scc,legacy_SCC.csv,table,SCC,code,680,no
 transport3_range_anxiety,legacy_Transport3_cells.csv,cells block,Transport3,country_name country_name_u,3535,no
 transport3_range_anxiety_repeat,legacy_Transport3_cells.csv,cells block,Transport3,country_name country_name_u,209,no
 transport3_tab (layout),legacy_Transport3_cells.csv,cells layout,Transport3,row col,392,no
+transport_cost_per_km,module_FromTransportCB_cells.csv,cells block,FromTransportCB,key,60,no
 transport_country,legacy_Transport1.csv,table,Transport1,country year,83572,no
 transport_params,transport_params.csv,table,TransportParams,key,156,no
 transport_paths,transport_paths.csv,table,TransportPaths,key,140,no

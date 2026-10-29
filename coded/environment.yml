@@ -11,6 +11,7 @@ dependencies:
   - pyarrow=21.0.0
   - matplotlib=3.9.2  # first releases built for numpy 2
   - openpyxl=3.1.5
+  - xarray=2026.9.0
   - xlsxwriter=3.1.1
   - python-dotenv=1.0.1
 

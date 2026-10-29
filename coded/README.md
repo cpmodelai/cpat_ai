@@ -8,15 +8,13 @@ A component-based Python reimplementation of the CPAT model: the mitigation modu
 
 | Path | Contents |
 |---|---|
-| `cpat_model/mitigation/` | Mitigation module components |
-| `cpat_model/distribution/` | Distribution module (household incidence by decile, revenue recycling, welfare); specification and validation status in [`../other/distribution/README.md`](../excel_ai/distribution/README.md) |
-| `cpat_model/data_read/`, `dashboard_inputs.py`, `distribution_inputs.py`, `scenario_results.py`, `indicators/`, `constants.py` | Data loading, inputs, cross-scenario results, indicators, codes |
-| `cpat_shiny/`, `app.py` | Shiny application |
-| `../data/dummy/` | Input data used by default (all data are in the root [`data/`](../data/README.md)) (`.env`: `DATA_ENVIRONMENT=dummy`; `real` reads `REAL_DATA_PATH`). `energy_consumption.csv`, `prices_dom.csv`, `distn_hh_survey.csv` and `distn_io_gtap.csv` must agree with the dummy legacy-data files in `../data/legacy_dummy/` (root `NORMS.md` section 8) |
-| `../data/scripts/` | The data conversion scripts ([`../data/README.md`](../data/README.md)): `export_to_legacy.py` (the four proprietary tables in the legacy layout), `build_data_workbook.py` (data workbook, Python format), `convert_data_workbook.py` (Python format <-> CPAT format); tests in `../data/tests/` |
-| `cpat_testing/` | pytest suite mirroring `cpat_model/` |
+| `cpat_model/` | The model (rebuilt from 2026-10-29, spec section 3.2): `run()` and versions (`__init__.py`), `settings.py`, `core/` (index sets, policy paths, the run loop, module values), `data/` (the tidy database), `inputs/` (scenario sets, D5), `forms/` (switchable demand equations, D4), `mitigation/` (`chain.py`: the order of the blocks; the blocks come in phase 3), `results/`, `air_pollution/` and `transport_cobenefits/` (placeholders, D10) |
+| `cpat_model/distribution/`, `distribution_inputs.py`, `constants.py` | The earlier distribution module (validated against Excel); moves onto the new structure in phase 4 |
+| `cpat_shiny/`, `app.py` | Shiny application (calls the earlier model: not working until phase 6) |
+| `../data/tidy/` | The input data: tidy CSV ([`../data/INTERFACE.md`](../data/INTERFACE.md)); `../data/inputs/scenarios_excel_ai.csv` the Excel-AI scenario set |
+| `cpat_testing/` | pytest suite; `compare/` extracts Excel-AI's scenario set and reference values by code (`extract_excel_ai.py`, `reference/`) |
 | [`NORMS.md`](NORMS.md), [`TODO.md`](TODO.md) | Python norms (add to the root `NORMS.md`); open work and the plan |
-| `cpat_documentation/` | `project/` spec and plan (qmd, Word, diagrams), `equations/` equation list (source `equations.yaml`, generator, qmd, Word; `reference/` notation extracted from the methodology), `developer/` developer guide, `user/` pages read by the app; `make_docs.py` writes the Word copies |
+| `cpat_documentation/` | `project/` spec and plan, `equations/` equation list, `developer/`, `user/`; `make_docs.py` writes the Word copies |
 
 ## Conventions
 
@@ -29,7 +27,6 @@ A component-based Python reimplementation of the CPAT model: the mitigation modu
 
 ```bash
 conda env create -f environment.yml && conda activate cpat_p    # or: pip install -r requirements.txt -r dev-requirements.txt  (Python 3.12)
-python run_model.py            # mitigation for the scenarios in config.py, then distribution against the baseline
-pytest                         # 48 tests (the data scripts: cd ../data && pytest tests, 15 more)
+pytest                         # the tests of coded/ (from coded/) (the data scripts: cd ../data && pytest tests, 15 more)
 shiny run app.py               # the app
 ```

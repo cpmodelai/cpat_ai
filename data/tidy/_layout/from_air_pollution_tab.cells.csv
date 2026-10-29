@@ -1,0 +1,150 @@
+row,col,value
+2,1,FromAirPollution - outputs of the air pollution module that Mitigation reads (by country)
+3,1,"These are the outputs of the air pollution module that Mitigation reads (sections 1, 17b and 18); typed from legacy 465 (Egypt run: options Manual-FASST, VSL Transfer, 3% discount) until the module writes them. Bright yellow: typed assumptions. A country without rows here reads 0 (issue I106)."
+4,1,"Value of averted modelled ambient PM2.5 (USD bn per ug/m3; legacy wel.air / change in modelled PM2.5, AP 3217 / (AP 981 - AP 1814); 2041 = 2040, I112)"
+5,1,Key (country|data key)
+5,2,"Source (legacy row, unit)"
+5,3,2022
+5,4,2023
+5,5,2024
+5,6,2025
+5,7,2026
+5,8,2027
+5,9,2028
+5,10,2029
+5,11,2030
+5,12,2031
+5,13,2032
+5,14,2033
+5,15,2034
+5,16,2035
+5,17,2036
+5,18,2037
+5,19,2038
+5,20,2039
+5,21,2040
+5,22,2041
+6,1,EGY|air.vpm
+6,2,typed
+9,1,"Effective PM2.5 concentration coefficients (ug/m3 per t of emissions; legacy AP F442:F522 x I974:I980): pollutants of section 15 down, air-pollution module sectors across"
+10,1,Key (country|pollutant)
+10,2,Label
+10,3,cpp
+10,4,gpp
+10,5,opp
+10,6,rod
+10,7,gro
+10,8,oth
+10,9,foo
+11,1,EGY|nox
+11,2,NOx
+12,1,EGY|so2
+12,2,SO2
+13,1,EGY|bc
+13,2,Black carbon
+14,1,EGY|pom
+14,2,Primary organic matter
+15,1,EGY|opm
+15,2,Other PM2.5
+16,1,EGY|voc
+16,2,VOC
+17,1,EGY|ch4
+17,2,CH4
+18,1,EGY|co
+18,2,CO
+19,1,EGY|pm2
+19,2,PM2.5
+20,1,EGY|oc
+20,2,Organic carbon
+23,1,"Coefficients per t of the pollutants of the emission factors (derived from the table above: other PM2.5 = PM2.5 - black carbon - PomPerOC x organic carbon; ug/m3 per t): key country|sector|0 for the base-year factors, |1 for the EFEndYear factors, columns as the Inputs emission-factor columns (read by the marginal air-pollution costs, Mitigation section 1)"
+24,1,Key (country|sector|factor)
+24,2,Sector
+24,3,ap0_pm2
+24,4,ap1_pm2
+24,5,ap0_nox
+24,6,ap1_nox
+24,7,ap0_so2
+24,8,ap1_so2
+24,9,ap0_voc
+24,10,ap1_voc
+24,11,ap0_bc
+24,12,ap1_bc
+24,13,ap0_oc
+24,14,ap1_oc
+24,15,ap0_co
+24,16,ap1_co
+25,1,EGY|cpp|0
+25,2,Coal power plants (base-year factors)
+26,1,EGY|cpp|1
+26,2,Coal power plants (EFEndYear factors)
+27,1,EGY|gpp|0
+27,2,Gas power plants (base-year factors)
+28,1,EGY|gpp|1
+28,2,Gas power plants (EFEndYear factors)
+29,1,EGY|opp|0
+29,2,"Other power plants (oil, biomass) (base-year factors)"
+30,1,EGY|opp|1
+30,2,"Other power plants (oil, biomass) (EFEndYear factors)"
+31,1,EGY|rod|0
+31,2,Ground level road (base-year factors)
+32,1,EGY|rod|1
+32,2,Ground level road (EFEndYear factors)
+33,1,EGY|gro|0
+33,2,"Ground level other (residential, services, construction) (base-year factors)"
+34,1,EGY|gro|1
+34,2,"Ground level other (residential, services, construction) (EFEndYear factors)"
+35,1,EGY|oth|0
+35,2,"Other (rail, aviation, navigation, industry, other energy use) (base-year factors)"
+36,1,EGY|oth|1
+36,2,"Other (rail, aviation, navigation, industry, other energy use) (EFEndYear factors)"
+37,1,EGY|foo|0
+37,2,Food & forestry (base-year factors)
+38,1,EGY|foo|1
+38,2,Food & forestry (EFEndYear factors)
+41,1,"Memo (not read by Mitigation): legacy air-pollution cost per unit of fuel, average damages (USD/GJ; gasoline, diesel, LPG, kerosene USD/l; AP sheet, L189-L191 fixed): Mitigation uses marginal damages (section 1, I104 fixed)"
+42,1,Key (country|data key)
+42,2,"Source (legacy row, unit)"
+42,3,2022
+42,4,2023
+42,5,2024
+42,6,2025
+42,7,2026
+42,8,2027
+42,9,2028
+42,10,2029
+42,11,2030
+42,12,2031
+42,13,2032
+42,14,2033
+42,15,2034
+42,16,2035
+42,17,2036
+42,18,2037
+42,19,2038
+42,20,2039
+42,21,2040
+42,22,2041
+43,1,EGY|airpol.cost|ind|coa
+43,2,AP 3924 ($/GJ)
+44,1,EGY|airpol.cost|res|coa
+44,2,AP 4351 ($/GJ; switch in the prototype)
+45,1,EGY|airpol.cost|pow|coa
+45,2,AP 3731 ($/GJ)
+46,1,EGY|airpol.cost|ind|nga
+46,2,AP 3998 ($/GJ)
+47,1,EGY|airpol.cost|res|nga
+47,2,AP 4378 x 741 x time_factor x (1+1713) / 41868 ($/GJ; L189 fixed)
+48,1,EGY|airpol.cost|pow|nga
+48,2,AP 3732 ($/GJ)
+49,1,EGY|airpol.cost|all|gso
+49,2,AP 3886 ($/l)
+50,1,EGY|airpol.cost|all|die
+50,2,AP 3887 ($/l)
+51,1,EGY|airpol.cost|all|lpg
+51,2,"AP 4314 ($/l; all years, L190 fixed)"
+52,1,EGY|airpol.cost|all|ker
+52,2,AP 4313 ($/l)
+53,1,EGY|airpol.cost|pow|oop
+53,2,AP 3733 ($/GJ)
+54,1,EGY|airpol.cost|ind|oop
+54,2,AP 3961 ($/GJ)

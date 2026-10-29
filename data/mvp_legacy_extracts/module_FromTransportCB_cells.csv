@@ -1,0 +1,92 @@
+row,col,value
+2,1,FromTransportCB - outputs of the transport co-benefits module that Mitigation reads (by country)
+3,1,"These are the outputs of the transport co-benefits module that Mitigation reads (sections 1 and 17b); typed from legacy 465 (Transport sheet, Egypt run) until the module writes them. Bright yellow: typed assumptions. A country without rows here reads 0 (issue I106)."
+4,1,"Road transport external costs per vehicle-km (USD/km; road damage per freight vehicle-km, not deflated, issue I111)"
+5,1,Key (country|data key)
+5,2,"Source (legacy row, unit)"
+5,3,2022
+5,4,2023
+5,5,2024
+5,6,2025
+5,7,2026
+5,8,2027
+5,9,2028
+5,10,2029
+5,11,2030
+5,12,2031
+5,13,2032
+5,14,2033
+5,15,2034
+5,16,2035
+5,17,2036
+5,18,2037
+5,19,2038
+5,20,2039
+5,21,2040
+5,22,2041
+6,1,EGY|tran.acc.km
+6,2,Transport 185 (USD/km)
+6,3,0.00632954
+6,4,0.0049802
+6,5,0.00460373
+6,6,0.00419517
+6,7,0.00473596
+6,8,0.00485939
+6,9,0.00524274
+6,10,0.00559414
+6,11,0.00590918
+6,12,0.005954
+6,13,0.0061273
+6,14,0.00630436
+6,15,0.00648515
+6,16,0.00666962
+6,17,0.00685774
+6,18,0.00704945
+6,19,0.00724651
+6,20,0.00744909
+6,21,0.00765733
+6,22,0.00787139
+7,1,EGY|tran.con.km
+7,2,Transport 220 (USD/km)
+7,3,0.00536868
+7,4,0.00548468
+7,5,0.00546949
+7,6,0.00583626
+7,7,0.00621345
+7,8,0.00666956
+7,9,0.00722952
+7,10,0.00780289
+7,11,0.00837663
+7,12,0.00898573
+7,13,0.00963183
+7,14,0.0103166
+7,15,0.0110416
+7,16,0.0118087
+7,17,0.0126195
+7,18,0.0134757
+7,19,0.0143841
+7,20,0.0153472
+7,21,0.0163671
+7,22,0.0174454
+8,1,EGY|tran.rdm.km
+8,2,Transport 232 (USD/freight km)
+8,3,0.12
+8,4,0.12
+8,5,0.12
+8,6,0.12
+8,7,0.12
+8,8,0.12
+8,9,0.12
+8,10,0.12
+8,11,0.12
+8,12,0.12
+8,13,0.12
+8,14,0.12
+8,15,0.12
+8,16,0.12
+8,17,0.12
+8,18,0.12
+8,19,0.12
+8,20,0.12
+8,21,0.12
+8,22,0.12

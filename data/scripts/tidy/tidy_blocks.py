@@ -416,7 +416,23 @@ CELLS = {
     'legacy_Transport3_cells.csv': dict(tidy='transport3_tab', sheet='Transport3', first_row=5, header=CELL_HEADER, blocks=[]),
     'legacy_ManualInputs_cells.csv': dict(tidy='manual_inputs_tab', sheet='Manual inputs', first_row=3,
                                           header=CELL_HEADER + ['formula'], blocks=[]),
+    'module_FromAirPollution_cells.csv': dict(tidy='from_air_pollution_tab', sheet='FromAirPollution', first_row=1,
+                                              header=CELL_HEADER, blocks=[
+        dict(name='air_vpm', rows=(6, 6), cols=(3, 22), key_cols=[1], label_row=5, keys=['key'], label='year',
+             desc='Value of averted modelled ambient PM2.5 (Excel-AI typed module value)', unit='USD bn per ug/m3'),
+        dict(name='air_kappa', rows=(11, 20), cols=(3, 9), key_cols=[1], label_row=10, keys=['key'],
+             label='module_sector', desc='Effective concentration coefficients by pollutant and module sector',
+             unit='ug/m3 per t'),
+        dict(name='air_coefficients', rows=(25, 38), cols=(3, 16), key_cols=[1], label_row=24, keys=['key'],
+             label='variable', desc='Concentration coefficients per tonne of the EF pollutants', unit='ug/m3 per t'),
+        dict(name='air_unit_costs', rows=(43, 54), cols=(3, 22), key_cols=[1], label_row=42, keys=['key'],
+             label='year', desc='Average unit costs of air pollution (memo, not read since PIGAP)', unit='')]),
+    'module_FromTransportCB_cells.csv': dict(tidy='from_transport_cb_tab', sheet='FromTransportCB', first_row=1,
+                                             header=CELL_HEADER, blocks=[
+        dict(name='transport_cost_per_km', rows=(6, 8), cols=(3, 22), key_cols=[1], label_row=5, keys=['key'],
+             label='year', desc='Accident, congestion and road-damage costs per vehicle-km (Excel-AI typed)',
+             unit='USD per vkm')]),
 }
 
 for _file, _spec in CELLS.items():
-    _spec['blocks'] = BLOCKS.get(_file, [])
+    _spec['blocks'] = BLOCKS.get(_file, _spec['blocks'])

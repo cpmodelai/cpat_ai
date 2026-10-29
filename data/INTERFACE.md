@@ -53,10 +53,10 @@ Every file is UTF-8 CSV, comma-separated, one header line, `.` as decimal point,
 
 ## 3b. The tidy side (`tidy/`)
 
-The converter writes 213 tidy tables from the 42 legacy files (`tidy/_manifest.csv`):
+The converter writes 218 tidy tables from the 43 legacy files (`tidy/_manifest.csv`):
 
 - **30 from the legacy tables** (one each): e.g. `energy_balances` (country, year, unit, flow, fuel, value), `prices_domestic` (country, year, code, value), `weo` (series_code, year, value), `io_gtap` (country, year, series, gtap_sector, value), `transport_country` (country, year, variable, value). Years, fuels, sectors, GTAP sectors and price codes become a column; headers that are different variables stay columns (`ch4_inputs`, `ef_local_pollutants`).
-- **183 from the 11 legacy tabs kept at their cell addresses** (one per data block: `power_*`, `ela_*`, `ghgs_*`, `ecp_*`, `multipliers_*`, `mi_*` for Manual inputs, ...): row keys as in legacy (codes, names), the column label (`year`, `country`, `variable`, ...), `value`. The blocks hold 97% of the numeric cells; the rest are keys, labels and 60 non-data numbers, kept in `_layout/` with the titles and notes.
+- **188 from the 13 tabs kept at their cell addresses** (11 legacy tabs and Excel-AI's two module tabs, `air_*` and `transport_cost_per_km`; one per data block: `power_*`, `ela_*`, `ghgs_*`, `ecp_*`, `multipliers_*`, `mi_*` for Manual inputs, ...): row keys as in legacy (codes, names), the column label (`year`, `country`, `variable`, ...), `value`. The blocks hold 97% of the numeric cells; the rest are keys, labels and 60 non-data numbers, kept in `_layout/` with the titles and notes.
 - `_layout/`: what is not data (legacy headers, country names, row order, repeated rows, the cells outside the blocks). Do not edit it; edit the tidy tables. A new country added to a tidy table of a legacy table is written back after the known rows; the cells tabs can only take values at the places their layout has (a new country there needs its label cells in the layout first).
 
 ## 4. The files, by group (legacy side)

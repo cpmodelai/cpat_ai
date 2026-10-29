@@ -1,15 +1,17 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
 import pandas as pd
 
 import cpat_model.constants as c
 from cpat_model.distribution_inputs import DistributionInputsDict
-from cpat_model.data_read.input_data import InputData
 
 from cpat_model.distribution import price_changes, effects, rebasing, recycling, welfare, sectoral
 from cpat_model.distribution import budget_shares as bsh_mod
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # the old loader and results classes (removed 2026-10-29; the package moves to the new structure in phase 4)
+    from cpat_model.data_read.input_data import InputData
     from cpat_model.scenario_results import ScenarioResults
 
 
