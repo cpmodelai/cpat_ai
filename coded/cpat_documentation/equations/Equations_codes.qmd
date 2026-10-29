@@ -330,18 +330,18 @@ Excel-AI notation throughout: the methodology describes the multipliers but give
 **M8.1  Fiscal space and impulse**
 
 $$
-\mathtt{fis.sp}_t = \frac{\mathtt{rnew}_t - \mathtt{rnew}^{B}_t}{\mathtt{gdp.usd}^{0}_t}, \qquad \mathtt{fis.imp}_t = \mathtt{fis.sp}_t - \mathtt{fis.sp}_{t-1}
+\mathtt{fis.rev} = \mathtt{rnet} + \mathtt{rnew} + \mathtt{rsr} + \mathtt{rpsu} + \mathtt{ch4.rev}, \quad \mathtt{fis.sp}_t = \frac{\mathtt{fis.rev}_t - \mathtt{fis.ref}_t}{\mathtt{gdp.usd}_t \cdot 1000}, \quad \mathtt{fis.imp}_t = \mathtt{fis.sp}_t - \mathtt{fis.sp}_{t-1}\frac{\mathtt{gdp.usd}_{t-1}}{\mathtt{gdp.usd}_t}
 $$
 
-Source: Excel-AI: E91, E92.
+Excel-AI notation: the revenue is the whole fiscal balance of the energy taxes and subsidies (existing, new, price-control wedges, producer subsidies, methane fee), against the baseline ($\mathtt{fis.ref}$); the impulse starts in GDPStartYear (in the base year it is the whole fiscal space). $\mathtt{fis.impp}$ is the impulse from the carbon-pricing start year (CPIntro), used for the recycled revenue. $\mathtt{fis.lag}_{l}$, $\mathtt{fis.lagp}_{l}$ hold the impulses of the 19 earlier years. Source: Excel-AI: E91, E92; Mitigation section 16.
 
-**M8.2  GDP effect of the use of revenue**
+**M8.2  GDP effect of the revenue and of its use**
 
 $$
-\mathtt{gdp.eff}_t = \sum_i \mathtt{fis.eff}_{i,t}, \qquad \mathtt{fis.eff}_{i,t} = \frac{\mathtt{share}_i}{100}\sum_{k=0}^{19}\mathtt{fis.imp}_{t-k}\,\mathtt{fis.mul}_{i,k}
+\mathtt{gdp.eff}_t = \textstyle\sum_i \mathtt{fis.eff}_{i,t}\,[\mathtt{GDPEndogenous}], \quad \mathtt{fis.eff}_{exc,t} = -\textstyle\sum_{k}\mathtt{fis.imp}_{t-k}\,m_{exc}(k), \quad \mathtt{fis.eff}_{i,t} = \frac{\mathtt{EXP}_i}{100}\textstyle\sum_{k}\mathtt{fis.impp}_{t-k}\,m_i(k)
 $$
 
-Over uses of revenue $i$ (labour and corporate tax cuts, public investment, current spending, transfers; the revenue itself with excise multipliers). Multipliers $m_i(k)$ by lag (methodology chapter 4, estimated offline). Applied only if endogenous GDP is switched on. Source: methodology: 04_Multipliers; Excel-AI: E93, E94.
+Over uses of revenue $i$ (labour tax cut EXPLabortax, corporate tax cut EXPCIT, public investment EXPCapex, goods and services EXPGoodsandserv, transfers EXPTransfers); the revenue itself with the excise multiplier. Multipliers $m_i(k)$ by lag from appendix A8.1. Applied only if GDPEndogenous = Yes. $\mathtt{gdpg}_{i,t} = (1 + g^0_t)(\mathtt{fis.eff}_{i,t-1} - \mathtt{fis.eff}_{i,t-2}) / \mathtt{gdp.lvl}_{t-1}$: each instrument's contribution to GDP growth (memo). Source: methodology: 04_Multipliers; Excel-AI: E93, E94; Mitigation section 16.
 
 **M8.3  GDP feedback, one year later**
 
@@ -591,9 +591,17 @@ $$
 
 Excel-AI notation: existing taxes and subsidies on power fuels, the new policy cost of generation less the free part of the ETS, existing carbon pricing, renewable subsidies. Source: Excel-AI: Mitigation section 3 (revenues).
 
+**A6.2  Revenue by policy instrument**  *(adjustment)*
+
+$$
+\mathtt{covct}_e = \textstyle\sum_f \mathtt{co2}_{e,f}\,\mathtt{ctcov}_f\,[\mathtt{ctr}_e > 0], \ \mathtt{rpol}_{ct,exc,exi,vat,ets,psu,ren,mf,trs,ctp,etp,tot}, \ \mathtt{rfu}_f, \ \mathtt{rfg}_{pow,f}, \ \mathtt{rpct} = R / GDP
+$$
+
+Over coverage sectors $e$, fuels $f$, years $t$. Excel-AI notation (Mitigation section 12). Carbon tax on covered CO2 (power: coal, gas, oil), electricity rebates and excise surplus; excises net of the power carbon tax and ETS; VAT; ETS at the auctioned share $\rho$; producer subsidies and the power subsidy gap; renewable subsidies; the methane fee; existing taxes as the remainder. Revenue by fuel and by power fuel; shares of GDP; nominal GDP from WEO divided by Billion (the WEO values are already in billions). Source: Excel-AI: Mitigation section 12; covct section 17.
+
 ## A7 Emissions
 
-To complete: CO2 calibration factor (E77, off by default; baseline pass, spec D15); ETS check (E79); combustion CH4; methane from fuel production with abatement ($red = A\,mf^{B}$); energy-CH4 calibration; N2O scaled to CO2; IPPU, agriculture, LULUCF, waste and other (methodology Emissions); local air pollutants by sector (section 15, E87-E90).
+To complete: local air pollutants by sector (section 15, E87-E90).
 
 **A7.1  Emission factors of the country**  *(adjustment)*
 
@@ -603,9 +611,41 @@ $$
 
 Over fuels $f$, EF sectors $s$ (power, road, residential, industry; jet fuel in aviation). Excel-AI notation. Some rows read another fuel or sector ($f'$, $s'$); jet fuel takes the IEA factor, biomass 0. The calibration factor $\chi$ uses Excel-AI's stored scenario-1 CO2 (user 2026-10-29). Other combustion pollutants (GAINS, t/ktoe): country, else region, else world, else 0; other energy use the largest factor of the fuel across the subsectors above it (issue I149). Source: Excel-AI: Inputs rows 273-312, 933-1471; Settings C26-C30.
 
+**A7.2  Greenhouse gases by UNFCCC category**  *(adjustment)*
+
+$$
+\mathtt{ghg}_{c,g}, \ \mathtt{ghg.dr}_c, \ \mathtt{ghg.k}_{enr,ch4}, \ \mathtt{ghg.flr}, \ \mathtt{ghg.m}, \ \mathtt{ghg.gi}, \ \mathtt{pop}, \ \mathtt{gdppc.g}
+$$
+
+Over categories $c$ (energy, industrial processes, agriculture, LULUCF, waste, other), gases $g$ (CO2, CH4, N2O, F-gases), years $t$. Excel-AI notation (Mitigation section 14). Energy CO2 is the model's plus flaring; energy CH4 is combustion and fuel-supply methane scaled to the inventory of the last inventory year (k, from the stored scenario-1 values); energy N2O follows energy CO2; industrial processes follow industrial energy CO2 (IndustrialProcessEmissionsScaleEner); agriculture, waste and other follow income and population with the non-energy elasticities ($m$: the ratio of CO2 to the baseline when AdditionMitigationPoliciesNonEnergy); agriculture and waste CH4 come from the methane block (A7.3); LULUCF CO2 declines by LULUCFAnnualEmissionsDecline of the inventory value while positive. Totals exclude LULUCF; ghg.inc includes it. Kaya rows (section 13) index population, GDP per capita, energy and carbon intensity to the base year. Source: Excel-AI: Mitigation sections 13 (Kaya) and 14.
+
+**A7.3  Methane by source and the methane fee**  *(adjustment)*
+
+$$
+\mathtt{ch4.abt}_s, \ \mathtt{ch4.act}_s, \ \mathtt{ch4.int}_s, \ \mathtt{ch4.em}_s, \ \mathtt{ch4.prd}_f = \mathtt{ch4.prd}_{f,t-1}\,\mathtt{ch4.pi}_f^{\epsilon_f}\,\frac{WD_{f,t-1}}{WD_{f,t-2}}, \ \mathtt{ch4.rev}, \ \mathtt{ch4.revf}
+$$
+
+Over sources $s$ (oil and gas, downstream gas, coal mining, biomass, livestock, rice, waste), years $t$. Excel-AI notation (Mitigation section 14). Abatement curve $A, B$ by source (CH4Inputs); $\iota_s$ whether the fee applies; activity: oil and gas and coal production (from the base year plus one, with world demand and the price response to the fee cost passed through), gas and biomass use, and income and population drivers for livestock, rice and waste; base emissions $M_{s,0}$ are the inventory CH4 of the last inventory year split by source shares (fuel sources capped by MethShareCap relative to activity). ch4.revf is the fee revenue with gas and biomass use of the stored baseline. Source: Excel-AI: Mitigation section 14 (ch4.*).
+
+**A7.4  NDC target and gap**  *(adjustment)*
+
+$$
+\mathtt{ndc.lvl}, \ \mathtt{ndc.r}, \ \mathtt{ndc.red}, \ \mathtt{ndc.gap}, \ \mathtt{ndc.over} = \mathtt{ghg.inc} - \mathtt{ndc.lvl}_{sel}
+$$
+
+Over years $t$. Excel-AI notation (Mitigation section 14, NDC rows; computed after the year loop because they read the baseline at the target year $ty$). The NDC row (Latest*, or the first or second round) gives the type (BAU, fixed, historical, intensity, unquantifiable), target years, reference year, unconditional and conditional changes, LULUCF and gas coverage; the level $\ell$ by type; the reduction selected by Conditionality (average of the two where not chosen). Text rows and 'N/A' are not compared numerically. Source: Excel-AI: Mitigation section 14 (ndc.*).
+
 ## A8 GDP and results
 
 To complete: current account (R11); carbon-pricing indicators (section 17); welfare, externalities, subsidies and efficient prices (section 18; methodology: efficiency cost $ddw = \tfrac{1}{2}(nc - xcp)(F_P - F_B)$).
+
+**A8.1  Fiscal multipliers by lag**  *(adjustment)*
+
+$$
+\mathtt{fis.grp} = \text{global | est | man by MultipliersSource, else the income group}, \quad \mathtt{fis.key} = g|\text{FmAdj}|, \quad s = 0, -1, +1 \ (\text{base, low, high})
+$$
+
+Over instruments $i$ (exc, pit, cit, vat, capt, gnfs, trns, wage), lags $k$. Excel-AI notation (Inputs rows 456-486): MFMOD median and standard deviation by income group (or global); lags past the last data lag (11) hold its value. Country-estimated and manual multipliers (Est*, Man*) are not in Coded CPAT yet. Source: Excel-AI: Inputs rows 454-486.
 
 # Appendix B: distribution adjustments
 

@@ -42,8 +42,9 @@ class Rows:
         """Year index k of a row filled year by year: values per country (country,) or a scalar."""
         key = None if sector is None and fuel is None else (sector, fuel)
         rows = self._rows.setdefault(var, {})
-        if key not in rows:
-            rows[key] = np.full(self.shape, np.nan)
+        if key not in rows:                               # a text row (labels, keys) is an object array
+            text = np.asarray(values).dtype.kind in 'OUS'
+            rows[key] = np.full(self.shape, None if text else np.nan, dtype=object if text else float)
         rows[key][:, k] = values
         return rows[key][:, k]
 

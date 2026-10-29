@@ -113,6 +113,6 @@ def revenues(state, db, inputs, settings, baseline, t):
     pol['exi'] = rtot - rmf - pol['ct'] - pol['exc'] - pol['vat'] - pol['ets'] - pol['psu'] - pol['ren']
     for key in ('ct', 'exc', 'exi', 'vat', 'ets', 'psu', 'ren', 'mf', 'trs'):
         R.set('rpol', k, pol[key], 'all', key)
-    total = R.set('rpol', k, sum(pol[key] for key in ('ct', 'exc', 'exi', 'vat', 'ets', 'psu', 'ren', 'mf', 'trs'))
-                  + ctp + etp, 'all', 'tot')
+    total = R.set('rpol', k, sum(pol[key] for key in ('ct', 'exc', 'exi', 'vat', 'ets', 'psu', 'ren', 'mf', 'trs')),
+                  'all', 'tot')                             # ctp and etp are memo rows (power), not in the total
     R.set('rpol.chk', k, np.abs(total - rtot), 'all', 'all')

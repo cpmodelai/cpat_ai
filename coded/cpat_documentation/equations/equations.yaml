@@ -387,26 +387,27 @@ parts:
           - id: M8.1
             title: Fiscal space and impulse
             greek: |
-              fs_t = \frac{rev^{new}_t - rev^{new,B}_t}{Y^{0}_t}, \qquad imp_t = fs_t - fs_{t-1}
+              fs_t = \frac{rev_t - rev^{B}_t}{Y^{0}_t}, \qquad imp_t = fs_t - fs_{t-1}\,\frac{Y^{0}_{t-1}}{Y^{0}_t} \ (t \ge t^{GDP};\ 0 \text{ before})
             codes: |
-              \mathtt{fis.sp}_t = \frac{\mathtt{rnew}_t - \mathtt{rnew}^{B}_t}{\mathtt{gdp.usd}^{0}_t}, \qquad \mathtt{fis.imp}_t = \mathtt{fis.sp}_t - \mathtt{fis.sp}_{t-1}
-            excel: "E91, E92"
+              \mathtt{fis.rev} = \mathtt{rnet} + \mathtt{rnew} + \mathtt{rsr} + \mathtt{rpsu} + \mathtt{ch4.rev}, \quad \mathtt{fis.sp}_t = \frac{\mathtt{fis.rev}_t - \mathtt{fis.ref}_t}{\mathtt{gdp.usd}_t \cdot 1000}, \quad \mathtt{fis.imp}_t = \mathtt{fis.sp}_t - \mathtt{fis.sp}_{t-1}\frac{\mathtt{gdp.usd}_{t-1}}{\mathtt{gdp.usd}_t}
+            note: "Excel-AI notation: the revenue is the whole fiscal balance of the energy taxes and subsidies (existing, new, price-control wedges, producer subsidies, methane fee), against the baseline ($\\mathtt{fis.ref}$); the impulse starts in GDPStartYear (in the base year it is the whole fiscal space). $\\mathtt{fis.impp}$ is the impulse from the carbon-pricing start year (CPIntro), used for the recycled revenue. $\\mathtt{fis.lag}_{l}$, $\\mathtt{fis.lagp}_{l}$ hold the impulses of the 19 earlier years."
+            excel: "E91, E92; Mitigation section 16"
           - id: M8.2
-            title: GDP effect of the use of revenue
+            title: GDP effect of the revenue and of its use
             greek: |
-              \varepsilon^{GDP}_t = \sum_i \frac{sh_i}{100} \sum_{k=0}^{19} imp_{t-k}\, m_i(k)
+              \varepsilon^{GDP}_t = -\sum_{k=0}^{19} imp_{t-k}\, m_{exc}(k) + \sum_i \frac{sh_i}{100} \sum_{k=0}^{19} imp^{p}_{t-k}\, m_i(k)
             codes: |
-              \mathtt{gdp.eff}_t = \sum_i \mathtt{fis.eff}_{i,t}, \qquad \mathtt{fis.eff}_{i,t} = \frac{\mathtt{share}_i}{100}\sum_{k=0}^{19}\mathtt{fis.imp}_{t-k}\,\mathtt{fis.mul}_{i,k}
-            over: "uses of revenue $i$ (labour and corporate tax cuts, public investment, current spending, transfers; the revenue itself with excise multipliers)"
-            note: "Multipliers $m_i(k)$ by lag (methodology chapter 4, estimated offline). Applied only if endogenous GDP is switched on."
+              \mathtt{gdp.eff}_t = \textstyle\sum_i \mathtt{fis.eff}_{i,t}\,[\mathtt{GDPEndogenous}], \quad \mathtt{fis.eff}_{exc,t} = -\textstyle\sum_{k}\mathtt{fis.imp}_{t-k}\,m_{exc}(k), \quad \mathtt{fis.eff}_{i,t} = \frac{\mathtt{EXP}_i}{100}\textstyle\sum_{k}\mathtt{fis.impp}_{t-k}\,m_i(k)
+            over: "uses of revenue $i$ (labour tax cut EXPLabortax, corporate tax cut EXPCIT, public investment EXPCapex, goods and services EXPGoodsandserv, transfers EXPTransfers); the revenue itself with the excise multiplier"
+            note: "Multipliers $m_i(k)$ by lag from appendix A8.1. Applied only if GDPEndogenous = Yes. $\\mathtt{gdpg}_{i,t} = (1 + g^0_t)(\\mathtt{fis.eff}_{i,t-1} - \\mathtt{fis.eff}_{i,t-2}) / \\mathtt{gdp.lvl}_{t-1}$: each instrument's contribution to GDP growth (memo)."
             doc: "04_Multipliers"
-            excel: "E93, E94"
+            excel: "E93, E94; Mitigation section 16"
           - id: M8.3
             title: GDP feedback, one year later
             greek: |
               lvl_t = 1 + \varepsilon^{GDP}_{t-1}, \qquad Y_t = Y^{0}_t\,lvl_t, \qquad 1 + g_t = (1 + g^{0}_t)\frac{lvl_t}{lvl_{t-1}}
             codes: |
-              \mathtt{gdp.lvl}_t = 1 + \mathtt{gdp.eff}_{t-1}, \qquad \mathtt{gdp.pos.usd}_t = \mathtt{gdp.usd}^{0}_t\,\mathtt{gdp.lvl}_t, \qquad 1 + \mathtt{gdp.pos.pct}_t = (1 + \mathtt{gdgg}_t)\,\frac{\mathtt{gdp.lvl}_t}{\mathtt{gdp.lvl}_{t-1}}
+              \mathtt{gdp.lvl}_t = 1 + \mathtt{gdp.eff}_{t-1}, \qquad \mathtt{gdp.pos.usd}_t = \mathtt{gdp.usd}^{0}_t\,\mathtt{gdp.lvl}_t, \qquad 1 + \mathtt{gdp.pos.pct}_t = (1 + \mathtt{gdp.base}_t)\,\frac{\mathtt{gdp.lvl}_t}{\mathtt{gdp.lvl}_{t-1}}
             note: "The only link from year $t$ to year $t+1$ other than lags of a block's own quantities. Revenue of year $t$ moves GDP from $t+1$ (root NORMS 5c)."
             excel: "E95"
 
@@ -733,6 +734,17 @@ parts:
             excel: "Mitigation section 14 (ndc.*)"
       - title: "A8 GDP and results"
         text: "To complete: current account (R11); carbon-pricing indicators (section 17); welfare, externalities, subsidies and efficient prices (section 18; methodology: efficiency cost $ddw = \\tfrac{1}{2}(nc - xcp)(F_P - F_B)$)."
+        equations:
+          - id: A8.1
+            title: Fiscal multipliers by lag
+            kind: adjustment
+            greek: |
+              m_{i}(k) = \bar{m}_{g,i}(\min(k, k^{last})) + s\,\sigma_{g,i}(\min(k, k^{last})), \quad k = 0, \dots, 19
+            codes: |
+              \mathtt{fis.grp} = \text{global | est | man by MultipliersSource, else the income group}, \quad \mathtt{fis.key} = g|\text{FmAdj}|, \quad s = 0, -1, +1 \ (\text{base, low, high})
+            over: "instruments $i$ (exc, pit, cit, vat, capt, gnfs, trns, wage), lags $k$"
+            note: "Excel-AI notation (Inputs rows 456-486): MFMOD median and standard deviation by income group (or global); lags past the last data lag (11) hold its value. Country-estimated and manual multipliers (Est*, Man*) are not in Coded CPAT yet."
+            excel: "Inputs rows 454-486"
 
   - title: "Appendix B: distribution adjustments"
     text: "To complete from `excel_ai/mitigation/docs/methods/Distribution.md` and methodology chapter 5: scaling to national accounts (eq-5_4, eq-5_5); mitigation-adjusted incidence (eq-5_6); behavioural response (eq-5_7); targeting by infrastructure access (eq-5_13); scale-up of existing schemes (eq-5_14); PIT options (targeted exemption, personal allowance, proportional compensation); cooking-fuel exemption."

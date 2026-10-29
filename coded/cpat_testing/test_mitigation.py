@@ -31,9 +31,7 @@ BUILT = {
                         'lvc', 'fce', 'cik', 'swd', 'cph', 'pcbcap', 'pcbom', 'pcbfu', 'pcbcp', 'pcbrns', 'pcbct', 'entxd',
                         'entx', 'pret', 'permit', 'ntxg', 'ntxb'],
     '3.7a fuel prices by subsector': ['ctxnew', 'ets', 'ntx', 'nce', 'xcp', 'xcpd', 'csw', 'pcw', 'atp', 'shp', 'aef'],
-}
-# Year-loop blocks that match for the baseline (scenario 1) only, until the GDP effects (section 16) feed back
-BASELINE = {
+    # the year loop
     '3.8 power year step': ['caxav', 'stoav', 'fix', 'lfx', 'gnc', 'gncav', 'ccpav', 'tic', 'swi', 'cur', 'sys', 'pcbchk',
                             'cons', 'sc', 'rppre', 'pex', 'rp', 'sgap', 'rcarb', 'rexs', 'rexm', 'rvat', 'rnvat', 'rreb',
                             'rpex', 'rgap', 'rpnv', 'txg', 'txe', 'scl', 'psegap', 'psegs', 'psesh', 'pseu', 'pser', 'csd',
@@ -56,6 +54,9 @@ BASELINE = {
                                  'ndc.ref', 'ndc.x', 'ndc.lu', 'ndc.gas', 'ndc.co2', 'ndc.bs', 'ndc.bty', 'ndc.bi',
                                  'ndc.hk', 'ndc.hh', 'ndc.hc', 'ndc.hv', 'ndc.h', 'ndc.gdp', 'ndc.hi', 'ndc.f', 'ndc.lv',
                                  'ndc.r', 'ndc.lvl', 'ndc.idx', 'ndc.bau', 'ndc.red', 'ndc.gap', 'ndc.over'],
+    '3.11 GDP effects': ['gdp.pos.pct', 'fis.rev', 'fis.ref', 'fis.sp', 'fis.imp', 'fis.lag', 'fis.impp', 'fis.lagp',
+                         'fis.grp', 'fis.key', 'fis.eff', 'gdp.lvl', 'gdp.pos.usd', 'gdpg', 'gdpy', 'gdp.chg.usd',
+                         'gdp.eff'],
 }
 
 
@@ -64,13 +65,13 @@ def results():
     return cpat_model.run(read_scenario_set()).by_code('EGY')
 
 
-@pytest.mark.parametrize('block,scenarios', [(b, '12') for b in BUILT] + [(b, '1') for b in BASELINE])
-def test_block_matches_excel_ai(results, block, scenarios):
+@pytest.mark.parametrize('block', BUILT)
+def test_block_matches_excel_ai(results, block):
     ref = reference()
     v = pd.read_csv(VARIABLES_CSV)
-    stems = set({**BUILT, **BASELINE}[block])
+    stems = set(BUILT[block])
     codes = {c[:-2] for c, var in zip(v['code'], v['variable']) if var in stems}          # without the scenario
-    expected = [c for c in ref.index if c[:-2] in codes and c[-1] in scenarios
+    expected = [c for c in ref.index if c[:-2] in codes and c[-1] in '12'
                 and ref.loc[c].notna().any()]           # rows with parameters only (no year values) are not results
     missing = sorted(set(expected) - set(results.index))
     assert not missing, missing[:20]
