@@ -3,7 +3,7 @@
 Scenario inputs are not here (they are the scenario set, cpat_model.inputs); inputs that Excel-AI reads from the
 baseline column for every scenario are run settings (D16), filled from the scenario set by inputs.global_settings.
 """
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
@@ -17,8 +17,14 @@ class Settings:
     base_year: int = 2022                         # Excel-AI BASE_YEAR (t0)
     last_year: int = 2041                         # Excel-AI LAST_YEAR
     last_hist_price_year: int = 2024              # Excel-AI LAST_HIST (Settings C10, L)
-    results_year: int = 2022                      # year of the real USD of money values (R)
+    results_year: int = 2026                      # year of the real USD of money values (MTInputs ResultsYear)
     global_settings: dict = field(default_factory=dict)   # D16: from the baseline column of the scenario set
+
+    def with_globals(self, values):
+        """D16: these settings with the global inputs of a scenario set (its baseline column)."""
+        return replace(self, global_settings=values,
+                       results_year=int(values.get('ResultsYear', self.results_year)),
+                       last_hist_price_year=int(values.get('LastHistPriceYear', self.last_hist_price_year)))
 
     @property
     def years(self):

@@ -23,6 +23,27 @@ format:
 
 One year of the model, in the order of the calculation chain (spec section 4.3): policies and prices (computed for all years before the year loop), then fuel use, power, revenues, emissions and GDP, then distribution in its analysis year.
 
+## M0 Header: macro series
+
+The macro series of the country and the header rows that read them (Excel-AI sheet Inputs_macro, legacy Mitigation rows 417-467). Quantity-free: computed for all years before the year loop.
+
+**M0.1  Macro series past the last data year**
+
+$$
+x_t = \begin{cases} x^{WEO}_t & t \le T^{WEO}_x \\ \text{extension rule of } x & t > T^{WEO}_x \end{cases} \qquad
+g_t = \begin{cases} g_{t-1} & g_{t-1} \ge g_{t-2} \\ \max\!\left(\tfrac{1}{2}\,\bar{g}_{t-3..t-1},\ 2g_{t-1} - g_{t-2}\right) & g_{t-1} < g_{t-2} \end{cases}
+$$
+
+Over macro years 2018-2045; series $x$: US deflator and CPI, real GDP growth, real and nominal GDP, exchange rate, population. Excel-AI notation. Extensions: US deflator linear ($2x_{t-1} - x_{t-2}$); US CPI, exchange rate flat; real GDP grown with $g$; nominal GDP with its last growth rate, held from the last data year of nominal GDP (Excel-AI: the growth of the last data year is the year before's); population with its last growth factor. The exchange rate of a euro country is the euro area's (WEO G163). Source: Excel-AI: Inputs_macro (build_inputs_macro).
+
+**M0.2  Inflation and deflator indices, real GDP, exchange rate**
+
+$$
+\nu_t = \frac{CPI^{US}_{R}}{CPI^{US}_t}, \qquad \delta_t = \frac{D^{US}_{R}}{D^{US}_t}, \qquad e_t = \frac{Y^{LCU}_t}{Y^{USD}_t}
+$$
+
+$R$ is the results year (MTInputs ResultsYear, read from the baseline column). $\nu_t$ converts nominal domestic prices and policy inputs to real, $\delta_t$ international prices. Excel-AI notation. Source: Excel-AI: Mitigation rows 8-13 (section 0).
+
 ## M1 Policies
 
 Every policy is a path from a start year to a target year, set per scenario.

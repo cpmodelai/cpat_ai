@@ -11,6 +11,7 @@ from cpat_model.results import Results
 
 
 def run_scenarios(scenarios, settings):
+    settings = settings.with_globals(scenarios.global_settings())
     db = open_database(settings)
     results = Results(settings)
     baseline = None

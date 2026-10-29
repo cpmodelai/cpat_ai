@@ -8,7 +8,8 @@ TABLES  a legacy table (one header line, one row per record): file name -> spec
                   workbook puts the table there, so it pastes onto legacy CPAT at the same address)
         keys      legacy columns that identify a row, renamed {legacy: tidy}; with country=(legacy column, case) the
                   column becomes `country`, ISO3 upper case in tidy, written back in the legacy case
-        attrs     legacy columns that only describe a row (e.g. a country name): kept in the layout, not in tidy
+        attrs     legacy columns that only describe a row (e.g. a country name): kept in the layout, not in tidy.
+                  A column the model reads (e.g. WEO's last data year) is a key, not an attr
         melt      None: the other columns stay columns (they are different variables), renamed by `rename`;
                   (name,): the other columns are values of one variable `name` (years, fuels, sectors, codes);
                   the tidy table gets the column `name` and a column `value`, one row per non-blank cell;
@@ -59,13 +60,13 @@ TABLES = {
         keys={'code': 'code'}, attrs=['iso3', 'year', 'sample'], melt=None),
     'legacy_GDPRatios.csv': dict(
         tidy='gdp_ratios', sheet='GDPRatios', header_row=1,
-        keys={'Country Code': 'country', 'Indicator Code': 'indicator'}, country=('Country Code', 'upper'),
-        attrs=['Country Name', 'Indicator Name', 'Latest Year'], melt=('year',)),
+        keys={'Country Code': 'country', 'Indicator Code': 'indicator', 'Latest Year': 'latest_year'},
+        country=('Country Code', 'upper'), attrs=['Country Name', 'Indicator Name'], melt=('year',)),
     # ---- macro, population, GHG
     'legacy_WEO.csv': dict(
         tidy='weo', sheet='WEO', header_row=9,
-        keys={'SERIES_CODE': 'series_code'}, attrs=['last year', 'countrycode', 'DATASET', 'COUNTRY', 'INDICATOR'],
-        melt=('year',)),
+        keys={'SERIES_CODE': 'series_code', 'countrycode': 'country', 'last year': 'last_year'},
+        country=('countrycode', 'upper'), attrs=['DATASET', 'COUNTRY', 'INDICATOR'], melt=('year',)),
     'legacy_UNPop.csv': dict(
         tidy='un_population', sheet='UNPop', header_row=6,
         keys={'ISO': 'country'}, country=('ISO', 'upper'), attrs=['', 'CPAT code', 'Population'], melt=('year',)),
