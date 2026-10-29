@@ -14,6 +14,7 @@ Two separate projects around the World Bank **Climate Policy Assessment Tool (CP
 3. The project's own documents:
    - Excel: [`excel_ai/README.md`](excel_ai/README.md), [`NORMS.md`](NORMS.md) (columns, visual style guide, formulas, MTInputs, versioning), [`excel_ai/plans/TODO.md`](excel_ai/plans/TODO.md).
    - Python: [`coded/README.md`](coded/README.md), [`coded/TODO.md`](coded/TODO.md).
+   - Modules (distribution, air pollution, transport co-benefits): [`NORMS.md`](NORMS.md) section 9; prompts to build them in [`excel_ai/plans/prompts/`](excel_ai/plans/prompts/README.md).
 4. [`CAVEATS.md`](CAVEATS.md) - log of completed tasks and their caveats. Read before building on earlier work.
 
 ## Hard rules (summary; authority is the documents above)
