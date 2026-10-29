@@ -1,10 +1,10 @@
-# BUGS: legacy CPAT bugs, prototype bugs and documentation bugs (v1.0.3)
+# BUGS: legacy CPAT bugs, prototype bugs and documentation bugs (v1.0.4)
 
 **The rule (NORMS 0).** Never replicate a legacy bug; always replicate a legacy issue, and track it. A bug: legacy does not compute what it means to (a wrong row, a double application, a dead reference); the prototype fixes it. An issue: legacy does what it means to, but the choice is open to question; the prototype does the same and tracks it. A departure that is not a bug fix is kept only by user decision. Data problems are issues (area Data): replicated; where legacy needs a formula fix, that fix is a legacy bug (L) and the issue is Very high; where no cell plan is possible, the prototype aligns with legacy and the issue is Extremely high.
 
-Generated from the register (`mitigation/register.py`) by `mitigation/make_replication_lists.py`. The same items, every column: the tracker `Tracking_Legacy_Bugs_v1.0.3.xlsx` (the master list). Bugs in detail: `Legacy_CPAT_Bugs_v1.0.3.docx`. Issues in detail: the appendices of the Documentation (`mitigation/CPAT-AI-Mitigation_Documentation.docx`). Lists: [`BUGS.md`](BUGS.md), [`ISSUES.md`](ISSUES.md).
+Generated from the register (`mitigation/register.py`) by `mitigation/make_replication_lists.py`. The same items, every column: the tracker `Tracking_Legacy_Bugs_v1.0.4.xlsx` (the master list). Bugs in detail: `Legacy_CPAT_Bugs_v1.0.4.docx`. Issues in detail: the appendices of the Documentation (`mitigation/CPAT-AI-Mitigation_Documentation.docx`). Lists: [`BUGS.md`](BUGS.md), [`ISSUES.md`](ISSUES.md).
 
-**228 legacy bugs, 22 prototype bugs, 20 documentation bugs.** Legacy 465: 52 fixed (confirmed), 9 fixed with caveats, 2 marked fixed but not fixed, 165 open.
+**231 legacy bugs, 22 prototype bugs, 20 documentation bugs.** Legacy 465: 52 fixed (confirmed), 9 fixed with caveats, 2 marked fixed but not fixed, 168 open.
 
 ## 1. Legacy bugs (L)
 
@@ -240,6 +240,9 @@ Fixed in the prototype (or the feature not built); never replicated.
 | L228 |  | Mitigation | Medium | World Bank LNG and Europe gas prices read from each other's row | Mitigation 644, 646 (Prices_int rows 15, 17) | Fixed (v0.9.2, M20). | Open | M20, L229 |
 | L229 |  | Mitigation | Medium | IEA LNG and Europe gas prices read from each other's row | Mitigation 652, 654 (Prices_int rows 39, 41) | Fixed (v0.9.2, M20). | Open | M20, L228 |
 | L230 |  | Mitigation | Low | Electricity: current carbon tax and ETS outputs never see the existing carbon price | Mitigation L16236:AE16237 (current carbon tax, electricity), L16250:AE16251 (current ETS, electricity); published by MTOutputs K229:K230, K242:K243 and rows 16702-16703 | Not built in the prototype (it has no current-carbon-price output for electricity): nothing replicated. | Open | L132 |
+| L231 |  | Mitigation | Medium | MTOutputs "Disaggregated energy consumption (Policy)": rows read shifted, stale Mitigation rows | MTOutputs rows 590-776 (K:AD and the codes in E) | Fixed (v1.0.4): MTOutputs rows map to the quantities their labels name. | Open |  |
+| L232 |  | Mitigation | Low | MTOutputs: methane-fee price-change codes of coal and gas swapped | MTOutputs E1221:E1222 | Not applicable: the prototype codes come from the row (v1.0.4). | Open |  |
+| L233 |  | Mitigation | Low | MTOutputs: rows that read cells other than their labels name (Markups, capacity, GHG) | MTOutputs rows 1152-1174 (Markups), 1099-1100 (Capacity), 109-111 (Emissions) | Fixed (v1.0.4): MTOutputs rows map to the quantities their labels name; legacy-only rows kept with Include? = No. | Open |  |
 
 ## 2. Prototype bugs (M)
 
