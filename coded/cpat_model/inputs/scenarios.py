@@ -14,7 +14,7 @@ GLOBAL_INPUTS = ['ResultsYear', 'LastHistPriceYear', 'SCCTargetConsistentCP', 'S
                  'SCCEpaBaseYear', 'NSCCSource', 'GSCCSource', 'NSCCDiscountRate', 'NSCCMargUtilofCons',
                  'ETSOBREffectiveness', 'DomPrTax', 'GlobalEnergyDemand', 'PassLo', 'PassMid', 'PassHi',
                  'GovPriceControls', 'PriceFloor', 'ApplyDemandShock', 'BiomassLeakage', 'BiomassNormal', 'NatGasEff', 'LPGEff', 'KerEff', 'BioEff',
-                 'ETSNextPriceExponent']
+                 'ETSNextPriceExponent', 'AveragePriceMethod']
 
 # Python inputs below the Excel-AI rows (added to Excel-AI at its next release): name, label, unit, default
 PYTHON_ROWS = [('ModelForm', 'Form of the demand equations (D4): CPAT, CPAT partial adjustment, CES partial '

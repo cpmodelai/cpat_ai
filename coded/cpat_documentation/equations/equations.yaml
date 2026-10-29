@@ -534,6 +534,16 @@ parts:
             over: "producer fuels $f$ (oil, coal, gas, biomass)"
             note: "Excel-AI notation. $PROS$ producer subsidy (data, USD m real, held after $L$), $D$ the demand it is spread over: world production (oil), the average of world production and domestic use (coal, gas), domestic use (biomass)."
             excel: "Mitigation section 1 (pros, psd, psu), section 2 (ps)"
+          - id: A2.6
+            title: Prices averaged over fuel use
+            kind: adjustment
+            greek: |
+              \bar{p}_c = \frac{\sum_{(s,f) \in c} p_{s,f}\,F_{s,f}}{\sum_{(s,f) \in c} F_{s,f}}, \quad L_f = \frac{\sum_s p_{s,f,t}\,F^{B}_{s,f,t}}{\sum_s p^{B}_{s,f,t}\,F^{B}_{s,f,t}}, \quad T_f = \frac{\sum_s p_{s,f,t}\,F^{B}_{s,f,t_0}}{\sum_s p^{B}_{s,f,t_0}\,F^{B}_{s,f,t_0}}
+            codes: |
+              \mathtt{pnq}_c, \ \mathtt{pctx}, \mathtt{etsnew}, \mathtt{pntx}, \mathtt{pxcd}, \mathtt{rpn}_c \ (\text{use-weighted}), \ \mathtt{pnce} = \mathtt{rpn} - \mathtt{pbc}, \ \mathtt{pvatn}; \quad \mathtt{pav.uv}_f, \ \mathtt{pav.las}_f, \ \mathtt{pav.time}_f, \ \mathtt{pav.mix}_f, \ \mathtt{pav.leg}_f, \ \mathtt{pav.idx}_f
+            over: "price codes $c$ (fuel and price sector), fuels $f$ including electricity and the total, years $t$"
+            note: "Excel-AI notation (Mitigation section 2, filled in the year loop because it reads fuel use). By price code: new carbon tax, ETS, new taxes, existing carbon pricing and after-tax price averaged over the subsectors that use the code (the pre-tax build-up pbc where no subsector does); VAT on new policies is the remainder. By fuel: unit value, Laspeyres index at scenario-1 quantities, time index at base-year quantities, mix effect; the legacy index (AveragePriceMethod = Legacy*): coal and gas weight residential, industry and power (generation cost) prices by scenario-1 quantities, oil products take the single price, the rest the unit value. Electricity uses the user tariffs and consumption; the total converts electricity at GJ per kWh. rpe = the average price of all energy."
+            excel: "Mitigation section 2 (rows pnq-rpn, pav.*, pavl.*, rpe)"
       - title: "A3 Fuel use"
         text: "To complete: initially exempt use from the household survey (ExemptMostCook, R6); self-generated renewables; income elasticity adjustment."
         equations:

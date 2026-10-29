@@ -1,10 +1,11 @@
 """Block 2, prices: international prices, the producer subsidies, and the price build-up before new policies by price
 fuel (Mitigation section 2, rows gp to ppcw). Quantity-free: computed for all years in the prepare stage. The rows that
-average the after-tax prices over the fuel blocks (pnq, pctx, ..., rpn, pav.*) need fuel use: block 3.9.
+average the after-tax prices over fuel use (pnq, pctx, ..., rpn, pav.*) are a step of the year loop (`averages`).
 
     international   gpn, gp: the international price of the scenario's source (real), with the High / Low factors
     producer        pros, psd, psu: producer subsidies (from section 1 of Excel-AI)
     build-up        gpi, spf, ps, sp, txf, txo, fadtx, cs, etx, esub, esubpu, vat, pbc, pcsw, ppcw (EQ-M2.1-M2.3)
+    averages        pnq ... rpn by price code, pav.* by fuel (EQ-A2.6; year loop)
 """
 import numpy as np
 
@@ -143,3 +144,88 @@ def prepare(state, db, inputs, settings, baseline):
         R.put('ppcw', -(1 - R.of('pcf', sec, fuel)) * cs, sec, fuel)
     state['_prices'] = {'domestic': dp, 'international': pint, 'gas_market': market}
     R.finish()
+
+
+# ---- averages over fuel use (Mitigation section 2, rows pnq ... rpn and pav.*; computed in the year loop)
+AVG_ROWS = [('pctx', 'ctxnew'), ('etsnew', 'ets'), ('pntx', 'ntx'), ('pxcd', 'xcpd')]
+PAV_FUELS = ['coa', 'nga', 'gso', 'die', 'lpg', 'ker', 'jfu', 'oop', 'bio']
+PAV_LEGACY = {'gso': 'gso.all', 'die': 'die.all', 'lpg': 'lpg.all', 'ker': 'ker.all', 'oop': 'oop.all'}
+BUILDINGS, INDUSTRY = ['res', 'foo', 'srv'], ['mch', 'irn', 'nfm', 'mac', 'cem', 'omn', 'cst', 'ftr']
+
+
+def averages(state, db, inputs, settings, baseline, t):
+    """EQ-A2.6: prices averaged over fuel use: new policy components by price code (pnq ... rpn); average price by fuel,
+    its Laspeyres, time and mix indices and the legacy index (pav.*)."""
+    from cpat_model.core import excel_ai_tables as xt
+    from cpat_model.core.dims import SECTORS
+    from cpat_model.mitigation.gdp import year_rows
+    from cpat_model.mitigation.power_data import PJ_PER_KTOE as pj
+    from cpat_model.mitigation.totals import reference
+    R = year_rows(state, settings)
+    k = settings.years.index(t)
+    at = lambda var, sector=None, fuel=None: R.at(var, k, sector, fuel)
+    ref = lambda var, sector=None, fuel=None, kk=k: reference(R, baseline, kk, var, sector, fuel)
+    first = state['_fuel'][settings.countries[0]]
+    by_code = {}
+    for (f, s), p in first.items():
+        by_code.setdefault(p['price_code'], []).append((s, f))
+    for code in pdx.PRICES:
+        fuel, sector = code.split('.')
+        rows = by_code.get(code, [])
+        q = R.set('pnq', k, sum(at('ener', s, f) for s, f in rows) if rows else 0.0, sector, fuel)
+        wavg = lambda var: safe_div(sum(at(var, s, f) * at('ener', s, f) for s, f in rows), q) if rows else 0.0
+        parts = [R.set(name, k, wavg(var), sector, fuel) for name, var in AVG_ROWS]
+        pbc = at('pbc', sector, fuel)
+        rpn = R.set('rpn', k, np.where(q == 0, pbc, wavg('atp')), sector, fuel)
+        pnce = R.set('pnce', k, rpn - pbc, sector, fuel)
+        R.set('pvatn', k, pnce - sum(parts) - at('pcsw', sector, fuel) - at('ppcw', sector, fuel), sector, fuel)
+
+    legacy = str(settings.global_settings['AveragePriceMethod'])[:3] == 'Leg'
+    sp0, q0 = {}, {}
+
+    def indices(f, sp, q, spr, sp_0, leg):
+        """The rows pav.* of a fuel from its value at current and at scenario-1 quantities."""
+        R.set('pav.sp', k, sp, 'all', f)
+        R.set('pav.q', k, q, 'all', f)
+        uv = R.set('pav.uv', k, safe_div(sp, q), 'all', f)
+        R.set('pav.spr', k, spr, 'all', f)
+        sp_ref = ref('pav.sp', 'all', f)
+        las = R.set('pav.las', k, safe_div(spr, sp_ref), 'all', f)
+        R.set('pav.sp0', k, sp_0, 'all', f)
+        R.set('pav.time', k, safe_div(sp_0, ref('pav.sp', 'all', f, 0)), 'all', f)
+        uv_ref = ref('pav.uv', 'all', f)
+        R.set('pav.mix', k, np.where(uv_ref * las == 0, 0.0, safe_div(safe_div(uv, uv_ref), las)), 'all', f)
+        leg = R.set('pav.leg', k, uv if leg is None else leg, 'all', f)
+        lidx = R.set('pav.lidx', k, las if f == 'all' else safe_div(leg, ref('pav.leg', 'all', f)), 'all', f)
+        R.set('pav.idx', k, lidx if legacy else las, 'all', f)
+
+    for f in PAV_FUELS:
+        sectors = [s for s in SECTORS if (f, s) in first]
+        sp = sum(at('atp', s, f) * at('ener', s, f) for s in sectors)
+        q = sum(at('ener', s, f) for s in sectors)
+        spr = sum(at('atp', s, f) * ref('ener', s, f) for s in sectors)
+        sp_0 = sum(at('atp', s, f) * ref('ener', s, f, 0) for s in sectors)
+        if f in ('coa', 'nga'):
+            qr = R.set('pavl.qr', k, sum(ref('ener', s, f) for s in BUILDINGS), 'all', f)
+            qi = R.set('pavl.qi', k, sum(ref('ener', s, f) for s in INDUSTRY), 'all', f)
+            qp = R.set('pavl.qp', k, ref('pe', 'pow', f), 'all', f)
+            pe = at('pe', 'pow', f)
+            pp = R.set('pavl.pp', k, at('pbc', 'pow', f) + safe_div(
+                at('gen_mwy', 'pow', f) * xt.constant('MWyMkWh') * at('xac', 'pow', f), pe * pj), 'all', f)
+            total = qr + qi + qp
+            leg = np.where(total == 0, safe_div(sp, q), safe_div(
+                at('rpn', 'res', f) * qr + at('rpn', 'ind', f) * qi + pp * qp, total))
+        elif f in PAV_LEGACY:
+            leg = at('rpn', *PAV_LEGACY[f].split('.')[::-1])
+        else:
+            leg = None
+        indices(f, sp, q, spr, sp_0, leg)
+    users = ('res', 'ind')
+    cons = lambda fn: sum(at('rp', u, 'ecy') * fn(u) for u in users)
+    indices('ecy', cons(lambda u: at('cons', u, 'ecy')), sum(at('cons', u, 'ecy') for u in users),
+            cons(lambda u: ref('cons', u, 'ecy')), cons(lambda u: ref('cons', u, 'ecy', 0)), None)
+    tot = lambda var: sum(at(var, 'all', f) for f in PAV_FUELS)
+    gj_ecy = xt.constant('GJperkWh') / pj
+    indices('all', tot('pav.sp') * pj + at('pav.sp', 'all', 'ecy'), tot('pav.q') + at('pav.q', 'all', 'ecy') * gj_ecy,
+            tot('pav.spr') * pj + at('pav.spr', 'all', 'ecy'), tot('pav.sp0') * pj + at('pav.sp0', 'all', 'ecy'), None)
+    R.set('rpe', k, at('pav.uv', 'all', 'all'), 'all', 'all')
