@@ -222,7 +222,7 @@ Cell plans:
 |---|---|---|---|
 | International price forecasts (Mitigation 633-695) | `extract_data.py extract_int_prices` from 456 -> prices_int.csv | same rows | identical (1008 cells; 465 has text 'NA' in 2041 for IEA oil, IEA/EIA gas, prototype blank) |
 | US CPI, deflator (rows 455, 452) | 456 -> weo_us.csv | same | identical |
-| Domestic prices (Prices_dom) | CPAT_PriceModule_Data_1.xlsx + update_prices_egypt | Prices_dom A9:EL1062 | identical for EGY (372/380 cells; only `mit.spot.coa/nga`, junk in 465); 465 adds EGY2025 |
+| Domestic prices (Prices_dom) | prices_dom.csv (Egypt) + update_prices_egypt | Prices_dom A9:EL1062 | identical for EGY (372/380 cells; only `mit.spot.coa/nga`, junk in 465); 465 adds EGY2025 |
 | Balances (sheet Balances rows 13+) | `extract_legacy_tables.py` from 456 -> legacy_Balances.csv | changed | 161 cells differ; TFC 61,682 vs 67,089 ktoe; resident 12,470 vs 13,702; food diesel 875.272 vs 927.02 |
 | Base-year fuel use (energy_use.csv) | Kernel v1.6 Data_Energy (= 456 rows 583-602) | Mitigation 583-602 (from Balances) | changes with Balances |
 | EFs (rows 980-1009), elasticities | 456 | not checked | re-extract and diff |

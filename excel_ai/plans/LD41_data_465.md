@@ -39,7 +39,7 @@ lists what the move changed in `data/mvp_legacy_extracts/*.csv`. The prototype h
     held Egypt only. The constant `EGYPT_ONLY` sets which rows are kept, so the prototype tables keep their size; with
     `EGYPT_ONLY = {}` the extractor writes all countries. `extract_ghg.py` keeps Egypt's EF_PM rows in the same way.
 - **Not re-run:** `extract_data.extract_prices` and `update_prices_egypt`. Their source,
-  `excel_ai/standalone_initial_prototypes/CPAT_PriceModule_Data_1.xlsx`, is not in the repository, and they read
+  the domestic price source file, is not in the repository, and they read
   no legacy data. `prices_dom*.csv` are unchanged. The Egypt domestic prices were already known to be identical in
   456 and 465.
 - **Line endings.** `extract_ecp.py` and `extract_power.py` now write LF line ends, as the committed files have.

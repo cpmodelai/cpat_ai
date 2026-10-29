@@ -23,7 +23,7 @@ The file-by-file list of the legacy side is [`interface_manifest.csv`](interface
 | `full` | The private data repository, never this one | Every table, every country, including the four proprietary tables |
 | `dummy` | This repository | The same tables; the four proprietary tables (and the files derived from them) with dummy values |
 
-Today `mvp_legacy_extracts/` and `tidy/` hold the database Excel-AI is built from: the public legacy tables plus the Egypt rows of the proprietary tables that the public legacy file (`NoPropData`) contains (domestic prices: Egypt only since 2026-10-29). It is the starting point of both databases (section 6).
+Today `mvp_legacy_extracts/` and `tidy/` hold the database Excel-AI is built from: the public legacy tables plus the Egypt rows of the proprietary tables that the public legacy file (`NoPropData`) contains (domestic prices: Egypt only). It is the starting point of both databases (section 6).
 
 - **Selecting a database** (Coded CPAT, `coded/.env`): `DATA_ENVIRONMENT=full` with `FULL_DATA_PATH` pointing at the tidy folder in the private repository, or `DATA_ENVIRONMENT=dummy` (today's names `real` and `REAL_DATA_PATH` are renamed in task 2.6). Systematic comparisons use `full` where it is available, `dummy` otherwise; every model in a comparison reads the same database.
 
@@ -82,8 +82,8 @@ Scenario files with proprietary values stay in the private repository like the d
 
 ## 6. Open points for the data person
 
-1. **Domestic prices: Egypt only in the repository** (user decision 2026-10-29). The 220-country prices of the earlier price-module prototype were deleted from the current files (`prices_dom.csv` cut to Egypt, the two price-module workbooks deleted, Excel-AI rebuilt as 0.9.1, the older Excel-AI workbooks that held them deleted). They remain in the git history (purge not done, user decision). The full prices belong in the private repository.
-2. **Prices_dom layout.** The models read the 99 columns of the price-module layout (codes `mit.<variable>.<fuel>.<sector>`); legacy Prices_dom has 142 columns and 8 header rows. The full database should deliver at least these 99 columns under these codes (extra columns are ignored).
+1. **Domestic prices: Egypt only in this repository**, as in the public legacy file (user decision 2026-10-29). The full table belongs in the private repository.
+2. **Prices_dom layout.** The models read the 99 columns of the Excel-AI Prices_dom layout (codes `mit.<variable>.<fuel>.<sector>`); legacy Prices_dom has 142 columns and 8 header rows. The full database should deliver at least these 99 columns under these codes (extra columns are ignored).
 3. **Cut to Egypt in the repository although legacy 465 has every country:** `legacy_IO_GTAP.csv` (proprietary), `legacy_ASPIRE.csv`, `legacy_WHOCooking.csv` (public). The full database needs every country; ASPIRE and WHOCooking can come back whole into this repository (set `EGYPT_ONLY` in `excel_ai/mitigation/extract_legacy_tables.py`).
 4. **Legacy versions differ:** HHSurvey and HH_Elast come from legacy 456, everything else from 465 (air pollution: 459). Deliver the 465 versions where they exist.
 5. **The dummy database is not complete yet.** Dummy versions of EnergyCons, Prices_dom, HHSurvey and IO_GTAP exist in the legacy layout (`legacy_dummy/CPAT_LegacyData_dummy_csv/`), but not of Balances, which Excel-AI reads (`BalancesOrConsumption` = Balances); and the dummy Prices_dom is in the 142-column legacy layout. Assembling `dummy` (the public files of `mvp_legacy_extracts/` plus dummy proprietary tables) is a Coded CPAT task (`coded/TODO.md`, 2.6).

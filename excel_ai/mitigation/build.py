@@ -7746,9 +7746,8 @@ def build_settings(wb):
                               'acyclic (base-year value x growth of the per-km costs, I151); air-pollution unit costs as '
                               'marginal damages (L224); module tabs FromAirPollution and FromTransportCB. Egypt prices '
                               'equal legacy 465 (I99 closed).'),
-        ('0.9.1', '2026-10-29', 'Data only: tab Prices_dom holds Egypt only (user decision: the 220-country domestic '
-                              'prices of the price-module prototype are proprietary and were deleted from the '
-                              'repository). Egypt values unchanged.')]
+        ('0.9.1', '2026-10-29', 'Data only: tab Prices_dom holds Egypt only, as the public legacy file (user '
+                              'decision). Egypt values unchanged.')]
     for i, row in enumerate(log, SET_LOG + 2):
         for j, v in enumerate(row, 1):
             c_ = put(ws, f'{L(j)}{i}', v)
