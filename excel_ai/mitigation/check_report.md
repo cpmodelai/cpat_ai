@@ -1,12 +1,12 @@
-# Check report - CPAT-AI-Mitigation-Prototype v0.8.0
+# Check report - CPAT-AI-Mitigation-Prototype v0.9.2 (partial: CHECK_PARTIAL=1, sections 0-4b, 7, 8b, 14; LAMBDA-library variant B skipped)
 
 ## 0. Formula length (at most 100 characters per cell formula)
-- LAMBDA calls only in the LAMBDA year 2041 of Mitigation and the LAMBDA test group 2 (Mitigation, Distribution): 111991 cells OK
-- 399839 cell formulas in 55 sheets (111991 call a named LAMBDA): longest plain 100 characters (Mitigation!AA36); over 100: 0 OK
-- 290 named LAMBDAs (longest: FUELUSE, 198 characters); 477 defined names for data tables and fixed ranges: SCCatStem, SCCatLab, SCCatUnit, SCChartCfg, SCSw, SCYc, SCPre, DataSource, DataSrcTable, SCVal, SCCode, SCYear, LOStem, LOUnit, SDBase, SDParam, SDId, SDName, SDShort, DataLastUpdate, DataUsed, DataSavedIn, DataLinkTable, WEOVal, WEOKey, WEOYear, WEOCode, WEOLast, WEOData, WEOYr, CtryEuro, ElaAll, ElaCtry, ElaSelKey, ElaSel, EFKey, EFVal, EFSelKey, EFSel, CtryReg, ConsGas, ConsBio, ConsCoa, ConsVal, ConsKey, ConsSub, PIntVal, PIntKey, PIntAll, PIntYear, PDomVal, PDomKey, PDomHdr, PPathVal, PPathKey, PPathYear, PTechVal, PTechKey, PTechHdr, PParVal, PParKey, PowA, PowE, PowF, PowG, PowH, PowI, PowJ, PowK, PowCtf, PowCtfYr, PowRows, PowBatYr, PowScB, PowScC, PowPr, PowPrKey, PowPrYr, PowPrFlag, PowACtry, PowAPre, PowIC, PowICKey, PowICYr, CoCC, CoCB, CoCD, CoCAdj, CoCTech, CoCInc, PsMinTE, PsHydNoRet, PsScNonVRE, PsScNonNuc, PsScCat, PsScUser, PsWaccSrc, PsWaccUser, PsWaccMin, PsReDecline, PsLTHours, PsIncElAdj, PsPass, PsSTAlloc, PsSTHours, PsSTRatio, PsLTAlloc, PsLTStart, PsAddEff, PsMaxCoalCF, PsKDisp, PsKInv, PsMinCost, PsEarlyMax, PsEarlyBL, PsCFMinVRE, PsCFMinOth, PsCFMax, PsCtfScen, PsCoCRow, PsCoCData, PsCtryWacc, PsCoalAdj, PsIncWacc, PsScCtry, PsScCatRate, PsScVRE, PsBalOut, PsBalPow, PsDlfRen, VarKey, VarLab, VarUnit, VarSfx, VarSrc, VarEnd, VarCode, SubKey, FuelKey, SecKey, SecLab, FuelKeyL, FuelLab, MemKey, MemLab, MSlot, RowKey, RowCode, VCode, SecVar, SecFuel, SecSub, SemiEl, MitAll, MitScen, MitDesc, MitUnit, TrFuelKey, TrKey, TrYr, TrVal, TrVar, VPKey, VPVal, VPVar, RAKey, CtryName, RAPas, RAFre, RACyc, RAPasA, RAPasC, RAFreA, RAFreC, RACycA, RACycC, TrParKey, TrParVal, TrPathKey, TrPathVal, TrPathYr, SRScen, SRName, SRCode, SRDesc, SRUnit, SRVal, SRYear, CodePrefix, CPfx, SpotPow, CPIRes, DeflRes, PDomBase, PDomLast, OBREff, ECPKey, ECPCov, ECPVal, ECPYear, ECPLast, ECPAllKey, XKey, XCTVal, XETSVal, ECPEmb, ECPInfoCode, ECPInfoSgl, ECPInfoEU, ECPAllVal, ECPAllYear, CtryCode, BaseYr, GHGYear, SCCTgt, SCCTgtYr, SCCGr, NSCCSrc, GSCCSrc, SCCEpa, RickeN, RickeG, MFeeBio, MFeeDG, MFeeFF, MFeeAgr, MFeeWst, ETSMaxIterations, ETSStartFreshContinue, ETSErrorTolerance, PCtrlKey, PCtrlVal, PIntManVal, PIntManLab, PIntManYear, SCCManVal, SCCManYear, WDData, WDYear, WDIdx, ManCapVal, ManCapYr, BEVFEVal, BEVFEYr, BEVFELab, GhgElCat, GhgElPop, GhgElInc, BioNormal, PavMethod, BioLeak, CookEffKey, CookEffVal, CookEffBio, CookFuel, ResBioSubst, LkFuelKey, MultSrcKey, MultSrcVal, ScnName, ScnExpl, ScnAdj, ScnCov, ScnReb, ScnElx, PwDeficitGas, PwCoalICTariff, ExemptCookShare, TrCostShare, NDCTab, NDCKey, NDCHdr, GHHTab, GHHIso, GHHHdr, NDCTypes, NDCSub, NDCTyr, NDCCond, CoalICKey, CoalICST, CoalICLT, CoalICSTc, CoalICLTc, ManExcKey, ManExcVal, ManExcYr, PowScRate, PowScCat, PwGInt, SCCKey, SCCVal, GHGKey, GHGIso, GHGYr, GHGVal, GHGShock, GHGShockKey, GHGShockYr, GHGCol, MethKey, MethVal, MethCol, NCKey, NCIn, NCFin, NCCtry, NCSub, NCFuel, PopKey, PopVal, PopYear, OPSKey, OPSVal, OPSHdr, RegKey, RegVal, CtryCodes, CtryNames, CtryIncome, CtryRegions, RegNames, RegCodes, MultKey, MultVal, MultD, MultC, MultMan, MultManKey, IncomeGrp, EFCalib, PwRpHist, PwTie, PwCG, SecPar, PVar, PPar, CovKey, CovEtsPos, CovFbPos, CovSemiPos, PwRpYear, ETSSemiKey, ETSSemiVal, ETSSemiCol, BalKey, BalVal, BalFuel, BalInfo, BalOpt, IPKey, LastHist, IPsp, IPtxo, IPspY, IPtxoY, VarP1, VarP2, VarP3, VarP4, ConstKey, ConstVal, ManCapOff, CoalICYr, MethGJperKtoe, MethGJperBbl, MethGJperT, MethGJperMMBtu, PwAvgLag, LitersPerKtoeOil, LitersPerBbl, NDCYrCap, HoursYr, kWperMW, USDperM, MWyMkWh, PriceFloor, GWPCH4F, GWPCH4NF, tPerKt, EFtPerKtoe, ktPerMt, GdpExtHalf, WaccDefault, HydInvShare, UraniumFuel, InvPresentShare, StMargFactor, EarlyMaxShare, KtoeGWh, IncfA, IncfB, IncfC, IncfD, IncfE, IncfLnCap, IncfNorm, MultLastLag, KgPerT, EFJetIEA, FlareCO2perCH4, EFEndYear, MperBn, PctPerUnit, PomPerOC, GJperkWh, CapAvgShr, TieBreak, PassLo, PassHi, PassMid, MethShareCap, Thousand, Million, Billion, TrRALag, TrPivotLag, TrOwnDecline, TrFEWGso, TrFEWHalf, TrFEWEvP, TrFEWEvO, ResSubstLag, MitGW, BasketQ, DecPerQuint, PlDecScale, DWLTri, MTRowKey, MTRowNum, MTDesc, MTName, MTEnd, BaseCO2Key, BaseCO2Val, BaseCO2Year, DHHKey, DHHVal, DHHVar, DElKey, DElVal, DElVar, DIOKey, DIOVal, DIOSec, DIOTKey, DIOTot, DLcatKey, DLcat, DAspKey, DAspVal, DCookKey, DCookFuel, DGDPRKey, DGDPRVal, DGDPRHdr, DProgKey, DProgCode, DGroupKey, DGiniW, DDeflKey, DDeflVal, DDeflYear, DistAll, DistScen, DistDesc, DistUnit, DSecCode, DSecName, DSecCpat, DSecHhd, DSecExp, DSecOut, DSecFuel, DSecLeon, DPTKey, DPTVal
+- LAMBDA calls only in the LAMBDA year 2041 of Mitigation and the LAMBDA test group 2 (Mitigation, Distribution): 112179 cells OK
+- 452164 cell formulas in 58 sheets (112179 call a named LAMBDA): longest plain 100 characters (Mitigation!AA36); over 100: 0 OK
+- 310 named LAMBDAs (longest: FUELUSE, 198 characters); 514 defined names for data tables and fixed ranges: ExportDistn, SCCatStem, SCCatLab, SCCatUnit, SCChartCfg, SCSw, SCYc, SCPre, DataSource, DataSrcTable, SCVal, SCCode, SCYear, LOStem, LOUnit, SDBase, SDParam, SDId, SDName, SDShort, DataLastUpdate, DataUsed, DataSavedIn, DataLinkTable, WEOVal, WEOKey, WEOYear, WEOCode, WEOLast, WEOData, WEOYr, CtryEuro, ElaAll, ElaCtry, ElaSelKey, ElaSel, EFKey, EFVal, EFSelKey, EFSel, EFGenKey, EFGen, NCEfKey, NCEfIn, NCEfFin, ApKey, ApVal, ApYear, ApKapKey, ApKap, ApEfKey, ApEf, TcbKey, TcbVal, TcbYear, VatWeo, VatWeoYr, CtryReg, ConsGas, ConsBio, ConsCoa, ConsVal, ConsKey, ConsSub, PIntVal, PIntKey, PIntAll, PIntYear, PDomVal, PDomKey, PDomHdr, PPathVal, PPathKey, PPathYear, PTechVal, PTechKey, PTechHdr, PParVal, PParKey, PowA, PowE, PowF, PowG, PowH, PowI, PowJ, PowK, PowCtf, PowCtfYr, PowRows, PowBatYr, PowScB, PowScC, PowPr, PowPrKey, PowPrYr, PowPrFlag, PowACtry, PowAPre, PowIC, PowICKey, PowICYr, CoCC, CoCB, CoCD, CoCAdj, CoCTech, CoCInc, PsMinTE, PsHydNoRet, PsScNonVRE, PsScNonNuc, PsScCat, PsScUser, PsWaccSrc, PsWaccUser, PsWaccMin, PsReDecline, PsLTHours, PsIncElAdj, PsPass, PsSTAlloc, PsSTHours, PsSTRatio, PsLTAlloc, PsLTStart, PsAddEff, PsMaxCoalCF, PsKDisp, PsKInv, PsMinCost, PsEarlyMax, PsEarlyBL, PsCFMinVRE, PsCFMinOth, PsCFMax, PsCtfScen, PsCoCRow, PsCoCData, PsCtryWacc, PsCoalAdj, PsIncWacc, PsScCtry, PsScCatRate, PsScVRE, PsBalOut, PsBalPow, PsDlfRen, VarKey, VarLab, VarUnit, VarSfx, VarSrc, VarEnd, VarCode, SubKey, FuelKey, SecKey, SecLab, FuelKeyL, FuelLab, MemKey, MemLab, MSlot, RowKey, RowCode, VCode, SecVar, SecFuel, SecSub, SemiEl, MitAll, MitScen, MitDesc, MitUnit, TrFuelKey, TrKey, TrYr, TrVal, TrVar, VPKey, VPVal, VPVar, RAKey, CtryName, RAPas, RAFre, RACyc, RAPasA, RAPasC, RAFreA, RAFreC, RACycA, RACycC, TrParKey, TrParVal, TrPathKey, TrPathVal, TrPathYr, SRScen, SRName, SRCode, SRDesc, SRUnit, SRVal, SRYear, CodePrefix, CPfx, SpotPow, CPIRes, DeflRes, PDomBase, PDomLast, OBREff, PJperKtoe, ECPKey, ECPCov, ECPVal, ECPYear, ECPLast, ECPAllKey, XKey, XCTVal, XETSVal, ECPEmb, ECPInfoCode, ECPInfoSgl, ECPInfoEU, ECPAllVal, ECPAllYear, CtryCode, BaseYr, GHGYear, SCCTgt, SCCTgtYr, SCCGr, NSCCSrc, GSCCSrc, SCCEpa, RickeN, RickeG, MFeeBio, MFeeDG, MFeeFF, MFeeAgr, MFeeWst, ETSMaxIterations, ETSStartFreshContinue, ETSErrorTolerance, PwTx, PwTxYr, PwRp, PwRpYr, ManPrKey, ManPrVal, ManPrYr, ManPrOn, MPU, MPUYr, MPUHdr, ElIncMan, ElPrcMan, ElaManVal, PCtrlKey, PCtrlVal, PIntManVal, PIntManLab, PIntManYear, SCCManVal, SCCManYear, WDData, WDYear, WDIdx, ManCapVal, ManCapYr, BEVFEVal, BEVFEYr, BEVFELab, GhgElCat, GhgElPop, GhgElInc, BioNormal, PavMethod, BioLeak, CookEffKey, CookEffVal, CookEffBio, CookFuel, ResBioSubst, LkFuelKey, MultSrcKey, MultSrcVal, ScnName, ScnExpl, ScnAdj, ScnCov, ScnReb, ScnElx, PwDeficitGas, PwCoalICTariff, ExemptCookShare, TrCostShare, NDCTab, NDCKey, NDCHdr, GHHTab, GHHIso, GHHHdr, NDCTypes, NDCSub, EFFinShare, NDCTyr, NDCCond, CoalICKey, CoalICST, CoalICLT, CoalICSTc, CoalICLTc, ManExcKey, ManExcVal, ManExcYr, PowScRate, PowScCat, PwGInt, SCCKey, SCCVal, GHGKey, GHGIso, GHGYr, GHGVal, GHGShock, GHGShockKey, GHGShockYr, GHGCol, MethKey, MethVal, MethCol, NCKey, NCIn, NCFin, NCCtry, NCSub, NCFuel, PopKey, PopVal, PopYear, OPSKey, OPSVal, OPSHdr, RegKey, RegVal, CtryCodes, CtryNames, CtryIncome, CtryRegions, RegNames, RegCodes, MultKey, MultVal, MultD, MultC, MultMan, MultManKey, IncomeGrp, EFCalib, PwRpHist, PwTie, PwCG, SecPar, PVar, PPar, CovKey, CovEtsPos, CovFbPos, CovSemiPos, PwRpYear, ETSSemiKey, ETSSemiVal, ETSSemiCol, BalKey, BalVal, BalFuel, BalInfo, BalOpt, IPKey, LastHist, IPsp, IPtxo, IPspY, IPtxoY, VarP1, VarP2, VarP3, VarP4, ConstKey, ConstVal, ManCapOff, CoalICYr, MethGJperKtoe, MethGJperBbl, MethGJperT, MethGJperMMBtu, PwAvgLag, LitersPerKtoeOil, LitersPerBbl, NDCYrCap, HoursYr, kWperMW, USDperM, MWyMkWh, PriceFloor, GWPCH4F, GWPCH4NF, tPerKt, EFtPerKtoe, ktPerMt, GdpExtHalf, WaccDefault, HydInvShare, UraniumFuel, InvPresentShare, StMargFactor, EarlyMaxShare, KtoeGWh, IncfA, IncfB, IncfC, IncfD, IncfE, IncfLnCap, IncfNorm, MultLastLag, KgPerT, EFOilIEA, ApCoalResMin, EFJetIEA, FlareCO2perCH4, EFEndYear, MperBn, PctPerUnit, PomPerOC, GJperkWh, CapAvgShr, TieBreak, PassLo, PassHi, PassMid, MethShareCap, Thousand, Million, Billion, TrRALag, TrPivotLag, TrOwnDecline, TrFEWGso, TrFEWHalf, TrFEWEvP, TrFEWEvO, ResSubstLag, MitGW, BasketQ, DecPerQuint, PlDecScale, DWLTri, PsElFloor, MTRowKey, MTRowNum, MTDesc, MTName, MTEnd, BaseCO2Key, BaseCO2Val, BaseCO2Year, DHHKey, DHHVal, DHHVar, DElKey, DElVal, DElVar, DIOKey, DIOVal, DIOSec, DIOTKey, DIOTot, DLcatKey, DLcat, DAspKey, DAspVal, DCookKey, DCookFuel, DGDPRKey, DGDPRVal, DGDPRHdr, DProgKey, DProgCode, DGroupKey, DGiniW, DDeflKey, DDeflVal, DDeflYear, DistAll, DistScen, DistDesc, DistUnit, DSecCode, DSecName, DSecCpat, DSecHhd, DSecExp, DSecOut, DSecFuel, DSecLeon, DPTKey, DPTVal
 
 ## 1. Shipped file recalculated in LibreOffice (no LAMBDA support)
-- shipped file recalculated by LibreOffice (no LAMBDA support): 126780 error values in the LAMBDA year 2041 and the LAMBDA test group 2 (with its spacer test column); elsewhere in all 55 sheets: none OK
+- shipped file recalculated by LibreOffice (no LAMBDA support): 138640 error values in the LAMBDA year 2041 and the LAMBDA test group 2 (with its spacer test column); elsewhere in all 58 sheets: FAIL FromMitigation: 520 ['AH9', 'AI9', 'AJ9', 'AK9', 'AL9', 'AM9']
 - 2022-2040 without LAMBDA support vs with it: price and subsector rows identical (max rel diff 0) OK; power (generation, power CO2, residential price) max rel diff 0.00% (levelised window and moving average without the 2041 values)
 
 ## 2. Formula uniformity (relative R1C1)
@@ -16,15 +16,15 @@
 - `gpi` column E: 12 cells, 1 formula OK
 - `gpi` column F: 12 cells, 1 formula OK
 - `gpi` column G: 12 cells, 1 formula OK
-  - `=INDEX(R637C[0]:R640C[0],R[-1]C7)`
-  - `=INDEX(R637C[0]:R640C[0],R[-1]C7)`
+  - `=INDEX(R956C[0]:R959C[0],R[-1]C7)`
+  - `=INDEX(R956C[0]:R959C[0],R[-1]C7)`
 - `spf` base year: 12 cells, 1 formula OK
 - `spf` 2023-2041: 228 cells, 1 formula OK
 - `spf` column D: 12 cells, 1 formula OK
 - `spf` column E: 12 cells, 1 formula OK
 - `spf` column F: 12 cells, 1 formula OK
 - `spf` column G: 12 cells, 1 formula OK
-  - `=INDEX(Inputs!R158C15:R169C15,MATCH(R[0]C2&"."&R[0]C3,Inputs!R158C1:R169C1,0))`
+  - `=INDEX(Inputs!R158C18:R169C18,MATCH(R[0]C2&"."&R[0]C3,Inputs!R158C1:R169C1,0))`
   - `=R[0]C[-1]`
 - `esubpu` 2022-2040: 228 cells, 1 formula OK
 - `esubpu` LAMBDA year 2041: 12 cells, 1 formula OK
@@ -40,10 +40,10 @@
 - `psp` column E: 12 cells, 1 formula OK
 - `psp` column F: 12 cells, 1 formula OK
 - `psp` column G: 12 cells, 1 formula OK
-  - `=INDEX(R516C[0]:R519C[0],R[-4]C7)*IF(R[0]C2="oop",LitersPerBbl,1)/R[-4]C6`
-  - `=PSPRICEUNIT(INDEX(R516C[0]:R519C[0],R[-4]C7),R[0]C2="oop",R[-4]C6)`
-- `sp` history 2022-2022: 12 cells, 1 formula OK
-- `sp` projection 2023-2040: 216 cells, 1 formula OK
+  - `=INDEX(R837C[0]:R840C[0],R[-4]C7)*IF(R[0]C2="oop",LitersPerBbl,1)/R[-4]C6`
+  - `=PSPRICEUNIT(INDEX(R837C[0]:R840C[0],R[-4]C7),R[0]C2="oop",R[-4]C6)`
+- `sp` history 2022-2024: 36 cells, 1 formula OK
+- `sp` projection 2025-2040: 192 cells, 1 formula OK
 - `sp` LAMBDA year 2041: 12 cells, 1 formula OK
 - `sp` column D: 12 cells, 1 formula OK
 - `sp` column E: 12 cells, 1 formula OK
@@ -53,8 +53,8 @@
   - `=R[-3]C[0]+(R[0]C[-1]-R[-3]C[0]-R[-1]C[-1])*R[-4]C[0]/R[-4]C[-1]+R[-1]C[0]`
   - `=SUPPLYCOST(R1C[0],R[0]C2&"."&R[0]C3,R[-3]C[0],R[0]C[-1],R[-4]C[0],R[-4]C[-1],R[-1]C[0],R[-1]C[-1])`
   - history and projection blocks without the history/projection IF (no reference to the last historical year): OK
-- `txf` history 2022-2022: 12 cells, 1 formula OK
-- `txf` projection 2023-2040: 216 cells, 1 formula OK
+- `txf` history 2022-2024: 36 cells, 1 formula OK
+- `txf` projection 2025-2040: 192 cells, 1 formula OK
 - `txf` LAMBDA year 2041: 12 cells, 1 formula OK
 - `txf` column D: 12 cells, 1 formula OK
 - `txf` column E: 12 cells, 1 formula OK
@@ -63,8 +63,8 @@
   - `=R[1]C[0]`
   - `=R[0]C[-1]-(R[-1]C[0]-R[-1]C[-1])*(1-R[-6]C4)`
   - `=FLOATTAX(R1C[0],R[0]C2&"."&R[0]C3,R[-6]C4,R[0]C[-1],R[-1]C[0],R[-1]C[-1])`
-- `txo` history 2022-2022: 12 cells, 1 formula OK
-- `txo` projection 2023-2040: 216 cells, 1 formula OK
+- `txo` history 2022-2024: 36 cells, 1 formula OK
+- `txo` projection 2025-2040: 192 cells, 1 formula OK
 - `txo` LAMBDA year 2041: 12 cells, 1 formula OK
 - `txo` column D: 12 cells, 1 formula OK
 - `txo` column E: 12 cells, 1 formula OK
@@ -74,8 +74,8 @@
   - `=IF(INDEX(R[0]C1:R[0]C[-1],R7C[0])>=0,MAX(INDEX(R[0]C1:R[0]C[-1],R7C[0]),R[-1]C[0]),R[-1]C[0])`
   - `=OTHERTAX(R1C[0],R[0]C2&"."&R[0]C3,INDEX(R[0]C1:R[0]C[-1],R7C[0]),R[-1]C[0])`
   - history and projection blocks without the history/projection IF (no reference to the last historical year): OK
-- `txfx` history 2022-2022: 12 cells, 1 formula OK
-- `txfx` projection 2023-2040: 216 cells, 1 formula OK
+- `txfx` history 2022-2024: 36 cells, 1 formula OK
+- `txfx` projection 2025-2040: 192 cells, 1 formula OK
 - `txfx` LAMBDA year 2041: 12 cells, 1 formula OK
 - `txfx` column D: 12 cells, 1 formula OK
 - `txfx` column E: 12 cells, 1 formula OK
@@ -130,88 +130,80 @@
 - `pnq` column E: 12 cells, 1 formula OK
 - `pnq` column F: 12 cells, 1 formula OK
 - `pnq` column G: 12 cells, 1 formula OK
-  - `=SUMIFS(R2256C[0]:R7216C[0],PVar,"atp",PPar,R[0]C4)`
-  - `=BLOCKQTY(R[0]C4,R2256C[0]:R7216C[0])`
+  - `=SUMIFS(R2688C[0]:R7520C[0],PVar,"atp",PPar,R[0]C4)`
+  - `=BLOCKQTY(R[0]C4,R2688C[0]:R7520C[0])`
 - `pctx` 2022-2040: 228 cells, 1 formula OK
 - `pctx` LAMBDA year 2041: 12 cells, 1 formula OK
 - `pctx` column D: 12 cells, 1 formula OK
 - `pctx` column E: 12 cells, 1 formula OK
 - `pctx` column F: 12 cells, 1 formula OK
 - `pctx` column G: 12 cells, 1 formula OK
-  - `=IF(R[-1]C[0]=0,0,SUMPRODUCT(--(PVar&PPar="atp"&R[-1]C4),R2113C[0]:R7073C[0],R2256C[0]:R7216C[0])/R[-1]C[0])`
-  - `=BLOCKAVG(R[-1]C4,R2113C[0]:R7073C[0],R2256C[0]:R7216C[0],R[-1]C[0],0)`
+  - `=IF(R[-1]C[0]=0,0,SUMPRODUCT(--(PVar&PPar="atp"&R[-1]C4),R2556C[0]:R7388C[0],R2688C[0]:R7520C[0])/R[-1]C[0])`
+  - `=BLOCKAVG(R[-1]C4,R2556C[0]:R7388C[0],R2688C[0]:R7520C[0],R[-1]C[0],0)`
 - `pets` 2022-2040: 228 cells, 1 formula OK
 - `pets` LAMBDA year 2041: 12 cells, 1 formula OK
 - `pets` column D: 12 cells, 1 formula OK
 - `pets` column E: 12 cells, 1 formula OK
 - `pets` column F: 12 cells, 1 formula OK
 - `pets` column G: 12 cells, 1 formula OK
-  - `=IF(R[-2]C[0]=0,0,SUMPRODUCT(--(PVar&PPar="atp"&R[-2]C4),R2124C[0]:R7084C[0],R2256C[0]:R7216C[0])/R[-2]C[0])`
-  - `=BLOCKAVG(R[-2]C4,R2124C[0]:R7084C[0],R2256C[0]:R7216C[0],R[-2]C[0],0)`
+  - `=IF(R[-2]C[0]=0,0,SUMPRODUCT(--(PVar&PPar="atp"&R[-2]C4),R2567C[0]:R7399C[0],R2688C[0]:R7520C[0])/R[-2]C[0])`
+  - `=BLOCKAVG(R[-2]C4,R2567C[0]:R7399C[0],R2688C[0]:R7520C[0],R[-2]C[0],0)`
 - `pntx` 2022-2040: 228 cells, 1 formula OK
 - `pntx` LAMBDA year 2041: 12 cells, 1 formula OK
 - `pntx` column D: 12 cells, 1 formula OK
 - `pntx` column E: 12 cells, 1 formula OK
 - `pntx` column F: 12 cells, 1 formula OK
 - `pntx` column G: 12 cells, 1 formula OK
-  - `=IF(R[-3]C[0]=0,0,SUMPRODUCT(--(PVar&PPar="atp"&R[-3]C4),R2135C[0]:R7095C[0],R2256C[0]:R7216C[0])/R[-3]C[0])`
-  - `=BLOCKAVG(R[-3]C4,R2135C[0]:R7095C[0],R2256C[0]:R7216C[0],R[-3]C[0],0)`
+  - `=IF(R[-3]C[0]=0,0,SUMPRODUCT(--(PVar&PPar="atp"&R[-3]C4),R2578C[0]:R7410C[0],R2688C[0]:R7520C[0])/R[-3]C[0])`
+  - `=BLOCKAVG(R[-3]C4,R2578C[0]:R7410C[0],R2688C[0]:R7520C[0],R[-3]C[0],0)`
 - `pxcd` 2022-2040: 228 cells, 1 formula OK
 - `pxcd` LAMBDA year 2041: 12 cells, 1 formula OK
 - `pxcd` column D: 12 cells, 1 formula OK
 - `pxcd` column E: 12 cells, 1 formula OK
 - `pxcd` column F: 12 cells, 1 formula OK
 - `pxcd` column G: 12 cells, 1 formula OK
-  - `=IF(R[-4]C[0]=0,0,SUMPRODUCT(--(PVar&PPar="atp"&R[-4]C4),R2168C[0]:R7128C[0],R2256C[0]:R7216C[0])/R[-4]C[0])`
-  - `=BLOCKAVG(R[-4]C4,R2168C[0]:R7128C[0],R2256C[0]:R7216C[0],R[-4]C[0],0)`
+  - `=IF(R[-4]C[0]=0,0,SUMPRODUCT(--(PVar&PPar="atp"&R[-4]C4),R2611C[0]:R7443C[0],R2688C[0]:R7520C[0])/R[-4]C[0])`
+  - `=BLOCKAVG(R[-4]C4,R2611C[0]:R7443C[0],R2688C[0]:R7520C[0],R[-4]C[0],0)`
 - `pcsw` 2022-2040: 228 cells, 1 formula OK
 - `pcsw` LAMBDA year 2041: 12 cells, 1 formula OK
 - `pcsw` column D: 12 cells, 1 formula OK
 - `pcsw` column E: 12 cells, 1 formula OK
 - `pcsw` column F: 12 cells, 1 formula OK
 - `pcsw` column G: 12 cells, 1 formula OK
-  - `=-(1-INDEX(R461C[0]:R472C[0],MATCH(R[0]C2&"."&R[0]C3,IPKey,0)))*MIN(R[-12]C[0],0)`
-  - `=SUBREFORM(INDEX(R461C[0]:R472C[0],MATCH(R[0]C2&"."&R[0]C3,IPKey,0)),R[-12]C[0])`
+  - `=-(1-INDEX(R782C[0]:R793C[0],MATCH(R[0]C2&"."&R[0]C3,IPKey,0)))*MIN(R[-12]C[0],0)`
+  - `=SUBREFORM(INDEX(R782C[0]:R793C[0],MATCH(R[0]C2&"."&R[0]C3,IPKey,0)),R[-12]C[0])`
 - `ppcw` 2022-2040: 228 cells, 1 formula OK
 - `ppcw` LAMBDA year 2041: 12 cells, 1 formula OK
 - `ppcw` column D: 12 cells, 1 formula OK
 - `ppcw` column E: 12 cells, 1 formula OK
 - `ppcw` column F: 12 cells, 1 formula OK
 - `ppcw` column G: 12 cells, 1 formula OK
-  - `=-(1-INDEX(R485C[0]:R496C[0],MATCH(R[0]C2&"."&R[0]C3,IPKey,0)))*R[-12]C[0]`
-  - `=PCREFORM(INDEX(R485C[0]:R496C[0],MATCH(R[0]C2&"."&R[0]C3,IPKey,0)),R[-12]C[0])`
-- `ppsw` 2022-2040: 228 cells, 1 formula OK
-- `ppsw` LAMBDA year 2041: 12 cells, 1 formula OK
-- `ppsw` column D: 12 cells, 1 formula OK
-- `ppsw` column E: 12 cells, 1 formula OK
-- `ppsw` column F: 12 cells, 1 formula OK
-- `ppsw` column G: 12 cells, 1 formula OK
-  - `=INDEX(R520C[0]:R523C[0],R[-22]C7)*IF(R[0]C2="oop",LitersPerBbl,1)/R[-22]C6*R[-22]C4`
-  - `=PSWEDGE(INDEX(R520C[0]:R523C[0],R[-22]C7),R[0]C2="oop",R[-22]C6,R[-22]C4)`
+  - `=-(1-INDEX(R806C[0]:R817C[0],MATCH(R[0]C2&"."&R[0]C3,IPKey,0)))*R[-12]C[0]`
+  - `=PCREFORM(INDEX(R806C[0]:R817C[0],MATCH(R[0]C2&"."&R[0]C3,IPKey,0)),R[-12]C[0])`
 - `pvatn` 2022-2040: 228 cells, 1 formula OK
 - `pvatn` LAMBDA year 2041: 12 cells, 1 formula OK
 - `pvatn` column D: 12 cells, 1 formula OK
 - `pvatn` column E: 12 cells, 1 formula OK
 - `pvatn` column F: 12 cells, 1 formula OK
 - `pvatn` column G: 12 cells, 1 formula OK
-  - `=R[1]C[0]-SUM(R[-7]C[0]:R[-1]C[0])`
-  - `=DIFF(R[1]C[0],SUM(R[-7]C[0]:R[-1]C[0]))`
+  - `=R[1]C[0]-SUM(R[-6]C[0]:R[-1]C[0])`
+  - `=DIFF(R[1]C[0],SUM(R[-6]C[0]:R[-1]C[0]))`
 - `pnce` 2022-2040: 228 cells, 1 formula OK
 - `pnce` LAMBDA year 2041: 12 cells, 1 formula OK
 - `pnce` column D: 12 cells, 1 formula OK
 - `pnce` column E: 12 cells, 1 formula OK
 - `pnce` column F: 12 cells, 1 formula OK
 - `pnce` column G: 12 cells, 1 formula OK
-  - `=R[1]C[0]-R[-11]C[0]`
-  - `=DIFF(R[1]C[0],R[-11]C[0])`
+  - `=R[1]C[0]-R[-10]C[0]`
+  - `=DIFF(R[1]C[0],R[-10]C[0])`
 - `rpn` 2022-2040: 228 cells, 1 formula OK
 - `rpn` LAMBDA year 2041: 12 cells, 1 formula OK
 - `rpn` column D: 12 cells, 1 formula OK
 - `rpn` column E: 12 cells, 1 formula OK
 - `rpn` column F: 12 cells, 1 formula OK
 - `rpn` column G: 12 cells, 1 formula OK
-  - `=IF(R[-10]C[0]=0,R[-12]C[0],SUMPRODUCT(--(PVar&PPar="atp"&R[-10]C4),R2212C[0]:R7172C[0],R2256C[0]:R7216C[0])/R[-10]C[0])`
-  - `=BLOCKAVG(R[-10]C4,R2212C[0]:R7172C[0],R2256C[0]:R7216C[0],R[-10]C[0],R[-12]C[0])`
+  - `=IF(R[-9]C[0]=0,R[-11]C[0],SUMPRODUCT(--(PVar&PPar="atp"&R[-9]C4),R2644C[0]:R7476C[0],R2688C[0]:R7520C[0])/R[-9]C[0])`
+  - `=BLOCKAVG(R[-9]C4,R2644C[0]:R7476C[0],R2688C[0]:R7520C[0],R[-9]C[0],R[-11]C[0])`
 - `ctxnew` base year: 144 cells, 1 formula OK
 - `ctxnew` 2023-2040: 2592 cells, 1 formula OK
 - `ctxnew` LAMBDA year 2041: 144 cells, 1 formula OK
@@ -219,9 +211,9 @@
 - `ctxnew` column E: 144 cells, 1 formula OK
 - `ctxnew` column F: 144 cells, 1 formula OK
 - `ctxnew` column G: 144 cells, 1 formula OK
-  - `=INDEX(R348C[0]:R364C[0],R[0]C6)*R[0]C4*INDEX(R36C[0]:R44C[0],R[0]C5)*INDEX(R531C[0]:R532C[0],R[0]C7)`
-  - `=INDEX(R348C[0]:R364C[0],R[0]C6)*R[0]C4*INDEX(R36C[0]:R44C[0],R[0]C5)*INDEX(R531C[0]:R532C[0],R[0]C7)`
-  - `=CARBONTAX(INDEX(R348C[0]:R364C[0],R[0]C6),R[0]C4,INDEX(R36C[0]:R44C[0],R[0]C5),INDEX(R531C[0]:R532C[0],R[0]C7))`
+  - `=INDEX(R669C[0]:R685C[0],R[0]C6)*R[0]C4*INDEX(R36C[0]:R44C[0],R[0]C5)*INDEX(R848C[0]:R849C[0],R[0]C7)`
+  - `=INDEX(R669C[0]:R685C[0],R[0]C6)*R[0]C4*INDEX(R36C[0]:R44C[0],R[0]C5)*INDEX(R848C[0]:R849C[0],R[0]C7)`
+  - `=CARBONTAX(INDEX(R669C[0]:R685C[0],R[0]C6),R[0]C4,INDEX(R36C[0]:R44C[0],R[0]C5),INDEX(R848C[0]:R849C[0],R[0]C7))`
 - `ets` base year: 144 cells, 1 formula OK
 - `ets` 2023-2040: 2592 cells, 1 formula OK
 - `ets` LAMBDA year 2041: 144 cells, 1 formula OK
@@ -229,9 +221,9 @@
 - `ets` column E: 144 cells, 1 formula OK
 - `ets` column F: 144 cells, 1 formula OK
 - `ets` column G: 144 cells, 1 formula OK
-  - `=INDEX(R365C[0]:R381C[0],R[0]C5)*R[0]C4*INDEX(R531C[0]:R532C[0],R[0]C6)`
-  - `=INDEX(R365C[0]:R381C[0],R[0]C5)*R[0]C4*INDEX(R531C[0]:R532C[0],R[0]C6)`
-  - `=ETSCOST(INDEX(R365C[0]:R381C[0],R[0]C5),R[0]C4,INDEX(R531C[0]:R532C[0],R[0]C6))`
+  - `=INDEX(R686C[0]:R702C[0],R[0]C5)*R[0]C4*INDEX(R848C[0]:R849C[0],R[0]C6)`
+  - `=INDEX(R686C[0]:R702C[0],R[0]C5)*R[0]C4*INDEX(R848C[0]:R849C[0],R[0]C6)`
+  - `=ETSCOST(INDEX(R686C[0]:R702C[0],R[0]C5),R[0]C4,INDEX(R848C[0]:R849C[0],R[0]C6))`
 - `ntx` base year: 144 cells, 1 formula OK
 - `ntx` 2023-2040: 2592 cells, 1 formula OK
 - `ntx` LAMBDA year 2041: 144 cells, 1 formula OK
@@ -239,9 +231,9 @@
 - `ntx` column E: 144 cells, 1 formula OK
 - `ntx` column F: 144 cells, 1 formula OK
 - `ntx` column G: 144 cells, 1 formula OK
-  - `=INDEX(R98C[0]:R111C[0],R[0]C4)/R[0]C5*INDEX(R531C[0]:R532C[0],R[0]C6)`
-  - `=INDEX(R98C[0]:R111C[0],R[0]C4)/R[0]C5*INDEX(R531C[0]:R532C[0],R[0]C6)`
-  - `=NEWEXCISE(INDEX(R98C[0]:R111C[0],R[0]C4),R[0]C5,INDEX(R531C[0]:R532C[0],R[0]C6))`
+  - `=INDEX(R419C[0]:R432C[0],R[0]C4)/R[0]C5*INDEX(R848C[0]:R849C[0],R[0]C6)`
+  - `=INDEX(R419C[0]:R432C[0],R[0]C4)/R[0]C5*INDEX(R848C[0]:R849C[0],R[0]C6)`
+  - `=NEWEXCISE(INDEX(R419C[0]:R432C[0],R[0]C4),R[0]C5,INDEX(R848C[0]:R849C[0],R[0]C6))`
 - `nce` base year: 144 cells, 1 formula OK
 - `nce` 2023-2040: 2592 cells, 1 formula OK
 - `nce` LAMBDA year 2041: 144 cells, 1 formula OK
@@ -259,9 +251,9 @@
 - `xcp` column E: 144 cells, 1 formula OK
 - `xcp` column F: 144 cells, 1 formula OK
 - `xcp` column G: 144 cells, 1 formula OK
-  - `=R[0]C4*(INDEX(XCTVal,R[0]C5,R410C[0])*R411C[0]+INDEX(XETSVal,R[0]C5,R410C[0])*R412C[0])`
-  - `=R[0]C4*(INDEX(XCTVal,R[0]C5,R410C[0])*R411C[0]+INDEX(XETSVal,R[0]C5,R410C[0])*R412C[0])`
-  - `=XCARBON(R[0]C4,INDEX(XCTVal,R[0]C5,R410C[0]),R411C[0],INDEX(XETSVal,R[0]C5,R410C[0]),R412C[0],0)`
+  - `=R[0]C4*(INDEX(XCTVal,R[0]C5,R731C[0])*R732C[0]+INDEX(XETSVal,R[0]C5,R731C[0])*R733C[0])`
+  - `=R[0]C4*(INDEX(XCTVal,R[0]C5,R731C[0])*R732C[0]+INDEX(XETSVal,R[0]C5,R731C[0])*R733C[0])`
+  - `=XCARBON(R[0]C4,INDEX(XCTVal,R[0]C5,R731C[0]),R732C[0],INDEX(XETSVal,R[0]C5,R731C[0]),R733C[0],0)`
 - `xcpd` base year: 144 cells, 1 formula OK
 - `xcpd` 2023-2040: 2592 cells, 1 formula OK
 - `xcpd` LAMBDA year 2041: 144 cells, 1 formula OK
@@ -269,9 +261,9 @@
 - `xcpd` column E: 144 cells, 1 formula OK
 - `xcpd` column F: 144 cells, 1 formula OK
 - `xcpd` column G: 144 cells, 1 formula OK
-  - `=R[0]C4*(INDEX(XCTVal,R[0]C5,R410C[0])*R411C[0]+INDEX(XETSVal,R[0]C5,R410C[0])*R412C[0]-R[0]C6)`
-  - `=R[0]C4*(INDEX(XCTVal,R[0]C5,R410C[0])*R411C[0]+INDEX(XETSVal,R[0]C5,R410C[0])*R412C[0]-R[0]C6)`
-  - `=XCARBON(R[0]C4,INDEX(XCTVal,R[0]C5,R410C[0]),R411C[0],INDEX(XETSVal,R[0]C5,R410C[0]),R412C[0],R[0]C6)`
+  - `=R[0]C4*(INDEX(XCTVal,R[0]C5,R731C[0])*R732C[0]+INDEX(XETSVal,R[0]C5,R731C[0])*R733C[0]-R[0]C6)`
+  - `=R[0]C4*(INDEX(XCTVal,R[0]C5,R731C[0])*R732C[0]+INDEX(XETSVal,R[0]C5,R731C[0])*R733C[0]-R[0]C6)`
+  - `=XCARBON(R[0]C4,INDEX(XCTVal,R[0]C5,R731C[0]),R732C[0],INDEX(XETSVal,R[0]C5,R731C[0]),R733C[0],R[0]C6)`
 - `csw` base year: 144 cells, 1 formula OK
 - `csw` 2023-2040: 2592 cells, 1 formula OK
 - `csw` LAMBDA year 2041: 144 cells, 1 formula OK
@@ -279,9 +271,9 @@
 - `csw` column E: 144 cells, 1 formula OK
 - `csw` column F: 144 cells, 1 formula OK
 - `csw` column G: 144 cells, 1 formula OK
-  - `=INDEX(R667C[0]:R989C[0],R[0]C4)`
-  - `=INDEX(R667C[0]:R989C[0],R[0]C4)`
-  - `=BLOCKWEDGE(INDEX(R667C[0]:R989C[0],R[0]C4))`
+  - `=INDEX(R986C[0]:R1297C[0],R[0]C4)`
+  - `=INDEX(R986C[0]:R1297C[0],R[0]C4)`
+  - `=BLOCKWEDGE(INDEX(R986C[0]:R1297C[0],R[0]C4))`
 - `pcw` base year: 144 cells, 1 formula OK
 - `pcw` 2023-2040: 2592 cells, 1 formula OK
 - `pcw` LAMBDA year 2041: 144 cells, 1 formula OK
@@ -289,19 +281,9 @@
 - `pcw` column E: 144 cells, 1 formula OK
 - `pcw` column F: 144 cells, 1 formula OK
 - `pcw` column G: 144 cells, 1 formula OK
-  - `=INDEX(R668C[0]:R990C[0],R[0]C4)`
-  - `=INDEX(R668C[0]:R990C[0],R[0]C4)`
-  - `=BLOCKWEDGE(INDEX(R668C[0]:R990C[0],R[0]C4))`
-- `psw` base year: 144 cells, 1 formula OK
-- `psw` 2023-2040: 2592 cells, 1 formula OK
-- `psw` LAMBDA year 2041: 144 cells, 1 formula OK
-- `psw` column D: 144 cells, 1 formula OK
-- `psw` column E: 144 cells, 1 formula OK
-- `psw` column F: 144 cells, 1 formula OK
-- `psw` column G: 144 cells, 1 formula OK
-  - `=INDEX(R669C[0]:R991C[0],R[0]C4)`
-  - `=INDEX(R669C[0]:R991C[0],R[0]C4)`
-  - `=BLOCKWEDGE(INDEX(R669C[0]:R991C[0],R[0]C4))`
+  - `=INDEX(R987C[0]:R1298C[0],R[0]C4)`
+  - `=INDEX(R987C[0]:R1298C[0],R[0]C4)`
+  - `=BLOCKWEDGE(INDEX(R987C[0]:R1298C[0],R[0]C4))`
 - `atp` base year: 144 cells, 1 formula OK
 - `atp` 2023-2040: 2592 cells, 1 formula OK
 - `atp` LAMBDA year 2041: 144 cells, 1 formula OK
@@ -309,9 +291,9 @@
 - `atp` column E: 144 cells, 1 formula OK
 - `atp` column F: 144 cells, 1 formula OK
 - `atp` column G: 144 cells, 1 formula OK
-  - `=MAX(INDEX(R660C[0]:R982C[0],R[0]C4)+(R[-66]C[0]+R[-44]C[0]+R[-33]C[0]+R[-22]C[0]+R[-11]C[0])*(1+R[0]C5),PriceFloor)`
-  - `=MAX(INDEX(R660C[0]:R982C[0],R[0]C4)+(R[-66]C[0]+R[-44]C[0]+R[-33]C[0]+R[-22]C[0]+R[-11]C[0])*(1+R[0]C5),PriceFloor)`
-  - `=POSTTAX(INDEX(R660C[0]:R982C[0],R[0]C4),R[-66]C[0]+R[-44]C[0]+R[-33]C[0]+R[-22]C[0]+R[-11]C[0],R[0]C5)`
+  - `=MAX(INDEX(R979C[0]:R1290C[0],R[0]C4)+(R[-55]C[0]+R[-33]C[0]+R[-22]C[0]+R[-11]C[0])*(1+R[0]C5),PriceFloor)`
+  - `=MAX(INDEX(R979C[0]:R1290C[0],R[0]C4)+(R[-55]C[0]+R[-33]C[0]+R[-22]C[0]+R[-11]C[0])*(1+R[0]C5),PriceFloor)`
+  - `=POSTTAX(INDEX(R979C[0]:R1290C[0],R[0]C4),R[-55]C[0]+R[-33]C[0]+R[-22]C[0]+R[-11]C[0],R[0]C5)`
 - `shp` base year: 144 cells, 1 formula OK
 - `shp` 2023-2040: 2592 cells, 1 formula OK
 - `shp` LAMBDA year 2041: 144 cells, 1 formula OK
@@ -319,9 +301,9 @@
 - `shp` column E: 144 cells, 1 formula OK
 - `shp` column F: 144 cells, 1 formula OK
 - `shp` column G: 144 cells, 1 formula OK
-  - `=INDEX(R385C[0]:R401C[0],R[0]C5)*R[0]C4`
-  - `=INDEX(R385C[0]:R401C[0],R[0]C5)*R[0]C4`
-  - `=SHADOWGJ(INDEX(R385C[0]:R401C[0],R[0]C5),R[0]C4)`
+  - `=INDEX(R706C[0]:R722C[0],R[0]C5)*R[0]C4`
+  - `=INDEX(R706C[0]:R722C[0],R[0]C5)*R[0]C4`
+  - `=SHADOWGJ(INDEX(R706C[0]:R722C[0],R[0]C5),R[0]C4)`
 - `aef` base year: 144 cells, 1 formula OK
 - `aef` 2023-2040: 2592 cells, 1 formula OK
 - `aef` LAMBDA year 2041: 144 cells, 1 formula OK
@@ -329,9 +311,9 @@
 - `aef` column E: 144 cells, 1 formula OK
 - `aef` column F: 144 cells, 1 formula OK
 - `aef` column G: 144 cells, 1 formula OK
-  - `=(1/(1+R[0]C4+INDEX(R524C[0]:R526C[0],R[0]C5)))^(1+R[0]C6)`
-  - `=(1/(1+R[0]C4+INDEX(R524C[0]:R526C[0],R[0]C5)))^(1+R[0]C6)`
-  - `=AEEIFACTOR(R[0]C4,INDEX(R524C[0]:R526C[0],R[0]C5),R[0]C6)`
+  - `=(1/(1+R[0]C4+INDEX(R841C[0]:R843C[0],R[0]C5)))^(1+R[0]C6)`
+  - `=(1/(1+R[0]C4+INDEX(R841C[0]:R843C[0],R[0]C5)))^(1+R[0]C6)`
+  - `=AEEIFACTOR(R[0]C4,INDEX(R841C[0]:R843C[0],R[0]C5),R[0]C6)`
 - `enel` base year: 144 cells, 1 formula OK
 - `enel` 2023-2040: 2592 cells, 1 formula OK
 - `enel` LAMBDA year 2041: 144 cells, 1 formula OK
@@ -342,16 +324,16 @@
   - `=INDEX(Inputs!R5C24:R148C24,MATCH(R[0]C2&"|"&R[0]C3,Inputs!R5C1:R148C1,0))`
   - `=R[0]C[-1]*R[-11]C[0]*(1+R14C[0])^R[0]C4*(R[-33]C[0]/R[-33]C[-1])^R[0]C5*((R[-33]C[0]+R[-22]C[0])/(R[-33]C[-1]+R[-22]C[-1]))^R[0]C6*R6C[0]`
   - `=FUELUSE(R[0]C[-1],R[-33]C[0],R[-33]C[-1],R[-22]C[0],R[-22]C[-1],R14C[0],R[0]C4,R[0]C5,R[0]C6,R[-11]C[0],R6C[0])`
-- `ener` base year: 144 cells, 1 formula OK
-- `ener` 2023-2040: 2592 cells, 1 formula OK
-- `ener` LAMBDA year 2041: 144 cells, 1 formula OK
+- `ener` base year: 144 cells, 2 formula FAIL
+- `ener` 2023-2040: 2592 cells, 2 formula FAIL
+- `ener` LAMBDA year 2041: 144 cells, 2 formula FAIL
 - `ener` column D: 144 cells, 1 formula OK
 - `ener` column E: 144 cells, 1 formula OK
 - `ener` column F: 144 cells, 1 formula OK
 - `ener` column G: 144 cells, 1 formula OK
-  - `=IF(R[0]C4*R3140C[0]>0,INDEX(R4142C[0]:R4148C[0],R[0]C4),R[-11]C[0])+INDEX(R4999C[0]:R5003C[0],R[0]C5)`
-  - `=IF(R[0]C4*R3140C[0]>0,INDEX(R4142C[0]:R4148C[0],R[0]C4),R[-11]C[0])+INDEX(R4999C[0]:R5003C[0],R[0]C5)`
-  - `=ROADSWITCH(R[0]C4,R3140C[0],R4142C[0]:R4148C[0],R[-11]C[0],R4999C[0]:R5003C[0],R[0]C5)`
+  - `=IF(R[0]C4*R3539C[0]>0,INDEX(R4542C[0]:R4548C[0],R[0]C4),R4611C[0])+INDEX(R5402C[0]:R5406C[0],R[0]C5)`
+  - `=IF(R[0]C4*R3539C[0]>0,INDEX(R4542C[0]:R4548C[0],R[0]C4),R4611C[0])+INDEX(R5402C[0]:R5406C[0],R[0]C5)`
+  - `=ROADSWITCH(R[0]C4,R3539C[0],R4542C[0]:R4548C[0],R[-11]C[0],R5402C[0]:R5406C[0],R[0]C5)`
 - `co2` base year: 144 cells, 1 formula OK
 - `co2` 2023-2040: 2592 cells, 1 formula OK
 - `co2` LAMBDA year 2041: 144 cells, 1 formula OK
@@ -369,8 +351,8 @@
 - `ch4` column E: 144 cells, 1 formula OK
 - `ch4` column F: 144 cells, 1 formula OK
 - `ch4` column G: 144 cells, 1 formula OK
-  - `=R[-22]C[0]*(R[0]C4+(R[0]C5-R[0]C4)*MIN(1,(R1C[0]-BaseYr)/(EFEndYear-BaseYr)))/tPerKt`
-  - `=R[-22]C[0]*(R[0]C4+(R[0]C5-R[0]C4)*MIN(1,(R1C[0]-BaseYr)/(EFEndYear-BaseYr)))/tPerKt`
+  - `=R[-22]C[0]*(R[0]C4+(R[0]C5-R[0]C4)*EFFinShare*(R1C[0]-BaseYr)/(EFEndYear-BaseYr))/tPerKt`
+  - `=R[-22]C[0]*(R[0]C4+(R[0]C5-R[0]C4)*EFFinShare*(R1C[0]-BaseYr)/(EFEndYear-BaseYr))/tPerKt`
   - `=NONCO2(R[-22]C[0],R[0]C4,R[0]C5,R1C[0])`
 - `rtx` base year: 144 cells, 1 formula OK
 - `rtx` 2023-2040: 2592 cells, 1 formula OK
@@ -379,9 +361,9 @@
 - `rtx` column E: 144 cells, 1 formula OK
 - `rtx` column F: 144 cells, 1 formula OK
 - `rtx` column G: 144 cells, 1 formula OK
-  - `=R[-33]C[0]*Settings!R13C3*(INDEX(R657C[0]:R979C[0],R[0]C4)+INDEX(R659C[0]:R981C[0],R[0]C4)+R[-121]C[0]*(1+R[0]C5))`
-  - `=R[-33]C[0]*Settings!R13C3*(INDEX(R657C[0]:R979C[0],R[0]C4)+INDEX(R659C[0]:R981C[0],R[0]C4)+R[-121]C[0]*(1+R[0]C5))`
-  - `=REVENUE(R[-33]C[0],Settings!R13C3,INDEX(R657C[0]:R979C[0],R[0]C4)+INDEX(R659C[0]:R981C[0],R[0]C4)+R[-121]C[0]*(1+R[0]C5))`
+  - `=R[-33]C[0]*Settings!R13C3*(INDEX(R976C[0]:R1287C[0],R[0]C4)+INDEX(R978C[0]:R1289C[0],R[0]C4)+R[-110]C[0]*(1+R[0]C5))`
+  - `=R[-33]C[0]*Settings!R13C3*(INDEX(R976C[0]:R1287C[0],R[0]C4)+INDEX(R978C[0]:R1289C[0],R[0]C4)+R[-110]C[0]*(1+R[0]C5))`
+  - `=REVENUE(R[-33]C[0],Settings!R13C3,INDEX(R976C[0]:R1287C[0],R[0]C4)+INDEX(R978C[0]:R1289C[0],R[0]C4)+R[-110]C[0]*(1+R[0]C5))`
 - `rsub` base year: 144 cells, 1 formula OK
 - `rsub` 2023-2040: 2592 cells, 1 formula OK
 - `rsub` LAMBDA year 2041: 144 cells, 1 formula OK
@@ -389,9 +371,9 @@
 - `rsub` column E: 144 cells, 1 formula OK
 - `rsub` column F: 144 cells, 1 formula OK
 - `rsub` column G: 144 cells, 1 formula OK
-  - `=R[-44]C[0]*Settings!R13C3*(INDEX(R658C[0]:R980C[0],R[0]C4))`
-  - `=R[-44]C[0]*Settings!R13C3*(INDEX(R658C[0]:R980C[0],R[0]C4))`
-  - `=REVENUE(R[-44]C[0],Settings!R13C3,INDEX(R658C[0]:R980C[0],R[0]C4))`
+  - `=R[-44]C[0]*Settings!R13C3*(INDEX(R977C[0]:R1288C[0],R[0]C4))`
+  - `=R[-44]C[0]*Settings!R13C3*(INDEX(R977C[0]:R1288C[0],R[0]C4))`
+  - `=REVENUE(R[-44]C[0],Settings!R13C3,INDEX(R977C[0]:R1288C[0],R[0]C4))`
 - `rnew` base year: 144 cells, 1 formula OK
 - `rnew` 2023-2040: 2592 cells, 1 formula OK
 - `rnew` LAMBDA year 2041: 144 cells, 1 formula OK
@@ -399,9 +381,9 @@
 - `rnew` column E: 144 cells, 1 formula OK
 - `rnew` column F: 144 cells, 1 formula OK
 - `rnew` column G: 144 cells, 1 formula OK
-  - `=R[-55]C[0]*Settings!R13C3*(R[-198]C[0]+R[-176]C[0]+R[-187]C[0]*R239C[0]+R[-165]C[0]*R[0]C4)`
-  - `=R[-55]C[0]*Settings!R13C3*(R[-198]C[0]+R[-176]C[0]+R[-187]C[0]*R239C[0]+R[-165]C[0]*R[0]C4)`
-  - `=REVENUE(R[-55]C[0],Settings!R13C3,NEWREVRATE(R[-198]C[0],R[-176]C[0],R[-187]C[0],R239C[0],R[-165]C[0],R[0]C4))`
+  - `=R[-55]C[0]*Settings!R13C3*(R[-187]C[0]+R[-165]C[0]+R[-176]C[0]*R560C[0]+R[-154]C[0]*R[0]C4)`
+  - `=R[-55]C[0]*Settings!R13C3*(R[-187]C[0]+R[-165]C[0]+R[-176]C[0]*R560C[0]+R[-154]C[0]*R[0]C4)`
+  - `=REVENUE(R[-55]C[0],Settings!R13C3,NEWREVRATE(R[-187]C[0],R[-165]C[0],R[-176]C[0],R560C[0],R[-154]C[0],R[0]C4))`
 - `rxcp` base year: 144 cells, 1 formula OK
 - `rxcp` 2023-2040: 2592 cells, 1 formula OK
 - `rxcp` LAMBDA year 2041: 144 cells, 1 formula OK
@@ -409,9 +391,9 @@
 - `rxcp` column E: 144 cells, 1 formula OK
 - `rxcp` column F: 144 cells, 1 formula OK
 - `rxcp` column G: 144 cells, 1 formula OK
-  - `=R[-66]C[0]*Settings!R13C3*(R[-165]C[0])`
-  - `=R[-66]C[0]*Settings!R13C3*(R[-165]C[0])`
-  - `=REVENUE(R[-66]C[0],Settings!R13C3,R[-165]C[0])`
+  - `=R[-66]C[0]*Settings!R13C3*(R[-154]C[0])`
+  - `=R[-66]C[0]*Settings!R13C3*(R[-154]C[0])`
+  - `=REVENUE(R[-66]C[0],Settings!R13C3,R[-154]C[0])`
 - `rex` base year: 144 cells, 1 formula OK
 - `rex` 2023-2040: 2592 cells, 1 formula OK
 - `rex` LAMBDA year 2041: 144 cells, 1 formula OK
@@ -419,9 +401,9 @@
 - `rex` column E: 144 cells, 1 formula OK
 - `rex` column F: 144 cells, 1 formula OK
 - `rex` column G: 144 cells, 1 formula OK
-  - `=R[-77]C[0]*Settings!R13C3*(R[-198]C[0])`
-  - `=R[-77]C[0]*Settings!R13C3*(R[-198]C[0])`
-  - `=REVENUE(R[-77]C[0],Settings!R13C3,R[-198]C[0])`
+  - `=R[-77]C[0]*Settings!R13C3*(R[-187]C[0])`
+  - `=R[-77]C[0]*Settings!R13C3*(R[-187]C[0])`
+  - `=REVENUE(R[-77]C[0],Settings!R13C3,R[-187]C[0])`
 - `rvt` base year: 144 cells, 1 formula OK
 - `rvt` 2023-2040: 2592 cells, 1 formula OK
 - `rvt` LAMBDA year 2041: 144 cells, 1 formula OK
@@ -429,9 +411,9 @@
 - `rvt` column E: 144 cells, 1 formula OK
 - `rvt` column F: 144 cells, 1 formula OK
 - `rvt` column G: 144 cells, 1 formula OK
-  - `=R[-88]C[0]*Settings!R13C3*(INDEX(R659C[0]:R981C[0],R[0]C4)+(R[-176]C[0]+R[-198]C[0]+R[-165]C[0]+R[-154]C[0]+R[-143]C[0])*R[0]C5)`
-  - `=R[-88]C[0]*Settings!R13C3*(INDEX(R659C[0]:R981C[0],R[0]C4)+(R[-176]C[0]+R[-198]C[0]+R[-165]C[0]+R[-154]C[0]+R[-143]C[0])*R[0]C5)`
-  - `=REVENUE(R[-88]C[0],Settings!R13C3,INDEX(R659C[0]:R981C[0],R[0]C4)+(R[-176]C[0]+R[-198]C[0]+R[-165]C[0]+R[-154]C[0]+R[-143]C[0])*R[0]C5)`
+  - `=R[-88]C[0]*Settings!R13C3*(INDEX(R978C[0]:R1289C[0],R[0]C4)+(R[-165]C[0]+R[-187]C[0]+R[-154]C[0]+R[-143]C[0])*R[0]C5)`
+  - `=R[-88]C[0]*Settings!R13C3*(INDEX(R978C[0]:R1289C[0],R[0]C4)+(R[-165]C[0]+R[-187]C[0]+R[-154]C[0]+R[-143]C[0])*R[0]C5)`
+  - `=REVENUE(R[-88]C[0],Settings!R13C3,INDEX(R978C[0]:R1289C[0],R[0]C4)+(R[-165]C[0]+R[-187]C[0]+R[-154]C[0]+R[-143]C[0])*R[0]C5)`
 - `rsr` base year: 144 cells, 1 formula OK
 - `rsr` 2023-2040: 2592 cells, 1 formula OK
 - `rsr` LAMBDA year 2041: 144 cells, 1 formula OK
@@ -439,10 +421,10 @@
 - `rsr` column E: 144 cells, 1 formula OK
 - `rsr` column F: 144 cells, 1 formula OK
 - `rsr` column G: 144 cells, 1 formula OK
-  - `=R[-99]C[0]*Settings!R13C3*((R[-176]C[0]+R[-165]C[0])*(1+R[0]C4)+R[-154]C[0]*R[0]C4)`
-  - `=R[-99]C[0]*Settings!R13C3*((R[-176]C[0]+R[-165]C[0])*(1+R[0]C4)+R[-154]C[0]*R[0]C4)`
-  - `=REVENUE(R[-99]C[0],Settings!R13C3,(R[-176]C[0]+R[-165]C[0])*(1+R[0]C4)+R[-154]C[0]*R[0]C4)`
-- Section 1 and 2 MTInputs rows: 4640 cells, 1 formula OK
+  - `=R[-99]C[0]*Settings!R13C3*((R[-165]C[0]+R[-154]C[0])*(1+R[0]C4))`
+  - `=R[-99]C[0]*Settings!R13C3*((R[-165]C[0]+R[-154]C[0])*(1+R[0]C4))`
+  - `=REVENUE(R[-99]C[0],Settings!R13C3,(R[-165]C[0]+R[-154]C[0])*(1+R[0]C4))`
+- Section 1 and 2 MTInputs rows: 4760 cells, 1 formula OK
 - Section 1 carbon-tax coverage rows (MTInputs, uncovered share phased in: exph): 520 cells, 1 formula OK
 - section 2 international prices `gp` (data rows, plain): 80 cells, 1 formula OK
 - section 2 international prices before the adjustment `gpn` (data rows, plain): 80 cells, 1 formula OK
@@ -547,43 +529,43 @@
 - Section 1 `psf.*` LAMBDA year: 5 cells, 1 formula OK
 - Section 1 `pros.*` plain: 95 cells, 1 formula OK
 - Section 1 `pros.*` LAMBDA year: 5 cells, 1 formula OK
-- subsector heading totals: 320 cells, 1 formula OK
+- subsector heading totals: 320 cells, 3 formula FAIL
 - power `cfu` 2022-2040: 171 cells, 1 formula OK
-  - `=IF(AND(R[0]C4>IF(R[0]C6=1,R565C[0],R566C[0]),R[0]C4<R567C[0]),R[0]C4,R[0]C5)`
+  - `=IF(AND(R[0]C4>IF(R[0]C6=1,R884C[0],R885C[0]),R[0]C4<R886C[0]),R[0]C4,R[0]C5)`
 - power `cfu` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=CFUSED(R[0]C4,R[0]C5,IF(R[0]C6=1,R565C[0],R566C[0]),R567C[0])`
+  - `=CFUSED(R[0]C4,R[0]C5,IF(R[0]C6=1,R884C[0],R885C[0]),R886C[0])`
 - power `cfu` column D: 9 cells, 1 formula OK
 - power `cfu` column E: 9 cells, 1 formula OK
 - power `cfu` column F: 9 cells, 1 formula OK
 - power `cfu` column G: 9 cells, 1 formula OK
 - power `nuu` 2022-2040: 171 cells, 1 formula OK
-  - `=IF(R[0]C4<R564C[0],R[0]C5,R[0]C4)`
+  - `=IF(R[0]C4<R883C[0],R[0]C5,R[0]C4)`
 - power `nuu` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=EFFUSED(R[0]C4,R[0]C5,R564C[0])`
+  - `=EFFUSED(R[0]C4,R[0]C5,R883C[0])`
 - power `nuu` column D: 9 cells, 1 formula OK
 - power `nuu` column E: 9 cells, 1 formula OK
 - power `nuu` column F: 9 cells, 1 formula OK
 - power `nuu` column G: 9 cells, 1 formula OK
 - power `wsel` 2022-2040: 19 cells, 1 formula OK
-  - `=IF(LEFT(R568C[0],7)="Country","C",IF(R568C[0]="Tech","T",""))`
+  - `=IF(LEFT(R887C[0],7)="Country","C",IF(R887C[0]="Tech","T",""))`
 - power `wsel` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=WACCCODE(R568C[0])`
+  - `=WACCCODE(R887C[0])`
 - power `wsel` column D: 1 cells, 1 formula OK
 - power `wsel` column E: 1 cells, 1 formula OK
 - power `wsel` column F: 1 cells, 1 formula OK
 - power `wsel` column G: 1 cells, 1 formula OK
 - power `wfx` 2022-2040: 19 cells, 1 formula OK
-  - `=IF(R568C[0]="User",R569C[0],IF(LEFT(R568C[0],6)="Income",PsIncWacc,""))`
+  - `=IF(R887C[0]="User",R888C[0],IF(LEFT(R887C[0],6)="Income",PsIncWacc,""))`
 - power `wfx` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=WACCFIXED(R568C[0],R569C[0])`
+  - `=WACCFIXED(R887C[0],R888C[0])`
 - power `wfx` column D: 1 cells, 1 formula OK
 - power `wfx` column E: 1 cells, 1 formula OK
 - power `wfx` column F: 1 cells, 1 formula OK
 - power `wfx` column G: 1 cells, 1 formula OK
 - power `wac` 2022-2040: 171 cells, 1 formula OK
-  - `=IF(R1179C[0]="C",R[0]C4,IF(R1179C[0]="T",R[0]C5,MAX(IF(R1181C[0]="",R[0]C6,R1181C[0]),R570C[0])))`
+  - `=IF(R1486C[0]="C",R[0]C4,IF(R1486C[0]="T",R[0]C5,MAX(IF(R1488C[0]="",R[0]C6,R1488C[0]),R889C[0])))`
 - power `wac` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=WACCUSED(R1179C[0],R[0]C4,R[0]C5,R[0]C6,R1181C[0],R570C[0])`
+  - `=WACCUSED(R1486C[0],R[0]C4,R[0]C5,R[0]C6,R1488C[0],R889C[0])`
 - power `wac` column D: 9 cells, 1 formula OK
 - power `wac` column E: 9 cells, 1 formula OK
 - power `wac` column F: 9 cells, 1 formula OK
@@ -597,9 +579,9 @@
 - power `dlf` column F: 9 cells, 1 formula OK
 - power `dlf` column G: 9 cells, 1 formula OK
 - power `dlfr` 2022-2040: 19 cells, 1 formula OK
-  - `=AVERAGE(R1199C[0],R1200C[0])`
+  - `=AVERAGE(R1506C[0],R1507C[0])`
 - power `dlfr` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=PAIRMEAN(R1199C[0],R1200C[0])`
+  - `=PAIRMEAN(R1506C[0],R1507C[0])`
 - power `dlfr` column D: 1 cells, 1 formula OK
 - power `dlfr` column E: 1 cells, 1 formula OK
 - power `dlfr` column F: 1 cells, 1 formula OK
@@ -621,143 +603,143 @@
 - power `cap0` column F: 9 cells, 1 formula OK
 - power `cap0` column G: 9 cells, 1 formula OK
 - power `invs` 2022-2040: 171 cells, 1 formula OK
-  - `=INDEX(R599C[0]:R607C[0],R[0]C4)`
+  - `=INDEX(R918C[0]:R926C[0],R[0]C4)`
 - power `invs` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=PICKTYPE(R599C[0]:R607C[0],R[0]C4)`
+  - `=PICKTYPE(R918C[0]:R926C[0],R[0]C4)`
 - power `invs` column D: 9 cells, 1 formula OK
 - power `invs` column E: 9 cells, 1 formula OK
 - power `invs` column F: 9 cells, 1 formula OK
 - power `invs` column G: 9 cells, 1 formula OK
 - power `perm` 2022-2040: 171 cells, 1 formula OK
-  - `=IF(R[-11]C[0]="If Present*",IF(R[-22]C[0]/SUM(R1219C[0]:R1227C[0])>InvPresentShare,"Yes","No"),R[-11]C[0])`
+  - `=IF(R[-11]C[0]="If Present*",IF(R[-22]C[0]/SUM(R1526C[0]:R1534C[0])>InvPresentShare,"Yes","No"),R[-11]C[0])`
 - power `perm` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=INVPRESENT(R[-11]C[0],R[-22]C[0],R1219C[0]:R1227C[0])`
+  - `=INVPRESENT(R[-11]C[0],R[-22]C[0],R1526C[0]:R1534C[0])`
 - power `perm` column D: 9 cells, 1 formula OK
 - power `perm` column E: 9 cells, 1 formula OK
 - power `perm` column F: 9 cells, 1 formula OK
 - power `perm` column G: 9 cells, 1 formula OK
 - power `start` 2022-2040: 171 cells, 1 formula OK
-  - `=IF(AND(R[0]C5=1,R[0]C6>HydInvShare),BaseYr,INDEX(R608C[0]:R616C[0],R[0]C4))`
+  - `=IF(AND(R[0]C5=1,R[0]C6>HydInvShare),BaseYr,INDEX(R927C[0]:R935C[0],R[0]C4))`
 - power `start` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=INVSTART(R[0]C5,R[0]C6,INDEX(R608C[0]:R616C[0],R[0]C4))`
+  - `=INVSTART(R[0]C5,R[0]C6,INDEX(R927C[0]:R935C[0],R[0]C4))`
 - power `start` column D: 9 cells, 1 formula OK
 - power `start` column E: 9 cells, 1 formula OK
 - power `start` column F: 9 cells, 1 formula OK
 - power `start` column G: 9 cells, 1 formula OK
 - power `scat` 2022-2040: 19 cells, 1 formula OK
-  - `=IFERROR(INDEX(PowScRate,MATCH(R578C[0],PowScCat,0)),0)`
+  - `=IFERROR(INDEX(PowScRate,MATCH(R897C[0],PowScCat,0)),0)`
 - power `scat` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=SCALECAT(R578C[0])`
+  - `=SCALECAT(R897C[0])`
 - power `scat` column D: 1 cells, 1 formula OK
 - power `scat` column E: 1 cells, 1 formula OK
 - power `scat` column F: 1 cells, 1 formula OK
 - power `scat` column G: 1 cells, 1 formula OK
 - power `scv` 2022-2040: 19 cells, 1 formula OK
-  - `=IF(LEFT(R578C[0],4)="Ctry",PsScCtry,IF(R578C[0]="UserDefined",R577C[0],R1262C[0]))`
+  - `=IF(LEFT(R897C[0],4)="Ctry",PsScCtry,IF(R897C[0]="UserDefined",R896C[0],R1569C[0]))`
 - power `scv` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=SCALEVRE(R578C[0],R577C[0],R1262C[0])`
+  - `=SCALEVRE(R897C[0],R896C[0],R1569C[0])`
 - power `scv` column D: 1 cells, 1 formula OK
 - power `scv` column E: 1 cells, 1 formula OK
 - power `scv` column F: 1 cells, 1 formula OK
 - power `scv` column G: 1 cells, 1 formula OK
 - power `rate` 2022-2040: 171 cells, 1 formula OK
-  - `=IF(R[0]C4=1,R575C[0],IF(R[0]C5=1,R1264C[0],R576C[0]))`
+  - `=IF(R[0]C4=1,R894C[0],IF(R[0]C5=1,R1571C[0],R895C[0]))`
 - power `rate` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=SCALETYPE(R[0]C4,R[0]C5,R575C[0],R1264C[0],R576C[0])`
+  - `=SCALETYPE(R[0]C4,R[0]C5,R894C[0],R1571C[0],R895C[0])`
 - power `rate` column D: 9 cells, 1 formula OK
 - power `rate` column E: 9 cells, 1 formula OK
 - power `rate` column F: 9 cells, 1 formula OK
 - power `rate` column G: 9 cells, 1 formula OK
 - power `rr` 2022-2040: 171 cells, 1 formula OK
-  - `=IF(AND(R[0]C5=1,R572C[0]="Yes"),0,R[0]C4)`
+  - `=IF(AND(R[0]C5=1,R891C[0]="Yes"),0,R[0]C4)`
 - power `rr` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=RETIRERATE(R[0]C4,R[0]C5,R572C[0])`
+  - `=RETIRERATE(R[0]C4,R[0]C5,R891C[0])`
 - power `rr` column D: 9 cells, 1 formula OK
 - power `rr` column E: 9 cells, 1 formula OK
 - power `rr` column F: 9 cells, 1 formula OK
 - power `rr` column G: 9 cells, 1 formula OK
 - power `erf` 2022-2040: 19 cells, 1 formula OK
-  - `=IF(AND(R5C[0]=1,R574C[0]<>"Yes"),0,R573C[0])`
+  - `=IF(AND(R5C[0]=1,R893C[0]<>"Yes"),0,R892C[0])`
 - power `erf` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=EARLYFACTOR(R5C[0],R574C[0],R573C[0])`
+  - `=EARLYFACTOR(R5C[0],R893C[0],R892C[0])`
 - power `erf` column D: 1 cells, 1 formula OK
 - power `erf` column E: 1 cells, 1 formula OK
 - power `erf` column F: 1 cells, 1 formula OK
 - power `erf` column G: 1 cells, 1 formula OK
 - power `spot` 2022-2040: 19 cells, 1 formula OK
-  - `=--OR(SpotPow="Yes",LEFT(R563C[0],3)="Yes")`
+  - `=--OR(SpotPow="Yes",LEFT(R882C[0],3)="Yes")`
 - power `spot` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=SPOTSWITCH(R563C[0])`
+  - `=SPOTSWITCH(R882C[0])`
 - power `spot` column D: 1 cells, 1 formula OK
 - power `spot` column E: 1 cells, 1 formula OK
 - power `spot` column F: 1 cells, 1 formula OK
 - power `spot` column G: 1 cells, 1 formula OK
 - power `ctf` 2022-2040: 19 cells, 1 formula OK
-  - `=IF(R571C[0]="High","hgh",IF(LEFT(R571C[0],1)="V","vhg",LOWER(LEFT(R571C[0],3))))`
+  - `=IF(R890C[0]="High","hgh",IF(LEFT(R890C[0],1)="V","vhg",LOWER(LEFT(R890C[0],3))))`
 - power `ctf` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=DECLINECODE(R571C[0])`
+  - `=DECLINECODE(R890C[0])`
 - power `ctf` column D: 1 cells, 1 formula OK
 - power `ctf` column E: 1 cells, 1 formula OK
 - power `ctf` column F: 1 cells, 1 formula OK
 - power `ctf` column G: 1 cells, 1 formula OK
 - power `stm` 2022-2040: 19 cells, 1 formula OK
-  - `=R579C[0]*(StMargFactor*R580C[0])`
+  - `=R898C[0]*(StMargFactor*R899C[0])`
 - power `stm` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=SCALEBY(R579C[0],StMargFactor*R580C[0])`
+  - `=SCALEBY(R898C[0],StMargFactor*R899C[0])`
 - power `stm` column D: 1 cells, 1 formula OK
 - power `stm` column E: 1 cells, 1 formula OK
 - power `stm` column F: 1 cells, 1 formula OK
 - power `stm` column G: 1 cells, 1 formula OK
 - power `ltu` 2022-2040: 19 cells, 1 formula OK
-  - `=R582C[0]*R584C[0]`
+  - `=R901C[0]*R903C[0]`
 - power `ltu` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=SCALEBY(R582C[0],R584C[0])`
+  - `=SCALEBY(R901C[0],R903C[0])`
 - power `ltu` column D: 1 cells, 1 formula OK
 - power `ltu` column E: 1 cells, 1 formula OK
 - power `ltu` column F: 1 cells, 1 formula OK
 - power `ltu` column G: 1 cells, 1 formula OK
 - power `ppa` 2022-2040: 19 cells, 1 formula OK
-  - `=R586C[0]*IF(LEFT(IF(R5C[0]=1,R587C[0],R588C[0]),3)="Yes",MAX(0,1-MAX(0,R1C[0]-R589C[0])/R590C[0]),1)`
+  - `=R905C[0]*IF(LEFT(IF(R5C[0]=1,R906C[0],R907C[0]),3)="Yes",MAX(0,1-MAX(0,R1C[0]-R908C[0])/R909C[0]),1)`
 - power `ppa` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=PPASHARE(R586C[0],R5C[0],R587C[0],R588C[0],R1C[0],R589C[0],R590C[0])`
+  - `=PPASHARE(R905C[0],R5C[0],R906C[0],R907C[0],R1C[0],R908C[0],R909C[0])`
 - power `ppa` column D: 1 cells, 1 formula OK
 - power `ppa` column E: 1 cells, 1 formula OK
 - power `ppa` column F: 1 cells, 1 formula OK
 - power `ppa` column G: 1 cells, 1 formula OK
 - power `rnsp` 2022-2040: 19 cells, 1 formula OK
-  - `=-(R591C[0]+IF(AND(R5C[0]>1,R1C[0]>=R594C[0]),R592C[0]*MAX(0,1-(R1C[0]-R594C[0])/R593C[0]),0))*R8C[0]`
+  - `=-(R910C[0]+IF(AND(R5C[0]>1,R1C[0]>=R913C[0]),R911C[0]*MAX(0,1-(R1C[0]-R913C[0])/R912C[0]),0))*R8C[0]`
 - power `rnsp` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=RENSUBSIDY(R591C[0],R592C[0],R5C[0],R1C[0],R594C[0],R593C[0],R8C[0])`
+  - `=RENSUBSIDY(R910C[0],R911C[0],R5C[0],R1C[0],R913C[0],R912C[0],R8C[0])`
 - power `rnsp` column D: 1 cells, 1 formula OK
 - power `rnsp` column E: 1 cells, 1 formula OK
 - power `rnsp` column F: 1 cells, 1 formula OK
 - power `rnsp` column G: 1 cells, 1 formula OK
 - power `rns` 2022-2040: 171 cells, 1 formula OK
-  - `=R1300C[0]*IF(R[0]C4=1,1,R[0]C5*(LEFT(R595C[0],3)="Yes"))`
+  - `=R1607C[0]*IF(R[0]C4=1,1,R[0]C5*(LEFT(R914C[0],3)="Yes"))`
 - power `rns` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=RENBYTYPE(R1300C[0],R[0]C4,R[0]C5,R595C[0])`
+  - `=RENBYTYPE(R1607C[0],R[0]C4,R[0]C5,R914C[0])`
 - power `rns` column D: 9 cells, 1 formula OK
 - power `rns` column E: 9 cells, 1 formula OK
 - power `rns` column F: 9 cells, 1 formula OK
 - power `rns` column G: 9 cells, 1 formula OK
 - power `rbs` 2022-2040: 19 cells, 1 formula OK
-  - `=--AND(R5C[0]>1,OR(LEFT(R555C[0],3)="Yes",IF(R286C[0]=0,FALSE,INDEX(ScnReb,R286C[0])="Yes")))`
+  - `=--AND(R5C[0]>1,OR(LEFT(R874C[0],3)="Yes",IF(R607C[0]=0,FALSE,INDEX(ScnReb,R607C[0])="Yes")))`
 - power `rbs` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=REBATESWITCH(R5C[0],R555C[0],R286C[0])`
+  - `=REBATESWITCH(R5C[0],R874C[0],R607C[0])`
 - power `rbs` column D: 1 cells, 1 formula OK
 - power `rbs` column E: 1 cells, 1 formula OK
 - power `rbs` column F: 1 cells, 1 formula OK
 - power `rbs` column G: 1 cells, 1 formula OK
 - power `exs` 2022-2040: 19 cells, 1 formula OK
-  - `=IF(OR(R5C[0]=1,R286C[0]=0),0,--(INDEX(ScnElx,R286C[0])="Yes"))*PwGInt*R619C[0]`
+  - `=IF(OR(R5C[0]=1,R607C[0]=0),0,--(INDEX(ScnElx,R607C[0])="Yes"))*PwGInt*R938C[0]`
 - power `exs` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=EXCISECARBON(R5C[0],R286C[0],R619C[0])`
+  - `=EXCISECARBON(R5C[0],R607C[0],R938C[0])`
 - power `exs` column D: 1 cells, 1 formula OK
 - power `exs` column E: 1 cells, 1 formula OK
 - power `exs` column F: 1 cells, 1 formula OK
 - power `exs` column G: 1 cells, 1 formula OK
 - power `tcf` 2022-2041 (data, sum or look-ahead: one formula): 180 cells, 1 formula OK
-  - `=INDEX(PPathVal,MATCH(CtryCode&"|"&R[0]C4&"|"&R1292C[0],PPathKey,0),MATCH(R1C[0],PPathYear,0))`
+  - `=INDEX(PPathVal,MATCH(CtryCode&"|"&R[0]C4&"|"&R1599C[0],PPathKey,0),MATCH(R1C[0],PPathYear,0))`
 - power `tcf` column D: 9 cells, 1 formula OK
 - power `tcf` column E: 9 cells, 1 formula OK
 - power `tcf` column F: 9 cells, 1 formula OK
@@ -805,9 +787,9 @@
 - power `elov` column F: 1 cells, 1 formula OK
 - power `elov` column G: 1 cells, 1 formula OK
 - power `cel` 2022-2040: 19 cells, 1 formula OK
-  - `=(R1339C[0]+R1342C[0]*R585C[0])/(R1205C[0]*HoursYr)+R1345C[0]/HoursYr+R1348C[0]`
+  - `=(R1646C[0]+R1649C[0]*R904C[0])/(R1512C[0]*HoursYr)+R1652C[0]/HoursYr+R1655C[0]`
 - power `cel` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=LTSTORAGE(R1339C[0],R1342C[0],R585C[0],R1205C[0],R1345C[0],R1348C[0])`
+  - `=LTSTORAGE(R1646C[0],R1649C[0],R904C[0],R1512C[0],R1652C[0],R1655C[0])`
 - power `cel` column D: 1 cells, 1 formula OK
 - power `cel` column E: 1 cells, 1 formula OK
 - power `cel` column F: 1 cells, 1 formula OK
@@ -819,9 +801,9 @@
 - power `incp` column F: 1 cells, 1 formula OK
 - power `incp` column G: 1 cells, 1 formula OK
 - power `incf` 2022-2040: 19 cells, 1 formula OK
-  - `=IF(LEFT(R553C[0],3)="Yes",R1353C[0],1)`
+  - `=IF(LEFT(R872C[0],3)="Yes",R1660C[0],1)`
 - power `incf` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=INCOMESWITCH(R553C[0],R1353C[0])`
+  - `=INCOMESWITCH(R872C[0],R1660C[0])`
 - power `incf` column D: 1 cells, 1 formula OK
 - power `incf` column E: 1 cells, 1 formula OK
 - power `incf` column F: 1 cells, 1 formula OK
@@ -843,19 +825,19 @@
 - power `caxav` base year: 9 cells, 1 formula OK
   - `=R[-11]C[0]`
 - power `caxav` 2023-2040: 162 cells, 1 formula OK
-  - `=R[0]C[-1]*(1-R[652]C[-1])+R[-11]C[-1]*R[652]C[-1]`
+  - `=R[0]C[-1]*(1-R[788]C[-1])+R[-11]C[-1]*R[788]C[-1]`
 - power `caxav` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=VINTAGE(R[0]C[-1],R[-11]C[-1],R[652]C[-1])`
+  - `=VINTAGE(R[0]C[-1],R[-11]C[-1],R[788]C[-1])`
 - power `caxav` column D: 9 cells, 1 formula OK
 - power `caxav` column E: 9 cells, 1 formula OK
 - power `caxav` column F: 9 cells, 1 formula OK
 - power `caxav` column G: 9 cells, 1 formula OK
 - power `stoav` base year: 9 cells, 1 formula OK
-  - `=R[0]C4*R1806C[0]`
+  - `=R[0]C4*R2249C[0]`
 - power `stoav` 2023-2040: 162 cells, 1 formula OK
-  - `=R[0]C[-1]*(1-R[641]C[-1])+R[0]C4*R1806C[0]*R[641]C[-1]`
+  - `=R[0]C[-1]*(1-R[777]C[-1])+R[0]C4*R2249C[0]*R[777]C[-1]`
 - power `stoav` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=VINTAGE(R[0]C[-1],R[0]C4*R1806C[0],R[641]C[-1])`
+  - `=VINTAGE(R[0]C[-1],R[0]C4*R2249C[0],R[777]C[-1])`
 - power `stoav` column D: 9 cells, 1 formula OK
 - power `stoav` column E: 9 cells, 1 formula OK
 - power `stoav` column F: 9 cells, 1 formula OK
@@ -869,81 +851,81 @@
 - power `fix` column F: 9 cells, 1 formula OK
 - power `fix` column G: 9 cells, 1 formula OK
 - power `lfx` 2022-2040: 171 cells, 1 formula OK
-  - `=(R[-45]C[0]+R[0]C4)/(R[-249]C[0]*HoursYr*R[-212]C[0])+R[0]C5/(R[-249]C[0]*HoursYr)+R[-104]C[0]+R[0]C6*R1806C[0]`
+  - `=(R[-45]C[0]+R[0]C4)/(R[-249]C[0]*HoursYr*R[-212]C[0])+R[0]C5/(R[-249]C[0]*HoursYr)+R[-104]C[0]+R[0]C6*R2249C[0]`
 - power `lfx` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=LEVELISED(R[-45]C[0],R[0]C4,R[-249]C[0],R[-212]C[0],R[0]C5,R[-104]C[0],R[0]C6,R1806C[0])`
+  - `=LEVELISED(R[-45]C[0],R[0]C4,R[-249]C[0],R[-212]C[0],R[0]C5,R[-104]C[0],R[0]C6,R2249C[0])`
 - power `lfx` column D: 9 cells, 1 formula OK
 - power `lfx` column E: 9 cells, 1 formula OK
 - power `lfx` column F: 9 cells, 1 formula OK
 - power `lfx` column G: 9 cells, 1 formula OK
 - power `cics` 2022-2040: 19 cells, 1 formula OK
-  - `=IF(LEFT(R596C[0],1)="N",0,IF(R596C[0]="Manual",R597C[0],CoalICSTc))`
+  - `=IF(LEFT(R915C[0],1)="N",0,IF(R915C[0]="Manual",R916C[0],CoalICSTc))`
 - power `cics` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=COALICPICK(R596C[0],R597C[0],CoalICSTc)`
+  - `=COALICPICK(R915C[0],R916C[0],CoalICSTc)`
 - power `cics` column D: 1 cells, 1 formula OK
 - power `cics` column E: 1 cells, 1 formula OK
 - power `cics` column F: 1 cells, 1 formula OK
 - power `cics` column G: 1 cells, 1 formula OK
 - power `cicl` 2022-2040: 19 cells, 1 formula OK
-  - `=IF(LEFT(R596C[0],1)="N",0,IF(R596C[0]="Manual",R598C[0],CoalICLTc))`
+  - `=IF(LEFT(R915C[0],1)="N",0,IF(R915C[0]="Manual",R917C[0],CoalICLTc))`
 - power `cicl` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=COALICPICK(R596C[0],R598C[0],CoalICLTc)`
+  - `=COALICPICK(R915C[0],R917C[0],CoalICLTc)`
 - power `cicl` column D: 1 cells, 1 formula OK
 - power `cicl` column E: 1 cells, 1 formula OK
 - power `cicl` column F: 1 cells, 1 formula OK
 - power `cicl` column G: 1 cells, 1 formula OK
 - power `cic` 2022-2040: 19 cells, 1 formula OK
-  - `=R1418C[0]+(R1420C[0]-R1418C[0])*MIN(1,(R1C[0]-BaseYr)/(CoalICYr-BaseYr))`
+  - `=R1725C[0]+(R1727C[0]-R1725C[0])*MIN(1,(R1C[0]-BaseYr)/(CoalICYr-BaseYr))`
 - power `cic` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=COALIC(R1418C[0],R1420C[0],R1C[0])`
+  - `=COALIC(R1725C[0],R1727C[0],R1C[0])`
 - power `cic` column D: 1 cells, 1 formula OK
 - power `cic` column E: 1 cells, 1 formula OK
 - power `cic` column F: 1 cells, 1 formula OK
 - power `cic` column G: 1 cells, 1 formula OK
 - power `fpn` 2022-2040: 171 cells, 1 formula OK
-  - `=INDEX(R660C[0]:R982C[0],R[0]C4)`
+  - `=INDEX(R979C[0]:R1290C[0],R[0]C4)`
 - power `fpn` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=BLOCKPRICE(INDEX(R660C[0]:R982C[0],R[0]C4))`
+  - `=BLOCKPRICE(INDEX(R979C[0]:R1290C[0],R[0]C4))`
 - power `fpn` column D: 9 cells, 1 formula OK
 - power `fpn` column E: 9 cells, 1 formula OK
 - power `fpn` column F: 9 cells, 1 formula OK
 - power `fpn` column G: 9 cells, 1 formula OK
 - power `fpp` 2022-2040: 171 cells, 1 formula OK
-  - `=IF(R1290C[0]=1,R[-11]C[0],AVERAGE(INDEX(R[-11]C1:R[-11]C[0],COLUMN()-MIN(R1C[0]-BaseYr,PwAvgLag)):R[-11]C[0]))`
+  - `=IF(R1597C[0]=1,R[-11]C[0],AVERAGE(INDEX(R[-11]C1:R[-11]C[0],COLUMN()-MIN(R1C[0]-BaseYr,PwAvgLag)):R[-11]C[0]))`
 - power `fpp` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=POWFUELPRICE(R1290C[0],R[-11]C[0],INDEX(R[-11]C1:R[-11]C[0],COLUMN()-MIN(R1C[0]-BaseYr,PwAvgLag)):R[-11]C[0])`
+  - `=POWFUELPRICE(R1597C[0],R[-11]C[0],INDEX(R[-11]C1:R[-11]C[0],COLUMN()-MIN(R1C[0]-BaseYr,PwAvgLag)):R[-11]C[0])`
 - power `fpp` column D: 9 cells, 1 formula OK
 - power `fpp` column E: 9 cells, 1 formula OK
 - power `fpp` column F: 9 cells, 1 formula OK
 - power `fpp` column G: 9 cells, 1 formula OK
 - power `xck` 2022-2040: 171 cells, 1 formula OK
-  - `=R[0]C4*R[-239]C[0]*(INDEX(XCTVal,R[0]C5,R410C[0])*R411C[0]+INDEX(XETSVal,R[0]C5,R410C[0])*R412C[0]-R[0]C6)`
+  - `=R[0]C4*R[-239]C[0]*(INDEX(XCTVal,R[0]C5,R731C[0])*R732C[0]+INDEX(XETSVal,R[0]C5,R731C[0])*R733C[0]-R[0]C6)`
 - power `xck` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=XCARBON(R[0]C4*R[-239]C[0],INDEX(XCTVal,R[0]C5,R410C[0]),R411C[0],INDEX(XETSVal,R[0]C5,R410C[0]),R412C[0],R[0]C6)`
+  - `=XCARBON(R[0]C4*R[-239]C[0],INDEX(XCTVal,R[0]C5,R731C[0]),R732C[0],INDEX(XETSVal,R[0]C5,R731C[0]),R733C[0],R[0]C6)`
 - power `xck` column D: 9 cells, 1 formula OK
 - power `xck` column E: 9 cells, 1 formula OK
 - power `xck` column F: 9 cells, 1 formula OK
 - power `xck` column G: 9 cells, 1 formula OK
 - power `vbc` 2022-2040: 171 cells, 1 formula OK
-  - `=R[0]C4+R[-22]C[0]*R[-250]C[0]+R[-11]C[0]+(R[0]C2="coa")*R1422C[0]`
+  - `=R[0]C4+R[-22]C[0]*R[-250]C[0]+R[-11]C[0]+(R[0]C2="coa")*R1729C[0]`
 - power `vbc` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=VARCOST(R[0]C4,R[-22]C[0],R[-250]C[0],R[-11]C[0]+(R[0]C2="coa")*R1422C[0])`
+  - `=VARCOST(R[0]C4,R[-22]C[0],R[-250]C[0],R[-11]C[0]+(R[0]C2="coa")*R1729C[0])`
 - power `vbc` column D: 9 cells, 1 formula OK
 - power `vbc` column E: 9 cells, 1 formula OK
 - power `vbc` column F: 9 cells, 1 formula OK
 - power `vbc` column G: 9 cells, 1 formula OK
 - power `ccp` 2022-2040: 171 cells, 1 formula OK
-  - `=R[0]C4*R[-261]C[0]*(R348C[0]*INDEX(R36C[0]:R44C[0],R[0]C5)+R365C[0])+INDEX(R98C[0]:R111C[0],R[0]C6)*R[-261]C[0]/R[0]C7`
+  - `=R[0]C4*R[-261]C[0]*(R669C[0]*INDEX(R36C[0]:R44C[0],R[0]C5)+R686C[0])+INDEX(R419C[0]:R432C[0],R[0]C6)*R[-261]C[0]/R[0]C7`
 - power `ccp` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=KWHPOLICY(R[0]C4*R[-261]C[0],R348C[0],INDEX(R36C[0]:R44C[0],R[0]C5),R365C[0],INDEX(R98C[0]:R111C[0],R[0]C6),R[-261]C[0]/R[0]C7)`
+  - `=KWHPOLICY(R[0]C4*R[-261]C[0],R669C[0],INDEX(R36C[0]:R44C[0],R[0]C5),R686C[0],INDEX(R419C[0]:R432C[0],R[0]C6),R[-261]C[0]/R[0]C7)`
 - power `ccp` column D: 9 cells, 1 formula OK
 - power `ccp` column E: 9 cells, 1 formula OK
 - power `ccp` column F: 9 cells, 1 formula OK
 - power `ccp` column G: 9 cells, 1 formula OK
 - power `shk` 2022-2040: 171 cells, 1 formula OK
-  - `=R385C[0]*R[0]C4*R[-272]C[0]`
+  - `=R706C[0]*R[0]C4*R[-272]C[0]`
 - power `shk` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=SHADOWGJ(R385C[0],R[0]C4*R[-272]C[0])`
+  - `=SHADOWGJ(R706C[0],R[0]C4*R[-272]C[0])`
 - power `shk` column D: 9 cells, 1 formula OK
 - power `shk` column E: 9 cells, 1 formula OK
 - power `shk` column F: 9 cells, 1 formula OK
@@ -951,17 +933,17 @@
 - power `reb` base year: 1 cells, 1 formula OK
   - `=0`
 - power `reb` 2023-2040: 18 cells, 1 formula OK
-  - `=-SUMPRODUCT(R1480C[0]:R1488C[0],R1480C5:R1488C5)`
+  - `=-SUMPRODUCT(R1787C[0]:R1795C[0],R1787C5:R1795C5)`
 - power `reb` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=REBATE(R1480C[0]:R1488C[0],R1480C5:R1488C5)`
+  - `=REBATE(R1787C[0]:R1795C[0],R1787C5:R1795C5)`
 - power `reb` column D: 1 cells, 1 formula OK
 - power `reb` column E: 1 cells, 1 formula OK
 - power `reb` column F: 1 cells, 1 formula OK
 - power `reb` column G: 1 cells, 1 formula OK
 - power `tvc` 2022-2040: 171 cells, 1 formula OK
-  - `=R[-35]C[0]+R[-24]C[0]+R[-13]C[0]+R1490C[0]`
+  - `=R[-35]C[0]+R[-24]C[0]+R[-13]C[0]+R1797C[0]`
 - power `tvc` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=VARTOTAL(R[-35]C[0],R[-24]C[0],R[-13]C[0],R1490C[0])`
+  - `=VARTOTAL(R[-35]C[0],R[-24]C[0],R[-13]C[0],R1797C[0])`
 - power `tvc` column D: 9 cells, 1 formula OK
 - power `tvc` column E: 9 cells, 1 formula OK
 - power `tvc` column F: 9 cells, 1 formula OK
@@ -985,33 +967,33 @@
 - power `lvc` column F: 9 cells, 1 formula OK
 - power `lvc` column G: 9 cells, 1 formula OK
 - power `gnc` 2022-2040: 171 cells, 1 formula OK
-  - `=R[-143]C[0]+R[-80]C[0]-IF(PwCoalICTariff="No",(R[0]C2="coa")*R1422C[0],0)`
+  - `=R[-143]C[0]+R[-80]C[0]-IF(PwCoalICTariff="No",(R[0]C2="coa")*R1729C[0],0)`
 - power `gnc` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=GENCOSTIC(R[-143]C[0],R[-80]C[0],(R[0]C2="coa")*R1422C[0])`
+  - `=GENCOSTIC(R[-143]C[0],R[-80]C[0],(R[0]C2="coa")*R1729C[0])`
 - power `gnc` column D: 9 cells, 1 formula OK
 - power `gnc` column E: 9 cells, 1 formula OK
 - power `gnc` column F: 9 cells, 1 formula OK
 - power `gnc` column G: 9 cells, 1 formula OK
 - power `gncav` 2022-2040: 19 cells, 1 formula OK
-  - `=SUMPRODUCT(R1768C[0]:R1776C[0],R1538C[0]:R1546C[0])*R[0]C4`
+  - `=SUMPRODUCT(R2211C[0]:R2219C[0],R1845C[0]:R1853C[0])*R[0]C4`
 - power `gncav` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=WEIGHTED(R1768C[0]:R1776C[0],R1538C[0]:R1546C[0],R[0]C4)`
+  - `=WEIGHTED(R2211C[0]:R2219C[0],R1845C[0]:R1853C[0],R[0]C4)`
 - power `gncav` column D: 1 cells, 1 formula OK
 - power `gncav` column E: 1 cells, 1 formula OK
 - power `gncav` column F: 1 cells, 1 formula OK
 - power `gncav` column G: 1 cells, 1 formula OK
 - power `ccpav` 2022-2040: 19 cells, 1 formula OK
-  - `=SUMPRODUCT(R1768C[0]:R1776C[0],R1469C[0]:R1477C[0])*R[0]C4`
+  - `=SUMPRODUCT(R2211C[0]:R2219C[0],R1776C[0]:R1784C[0])*R[0]C4`
 - power `ccpav` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=WEIGHTED(R1768C[0]:R1776C[0],R1469C[0]:R1477C[0],R[0]C4)`
+  - `=WEIGHTED(R2211C[0]:R2219C[0],R1776C[0]:R1784C[0],R[0]C4)`
 - power `ccpav` column D: 1 cells, 1 formula OK
 - power `ccpav` column E: 1 cells, 1 formula OK
 - power `ccpav` column F: 1 cells, 1 formula OK
 - power `ccpav` column G: 1 cells, 1 formula OK
 - power `tic` 2022-2040: 171 cells, 1 formula OK
-  - `=MAX(R[-148]C[0]+R[-29]C[0],R560C[0])`
+  - `=MAX(R[-148]C[0]+R[-29]C[0],R879C[0])`
 - power `tic` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=INVCOST(R[-148]C[0],R[-29]C[0],R560C[0])`
+  - `=INVCOST(R[-148]C[0],R[-29]C[0],R879C[0])`
 - power `tic` column D: 9 cells, 1 formula OK
 - power `tic` column E: 9 cells, 1 formula OK
 - power `tic` column F: 9 cells, 1 formula OK
@@ -1033,45 +1015,117 @@
 - power `cik` column F: 9 cells, 1 formula OK
 - power `cik` column G: 9 cells, 1 formula OK
 - power `swi` 2022-2040: 19 cells, 1 formula OK
-  - `=IFERROR((R1556C[0]-R1555C[0])/(R1577C[0]-R1578C[0]),0)`
+  - `=IFERROR((R1863C[0]-R1862C[0])/(R1884C[0]-R1885C[0]),0)`
 - power `swi` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=SWITCHPRICE(R1556C[0],R1555C[0],R1577C[0],R1578C[0])`
+  - `=SWITCHPRICE(R1863C[0],R1862C[0],R1884C[0],R1885C[0])`
 - power `swi` column D: 1 cells, 1 formula OK
 - power `swi` column E: 1 cells, 1 formula OK
 - power `swi` column F: 1 cells, 1 formula OK
 - power `swi` column G: 1 cells, 1 formula OK
 - power `swd` 2022-2040: 19 cells, 1 formula OK
-  - `=IFERROR((R1494C[0]-R1493C[0])/(R1577C[0]-R1578C[0]),0)`
+  - `=IFERROR((R1801C[0]-R1800C[0])/(R1884C[0]-R1885C[0]),0)`
 - power `swd` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=SWITCHPRICE(R1494C[0],R1493C[0],R1577C[0],R1578C[0])`
+  - `=SWITCHPRICE(R1801C[0],R1800C[0],R1884C[0],R1885C[0])`
 - power `swd` column D: 1 cells, 1 formula OK
 - power `swd` column E: 1 cells, 1 formula OK
 - power `swd` column F: 1 cells, 1 formula OK
 - power `swd` column G: 1 cells, 1 formula OK
+- power `cur` 2022-2040: 171 cells, 1 formula OK
+  - `=MAX(R[-186]C[0]+R[-100]C[0],R879C[0])`
+- power `cur` LAMBDA year 2041: 9 cells, 1 formula OK
+  - `=INVCOST(R[-186]C[0],R[-100]C[0],R879C[0])`
+- power `cur` column D: 9 cells, 1 formula OK
+- power `cur` column E: 9 cells, 1 formula OK
+- power `cur` column F: 9 cells, 1 formula OK
+- power `cur` column G: 9 cells, 1 formula OK
+- power `sys` 2022-2040: 171 cells, 1 formula OK
+  - `=R[0]C4/(R[-446]C[0]*HoursYr*R[-409]C[0])+R[0]C5*R2249C[0]+((R[0]C2="coa")*R1729C[0])`
+- power `sys` LAMBDA year 2041: 9 cells, 1 formula OK
+  - `=SYSCOST(R[0]C4,R[-446]C[0],R[-409]C[0],R[0]C5,R2249C[0],(R[0]C2="coa")*R1729C[0])`
+- power `sys` column D: 9 cells, 1 formula OK
+- power `sys` column E: 9 cells, 1 formula OK
+- power `sys` column F: 9 cells, 1 formula OK
+- power `sys` column G: 9 cells, 1 formula OK
+- power `pcbcap` 2022-2040: 171 cells, 1 formula OK
+  - `=R[-253]C[0]/(R[-457]C[0]*HoursYr*R[-420]C[0])`
+- power `pcbcap` LAMBDA year 2041: 9 cells, 1 formula OK
+  - `=LEVCAPEX(R[-253]C[0],R[-457]C[0],R[-420]C[0])`
+- power `pcbcap` column D: 9 cells, 1 formula OK
+- power `pcbcap` column E: 9 cells, 1 formula OK
+- power `pcbcap` column F: 9 cells, 1 formula OK
+- power `pcbcap` column G: 9 cells, 1 formula OK
+- power `pcbom` 2022-2040: 171 cells, 1 formula OK
+  - `=R[0]C4/(R[-468]C[0]*HoursYr)+R[0]C5`
+- power `pcbom` LAMBDA year 2041: 9 cells, 1 formula OK
+  - `=OMCOST(R[0]C4,R[-468]C[0],R[0]C5)`
+- power `pcbom` column D: 9 cells, 1 formula OK
+- power `pcbom` column E: 9 cells, 1 formula OK
+- power `pcbom` column F: 9 cells, 1 formula OK
+- power `pcbom` column G: 9 cells, 1 formula OK
+- power `pcbfu` 2022-2040: 171 cells, 1 formula OK
+  - `=R[0]C4+R[-201]C[0]*R[-429]C[0]+R[-190]C[0]`
+- power `pcbfu` LAMBDA year 2041: 9 cells, 1 formula OK
+  - `=VARCOST(R[0]C4,R[-201]C[0],R[-429]C[0],R[-190]C[0])`
+- power `pcbfu` column D: 9 cells, 1 formula OK
+- power `pcbfu` column E: 9 cells, 1 formula OK
+- power `pcbfu` column F: 9 cells, 1 formula OK
+- power `pcbfu` column G: 9 cells, 1 formula OK
+- power `pcbcp` 2022-2040: 171 cells, 1 formula OK
+  - `=R[-179]C[0]`
+- power `pcbcp` LAMBDA year 2041: 9 cells, 1 formula OK
+  - `=MEMOOF(R[-179]C[0])`
+- power `pcbcp` column D: 9 cells, 1 formula OK
+- power `pcbcp` column E: 9 cells, 1 formula OK
+- power `pcbcp` column F: 9 cells, 1 formula OK
+- power `pcbcp` column G: 9 cells, 1 formula OK
+- power `pcbrns` 2022-2040: 171 cells, 1 formula OK
+  - `=R[-356]C[0]`
+- power `pcbrns` LAMBDA year 2041: 9 cells, 1 formula OK
+  - `=MEMOOF(R[-356]C[0])`
+- power `pcbrns` column D: 9 cells, 1 formula OK
+- power `pcbrns` column E: 9 cells, 1 formula OK
+- power `pcbrns` column F: 9 cells, 1 formula OK
+- power `pcbrns` column G: 9 cells, 1 formula OK
+- power `pcbchk` 2022-2040: 171 cells, 1 formula OK
+  - `=(R[-55]C[0]+R[-44]C[0]+R[-33]C[0]+R[-66]C[0]+R[-22]C[0]+R[-11]C[0])-R[-77]C[0]`
+- power `pcbchk` LAMBDA year 2041: 9 cells, 1 formula OK
+  - `=DIFF(R[-55]C[0]+R[-44]C[0]+R[-33]C[0]+R[-66]C[0]+R[-22]C[0]+R[-11]C[0],R[-77]C[0])`
+- power `pcbchk` column D: 9 cells, 1 formula OK
+- power `pcbchk` column E: 9 cells, 1 formula OK
+- power `pcbchk` column F: 9 cells, 1 formula OK
+- power `pcbchk` column G: 9 cells, 1 formula OK
+- power `pcbct` 2022-2040: 19 cells, 1 formula OK
+  - `=R938C[0]*((R5C[0]>1)*1)`
+- power `pcbct` LAMBDA year 2041: 1 cells, 1 formula OK
+  - `=SCALEBY(R938C[0],(R5C[0]>1)*1)`
+- power `pcbct` column D: 1 cells, 1 formula OK
+- power `pcbct` column E: 1 cells, 1 formula OK
+- power `pcbct` column F: 1 cells, 1 formula OK
+- power `pcbct` column G: 1 cells, 1 formula OK
 - power `cons` 2022-2040: 38 cells, 1 formula OK
-  - `=(R[0]C4*R1694C[0]+R[0]C5*R1676C[0])*R[0]C6`
+  - `=(R[0]C4*R2137C[0]+R[0]C5*R2119C[0])*R[0]C6`
 - power `cons` LAMBDA year 2041: 2 cells, 1 formula OK
-  - `=CONSUMPTION(R1694C[0],R1676C[0],R[0]C4,R[0]C5,R[0]C6)`
+  - `=CONSUMPTION(R2137C[0],R2119C[0],R[0]C4,R[0]C5,R[0]C6)`
 - power `cons` column D: 2 cells, 1 formula OK
 - power `cons` column E: 2 cells, 1 formula OK
 - power `cons` column F: 2 cells, 1 formula OK
 - power `cons` column G: 2 cells, 1 formula OK
 - power `sc` base year: 2 cells, 1 formula OK
-  - `=R1549C[0]+R[0]C4`
+  - `=R1856C[0]+R[0]C4`
 - power `sc` 2023-2040: 36 cells, 1 formula OK
-  - `=R1549C[-1]+R[0]C4`
+  - `=R1856C[-1]+R[0]C4`
 - power `sc` LAMBDA year 2041: 2 cells, 1 formula OK
-  - `=POWERSUPPLY(R1549C[-1],R[0]C4)`
+  - `=POWERSUPPLY(R1856C[-1],R[0]C4)`
 - power `sc` column D: 2 cells, 1 formula OK
 - power `sc` column E: 2 cells, 1 formula OK
 - power `sc` column F: 2 cells, 1 formula OK
 - power `sc` column G: 2 cells, 1 formula OK
-- power `rppre` history 2022-2022: 2 cells, 1 formula OK
-  - `=INDEX(Inputs!R198C10:R199C13,R[0]C4,MATCH(R1C[0],Inputs!R197C10:R197C13,0))`
-- power `rppre` projection 2023-2040: 36 cells, 1 formula OK
-  - `=R[0]C[-1]+R556C[0]*(R[-4]C[0]-R[-4]C[-1])*(1+R[0]C5)`
+- power `rppre` history 2022-2024: 6 cells, 1 formula OK
+  - `=INDEX(Inputs!R221C10:R222C13,R[0]C4,MATCH(R1C[0],Inputs!R220C10:R220C13,0))`
+- power `rppre` projection 2025-2040: 32 cells, 1 formula OK
+  - `=R[0]C[-1]+R875C[0]*(R[-4]C[0]+R[79]C[0]+R[85]C[0]+R[89]C[0]-(R[-4]C[-1]+R[79]C[-1]+R[85]C[-1]+R[89]C[-1]))*(1+R[0]C5)`
 - power `rppre` LAMBDA year 2041: 2 cells, 1 formula OK
-  - `=POWERPRICE(R1C[0],R[0]C4,R[0]C[-1],R556C[0],R[-4]C[0],R[-4]C[-1],R[0]C5)`
+  - `=POWERPRICE(R1C[0],R[0]C4,R[0]C[-1],R875C[0],R[-4]C[0]+R[79]C[0]+R[85]C[0]+R[89]C[0],R[-4]C[-1]+R[79]C[-1]+R[85]C[-1]+R[89]C[-1],R[0]C5)`
 - power `rppre` column D: 2 cells, 1 formula OK
 - power `rppre` column E: 2 cells, 1 formula OK
 - power `rppre` column F: 2 cells, 1 formula OK
@@ -1083,27 +1137,27 @@
 - power `entxd` column F: 2 cells, 1 formula OK
 - power `entxd` column G: 2 cells, 1 formula OK
 - power `entx` 2022-2040: 38 cells, 1 formula OK
-  - `=IF(R5C[0]>1,IF(LEFT(R557C[0],3)="Yes",R[-4]C[0]*IF(LEFT(R26C[0],4)="Real",1,R9C[0]),0)+R[-1505]C[0],0)`
+  - `=IF(R5C[0]>1,IF(LEFT(R876C[0],3)="Yes",R[-4]C[0]*IF(LEFT(R26C[0],4)="Real",1,R9C[0]),0)+R[-1847]C[0],0)`
 - power `entx` LAMBDA year 2041: 2 cells, 1 formula OK
-  - `=MANEXCISE(R5C[0],R557C[0],R[-4]C[0],R26C[0],R9C[0],R[-1505]C[0])`
+  - `=MANEXCISE(R5C[0],R876C[0],R[-4]C[0],R26C[0],R9C[0],R[-1847]C[0])`
 - power `entx` column D: 2 cells, 1 formula OK
 - power `entx` column E: 2 cells, 1 formula OK
 - power `entx` column F: 2 cells, 1 formula OK
 - power `entx` column G: 2 cells, 1 formula OK
 - power `pex` base year: 2 cells, 1 formula OK
-  - `=R1315C[0]`
+  - `=R1622C[0]`
 - power `pex` 2023-2040: 36 cells, 1 formula OK
-  - `=R1315C[0]+IF(R1C[0]>LastHist,R556C[0]*(R[-4]C[0]-INDEX(R[-4]C1:R[-4]C[-1],R7C[0])),0)`
+  - `=R1622C[0]+IF(R1C[0]>LastHist,R875C[0]*(R[-4]C[0]-INDEX(R[-4]C1:R[-4]C[-1],R7C[0])),0)`
 - power `pex` LAMBDA year 2041: 2 cells, 1 formula OK
-  - `=EXCISEPRICE(R1315C[0],R1C[0]>LastHist,R556C[0],R[-4]C[0],INDEX(R[-4]C1:R[-4]C[-1],R7C[0]))`
+  - `=EXCISEPRICE(R1622C[0],R1C[0]>LastHist,R875C[0],R[-4]C[0],INDEX(R[-4]C1:R[-4]C[-1],R7C[0]))`
 - power `pex` column D: 2 cells, 1 formula OK
 - power `pex` column E: 2 cells, 1 formula OK
 - power `pex` column F: 2 cells, 1 formula OK
 - power `pex` column G: 2 cells, 1 formula OK
 - power `rp` 2022-2040: 38 cells, 1 formula OK
-  - `=MAX(R[-16]C[0]+(R1552C[0]*R556C[0]*(1-R1313C[0])+R[-4]C[0])*(1+R[0]C4),R560C[0])`
+  - `=MAX(R[-16]C[0]+(R1859C[0]*R875C[0]*(1-R1620C[0])+R[-4]C[0])*(1+R[0]C4),R879C[0])`
 - power `rp` LAMBDA year 2041: 2 cells, 1 formula OK
-  - `=ENDUSERPOWER(R[-16]C[0],R1552C[0],R556C[0],R[0]C4,R1313C[0],R[-4]C[0],R560C[0])`
+  - `=ENDUSERPOWER(R[-16]C[0],R1859C[0],R875C[0],R[0]C4,R1620C[0],R[-4]C[0],R879C[0])`
 - power `rp` column D: 2 cells, 1 formula OK
 - power `rp` column E: 2 cells, 1 formula OK
 - power `rp` column F: 2 cells, 1 formula OK
@@ -1117,25 +1171,25 @@
 - power `sgap` column F: 2 cells, 1 formula OK
 - power `sgap` column G: 2 cells, 1 formula OK
 - power `rcarb` 2022-2040: 38 cells, 1 formula OK
-  - `=R1552C[0]*R[0]C4*R[-32]C[0]`
+  - `=R1859C[0]*R[0]C4*R[-32]C[0]`
 - power `rcarb` LAMBDA year 2041: 2 cells, 1 formula OK
-  - `=POWERREV(R1552C[0],R[0]C4,R[-32]C[0])`
+  - `=POWERREV(R1859C[0],R[0]C4,R[-32]C[0])`
 - power `rcarb` column D: 2 cells, 1 formula OK
 - power `rcarb` column E: 2 cells, 1 formula OK
 - power `rcarb` column F: 2 cells, 1 formula OK
 - power `rcarb` column G: 2 cells, 1 formula OK
 - power `rexs` 2022-2040: 19 cells, 1 formula OK
-  - `=R1315C[0]*SUM(R1593C[0]:R1594C[0])`
+  - `=R1622C[0]*SUM(R1991C[0]:R1992C[0])`
 - power `rexs` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=SCALEBY(R1315C[0],SUM(R1593C[0]:R1594C[0]))`
+  - `=SCALEBY(R1622C[0],SUM(R1991C[0]:R1992C[0]))`
 - power `rexs` column D: 1 cells, 1 formula OK
 - power `rexs` column E: 1 cells, 1 formula OK
 - power `rexs` column F: 1 cells, 1 formula OK
 - power `rexs` column G: 1 cells, 1 formula OK
 - power `rexm` 2022-2040: 19 cells, 1 formula OK
-  - `=SUM(R1645C[0]:R1646C[0])-R1628C[0]`
+  - `=SUM(R2043C[0]:R2044C[0])-R2026C[0]`
 - power `rexm` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=DIFF(SUM(R1645C[0]:R1646C[0]),R1628C[0])`
+  - `=DIFF(SUM(R2043C[0]:R2044C[0]),R2026C[0])`
 - power `rexm` column D: 1 cells, 1 formula OK
 - power `rexm` column E: 1 cells, 1 formula OK
 - power `rexm` column F: 1 cells, 1 formula OK
@@ -1149,17 +1203,17 @@
 - power `rvat` column F: 2 cells, 1 formula OK
 - power `rvat` column G: 2 cells, 1 formula OK
 - power `rnvat` 2022-2040: 38 cells, 1 formula OK
-  - `=(R1552C[0]*R556C[0]*(1-R1313C[0])+R[-24]C[0])*R[0]C4*R[-44]C[0]`
+  - `=(R1859C[0]*R875C[0]*(1-R1620C[0])+R[-24]C[0])*R[0]C4*R[-44]C[0]`
 - power `rnvat` LAMBDA year 2041: 2 cells, 1 formula OK
-  - `=POWERREV((R1552C[0]*R556C[0]*(1-R1313C[0])+R[-24]C[0]),R[0]C4,R[-44]C[0])`
+  - `=POWERREV((R1859C[0]*R875C[0]*(1-R1620C[0])+R[-24]C[0]),R[0]C4,R[-44]C[0])`
 - power `rnvat` column D: 2 cells, 1 formula OK
 - power `rnvat` column E: 2 cells, 1 formula OK
 - power `rnvat` column F: 2 cells, 1 formula OK
 - power `rnvat` column G: 2 cells, 1 formula OK
 - power `rreb` 2022-2040: 38 cells, 1 formula OK
-  - `=(-R1313C[0]*R1552C[0])*R556C[0]*R[-48]C[0]`
+  - `=(-R1620C[0]*R1859C[0])*R875C[0]*R[-48]C[0]`
 - power `rreb` LAMBDA year 2041: 2 cells, 1 formula OK
-  - `=POWERREV(-R1313C[0]*R1552C[0],R556C[0],R[-48]C[0])`
+  - `=POWERREV(-R1620C[0]*R1859C[0],R875C[0],R[-48]C[0])`
 - power `rreb` column D: 2 cells, 1 formula OK
 - power `rreb` column E: 2 cells, 1 formula OK
 - power `rreb` column F: 2 cells, 1 formula OK
@@ -1180,20 +1234,114 @@
 - power `rgap` column E: 2 cells, 1 formula OK
 - power `rgap` column F: 2 cells, 1 formula OK
 - power `rgap` column G: 2 cells, 1 formula OK
+- power `rpnv` 2022-2040: 38 cells, 1 formula OK
+  - `=IF(R1C[0]<=LastHist,INDEX(PwRp,R[0]C4,MATCH(R1C[0],PwRpYr,0))/(1+R[0]C5),R[0]C[-1])`
+- power `rpnv` LAMBDA year 2041: 2 cells, 1 formula OK
+  - `=HISTHOLD(R1C[0],INDEX(PwRp,R[0]C4,MATCH(R1C[0],PwRpYr,0))/(1+R[0]C5),R[0]C[-1])`
+- power `rpnv` column D: 2 cells, 1 formula OK
+- power `rpnv` column E: 2 cells, 1 formula OK
+- power `rpnv` column F: 2 cells, 1 formula OK
+- power `rpnv` column G: 2 cells, 1 formula OK
+- power `txg` 2022-2040: 38 cells, 1 formula OK
+  - `=R[-4]C[0]-R[-61]C[0]-R[-49]C[0]`
+- power `txg` LAMBDA year 2041: 2 cells, 1 formula OK
+  - `=PRICEGAP(R[-4]C[0],R[-61]C[0],R[-49]C[0])`
+- power `txg` column D: 2 cells, 1 formula OK
+- power `txg` column E: 2 cells, 1 formula OK
+- power `txg` column F: 2 cells, 1 formula OK
+- power `txg` column G: 2 cells, 1 formula OK
+- power `txe` 2022-2040: 38 cells, 1 formula OK
+  - `=IF(R1C[0]<=LastHist,IFERROR(INDEX(PwTx,R[0]C4,MATCH(R1C[0],PwTxYr,0))+0,R[-4]C[0]*(R867C[0]="Yes")),R[0]C[-1])`
+- power `txe` LAMBDA year 2041: 2 cells, 1 formula OK
+  - `=ELTAXBASE(R1C[0],INDEX(PwTx,R[0]C4,MATCH(R1C[0],PwTxYr,0)),R[-4]C[0],R867C[0],R[0]C[-1])`
+- power `txe` column D: 2 cells, 1 formula OK
+- power `txe` column E: 2 cells, 1 formula OK
+- power `txe` column F: 2 cells, 1 formula OK
+- power `txe` column G: 2 cells, 1 formula OK
+- power `scl` 2022-2040: 38 cells, 1 formula OK
+  - `=IF(R1C[0]<=LastHist,R[-69]C[0],MIN(R[-69]C[0],INDEX(R[0]C1:R[0]C[-1],R7C[0])))`
+- power `scl` LAMBDA year 2041: 2 cells, 1 formula OK
+  - `=CAPLAST(R1C[0],R[-69]C[0],INDEX(R[0]C1:R[0]C[-1],R7C[0]))`
+- power `scl` column D: 2 cells, 1 formula OK
+- power `scl` column E: 2 cells, 1 formula OK
+- power `scl` column F: 2 cells, 1 formula OK
+- power `scl` column G: 2 cells, 1 formula OK
+- power `psegap` 2022-2040: 38 cells, 1 formula OK
+  - `=MAX(0,R[-73]C[0]-(R[-16]C[0]-R[-8]C[0]))*R[-77]C[0]`
+- power `psegap` LAMBDA year 2041: 2 cells, 1 formula OK
+  - `=PREGAP(R[-73]C[0],R[-16]C[0],R[-8]C[0],R[-77]C[0])`
+- power `psegap` column D: 2 cells, 1 formula OK
+- power `psegap` column E: 2 cells, 1 formula OK
+- power `psegap` column F: 2 cells, 1 formula OK
+- power `psegap` column G: 2 cells, 1 formula OK
+- power `psegs` 2022-2041 (data, sum or look-ahead: one formula): 20 cells, 1 formula OK
+  - `=SUM(R2068C[0]:R2069C[0])`
+- power `psegs` column D: 1 cells, 1 formula OK
+- power `psegs` column E: 1 cells, 1 formula OK
+- power `psegs` column F: 1 cells, 1 formula OK
+- power `psegs` column G: 1 cells, 1 formula OK
+- power `psesh` 2022-2040: 38 cells, 1 formula OK
+  - `=IF(R1C[0]<=LastHist,IFERROR(R[-6]C[0]/R2071C[0],IFERROR(R[-83]C[0]/SUM(R1991C[0]:R1992C[0]),1-R[0]C4)),R[0]C[-1])`
+- power `psesh` LAMBDA year 2041: 2 cells, 1 formula OK
+  - `=PSALLOC(R1C[0],R[-6]C[0],R2071C[0],R[-83]C[0],SUM(R1991C[0]:R1992C[0]),1-R[0]C4,R[0]C[-1])`
+- power `psesh` column D: 2 cells, 1 formula OK
+- power `psesh` column E: 2 cells, 1 formula OK
+- power `psesh` column F: 2 cells, 1 formula OK
+- power `psesh` column G: 2 cells, 1 formula OK
+- power `pseu` 2022-2040: 38 cells, 1 formula OK
+  - `=IF(R1C[0]<=LastHist,IFERROR(MAX(PsElFloor,-R832C[0]*R[-4]C[0]/R[-87]C[0]),0),INDEX(R[0]C1:R[0]C[-1],R7C[0])*R827C[0])`
+- power `pseu` LAMBDA year 2041: 2 cells, 1 formula OK
+  - `=PSELEC(R1C[0],R832C[0],R[-4]C[0],R[-87]C[0],INDEX(R[0]C1:R[0]C[-1],R7C[0]),R827C[0])`
+- power `pseu` column D: 2 cells, 1 formula OK
+- power `pseu` column E: 2 cells, 1 formula OK
+- power `pseu` column F: 2 cells, 1 formula OK
+- power `pseu` column G: 2 cells, 1 formula OK
+- power `pser` 2022-2040: 19 cells, 1 formula OK
+  - `=IF(R1C[0]<=LastHist,-R832C[0]-(R1991C[0]*R2078C[0]+R1992C[0]*R2079C[0]),INDEX(R[0]C1:R[0]C[-1],R7C[0])*R827C[0])`
+- power `pser` LAMBDA year 2041: 1 cells, 1 formula OK
+  - `=PSERESID(R1C[0],R832C[0],R1991C[0]*R2078C[0]+R1992C[0]*R2079C[0],INDEX(R[0]C1:R[0]C[-1],R7C[0]),R827C[0])`
+- power `pser` column D: 1 cells, 1 formula OK
+- power `pser` column E: 1 cells, 1 formula OK
+- power `pser` column F: 1 cells, 1 formula OK
+- power `pser` column G: 1 cells, 1 formula OK
+- power `csd` 2022-2040: 38 cells, 1 formula OK
+  - `=IF(AND(R1C[0]>LastHist,R[-24]C[0]<0,R866C[0]="Include"),R[-24]C[0]*(R762C[0]-1),0)`
+- power `csd` LAMBDA year 2041: 2 cells, 1 formula OK
+  - `=CSELEC(R1C[0],R[-24]C[0],R866C[0],R762C[0])`
+- power `csd` column D: 2 cells, 1 formula OK
+- power `csd` column E: 2 cells, 1 formula OK
+- power `csd` column F: 2 cells, 1 formula OK
+- power `csd` column G: 2 cells, 1 formula OK
+- power `ores` 2022-2040: 38 cells, 1 formula OK
+  - `=IF(R1C[0]<=LastHist,R[-32]C[0]-R[-28]C[0]-R[-10]C[0],IF(R[0]C[-1]<0,R[0]C[-1]*R[-24]C[0]/R[-24]C[-1],R[0]C[-1]))`
+- power `ores` LAMBDA year 2041: 2 cells, 1 formula OK
+  - `=ORESID(R1C[0],R[-32]C[0]-R[-28]C[0]-R[-10]C[0],R[0]C[-1],R[-24]C[0],R[-24]C[-1])`
+- power `ores` column D: 2 cells, 1 formula OK
+- power `ores` column E: 2 cells, 1 formula OK
+- power `ores` column F: 2 cells, 1 formula OK
+- power `ores` column G: 2 cells, 1 formula OK
+- power `spe` 2022-2040: 38 cells, 1 formula OK
+  - `=R[-97]C[0]+R[-4]C[0]+R1859C[0]*R875C[0]*(1-R1620C[0])+R[-81]C[0]`
+- power `spe` LAMBDA year 2041: 2 cells, 1 formula OK
+  - `=ELSUPPLY(R[-97]C[0],R[-4]C[0],R1859C[0],R875C[0],R1620C[0],R[-81]C[0])`
+- power `spe` column D: 2 cells, 1 formula OK
+- power `spe` column E: 2 cells, 1 formula OK
+- power `spe` column F: 2 cells, 1 formula OK
+- power `spe` column G: 2 cells, 1 formula OK
 - power `pdem` base year: 4 cells, 1 formula OK
   - `=R[0]C5`
 - power `pdem` 2023-2040: 72 cells, 1 formula OK
-  - `=R[0]C4*R1617C[-1]+(1-R[0]C4)*R1618C[-1]`
+  - `=R[0]C4*R2015C[-1]+(1-R[0]C4)*R2016C[-1]`
 - power `pdem` LAMBDA year 2041: 4 cells, 1 formula OK
-  - `=PRICEMIX(R[0]C4,R1617C[-1],R1618C[-1])`
+  - `=PRICEMIX(R[0]C4,R2015C[-1],R2016C[-1])`
 - power `pdem` column D: 4 cells, 1 formula OK
 - power `pdem` column E: 4 cells, 1 formula OK
 - power `pdem` column F: 4 cells, 1 formula OK
 - power `pdem` column G: 4 cells, 1 formula OK
 - power `aeef` 2022-2040: 76 cells, 1 formula OK
-  - `=(1/(1+R[0]C4+R552C[0]))^(1+R[0]C5)`
+  - `=(1/(1+R[0]C4+R871C[0]))^(1+R[0]C5)`
 - power `aeef` LAMBDA year 2041: 4 cells, 1 formula OK
-  - `=AEEIFACTOR(R[0]C4,R552C[0],R[0]C5)`
+  - `=AEEIFACTOR(R[0]C4,R871C[0],R[0]C5)`
 - power `aeef` column D: 4 cells, 1 formula OK
 - power `aeef` column E: 4 cells, 1 formula OK
 - power `aeef` column F: 4 cells, 1 formula OK
@@ -1201,9 +1349,9 @@
 - power `mult` base year: 4 cells, 1 formula OK
   - `=1`
 - power `mult` 2023-2040: 72 cells, 1 formula OK
-  - `=R[-6]C[0]*(1+R15C[0])^(R[0]C4*R1355C[0])*(R[-12]C[0]/R[-12]C[-1])^R[0]C5*(1+R1358C[0]*Settings!R19C3*R554C[0])`
+  - `=R[-6]C[0]*(1+R15C[0])^(R[0]C4*R1662C[0])*(R[-12]C[0]/R[-12]C[-1])^R[0]C5*(1+R1665C[0]*Settings!R19C3*R873C[0])`
 - power `mult` LAMBDA year 2041: 4 cells, 1 formula OK
-  - `=DEMANDMULT(R[-6]C[0],R15C[0],R[0]C4,R1355C[0],R[-12]C[0],R[-12]C[-1],R[0]C5,R1358C[0],Settings!R19C3*R554C[0])`
+  - `=DEMANDMULT(R[-6]C[0],R15C[0],R[0]C4,R1662C[0],R[-12]C[0],R[-12]C[-1],R[0]C5,R1665C[0],Settings!R19C3*R873C[0])`
 - power `mult` column D: 4 cells, 1 formula OK
 - power `mult` column E: 4 cells, 1 formula OK
 - power `mult` column F: 4 cells, 1 formula OK
@@ -1211,95 +1359,95 @@
 - power `dem` base year: 15 cells, 1 formula OK
   - `=R[0]C5`
 - power `dem` 2023-2040: 270 cells, 1 formula OK
-  - `=IF(R[0]C6*R3140C[0]>0,R4149C[0],R[0]C[-1]*INDEX(R1666C[0]:R1669C[0],R[0]C4))`
+  - `=IF(R[0]C6*R3539C[0]>0,R4549C[0],R[0]C[-1]*INDEX(R2109C[0]:R2112C[0],R[0]C4))`
 - power `dem` LAMBDA year 2041: 15 cells, 1 formula OK
-  - `=DEMROAD(R[0]C6,R3140C[0],R4149C[0],R[0]C[-1],INDEX(R1666C[0]:R1669C[0],R[0]C4))`
+  - `=DEMROAD(R[0]C6,R3539C[0],R4549C[0],R[0]C[-1],INDEX(R2109C[0]:R2112C[0],R[0]C4))`
 - power `dem` column D: 15 cells, 1 formula OK
 - power `dem` column E: 15 cells, 1 formula OK
 - power `dem` column F: 15 cells, 1 formula OK
 - power `dem` column G: 15 cells, 1 formula OK
 - power `demg` 2022-2041 (data, sum or look-ahead: one formula): 80 cells, 1 formula OK
-  - `=SUMIF(R1672C4:R1686C4,R[0]C4,R1672C[0]:R1686C[0])`
+  - `=SUMIF(R2115C4:R2129C4,R[0]C4,R2115C[0]:R2129C[0])`
 - power `demg` column D: 4 cells, 1 formula OK
 - power `demg` column E: 4 cells, 1 formula OK
 - power `demg` column F: 4 cells, 1 formula OK
 - power `demg` column G: 4 cells, 1 formula OK
 - power `demtot` 2022-2041 (data, sum or look-ahead: one formula): 20 cells, 1 formula OK
-  - `=SUM(R1672C[0]:R1686C[0])`
+  - `=SUM(R2115C[0]:R2129C[0])`
 - power `demtot` column D: 1 cells, 1 formula OK
 - power `demtot` column E: 1 cells, 1 formula OK
 - power `demtot` column F: 1 cells, 1 formula OK
 - power `demtot` column G: 1 cells, 1 formula OK
 - power `req` base year: 1 cells, 1 formula OK
-  - `=SUM(R1753C[0]:R1761C[0])`
+  - `=SUM(R2196C[0]:R2204C[0])`
 - power `req` 2023-2040: 18 cells, 1 formula OK
-  - `=R1694C[0]*R[0]C4`
+  - `=R2137C[0]*R[0]C4`
 - power `req` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=SCALEBY(R1694C[0],R[0]C4)`
+  - `=SCALEBY(R2137C[0],R[0]C4)`
 - power `req` column D: 1 cells, 1 formula OK
 - power `req` column E: 1 cells, 1 formula OK
 - power `req` column F: 1 cells, 1 formula OK
 - power `req` column G: 1 cells, 1 formula OK
 - power `reqcg` 2022-2040: 19 cells, 1 formula OK
-  - `=MAX(R1697C[0]-SUMPRODUCT(R1823C[0]:R1831C[0],1-PwCG),0)`
+  - `=MAX(R2140C[0]-SUMPRODUCT(R2266C[0]:R2274C[0],1-PwCG),0)`
 - power `reqcg` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=RESIDUAL(R1697C[0],SUMPRODUCT(R1823C[0]:R1831C[0],1-PwCG))`
+  - `=RESIDUAL(R2140C[0],SUMPRODUCT(R2266C[0]:R2274C[0],1-PwCG))`
 - power `reqcg` column D: 1 cells, 1 formula OK
 - power `reqcg` column E: 1 cells, 1 formula OK
 - power `reqcg` column F: 1 cells, 1 formula OK
 - power `reqcg` column G: 1 cells, 1 formula OK
 - power `vcmin` 2022-2040: 19 cells, 1 formula OK
-  - `=MAX(_xlfn.MINIFS(R1493C[0]:R1501C[0],PwCG,1),R560C[0])`
+  - `=MAX(_xlfn.MINIFS(R1800C[0]:R1808C[0],PwCG,1),R879C[0])`
 - power `vcmin` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=FLOORMIN(R1493C[0]:R1501C[0],PwCG,R560C[0])`
+  - `=FLOORMIN(R1800C[0]:R1808C[0],PwCG,R879C[0])`
 - power `vcmin` column D: 1 cells, 1 formula OK
 - power `vcmin` column E: 1 cells, 1 formula OK
 - power `vcmin` column F: 1 cells, 1 formula OK
 - power `vcmin` column G: 1 cells, 1 formula OK
 - power `rem` 2022-2040: 19 cells, 1 formula OK
-  - `=MAX(R1700C[0]-SUM(R1718C[0]:R1726C[0]),0)`
+  - `=MAX(R2143C[0]-SUM(R2161C[0]:R2169C[0]),0)`
 - power `rem` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=RESIDUAL(R1700C[0],SUM(R1718C[0]:R1726C[0]))`
+  - `=RESIDUAL(R2143C[0],SUM(R2161C[0]:R2169C[0]))`
 - power `rem` column D: 1 cells, 1 formula OK
 - power `rem` column E: 1 cells, 1 formula OK
 - power `rem` column F: 1 cells, 1 formula OK
 - power `rem` column G: 1 cells, 1 formula OK
 - power `gmx` 2022-2040: 171 cells, 1 formula OK
-  - `=R[103]C[0]*(R[0]C4*R561C[0]+R[0]C5*R562C[0])`
+  - `=R[103]C[0]*(R[0]C4*R880C[0]+R[0]C5*R881C[0])`
 - power `gmx` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=MAXOUTPUT(R[103]C[0],R[0]C4,R561C[0],R[0]C5,R562C[0])`
+  - `=MAXOUTPUT(R[103]C[0],R[0]C4,R880C[0],R[0]C5,R881C[0])`
 - power `gmx` column D: 9 cells, 1 formula OK
 - power `gmx` column E: 9 cells, 1 formula OK
 - power `gmx` column F: 9 cells, 1 formula OK
 - power `gmx` column G: 9 cells, 1 formula OK
 - power `gmin` 2022-2040: 171 cells, 1 formula OK
-  - `=R[0]C4*MIN(MAX(R1700C[0]-(SUM(R1707C[0]:R1715C[0])-R[-11]C[0]),0),R[-11]C[0])`
+  - `=R[0]C4*MIN(MAX(R2143C[0]-(SUM(R2150C[0]:R2158C[0])-R[-11]C[0]),0),R[-11]C[0])`
 - power `gmin` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=MINDISPATCH(R[0]C4,R1700C[0],SUM(R1707C[0]:R1715C[0]),R[-11]C[0])`
+  - `=MINDISPATCH(R[0]C4,R2143C[0],SUM(R2150C[0]:R2158C[0]),R[-11]C[0])`
 - power `gmin` column D: 9 cells, 1 formula OK
 - power `gmin` column E: 9 cells, 1 formula OK
 - power `gmin` column F: 9 cells, 1 formula OK
 - power `gmin` column G: 9 cells, 1 formula OK
 - power `lgd` 2022-2040: 171 cells, 1 formula OK
-  - `=R[0]C4*EXP(-R558C[0]*MAX(R[-236]C[0],R560C[0])/R1702C[0])`
+  - `=R[0]C4*EXP(-R877C[0]*MAX(R[-372]C[0],R879C[0])/R2145C[0])`
 - power `lgd` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=LOGITW(R[0]C4,R558C[0],MAX(R[-236]C[0],R560C[0]),R1702C[0])`
+  - `=LOGITW(R[0]C4,R877C[0],MAX(R[-372]C[0],R879C[0]),R2145C[0])`
 - power `lgd` column D: 9 cells, 1 formula OK
 - power `lgd` column E: 9 cells, 1 formula OK
 - power `lgd` column F: 9 cells, 1 formula OK
 - power `lgd` column G: 9 cells, 1 formula OK
 - power `glg` 2022-2040: 171 cells, 1 formula OK
-  - `=IF(R[0]C4=1,MIN(R[-33]C[0],R[-22]C[0]+R1704C[0]*R[-11]C[0]/SUM(R1729C[0]:R1737C[0])),R[83]C[0])`
+  - `=IF(R[0]C4=1,MIN(R[-33]C[0],R[-22]C[0]+R2147C[0]*R[-11]C[0]/SUM(R2172C[0]:R2180C[0])),R[83]C[0])`
 - power `glg` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=DISPATCH(R[0]C4,R[83]C[0],R[-33]C[0],R[-22]C[0],R1704C[0],R[-11]C[0],SUM(R1729C[0]:R1737C[0]))`
+  - `=DISPATCH(R[0]C4,R[83]C[0],R[-33]C[0],R[-22]C[0],R2147C[0],R[-11]C[0],SUM(R2172C[0]:R2180C[0]))`
 - power `glg` column D: 9 cells, 1 formula OK
 - power `glg` column E: 9 cells, 1 formula OK
 - power `glg` column F: 9 cells, 1 formula OK
 - power `glg` column G: 9 cells, 1 formula OK
 - power `ppr` 2022-2040: 19 cells, 1 formula OK
-  - `=IF(SUMPRODUCT(R1823C[0]:R1831C[0],PwCG)=0,1,R1700C[0]/SUMPRODUCT(R1823C[0]:R1831C[0],PwCG))`
+  - `=IF(SUMPRODUCT(R2266C[0]:R2274C[0],PwCG)=0,1,R2143C[0]/SUMPRODUCT(R2266C[0]:R2274C[0],PwCG))`
 - power `ppr` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=PPARATIO(R1700C[0],SUMPRODUCT(R1823C[0]:R1831C[0],PwCG))`
+  - `=PPARATIO(R2143C[0],SUMPRODUCT(R2266C[0]:R2274C[0],PwCG))`
 - power `ppr` column D: 1 cells, 1 formula OK
 - power `ppr` column E: 1 cells, 1 formula OK
 - power `ppr` column F: 1 cells, 1 formula OK
@@ -1307,15 +1455,15 @@
 - power `gen` base year: 9 cells, 1 formula OK
   - `=R[0]C5`
 - power `gen` 2023-2040: 162 cells, 1 formula OK
-  - `=R[-13]C[0]+R[0]C4*R1298C[0]*(R[70]C[0]*R1750C[0]-R[-13]C[0])`
+  - `=R[-13]C[0]+R[0]C4*R1605C[0]*(R[70]C[0]*R2193C[0]-R[-13]C[0])`
 - power `gen` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=PPAMIX(R[-13]C[0],R[0]C4,R1298C[0],R[70]C[0],R1750C[0])`
+  - `=PPAMIX(R[-13]C[0],R[0]C4,R1605C[0],R[70]C[0],R2193C[0])`
 - power `gen` column D: 9 cells, 1 formula OK
 - power `gen` column E: 9 cells, 1 formula OK
 - power `gen` column F: 9 cells, 1 formula OK
 - power `gen` column G: 9 cells, 1 formula OK
 - power `gtot` 2022-2041 (data, sum or look-ahead: one formula): 20 cells, 1 formula OK
-  - `=SUM(R1753C[0]:R1761C[0])`
+  - `=SUM(R2196C[0]:R2204C[0])`
 - power `gtot` column D: 1 cells, 1 formula OK
 - power `gtot` column E: 1 cells, 1 formula OK
 - power `gtot` column F: 1 cells, 1 formula OK
@@ -1323,25 +1471,25 @@
 - power `dgen` base year: 1 cells, 1 formula OK
   - `=0`
 - power `dgen` 2023-2040: 18 cells, 1 formula OK
-  - `=MAX(0,R1763C[0]-R1763C[-1])`
+  - `=MAX(0,R2206C[0]-R2206C[-1])`
 - power `dgen` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=INCREASE(R1763C[0],R1763C[-1])`
+  - `=INCREASE(R2206C[0],R2206C[-1])`
 - power `dgen` column D: 1 cells, 1 formula OK
 - power `dgen` column E: 1 cells, 1 formula OK
 - power `dgen` column F: 1 cells, 1 formula OK
 - power `dgen` column G: 1 cells, 1 formula OK
 - power `shr` 2022-2040: 171 cells, 1 formula OK
-  - `=IF(R1763C[0]=0,0,R[-15]C[0]/R1763C[0])`
+  - `=IF(R2206C[0]=0,0,R[-15]C[0]/R2206C[0])`
 - power `shr` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=SHAREOF(R[-15]C[0],R1763C[0])`
+  - `=SHAREOF(R[-15]C[0],R2206C[0])`
 - power `shr` column D: 9 cells, 1 formula OK
 - power `shr` column E: 9 cells, 1 formula OK
 - power `shr` column F: 9 cells, 1 formula OK
 - power `shr` column G: 9 cells, 1 formula OK
 - power `pe` 2022-2040: 171 cells, 1 formula OK
-  - `=IF(R[-610]C[0]=0,0,(R[-26]C[0]*R[0]C4)/R[-610]C[0])`
+  - `=IF(R[-746]C[0]=0,0,(R[-26]C[0]*R[0]C4)/R[-746]C[0])`
 - power `pe` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=SAFEDIV(R[-26]C[0]*R[0]C4,R[-610]C[0])`
+  - `=SAFEDIV(R[-26]C[0]*R[0]C4,R[-746]C[0])`
 - power `pe` column D: 9 cells, 1 formula OK
 - power `pe` column E: 9 cells, 1 formula OK
 - power `pe` column F: 9 cells, 1 formula OK
@@ -1355,31 +1503,31 @@
 - power `co2` column F: 9 cells, 1 formula OK
 - power `co2` column G: 9 cells, 1 formula OK
 - power `vre` 2022-2040: 19 cells, 1 formula OK
-  - `=SUMPRODUCT(R1768C[0]:R1776C[0],R1768C4:R1776C4)*R[0]C4`
+  - `=SUMPRODUCT(R2211C[0]:R2219C[0],R2211C4:R2219C4)*R[0]C4`
 - power `vre` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=WEIGHTED(R1768C[0]:R1776C[0],R1768C4:R1776C4,R[0]C4)`
+  - `=WEIGHTED(R2211C[0]:R2219C[0],R2211C4:R2219C4,R[0]C4)`
 - power `vre` column D: 1 cells, 1 formula OK
 - power `vre` column E: 1 cells, 1 formula OK
 - power `vre` column F: 1 cells, 1 formula OK
 - power `vre` column G: 1 cells, 1 formula OK
 - power `cph` 2022-2040: 19 cells, 1 formula OK
-  - `=(R1330C[0]+R1333C[0]/R581C[0])/(R1205C[0]*HoursYr)+R1336C[0]/HoursYr`
+  - `=(R1637C[0]+R1640C[0]/R900C[0])/(R1512C[0]*HoursYr)+R1643C[0]/HoursYr`
 - power `cph` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=STORAGEHOUR(R1330C[0],R1333C[0],R1336C[0],R581C[0],R1205C[0])`
+  - `=STORAGEHOUR(R1637C[0],R1640C[0],R1643C[0],R900C[0],R1512C[0])`
 - power `cph` column D: 1 cells, 1 formula OK
 - power `cph` column E: 1 cells, 1 formula OK
 - power `cph` column F: 1 cells, 1 formula OK
 - power `cph` column G: 1 cells, 1 formula OK
 - power `msc` 2022-2040: 19 cells, 1 formula OK
-  - `=R1294C[0]*R1802C[0]*R1804C[0]+2*MAX(0,R1802C[0]-R583C[0])/(1-R583C[0])^2*R1350C[0]*R1296C[0]`
+  - `=R1601C[0]*R2245C[0]*R2247C[0]+2*MAX(0,R2245C[0]-R902C[0])/(1-R902C[0])^2*R1657C[0]*R1603C[0]`
 - power `msc` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=STORAGECOST(R1294C[0],R1802C[0],R1804C[0],R583C[0],R1350C[0],R1296C[0])`
+  - `=STORAGECOST(R1601C[0],R2245C[0],R2247C[0],R902C[0],R1657C[0],R1603C[0])`
 - power `msc` column D: 1 cells, 1 formula OK
 - power `msc` column E: 1 cells, 1 formula OK
 - power `msc` column F: 1 cells, 1 formula OK
 - power `msc` column G: 1 cells, 1 formula OK
 - power `cap` base year: 9 cells, 1 formula OK
-  - `=R[-591]C[0]`
+  - `=R[-727]C[0]`
 - power `cap` 2023-2040: 162 cells, 1 formula OK
   - `=R[0]C[-1]-R[35]C[-1]+R[189]C[-1]`
 - power `cap` LAMBDA year 2041: 9 cells, 1 formula OK
@@ -1389,15 +1537,15 @@
 - power `cap` column F: 9 cells, 1 formula OK
 - power `cap` column G: 9 cells, 1 formula OK
 - power `captot` 2022-2041 (data, sum or look-ahead: one formula): 20 cells, 1 formula OK
-  - `=SUM(R1810C[0]:R1818C[0])`
+  - `=SUM(R2253C[0]:R2261C[0])`
 - power `captot` column D: 1 cells, 1 formula OK
 - power `captot` column E: 1 cells, 1 formula OK
 - power `captot` column F: 1 cells, 1 formula OK
 - power `captot` column G: 1 cells, 1 formula OK
 - power `effcap` 2022-2040: 171 cells, 1 formula OK
-  - `=R[-13]C[0]*R[-665]C[0]`
+  - `=R[-13]C[0]*R[-801]C[0]`
 - power `effcap` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=SCALEBY(R[-13]C[0],R[-665]C[0])`
+  - `=SCALEBY(R[-13]C[0],R[-801]C[0])`
 - power `effcap` column D: 9 cells, 1 formula OK
 - power `effcap` column E: 9 cells, 1 formula OK
 - power `effcap` column F: 9 cells, 1 formula OK
@@ -1409,67 +1557,67 @@
 - power `pret` column F: 9 cells, 1 formula OK
 - power `pret` column G: 9 cells, 1 formula OK
 - power `ret` 2022-2040: 171 cells, 1 formula OK
-  - `=MIN(IF(R[0]C5=1,R[-11]C[0],R[-35]C[0]*R[-567]C[0])+R[0]C4*R1873C[0],R[-35]C[0])`
+  - `=MIN(IF(R[0]C5=1,R[-11]C[0],R[-35]C[0]*R[-703]C[0])+R[0]C4*R2316C[0],R[-35]C[0])`
 - power `ret` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=RETIRE(R[-35]C[0],R[-567]C[0],R[0]C4,R1873C[0],R[0]C5,R[-11]C[0])`
+  - `=RETIRE(R[-35]C[0],R[-703]C[0],R[0]C4,R2316C[0],R[0]C5,R[-11]C[0])`
 - power `ret` column D: 9 cells, 1 formula OK
 - power `ret` column E: 9 cells, 1 formula OK
 - power `ret` column F: 9 cells, 1 formula OK
 - power `ret` column G: 9 cells, 1 formula OK
 - power `reteff` 2022-2040: 171 cells, 1 formula OK
-  - `=R[-11]C[0]*R[-698]C[0]`
+  - `=R[-11]C[0]*R[-834]C[0]`
 - power `reteff` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=SCALEBY(R[-11]C[0],R[-698]C[0])`
+  - `=SCALEBY(R[-11]C[0],R[-834]C[0])`
 - power `reteff` column D: 9 cells, 1 formula OK
 - power `reteff` column E: 9 cells, 1 formula OK
 - power `reteff` column F: 9 cells, 1 formula OK
 - power `reteff` column G: 9 cells, 1 formula OK
 - power `egrow` base year: 1 cells, 1 formula OK
-  - `=MAX(0,R1924C[0]+R1925C[0])`
+  - `=MAX(0,R2367C[0]+R2368C[0])`
 - power `egrow` 2023-2040: 18 cells, 1 formula OK
-  - `=MAX(0,R1924C[0]+R1925C[0]-R1765C[-1]-(SUM(R1856C[-1]:R1864C[-1])-R1856C[-1]))`
+  - `=MAX(0,R2367C[0]+R2368C[0]-R2208C[-1]-(SUM(R2299C[-1]:R2307C[-1])-R2299C[-1]))`
 - power `egrow` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=EARLYROOM(R1924C[0],R1925C[0],R1765C[-1],SUM(R1856C[-1]:R1864C[-1])-R1856C[-1])`
+  - `=EARLYROOM(R2367C[0],R2368C[0],R2208C[-1],SUM(R2299C[-1]:R2307C[-1])-R2299C[-1])`
 - power `egrow` column D: 1 cells, 1 formula OK
 - power `egrow` column E: 1 cells, 1 formula OK
 - power `egrow` column F: 1 cells, 1 formula OK
 - power `egrow` column G: 1 cells, 1 formula OK
 - power `ecmin` 2022-2040: 19 cells, 1 formula OK
-  - `=MIN(R1493C[0],R1559C[0],R1560C[0])`
+  - `=MIN(R1800C[0],R1866C[0],R1867C[0])`
 - power `ecmin` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=LOWEST3(R1493C[0],R1559C[0],R1560C[0])`
+  - `=LOWEST3(R1800C[0],R1866C[0],R1867C[0])`
 - power `ecmin` column D: 1 cells, 1 formula OK
 - power `ecmin` column E: 1 cells, 1 formula OK
 - power `ecmin` column F: 1 cells, 1 formula OK
 - power `ecmin` column G: 1 cells, 1 formula OK
 - power `ecshr` 2022-2040: 19 cells, 1 formula OK
-  - `=1/(1+EXP(-R559C[0]*(R1559C[0]-R1493C[0])/R1868C[0])+EXP(-R559C[0]*(R1560C[0]-R1493C[0])/R1868C[0]))`
+  - `=1/(1+EXP(-R878C[0]*(R1866C[0]-R1800C[0])/R2311C[0])+EXP(-R878C[0]*(R1867C[0]-R1800C[0])/R2311C[0]))`
 - power `ecshr` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=COALSHARE(R559C[0],R1493C[0],R1559C[0],R1560C[0],R1868C[0])`
+  - `=COALSHARE(R878C[0],R1800C[0],R1866C[0],R1867C[0],R2311C[0])`
 - power `ecshr` column D: 1 cells, 1 formula OK
 - power `ecshr` column E: 1 cells, 1 formula OK
 - power `ecshr` column F: 1 cells, 1 formula OK
 - power `ecshr` column G: 1 cells, 1 formula OK
 - power `early` 2022-2040: 19 cells, 1 formula OK
-  - `=MAX(0,MIN(R1823C[0]*R[0]C4,R1866C[0])*(1-R1870C[0]))/R1158C[0]*R1288C[0]*(1-R1298C[0])`
+  - `=MAX(0,MIN(R2266C[0]*R[0]C4,R2309C[0])*(1-R2313C[0]))/R1465C[0]*R1595C[0]*(1-R1605C[0])`
 - power `early` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=EARLYRET(R1823C[0],R[0]C4,R1866C[0],R1870C[0],R1288C[0]*(1-R1298C[0]),R1158C[0])`
+  - `=EARLYRET(R2266C[0],R[0]C4,R2309C[0],R2313C[0],R1595C[0]*(1-R1605C[0]),R1465C[0])`
 - power `early` column D: 1 cells, 1 formula OK
 - power `early` column E: 1 cells, 1 formula OK
 - power `early` column F: 1 cells, 1 formula OK
 - power `early` column G: 1 cells, 1 formula OK
 - power `kafter` 2022-2040: 19 cells, 1 formula OK
-  - `=SUM(R1823C[0]:R1831C[0])-SUM(R1856C[0]:R1864C[0])`
+  - `=SUM(R2266C[0]:R2274C[0])-SUM(R2299C[0]:R2307C[0])`
 - power `kafter` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=DIFF(SUM(R1823C[0]:R1831C[0]),SUM(R1856C[0]:R1864C[0]))`
+  - `=DIFF(SUM(R2266C[0]:R2274C[0]),SUM(R2299C[0]:R2307C[0]))`
 - power `kafter` column D: 1 cells, 1 formula OK
 - power `kafter` column E: 1 cells, 1 formula OK
 - power `kafter` column F: 1 cells, 1 formula OK
 - power `kafter` column G: 1 cells, 1 formula OK
 - power `need` 2022-2040: 19 cells, 1 formula OK
-  - `=MAX(R1697C[0]*IFERROR(R1697C[0]/R1697C[-1],1)-R1875C[0],0)`
+  - `=MAX(R2140C[0]*IFERROR(R2140C[0]/R2140C[-1],1)-R2318C[0],0)`
 - power `need` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=NEEDNEXT(R1697C[0],R1697C[-1],R1875C[0])`
+  - `=NEEDNEXT(R2140C[0],R2140C[-1],R2318C[0])`
 - power `need` column D: 1 cells, 1 formula OK
 - power `need` column E: 1 cells, 1 formula OK
 - power `need` column F: 1 cells, 1 formula OK
@@ -1483,73 +1631,73 @@
 - power `mancap` column F: 9 cells, 1 formula OK
 - power `mancap` column G: 9 cells, 1 formula OK
 - power `mani` 2022-2040: 171 cells, 1 formula OK
-  - `=IF(AND(R[-661]C[0]="Manual",ISNUMBER(R[-11]C[1])),MAX(0,R[-11]C[1]-R[-11]C[0]+R[-46]C[0])*R[-733]C[0],0)`
+  - `=IF(AND(R[-797]C[0]="Manual",ISNUMBER(R[-11]C[1])),MAX(0,R[-11]C[1]-R[-11]C[0]+R[-46]C[0])*R[-869]C[0],0)`
 - power `mani` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=MANINV(R[-661]C[0],R[-11]C[1],R[-11]C[0],R[-46]C[0],R[-733]C[0])`
+  - `=MANINV(R[-797]C[0],R[-11]C[1],R[-11]C[0],R[-46]C[0],R[-869]C[0])`
 - power `mani` column D: 9 cells, 1 formula OK
 - power `mani` column E: 9 cells, 1 formula OK
 - power `mani` column F: 9 cells, 1 formula OK
 - power `mani` column G: 9 cells, 1 formula OK
 - power `needm` 2022-2040: 19 cells, 1 formula OK
-  - `=MAX(R1877C[0]-SUM(R1891C[0]:R1899C[0]),0)`
+  - `=MAX(R2320C[0]-SUM(R2334C[0]:R2342C[0]),0)`
 - power `needm` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=RESIDUAL(R1877C[0],SUM(R1891C[0]:R1899C[0]))`
+  - `=RESIDUAL(R2320C[0],SUM(R2334C[0]:R2342C[0]))`
 - power `needm` column D: 1 cells, 1 formula OK
 - power `needm` column E: 1 cells, 1 formula OK
 - power `needm` column F: 1 cells, 1 formula OK
 - power `needm` column G: 1 cells, 1 formula OK
 - power `cmin` 2022-2040: 19 cells, 1 formula OK
-  - `=MAX(_xlfn.MINIFS(R1555C[0]:R1563C[0],R1909C[0]:R1917C[0],1),R560C[0])`
+  - `=MAX(_xlfn.MINIFS(R1862C[0]:R1870C[0],R2352C[0]:R2360C[0],1),R879C[0])`
 - power `cmin` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=FLOORMIN(R1555C[0]:R1563C[0],R1909C[0]:R1917C[0],R560C[0])`
+  - `=FLOORMIN(R1862C[0]:R1870C[0],R2352C[0]:R2360C[0],R879C[0])`
 - power `cmin` column D: 1 cells, 1 formula OK
 - power `cmin` column E: 1 cells, 1 formula OK
 - power `cmin` column F: 1 cells, 1 formula OK
 - power `cmin` column G: 1 cells, 1 formula OK
 - power `deficit` 2022-2040: 19 cells, 1 formula OK
-  - `=MAX(R1901C[0]-SUM(R1953C[0]:R1961C[0]),0)`
+  - `=MAX(R2344C[0]-SUM(R2396C[0]:R2404C[0]),0)`
 - power `deficit` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=RESIDUAL(R1901C[0],SUM(R1953C[0]:R1961C[0]))`
+  - `=RESIDUAL(R2344C[0],SUM(R2396C[0]:R2404C[0]))`
 - power `deficit` column D: 1 cells, 1 formula OK
 - power `deficit` column E: 1 cells, 1 formula OK
 - power `deficit` column F: 1 cells, 1 formula OK
 - power `deficit` column G: 1 cells, 1 formula OK
 - power `permit` 2022-2040: 171 cells, 1 formula OK
-  - `=IF(AND(R[-668]C[0]="Yes",R1C[0]>=R[-657]C[0]),1,0)`
+  - `=IF(AND(R[-804]C[0]="Yes",R1C[0]>=R[-793]C[0]),1,0)`
 - power `permit` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=PERMITTED(R[-668]C[0],R[-657]C[0],R1C[0])`
+  - `=PERMITTED(R[-804]C[0],R[-793]C[0],R1C[0])`
 - power `permit` column D: 9 cells, 1 formula OK
 - power `permit` column E: 9 cells, 1 formula OK
 - power `permit` column F: 9 cells, 1 formula OK
 - power `permit` column G: 9 cells, 1 formula OK
 - power `maxinv` 2022-2040: 171 cells, 1 formula OK
-  - `=R[-653]C[0]*SUM(R1823C[0]:R1831C[0])*R[-11]C[0]`
+  - `=R[-789]C[0]*SUM(R2266C[0]:R2274C[0])*R[-11]C[0]`
 - power `maxinv` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=SCALEUP(R[-653]C[0],SUM(R1823C[0]:R1831C[0]),R[-11]C[0])`
+  - `=SCALEUP(R[-789]C[0],SUM(R2266C[0]:R2274C[0]),R[-11]C[0])`
 - power `maxinv` column D: 9 cells, 1 formula OK
 - power `maxinv` column E: 9 cells, 1 formula OK
 - power `maxinv` column F: 9 cells, 1 formula OK
 - power `maxinv` column G: 9 cells, 1 formula OK
 - power `lgi` 2022-2040: 171 cells, 1 formula OK
-  - `=R[-22]C[0]*EXP(-R559C[0]*R[-376]C[0]/R1904C[0])`
+  - `=R[-22]C[0]*EXP(-R878C[0]*R[-512]C[0]/R2347C[0])`
 - power `lgi` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=LOGITW(R[-22]C[0],R559C[0],R[-376]C[0],R1904C[0])`
+  - `=LOGITW(R[-22]C[0],R878C[0],R[-512]C[0],R2347C[0])`
 - power `lgi` column D: 9 cells, 1 formula OK
 - power `lgi` column E: 9 cells, 1 formula OK
 - power `lgi` column F: 9 cells, 1 formula OK
 - power `lgi` column G: 9 cells, 1 formula OK
 - power `pni` 2022-2040: 171 cells, 1 formula OK
-  - `=IF(SUM(R1931C[0]:R1939C[0])=0,0,R[-11]C[0]/SUM(R1931C[0]:R1939C[0]))`
+  - `=IF(SUM(R2374C[0]:R2382C[0])=0,0,R[-11]C[0]/SUM(R2374C[0]:R2382C[0]))`
 - power `pni` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=SHAREOF(R[-11]C[0],SUM(R1931C[0]:R1939C[0]))`
+  - `=SHAREOF(R[-11]C[0],SUM(R2374C[0]:R2382C[0]))`
 - power `pni` column D: 9 cells, 1 formula OK
 - power `pni` column E: 9 cells, 1 formula OK
 - power `pni` column F: 9 cells, 1 formula OK
 - power `pni` column G: 9 cells, 1 formula OK
 - power `first` 2022-2040: 171 cells, 1 formula OK
-  - `=MIN(R[-33]C[0],R1901C[0]*R[-11]C[0])`
+  - `=MIN(R[-33]C[0],R2344C[0]*R[-11]C[0])`
 - power `first` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=FIRSTROUND(R[-33]C[0],R1901C[0],R[-11]C[0])`
+  - `=FIRSTROUND(R[-33]C[0],R2344C[0],R[-11]C[0])`
 - power `first` column D: 9 cells, 1 formula OK
 - power `first` column E: 9 cells, 1 formula OK
 - power `first` column F: 9 cells, 1 formula OK
@@ -1563,53 +1711,53 @@
 - power `space` column F: 9 cells, 1 formula OK
 - power `space` column G: 9 cells, 1 formula OK
 - power `second` 2022-2040: 171 cells, 1 formula OK
-  - `=R[-66]C[0]*MAX(0,MIN(R[-11]C[0],R1906C[0]-SUMPRODUCT((R1555C[0]:R1563C[0]+PwTie<R[-420]C[0]+R[0]C4)*R1964C[0]:R1972C[0])))`
+  - `=R[-66]C[0]*MAX(0,MIN(R[-11]C[0],R2349C[0]-SUMPRODUCT((R1862C[0]:R1870C[0]+PwTie<R[-556]C[0]+R[0]C4)*R2407C[0]:R2415C[0])))`
 - power `second` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=CHEAPFILL(R[-66]C[0],R[-11]C[0],R1906C[0],SUMPRODUCT((R1555C[0]:R1563C[0]+PwTie<R[-420]C[0]+R[0]C4)*R1964C[0]:R1972C[0]))`
+  - `=CHEAPFILL(R[-66]C[0],R[-11]C[0],R2349C[0],SUMPRODUCT((R1862C[0]:R1870C[0]+PwTie<R[-556]C[0]+R[0]C4)*R2407C[0]:R2415C[0]))`
 - power `second` column D: 9 cells, 1 formula OK
 - power `second` column E: 9 cells, 1 formula OK
 - power `second` column F: 9 cells, 1 formula OK
 - power `second` column G: 9 cells, 1 formula OK
 - power `dgas` 2022-2040: 19 cells, 1 formula OK
-  - `=IF(PwDeficitGas="Yes",R1906C[0]-SUM(R1975C[0]:R1983C[0]),0)`
+  - `=IF(PwDeficitGas="Yes",R2349C[0]-SUM(R2418C[0]:R2426C[0]),0)`
 - power `dgas` LAMBDA year 2041: 1 cells, 1 formula OK
-  - `=GASDEFICIT(PwDeficitGas,R1906C[0],R1975C[0]:R1983C[0])`
+  - `=GASDEFICIT(PwDeficitGas,R2349C[0],R2418C[0]:R2426C[0])`
 - power `dgas` column D: 1 cells, 1 formula OK
 - power `dgas` column E: 1 cells, 1 formula OK
 - power `dgas` column F: 1 cells, 1 formula OK
 - power `dgas` column G: 1 cells, 1 formula OK
 - power `nei` 2022-2040: 171 cells, 1 formula OK
-  - `=R[-35]C[0]+(R[-13]C[0]+R[0]C4*R1985C[0]+R[-97]C[0])`
+  - `=R[-35]C[0]+(R[-13]C[0]+R[0]C4*R2428C[0]+R[-97]C[0])`
 - power `nei` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=ADDED(R[-35]C[0],R[-13]C[0]+R[0]C4*R1985C[0]+R[-97]C[0])`
+  - `=ADDED(R[-35]C[0],R[-13]C[0]+R[0]C4*R2428C[0]+R[-97]C[0])`
 - power `nei` column D: 9 cells, 1 formula OK
 - power `nei` column E: 9 cells, 1 formula OK
 - power `nei` column F: 9 cells, 1 formula OK
 - power `nei` column G: 9 cells, 1 formula OK
 - power `nim` 2022-2040: 171 cells, 1 formula OK
-  - `=IF(R[-841]C[0]=0,0,R[-11]C[0]/R[-841]C[0])`
+  - `=IF(R[-977]C[0]=0,0,R[-11]C[0]/R[-977]C[0])`
 - power `nim` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=SAFEDIV(R[-11]C[0],R[-841]C[0])`
+  - `=SAFEDIV(R[-11]C[0],R[-977]C[0])`
 - power `nim` column D: 9 cells, 1 formula OK
 - power `nim` column E: 9 cells, 1 formula OK
 - power `nim` column F: 9 cells, 1 formula OK
 - power `nim` column G: 9 cells, 1 formula OK
 - power `nimtot` 2022-2041 (data, sum or look-ahead: one formula): 20 cells, 1 formula OK
-  - `=SUM(R1999C[0]:R2007C[0])`
+  - `=SUM(R2442C[0]:R2450C[0])`
 - power `nimtot` column D: 1 cells, 1 formula OK
 - power `nimtot` column E: 1 cells, 1 formula OK
 - power `nimtot` column F: 1 cells, 1 formula OK
 - power `nimtot` column G: 1 cells, 1 formula OK
 - power `usd` 2022-2040: 171 cells, 1 formula OK
-  - `=R[-13]C[0]*R[-650]C[0]*kWperMW/USDperM`
+  - `=R[-13]C[0]*R[-786]C[0]*kWperMW/USDperM`
 - power `usd` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=INVSPEND(R[-13]C[0],R[-650]C[0])`
+  - `=INVSPEND(R[-13]C[0],R[-786]C[0])`
 - power `usd` column D: 9 cells, 1 formula OK
 - power `usd` column E: 9 cells, 1 formula OK
 - power `usd` column F: 9 cells, 1 formula OK
 - power `usd` column G: 9 cells, 1 formula OK
 - power `usdtot` 2022-2041 (data, sum or look-ahead: one formula): 20 cells, 1 formula OK
-  - `=SUM(R2012C[0]:R2020C[0])`
+  - `=SUM(R2455C[0]:R2463C[0])`
 - power `usdtot` column D: 1 cells, 1 formula OK
 - power `usdtot` column E: 1 cells, 1 formula OK
 - power `usdtot` column F: 1 cells, 1 formula OK
@@ -1623,63 +1771,68 @@
 - power `phi` column F: 9 cells, 1 formula OK
 - power `phi` column G: 9 cells, 1 formula OK
 - power `prtx` 2022-2040: 171 cells, 1 formula OK
-  - `=R[0]C5*R[-258]C[0]*Settings!R13C3*(INDEX(R657C[0]:R979C[0],R[0]C4)+INDEX(R659C[0]:R981C[0],R[0]C4))`
+  - `=R[0]C5*R[-258]C[0]*Settings!R13C3*(INDEX(R976C[0]:R1287C[0],R[0]C4)+INDEX(R978C[0]:R1289C[0],R[0]C4))`
 - power `prtx` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=REVENUE(R[0]C5*R[-258]C[0],Settings!R13C3,INDEX(R657C[0]:R979C[0],R[0]C4)+INDEX(R659C[0]:R981C[0],R[0]C4))`
+  - `=REVENUE(R[0]C5*R[-258]C[0],Settings!R13C3,INDEX(R976C[0]:R1287C[0],R[0]C4)+INDEX(R978C[0]:R1289C[0],R[0]C4))`
 - power `prtx` column D: 9 cells, 1 formula OK
 - power `prtx` column E: 9 cells, 1 formula OK
 - power `prtx` column F: 9 cells, 1 formula OK
 - power `prtx` column G: 9 cells, 1 formula OK
 - power `prsub` 2022-2040: 171 cells, 1 formula OK
-  - `=R[0]C5*R[-269]C[0]*Settings!R13C3*(INDEX(R658C[0]:R980C[0],R[0]C4))`
+  - `=R[0]C5*R[-269]C[0]*Settings!R13C3*(INDEX(R977C[0]:R1288C[0],R[0]C4))`
 - power `prsub` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=REVENUE(R[0]C5*R[-269]C[0],Settings!R13C3,INDEX(R658C[0]:R980C[0],R[0]C4))`
+  - `=REVENUE(R[0]C5*R[-269]C[0],Settings!R13C3,INDEX(R977C[0]:R1288C[0],R[0]C4))`
 - power `prsub` column D: 9 cells, 1 formula OK
 - power `prsub` column E: 9 cells, 1 formula OK
 - power `prsub` column F: 9 cells, 1 formula OK
 - power `prsub` column G: 9 cells, 1 formula OK
 - power `prxc` 2022-2040: 171 cells, 1 formula OK
-  - `=R[-612]C[0]*MWyMkWh*R[-306]C[0]`
+  - `=R[-748]C[0]*MWyMkWh*R[-306]C[0]`
 - power `prxc` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=POWERREV(R[-612]C[0],MWyMkWh,R[-306]C[0])`
+  - `=POWERREV(R[-748]C[0],MWyMkWh,R[-306]C[0])`
 - power `prxc` column D: 9 cells, 1 formula OK
 - power `prxc` column E: 9 cells, 1 formula OK
 - power `prxc` column F: 9 cells, 1 formula OK
 - power `prxc` column G: 9 cells, 1 formula OK
 - power `prnew` 2022-2040: 171 cells, 1 formula OK
-  - `=R[-317]C[0]*MWyMkWh*R[-601]C[0]-R[-280]C[0]*R365C[0]*(1-R239C[0])`
+  - `=R[-317]C[0]*MWyMkWh*R[-737]C[0]-R[-280]C[0]*R686C[0]*(1-R560C[0])`
 - power `prnew` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=PNEWREV(R[-317]C[0],R[-601]C[0],R[-280]C[0],R365C[0],R239C[0])`
+  - `=PNEWREV(R[-317]C[0],R[-737]C[0],R[-280]C[0],R686C[0],R560C[0])`
 - power `prnew` column D: 9 cells, 1 formula OK
 - power `prnew` column E: 9 cells, 1 formula OK
 - power `prnew` column F: 9 cells, 1 formula OK
 - power `prnew` column G: 9 cells, 1 formula OK
 - power `prxl` 2022-2040: 171 cells, 1 formula OK
-  - `=R[-291]C[0]*(INDEX(XCTVal,R[0]C4,R410C[0])*R411C[0]+INDEX(XETSVal,R[0]C4,R410C[0])*R412C[0])`
+  - `=R[-291]C[0]*(INDEX(XCTVal,R[0]C4,R731C[0])*R732C[0]+INDEX(XETSVal,R[0]C4,R731C[0])*R733C[0])`
 - power `prxl` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=XCARBON(R[-291]C[0],INDEX(XCTVal,R[0]C4,R410C[0]),R411C[0],INDEX(XETSVal,R[0]C4,R410C[0]),R412C[0],0)`
+  - `=XCARBON(R[-291]C[0],INDEX(XCTVal,R[0]C4,R731C[0]),R732C[0],INDEX(XETSVal,R[0]C4,R731C[0]),R733C[0],0)`
 - power `prxl` column D: 9 cells, 1 formula OK
 - power `prxl` column E: 9 cells, 1 formula OK
 - power `prxl` column F: 9 cells, 1 formula OK
 - power `prxl` column G: 9 cells, 1 formula OK
 - power `prrns` 2022-2040: 171 cells, 1 formula OK
-  - `=R[-789]C[0]*MWyMkWh*R[-339]C[0]`
+  - `=R[-925]C[0]*MWyMkWh*R[-339]C[0]`
 - power `prrns` LAMBDA year 2041: 9 cells, 1 formula OK
-  - `=POWERREV(R[-789]C[0],MWyMkWh,R[-339]C[0])`
+  - `=POWERREV(R[-925]C[0],MWyMkWh,R[-339]C[0])`
 - power `prrns` column D: 9 cells, 1 formula OK
 - power `prrns` column E: 9 cells, 1 formula OK
 - power `prrns` column F: 9 cells, 1 formula OK
 - power `prrns` column G: 9 cells, 1 formula OK
-- section 5b (road engineer model): 810 rows, one relative formula per row for the base year, 2023-2040 and the LAMBDA year 2041 (which calls a named LAMBDA where the row has one) in every scenario group OK
+- section 5b (road engineer model): 835 rows, one relative formula per row for the base year, 2023-2040 and the LAMBDA year 2041 (which calls a named LAMBDA where the row has one) in every scenario group OK
 - section 6b (residential leakage): 12 variables (expected 12), one relative formula per variable for the base year, 2023-2040 and the LAMBDA year 2041 (a named LAMBDA in test group 2), one per D:G column OK
-- sheet Lambdas: an optional LAMBDA formula for each of the 5606 calculated rows (5606 listed, each calls a named LAMBDA) OK
+- sheet Lambdas: an optional LAMBDA formula for each of the 5616 calculated rows (5616 listed, each calls a named LAMBDA) OK
 - column groups, one level: C:G, I:K and 2030-2039 of each scenario (10 columns), rolled up; other columns visible: OK
 - spacer column after each scenario group (group width 22): blank or the group test formula OK
-- light beige (EEECE1): 106514 LAMBDA cells of test group 2 OK; 2023-2024 history block of sp, txo, rppre (base year darker beige, projection white) OK
+- light beige (EEECE1): 106704 LAMBDA cells of test group 2 OK; 2023-2024 history block of sp, txo, rppre (base year darker beige, projection white) OK
 
 ## 3. LAMBDA encoding
 - PATH: 6 parameters, 20 _xlpm. tokens, bare names [] OK
 - PATHYEARS: 4 parameters, 9 _xlpm. tokens, bare names [] OK
+- FPRSLOPE: 4 parameters, 10 _xlpm. tokens, bare names [] OK
+- FPRRATE: 5 parameters, 16 _xlpm. tokens, bare names [] OK
+- FPRBASE: 4 parameters, 8 _xlpm. tokens, bare names [] OK
+- FPRAFTER: 8 parameters, 17 _xlpm. tokens, bare names [] OK
+- FPRPATH: 7 parameters, 17 _xlpm. tokens, bare names [] OK
 - NOMFACTOR: 2 parameters, 4 _xlpm. tokens, bare names [] OK
 - ETSON: 3 parameters, 6 _xlpm. tokens, bare names [] OK
 - ETSPRICE: 5 parameters, 11 _xlpm. tokens, bare names [] OK
@@ -1697,11 +1850,9 @@
 - ETSCOVER: 2 parameters, 4 _xlpm. tokens, bare names [] OK
 - SHADOWSHARE: 2 parameters, 4 _xlpm. tokens, bare names [] OK
 - SUPPLYCOST: 8 parameters, 18 _xlpm. tokens, bare names [] OK
-- PRODSUBUNIT: 4 parameters, 8 _xlpm. tokens, bare names [] OK
-- PSREFORM: 2 parameters, 4 _xlpm. tokens, bare names [] OK
+- PRODSUBUNIT: 5 parameters, 10 _xlpm. tokens, bare names [] OK
 - PSDEMAND: 3 parameters, 6 _xlpm. tokens, bare names [] OK
 - PSPRICEUNIT: 3 parameters, 6 _xlpm. tokens, bare names [] OK
-- PSWEDGE: 4 parameters, 8 _xlpm. tokens, bare names [] OK
 - OTHERTAX: 4 parameters, 11 _xlpm. tokens, bare names [] OK
 - RETAILPRICE: 3 parameters, 6 _xlpm. tokens, bare names [] OK
 - VATPAY: 3 parameters, 6 _xlpm. tokens, bare names [] OK
@@ -1760,7 +1911,7 @@
 - SAFEDIV: 2 parameters, 5 _xlpm. tokens, bare names [] OK
 - GROWPATH: 3 parameters, 6 _xlpm. tokens, bare names [] OK
 - TRAPEZOID: 3 parameters, 6 _xlpm. tokens, bare names [] OK
-- MFEEPRICE: 3 parameters, 7 _xlpm. tokens, bare names [] OK
+- MFEEPRICE: 3 parameters, 8 _xlpm. tokens, bare names [] OK
 - MFEECOST: 4 parameters, 9 _xlpm. tokens, bare names [] OK
 - IMPULSE: 6 parameters, 12 _xlpm. tokens, bare names [] OK
 - MULTGROUP: 2 parameters, 4 _xlpm. tokens, bare names [] OK
@@ -1775,7 +1926,8 @@
 - DRIVER: 6 parameters, 12 _xlpm. tokens, bare names [] OK
 - GROWINDEX: 5 parameters, 10 _xlpm. tokens, bare names [] OK
 - ABATE: 3 parameters, 6 _xlpm. tokens, bare names [] OK
-- METHSOURCE: 4 parameters, 9 _xlpm. tokens, bare names [] OK
+- METHSOURCE: 5 parameters, 11 _xlpm. tokens, bare names [] OK
+- INTDECLINE: 2 parameters, 4 _xlpm. tokens, bare names [] OK
 - FLARING: 5 parameters, 11 _xlpm. tokens, bare names [] OK
 - CALIBRATE: 2 parameters, 5 _xlpm. tokens, bare names [] OK
 - INVORMODEL: 3 parameters, 6 _xlpm. tokens, bare names [] OK
@@ -1808,6 +1960,21 @@
 - REBATE: 2 parameters, 4 _xlpm. tokens, bare names [] OK
 - VARTOTAL: 4 parameters, 8 _xlpm. tokens, bare names [] OK
 - INVCOST: 3 parameters, 6 _xlpm. tokens, bare names [] OK
+- SYSCOST: 6 parameters, 12 _xlpm. tokens, bare names [] OK
+- LEVCAPEX: 3 parameters, 6 _xlpm. tokens, bare names [] OK
+- OMCOST: 3 parameters, 6 _xlpm. tokens, bare names [] OK
+- MEMOOF: 1 parameters, 2 _xlpm. tokens, bare names [] OK
+- HISTHOLD: 3 parameters, 6 _xlpm. tokens, bare names [] OK
+- PRICEGAP: 3 parameters, 6 _xlpm. tokens, bare names [] OK
+- ELTAXBASE: 5 parameters, 10 _xlpm. tokens, bare names [] OK
+- PREGAP: 4 parameters, 8 _xlpm. tokens, bare names [] OK
+- PSALLOC: 7 parameters, 14 _xlpm. tokens, bare names [] OK
+- PSELEC: 6 parameters, 12 _xlpm. tokens, bare names [] OK
+- PSERESID: 5 parameters, 10 _xlpm. tokens, bare names [] OK
+- CSELEC: 4 parameters, 9 _xlpm. tokens, bare names [] OK
+- ELSUPPLY: 6 parameters, 12 _xlpm. tokens, bare names [] OK
+- CAPLAST: 3 parameters, 7 _xlpm. tokens, bare names [] OK
+- ORESID: 5 parameters, 12 _xlpm. tokens, bare names [] OK
 - CONSUMPTION: 5 parameters, 10 _xlpm. tokens, bare names [] OK
 - PRICEMIX: 3 parameters, 7 _xlpm. tokens, bare names [] OK
 - DEMANDMULT: 9 parameters, 18 _xlpm. tokens, bare names [] OK
@@ -1953,6 +2120,7 @@
 - AVGFE: 6 parameters, 17 _xlpm. tokens, bare names [] OK
 - AVGFEEV: 6 parameters, 12 _xlpm. tokens, bare names [] OK
 - PROD3SUM: 6 parameters, 12 _xlpm. tokens, bare names [] OK
+- BIOFOLLOW: 3 parameters, 8 _xlpm. tokens, bare names [] OK
 - BIOSPLIT: 6 parameters, 16 _xlpm. tokens, bare names [] OK
 - HOLD: 1 parameters, 2 _xlpm. tokens, bare names [] OK
 - DISCRATE: 5 parameters, 14 _xlpm. tokens, bare names [] OK
@@ -1971,425 +2139,104 @@
 - sheet Lambdas: formula texts naming a sheet merged away (v0.3.6 tab merge): 0 OK
 
 ## 4. Values vs independent Python recomputation
-- A. as shipped, evaluated as a LAMBDA host (2041 LAMBDAs expanded), scenario 1: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at L7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- B. optional LAMBDA library (sheet Lambdas) copied over every calculated row, LAMBDAs expanded, scenario 1: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at L7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- A. as shipped, scenario 1: section 5b, 858 rows (16260 cells incl. the side-table parameters) vs transport_model_ref.engine (all fixes), max relative diff 1.45e-14 (at R3925 (4927, 2028)) OK
-- B. LAMBDA library over every row, scenario 1: section 5b, 858 rows (16260 cells incl. the side-table parameters) vs transport_model_ref.engine (all fixes), max relative diff 1.45e-14 (at R3925 (4927, 2028)) OK
-- A. as shipped, evaluated as a LAMBDA host (2041 LAMBDAs expanded), scenario 2: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at AH7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- B. optional LAMBDA library (sheet Lambdas) copied over every calculated row, LAMBDAs expanded, scenario 2: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at AH7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- A. as shipped, scenario 2: section 5b, 858 rows (16260 cells incl. the side-table parameters) vs transport_model_ref.engine (all fixes), max relative diff 4.95e-14 (at AL3925 (4927, 2026)) OK
-- B. LAMBDA library over every row, scenario 2: section 5b, 858 rows (16260 cells incl. the side-table parameters) vs transport_model_ref.engine (all fixes), max relative diff 4.95e-14 (at AL3925 (4927, 2026)) OK
+- section-3 rows not recomputed yet (v0.9.0 R7, R9; power_model_ref): cur, sys, pcbcap, pcbom, pcbfu, pcbcp, pcbrns, pcbchk, pcbct, rpnv, txg, txe, scl, psegap, psegs, psesh, pseu, pser, csd, spe
+- A. as shipped, evaluated as a LAMBDA host (2041 LAMBDAs expanded), scenario 1: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 23 price-fuel and 22 subsector variables, 163 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90580 cells, max relative diff 7.14e-02 (at M2088) FAIL; not in the Python reference (not compared): ['apco2', 'apen.pow.bio', 'apen.pow.coa', 'apen.pow.nga', 'apen.pow.oop', 'apen.res.bio', 'apen.res.coa', 'apen.res.die', 'apen.res.ecy', 'apen.res.gso', 'apen.res.jfu', 'apen.res.ker', 'apen.res.lpg', 'apen.res.nga', 'apen.res.oop', 'ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'csd', 'ctf', 'cur', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'pcbcap', 'pcbchk', 'pcbcp', 'pcbct', 'pcbfu', 'pcbom', 'pcbrns', 'perm', 'psegap', 'psegs', 'pser', 'psesh', 'pseu', 'psp', 'rpnv', 'scl', 'spe', 'sys', 'txe', 'txg', 'wfx', 'wsel']
+  - A. as shipped, scenario 1: section-5b rows over the tolerance (worst first, 272 rows): [(5265, 'AA4491 2037', 0.609), (5348, 'AA4559 2037', 0.609), (5264, 'AA4490 2037', 0.607), (5220, 'V4468 2032', 0.573), (5314, 'V4514 2032', 0.548), (4888, 'AD3929 2040', 0.532), (4894, 'AC3977 2039', 0.532), (4891, 'AD3953 2040', 0.53), (4763, 'AD3925 2040', 0.517), (4769, 'AC3973 2039', 0.517), (4766, 'AD3949 2040', 0.513), (5223, 'Y4470 2035', 0.463), (5343, 'Y4558 2035', 0.463), (4771, 'Z3927 2036', 0.433), (4777, 'Y3975 2035', 0.433), (4774, 'Z3951 2036', 0.432), (4764, 'AE3933 2041', 0.388), (4355, 'R3999 2028', 0.372), (4772, 'AD3935 2040', 0.338), (4872, 'AC4312 2039', 0.301), ('afe.num', 'Y4569 2035', 0.291), (4824, 'AE3957 2041', 0.283), (4889, 'AE3937 2041', 0.273), (4927, 'R4325 2028', 0.254), (4826, 'AA3959 2037', 0.234), (4681, 'N4215 2024', 0.227), (4680, 'N4214 2024', 0.227), (5331, 'T4549 2030', 0.21), (5373, 'Z4570 2036', 0.194), (5318, 'AE4523 2041', 0.162)]
+- A. as shipped, scenario 1: section 5b, 886 rows (16260 cells incl. the side-table parameters) vs transport_model_ref.engine (all fixes), max relative diff 6.09e-01 (at AA4491 (5265, 2037)); no expected value for ['im.phv', 'trq.rod.gso', 'trq.rod.die', 'trq.rod.lpg', 'trq.rod.nga', 'trq.rod.ecy', 'trq.all.gso', 'trq.all.die'] FAIL
+- A. as shipped, evaluated as a LAMBDA host (2041 LAMBDAs expanded), scenario 2: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 23 price-fuel and 22 subsector variables, 163 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90580 cells, max relative diff 7.14e-02 (at AI2088) FAIL; not in the Python reference (not compared): ['apco2', 'apen.pow.bio', 'apen.pow.coa', 'apen.pow.nga', 'apen.pow.oop', 'apen.res.bio', 'apen.res.coa', 'apen.res.die', 'apen.res.ecy', 'apen.res.gso', 'apen.res.jfu', 'apen.res.ker', 'apen.res.lpg', 'apen.res.nga', 'apen.res.oop', 'ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'csd', 'ctf', 'cur', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'pcbcap', 'pcbchk', 'pcbcp', 'pcbct', 'pcbfu', 'pcbom', 'pcbrns', 'perm', 'psegap', 'psegs', 'pser', 'psesh', 'pseu', 'psp', 'rpnv', 'scl', 'spe', 'sys', 'txe', 'txg', 'wfx', 'wsel']
+  - A. as shipped, scenario 2: section-5b rows over the tolerance (worst first, 272 rows): [(5265, 'AW4491 2037', 0.592), (5348, 'AW4559 2037', 0.592), (5264, 'AW4490 2037', 0.59), (5220, 'AR4468 2032', 0.574), (5314, 'AR4514 2032', 0.552), (4888, 'AZ3929 2040', 0.515), (4894, 'AY3977 2039', 0.515), (4891, 'AZ3953 2040', 0.513), (4763, 'AZ3925 2040', 0.505), (4769, 'AY3973 2039', 0.505), (4766, 'AZ3949 2040', 0.5), (5223, 'AU4470 2035', 0.463), (5343, 'AU4558 2035', 0.463), (4771, 'AV3927 2036', 0.428), (4777, 'AU3975 2035', 0.428), (4774, 'AV3951 2036', 0.427), (4764, 'BA3933 2041', 0.403), (4355, 'AN3999 2028', 0.371), (4772, 'AY3935 2039', 0.355), (4872, 'AY4312 2039', 0.307), (4889, 'BA3937 2041', 0.301), ('afe.num', 'AU4569 2035', 0.287), (4824, 'BA3957 2041', 0.285), (4927, 'AN4325 2028', 0.265), (4826, 'AW3959 2037', 0.235), (4681, 'AJ4215 2024', 0.227), (4680, 'AJ4214 2024', 0.227), (5373, 'AV4570 2036', 0.211), (5331, 'AP4549 2030', 0.204), (5318, 'BA4523 2041', 0.161)]
+- A. as shipped, scenario 2: section 5b, 886 rows (16260 cells incl. the side-table parameters) vs transport_model_ref.engine (all fixes), max relative diff 5.92e-01 (at AW4491 (5265, 2037)); no expected value for ['im.phv', 'trq.rod.gso', 'trq.rod.die', 'trq.rod.lpg', 'trq.rod.nga', 'trq.rod.ecy', 'trq.all.gso', 'trq.all.die'] FAIL
 
 ## 4b. Power method = legacy (Python reference with the legacy inputs vs cached legacy rows)
-- baseline: 208 legacy rows (demand by subsector, required generation, capacity, generation, shares, fuel use, retirements, investment shares and both rounds, nameplate and USD investment, B1 phi, E1 investment cost, C7, B2, B6, E3, J, G1 prices, early retirement), 2022-2040: max relative diff 9.6e-14 (at second|nga 2026) OK
-- carbon-tax run: 208 legacy rows (demand by subsector, required generation, capacity, generation, shares, fuel use, retirements, investment shares and both rounds, nameplate and USD investment, B1 phi, E1 investment cost, C7, B2, B6, E3, J, G1 prices, early retirement), 2022-2040: max relative diff 4.4e-13 (at second|nga 2040) OK
+- baseline: 211 legacy rows (demand by subsector, required generation, capacity, generation, shares, fuel use, retirements, investment shares and both rounds, nameplate and USD investment, B1 phi, E1 investment cost, C7, B2, B6, E3, J, G1 prices, early retirement), 2022-2040: max relative diff 1.7e-12 (at second|wnd 2031) OK
+- carbon-tax run: 211 legacy rows (demand by subsector, required generation, capacity, generation, shares, fuel use, retirements, investment shares and both rounds, nameplate and USD investment, B1 phi, E1 investment cost, C7, B2, B6, E3, J, G1 prices, early retirement), 2022-2040: max relative diff 9.2e-13 (at second|nga 2032) OK
 
-Effect of each bug fix on the legacy Egypt inputs (2040; % change against legacy):
+Effect of each bug fix on the legacy Egypt inputs (2040; % change against legacy 456, no fixes):
 
 | Fix | legacy rows | generation (base) | power CO2 (base) | generation (carbon tax) | VRE share (carbon tax) | investment USD 2022-2040 (base) |
 |---|---|---|---|---|---|---|
-| services | 3731 | +7.69% | +6.62% | +3.98% | +1.21% | +11.28% |
-| aee | 3691, 3697, 3703, 3709 | +0.90% | +0.77% | +0.95% | +0.53% | +1.33% |
-| income | 3692, 3698, 3704, 3710 | +3.22% | +2.74% | +3.66% | +1.81% | +4.60% |
+| services | 3731 | +10.86% | +14.62% | +10.61% | -5.37% | +13.15% |
+| aee | 3691, 3697, 3703, 3709 | +0.91% | +1.19% | +0.90% | -0.50% | +1.08% |
+| income | 3692, 3698, 3704, 3710 | +3.22% | +4.20% | +3.22% | -1.83% | +4.13% |
 | lt_alloc | 3911, 3912 | +0.00% | +0.00% | +0.00% | +0.00% | +0.00% |
-| invcost | 4276-4284 | +0.00% | +0.00% | +0.00% | +0.00% | -11.26% |
-| cmin | 4046, 4073-4081 | +0.00% | +0.00% | -0.07% | -1.40% | +0.00% |
+| invcost | 4276-4284 | +0.00% | +0.00% | +0.00% | +0.00% | -9.61% |
+| cmin | 4046, 4073-4081 | +0.00% | +0.00% | +0.00% | +0.00% | +0.00% |
 | retlag | 3973 | +0.00% | +0.00% | +0.00% | +0.00% | +0.00% |
 | coalret | 4009-4011 | +0.00% | +0.00% | +0.00% | +0.00% | +0.00% |
 | rebate | 3407-3409 | +0.00% | +0.00% | +0.00% | +0.00% | +0.00% |
-| kcheck | 4024 | +0.00% | +0.00% | +0.00% | +0.00% | +0.00% |
-| nextyear | 4027 | -0.90% | -3.29% | -0.26% | -2.94% | +6.86% |
-| all |  | +11.20% | +4.76% | +9.06% | +0.74% | +15.07% |
-
-## 5. Scenario tests (copied MTInputs column + Mitigation group)
-- scenario 3 (copy of 2) = scenario 2: 129098 numeric cells, max abs diff 0 OK
-- scenario 4 (copy of 2, carbon price 0 in MTInputs) = scenario 1: 128878 numeric cells, max abs diff 1.02e-12 OK
-- pasted group 3: number 3, name "Test 3: copy of 2", code `egy.mit.ener.rod.coa.3` OK
-- pasted group 4: number 4, name "Test 4: copy of 2, carbon price 0", code `egy.mit.ener.rod.coa.4` OK
-- pasted group 5: number 5, name "Test 5: legacy Egypt carbon tax", code `egy.mit.ener.rod.coa.5` OK
-- pasted group 6: number 6, name "Test 6: fuel price reform", code `egy.mit.ener.rod.coa.6` OK
-- pasted group 7: number 7, name "Test 7: feebates", code `egy.mit.ener.rod.coa.7` OK
-- pasted group 8: number 8, name "Test 8: IMF-WB*, High, nominal carbon price", code `egy.mit.ener.rod.coa.8` OK
-- pasted group 9: number 9, name "Test 9: new ETS with cap (fast estimate) + carbon tax elsewhere", code `egy.mit.ener.rod.coa.9` OK
-- pasted group 10: number 10, name "Test 10: ETS override blank, no volatility, full auctioning", code `egy.mit.ener.rod.coa.10` OK
-- scenario 5 (legacy Egypt carbon tax): carbon price [0, 12.5, 50, 112.5] vs legacy row 8582, max abs diff 0 OK
-- scenario 5 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at CV7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- scenario 6 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at DR7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- scenario 7 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at EN7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- scenario 8 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at FJ7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- scenario 9 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at GF7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- scenario 10 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at HB7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- scenario 11 (engineer road model, no carbon price (copy of 1)): section 5b, 858 rows (16260 cells incl. the side-table parameters) vs transport_model_ref.engine (all fixes), max relative diff 2.46e-14 (at IB3925 (4927, 2026)) OK
-- scenario 11 vs Python (engineer road model on): carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at HX7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- scenario 12 (engineer road model, carbon tax (copy of 2)): section 5b, 858 rows (16260 cells incl. the side-table parameters) vs transport_model_ref.engine (all fixes), max relative diff 2.42e-14 (at IX3925 (4927, 2026)) OK
-- scenario 12 vs Python (engineer road model on): carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at IT7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- scenario 13 (as 12 + EV purchase subsidy): section 5b, 858 rows (16260 cells incl. the side-table parameters) vs transport_model_ref.engine (all fixes), max relative diff 2.42e-14 (at JT3925 (4927, 2026)) OK
-- scenario 13 vs Python (engineer road model on): carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at JP7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- scenario 14 (as 12 + distance tax): section 5b, 858 rows (16260 cells incl. the side-table parameters) vs transport_model_ref.engine (all fixes), max relative diff 2.42e-14 (at KP3925 (4927, 2026)) OK
-- scenario 14 vs Python (engineer road model on): carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at KL7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- scenario 15 (as 12 + subsidy, distance tax, feebates, charging subsidy): section 5b, 858 rows (16260 cells incl. the side-table parameters) vs transport_model_ref.engine (all fixes), max relative diff 1.33e-14 (at LN3797 (4636, 2028)) OK
-- scenario 15 vs Python (engineer road model on): carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at LH7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- scenario 11: road gasoline, diesel, LPG, gas and biofuels of section 5 = section 5b (max abs diff 0 ktoe); road electricity demand of section 3 H = section 5b from 2023 (0) OK
-- direction: carbon tax lowers road fuel use (12 vs 11, 2035): 24,259 -> 23,089 ktoe OK
-- direction: EV purchase subsidy raises the passenger EV sales share (13 vs 12, 2030): 0.0109 -> 0.0551 OK
-- direction: distance tax lowers passenger distance driven (14 vs 12, 2035): 293.39 -> 211.51 bln km OK
-- direction: policies of 15 lower road fuel use (15 vs 12, 2035): 23,089 -> 15,779 ktoe OK
-- section 2 price indices (unit value, Laspeyres, time index, mix) vs Python, every scenario group and fuel: 4066 cells, max relative diff 1.03e-14 OK
-- section 2 price blocks: full retail price, weights and new taxes and subsidies (fuel-use weighted over the subsectors of the block) vs Python, every scenario group: 3648 cells, max relative diff 8.29e-14 OK
-- section 18 welfare, climate part (SCC options, damages, efficiency costs of energy and of the methane fee, summary) vs Python, every scenario group: 2040 cells, max relative diff 2.56e-13 (at ('wcli.nat', 28, 0, 2.5579538487363607e-13)) OK
-- 16b external balance (change in net energy imports, trade balance, % of GDP) vs Python, every scenario group: 760 cells, max relative diff 4.86e-15 (at ('xnim.all', 43, -1.09550942760621, -1.0955094276062154)) OK
-- section 17 carbon pricing (implicit carbon price, effective carbon rate and tax, CO2 covered, coverage) vs Python, every scenario group: 1440 cells, max relative diff 8.21e-15 (at ('cpi.nga', 18, -17.7453868153883, -17.745386815388155)) OK
-- 11b, 13b, 14b (changes, % changes, grid intensity, Kaya incl. its identity, energy GHGs with forcing) vs Python, every scenario group: 2640 cells, max relative diff 9.1e-12 (at ('echg.f.oop', 35, -0.707396527221135, -0.7073965272302303)) OK
-- 12d fiscal reports (revenue by fuel = rnet + rnew, % of GDP, base erosion) and exchange rate vs Python, every scenario group: 920 cells, max relative diff 5.55e-11 OK
-  - scenario 6, road gasoline new excise ($/GJ) 2026-2031: [0, 1.43, 2.86, 4.289, 5.719, 7.149]
-  - scenario 7, road gasoline feebate shadow price ($/GJ) 2026-2031: [0, 0.615, 1.436, 2.256, 3.077, 3.897]
-- scenario 7 vs scenario 1 (covered with a non-zero rate: cem, cst, ftr, irn, mac, mch, nfm, oen, omn, rod): other subsectors unchanged apart from the GDP feedback (= scenario 1 at the growth path of scenario 7, max rel diff 7.95e-15); covered subsectors in 2040: cem -16.50%, ftr -14.62%, irn -15.20%, oen -17.35%, omn -15.62%, rod -13.22% OK
-  - scenario 8: crude oil gp 2024-2026 (real) [127.42, 109.03, 114.14], carbon price 2027-2030 (nominal 20 x infl) [19.581, 19.162, 18.752, 18.35]
-- scenario 10 (new ETS on power and industry from 2027, override row blank = carbon price, volatility Zero, policy risk 0, benchmarks 0): nce, atp and fuel use equal scenario 2 (max abs diff 0); ETS cost > 0 (43.15, sum over rows 2040); carbon tax in cement 0 (0) OK
-  - scenario 9 (cap -2% in 2027 to -15% in 2035 vs baseline covered emissions; benchmarks 1.0 flat, the legacy default; volatility Medium), 2026-2036:
-    - baseline covered emissions (MtCO2): [0, 109.84, 110.362, 110.62, 112.702, 113.756, 115.098, 116.49, 117.914, 119.368, 120.858]
-    - cap (MtCO2): [0, 107.643, 106.361, 104.812, 104.954, 104.087, 103.444, 102.803, 102.143, 101.463, 101.463]
-    - volatility adjustment: [0.909, 0.909, 0.909, 0.909, 0.909, 0.909, 0.909, 0.909, 0.909, 0.909, 0.909]
-    - effective semi-elasticity: [0, -0.002, -0.002, -0.002, -0.002, -0.002, -0.002, -0.002, -0.002, -0.002, -0.002]
-    - fast estimate ($/tCO2): [0, 14.018, 25.521, 37.127, 48.957, 60.887, 72.999, 85.282, 97.742, 110.389, 118.559]
-    - permit price used: [0, 14.018, 25.521, 37.127, 48.957, 60.887, 72.999, 85.282, 97.742, 110.389, 118.559]
-    - OBR share, cement: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-    - covered emissions (MtCO2): [0, 109.156, 109.265, 109.142, 110.79, 106.862, 104.261, 101.912, 98.931, 96.544, 94.295]
-    - covered / cap - 1: [0, 0.014, 0.027, 0.041, 0.056, 0.027, 0.008, -0.009, -0.031, -0.048, -0.071]
-    - next price proposal: [0, 25.214, 49.069, 74.338, 99.874, 72.578, 75.845, 82.461, 88.402, 96.604, 99.535]
-  - volatility adjustment at Medium = 1/1.1 as legacy row 2191 (0.909091) OK
-- bco2.chk (baseline data vs scenario 1 CO2) in all 10 groups: max abs 0 OK
-- price controls None (global), scenario 1 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 2.33e-10 (at T7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- price controls None (global), scenario 2 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 4.66e-10 (at AX7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- price controls Manual (global), scenario 1 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 2.33e-10 (at AB7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- price controls Manual (global), scenario 2 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 2.91e-11 (at AV7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- MTOutputs with blocks 3-10 added by copying (scenario tests): 10 scenario blocks x 123 indicators, 24600 cells equal the Mitigation cell of their output code (max abs diff 0); block numbers 1..10 OK
-
-## 5d. Power features switched on (v0.5.4, power plan P1, P2, P4)
-- power test, group 3 (Test 3: MaximumGasCF 0.6, long-term storage from 2% VRE x 2 (P1)) vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at BD7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- power test, group 4 (Test 4: power inputs of the scenario (P2)) vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at CB7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- power test, group 5 (Test 5: power inputs of the scenario, other options (P2; Low decline: L109)) vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at CV7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- power test, group 6 (Test 6: PPAs, half of coal and gas, phased out 2030-2035 (P4; copy of 1, new coal permitted)) vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at DR7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- power test, group 7 (Test 7: renewable subsidies, base 0.01 and additional 0.02 $/kWh from 2028 over 5 years, hydro (P4)) vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at EN7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- power test, group 8 (Test 8: power revenues rebated (PowerRebates = Yes; P4)) vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at FJ7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- power test, group 9 (Test 9: electricity excise scenario and manual electricity excise (P4)) vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 3.92e-11 (at GK2016) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-  - group 3: gen.nga 2030 2.026e+04 (source group 2: 2.05e+04); gmx.nga 2030 3.146e+04 (source group 2: 4.766e+04); gen.coa 2030 0 (source group 2: 0); cap.nuc 2030 0 (source group 2: 0); rp.res 2030 0.07113 (source group 2: 0.06966)
-  - group 4: gen.nga 2030 1.668e+04 (source group 2: 2.05e+04); gmx.nga 2030 3.57e+04 (source group 2: 4.766e+04); gen.coa 2030 0 (source group 2: 0); cap.nuc 2030 0 (source group 2: 0); rp.res 2030 0.06856 (source group 2: 0.06966)
-  - group 5: gen.nga 2030 1.854e+04 (source group 2: 2.05e+04); gmx.nga 2030 4.353e+04 (source group 2: 4.766e+04); gen.coa 2030 19.36 (source group 2: 0); cap.nuc 2030 0 (source group 2: 0); rp.res 2030 0.0654 (source group 2: 0.06966)
-  - group 6: gen.nga 2030 2.242e+04 (source group 1: 2.149e+04); gmx.nga 2030 5.025e+04 (source group 1: 4.905e+04); gen.coa 2030 1,299 (source group 1: 0); cap.nuc 2030 0 (source group 1: 0); rp.res 2030 0.05875 (source group 1: 0.06035)
-  - group 7: gen.nga 2030 2.047e+04 (source group 2: 2.05e+04); gmx.nga 2030 4.759e+04 (source group 2: 4.766e+04); gen.coa 2030 0 (source group 2: 0); cap.nuc 2030 0 (source group 2: 0); rp.res 2030 0.06963 (source group 2: 0.06966)
-  - group 8: gen.nga 2030 2.147e+04 (source group 2: 2.05e+04); gmx.nga 2030 4.906e+04 (source group 2: 4.766e+04); gen.coa 2030 0 (source group 2: 0); cap.nuc 2030 0 (source group 2: 0); rp.res 2030 0.06033 (source group 2: 0.06966)
-  - group 9: gen.nga 2030 1.887e+04 (source group 2: 2.05e+04); gmx.nga 2030 4.429e+04 (source group 2: 4.766e+04); gen.coa 2030 0 (source group 2: 0); cap.nuc 2030 0 (source group 2: 0); rp.res 2030 0.09741 (source group 2: 0.06966)
-  - group 6 (PPAs): ppa share 2029-2036 [0.5, 0.5, 0.4, 0.3, 0.2, 0.1, 0, 0]; coal generation 2030 1,299.1 MWy (logit 136.3); early coal retirement 2030 0.0 MW
-  - group 7 (renewable subsidies): rns wind 2027-2034 [-0.0098, -0.0287, -0.0244, -0.0202, -0.0162, -0.0126, -0.009, -0.009]; wind + solar capacity 2041 50,353 MW (group 2: 50,125); renewable subsidy revenue 2030 -1,457.1 USD m
-  - group 8 (rebate): residential price 2030 0.0603 $/kWh (group 2: 0.0697; before new policies 0.0603); rebate 2030 -1,912.2 USD m
-  - group 9 (excise): excise $/kWh 2030 0.00761 (grid intensity x carbon price), residential pex 2030 0.02561, industry 0.01261; revenue 2030: carbon-based 1,543.5, manual 2,061.8 USD m
-- PwDeficitGas = Yes, tight scale-up limits, scenario 1 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at L7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- PwDeficitGas = Yes, tight scale-up limits, scenario 2 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at AH7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-  - PwDeficitGas: deficit to gas 2025-2032 (scenario 1) [0, 1626.6, 1475.1, 2234.6, 1618.4, 1511.0, 1602.7, 1643.8] MW; gas investment 2030 1,684.6 MW, first + second round 173.6
-
-## 5a. Residential leakage to biomass switched on (v0.5.1, global setting BiomassLeakage)
-- leakage on, scenario 1 vs Python (Python with the sheet's GDP growth): carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 89160 cells, max relative diff 7.28e-12 (at L7479); judged on the focus rows (residential block, section 6b): max relative diff 5.14e-15 (at W4325) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'fis.eff.capt', 'fis.eff.cit', 'fis.eff.exc', 'fis.eff.gnfs', 'fis.eff.pit', 'fis.eff.trns', 'fis.imp', 'fis.impp', 'fis.lag.1', 'fis.lag.10', 'fis.lag.11', 'fis.lag.12', 'fis.lag.13', 'fis.lag.14', 'fis.lag.15', 'fis.lag.16', 'fis.lag.17', 'fis.lag.18', 'fis.lag.19', 'fis.lag.2', 'fis.lag.3', 'fis.lag.4', 'fis.lag.5', 'fis.lag.6', 'fis.lag.7', 'fis.lag.8', 'fis.lag.9', 'fis.lagp.1', 'fis.lagp.10', 'fis.lagp.11', 'fis.lagp.12', 'fis.lagp.13', 'fis.lagp.14', 'fis.lagp.15', 'fis.lagp.16', 'fis.lagp.17', 'fis.lagp.18', 'fis.lagp.19', 'fis.lagp.2', 'fis.lagp.3', 'fis.lagp.4', 'fis.lagp.5', 'fis.lagp.6', 'fis.lagp.7', 'fis.lagp.8', 'fis.lagp.9', 'fis.ref', 'fis.rev', 'fis.sp', 'gdp.base', 'gdp.chg.usd', 'gdp.eff', 'gdp.lvl', 'gdp.pos.usd', 'gdpg.all', 'gdpg.capt', 'gdpg.cit', 'gdpg.exc', 'gdpg.gnfs', 'gdpg.pit', 'gdpg.trns', 'gdpy', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- leakage on, scenario 2 ($20) vs Python (Python with the sheet's GDP growth): carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 89160 cells, max relative diff 7.28e-12 (at AH7479); judged on the focus rows (residential block, section 6b): max relative diff 5.27e-15 (at AS4336) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'fis.eff.capt', 'fis.eff.cit', 'fis.eff.exc', 'fis.eff.gnfs', 'fis.eff.pit', 'fis.eff.trns', 'fis.imp', 'fis.impp', 'fis.lag.1', 'fis.lag.10', 'fis.lag.11', 'fis.lag.12', 'fis.lag.13', 'fis.lag.14', 'fis.lag.15', 'fis.lag.16', 'fis.lag.17', 'fis.lag.18', 'fis.lag.19', 'fis.lag.2', 'fis.lag.3', 'fis.lag.4', 'fis.lag.5', 'fis.lag.6', 'fis.lag.7', 'fis.lag.8', 'fis.lag.9', 'fis.lagp.1', 'fis.lagp.10', 'fis.lagp.11', 'fis.lagp.12', 'fis.lagp.13', 'fis.lagp.14', 'fis.lagp.15', 'fis.lagp.16', 'fis.lagp.17', 'fis.lagp.18', 'fis.lagp.19', 'fis.lagp.2', 'fis.lagp.3', 'fis.lagp.4', 'fis.lagp.5', 'fis.lagp.6', 'fis.lagp.7', 'fis.lagp.8', 'fis.lagp.9', 'fis.ref', 'fis.rev', 'fis.sp', 'gdp.base', 'gdp.chg.usd', 'gdp.eff', 'gdp.lvl', 'gdp.pos.usd', 'gdpg.all', 'gdpg.capt', 'gdpg.cit', 'gdpg.exc', 'gdpg.gnfs', 'gdpg.pit', 'gdpg.trns', 'gdpy', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- leakage on, group 3 (scenario 3 = 2 + residential LPG/kerosene exempt) vs Python (Python with the sheet's GDP growth): carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 89160 cells, max relative diff 4.15e-02 (at BJ7467); judged on the focus rows (residential block, section 6b): max relative diff 4.88e-15 (at BN4358) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'fis.eff.capt', 'fis.eff.cit', 'fis.eff.exc', 'fis.eff.gnfs', 'fis.eff.pit', 'fis.eff.trns', 'fis.imp', 'fis.impp', 'fis.lag.1', 'fis.lag.10', 'fis.lag.11', 'fis.lag.12', 'fis.lag.13', 'fis.lag.14', 'fis.lag.15', 'fis.lag.16', 'fis.lag.17', 'fis.lag.18', 'fis.lag.19', 'fis.lag.2', 'fis.lag.3', 'fis.lag.4', 'fis.lag.5', 'fis.lag.6', 'fis.lag.7', 'fis.lag.8', 'fis.lag.9', 'fis.lagp.1', 'fis.lagp.10', 'fis.lagp.11', 'fis.lagp.12', 'fis.lagp.13', 'fis.lagp.14', 'fis.lagp.15', 'fis.lagp.16', 'fis.lagp.17', 'fis.lagp.18', 'fis.lagp.19', 'fis.lagp.2', 'fis.lagp.3', 'fis.lagp.4', 'fis.lagp.5', 'fis.lagp.6', 'fis.lagp.7', 'fis.lagp.8', 'fis.lagp.9', 'fis.ref', 'fis.rev', 'fis.sp', 'gdp.base', 'gdp.chg.usd', 'gdp.eff', 'gdp.lvl', 'gdp.pos.usd', 'gdpg.all', 'gdpg.capt', 'gdpg.cit', 'gdpg.exc', 'gdpg.gnfs', 'gdpg.pit', 'gdpg.trns', 'gdpy', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- leakage on: LAMBDA test group = group 2 on the 6b rows and residential fuel use (max abs row-sum diff 0); useful energy conserved, sum of e x cumulative change 5.3e-15; fuel use = elasticity model + cumulative change (8.5e-12); exempt LPG and kerosene do not leak (group 3: 0); scenario 2 in 2027: LPG share moved 1.5490%, residential LPG -25.4 ktoe, biomass +71.0 ktoe (useful energy: -14.2 vs +14.2); share in 2028-2030 [0, 0, 0] OK
-- exemption, group 3 (scenario 3 = 2 + residential LPG/kerosene exempt) vs Python (Python with the sheet's GDP growth): carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 89160 cells, max relative diff 4.15e-02 (at BJ7467); judged on the focus rows (residential block, section 6b): max relative diff 4.88e-15 (at BN4358) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'fis.eff.capt', 'fis.eff.cit', 'fis.eff.exc', 'fis.eff.gnfs', 'fis.eff.pit', 'fis.eff.trns', 'fis.imp', 'fis.impp', 'fis.lag.1', 'fis.lag.10', 'fis.lag.11', 'fis.lag.12', 'fis.lag.13', 'fis.lag.14', 'fis.lag.15', 'fis.lag.16', 'fis.lag.17', 'fis.lag.18', 'fis.lag.19', 'fis.lag.2', 'fis.lag.3', 'fis.lag.4', 'fis.lag.5', 'fis.lag.6', 'fis.lag.7', 'fis.lag.8', 'fis.lag.9', 'fis.lagp.1', 'fis.lagp.10', 'fis.lagp.11', 'fis.lagp.12', 'fis.lagp.13', 'fis.lagp.14', 'fis.lagp.15', 'fis.lagp.16', 'fis.lagp.17', 'fis.lagp.18', 'fis.lagp.19', 'fis.lagp.2', 'fis.lagp.3', 'fis.lagp.4', 'fis.lagp.5', 'fis.lagp.6', 'fis.lagp.7', 'fis.lagp.8', 'fis.lagp.9', 'fis.ref', 'fis.rev', 'fis.sp', 'gdp.base', 'gdp.chg.usd', 'gdp.eff', 'gdp.lvl', 'gdp.pos.usd', 'gdpg.all', 'gdpg.capt', 'gdpg.cit', 'gdpg.exc', 'gdpg.gnfs', 'gdpg.pit', 'gdpg.trns', 'gdpy', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- scenario 3 (carbon price $20, AlwaysExemptResLPGKer = Yes): residential LPG and kerosene after-tax price = scenario 1 (max abs diff 0); their new carbon tax, ETS, excise, total new policy, new-policy and excise revenue 0 (max abs 0); VAT revenue per ktoe = scenario 1 (0); 2027 residential LPG new-policy revenue in scenario 2 144.1 USD m; residential gas carbon tax kept (1.038 $/GJ) OK
-
-## 5b. ETS goal seek (ets_goalseek.py): skipped (user rule 2026-10-19, NORMS 5: the user tests the goal seek separately, issue I30)
-
-## 5c. Existing carbon pricing with non-zero test data (v0.1.09)
-- ECP test data, scenario 1 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at L7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- ECP test data, scenario 2 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at AH7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- ECP test data, scenario 3 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at BD7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- ECP test data, scenario 4 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 3.64e-12 (at CC7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- ECP test data, scenario 5 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at CV7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- scenario 2 with the test data: change against the price data xcpd = 0 in 2022 (max 0), > 0 in 2030 (data 2025 above 2024: max 1.152 $/GJ); level xcp > 0; power xck 2030 max 0.01897 $/kWh; existing carbon pricing revenue 2030 (all, power) [3993.3, 1881.9] USD m; scenario 4 (switched off): xcpd < 0 (min -2.402) OK
-- scenario 5 (complementary): new carbon tax rate 2030 = carbon price 20.00 x (1 - existing ETS sector coverage): power 0.00, cement 8.00, road 20.00 OK
-- check rows ener.chk, rev.chk, co2.chk in groups 1-5: max abs 0 OK
-
-## 6. Regression vs v0.7.2 (shared output codes, 2022-2041: no change)
-- 6510 output codes in both versions (6876 intended changes), 2022-2041: max abs diff 0 OK
-- variables added: ch4, trafts, traftsc, trbkmt, trstt
-- intended changes that differ: ndc.over, swd.2, swi.2
-
-## 6b. MTOutputs and Charts
-- MTOutputs as shipped: 2 scenario blocks x 123 indicators, 4920 cells equal the Mitigation cell of their output code (max abs diff 0); block numbers 1..2 OK
-- v0.7.0 dashboard charts: no Charts sheet; 5 charts on ScenarioCompare (1 bar on row 34, 4 line charts with [6, 6, 6, 6] series on the slot rows of their block, short-name labels) OK
+| kcheck | 4024 | -1.39% | -2.53% | -1.30% | +5.38% | +9.52% |
+| nextyear | 4027 | -0.48% | +5.02% | -0.47% | -7.09% | -4.97% |
+| all |  | +12.37% | +15.63% | +12.21% | +1.05% | +27.65% |
 
 ## 7. Labels and codes
-- column H: 6713 cells, 1 formula OK
-- column I: 6713 cells, 1 formula OK
-- column J: 6713 cells, 1 formula OK
-- code column K (scenario 1): 6183 cells, 1 formula OK
+- column H: 7558 cells, 1 formula OK
+- column I: 7558 cells, 1 formula OK
+- column J: 7558 cells, 1 formula OK
+- code column K (scenario 1): 7028 cells, 1 formula OK
 - code column K (scenario 1), rows with their own code: 512 cells, 1 formula OK
 - code column K: 18 rows without a code (the section 11 copies, R7) OK
-- code column AG (scenario 2): 6183 cells, 1 formula OK
+- code column AG (scenario 2): 7028 cells, 1 formula OK
 - code column AG (scenario 2), rows with their own code: 512 cells, 1 formula OK
 - code column AG: 18 rows without a code (the section 11 copies, R7) OK
-- K2258: `egy.mit.ener.rod.gso.1` | Fuel use | Road | Gasoline OK
-- K652: `egy.mit.sp.pow.coa.1` | Supply cost (pre-tax price) | Power | Coal OK
-- AG832: `egy.mit.pbc.all.gso.2` | Retail price before new taxes and subsidies | All sectors | Gasoline OK
-- K637: `egy.mit.gp.int.oil.1` | International energy price (real; source and adjustment from MTInputs) | International | Crude oil OK
+- K2690: `egy.mit.ener.rod.gso.1` | Fuel use | Road | Gasoline OK
+- K971: `egy.mit.sp.pow.coa.1` | Supply cost (pre-tax price) | Power | Coal OK
+- AG1145: `egy.mit.pbc.all.gso.2` | Retail price before new taxes and subsidies | All sectors | Gasoline OK
+- K956: `egy.mit.gp.int.oil.1` | International energy price (real; source and adjustment from MTInputs) | International | Crude oil OK
 - K8: `egy.mit.infl.1` | Inflation index: US CPI, ResultsYear = 1 (nominal -> real for domestic prices and nominal policy inputs) OK
-- AG2125: `egy.mit.ets.rod.nga.2` | New ETS cost in the fuel price (tax-equivalent, auctioned part) | Road | Natural gas OK
-- K860: `egy.mit.esub.all.die.1` | Existing consumer subsidy (negative part of txo; negative = subsidy) | All sectors | Diesel OK
-- AG237: `egy.mit.ets.p.2` | ETS permit price used OK
-- AG2313: `egy.mit.rnew.rod.gso.2` | Revenue from new policies (carbon tax, excise, auctioned ETS, VAT on them) | Road | Gasoline OK
-- K7406: `egy.mit.rsub.tra.tot.1` | Existing consumer subsidies (negative = fiscal cost) | Transport | All fuels OK
-- AG7486: `egy.mit.rtot.chg.all.all.2` | Change in total revenue vs scenario 1 (fiscal effect) | All sectors | All fuels OK
-- K2270: `egy.mit.co2.rod.die.1` | CO2 emissions from fuel combustion | Road | Diesel OK
-- AG7496: `egy.mit.co2.tot.nga.2` | CO2 emissions from fuel combustion | All sectors | Natural gas OK
-- AG7505: `egy.mit.co2.pct.all.all.2` | Change in CO2 emissions vs scenario 1 | All sectors | All fuels OK
-- AG2214: `egy.mit.atp.rod.gso.2` | After-tax price | Road | Gasoline OK
-- AG2116: `egy.mit.ctxnew.rod.die.2` | New carbon tax | Road | Diesel OK
-- K2225: `egy.mit.shp.rod.gso.1` | Shadow price on the efficiency margin | Road | Gasoline OK
-- K2109: `egy.mit.ener.rod.tot.1` | Fuel use | Road | All fuels OK
-- K3133: `egy.mit.ener.tra.tot.1` | Fuel use | Transport | All fuels OK
-- AG619: `egy.mit.cptraj.2` | Carbon price trajectory used OK
+- AG2568: `egy.mit.ets.rod.nga.2` | New ETS cost in the fuel price (tax-equivalent, auctioned part) | Road | Natural gas OK
+- K1172: `egy.mit.esub.all.die.1` | Existing consumer subsidy (negative part of txo; negative = subsidy) | All sectors | Diesel OK
+- AG558: `egy.mit.ets.p.2` | ETS permit price used OK
+- AG2745: `egy.mit.rnew.rod.gso.2` | Revenue from new policies (carbon tax, excise, auctioned ETS, VAT on them) | Road | Gasoline OK
+- K7710: `egy.mit.rsub.tra.tot.1` | Existing consumer subsidies (negative = fiscal cost) | Transport | All fuels OK
+- AG7790: `egy.mit.rtot.chg.all.all.2` | Change in total revenue vs scenario 1 (fiscal effect) | All sectors | All fuels OK
+- K2702: `egy.mit.co2.rod.die.1` | CO2 emissions from fuel combustion | Road | Diesel OK
+- AG7800: `egy.mit.co2.tot.nga.2` | CO2 emissions from fuel combustion | All sectors | Natural gas OK
+- AG7809: `egy.mit.co2.pct.all.all.2` | Change in CO2 emissions vs scenario 1 | All sectors | All fuels OK
+- AG2646: `egy.mit.atp.rod.gso.2` | After-tax price | Road | Gasoline OK
+- AG2559: `egy.mit.ctxnew.rod.die.2` | New carbon tax | Road | Diesel OK
+- K2657: `egy.mit.shp.rod.gso.1` | Shadow price on the efficiency margin | Road | Gasoline OK
+- K2552: `egy.mit.ener.rod.tot.1` | Fuel use | Road | All fuels OK
+- K3532: `egy.mit.ener.tra.tot.1` | Fuel use | Transport | All fuels OK
+- AG938: `egy.mit.cptraj.2` | Carbon price trajectory used OK
 - K64: `egy.mit.ctcov.oen.all.1` | Carbon tax coverage (Apply tax?) | Other energy use | All fuels OK
-- AG7394: `egy.mit.ener.tot.tot.2` | Fuel use | All sectors | All fuels OK
-- K1539: `egy.mit.gnc.pow.nga.1` | Generation cost before new policies (cost recovery) | Power | Natural gas OK
-- AG1378: `egy.mit.caxav.pow.sol.2` | Weighted average capital cost of the stock (vintages) | Power | Solar OK
-- K1549: `egy.mit.gncav.1` | Average generation cost (weighted by generation shares) OK
-- AG1617: `egy.mit.rp.res.ecy.2` | End-user electricity price | Residential | Electricity OK
-- K1806: `egy.mit.msc.1` | Marginal storage cost of variable renewables (wind, solar, other renewables) OK
-- AG1471: `egy.mit.xac.pow.oop.2` | New policy cost per kWh generated (carbon tax, ETS, fuel price reform) | Power | Other oil products OK
-- K1758: `egy.mit.gen_mwy.pow.sol.1` | Generation | Power | Solar OK
-- AG1678: `egy.mit.dem.srv.ecy.2` | Electricity demand | Services (public & private) | Electricity OK
-- K1666: `egy.mit.mult.tra.ecy.1` | Growth multiple of electricity demand (efficiency, GDP, price; demand shock if switched on) | Transport | Electricity OK
-- K7494: `egy.mit.co2.pow.tot.1` | CO2 emissions from fuel combustion | Power | All fuels OK
-
-## 8. Row outline
-- row group buttons below the groups (summaryBelow): OK
-- one level of row groups (v0.2.4, no nesting): max level 1 OK
-- opens rolled up: every grouped row hidden; collapsed flag on the row after each group OK
-- front tabs Cover, ScenarioCompare, ScenarioDefinition, then MAIN->> and Mitigation; opens on ScenarioCompare: OK; Mitigation zoom 75%: OK
-- tab groups MAIN->>, INPUTS->>, DATA->>, REF->> (last) in that order: OK
-- section at row 17: rows 18-618 grouped and hidden: 601 rows at level 1, hidden OK
-- section at row 17: band and summary row visible: 2 rows at level 0, visible OK
-- section at row 621: rows 622-1151 grouped and hidden: 530 rows at level 1, hidden OK
-- section at row 621: band and summary row visible: 2 rows at level 0, visible OK
-- section at row 1154: rows 1155-2104 grouped and hidden: 950 rows at level 1, hidden OK
-- section at row 1154: band and summary row visible: 2 rows at level 0, visible OK
-- section at row 2107: rows 2108-3132 grouped and hidden: 1025 rows at level 1, hidden OK
-- section at row 2107: band and summary row visible: 2 rows at level 0, visible OK
-- section at row 4183: rows 4184-4952 grouped and hidden: 769 rows at level 1, hidden OK
-- section at row 4183: band and summary row visible: 2 rows at level 0, visible OK
-- section at row 5007: rows 5008-7056 grouped and hidden: 2049 rows at level 1, hidden OK
-- section at row 5007: band and summary row visible: 2 rows at level 0, visible OK
-- section at row 7059: rows 7060-7316 grouped and hidden: 257 rows at level 1, hidden OK
-- section at row 7059: band and summary row visible: 2 rows at level 0, visible OK
-- section at row 3135: rows 3136-4180 grouped and hidden: 1045 rows at level 1, hidden OK
-- section at row 3135: band and summary row visible: 2 rows at level 0, visible OK
-- section at row 4955: rows 4956-5004 grouped and hidden: 49 rows at level 1, hidden OK
-- section at row 4955: band and summary row visible: 2 rows at level 0, visible OK
-- section at row 7319: rows 7320-7393 grouped and hidden: 74 rows at level 1, hidden OK
-- section at row 7319: band and summary row visible: 2 rows at level 0, visible OK
-- section at row 7397: rows 7398-7484 grouped and hidden: 87 rows at level 1, hidden OK
-- section at row 7397: band and summary row visible: 2 rows at level 0, visible OK
-- section at row 7488: rows 7489-7571 grouped and hidden: 83 rows at level 1, hidden OK
-- section at row 7488: band and summary row visible: 2 rows at level 0, visible OK
-- section at row 7575: rows 7576-7811 grouped and hidden: 236 rows at level 1, hidden OK
-- section at row 7575: band and summary row visible: 2 rows at level 0, visible OK
-- section at row 7815: rows 7816-8132 grouped and hidden: 317 rows at level 1, hidden OK
-- section at row 7815: band and summary row visible: 2 rows at level 0, visible OK
-- section at row 8135: rows 8136-8266 grouped and hidden: 131 rows at level 1, hidden OK
-- section at row 8135: band and summary row visible: 2 rows at level 0, visible OK
-- section at row 8269: rows 8270-8319 grouped and hidden: 50 rows at level 1, hidden OK
-- section at row 8269: band and summary row visible: 2 rows at level 0, visible OK
-- section at row 8322: rows 8323-8396 grouped and hidden: 74 rows at level 1, hidden OK
-- section at row 8322: band and summary row visible: 2 rows at level 0, visible OK
+- AG7698: `egy.mit.ener.tot.tot.2` | Fuel use | All sectors | All fuels OK
+- K1846: `egy.mit.gnc.pow.nga.1` | Generation cost before new policies (cost recovery) | Power | Natural gas OK
+- AG1685: `egy.mit.caxav.pow.sol.2` | Weighted average capital cost of the stock (vintages) | Power | Solar OK
+- K1856: `egy.mit.gncav.1` | Average generation cost (weighted by generation shares) OK
+- AG2015: `egy.mit.rp.res.ecy.2` | End-user electricity price | Residential | Electricity OK
+- K2249: `egy.mit.msc.1` | Marginal storage cost of variable renewables (wind, solar, other renewables) OK
+- AG1778: `egy.mit.xac.pow.oop.2` | New policy cost per kWh generated (carbon tax, ETS, fuel price reform) | Power | Other oil products OK
+- K2201: `egy.mit.gen_mwy.pow.sol.1` | Generation | Power | Solar OK
+- AG2121: `egy.mit.dem.srv.ecy.2` | Electricity demand | Services (public & private) | Electricity OK
+- K2109: `egy.mit.mult.tra.ecy.1` | Growth multiple of electricity demand (efficiency, GDP, price; demand shock if switched on) | Transport | Electricity OK
+- K7798: `egy.mit.co2.pow.tot.1` | CO2 emissions from fuel combustion | Power | All fuels OK
 
 ## 8b. Layout and constants (v0.2.4): years in row 1, labelled D:G, nothing typed
 - years in row 1 of every scenario group (2022-2041): OK
-- 685 label rows; 4011 rows with values in D:G, each with a label in its label row above for every column it uses: OK
-- no typed numbers below the top rows (inputs: scenario number K5, ETS override row ets.ovr) and no numeric constants in the formulas of any sheet: OK
+- 735 label rows; 4197 rows with values in D:G, each with a label in its label row above for every column it uses: FAIL [292, 293, 295, 298, 299, 300, 301, 304, 305, 306]
+- no typed numbers below the top rows (inputs: scenario number K5, ETS override row ets.ovr) and no numeric constants in the formulas of any sheet: FAIL ['F202', 'F214', 'F279', 'D315', 'D316', 'D317', 'D318', 'D319'] {}
   allowed in formulas besides 0 and 1: choice codes of gp.adj (1 none, 2 High, 3 Low); AGGREGATE function codes (average, skip errors); text length in LEFT(switch, n) = "Yes" / "High" ...; functional form of the long-term storage cost (legacy: 2 x, squared); functional form of the long-term storage cost (squared)
-- sheet Constants: 66 named constants (ManCapOff, CoalICYr, MethGJperKtoe, MethGJperBbl, MethGJperT, MethGJperMMBtu, PwAvgLag, LitersPerKtoeOil, LitersPerBbl, NDCYrCap, HoursYr, kWperMW, USDperM, MWyMkWh, PriceFloor, GWPCH4F, GWPCH4NF, tPerKt, EFtPerKtoe, ktPerMt, GdpExtHalf, WaccDefault, HydInvShare, UraniumFuel, InvPresentShare, StMargFactor, EarlyMaxShare, KtoeGWh, IncfA, IncfB, IncfC, IncfD, IncfE, IncfLnCap, IncfNorm, MultLastLag, KgPerT, EFJetIEA, FlareCO2perCH4, EFEndYear, MperBn, PctPerUnit, PomPerOC, GJperkWh, CapAvgShr, TieBreak, PassLo, PassHi, PassMid, MethShareCap, Thousand, Million, Billion, TrRALag, TrPivotLag, TrOwnDecline, TrFEWGso, TrFEWHalf, TrFEWEvP, TrFEWEvO, ResSubstLag, MitGW, BasketQ, DecPerQuint, PlDecScale, DWLTri) and 13 policy assumptions by key OK; MWyMkWh = =HoursYr*kWperMW/USDperM
+- sheet Constants: 69 named constants (ManCapOff, CoalICYr, MethGJperKtoe, MethGJperBbl, MethGJperT, MethGJperMMBtu, PwAvgLag, LitersPerKtoeOil, LitersPerBbl, NDCYrCap, HoursYr, kWperMW, USDperM, MWyMkWh, PriceFloor, GWPCH4F, GWPCH4NF, tPerKt, EFtPerKtoe, ktPerMt, GdpExtHalf, WaccDefault, HydInvShare, UraniumFuel, InvPresentShare, StMargFactor, EarlyMaxShare, KtoeGWh, IncfA, IncfB, IncfC, IncfD, IncfE, IncfLnCap, IncfNorm, MultLastLag, KgPerT, EFOilIEA, ApCoalResMin, EFJetIEA, FlareCO2perCH4, EFEndYear, MperBn, PctPerUnit, PomPerOC, GJperkWh, CapAvgShr, TieBreak, PassLo, PassHi, PassMid, MethShareCap, Thousand, Million, Billion, TrRALag, TrPivotLag, TrOwnDecline, TrFEWGso, TrFEWHalf, TrFEWEvP, TrFEWEvO, ResSubstLag, MitGW, BasketQ, DecPerQuint, PlDecScale, DWLTri, PsElFloor) and 13 policy assumptions by key OK; MWyMkWh = =HoursYr*kWperMW/USDperM
 - v0.2.6: variable, fuel and sector names (A:C) never bold; no fill colour in D:G outside the bands: OK
 - v0.2.7: bold only on the summary rows; variable names (column A) light green text, no fill: OK
 - v0.2.7: macro buttons on ScenarioCompare: RecalculateNow, ToggleRecalculation, RunAllScenarios, UpdateDataTables, StoreBaseline, StoreLiveScenario, SolveETSLive, ClearStoredScenarios, SortStoredOutputs, GroupBlankScenarios, RefreshDashboard, CheckBatchRun OK
-- v0.2.7: title "Mitigation Module", section bands at most 30 characters, summary rows without decimals: OK
+- v0.2.7: title "Mitigation Module", section bands at most 30 characters, summary rows without decimals: FAIL
 - v0.2.7: no defined name begins like a cell reference (Excel cannot parse formulas using them; v0.2.4-v0.2.6 had BCO2Key/Val/Year): OK
 - v0.2.7: no LAMBDA parameter reads as a cell reference (Excel removes every cell calling such a LAMBDA on repair; v0.2.3-v0.2.7 first build had y1, co2, c, tco2_kwh): OK
-- MTInputs rows found by the Mapping table (354 keys: NameOfParameter, or label below a heading) and looked up in Mitigation D (258 rows) = the template rows: OK
+- MTInputs rows found by the Mapping table (360 keys: NameOfParameter, or label below a heading) and looked up in Mitigation D (264 rows) = the template rows: OK
 - sheet BaselineCO2: 340 values (sectors x years) read by the bco2 rows OK
 - sheet BaselineCO2: 80 methane values (dg, bm, ch4c, ch4sup x years) read by the ch4bs rows and ghg.k OK
 
-## 9. MTInputs
-- columns A:H, rows 1-415: 0 cells differ from the template; D:E hidden OK
-
-## 10. Format
-- section bands ['Scenario assumptions', 'Policies', 'Retail energy prices', 'Power sector', 'Transport sector', 'Buildings sector', 'Industrial sector', 'Other energy use', 'Energy consumption', 'Revenues', 'Emissions']: white bold text OK
-- Prices_dom: 291 of 291 changed Egypt cells bright yellow with the new values; no other country marked OK
-- tabs ['Cover', 'ScenarioCompare', 'ScenarioDefinition', 'MAIN->>', 'Mitigation', 'Distribution', 'LiveOutputs', 'StoredOutputs']; sheet LegacyDiff: 79 differences listed OK
-- Inputs_prices: data changed by assumption marked bright yellow (columns ['Margin (mit.mar, base year, nominal pric', 'Raw pass-through coefficient (mit.ps, ba', 'VAT applies to final consumers? (assumpt', 'VAT rate assumption = general VAT rate (']; other oil products pass-through and margin) OK
-
-## 11. Sanity and results
-- scenario 1 vs 2 before 2027 (fuel use): max abs diff 0 OK
-- other energy use not taxed (MCovOen FALSE): new carbon tax ctxnew in scenario 2 = 0, max abs 0 OK
-- check row 7349: max abs 0; sector totals and power sum to total: max abs 5.68e-10 OK
-- pass-through 0 (nga.pow, nga.res, nga.ind, gso.all, die.all, lpg.all, ker.all, oop.all): retail price before new policies stays at its 2022 value, max abs diff 1.07e-14 OK
-
-Retail price before new policies, scenario 1 (real $/GJ of ResultsYear), and chosen pass-through:
-
-| Price fuel | pass-through | 2022 | 2024 | 2027 | 2030 | 2040 | VAT 2024 | existing tax 2024 | existing subsidy 2024 | subsidy per price unit 2024 |
-|---|---|---|---|---|---|---|---|---|---|---|
-| coa.pow | 1 | 13.301 | 6.541 | 6.257 | 6.091 | 6.034 | 0.000 | 0.000 | 0.000 | 0.000 |
-| coa.res | 1 | 23.399 | 15.676 | 15.352 | 15.162 | 15.097 | 1.925 | 0.184 | 0.000 | 0.000 |
-| coa.ind | 1 | 11.466 | 7.940 | 7.792 | 7.705 | 7.675 | 0.000 | 0.346 | 0.000 | 0.000 |
-| nga.pow | 0 | 2.784 | 2.784 | 2.784 | 2.784 | 2.784 | 0.000 | 0.000 | -1.698 | -1.698 |
-| nga.res | 0 | 4.634 | 4.634 | 4.634 | 4.634 | 4.634 | 0.000 | 0.000 | -6.416 | -6.416 |
-| nga.ind | 0 | 5.336 | 5.336 | 5.336 | 5.336 | 5.336 | 0.000 | 0.000 | -0.234 | -0.234 |
-| gso.all | 0 | 17.165 | 17.165 | 17.165 | 17.165 | 17.165 | 0.000 | 0.000 | -4.711 | -0.165 |
-| die.all | 0 | 11.095 | 11.095 | 11.095 | 11.095 | 11.095 | 0.000 | 0.000 | -11.732 | -0.438 |
-| lpg.all | 0 | 6.791 | 6.791 | 6.791 | 6.791 | 6.791 | 0.000 | 0.000 | -14.275 | -0.368 |
-| ker.all | 0 | 10.962 | 10.962 | 10.962 | 10.962 | 10.962 | 0.000 | 0.000 | -5.689 | -0.215 |
-| oop.all | 0 | 5.400 | 5.400 | 5.400 | 5.400 | 5.400 | 0.000 | 0.000 | -9.413 | -57.609 |
-| bio.all | 1 | 14.471 | 14.471 | 14.471 | 14.471 | 14.471 | 0.000 | 0.000 | 0.000 | 0.000 |
-- revenues: sectors and power sum to totals (max abs 9.46e-11); no new-policy revenue in scenario 1 (max abs 0) OK
-- CO2: sectors incl. power and fuels sum to the total (max abs 6.82e-13); biomass 0; no change vs scenario 1 before 2027 outside power (max abs 7.11e-14) OK
-  - power CO2 before 2027 differs by up to 0.053 MtCO2: investment looks ahead (levelised variable cost includes the future carbon price), as legacy
-
-CO2 emissions from fuel combustion incl. power generation (MtCO2; no process emissions):
-
-| Year | Scenario 1 | Scenario 2 | Change | Transport | Buildings | Industry | Other | Power (scen. 2) |
-|---|---|---|---|---|---|---|---|---|
-| 2022 | 211.1 | 211.1 | +0.0% | 51.6 | 15.6 | 59.8 | 0.3 | 83.7 |
-| 2024 | 203.7 | 203.6 | -0.0% | 45.9 | 13.7 | 55.3 | 0.3 | 88.4 |
-| 2027 | 219.1 | 207.5 | -5.3% | 46.4 | 12.9 | 53.5 | 0.3 | 94.5 |
-| 2030 | 232.0 | 215.9 | -6.9% | 50.1 | 13.7 | 59.5 | 0.3 | 92.3 |
-| 2035 | 254.9 | 237.0 | -7.0% | 55.9 | 14.8 | 69.7 | 0.4 | 96.1 |
-| 2040 | 280.1 | 261.0 | -6.8% | 62.0 | 15.9 | 80.9 | 0.5 | 101.7 |
-
-Revenues (USD million, real 2026):
-
-| Year | existing taxes | existing subsidies | new policies | total | change vs scenario 1 |
-|---|---|---|---|---|---|
-| 2022 (scenario 1) | 25 | -48,484 | 0 | -48,459 | 0 |
-| 2027 (scenario 1) | 29 | -24,314 | 0 | -24,285 | 0 |
-| 2030 (scenario 1) | 437 | -22,425 | 0 | -21,987 | 0 |
-| 2040 (scenario 1) | 663 | -29,169 | 0 | -28,505 | 0 |
-| 2022 (scenario 2) | 25 | -48,484 | 0 | -48,459 | 0 |
-| 2027 (scenario 2) | 26 | -23,410 | 4,145 | -19,239 | 5,046 |
-| 2030 (scenario 2) | 383 | -20,879 | 4,310 | -16,185 | 5,802 |
-| 2040 (scenario 2) | 583 | -27,344 | 5,210 | -21,551 | 6,954 |
-
-| Year | Scenario 1 (ktoe) | Scenario 2 (ktoe) | Change |
-|---|---|---|---|
-| 2022 | 87,146 | 87,146 | +0.0% |
-| 2023 | 75,602 | 75,578 | -0.0% |
-| 2024 | 84,405 | 84,381 | -0.0% |
-| 2026 | 88,056 | 88,038 | -0.0% |
-| 2027 | 89,632 | 85,161 | -5.0% |
-| 2030 | 95,006 | 88,503 | -6.8% |
-| 2035 | 104,650 | 97,416 | -6.9% |
-| 2040 | 115,234 | 107,557 | -6.7% |
-
-## 11b. Power sector: properties and results
-- scenario 1: no new policy cost in power (max abs 0); variable costs before policy equal in scenarios 1 and 2 (max abs 0); generation shares sum to 1 (max abs 1.22e-15) OK
-- generation = required generation from 2023 (max abs 1.02e-10 MWy); capacity = last year less retirements plus new nameplate investment (max abs 9.09e-11 MW); new effective investment >= 0 and at most the capacity needed (max excess 1.18e-11 MW) OK
-  - scale-up limits leave investment unplaced (MW, scenario 1; gas then runs at a higher capacity factor, as legacy): 2024 3,854, 2025 907, 2026 65
-- supply cost = average generation cost of the previous year + constant T&D add-on (max abs 9.02e-16) OK
-- carbon price (scenario 2) shifts the investment choice towards renewables (wind, solar, other renewables share of the investment logit not lower in any year: min change +0.0196; 2041 0.743 -> 0.778) and lowers power CO2 (105.87 -> 102.85 MtCO2); VRE share of generation (memo) 0.388 -> 0.374 OK
-
-Power, scenario 1 (baseline) and 2 (carbon price $20 from 2027):
-
-| Year | generation TWh (1) | (2) | gas share (1) | (2) | VRE share (1) | (2) | power CO2 Mt (1) | (2) | price res $/kWh (1) | (2) | capacity GW (1) | investment USD m (1) |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 2022 | 220.1 | 220.1 | 0.797 | 0.797 | 0.052 | 0.052 | 83.7 | 83.7 | 0.0614 | 0.0614 | 74.0 | 2,643 |
-| 2023 | 213.3 | 213.3 | 0.770 | 0.770 | 0.076 | 0.077 | 79.0 | 78.9 | 0.0614 | 0.0614 | 73.7 | 0 |
-| 2025 | 246.6 | 246.6 | 0.758 | 0.758 | 0.096 | 0.096 | 90.5 | 90.4 | 0.0600 | 0.0600 | 78.5 | 12,952 |
-| 2027 | 265.3 | 265.4 | 0.680 | 0.679 | 0.154 | 0.154 | 94.5 | 94.5 | 0.0618 | 0.0705 | 94.2 | 4,931 |
-| 2030 | 298.4 | 278.5 | 0.631 | 0.645 | 0.229 | 0.205 | 95.7 | 92.3 | 0.0603 | 0.0697 | 100.6 | 10,791 |
-| 2035 | 375.2 | 351.8 | 0.548 | 0.559 | 0.314 | 0.297 | 99.7 | 96.1 | 0.0549 | 0.0622 | 121.3 | 10,180 |
-| 2040 | 461.9 | 437.3 | 0.486 | 0.496 | 0.377 | 0.363 | 104.7 | 101.7 | 0.0509 | 0.0569 | 143.7 | 11,398 |
-
-Generation cost by type, scenario 1, 2022 and 2040 ($/kWh): Coal 0.197 / 0.120, Natural gas 0.072 / 0.072, Oil 0.190 / 0.190, Nuclear 0.068 / 0.068, Wind 0.052 / 0.056, Solar 0.055 / 0.048, Hydro 0.066 / 0.066, Other renewables 0.078 / 0.078, Biomass 0.260 / 0.260
-
-## 11c. Planned retirement switched on (v0.1.07)
-- planned retirement on (gas 1,500 MW/yr from 2025, oil 400 MW/yr from 2024), scenario 1 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 2.96e-11 (at X1968) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- planned retirement on (gas 1,500 MW/yr from 2025, oil 400 MW/yr from 2024), scenario 2 vs Python: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 24 price-fuel and 23 subsector variables, 142 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 90400 cells, max relative diff 7.28e-12 (at AH7479) OK; not in the Python reference (not compared): ['ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'perm', 'ppsw', 'psp', 'psw', 'wfx', 'wsel']
-- retirement of gas and oil = the planned data (capped at capacity), max abs diff 0 MW; gas capacity 2030 60,250 MW, new investment 2030 6,227 MW OK
-
-## 11d. Electricity demand memo lines (v0.1.07)
-- scenario 1: memo by subsector = power demand of the subsector (max abs 0); by sector = sum of its subsectors (5.09e-11); total = total power demand (0); demand by group sums to the total (5.09e-11) OK
-- scenario 2: memo by subsector = power demand of the subsector (max abs 0); by sector = sum of its subsectors (9.09e-11); total = total power demand (0); demand by group sums to the total (9.46e-11) OK
-  - electricity demand by sector, scenario 1 (ktoe), 2022 / 2030 / 2040: all 15,496 / 21,014 / 33,829; tra 48 / 66 / 113; bld 11,661 / 16,164 / 26,489; ind 3,787 / 4,783 / 7,227; oen 0 / 0 / 0
-
-## 12. Scenario definitions, VBA module, stored results, comparison, macro run
-- definition 3 (column L): "Carbon price $20/tCO2 from 2027", Run? Yes, 5 inputs changed from the template OK
-- definition 4 (column M): "Package A: carbon tax to $50 by 2030 + feebates (transport, industry)", Run? Yes, 14 inputs changed from the template OK
-- definition 5 (column N): "Package B: ETS on power and industry (cap -5% 2027 to -20% 2035) + carbon tax $25 elsewhere", Run? Yes, 11 inputs changed from the template OK
-- definition 6 (column O): "Carbon price $50/tCO2 from 2027", Run? Yes, 5 inputs changed from the template OK
-- J4 / K4: "Baseline (stored once)" / "Live (batch target)" OK
-- VBA project: module CPATScenarios = CPATScenarios.bas (992 lines); document modules ThisWorkbook + 55 sheets matching the sheet code names OK
-  - public macros: RunAllScenarios, StoreBaseline, StoreLiveScenario, SolveETSLive, ClearStoredScenarios, UpdateDataTables, CalculationOn, CalculationOff, RecalculateNow, ToggleRecalculation, RunAll, SolveETS, UpgradeStoredCodes, SortStoredOutputs, GroupBlankScenarios, RefreshDashboard, CheckBatchRun, CheckBatch
-- StoredResults: scenario IDs [1, 3, 4, 5, 6], 123 rows each; values only: OK
-- stored ID 1 = MTOutputs block 1 of the shipped workbook recalculated (same inputs): max rel diff 5.01e-15 OK
-- stored ID 3 = MTOutputs block 2 of the shipped workbook recalculated (same inputs): max rel diff 5.69e-14 OK
-- stored ID 4 (Package A: carbon tax to $50 by 2030 + f...) vs independent Python recomputation (17 indicators: CO2, revenues, carbon and ETS price, covered CO2, cap, electricity prices, generation cost): max rel diff 1.41e-11 OK
-- stored ID 5 (Package B: ETS on power and industry (ca...) vs independent Python recomputation (17 indicators: CO2, revenues, carbon and ETS price, covered CO2, cap, electricity prices, generation cost): max rel diff 1.54e-13 OK
-- stored ID 5 (ETS package, build without goal seek): ETS price = the fast estimate of the independent recomputation, max rel diff 1.35e-14 OK; memo: worst |covered/cap - 1| 0.1290 (I30); ETS price 2027/2030/2035/2040: [35.6, 77.2, 151.6, 193.3]
-- ScenarioCompare 2030 (Stored): IDs [1, 2, 3, 4, 5, 6], short names ['Base', 'CP20', 'CP20-b', 'PkgA', 'PkgB', 'CP50']; key table equals StoredOutputs (max rel diff 2.26e-14; 25 blank cells of slots without stored results) OK
-- ScenarioCompare key levels: 50 cells, 1 formula OK
-- ScenarioCompare key differences: 45 cells, 1 formula OK
-- time series (4 blocks x 10 slots x 20 years) equal StoredOutputs (max rel diff 0.00e+00); 400 cells of slots without results #N/A OK
-- ScenarioCompare time series, block 1: 200 cells, 1 formula OK
-- ScenarioCompare time series, block 2: 200 cells, 1 formula OK
-- ScenarioCompare time series, block 3: 200 cells, 1 formula OK
-- ScenarioCompare time series, block 4: 200 cells, 1 formula OK
-  - CO2 2030 (MtCO2): Base: 232.0, CP20-b: 215.9, PkgA: 195.2, PkgB: 216.5, CP50: 196.4
-- LibreOffice ran the embedded macro: VBAProject.CPATScenarios.RunAll returned 4 in 539.3 s
-  - macro stored IDs [1, 3, 4, 5, 6] with the same names; values vs the Python emulation: max rel diff 1.01e-12 at (4, 'mit.rev.usd.tot', 2034) (by ID: 1 5.0e-15, 3 5.7e-14, 4 1.0e-12, 5 8.8e-01, 6 1.2e-13; new-ETS IDs [5] re-solved by the macro goal seek, a memo: the build stores them at the fast estimate) OK
-  - live column K restored (0 cells differ) and ETS override row empty again OK
-
-## 13. First-run test macro CheckBatchRun (v0.1.04)
-- sheet MacroCheck as shipped: "not run yet" OK
-- LibreOffice ran CheckBatch: VBAProject.CPATScenarios.CheckBatch returned 1.0051088102780473e-12 in 2427.9 s
-  - Result: PASS
-  - Started: 2026-10-22 10:31:29 in Microsoft Excel 11.0
-  - MTInputs: column of scenario 1 (baseline): OK (10)
-  - MTInputs: column of scenario 2 (live): OK (11)
-  - MTInputs: row of D_NewETS: OK (84)
-  - MTInputs: row of D_ETSPriceOverride: OK (93)
-  - Mitigation: base-year column of scenario group 2: OK (34)
-  - Mitigation: row ets.ovr (ETS override prices): OK (236)
-  - Mitigation: row ets.est (fast estimate): OK (235)
-  - Mitigation: row ets.next (next price proposal): OK (7527)
-  - Mitigation: row co2.gap (covered / cap - 1): OK (7525)
-  - Mitigation: row co2.cap (ETS cap): OK (7524)
-  - MTOutputs: block of scenario 1: OK (6)
-  - MTOutputs: block of scenario 2: OK (131)
-  - Manual inputs: ETS goal seek, maximum iterations (E10): OK (10)
-  - Manual inputs: ETS goal seek, start fresh or continue (E11): OK (11)
-  - Manual inputs: ETS goal seek, maximum error (E12): OK (12)
-  - Stored rows before the run: 615
-  - Baseline recalculated here vs stored ID 1: rows compared: 123
-  - Baseline: largest relative difference: 9.6e-16
-  - RunAll: definitions run and stored: 4
-  - New-ETS definitions (stored without goal seek, re-solved by the run; not compared): cells, largest relative difference: 2460, 2.2E+01
-  - Stored cells compared after the run: 9840
-  - Cells differing by more than 1E-06 (relative): 0
-  - Largest relative difference (baseline and batch): 1e-12
-  - Finished: 2026-10-22 11:11:57
-- first-run test: Result PASS, 15 lookups found, largest relative difference 1.0e-12 OK
-- negative test (row code ets.ovr broken): CheckBatch -1 in 3.0 s; Result "FAIL: 1 lookup(s) not found (see below)"; failed lookup: ['Mitigation: row ets.ovr (ETS override prices)'] OK
-
-
-## 14. Consistency (rerun after the section's version rule was updated to stable names)
+## 14. Consistency (v0.1.09, v0.2.4): check rows, identities, references, versions, stale texts
 - check rows in groups [1, 2]: ener.chk 0, rev.chk 0, co2.chk 0, bco2.chk 0, ch4bs.chk 0 OK
-- identities in every column: rnet = rtx + rsub (subsidies negative), rtot = rnet + rnew, fuel use = sector totals + power, power fuel use = fuel types of pe, power CO2 = CO2 by type = ETS sector power: max abs 5.6e-10 OK
-- file references in the workbook texts (2): current ones exist in the folder: OK
+- identities in every column: rnet = rtx + rsub (subsidies negative), rtot = rnet + rnew, fuel use = sector totals + power, power fuel use = fuel types of pe, power CO2 = CO2 by type = ETS sector power: max abs 5.5e-10 OK
+- file references in the workbook texts (3): current ones exist in the folder: OK
 - stale statements about power, revenues or interim data in the workbook texts: none OK
-- versions: Settings log ends with 8.0, Mitigation title "Mitigation Module", folder README names the workbook and builder of v0.8.0 OK
+- versions: Settings log ends with 0.9.2, Mitigation title "Mitigation Module", folder README names the workbook and builder of v0.9.2 OK
 - v0.2.8: newer Excel functions (MAXIFS, MINIFS, AGGREGATE, IFNA, ...) carry the _xlfn. prefix in the file (else Excel removes the formula on repair): OK
-- equations: Formulas.md regenerated from the workbook, 1127 variables; every variable of the dictionary has its equation OK
-- scripts and notes have stable names, no version in the name (44 files): OK
-- issues register (issues_register.py, Word register): 230 items, unique IDs; LegacyDiff rows of type Not yet, Simplification, To check (bucket 5) all included (7 of 7) OK
+- equations: Formulas.md regenerated from the workbook, 1256 variables; every variable of the dictionary has its equation OK
+- scripts and notes have stable names, no version in the name (48 files): OK
+- issues register (issues_register.py, Word register): 291 items, unique IDs; LegacyDiff rows of type Not yet, Simplification, To check (bucket 5) all included (3 of 3) FAIL
 - method chapters in docs/methods/ (8: Data_tabs.md, Distribution.md, ETS.md, Emissions.md, Macro_and_results.md, Power.md, Prices.md, Transport.md); no method note left in the folder OK
 
-Sections that failed: none
-
-**Overall: PASS** (sections 0-13 in the full run; section 14 rerun)
+**Overall (partial): FAIL**
