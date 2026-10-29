@@ -8,6 +8,9 @@ labelled arrays when the block finishes (xarray for the results, numpy for speed
     R.of('infl'), R.of('ctr', 'pow', 'all')   a row of this or an earlier block, (country, year)
     R.finish()                     every row to the state; rows of one variable stacked (sector, fuel, country, year)
 Values broadcast to (country, year): a scalar, a year array (year,), a country array (country, 1).
+
+In the year loop a block fills one year at a time: R.set(var, k, values) writes year index k (a row starts as NaN),
+R.at(var, k) reads it; R.of(var) gives the whole row as filled so far.
 """
 import numpy as np
 import xarray as xr
@@ -34,6 +37,19 @@ class Rows:
         a = self.full(values)
         self._rows.setdefault(var, {})[None if sector is None and fuel is None else (sector, fuel)] = a
         return a
+
+    def set(self, var, k, values, sector=None, fuel=None):
+        """Year index k of a row filled year by year: values per country (country,) or a scalar."""
+        key = None if sector is None and fuel is None else (sector, fuel)
+        rows = self._rows.setdefault(var, {})
+        if key not in rows:
+            rows[key] = np.full(self.shape, np.nan)
+        rows[key][:, k] = values
+        return rows[key][:, k]
+
+    def at(self, var, k, sector=None, fuel=None):
+        """Year index k of a row (this block's or an earlier one's): (country,)."""
+        return self.of(var, sector, fuel)[:, k]
 
     def of(self, var, sector=None, fuel=None):
         key = None if sector is None and fuel is None else (sector, fuel)

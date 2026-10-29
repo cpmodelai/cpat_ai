@@ -253,3 +253,290 @@ def prepare(state, db, inputs, settings, baseline):
         perm = R.of('perm', 'pow', k)
         R.put('permit', ((perm == 'Yes') & (t >= R.of('start', 'pow', k))).astype(float), 'pow', k)
     R.finish()
+
+
+# ---- the year loop
+def step(state, db, inputs, settings, baseline, t):
+    """EQ-M4.1, EQ-M4.2, EQ-M4.4 to EQ-M4.7, EQ-A4.8, EQ-A4.9: power demand, dispatch, generation, capacity,
+    investment, end-user prices, subsidies and revenues of year t."""
+    from cpat_model.mitigation.gdp import year_rows
+    R = year_rows(state, settings)
+    k, y = settings.years.index(t), t
+    g, n = (lambda name: inputs[name]), inputs.number
+    c = xt.constant
+    countries = list(settings.countries)
+    data = state['_power']
+    col = lambda f: np.array([f(data[iso]) for iso in countries])                     # (country,)
+    ty = lambda kk, key: col(lambda d: d['types'][kk][key])
+    at = lambda var, sector=None, fuel=None, kk=k: R.at(var, kk, sector, fuel)
+    hours, pj = power_data.HOURS, power_data.PJ_PER_KTOE
+    last = settings.last_hist_price_year
+    k_last = settings.years.index(last)
+    min_cost = g('MinPostSubsidyPowerPrice')
+    pass_on = g('PowerSectorPriceChangePassOn')
+
+    # demand (EQ-M4.1)
+    for d in GROUPS:
+        gr = lambda key: col(lambda x: x['groups'][d][key])
+        if k == 0:
+            pdem = R.set('pdem', k, gr('p2021'), d, 'ecy')
+        else:
+            pdem = R.set('pdem', k, gr('wres') * at('rp', 'res', 'ecy', k - 1)
+                         + (1 - gr('wres')) * at('rp', 'ind', 'ecy', k - 1), d, 'ecy')
+        aeef = R.set('aeef', k, (1 / (1 + gr('alpha') + g('AdditionalEfficiencyPower'))) ** (1 + gr('eu')), d, 'ecy')
+        if k == 0:
+            R.set('mult', k, 1.0, d, 'ecy')
+        else:
+            R.set('mult', k, aeef * (1 + at('gdp.pos.pct')) ** (gr('ey') * at('inc.ela.adj'))
+                  * (pdem / at('pdem', d, 'ecy', k - 1)) ** gr('eps')
+                  * (1 + at('shock') * settings.global_settings.get('ApplyDemandShock', 1)
+                     * g('EngineerModelProportionOfCovidFactor')), d, 'ecy')
+    subs = data[countries[0]]['subs']
+    for s in power_data.DEMAND_SUBSECTORS:
+        if k == 0:
+            R.set('dem', k, col(lambda x: x['subs'][s]['d0']), s, 'ecy')
+        else:
+            road = subs[s]['tr'] * at('tr.sw', 'all', 'all') > 0 if 'tr.sw' in state else False
+            R.set('dem', k, at('trkte', 'rod', 'ecy') if np.any(road) else
+                  at('dem', s, 'ecy', k - 1) * at('mult', subs[s]['group'], 'ecy'), s, 'ecy')
+    for d in GROUPS:
+        R.set('demg', k, sum(at('dem', s, 'ecy') for s in power_data.DEMAND_SUBSECTORS if subs[s]['group'] == d),
+              d, 'ecy')
+    demtot = R.set('demtot', k, sum(at('dem', s, 'ecy') for s in power_data.DEMAND_SUBSECTORS))
+    if k == 0:
+        req = R.set('req', k, sum(ty(kk, 'gen0') for kk in TYPES))
+    else:
+        req = R.set('req', k, demtot * col(lambda x: x['system']['req_factor']))
+
+    # capacity and dispatch (EQ-M4.4)
+    for kk in TYPES:
+        if k == 0:
+            R.set('cap', k, at('cap0', 'pow', kk), 'pow', kk)
+        else:
+            R.set('cap', k, at('cap', 'pow', kk, k - 1) - at('ret', 'pow', kk, k - 1) + at('nim', 'pow', kk, k - 1),
+                  'pow', kk)
+    R.set('captot', k, sum(at('cap', 'pow', kk) for kk in TYPES))
+    effcap = {kk: R.set('effcap', k, at('cap', 'pow', kk) * at('cfu', 'pow', kk), 'pow', kk) for kk in TYPES}
+    cg = {kk: ty(kk, 'cg') for kk in TYPES}
+    reqcg = R.set('reqcg', k, np.maximum(req - sum(effcap[kk] * (1 - cg[kk]) for kk in TYPES), 0))
+    tvc = {kk: at('tvc', 'pow', kk) for kk in TYPES}
+    cg_min = np.min([np.where(cg[kk] == 1, tvc[kk], np.inf) for kk in TYPES], axis=0)
+    vcmin = R.set('vcmin', k, np.maximum(np.where(np.isinf(cg_min), 0.0, cg_min), min_cost))
+    gmx = {kk: R.set('gmx', k, at('cap', 'pow', kk) * (ty(kk, 'eflag') * g('MaximumCoalCF')
+                                                       + ty(kk, 'gasf') * g('MaximumGasCF')), 'pow', kk) for kk in TYPES}
+    gmx_sum = sum(gmx.values())
+    gmin = {kk: R.set('gmin', k, cg[kk] * np.minimum(np.maximum(reqcg - (gmx_sum - gmx[kk]), 0), gmx[kk]), 'pow', kk)
+            for kk in TYPES}
+    rem = R.set('rem', k, np.maximum(reqcg - sum(gmin.values()), 0))
+    lgd = {kk: R.set('lgd', k, cg[kk] * np.exp(-g('kDispatch') * np.maximum(tvc[kk], min_cost) / vcmin), 'pow', kk)
+           for kk in TYPES}
+    lgd_sum = sum(lgd.values())
+    glg = {kk: R.set('glg', k, np.where(cg[kk] == 1, np.minimum(gmx[kk], gmin[kk] + rem * safe_div(lgd[kk], lgd_sum)),
+                                        effcap[kk]), 'pow', kk) for kk in TYPES}
+    cg_cap = sum(effcap[kk] * cg[kk] for kk in TYPES)
+    ppr = R.set('ppr', k, np.where(cg_cap == 0, 1.0, safe_div(reqcg, cg_cap)))
+    gen = {}
+    for kk in TYPES:
+        gen[kk] = R.set('gen_mwy', k, ty(kk, 'gen0') if k == 0 else
+                        glg[kk] + cg[kk] * at('ppa') * (effcap[kk] * ppr - glg[kk]), 'pow', kk)
+    gtot = R.set('gtot', k, sum(gen.values()))
+    R.set('dgen', k, 0.0 if k == 0 else np.maximum(0, gtot - at('gtot', kk=k - 1)))
+    shr = {kk: R.set('shr', k, np.where(gtot == 0, 0.0, safe_div(gen[kk], gtot)), 'pow', kk) for kk in TYPES}
+    pe = {}
+    for kk in TYPES:
+        nuu = at('nuu', 'pow', kk)
+        pe[kk] = R.set('pe', k, np.where(nuu == 0, 0.0, safe_div(gen[kk] * ty(kk, 'pefx'), nuu)), 'pow', kk)
+    for kk in TYPES:
+        R.set('co2', k, pe[kk] * ty(kk, 'co2f'), 'pow', kk)
+    vre = R.set('vre', k, sum(shr[kk] * ty(kk, 'vre_share') for kk in TYPES) * c('pw.c|vre'))
+    start = g('StartingPointWhenLTStorageIsNeeded')
+    msc = R.set('msc', k, at('stm') * vre * at('cph') + 2 * np.maximum(0, vre - start) / (1 - start) ** 2
+                * at('cel') * at('ltu'))
+
+    # costs of the year (EQ-M4.3)
+    for kk in TYPES:
+        cax = at('cax', 'pow', kk)
+        if k == 0:
+            caxav = R.set('caxav', k, cax, 'pow', kk)
+            stoav = R.set('stoav', k, ty(kk, 'vre') * msc, 'pow', kk)
+        else:
+            phi = at('phi', 'pow', kk, k - 1)
+            caxav = R.set('caxav', k, at('caxav', 'pow', kk, k - 1) * (1 - phi) + at('cax', 'pow', kk, k - 1) * phi,
+                          'pow', kk)
+            stoav = R.set('stoav', k, at('stoav', 'pow', kk, k - 1) * (1 - phi) + ty(kk, 'vre') * msc * phi, 'pow', kk)
+        cfu, wac, dlf = at('cfu', 'pow', kk), at('wac', 'pow', kk), at('dlf', 'pow', kk)
+        R.set('fix', k, (caxav * (ty(kk, 'rinv') + wac * c('CapAvgShr')) + ty(kk, 'afx')) / (cfu * hours) + stoav,
+              'pow', kk)
+        R.set('lfx', k, (cax + ty(kk, 'dtx')) / (cfu * hours * dlf) + ty(kk, 'opfx') / (cfu * hours)
+              + at('rns', 'pow', kk) + ty(kk, 'vre') * msc, 'pow', kk)
+    cic = at('cic')
+    for kk in TYPES:
+        R.set('gnc', k, at('fix', 'pow', kk) + at('vbc', 'pow', kk)
+              - ((kk == 'coa') * cic if COAL_IC_TARIFF == 'No' else 0.0), 'pow', kk)
+    gncav = R.set('gncav', k, sum(shr[kk] * at('gnc', 'pow', kk) for kk in TYPES) * c('pw.c|gncav'))
+    ccpav = R.set('ccpav', k, sum(shr[kk] * at('xac', 'pow', kk) for kk in TYPES)
+                  * col(lambda x: x['par']['gen_per_cons']))
+    tic = {kk: R.set('tic', k, np.maximum(at('lfx', 'pow', kk) + at('lvc', 'pow', kk), min_cost), 'pow', kk)
+           for kk in TYPES}
+    cur = {kk: R.set('cur', k, np.maximum(at('lfx', 'pow', kk) + tvc[kk], min_cost), 'pow', kk) for kk in TYPES}
+    R.set('swi', k, safe_div(tic['nga'] - tic['coa'], at('cik', 'pow', 'coa') - at('cik', 'pow', 'nga')))
+    for kk in TYPES:
+        cfu, dlf = at('cfu', 'pow', kk), at('dlf', 'pow', kk)
+        sys_ = R.set('sys', k, ty(kk, 'dtx') / (cfu * hours * dlf) + ty(kk, 'vre') * msc + (kk == 'coa') * cic,
+                     'pow', kk)
+        R.set('pcbchk', k, at('pcbcap', 'pow', kk) + at('pcbom', 'pow', kk) + at('pcbfu', 'pow', kk) + sys_
+              + at('pcbcp', 'pow', kk) + at('pcbrns', 'pow', kk) - cur[kk], 'pow', kk)
+
+    # end-user prices and subsidies (EQ-M4.7, EQ-A4.8)
+    user = lambda u, key: col(lambda x: x['users'][u][key])
+    cons = {u: R.set('cons', k, (user(u, 'wtot') * demtot + user(u, 'wres') * at('dem', 'res', 'ecy'))
+                     * col(lambda x: x['par']['ktoe_gwh']), u, 'ecy') for u in USERS}
+    cons_sum = sum(cons.values())
+    for u in USERS:
+        R.set('sc', k, (gncav if k == 0 else at('gncav', kk=k - 1)) + user(u, 'tmc'), u, 'ecy')
+    rbs, exs = at('rbs'), at('exs')
+    for u in USERS:
+        entx = at('entx', u, 'ecy')
+        if k == 0:
+            pex = exs
+        else:
+            pex = exs + (pass_on * (entx - at('entx', u, 'ecy', k_last)) if y > last else 0.0)
+        R.set('pex', k, pex, u, 'ecy')
+        rpnv = R.set('rpnv', k, user(u, f'rp{y}') / (1 + user(u, 'vr')) if y <= last else at('rpnv', u, 'ecy', k - 1),
+                     u, 'ecy')
+        sc = at('sc', u, 'ecy')
+        txg = R.set('txg', k, rpnv - sc - entx, u, 'ecy')
+        if y <= last:
+            tx = user(u, f'tx{y}')
+            txe = np.where(np.isnan(tx), txg * (g('SupplyCostDeltaSubsidy') == 'Yes'), tx)
+        else:
+            txe = at('txe', u, 'ecy', k - 1)
+        R.set('txe', k, txe, u, 'ecy')
+        R.set('scl', k, sc if y <= last else np.minimum(sc, at('scl', u, 'ecy', k_last)), u, 'ecy')
+        R.set('psegap', k, np.maximum(0, sc - (rpnv - txe)) * cons[u], u, 'ecy')
+    psegs = R.set('psegs', k, sum(at('psegap', u, 'ecy') for u in USERS))
+    pros = at('pros', 'all', 'ecy')
+    psf = at('psf', 'all', 'ecy')
+    for u in USERS:
+        if y <= last:
+            alt = np.where(cons_sum != 0, safe_div(cons[u], cons_sum), 1 - user(u, 'wtot'))
+            sh = np.where(psegs != 0, safe_div(at('psegap', u, 'ecy'), psegs), alt)
+        else:
+            sh = at('psesh', u, 'ecy', k - 1)
+        R.set('psesh', k, sh, u, 'ecy')
+        if y <= last:
+            pseu = np.where(cons[u] != 0, np.maximum(c('PsElFloor'), safe_div(-pros * sh, cons[u])), 0.0)
+        else:
+            pseu = at('pseu', u, 'ecy', k_last) * psf
+        R.set('pseu', k, pseu, u, 'ecy')
+    if y <= last:
+        R.set('pser', k, -pros - (cons['res'] * at('pseu', 'res', 'ecy') + cons['ind'] * at('pseu', 'ind', 'ecy')))
+    else:
+        R.set('pser', k, at('pser', kk=k_last) * psf)
+    include = g('PowerSubsidyExemptInclude') == 'Include'
+    for u in USERS:
+        txe = at('txe', u, 'ecy')
+        R.set('csd', k, np.where((y > last) & (txe < 0) & include, txe * (at('pof', 'cs', 'all') - 1), 0.0), u, 'ecy')
+        if y <= last:
+            ores = at('txg', u, 'ecy') - txe - at('pseu', u, 'ecy')
+        else:
+            prev = at('ores', u, 'ecy', k - 1)
+            ores = np.where(prev < 0, prev * safe_div(at('scl', u, 'ecy'), at('scl', u, 'ecy', k - 1)), prev)
+        R.set('ores', k, ores, u, 'ecy')
+        R.set('spe', k, at('sc', u, 'ecy') + ores + ccpav * pass_on * (1 - rbs) + at('pex', u, 'ecy'), u, 'ecy')
+    for u in USERS:
+        vr = user(u, 'vr')
+        parts = lambda kk: (at('sc', u, 'ecy', kk) + at('pseu', u, 'ecy', kk) + at('csd', u, 'ecy', kk)
+                            + at('ores', u, 'ecy', kk))
+        if y <= last:
+            rppre = R.set('rppre', k, user(u, f'rp{y}'), u, 'ecy')
+        else:
+            rppre = R.set('rppre', k, at('rppre', u, 'ecy', k - 1) + pass_on * (parts(k) - parts(k - 1)) * (1 + vr),
+                          u, 'ecy')
+        pex = at('pex', u, 'ecy')
+        R.set('rp', k, np.maximum(rppre + (ccpav * pass_on * (1 - rbs) + pex) * (1 + vr), min_cost), u, 'ecy')
+        R.set('sgap', k, rppre / (1 + vr) - at('sc', u, 'ecy'), u, 'ecy')
+        R.set('rcarb', k, ccpav * c('pw.c|rcarb') * cons[u], u, 'ecy')
+        R.set('rvat', k, rppre * user(u, 'vshare') * cons[u], u, 'ecy')
+        R.set('rnvat', k, (ccpav * pass_on * (1 - rbs) + pex) * vr * cons[u], u, 'ecy')
+        R.set('rreb', k, -rbs * ccpav * pass_on * cons[u], u, 'ecy')
+        R.set('rpex', k, pex * cons[u], u, 'ecy')
+        R.set('rgap', k, at('sgap', u, 'ecy') * c('pw.c|rgap') * cons[u], u, 'ecy')
+    rexs = R.set('rexs', k, exs * cons_sum)
+    R.set('rexm', k, sum(at('rpex', u, 'ecy') for u in USERS) - rexs)
+
+    # retirement and investment (EQ-M4.5, EQ-M4.6, EQ-A4.9)
+    early_max = col(lambda x: x['par']['early_max'])
+    permit = {kk: at('permit', 'pow', kk) for kk in TYPES}
+    eff_sum = sum(effcap.values())
+    maxinv = {kk: R.set('maxinv', k, at('rate', 'pow', kk) * eff_sum * permit[kk], 'pow', kk) for kk in TYPES}
+    if k == 0:
+        egrow = R.set('egrow', k, np.maximum(0, maxinv['wnd'] + maxinv['sol']))
+    else:
+        rec_prev = sum(at('rec', 'pow', kk, k - 1) for kk in TYPES) - at('rec', 'pow', 'coa', k - 1)
+        egrow = R.set('egrow', k, np.maximum(0, maxinv['wnd'] + maxinv['sol'] - at('dgen', kk=k - 1) - rec_prev))
+    ecmin = R.set('ecmin', k, np.minimum(np.minimum(tvc['coa'], tic['wnd']), tic['sol']))
+    kinv = g('kInvestment')
+    ecshr = R.set('ecshr', k, 1 / (1 + np.exp(-kinv * (tic['wnd'] - tvc['coa']) / ecmin)
+                                   + np.exp(-kinv * (tic['sol'] - tvc['coa']) / ecmin)))
+    early = R.set('early', k, np.maximum(0, np.minimum(effcap['coa'] * early_max, egrow) * (1 - ecshr))
+                  / at('cfu', 'pow', 'coa') * at('erf') * (1 - at('ppa')))
+    for kk in TYPES:
+        cap = at('cap', 'pow', kk)
+        base_ret = np.where(ty(kk, 'puse') == 1, at('pret', 'pow', kk), cap * at('rr', 'pow', kk))
+        ret = R.set('ret', k, np.minimum(base_ret + ty(kk, 'eflag') * early, cap), 'pow', kk)
+        R.set('rec', k, ret * at('cfu', 'pow', kk), 'pow', kk)
+    kafter = R.set('kafter', k, eff_sum - sum(at('rec', 'pow', kk) for kk in TYPES))
+    growth = 1.0 if k == 0 else np.where(at('req', kk=k - 1) != 0, safe_div(req, at('req', kk=k - 1)), 1.0)
+    need = R.set('need', k, np.maximum(req * growth - kafter, 0))
+    mani = {}
+    for kk in TYPES:
+        R.set('mancap', k, 0.0, 'pow', kk)            # manual capacity (Manual inputs; empty in the data)
+        mani[kk] = R.set('mani', k, 0.0, 'pow', kk)
+    needm = R.set('needm', k, np.maximum(need - sum(mani.values()), 0))
+    perm_min = np.min([np.where(permit[kk] == 1, tic[kk], np.inf) for kk in TYPES], axis=0)
+    cmin = R.set('cmin', k, np.maximum(np.where(np.isinf(perm_min), 0.0, perm_min), min_cost))
+    lgi = {kk: R.set('lgi', k, permit[kk] * np.exp(-kinv * tic[kk] / cmin), 'pow', kk) for kk in TYPES}
+    lgi_sum = sum(lgi.values())
+    pni = {kk: R.set('pni', k, np.where(lgi_sum == 0, 0.0, safe_div(lgi[kk], lgi_sum)), 'pow', kk) for kk in TYPES}
+    first = {kk: R.set('first', k, np.minimum(maxinv[kk], needm * pni[kk]), 'pow', kk) for kk in TYPES}
+    deficit = R.set('deficit', k, np.maximum(needm - sum(first.values()), 0))
+    space = {kk: R.set('space', k, (maxinv[kk] - first[kk]) * permit[kk], 'pow', kk) for kk in TYPES}
+    tb = {kk: ty(kk, 'tb') for kk in TYPES}
+    second = {}
+    for kk in TYPES:
+        cheaper = sum(((tic[j] + tb[j]) < (tic[kk] + tb[kk])) * space[j] for j in TYPES)
+        second[kk] = R.set('second', k, permit[kk] * np.maximum(0, np.minimum(space[kk], deficit - cheaper)), 'pow', kk)
+    dgas = R.set('dgas', k, deficit - sum(second.values()) if settings.base['PwDeficitGas'] == 'Yes' else 0.0)
+    for kk in TYPES:
+        nei = R.set('nei', k, first[kk] + (second[kk] + ty(kk, 'gasf') * dgas + mani[kk]), 'pow', kk)
+        cfu = at('cfu', 'pow', kk)
+        R.set('nim', k, np.where(cfu == 0, 0.0, safe_div(nei, cfu)), 'pow', kk)
+    R.set('nimtot', k, sum(at('nim', 'pow', kk) for kk in TYPES))
+    for kk in TYPES:
+        R.set('nid', k, at('nim', 'pow', kk) * at('cax', 'pow', kk) * c('kWperMW') / c('USDperM'), 'pow', kk)
+    R.set('usdtot', k, sum(at('nid', 'pow', kk) for kk in TYPES))
+    for kk in TYPES:
+        cap, nim, ret = at('cap', 'pow', kk), at('nim', 'pow', kk), at('ret', 'pow', kk)
+        den = cap + nim - ret
+        R.set('phi', k, np.where(den == 0, 0.0, safe_div(nim, den)), 'pow', kk)
+
+    # revenues of the power sector (EQ-A6.1)
+    xct_k = int(R.at('xct.c', k)[0]) - 1
+    xkeys = ['none|none'] + [f'{s}|{f}' for s in ('pow', 'trs', 'res', 'ind') for f in FUELS]
+    for kk in TYPES:
+        pcode = (data[countries[0]]['types'][kk]['price_code'] or 'coa.pow').split('.')
+        fflag = ty(kk, 'fflag')
+        R.set('prtx', k, fflag * pe[kk] * pj * (at('etx', pcode[1], pcode[0]) + at('vat', pcode[1], pcode[0])),
+              'pow', kk)
+        R.set('prsub', k, fflag * pe[kk] * pj * at('esub', pcode[1], pcode[0]), 'pow', kk)
+        R.set('prxc', k, at('xck', 'pow', kk) * c('MWyMkWh') * gen[kk], 'pow', kk)
+        co2 = at('co2', 'pow', kk)
+        R.set('prnew', k, gen[kk] * c('MWyMkWh') * at('xac', 'pow', kk)
+              - co2 * at('etr', 'pow', 'all') * (1 - at('ets.rf')), 'pow', kk)
+        key = [xkeys[int(data[i]['types'][kk]['ecpk']) - 1] for i in countries]
+        xct = np.array([0.0 if q == 'none|none' else data[i]['ecp'][f'xct|{q}'][xct_k] for i, q in zip(countries, key)])
+        xets = np.array([0.0 if q == 'none|none' else data[i]['ecp'][f'xets|{q}'][xct_k] for i, q in zip(countries, key)])
+        R.set('prxl', k, co2 * (xct * at('xct.p') + xets * at('xets.p')), 'pow', kk)
+        R.set('prrns', k, at('rns', 'pow', kk) * c('MWyMkWh') * gen[kk], 'pow', kk)
+    R.set('pet', k, sum(pe[kk] * ty(kk, 'fflag') for kk in TYPES), 'pow', 'all')
