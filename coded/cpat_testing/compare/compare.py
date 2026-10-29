@@ -5,6 +5,7 @@ stored values of the shipped workbook, reference/excel_ai_<version>.csv).
     summary(report)                                                # by variable stem
 Tolerance: relative 1e-9, absolute 1e-9 near zero (NORMS 7.2).
 """
+import warnings
 from pathlib import Path
 
 import numpy as np
@@ -35,8 +36,10 @@ def compare(python, stems=None, ref=None, years=None):
         c.split('.', 2)[2].startswith(s + '.') or c.split('.', 2)[2] == s + '.' + c.rsplit('.', 1)[1] for s in stems))]
     years = years or [y for y in python.columns if y in ref.columns]
     rows = []
+    warnings.filterwarnings('ignore', 'All-NaN slice', RuntimeWarning)
+    warnings.filterwarnings('ignore', 'invalid value', RuntimeWarning)
     for c in codes:
-        a = python.loc[c, years].astype(float).values
+        a = pd.to_numeric(python.loc[c, years], errors='coerce').astype(float).values
         b = ref.loc[c, years].astype(float).values
         diff = np.abs(a - b)
         bad = ~((diff <= ATOL) | (diff <= RTOL * np.abs(b)) | (np.isnan(a) & np.isnan(b)))

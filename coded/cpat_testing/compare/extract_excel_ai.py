@@ -8,6 +8,11 @@
                                                      fuel, sector, description, unit and code (scenario 1)
   data/mvp_legacy_extracts/module_<Tab>_cells.csv    the typed module values of tabs FromAirPollution and
                                                      FromTransportCB (row, col, value), for the placeholder modules
+  cpat_model/core/excel_ai/<table>.csv               the model's own tables on Excel-AI's Settings tab (named
+                                                     constants, the input rows read by Mitigation, coverage sectors,
+                                                     main scenarios, ETS volatility): structure, not country data
+  data/excel_ai_stored/<table>.csv                   values Excel-AI stores from a scenario-1 run (BaselineCO2), read
+                                                     as data until Python computes them (user 2026-10-29)
 
 Run from coded/:  python cpat_testing/compare/extract_excel_ai.py
 """
@@ -105,9 +110,49 @@ def module_tabs(wb):
         print(f'{tab}: {len(cells)} cells -> {out}')
 
 
+STRUCTURE = CODED / 'cpat_model' / 'core' / 'excel_ai'
+SETTINGS_TABLES = {   # name: (first row, last row, columns {sheet column: csv column}) of sheet Settings
+    'constants': (97, 297, {1: 'key', 2: 'value', 3: 'unit', 4: 'description', 5: 'source'}),
+    'input_rows': (333, 743, {1: 'key', 2: 'name'}),
+    'coverage_sectors': (746, 762, {1: 'sector', 2: 'position', 3: 'ets_group', 5: 'feebate_sector',
+                                    7: 'semi_group'}),
+    'main_scenarios': (819, 832, {1: 'selected', 2: 'name', 3: 'explicit', 4: 'adjustment',
+                                  **{c: s for c, s in zip(range(5, 22), ['pow', 'rod', 'ral', 'avi', 'nav', 'res', 'foo',
+                                     'srv', 'mch', 'irn', 'nfm', 'mac', 'cem', 'omn', 'cst', 'ftr', 'oen'])},
+                                  22: 'power_rebated'}),
+    'ets_volatility': (16, 18, {2: 'item', 3: 'Medium', 4: 'High', 5: 'Low', 6: 'Zero'}),
+}
+
+
+def write(path, head, rows):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, 'w', encoding='utf-8', newline='') as f:
+        csv.writer(f, lineterminator='\n').writerows([head] + rows)
+
+
+def structure(wb):
+    rows = list(wb['Settings'].iter_rows(max_row=900, max_col=22, values_only=True))
+    for name, (a, b, cols) in SETTINGS_TABLES.items():
+        out = [[text(rows[r - 1][c - 1]) for c in cols] for r in range(a, b + 1)]
+        out = [o for o in out if o[0]]
+        write(STRUCTURE / f'{name}.csv', list(cols.values()), out)
+        print(f'{name}: {len(out)} rows')
+
+
+def stored(wb):
+    rows = list(wb['BaselineCO2'].iter_rows(min_row=3, values_only=True))
+    years = [int(y) for y in rows[0][3:] if y is not None]
+    out = [[r[0].split('|')[0], r[0].split('|', 1)[1], y, text(v)] for r in rows[1:] if r[0]
+           for y, v in zip(years, r[3:3 + len(years)]) if v is not None]
+    write(REPO / 'data' / 'excel_ai_stored' / 'baseline_co2.csv', ['country', 'key', 'year', 'value'], out)
+    print(f'baseline_co2: {len(out)} values')
+
+
 if __name__ == '__main__':
     book = openpyxl.load_workbook(WORKBOOK, read_only=True, data_only=True)
     print('scenario rows:', scenarios(book), '->', SCENARIOS)
     print('reference codes:', reference(book), '->', REFERENCE)
     print('variables:', variables(book), '->', VARIABLES)
     module_tabs(book)
+    structure(book)
+    stored(book)

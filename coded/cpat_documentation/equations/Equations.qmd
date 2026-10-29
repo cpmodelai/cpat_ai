@@ -78,7 +78,39 @@ $$
 \Sigma_{s,t} = \left(b_{g(s),t} + reg_{g(s),t}\right) a\,\mathbb{1}[\text{feebate covers } s] + \tilde{p}^{E}_t\,\kappa_{s,t}\,\omega_{s,t}
 $$
 
-Over sectors $s$; $g(s)$ is the sector group of $s$. Excel-AI notation: $b_g$ feebate rate, $reg_g$ regulations (placeholder, 0), $a$ share of the feebate on the efficiency margin. The shadow price acts on the efficiency margin only (M3.1); it raises no revenue. Source: Excel-AI: E3, E16.
+Over sectors $s$; $g(s)$ is the sector group of $s$. Excel-AI notation: $b_g$ feebate rate of the feebate sector, $a$ share of the feebate on the efficiency margin (SPPEffAdjFeebates where the feebate covers $s$). $reg$: under a main scenario with shadow pricing (MTInputs ScenarioSelected; table of main scenarios), the shadow carbon price ($\Lambda$ less the explicit price) times the efficiency adjustment of the scenario, in the sectors it covers. The shadow price acts on the efficiency margin only (M3.1); it raises no revenue. Source: Excel-AI: E3, E16.
+
+**M1.5  Fuel price reform path**
+
+$$
+FPR_{c,t} = \begin{cases} 0 & t < T_0 \\ x_0 + j\,(t - T_0) & t < T_1 \text{ or the path continues linearly} \\ x_1 \text{ (or } p\,(1+k)^{t - T_1 + 1} \text{ if it continues by a rate)} & \text{otherwise} \end{cases}
+$$
+
+Over price fuels $c$ (coal and gas by power, residential, industry; electricity residential and industry; oil products and biomass). Excel-AI notation. The path after the target year follows ExtendCarbonPriceBeyondOutro: Linear* continues the line, Percentage grows at the rate $k$ from $p$, otherwise held at $x_1$. Where the start is zero the rate divides by $x_0 + j$. Source: Excel-AI: Mitigation section 1 (fprj, fprk, fprp, fpra, fpr).
+
+**M1.6  Social cost of carbon**
+
+$$
+SCC^{tgt}_t = SCC^{*}\,(1+g)^{t - T^{*}}, \quad SCC^{R}_t = SCC^{R}\,(1+g)^{t - t_0}, \quad SCC^{EPA}_t = SCC^{EPA}\,(1+g)^{t - t_0}
+$$
+
+Excel-AI notation. Target-consistent price, Ricke et al. (2018) national or global (sheet SCC, by discount rate and elasticity), manual path, US EPA; the national and global SCC are chosen by NSCCSource and GSCCSource (read from the baseline column). Source: Excel-AI: Mitigation section 1 (scc).
+
+**M1.7  Phase-out factor of subsidies and price controls**
+
+$$
+\phi_{k,t} = \max\!\left(1 - \bar{s}_k,\ 1 - \bar{s}_k\,\frac{t - T_k}{\max(N_k, 1)}\right) \text{ if the phase-out is on and } t > T_k;\ 1 \text{ otherwise}
+$$
+
+Over phase-outs $k$: producer subsidies, consumer subsidies, price controls; price fuels $c$ or producer fuels $f$. Excel-AI notation. The baseline uses the baseline switch, period and share; a policy scenario its own switch and period and the larger of the two shares. Price controls are on only where the policy switch is on (and, in the baseline, the baseline switch too); they use the consumer-subsidy shares (Excel-AI issue I48). Source: Excel-AI: Mitigation section 1 (po.on, po.n, po.sh, pof, csf, pcf, psf).
+
+**M1.8  Methane fee**
+
+$$
+MF_t = \Lambda(t; T_0, T_1, x_0, x_1)\,\mathbb{1}[o \ne B] + NCT_t\,\mathbb{1}[\text{carbon tax applies to methane}]
+$$
+
+Excel-AI notation. The fee path continues linearly after its target year. Source: Excel-AI: Mitigation section 1 (mfee.p, mfee).
 
 ## M2 Energy prices
 
@@ -380,7 +412,7 @@ $$
 \hat{p}^{E}_t = \frac{\ln(cap_t / bce_t)}{\bar{\sigma}_t\,V} \quad \text{if the ETS is on and } 0 < cap_t < bce_t,\ \bar{\sigma}_t < 0;\ 0 \text{ otherwise}
 $$
 
-Excel-AI notation. $bce$ is baseline CO2 covered, from the baseline pass (spec D15). Source: Excel-AI: E7-E11.
+Excel-AI notation. $bce$ is the baseline CO2 of the covered sectors: Excel-AI's stored scenario-1 values (sheet BaselineCO2), read as data until the baseline pass computes them (user 2026-10-29). Source: Excel-AI: E7-E11.
 
 ## A2 Prices
 

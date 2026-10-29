@@ -10,7 +10,9 @@ from pathlib import Path
 DEFAULT = Path(__file__).resolve().parents[3] / 'data' / 'inputs' / 'scenarios_excel_ai.csv'
 
 # Inputs Excel-AI reads from the baseline column for every scenario: run settings (D16)
-GLOBAL_INPUTS = ['ResultsYear', 'LastHistPriceYear', 'BiomassLeakage', 'BiomassNormal', 'NatGasEff', 'LPGEff', 'KerEff', 'BioEff']
+GLOBAL_INPUTS = ['ResultsYear', 'LastHistPriceYear', 'SCCTargetConsistentCP', 'SCCRise', 'SCCTargetYear',
+                 'SCCEpaBaseYear', 'NSCCSource', 'GSCCSource', 'NSCCDiscountRate', 'NSCCMargUtilofCons',
+                 'ETSOBREffectiveness', 'BiomassLeakage', 'BiomassNormal', 'NatGasEff', 'LPGEff', 'KerEff', 'BioEff']
 
 # Python inputs below the Excel-AI rows (added to Excel-AI at its next release): name, label, unit, default
 PYTHON_ROWS = [('ModelForm', 'Form of the demand equations (D4): CPAT, CPAT partial adjustment, CES partial '

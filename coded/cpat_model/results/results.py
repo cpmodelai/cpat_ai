@@ -16,6 +16,8 @@ class Results:
         rows = {}
         for n, state in self.states.items():
             for var, arr in state.items():
+                if var.startswith('_'):                   # working data of a block, not a result row
+                    continue
                 for code, series in flatten(var, arr, country, n):
                     rows[code] = series
         return pd.DataFrame(rows).T.sort_index()
@@ -29,8 +31,11 @@ def flatten(var, arr, country, n):
     if not other:
         yield f'{country.lower()}.mit.{var}.{n}', a.to_pandas()
         return
+    rows = set(map(tuple, a.attrs.get('rows', [])))          # a sparse grid: only these (sector, fuel) are rows
     stacked = a.stack(_k=other)
     for i in range(stacked.sizes['_k']):
         key = stacked['_k'].values[i]
         key = key if isinstance(key, tuple) else (key,)
+        if rows and key not in rows:
+            continue
         yield f'{country.lower()}.mit.{var}.{".".join(map(str, key))}.{n}', stacked.isel(_k=i).to_pandas()
