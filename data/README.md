@@ -9,6 +9,8 @@ All data live here (root `NORMS.md` section 8): the inputs of Coded CPAT, the da
 - **Paste into legacy CPAT:** `workbooks/CPAT_Data_dummy_cpat.xlsx` (Index sheet: the range of each sheet) or `legacy_dummy/`.
 - **After changing `dummy/`:** from `data/`, run `python scripts/build_data_workbook.py`, then `python scripts/convert_data_workbook.py to-cpat`, then `pytest tests`.
 
+**The data interface of the models** (which files Excel-AI and Coded CPAT read, their layouts and keys, and what the full database must contain): [`INTERFACE.md`](INTERFACE.md), with the file-by-file list [`interface_manifest.csv`](interface_manifest.csv). Start there if you deliver data.
+
 ## Layout
 
 | Folder | Contents | Written by | Read by |
@@ -20,6 +22,7 @@ All data live here (root `NORMS.md` section 8): the inputs of Coded CPAT, the da
 | `distribution/` | The distribution data pipeline, one workbook per stage: `data_bymodule`, `data_tabular`, `data_standardized` and the two `_regenerated` checks | `excel_ai/distribution/scripts/` (`run_all.py`) | the distribution workbook, `build_distribution_model_data.py` |
 | `air_pollution/legacy_459/` | Nine public Air Pollution reference tables and source-dimensions manifest from legacy 459 NoPropData | `scripts/extract_air_pollution_legacy.py` (read-only source) | `excel_ai/air_pollution/build_workbook.py`; regression: `python -m pytest data/tests/test_extract_air_pollution_legacy.py -q` from the repository root |
 | `range_anxiety_fit/` | `range_anxiety_fit.csv`: range-anxiety start values (passenger, freight, 2-3 wheelers, $/vehicle) fitted on the mitigation prototype's road model (scenario 1, 2025 EV sales shares), with residuals and iterations (v0.9.0, R10.8-R10.9; LegacyDiff 63). Rerun after a change of the road model or its data (about 7 LibreOffice recalculations, ~15 minutes), then rebuild | `excel_ai/mitigation/ra_goalseek.py` | `excel_ai/mitigation/build.py` (`ra_fit_apply`: written over the country's Transport3 cells, bright yellow) |
+| `inputs/` | The models' input files (planned, Coded CPAT task 2.7): scenario sets `scenarios_<name>.csv` (MTInputs rows x scenarios) and advanced inputs `advanced_<name>.xlsx` ([`INTERFACE.md`](INTERFACE.md) section 5) | by hand, the Shiny app, Excel-AI ScenarioDefinition | Coded CPAT |
 | `scripts/` | The conversion scripts: `export_to_legacy.py` (+ `legacy_layouts.json`), `build_data_workbook.py`, `convert_data_workbook.py` (+ `cpat_layouts.json`) | - | - |
 | `tests/` | pytest for the scripts: `pytest tests` from this folder (15 tests; about 2 minutes) | - | - |
 

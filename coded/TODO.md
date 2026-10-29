@@ -20,7 +20,8 @@ Status key: ☐ not started · ◐ in progress · ☑ done (ticked items leave a
 
 ## Phase 2 - Foundations (spec 11, phase 2)
 
-- ☐ 2.1 Data interface for the data person: `../data/INTERFACE.md` (tables, files, columns, keys, units, years, proprietary or not; `full` and `dummy` layout; input files in `../data/inputs/`). Check: loaders read only what it lists.
+- ☑ 2.1 Data interface for the data person: `../data/INTERFACE.md` and `../data/interface_manifest.csv` (41 files in three groups; legacy layout as Excel-AI; `full` and `dummy`; input files in `../data/inputs/`; 8 open points). The check (loaders read only what the manifest lists) comes with the loaders (2.6).
+- ☐ Data, from 2.1: confirm whether the 220-country `../data/mvp_legacy_extracts/prices_dom.csv` may stay in the repository (domestic prices are proprietary); assemble the `dummy` database (public files plus dummy Balances, EnergyCons, Prices_dom in the 99-column layout, HHSurvey, IO_GTAP); bring ASPIRE and WHOCooking back whole; extract the FromAirPollution and FromTransportCB values from `build.py` to a data file (2.10).
 - ☐ 2.2 Package skeleton (`cpat_model/` folders, `run()`, `settings.py`), versions `EXCEL_AI_VERSION` and `__version__` = `<Excel-AI>p<Python>` (D14; Excel-AI numbering rebased 2026-10-29: 0.9.0, distribution 0.1.3).
 - ☐ 2.3 Index sets (`core/dims.py`) from the codes map. Check: equal to the codes map.
 - ☐ 2.4 Variable registry (`core/variables.py`) from the codes map with the symbols of `equations.yaml`; resolve the 33 code names marked †. Check: every name in the equation list is in the registry.

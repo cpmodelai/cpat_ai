@@ -603,6 +603,8 @@ When a task changes the method, rewrite the affected methodology text to describ
 | `data/mvp_legacy_extracts/` | The legacy extracts and derived tables the mitigation MVP is built from |
 | `data/distribution/` | The distribution data pipeline (`data_bymodule`, `data_tabular`, `data_standardized`, the `_regenerated` checks) |
 | `data/air_pollution/legacy_459/` | Nine public Air Pollution reference tables and manifest from legacy 459 NoPropData; read-only extractor and regression tests in `data/scripts/` and `data/tests/` |
+| `data/INTERFACE.md`, `data/interface_manifest.csv` | The data interface of Excel-AI and Coded CPAT: the files a database must hold, their layouts and keys, proprietary status (user 2026-10-29, Coded CPAT D6). A file the models start to read is added to the manifest in the same task |
+| `data/inputs/` | Input files of the models: scenario sets and advanced inputs (Coded CPAT D5) |
 | `data/scripts/`, `data/tests/` | The conversion scripts (`export_to_legacy.py`, `build_data_workbook.py`, `convert_data_workbook.py`) and their tests |
 
 Rules:

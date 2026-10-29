@@ -1,0 +1,42 @@
+file,group,layout,legacy_tab,legacy_version,keys,country_key,years,full_needs,proprietary,note
+legacy_Balances.csv,A country table,table,Balances (rows 13+),465,country_code + flow_code; fuels as columns,ISO3 upper,year column (2022),every country,yes,
+legacy_EnergyCons.csv,A country table,table,EnergyCons,derived,CPAT Code <iso>.mit.enc.<fuel>; sectors as columns,"in the code, lower",Year (2022),every country,derived,derived from Balances (extract_legacy_tables.py); read when BalancesOrConsumption is not Balances
+prices_dom.csv,A country table,table,Prices_dom (99-column CPAT price-module layout),price module,country_year (e.g. EGY2022); codes mit.<var>.<fuel>.<sector> as columns,ISO3 upper,year column (2021-2024),"every country, every year to the last historical price year",yes,status of the committed 220-country values to confirm; read with prices_dom_header.csv (rows 1-4) and prices_dom_changes.csv (Egypt corrections)
+prices_dom_header.csv,A country table,other,Prices_dom rows 1-4,price module,"layout rows (fuel, sector, indicator, unit)",none,none,unchanged,derived,
+prices_dom_changes.csv,A country table,table,none (Egypt corrections),user 2026-10-09,country_year + column,ISO3 upper,2019-2024,only where prices are corrected,derived,corrections applied over prices_dom.csv
+legacy_HHSurvey.csv,A country table,table,HHSurvey,456,code <ISO>.distn.<...>; variables as columns,ISO3 upper,year column (survey year),every country,yes,
+legacy_IO_GTAP.csv,A country table,table,IO_GTAP,465,dis <iso>.<series>; GTAP sectors as columns,iso3 lower,year column (2014),every country,yes,cut to Egypt on purpose in the repo (EGYPT_ONLY); 465 has all countries
+legacy_HH_Elast.csv,A country table,table,HH_Elast,456,code <ISO>.distn.<...>,ISO3 upper,year column,every country,no,
+legacy_ASPIRE.csv,A country table,table,ASPIRE,465,Series_Code <ISO>.per_<prog>.avt_q<k>,ISO3 upper,Year,every country,no,cut to Egypt in the repo; 465 has all countries
+legacy_WHOCooking.csv,A country table,table,WHOCooking,465,code <ISO>.distn.pcoff.<sample>,ISO3 upper,year,every country,no,cut to Egypt in the repo; 465 has all countries
+legacy_GDPRatios.csv,A country table,table,GDPRatios,465,Country Code + Indicator Code; years as columns,ISO3 upper (and WB aggregates),1960-2023,every country and aggregate,no,
+legacy_WEO.csv,A country table,table,WEO (rows 9+),465,SERIES_CODE <ISO>.<SERIES>.A; years as columns,ISO3 upper,2000-2040,"every country (and USA CPI, deflator)",no,
+legacy_UNPop.csv,A country table,table,UNPop (rows 6+),465,ISO; years as columns (thousands),ISO3 upper,2019-2050,every country,no,"column A blank, as legacy"
+legacy_SCC.csv,A country table,table,SCC (rows 7+),465,Code <iso>.<prtp>.<eta>,ISO3 upper; code lower,none,every country,no,
+legacy_CH4Inputs.csv,A country table,table,CH4Inputs,465,cpat_ccode3 + tier3 (source),ISO3 upper,none,every country,no,
+legacy_GoalSeekCoal.csv,A country table,table,GoalSeekCoal (A8:E95),465,Region (holds the ISO3),ISO3 upper in column Region,none,countries with coal,no,no writer script
+legacy_NDCs.csv,A country table,table,NDCs (three rounds stacked),465,code + round,ISO3 upper,none,every country,no,
+legacy_GHGHist.csv,A country table,table,GHGs rows 954-1189,465,iso; group|year as columns,ISO3 upper,1990-2023 (groups),every country,no,
+legacy_EF_PM.csv,A country table,table,EF_PM (rows 2+),465,Country-Series code; long,"lower (countries, WB regions, world)",none,"every country, region and world",no,
+legacy_EF_GHG.csv,A country table,table,EF_GHG (rows 3+),465,"Code <iso>.mit.ef.<sector>.<fuel>.co2; series ef, gwp, gtp","lower (countries, regions, world)",none,"every country, region and world",no,"a second header row ""Code"" sits inside the data, as legacy"
+legacy_OilProductShares.csv,A country table,table,OilProductShares,465,countrycode,ISO3 upper,none,every country,no,
+legacy_Transport1.csv,A country table,table,Transport1,465,iso3 + year; variables as columns (blank = 0),ISO3 upper,2022-2025,every country,no,
+legacy_Transport2.csv,A country table,table,Transport2,465,cpat_ccode3 + year,ISO3 upper,2022-2040,every country,no,
+legacy_Countries_cells.csv,B legacy tab at its addresses,cells,Countries (from row 3),465,"row, col, value",ISO3 upper in column D,none,every country,no,
+legacy_Elasticities_cells.csv,B legacy tab at its addresses,cells,Elasticities (from row 3),465,"row, col, value; countries as columns from N (row 139 ISO3)",ISO3 upper (row 139),none,every country,no,
+legacy_Prices_int_cells.csv,B legacy tab at its addresses,cells,Prices_int (from row 3),465,"row, col, value; country assumptions by NAME (col G, rows 61+)",country name,2021-2045,every country (assumptions),no,"country-name key, as legacy"
+legacy_Power_cells.csv,B legacy tab at its addresses,cells,Power (from row 3),465,"row, col, value; codes <iso3>.<tech>.<...> in col A",lower in codes; names in some blocks,2022-2041 blocks,every country,no,
+legacy_CoC_cells.csv,B legacy tab at its addresses,cells,CoC (from row 3),465,"row, col, value",ISO3 upper in col B,2022-2040,every country,no,
+legacy_GHGs_cells.csv,B legacy tab at its addresses,cells,"GHGs (from row 3: inventory 7-947, history 954-1189, shocks 1201-1388)",465,"row, col, value; ISO3 col D, year col E",ISO3 upper,2021-2024,every country,no,
+legacy_ECP_cells.csv,B legacy tab at its addresses,cells,ECP (from row 3),465,"row, col, value; codes <iso3>.mit.<code> col E",lower,2015-2025,"every country with carbon pricing, and eu",no,
+legacy_ETS+LTS_cells.csv,B legacy tab at its addresses,cells,ETS+LTS (from row 3),465,"row, col, value; iso3 col C rows 82-256",iso3 lower,none,every country,no,
+legacy_Multipliers_cells.csv,B legacy tab at its addresses,cells,Multipliers (from row 3),465,"row, col, value; ISO3 col C in the country tables",ISO3 upper,lags 0-19,every country,no,
+legacy_Transport3_cells.csv,B legacy tab at its addresses,cells,"Transport3 (rows 5+, stored solver results)",465,"row, col, value; country NAME in col A",country name,none,every country,no,overwritten for fitted countries by range_anxiety_fit.csv
+transport_params.csv,C global parameters,table,"legacy Dashboard 61-98, 540-559; Mitigation 4304-4332",465,key,none,none,unchanged,no,
+transport_paths.csv,C global parameters,table,"legacy Mitigation 2051, 2095, 2122, 2170; Manual inputs 375-377",465 (Egypt run),key; years as columns,none,2022-2041,to check: may be country-specific in legacy,no,
+fuel_units.csv,C global parameters,table,legacy Mitigation 980-1009 (GJ per price unit),465,fuel,none,none,unchanged,no,
+distn_catmap.csv,C global parameters,table,legacy Distribution C.I rows 668-736,465,gtap,none,none,unchanged,no,
+distn_programs.csv,C global parameters,table,legacy Distribution rows 184-210,465,key,none,none,unchanged,no,
+distn_gtapmap.csv,C global parameters,table,legacy Distribution D.VI,465,gtap,none,none,unchanged,no,no writer script
+distn_passthrough.csv,C global parameters,table,legacy Distribution I470:I486,465,cpat sector,none,none,unchanged,no,no writer script
+../range_anxiety_fit/range_anxiety_fit.csv,C global parameters,table,"fitted on Excel-AI (scenario 1, 2025)",Excel-AI 0.9.0,iso; matched to Transport3 by country name,ISO3 upper and name,fit year 2025,countries fitted (today Egypt),derived,fitted on a run that used Balances and Prices_dom
