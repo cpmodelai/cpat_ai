@@ -12508,7 +12508,8 @@ def build_mitigation(wb):
         pol = lambda k: f'{col}${R_POL[k]}'
         gdp = f'{col}${R_GDPUSD}'
         pe = lambda t: f'{col}{R_PW[("pe", t)]}'
-        q_all = lambda f: f'{col}{R_FUEL0 + fk[f]}'
+        q_all = lambda f: (f'({col}{R_FUEL0 + fk["ker"]}+{col}{R_FUEL0 + fk["jfu"]})' if f == 'ker'   # v9.0: kerosene
+                           else f'{col}{R_FUEL0 + fk[f]}')   # and jet fuel, as legacy row 16879 (jet = kerosene price)
         fq = lambda g, f: cob(f'fuq.{g}.{f}')
         if var in ('cc.nat', 'cc.glo'):      # R2.1 ($/GJ)
             return f'={pol("scc." + var[3:])}*$D{r}', '0.0000'
