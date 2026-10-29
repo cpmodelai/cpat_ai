@@ -57,6 +57,9 @@ Includes the hand-off of the power agent (POW465): the price-chain residual of l
 - R9.3a-b (POW465 hand-off): `ores` = txg - txe - pseu up to the last price year; then held, a negative one x
   scl / scl(t-1) with `scl` = MIN(sc, sc of the last price year) (= legacy O3607 = J x MIN(sc, J3600)/J3600).
   `check_full` passes `txo_res`, `txo_ind` (dataset tax of LastHist x CPI) to `power_model_ref.engine`.
+- Coordinator addition (R1R2 hand-off): user row `spe` (ELSUPPLY) = sc + ores + ccpav x pass-through x (1 - rbs) +
+  pex = legacy rows 3620/3649 "supply costs (removing estimation)" (code sp.<g>.ecy); the R2 subsidy lines
+  (`supcost` of ecy, hence expsub/impsub/effprice) and the R3 efficient price (`sup.cost` of ecy) read it instead of sc.
 - R9.4-R9.13: sub-table E2 of section 3 (rows per type): `cur` (INVCOST(lfx, tvc, MinPost)), `sys` (SYSCOST),
   `pcbcap` (LEVCAPEX), `pcbom` (OMCOST), `pcbfu` (VARCOST: fixed fuel + fpp x kwh + xck), `pcbcp` (= ccp), `pcbrns`
   (= rns), `pcbchk` (parts - cur), single `pcbct` (cptraj x (scenario > 1); L222 fixed).
@@ -132,7 +135,9 @@ Includes the hand-off of the power agent (POW465): the price-chain residual of l
   and the biomass price (I143); type **Same**.
 - **LD63 Road transport: range anxiety**: this model: "Goal seek on the prototype's model (ra_goalseek.py, scenario 1,
   2025, stored in data/range_anxiety_fit, written over the country's Transport3 cells)"; legacy: "Solver results for
-  the legacy model (Transport3)"; effect: see section 6; type **Same** (method as legacy; I145).
+  the legacy model (Transport3)"; effect: "Egypt start values 71,335 / 603,242 / 1,214 $/vehicle (legacy stored 78,639
+  / 440,799 / 1,108); 2025 EV sales shares equal the actual ones"; type **Same** (method as legacy; I145).
+- **LD32**: also note the `spe` row (legacy 3620/3649) read by the subsidy and efficient-price lines.
 - **LD67 Exemption phase-out**: add "v9.0 (R6): share over the economy-wide basket spend (I136), lpg if the WHOCooking
   code is missing (I137), leakage on the not-exempt use (I138)"; type **Same**.
 - **LD68 Manual inputs tab**: add to the blocks read: manual domestic prices (G59:N146), manual elasticities
@@ -149,7 +154,33 @@ Includes the hand-off of the power agent (POW465): the price-chain residual of l
 - I135-I146: replicated as built (see section 1). L101, L135, L220, L222: fixed in the prototype.
 
 ## 6. Results (quick check) and Egypt comparison
-(filled below)
+- Quick build: no exception, no lint error. Quick check: **PASS** (0 error values). Against the pre-R6R10 build
+  (same branch before these changes): 320 codes gone (psw, ppsw, psr), new codes for the new rows, 1892 codes change.
+  Causes: (a) the price-chain residual `ores` (newly active, POW465 hand-off): Egypt residential ores(2022) = -0.0632
+  $/kWh, industry -0.0339 (LastHist 2022); as the supply cost falls below its 2022 value the residual shrinks and the
+  price before policies rises (res 2040: 0.0562 vs 0.0510 $/kWh); electricity demand, power capacity, fuel use and CO2
+  fall (scenario 1 total energy 2040 -1.9%, CO2 2040 279.6 vs 284.7 Mt), revenues and the distribution move with them;
+  (b) methane intensity decline (ch4.em of liv/ric/wst/og/dg/bm; waste 2040 x0.923); (c) range anxiety fitted
+  (trra, EV shares and the road model; passenger start value 71,335 vs 78,639, freight 603,242 vs 440,799, 2-3 wheelers
+  1,213.95 vs 1,107.65 $/vehicle; residuals of the 2025 fit < 1e-6, was passenger -0.00066, freight +0.00064,
+  2-3 wheelers +0.0048). R6, R7 (fossil), R8 prices/elasticities, R10 biofuels and renewables: no Egypt effect (inputs
+  off or 0), as expected.
+- R6: exempt share with ExemptMostCook = Yes, 4 deciles (Python on HHSurvey, same formula as C83): LPG 0.27259, gas
+  0.18291, kerosene 0.12069 = legacy 0.2726, 0.1829, 0.1207.
+- R9 E5 breakdown 2030 ($/kWh; prototype scenario 1 vs legacy 465 scenario 1): capital and O&M equal for every type
+  (coal 0.04857/0.01580, gas 0.04669/0.01408, oil 0.12870/0.02521, nuclear 0.05513/0.02233, wind 0.04088/0.01131,
+  solar 0.03524/0.00417, hydro 0.07195/0.01067, other ren. 0.06805/0.01520, biomass 0.03970/0.01965); system equal
+  except wind/solar/other ren. in scenario 1 (0.02884/0.03138/0.02580 vs 0.02737/0.02991/0.02433: storage cost of the
+  prototype's VRE share; the prototype scenario 2 values equal legacy's); fuel: coal 0.05412 vs 0.05710, gas 0.02075 vs
+  0.01978, oil 0.05891 vs 0.02797, nuclear 0.004 = 0.004, biomass 0.20611 vs 0.20619 (fuel prices for power differ,
+  existing differences); checksums 0. Carbon-tax memo scenario 2: 20 $/t (prototype scenario; legacy 1.4286 with L222
+  fixed).
+- R1R2 hand-off, Egypt 2022: explicit electricity subsidy 0 (all lines; was 9.2 bn with sc); implicit res 0.79 bn,
+  other 0.002 bn, industry 0. R2 effprice ind 0.0637 (legacy 0.0637), res 0.0676, other 0.0666; R3 efficient price
+  (eff.price) res 0.0802 (legacy 0.0802), ind 0.0747. spe ind 0.0637 (= legacy 3649 0.06366), res 0.0593.
+- R8 methane, scenario 1 (kt CH4; prototype 2030 / legacy fixed 2030): livestock 448.8 / 454.4, rice 262.8 / 266.1,
+  waste 1478.8 / 1431.5; index ratio vs no decline 2030 x0.9720 (agriculture; legacy x0.9674, one year more).
+- R10: Egypt road biofuels and aviation / navigation renewables 0 (as legacy).
 
 ## 7. Version-log sentence
 "v9.0 (R6-R10): residential exempt split as legacy (basket denominator, lpg default, leakage on the not-exempt use);
@@ -167,5 +198,8 @@ self-generated renewables of aviation and navigation; range anxiety fitted on th
   index (as check_full); a small overstatement where the fee is on.
 - Revenue: the electricity producer-subsidy phase-out raises the price before policies, so it enters the subsidy gap
   `rgap` as well as `rpsu` (addendum: "rgap as now"); a possible double count where pros.ecy is not 0 (Egypt 0).
+- data: new folder `data/range_anxiety_fit/` (CSV written by `excel_ai/mitigation/ra_goalseek.py`); add a line to
+  `data/README.md` (layout table). Rerun the script after a change of the road model or its data (about 7 LibreOffice
+  recalculations, ~15 minutes), then rebuild.
 - check_full: the exempt split (lkx) and the R10 rows are not re-computed (ExemptMostCook No, Egypt values 0); the
   electricity subsidies only through power_model_ref's txo inputs; the E2 memos not re-computed (to add).

@@ -629,6 +629,22 @@ for v_ in ('fprj', 'fprk', 'fprp', 'fpra'):                                # v9.
         _pol(f'{v_}.{pc}', v_, pc.split('.')[0], pc.split('.')[1], kind='calc')
 for pc, *_ in PRICE_FUELS:
     _pol(f'fpr.{pc}', 'fpr', pc.split('.')[0], pc.split('.')[1], kind='calc')
+# v9.0 (R3, Equations_addendum C, R3.1-R3.12): Pigouvian (efficient) taxes as a policy option (legacy Mitigation rows
+# 111-160, 199-218 and the ntx rows of the policy blocks). The social cost of carbon moved here from section 18: the
+# Pigouvian tax enters the power cost (ccp), whose precedents must be inputs only (quick check: lvc levelises tvc).
+# Components read data only (sheet Inputs_cob, sheet BaselineCO2 for the scenario-1 transport costs, price block
+# parameters): no fuel-use row, so no circular reference through ntx.
+SCC_ROWS = ['tgt', 'rkn', 'rkg', 'man', 'epa', 'nat', 'glo']
+PIG_PARAMS = ['AddEfficientTaxes', 'ClimateEffTax', 'AddEfficientTaxesPhaseInYears', 'ExternalityAddVAT']
+PIG_VARS = ['pig.ap', 'cc.code', 'pig.tr', 'pigx', 'ntxg', 'xcpb', 'xpre', 'ntxb']
+for k_ in SCC_ROWS:
+    _pol(f'scc.{k_}', 'scc', k_, 'all', kind='calc' if k_ in ('tgt', 'rkn', 'rkg', 'epa') else 'plain')
+for p_ in PIG_PARAMS:
+    _pol(p_, p_, mt=MT_NAMES[p_])
+_pol('pig.phi', 'pig.phi', kind='plain')
+for v_ in PIG_VARS:
+    for pc, *_ in PRICE_FUELS:
+        _pol(f'{v_}.{pc}', v_, pc.split('.')[0], pc.split('.')[1], kind='plain')
 for p_ in ETS_PARAMS:
     _pol(p_, p_, mt=MT_NAMES[p_])
 _pol('ets.on', 'ets.on', kind='calc')                                     # v1.07: new ETS applied and started
@@ -777,6 +793,10 @@ NAMED_CONSTANTS = [  # defined name, value, unit, description, source
     ('MultLastLag', 11, 'years', 'Last lag of the legacy multiplier tables (columns D:O = lags 0-11); later lags hold '
      'its value', 'Legacy Multipliers rows 36-57, 90-203'),
     ('KgPerT', 1000, 'kg per t', 'Kilograms per tonne (EF_GHG factors are kg CO2 per GJ)', 'Definition'),
+    ('EFOilIEA', 20 * 44 / 12 / 1000, 'tCO2/GJ', 'Generic CO2 factor of other oil products, IEA (20 tC/TJ x 44/12; '
+     'v9.0, R3.2)', 'Legacy Mitigation row 967'),
+    ('ApCoalResMin', 0.001, 'share', 'Residential coal air-pollution cost applies only where coal is above this share '
+     'of buildings fuel use (v9.0, R1.3; bug L192 fixed: legacy divides by a typed 9127)', 'Legacy Mitigation row 17739'),
     ('EFJetIEA', 0.0715, 'tCO2/GJ', 'CO2 emission factor of jet fuel, IEA global (19.5 tC/TJ x 44/12): legacy uses it '
      'for aviation and for jet fuel in every sector', 'Legacy Mitigation rows 970, 1010-1011'),
     ('FlareCO2perCH4', 2.75, 't CO2 per t CH4', 'CO2 from burning (flaring) one tonne of methane (44/16)', 'Definition'),
@@ -890,6 +910,19 @@ SUBHEADS = {'cptraj': None, CP_PARAMS[0]: 'Carbon tax (MTInputs rows 18-21, 265,
             'fc.coa': 'Carbon tax coverage: fuels (MTInputs rows 23-29)',
             'sc.pow': 'Carbon tax coverage: sectors (MTInputs rows 31-47)',
             'fpr.yr0': 'Fuel price reform (MTInputs rows 140-169; increases in price units)',
+            'scc.tgt': 'Social cost of carbon options and selection (USD per tCO2 real; legacy rows 17665-17698; v9.0: '
+                       'moved from section 18, the Pigouvian tax reads the national SCC)',
+            PIG_PARAMS[0]: 'Pigouvian (efficient) taxes (v9.0, R3; MTInputs rows 212, 216-218; legacy rows 111-160): '
+                           'inputs and phase-in share from CPIntro',
+            'pig.ap.coa.pow': 'Pigouvian tax components per price unit by price fuel: air pollution (typed, sheet '
+                              'Inputs_cob; residential coal: scenario 1, stored), climate damage (national SCC x '
+                              'generic EF), road transport of scenario 1 (stored on sheet BaselineCO2)',
+            'pigx.coa.pow': 'Pigouvian tax per price unit (phase-in x components; climate only if ClimateEffTax) and '
+                            'gross new excise: fuel price reform + Pigouvian tax if AddEfficientTaxes (legacy rows '
+                            '148-160, 205-215)',
+            'xcpb.coa.pow': 'New excise of the price block (legacy rows 8782-9012): existing carbon pricing change '
+                            '(block EF and ECP sector), existing taxes before new policy ($/GJ), new excise netted '
+                            'over them if AddEfficientTaxes (issue I113), policy scenarios only (price unit)',
             'NewETS': 'New ETS (MTInputs rows 84-97: cap relative to baseline, years, price override, volatility; '
                         'replaces the carbon tax in covered sectors)',
             'etscv.pow': 'ETS sector coverage (MTInputs rows 99-115) and effective coverage (ETS applied and started)',
@@ -1118,7 +1151,7 @@ PW_LAYOUT.insert([x[0] for x in PW_LAYOUT].index('G') + 1, (
           'price year, producer subsidy (allocation by the pre-tax gap, per kWh floored, residual) after its phase-out, '
           'consumer subsidy phase-out (PowerSubsidyExemptInclude), price-chain residual (rows 3607, 3636)',
     [('user', 'rpnv'), ('user', 'txg'), ('user', 'txe'), ('user', 'scl'), ('user', 'psegap'), ('single', 'psegs'),
-     ('user', 'psesh'), ('user', 'pseu'), ('single', 'pser'), ('user', 'csd'), ('user', 'ores')]))
+     ('user', 'psesh'), ('user', 'pseu'), ('single', 'pser'), ('user', 'csd'), ('user', 'ores'), ('user', 'spe')]))
 PW_DATA = {'tcf', 'cbat', 'cint', 'obat', 'elcx', 'eltk', 'elof', 'elov', 'incp', 'shock', 'pret',
            'entxd'}                     # data lookups (PowerPaths; ntxd: Manual inputs), no LAMBDA
 PW_SUMS = {'demtot', 'gtot', 'usdtot', 'captot', 'nimtot', 'demg'}       # plain sums, no LAMBDA
@@ -1172,7 +1205,7 @@ PW_PARAMS.update({  # v9.0 (R7, R9)
     'cur': [], 'sys': [('t', 'dtx'), ('t', 'vre')], 'pcbcap': [], 'pcbom': [('t', 'opfx'), ('t', 'vop')],
     'pcbfu': [('t', 'ffix')], 'pcbcp': [], 'pcbrns': [], 'pcbchk': [], 'pcbct': [],
     'rpnv': [('g', 'pos'), ('g', 'vr')], 'txg': [], 'txe': [('g', 'pos')], 'scl': [], 'psegap': [], 'psegs': [],
-    'psesh': [('g', 'wtot')], 'pseu': [], 'pser': [], 'csd': [], 'ores': []})
+    'psesh': [('g', 'wtot')], 'pseu': [], 'pser': [], 'csd': [], 'ores': [], 'spe': []})
 PW_SUMS.add('psegs')
 R_PW, PW_HEAD, PW_ROWS = {}, {}, []      # (var, member) -> row; letter -> heading row; (row, var, B, C, kind)
 PW_LAB = {}                             # v2.4: var -> label row (parameter names D:G) above its block
@@ -2802,6 +2835,25 @@ def _build_tr_spec():
             '(Transport3 row 4)')
         T(key, v, 'ev', c, R('TRDATA', lambda x, calc=calc, act=act: [x.dk, f'{x.c(calc)}-{x.c(act)}', '""']),
           fmt='0.0000')
+    # ---------------- v9.0 (Equations_addendum F, user 2026-10-29): outputs to the transport co-benefits module
+    _th('Outputs to the transport co-benefits module (with the fuel use by class, fuel economy and distance rows above; '
+        'issue I100: those come from the engineer model whatever TrModel is): road and total use by fuel of the '
+        'switched model (sections 5 and 11; electricity: road and total demand) and the road share of each fuel')
+    _tv('trq', 'Fuel use of the switched model read by the transport co-benefits module: road and total (electricity: '
+        'demand)', 'ktoe', 'legacy E2 rows 15744-15787')
+    _tv('tran.rsh', 'Road share of the fuel: road use / total use (switched model; electricity: road demand / total '
+        'demand)', 'share', 'legacy E2 rows 15768-15786; Transport rows 120-128 (R1.9)')
+    fk = {f[0]: k for k, f in enumerate(FUELS)}
+    road = lambda x, f: (f'{x.col}{SUB_HEAD["rod"] + 1}' if f == 'ecy'
+                         else f'{x.col}{SUB_HEAD["rod"] + VOFF["ener"] + fk[f]}')
+    total = lambda x, f: f'{x.col}{R_ELD["all"]}' if f == 'ecy' else f'{x.col}{R_FUEL0 + fk[f]}'
+    for f in ('gso', 'die', 'lpg', 'nga', 'ecy'):
+        T(f'trq.rod.{f}', 'trq', f, 'rod', kind='plain', fmt='#,##0.0', plain=lambda x, f=f: f'={road(x, f)}')
+    for f in ('gso', 'die', 'lpg', 'nga', 'ecy'):
+        T(f'trq.all.{f}', 'trq', f, 'all', kind='plain', fmt='#,##0.0', plain=lambda x, f=f: f'={total(x, f)}')
+    for f in ('gso', 'die', 'lpg', 'nga', 'ecy'):
+        T(f'tran.rsh.{f}', 'tran.rsh', f, 'rod', kind='plain', fmt='0.000',
+          plain=lambda x, f=f: f'=IF({x.c("trq.all." + f)}=0,0,{x.c("trq.rod." + f)}/{x.c("trq.all." + f)})')
     _build_tr_r10(T, R)
 
 
@@ -3459,7 +3511,12 @@ AP_BLOCKS = ([('Emission factor path', [('ap.w', 'ap.w', 'all', 'all')])]
              + [('Forcing of the local pollutants (memo, not in GHGs; Mt CO2e, GWP100)',
                  [(f'apf.{p}', 'apf', p, 'all') for p in AP_GWP] + [('apf.all', 'apf', 'all', 'all')])]
              + [(f'Air-pollution module input: {nm} (kt)', [(f'aps.{p}.{s_}', 'aps', p, s_) for p in APS_POLS])
-                for s_, nm in AP_SECS + [('all', 'all sectors')]])   # v3.12: the module's input table (legacy rows
+                for s_, nm in AP_SECS + [('all', 'all sectors')]]
+             + [('Air-pollution module input: energy use of power generation and residential by fuel (ktoe; legacy E3 '
+                 'rows 15814-15840) and CO2 from energy (MtCO2; legacy row 16054; v9.0, Equations_addendum F)',
+                 [(f'apen.pow.{t}', 'apen', t, 'pow') for t in ('coa', 'nga', 'oop', 'bio')]
+                 + [(f'apen.res.{f[0]}', 'apen', f[0], 'res') for f in FUELS] + [('apen.res.ecy', 'apen', 'ecy', 'res'),
+                                                                                 ('apco2', 'apco2', '', '')])])   # v3.12: the module's input table (legacy rows
 #                                                                       15859-15961: sector blocks, legacy pollutant order)
 # v3.14: 14b GHG change by inventory category and gas (legacy F12, rows 18229-18264); energy GHGs incl. forcing
 E14B_BLOCKS = [
@@ -3564,9 +3621,17 @@ EXT_BLOCKS = [
     ('16b. Energy trade balance (exports - imports, USD bn real; legacy rows 741-743, 18215-18219)',
      [(f'xtb.{g}', 'xtb', g, 'all') for g in XG] + [('xtb.all', 'xtb', 'all', 'all'), ('xtbp', 'xtbp', 'all', 'all'),
                                                    ('xtb.pct', 'xtb.pct', 'all', 'all'),
-                                                   ('xnim.pct', 'xnim.pct', 'all', 'all')])]
+                                                   ('xnim.pct', 'xnim.pct', 'all', 'all')]),
+    # v9.0 (R11): current account (legacy rows 18180-18198, block F11; bugs L50, L214 fixed; L215 avoided by xnim)
+    ('16b. Current account, balance of payments (legacy rows 18180-18198): typed WEO values (Inputs, EGY|bca*), '
+     'change by fuel group = - change in net energy imports (USD bn real; % of GDP in percent units)',
+     [('bca', 'bca', 'all', 'all'), ('bca.gdp', 'bca.gdp', 'all', 'all'), ('bca.r', 'bca.r', 'all', 'all')]
+     + [(f'bca.d.{g}', 'bca.d', g, 'all') for g in XG]
+     + [('bca.p', 'bca.p', 'all', 'all'), ('bca.y', 'bca.y', 'all', 'all')]
+     + [(f'bca.dp.{g}', 'bca.dp', g, 'all') for g in XG]
+     + [('bca.pp', 'bca.pp', 'all', 'all'), ('bca.n', 'bca.n', 'all', 'all')])]
 R_EXT, R_EXT_LAB, R_EXT_HEAD, _r = layout_blocks(EXT_BLOCKS, R_GDPS_AFTER)   # v4.1: before the summary row
-EXT_LAM = {f'xnim.{f}' for f in CPI_FUELS} | {'xtb.pct', 'xnim.pct'}
+EXT_LAM = {f'xnim.{f}' for f in CPI_FUELS} | {'xtb.pct', 'xnim.pct'} | {f'bca.dp.{g}' for g in XG}   # v9.0: R11
 R_GDPS_NOTE, R_EXT_NOTE = _r, _r + 1   # notes of section 16 and of 16b
 R_GDPS['gdp.eff'] = R_GDPS_NOTE + 3     # GDP effect (share of GDP): the section's summary line
 B_CPR = R_GDPS['gdp.eff'] + 2           # 17. Carbon pricing (v4.1: one blank row before the band)
@@ -3577,12 +3642,149 @@ for _rows in ([R_CPR[f'covct.{x}'] for x in COV_SECTORS], [R_EMI[f'co2.sec.{x}']
 R_CPR_NOTE = _r
 R_CPR['ecr'] = R_CPR_NOTE + 2           # v4.1: effective carbon rate, the section's summary row
 CPR_SUM = [('ecr', 'ecr', 'all', 'all')]
-# v3.17: 18. Welfare and externalities, climate part (legacy F10, rows 17392-17742)
-SCC_ROWS = ['tgt', 'rkn', 'rkg', 'man', 'epa', 'nat', 'glo']
+# v9.0 (R1, Equations_addendum B): 17b. Inputs from air pollution and transport co-benefits (typed Egypt values on
+# sheet Inputs_cob; computed rows per scenario group). Sections 15 and 5b are the output blocks to the modules.
+COB_TYPED = [  # v9.0 (R1, T1, T3, T4): (data key after the country, source, values 2022-2041); Egypt, legacy 465
+    # cached run (Equations_addendum_notes.md B.4; generated by r12_extract.py from l465.xlsb); 2041 = 2040 for AP
+    ('airpol.cost|ind|coa', 'AP 3924 ($/GJ)',
+     [2.37614, 1.92141, 1.80008, 1.64437, 1.8678, 1.91151, 2.06488, 2.20724, 2.33711, 2.37559, 2.46342, 2.55275,
+      2.64456, 2.73854, 2.83477, 2.93324, 3.03382, 3.13645, 3.24135, 3.24135]),
+    ('airpol.cost|res|coa', 'AP 4351 ($/GJ; switch in the prototype)',
+     [45.7535, 37.1775, 35.0004, 32.1301, 36.6762, 37.7209, 40.9509, 43.9937, 46.8173, 47.8293, 49.8501, 51.9224,
+      54.0666, 56.2776, 58.5581, 60.9089, 63.3285, 65.8167, 68.3698, 68.3698]),
+    ('airpol.cost|pow|coa', 'AP 3731 ($/GJ)',
+     [0.748238, 0.605947, 0.568541, 0.520151, 0.591734, 0.606517, 0.656203, 0.702545, 0.745064, 0.758543, 0.787854,
+      0.817753, 0.848554, 0.880164, 0.912614, 0.945906, 0.980003, 1.01489, 1.05051, 1.05051]),
+    ('airpol.cost|ind|nga', 'AP 3998 ($/GJ)',
+     [0.293984, 0.238879, 0.224891, 0.206448, 0.235658, 0.24237, 0.263124, 0.282675, 0.300817, 0.307319, 0.320303,
+      0.333618, 0.347395, 0.361601, 0.376253, 0.391358, 0.406904, 0.422891, 0.436798, 0.436798]),
+    ('airpol.cost|res|nga', 'AP 4378 x 741 x time_factor x (1+1713) / 41868 ($/GJ; L189 fixed)',
+     [0.0371033, 0.0301487, 0.0283832, 0.0260555, 0.0297422, 0.0305894, 0.0332087, 0.0356762, 0.0379659, 0.0387866,
+      0.0404254, 0.0421059, 0.0438447, 0.0456377, 0.047487, 0.0493934, 0.0513556, 0.0533734, 0.0554437, 0.0554437]),
+    ('airpol.cost|pow|nga', 'AP 3732 ($/GJ)',
+     [0.559905, 0.454017, 0.426546, 0.390754, 0.445115, 0.45684, 0.494924, 0.530586, 0.563457, 0.574428, 0.597438,
+      0.620961, 0.645238, 0.670202, 0.69588, 0.722277, 0.749368, 0.777148, 0.799931, 0.799931]),
+    ('airpol.cost|all|gso', 'AP 3886 ($/l)',
+     [0.060784, 0.0488894, 0.0455492, 0.0413756, 0.0467298, 0.0475465, 0.0510594, 0.0542534, 0.057097, 0.057679,
+      0.0594362, 0.061199, 0.062989, 0.0647974, 0.0666247, 0.0684687, 0.0703251, 0.0721907, 0.0747137, 0.0747137]),
+    ('airpol.cost|all|die', 'AP 3887 ($/l)',
+     [0.217734, 0.176876, 0.166476, 0.152784, 0.174356, 0.179276, 0.194577, 0.20898, 0.222335, 0.227082, 0.236615,
+      0.246387, 0.256496, 0.266915, 0.277659, 0.288731, 0.300123, 0.311834, 0.325903, 0.325903]),
+    ('airpol.cost|all|lpg', 'AP 4314 ($/l; all years, L190 fixed)',
+     [0.674992, 0.548272, 0.515978, 0.473491, 0.540289, 0.555476, 0.60282, 0.647376, 0.688673, 0.703303, 0.73275,
+      0.762932, 0.794148, 0.826321, 0.859491, 0.893668, 0.928829, 0.964969, 1.00203, 1.00203]),
+    ('airpol.cost|all|ker', 'AP 4313 ($/l)',
+     [0.936977, 0.759087, 0.712505, 0.652118, 0.742155, 0.760999, 0.823669, 0.882192, 0.935962, 0.953283, 0.990526,
+      1.02854, 1.06773, 1.10796, 1.1493, 1.19173, 1.23521, 1.27974, 1.32522, 1.32522]),
+    ('airpol.cost|pow|oop', 'AP 3733 ($/GJ)',
+     [5.85636, 4.7286, 4.4234, 4.03467, 4.5759, 4.67575, 5.04302, 5.38217, 5.68976, 5.77409, 5.97775, 6.18428,
+      6.39596, 6.61202, 6.83262, 7.05768, 7.28685, 7.51995, 7.75756, 7.75756]),
+    ('airpol.cost|ind|oop', 'AP 3961 ($/GJ)',
+     [23.4271, 18.9284, 17.7188, 16.1728, 18.3551, 18.7689, 20.2576, 21.6356, 22.8889, 23.2454, 24.0834, 24.9344,
+      25.8078, 26.7005, 27.6131, 28.5455, 29.4964, 30.465, 31.4539, 31.4539]),
+    ('air.vpm', 'typed',
+     [0.0, 0.290688, 0.276304, 0.196348, 0.223911, 0.23237, 0.253805, 0.274121, 0.293071, 0.299288, 0.311904,
+      0.324926, 0.338351, 0.352188, 0.366428, 0.381091, 0.396147, 0.411588, 0.427404, 0.427404]),
+    ('tran.acc.km', 'Transport 185 (USD/km)',
+     [0.00632954, 0.0049802, 0.00460373, 0.00419517, 0.00473596, 0.00485939, 0.00524274, 0.00559414, 0.00590918,
+      0.005954, 0.0061273, 0.00630436, 0.00648515, 0.00666962, 0.00685774, 0.00704945, 0.00724651, 0.00744909,
+      0.00765733, 0.00787139]),
+    ('tran.con.km', 'Transport 220 (USD/km)',
+     [0.00536868, 0.00548468, 0.00546949, 0.00583626, 0.00621345, 0.00666956, 0.00722952, 0.00780289, 0.00837663,
+      0.00898573, 0.00963183, 0.0103166, 0.0110416, 0.0118087, 0.0126195, 0.0134757, 0.0143841, 0.0153472, 0.0163671,
+      0.0174454]),
+    ('tran.rdm.km', 'Transport 232 (USD/freight km)',
+     [0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.12,
+      0.12, 0.12]),
+]
+COB_KAPPA = {  # v9.0 (R1, T2): effective PM2.5 concentration coefficient (ug/m3 per t; legacy AP F442:F522 x
+    # I974:I980, Manual-FASST as cached), by air-pollution module sector: so2, nox, pm2, bc, pom, opm, voc
+    'cpp': [2.051e-06, 2e-07, 0.0, 5.5052e-05, 5.4276e-05, 5.5052e-05, 0.0],
+    'gpp': [0.000118556, 1.15608e-05, 0.0, 0.00318223, 0.00313737, 0.00318223, 0.0],
+    'opp': [1.43608e-05, 1.40037e-06, 0.0, 0.000385467, 0.000380033, 0.000385467, 0.0],
+    'rod': [4.72957e-06, 4.61196e-07, 0.0, 0.000126949, 0.000125159, 0.000126949, 0.0],
+    'gro': [9.36762e-06, 9.13468e-07, 0.0, 0.000251441, 0.000247897, 0.000251441, 0.0],
+    'oth': [5.25284e-05, 5.12222e-06, 0.0, 0.00140994, 0.00139007, 0.00140994, 0.0],
+    'foo': [0.000682429, 6.6546e-05, 0.0, 0.0183175, 0.0180593, 0.0183175, 0.0],
+}
+COB_DATA = [k for k, *_x in COB_TYPED]
+ICOB_R0 = 5                              # Inputs_cob: year header in row 4, data rows from row 5
+ICOB_K0 = ICOB_R0 + len(COB_TYPED) + 4   # Inputs_cob: concentration coefficients (pollutants down, sectors across)
+COB_AP = [('coa', 'ind'), ('coa', 'res'), ('coa', 'pow'), ('nga', 'ind'), ('nga', 'res'), ('nga', 'pow'),
+          ('gso', 'all'), ('die', 'all'), ('lpg', 'all'), ('ker', 'all'), ('oop', 'pow'), ('oop', 'ind')]
+COB_TRF = ['gso', 'die', 'lpg', 'nga', 'ecy']        # road fuels of the transport co-benefits (R1.7-R1.10)
+COB_FRE = ['die', 'lpg', 'nga', 'ecy']               # fuels with freight use (road damage)
+COB_GJ = ['gso', 'die', 'lpg']                       # per-GJ rows (R1.11; gas and electricity are not priced per litre)
+FUQ_FUELS = ['coa', 'nga', 'gso', 'die', 'lpg', 'ker', 'oop']
+FUQ_GROUPS = ['tra', 'bld', 'ind', 'oen']
+TR_CLS_ROWS = {'gso': (5339, None, 5350), 'die': (5340, 5345, None), 'lpg': (5341, 5346, None),   # 5b fuel use rows
+               'nga': (5342, 5347, None), 'ecy': (5343, 5348, 5351)}                           # pas, fre, cyc
+TR_FE_ROW = {'gso': 5356, 'die': 5360, 'lpg': 5364, 'nga': 5368, 'ecy': 5373}                    # 5b fuel economy
+COB_BLOCKS = [
+    ('17b. Air-pollution cost per unit of fuel, typed (USD/GJ; gasoline, diesel, LPG, kerosene USD/l; sheet Inputs_cob; '
+     'legacy rows 17738-17749)', [(f'apct.{s_}.{f}', 'airpol.cost', f, s_) for f, s_ in COB_AP]),
+    ('17b. Air-pollution cost per GJ (residential coal only above ApCoalResMin of buildings fuel use, bug L192 fixed)',
+     [(f'apcg.{s_}.{f}', 'airpol.cost.gj', f, s_) for f, s_ in COB_AP]),
+    ('17b. Fuel use by sector group (ktoe; weights of the costs per unit; sections 5-8)',
+     [(f'fuq.{g}.{f}', 'fuq', f, g) for g in FUQ_GROUPS for f in FUQ_FUELS]),
+    ('17b. Modelled ambient PM2.5 by air-pollution module sector (ug/m3: coefficients of sheet Inputs_cob x emissions of '
+     'section 15; the total is the summary row) and value of averted PM2.5 (USD bn per ug/m3, typed)',
+     [(f'apm.{m}', 'air.con.pm2', '', m) for m, _n in AP_SECS] + [('air.vpm', 'air.vpm', '', '')]),
+    ('17b. Road transport external costs per vehicle-km (USD/km, typed; legacy Transport rows 185, 220, 232)',
+     [('tkm.acc', 'tran.acc.km', '', ''), ('tkm.con', 'tran.con.km', '', ''), ('tkm.rdm', 'tran.rdm.km', '', '')]),
+    ('17b. Road transport: class fuel use (bln liters or kWh), passenger weight (scenario 1), driving share, freight '
+     'share (legacy rows 15721-15786; Transport rows 120-157)',
+     [(f'tcls.{f}', 'tran.cls', f, 'rod') for f in COB_TRF] + [(f'twcl.{f}', 'tran.wcl', f, 'rod') for f in COB_TRF]
+     + [(f'tmrg.{f}', 'tran.mrg', f, 'rod') for f in COB_TRF] + [(f'tfsh.{f}', 'tran.fsh', f, 'rod') for f in COB_FRE]),
+    ('17b. Road transport external costs per unit of fuel (USD/l of all use; electricity USD/kWh; legacy Transport rows '
+     '186-237, 322-351)', [(f'tacc.{f}', 'tran.acc.cost', f, 'all') for f in COB_TRF]
+     + [(f'tcon.{f}', 'tran.con.cost', f, 'all') for f in COB_TRF]
+     + [(f'trdm.{f}', 'tran.rdm.cost', f, 'all') for f in COB_FRE]),
+    ('17b. Road transport external costs per GJ (USD/GJ)', [(f'taccg.{f}', 'tran.acc.gj', f, 'all') for f in COB_GJ]
+     + [(f'tcong.{f}', 'tran.con.gj', f, 'all') for f in COB_GJ]
+     + [(f'trdmg.{f}', 'tran.rdm.gj', f, 'all') for f in COB_GJ if f != 'gso']),
+    ('17b. Pigouvian tax: road transport externalities per litre (USD/l; the values of scenario 1 are stored on sheet '
+     'BaselineCO2 for section 1)', [('pig.trs.gso', 'pig.trs', 'gso', 'rod'), ('pig.trs.die', 'pig.trs', 'die', 'rod')])]
+B_COB = R_CPR['ecr'] + 2                 # 17b (v9.0): one blank row before the band
+R_COB, R_COB_LAB, R_COB_HEAD, _r = layout_blocks(COB_BLOCKS, B_COB + 2)
+R_COB_NOTE = _r
+R_COB['air.con.pm2.mod'] = R_COB_NOTE + 2   # modelled ambient PM2.5: the section's summary row
+COB_SUM = [('air.con.pm2.mod', 'air.con.pm2', '', 'mod')]
+R3_STORE = [('apcr', 'apcg.res.coa', 'air-pollution cost of residential coal of scenario 1 (USD/GJ; Pigouvian tax)'),
+            ('trgso', 'pig.trs.gso', 'road transport externalities per litre of gasoline of scenario 1 (USD/l)'),
+            ('trdie', 'pig.trs.die', 'road transport externalities per litre of diesel of scenario 1 (USD/l)')]
+# v3.17: 18. Welfare and externalities (legacy F10, rows 17392-18157); v9.0: R2 social costs and benefits, full welfare,
+# subsidies and the efficient prices (R3.13-R3.22); the SCC options moved to section 1
 WDG_FUELS = [f for f, *_x in FUELS] + ['ecy']
+CC_FUELS = ['coa', 'nga', 'oop', 'gso', 'die', 'lpg', 'ker']
+APQ = [('coa', 'ind'), ('coa', 'bld'), ('coa', 'pow'), ('nga', 'ind'), ('nga', 'bld'), ('nga', 'pow'), ('die', 'tra'),
+       ('oop', 'pow'), ('oop', 'ind')]
+FFS_LINES = [('coa', 'ind'), ('coa', 'res'), ('coa', 'pow'), ('nga', 'ind'), ('nga', 'res'), ('nga', 'pow'),
+             ('gso', 'rd'), ('die', 'rd'), ('lpg', 'all'), ('ker', 'all'), ('oop', 'pow'), ('oop', 'ind'),
+             ('coa', 'oth'), ('nga', 'oth'), ('gso', 'oth'), ('die', 'oth')]
+SUB_LINES = [('gso', 'all'), ('die', 'all'), ('lpg', 'all'), ('ker', 'all'), ('oop', 'all'), ('nga', 'ind'),
+             ('nga', 'res'), ('nga', 'pow'), ('nga', 'oth'), ('coa', 'ind'), ('coa', 'res'), ('coa', 'pow'),
+             ('coa', 'oth'), ('ecy', 'ind'), ('ecy', 'res'), ('ecy', 'oth')]
+SUB_VARS = [('supcost', 'sc', 'supply cost (USD/GJ; electricity USD/kWh)'),
+            ('extcost', 'ext', 'externalities incl. climate (global SCC; electricity none, issue I108)'),
+            ('vatext', 'vat', 'VAT on supply cost and externalities (general rate x household share; issue I109)'),
+            ('effprice', 'effp', 'efficient price = supply cost + externalities + VAT'),
+            ('rpsub', 'rp', 'retail price of the scenario (post-tax)'),
+            ('con', 'con', 'consumption (PJ; electricity GWh)'),
+            ('expsub.con', 'exp', 'explicit subsidy (USD bn real)'), ('impsub.con', 'imp', 'implicit subsidy (USD bn real)')]
+EP_FUELS = [('gso', 'all'), ('die', 'all'), ('lpg', 'all'), ('ker', 'all'), ('coa', 'ind'), ('coa', 'res'), ('coa', 'pow'),
+            ('nga', 'ind'), ('nga', 'res'), ('nga', 'pow'), ('ecy', 'ind'), ('ecy', 'res')]
+EP_VARS = [('sup.cost', 'supply cost of scenario 1'),
+           ('airpol.cost.s', 'air-pollution cost (electricity: generation-share weighted, issue I121)'),
+           ('scc.cost', 'climate damage (national SCC x generic EF, section 1)'),
+           ('pig', 'Pigouvian tax: all externalities (R3.20)'),
+           ('vat.cost', 'potential VAT (general rate of the base year; externalities in the base if ExternalityAddVAT)'),
+           ('eff.price', 'efficient price'), ('rp.eff', 'retail price of the scenario (post-tax, sections 2 and 3 G)'),
+           ('tgap', 'tax gap: retail - efficient price'), ('pig.co2e', 'Pigouvian tax per tonne of CO2 (USD/tCO2, global SCC)'),
+           ('app', 'air-pollution part of the Pigouvian tax (USD/tCO2)'),
+           ('txo.co2e', 'excise and other taxes of scenario 1 per tonne of CO2 (USD/tCO2, global SCC)')]
+EP_ROAD = [('acc.cost', ['gso', 'die']), ('con.cost', ['gso', 'die']), ('rdm.cost', ['die'])]
 WEL_BLOCKS = [
-    ('Social cost of carbon options and selection (USD per tCO2 real; legacy rows 17680-17713)',
-     [(f'scc.{k}', 'scc', k, 'all') for k in SCC_ROWS]),
     ('Climate damages of GHG emissions excl. LULUCF and damages avoided against scenario 1 (USD bn real; legacy rows '
      '17687-17705, 17729-17731)', [('dmg.nat', 'dmg', 'nat', 'all'), ('dmg.glo', 'dmg', 'glo', 'all'),
                                    ('wcli.nat', 'wcli', 'nat', 'all'), ('wcli.glo', 'wcli', 'glo', 'all')]),
@@ -3594,13 +3796,49 @@ WEL_BLOCKS = [
      [(f'mfp.{j}', 'mfp', j, 'all') for j, *_x in CH4_SOURCES]),
     ('Methane fee: efficiency costs, area under the abatement curves (USD bn real; legacy rows 17628-17634)',
      [(f'mfc.{j}', 'mfc', j, 'all') for j, *_x in CH4_SOURCES] + [('mfc.all', 'mfc', 'all', 'all')]),
-    ('Welfare summary, national: avoided damages - efficiency costs (legacy rows 17727-17742)',
-     [('wel.pct', 'wel', 'pct', 'all'), ('wel.cli', 'wel', 'cli', 'all'),
-      ('wel.eff', 'wel', 'eff', 'all')])]   # v4.1: wel.usd is the summary row of the section
-B_WEL = R_CPR['ecr'] + 2               # 18. Welfare (v4.1: one blank row before the band)
+    ('Climate cost per unit of fuel, national and global SCC (USD/GJ; generic EF of sheet Inputs_ef; legacy rows '
+     '17678-17709, per GJ: bug L176 fixed)', [(f'ccn.{c}', 'cc.nat', c, 'all') for c in CC_FUELS]
+     + [(f'ccg.{c}', 'cc.glo', c, 'all') for c in CC_FUELS]),
+    ('Air-pollution cost of electricity (USD/kWh; legacy row 18090, bug L177 fixed); fuel-use weights (ktoe) and costs '
+     'of other uses (USD/GJ; legacy rows 17750-17753, bug L178 fixed)',
+     [('apecy', 'airpol.ecy', '', '')] + [(f'apq.{s_}.{f}', 'apq', f, s_) for f, s_ in APQ]
+     + [('apo.oth.coa', 'airpol.cost.gj', 'coa', 'oth'), ('apo.oth.nga', 'airpol.cost.gj', 'nga', 'oth'),
+        ('apo.oth.odo', 'airpol.cost.gj', 'odo', 'oth'), ('apo.avg.oop', 'airpol.cost.gj', 'oop', 'avg')]),
+    ('Total externalities of road fuels excl. climate (USD/GJ; legacy rows 17763-17764)',
+     [('text.gso', 'tot.ext', 'gso', 'all'), ('text.die', 'tot.ext', 'die', 'all')]),
+    ('Welfare: averted air pollution (value per ug/m3 x change in modelled PM2.5) and road transport co-benefits (USD bn '
+     'real; legacy rows 17717-17720)', [('wel.air.usd', 'wel', 'usd', 'air'), ('wel.rod.aci', 'wel.rod', 'usd', 'aci'),
+                                         ('wel.rod.con', 'wel.rod', 'usd', 'con'), ('wel.rod.dmg', 'wel.rod', 'usd', 'dmg')]),
+    ('Welfare summary, national: avoided damages and co-benefits - efficiency costs (legacy rows 17721-17727)',
+     [('wel.pct', 'wel', 'pct', 'all'), ('wel.cli', 'wel', 'cli', 'all'), ('wel.air.pct', 'wel', 'pct', 'air'),
+      ('wel.rod.pct', 'wel', 'pct', 'rod'), ('wel.eff', 'wel', 'eff', 'all')]),   # v4.1: wel.usd is the summary row
+    ('Fossil fuel subsidy reform: quantity of each line (ktoe; legacy rows 17767-17782)',
+     [(f'ffsq.{s_}.{f}', 'ffs.q', f, s_) for f, s_ in FFS_LINES]),
+    ('Fossil fuel subsidy reform: environmental benefits, Harberger (USD bn real; global SCC; legacy rows 17767-17784, '
+     'bugs L179, L180 fixed) and total national welfare (FFS)',
+     [(f'ffs.{s_}.{f}', 'env.ffs.cost', f, s_) for f, s_ in FFS_LINES]
+     + [('ffs.tot', 'env.ffs.cost', '', 'tot'), ('wel.ffs', 'wel.ffs', '', '')])]
+for _v, _a, _lab in SUB_VARS:            # v9.0 (R2.11-R2.12): explicit and implicit subsidies, one block per variable
+    WEL_BLOCKS.append((f'Energy subsidies: {_lab} (legacy rows 17786-17946)',
+                       [(f'{_a}.{s_}.{f}', _v, f, s_) for f, s_ in SUB_LINES]))
+WEL_BLOCKS.append(('Energy subsidies: totals (USD bn real) and shares of baseline GDP (legacy rows 17948-17951, bug L188 '
+                   'fixed)', [('exp.tot', 'expsub.con', '', 'tot'), ('imp.tot', 'impsub.con', '', 'tot'),
+                              ('exp.pct', 'expsubgdp.con', '', 'tot'), ('imp.pct', 'impsubgdp.con', '', 'tot')]))
+WEL_BLOCKS.append(('Efficient prices: air-pollution cost of electricity generation (helper, own scenario; USD/kWh, '
+                   'R3.15) and road transport externalities of the scenario (USD/l; R3.14)',
+                   [('apecy.g', 'airpol.ecy.g', '', '')]
+                   + [(f'ep.{v_}.{f}', v_, f, 'all') for v_, fs in EP_ROAD for f in fs]))
+for _v, _lab in EP_VARS:                 # v9.0 (R3.13-R3.21): efficient prices by price fuel, scenario of the group
+    WEL_BLOCKS.append((f'Efficient prices (USD per price unit; legacy rows 17953-18111): {_lab}',
+                       [(f'ep.{_v}.{s_}.{f}', _v, f, s_) for f, s_ in EP_FUELS]))
+WEL_BLOCKS.append(('Efficient prices: weights (fuel use, ktoe) and averages over the ten fossil lines (USD per tCO2; '
+                   'legacy rows 18117-18123)', [(f'epq.{s_}.{f}', 'effp.q', f, s_) for f, s_ in EP_FUELS[:10]]
+                   + [('pig.co2e.avg', 'pig.co2e', '', 'avg'), ('app.avg', 'app', '', 'avg')]))
+B_WEL = R_COB['air.con.pm2.mod'] + 2   # 18. Welfare (v4.1: one blank row before the band; v9.0: after 17b)
 R_WEL, R_WEL_LAB, R_WEL_HEAD, _r = layout_blocks(WEL_BLOCKS, B_WEL + 2)
 R_WEL_NOTE = _r
 R_WEL['wel.usd'] = R_WEL_NOTE + 2       # v4.1: national welfare gain, the section's summary row
+R_WEL.update({f'scc.{k}': R_POL[f'scc.{k}'] for k in SCC_ROWS})   # v9.0: the SCC rows are in section 1 (aliases)
 B_AP = R_WEL['wel.usd'] + 2             # 15. Local air pollutants (v8.1: last, before the exports to modules)
 R_AP, R_AP_LAB = {}, {}
 _r = B_AP + 2                          # v3.9: one blank row after the band
@@ -3653,6 +3891,7 @@ SECTION_GROUPS = ([(B_POL, R_CP, R_CP), (B_PRI, R_PRI_SUM, R_PRI_SUM), (B_POW, R
                      (B_EMI, R_EMI['co2.all'], R_EMI['co2.chg']), (B_GHG, R_GHG['ghg.all'], R_GHG['ghg.chg']),
                      (B_AP, R_AP['ap.pm2.all'], R_AP['ap.pm2.all']),
                      (B_GDP, R_GDPS['gdp.eff'], R_GDPS['gdp.eff']), (B_CPR, R_CPR['ecr'], R_CPR['ecr']),
+                     (B_COB, R_COB['air.con.pm2.mod'], R_COB['air.con.pm2.mod']),            # v9.0: 17b
                      (B_WEL, R_WEL['wel.usd'], R_WEL['wel.usd']), (B_EXP, R_EXP_LAST, R_EXP_LAST)])
 SUMMARY2 = {R_E11B['echg.all'], R_REV['rtot.chg'], R_EMI['co2.chg'], R_GHG['ghg.chg']}   # v4.1: second summary rows
 R_SEC0 = 3                              # v4.1: band of section 0 (scenario assumptions); rows R_SCEN+1..R_GDP-1 roll up
@@ -3664,7 +3903,7 @@ def _with_params(v, labels):
 
 
 _MT_VARS = set(CP_PARAMS + PRI_PARAMS + ETS_PARAMS + ECP_PARAMS + GHG_PARAMS + GDP_PARAMS + ADDEFF_PARAMS + SUB_PARAMS
-               + REG_PARAMS + RES_PARAMS + POW_PARAMS + R9_PARAMS) | {'ctcov', 'fpr.yr0', 'fpr.yr1', 'fpr.s', 'fpr.f',
+               + REG_PARAMS + RES_PARAMS + POW_PARAMS + R9_PARAMS + PIG_PARAMS) | {'ctcov', 'fpr.yr0', 'fpr.yr1', 'fpr.s', 'fpr.f',
                                                                     'etscov', 'fb.yr0', 'fb.yr1', 'fb.s', 'fb.t',
                                                                     'fbcov', 'csi', 'pci', 'psi'}   # v6.0: v5.6 MT rows
 PARAM_LABELS_SET = {  # v2.4: parameter labels (Variables G:J) of rows whose D:G were typed or unlabelled
@@ -3725,7 +3964,36 @@ VARIABLES = [
      '', 'WEO USA|ngdp_d: deflator(ResultsYear) / deflator(year)', 'legacy Mitigation row 467 (row 630 = 1 / it)'),
 ] + [(p, '=MT', '=MT', '', 'MTInputs (scenario column)', f'MTInputs row {MT_NAMES[p]}')
      for p in ['ExemptPhaseout', 'YearPha', 'ExemptPhaseoutPeriod'] + CP_PARAMS + PRI_PARAMS + ETS_PARAMS + ECP_PARAMS + GHG_PARAMS + GDP_PARAMS + ADDEFF_PARAMS + SUB_PARAMS
-     + REG_PARAMS + RES_PARAMS + POW_PARAMS + R9_PARAMS] + [
+     + REG_PARAMS + RES_PARAMS + POW_PARAMS + R9_PARAMS + PIG_PARAMS] + [
+    # v9.0 (R3, Equations_addendum C): Pigouvian (efficient) taxes, section 1
+    ('pig.phi', 'Pigouvian tax: phase-in share', 'share', '',
+     'MIN(MAX(year - CPIntro + 1, 0) / MAX(AddEfficientTaxesPhaseInYears, 1), 1) (R3.1)',
+     'legacy row 146 (L195, L196 fixed)'),
+    ('pig.ap', 'Pigouvian tax component: air-pollution cost per price unit', 'USD per price unit', '',
+     'Typed cost of the fuel and sector (sheet Inputs_cob; other oil products: power cost x GJ per barrel, L194 '
+     'fixed); residential coal: scenario-1 value with the coal switch (sheet BaselineCO2); electricity, biomass 0 '
+     '(R3.4, issue I119)', 'legacy rows 113-123', 'data key (Inputs_cob)', 'factor (GJ per price unit)'),
+    ('cc.code', 'Pigouvian tax component: climate damage per price unit (national SCC x generic EF)',
+     'USD per price unit', '', 'scc.nat x generic EF (tCO2/GJ, Inputs_ef, not calibrated) x GJ per price unit '
+     '(R3.2-R3.3, issue I116)', 'legacy rows 136-142, 17678-17684', 'generic EF (tCO2/GJ)', 'GJ per price unit'),
+    ('pig.tr', 'Pigouvian tax component: road transport externalities per litre, scenario 1', 'USD per price unit', '',
+     'accidents + congestion (+ road damage for diesel) per litre of scenario 1 (section 17b, stored on sheet '
+     'BaselineCO2: the tax would otherwise read the fuel use it changes); 0 for other fuels (R3.5, issue I118)',
+     'legacy rows 128-133 (Transport I322-I344)'),
+    ('pigx', 'Pigouvian tax per price unit (before the AddEfficientTaxes switch)', 'USD per price unit', '',
+     'pig.phi x (pig.ap + cc.code x [ClimateEffTax = Yes] + pig.tr) (R3.6)', 'legacy rows 148-160'),
+    ('ntxg', 'Gross new excise: fuel price reform + Pigouvian tax if AddEfficientTaxes', 'USD per price unit', '',
+     'fpr + pigx x [AddEfficientTaxes = Yes] (R3.7; the manual fossil excise is not built)', 'legacy rows 205-215'),
+    ('xcpb', 'Change in existing carbon pricing of the price block', 'USD/GJ', '',
+     'generic EF x (carbon tax x factor + ETS x factor - embedded level) of the block\'s ECP sector | fuel (R3.8)',
+     'legacy rows 8824-8825 of each block', 'generic EF (tCO2/GJ)', 'ECP table row (sector | fuel)',
+     'embedded existing pricing ($/tCO2)'),
+    ('xpre', 'Existing taxes before new policy of the price block', 'USD/GJ', '',
+     'txo + pcsw + ppcw (section 2 block) + xcpb (R3.8)', 'legacy rows 8821-8825 of each block'),
+    ('ntxb', 'New excise of the price block (read by ntx and the power cost ccp)', 'USD per price unit', '',
+     '[scenario > 1] x (ntxg, or MIN(ntxg, MAX(0, ntxg - xpre x GJ per unit)) if AddEfficientTaxes) (R3.9, issue '
+     'I113)', 'legacy rows 8782, 8805, ... 9012', 'GJ per price unit'),
+
     ('exf', 'Exemption factor of the new policies (1 = taxed, 0 = exempt; v5.1)', 'factor', '',
      'exf.all: 1 (sheet Constants); exf.res: 0 if AlwaysExemptResLPGKer = Yes (EXEMPTFACTOR; LEFT(switch, 3), so a '
      'starred Yes* counts)', 'legacy rows 5546-5547: IF(AlwaysExemptResLPGKer="Yes",0,new policy x coverage)'),
@@ -4103,9 +4371,143 @@ VARIABLES = [
     ('mfc', 'Efficiency cost of the methane fee: area under the abatement curve', 'USD bn real', '',
      'unabated emissions (kt CH4) x abatement share x price x b / (1 + b) / Million (MFEECOST)',
      'legacy rows 17628-17634 (integral); v3.17'),
-    ('wel', 'Welfare summary, national: avoided damages - efficiency costs (USD bn real; % of baseline real GDP)',
-     'mixed', '', 'usd = wcli.nat - eff.all - mfc.all; pct, cli, eff = shares of gdp.usd (SAFEDIV)',
-     'legacy rows 17727-17742; v3.17'),
+    ('wel', 'Welfare, national: avoided damages and co-benefits - efficiency costs (USD bn real; % of baseline real GDP)',
+     'mixed', '', 'usd = wcli.nat + wel.air.usd + wel.rod - eff.all - mfc.all (v9.0, R2.8); air.usd = air.vpm x '
+     '(modelled PM2.5 of scenario 1 - own) (R2.5); pct, cli, eff, air.pct, rod.pct = shares of gdp.usd',
+     'legacy rows 17716-17727; v3.17'),
+    # v9.0 (R1, Equations_addendum B): section 17b, inputs from air pollution and transport co-benefits
+    ('airpol.cost', 'Air-pollution cost per unit of fuel, typed (Egypt; coal, gas, other oil products USD/GJ; '
+     'gasoline, diesel, LPG, kerosene USD/l)', 'USD per unit', '', 'Sheet Inputs_cob (legacy 465 Air pollution sheet; '
+     '2041 = 2040, I112; L189-L191 fixed; average damages, I104) (R1.1)', 'legacy rows 17738-17749',
+     'data key (Inputs_cob)'),
+    ('airpol.cost.gj', 'Air-pollution cost per GJ (17b: by fuel and sector; 18: other uses, oil average)', 'USD/GJ', '',
+     '17b: typed / GJ per litre (oil products); residential coal x [coal > ApCoalResMin x buildings fuel use] (L192 '
+     'fixed); 18: use-weighted averages (L178 fixed) (R1.2-R1.3, R2.3)', 'legacy rows 17738-17753, 113-123',
+     'GJ per price unit'),
+    ('fuq', 'Fuel use by sector group (weights of the costs per unit)', 'ktoe', '', 'SUMIFS of the subsector rows ener '
+     'of the group', 'legacy rows 16849-16930'),
+    ('air.con.pm2', 'Modelled ambient PM2.5 by air-pollution module sector (total: the summary row)', 'ug/m3', '',
+     'SUMPRODUCT(emissions of the sector (section 15), coefficients of the sector (Inputs_cob)) x tPerKt (R1.5)',
+     'legacy AP rows 974-981, 1814', 'sector position (Inputs_cob column)'),
+    ('air.vpm', 'Value of averted modelled ambient PM2.5, typed', 'USD bn per ug/m3', '',
+     'Sheet Inputs_cob: legacy wel.air / change in modelled PM2.5 of the legacy run (R1.4; issue I105)',
+     'legacy AP rows 3217, 981, 1814', 'data key (Inputs_cob)'),
+    ('tran.acc.km', 'Accident cost per vehicle-km, typed', 'USD/km', '', 'Sheet Inputs_cob (R1.6)',
+     'legacy Transport row 185', 'data key (Inputs_cob)'),
+    ('tran.con.km', 'Congestion cost per vehicle-km, typed', 'USD/km', '', 'Sheet Inputs_cob (R1.6)',
+     'legacy Transport row 220', 'data key (Inputs_cob)'),
+    ('tran.rdm.km', 'Road damage cost per freight vehicle-km, typed', 'USD/km', '', 'Sheet Inputs_cob (R1.6; not '
+     'deflated, issue I111)', 'legacy Transport row 232', 'data key (Inputs_cob)'),
+    ('tran.cls', 'Road fuel use by the vehicle classes of the fuel (passenger and freight; gasoline: passenger and 2-3 '
+     'wheelers; electricity: all three)', 'bln liters or kWh', '', 'Section 5b class rows (engineer model, issue I100)',
+     'legacy rows 15710-15721'),
+    ('tran.wcl', 'Passenger weight of the fuel, scenario 1', 'share', '', '1 - freight use / class use of scenario 1; '
+     'gasoline 1 (R1.7, issue I111)', 'legacy rows 15723-15730'),
+    ('tran.mrg', 'Driving share of the response of the fuel (usage / (usage + efficiency elasticity))', 'share', '',
+     '(D + w x E) / (F + w x G), w = tran.wcl; 0 without class use (R1.8, bug L193 fixed)',
+     'legacy rows 15721-15730; Transport rows 148-157', 'eps_U diesel', 'eps_U gasoline - diesel',
+     'eps_U + eps_F diesel', 'eps_U + eps_F gasoline - diesel'),
+    ('tran.fsh', 'Freight share of the class use of the fuel, own scenario', 'share', '', 'freight / class use (R1.9)',
+     'legacy rows 15768-15786; Transport rows 138-146'),
+    ('tran.acc.cost', 'Accident cost per unit of the fuel (all use)', 'USD per liter or kWh', '',
+     'tran.acc.km x fuel economy (5b) x tran.mrg x tran.rsh (R1.10; average fuel economy as legacy)',
+     'legacy Transport rows 186-190, 322-331'),
+    ('tran.con.cost', 'Congestion cost per unit of the fuel (all use)', 'USD per liter or kWh', '',
+     'tran.con.km x fuel economy x tran.mrg x tran.rsh (R1.10)', 'legacy Transport rows 221-225, 333-342'),
+    ('tran.rdm.cost', 'Road damage cost per unit of the fuel (all use)', 'USD per liter or kWh', '',
+     'tran.rdm.km x fuel economy x tran.mrg x tran.fsh x tran.rsh (R1.10)', 'legacy Transport rows 234-237, 344-351'),
+    ('tran.acc.gj', 'Accident cost per GJ', 'USD/GJ', '', 'tran.acc.cost / GJ per liter (R1.11)', 'new',
+     'GJ per price unit'),
+    ('tran.con.gj', 'Congestion cost per GJ', 'USD/GJ', '', 'tran.con.cost / GJ per liter (R1.11)', 'new',
+     'GJ per price unit'),
+    ('tran.rdm.gj', 'Road damage cost per GJ', 'USD/GJ', '', 'tran.rdm.cost / GJ per liter (R1.11)', 'new',
+     'GJ per price unit'),
+    ('pig.trs', 'Road transport externalities per litre for the Pigouvian tax (scenario 1 stored on sheet BaselineCO2)',
+     'USD/l', '', 'accidents + congestion (+ road damage, diesel) (R3.5)', 'legacy rows 128-133'),
+    # v9.0 (R2): section 18, social costs and benefits, full welfare, subsidies
+    ('cc.nat', 'Climate cost per GJ of fuel, national SCC', 'USD/GJ', '', 'scc.nat x generic EF (R2.1; L176 fixed)',
+     'legacy rows 17678-17685', 'generic EF (tCO2/GJ)'),
+    ('cc.glo', 'Climate cost per GJ of fuel, global SCC', 'USD/GJ', '', 'scc.glo x generic EF (R2.1)',
+     'legacy rows 17702-17709', 'generic EF (tCO2/GJ)'),
+    ('airpol.ecy', 'Air-pollution cost of electricity (memo)', 'USD/kWh', '',
+     'sum of power cost x fuel use x PJ per ktoe / (generation x MWyMkWh) (R2.2; L177 fixed)', 'legacy row 18090'),
+    ('apq', 'Fuel use weights of the other-use air-pollution costs', 'ktoe', '', 'fuq or power fuel use pe',
+     'legacy rows 16911-16920'),
+    ('tot.ext', 'Total externalities of road fuels excl. climate', 'USD/GJ', '',
+     'air pollution + accidents + congestion (+ road damage, diesel) per GJ (R2.4)', 'legacy rows 17763-17764'),
+    ('wel.rod', 'Road transport co-benefits: averted accidents, reduced congestion, reduced road damage', 'USD bn real',
+     '', 'cost per vehicle-km x (vehicle-km of scenario 1 - vehicle-km; road damage: freight) (R2.6, issue I111)',
+     'legacy rows 17718-17720 (Transport 356, 360, 364)'),
+    ('ffs.q', 'Fossil fuel subsidy reform: quantity of the line', 'ktoe', '', 'fuel use of the line (R2.9)',
+     'legacy rows 17767-17782'),
+    ('env.ffs.cost', 'Fossil fuel subsidy reform: environmental benefits (Harberger)', 'USD bn real', '',
+     '-(global climate cost + local costs) x change in use x PJ per ktoe / MperBn (R2.9-R2.10; issue I107)',
+     'legacy rows 17767-17783 (L179, L180 fixed)'),
+    ('wel.ffs', 'Total national welfare benefits (FFS)', 'USD bn real', '', 'env.ffs.cost total - eff.all - mfc.all '
+     '(R2.10)', 'legacy row 17784'),
+    ('supcost', 'Energy subsidies: supply cost', 'USD/GJ, USD/kWh', '', 'sp of section 2 (electricity: spe of 3 G2, v9.0); '
+     'other lines: use-weighted (R2.11, L187 fixed)', 'legacy rows 17792-17944'),
+    ('extcost', 'Energy subsidies: externalities incl. climate (global SCC)', 'USD/GJ, USD/kWh', '',
+     'cc.glo + local costs; electricity 0 (R2.11, issue I108; L183 fixed)', 'legacy rows 17794-17941'),
+    ('vatext', 'Energy subsidies: VAT on supply cost and externalities', 'USD/GJ, USD/kWh', '',
+     '(supcost + extcost) x D (general VAT rate x household share; residential lines the rate; others 0) (R2.11, '
+     'issue I109; L184, L185 fixed)', 'legacy rows 17796-17943', 'VAT rate x household share'),
+    ('effprice', 'Energy subsidies: efficient price', 'USD/GJ, USD/kWh', '', 'supcost + extcost + vatext (R2.11)',
+     'legacy rows 17795-17942'),
+    ('rpsub', 'Energy subsidies: retail price of the scenario', 'USD/GJ, USD/kWh', '',
+     'rpn of section 2 (electricity: rp of 3 G) (R2.11; L181, L182 fixed)', 'legacy rows 17797-17943'),
+    ('con', 'Energy subsidies: consumption of the line', 'PJ, GWh', '', 'fuel use x PJ per ktoe (electricity: '
+     'demand x KtoeGWh) (R2.11, L186 fixed)', 'legacy rows 17793-17940'),
+    ('expsub.con', 'Explicit consumer subsidy', 'USD bn real', '', 'MAX(0, supcost - rpsub) x con / MperBn (R2.11-R2.12)',
+     'legacy rows 17798-17948'),
+    ('impsub.con', 'Implicit consumer subsidy', 'USD bn real', '',
+     '[rpsub <= effprice] x (effprice - MAX(rpsub, supcost)) x con / MperBn (R2.11-R2.12)', 'legacy rows 17799-17949'),
+    ('expsubgdp.con', 'Explicit consumer subsidy, share of baseline GDP', 'share', '', 'total / gdp.usd of the year '
+     '(R2.12, L188 fixed)', 'legacy row 17950'),
+    ('impsubgdp.con', 'Implicit consumer subsidy, share of baseline GDP', 'share', '', 'total / gdp.usd (R2.12)',
+     'legacy row 17951'),
+    # v9.0 (R3.13-R3.22): efficient prices by price fuel (reference, scenario of the group)
+    ('airpol.ecy.g', 'Air-pollution cost of electricity for the efficient price (own scenario; read for scenario 1)',
+     'USD/kWh', '', 'sum of power cost x generation / total generation x KtoeGWh / Thousand (R3.15, issue I121)',
+     'legacy row 18090'),
+    ('acc.cost', 'Efficient price: accident cost per litre (scenario)', 'USD/l', '', 'tran.acc.cost (R3.14)',
+     'legacy rows 17965, 17980'),
+    ('con.cost', 'Efficient price: congestion cost per litre (scenario)', 'USD/l', '', 'tran.con.cost (R3.14)',
+     'legacy rows 17966, 17981'),
+    ('rdm.cost', 'Efficient price: road damage cost per litre of diesel (scenario)', 'USD/l', '', 'tran.rdm.cost '
+     '(R3.14, issue I118)', 'legacy row 17982'),
+    ('sup.cost', 'Efficient price: supply cost of scenario 1', 'USD per price unit', '', 'sp of scenario 1 x GJ per '
+     'price unit (electricity: spe, v9.0) (R3.13)', 'legacy rows 17963-18101 (16194-16206)', 'GJ per price unit'),
+    ('airpol.cost.s', 'Efficient price: air-pollution cost', 'USD per price unit', '', 'airpol.cost (oil products), '
+     'airpol.cost.gj (coal, gas), airpol.ecy.g of scenario 1 (electricity) (R3.14-R3.15)', 'legacy rows 17964-18102'),
+    ('scc.cost', 'Efficient price: climate damage (national SCC)', 'USD per price unit', '', 'cc.code of section 1 '
+     '(R3.14)', 'legacy rows 17968-18079'),
+    ('pig', 'Pigouvian tax: all externalities (reference)', 'USD per price unit', '', 'air pollution + climate + '
+     'accidents + congestion + road damage (R3.20)', 'legacy rows 17974-18109'),
+    ('vat.cost', 'Efficient price: potential VAT', 'USD per price unit', '', '(sup.cost + pig x [ExternalityAddVAT = '
+     'Yes]) x D (VAT_WEO of the base year for consumer fuels, else 0) (R3.16, issue I120)', 'legacy rows 17969-18104',
+     'VAT rate'),
+    ('eff.price', 'Efficient price', 'USD per price unit', '', 'sup.cost + pig + vat.cost (R3.17)',
+     'legacy rows 17962-18100'),
+    ('rp.eff', 'Efficient price block: retail price of the scenario', 'USD per price unit', '', 'rpn x GJ per price '
+     'unit (electricity: rp) (R3.18)', 'legacy rows 17970-18105', 'GJ per price unit'),
+    ('tgap', 'Tax gap: retail price - efficient price', 'USD per price unit', '', 'rp.eff - eff.price (R3.19)',
+     'legacy rows 17971-18106'),
+    ('pig.co2e', 'Pigouvian tax per tonne of CO2 (fuel lines; avg: weighted by the fuel use of the scenario)',
+     'USD/tCO2', '', 'pig x scc.glo / scc.cost (0 without climate cost); avg: SUMPRODUCT with effp.q (R3.21-R3.22)',
+     'legacy rows 17975-18111, 18117-18118'),
+    ('app', 'Air-pollution part of the Pigouvian tax per tonne of CO2', 'USD/tCO2', '', 'pig.co2e x airpol.cost.s / '
+     'pig; avg: weighted (R3.21-R3.22)', 'legacy rows 17976-18111, 18122-18123'),
+    ('txo.co2e', 'Excise and other taxes of scenario 1 per tonne of CO2', 'USD/tCO2', '', 'txo of scenario 1 x GJ per '
+     'price unit x scc.glo / scc.cost (0 without climate cost, L203) (R3.21)', 'legacy rows 17972-18108',
+     'GJ per price unit'),
+    ('effp.q', 'Efficient prices: fuel use weights of the averages', 'ktoe', '', 'total use (oil products), sector use '
+     '(coal, gas: industry, buildings, power) (R3.22)', 'legacy rows 18113-18116'),
+    # v9.0 (Equations_addendum F): section 15, inputs of the air-pollution module
+    ('apen', 'Energy use read by the air-pollution module: power generation and residential by fuel', 'ktoe', '',
+     'pe of section 3 I; residential ener (electricity: demand) of section 6', 'legacy E3 rows 15814-15840'),
+    ('apco2', 'CO2 from energy read by the air-pollution module', 'MtCO2', '', 'co2.all of section 13',
+     'legacy E3 row 16054'),
     ('xnim', 'Change in net energy imports against scenario 1 (positive = more imports)', 'USD bn real', '',
      'Fuels: echg x PJ per ktoe x supply price sp ($/GJ) x import share (D) / MperBn (REVENUE); groups: sums',
      'legacy rows 18181, 18187, 18193 (F11), v3.16; share also on oil (legacy bug L49)'),
@@ -4117,6 +4519,27 @@ VARIABLES = [
      'legacy rows 18217, 18219, v3.16'),
     ('xnim.pct', 'Change in net energy imports, % of baseline real GDP', '%', '', 'xnim.all / gdp.usd (SAFEDIV)',
      'legacy rows 18207-18210, v3.16'),
+    # v9.0 (R11): current account (Equations_addendum R11.1-R11.9)
+    ('bca', 'Current account balance, pre-policy (typed WEO EGY.BCA.A, held at 2031)', 'USD bn nominal', '',
+     'Inputs EGY|bca (typed; other countries 0)', 'legacy row 18182 (bug L50 fixed: stale WEO codes)'),
+    ('bca.gdp', 'Current account balance, pre-policy, % of GDP (typed WEO EGY.BCA_NGDPD.A, held at 2031)',
+     '% of GDP (percent units)', '', 'Inputs EGY|bca_gdp (typed; other countries 0)',
+     'legacy row 18191 (bug L50 fixed)'),
+    ('bca.r', 'Current account balance, pre-policy, real', 'USD bn real', '', 'bca x US CPI index (infl)',
+     'legacy row 18184 (18183 = row 456)'),
+    ('bca.d', 'Change in the current account by fuel group (positive = fewer net imports)', 'USD bn real', '',
+     '- xnim of the fuel group (section 16b: supply price, share traded also on oil)',
+     'legacy rows 18185-18187 (L49 fixed; gas unit bug L215 not replicated: xnim prices in USD/GJ)'),
+    ('bca.p', 'Current account balance after the policy', 'USD bn real', '', 'bca.r + bca.d of oil, gas and coal',
+     'legacy row 18188'),
+    ('bca.y', 'Implied GDP / 100 (helper): real current account over its share of GDP', 'USD bn real', '',
+     'ABS(bca.r / bca.gdp); 0 if bca.gdp = 0', 'legacy rows 18192-18194 (as legacy, issue I129)'),
+    ('bca.dp', 'Change in the current account by fuel group, % of GDP', '% of GDP (percent units)', '',
+     'bca.d / bca.y (SAFEDIV)', 'legacy rows 18192-18194'),
+    ('bca.pp', 'Current account balance after the policy, % of GDP', '% of GDP (percent units)', '',
+     'bca.gdp + bca.dp of oil, gas and coal', 'legacy row 18195 (bug L214 fixed: coal included)'),
+    ('bca.n', 'Current account balance, current prices (memo, typed)', 'USD bn nominal', '',
+     'Inputs EGY|bca_n (typed; 0 after 2031 as legacy, issue I130)', 'legacy row 18198'),
     ('cpi', 'Implicit carbon price by fuel: existing taxes, subsidies and new policies per tonne of CO2', 'USD per tCO2',
      '', 'Fuels: (rfu + rfg of the fuel) / co2.f; all: fossil fuels / co2 (SAFEDIV); biomass left out',
      'legacy F5d (total carbon price by fuel), v3.15'),
@@ -4681,7 +5104,9 @@ VARIABLES += [  # v9.0 (R9.4-R9.13): power cost memos (sub-table E2)
      'CSELEC: txe x (pof.cs - 1) if txe < 0 and PowerSubsidyExemptInclude = Include', 'legacy O3606, O3635'),
     ('ores', 'Electricity price-chain residual (over / under-estimate of the price)', '$/kWh real', '',
      'ORESID: txg - txe - pseu up to the last price year; then held, a negative one x scl / scl(t-1)',
-     'legacy rows 3607, 3636')]
+     'legacy rows 3607, 3636'),
+    ('spe', 'Electricity supply cost of the subsidy lines (removing the over / under-estimate)', '$/kWh real', '',
+     'ELSUPPLY: sc + ores + ccpav x pass-through x (1 - rbs) + pex', 'legacy rows 3620, 3649 (code sp.res/ind.ecy)')]
 VARIABLES = [_with_params(v, PARAM_LABELS_SET[v[0]]) if v[0] in PARAM_LABELS_SET else v for v in VARIABLES]
 TR_VARS = list(dict.fromkeys(it['var'] for it in TR_ROWS if it['kind'] != 'head'))     # v3.5: section 5b
 VARIABLES += [TR_VARINFO[v] for v in TR_VARS if v in TR_VARINFO] + [   # v9.0: 5b rows of ener (R10.6) excluded
@@ -4743,7 +5168,7 @@ def unit_norm(u):
 VARIABLES = [(v[0], v[1], unit_norm(v[2])) + tuple(v[3:]) for v in VARIABLES]
 assert len({v[0] for v in VARIABLES}) == len(VARIABLES), [v for v in VARIABLES if [w[0] for w in VARIABLES].count(v[0]) > 1][:3]
 VR0 = 5
-VR1 = VR0 + 1200                        # v3.1: room for more variables (269 in v3.1; v3.5: section 5b)
+VR1 = VR0 + 1400                        # v3.1: room for more variables (269 in v3.1; v3.5: section 5b)
 assert len(VARIABLES) <= VR1 - VR0 + 1
 
 def IP_HIST(v):
@@ -4955,6 +5380,8 @@ LAMBDAS = {   # every calculated row calls one of these in the right column (LAS
                'IF(cur_year<=LastHist,IFERROR(MAX(PsElFloor,-pros*alloc/cons),0),last_unit*kept)'),
     'PSERESID': (['cur_year', 'pros', 'used', 'last_val', 'kept'], 'IF(cur_year<=LastHist,-pros-used,last_val*kept)'),
     'CSELEC': (['cur_year', 'tax', 'incl', 'kept'], 'IF(AND(cur_year>LastHist,tax<0,incl="Include"),tax*(kept-1),0)'),
+    'ELSUPPLY': (['supply', 'resid', 'policy_cost', 'pass', 'rebate', 'excise'],
+                 'supply+resid+policy_cost*pass*(1-rebate)+excise'),
     'CAPLAST': (['cur_year', 'supply', 'supply_last'], 'IF(cur_year<=LastHist,supply,MIN(supply,supply_last))'),
     'ORESID': (['cur_year', 'hist_val', 'prev_val', 'capped', 'capped_prev'],
                'IF(cur_year<=LastHist,hist_val,IF(prev_val<0,prev_val*capped/capped_prev,prev_val))'),
@@ -5212,6 +5639,9 @@ LAMBDA_NOTES = {
                 'per kWh; after the last price year x the phase-out factor',
     'CSELEC': 'Electricity consumer subsidy phase-out (v9.0, R9.2, legacy O3606): tax of the last price year x (factor - '
               '1) if it is a subsidy and PowerSubsidyExemptInclude = Include',
+    'ELSUPPLY': 'Electricity supply cost of the subsidy lines (v9.0, R9; legacy rows 3620, 3649 "supply costs (removing '
+                'estimation)"): supply cost + price-chain residual + new carbon cost passed through (less the rebate) + '
+                'excise',
     'CAPLAST': 'Supply cost up to the last price year, then capped at its value then (v9.0, R9.3, legacy O3607)',
     'ORESID': 'Electricity price-chain residual (v9.0, R9.3, legacy rows 3607, 3636): price gap - tax - producer subsidy '
               'up to the last price year; then held, a negative one x capped supply cost / last year\'s',
@@ -6566,6 +6996,11 @@ def build_baseline_co2(wb):
         put(ws, f'A{BCO2_RAW + 1 + i}', f'{COUNTRY}|{j_}')
         put(ws, f'B{BCO2_RAW + 1 + i}', j_)
         put(ws, f'C{BCO2_RAW + 1 + i}', lab_[0].upper() + lab_[1:] + f' (Mitigation row {_k})')
+    for i, (j_, _k, lab_) in enumerate(R3_STORE):                     # v9.0 (R3): scenario-1 rows read by section 1
+        r_ = BCO2_RAW + 1 + len(CH4S_STORE) + i
+        put(ws, f'A{r_}', f'{COUNTRY}|{j_}')
+        put(ws, f'B{r_}', j_)
+        put(ws, f'C{r_}', lab_[0].upper() + lab_[1:] + f' (Mitigation section 17b row {_k})')
     ws.freeze_panes = 'D4'
 
 
@@ -7607,8 +8042,26 @@ TRADE_GROUPS = [('oil', ['oop', 'gso', 'die', 'ker', 'lpg', 'jfu'], '"|oil"', 6.
 IMAC_ROWS = (['USA|ngdp_d', 'USA|pcpi', 'USA|deflidx', 'USA|infl', 'c|gdp_growth', 'c|gdp_ext', 'c|ngdp_r', 'c|ngdp', 'c|ngdp_g',
               'c|xr', 'c|gdp_usd', 'c|gdp_lcu', 'c|lp', 'c|gdppc', 'c|scc_manual', 'c|psrc', 'c|ngdpd']
              + [f'c|bal_{f}' for f in BAL_FUELS]
-             + [k for g, *_x in TRADE_GROUPS for k in (f'c|ts_{g}', f'c|px_{g}', f'c|tb_{g}')])
+             + [k for g, *_x in TRADE_GROUPS for k in (f'c|ts_{g}', f'c|px_{g}', f'c|tb_{g}')]
+             + ['EGY|bca', 'EGY|bca_gdp', 'EGY|bca_n'])
 IMAC = {k: IMAC_R0 + i for i, k in enumerate(IMAC_ROWS)}
+# v9.0 (R11, decision R11; bug L50 fixed): typed Egypt current account, the WEO values legacy reads once its stale codes
+# are fixed (EGY.BCA.A, USD bn nominal; EGY.BCA_NGDPD.A, % of GDP), held at the last data year 2031 by legacy's own rule;
+# bca_n = legacy row 18198 (current prices, no hold rule: 0 for 2032-2041, issue I130). Keyed by country code (EGY): other
+# countries find no row and read 0 (data issue).
+_BCA = {2022: (-16.5513, -3.48279), 2023: (-4.7105, -1.196082), 2024: (-20.8066, -5.43104),
+        2025: (-15.4246, -4.230086), 2026: (-17.834583, -4.151002), 2027: (-20.950561, -4.583618),
+        2028: (-19.674211, -3.869298), 2029: (-19.613478, -3.501898), 2030: (-19.398187, -3.17492),
+        2031: (-17.756772, -2.667806)}
+BCA_TYPED = {'EGY|bca': {y: _BCA[min(y, 2031)][0] for y in range(2022, 2042)},
+             'EGY|bca_gdp': {y: _BCA[min(y, 2031)][1] for y in range(2022, 2042)},
+             'EGY|bca_n': {y: (_BCA[y][0] if y <= 2031 else 0) for y in range(2022, 2042)}}
+BCA_LABELS = {'EGY|bca': 'Current account balance, Egypt, USD bn nominal (typed: WEO EGY.BCA.A, held at 2031; '
+                         'legacy row 18182, bug L50 fixed)',
+              'EGY|bca_gdp': 'Current account balance, Egypt, % of GDP (typed: WEO EGY.BCA_NGDPD.A, held at 2031; '
+                             'legacy row 18191, bug L50 fixed)',
+              'EGY|bca_n': 'Current account balance, Egypt, current prices, USD bn (typed; legacy row 18198: 0 after '
+                           '2031, issue I130)'}
 
 
 def build_inputs_macro(wb):
@@ -7646,8 +8099,8 @@ def build_inputs_macro(wb):
     grp_of = {f: g for g, fs, *_x in TRADE_GROUPS for f in fs}
     for key in IMAC_ROWS:
         r = IMAC[key]
-        put(ws, f'A{r}', key if key.startswith('USA') else f'=CtryCode&"|{key[2:]}"', FONT)
-        put(ws, f'B{r}', lab.get(key, ''), FONT)
+        put(ws, f'A{r}', key if key.startswith(('USA', 'EGY')) else f'=CtryCode&"|{key[2:]}"', FONT)
+        put(ws, f'B{r}', lab.get(key, BCA_LABELS.get(key, '')), FONT)
         if key in series:
             put(ws, f'C{r}', '=' + series[key], FONT)
             put(ws, f'D{r}', f'=MATCH($C{r},WEOCode,0)', FONT, None, '0')
@@ -7701,6 +8154,10 @@ def build_inputs_macro(wb):
             if key == 'c|scc_manual':
                 v = gl['scc_manual'][gl_years.index(y)] if y in gl_years else ''
                 put(ws, f'{c}{r}', num(v), FONT, F_INPUT, '0.00')
+                continue
+            if key in BCA_TYPED:                  # v9.0 (R11): typed Egypt values (bright yellow: set by assumption)
+                if y in BCA_TYPED[key]:
+                    put(ws, f'{c}{r}', BCA_TYPED[key][y], FONT_CHANGED, F_CHANGED, '0.000')
                 continue
             for g, *_x in TRADE_GROUPS:
                 t = IMAC[f'c|ts_{g}']
@@ -7860,6 +8317,9 @@ IEF_COLS = [('Key (fuel|EF sector)', 'key'), ('Fuel', 'fu'), ('EF sector', 'se')
             ('Source sector', 'sse'), ('Source (IIASA / IEA / none)', 'src'), ('Code: country', 'cc'),
             ('Code: region', 'rc'), ('Code: world', 'wc'), ('Code used', 'used'), ('EF (tCO2/GJ)', 'ef')]
 IEF_COL = {k: L(j) for j, (_h, k) in enumerate(IEF_COLS, 1)}
+EF_GEN = [('coa', ('pow', 'res', 'ind')), ('nga', ('pow', 'res', 'ind')), ('gso', ('rod', 'res')), ('die', ('rod', 'res')),
+          ('lpg', ('res', 'res', 'ind')), ('ker', ('res', 'ind')), ('oop', ())]   # v9.0: legacy 961-967 (I116)
+IEF_G0 = IEF_R0 + len(EF_SEL) + 3        # v9.0: first row of the generic-factor table on Inputs_ef
 
 
 def build_inputs_ef(wb):
@@ -7887,8 +8347,60 @@ def build_inputs_ef(wb):
         for j, (_h, k) in enumerate(IEF_COLS, 1):
             put(ws, f'{L(j)}{r}', vals[k], FONT, F_INPUT if k in ('sfu', 'sse', 'src') else None,
                 '0.000000' if k == 'ef' else None)
+    g0 = IEF_G0                              # v9.0 (R2.1, R3.2): generic CO2 factor by fuel (legacy rows 961-967)
+    put(ws, f'A{g0 - 1}', 'Fuel (key)', FONT_B, F_INPUT)
+    put(ws, f'B{g0 - 1}', 'Generic CO2 factor of the fuel: average of the factors of the EF sectors listed (base-year '
+                          'selection above, not calibrated; legacy Mitigation rows 961-967)', FONT_B, F_INPUT)
+    put(ws, f'{c["ef"]}{g0 - 1}', 'EF (tCO2/GJ)', FONT_B, F_INPUT)
+    pos = {k: IEF_R0 + i for i, k in enumerate(EF_SEL)}
+    for i, (fu, secs) in enumerate(EF_GEN):
+        r = g0 + i
+        put(ws, f'A{r}', fu)
+        put(ws, f'B{r}', ', '.join(secs) if secs else 'IEA: 20 tC/TJ x 44/12 (EFOilIEA)')
+        f = ('=AVERAGE(' + ','.join(f'${c["ef"]}${pos[(fu, se)]}' for se in secs) + ')') if secs else '=EFOilIEA'
+        put(ws, f'{c["ef"]}{r}', f, FONT, None, '0.000000')
     for col, w in {'A': 14, 'G': 26, 'H': 26, 'I': 26, 'J': 26}.items():
         ws.column_dimensions[col].width = w
+
+
+def build_inputs_cob(wb):
+    """v9.0 (R1, Equations_addendum B): typed inputs from the air pollution and transport co-benefits modules (Egypt,
+    legacy 465 cached run; other countries: none, so the rows read 0 until the modules export them)."""
+    ws = wb.create_sheet('Inputs_cob')
+    title(ws, 'Inputs from the air pollution and transport co-benefits modules: typed values by country (data step; '
+              'Mitigation section 17b)', 2 + NY)
+    put(ws, 'A3', 'Typed from the legacy 465 Egypt run (Air pollution sheet: unit costs, value of averted PM2.5 and the '
+                  'effective concentration coefficients, options Manual-FASST, VSL Transfer, 3% discount; Transport '
+                  'sheet: external costs per vehicle-km); the air-pollution values of 2041 repeat 2040 (issue I112). '
+                  'Bright yellow: assumptions to be replaced by the modules\' own outputs (issues I104-I106).', FONT)
+    put(ws, f'A{ICOB_R0 - 1}', 'Key (country|data key)', FONT_B, F_INPUT)
+    put(ws, f'B{ICOB_R0 - 1}', 'Source (legacy row, unit)', FONT_B, F_INPUT)
+    for j, y in enumerate([BASE_YEAR] + YEARS):
+        put(ws, f'{L(3 + j)}{ICOB_R0 - 1}', y, FONT_B, F_INPUT, '0')
+    for i, (k, src, vals) in enumerate(COB_TYPED):
+        r = ICOB_R0 + i
+        put(ws, f'A{r}', f'{COUNTRY}|{k}')
+        put(ws, f'B{r}', src)
+        for j, v in enumerate(vals):
+            put(ws, f'{L(3 + j)}{r}', v, FONT_CHANGED, F_CHANGED, '0.000000')
+    k0 = ICOB_K0
+    put(ws, f'A{k0 - 2}', f'Effective PM2.5 concentration coefficients of {COUNTRY} (ug/m3 per t of emissions; legacy AP '
+                          'F442:F522 x I974:I980): pollutants (section 15 order) down, air-pollution module sectors '
+                          'across', FONT_B)
+    put(ws, f'A{k0 - 1}', 'Pollutant', FONT_B, F_INPUT)
+    put(ws, f'B{k0 - 1}', 'Label', FONT_B, F_INPUT)
+    for j, (m, _n) in enumerate(AP_SECS):
+        put(ws, f'{L(3 + j)}{k0 - 1}', m, FONT_B, F_INPUT)
+    kp = ['so2', 'nox', 'pm2', 'bc', 'pom', 'opm', 'voc']
+    for i, p_ in enumerate(APS_POLS):
+        r = k0 + i
+        put(ws, f'A{r}', p_)
+        put(ws, f'B{r}', dict(AP_POLS + AP_PM).get(p_, p_.upper()))
+        for j, (m, _n) in enumerate(AP_SECS):
+            v = COB_KAPPA[m][kp.index(p_)] if p_ in kp else 0
+            put(ws, f'{L(3 + j)}{r}', v, FONT_CHANGED, F_CHANGED, '0.000E+00')
+    ws.column_dimensions['A'].width = 26
+    ws.column_dimensions['B'].width = 40
 
 
 # v4.7: power data of the country (data step) from the legacy Power, CoC, Balances, WEO and GHGs tabs, as legacy
@@ -8930,7 +9442,7 @@ MTO_R0 = 6                              # first block header row
 LO_CAP = 12                             # v6.7: LiveOutputs rows for 12 scenario blocks (live scenarios by copy-paste)
 MTO_BLOCK = 1 + len(MTO_INDICATORS) + 1  # header + indicators + blank row
 MTO_C0 = 6                              # F: first year column
-MIT_MAX = 9000                          # v3.5: last Mitigation row searched (was 5000; section 5b); v5.6: 9000 (P3, P5 rows)
+MIT_MAX = 12000                         # v3.5: last Mitigation row searched (was 5000; section 5b); v5.6: 9000 (P3, P5 rows); v9.0: 12000 (17b, 18)
 MIT_RANGE = f'$A$1:$ZZ${MIT_MAX}'       # search area on Mitigation (room for copied scenario groups)
 CHARTS = [  # chart title, indicator code stem, y-axis title
     ('CO2 emissions from fuel combustion', 'mit.co2.all.all.e', 'MtCO2'),
@@ -9369,6 +9881,13 @@ def defined_names():
         **legacy_names('EF_GHG', 20000, {'EFKey': 'Code', 'EFVal': 'FACTOR'}),     # v4.5: legacy EF_GHG
         'EFSelKey': f'Inputs_ef!$A${IEF_R0}:$A${IEF_R0 + len(EF_SEL) - 1}',         # v4.5: selected CO2 EFs
         'EFSel': f'Inputs_ef!${IEF_COL["ef"]}${IEF_R0}:${IEF_COL["ef"]}${IEF_R0 + len(EF_SEL) - 1}',
+        'EFGenKey': f'Inputs_ef!$A${IEF_G0}:$A${IEF_G0 + len(EF_GEN) - 1}',          # v9.0 (R2.1, R3.2)
+        'EFGen': f'Inputs_ef!${IEF_COL["ef"]}${IEF_G0}:${IEF_COL["ef"]}${IEF_G0 + len(EF_GEN) - 1}',
+        'CobKey': f'Inputs_cob!$A${ICOB_R0}:$A${ICOB_R0 + len(COB_DATA) - 1}',        # v9.0 (R1): typed Egypt values
+        'CobVal': f'Inputs_cob!$C${ICOB_R0}:${L(2 + NY)}${ICOB_R0 + len(COB_DATA) - 1}',
+        'CobYear': f'Inputs_cob!$C${ICOB_R0 - 1}:${L(2 + NY)}${ICOB_R0 - 1}',
+        'CobKap': f'Inputs_cob!$C${ICOB_K0}:${L(2 + len(AP_SECS))}${ICOB_K0 + len(APS_POLS) - 1}',
+        'VatGen': f'Inputs_prices!${IPC["vry" + str(BASE_YEAR)]}${IP_VATW}',     # v9.0: VAT_WEO of the base year
         'CtryReg': 'Settings!$C$43',
         **{n_: f'SUMPRODUCT(INDEX(EnergyCons!$E$4:$X$6000,MATCH(LOWER(Settings!$C$4)&".mit.enc.{f_}",EnergyCons!$A$4:$A$6000,0),0)'
                f'*(EnergyCons!$E$3:$X$3<>"elec")*(EnergyCons!$E$3:$X$3<>"wav"))' for n_, f_ in (('ConsGas', 'nga'), ('ConsBio', 'bio'), ('ConsCoa', 'coa'))},
@@ -9589,8 +10108,8 @@ def calc_formula(var, r, col, prev, is_base, use_lambda):
     if var == 'ets':        # ETS cost rate of the sector x EF (x exemption factor, v5.1)
         a = (f'INDEX({pol_range(col, "etr.pow", len(COV_SECTORS))},$E{r})', f'$D{r}', exf('F'))
         return '=' + (call('ETSCOST', *a) if use_lambda else '*'.join(a))
-    if var == 'ntx':
-        a = (f'INDEX({pol_range(col, "fpr." + PRICE_FUELS[0][0], len(PRICE_FUELS))},$D{r})', f'$E{r}', exf('F'))
+    if var == 'ntx':        # v9.0 (R3.10): the block's new excise ntxb (fuel price reform + Pigouvian tax, netted)
+        a = (f'INDEX({pol_range(col, "ntxb." + PRICE_FUELS[0][0], len(PRICE_FUELS))},$D{r})', f'$E{r}', exf('F'))
         return '=' + (call('NEWEXCISE', *a) if use_lambda else f'{a[0]}/{a[1]}*{a[2]}')
     if var == 'nce':
         a = (o('ctxnew'), o('ets'), o('ntx'))
@@ -9977,9 +10496,10 @@ def pw_formula(var, r, col, prev, block):
         a = (o('gen'), o('ccp'), o('co2'), f'{col}${R_POL["etr.pow"]}', f'{col}${R_POL["ets.rf"]}')
         return fn('PNEWREV', *a, plain=f'{a[0]}*MWyMkWh*{a[1]}-{a[2]}*{a[3]}*(1-{a[4]})')
     if var == 'ccp':        # tCO2/kWh x (carbon tax x fuel coverage + ETS cost) + fuel price reform per kWh
+        # v9.0 (R3.11): the reform term reads the block's new excise ntxb (reform + Pigouvian tax, netted)
         a = (f'$D{r}*{o("kwh")}', f'{col}${R_POL["ctr.pow"]}', f'INDEX({pol_range(col, "fc.coa", NF)},$E{r})',
              f'{col}${R_POL["etr.pow"]}',
-             f'INDEX({pol_range(col, "fpr." + PRICE_FUELS[0][0], len(PRICE_FUELS))},$F{r})', f'{o("kwh")}/$G{r}')
+             f'INDEX({pol_range(col, "ntxb." + PRICE_FUELS[0][0], len(PRICE_FUELS))},$F{r})', f'{o("kwh")}/$G{r}')
         return fn('KWHPOLICY', *a, plain=f'{a[0]}*({a[1]}*{a[2]}+{a[3]})+{a[4]}*{a[5]}')
     if var == 'shk':        # shadow price per kWh: shadow price of power ($/tCO2, section 1) x tCO2/kWh
         a = (f'{col}${R_POL["shpx.pow"]}', f'$D{r}*{o("kwh")}')
@@ -10076,6 +10596,9 @@ def pw_formula(var, r, col, prev, block):
     if var == 'ores':       # price-chain residual (legacy rows 3607, 3636): held, scaled down with the supply cost
         a = (y, f'{o("txg")}-{o("txe")}-{o("pseu")}', f'{prev}{r}', o('scl'), o('scl', prev))
         return fn('ORESID', *a)
+    if var == 'spe':        # legacy supply cost "removing estimation" (rows 3620, 3649): sc + residual + carbon + excise
+        a = (o('sc'), o('ores'), one('ccpav'), pc('PowerSectorPriceChangePassOn'), one('rbs'), o('pex'))
+        return fn('ELSUPPLY', *a)
     if var == 'rppre':
         hist = (f'INDEX(Inputs_power!${IPWG["rp" + str(HIST_YEARS[0])]}${IPW_G0}:${IPWG["rp" + str(HIST_YEARS[-1])]}'
                 f'${IPW_G1},$D{r},MATCH({col}${R_YEAR},Inputs_power!${IPWG["rp" + str(HIST_YEARS[0])]}${IPW_G0 - 1}:'
@@ -10301,10 +10824,88 @@ def lam_or_plain(name, args, use_lambda):
     return call(name, *args) if use_lambda else lambda_plain(name, args)
 
 
-def pol_calc(key, col, use_lambda=False):
+PIG_ECPS = {'gso': 'trs', 'die': 'trs', 'lpg': 'res', 'ker': 'res', 'oop': 'ind', 'bio': 'res'}   # ECP sector of
+# an all-sector price block (the sector of the block otherwise; v9.0, R3.8)
+PIG_STORE = {('pig.ap', 'coa.res'): 'apcr', ('pig.tr', 'gso.all'): 'trgso', ('pig.tr', 'die.all'): 'trdie'}   # keys
+# of the scenario-1 values stored on sheet BaselineCO2 (17b rows of scenario 1, R3_STORE)
+POL_KIND = {p_[0]: p_[4] for p_ in POL}
+
+
+def pig_dg(key, r):
+    """v9.0 (R3): D:G of the section-1 rows of the Pigouvian tax (None = empty)."""
+    v, pc = key.rsplit('.', 2)[0], '.'.join(key.rsplit('.', 2)[1:])
+    fu, sec = pc.split('.')
+    gj = f'=$F{prow("pset", pc)}' if pc in PV_BLOCK else None          # GJ per price unit of the block
+    ef = f'=IFERROR(INDEX(EFGen,MATCH($B{r},EFGenKey,0)),0)'
+    if v == 'pig.ap':
+        typed = fu in ('coa', 'nga', 'gso', 'die', 'lpg', 'ker', 'oop') and (v, pc) not in PIG_STORE
+        return [f'|airpol.cost|{"pow" if fu == "oop" else sec}|{fu}' if typed else None,
+                gj if fu == 'oop' else (1 if typed else None)]
+    if v == 'cc.code':
+        return [ef if gj else None, gj]
+    if v == 'xcpb':
+        ecps = sec if sec != 'all' else PIG_ECPS.get(fu, 'res')
+        return ([ef, f'=IFERROR(MATCH("{ecps}|{fu}",XKey,0),1)', f'=INDEX(XCTVal,$E{r},ECPEmb)+INDEX(XETSVal,$E{r},ECPEmb)']
+                if gj else None)
+    if v == 'ntxb':
+        return [gj]
+    return None
+
+
+def pig_calc(key, col, is_base):
+    """v9.0 (R3.1-R3.9): formula of a section-1 row of the Pigouvian tax and the SCC (Equations_addendum C)."""
+    c = lambda k: f'{col}${R_POL[k]}'
+    rel = lambda k: f'{col}{R_POL[k]}'
+    y = f'{col}${R_YEAR}'
+    r = R_POL[key]
+    if key == 'pig.phi':                     # R3.1 (L195, L196 fixed: every year from CPIntro, no #DIV/0!)
+        return f'=MIN(MAX({y}-{c("CPIntro")}+1,0)/MAX({c("AddEfficientTaxesPhaseInYears")},1),1)'
+    if key == 'scc.man':
+        return f'=INDEX(SCCManVal,MATCH({y},SCCManYear,0))'   # v5.2 (L103 fixed): Manual inputs row 237
+    if key in ('scc.nat', 'scc.glo'):
+        fu = key[4:]
+        src = 'NSCCSrc' if fu == 'nat' else 'GSCCSrc'
+        opts = ','.join(rel(f'scc.{k}') for k in ('tgt', 'rkn' if fu == 'nat' else 'rkg', 'man', 'epa'))
+        return f'=CHOOSE(MATCH(LEFT({src},1),{{"T","R","M","U","E"}},0),{opts},{opts.split(",")[-1]})'
+    v, pc = key.rsplit('.', 2)[0], '.'.join(key.rsplit('.', 2)[1:])
+    if (v, pc) in PIG_STORE:                 # stored values of scenario 1 (no fuel-use row read here)
+        return f'=INDEX(BaseCO2Val,MATCH(CtryCode&"|{PIG_STORE[(v, pc)]}",BaseCO2Key,0),MATCH({y},BaseCO2Year,0))'
+    if v == 'pig.ap':                        # R3.4: typed AP cost (L194 fixed: oil x GJ per barrel); 0 elsewhere
+        return f'=IFERROR(INDEX(CobVal,MATCH(CtryCode&$D{r},CobKey,0),MATCH({y},CobYear,0)),0)*$E{r}'
+    if v == 'pig.tr':                        # R3.5: only gasoline and diesel (issue I118)
+        return '=0'
+    if v == 'cc.code':                       # R3.2-R3.3: national SCC x generic EF x GJ per price unit
+        return f'={c("scc.nat")}*$D{r}*$E{r}'
+    if v == 'pigx':                          # R3.6
+        a = (rel(f'pig.ap.{pc}'), rel(f'cc.code.{pc}'), rel(f'pig.tr.{pc}'))
+        return f'={c("pig.phi")}*({a[0]}+{a[1]}*(LEFT({c("ClimateEffTax")},3)="Yes")+{a[2]})'
+    if v == 'ntxg':                          # R3.7 (the manual fossil excise is not built, R8)
+        return f'={rel("fpr." + pc)}+{rel("pigx." + pc)}*(LEFT({c("AddEfficientTaxes")},3)="Yes")'
+    if v == 'xcpb':                          # R3.8: change in existing carbon pricing of the block ($/GJ)
+        if pc not in PV_BLOCK:
+            return '=0'
+        return '=' + xcarbon_plain(xcarbon_args(col, f'$D{r}', f'$E{r}', f'$F{r}'))
+    if v == 'xpre':                          # R3.8: existing taxes before new policy ($/GJ); electricity: 0
+        if pc not in PV_BLOCK:
+            return '=0'
+        return '=' + '+'.join(f'{col}${prow(x, pc)}' for x in ('txo', 'pcsw', 'ppcw')) + f'+{rel("xcpb." + pc)}'
+    if v == 'ntxb':                          # R3.9 (issue I113): policy scenarios only; netted if AddEfficientTaxes
+        g, x = rel(f'ntxg.{pc}'), rel(f'xpre.{pc}')
+        return (f'=({col}${R_SCEN}>1)*IF(LEFT({c("AddEfficientTaxes")},3)="Yes",MIN({g},MAX(0,{g}-{x}*$D{r})),{g})')
+    raise ValueError(key)
+
+
+def pol_calc(key, col, use_lambda=False, is_base=False):
     c = lambda k: f'{col}${R_POL[k]}'          # fixed rows (years, carbon-tax inputs): absolute
     rel = lambda k: f'{col}{R_POL[k]}'          # start / final values: relative, so a path drags down
     y = f'{col}${R_YEAR}'
+    if key in ('scc.tgt', 'scc.rkn', 'scc.rkg', 'scc.epa'):   # v9.0: the SCC paths (moved from section 18; v3.17)
+        lv, yrs = {'scc.tgt': ('SCCTgt', f'{y}-SCCTgtYr'), 'scc.epa': ('SCCEpa', f'{y}-BaseYr'),
+                   'scc.rkn': ('INDEX(SCCVal,MATCH(RickeN,SCCKey,0))', f'{y}-BaseYr'),
+                   'scc.rkg': ('INDEX(SCCVal,MATCH(RickeG,SCCKey,0))', f'{y}-BaseYr')}[key]
+        return '=' + (call('GROWPATH', lv, 'SCCGr', yrs) if use_lambda else f'{lv}*(1+SCCGr)^({yrs})')
+    if POL_KIND.get(key) == 'plain':
+        return pig_calc(key, col, is_base)
     if key == 'exph':                        # v5.6: exemption phase-out (legacy rows 2259-2265, L94)
         a = (f'{col}${R_SCEN}', c('ExemptPhaseout'), y, c('CPIntro'), c('YearPha'), c('ExemptPhaseoutPeriod'))
         return '=' + (call('EXEMPTPHASE', *a) if use_lambda else
@@ -10660,7 +11261,8 @@ def build_mitigation(wb):
     # 1. Policies
     band(ws, B_POL, '1. Policies', last)
     keys = [k[0] for k in POL]
-    with_dg = {k for k, *_r, mt in POL if mt} | set(POL_PARAMS) | {k for k in keys if k.startswith('ctr.')}
+    with_dg = ({k for k, *_r, mt in POL if mt} | set(POL_PARAMS) | {k for k in keys if k.startswith('ctr.')}
+               | {k for k in keys if k.rsplit('.', 2)[0] in PIG_VARS and pig_dg(k, 0)})   # v9.0: Pigouvian rows with D:G
     for key, var, fuel, sector, kind, mt in POL:
         r = R_POL[key]
         if SUBHEADS.get(key):                # sub-heading = label row of the group: D:G of its first row with D:G
@@ -10681,6 +11283,10 @@ def build_mitigation(wb):
             put(ws, f'D{r}', f'=INDEX(MTRowNum,MATCH($A{r}&"|"&$B{r}&"|"&$C{r},MTRowKey,0))', FONT, None, '0')
         for pc_, k_ in zip(PARAM_COLS, POL_PARAMS.get(key, ())):     # v4.2: Mapping table of coverage sectors
             put(ws, f'{pc_}{r}', COV_LOOKUP[k_].format(r=r), FONT, None, '0.0000000' if pc_ == 'E' else '0')
+        if kind == 'plain' and key.rsplit('.', 2)[0] in PIG_VARS:   # v9.0 (R3): parameters of the Pigouvian rows
+            for pc_, v_ in zip(PARAM_COLS, pig_dg(key, r) or ()):
+                if v_ is not None:
+                    put(ws, f'{pc_}{r}', v_, FONT, None, '@' if str(v_).startswith('|') else '0.0000')
         if key.startswith('ctr.'):            # v1.09: existing ETS sector coverage (complementary carbon tax)
             put(ws, f'D{r}', f'=MATCH("ees.{ECP_SECTOR[sector]}",ECPKey,0)', FONT, None, '0')   # v4.12: row
         codes(r, fnt)
@@ -10698,6 +11304,8 @@ def build_mitigation(wb):
                 lam_row(c, r, var, fuel, sector, pol_calc(key, col, True))
             elif kind == 'ecp':
                 val = pol_calc(key, col, False)
+            elif kind == 'plain':               # v9.0: plain formula in every column (SCC selection, Pigouvian rows)
+                val = pol_calc(key, col, False, is_base)
             elif kind == 'data' and var in ('bco2', 'ch4bs'):   # v2.4: sheet BaselineCO2 (values of scenario 1)
                 val = f'=INDEX(BaseCO2Val,MATCH(CtryCode&"|"&$C{r},BaseCO2Key,0),MATCH({col}${R_YEAR},BaseCO2Year,0))'
             elif kind == 'data':                       # ets.ovr: pasted override prices (input row)
@@ -11887,6 +12495,16 @@ def build_mitigation(wb):
                 y = f'{col}${R_YEAR}'
                 f = '=' + (call('EFWEIGHT', y) if lam else f'EFFinShare*({y}-BaseYr)/(EFEndYear-BaseYr)')
                 fmt = '0.000'
+            elif var == 'apen':                          # v9.0 (F): energy use read by the air-pollution module
+                if sec == 'pow':
+                    f = f'={col}{R_PW[("pe", fu)]}'
+                elif fu == 'ecy':
+                    f = f'={col}{SUB_HEAD["res"] + 1}'
+                else:
+                    f = f'={col}{SUB_HEAD["res"] + VOFF["ener"] + [x[0] for x in FUELS].index(fu)}'
+            elif var == 'apco2':                         # v9.0 (F): CO2 from energy (section 13 total)
+                f = f'={col}{R_EMI["co2.all"]}'
+                fmt = '#,##0.00'
             elif var == 'ap' and sec == 'pow':
                 q0, q1 = R_PW[('pe', PW_TECH[0][0])], R_PW[('pe', PW_TECH[-1][0])]
                 c0, c1 = IPWC[f'ap0_{fu}'], IPWC[f'ap1_{fu}']
@@ -12109,6 +12727,21 @@ def build_mitigation(wb):
             return f'={cur("xtb.all")}-{cur("xnim.all")}', '#,##0.000'
         if var == 'xtb.pct':
             return div(cur('xtbp'), gdp), '0.00%'
+        if var in ('bca', 'bca.gdp', 'bca.n'):              # v9.0 (R11): typed Egypt values (Inputs, key EGY|...)
+            k = {'bca': 'bca', 'bca.gdp': 'bca_gdp', 'bca.n': 'bca_n'}[var]
+            return (f'=IFERROR(INDEX(WEOVal,MATCH(CtryCode&"|{k}",WEOKey,0),MATCH({col}${R_YEAR},WEOYear,0)),0)',
+                    '#,##0.000')
+        if var == 'bca.r':
+            return f'={cur("bca")}*{col}${R_CPI}', '#,##0.000'
+        if var == 'bca.d':                                  # change in net imports: positive = more imports
+            return f'=-{cur("xnim.g." + fu)}', '#,##0.000'
+        if var in ('bca.p', 'bca.pp'):
+            a, d = ('bca.r', 'bca.d') if var == 'bca.p' else ('bca.gdp', 'bca.dp')
+            return '=' + cur(a) + ''.join(f'+{cur(d + "." + g)}' for g in XG), '#,##0.000'
+        if var == 'bca.y':                                  # as legacy (I129); 0 without data (no #DIV/0!)
+            return f'=IF({cur("bca.gdp")}=0,0,ABS({cur("bca.r")}/{cur("bca.gdp")}))', '#,##0.000'
+        if var == 'bca.dp':
+            return div(cur('bca.d.' + fu), cur('bca.y')), '0.0000'
         return div(cur('xnim.all'), gdp), '0.00%'
     sub_blocks(EXT_BLOCKS, R_EXT, R_EXT_LAB, R_EXT_HEAD, c16b)
     for f in CPI_FUELS:                                  # import share of the fuel's group (data), parameter column D
@@ -12117,9 +12750,12 @@ def build_mitigation(wb):
     put(ws, f'H{R_EXT_NOTE}', 'External balance (legacy F11): a change in energy use changes net imports '
                                          'by the change x the supply price of section 2 x the share traded of the '
                                          'fuel group (D; legacy rows 741-743: gas 0.19, oil products 0.47, coal 1). '
-                                         'Legacy leaves the share out for oil (bug L49) and its pre-policy current '
-                                         'account is #NAME? (bug L50): the prototype shows the energy trade balance (data) '
-                                         'instead, until WEO current-account data are added.', FONT_NOTE)
+                                         'Legacy leaves the share out for oil (bug L49). Current account (v9.0, '
+                                         'R11): typed WEO values for Egypt (legacy reads them through stale codes, '
+                                         'bug L50), held at 2031; the policy changes it by minus the change in net '
+                                         'energy imports of each fuel group; % of GDP over the GDP implied by the '
+                                         'current account and its share (as legacy); coal included (bug L214).',
+        FONT_NOTE)
 
     # 17. Carbon pricing (v3.15): Methods, chapter Macro and results
     band(ws, B_CPR, '17. Carbon pricing', last)
@@ -12165,6 +12801,236 @@ def build_mitigation(wb):
                                         'whose switch is on, in sectors with a carbon tax rate above 0 (ETS sectors '
                                         'not complementary have none).', FONT_NOTE)
 
+    # 17b (v9.0, R1; Equations_addendum B): inputs from air pollution and transport co-benefits
+    band(ws, B_COB, '17b. Inputs from air pollution and transport co-benefits', last)
+    fk = {f[0]: k for k, f in enumerate(FUELS)}
+
+    def refc(col, rr):                       # scenario-1 value of row rr in this column's year (helper row 10)
+        return f'INDEX(${L(COL_G0)}{rr}:{col}{rr},{col}${R_REFCOL})'
+
+    def c17b(col, r, key, var, fu, sec, is_base, lam):
+        cur = lambda k: f'{col}{R_COB[k]}'
+        trr = lambda k: f'{col}{R_TR[k]}'
+        if var in ('airpol.cost', 'air.vpm', 'tran.acc.km', 'tran.con.km', 'tran.rdm.km'):   # R1.1, R1.4, R1.6 (typed)
+            return (f'=IFERROR(INDEX(CobVal,MATCH(CtryCode&$D{r},CobKey,0),MATCH({col}${R_YEAR},CobYear,0)),0)',
+                    '0.0000')
+        if var == 'airpol.cost.gj':          # R1.2-R1.3
+            src = cur(f'apct.{sec}.{fu}')
+            if (fu, sec) == ('coa', 'res'):  # L192 fixed: residential coal / buildings fuel use of the year
+                return f'={src}*({cur("fuq.bld.coa")}>ApCoalResMin*{col}{SEC_SUM["bld"]})', '0.0000'
+            return f'={src}/$D{r}', '0.0000'
+        if var == 'fuq':
+            a, z = spans[sec]
+            return f'=SUMIFS({col}${a}:{col}${z},$A${a}:$A${z},"ener",$B${a}:$B${z},$B{r})', '#,##0.0'
+        if var == 'air.con.pm2' and sec == 'mod':   # R1.5: total over the module sectors
+            return f'=SUM({cur("apm." + AP_SECS[0][0])}:{cur("apm." + AP_SECS[-1][0])})', '#,##0.00'
+        if var == 'air.con.pm2':             # R1.5: coefficients (pollutant column of the sector) x emissions (t)
+            a, z = R_AP[f'aps.{APS_POLS[0]}.{sec}'], R_AP[f'aps.{APS_POLS[-1]}.{sec}']
+            return f'=SUMPRODUCT({col}{a}:{col}{z},INDEX(CobKap,0,$D{r}))*tPerKt', '#,##0.00'
+        pas, fre, cyc = TR_CLS_ROWS[fu]
+        if var == 'tran.cls':                # class use of the engineer model (5b), own scenario
+            return '=' + '+'.join(trr(k) for k in (pas, fre, cyc) if k), '0.000'
+        if var == 'tran.wcl':                # R1.7: passenger weight of scenario 1 (gasoline: 1)
+            if fre is None:
+                return '=1', '0.000'
+            return f'=IFERROR(1-{refc(col, R_TR[fre])}/{refc(col, R_COB["tcls." + fu])},0)', '0.000'
+        if var == 'tran.mrg':                # R1.8 (L193 fixed: 0 without class use); D:G elasticity combinations
+            w = cur('twcl.' + fu)
+            return f'=IF({refc(col, R_COB["tcls." + fu])}=0,0,($D{r}+{w}*$E{r})/($F{r}+{w}*$G{r}))', '0.000'
+        if var == 'tran.fsh':                # R1.9: freight share of the class use, own scenario
+            return f'=IF({cur("tcls." + fu)}=0,0,{trr(fre)}/{cur("tcls." + fu)})', '0.000'
+        if var in ('tran.acc.cost', 'tran.con.cost', 'tran.rdm.cost'):   # R1.10
+            k = var.split('.')[1]
+            parts = ([f'{col}${R_COB["tkm." + k]}', trr(TR_FE_ROW[fu]), cur('tmrg.' + fu)]
+                     + ([cur('tfsh.' + fu)] if k == 'rdm' else []) + [trr('tran.rsh.' + fu)])
+            return '=' + '*'.join(parts), '0.0000'
+        if var in ('tran.acc.gj', 'tran.con.gj', 'tran.rdm.gj'):         # R1.11
+            return f'={cur("t" + var.split(".")[1] + "." + fu)}/$D{r}', '0.0000'
+        if var == 'pig.trs':                 # R3.5 terms (accidents + congestion, diesel + road damage)
+            ks = ['tacc', 'tcon'] + (['trdm'] if fu == 'die' else [])
+            return '=' + '+'.join(cur(f'{k}.{fu}') for k in ks), '0.0000'
+        raise ValueError(key)
+    sub_blocks(COB_BLOCKS + [(None, COB_SUM)], R_COB, R_COB_LAB, R_COB_HEAD, c17b)
+    for key, var, fu, sec in [x for _h, rows_ in COB_BLOCKS for x in rows_]:   # parameters (D:G)
+        r = R_COB[key]
+        vals = []
+        if var == 'airpol.cost':
+            vals = [f'|airpol.cost|{sec}|{fu}']
+        elif var in ('air.vpm', 'tran.acc.km', 'tran.con.km', 'tran.rdm.km'):
+            vals = [f'|{var}']
+        elif var == 'airpol.cost.gj':
+            vals = [f'=$F{prow("pset", fu + ".all")}' if sec == 'all' else 1]
+        elif var == 'air.con.pm2':
+            vals = [[m for m, _n in AP_SECS].index(sec) + 1]
+        elif var == 'tran.mrg':
+            ug, ud, fg, fd = (TRC(k) for k in ('eldg', 'eldd', 'elfg', 'elfd'))
+            vals = [f'={ud}', f'={ug}-{ud}', f'={ud}+{fd}', f'={ug}+{fg}-{ud}-{fd}']
+        elif var in ('tran.acc.gj', 'tran.con.gj', 'tran.rdm.gj'):
+            vals = [f'=$F{prow("pset", fu + ".all")}']
+        for pc_, v_ in zip(PARAM_COLS, vals):
+            put(ws, f'{pc_}{r}', v_, FONT, None, '@' if str(v_).startswith('|') else '0.0000')
+    put(ws, f'H{R_COB_NOTE}', 'Inputs from the air pollution and transport co-benefits modules (v9.0, R1): typed '
+                              'Egypt values of the legacy 465 run (sheet Inputs_cob; other countries 0 until the '
+                              'modules export them, issue I106) and the rows computed from this model: costs per GJ, '
+                              'modelled ambient PM2.5 from the emissions of section 15 (summary row), transport costs '
+                              'per litre from the engineer road model of section 5b whatever TrModel is (issue I100), '
+                              'with the passenger weights of scenario 1 (issue I111) and the road share of the '
+                              'switched model. The unit air-pollution costs are average damages (issue I104): the '
+                              'welfare uses the value of averted PM2.5 instead (I105).', FONT_NOTE)
+
+    # 18. Welfare and externalities (v3.17; v9.0: R2, R3.13-R3.22): Methods, chapter Macro and results
+    NEW18 = {k for _h, rows_ in WEL_BLOCKS[5:] for k, *_x in rows_} - {'wel.pct', 'wel.cli', 'wel.eff'}
+    SUBAB = {v_: a_ for v_, a_, _l in SUB_VARS}
+
+    def c18x(col, r, key, var, fu, sec, is_base, lam):
+        cur = lambda k: f'{col}{R_WEL[k]}'
+        cob = lambda k: f'{col}{R_COB[k]}'
+        ref = lambda rr: refc(col, rr)
+        pol = lambda k: f'{col}${R_POL[k]}'
+        gdp = f'{col}${R_GDPUSD}'
+        pe = lambda t: f'{col}{R_PW[("pe", t)]}'
+        q_all = lambda f: f'{col}{R_FUEL0 + fk[f]}'
+        fq = lambda g, f: cob(f'fuq.{g}.{f}')
+        if var in ('cc.nat', 'cc.glo'):      # R2.1 ($/GJ)
+            return f'={pol("scc." + var[3:])}*$D{r}', '0.0000'
+        if var == 'airpol.ecy':              # R2.2 (L177 fixed): fuel cost x fuel use / generation
+            a = '+'.join(f'{cob("apcg.pow." + t)}*{pe(t)}' for t in ('coa', 'nga', 'oop'))
+            return f'=({a})*PJperKtoe/({col}{R_PW[("gtot", "")]}*MWyMkWh)', '0.00000'
+        if var == 'apq':
+            return '=' + (pe(fu) if sec == 'pow' else fq(sec, fu)), '#,##0.0'
+        if var == 'airpol.cost.gj':          # R2.3 (L178 fixed): use-weighted costs of other uses
+            if fu in ('coa', 'nga'):
+                a = f'{cob("apcg.ind." + fu)}:{cob("apcg.pow." + fu)}'
+                q = f'{cur("apq.ind." + fu)}:{cur("apq.pow." + fu)}'
+                return f'=IFERROR(SUMPRODUCT({a},{q})/SUM({q}),AVERAGE({a}))', '0.0000'
+            b, q = f'{cob("apcg.pow.oop")}:{cob("apcg.ind.oop")}', f'{cur("apq.pow.oop")}:{cur("apq.ind.oop")}'
+            if fu == 'odo':
+                q3 = f'{cur("apq.tra.die")}:{cur("apq.ind.oop")}'
+                return (f'=IFERROR(({cob("apcg.all.die")}*{cur("apq.tra.die")}+SUMPRODUCT({b},{q}))'
+                        f'/SUM({q3}),0)'), '0.0000'
+            return f'=IF(SUM({q})=0,0,SUMPRODUCT({b},{q})/SUM({q}))', '0.0000'
+        if var == 'tot.ext':                 # R2.4
+            ks = ['taccg', 'tcong'] + (['trdmg'] if fu == 'die' else [])
+            return '=' + '+'.join([cob(f'apcg.all.{fu}')] + [cob(f'{k}.{fu}') for k in ks]), '0.0000'
+        if key == 'wel.air.usd':             # R2.5
+            c_ = R_COB['air.con.pm2.mod']
+            return f'={col}${R_COB["air.vpm"]}*({ref(c_)}-{col}{c_})', '#,##0.000'
+        if var == 'wel.rod':                 # R2.6
+            k, v_ = {'aci': ('acc', 5336), 'con': ('con', 5336), 'dmg': ('rdm', 5334)}[sec]
+            v_ = R_TR[v_]
+            return f'={col}${R_COB["tkm." + k]}*({ref(v_)}-{col}{v_})', '#,##0.000'
+        if key == 'wel.air.pct':             # R2.7
+            return f'={cur("wel.air.usd")}/{gdp}', '0.00%'
+        if key == 'wel.rod.pct':
+            return f'=SUM({cur("wel.rod.aci")}:{cur("wel.rod.dmg")})/{gdp}', '0.00%'
+        if var == 'ffs.q':                   # R2.9 quantities (ktoe)
+            pe = lambda t: f'{col}{R_PW[("pe", t)]}' if ("pe", t) in R_PW else ''
+            q = {('coa', 'ind'): fq('ind', 'coa'), ('coa', 'res'): fq('bld', 'coa'), ('coa', 'pow'): pe('coa'),
+                 ('nga', 'ind'): fq('ind', 'nga'), ('nga', 'res'): fq('bld', 'nga'), ('nga', 'pow'): pe('nga'),
+                 ('gso', 'rd'): fq('tra', 'gso'), ('die', 'rd'): fq('tra', 'die'), ('lpg', 'all'): q_all('lpg'),
+                 ('ker', 'all'): q_all('ker'), ('oop', 'pow'): pe('oop'),
+                 ('oop', 'ind'): f'{fq("ind", "oop")}+{fq("ind", "die")}',
+                 ('coa', 'oth'): f'{fq("tra", "coa")}+{fq("oen", "coa")}',
+                 ('nga', 'oth'): f'{fq("tra", "nga")}+{fq("oen", "nga")}',
+                 ('gso', 'oth'): f'{q_all("gso")}-{fq("tra", "gso")}',
+                 ('die', 'oth'): '+'.join(fq(g, f) for g, f in (('bld', 'die'), ('oen', 'die'), ('tra', 'oop'),
+                                                                 ('bld', 'oop'), ('oen', 'oop')))}[(fu, sec)]
+            return f'={q}', '#,##0.0'
+        if var == 'env.ffs.cost' and sec == 'tot':   # R2.10
+            f0, f1 = FFS_LINES[0], FFS_LINES[-1]
+            return f'=SUM({cur(f"ffs.{f0[1]}.{f0[0]}")}:{cur(f"ffs.{f1[1]}.{f1[0]}")})', '#,##0.000'
+        if var == 'env.ffs.cost':            # R2.9 (L179, L180 fixed; die.oth at the oil-product costs, I107)
+            u2 = {('gso', 'rd'): cur('text.gso'), ('die', 'rd'): cur('text.die'), ('lpg', 'all'): cob('apcg.all.lpg'),
+                  ('ker', 'all'): cob('apcg.all.ker'), ('coa', 'oth'): cur('apo.oth.coa'),
+                  ('nga', 'oth'): cur('apo.oth.nga'), ('gso', 'oth'): cob('apcg.all.gso'),
+                  ('die', 'oth'): cur('apo.oth.odo')}.get((fu, sec)) or cob(f'apcg.{sec}.{fu}')
+            ccf = 'oop' if (fu, sec) == ('die', 'oth') else fu
+            q = R_WEL[f'ffsq.{sec}.{fu}']
+            return f'=-({cur("ccg." + ccf)}+{u2})*({col}{q}-{ref(q)})*PJperKtoe/MperBn', '#,##0.000'
+        if var == 'wel.ffs':
+            return f'={cur("ffs.tot")}-{cur("eff.all")}-{cur("mfc.all")}', '#,##0.000'
+        if var in ('expsub.con', 'impsub.con') and sec == 'tot':      # R2.12 totals
+            a = SUBAB[var]
+            return (f'=SUM({cur(f"{a}.{SUB_LINES[0][1]}.{SUB_LINES[0][0]}")}:'
+                    f'{cur(f"{a}.{SUB_LINES[-1][1]}.{SUB_LINES[-1][0]}")})'), '#,##0.000'
+        if var in SUBAB:                     # R2.11 (scenario's own prices and use; L181-L187 fixed)
+            s = lambda v_, s_=sec: cur(f'{SUBAB[v_]}.{s_}.{fu}')
+            pc = f'{fu}.{sec}'
+            if sec == 'oth' and var in ('supcost', 'extcost', 'vatext', 'rpsub'):   # L187: use-weighted averages
+                cs = ['ind', 'res'] if fu == 'ecy' else ['ind', 'res', 'pow']
+                a, q = f'{s(var, cs[0])}:{s(var, cs[-1])}', f'{s("con", cs[0])}:{s("con", cs[-1])}'
+                return f'=IFERROR(SUMPRODUCT({a},{q})/SUM({q}),AVERAGE({a}))', '0.0000'
+            if var == 'supcost':
+                return f'={col}{R_PW[("spe", sec)] if fu == "ecy" else prow("sp", pc)}', '0.0000'   # v9.0: spe
+            if var == 'rpsub':
+                return f'={col}{R_PW[("rp", sec)] if fu == "ecy" else prow("rpn", pc)}', '0.0000'
+            if var == 'extcost':
+                if fu == 'ecy':
+                    return '=0', '0.0000'    # issue I108 (as legacy)
+                u2 = (cur(f'text.{fu}') if fu in ('gso', 'die') else cob(f'apcg.all.{fu}') if fu in ('lpg', 'ker')
+                      else cur('apo.avg.oop') if fu == 'oop' else cob(f'apcg.{sec}.{fu}'))
+                return f'={cur("ccg." + fu)}+{u2}', '0.0000'
+            if var == 'vatext':              # D: general VAT rate x household share (issue I109; L184, L185)
+                return f'=({s("supcost")}+{s("extcost")})*$D{r}', '0.0000'
+            if var == 'effprice':
+                return f'={s("supcost")}+{s("extcost")}+{s("vatext")}', '0.0000'
+            if var == 'con':                 # PJ (electricity GWh; L186 fixed)
+                if fu == 'ecy':
+                    q = {'ind': f'{col}{R_ELD["ind"]}', 'res': f'{col}{R_ELD["bld"]}',
+                         'oth': f'({col}{R_ELD["tra"]}+{col}{R_ELD["oen"]})'}[sec]
+                    return f'={q}*KtoeGWh', '#,##0.0'
+                q = {'all': lambda: q_all(fu), 'ind': lambda: fq('ind', fu), 'res': lambda: fq('bld', fu),
+                     'pow': lambda: pe(fu), 'oth': lambda: f'({fq("tra", fu)}+{fq("oen", fu)})'}[sec]()
+                return f'={q}*PJperKtoe', '#,##0.0'
+            if var == 'expsub.con':
+                return f'=MAX(0,{s("supcost")}-{s("rpsub")})*{s("con")}/MperBn', '#,##0.000'
+            ep_, rp_, sc_ = s('effprice'), s('rpsub'), s('supcost')
+            return f'=({rp_}<={ep_})*({ep_}-MAX({rp_},{sc_}))*{s("con")}/MperBn', '#,##0.000'
+        if var in ('expsubgdp.con', 'impsubgdp.con'):   # L188 fixed: GDP of the same year
+            return f'={cur(var[:3] + ".tot")}/{gdp}', '0.00%'
+        if key == 'apecy.g':                 # R3.15 helper (own scenario; scenario 1 read below), issue I121
+            a = '+'.join(f'{cob("apcg.pow." + t)}*{col}{R_PW[("gen", t)]}' for t in ('coa', 'nga', 'oop'))
+            return f'=({a})/{col}{R_PW[("gtot", "")]}*KtoeGWh/Thousand', '0.00000'
+        if var in ('acc.cost', 'con.cost', 'rdm.cost'):   # R3.14: the scenario's own (mf.2)
+            return f'={cob("t" + var[:3] + "." + fu)}', '0.0000'
+        ep = lambda v_: cur(f'ep.{v_}.{sec}.{fu}')
+        pc = f'{fu}.{sec}'
+        if var in ('pig.co2e', 'app') and sec == 'avg':   # R3.22
+            v_, (f0, s0), (f9, s9) = var, EP_FUELS[0], EP_FUELS[9]
+            a, q = f'{cur(f"ep.{v_}.{s0}.{f0}")}:{cur(f"ep.{v_}.{s9}.{f9}")}', f'{cur(f"epq.{s0}.{f0}")}:{cur(f"epq.{s9}.{f9}")}'
+            return f'=IF(SUM({q})=0,0,SUMPRODUCT({a},{q})/SUM({q}))', '#,##0.00'
+        if var == 'effp.q':
+            return '=' + {'all': lambda: q_all(fu), 'ind': lambda: fq('ind', fu), 'res': lambda: fq('bld', fu),
+                          'pow': lambda: pe(fu)}[sec](), '#,##0.0'
+        if var == 'sup.cost':                # R3.13: scenario 1 x GJ per price unit (D)
+            return f'={ref(R_PW[("spe", sec)] if fu == "ecy" else prow("sp", pc))}*$D{r}', '0.0000'   # v9.0: spe
+        if var == 'airpol.cost.s':           # R3.14-R3.15
+            if fu == 'ecy':
+                return f'={ref(R_WEL["apecy.g"])}', '0.00000'
+            return '=' + cob(f'apct.all.{fu}' if sec == 'all' else f'apcg.{sec}.{fu}'), '0.0000'
+        if var == 'scc.cost':
+            return ('=0' if fu == 'ecy' else f'={col}{R_POL["cc.code." + pc]}'), '0.0000'
+        if var == 'pig':                     # R3.20
+            parts = [ep('airpol.cost.s'), ep('scc.cost')] + [cur(f'ep.{v_}.{fu}') for v_, fs in EP_ROAD if fu in fs]
+            return '=' + '+'.join(parts), '0.0000'
+        if var == 'vat.cost':                # R3.16 (issue I120): D = general VAT rate of the base year or 0
+            return f'=({ep("sup.cost")}+{ep("pig")}*(LEFT({pol("ExternalityAddVAT")},3)="Yes"))*$D{r}', '0.0000'
+        if var == 'eff.price':               # R3.17
+            return f'={ep("sup.cost")}+{ep("pig")}+{ep("vat.cost")}', '0.0000'
+        if var == 'rp.eff':                  # R3.18
+            return f'={col}{R_PW[("rp", sec)] if fu == "ecy" else prow("rpn", pc)}*$D{r}', '0.0000'
+        if var == 'tgap':                    # R3.19
+            return f'={ep("rp.eff")}-{ep("eff.price")}', '0.0000'
+        if var == 'pig.co2e':                # R3.21
+            return f'=IFERROR({ep("pig")}*{pol("scc.glo")}/{ep("scc.cost")},0)', '#,##0.00'
+        if var == 'app':
+            return f'=IFERROR({ep("pig.co2e")}*{ep("airpol.cost.s")}/{ep("pig")},0)', '#,##0.00'
+        if var == 'txo.co2e':                # L203 fixed: 0 where there is no climate cost
+            if fu == 'ecy':
+                return '=0', '#,##0.00'
+            return f'=IFERROR({ref(prow("txo", pc))}*$D{r}*{pol("scc.glo")}/{ep("scc.cost")},0)', '#,##0.00'
+        raise ValueError(key)
+
     # 18. Welfare and externalities, climate part (v3.17): Methods, chapter Macro and results
     band(ws, B_WEL, '18. Welfare and externalities', last)
     cy = lambda col: f'{col}${R_YEAR}'
@@ -12172,6 +13038,8 @@ def build_mitigation(wb):
     G18 = R_GHG
 
     def c18(col, r, key, var, fu, sec, is_base, lam):
+        if key in NEW18:                     # v9.0: R2 and the efficient prices
+            return c18x(col, r, key, var, fu, sec, is_base, lam)
         cur = lambda k: f'{col}{R_WEL[k]}'
         gdp = f'{col}${R_GDPUSD}'
         ref = lambda rr: f'INDEX(${L(COL_G0)}{rr}:{col}{rr},{col}${R_REFCOL})'   # helper row 10 counts from COL_G0
@@ -12226,11 +13094,28 @@ def build_mitigation(wb):
         if var == 'mfc':
             j0, j1 = CH4_SOURCES[0][0], CH4_SOURCES[-1][0]
             return f'=SUM({cur("mfc." + j0)}:{cur("mfc." + j1)})', '#,##0.0000'
-        if fu == 'usd':
-            return f'={cur("wcli.nat")}-{cur("eff.all")}-{cur("mfc.all")}', '#,##0.000'
+        if fu == 'usd':                      # v9.0 (R2.8): + air pollution and road transport co-benefits
+            return (f'={cur("wcli.nat")}+{cur("wel.air.usd")}+SUM({cur("wel.rod.aci")}:{cur("wel.rod.dmg")})'
+                    f'-{cur("eff.all")}-{cur("mfc.all")}'), '#,##0.000'
         x = {'pct': cur('wel.usd'), 'cli': cur('wcli.nat'), 'eff': f'{cur("eff.all")}+{cur("mfc.all")}'}[fu]
         return div(x, gdp), '0.00%'
     sub_blocks(WEL_BLOCKS + [(None, WEL_SUM)], R_WEL, R_WEL_LAB, R_WEL_HEAD, c18)
+    for key, var, fu, sec in [x for _h, rows_ in WEL_BLOCKS for x in rows_]:   # v9.0: parameters (D:G)
+        r, pc = R_WEL[key], f'{fu}.{sec}'
+        v_ = None
+        if var in ('cc.nat', 'cc.glo'):
+            v_ = f'=IFERROR(INDEX(EFGen,MATCH($B{r},EFGenKey,0)),0)'
+        elif var == 'vatext' and sec != 'oth':
+            v_ = (f'=VatGen*Inputs_prices!${IPC["osh"]}${IP_R0 + [x for x, _l in PRICES].index(pc)}'
+                  if pc in OIL_SHARE else 'VatGen' if sec == 'res' else 0)
+        elif var in ('sup.cost', 'rp.eff', 'txo.co2e'):
+            v_ = 1 if fu == 'ecy' else f'=$F{prow("pset", pc)}'
+        elif var == 'vat.cost':
+            v_ = 'VatGen' if pc in OIL_SHARE or sec == 'res' else 0
+        if v_ == 'VatGen':
+            v_ = '=VatGen'
+        if v_ is not None:
+            put(ws, f'D{r}', v_, FONT, None, '0.0000')
     put(ws, f'H{R_WEL_NOTE}', 'Climate part of legacy F10. SCC options and default (target-consistent price) '
                                         'as legacy; damages = SCC x GHG excl. LULUCF (section 14). Efficiency costs '
                                         'by fuel: trapezoid on the tax wedge (revenue net of subsidies per unit), so '
@@ -12488,7 +13373,8 @@ def fast_batch(wb, log=print, sessions=LO_SESSIONS):
                            for num, name, run, _e in DEFINITIONS if run == 'Yes']      # None: the baseline
     spec = {'first': [('Settings', 26, 3, 29, 3)] + [('Mitigation', R_EMI[f'co2.sec.{x}'], c0, R_EMI[f'co2.sec.{x}'], c1)
                                                        for x in COV_SECTORS]
-                     + [('Mitigation', R_GHG[k_], c0, R_GHG[k_], c1) for _j, k_, _l in CH4S_STORE],
+                     + [('Mitigation', R_GHG[k_], c0, R_GHG[k_], c1) for _j, k_, _l in CH4S_STORE]
+                     + [('Mitigation', R_COB[k_], c0, R_COB[k_], c1) for _j, k_, _l in R3_STORE],   # v9.0 (R3)
             'read': ('LiveOutputs', MTO_R0, 1, MTO_R0 + 2 * MTO_BLOCK, MTO_C0 + NY - 1),
             'plan': [runs[k::sessions] for k in range(sessions)]}
     ctx = mp.get_context('spawn')
@@ -12501,7 +13387,11 @@ def fast_batch(wb, log=print, sessions=LO_SESSIONS):
     def baseline_co2(data):
         st = LO.Grid(26, 3, data[0])
         assert abs(st.cell(29, 3).value - 1) < 1e-12, st.cell(29, 3).value
-        for j, row in zip([x[0] for x in CH4S_STORE], data[1 + len(COV_SECTORS):]):    # v6.2 (I47, ghg.k)
+        n4 = 1 + len(COV_SECTORS) + len(CH4S_STORE)
+        for j, row in zip([x[0] for x in R3_STORE], data[n4:]):                        # v9.0 (R3)
+            for c, v in zip(range(c0, c1 + 1), row[0]):
+                DATA_VALUES[(f'r3s.{j}', year_of(c))] = v if isinstance(v, (int, float)) else 0.0
+        for j, row in zip([x[0] for x in CH4S_STORE], data[1 + len(COV_SECTORS):n4]):  # v6.2 (I47, ghg.k)
             for c, v in zip(range(c0, c1 + 1), row[0]):
                 assert isinstance(v, (int, float)), (j, c, v)
                 DATA_VALUES[(f'ch4bs.{j}', year_of(c))] = v
@@ -12521,6 +13411,8 @@ def fast_batch(wb, log=print, sessions=LO_SESSIONS):
                  for i, x in enumerate(COV_SECTORS) for j, y in enumerate([BASE_YEAR] + YEARS)]
         cells += [('BaselineCO2', BCO2_RAW + 1 + i, 4 + j, DATA_VALUES[(f'ch4bs.{x}', y)])   # v6.2 (I47)
                   for i, (x, *_r) in enumerate(CH4S_STORE) for j, y in enumerate([BASE_YEAR] + YEARS)]
+        cells += [('BaselineCO2', BCO2_RAW + 1 + len(CH4S_STORE) + i, 4 + j, DATA_VALUES[(f'r3s.{x}', y)])   # v9.0
+                  for i, (x, *_r) in enumerate(R3_STORE) for j, y in enumerate([BASE_YEAR] + YEARS)]
         return cells + [('BaselineCO2', BCO2_RAW, 4 + j, raw[y]) for j, y in enumerate([BASE_YEAR] + YEARS)]
 
     def wait():
@@ -12597,6 +13489,9 @@ def write_bco2(wb, raw):
         put(ws, f'{L(4 + j)}{BCO2_RAW}', raw[y], FONT, F_INPUT, '#,##0.000')
         for i, (x, *_r) in enumerate(CH4S_STORE):                       # v6.2 (I47, ghg.k)
             put(ws, f'{L(4 + j)}{BCO2_RAW + 1 + i}', DATA_VALUES[(f'ch4bs.{x}', y)], FONT, F_INPUT, '#,##0.000')
+        for i, (x, *_r) in enumerate(R3_STORE):                         # v9.0 (R3)
+            put(ws, f'{L(4 + j)}{BCO2_RAW + 1 + len(CH4S_STORE) + i}', DATA_VALUES[(f'r3s.{x}', y)], FONT, F_INPUT,
+                '0.000000')
 
 
 SR_HEAD, SR_FIRST, SR_Y0 = 5, 6, 8      # StoredResults: header row, first data row, first year column (H)
@@ -14336,6 +15231,7 @@ def main():
     build_inputs_prices(wb)
     build_inputs_power(wb)
     build_inputs_ef(wb)                            # v4.5: CO2 EFs selected from the legacy EF_GHG table
+    build_inputs_cob(wb)                           # v9.0 (R1): typed inputs from the co-benefits modules
     build_inputs_ela(wb)                           # v4.6: elasticities from the legacy Elasticities tab
     build_inputs_mult(wb)                          # v4.6: multipliers from the legacy Multipliers tab
     build_inputs_macro(wb)                         # v4.6: macro series from the legacy WEO tab
@@ -14378,7 +15274,7 @@ def main():
         wb.defined_names[name] = DefinedName(name, attr_text=ref)
     order = (['Cover', 'ScenarioCompare', 'ScenarioDefinition', 'MAIN->>', 'Mitigation', 'FromMitigation', 'Distribution', 'LiveOutputs',
               'StoredOutputs', 'INPUTS->>', 'Manual inputs', 'Settings', 'Inputs', 'Inputs_prices', 'Inputs_power', 'Inputs_ef', 'Inputs_ela', 'Inputs_mult', 'Inputs_macro', 'Inputs_pint', 'Inputs_ecp', 'Inputs_pset',
-              'Inputs_ptech', 'Inputs_ppath', 'Inputs_ppar', 'Mapping',
+              'Inputs_ptech', 'Inputs_ppath', 'Inputs_ppar', 'Inputs_cob', 'Mapping',
               'Constants', 'REF->>', 'VersionLog', 'ReadMe', 'LegacyDiff', 'Lambdas', 'Variables', 'MacroCheck']
              + [t for div, tabs in DATA_GROUPS for t in [div] + tabs])   # v4.5: data tabs grouped as legacy
     assert set(order) == set(wb.sheetnames), set(wb.sheetnames) ^ set(order)   # v3.17: no sheet dropped silently
@@ -14513,7 +15409,7 @@ TAB_REF = 'Version Log, About, and Diff'          # v4.2
 TAB_CHECK = 'Check, Variables, Lambdas'         # v4.2
 MERGES = [('Inputs', ['Inputs', 'Inputs_prices', 'Inputs_power', 'Inputs_ef', 'Inputs_ela', 'Inputs_mult',
                       'Inputs_macro', 'Inputs_pint', 'Inputs_ecp', 'Inputs_pset', 'Inputs_ptech', 'Inputs_ppath',
-                      'Inputs_ppar']),          # target tab, blocks top to bottom
+                      'Inputs_ppar', 'Inputs_cob']),          # target tab, blocks top to bottom (v9.0: Inputs_cob)
           ('Settings', ['Settings', 'Constants', 'Mapping']),
           (TAB_REF, ['VersionLog', 'ReadMe', 'LegacyDiff']),
           (TAB_CHECK, ['Variables', 'Lambdas', 'MacroCheck'])]   # v5.3 (user): MacroCheck last, so the 300 rows the
