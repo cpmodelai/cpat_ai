@@ -25,6 +25,8 @@ excel_ai/                         The Excel prototypes (Excel-AI): workbook, reg
                                   releases/, plans/, shared/, templates/
 data/                             All data (Python and CPAT formats), converters, tests
 coded/                            The Python model (Coded CPAT) and its Shiny app
+docs/                             Documentation website: index.html (two tabs: CPAT documentation, CPAT-AI project);
+                                  CPAT_full_documentation_qmd/ (Quarto sources), CPAT_full_documentation_html/ (built pages)
 other/                            Research papers, other decks, earlier prototypes and notes
 users/                            Personal folders
 ```

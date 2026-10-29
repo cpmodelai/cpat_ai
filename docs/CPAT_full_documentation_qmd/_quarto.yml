@@ -1,6 +1,6 @@
 project:
   type: book
-  output-dir: ./docs
+  output-dir: ../CPAT_full_documentation_html
 
 
 book:

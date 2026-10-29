@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CPAT Documentation</title>
+<link rel="icon" type="image/png" href="CPAT_full_documentation_html/00/media/image1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  /* Colours and type follow the Quarto "cosmo" theme used by the full documentation */
+  :root {
+    --primary: #2780e3;
+    --primary-dark: #1a68bf;
+    --text: #373a3c;
+    --muted: #6c757d;
+    --border: #dee2e6;
+    --bg: #ffffff;
+    --bg-soft: #f8f9fa;
+    --code-bg: #f1f3f5;
+    --code-text: #9753b8;
+    --nav-h: 52px;
+    --font: "Source Sans 3", "Source Sans Pro", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { font-family: var(--font); color: var(--text); background: var(--bg); font-size: 17px; line-height: 1.5; }
+
+  /* Top bar with the two tabs */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); z-index: 10;
+    display: flex; align-items: center; gap: 24px; padding: 0 20px;
+    background: var(--primary); color: #fff;
+  }
+  .brand { font-weight: 700; font-size: 1.15rem; white-space: nowrap; display: flex; align-items: center; gap: 10px; }
+  .brand img { height: 28px; width: 28px; object-fit: contain; background: #fff; border-radius: 4px; padding: 2px; }
+  .tabs { display: flex; height: 100%; gap: 4px; }
+  .tab {
+    display: flex; align-items: center; height: 100%; padding: 0 14px;
+    color: rgba(255,255,255,.8); text-decoration: none; font-weight: 600; white-space: nowrap;
+    border-bottom: 3px solid transparent;
+  }
+  .tab:hover { color: #fff; }
+  .tab[aria-selected="true"] { color: #fff; border-bottom-color: #fff; }
+  .topbar .spacer { flex: 1; }
+  .newwin { color: rgba(255,255,255,.85); font-size: .9rem; text-decoration: none; white-space: nowrap; }
+  .newwin:hover { color: #fff; text-decoration: underline; }
+
+  .panel { position: absolute; top: var(--nav-h); left: 0; right: 0; bottom: 0; }
+  .panel[hidden] { display: none; }
+
+  /* Tab 1: the Quarto book */
+  #panel-documentation iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+  /* Tab 2: CPAT_ai project page, laid out like a Quarto book chapter */
+  #panel-cpat-ai { overflow-y: auto; }
+  .page { display: grid; grid-template-columns: 260px minmax(0, 860px); gap: 48px; max-width: 1200px; margin: 0 auto; padding: 32px 24px 64px; }
+  .toc { position: sticky; top: 24px; align-self: start; font-size: .92rem; }
+  .toc h2 { font-size: .95rem; font-style: italic; font-weight: 700; margin: 0 0 8px; }
+  .toc ul { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--border); }
+  .toc a { display: block; padding: 3px 0 3px 12px; margin-left: -1px; color: var(--muted); text-decoration: none; border-left: 2px solid transparent; }
+  .toc a:hover { color: var(--primary); }
+  .toc a.active { color: var(--primary); border-left-color: var(--primary); }
+
+  main h1 { font-size: 2.3rem; margin: 0 0 4px; line-height: 1.2; }
+  main .subtitle { color: var(--muted); font-size: 1.15rem; margin: 0 0 24px; }
+  main h2 { font-size: 1.65rem; margin: 2.2em 0 .5em; padding-bottom: .25em; border-bottom: 1px solid var(--border); }
+  main h3 { font-size: 1.25rem; margin: 1.6em 0 .4em; }
+  main a { color: var(--primary); }
+  main a:hover { color: var(--primary-dark); }
+  code { font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size: .86em; background: var(--code-bg); color: var(--code-text); padding: .1em .3em; border-radius: 3px; overflow-wrap: anywhere; }
+  td code { white-space: nowrap; overflow-wrap: normal; }
+  pre { background: var(--code-bg); padding: 12px 14px; border-radius: 4px; overflow-x: auto; font-size: .85rem; line-height: 1.45; }
+  pre code { background: none; padding: 0; color: var(--text); }
+  .table-wrap { overflow-x: auto; margin: 1em 0; }
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+  th, td { text-align: left; vertical-align: top; padding: 6px 10px; border-bottom: 1px solid var(--border); }
+  th { border-bottom: 2px solid var(--text); }
+  .callout { border-left: 5px solid var(--primary); background: #eef5fd; padding: 12px 16px; border-radius: 4px; margin: 1.2em 0; }
+  .callout.note { border-left-color: #6c757d; background: var(--bg-soft); }
+  .callout-title { font-weight: 700; margin-bottom: 4px; }
+  .callout p { margin: .3em 0; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 1.2em 0; }
+  .card { border: 1px solid var(--border); border-radius: 6px; padding: 14px 16px; }
+  .card h3 { margin: 0 0 6px; font-size: 1.1rem; }
+  .card p { margin: 0; font-size: .95rem; }
+  footer { margin-top: 48px; padding-top: 12px; border-top: 1px solid var(--border); color: var(--muted); font-size: .88rem; }
+
+  @media (max-width: 860px) {
+    .page { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 20px 16px 48px; }
+    .toc { position: static; margin-bottom: 16px; }
+    .topbar { gap: 8px; padding: 0 12px; }
+    .brand span, .newwin { display: none; }
+    .tab { padding: 0 8px; font-size: .95rem; }
+    main h1 { font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand"><img src="CPAT_full_documentation_html/00/media/image1.png" alt=""><span>CPAT</span></div>
+  <nav class="tabs" role="tablist">
+    <a class="tab" role="tab" id="tab-documentation" href="#documentation" aria-controls="panel-documentation">CPAT Documentation</a>
+    <a class="tab" role="tab" id="tab-cpat-ai" href="#cpat-ai" aria-controls="panel-cpat-ai">CPAT-AI Project</a>
+  </nav>
+  <div class="spacer"></div>
+  <a class="newwin" id="newwin" href="CPAT_full_documentation_html/index.html" target="_blank" rel="noopener">Open in its own window &#8599;</a>
+</header>
+
+<!-- Tab 1: the full CPAT documentation (Quarto book, built from CPAT_full_documentation_qmd) -->
+<section class="panel" id="panel-documentation" role="tabpanel" aria-labelledby="tab-documentation">
+  <iframe src="CPAT_full_documentation_html/index.html" title="CPAT Documentation"></iframe>
+</section>
+
+<!-- Tab 2: the CPAT-AI project -->
+<section class="panel" id="panel-cpat-ai" role="tabpanel" aria-labelledby="tab-cpat-ai" hidden>
+  <div class="page">
+    <nav class="toc" aria-label="Contents">
+      <h2>Page Contents</h2>
+      <ul>
+        <li><a href="#cpat-ai/overview">Overview</a></li>
+        <li><a href="#cpat-ai/projects">Two projects</a></li>
+        <li><a href="#cpat-ai/rule">Bugs and issues</a></li>
+        <li><a href="#cpat-ai/excel">Excel-AI</a></li>
+        <li><a href="#cpat-ai/coded">Coded CPAT</a></li>
+        <li><a href="#cpat-ai/data">Data</a></li>
+        <li><a href="#cpat-ai/repo">Repository map</a></li>
+        <li><a href="#cpat-ai/docs">Documentation</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <h1>The CPAT-AI Project</h1>
+      <p class="subtitle">Rebuilding and extending the Climate Policy Assessment Tool, in Excel and in Python</p>
+
+      <h2 id="overview">Overview</h2>
+      <p>The <strong>Climate Policy Assessment Tool (CPAT)</strong>, developed jointly by the World Bank and the IMF, models the fiscal, economic, energy, environmental and distributional effects of carbon pricing and related climate policies for more than 180 countries. Its methodology is set out in full in the <a href="#documentation">CPAT Documentation</a> tab.</p>
+      <p><strong>CPAT-AI</strong> is the workspace in which that model is being replicated, checked and extended. The legacy CPAT workbook is the reference: every formula of the new models is traced back to it, every difference from it is recorded, and every legacy bug found on the way is documented with a cell-level fix plan that the CPAT team can apply to legacy CPAT itself.</p>
+
+      <h2 id="projects">Two projects</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Excel-AI</h3>
+          <p>Excel prototypes that replicate legacy CPAT module by module, built from Python scripts so that every workbook can be regenerated, checked and versioned. Folder <code>excel_ai/</code>.</p>
+        </div>
+        <div class="card">
+          <h3>Coded CPAT</h3>
+          <p>A component-based Python reimplementation of the model, with a Shiny app. Validated Excel prototypes are ported here once checked. Folder <code>coded/</code>.</p>
+        </div>
+      </div>
+      <p>Both projects share the same inputs and codes: legacy MTInputs rows and <code>NameOfParameter</code> names, and identical input and output codes in Excel and in Python. Both read their data from the single root folder <code>data/</code>.</p>
+
+      <h2 id="rule">Bugs and issues</h2>
+      <div class="callout">
+        <div class="callout-title">The rule</div>
+        <p>Never replicate a legacy bug; always replicate a legacy issue, and track it.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Kind</th><th>Meaning</th><th>What the prototype does</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Bug</strong> (L, M)</td><td>Legacy does not compute what it means to: a wrong row, a double application, a dead reference.</td><td>Fixes it; the fix is written up as a cell plan for legacy.</td></tr>
+            <tr><td><strong>Issue</strong> (I)</td><td>Legacy does what it means to, but the choice is open to question.</td><td>Does the same and tracks it.</td></tr>
+            <tr><td><strong>Data problem</strong></td><td>An issue in the data rather than the formulas.</td><td>Replicated; ranked Very high where a legacy bug with a cell plan covers it, Extremely high where the prototype must align with legacy.</td></tr>
+            <tr><td><strong>Departure</strong> (LD)</td><td>A deliberate difference that is not a bug fix.</td><td>Kept only by user decision, and tracked.</td></tr>
+            <tr><td><strong>Upgrade</strong> (U)</td><td>A new feature beyond legacy.</td><td>Tracked.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The register behind these lists is a single source (<code>excel_ai/mitigation/register.py</code>) from which the bug book, the tracker and the short lists are generated. At register v8.5 it held 168 legacy bugs and 14 prototype bugs, and 82 issues (12 of them data problems), 40 departures and 9 upgrades.</p>
+
+      <h2 id="excel">Excel-AI</h2>
+      <p>The Excel prototypes are written with openpyxl and recalculated in LibreOffice, so they build and check on Linux and in cloud sessions; Excel 365 is used only for review. Each module has a builder, a quick check run after every change and a full check run at milestones.</p>
+      <h3>Modules</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Module</th><th>What it does</th><th>Sources</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Mitigation</strong></td><td>The integrated prototype: prices, power, transport, emissions, ETS, macro and results, with the distribution tab. Runs scenarios in batch through VBA.</td><td><code>excel_ai/mitigation/</code></td></tr>
+            <tr><td><strong>Distribution</strong></td><td>Household effects by decile of a mitigation scenario. Cut from the built mitigation prototype, so there is one copy of its formulas; reads Mitigation through a single tab, FromMitigation.</td><td><code>excel_ai/distribution/</code></td></tr>
+            <tr><td><strong>Air pollution</strong></td><td>Standalone rebuild of the legacy Air Pollution module: from pollutant emissions to concentrations, exposure, health burden and economic outputs.</td><td><code>excel_ai/air_pollution/</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Main files</h3>
+      <p>The current version of each main file sits at the top of <code>excel_ai/</code> as <code>&lt;Name&gt;_v&lt;version&gt;</code>; older versions are in <code>releases/</code>, and <code>permalink/</code> holds the <code>_latest</code> copies that other workbooks link to.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>File</th><th>What it is</th></tr></thead>
+          <tbody>
+            <tr><td><code>CPAT-AI-Mitigation-Prototype</code></td><td>The integrated prototype (macro-enabled workbook)</td></tr>
+            <tr><td><code>CPAT-AI-Distribution-Prototype</code></td><td>The standalone distribution module</td></tr>
+            <tr><td><code>Legacy_CPAT_Bugs</code></td><td>Every legacy bug found, with its cell-level fix plan</td></tr>
+            <tr><td><code>Tracking_Legacy_Bugs</code></td><td>The master list of bugs and issues, every module</td></tr>
+            <tr><td><code>CPAT-AI_CodesMap</code></td><td>The code protocol, variables, output codes and every input</td></tr>
+            <tr><td><code>CPAT-AI_Overview</code></td><td>The slide deck: status, how to use it, results</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Building and checking the mitigation prototype</h3>
+<pre><code>cd excel_ai/mitigation
+python build.py                # the prototype, about 8 minutes
+python check_quick.py          # after every change, about 2 minutes
+python check_full.py           # at a milestone
+python make_documentation.py   # bug book, tracker, codes map, Word documentation, BUGS.md, ISSUES.md</code></pre>
+
+      <h2 id="coded">Coded CPAT</h2>
+      <p>The Python model runs the mitigation module and the household distribution module, from <code>run_model.py</code> or from the Shiny app. Its input keys are the legacy <code>NameOfParameter</code> names, in legacy units, so a scenario means the same thing in Excel and in Python.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Path</th><th>Contents</th></tr></thead>
+          <tbody>
+            <tr><td><code>cpat_model/mitigation/</code></td><td>Mitigation module components</td></tr>
+            <tr><td><code>cpat_model/distribution/</code></td><td>Household incidence by decile, revenue recycling, welfare</td></tr>
+            <tr><td><code>cpat_shiny/</code>, <code>app.py</code></td><td>The Shiny application</td></tr>
+            <tr><td><code>cpat_testing/</code></td><td>pytest suite mirroring <code>cpat_model/</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+<pre><code>cd coded
+pip install -r requirements.txt -r dev-requirements.txt   # Python 3.12
+python run_model.py
+pytest
+shiny run app.py</code></pre>
+
+      <h2 id="data">Data</h2>
+      <p>All data live in the root folder <code>data/</code>, with the scripts that convert them; nothing is copied into the project folders. Only dummy or public data are committed: the real, proprietary tables stay outside the repository.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Folder</th><th>Contents</th></tr></thead>
+          <tbody>
+            <tr><td><code>dummy/</code></td><td>The Coded CPAT inputs, with fake values in the real formats</td></tr>
+            <tr><td><code>workbooks/</code></td><td>The data workbook in Python format and in CPAT (legacy) format</td></tr>
+            <tr><td><code>legacy_dummy/</code></td><td>The four proprietary tables in the legacy layout, dummy version, to paste into legacy CPAT</td></tr>
+            <tr><td><code>mvp_legacy_extracts/</code></td><td>The legacy tables the mitigation prototype is built from</td></tr>
+            <tr><td><code>distribution/</code>, <code>air_pollution/</code></td><td>Module data pipelines and public reference tables</td></tr>
+            <tr><td><code>scripts/</code>, <code>tests/</code></td><td>Conversion scripts and their tests</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="repo">Repository map</h2>
+<pre><code>README.md, AGENTS.md, CLAUDE.md   Orientation; instructions for AI agents
+HumanReadme-QuickStart.docx       Quick start guide for people
+NORMS.md                          Rules for every task
+CAVEATS.md                        Log of every finished task
+excel_ai/                         The Excel prototypes (Excel-AI)
+coded/                            The Python model (Coded CPAT) and its Shiny app
+data/                             All data, converters, tests
+docs/                             This website and the documentation sources
+other/                            Research papers, other decks, earlier prototypes
+users/                            Personal folders</code></pre>
+
+      <h2 id="docs">Documentation</h2>
+      <p>This website has two parts:</p>
+      <ul>
+        <li><strong><a href="#documentation">CPAT Documentation</a></strong>: the full methodology of CPAT, a Quarto book. Sources in <code>docs/CPAT_full_documentation_qmd/</code>, built pages in <code>docs/CPAT_full_documentation_html/</code>.</li>
+        <li><strong>CPAT-AI Project</strong>: this page.</li>
+      </ul>
+      <div class="callout note">
+        <div class="callout-title">Coming next</div>
+        <p>A full Quarto documentation of the CPAT-AI project, with sources and built pages alongside those of the CPAT documentation, will replace this summary page.</p>
+      </div>
+      <p>Until then, the project's own documents are the reference: <code>README.md</code> and <code>NORMS.md</code> at the root of the repository, <code>excel_ai/README.md</code>, <code>excel_ai/BUGS.md</code> and <code>excel_ai/ISSUES.md</code>, and <code>coded/README.md</code>.</p>
+
+      <footer>CPAT-AI &middot; WB-IMF Climate Policy Assessment Tool</footer>
+    </main>
+  </div>
+</section>
+
+<script>
+  // Hash routing: #documentation, #cpat-ai, or #cpat-ai/<section>
+  var tabs = { documentation: 'panel-documentation', 'cpat-ai': 'panel-cpat-ai' };
+  var aiPanel = document.getElementById('panel-cpat-ai');
+  var tocLinks = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+
+  function route() {
+    var hash = location.hash.replace(/^#/, '');
+    var parts = hash.split('/');
+    var tab = tabs[parts[0]] ? parts[0] : 'documentation';
+    Object.keys(tabs).forEach(function (name) {
+      var on = name === tab;
+      document.getElementById(tabs[name]).hidden = !on;
+      document.getElementById('tab-' + name).setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    document.getElementById('newwin').hidden = tab !== 'documentation';
+    if (tab === 'cpat-ai') {
+      var target = parts[1] && document.getElementById(parts[1]);
+      aiPanel.scrollTop = target ? target.offsetTop - 16 : 0;
+    }
+  }
+
+  // Highlight the section in view in the page contents
+  aiPanel.addEventListener('scroll', function () {
+    var current = null;
+    tocLinks.forEach(function (a) {
+      var el = document.getElementById(a.getAttribute('href').split('/')[1]);
+      if (el && el.offsetTop - 80 <= aiPanel.scrollTop) current = a;
+    });
+    tocLinks.forEach(function (a) { a.classList.toggle('active', a === current); });
+  });
+
+  window.addEventListener('hashchange', route);
+  route();
+</script>
+</body>
+</html>
