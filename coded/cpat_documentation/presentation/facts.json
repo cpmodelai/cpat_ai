@@ -1,0 +1,13 @@
+{
+ "version": "0.9.2p0.1",
+ "excel_ai": "0.9.2",
+ "distribution": "0.1.4",
+ "codes_per_scenario": 7458,
+ "distribution_codes": 1684,
+ "stored_codes": 615,
+ "tests_passed": 64,
+ "tests_failed": 0,
+ "tables": 218,
+ "proprietary": 5,
+ "equations": 91
+}
