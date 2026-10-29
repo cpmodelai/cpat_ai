@@ -42,9 +42,20 @@ BASELINE = {
                             'effcap', 'ret', 'rec', 'egrow', 'ecmin', 'ecshr', 'early', 'kafter', 'need', 'mancap', 'mani',
                             'needm', 'cmin', 'deficit', 'maxinv', 'lgi', 'pni', 'first', 'space', 'second', 'dgas', 'nei',
                             'nim', 'nid', 'phi', 'prtx', 'prsub', 'prxc', 'prnew', 'prxl', 'prrns', 'pet'],
-    '3.7b fuel use by subsector': ['enel', 'ener', 'eldem', 'rex', 'rvt', 'trbe', 'trbea', 'trpren', 'trrena',
+    '3.7b fuel use by subsector': ['enel', 'ener', 'eldem', 'co2', 'ch4', 'rtx', 'rsub', 'rnew', 'rxcp', 'rsr', 'rex', 'rvt', 'trbe', 'trbea', 'trpren', 'trrena',
                                    'lkt', 'lkp', 'lkd', 'lkb', 'lkxp', 'lkxe', 'lkxr', 'lkx', 'lkxa', 'lkz', 'lkc', 'lkcb'],
     '3.9a energy totals': ['echg', 'epct', 'ener.chk', 'ener.ref', 'ener.pct'],
+    '3.9b revenue totals': ['rmf', 'rpsu', 'rnet', 'rtot.ref', 'rev.chk', 'rfu', 'rfg', 'rfu.chk', 'rbe', 'rpct', 'gdpn',
+                            'rpol', 'rpol.chk', 'rtot', 'rtot.chg', 'covct'],
+    '3.10 CO2, other GHGs, NDC': ['co2.ref', 'co2.pct', 'co2.sec', 'co2.ets', 'co2.cap', 'co2.gap', 'ets.lr', 'ets.next',
+                                 'bco2.chk', 'co2.chk', 'cchg', 'co2.grid', 'kaya', 'kidx', 'co2.chg', 'pop', 'pop.g',
+                                 'gdppc.g', 'ghg.h', 'ghg.m', 'ghg.gi', 'ghg.dr', 'ch4.wd', 'ch4.fk', 'ch4.pi',
+                                 'ch4.prd', 'ch4.act', 'ch4.abt', 'ch4.int', 'ch4.em', 'ch4.c', 'ch4.sup', 'ghg.k',
+                                 'ghg.flr', 'ghg', 'ghg.inc', 'ghg.ref', 'ghg.pct', 'ch4.rev', 'ch4.emf', 'ch4.revf',
+                                 'ch4bs.chk', 'gchg', 'ghg.chg', 'ndc.key', 'ndc.typ', 'ndc.k', 'ndc.ty', 'ndc.alt',
+                                 'ndc.ref', 'ndc.x', 'ndc.lu', 'ndc.gas', 'ndc.co2', 'ndc.bs', 'ndc.bty', 'ndc.bi',
+                                 'ndc.hk', 'ndc.hh', 'ndc.hc', 'ndc.hv', 'ndc.h', 'ndc.gdp', 'ndc.hi', 'ndc.f', 'ndc.lv',
+                                 'ndc.r', 'ndc.lvl', 'ndc.idx', 'ndc.bau', 'ndc.red', 'ndc.gap', 'ndc.over'],
 }
 
 
@@ -59,7 +70,8 @@ def test_block_matches_excel_ai(results, block, scenarios):
     v = pd.read_csv(VARIABLES_CSV)
     stems = set({**BUILT, **BASELINE}[block])
     codes = {c[:-2] for c, var in zip(v['code'], v['variable']) if var in stems}          # without the scenario
-    expected = [c for c in ref.index if c[:-2] in codes and c[-1] in scenarios]
+    expected = [c for c in ref.index if c[:-2] in codes and c[-1] in scenarios
+                and ref.loc[c].notna().any()]           # rows with parameters only (no year values) are not results
     missing = sorted(set(expected) - set(results.index))
     assert not missing, missing[:20]
     report = compare(results.loc[expected], ref=ref)

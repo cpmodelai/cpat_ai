@@ -678,8 +678,18 @@ parts:
               \mathtt{prtx}, \mathtt{prsub}, \mathtt{prxc}, \mathtt{prnew}, \mathtt{prxl}, \mathtt{prrns}
             note: "Excel-AI notation: existing taxes and subsidies on power fuels, the new policy cost of generation less the free part of the ETS, existing carbon pricing, renewable subsidies."
             excel: "Mitigation section 3 (revenues)"
+          - id: A6.2
+            title: Revenue by policy instrument
+            kind: adjustment
+            greek: |
+              R^{ct} = \sum_e CO2^{cov}_e\,ct_e + R^{reb} + R^{xs}, \quad R^{ets} = \rho \sum_e CO2_e\,etr_e, \quad R^{exi} = R - R^{mf} - R^{ct} - R^{exc} - R^{vat} - R^{ets} - R^{psu} - R^{ren}
+            codes: |
+              \mathtt{covct}_e = \textstyle\sum_f \mathtt{co2}_{e,f}\,\mathtt{ctcov}_f\,[\mathtt{ctr}_e > 0], \ \mathtt{rpol}_{ct,exc,exi,vat,ets,psu,ren,mf,trs,ctp,etp,tot}, \ \mathtt{rfu}_f, \ \mathtt{rfg}_{pow,f}, \ \mathtt{rpct} = R / GDP
+            over: "coverage sectors $e$, fuels $f$, years $t$"
+            note: "Excel-AI notation (Mitigation section 12). Carbon tax on covered CO2 (power: coal, gas, oil), electricity rebates and excise surplus; excises net of the power carbon tax and ETS; VAT; ETS at the auctioned share $\\rho$; producer subsidies and the power subsidy gap; renewable subsidies; the methane fee; existing taxes as the remainder. Revenue by fuel and by power fuel; shares of GDP; nominal GDP from WEO divided by Billion (the WEO values are already in billions)."
+            excel: "Mitigation section 12; covct section 17"
       - title: "A7 Emissions"
-        text: "To complete: CO2 calibration factor (E77, off by default; baseline pass, spec D15); ETS check (E79); combustion CH4; methane from fuel production with abatement ($red = A\\,mf^{B}$); energy-CH4 calibration; N2O scaled to CO2; IPPU, agriculture, LULUCF, waste and other (methodology Emissions); local air pollutants by sector (section 15, E87-E90)."
+        text: "To complete: local air pollutants by sector (section 15, E87-E90)."
         equations:
           - id: A7.1
             title: Emission factors of the country
@@ -691,6 +701,36 @@ parts:
             over: "fuels $f$, EF sectors $s$ (power, road, residential, industry; jet fuel in aviation)"
             note: "Excel-AI notation. Some rows read another fuel or sector ($f'$, $s'$); jet fuel takes the IEA factor, biomass 0. The calibration factor $\\chi$ uses Excel-AI's stored scenario-1 CO2 (user 2026-10-29). Other combustion pollutants (GAINS, t/ktoe): country, else region, else world, else 0; other energy use the largest factor of the fuel across the subsectors above it (issue I149)."
             excel: "Inputs rows 273-312, 933-1471; Settings C26-C30"
+          - id: A7.2
+            title: Greenhouse gases by UNFCCC category
+            kind: adjustment
+            greek: |
+              E_{c,g,t} = \begin{cases} \text{inventory}_{c,g,t} & t \le t^{inv} \\ E_{c,g,t-1}\,d_{c,t} & \text{otherwise} \end{cases}, \quad d_{c,t} = (1 + g^{pc}_t)^{\epsilon^{Y}_c} (1 + n_t)^{\epsilon^{N}_c} \frac{m_t}{m_{t-1}}, \quad E_{enr,CH_4} = k\,(CH_4^{comb} + CH_4^{sup})\,GWP
+            codes: |
+              \mathtt{ghg}_{c,g}, \ \mathtt{ghg.dr}_c, \ \mathtt{ghg.k}_{enr,ch4}, \ \mathtt{ghg.flr}, \ \mathtt{ghg.m}, \ \mathtt{ghg.gi}, \ \mathtt{pop}, \ \mathtt{gdppc.g}
+            over: "categories $c$ (energy, industrial processes, agriculture, LULUCF, waste, other), gases $g$ (CO2, CH4, N2O, F-gases), years $t$"
+            note: "Excel-AI notation (Mitigation section 14). Energy CO2 is the model's plus flaring; energy CH4 is combustion and fuel-supply methane scaled to the inventory of the last inventory year (k, from the stored scenario-1 values); energy N2O follows energy CO2; industrial processes follow industrial energy CO2 (IndustrialProcessEmissionsScaleEner); agriculture, waste and other follow income and population with the non-energy elasticities ($m$: the ratio of CO2 to the baseline when AdditionMitigationPoliciesNonEnergy); agriculture and waste CH4 come from the methane block (A7.3); LULUCF CO2 declines by LULUCFAnnualEmissionsDecline of the inventory value while positive. Totals exclude LULUCF; ghg.inc includes it. Kaya rows (section 13) index population, GDP per capita, energy and carbon intensity to the base year."
+            excel: "Mitigation sections 13 (Kaya) and 14"
+          - id: A7.3
+            title: Methane by source and the methane fee
+            kind: adjustment
+            greek: |
+              a_{s,t} = \min(1, \max(0, A_s (mf_t\,GWP_s\,\iota_s)^{B_s})), \quad M_{s,t} = M_{s,0}\,\frac{X_{s,t}}{X_{s,0}}\,(1 - \delta_s)^{\max(0, t - t^{inv})}\,(1 - a_{s,t}), \quad R^{mf} = mf \sum_s M_s\,GWP_s\,\iota_s
+            codes: |
+              \mathtt{ch4.abt}_s, \ \mathtt{ch4.act}_s, \ \mathtt{ch4.int}_s, \ \mathtt{ch4.em}_s, \ \mathtt{ch4.prd}_f = \mathtt{ch4.prd}_{f,t-1}\,\mathtt{ch4.pi}_f^{\epsilon_f}\,\frac{WD_{f,t-1}}{WD_{f,t-2}}, \ \mathtt{ch4.rev}, \ \mathtt{ch4.revf}
+            over: "sources $s$ (oil and gas, downstream gas, coal mining, biomass, livestock, rice, waste), years $t$"
+            note: "Excel-AI notation (Mitigation section 14). Abatement curve $A, B$ by source (CH4Inputs); $\\iota_s$ whether the fee applies; activity: oil and gas and coal production (from the base year plus one, with world demand and the price response to the fee cost passed through), gas and biomass use, and income and population drivers for livestock, rice and waste; base emissions $M_{s,0}$ are the inventory CH4 of the last inventory year split by source shares (fuel sources capped by MethShareCap relative to activity). ch4.revf is the fee revenue with gas and biomass use of the stored baseline."
+            excel: "Mitigation section 14 (ch4.*)"
+          - id: A7.4
+            title: NDC target and gap
+            kind: adjustment
+            greek: |
+              L^{NDC} = \min(B_{ty}, B_{ty}(1 - r)), \quad r = 1 - \frac{\ell}{B^{NDC}_{ty}}, \quad gap_t = \frac{1 - E_t / E^{base}_t}{r}
+            codes: |
+              \mathtt{ndc.lvl}, \ \mathtt{ndc.r}, \ \mathtt{ndc.red}, \ \mathtt{ndc.gap}, \ \mathtt{ndc.over} = \mathtt{ghg.inc} - \mathtt{ndc.lvl}_{sel}
+            over: "years $t$"
+            note: "Excel-AI notation (Mitigation section 14, NDC rows; computed after the year loop because they read the baseline at the target year $ty$). The NDC row (Latest*, or the first or second round) gives the type (BAU, fixed, historical, intensity, unquantifiable), target years, reference year, unconditional and conditional changes, LULUCF and gas coverage; the level $\\ell$ by type; the reduction selected by Conditionality (average of the two where not chosen). Text rows and 'N/A' are not compared numerically."
+            excel: "Mitigation section 14 (ndc.*)"
       - title: "A8 GDP and results"
         text: "To complete: current account (R11); carbon-pricing indicators (section 17); welfare, externalities, subsidies and efficient prices (section 18; methodology: efficiency cost $ddw = \\tfrac{1}{2}(nc - xcp)(F_P - F_B)$)."
 
