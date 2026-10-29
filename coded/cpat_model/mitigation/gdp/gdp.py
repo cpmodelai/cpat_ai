@@ -59,18 +59,18 @@ class GDP:
         self.__set_population(input_data.gdp_data_country_filtered, simulation_years)
         self.__set_population_growth()
         self.__set_inflation_index(input_data.pcpi_world, simulation_years)
-        self.__set_inflation_index_100(d['results_year'])
+        self.__set_inflation_index_100(d['ResultsYear'])
 
         self.__set_ngdp_d(input_data.gdp_data_country_filtered, input_data.gdp_countries_in_data)
         self.__project_ngdp_d(simulation_years)
         self.__set_ngdp_d_world(input_data.ngdp_d_world, simulation_years)
-        self.__set_deflator(d['results_year'], d['deflator_selection'])
+        self.__set_deflator(d['ResultsYear'], d['DfSelection'])
 
         self.__init_ngdp_rpch(
             input_data.gdp_data_country_filtered, input_data.gdp_countries_in_data
         )
         self.__project_ngdp_rpch(simulation_years)
-        self.__set_d_gdp_at_const_prices(d['gdp_adj'])
+        self.__set_d_gdp_at_const_prices(d['GdpAdj'])
 
     def __set_population(
             self,

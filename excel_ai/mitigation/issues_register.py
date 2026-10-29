@@ -9,7 +9,7 @@ workbook sheet LegacyDiff, row number), U = potential upgrade (priority High / M
 """
 import build as B
 
-REGISTER_VERSION = '8.3'   # version of the Word/JSON register (user 2026-10-22); the workbook stays at B.VERSION
+REGISTER_VERSION = B.VERSION   # v8.4: the register documents carry the workbook version (user 2026-10-28)
 
 BUGS = [  # key, title, legacy rows, what legacy does, what it should do, why it matters
     ('services', 'Services electricity demand grows with the industrial multiple after 2023', 'H3, row 3731',
@@ -471,76 +471,76 @@ LEGACY += [
 ]
 
 # v4.15: the distribution module (legacy sheet Distribution; Methods, chapter Distribution sections 3-5). Bugs are fixed
-# in the prototype (v4.4); the issues are replicated (DI1-DI6) or not modelled yet (DI7-DI10).
+# in the prototype (v4.4); the issues are replicated (I76-I80) or not modelled yet (I81-I84).
 DIST_BUGS = [  # id, title, where, what legacy does, status
-    ('D1', 'Targeted transfer capped at 10 points, not the decile\'s population share', 'Distribution R2562:Z2562',
+    ('L138', 'Targeted transfer capped at 10 points, not the decile\'s population share', 'Distribution R2562:Z2562',
      'The targeted share of a decile is capped at 10 percentage points instead of its population share: 105.6% of '
      'decile 2 receives the transfer.', 'Fixed (v4.4): capped at the decile\'s population share.'),
-    ('D2', 'Basket uses decile 1\'s elasticity adjustment and exemption test', 'Distribution C.V, C.VI (e.g. Q1607)',
+    ('L139', 'Basket uses decile 1\'s elasticity adjustment and exemption test', 'Distribution C.V, C.VI (e.g. Q1607)',
      'The all-household basket takes the elasticity adjustment and the exemption test of decile 1.',
      'Fixed (v4.4): the basket elasticity, never exempt.'),
-    ('D3', 'Current spending tests the ASPIRE flag of the targeted transfer', 'Distribution Q2633', 'Current spending '
+    ('L140', 'Current spending tests the ASPIRE flag of the targeted transfer', 'Distribution Q2633', 'Current spending '
      'reads the ASPIRE flag of the targeted transfer (I213) instead of its own (I214).', 'Fixed (v4.4): no flag; the '
      'ASPIRE programme of the chosen type, 0 if absent.'),
-    ('D4', 'Public investment and current spending vanish with the transfer settings', 'Distribution rows 2701-2707',
+    ('L141', 'Public investment and current spending vanish with the transfer settings', 'Distribution rows 2701-2707',
      'Public investment and current spending are 0 when the transfer coverage or percentile is 0.', 'Fixed (v4.4): '
      'independent of the transfer settings.'),
-    ('D5', 'Targeted exemption capped by all revenue; urban and rural not per capita', 'Distribution Q2749', 'The '
+    ('L142', 'Targeted exemption capped by all revenue; urban and rural not per capita', 'Distribution Q2749', 'The '
      'targeted exemption is capped by all carbon-pricing revenue (I154) instead of the PIT share (I163); urban and rural '
      'values are not per capita.', 'Fixed (v4.4): capped by the PIT revenue; per capita in every sample.'),
-    ('D6', 'Urban and rural compensation shares on overall weights', 'Distribution Q3259, Q3263', 'The urban and rural '
+    ('L143', 'Urban and rural compensation shares on overall weights', 'Distribution Q3259, Q3263', 'The urban and rural '
      'compensation shares divide by overall consumption weights (they sum to 52 and 47).', 'Fixed (v4.4): each '
      'sample\'s own weights, each summing to 100.'),
-    ('D7', 'Deadweight loss in mixed units', 'Distribution rows 859-883', 'The deadweight loss is a price fraction '
+    ('L144', 'Deadweight loss in mixed units', 'Distribution rows 859-883', 'The deadweight loss is a price fraction '
      'subtracted from a % of consumption.', 'Fixed (v4.4): DWLTri x (1 - factor) x the effect, in the same units.'),
-    ('D8', 'Analysis year and statistic read MTInputs column D', 'MTOutputs rows 1001-1002', 'dist.year and dist.stat '
+    ('L145', 'Analysis year and statistic read MTInputs column D', 'MTOutputs rows 1001-1002', 'dist.year and dist.stat '
      'read MTInputs column D, which is 0 in dashboard mode.', 'Fixed (v4.4): the analysis year and statistic of the '
      'scenario group.'),
-    ('D9', 'Rural rows labelled Urban; fuel code oil vs oop', "Distribution H2417, H2422 (456 numbering; DeepDive cites 2416, 2421): '... - Urban Sample' on rows computed from the rural rows 2402, 2407, 2412; C.II row 746 code 'oil' against price rows 774 and 804 'oop'",
+    ('L146', 'Rural rows labelled Urban; fuel code oil vs oop', "Distribution H2417, H2422 (456 numbering; DeepDive cites 2416, 2421): '... - Urban Sample' on rows computed from the rural rows 2402, 2407, 2412; C.II row 746 code 'oil' against price rows 774 and 804 'oop'",
      'Post-CP consumption rows of the rural sample carry the urban label; the elasticity and price rows of other oil products use different codes and are paired by row position only.',
      'Fixed in the prototype (v5.1 register; own labels, rural and urban rows by key; one code oop paired by code).'),   # v5.1: from the team tracker (Mit+Disn_DeepDive Dist 1, Dist 2)
-    ('D10', 'ASPIRE transfer pays out more than the revenue', 'Distribution row 2629 (-> 2697-2699)', 'Per capita = scale x benefit x [decile targeted], with the scale computed over actual receivers: partly targeted deciles get the full benefit, leakage deciles none; 125-129% of the funds are paid out for Egypt.', 'Fixed (v6.0): transfer = revenue x benefit x share receiving / sum over deciles (payout = revenue).'),   # v6.0
-    ('D11', 'ASPIRE program without country data: the transfer vanishes', 'Distribution row 2617, I213', 'A program with no data gives a zero scale, so the transfer share of revenue silently disappears (no IFERROR).', 'Fixed (v6.0): cash used and the settings check says so.'),   # v6.0
-    ('D12', 'ASPIRE branch skips the median flag and the zero-coverage test', 'Distribution row 2697', 'Parenthesisation: the ASPIRE branch is outside the flag and the coverage/percentile test.', 'Fixed (v6.0): one formula for every targeting mode.'),   # v6.0
-    ('D13', 'Public investment and current spending use the targeted-transfer median flag', 'Distribution rows 2701-2707', 'Under the median statistic, public investment for deciles 5-10 is zeroed by the transfer flag.', 'Fixed (v6.0): the flag applies to the targeted transfer only.'),   # v6.0
-    ('D14', 'Poverty targeting: share receiving ignores targeting, coverage and leakage', 'Distribution row 2679', 'The share receiving is the share below the line, while the amounts use receivers x poor.', 'Fixed (v6.0): share receiving = receiving x below the line.'),   # v6.0
-    ('D15', 'Poverty targeting: urban and rural pay out about half of the funds', 'Distribution rows 2650-2674', 'Sample poverty shares x the overall receiving share x the overall amount: urban plus rural recipients are about 52% of the overall ones.', 'Fixed (v6.0): urban and rural per capita = the overall per capita (issue DI4).'),   # v6.0
-    ('D16', 'Poverty share x 10 assumes deciles of 10%', 'Distribution row 2649', 'Decile 2 gives 111% (capped at 100 by MIN).', 'Kept with the cap (data limitation; noted).'),   # v6.0
-    ('D17', 'ASPIRE values converted without a PPP factor', 'Distribution row 2618, I220-I223', 'PPP $ per day become "real LCU" by a deflator ratio only; the data year is unused. Displays only (the scale cancels).', 'Fixed (v6.0): rows labelled PPP $ per day; no conversion.'),   # v6.0
-    ('D18', 'Horizontal p25/p75 effects inflated', 'Distribution rows 3188-3206', 'Effect x (1 + effect / other effect): Egypt decile 1 p75 -3.09 becomes -6.77.', 'Fixed (v6.0): effect = price factors x the budget shares of the percentile x loss scale.'),   # v6.0
-    ('D19', 'Horizontal "chosen statistic" recycling divides by median consumption', 'Distribution rows 3193, 3201, 3209', 'Hard-coded .median.', 'Fixed (v6.0): the recycling row of the chosen statistic.'),   # v6.0
-    ('D20', 'Decile brackets always divided by 1000', 'Distribution row 2774', 'Relative reference instead of $G$2771.', 'Fixed (v6.0): no scaling; brackets in local currency.'),   # v6.0
-    ('D21', 'Decile bracket labels unusable', 'Distribution rows 2775-2784', 'Appends "0" when not in thousands; one significant digit gives "10k-10k"; survey-year values.', 'Fixed (v6.0): real local currency of the analysis year (survey value x consumption adjustment), full numbers.'),   # v6.0
-    ('D22', 'Sector table "ordered by demand" sorts each column independently', 'Distribution rows 3300-3310', 'LARGE per column: output and exports do not belong to the sector named.', 'Fixed (v6.0): one rank per sector; values read by rank.'),   # v6.0
-    ('D23', 'Ordered sector tables show 11 of 12 sectors', 'Distribution rows 3300-3323', '11 rows for 12 sectors.', 'Fixed (v6.0): every sector listed.'),   # v6.0
-    ('D24', 'Chemicals and power missing from the CPAT-sector table', 'Distribution rows 3285-3296', 'The most affected sector (chemicals) drops out of the CPAT-sector charts and shares.', 'Fixed (v6.0): 14 sectors, chemicals and power included.'),   # v6.0
-    ('D25', 'Chart 19 labels ranked separately from their values; ties', 'Distribution row 3313', 'Labels ranked by one column, values by another; MATCH on equal values returns the first sector twice.', 'Fixed (v6.0): one ranking; ties broken by order.'),   # v6.0
-    ('D26', 'Pass-through coefficients one row off', 'Distribution G659:BR659', 'Every sector gets the coefficient of the next row; power has none.', "Fixed (v6.0): coefficient of the sector's own row; power 1."),   # v6.0
-    ('D27', 'MTOutputs outpriin labels do not match their values', 'MTOutputs K1048:L1058', "Fixed labels read the sorted rows (outpriin.avi = iron and steel's value).", 'Fixed (v6.0): outpriin by sector code.'),   # v6.0
-    ('D28', 'MTOutputs codes without a dot', 'MTOutputs E1006, E1013', 'egydistn.cts..., egydistn.rec...', 'Not replicated: the prototype writes the right codes.'),   # v6.0
-    ('D29', 'MTOutputs ppic.fuel empty', 'MTOutputs K1046', 'Blank cell.', 'Fixed (v6.0): the fuel transformation sector is read (0).'),   # v6.0
-    ('D30', 'Lorenz equality line in 10% steps', 'Distribution rows 2455-2457, 3109', 'The x-axis is the actual cumulative population share.', 'Fixed (v6.0): equality line = cumulative population share.'),   # v6.0
-    ('D31', 'Absolute overall rows carry wrong codes', 'Distribution L3036:L3043', 'Codes bsh.ely.dec.rur... on overall rows (labels only).', 'Not replicated: the prototype builds codes from the row ids.'),   # v6.0
+    ('L147', 'ASPIRE transfer pays out more than the revenue', 'Distribution row 2629 (-> 2697-2699)', 'Per capita = scale x benefit x [decile targeted], with the scale computed over actual receivers: partly targeted deciles get the full benefit, leakage deciles none; 125-129% of the funds are paid out for Egypt.', 'Fixed (v6.0): transfer = revenue x benefit x share receiving / sum over deciles (payout = revenue).'),   # v6.0
+    ('L148', 'ASPIRE program without country data: the transfer vanishes', 'Distribution row 2617, I213', 'A program with no data gives a zero scale, so the transfer share of revenue silently disappears (no IFERROR).', 'Fixed (v6.0): cash used and the settings check says so.'),   # v6.0
+    ('L149', 'ASPIRE branch skips the median flag and the zero-coverage test', 'Distribution row 2697', 'Parenthesisation: the ASPIRE branch is outside the flag and the coverage/percentile test.', 'Fixed (v6.0): one formula for every targeting mode.'),   # v6.0
+    ('L150', 'Public investment and current spending use the targeted-transfer median flag', 'Distribution rows 2701-2707', 'Under the median statistic, public investment for deciles 5-10 is zeroed by the transfer flag.', 'Fixed (v6.0): the flag applies to the targeted transfer only.'),   # v6.0
+    ('L151', 'Poverty targeting: share receiving ignores targeting, coverage and leakage', 'Distribution row 2679', 'The share receiving is the share below the line, while the amounts use receivers x poor.', 'Fixed (v6.0): share receiving = receiving x below the line.'),   # v6.0
+    ('L152', 'Poverty targeting: urban and rural pay out about half of the funds', 'Distribution rows 2650-2674', 'Sample poverty shares x the overall receiving share x the overall amount: urban plus rural recipients are about 52% of the overall ones.', 'Fixed (v6.0): urban and rural per capita = the overall per capita (issue I78).'),   # v6.0
+    ('L153', 'Poverty share x 10 assumes deciles of 10%', 'Distribution row 2649', 'Decile 2 gives 111% (capped at 100 by MIN).', 'Kept with the cap (data limitation; noted).'),   # v6.0
+    ('L154', 'ASPIRE values converted without a PPP factor', 'Distribution row 2618, I220-I223', 'PPP $ per day become "real LCU" by a deflator ratio only; the data year is unused. Displays only (the scale cancels).', 'Fixed (v6.0): rows labelled PPP $ per day; no conversion.'),   # v6.0
+    ('L155', 'Horizontal p25/p75 effects inflated', 'Distribution rows 3188-3206', 'Effect x (1 + effect / other effect): Egypt decile 1 p75 -3.09 becomes -6.77.', 'Fixed (v6.0): effect = price factors x the budget shares of the percentile x loss scale.'),   # v6.0
+    ('L156', 'Horizontal "chosen statistic" recycling divides by median consumption', 'Distribution rows 3193, 3201, 3209', 'Hard-coded .median.', 'Fixed (v6.0): the recycling row of the chosen statistic.'),   # v6.0
+    ('L157', 'Decile brackets always divided by 1000', 'Distribution row 2774', 'Relative reference instead of $G$2771.', 'Fixed (v6.0): no scaling; brackets in local currency.'),   # v6.0
+    ('L158', 'Decile bracket labels unusable', 'Distribution rows 2775-2784', 'Appends "0" when not in thousands; one significant digit gives "10k-10k"; survey-year values.', 'Fixed (v6.0): real local currency of the analysis year (survey value x consumption adjustment), full numbers.'),   # v6.0
+    ('L159', 'Sector table "ordered by demand" sorts each column independently', 'Distribution rows 3300-3310', 'LARGE per column: output and exports do not belong to the sector named.', 'Fixed (v6.0): one rank per sector; values read by rank.'),   # v6.0
+    ('L160', 'Ordered sector tables show 11 of 12 sectors', 'Distribution rows 3300-3323', '11 rows for 12 sectors.', 'Fixed (v6.0): every sector listed.'),   # v6.0
+    ('L161', 'Chemicals and power missing from the CPAT-sector table', 'Distribution rows 3285-3296', 'The most affected sector (chemicals) drops out of the CPAT-sector charts and shares.', 'Fixed (v6.0): 14 sectors, chemicals and power included.'),   # v6.0
+    ('L162', 'Chart 19 labels ranked separately from their values; ties', 'Distribution row 3313', 'Labels ranked by one column, values by another; MATCH on equal values returns the first sector twice.', 'Fixed (v6.0): one ranking; ties broken by order.'),   # v6.0
+    ('L163', 'Pass-through coefficients one row off', 'Distribution G659:BR659', 'Every sector gets the coefficient of the next row; power has none.', "Fixed (v6.0): coefficient of the sector's own row; power 1."),   # v6.0
+    ('L164', 'MTOutputs outpriin labels do not match their values', 'MTOutputs K1048:L1058', "Fixed labels read the sorted rows (outpriin.avi = iron and steel's value).", 'Fixed (v6.0): outpriin by sector code.'),   # v6.0
+    ('L165', 'MTOutputs codes without a dot', 'MTOutputs E1006, E1013', 'egydistn.cts..., egydistn.rec...', 'Not replicated: the prototype writes the right codes.'),   # v6.0
+    ('L166', 'MTOutputs ppic.fuel empty', 'MTOutputs K1046', 'Blank cell.', 'Fixed (v6.0): the fuel transformation sector is read (0).'),   # v6.0
+    ('L167', 'Lorenz equality line in 10% steps', 'Distribution rows 2455-2457, 3109', 'The x-axis is the actual cumulative population share.', 'Fixed (v6.0): equality line = cumulative population share.'),   # v6.0
+    ('L168', 'Absolute overall rows carry wrong codes', 'Distribution L3036:L3043', 'Codes bsh.ely.dec.rur... on overall rows (labels only).', 'Not replicated: the prototype builds codes from the row ids.'),   # v6.0
 ]
 DIST_ISSUES = [  # id, title, description, status
-    ('DI1', 'Spending in the base year', 'Fuel spending is taken in the base year (legacy: the first calculation year), '
+    ('I76', 'Spending in the base year', 'Fuel spending is taken in the base year (legacy: the first calculation year), '
      'with the price changes of the analysis year.', 'Replicated'),
-    ('DI2', 'GTAP values converted with the local GDP deflator', 'The GTAP input-output values are converted with the '
+    ('I77', 'GTAP values converted with the local GDP deflator', 'The GTAP input-output values are converted with the '
      'local GDP deflator (legacy I244).', 'Replicated'),
-    ('DI3', 'Elasticities always overall, mean', 'The data have no other statistics or samples.', 'Replicated'),
-    ('DI4', 'Recycled amounts per capita from the overall sample', 'Applied to urban and rural consumption alike.',
+    ('DI8', 'Elasticities always overall, mean', 'The data have no other statistics or samples.', 'Replicated'),
+    ('I78', 'Recycled amounts per capita from the overall sample', 'Applied to urban and rural consumption alike.',
      'Replicated'),
-    ('DI5', 'Gini from a fitted Lorenz curve', 'The Gini comes from the fitted curve, not the trapezoid rule.',
+    ('I79', 'Gini from a fitted Lorenz curve', 'The Gini comes from the fitted curve, not the trapezoid rule.',
      'Replicated'),
-    ('DI6', 'Carbon-pricing revenue stands for the revenue to recycle', 'Revenue from new policies (rnew: carbon tax, '
+    ('I80', 'Carbon-pricing revenue stands for the revenue to recycle', 'Revenue from new policies (rnew: carbon tax, '
      'VAT on it, auctioned ETS) is the revenue recycled, as legacy\'s carbon-pricing revenue.', 'Replicated'),
-    ('DI7', 'ASPIRE-targeted transfers (TransferType other than Cash)', 'Modelled v6.0: the transfer follows the '
-     'program\'s incidence by quintile (legacy rows 2617-2629; bugs D10-D12 fixed).', 'Replicated (v6.0)'),
-    ('DI8', 'Poverty-line targeting (TargetBelow, with Cash only)', 'Modelled v6.0: the transfer weights each decile by '
-     'its share below the line (HHSurvey pct_belowpl_*, mean as legacy; bugs D14-D16).', 'Replicated (v6.0)'),
-    ('DI9', 'Pass-through switch wired into the production-sector prices only', 'PassthroughDist scales the sector '
-     'price changes (legacy D.VI, bug D26 fixed), not the household effects, as legacy.', 'Replicated (v6.0)'),
-    ('DI10', 'Median statistic: the targeted transfer only reaches deciles where more than half receive', 'Modelled '
+    ('I81', 'ASPIRE-targeted transfers (TransferType other than Cash)', 'Modelled v6.0: the transfer follows the '
+     'program\'s incidence by quintile (legacy rows 2617-2629; bugs L147-L149 fixed).', 'Replicated (v6.0)'),
+    ('I82', 'Poverty-line targeting (TargetBelow, with Cash only)', 'Modelled v6.0: the transfer weights each decile by '
+     'its share below the line (HHSurvey pct_belowpl_*, mean as legacy; bugs L151-L153).', 'Replicated (v6.0)'),
+    ('I83', 'Pass-through switch wired into the production-sector prices only', 'PassthroughDist scales the sector '
+     'price changes (legacy D.VI, bug L163 fixed), not the household effects, as legacy.', 'Replicated (v6.0)'),
+    ('I84', 'Median statistic: the targeted transfer only reaches deciles where more than half receive', 'Modelled '
      'v6.0 (legacy row 2685): the money not paid is not redistributed, as legacy.', 'Replicated (v6.0)'),
 ]
 
@@ -598,7 +598,7 @@ ISSUES = [  # id, title, description, where it is documented
      'LAMBDA year and needs Excel 365.', 'README; NORMS (LAMBDA year)'),
     ('I3', 'New sector | fuel pairs need a label', 'A new pair on Mitigation needs a row in the member-label table on '
      'Mapping, or its description shows #N/A (20 spare rows in the defined name).', 'CAVEATS v1.08'),
-    ('I4', 'Price vintage: data prices end in 2022, as legacy', 'The last historical price year is 2022 (Settings C10, '
+    ('DI1', 'Price vintage: data prices end in 2022, as legacy', 'The last historical price year is 2022 (Settings C10, '
      'v3.7), as legacy, whose prices stay near their 2022 USD level. The IMF dataset also holds 2023-2024, when Egypt '
      'prices fell sharply in USD after the devaluation (gasoline 0.60 to 0.34 $/l); with C10 = 2024, fuel use and '
      'electricity demand jump in 2023 and the gap to legacy fuel use grows from 17% to 46%. Demand responds to real '
@@ -618,12 +618,12 @@ ISSUES = [  # id, title, description, where it is documented
     ('I11', 'Changing the last historical price year', 'Prices have separate history and projection blocks; changing '
      'Settings C10 needs the blocks re-dragged (or the LAMBDA of the row, sheet Lambdas, copied left over the row).', 'README'),
     ('I12', 'Values after 2030', 'Not a legacy target; the legacy CPI is held flat after 2031.', 'LegacyDiff'),
-    ('I13', 'Data for other countries: proprietary tables are Egypt only', 'The model is country-generic (Settings C4) and every public '
+    ('DI2', 'Data for other countries: proprietary tables are Egypt only', 'The model is country-generic (Settings C4) and every public '
      'table holds all countries, but the legacy proprietary tables (Balances, EnergyCons, EF_PM, IO_GTAP, HHSurvey, ASPIRE, WHOCooking) of the '
      'NoPropData file hold Egypt only. Next: paste the full tables (full legacy file or the CPAT data pipeline), rebuild BaselineCO2 for scenario 1, '
      'test a second country end to end (was a TODO item; user 2026-10-19).', 'README'),
     ('I14', 'Distance to the legacy cached baseline', 'The prototype baseline differs from the cached legacy run, mainly '
-     'through the fuel-use shock (I22), jet fuel (I19), the electricity price data (I20) and the fixed legacy bugs.',
+     'through the fuel-use shock (DI4), jet fuel (I19), the electricity price data (DB3) and the fixed legacy bugs.',
      'legacy_comparison_v6_4.md'),
     ('I15', 'Subsidy rows changed sign in v2.4', 'esub, esubpu, rsub, prsub, sgap and rgap are negative from v2.4 (net '
      'existing revenue rnet = rtx + rsub, unchanged in value). Outputs stored with v2.3 or earlier have the opposite '
@@ -631,20 +631,20 @@ ISSUES = [  # id, title, description, where it is documented
     ('I16', 'A new block needs its label row', 'Every block of rows on Mitigation has a label row above it (D:G '
      'parameter names from Variables G:J). Copy the label row with the block; a new variable needs its labels in '
      'Variables G:J.', 'ReadMe (Layout and roll-up)'),
-    ('I17', 'Egypt GHG inventory: energy CH4 breaks after 2021', 'Sheet GHGs (legacy data) gives energy CH4 of 21.9 '
+    ('DI3', 'Egypt GHG inventory: energy CH4 breaks after 2021', 'Sheet GHGs (legacy data) gives energy CH4 of 21.9 '
      'Mt CO2e in 2021 and 1.9-2.0 in 2022-2024, while the fugitive-emissions memo alone is 20.3 in 2023: the years come '
      'from different sources. Section 14 calibrates to the last inventory year (2024, as legacy), so energy CH4 and '
      'the fuel-supply methane may be understated by about 19 Mt CO2e.', 'Methods, chapter Emissions (Data); CAVEATS v2.8'),
     ('I18', 'GHG totals use energy CO2 without inventory adjustment (resolved v3.2)', 'Energy CO2 in section 14 was '
      'section 13 (IIASA EFs, no adjustment to the inventory) plus flaring: 225 Mt in 2022 against 252 Mt in the '
      'inventory. v3.2: every CO2 EF is calibrated to the inventory of GHGYear (Settings EFCalib), so 2024 matches; '
-     '2022 stays below the 2022 inventory because of the 2021-2022 inventory break (I17).',
+     '2022 stays below the 2022 inventory because of the 2021-2022 inventory break (DI3).',
      'Methods, chapter Emissions; CAVEATS v3.2'),
     # v3.7: every major departure from legacy (other than a bug fix) and every major open problem is an issue
     ('I19', 'Jet fuel (replicated v3.11)', 'Legacy domestic aviation burns jet fuel (707 ktoe in 2022). Since v3.11 the prototype '
      'has the fuel jfu (aviation only, kerosene price build-up, legacy EF row 1011, kerosene carbon-tax coverage '
      'switch); the legacy comparison includes it.', 'Reviews_and_Surveys.md (section Sector_Equations_Survey) D1; CAVEATS v3.11'),
-    ('I20', 'Electricity price data differ from legacy', 'The corrected Egypt block supplied by the user (2026-10-09) '
+    ('DB3', 'Electricity price data differ from legacy', 'The corrected Egypt block supplied by the user (2026-10-09) '
      'gives residential 0.054, 0.048, 0.043 $/kWh nominal for 2022-2024; the legacy vintage has 0.097 in 2022. '
      'Electricity prices, power demand and the subsidy gap differ from legacy.', 'Methods, chapter Power; '
      'LegacyDiff'),
@@ -653,7 +653,7 @@ ISSUES = [  # id, title, description, where it is documented
      'benchmarks by sector group typed on Constants (v1.02), so an MTInputs auctioned share had no effect; since v4.15 '
      'the benchmarks are 1 - the MTInputs share of the scenario (user 2026-10-18), as legacy. Benchmarks by sector '
      '(output-based) come later.', 'Methods, chapter ETS; Methods, chapter ETS; LegacyDiff'),
-    ('I22', 'Fuel-use shock of 2023-2024 (replicated v3.11)', 'Every legacy fuel row multiplies by (1 + shock), row 2439 = '
+    ('DI4', 'Fuel-use shock of 2023-2024 (replicated v3.11)', 'Every legacy fuel row multiplies by (1 + shock), row 2439 = '
      'row 483 ("Covid factor"): -20.8% in 2023, +9.2% in 2024, so fuel use is 13.5% lower from 2024 on. Replicated in '
      'v3.11 for fuels (header row 11) and power demand, switch Settings C19 on. Open questions kept: the label "Covid '
      'factor" does not fit 2023, legacy documents the effect as "Small", and the source of the two values is unknown.',
@@ -704,11 +704,11 @@ ISSUES = [  # id, title, description, where it is documented
      'carbon taxes, fuel excises and permit prices only. The prototype replicates the legacy definition (section 17, v3.15) '
      'and says so in the note; Egypt has negative rates (subsidies exceed taxes).', 'Methods, chapter Macro and results; '
      'CAVEATS v3.15'),
-    ('I37', 'Primary energy of renewables: efficiencies not exactly 1', 'Legacy power data give wind, solar and hydro '
+    ('DI5', 'Primary energy of renewables: efficiencies not exactly 1', 'Legacy power data give wind, solar and hydro '
      'efficiencies of 1.004, 1.026 and 0.937, so their primary energy (generation / efficiency) differs from the '
      'physical energy content convention (1); solar shows more output than input. It enters total primary energy '
      'supply (Kaya, v3.18) and the power fuel totals; about 0.1% of TPES for Egypt.', 'Methods, chapter Macro and results'),
-    ('I38', 'Legacy\'s stored run: wind and solar capex time factors 2039-2041 differ from its Power tab', 'Legacy '
+    ('DI6', 'Legacy\'s stored run: wind and solar capex time factors 2039-2041 differ from its Power tab', 'Legacy '
      'Mitigation reads the capital cost time factors of wind and solar from the Power tab; its cached values for '
      '2039-2041 (wind 0.920, 0.915, 0.909) disagree with the cached Power cells they reference (0.923, 0.920, 0.918), '
      'apparently a stale cache in the distributed file. Since v4.7 the prototype computes the factors from the Power tab by '
@@ -777,18 +777,18 @@ ISSUES = [  # id, title, description, where it is documented
      '(2026-10-09); was upgrade U12.', 'Methods, chapter Prices; TODO'),   # user 2026-10-19
     ('I63', 'Demand responds to real USD prices, not real local-currency prices', 'As legacy, fuel and electricity demand respond '
      'to prices in real USD. Under a devaluation the two diverge (Egypt gasoline 2022-2024: about -15% in real EGP against -42% in '
-     'real USD), so demand responds to a price fall households do not see. Parked by the user (2026-10-09); related to I4 and U3.',
+     'real USD), so demand responds to a price fall households do not see. Parked by the user (2026-10-09); related to DI1 and U3.',
      'Methods, chapter Prices; TODO'),   # user 2026-10-19
-    ('I64', 'Combustion emission factor paths missing (GAINS, proprietary)', 'Legacy reads GAINS combustion factor paths by year; '
+    ('DB1', 'Combustion emission factor paths missing (GAINS, proprietary)', 'Legacy reads GAINS combustion factor paths by year; '
      'in the NoPropData file they are zero (proprietary). The prototype uses the GAINS base and final factors (EF_PM), linear to EFEndYear (2039), '
      'flat after (LegacyDiff LD47). Combustion CH4 is scaled to the inventory by the calibration. Data issue: no legacy formula is wrong.',
      'Methods, chapter Emissions; LegacyDiff'),   # user 2026-10-19
-    ('I65', 'Blank VAT cells in the IMF price dataset', 'Some VAT cells of the IMF price dataset are blank; legacy then uses 0. '
+    ('DB2', 'Blank VAT cells in the IMF price dataset', 'Some VAT cells of the IMF price dataset are blank; legacy then uses 0. '
      'The prototype fills blank cells with the general VAT rate (VAT_WEO) for residential coal and gas and all-sector oil products, 0 for power, '
      'industry and biomass (LegacyDiff LD3). None for Egypt since v0.14 (corrected data fill every VAT cell). Data issue.',
      'Methods, chapter Prices; LegacyDiff'),   # user 2026-10-19
-    ('I67', 'Intensity NDC: China CO2 hard-coded', "Legacy row 18449 H uses 5665 (Mt CO2) for China instead of the data (row 889). The prototype reads sheet GHGHist (or the model where the reference year is modelled); China's latest NDC is a Historical target (ref 2024, modelled), so the value is not used.", 'Methods, chapter Emissions'),   # v5.7
-    ('I68', 'NDC reference years outside the data', 'Historical emissions (sheet GHGHist, legacy GHGs rows 954-1189) cover 1990, 2000, 2005, 2007, 2010, 2013, 2014 and 2017 (CO2 to 2020); real GDP (WEO) starts later. A Historical or Intensity NDC with another reference year, or an Intensity NDC with an early reference year (India 2005), gives N/A (legacy #N/A or a wrong cell, L123). Data to extend when the NDC module is used.', 'Methods, chapter Emissions'),   # v5.7
+    ('L169', 'Intensity NDC: China CO2 hard-coded', "Legacy row 18449 H uses 5665 (Mt CO2) for China instead of the data (row 889). The prototype reads sheet GHGHist (or the model where the reference year is modelled); China's latest NDC is a Historical target (ref 2024, modelled), so the value is not used.", 'Methods, chapter Emissions'),   # v5.7
+    ('DI7', 'NDC reference years outside the data', 'Historical emissions (sheet GHGHist, legacy GHGs rows 954-1189) cover 1990, 2000, 2005, 2007, 2010, 2013, 2014 and 2017 (CO2 to 2020); real GDP (WEO) starts later. A Historical or Intensity NDC with another reference year, or an Intensity NDC with an early reference year (India 2005), gives N/A (legacy #N/A or a wrong cell, L123). Data to extend when the NDC module is used.', 'Methods, chapter Emissions'),   # v5.7
     ('I69', 'Air-pollution co-benefits (health, mortality) not built', 'Legacy computes air-pollution mortality and its valuation from fuel use (sheets AP and the Mitigation co-benefit rows). The prototype keeps local pollutant emissions (section 15) only. Dropped by the user (2026-10-20); the plan stays for reference.', 'excel_ai/plans/Air_pollution.md'),   # v6.1
     ('I70', 'Transport externalities (congestion, accidents, road damage) not built', 'Legacy values the transport externalities of road fuel use and vehicle-km. Not in the prototype. Dropped by the user (2026-10-20); the plan stays for reference.', 'excel_ai/plans/Transport_cobenefits.md'),   # v6.1
     ('I71', 'Fuel use grows with total GDP: population gets the income elasticity', 'Legacy updates fuel use each year with GDP growth raised to the income elasticity (x the income factor), next to the price and efficiency terms (CPAT equation 3.3.3; legacy row 2433). Total GDP growth mixes per-capita income growth with population growth, so population growth acts through the income elasticity (typically below 1) instead of an exponent of about 1, and its effect is entangled with the price elasticities in the same multiplicative update. Replicated as legacy. High priority (user 2026-10-20).', 'Equations.md E53-E56; Methods, chapter Prices'),   # v6.2
@@ -816,40 +816,40 @@ ISSUES = [  # id, title, description, where it is documented
 # that is not a bug fix: an exception, kept only by user decision, else queued to replicate), 'mvp' (the prototype's own
 # issue, no legacy counterpart). Lists: excel_ai/ISSUES.md, BUGS.md.
 ISSUE_LEGACY = {
-    'I1': 'mvp', 'I2': 'mvp', 'I3': 'mvp', 'I4': 'replicated', 'I5': 'mvp', 'I6': 'not replicated',
-'I9': 'mvp', 'I10': 'mvp', 'I11': 'mvp', 'I12': 'mvp', 'I13': 'mvp',
-    'I14': 'not replicated', 'I15': 'mvp', 'I16': 'mvp', 'I17': 'replicated', 'I18': 'replicated',
-    'I19': 'replicated', 'I20': 'not replicated', 'I21': 'replicated', 'I22': 'replicated',
+    'I1': 'mvp', 'I2': 'mvp', 'I3': 'mvp', 'DI1': 'replicated', 'I5': 'mvp', 'I6': 'not replicated',
+'I9': 'mvp', 'I10': 'mvp', 'I11': 'mvp', 'I12': 'mvp', 'DI2': 'mvp',
+    'I14': 'not replicated', 'I15': 'mvp', 'I16': 'mvp', 'DI3': 'replicated', 'I18': 'replicated',
+    'I19': 'replicated', 'DB3': 'not replicated', 'I21': 'replicated', 'DI4': 'replicated',
 'I25': 'replicated', 'I26': 'replicated',
     'I28': 'replicated', 'I29': 'mvp', 'I30': 'mvp', 'I31': 'replicated',
-    'I32': 'replicated', 'I33': 'mvp', 'I34': 'replicated', 'I36': 'replicated', 'I37': 'replicated',
-    'I38': 'replicated', 'I39': 'replicated', 'I40': 'replicated', 'I41': 'replicated', 'I42': 'replicated',
+    'I32': 'replicated', 'I33': 'mvp', 'I34': 'replicated', 'I36': 'replicated', 'DI5': 'replicated',
+    'DI6': 'replicated', 'I39': 'replicated', 'I40': 'replicated', 'I41': 'replicated', 'I42': 'replicated',
     'I43': 'replicated', 'I44': 'replicated', 'I45': 'replicated', 'I46': 'replicated', 'I47': 'not replicated',
-    'I48': 'replicated', 'I49': 'replicated', 'I50': 'replicated', 'I51': 'replicated', 'I52': 'not replicated', 'I53': 'not replicated', 'I54': 'replicated', 'I55': 'replicated', 'I56': 'replicated', 'I57': 'replicated', 'I58': 'not replicated', 'I59': 'replicated', 'I60': 'replicated', 'I61': 'replicated', 'I62': 'replicated', 'I63': 'replicated', 'I64': 'not replicated', 'I65': 'not replicated', 'I66': 'replicated', 'I67': 'not replicated', 'I68': 'replicated', 'I69': 'not replicated', 'I70': 'not replicated', 'I71': 'replicated', 'I72': 'replicated', 'I73': 'mvp', 'I74': 'mvp', 'I75': 'not replicated'}
+    'I48': 'replicated', 'I49': 'replicated', 'I50': 'replicated', 'I51': 'replicated', 'I52': 'not replicated', 'I53': 'not replicated', 'I54': 'replicated', 'I55': 'replicated', 'I56': 'replicated', 'I57': 'replicated', 'I58': 'not replicated', 'I59': 'replicated', 'I60': 'replicated', 'I61': 'replicated', 'I62': 'replicated', 'I63': 'replicated', 'DB1': 'not replicated', 'DB2': 'not replicated', 'I66': 'replicated', 'L169': 'not replicated', 'DI7': 'replicated', 'I69': 'not replicated', 'I70': 'not replicated', 'I71': 'replicated', 'I72': 'replicated', 'I73': 'mvp', 'I74': 'mvp', 'I75': 'not replicated'}
 LD_REPLICATED = {64}   # LegacyDiff rows of a departure type that in fact keep legacy (64: kept as legacy; 36 relabelled Same in v4.15)
 BUGS_REPLICATED = set()   # legacy bugs the prototype still copies (status "Kept as legacy"): none since v4.10 (rule 2026-10-15)
 
 ISSUE_STATUS = {  # id: (severity, status, next step to stay close to legacy or to close the issue)
     'I1': ('Major', 'Open', 'Review in Excel 365 (TODO).'),
     'I2': ('Minor', 'Accepted', ''), 'I3': ('Minor', 'Accepted', ''),
-    'I4': ('Major', 'Accepted', 'Decided 2026-10-15: 2022 as legacy.'),
+    'DI1': ('Major', 'Accepted', 'Decided 2026-10-15: 2022 as legacy.'),
     'I5': ('Minor', 'Accepted', ''), 'I6': ('Minor', 'Accepted', 'Exception by decision (v2.4): sign convention only, values as legacy.'),
 'I9': ('Minor', 'Accepted', ''), 'I10': ('Minor', 'Accepted', ''),
     'I11': ('Minor', 'Accepted', ''), 'I12': ('Minor', 'Accepted', ''),
-    'I13': ('Major', 'Open', 'Data for other countries (TODO).'),
+    'DI2': ('Major', 'Open', 'Data for other countries (TODO).'),
     'I14': ('Major', 'Accepted', 'v5.7: I25 closed (v5.6); the remaining distance is the documented data and bug-fix differences (legacy_comparison, LegacyDiff).'),
     'I15': ('Minor', 'Accepted', ''), 'I16': ('Minor', 'Accepted', ''),
-    'I17': ('Major', 'Accepted', 'Decided 2026-10-15: calibrate to 2024 as legacy.'),
+    'DI3': ('Major', 'Accepted', 'Decided 2026-10-15: calibrate to 2024 as legacy.'),
     'I18': ('Minor', 'Resolved', 'v3.2 (switch, off by default as legacy since v3.4).'),
     'I19': ('Major', 'Resolved', 'v3.11.'),
-    'I20': ('Major', 'Accepted', 'Exception by user decision (corrected data, 2026-10-09).'),
+    'DB3': ('Major', 'Accepted', 'Exception by user decision (corrected data, 2026-10-09).'),
     'I21': ('Major', 'Accepted', 'v4.15 (user 2026-10-18): benchmarks = 1 - the MTInputs auctioned share (rows 90-91, '
                                  'one share for all sectors, as legacy); benchmarks by sector later.'),
-    'I22': ('Major', 'Accepted', 'Replicated v3.11; source of the values to trace.'),
+    'DI4': ('Major', 'Accepted', 'Replicated v3.11; source of the values to trace.'),
     'I25': ('Major', 'Resolved', 'Traced (v5.6): legacy process emissions = 2023 inventory x the year-on-year growth of industrial energy CO2 (row 6576; 2024: +16.8%, the rebound after the 2023 demand shock, so 56.9 -> 66.5). The prototype floored that growth at 0 (a departure: removed in v5.6, as legacy). The remaining gap is the industrial energy CO2 path, part of the fuel-use gap (I14).'),
     'I26': ('Minor', 'Resolved', 'Checked (v5.6): energy N2O moves with energy CO2 as legacy (row 7549 = previous x CO2 ratio). Production for fuel-supply methane differs: now issue I66.'),
-    'I67': ('Minor', 'Accepted', 'v5.7: no hard-coded value; data or model (departure by design, user rule: data not typed).'),
-    'I68': ('Minor', 'Open', 'v5.7: GDP solved (WEO NGDP_R, 2000-2040). v6.1: reference years 2021-2024 read the GHGs inventory (rows ndc.hc, ndc.hv), 2022 onwards the model. Still open: historical GHGs 2018-2020 (GHGHist ends 2017, CO2 2020): data request.'),
+    'L169': ('Minor', 'Accepted', 'v5.7: no hard-coded value; data or model (departure by design, user rule: data not typed).'),
+    'DI7': ('Minor', 'Open', 'v5.7: GDP solved (WEO NGDP_R, 2000-2040). v6.1: reference years 2021-2024 read the GHGs inventory (rows ndc.hc, ndc.hv), 2022 onwards the model. Still open: historical GHGs 2018-2020 (GHGHist ends 2017, CO2 2020): data request.'),
     'I69': ('Major', 'Dropped', 'Module dropped by the user (2026-10-20); plan kept for reference.'),
     'I70': ('Major', 'Dropped', 'Module dropped by the user (2026-10-20); plan kept for reference.'),
     'I71': ('Major', 'Accepted', 'Legacy issue, not a bug: high priority for the CPAT team, not for the prototype (user 2026-10-20); replicated as legacy. Recommendation: split the driver: fuel use x (1 + population growth)^1 x (1 + per-capita income growth)^income elasticity, keeping the price and efficiency terms separate; switch off = legacy.'),
@@ -862,12 +862,12 @@ ISSUE_STATUS = {  # id: (severity, status, next step to stay close to legacy or 
     'I29': ('Minor', 'Resolved', 'v3.7: LAMBDAs renamed; confirm in Excel (quick check on Windows).'),
     'I31': ('Major', 'Accepted', 'v4.15 (user 2026-10-18): legacy averages are the default (pav.leg, pav.lidx, pav.idx; '
                                  'Settings C54 Legacy*), the Laspeyres index kept as an option.'),
-    'I32': ('Major', 'Accepted', 'Replicated in v4.11 (user 2026-10-18: go with legacy); the inventory break (I17) stays in the factor, as legacy.'),
+    'I32': ('Major', 'Accepted', 'Replicated in v4.11 (user 2026-10-18: go with legacy); the inventory break (DI3) stays in the factor, as legacy.'),
     'I33': ('Minor', 'Resolved', 'v5.7: extract_data writes LF line ends and runs update_prices_egypt after the price extraction, so the corrected Egypt block is kept.'),
     'I34': ('Minor', 'Accepted', 'As legacy (v3.12); to confirm: combustion CH4 added, all fuel supply methane under other.'),
     'I36': ('Minor', 'Accepted', 'As legacy (v3.15); an OECD-style rate (carbon taxes, excises, permits) could be added as a memo.'),
-    'I37': ('Minor', 'Accepted', 'As legacy (v3.18); set the renewable efficiencies to 1 if the data are confirmed.'),
-    'I38': ('Minor', 'Accepted', 'v4.7: the formula follows the Power tab; recheck against a fresh legacy run.'),
+    'DI5': ('Minor', 'Accepted', 'As legacy (v3.18); set the renewable efficiencies to 1 if the data are confirmed.'),
+    'DI6': ('Minor', 'Accepted', 'v4.7: the formula follows the Power tab; recheck against a fresh legacy run.'),
     'I39': ('Minor', 'Accepted', 'Replicated v4.12 (user 2026-10-18); a share by sector would need data by sector.'),
     'I40': ('Minor', 'Accepted', 'Replicated v4.12 (user 2026-10-18); revisit if road fuels are modelled as blends.'),
     'I41': ('Major', 'Accepted', 'Replicated v4.15 (user 2026-10-18); the prototype form (change of the GDP share) is one line.'),
@@ -887,8 +887,8 @@ ISSUE_STATUS = {  # id: (severity, status, next step to stay close to legacy or 
     'I60': ('Minor', 'Resolved', 'Replicated in v5.6: end-user electricity prices floored at MinPostSubsidyPowerPrice (row rp).'),
     'I61': ('Major', 'Dropped', 'Parked, then dropped by the user (2026-10-20).'),
     'I62': ('Major', 'Accepted', 'Legacy issue, not a bug: high priority for the CPAT team, not for the prototype (user 2026-10-20); replicated as legacy. Recommendation: add a partial-adjustment option: fuel use moves a share of the way to its long-run level each year (short-run and long-run elasticities), as an upgrade over legacy, switch off = legacy.'),
-    'I64': ('Major', 'Open', 'prototype fill kept (user 2026-10-19). Data request: a legacy file with the GAINS combustion factor paths (high priority, user 2026-10-19).'),
-    'I65': ('Major', 'Open', 'prototype fill kept (user 2026-10-19). Data request: raise the blank VAT cells with the data team (high priority, user 2026-10-19); the prototype fill stays until then.'),
+    'DB1': ('Major', 'Open', 'prototype fill kept (user 2026-10-19). Data request: a legacy file with the GAINS combustion factor paths (high priority, user 2026-10-19).'),
+    'DB2': ('Major', 'Open', 'prototype fill kept (user 2026-10-19). Data request: raise the blank VAT cells with the data team (high priority, user 2026-10-19); the prototype fill stays until then.'),
     'I63': ('Major', 'Dropped', 'Parked, then dropped by the user (2026-10-20).'),
     'I52': ('Minor', 'Accepted', 'Conditional: nothing to replicate now (the prototype types ETS coverage per sector). Decided (user 2026-10-19): replicate the legacy grouping when ETS coverage by Dashboard groups is built.'),
     'I53': ('Minor', 'Accepted', 'Conditional: nothing to replicate now (the prototype does not build manual domestic prices). Decided (user 2026-10-19): an issue; replicate legacy when manual domestic prices are built; ask the CPAT team about the intent.'),
@@ -910,7 +910,7 @@ UPGRADES = [  # id, title, description, priority
      'Medium'),
     ('U7', 'Regulations as shadow prices', 'Fill the regulation rows (placeholder 0) and their efficiency-margin '
      'adjustments (MTInputs 247-250).', 'Medium'),
-    ('U10', 'Data for more countries', 'Energy balances, GDP and EFs beyond Egypt (I13).', 'Medium'),
+    ('U10', 'Data for more countries', 'Energy balances, GDP and EFs beyond Egypt (DI2).', 'Medium'),
     ('U13', 'Planned retirement data for Egypt', 'Enter PowerPaths pret|<type> where plans exist.', 'Low'),
     ('U14', 'Python port', 'The check script already recomputes every value in Python.', 'Low'),
 ]
@@ -946,3 +946,68 @@ def items():
     out += [(i, t, 'Simplification / not yet') for i, t, *_r in legacy_diff_items()]
     out += [(i, t, 'Upgrade') for i, t, *_r in UPGRADES]
     return out
+
+
+# ---------------------------------------------------------------- v8.4 (user 2026-10-28): one register for every module
+# Codes by kind, the same in every module (NORMS 0): L legacy bug (fix = formulas), DB data bug (not replicated, fix =
+# input data; each has a plan), M prototype bug, I issue (replicated, or a departure by user decision), DI data issue
+# (replicated: the prototype does what legacy does with the data as they are), LD LegacyDiff departure, U upgrade.
+# Renumbered in v8.4 (former codes kept in FORMER): distribution bugs D1-D31 -> L138-L168, the cell-plan finds N1, N2 ->
+# L135, L136, distribution issues DI1-DI10 -> I76-I84 and DI8, data items I4, I13, I17, I22, I37, I38, I68 -> DI1-DI7,
+# I64, I65, I20 -> DB1-DB3, I67 -> L169 (the fix is a formula).
+FORMER = {'L135': 'N1', 'L136': 'N2', 'DI1': 'I4', 'DI2': 'I13', 'DI3': 'I17', 'DI4': 'I22', 'DI5': 'I37',
+          'DI6': 'I38', 'DI7': 'I68', 'DB1': 'I64', 'DB2': 'I65', 'DB3': 'I20', 'L169': 'I67', 'DI8': 'DI3'}
+FORMER.update({f'L{137 + n}': f'D{n}' for n in range(1, 32)})
+FORMER.update({f'I{76 + i}': f'DI{n}' for i, n in enumerate([1, 2, 4, 5, 6, 7, 8, 9, 10])})
+
+INPUT_BUGS = [  # id, title, where, what legacy does, status in the prototype (module: Inputs, ScenarioDefinition)
+    ('L137', 'MTInputs NameOfParameter: Dashboard names on 23 inputs, a trailing space on one',
+     'MTInputs column H, rows 53-64 and 84-97 (D_ names), row 343 (ElasticityModel)',
+     'Column H names 23 feebate and ETS inputs with the names of their Dashboard cells (D_FeebateIntro, '
+     'D_Feb_Level_Start_Pow, D_NewETS, D_ETSIntro, ...): everywhere else D_<name> is the Dashboard cell and <name> the '
+     'MTInputs value (213 of the 272 inputs have a D_ twin on the Dashboard). Row 343 reads "ElasticityModel " with a '
+     'trailing space (Name Manager: ElasticityModel). A lookup by name finds the wrong cell or none.',
+     'Fixed (v8.4): the prototype names drop the D_ prefix (FeebateIntro, NewETS, ETSIntro, ...) and the space; the '
+     'legacy name is kept in the codes map (tab Inputs).')]
+
+ISSUES += [
+    ('I85', 'Percentages typed as whole numbers on 8 inputs', 'MTInputs rows 197-201 and 203-205 (revenue use '
+     'EXPLabortax, EXPCIT, EXPCapex, EXPGoodsandserv, EXPTransfers; TargettedPercentile, CoverageRate, LeakageRate) '
+     'hold 30 for 30%; every other percentage input holds a fraction (0.3). Replicated: the prototype keeps legacy\'s '
+     'values and divides where legacy divides; the Python port keeps the same convention.',
+     'Codes map, tab Inputs'),
+    ('I86', 'Input names: spelling not uniform', 'Column H spells ShareofProdSubPha and ShareofConsSubPhaBA beside '
+     'ShareOfConsSubPha and ShareOfProdSubPhaBA, FFPhaseOut for the consumer phase-out period, NDCTargetYear where '
+     'the Name Manager has NDCtargetyear, and three cells carry a second name (Simple_CPATDefaultsOrUserDefined, '
+     'EnergyPricesManualSwitch for DomPrTax, EngineerModeProportionOfCovidFactor). Replicated: the column H names are '
+     'kept as they are (only bug L137 is corrected).', 'Codes map, tab Inputs'),
+    ('I87', 'Inputs without a name', 'MTInputs rows 11, 12, 14, 15 (scenario identification), 66-82 (feebate sector '
+     'coverage), 99-115 (ETS sector coverage), 117-121 (CBAM process goods) and 140-183 (fuel price reform) have no '
+     'NameOfParameter, so they can be found only by row or by heading and label. Not replicated by user decision '
+     '(2026-10-28: a complete set of names): the prototype names them (FbCovPow, ETSCovPow, CBAMProcMch, FprIntro, '
+     'FprStartCoaPow, ...); values and rows as legacy.', 'Codes map, tab Inputs'),
+    ('I88', 'One Dashboard cell feeds two inputs', 'D_ETSIntro and D_FeebateIntro both point to Dashboard D31 '
+     '(D_ETSOutro and D_FeebateOutro to D32), D_ResSubstLPGEff and D_LPGEff to L147 (also kerosene, biomass, natural '
+     'gas), D_PhaseOutCoalAndGasPPAs and its baseline twin to Q55: the Dashboard sets both MTInputs rows at once '
+     '(their defaults differ: ETS 2026, feebates 2027). Replicated: ScenarioDefinition keeps the two rows, as MTInputs.',
+     'Codes map, tab Inputs')]
+ISSUE_LEGACY.update({'I85': 'replicated', 'I86': 'replicated', 'I87': 'not replicated', 'I88': 'replicated'})
+ISSUE_STATUS.update({
+    'I85': ('Minor', 'Accepted', 'Replicated (user 2026-10-28: the inconsistency is an issue).'),
+    'I86': ('Minor', 'Accepted', 'Replicated.'),
+    'I87': ('Minor', 'Accepted', 'Departure by user decision (2026-10-28); names in the codes map.'),
+    'I88': ('Minor', 'Accepted', 'Replicated.')})
+
+DATA_BUG_PLANS = {  # id: (related departures, the plan)
+    'DB1': (['LD47'], 'Get a legacy file with the GAINS combustion factor paths (CH4, N2O, local pollutants by fuel, '
+            'sector and year; proprietary). Add them to data/ with their converter; then the prototype reads the '
+            'paths as legacy does and drops the fill (base and final factor, linear to EFEndYear); regression on the '
+            'pollutant and combustion CH4 rows. Data request (plans/Data_request.md), high priority.'),
+    'DB2': (['LD3'], 'Ask the data team which blank VAT cells of the IMF price dataset are missing values and which '
+            'are true zeros, and fill the dataset (legacy Prices_dom layout). Then the prototype reads the dataset as '
+            'legacy does (a blank is 0) and drops the fill with the general VAT rate. No effect for Egypt (no blanks). '
+            'Data request, high priority.'),
+    'DB3': (['LD4', 'LD33'], 'Send the corrected Egypt price block (user, 2026-10-09: 291 cells, years 2019-2020 '
+            'added; electricity 0.054, 0.048, 0.043 USD/kWh nominal 2022-2024) to the CPAT data team for the legacy '
+            'Prices_dom table. When legacy carries it, the prototype and legacy read the same data and LD4, LD33 '
+            'close.')}

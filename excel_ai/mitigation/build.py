@@ -9,7 +9,7 @@ v1.02: new ETS with a cap (Methods, chapter ETS). The cap is a change relative t
     (MTInputs 85-87); baseline CO2 by ETS sector is a data block in section 1 (refreshed from scenario 1 by the
     build, option A of Old/ETS_Cap_Design_Options_v3_6.md). Permit price: fast estimate LN(cap / baseline) / (covered
     semi-elasticity x allocation effectiveness x volatility adjustment), or an override row (MTInputs
-    D_ETSPriceOverride = Yes; pasted from ets_goalseek_v0_1.py, blank = carbon price path). Benchmarks by ETS sector
+    ETSPriceOverride = Yes; pasted from ets_goalseek_v0_1.py, blank = carbon price path). Benchmarks by ETS sector
     group replace the auction share: output-based (OBR) share = benchmark; the permit price is split into a
     tax-equivalent part p x (1 - OBR) in the fuel price and a shadow price p x OBR on the efficiency margin (as
     feebates). Volatility adjustment (1 + carbon tax policy risk x impact) / (1 + ETS volatility x impact) from
@@ -148,7 +148,7 @@ from openpyxl.utils import get_column_letter as L, column_index_from_string as C
 from openpyxl.utils.cell import coordinate_from_string
 from openpyxl.workbook.defined_name import DefinedName
 
-VERSION = '8.3'   # also in version.json (read by the deck builder)
+VERSION = '8.4'   # also in version.json (read by the deck builder)
 SCRIPTS_TAG = None   # v8.0: scripts and notes have stable names (releases are git tags); v7.1: a point release renames only the builder, VBA module, workbook and reports; the scripts and
                       # notes keep the tag of the full release (NORMS.md section 5)
 COUNTRY = 'EGY'   # v3.3: default of Settings C4 (user input); country data only in the data sheets, by this key
@@ -157,8 +157,10 @@ LAMBDA_ROWS = []                        # v2.3: LAMBDA year 2041; v1.08: (row, v
 NAME = 'CPAT-AI-Mitigation-Prototype'
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(HERE, '..', '..', 'data', 'mvp_legacy_extracts')
-OUT = os.path.join(HERE, '..', 'releases', f'{NAME}_v{VERSION}.xlsm')   # v8.0: the release copy
-LATEST = os.path.join(HERE, '..', f'{NAME}_latest.xlsm')   # v8.0: the same file, stable name (modules link to it)
+sys.path.insert(0, os.path.join(HERE, '..', 'shared'))
+import release as REL                   # noqa: E402  v8.4: file naming and release layout (NORMS 5)
+OUT = REL.versioned(NAME, VERSION, 'xlsm')   # v8.4: excel_ai/<name>_v<version>.xlsm, older versions to releases/
+LATEST = REL.permalink(NAME, 'xlsm')      # v8.4: excel_ai/permalink/<name>_latest.xlsm (modules link to it)
 QUICK_OUT = os.path.join(HERE, f'{NAME}_quick.xlsx')   # the quick build (no batch), for the checks
 BAS = os.path.join(HERE, 'CPATScenarios.bas')          # VBA module (embedded; also for import)
 
@@ -220,10 +222,10 @@ PRICE_FUELS = [  # price code, label, MTInputs rows: starting increase, final in
     ('lpg.all', 'LPG, All', 152, 166), ('ker.all', 'Kerosene, All', 153, 167),
     ('oop.all', 'Other oil products, All', 154, 168), ('bio.all', 'Biomass, All', 155, 169)]
 FEEBATE_SECTORS = [  # code, MTInputs names of the starting and target rate
-    ('pow', 'D_Feb_Level_Start_Pow', 'D_Feb_Level_Target_Pow'),
-    ('tra', 'D_Feb_Level_Start_Trans', 'D_Feb_Level_Target_Trans'),
-    ('res', 'D_Feb_Level_Start_Res', 'D_Feb_Level_Target_Res'),
-    ('ind', 'D_Feb_Level_Start_Ind', 'D_Feb_Level_Target_Ind')]
+    ('pow', 'Feb_Level_Start_Pow', 'Feb_Level_Target_Pow'),
+    ('tra', 'Feb_Level_Start_Trans', 'Feb_Level_Target_Trans'),
+    ('res', 'Feb_Level_Start_Res', 'Feb_Level_Target_Res'),
+    ('ind', 'Feb_Level_Start_Ind', 'Feb_Level_Target_Ind')]
 PRICES = [(pc, lab) for pc, lab, *_ in PRICE_FUELS if not pc.startswith('ecy')]   # 12 price fuels (section 2)
 NP = len(PRICES)
 GP_ROWS = [  # international price rows: fuel code, label, commodity key (D), High factor (E), Low factor (F)
@@ -244,17 +246,17 @@ MT_SCENARIO_INPUTS = {
     1: {'CPIntro': 2027, 'CPLevelStart': 0, 'CPLevelTarget': 0, 'CPOutro': 2030, 'MCovOen': False},
     2: {'CPIntro': 2027, 'CPLevelStart': 20, 'CPLevelTarget': 20, 'CPOutro': 2030, 'MCovOen': False},
 }
-FB_PACKAGE = {'D_FeebateIntro': 2027, 'D_FeebateOutro': 2030, 'D_Feb_Level_Start_Trans': 10,
-              'D_Feb_Level_Target_Trans': 50, 'D_Feb_Level_Start_Ind': 5, 'D_Feb_Level_Target_Ind': 25,
+FB_PACKAGE = {'FeebateIntro': 2027, 'FeebateOutro': 2030, 'Feb_Level_Start_Trans': 10,
+              'Feb_Level_Target_Trans': 50, 'Feb_Level_Start_Ind': 5, 'Feb_Level_Target_Ind': 25,
               67: True, 74: True, 75: True}                    # feebate coverage (MTInputs rows): road, mch, irn
 DEFINITIONS = [  # scenario definitions on MTInputs (columns after the live scenario 2): number, name, Run?, inputs
     (3, 'Carbon price $20/tCO2 from 2027', 'Yes', dict(MT_SCENARIO_INPUTS[2])),
     (4, 'Package A: carbon tax to $50 by 2030 + feebates (transport, industry)', 'Yes',
      {'CPIntro': 2027, 'CPLevelStart': 10, 'CPLevelTarget': 50, 'CPOutro': 2030, 'MCovOen': False, **FB_PACKAGE}),
     (5, 'Package B: ETS on power and industry (cap -5% 2027 to -20% 2035) + carbon tax $25 elsewhere', 'Yes',
-     {'CPIntro': 2027, 'CPLevelStart': 25, 'CPLevelTarget': 25, 'CPOutro': 2030, 'MCovOen': False, 'D_NewETS': 'Yes',
-      'D_ETSIntro': 2027, 'D_ETSOutro': 2035, 'D_ETSChangeRelStart': -0.05, 'D_ETSChangeRelTarget': -0.2,
-      'D_ETSCapCont': 'Constant'}),
+     {'CPIntro': 2027, 'CPLevelStart': 25, 'CPLevelTarget': 25, 'CPOutro': 2030, 'MCovOen': False, 'NewETS': 'Yes',
+      'ETSIntro': 2027, 'ETSOutro': 2035, 'ETSChangeRelStart': -0.05, 'ETSChangeRelTarget': -0.2,
+      'ETSCapCont': 'Constant'}),
     (6, 'Carbon price $50/tCO2 from 2027', 'Yes',          # v4.4: scenario capacity (NORMS 3e): definitions 1-6
      {'CPIntro': 2027, 'CPLevelStart': 50, 'CPLevelTarget': 50, 'CPOutro': 2030, 'MCovOen': False}),
 ]
@@ -266,9 +268,9 @@ MT_COL0 = 10                            # J: first scenario column on MTInputs
 MT_ROW_SCEN, MT_ROW_NAME = 5, 6
 MT_ROW_SHORT = 2                        # v6.7: short name of each scenario (the chart legends)
 MT_LAST = 'AZ'
-ETS_PARAMS = ['D_NewETS', 'D_ETSChangeRelStart', 'D_ETSChangeRelTarget', 'D_ETSCapCont', 'D_ETSIntro', 'D_ETSOutro',
-              'D_ETSAuctStart', 'D_ETSAuctTarget',          # v4.15 (I21): auctioned shares, MTInputs rows 90-91
-              'D_ETSPriceOverride', 'D_ETSVolatility', 'D_ETSVolImpact', 'D_ETSCTRisk']
+ETS_PARAMS = ['NewETS', 'ETSChangeRelStart', 'ETSChangeRelTarget', 'ETSCapCont', 'ETSIntro', 'ETSOutro',
+              'ETSAuctStart', 'ETSAuctTarget',          # v4.15 (I21): auctioned shares, MTInputs rows 90-91
+              'ETSPriceOverride', 'ETSVolatility', 'ETSVolImpact', 'ETSCTRisk']
 ETS_GROUPS = [  # ETS sector groups for benchmarks (= feebate sectors)
     # v4.15 (I21, user decision 2026-10-18): benchmark = 1 - auctioned share of MTInputs rows 90-91 (one share for every
     # group, as legacy rows 1863-1864; benchmarks by sector later); was typed 1.0 (v3.7)
@@ -624,8 +626,8 @@ for k_ in ('ets.vol', 'ets.imp', 'ets.vadj', 'ets.bce', 'ets.chg', 'ets.cap', 'e
 _pol('ets.ovr', 'ets.ovr', kind='data')                                      # override prices (goal seek), $/tCO2
 for k_ in ('ets.p', 'ets.pe', 'ets.rf'):
     _pol(k_, k_, kind='calc')
-_pol('fb.yr0', 'fb.yr0', mt=MT_NAMES['D_FeebateIntro'])
-_pol('fb.yr1', 'fb.yr1', mt=MT_NAMES['D_FeebateOutro'])
+_pol('fb.yr0', 'fb.yr0', mt=MT_NAMES['FeebateIntro'])
+_pol('fb.yr1', 'fb.yr1', mt=MT_NAMES['FeebateOutro'])
 for s, n0, n1 in FEEBATE_SECTORS:
     _pol(f'fbs.{s}', 'fb.s', 'all', s, mt=MT_NAMES[n0])
 for s, n0, n1 in FEEBATE_SECTORS:
@@ -855,7 +857,7 @@ SUBHEADS = {'cptraj': None, CP_PARAMS[0]: 'Carbon tax (MTInputs rows 18-21, 265,
             'fc.coa': 'Carbon tax coverage: fuels (MTInputs rows 23-29)',
             'sc.pow': 'Carbon tax coverage: sectors (MTInputs rows 31-47)',
             'fpr.yr0': 'Fuel price reform (MTInputs rows 140-169; increases in price units)',
-            'D_NewETS': 'New ETS (MTInputs rows 84-97: cap relative to baseline, years, price override, volatility; '
+            'NewETS': 'New ETS (MTInputs rows 84-97: cap relative to baseline, years, price override, volatility; '
                         'replaces the carbon tax in covered sectors)',
             'etscv.pow': 'ETS sector coverage (MTInputs rows 99-115) and effective coverage (ETS applied and started)',
             'etsbs.pow': 'ETS benchmarks by sector group (share of emission intensity allocated free = 1 - auctioned '
@@ -1176,7 +1178,7 @@ VOFF = {v: 4 + k * VSTEP for k, v in enumerate(VARS)}   # first row of each vari
 # legacy row numbers (baseline numbering) where a row reproduces one; other keys name helper rows. Data: sheets
 # Transport1 (data/transport_data.csv), Transport2 (vehicle_prices.csv), Transport3 (range_anxiety.csv),
 # TransportParams (transport_params.csv), TransportPaths (transport_paths.csv); policies: MTInputs rows after the
-# template (TR_MT). The switch TrModel (MTInputs row 340, default Elasticity) picks the road fuel use of section 5.
+# template (TR_MT). The switch TrModel (MTInputs row 338, default Elasticity) picks the road fuel use of section 5.
 TR_PAR = {r['key']: r for r in csv.DictReader(open(os.path.join(DATA, 'transport_params.csv'), encoding='utf-8'))}
 TR_CLS = [('pas', 'pass', 'Passenger', 'Pas'), ('fre', 'fre', 'Freight', 'Fre'), ('cyc', 'cyc', '2-3 wheeler', 'Cyc')]
 TR_POLICY = [  # engine parameter key, NameOfParameter stem, label, unit (MTInputs rows after the template, per class)
@@ -1210,7 +1212,7 @@ TR_POLICY1 = [  # single policy inputs (not by class)
 TR_MT = ([(f'{k}|{cp}', f'Tr{stem}{cs}', f'{lab}, {cl.lower()}', unit) for k, stem, lab, unit in TR_POLICY
           for c, cp, cl, cs in TR_CLS] + TR_POLICY1)                 # (engine key, NameOfParameter, label, unit)
 TR_MT_NAME = {k: n for k, n, *_x in TR_MT}
-MT_TEMPLATE_LAST = 415                  # last row of the legacy MTInputs template
+MT_TEMPLATE_LAST = 413                  # last row of the legacy MTInputs template (465; 456 had 415)
 MT_TR0 = MT_TEMPLATE_LAST + 2           # v3.5: heading of the transport policy rows (after a blank row)
 MT_TR_END = MT_TR0 + len(TR_MT)         # last transport policy row
 MT_PW0 = MT_TR_END + 2                  # v5.4: heading of the power rows after the template (after a blank row)
@@ -1298,7 +1300,7 @@ def _build_tr_spec():
     _tv('tr.sw', 'Engineer road model switched on (1 = TrModel Engineer: road gasoline, diesel, LPG, gas and '
         'biofuels of section 5 and road electricity of section 3 H come from section 5b)', '0/1',
         'legacy MTInputs F340 TrModel; Mitigation rows 5428-5440 (switch)')
-    _tv('TrModel', '=MT', '=MT', 'MTInputs row 340 (TrModel; legacy Dashboard G61)', 'MTInputs row (Mapping)',
+    _tv('TrModel', '=MT', '=MT', 'MTInputs row 338 (TrModel; legacy Dashboard G61)', 'MTInputs row (Mapping)',
         src='MTInputs (scenario column)')
     T('TrModel', 'TrModel', 'all', 'all', kind='mt')
     T('tr.sw', 'tr.sw', 'all', 'all', R('ENGINEERON', lambda x: [x.ca('TrModel')]), fmt='0')
@@ -3635,35 +3637,35 @@ VARIABLES = [
     ('etscov', 'ETS sector coverage (Apply?)', 'switch', '', 'MTInputs (scenario column)', 'MTInputs rows 99-115'),
     ('etsc', 'Effective ETS coverage (new ETS applied, started, sector covered)', '0/1', '', 'Calculation', 'new'),
     ('etsb.s', 'ETS benchmark at the start year (share of emission intensity allocated free)', 'share', '',
-     '1 - D_ETSAuctStart (FREESHARE)', 'legacy rows 1806, 1863-1864 (MTInputs row 90; v4.15)'),
+     '1 - ETSAuctStart (FREESHARE)', 'legacy rows 1806, 1863-1864 (MTInputs row 90; v4.15)'),
     ('etsb.t', 'ETS benchmark at the target year (share of emission intensity allocated free)', 'share', '',
-     '1 - D_ETSAuctTarget (FREESHARE)', 'legacy rows 1807, 1863-1864 (MTInputs row 91; v4.15)'),
-    ('etsb', 'ETS benchmark path', 'share', '', 'Linear from D_ETSIntro to D_ETSOutro, flat after', 'new'),
+     '1 - ETSAuctTarget (FREESHARE)', 'legacy rows 1807, 1863-1864 (MTInputs row 91; v4.15)'),
+    ('etsb', 'ETS benchmark path', 'share', '', 'Linear from ETSIntro to ETSOutro, flat after', 'new'),
     ('obr', 'ETS output-based (OBR) share = benchmark (auctioned share = 1 - OBR)', 'share', '',
      'MIN(1, MAX(0, benchmark of the sector group))', 'legacy rows 1863-1864 (one auctioned proportion)'),
     ('bco2', 'Baseline CO2 by ETS sector (data from scenario 1)', 'MtCO2', '', 'Values of scenario 1 co2.sec',
      'legacy rows 1888-1919 (baseline emissions)'),
-    ('ets.on', 'New ETS applied and started (1/0)', '0/1', '', 'D_NewETS = Yes and year >= D_ETSIntro', 'new'),
-    ('ets.vol', 'ETS: assumed annual price volatility (Settings table, label D_ETSVolatility)', 'share', '',
+    ('ets.on', 'New ETS applied and started (1/0)', '0/1', '', 'NewETS = Yes and year >= ETSIntro', 'new'),
+    ('ets.vol', 'ETS: assumed annual price volatility (Settings table, label ETSVolatility)', 'share', '',
      'Settings row 17', 'legacy ETS+LTS rows 5-8'),
-    ('ets.imp', 'ETS: abatement cost increase per unit of volatility (Settings table, label D_ETSVolImpact)', 'factor',
+    ('ets.imp', 'ETS: abatement cost increase per unit of volatility (Settings table, label ETSVolImpact)', 'factor',
      '', 'Settings row 18', 'legacy ETS+LTS rows 5-8'),
     ('ets.vadj', 'ETS volatility adjustment (tax-equivalent price per $ of permit price)', 'factor', '',
      '(1 + carbon tax policy risk x impact) / (1 + ETS volatility x impact)',
      'legacy row 2191 (1/1.1); ETS+LTS rows 5-9'),
     ('ets.chg', 'ETS cap: change relative to baseline covered emissions', 'share', '',
-     'Linear from D_ETSChangeRelStart (start year) to D_ETSChangeRelTarget (target year), flat after',
+     'Linear from ETSChangeRelStart (start year) to ETSChangeRelTarget (target year), flat after',
      'legacy rows 1958-1960'),
     ('ets.bce', 'Baseline covered emissions', 'MtCO2', '', 'SUMPRODUCT(bco2, etsc)', 'legacy row 1956'),
     ('ets.cap', 'ETS cap', 'MtCO2', '', 'Baseline covered emissions x (1 + change path); constant after the target '
-     'year if D_ETSCapCont = Constant', 'legacy rows 1958-1960'),
+     'year if ETSCapCont = Constant', 'legacy rows 1958-1960'),
     ('ets.se', 'Effective covered semi-elasticity (allocation effectiveness: auctioned 1, OBR 0.5)', 'per $/tCO2',
      '', 'Baseline-weighted semi-elasticities x (1 - 0.5 OBR)', 'legacy rows 1845, 1866-1867'),
     ('ets.est', 'ETS price, fast estimate', '$/tCO2 real', '', 'LN(cap / baseline) / (semi-elasticity x volatility '
      'adjustment)', 'legacy row 1868 (QuickEstimateOfETSPrices; linear there)'),
     ('ets.ovr', 'ETS price override (pasted values, e.g. from ets_goalseek.py)', '$/tCO2 real', '',
      'Typed / pasted values', 'legacy Manual inputs O15:AB15 (OverrideOfETSPrices)'),
-    ('ets.p', 'ETS permit price used', '$/tCO2 real', '', 'Override row if D_ETSPriceOverride = Yes (blank: carbon '
+    ('ets.p', 'ETS permit price used', '$/tCO2 real', '', 'Override row if ETSPriceOverride = Yes (blank: carbon '
      'price path), else the fast estimate', 'legacy row 1873'),
     ('ets.pe', 'ETS tax-equivalent price (permit price x volatility adjustment)', '$/tCO2 real', '',
      'ets.p x ets.vadj', 'legacy row 2191 applied to the ETS price'),
@@ -4149,9 +4151,9 @@ VARIABLES = [
     ('ndc.bi', 'Modelled BAU (scenario 1) GHGs incl. LULUCF in the target year', 'Mt CO2e', '', 'scenario-1 ghg.inc in ndc.ty', 'legacy row 18421 G'),
     ('ndc.hk', 'Historical emissions key (group|reference year, sheet GHGHist)', 'text', '', 'exc, inc or co2 & | & ndc.ref', 'legacy rows 884-889'),
     ('ndc.hh', 'Historical emissions on the NDC basis in the reference year', 'Mt CO2e', '', 'sheet GHGHist', 'legacy rows 885-889'),
-    ('ndc.hc', 'GHGs inventory column of the NDC basis (v6.1, I68)', 'text', '', 'texc or tinc & .tot or .co2', 'new (v6.1, I68)'),
-    ('ndc.hv', 'Inventory emissions on the NDC basis in the reference year (sheet GHGs, 2021-2024; v6.1, I68)', 'Mt CO2e', '', 'sheet GHGs', 'new (v6.1, I68)'),
-    ('ndc.h', 'Emissions on the NDC basis in the reference year', 'Mt CO2e', '', 'scenario 1 if the year is modelled, else the GHGs inventory (ndc.hv), else GHGHist (ndc.hh)', 'legacy rows 18446-18447, 18464 (v6.1: + inventory, I68)'),
+    ('ndc.hc', 'GHGs inventory column of the NDC basis (v6.1, DI7)', 'text', '', 'texc or tinc & .tot or .co2', 'new (v6.1, DI7)'),
+    ('ndc.hv', 'Inventory emissions on the NDC basis in the reference year (sheet GHGs, 2021-2024; v6.1, DI7)', 'Mt CO2e', '', 'sheet GHGs', 'new (v6.1, DI7)'),
+    ('ndc.h', 'Emissions on the NDC basis in the reference year', 'Mt CO2e', '', 'scenario 1 if the year is modelled, else the GHGs inventory (ndc.hv), else GHGHist (ndc.hh)', 'legacy rows 18446-18447, 18464 (v6.1: + inventory, DI7)'),
     ('ndc.gdp', 'Real GDP in the reference (ref) or target (ty) year', 'USD bn', '', 'WEO gdp_usd', 'legacy rows 18466-18467 (fixed: L123)'),
     ('ndc.hi', 'Intensity NDC: reference-year emissions x target-year GDP / reference-year GDP', 'Mt CO2e', '', 'ndc.h / ndc.gdp.ref x ndc.gdp.ty', 'legacy rows 18468-18473'),
     ('ndc.f', 'NDC: 1 + target value (N/A if none)', 'factor', '', '1 + ndc.x', 'legacy rows 18406-18407'),
@@ -4201,11 +4203,11 @@ VARIABLES = [
      '3385-3393 (D5 factor)', 'has a price fuel (1/0)'),
     ('cap0', 'Base-year nameplate capacity (base-year generation / capacity factor used)', 'MW', '',
      'gen0 / cfu', 'legacy A4 Y (rows 2999-3007)', 'base-year generation'),
-    ('invs', 'New investment setting of the type (MTInputs rows 397-405 of the scenario)', 'option', '',
+    ('invs', 'New investment setting of the type (MTInputs rows 395-403 of the scenario)', 'option', '',
      'INDEX(NewInv rows of section 1, type position)', 'legacy rows 4061-4069 (L3)', 'type position'),
     ('perm', 'New investment permitted (Yes / No; If Present*: more than InvPresentShare of base-year capacity)',
      'Yes/No', '', 'INVPRESENT(setting, cap0, SUM(cap0))', 'legacy rows 4061-4069 (L3)'),
-    ('start', 'Start year of new investment (MTInputs rows 407-415 of the scenario; hydro rule L54)', 'year', '',
+    ('start', 'Start year of new investment (MTInputs rows 405-413 of the scenario; hydro rule L54)', 'year', '',
      'INVSTART(hydro, base-year generation share, MTInputs year)', 'legacy rows 4061-4069 (L3; L54 fixed)',
      'type position', 'hydro (1/0)', 'base-year generation share'),
     ('scat', 'Scale-up rate of the MaxScaleUpRateCategory of the scenario (Power I20:J23)', 'share', '',
@@ -4220,7 +4222,7 @@ VARIABLES = [
     ('erf', 'Factor on cost-based early coal retirement (scenario 1: 0 unless EarlyRetirementInBaseline = Yes)',
      'factor', '', 'EARLYFACTOR(scenario, switch, MaxCostBasedEarlyRetirement)', 'legacy F3993'),
     ('spot', 'Spot fuel prices for power (1 / 0): Settings SpotPow or UseSpotFuelPricesInEngineerModel', '0/1', '',
-     'SPOTSWITCH(MTInputs switch)', 'legacy row 3155 (MTInputs 368)'),
+     'SPOTSWITCH(MTInputs switch)', 'legacy row 3155 (MTInputs 366)'),
     ('ctf', 'Capex time-factor scenario of the renewables (low, med, hgh, vhg)', 'code', '',
      'DECLINECODE(RenewableCostDeclineRate)', 'legacy rows 3038-3046'),
     ('stm', 'Short-term storage: marginal hours allocated to VRE', 'hours', '', 'AllocateSTStorageToVRE x 2 x '
@@ -5623,7 +5625,7 @@ MI_GHG_EL = {'pop': 'GhgElPop', 'gdppc': 'GhgElInc'}                 # v5.2: leg
 MI_ETS = {'ETSMaxIterations': ('E10', 20), 'ETSStartFreshContinue': ('E11', 'Continue'),
           'ETSErrorTolerance': ('E12', 0.005)}   # v5.2: prototype goal-seek settings (legacy 30, Continue, 0.001)
 MI_NEWINV = ['NewInvCoa', 'NewInvNga', 'NewInvOil', 'NewInvNuc', 'NewInvWnd', 'NewInvSol', 'NewInvHyd', 'NewInvOre',
-             'NewInvBio']                       # legacy F349:F357 = MTInputs F397:F405
+             'NewInvBio']                       # legacy F349:F357 = MTInputs F395:F403
 FONT_BARNOTE = Font(name='Arial', size=10, color='FFFFFF')
 
 
@@ -5953,7 +5955,7 @@ L134_UNITS = {'Price increase units, Other oil products': '$/bbl',   # legacy: "
 
 
 def build_mtinputs(wb):
-    """MTInputs: the template copied cell by cell (values and styles, rows 1-415, columns A:H), plus one
+    """MTInputs: the template copied cell by cell (values and styles, rows 1-413, columns A:H), plus one
     'Used for calculation' column per scenario from column J."""
     from copy import copy
     import openpyxl
@@ -6178,7 +6180,7 @@ MT_APPX_SETTINGS = [  # block C (2b) and the duplicates of 2a whose coding is th
     ('C10', 'LastHistPriceYear', 'Last historical price year (LastHist)', 'year', 'prototype'),
     ('C14', 'ETSOBREffectiveness', 'ETS: relative effectiveness of output-based allocation (OBREff)', 'share', 'legacy hardcoded'),
     ('C15', 'ETSNextPriceExponent', 'ETS: convergence exponent of the next-price proposal', 'exponent', 'legacy row 1966'),
-    ('C19', 'ApplyDemandShock', 'Apply the legacy 2023-2024 energy demand shock (1 = yes)', '0/1', 'legacy (always on, I22)'),
+    ('C19', 'ApplyDemandShock', 'Apply the legacy 2023-2024 energy demand shock (1 = yes)', '0/1', 'legacy (always on, DI4)'),
     ('C34', 'SCCTargetYear', 'Year of the target-consistent carbon price (SCCTgtYr)', 'year', 'prototype'),
     ('C40', 'SCCEpaBaseYear', 'US EPA SCC in the base year (SCCEpa)', '$/tCO2', 'legacy row 17684'),
     ('C54', 'AveragePriceMethod', 'Average price change reported: Legacy* / Laspeyres (PavMethod)', 'option', 'prototype (I31)'),
@@ -6335,7 +6337,7 @@ def build_settings(wb):
     for r, lab, val, inp in rows:
         put(ws, f'B{r}', lab)
         put(ws, f'C{r}', val, FONT, F_INPUT if inp else None)
-    put(ws, 'B16', 'ETS volatility table (sheet ETS+LTS rows 5-7; MTInputs labels D_ETSVolatility, D_ETSVolImpact)',
+    put(ws, 'B16', 'ETS volatility table (sheet ETS+LTS rows 5-7; MTInputs labels ETSVolatility, ETSVolImpact)',
         FONT_B)
     for j, (lab, vol, imp) in enumerate(ETS_VOL):            # v4.6: values read from the legacy tab ETS+LTS
         put(ws, f'{L(3 + j)}16', lab, FONT_B, F_INPUT)
@@ -6345,7 +6347,7 @@ def build_settings(wb):
     put(ws, 'B18', 'Abatement cost increase per unit of volatility (impact)')
     put(ws, 'B19', 'Fuel use and power demand: apply the legacy 2023-2024 energy demand shock (1 = yes, as legacy; '
                    'legacy rows 2439 and 483, data PowerPaths shock)')
-    put(ws, 'C19', 1, FONT, F_INPUT, '0')      # v3.11: on, as legacy (issue I22 replicated)
+    put(ws, 'C19', 1, FONT, F_INPUT, '0')      # v3.11: on, as legacy (issue DI4 replicated)
     put(ws, 'B21', 'Power: use spot fuel prices (Yes / No; legacy option; No = centred 5-year moving average of the '
                    'price before new policies, as legacy A18; defined name SpotPow)')
     put(ws, 'C21', 'No', FONT, F_INPUT)
@@ -6604,7 +6606,7 @@ def build_settings(wb):
         ('3.5', '2026-10-14', 'Engineer road transport model (legacy section 5 with 17 bugs fixed, '
                               'Methods, chapter Transport) as section 5b of every scenario group: data sheets '
                               'Transport1-3, TransportParams, TransportPaths; transport policies in MTInputs rows '
-                              f'{MT_TR0 + 1}-{MT_TR_END}; switch TrModel (MTInputs row 340, default Elasticity): Engineer '
+                              f'{MT_TR0 + 1}-{MT_TR_END}; switch TrModel (MTInputs row 338, default Elasticity): Engineer '
                               'replaces road gasoline, diesel, LPG, gas and biofuels (section 5, ener) and road '
                               'electricity demand (section 3 H) (Methods, chapter Transport).',
          '0 on all v3.4 codes (Elasticity by default)'),
@@ -6634,7 +6636,7 @@ def build_settings(wb):
                                '(base-year quantities), mix effect; helper row 10 (scenario 1 column). 11 MTOutputs rows.',
          '0 on all v3.9 codes (new rows only)'),
         ('3.11', '2026-10-16', 'Replicated from legacy: the 2023-2024 fuel-use shock on every fuel row and on power demand '
-                               '(header row 11, Settings C19 on; I22) and jet fuel (fuel jfu, aviation, kerosene price '
+                               '(header row 11, Settings C19 on; DI4) and jet fuel (fuel jfu, aviation, kerosene price '
                                'build-up, legacy EF row 1011; I19, bug L42 fixed).',
          'Intended: fuel use, prices of power, emissions, revenues and all that follows; new jfu codes'),
         ('3.12', '2026-10-16', 'Section 15 hand-off as the air-pollution module input table (legacy rows 15859-15961): '
@@ -6822,13 +6824,13 @@ def build_settings(wb):
                               'legacy (ASPIRE and poverty-line transfers, median flags, chart outputs, production-sector '
                               'prices and top-20 ranking; bugs D10-D31 fixed); I43 replicated (revenue '
                               'uses count impulses from CPIntro: rows fis.impp, fis.lagp), I33 (data step keeps the '
-                              'corrected Egypt prices, LF line ends), I68 in part (Intensity NDCs: real GDP from sheet '
+                              'corrected Egypt prices, LF line ends), DI7 in part (Intensity NDCs: real GDP from sheet '
                               'WEO, 2000-2040); I47 methane intensities as legacy (fee revenue outside the fiscal space: '
                               'circular).'),
         ('6.1', '2026-10-20', 'Open items without new data: I49 producer subsidies enter the supply cost as legacy '
                               '(rows psd, psu, block row psp; legacy bugs L124, L125 fixed); I47 methane fee in the fiscal '
                               'space on the stored scenario-1 gas and biomass activity (sheet BaselineCO2 rows dg, bm; '
-                              'rows ch4.emf, ch4.revf, check ch4b.chk); I68 NDC reference years 2021-2024 from the GHGs '
+                              'rows ch4.emf, ch4.revf, check ch4b.chk); DI7 NDC reference years 2021-2024 from the GHGs '
                               'inventory (ndc.hc, ndc.hv); I46 closed (renewable subsidies since v5.4; transport dropped). '
                               'Dropped by the user: I28, I61-I63, air-pollution co-benefits (I69), transport '
                               'externalities (I70).'),
@@ -6907,7 +6909,12 @@ def build_settings(wb):
         ('8.3', '2026-10-23', 'Legacy bug L134 fixed: ScenarioDefinition price-increase unit labels $/bbl (other oil '
                               'products, was $/bbn) and $/GJ (biomass), defaults included (were $/liter). Register '
                               'v8.3 (L134); register spreadsheet built from the register itself; Excel lint in every '
-                              'writer. Results unchanged.')]
+                              'writer. Results unchanged.'),
+        ('8.4', '2026-10-28', 'Inputs on legacy 465: ScenarioDefinition has the rows of the 465 MTInputs (456 rows '
+                              '329-330 gone, later rows 2 higher) and a complete set of names (legacy bug L137: no '
+                              'D_ prefix, no trailing space; issue I87: 87 names added). One register for every '
+                              'module (codes L, DB, M, I, DI, LD, U); files named <name>_v8.4 at the top of '
+                              'excel_ai/, the workbook also in permalink/. Results unchanged.')]
     for i, row in enumerate(log, SET_LOG + 2):
         for j, v in enumerate(row, 1):
             c_ = put(ws, f'{L(j)}{i}', v)
@@ -7198,7 +7205,7 @@ IPW_COLS = [  # header, code, PowerTech column (None = formula)
     ('Has a price fuel (1 / 0)', 'pfl', None),
     ('Fuel use per generation x efficiency: 8.76 / GWh per ktoe (ktoe per MWy)', 'pefx', None),
     ('Hydro (1 / 0)', 'hydf', None), ('Gas (1 / 0)', 'gasf', None),
-    ('Position of the type (legacy order; MTInputs rows 397-415)', 'tpos', None),
+    ('Position of the type (legacy order; MTInputs rows 395-413)', 'tpos', None),
     ('Scale-up group coal, gas, hydro (1 / 0; MaxNonVREAsPCOfTotalGen)', 'nvf', None),
     ('Renewable subsidy applies: wind, solar, other renewables, biomass (1 / 0; hydro by switch)', 'renf', None),
     ('Fuel input to power, base year (ktoe; Balances)', 'inp0', None),
@@ -8124,12 +8131,12 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
      '+9.2% in 2024), the income factor on the GDP elasticity (row 2433: GDP growth^(eps_Y x factor), 1.03'
      ' falling to 0.95 by 2040) and additional policy efficiency gains (MTInputs 242-245)',
      'CPAT eq. 3.3.3 x the shock factor (v3.11, header row 6, switch Settings C19 on, as legacy; issue '
-     'I22); v4.12: GDP growth with the income factor (row 14; was issue I23); v4.13: additional policy '
+     'DI4); v4.12: GDP growth with the income factor (row 14; was issue I23); v4.13: additional policy '
      'efficiency gains as legacy (MTInputs 243-245 by scenario: road vehicles = road, rail, aviation, '
      'navigation; residential; industrial = the other subsectors; row aef of each subsector); v5.4: power demand'
      ' takes MTInputs 242 of its own scenario, like every power input (section-1 row AdditionalEfficiencyPower, '
      'section 3 row aeef)',
-     'User decisions 2026-10-18 (I22, I23, LD21: replicate legacy); legacy bug L66 fixed (other energy use'
+     'User decisions 2026-10-18 (DI4, I23, LD21: replicate legacy); legacy bug L66 fixed (other energy use'
      ' fossil rows have no additional efficiency)', 'None while the inputs are 0 (shipped scenarios)', 'Same'),
     ('Power engineer model (v1.06)', 'Tables H (demand), I (dispatch), K (retirement, capacity), L (investment)',
      'Same method, year by year (method test: 208 legacy rows of the baseline and the carbon-tax run reproduced to '
@@ -8145,7 +8152,7 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
      'Legacy Egypt inputs: generation 2040 +12.6% (baseline), +9.2% (carbon tax); power CO2 2040 +10.8%; '
      'the last six are latent for Egypt', 'Bug fix'),
     ('Power demand: 2023-2024 demand shock', 'Exogenous shock -20.8% (2023), +9.2% (2024) on power demand',
-     'Same: switch Settings C19, on by default since v3.11 (fuels and power, as legacy; issue I22)', 'Replication rule '
+     'Same: switch Settings C19, on by default since v3.11 (fuels and power, as legacy; issue DI4)', 'Replication rule '
      '(user, 2026-10-15)', 'None', 'Same'),
     ('Power demand and sector policies', 'Power demand from its own elasticities (H); sector policies act on fuels '
      'only', 'Same; electricity demand shown as memo lines in the sector blocks and section 11 (not in the fuel '
@@ -8184,8 +8191,8 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
     ('Power: historical electricity prices and VAT', 'Legacy vintage (residential 0.112 $/kWh incl. 15.6% VAT in '
      '2022)', 'Corrected Egypt block (residential 0.054, 0.048, 0.043 $/kWh nominal 2022-2024; VAT 0)', 'User data '
      '(2026-10-09)', 'Electricity price levels', 'Data'),
-    ('Power: coal implicit cost', 'D3 (calibrated on the coal share, GoalSeekCoal; MTInputs 369-371)', 'Built v5.6 '
-     '(P5): row cic from GoalSeekCoal (legacy table, 85 countries, not Egypt) or the Manual inputs of MTInputs 370-371, '
+    ('Power: coal implicit cost', 'D3 (calibrated on the coal share, GoalSeekCoal; MTInputs 367-369)', 'Built v5.6 '
+     '(P5): row cic from GoalSeekCoal (legacy table, 85 countries, not Egypt) or the Manual inputs of MTInputs 368-369, '
      'in the coal variable cost; in generation cost and tariffs unless Settings PwCoalICTariff = No (default Yes, as '
      'legacy); memo rows fce, cik, swi, swd (legacy F2-F4, F7; F1, F5, F6 = rows lfx/tic, tvc). The calibration '
      'script (goal seek) is not built: the stored legacy values are used', '0 for Egypt (no data, no coal)',
@@ -8317,7 +8324,7 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
      'scenario-1 energy CO2 of the base year with uncalibrated EFs (Egypt: 2021 inventory against 2022, '
      '0.930); switch Settings C27, default Yes (legacy Yes* for Annex I and non-Annex I)',
      'User 2026-10-18: go with legacy (before: user decisions v3.2 GHGYear and v3.4 switch off); the '
-     '2021-2022 inventory break (I17) stays in the factor, as legacy; issue I32',
+     '2021-2022 inventory break (DI3) stays in the factor, as legacy; issue I32',
      'Energy CO2, carbon tax and ETS costs per unit of fuel', 'Same'),
     ('GDP effects: legacy values (v3.1)',
      'Baseline GDP effect rows 8280-8287 are 0 (live formulas, IFNA(INDEX(...),0); the baseline has no policy); the policy rows 14584-14607 '
@@ -8431,17 +8438,17 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
      '(bev_fe_new)', 'Legacy addresses (user request 2026-10-19)', 'None (same values)', 'Same'),
     # v5.4: power engineer features (PowerFeatures_Plan P1, P2, P4)
     ('Power: inputs by scenario (v5.4, P2)', 'Each MTInputs column runs with its own baseline and policy run, so '
-     'every power input can differ by scenario', 'Every MTInputs power input (rows 242, 262, 342-415, 482) read in the '
+     'every power input can differ by scenario', 'Every MTInputs power input (rows 242, 262, 340-413, 482) read in the '
      'scenario\'s own column (section-1 rows; section 3 sub-table A0 applies them to the power data); scenario 1 is '
      'the baseline of every scenario, so a technical input changed in a policy scenario changes that scenario only',
      'User decisions 2 and 8 of the power plan (2026-10-18)', 'None for the shipped scenarios (defaults)', 'Decision'),
-    ('Power: PPAs (v5.4)', 'Share of coal and gas generation under PPA (MTInputs 382) x phase-out factor (383 baseline, '
+    ('Power: PPAs (v5.4)', 'Share of coal and gas generation under PPA (MTInputs 380) x phase-out factor (381 baseline, '
      '384 policy, from 385 over 386 years; row 2218): runs at its capacity factor scaled to the need (rows 3794, '
      '3801-3805), not retired early (3987, 3993); switch only on "Yes*", share to phase out typed 1 (Q2193)',
      'Same (rows ppa, ppr, glg, gen, early); the switch accepts Yes or Yes* (issue I54)', 'Legacy feature '
      '(replicated)', 'None for Egypt (share 0)', 'Same'),
-    ('Power: renewable subsidies (v5.4)', 'Base subsidy (354) + additional subsidy of the policy run (355) phased out '
-     'over 356 years from the consumer-subsidy phase-out year (MTInputs 132, bug L107); hydro if 357 = Yes; in the '
+    ('Power: renewable subsidies (v5.4)', 'Base subsidy (MTInputs 352) + additional subsidy of the policy run (353) phased out '
+     'over 354 years from the consumer-subsidy phase-out year (MTInputs 132, bug L107); hydro if 355 = Yes; in the '
      'levelised cost (C5) and revenue (3665-3669); "Cost of renewable subsidies" counts the base subsidy twice and '
      'omits biomass (rows 7897-7903, bug L108); inputs in nominal $/kWh used as real (issue I55)', 'Rows rnsp, rns, '
      'lfx, prrns: own start year RenSubsidyAddStartYear (MTInputs row 482, default 2027 = the default of row 132); '
@@ -8501,10 +8508,11 @@ LD_HEAD = ['Type', 'Area', 'This model', 'Legacy CPAT', '#', 'Why', 'Effect', 'R
 def build_legacy_diff(wb):
     ws = wb.create_sheet('LegacyDiff')
     title(ws, 'Differences with legacy CPAT', len(LD_HEAD))
-    put(ws, 'A3', 'Every difference with legacy CPAT. Register code: L = legacy bug (fixed here unless stated), I = '
-                  'issue, LD = simplification or feature not yet modelled (this row; register of bugs, issues and '
-                  f'upgrades CPAT-AI_BugsAndIssues_latest.docx; lists ../BUGS.md and '
-                  '../ISSUES.md). Type Assumption: data set by assumption (bright yellow).', FONT)
+    put(ws, 'A3', 'Every difference with legacy CPAT. Register code: L = legacy bug (fixed here unless stated), DB = '
+                  'data bug, I = issue, DI = data issue (replicated), LD = simplification or feature not yet modelled '
+                  f'(this row). Master list: Tracking_Legacy_Bugs_v{VERSION}.xlsx; bugs: Legacy_CPAT_Bugs_v{VERSION}.docx; '
+                  'lists ../BUGS.md and ../ISSUES.md (NORMS 0). Type Assumption: data set by assumption (bright yellow).',
+        FONT)
     for j, h in enumerate(LD_HEAD, 1):
         c = put(ws, f'{L(j)}4', h, FONT_B)
         c.alignment = Alignment(wrap_text=True, vertical='top')
@@ -9497,11 +9505,11 @@ def pw_formula(var, r, col, prev, block):
         return fn('FUELPERKWH', f'$D{r}', o('nuu'))
     if var == 'cap0':       # base-year capacity = base-year generation / capacity factor
         return fn('SAFEDIV', f'$D{r}', o('cfu'))
-    if var == 'invs':       # new investment setting of the type (MTInputs rows 397-405 of the scenario)
+    if var == 'invs':       # new investment setting of the type (MTInputs rows 395-403 of the scenario)
         return fn('PICKTYPE', pol_range(col, 'NewInvCoa', NT), f'$D{r}')
     if var == 'perm':       # "If Present*": Yes if the type has more than InvPresentShare of base-year capacity
         return fn('INVPRESENT', o('invs'), o('cap0'), blk('cap0'))
-    if var == 'start':      # start year (MTInputs rows 407-415); hydro from the base year if its share is large (L54)
+    if var == 'start':      # start year (MTInputs rows 405-413); hydro from the base year if its share is large (L54)
         return fn('INVSTART', f'$E{r}', f'$F{r}', f'INDEX({pol_range(col, "NewInvCoaYear", NT)},$D{r})')
     if var == 'scat':       # scale-up rate of the category (Power I20:J23)
         return fn('SCALECAT', pc('MaxScaleUpRateCategory'))
@@ -9907,14 +9915,14 @@ def pol_calc(key, col, use_lambda=False):
     bco2 = pol_range(col, 'bco2.pow', len(COV_SECTORS))
     etsc = pol_range(col, 'etsc.pow', len(COV_SECTORS))
     if key == 'ets.on':                      # the new ETS applies and has started
-        a = (c('D_NewETS'), y, c('D_ETSIntro'))
+        a = (c('NewETS'), y, c('ETSIntro'))
         return '=' + (call('ETSON', *a) if use_lambda else f'IF(AND(LEFT({a[0]},3)="Yes",{y}>={a[2]}),1,0)')
     if key == 'ets.p':
-        a = (c('ets.on'), c('D_ETSPriceOverride'), c('ets.ovr'), c('ets.est'), c('cptraj'))
+        a = (c('ets.on'), c('ETSPriceOverride'), c('ets.ovr'), c('ets.est'), c('cptraj'))
         return '=' + (call('ETSPRICE', *a) if use_lambda else
                       f'IF({on},IF(LEFT({a[1]},3)="Yes",IF({a[2]}="",{a[4]},{a[2]}),{a[3]}),0)')
     if key.startswith('etsb.'):              # benchmark: linear from start to target year, flat after
-        y0, y1, s0, s1 = c('D_ETSIntro'), c('D_ETSOutro'), rel('etsbs.' + key[5:]), rel('etsbt.' + key[5:])
+        y0, y1, s0, s1 = c('ETSIntro'), c('ETSOutro'), rel('etsbs.' + key[5:]), rel('etsbt.' + key[5:])
         if use_lambda:
             return '=' + call('PATH', y, y0, y1, s0, s1, 'FALSE')
         return f'=IF({y}<{y0},0,{s0}+({s1}-{s0})/MAX({y1}-{y0},1)*(MIN({y},{y1})-{y0}))'
@@ -9922,23 +9930,23 @@ def pol_calc(key, col, use_lambda=False):
         b = f'INDEX({pol_range(col, "etsb.pow", len(ETS_GROUPS))},$D{R_POL[key]})'
         return '=' + (call('OBRSHARE', b) if use_lambda else f'MIN(1,MAX(0,{b}))')
     if key in ('ets.vol', 'ets.imp'):         # Settings volatility table: value for the MTInputs label
-        lab, vals = ((c('D_ETSVolatility'), 'Settings!$C$17:$F$17') if key == 'ets.vol'
-                     else (c('D_ETSVolImpact'), 'Settings!$C$18:$F$18'))
+        lab, vals = ((c('ETSVolatility'), 'Settings!$C$17:$F$17') if key == 'ets.vol'
+                     else (c('ETSVolImpact'), 'Settings!$C$18:$F$18'))
         if use_lambda:
             return '=' + call('VOLPICK', lab, vals)
         return f'=INDEX({vals},MATCH(SUBSTITUTE({lab},"*",""),Settings!$C$16:$F$16,0))'
     if key == 'ets.vadj':
-        a = (c('ets.vol'), c('ets.imp'), c('D_ETSCTRisk'))
+        a = (c('ets.vol'), c('ets.imp'), c('ETSCTRisk'))
         return '=' + (call('VOLADJ', *a) if use_lambda else f'(1+{a[2]}*{a[1]})/(1+{a[0]}*{a[1]})')
     if key == 'ets.bce':
         return '=' + (call('COVERED', bco2, etsc) if use_lambda else f'SUMPRODUCT({bco2},{etsc})')
     if key == 'ets.chg':                     # relative cap change: linear from start to target year, flat after
-        a = (y, c('D_ETSIntro'), c('D_ETSOutro'), c('D_ETSChangeRelStart'), c('D_ETSChangeRelTarget'))
+        a = (y, c('ETSIntro'), c('ETSOutro'), c('ETSChangeRelStart'), c('ETSChangeRelTarget'))
         if use_lambda:
             return '=' + call('CAPCHANGE', *a)
         return f'={a[3]}+({a[4]}-{a[3]})/MAX({a[2]}-{a[1]},1)*(MIN({y},{a[2]})-{a[1]})'
     if key == 'ets.cap':
-        a = (c('ets.on'), y, c('D_ETSOutro'), c('D_ETSCapCont'), c('ets.bce'), c('ets.chg'),
+        a = (c('ets.on'), y, c('ETSOutro'), c('ETSCapCont'), c('ets.bce'), c('ets.chg'),
              f'{L(CI_(col) - 1)}${R_POL["ets.cap"]}')
         if use_lambda:
             return '=' + call('ETSCAP', *a)
@@ -10033,7 +10041,7 @@ def pol_calc(key, col, use_lambda=False):
         a = (c('psu.' + f_), c('psf.' + f_))
         return '=' + (call('PSREFORM', *a) if use_lambda else f'-{a[0]}*(1-{a[1]})')
     if key.startswith(('etsbs.', 'etsbt.')):  # v4.15 (I21): benchmark = 1 - auctioned share (MTInputs rows 90-91)
-        a = c('D_ETSAuctStart' if key.startswith('etsbs.') else 'D_ETSAuctTarget')
+        a = c('ETSAuctStart' if key.startswith('etsbs.') else 'ETSAuctTarget')
         return '=' + (call('FREESHARE', a) if use_lambda else f'1-{a}')
     if key == 'ets.rf':
         v = c('ets.vadj')
@@ -11028,7 +11036,7 @@ def build_mitigation(wb):
                               'CH4, N2O and local pollutants later. co2.chk = 0 when the total equals sectors + power '
                               'and the fuels. ETS rows: co2.sec by ETS sector, co2.ets covered emissions, co2.cap the '
                               'cap, co2.gap the distance to the cap, '
-                              'ets.next the next price (paste its values into ets.ovr with D_ETSPriceOverride = Yes '
+                              'ets.next the next price (paste its values into ets.ovr with ETSPriceOverride = Yes '
                               'and repeat, or run ets_goalseek.py); bco2.chk = 0 when the baseline data in '
                               'section 1 match scenario 1.', FONT_NOTE)
 
@@ -11359,18 +11367,18 @@ def build_mitigation(wb):
             return f'=IF({N("ndc.gas")}="CO2","co2|",IF({N("ndc.lu")}="Includes","inc|","exc|"))&{N("ndc.ref")}', '@'
         if key == 'ndc.hh':
             return f'=IFERROR(INDEX(GHHTab,MATCH(CtryCode,GHHIso,0),MATCH({N("ndc.hk")},GHHHdr,0)),"N/A")', '#,##0.0'
-        if key == 'ndc.hc':                  # v6.1 (I68): inventory column of the NDC basis
+        if key == 'ndc.hc':                  # v6.1 (DI7): inventory column of the NDC basis
             return (f'=IF({N("ndc.lu")}="Includes","tinc","texc")&IF({N("ndc.gas")}="CO2",".co2",".tot")'), '@'
-        if key == 'ndc.hv':                  # v6.1 (I68): GHGs inventory (2021-2024) in the reference year
+        if key == 'ndc.hv':                  # v6.1 (DI7): GHGs inventory (2021-2024) in the reference year
             return (f'=IFERROR(INDEX(GHGVal,MATCH(CtryCode&"|"&{N("ndc.ref")},GHGKey,0),'
                     f'MATCH({N("ndc.hc")},GHGCol,0)),"N/A")'), '#,##0.0'
         if key == 'ndc.h':                   # reference-year emissions: scenario 1 in model years, else inventory,
-            v_ = N('ndc.hv')                 # else history (v6.1, I68)
+            v_ = N('ndc.hv')                 # else history (v6.1, DI7)
             return f'=IFERROR({at(R_NDC["ndc.bs"], N("ndc.ref"))},IF(ISNUMBER({v_}),{v_},{N("ndc.hh")}))', '#,##0.0'
         if var == 'ndc.gdp':                 # real GDP in the reference or target year (fix L123)
             y_ = N('ndc.ref') if fu == 'ref' else N('ndc.ty')
             return (f'=IFERROR(INDEX(WEOData,MATCH(CtryCode&".NGDP_R.A",WEOCode,0),MATCH({y_},WEOYr,0)),"N/A")',
-                    '#,##0')               # v5.7 (I68): legacy WEO real GDP in LCU, 2000-2040 (only the ratio is used)
+                    '#,##0')               # v5.7 (DI7): legacy WEO real GDP in LCU, 2000-2040 (only the ratio is used)
         if key == 'ndc.hi':                  # intensity target base: reference intensity x target-year GDP
             return f'=IFERROR({N("ndc.h")}/{N("ndc.gdp.ref")}*{N("ndc.gdp.ty")},"N/A")', '#,##0.0'
         if var == 'ndc.f':                   # 1 + target value (1 - reduction); N/A where the NDC gives none
@@ -13980,9 +13988,7 @@ def main():
     if problems:
         raise SystemExit(f'{OUT}: Excel would repair it:\n  ' + '\n  '.join(problems))
     stage('calculated values stored (LibreOffice), calculation manual')
-    import shutil                                  # v6.5 (user): a copy at the repository root, for everyone
-    shutil.copy(OUT, LATEST)   # v6.4: every macro on the dashboard (v3.6-v6.3: all
-                                                               # but Run all scenarios on the reference tab)
+    REL.publish(OUT, link=True)                    # v8.4: older versions to releases/, copy to permalink/
     stage(f'saved {OUT}')
 
 

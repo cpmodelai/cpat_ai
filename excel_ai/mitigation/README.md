@@ -1,6 +1,6 @@
 # Mitigation prototype: sources
 
-The sources of `../CPAT-AI-Mitigation-Prototype_latest.xlsm`: the builder, the VBA module, the checks and the documents. Rules: [`../../NORMS.md`](../../NORMS.md). Open work: [`../plans/TODO.md`](../plans/TODO.md).
+The sources of `../CPAT-AI-Mitigation-Prototype_v<version>.xlsm` (also `../permalink/CPAT-AI-Mitigation-Prototype_latest.xlsm`, the copy other modules link to): the builder, the VBA module, the checks, the register and the documents. Rules: [`../../NORMS.md`](../../NORMS.md). Open work: [`../plans/TODO.md`](../plans/TODO.md).
 
 ## Read
 
@@ -16,12 +16,12 @@ The sources of `../CPAT-AI-Mitigation-Prototype_latest.xlsm`: the builder, the V
 Python 3, openpyxl, LibreOffice (no Excel needed).
 
 ```
-python build.py                # writes ../releases/CPAT-AI-Mitigation-Prototype_v<version>.xlsm and ../..._latest.xlsm (about 8 min)
+python build.py                # writes ../CPAT-AI-Mitigation-Prototype_v<version>.xlsm and ../permalink/..._latest.xlsm; older versions to ../releases/ (about 8 min)
 QUICK=1 python build.py        # quick build, no batch (CPAT-AI-Mitigation-Prototype_quick.xlsx)
 python check_quick.py          # after every change (about 2 min)
 python check_paste.py <file>   # copy-paste test, at every release (about 3.5 min)
 python check_full.py           # full check, at a milestone (several hours with the macro tests)
-python make_documentation.py   # the Word documents, the register and its spreadsheet, BUGS.md and ISSUES.md
+python make_documentation.py   # Legacy_CPAT_Bugs, the tracker, the codes map, the Word documentation, BUGS.md and ISSUES.md
 python presentation/make_screenshots.py && node presentation/build_deck.js   # the deck
 ```
 
@@ -29,8 +29,8 @@ python presentation/make_screenshots.py && node presentation/build_deck.js   # t
 
 | Group | Files |
 |---|---|
-| Build | `build.py` (version in `VERSION`, also `version.json`), `CPATScenarios.bas` (VBA), `vba_project.py`, `extract_data.py`, `tabs.json` |
+| Build | `build.py` (version in `VERSION`, also `version.json`), `CPATScenarios.bas` (VBA), `vba_project.py`, `extract_data.py`, `extract_inputs.py` (inputs: rows and names of legacy 465), `tabs.json`; `../shared/release.py` (file naming and releases) |
 | Checks | `check_quick.py`, `check_full.py`, `check_paste.py`, `check_links.py`, `check_allcountry.py`; independent recalculations `power_model_ref.py`, `transport_model_ref.py`, `distribution_ref.py`; LibreOffice `lo_session.py`, `lo_run_macro.py`; `legacy_compare.py` |
-| Register and documents | `issues_register.py` (the register's data), `make_bugfix_book.py`, `make_bugs_issues_sheet.py`, `make_legacy_fixes.py`, `make_replication_lists.py`, `make_docs.py`, `make_equations.py`, `make_documentation.py`, `update_tracker.py`, `tracker_status_tab.py` (front tab CPAT-AI_bugs of `../legacy/Tracking issues.xlsx`) |
+| Register and documents | `issues_register.py` (the register's data), `register.py` (one record per item, every module), `make_legacy_fixes.py` (priorities and fixes), `make_bugfix_book.py` (`../Legacy_CPAT_Bugs_v<version>.docx`), `make_tracker.py` (`../Tracking_Legacy_Bugs_v<version>.xlsx`), `make_codesmap.py` (`../CPAT-AI_CodesMap_v<version>.xlsx`), `make_replication_lists.py`, `make_docs.py`, `make_equations.py`, `make_documentation.py` |
 | Deck | `presentation/build_deck.js`, `presentation/make_screenshots.py`, `presentation/img/` |
 | Tools | `ets_goalseek.py` (the user's ETS goal-seek test), `make_variants.py`, `extract_*.py` (legacy extracts), `update_prices_egypt.py` |

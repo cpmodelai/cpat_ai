@@ -55,14 +55,14 @@ class NTX:
             selected_countries, simulation_years, input_data.co_benefits_ffs
         )
         pigouvian_phase_in_coeff = NTX._get_pigouvian_phase_in_coeff(
-            d['pigouvian_phase_in_t'], d['start_cp_year'], simulation_years
+            d['AddEfficientTaxesPhaseInYears'], d['CPIntro'], simulation_years
         )
         is_additional_ntx = NTX._get_is_additional_ntx(
-            d['add_efficient_pigouvian_tax'], d['add_additional_excise_tax']
+            d['AddEfficientTaxes'], d['AdditionalExcise']
         )
         return NTX._get_ntx(
             scenario_type, selected_countries, simulation_years, is_additional_ntx,
-            d['add_efficient_pigouvian_tax'], externalities_ffs['ap_externalities'],
+            d['AddEfficientTaxes'], externalities_ffs['ap_externalities'],
             externalities_ffs['tra_externalities'], deflator, pigouvian_phase_in_coeff
         )
 

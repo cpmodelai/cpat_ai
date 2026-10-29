@@ -66,7 +66,7 @@ class Power:
         self.var_cost.calculate_vc_year(year, self.data, prices, p_cov_s, uranium_fuel_cost, d)
         self.demand.calculate_demand_year(year, d_gdp_at_const_prices, elasticities)
         self.investment.calculate_investment_year(
-            year, d['k_investment'], input_data.lcoe_tmp,
+            year, d['kInvestment'], input_data.lcoe_tmp,
             self.demand.aggregated_ele_supply, self.data
         )
         self.generation.calculate_generation_year(

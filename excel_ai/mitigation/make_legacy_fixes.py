@@ -1,4 +1,5 @@
-"""Legacy CPAT bug fixes needed (LegacyBugFixes.md), generated from the register (issues_register.py).
+"""Priorities, fixes and effects of the legacy bugs (read by register.py), and the deck counts (v8.4: LegacyBugFixes.md
+retired; its content is in Legacy_CPAT_Bugs_v<version>.docx and the tracker).
 
 The register holds every bug found in legacy CPAT while rebuilding it (L1-L24). This script writes the short list the
 legacy team needs: priority, where the bug is, the fix, and the effect, highest priority first. Priorities:
@@ -14,7 +15,6 @@ import build as B
 import issues_register as R
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, 'LegacyBugFixes.md')   # v7.1: notes keep the release name v7_0
 PRIORITY = {'L1': 'High', 'L3': 'High', 'L13': 'High', 'L18': 'High', 'L19': 'High', 'L20': 'High', 'L24': 'High',
             'L2': 'Medium', 'L5': 'Medium', 'L6': 'Medium', 'L14': 'Medium', 'L15': 'Medium', 'L16': 'Medium',
             'L21': 'Medium', 'L22': 'Medium',
@@ -258,7 +258,7 @@ PRIORITY.update(TR_PRI)
 FIX.update(TR_FIX)
 
 
-CHECK465 = os.path.join(HERE, '..', 'bugsfixed', 'legacy465_check.json')   # v8.2: fixes the CPAT team made in 465
+CHECK465 = os.path.join(HERE, '..', 'legacy', 'bugfixes', 'check465', 'legacy465_check.json')   # v8.2: fixes the CPAT team made in 465
 
 
 def legacy465(lid):
@@ -316,12 +316,10 @@ def main():
     for lid, title, where, what, fix, eff in rows:
         lines += [f'**{lid} ({PRIORITY[lid]}; in legacy 465: {legacy465(lid).lower()}). {title}.** {where}.', '',
                   f'- Legacy: {what}', f'- Fix: {fix}', f'- Effect: {eff}', '']
-    with open(OUT, 'w', encoding='utf-8') as f:
-        f.write('\n'.join(lines))
     with open(DECK, 'w', encoding='utf-8') as f:
         json.dump({'counts': n, 'total': len(rows),
                    'high': [{'id': b[0], 'effect': SHORT[b[0]]} for b in rows if PRIORITY[b[0]] == 'High']}, f, indent=1)
-    print(f'wrote {OUT}: {len(rows)} bugs ({n})')
+    print(f'wrote {DECK}: {len(rows)} bugs ({n})')
     return rows
 
 

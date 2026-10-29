@@ -239,14 +239,14 @@ class PowData:
         fuel = capacity_factor_actual.index.get_level_values(c.FUEL_CODE)
 
         mask = (
-            (capacity_factor_actual['CapacityFactor'] > d['cf_override_if_above'])
+            (capacity_factor_actual['CapacityFactor'] > d['CFOverrideIfAbove'])
             | (
                 fuel.isin([c.WND, c.SOL])
-                & (capacity_factor_actual['CapacityFactor'] < d['cf_override_if_below_wnd_sol'])
+                & (capacity_factor_actual['CapacityFactor'] < d['CFOverrideIfBelowWndSol'])
             )
             | (
                 ~fuel.isin([c.WND, c.SOL])
-                & (capacity_factor_actual['CapacityFactor'] < d['cf_override_if_below_fos_oth'])
+                & (capacity_factor_actual['CapacityFactor'] < d['CFOverrideIfBelowFosOth'])
             )
         )
 
@@ -330,7 +330,7 @@ class PowData:
             .fillna(0.0)
         )
 
-        mask = thermal_efficiency_actual['Efficiency.NCV'] < d['minimum_thermal_efficiency']
+        mask = thermal_efficiency_actual['Efficiency.NCV'] < d['MinimumThermalEfficiency']
 
         self.thermal_efficiency = thermal_efficiency_actual.assign(
             **{

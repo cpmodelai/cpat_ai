@@ -46,7 +46,7 @@ class Phaseouts:
         Scenario specific
         returns dims <simulation_years[0] - 1, simulation_years[1]>
         """
-        neagative_share = 1.0 - energy_sector_reform['ffs_phaseout_share_prod']
+        neagative_share = 1.0 - energy_sector_reform['ShareofProdSubPha']
         max_value = max(neagative_share, 1.0)
 
         phaseout_producer = pd.DataFrame(
@@ -54,17 +54,17 @@ class Phaseouts:
             columns=self.__columns
         )
 
-        if not energy_sector_reform['is_ffs_phaseout_prod']:
+        if not energy_sector_reform['ProdSubPh']:
             return phaseout_producer
 
         decrease_each_year = (
-            - energy_sector_reform['ffs_phaseout_share_prod']
-            / energy_sector_reform['ffs_phaseout_prod']
+            - energy_sector_reform['ShareofProdSubPha']
+            / energy_sector_reform['FFSProdPhaseoutPeriod']
         )
 
-        mask = self.__years > energy_sector_reform['ffs_start_prod']
+        mask = self.__years > energy_sector_reform['YearProdSubPha']
         values = (
-            1 + decrease_each_year * (self.__years[mask] - energy_sector_reform['ffs_start_prod'])
+            1 + decrease_each_year * (self.__years[mask] - energy_sector_reform['YearProdSubPha'])
         )
         # for years > than ffs_start_prod:
         phaseout_producer = phaseout_producer.copy()   # pandas copy-on-write: .values is read-only
@@ -84,7 +84,7 @@ class Phaseouts:
         Scenario specific
         returns dims <simulation_years[0] - 1, simulation_years[1]>
         """
-        neagative_share = 1.0 - energy_sector_reform['ffs_phaseout_share_cons']
+        neagative_share = 1.0 - energy_sector_reform['ShareOfConsSubPha']
         max_value = max(neagative_share, 1.0)
 
         phaseout_consumer = pd.DataFrame(
@@ -92,17 +92,17 @@ class Phaseouts:
             columns=self.__columns
         )
 
-        if not energy_sector_reform['is_ffs_phaseout_cons']:
+        if not energy_sector_reform['ConsSubPha']:
             return phaseout_consumer
 
         decrease_each_year = (
-            - energy_sector_reform['ffs_phaseout_share_cons']
-            / energy_sector_reform['ffs_phaseout_cons']
+            - energy_sector_reform['ShareOfConsSubPha']
+            / energy_sector_reform['FFPhaseOut']
         )
 
-        mask = self.__years > energy_sector_reform['ffs_start_cons']
+        mask = self.__years > energy_sector_reform['YearConsSubPha']
         values = (
-            1 + decrease_each_year * (self.__years[mask] - energy_sector_reform['ffs_start_cons'])
+            1 + decrease_each_year * (self.__years[mask] - energy_sector_reform['YearConsSubPha'])
         )
         # for years > than ffs_start_cons:
         phaseout_consumer = phaseout_consumer.copy()   # pandas copy-on-write: .values is read-only
@@ -129,7 +129,7 @@ class Phaseouts:
         returns dims <simulation_years[0] - 1, simulation_years[1]>
         """
 
-        neagative_share = 1.0 - energy_sector_reform['ffs_phaseout_share_cons']
+        neagative_share = 1.0 - energy_sector_reform['ShareOfConsSubPha']
         max_value = max(neagative_share, 1.0)
 
         phaseout_subsidy_tax = pd.DataFrame(
@@ -138,17 +138,17 @@ class Phaseouts:
         )
 
         baseline_condition = (scenario_type  != c.BASELINE) or is_pc_phaseout_baseline
-        if not (energy_sector_reform['is_pc_phaseout'] and baseline_condition):
+        if not (energy_sector_reform['PrcContPha'] and baseline_condition):
             return phaseout_subsidy_tax
 
         decrease_each_year = (
-            - energy_sector_reform['ffs_phaseout_share_cons']
-            / energy_sector_reform['pc_phaseout']
+            - energy_sector_reform['ShareOfConsSubPha']
+            / energy_sector_reform['PrcControlPhaseout']
         )
 
-        mask = self.__years > energy_sector_reform['pc_start']
+        mask = self.__years > energy_sector_reform['YearPrcContPha']
         values = (
-            1 + decrease_each_year * (self.__years[mask] - energy_sector_reform['pc_start'])
+            1 + decrease_each_year * (self.__years[mask] - energy_sector_reform['YearPrcContPha'])
         )
         # for years > than pc_start:
         phaseout_subsidy_tax = phaseout_subsidy_tax.copy()   # pandas copy-on-write: .values is read-only

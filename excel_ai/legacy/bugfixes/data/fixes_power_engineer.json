@@ -224,7 +224,7 @@
    }
   ],
   "ref": "Row label of 4027. Next year's required generation is estimated as this year's x (1 + growth from last year to this year) (user decision 2026-10-20). Reading next year's demand itself (M3752) would make the workbook circular once a revenue that reads fuel use incl. power (the methane fee, rows 6136-6137, 8010) feeds the GDP feedback: next year's demand reads next year's GDP, which reads this year's revenue. The estimate reads only this and last year, so it is free of circular references in legacy and in the prototype (v6.2). K3752 in the first year: IFERROR gives growth 0.",
-  "effect": "Egypt (legacy inputs, power_model_ref v6.2): installed capacity 77.9 GW in 2030 and 109.6 GW in 2040 against legacy 75.2 and 107.3 (next year's demand read directly, v4.14: 77.3 and 109.5). The estimate follows the demand shock (I22): the need is 4.3 GW in 2024 after the 2024 rebound and 0 in 2025.",
+  "effect": "Egypt (legacy inputs, power_model_ref v6.2): installed capacity 77.9 GW in 2030 and 109.6 GW in 2040 against legacy 75.2 and 107.3 (next year's demand read directly, v4.14: 77.3 and 109.5). The estimate follows the demand shock (DI4): the need is 4.3 GW in 2024 after the 2024 rebound and 0 in 2025.",
   "note": null,
   "status": "fix"
  },

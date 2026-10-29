@@ -393,10 +393,10 @@
   },
   "General 3": {
    "codes": [
-    "DI6",
-    "DI4"
+    "I80",
+    "I78"
    ],
-   "note": "MVP distribution reproduced by a Python reference; revenue identity per DI6."
+   "note": "MVP distribution reproduced by a Python reference; revenue identity per I80."
   },
   "General 4": {
    "codes": [],

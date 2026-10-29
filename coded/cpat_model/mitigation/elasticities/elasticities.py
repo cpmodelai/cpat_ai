@@ -100,14 +100,14 @@ class Elasticities:
                 ]
             )
 
-        if d['source_income_elasticities'] == 'Manual':
+        if d['ElIncMainSrc'] == 'Manual':
             raise NotImplementedError("Manual income elasticities not yet supported.")
-        if d['source_price_elasticities'] == 'Manual':
+        if d['ElPrcMainSrc'] == 'Manual':
             raise NotImplementedError("Manual price elasticities not yet supported.")
 
         adj_mapping = {'VHigh': 2.0, 'High': 1.0, 'Base': 0.0, 'Low': -1.0, 'VLow': -2.0}
-        income_adj = adj_mapping[d['elasticities_adjustment_income']]
-        price_adj = adj_mapping[d['elasticities_adjustment_price']]
+        income_adj = adj_mapping[d['ElastIncAdjustment']]
+        price_adj = adj_mapping[d['ElastPriceAdjustment']]
 
         income['Value'] += income['Standard deviation'] * income_adj
         own_price_usage['Value'] += own_price_usage['Standard deviation'] * price_adj

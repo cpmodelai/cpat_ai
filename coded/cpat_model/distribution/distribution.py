@@ -102,9 +102,9 @@ class Distribution:
         """
         self.d = d
         self.country = country
-        self.analysis_year = d['analysis_year']
+        self.analysis_year = d['YearDistn']
         self.sample = sample
-        self.stat_type = d['statistic_output']
+        self.stat_type = d['QuantilesStatistic']
         self.cp_revenue = cp_revenue
 
         self.__init_price_changes(input_data, price_change_direct_priced)
@@ -135,10 +135,10 @@ class Distribution:
 
 
     def __init_effects(self, d: DistributionInputsDict) -> None:
-        behavior_adjustment = d['behavioral_response_adj_factor'] if d['adjust_for_behavioral_change'] else 1.0
+        behavior_adjustment = d['behavioral_response_adj_factor'] if d['InferredDist'] else 1.0
 
         dwl_direct = dwl_indirect = None
-        if d['adjust_for_deadweight_losses']:
+        if d['DWLs']:
             dwl_direct = bsh_mod.compute_deadweight_loss(
                 self.budget_shares, self.elasticities, self.price_change_direct
             )
@@ -149,10 +149,10 @@ class Distribution:
         direct = effects.direct_effect(
             self.budget_shares, self.price_change_direct, dwl_direct, behavior_adjustment
         )
-        if d['exempt_cooking_fuel']:
+        if d['ExemptMostCook']:
             direct = effects.apply_cooking_fuel_exemption(
                 direct, d['exempt_cooking_fuel_code'], d['exempt_cooking_fuel_share'],
-                d['exempt_cooking_fuel_bottom_deciles']
+                d['ExemptCookDeciles']
             )
         self.direct_effect = direct
 
@@ -188,21 +188,21 @@ class Distribution:
         ).reindex(DECILES)['pit_share'].fillna(0.0)
 
         access = bsh_mod.select_hh_cells(
-            hh_survey, self.sample, 'mean', {'access': d['public_investment_access_type']}
+            hh_survey, self.sample, 'mean', {'access': d['PublicInfrastructureInvType']}
         ).reindex(DECILES)['access'].fillna(0.0)
 
         population = self.rebased['population']
 
-        revenue_labor_tax = self.cp_revenue * d['share_labor_tax_reduction']
-        revenue_transfer = self.cp_revenue * d['share_targeted_transfer']
-        revenue_investment = self.cp_revenue * d['share_public_investment']
-        revenue_spending = self.cp_revenue * d['share_current_spending']
+        revenue_labor_tax = self.cp_revenue * d['EXPLabortax'] / 100
+        revenue_transfer = self.cp_revenue * d['EXPTransfers'] / 100
+        revenue_investment = self.cp_revenue * d['EXPCapex'] / 100
+        revenue_spending = self.cp_revenue * d['EXPGoodsandserv'] / 100
 
         pit_shares = recycling.pit_reduction_shares(
-            pit_raw_share, d['labor_tax_reduction_method'], d['labor_tax_exempt_bottom_deciles']
+            pit_raw_share, d['PITReductionType'], d['DistExcCfDec']
         )
         transfer_shares = recycling.targeted_transfer_shares(
-            population, d['transfer_targeted_percentile'], d['transfer_coverage_rate'], d['transfer_leakage_rate']
+            population, d['TargettedPercentile'] / 100, d['CoverageRate'] / 100, d['LeakageRate'] / 100
         )
         investment_shares = recycling.public_investment_shares(access)
         spending_shares = recycling.current_spending_shares(population)

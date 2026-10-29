@@ -32,117 +32,123 @@ PigouvianTaxType = Literal['pigouvian', 'FFS', 'no tax']
 class EnergySectorReform(TypedDict):
     """
     Type for 'Energy sector reform' (v361)
+    Keys: the ScenarioDefinition names (NameOfParameter) of the policy inputs. Each key also stands for its baseline
+    twin (ProdSubPhaBaseline, FFSProdPhaseoutPeriodBA, ShareOfProdSubPhaBA, ConsSubPhaBaseline, FFSConsPhaseoutPeriodBA,
+    ShareofConsSubPhaBA) until the two are split (coded/TODO.md).
     TODO: check input fields again
     CPAT Excel: 230:237
     """
-    is_ffs_phaseout_prod: bool # Phase out fossil fuel subsidies (producer)?
+    ProdSubPh: bool # Phase out fossil fuel subsidies (producer)?
     # baseline =MTInputs!F57 -> Dashboard!$V$66; scenario: =MTInputs!F53 -> always True
 
-    ffs_phaseout_prod: int # FFS (producer) phaseout period?
+    FFSProdPhaseoutPeriod: int # FFS (producer) phaseout period?
     # baseline =MTInputs!$F$58 -> Dashboard!$V$67, scenario: =MTInputs!F55 -> Dashboard!$Q$3
 
-    ffs_start_prod: int # Year to begin FFS (producer) phaseout?
+    YearProdSubPha: int # Year to begin FFS (producer) phaseout?
     # always =MTInputs!F54 -> Dashboard!$P$3
 
-    ffs_phaseout_share_prod: float # Share of subsidies to phase-out
+    ShareofProdSubPha: float # Share of subsidies to phase-out
     # baseline =MTInputs!$F$59 -> Dashboard!$V$68, scenario: =MTInputs!$F$56 -> Dashboard!$V$65
 
 
-    is_ffs_phaseout_cons: bool # Phase out fossil fuel subsidies (consumer)?
+    ConsSubPha: bool # Phase out fossil fuel subsidies (consumer)?
     # always =MTInputs!$F$61 -> always True
 
-    ffs_phaseout_cons: int # FFS (consumer) phaseout period?
+    FFPhaseOut: int # FFS (consumer) phaseout period?
     # baseline =MTInputs!$F$66 -> Dashboard!$V$72, scenario: =MTInputs!F63 -> Dashboard!$Q$4
 
-    ffs_start_cons: int # Year to begin FFS (consumer) phaseout?
+    YearConsSubPha: int # Year to begin FFS (consumer) phaseout?
     # always =MTInputs!F62 -> Dashboard!$P$4
 
-    ffs_phaseout_share_cons: float # Share of subsidies to phase-out
+    ShareOfConsSubPha: float # Share of subsidies to phase-out
     # baseline =MTInputs!$F$67 -> Dashboard!$V$73, scenario: =MTInputs!$F$64 -> Dashboard!$V$70
 
 
-    is_pc_phaseout: bool # Phaseout price control?
-    pc_start: int # Year to introduce price control phaseout
-    pc_phaseout: int # Price control phaseout period (years)
+    PrcContPha: bool # Phaseout price control?
+    YearPrcContPha: int # Year to introduce price control phaseout
+    PrcControlPhaseout: int # Price control phaseout period (years)
 
 
 class DashboardInputsDict(TypedDict):
     """
+    Keys are the ScenarioDefinition names (NameOfParameter, legacy MTInputs column H; codes map tab Inputs), v8.4.
+    Groups keep a container key: energy_sector_reform, adj_eff_margins_shadow_pricing (SPPEffAdj*) and
+    additional_eff_gains (AdditionalEfficiency*). CTaxTrajectoryType also carries ExtendCarbonPriceBeyondOutro.
     Dashboard inputs types defined.
     Based on CPAT Excel (v361) if not stated otherwise
     """
-    scenario_type: ScenarioType # Dashboard!$E$3 (v407)
+    ScenarioSelected: ScenarioType # Dashboard!$E$3 (v407)
 
     # elasticities
-    source_income_elasticities: ElasticititesSourcesType # Dashboard!$L$21 (v407)
-    source_price_elasticities: ElasticititesSourcesType # Dashboard!$L$20 (v407)
-    elasticities_adjustment_income: ElasticititesAdjustmentType # Dashboard!$Q$21 (v407)
-    elasticities_adjustment_price: ElasticititesAdjustmentType # Dashboard!$Q$20 (v407)
+    ElIncMainSrc: ElasticititesSourcesType # Dashboard!$L$21 (v407)
+    ElPrcMainSrc: ElasticititesSourcesType # Dashboard!$L$20 (v407)
+    ElastIncAdjustment: ElasticititesAdjustmentType # Dashboard!$Q$21 (v407)
+    ElastPriceAdjustment: ElasticititesAdjustmentType # Dashboard!$Q$20 (v407)
 
     # gdp
-    deflator_selection: Literal['World', 'Country'] # Dashboard!$G$66
-    results_year: int # Dashboard!$G$62 Default 2021
-    gdp_adj: Literal['High', 'Base', 'Low'] # Dashboard!$Q$19
+    DfSelection: Literal['World', 'Country'] # Dashboard!$G$66
+    ResultsYear: int # Dashboard!$G$62 Default 2021
+    GdpAdj: Literal['High', 'Base', 'Low'] # Dashboard!$Q$19
 
     # efs
-    efs_selected: Literal['IIASA', 'IEA'] # Dashboard!$L$22
+    EmissionsFactCO2: Literal['IIASA', 'IEA'] # Dashboard!$L$22
 
     ### Policies
-    ct_tax_complimentary_to_ets: bool # Dashboard!$Q$76
-    exempt_phaseout: bool # MTInputs!$F$49 -> hardcoded True
-    year_pha: int # Dashboard!$P$2
-    exempt_phaseout_period: int # Dashboard!$Q$2
+    CTaxComplimentaryToETS: bool # Dashboard!$Q$76
+    ExemptPhaseout: bool # MTInputs!$F$49 -> hardcoded True
+    YearPha: int # Dashboard!$P$2
+    ExemptPhaseoutPeriod: int # Dashboard!$Q$2
 
     # 'Adjustment to efficiency margins for shadow pricing policies:' (v407)
     # Dashboard!$L$68 Dashboard!$L$69 Dashboard!$L$70 Dashboard!$L$71 Dashboard!$L$72
     adj_eff_margins_shadow_pricing: dict[ShandowPricingScenariosType, float]
 
-    ets_adj: float # Dashboard!$Q$78
-    tax_pathway: Literal['rea', 'nom'] # Dashboard!$G$20 # TODO: 'rea' not implemented
+    ETSBehavioralAdjustment: float # Dashboard!$Q$78
+    NomorReal: Literal['rea', 'nom'] # Dashboard!$G$20 # TODO: 'rea' not implemented
     # Dashboard!$G$19 and Dashboard!$L$78 - they do the same thing but $L$78 overrides $G$19:
-    cp_trajectory_type: Literal['exp', 'lin', 'cst', 'per']
-    start_cp_year: int # Dashboard!$I$4 , TODO the same as cp_intro in some parts of the code
-    target_cp_year: int # Dashboard!$I$7
-    start_cp: int # Dashboard!$I$5
-    target_cp: int # Dashboard!$I$6
-    ct_exp_rate: float # Dashboard!$L$79
+    CTaxTrajectoryType: Literal['exp', 'lin', 'cst', 'per']
+    CPIntro: int # Dashboard!$I$4 , TODO the same as cp_intro in some parts of the code
+    CPOutro: int # Dashboard!$I$7
+    CPLevelStart: int # Dashboard!$I$5
+    CPLevelTarget: int # Dashboard!$I$6
+    CtaxExponentialEscalationRate: float # Dashboard!$L$79
 
     # Exisiting carbon prices mechanisms
-    existing_ct_apply: bool # Dashboard!$Q$71
-    existing_ct_growth: float # Dashboard!$Q$72
-    existing_ets_apply: bool # Dashboard!$Q$74
-    existing_ets_growth: float # Dashboard!$Q$75
+    ExistingCTApply: bool # Dashboard!$Q$71
+    ExistingCTGrowth: float # Dashboard!$Q$72
+    ExistingETSApply: bool # Dashboard!$Q$74
+    ExistingETSGrowth: float # Dashboard!$Q$75
 
     # Phaseouts
-    is_pc_phaseout_baseline: bool # Dashboard!$V$76
+    PrcContPhaBaseline: bool # Dashboard!$V$76
     energy_sector_reform: EnergySectorReform
 
 
     ### prices
-    price_scenario_used: PriceScenarioType # Dashboard!$L$18
-    int_energy_price_adjustment: PriceAdjustmentType # Dashboard!$Q$18
-    gov_energy_price_controls: Literal['Bucketed', 'Manual', 'None'] # Dashboard!$V$75
-    global_energy_demand_scenario: GlobalEnergyDemandScenarioType # Dashboard!$G$73
+    IntEnerPricForeSource: PriceScenarioType # Dashboard!$L$18
+    IntEnerPricForecastAdjustment: PriceAdjustmentType # Dashboard!$Q$18
+    GovPriceControls: Literal['Bucketed', 'Manual', 'None'] # Dashboard!$V$75
+    GlobalEnergyDemand: GlobalEnergyDemandScenarioType # Dashboard!$G$73
 
     # ntx
-    pigouvian_phase_in_t: int # Dashboard!$V$23
-    add_efficient_pigouvian_tax: PigouvianTaxType # Dashboard!$V$22
-    add_additional_excise_tax: bool # Dashboard!$V$24
+    AddEfficientTaxesPhaseInYears: int # Dashboard!$V$23
+    AddEfficientTaxes: PigouvianTaxType # Dashboard!$V$22
+    AdditionalExcise: bool # Dashboard!$V$24
 
 
     ### Power
-    cf_override_if_above: float # Dashboard!$G$129 CFOverrideIfAbove (v407)
-    cf_override_if_below_fos_oth: float # Dashboard!$G$127 CFOverrideIfBelowFosOth (v407)
-    cf_override_if_below_wnd_sol: float # Dashboard!$G$128 CFOverrideIfBelowWndSol (v407)
-    minimum_thermal_efficiency: float # Dashboard!G125 MinimumThermalEfficiency (v407)
-    k_investment: float # Dashboard!$L$133 kInvestment (v407)
-    k_dispatch: float # Dashboard!$G$121 kDispatch (v407)
-    max_coa_cf: float # Dashboard!$G$123 MaximumCoalCF (v407)
-    max_nga_cf: float # Dashboard!$G$124 MaximumGasCF (v407)
-    use_spot_fuel_prices_power: bool # Dashboard!$G$122 UseSpotFuelPricesInEngineerModel (v407)
+    CFOverrideIfAbove: float # Dashboard!$G$129 CFOverrideIfAbove (v407)
+    CFOverrideIfBelowFosOth: float # Dashboard!$G$127 CFOverrideIfBelowFosOth (v407)
+    CFOverrideIfBelowWndSol: float # Dashboard!$G$128 CFOverrideIfBelowWndSol (v407)
+    MinimumThermalEfficiency: float # Dashboard!G125 MinimumThermalEfficiency (v407)
+    kInvestment: float # Dashboard!$L$133 kInvestment (v407)
+    kDispatch: float # Dashboard!$G$121 kDispatch (v407)
+    MaximumCoalCF: float # Dashboard!$G$123 MaximumCoalCF (v407)
+    MaximumGasCF: float # Dashboard!$G$124 MaximumGasCF (v407)
+    UseSpotFuelPricesInEngineerModel: bool # Dashboard!$G$122 UseSpotFuelPricesInEngineerModel (v407)
 
     ### EC
-    always_exempt_res_lpg_ker: bool # Dashboard!$V$19 AlwaysExemptResLPGKer (v407)
+    AlwaysExemptResLPGKer: bool # Dashboard!$V$19 AlwaysExemptResLPGKer (v407)
     additional_eff_gains: dict[ # (v407)
         Literal[
             'pow', # Dashboard!$L$61 AdditionalEfficiencyPower
@@ -165,56 +171,56 @@ class DashboardInputs:
     def __init__(self, config_input: dict | None = None) -> None:
         # default
         self.d = {
-            'scenario_type': c.BASELINE,
+            'ScenarioSelected': c.BASELINE,
 
-            'source_income_elasticities': 'Simple',
-            'source_price_elasticities': 'Simple',
-            'elasticities_adjustment_income': 'Base',
-            'elasticities_adjustment_price': 'Base',
+            'ElIncMainSrc': 'Simple',
+            'ElPrcMainSrc': 'Simple',
+            'ElastIncAdjustment': 'Base',
+            'ElastPriceAdjustment': 'Base',
 
-            'global_energy_demand_scenario': 'Stated Policies',
+            'GlobalEnergyDemand': 'Stated Policies',
 
-            'deflator_selection': 'World',
-            'results_year': 2022,
-            'gdp_adj': 'Base',
+            'DfSelection': 'World',
+            'ResultsYear': 2022,
+            'GdpAdj': 'Base',
 
-            'efs_selected': 'IIASA',
+            'EmissionsFactCO2': 'IIASA',
 
-            'is_pc_phaseout_baseline': True,
+            'PrcContPhaBaseline': True,
             'energy_sector_reform': {
-                'is_ffs_phaseout_prod': True,
-                'ffs_phaseout_prod': 5,
-                'ffs_start_prod': 2025,
-                'ffs_phaseout_share_prod': 0.5,
+                'ProdSubPh': True,
+                'FFSProdPhaseoutPeriod': 5,
+                'YearProdSubPha': 2025,
+                'ShareofProdSubPha': 0.5,
 
-                'is_ffs_phaseout_cons': False,
-                'ffs_phaseout_cons': 5,
-                'ffs_start_cons': 2025,
-                'ffs_phaseout_share_cons': 0.5,
+                'ConsSubPha': False,
+                'FFPhaseOut': 5,
+                'YearConsSubPha': 2025,
+                'ShareOfConsSubPha': 0.5,
 
-                'is_pc_phaseout': True,
-                'pc_phaseout': 5,
-                'pc_start': 2025,
+                'PrcContPha': True,
+                'PrcControlPhaseout': 5,
+                'YearPrcContPha': 2025,
             },
 
-            'existing_ct_apply': True,
-            'existing_ct_growth': 0.1,
-            'existing_ets_apply': True,
-            'existing_ets_growth': 0.1,
+            'ExistingCTApply': True,
+            'ExistingCTGrowth': 0.1,
+            'ExistingETSApply': True,
+            'ExistingETSGrowth': 0.1,
 
-            'gov_energy_price_controls': 'Bucketed',
-            'price_scenario_used': 'IMF-WB',
-            'int_energy_price_adjustment': 'Base',
+            'GovPriceControls': 'Bucketed',
+            'IntEnerPricForeSource': 'IMF-WB',
+            'IntEnerPricForecastAdjustment': 'Base',
 
-            'start_cp_year': 2025,
-            'target_cp_year': 2030,
-            'start_cp': 0,
-            'target_cp': 25,
+            'CPIntro': 2025,
+            'CPOutro': 2030,
+            'CPLevelStart': 0,
+            'CPLevelTarget': 25,
 
-            'exempt_phaseout': True,
-            'year_pha': 2025,
-            'exempt_phaseout_period': 5,
-            'ct_tax_complimentary_to_ets': False,
+            'ExemptPhaseout': True,
+            'YearPha': 2025,
+            'ExemptPhaseoutPeriod': 5,
+            'CTaxComplimentaryToETS': False,
 
             'adj_eff_margins_shadow_pricing': {
                 c.ENERGY_EFFICIENCY_REGULATIONS: 0.7,
@@ -224,27 +230,27 @@ class DashboardInputs:
                 c.FEEBATES: 1.0
             },
 
-            'pigouvian_phase_in_t': 5,
-            'add_efficient_pigouvian_tax': 'no tax',
-            'add_additional_excise_tax': False,
+            'AddEfficientTaxesPhaseInYears': 5,
+            'AddEfficientTaxes': 'no tax',
+            'AdditionalExcise': False,
 
-            'ets_adj': 0.9,
-            'tax_pathway': 'nom',
-            'cp_trajectory_type': 'lin',
-            'ct_exp_rate': 0.00,
+            'ETSBehavioralAdjustment': 0.9,
+            'NomorReal': 'nom',
+            'CTaxTrajectoryType': 'lin',
+            'CtaxExponentialEscalationRate': 0.00,
 
-            'cf_override_if_above': 1.0,
-            'cf_override_if_below_fos_oth': 0.01,
-            'cf_override_if_below_wnd_sol': 0.1,
-            'minimum_thermal_efficiency': 0.1,
-            'k_investment': 2.0,
-            'k_dispatch': 2.0,
-            'max_coa_cf': 0.9,
-            'max_nga_cf': 0.9,
+            'CFOverrideIfAbove': 1.0,
+            'CFOverrideIfBelowFosOth': 0.01,
+            'CFOverrideIfBelowWndSol': 0.1,
+            'MinimumThermalEfficiency': 0.1,
+            'kInvestment': 2.0,
+            'kDispatch': 2.0,
+            'MaximumCoalCF': 0.9,
+            'MaximumGasCF': 0.9,
             # TODO: in Excel False as default, here True as moving prices not implemented:
-            'use_spot_fuel_prices_power': True,
+            'UseSpotFuelPricesInEngineerModel': True,
 
-            'always_exempt_res_lpg_ker': False,
+            'AlwaysExemptResLPGKer': False,
             'additional_eff_gains': {
                 'pow': 0.0,
                 'tra': 0.0,

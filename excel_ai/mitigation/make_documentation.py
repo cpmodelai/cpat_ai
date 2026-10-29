@@ -1,9 +1,12 @@
-"""Rebuild the generated Word documents of documentation/ (plan and index: README.md here).
+"""Rebuild the generated documents of a release (after build.py), in order:
 
-The generators write straight into this folder:
-- make_docs_v<n>.py: CPAT-AI-Mitigation_Documentation_v<version>.docx (quick start, equations, method notes);
-- make_bugfix_book_v<n>.py: CPAT-AI_BugsAndIssues_v<version>.docx (the one register).
-The other documents here are kept by hand. Run after the release's register scripts:
+- make_replication_lists.py: ../BUGS.md, ../ISSUES.md;
+- make_bugfix_book.py: ../Legacy_CPAT_Bugs_v<version>.docx (and ../legacy/Legacy_CPAT_Register.json);
+- make_tracker.py: ../Tracking_Legacy_Bugs_v<version>.xlsx (the master list; the team's tabs kept);
+- make_codesmap.py: ../CPAT-AI_CodesMap_v<version>.xlsx (codes and inputs);
+- make_docs.py: CPAT-AI-Mitigation_Documentation.docx (with the issues, data issues and the procedure as appendices)
+  and CPAT-AI-Mitigation_Methods.docx.
+The deck: python presentation/make_screenshots.py && node presentation/build_deck.js.
 
     python excel_ai/mitigation/make_documentation.py
 """
@@ -11,13 +14,13 @@ import os
 import subprocess
 import sys
 
-prototype = os.path.dirname(os.path.abspath(__file__))   # excel_ai/mitigation/
-V_ = '7_0'                                       # mitigation prototype release (build_v<n>.py)
+HERE = os.path.dirname(os.path.abspath(__file__))
 
 
 def main():
-    for script in ('make_replication_lists.py', 'make_bugs_issues_sheet.py', 'make_bugfix_book.py', 'make_docs.py'):
-        subprocess.run([sys.executable, script], cwd=prototype, check=True)
+    for script in ('make_replication_lists.py', 'make_bugfix_book.py', 'make_tracker.py', 'make_codesmap.py',
+                   'make_docs.py'):
+        subprocess.run([sys.executable, script], cwd=HERE, check=True)
 
 
 if __name__ == '__main__':

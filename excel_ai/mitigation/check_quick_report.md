@@ -1,6 +1,6 @@
-# Quick check, CPAT-AI-Mitigation-Prototype v8.3
+# Quick check, CPAT-AI-Mitigation-Prototype v8.4
 
-**PASS** (146 s; the full check is check_full.py, run on request). Changes of output codes are reported, not failed: compare them with what the change intended.
+**PASS** (212 s; the full check is check_full.py, run on request). Changes of output codes are reported, not failed: compare them with what the change intended.
 
 - tab order (main, inputs, data, reference last; 56 tabs): OK
 - 408711 formulas; plain formulas over 100 characters: []: OK
@@ -36,4 +36,4 @@
 - code protocol C5 (a total row writes tot): 0 explicit-sum rows write all [] (a row whose code the rename map code_renames_v7_2.csv writes is decided): OK
 - Distribution reads Mitigation only through FromMitigation (section 19a): direct references 0 []: OK
 - Excel open and recalculation: skipped (no Excel here: ModuleNotFoundError)
-- output codes vs CPAT-AI-Mitigation-Prototype_v8.2.xlsm: 13396 shared, 0 new, 0 gone; 0 change (max abs diff 0); largest: []; other than bco2 (with max abs diff): []
+- output codes vs CPAT-AI-Mitigation-Prototype_v8.3.xlsm: 13372 shared, 24 new, 24 gone; 0 change (max abs diff 0); largest: []; other than bco2 (with max abs diff): []

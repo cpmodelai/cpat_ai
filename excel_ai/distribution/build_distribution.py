@@ -1,15 +1,15 @@
 """CPAT-AI Distribution Prototype: the standalone distribution module (Plan_Modules M3).
 
 The module is cut from the built mitigation prototype (one source of truth: the prototype builder's Distribution,
-FromMitigation and data tabs, not a second copy of them). From ../CPAT-AI-Mitigation-Prototype_latest.xlsm it keeps
+FromMitigation and data tabs, not a second copy of them). From ../permalink/CPAT-AI-Mitigation-Prototype_latest.xlsm it keeps
 the tabs the Distribution tab reads, turns every formula that reads a dropped tab into its value (FromMitigation
 entirely: the button Update from Mitigation refreshes it), keeps the defined names and LAMBDAs still used, shows only
 the distribution rows of ScenarioDefinition, and adds a Cover with the link to the mitigation workbook and the VBA
 module CPATDistribution.bas. Then, as the prototype: shipped with its values (LibreOffice), manual calculation,
 linted.
 
-    python build_distribution.py       # writes ../releases/CPAT-AI-Distribution-Prototype_v<version>.xlsm and
-                                       # ../CPAT-AI-Distribution-Prototype_latest.xlsm (about 2 min)
+    python build_distribution.py       # writes ../CPAT-AI-Distribution-Prototype_v<version>.xlsm (older versions to
+                                       # ../releases/; NORMS 5a; about 2 min)
 """
 import os
 import re
@@ -27,10 +27,9 @@ sys.path.insert(0, os.path.join(HERE, '..', 'mitigation'))
 sys.path.insert(0, os.path.join(HERE, '..', 'shared'))
 import build as P                                      # noqa: E402  the prototype builder (helpers, layout)
 
-VERSION = '1.0'
+VERSION = '1.1'
 NAME = 'CPAT-AI-Distribution-Prototype'
-OUT = os.path.join(HERE, '..', 'releases', f'{NAME}_v{VERSION}.xlsm')   # the release copy
-LATEST = os.path.join(HERE, '..', f'{NAME}_latest.xlsm')               # the same file, stable name
+OUT = P.REL.versioned(NAME, VERSION, 'xlsm')     # v1.1: excel_ai/<name>_v<version>.xlsm (no _latest copy, NORMS 5a)
 SOURCE = P.LATEST                                     # the mitigation prototype the module is cut from
 BAS = os.path.join(HERE, 'CPATDistribution.bas')
 MIT_FILE = os.path.basename(P.LATEST)
@@ -40,6 +39,9 @@ VERSION_LOG = [  # version, date, change
                           'and FromMitigation tabs, the distribution data tabs, the distribution rows of '
                           'ScenarioDefinition and Settings. Inputs from Mitigation by the button Update from '
                           'Mitigation (section 19a, defined name ExportDistn).'),
+    ('1.1', '2026-10-28', f'Cut from the mitigation prototype v{P.VERSION}: ScenarioDefinition on the rows of legacy '
+                          '465 with a complete set of names (bug L137, issue I87); the mitigation workbook is looked '
+                          'for in permalink/ too; file named _v1.1 at the top of excel_ai/ (NORMS 5a).'),
 ]
 
 # the tabs of the module, in order (Cover is added); everything else of the prototype is dropped
@@ -252,8 +254,8 @@ def main():
     problems = excel_lint.lint(OUT)
     if problems:
         raise SystemExit(f'{OUT}: Excel would repair it:\n  ' + '\n  '.join(problems))
-    shutil.copy(OUT, LATEST)
-    stage(f'calculated values stored, linted; saved {OUT} and {os.path.basename(LATEST)}')
+    P.REL.publish(OUT)                                 # v1.1: older versions to releases/
+    stage(f'calculated values stored, linted; saved {OUT}')
 
 
 if __name__ == '__main__':

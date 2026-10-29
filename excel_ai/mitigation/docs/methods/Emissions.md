@@ -69,8 +69,8 @@ Totals by gas and by category; total GHGs excluding and including LULUCF; the ch
 
 ### 6. Open issues
 
-- **Egypt's inventory breaks after 2021** (I17): energy CH4 is 21.9 Mt CO2e in 2021 and 1.9-2.0 in 2022-2024, while the fugitive-emissions memo alone is 20.3 in 2023. Calibrating to 2024 (as legacy) may understate energy methane by about 19 Mt CO2e.
-- **Energy CO2 calibration to the inventory (as legacy since v4.11; switch on)**: every CO2 emission factor is scaled by the 2021 inventory over the 2022 estimate (Egypt 0.930; chapter Emissions); the 2021-2022 inventory break (I17) carries into every year, as legacy.
+- **Egypt's inventory breaks after 2021** (DI3): energy CH4 is 21.9 Mt CO2e in 2021 and 1.9-2.0 in 2022-2024, while the fugitive-emissions memo alone is 20.3 in 2023. Calibrating to 2024 (as legacy) may understate energy methane by about 19 Mt CO2e.
+- **Energy CO2 calibration to the inventory (as legacy since v4.11; switch on)**: every CO2 emission factor is scaled by the 2021 inventory over the 2022 estimate (Egypt 0.930; chapter Emissions); the 2021-2022 inventory break (DI3) carries into every year, as legacy.
 - **Combustion factors** use only the GAINS base and final values (the yearly paths are proprietary). Combustion methane exceeds inventory energy methane, so the calibration factor is about 0.25 for Egypt.
 - **Oil, gas and coal production** is held at the base year (no production model).
 
@@ -102,8 +102,8 @@ GHGs above the chosen target (ndc.over; in the target year the legacy goal-seek 
 
 Legacy bugs fixed: L119 (year adjustment applied twice for BAU, never for Fixed or Historical: the prototype compares in the
 target year), L120 (index ratios inverted), L121 (Historical "level" is the cut), L122 (Intensity adds a blank cell
-for LULUCF), L123 (Intensity reference GDP from a fixed cell). Issues: I67 (China CO2 hard-coded in legacy: not
-replicated), I68 (reference years outside the data: N/A; v6.1 reads 2021-2024 from the GHGs inventory; 2018-2020 need data).
+for LULUCF), L123 (Intensity reference GDP from a fixed cell). Issues: L169 (China CO2 hard-coded in legacy: not
+replicated), DI7 (reference years outside the data: N/A; v6.1 reads 2021-2024 from the GHGs inventory; 2018-2020 need data).
 
 Egypt (latest NDC: BAU, 2030, -27% unconditional, GHGs excl. LULUCF): target 344.3 Mt CO2e (legacy 355.7 = its BAU
 487.2 x 0.73; the prototype BAU is 471.7, the known baseline GHG difference); scenario 2 achieves 21% of the required
@@ -132,7 +132,7 @@ Everything downstream follows: CO2 by subsector, fuel and power type; carbon tax
 | 2023 | 267.4 | 196.7 | 182.9 |
 | 2024 | 285.3 | 218.9 | 203.5 |
 
-The calibrated base year equals the 2021 inventory (211.1), as legacy. Egypt's inventory jumps 19% from 2021 to 2022 (register I17), and legacy's rule carries that break into every year: calibrated CO2 is 16-29% below the 2022-2024 inventory. The 2023 dip is the fuel-use shock of legacy row 483 (I22, replicated).
+The calibrated base year equals the 2021 inventory (211.1), as legacy. Egypt's inventory jumps 19% from 2021 to 2022 (register DI3), and legacy's rule carries that break into every year: calibrated CO2 is 16-29% below the 2022-2024 inventory. The 2023 dip is the fuel-use shock of legacy row 483 (DI4, replicated).
 
 ### 3. Differences with legacy (sheet LegacyDiff)
 

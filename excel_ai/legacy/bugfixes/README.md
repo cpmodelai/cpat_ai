@@ -1,16 +1,16 @@
 # Legacy CPAT bug-fix plans (cell by cell)
 
-Manual fix plans for the legacy workbook, sheet Mitigation unless stated. **Since v8.2 (2026-10-23) every cell reference is a row of the latest file from the CPAT team, `excel_ai/legacy/workbooks/CPAT 1.0pre_465 - No Prop Data.xlsb`**; the bugs were found, and the plans first written, in `CPAT 1.0pre_456_NoPropData.xlsb`. The move: `data/rowmap_456_465.json` (rows of both files matched on their labels and codes) applied by `tools/remap_465.py`; every plan's "formula now" was then checked against 465 (the CPAT team fixed 62 of the bugs there: `../../bugsfixed/`). For every bug: the cell, its current formula, the new formula, the columns to fill and the policy-block row. Bug IDs follow the register (`excel_ai/mitigation/LegacyBugFixes.md` for L1-L50; `excel_ai/mitigation/LegacyBugFixes_v5_4.md` and `issues_register_v5_4.py` for the later ones). All 49 legacy bugs of the v4.0 register (L1-L50; L17 was an prototype bug) are covered, plus two new ones (N1, N2), and 15 engineer-power bugs of the v5.4 register: L52-L56, L67, L83, L84, L88, L95, L107-L111 (64 bugs in all).
+Manual fix plans for the legacy workbook, sheet Mitigation unless stated. **Since v8.2 (2026-10-23) every cell reference is a row of the latest file from the CPAT team, `excel_ai/legacy/workbooks/CPAT 1.0pre_465_NoPropData.xlsb`**; the bugs were found, and the plans first written, in `CPAT 1.0pre_456_NoPropData.xlsb`. The move: `data/rowmap_456_465.json` (rows of both files matched on their labels and codes) applied by `tools/remap_465.py`; every plan's "formula now" was then checked against 465 (the CPAT team fixed 62 of the bugs there: `check465/`). For every bug: the cell, its current formula, the new formula, the columns to fill and the policy-block row. Bug IDs follow the register (`excel_ai/mitigation/register.py`; v8.4: N1, N2 are L135, L136, D1-D31 are L138-L168). All 49 legacy bugs of the v4.0 register (L1-L50; L17 was an prototype bug) are covered, plus two new ones (L135, L136), and 15 engineer-power bugs of the v5.4 register: L52-L56, L67, L83, L84, L88, L95, L107-L111 (64 bugs in all).
 
-**The plans are printed in the one register, `../../CPAT-AI_BugsAndIssues_latest.docx` (section 3: power, transport, other mitigation in 10 areas by priority, distribution; Appendices B and C: the bugs the CPAT team fixed in 465), and exported with it to `../CPAT-AI_BugsAndIssues_latest.json`** (`excel_ai/mitigation/make_bugfix_book.py`). The separate Word and PDF plans were retired (git history). This folder keeps their sources:
+**The plans are printed in `../../Legacy_CPAT_Bugs_v<version>.docx` (section 4: power, transport, other mitigation in 10 areas by priority, distribution, inputs; Appendices A and B: the bugs the CPAT team fixed in 465), and exported with the register to `../Legacy_CPAT_Register.json`** (`excel_ai/mitigation/make_bugfix_book.py`). The separate Word and PDF plans were retired (git history). This folder keeps their sources:
 
 | File | Content |
 |---|---|
 | `data/fixes_power_engineer.json` | Engineer power model: L1-L12, L52-L56, L67, L83, L84, L88, L95, L107-L111, L126, L127 |
 | `data/fixes_transport_engineer.json` | Engineer road-transport model, L25-L41 |
-| `data/fixes_other_mitigation.json`, `fixes_other_mitigation_2.json` | Other mitigation, both batches (L13-L24, L42-L51, L57-L125, L128, N1, N2) |
+| `data/fixes_other_mitigation.json`, `fixes_other_mitigation_2.json` | Other mitigation, both batches (L13-L24, L42-L51, L57-L125, L128, L135, L136) |
 | `data/cfg_other_sections.json` | The 10 other-mitigation areas (ETS, prices, ...) in rough priority order: the register's section 3.3 follows it; move a bug by editing its `ids` |
-| `data/fixes_distribution.json` | Distribution module, D1-D31 |
+| `data/fixes_distribution.json` | Distribution module, L138-L168 (were D1-D31 until v8.4; the history notes below keep the old codes) |
 | `data/fixes_*.json` (all) | Machine-readable (`cell`, `now`, `new`, `fill`, `policy` per cell); usable for a fix macro |
 | `data/cfg_*.json` (others) | Texts of the retired Word plans (title, intro, order) |
 | `data/legacy_defined_names.tsv` | All 1,942 defined names of the legacy file (456) and the cells they point to |
@@ -23,7 +23,7 @@ Manual fix plans for the legacy workbook, sheet Mitigation unless stated. **Sinc
 - L50: the current-account rows read WEO codes the WEO sheet does not have and an empty defined name (WEO); the "reversed sign" of rows 18215-18219 is a label error (rows 741-743 are a trade balance).
 - Policy block: in 465 the policy block sits +6,316 rows below the baseline everywhere (in 456: +6,331 up to about row 6070, +6,317 after, which is why L43 and L108 spell out their policy formulas; in 465 a paste of the baseline row also works).
 - The transport fixes change only the engineer run (the legacy Egypt run uses TrModel = Elasticity).
-- N1 and N2 are not in the register; confirm before applying.
+- L135 and L136 are not in the register; confirm before applying.
 - L32: the defined names in G4376:G4378 and G4419:G4421 point to the wrong rows of the EF table; the fix references the road rows (O988, O990, O991) directly.
 - L36: the formula's reading of the charging-subsidy inputs matches the default values, so the fix keeps it and relabels Dashboard C95:C98.
 - L28: a helper cell J2168 holds the freight share at the last data year, so row 2168 does not point into itself.

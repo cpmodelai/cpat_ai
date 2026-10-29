@@ -82,7 +82,7 @@
   "fixes": [],
   "ref": "n/a",
   "effect": "None.",
-  "note": "No cell to change for L18. Mark the register entry as \"not reproduced in CPAT 1.0pre_456\". A related defect that does exist is listed as N1 below.",
+  "note": "No cell to change for L18. Mark the register entry as \"not reproduced in CPAT 1.0pre_456\". A related defect that does exist is listed as L135 below.",
   "status": "none"
  },
  {
@@ -817,7 +817,7 @@
   "status": "fix"
  },
  {
-  "id": "N1",
+  "id": "L135",
   "pri": "Low (new)",
   "title": "Methane intensity decline of agriculture and waste computed but not applied",
   "where": "Mitigation rows 6203, 6206, 6212",
@@ -851,7 +851,7 @@
   "status": "fix"
  },
  {
-  "id": "N2",
+  "id": "L136",
   "pri": "Low (new)",
   "title": "Other oil products: new ETS left out of the new-policy total, VAT factor on a blank row",
   "where": "Mitigation row 2698",

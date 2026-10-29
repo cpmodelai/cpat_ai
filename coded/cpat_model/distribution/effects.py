@@ -29,7 +29,7 @@ def direct_effect(
     dwl: same shape as budget_shares (budget_shares.compute_deadweight_loss
     output), or None to skip the deadweight-loss adjustment.
     behavior_adjustment: scalar multiplier (DistributionInputsDict
-    'behavioral_response_adj_factor' when 'adjust_for_behavioral_change' is
+    'behavioral_response_adj_factor' when 'InferredDist' is
     True, else 1.0).
 
     return: DataFrame, decile-indexed, one column per fuel, % of consumption
