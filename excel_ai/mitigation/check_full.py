@@ -640,10 +640,23 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
     nominal = str(mt[n['NomorReal']]).startswith('Nominal')
     cp = {y: path(y, mt[n['CPIntro']], mt[n['CPOutro']], mt[n['CPLevelStart']], mt[n['CPLevelTarget']],
                   mt[n['ExtendCarbonPriceBeyondOutro']] == 'Linear*') * (cpi[y] if nominal else 1) for y in years}
-    fpr = {pc: {y: path(y, mt[140], mt[141], mt[r0] or 0, mt[r1] or 0) for y in years}
+    ext = str(mt[n['ExtendCarbonPriceBeyondOutro']])
+
+    def fpath(y, y0, y1, s0, s1):        # v9.0 (LD10 reverted): legacy rows 167-180, L171 and L173 fixed
+        nn = y1 - y0
+        if y < y0:
+            return 0.0
+        if y < y1 or ext == 'Linear*':
+            return s0 + ((s1 - s0) / nn if nn > 0 else 0.0) * (y - y0)
+        if ext == 'Percentage' and nn > 0:
+            k = ((s1 / s0) ** (1 / nn) - 1 if s0 > 0 else (s1 / (s0 + (s1 - s0) / nn)) ** (1 / nn) - 1) \
+                if max(s0, s1) > 0 else 0.0
+            return (s0 + (s1 - s0) / nn * (y1 - 1 - y0)) * (1 + k) ** (y - y1 + 1)
+        return s1 if nn > 0 else s0
+    fpr = {pc: {y: fpath(y, mt[140], mt[141], mt[r0] or 0, mt[r1] or 0) for y in years}
            for pc, _l, r0, r1 in B.PRICE_FUELS}
-    fb = {s: {y: path(y, mt[n['FeebateIntro']], mt[n['FeebateOutro']], mt[n[a]], mt[n[b]]) for y in years}
-          for s, a, b in B.FEEBATE_SECTORS}
+    fb = {s: {y: path(y, mt[n['FeebateIntro']], mt[n['FeebateOutro']], mt[n[a]], mt[n[b]], linear=False)
+              for y in years} for s, a, b in B.FEEBATE_SECTORS}   # v9.0: flat after the target year, as legacy
     y0, y1 = mt[n['ETSIntro']], mt[n['ETSOutro']]
     ets_on = {y: str(mt[n['NewETS']]).startswith('Yes') and y >= y0 for y in years}
     ets_cov = {s: {y: 1.0 if ets_on[y] and bool(mt[B.MT_ROWS_FIXED['etscov0'] + k]) else 0.0 for y in years}
@@ -760,9 +773,11 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
         pccb = 0.0 if pccr <= K['PassLo'] else (K['PassMid'] if pccr <= K['PassHi'] else 1.0)
         pcc = pctrl[f'mit.rp.{pc}.ctrl'] if controls.startswith('Manual') else (1.0 if controls.startswith('None')
                                                                                  else pccb)   # v5.2: Manual inputs
-        mar = 0.0 if fuel == 'bio' else val(f'mit.mar.{pc}', B.BASE_YEAR)
+        mary = B.MARGIN_YEAR if fuel in ('coa', 'nga') else B.BASE_YEAR   # v9.0 (LD16): legacy margin year
+        mar = 0.0 if fuel == 'bio' else val(f'mit.mar.{pc}', mary)
         pcost = val(f'mit.{fuel}.prod.cost', B.BASE_YEAR) if fuel in ('coa', 'nga') else 0.0
-        fixsp = (mar + pccb * pcost) * cpi[B.BASE_YEAR] / gj
+        dsh = max(0.0, min(1.0, val(f'mit.{fuel}.prod', B.BASE_YEAR))) if fuel in ('coa', 'nga') else 0.0   # LD80
+        fixsp = (mar * cpi[mary] + dsh * pcost * cpi[B.BASE_YEAR]) / gj   # v9.0: L172 fixed (margin to real)
         def vat(y):                      # dataset rate if the cell is filled (0 included), else the assumption
             raw = dom[f'{ISO}{y}'].get(f'mit.vatrate.{pc}', '')
             if raw not in ('', None):
@@ -1187,8 +1202,7 @@ def gdp_section(res, mt, ref_rev):
     gb = [float(weo[str(y)]) for y in years]
     usd = [GDP_USD[y] for y in years]
     rev = total_rev(res)                                   # v4.15 (LD55): total revenue (legacy rev.new.usd)
-    if ('rmf', 'all', 'all') in res:                       # v6.2 (I47): + methane fee (the workbook's ch4.revf uses the
-                                                           # stored scenario-1 gas and biomass activity: 0 when no fee)
+    if ('rmf', 'all', 'all') in res:                       # v9.0 (I47 as legacy): + methane fee on the own activity
         rev = [a + b for a, b in zip(rev, res[('rmf', 'all', 'all')])]
     sp = [(rev[k] - ref_rev[k]) / (usd[k] * 1000) for k in range(ny)]
     st = int(m_('GDPStartYear'))                           # v4.15 (LD55): legacy row 14356, from GDPStartYear

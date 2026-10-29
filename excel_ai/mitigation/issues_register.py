@@ -744,8 +744,8 @@ ISSUES = [  # id, title, description, where it is documented
      'model even where the engineer model is used, rows 7882-7890). The prototype 12e block has both rows at 0 (road '
      'engineer revenues parked; no renewable subsidy policy). Egypt: transport +0.04 bn in 2030 against baseline.',
      'LegacyDiff 37'),
-    ('I47', 'GDP effects: methane fee in the fiscal space on stored scenario-1 gas and biomass activity', 'Legacy counts the methane fee in total '
-     'revenue (row 8010) and so in the fiscal space, on the scenario\'s own activity. The prototype counts it too, but with the '
+    ('I47', 'GDP effects: methane fee in the fiscal space on the scenario\'s own activity', 'Legacy counts the methane fee in total '
+     'revenue (row 8010) and so in the fiscal space, on the scenario\'s own activity; the prototype does the same since v9.0 (user 2026-10-29). Before (v6.2-v8.5), the prototype counted it with the '
      'stored scenario-1 activity of downstream gas and biomass use (v6.2, user decision 2026-10-20: no vulnerability '
      'to circular references through the GDP feedback). Differs from legacy only when a policy changes gas or biomass '
      'use and a methane fee applies. None for Egypt (no methane fee in the scenarios).',
@@ -1030,3 +1030,12 @@ ISSUES += [
 ISSUE_LEGACY.update({'I100': 'replicated'})
 ISSUE_STATUS.update({'I100': ('Major', 'Accepted', 'Replicated (user 2026-10-29: match legacy). Plan for legacy: take '
                               'vehicle-km from the switched road fuel use when TrModel = Elasticity.')})
+
+# v9.0 (user 2026-10-29): I47 reverted to legacy (the methane fee in the fiscal space on the scenario's own activity)
+ISSUE_LEGACY.update({'I47': 'replicated'})
+ISSUE_STATUS.update({'I47': ('Minor', 'Accepted', 'Replicated since v9.0 (user 2026-10-29): the fiscal space counts the '
+                             'methane fee on the scenario\'s own activity, as legacy rows 8018-8025 (fis.rev + ch4.rev). '
+                             'Every reference is to the same year and the GDP feedback lags one year, so there is no '
+                             'circular reference (checked by a full recalculation). v6.2-v8.5 used the stored scenario-1 '
+                             'gas and biomass activity (ch4.revf, now a memo row).')})
+
