@@ -650,6 +650,14 @@ $$
 
 Over instruments $i$ (exc, pit, cit, vat, capt, gnfs, trns, wage), lags $k$. Excel-AI notation (Inputs rows 456-486): MFMOD median and standard deviation by income group (or global); lags past the last data lag (11) hold its value. Country-estimated and manual multipliers (Est*, Man*) are not in Coded CPAT yet. Source: Excel-AI: Inputs rows 454-486.
 
+**A8.2  External balance**  *(adjustment)*
+
+$$
+\Delta NIM_f = \Delta F_f\,\theta\,sp_f\,ts_{g(f)}, \quad ts_g = \frac{M_g - X_g}{M_g + P_g - X_g}, \quad TB_g = -(M_g + X_g)\,\theta\,p^{int}_g, \quad CA^{p} = CA\,\pi - \sum_g \Delta NIM_g
+$$
+
+Over fuels $f$, trade groups $g$ (oil products, gas, coal), years $t$. Excel-AI notation (Mitigation section 16b; Inputs_macro trade rows, legacy rows 741-743). Base-year imports $M$, production $P$, exports $X$ (negative) from the energy balance; the change in use against the baseline (echg) at the supply price; the trade balance at the real international price of scenario 1's source (GJ per barrel, MMBtu, tonne). The current account is WEO's (USD bn and % of GDP), held after the last data year; bca.n (current prices) is 0 after it (issue I130). Excel-AI types Egypt's WEO values; Coded CPAT reads WEO for any country. Source: Excel-AI: Mitigation section 16b; Inputs_macro.
+
 # Appendix B: distribution adjustments
 
 To complete from `excel_ai/mitigation/docs/methods/Distribution.md` and methodology chapter 5: scaling to national accounts (eq-5_4, eq-5_5); mitigation-adjusted incidence (eq-5_6); behavioural response (eq-5_7); targeting by infrastructure access (eq-5_13); scale-up of existing schemes (eq-5_14); PIT options (targeted exemption, personal allowance, proportional compensation); cooking-fuel exemption.

@@ -56,7 +56,10 @@ BUILT = {
                                  'ndc.r', 'ndc.lvl', 'ndc.idx', 'ndc.bau', 'ndc.red', 'ndc.gap', 'ndc.over'],
     '3.11 GDP effects': ['gdp.pos.pct', 'fis.rev', 'fis.ref', 'fis.sp', 'fis.imp', 'fis.lag', 'fis.impp', 'fis.lagp',
                          'fis.grp', 'fis.key', 'fis.eff', 'gdp.lvl', 'gdp.pos.usd', 'gdpg', 'gdpy', 'gdp.chg.usd',
-                         'gdp.eff'],
+                         'gdp.eff', 'EXPLabortax', 'EXPCIT', 'EXPCapex', 'EXPGoodsandserv', 'EXPTransfers',
+                         'MultipliersSource', 'GDPStartYear', 'FmAdj', 'GDPEndogenous'],
+    '3.11b external balance': ['xnim', 'xnim.pct', 'xtb', 'xtb.pct', 'xtbp', 'bca', 'bca.d', 'bca.dp', 'bca.gdp', 'bca.n',
+                               'bca.p', 'bca.pp', 'bca.r', 'bca.y'],
 }
 
 

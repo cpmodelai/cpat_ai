@@ -40,7 +40,8 @@ def flatten(var, arr, country, n):
     prefix = f'{country.lower()}.mit.'
     codes = variables.slots()                                 # Excel-AI's code of the row where it has one
     if not other:
-        yield f'{prefix}{codes.get((var, None, None), var)}.{n}', a.values, years
+        slot = codes.get((var, None, None)) or codes.get((var, 'all', 'all'), var)   # input rows: code with all.all
+        yield f'{prefix}{slot}.{n}', a.values, years
         return
     rows = set(map(tuple, a.attrs.get('rows', [])))          # a sparse grid: only these (sector, fuel) are rows
     labels = [list(a[d].values) for d in other]

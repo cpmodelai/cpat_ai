@@ -4,6 +4,7 @@ start    at the start of year t: GDP level from the effect of earlier years, GDP
          growth that drives fuel use, the demand shock factor (EQ-M8.3).
 effects  at the end of year t: the fiscal impulse against the baseline, its lags, the GDP effect through the fiscal
          multipliers (EQ-M8.1, EQ-M8.2, EQ-A8.1); read by `start` of year t + 1.
+external the change in net energy imports, the energy trade balance and the current account (EQ-A8.2).
 """
 import numpy as np
 
@@ -112,3 +113,79 @@ def effects(state, db, inputs, settings, baseline, t):
     R.set('gdpy', k, y - start + 1, 'all', 'all')
     R.set('gdp.chg.usd', k, gdp() * lvl - gdp(), 'all', 'all')
     R.set('gdp.eff', k, sum(eff.values()) * on, 'all', 'all')
+
+
+# ---- external balance (Mitigation section 16b)
+TRADE_GROUPS = {'oil': ['oop', 'gso', 'die', 'ker', 'lpg', 'jfu'], 'nga': ['nga'], 'coa': ['coa']}
+TRADE_PRICE = {'oil': ('oil', 6.12), 'nga': ('{market}', 1.055056), 'coa': ('coa', 25.14)}   # price key, GJ per unit
+IMPORT_FUELS = {'coa': 'coa', 'nga': 'nga', 'gso': 'oil', 'die': 'oil', 'lpg': 'oil', 'ker': 'oil', 'jfu': 'oil',
+                'oop': 'oil'}                                     # fuel -> trade group (rows xnim.<f>)
+SUPPLY_PRICE = {'coa': ('ind', 'coa'), 'nga': ('ind', 'nga'), 'jfu': ('all', 'ker')}      # sp row of the fuel
+
+
+def trade_data(db, iso, settings, state):
+    """EQ-A8.2: share traded and energy trade balance by group (Excel-AI Inputs_macro, legacy rows 741-743), the WEO
+    current account (USD bn nominal and % of GDP, held after the last data year; current prices 0 after it, issue I130)."""
+    from cpat_model.core import excel_ai_tables as xt
+    from cpat_model.mitigation import header, power_data
+    bal = power_data.balances(db, iso, settings.base_year)
+    flows = {fl: {g: sum(bal.get(fl, {}).get(f, 0.0) for f in fs) for g, fs in TRADE_GROUPS.items()}
+             for fl in ('imports', 'production', 'exports')}
+    pint = state['_prices']['international'][iso]
+    src = str(settings.base['IntEnerPricForeSource']).replace('*', '')
+    market = state['_prices']['gas_market'][iso]
+    defl = state['macro.deflidx'].sel(country=iso)
+    out = {'ts': {}, 'tb': {}}
+    for g in TRADE_GROUPS:
+        m, p, x = flows['imports'][g], flows['production'][g], flows['exports'][g]
+        out['ts'][g] = 1.0 if m + p - x == 0 else (m - x) / (m + p - x)
+        key, gj = TRADE_PRICE[g]
+        series = pint.get(f'{src}|{key.format(market=market)}', {})
+        px = {y: (0.0 if np.isnan(series.get(y, np.nan)) else series[y]) * float(defl.sel(year=y)) / gj
+              for y in settings.years}
+        out['tb'][g] = {y: -(m + x) * power_data.PJ_PER_KTOE / xt.constant('MperBn') * px[y] for y in settings.years}
+    w = header.weo(db, {f'{iso}.BCA.A', f'{iso}.BCA_NGDPD.A'})
+    for key, code in (('bca', 'BCA'), ('bca_gdp', 'BCA_NGDPD')):
+        data, last = w.get(f'{iso}.{code}.A', ({}, 0))
+        out[key] = {y: data.get(min(y, last), 0.0) for y in settings.years}
+    data, last = w.get(f'{iso}.BCA.A', ({}, 0))
+    out['bca_n'] = {y: data.get(y, 0.0) if y <= last else 0.0 for y in settings.years}
+    return out
+
+
+def external(state, db, inputs, settings, baseline, t):
+    """EQ-A8.2: change in net energy imports against the baseline, energy trade balance, current account (section 16b)."""
+    from cpat_model.core import excel_ai_tables as xt
+    from cpat_model.mitigation.power_data import PJ_PER_KTOE
+    R = year_rows(state, settings)
+    k, y = settings.years.index(t), t
+    c = xt.constant
+    countries = list(settings.countries)
+    if '_trade' not in state:
+        state['_trade'] = {iso: trade_data(db, iso, settings, state) for iso in countries}
+    T = [state['_trade'][iso] for iso in countries]
+    at = lambda var, sector=None, fuel=None: R.at(var, k, sector, fuel)
+    gdp = at('gdp.usd', 'all', 'all')
+    for f, g in IMPORT_FUELS.items():
+        sector, fuel = SUPPLY_PRICE.get(f, ('all', f))
+        R.set('xnim', k, at('echg', 'all', f) * PJ_PER_KTOE * at('sp', sector, fuel)
+              * np.array([d['ts'][g] for d in T]) / c('MperBn'), 'all', f)
+    grp = {g: R.set('xnim', k, sum(at('xnim', 'all', f) for f, gg in IMPORT_FUELS.items() if gg == g), 'grp', g)
+           for g in ('oil', 'nga', 'coa')}
+    xnim = R.set('xnim', k, sum(grp.values()), 'all', 'all')
+    tb = {g: R.set('xtb', k, np.array([d['tb'][g][y] for d in T]), 'all', g) for g in ('oil', 'nga', 'coa')}
+    xtb = R.set('xtb', k, sum(tb.values()), 'all', 'all')
+    xtbp = R.set('xtbp', k, xtb - xnim, 'all', 'all')
+    R.set('xtb.pct', k, np.where(gdp == 0, 0.0, xtbp / np.where(gdp == 0, 1, gdp)), 'all', 'all')
+    R.set('xnim.pct', k, np.where(gdp == 0, 0.0, xnim / np.where(gdp == 0, 1, gdp)), 'all', 'all')
+    bca = R.set('bca', k, np.array([d['bca'][y] for d in T]), 'all', 'all')
+    bca_gdp = R.set('bca.gdp', k, np.array([d['bca_gdp'][y] for d in T]), 'all', 'all')
+    bca_r = R.set('bca.r', k, bca * at('infl'), 'all', 'all')
+    d = {g: R.set('bca.d', k, -grp[g], 'all', g) for g in ('oil', 'nga', 'coa')}
+    R.set('bca.p', k, bca_r + sum(d.values()), 'all', 'all')
+    scale = R.set('bca.y', k, np.where(bca_gdp == 0, 0.0, np.abs(bca_r / np.where(bca_gdp == 0, 1, bca_gdp))),
+                  'all', 'all')
+    dp = {g: R.set('bca.dp', k, np.where(scale == 0, 0.0, d[g] / np.where(scale == 0, 1, scale)), 'all', g)
+          for g in ('oil', 'nga', 'coa')}
+    R.set('bca.pp', k, bca_gdp + sum(dp.values()), 'all', 'all')
+    R.set('bca.n', k, np.array([dd['bca_n'][y] for dd in T]), 'all', 'all')

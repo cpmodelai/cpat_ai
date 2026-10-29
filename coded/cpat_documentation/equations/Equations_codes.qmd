@@ -346,7 +346,7 @@ Over uses of revenue $i$ (labour tax cut EXPLabortax, corporate tax cut EXPCIT, 
 **M8.3  GDP feedback, one year later**
 
 $$
-\mathtt{gdp.lvl}_t = 1 + \mathtt{gdp.eff}_{t-1}, \qquad \mathtt{gdp.pos.usd}_t = \mathtt{gdp.usd}^{0}_t\,\mathtt{gdp.lvl}_t, \qquad 1 + \mathtt{gdp.pos.pct}_t = (1 + \mathtt{gdgg}_t)\,\frac{\mathtt{gdp.lvl}_t}{\mathtt{gdp.lvl}_{t-1}}
+\mathtt{gdp.lvl}_t = 1 + \mathtt{gdp.eff}_{t-1}, \qquad \mathtt{gdp.pos.usd}_t = \mathtt{gdp.usd}^{0}_t\,\mathtt{gdp.lvl}_t, \qquad 1 + \mathtt{gdp.pos.pct}_t = (1 + \mathtt{gdp.base}_t)\,\frac{\mathtt{gdp.lvl}_t}{\mathtt{gdp.lvl}_{t-1}}
 $$
 
 The only link from year $t$ to year $t+1$ other than lags of a block's own quantities. Revenue of year $t$ moves GDP from $t+1$ (root NORMS 5c). Source: Excel-AI: E95.
@@ -646,6 +646,14 @@ $$
 $$
 
 Over instruments $i$ (exc, pit, cit, vat, capt, gnfs, trns, wage), lags $k$. Excel-AI notation (Inputs rows 456-486): MFMOD median and standard deviation by income group (or global); lags past the last data lag (11) hold its value. Country-estimated and manual multipliers (Est*, Man*) are not in Coded CPAT yet. Source: Excel-AI: Inputs rows 454-486.
+
+**A8.2  External balance**  *(adjustment)*
+
+$$
+\mathtt{xnim}_{all,f}, \ \mathtt{xnim}_{grp,g}, \ \mathtt{xtb}_{all,g}, \ \mathtt{xtbp} = \mathtt{xtb} - \mathtt{xnim}, \ \mathtt{bca.r} = \mathtt{bca}\cdot\mathtt{infl}, \ \mathtt{bca.p}, \ \mathtt{bca.pp} = \mathtt{bca.gdp} + \textstyle\sum_g \mathtt{bca.d}_g / \mathtt{bca.y}
+$$
+
+Over fuels $f$, trade groups $g$ (oil products, gas, coal), years $t$. Excel-AI notation (Mitigation section 16b; Inputs_macro trade rows, legacy rows 741-743). Base-year imports $M$, production $P$, exports $X$ (negative) from the energy balance; the change in use against the baseline (echg) at the supply price; the trade balance at the real international price of scenario 1's source (GJ per barrel, MMBtu, tonne). The current account is WEO's (USD bn and % of GDP), held after the last data year; bca.n (current prices) is 0 after it (issue I130). Excel-AI types Egypt's WEO values; Coded CPAT reads WEO for any country. Source: Excel-AI: Mitigation section 16b; Inputs_macro.
 
 # Appendix B: distribution adjustments
 
