@@ -167,6 +167,7 @@ Replicated, a departure by user decision, or a limitation of the prototype.
 | I149 |  | Mitigation | Minor | Accepted | Other energy use takes the largest emission factor of each fuel across the other subsectors | Replicated |  |
 | I150 |  | Data | Minor | Open | Spot coal and gas prices of Egypt hold a year and 0 in legacy 465 | Departs (user decision) |  |
 | I151 |  | Mitigation | Major | Accepted | Pigouvian road-transport component: base-year value x growth of the per-km costs | Departs (user decision) |  |
+| I152 |  | Mitigation | Minor | Open | International prices: IEA series past their last data year (2041 on) read a misaligned Prices_int cell (Inputs_pint `IFERROR(INDEX(PIntAll,row,0))`); affects sources IEA, EIA (gas), AVG, IMF-IEA after 2040. Found by Coded CPAT (2026-10-29) | Bug in the prototype | Fix in Excel-AI: hold or extend the IEA series past its data (Coded CPAT leaves them missing) |
 
 ## 3. Departures (LD, sheet LegacyDiff)
 

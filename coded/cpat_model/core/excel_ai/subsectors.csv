@@ -1,0 +1,17 @@
+sector,name,group,elasticity_sector,ef_sector,price_sector,feebate_sector,coverage_position,ecp_sector,flow1,sign1,flow2,sign2
+rod,Road,tra,tra,rod,res,tra,2,trs,road,1,,0
+ral,Rail,tra,tra,rod,ind,tra,3,trs,rail,1,,0
+avi,Domestic aviation,tra,tra,rod,ind,tra,4,trs,domesair,1,,0
+nav,Domestic navigation,tra,tra,rod,ind,tra,5,trs,domesnav,1,,0
+res,Residential,bld,res,res,res,res,6,res,resident,1,,0
+foo,Food & forestry,bld,ind,res,ind,res,7,res,food_forest,1,,0
+srv,Services (public & private),bld,srv,res,ind,res,8,res,services,1,,0
+mch,Mining & chemicals,ind,ind,ind,ind,ind,9,ind,mining_chemicals,1,,0
+irn,Iron & steel,ind,ind,ind,ind,ind,10,ind,ironstl,1,,0
+nfm,Other metals,ind,ind,ind,ind,ind,11,ind,nonferrmet,1,,0
+mac,Machinery,ind,ind,ind,ind,ind,12,ind,machinery,1,,0
+cem,Cement,ind,ind,ind,ind,ind,13,ind,cement,1,,0
+omn,Other manufacturing,ind,ind,ind,ind,ind,14,ind,other_manufact,1,,0
+cst,Construction,ind,ind,ind,ind,ind,15,ind,construc,1,,0
+ftr,Fuel transformation,ind,ind,ind,ind,ind,16,ind,ownuse,-1,heat,-1
+oen,Other energy use,oen,ind,ind,ind,ind,17,ind,ononspec,1,,0

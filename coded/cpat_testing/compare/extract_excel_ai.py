@@ -112,7 +112,7 @@ def module_tabs(wb):
 
 STRUCTURE = CODED / 'cpat_model' / 'core' / 'excel_ai'
 SETTINGS_TABLES = {   # name: (first row, last row, columns {sheet column: csv column}) of sheet Settings
-    'constants': (97, 297, {1: 'key', 2: 'value', 3: 'unit', 4: 'description', 5: 'source'}),
+    'constants': (97, 178, {1: 'key', 2: 'value', 3: 'unit', 4: 'description', 5: 'source'}),
     'input_rows': (333, 743, {1: 'key', 2: 'name'}),
     'coverage_sectors': (746, 762, {1: 'sector', 2: 'position', 3: 'ets_group', 5: 'feebate_sector',
                                     7: 'semi_group'}),
@@ -121,6 +121,11 @@ SETTINGS_TABLES = {   # name: (first row, last row, columns {sheet column: csv c
                                      'srv', 'mch', 'irn', 'nfm', 'mac', 'cem', 'omn', 'cst', 'ftr', 'oen'])},
                                   22: 'power_rebated'}),
     'ets_volatility': (16, 18, {2: 'item', 3: 'Medium', 4: 'High', 5: 'Low', 6: 'Zero'}),
+    'fuels': (229, 237, {1: 'fuel', 2: 'name', 3: 'elasticity_fuel', 4: 'aeei_fuel', 5: 'price_rule', 6: 'unit',
+                         7: 'gj_per_unit', 8: 'position', 9: 'price_fuel'}),
+    'subsectors': (186, 201, {1: 'sector', 2: 'name', 3: 'group', 4: 'elasticity_sector', 5: 'ef_sector',
+                              6: 'price_sector', 7: 'feebate_sector', 8: 'coverage_position', 9: 'ecp_sector',
+                              10: 'flow1', 11: 'sign1', 12: 'flow2', 13: 'sign2'}),
 }
 
 

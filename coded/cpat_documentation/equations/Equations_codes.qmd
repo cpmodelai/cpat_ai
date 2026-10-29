@@ -116,15 +116,15 @@ Prices before policies by sector group $g$ and fuel $f$ (the methodology's price
 **M2.1  Supply price (fixed part plus a floating part that follows the international price)**
 
 $$
-\mathtt{sp}_{t} = \mathtt{spf} + (\mathtt{sp}_{t-1} - \mathtt{spf})\,\frac{\mathtt{gpi}_t}{\mathtt{gpi}_{t-1}}
+\mathtt{sp}_{t} = \mathtt{spf} + (\mathtt{sp}_{t-1} - \mathtt{spf} - \mathtt{ps}_{t-1})\,\frac{\mathtt{gpi}_t}{\mathtt{gpi}_{t-1}} + \mathtt{ps}_t
 $$
 
-Over sector groups $g$, fuels $f$; projection years $t > L$ (last historical price year). The methodology writes $sp = fixsp + fltsp + ps$ with $fltsp_t = fltsp_{t-1}\,gp_t/gp_{t-1}$; Excel-AI adds the producer subsidy $ps$ separately (appendix A2). Source: methodology: 03_Mitigation, Appendix C > Calculations (supply price, floating portion); Excel-AI: E19, E20.
+Over sector groups $g$, fuels $f$; projection years $t > L$ (last historical price year). The methodology writes $sp = fixsp + fltsp + ps$ with $fltsp_t = fltsp_{t-1}\,gp_t/gp_{t-1}$. $gp$ is the international price of the price fuel's commodity (oil, coal, the country's gas market; biomass flat), real, times the High / Low factor after $L$; $ps$ the producer subsidy per unit (A2.5). Historical years: data (A2.4). Source: methodology: 03_Mitigation, Appendix C > Calculations (supply price, floating portion); Excel-AI: E19, E20.
 
 **M2.2  Excise and other taxes, floating with the pass-through**
 
 $$
-\mathtt{txf}_t = \mathtt{txf}_{t-1} - (\mathtt{sp}_t - \mathtt{sp}_{t-1})\,(1 - \mathtt{rp.ctrl})
+\mathtt{txf}_t = \mathtt{txf}_{t-1} - (\mathtt{sp}_t - \mathtt{sp}_{t-1})\,(1 - \mathtt{pcc})
 $$
 
 Over sector groups $g$, fuels $f$. $pcc$ is the price-control (pass-through) coefficient: 1 for a liberalised market, 0 for fixed prices. A positive tax does not fall below its last historical level (appendix A2). Here $txo$ holds existing taxes and subsidies only; the methodology's $txo$ also includes the carbon prices, which Excel-AI keeps apart (M2.5). Source: methodology: 03_Mitigation, Appendix C > Calculations ($flts$, $pcc$); Excel-AI: E21-E23.
@@ -132,7 +132,7 @@ Over sector groups $g$, fuels $f$. $pcc$ is the price-control (pass-through) coe
 **M2.3  VAT and retail price before new policies**
 
 $$
-\mathtt{vat}_t = (\mathtt{sp}_t + \mathtt{txo}_t)\,\mathtt{vatr}^{\dagger}, \qquad \mathtt{rpb}_t = \mathtt{sp}_t + \mathtt{txo}_t + \mathtt{vat}_t
+\mathtt{vat}_t = (\mathtt{sp}_t + \mathtt{txo}_t)\,\mathtt{vr}, \qquad \mathtt{pbc}_t = (\mathtt{sp}_t + \mathtt{txo}_t)(1 + \mathtt{vr})
 $$
 
 Over sector groups $g$, fuels $f$. Source: methodology: 03_Mitigation, Appendix C > Calculations (VAT, retail price); Excel-AI: E24, E25.
@@ -430,6 +430,30 @@ $$
 $$
 
 $t^* = \min(t, T_x)$, $T_x$ the last data year; $XCP^0$ the existing carbon pricing already in the price data. Source: methodology: 03_Mitigation, Appendix C (existing carbon price); Excel-AI: E17, E30.
+
+**A2.3  International energy prices by source**  *(adjustment)*
+
+$$
+\mathtt{gp}_{k,t} = \mathtt{gpn}_{k,t}\,\mathtt{defl}_t \cdot \{1, \mathtt{gp.hi}_k, \mathtt{gp.lo}_k\}_{t > L}
+$$
+
+Over sources $s$ (IMF, WB, IEA, EIA; averages AVG, IMF-IEA, IMF-WB; Manual), commodities $k$ (oil, coal, gas LNG, North America, Europe, global, Europe shifting to LNG). Excel-AI notation. $T^{s,k}$ the first extended year of the series, $\pi^{US}$ US GDP deflator inflation. Averages skip missing sources; global gas is the average of LNG, North America and Europe; Manual: IMF to 2025, then the manual path. Excel-AI reads the World Bank gas rows by position (its LNG is the Europe series and the reverse). Past its data (2041 on) the IEA series reads a misaligned cell in Excel-AI (issue I152); Python leaves it missing. Source: Excel-AI: Inputs_pint (build_inputs_pint); Mitigation section 2 (gpn, gp).
+
+**A2.4  Historical domestic prices and forecasting coefficients**  *(adjustment)*
+
+$$
+\mathtt{sp}_y,\ \mathtt{txo}_y\ (y \le L),\quad \mathtt{spf} = \mathtt{fixsp},\quad \mathtt{pcc} = \text{bucket}(\mathtt{ps}^{data}_{t_0})
+$$
+
+Over price fuels; historical years $y$ 2021 to $L$. Excel-AI notation: $\gamma$ GJ per price unit, $\nu$ the CPI index. Pass-through: the base-year data bucketed (up to PassLo 0, up to PassHi PassMid, else 1; biomass 1), or the manual price control, or 1 (GovPriceControls). VAT: the data rate where filled, else the general rate for consumers (residential coal and gas, oil products) and 0 otherwise, times the household share of the oil product. Coal and gas margins are read at 2024 (issue I101). Source: Excel-AI: Inputs_prices (build_inputs_prices).
+
+**A2.5  Producer subsidies**  *(adjustment)*
+
+$$
+\mathtt{psu}_{f,t} = -\mathtt{pros}_{f,t}\cdot 10^6 / \mathtt{psd}_{f,t};\quad \mathtt{ps}_{c,t} = \mathtt{psu}_{f(c),t}\,(\text{litres per barrel for other oil products}) / \gamma_c
+$$
+
+Over producer fuels $f$ (oil, coal, gas, biomass). Excel-AI notation. $PROS$ producer subsidy (data, USD m real, held after $L$), $D$ the demand it is spread over: world production (oil), the average of world production and domestic use (coal, gas), domestic use (biomass). Source: Excel-AI: Mitigation section 1 (pros, psd, psu), section 2 (ps).
 
 ## A3 Fuel use
 

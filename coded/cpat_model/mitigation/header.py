@@ -101,7 +101,8 @@ def prepare(state, db, inputs, settings, baseline):
     rows = {}
     for iso in countries:
         s, cpi_res, defl_res = macro_series(w, iso, euro, settings.base_year, settings.results_year)
-        s['infl'] = {y: cpi_res / s['pcpi'][y] for y in MACRO_YEARS}
+        s['cpiidx'] = {y: cpi_res / s['pcpi'][y] for y in MACRO_YEARS}       # US CPI of ResultsYear / of t
+        s['usinfl'] = {y: s['ngdp_d'][y] / s['ngdp_d'].get(y - 1, np.nan) - 1 for y in MACRO_YEARS}   # USA|infl
         rows[iso] = s
     names = rows[countries[0]].keys()
     for name in names:
@@ -110,7 +111,7 @@ def prepare(state, db, inputs, settings, baseline):
         state[f'macro.{name}'] = arr
     years = settings.years
     m = lambda name: state[f'macro.{name}'].sel(year=years)
-    state['infl'] = m('infl')                                       # US CPI of ResultsYear / US CPI of t
+    state['infl'] = m('cpiidx')                                     # US CPI of ResultsYear / US CPI of t
     state['defl'] = m('deflidx')                                    # US deflator of ResultsYear / of t
     state['gdp.usd'] = all_all(m('gdp_usd'))
     state['gdp.lcu'] = all_all(m('gdp_lcu'))

@@ -119,10 +119,10 @@ Prices before policies by sector group $g$ and fuel $f$ (the methodology's price
 **M2.1  Supply price (fixed part plus a floating part that follows the international price)**
 
 $$
-sp_{t} = fixsp + \left(sp_{t-1} - fixsp\right)\frac{gp_t}{gp_{t-1}}
+sp_{t} = fixsp + \left(sp_{t-1} - fixsp - ps_{t-1}\right)\frac{gp_t}{gp_{t-1}} + ps_t
 $$
 
-Over sector groups $g$, fuels $f$; projection years $t > L$ (last historical price year). The methodology writes $sp = fixsp + fltsp + ps$ with $fltsp_t = fltsp_{t-1}\,gp_t/gp_{t-1}$; Excel-AI adds the producer subsidy $ps$ separately (appendix A2). Source: methodology: 03_Mitigation, Appendix C > Calculations (supply price, floating portion); Excel-AI: E19, E20.
+Over sector groups $g$, fuels $f$; projection years $t > L$ (last historical price year). The methodology writes $sp = fixsp + fltsp + ps$ with $fltsp_t = fltsp_{t-1}\,gp_t/gp_{t-1}$. $gp$ is the international price of the price fuel's commodity (oil, coal, the country's gas market; biomass flat), real, times the High / Low factor after $L$; $ps$ the producer subsidy per unit (A2.5). Historical years: data (A2.4). Source: methodology: 03_Mitigation, Appendix C > Calculations (supply price, floating portion); Excel-AI: E19, E20.
 
 **M2.2  Excise and other taxes, floating with the pass-through**
 
@@ -433,6 +433,30 @@ xcp_{s,f,t} = ef_{s,f}\left(XCT_{t^*}(1 + \delta_{CT})^{\max(0,t - T_x)} + XETSP
 $$
 
 $t^* = \min(t, T_x)$, $T_x$ the last data year; $XCP^0$ the existing carbon pricing already in the price data. Source: methodology: 03_Mitigation, Appendix C (existing carbon price); Excel-AI: E17, E30.
+
+**A2.3  International energy prices by source**  *(adjustment)*
+
+$$
+P^{s,k}_t = \begin{cases} \text{data} & t < T^{s,k} \\ P^{s,k}_{t-1}\,(1 + \pi^{US}_t) & t \ge T^{s,k} \text{ (IMF, WB, IEA)} \\ P^{s,k}_{t-1}\,P^{s,k}_{t-1}/P^{s,k}_{t-2} & t \ge T^{s,k} \text{ (EIA)} \end{cases}
+$$
+
+Over sources $s$ (IMF, WB, IEA, EIA; averages AVG, IMF-IEA, IMF-WB; Manual), commodities $k$ (oil, coal, gas LNG, North America, Europe, global, Europe shifting to LNG). Excel-AI notation. $T^{s,k}$ the first extended year of the series, $\pi^{US}$ US GDP deflator inflation. Averages skip missing sources; global gas is the average of LNG, North America and Europe; Manual: IMF to 2025, then the manual path. Excel-AI reads the World Bank gas rows by position (its LNG is the Europe series and the reverse). Past its data (2041 on) the IEA series reads a misaligned cell in Excel-AI (issue I152); Python leaves it missing. Source: Excel-AI: Inputs_pint (build_inputs_pint); Mitigation section 2 (gpn, gp).
+
+**A2.4  Historical domestic prices and forecasting coefficients**  *(adjustment)*
+
+$$
+sp_y = \frac{sp^{n}_y\,\nu_y}{\gamma}, \quad txo_y = \frac{\nu_y}{\gamma}\begin{cases} rp^{n}_y/(1+vat_y) - sp^{n}_y & \text{coal, gas, biomass} \\ txo^{n}_y & \text{oil products}\end{cases}, \quad fixsp = \frac{mar\,\nu_{m} + dsh\,pcost\,\nu_{0}}{\gamma}
+$$
+
+Over price fuels; historical years $y$ 2021 to $L$. Excel-AI notation: $\gamma$ GJ per price unit, $\nu$ the CPI index. Pass-through: the base-year data bucketed (up to PassLo 0, up to PassHi PassMid, else 1; biomass 1), or the manual price control, or 1 (GovPriceControls). VAT: the data rate where filled, else the general rate for consumers (residential coal and gas, oil products) and 0 otherwise, times the household share of the oil product. Coal and gas margins are read at 2024 (issue I101). Source: Excel-AI: Inputs_prices (build_inputs_prices).
+
+**A2.5  Producer subsidies**  *(adjustment)*
+
+$$
+ps_{f,t} = -\frac{PROS_{f,t}}{D_{f,t}} \ (t \le L), \qquad ps_{f,t} = ps_{f,L}\,\phi_{ps,t} \ (t > L)
+$$
+
+Over producer fuels $f$ (oil, coal, gas, biomass). Excel-AI notation. $PROS$ producer subsidy (data, USD m real, held after $L$), $D$ the demand it is spread over: world production (oil), the average of world production and domestic use (coal, gas), domestic use (biomass). Source: Excel-AI: Mitigation section 1 (pros, psd, psu), section 2 (ps).
 
 ## A3 Fuel use
 

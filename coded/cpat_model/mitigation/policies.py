@@ -280,7 +280,7 @@ def prepare(state, db, inputs, settings, baseline):
     for k, sw, gr_ in (('xct.p', 'ExistingCTApply', 'ExistingCTGrowth'), ('xets.p', 'ExistingETSApply',
                                                                           'ExistingETSGrowth')):
         R.put(k, (1 + num(g(gr_))) ** np.maximum(0, t - ecp_last) if yes(g(sw)) else 0.0)
-    infl = state['macro.infl'].sel(country=countries)
+    infl = state['macro.cpiidx'].sel(country=countries)
     ecp = {c: ecp_table(db, c, dict(zip(infl['year'].values, infl.sel(country=c).values))) for c in countries}
     state['_ecp'] = ecp                              # read by section 2 (not a result row)
 
