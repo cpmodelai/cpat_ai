@@ -77,6 +77,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ISO = B.COUNTRY                 # v0.3.3: country of the build (Settings C4); its data come from the CSVs by this key
 REF = re.compile(r"(?<![A-Za-z_\d.\"])(\$?)([A-Z]{1,3})(\$?)(\d+)(?![\d(])")
 TOL = 1e-9
+# v0.9.2: section-3 rows added in v0.9.0 (R7, R9: cost memos, electricity subsidies and the price-chain residual) that
+# power_model_ref does not recompute yet: listed in the report as not recomputed, so a gap is never silent
+PW_NOT_RECOMPUTED = ('sys', 'pcbcap', 'pcbom', 'pcbfu', 'pcbchk', 'rpnv', 'txg', 'txe', 'scl', 'psegap', 'psegs',
+                     'psesh', 'pseu', 'pser', 'csd', 'spe')
+PW_MEMOS = ('cur', 'pcbcp', 'pcbrns', 'pcbct')     # v0.9.2: v0.9.0 memos recomputed after the section-3 rows
 VAT_CONSUMER = {'coa.res', 'nga.res', 'gso.all', 'die.all', 'lpg.all', 'ker.all', 'oop.all'}   # independent copy
 report = []
 
@@ -1056,6 +1061,8 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
     for v in B.PW_VARS:
         if v in ('xck', 'prtx', 'prsub', 'prxc', 'prnew', 'prxl', 'rnvat', 'fpp', 'fpn', 'tvcx') or v in text_rows:
             continue                                  # set below / text
+        if v in PW_NOT_RECOMPUTED or v in PW_MEMOS:   # v0.9.2: v0.9.0 rows (memos set below)
+            continue
         kind = B.PW_KIND[v]
         for m in B.PW_MEMBERS.get(kind, ['']):
             if kind == 'tech':
@@ -1070,6 +1077,13 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
                 res[(v, m, 'ecy')] = o['dem'][m]
             else:
                 res[(v, '', '')] = paths_p[v] if v in B.PW_DATA else o[v]
+    # v0.9.2: cost memos added in v0.9.0 (R9.4, R9.10, R9.11), from the recomputed rows
+    for m in POWER_TECH:
+        res[('cur', 'pow', m)] = [max(a_ + b_, pset['par']['min_cost']) for a_, b_ in zip(res[('lfx', 'pow', m)],
+                                                                          res[('tvc', 'pow', m)])]
+        res[('pcbcp', 'pow', m)] = list(res[('ccp', 'pow', m)])
+        res[('pcbrns', 'pow', m)] = list(res[('rns', 'pow', m)])
+    res[('pcbct', '', '')] = [c_ * (mt.get('scen', 1) > 1) for c_ in res[('cptraj', '', '')]]
     # v0.1.09: power revenues by type (M), VAT on the passed-through policy cost (G), totals with power
     par = PM.base_data(years, ISO)[2]
     ny = len(years)
@@ -4307,6 +4321,7 @@ def main():
     log('\n## 3. LAMBDA encoding')
     results.append(named('check_encoding', check_encoding()))
     log('\n## 4. Values vs independent Python recomputation')
+    log(f'- section-3 rows not recomputed yet (v0.9.0 R7, R9; power_model_ref): {", ".join(PW_NOT_RECOMPUTED)}')
     ws_c = None if partial else recalc(variant(openpyxl.load_workbook(B.OUT), 'everywhere'))
     for g, *_ in B.SCENARIOS:
         exp = recompute(scenario_mt(g))
