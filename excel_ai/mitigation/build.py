@@ -148,7 +148,7 @@ from openpyxl.utils import get_column_letter as L, column_index_from_string as C
 from openpyxl.utils.cell import coordinate_from_string
 from openpyxl.workbook.defined_name import DefinedName
 
-VERSION = '0.9.0'   # also in version.json (read by the deck builder)
+VERSION = '0.9.1'   # also in version.json (read by the deck builder)
 SCRIPTS_TAG = None   # v0.8.0: scripts and notes have stable names (releases are git tags); v0.7.1: a point release renames only the builder, VBA module, workbook and reports; the scripts and
                       # notes keep the tag of the full release (NORMS.md section 5)
 COUNTRY = 'EGY'   # v0.3.3: default of Settings C4 (user input); country data only in the data sheets, by this key
@@ -7745,7 +7745,10 @@ def build_settings(wb):
                               'legacy in 2022 except navigation (L22) and CH4 (L223). Pigouvian components live and '
                               'acyclic (base-year value x growth of the per-km costs, I151); air-pollution unit costs as '
                               'marginal damages (L224); module tabs FromAirPollution and FromTransportCB. Egypt prices '
-                              'equal legacy 465 (I99 closed).')]
+                              'equal legacy 465 (I99 closed).'),
+        ('0.9.1', '2026-10-29', 'Data only: tab Prices_dom holds Egypt only (user decision: the 220-country domestic '
+                              'prices of the price-module prototype are proprietary and were deleted from the '
+                              'repository). Egypt values unchanged.')]
     for i, row in enumerate(log, SET_LOG + 2):
         for j, v in enumerate(row, 1):
             c_ = put(ws, f'{L(j)}{i}', v)

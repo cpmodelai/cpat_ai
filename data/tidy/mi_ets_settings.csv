@@ -1,0 +1,7 @@
+parameter,variable,value
+ETS Volatility,value,Medium*
+C-Tax Risk,value,0.2
+Impact of Volatility on Mitigation Costs,value,Medium*
+Max Iterations,value,30
+StartFresh or Continue old Goal Seek?,value,Continue
+Max error,value,0.001

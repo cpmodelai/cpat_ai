@@ -1,0 +1,11 @@
+assumption,case,value
+Assumed annual price volatility of ETS,Medium*,0.42
+Assumed annual price volatility of ETS,High,0.63
+Assumed annual price volatility of ETS,Low,0.27999999999999997
+Assumed annual price volatility of ETS,Zero,0
+Abatement cost increase (%) per unit volatility increase,Medium*,0.5
+Abatement cost increase (%) per unit volatility increase,High,0.75
+Abatement cost increase (%) per unit volatility increase,Low,0.3333333333333333
+Abatement cost increase (%) per unit volatility increase,Zero,0
+Assumed policy change volatility of C-Tax,Medium*,0.2
+Relative abatement cost factor (ETS versus C-Tax),Medium*,0.8777777777777778

@@ -1,0 +1,915 @@
+code,item,region,technology,variable,value
+usa.mpp.bat,mpp,usa,bat,CapacityFactor,0
+usa.mpp.bat,mpp,usa,bat,CapEx.USD_kW,1636.531
+usa.mpp.bat,mpp,usa,bat,Efficiency.NCV,0.884
+usa.mpp.bat,mpp,usa,bat,OpexFixed.USD_kW_y,46.475
+usa.mpp.bat,mpp,usa,bat,OpexVariable.USD_kWh,0.026
+usa.mpp.bat,mpp,usa,bat,WACC (Not used),0.086
+usa.mpp.bat,mpp,usa,bat,TotalLifetime (Not used),19
+chn.mpp.bio,mpp,chn,bio,CapacityFactor,0.571
+chn.mpp.bio,mpp,chn,bio,CapEx.USD_kW,1125.767
+chn.mpp.bio,mpp,chn,bio,OpexFixed.USD_kW_y,35.855
+chn.mpp.bio,mpp,chn,bio,OpexVariable.USD_kWh,0.004
+chn.mpp.bio,mpp,chn,bio,WACC (Not used),0.054
+chn.mpp.bio,mpp,chn,bio,TotalLifetime (Not used),20
+esp.mpp.bio,mpp,esp,bio,CapacityFactor,0.72
+esp.mpp.bio,mpp,esp,bio,CapEx.USD_kW,3286.534
+esp.mpp.bio,mpp,esp,bio,OpexFixed.USD_kW_y,38.346
+esp.mpp.bio,mpp,esp,bio,OpexVariable.USD_kWh,0.001
+esp.mpp.bio,mpp,esp,bio,WACC (Not used),0.053215575
+esp.mpp.bio,mpp,esp,bio,TotalLifetime (Not used),60
+fin.mpp.bio,mpp,fin,bio,CapacityFactor,0.775
+fin.mpp.bio,mpp,fin,bio,CapEx.USD_kW,651.193
+fin.mpp.bio,mpp,fin,bio,OpexFixed.USD_kW_y,0.056
+fin.mpp.bio,mpp,fin,bio,OpexVariable.USD_kWh,0
+fin.mpp.bio,mpp,fin,bio,WACC (Not used),0.06039705000000001
+fin.mpp.bio,mpp,fin,bio,TotalLifetime (Not used),20
+fra.mpp.bio,mpp,fra,bio,CapEx.USD_kW,1740.511
+fra.mpp.bio,mpp,fra,bio,OpexFixed.USD_kW_y,237.452
+fra.mpp.bio,mpp,fra,bio,OpexVariable.USD_kWh,0.003
+gbr.mpp.bio,mpp,gbr,bio,CapacityFactor,0.878
+gbr.mpp.bio,mpp,gbr,bio,CapEx.USD_kW,9422.197
+gbr.mpp.bio,mpp,gbr,bio,OpexFixed.USD_kW_y,297.115
+gbr.mpp.bio,mpp,gbr,bio,OpexVariable.USD_kWh,0.032
+gbr.mpp.bio,mpp,gbr,bio,WACC (Not used),0.06781005000000001
+gbr.mpp.bio,mpp,gbr,bio,TotalLifetime (Not used),30
+idn.mpp.bio,mpp,idn,bio,CapacityFactor,0.72
+idn.mpp.bio,mpp,idn,bio,CapEx.USD_kW,1622.455
+idn.mpp.bio,mpp,idn,bio,OpexFixed.USD_kW_y,43.334
+idn.mpp.bio,mpp,idn,bio,OpexVariable.USD_kWh,0.003
+idn.mpp.bio,mpp,idn,bio,WACC (Not used),0.097059375
+idn.mpp.bio,mpp,idn,bio,TotalLifetime (Not used),20
+jpn.mpp.bio,mpp,jpn,bio,CapacityFactor,0.87
+jpn.mpp.bio,mpp,jpn,bio,CapEx.USD_kW,3476.022
+jpn.mpp.bio,mpp,jpn,bio,OpexFixed.USD_kW_y,177.772
+jpn.mpp.bio,mpp,jpn,bio,OpexVariable.USD_kWh,0.008
+jpn.mpp.bio,mpp,jpn,bio,WACC (Not used),0.032046
+jpn.mpp.bio,mpp,jpn,bio,TotalLifetime (Not used),20
+mys.mpp.bio,mpp,mys,bio,CapacityFactor,0.72
+mys.mpp.bio,mpp,mys,bio,CapEx.USD_kW,2028.068
+mys.mpp.bio,mpp,mys,bio,OpexFixed.USD_kW_y,54.717
+mys.mpp.bio,mpp,mys,bio,OpexVariable.USD_kWh,0.003
+mys.mpp.bio,mpp,mys,bio,WACC (Not used),0.07605937500000001
+mys.mpp.bio,mpp,mys,bio,TotalLifetime (Not used),20
+phl.mpp.bio,mpp,phl,bio,CapacityFactor,0.72
+phl.mpp.bio,mpp,phl,bio,CapEx.USD_kW,1352.046
+phl.mpp.bio,mpp,phl,bio,OpexFixed.USD_kW_y,43.334
+phl.mpp.bio,mpp,phl,bio,OpexVariable.USD_kWh,0.003
+phl.mpp.bio,mpp,phl,bio,WACC (Not used),0.08570625000000001
+phl.mpp.bio,mpp,phl,bio,TotalLifetime (Not used),20
+tha.mpp.bio,mpp,tha,bio,CapacityFactor,0.72
+tha.mpp.bio,mpp,tha,bio,CapEx.USD_kW,1904.401
+tha.mpp.bio,mpp,tha,bio,OpexFixed.USD_kW_y,68.377
+tha.mpp.bio,mpp,tha,bio,OpexVariable.USD_kWh,0.003
+tha.mpp.bio,mpp,tha,bio,WACC (Not used),0.067790625
+tha.mpp.bio,mpp,tha,bio,TotalLifetime (Not used),20
+usa.mpp.bio,mpp,usa,bio,CapacityFactor,0.625
+usa.mpp.bio,mpp,usa,bio,CapEx.USD_kW,4605.224
+usa.mpp.bio,mpp,usa,bio,Efficiency.NCV,0.4009
+usa.mpp.bio,mpp,usa,bio,OpexFixed.USD_kW_y,33.891
+usa.mpp.bio,mpp,usa,bio,OpexVariable.USD_kWh,0.002
+vnm.mpp.bio,mpp,vnm,bio,CapacityFactor,0.72
+vnm.mpp.bio,mpp,vnm,bio,CapEx.USD_kW,1622.455
+vnm.mpp.bio,mpp,vnm,bio,OpexFixed.USD_kW_y,43.334
+vnm.mpp.bio,mpp,vnm,bio,OpexVariable.USD_kWh,0.003
+vnm.mpp.bio,mpp,vnm,bio,WACC (Not used),0.1028475
+vnm.mpp.bio,mpp,vnm,bio,TotalLifetime (Not used),20
+aus.mpp.coa,mpp,aus,coa,CapacityFactor,0.6
+aus.mpp.coa,mpp,aus,coa,CapEx.USD_kW,2941.003
+aus.mpp.coa,mpp,aus,coa,Efficiency.NCV,0.3587
+aus.mpp.coa,mpp,aus,coa,OpexFixed.USD_kW_y,25.857
+aus.mpp.coa,mpp,aus,coa,OpexVariable.USD_kWh,0.002
+aus.mpp.coa,mpp,aus,coa,WACC (Not used),0.12904
+aus.mpp.coa,mpp,aus,coa,TotalLifetime (Not used),35
+bra.mpp.coa,mpp,bra,coa,CapEx.USD_kW,1571.823
+bra.mpp.coa,mpp,bra,coa,Efficiency.NCV,0.41145
+bra.mpp.coa,mpp,bra,coa,OpexFixed.USD_kW_y,18.174
+bra.mpp.coa,mpp,bra,coa,OpexVariable.USD_kWh,0.003
+chl.mpp.coa,mpp,chl,coa,Efficiency.NCV,0.3798
+chl.mpp.coa,mpp,chl,coa,OpexFixed.USD_kW_y,60.132
+chl.mpp.coa,mpp,chl,coa,OpexVariable.USD_kWh,0.002
+chl.mpp.coa,mpp,chl,coa,WACC (Not used),0.0704214
+chn.mpp.coa,mpp,chn,coa,CapacityFactor,0.6
+chn.mpp.coa,mpp,chn,coa,CapEx.USD_kW,595.798
+chn.mpp.coa,mpp,chn,coa,Efficiency.NCV,0.3798
+chn.mpp.coa,mpp,chn,coa,OpexFixed.USD_kW_y,14.731
+chn.mpp.coa,mpp,chn,coa,OpexVariable.USD_kWh,0.003
+chn.mpp.coa,mpp,chn,coa,WACC (Not used),0.045
+chn.mpp.coa,mpp,chn,coa,TotalLifetime (Not used),25
+grc.mpp.coa,mpp,grc,coa,CapacityFactor,0.6
+grc.mpp.coa,mpp,grc,coa,CapEx.USD_kW,2434.456
+grc.mpp.coa,mpp,grc,coa,Efficiency.NCV,0.422
+grc.mpp.coa,mpp,grc,coa,OpexFixed.USD_kW_y,51.747
+grc.mpp.coa,mpp,grc,coa,OpexVariable.USD_kWh,0.002
+grc.mpp.coa,mpp,grc,coa,WACC (Not used),0.086
+grc.mpp.coa,mpp,grc,coa,TotalLifetime (Not used),35
+idn.mpp.coa,mpp,idn,coa,CapacityFactor,0.6
+idn.mpp.coa,mpp,idn,coa,CapEx.USD_kW,1421.833
+idn.mpp.coa,mpp,idn,coa,Efficiency.NCV,0.4325499999999999
+idn.mpp.coa,mpp,idn,coa,OpexFixed.USD_kW_y,36.737
+idn.mpp.coa,mpp,idn,coa,OpexVariable.USD_kWh,0.002
+idn.mpp.coa,mpp,idn,coa,WACC (Not used),0.092596875
+idn.mpp.coa,mpp,idn,coa,TotalLifetime (Not used),35
+ind.mpp.coa,mpp,ind,coa,CapacityFactor,0.65
+ind.mpp.coa,mpp,ind,coa,CapEx.USD_kW,805.437
+ind.mpp.coa,mpp,ind,coa,Efficiency.NCV,0.4430999999999999
+ind.mpp.coa,mpp,ind,coa,OpexFixed.USD_kW_y,13.136
+ind.mpp.coa,mpp,ind,coa,OpexVariable.USD_kWh,0.002
+ind.mpp.coa,mpp,ind,coa,WACC (Not used),0.11
+ind.mpp.coa,mpp,ind,coa,TotalLifetime (Not used),30
+jpn.mpp.coa,mpp,jpn,coa,CapacityFactor,0.75
+jpn.mpp.coa,mpp,jpn,coa,CapEx.USD_kW,1453.651
+jpn.mpp.coa,mpp,jpn,coa,Efficiency.NCV,0.4009
+jpn.mpp.coa,mpp,jpn,coa,OpexFixed.USD_kW_y,53.052
+jpn.mpp.coa,mpp,jpn,coa,OpexVariable.USD_kWh,0.003
+jpn.mpp.coa,mpp,jpn,coa,WACC (Not used),0.039
+jpn.mpp.coa,mpp,jpn,coa,TotalLifetime (Not used),25
+kor.mpp.coa,mpp,kor,coa,CapacityFactor,0.8
+kor.mpp.coa,mpp,kor,coa,CapEx.USD_kW,1276.829
+kor.mpp.coa,mpp,kor,coa,Efficiency.NCV,0.3798
+kor.mpp.coa,mpp,kor,coa,OpexFixed.USD_kW_y,16.927
+kor.mpp.coa,mpp,kor,coa,OpexVariable.USD_kWh,0.002
+kor.mpp.coa,mpp,kor,coa,WACC (Not used),0.048804
+kor.mpp.coa,mpp,kor,coa,TotalLifetime (Not used),30
+mys.mpp.coa,mpp,mys,coa,CapacityFactor,0.74
+mys.mpp.coa,mpp,mys,coa,CapEx.USD_kW,1282.856
+mys.mpp.coa,mpp,mys,coa,Efficiency.NCV,0.34815
+mys.mpp.coa,mpp,mys,coa,OpexFixed.USD_kW_y,35.799
+mys.mpp.coa,mpp,mys,coa,OpexVariable.USD_kWh,0.004
+mys.mpp.coa,mpp,mys,coa,WACC (Not used),0.07192499999999999
+mys.mpp.coa,mpp,mys,coa,TotalLifetime (Not used),35
+phl.mpp.coa,mpp,phl,coa,CapacityFactor,0.65
+phl.mpp.coa,mpp,phl,coa,CapEx.USD_kW,1480.258
+phl.mpp.coa,mpp,phl,coa,Efficiency.NCV,0.3798
+phl.mpp.coa,mpp,phl,coa,OpexFixed.USD_kW_y,34.642
+phl.mpp.coa,mpp,phl,coa,OpexVariable.USD_kWh,0.005
+phl.mpp.coa,mpp,phl,coa,WACC (Not used),0.07192499999999999
+phl.mpp.coa,mpp,phl,coa,TotalLifetime (Not used),35
+pol.mpp.coa,mpp,pol,coa,CapacityFactor,0.7
+pol.mpp.coa,mpp,pol,coa,CapEx.USD_kW,1707.393
+pol.mpp.coa,mpp,pol,coa,Efficiency.NCV,0.4430999999999999
+pol.mpp.coa,mpp,pol,coa,OpexFixed.USD_kW_y,43.091
+pol.mpp.coa,mpp,pol,coa,OpexVariable.USD_kWh,0.003
+pol.mpp.coa,mpp,pol,coa,WACC (Not used),0.11
+pol.mpp.coa,mpp,pol,coa,TotalLifetime (Not used),35
+tha.mpp.coa,mpp,tha,coa,CapacityFactor,0.65
+tha.mpp.coa,mpp,tha,coa,CapEx.USD_kW,1591.697
+tha.mpp.coa,mpp,tha,coa,OpexFixed.USD_kW_y,36.848
+tha.mpp.coa,mpp,tha,coa,OpexVariable.USD_kWh,0.007
+tha.mpp.coa,mpp,tha,coa,WACC (Not used),0.067790625
+tha.mpp.coa,mpp,tha,coa,TotalLifetime (Not used),35
+tur.mpp.coa,mpp,tur,coa,CapacityFactor,0.761
+tur.mpp.coa,mpp,tur,coa,CapEx.USD_kW,1391.232
+tur.mpp.coa,mpp,tur,coa,Efficiency.NCV,0.3587
+tur.mpp.coa,mpp,tur,coa,OpexFixed.USD_kW_y,36.759
+tur.mpp.coa,mpp,tur,coa,OpexVariable.USD_kWh,0.001
+tur.mpp.coa,mpp,tur,coa,WACC (Not used),0.088
+tur.mpp.coa,mpp,tur,coa,TotalLifetime (Not used),35
+twn.mpp.coa,mpp,twn,coa,CapEx.USD_kW,2476.952
+twn.mpp.coa,mpp,twn,coa,Efficiency.NCV,0.3798
+twn.mpp.coa,mpp,twn,coa,OpexFixed.USD_kW_y,16.714
+twn.mpp.coa,mpp,twn,coa,OpexVariable.USD_kWh,0.006
+usa.mpp.coa,mpp,usa,coa,CapacityFactor,0.45
+usa.mpp.coa,mpp,usa,coa,CapEx.USD_kW,2098.188
+usa.mpp.coa,mpp,usa,coa,OpexFixed.USD_kW_y,45.068
+usa.mpp.coa,mpp,usa,coa,OpexVariable.USD_kWh,0.005
+usa.mpp.coa,mpp,usa,coa,WACC (Not used),0.0621802125
+usa.mpp.coa,mpp,usa,coa,TotalLifetime (Not used),30
+vnm.mpp.coa,mpp,vnm,coa,CapacityFactor,0.6
+vnm.mpp.coa,mpp,vnm,coa,CapEx.USD_kW,1281.768
+vnm.mpp.coa,mpp,vnm,coa,OpexFixed.USD_kW_y,29.895
+vnm.mpp.coa,mpp,vnm,coa,OpexVariable.USD_kWh,0.005
+vnm.mpp.coa,mpp,vnm,coa,WACC (Not used),0.10119375
+vnm.mpp.coa,mpp,vnm,coa,TotalLifetime (Not used),35
+bol.mpp.hyd,mpp,bol,hyd,CapEx.USD_kW,2288.249
+bol.mpp.hyd,mpp,bol,hyd,OpexFixed.USD_kW_y,12.905
+bol.mpp.hyd,mpp,bol,hyd,OpexVariable.USD_kWh,0
+bra.mpp.hyd,mpp,bra,hyd,CapacityFactor,0.4935
+bra.mpp.hyd,mpp,bra,hyd,CapEx.USD_kW,1921.708
+bra.mpp.hyd,mpp,bra,hyd,OpexFixed.USD_kW_y,23.532
+bra.mpp.hyd,mpp,bra,hyd,OpexVariable.USD_kWh,0
+can.mpp.hyd,mpp,can,hyd,CapacityFactor,0.6
+can.mpp.hyd,mpp,can,hyd,CapEx.USD_kW,3643.201
+can.mpp.hyd,mpp,can,hyd,OpexFixed.USD_kW_y,39.093
+can.mpp.hyd,mpp,can,hyd,OpexVariable.USD_kWh,0
+can.mpp.hyd,mpp,can,hyd,WACC (Not used),0.06103361249999999
+can.mpp.hyd,mpp,can,hyd,TotalLifetime (Not used),50
+chn.mpp.hyd,mpp,chn,hyd,CapacityFactor,0.525
+chn.mpp.hyd,mpp,chn,hyd,CapEx.USD_kW,2129.622
+chn.mpp.hyd,mpp,chn,hyd,OpexFixed.USD_kW_y,19.639
+chn.mpp.hyd,mpp,chn,hyd,OpexVariable.USD_kWh,0
+chn.mpp.hyd,mpp,chn,hyd,WACC (Not used),0.06746250000000001
+ecu.mpp.hyd,mpp,ecu,hyd,CapEx.USD_kW,2971.652
+ecu.mpp.hyd,mpp,ecu,hyd,OpexFixed.USD_kW_y,53.356
+ecu.mpp.hyd,mpp,ecu,hyd,OpexVariable.USD_kWh,0
+idn.mpp.hyd,mpp,idn,hyd,WACC (Not used),0.097059375
+ind.mpp.hyd,mpp,ind,hyd,CapacityFactor,0.441
+ind.mpp.hyd,mpp,ind,hyd,CapEx.USD_kW,1686.752
+ind.mpp.hyd,mpp,ind,hyd,OpexFixed.USD_kW_y,19.533
+ind.mpp.hyd,mpp,ind,hyd,OpexVariable.USD_kWh,0
+ind.mpp.hyd,mpp,ind,hyd,WACC (Not used),0.1238475
+lao.mpp.hyd,mpp,lao,hyd,CapEx.USD_kW,2042.916
+mys.mpp.hyd,mpp,mys,hyd,OpexFixed.USD_kW_y,20.537
+mys.mpp.hyd,mpp,mys,hyd,OpexVariable.USD_kWh,0
+mys.mpp.hyd,mpp,mys,hyd,WACC (Not used),0.07605937500000001
+per.mpp.hyd,mpp,per,hyd,CapEx.USD_kW,2387.775
+per.mpp.hyd,mpp,per,hyd,OpexFixed.USD_kW_y,25.601
+per.mpp.hyd,mpp,per,hyd,OpexVariable.USD_kWh,0
+phl.mpp.hyd,mpp,phl,hyd,OpexFixed.USD_kW_y,38.286
+phl.mpp.hyd,mpp,phl,hyd,OpexVariable.USD_kWh,0.001
+phl.mpp.hyd,mpp,phl,hyd,WACC (Not used),0.08570625000000001
+tha.mpp.hyd,mpp,tha,hyd,OpexFixed.USD_kW_y,22.511
+tha.mpp.hyd,mpp,tha,hyd,OpexVariable.USD_kWh,0
+tha.mpp.hyd,mpp,tha,hyd,WACC (Not used),0.067790625
+usa.mpp.hyd,mpp,usa,hyd,CapacityFactor,0.65
+usa.mpp.hyd,mpp,usa,hyd,CapEx.USD_kW,6887.714
+usa.mpp.hyd,mpp,usa,hyd,Efficiency.NCV,0.5940000000000001
+usa.mpp.hyd,mpp,usa,hyd,OpexFixed.USD_kW_y,110.153
+usa.mpp.hyd,mpp,usa,hyd,OpexVariable.USD_kWh,0.001
+usa.mpp.hyd,mpp,usa,hyd,WACC (Not used),0.0647973375
+usa.mpp.hyd,mpp,usa,hyd,TotalLifetime (Not used),50
+vnm.mpp.hyd,mpp,vnm,hyd,Efficiency.NCV,0.55
+vnm.mpp.hyd,mpp,vnm,hyd,OpexFixed.USD_kW_y,7.681
+vnm.mpp.hyd,mpp,vnm,hyd,OpexVariable.USD_kWh,0.005
+vnm.mpp.hyd,mpp,vnm,hyd,WACC (Not used),0.1028475
+are.mpp.nga,mpp,are,nga,WACC (Not used),0.07583625
+aus.mpp.nga,mpp,aus,nga,CapacityFactor,0.5
+aus.mpp.nga,mpp,aus,nga,CapEx.USD_kW,1010.748
+aus.mpp.nga,mpp,aus,nga,OpexFixed.USD_kW_y,5.92
+aus.mpp.nga,mpp,aus,nga,OpexVariable.USD_kWh,0.004
+aus.mpp.nga,mpp,aus,nga,WACC (Not used),0.091573125
+aus.mpp.nga,mpp,aus,nga,TotalLifetime (Not used),25
+bgd.mpp.nga,mpp,bgd,nga,CapEx.USD_kW,1054.54
+bgd.mpp.nga,mpp,bgd,nga,Efficiency.NCV,0.55
+bgd.mpp.nga,mpp,bgd,nga,OpexFixed.USD_kW_y,21.432
+bgd.mpp.nga,mpp,bgd,nga,OpexVariable.USD_kWh,0.003
+bol.mpp.nga,mpp,bol,nga,CapEx.USD_kW,1054.082
+bol.mpp.nga,mpp,bol,nga,Efficiency.NCV,0.539
+bol.mpp.nga,mpp,bol,nga,OpexFixed.USD_kW_y,37.05
+bol.mpp.nga,mpp,bol,nga,OpexVariable.USD_kWh,0.002
+bra.mpp.nga,mpp,bra,nga,CapacityFactor,0.75
+bra.mpp.nga,mpp,bra,nga,CapEx.USD_kW,674.415
+bra.mpp.nga,mpp,bra,nga,Efficiency.NCV,0.528
+bra.mpp.nga,mpp,bra,nga,OpexFixed.USD_kW_y,13.789
+bra.mpp.nga,mpp,bra,nga,OpexVariable.USD_kWh,0.002
+bra.mpp.nga,mpp,bra,nga,WACC (Not used),0.095
+bra.mpp.nga,mpp,bra,nga,TotalLifetime (Not used),25
+can.mpp.nga,mpp,can,nga,CapacityFactor,0.65
+can.mpp.nga,mpp,can,nga,CapEx.USD_kW,1059.553
+can.mpp.nga,mpp,can,nga,Efficiency.NCV,0.451
+can.mpp.nga,mpp,can,nga,OpexFixed.USD_kW_y,31.908
+can.mpp.nga,mpp,can,nga,OpexVariable.USD_kWh,0.002
+can.mpp.nga,mpp,can,nga,WACC (Not used),0.06103361249999999
+can.mpp.nga,mpp,can,nga,TotalLifetime (Not used),35
+chl.mpp.nga,mpp,chl,nga,Efficiency.NCV,0.5940000000000001
+chl.mpp.nga,mpp,chl,nga,OpexFixed.USD_kW_y,23.846
+chl.mpp.nga,mpp,chl,nga,OpexVariable.USD_kWh,0.004
+chl.mpp.nga,mpp,chl,nga,WACC (Not used),0.0704214
+chn.mpp.nga,mpp,chn,nga,CapacityFactor,0.35
+chn.mpp.nga,mpp,chn,nga,CapEx.USD_kW,572.751
+chn.mpp.nga,mpp,chn,nga,OpexFixed.USD_kW_y,16.193
+chn.mpp.nga,mpp,chn,nga,OpexVariable.USD_kWh,0.003
+chn.mpp.nga,mpp,chn,nga,WACC (Not used),0.045
+chn.mpp.nga,mpp,chn,nga,TotalLifetime (Not used),25
+deu.mpp.nga,mpp,deu,nga,CapacityFactor,0.65
+deu.mpp.nga,mpp,deu,nga,CapEx.USD_kW,1049.607
+deu.mpp.nga,mpp,deu,nga,OpexFixed.USD_kW_y,23.378
+deu.mpp.nga,mpp,deu,nga,OpexVariable.USD_kWh,0.004
+deu.mpp.nga,mpp,deu,nga,WACC (Not used),0.06591858
+deu.mpp.nga,mpp,deu,nga,TotalLifetime (Not used),25
+dza.mpp.nga,mpp,dza,nga,CapEx.USD_kW,1045.028
+dza.mpp.nga,mpp,dza,nga,Efficiency.NCV,0.5940000000000001
+dza.mpp.nga,mpp,dza,nga,OpexFixed.USD_kW_y,22.112
+dza.mpp.nga,mpp,dza,nga,OpexVariable.USD_kWh,0.003
+egy.mpp.nga,mpp,egy,nga,CapEx.USD_kW,1304.195
+egy.mpp.nga,mpp,egy,nga,Efficiency.NCV,0.5940000000000001
+egy.mpp.nga,mpp,egy,nga,OpexFixed.USD_kW_y,32.05
+egy.mpp.nga,mpp,egy,nga,OpexVariable.USD_kWh,0.004
+fra.mpp.nga,mpp,fra,nga,CapacityFactor,0.5
+fra.mpp.nga,mpp,fra,nga,CapEx.USD_kW,1040.131
+fra.mpp.nga,mpp,fra,nga,Efficiency.NCV,0.528
+fra.mpp.nga,mpp,fra,nga,OpexFixed.USD_kW_y,23.203
+fra.mpp.nga,mpp,fra,nga,OpexVariable.USD_kWh,0.004
+fra.mpp.nga,mpp,fra,nga,WACC (Not used),0.06805302
+fra.mpp.nga,mpp,fra,nga,TotalLifetime (Not used),25
+gbr.mpp.nga,mpp,gbr,nga,CapacityFactor,0.55
+gbr.mpp.nga,mpp,gbr,nga,CapEx.USD_kW,557.916
+gbr.mpp.nga,mpp,gbr,nga,Efficiency.NCV,0.5060000000000001
+gbr.mpp.nga,mpp,gbr,nga,OpexFixed.USD_kW_y,15.47
+gbr.mpp.nga,mpp,gbr,nga,OpexVariable.USD_kWh,0.002
+gbr.mpp.nga,mpp,gbr,nga,WACC (Not used),0.07110474
+gbr.mpp.nga,mpp,gbr,nga,TotalLifetime (Not used),25
+idn.mpp.nga,mpp,idn,nga,CapacityFactor,0.5
+idn.mpp.nga,mpp,idn,nga,CapEx.USD_kW,831.794
+idn.mpp.nga,mpp,idn,nga,OpexFixed.USD_kW_y,27.45
+idn.mpp.nga,mpp,idn,nga,OpexVariable.USD_kWh,0.002
+idn.mpp.nga,mpp,idn,nga,WACC (Not used),0.109134375
+idn.mpp.nga,mpp,idn,nga,TotalLifetime (Not used),25
+ind.mpp.nga,mpp,ind,nga,CapacityFactor,0.4
+ind.mpp.nga,mpp,ind,nga,CapEx.USD_kW,676.023
+ind.mpp.nga,mpp,ind,nga,OpexFixed.USD_kW_y,27.519
+ind.mpp.nga,mpp,ind,nga,OpexVariable.USD_kWh,0.001
+ind.mpp.nga,mpp,ind,nga,WACC (Not used),0.11
+ind.mpp.nga,mpp,ind,nga,TotalLifetime (Not used),25
+irn.mpp.nga,mpp,irn,nga,CapEx.USD_kW,806.561
+irq.mpp.nga,mpp,irq,nga,CapEx.USD_kW,883.12
+irq.mpp.nga,mpp,irq,nga,Efficiency.NCV,0.55
+irq.mpp.nga,mpp,irq,nga,OpexFixed.USD_kW_y,22.222
+irq.mpp.nga,mpp,irq,nga,OpexVariable.USD_kWh,0.003
+isr.mpp.nga,mpp,isr,nga,CapEx.USD_kW,1789.964
+isr.mpp.nga,mpp,isr,nga,Efficiency.NCV,0.539
+isr.mpp.nga,mpp,isr,nga,OpexFixed.USD_kW_y,23.179
+isr.mpp.nga,mpp,isr,nga,OpexVariable.USD_kWh,0.002
+jor.mpp.nga,mpp,jor,nga,Efficiency.NCV,0.55
+jor.mpp.nga,mpp,jor,nga,OpexFixed.USD_kW_y,21.994
+jor.mpp.nga,mpp,jor,nga,OpexVariable.USD_kWh,0.003
+jor.mpp.nga,mpp,jor,nga,WACC (Not used),0.08738562
+jpn.mpp.nga,mpp,jpn,nga,CapacityFactor,0.75
+jpn.mpp.nga,mpp,jpn,nga,CapEx.USD_kW,937.499
+jpn.mpp.nga,mpp,jpn,nga,OpexFixed.USD_kW_y,15.798
+jpn.mpp.nga,mpp,jpn,nga,OpexVariable.USD_kWh,0.002
+jpn.mpp.nga,mpp,jpn,nga,WACC (Not used),0.039
+jpn.mpp.nga,mpp,jpn,nga,TotalLifetime (Not used),25
+kor.mpp.nga,mpp,kor,nga,CapacityFactor,0.65
+kor.mpp.nga,mpp,kor,nga,CapEx.USD_kW,762.493
+kor.mpp.nga,mpp,kor,nga,Efficiency.NCV,0.528
+kor.mpp.nga,mpp,kor,nga,OpexFixed.USD_kW_y,17.623
+kor.mpp.nga,mpp,kor,nga,OpexVariable.USD_kWh,0.002
+kor.mpp.nga,mpp,kor,nga,WACC (Not used),0.047866875
+kor.mpp.nga,mpp,kor,nga,TotalLifetime (Not used),20
+kwt.mpp.nga,mpp,kwt,nga,CapEx.USD_kW,919.784
+kwt.mpp.nga,mpp,kwt,nga,Efficiency.NCV,0.528
+kwt.mpp.nga,mpp,kwt,nga,OpexFixed.USD_kW_y,28.182
+kwt.mpp.nga,mpp,kwt,nga,OpexVariable.USD_kWh,0.003
+mex.mpp.nga,mpp,mex,nga,CapacityFactor,0.75
+mex.mpp.nga,mpp,mex,nga,CapEx.USD_kW,647.966
+mex.mpp.nga,mpp,mex,nga,Efficiency.NCV,0.528
+mex.mpp.nga,mpp,mex,nga,OpexFixed.USD_kW_y,12.839
+mex.mpp.nga,mpp,mex,nga,OpexVariable.USD_kWh,0.01
+mex.mpp.nga,mpp,mex,nga,WACC (Not used),0.09265200000000001
+mex.mpp.nga,mpp,mex,nga,TotalLifetime (Not used),30
+mys.mpp.nga,mpp,mys,nga,CapacityFactor,0.56
+mys.mpp.nga,mpp,mys,nga,CapEx.USD_kW,708.443
+mys.mpp.nga,mpp,mys,nga,OpexFixed.USD_kW_y,26.408
+mys.mpp.nga,mpp,mys,nga,OpexVariable.USD_kWh,0.002
+mys.mpp.nga,mpp,mys,nga,WACC (Not used),0.07192499999999999
+mys.mpp.nga,mpp,mys,nga,TotalLifetime (Not used),25
+phl.mpp.nga,mpp,phl,nga,CapacityFactor,0.75
+phl.mpp.nga,mpp,phl,nga,CapEx.USD_kW,1035.517
+phl.mpp.nga,mpp,phl,nga,OpexFixed.USD_kW_y,28.741
+phl.mpp.nga,mpp,phl,nga,OpexVariable.USD_kWh,0.002
+phl.mpp.nga,mpp,phl,nga,WACC (Not used),0.07192499999999999
+phl.mpp.nga,mpp,phl,nga,TotalLifetime (Not used),25
+png.mpp.nga,mpp,png,nga,CapEx.USD_kW,1826.998
+qat.mpp.nga,mpp,qat,nga,CapEx.USD_kW,1345.598
+qat.mpp.nga,mpp,qat,nga,Efficiency.NCV,0.528
+qat.mpp.nga,mpp,qat,nga,OpexFixed.USD_kW_y,37.237
+qat.mpp.nga,mpp,qat,nga,OpexVariable.USD_kWh,0.003
+rus.mpp.nga,mpp,rus,nga,CapEx.USD_kW,906.135
+tha.mpp.nga,mpp,tha,nga,CapacityFactor,0.65
+tha.mpp.nga,mpp,tha,nga,CapEx.USD_kW,904.731
+tha.mpp.nga,mpp,tha,nga,Efficiency.NCV,0.5720000000000001
+tha.mpp.nga,mpp,tha,nga,OpexFixed.USD_kW_y,26.953
+tha.mpp.nga,mpp,tha,nga,OpexVariable.USD_kWh,0.003
+tha.mpp.nga,mpp,tha,nga,WACC (Not used),0.067790625
+tha.mpp.nga,mpp,tha,nga,TotalLifetime (Not used),25
+tun.mpp.nga,mpp,tun,nga,CapEx.USD_kW,381.784
+tur.mpp.nga,mpp,tur,nga,CapacityFactor,0.829
+tur.mpp.nga,mpp,tur,nga,CapEx.USD_kW,1385.973
+tur.mpp.nga,mpp,tur,nga,Efficiency.NCV,0.539
+tur.mpp.nga,mpp,tur,nga,OpexFixed.USD_kW_y,27.519
+tur.mpp.nga,mpp,tur,nga,OpexVariable.USD_kWh,0.004
+tur.mpp.nga,mpp,tur,nga,WACC (Not used),0.059
+tur.mpp.nga,mpp,tur,nga,TotalLifetime (Not used),25
+ury.mpp.nga,mpp,ury,nga,CapEx.USD_kW,1454.087
+ury.mpp.nga,mpp,ury,nga,Efficiency.NCV,0.528
+ury.mpp.nga,mpp,ury,nga,OpexFixed.USD_kW_y,37.688
+ury.mpp.nga,mpp,ury,nga,OpexVariable.USD_kWh,0.002
+usa.mpp.nga,mpp,usa,nga,CapacityFactor,0.7
+usa.mpp.nga,mpp,usa,nga,CapEx.USD_kW,1063.883
+usa.mpp.nga,mpp,usa,nga,Efficiency.NCV,0.34815
+usa.mpp.nga,mpp,usa,nga,OpexFixed.USD_kW_y,12.615
+usa.mpp.nga,mpp,usa,nga,OpexVariable.USD_kWh,0.002
+usa.mpp.nga,mpp,usa,nga,WACC (Not used),0.05866874999999999
+usa.mpp.nga,mpp,usa,nga,TotalLifetime (Not used),20
+vnm.mpp.nga,mpp,vnm,nga,CapacityFactor,0.6
+vnm.mpp.nga,mpp,vnm,nga,CapEx.USD_kW,909.898
+vnm.mpp.nga,mpp,vnm,nga,Efficiency.NCV,0.34815
+vnm.mpp.nga,mpp,vnm,nga,OpexFixed.USD_kW_y,25.896
+vnm.mpp.nga,mpp,vnm,nga,OpexVariable.USD_kWh,0.002
+vnm.mpp.nga,mpp,vnm,nga,WACC (Not used),0.10119375
+vnm.mpp.nga,mpp,vnm,nga,TotalLifetime (Not used),25
+are.mpp.nuc,mpp,are,nuc,CapacityFactor,0.9
+are.mpp.nuc,mpp,are,nuc,CapEx.USD_kW,4985.464
+are.mpp.nuc,mpp,are,nuc,Efficiency.NCV,0.34815
+are.mpp.nuc,mpp,are,nuc,OpexFixed.USD_kW_y,111.499
+are.mpp.nuc,mpp,are,nuc,OpexVariable.USD_kWh,0.003
+are.mpp.nuc,mpp,are,nuc,WACC (Not used),0.057
+are.mpp.nuc,mpp,are,nuc,TotalLifetime (Not used),60
+blr.mpp.nuc,mpp,blr,nuc,Efficiency.NCV,0.34815
+blr.mpp.nuc,mpp,blr,nuc,OpexFixed.USD_kW_y,136.659
+blr.mpp.nuc,mpp,blr,nuc,OpexVariable.USD_kWh,0.004
+blr.mpp.nuc,mpp,blr,nuc,WACC (Not used),0.04713974999999999
+chn.mpp.nuc,mpp,chn,nuc,CapacityFactor,0.85
+chn.mpp.nuc,mpp,chn,nuc,CapEx.USD_kW,4614.982
+chn.mpp.nuc,mpp,chn,nuc,Efficiency.NCV,0.34815
+chn.mpp.nuc,mpp,chn,nuc,OpexFixed.USD_kW_y,84.509
+chn.mpp.nuc,mpp,chn,nuc,OpexVariable.USD_kWh,0.006
+chn.mpp.nuc,mpp,chn,nuc,WACC (Not used),0.05
+chn.mpp.nuc,mpp,chn,nuc,TotalLifetime (Not used),50
+fin.mpp.nuc,mpp,fin,nuc,CapacityFactor,0.9
+fin.mpp.nuc,mpp,fin,nuc,CapEx.USD_kW,8102.578
+fin.mpp.nuc,mpp,fin,nuc,Efficiency.NCV,0.34815
+fin.mpp.nuc,mpp,fin,nuc,OpexFixed.USD_kW_y,141.086
+fin.mpp.nuc,mpp,fin,nuc,OpexVariable.USD_kWh,0.004
+fin.mpp.nuc,mpp,fin,nuc,WACC (Not used),0.07277392499999999
+fin.mpp.nuc,mpp,fin,nuc,TotalLifetime (Not used),60
+fra.mpp.nuc,mpp,fra,nuc,CapacityFactor,0.9
+fra.mpp.nuc,mpp,fra,nuc,CapEx.USD_kW,9075.175
+fra.mpp.nuc,mpp,fra,nuc,Efficiency.NCV,0.34815
+fra.mpp.nuc,mpp,fra,nuc,OpexFixed.USD_kW_y,128.797
+fra.mpp.nuc,mpp,fra,nuc,OpexVariable.USD_kWh,0.003
+fra.mpp.nuc,mpp,fra,nuc,WACC (Not used),0.105
+fra.mpp.nuc,mpp,fra,nuc,TotalLifetime (Not used),60
+gbr.mpp.nuc,mpp,gbr,nuc,CapacityFactor,0.9
+gbr.mpp.nuc,mpp,gbr,nuc,CapEx.USD_kW,10290.409
+gbr.mpp.nuc,mpp,gbr,nuc,Efficiency.NCV,0.34815
+gbr.mpp.nuc,mpp,gbr,nuc,OpexFixed.USD_kW_y,129.192
+gbr.mpp.nuc,mpp,gbr,nuc,OpexVariable.USD_kWh,0.004
+gbr.mpp.nuc,mpp,gbr,nuc,WACC (Not used),0.0945
+gbr.mpp.nuc,mpp,gbr,nuc,TotalLifetime (Not used),60
+tur.mpp.nuc,mpp,tur,nuc,Efficiency.NCV,0.4536499999999999
+tur.mpp.nuc,mpp,tur,nuc,OpexFixed.USD_kW_y,26.847
+tur.mpp.nuc,mpp,tur,nuc,OpexVariable.USD_kWh,0.008
+tur.mpp.nuc,mpp,tur,nuc,WACC (Not used),0.01679999999999999
+usa.mpp.nuc,mpp,usa,nuc,CapacityFactor,0.95
+usa.mpp.nuc,mpp,usa,nuc,CapEx.USD_kW,8397.242
+usa.mpp.nuc,mpp,usa,nuc,OpexFixed.USD_kW_y,129.018
+usa.mpp.nuc,mpp,usa,nuc,OpexVariable.USD_kWh,0.003
+usa.mpp.nuc,mpp,usa,nuc,WACC (Not used),0.072946125
+usa.mpp.nuc,mpp,usa,nuc,TotalLifetime (Not used),40
+aus.mpp.oil,mpp,aus,oil,CapEx.USD_kW,864.152
+aus.mpp.oil,mpp,aus,oil,Efficiency.NCV,0.4430999999999999
+aus.mpp.oil,mpp,aus,oil,OpexFixed.USD_kW_y,17.855
+aus.mpp.oil,mpp,aus,oil,OpexVariable.USD_kWh,0.007
+aus.mpp.oil,mpp,aus,oil,WACC (Not used),0.0830025
+bgd.mpp.oil,mpp,bgd,oil,CapEx.USD_kW,843.976
+bgd.mpp.oil,mpp,bgd,oil,Efficiency.NCV,0.4430999999999999
+bgd.mpp.oil,mpp,bgd,oil,OpexFixed.USD_kW_y,23.995
+bgd.mpp.oil,mpp,bgd,oil,OpexVariable.USD_kWh,0.008
+chn.mpp.oil,mpp,chn,oil,CapEx.USD_kW,1103.615
+chn.mpp.oil,mpp,chn,oil,Efficiency.NCV,0.4430999999999999
+chn.mpp.oil,mpp,chn,oil,OpexFixed.USD_kW_y,24.218
+chn.mpp.oil,mpp,chn,oil,OpexVariable.USD_kWh,0.008
+chn.mpp.oil,mpp,chn,oil,WACC (Not used),0.07581
+deu.mpp.oil,mpp,deu,oil,CapEx.USD_kW,905.797
+deu.mpp.oil,mpp,deu,oil,Efficiency.NCV,0.4430999999999999
+deu.mpp.oil,mpp,deu,oil,OpexFixed.USD_kW_y,34.994
+deu.mpp.oil,mpp,deu,oil,OpexVariable.USD_kWh,0.001
+deu.mpp.oil,mpp,deu,oil,WACC (Not used),0.069195
+gbr.mpp.oil,mpp,gbr,oil,CapEx.USD_kW,1332.667
+gbr.mpp.oil,mpp,gbr,oil,Efficiency.NCV,0.4536499999999999
+gbr.mpp.oil,mpp,gbr,oil,OpexFixed.USD_kW_y,21.22
+gbr.mpp.oil,mpp,gbr,oil,OpexVariable.USD_kWh,0.007
+gbr.mpp.oil,mpp,gbr,oil,WACC (Not used),0.069195
+ind.mpp.oil,mpp,ind,oil,CapEx.USD_kW,884.974
+ind.mpp.oil,mpp,ind,oil,Efficiency.NCV,0.422
+ind.mpp.oil,mpp,ind,oil,OpexFixed.USD_kW_y,28.498
+ind.mpp.oil,mpp,ind,oil,OpexVariable.USD_kWh,0.009
+ind.mpp.oil,mpp,ind,oil,WACC (Not used),0.13542375
+jor.mpp.oil,mpp,jor,oil,CapEx.USD_kW,760.037
+jor.mpp.oil,mpp,jor,oil,WACC (Not used),0.08140125000000001
+jpn.mpp.oil,mpp,jpn,oil,CapEx.USD_kW,1749.126
+jpn.mpp.oil,mpp,jpn,oil,Efficiency.NCV,0.4536499999999999
+jpn.mpp.oil,mpp,jpn,oil,OpexFixed.USD_kW_y,24.422
+jpn.mpp.oil,mpp,jpn,oil,OpexVariable.USD_kWh,0.008
+jpn.mpp.oil,mpp,jpn,oil,WACC (Not used),0.04959937499999999
+mrt.mpp.oil,mpp,mrt,oil,CapEx.USD_kW,2776.306
+usa.mpp.oil,mpp,usa,oil,CapacityFactor,0.134
+usa.mpp.oil,mpp,usa,oil,CapEx.USD_kW,728.802
+usa.mpp.oil,mpp,usa,oil,OpexFixed.USD_kW_y,56.163
+usa.mpp.oil,mpp,usa,oil,OpexVariable.USD_kWh,0.012
+usa.mpp.oil,mpp,usa,oil,WACC (Not used),0.05866874999999999
+cri.mpp.ore,mpp,cri,ore,CapEx.USD_kW,6423.459
+cri.mpp.ore,mpp,cri,ore,OpexFixed.USD_kW_y,12.015
+cri.mpp.ore,mpp,cri,ore,OpexVariable.USD_kWh,0.01
+deu.mpp.ore,mpp,deu,ore,OpexFixed.USD_kW_y,68.745
+deu.mpp.ore,mpp,deu,ore,OpexVariable.USD_kWh,0
+deu.mpp.ore,mpp,deu,ore,WACC (Not used),0.05499060000000001
+idn.mpp.ore,mpp,idn,ore,CapacityFactor,0.75
+idn.mpp.ore,mpp,idn,ore,CapEx.USD_kW,3177.61
+idn.mpp.ore,mpp,idn,ore,OpexFixed.USD_kW_y,11.128
+idn.mpp.ore,mpp,idn,ore,OpexVariable.USD_kWh,0.009
+idn.mpp.ore,mpp,idn,ore,WACC (Not used),0.10670625
+idn.mpp.ore,mpp,idn,ore,TotalLifetime (Not used),30
+isl.mpp.ore,mpp,isl,ore,OpexFixed.USD_kW_y,12.041
+isl.mpp.ore,mpp,isl,ore,OpexVariable.USD_kWh,0.01
+isl.mpp.ore,mpp,isl,ore,WACC (Not used),0.07723485000000001
+ken.mpp.ore,mpp,ken,ore,CapacityFactor,0.9
+ken.mpp.ore,mpp,ken,ore,CapEx.USD_kW,1848.671
+ken.mpp.ore,mpp,ken,ore,OpexFixed.USD_kW_y,27.165
+ken.mpp.ore,mpp,ken,ore,OpexVariable.USD_kWh,0.005
+ken.mpp.ore,mpp,ken,ore,WACC (Not used),0.093
+ken.mpp.ore,mpp,ken,ore,TotalLifetime (Not used),30
+mys.mpp.ore,mpp,mys,ore,CapacityFactor,0.6
+mys.mpp.ore,mpp,mys,ore,CapEx.USD_kW,3009.758
+mys.mpp.ore,mpp,mys,ore,OpexFixed.USD_kW_y,9.995
+mys.mpp.ore,mpp,mys,ore,OpexVariable.USD_kWh,0.009
+mys.mpp.ore,mpp,mys,ore,WACC (Not used),0.08570625000000001
+mys.mpp.ore,mpp,mys,ore,TotalLifetime (Not used),30
+phl.mpp.ore,mpp,phl,ore,CapacityFactor,0.6
+phl.mpp.ore,mpp,phl,ore,CapEx.USD_kW,3545.293
+phl.mpp.ore,mpp,phl,ore,OpexFixed.USD_kW_y,12.047
+phl.mpp.ore,mpp,phl,ore,OpexVariable.USD_kWh,0.01
+phl.mpp.ore,mpp,phl,ore,WACC (Not used),0.09121875000000002
+phl.mpp.ore,mpp,phl,ore,TotalLifetime (Not used),30
+tha.mpp.ore,mpp,tha,ore,CapacityFactor,0.6
+tha.mpp.ore,mpp,tha,ore,CapEx.USD_kW,4053.431
+tha.mpp.ore,mpp,tha,ore,OpexFixed.USD_kW_y,14.437
+tha.mpp.ore,mpp,tha,ore,OpexVariable.USD_kWh,0.011
+tha.mpp.ore,mpp,tha,ore,WACC (Not used),0.08019375000000001
+tha.mpp.ore,mpp,tha,ore,TotalLifetime (Not used),30
+tur.mpp.ore,mpp,tur,ore,OpexFixed.USD_kW_y,19.4
+tur.mpp.ore,mpp,tur,ore,OpexVariable.USD_kWh,0
+tur.mpp.ore,mpp,tur,ore,WACC (Not used),0.08167005
+usa.mpp.ore,mpp,usa,ore,CapacityFactor,0.9
+usa.mpp.ore,mpp,usa,ore,CapEx.USD_kW,7059.889
+usa.mpp.ore,mpp,usa,ore,OpexFixed.USD_kW_y,17.699
+usa.mpp.ore,mpp,usa,ore,OpexVariable.USD_kWh,0
+vnm.mpp.ore,mpp,vnm,ore,CapacityFactor,0.6
+vnm.mpp.ore,mpp,vnm,ore,CapEx.USD_kW,3408.348
+vnm.mpp.ore,mpp,vnm,ore,OpexFixed.USD_kW_y,11.733
+vnm.mpp.ore,mpp,vnm,ore,OpexVariable.USD_kWh,0.009
+vnm.mpp.ore,mpp,vnm,ore,WACC (Not used),0.099
+vnm.mpp.ore,mpp,vnm,ore,TotalLifetime (Not used),30
+are.mpp.sol,mpp,are,sol,CapacityFactor,0.19
+are.mpp.sol,mpp,are,sol,CapEx.USD_kW,561.347
+are.mpp.sol,mpp,are,sol,OpexFixed.USD_kW_y,11.298
+are.mpp.sol,mpp,are,sol,OpexVariable.USD_kWh,0
+are.mpp.sol,mpp,are,sol,WACC (Not used),0.08
+are.mpp.sol,mpp,are,sol,TotalLifetime (Not used),30
+arg.mpp.sol,mpp,arg,sol,CapacityFactor,0.22
+arg.mpp.sol,mpp,arg,sol,CapEx.USD_kW,921.367
+arg.mpp.sol,mpp,arg,sol,OpexFixed.USD_kW_y,13.52
+arg.mpp.sol,mpp,arg,sol,OpexVariable.USD_kWh,0
+arg.mpp.sol,mpp,arg,sol,WACC (Not used),0.21
+arg.mpp.sol,mpp,arg,sol,TotalLifetime (Not used),30
+aus.mpp.sol,mpp,aus,sol,CapacityFactor,0.2
+aus.mpp.sol,mpp,aus,sol,CapEx.USD_kW,891.449
+aus.mpp.sol,mpp,aus,sol,OpexFixed.USD_kW_y,11.303
+aus.mpp.sol,mpp,aus,sol,OpexVariable.USD_kWh,0
+aus.mpp.sol,mpp,aus,sol,WACC (Not used),0.04
+aus.mpp.sol,mpp,aus,sol,TotalLifetime (Not used),30
+bol.mpp.sol,mpp,bol,sol,CapEx.USD_kW,890.113
+bol.mpp.sol,mpp,bol,sol,OpexFixed.USD_kW_y,18.22
+bol.mpp.sol,mpp,bol,sol,OpexVariable.USD_kWh,0
+bol.mpp.sol,mpp,bol,sol,WACC (Not used),0.13
+bra.mpp.sol,mpp,bra,sol,CapEx.USD_kW,655.291
+bra.mpp.sol,mpp,bra,sol,OpexFixed.USD_kW_y,7.075
+bra.mpp.sol,mpp,bra,sol,OpexVariable.USD_kWh,0
+bra.mpp.sol,mpp,bra,sol,WACC (Not used),0.09
+can.mpp.sol,mpp,can,sol,CapacityFactor,0.16
+can.mpp.sol,mpp,can,sol,CapEx.USD_kW,1205.123
+can.mpp.sol,mpp,can,sol,OpexFixed.USD_kW_y,13.441
+can.mpp.sol,mpp,can,sol,OpexVariable.USD_kWh,0
+can.mpp.sol,mpp,can,sol,WACC (Not used),0.06
+can.mpp.sol,mpp,can,sol,TotalLifetime (Not used),30
+chl.mpp.sol,mpp,chl,sol,CapEx.USD_kW,859.901
+chl.mpp.sol,mpp,chl,sol,OpexFixed.USD_kW_y,21.864
+chl.mpp.sol,mpp,chl,sol,OpexVariable.USD_kWh,0
+chl.mpp.sol,mpp,chl,sol,WACC (Not used),0.05
+chn.mpp.sol,mpp,chn,sol,CapacityFactor,0.16
+chn.mpp.sol,mpp,chn,sol,CapEx.USD_kW,604.815
+chn.mpp.sol,mpp,chn,sol,OpexFixed.USD_kW_y,5.233
+chn.mpp.sol,mpp,chn,sol,OpexVariable.USD_kWh,0
+chn.mpp.sol,mpp,chn,sol,WACC (Not used),0.03
+chn.mpp.sol,mpp,chn,sol,TotalLifetime (Not used),27.5
+deu.mpp.sol,mpp,deu,sol,CapacityFactor,0.11
+deu.mpp.sol,mpp,deu,sol,CapEx.USD_kW,658.897
+deu.mpp.sol,mpp,deu,sol,OpexFixed.USD_kW_y,10.284
+deu.mpp.sol,mpp,deu,sol,OpexVariable.USD_kWh,0
+deu.mpp.sol,mpp,deu,sol,WACC (Not used),0.03
+deu.mpp.sol,mpp,deu,sol,TotalLifetime (Not used),30
+dom.mpp.sol,mpp,dom,sol,OpexFixed.USD_kW_y,12.393
+dom.mpp.sol,mpp,dom,sol,OpexVariable.USD_kWh,0
+dom.mpp.sol,mpp,dom,sol,WACC (Not used),0.08
+ecu.mpp.sol,mpp,ecu,sol,OpexFixed.USD_kW_y,12.393
+ecu.mpp.sol,mpp,ecu,sol,OpexVariable.USD_kWh,0
+ecu.mpp.sol,mpp,ecu,sol,WACC (Not used),0.18
+egy.mpp.sol,mpp,egy,sol,CapEx.USD_kW,1222.683
+egy.mpp.sol,mpp,egy,sol,OpexFixed.USD_kW_y,11.831
+egy.mpp.sol,mpp,egy,sol,OpexVariable.USD_kWh,0
+egy.mpp.sol,mpp,egy,sol,WACC (Not used),0.13
+esp.mpp.sol,mpp,esp,sol,CapacityFactor,0.175
+esp.mpp.sol,mpp,esp,sol,CapEx.USD_kW,604.815
+esp.mpp.sol,mpp,esp,sol,OpexFixed.USD_kW_y,10.284
+esp.mpp.sol,mpp,esp,sol,OpexVariable.USD_kWh,0
+esp.mpp.sol,mpp,esp,sol,WACC (Not used),0.06
+esp.mpp.sol,mpp,esp,sol,TotalLifetime (Not used),30
+fra.mpp.sol,mpp,fra,sol,CapacityFactor,0.13
+fra.mpp.sol,mpp,fra,sol,CapEx.USD_kW,860.802
+fra.mpp.sol,mpp,fra,sol,OpexFixed.USD_kW_y,10.284
+fra.mpp.sol,mpp,fra,sol,OpexVariable.USD_kWh,0
+fra.mpp.sol,mpp,fra,sol,WACC (Not used),0.03
+fra.mpp.sol,mpp,fra,sol,TotalLifetime (Not used),30
+gbr.mpp.sol,mpp,gbr,sol,CapacityFactor,0.11
+gbr.mpp.sol,mpp,gbr,sol,CapEx.USD_kW,558.846
+gbr.mpp.sol,mpp,gbr,sol,OpexFixed.USD_kW_y,10.694
+gbr.mpp.sol,mpp,gbr,sol,OpexVariable.USD_kWh,0
+gbr.mpp.sol,mpp,gbr,sol,WACC (Not used),0.04
+gbr.mpp.sol,mpp,gbr,sol,TotalLifetime (Not used),30
+gtm.mpp.sol,mpp,gtm,sol,WACC (Not used),0.09
+idn.mpp.sol,mpp,idn,sol,CapacityFactor,0.16
+idn.mpp.sol,mpp,idn,sol,CapEx.USD_kW,934.283
+idn.mpp.sol,mpp,idn,sol,OpexFixed.USD_kW_y,12.823
+idn.mpp.sol,mpp,idn,sol,OpexVariable.USD_kWh,0
+idn.mpp.sol,mpp,idn,sol,WACC (Not used),0.08
+idn.mpp.sol,mpp,idn,sol,TotalLifetime (Not used),30
+ind.mpp.sol,mpp,ind,sol,CapacityFactor,0.19
+ind.mpp.sol,mpp,ind,sol,CapEx.USD_kW,640.87
+ind.mpp.sol,mpp,ind,sol,OpexFixed.USD_kW_y,4.833
+ind.mpp.sol,mpp,ind,sol,OpexVariable.USD_kWh,0
+ind.mpp.sol,mpp,ind,sol,WACC (Not used),0.08
+ind.mpp.sol,mpp,ind,sol,TotalLifetime (Not used),30
+irn.mpp.sol,mpp,irn,sol,CapEx.USD_kW,1313.449
+irn.mpp.sol,mpp,irn,sol,WACC (Not used),0.15
+isr.mpp.sol,mpp,isr,sol,CapacityFactor,0.19
+isr.mpp.sol,mpp,isr,sol,CapEx.USD_kW,612.927
+isr.mpp.sol,mpp,isr,sol,OpexFixed.USD_kW_y,10.751
+isr.mpp.sol,mpp,isr,sol,OpexVariable.USD_kWh,0
+isr.mpp.sol,mpp,isr,sol,WACC (Not used),0.05
+isr.mpp.sol,mpp,isr,sol,TotalLifetime (Not used),30
+ita.mpp.sol,mpp,ita,sol,CapacityFactor,0.16
+ita.mpp.sol,mpp,ita,sol,CapEx.USD_kW,740.02
+ita.mpp.sol,mpp,ita,sol,OpexFixed.USD_kW_y,10.284
+ita.mpp.sol,mpp,ita,sol,OpexVariable.USD_kWh,0
+ita.mpp.sol,mpp,ita,sol,WACC (Not used),0.05
+ita.mpp.sol,mpp,ita,sol,TotalLifetime (Not used),30
+jam.mpp.sol,mpp,jam,sol,CapEx.USD_kW,1431.971
+jam.mpp.sol,mpp,jam,sol,WACC (Not used),0.11
+jor.mpp.sol,mpp,jor,sol,CapEx.USD_kW,1498.268
+jor.mpp.sol,mpp,jor,sol,WACC (Not used),0.12
+jpn.mpp.sol,mpp,jpn,sol,CapacityFactor,0.13
+jpn.mpp.sol,mpp,jpn,sol,CapEx.USD_kW,1690.057
+jpn.mpp.sol,mpp,jpn,sol,OpexFixed.USD_kW_y,21.865
+jpn.mpp.sol,mpp,jpn,sol,OpexVariable.USD_kWh,0
+jpn.mpp.sol,mpp,jpn,sol,WACC (Not used),0.04
+jpn.mpp.sol,mpp,jpn,sol,TotalLifetime (Not used),30
+kaz.mpp.sol,mpp,kaz,sol,CapEx.USD_kW,1973.085
+kaz.mpp.sol,mpp,kaz,sol,OpexFixed.USD_kW_y,19.314
+kaz.mpp.sol,mpp,kaz,sol,OpexVariable.USD_kWh,0
+kaz.mpp.sol,mpp,kaz,sol,WACC (Not used),0.09
+khm.mpp.sol,mpp,khm,sol,CapEx.USD_kW,1024.337
+kor.mpp.sol,mpp,kor,sol,CapacityFactor,0.16
+kor.mpp.sol,mpp,kor,sol,CapEx.USD_kW,1086.143
+kor.mpp.sol,mpp,kor,sol,OpexFixed.USD_kW_y,32.574
+kor.mpp.sol,mpp,kor,sol,OpexVariable.USD_kWh,0
+kor.mpp.sol,mpp,kor,sol,WACC (Not used),0.052
+kor.mpp.sol,mpp,kor,sol,TotalLifetime (Not used),30
+mex.mpp.sol,mpp,mex,sol,CapEx.USD_kW,946.432
+mex.mpp.sol,mpp,mex,sol,WACC (Not used),0.1
+moz.mpp.sol,mpp,moz,sol,CapacityFactor,0.18
+moz.mpp.sol,mpp,moz,sol,CapEx.USD_kW,1391.734
+moz.mpp.sol,mpp,moz,sol,OpexFixed.USD_kW_y,18.435
+moz.mpp.sol,mpp,moz,sol,OpexVariable.USD_kWh,0
+moz.mpp.sol,mpp,moz,sol,WACC (Not used),0.106
+moz.mpp.sol,mpp,moz,sol,TotalLifetime (Not used),30
+mys.mpp.sol,mpp,mys,sol,CapacityFactor,0.16
+mys.mpp.sol,mpp,mys,sol,CapEx.USD_kW,688.807
+mys.mpp.sol,mpp,mys,sol,OpexFixed.USD_kW_y,12.053
+mys.mpp.sol,mpp,mys,sol,OpexVariable.USD_kWh,0
+mys.mpp.sol,mpp,mys,sol,WACC (Not used),0.07
+mys.mpp.sol,mpp,mys,sol,TotalLifetime (Not used),30
+nld.mpp.sol,mpp,nld,sol,CapEx.USD_kW,678.727
+nld.mpp.sol,mpp,nld,sol,OpexFixed.USD_kW_y,18.25
+nld.mpp.sol,mpp,nld,sol,OpexVariable.USD_kWh,0
+nld.mpp.sol,mpp,nld,sol,WACC (Not used),0.03
+pan.mpp.sol,mpp,pan,sol,CapEx.USD_kW,1515.312
+pan.mpp.sol,mpp,pan,sol,WACC (Not used),0.07
+per.mpp.sol,mpp,per,sol,WACC (Not used),0.08
+phl.mpp.sol,mpp,phl,sol,CapacityFactor,0.16
+phl.mpp.sol,mpp,phl,sol,CapEx.USD_kW,751.305
+phl.mpp.sol,mpp,phl,sol,OpexFixed.USD_kW_y,13.984
+phl.mpp.sol,mpp,phl,sol,OpexVariable.USD_kWh,0
+phl.mpp.sol,mpp,phl,sol,WACC (Not used),0.08
+phl.mpp.sol,mpp,phl,sol,TotalLifetime (Not used),30
+rus.mpp.sol,mpp,rus,sol,CapEx.USD_kW,1660.927
+rus.mpp.sol,mpp,rus,sol,OpexFixed.USD_kW_y,19.96
+rus.mpp.sol,mpp,rus,sol,OpexVariable.USD_kWh,0
+rus.mpp.sol,mpp,rus,sol,WACC (Not used),0.16
+sau.mpp.sol,mpp,sau,sol,CapEx.USD_kW,715.683
+sau.mpp.sol,mpp,sau,sol,OpexFixed.USD_kW_y,13.535
+sau.mpp.sol,mpp,sau,sol,OpexVariable.USD_kWh,0
+sau.mpp.sol,mpp,sau,sol,WACC (Not used),0.07
+slv.mpp.sol,mpp,slv,sol,WACC (Not used),0.13
+tha.mpp.sol,mpp,tha,sol,CapacityFactor,0.16
+tha.mpp.sol,mpp,tha,sol,CapEx.USD_kW,833.54
+tha.mpp.sol,mpp,tha,sol,OpexFixed.USD_kW_y,17.991
+tha.mpp.sol,mpp,tha,sol,OpexVariable.USD_kWh,0
+tha.mpp.sol,mpp,tha,sol,WACC (Not used),0.07
+tha.mpp.sol,mpp,tha,sol,TotalLifetime (Not used),30
+tur.mpp.sol,mpp,tur,sol,CapacityFactor,0.165
+tur.mpp.sol,mpp,tur,sol,CapEx.USD_kW,644.475
+tur.mpp.sol,mpp,tur,sol,OpexFixed.USD_kW_y,5.111
+tur.mpp.sol,mpp,tur,sol,OpexVariable.USD_kWh,0
+tur.mpp.sol,mpp,tur,sol,WACC (Not used),0.12
+tur.mpp.sol,mpp,tur,sol,TotalLifetime (Not used),30
+ukr.mpp.sol,mpp,ukr,sol,CapEx.USD_kW,863.203
+ukr.mpp.sol,mpp,ukr,sol,OpexFixed.USD_kW_y,20.084
+ukr.mpp.sol,mpp,ukr,sol,OpexVariable.USD_kWh,0
+ukr.mpp.sol,mpp,ukr,sol,WACC (Not used),0.19
+ury.mpp.sol,mpp,ury,sol,OpexFixed.USD_kW_y,16.033
+ury.mpp.sol,mpp,ury,sol,OpexVariable.USD_kWh,0
+ury.mpp.sol,mpp,ury,sol,WACC (Not used),0.07
+usa.mpp.sol,mpp,usa,sol,CapacityFactor,0.193
+usa.mpp.sol,mpp,usa,sol,CapEx.USD_kW,999.612
+usa.mpp.sol,mpp,usa,sol,OpexFixed.USD_kW_y,13.131
+usa.mpp.sol,mpp,usa,sol,OpexVariable.USD_kWh,0
+usa.mpp.sol,mpp,usa,sol,WACC (Not used),0.06
+usa.mpp.sol,mpp,usa,sol,TotalLifetime (Not used),30
+vnm.mpp.sol,mpp,vnm,sol,CapacityFactor,0.17
+vnm.mpp.sol,mpp,vnm,sol,CapEx.USD_kW,694.644
+vnm.mpp.sol,mpp,vnm,sol,OpexFixed.USD_kW_y,13.064
+vnm.mpp.sol,mpp,vnm,sol,OpexVariable.USD_kWh,0
+vnm.mpp.sol,mpp,vnm,sol,WACC (Not used),0.08
+vnm.mpp.sol,mpp,vnm,sol,TotalLifetime (Not used),30
+zaf.mpp.sol,mpp,zaf,sol,CapacityFactor,0.21
+zaf.mpp.sol,mpp,zaf,sol,CapEx.USD_kW,1131.212
+zaf.mpp.sol,mpp,zaf,sol,OpexFixed.USD_kW_y,11.881
+zaf.mpp.sol,mpp,zaf,sol,OpexVariable.USD_kWh,0
+zaf.mpp.sol,mpp,zaf,sol,WACC (Not used),0.08
+zaf.mpp.sol,mpp,zaf,sol,TotalLifetime (Not used),30
+arg.mpp.wnd,mpp,arg,wnd,CapacityFactor,0.55
+arg.mpp.wnd,mpp,arg,wnd,CapEx.USD_kW,1671.128
+arg.mpp.wnd,mpp,arg,wnd,OpexFixed.USD_kW_y,21.633
+arg.mpp.wnd,mpp,arg,wnd,OpexVariable.USD_kWh,0
+arg.mpp.wnd,mpp,arg,wnd,WACC (Not used),0.208
+arg.mpp.wnd,mpp,arg,wnd,TotalLifetime (Not used),25
+aus.mpp.wnd,mpp,aus,wnd,CapacityFactor,0.37
+aus.mpp.wnd,mpp,aus,wnd,CapEx.USD_kW,1416.944
+aus.mpp.wnd,mpp,aus,wnd,OpexFixed.USD_kW_y,16.158
+aus.mpp.wnd,mpp,aus,wnd,OpexVariable.USD_kWh,0.005
+aus.mpp.wnd,mpp,aus,wnd,WACC (Not used),0.043
+aus.mpp.wnd,mpp,aus,wnd,TotalLifetime (Not used),25
+bra.mpp.wnd,mpp,bra,wnd,CapacityFactor,0.51
+bra.mpp.wnd,mpp,bra,wnd,CapEx.USD_kW,972.572
+bra.mpp.wnd,mpp,bra,wnd,OpexFixed.USD_kW_y,13.338
+bra.mpp.wnd,mpp,bra,wnd,OpexVariable.USD_kWh,0
+bra.mpp.wnd,mpp,bra,wnd,WACC (Not used),0.074
+bra.mpp.wnd,mpp,bra,wnd,TotalLifetime (Not used),25
+can.mpp.wnd,mpp,can,wnd,CapacityFactor,0.4
+can.mpp.wnd,mpp,can,wnd,CapEx.USD_kW,1279.937
+can.mpp.wnd,mpp,can,wnd,OpexFixed.USD_kW_y,20.159
+can.mpp.wnd,mpp,can,wnd,OpexVariable.USD_kWh,0
+can.mpp.wnd,mpp,can,wnd,WACC (Not used),0.044
+can.mpp.wnd,mpp,can,wnd,TotalLifetime (Not used),25
+chl.mpp.wnd,mpp,chl,wnd,CapacityFactor,0.4
+chl.mpp.wnd,mpp,chl,wnd,CapEx.USD_kW,1381.791
+chl.mpp.wnd,mpp,chl,wnd,OpexFixed.USD_kW_y,15.323
+chl.mpp.wnd,mpp,chl,wnd,OpexVariable.USD_kWh,0
+chl.mpp.wnd,mpp,chl,wnd,WACC (Not used),0.065
+chl.mpp.wnd,mpp,chl,wnd,TotalLifetime (Not used),25
+chn.mpp.wnd,mpp,chn,wnd,CapacityFactor,0.28
+chn.mpp.wnd,mpp,chn,wnd,CapEx.USD_kW,888.745
+chn.mpp.wnd,mpp,chn,wnd,OpexFixed.USD_kW_y,18.758
+chn.mpp.wnd,mpp,chn,wnd,OpexVariable.USD_kWh,0.002
+chn.mpp.wnd,mpp,chn,wnd,WACC (Not used),0.03
+chn.mpp.wnd,mpp,chn,wnd,TotalLifetime (Not used),25
+deu.mpp.wnd,mpp,deu,wnd,CapacityFactor,0.314
+deu.mpp.wnd,mpp,deu,wnd,CapEx.USD_kW,1577.387
+deu.mpp.wnd,mpp,deu,wnd,OpexFixed.USD_kW_y,33.934
+deu.mpp.wnd,mpp,deu,wnd,OpexVariable.USD_kWh,0
+deu.mpp.wnd,mpp,deu,wnd,WACC (Not used),0.025
+deu.mpp.wnd,mpp,deu,wnd,TotalLifetime (Not used),25
+dnk.mpp.wnd,mpp,dnk,wnd,CapacityFactor,0.4095
+dnk.mpp.wnd,mpp,dnk,wnd,CapEx.USD_kW,1851.296
+dnk.mpp.wnd,mpp,dnk,wnd,WACC (Not used),0.028
+dom.mpp.wnd,mpp,dom,wnd,CapEx.USD_kW,2424.056
+dom.mpp.wnd,mpp,dom,wnd,OpexFixed.USD_kW_y,23.8
+dom.mpp.wnd,mpp,dom,wnd,OpexVariable.USD_kWh,0.007
+dom.mpp.wnd,mpp,dom,wnd,WACC (Not used),0.102
+esp.mpp.wnd,mpp,esp,wnd,CapacityFactor,0.38
+esp.mpp.wnd,mpp,esp,wnd,CapEx.USD_kW,1043.779
+esp.mpp.wnd,mpp,esp,wnd,OpexFixed.USD_kW_y,18.934
+esp.mpp.wnd,mpp,esp,wnd,OpexVariable.USD_kWh,0
+esp.mpp.wnd,mpp,esp,wnd,WACC (Not used),0.052
+esp.mpp.wnd,mpp,esp,wnd,TotalLifetime (Not used),25
+fin.mpp.wnd,mpp,fin,wnd,CapEx.USD_kW,1277.232
+fin.mpp.wnd,mpp,fin,wnd,OpexFixed.USD_kW_y,20.478
+fin.mpp.wnd,mpp,fin,wnd,OpexVariable.USD_kWh,0
+fin.mpp.wnd,mpp,fin,wnd,WACC (Not used),0.033
+fra.mpp.wnd,mpp,fra,wnd,CapacityFactor,0.352
+fra.mpp.wnd,mpp,fra,wnd,CapEx.USD_kW,1573.781
+fra.mpp.wnd,mpp,fra,wnd,OpexFixed.USD_kW_y,24.241
+fra.mpp.wnd,mpp,fra,wnd,OpexVariable.USD_kWh,0
+fra.mpp.wnd,mpp,fra,wnd,WACC (Not used),0.032
+fra.mpp.wnd,mpp,fra,wnd,TotalLifetime (Not used),25
+gbr.mpp.wnd,mpp,gbr,wnd,CapacityFactor,0.37
+gbr.mpp.wnd,mpp,gbr,wnd,CapEx.USD_kW,1147.436
+gbr.mpp.wnd,mpp,gbr,wnd,OpexFixed.USD_kW_y,46.739
+gbr.mpp.wnd,mpp,gbr,wnd,OpexVariable.USD_kWh,0
+gbr.mpp.wnd,mpp,gbr,wnd,WACC (Not used),0.044
+gbr.mpp.wnd,mpp,gbr,wnd,TotalLifetime (Not used),25
+idn.mpp.wnd,mpp,idn,wnd,CapacityFactor,0.23
+idn.mpp.wnd,mpp,idn,wnd,CapEx.USD_kW,1748.704
+idn.mpp.wnd,mpp,idn,wnd,OpexFixed.USD_kW_y,19.247
+idn.mpp.wnd,mpp,idn,wnd,OpexVariable.USD_kWh,0
+idn.mpp.wnd,mpp,idn,wnd,WACC (Not used),0.085
+idn.mpp.wnd,mpp,idn,wnd,TotalLifetime (Not used),25
+ind.mpp.wnd,mpp,ind,wnd,CapacityFactor,0.335
+ind.mpp.wnd,mpp,ind,wnd,CapEx.USD_kW,1088.847
+ind.mpp.wnd,mpp,ind,wnd,OpexFixed.USD_kW_y,10.042
+ind.mpp.wnd,mpp,ind,wnd,OpexVariable.USD_kWh,0
+ind.mpp.wnd,mpp,ind,wnd,WACC (Not used),0.084
+ind.mpp.wnd,mpp,ind,wnd,TotalLifetime (Not used),25
+irn.mpp.wnd,mpp,irn,wnd,CapEx.USD_kW,1660.877
+irn.mpp.wnd,mpp,irn,wnd,OpexFixed.USD_kW_y,43.519
+irn.mpp.wnd,mpp,irn,wnd,OpexVariable.USD_kWh,0.005
+irn.mpp.wnd,mpp,irn,wnd,WACC (Not used),0.149
+ita.mpp.wnd,mpp,ita,wnd,CapacityFactor,0.382
+ita.mpp.wnd,mpp,ita,wnd,CapEx.USD_kW,1233.967
+ita.mpp.wnd,mpp,ita,wnd,OpexFixed.USD_kW_y,37.917
+ita.mpp.wnd,mpp,ita,wnd,OpexVariable.USD_kWh,0
+ita.mpp.wnd,mpp,ita,wnd,WACC (Not used),0.055
+ita.mpp.wnd,mpp,ita,wnd,TotalLifetime (Not used),25
+jor.mpp.wnd,mpp,jor,wnd,CapEx.USD_kW,2140.725
+jor.mpp.wnd,mpp,jor,wnd,OpexFixed.USD_kW_y,25.108
+jor.mpp.wnd,mpp,jor,wnd,OpexVariable.USD_kWh,0
+jor.mpp.wnd,mpp,jor,wnd,WACC (Not used),0.119
+jpn.mpp.wnd,mpp,jpn,wnd,CapacityFactor,0.265
+jpn.mpp.wnd,mpp,jpn,wnd,CapEx.USD_kW,2148.851
+jpn.mpp.wnd,mpp,jpn,wnd,OpexFixed.USD_kW_y,63.638
+jpn.mpp.wnd,mpp,jpn,wnd,OpexVariable.USD_kWh,0
+jpn.mpp.wnd,mpp,jpn,wnd,WACC (Not used),0.066
+jpn.mpp.wnd,mpp,jpn,wnd,TotalLifetime (Not used),25
+kor.mpp.wnd,mpp,kor,wnd,CapacityFactor,0.24
+kor.mpp.wnd,mpp,kor,wnd,CapEx.USD_kW,1847.796
+kor.mpp.wnd,mpp,kor,wnd,OpexFixed.USD_kW_y,41.611
+kor.mpp.wnd,mpp,kor,wnd,OpexVariable.USD_kWh,0
+kor.mpp.wnd,mpp,kor,wnd,WACC (Not used),0.053
+kor.mpp.wnd,mpp,kor,wnd,TotalLifetime (Not used),25
+mex.mpp.wnd,mpp,mex,wnd,CapacityFactor,0.45
+mex.mpp.wnd,mpp,mex,wnd,CapEx.USD_kW,1473.267
+mex.mpp.wnd,mpp,mex,wnd,OpexFixed.USD_kW_y,25.63
+mex.mpp.wnd,mpp,mex,wnd,OpexVariable.USD_kWh,0
+mex.mpp.wnd,mpp,mex,wnd,WACC (Not used),0.06
+mex.mpp.wnd,mpp,mex,wnd,TotalLifetime (Not used),25
+nld.mpp.wnd,mpp,nld,wnd,CapacityFactor,0.325
+nld.mpp.wnd,mpp,nld,wnd,CapEx.USD_kW,1533.22
+nld.mpp.wnd,mpp,nld,wnd,OpexFixed.USD_kW_y,35.626
+nld.mpp.wnd,mpp,nld,wnd,OpexVariable.USD_kWh,0
+nld.mpp.wnd,mpp,nld,wnd,WACC (Not used),0.037
+nld.mpp.wnd,mpp,nld,wnd,TotalLifetime (Not used),25
+pan.mpp.wnd,mpp,pan,wnd,OpexFixed.USD_kW_y,23.453
+pan.mpp.wnd,mpp,pan,wnd,OpexVariable.USD_kWh,0.007
+pan.mpp.wnd,mpp,pan,wnd,WACC (Not used),0.067
+per.mpp.wnd,mpp,per,wnd,CapEx.USD_kW,1145.633
+per.mpp.wnd,mpp,per,wnd,OpexFixed.USD_kW_y,33.981
+per.mpp.wnd,mpp,per,wnd,OpexVariable.USD_kWh,0
+per.mpp.wnd,mpp,per,wnd,WACC (Not used),0.077
+pol.mpp.wnd,mpp,pol,wnd,CapacityFactor,0.317
+pol.mpp.wnd,mpp,pol,wnd,CapEx.USD_kW,1513.39
+pol.mpp.wnd,mpp,pol,wnd,OpexFixed.USD_kW_y,35.26
+pol.mpp.wnd,mpp,pol,wnd,OpexVariable.USD_kWh,0
+pol.mpp.wnd,mpp,pol,wnd,WACC (Not used),0.05
+pol.mpp.wnd,mpp,pol,wnd,TotalLifetime (Not used),25
+swe.mpp.wnd,mpp,swe,wnd,CapacityFactor,0.355
+swe.mpp.wnd,mpp,swe,wnd,CapEx.USD_kW,1383.593
+swe.mpp.wnd,mpp,swe,wnd,OpexFixed.USD_kW_y,32.689
+swe.mpp.wnd,mpp,swe,wnd,OpexVariable.USD_kWh,0
+swe.mpp.wnd,mpp,swe,wnd,WACC (Not used),0.05
+swe.mpp.wnd,mpp,swe,wnd,TotalLifetime (Not used),25
+tha.mpp.wnd,mpp,tha,wnd,CapacityFactor,0.2
+tha.mpp.wnd,mpp,tha,wnd,CapEx.USD_kW,1531.922
+tha.mpp.wnd,mpp,tha,wnd,OpexFixed.USD_kW_y,30.63
+tha.mpp.wnd,mpp,tha,wnd,OpexVariable.USD_kWh,0
+tha.mpp.wnd,mpp,tha,wnd,WACC (Not used),0.082
+tha.mpp.wnd,mpp,tha,wnd,TotalLifetime (Not used),25
+tur.mpp.wnd,mpp,tur,wnd,CapacityFactor,0.353
+tur.mpp.wnd,mpp,tur,wnd,CapEx.USD_kW,1292.556
+tur.mpp.wnd,mpp,tur,wnd,OpexFixed.USD_kW_y,21.802
+tur.mpp.wnd,mpp,tur,wnd,OpexVariable.USD_kWh,0
+tur.mpp.wnd,mpp,tur,wnd,WACC (Not used),0.125
+tur.mpp.wnd,mpp,tur,wnd,TotalLifetime (Not used),25
+ukr.mpp.wnd,mpp,ukr,wnd,CapEx.USD_kW,1444.886
+ukr.mpp.wnd,mpp,ukr,wnd,OpexFixed.USD_kW_y,26.063
+ukr.mpp.wnd,mpp,ukr,wnd,OpexVariable.USD_kWh,0.006
+ukr.mpp.wnd,mpp,ukr,wnd,WACC (Not used),0.191
+usa.mpp.wnd,mpp,usa,wnd,CapacityFactor,0.42
+usa.mpp.wnd,mpp,usa,wnd,CapEx.USD_kW,1352.947
+usa.mpp.wnd,mpp,usa,wnd,OpexFixed.USD_kW_y,29.463
+usa.mpp.wnd,mpp,usa,wnd,OpexVariable.USD_kWh,0
+usa.mpp.wnd,mpp,usa,wnd,WACC (Not used),0.044
+usa.mpp.wnd,mpp,usa,wnd,TotalLifetime (Not used),21.25
+vnm.mpp.wnd,mpp,vnm,wnd,CapacityFactor,0.29
+vnm.mpp.wnd,mpp,vnm,wnd,CapEx.USD_kW,1523.305
+vnm.mpp.wnd,mpp,vnm,wnd,OpexFixed.USD_kW_y,36.67
+vnm.mpp.wnd,mpp,vnm,wnd,OpexVariable.USD_kWh,0
+vnm.mpp.wnd,mpp,vnm,wnd,WACC (Not used),0.072
+vnm.mpp.wnd,mpp,vnm,wnd,TotalLifetime (Not used),25
+zaf.mpp.wnd,mpp,zaf,wnd,CapacityFactor,0.38
+zaf.mpp.wnd,mpp,zaf,wnd,CapEx.USD_kW,1561.162
+zaf.mpp.wnd,mpp,zaf,wnd,OpexFixed.USD_kW_y,33.317
+zaf.mpp.wnd,mpp,zaf,wnd,OpexVariable.USD_kWh,0
+zaf.mpp.wnd,mpp,zaf,wnd,WACC (Not used),0.095
+zaf.mpp.wnd,mpp,zaf,wnd,TotalLifetime (Not used),25

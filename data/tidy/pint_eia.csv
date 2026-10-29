@@ -1,0 +1,290 @@
+commodity,unit,year,value
+Crude Oil (Brent),$/bbl nom,1999,18.108219
+Crude Oil (Brent),$/bbl nom,2000,28.845275
+Crude Oil (Brent),$/bbl nom,2001,24.713763
+Crude Oil (Brent),$/bbl nom,2002,25.115096
+Crude Oil (Brent),$/bbl nom,2003,28.779103
+Crude Oil (Brent),$/bbl nom,2004,38.23358
+Crude Oil (Brent),$/bbl nom,2005,54.683848
+Crude Oil (Brent),$/bbl nom,2006,65.604743
+Crude Oil (Brent),$/bbl nom,2007,72.652806
+Crude Oil (Brent),$/bbl nom,2008,97.330152
+Crude Oil (Brent),$/bbl nom,2009,61.58105
+Crude Oil (Brent),$/bbl nom,2010,79.807008
+Crude Oil (Brent),$/bbl nom,2011,111.539226
+Crude Oil (Brent),$/bbl nom,2012,112.011673
+Crude Oil (Brent),$/bbl nom,2013,108.961725
+Crude Oil (Brent),$/bbl nom,2014,99.345446
+Crude Oil (Brent),$/bbl nom,2015,53.022712
+Crude Oil (Brent),$/bbl nom,2016,45.079076
+Crude Oil (Brent),$/bbl nom,2017,54.886916
+Crude Oil (Brent),$/bbl nom,2018,71.612593
+Crude Oil (Brent),$/bbl nom,2019,64.198474
+Crude Oil (Brent),$/bbl nom,2020,43.333843
+Crude Oil (Brent),$/bbl nom,2021,70.8315
+Crude Oil (Brent),$/bbl nom,2022,102.129997
+Crude Oil (Brent),$/bbl nom,2023,95.329002
+Crude Oil (Brent),$/bbl nom,2024,98.708405
+Crude Oil (Brent),$/bbl nom,2025,94.878891
+Crude Oil (Brent),$/bbl nom,2026,97.830475
+Crude Oil (Brent),$/bbl nom,2027,100.425552
+Crude Oil (Brent),$/bbl nom,2028,103.260544
+Crude Oil (Brent),$/bbl nom,2029,106.227829
+Crude Oil (Brent),$/bbl nom,2030,109.439186
+Crude Oil (Brent),$/bbl nom,2031,112.639786
+Crude Oil (Brent),$/bbl nom,2032,116.265869
+Crude Oil (Brent),$/bbl nom,2033,119.618378
+Crude Oil (Brent),$/bbl nom,2034,123.399551
+Crude Oil (Brent),$/bbl nom,2035,127.457848
+Crude Oil (Brent),$/bbl nom,2036,131.215973
+Crude Oil (Brent),$/bbl nom,2037,135.083923
+Crude Oil (Brent),$/bbl nom,2038,138.850723
+Crude Oil (Brent),$/bbl nom,2039,142.697296
+Crude Oil (Brent),$/bbl nom,2040,146.678238
+Crude Oil (Brent),$/bbl nom,2041,150.81691
+Crude Oil (Brent),$/bbl nom,2042,154.928268
+Crude Oil (Brent),$/bbl nom,2043,159.093475
+Crude Oil (Brent),$/bbl nom,2044,163.571487
+Crude Oil (Brent),$/bbl nom,2045,167.987595
+Crude Oil (Brent),$/bbl nom,2046,173.312363
+Crude Oil (Brent),$/bbl nom,2047,178.174057
+Crude Oil (Brent),$/bbl nom,2048,183.524307
+Crude Oil (Brent),$/bbl nom,2049,189.210342
+Crude Oil (Brent),$/bbl nom,2050,194.299271
+Coal (metric ton),$/ton nom,1999,25.891667
+Coal (metric ton),$/ton nom,2000,26.25
+Coal (metric ton),$/ton nom,2001,32.3125
+Coal (metric ton),$/ton nom,2002,27.06
+Coal (metric ton),$/ton nom,2003,27.954241
+Coal (metric ton),$/ton nom,2004,56.729911
+Coal (metric ton),$/ton nom,2005,50.816313
+Coal (metric ton),$/ton nom,2006,52.730772
+Coal (metric ton),$/ton nom,2007,70.089198
+Coal (metric ton),$/ton nom,2008,138.023796
+Coal (metric ton),$/ton nom,2009,76.159665
+Coal (metric ton),$/ton nom,2010,104.598814
+Coal (metric ton),$/ton nom,2011,129.607283
+Coal (metric ton),$/ton nom,2012,101.442892
+Coal (metric ton),$/ton nom,2013,90.134096
+Coal (metric ton),$/ton nom,2014,75.728981
+Coal (metric ton),$/ton nom,2015,62.692553
+Coal (metric ton),$/ton nom,2016,70.081806
+Coal (metric ton),$/ton nom,2017,94.138079
+Coal (metric ton),$/ton nom,2018,113.230785
+Coal (metric ton),$/ton nom,2019,82.193236
+Coal (metric ton),$/ton nom,2020,61.983198
+Coal (metric ton),$/ton nom,2021,143.984744
+Coal (metric ton),$/ton nom,2022,121.4953263754496
+Coal (metric ton),$/ton nom,2023,123.31011856542071
+Coal (metric ton),$/ton nom,2024,132.71728596513813
+Coal (metric ton),$/ton nom,2025,136.8789462683526
+Coal (metric ton),$/ton nom,2026,148.1173610735664
+Coal (metric ton),$/ton nom,2027,164.7627264911876
+Coal (metric ton),$/ton nom,2028,173.84431264902
+Coal (metric ton),$/ton nom,2029,177.50809272369182
+Coal (metric ton),$/ton nom,2030,188.21187996060942
+Coal (metric ton),$/ton nom,2031,205.67611671854402
+Coal (metric ton),$/ton nom,2032,201.9020397118767
+Coal (metric ton),$/ton nom,2033,206.578567419714
+Coal (metric ton),$/ton nom,2034,211.65033398908002
+Coal (metric ton),$/ton nom,2035,218.50873536432238
+Coal (metric ton),$/ton nom,2036,228.8590720485948
+Coal (metric ton),$/ton nom,2037,241.10938276631882
+Coal (metric ton),$/ton nom,2038,263.494994594075
+Coal (metric ton),$/ton nom,2039,271.582250610852
+Coal (metric ton),$/ton nom,2040,288.1960733440866
+Coal (metric ton),$/ton nom,2041,294.5817942227482
+Coal (metric ton),$/ton nom,2042,304.2568387952457
+Coal (metric ton),$/ton nom,2043,321.1965121625568
+Coal (metric ton),$/ton nom,2044,335.13485269032
+Coal (metric ton),$/ton nom,2045,355.68878896797247
+Coal (metric ton),$/ton nom,2046,373.61148347908494
+Coal (metric ton),$/ton nom,2047,387.46518195278543
+Coal (metric ton),$/ton nom,2048,398.8690345895234
+Coal (metric ton),$/ton nom,2049,417.437774524466
+Coal (metric ton),$/ton nom,2050,434.9018717868492
+Natural Gas - LNG,$/MMBtu nom,1999,3.3425
+Natural Gas - LNG,$/MMBtu nom,2000,5.235
+Natural Gas - LNG,$/MMBtu nom,2001,4.669167
+Natural Gas - LNG,$/MMBtu nom,2002,4.426667
+Natural Gas - LNG,$/MMBtu nom,2003,4.980833
+Natural Gas - LNG,$/MMBtu nom,2004,5.890833
+Natural Gas - LNG,$/MMBtu nom,2005,7.0325
+Natural Gas - LNG,$/MMBtu nom,2006,8.049167
+Natural Gas - LNG,$/MMBtu nom,2007,8.410833
+Natural Gas - LNG,$/MMBtu nom,2008,11.590833
+Natural Gas - LNG,$/MMBtu nom,2009,7.490833
+Natural Gas - LNG,$/MMBtu nom,2010,9.380833
+Natural Gas - LNG,$/MMBtu nom,2011,15.553333
+Natural Gas - LNG,$/MMBtu nom,2012,18.145
+Natural Gas - LNG,$/MMBtu nom,2013,17.339167
+Natural Gas - LNG,$/MMBtu nom,2014,16.9975
+Natural Gas - LNG,$/MMBtu nom,2015,10.958333
+Natural Gas - LNG,$/MMBtu nom,2016,7.439167
+Natural Gas - LNG,$/MMBtu nom,2017,7.247445
+Natural Gas - LNG,$/MMBtu nom,2018,9.795415
+Natural Gas - LNG,$/MMBtu nom,2019,5.444624
+Natural Gas - LNG,$/MMBtu nom,2020,4.366424
+Natural Gas - LNG,$/MMBtu nom,2021,18.600467
+Natural Gas - LNG,$/MMBtu nom,2022,0
+Natural Gas - LNG,$/MMBtu nom,2023,0
+Natural Gas - LNG,$/MMBtu nom,2024,0
+Natural Gas - LNG,$/MMBtu nom,2025,0
+Natural Gas - LNG,$/MMBtu nom,2026,0
+Natural Gas - LNG,$/MMBtu nom,2027,0
+Natural Gas - LNG,$/MMBtu nom,2028,0
+Natural Gas - LNG,$/MMBtu nom,2029,0
+Natural Gas - LNG,$/MMBtu nom,2030,0
+Natural Gas - LNG,$/MMBtu nom,2031,0
+Natural Gas - LNG,$/MMBtu nom,2032,0
+Natural Gas - LNG,$/MMBtu nom,2033,0
+Natural Gas - LNG,$/MMBtu nom,2034,0
+Natural Gas - LNG,$/MMBtu nom,2035,0
+Natural Gas - LNG,$/MMBtu nom,2036,0
+Natural Gas - LNG,$/MMBtu nom,2037,0
+Natural Gas - LNG,$/MMBtu nom,2038,0
+Natural Gas - LNG,$/MMBtu nom,2039,0
+Natural Gas - LNG,$/MMBtu nom,2040,0
+Natural Gas - LNG,$/MMBtu nom,2041,0
+Natural Gas - LNG,$/MMBtu nom,2042,0
+Natural Gas - LNG,$/MMBtu nom,2043,0
+Natural Gas - LNG,$/MMBtu nom,2044,0
+Natural Gas - LNG,$/MMBtu nom,2045,0
+Natural Gas - LNG,$/MMBtu nom,2046,0
+Natural Gas - LNG,$/MMBtu nom,2047,0
+Natural Gas - LNG,$/MMBtu nom,2048,0
+Natural Gas - LNG,$/MMBtu nom,2049,0
+Natural Gas - LNG,$/MMBtu nom,2050,0
+Natural Gas - North Am (Henry hub),$/MMBtu nom,1999,2.26106
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2000,4.307599
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2001,3.958993
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2002,3.36087
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2003,5.507282
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2004,5.908138
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2005,8.894677
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2006,6.740344
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2007,6.981663
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2008,8.857868
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2009,3.945746
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2010,4.386124
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2011,4.000005
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2012,2.752445
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2013,3.727615
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2014,4.275588
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2015,2.630371
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2016,2.552605
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2017,3.019347
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2018,3.06905
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2019,2.528527
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2020,2.129911
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2021,3.716119
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2022,6.523997
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2023,5.48408
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2024,4.344237
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2025,3.803406
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2026,3.4125
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2027,3.244545
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2028,3.252955
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2029,3.354208
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2030,3.535144
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2031,3.779019
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2032,4.074234
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2033,4.442329
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2034,4.751782
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2035,5.016179
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2036,5.148898
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2037,5.326049
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2038,5.631648
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2039,5.639552
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2040,5.992483
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2041,6.257671
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2042,6.387211
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2043,6.429273
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2044,6.516381
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2045,6.663004
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2046,6.813882
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2047,6.910819
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2048,7.036972
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2049,7.083812
+Natural Gas - North Am (Henry hub),$/MMBtu nom,2050,7.230118
+Natural Gas - Europe,$/MMBtu nom,1999,1.806944
+Natural Gas - Europe,$/MMBtu nom,2000,3.453889
+Natural Gas - Europe,$/MMBtu nom,2001,3.873214
+Natural Gas - Europe,$/MMBtu nom,2002,2.666335
+Natural Gas - Europe,$/MMBtu nom,2003,3.486327
+Natural Gas - Europe,$/MMBtu nom,2004,3.755
+Natural Gas - Europe,$/MMBtu nom,2005,5.915
+Natural Gas - Europe,$/MMBtu nom,2006,8.2125
+Natural Gas - Europe,$/MMBtu nom,2007,8.1425
+Natural Gas - Europe,$/MMBtu nom,2008,13.1375
+Natural Gas - Europe,$/MMBtu nom,2009,8.855
+Natural Gas - Europe,$/MMBtu nom,2010,8.2225
+Natural Gas - Europe,$/MMBtu nom,2011,10.596667
+Natural Gas - Europe,$/MMBtu nom,2012,11.980833
+Natural Gas - Europe,$/MMBtu nom,2013,11.189167
+Natural Gas - Europe,$/MMBtu nom,2014,10.463333
+Natural Gas - Europe,$/MMBtu nom,2015,7.305
+Natural Gas - Europe,$/MMBtu nom,2016,4.353333
+Natural Gas - Europe,$/MMBtu nom,2017,5.744051
+Natural Gas - Europe,$/MMBtu nom,2018,7.916094
+Natural Gas - Europe,$/MMBtu nom,2019,4.454858
+Natural Gas - Europe,$/MMBtu nom,2020,3.17823
+Natural Gas - Europe,$/MMBtu nom,2021,15.907363
+Natural Gas - Europe,$/MMBtu nom,2022,0
+Natural Gas - Europe,$/MMBtu nom,2023,0
+Natural Gas - Europe,$/MMBtu nom,2024,0
+Natural Gas - Europe,$/MMBtu nom,2025,0
+Natural Gas - Europe,$/MMBtu nom,2026,0
+Natural Gas - Europe,$/MMBtu nom,2027,0
+Natural Gas - Europe,$/MMBtu nom,2028,0
+Natural Gas - Europe,$/MMBtu nom,2029,0
+Natural Gas - Europe,$/MMBtu nom,2030,0
+Natural Gas - Europe,$/MMBtu nom,2031,0
+Natural Gas - Europe,$/MMBtu nom,2032,0
+Natural Gas - Europe,$/MMBtu nom,2033,0
+Natural Gas - Europe,$/MMBtu nom,2034,0
+Natural Gas - Europe,$/MMBtu nom,2035,0
+Natural Gas - Europe,$/MMBtu nom,2036,0
+Natural Gas - Europe,$/MMBtu nom,2037,0
+Natural Gas - Europe,$/MMBtu nom,2038,0
+Natural Gas - Europe,$/MMBtu nom,2039,0
+Natural Gas - Europe,$/MMBtu nom,2040,0
+Natural Gas - Europe,$/MMBtu nom,2041,0
+Natural Gas - Europe,$/MMBtu nom,2042,0
+Natural Gas - Europe,$/MMBtu nom,2043,0
+Natural Gas - Europe,$/MMBtu nom,2044,0
+Natural Gas - Europe,$/MMBtu nom,2045,0
+Natural Gas - Europe,$/MMBtu nom,2046,0
+Natural Gas - Europe,$/MMBtu nom,2047,0
+Natural Gas - Europe,$/MMBtu nom,2048,0
+Natural Gas - Europe,$/MMBtu nom,2049,0
+Natural Gas - Europe,$/MMBtu nom,2050,0
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2022,45.422253
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2023,45.803627
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2024,46.862556
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2025,48.279568
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2026,50.707218
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2027,53.502251
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2028,55.616024
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2029,56.50074
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2030,58.477962
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2031,60.118477
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2032,61.323769
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2033,62.631859
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2034,63.833614
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2035,65.07312
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2036,66.56678
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2037,68.984924
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2038,73.137894
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2039,75.070503
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2040,77.287468
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2041,78.67218
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2042,80.497116
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2043,82.802429
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2044,85.367371
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2045,88.090019
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2046,90.905762
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2047,93.332855
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2048,95.968025
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2049,98.867897
+Coal Supply: Delivered Prices: Average: Reference case ($nom/st),,2050,101.869011

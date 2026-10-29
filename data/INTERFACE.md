@@ -1,23 +1,31 @@
 # Data interface of Coded CPAT and Excel-AI
 
-**For the data person.** What the models read from a database: which files, in which layout, with which keys, and what the full (proprietary) database must contain. It is a code interface, not a user interface: it says what the loaders of Coded CPAT (`coded/cpat_model/data/`) and the builder of Excel-AI (`excel_ai/mitigation/build.py`) expect to find. Written 2026-10-29 (Coded CPAT plan, task 2.1; design decision D6).
+**For the data person.** What the models read from a database: which tables, in which form, with which keys, and what the full (proprietary) database must contain. It is a code interface, not a user interface. Written 2026-10-29 (Coded CPAT plan, task 2.1; design decision D6; user decision of the same day: Coded CPAT reads tidy CSV, with two-way converters).
 
-The file-by-file list is [`interface_manifest.csv`](interface_manifest.csv): one row per file with its group, layout, legacy tab and version, keys, country-key convention, years, what the full database needs, proprietary status and notes. The manifest is the source; this page explains it. A test of Coded CPAT checks that its loaders read only the files the manifest lists.
+The file-by-file list of the legacy side is [`interface_manifest.csv`](interface_manifest.csv) (group, layout, legacy tab and version, keys, country-key convention, years, what the full database needs, proprietary status, notes); the tidy side is listed in [`tidy/_manifest.csv`](tidy/_manifest.csv). This page explains both.
 
-## 1. The decisions behind it
+## 1. Two forms of the same data, and the converter between them
 
-- **Same data, same layout, both models.** Coded CPAT reads exactly the files Excel-AI is built from, in the same layout: the legacy CPAT tables as they are in the legacy workbook (`CPAT 1.0pre_465`), with legacy column headers, codes and country keys. Nothing is reshaped into a second format, so the two models cannot read different numbers. (A tidy Python layout may come later, with a converter; it is not part of this interface.)
-- **CSV files in the current `data/` folders** (D6). No new database format.
-- **A database is a folder** holding the files of the manifest under the same names. There are two:
+| Form | Read by | Where | What it is |
+|---|---|---|---|
+| **Tidy CSV** | **Coded CPAT** (`coded/cpat_model/data/`) | [`tidy/`](tidy/) | One CSV per table, long, one observation per row, standard keys (`country` = ISO3 upper case, `year`, `code`, ...) then `value` (or one column per variable). `tidy/_layout/` holds what is not data, so the legacy form can be rebuilt exactly |
+| **Legacy layout** | **Excel-AI** (`excel_ai/mitigation/build.py`) and legacy CPAT | [`mvp_legacy_extracts/`](mvp_legacy_extracts/) (CSV), or a legacy-style workbook (`.xlsx`) | The data tabs of legacy CPAT (`CPAT 1.0pre_465`) as they are: legacy headers, codes and country keys; tabs with several tables at their cell addresses |
+
+**The converter** [`scripts/tidy/tidy_convert.py`](scripts/tidy/README.md) goes both ways: legacy (CSV folder or legacy-style workbook) -> tidy, and tidy -> legacy (CSV folder, or a workbook that pastes onto legacy CPAT at the legacy addresses). legacy CSV -> tidy -> legacy CSV gives back every cell exactly, and a test (`data/tests/test_tidy_roundtrip.py`) proves it and checks that `tidy/` is current. So both models read the same numbers.
+
+**Data are delivered in either form.** The data person can deliver the legacy layout (as the legacy workbook holds it: the converter makes the tidy tables) or tidy CSV (the converter makes the legacy files and the workbook for Excel-AI and legacy CPAT).
+
+- **CSV files in the current `data/` folders** (D6). No database engine.
+- **A database is a folder** of tidy tables (with its `_layout/`), and its legacy form. There are two:
 
 | Database | Where | Contents |
 |---|---|---|
-| `full` | The private data repository, never this one | Every file of the manifest, every country, including the four proprietary tables |
-| `dummy` | This repository | The same files; the four proprietary tables (and the files derived from them) with dummy values |
+| `full` | The private data repository, never this one | Every table, every country, including the four proprietary tables |
+| `dummy` | This repository | The same tables; the four proprietary tables (and the files derived from them) with dummy values |
 
-Today the folder [`mvp_legacy_extracts/`](mvp_legacy_extracts/) is the database Excel-AI is built from: the public legacy tables plus the Egypt rows of the proprietary tables that the public legacy file (`NoPropData`) contains. It is the starting point of both databases (section 6).
+Today `mvp_legacy_extracts/` and `tidy/` hold the database Excel-AI is built from: the public legacy tables plus the Egypt rows of the proprietary tables that the public legacy file (`NoPropData`) contains (domestic prices: Egypt only since 2026-10-29). It is the starting point of both databases (section 6).
 
-- **Selecting a database** (Coded CPAT, `coded/.env`): `DATA_ENVIRONMENT=full` with `FULL_DATA_PATH` pointing at the folder in the private repository, or `DATA_ENVIRONMENT=dummy` (today's names `real` and `REAL_DATA_PATH` are renamed in task 2.6). Systematic comparisons use `full` where it is available, `dummy` otherwise; every model in a comparison reads the same database.
+- **Selecting a database** (Coded CPAT, `coded/.env`): `DATA_ENVIRONMENT=full` with `FULL_DATA_PATH` pointing at the tidy folder in the private repository, or `DATA_ENVIRONMENT=dummy` (today's names `real` and `REAL_DATA_PATH` are renamed in task 2.6). Systematic comparisons use `full` where it is available, `dummy` otherwise; every model in a comparison reads the same database.
 
 ## 2. The four proprietary tables
 
@@ -30,7 +38,7 @@ Today the folder [`mvp_legacy_extracts/`](mvp_legacy_extracts/) is the database 
 
 Rules: the full versions live only in the private repository; never commit them, nor anything computed from them (root `NORMS.md` section 8). The checks of Excel-AI also keep cached legacy runs (`legacy_*_reference.csv`, `legacy_cached_baseline.csv`, `energy_use.csv`, `energy_balance.csv`): they are derived from proprietary data too, and are not part of the model interface.
 
-## 3. Layouts
+## 3. Layouts (legacy side)
 
 Every file is UTF-8 CSV, comma-separated, one header line, `.` as decimal point, no thousands separators, blank for missing. Numbers keep full precision (the loaders parse them exactly; do not round). Two layouts:
 
@@ -43,7 +51,15 @@ Every file is UTF-8 CSV, comma-separated, one header line, `.` as decimal point,
 
 **Years** are columns where legacy has them as columns (WEO 2000-2040, UNPop 2019-2050, GDPRatios 1960-2023, Transport2 2022-2040) and a column `year` otherwise.
 
-## 4. The files, by group
+## 3b. The tidy side (`tidy/`)
+
+The converter writes 213 tidy tables from the 42 legacy files (`tidy/_manifest.csv`):
+
+- **30 from the legacy tables** (one each): e.g. `energy_balances` (country, year, unit, flow, fuel, value), `prices_domestic` (country, year, code, value), `weo` (series_code, year, value), `io_gtap` (country, year, series, gtap_sector, value), `transport_country` (country, year, variable, value). Years, fuels, sectors, GTAP sectors and price codes become a column; headers that are different variables stay columns (`ch4_inputs`, `ef_local_pollutants`).
+- **183 from the 11 legacy tabs kept at their cell addresses** (one per data block: `power_*`, `ela_*`, `ghgs_*`, `ecp_*`, `multipliers_*`, `mi_*` for Manual inputs, ...): row keys as in legacy (codes, names), the column label (`year`, `country`, `variable`, ...), `value`. The blocks hold 97% of the numeric cells; the rest are keys, labels and 60 non-data numbers, kept in `_layout/` with the titles and notes.
+- `_layout/`: what is not data (legacy headers, country names, row order, repeated rows, the cells outside the blocks). Do not edit it; edit the tidy tables. A new country added to a tidy table of a legacy table is written back after the known rows; the cells tabs can only take values at the places their layout has (a new country there needs its label cells in the layout first).
+
+## 4. The files, by group (legacy side)
 
 | Group | Files | What the full database needs |
 |---|---|---|
@@ -66,7 +82,7 @@ Scenario files with proprietary values stay in the private repository like the d
 
 ## 6. Open points for the data person
 
-1. **`prices_dom.csv` holds 220 countries of real-looking prices (2021-2024), committed to this repository** since v0.7.2. They come from the earlier price-module prototype (`excel_ai/standalone_initial_prototypes/CPAT_PriceModule_Data_1.xlsx`), not from legacy. Domestic prices are one of the four proprietary tables: confirm whether these values may be in the repository; if not, they need replacing by dummy values and removing from the history (the user decides).
+1. **Domestic prices: Egypt only in the repository** (user decision 2026-10-29). The 220-country prices of the earlier price-module prototype were deleted from the current files (`prices_dom.csv` cut to Egypt, the two price-module workbooks deleted, Excel-AI rebuilt as 0.9.1, the older Excel-AI workbooks that held them deleted). They remain in the git history (purge not done, user decision). The full prices belong in the private repository.
 2. **Prices_dom layout.** The models read the 99 columns of the price-module layout (codes `mit.<variable>.<fuel>.<sector>`); legacy Prices_dom has 142 columns and 8 header rows. The full database should deliver at least these 99 columns under these codes (extra columns are ignored).
 3. **Cut to Egypt in the repository although legacy 465 has every country:** `legacy_IO_GTAP.csv` (proprietary), `legacy_ASPIRE.csv`, `legacy_WHOCooking.csv` (public). The full database needs every country; ASPIRE and WHOCooking can come back whole into this repository (set `EGYPT_ONLY` in `excel_ai/mitigation/extract_legacy_tables.py`).
 4. **Legacy versions differ:** HHSurvey and HH_Elast come from legacy 456, everything else from 465 (air pollution: 459). Deliver the 465 versions where they exist.

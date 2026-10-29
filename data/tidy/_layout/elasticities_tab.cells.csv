@@ -1,0 +1,4132 @@
+row,col,value
+4,2,Fuels
+4,5,Types
+4,8,Possible options
+5,2,biomass
+5,5,own price
+5,8,Manual
+6,2,coal
+6,5,income
+6,8,Simple*
+7,2,diesel
+7,5,cross-price
+8,2,electricity
+9,2,gasoline
+9,5,Sectors
+10,2,kerosene
+10,5,industry
+11,2,LPG
+11,5,residential
+12,2,natural gas
+12,5,road
+13,2,oil products
+13,5,total
+14,2,renewable energy
+16,1,.
+16,2,User-specified parameters
+18,3,Price elasticities:
+18,4,Income elasticities:
+18,5,price code:
+18,6,income code:
+19,2,Source
+20,2,Per capita GDP adjustment to income elasticities
+21,2,Elasticities adjustments: income
+22,2,Elasticities adjustments: price
+24,1,.
+24,2,"Income, own-price, and cross price elasticities used in calculations"
+25,1,Income elasticities
+26,2,Income elasticities
+26,3,Elasticity
+26,4,Adjustment
+26,6,Manual
+26,7,Simple
+26,8,Standard deviation
+27,2," - coal, transport"
+28,2," - natural gas, transport"
+29,2," - gaseoline, transport"
+30,2," - diesel, transport"
+31,2," - oil products, transport"
+32,2," - biomass, transport"
+33,2," - renewables, transport"
+34,2," - electricity, transport"
+35,2," - coal, residential"
+36,2," - natural gas, residential"
+37,2," - gaseoline, residential"
+38,2," - diesel, residential"
+39,2," - oil products, residential"
+40,2," - biomass, residential"
+41,2," - renewables, residential"
+42,2," - electricity, residential"
+43,2," - coal, industry"
+44,2," - natural gas, industry"
+45,2," - gaseoline, industry"
+46,2," - diesel, industry"
+47,2," - oil products, industry"
+48,2," - biomass, industry"
+49,2," - renewables, industry"
+50,2," - electricity, industry"
+51,2," - coal, services"
+52,2," - natural gas, services"
+53,2," - gaseoline, services"
+54,2," - diesel, services"
+55,2," - oil products, services"
+56,2," - biomass, services"
+57,2," - renewables, services"
+58,2," - electricity, services"
+60,1,Price elasticities
+61,2,Own-price elasticities - usage/intensive margin
+61,3,Elasticity
+61,4,Adjustment
+61,6,Manual
+61,7,Simple
+61,8,Standard deviation
+62,2," -  coal, transport"
+63,2," -  natural gas, transport"
+64,2," -  gasoline, transport"
+65,2," -  diesel, transport"
+66,2," -  oil products, transport"
+67,2," -  biomass, transport"
+68,2," -  renewables, transport"
+69,2," -  electricity, transport"
+70,2," -  coal, residential"
+71,2," -  natural gas, residential"
+72,2," -  gasoline, residential"
+73,2," -  diesel, residential"
+74,2," -  oil products, residential"
+75,2," -  biomass, residential"
+76,2," -  renewables, residential"
+77,2," -  electricity, residential"
+78,2," -  coal, industry"
+79,2," -  natural gas, industry"
+80,2," -  gasoline, industry"
+81,2," -  diesel, industry"
+82,2," -  oil products, industry"
+83,2," -  biomass, industry"
+84,2," -  renewables, industry"
+85,2," -  electricity, industry"
+86,2," -  coal, services"
+87,2," -  natural gas, services"
+88,2," -  gasoline, services"
+89,2," -  diesel, services"
+90,2," -  oil products, services"
+91,2," -  biomass, services"
+92,2," -  renewables, services"
+93,2," -  electricity, services"
+95,2,Own-price elasticities - extensive and efficiency margin
+95,3,Elasticity
+95,4,Adjustment
+95,6,Manual
+95,7,Simple
+95,8,Standard deviation
+96,2," -  coal, transport"
+97,2," -  natural gas, transport"
+98,2," -  gasoline, transport"
+99,2," -  diesel, transport"
+100,2," -  oil products, transport"
+101,2," -  biomass, transport"
+102,2," -  renewables, transport"
+103,2," -  electricity, transport"
+104,2," -  coal, residential"
+105,2," -  natural gas, residential"
+106,2," -  gasoline, residential"
+107,2," -  diesel, residential"
+108,2," -  oil products, residential"
+109,2," -  biomass, residential"
+110,2," -  renewables, residential"
+111,2," -  electricity, residential"
+112,2," -  coal, industry"
+113,2," -  natural gas, industry"
+114,2," -  gasoline, industry"
+115,2," -  diesel, industry"
+116,2," -  oil products, industry"
+117,2," -  biomass, industry"
+118,2," -  renewables, industry"
+119,2," -  electricity, industry"
+120,2," -  coal, services"
+121,2," -  natural gas, services"
+122,2," -  gasoline, services"
+123,2," -  diesel, services"
+124,2," -  oil products, services"
+125,2," -  biomass, services"
+126,2," -  renewables, services"
+127,2," -  electricity, services"
+130,2,Cross-price elasticities
+130,3,Elasticity
+130,4,Adjustment
+130,6,Manual
+130,7,Simple
+130,8,Standard deviation
+131,2,Biomass with respect to LPG
+132,2,Biomass with respect to kerosene
+133,2,Gasoline with respect to diesel
+136,1,.
+136,2,Country-specific income and price elasticities ('Simple' option)
+138,2,Adjust income elasticities for GDP levels?
+138,3,Yes*
+138,7,Egypt
+138,9,"Generic, global"
+138,10,"Generic, income-group specific elasticities"
+138,14,Aruba
+138,15,Afghanistan
+138,16,Angola
+138,17,Albania
+138,18,Andorra
+138,19,United Arab Emirates
+138,20,Argentina
+138,21,Armenia
+138,22,American Samoa
+138,23,Antigua and Barbuda
+138,24,Australia
+138,25,Austria
+138,26,Azerbaijan
+138,27,Burundi
+138,28,Belgium
+138,29,Benin
+138,30,Burkina Faso
+138,31,Bangladesh
+138,32,Bulgaria
+138,33,Bahrain
+138,34,"Bahamas, The"
+138,35,Bosnia and Herzegovina
+138,36,Belarus
+138,37,Belize
+138,38,Bermuda
+138,39,Bolivia
+138,40,Brazil
+138,41,Barbados
+138,42,Brunei Darussalam
+138,43,Bhutan
+138,44,Botswana
+138,45,Central African Republic
+138,46,Canada
+138,47,Switzerland
+138,48,Channel Islands
+138,49,Chile
+138,50,China
+138,51,Côte d'Ivoire
+138,52,Cameroon
+138,53,"Congo, Democratic Republic of the"
+138,54,"Congo, Republic of"
+138,55,Colombia
+138,56,Comoros
+138,57,Cabo Verde
+138,58,Costa Rica
+138,59,Cuba
+138,60,Curaçao
+138,61,Cayman Islands
+138,62,Cyprus
+138,63,Czechia
+138,64,Germany
+138,65,Djibouti
+138,66,Dominica
+138,67,Denmark
+138,68,Dominican Republic
+138,69,Algeria
+138,70,Ecuador
+138,71,Egypt
+138,72,Eritrea
+138,73,Spain
+138,74,Estonia
+138,75,Ethiopia
+138,76,Finland
+138,77,Fiji
+138,78,France
+138,79,Faroe Islands
+138,80,Micronesia
+138,81,Gabon
+138,82,United Kingdom
+138,83,Georgia
+138,84,Ghana
+138,85,Gibraltar
+138,86,Guinea
+138,87,"Gambia, The"
+138,88,Guinea-Bissau
+138,89,Equatorial Guinea
+138,90,Greece
+138,91,Grenada
+138,92,Greenland
+138,93,Guatemala
+138,94,Guam
+138,95,Guyana
+138,96,HIC
+138,97,Hong Kong SAR
+138,98,Honduras
+138,99,Croatia
+138,100,Haiti
+138,101,Hungary
+138,102,Indonesia
+138,103,Isle of Man
+138,104,India
+138,105,Ireland
+138,106,Iran
+138,107,Iraq
+138,108,Iceland
+138,109,Israel
+138,110,Italy
+138,111,Jamaica
+138,112,Jordan
+138,113,Japan
+138,114,Kazakhstan
+138,115,Kenya
+138,116,Kyrgyz Republic
+138,117,Cambodia
+138,118,Kiribati
+138,119,St. Kitts and Nevis
+138,120,Korea
+138,121,Kuwait
+138,122,Lao P.D.R.
+138,123,Lebanon
+138,124,Liberia
+138,125,Libya
+138,126,St. Lucia
+138,127,Liechtenstein
+138,128,Sri Lanka
+138,129,Lesotho
+138,130,Lithuania
+138,131,Luxembourg
+138,132,Latvia
+138,133,Macao SAR
+138,134,St. Martin (French part)
+138,135,Morocco
+138,136,Monaco
+138,137,Moldova
+138,138,Madagascar
+138,139,Maldives
+138,140,Mexico
+138,141,Marshall Islands
+138,142,North Macedonia
+138,143,Mali
+138,144,Malta
+138,145,Myanmar
+138,146,"Montenegro, Rep. of"
+138,147,Mongolia
+138,148,Northern Mariana Islands
+138,149,Mozambique
+138,150,Mauritania
+138,151,Mauritius
+138,152,Malawi
+138,153,Malaysia
+138,154,Namibia
+138,155,New Caledonia
+138,156,Niger
+138,157,Nigeria
+138,158,Nicaragua
+138,159,Netherlands
+138,160,Norway
+138,161,Nepal
+138,162,Nauru
+138,163,New Zealand
+138,164,Oman
+138,165,Pakistan
+138,166,Panama
+138,167,Peru
+138,168,Philippines
+138,169,Palau
+138,170,Papua New Guinea
+138,171,Poland
+138,172,Puerto Rico
+138,173,"Korea, Dem. People's Rep."
+138,174,Portugal
+138,175,Paraguay
+138,176,West Bank and Gaza
+138,177,French Polynesia
+138,178,Qatar
+138,179,Romania
+138,180,Russia
+138,181,Rwanda
+138,182,Saudi Arabia
+138,183,Sudan
+138,184,Senegal
+138,185,Singapore
+138,186,Solomon Islands
+138,187,Sierra Leone
+138,188,El Salvador
+138,189,San Marino
+138,190,Somalia
+138,191,Serbia
+138,192,South Sudan
+138,193,Sub-Saharan Africa
+138,194,São Tomé and Príncipe
+138,195,Suriname
+138,196,Slovak Republic
+138,197,Slovenia
+138,198,Sweden
+138,199,Eswatini
+138,200,Sint Maarten (Dutch part)
+138,201,Seychelles
+138,202,Syria
+138,203,Turks and Caicos Islands
+138,204,Chad
+138,205,Togo
+138,206,Thailand
+138,207,Tajikistan
+138,208,Turkmenistan
+138,209,Timor-Leste
+138,210,Tonga
+138,211,Trinidad and Tobago
+138,212,Tunisia
+138,213,Turkiye
+138,214,Tuvalu
+138,215,Taiwan Province of China
+138,216,Tanzania
+138,217,Uganda
+138,218,Ukraine
+138,219,Uruguay
+138,220,United States
+138,221,Uzbekistan
+138,222,St. Vincent and the Grenadines
+138,223,Venezuela
+138,224,British Virgin Islands
+138,225,Virgin Islands (U.S.)
+138,226,Vietnam
+138,227,Vanuatu
+138,228,World aviation bunkers
+138,229,World marine bunkers
+138,230,Samoa
+138,231,Kosovo
+138,232,Yemen
+138,233,South Africa
+138,234,Zambia
+138,235,Zimbabwe
+139,2,"NB: income elasticities ARE adjusted for per-capita GDP. See Mitigation tab's 'Elasticities, rates of improvement and macro drivers' section for example workings."
+139,7,EGY
+139,9,NA
+139,10,Lower
+139,11,Lower-middle
+139,12,Upper-middle
+139,13,High
+139,14,ABW
+139,15,AFG
+139,16,AGO
+139,17,ALB
+139,18,AND
+139,19,ARE
+139,20,ARG
+139,21,ARM
+139,22,ASM
+139,23,ATG
+139,24,AUS
+139,25,AUT
+139,26,AZE
+139,27,BDI
+139,28,BEL
+139,29,BEN
+139,30,BFA
+139,31,BGD
+139,32,BGR
+139,33,BHR
+139,34,BHS
+139,35,BIH
+139,36,BLR
+139,37,BLZ
+139,38,BMU
+139,39,BOL
+139,40,BRA
+139,41,BRB
+139,42,BRN
+139,43,BTN
+139,44,BWA
+139,45,CAF
+139,46,CAN
+139,47,CHE
+139,48,CHI
+139,49,CHL
+139,50,CHN
+139,51,CIV
+139,52,CMR
+139,53,COD
+139,54,COG
+139,55,COL
+139,56,COM
+139,57,CPV
+139,58,CRI
+139,59,CUB
+139,60,CUW
+139,61,CYM
+139,62,CYP
+139,63,CZE
+139,64,DEU
+139,65,DJI
+139,66,DMA
+139,67,DNK
+139,68,DOM
+139,69,DZA
+139,70,ECU
+139,71,EGY
+139,72,ERI
+139,73,ESP
+139,74,EST
+139,75,ETH
+139,76,FIN
+139,77,FJI
+139,78,FRA
+139,79,FRO
+139,80,FSM
+139,81,GAB
+139,82,GBR
+139,83,GEO
+139,84,GHA
+139,85,GIB
+139,86,GIN
+139,87,GMB
+139,88,GNB
+139,89,GNQ
+139,90,GRC
+139,91,GRD
+139,92,GRL
+139,93,GTM
+139,94,GUM
+139,95,GUY
+139,96,HIC
+139,97,HKG
+139,98,HND
+139,99,HRV
+139,100,HTI
+139,101,HUN
+139,102,IDN
+139,103,IMN
+139,104,IND
+139,105,IRL
+139,106,IRN
+139,107,IRQ
+139,108,ISL
+139,109,ISR
+139,110,ITA
+139,111,JAM
+139,112,JOR
+139,113,JPN
+139,114,KAZ
+139,115,KEN
+139,116,KGZ
+139,117,KHM
+139,118,KIR
+139,119,KNA
+139,120,KOR
+139,121,KWT
+139,122,LAO
+139,123,LBN
+139,124,LBR
+139,125,LBY
+139,126,LCA
+139,127,LIE
+139,128,LKA
+139,129,LSO
+139,130,LTU
+139,131,LUX
+139,132,LVA
+139,133,MAC
+139,134,MAF
+139,135,MAR
+139,136,MCO
+139,137,MDA
+139,138,MDG
+139,139,MDV
+139,140,MEX
+139,141,MHL
+139,142,MKD
+139,143,MLI
+139,144,MLT
+139,145,MMR
+139,146,MNE
+139,147,MNG
+139,148,MNP
+139,149,MOZ
+139,150,MRT
+139,151,MUS
+139,152,MWI
+139,153,MYS
+139,154,NAM
+139,155,NCL
+139,156,NER
+139,157,NGA
+139,158,NIC
+139,159,NLD
+139,160,NOR
+139,161,NPL
+139,162,NRU
+139,163,NZL
+139,164,OMN
+139,165,PAK
+139,166,PAN
+139,167,PER
+139,168,PHL
+139,169,PLW
+139,170,PNG
+139,171,POL
+139,172,PRI
+139,173,PRK
+139,174,PRT
+139,175,PRY
+139,176,PSE
+139,177,PYF
+139,178,QAT
+139,179,ROU
+139,180,RUS
+139,181,RWA
+139,182,SAU
+139,183,SDN
+139,184,SEN
+139,185,SGP
+139,186,SLB
+139,187,SLE
+139,188,SLV
+139,189,SMR
+139,190,SOM
+139,191,SRB
+139,192,SSD
+139,193,SSF
+139,194,STP
+139,195,SUR
+139,196,SVK
+139,197,SVN
+139,198,SWE
+139,199,SWZ
+139,200,SXM
+139,201,SYC
+139,202,SYR
+139,203,TCA
+139,204,TCD
+139,205,TGO
+139,206,THA
+139,207,TJK
+139,208,TKM
+139,209,TLS
+139,210,TON
+139,211,TTO
+139,212,TUN
+139,213,TUR
+139,214,TUV
+139,215,TWN
+139,216,TZA
+139,217,UGA
+139,218,UKR
+139,219,URY
+139,220,USA
+139,221,UZB
+139,222,VCT
+139,223,VEN
+139,224,VGB
+139,225,VIR
+139,226,VNM
+139,227,VUT
+139,228,WAV
+139,229,WMR
+139,230,WSM
+139,231,XKX
+139,232,YEM
+139,233,ZAF
+139,234,ZMB
+139,235,ZWE
+140,2,"NB: For 'simple' elasticities option (on Dashboard), elasticities default to income-group specific but can be changed for country groups and countries (see right). However, note that income elasticities are modified separately for per capita GDP levels (see above)"
+140,7,MEA
+140,9,NA
+140,10,income country
+140,11,income country
+140,12,income country
+140,13,income country
+140,14,LCN
+140,15,SAS
+140,16,SSF
+140,17,ECS
+140,18,ECS
+140,19,MEA
+140,20,LCN
+140,21,ECS
+140,22,EAS
+140,23,LCN
+140,24,EAS
+140,25,ECS
+140,26,ECS
+140,27,SSF
+140,28,ECS
+140,29,SSF
+140,30,SSF
+140,31,SAS
+140,32,ECS
+140,33,MEA
+140,34,LCN
+140,35,ECS
+140,36,ECS
+140,37,LCN
+140,38,NAC
+140,39,LCN
+140,40,LCN
+140,41,LCN
+140,42,EAS
+140,43,SAS
+140,44,SSF
+140,45,SSF
+140,46,NAC
+140,47,ECS
+140,48,ECS
+140,49,LCN
+140,50,EAS
+140,51,SSF
+140,52,SSF
+140,53,SSF
+140,54,SSF
+140,55,LCN
+140,56,SSF
+140,57,SSF
+140,58,LCN
+140,59,LCN
+140,60,LCN
+140,61,LCN
+140,62,ECS
+140,63,ECS
+140,64,ECS
+140,65,MEA
+140,66,LCN
+140,67,ECS
+140,68,LCN
+140,69,MEA
+140,70,LCN
+140,71,MEA
+140,72,SSF
+140,73,ECS
+140,74,ECS
+140,75,SSF
+140,76,ECS
+140,77,EAS
+140,78,ECS
+140,79,ECS
+140,80,EAS
+140,81,SSF
+140,82,ECS
+140,83,ECS
+140,84,SSF
+140,85,ECS
+140,86,SSF
+140,87,SSF
+140,88,SSF
+140,89,SSF
+140,90,ECS
+140,91,LCN
+140,92,ECS
+140,93,LCN
+140,94,EAS
+140,95,LCN
+140,96,N/A
+140,97,EAS
+140,98,LCN
+140,99,ECS
+140,100,LCN
+140,101,ECS
+140,102,EAS
+140,103,ECS
+140,104,SAS
+140,105,ECS
+140,106,MEA
+140,107,MEA
+140,108,ECS
+140,109,MEA
+140,110,ECS
+140,111,LCN
+140,112,MEA
+140,113,EAS
+140,114,ECS
+140,115,SSF
+140,116,ECS
+140,117,EAS
+140,118,EAS
+140,119,LCN
+140,120,EAS
+140,121,MEA
+140,122,EAS
+140,123,MEA
+140,124,SSF
+140,125,MEA
+140,126,LCN
+140,127,ECS
+140,128,SAS
+140,129,SSF
+140,130,ECS
+140,131,ECS
+140,132,ECS
+140,133,EAS
+140,134,LCN
+140,135,MEA
+140,136,ECS
+140,137,ECS
+140,138,SSF
+140,139,SAS
+140,140,LCN
+140,141,EAS
+140,142,ECS
+140,143,SSF
+140,144,MEA
+140,145,EAS
+140,146,ECS
+140,147,EAS
+140,148,EAS
+140,149,SSF
+140,150,SSF
+140,151,SSF
+140,152,SSF
+140,153,EAS
+140,154,SSF
+140,155,EAS
+140,156,SSF
+140,157,SSF
+140,158,LCN
+140,159,ECS
+140,160,ECS
+140,161,SAS
+140,162,EAS
+140,163,EAS
+140,164,MEA
+140,165,SAS
+140,166,LCN
+140,167,LCN
+140,168,EAS
+140,169,EAS
+140,170,EAS
+140,171,ECS
+140,172,LCN
+140,173,EAS
+140,174,ECS
+140,175,LCN
+140,176,MEA
+140,177,EAS
+140,178,MEA
+140,179,ECS
+140,180,ECS
+140,181,SSF
+140,182,MEA
+140,183,SSF
+140,184,SSF
+140,185,EAS
+140,186,EAS
+140,187,SSF
+140,188,LCN
+140,189,ECS
+140,190,SSF
+140,191,ECS
+140,192,SSF
+140,193,SSF
+140,194,SSF
+140,195,LCN
+140,196,ECS
+140,197,ECS
+140,198,ECS
+140,199,SSF
+140,200,LCN
+140,201,SSF
+140,202,MEA
+140,203,LCN
+140,204,SSF
+140,205,SSF
+140,206,EAS
+140,207,ECS
+140,208,ECS
+140,209,EAS
+140,210,EAS
+140,211,LCN
+140,212,MEA
+140,213,ECS
+140,214,EAS
+140,215,EAS
+140,216,SSF
+140,217,SSF
+140,218,ECS
+140,219,LCN
+140,220,NAC
+140,221,ECS
+140,222,LCN
+140,223,LCN
+140,224,LCN
+140,225,LCN
+140,226,EAS
+140,227,EAS
+140,228,NA
+140,229,NA
+140,230,EAS
+140,231,ECS
+140,232,MEA
+140,233,SSF
+140,234,SSF
+140,235,SSF
+141,1,Income elasticities
+141,7,LMIC
+141,9,NA
+141,10,LIC
+141,11,LMIC
+141,12,UMIC
+141,13,HIC
+141,14,HIC
+141,15,LIC
+141,16,LMIC
+141,17,UMIC
+141,18,HIC
+141,19,HIC
+141,20,HIC
+141,21,UMIC
+141,22,UMIC
+141,23,HIC
+141,24,HIC
+141,25,HIC
+141,26,UMIC
+141,27,LIC
+141,28,HIC
+141,29,LIC
+141,30,LIC
+141,31,LMIC
+141,32,UMIC
+141,33,HIC
+141,34,HIC
+141,35,UMIC
+141,36,UMIC
+141,37,UMIC
+141,38,HIC
+141,39,LMIC
+141,40,UMIC
+141,41,HIC
+141,42,HIC
+141,43,LMIC
+141,44,UMIC
+141,45,LIC
+141,46,HIC
+141,47,HIC
+141,48,HIC
+141,49,HIC
+141,50,UMIC
+141,51,LMIC
+141,52,LMIC
+141,53,LIC
+141,54,LMIC
+141,55,UMIC
+141,56,LIC
+141,57,LMIC
+141,58,UMIC
+141,59,UMIC
+141,60,HIC
+141,61,HIC
+141,62,HIC
+141,63,HIC
+141,64,HIC
+141,65,LMIC
+141,66,UMIC
+141,67,HIC
+141,68,UMIC
+141,69,UMIC
+141,70,UMIC
+141,71,LMIC
+141,72,LIC
+141,73,HIC
+141,74,HIC
+141,75,LIC
+141,76,HIC
+141,77,UMIC
+141,78,HIC
+141,79,HIC
+141,80,LMIC
+141,81,UMIC
+141,82,HIC
+141,83,LMIC
+141,84,LMIC
+141,85,HIC
+141,86,LIC
+141,87,LIC
+141,88,LIC
+141,89,UMIC
+141,90,HIC
+141,91,UMIC
+141,92,HIC
+141,93,UMIC
+141,94,HIC
+141,95,UMIC
+141,96,HIC
+141,97,HIC
+141,98,LMIC
+141,99,HIC
+141,100,LIC
+141,101,HIC
+141,102,LMIC
+141,103,HIC
+141,104,LMIC
+141,105,HIC
+141,106,UMIC
+141,107,UMIC
+141,108,HIC
+141,109,HIC
+141,110,HIC
+141,111,UMIC
+141,112,UMIC
+141,113,HIC
+141,114,UMIC
+141,115,LMIC
+141,116,LMIC
+141,117,LMIC
+141,118,LMIC
+141,119,HIC
+141,120,HIC
+141,121,HIC
+141,122,LMIC
+141,123,UMIC
+141,124,LIC
+141,125,UMIC
+141,126,UMIC
+141,127,HIC
+141,128,LMIC
+141,129,LMIC
+141,130,HIC
+141,131,HIC
+141,132,HIC
+141,133,HIC
+141,134,HIC
+141,135,LMIC
+141,136,HIC
+141,137,LMIC
+141,138,LIC
+141,139,UMIC
+141,140,UMIC
+141,141,UMIC
+141,142,UMIC
+141,143,LIC
+141,144,HIC
+141,145,LMIC
+141,146,UMIC
+141,147,LMIC
+141,148,HIC
+141,149,LIC
+141,150,LMIC
+141,151,UMIC
+141,152,LIC
+141,153,UMIC
+141,154,UMIC
+141,155,HIC
+141,156,LIC
+141,157,LMIC
+141,158,LMIC
+141,159,HIC
+141,160,HIC
+141,161,LIC
+141,162,UMIC
+141,163,HIC
+141,164,HIC
+141,165,LMIC
+141,166,HIC
+141,167,UMIC
+141,168,LMIC
+141,169,HIC
+141,170,LMIC
+141,171,HIC
+141,172,HIC
+141,173,LIC
+141,174,HIC
+141,175,UMIC
+141,176,LMIC
+141,177,HIC
+141,178,HIC
+141,179,UMIC
+141,180,UMIC
+141,181,LIC
+141,182,HIC
+141,183,LMIC
+141,184,LIC
+141,185,HIC
+141,186,LMIC
+141,187,LIC
+141,188,LMIC
+141,189,HIC
+141,190,LIC
+141,191,UMIC
+141,192,LIC
+141,193,N/A
+141,194,LMIC
+141,195,UMIC
+141,196,HIC
+141,197,HIC
+141,198,HIC
+141,199,LMIC
+141,200,HIC
+141,201,HIC
+141,202,LIC
+141,203,HIC
+141,204,LIC
+141,205,LIC
+141,206,UMIC
+141,207,LIC
+141,208,UMIC
+141,209,LMIC
+141,210,UMIC
+141,211,HIC
+141,212,LMIC
+141,213,UMIC
+141,214,UMIC
+141,215,HIC
+141,216,LIC
+141,217,LIC
+141,218,LMIC
+141,219,HIC
+141,220,HIC
+141,221,LMIC
+141,222,UMIC
+141,223,UMIC
+141,224,HIC
+141,225,HIC
+141,226,LMIC
+141,227,LMIC
+141,228,NA
+141,229,NA
+141,230,UMIC
+141,231,LMIC
+141,232,LIC
+141,233,UMIC
+141,234,LMIC
+141,235,LIC
+142,2,Income elasticities:
+142,3,Type
+142,4,Fuel
+142,5,Sector
+142,6,Code
+142,7,Elasticity used
+142,8,Standard deviation
+143,2," - coal, transport"
+143,3,Income
+143,4,Coal
+143,5,Transport
+143,6,coa_inc_tot
+144,2," - natural gas, transport"
+144,3,Income
+144,4,Natural Gas
+144,5,Transport
+144,6,nga_inc_tot
+145,2," - gasoline, transport"
+145,3,Income
+145,4,Gasoline
+145,5,Transport
+145,6,oil_inc_res
+146,2," - diesel, transport"
+146,3,Income
+146,4,Diesel
+146,5,Transport
+146,6,bio_inc_res
+147,2," - oil products, transport"
+147,3,Income
+147,4,Oil Products
+147,5,Transport
+147,6,oil_inc_tot
+148,2," - biomass, transport"
+148,3,Income
+148,4,Biomass
+148,5,Transport
+148,6,die_inc_res
+149,2," - renewables, transport"
+149,3,Income
+149,4,Renewables
+149,5,Transport
+149,6,rnw_inc_tot
+150,2," - electricity, transport"
+150,3,Income
+150,4,Electricity
+150,5,Transport
+150,6,ecy_inc_tot
+151,2," - coal, residential"
+151,3,Income
+151,4,Coal
+151,5,Residential
+151,6,coa_inc_res
+152,2," - natural gas, residential"
+152,3,Income
+152,4,Natural Gas
+152,5,Residential
+152,6,nga_inc_res
+153,2," - gasoline, residential"
+153,3,Income
+153,4,Gasoline
+153,5,Residential
+153,6,oil_inc_res
+154,2," - diesel, residential"
+154,3,Income
+154,4,Diesel
+154,5,Residential
+154,6,bio_inc_res
+155,2," - oil products, residential"
+155,3,Income
+155,4,Oil Products
+155,5,Residential
+155,6,oil_inc_res
+156,2," - biomass, residential"
+156,3,Income
+156,4,Biomass
+156,5,Residential
+156,6,bio_inc_res
+157,2," - renewables, residential"
+157,3,Income
+157,4,Renewables
+157,5,Residential
+157,6,rnw_inc_tot
+158,2," - electricity, residential"
+158,3,Income
+158,4,Electricity
+158,5,Residential
+158,6,ecy_inc_res
+159,2," - coal, industry"
+159,3,Income
+159,4,Coal
+159,5,Industry
+159,6,coa_inc_ind
+160,2," - natural gas, industry"
+160,3,Income
+160,4,Natural Gas
+160,5,Industry
+160,6,nga_inc_ind
+161,2," - gasoline, industry"
+161,3,Income
+161,4,Gasoline
+161,5,Industry
+161,6,oil_inc_res
+162,2," - diesel, industry"
+162,3,Income
+162,4,Diesel
+162,5,Industry
+162,6,die_inc_res
+163,2," - oil products, industry"
+163,3,Income
+163,4,Oil Products
+163,5,Industry
+163,6,oil_inc_ind
+164,2," - biomass, industry"
+164,3,Income
+164,4,Biomass
+164,5,Industry
+164,6,bio_inc_res
+165,2," - renewables, industry"
+165,3,Income
+165,4,Renewables
+165,5,Industry
+165,6,rnw_inc_tot
+166,2," - electricity, industry"
+166,3,Income
+166,4,Electricity
+166,5,Industry
+166,6,ecy_inc_ind
+167,2," - coal, services"
+167,3,Income
+167,4,Coal
+167,5,Services
+167,6,coa_inc_srv
+168,2," - natural gas, services"
+168,3,Income
+168,4,Natural Gas
+168,5,Services
+168,6,nga_inc_srv
+169,2," - gasoline, services"
+169,3,Income
+169,4,Gasoline
+169,5,Services
+169,6,oil_inc_res
+170,2," - diesel, services"
+170,3,Income
+170,4,Diesel
+170,5,Services
+170,6,die_inc_res
+171,2," - oil products, services"
+171,3,Income
+171,4,Oil Products
+171,5,Services
+171,6,oil_inc_srv
+172,2," - biomass, services"
+172,3,Income
+172,4,Biomass
+172,5,Services
+172,6,bio_inc_res
+173,2," - renewables, services"
+173,3,Income
+173,4,Renewables
+173,5,Services
+173,6,rnw_inc_tot
+174,2," - electricity, services"
+174,3,Income
+174,4,Electricity
+174,5,Services
+174,6,ecy_inc_srv
+175,1,Own price elasticities of demand
+176,2,Own-price elasticities of energy demand:
+176,3,Type
+176,4,Fuel
+176,5,Sector
+176,6,Code
+176,7,Elasticity used
+176,8,Standard error
+176,9,NA
+176,10,Lower income country
+176,11,Lower-middle income country
+176,12,Upper-middle income country
+176,13,High income country
+176,14,LCN
+176,15,SAS
+176,16,SSF
+176,17,ECS
+176,18,ECS
+176,19,MEA
+176,20,LCN
+176,21,ECS
+176,22,EAS
+176,23,LCN
+176,24,EAS
+176,25,ECS
+176,26,ECS
+176,27,SSF
+176,28,ECS
+176,29,SSF
+176,30,SSF
+176,31,SAS
+176,32,ECS
+176,33,MEA
+176,34,LCN
+176,35,ECS
+176,36,ECS
+176,37,LCN
+176,38,NAC
+176,39,LCN
+176,40,LCN
+176,41,LCN
+176,42,EAS
+176,43,SAS
+176,44,SSF
+176,45,SSF
+176,46,NAC
+176,47,ECS
+176,48,ECS
+176,49,LCN
+176,50,EAS
+176,51,SSF
+176,52,SSF
+176,53,SSF
+176,54,SSF
+176,55,LCN
+176,56,SSF
+176,57,SSF
+176,58,LCN
+176,59,LCN
+176,60,LCN
+176,61,LCN
+176,62,ECS
+176,63,ECS
+176,64,ECS
+176,65,MEA
+176,66,LCN
+176,67,ECS
+176,68,LCN
+176,69,MEA
+176,70,LCN
+176,71,MEA
+176,72,SSF
+176,73,ECS
+176,74,ECS
+176,75,SSF
+176,76,ECS
+176,77,EAS
+176,78,ECS
+176,79,ECS
+176,80,EAS
+176,81,SSF
+176,82,ECS
+176,83,ECS
+176,84,SSF
+176,85,ECS
+176,86,SSF
+176,87,SSF
+176,88,SSF
+176,89,SSF
+176,90,ECS
+176,91,LCN
+176,92,ECS
+176,93,LCN
+176,94,EAS
+176,95,LCN
+176,96,N/A
+176,97,EAS
+176,98,LCN
+176,99,ECS
+176,100,LCN
+176,101,ECS
+176,102,EAS
+176,103,ECS
+176,104,SAS
+176,105,ECS
+176,106,MEA
+176,107,MEA
+176,108,ECS
+176,109,MEA
+176,110,ECS
+176,111,LCN
+176,112,MEA
+176,113,EAS
+176,114,ECS
+176,115,SSF
+176,116,ECS
+176,117,EAS
+176,118,EAS
+176,119,LCN
+176,120,EAS
+176,121,MEA
+176,122,EAS
+176,123,MEA
+176,124,SSF
+176,125,MEA
+176,126,LCN
+176,127,ECS
+176,128,SAS
+176,129,SSF
+176,130,ECS
+176,131,ECS
+176,132,ECS
+176,133,EAS
+176,134,LCN
+176,135,MEA
+176,136,ECS
+176,137,ECS
+176,138,SSF
+176,139,SAS
+176,140,LCN
+176,141,EAS
+176,142,ECS
+176,143,SSF
+176,144,MEA
+176,145,EAS
+176,146,ECS
+176,147,EAS
+176,148,EAS
+176,149,SSF
+176,150,SSF
+176,151,SSF
+176,152,SSF
+176,153,EAS
+176,154,SSF
+176,155,EAS
+176,156,SSF
+176,157,SSF
+176,158,LCN
+176,159,ECS
+176,160,ECS
+176,161,SAS
+176,162,EAS
+176,163,EAS
+176,164,MEA
+176,165,SAS
+176,166,LCN
+176,167,LCN
+176,168,EAS
+176,169,EAS
+176,170,EAS
+176,171,ECS
+176,172,LCN
+176,173,EAS
+176,174,ECS
+176,175,LCN
+176,176,MEA
+176,177,EAS
+176,178,MEA
+176,179,ECS
+176,180,ECS
+176,181,SSF
+176,182,MEA
+176,183,SSF
+176,184,SSF
+176,185,EAS
+176,186,EAS
+176,187,SSF
+176,188,LCN
+176,189,ECS
+176,190,SSF
+176,191,ECS
+176,192,SSF
+176,193,SSF
+176,194,SSF
+176,195,LCN
+176,196,ECS
+176,197,ECS
+176,198,ECS
+176,199,SSF
+176,200,LCN
+176,201,SSF
+176,202,MEA
+176,203,LCN
+176,204,SSF
+176,205,SSF
+176,206,EAS
+176,207,ECS
+176,208,ECS
+176,209,EAS
+176,210,EAS
+176,211,LCN
+176,212,MEA
+176,213,ECS
+176,214,EAS
+176,215,EAS
+176,216,SSF
+176,217,SSF
+176,218,ECS
+176,219,LCN
+176,220,NAC
+176,221,ECS
+176,222,LCN
+176,223,LCN
+176,224,LCN
+176,225,LCN
+176,226,EAS
+176,227,EAS
+176,228,NA
+176,229,NA
+176,230,EAS
+176,231,ECS
+176,232,MEA
+176,233,SSF
+176,234,SSF
+176,235,SSF
+177,2,Own-price elasticities of demand - intensive margin (usage of energy-using capital)
+177,9,NA
+177,10,LIC
+177,11,LMIC
+177,12,UMIC
+177,13,HIC
+177,14,HIC
+177,15,LIC
+177,16,LMIC
+177,17,UMIC
+177,18,HIC
+177,19,HIC
+177,20,HIC
+177,21,UMIC
+177,22,UMIC
+177,23,HIC
+177,24,HIC
+177,25,HIC
+177,26,UMIC
+177,27,LIC
+177,28,HIC
+177,29,LIC
+177,30,LIC
+177,31,LMIC
+177,32,UMIC
+177,33,HIC
+177,34,HIC
+177,35,UMIC
+177,36,UMIC
+177,37,UMIC
+177,38,HIC
+177,39,LMIC
+177,40,UMIC
+177,41,HIC
+177,42,HIC
+177,43,LMIC
+177,44,UMIC
+177,45,LIC
+177,46,HIC
+177,47,HIC
+177,48,HIC
+177,49,HIC
+177,50,UMIC
+177,51,LMIC
+177,52,LMIC
+177,53,LIC
+177,54,LMIC
+177,55,UMIC
+177,56,LIC
+177,57,LMIC
+177,58,UMIC
+177,59,UMIC
+177,60,HIC
+177,61,HIC
+177,62,HIC
+177,63,HIC
+177,64,HIC
+177,65,LMIC
+177,66,UMIC
+177,67,HIC
+177,68,UMIC
+177,69,UMIC
+177,70,UMIC
+177,71,LMIC
+177,72,LIC
+177,73,HIC
+177,74,HIC
+177,75,LIC
+177,76,HIC
+177,77,UMIC
+177,78,HIC
+177,79,HIC
+177,80,LMIC
+177,81,UMIC
+177,82,HIC
+177,83,LMIC
+177,84,LMIC
+177,85,HIC
+177,86,LIC
+177,87,LIC
+177,88,LIC
+177,89,UMIC
+177,90,HIC
+177,91,UMIC
+177,92,HIC
+177,93,UMIC
+177,94,HIC
+177,95,UMIC
+177,96,HIC
+177,97,HIC
+177,98,LMIC
+177,99,HIC
+177,100,LIC
+177,101,HIC
+177,102,LMIC
+177,103,HIC
+177,104,LMIC
+177,105,HIC
+177,106,UMIC
+177,107,UMIC
+177,108,HIC
+177,109,HIC
+177,110,HIC
+177,111,UMIC
+177,112,UMIC
+177,113,HIC
+177,114,UMIC
+177,115,LMIC
+177,116,LMIC
+177,117,LMIC
+177,118,LMIC
+177,119,HIC
+177,120,HIC
+177,121,HIC
+177,122,LMIC
+177,123,UMIC
+177,124,LIC
+177,125,UMIC
+177,126,UMIC
+177,127,HIC
+177,128,LMIC
+177,129,LMIC
+177,130,HIC
+177,131,HIC
+177,132,HIC
+177,133,HIC
+177,134,HIC
+177,135,LMIC
+177,136,HIC
+177,137,LMIC
+177,138,LIC
+177,139,UMIC
+177,140,UMIC
+177,141,UMIC
+177,142,UMIC
+177,143,LIC
+177,144,HIC
+177,145,LMIC
+177,146,UMIC
+177,147,LMIC
+177,148,HIC
+177,149,LIC
+177,150,LMIC
+177,151,UMIC
+177,152,LIC
+177,153,UMIC
+177,154,UMIC
+177,155,HIC
+177,156,LIC
+177,157,LMIC
+177,158,LMIC
+177,159,HIC
+177,160,HIC
+177,161,LIC
+177,162,UMIC
+177,163,HIC
+177,164,HIC
+177,165,LMIC
+177,166,HIC
+177,167,UMIC
+177,168,LMIC
+177,169,HIC
+177,170,LMIC
+177,171,HIC
+177,172,HIC
+177,173,LIC
+177,174,HIC
+177,175,UMIC
+177,176,LMIC
+177,177,HIC
+177,178,HIC
+177,179,UMIC
+177,180,UMIC
+177,181,LIC
+177,182,HIC
+177,183,LMIC
+177,184,LIC
+177,185,HIC
+177,186,LMIC
+177,187,LIC
+177,188,LMIC
+177,189,HIC
+177,190,LIC
+177,191,UMIC
+177,192,LIC
+177,193,N/A
+177,194,LMIC
+177,195,UMIC
+177,196,HIC
+177,197,HIC
+177,198,HIC
+177,199,LMIC
+177,200,HIC
+177,201,HIC
+177,202,LIC
+177,203,HIC
+177,204,LIC
+177,205,LIC
+177,206,UMIC
+177,207,LIC
+177,208,UMIC
+177,209,LMIC
+177,210,UMIC
+177,211,HIC
+177,212,LMIC
+177,213,UMIC
+177,214,UMIC
+177,215,HIC
+177,216,LIC
+177,217,LIC
+177,218,LMIC
+177,219,HIC
+177,220,HIC
+177,221,LMIC
+177,222,UMIC
+177,223,UMIC
+177,224,HIC
+177,225,HIC
+177,226,LMIC
+177,227,LMIC
+177,228,NA
+177,229,NA
+177,230,UMIC
+177,231,LMIC
+177,232,LIC
+177,233,UMIC
+177,234,LMIC
+177,235,LIC
+178,2," -  coal, transport"
+178,3,"Own-price, usage"
+178,4,Coal
+178,5,Transport
+178,6,coa_owp_tot_sr
+179,2," -  natural gas, transport"
+179,3,"Own-price, usage"
+179,4,Natural Gas
+179,5,Transport
+179,6,nga_owp_tot_sr
+180,2," -  gasoline, transport"
+180,3,"Own-price, usage"
+180,4,Gasoline
+180,5,Transport
+180,6,gso_owp_tot_sr
+181,2," -  diesel, transport"
+181,3,"Own-price, usage"
+181,4,Diesel
+181,5,Transport
+181,6,die_owp_tot_sr
+182,2," -  oil products, transport"
+182,3,"Own-price, usage"
+182,4,Oil Products
+182,5,Transport
+182,6,oil_owp_tot_sr
+183,2," -  biomass, transport"
+183,3,"Own-price, usage"
+183,4,Biomass
+183,5,Transport
+183,6,bio_owp_ind_sr
+184,2," -  renewables, transport"
+184,3,"Own-price, usage"
+184,4,Renewables
+184,5,Transport
+184,6,rnw_owp_tot_lr
+185,2," -  electricity, transport (starting)"
+185,3,"Own-price, usage"
+185,4,Electricity
+185,5,Transport
+185,6,ecy_owp_tot_sr
+186,2," -  coal, residential"
+186,3,"Own-price, usage"
+186,4,Coal
+186,5,Residential
+186,6,coa_owp_res_sr
+187,2," -  natural gas, residential"
+187,3,"Own-price, usage"
+187,4,Natural Gas
+187,5,Residential
+187,6,nga_owp_res_sr
+188,2," -  gasoline, residential"
+188,3,"Own-price, usage"
+188,4,Gasoline
+188,5,Residential
+188,6,gso_owp_tot_sr
+189,2," -  diesel, residential"
+189,3,"Own-price, usage"
+189,4,Diesel
+189,5,Residential
+189,6,die_owp_tot_sr
+190,2," -  oil products, residential"
+190,3,"Own-price, usage"
+190,4,Oil Products
+190,5,Residential
+190,6,oil_owp_tot_sr
+191,2," -  biomass, residential"
+191,3,"Own-price, usage"
+191,4,Biomass
+191,5,Residential
+191,6,bio_owp_ind_sr
+192,2," -  renewables, residential"
+192,3,"Own-price, usage"
+192,4,Renewables
+192,5,Residential
+192,6,rnw_owp_tot_lr
+193,2," -  electricity, residential"
+193,3,"Own-price, usage"
+193,4,Electricity
+193,5,Residential
+193,6,ecy_owp_res_sr
+194,2," -  coal, industry"
+194,3,"Own-price, usage"
+194,4,Coal
+194,5,Industry
+194,6,coa_owp_ind_sr
+195,2," -  natural gas, industry"
+195,3,"Own-price, usage"
+195,4,Natural Gas
+195,5,Industry
+195,6,nga_owp_ind_sr
+196,2," -  gasoline, industry"
+196,3,"Own-price, usage"
+196,4,Gasoline
+196,5,Industry
+196,6,gso_owp_tot_sr
+197,2," -  diesel, industry"
+197,3,"Own-price, usage"
+197,4,Diesel
+197,5,Industry
+197,6,die_owp_tot_sr
+198,2," -  oil products, industry"
+198,3,"Own-price, usage"
+198,4,Oil Products
+198,5,Industry
+198,6,oil_owp_ind_sr
+199,2," -  biomass, industry"
+199,3,"Own-price, usage"
+199,4,Biomass
+199,5,Industry
+199,6,bio_owp_ind_sr
+200,2," -  renewables, industry"
+200,3,"Own-price, usage"
+200,4,Renewables
+200,5,Industry
+200,6,rnw_owp_tot_lr
+201,2," -  electricity, industry"
+201,3,"Own-price, usage"
+201,4,Electricity
+201,5,Industry
+201,6,ecy_owp_ind_sr
+202,2," -  coal, services"
+202,3,"Own-price, usage"
+202,4,Coal
+202,5,Services
+202,6,coa_owp_ind_sr
+203,2," -  natural gas, services"
+203,3,"Own-price, usage"
+203,4,Natural Gas
+203,5,Services
+203,6,nga_owp_ind_sr
+204,2," -  gasoline, services"
+204,3,"Own-price, usage"
+204,4,Gasoline
+204,5,Services
+204,6,gso_owp_tot_sr
+205,2," -  diesel, services"
+205,3,"Own-price, usage"
+205,4,Diesel
+205,5,Services
+205,6,die_owp_tot_sr
+206,2," -  oil products, services"
+206,3,"Own-price, usage"
+206,4,Oil Products
+206,5,Services
+206,6,oil_owp_ind_sr
+207,2," -  biomass, services"
+207,3,"Own-price, usage"
+207,4,Biomass
+207,5,Services
+207,6,bio_owp_ind_sr
+208,2," -  renewables, services"
+208,3,"Own-price, usage"
+208,4,Renewables
+208,5,Services
+208,6,rnw_owp_tot_lr
+209,2," -  electricity, services"
+209,3,"Own-price, usage"
+209,4,Electricity
+209,5,Services
+209,6,ecy_owp_ind_sr
+210,2,Own-price elasticities of demand - efficiency and extenstive margin (fuel economy of energy-using capital and ownership)
+211,2," -  coal, transport"
+211,3,"Own-price, efficiency"
+211,4,Coal
+211,5,Transport
+211,6,coa_owp_tot_lr
+212,2," -  natural gas, transport"
+212,3,"Own-price, efficiency"
+212,4,Natural Gas
+212,5,Transport
+212,6,nga_owp_tot_lr
+213,2," -  gasoline, transport"
+213,3,"Own-price, efficiency"
+213,4,Gasoline
+213,5,Transport
+213,6,gso_owp_tot_lr
+214,2," -  diesel, transport"
+214,3,"Own-price, efficiency"
+214,4,Diesel
+214,5,Transport
+214,6,die_owp_tot_lr
+215,2," -  oil products, transport"
+215,3,"Own-price, efficiency"
+215,4,Oil Products
+215,5,Transport
+215,6,oil_owp_tot_lr
+216,2," -  biomass, transport"
+216,3,"Own-price, efficiency"
+216,4,Biomass
+216,5,Transport
+216,6,bio_owp_ind_lr
+217,2," -  renewables, transport"
+217,3,"Own-price, efficiency"
+217,4,Renewables
+217,5,Transport
+217,6,rnw_owp_tot_lr
+218,2," -  electricity, transport (starting)"
+218,3,"Own-price, efficiency"
+218,4,Electricity
+218,5,Transport
+218,6,ecy_owp_tot_lr
+219,2," -  coal, residential"
+219,3,"Own-price, efficiency"
+219,4,Coal
+219,5,Residential
+219,6,coa_owp_res_lr
+220,2," -  natural gas, residential"
+220,3,"Own-price, efficiency"
+220,4,Natural Gas
+220,5,Residential
+220,6,nga_owp_res_lr
+221,2," -  gasoline, residential"
+221,3,"Own-price, efficiency"
+221,4,Gasoline
+221,5,Residential
+221,6,gso_owp_tot_lr
+222,2," -  diesel, residential"
+222,3,"Own-price, efficiency"
+222,4,Diesel
+222,5,Residential
+222,6,die_owp_tot_lr
+223,2," -  oil products, residential"
+223,3,"Own-price, efficiency"
+223,4,Oil Products
+223,5,Residential
+223,6,oil_owp_tot_lr
+224,2," -  biomass, residential"
+224,3,"Own-price, efficiency"
+224,4,Biomass
+224,5,Residential
+224,6,bio_owp_ind_lr
+225,2," -  renewables, residential"
+225,3,"Own-price, efficiency"
+225,4,Renewables
+225,5,Residential
+225,6,rnw_owp_tot_lr
+226,2," -  electricity, residential"
+226,3,"Own-price, efficiency"
+226,4,Electricity
+226,5,Residential
+226,6,ecy_owp_res_lr
+227,2," -  coal, industry"
+227,3,"Own-price, efficiency"
+227,4,Coal
+227,5,Industry
+227,6,coa_owp_ind_lr
+228,2," -  natural gas, industry"
+228,3,"Own-price, efficiency"
+228,4,Natural Gas
+228,5,Industry
+228,6,nga_owp_ind_lr
+229,2," -  gasoline, industry"
+229,3,"Own-price, efficiency"
+229,4,Gasoline
+229,5,Industry
+229,6,gso_owp_tot_lr
+230,2," -  diesel, industry"
+230,3,"Own-price, efficiency"
+230,4,Diesel
+230,5,Industry
+230,6,die_owp_tot_lr
+231,2," -  oil products, industry"
+231,3,"Own-price, efficiency"
+231,4,Oil Products
+231,5,Industry
+231,6,oil_owp_ind_lr
+232,2," -  biomass, industry"
+232,3,"Own-price, efficiency"
+232,4,Biomass
+232,5,Industry
+232,6,bio_owp_ind_lr
+233,2," -  renewables, industry"
+233,3,"Own-price, efficiency"
+233,4,Renewables
+233,5,Industry
+233,6,rnw_owp_tot_lr
+234,2," -  electricity, industry"
+234,3,"Own-price, efficiency"
+234,4,Electricity
+234,5,Industry
+234,6,ecy_owp_ind_lr
+235,2," -  coal, services"
+235,3,"Own-price, efficiency"
+235,4,Coal
+235,5,Services
+235,6,coa_owp_ind_lr
+236,2," -  natural gas, services"
+236,3,"Own-price, efficiency"
+236,4,Natural Gas
+236,5,Services
+236,6,nga_owp_ind_lr
+237,2," -  gasoline, services"
+237,3,"Own-price, efficiency"
+237,4,Gasoline
+237,5,Services
+237,6,gso_owp_tot_lr
+238,2," -  diesel, services"
+238,3,"Own-price, efficiency"
+238,4,Diesel
+238,5,Services
+238,6,die_owp_tot_lr
+239,2," -  oil products, services"
+239,3,"Own-price, efficiency"
+239,4,Oil Products
+239,5,Services
+239,6,oil_owp_ind_lr
+240,2," -  biomass, services"
+240,3,"Own-price, efficiency"
+240,4,Biomass
+240,5,Services
+240,6,bio_owp_ind_lr
+241,2," -  renewables, services"
+241,3,"Own-price, efficiency"
+241,4,Renewables
+241,5,Services
+241,6,rnw_owp_tot_lr
+242,2," -  electricity, services"
+242,3,"Own-price, efficiency"
+242,4,Electricity
+242,5,Services
+242,6,ecy_owp_ind_lr
+243,1,Cross-price elasticities:
+244,2, - biomass with respect to LPG
+244,3,Cross-price
+244,4,Biomass/LPG
+244,5,Residential
+244,6,bio_crp_lpg
+245,2, - biomass with respect to kerosene
+245,3,Cross-price
+245,4,Biomass/Kerosene
+245,5,Residential
+245,6,bio_crp_ker
+246,2, - gasoline with respect to diesel
+246,3,Cross-price
+246,4,Biomass/Diesel
+246,5,Residential
+246,6,gso_crp_die
+248,1,.
+248,2,"Annual rates of technological change and progress (country-specific, exogenous)"
+250,7,Egypt
+250,8,Generic
+250,9,"Generic, income-group specific elasticities"
+250,13,Aruba
+250,14,Afghanistan
+250,15,Angola
+250,16,Albania
+250,17,Andorra
+250,18,United Arab Emirates
+250,19,Argentina
+250,20,Armenia
+250,21,American Samoa
+250,22,Antigua and Barbuda
+250,23,Australia
+250,24,Austria
+250,25,Azerbaijan
+250,26,Burundi
+250,27,Belgium
+250,28,Benin
+250,29,Burkina Faso
+250,30,Bangladesh
+250,31,Bulgaria
+250,32,Bahrain
+250,33,"Bahamas, The"
+250,34,Bosnia and Herzegovina
+250,35,Belarus
+250,36,Belize
+250,37,Bermuda
+250,38,Bolivia
+250,39,Brazil
+250,40,Barbados
+250,41,Brunei Darussalam
+250,42,Bhutan
+250,43,Botswana
+250,44,Central African Republic
+250,45,Canada
+250,46,Switzerland
+250,47,Channel Islands
+250,48,Chile
+250,49,China
+250,50,Côte d'Ivoire
+250,51,Cameroon
+250,52,"Congo, Democratic Republic of the"
+250,53,"Congo, Republic of"
+250,54,Colombia
+250,55,Comoros
+250,56,Cabo Verde
+250,57,Costa Rica
+250,58,Cuba
+250,59,Curaçao
+250,60,Cayman Islands
+250,61,Cyprus
+250,62,Czechia
+250,63,Germany
+250,64,Djibouti
+250,65,Dominica
+250,66,Denmark
+250,67,Dominican Republic
+250,68,Algeria
+250,69,Ecuador
+250,70,Egypt
+250,71,Eritrea
+250,72,Spain
+250,73,Estonia
+250,74,Ethiopia
+250,75,Finland
+250,76,Fiji
+250,77,France
+250,78,Faroe Islands
+250,79,Micronesia
+250,80,Gabon
+250,81,United Kingdom
+250,82,Georgia
+250,83,Ghana
+250,84,Gibraltar
+250,85,Guinea
+250,86,"Gambia, The"
+250,87,Guinea-Bissau
+250,88,Equatorial Guinea
+250,89,Greece
+250,90,Grenada
+250,91,Greenland
+250,92,Guatemala
+250,93,Guam
+250,94,Guyana
+250,95,HIC
+250,96,Hong Kong SAR
+250,97,Honduras
+250,98,Croatia
+250,99,Haiti
+250,100,Hungary
+250,101,Indonesia
+250,102,Isle of Man
+250,103,India
+250,104,Ireland
+250,105,Iran
+250,106,Iraq
+250,107,Iceland
+250,108,Israel
+250,109,Italy
+250,110,Jamaica
+250,111,Jordan
+250,112,Japan
+250,113,Kazakhstan
+250,114,Kenya
+250,115,Kyrgyz Republic
+250,116,Cambodia
+250,117,Kiribati
+250,118,St. Kitts and Nevis
+250,119,Korea
+250,120,Kuwait
+250,121,Lao P.D.R.
+250,122,Lebanon
+250,123,Liberia
+250,124,Libya
+250,125,St. Lucia
+250,126,Liechtenstein
+250,127,Sri Lanka
+250,128,Lesotho
+250,129,Lithuania
+250,130,Luxembourg
+250,131,Latvia
+250,132,Macao SAR
+250,133,St. Martin (French part)
+250,134,Morocco
+250,135,Monaco
+250,136,Moldova
+250,137,Madagascar
+250,138,Maldives
+250,139,Mexico
+250,140,Marshall Islands
+250,141,North Macedonia
+250,142,Mali
+250,143,Malta
+250,144,Myanmar
+250,145,"Montenegro, Rep. of"
+250,146,Mongolia
+250,147,Northern Mariana Islands
+250,148,Mozambique
+250,149,Mauritania
+250,150,Mauritius
+250,151,Malawi
+250,152,Malaysia
+250,153,Namibia
+250,154,New Caledonia
+250,155,Niger
+250,156,Nigeria
+250,157,Nicaragua
+250,158,Netherlands
+250,159,Norway
+250,160,Nepal
+250,161,Nauru
+250,162,New Zealand
+250,163,Oman
+250,164,Pakistan
+250,165,Panama
+250,166,Peru
+250,167,Philippines
+250,168,Palau
+250,169,Papua New Guinea
+250,170,Poland
+250,171,Puerto Rico
+250,172,"Korea, Dem. People's Rep."
+250,173,Portugal
+250,174,Paraguay
+250,175,West Bank and Gaza
+250,176,French Polynesia
+250,177,Qatar
+250,178,Romania
+250,179,Russia
+250,180,Rwanda
+250,181,Saudi Arabia
+250,182,Sudan
+250,183,Senegal
+250,184,Singapore
+250,185,Solomon Islands
+250,186,Sierra Leone
+250,187,El Salvador
+250,188,San Marino
+250,189,Somalia
+250,190,Serbia
+250,191,South Sudan
+250,192,Sub-Saharan Africa
+250,193,São Tomé and Príncipe
+250,194,Suriname
+250,195,Slovak Republic
+250,196,Slovenia
+250,197,Sweden
+250,198,Eswatini
+250,199,Sint Maarten (Dutch part)
+250,200,Seychelles
+250,201,Syria
+250,202,Turks and Caicos Islands
+250,203,Chad
+250,204,Togo
+250,205,Thailand
+250,206,Tajikistan
+250,207,Turkmenistan
+250,208,Timor-Leste
+250,209,Tonga
+250,210,Trinidad and Tobago
+250,211,Tunisia
+250,212,Turkiye
+250,213,Tuvalu
+250,214,Taiwan Province of China
+250,215,Tanzania
+250,216,Uganda
+250,217,Ukraine
+250,218,Uruguay
+250,219,United States
+250,220,Uzbekistan
+250,221,St. Vincent and the Grenadines
+250,222,Venezuela
+250,223,British Virgin Islands
+250,224,Virgin Islands (U.S.)
+250,225,Vietnam
+250,226,Vanuatu
+250,227,World aviation bunkers
+250,228,World marine bunkers
+250,229,Samoa
+250,230,Kosovo
+250,231,Yemen
+250,232,South Africa
+250,233,Zambia
+250,234,Zimbabwe
+251,7,EGY
+251,8,NA
+251,9,Lower
+251,10,Lower-middle
+251,11,Upper-middle
+251,12,High
+251,13,ABW
+251,14,AFG
+251,15,AGO
+251,16,ALB
+251,17,AND
+251,18,ARE
+251,19,ARG
+251,20,ARM
+251,21,ASM
+251,22,ATG
+251,23,AUS
+251,24,AUT
+251,25,AZE
+251,26,BDI
+251,27,BEL
+251,28,BEN
+251,29,BFA
+251,30,BGD
+251,31,BGR
+251,32,BHR
+251,33,BHS
+251,34,BIH
+251,35,BLR
+251,36,BLZ
+251,37,BMU
+251,38,BOL
+251,39,BRA
+251,40,BRB
+251,41,BRN
+251,42,BTN
+251,43,BWA
+251,44,CAF
+251,45,CAN
+251,46,CHE
+251,47,CHI
+251,48,CHL
+251,49,CHN
+251,50,CIV
+251,51,CMR
+251,52,COD
+251,53,COG
+251,54,COL
+251,55,COM
+251,56,CPV
+251,57,CRI
+251,58,CUB
+251,59,CUW
+251,60,CYM
+251,61,CYP
+251,62,CZE
+251,63,DEU
+251,64,DJI
+251,65,DMA
+251,66,DNK
+251,67,DOM
+251,68,DZA
+251,69,ECU
+251,70,EGY
+251,71,ERI
+251,72,ESP
+251,73,EST
+251,74,ETH
+251,75,FIN
+251,76,FJI
+251,77,FRA
+251,78,FRO
+251,79,FSM
+251,80,GAB
+251,81,GBR
+251,82,GEO
+251,83,GHA
+251,84,GIB
+251,85,GIN
+251,86,GMB
+251,87,GNB
+251,88,GNQ
+251,89,GRC
+251,90,GRD
+251,91,GRL
+251,92,GTM
+251,93,GUM
+251,94,GUY
+251,95,HIC
+251,96,HKG
+251,97,HND
+251,98,HRV
+251,99,HTI
+251,100,HUN
+251,101,IDN
+251,102,IMN
+251,103,IND
+251,104,IRL
+251,105,IRN
+251,106,IRQ
+251,107,ISL
+251,108,ISR
+251,109,ITA
+251,110,JAM
+251,111,JOR
+251,112,JPN
+251,113,KAZ
+251,114,KEN
+251,115,KGZ
+251,116,KHM
+251,117,KIR
+251,118,KNA
+251,119,KOR
+251,120,KWT
+251,121,LAO
+251,122,LBN
+251,123,LBR
+251,124,LBY
+251,125,LCA
+251,126,LIE
+251,127,LKA
+251,128,LSO
+251,129,LTU
+251,130,LUX
+251,131,LVA
+251,132,MAC
+251,133,MAF
+251,134,MAR
+251,135,MCO
+251,136,MDA
+251,137,MDG
+251,138,MDV
+251,139,MEX
+251,140,MHL
+251,141,MKD
+251,142,MLI
+251,143,MLT
+251,144,MMR
+251,145,MNE
+251,146,MNG
+251,147,MNP
+251,148,MOZ
+251,149,MRT
+251,150,MUS
+251,151,MWI
+251,152,MYS
+251,153,NAM
+251,154,NCL
+251,155,NER
+251,156,NGA
+251,157,NIC
+251,158,NLD
+251,159,NOR
+251,160,NPL
+251,161,NRU
+251,162,NZL
+251,163,OMN
+251,164,PAK
+251,165,PAN
+251,166,PER
+251,167,PHL
+251,168,PLW
+251,169,PNG
+251,170,POL
+251,171,PRI
+251,172,PRK
+251,173,PRT
+251,174,PRY
+251,175,PSE
+251,176,PYF
+251,177,QAT
+251,178,ROU
+251,179,RUS
+251,180,RWA
+251,181,SAU
+251,182,SDN
+251,183,SEN
+251,184,SGP
+251,185,SLB
+251,186,SLE
+251,187,SLV
+251,188,SMR
+251,189,SOM
+251,190,SRB
+251,191,SSD
+251,192,SSF
+251,193,STP
+251,194,SUR
+251,195,SVK
+251,196,SVN
+251,197,SWE
+251,198,SWZ
+251,199,SXM
+251,200,SYC
+251,201,SYR
+251,202,TCA
+251,203,TCD
+251,204,TGO
+251,205,THA
+251,206,TJK
+251,207,TKM
+251,208,TLS
+251,209,TON
+251,210,TTO
+251,211,TUN
+251,212,TUR
+251,213,TUV
+251,214,TWN
+251,215,TZA
+251,216,UGA
+251,217,UKR
+251,218,URY
+251,219,USA
+251,220,UZB
+251,221,VCT
+251,222,VEN
+251,223,VGB
+251,224,VIR
+251,225,VNM
+251,226,VUT
+251,227,WAV
+251,228,WMR
+251,229,WSM
+251,230,XKX
+251,231,YEM
+251,232,ZAF
+251,233,ZMB
+251,234,ZWE
+252,7,MEA
+252,8,NA
+252,9,income country
+252,10,income country
+252,11,income country
+252,12,income country
+252,13,LCN
+252,14,SAS
+252,15,SSF
+252,16,ECS
+252,17,ECS
+252,18,MEA
+252,19,LCN
+252,20,ECS
+252,21,EAS
+252,22,LCN
+252,23,EAS
+252,24,ECS
+252,25,ECS
+252,26,SSF
+252,27,ECS
+252,28,SSF
+252,29,SSF
+252,30,SAS
+252,31,ECS
+252,32,MEA
+252,33,LCN
+252,34,ECS
+252,35,ECS
+252,36,LCN
+252,37,NAC
+252,38,LCN
+252,39,LCN
+252,40,LCN
+252,41,EAS
+252,42,SAS
+252,43,SSF
+252,44,SSF
+252,45,NAC
+252,46,ECS
+252,47,ECS
+252,48,LCN
+252,49,EAS
+252,50,SSF
+252,51,SSF
+252,52,SSF
+252,53,SSF
+252,54,LCN
+252,55,SSF
+252,56,SSF
+252,57,LCN
+252,58,LCN
+252,59,LCN
+252,60,LCN
+252,61,ECS
+252,62,ECS
+252,63,ECS
+252,64,MEA
+252,65,LCN
+252,66,ECS
+252,67,LCN
+252,68,MEA
+252,69,LCN
+252,70,MEA
+252,71,SSF
+252,72,ECS
+252,73,ECS
+252,74,SSF
+252,75,ECS
+252,76,EAS
+252,77,ECS
+252,78,ECS
+252,79,EAS
+252,80,SSF
+252,81,ECS
+252,82,ECS
+252,83,SSF
+252,84,ECS
+252,85,SSF
+252,86,SSF
+252,87,SSF
+252,88,SSF
+252,89,ECS
+252,90,LCN
+252,91,ECS
+252,92,LCN
+252,93,EAS
+252,94,LCN
+252,95,N/A
+252,96,EAS
+252,97,LCN
+252,98,ECS
+252,99,LCN
+252,100,ECS
+252,101,EAS
+252,102,ECS
+252,103,SAS
+252,104,ECS
+252,105,MEA
+252,106,MEA
+252,107,ECS
+252,108,MEA
+252,109,ECS
+252,110,LCN
+252,111,MEA
+252,112,EAS
+252,113,ECS
+252,114,SSF
+252,115,ECS
+252,116,EAS
+252,117,EAS
+252,118,LCN
+252,119,EAS
+252,120,MEA
+252,121,EAS
+252,122,MEA
+252,123,SSF
+252,124,MEA
+252,125,LCN
+252,126,ECS
+252,127,SAS
+252,128,SSF
+252,129,ECS
+252,130,ECS
+252,131,ECS
+252,132,EAS
+252,133,LCN
+252,134,MEA
+252,135,ECS
+252,136,ECS
+252,137,SSF
+252,138,SAS
+252,139,LCN
+252,140,EAS
+252,141,ECS
+252,142,SSF
+252,143,MEA
+252,144,EAS
+252,145,ECS
+252,146,EAS
+252,147,EAS
+252,148,SSF
+252,149,SSF
+252,150,SSF
+252,151,SSF
+252,152,EAS
+252,153,SSF
+252,154,EAS
+252,155,SSF
+252,156,SSF
+252,157,LCN
+252,158,ECS
+252,159,ECS
+252,160,SAS
+252,161,EAS
+252,162,EAS
+252,163,MEA
+252,164,SAS
+252,165,LCN
+252,166,LCN
+252,167,EAS
+252,168,EAS
+252,169,EAS
+252,170,ECS
+252,171,LCN
+252,172,EAS
+252,173,ECS
+252,174,LCN
+252,175,MEA
+252,176,EAS
+252,177,MEA
+252,178,ECS
+252,179,ECS
+252,180,SSF
+252,181,MEA
+252,182,SSF
+252,183,SSF
+252,184,EAS
+252,185,EAS
+252,186,SSF
+252,187,LCN
+252,188,ECS
+252,189,SSF
+252,190,ECS
+252,191,SSF
+252,192,SSF
+252,193,SSF
+252,194,LCN
+252,195,ECS
+252,196,ECS
+252,197,ECS
+252,198,SSF
+252,199,LCN
+252,200,SSF
+252,201,MEA
+252,202,LCN
+252,203,SSF
+252,204,SSF
+252,205,EAS
+252,206,ECS
+252,207,ECS
+252,208,EAS
+252,209,EAS
+252,210,LCN
+252,211,MEA
+252,212,ECS
+252,213,EAS
+252,214,EAS
+252,215,SSF
+252,216,SSF
+252,217,ECS
+252,218,LCN
+252,219,NAC
+252,220,ECS
+252,221,LCN
+252,222,LCN
+252,223,LCN
+252,224,LCN
+252,225,EAS
+252,226,EAS
+252,227,NA
+252,228,NA
+252,229,EAS
+252,230,ECS
+252,231,MEA
+252,232,SSF
+252,233,SSF
+252,234,SSF
+253,7,LMIC
+253,8,NA
+253,9,LIC
+253,10,LMIC
+253,11,UMIC
+253,12,HIC
+253,13,HIC
+253,14,LIC
+253,15,LMIC
+253,16,UMIC
+253,17,HIC
+253,18,HIC
+253,19,HIC
+253,20,UMIC
+253,21,UMIC
+253,22,HIC
+253,23,HIC
+253,24,HIC
+253,25,UMIC
+253,26,LIC
+253,27,HIC
+253,28,LIC
+253,29,LIC
+253,30,LMIC
+253,31,UMIC
+253,32,HIC
+253,33,HIC
+253,34,UMIC
+253,35,UMIC
+253,36,UMIC
+253,37,HIC
+253,38,LMIC
+253,39,UMIC
+253,40,HIC
+253,41,HIC
+253,42,LMIC
+253,43,UMIC
+253,44,LIC
+253,45,HIC
+253,46,HIC
+253,47,HIC
+253,48,HIC
+253,49,UMIC
+253,50,LMIC
+253,51,LMIC
+253,52,LIC
+253,53,LMIC
+253,54,UMIC
+253,55,LIC
+253,56,LMIC
+253,57,UMIC
+253,58,UMIC
+253,59,HIC
+253,60,HIC
+253,61,HIC
+253,62,HIC
+253,63,HIC
+253,64,LMIC
+253,65,UMIC
+253,66,HIC
+253,67,UMIC
+253,68,UMIC
+253,69,UMIC
+253,70,LMIC
+253,71,LIC
+253,72,HIC
+253,73,HIC
+253,74,LIC
+253,75,HIC
+253,76,UMIC
+253,77,HIC
+253,78,HIC
+253,79,LMIC
+253,80,UMIC
+253,81,HIC
+253,82,LMIC
+253,83,LMIC
+253,84,HIC
+253,85,LIC
+253,86,LIC
+253,87,LIC
+253,88,UMIC
+253,89,HIC
+253,90,UMIC
+253,91,HIC
+253,92,UMIC
+253,93,HIC
+253,94,UMIC
+253,95,HIC
+253,96,HIC
+253,97,LMIC
+253,98,HIC
+253,99,LIC
+253,100,HIC
+253,101,LMIC
+253,102,HIC
+253,103,LMIC
+253,104,HIC
+253,105,UMIC
+253,106,UMIC
+253,107,HIC
+253,108,HIC
+253,109,HIC
+253,110,UMIC
+253,111,UMIC
+253,112,HIC
+253,113,UMIC
+253,114,LMIC
+253,115,LMIC
+253,116,LMIC
+253,117,LMIC
+253,118,HIC
+253,119,HIC
+253,120,HIC
+253,121,LMIC
+253,122,UMIC
+253,123,LIC
+253,124,UMIC
+253,125,UMIC
+253,126,HIC
+253,127,LMIC
+253,128,LMIC
+253,129,HIC
+253,130,HIC
+253,131,HIC
+253,132,HIC
+253,133,HIC
+253,134,LMIC
+253,135,HIC
+253,136,LMIC
+253,137,LIC
+253,138,UMIC
+253,139,UMIC
+253,140,UMIC
+253,141,UMIC
+253,142,LIC
+253,143,HIC
+253,144,LMIC
+253,145,UMIC
+253,146,LMIC
+253,147,HIC
+253,148,LIC
+253,149,LMIC
+253,150,UMIC
+253,151,LIC
+253,152,UMIC
+253,153,UMIC
+253,154,HIC
+253,155,LIC
+253,156,LMIC
+253,157,LMIC
+253,158,HIC
+253,159,HIC
+253,160,LIC
+253,161,UMIC
+253,162,HIC
+253,163,HIC
+253,164,LMIC
+253,165,HIC
+253,166,UMIC
+253,167,LMIC
+253,168,HIC
+253,169,LMIC
+253,170,HIC
+253,171,HIC
+253,172,LIC
+253,173,HIC
+253,174,UMIC
+253,175,LMIC
+253,176,HIC
+253,177,HIC
+253,178,UMIC
+253,179,UMIC
+253,180,LIC
+253,181,HIC
+253,182,LMIC
+253,183,LIC
+253,184,HIC
+253,185,LMIC
+253,186,LIC
+253,187,LMIC
+253,188,HIC
+253,189,LIC
+253,190,UMIC
+253,191,LIC
+253,192,N/A
+253,193,LMIC
+253,194,UMIC
+253,195,HIC
+253,196,HIC
+253,197,HIC
+253,198,LMIC
+253,199,HIC
+253,200,HIC
+253,201,LIC
+253,202,HIC
+253,203,LIC
+253,204,LIC
+253,205,UMIC
+253,206,LIC
+253,207,UMIC
+253,208,LMIC
+253,209,UMIC
+253,210,HIC
+253,211,LMIC
+253,212,UMIC
+253,213,UMIC
+253,214,HIC
+253,215,LIC
+253,216,LIC
+253,217,LMIC
+253,218,HIC
+253,219,HIC
+253,220,LMIC
+253,221,UMIC
+253,222,UMIC
+253,223,HIC
+253,224,HIC
+253,225,LMIC
+253,226,LMIC
+253,227,NA
+253,228,NA
+253,229,UMIC
+253,230,LMIC
+253,231,LIC
+253,232,UMIC
+253,233,LMIC
+253,234,LIC
+254,2,"Annual autonomous efficiency improvments in energy-consuming capital (cars, buildings, factories etc)"
+254,6,Code (for this sheet only)
+254,7,Parameter used
+254,8,Used for most countries
+255,2,General transport:
+256,2,- coal
+256,3,Autonomous efficiency
+256,4,Coal
+256,5,Transport
+256,6,eff_imp_coa_rod
+257,2,- natural gas
+257,3,Autonomous efficiency
+257,4,Natural Gas
+257,5,Transport
+257,6,eff_imp_nga_rod
+258,2,- oil
+258,3,Autonomous efficiency
+258,4,Oil
+258,5,Transport
+258,6,eff_imp_oil_rod
+259,2,- biomass
+259,3,Autonomous efficiency
+259,4,Biomass
+259,5,Transport
+259,6,eff_imp_bio_rod
+260,2,- renewables
+260,3,Autonomous efficiency
+260,4,Renewables
+260,5,Transport
+260,6,eff_imp_ren_rod
+261,2,- electricity
+261,3,Autonomous efficiency
+261,4,Electricity
+261,5,Transport
+261,6,eff_imp_ecy_rod
+262,2,Residential
+263,2,- coal
+263,3,Autonomous efficiency
+263,4,Coal
+263,5,Residential
+263,6,eff_imp_coa
+264,2,- natural gas
+264,3,Autonomous efficiency
+264,4,Natural Gas
+264,5,Residential
+264,6,eff_imp_nga
+265,2,- oil
+265,3,Autonomous efficiency
+265,4,Oil
+265,5,Residential
+265,6,eff_imp_oil
+266,2,- biomass
+266,3,Autonomous efficiency
+266,4,Biomass
+266,5,Residential
+266,6,eff_imp_bio
+267,2,- renewables
+267,3,Autonomous efficiency
+267,4,Renewables
+267,5,Residential
+267,6,eff_imp_ren
+268,2,- electricity
+268,3,Autonomous efficiency
+268,4,Electricity
+268,5,Residential
+268,6,eff_imp_ecy
+269,2,Industries
+270,2,- coal
+270,3,Autonomous efficiency
+270,4,Coal
+270,5,Industry
+270,6,eff_imp_coa
+271,2,- natural gas
+271,3,Autonomous efficiency
+271,4,Natural Gas
+271,5,Industry
+271,6,eff_imp_nga
+272,2,- oil
+272,3,Autonomous efficiency
+272,4,Oil
+272,5,Industry
+272,6,eff_imp_oil
+273,2,- biomass
+273,3,Autonomous efficiency
+273,4,Biomass
+273,5,Industry
+273,6,eff_imp_bio
+274,2,- renewables
+274,3,Autonomous efficiency
+274,4,Renewables
+274,5,Industry
+274,6,eff_imp_ren
+275,2,- electricity
+275,3,Autonomous efficiency
+275,4,Electricity
+275,5,Industry
+275,6,eff_imp_ecy
+276,2,Services
+277,2,- coal
+277,3,Autonomous efficiency
+277,4,Coal
+277,5,Services
+277,6,eff_imp_coa
+278,2,- natural gas
+278,3,Autonomous efficiency
+278,4,Natural Gas
+278,5,Services
+278,6,eff_imp_nga
+279,2,- oil
+279,3,Autonomous efficiency
+279,4,Oil
+279,5,Services
+279,6,eff_imp_oil
+280,2,- biomass
+280,3,Autonomous efficiency
+280,4,Biomass
+280,5,Services
+280,6,eff_imp_bio
+281,2,- renewables
+281,3,Autonomous efficiency
+281,4,Renewables
+281,5,Services
+281,6,eff_imp_ren
+282,2,- electricity
+282,3,Autonomous efficiency
+282,4,Electricity
+282,5,Services
+282,6,eff_imp_ecy
+284,1,.
+284,2,Elasticity-based power sector paramaters (country-specific)
+286,7,Egypt
+286,8,Generic
+286,9,"Generic, income-group specific elasticities"
+286,13,Aruba
+286,14,Afghanistan
+286,15,Angola
+286,16,Albania
+286,17,Andorra
+286,18,United Arab Emirates
+286,19,Argentina
+286,20,Armenia
+286,21,American Samoa
+286,22,Antigua and Barbuda
+286,23,Australia
+286,24,Austria
+286,25,Azerbaijan
+286,26,Burundi
+286,27,Belgium
+286,28,Benin
+286,29,Burkina Faso
+286,30,Bangladesh
+286,31,Bulgaria
+286,32,Bahrain
+286,33,"Bahamas, The"
+286,34,Bosnia and Herzegovina
+286,35,Belarus
+286,36,Belize
+286,37,Bermuda
+286,38,Bolivia
+286,39,Brazil
+286,40,Barbados
+286,41,Brunei Darussalam
+286,42,Bhutan
+286,43,Botswana
+286,44,Central African Republic
+286,45,Canada
+286,46,Switzerland
+286,47,Channel Islands
+286,48,Chile
+286,49,China
+286,50,Côte d'Ivoire
+286,51,Cameroon
+286,52,"Congo, Democratic Republic of the"
+286,53,"Congo, Republic of"
+286,54,Colombia
+286,55,Comoros
+286,56,Cabo Verde
+286,57,Costa Rica
+286,58,Cuba
+286,59,Curaçao
+286,60,Cayman Islands
+286,61,Cyprus
+286,62,Czechia
+286,63,Germany
+286,64,Djibouti
+286,65,Dominica
+286,66,Denmark
+286,67,Dominican Republic
+286,68,Algeria
+286,69,Ecuador
+286,70,Egypt
+286,71,Eritrea
+286,72,Spain
+286,73,Estonia
+286,74,Ethiopia
+286,75,Finland
+286,76,Fiji
+286,77,France
+286,78,Faroe Islands
+286,79,Micronesia
+286,80,Gabon
+286,81,United Kingdom
+286,82,Georgia
+286,83,Ghana
+286,84,Gibraltar
+286,85,Guinea
+286,86,"Gambia, The"
+286,87,Guinea-Bissau
+286,88,Equatorial Guinea
+286,89,Greece
+286,90,Grenada
+286,91,Greenland
+286,92,Guatemala
+286,93,Guam
+286,94,Guyana
+286,95,HIC
+286,96,Hong Kong SAR
+286,97,Honduras
+286,98,Croatia
+286,99,Haiti
+286,100,Hungary
+286,101,Indonesia
+286,102,Isle of Man
+286,103,India
+286,104,Ireland
+286,105,Iran
+286,106,Iraq
+286,107,Iceland
+286,108,Israel
+286,109,Italy
+286,110,Jamaica
+286,111,Jordan
+286,112,Japan
+286,113,Kazakhstan
+286,114,Kenya
+286,115,Kyrgyz Republic
+286,116,Cambodia
+286,117,Kiribati
+286,118,St. Kitts and Nevis
+286,119,Korea
+286,120,Kuwait
+286,121,Lao P.D.R.
+286,122,Lebanon
+286,123,Liberia
+286,124,Libya
+286,125,St. Lucia
+286,126,Liechtenstein
+286,127,Sri Lanka
+286,128,Lesotho
+286,129,Lithuania
+286,130,Luxembourg
+286,131,Latvia
+286,132,Macao SAR
+286,133,St. Martin (French part)
+286,134,Morocco
+286,135,Monaco
+286,136,Moldova
+286,137,Madagascar
+286,138,Maldives
+286,139,Mexico
+286,140,Marshall Islands
+286,141,North Macedonia
+286,142,Mali
+286,143,Malta
+286,144,Myanmar
+286,145,"Montenegro, Rep. of"
+286,146,Mongolia
+286,147,Northern Mariana Islands
+286,148,Mozambique
+286,149,Mauritania
+286,150,Mauritius
+286,151,Malawi
+286,152,Malaysia
+286,153,Namibia
+286,154,New Caledonia
+286,155,Niger
+286,156,Nigeria
+286,157,Nicaragua
+286,158,Netherlands
+286,159,Norway
+286,160,Nepal
+286,161,Nauru
+286,162,New Zealand
+286,163,Oman
+286,164,Pakistan
+286,165,Panama
+286,166,Peru
+286,167,Philippines
+286,168,Palau
+286,169,Papua New Guinea
+286,170,Poland
+286,171,Puerto Rico
+286,172,"Korea, Dem. People's Rep."
+286,173,Portugal
+286,174,Paraguay
+286,175,West Bank and Gaza
+286,176,French Polynesia
+286,177,Qatar
+286,178,Romania
+286,179,Russia
+286,180,Rwanda
+286,181,Saudi Arabia
+286,182,Sudan
+286,183,Senegal
+286,184,Singapore
+286,185,Solomon Islands
+286,186,Sierra Leone
+286,187,El Salvador
+286,188,San Marino
+286,189,Somalia
+286,190,Serbia
+286,191,South Sudan
+286,192,Sub-Saharan Africa
+286,193,São Tomé and Príncipe
+286,194,Suriname
+286,195,Slovak Republic
+286,196,Slovenia
+286,197,Sweden
+286,198,Eswatini
+286,199,Sint Maarten (Dutch part)
+286,200,Seychelles
+286,201,Syria
+286,202,Turks and Caicos Islands
+286,203,Chad
+286,204,Togo
+286,205,Thailand
+286,206,Tajikistan
+286,207,Turkmenistan
+286,208,Timor-Leste
+286,209,Tonga
+286,210,Trinidad and Tobago
+286,211,Tunisia
+286,212,Turkiye
+286,213,Tuvalu
+286,214,Taiwan Province of China
+286,215,Tanzania
+286,216,Uganda
+286,217,Ukraine
+286,218,Uruguay
+286,219,United States
+286,220,Uzbekistan
+286,221,St. Vincent and the Grenadines
+286,222,Venezuela
+286,223,British Virgin Islands
+286,224,Virgin Islands (U.S.)
+286,225,Vietnam
+286,226,Vanuatu
+286,227,World aviation bunkers
+286,228,World marine bunkers
+286,229,Samoa
+286,230,Kosovo
+286,231,Yemen
+286,232,South Africa
+286,233,Zambia
+286,234,Zimbabwe
+287,7,EGY
+287,8,NA
+287,9,Lower
+287,10,Lower-middle
+287,11,Upper-middle
+287,12,High
+287,13,ABW
+287,14,AFG
+287,15,AGO
+287,16,ALB
+287,17,AND
+287,18,ARE
+287,19,ARG
+287,20,ARM
+287,21,ASM
+287,22,ATG
+287,23,AUS
+287,24,AUT
+287,25,AZE
+287,26,BDI
+287,27,BEL
+287,28,BEN
+287,29,BFA
+287,30,BGD
+287,31,BGR
+287,32,BHR
+287,33,BHS
+287,34,BIH
+287,35,BLR
+287,36,BLZ
+287,37,BMU
+287,38,BOL
+287,39,BRA
+287,40,BRB
+287,41,BRN
+287,42,BTN
+287,43,BWA
+287,44,CAF
+287,45,CAN
+287,46,CHE
+287,47,CHI
+287,48,CHL
+287,49,CHN
+287,50,CIV
+287,51,CMR
+287,52,COD
+287,53,COG
+287,54,COL
+287,55,COM
+287,56,CPV
+287,57,CRI
+287,58,CUB
+287,59,CUW
+287,60,CYM
+287,61,CYP
+287,62,CZE
+287,63,DEU
+287,64,DJI
+287,65,DMA
+287,66,DNK
+287,67,DOM
+287,68,DZA
+287,69,ECU
+287,70,EGY
+287,71,ERI
+287,72,ESP
+287,73,EST
+287,74,ETH
+287,75,FIN
+287,76,FJI
+287,77,FRA
+287,78,FRO
+287,79,FSM
+287,80,GAB
+287,81,GBR
+287,82,GEO
+287,83,GHA
+287,84,GIB
+287,85,GIN
+287,86,GMB
+287,87,GNB
+287,88,GNQ
+287,89,GRC
+287,90,GRD
+287,91,GRL
+287,92,GTM
+287,93,GUM
+287,94,GUY
+287,95,HIC
+287,96,HKG
+287,97,HND
+287,98,HRV
+287,99,HTI
+287,100,HUN
+287,101,IDN
+287,102,IMN
+287,103,IND
+287,104,IRL
+287,105,IRN
+287,106,IRQ
+287,107,ISL
+287,108,ISR
+287,109,ITA
+287,110,JAM
+287,111,JOR
+287,112,JPN
+287,113,KAZ
+287,114,KEN
+287,115,KGZ
+287,116,KHM
+287,117,KIR
+287,118,KNA
+287,119,KOR
+287,120,KWT
+287,121,LAO
+287,122,LBN
+287,123,LBR
+287,124,LBY
+287,125,LCA
+287,126,LIE
+287,127,LKA
+287,128,LSO
+287,129,LTU
+287,130,LUX
+287,131,LVA
+287,132,MAC
+287,133,MAF
+287,134,MAR
+287,135,MCO
+287,136,MDA
+287,137,MDG
+287,138,MDV
+287,139,MEX
+287,140,MHL
+287,141,MKD
+287,142,MLI
+287,143,MLT
+287,144,MMR
+287,145,MNE
+287,146,MNG
+287,147,MNP
+287,148,MOZ
+287,149,MRT
+287,150,MUS
+287,151,MWI
+287,152,MYS
+287,153,NAM
+287,154,NCL
+287,155,NER
+287,156,NGA
+287,157,NIC
+287,158,NLD
+287,159,NOR
+287,160,NPL
+287,161,NRU
+287,162,NZL
+287,163,OMN
+287,164,PAK
+287,165,PAN
+287,166,PER
+287,167,PHL
+287,168,PLW
+287,169,PNG
+287,170,POL
+287,171,PRI
+287,172,PRK
+287,173,PRT
+287,174,PRY
+287,175,PSE
+287,176,PYF
+287,177,QAT
+287,178,ROU
+287,179,RUS
+287,180,RWA
+287,181,SAU
+287,182,SDN
+287,183,SEN
+287,184,SGP
+287,185,SLB
+287,186,SLE
+287,187,SLV
+287,188,SMR
+287,189,SOM
+287,190,SRB
+287,191,SSD
+287,192,SSF
+287,193,STP
+287,194,SUR
+287,195,SVK
+287,196,SVN
+287,197,SWE
+287,198,SWZ
+287,199,SXM
+287,200,SYC
+287,201,SYR
+287,202,TCA
+287,203,TCD
+287,204,TGO
+287,205,THA
+287,206,TJK
+287,207,TKM
+287,208,TLS
+287,209,TON
+287,210,TTO
+287,211,TUN
+287,212,TUR
+287,213,TUV
+287,214,TWN
+287,215,TZA
+287,216,UGA
+287,217,UKR
+287,218,URY
+287,219,USA
+287,220,UZB
+287,221,VCT
+287,222,VEN
+287,223,VGB
+287,224,VIR
+287,225,VNM
+287,226,VUT
+287,227,WAV
+287,228,WMR
+287,229,WSM
+287,230,XKX
+287,231,YEM
+287,232,ZAF
+287,233,ZMB
+287,234,ZWE
+288,7,MEA
+288,8,NA
+288,9,income country
+288,10,income country
+288,11,income country
+288,12,income country
+288,13,LCN
+288,14,SAS
+288,15,SSF
+288,16,ECS
+288,17,ECS
+288,18,MEA
+288,19,LCN
+288,20,ECS
+288,21,EAS
+288,22,LCN
+288,23,EAS
+288,24,ECS
+288,25,ECS
+288,26,SSF
+288,27,ECS
+288,28,SSF
+288,29,SSF
+288,30,SAS
+288,31,ECS
+288,32,MEA
+288,33,LCN
+288,34,ECS
+288,35,ECS
+288,36,LCN
+288,37,NAC
+288,38,LCN
+288,39,LCN
+288,40,LCN
+288,41,EAS
+288,42,SAS
+288,43,SSF
+288,44,SSF
+288,45,NAC
+288,46,ECS
+288,47,ECS
+288,48,LCN
+288,49,EAS
+288,50,SSF
+288,51,SSF
+288,52,SSF
+288,53,SSF
+288,54,LCN
+288,55,SSF
+288,56,SSF
+288,57,LCN
+288,58,LCN
+288,59,LCN
+288,60,LCN
+288,61,ECS
+288,62,ECS
+288,63,ECS
+288,64,MEA
+288,65,LCN
+288,66,ECS
+288,67,LCN
+288,68,MEA
+288,69,LCN
+288,70,MEA
+288,71,SSF
+288,72,ECS
+288,73,ECS
+288,74,SSF
+288,75,ECS
+288,76,EAS
+288,77,ECS
+288,78,ECS
+288,79,EAS
+288,80,SSF
+288,81,ECS
+288,82,ECS
+288,83,SSF
+288,84,ECS
+288,85,SSF
+288,86,SSF
+288,87,SSF
+288,88,SSF
+288,89,ECS
+288,90,LCN
+288,91,ECS
+288,92,LCN
+288,93,EAS
+288,94,LCN
+288,95,N/A
+288,96,EAS
+288,97,LCN
+288,98,ECS
+288,99,LCN
+288,100,ECS
+288,101,EAS
+288,102,ECS
+288,103,SAS
+288,104,ECS
+288,105,MEA
+288,106,MEA
+288,107,ECS
+288,108,MEA
+288,109,ECS
+288,110,LCN
+288,111,MEA
+288,112,EAS
+288,113,ECS
+288,114,SSF
+288,115,ECS
+288,116,EAS
+288,117,EAS
+288,118,LCN
+288,119,EAS
+288,120,MEA
+288,121,EAS
+288,122,MEA
+288,123,SSF
+288,124,MEA
+288,125,LCN
+288,126,ECS
+288,127,SAS
+288,128,SSF
+288,129,ECS
+288,130,ECS
+288,131,ECS
+288,132,EAS
+288,133,LCN
+288,134,MEA
+288,135,ECS
+288,136,ECS
+288,137,SSF
+288,138,SAS
+288,139,LCN
+288,140,EAS
+288,141,ECS
+288,142,SSF
+288,143,MEA
+288,144,EAS
+288,145,ECS
+288,146,EAS
+288,147,EAS
+288,148,SSF
+288,149,SSF
+288,150,SSF
+288,151,SSF
+288,152,EAS
+288,153,SSF
+288,154,EAS
+288,155,SSF
+288,156,SSF
+288,157,LCN
+288,158,ECS
+288,159,ECS
+288,160,SAS
+288,161,EAS
+288,162,EAS
+288,163,MEA
+288,164,SAS
+288,165,LCN
+288,166,LCN
+288,167,EAS
+288,168,EAS
+288,169,EAS
+288,170,ECS
+288,171,LCN
+288,172,EAS
+288,173,ECS
+288,174,LCN
+288,175,MEA
+288,176,EAS
+288,177,MEA
+288,178,ECS
+288,179,ECS
+288,180,SSF
+288,181,MEA
+288,182,SSF
+288,183,SSF
+288,184,EAS
+288,185,EAS
+288,186,SSF
+288,187,LCN
+288,188,ECS
+288,189,SSF
+288,190,ECS
+288,191,SSF
+288,192,SSF
+288,193,SSF
+288,194,LCN
+288,195,ECS
+288,196,ECS
+288,197,ECS
+288,198,SSF
+288,199,LCN
+288,200,SSF
+288,201,MEA
+288,202,LCN
+288,203,SSF
+288,204,SSF
+288,205,EAS
+288,206,ECS
+288,207,ECS
+288,208,EAS
+288,209,EAS
+288,210,LCN
+288,211,MEA
+288,212,ECS
+288,213,EAS
+288,214,EAS
+288,215,SSF
+288,216,SSF
+288,217,ECS
+288,218,LCN
+288,219,NAC
+288,220,ECS
+288,221,LCN
+288,222,LCN
+288,223,LCN
+288,224,LCN
+288,225,EAS
+288,226,EAS
+288,227,NA
+288,228,NA
+288,229,EAS
+288,230,ECS
+288,231,MEA
+288,232,SSF
+288,233,SSF
+288,234,SSF
+289,7,LMIC
+289,8,NA
+289,9,LIC
+289,10,LMIC
+289,11,UMIC
+289,12,HIC
+289,13,HIC
+289,14,LIC
+289,15,LMIC
+289,16,UMIC
+289,17,HIC
+289,18,HIC
+289,19,HIC
+289,20,UMIC
+289,21,UMIC
+289,22,HIC
+289,23,HIC
+289,24,HIC
+289,25,UMIC
+289,26,LIC
+289,27,HIC
+289,28,LIC
+289,29,LIC
+289,30,LMIC
+289,31,UMIC
+289,32,HIC
+289,33,HIC
+289,34,UMIC
+289,35,UMIC
+289,36,UMIC
+289,37,HIC
+289,38,LMIC
+289,39,UMIC
+289,40,HIC
+289,41,HIC
+289,42,LMIC
+289,43,UMIC
+289,44,LIC
+289,45,HIC
+289,46,HIC
+289,47,HIC
+289,48,HIC
+289,49,UMIC
+289,50,LMIC
+289,51,LMIC
+289,52,LIC
+289,53,LMIC
+289,54,UMIC
+289,55,LIC
+289,56,LMIC
+289,57,UMIC
+289,58,UMIC
+289,59,HIC
+289,60,HIC
+289,61,HIC
+289,62,HIC
+289,63,HIC
+289,64,LMIC
+289,65,UMIC
+289,66,HIC
+289,67,UMIC
+289,68,UMIC
+289,69,UMIC
+289,70,LMIC
+289,71,LIC
+289,72,HIC
+289,73,HIC
+289,74,LIC
+289,75,HIC
+289,76,UMIC
+289,77,HIC
+289,78,HIC
+289,79,LMIC
+289,80,UMIC
+289,81,HIC
+289,82,LMIC
+289,83,LMIC
+289,84,HIC
+289,85,LIC
+289,86,LIC
+289,87,LIC
+289,88,UMIC
+289,89,HIC
+289,90,UMIC
+289,91,HIC
+289,92,UMIC
+289,93,HIC
+289,94,UMIC
+289,95,HIC
+289,96,HIC
+289,97,LMIC
+289,98,HIC
+289,99,LIC
+289,100,HIC
+289,101,LMIC
+289,102,HIC
+289,103,LMIC
+289,104,HIC
+289,105,UMIC
+289,106,UMIC
+289,107,HIC
+289,108,HIC
+289,109,HIC
+289,110,UMIC
+289,111,UMIC
+289,112,HIC
+289,113,UMIC
+289,114,LMIC
+289,115,LMIC
+289,116,LMIC
+289,117,LMIC
+289,118,HIC
+289,119,HIC
+289,120,HIC
+289,121,LMIC
+289,122,UMIC
+289,123,LIC
+289,124,UMIC
+289,125,UMIC
+289,126,HIC
+289,127,LMIC
+289,128,LMIC
+289,129,HIC
+289,130,HIC
+289,131,HIC
+289,132,HIC
+289,133,HIC
+289,134,LMIC
+289,135,HIC
+289,136,LMIC
+289,137,LIC
+289,138,UMIC
+289,139,UMIC
+289,140,UMIC
+289,141,UMIC
+289,142,LIC
+289,143,HIC
+289,144,LMIC
+289,145,UMIC
+289,146,LMIC
+289,147,HIC
+289,148,LIC
+289,149,LMIC
+289,150,UMIC
+289,151,LIC
+289,152,UMIC
+289,153,UMIC
+289,154,HIC
+289,155,LIC
+289,156,LMIC
+289,157,LMIC
+289,158,HIC
+289,159,HIC
+289,160,LIC
+289,161,UMIC
+289,162,HIC
+289,163,HIC
+289,164,LMIC
+289,165,HIC
+289,166,UMIC
+289,167,LMIC
+289,168,HIC
+289,169,LMIC
+289,170,HIC
+289,171,HIC
+289,172,LIC
+289,173,HIC
+289,174,UMIC
+289,175,LMIC
+289,176,HIC
+289,177,HIC
+289,178,UMIC
+289,179,UMIC
+289,180,LIC
+289,181,HIC
+289,182,LMIC
+289,183,LIC
+289,184,HIC
+289,185,LMIC
+289,186,LIC
+289,187,LMIC
+289,188,HIC
+289,189,LIC
+289,190,UMIC
+289,191,LIC
+289,192,N/A
+289,193,LMIC
+289,194,UMIC
+289,195,HIC
+289,196,HIC
+289,197,HIC
+289,198,LMIC
+289,199,HIC
+289,200,HIC
+289,201,LIC
+289,202,HIC
+289,203,LIC
+289,204,LIC
+289,205,UMIC
+289,206,LIC
+289,207,UMIC
+289,208,LMIC
+289,209,UMIC
+289,210,HIC
+289,211,LMIC
+289,212,UMIC
+289,213,UMIC
+289,214,HIC
+289,215,LIC
+289,216,LIC
+289,217,LMIC
+289,218,HIC
+289,219,HIC
+289,220,LMIC
+289,221,UMIC
+289,222,UMIC
+289,223,HIC
+289,224,HIC
+289,225,LMIC
+289,226,LMIC
+289,227,NA
+289,228,NA
+289,229,UMIC
+289,230,LMIC
+289,231,LIC
+289,232,UMIC
+289,233,LMIC
+289,234,LIC
+290,2,Elasticity-based power-sector key parameters:
+290,4,Fuel
+290,5,Sector
+290,6,Code (for this sheet only)
+290,7,Parameter used
+290,8,Used for most countries
+291,2,Annual generation productivity improvements
+292,2,Annual change in productivity of generation by:
+293,2,- coal
+293,3,Productivity gains
+293,4,Oil
+293,5,Power
+293,6,eff_imp_gen_coa
+294,2,- natural gas
+294,3,Productivity gains
+294,4,Natural Gas
+294,5,Power
+294,6,eff_imp_gen_nga
+295,2,- oil
+295,3,Productivity gains
+295,4,Oil
+295,5,Power
+295,6,eff_imp_gen_oil
+296,2,- nuclear
+296,3,Productivity gains
+296,4,Nuclear
+296,5,Power
+296,6,eff_imp_gen_nuc
+297,2,- wind
+297,3,Productivity gains
+297,4,Wind
+297,5,Power
+297,6,eff_imp_gen_wnd
+298,2,- solar
+298,3,Productivity gains
+298,4,Solar
+298,5,Power
+298,6,eff_imp_gen_sol
+299,2,- hydro
+299,3,Productivity gains
+299,4,Hydro
+299,5,Power
+299,6,eff_imp_gen_hyd
+300,2,- other renewables
+300,3,Productivity gains
+300,4,Other Renewables
+300,5,Power
+300,6,eff_imp_gen_ore
+301,2,- biomass
+301,3,Productivity gains
+301,4,Biomass
+301,5,Power
+301,6,eff_imp_gen_bio
+302,2,Generation costs
+303,2,Unit transmission costs for electricity
+303,6,trans_elec
+304,2,Non-fuel unit cost of generation for:
+305,2,- coal (% costs not from fuels)
+305,3,Non-fuel costs
+305,4,Coal
+305,5,Power
+305,6,nfc.coa.pow
+306,2,- natural gas (% costs not from fuels)
+306,3,Non-fuel costs
+306,4,Natural Gas
+306,5,Power
+306,6,nfc.nga.pow
+307,2, - oil (% costs not from fuels)
+307,3,Non-fuel costs
+307,4,Oil
+307,5,Power
+307,6,nfc.oil.pow
+308,2,- nuclear ($/kwh costs not from fuels)
+308,3,Non-fuel costs
+308,4,Nuclear
+308,5,Power
+308,6,nfc.nuc.pow
+309,2,- wind ($/kwh costs not from fuels)
+309,3,Non-fuel costs
+309,4,Wind
+309,5,Power
+309,6,nfc.wnd.pow
+310,2,- solar ($/kwh costs not from fuels)
+310,3,Non-fuel costs
+310,4,Solar
+310,5,Power
+310,6,nfc.sol.pow
+311,2,- other renewables ($/kwh costs not from fuels)
+311,3,Non-fuel costs
+311,4,Other Renewables
+311,5,Power
+311,6,nfc.ore.pow
+312,2,- hydro ($/kwh costs not from fuels)
+312,3,Non-fuel costs
+312,4,Hydro
+312,5,Power
+312,6,nfc.hyd.pow
+313,2,- biomass ($/kwh costs not from fuels)
+313,3,Non-fuel costs
+313,4,Biomass
+313,5,Power
+313,6,nfc.bio.pow
+314,2,Conditional price elasticities
+315,2,- coal
+315,3,"Price, conditional"
+315,4,Coal
+315,5,Power
+315,6,elo.coa.pow
+316,2,- natural gas
+316,3,"Price, conditional"
+316,4,Natural Gas
+316,5,Power
+316,6,elo.nga.pow
+317,2,- oil
+317,3,"Price, conditional"
+317,4,Oil
+317,5,Power
+317,6,elo.oop.pow
+318,2,- nuclear
+318,3,"Price, conditional"
+318,4,Nuclear
+318,5,Power
+318,6,elo.nuc.pow
+319,2,- renewables
+319,3,"Price, conditional"
+319,4,Renewables
+319,5,Power
+319,6,elo.ren.pow
+320,2,- hydro
+320,3,"Price, conditional"
+320,4,Hydro
+320,5,Power
+320,6,elo.hyd.pow
+321,2,- biomass
+321,3,"Price, conditional"
+321,4,Biomass
+321,5,Power
+321,6,elo.bio.pow

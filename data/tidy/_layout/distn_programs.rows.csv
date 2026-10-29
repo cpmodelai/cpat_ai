@@ -1,0 +1,23 @@
+_row,key
+0,infra|All Infr.
+1,infra|ICT Infr.
+2,infra|Electricity Infr.
+3,infra|Water Infr.
+4,infra|Sanitation Infr.
+5,infra|Public Transport Infr.
+6,aspire|Active Labor Market
+7,aspire|All Labor Market
+8,aspire|All Social Assistance
+9,aspire|All Social Insurance
+10,aspire|All Social Protection and Labor
+11,aspire|Cash Transfers
+12,aspire|Conditional Cash Transfers
+13,aspire|Contributory Pensions
+14,aspire|Fee waivers and targeted subsidies
+15,aspire|In-Kind
+16,aspire|Other Social Assistance
+17,aspire|Other Social Insurance
+18,aspire|Passive Labor Market
+19,aspire|Public Works
+20,aspire|School Feeding
+21,aspire|Social Pensions

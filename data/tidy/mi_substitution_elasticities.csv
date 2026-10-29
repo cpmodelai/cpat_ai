@@ -1,0 +1,13 @@
+item,code,sector,value
+Biomass wrt LPG in residential,el_cro_bio_lpg_res,Transport,na
+Biomass wrt LPG in residential,el_cro_bio_lpg_res,Residential,-0.4
+Biomass wrt LPG in residential,el_cro_bio_lpg_res,Industries,na
+Biomass wrt LPG in residential,el_cro_bio_lpg_res,Services,na
+Biomass wrt kerosene in residential,el_cro_bio_ker_res,Transport,na
+Biomass wrt kerosene in residential,el_cro_bio_ker_res,Residential,-0.7
+Biomass wrt kerosene in residential,el_cro_bio_ker_res,Industries,na
+Biomass wrt kerosene in residential,el_cro_bio_ker_res,Services,na
+Gasoline wrt diesel,el_cro_bio_die_res,Transport,na
+Gasoline wrt diesel,el_cro_bio_die_res,Residential,-0.5
+Gasoline wrt diesel,el_cro_bio_die_res,Industries,na
+Gasoline wrt diesel,el_cro_bio_die_res,Services,na

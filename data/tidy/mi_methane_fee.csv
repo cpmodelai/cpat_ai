@@ -1,0 +1,22 @@
+parameter,unit,variable,value
+Reduction in intensity due to autonomous technological improvement - oil and natural gas,% per year,value,0.0025
+Reduction in intensity due to autonomous technological improvement - oil and natural gas,% per year,note,calibrated using US EPA data
+Reduction in intensity due to autonomous technological improvement - coal,% per year,value,0
+Reduction in intensity due to autonomous technological improvement - coal,% per year,note,"calibrated using US EPA data; updated upward for coal since it a larger share is expected to be extracted from underground pits, which have much higher emissions-intensity than open pits"
+Reduction in intensity due to autonomous technological improvement - agriculture,% per year,value,0.004718965301776614
+Reduction in intensity due to autonomous technological improvement - agriculture,% per year,note,calibrated using US EPA data
+Reduction in intensity due to autonomous technological improvement - waste,% per year,value,0.005
+Reduction in intensity due to autonomous technological improvement - waste,% per year,note,calibrated using US EPA data
+"Elasticity of demand w/r/price - oil, average",factor,value,-0.3
+"Elasticity of demand w/r/price - oil, average",factor,note,"global average, since products are assumed to be internationally traded"
+"Elasticity of demand w/r/price - coal, average",factor,value,-0.43256856000000005
+"Elasticity of demand w/r/price - coal, average",factor,note,"global average, since products are assumed to be internationally traded"
+"Elasticity of demand w/r/price - natural gas, average",factor,value,-0.46290222
+"Elasticity of demand w/r/price - natural gas, average",factor,note,"global average, since products are assumed to be internationally traded"
+Pass-through of methane fee on fossil fuels to consumers,%,value,0
+Pass-through of methane fee on fossil fuels to consumers,%,note,"100% means that all costs are passed-through (and demand declines), 0% means that producers incur all costs"
+Methane fee applies to biomass,option,value,No
+Methane fee applies to downstream gas,option,value,Yes
+Methane fee applies to fossil fuel production,option,value,Yes
+Methane fee applies to agriculture,option,value,Yes
+Methane fee applies to waste,option,value,Yes

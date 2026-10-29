@@ -1,0 +1,47 @@
+name,code,variable,value
+Arab World,ARB,seq,1
+Caribbean small states,CSS,seq,2
+Central Europe and the Baltics,CEB,seq,3
+Early-demographic dividend,EAR,seq,4
+East Asia & Pacific,EAS,seq,5
+East Asia & Pacific (excluding high income),EAP,seq,6
+East Asia & Pacific (IDA & IBRD),TEA,seq,7
+Euro area,EMU,seq,8
+Europe & Central Asia,ECS,seq,9
+Europe & Central Asia (excluding high income),ECA,seq,10
+Europe & Central Asia (IDA & IBRD),TEC,seq,11
+European Union,EUU,seq,12
+Fragile and conflict affected situations,FCS,seq,13
+Heavily indebted poor countries (HIPC),HPC,seq,14
+High income,HIC,seq,15
+IBRD only,IBD,seq,16
+IDA & IBRD total,IBT,seq,17
+IDA blend,IDB,seq,18
+IDA only,IDX,seq,19
+IDA total,IDA,seq,20
+Late-demographic dividend,LTE,seq,21
+Latin America & Caribbean,LCN,seq,22
+Latin America & Caribbean (excluding high income),LAC,seq,23
+Latin America & Caribbean (IDA & IBRD),TLA,seq,24
+Least developed countries: UN classification,LDC,seq,25
+Low & middle income,LMY,seq,26
+Low income,LIC,seq,27
+Lower middle income,LMC,seq,28
+Middle East & North Africa,MEA,seq,29
+Middle East & North Africa (excluding high income),MNA,seq,30
+Middle East & North Africa (IDA & IBRD),TMN,seq,31
+Middle income,MIC,seq,32
+North America,NAC,seq,33
+OECD members,OED,seq,34
+Other small states,OSS,seq,35
+Pacific island small states,PSS,seq,36
+Post-demographic dividend,PST,seq,37
+Pre-demographic dividend,PRE,seq,38
+Small states,SST,seq,39
+South Asia,SAS,seq,40
+South Asia (IDA & IBRD),TSA,seq,41
+Sub-Saharan Africa,SSF,seq,42
+Sub-Saharan Africa (excluding high income),SSA,seq,43
+Sub-Saharan Africa (IDA & IBRD),TSS,seq,44
+Upper middle income,UMC,seq,45
+World,WLD,seq,46

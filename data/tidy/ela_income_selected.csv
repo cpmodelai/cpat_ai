@@ -1,0 +1,65 @@
+type,fuel,sector,code,variable,value
+Income,Coal,Transport,coa_inc_tot,Elasticity used,0
+Income,Coal,Transport,coa_inc_tot,Standard deviation,0.06
+Income,Natural Gas,Transport,nga_inc_tot,Elasticity used,0.5
+Income,Natural Gas,Transport,nga_inc_tot,Standard deviation,0.06
+Income,Gasoline,Transport,oil_inc_res,Elasticity used,0.7
+Income,Gasoline,Transport,oil_inc_res,Standard deviation,0.06
+Income,Diesel,Transport,bio_inc_res,Elasticity used,0.6
+Income,Diesel,Transport,bio_inc_res,Standard deviation,0.06
+Income,Oil Products,Transport,oil_inc_tot,Elasticity used,0.8
+Income,Oil Products,Transport,oil_inc_tot,Standard deviation,0.06
+Income,Biomass,Transport,die_inc_res,Elasticity used,0
+Income,Biomass,Transport,die_inc_res,Standard deviation,0
+Income,Renewables,Transport,rnw_inc_tot,Elasticity used,1
+Income,Renewables,Transport,rnw_inc_tot,Standard deviation,0.06
+Income,Electricity,Transport,ecy_inc_tot,Elasticity used,1.2
+Income,Electricity,Transport,ecy_inc_tot,Standard deviation,0.06
+Income,Coal,Residential,coa_inc_res,Elasticity used,0.3
+Income,Coal,Residential,coa_inc_res,Standard deviation,0.08
+Income,Natural Gas,Residential,nga_inc_res,Elasticity used,0.3
+Income,Natural Gas,Residential,nga_inc_res,Standard deviation,0.08
+Income,Gasoline,Residential,oil_inc_res,Elasticity used,0.5
+Income,Gasoline,Residential,oil_inc_res,Standard deviation,0.08
+Income,Diesel,Residential,bio_inc_res,Elasticity used,0.5
+Income,Diesel,Residential,bio_inc_res,Standard deviation,0.08
+Income,Oil Products,Residential,oil_inc_res,Elasticity used,0.5
+Income,Oil Products,Residential,oil_inc_res,Standard deviation,0.08
+Income,Biomass,Residential,bio_inc_res,Elasticity used,0.1
+Income,Biomass,Residential,bio_inc_res,Standard deviation,0.09000000000000001
+Income,Renewables,Residential,rnw_inc_tot,Elasticity used,0.8
+Income,Renewables,Residential,rnw_inc_tot,Standard deviation,0.08
+Income,Electricity,Residential,ecy_inc_res,Elasticity used,0.8
+Income,Electricity,Residential,ecy_inc_res,Standard deviation,0.08
+Income,Coal,Industry,coa_inc_ind,Elasticity used,0.5
+Income,Coal,Industry,coa_inc_ind,Standard deviation,0.1
+Income,Natural Gas,Industry,nga_inc_ind,Elasticity used,1
+Income,Natural Gas,Industry,nga_inc_ind,Standard deviation,0.1
+Income,Gasoline,Industry,oil_inc_res,Elasticity used,0.5
+Income,Gasoline,Industry,oil_inc_res,Standard deviation,0.1
+Income,Diesel,Industry,die_inc_res,Elasticity used,0.5
+Income,Diesel,Industry,die_inc_res,Standard deviation,0.1
+Income,Oil Products,Industry,oil_inc_ind,Elasticity used,0.8
+Income,Oil Products,Industry,oil_inc_ind,Standard deviation,0.1
+Income,Biomass,Industry,bio_inc_res,Elasticity used,0.1
+Income,Biomass,Industry,bio_inc_res,Standard deviation,0.09000000000000001
+Income,Renewables,Industry,rnw_inc_tot,Elasticity used,0.8
+Income,Renewables,Industry,rnw_inc_tot,Standard deviation,0.1
+Income,Electricity,Industry,ecy_inc_ind,Elasticity used,0.8
+Income,Electricity,Industry,ecy_inc_ind,Standard deviation,0.1
+Income,Coal,Services,coa_inc_srv,Elasticity used,0.7
+Income,Coal,Services,coa_inc_srv,Standard deviation,0.13
+Income,Natural Gas,Services,nga_inc_srv,Elasticity used,1
+Income,Natural Gas,Services,nga_inc_srv,Standard deviation,0.13
+Income,Gasoline,Services,oil_inc_res,Elasticity used,0.5
+Income,Gasoline,Services,oil_inc_res,Standard deviation,0.13
+Income,Diesel,Services,die_inc_res,Elasticity used,0.5
+Income,Diesel,Services,die_inc_res,Standard deviation,0.13
+Income,Oil Products,Services,oil_inc_srv,Elasticity used,1.2
+Income,Oil Products,Services,oil_inc_srv,Standard deviation,0.13
+Income,Biomass,Services,bio_inc_res,Elasticity used,0.1
+Income,Biomass,Services,bio_inc_res,Standard deviation,0.09000000000000001
+Income,Renewables,Services,rnw_inc_tot,Elasticity used,1
+Income,Renewables,Services,rnw_inc_tot,Standard deviation,0.13
+Income,Electricity,Services,ecy_inc_srv,Elasticity used,1.1
+Income,Electricity,Services,ecy_inc_srv,Standard deviation,0.13

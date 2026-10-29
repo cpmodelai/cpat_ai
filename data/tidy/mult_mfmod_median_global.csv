@@ -1,0 +1,97 @@
+instrument,instrument_name,lag,value
+EXC,Excise taxes (EXC),0,0
+EXC,Excise taxes (EXC),1,0.53
+EXC,Excise taxes (EXC),2,0.62
+EXC,Excise taxes (EXC),3,0.64
+EXC,Excise taxes (EXC),4,0.57
+EXC,Excise taxes (EXC),5,0.48
+EXC,Excise taxes (EXC),6,0.4
+EXC,Excise taxes (EXC),7,0.4
+EXC,Excise taxes (EXC),8,0.33
+EXC,Excise taxes (EXC),9,0.26
+EXC,Excise taxes (EXC),10,0.24
+EXC,Excise taxes (EXC),11,0.24
+PIT,Personal income tax (PIT),0,0
+PIT,Personal income tax (PIT),1,0.25
+PIT,Personal income tax (PIT),2,0.24
+PIT,Personal income tax (PIT),3,0.28
+PIT,Personal income tax (PIT),4,0.32
+PIT,Personal income tax (PIT),5,0.34
+PIT,Personal income tax (PIT),6,0.35
+PIT,Personal income tax (PIT),7,0.34
+PIT,Personal income tax (PIT),8,0.32
+PIT,Personal income tax (PIT),9,0.31
+PIT,Personal income tax (PIT),10,0.28
+PIT,Personal income tax (PIT),11,0.26
+CIT,Corporate income tax (CIT),0,0
+CIT,Corporate income tax (CIT),1,0.05
+CIT,Corporate income tax (CIT),2,0.09
+CIT,Corporate income tax (CIT),3,0.1
+CIT,Corporate income tax (CIT),4,0.1
+CIT,Corporate income tax (CIT),5,0.11
+CIT,Corporate income tax (CIT),6,0.11
+CIT,Corporate income tax (CIT),7,0.11
+CIT,Corporate income tax (CIT),8,0.11
+CIT,Corporate income tax (CIT),9,0.13
+CIT,Corporate income tax (CIT),10,0.13
+CIT,Corporate income tax (CIT),11,0.13
+VAT,Sales tax (VAT),0,0
+VAT,Sales tax (VAT),1,0.43
+VAT,Sales tax (VAT),2,0.48
+VAT,Sales tax (VAT),3,0.48
+VAT,Sales tax (VAT),4,0.47
+VAT,Sales tax (VAT),5,0.46
+VAT,Sales tax (VAT),6,0.46
+VAT,Sales tax (VAT),7,0.44
+VAT,Sales tax (VAT),8,0.43
+VAT,Sales tax (VAT),9,0.42
+VAT,Sales tax (VAT),10,0.41
+VAT,Sales tax (VAT),11,0.39
+CAPT,Capital expenditures (CAPT),0,0
+CAPT,Capital expenditures (CAPT),1,0.6
+CAPT,Capital expenditures (CAPT),2,0.65
+CAPT,Capital expenditures (CAPT),3,0.65
+CAPT,Capital expenditures (CAPT),4,0.64
+CAPT,Capital expenditures (CAPT),5,0.65
+CAPT,Capital expenditures (CAPT),6,0.68
+CAPT,Capital expenditures (CAPT),7,0.74
+CAPT,Capital expenditures (CAPT),8,0.79
+CAPT,Capital expenditures (CAPT),9,0.86
+CAPT,Capital expenditures (CAPT),10,0.89
+CAPT,Capital expenditures (CAPT),11,0.93
+GNFS,Expenditures on goods and services (GNFS),0,0
+GNFS,Expenditures on goods and services (GNFS),1,0.53
+GNFS,Expenditures on goods and services (GNFS),2,0.47
+GNFS,Expenditures on goods and services (GNFS),3,0.47
+GNFS,Expenditures on goods and services (GNFS),4,0.43
+GNFS,Expenditures on goods and services (GNFS),5,0.41
+GNFS,Expenditures on goods and services (GNFS),6,0.39
+GNFS,Expenditures on goods and services (GNFS),7,0.38
+GNFS,Expenditures on goods and services (GNFS),8,0.37
+GNFS,Expenditures on goods and services (GNFS),9,0.37
+GNFS,Expenditures on goods and services (GNFS),10,0.36
+GNFS,Expenditures on goods and services (GNFS),11,0.35
+TRNS,Transfers (TRNS),0,0
+TRNS,Transfers (TRNS),1,0.25
+TRNS,Transfers (TRNS),2,0.3
+TRNS,Transfers (TRNS),3,0.35
+TRNS,Transfers (TRNS),4,0.38
+TRNS,Transfers (TRNS),5,0.38
+TRNS,Transfers (TRNS),6,0.36
+TRNS,Transfers (TRNS),7,0.34
+TRNS,Transfers (TRNS),8,0.35
+TRNS,Transfers (TRNS),9,0.33
+TRNS,Transfers (TRNS),10,0.31
+TRNS,Transfers (TRNS),11,0.3
+WAGE,Wage expenditures (WAGE),0,0
+WAGE,Wage expenditures (WAGE),1,0.83
+WAGE,Wage expenditures (WAGE),2,0.83
+WAGE,Wage expenditures (WAGE),3,0.83
+WAGE,Wage expenditures (WAGE),4,0.82
+WAGE,Wage expenditures (WAGE),5,0.81
+WAGE,Wage expenditures (WAGE),6,0.79
+WAGE,Wage expenditures (WAGE),7,0.71
+WAGE,Wage expenditures (WAGE),8,0.68
+WAGE,Wage expenditures (WAGE),9,0.65
+WAGE,Wage expenditures (WAGE),10,0.66
+WAGE,Wage expenditures (WAGE),11,0.68

@@ -1,0 +1,637 @@
+row,col,value
+3,2,Instructions to update:
+4,2,1. Go to the relevant link for each data source
+5,2,2. Find the latest data and update!
+6,1,.
+6,2,Data - World Bank Commodity Price Forecasts (The Pink Sheet) October 2024
+7,6,Source:
+7,7,https://www.worldbank.org/en/research/commodity-markets
+8,5,World Bank Commodities Price Forecast (nominal US dollars)
+9,5,Released: October 2024
+11,5,Commodity
+11,7,Unit
+11,12,1999
+11,13,2000
+11,14,2001
+11,15,2002
+11,16,2003
+11,17,2004
+11,18,2005
+11,19,2006
+11,20,2007
+11,21,2008
+11,22,2009
+11,23,2010
+11,24,2011
+11,25,2012
+11,26,2013
+11,27,2014
+11,28,2015
+11,29,2016
+11,30,2017
+11,31,2018
+11,32,2019
+11,33,2020
+11,34,2021
+11,35,2022
+11,36,2023
+11,37,2024
+11,38,2025
+11,39,2026
+11,40,2027
+11,41,2028
+11,42,2029
+11,43,2030
+11,44,2031
+11,45,2032
+11,46,2033
+11,47,2034
+11,48,2035
+12,5,Energy
+13,5,"Crude oil, Brent"
+13,7,$/bbl
+14,5,"Coal, Australia"
+14,7,$/mt
+15,5,"Natural gas, Europe"
+15,7,$/mmbtu
+16,5,"Natural gas, US"
+16,7,$/mmbtu
+17,5,"Liquefied natural gas, Japan"
+17,7,$/mmbtu
+20,1,.
+20,2,"Data - IMF, World Economic Outlook: April 2026"
+21,6,Source:
+23,5,WEO Country Group Code
+23,6,WEO Subject Code
+23,7,Country Group Name
+23,8,Subject Descriptor
+23,9,Units
+23,10,Scale
+23,11,Series-specific Notes
+23,12,1999
+23,13,2000
+23,14,2001
+23,15,2002
+23,16,2003
+23,17,2004
+23,18,2005
+23,19,2006
+23,20,2007
+23,21,2008
+23,22,2009
+23,23,2010
+23,24,2011
+23,25,2012
+23,26,2013
+23,27,2014
+23,28,2015
+23,29,2016
+23,30,2017
+23,31,2018
+23,32,2019
+23,33,2020
+23,34,2021
+23,35,2022
+23,36,2023
+23,37,2024
+23,38,2025
+23,39,2026
+23,40,2027
+23,41,2028
+23,42,2029
+23,43,2030
+23,44,2031
+24,5,1
+24,6,POILBRE
+25,5,1
+25,6,PNGASEU
+26,5,1
+26,6,PNGASJP
+27,5,1
+27,6,PNGASUS
+28,5,1
+28,6,PCOALAU
+29,5,1
+29,6,PCOALSA
+31,6,Average coal
+34,1,.
+34,2,"Data - IEA, World Energy Outlook - 2024"
+35,6,Source: IEA WEO 2024
+35,7,https://www.iea.org/reports
+35,9,"Table Prices, Stated Policies Scenario (STEPS)"
+35,13,IMF WEO
+35,14,forecast
+35,15,interpolation
+36,7,"International Energy Agency, World Energy Outlook"
+36,12,1999
+36,13,2000
+36,14,2001
+36,15,2002
+36,16,2003
+36,17,2004
+36,18,2005
+36,19,2006
+36,20,2007
+36,21,2008
+36,22,2009
+36,23,2010
+36,24,2011
+36,25,2012
+36,26,2013
+36,27,2014
+36,28,2015
+36,29,2016
+36,30,2017
+36,31,2018
+36,32,2019
+36,33,2020
+36,34,2021
+36,35,2022
+36,36,2023
+36,37,2024
+36,38,2025
+36,39,2026
+36,40,2027
+36,41,2028
+36,42,2029
+36,43,2030
+36,44,2031
+36,45,2032
+36,46,2033
+36,47,2034
+36,48,2035
+36,49,2036
+36,50,2037
+36,51,2038
+36,52,2039
+36,53,2040
+37,7,IEA
+37,8,Crude Oil
+37,9,$/bbl nom
+37,11,"Crude oil, avg"
+38,8,Coal
+38,9,$/ton nom
+38,11,"Coal, Australia"
+39,8,Natural Gas - LNG
+39,9,$/MMBtu nom
+39,11,"Natural gas, Europe"
+40,8,Natural Gas - North Am
+40,9,$/MMBtu nom
+40,11,"Natural gas, US"
+41,8,Natural Gas - Europe
+41,9,$/MMBtu nom
+41,11,"Liquefied natural gas, Japan"
+43,8,US CPI
+45,1,.
+45,2,"Data - EIA, International Energy Outlook - 2023"
+46,6,Source: Annual Energy Outlook 2023
+46,8,https://www.eia.gov/outlooks/aeo/tables_ref.php
+46,12,forecast
+47,8,Short ton to metric conversion
+49,7,"US Energy Information Administration, International Energy Outlook "
+49,12,1999
+49,13,2000
+49,14,2001
+49,15,2002
+49,16,2003
+49,17,2004
+49,18,2005
+49,19,2006
+49,20,2007
+49,21,2008
+49,22,2009
+49,23,2010
+49,24,2011
+49,25,2012
+49,26,2013
+49,27,2014
+49,28,2015
+49,29,2016
+49,30,2017
+49,31,2018
+49,32,2019
+49,33,2020
+49,34,2021
+49,35,2022
+49,36,2023
+49,37,2024
+49,38,2025
+49,39,2026
+49,40,2027
+49,41,2028
+49,42,2029
+49,43,2030
+49,44,2031
+49,45,2032
+49,46,2033
+49,47,2034
+49,48,2035
+49,49,2036
+49,50,2037
+49,51,2038
+49,52,2039
+49,53,2040
+49,54,2041
+49,55,2042
+49,56,2043
+49,57,2044
+49,58,2045
+49,59,2046
+49,60,2047
+49,61,2048
+49,62,2049
+49,63,2050
+50,7,EIA
+50,8,Crude Oil (Brent)
+50,9,$/bbl nom
+51,8,Coal (metric ton)
+51,9,$/ton nom
+52,8,Natural Gas - LNG
+52,9,$/MMBtu nom
+53,8,Natural Gas - North Am (Henry hub)
+53,9,$/MMBtu nom
+54,8,Natural Gas - Europe
+54,9,$/MMBtu nom
+56,8,Coal Supply: Delivered Prices: Average: Reference case ($nom/st)
+59,1,.
+59,2,Regional assumptions
+61,7,Country
+61,8,Baseline taxes are ad-valorem or fixed?
+61,9,Natural gas market assumption
+62,7,Angola
+63,7,Afghanistan
+64,7,American Samoa
+65,7,Andorra
+66,7,Antigua and Barbuda
+67,7,Aruba
+68,7,"Bahamas, The"
+69,7,Barbados
+70,7,Benin
+71,7,Belize
+72,7,Bermuda
+73,7,Bhutan
+74,7,British Virgin Islands
+75,7,Botswana
+76,7,Cameroon
+77,7,Cayman Islands
+78,7,Central African Republic
+79,7,Chad
+80,7,Channel Islands
+81,7,Burkina Faso
+82,7,Burundi
+83,7,Cabo Verde
+84,7,"Congo, Democratic Republic of the"
+85,7,"Congo, Republic of"
+86,7,Comoros
+87,7,Côte d'Ivoire
+88,7,Cuba
+89,7,Curaçao
+90,7,Djibouti
+91,7,Dominica
+92,7,Eritrea
+93,7,Ethiopia
+94,7,Gabon
+95,7,Ghana
+96,7,Kenya
+97,7,Mauritius
+98,7,Mozambique
+99,7,Namibia
+100,7,Niger
+101,7,Nigeria
+102,7,Rwanda
+103,7,Senegal
+104,7,South Africa
+105,7,South Sudan
+106,7,Tanzania
+107,7,Togo
+108,7,Zambia
+109,7,Zimbabwe
+110,7,Australia
+111,7,Bangladesh
+112,7,Brunei Darussalam
+113,7,Cambodia
+114,7,China
+115,7,Hong Kong SAR
+116,7,India
+117,7,Indonesia
+118,7,Japan
+119,7,Korea
+120,7,Malaysia
+121,7,Mongolia
+122,7,Myanmar
+123,7,Nepal
+124,7,New Zealand
+125,7,Philippines
+126,7,Singapore
+127,7,Sri Lanka
+128,7,Thailand
+129,7,Vietnam
+130,7,Albania
+131,7,Austria
+132,7,Belarus
+133,7,Belgium
+134,7,Bosnia and Herzegovina
+135,7,Bulgaria
+136,7,Croatia
+137,7,Cyprus
+138,7,Czechia
+139,7,Denmark
+140,7,Estonia
+141,7,Equatorial Guinea
+142,7,Faroe Islands
+143,7,Fiji
+144,7,Finland
+145,7,France
+146,7,Germany
+147,7,Greece
+148,7,Hungary
+149,7,Iceland
+150,7,Ireland
+151,7,Israel
+152,7,Italy
+153,7,Kosovo
+154,7,Latvia
+155,7,Lithuania
+156,7,Luxembourg
+157,7,North Macedonia
+158,7,Malta
+159,7,Moldova
+160,7,"Montenegro, Rep. of"
+161,7,Netherlands
+162,7,Norway
+163,7,Poland
+164,7,French Polynesia
+165,7,"Gambia, The"
+166,7,Gibraltar
+167,7,Greenland
+168,7,Grenada
+169,7,Guam
+170,7,Guinea
+171,7,Guinea-Bissau
+172,7,Guyana
+173,7,Isle of Man
+174,7,Kiribati
+175,7,"Korea, Dem. People's Rep."
+176,7,Lao P.D.R.
+177,7,Lesotho
+178,7,Liberia
+179,7,Liechtenstein
+180,7,Macao SAR
+181,7,Madagascar
+182,7,Malawi
+183,7,Maldives
+184,7,Mali
+185,7,Marshall Islands
+186,7,Mauritania
+187,7,Micronesia
+188,7,Monaco
+189,7,Nauru
+190,7,New Caledonia
+191,7,Northern Mariana Islands
+192,7,Palau
+193,7,Papua New Guinea
+194,7,Puerto Rico
+195,7,Samoa
+196,7,San Marino
+197,7,São Tomé and Príncipe
+198,7,Seychelles
+199,7,Sierra Leone
+200,7,Sint Maarten (Dutch part)
+201,7,Solomon Islands
+202,7,Somalia
+203,7,St. Kitts and Nevis
+204,7,St. Lucia
+205,7,St. Martin (French part)
+206,7,St. Vincent and the Grenadines
+207,7,Eswatini
+208,7,Syria
+209,7,Taiwan Province of China
+210,7,Timor-Leste
+211,7,Tonga
+212,7,Turks and Caicos Islands
+213,7,Tuvalu
+214,7,Uganda
+215,7,Vanuatu
+216,7,Virgin Islands (U.S.)
+217,7,West Bank and Gaza
+218,7,Portugal
+219,7,Romania
+220,7,Russia
+221,7,Serbia
+222,7,Slovak Republic
+223,7,Slovenia
+224,7,Spain
+225,7,Sweden
+226,7,Switzerland
+227,7,Turkiye
+228,7,Ukraine
+229,7,United Kingdom
+230,7,Algeria
+231,7,Armenia
+232,7,Azerbaijan
+233,7,Bahrain
+234,7,Egypt
+235,7,Georgia
+236,7,Iran
+237,7,Iraq
+238,7,Jordan
+239,7,Kazakhstan
+240,7,Kuwait
+241,7,Kyrgyz Republic
+242,7,Lebanon
+243,7,Libya
+244,7,Morocco
+245,7,Oman
+246,7,Pakistan
+247,7,Qatar
+248,7,Saudi Arabia
+249,7,Sudan
+250,7,Tajikistan
+251,7,Tunisia
+252,7,Turkmenistan
+253,7,United Arab Emirates
+254,7,Uzbekistan
+255,7,Yemen
+256,7,Argentina
+257,7,Bolivia
+258,7,Brazil
+259,7,Canada
+260,7,Chile
+261,7,Colombia
+262,7,Costa Rica
+263,7,Dominican Republic
+264,7,Ecuador
+265,7,El Salvador
+266,7,Guatemala
+267,7,Haiti
+268,7,Honduras
+269,7,Jamaica
+270,7,Mexico
+271,7,Nicaragua
+272,7,Panama
+273,7,Paraguay
+274,7,Peru
+275,7,Suriname
+276,7,Trinidad and Tobago
+277,7,United States
+278,7,World aviation
+279,7,World marine
+280,7,Venezuela
+281,7,Uruguay
+284,8,2016
+284,9,2017
+284,10,2018
+284,11,2019
+284,12,2020
+284,13,2021
+284,14,2022
+284,15,2023
+284,16,2024
+284,17,2025
+285,6,East Asia & Pacific
+285,7,gasoline
+286,6,East Asia & Pacific
+286,7,diesel
+287,6,East Asia & Pacific
+287,7,LPG
+288,6,East Asia & Pacific
+288,7,kerosene
+289,6,Europe & Central Asia
+289,7,gasoline
+290,6,Europe & Central Asia
+290,7,diesel
+291,6,Europe & Central Asia
+291,7,LPG
+292,6,Europe & Central Asia
+292,7,kerosene
+293,6,Latin America & Caribbean
+293,7,gasoline
+294,6,Latin America & Caribbean
+294,7,diesel
+295,6,Latin America & Caribbean
+295,7,LPG
+296,6,Latin America & Caribbean
+296,7,kerosene
+297,6,Middle East & North Africa
+297,7,gasoline
+298,6,Middle East & North Africa
+298,7,diesel
+299,6,Middle East & North Africa
+299,7,LPG
+300,6,Middle East & North Africa
+300,7,kerosene
+301,6,North America
+301,7,gasoline
+302,6,North America
+302,7,diesel
+303,6,North America
+303,7,LPG
+304,6,North America
+304,7,kerosene
+305,6,South Asia
+305,7,gasoline
+306,6,South Asia
+306,7,diesel
+307,6,South Asia
+307,7,LPG
+308,6,South Asia
+308,7,kerosene
+309,6,Sub-Saharan Africa
+309,7,gasoline
+310,6,Sub-Saharan Africa
+310,7,diesel
+311,6,Sub-Saharan Africa
+311,7,LPG
+312,6,Sub-Saharan Africa
+312,7,kerosene
+319,1,.
+319,2,Global fuel demand
+320,4,0x17
+320,9,EJ - MTOE
+320,14,forecast
+320,15,interpolation
+321,5,Global demand
+322,5,Scenario
+322,6,Fuel
+322,7,Unit
+322,8,Indicator
+322,9,2018
+322,10,2019
+322,11,2020
+322,12,2021
+322,13,2022
+322,14,2023
+322,15,2024
+322,16,2025
+322,17,2026
+322,18,2027
+322,19,2028
+322,20,2029
+322,21,2030
+322,22,2031
+322,23,2032
+322,24,2033
+322,25,2034
+322,26,2035
+322,27,2036
+322,28,2037
+322,29,2038
+322,30,2039
+322,31,2040
+322,32,2041
+322,33,2042
+322,34,2043
+322,35,2044
+322,36,2045
+322,37,2046
+322,38,2047
+322,39,2048
+322,40,2049
+322,41,2050
+323,4,1
+323,5,Stated Policies Scenario
+323,6,Coal
+323,7,MTOE
+323,8,SPS - production
+324,4,2
+324,5,Announced Pledges Scenario
+324,6,Coal
+324,7,MTOE
+324,8,APS - production
+325,4,4
+325,5,Net Zero Scenario
+325,6,Coal
+325,7,MTOE
+325,8,NZS - production
+327,4,1
+327,5,Stated Policies Scenario
+327,6,Oil
+327,7,MTOE
+327,8,SPS - production
+328,4,2
+328,5,Announced Pledges Scenario
+328,6,Oil
+328,7,MTOE
+328,8,APS - production
+329,4,4
+329,5,Net Zero Scenario
+329,6,Oil
+329,7,MTOE
+329,8,NZS - production
+331,4,1
+331,5,Stated Policies Scenario
+331,6,Natural gas
+331,7,MTOE
+331,8,SPS - production
+332,4,2
+332,5,Announced Pledges Scenario
+332,6,Natural gas
+332,7,MTOE
+332,8,APS - production
+333,4,4
+333,5,Net Zero Scenario
+333,6,Natural gas
+333,7,MTOE
+333,8,NZS - production
+362,1,.
+362,2,End of this tab

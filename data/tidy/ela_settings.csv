@@ -1,0 +1,10 @@
+setting,variable,value
+Source,Price elasticities:,Simple*
+Source,Income elasticities:,Simple*
+Source,price code:,2
+Source,income code:,2
+Per capita GDP adjustment to income elasticities,Price elasticities:,Yes*
+Elasticities adjustments: income,Price elasticities:,Base*
+Elasticities adjustments: income,price code:,0
+Elasticities adjustments: price,Price elasticities:,Base*
+Elasticities adjustments: price,income code:,0

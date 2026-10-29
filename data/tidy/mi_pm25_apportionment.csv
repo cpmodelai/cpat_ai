@@ -1,0 +1,9 @@
+source,variable,value
+Coal Power Plants,Contribution to PM2.5,0.1
+Gas Power Plants,Contribution to PM2.5,0.03
+Other Power Plants,Contribution to PM2.5,0.05
+Road transport,Contribution to PM2.5,0.13
+"Residential, services and construction",Contribution to PM2.5,0.14
+Industries and other energy,Contribution to PM2.5,0.15
+Food & forestry,Contribution to PM2.5,0.05
+"Non modeled sources (residual; natural, transboundary and other sources) ",Contribution to PM2.5,0.35

@@ -17,8 +17,9 @@ above the first row 465 deleted, Mitigation 5667); base-year energy use and GDP 
     * `Mitigation` rows 980-1009 (IIASA CO2 EFs, Egypt, tCO2/GJ, and volume-unit-to-GJ factors).
     * `Mitigation` rows 583-601 (base-year energy use by fuel, column C codes, and subsector, row 581 codes; Egypt,
       ktoe, cached values) and row 2446 (post-policy real GDP growth, scenario 1 = baseline; cached values).
-- `excel_ai/standalone_initial_prototypes/CPAT_PriceModule_Data_1.xlsx`, sheet `DomesticPrices`
-  (221 countries, 2021-2024).
+- Domestic prices: no longer extracted. The source (`other/standalone_initial_prototypes/CPAT_PriceModule_Data_1.xlsx`,
+  221 countries) was deleted by user decision 2026-10-29 (domestic prices are proprietary); `prices_dom.csv` now holds
+  Egypt only (as the public legacy file) and is maintained directly (`update_prices_egypt.py`).
 
 Needs pyxlsb (pip install pyxlsb). Run from the repo root or anywhere:
     python extract_data_v0_1.py
@@ -115,6 +116,8 @@ def extract_ef():
 
 
 def extract_prices():
+    """Retired 2026-10-29: the 221-country source was deleted (proprietary). Kept for the record; not called."""
+    raise SystemExit('extract_prices is retired: prices_dom.csv is Egypt only and maintained directly')
     ws = openpyxl.load_workbook(PRICES, read_only=True, data_only=True)['DomesticPrices']
     rows = list(ws.iter_rows(values_only=True))
     # Keep the legacy row-banded header (rows 1-4), code row 5, data from row 6.
@@ -184,7 +187,7 @@ if __name__ == '__main__':
     extract_price_assumptions()
     extract_elasticities()
     extract_ef()
-    extract_prices()
+    # extract_prices(): retired 2026-10-29 (source deleted, proprietary)
     import update_prices_egypt          # v0.5.7 (I33): the corrected Egypt block goes back over the dataset
     update_prices_egypt.main()
     extract_base_year()

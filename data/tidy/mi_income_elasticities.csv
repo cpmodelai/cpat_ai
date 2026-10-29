@@ -1,0 +1,33 @@
+item,code,sector,value
+ - coal,el_inc_coa,Transport,0.5
+ - coal,el_inc_coa,Residential,0.5
+ - coal,el_inc_coa,Industries,0.5
+ - coal,el_inc_coa,Services,0.5
+ - natural gas,el_inc_nga,Transport,0.5
+ - natural gas,el_inc_nga,Residential,0.5
+ - natural gas,el_inc_nga,Industries,0.5
+ - natural gas,el_inc_nga,Services,0.5
+ - gasoline,el_inc_gso,Transport,0.5
+ - gasoline,el_inc_gso,Residential,0.5
+ - gasoline,el_inc_gso,Industries,0.5
+ - gasoline,el_inc_gso,Services,0.5
+ - diesel,el_inc_die,Transport,0.5
+ - diesel,el_inc_die,Residential,0.5
+ - diesel,el_inc_die,Industries,0.5
+ - diesel,el_inc_die,Services,0.5
+ - other oil,el_inc_oil,Transport,0.5
+ - other oil,el_inc_oil,Residential,0.5
+ - other oil,el_inc_oil,Industries,0.5
+ - other oil,el_inc_oil,Services,0.5
+ - biomass,el_inc_bio,Transport,0.5
+ - biomass,el_inc_bio,Residential,0.5
+ - biomass,el_inc_bio,Industries,0.5
+ - biomass,el_inc_bio,Services,0.5
+ - renewables,el_inc_ren,Transport,0.5
+ - renewables,el_inc_ren,Residential,0.5
+ - renewables,el_inc_ren,Industries,0.5
+ - renewables,el_inc_ren,Services,0.5
+ - electricity,el_inc_ecy,Transport,0.5
+ - electricity,el_inc_ecy,Residential,0.5
+ - electricity,el_inc_ecy,Industries,0.5
+ - electricity,el_inc_ecy,Services,0.5

@@ -1,0 +1,8 @@
+_row,key,unit,description,legacy_cell
+0,bev_fe_new|pass,km/kWh,"BEV fuel economy of new vehicles, passenger/light (km/kWh)",Manual inputs row 375
+1,bev_fe_new|fre,km/kWh,"BEV fuel economy of new vehicles, freight (km/kWh)",Manual inputs row 376
+2,bev_fe_new|cyc,km/kWh,"BEV fuel economy of new vehicles, 2-3 wheeler (km/kWh)",Manual inputs row 377
+3,bev_fe|light,km/kWh,"BEV fuel economy, light vehicles (data years used)",Mitigation row 2051
+4,bev_fe|fre,km/kWh,"BEV fuel economy, freight (data years used)",Mitigation row 2095
+5,bev_fe|cyc,km/kWh,"BEV fuel economy, 2-3 wheeler (data years used)",Mitigation row 2122
+6,ch_cost_port,USD/port,charging-station cost per port,Mitigation row 2170

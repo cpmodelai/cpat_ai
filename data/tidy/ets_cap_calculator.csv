@@ -1,0 +1,5 @@
+item,variable,value
+Change relative to 2025 in target year (e.g. -10%),value,-0.25
+Cap in target year,value,11.065470554790142
+Baseline emissions in target year,value,15.187316804154433
+Change Relative to baseline,value,-0.2714005576177074

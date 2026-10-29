@@ -1,0 +1,225 @@
+table,legacy_source,kind,legacy_tab,keys,rows,proprietary
+aspire,legacy_ASPIRE.csv,table,ASPIRE,code,30,no
+ch4_inputs,legacy_CH4Inputs.csv,table,CH4Inputs,country source,1105,no
+coal_implicit_price,legacy_GoalSeekCoal.csv,table,GoalSeekCoal,country_name,85,no
+coc_as_of_date,legacy_CoC_cells.csv,cells block,CoC,item,1,no
+coc_country_parameters,legacy_CoC_cells.csv,cells block,CoC,country_name code,1263,no
+coc_rating,legacy_CoC_cells.csv,cells block,CoC,country_name code,189,no
+coc_real_wacc,legacy_CoC_cells.csv,cells block,CoC,country_name code,3591,no
+coc_tab (layout),legacy_CoC_cells.csv,cells layout,CoC,row col,765,no
+coc_tech_adjustment,legacy_CoC_cells.csv,cells block,CoC,technology,36,no
+coc_us_rates,legacy_CoC_cells.csv,cells block,CoC,year,36,no
+countries_attributes,legacy_Countries_cells.csv,cells block,Countries,name code,3704,no
+countries_iea_regions,legacy_Countries_cells.csv,cells block,Countries,code,26,no
+countries_region_attributes,legacy_Countries_cells.csv,cells block,Countries,name code,144,no
+countries_region_seq,legacy_Countries_cells.csv,cells block,Countries,name code,46,no
+countries_seq,legacy_Countries_cells.csv,cells block,Countries,name code,222,no
+countries_tab (layout),legacy_Countries_cells.csv,cells layout,Countries,row col,663,no
+distn_category_map,distn_catmap.csv,table,DistCatMap,gtap_sector,64,no
+distn_gtap_map,distn_gtapmap.csv,table,DistGtapMap,gtap_sector,66,no
+distn_passthrough,distn_passthrough.csv,table,DistPassthrough,sector,16,no
+distn_programs,distn_programs.csv,table,DistPrograms,key,22,no
+ecp_ets_free_allocation_national,legacy_ECP_cells.csv,cells block,ECP,country_name country sector_fuel code,78,no
+ecp_ets_free_allocation_regional,legacy_ECP_cells.csv,cells block,ECP,country_name country sector_fuel code,181,no
+ecp_ets_fuel_coverage_national,legacy_ECP_cells.csv,cells block,ECP,country_name country sector_fuel code,756,no
+ecp_ets_fuel_coverage_regional,legacy_ECP_cells.csv,cells block,ECP,country_name country sector_fuel code,3222,no
+ecp_ets_price_national,legacy_ECP_cells.csv,cells block,ECP,country_name country sector_fuel code,76,no
+ecp_ets_price_regional,legacy_ECP_cells.csv,cells block,ECP,country_name country sector_fuel code,11,no
+ecp_ets_revenue_national,legacy_ECP_cells.csv,cells block,ECP,country_name country sector_fuel code,121,no
+ecp_ets_revenue_regional,legacy_ECP_cells.csv,cells block,ECP,country_name country sector_fuel code,352,no
+ecp_ets_sector_coverage_national,legacy_ECP_cells.csv,cells block,ECP,country_name country sector_fuel code,348,no
+ecp_ets_sector_coverage_regional,legacy_ECP_cells.csv,cells block,ECP,country_name country sector_fuel code,1397,no
+ecp_general_information,legacy_ECP_cells.csv,cells block,ECP,country_name country,329,no
+ecp_tab (layout),legacy_ECP_cells.csv,cells layout,ECP,row col,5199,no
+ecp_tax_fuel_coverage,legacy_ECP_cells.csv,cells block,ECP,country_name country sector_fuel code,2614,no
+ecp_tax_rate,legacy_ECP_cells.csv,cells block,ECP,country_name country sector_fuel code,533,no
+ecp_tax_revenue,legacy_ECP_cells.csv,cells block,ECP,country_name country sector_fuel code,300,no
+ecp_tax_sector_coverage,legacy_ECP_cells.csv,cells block,ECP,country_name country sector_fuel code,1120,no
+ef_ghg,legacy_EF_GHG.csv,table,EF_GHG,code,3721,no
+ef_local_pollutants,legacy_EF_PM.csv,table,EF_PM,code,38962,no
+ela_cross_price_global,legacy_Elasticities_cells.csv,cells block,Elasticities,item,15,no
+ela_efficiency_by_country,legacy_Elasticities_cells.csv,cells block,Elasticities,type fuel sector code,5448,no
+ela_efficiency_selected,legacy_Elasticities_cells.csv,cells block,Elasticities,type fuel sector code,24,no
+ela_fuel_codes,legacy_Elasticities_cells.csv,cells block,Elasticities,fuel,10,no
+ela_income_by_country,legacy_Elasticities_cells.csv,cells block,Elasticities,type fuel sector code,7264,no
+ela_income_global,legacy_Elasticities_cells.csv,cells block,Elasticities,item,160,no
+ela_income_selected,legacy_Elasticities_cells.csv,cells block,Elasticities,type fuel sector code,64,no
+ela_power_by_country,legacy_Elasticities_cells.csv,cells block,Elasticities,type fuel sector code,5902,no
+ela_power_selected,legacy_Elasticities_cells.csv,cells block,Elasticities,type fuel sector code,26,no
+ela_price_by_country,legacy_Elasticities_cells.csv,cells block,Elasticities,type fuel sector code,15209,no
+ela_price_efficiency_global,legacy_Elasticities_cells.csv,cells block,Elasticities,item,152,no
+ela_price_selected,legacy_Elasticities_cells.csv,cells block,Elasticities,type fuel sector code,134,no
+ela_price_usage_global,legacy_Elasticities_cells.csv,cells block,Elasticities,item,160,no
+ela_settings,legacy_Elasticities_cells.csv,cells block,Elasticities,setting,9,no
+ela_source_options,legacy_Elasticities_cells.csv,cells block,Elasticities,option,2,no
+ela_type_sector_codes,legacy_Elasticities_cells.csv,cells block,Elasticities,name,7,no
+elasticities_tab (layout),legacy_Elasticities_cells.csv,cells layout,Elasticities,row col,4131,no
+energy_balances,legacy_Balances.csv,table,Balances,country year unit flow,777,yes
+energy_consumption,legacy_EnergyCons.csv,table,EnergyCons,code year,380,derived
+ets_assumptions,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,assumption,10,no
+ets_cap_calculator,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,item,4,no
+ets_ctax_policy_risk,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,item,1,no
+ets_emission_factors,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,code,50,no
+ets_fuel_codes,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,fuel,8,no
+ets_fuel_units,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,fuel,18,no
+ets_lts_tab (layout),legacy_ETS+LTS_cells.csv,cells layout,ETS+LTS,row col,764,no
+ets_min_semi_elasticity,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,item,1,no
+ets_mitigation_investment,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,country country_name,252,no
+ets_relative_effectiveness,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,,2,no
+ets_semi_el_floor_1,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,country,80,no
+ets_semi_el_floor_2,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,country_name country,360,no
+ets_semi_el_minima,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,item,4,no
+ets_semi_el_raw_1,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,country,60,no
+ets_semi_el_raw_2,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,country_name country,360,no
+ets_semi_elasticities,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,country_name country,842,no
+ets_unit_codes,legacy_ETS+LTS_cells.csv,cells block,ETS+LTS,unit,7,no
+fuel_units,fuel_units.csv,table,FuelUnits,fuel,9,no
+gdp_ratios,legacy_GDPRatios.csv,table,GDPRatios,country indicator,22154,no
+ghg_adjustment_egypt,legacy_GHGs_cells.csv,cells block,GHGs,item,9,no
+ghg_carbon_monitor,legacy_GHGs_cells.csv,cells block,GHGs,country,18,no
+ghg_eu_quarterly,legacy_GHGs_cells.csv,cells block,GHGs,code name,280,no
+ghg_hist_category,legacy_GHGs_cells.csv,cells block,GHGs,country_name iso,235,no
+ghg_hist_co2_excl_lulucf,legacy_GHGs_cells.csv,cells block,GHGs,country_name iso,2730,no
+ghg_hist_energy_co2,legacy_GHGs_cells.csv,cells block,GHGs,country_name iso,2296,no
+ghg_hist_ghg_excl_lulucf,legacy_GHGs_cells.csv,cells block,GHGs,country_name iso,1688,no
+ghg_hist_ghg_incl_lulucf,legacy_GHGs_cells.csv,cells block,GHGs,country_name iso,1688,no
+ghg_history,legacy_GHGHist.csv,table,GHGHist,country,8402,no
+ghg_inventory_agriculture,legacy_GHGs_cells.csv,cells block,GHGs,country_name iso year,4700,no
+ghg_inventory_category,legacy_GHGs_cells.csv,cells block,GHGs,country_name iso year,940,no
+ghg_inventory_energy,legacy_GHGs_cells.csv,cells block,GHGs,country_name iso year,4700,no
+ghg_inventory_ippu,legacy_GHGs_cells.csv,cells block,GHGs,country_name iso year,4700,no
+ghg_inventory_lulucf,legacy_GHGs_cells.csv,cells block,GHGs,country_name iso year,4700,no
+ghg_inventory_memo_fugitive,legacy_GHGs_cells.csv,cells block,GHGs,country_name iso year,4700,no
+ghg_inventory_other,legacy_GHGs_cells.csv,cells block,GHGs,country_name iso year,4700,no
+ghg_inventory_total_excl_lucf,legacy_GHGs_cells.csv,cells block,GHGs,country_name iso year,4700,no
+ghg_inventory_total_incl_lucf,legacy_GHGs_cells.csv,cells block,GHGs,country_name iso year,4700,no
+ghg_inventory_waste,legacy_GHGs_cells.csv,cells block,GHGs,country_name iso year,4700,no
+ghg_noneu_cpat_region,legacy_GHGs_cells.csv,cells block,GHGs,object_id country iso2 iso3,6,no
+ghg_noneu_quarterly,legacy_GHGs_cells.csv,cells block,GHGs,object_id country iso2 iso3,225,no
+ghg_noneu_series,legacy_GHGs_cells.csv,cells block,GHGs,object_id country iso2 iso3,175,no
+ghg_shock,legacy_GHGs_cells.csv,cells block,GHGs,code,364,no
+ghg_shock_eu_flag,legacy_GHGs_cells.csv,cells block,GHGs,code,187,no
+ghg_shock_info,legacy_GHGs_cells.csv,cells block,GHGs,code,748,no
+ghg_shock_notes,legacy_GHGs_cells.csv,cells block,GHGs,code,374,no
+ghgs_tab (layout),legacy_GHGs_cells.csv,cells layout,GHGs,row col,3857,no
+hh_elasticities,legacy_HH_Elast.csv,table,HH_Elast,code,57552,no
+hh_survey,legacy_HHSurvey.csv,table,HHSurvey,code,8052,yes
+io_gtap,legacy_IO_GTAP.csv,table,IO_GTAP,country year series,645,yes
+manual_inputs_tab (layout),legacy_ManualInputs_cells.csv,cells layout,Manual inputs,row col,1563,no
+mi_additional_mitigation,legacy_ManualInputs_cells.csv,cells block,Manual inputs,sector unit,0,no
+mi_capacity_baseline,legacy_ManualInputs_cells.csv,cells block,Manual inputs,scenario technology technology_name code,0,no
+mi_capacity_baseline_used,legacy_ManualInputs_cells.csv,cells block,Manual inputs,scenario technology technology_name code,9,no
+mi_capacity_policy,legacy_ManualInputs_cells.csv,cells block,Manual inputs,scenario technology technology_name code,0,no
+mi_capacity_policy_used,legacy_ManualInputs_cells.csv,cells block,Manual inputs,scenario technology technology_name code,9,no
+mi_ets_price_override,legacy_ManualInputs_cells.csv,cells block,Manual inputs,item,15,no
+mi_ets_settings,legacy_ManualInputs_cells.csv,cells block,Manual inputs,parameter,6,no
+mi_ev_fuel_economy,legacy_ManualInputs_cells.csv,cells block,Manual inputs,vehicle unit,60,no
+mi_ev_fuel_economy_growth,legacy_ManualInputs_cells.csv,cells block,Manual inputs,,10,no
+mi_excise_reform,legacy_ManualInputs_cells.csv,cells block,Manual inputs,fuel sector variable unit code,13,no
+mi_gdp_forecast,legacy_ManualInputs_cells.csv,cells block,Manual inputs,item unit,32,no
+mi_income_elasticities,legacy_ManualInputs_cells.csv,cells block,Manual inputs,item code,32,no
+mi_intl_prices,legacy_ManualInputs_cells.csv,cells block,Manual inputs,commodity unit,100,no
+mi_methane_fee,legacy_ManualInputs_cells.csv,cells block,Manual inputs,parameter unit,21,no
+mi_multipliers,legacy_ManualInputs_cells.csv,cells block,Manual inputs,instrument instrument_name,0,no
+mi_nonenergy_elasticities,legacy_ManualInputs_cells.csv,cells block,Manual inputs,item,6,no
+mi_passthrough,legacy_ManualInputs_cells.csv,cells block,Manual inputs,fuel fuel_code,612,no
+mi_pm25_apportionment,legacy_ManualInputs_cells.csv,cells block,Manual inputs,source,8,no
+mi_price_controls,legacy_ManualInputs_cells.csv,cells block,Manual inputs,fuel sector variable code,14,no
+mi_price_elasticities,legacy_ManualInputs_cells.csv,cells block,Manual inputs,item code,64,no
+mi_price_elasticities_total,legacy_ManualInputs_cells.csv,cells block,Manual inputs,item,32,no
+mi_prices_biomass,legacy_ManualInputs_cells.csv,cells block,Manual inputs,sector fuel variable unit code,0,no
+mi_prices_coal,legacy_ManualInputs_cells.csv,cells block,Manual inputs,sector fuel variable unit code,0,no
+mi_prices_diesel,legacy_ManualInputs_cells.csv,cells block,Manual inputs,sector fuel variable unit code,0,no
+mi_prices_electricity,legacy_ManualInputs_cells.csv,cells block,Manual inputs,sector fuel variable unit code,0,no
+mi_prices_gasoline,legacy_ManualInputs_cells.csv,cells block,Manual inputs,sector fuel variable unit code,0,no
+mi_prices_kerosene,legacy_ManualInputs_cells.csv,cells block,Manual inputs,sector fuel variable unit code,0,no
+mi_prices_lpg,legacy_ManualInputs_cells.csv,cells block,Manual inputs,sector fuel variable unit code,0,no
+mi_prices_natural_gas,legacy_ManualInputs_cells.csv,cells block,Manual inputs,sector fuel variable unit code,0,no
+mi_prices_oil,legacy_ManualInputs_cells.csv,cells block,Manual inputs,sector fuel variable unit code,0,no
+mi_process_emission_factors,legacy_ManualInputs_cells.csv,cells block,Manual inputs,product unit cn_codes route,192,no
+mi_process_half_elasticity,legacy_ManualInputs_cells.csv,cells block,Manual inputs,process,16,no
+mi_scc,legacy_ManualInputs_cells.csv,cells block,Manual inputs,item unit,46,no
+mi_scc_global_parameters,legacy_ManualInputs_cells.csv,cells block,Manual inputs,item,2,no
+mi_substitution_elasticities,legacy_ManualInputs_cells.csv,cells block,Manual inputs,item code,12,no
+mult_base,legacy_Multipliers_cells.csv,cells block,Multipliers,instrument instrument_name,128,no
+mult_estimated_excise_tax,legacy_Multipliers_cells.csv,cells block,Multipliers,n country,2388,no
+mult_estimated_fuel_tax,legacy_Multipliers_cells.csv,cells block,Multipliers,n country,2388,no
+mult_estimated_labor_tax,legacy_Multipliers_cells.csv,cells block,Multipliers,n country,2388,no
+mult_estimated_public_consumption,legacy_Multipliers_cells.csv,cells block,Multipliers,n country,2388,no
+mult_estimated_public_investment,legacy_Multipliers_cells.csv,cells block,Multipliers,n country,2388,no
+mult_estimated_transfers,legacy_Multipliers_cells.csv,cells block,Multipliers,n country,2388,no
+mult_estimated_vat,legacy_Multipliers_cells.csv,cells block,Multipliers,n country,2400,no
+mult_fiscal_used,legacy_Multipliers_cells.csv,cells block,Multipliers,instrument instrument_name,128,no
+mult_manual_source,legacy_Multipliers_cells.csv,cells block,Multipliers,instrument instrument_name,128,no
+mult_manual_used,legacy_Multipliers_cells.csv,cells block,Multipliers,instrument instrument_name,128,no
+mult_mfmod_median_global,legacy_Multipliers_cells.csv,cells block,Multipliers,instrument instrument_name,96,no
+mult_mfmod_median_hic,legacy_Multipliers_cells.csv,cells block,Multipliers,instrument instrument_name,96,no
+mult_mfmod_median_lic,legacy_Multipliers_cells.csv,cells block,Multipliers,instrument instrument_name,96,no
+mult_mfmod_median_lmic,legacy_Multipliers_cells.csv,cells block,Multipliers,instrument instrument_name,96,no
+mult_mfmod_median_umic,legacy_Multipliers_cells.csv,cells block,Multipliers,instrument instrument_name,96,no
+mult_mfmod_sd_global,legacy_Multipliers_cells.csv,cells block,Multipliers,instrument instrument_name,96,no
+mult_mfmod_sd_hic,legacy_Multipliers_cells.csv,cells block,Multipliers,instrument instrument_name,96,no
+mult_mfmod_sd_lic,legacy_Multipliers_cells.csv,cells block,Multipliers,instrument instrument_name,96,no
+mult_mfmod_sd_lmic,legacy_Multipliers_cells.csv,cells block,Multipliers,instrument instrument_name,96,no
+mult_mfmod_sd_umic,legacy_Multipliers_cells.csv,cells block,Multipliers,instrument instrument_name,96,no
+mult_plus_adjustment,legacy_Multipliers_cells.csv,cells block,Multipliers,instrument instrument_name,128,no
+mult_settings,legacy_Multipliers_cells.csv,cells block,Multipliers,item,9,no
+mult_source_selected,legacy_Multipliers_cells.csv,cells block,Multipliers,item,1,no
+multipliers_tab (layout),legacy_Multipliers_cells.csv,cells layout,Multipliers,row col,3362,no
+ndcs,legacy_NDCs.csv,table,NDCs,round country,584,no
+oil_product_shares,legacy_OilProductShares.csv,table,OilProductShares,country,1776,no
+pint_eia,legacy_Prices_int_cells.csv,cells block,Prices_int,commodity unit,289,no
+pint_eia_short_ton,legacy_Prices_int_cells.csv,cells block,Prices_int,item,1,no
+pint_ej_mtoe,legacy_Prices_int_cells.csv,cells block,Prices_int,item,1,no
+pint_iea,legacy_Prices_int_cells.csv,cells block,Prices_int,commodity unit wb_commodity,231,no
+pint_imf,legacy_Prices_int_cells.csv,cells block,Prices_int,group_code subject_code,231,no
+pint_imf_series,legacy_Prices_int_cells.csv,cells block,Prices_int,group_code subject_code,24,no
+pint_regional_assumptions,legacy_Prices_int_cells.csv,cells block,Prices_int,country,440,no
+pint_regional_fuel,legacy_Prices_int_cells.csv,cells block,Prices_int,region fuel,280,no
+pint_wb,legacy_Prices_int_cells.csv,cells block,Prices_int,commodity unit,140,no
+pint_world_demand,legacy_Prices_int_cells.csv,cells block,Prices_int,scenario_no scenario fuel unit indicator,279,no
+power_capex_change,legacy_Power_cells.csv,cells block,Power,category technology,392,no
+power_capex_change_avg,legacy_Power_cells.csv,cells block,Power,category technology,16,no
+power_capex_change_avg_old,legacy_Power_cells.csv,cells block,Power,category technology,8,no
+power_capex_change_old,legacy_Power_cells.csv,cells block,Power,category technology,196,no
+power_capex_time_factor,legacy_Power_cells.csv,cells block,Power,code item region scenario technology,765,no
+power_capex_time_factor_2,legacy_Power_cells.csv,cells block,Power,code item region scenario technology,663,no
+power_capex_time_factor_side,legacy_Power_cells.csv,cells block,Power,technology_name,140,no
+power_coal_retirement,legacy_Power_cells.csv,cells block,Power,country country_name,4428,no
+power_coal_retirement_avg,legacy_Power_cells.csv,cells block,Power,country country_name,4320,no
+power_coal_retirement_avg_flag,legacy_Power_cells.csv,cells block,Power,country country_name,108,no
+power_decom_transmission,legacy_Power_cells.csv,cells block,Power,code item region technology,18,no
+power_installed_capacity,legacy_Power_cells.csv,cells block,Power,code country technology,29811,no
+power_min_growth_rate,legacy_Power_cells.csv,cells block,Power,item,1,no
+power_misc_parameters,legacy_Power_cells.csv,cells block,Power,quantity sector,11,no
+power_mpp_country,legacy_Power_cells.csv,cells block,Power,code item region technology,914,no
+power_mpp_country_old,legacy_Power_cells.csv,cells block,Power,code item region technology,608,no
+power_mpp_region,legacy_Power_cells.csv,cells block,Power,code item region technology,289,no
+power_mpp_region_old,legacy_Power_cells.csv,cells block,Power,code item region technology,288,no
+power_mpp_world,legacy_Power_cells.csv,cells block,Power,code item region technology,81,no
+power_mpp_world_old,legacy_Power_cells.csv,cells block,Power,code item region technology,72,no
+power_re_gen_share_limit,legacy_Power_cells.csv,cells block,Power,code country technology carbon_price_level,48840,no
+power_re_growth,legacy_Power_cells.csv,cells block,Power,code country technology,2898,no
+power_re_max_scaleup,legacy_Power_cells.csv,cells block,Power,country_name country,222,no
+power_re_scaleup_rates,legacy_Power_cells.csv,cells block,Power,category,4,no
+power_storage_conversion,legacy_Power_cells.csv,cells block,Power,item,3,no
+power_storage_eur,legacy_Power_cells.csv,cells block,Power,technology parameter unit,612,no
+power_storage_usd,legacy_Power_cells.csv,cells block,Power,technology parameter unit,665,no
+power_tab (layout),legacy_Power_cells.csv,cells layout,Power,row col,19218,no
+power_wacc_by_income,legacy_Power_cells.csv,cells block,Power,income_level,4,no
+power_wacc_previous,legacy_Power_cells.csv,cells block,Power,country_name,378,no
+prices_domestic,prices_dom.csv,table,Prices_dom,country year,564,yes
+prices_domestic_corrections,prices_dom_changes.csv,table,Prices_dom_changes,country_year code,291,derived
+prices_int_tab (layout),legacy_Prices_int_cells.csv,cells layout,Prices_int,row col,636,no
+range_anxiety_fit,../range_anxiety_fit/range_anxiety_fit.csv,table,RangeAnxietyFit,country,1,derived
+scc,legacy_SCC.csv,table,SCC,code,680,no
+transport3_range_anxiety,legacy_Transport3_cells.csv,cells block,Transport3,country_name country_name_u,3535,no
+transport3_range_anxiety_repeat,legacy_Transport3_cells.csv,cells block,Transport3,country_name country_name_u,209,no
+transport3_tab (layout),legacy_Transport3_cells.csv,cells layout,Transport3,row col,392,no
+transport_country,legacy_Transport1.csv,table,Transport1,country year,83572,no
+transport_params,transport_params.csv,table,TransportParams,key,156,no
+transport_paths,transport_paths.csv,table,TransportPaths,key,140,no
+un_population,legacy_UNPop.csv,table,UNPop,country,7584,no
+vehicle_prices,legacy_Transport2.csv,table,Transport2,country year,25080,no
+weo,legacy_WEO.csv,table,WEO,series_code,101712,no
+who_cooking,legacy_WHOCooking.csv,table,WHOCooking,code,3,no

@@ -1,0 +1,135 @@
+type,fuel,sector,code,variable,value
+"Own-price, usage",Coal,Transport,coa_owp_tot_sr,Elasticity used,-0.30000000000000004
+"Own-price, usage",Coal,Transport,coa_owp_tot_sr,Standard error,-0.18000000000000002
+"Own-price, usage",Natural Gas,Transport,nga_owp_tot_sr,Elasticity used,-0.5
+"Own-price, usage",Natural Gas,Transport,nga_owp_tot_sr,Standard error,-0.24242424242424243
+"Own-price, usage",Gasoline,Transport,gso_owp_tot_sr,Elasticity used,-0.4
+"Own-price, usage",Gasoline,Transport,gso_owp_tot_sr,Standard error,-0.11627906976744184
+"Own-price, usage",Diesel,Transport,die_owp_tot_sr,Elasticity used,-0.30000000000000004
+"Own-price, usage",Diesel,Transport,die_owp_tot_sr,Standard error,-0.07751937984496124
+"Own-price, usage",Oil Products,Transport,oil_owp_tot_sr,Elasticity used,-0.30000000000000004
+"Own-price, usage",Oil Products,Transport,oil_owp_tot_sr,Standard error,-0.12121212121212122
+"Own-price, usage",Biomass,Transport,bio_owp_ind_sr,Elasticity used,-0.30000000000000004
+"Own-price, usage",Biomass,Transport,bio_owp_ind_sr,Standard error,-0.18000000000000002
+"Own-price, usage",Renewables,Transport,rnw_owp_tot_lr,Elasticity used,-0.5
+"Own-price, usage",Renewables,Transport,rnw_owp_tot_lr,Standard error,-0.24242424242424243
+"Own-price, usage",Electricity,Transport,ecy_owp_tot_sr,Elasticity used,-0.2
+"Own-price, usage",Electricity,Transport,ecy_owp_tot_sr,Standard error,-0.06060606060606061
+"Own-price, usage",Coal,Residential,coa_owp_res_sr,Elasticity used,-0.30000000000000004
+"Own-price, usage",Coal,Residential,coa_owp_res_sr,Standard error,-0.18000000000000002
+"Own-price, usage",Natural Gas,Residential,nga_owp_res_sr,Elasticity used,-0.4
+"Own-price, usage",Natural Gas,Residential,nga_owp_res_sr,Standard error,-0.18181818181818182
+"Own-price, usage",Gasoline,Residential,gso_owp_tot_sr,Elasticity used,-0.5
+"Own-price, usage",Gasoline,Residential,gso_owp_tot_sr,Standard error,-0.20408163265306123
+"Own-price, usage",Diesel,Residential,die_owp_tot_sr,Elasticity used,-0.30000000000000004
+"Own-price, usage",Diesel,Residential,die_owp_tot_sr,Standard error,-0.10204081632653061
+"Own-price, usage",Oil Products,Residential,oil_owp_tot_sr,Elasticity used,-0.30000000000000004
+"Own-price, usage",Oil Products,Residential,oil_owp_tot_sr,Standard error,-0.12121212121212122
+"Own-price, usage",Biomass,Residential,bio_owp_ind_sr,Elasticity used,-0.30000000000000004
+"Own-price, usage",Biomass,Residential,bio_owp_ind_sr,Standard error,-0.18000000000000002
+"Own-price, usage",Renewables,Residential,rnw_owp_tot_lr,Elasticity used,-0.5
+"Own-price, usage",Renewables,Residential,rnw_owp_tot_lr,Standard error,-0.24242424242424243
+"Own-price, usage",Electricity,Residential,ecy_owp_res_sr,Elasticity used,-0.30000000000000004
+"Own-price, usage",Electricity,Residential,ecy_owp_res_sr,Standard error,-0.12121212121212122
+"Own-price, usage",Coal,Industry,coa_owp_ind_sr,Elasticity used,-0.30000000000000004
+"Own-price, usage",Coal,Industry,coa_owp_ind_sr,Standard error,-0.18000000000000002
+"Own-price, usage",Natural Gas,Industry,nga_owp_ind_sr,Elasticity used,-0.5
+"Own-price, usage",Natural Gas,Industry,nga_owp_ind_sr,Standard error,-0.24242424242424243
+"Own-price, usage",Gasoline,Industry,gso_owp_tot_sr,Elasticity used,-0.4
+"Own-price, usage",Gasoline,Industry,gso_owp_tot_sr,Standard error,-0.15306122448979592
+"Own-price, usage",Diesel,Industry,die_owp_tot_sr,Elasticity used,-0.7
+"Own-price, usage",Diesel,Industry,die_owp_tot_sr,Standard error,-0.2325581395348837
+"Own-price, usage",Oil Products,Industry,oil_owp_ind_sr,Elasticity used,-0.4
+"Own-price, usage",Oil Products,Industry,oil_owp_ind_sr,Standard error,-0.18181818181818182
+"Own-price, usage",Biomass,Industry,bio_owp_ind_sr,Elasticity used,-0.30000000000000004
+"Own-price, usage",Biomass,Industry,bio_owp_ind_sr,Standard error,-0.18000000000000002
+"Own-price, usage",Renewables,Industry,rnw_owp_tot_lr,Elasticity used,-0.5
+"Own-price, usage",Renewables,Industry,rnw_owp_tot_lr,Standard error,-0.24242424242424243
+"Own-price, usage",Electricity,Industry,ecy_owp_ind_sr,Elasticity used,-0.30000000000000004
+"Own-price, usage",Electricity,Industry,ecy_owp_ind_sr,Standard error,-0.12121212121212122
+"Own-price, usage",Coal,Services,coa_owp_ind_sr,Elasticity used,-0.4
+"Own-price, usage",Coal,Services,coa_owp_ind_sr,Standard error,-0.27
+"Own-price, usage",Natural Gas,Services,nga_owp_ind_sr,Elasticity used,-0.6
+"Own-price, usage",Natural Gas,Services,nga_owp_ind_sr,Standard error,-0.3030303030303031
+"Own-price, usage",Gasoline,Services,gso_owp_tot_sr,Elasticity used,-0.6
+"Own-price, usage",Gasoline,Services,gso_owp_tot_sr,Standard error,-0.25510204081632654
+"Own-price, usage",Diesel,Services,die_owp_tot_sr,Elasticity used,-0.5
+"Own-price, usage",Diesel,Services,die_owp_tot_sr,Standard error,-0.20408163265306123
+"Own-price, usage",Oil Products,Services,oil_owp_ind_sr,Elasticity used,-0.5
+"Own-price, usage",Oil Products,Services,oil_owp_ind_sr,Standard error,-0.24242424242424243
+"Own-price, usage",Biomass,Services,bio_owp_ind_sr,Elasticity used,-0.4
+"Own-price, usage",Biomass,Services,bio_owp_ind_sr,Standard error,-0.27
+"Own-price, usage",Renewables,Services,rnw_owp_tot_lr,Elasticity used,-0.7
+"Own-price, usage",Renewables,Services,rnw_owp_tot_lr,Standard error,-0.30612244897959184
+"Own-price, usage",Electricity,Services,ecy_owp_ind_sr,Elasticity used,-0.5
+"Own-price, usage",Electricity,Services,ecy_owp_ind_sr,Standard error,-0.20408163265306123
+"Own-price, efficiency",Coal,Transport,coa_owp_tot_lr,Elasticity used,-0.4
+"Own-price, efficiency",Coal,Transport,coa_owp_tot_lr,Standard error,-0.36000000000000004
+"Own-price, efficiency",Natural Gas,Transport,nga_owp_tot_lr,Elasticity used,-0.4
+"Own-price, efficiency",Natural Gas,Transport,nga_owp_tot_lr,Standard error,-0.24242424242424243
+"Own-price, efficiency",Gasoline,Transport,gso_owp_tot_lr,Elasticity used,-0.4
+"Own-price, efficiency",Gasoline,Transport,gso_owp_tot_lr,Standard error,-0.15503875968992248
+"Own-price, efficiency",Diesel,Transport,die_owp_tot_lr,Elasticity used,-0.3
+"Own-price, efficiency",Diesel,Transport,die_owp_tot_lr,Standard error,-0.11627906976744184
+"Own-price, efficiency",Oil Products,Transport,oil_owp_tot_lr,Elasticity used,-0.4
+"Own-price, efficiency",Oil Products,Transport,oil_owp_tot_lr,Standard error,-0.24242424242424243
+"Own-price, efficiency",Biomass,Transport,bio_owp_ind_lr,Elasticity used,-0.2
+"Own-price, efficiency",Biomass,Transport,bio_owp_ind_lr,Standard error,-0.18000000000000002
+"Own-price, efficiency",Renewables,Transport,rnw_owp_tot_lr,Elasticity used,-0.4
+"Own-price, efficiency",Renewables,Transport,rnw_owp_tot_lr,Standard error,-0.24242424242424243
+"Own-price, efficiency",Electricity,Transport,ecy_owp_tot_lr,Elasticity used,-0.2
+"Own-price, efficiency",Electricity,Transport,ecy_owp_tot_lr,Standard error,-0.12121212121212122
+"Own-price, efficiency",Coal,Residential,coa_owp_res_lr,Elasticity used,-0.4
+"Own-price, efficiency",Coal,Residential,coa_owp_res_lr,Standard error,-0.36000000000000004
+"Own-price, efficiency",Natural Gas,Residential,nga_owp_res_lr,Elasticity used,-0.5
+"Own-price, efficiency",Natural Gas,Residential,nga_owp_res_lr,Standard error,-0.30303030303030304
+"Own-price, efficiency",Gasoline,Residential,gso_owp_tot_lr,Elasticity used,-0.6
+"Own-price, efficiency",Gasoline,Residential,gso_owp_tot_lr,Standard error,-0.30612244897959184
+"Own-price, efficiency",Diesel,Residential,die_owp_tot_lr,Elasticity used,-0.3
+"Own-price, efficiency",Diesel,Residential,die_owp_tot_lr,Standard error,-0.15306122448979592
+"Own-price, efficiency",Oil Products,Residential,oil_owp_tot_lr,Elasticity used,-0.4
+"Own-price, efficiency",Oil Products,Residential,oil_owp_tot_lr,Standard error,-0.24242424242424243
+"Own-price, efficiency",Biomass,Residential,bio_owp_ind_lr,Elasticity used,-0.2
+"Own-price, efficiency",Biomass,Residential,bio_owp_ind_lr,Standard error,-0.18000000000000002
+"Own-price, efficiency",Renewables,Residential,rnw_owp_tot_lr,Elasticity used,-0.4
+"Own-price, efficiency",Renewables,Residential,rnw_owp_tot_lr,Standard error,-0.24242424242424243
+"Own-price, efficiency",Electricity,Residential,ecy_owp_res_lr,Elasticity used,-0.2
+"Own-price, efficiency",Electricity,Residential,ecy_owp_res_lr,Standard error,-0.12121212121212122
+"Own-price, efficiency",Coal,Industry,coa_owp_ind_lr,Elasticity used,-0.4
+"Own-price, efficiency",Coal,Industry,coa_owp_ind_lr,Standard error,-0.36000000000000004
+"Own-price, efficiency",Natural Gas,Industry,nga_owp_ind_lr,Elasticity used,-0.5
+"Own-price, efficiency",Natural Gas,Industry,nga_owp_ind_lr,Standard error,-0.30303030303030304
+"Own-price, efficiency",Gasoline,Industry,gso_owp_tot_lr,Elasticity used,-0.7
+"Own-price, efficiency",Gasoline,Industry,gso_owp_tot_lr,Standard error,-0.35714285714285715
+"Own-price, efficiency",Diesel,Industry,die_owp_tot_lr,Elasticity used,-1.2
+"Own-price, efficiency",Diesel,Industry,die_owp_tot_lr,Standard error,-0.4651162790697674
+"Own-price, efficiency",Oil Products,Industry,oil_owp_ind_lr,Elasticity used,-0.4
+"Own-price, efficiency",Oil Products,Industry,oil_owp_ind_lr,Standard error,-0.24242424242424243
+"Own-price, efficiency",Biomass,Industry,bio_owp_ind_lr,Elasticity used,-0.2
+"Own-price, efficiency",Biomass,Industry,bio_owp_ind_lr,Standard error,-0.18000000000000002
+"Own-price, efficiency",Renewables,Industry,rnw_owp_tot_lr,Elasticity used,-0.4
+"Own-price, efficiency",Renewables,Industry,rnw_owp_tot_lr,Standard error,-0.24242424242424243
+"Own-price, efficiency",Electricity,Industry,ecy_owp_ind_lr,Elasticity used,-0.2
+"Own-price, efficiency",Electricity,Industry,ecy_owp_ind_lr,Standard error,-0.12121212121212122
+"Own-price, efficiency",Coal,Services,coa_owp_ind_lr,Elasticity used,-0.6
+"Own-price, efficiency",Coal,Services,coa_owp_ind_lr,Standard error,-0.54
+"Own-price, efficiency",Natural Gas,Services,nga_owp_ind_lr,Elasticity used,-1
+"Own-price, efficiency",Natural Gas,Services,nga_owp_ind_lr,Standard error,-0.6060606060606062
+"Own-price, efficiency",Gasoline,Services,gso_owp_tot_lr,Elasticity used,-1.1
+"Own-price, efficiency",Gasoline,Services,gso_owp_tot_lr,Standard error,-0.5612244897959184
+"Own-price, efficiency",Diesel,Services,die_owp_tot_lr,Elasticity used,-0.4
+"Own-price, efficiency",Diesel,Services,die_owp_tot_lr,Standard error,-0.20408163265306123
+"Own-price, efficiency",Oil Products,Services,oil_owp_ind_lr,Elasticity used,-0.6
+"Own-price, efficiency",Oil Products,Services,oil_owp_ind_lr,Standard error,-0.36363636363636365
+"Own-price, efficiency",Biomass,Services,bio_owp_ind_lr,Elasticity used,-0.3
+"Own-price, efficiency",Biomass,Services,bio_owp_ind_lr,Standard error,-0.27
+"Own-price, efficiency",Renewables,Services,rnw_owp_tot_lr,Elasticity used,-0.6
+"Own-price, efficiency",Renewables,Services,rnw_owp_tot_lr,Standard error,-0.30612244897959184
+"Own-price, efficiency",Electricity,Services,ecy_owp_ind_lr,Elasticity used,-0.4
+"Own-price, efficiency",Electricity,Services,ecy_owp_ind_lr,Standard error,-0.20408163265306123
+Cross-price,Biomass/LPG,Residential,bio_crp_lpg,Elasticity used,0.25
+Cross-price,Biomass/LPG,Residential,bio_crp_lpg,Standard error,0.225
+Cross-price,Biomass/Kerosene,Residential,bio_crp_ker,Elasticity used,0.25
+Cross-price,Biomass/Kerosene,Residential,bio_crp_ker,Standard error,0.225
+Cross-price,Biomass/Diesel,Residential,gso_crp_die,Elasticity used,0.25
+Cross-price,Biomass/Diesel,Residential,gso_crp_die,Standard error,0.225

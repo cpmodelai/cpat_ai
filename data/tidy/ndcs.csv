@@ -1,0 +1,585 @@
+round,country,type,ty1,ty2,ref,cond,u1,c1,u2,c2,lulucf,gases,submission
+Latest*,AFG,Fixed,2030,2025,,Yes,,42.7,,40.3,Includes,"CO2, CH4, N2O",First
+Latest*,ALB,Fixed,2030,,,No,11.978,,,,Includes,"CO2, CH4, N2O, HFCs",Second
+Latest*,DZA,BAU,2030,,,Yes,-0.07,-0.22,,,Includes,"CO2, CH4, N2O",First
+Latest*,AND,Fixed,2035,,,No,0.137,,,,Includes,"CO2, CH4, N2O, SF6",Third
+Latest*,AGO,Fixed,2035,,,Yes,1.9019160000000002,1.89013,,,Includes,"CO2, CH4, N2O",Third
+Latest*,ATG,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2,CH4, N2O, HFCs",Second
+Latest*,ARG,Fixed,2030,,,No,349,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Latest*,ARM,Fixed,2035,,,Yes,14.61,12.498,,,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,AUS,Historical,2035,2030,2005,No,-0.6599999999999999,,-0.43,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,AUT,Historical,2035,,1990,No,-0.605140288235527,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,AZE,Historical,2035,,1990,Yes,,-0.4,,,Includes,"CO2, CH4, N2O, HFC, CF4",Third
+Latest*,BHS,Fixed,2035,,,No,4.148,,,,Includes,"CO2, CH4, N2O",Third
+Latest*,BHR,Unquantifiable,2035,,,No,n/q,,,,Includes,n/a,Third
+Latest*,BGD,Fixed,2035,,,Yes,391.65999999999997,333.42999999999995,,,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,BRB,Historical,2035,2030,2008,Yes,,-0.45,,-0.37,Includes,"CO2, CH4, N2O, HFCs, SF6",Third
+Latest*,BLR,Historical,2030,,1990,Yes,-0.42,-0.47,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,BEL,Historical,2035,,1990,No,-0.723228138272039,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,BLZ,Unquantifiable,2035,2030,,Yes,n/q,n/q,,,Includes,"CO2, CH4, N2O",Third
+Latest*,BEN,Fixed,2030,,,Yes,25.39,22.84,,,Includes,"CO2, CH4, N2O",Second
+Latest*,BTN,Fixed,2030,,,No,-2.292,,,,Includes,"CO2, CH4, N2O",Third
+Latest*,BOL,Unquantifiable,2035,,,No,n/q,,,,Includes,n/a,Third
+Latest*,BIH,Historical,2030,,1990,Yes,-0.332,-0.368,,,Includes,"CO2, CH4, N2O",Second
+Latest*,BWA,Fixed,2030,,,Yes,21.791,18.602,,,Includes,"CO2, CH4, N2O",Second
+Latest*,BRA,Fixed,2035,,2005,No,947.2,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,BRN,Fixed,2035,,,Yes,,24.64,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,BGR,Historical,2035,,1990,No,-0.7980599869121915,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,BFA,Fixed,2035,2030,,Yes,59.462210000000006,42.72657000000001,65.99255,58.766589999999994,Includes,"CO2, CH4, N2O, NOX, CO",Third
+Latest*,BDI,Fixed,2035,2030,,Yes,4.944768,3.527441,2.803502,1.561889,Includes,"CO2, CH4, N2O",Third
+Latest*,CPV,Fixed,2035,2030,,Yes,1.1006040000000001,0.81378,0.9908306,0.87401,Includes,"CO2, CH4, N2O",Third
+Latest*,KHM,Fixed,2035,2030,,Yes,112.1,60.4,107.8,73.2,Includes,"CO2, CH4, N2O",Third
+Latest*,CMR,Fixed,2030,,,Yes,104.18699,76.82572,,,Includes,"CO2, CH4, N2O",Second
+Latest*,CAN,Fixed,2035,,2005,No,400,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,CAF,Fixed,2035,2030,,Yes,197,73,278,169,Includes,"CO2, CH4, N2O",Third
+Latest*,TCD,Fixed,2030,,,Yes,84.571,68.588,,,Includes,"CO2, CH4, N2O",Second
+Latest*,CHL,Fixed,2035,,,No,90,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs",Third
+Latest*,CHN,Historical,2035,,2024,No,-0.085,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs",Third
+Latest*,COL,Fixed,2035,,,No,158,,169.44,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,COG,Fixed,2035,2030,,Yes,-21.93231,-26.56947,-21.71686,-24.25406,Includes,"CO2, CH4, N2O",Third
+Latest*,COM,Fixed,2035,2030,,Yes,0.754,0.377,0.607,0.321,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,CRI,Fixed,2035,2030,,Yes,13.8777,10.034,13.8777,11.3081,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,HRV,Historical,2035,,1990,No,-0.518389728958849,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,CUB,Unquantifiable,2035,,,No,n/q,,,,Includes,"CO2, CH4, N2O",Third
+Latest*,CYP,Historical,2035,,1990,No,-0.43953646932928087,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,CZE,Historical,2035,,1990,No,-0.7315204104392017,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,DNK,Historical,2035,,1990,No,-0.7643556201490607,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,DJI,Fixed,2030,,,Yes,1.353035,0.9220000000000002,,,Includes,"CO2, CH4, N2O",Third
+Latest*,DMA,Historical,2030,2025,2014,No,-0.45,,0.39,,Includes,"CO2, CH4, N2O, HFCs",Second
+Latest*,DOM,Fixed,2030,,,Yes,47.43,37.23,,,Includes,"CO2, CH4, N2O",Second
+Latest*,COD,BAU,2030,,,Yes,-0.19,-0.21,,,Includes,"CO2, CH4, N2O",Second
+Latest*,COK,Unquantifiable,2030,,,Yes,,,,,Includes,"CO2, CH4, N2O",Second
+Latest*,ECU,Fixed,2035,,,Yes,120.9,110.5,,,Includes,"CO2, CH4, N2O",Second
+Latest*,EGY,BAU,2030,,,No,-0.27,,,,Excludes,"CO2, CH4, N2O",Second
+Latest*,SLV,Fixed,2035,,,Yes,18.027,16.469,,,Includes,"CO2, CH4, N2O",Second
+Latest*,GNQ,Fixed,2030,2050,,No,290.03999699999997,223.10769,-0.5,,Includes,"CO2, CH4, N2O",Second
+Latest*,ERI,Fixed,2030,2025,,Yes,4.590999999999999,3.7979999999999996,4.103999999999999,3.561,Includes,"CO2, CH4, N2O",Second
+Latest*,EST,Historical,2035,,1990,No,-0.849979509749031,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,ETH,Fixed,2035,2030,,Yes,140.8,70.7,141.9,85.7,Includes,"CO2, CH4, N2O",Third
+Latest*,EU,Historical,2035,,1990,No,-0.69375,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,FJI,Unquantifiable,2035,,,Yes,n/q,,,,Includes,CO2,Third
+Latest*,FIN,Historical,2035,,1990,No,-0.6931745780377451,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,FRA,Historical,2035,,1990,No,-0.6790436952793899,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,FSM,Unquantifiable,2035,2030,,Yes,n/q,,n/q,7.1802,Includes,"CO2, CH4, N2O",Third
+Latest*,GAB,Fixed,2035,2030,,Yes,-92.4306,-121.5213,-88.9932,-93.7623,Includes,"CO2, CH4, N2O",Third
+Latest*,GMB,Fixed,2030,,,Yes,6.448,3.327,,,Includes,"CO2, CH4, N2O, NOx, PFCs, HFCs, SF6, NF3",Second
+Latest*,GEO,Historical,2035,2030,1990,No,-0.5,,-0.47,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,DEU,Historical,2035,,1990,No,-0.7996122774700186,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,GHA,Fixed,2030,,,Yes,71.21666666666667,66.83888888888889,,,Includes,"CO2, CH4, N2O, HFC-22, HFC-410",Second
+Latest*,GRC,Historical,2035,,1990,No,-0.5007479186093389,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,GRD,Historical,2030,,2010,Yes,,-0.4,,,Includes,"CO2, CH4",Second
+Latest*,GTM,Fixed,2030,,,Yes,64.999,56.654,,,Includes,"CO2, CH4, N2O",Second
+Latest*,GIN,Fixed,2035,,,Yes,83.05229,51.03213,,,Includes,n/a,Third
+Latest*,GNB,Fixed,2030,,,Yes,16.38,12.739999999999998,,,Includes,"CO2, CH4, NOx",Second
+Latest*,GUY,Unquantifiable,2030,,,No,n/q,,,,Includes,CO2,First
+Latest*,HTI,Fixed,2030,,,Yes,17.771096,14.13265,,,Includes,"CO2, CH4, N2O",Second
+Latest*,HND,Fixed,2035,2030,,Yes,,52.769,,41.816,Includes,"CO2, CH4, N2O",Third
+Latest*,HUN,Historical,2035,,1990,No,-0.6085619248917189,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,ISL,Historical,2035,,2005,No,-0.525,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,IND,Intensity,2035,,2005,No,-0.47,,,,Includes,"CO2, CH4",Third
+Latest*,IDN,Fixed,2035,2030,,Yes,1488.866,1257.717,1491.474,1345.707,Includes,"CO2, CH4, N2O",Third
+Latest*,IRN,Unquantifiable,2030,,,No,n/q,n/q,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",First
+Latest*,IRQ,Fixed,2035,,,Yes,284.07849999999996,233.24339999999998,,,Includes,CO2,Third
+Latest*,IRL,Historical,2035,,1990,No,-0.603471267715064,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,ISR,Fixed,2030,2050,,No,58,,12,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Latest*,ITA,Historical,2035,,1990,No,-0.6548204274398272,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,CIV,Fixed,2035,2030,,Yes,104.659,40.19948,96.46865,53.6258,Includes,"CO2, CH4, N2O",Third
+Latest*,JAM,Historical,2035,2030,2012,Yes,-0.271,-0.417,-0.263,-0.306,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,JPN,Fixed,2035,2040,,No,562.8000000000001,,379.89000000000004,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,JOR,Unquantifiable,2035,,,No,n/q,n/q,,,Includes,"CO2, CH4, N2O, SF6, PFCs, HFCs",Third
+Latest*,KAZ,Fixed,2035,2030,,Yes,319.82,288.34,327.62,289.08,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,KEN,Fixed,2035,,,Yes,199.95,139.75,,,Includes,"CO2, CH4, N2O",Third
+Latest*,KIR,BAU,2030,2025,,Yes,-0.08,-0.318,-0.095,-0.262,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Latest*,XKX,Historical,2030,,2016,Yes,-0.163,-0.42,,,Includes,"CO2, CH4, N2O, HFCs",First
+Latest*,KWT,Fixed,2035,,,No,131.7612345,,,,Includes,"CO2, CH4, N2O",Second
+Latest*,KGZ,Fixed,2035,2030,,Yes,20.044,14.717,14.501,12.505,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,LAO,Fixed,2030,,,No,62,,,,Includes,n/a,Second
+Latest*,LVA,Historical,2035,,1990,No,-0.6098381758175966,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,LBN,BAU,2035,,,Yes,-0.22,-0.33,,,Includes,"CO2, CH4, N2O",Third
+Latest*,LSO,Fixed,2030,,,Yes,6.768,5.472,,,Includes,"CO2, N2O, CH4",Second
+Latest*,LBR,Fixed,2035,,,Yes,49.956669,19.9826676,,,Includes,"CO2, CH4, N2O",Third
+Latest*,LIE,Historical,2035,2030,1990,No,-0.68,,-0.55,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,LTU,Historical,2035,,1990,No,-0.779064030949115,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,LUX,Historical,2035,,1990,No,-0.6946742651721112,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,MKD,Fixed,2030,,,No,6.058,,,,Includes,CO2,Second
+Latest*,MDG,Fixed,2030,,,No,-98.92699999999999,,,,Includes,"CO2, CH4, N2O",Second
+Latest*,MWI,Fixed,2040,,,Yes,32.6,16.9,,,Includes,"CO2, CH4, N2O",Second
+Latest*,MYS,Unquantifiable,2035,,2005,No,n/q,,,,Includes,"CO2, CH4, N2O",Third
+Latest*,MDV,Fixed,2035,,,Yes,,4.51,,,Excludes,"CO2, CH4, N2O",Third
+Latest*,MLI,Fixed,2030,,,No,26.63,,,,Includes,"CO2, CH4, N2O",Second
+Latest*,MLT,Historical,2035,,1990,No,-0.6159430863928554,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,MHL,Historical,2035,,2010,No,-0.58,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,MRT,Fixed,2035,2030,,Yes,21.1091,7.4208,16.1679,5.9351,Includes,"CO2, CH4, N2O",Third
+Latest*,MUS,Fixed,2035,,,Yes,6.8,4.431,,,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,MEX,Fixed,2035,,,Yes,384,347.5,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,MDA,Historical,2035,2030,1990,No,-0.75,,-0.71,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,MCO,Historical,2035,2030,1990,No,-0.676,,-0.55,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,MNG,Fixed,2035,2030,,Yes,32.6,28.700000000000003,44.6,42.8,Includes,"CO2, CH4, N2O",Third
+Latest*,MNE,Historical,2035,2030,1990,No,-0.6,,-0.55,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,MAR,Fixed,2035,,,Yes,130.46,78.24,,,Includes,"CO2, CH4, N2O, HFCs, NOx, SO2, NMVOCs,CO",Third
+Latest*,MOZ,BAU,2035,,,No,-0.175,,,,Includes,"CO2, CH4, N2O, (more GHG may be included in the future)",Third
+Latest*,MMR,Unquantifiable,2035,,,No,n/q,,,,Includes,n/a,Second
+Latest*,NAM,Fixed,2030,,,Yes,,-102.615,,,Includes,"CO2, CH4, N2O, HFCs ",Second
+Latest*,NRU,Unquantifiable,2035,,,No,n/q,,,,Includes,CO2,Third
+Latest*,NPL,Fixed,2035,2030,,Yes,61.557655999999994,45.428689999999996,51.4260788,42.914210000000004,Includes,"CO2, CH4, N2O",Third
+Latest*,NLD,Historical,2035,,1990,No,-0.7364250749281486,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,NZL,Historical,2035,,2005,No,-0.53,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,NIC,Unquantifiable,2035,,,Yes,n/q,n/q,,,Includes,n/a,Third
+Latest*,NER,Fixed,2025,,,Yes,72.937,63.1676,,,Includes,"CO2, CH4, N2O",Second
+Latest*,NGA,Historical,2035,2030,2018,Yes,,-0.32,,-0.29,Includes,"CO2, N2O, CH4, HFCs",Third
+Latest*,PRK,Fixed,2030,,,Yes,151.93,108.92999999999999,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Latest*,NOR,Historical,2035,2030,1990,No,-0.725,,-0.55,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,OMN,Fixed,2030,,,Yes,99.24959999999999,84.3088,,,Includes,"CO2, CH4, N2O, HCFCs, PFCs",Second
+Latest*,PAK,Fixed,2035,2030,,Yes,2124,1279,1363,802,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,PLW,Fixed,2035,2030,,Yes,0.145,0.092,0.13,0.1122,Includes,"CO2, CH4",Third
+Latest*,PALEST,Fixed,2040,,,Yes,14.974195,,,,Includes,"CO2, CH4, N2O",Second
+Latest*,PAN,BAU,2035,,,Yes,-0.11,-0.17,,,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,PNG,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2 (all targeted sectors), CH4 (indigenous oil and gas sector)",Second
+Latest*,PRY,Fixed,2035,2030,,Yes,94.673,84.154,81.853,72.758,Includes,"CO2, CH4, N2O",Third
+Latest*,PER,Fixed,2035,,,Yes,,179,,,Includes,"CO2, CH4, N2O, HFCs, PFC, SF6",Third
+Latest*,PHL,BAU,2030,,,Yes,-0.0271,-0.75,,,Excludes,n/a,Second
+Latest*,POL,Historical,2035,,1990,No,-0.6348116268424404,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,PRT,Historical,2035,,1990,No,-0.4459098749432466,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,QAT,Unquantifiable,2040,,,No,n/q,,,,Excludes,"CO2, CH4, N2O",Third
+Latest*,ROU,Historical,2035,,1990,No,-0.7544640513317693,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,RUS,Historical,2035,,1990,No,-0.33999999999999997,,,,Includes,"CO2, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,RWA,Fixed,2035,,,Yes,26,13,,,Includes,"CO2, N2O, CH4",Third
+Latest*,WSM,Fixed,2035,,,Yes,,0.39222,,,Includes,CO2,Third
+Latest*,SMR,Historical,2030,,2005,No,-0.2,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",First
+Latest*,STP,Fixed,2035,,,Yes,,0.2528,,,Excludes,"CO2, CH4, N2O",Third
+Latest*,SAU,Unquantifiable,2040,,,No,n/q,,,,Excludes,n/a,Third
+Latest*,SEN,Fixed,2030,2025,,Yes,21.523,14.048,18.022,12.615,Includes,"CO2, CH4, N2O",Second
+Latest*,SRB,Historical,2035,,1990,Yes,,-0.401,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,SYC,Fixed,2035,,,No,0.679,,,,Excludes,"CO2, CH4, N2O, HFCs",Third
+Latest*,SLE,Fixed,2035,,,Yes,69.955457728,49.18032864,,,Includes,"CO2, CH4, N2O",Third
+Latest*,SGP,Fixed,2035,,,No,47.5,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,SVK,Historical,2035,,1990,No,-0.7116837757459675,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,SVN,Historical,2035,,1990,No,-0.42288686098457123,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,SLB,Fixed,2035,2030,,Yes,1.109,0.7977,1.014,0.9032,Includes,CO2,Third
+Latest*,SOM,Fixed,2035,,,Yes,80.8,55.5,,,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,ZAF,Fixed,2035,,,No,350,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,KOR,Fixed,2035,,,No,319.1889999999999,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,SSD,Fixed,2030,,,No,3.6,,,,Includes,CO2,Second
+Latest*,ESP,Historical,2035,,1990,No,-0.4349287025907598,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,LKA,Fixed,2035,,,Yes,53.099149999999995,46.17730999999999,,,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,KNA,Historical,2030,,,Yes,0,-0.61,,,Includes,CO2,Second
+Latest*,LCA,Unquantifiable,2035,,,No,n/q,,,,Includes,"CO2, CH4, N2O",Third
+Latest*,VCT,Fixed,2030,,,Yes,,0.5249999999999999,,,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,SDN,Fixed,2030,,,No,41.90633,,,,Includes,"CO2, CH4, N2O",Second
+Latest*,SUR,Fixed,2035,,,No,-4.96,,,,Includes,"CO2, CH4, N2O",Third
+Latest*,SWZ,Fixed,2035,,,Yes,-1.56641,-2.7664100000000005,,,Includes,"CO2, CH4, HFCs",Third
+Latest*,SWE,Historical,2035,,1990,No,-0.5069635356665297,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,CHE,Historical,2035,,1990,No,-0.65,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,TJK,Fixed,2030,,,Yes,21.87,17.83,,,Includes,"CO2, CH4, N2O",Second
+Latest*,TZA,Fixed,2030,,,No,148.14157500000002,,,,Includes,n/a,Second
+Latest*,THA,Fixed,2035,,,Yes,,152,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Third
+Latest*,TLS,Unquantifiable,2025,,,No,n/q,,,,Includes,"CO2, CH4, N2O",First
+Latest*,TGO,Fixed,2030,,,Yes,24.172908999999997,15.031662999999998,,,Includes,"CO2, CH4, N2O",Second
+Latest*,TON,Unquantifiable,2035,,,No,n/q,,,,Includes,"CO2, CH4, N2O, CO, NOx",Third
+Latest*,TTO,Unquantifiable,2035,,,Yes,,,,,Includes,"CO2, CH4, N2O",Third
+Latest*,TUN,Intensity,2035,2025,2010,Yes,-0.31,-0.62,-0.28,-0.462,Includes,"CO2, CH4, N2O, HFCs",Third
+Latest*,TUR,Fixed,2035,,,No,643,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,TKM,BAU,2030,,2010,No,-0.2,,,,Excludes,"CO2, CH4, N2O",First
+Latest*,TUV,Unquantifiable,2035,2030,2014,Yes,n/q,n/q,n/q,n/q,Includes,"CO2, CH4, N2O, CO, SO2, NOx, NMVOC",Third
+Latest*,UGA,Fixed,2030,,,Yes,140.0208,112.0464,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Latest*,UKR,Historical,2035,,1990,No,-0.65,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,ARE,Fixed,2035,,,No,103.5,,,,Includes,n/a,Third
+Latest*,GBR,Historical,2035,,1990,No,-0.81,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,USA,Unquantifiable,2035,,2005,No,n/q,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Third
+Latest*,URY,Unquantifiable,2035,,,Yes,,,,,Includes,CO2,Third
+Latest*,UZB,Intensity,2035,,2010,No,-0.5,,,,Includes,"CO2, CH4, N2O",Third
+Latest*,VUT,Fixed,2035,,,Yes,,0.34325,,,Includes,"CO2, CH4, NO2",Third
+Latest*,VEN,Unquantifiable,2030,,,Yes,,,,,Includes,n/a,Third
+Latest*,VNM,Fixed,2030,,,Yes,781.2918,524.2634999999999,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Latest*,YEM,Unquantifiable,2030,,,Yes,n/q,,,,Includes,"CO2, CH4, N2O",Third
+Latest*,ZMB,BAU,2030,,2010,Yes,-0.25,-0.47,,,Includes,"CO2, CH4, N2O",Second
+Latest*,ZWE,Fixed,2035,,,Yes,,50.10401,,,Includes,"CO2, CH4, N2O",Third
+Second round,AFG,Fixed,2030,2025,,Yes,,42.7,,40.3,Includes,"CO2, CH4, N2O",First
+Second round,ALB,Fixed,2030,,,No,11.978,,,,Includes,"CO2, CH4, N2O, HFCs",Second
+Second round,DZA,BAU,2030,,,Yes,-0.07,-0.22,,,Includes,"CO2, CH4, N2O",First
+Second round,AND,BAU,2030,,,No,0.292,,,,Includes,"CO2, CH4, N2O, SF6",Second
+Second round,AGO,Fixed,2025,,,Yes,93.28711539999999,82.4397764,,,Includes,"CO2, CH4, N2O",Second
+Second round,ATG,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2,CH4, N2O, HFCs",Second
+Second round,ARG,Fixed,2030,,,No,349,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,ARM,Historical,2030,,1990,Yes,,-0.4,,,Includes,"CO2, CH4, N2O, HFCs",Second
+Second round,AUS,Historical,2030,,2005,No,-0.43,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,AUT,Historical,2030,,1990,No,-0.39804240906757293,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,AZE,Historical,2030,,1990,No,-0.35,,,,Includes,"CO2, CH4, N2O, HFC, CF4",First
+Second round,BHS,BAU,2030,,,No,-0.3,,,,Includes,"CO2, CH4, N2O",First
+Second round,BHR,Unquantifiable,n/a,,,No,n/q,,,,Excludes,n/a,Second
+Second round,BGD,Fixed,2030,,,Yes,381.85,319.94,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,BRB,Fixed,2030,2025,,Yes,1.2727,0.5874,1.5048000000000001,1.22265,Includes,"CO2, CH4, N2O, HFC, SF6",Second
+Second round,BLR,Historical,2030,,1990,Yes,-0.35,-0.4,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,BEL,Historical,2030,,1990,No,-0.5750879513125066,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,BLZ,Unquantifiable,n/a,,,No,n/q,,,,Includes,"CO2, CH4",Second
+Second round,BEN,Fixed,2030,,,Yes,25,22,,,Includes,"CO2, CH4, N2O",Second
+Second round,BTN,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2, CH4, N2O",Second
+Second round,BOL,Unquantifiable,2030,,,No,n/q,,,,Includes,n/a,Second
+Second round,BIH,Historical,2030,,1990,Yes,-0.332,-0.368,,,Includes,,Second
+Second round,BWA,Historical,2030,,2010,No,-0.15,,,,Excludes,"CO2, CH4, N2O",First
+Second round,BRA,Fixed,2030,2025,2005,No,1200,,1320,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,BRN,Fixed,2030,,,No,23.6,,,,Includes,CO2,First
+Second round,BGR,Historical,2030,,1990,No,-0.7556919403940906,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,BFA,Fixed,2030,2025,,Yes,86.44825884000001,75.889528718,82.55,77.48,Includes,"CO2, CH4, N2O, NOX, CO",Second
+Second round,BDI,Fixed,2025,,,Yes,8.938504400000001,8.046652,,,Includes,"CO2, CH4, N2O",Second
+Second round,CPV,Fixed,2030,,,Yes,0.8249200000000001,0.76456,,,Includes,"CO2, CH4, N2O",Second
+Second round,KHM,Fixed,2030,,,No,52.300000000000004,,,,Includes,"CO2, CH4, N2O",Second
+Second round,CMR,Fixed,2030,,,Yes,104.18699,76.82572,,,Includes,"CO2, CH4, N2O",Second
+Second round,CAN,Historical,2030,,2005,No,-0.42500000000000004,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,CAF,Fixed,2030,2025,,Yes,15.558479199999999,13.360036799999998,12.8640677,12.0707576,Includes,"CO2, CH4, N2O",Second
+Second round,TCD,Fixed,2030,,,Yes,84.571,68.588,,,Includes,"CO2, CH4, N2O",Second
+Second round,CHL,Fixed,2030,,,No,95,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs",Second
+Second round,CHN,Intensity,2030,,2005,No,-0.65,,,,Excludes,CO2,Second
+Second round,COL,Fixed,2030,,,No,169.44,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,COG,BAU,2025,2030,,Yes,-0.1709,-0.3988,-0.2146,-0.3219,Includes,"CO2, CH4, N2O",Second
+Second round,COM,,,,,,,,,,,,
+Second round,CRI,Fixed,2030,,,No,9.11,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,HRV,Historical,2030,,1990,No,-0.4017612547194227,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,CUB,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2, CH4, N2O",Second
+Second round,CYP,Historical,2030,,1990,No,-0.16876811397364877,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,CZE,Historical,2030,,1990,No,-0.6103429141836751,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,DNK,Historical,2030,,1990,No,-0.6376133381655726,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,DJI,Fixed,2030,,,Yes,2.685,1.79,,,Excludes,"CO2, CH4, N2O",First
+Second round,DMA,Historical,2030,2025,2014,No,-0.45,,,0.39,Includes,"CO2, CH4, N2O, HFCs",Second
+Second round,DOM,Fixed,2030,,,Yes,47.43,37.23,,,Includes,"CO2, CH4, N2O",Second
+Second round,COD,BAU,2030,,,Yes,-0.21,-0.28,,,Includes,"CO2, CH4, N2O",Second
+Second round,COK,,,,,,,,,,,,
+Second round,ECU,Fixed,2025,,,Yes,67.774,60.824,,,Excludes,"CO2, CH4, N2O",First
+Second round,EGY,BAU,2030,,,No,-0.27,,,,Excludes,n/a,Second
+Second round,SLV,Unquantifiable,2025,,,No,n/q,,,,Includes,n/a,Second
+Second round,GNQ,Historical,2030,2050,2019,No,-0.35,-0.35,,-0.5,Includes,"CO2, CH4, N2O",First
+Second round,ERI,Fixed,2030,2025,,Yes,7.201,5.031,5.719,4.578,Includes,"CO2, CH4, N2O",First
+Second round,EST,Historical,2030,,1990,No,-0.7608300964884281,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,ETH,Fixed,2030,,,Yes,347.3,125.8,,,Includes,"CO2, CH4, N2O",Second
+Second round,EU,Historical,2030,,1990,No,-0.4,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,FJI,Fixed,2030,,,Yes,1.35,1.0499999999999998,,,Excludes,CO2,Second
+Second round,FIN,Historical,2030,,1990,No,-0.3681349910922407,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,FRA,Historical,2030,,1990,No,-0.5168041323855398,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,FSM,Unquantifiable,2025,,2000,Yes,n/q,n/q,,,Excludes,CO2,First
+Second round,GAB,BAU,2050,,,No,-1,,,,Includes,"CO2, CH4, N2O",Second
+Second round,GMB,Fixed,2030,,,No,3.327,,,,Includes,"CO2, CH4, N2O, NOx, PFCs, HFCs, SF6, NF3",Second
+Second round,GEO,Historical,2030,,1990,Yes,-0.35,-0.57,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,DEU,Historical,2030,,1990,No,-0.6950576545831144,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,GHA,Fixed,2030,,,Yes,71.21666666666667,66.83888888888889,,,Includes,"CO2, CH4, N2O, HFC-22, HFC-410",Second
+Second round,GRC,Historical,2030,,1990,No,-0.3003951734306438,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,GRD,Historical,2030,,2010,Yes,,-0.4,,,Includes,"CO2, CH4",Second
+Second round,GTM,Fixed,2030,,,Yes,64.999,56.654,,,Includes,"CO2, CH4, N2O",Second
+Second round,GIN,BAU,2030,,,Yes,-0.097,-0.17,,,Excludes,n/a,Second
+Second round,GNB,Fixed,2030,,,Yes,16.38,12.739999999999998,,,Includes,"CO2, CH4, NOx",Second
+Second round,GUY,Unquantifiable,n/a,,,No,n/q,,,,Includes,CO2,First
+Second round,HTI,Fixed,2030,,,Yes,17.771096,14.13265,,,Includes,"CO2, CH4, N2O",Second
+Second round,HND,BAU,2030,,,Yes,,-0.16,,,Excludes,"CO2, CH4, N2O",Second
+Second round,HUN,Historical,2030,,1990,No,-0.485332800200573,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,ISL,Historical,2030,,1990,No,-0.4,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,IND,Intensity,2030,,2005,No,-0.45,,,,Includes,"CO2, CH4",Second
+Second round,IDN,Fixed,2030,,,Yes,1954.0759,1629.5919999999999,,,Includes,"CO2, CH4, N2O",Second
+Second round,IRN,BAU,2030,,,Yes,-0.04,-0.12,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",First
+Second round,IRQ,BAU,2035,,,Yes,-0.01,-0.14,,,Excludes,CO2,First
+Second round,IRL,Historical,2030,,1990,No,-0.4365146792197555,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,ISR,Fixed,2030,2050,,No,58,,12,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,ITA,Historical,2030,,1990,No,-0.48866479123529005,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,CIV,Fixed,2030,,,Yes,39.7,35.69,,,Includes,"CO2, CH4, N2O",Second
+Second round,JAM,Fixed,2030,,,Yes,5.3712,5.148000000000001,,,Includes,"CO2, CH4, N2O, SO2, NOx, CO, NMVOCs",Second
+Second round,JPN,Historical,2030,,2013,No,-0.46,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,JOR,Fixed,2030,,,No,30.291,,,,Includes,"CO2, CH4, N2O, SF6, PFCs, HFCs",Second
+Second round,KAZ,Historical,2030,,1990,Yes,-0.15,-0.25,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,KEN,Fixed,2030,,,Yes,,97.24,,,Includes,"CO2, CH4, N2O",Second
+Second round,KIR,BAU,2030,2025,,Yes,-0.08,-0.318,-0.095,-0.262,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,XKX,Fixed,2030,,,No,7.807799999999999,,,,Excludes,"CO2, CH4, N2O",Second
+Second round,KWT,Fixed,2035,,,No,131.7612345,,,,Includes,"CO2, CH4, N2O",Second
+Second round,KGZ,Fixed,2030,2025,,Yes,12.507,8.392,7.572,5.757,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,LAO,Fixed,2030,,,No,62,,,,Includes,n/a,Second
+Second round,LVA,Historical,2030,,1990,No,-0.3887015723996532,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,LBN,BAU,2030,,,Yes,-0.2,-0.31,,,Includes,"CO2, CH4, N2O",Second
+Second round,LSO,Fixed,2030,,,Yes,5.142,3.737,,,Includes,"CO2, N2O, CH4",Second
+Second round,LBR,Fixed,2030,,,Yes,11.18683,4.53664,,,Includes,"CO2, CH4, N2O",Second
+Second round,LIE,Historical,2030,,1990,No,-0.4,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",First
+Second round,LTU,Historical,2030,,1990,No,-0.7093531410511423,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,LUX,Historical,2030,,1990,No,-0.5378224131872643,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,MKD,Fixed,2030,,,No,6.058,,,,Includes,CO2,Second
+Second round,MDG,BAU,2030,,,No,-0.24,,,,Includes,"CO2, CH4, N2O",First
+Second round,MWI,Fixed,2040,,,Yes,32.6,16.9,,,Includes,"CO2, CH4, N2O",Second
+Second round,MYS,Intensity,2030,,2005,No,-0.45,,,,Includes,"CO2, CH4, N2O",Second
+Second round,MDV,Fixed,2030,,,No,2.43016,,,,Excludes,"CO2, CH4",Second
+Second round,MLI,Fixed,2030,,,No,26.63,,,,Includes,"CO2, CH4, N2O",Second
+Second round,MLT,Historical,2030,,1990,No,-0.4467510726780801,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,MHL,Historical,2030,2025,2010,No,-0.45,,-0.32,,Excludes,"CO2, CH4, N2O",Second
+Second round,MRT,Fixed,2030,,,Yes,14.35926,1.2907199999999994,,,Includes,"CO2, CH4, N2O",Second
+Second round,MUS,Fixed,2030,,,Yes,,4.14,,,Includes,"CO2, Short Lived Climate Forces (SLCF)",Second
+Second round,MEX,Fixed,2030,,,Yes,583.0999999999999,499.79999999999995,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,MDA,Historical,2030,,1990,Yes,-0.7,-0.88,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,MCO,Historical,2030,,1990,No,-0.55,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,MNG,Fixed,2030,,,Yes,57.4,54.090399999999995,,,Excludes,"CO2, CH4, N2O",Second
+Second round,MNE,Historical,2030,,1990,No,-0.35,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,MAR,Fixed,2030,,,Yes,116.134,77.573,,,Includes,"CO2, CH4, N2O",Second
+Second round,MOZ,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2, CH4, N2O, (more GHG may be included in the future)",Second
+Second round,MMR,Unquantifiable,n/a,,,No,n/q,,,,Includes,n/a,Second
+Second round,NAM,BAU,2030,,,Yes,,-0.13,,,Includes,"CO2, CH4, N2O",Second
+Second round,NRU,Unquantifiable,n/a,,,No,n/q,,,,Excludes,CO2,Second
+Second round,NPL,Unquantifiable,n/a,,,No,n/q,,,,Includes,n/a,Second
+Second round,NLD,Historical,2030,,1990,No,-0.596639947042295,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,NZL,Historical,2030,2050,2005,No,-0.5,-1,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,NIC,Fixed,2030,,,No,71.231,69.573,,,Includes,,Second
+Second round,NER,Fixed,2025,,,Yes,72.937,63.1676,,,Includes,"CO2, CH4, N2O",Second
+Second round,NGA,Fixed,2030,,,Yes,362.40000000000003,240.09,,,Includes,"CO2, N2O, CH4",Second
+Second round,PRK,Fixed,2030,,,Yes,151.93,108.92999999999999,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,NOR,Historical,2030,,1990,No,-0.55,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,OMN,Fixed,2030,,,Yes,99.24959999999999,84.25,,,Includes,"CO2, CH4, N2O, HCFCs, PFCs",Second
+Second round,PAK,Fixed,2030,,,Yes,1362.85,801.8,,,Includes,n/a,Second
+Second round,PLW,Fixed,2025,,,Yes,,0.068,,,Excludes,"CO2, CH4",First
+Second round,PALEST,Fixed,2040,,,No,14.974195,,,,Includes,"CO2, CH4, N2O",Second
+Second round,PAN,BAU,2030,2050,,Yes,,-0.115,,-0.24,Includes,"CO2, CH4, N2O",Second
+Second round,PNG,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2 (all targeted sectors), CH4 (indigenous oil and gas sector)",Second
+Second round,PRY,Fixed,2030,,,Yes,92.287,82.0336,,,Includes,"CO2, CH4, N2O",Second
+Second round,PER,Fixed,2030,,,Yes,208.8,179,,,Includes,"CO2, CH4, N2O, HFCs, PFC, SF6",Second
+Second round,PHL,BAU,2030,,,Yes,-0.0271,-0.75,,,Includes,n/a,Second
+Second round,POL,Historical,2030,,1990,No,-0.5011676088848651,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,PRT,Historical,2030,,1990,No,-0.30038820927212284,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,QAT,BAU,2030,,,Yes,,-0.25,,,Excludes,"CO2, CH4, N2O",Second
+Second round,ROU,Historical,2030,,1990,No,-0.7011384050296467,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,RUS,Historical,2030,,1990,No,-0.3,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,RWA,Fixed,2030,,,Yes,10.2,7.5,,,Excludes,"CO2, N2O, CH4",Second
+Second round,WSM,Historical,2025,,2007,Yes,0,-0.26,,,Includes,"CO2, CH4, N2O",Second
+Second round,SMR,Historical,2030,,2005,No,-0.2,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",First
+Second round,STP,Fixed,2030,,,Yes,0.4,0.29100000000000004,,,Excludes,"CO2, CH4, NOx",Second
+Second round,SAU,Unquantifiable,2030,,,No,n/q,,,,Excludes,n/a,Second
+Second round,SEN,Fixed,2030,,,Yes,28.844680000000004,5.224789999999999,,,Includes,"CO2, CH4, N2O",Second
+Second round,SRB,Historical,2030,,2010,No,-0.132,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,SYC,Fixed,2030,,,Yes,1.110054347826087,0.817,,,Excludes,"CO2, CH4",Second
+Second round,SLE,BAU,2030,2050,,Yes,0,-0.1,,-0.25,Includes,"CO2, CH4, N2O",Second
+Second round,SGP,Fixed,2030,,,No,60,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,SVK,Historical,2030,,1990,No,-0.5979465678622615,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,SVN,Historical,2030,,1990,No,0.2843123535537462,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,SLB,Fixed,2030,2025,,Yes,0.6719094999999999,0.22062699999999993,0.7777625,0.53358125,Includes,CO2,Second
+Second round,SOM,Fixed,2030,,,Yes,107.4,75.17999999999999,,,Includes,"CO2, CH4, N2O",Second
+Second round,ZAF,Fixed,2030,2025,2030,No,385,,454,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,KOR,Fixed,2030,,,No,435.96,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,SSD,BAU,2030,,,No,-0.4,,,,Includes,CO2,Second
+Second round,ESP,Historical,2030,,1990,No,-0.17618660194457503,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,LKA,BAU,2030,,,Yes,-0.04,-0.145,,,Includes,"CO2, CH4, N2O",Second
+Second round,KNA,Historical,2030,,2010,Yes,0,-0.61,,,Includes,CO2,Second
+Second round,LCA,Historical,2030,,2010,No,-0.147,,,,Excludes,"CO2, CH4, N2O",Third
+Second round,VCT,Fixed,2025,,,No,0.46799999999999997,,,,Includes,"CO2, CH4, N2O, HFCs",First
+Second round,SDN,Fixed,2030,,,No,41.88650946,,,,Includes,"CO2, CH4, N2O",Second
+Second round,SUR,Unquantifiable,2025,,,No,n/q,,,,Includes,"CO2, CH4, N2O",Second
+Second round,SWZ,BAU,2030,,,Yes,-0.05,-0.14,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,SWE,Historical,2030,,1990,No,0,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,CHE,Historical,2030,,1990,No,-0.5,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,TJK,Fixed,2030,,,Yes,21.87,17.83,,,Includes,"CO2, CH4, N2O",Second
+Second round,TZA,Fixed,2030,,,No,148.14157500000002,,,,Includes,n/a,Second
+Second round,THA,Fixed,2030,,,Yes,388.5,333,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,TLS,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2, CH4, N2O",First
+Second round,TGO,Fixed,2030,,,Yes,24.173242858,15.031870605999998,,,Includes,"CO2, CH4, N2O",Second
+Second round,TON,BAU,2030,,,No,0,-0.13,,,Excludes,"CO2, CH4, N2O",Second
+Second round,TTO,BAU,2030,,,Yes,0,-0.15,,,Excludes,"CO2, CH4, N2O",First
+Second round,TUN,Intensity,2030,,,Yes,-0.27,-0.45,,,Includes,"CO2, CH4, N2O",Second
+Second round,TUR,Fixed,2030,,,No,695,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,TKM,BAU,2030,,,No,-0.2,,,,Excludes,"CO2, CH4, N2O",Second
+Second round,TUV,Historical,2030,,2010,No,-0.6,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,UGA,Fixed,2030,,,Yes,140.0208,112.0464,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,UKR,Historical,2030,,1990,No,-0.595,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,ARE,Fixed,2030,,,No,182,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,GBR,Historical,2030,,1990,No,-0.68,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,USA,Historical,2030,,2005,No,0,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",Second
+Second round,URY,Fixed,2030,,,Yes,38.453,35.422,,,Includes,"CO2, CH4, N2O",Second
+Second round,UZB,Intensity,2030,,2010,No,-0.35,,,,Includes,"CO2, CH4, N2O",Second
+Second round,VUT,Unquantifiable,2030,,,No,n/q,,,,Includes,CO2,Second
+Second round,VEN,BAU,2030,,,Yes,0,-0.2,,,Includes,n/a,Second
+Second round,VNM,Fixed,2030,,,Yes,781.2918,524.2634999999999,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",Second
+Second round,YEM,Fixed,2030,,,Yes,43.35,37.67,,,Includes,"CO2, CH4, N2O",First
+Second round,ZMB,Historical,2030,,2010,Yes,0,-0.36,,,Includes,"CO2, CH4, N2O",Second
+Second round,ZWE,Fixed,2030,,,Yes,75.39,44.74,,,Includes,"CO2, CH4, N2O",Second
+First round,AFG,Fixed,2030,2025,,Yes,,42.7,,40.3,Includes,"CO2, CH4, N2O",2015 NDC
+First round,ALB,BAU,2030,2050,,No,-0.115,,,,Excludes,CO2,2015 NDC
+First round,DZA,BAU,2030,,,Yes,-0.07,-0.22,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,AND,BAU,2030,,,No,-0.3699388846447669,,,,Excludes,"CO2, CH4, N2O, SF6",2015 NDC
+First round,AGO,Fixed,2030,2025,,Yes,125.612,96.625,124.656,113.748,Includes,"CO2, CH4, N2O",2015 NDC
+First round,ATG,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2,CH4, N2O, HFCs",2015 NDC
+First round,ARG,Fixed,2030,,,Yes,483,369,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,ARM,Fixed,2050,,,Yes,18.085714285714285,,,,Includes,"CO2, CH4, N2O, HFCs",2015 NDC
+First round,AUS,Historical,2030,,2005,No,-0.28,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,AUT,Historical,2030,,1990,No,-0.16197583360765389,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,AZE,Historical,2030,,1990,No,-0.35,,,,Excludes,"CO2, CH4, N2O, HFC, CF4",2015 NDC
+First round,BHS,BAU,2030,,,No,-0.3,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,BHR,Unquantifiable,n/a,,,No,n/q,,,,Excludes,n/a,2015 NDC
+First round,BGD,Fixed,2030,,,Yes,222,198,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,BRB,Historical,2030,2025,2007,No,-0.23,,-0.21,,Includes,"CO2, CH4, N2O, HFC, SF6",2015 NDC
+First round,BLR,Historical,2030,,1990,No,-0.28,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,BEL,Historical,2030,,1990,No,-0.40554732508553104,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,BLZ,Unquantifiable,n/a,,,No,n/q,,,,Includes,"CO2, CH4",2015 NDC
+First round,BEN,Fixed,2030,,,Yes,37.10245,33.66825,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,BTN,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,BOL,Unquantifiable,2030,,,No,n/q,,,,Includes,n/a,2015 NDC
+First round,BIH,Historical,2030,,1990,Yes,0.18,-0.03,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,BWA,Historical,2030,,2010,No,-0.15,,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,BRA,Historical,2030,2025,2005,No,-0.43,,-0.37,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,BRN,Fixed,2030,,,No,23.6,,,,Includes,CO2,2020 NDC
+First round,BGR,Historical,2030,,1990,No,-0.7238531992079129,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,BFA,Fixed,2030,,,Yes,110.51499999999999,96.74899999999998,,,Includes,"CO2, CH4, N2O, NOX, CO",2015 NDC
+First round,BDI,Fixed,2030,,,Yes,72.25045,59.588,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,CPV,Fixed,2030,,,Yes,0.8249200000000001,0.76456,,,Includes,"CO2, CH4, N2O",2021 NDC
+First round,KHM,Fixed,2030,,,No,8.5,,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,CMR,BAU,2035,,,Yes,,-0.32,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,CAN,Historical,2030,,2005,No,-0.3,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,CAF,BAU,2030,2050,,Yes,-0.03701009366190777,-0.05001364008365916,-0.05500079251862422,-0.25001320864373655,Includes,"CO2, CH4, N2O",2015 NDC
+First round,TCD,Fixed,2030,,,Yes,23.449,8.229,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,CHL,Intensity,2030,,2007,Yes,-0.3,-0.45,,,Includes,"CO2, CH4, N2O, HFCs, PFCs",2020 NDC
+First round,CHN,Intensity,2030,,2005,No,-0.625,,,,Excludes,CO2,2015 NDC
+First round,COL,Fixed,2030,,,Yes,268,234.49999999999997,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,COG,BAU,2025,2035,,Yes,0,-0.4823321554770319,,-0.5468571428571429,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,COM,,,,,,,,,,,,
+First round,CRI,Fixed,2030,,,No,9.374,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,HRV,Historical,2030,,1990,No,-0.32640054371361205,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,CUB,Unquantifiable,2030,,,No,n/q,,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,CYP,Historical,2030,,1990,No,0.1468049924328767,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,CZE,Historical,2030,,1990,No,-0.45889796545283257,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,DNK,Historical,2030,,1990,No,-0.4882393053141304,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,DJI,Fixed,2030,,,Yes,2.685,1.79,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,DMA,Historical,2030,2025,2014,Yes,0,-0.447,,-0.392,Includes,"CO2, CH4, N2O, HFCs",2015 NDC
+First round,DOM,Historical,2030,,2010,Yes,,-0.25,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,COD,BAU,2030,,,Yes,0,-0.17,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,COK,,,,,,,,,,,,
+First round,ECU,Fixed,2025,,,Yes,67.774,60.824,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,EGY,Unquantifiable,2030,,,No,n/q,,,,Includes,n/a,2015 NDC
+First round,SLV,Unquantifiable,2025,,,No,n/q,,,,Includes,n/a,2015 NDC
+First round,GNQ,Historical,2030,2050,2010,Yes,0,-0.2,,-0.5,Includes,"CO2, CH4, N2O",2015 NDC
+First round,ERI,Fixed,2030,2025,,Yes,7.201,5.031,5.719,4.578,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,EST,Historical,2030,,1990,No,-0.6695563426692959,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,ETH,Fixed,2030,,,No,145,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,EU,Historical,2030,,1990,No,-0.4,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,FJI,BAU,2030,,,Yes,0,-0.3,,,Excludes,CO2,2015 NDC
+First round,FIN,Historical,2030,,1990,No,-0.3068429835677444,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,FRA,Historical,2030,,1990,No,-0.37671087870814013,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,FSM,Historical,2025,,2000,Yes,,-0.65,,,Excludes,CO2,2021 NDC
+First round,GAB,BAU,2025,,,No,-0.5,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,GMB,BAU,2030,,,Yes,0,-0.454,,,Excludes,"CO2, CH4, N2O, NOx, PFCs, HFCs, SF6, NF3",2015 NDC
+First round,GEO,BAU,2030,,,Yes,-0.14992191566892255,-0.24986985944820406,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,DEU,Historical,2030,,1990,No,-0.5513325134011172,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,GHA,Fixed,2030,,,Yes,62.8575,40.67250000000001,,,Includes,"CO2, CH4, N2O, HFC-22, HFC-410",2015 NDC
+First round,GRC,Historical,2030,,1990,No,-0.07561937150628173,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,GRD,Historical,2030,2025,2010,Yes,,-0.4,,-0.3,Includes,"CO2, CH4",2015 NDC
+First round,GTM,Fixed,2030,,,Yes,47.81,41.66,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,GIN,Historical,2030,,1994,Yes,0,-0.13,,,Excludes,n/a,2015 NDC
+First round,GNB,Unquantifiable,n/a,,,No,n/q,,,,Includes,"CO2, CH4, NOx",2015 NDC
+First round,GUY,Unquantifiable,n/a,,,No,n/q,,,,Includes,CO2,2015 NDC
+First round,HTI,BAU,2025,,,Yes,-0.04999999999999993,-0.31009615384615385,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,HND,BAU,2030,,,Yes,,-0.15006915629322282,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,HUN,Historical,2030,,1990,No,-0.3552210263247032,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,ISL,Historical,2030,,1990,No,-0.4,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,IND,Intensity,2030,,2005,No,-0.33999999999999997,,,,Not stated,n/a,2015 NDC
+First round,IDN,Fixed,2030,,,Yes,2034,1787,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,IRN,BAU,2030,,,Yes,-0.04,-0.12,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,IRQ,BAU,2035,,,Yes,-0.01,-0.14,,,Excludes,CO2,2015 NDC
+First round,IRL,Historical,2030,,1990,No,-0.22439784718652667,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,ISR,Fixed,2030,,,No,81.65,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,ITA,Historical,2030,,1990,No,-0.30191400993693485,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,CIV,Fixed,2030,,,Yes,,24.576,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,JAM,Fixed,2030,2025,,Yes,13.368,13.043,12.37,12.099,Excludes,"CO2, CH4, N2O, SO2, NOx, CO, NMVOCs",2015 NDC
+First round,JPN,Historical,2030,,2013,No,-0.26,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,JOR,BAU,2030,,,Yes,-0.015089163237311465,-0.14011365863217717,,,Includes,"CO2, CH4, N2O, SF6, PFCs, HFCs",2015 NDC
+First round,KAZ,Historical,2030,,1990,Yes,-0.15,-0.25,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,KEN,Fixed,2030,,,Yes,,100.1,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,KIR,BAU,2030,2025,,Yes,-0.1279969554738044,-0.6180388177089939,-0.13699932111337387,-0.6249830278343517,Excludes,CO2,2015 NDC
+First round,KWT,Unquantifiable,n/a,,,No,n/q,,,,Excludes,n/a,2015 NDC
+First round,KGZ,BAU,2030,2050,,Yes,-0.1333333333333333,-0.2666666666666667,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,LAO,Unquantifiable,2030,,,No,n/q,,,,Includes,n/a,2015 NDC
+First round,LVA,Historical,2030,,1990,No,-0.2844082875127142,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,LBN,BAU,2030,,,Yes,-0.1498845265588914,-0.29999999999999993,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,LSO,BAU,2030,,,Yes,-0.1,-0.35,,,Includes,"CO2, N2O, CH4",2015 NDC
+First round,LBR,Fixed,2030,,,Yes,4.505,,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,LIE,Historical,2030,,1990,No,-0.4,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,LTU,Historical,2030,,1990,No,-0.6303679360250911,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,LUX,Historical,2030,,1990,No,-0.4104508203118903,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,MKD,Fixed,2030,,,No,12.435,,,,Excludes,CO2,2015 NDC
+First round,MDG,Fixed,2030,,,No,184.206,,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,MWI,Unquantifiable,2040,,,No,n/q,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,MYS,Intensity,2030,,2005,Yes,-0.35,-0.45,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,MDV,Fixed,2030,,,Yes,2.9699999999999998,2.508,,,Excludes,"CO2, CH4",2015 NDC
+First round,MLI,BAU,2030,,,No,-0.31,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,MLT,Historical,2030,,1990,No,-0.2508040722243565,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,MHL,Historical,2030,2025,2010,No,-0.45,,-0.32,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,MRT,BAU,2030,,,Yes,-0.026539278131634814,-0.22292993630573243,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,MUS,Fixed,2030,,,Yes,,4.8999999999999995,,,Includes,"CO2, Short Lived Climate Forces (SLCF)",2015 NDC
+First round,MEX,Fixed,2030,,,Yes,832.5,666,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,MDA,Historical,2030,,1990,Yes,0.67,-0.78,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,MCO,Historical,2030,,1990,No,-0.5,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,MNG,Fixed,2030,,,Yes,,44.032000000000004,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,MNE,Historical,2030,,1990,No,-0.3,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,MAR,Fixed,2030,,,Yes,148.7,98.9,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,MOZ,BAU,2030,2024,,No,n/q,,,,Includes,"CO2, CH4, N2O, (more GHG may be included in the future)",2015 NDC
+First round,MMR,BAU,2030,,,No,n/q,,,,Includes,n/a,2015 NDC
+First round,NAM,Fixed,2030,,,Yes,n/q,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,NRU,Unquantifiable,n/a,,,No,n/q,,,,Excludes,CO2,2015 NDC
+First round,NPL,Unquantifiable,n/a,,,No,n/q,,,,Includes,n/a,2015 NDC
+First round,NLD,Historical,2030,,1990,No,-0.43373852560569026,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,NZL,Historical,2030,,2005,No,-0.3,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,NIC,Unquantifiable,2030,,,No,n/q,n/q,,,Includes,,2015 NDC
+First round,NER,Fixed,2030,,,Yes,29.722965,20.143853999999997,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,NGA,Fixed,2030,,,Yes,720,495.00000000000006,,,Includes,"CO2, N2O, CH4",2015 NDC
+First round,PRK,Fixed,2030,,,Yes,172.73,112.18,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,NOR,Historical,2030,,1990,No,-0.4,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,OMN,Fixed,2030,,,Yes,88.71352,,,,Excludes,"CO2, CH4, N2O, HCFCs, PFCs",2015 NDC
+First round,PAK,Fixed,2030,,,Yes,,1282.4,,,Includes,n/a,2015 NDC
+First round,PLW,Fixed,2025,,,Yes,,0.68,,,Excludes,"CO2, CH4",2015 NDC
+First round,PALEST,BAU,2040,,,Yes,0,-0.186,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,PAN,BAU,2030,2050,,Yes,,-0.115,,0.24,Excludes,CO2,2015 NDC
+First round,PNG,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2 (all targeted sectors), CH4 (indigenous oil and gas sector)",2015 NDC
+First round,PRY,Fixed,2030,,,Yes,374.40000000000003,332.8,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,PER,Fixed,2030,,,Yes,238.64000000000001,208.81,,,Includes,"CO2,CH4,N2O",2015 NDC
+First round,PHL,BAU,2030,,,Yes,-0.0271,-0.75,,,Excludes,n/a,2020 NDC
+First round,POL,Historical,2030,,1990,No,-0.3383586622933512,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,PRT,Historical,2030,,1990,No,0.019495659273824018,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,QAT,Unquantifiable,2030,,,No,n/q,,,,Excludes,n/a,2015 NDC
+First round,ROU,Historical,2030,,1990,No,-0.6545909365923674,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,RUS,Historical,2030,,1990,No,-0.3,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,RWA,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2, N2O, CH4",2015 NDC
+First round,WSM,Unquantifiable,2025,,,No,n/q,,,,Excludes,CO2,2015 NDC
+First round,SMR,Historical,2030,,2005,No,-0.2,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,STP,Historical,2030,,2005,Yes,0,-0.24,,,Includes,"CO2, CH4, NOx",2015 NDC
+First round,SAU,Unquantifiable,2030,,,No,n/q,,,,Not stated,n/a,2015 NDC
+First round,SEN,BAU,2030,2025,,Yes,-0.05053191489361697,-0.21010638297872342,-0.04054054054054068,-0.14864864864864868,Includes,"CO2, CH4, N2O",2015 NDC
+First round,SRB,Historical,2030,,1990,No,-0.098,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,SYC,BAU,2030,2025,,Yes,0,-0.28998920252969307,0,-0.2140111809923131,Excludes,"CO2, CH4",2015 NDC
+First round,SLE,Unquantifiable,2035,2050,,No,n/q,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,SGP,Intensity,2030,,2005,No,-0.36,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,SVK,Historical,2030,,1990,No,-0.4546720378715462,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,SVN,Historical,2030,,1990,No,0.7666177551234648,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,SLB,BAU,2030,2025,,Yes,-0.3,-0.45,-0.12,-0.27,Includes,CO2,2015 NDC
+First round,SOM,Unquantifiable,2030,,,No,n/q,,,,Not stated,n/a,2015 NDC
+First round,ZAF,Fixed,2030,2030,2025,No,506,,614,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,KOR,Fixed,2030,,,No,535.878,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,SSD,Unquantifiable,2030,,,No,n/q,,,,Includes,CO2,2015 NDC
+First round,ESP,Historical,2030,,1990,No,0.1209366090220414,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,LKA,BAU,2030,,,Yes,-0.04,-0.2,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,KNA,Fixed,2030,,,Yes,,0.62832,,,Includes,CO2,2015 NDC
+First round,LCA,Fixed,2030,2025,,Yes,,0.62832,,0.6854399999999999,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,VCT,BAU,2025,,,No,-0.22,,,,Includes,"CO2, CH4, N2O, HFCs",2015 NDC
+First round,SDN,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,SUR,Unquantifiable,2025,,,No,n/q,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,SWZ,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,SWE,Historical,2030,,1990,No,0.06546180770615795,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,CHE,Historical,2025,2030,1990,No,-0.35,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,TJK,Historical,2030,,1990,Yes,-0.15000000000000002,-0.3,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,TZA,Fixed,2030,,,Yes,145.65,,,,Includes,n/a,2015 NDC
+First round,THA,Fixed,2030,,,Yes,629.925,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,TLS,Unquantifiable,2025,,,No,n/q,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,TGO,Fixed,2030,,,Yes,34.553,27.627,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,TON,Unquantifiable,2030,,,No,n/q,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,TTO,BAU,2030,,,Yes,,-0.15,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,TUN,Historical,2030,2025,2010,Yes,-0.08529411764705874,-0.3764705882352941,-0.08139534883720934,-0.32170542635658916,Includes,"CO2, CH4, N2O",2015 NDC
+First round,TUR,Fixed,2030,2025,,No,929,,,,Excludes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,TKM,BAU,2030,,,No,n/q,,,,Excludes,"CO2, CH4, N2O",2015 NDC
+First round,TUV,Historical,2025,,2010,No,-0.6,,,,Excludes,"CO2, CH4",2015 NDC
+First round,UGA,Fixed,2030,,,Yes,,724.62,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,UKR,Historical,2030,,1990,No,-0.4,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,ARE,Unquantifiable,2030,,,No,n/q,,,,Excludes,n/a,2015 NDC
+First round,GBR,Historical,2030,,1990,No,-0.491,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,USA,Historical,2025,,2005,No,0,,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6, NF3",2015 NDC
+First round,URY,Intensity,2025,,1990,Yes,-0.24,-0.29,,,Excludes,CO2,2015 NDC
+First round,UZB,Intensity,2030,,2010,No,-0.1,,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,VUT,Unquantifiable,2030,,,No,n/q,,,,Includes,CO2,2015 NDC
+First round,VEN,BAU,2030,,,Yes,,-0.2,,,Includes,n/a,2015 NDC
+First round,VNM,Fixed,2030,,,Yes,724.408,590.55,,,Includes,"CO2, CH4, N2O, HFCs, PFCs, SF6",2015 NDC
+First round,YEM,Fixed,2030,,,Yes,43.35,37.67,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,ZMB,Historical,2030,,2010,Yes,-0.25,-0.47,,,Includes,"CO2, CH4, N2O",2015 NDC
+First round,ZWE,BAU,2030,,,Yes,-0.33,,,,Excludes,"CO2, CH4, N2O",2015 NDC

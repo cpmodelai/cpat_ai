@@ -1,0 +1,7 @@
+object_id,country,iso2,iso3,variable,value
+176,Africa,,NA605,CPAT region,Africa
+362,Asia,,ASIATMP,CPAT region,Asia & Oceania
+562,Central Asia,,NACA,CPAT region,Eurasia
+952,Europe,,EURTMP,CPAT region,Europe
+1420,Northern America,,NA225,CPAT region,North America
+2158,Western Asia,,NAWA,CPAT region,Middle East

@@ -1,0 +1,379 @@
+country_name,variable,value
+Afghanistan,Region,Emerging Market
+Afghanistan,Default WACC,0.2246
+Albania,Region,Europe
+Albania,Default WACC,0.0875
+Algeria,Region,Emerging Market
+Algeria,Default WACC,0.219
+Angola,Region,Emerging Market
+Angola,Default WACC,0.2607
+Argentina,Region,Europe
+Argentina,Default WACC,0.251
+Armenia,Region,Europe
+Armenia,Default WACC,0.0964
+Australia,Region,US
+Australia,Default WACC,0.0397
+Austria,Region,Europe
+Austria,Default WACC,0.0384
+Azerbaijan,Region,Emerging Market
+Azerbaijan,Default WACC,0.1759
+"Bahamas, The",Region,Emerging Market
+"Bahamas, The",Default WACC,0.1459
+Bahrain,Region,Emerging Market
+Bahrain,Default WACC,0.1912
+Bangladesh,Region,Emerging Market
+Bangladesh,Default WACC,0.1459
+Barbados,Region,Emerging Market
+Barbados,Default WACC,0.2452
+Belarus,Region,Europe
+Belarus,Default WACC,0.1214
+Belgium,Region,Europe
+Belgium,Default WACC,0.041
+Belize,Region,Emerging Market
+Belize,Default WACC,0.2938
+Benin,Region,Emerging Market
+Benin,Default WACC,0.1635
+Bermuda,Region,Emerging Market
+Bermuda,Default WACC,0.1322
+Bhutan,Region,Emerging Market
+Bhutan,Default WACC,0.2176
+Bolivia,Region,Emerging Market
+Bolivia,Default WACC,0.1967
+Bosnia and Herzegovina,Region,Europe
+Bosnia and Herzegovina,Default WACC,0.0984
+Botswana,Region,Emerging Market
+Botswana,Default WACC,0.0947
+Brazil,Region,Emerging Market
+Brazil,Default WACC,0.2112
+Brunei Darussalam,Region,Emerging Market
+Brunei Darussalam,Default WACC,0.0873
+Bulgaria,Region,Europe
+Bulgaria,Default WACC,0.0547
+Burkina Faso,Region,Emerging Market
+Burkina Faso,Default WACC,0.1825
+Burundi,Region,Emerging Market
+Burundi,Default WACC,0.2176
+Cabo Verde,Region,Emerging Market
+Cabo Verde,Default WACC,0.2922
+Cambodia,Region,Emerging Market
+Cambodia,Default WACC,0.2502
+Cameroon,Region,Emerging Market
+Cameroon,Default WACC,0.2381
+Canada,Region,US
+Canada,Default WACC,0.0331
+Central African Republic,Region,Emerging Market
+Central African Republic,Default WACC,0.2176
+Chad,Region,Emerging Market
+Chad,Default WACC,0.214
+Chile,Region,Emerging Market
+Chile,Default WACC,0.0777
+China,Region,China
+China,Default WACC,0.08
+Colombia,Region,Emerging Market
+Colombia,Default WACC,0.1218
+Comoros,Region,Emerging Market
+Comoros,Default WACC,0.2035
+"Congo, Dem. Rep.",Region,Emerging Market
+"Congo, Dem. Rep.",Default WACC,0.2775
+"Congo, Rep.",Region,Emerging Market
+"Congo, Rep.",Default WACC,0.3523
+Costa Rica,Region,Emerging Market
+Costa Rica,Default WACC,0.1873
+Côte d'Ivoire,Region,Emerging Market
+Côte d'Ivoire,Default WACC,0.195
+Croatia,Region,Europe
+Croatia,Default WACC,0.0657
+Cuba,Region,Emerging Market
+Cuba,Default WACC,0.4324
+Curaçao,Region,Emerging Market
+Curaçao,Default WACC,0.1485
+Cyprus,Region,Europe
+Cyprus,Default WACC,0.0669
+Czechia,Region,Europe
+Czechia,Default WACC,0.0402
+Denmark,Region,Europe
+Denmark,Default WACC,0.0339
+Djibouti,Region,Emerging Market
+Djibouti,Default WACC,0.2211
+Dominica,Region,Emerging Market
+Dominica,Default WACC,0.2211
+Dominican Republic,Region,Emerging Market
+Dominican Republic,Default WACC,0.1614
+Ecuador,Region,Emerging Market
+Ecuador,Default WACC,0.3909
+"Egypt, Arab Rep.",Region,Emerging Market
+"Egypt, Arab Rep.",Default WACC,0.2597
+El Salvador,Region,Emerging Market
+El Salvador,Default WACC,0.3098
+Equatorial Guinea,Region,Emerging Market
+Equatorial Guinea,Default WACC,0.214
+Eritrea,Region,Emerging Market
+Eritrea,Default WACC,0.214
+Estonia,Region,Europe
+Estonia,Default WACC,0.0429
+Ethiopia,Region,Emerging Market
+Ethiopia,Default WACC,0.3283
+Fiji,Region,Emerging Market
+Fiji,Default WACC,0.1694
+Finland,Region,Europe
+Finland,Default WACC,0.0391
+France,Region,Europe
+France,Default WACC,0.0394
+Gabon,Region,Emerging Market
+Gabon,Default WACC,0.307
+"Gambia, The",Region,Emerging Market
+"Gambia, The",Default WACC,0.2199
+Georgia,Region,Emerging Market
+Georgia,Default WACC,0.1635
+Germany,Region,Europe
+Germany,Default WACC,0.0329
+Ghana,Region,Emerging Market
+Ghana,Default WACC,0.2799
+Gibraltar,Region,Emerging Market
+Gibraltar,Default WACC,0.1238
+Greece,Region,Europe
+Greece,Default WACC,0.0779
+Greenland,Region,Europe
+Greenland,Default WACC,0.0436
+Grenada,Region,Emerging Market
+Grenada,Default WACC,0.219
+Guatemala,Region,Emerging Market
+Guatemala,Default WACC,0.1473
+Guinea,Region,Emerging Market
+Guinea,Default WACC,0.3302
+Guinea-Bissau,Region,Emerging Market
+Guinea-Bissau,Default WACC,0.2017
+Guyana,Region,Emerging Market
+Guyana,Default WACC,0.1714
+Haiti,Region,Emerging Market
+Haiti,Default WACC,0.2929
+Honduras,Region,Emerging Market
+Honduras,Default WACC,0.2006
+Hong Kong SAR,Region,China
+Hong Kong SAR,Default WACC,0.0965
+Hungary,Region,Europe
+Hungary,Default WACC,0.0533
+Iceland,Region,Europe
+Iceland,Default WACC,0.0496
+India,Region,India
+India,Default WACC,0.1328
+Indonesia,Region,Emerging Market
+Indonesia,Default WACC,0.1184
+"Iran, Islamic Rep.",Region,Emerging Market
+"Iran, Islamic Rep.",Default WACC,0.2519
+Iraq,Region,Emerging Market
+Iraq,Default WACC,0.2471
+Ireland,Region,Europe
+Ireland,Default WACC,0.0459
+Israel,Region,Europe
+Israel,Default WACC,0.0413
+Italy,Region,Europe
+Italy,Default WACC,0.0514
+Jamaica,Region,Emerging Market
+Jamaica,Default WACC,0.2127
+Japan,Region,Japan
+Japan,Default WACC,0.0108
+Jordan,Region,Emerging Market
+Jordan,Default WACC,0.1735
+Kazakhstan,Region,Emerging Market
+Kazakhstan,Default WACC,0.1569
+Kenya,Region,Emerging Market
+Kenya,Default WACC,0.2035
+Kiribati,Region,Emerging Market
+Kiribati,Default WACC,0.214
+"Korea, Dem. People's Rep.",Region,Emerging Market
+"Korea, Dem. People's Rep.",Default WACC,0.436
+"Korea, Rep.",Region,Japan
+"Korea, Rep.",Default WACC,0.0225
+Kosovo,Region,Europe
+Kosovo,Default WACC,0.1012
+Kuwait,Region,Emerging Market
+Kuwait,Default WACC,0.0782
+Kyrgyz Republic,Region,Emerging Market
+Kyrgyz Republic,Default WACC,0.234
+Lao PDR,Region,Emerging Market
+Lao PDR,Default WACC,0.3568
+Latvia,Region,Europe
+Latvia,Default WACC,0.0491
+Lebanon,Region,Emerging Market
+Lebanon,Default WACC,0.5381
+Lesotho,Region,Emerging Market
+Lesotho,Default WACC,0.2211
+Liberia,Region,Emerging Market
+Liberia,Default WACC,0.2795
+Libya,Region,Emerging Market
+Libya,Default WACC,0.2258
+Lithuania,Region,Europe
+Lithuania,Default WACC,0.0455
+Luxembourg,Region,Europe
+Luxembourg,Default WACC,0.0336
+"Macao SAR, China",Region,China
+"Macao SAR, China",Default WACC,0.0819
+Madagascar,Region,Emerging Market
+Madagascar,Default WACC,0.3238
+Malawi,Region,Emerging Market
+Malawi,Default WACC,0.3014
+Malaysia,Region,Emerging Market
+Malaysia,Default WACC,0.0866
+Maldives,Region,Emerging Market
+Maldives,Default WACC,0.2528
+Mali,Region,Emerging Market
+Mali,Default WACC,0.2245
+Malta,Region,Europe
+Malta,Default WACC,0.0423
+Mauritania,Region,Emerging Market
+Mauritania,Default WACC,0.2211
+Mauritius,Region,Emerging Market
+Mauritius,Default WACC,0.1186
+Mexico,Region,Emerging Market
+Mexico,Default WACC,0.1005
+Moldova,Region,Europe
+Moldova,Default WACC,0.113
+Mongolia,Region,Emerging Market
+Mongolia,Default WACC,0.2495
+Montenegro,Region,Europe
+Montenegro,Default WACC,0.0892
+Morocco,Region,Emerging Market
+Morocco,Default WACC,0.164
+Mozambique,Region,Emerging Market
+Mozambique,Default WACC,0.2963
+Myanmar,Region,Emerging Market
+Myanmar,Default WACC,0.3506
+Namibia,Region,Emerging Market
+Namibia,Default WACC,0.1477
+Nepal,Region,Emerging Market
+Nepal,Default WACC,0.2211
+Netherlands,Region,Europe
+Netherlands,Default WACC,0.0335
+New Zealand,Region,US
+New Zealand,Default WACC,0.0293
+Nicaragua,Region,Emerging Market
+Nicaragua,Default WACC,0.2209
+Niger,Region,Emerging Market
+Niger,Default WACC,0.2037
+Nigeria,Region,Emerging Market
+Nigeria,Default WACC,0.2055
+North Macedonia,Region,Europe
+North Macedonia,Default WACC,0.0766
+Norway,Region,Europe
+Norway,Default WACC,0.031
+Oman,Region,Emerging Market
+Oman,Default WACC,0.1477
+Pakistan,Region,Emerging Market
+Pakistan,Default WACC,0.2177
+Panama,Region,Emerging Market
+Panama,Default WACC,0.1158
+Papua New Guinea,Region,Emerging Market
+Papua New Guinea,Default WACC,0.1974
+Paraguay,Region,Emerging Market
+Paraguay,Default WACC,0.1577
+Peru,Region,Emerging Market
+Peru,Default WACC,0.1215
+Philippines,Region,Emerging Market
+Philippines,Default WACC,0.1137
+Poland,Region,Europe
+Poland,Default WACC,0.0449
+Portugal,Region,Europe
+Portugal,Default WACC,0.0577
+Qatar,Region,Emerging Market
+Qatar,Default WACC,0.0774
+Romania,Region,Europe
+Romania,Default WACC,0.0644
+Russian Federation,Region,Europe
+Russian Federation,Default WACC,0.0675
+Rwanda,Region,Emerging Market
+Rwanda,Default WACC,0.2115
+Samoa,Region,Emerging Market
+Samoa,Default WACC,0.2197
+São Tomé and Príncipe,Region,Emerging Market
+São Tomé and Príncipe,Default WACC,0.2126
+Saudi Arabia,Region,Emerging Market
+Saudi Arabia,Default WACC,0.115
+Senegal,Region,Emerging Market
+Senegal,Default WACC,0.1413
+Serbia,Region,Europe
+Serbia,Default WACC,0.0729
+Seychelles,Region,Emerging Market
+Seychelles,Default WACC,0.2154
+Sierra Leone,Region,Emerging Market
+Sierra Leone,Default WACC,0.3172
+Singapore,Region,Emerging Market
+Singapore,Default WACC,0.0682
+Slovak Republic,Region,Europe
+Slovak Republic,Default WACC,0.0446
+Slovenia,Region,Europe
+Slovenia,Default WACC,0.0493
+Solomon Islands,Region,Emerging Market
+Solomon Islands,Default WACC,0.2273
+Somalia,Region,Emerging Market
+Somalia,Default WACC,0.4645
+South Africa,Region,Emerging Market
+South Africa,Default WACC,0.139
+South Sudan,Region,Emerging Market
+South Sudan,Default WACC,0.2176
+Spain,Region,Europe
+Spain,Default WACC,0.0531
+Sri Lanka,Region,Emerging Market
+Sri Lanka,Default WACC,0.2835
+St. Lucia,Region,Emerging Market
+St. Lucia,Default WACC,0.2198
+St. Vincent and the Grenadines,Region,Emerging Market
+St. Vincent and the Grenadines,Default WACC,0.212
+Sudan,Region,Emerging Market
+Sudan,Default WACC,0.6644
+Suriname,Region,Emerging Market
+Suriname,Default WACC,0.3076
+Sweden,Region,Europe
+Sweden,Default WACC,0.0341
+Switzerland,Region,Europe
+Switzerland,Default WACC,0.0329
+Syrian Arab Republic,Region,Emerging Market
+Syrian Arab Republic,Default WACC,0.6786
+"Taiwan, China",Region,China
+"Taiwan, China",Default WACC,0.095
+Tajikistan,Region,Emerging Market
+Tajikistan,Default WACC,0.2733
+Tanzania,Region,Emerging Market
+Tanzania,Default WACC,0.2122
+Thailand,Region,Emerging Market
+Thailand,Default WACC,0.0956
+Togo,Region,Emerging Market
+Togo,Default WACC,0.2075
+Tonga,Region,Emerging Market
+Tonga,Default WACC,0.2211
+Trinidad and Tobago,Region,Emerging Market
+Trinidad and Tobago,Default WACC,0.1371
+Tunisia,Region,Emerging Market
+Tunisia,Default WACC,0.329
+Turkiye,Region,Europe
+Turkiye,Default WACC,0.1107
+Turkmenistan,Region,Emerging Market
+Turkmenistan,Default WACC,0.2316
+Uganda,Region,Emerging Market
+Uganda,Default WACC,0.2235
+Ukraine,Region,Europe
+Ukraine,Default WACC,0.1314
+United Arab Emirates,Region,Emerging Market
+United Arab Emirates,Default WACC,0.0875
+United Kingdom,Region,Europe
+United Kingdom,Default WACC,0.0419
+United States,Region,US
+United States,Default WACC,0.0347
+Uruguay,Region,Emerging Market
+Uruguay,Default WACC,0.1149
+Uzbekistan,Region,Emerging Market
+Uzbekistan,Default WACC,0.2391
+Vanuatu,Region,Emerging Market
+Vanuatu,Default WACC,0.2387
+"Venezuela, RB",Region,Emerging Market
+"Venezuela, RB",Default WACC,0.5634
+Vietnam,Region,Emerging Market
+Vietnam,Default WACC,0.1541
+West Bank and Gaza,Region,Emerging Market
+West Bank and Gaza,Default WACC,0.2281
+"Yemen, Rep.",Region,Emerging Market
+"Yemen, Rep.",Default WACC,0.4234
+Zambia,Region,Emerging Market
+Zambia,Default WACC,0.3387
+Zimbabwe,Region,Emerging Market
+Zimbabwe,Default WACC,0.371

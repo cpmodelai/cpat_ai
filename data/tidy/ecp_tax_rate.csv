@@ -1,0 +1,534 @@
+country_name,country,sector_fuel,code,year,value
+Argentina,ARG,all,arg.mit.ecr.all,2018,8.950391148041811
+Argentina,ARG,all,arg.mit.ecr.all,2019,4.840857099357815
+Argentina,ARG,all,arg.mit.ecr.all,2020,5.111284600849564
+Argentina,ARG,all,arg.mit.ecr.all,2021,4.6685301684297915
+Argentina,ARG,all,arg.mit.ecr.all,2022,6.071955444705553
+Argentina,ARG,all,arg.mit.ecr.all,2023,5.378759514933712
+Argentina,ARG,all,arg.mit.ecr.all,2024,3.0432418972207125
+Argentina,ARG,all,arg.mit.ecr.all,2025,5.327914694
+Argentina,ARG,gso,arg.mit.ecr.gso,2018,9.521741911476163
+Argentina,ARG,gso,arg.mit.ecr.gso,2019,6.609169696202333
+Argentina,ARG,gso,arg.mit.ecr.gso,2020,6.774138127665928
+Argentina,ARG,gso,arg.mit.ecr.gso,2021,5.8894719333953525
+Argentina,ARG,gso,arg.mit.ecr.gso,2022,6.781844294846532
+Argentina,ARG,gso,arg.mit.ecr.gso,2023,5.462314350317659
+Argentina,ARG,gso,arg.mit.ecr.gso,2024,2.6025898454545238
+Argentina,ARG,gso,arg.mit.ecr.gso,2025,5.327914694
+Argentina,ARG,ker,arg.mit.ecr.ker,2018,9.223898434628982
+Argentina,ARG,ker,arg.mit.ecr.ker,2019,6.411426696811843
+Argentina,ARG,ker,arg.mit.ecr.ker,2020,6.5586833269123925
+Argentina,ARG,ker,arg.mit.ecr.ker,2021,5.881756678093231
+Argentina,ARG,ker,arg.mit.ecr.ker,2022,7.803341121683639
+Argentina,ARG,ker,arg.mit.ecr.ker,2023,6.908182831434116
+Argentina,ARG,ker,arg.mit.ecr.ker,2024,4.001163236306331
+Argentina,ARG,ker,arg.mit.ecr.ker,2025,5.327914694
+Argentina,ARG,die,arg.mit.ecr.die,2018,8.774769659105623
+Argentina,ARG,die,arg.mit.ecr.die,2019,6.09924240270836
+Argentina,ARG,die,arg.mit.ecr.die,2020,6.23932883352349
+Argentina,ARG,die,arg.mit.ecr.die,2021,5.595363002633749
+Argentina,ARG,die,arg.mit.ecr.die,2022,7.423381924624916
+Argentina,ARG,die,arg.mit.ecr.die,2023,6.571810556938415
+Argentina,ARG,die,arg.mit.ecr.die,2024,3.8063391543059497
+Argentina,ARG,die,arg.mit.ecr.die,2025,5.327914694
+Argentina,ARG,oop ,arg.mit.ecr.oop,2018,8.281154586956477
+Argentina,ARG,oop ,arg.mit.ecr.oop,2019,4.472048650713036
+Argentina,ARG,oop ,arg.mit.ecr.oop,2020,4.741981792370153
+Argentina,ARG,oop ,arg.mit.ecr.oop,2021,4.306806402216878
+Argentina,ARG,oop ,arg.mit.ecr.oop,2022,5.39802688488645
+Argentina,ARG,oop ,arg.mit.ecr.oop,2023,4.682301569204315
+Argentina,ARG,oop ,arg.mit.ecr.oop,2024,2.534636076332746
+Argentina,ARG,oop ,arg.mit.ecr.oop,2025,5.327914694
+Argentina,ARG,coa,arg.mit.ecr.coa,2019,0.6123980503535068
+Argentina,ARG,coa,arg.mit.ecr.coa,2020,1.2422909237758581
+Argentina,ARG,coa,arg.mit.ecr.coa,2021,1.6692528258097452
+Argentina,ARG,coa,arg.mit.ecr.coa,2022,2.953182997486229
+Argentina,ARG,coa,arg.mit.ecr.coa,2023,3.2691882667740577
+Argentina,ARG,coa,arg.mit.ecr.coa,2024,2.2714811737040113
+Argentina,ARG,coa,arg.mit.ecr.coa,2025,5.327914694
+Albania,ALB,all,alb.mit.ecr.all,2023,13.11135507
+Albania,ALB,all,alb.mit.ecr.all,2024,13.11135507
+Albania,ALB,all,alb.mit.ecr.all,2025,13.69190487
+Canada,CAN,all,can.mit.ecr.all,2015,0
+Canada,CAN,all,can.mit.ecr.all,2016,0
+Canada,CAN,all,can.mit.ecr.all,2017,0
+Canada,CAN,all,can.mit.ecr.all,2018,0
+Canada,CAN,all,can.mit.ecr.all,2019,14.99586332
+Canada,CAN,all,can.mit.ecr.all,2020,23.41516206
+Canada,CAN,all,can.mit.ecr.all,2021,31.8344608
+Canada,CAN,all,can.mit.ecr.all,2022,39.96
+Canada,CAN,all,can.mit.ecr.all,2023,48.03073967
+Canada,CAN,all,can.mit.ecr.all,2024,58.94488653
+Chile,CHL,all,chl.mit.ecr.all,2015,0
+Chile,CHL,all,chl.mit.ecr.all,2016,0
+Chile,CHL,all,chl.mit.ecr.all,2017,5
+Chile,CHL,all,chl.mit.ecr.all,2018,5
+Chile,CHL,all,chl.mit.ecr.all,2019,5
+Chile,CHL,all,chl.mit.ecr.all,2020,5
+Chile,CHL,all,chl.mit.ecr.all,2021,5
+Chile,CHL,all,chl.mit.ecr.all,2022,5
+Chile,CHL,all,chl.mit.ecr.all,2023,5
+Chile,CHL,all,chl.mit.ecr.all,2024,5
+Chile,CHL,all,chl.mit.ecr.all,2025,5
+Colombia,COL,all,col.mit.ecr.all,2017,5.207904197745678
+Colombia,COL,all,col.mit.ecr.all,2018,5.6704151599028085
+Colombia,COL,all,col.mit.ecr.all,2019,5.172634561567164
+Colombia,COL,all,col.mit.ecr.all,2020,4.244865787112099
+Colombia,COL,all,col.mit.ecr.all,2021,0.0013380038588031288
+Colombia,COL,all,col.mit.ecr.all,2022,5.013271991970245
+Colombia,COL,all,col.mit.ecr.all,2023,5.055810445467845
+Colombia,COL,all,col.mit.ecr.all,2024,6.6785467441529365
+Colombia,COL,all,col.mit.ecr.all,2025,6.536619117
+Denmark,DNK,all,dnk.mit.ecr.all,2015,24.47
+Denmark,DNK,all,dnk.mit.ecr.all,2016,25.61
+Denmark,DNK,all,dnk.mit.ecr.all,2017,24.78018059628129
+Denmark,DNK,all,dnk.mit.ecr.all,2018,28.818069797237317
+Denmark,DNK,all,dnk.mit.ecr.all,2019,26.388784176217126
+Denmark,DNK,all,dnk.mit.ecr.all,2020,25.93302536630274
+Denmark,DNK,all,dnk.mit.ecr.all,2021,28.140814428276396
+Denmark,DNK,all,dnk.mit.ecr.all,2022,26.62427384967388
+Denmark,DNK,all,dnk.mit.ecr.all,2023,26.528645681247443
+Denmark,DNK,all,dnk.mit.ecr.all,2024,28.204943431577426
+Denmark,DNK,all,dnk.mit.ecr.all,2025,108.4347801
+Estonia,EST,all,est.mit.ecr.all,2015,2.15
+Estonia,EST,all,est.mit.ecr.all,2016,2.23
+Estonia,EST,all,est.mit.ecr.all,2017,2.1382027341133827
+Estonia,EST,all,est.mit.ecr.all,2018,2.4795991097157297
+Estonia,EST,all,est.mit.ecr.all,2019,2.247198716240227
+Estonia,EST,all,est.mit.ecr.all,2020,2.1872006097419385
+Estonia,EST,all,est.mit.ecr.all,2021,2.3492000008475915
+Estonia,EST,all,est.mit.ecr.all,2022,2.2104
+Estonia,EST,all,est.mit.ecr.all,2023,2.175
+Estonia,EST,all,est.mit.ecr.all,2024,2.1498
+Estonia,EST,all,est.mit.ecr.all,2025,26.97
+Finland,FIN,all,fin.mit.ecr.all,2015,47.415
+Finland,FIN,all,fin.mit.ecr.all,2016,64.015
+Finland,FIN,all,fin.mit.ecr.all,2017,64.14608202340148
+Finland,FIN,all,fin.mit.ecr.all,2018,78.10737195604548
+Finland,FIN,all,fin.mit.ecr.all,2019,73.03395827780739
+Finland,FIN,all,fin.mit.ecr.all,2020,71.08401981661301
+Finland,FIN,all,fin.mit.ecr.all,2021,76.34900002754672
+Finland,FIN,all,fin.mit.ecr.all,2022,71.838
+Finland,FIN,all,fin.mit.ecr.all,2023,70.6875
+Finland,FIN,all,fin.mit.ecr.all,2024,82.54093624197088
+Finland,FIN,all,fin.mit.ecr.all,2025,66.8856
+France,FRA,all,fra.mit.ecr.all,2015,15.59
+France,FRA,all,fra.mit.ecr.all,2016,24.56
+France,FRA,all,fra.mit.ecr.all,2017,32.60759169522909
+France,FRA,all,fra.mit.ecr.all,2018,55.295060146660774
+France,FRA,all,fra.mit.ecr.all,2019,50.11253137215707
+France,FRA,all,fra.mit.ecr.all,2020,48.77457359724524
+France,FRA,all,fra.mit.ecr.all,2021,52.38716001890129
+France,FRA,all,fra.mit.ecr.all,2022,49.29192
+France,FRA,all,fra.mit.ecr.all,2023,48.5025
+France,FRA,all,fra.mit.ecr.all,2024,47.94054
+France,FRA,all,fra.mit.ecr.all,2025,48.11448
+Hungary,HUN,all,hun.mit.ecr.all,2024,38.6964
+Hungary,HUN,all,hun.mit.ecr.all,2025,39
+Iceland,ISL,all,isl.mit.ecr.all,2015,16.323333333333334
+Iceland,ISL,all,isl.mit.ecr.all,2016,18.689999999999998
+Iceland,ISL,all,isl.mit.ecr.all,2017,21.305526323884084
+Iceland,ISL,all,isl.mit.ecr.all,2018,36.9022199955331
+Iceland,ISL,all,isl.mit.ecr.all,2019,35.6693067925022
+Iceland,ISL,all,isl.mit.ecr.all,2020,30.83760918341865
+Iceland,ISL,all,isl.mit.ecr.all,2021,34.21762176095283
+Iceland,ISL,all,isl.mit.ecr.all,2022,35.831051332362584
+Iceland,ISL,all,isl.mit.ecr.all,2023,36.37663115558528
+Iceland,ISL,all,isl.mit.ecr.all,2024,36.77790508927719
+Iceland,ISL,all,isl.mit.ecr.all,2025,60.06006006
+Iceland,ISL,gso,isl.mit.ecr.gso,2015,16.2
+Iceland,ISL,gso,isl.mit.ecr.gso,2016,18.6
+Iceland,ISL,gso,isl.mit.ecr.gso,2017,21.190986596202958
+Iceland,ISL,gso,isl.mit.ecr.gso,2018,36.67678942325404
+Iceland,ISL,gso,isl.mit.ecr.gso,2019,35.474283550306936
+Iceland,ISL,gso,isl.mit.ecr.gso,2020,30.743799892219336
+Iceland,ISL,gso,isl.mit.ecr.gso,2021,35.362093850068334
+Iceland,ISL,gso,isl.mit.ecr.gso,2022,35.61275839012421
+Iceland,ISL,gso,isl.mit.ecr.gso,2023,36.10866608490465
+Iceland,ISL,gso,isl.mit.ecr.gso,2024,36.508163849899745
+Iceland,ISL,gso,isl.mit.ecr.gso,2025,60.06006006
+Iceland,ISL,die,isl.mit.ecr.die,2015,15.91
+Iceland,ISL,die,isl.mit.ecr.die,2016,18.23
+Iceland,ISL,die,isl.mit.ecr.die,2017,20.811876733489676
+Iceland,ISL,die,isl.mit.ecr.die,2018,36.020636273428295
+Iceland,ISL,die,isl.mit.ecr.die,2019,34.82581815185056
+Iceland,ISL,die,isl.mit.ecr.die,2020,30.181807134313487
+Iceland,ISL,die,isl.mit.ecr.die,2021,34.75635159141584
+Iceland,ISL,die,isl.mit.ecr.die,2022,35.041732447879234
+Iceland,ISL,die,isl.mit.ecr.die,2023,35.61710053758785
+Iceland,ISL,die,isl.mit.ecr.die,2024,36.01403609281009
+Iceland,ISL,die,isl.mit.ecr.die,2025,60.06006006
+Iceland,ISL,oop ,isl.mit.ecr.oop,2015,16.86
+Iceland,ISL,oop ,isl.mit.ecr.oop,2016,19.24
+Iceland,ISL,oop ,isl.mit.ecr.oop,2017,21.913715641959627
+Iceland,ISL,oop ,isl.mit.ecr.oop,2018,38.00923428991697
+Iceland,ISL,oop ,isl.mit.ecr.oop,2019,36.7078186753491
+Iceland,ISL,oop ,isl.mit.ecr.oop,2020,31.587220523723122
+Iceland,ISL,oop ,isl.mit.ecr.oop,2021,32.53441984137434
+Iceland,ISL,oop ,isl.mit.ecr.oop,2022,36.838663159084305
+Iceland,ISL,oop ,isl.mit.ecr.oop,2023,37.40412684426335
+Iceland,ISL,oop ,isl.mit.ecr.oop,2024,37.811515325121746
+Iceland,ISL,oop ,isl.mit.ecr.oop,2025,60.06006006
+Ireland,IRL,all,irl.mit.ecr.all,2015,21.51
+Ireland,IRL,all,irl.mit.ecr.all,2016,22.32
+Ireland,IRL,all,irl.mit.ecr.all,2017,21.382027341133828
+Ireland,IRL,all,irl.mit.ecr.all,2018,24.795991097157298
+Ireland,IRL,all,irl.mit.ecr.all,2019,22.47198716240227
+Ireland,IRL,all,irl.mit.ecr.all,2020,28.433607926645205
+Ireland,IRL,all,irl.mit.ecr.all,2021,39.349100014197155
+Ireland,IRL,all,irl.mit.ecr.all,2022,45.313199999999995
+Ireland,IRL,all,irl.mit.ecr.all,2023,52.74374999999999
+Ireland,IRL,all,irl.mit.ecr.all,2024,60.194399999999995
+Ireland,IRL,all,irl.mit.ecr.all,2025,68.5038
+Israel,ISR,all,isr.mit.ecr.all,2025,1.511470985
+Japan,JPN,all,jpn.mit.ecr.all,2015,1.59
+Japan,JPN,all,jpn.mit.ecr.all,2016,2.82
+Japan,JPN,all,jpn.mit.ecr.all,2017,2.5792064327293054
+Japan,JPN,all,jpn.mit.ecr.all,2018,2.7398539368259645
+Japan,JPN,all,jpn.mit.ecr.all,2019,2.601727731321073
+Japan,JPN,all,jpn.mit.ecr.all,2020,2.686373292101083
+Japan,JPN,all,jpn.mit.ecr.all,2021,2.6085386767758822
+Japan,JPN,all,jpn.mit.ecr.all,2022,2.364975450081833
+Japan,JPN,all,jpn.mit.ecr.all,2023,2.1651183697932277
+Japan,JPN,all,jpn.mit.ecr.all,2024,1.905075807514832
+Japan,JPN,all,jpn.mit.ecr.all,2025,1.929238985
+Latvia,LVA,all,lva.mit.ecr.all,2015,3.76
+Latvia,LVA,all,lva.mit.ecr.all,2016,3.9
+Latvia,LVA,all,lva.mit.ecr.all,2017,4.810956151755111
+Latvia,LVA,all,lva.mit.ecr.all,2018,5.579097996860392
+Latvia,LVA,all,lva.mit.ecr.all,2019,5.056197111540511
+Latvia,LVA,all,lva.mit.ecr.all,2020,9.842402743838724
+Latvia,LVA,all,lva.mit.ecr.all,2021,14.095200005085548
+Latvia,LVA,all,lva.mit.ecr.all,2022,16.578
+Latvia,LVA,all,lva.mit.ecr.all,2023,16.3125
+Latvia,LVA,all,lva.mit.ecr.all,2024,16.1235
+Latvia,LVA,all,lva.mit.ecr.all,2025,16.182
+Liechtenstein,LIE,all,lie.mit.ecr.all,2015,37.17
+Liechtenstein,LIE,all,lie.mit.ecr.all,2017,83.91650714180533
+Liechtenstein,LIE,all,lie.mit.ecr.all,2018,100.90387466056818
+Liechtenstein,LIE,all,lie.mit.ecr.all,2019,96.46308635394456
+Liechtenstein,LIE,all,lie.mit.ecr.all,2020,99.44064918940109
+Liechtenstein,LIE,all,lie.mit.ecr.all,2021,101.47455208498495
+Liechtenstein,LIE,all,lie.mit.ecr.all,2022,129.85607618223136
+Liechtenstein,LIE,all,lie.mit.ecr.all,2023,130.81157682454898
+Liechtenstein,LIE,all,lie.mit.ecr.all,2024,132.12221304706853
+Liechtenstein,LIE,all,lie.mit.ecr.all,2025,136.0389978
+Luxembourg,LUX,all,lux.mit.ecr.all,2021,40.12433601447685
+Luxembourg,LUX,all,lux.mit.ecr.all,2022,41.759981999999994
+Luxembourg,LUX,all,lux.mit.ecr.all,2023,46.555875
+Luxembourg,LUX,all,lux.mit.ecr.all,2024,51.433965
+Luxembourg,LUX,all,lux.mit.ecr.all,2025,58.546476
+Luxembourg,LUX,gso,lux.mit.ecr.gso,2021,40.12433601447685
+Luxembourg,LUX,gso,lux.mit.ecr.gso,2022,43.345943999999996
+Luxembourg,LUX,gso,lux.mit.ecr.gso,2023,45.00075
+Luxembourg,LUX,gso,lux.mit.ecr.gso,2024,49.907607
+Luxembourg,LUX,gso,lux.mit.ecr.gso,2025,58.546476
+Luxembourg,LUX,die,lux.mit.ecr.die,2021,40.12433601447685
+Luxembourg,LUX,die,lux.mit.ecr.die,2022,40.17402
+Luxembourg,LUX,die,lux.mit.ecr.die,2023,48.111
+Luxembourg,LUX,die,lux.mit.ecr.die,2024,52.960323
+Luxembourg,LUX,die,lux.mit.ecr.die,2025,58.546476
+Mauritania,MRT,all,mrt.mit.ecr.all,2025,5
+Mexico,MEX,all,mex.mit.ecr.all,2015,3.115361951
+Mexico,MEX,all,mex.mit.ecr.all,2016,2.777923866
+Mexico,MEX,all,mex.mit.ecr.all,2017,2.645352818
+Mexico,MEX,all,mex.mit.ecr.all,2018,2.902568513
+Mexico,MEX,all,mex.mit.ecr.all,2019,2.888936128
+Mexico,MEX,all,mex.mit.ecr.all,2020,2.334344628
+Mexico,MEX,all,mex.mit.ecr.all,2021,2.890222937
+Mexico,MEX,all,mex.mit.ecr.all,2022,3.196554986
+Mexico,MEX,all,mex.mit.ecr.all,2023,3.789652385
+Mexico,MEX,all,mex.mit.ecr.all,2024,4.305144789
+Mexico,MEX,all,mex.mit.ecr.all,2025,3.942786131
+Mexico,MEX,gso,mex.mit.ecr.gso,2016,2.76
+Mexico,MEX,gso,mex.mit.ecr.gso,2017,2.6321233881919825
+Mexico,MEX,gso,mex.mit.ecr.gso,2018,2.888052702852105
+Mexico,MEX,gso,mex.mit.ecr.gso,2019,2.874491168747449
+Mexico,MEX,gso,mex.mit.ecr.gso,2020,2.3226753916037093
+Mexico,MEX,gso,mex.mit.ecr.gso,2021,2.875771822137564
+Mexico,MEX,gso,mex.mit.ecr.gso,2022,3.1805722110913357
+Mexico,MEX,gso,mex.mit.ecr.gso,2023,3.770704123292755
+Mexico,MEX,gso,mex.mit.ecr.gso,2024,4.283619064606675
+Mexico,MEX,gso,mex.mit.ecr.gso,2025,3.942786131
+Mexico,MEX,ker ,mex.mit.ecr.ker,2016,2.99
+Mexico,MEX,ker ,mex.mit.ecr.ker,2017,2.8501839156442736
+Mexico,MEX,ker ,mex.mit.ecr.ker,2018,3.1254809581869374
+Mexico,MEX,ker ,mex.mit.ecr.ker,2019,3.1105996439891195
+Mexico,MEX,ker ,mex.mit.ecr.ker,2020,2.512821243304692
+Mexico,MEX,ker ,mex.mit.ecr.ker,2021,3.1111938888748245
+Mexico,MEX,ker ,mex.mit.ecr.ker,2022,3.440949676597706
+Mexico,MEX,ker ,mex.mit.ecr.ker,2023,4.079374332705567
+Mexico,MEX,ker ,mex.mit.ecr.ker,2024,4.6342686319236694
+Mexico,MEX,ker ,mex.mit.ecr.ker,2025,3.942786131
+Mexico,MEX,jfu,mex.mit.ecr.jfu,2016,2.99
+Mexico,MEX,jfu,mex.mit.ecr.jfu,2017,2.8501839156442736
+Mexico,MEX,jfu,mex.mit.ecr.jfu,2018,3.1254809581869374
+Mexico,MEX,jfu,mex.mit.ecr.jfu,2019,3.1105996439891195
+Mexico,MEX,jfu,mex.mit.ecr.jfu,2020,2.512821243304692
+Mexico,MEX,jfu,mex.mit.ecr.jfu,2021,3.1111938888748245
+Mexico,MEX,jfu,mex.mit.ecr.jfu,2022,3.440949676597706
+Mexico,MEX,jfu,mex.mit.ecr.jfu,2023,4.079374332705567
+Mexico,MEX,jfu,mex.mit.ecr.jfu,2024,4.6342686319236694
+Mexico,MEX,jfu,mex.mit.ecr.jfu,2025,3.942786131
+Mexico,MEX,die,mex.mit.ecr.die,2016,2.88
+Mexico,MEX,die,mex.mit.ecr.die,2017,2.751159802671074
+Mexico,MEX,die,mex.mit.ecr.die,2018,3.0182834400379326
+Mexico,MEX,die,mex.mit.ecr.die,2019,3.0058006065763174
+Mexico,MEX,die,mex.mit.ecr.die,2020,2.4286049423787217
+Mexico,MEX,die,mex.mit.ecr.die,2021,3.006918806093392
+Mexico,MEX,die,mex.mit.ecr.die,2022,3.3256156612104464
+Mexico,MEX,die,mex.mit.ecr.die,2023,3.9426622419301727
+Mexico,MEX,die,mex.mit.ecr.die,2024,4.4789567131069505
+Mexico,MEX,die,mex.mit.ecr.die,2025,3.942786131
+Mexico,MEX,oop ,mex.mit.ecr.oop,2016,2.76
+Mexico,MEX,oop ,mex.mit.ecr.oop,2017,2.635537949704585
+Mexico,MEX,oop ,mex.mit.ecr.oop,2018,2.891133469248859
+Mexico,MEX,oop ,mex.mit.ecr.oop,2019,2.8778524671006003
+Mexico,MEX,oop ,mex.mit.ecr.oop,2020,2.3251516813768656
+Mexico,MEX,oop ,mex.mit.ecr.oop,2021,2.878835074749395
+Mexico,MEX,oop ,mex.mit.ecr.oop,2022,3.1839572573966852
+Mexico,MEX,oop ,mex.mit.ecr.oop,2023,3.7747018527300438
+Mexico,MEX,oop ,mex.mit.ecr.oop,2024,2.9218280590513928
+Mexico,MEX,oop ,mex.mit.ecr.oop,2025,3.942786131
+Mexico,MEX,lpg,mex.mit.ecr.lpg,2016,2.26
+Mexico,MEX,lpg,mex.mit.ecr.lpg,2017,2.1577158302878083
+Mexico,MEX,lpg,mex.mit.ecr.lpg,2018,2.366508463550834
+Mexico,MEX,lpg,mex.mit.ecr.lpg,2019,2.3571567441142216
+Mexico,MEX,lpg,mex.mit.ecr.lpg,2020,1.905533432721633
+Mexico,MEX,lpg,mex.mit.ecr.lpg,2021,23.59300442424907
+Mexico,MEX,lpg,mex.mit.ecr.lpg,2022,2.609357410792663
+Mexico,MEX,lpg,mex.mit.ecr.lpg,2023,3.0934832704187376
+Mexico,MEX,lpg,mex.mit.ecr.lpg,2024,3.5142684875890717
+Mexico,MEX,lpg,mex.mit.ecr.lpg,2025,3.942786131
+Mexico,MEX,coa,mex.mit.ecr.coa,2016,0.69
+Mexico,MEX,coa,mex.mit.ecr.coa,2017,0.6600710801559551
+Mexico,MEX,coa,mex.mit.ecr.coa,2018,0.7240971126613044
+Mexico,MEX,coa,mex.mit.ecr.coa,2019,0.7208600476203844
+Mexico,MEX,coa,mex.mit.ecr.coa,2020,0.5823350649060346
+Mexico,MEX,coa,mex.mit.ecr.coa,2021,0.7210062756563271
+Mexico,MEX,coa,mex.mit.ecr.coa,2022,0.7974268267312953
+Mexico,MEX,coa,mex.mit.ecr.coa,2023,0.9453841579992294
+Mexico,MEX,coa,mex.mit.ecr.coa,2024,1.0739801382701428
+Mexico,MEX,coa,mex.mit.ecr.coa,2025,3.942786131
+Netherlands,NLD,all,nld.mit.ecr.all,2015,0
+Netherlands,NLD,all,nld.mit.ecr.all,2016,0
+Netherlands,NLD,all,nld.mit.ecr.all,2017,0
+Netherlands,NLD,all,nld.mit.ecr.all,2018,0
+Netherlands,NLD,all,nld.mit.ecr.all,2019,0
+Netherlands,NLD,all,nld.mit.ecr.all,2020,0
+Netherlands,NLD,all,nld.mit.ecr.all,2021,35.238
+Netherlands,NLD,all,nld.mit.ecr.all,2022,46.14
+Netherlands,NLD,all,nld.mit.ecr.all,2023,60.83475
+Netherlands,NLD,all,nld.mit.ecr.all,2024,71.48085
+Netherlands,NLD,all,nld.mit.ecr.all,2025,94.82652
+Norway,NOR,all,nor.mit.ecr.all,2015,68.31
+Norway,NOR,all,nor.mit.ecr.all,2016,65.87
+Norway,NOR,all,nor.mit.ecr.all,2017,66.81692434620442
+Norway,NOR,all,nor.mit.ecr.all,2018,79.97633721192933
+Norway,NOR,all,nor.mit.ecr.all,2019,72.1630485963042
+Norway,NOR,all,nor.mit.ecr.all,2020,63.27636252873531
+Norway,NOR,all,nor.mit.ecr.all,2021,80.3528487137679
+Norway,NOR,all,nor.mit.ecr.all,2022,96.30561592130847
+Norway,NOR,all,nor.mit.ecr.all,2023,94.4908945138014
+Norway,NOR,all,nor.mit.ecr.all,2024,107.78355153228915
+Norway,NOR,all,nor.mit.ecr.all,2025,133.9204865
+Poland,POL,all,pol.mit.ecr.all,2015,0.07
+Poland,POL,all,pol.mit.ecr.all,2016,0.07
+Poland,POL,all,pol.mit.ecr.all,2017,0.0735017549496304
+Poland,POL,all,pol.mit.ecr.all,2018,0.08540478928627128
+Poland,POL,all,pol.mit.ecr.all,2019,0.07839652185501066
+Poland,POL,all,pol.mit.ecr.all,2020,0.07194053377006007
+Poland,POL,all,pol.mit.ecr.all,2021,0.07862432788880998
+Poland,POL,all,pol.mit.ecr.all,2022,0.07623040640335414
+Poland,POL,all,pol.mit.ecr.all,2023,0.079191316905017
+Poland,POL,all,pol.mit.ecr.all,2024,0.079191316905017
+Poland,POL,all,pol.mit.ecr.all,2025,0.09830298
+Portugal,PRT,all,prt.mit.ecr.all,2015,4.498
+Portugal,PRT,all,prt.mit.ecr.all,2016,7.256
+Portugal,PRT,all,prt.mit.ecr.all,2017,6.968870343867428
+Portugal,PRT,all,prt.mit.ecr.all,2018,7.372029262188155
+Portugal,PRT,all,prt.mit.ecr.all,2019,13.212614003347412
+Portugal,PRT,all,prt.mit.ecr.all,2020,49.009281657897304
+Portugal,PRT,all,prt.mit.ecr.all,2021,27.992397337190265
+Portugal,PRT,all,prt.mit.ecr.all,2022,26.33849610582372
+Portugal,PRT,all,prt.mit.ecr.all,2023,25.91667980011156
+Portugal,PRT,all,prt.mit.ecr.all,2024,25.91667980011156
+Portugal,PRT,all,prt.mit.ecr.all,2025,72.700332
+Portugal,PRT,gso,prt.mit.ecr.gso,2015,4.498
+Portugal,PRT,gso,prt.mit.ecr.gso,2016,7.256
+Portugal,PRT,gso,prt.mit.ecr.gso,2017,6.968870343867428
+Portugal,PRT,gso,prt.mit.ecr.gso,2018,7.372029262188155
+Portugal,PRT,gso,prt.mit.ecr.gso,2019,13.212614003347412
+Portugal,PRT,gso,prt.mit.ecr.gso,2020,49.009281657897304
+Portugal,PRT,gso,prt.mit.ecr.gso,2021,27.992397337190265
+Portugal,PRT,gso,prt.mit.ecr.gso,2022,26.33849610582372
+Portugal,PRT,gso,prt.mit.ecr.gso,2023,25.91667980011156
+Portugal,PRT,gso,prt.mit.ecr.gso,2024,25.91667980011156
+Portugal,PRT,gso,prt.mit.ecr.gso,2025,72.700332
+Portugal,PRT,lpg,prt.mit.ecr.lpg,2015,4.498
+Portugal,PRT,lpg,prt.mit.ecr.lpg,2016,7.256
+Portugal,PRT,lpg,prt.mit.ecr.lpg,2017,6.968870343867428
+Portugal,PRT,lpg,prt.mit.ecr.lpg,2018,7.372029262188155
+Portugal,PRT,lpg,prt.mit.ecr.lpg,2019,13.212614003347412
+Portugal,PRT,lpg,prt.mit.ecr.lpg,2020,49.009281657897304
+Portugal,PRT,lpg,prt.mit.ecr.lpg,2021,27.992397337190265
+Portugal,PRT,lpg,prt.mit.ecr.lpg,2022,26.33849610582372
+Portugal,PRT,lpg,prt.mit.ecr.lpg,2023,25.91667980011156
+Portugal,PRT,lpg,prt.mit.ecr.lpg,2024,25.91667980011156
+Portugal,PRT,lpg,prt.mit.ecr.lpg,2025,72.700332
+Portugal,PRT,nga,prt.mit.ecr.nga,2015,4.498
+Portugal,PRT,nga,prt.mit.ecr.nga,2016,7.256
+Portugal,PRT,nga,prt.mit.ecr.nga,2017,6.968870343867428
+Portugal,PRT,nga,prt.mit.ecr.nga,2018,7.372029262188155
+Portugal,PRT,nga,prt.mit.ecr.nga,2019,13.212614003347412
+Portugal,PRT,nga,prt.mit.ecr.nga,2020,49.009281657897304
+Portugal,PRT,nga,prt.mit.ecr.nga,2021,27.992397337190265
+Portugal,PRT,nga,prt.mit.ecr.nga,2022,26.33849610582372
+Portugal,PRT,nga,prt.mit.ecr.nga,2023,25.91667980011156
+Portugal,PRT,nga,prt.mit.ecr.nga,2024,25.91667980011156
+Portugal,PRT,nga,prt.mit.ecr.nga,2025,72.700332
+Portugal,PRT,oop ,prt.mit.ecr.oop,2015,4.498
+Portugal,PRT,oop ,prt.mit.ecr.oop,2016,7.256
+Portugal,PRT,oop ,prt.mit.ecr.oop,2017,6.968870343867428
+Portugal,PRT,oop ,prt.mit.ecr.oop,2018,7.372029262188155
+Portugal,PRT,oop ,prt.mit.ecr.oop,2019,13.212614003347412
+Portugal,PRT,oop ,prt.mit.ecr.oop,2020,49.009281657897304
+Portugal,PRT,oop ,prt.mit.ecr.oop,2021,27.992397337190265
+Portugal,PRT,oop ,prt.mit.ecr.oop,2022,26.33849610582372
+Portugal,PRT,oop ,prt.mit.ecr.oop,2023,25.91667980011156
+Portugal,PRT,oop ,prt.mit.ecr.oop,2024,25.91667980011156
+Portugal,PRT,oop ,prt.mit.ecr.oop,2025,72.700332
+Portugal,PRT,jfu,prt.mit.ecr.jfu,2015,4.498
+Portugal,PRT,jfu,prt.mit.ecr.jfu,2016,7.256
+Portugal,PRT,jfu,prt.mit.ecr.jfu,2017,6.968870343867428
+Portugal,PRT,jfu,prt.mit.ecr.jfu,2018,7.372029262188155
+Portugal,PRT,jfu,prt.mit.ecr.jfu,2019,13.212614003347412
+Portugal,PRT,jfu,prt.mit.ecr.jfu,2020,49.009281657897304
+Portugal,PRT,jfu,prt.mit.ecr.jfu,2021,27.992397337190265
+Portugal,PRT,jfu,prt.mit.ecr.jfu,2022,26.33849610582372
+Portugal,PRT,jfu,prt.mit.ecr.jfu,2023,25.91667980011156
+Portugal,PRT,jfu,prt.mit.ecr.jfu,2024,25.91667980011156
+Portugal,PRT,jfu,prt.mit.ecr.jfu,2025,72.700332
+Portugal,PRT,die,prt.mit.ecr.die,2015,4.498
+Portugal,PRT,die,prt.mit.ecr.die,2016,7.256
+Portugal,PRT,die,prt.mit.ecr.die,2017,6.968870343867428
+Portugal,PRT,die,prt.mit.ecr.die,2018,7.372029262188155
+Portugal,PRT,die,prt.mit.ecr.die,2019,13.212614003347412
+Portugal,PRT,die,prt.mit.ecr.die,2020,49.009281657897304
+Portugal,PRT,die,prt.mit.ecr.die,2021,27.992397337190265
+Portugal,PRT,die,prt.mit.ecr.die,2022,26.33849610582372
+Portugal,PRT,die,prt.mit.ecr.die,2023,25.91667980011156
+Portugal,PRT,die,prt.mit.ecr.die,2024,25.91667980011156
+Portugal,PRT,die,prt.mit.ecr.die,2025,72.700332
+Portugal,PRT,coa,prt.mit.ecr.coa,2015,4.498
+Portugal,PRT,coa,prt.mit.ecr.coa,2016,7.256
+Portugal,PRT,coa,prt.mit.ecr.coa,2017,6.968870343867428
+Portugal,PRT,coa,prt.mit.ecr.coa,2018,7.372029262188155
+Portugal,PRT,coa,prt.mit.ecr.coa,2019,13.212614003347412
+Portugal,PRT,coa,prt.mit.ecr.coa,2020,49.009281657897304
+Portugal,PRT,coa,prt.mit.ecr.coa,2021,27.992397337190265
+Portugal,PRT,coa,prt.mit.ecr.coa,2022,26.33849610582372
+Portugal,PRT,coa,prt.mit.ecr.coa,2023,25.91667980011156
+Portugal,PRT,coa,prt.mit.ecr.coa,2024,25.91667980011156
+Portugal,PRT,coa,prt.mit.ecr.coa,2025,72.700332
+Singapore,SGP,all,sgp.mit.ecr.all,2015,0
+Singapore,SGP,all,sgp.mit.ecr.all,2016,0
+Singapore,SGP,all,sgp.mit.ecr.all,2017,0
+Singapore,SGP,all,sgp.mit.ecr.all,2018,0
+Singapore,SGP,all,sgp.mit.ecr.all,2019,3.693856332178393
+Singapore,SGP,all,sgp.mit.ecr.all,2020,3.5102504667995236
+Singapore,SGP,all,sgp.mit.ecr.all,2021,3.7136066547831255
+Singapore,SGP,all,sgp.mit.ecr.all,2022,3.685684800235884
+Singapore,SGP,all,sgp.mit.ecr.all,2023,3.7678975131876413
+Singapore,SGP,all,sgp.mit.ecr.all,2024,18.47882326853426
+Singapore,SGP,all,sgp.mit.ecr.all,2025,18.61920012
+Slovenia,SVN,all,svn.mit.ecr.all,2015,18.58
+Slovenia,SVN,all,svn.mit.ecr.all,2016,19.31
+Slovenia,SVN,all,svn.mit.ecr.all,2017,18.495453650080762
+Slovenia,SVN,all,svn.mit.ecr.all,2018,21.448532299041062
+Slovenia,SVN,all,svn.mit.ecr.all,2019,19.438268895477968
+Slovenia,SVN,all,svn.mit.ecr.all,2020,18.91928527426777
+Slovenia,SVN,all,svn.mit.ecr.all,2021,20.320580007331667
+Slovenia,SVN,all,svn.mit.ecr.all,2022,19.11996
+Slovenia,SVN,all,svn.mit.ecr.all,2023,0
+Slovenia,SVN,all,svn.mit.ecr.all,2024,18.595769999999998
+Slovenia,SVN,all,svn.mit.ecr.all,2025,33.28098
+South Africa,ZAF,all,zaf.mit.ecr.all,2015,0
+South Africa,ZAF,all,zaf.mit.ecr.all,2016,0
+South Africa,ZAF,all,zaf.mit.ecr.all,2017,0
+South Africa,ZAF,all,zaf.mit.ecr.all,2018,0
+South Africa,ZAF,all,zaf.mit.ecr.all,2019,0
+South Africa,ZAF,all,zaf.mit.ecr.all,2020,7.059867260928299
+South Africa,ZAF,all,zaf.mit.ecr.all,2021,9.150942751975306
+South Africa,ZAF,all,zaf.mit.ecr.all,2022,9.835192230198139
+South Africa,ZAF,all,zaf.mit.ecr.all,2023,8.925614267510202
+South Africa,ZAF,all,zaf.mit.ecr.all,2024,10.08578223203669
+South Africa,ZAF,all,zaf.mit.ecr.all,2025,12.84892173
+Spain,ESP,all,esp.mit.ecr.all,2015,21.51
+Spain,ESP,all,esp.mit.ecr.all,2018,24.795991097157298
+Spain,ESP,all,esp.mit.ecr.all,2019,16.853990371801704
+Spain,ESP,all,esp.mit.ecr.all,2020,16.40400457306454
+Spain,ESP,all,esp.mit.ecr.all,2021,17.619000006356934
+Spain,ESP,all,esp.mit.ecr.all,2022,16.578
+Spain,ESP,all,esp.mit.ecr.all,2023,16.3125
+Spain,ESP,all,esp.mit.ecr.all,2024,16.1235
+Spain,ESP,all,esp.mit.ecr.all,2025,16.182
+Sweden,SWE,all,swe.mit.ecr.all,2015,103.849140565
+Sweden,SWE,all,swe.mit.ecr.all,2016,130.5009117
+Sweden,SWE,all,swe.mit.ecr.all,2017,139.8376077
+Sweden,SWE,all,swe.mit.ecr.all,2018,139.1140739
+Sweden,SWE,all,swe.mit.ecr.all,2019,126.7779984
+Sweden,SWE,all,swe.mit.ecr.all,2020,133.2586744
+Sweden,SWE,all,swe.mit.ecr.all,2021,137.2432408
+Sweden,SWE,all,swe.mit.ecr.all,2022,129.89
+Sweden,SWE,all,swe.mit.ecr.all,2023,133.828903157423
+Sweden,SWE,all,swe.mit.ecr.all,2024,132.23447463461557
+Sweden,SWE,all,swe.mit.ecr.all,2025,144.6246989
+Sweden,SWE,gso,swe.mit.ecr.gso,2024,127.25819876550447
+Sweden,SWE,gso,swe.mit.ecr.gso,2025,144.6246989
+Sweden,SWE,nga,swe.mit.ecr.nga,2024,142.94225602355647
+Sweden,SWE,nga,swe.mit.ecr.nga,2025,144.6246989
+Sweden,SWE,jfu,swe.mit.ecr.jfu,2024,114.69560258484962
+Sweden,SWE,jfu,swe.mit.ecr.jfu,2025,144.6246989
+Sweden,SWE,die,swe.mit.ecr.die,2024,135.06812548296767
+Sweden,SWE,die,swe.mit.ecr.die,2025,144.6246989
+Sweden,SWE,lpg,swe.mit.ecr.lpg,2024,135.95619284840433
+Sweden,SWE,lpg,swe.mit.ecr.lpg,2025,144.6246989
+Sweden,SWE,coa,swe.mit.ecr.coa,2024,137.4864721024107
+Sweden,SWE,coa,swe.mit.ecr.coa,2025,144.6246989
+Switzerland,CHE,all,che.mit.ecr.all,2015,61.95
+Switzerland,CHE,all,che.mit.ecr.all,2016,86.18
+Switzerland,CHE,all,che.mit.ecr.all,2017,83.91650714180533
+Switzerland,CHE,all,che.mit.ecr.all,2018,100.90387466056818
+Switzerland,CHE,all,che.mit.ecr.all,2019,96.46308635394456
+Switzerland,CHE,all,che.mit.ecr.all,2020,99.44064918940109
+Switzerland,CHE,all,che.mit.ecr.all,2021,101.47455208498495
+Switzerland,CHE,all,che.mit.ecr.all,2022,129.85607618223136
+Switzerland,CHE,all,che.mit.ecr.all,2023,130.81157682454898
+Switzerland,CHE,all,che.mit.ecr.all,2024,132.12221304706853
+Switzerland,CHE,all,che.mit.ecr.all,2025,136.0389978
+Ukraine,UKR,all,ukr.mit.ecr.all,2015,0.01
+Ukraine,UKR,all,ukr.mit.ecr.all,2017,0.013668267454746951
+Ukraine,UKR,all,ukr.mit.ecr.all,2018,0.015442561205273068
+Ukraine,UKR,all,ukr.mit.ecr.all,2019,0.3683694470176502
+Ukraine,UKR,all,ukr.mit.ecr.all,2020,0.38461538461538464
+Ukraine,UKR,all,ukr.mit.ecr.all,2021,0.3594200398237404
+Ukraine,UKR,all,ukr.mit.ecr.all,2022,1.0254692376319865
+Ukraine,UKR,all,ukr.mit.ecr.all,2023,0.8203759509524564
+Ukraine,UKR,all,ukr.mit.ecr.all,2024,0.7677562834453832
+Ukraine,UKR,all,ukr.mit.ecr.all,2025,0.730410393
+Uruguay,URY,all,ury.mit.ecr.all,2022,137.3
+Uruguay,URY,all,ury.mit.ecr.all,2023,155.868350238046
+Uruguay,URY,all,ury.mit.ecr.all,2024,167.173810398195
+Uruguay,URY,all,ury.mit.ecr.all,2025,158.7647421
+United Kingdom,GBR,all,gbr.mit.ecr.all,2015,26.71
+United Kingdom,GBR,all,gbr.mit.ecr.all,2016,23.72
+United Kingdom,GBR,all,gbr.mit.ecr.all,2017,22.41451148106679
+United Kingdom,GBR,all,gbr.mit.ecr.all,2018,25.45739884822752
+United Kingdom,GBR,all,gbr.mit.ecr.all,2019,23.588994203091683
+United Kingdom,GBR,all,gbr.mit.ecr.all,2020,22.28400260615506
+United Kingdom,GBR,all,gbr.mit.ecr.all,2021,24.795000002293538
+United Kingdom,GBR,all,gbr.mit.ecr.all,2022,23.6538
+United Kingdom,GBR,all,gbr.mit.ecr.all,2023,22.2759
+United Kingdom,GBR,all,gbr.mit.ecr.all,2024,22.6188
+United Kingdom,GBR,all,gbr.mit.ecr.all,2025,23.2371

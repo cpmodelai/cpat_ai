@@ -1,0 +1,25 @@
+group_code,subject_code,variable,value
+1,POILBRE,Country Group Name,World
+1,POILBRE,Subject Descriptor,"Crude Oil (petroleum), Brent, US$ per barrel"
+1,POILBRE,Units,U.S. dollars
+1,POILBRE,Scale,Units
+1,PNGASEU,Country Group Name,World
+1,PNGASEU,Subject Descriptor,"Natural Gas, Netherlands TTF Natural Gas Forward Day Ahead, US$ per Million Metric British Thermal Unit"
+1,PNGASEU,Units,U.S. dollars
+1,PNGASEU,Scale,Units
+1,PNGASJP,Country Group Name,World
+1,PNGASJP,Subject Descriptor,"Natural Gas, LNG des Northeast Asia (ANEA) half-month 1, No time stamp, midpoint, delivered, USD/MMBtu"
+1,PNGASJP,Units,U.S. dollars
+1,PNGASJP,Scale,Units
+1,PNGASUS,Country Group Name,World
+1,PNGASUS,Subject Descriptor,"Natural Gas, Natural Gas spot price at the Henry Hub terminal in Louisiana, US$ per million metric British thermal units of gas"
+1,PNGASUS,Units,U.S. dollars
+1,PNGASUS,Scale,Units
+1,PCOALAU,Country Group Name,World
+1,PCOALAU,Subject Descriptor,"Coal, Australian thermal coal, 1200- btu/pound, less than 1% sulfur, 14% ash, FOB Newcastle/Port Kembla, US$ per metric tonne"
+1,PCOALAU,Units,U.S. dollars
+1,PCOALAU,Scale,Units
+1,PCOALSA,Country Group Name,World
+1,PCOALSA,Subject Descriptor,"Coal, South African export price, US$ per metric tonne"
+1,PCOALSA,Units,U.S. dollars
+1,PCOALSA,Scale,Units

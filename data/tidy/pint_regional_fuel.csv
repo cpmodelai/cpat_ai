@@ -1,0 +1,281 @@
+region,fuel,year,value
+East Asia & Pacific,gasoline,2016,0.35345590114593506
+East Asia & Pacific,gasoline,2017,0.4274492561817169
+East Asia & Pacific,gasoline,2018,0.5044994354248047
+East Asia & Pacific,gasoline,2019,0.4563005864620209
+East Asia & Pacific,gasoline,2020,0.29343855381011963
+East Asia & Pacific,gasoline,2021,0.41372302174568176
+East Asia & Pacific,gasoline,2022,0.5862805452597534
+East Asia & Pacific,gasoline,2023,0.4852161727435522
+East Asia & Pacific,gasoline,2024,0.47395395198292456
+East Asia & Pacific,gasoline,2025,0.42873866352296697
+East Asia & Pacific,diesel,2016,0.32855454087257385
+East Asia & Pacific,diesel,2017,0.4129260778427124
+East Asia & Pacific,diesel,2018,0.530426025390625
+East Asia & Pacific,diesel,2019,0.4857306182384491
+East Asia & Pacific,diesel,2020,0.3046092391014099
+East Asia & Pacific,diesel,2021,0.4294727146625519
+East Asia & Pacific,diesel,2022,0.6085991934026945
+East Asia & Pacific,diesel,2023,0.503687481608031
+East Asia & Pacific,diesel,2024,0.49199652831568813
+East Asia & Pacific,diesel,2025,0.4450599749732803
+East Asia & Pacific,LPG,2016,0.29572394490242004
+East Asia & Pacific,LPG,2017,0.35763153433799744
+East Asia & Pacific,LPG,2018,0.4220966696739197
+East Asia & Pacific,LPG,2019,0.38177043199539185
+East Asia & Pacific,LPG,2020,0.2455095648765564
+East Asia & Pacific,LPG,2021,0.3461472988128662
+East Asia & Pacific,LPG,2022,0.49052002528625577
+East Asia & Pacific,LPG,2023,0.40596306878649235
+East Asia & Pacific,LPG,2024,0.3965403702901012
+East Asia & Pacific,LPG,2025,0.3587103508258236
+East Asia & Pacific,kerosene,2016,0.3333474099636078
+East Asia & Pacific,kerosene,2017,0.41058626770973206
+East Asia & Pacific,kerosene,2018,0.5349547266960144
+East Asia & Pacific,kerosene,2019,0.4859570860862732
+East Asia & Pacific,kerosene,2020,0.2820036709308624
+East Asia & Pacific,kerosene,2021,0.39760082960128784
+East Asia & Pacific,kerosene,2022,0.5634340341777375
+East Asia & Pacific,kerosene,2023,0.4663079951528266
+East Asia & Pacific,kerosene,2024,0.4554846469652293
+East Asia & Pacific,kerosene,2025,0.4120313333775903
+Europe & Central Asia,gasoline,2016,0.34118449687957764
+Europe & Central Asia,gasoline,2017,0.41384437680244446
+Europe & Central Asia,gasoline,2018,0.4955175817012787
+Europe & Central Asia,gasoline,2019,0.4487968385219574
+Europe & Central Asia,gasoline,2020,0.28081488609313965
+Europe & Central Asia,gasoline,2021,0.40209969878196716
+Europe & Central Asia,gasoline,2022,0.5698093126555263
+Europe & Central Asia,gasoline,2023,0.47158428864094915
+Europe & Central Asia,gasoline,2024,0.46063847383867756
+Europe & Central Asia,gasoline,2025,0.41669348428171565
+Europe & Central Asia,diesel,2016,0.32942256331443787
+Europe & Central Asia,diesel,2017,0.40684381127357483
+Europe & Central Asia,diesel,2018,0.5300989747047424
+Europe & Central Asia,diesel,2019,0.48889440298080444
+Europe & Central Asia,diesel,2020,0.3025147318840027
+Europe & Central Asia,diesel,2021,0.4331717789173126
+Europe & Central Asia,diesel,2022,0.6138410805935048
+Europe & Central Asia,diesel,2023,0.508025760374473
+Europe & Central Asia,diesel,2024,0.4962341124723183
+Europe & Central Asia,diesel,2025,0.44889329287321245
+Europe & Central Asia,LPG,2016,0.28545689582824707
+Europe & Central Asia,LPG,2017,0.3462488353252411
+Europe & Central Asia,LPG,2018,0.41458186507225037
+Europe & Central Asia,LPG,2019,0.37549230456352234
+Europe & Central Asia,LPG,2020,0.2349478006362915
+Europe & Central Asia,LPG,2021,0.33642250299453735
+Europe & Central Asia,LPG,2022,0.476739166365588
+Europe & Central Asia,LPG,2023,0.39455778563891203
+Europe & Central Asia,LPG,2024,0.38539981207103924
+Europe & Central Asia,LPG,2025,0.3486326037751723
+Europe & Central Asia,kerosene,2016,0.32942256331443787
+Europe & Central Asia,kerosene,2017,0.40684381127357483
+Europe & Central Asia,kerosene,2018,0.5300989747047424
+Europe & Central Asia,kerosene,2019,0.48889440298080444
+Europe & Central Asia,kerosene,2020,0.3025147318840027
+Europe & Central Asia,kerosene,2021,0.4331717789173126
+Europe & Central Asia,kerosene,2022,0.6138410805935048
+Europe & Central Asia,kerosene,2023,0.508025760374473
+Europe & Central Asia,kerosene,2024,0.4962341124723183
+Europe & Central Asia,kerosene,2025,0.44889329287321245
+Latin America & Caribbean,gasoline,2016,0.39467933773994446
+Latin America & Caribbean,gasoline,2017,0.4643326997756958
+Latin America & Caribbean,gasoline,2018,0.5391248464584351
+Latin America & Caribbean,gasoline,2019,0.4984171688556671
+Latin America & Caribbean,gasoline,2020,0.3185097277164459
+Latin America & Caribbean,gasoline,2021,0.46701785922050476
+Latin America & Caribbean,gasoline,2022,0.6618038416004538
+Latin America & Caribbean,gasoline,2023,0.5477205916598853
+Latin America & Caribbean,gasoline,2024,0.5350075978131706
+Latin America & Caribbean,gasoline,2025,0.4839677810499948
+Latin America & Caribbean,diesel,2016,0.3127356767654419
+Latin America & Caribbean,diesel,2017,0.3875970244407654
+Latin America & Caribbean,diesel,2018,0.5081034898757935
+Latin America & Caribbean,diesel,2019,0.46611273288726807
+Latin America & Caribbean,diesel,2020,0.2787266671657562
+Latin America & Caribbean,diesel,2021,0.4086855947971344
+Latin America & Caribbean,diesel,2022,0.5791420848336474
+Latin America & Caribbean,diesel,2023,0.4793082563454363
+Latin America & Caribbean,diesel,2024,0.4681831626272456
+Latin America & Caribbean,diesel,2025,0.42351840846343003
+Latin America & Caribbean,LPG,2016,0.33021411299705505
+Latin America & Caribbean,LPG,2017,0.38849058747291565
+Latin America & Caribbean,LPG,2018,0.4510665237903595
+Latin America & Caribbean,LPG,2019,0.4170078635215759
+Latin America & Caribbean,LPG,2020,0.26648572087287903
+Latin America & Caribbean,LPG,2021,0.3907371759414673
+Latin America & Caribbean,LPG,2022,0.5537076559037548
+Latin America & Caribbean,LPG,2023,0.4582582720656193
+Latin America & Caribbean,LPG,2024,0.4476217638136273
+Latin America & Caribbean,LPG,2025,0.40491857062975156
+Latin America & Caribbean,kerosene,2016,0.3127356767654419
+Latin America & Caribbean,kerosene,2017,0.3875970244407654
+Latin America & Caribbean,kerosene,2018,0.5081034898757935
+Latin America & Caribbean,kerosene,2019,0.46611273288726807
+Latin America & Caribbean,kerosene,2020,0.2787266671657562
+Latin America & Caribbean,kerosene,2021,0.4086855947971344
+Latin America & Caribbean,kerosene,2022,0.5791420848336474
+Latin America & Caribbean,kerosene,2023,0.4793082563454363
+Latin America & Caribbean,kerosene,2024,0.4681831626272456
+Latin America & Caribbean,kerosene,2025,0.42351840846343003
+Middle East & North Africa,gasoline,2016,0.35345590114593506
+Middle East & North Africa,gasoline,2017,0.4274492561817169
+Middle East & North Africa,gasoline,2018,0.5044994354248047
+Middle East & North Africa,gasoline,2019,0.4563005864620209
+Middle East & North Africa,gasoline,2020,0.29343855381011963
+Middle East & North Africa,gasoline,2021,0.41372302174568176
+Middle East & North Africa,gasoline,2022,0.5862805452597534
+Middle East & North Africa,gasoline,2023,0.4852161727435522
+Middle East & North Africa,gasoline,2024,0.47395395198292456
+Middle East & North Africa,gasoline,2025,0.42873866352296697
+Middle East & North Africa,diesel,2016,0.32855454087257385
+Middle East & North Africa,diesel,2017,0.4129260778427124
+Middle East & North Africa,diesel,2018,0.530426025390625
+Middle East & North Africa,diesel,2019,0.4857306182384491
+Middle East & North Africa,diesel,2020,0.3046092391014099
+Middle East & North Africa,diesel,2021,0.4294727146625519
+Middle East & North Africa,diesel,2022,0.6085991934026945
+Middle East & North Africa,diesel,2023,0.503687481608031
+Middle East & North Africa,diesel,2024,0.49199652831568813
+Middle East & North Africa,diesel,2025,0.4450599749732803
+Middle East & North Africa,LPG,2016,0.29572394490242004
+Middle East & North Africa,LPG,2017,0.35763153433799744
+Middle East & North Africa,LPG,2018,0.4220966696739197
+Middle East & North Africa,LPG,2019,0.38177043199539185
+Middle East & North Africa,LPG,2020,0.2455095648765564
+Middle East & North Africa,LPG,2021,0.3461472988128662
+Middle East & North Africa,LPG,2022,0.49052002528625577
+Middle East & North Africa,LPG,2023,0.40596306878649235
+Middle East & North Africa,LPG,2024,0.3965403702901012
+Middle East & North Africa,LPG,2025,0.3587103508258236
+Middle East & North Africa,kerosene,2016,0.32855454087257385
+Middle East & North Africa,kerosene,2017,0.4129260778427124
+Middle East & North Africa,kerosene,2018,0.530426025390625
+Middle East & North Africa,kerosene,2019,0.4857306182384491
+Middle East & North Africa,kerosene,2020,0.3046092391014099
+Middle East & North Africa,kerosene,2021,0.4294727146625519
+Middle East & North Africa,kerosene,2022,0.6085991934026945
+Middle East & North Africa,kerosene,2023,0.503687481608031
+Middle East & North Africa,kerosene,2024,0.49199652831568813
+Middle East & North Africa,kerosene,2025,0.4450599749732803
+North America,gasoline,2016,0.39467933773994446
+North America,gasoline,2017,0.4643326997756958
+North America,gasoline,2018,0.5391248464584351
+North America,gasoline,2019,0.4984171688556671
+North America,gasoline,2020,0.3185097277164459
+North America,gasoline,2021,0.46701785922050476
+North America,gasoline,2022,0.6618038416004538
+North America,gasoline,2023,0.5477205916598853
+North America,gasoline,2024,0.5350075978131706
+North America,gasoline,2025,0.4839677810499948
+North America,diesel,2016,0.3127356767654419
+North America,diesel,2017,0.3875970244407654
+North America,diesel,2018,0.5081034898757935
+North America,diesel,2019,0.46611273288726807
+North America,diesel,2020,0.2787266671657562
+North America,diesel,2021,0.4086855947971344
+North America,diesel,2022,0.5791420848336474
+North America,diesel,2023,0.4793082563454363
+North America,diesel,2024,0.4681831626272456
+North America,diesel,2025,0.42351840846343003
+North America,LPG,2016,0.33021411299705505
+North America,LPG,2017,0.38849058747291565
+North America,LPG,2018,0.4510665237903595
+North America,LPG,2019,0.4170078635215759
+North America,LPG,2020,0.26648572087287903
+North America,LPG,2021,0.3907371759414673
+North America,LPG,2022,0.5537076559037548
+North America,LPG,2023,0.4582582720656193
+North America,LPG,2024,0.4476217638136273
+North America,LPG,2025,0.40491857062975156
+North America,kerosene,2016,0.3127356767654419
+North America,kerosene,2017,0.3875970244407654
+North America,kerosene,2018,0.5081034898757935
+North America,kerosene,2019,0.46611273288726807
+North America,kerosene,2020,0.2787266671657562
+North America,kerosene,2021,0.4086855947971344
+North America,kerosene,2022,0.5791420848336474
+North America,kerosene,2023,0.4793082563454363
+North America,kerosene,2024,0.4681831626272456
+North America,kerosene,2025,0.42351840846343003
+South Asia,gasoline,2016,0.35345590114593506
+South Asia,gasoline,2017,0.4274492561817169
+South Asia,gasoline,2018,0.5044994354248047
+South Asia,gasoline,2019,0.4563005864620209
+South Asia,gasoline,2020,0.29343855381011963
+South Asia,gasoline,2021,0.41372302174568176
+South Asia,gasoline,2022,0.5862805452597534
+South Asia,gasoline,2023,0.4852161727435522
+South Asia,gasoline,2024,0.47395395198292456
+South Asia,gasoline,2025,0.42873866352296697
+South Asia,diesel,2016,0.32855454087257385
+South Asia,diesel,2017,0.4129260778427124
+South Asia,diesel,2018,0.530426025390625
+South Asia,diesel,2019,0.4857306182384491
+South Asia,diesel,2020,0.3046092391014099
+South Asia,diesel,2021,0.4294727146625519
+South Asia,diesel,2022,0.6085991934026945
+South Asia,diesel,2023,0.503687481608031
+South Asia,diesel,2024,0.49199652831568813
+South Asia,diesel,2025,0.4450599749732803
+South Asia,LPG,2016,0.29572394490242004
+South Asia,LPG,2017,0.35763153433799744
+South Asia,LPG,2018,0.4220966696739197
+South Asia,LPG,2019,0.38177043199539185
+South Asia,LPG,2020,0.2455095648765564
+South Asia,LPG,2021,0.3461472988128662
+South Asia,LPG,2022,0.49052002528625577
+South Asia,LPG,2023,0.40596306878649235
+South Asia,LPG,2024,0.3965403702901012
+South Asia,LPG,2025,0.3587103508258236
+South Asia,kerosene,2016,0.3333474099636078
+South Asia,kerosene,2017,0.41058626770973206
+South Asia,kerosene,2018,0.5349547266960144
+South Asia,kerosene,2019,0.4859570860862732
+South Asia,kerosene,2020,0.2820036709308624
+South Asia,kerosene,2021,0.39760082960128784
+South Asia,kerosene,2022,0.5634340341777375
+South Asia,kerosene,2023,0.4663079951528266
+South Asia,kerosene,2024,0.4554846469652293
+South Asia,kerosene,2025,0.4120313333775903
+Sub-Saharan Africa,gasoline,2016,0.34118449687957764
+Sub-Saharan Africa,gasoline,2017,0.41384437680244446
+Sub-Saharan Africa,gasoline,2018,0.4955175817012787
+Sub-Saharan Africa,gasoline,2019,0.4487968385219574
+Sub-Saharan Africa,gasoline,2020,0.28081488609313965
+Sub-Saharan Africa,gasoline,2021,0.40209969878196716
+Sub-Saharan Africa,gasoline,2022,0.5698093126555263
+Sub-Saharan Africa,gasoline,2023,0.47158428864094915
+Sub-Saharan Africa,gasoline,2024,0.46063847383867756
+Sub-Saharan Africa,gasoline,2025,0.41669348428171565
+Sub-Saharan Africa,diesel,2016,0.32942256331443787
+Sub-Saharan Africa,diesel,2017,0.40684381127357483
+Sub-Saharan Africa,diesel,2018,0.5300989747047424
+Sub-Saharan Africa,diesel,2019,0.48889440298080444
+Sub-Saharan Africa,diesel,2020,0.3025147318840027
+Sub-Saharan Africa,diesel,2021,0.4331717789173126
+Sub-Saharan Africa,diesel,2022,0.6138410805935048
+Sub-Saharan Africa,diesel,2023,0.508025760374473
+Sub-Saharan Africa,diesel,2024,0.4962341124723183
+Sub-Saharan Africa,diesel,2025,0.44889329287321245
+Sub-Saharan Africa,LPG,2016,0.28545689582824707
+Sub-Saharan Africa,LPG,2017,0.3462488353252411
+Sub-Saharan Africa,LPG,2018,0.41458186507225037
+Sub-Saharan Africa,LPG,2019,0.37549230456352234
+Sub-Saharan Africa,LPG,2020,0.2349478006362915
+Sub-Saharan Africa,LPG,2021,0.33642250299453735
+Sub-Saharan Africa,LPG,2022,0.476739166365588
+Sub-Saharan Africa,LPG,2023,0.39455778563891203
+Sub-Saharan Africa,LPG,2024,0.38539981207103924
+Sub-Saharan Africa,LPG,2025,0.3486326037751723
+Sub-Saharan Africa,kerosene,2016,0.32942256331443787
+Sub-Saharan Africa,kerosene,2017,0.40684381127357483
+Sub-Saharan Africa,kerosene,2018,0.5300989747047424
+Sub-Saharan Africa,kerosene,2019,0.48889440298080444
+Sub-Saharan Africa,kerosene,2020,0.3025147318840027
+Sub-Saharan Africa,kerosene,2021,0.4331717789173126
+Sub-Saharan Africa,kerosene,2022,0.6138410805935048
+Sub-Saharan Africa,kerosene,2023,0.508025760374473
+Sub-Saharan Africa,kerosene,2024,0.4962341124723183
+Sub-Saharan Africa,kerosene,2025,0.44889329287321245

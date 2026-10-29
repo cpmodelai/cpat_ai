@@ -1,0 +1,1 @@
+{"kind": "table", "header": ["round", "country", "code", "type", "ty1", "ty2", "ref", "cond", "u1", "c1", "u2", "c2", "lulucf", "gases", "submission"], "key_pos": [0, 2], "attr_pos": [1], "val_pos": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "skipped": {}, "nrows": 584, "source": "legacy_NDCs.csv"}

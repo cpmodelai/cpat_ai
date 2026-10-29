@@ -1,0 +1,20 @@
+_row,CPAT Code,Year,CountryName,FuelType
+0,egy.mit.enc.ele,2022,Egypt,Electricity
+1,egy.mit.enc.coa,2022,Egypt,Coal
+2,egy.mit.enc.nga,2022,Egypt,Natural gas
+3,egy.mit.enc.oop,2022,Egypt,Other oil products
+4,egy.mit.enc.gso,2022,Egypt,Gasoline
+5,egy.mit.enc.die,2022,Egypt,Diesel
+6,egy.mit.enc.ker,2022,Egypt,Kerosene
+7,egy.mit.enc.lpg,2022,Egypt,LPG
+8,egy.mit.enc.jfu,2022,Egypt,Jet fuel
+9,egy.mit.enc.wnd,2022,Egypt,Wind
+10,egy.mit.enc.sol,2022,Egypt,Solar
+11,egy.mit.enc.hyd,2022,Egypt,Hydro
+12,egy.mit.enc.ore,2022,Egypt,Other renewables
+13,egy.mit.enc.nuc,2022,Egypt,Nuclear
+14,egy.mit.enc.bio,2022,Egypt,Biomass
+15,egy.mit.enc.bgs,2022,Egypt,- in which: biogasoline
+16,egy.mit.enc.bdi,2022,Egypt,- in which: biodiesel
+17,egy.mit.enc.obf,2022,Egypt,- in which: other liquid biofuels
+18,egy.mit.enc.heat,2022,Egypt,Heat

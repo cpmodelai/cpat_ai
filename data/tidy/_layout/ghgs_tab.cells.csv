@@ -1,0 +1,3860 @@
+row,col,value
+3,2,"Shows historical GHG emissions by gas (CO2, CH4, N2O and F-gases) and source (energy, industrial, agriculture, LULUCF, waste and other)"
+5,1,.
+5,3,"GHG dataset, by gas and sector, for the last three years"
+5,48,41
+5,49,42
+5,50,43
+5,51,44
+5,52,45
+6,8,1.  Energy
+6,13,2.  Industrial Processes and Product Use
+6,18,3.  Agriculture
+6,23,"4.  Land Use, Land-Use Change and Forestry"
+6,28,5.  Waste
+6,33,6.  Other
+6,38,Total including LUCF
+6,43,Total excluding LUCF
+6,48,Memo: Fugitive emissions
+7,3,Country
+7,4,ISO
+7,5,Year
+7,7,UNFCCC category
+7,8,CO2
+7,9,CH4
+7,10,N2O
+7,11,F-gas
+7,12,Aggregate GHGs
+7,13,CO2
+7,14,CH4
+7,15,N2O
+7,16,F-gas
+7,17,Aggregate GHGs
+7,18,CO2
+7,19,CH4
+7,20,N2O
+7,21,F-gas
+7,22,Aggregate GHGs
+7,23,CO2
+7,24,CH4
+7,25,N2O
+7,26,F-gas
+7,27,Aggregate GHGs
+7,28,CO2
+7,29,CH4
+7,30,N2O
+7,31,F-gas
+7,32,Aggregate GHGs
+7,33,CO2
+7,34,CH4
+7,35,N2O
+7,36,F-gas
+7,37,Aggregate GHGs
+7,38,Total CO₂
+7,39,Total CH₄
+7,40,Total N₂O
+7,41,Total F-gases
+7,42,Total Aggregate GHGs
+7,43,Total CO₂
+7,44,Total CH₄
+7,45,Total N₂O
+7,46,Total F-gases
+7,47,Total Aggregate GHGs
+7,48,CO2
+7,49,CH4
+7,50,N2O
+7,51,F-gas
+7,52,Total GHGs
+8,3,Afghanistan
+8,4,AFG
+8,5,2024
+9,3,Albania
+9,4,ALB
+9,5,2024
+10,3,Algeria
+10,4,DZA
+10,5,2024
+11,3,American Samoa
+11,4,ASM
+11,5,2024
+12,3,Angola
+12,4,AGO
+12,5,2024
+13,3,Anguilla
+13,4,AIA
+13,5,2024
+14,3,Antigua and Barbuda
+14,4,ATG
+14,5,2024
+15,3,Argentina
+15,4,ARG
+15,5,2024
+16,3,Armenia
+16,4,ARM
+16,5,2024
+17,3,Aruba
+17,4,ABW
+17,5,2024
+18,3,Australia
+18,4,AUS
+18,5,2024
+19,3,Austria
+19,4,AUT
+19,5,2024
+20,3,Azerbaijan
+20,4,AZE
+20,5,2024
+21,3,Bahamas
+21,4,BHS
+21,5,2024
+22,3,Bahrain
+22,4,BHR
+22,5,2024
+23,3,Bangladesh
+23,4,BGD
+23,5,2024
+24,3,Barbados
+24,4,BRB
+24,5,2024
+25,3,Belarus
+25,4,BLR
+25,5,2024
+26,3,Belgium
+26,4,BEL
+26,5,2024
+27,3,Belize
+27,4,BLZ
+27,5,2024
+28,3,Benin
+28,4,BEN
+28,5,2024
+29,3,Bermuda
+29,4,BMU
+29,5,2024
+30,3,Bhutan
+30,4,BTN
+30,5,2024
+31,3,Bolivia
+31,4,BOL
+31,5,2024
+32,3,Bosnia and Herzegovina
+32,4,BIH
+32,5,2024
+33,3,Botswana
+33,4,BWA
+33,5,2024
+34,3,Bouvet Island
+34,4,BVT
+34,5,2024
+35,3,Brazil
+35,4,BRA
+35,5,2024
+36,3,Brunei Darussalam
+36,4,BRN
+36,5,2024
+37,3,Bulgaria
+37,4,BGR
+37,5,2024
+38,3,Burkina Faso
+38,4,BFA
+38,5,2024
+39,3,Burundi
+39,4,BDI
+39,5,2024
+40,3,Cambodia
+40,4,KHM
+40,5,2024
+41,3,Cameroon
+41,4,CMR
+41,5,2024
+42,3,Canada
+42,4,CAN
+42,5,2024
+43,3,Cape Verde
+43,4,CPV
+43,5,2024
+44,3,Cayman Islands
+44,4,CYM
+44,5,2024
+45,3,Central African Republic
+45,4,CAF
+45,5,2024
+46,3,Chad
+46,4,TCD
+46,5,2024
+47,3,Chile
+47,4,CHL
+47,5,2024
+48,3,China
+48,4,CHN
+48,5,2024
+49,3,Christmas Island
+49,4,CXR
+49,5,2024
+50,3,Cocos (Keeling) Islands
+50,4,CCK
+50,5,2024
+51,3,Colombia
+51,4,COL
+51,5,2024
+52,3,Comoros
+52,4,COM
+52,5,2024
+53,3,Congo
+53,4,COG
+53,5,2024
+54,3,Congo_the Democratic Republic of the
+54,4,COD
+54,5,2024
+55,3,Cook Islands
+55,4,COK
+55,5,2024
+56,3,Costa Rica
+56,4,CRI
+56,5,2024
+57,3,Cote d'Ivoire
+57,4,CIV
+57,5,2024
+58,3,Croatia
+58,4,HRV
+58,5,2024
+59,3,Cuba
+59,4,CUB
+59,5,2024
+60,3,Cyprus
+60,4,CYP
+60,5,2024
+61,3,Czechia
+61,4,CZE
+61,5,2024
+62,3,Denmark
+62,4,DNK
+62,5,2024
+63,3,Djibouti
+63,4,DJI
+63,5,2024
+64,3,Dominica
+64,4,DMA
+64,5,2024
+65,3,Dominican Republic
+65,4,DOM
+65,5,2024
+66,3,Ecuador
+66,4,ECU
+66,5,2024
+67,3,Egypt
+67,4,EGY
+67,5,2024
+68,3,El Salvador
+68,4,SLV
+68,5,2024
+69,3,Equatorial Guinea
+69,4,GNQ
+69,5,2024
+70,3,Eritrea
+70,4,ERI
+70,5,2024
+71,3,Estonia
+71,4,EST
+71,5,2024
+72,3,Ethiopia
+72,4,ETH
+72,5,2024
+73,3,Falkland Islands (Malvinas)
+73,4,FLK
+73,5,2024
+74,3,Faroe Islands
+74,4,FRO
+74,5,2024
+75,3,Fiji
+75,4,FJI
+75,5,2024
+76,3,Finland
+76,4,FIN
+76,5,2024
+77,3,France
+77,4,FRA
+77,5,2024
+78,3,French Guiana
+78,4,GUF
+78,5,2024
+79,3,French Polynesia
+79,4,PYF
+79,5,2024
+80,3,French Southern Territories
+80,4,ATF
+80,5,2024
+81,3,Gabon
+81,4,GAB
+81,5,2024
+82,3,Gambia
+82,4,GMB
+82,5,2024
+83,3,Georgia
+83,4,GEO
+83,5,2024
+84,3,Germany
+84,4,DEU
+84,5,2024
+85,3,Ghana
+85,4,GHA
+85,5,2024
+86,3,Gibraltar
+86,4,GIB
+86,5,2024
+87,3,Greece
+87,4,GRC
+87,5,2024
+88,3,Greenland
+88,4,GRL
+88,5,2024
+89,3,Grenada
+89,4,GRD
+89,5,2024
+90,3,Guadeloupe
+90,4,GLP
+90,5,2024
+91,3,Guam
+91,4,GUM
+91,5,2024
+92,3,Guatemala
+92,4,GTM
+92,5,2024
+93,3,Guinea
+93,4,GIN
+93,5,2024
+94,3,Guinea-Bissau
+94,4,GNB
+94,5,2024
+95,3,Guyana
+95,4,GUY
+95,5,2024
+96,3,Haiti
+96,4,HTI
+96,5,2024
+97,3,Heard Island and McDonald Islands
+97,4,HMD
+97,5,2024
+98,3,Honduras
+98,4,HND
+98,5,2024
+99,3,Hong Kong
+99,4,HKG
+99,5,2024
+100,3,Hungary
+100,4,HUN
+100,5,2024
+101,3,Iceland
+101,4,ISL
+101,5,2024
+102,3,India
+102,4,IND
+102,5,2024
+103,3,Indonesia
+103,4,IDN
+103,5,2024
+104,3,Int. Aviation
+104,4,WAV
+104,5,2024
+105,3,Int. Shipping
+105,4,WMR
+105,5,2024
+106,3,"Iran, Islamic Republic of"
+106,4,IRN
+106,5,2024
+107,3,Iraq
+107,4,IRQ
+107,5,2024
+108,3,Ireland
+108,4,IRL
+108,5,2024
+109,3,Israel
+109,4,ISR
+109,5,2024
+110,3,Italy
+110,4,ITA
+110,5,2024
+111,3,Jamaica
+111,4,JAM
+111,5,2024
+112,3,Japan
+112,4,JPN
+112,5,2024
+113,3,Jordan
+113,4,JOR
+113,5,2024
+114,3,Kazakhstan
+114,4,KAZ
+114,5,2024
+115,3,Kenya
+115,4,KEN
+115,5,2024
+116,3,Kiribati
+116,4,KIR
+116,5,2024
+117,3,Kosovo
+117,4,XKX
+117,5,2024
+118,3,"Korea, Democratic People's Republic of"
+118,4,PRK
+118,5,2024
+119,3,"Korea, Republic of"
+119,4,KOR
+119,5,2024
+120,3,Kuwait
+120,4,KWT
+120,5,2024
+121,3,Kyrgyzstan
+121,4,KGZ
+121,5,2024
+122,3,Lao People's Democratic Republic
+122,4,LAO
+122,5,2024
+123,3,Latvia
+123,4,LVA
+123,5,2024
+124,3,Lebanon
+124,4,LBN
+124,5,2024
+125,3,Lesotho
+125,4,LSO
+125,5,2024
+126,3,Liberia
+126,4,LBR
+126,5,2024
+127,3,Libyan Arab Jamahiriya
+127,4,LBY
+127,5,2024
+128,3,Liechtenstein
+128,4,LIE
+128,5,2024
+129,3,Lithuania
+129,4,LTU
+129,5,2024
+130,3,Luxembourg
+130,4,LUX
+130,5,2024
+131,3,Macao
+131,4,MAC
+131,5,2024
+132,3,North Macedonia
+132,4,MKD
+132,5,2024
+133,3,Madagascar
+133,4,MDG
+133,5,2024
+134,3,Malawi
+134,4,MWI
+134,5,2024
+135,3,Malaysia
+135,4,MYS
+135,5,2024
+136,3,Maldives
+136,4,MDV
+136,5,2024
+137,3,Mali
+137,4,MLI
+137,5,2024
+138,3,Malta
+138,4,MLT
+138,5,2024
+139,3,Marshall Islands
+139,4,MHL
+139,5,2024
+140,3,Martinique
+140,4,MTQ
+140,5,2024
+141,3,Mauritania
+141,4,MRT
+141,5,2024
+142,3,Mauritius
+142,4,MUS
+142,5,2024
+143,3,Mayotte
+143,4,MYT
+143,5,2024
+144,3,Mexico
+144,4,MEX
+144,5,2024
+145,3,"Micronesia, Federated States of"
+145,4,FSM
+145,5,2024
+146,3,"Moldova, Republic of"
+146,4,MDA
+146,5,2024
+147,3,Monaco
+147,4,MCO
+147,5,2024
+148,3,Mongolia
+148,4,MNG
+148,5,2024
+149,3,Montserrat
+149,4,MSR
+149,5,2024
+150,3,Morocco
+150,4,MAR
+150,5,2024
+151,3,Mozambique
+151,4,MOZ
+151,5,2024
+152,3,Myanmar
+152,4,MMR
+152,5,2024
+153,3,Namibia
+153,4,NAM
+153,5,2024
+154,3,Nauru
+154,4,NRU
+154,5,2024
+155,3,Nepal
+155,4,NPL
+155,5,2024
+156,3,Netherlands
+156,4,NLD
+156,5,2024
+157,3,Netherlands Antilles
+157,4,ANT
+157,5,2024
+158,3,New Caledonia
+158,4,NCL
+158,5,2024
+159,3,New Zealand
+159,4,NZL
+159,5,2024
+160,3,Nicaragua
+160,4,NIC
+160,5,2024
+161,3,Niger
+161,4,NER
+161,5,2024
+162,3,Nigeria
+162,4,NGA
+162,5,2024
+163,3,Niue
+163,4,NIU
+163,5,2024
+164,3,Norfolk Island
+164,4,NFK
+164,5,2024
+165,3,Northern Mariana Islands
+165,4,MNP
+165,5,2024
+166,3,Norway
+166,4,NOR
+166,5,2024
+167,3,Oman
+167,4,OMN
+167,5,2024
+168,3,Pakistan
+168,4,PAK
+168,5,2024
+169,3,Palau
+169,4,PLW
+169,5,2024
+170,3,Panama
+170,4,PAN
+170,5,2024
+171,3,Papua New Guinea
+171,4,PNG
+171,5,2024
+172,3,Paraguay
+172,4,PRY
+172,5,2024
+173,3,Peru
+173,4,PER
+173,5,2024
+174,3,Philippines
+174,4,PHL
+174,5,2024
+175,3,Pitcairn
+175,4,PCN
+175,5,2024
+176,3,Poland
+176,4,POL
+176,5,2024
+177,3,Portugal
+177,4,PRT
+177,5,2024
+178,3,Puerto Rico
+178,4,PRI
+178,5,2024
+179,3,Qatar
+179,4,QAT
+179,5,2024
+180,3,Reunion
+180,4,REU
+180,5,2024
+181,3,Romania
+181,4,ROU
+181,5,2024
+182,3,Russian Federation
+182,4,RUS
+182,5,2024
+183,3,Rwanda
+183,4,RWA
+183,5,2024
+184,3,Saint Helena
+184,4,SHN
+184,5,2024
+185,3,Saint Kitts and Nevis
+185,4,KNA
+185,5,2024
+186,3,Saint Lucia
+186,4,LCA
+186,5,2024
+187,3,Saint Pierre and Miquelon
+187,4,SPM
+187,5,2024
+188,3,Saint Vincent and the Grenadines
+188,4,VCT
+188,5,2024
+189,3,Samoa
+189,4,WSM
+189,5,2024
+190,3,Sao Tome and Principe
+190,4,STP
+190,5,2024
+191,3,Saudi Arabia
+191,4,SAU
+191,5,2024
+192,3,Senegal
+192,4,SEN
+192,5,2024
+193,3,Serbia and Montenegro
+193,4,SRB
+193,5,2024
+194,3,Seychelles
+194,4,SYC
+194,5,2024
+195,3,Sierra Leone
+195,4,SLE
+195,5,2024
+196,3,Singapore
+196,4,SGP
+196,5,2024
+197,3,Slovakia
+197,4,SVK
+197,5,2024
+198,3,Slovenia
+198,4,SVN
+198,5,2024
+199,3,Solomon Islands
+199,4,SLB
+199,5,2024
+200,3,Somalia
+200,4,SOM
+200,5,2024
+201,3,South Africa
+201,4,ZAF
+201,5,2024
+202,3,South Georgia and the South Sandwich Islands
+202,4,SGS
+202,5,2024
+203,3,Spain
+203,4,ESP
+203,5,2024
+204,3,Sri Lanka
+204,4,LKA
+204,5,2024
+205,3,Sudan
+205,4,SDN
+205,5,2024
+206,3,Suriname
+206,4,SUR
+206,5,2024
+207,3,Swaziland
+207,4,SWZ
+207,5,2024
+208,3,Sweden
+208,4,SWE
+208,5,2024
+209,3,Switzerland
+209,4,CHE
+209,5,2024
+210,3,Syrian Arab Republic
+210,4,SYR
+210,5,2024
+211,3,Taiwan_Province of China
+211,4,TWN
+211,5,2024
+212,3,Tajikistan
+212,4,TJK
+212,5,2024
+213,3,Tanzania_United Republic of
+213,4,TZA
+213,5,2024
+214,3,Thailand
+214,4,THA
+214,5,2024
+215,3,Timor-Leste
+215,4,TLS
+215,5,2024
+216,3,Togo
+216,4,TGO
+216,5,2024
+217,3,Tokelau
+217,4,TKL
+217,5,2024
+218,3,Tonga
+218,4,TON
+218,5,2024
+219,3,Trinidad and Tobago
+219,4,TTO
+219,5,2024
+220,3,Tunisia
+220,4,TUN
+220,5,2024
+221,3,Turkiye
+221,4,TUR
+221,5,2024
+222,3,Turkmenistan
+222,4,TKM
+222,5,2024
+223,3,Turks and Caicos Islands
+223,4,TCA
+223,5,2024
+224,3,Tuvalu
+224,4,TUV
+224,5,2024
+225,3,Uganda
+225,4,UGA
+225,5,2024
+226,3,Ukraine
+226,4,UKR
+226,5,2024
+227,3,United Arab Emirates
+227,4,ARE
+227,5,2024
+228,3,United Kingdom of Great Britain and Northern Ireland
+228,4,GBR
+228,5,2024
+229,3,United States Minor Outlying Islands
+229,4,UMI
+229,5,2024
+230,3,United States of America
+230,4,USA
+230,5,2024
+231,3,Uruguay
+231,4,URY
+231,5,2024
+232,3,Uzbekistan
+232,4,UZB
+232,5,2024
+233,3,Vanuatu
+233,4,VUT
+233,5,2024
+234,3,Venezuela
+234,4,VEN
+234,5,2024
+235,3,Viet Nam
+235,4,VNM
+235,5,2024
+236,3,Virgin Islands_British
+236,4,VGB
+236,5,2024
+237,3,Virgin Islands_USA
+237,4,VIR
+237,5,2024
+238,3,Wallis and Futuna
+238,4,WLF
+238,5,2024
+239,3,Western Sahara
+239,4,ESH
+239,5,2024
+240,3,Yemen
+240,4,YEM
+240,5,2024
+241,3,Zambia
+241,4,ZMB
+241,5,2024
+242,3,Zimbabwe
+242,4,ZWE
+242,5,2024
+243,3,Afghanistan
+243,4,AFG
+243,5,2023
+244,3,Albania
+244,4,ALB
+244,5,2023
+245,3,Algeria
+245,4,DZA
+245,5,2023
+246,3,American Samoa
+246,4,ASM
+246,5,2023
+247,3,Angola
+247,4,AGO
+247,5,2023
+248,3,Anguilla
+248,4,AIA
+248,5,2023
+249,3,Antigua and Barbuda
+249,4,ATG
+249,5,2023
+250,3,Argentina
+250,4,ARG
+250,5,2023
+251,3,Armenia
+251,4,ARM
+251,5,2023
+252,3,Aruba
+252,4,ABW
+252,5,2023
+253,3,Australia
+253,4,AUS
+253,5,2023
+254,3,Austria
+254,4,AUT
+254,5,2023
+255,3,Azerbaijan
+255,4,AZE
+255,5,2023
+256,3,Bahamas
+256,4,BHS
+256,5,2023
+257,3,Bahrain
+257,4,BHR
+257,5,2023
+258,3,Bangladesh
+258,4,BGD
+258,5,2023
+259,3,Barbados
+259,4,BRB
+259,5,2023
+260,3,Belarus
+260,4,BLR
+260,5,2023
+261,3,Belgium
+261,4,BEL
+261,5,2023
+262,3,Belize
+262,4,BLZ
+262,5,2023
+263,3,Benin
+263,4,BEN
+263,5,2023
+264,3,Bermuda
+264,4,BMU
+264,5,2023
+265,3,Bhutan
+265,4,BTN
+265,5,2023
+266,3,Bolivia
+266,4,BOL
+266,5,2023
+267,3,Bosnia and Herzegovina
+267,4,BIH
+267,5,2023
+268,3,Botswana
+268,4,BWA
+268,5,2023
+269,3,Bouvet Island
+269,4,BVT
+269,5,2023
+270,3,Brazil
+270,4,BRA
+270,5,2023
+271,3,Brunei Darussalam
+271,4,BRN
+271,5,2023
+272,3,Bulgaria
+272,4,BGR
+272,5,2023
+273,3,Burkina Faso
+273,4,BFA
+273,5,2023
+274,3,Burundi
+274,4,BDI
+274,5,2023
+275,3,Cambodia
+275,4,KHM
+275,5,2023
+276,3,Cameroon
+276,4,CMR
+276,5,2023
+277,3,Canada
+277,4,CAN
+277,5,2023
+278,3,Cape Verde
+278,4,CPV
+278,5,2023
+279,3,Cayman Islands
+279,4,CYM
+279,5,2023
+280,3,Central African Republic
+280,4,CAF
+280,5,2023
+281,3,Chad
+281,4,TCD
+281,5,2023
+282,3,Chile
+282,4,CHL
+282,5,2023
+283,3,China
+283,4,CHN
+283,5,2023
+284,3,Christmas Island
+284,4,CXR
+284,5,2023
+285,3,Cocos (Keeling) Islands
+285,4,CCK
+285,5,2023
+286,3,Colombia
+286,4,COL
+286,5,2023
+287,3,Comoros
+287,4,COM
+287,5,2023
+288,3,Congo
+288,4,COG
+288,5,2023
+289,3,Congo_the Democratic Republic of the
+289,4,COD
+289,5,2023
+290,3,Cook Islands
+290,4,COK
+290,5,2023
+291,3,Costa Rica
+291,4,CRI
+291,5,2023
+292,3,Cote d'Ivoire
+292,4,CIV
+292,5,2023
+293,3,Croatia
+293,4,HRV
+293,5,2023
+294,3,Cuba
+294,4,CUB
+294,5,2023
+295,3,Cyprus
+295,4,CYP
+295,5,2023
+296,3,Czechia
+296,4,CZE
+296,5,2023
+297,3,Denmark
+297,4,DNK
+297,5,2023
+298,3,Djibouti
+298,4,DJI
+298,5,2023
+299,3,Dominica
+299,4,DMA
+299,5,2023
+300,3,Dominican Republic
+300,4,DOM
+300,5,2023
+301,3,Ecuador
+301,4,ECU
+301,5,2023
+302,3,Egypt
+302,4,EGY
+302,5,2023
+303,3,El Salvador
+303,4,SLV
+303,5,2023
+304,3,Equatorial Guinea
+304,4,GNQ
+304,5,2023
+305,3,Eritrea
+305,4,ERI
+305,5,2023
+306,3,Estonia
+306,4,EST
+306,5,2023
+307,3,Ethiopia
+307,4,ETH
+307,5,2023
+308,3,Falkland Islands (Malvinas)
+308,4,FLK
+308,5,2023
+309,3,Faroe Islands
+309,4,FRO
+309,5,2023
+310,3,Fiji
+310,4,FJI
+310,5,2023
+311,3,Finland
+311,4,FIN
+311,5,2023
+312,3,France
+312,4,FRA
+312,5,2023
+313,3,French Guiana
+313,4,GUF
+313,5,2023
+314,3,French Polynesia
+314,4,PYF
+314,5,2023
+315,3,French Southern Territories
+315,4,ATF
+315,5,2023
+316,3,Gabon
+316,4,GAB
+316,5,2023
+317,3,Gambia
+317,4,GMB
+317,5,2023
+318,3,Georgia
+318,4,GEO
+318,5,2023
+319,3,Germany
+319,4,DEU
+319,5,2023
+320,3,Ghana
+320,4,GHA
+320,5,2023
+321,3,Gibraltar
+321,4,GIB
+321,5,2023
+322,3,Greece
+322,4,GRC
+322,5,2023
+323,3,Greenland
+323,4,GRL
+323,5,2023
+324,3,Grenada
+324,4,GRD
+324,5,2023
+325,3,Guadeloupe
+325,4,GLP
+325,5,2023
+326,3,Guam
+326,4,GUM
+326,5,2023
+327,3,Guatemala
+327,4,GTM
+327,5,2023
+328,3,Guinea
+328,4,GIN
+328,5,2023
+329,3,Guinea-Bissau
+329,4,GNB
+329,5,2023
+330,3,Guyana
+330,4,GUY
+330,5,2023
+331,3,Haiti
+331,4,HTI
+331,5,2023
+332,3,Heard Island and McDonald Islands
+332,4,HMD
+332,5,2023
+333,3,Honduras
+333,4,HND
+333,5,2023
+334,3,Hong Kong
+334,4,HKG
+334,5,2023
+335,3,Hungary
+335,4,HUN
+335,5,2023
+336,3,Iceland
+336,4,ISL
+336,5,2023
+337,3,India
+337,4,IND
+337,5,2023
+338,3,Indonesia
+338,4,IDN
+338,5,2023
+339,3,Int. Aviation
+339,4,WAV
+339,5,2023
+340,3,Int. Shipping
+340,4,WMR
+340,5,2023
+341,3,"Iran, Islamic Republic of"
+341,4,IRN
+341,5,2023
+342,3,Iraq
+342,4,IRQ
+342,5,2023
+343,3,Ireland
+343,4,IRL
+343,5,2023
+344,3,Israel
+344,4,ISR
+344,5,2023
+345,3,Italy
+345,4,ITA
+345,5,2023
+346,3,Jamaica
+346,4,JAM
+346,5,2023
+347,3,Japan
+347,4,JPN
+347,5,2023
+348,3,Jordan
+348,4,JOR
+348,5,2023
+349,3,Kazakhstan
+349,4,KAZ
+349,5,2023
+350,3,Kenya
+350,4,KEN
+350,5,2023
+351,3,Kiribati
+351,4,KIR
+351,5,2023
+352,3,Kosovo
+352,4,XKX
+352,5,2023
+353,3,"Korea, Democratic People's Republic of"
+353,4,PRK
+353,5,2023
+354,3,"Korea, Republic of"
+354,4,KOR
+354,5,2023
+355,3,Kuwait
+355,4,KWT
+355,5,2023
+356,3,Kyrgyzstan
+356,4,KGZ
+356,5,2023
+357,3,Lao People's Democratic Republic
+357,4,LAO
+357,5,2023
+358,3,Latvia
+358,4,LVA
+358,5,2023
+359,3,Lebanon
+359,4,LBN
+359,5,2023
+360,3,Lesotho
+360,4,LSO
+360,5,2023
+361,3,Liberia
+361,4,LBR
+361,5,2023
+362,3,Libyan Arab Jamahiriya
+362,4,LBY
+362,5,2023
+363,3,Liechtenstein
+363,4,LIE
+363,5,2023
+364,3,Lithuania
+364,4,LTU
+364,5,2023
+365,3,Luxembourg
+365,4,LUX
+365,5,2023
+366,3,Macao
+366,4,MAC
+366,5,2023
+367,3,North Macedonia
+367,4,MKD
+367,5,2023
+368,3,Madagascar
+368,4,MDG
+368,5,2023
+369,3,Malawi
+369,4,MWI
+369,5,2023
+370,3,Malaysia
+370,4,MYS
+370,5,2023
+371,3,Maldives
+371,4,MDV
+371,5,2023
+372,3,Mali
+372,4,MLI
+372,5,2023
+373,3,Malta
+373,4,MLT
+373,5,2023
+374,3,Marshall Islands
+374,4,MHL
+374,5,2023
+375,3,Martinique
+375,4,MTQ
+375,5,2023
+376,3,Mauritania
+376,4,MRT
+376,5,2023
+377,3,Mauritius
+377,4,MUS
+377,5,2023
+378,3,Mayotte
+378,4,MYT
+378,5,2023
+379,3,Mexico
+379,4,MEX
+379,5,2023
+380,3,"Micronesia, Federated States of"
+380,4,FSM
+380,5,2023
+381,3,"Moldova, Republic of"
+381,4,MDA
+381,5,2023
+382,3,Monaco
+382,4,MCO
+382,5,2023
+383,3,Mongolia
+383,4,MNG
+383,5,2023
+384,3,Montserrat
+384,4,MSR
+384,5,2023
+385,3,Morocco
+385,4,MAR
+385,5,2023
+386,3,Mozambique
+386,4,MOZ
+386,5,2023
+387,3,Myanmar
+387,4,MMR
+387,5,2023
+388,3,Namibia
+388,4,NAM
+388,5,2023
+389,3,Nauru
+389,4,NRU
+389,5,2023
+390,3,Nepal
+390,4,NPL
+390,5,2023
+391,3,Netherlands
+391,4,NLD
+391,5,2023
+392,3,Netherlands Antilles
+392,4,ANT
+392,5,2023
+393,3,New Caledonia
+393,4,NCL
+393,5,2023
+394,3,New Zealand
+394,4,NZL
+394,5,2023
+395,3,Nicaragua
+395,4,NIC
+395,5,2023
+396,3,Niger
+396,4,NER
+396,5,2023
+397,3,Nigeria
+397,4,NGA
+397,5,2023
+398,3,Niue
+398,4,NIU
+398,5,2023
+399,3,Norfolk Island
+399,4,NFK
+399,5,2023
+400,3,Northern Mariana Islands
+400,4,MNP
+400,5,2023
+401,3,Norway
+401,4,NOR
+401,5,2023
+402,3,Oman
+402,4,OMN
+402,5,2023
+403,3,Pakistan
+403,4,PAK
+403,5,2023
+404,3,Palau
+404,4,PLW
+404,5,2023
+405,3,Panama
+405,4,PAN
+405,5,2023
+406,3,Papua New Guinea
+406,4,PNG
+406,5,2023
+407,3,Paraguay
+407,4,PRY
+407,5,2023
+408,3,Peru
+408,4,PER
+408,5,2023
+409,3,Philippines
+409,4,PHL
+409,5,2023
+410,3,Pitcairn
+410,4,PCN
+410,5,2023
+411,3,Poland
+411,4,POL
+411,5,2023
+412,3,Portugal
+412,4,PRT
+412,5,2023
+413,3,Puerto Rico
+413,4,PRI
+413,5,2023
+414,3,Qatar
+414,4,QAT
+414,5,2023
+415,3,Reunion
+415,4,REU
+415,5,2023
+416,3,Romania
+416,4,ROU
+416,5,2023
+417,3,Russian Federation
+417,4,RUS
+417,5,2023
+418,3,Rwanda
+418,4,RWA
+418,5,2023
+419,3,Saint Helena
+419,4,SHN
+419,5,2023
+420,3,Saint Kitts and Nevis
+420,4,KNA
+420,5,2023
+421,3,Saint Lucia
+421,4,LCA
+421,5,2023
+422,3,Saint Pierre and Miquelon
+422,4,SPM
+422,5,2023
+423,3,Saint Vincent and the Grenadines
+423,4,VCT
+423,5,2023
+424,3,Samoa
+424,4,WSM
+424,5,2023
+425,3,Sao Tome and Principe
+425,4,STP
+425,5,2023
+426,3,Saudi Arabia
+426,4,SAU
+426,5,2023
+427,3,Senegal
+427,4,SEN
+427,5,2023
+428,3,Serbia and Montenegro
+428,4,SRB
+428,5,2023
+429,3,Seychelles
+429,4,SYC
+429,5,2023
+430,3,Sierra Leone
+430,4,SLE
+430,5,2023
+431,3,Singapore
+431,4,SGP
+431,5,2023
+432,3,Slovakia
+432,4,SVK
+432,5,2023
+433,3,Slovenia
+433,4,SVN
+433,5,2023
+434,3,Solomon Islands
+434,4,SLB
+434,5,2023
+435,3,Somalia
+435,4,SOM
+435,5,2023
+436,3,South Africa
+436,4,ZAF
+436,5,2023
+437,3,South Georgia and the South Sandwich Islands
+437,4,SGS
+437,5,2023
+438,3,Spain
+438,4,ESP
+438,5,2023
+439,3,Sri Lanka
+439,4,LKA
+439,5,2023
+440,3,Sudan
+440,4,SDN
+440,5,2023
+441,3,Suriname
+441,4,SUR
+441,5,2023
+442,3,Swaziland
+442,4,SWZ
+442,5,2023
+443,3,Sweden
+443,4,SWE
+443,5,2023
+444,3,Switzerland
+444,4,CHE
+444,5,2023
+445,3,Syrian Arab Republic
+445,4,SYR
+445,5,2023
+446,3,Taiwan_Province of China
+446,4,TWN
+446,5,2023
+447,3,Tajikistan
+447,4,TJK
+447,5,2023
+448,3,Tanzania_United Republic of
+448,4,TZA
+448,5,2023
+449,3,Thailand
+449,4,THA
+449,5,2023
+450,3,Timor-Leste
+450,4,TLS
+450,5,2023
+451,3,Togo
+451,4,TGO
+451,5,2023
+452,3,Tokelau
+452,4,TKL
+452,5,2023
+453,3,Tonga
+453,4,TON
+453,5,2023
+454,3,Trinidad and Tobago
+454,4,TTO
+454,5,2023
+455,3,Tunisia
+455,4,TUN
+455,5,2023
+456,3,Turkiye
+456,4,TUR
+456,5,2023
+457,3,Turkmenistan
+457,4,TKM
+457,5,2023
+458,3,Turks and Caicos Islands
+458,4,TCA
+458,5,2023
+459,3,Tuvalu
+459,4,TUV
+459,5,2023
+460,3,Uganda
+460,4,UGA
+460,5,2023
+461,3,Ukraine
+461,4,UKR
+461,5,2023
+462,3,United Arab Emirates
+462,4,ARE
+462,5,2023
+463,3,United Kingdom of Great Britain and Northern Ireland
+463,4,GBR
+463,5,2023
+464,3,United States Minor Outlying Islands
+464,4,UMI
+464,5,2023
+465,3,United States of America
+465,4,USA
+465,5,2023
+466,3,Uruguay
+466,4,URY
+466,5,2023
+467,3,Uzbekistan
+467,4,UZB
+467,5,2023
+468,3,Vanuatu
+468,4,VUT
+468,5,2023
+469,3,Venezuela
+469,4,VEN
+469,5,2023
+470,3,Viet Nam
+470,4,VNM
+470,5,2023
+471,3,Virgin Islands_British
+471,4,VGB
+471,5,2023
+472,3,Virgin Islands_USA
+472,4,VIR
+472,5,2023
+473,3,Wallis and Futuna
+473,4,WLF
+473,5,2023
+474,3,Western Sahara
+474,4,ESH
+474,5,2023
+475,3,Yemen
+475,4,YEM
+475,5,2023
+476,3,Zambia
+476,4,ZMB
+476,5,2023
+477,3,Zimbabwe
+477,4,ZWE
+477,5,2023
+478,3,Afghanistan
+478,4,AFG
+478,5,2022
+479,3,Albania
+479,4,ALB
+479,5,2022
+480,3,Algeria
+480,4,DZA
+480,5,2022
+481,3,American Samoa
+481,4,ASM
+481,5,2022
+482,3,Angola
+482,4,AGO
+482,5,2022
+483,3,Anguilla
+483,4,AIA
+483,5,2022
+484,3,Antigua and Barbuda
+484,4,ATG
+484,5,2022
+485,3,Argentina
+485,4,ARG
+485,5,2022
+486,3,Armenia
+486,4,ARM
+486,5,2022
+487,3,Aruba
+487,4,ABW
+487,5,2022
+488,3,Australia
+488,4,AUS
+488,5,2022
+489,3,Austria
+489,4,AUT
+489,5,2022
+490,3,Azerbaijan
+490,4,AZE
+490,5,2022
+491,3,Bahamas
+491,4,BHS
+491,5,2022
+492,3,Bahrain
+492,4,BHR
+492,5,2022
+493,3,Bangladesh
+493,4,BGD
+493,5,2022
+494,3,Barbados
+494,4,BRB
+494,5,2022
+495,3,Belarus
+495,4,BLR
+495,5,2022
+496,3,Belgium
+496,4,BEL
+496,5,2022
+497,3,Belize
+497,4,BLZ
+497,5,2022
+498,3,Benin
+498,4,BEN
+498,5,2022
+499,3,Bermuda
+499,4,BMU
+499,5,2022
+500,3,Bhutan
+500,4,BTN
+500,5,2022
+501,3,Bolivia
+501,4,BOL
+501,5,2022
+502,3,Bosnia and Herzegovina
+502,4,BIH
+502,5,2022
+503,3,Botswana
+503,4,BWA
+503,5,2022
+504,3,Bouvet Island
+504,4,BVT
+504,5,2022
+505,3,Brazil
+505,4,BRA
+505,5,2022
+506,3,Brunei Darussalam
+506,4,BRN
+506,5,2022
+507,3,Bulgaria
+507,4,BGR
+507,5,2022
+508,3,Burkina Faso
+508,4,BFA
+508,5,2022
+509,3,Burundi
+509,4,BDI
+509,5,2022
+510,3,Cambodia
+510,4,KHM
+510,5,2022
+511,3,Cameroon
+511,4,CMR
+511,5,2022
+512,3,Canada
+512,4,CAN
+512,5,2022
+513,3,Cape Verde
+513,4,CPV
+513,5,2022
+514,3,Cayman Islands
+514,4,CYM
+514,5,2022
+515,3,Central African Republic
+515,4,CAF
+515,5,2022
+516,3,Chad
+516,4,TCD
+516,5,2022
+517,3,Chile
+517,4,CHL
+517,5,2022
+518,3,China
+518,4,CHN
+518,5,2022
+519,3,Christmas Island
+519,4,CXR
+519,5,2022
+520,3,Cocos (Keeling) Islands
+520,4,CCK
+520,5,2022
+521,3,Colombia
+521,4,COL
+521,5,2022
+522,3,Comoros
+522,4,COM
+522,5,2022
+523,3,Congo
+523,4,COG
+523,5,2022
+524,3,Congo_the Democratic Republic of the
+524,4,COD
+524,5,2022
+525,3,Cook Islands
+525,4,COK
+525,5,2022
+526,3,Costa Rica
+526,4,CRI
+526,5,2022
+527,3,Cote d'Ivoire
+527,4,CIV
+527,5,2022
+528,3,Croatia
+528,4,HRV
+528,5,2022
+529,3,Cuba
+529,4,CUB
+529,5,2022
+530,3,Cyprus
+530,4,CYP
+530,5,2022
+531,3,Czechia
+531,4,CZE
+531,5,2022
+532,3,Denmark
+532,4,DNK
+532,5,2022
+533,3,Djibouti
+533,4,DJI
+533,5,2022
+534,3,Dominica
+534,4,DMA
+534,5,2022
+535,3,Dominican Republic
+535,4,DOM
+535,5,2022
+536,3,Ecuador
+536,4,ECU
+536,5,2022
+537,3,Egypt
+537,4,EGY
+537,5,2022
+538,3,El Salvador
+538,4,SLV
+538,5,2022
+539,3,Equatorial Guinea
+539,4,GNQ
+539,5,2022
+540,3,Eritrea
+540,4,ERI
+540,5,2022
+541,3,Estonia
+541,4,EST
+541,5,2022
+542,3,Ethiopia
+542,4,ETH
+542,5,2022
+543,3,Falkland Islands (Malvinas)
+543,4,FLK
+543,5,2022
+544,3,Faroe Islands
+544,4,FRO
+544,5,2022
+545,3,Fiji
+545,4,FJI
+545,5,2022
+546,3,Finland
+546,4,FIN
+546,5,2022
+547,3,France
+547,4,FRA
+547,5,2022
+548,3,French Guiana
+548,4,GUF
+548,5,2022
+549,3,French Polynesia
+549,4,PYF
+549,5,2022
+550,3,French Southern Territories
+550,4,ATF
+550,5,2022
+551,3,Gabon
+551,4,GAB
+551,5,2022
+552,3,Gambia
+552,4,GMB
+552,5,2022
+553,3,Georgia
+553,4,GEO
+553,5,2022
+554,3,Germany
+554,4,DEU
+554,5,2022
+555,3,Ghana
+555,4,GHA
+555,5,2022
+556,3,Gibraltar
+556,4,GIB
+556,5,2022
+557,3,Greece
+557,4,GRC
+557,5,2022
+558,3,Greenland
+558,4,GRL
+558,5,2022
+559,3,Grenada
+559,4,GRD
+559,5,2022
+560,3,Guadeloupe
+560,4,GLP
+560,5,2022
+561,3,Guam
+561,4,GUM
+561,5,2022
+562,3,Guatemala
+562,4,GTM
+562,5,2022
+563,3,Guinea
+563,4,GIN
+563,5,2022
+564,3,Guinea-Bissau
+564,4,GNB
+564,5,2022
+565,3,Guyana
+565,4,GUY
+565,5,2022
+566,3,Haiti
+566,4,HTI
+566,5,2022
+567,3,Heard Island and McDonald Islands
+567,4,HMD
+567,5,2022
+568,3,Honduras
+568,4,HND
+568,5,2022
+569,3,Hong Kong
+569,4,HKG
+569,5,2022
+570,3,Hungary
+570,4,HUN
+570,5,2022
+571,3,Iceland
+571,4,ISL
+571,5,2022
+572,3,India
+572,4,IND
+572,5,2022
+573,3,Indonesia
+573,4,IDN
+573,5,2022
+574,3,Int. Aviation
+574,4,WAV
+574,5,2022
+575,3,Int. Shipping
+575,4,WMR
+575,5,2022
+576,3,"Iran, Islamic Republic of"
+576,4,IRN
+576,5,2022
+577,3,Iraq
+577,4,IRQ
+577,5,2022
+578,3,Ireland
+578,4,IRL
+578,5,2022
+579,3,Israel
+579,4,ISR
+579,5,2022
+580,3,Italy
+580,4,ITA
+580,5,2022
+581,3,Jamaica
+581,4,JAM
+581,5,2022
+582,3,Japan
+582,4,JPN
+582,5,2022
+583,3,Jordan
+583,4,JOR
+583,5,2022
+584,3,Kazakhstan
+584,4,KAZ
+584,5,2022
+585,3,Kenya
+585,4,KEN
+585,5,2022
+586,3,Kiribati
+586,4,KIR
+586,5,2022
+587,3,Kosovo
+587,4,XKX
+587,5,2022
+588,3,"Korea, Democratic People's Republic of"
+588,4,PRK
+588,5,2022
+589,3,"Korea, Republic of"
+589,4,KOR
+589,5,2022
+590,3,Kuwait
+590,4,KWT
+590,5,2022
+591,3,Kyrgyzstan
+591,4,KGZ
+591,5,2022
+592,3,Lao People's Democratic Republic
+592,4,LAO
+592,5,2022
+593,3,Latvia
+593,4,LVA
+593,5,2022
+594,3,Lebanon
+594,4,LBN
+594,5,2022
+595,3,Lesotho
+595,4,LSO
+595,5,2022
+596,3,Liberia
+596,4,LBR
+596,5,2022
+597,3,Libyan Arab Jamahiriya
+597,4,LBY
+597,5,2022
+598,3,Liechtenstein
+598,4,LIE
+598,5,2022
+599,3,Lithuania
+599,4,LTU
+599,5,2022
+600,3,Luxembourg
+600,4,LUX
+600,5,2022
+601,3,Macao
+601,4,MAC
+601,5,2022
+602,3,North Macedonia
+602,4,MKD
+602,5,2022
+603,3,Madagascar
+603,4,MDG
+603,5,2022
+604,3,Malawi
+604,4,MWI
+604,5,2022
+605,3,Malaysia
+605,4,MYS
+605,5,2022
+606,3,Maldives
+606,4,MDV
+606,5,2022
+607,3,Mali
+607,4,MLI
+607,5,2022
+608,3,Malta
+608,4,MLT
+608,5,2022
+609,3,Marshall Islands
+609,4,MHL
+609,5,2022
+610,3,Martinique
+610,4,MTQ
+610,5,2022
+611,3,Mauritania
+611,4,MRT
+611,5,2022
+612,3,Mauritius
+612,4,MUS
+612,5,2022
+613,3,Mayotte
+613,4,MYT
+613,5,2022
+614,3,Mexico
+614,4,MEX
+614,5,2022
+615,3,"Micronesia, Federated States of"
+615,4,FSM
+615,5,2022
+616,3,"Moldova, Republic of"
+616,4,MDA
+616,5,2022
+617,3,Monaco
+617,4,MCO
+617,5,2022
+618,3,Mongolia
+618,4,MNG
+618,5,2022
+619,3,Montserrat
+619,4,MSR
+619,5,2022
+620,3,Morocco
+620,4,MAR
+620,5,2022
+621,3,Mozambique
+621,4,MOZ
+621,5,2022
+622,3,Myanmar
+622,4,MMR
+622,5,2022
+623,3,Namibia
+623,4,NAM
+623,5,2022
+624,3,Nauru
+624,4,NRU
+624,5,2022
+625,3,Nepal
+625,4,NPL
+625,5,2022
+626,3,Netherlands
+626,4,NLD
+626,5,2022
+627,3,Netherlands Antilles
+627,4,ANT
+627,5,2022
+628,3,New Caledonia
+628,4,NCL
+628,5,2022
+629,3,New Zealand
+629,4,NZL
+629,5,2022
+630,3,Nicaragua
+630,4,NIC
+630,5,2022
+631,3,Niger
+631,4,NER
+631,5,2022
+632,3,Nigeria
+632,4,NGA
+632,5,2022
+633,3,Niue
+633,4,NIU
+633,5,2022
+634,3,Norfolk Island
+634,4,NFK
+634,5,2022
+635,3,Northern Mariana Islands
+635,4,MNP
+635,5,2022
+636,3,Norway
+636,4,NOR
+636,5,2022
+637,3,Oman
+637,4,OMN
+637,5,2022
+638,3,Pakistan
+638,4,PAK
+638,5,2022
+639,3,Palau
+639,4,PLW
+639,5,2022
+640,3,Panama
+640,4,PAN
+640,5,2022
+641,3,Papua New Guinea
+641,4,PNG
+641,5,2022
+642,3,Paraguay
+642,4,PRY
+642,5,2022
+643,3,Peru
+643,4,PER
+643,5,2022
+644,3,Philippines
+644,4,PHL
+644,5,2022
+645,3,Pitcairn
+645,4,PCN
+645,5,2022
+646,3,Poland
+646,4,POL
+646,5,2022
+647,3,Portugal
+647,4,PRT
+647,5,2022
+648,3,Puerto Rico
+648,4,PRI
+648,5,2022
+649,3,Qatar
+649,4,QAT
+649,5,2022
+650,3,Reunion
+650,4,REU
+650,5,2022
+651,3,Romania
+651,4,ROU
+651,5,2022
+652,3,Russian Federation
+652,4,RUS
+652,5,2022
+653,3,Rwanda
+653,4,RWA
+653,5,2022
+654,3,Saint Helena
+654,4,SHN
+654,5,2022
+655,3,Saint Kitts and Nevis
+655,4,KNA
+655,5,2022
+656,3,Saint Lucia
+656,4,LCA
+656,5,2022
+657,3,Saint Pierre and Miquelon
+657,4,SPM
+657,5,2022
+658,3,Saint Vincent and the Grenadines
+658,4,VCT
+658,5,2022
+659,3,Samoa
+659,4,WSM
+659,5,2022
+660,3,Sao Tome and Principe
+660,4,STP
+660,5,2022
+661,3,Saudi Arabia
+661,4,SAU
+661,5,2022
+662,3,Senegal
+662,4,SEN
+662,5,2022
+663,3,Serbia and Montenegro
+663,4,SRB
+663,5,2022
+664,3,Seychelles
+664,4,SYC
+664,5,2022
+665,3,Sierra Leone
+665,4,SLE
+665,5,2022
+666,3,Singapore
+666,4,SGP
+666,5,2022
+667,3,Slovakia
+667,4,SVK
+667,5,2022
+668,3,Slovenia
+668,4,SVN
+668,5,2022
+669,3,Solomon Islands
+669,4,SLB
+669,5,2022
+670,3,Somalia
+670,4,SOM
+670,5,2022
+671,3,South Africa
+671,4,ZAF
+671,5,2022
+672,3,South Georgia and the South Sandwich Islands
+672,4,SGS
+672,5,2022
+673,3,Spain
+673,4,ESP
+673,5,2022
+674,3,Sri Lanka
+674,4,LKA
+674,5,2022
+675,3,Sudan
+675,4,SDN
+675,5,2022
+676,3,Suriname
+676,4,SUR
+676,5,2022
+677,3,Swaziland
+677,4,SWZ
+677,5,2022
+678,3,Sweden
+678,4,SWE
+678,5,2022
+679,3,Switzerland
+679,4,CHE
+679,5,2022
+680,3,Syrian Arab Republic
+680,4,SYR
+680,5,2022
+681,3,Taiwan_Province of China
+681,4,TWN
+681,5,2022
+682,3,Tajikistan
+682,4,TJK
+682,5,2022
+683,3,Tanzania_United Republic of
+683,4,TZA
+683,5,2022
+684,3,Thailand
+684,4,THA
+684,5,2022
+685,3,Timor-Leste
+685,4,TLS
+685,5,2022
+686,3,Togo
+686,4,TGO
+686,5,2022
+687,3,Tokelau
+687,4,TKL
+687,5,2022
+688,3,Tonga
+688,4,TON
+688,5,2022
+689,3,Trinidad and Tobago
+689,4,TTO
+689,5,2022
+690,3,Tunisia
+690,4,TUN
+690,5,2022
+691,3,Turkiye
+691,4,TUR
+691,5,2022
+692,3,Turkmenistan
+692,4,TKM
+692,5,2022
+693,3,Turks and Caicos Islands
+693,4,TCA
+693,5,2022
+694,3,Tuvalu
+694,4,TUV
+694,5,2022
+695,3,Uganda
+695,4,UGA
+695,5,2022
+696,3,Ukraine
+696,4,UKR
+696,5,2022
+697,3,United Arab Emirates
+697,4,ARE
+697,5,2022
+698,3,United Kingdom of Great Britain and Northern Ireland
+698,4,GBR
+698,5,2022
+699,3,United States Minor Outlying Islands
+699,4,UMI
+699,5,2022
+700,3,United States of America
+700,4,USA
+700,5,2022
+701,3,Uruguay
+701,4,URY
+701,5,2022
+702,3,Uzbekistan
+702,4,UZB
+702,5,2022
+703,3,Vanuatu
+703,4,VUT
+703,5,2022
+704,3,Venezuela
+704,4,VEN
+704,5,2022
+705,3,Viet Nam
+705,4,VNM
+705,5,2022
+706,3,Virgin Islands_British
+706,4,VGB
+706,5,2022
+707,3,Virgin Islands_USA
+707,4,VIR
+707,5,2022
+708,3,Wallis and Futuna
+708,4,WLF
+708,5,2022
+709,3,Western Sahara
+709,4,ESH
+709,5,2022
+710,3,Yemen
+710,4,YEM
+710,5,2022
+711,3,Zambia
+711,4,ZMB
+711,5,2022
+712,3,Zimbabwe
+712,4,ZWE
+712,5,2022
+713,3,Afghanistan
+713,4,AFG
+713,5,2021
+714,3,Albania
+714,4,ALB
+714,5,2021
+715,3,Algeria
+715,4,DZA
+715,5,2021
+716,3,American Samoa
+716,4,ASM
+716,5,2021
+717,3,Angola
+717,4,AGO
+717,5,2021
+718,3,Anguilla
+718,4,AIA
+718,5,2021
+719,3,Antigua and Barbuda
+719,4,ATG
+719,5,2021
+720,3,Argentina
+720,4,ARG
+720,5,2021
+721,3,Armenia
+721,4,ARM
+721,5,2021
+722,3,Aruba
+722,4,ABW
+722,5,2021
+723,3,Australia
+723,4,AUS
+723,5,2021
+724,3,Austria
+724,4,AUT
+724,5,2021
+725,3,Azerbaijan
+725,4,AZE
+725,5,2021
+726,3,Bahamas
+726,4,BHS
+726,5,2021
+727,3,Bahrain
+727,4,BHR
+727,5,2021
+728,3,Bangladesh
+728,4,BGD
+728,5,2021
+729,3,Barbados
+729,4,BRB
+729,5,2021
+730,3,Belarus
+730,4,BLR
+730,5,2021
+731,3,Belgium
+731,4,BEL
+731,5,2021
+732,3,Belize
+732,4,BLZ
+732,5,2021
+733,3,Benin
+733,4,BEN
+733,5,2021
+734,3,Bermuda
+734,4,BMU
+734,5,2021
+735,3,Bhutan
+735,4,BTN
+735,5,2021
+736,3,Bolivia
+736,4,BOL
+736,5,2021
+737,3,Bosnia and Herzegovina
+737,4,BIH
+737,5,2021
+738,3,Botswana
+738,4,BWA
+738,5,2021
+739,3,Bouvet Island
+739,4,BVT
+739,5,2021
+740,3,Brazil
+740,4,BRA
+740,5,2021
+741,3,Brunei Darussalam
+741,4,BRN
+741,5,2021
+742,3,Bulgaria
+742,4,BGR
+742,5,2021
+743,3,Burkina Faso
+743,4,BFA
+743,5,2021
+744,3,Burundi
+744,4,BDI
+744,5,2021
+745,3,Cambodia
+745,4,KHM
+745,5,2021
+746,3,Cameroon
+746,4,CMR
+746,5,2021
+747,3,Canada
+747,4,CAN
+747,5,2021
+748,3,Cape Verde
+748,4,CPV
+748,5,2021
+749,3,Cayman Islands
+749,4,CYM
+749,5,2021
+750,3,Central African Republic
+750,4,CAF
+750,5,2021
+751,3,Chad
+751,4,TCD
+751,5,2021
+752,3,Chile
+752,4,CHL
+752,5,2021
+753,3,China
+753,4,CHN
+753,5,2021
+754,3,Christmas Island
+754,4,CXR
+754,5,2021
+755,3,Cocos (Keeling) Islands
+755,4,CCK
+755,5,2021
+756,3,Colombia
+756,4,COL
+756,5,2021
+757,3,Comoros
+757,4,COM
+757,5,2021
+758,3,Congo
+758,4,COG
+758,5,2021
+759,3,Congo_the Democratic Republic of the
+759,4,COD
+759,5,2021
+760,3,Cook Islands
+760,4,COK
+760,5,2021
+761,3,Costa Rica
+761,4,CRI
+761,5,2021
+762,3,Cote d'Ivoire
+762,4,CIV
+762,5,2021
+763,3,Croatia
+763,4,HRV
+763,5,2021
+764,3,Cuba
+764,4,CUB
+764,5,2021
+765,3,Cyprus
+765,4,CYP
+765,5,2021
+766,3,Czechia
+766,4,CZE
+766,5,2021
+767,3,Denmark
+767,4,DNK
+767,5,2021
+768,3,Djibouti
+768,4,DJI
+768,5,2021
+769,3,Dominica
+769,4,DMA
+769,5,2021
+770,3,Dominican Republic
+770,4,DOM
+770,5,2021
+771,3,Ecuador
+771,4,ECU
+771,5,2021
+772,3,Egypt
+772,4,EGY
+772,5,2021
+773,3,El Salvador
+773,4,SLV
+773,5,2021
+774,3,Equatorial Guinea
+774,4,GNQ
+774,5,2021
+775,3,Eritrea
+775,4,ERI
+775,5,2021
+776,3,Estonia
+776,4,EST
+776,5,2021
+777,3,Ethiopia
+777,4,ETH
+777,5,2021
+778,3,Falkland Islands (Malvinas)
+778,4,FLK
+778,5,2021
+779,3,Faroe Islands
+779,4,FRO
+779,5,2021
+780,3,Fiji
+780,4,FJI
+780,5,2021
+781,3,Finland
+781,4,FIN
+781,5,2021
+782,3,France
+782,4,FRA
+782,5,2021
+783,3,French Guiana
+783,4,GUF
+783,5,2021
+784,3,French Polynesia
+784,4,PYF
+784,5,2021
+785,3,French Southern Territories
+785,4,ATF
+785,5,2021
+786,3,Gabon
+786,4,GAB
+786,5,2021
+787,3,Gambia
+787,4,GMB
+787,5,2021
+788,3,Georgia
+788,4,GEO
+788,5,2021
+789,3,Germany
+789,4,DEU
+789,5,2021
+790,3,Ghana
+790,4,GHA
+790,5,2021
+791,3,Gibraltar
+791,4,GIB
+791,5,2021
+792,3,Greece
+792,4,GRC
+792,5,2021
+793,3,Greenland
+793,4,GRL
+793,5,2021
+794,3,Grenada
+794,4,GRD
+794,5,2021
+795,3,Guadeloupe
+795,4,GLP
+795,5,2021
+796,3,Guam
+796,4,GUM
+796,5,2021
+797,3,Guatemala
+797,4,GTM
+797,5,2021
+798,3,Guinea
+798,4,GIN
+798,5,2021
+799,3,Guinea-Bissau
+799,4,GNB
+799,5,2021
+800,3,Guyana
+800,4,GUY
+800,5,2021
+801,3,Haiti
+801,4,HTI
+801,5,2021
+802,3,Heard Island and McDonald Islands
+802,4,HMD
+802,5,2021
+803,3,Honduras
+803,4,HND
+803,5,2021
+804,3,Hong Kong
+804,4,HKG
+804,5,2021
+805,3,Hungary
+805,4,HUN
+805,5,2021
+806,3,Iceland
+806,4,ISL
+806,5,2021
+807,3,India
+807,4,IND
+807,5,2021
+808,3,Indonesia
+808,4,IDN
+808,5,2021
+809,3,Int. Aviation
+809,4,WAV
+809,5,2021
+810,3,Int. Shipping
+810,4,WMR
+810,5,2021
+811,3,"Iran, Islamic Republic of"
+811,4,IRN
+811,5,2021
+812,3,Iraq
+812,4,IRQ
+812,5,2021
+813,3,Ireland
+813,4,IRL
+813,5,2021
+814,3,Israel
+814,4,ISR
+814,5,2021
+815,3,Italy
+815,4,ITA
+815,5,2021
+816,3,Jamaica
+816,4,JAM
+816,5,2021
+817,3,Japan
+817,4,JPN
+817,5,2021
+818,3,Jordan
+818,4,JOR
+818,5,2021
+819,3,Kazakhstan
+819,4,KAZ
+819,5,2021
+820,3,Kenya
+820,4,KEN
+820,5,2021
+821,3,Kiribati
+821,4,KIR
+821,5,2021
+822,3,Kosovo
+822,4,XKX
+822,5,2021
+823,3,"Korea, Democratic People's Republic of"
+823,4,PRK
+823,5,2021
+824,3,"Korea, Republic of"
+824,4,KOR
+824,5,2021
+825,3,Kuwait
+825,4,KWT
+825,5,2021
+826,3,Kyrgyzstan
+826,4,KGZ
+826,5,2021
+827,3,Lao People's Democratic Republic
+827,4,LAO
+827,5,2021
+828,3,Latvia
+828,4,LVA
+828,5,2021
+829,3,Lebanon
+829,4,LBN
+829,5,2021
+830,3,Lesotho
+830,4,LSO
+830,5,2021
+831,3,Liberia
+831,4,LBR
+831,5,2021
+832,3,Libyan Arab Jamahiriya
+832,4,LBY
+832,5,2021
+833,3,Liechtenstein
+833,4,LIE
+833,5,2021
+834,3,Lithuania
+834,4,LTU
+834,5,2021
+835,3,Luxembourg
+835,4,LUX
+835,5,2021
+836,3,Macao
+836,4,MAC
+836,5,2021
+837,3,North Macedonia
+837,4,MKD
+837,5,2021
+838,3,Madagascar
+838,4,MDG
+838,5,2021
+839,3,Malawi
+839,4,MWI
+839,5,2021
+840,3,Malaysia
+840,4,MYS
+840,5,2021
+841,3,Maldives
+841,4,MDV
+841,5,2021
+842,3,Mali
+842,4,MLI
+842,5,2021
+843,3,Malta
+843,4,MLT
+843,5,2021
+844,3,Marshall Islands
+844,4,MHL
+844,5,2021
+845,3,Martinique
+845,4,MTQ
+845,5,2021
+846,3,Mauritania
+846,4,MRT
+846,5,2021
+847,3,Mauritius
+847,4,MUS
+847,5,2021
+848,3,Mayotte
+848,4,MYT
+848,5,2021
+849,3,Mexico
+849,4,MEX
+849,5,2021
+850,3,"Micronesia, Federated States of"
+850,4,FSM
+850,5,2021
+851,3,"Moldova, Republic of"
+851,4,MDA
+851,5,2021
+852,3,Monaco
+852,4,MCO
+852,5,2021
+853,3,Mongolia
+853,4,MNG
+853,5,2021
+854,3,Montserrat
+854,4,MSR
+854,5,2021
+855,3,Morocco
+855,4,MAR
+855,5,2021
+856,3,Mozambique
+856,4,MOZ
+856,5,2021
+857,3,Myanmar
+857,4,MMR
+857,5,2021
+858,3,Namibia
+858,4,NAM
+858,5,2021
+859,3,Nauru
+859,4,NRU
+859,5,2021
+860,3,Nepal
+860,4,NPL
+860,5,2021
+861,3,Netherlands
+861,4,NLD
+861,5,2021
+862,3,Netherlands Antilles
+862,4,ANT
+862,5,2021
+863,3,New Caledonia
+863,4,NCL
+863,5,2021
+864,3,New Zealand
+864,4,NZL
+864,5,2021
+865,3,Nicaragua
+865,4,NIC
+865,5,2021
+866,3,Niger
+866,4,NER
+866,5,2021
+867,3,Nigeria
+867,4,NGA
+867,5,2021
+868,3,Niue
+868,4,NIU
+868,5,2021
+869,3,Norfolk Island
+869,4,NFK
+869,5,2021
+870,3,Northern Mariana Islands
+870,4,MNP
+870,5,2021
+871,3,Norway
+871,4,NOR
+871,5,2021
+872,3,Oman
+872,4,OMN
+872,5,2021
+873,3,Pakistan
+873,4,PAK
+873,5,2021
+874,3,Palau
+874,4,PLW
+874,5,2021
+875,3,Panama
+875,4,PAN
+875,5,2021
+876,3,Papua New Guinea
+876,4,PNG
+876,5,2021
+877,3,Paraguay
+877,4,PRY
+877,5,2021
+878,3,Peru
+878,4,PER
+878,5,2021
+879,3,Philippines
+879,4,PHL
+879,5,2021
+880,3,Pitcairn
+880,4,PCN
+880,5,2021
+881,3,Poland
+881,4,POL
+881,5,2021
+882,3,Portugal
+882,4,PRT
+882,5,2021
+883,3,Puerto Rico
+883,4,PRI
+883,5,2021
+884,3,Qatar
+884,4,QAT
+884,5,2021
+885,3,Reunion
+885,4,REU
+885,5,2021
+886,3,Romania
+886,4,ROU
+886,5,2021
+887,3,Russian Federation
+887,4,RUS
+887,5,2021
+888,3,Rwanda
+888,4,RWA
+888,5,2021
+889,3,Saint Helena
+889,4,SHN
+889,5,2021
+890,3,Saint Kitts and Nevis
+890,4,KNA
+890,5,2021
+891,3,Saint Lucia
+891,4,LCA
+891,5,2021
+892,3,Saint Pierre and Miquelon
+892,4,SPM
+892,5,2021
+893,3,Saint Vincent and the Grenadines
+893,4,VCT
+893,5,2021
+894,3,Samoa
+894,4,WSM
+894,5,2021
+895,3,Sao Tome and Principe
+895,4,STP
+895,5,2021
+896,3,Saudi Arabia
+896,4,SAU
+896,5,2021
+897,3,Senegal
+897,4,SEN
+897,5,2021
+898,3,Serbia and Montenegro
+898,4,SRB
+898,5,2021
+899,3,Seychelles
+899,4,SYC
+899,5,2021
+900,3,Sierra Leone
+900,4,SLE
+900,5,2021
+901,3,Singapore
+901,4,SGP
+901,5,2021
+902,3,Slovakia
+902,4,SVK
+902,5,2021
+903,3,Slovenia
+903,4,SVN
+903,5,2021
+904,3,Solomon Islands
+904,4,SLB
+904,5,2021
+905,3,Somalia
+905,4,SOM
+905,5,2021
+906,3,South Africa
+906,4,ZAF
+906,5,2021
+907,3,South Georgia and the South Sandwich Islands
+907,4,SGS
+907,5,2021
+908,3,Spain
+908,4,ESP
+908,5,2021
+909,3,Sri Lanka
+909,4,LKA
+909,5,2021
+910,3,Sudan
+910,4,SDN
+910,5,2021
+911,3,Suriname
+911,4,SUR
+911,5,2021
+912,3,Swaziland
+912,4,SWZ
+912,5,2021
+913,3,Sweden
+913,4,SWE
+913,5,2021
+914,3,Switzerland
+914,4,CHE
+914,5,2021
+915,3,Syrian Arab Republic
+915,4,SYR
+915,5,2021
+916,3,Taiwan_Province of China
+916,4,TWN
+916,5,2021
+917,3,Tajikistan
+917,4,TJK
+917,5,2021
+918,3,Tanzania_United Republic of
+918,4,TZA
+918,5,2021
+919,3,Thailand
+919,4,THA
+919,5,2021
+920,3,Timor-Leste
+920,4,TLS
+920,5,2021
+921,3,Togo
+921,4,TGO
+921,5,2021
+922,3,Tokelau
+922,4,TKL
+922,5,2021
+923,3,Tonga
+923,4,TON
+923,5,2021
+924,3,Trinidad and Tobago
+924,4,TTO
+924,5,2021
+925,3,Tunisia
+925,4,TUN
+925,5,2021
+926,3,Turkiye
+926,4,TUR
+926,5,2021
+927,3,Turkmenistan
+927,4,TKM
+927,5,2021
+928,3,Turks and Caicos Islands
+928,4,TCA
+928,5,2021
+929,3,Tuvalu
+929,4,TUV
+929,5,2021
+930,3,Uganda
+930,4,UGA
+930,5,2021
+931,3,Ukraine
+931,4,UKR
+931,5,2021
+932,3,United Arab Emirates
+932,4,ARE
+932,5,2021
+933,3,United Kingdom of Great Britain and Northern Ireland
+933,4,GBR
+933,5,2021
+934,3,United States Minor Outlying Islands
+934,4,UMI
+934,5,2021
+935,3,United States of America
+935,4,USA
+935,5,2021
+936,3,Uruguay
+936,4,URY
+936,5,2021
+937,3,Uzbekistan
+937,4,UZB
+937,5,2021
+938,3,Vanuatu
+938,4,VUT
+938,5,2021
+939,3,Venezuela
+939,4,VEN
+939,5,2021
+940,3,Viet Nam
+940,4,VNM
+940,5,2021
+941,3,Virgin Islands_British
+941,4,VGB
+941,5,2021
+942,3,Virgin Islands_USA
+942,4,VIR
+942,5,2021
+943,3,Wallis and Futuna
+943,4,WLF
+943,5,2021
+944,3,Western Sahara
+944,4,ESH
+944,5,2021
+945,3,Yemen
+945,4,YEM
+945,5,2021
+946,3,Zambia
+946,4,ZMB
+946,5,2021
+947,3,Zimbabwe
+947,4,ZWE
+947,5,2021
+950,1,.
+950,3,Historical GHGs inc/exc LULUCF
+952,8,1
+952,9,2
+952,10,3
+952,11,4
+952,12,5
+952,13,6
+952,14,7
+952,15,8
+952,16,9
+952,17,10
+952,18,11
+952,19,12
+952,20,13
+952,21,14
+952,22,15
+952,23,16
+952,24,17
+952,25,18
+952,26,19
+952,27,20
+952,28,21
+952,29,22
+952,30,23
+952,31,24
+952,32,25
+952,33,26
+952,34,27
+952,35,28
+952,36,29
+952,37,30
+952,38,31
+952,39,32
+952,40,33
+952,41,34
+952,42,35
+952,43,36
+952,44,37
+952,45,38
+952,46,39
+952,47,40
+953,8,GHGs exc LULUCF
+953,16,GHGs inc LULUCF
+953,24,CO2 exc LULUCF
+953,37,Energy CO2
+954,3,Country
+954,4,ISO
+954,7,UNFCCC category
+954,8,1990
+954,9,2000
+954,10,2005
+954,11,2007
+954,12,2010
+954,13,2013
+954,14,2014
+954,15,2017
+954,16,1990
+954,17,2000
+954,18,2005
+954,19,2007
+954,20,2010
+954,21,2013
+954,22,2014
+954,23,2017
+954,24,1990
+954,25,2000
+954,26,2005
+954,27,2007
+954,28,2010
+954,29,2013
+954,30,2014
+954,31,2015
+954,32,2016
+954,33,2017
+954,34,2018
+954,35,2019
+954,36,2020
+954,37,1990
+954,38,2000
+954,39,2005
+954,40,2007
+954,41,2015
+954,42,2016
+954,43,2017
+954,44,2018
+954,45,2019
+954,46,2020
+954,47,2021
+955,3,Afghanistan
+955,4,AFG
+956,3,Albania
+956,4,ALB
+957,3,Algeria
+957,4,DZA
+958,3,American Samoa
+958,4,ASM
+959,3,Angola
+959,4,AGO
+960,3,Anguilla
+960,4,AIA
+961,3,Antigua and Barbuda
+961,4,ATG
+962,3,Argentina
+962,4,ARG
+963,3,Armenia
+963,4,ARM
+964,3,Aruba
+964,4,ABW
+965,3,Australia
+965,4,AUS
+966,3,Austria
+966,4,AUT
+967,3,Azerbaijan
+967,4,AZE
+968,3,Bahamas
+968,4,BHS
+969,3,Bahrain
+969,4,BHR
+970,3,Bangladesh
+970,4,BGD
+971,3,Barbados
+971,4,BRB
+972,3,Belarus
+972,4,BLR
+973,3,Belgium
+973,4,BEL
+974,3,Belize
+974,4,BLZ
+975,3,Benin
+975,4,BEN
+976,3,Bermuda
+976,4,BMU
+977,3,Bhutan
+977,4,BTN
+978,3,Bolivia
+978,4,BOL
+979,3,Bosnia and Herzegovina
+979,4,BIH
+980,3,Botswana
+980,4,BWA
+981,3,Bouvet Island
+981,4,BVT
+982,3,Brazil
+982,4,BRA
+983,3,Brunei Darussalam
+983,4,BRN
+984,3,Bulgaria
+984,4,BGR
+985,3,Burkina Faso
+985,4,BFA
+986,3,Burundi
+986,4,BDI
+987,3,Cambodia
+987,4,KHM
+988,3,Cameroon
+988,4,CMR
+989,3,Canada
+989,4,CAN
+990,3,Cape Verde
+990,4,CPV
+991,3,Cayman Islands
+991,4,CYM
+992,3,Central African Republic
+992,4,CAF
+993,3,Chad
+993,4,TCD
+994,3,Chile
+994,4,CHL
+995,3,China
+995,4,CHN
+996,3,Christmas Island
+996,4,CXR
+997,3,Cocos (Keeling) Islands
+997,4,CCK
+998,3,Colombia
+998,4,COL
+999,3,Comoros
+999,4,COM
+1000,3,Congo
+1000,4,COG
+1001,3,Congo_the Democratic Republic of the
+1001,4,COD
+1002,3,Cook Islands
+1002,4,COK
+1003,3,Costa Rica
+1003,4,CRI
+1004,3,Cote d'Ivoire
+1004,4,CIV
+1005,3,Croatia
+1005,4,HRV
+1006,3,Cuba
+1006,4,CUB
+1007,3,Cyprus
+1007,4,CYP
+1008,3,Czechia
+1008,4,CZE
+1009,3,Denmark
+1009,4,DNK
+1010,3,Djibouti
+1010,4,DJI
+1011,3,Dominica
+1011,4,DMA
+1012,3,Dominican Republic
+1012,4,DOM
+1013,3,Ecuador
+1013,4,ECU
+1014,3,Egypt
+1014,4,EGY
+1015,3,El Salvador
+1015,4,SLV
+1016,3,Equatorial Guinea
+1016,4,GNQ
+1017,3,Eritrea
+1017,4,ERI
+1018,3,Estonia
+1018,4,EST
+1019,3,Ethiopia
+1019,4,ETH
+1020,3,Falkland Islands (Malvinas)
+1020,4,FLK
+1021,3,Faroe Islands
+1021,4,FRO
+1022,3,Fiji
+1022,4,FJI
+1023,3,Finland
+1023,4,FIN
+1024,3,France
+1024,4,FRA
+1025,3,French Guiana
+1025,4,GUF
+1026,3,French Polynesia
+1026,4,PYF
+1027,3,French Southern Territories
+1027,4,ATF
+1028,3,Gabon
+1028,4,GAB
+1029,3,Gambia
+1029,4,GMB
+1030,3,Georgia
+1030,4,GEO
+1031,3,Germany
+1031,4,DEU
+1032,3,Ghana
+1032,4,GHA
+1033,3,Gibraltar
+1033,4,GIB
+1034,3,Greece
+1034,4,GRC
+1035,3,Greenland
+1035,4,GRL
+1036,3,Grenada
+1036,4,GRD
+1037,3,Guadeloupe
+1037,4,GLP
+1038,3,Guam
+1038,4,GUM
+1039,3,Guatemala
+1039,4,GTM
+1040,3,Guinea
+1040,4,GIN
+1041,3,Guinea-Bissau
+1041,4,GNB
+1042,3,Guyana
+1042,4,GUY
+1043,3,Haiti
+1043,4,HTI
+1044,3,Heard Island and McDonald Islands
+1044,4,HMD
+1045,3,Honduras
+1045,4,HND
+1046,3,Hong Kong
+1046,4,HKG
+1047,3,Hungary
+1047,4,HUN
+1048,3,Iceland
+1048,4,ISL
+1049,3,India
+1049,4,IND
+1050,3,Indonesia
+1050,4,IDN
+1051,3,Int. Aviation
+1051,4,WAV
+1052,3,Int. Shipping
+1052,4,WMR
+1053,3,"Iran, Islamic Republic of"
+1053,4,IRN
+1054,3,Iraq
+1054,4,IRQ
+1055,3,Ireland
+1055,4,IRL
+1056,3,Israel
+1056,4,ISR
+1057,3,Italy
+1057,4,ITA
+1058,3,Jamaica
+1058,4,JAM
+1059,3,Japan
+1059,4,JPN
+1060,3,Jordan
+1060,4,JOR
+1061,3,Kazakhstan
+1061,4,KAZ
+1062,3,Kenya
+1062,4,KEN
+1063,3,Kiribati
+1063,4,KIR
+1064,3,Kosovo
+1064,4,XKX
+1065,3,"Korea, Democratic People's Republic of"
+1065,4,PRK
+1066,3,"Korea, Republic of"
+1066,4,KOR
+1067,3,Kuwait
+1067,4,KWT
+1068,3,Kyrgyzstan
+1068,4,KGZ
+1069,3,Lao People's Democratic Republic
+1069,4,LAO
+1070,3,Latvia
+1070,4,LVA
+1071,3,Lebanon
+1071,4,LBN
+1072,3,Lesotho
+1072,4,LSO
+1073,3,Liberia
+1073,4,LBR
+1074,3,Libyan Arab Jamahiriya
+1074,4,LBY
+1075,3,Liechtenstein
+1075,4,LIE
+1076,3,Lithuania
+1076,4,LTU
+1077,3,Luxembourg
+1077,4,LUX
+1078,3,Macao
+1078,4,MAC
+1079,3,North Macedonia
+1079,4,MKD
+1080,3,Madagascar
+1080,4,MDG
+1081,3,Malawi
+1081,4,MWI
+1082,3,Malaysia
+1082,4,MYS
+1083,3,Maldives
+1083,4,MDV
+1084,3,Mali
+1084,4,MLI
+1085,3,Malta
+1085,4,MLT
+1086,3,Marshall Islands
+1086,4,MHL
+1087,3,Martinique
+1087,4,MTQ
+1088,3,Mauritania
+1088,4,MRT
+1089,3,Mauritius
+1089,4,MUS
+1090,3,Mayotte
+1090,4,MYT
+1091,3,Mexico
+1091,4,MEX
+1092,3,"Micronesia, Federated States of"
+1092,4,FSM
+1093,3,"Moldova, Republic of"
+1093,4,MDA
+1094,3,Monaco
+1094,4,MCO
+1095,3,Mongolia
+1095,4,MNG
+1096,3,Montserrat
+1096,4,MSR
+1097,3,Morocco
+1097,4,MAR
+1098,3,Mozambique
+1098,4,MOZ
+1099,3,Myanmar
+1099,4,MMR
+1100,3,Namibia
+1100,4,NAM
+1101,3,Nauru
+1101,4,NRU
+1102,3,Nepal
+1102,4,NPL
+1103,3,Netherlands
+1103,4,NLD
+1104,3,Netherlands Antilles
+1104,4,ANT
+1105,3,New Caledonia
+1105,4,NCL
+1106,3,New Zealand
+1106,4,NZL
+1107,3,Nicaragua
+1107,4,NIC
+1108,3,Niger
+1108,4,NER
+1109,3,Nigeria
+1109,4,NGA
+1110,3,Niue
+1110,4,NIU
+1111,3,Norfolk Island
+1111,4,NFK
+1112,3,Northern Mariana Islands
+1112,4,MNP
+1113,3,Norway
+1113,4,NOR
+1114,3,Oman
+1114,4,OMN
+1115,3,Pakistan
+1115,4,PAK
+1116,3,Palau
+1116,4,PLW
+1117,3,Panama
+1117,4,PAN
+1118,3,Papua New Guinea
+1118,4,PNG
+1119,3,Paraguay
+1119,4,PRY
+1120,3,Peru
+1120,4,PER
+1121,3,Philippines
+1121,4,PHL
+1122,3,Pitcairn
+1122,4,PCN
+1123,3,Poland
+1123,4,POL
+1124,3,Portugal
+1124,4,PRT
+1125,3,Puerto Rico
+1125,4,PRI
+1126,3,Qatar
+1126,4,QAT
+1127,3,Reunion
+1127,4,REU
+1128,3,Romania
+1128,4,ROU
+1129,3,Russian Federation
+1129,4,RUS
+1130,3,Rwanda
+1130,4,RWA
+1131,3,Saint Helena
+1131,4,SHN
+1132,3,Saint Kitts and Nevis
+1132,4,KNA
+1133,3,Saint Lucia
+1133,4,LCA
+1134,3,Saint Pierre and Miquelon
+1134,4,SPM
+1135,3,Saint Vincent and the Grenadines
+1135,4,VCT
+1136,3,Samoa
+1136,4,WSM
+1137,3,Sao Tome and Principe
+1137,4,STP
+1138,3,Saudi Arabia
+1138,4,SAU
+1139,3,Senegal
+1139,4,SEN
+1140,3,Serbia
+1140,4,SRB
+1141,3,Seychelles
+1141,4,SYC
+1142,3,Sierra Leone
+1142,4,SLE
+1143,3,Singapore
+1143,4,SGP
+1144,3,Slovakia
+1144,4,SVK
+1145,3,Slovenia
+1145,4,SVN
+1146,3,Solomon Islands
+1146,4,SLB
+1147,3,Somalia
+1147,4,SOM
+1148,3,South Africa
+1148,4,ZAF
+1149,3,South Georgia and the South Sandwich Islands
+1149,4,SGS
+1150,3,Spain
+1150,4,ESP
+1151,3,Sri Lanka
+1151,4,LKA
+1152,3,Sudan
+1152,4,SDN
+1153,3,Suriname
+1153,4,SUR
+1154,3,Swaziland
+1154,4,SWZ
+1155,3,Sweden
+1155,4,SWE
+1156,3,Switzerland
+1156,4,CHE
+1157,3,Syrian Arab Republic
+1157,4,SYR
+1158,3,Taiwan_Province of China
+1158,4,TWN
+1159,3,Tajikistan
+1159,4,TJK
+1160,3,Tanzania_United Republic of
+1160,4,TZA
+1161,3,Thailand
+1161,4,THA
+1162,3,Timor-Leste
+1162,4,TLS
+1163,3,Togo
+1163,4,TGO
+1164,3,Tokelau
+1164,4,TKL
+1165,3,Tonga
+1165,4,TON
+1166,3,Trinidad and Tobago
+1166,4,TTO
+1167,3,Tunisia
+1167,4,TUN
+1168,3,Turkiye
+1168,4,TUR
+1169,3,Turkmenistan
+1169,4,TKM
+1170,3,Turks and Caicos Islands
+1170,4,TCA
+1171,3,Tuvalu
+1171,4,TUV
+1172,3,Uganda
+1172,4,UGA
+1173,3,Ukraine
+1173,4,UKR
+1174,3,United Arab Emirates
+1174,4,ARE
+1175,3,United Kingdom of Great Britain and Northern Ireland
+1175,4,GBR
+1176,3,United States Minor Outlying Islands
+1176,4,UMI
+1177,3,United States of America
+1177,4,USA
+1178,3,Uruguay
+1178,4,URY
+1179,3,Uzbekistan
+1179,4,UZB
+1180,3,Vanuatu
+1180,4,VUT
+1181,3,Venezuela
+1181,4,VEN
+1182,3,Viet Nam
+1182,4,VNM
+1183,3,Virgin Islands_British
+1183,4,VGB
+1184,3,Virgin Islands_USA
+1184,4,VIR
+1185,3,Wallis and Futuna
+1185,4,WLF
+1186,3,Western Sahara
+1186,4,ESH
+1187,3,Yemen
+1187,4,YEM
+1188,3,Zambia
+1188,4,ZMB
+1189,3,Zimbabwe
+1189,4,ZWE
+1193,1,.
+1193,3,GHG adjustments (manually inferred based on observed emissions)
+1195,3,Egypt
+1195,4,Modelled
+1195,5,Historical
+1195,6,Difference
+1196,3,Energy CO2 emissions in 2022
+1197,3,Energy CO2 emissions in 2023
+1198,3,Energy CO2 emissions in 2024 vs. 2023
+1200,5,Targets for energy CO2
+1200,7,Exogenous adjustments
+1201,1,EU?
+1201,2,Code
+1201,3,Region
+1201,4,Country
+1201,5,2023 emissions
+1201,6,2024 vs 2023 change
+1201,7,2023
+1201,8,2024
+1201,9,Notes
+1201,10,#
+1201,11,GHG MATCH
+1202,2,CHN
+1203,2,USA
+1204,2,IND
+1205,2,BRA
+1206,2,RUS
+1207,2,IDN
+1208,2,JPN
+1209,2,IRN
+1210,2,SAU
+1211,2,MEX
+1212,2,CAN
+1213,2,KOR
+1214,2,DEU
+1215,2,PAK
+1216,2,VNM
+1217,2,COD
+1218,2,TUR
+1219,2,ZAF
+1220,2,THA
+1221,2,NGA
+1222,2,AUS
+1223,2,ARG
+1224,2,EGY
+1225,2,MYS
+1226,2,GBR
+1227,2,FRA
+1228,2,IRQ
+1229,2,ITA
+1230,2,POL
+1231,2,WAV
+1232,2,WMR
+1233,2,ARE
+1234,2,KAZ
+1235,2,UKR
+1236,2,BGD
+1237,2,PHL
+1238,2,DZA
+1239,2,TWN
+1240,2,MMR
+1241,2,COL
+1242,2,ESP
+1243,2,UZB
+1244,2,ETH
+1245,2,VEN
+1246,2,QAT
+1247,2,SDN
+1248,2,PER
+1249,2,NLD
+1250,2,KWT
+1251,2,OMN
+1252,2,TZA
+1253,2,MAR
+1254,2,TKM
+1255,2,BEL
+1256,2,TCD
+1257,2,BOL
+1258,2,AGO
+1259,2,ZWE
+1260,2,KEN
+1261,2,LBY
+1262,2,MOZ
+1263,2,ECU
+1264,2,CZE
+1265,2,KHM
+1266,2,PRY
+1267,2,MNG
+1268,2,CMR
+1269,2,ZMB
+1270,2,UGA
+1271,2,ISR
+1272,2,SGP
+1273,2,CHL
+1274,2,ROU
+1275,2,AUT
+1276,2,BHR
+1277,2,NPL
+1278,2,AZE
+1279,2,LAO
+1280,2,IRL
+1281,2,NZL
+1282,2,GRC
+1283,2,GTM
+1284,2,MLI
+1285,2,HUN
+1286,2,DNK
+1287,2,PRT
+1288,2,BLR
+1289,2,DOM
+1290,2,NOR
+1291,2,TTO
+1292,2,BWA
+1293,2,TUN
+1294,2,SYR
+1295,2,YEM
+1296,2,FIN
+1297,2,CHE
+1298,2,BFA
+1299,2,GIN
+1300,2,MDG
+1301,2,CIV
+1302,2,URY
+1303,2,GHA
+1304,2,JOR
+1305,2,NIC
+1306,2,PNG
+1307,2,CAF
+1308,2,COG
+1309,2,HND
+1310,2,SEN
+1311,2,SVK
+1312,2,LBN
+1313,2,LKA
+1314,2,AFG
+1315,2,BGR
+1316,2,BEN
+1317,2,SRB
+1318,2,MWI
+1319,2,TJK
+1320,2,HKG
+1321,2,GAB
+1322,2,NER
+1323,2,NAM
+1324,2,BIH
+1325,2,GUY
+1326,2,PAN
+1327,2,MRT
+1328,2,GEO
+1329,2,HRV
+1330,2,KGZ
+1331,2,BRN
+1332,2,LBR
+1333,2,GNQ
+1334,2,HTI
+1335,2,LTU
+1336,2,SLV
+1337,2,EST
+1338,2,MDA
+1339,2,TGO
+1340,2,ISL
+1341,2,SUR
+1342,2,LVA
+1343,2,SVN
+1344,2,RWA
+1345,2,CRI
+1346,2,ARM
+1347,2,BDI
+1348,2,LUX
+1349,2,MKD
+1350,2,ALB
+1351,2,JAM
+1352,2,CYP
+1353,2,ERI
+1354,2,BLZ
+1355,2,GNB
+1356,2,MDV
+1357,2,MAC
+1358,2,LSO
+1359,2,GMB
+1360,2,SWE
+1361,2,BTN
+1362,2,DJI
+1363,2,MLT
+1364,2,BHS
+1365,2,CPV
+1366,2,COM
+1367,2,BRB
+1368,2,FJI
+1369,2,GRD
+1370,2,DMA
+1371,2,KIR
+1372,2,SWZ
+1373,2,WSM
+1374,2,STP
+1375,2,SYC
+1376,2,SLE
+1377,2,SLB
+1378,2,SOM
+1379,2,LCA
+1380,2,VCT
+1381,2,TON
+1382,2,CUB
+1383,2,GIB
+1384,2,GRL
+1385,2,PRK
+1386,2,MUS
+1387,2,BMU
+1388,2,VUT
+1392,1,.
+1392,3,2024 emissions data
+1394,3,EU emissions
+1395,3,2023 and 2024 data are from EC projections - https://ec.europa.eu/eurostat/databrowser/view/ENV_AC_AIGG_Q__custom_12551742/default/table?lang=en
+1396,3,2024 vs 2023
+1398,3,Data extracted on 13/05/2025 22:08:26 from [ESTAT]
+1399,3,Dataset: 
+1399,4,Air emissions accounts for greenhouse gases by NACE Rev. 2 activity - quarterly data [env_ac_aigg_q__custom_16689344]
+1400,3,Last updated: 
+1400,4,14/02/2025 11:00
+1401,3,Time frequency
+1401,4,Quarterly
+1402,3,Air pollutants and greenhouse gases
+1402,4,"Greenhouse gases (CO2, N2O in CO2 equivalent, CH4 in CO2 equivalent, HFC in CO2 equivalent, PFC in CO2 equivalent, SF6 in CO2 equivalent, NF3 in CO2 equivalent)"
+1403,3,Statistical classification of economic activities in the European Community (NACE Rev. 2)
+1403,4,All NACE activities plus households
+1404,3,Unit of measure
+1404,4,Thousand tonnes
+1407,14,Inferred changes for EU countries
+1408,2,code
+1408,3,TIME
+1408,4,2023-Q1
+1408,5,2023-Q2
+1408,6,2023-Q3
+1408,7,2023-Q4
+1408,8,2024-Q1
+1408,9,2024-Q2
+1408,10,2024-Q3
+1408,12,"2023, Q1-Q3 total"
+1408,13,"2024, Q1-Q3 total"
+1408,14,2024 vs. 2023
+1409,3,European Union - 27 countries (from 2020)
+1410,2,BEL
+1410,3,Belgium
+1411,2,BGR
+1411,3,Bulgaria
+1412,2,CZE
+1412,3,Czechia
+1413,2,DNK
+1413,3,Denmark
+1414,2,DEU
+1414,3,Germany
+1415,2,EST
+1415,3,Estonia
+1416,2,IRL
+1416,3,Ireland
+1417,2,GRC
+1417,3,Greece
+1418,2,ESP
+1418,3,Spain
+1419,2,FRA
+1419,3,France
+1420,2,HRV
+1420,3,Croatia
+1421,2,ITA
+1421,3,Italy
+1422,2,CYP
+1422,3,Cyprus
+1423,2,LVA
+1423,3,Latvia
+1424,2,LTU
+1424,3,Lithuania
+1425,2,LUX
+1425,3,Luxembourg
+1426,2,HUN
+1426,3,Hungary
+1427,2,MLT
+1427,3,Malta
+1428,2,NLD
+1428,3,Netherlands
+1429,2,AUT
+1429,3,Austria
+1430,2,POL
+1430,3,Poland
+1431,2,PRT
+1431,3,Portugal
+1432,2,ROU
+1432,3,Romania
+1433,2,SVN
+1433,3,Slovenia
+1434,2,SVK
+1434,3,Slovak Republic
+1435,2,FIN
+1435,3,Finland
+1436,2,SWE
+1436,3,Sweden
+1442,3,Non-EU emissions estimates
+1443,3,"For non-EU countries, estimates are based on IMF's Climate Indicators Dashboard, except EU countries: https://climatedata.imf.org/pages/re-indicators"
+1443,16,Quaterly data
+1444,25,Inferred changes for non-EU countries
+1445,3,CPAT region
+1445,4,ObjectId2
+1445,5,Country
+1445,6,ISO2
+1445,7,ISO3
+1445,8,Indicator
+1445,9,Code
+1445,10,Unit
+1445,11,Source
+1445,12,Industry
+1445,13,Gas_Type
+1445,14,Scale
+1445,15,2023Q1
+1445,16,2023Q2
+1445,17,2023Q3
+1445,18,2023Q4
+1445,19,2024Q1
+1445,20,2024Q2
+1445,23,"2023, 
+Q1-Q2"
+1445,24,"2024, 
+Q1-Q2"
+1445,25,2024 vs 2023
+1446,4,72
+1446,5,Advanced Economies
+1446,7,AETMP
+1447,4,176
+1447,5,Africa
+1447,7,NA605
+1448,4,264
+1448,5,Americas
+1448,7,AMETMP
+1449,4,362
+1449,5,Asia
+1449,7,ASIATMP
+1450,4,462
+1450,5,Australia and New Zealand
+1450,7,NAANZ
+1451,4,562
+1451,5,Central Asia
+1451,7,NACA
+1452,4,654
+1452,5,Eastern Asia
+1452,7,NA510
+1453,4,752
+1453,5,Eastern Europe
+1453,7,NAEE
+1454,4,852
+1454,5,Emerging and Developing Economies
+1454,7,EMDETMP
+1455,4,952
+1455,5,Europe
+1455,7,EURTMP
+1456,4,1052
+1456,5,G20
+1456,7,NA120
+1457,4,1152
+1457,5,G7
+1457,7,NA119
+1458,4,1244
+1458,5,Latin America and the Caribbean
+1458,7,LACTMP
+1459,4,1332
+1459,5,Northern Africa
+1459,7,NANA9
+1460,4,1420
+1460,5,Northern America
+1460,7,NA225
+1461,4,1518
+1461,5,Northern Europe
+1461,7,NANE
+1462,4,1618
+1462,5,Oceania
+1462,7,OCETMP
+1463,4,1704
+1463,5,Other Oceania sub-regions
+1463,7,NAOOSR
+1464,4,1788
+1464,5,South-eastern Asia
+1464,7,NASEA
+1465,4,1874
+1465,5,Southern Asia
+1465,7,NASA
+1466,4,1972
+1466,5,Southern Europe
+1466,7,NASE
+1467,4,2062
+1467,5,Sub-Saharan Africa
+1467,7,SSA
+1468,4,2158
+1468,5,Western Asia
+1468,7,NAWA
+1469,4,2258
+1469,5,Western Europe
+1469,7,NAWE
+1470,4,2472
+1470,5,World
+1470,7,WLD
+1476,3,** Non-EU emissions estimates 2023
+1477,3,"For non-small EU countries, 2023 estimates are based on Carbon Monitor's estimates for emissions https://carbonmonitor.org/"
+1478,3,https://carbonmonitor.org/variation
+1479,3,Country
+1479,4,2024 vs 2023
+1479,5,2023 vs 2022
+1480,3,CHN
+1481,3,USA
+1482,3,IND
+1483,3,GBR
+1484,3,RUS
+1485,3,JPN
+1486,3,BRA
+1487,3,ROW
+1488,3,World
+1500,1,.
+1500,3,End of this tab

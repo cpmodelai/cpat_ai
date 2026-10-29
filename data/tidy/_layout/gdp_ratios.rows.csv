@@ -1,0 +1,799 @@
+_row,Country Code,Indicator Code,Country Name,Indicator Name,Latest Year
+0,ABW,NE.CON.PRVT.ZS,Aruba,Households and NPISHs final consumption expenditure (% of GDP),2022
+1,AFE,NE.CON.PRVT.ZS,Africa Eastern and Southern,Households and NPISHs final consumption expenditure (% of GDP),2023
+2,AFG,NE.CON.PRVT.ZS,Afghanistan,Households and NPISHs final consumption expenditure (% of GDP),2022
+3,AFW,NE.CON.PRVT.ZS,Africa Western and Central,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+4,AGO,NE.CON.PRVT.ZS,Angola,Households and NPISHs final consumption expenditure (% of GDP),2023
+5,ALB,NE.CON.PRVT.ZS,Albania,Households and NPISHs final consumption expenditure (% of GDP),2023
+6,AND,NE.CON.PRVT.ZS,Andorra,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+7,ARB,NE.CON.PRVT.ZS,Arab World,Households and NPISHs final consumption expenditure (% of GDP),2023
+8,ARE,NE.CON.PRVT.ZS,United Arab Emirates,Households and NPISHs final consumption expenditure (% of GDP),2020
+9,ARG,NE.CON.PRVT.ZS,Argentina,Households and NPISHs final consumption expenditure (% of GDP),2023
+10,ARM,NE.CON.PRVT.ZS,Armenia,Households and NPISHs final consumption expenditure (% of GDP),2023
+11,ASM,NE.CON.PRVT.ZS,American Samoa,Households and NPISHs final consumption expenditure (% of GDP),2022
+12,ATG,NE.CON.PRVT.ZS,Antigua and Barbuda,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+13,AUS,NE.CON.PRVT.ZS,Australia,Households and NPISHs final consumption expenditure (% of GDP),2023
+14,AUT,NE.CON.PRVT.ZS,Austria,Households and NPISHs final consumption expenditure (% of GDP),2023
+15,AZE,NE.CON.PRVT.ZS,Azerbaijan,Households and NPISHs final consumption expenditure (% of GDP),2023
+16,BDI,NE.CON.PRVT.ZS,Burundi,Households and NPISHs final consumption expenditure (% of GDP),2023
+17,BEL,NE.CON.PRVT.ZS,Belgium,Households and NPISHs final consumption expenditure (% of GDP),2023
+18,BEN,NE.CON.PRVT.ZS,Benin,Households and NPISHs final consumption expenditure (% of GDP),2023
+19,BFA,NE.CON.PRVT.ZS,Burkina Faso,Households and NPISHs final consumption expenditure (% of GDP),2023
+20,BGD,NE.CON.PRVT.ZS,Bangladesh,Households and NPISHs final consumption expenditure (% of GDP),2023
+21,BGR,NE.CON.PRVT.ZS,Bulgaria,Households and NPISHs final consumption expenditure (% of GDP),2023
+22,BHR,NE.CON.PRVT.ZS,Bahrain,Households and NPISHs final consumption expenditure (% of GDP),2021
+23,BHS,NE.CON.PRVT.ZS,"Bahamas, The",Households and NPISHs final consumption expenditure (% of GDP),2023
+24,BIH,NE.CON.PRVT.ZS,Bosnia and Herzegovina,Households and NPISHs final consumption expenditure (% of GDP),2023
+25,BLR,NE.CON.PRVT.ZS,Belarus,Households and NPISHs final consumption expenditure (% of GDP),2023
+26,BLZ,NE.CON.PRVT.ZS,Belize,Households and NPISHs final consumption expenditure (% of GDP),2023
+27,BMU,NE.CON.PRVT.ZS,Bermuda,Households and NPISHs final consumption expenditure (% of GDP),2022
+28,BOL,NE.CON.PRVT.ZS,Bolivia,Households and NPISHs final consumption expenditure (% of GDP),2023
+29,BRA,NE.CON.PRVT.ZS,Brazil,Households and NPISHs final consumption expenditure (% of GDP),2023
+30,BRB,NE.CON.PRVT.ZS,Barbados,Households and NPISHs final consumption expenditure (% of GDP),2022
+31,BRN,NE.CON.PRVT.ZS,Brunei Darussalam,Households and NPISHs final consumption expenditure (% of GDP),2023
+32,BTN,NE.CON.PRVT.ZS,Bhutan,Households and NPISHs final consumption expenditure (% of GDP),2022
+33,BWA,NE.CON.PRVT.ZS,Botswana,Households and NPISHs final consumption expenditure (% of GDP),2023
+34,CAF,NE.CON.PRVT.ZS,Central African Republic,Households and NPISHs final consumption expenditure (% of GDP),2023
+35,CAN,NE.CON.PRVT.ZS,Canada,Households and NPISHs final consumption expenditure (% of GDP),2023
+36,CEB,NE.CON.PRVT.ZS,Central Europe and the Baltics,Households and NPISHs final consumption expenditure (% of GDP),2023
+37,CHE,NE.CON.PRVT.ZS,Switzerland,Households and NPISHs final consumption expenditure (% of GDP),2023
+38,CHI,NE.CON.PRVT.ZS,Channel Islands,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+39,CHL,NE.CON.PRVT.ZS,Chile,Households and NPISHs final consumption expenditure (% of GDP),2023
+40,CHN,NE.CON.PRVT.ZS,China,Households and NPISHs final consumption expenditure (% of GDP),2022
+41,CIV,NE.CON.PRVT.ZS,Cote d'Ivoire,Households and NPISHs final consumption expenditure (% of GDP),2023
+42,CMR,NE.CON.PRVT.ZS,Cameroon,Households and NPISHs final consumption expenditure (% of GDP),2023
+43,COD,NE.CON.PRVT.ZS,"Congo, Dem. Rep.",Households and NPISHs final consumption expenditure (% of GDP),2023
+44,COG,NE.CON.PRVT.ZS,"Congo, Rep.",Households and NPISHs final consumption expenditure (% of GDP),2023
+45,COL,NE.CON.PRVT.ZS,Colombia,Households and NPISHs final consumption expenditure (% of GDP),2023
+46,COM,NE.CON.PRVT.ZS,Comoros,Households and NPISHs final consumption expenditure (% of GDP),2023
+47,CPV,NE.CON.PRVT.ZS,Cabo Verde,Households and NPISHs final consumption expenditure (% of GDP),2023
+48,CRI,NE.CON.PRVT.ZS,Costa Rica,Households and NPISHs final consumption expenditure (% of GDP),2023
+49,CSS,NE.CON.PRVT.ZS,Caribbean small states,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+50,CUB,NE.CON.PRVT.ZS,Cuba,Households and NPISHs final consumption expenditure (% of GDP),2022
+51,CUW,NE.CON.PRVT.ZS,Curacao,Households and NPISHs final consumption expenditure (% of GDP),2018
+52,CYM,NE.CON.PRVT.ZS,Cayman Islands,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+53,CYP,NE.CON.PRVT.ZS,Cyprus,Households and NPISHs final consumption expenditure (% of GDP),2023
+54,CZE,NE.CON.PRVT.ZS,Czechia,Households and NPISHs final consumption expenditure (% of GDP),2023
+55,DEU,NE.CON.PRVT.ZS,Germany,Households and NPISHs final consumption expenditure (% of GDP),2023
+56,DJI,NE.CON.PRVT.ZS,Djibouti,Households and NPISHs final consumption expenditure (% of GDP),2023
+57,DMA,NE.CON.PRVT.ZS,Dominica,Households and NPISHs final consumption expenditure (% of GDP),2018
+58,DNK,NE.CON.PRVT.ZS,Denmark,Households and NPISHs final consumption expenditure (% of GDP),2023
+59,DOM,NE.CON.PRVT.ZS,Dominican Republic,Households and NPISHs final consumption expenditure (% of GDP),2023
+60,DZA,NE.CON.PRVT.ZS,Algeria,Households and NPISHs final consumption expenditure (% of GDP),2023
+61,EAP,NE.CON.PRVT.ZS,East Asia & Pacific (excluding high income),Households and NPISHs final consumption expenditure (% of GDP),2022
+62,EAR,NE.CON.PRVT.ZS,Early-demographic dividend,Households and NPISHs final consumption expenditure (% of GDP),2023
+63,EAS,NE.CON.PRVT.ZS,East Asia & Pacific,Households and NPISHs final consumption expenditure (% of GDP),2022
+64,ECA,NE.CON.PRVT.ZS,Europe & Central Asia (excluding high income),Households and NPISHs final consumption expenditure (% of GDP),2023
+65,ECS,NE.CON.PRVT.ZS,Europe & Central Asia,Households and NPISHs final consumption expenditure (% of GDP),2023
+66,ECU,NE.CON.PRVT.ZS,Ecuador,Households and NPISHs final consumption expenditure (% of GDP),2023
+67,EGY,NE.CON.PRVT.ZS,"Egypt, Arab Rep.",Households and NPISHs final consumption expenditure (% of GDP),2023
+68,EMU,NE.CON.PRVT.ZS,Euro area,Households and NPISHs final consumption expenditure (% of GDP),2023
+69,ERI,NE.CON.PRVT.ZS,Eritrea,Households and NPISHs final consumption expenditure (% of GDP),2011
+70,ESP,NE.CON.PRVT.ZS,Spain,Households and NPISHs final consumption expenditure (% of GDP),2023
+71,EST,NE.CON.PRVT.ZS,Estonia,Households and NPISHs final consumption expenditure (% of GDP),2023
+72,ETH,NE.CON.PRVT.ZS,Ethiopia,Households and NPISHs final consumption expenditure (% of GDP),2023
+73,EUU,NE.CON.PRVT.ZS,European Union,Households and NPISHs final consumption expenditure (% of GDP),2023
+74,FCS,NE.CON.PRVT.ZS,Fragile and conflict affected situations,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+75,FIN,NE.CON.PRVT.ZS,Finland,Households and NPISHs final consumption expenditure (% of GDP),2023
+76,FJI,NE.CON.PRVT.ZS,Fiji,Households and NPISHs final consumption expenditure (% of GDP),2023
+77,FRA,NE.CON.PRVT.ZS,France,Households and NPISHs final consumption expenditure (% of GDP),2023
+78,FRO,NE.CON.PRVT.ZS,Faroe Islands,Households and NPISHs final consumption expenditure (% of GDP),2022
+79,FSM,NE.CON.PRVT.ZS,"Micronesia, Fed. Sts.",Households and NPISHs final consumption expenditure (% of GDP),1983
+80,GAB,NE.CON.PRVT.ZS,Gabon,Households and NPISHs final consumption expenditure (% of GDP),2023
+81,GBR,NE.CON.PRVT.ZS,United Kingdom,Households and NPISHs final consumption expenditure (% of GDP),2023
+82,GEO,NE.CON.PRVT.ZS,Georgia,Households and NPISHs final consumption expenditure (% of GDP),2023
+83,GHA,NE.CON.PRVT.ZS,Ghana,Households and NPISHs final consumption expenditure (% of GDP),2023
+84,GIB,NE.CON.PRVT.ZS,Gibraltar,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+85,GIN,NE.CON.PRVT.ZS,Guinea,Households and NPISHs final consumption expenditure (% of GDP),2023
+86,GMB,NE.CON.PRVT.ZS,"Gambia, The",Households and NPISHs final consumption expenditure (% of GDP),2023
+87,GNB,NE.CON.PRVT.ZS,Guinea-Bissau,Households and NPISHs final consumption expenditure (% of GDP),2023
+88,GNQ,NE.CON.PRVT.ZS,Equatorial Guinea,Households and NPISHs final consumption expenditure (% of GDP),2023
+89,GRC,NE.CON.PRVT.ZS,Greece,Households and NPISHs final consumption expenditure (% of GDP),2023
+90,GRD,NE.CON.PRVT.ZS,Grenada,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+91,GRL,NE.CON.PRVT.ZS,Greenland,Households and NPISHs final consumption expenditure (% of GDP),2021
+92,GTM,NE.CON.PRVT.ZS,Guatemala,Households and NPISHs final consumption expenditure (% of GDP),2023
+93,GUM,NE.CON.PRVT.ZS,Guam,Households and NPISHs final consumption expenditure (% of GDP),2022
+94,GUY,NE.CON.PRVT.ZS,Guyana,Households and NPISHs final consumption expenditure (% of GDP),2005
+95,HIC,NE.CON.PRVT.ZS,High income,Households and NPISHs final consumption expenditure (% of GDP),2022
+96,HKG,NE.CON.PRVT.ZS,"Hong Kong SAR, China",Households and NPISHs final consumption expenditure (% of GDP),2023
+97,HND,NE.CON.PRVT.ZS,Honduras,Households and NPISHs final consumption expenditure (% of GDP),2023
+98,HPC,NE.CON.PRVT.ZS,Heavily indebted poor countries (HIPC),Households and NPISHs final consumption expenditure (% of GDP),2023
+99,HRV,NE.CON.PRVT.ZS,Croatia,Households and NPISHs final consumption expenditure (% of GDP),2023
+100,HTI,NE.CON.PRVT.ZS,Haiti,Households and NPISHs final consumption expenditure (% of GDP),2023
+101,HUN,NE.CON.PRVT.ZS,Hungary,Households and NPISHs final consumption expenditure (% of GDP),2023
+102,IBD,NE.CON.PRVT.ZS,IBRD only,Households and NPISHs final consumption expenditure (% of GDP),2022
+103,IBT,NE.CON.PRVT.ZS,IDA & IBRD total,Households and NPISHs final consumption expenditure (% of GDP),2023
+104,IDA,NE.CON.PRVT.ZS,IDA total,Households and NPISHs final consumption expenditure (% of GDP),2023
+105,IDB,NE.CON.PRVT.ZS,IDA blend,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+106,IDN,NE.CON.PRVT.ZS,Indonesia,Households and NPISHs final consumption expenditure (% of GDP),2023
+107,IDX,NE.CON.PRVT.ZS,IDA only,Households and NPISHs final consumption expenditure (% of GDP),2023
+108,IMN,NE.CON.PRVT.ZS,Isle of Man,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+109,IND,NE.CON.PRVT.ZS,India,Households and NPISHs final consumption expenditure (% of GDP),2023
+110,INX,NE.CON.PRVT.ZS,Not classified,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+111,IRL,NE.CON.PRVT.ZS,Ireland,Households and NPISHs final consumption expenditure (% of GDP),2023
+112,IRN,NE.CON.PRVT.ZS,"Iran, Islamic Rep.",Households and NPISHs final consumption expenditure (% of GDP),2023
+113,IRQ,NE.CON.PRVT.ZS,Iraq,Households and NPISHs final consumption expenditure (% of GDP),2021
+114,ISL,NE.CON.PRVT.ZS,Iceland,Households and NPISHs final consumption expenditure (% of GDP),2023
+115,ISR,NE.CON.PRVT.ZS,Israel,Households and NPISHs final consumption expenditure (% of GDP),2023
+116,ITA,NE.CON.PRVT.ZS,Italy,Households and NPISHs final consumption expenditure (% of GDP),2023
+117,JAM,NE.CON.PRVT.ZS,Jamaica,Households and NPISHs final consumption expenditure (% of GDP),2019
+118,JOR,NE.CON.PRVT.ZS,Jordan,Households and NPISHs final consumption expenditure (% of GDP),2021
+119,JPN,NE.CON.PRVT.ZS,Japan,Households and NPISHs final consumption expenditure (% of GDP),2022
+120,KAZ,NE.CON.PRVT.ZS,Kazakhstan,Households and NPISHs final consumption expenditure (% of GDP),2022
+121,KEN,NE.CON.PRVT.ZS,Kenya,Households and NPISHs final consumption expenditure (% of GDP),2023
+122,KGZ,NE.CON.PRVT.ZS,Kyrgyz Republic,Households and NPISHs final consumption expenditure (% of GDP),2022
+123,KHM,NE.CON.PRVT.ZS,Cambodia,Households and NPISHs final consumption expenditure (% of GDP),2023
+124,KIR,NE.CON.PRVT.ZS,Kiribati,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+125,KNA,NE.CON.PRVT.ZS,St. Kitts and Nevis,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+126,KOR,NE.CON.PRVT.ZS,"Korea, Rep.",Households and NPISHs final consumption expenditure (% of GDP),2023
+127,KWT,NE.CON.PRVT.ZS,Kuwait,Households and NPISHs final consumption expenditure (% of GDP),2019
+128,LAC,NE.CON.PRVT.ZS,Latin America & Caribbean (excluding high income),Households and NPISHs final consumption expenditure (% of GDP),2023
+129,LAO,NE.CON.PRVT.ZS,Lao PDR,Households and NPISHs final consumption expenditure (% of GDP),2016
+130,LBN,NE.CON.PRVT.ZS,Lebanon,Households and NPISHs final consumption expenditure (% of GDP),2022
+131,LBR,NE.CON.PRVT.ZS,Liberia,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+132,LBY,NE.CON.PRVT.ZS,Libya,Households and NPISHs final consumption expenditure (% of GDP),2023
+133,LCA,NE.CON.PRVT.ZS,St. Lucia,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+134,LCN,NE.CON.PRVT.ZS,Latin America & Caribbean,Households and NPISHs final consumption expenditure (% of GDP),2023
+135,LDC,NE.CON.PRVT.ZS,Least developed countries: UN classification,Households and NPISHs final consumption expenditure (% of GDP),2023
+136,LIC,NE.CON.PRVT.ZS,Low income,Households and NPISHs final consumption expenditure (% of GDP),2023
+137,LIE,NE.CON.PRVT.ZS,Liechtenstein,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+138,LKA,NE.CON.PRVT.ZS,Sri Lanka,Households and NPISHs final consumption expenditure (% of GDP),2023
+139,LMC,NE.CON.PRVT.ZS,Lower middle income,Households and NPISHs final consumption expenditure (% of GDP),2023
+140,LMY,NE.CON.PRVT.ZS,Low & middle income,Households and NPISHs final consumption expenditure (% of GDP),2022
+141,LSO,NE.CON.PRVT.ZS,Lesotho,Households and NPISHs final consumption expenditure (% of GDP),2022
+142,LTE,NE.CON.PRVT.ZS,Late-demographic dividend,Households and NPISHs final consumption expenditure (% of GDP),2022
+143,LTU,NE.CON.PRVT.ZS,Lithuania,Households and NPISHs final consumption expenditure (% of GDP),2023
+144,LUX,NE.CON.PRVT.ZS,Luxembourg,Households and NPISHs final consumption expenditure (% of GDP),2023
+145,LVA,NE.CON.PRVT.ZS,Latvia,Households and NPISHs final consumption expenditure (% of GDP),2023
+146,MAC,NE.CON.PRVT.ZS,"Macao SAR, China",Households and NPISHs final consumption expenditure (% of GDP),2023
+147,MAF,NE.CON.PRVT.ZS,St. Martin (French part),Households and NPISHs final consumption expenditure (% of GDP),0x2a
+148,MAR,NE.CON.PRVT.ZS,Morocco,Households and NPISHs final consumption expenditure (% of GDP),2023
+149,MCO,NE.CON.PRVT.ZS,Monaco,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+150,MDA,NE.CON.PRVT.ZS,Moldova,Households and NPISHs final consumption expenditure (% of GDP),2023
+151,MDG,NE.CON.PRVT.ZS,Madagascar,Households and NPISHs final consumption expenditure (% of GDP),2023
+152,MDV,NE.CON.PRVT.ZS,Maldives,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+153,MEA,NE.CON.PRVT.ZS,Middle East & North Africa,Households and NPISHs final consumption expenditure (% of GDP),2023
+154,MEX,NE.CON.PRVT.ZS,Mexico,Households and NPISHs final consumption expenditure (% of GDP),2023
+155,MHL,NE.CON.PRVT.ZS,Marshall Islands,Households and NPISHs final consumption expenditure (% of GDP),2022
+156,MIC,NE.CON.PRVT.ZS,Middle income,Households and NPISHs final consumption expenditure (% of GDP),2022
+157,MKD,NE.CON.PRVT.ZS,North Macedonia,Households and NPISHs final consumption expenditure (% of GDP),2023
+158,MLI,NE.CON.PRVT.ZS,Mali,Households and NPISHs final consumption expenditure (% of GDP),2023
+159,MLT,NE.CON.PRVT.ZS,Malta,Households and NPISHs final consumption expenditure (% of GDP),2023
+160,MMR,NE.CON.PRVT.ZS,Myanmar,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+161,MNA,NE.CON.PRVT.ZS,Middle East & North Africa (excluding high income),Households and NPISHs final consumption expenditure (% of GDP),2023
+162,MNE,NE.CON.PRVT.ZS,Montenegro,Households and NPISHs final consumption expenditure (% of GDP),2023
+163,MNG,NE.CON.PRVT.ZS,Mongolia,Households and NPISHs final consumption expenditure (% of GDP),2023
+164,MNP,NE.CON.PRVT.ZS,Northern Mariana Islands,Households and NPISHs final consumption expenditure (% of GDP),2020
+165,MOZ,NE.CON.PRVT.ZS,Mozambique,Households and NPISHs final consumption expenditure (% of GDP),2022
+166,MRT,NE.CON.PRVT.ZS,Mauritania,Households and NPISHs final consumption expenditure (% of GDP),2023
+167,MUS,NE.CON.PRVT.ZS,Mauritius,Households and NPISHs final consumption expenditure (% of GDP),2023
+168,MWI,NE.CON.PRVT.ZS,Malawi,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+169,MYS,NE.CON.PRVT.ZS,Malaysia,Households and NPISHs final consumption expenditure (% of GDP),2023
+170,NAC,NE.CON.PRVT.ZS,North America,Households and NPISHs final consumption expenditure (% of GDP),2022
+171,NAM,NE.CON.PRVT.ZS,Namibia,Households and NPISHs final consumption expenditure (% of GDP),2023
+172,NCL,NE.CON.PRVT.ZS,New Caledonia,Households and NPISHs final consumption expenditure (% of GDP),2017
+173,NER,NE.CON.PRVT.ZS,Niger,Households and NPISHs final consumption expenditure (% of GDP),2021
+174,NGA,NE.CON.PRVT.ZS,Nigeria,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+175,NIC,NE.CON.PRVT.ZS,Nicaragua,Households and NPISHs final consumption expenditure (% of GDP),2023
+176,NLD,NE.CON.PRVT.ZS,Netherlands,Households and NPISHs final consumption expenditure (% of GDP),2023
+177,NOR,NE.CON.PRVT.ZS,Norway,Households and NPISHs final consumption expenditure (% of GDP),2023
+178,NPL,NE.CON.PRVT.ZS,Nepal,Households and NPISHs final consumption expenditure (% of GDP),2023
+179,NRU,NE.CON.PRVT.ZS,Nauru,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+180,NZL,NE.CON.PRVT.ZS,New Zealand,Households and NPISHs final consumption expenditure (% of GDP),2022
+181,OED,NE.CON.PRVT.ZS,OECD members,Households and NPISHs final consumption expenditure (% of GDP),2022
+182,OMN,NE.CON.PRVT.ZS,Oman,Households and NPISHs final consumption expenditure (% of GDP),2021
+183,OSS,NE.CON.PRVT.ZS,Other small states,Households and NPISHs final consumption expenditure (% of GDP),2023
+184,PAK,NE.CON.PRVT.ZS,Pakistan,Households and NPISHs final consumption expenditure (% of GDP),2023
+185,PAN,NE.CON.PRVT.ZS,Panama,Households and NPISHs final consumption expenditure (% of GDP),2022
+186,PER,NE.CON.PRVT.ZS,Peru,Households and NPISHs final consumption expenditure (% of GDP),2023
+187,PHL,NE.CON.PRVT.ZS,Philippines,Households and NPISHs final consumption expenditure (% of GDP),2023
+188,PLW,NE.CON.PRVT.ZS,Palau,Households and NPISHs final consumption expenditure (% of GDP),2022
+189,PNG,NE.CON.PRVT.ZS,Papua New Guinea,Households and NPISHs final consumption expenditure (% of GDP),2004
+190,POL,NE.CON.PRVT.ZS,Poland,Households and NPISHs final consumption expenditure (% of GDP),2023
+191,PRE,NE.CON.PRVT.ZS,Pre-demographic dividend,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+192,PRI,NE.CON.PRVT.ZS,Puerto Rico,Households and NPISHs final consumption expenditure (% of GDP),2023
+193,PRK,NE.CON.PRVT.ZS,"Korea, Dem. People's Rep.",Households and NPISHs final consumption expenditure (% of GDP),0x2a
+194,PRT,NE.CON.PRVT.ZS,Portugal,Households and NPISHs final consumption expenditure (% of GDP),2023
+195,PRY,NE.CON.PRVT.ZS,Paraguay,Households and NPISHs final consumption expenditure (% of GDP),2023
+196,PSE,NE.CON.PRVT.ZS,West Bank and Gaza,Households and NPISHs final consumption expenditure (% of GDP),2023
+197,PSS,NE.CON.PRVT.ZS,Pacific island small states,Households and NPISHs final consumption expenditure (% of GDP),2022
+198,PST,NE.CON.PRVT.ZS,Post-demographic dividend,Households and NPISHs final consumption expenditure (% of GDP),2022
+199,PYF,NE.CON.PRVT.ZS,French Polynesia,Households and NPISHs final consumption expenditure (% of GDP),2022
+200,QAT,NE.CON.PRVT.ZS,Qatar,Households and NPISHs final consumption expenditure (% of GDP),2022
+201,ROU,NE.CON.PRVT.ZS,Romania,Households and NPISHs final consumption expenditure (% of GDP),2023
+202,RUS,NE.CON.PRVT.ZS,Russian Federation,Households and NPISHs final consumption expenditure (% of GDP),2023
+203,RWA,NE.CON.PRVT.ZS,Rwanda,Households and NPISHs final consumption expenditure (% of GDP),2023
+204,SAS,NE.CON.PRVT.ZS,South Asia,Households and NPISHs final consumption expenditure (% of GDP),2023
+205,SAU,NE.CON.PRVT.ZS,Saudi Arabia,Households and NPISHs final consumption expenditure (% of GDP),2023
+206,SDN,NE.CON.PRVT.ZS,Sudan,Households and NPISHs final consumption expenditure (% of GDP),2023
+207,SEN,NE.CON.PRVT.ZS,Senegal,Households and NPISHs final consumption expenditure (% of GDP),2023
+208,SGP,NE.CON.PRVT.ZS,Singapore,Households and NPISHs final consumption expenditure (% of GDP),2023
+209,SLB,NE.CON.PRVT.ZS,Solomon Islands,Households and NPISHs final consumption expenditure (% of GDP),2022
+210,SLE,NE.CON.PRVT.ZS,Sierra Leone,Households and NPISHs final consumption expenditure (% of GDP),2023
+211,SLV,NE.CON.PRVT.ZS,El Salvador,Households and NPISHs final consumption expenditure (% of GDP),2023
+212,SMR,NE.CON.PRVT.ZS,San Marino,Households and NPISHs final consumption expenditure (% of GDP),2021
+213,SOM,NE.CON.PRVT.ZS,Somalia,Households and NPISHs final consumption expenditure (% of GDP),2023
+214,SRB,NE.CON.PRVT.ZS,Serbia,Households and NPISHs final consumption expenditure (% of GDP),2023
+215,SSA,NE.CON.PRVT.ZS,Sub-Saharan Africa (excluding high income),Households and NPISHs final consumption expenditure (% of GDP),2023
+216,SSD,NE.CON.PRVT.ZS,South Sudan,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+217,SSF,NE.CON.PRVT.ZS,Sub-Saharan Africa,Households and NPISHs final consumption expenditure (% of GDP),2023
+218,SST,NE.CON.PRVT.ZS,Small states,Households and NPISHs final consumption expenditure (% of GDP),2023
+219,STP,NE.CON.PRVT.ZS,Sao Tome and Principe,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+220,SUR,NE.CON.PRVT.ZS,Suriname,Households and NPISHs final consumption expenditure (% of GDP),2010
+221,SVK,NE.CON.PRVT.ZS,Slovak Republic,Households and NPISHs final consumption expenditure (% of GDP),2023
+222,SVN,NE.CON.PRVT.ZS,Slovenia,Households and NPISHs final consumption expenditure (% of GDP),2023
+223,SWE,NE.CON.PRVT.ZS,Sweden,Households and NPISHs final consumption expenditure (% of GDP),2023
+224,SWZ,NE.CON.PRVT.ZS,Eswatini,Households and NPISHs final consumption expenditure (% of GDP),2022
+225,SXM,NE.CON.PRVT.ZS,Sint Maarten (Dutch part),Households and NPISHs final consumption expenditure (% of GDP),0x2a
+226,SYC,NE.CON.PRVT.ZS,Seychelles,Households and NPISHs final consumption expenditure (% of GDP),2023
+227,SYR,NE.CON.PRVT.ZS,Syrian Arab Republic,Households and NPISHs final consumption expenditure (% of GDP),2021
+228,TCA,NE.CON.PRVT.ZS,Turks and Caicos Islands,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+229,TCD,NE.CON.PRVT.ZS,Chad,Households and NPISHs final consumption expenditure (% of GDP),2023
+230,TEA,NE.CON.PRVT.ZS,East Asia & Pacific (IDA & IBRD countries),Households and NPISHs final consumption expenditure (% of GDP),2022
+231,TEC,NE.CON.PRVT.ZS,Europe & Central Asia (IDA & IBRD countries),Households and NPISHs final consumption expenditure (% of GDP),2023
+232,TGO,NE.CON.PRVT.ZS,Togo,Households and NPISHs final consumption expenditure (% of GDP),2023
+233,THA,NE.CON.PRVT.ZS,Thailand,Households and NPISHs final consumption expenditure (% of GDP),2023
+234,TJK,NE.CON.PRVT.ZS,Tajikistan,Households and NPISHs final consumption expenditure (% of GDP),2022
+235,TKM,NE.CON.PRVT.ZS,Turkmenistan,Households and NPISHs final consumption expenditure (% of GDP),2012
+236,TLA,NE.CON.PRVT.ZS,Latin America & the Caribbean (IDA & IBRD countries),Households and NPISHs final consumption expenditure (% of GDP),2023
+237,TLS,NE.CON.PRVT.ZS,Timor-Leste,Households and NPISHs final consumption expenditure (% of GDP),2022
+238,TMN,NE.CON.PRVT.ZS,Middle East & North Africa (IDA & IBRD countries),Households and NPISHs final consumption expenditure (% of GDP),2023
+239,TON,NE.CON.PRVT.ZS,Tonga,Households and NPISHs final consumption expenditure (% of GDP),2021
+240,TSA,NE.CON.PRVT.ZS,South Asia (IDA & IBRD),Households and NPISHs final consumption expenditure (% of GDP),2023
+241,TSS,NE.CON.PRVT.ZS,Sub-Saharan Africa (IDA & IBRD countries),Households and NPISHs final consumption expenditure (% of GDP),2023
+242,TTO,NE.CON.PRVT.ZS,Trinidad and Tobago,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+243,TUN,NE.CON.PRVT.ZS,Tunisia,Households and NPISHs final consumption expenditure (% of GDP),2023
+244,TUR,NE.CON.PRVT.ZS,Turkiye,Households and NPISHs final consumption expenditure (% of GDP),2023
+245,TUV,NE.CON.PRVT.ZS,Tuvalu,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+246,TZA,NE.CON.PRVT.ZS,Tanzania,Households and NPISHs final consumption expenditure (% of GDP),2023
+247,UGA,NE.CON.PRVT.ZS,Uganda,Households and NPISHs final consumption expenditure (% of GDP),2023
+248,UKR,NE.CON.PRVT.ZS,Ukraine,Households and NPISHs final consumption expenditure (% of GDP),2023
+249,UMC,NE.CON.PRVT.ZS,Upper middle income,Households and NPISHs final consumption expenditure (% of GDP),2022
+250,URY,NE.CON.PRVT.ZS,Uruguay,Households and NPISHs final consumption expenditure (% of GDP),2015
+251,USA,NE.CON.PRVT.ZS,United States,Households and NPISHs final consumption expenditure (% of GDP),2022
+252,UZB,NE.CON.PRVT.ZS,Uzbekistan,Households and NPISHs final consumption expenditure (% of GDP),2023
+253,VCT,NE.CON.PRVT.ZS,St. Vincent and the Grenadines,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+254,VEN,NE.CON.PRVT.ZS,"Venezuela, RB",Households and NPISHs final consumption expenditure (% of GDP),2014
+255,VGB,NE.CON.PRVT.ZS,British Virgin Islands,Households and NPISHs final consumption expenditure (% of GDP),0x2a
+256,VIR,NE.CON.PRVT.ZS,Virgin Islands (U.S.),Households and NPISHs final consumption expenditure (% of GDP),2021
+257,VNM,NE.CON.PRVT.ZS,Viet Nam,Households and NPISHs final consumption expenditure (% of GDP),2022
+258,VUT,NE.CON.PRVT.ZS,Vanuatu,Households and NPISHs final consumption expenditure (% of GDP),2019
+259,WLD,NE.CON.PRVT.ZS,World,Households and NPISHs final consumption expenditure (% of GDP),2022
+260,WSM,NE.CON.PRVT.ZS,Samoa,Households and NPISHs final consumption expenditure (% of GDP),2023
+261,XKX,NE.CON.PRVT.ZS,Kosovo,Households and NPISHs final consumption expenditure (% of GDP),2023
+262,YEM,NE.CON.PRVT.ZS,"Yemen, Rep.",Households and NPISHs final consumption expenditure (% of GDP),2018
+263,ZAF,NE.CON.PRVT.ZS,South Africa,Households and NPISHs final consumption expenditure (% of GDP),2023
+264,ZMB,NE.CON.PRVT.ZS,Zambia,Households and NPISHs final consumption expenditure (% of GDP),2022
+265,ZWE,NE.CON.PRVT.ZS,Zimbabwe,Households and NPISHs final consumption expenditure (% of GDP),2022
+266,ABW,SE.XPD.TOTL.GD.ZS,Aruba,"Government expenditure on education, total (% of GDP)",2019
+267,AFE,SE.XPD.TOTL.GD.ZS,Africa Eastern and Southern,"Government expenditure on education, total (% of GDP)",2022
+268,AFG,SE.XPD.TOTL.GD.ZS,Afghanistan,"Government expenditure on education, total (% of GDP)",2017
+269,AFW,SE.XPD.TOTL.GD.ZS,Africa Western and Central,"Government expenditure on education, total (% of GDP)",2022
+270,AGO,SE.XPD.TOTL.GD.ZS,Angola,"Government expenditure on education, total (% of GDP)",2022
+271,ALB,SE.XPD.TOTL.GD.ZS,Albania,"Government expenditure on education, total (% of GDP)",2022
+272,AND,SE.XPD.TOTL.GD.ZS,Andorra,"Government expenditure on education, total (% of GDP)",2023
+273,ARB,SE.XPD.TOTL.GD.ZS,Arab World,"Government expenditure on education, total (% of GDP)",2019
+274,ARE,SE.XPD.TOTL.GD.ZS,United Arab Emirates,"Government expenditure on education, total (% of GDP)",2021
+275,ARG,SE.XPD.TOTL.GD.ZS,Argentina,"Government expenditure on education, total (% of GDP)",2022
+276,ARM,SE.XPD.TOTL.GD.ZS,Armenia,"Government expenditure on education, total (% of GDP)",2023
+277,ASM,SE.XPD.TOTL.GD.ZS,American Samoa,"Government expenditure on education, total (% of GDP)",2006
+278,ATG,SE.XPD.TOTL.GD.ZS,Antigua and Barbuda,"Government expenditure on education, total (% of GDP)",2022
+279,AUS,SE.XPD.TOTL.GD.ZS,Australia,"Government expenditure on education, total (% of GDP)",2022
+280,AUT,SE.XPD.TOTL.GD.ZS,Austria,"Government expenditure on education, total (% of GDP)",2022
+281,AZE,SE.XPD.TOTL.GD.ZS,Azerbaijan,"Government expenditure on education, total (% of GDP)",2023
+282,BDI,SE.XPD.TOTL.GD.ZS,Burundi,"Government expenditure on education, total (% of GDP)",2022
+283,BEL,SE.XPD.TOTL.GD.ZS,Belgium,"Government expenditure on education, total (% of GDP)",2021
+284,BEN,SE.XPD.TOTL.GD.ZS,Benin,"Government expenditure on education, total (% of GDP)",2022
+285,BFA,SE.XPD.TOTL.GD.ZS,Burkina Faso,"Government expenditure on education, total (% of GDP)",2022
+286,BGD,SE.XPD.TOTL.GD.ZS,Bangladesh,"Government expenditure on education, total (% of GDP)",2023
+287,BGR,SE.XPD.TOTL.GD.ZS,Bulgaria,"Government expenditure on education, total (% of GDP)",2021
+288,BHR,SE.XPD.TOTL.GD.ZS,Bahrain,"Government expenditure on education, total (% of GDP)",2022
+289,BHS,SE.XPD.TOTL.GD.ZS,"Bahamas, The","Government expenditure on education, total (% of GDP)",2022
+290,BIH,SE.XPD.TOTL.GD.ZS,Bosnia and Herzegovina,"Government expenditure on education, total (% of GDP)",2021
+291,BLR,SE.XPD.TOTL.GD.ZS,Belarus,"Government expenditure on education, total (% of GDP)",2023
+292,BLZ,SE.XPD.TOTL.GD.ZS,Belize,"Government expenditure on education, total (% of GDP)",2023
+293,BMU,SE.XPD.TOTL.GD.ZS,Bermuda,"Government expenditure on education, total (% of GDP)",2023
+294,BOL,SE.XPD.TOTL.GD.ZS,Bolivia,"Government expenditure on education, total (% of GDP)",2022
+295,BRA,SE.XPD.TOTL.GD.ZS,Brazil,"Government expenditure on education, total (% of GDP)",2021
+296,BRB,SE.XPD.TOTL.GD.ZS,Barbados,"Government expenditure on education, total (% of GDP)",2023
+297,BRN,SE.XPD.TOTL.GD.ZS,Brunei Darussalam,"Government expenditure on education, total (% of GDP)",2016
+298,BTN,SE.XPD.TOTL.GD.ZS,Bhutan,"Government expenditure on education, total (% of GDP)",2023
+299,BWA,SE.XPD.TOTL.GD.ZS,Botswana,"Government expenditure on education, total (% of GDP)",2020
+300,CAF,SE.XPD.TOTL.GD.ZS,Central African Republic,"Government expenditure on education, total (% of GDP)",2022
+301,CAN,SE.XPD.TOTL.GD.ZS,Canada,"Government expenditure on education, total (% of GDP)",2022
+302,CEB,SE.XPD.TOTL.GD.ZS,Central Europe and the Baltics,"Government expenditure on education, total (% of GDP)",2021
+303,CHE,SE.XPD.TOTL.GD.ZS,Switzerland,"Government expenditure on education, total (% of GDP)",2022
+304,CHI,SE.XPD.TOTL.GD.ZS,Channel Islands,"Government expenditure on education, total (% of GDP)",0x2a
+305,CHL,SE.XPD.TOTL.GD.ZS,Chile,"Government expenditure on education, total (% of GDP)",2021
+306,CHN,SE.XPD.TOTL.GD.ZS,China,"Government expenditure on education, total (% of GDP)",2022
+307,CIV,SE.XPD.TOTL.GD.ZS,Cote d'Ivoire,"Government expenditure on education, total (% of GDP)",2023
+308,CMR,SE.XPD.TOTL.GD.ZS,Cameroon,"Government expenditure on education, total (% of GDP)",2022
+309,COD,SE.XPD.TOTL.GD.ZS,"Congo, Dem. Rep.","Government expenditure on education, total (% of GDP)",2022
+310,COG,SE.XPD.TOTL.GD.ZS,"Congo, Rep.","Government expenditure on education, total (% of GDP)",2022
+311,COL,SE.XPD.TOTL.GD.ZS,Colombia,"Government expenditure on education, total (% of GDP)",2001
+312,COM,SE.XPD.TOTL.GD.ZS,Comoros,"Government expenditure on education, total (% of GDP)",2022
+313,CPV,SE.XPD.TOTL.GD.ZS,Cabo Verde,"Government expenditure on education, total (% of GDP)",2022
+314,CRI,SE.XPD.TOTL.GD.ZS,Costa Rica,"Government expenditure on education, total (% of GDP)",2021
+315,CSS,SE.XPD.TOTL.GD.ZS,Caribbean small states,"Government expenditure on education, total (% of GDP)",0x2a
+316,CUB,SE.XPD.TOTL.GD.ZS,Cuba,"Government expenditure on education, total (% of GDP)",2021
+317,CUW,SE.XPD.TOTL.GD.ZS,Curacao,"Government expenditure on education, total (% of GDP)",2013
+318,CYM,SE.XPD.TOTL.GD.ZS,Cayman Islands,"Government expenditure on education, total (% of GDP)",2022
+319,CYP,SE.XPD.TOTL.GD.ZS,Cyprus,"Government expenditure on education, total (% of GDP)",2021
+320,CZE,SE.XPD.TOTL.GD.ZS,Czechia,"Government expenditure on education, total (% of GDP)",2021
+321,DEU,SE.XPD.TOTL.GD.ZS,Germany,"Government expenditure on education, total (% of GDP)",2022
+322,DJI,SE.XPD.TOTL.GD.ZS,Djibouti,"Government expenditure on education, total (% of GDP)",2018
+323,DMA,SE.XPD.TOTL.GD.ZS,Dominica,"Government expenditure on education, total (% of GDP)",2023
+324,DNK,SE.XPD.TOTL.GD.ZS,Denmark,"Government expenditure on education, total (% of GDP)",2022
+325,DOM,SE.XPD.TOTL.GD.ZS,Dominican Republic,"Government expenditure on education, total (% of GDP)",2022
+326,DZA,SE.XPD.TOTL.GD.ZS,Algeria,"Government expenditure on education, total (% of GDP)",2023
+327,EAP,SE.XPD.TOTL.GD.ZS,East Asia & Pacific (excluding high income),"Government expenditure on education, total (% of GDP)",2023
+328,EAR,SE.XPD.TOTL.GD.ZS,Early-demographic dividend,"Government expenditure on education, total (% of GDP)",2022
+329,EAS,SE.XPD.TOTL.GD.ZS,East Asia & Pacific,"Government expenditure on education, total (% of GDP)",2022
+330,ECA,SE.XPD.TOTL.GD.ZS,Europe & Central Asia (excluding high income),"Government expenditure on education, total (% of GDP)",2023
+331,ECS,SE.XPD.TOTL.GD.ZS,Europe & Central Asia,"Government expenditure on education, total (% of GDP)",2022
+332,ECU,SE.XPD.TOTL.GD.ZS,Ecuador,"Government expenditure on education, total (% of GDP)",2023
+333,EGY,SE.XPD.TOTL.GD.ZS,"Egypt, Arab Rep.","Government expenditure on education, total (% of GDP)",2015
+334,EMU,SE.XPD.TOTL.GD.ZS,Euro area,"Government expenditure on education, total (% of GDP)",2021
+335,ERI,SE.XPD.TOTL.GD.ZS,Eritrea,"Government expenditure on education, total (% of GDP)",2006
+336,ESP,SE.XPD.TOTL.GD.ZS,Spain,"Government expenditure on education, total (% of GDP)",2022
+337,EST,SE.XPD.TOTL.GD.ZS,Estonia,"Government expenditure on education, total (% of GDP)",2021
+338,ETH,SE.XPD.TOTL.GD.ZS,Ethiopia,"Government expenditure on education, total (% of GDP)",2022
+339,EUU,SE.XPD.TOTL.GD.ZS,European Union,"Government expenditure on education, total (% of GDP)",2021
+340,FCS,SE.XPD.TOTL.GD.ZS,Fragile and conflict affected situations,"Government expenditure on education, total (% of GDP)",2021
+341,FIN,SE.XPD.TOTL.GD.ZS,Finland,"Government expenditure on education, total (% of GDP)",2021
+342,FJI,SE.XPD.TOTL.GD.ZS,Fiji,"Government expenditure on education, total (% of GDP)",2023
+343,FRA,SE.XPD.TOTL.GD.ZS,France,"Government expenditure on education, total (% of GDP)",2021
+344,FRO,SE.XPD.TOTL.GD.ZS,Faroe Islands,"Government expenditure on education, total (% of GDP)",0x2a
+345,FSM,SE.XPD.TOTL.GD.ZS,"Micronesia, Fed. Sts.","Government expenditure on education, total (% of GDP)",2020
+346,GAB,SE.XPD.TOTL.GD.ZS,Gabon,"Government expenditure on education, total (% of GDP)",2022
+347,GBR,SE.XPD.TOTL.GD.ZS,United Kingdom,"Government expenditure on education, total (% of GDP)",2022
+348,GEO,SE.XPD.TOTL.GD.ZS,Georgia,"Government expenditure on education, total (% of GDP)",2023
+349,GHA,SE.XPD.TOTL.GD.ZS,Ghana,"Government expenditure on education, total (% of GDP)",2022
+350,GIB,SE.XPD.TOTL.GD.ZS,Gibraltar,"Government expenditure on education, total (% of GDP)",0x2a
+351,GIN,SE.XPD.TOTL.GD.ZS,Guinea,"Government expenditure on education, total (% of GDP)",2022
+352,GMB,SE.XPD.TOTL.GD.ZS,"Gambia, The","Government expenditure on education, total (% of GDP)",2023
+353,GNB,SE.XPD.TOTL.GD.ZS,Guinea-Bissau,"Government expenditure on education, total (% of GDP)",2013
+354,GNQ,SE.XPD.TOTL.GD.ZS,Equatorial Guinea,"Government expenditure on education, total (% of GDP)",1998
+355,GRC,SE.XPD.TOTL.GD.ZS,Greece,"Government expenditure on education, total (% of GDP)",2021
+356,GRD,SE.XPD.TOTL.GD.ZS,Grenada,"Government expenditure on education, total (% of GDP)",2022
+357,GRL,SE.XPD.TOTL.GD.ZS,Greenland,"Government expenditure on education, total (% of GDP)",0x2a
+358,GTM,SE.XPD.TOTL.GD.ZS,Guatemala,"Government expenditure on education, total (% of GDP)",2023
+359,GUM,SE.XPD.TOTL.GD.ZS,Guam,"Government expenditure on education, total (% of GDP)",0x2a
+360,GUY,SE.XPD.TOTL.GD.ZS,Guyana,"Government expenditure on education, total (% of GDP)",2018
+361,HIC,SE.XPD.TOTL.GD.ZS,High income,"Government expenditure on education, total (% of GDP)",2021
+362,HKG,SE.XPD.TOTL.GD.ZS,"Hong Kong SAR, China","Government expenditure on education, total (% of GDP)",2023
+363,HND,SE.XPD.TOTL.GD.ZS,Honduras,"Government expenditure on education, total (% of GDP)",2023
+364,HPC,SE.XPD.TOTL.GD.ZS,Heavily indebted poor countries (HIPC),"Government expenditure on education, total (% of GDP)",2022
+365,HRV,SE.XPD.TOTL.GD.ZS,Croatia,"Government expenditure on education, total (% of GDP)",2021
+366,HTI,SE.XPD.TOTL.GD.ZS,Haiti,"Government expenditure on education, total (% of GDP)",2022
+367,HUN,SE.XPD.TOTL.GD.ZS,Hungary,"Government expenditure on education, total (% of GDP)",2021
+368,IBD,SE.XPD.TOTL.GD.ZS,IBRD only,"Government expenditure on education, total (% of GDP)",2022
+369,IBT,SE.XPD.TOTL.GD.ZS,IDA & IBRD total,"Government expenditure on education, total (% of GDP)",2022
+370,IDA,SE.XPD.TOTL.GD.ZS,IDA total,"Government expenditure on education, total (% of GDP)",2022
+371,IDB,SE.XPD.TOTL.GD.ZS,IDA blend,"Government expenditure on education, total (% of GDP)",2022
+372,IDN,SE.XPD.TOTL.GD.ZS,Indonesia,"Government expenditure on education, total (% of GDP)",2023
+373,IDX,SE.XPD.TOTL.GD.ZS,IDA only,"Government expenditure on education, total (% of GDP)",2022
+374,IMN,SE.XPD.TOTL.GD.ZS,Isle of Man,"Government expenditure on education, total (% of GDP)",0x2a
+375,IND,SE.XPD.TOTL.GD.ZS,India,"Government expenditure on education, total (% of GDP)",2022
+376,INX,SE.XPD.TOTL.GD.ZS,Not classified,"Government expenditure on education, total (% of GDP)",0x2a
+377,IRL,SE.XPD.TOTL.GD.ZS,Ireland,"Government expenditure on education, total (% of GDP)",2021
+378,IRN,SE.XPD.TOTL.GD.ZS,"Iran, Islamic Rep.","Government expenditure on education, total (% of GDP)",2023
+379,IRQ,SE.XPD.TOTL.GD.ZS,Iraq,"Government expenditure on education, total (% of GDP)",1989
+380,ISL,SE.XPD.TOTL.GD.ZS,Iceland,"Government expenditure on education, total (% of GDP)",2022
+381,ISR,SE.XPD.TOTL.GD.ZS,Israel,"Government expenditure on education, total (% of GDP)",2022
+382,ITA,SE.XPD.TOTL.GD.ZS,Italy,"Government expenditure on education, total (% of GDP)",2021
+383,JAM,SE.XPD.TOTL.GD.ZS,Jamaica,"Government expenditure on education, total (% of GDP)",2023
+384,JOR,SE.XPD.TOTL.GD.ZS,Jordan,"Government expenditure on education, total (% of GDP)",2022
+385,JPN,SE.XPD.TOTL.GD.ZS,Japan,"Government expenditure on education, total (% of GDP)",2022
+386,KAZ,SE.XPD.TOTL.GD.ZS,Kazakhstan,"Government expenditure on education, total (% of GDP)",2022
+387,KEN,SE.XPD.TOTL.GD.ZS,Kenya,"Government expenditure on education, total (% of GDP)",2023
+388,KGZ,SE.XPD.TOTL.GD.ZS,Kyrgyz Republic,"Government expenditure on education, total (% of GDP)",2023
+389,KHM,SE.XPD.TOTL.GD.ZS,Cambodia,"Government expenditure on education, total (% of GDP)",2023
+390,KIR,SE.XPD.TOTL.GD.ZS,Kiribati,"Government expenditure on education, total (% of GDP)",2021
+391,KNA,SE.XPD.TOTL.GD.ZS,St. Kitts and Nevis,"Government expenditure on education, total (% of GDP)",2022
+392,KOR,SE.XPD.TOTL.GD.ZS,"Korea, Rep.","Government expenditure on education, total (% of GDP)",2021
+393,KWT,SE.XPD.TOTL.GD.ZS,Kuwait,"Government expenditure on education, total (% of GDP)",2023
+394,LAC,SE.XPD.TOTL.GD.ZS,Latin America & Caribbean (excluding high income),"Government expenditure on education, total (% of GDP)",2022
+395,LAO,SE.XPD.TOTL.GD.ZS,Lao PDR,"Government expenditure on education, total (% of GDP)",2023
+396,LBN,SE.XPD.TOTL.GD.ZS,Lebanon,"Government expenditure on education, total (% of GDP)",2020
+397,LBR,SE.XPD.TOTL.GD.ZS,Liberia,"Government expenditure on education, total (% of GDP)",2022
+398,LBY,SE.XPD.TOTL.GD.ZS,Libya,"Government expenditure on education, total (% of GDP)",1999
+399,LCA,SE.XPD.TOTL.GD.ZS,St. Lucia,"Government expenditure on education, total (% of GDP)",2022
+400,LCN,SE.XPD.TOTL.GD.ZS,Latin America & Caribbean,"Government expenditure on education, total (% of GDP)",2022
+401,LDC,SE.XPD.TOTL.GD.ZS,Least developed countries: UN classification,"Government expenditure on education, total (% of GDP)",2022
+402,LIC,SE.XPD.TOTL.GD.ZS,Low income,"Government expenditure on education, total (% of GDP)",2022
+403,LIE,SE.XPD.TOTL.GD.ZS,Liechtenstein,"Government expenditure on education, total (% of GDP)",2011
+404,LKA,SE.XPD.TOTL.GD.ZS,Sri Lanka,"Government expenditure on education, total (% of GDP)",2023
+405,LMC,SE.XPD.TOTL.GD.ZS,Lower middle income,"Government expenditure on education, total (% of GDP)",2022
+406,LMY,SE.XPD.TOTL.GD.ZS,Low & middle income,"Government expenditure on education, total (% of GDP)",2022
+407,LSO,SE.XPD.TOTL.GD.ZS,Lesotho,"Government expenditure on education, total (% of GDP)",2023
+408,LTE,SE.XPD.TOTL.GD.ZS,Late-demographic dividend,"Government expenditure on education, total (% of GDP)",2022
+409,LTU,SE.XPD.TOTL.GD.ZS,Lithuania,"Government expenditure on education, total (% of GDP)",2021
+410,LUX,SE.XPD.TOTL.GD.ZS,Luxembourg,"Government expenditure on education, total (% of GDP)",2022
+411,LVA,SE.XPD.TOTL.GD.ZS,Latvia,"Government expenditure on education, total (% of GDP)",2021
+412,MAC,SE.XPD.TOTL.GD.ZS,"Macao SAR, China","Government expenditure on education, total (% of GDP)",2022
+413,MAF,SE.XPD.TOTL.GD.ZS,St. Martin (French part),"Government expenditure on education, total (% of GDP)",0x2a
+414,MAR,SE.XPD.TOTL.GD.ZS,Morocco,"Government expenditure on education, total (% of GDP)",2023
+415,MCO,SE.XPD.TOTL.GD.ZS,Monaco,"Government expenditure on education, total (% of GDP)",2022
+416,MDA,SE.XPD.TOTL.GD.ZS,Moldova,"Government expenditure on education, total (% of GDP)",2023
+417,MDG,SE.XPD.TOTL.GD.ZS,Madagascar,"Government expenditure on education, total (% of GDP)",2022
+418,MDV,SE.XPD.TOTL.GD.ZS,Maldives,"Government expenditure on education, total (% of GDP)",2023
+419,MEA,SE.XPD.TOTL.GD.ZS,Middle East & North Africa,"Government expenditure on education, total (% of GDP)",2020
+420,MEX,SE.XPD.TOTL.GD.ZS,Mexico,"Government expenditure on education, total (% of GDP)",2021
+421,MHL,SE.XPD.TOTL.GD.ZS,Marshall Islands,"Government expenditure on education, total (% of GDP)",2022
+422,MIC,SE.XPD.TOTL.GD.ZS,Middle income,"Government expenditure on education, total (% of GDP)",2022
+423,MKD,SE.XPD.TOTL.GD.ZS,North Macedonia,"Government expenditure on education, total (% of GDP)",2002
+424,MLI,SE.XPD.TOTL.GD.ZS,Mali,"Government expenditure on education, total (% of GDP)",2022
+425,MLT,SE.XPD.TOTL.GD.ZS,Malta,"Government expenditure on education, total (% of GDP)",2021
+426,MMR,SE.XPD.TOTL.GD.ZS,Myanmar,"Government expenditure on education, total (% of GDP)",2019
+427,MNA,SE.XPD.TOTL.GD.ZS,Middle East & North Africa (excluding high income),"Government expenditure on education, total (% of GDP)",2017
+428,MNE,SE.XPD.TOTL.GD.ZS,Montenegro,"Government expenditure on education, total (% of GDP)",0x2a
+429,MNG,SE.XPD.TOTL.GD.ZS,Mongolia,"Government expenditure on education, total (% of GDP)",2023
+430,MNP,SE.XPD.TOTL.GD.ZS,Northern Mariana Islands,"Government expenditure on education, total (% of GDP)",0x2a
+431,MOZ,SE.XPD.TOTL.GD.ZS,Mozambique,"Government expenditure on education, total (% of GDP)",2022
+432,MRT,SE.XPD.TOTL.GD.ZS,Mauritania,"Government expenditure on education, total (% of GDP)",2023
+433,MUS,SE.XPD.TOTL.GD.ZS,Mauritius,"Government expenditure on education, total (% of GDP)",2023
+434,MWI,SE.XPD.TOTL.GD.ZS,Malawi,"Government expenditure on education, total (% of GDP)",2018
+435,MYS,SE.XPD.TOTL.GD.ZS,Malaysia,"Government expenditure on education, total (% of GDP)",2023
+436,NAC,SE.XPD.TOTL.GD.ZS,North America,"Government expenditure on education, total (% of GDP)",2022
+437,NAM,SE.XPD.TOTL.GD.ZS,Namibia,"Government expenditure on education, total (% of GDP)",2023
+438,NCL,SE.XPD.TOTL.GD.ZS,New Caledonia,"Government expenditure on education, total (% of GDP)",0x2a
+439,NER,SE.XPD.TOTL.GD.ZS,Niger,"Government expenditure on education, total (% of GDP)",2022
+440,NGA,SE.XPD.TOTL.GD.ZS,Nigeria,"Government expenditure on education, total (% of GDP)",2022
+441,NIC,SE.XPD.TOTL.GD.ZS,Nicaragua,"Government expenditure on education, total (% of GDP)",2022
+442,NLD,SE.XPD.TOTL.GD.ZS,Netherlands,"Government expenditure on education, total (% of GDP)",2022
+443,NOR,SE.XPD.TOTL.GD.ZS,Norway,"Government expenditure on education, total (% of GDP)",2022
+444,NPL,SE.XPD.TOTL.GD.ZS,Nepal,"Government expenditure on education, total (% of GDP)",2023
+445,NRU,SE.XPD.TOTL.GD.ZS,Nauru,"Government expenditure on education, total (% of GDP)",2022
+446,NZL,SE.XPD.TOTL.GD.ZS,New Zealand,"Government expenditure on education, total (% of GDP)",2022
+447,OED,SE.XPD.TOTL.GD.ZS,OECD members,"Government expenditure on education, total (% of GDP)",2021
+448,OMN,SE.XPD.TOTL.GD.ZS,Oman,"Government expenditure on education, total (% of GDP)",2022
+449,OSS,SE.XPD.TOTL.GD.ZS,Other small states,"Government expenditure on education, total (% of GDP)",2021
+450,PAK,SE.XPD.TOTL.GD.ZS,Pakistan,"Government expenditure on education, total (% of GDP)",2023
+451,PAN,SE.XPD.TOTL.GD.ZS,Panama,"Government expenditure on education, total (% of GDP)",2022
+452,PER,SE.XPD.TOTL.GD.ZS,Peru,"Government expenditure on education, total (% of GDP)",2023
+453,PHL,SE.XPD.TOTL.GD.ZS,Philippines,"Government expenditure on education, total (% of GDP)",2023
+454,PLW,SE.XPD.TOTL.GD.ZS,Palau,"Government expenditure on education, total (% of GDP)",2023
+455,PNG,SE.XPD.TOTL.GD.ZS,Papua New Guinea,"Government expenditure on education, total (% of GDP)",2021
+456,POL,SE.XPD.TOTL.GD.ZS,Poland,"Government expenditure on education, total (% of GDP)",2021
+457,PRE,SE.XPD.TOTL.GD.ZS,Pre-demographic dividend,"Government expenditure on education, total (% of GDP)",2022
+458,PRI,SE.XPD.TOTL.GD.ZS,Puerto Rico,"Government expenditure on education, total (% of GDP)",2014
+459,PRK,SE.XPD.TOTL.GD.ZS,"Korea, Dem. People's Rep.","Government expenditure on education, total (% of GDP)",0x2a
+460,PRT,SE.XPD.TOTL.GD.ZS,Portugal,"Government expenditure on education, total (% of GDP)",2021
+461,PRY,SE.XPD.TOTL.GD.ZS,Paraguay,"Government expenditure on education, total (% of GDP)",2023
+462,PSE,SE.XPD.TOTL.GD.ZS,West Bank and Gaza,"Government expenditure on education, total (% of GDP)",2021
+463,PSS,SE.XPD.TOTL.GD.ZS,Pacific island small states,"Government expenditure on education, total (% of GDP)",0x2a
+464,PST,SE.XPD.TOTL.GD.ZS,Post-demographic dividend,"Government expenditure on education, total (% of GDP)",2021
+465,PYF,SE.XPD.TOTL.GD.ZS,French Polynesia,"Government expenditure on education, total (% of GDP)",0x2a
+466,QAT,SE.XPD.TOTL.GD.ZS,Qatar,"Government expenditure on education, total (% of GDP)",2020
+467,ROU,SE.XPD.TOTL.GD.ZS,Romania,"Government expenditure on education, total (% of GDP)",2021
+468,RUS,SE.XPD.TOTL.GD.ZS,Russian Federation,"Government expenditure on education, total (% of GDP)",2022
+469,RWA,SE.XPD.TOTL.GD.ZS,Rwanda,"Government expenditure on education, total (% of GDP)",2023
+470,SAS,SE.XPD.TOTL.GD.ZS,South Asia,"Government expenditure on education, total (% of GDP)",2023
+471,SAU,SE.XPD.TOTL.GD.ZS,Saudi Arabia,"Government expenditure on education, total (% of GDP)",2023
+472,SDN,SE.XPD.TOTL.GD.ZS,Sudan,"Government expenditure on education, total (% of GDP)",2009
+473,SEN,SE.XPD.TOTL.GD.ZS,Senegal,"Government expenditure on education, total (% of GDP)",2022
+474,SGP,SE.XPD.TOTL.GD.ZS,Singapore,"Government expenditure on education, total (% of GDP)",2023
+475,SLB,SE.XPD.TOTL.GD.ZS,Solomon Islands,"Government expenditure on education, total (% of GDP)",2023
+476,SLE,SE.XPD.TOTL.GD.ZS,Sierra Leone,"Government expenditure on education, total (% of GDP)",2023
+477,SLV,SE.XPD.TOTL.GD.ZS,El Salvador,"Government expenditure on education, total (% of GDP)",2023
+478,SMR,SE.XPD.TOTL.GD.ZS,San Marino,"Government expenditure on education, total (% of GDP)",2022
+479,SOM,SE.XPD.TOTL.GD.ZS,Somalia,"Government expenditure on education, total (% of GDP)",1973
+480,SRB,SE.XPD.TOTL.GD.ZS,Serbia,"Government expenditure on education, total (% of GDP)",2022
+481,SSA,SE.XPD.TOTL.GD.ZS,Sub-Saharan Africa (excluding high income),"Government expenditure on education, total (% of GDP)",2022
+482,SSD,SE.XPD.TOTL.GD.ZS,South Sudan,"Government expenditure on education, total (% of GDP)",2016
+483,SSF,SE.XPD.TOTL.GD.ZS,Sub-Saharan Africa,"Government expenditure on education, total (% of GDP)",2022
+484,SST,SE.XPD.TOTL.GD.ZS,Small states,"Government expenditure on education, total (% of GDP)",2021
+485,STP,SE.XPD.TOTL.GD.ZS,Sao Tome and Principe,"Government expenditure on education, total (% of GDP)",2022
+486,SUR,SE.XPD.TOTL.GD.ZS,Suriname,"Government expenditure on education, total (% of GDP)",2023
+487,SVK,SE.XPD.TOTL.GD.ZS,Slovak Republic,"Government expenditure on education, total (% of GDP)",2021
+488,SVN,SE.XPD.TOTL.GD.ZS,Slovenia,"Government expenditure on education, total (% of GDP)",2021
+489,SWE,SE.XPD.TOTL.GD.ZS,Sweden,"Government expenditure on education, total (% of GDP)",2021
+490,SWZ,SE.XPD.TOTL.GD.ZS,Eswatini,"Government expenditure on education, total (% of GDP)",2023
+491,SXM,SE.XPD.TOTL.GD.ZS,Sint Maarten (Dutch part),"Government expenditure on education, total (% of GDP)",2022
+492,SYC,SE.XPD.TOTL.GD.ZS,Seychelles,"Government expenditure on education, total (% of GDP)",2022
+493,SYR,SE.XPD.TOTL.GD.ZS,Syrian Arab Republic,"Government expenditure on education, total (% of GDP)",2009
+494,TCA,SE.XPD.TOTL.GD.ZS,Turks and Caicos Islands,"Government expenditure on education, total (% of GDP)",2023
+495,TCD,SE.XPD.TOTL.GD.ZS,Chad,"Government expenditure on education, total (% of GDP)",2022
+496,TEA,SE.XPD.TOTL.GD.ZS,East Asia & Pacific (IDA & IBRD countries),"Government expenditure on education, total (% of GDP)",2023
+497,TEC,SE.XPD.TOTL.GD.ZS,Europe & Central Asia (IDA & IBRD countries),"Government expenditure on education, total (% of GDP)",2022
+498,TGO,SE.XPD.TOTL.GD.ZS,Togo,"Government expenditure on education, total (% of GDP)",2022
+499,THA,SE.XPD.TOTL.GD.ZS,Thailand,"Government expenditure on education, total (% of GDP)",2023
+500,TJK,SE.XPD.TOTL.GD.ZS,Tajikistan,"Government expenditure on education, total (% of GDP)",2023
+501,TKM,SE.XPD.TOTL.GD.ZS,Turkmenistan,"Government expenditure on education, total (% of GDP)",2023
+502,TLA,SE.XPD.TOTL.GD.ZS,Latin America & the Caribbean (IDA & IBRD countries),"Government expenditure on education, total (% of GDP)",2022
+503,TLS,SE.XPD.TOTL.GD.ZS,Timor-Leste,"Government expenditure on education, total (% of GDP)",2021
+504,TMN,SE.XPD.TOTL.GD.ZS,Middle East & North Africa (IDA & IBRD countries),"Government expenditure on education, total (% of GDP)",2019
+505,TON,SE.XPD.TOTL.GD.ZS,Tonga,"Government expenditure on education, total (% of GDP)",2023
+506,TSA,SE.XPD.TOTL.GD.ZS,South Asia (IDA & IBRD),"Government expenditure on education, total (% of GDP)",2023
+507,TSS,SE.XPD.TOTL.GD.ZS,Sub-Saharan Africa (IDA & IBRD countries),"Government expenditure on education, total (% of GDP)",2022
+508,TTO,SE.XPD.TOTL.GD.ZS,Trinidad and Tobago,"Government expenditure on education, total (% of GDP)",2022
+509,TUN,SE.XPD.TOTL.GD.ZS,Tunisia,"Government expenditure on education, total (% of GDP)",2023
+510,TUR,SE.XPD.TOTL.GD.ZS,Turkiye,"Government expenditure on education, total (% of GDP)",2022
+511,TUV,SE.XPD.TOTL.GD.ZS,Tuvalu,"Government expenditure on education, total (% of GDP)",2023
+512,TZA,SE.XPD.TOTL.GD.ZS,Tanzania,"Government expenditure on education, total (% of GDP)",2023
+513,UGA,SE.XPD.TOTL.GD.ZS,Uganda,"Government expenditure on education, total (% of GDP)",2023
+514,UKR,SE.XPD.TOTL.GD.ZS,Ukraine,"Government expenditure on education, total (% of GDP)",2022
+515,UMC,SE.XPD.TOTL.GD.ZS,Upper middle income,"Government expenditure on education, total (% of GDP)",2023
+516,URY,SE.XPD.TOTL.GD.ZS,Uruguay,"Government expenditure on education, total (% of GDP)",2022
+517,USA,SE.XPD.TOTL.GD.ZS,United States,"Government expenditure on education, total (% of GDP)",2021
+518,UZB,SE.XPD.TOTL.GD.ZS,Uzbekistan,"Government expenditure on education, total (% of GDP)",2023
+519,VCT,SE.XPD.TOTL.GD.ZS,St. Vincent and the Grenadines,"Government expenditure on education, total (% of GDP)",2022
+520,VEN,SE.XPD.TOTL.GD.ZS,"Venezuela, RB","Government expenditure on education, total (% of GDP)",2009
+521,VGB,SE.XPD.TOTL.GD.ZS,British Virgin Islands,"Government expenditure on education, total (% of GDP)",2022
+522,VIR,SE.XPD.TOTL.GD.ZS,Virgin Islands (U.S.),"Government expenditure on education, total (% of GDP)",0x2a
+523,VNM,SE.XPD.TOTL.GD.ZS,Viet Nam,"Government expenditure on education, total (% of GDP)",2022
+524,VUT,SE.XPD.TOTL.GD.ZS,Vanuatu,"Government expenditure on education, total (% of GDP)",2023
+525,WLD,SE.XPD.TOTL.GD.ZS,World,"Government expenditure on education, total (% of GDP)",2022
+526,WSM,SE.XPD.TOTL.GD.ZS,Samoa,"Government expenditure on education, total (% of GDP)",2023
+527,XKX,SE.XPD.TOTL.GD.ZS,Kosovo,"Government expenditure on education, total (% of GDP)",0x2a
+528,YEM,SE.XPD.TOTL.GD.ZS,"Yemen, Rep.","Government expenditure on education, total (% of GDP)",2012
+529,ZAF,SE.XPD.TOTL.GD.ZS,South Africa,"Government expenditure on education, total (% of GDP)",2023
+530,ZMB,SE.XPD.TOTL.GD.ZS,Zambia,"Government expenditure on education, total (% of GDP)",2022
+531,ZWE,SE.XPD.TOTL.GD.ZS,Zimbabwe,"Government expenditure on education, total (% of GDP)",2018
+532,ABW,SH.XPD.CHEX.GD.ZS,Aruba,Current health expenditure (% of GDP),0x2a
+533,AFE,SH.XPD.CHEX.GD.ZS,Africa Eastern and Southern,Current health expenditure (% of GDP),2021
+534,AFG,SH.XPD.CHEX.GD.ZS,Afghanistan,Current health expenditure (% of GDP),2021
+535,AFW,SH.XPD.CHEX.GD.ZS,Africa Western and Central,Current health expenditure (% of GDP),2021
+536,AGO,SH.XPD.CHEX.GD.ZS,Angola,Current health expenditure (% of GDP),2021
+537,ALB,SH.XPD.CHEX.GD.ZS,Albania,Current health expenditure (% of GDP),2021
+538,AND,SH.XPD.CHEX.GD.ZS,Andorra,Current health expenditure (% of GDP),2021
+539,ARB,SH.XPD.CHEX.GD.ZS,Arab World,Current health expenditure (% of GDP),2021
+540,ARE,SH.XPD.CHEX.GD.ZS,United Arab Emirates,Current health expenditure (% of GDP),2021
+541,ARG,SH.XPD.CHEX.GD.ZS,Argentina,Current health expenditure (% of GDP),2021
+542,ARM,SH.XPD.CHEX.GD.ZS,Armenia,Current health expenditure (% of GDP),2021
+543,ASM,SH.XPD.CHEX.GD.ZS,American Samoa,Current health expenditure (% of GDP),0x2a
+544,ATG,SH.XPD.CHEX.GD.ZS,Antigua and Barbuda,Current health expenditure (% of GDP),2021
+545,AUS,SH.XPD.CHEX.GD.ZS,Australia,Current health expenditure (% of GDP),2021
+546,AUT,SH.XPD.CHEX.GD.ZS,Austria,Current health expenditure (% of GDP),2021
+547,AZE,SH.XPD.CHEX.GD.ZS,Azerbaijan,Current health expenditure (% of GDP),2021
+548,BDI,SH.XPD.CHEX.GD.ZS,Burundi,Current health expenditure (% of GDP),2021
+549,BEL,SH.XPD.CHEX.GD.ZS,Belgium,Current health expenditure (% of GDP),2021
+550,BEN,SH.XPD.CHEX.GD.ZS,Benin,Current health expenditure (% of GDP),2021
+551,BFA,SH.XPD.CHEX.GD.ZS,Burkina Faso,Current health expenditure (% of GDP),2021
+552,BGD,SH.XPD.CHEX.GD.ZS,Bangladesh,Current health expenditure (% of GDP),2021
+553,BGR,SH.XPD.CHEX.GD.ZS,Bulgaria,Current health expenditure (% of GDP),2021
+554,BHR,SH.XPD.CHEX.GD.ZS,Bahrain,Current health expenditure (% of GDP),2021
+555,BHS,SH.XPD.CHEX.GD.ZS,"Bahamas, The",Current health expenditure (% of GDP),2021
+556,BIH,SH.XPD.CHEX.GD.ZS,Bosnia and Herzegovina,Current health expenditure (% of GDP),2021
+557,BLR,SH.XPD.CHEX.GD.ZS,Belarus,Current health expenditure (% of GDP),2021
+558,BLZ,SH.XPD.CHEX.GD.ZS,Belize,Current health expenditure (% of GDP),2021
+559,BMU,SH.XPD.CHEX.GD.ZS,Bermuda,Current health expenditure (% of GDP),0x2a
+560,BOL,SH.XPD.CHEX.GD.ZS,Bolivia,Current health expenditure (% of GDP),2021
+561,BRA,SH.XPD.CHEX.GD.ZS,Brazil,Current health expenditure (% of GDP),2021
+562,BRB,SH.XPD.CHEX.GD.ZS,Barbados,Current health expenditure (% of GDP),2021
+563,BRN,SH.XPD.CHEX.GD.ZS,Brunei Darussalam,Current health expenditure (% of GDP),2021
+564,BTN,SH.XPD.CHEX.GD.ZS,Bhutan,Current health expenditure (% of GDP),2021
+565,BWA,SH.XPD.CHEX.GD.ZS,Botswana,Current health expenditure (% of GDP),2021
+566,CAF,SH.XPD.CHEX.GD.ZS,Central African Republic,Current health expenditure (% of GDP),2021
+567,CAN,SH.XPD.CHEX.GD.ZS,Canada,Current health expenditure (% of GDP),2022
+568,CEB,SH.XPD.CHEX.GD.ZS,Central Europe and the Baltics,Current health expenditure (% of GDP),2021
+569,CHE,SH.XPD.CHEX.GD.ZS,Switzerland,Current health expenditure (% of GDP),2021
+570,CHI,SH.XPD.CHEX.GD.ZS,Channel Islands,Current health expenditure (% of GDP),0x2a
+571,CHL,SH.XPD.CHEX.GD.ZS,Chile,Current health expenditure (% of GDP),2022
+572,CHN,SH.XPD.CHEX.GD.ZS,China,Current health expenditure (% of GDP),2021
+573,CIV,SH.XPD.CHEX.GD.ZS,Cote d'Ivoire,Current health expenditure (% of GDP),2021
+574,CMR,SH.XPD.CHEX.GD.ZS,Cameroon,Current health expenditure (% of GDP),2021
+575,COD,SH.XPD.CHEX.GD.ZS,"Congo, Dem. Rep.",Current health expenditure (% of GDP),2021
+576,COG,SH.XPD.CHEX.GD.ZS,"Congo, Rep.",Current health expenditure (% of GDP),2021
+577,COL,SH.XPD.CHEX.GD.ZS,Colombia,Current health expenditure (% of GDP),2021
+578,COM,SH.XPD.CHEX.GD.ZS,Comoros,Current health expenditure (% of GDP),2021
+579,CPV,SH.XPD.CHEX.GD.ZS,Cabo Verde,Current health expenditure (% of GDP),2021
+580,CRI,SH.XPD.CHEX.GD.ZS,Costa Rica,Current health expenditure (% of GDP),2021
+581,CSS,SH.XPD.CHEX.GD.ZS,Caribbean small states,Current health expenditure (% of GDP),2021
+582,CUB,SH.XPD.CHEX.GD.ZS,Cuba,Current health expenditure (% of GDP),2021
+583,CUW,SH.XPD.CHEX.GD.ZS,Curacao,Current health expenditure (% of GDP),0x2a
+584,CYM,SH.XPD.CHEX.GD.ZS,Cayman Islands,Current health expenditure (% of GDP),0x2a
+585,CYP,SH.XPD.CHEX.GD.ZS,Cyprus,Current health expenditure (% of GDP),2021
+586,CZE,SH.XPD.CHEX.GD.ZS,Czechia,Current health expenditure (% of GDP),2021
+587,DEU,SH.XPD.CHEX.GD.ZS,Germany,Current health expenditure (% of GDP),2022
+588,DJI,SH.XPD.CHEX.GD.ZS,Djibouti,Current health expenditure (% of GDP),2021
+589,DMA,SH.XPD.CHEX.GD.ZS,Dominica,Current health expenditure (% of GDP),2021
+590,DNK,SH.XPD.CHEX.GD.ZS,Denmark,Current health expenditure (% of GDP),2022
+591,DOM,SH.XPD.CHEX.GD.ZS,Dominican Republic,Current health expenditure (% of GDP),2021
+592,DZA,SH.XPD.CHEX.GD.ZS,Algeria,Current health expenditure (% of GDP),2021
+593,EAP,SH.XPD.CHEX.GD.ZS,East Asia & Pacific (excluding high income),Current health expenditure (% of GDP),2021
+594,EAR,SH.XPD.CHEX.GD.ZS,Early-demographic dividend,Current health expenditure (% of GDP),2021
+595,EAS,SH.XPD.CHEX.GD.ZS,East Asia & Pacific,Current health expenditure (% of GDP),2021
+596,ECA,SH.XPD.CHEX.GD.ZS,Europe & Central Asia (excluding high income),Current health expenditure (% of GDP),2021
+597,ECS,SH.XPD.CHEX.GD.ZS,Europe & Central Asia,Current health expenditure (% of GDP),2021
+598,ECU,SH.XPD.CHEX.GD.ZS,Ecuador,Current health expenditure (% of GDP),2021
+599,EGY,SH.XPD.CHEX.GD.ZS,"Egypt, Arab Rep.",Current health expenditure (% of GDP),2021
+600,EMU,SH.XPD.CHEX.GD.ZS,Euro area,Current health expenditure (% of GDP),2021
+601,ERI,SH.XPD.CHEX.GD.ZS,Eritrea,Current health expenditure (% of GDP),2021
+602,ESP,SH.XPD.CHEX.GD.ZS,Spain,Current health expenditure (% of GDP),2021
+603,EST,SH.XPD.CHEX.GD.ZS,Estonia,Current health expenditure (% of GDP),2022
+604,ETH,SH.XPD.CHEX.GD.ZS,Ethiopia,Current health expenditure (% of GDP),2021
+605,EUU,SH.XPD.CHEX.GD.ZS,European Union,Current health expenditure (% of GDP),2021
+606,FCS,SH.XPD.CHEX.GD.ZS,Fragile and conflict affected situations,Current health expenditure (% of GDP),2021
+607,FIN,SH.XPD.CHEX.GD.ZS,Finland,Current health expenditure (% of GDP),2021
+608,FJI,SH.XPD.CHEX.GD.ZS,Fiji,Current health expenditure (% of GDP),2021
+609,FRA,SH.XPD.CHEX.GD.ZS,France,Current health expenditure (% of GDP),2021
+610,FRO,SH.XPD.CHEX.GD.ZS,Faroe Islands,Current health expenditure (% of GDP),0x2a
+611,FSM,SH.XPD.CHEX.GD.ZS,"Micronesia, Fed. Sts.",Current health expenditure (% of GDP),2021
+612,GAB,SH.XPD.CHEX.GD.ZS,Gabon,Current health expenditure (% of GDP),2021
+613,GBR,SH.XPD.CHEX.GD.ZS,United Kingdom,Current health expenditure (% of GDP),2022
+614,GEO,SH.XPD.CHEX.GD.ZS,Georgia,Current health expenditure (% of GDP),2022
+615,GHA,SH.XPD.CHEX.GD.ZS,Ghana,Current health expenditure (% of GDP),2021
+616,GIB,SH.XPD.CHEX.GD.ZS,Gibraltar,Current health expenditure (% of GDP),0x2a
+617,GIN,SH.XPD.CHEX.GD.ZS,Guinea,Current health expenditure (% of GDP),2021
+618,GMB,SH.XPD.CHEX.GD.ZS,"Gambia, The",Current health expenditure (% of GDP),2021
+619,GNB,SH.XPD.CHEX.GD.ZS,Guinea-Bissau,Current health expenditure (% of GDP),2021
+620,GNQ,SH.XPD.CHEX.GD.ZS,Equatorial Guinea,Current health expenditure (% of GDP),2021
+621,GRC,SH.XPD.CHEX.GD.ZS,Greece,Current health expenditure (% of GDP),2021
+622,GRD,SH.XPD.CHEX.GD.ZS,Grenada,Current health expenditure (% of GDP),2021
+623,GRL,SH.XPD.CHEX.GD.ZS,Greenland,Current health expenditure (% of GDP),0x2a
+624,GTM,SH.XPD.CHEX.GD.ZS,Guatemala,Current health expenditure (% of GDP),2021
+625,GUM,SH.XPD.CHEX.GD.ZS,Guam,Current health expenditure (% of GDP),0x2a
+626,GUY,SH.XPD.CHEX.GD.ZS,Guyana,Current health expenditure (% of GDP),2021
+627,HIC,SH.XPD.CHEX.GD.ZS,High income,Current health expenditure (% of GDP),2021
+628,HKG,SH.XPD.CHEX.GD.ZS,"Hong Kong SAR, China",Current health expenditure (% of GDP),0x2a
+629,HND,SH.XPD.CHEX.GD.ZS,Honduras,Current health expenditure (% of GDP),2021
+630,HPC,SH.XPD.CHEX.GD.ZS,Heavily indebted poor countries (HIPC),Current health expenditure (% of GDP),2021
+631,HRV,SH.XPD.CHEX.GD.ZS,Croatia,Current health expenditure (% of GDP),2021
+632,HTI,SH.XPD.CHEX.GD.ZS,Haiti,Current health expenditure (% of GDP),2021
+633,HUN,SH.XPD.CHEX.GD.ZS,Hungary,Current health expenditure (% of GDP),2021
+634,IBD,SH.XPD.CHEX.GD.ZS,IBRD only,Current health expenditure (% of GDP),2021
+635,IBT,SH.XPD.CHEX.GD.ZS,IDA & IBRD total,Current health expenditure (% of GDP),2021
+636,IDA,SH.XPD.CHEX.GD.ZS,IDA total,Current health expenditure (% of GDP),2021
+637,IDB,SH.XPD.CHEX.GD.ZS,IDA blend,Current health expenditure (% of GDP),2021
+638,IDN,SH.XPD.CHEX.GD.ZS,Indonesia,Current health expenditure (% of GDP),2021
+639,IDX,SH.XPD.CHEX.GD.ZS,IDA only,Current health expenditure (% of GDP),2021
+640,IMN,SH.XPD.CHEX.GD.ZS,Isle of Man,Current health expenditure (% of GDP),0x2a
+641,IND,SH.XPD.CHEX.GD.ZS,India,Current health expenditure (% of GDP),2021
+642,INX,SH.XPD.CHEX.GD.ZS,Not classified,Current health expenditure (% of GDP),0x2a
+643,IRL,SH.XPD.CHEX.GD.ZS,Ireland,Current health expenditure (% of GDP),2022
+644,IRN,SH.XPD.CHEX.GD.ZS,"Iran, Islamic Rep.",Current health expenditure (% of GDP),2021
+645,IRQ,SH.XPD.CHEX.GD.ZS,Iraq,Current health expenditure (% of GDP),2021
+646,ISL,SH.XPD.CHEX.GD.ZS,Iceland,Current health expenditure (% of GDP),2022
+647,ISR,SH.XPD.CHEX.GD.ZS,Israel,Current health expenditure (% of GDP),2021
+648,ITA,SH.XPD.CHEX.GD.ZS,Italy,Current health expenditure (% of GDP),2022
+649,JAM,SH.XPD.CHEX.GD.ZS,Jamaica,Current health expenditure (% of GDP),2021
+650,JOR,SH.XPD.CHEX.GD.ZS,Jordan,Current health expenditure (% of GDP),2021
+651,JPN,SH.XPD.CHEX.GD.ZS,Japan,Current health expenditure (% of GDP),2021
+652,KAZ,SH.XPD.CHEX.GD.ZS,Kazakhstan,Current health expenditure (% of GDP),2021
+653,KEN,SH.XPD.CHEX.GD.ZS,Kenya,Current health expenditure (% of GDP),2021
+654,KGZ,SH.XPD.CHEX.GD.ZS,Kyrgyz Republic,Current health expenditure (% of GDP),2021
+655,KHM,SH.XPD.CHEX.GD.ZS,Cambodia,Current health expenditure (% of GDP),2021
+656,KIR,SH.XPD.CHEX.GD.ZS,Kiribati,Current health expenditure (% of GDP),2021
+657,KNA,SH.XPD.CHEX.GD.ZS,St. Kitts and Nevis,Current health expenditure (% of GDP),2021
+658,KOR,SH.XPD.CHEX.GD.ZS,"Korea, Rep.",Current health expenditure (% of GDP),2022
+659,KWT,SH.XPD.CHEX.GD.ZS,Kuwait,Current health expenditure (% of GDP),2021
+660,LAC,SH.XPD.CHEX.GD.ZS,Latin America & Caribbean (excluding high income),Current health expenditure (% of GDP),2021
+661,LAO,SH.XPD.CHEX.GD.ZS,Lao PDR,Current health expenditure (% of GDP),2021
+662,LBN,SH.XPD.CHEX.GD.ZS,Lebanon,Current health expenditure (% of GDP),2021
+663,LBR,SH.XPD.CHEX.GD.ZS,Liberia,Current health expenditure (% of GDP),2021
+664,LBY,SH.XPD.CHEX.GD.ZS,Libya,Current health expenditure (% of GDP),2011
+665,LCA,SH.XPD.CHEX.GD.ZS,St. Lucia,Current health expenditure (% of GDP),2021
+666,LCN,SH.XPD.CHEX.GD.ZS,Latin America & Caribbean,Current health expenditure (% of GDP),2021
+667,LDC,SH.XPD.CHEX.GD.ZS,Least developed countries: UN classification,Current health expenditure (% of GDP),2021
+668,LIC,SH.XPD.CHEX.GD.ZS,Low income,Current health expenditure (% of GDP),2021
+669,LIE,SH.XPD.CHEX.GD.ZS,Liechtenstein,Current health expenditure (% of GDP),0x2a
+670,LKA,SH.XPD.CHEX.GD.ZS,Sri Lanka,Current health expenditure (% of GDP),2021
+671,LMC,SH.XPD.CHEX.GD.ZS,Lower middle income,Current health expenditure (% of GDP),2021
+672,LMY,SH.XPD.CHEX.GD.ZS,Low & middle income,Current health expenditure (% of GDP),2021
+673,LSO,SH.XPD.CHEX.GD.ZS,Lesotho,Current health expenditure (% of GDP),2021
+674,LTE,SH.XPD.CHEX.GD.ZS,Late-demographic dividend,Current health expenditure (% of GDP),2021
+675,LTU,SH.XPD.CHEX.GD.ZS,Lithuania,Current health expenditure (% of GDP),2022
+676,LUX,SH.XPD.CHEX.GD.ZS,Luxembourg,Current health expenditure (% of GDP),2022
+677,LVA,SH.XPD.CHEX.GD.ZS,Latvia,Current health expenditure (% of GDP),2021
+678,MAC,SH.XPD.CHEX.GD.ZS,"Macao SAR, China",Current health expenditure (% of GDP),0x2a
+679,MAF,SH.XPD.CHEX.GD.ZS,St. Martin (French part),Current health expenditure (% of GDP),0x2a
+680,MAR,SH.XPD.CHEX.GD.ZS,Morocco,Current health expenditure (% of GDP),2021
+681,MCO,SH.XPD.CHEX.GD.ZS,Monaco,Current health expenditure (% of GDP),2021
+682,MDA,SH.XPD.CHEX.GD.ZS,Moldova,Current health expenditure (% of GDP),2021
+683,MDG,SH.XPD.CHEX.GD.ZS,Madagascar,Current health expenditure (% of GDP),2021
+684,MDV,SH.XPD.CHEX.GD.ZS,Maldives,Current health expenditure (% of GDP),2021
+685,MEA,SH.XPD.CHEX.GD.ZS,Middle East & North Africa,Current health expenditure (% of GDP),2021
+686,MEX,SH.XPD.CHEX.GD.ZS,Mexico,Current health expenditure (% of GDP),2021
+687,MHL,SH.XPD.CHEX.GD.ZS,Marshall Islands,Current health expenditure (% of GDP),2021
+688,MIC,SH.XPD.CHEX.GD.ZS,Middle income,Current health expenditure (% of GDP),2021
+689,MKD,SH.XPD.CHEX.GD.ZS,North Macedonia,Current health expenditure (% of GDP),2021
+690,MLI,SH.XPD.CHEX.GD.ZS,Mali,Current health expenditure (% of GDP),2021
+691,MLT,SH.XPD.CHEX.GD.ZS,Malta,Current health expenditure (% of GDP),2021
+692,MMR,SH.XPD.CHEX.GD.ZS,Myanmar,Current health expenditure (% of GDP),2021
+693,MNA,SH.XPD.CHEX.GD.ZS,Middle East & North Africa (excluding high income),Current health expenditure (% of GDP),2021
+694,MNE,SH.XPD.CHEX.GD.ZS,Montenegro,Current health expenditure (% of GDP),2021
+695,MNG,SH.XPD.CHEX.GD.ZS,Mongolia,Current health expenditure (% of GDP),2021
+696,MNP,SH.XPD.CHEX.GD.ZS,Northern Mariana Islands,Current health expenditure (% of GDP),0x2a
+697,MOZ,SH.XPD.CHEX.GD.ZS,Mozambique,Current health expenditure (% of GDP),2021
+698,MRT,SH.XPD.CHEX.GD.ZS,Mauritania,Current health expenditure (% of GDP),2021
+699,MUS,SH.XPD.CHEX.GD.ZS,Mauritius,Current health expenditure (% of GDP),2021
+700,MWI,SH.XPD.CHEX.GD.ZS,Malawi,Current health expenditure (% of GDP),2021
+701,MYS,SH.XPD.CHEX.GD.ZS,Malaysia,Current health expenditure (% of GDP),2021
+702,NAC,SH.XPD.CHEX.GD.ZS,North America,Current health expenditure (% of GDP),2022
+703,NAM,SH.XPD.CHEX.GD.ZS,Namibia,Current health expenditure (% of GDP),2021
+704,NCL,SH.XPD.CHEX.GD.ZS,New Caledonia,Current health expenditure (% of GDP),0x2a
+705,NER,SH.XPD.CHEX.GD.ZS,Niger,Current health expenditure (% of GDP),2021
+706,NGA,SH.XPD.CHEX.GD.ZS,Nigeria,Current health expenditure (% of GDP),2021
+707,NIC,SH.XPD.CHEX.GD.ZS,Nicaragua,Current health expenditure (% of GDP),2021
+708,NLD,SH.XPD.CHEX.GD.ZS,Netherlands,Current health expenditure (% of GDP),2021
+709,NOR,SH.XPD.CHEX.GD.ZS,Norway,Current health expenditure (% of GDP),2022
+710,NPL,SH.XPD.CHEX.GD.ZS,Nepal,Current health expenditure (% of GDP),2016
+711,NRU,SH.XPD.CHEX.GD.ZS,Nauru,Current health expenditure (% of GDP),2021
+712,NZL,SH.XPD.CHEX.GD.ZS,New Zealand,Current health expenditure (% of GDP),2021
+713,OED,SH.XPD.CHEX.GD.ZS,OECD members,Current health expenditure (% of GDP),2021
+714,OMN,SH.XPD.CHEX.GD.ZS,Oman,Current health expenditure (% of GDP),2021
+715,OSS,SH.XPD.CHEX.GD.ZS,Other small states,Current health expenditure (% of GDP),2021
+716,PAK,SH.XPD.CHEX.GD.ZS,Pakistan,Current health expenditure (% of GDP),2021
+717,PAN,SH.XPD.CHEX.GD.ZS,Panama,Current health expenditure (% of GDP),2021
+718,PER,SH.XPD.CHEX.GD.ZS,Peru,Current health expenditure (% of GDP),2021
+719,PHL,SH.XPD.CHEX.GD.ZS,Philippines,Current health expenditure (% of GDP),2022
+720,PLW,SH.XPD.CHEX.GD.ZS,Palau,Current health expenditure (% of GDP),2021
+721,PNG,SH.XPD.CHEX.GD.ZS,Papua New Guinea,Current health expenditure (% of GDP),2021
+722,POL,SH.XPD.CHEX.GD.ZS,Poland,Current health expenditure (% of GDP),2022
+723,PRE,SH.XPD.CHEX.GD.ZS,Pre-demographic dividend,Current health expenditure (% of GDP),2021
+724,PRI,SH.XPD.CHEX.GD.ZS,Puerto Rico,Current health expenditure (% of GDP),0x2a
+725,PRK,SH.XPD.CHEX.GD.ZS,"Korea, Dem. People's Rep.",Current health expenditure (% of GDP),0x2a
+726,PRT,SH.XPD.CHEX.GD.ZS,Portugal,Current health expenditure (% of GDP),2022
+727,PRY,SH.XPD.CHEX.GD.ZS,Paraguay,Current health expenditure (% of GDP),2021
+728,PSE,SH.XPD.CHEX.GD.ZS,West Bank and Gaza,Current health expenditure (% of GDP),0x2a
+729,PSS,SH.XPD.CHEX.GD.ZS,Pacific island small states,Current health expenditure (% of GDP),2021
+730,PST,SH.XPD.CHEX.GD.ZS,Post-demographic dividend,Current health expenditure (% of GDP),2021
+731,PYF,SH.XPD.CHEX.GD.ZS,French Polynesia,Current health expenditure (% of GDP),0x2a
+732,QAT,SH.XPD.CHEX.GD.ZS,Qatar,Current health expenditure (% of GDP),2021
+733,ROU,SH.XPD.CHEX.GD.ZS,Romania,Current health expenditure (% of GDP),2021
+734,RUS,SH.XPD.CHEX.GD.ZS,Russian Federation,Current health expenditure (% of GDP),2021
+735,RWA,SH.XPD.CHEX.GD.ZS,Rwanda,Current health expenditure (% of GDP),2021
+736,SAS,SH.XPD.CHEX.GD.ZS,South Asia,Current health expenditure (% of GDP),2021
+737,SAU,SH.XPD.CHEX.GD.ZS,Saudi Arabia,Current health expenditure (% of GDP),2021
+738,SDN,SH.XPD.CHEX.GD.ZS,Sudan,Current health expenditure (% of GDP),2021
+739,SEN,SH.XPD.CHEX.GD.ZS,Senegal,Current health expenditure (% of GDP),2021
+740,SGP,SH.XPD.CHEX.GD.ZS,Singapore,Current health expenditure (% of GDP),2021
+741,SLB,SH.XPD.CHEX.GD.ZS,Solomon Islands,Current health expenditure (% of GDP),2021
+742,SLE,SH.XPD.CHEX.GD.ZS,Sierra Leone,Current health expenditure (% of GDP),2021
+743,SLV,SH.XPD.CHEX.GD.ZS,El Salvador,Current health expenditure (% of GDP),2021
+744,SMR,SH.XPD.CHEX.GD.ZS,San Marino,Current health expenditure (% of GDP),2021
+745,SOM,SH.XPD.CHEX.GD.ZS,Somalia,Current health expenditure (% of GDP),0x2a
+746,SRB,SH.XPD.CHEX.GD.ZS,Serbia,Current health expenditure (% of GDP),2021
+747,SSA,SH.XPD.CHEX.GD.ZS,Sub-Saharan Africa (excluding high income),Current health expenditure (% of GDP),2021
+748,SSD,SH.XPD.CHEX.GD.ZS,South Sudan,Current health expenditure (% of GDP),2021
+749,SSF,SH.XPD.CHEX.GD.ZS,Sub-Saharan Africa,Current health expenditure (% of GDP),2021
+750,SST,SH.XPD.CHEX.GD.ZS,Small states,Current health expenditure (% of GDP),2021
+751,STP,SH.XPD.CHEX.GD.ZS,Sao Tome and Principe,Current health expenditure (% of GDP),2021
+752,SUR,SH.XPD.CHEX.GD.ZS,Suriname,Current health expenditure (% of GDP),2021
+753,SVK,SH.XPD.CHEX.GD.ZS,Slovak Republic,Current health expenditure (% of GDP),2021
+754,SVN,SH.XPD.CHEX.GD.ZS,Slovenia,Current health expenditure (% of GDP),2022
+755,SWE,SH.XPD.CHEX.GD.ZS,Sweden,Current health expenditure (% of GDP),2022
+756,SWZ,SH.XPD.CHEX.GD.ZS,Eswatini,Current health expenditure (% of GDP),2021
+757,SXM,SH.XPD.CHEX.GD.ZS,Sint Maarten (Dutch part),Current health expenditure (% of GDP),0x2a
+758,SYC,SH.XPD.CHEX.GD.ZS,Seychelles,Current health expenditure (% of GDP),2021
+759,SYR,SH.XPD.CHEX.GD.ZS,Syrian Arab Republic,Current health expenditure (% of GDP),2012
+760,TCA,SH.XPD.CHEX.GD.ZS,Turks and Caicos Islands,Current health expenditure (% of GDP),0x2a
+761,TCD,SH.XPD.CHEX.GD.ZS,Chad,Current health expenditure (% of GDP),2021
+762,TEA,SH.XPD.CHEX.GD.ZS,East Asia & Pacific (IDA & IBRD countries),Current health expenditure (% of GDP),2021
+763,TEC,SH.XPD.CHEX.GD.ZS,Europe & Central Asia (IDA & IBRD countries),Current health expenditure (% of GDP),2021
+764,TGO,SH.XPD.CHEX.GD.ZS,Togo,Current health expenditure (% of GDP),2021
+765,THA,SH.XPD.CHEX.GD.ZS,Thailand,Current health expenditure (% of GDP),2021
+766,TJK,SH.XPD.CHEX.GD.ZS,Tajikistan,Current health expenditure (% of GDP),2021
+767,TKM,SH.XPD.CHEX.GD.ZS,Turkmenistan,Current health expenditure (% of GDP),2021
+768,TLA,SH.XPD.CHEX.GD.ZS,Latin America & the Caribbean (IDA & IBRD countries),Current health expenditure (% of GDP),2021
+769,TLS,SH.XPD.CHEX.GD.ZS,Timor-Leste,Current health expenditure (% of GDP),2021
+770,TMN,SH.XPD.CHEX.GD.ZS,Middle East & North Africa (IDA & IBRD countries),Current health expenditure (% of GDP),2021
+771,TON,SH.XPD.CHEX.GD.ZS,Tonga,Current health expenditure (% of GDP),2021
+772,TSA,SH.XPD.CHEX.GD.ZS,South Asia (IDA & IBRD),Current health expenditure (% of GDP),2021
+773,TSS,SH.XPD.CHEX.GD.ZS,Sub-Saharan Africa (IDA & IBRD countries),Current health expenditure (% of GDP),2021
+774,TTO,SH.XPD.CHEX.GD.ZS,Trinidad and Tobago,Current health expenditure (% of GDP),2021
+775,TUN,SH.XPD.CHEX.GD.ZS,Tunisia,Current health expenditure (% of GDP),2021
+776,TUR,SH.XPD.CHEX.GD.ZS,Turkiye,Current health expenditure (% of GDP),2021
+777,TUV,SH.XPD.CHEX.GD.ZS,Tuvalu,Current health expenditure (% of GDP),2021
+778,TZA,SH.XPD.CHEX.GD.ZS,Tanzania,Current health expenditure (% of GDP),2021
+779,UGA,SH.XPD.CHEX.GD.ZS,Uganda,Current health expenditure (% of GDP),2021
+780,UKR,SH.XPD.CHEX.GD.ZS,Ukraine,Current health expenditure (% of GDP),2021
+781,UMC,SH.XPD.CHEX.GD.ZS,Upper middle income,Current health expenditure (% of GDP),2021
+782,URY,SH.XPD.CHEX.GD.ZS,Uruguay,Current health expenditure (% of GDP),2021
+783,USA,SH.XPD.CHEX.GD.ZS,United States,Current health expenditure (% of GDP),2022
+784,UZB,SH.XPD.CHEX.GD.ZS,Uzbekistan,Current health expenditure (% of GDP),2021
+785,VCT,SH.XPD.CHEX.GD.ZS,St. Vincent and the Grenadines,Current health expenditure (% of GDP),2021
+786,VEN,SH.XPD.CHEX.GD.ZS,"Venezuela, RB",Current health expenditure (% of GDP),2021
+787,VGB,SH.XPD.CHEX.GD.ZS,British Virgin Islands,Current health expenditure (% of GDP),0x2a
+788,VIR,SH.XPD.CHEX.GD.ZS,Virgin Islands (U.S.),Current health expenditure (% of GDP),0x2a
+789,VNM,SH.XPD.CHEX.GD.ZS,Viet Nam,Current health expenditure (% of GDP),2021
+790,VUT,SH.XPD.CHEX.GD.ZS,Vanuatu,Current health expenditure (% of GDP),2021
+791,WLD,SH.XPD.CHEX.GD.ZS,World,Current health expenditure (% of GDP),2021
+792,WSM,SH.XPD.CHEX.GD.ZS,Samoa,Current health expenditure (% of GDP),2021
+793,XKX,SH.XPD.CHEX.GD.ZS,Kosovo,Current health expenditure (% of GDP),0x2a
+794,YEM,SH.XPD.CHEX.GD.ZS,"Yemen, Rep.",Current health expenditure (% of GDP),2015
+795,ZAF,SH.XPD.CHEX.GD.ZS,South Africa,Current health expenditure (% of GDP),2021
+796,ZMB,SH.XPD.CHEX.GD.ZS,Zambia,Current health expenditure (% of GDP),2021
+797,ZWE,SH.XPD.CHEX.GD.ZS,Zimbabwe,Current health expenditure (% of GDP),2021

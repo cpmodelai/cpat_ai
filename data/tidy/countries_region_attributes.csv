@@ -1,0 +1,145 @@
+name,code,variable,value
+Arab World,ARB,Name (K),Arab World
+Arab World,ARB,Name (L), Arab World
+Arab World,ARB,Code (M),ARB
+Caribbean small states,CSS,Name (K),Caribbean small states
+Caribbean small states,CSS,Name (L), Caribbean small states
+Caribbean small states,CSS,Code (M),CSS
+Central Europe and the Baltics,CEB,Name (K),Central Europe and the Baltics
+Central Europe and the Baltics,CEB,Name (L), Central Europe and the Baltics
+Central Europe and the Baltics,CEB,Code (M),CEB
+Early-demographic dividend,EAR,Name (K),Early-demographic dividend
+Early-demographic dividend,EAR,Name (L), Early-demographic dividend
+Early-demographic dividend,EAR,Code (M),EAR
+East Asia & Pacific,EAS,Name (K),East Asia & Pacific
+East Asia & Pacific,EAS,Name (L), East Asia & Pacific
+East Asia & Pacific,EAS,Code (M),EAS
+East Asia & Pacific (excluding high income),EAP,Name (K),East Asia & Pacific (excluding high income)
+East Asia & Pacific (excluding high income),EAP,Name (L), East Asia & Pacific (excluding high income)
+East Asia & Pacific (excluding high income),EAP,Code (M),EAP
+East Asia & Pacific (IDA & IBRD),TEA,Name (K),East Asia & Pacific (IDA & IBRD)
+East Asia & Pacific (IDA & IBRD),TEA,Name (L), East Asia & Pacific (IDA & IBRD)
+East Asia & Pacific (IDA & IBRD),TEA,Code (M),TEA
+Euro area,EMU,Name (K),Euro area
+Euro area,EMU,Name (L), Euro area
+Euro area,EMU,Code (M),EMU
+Europe & Central Asia,ECS,Name (K),Europe & Central Asia
+Europe & Central Asia,ECS,Name (L), Europe & Central Asia
+Europe & Central Asia,ECS,Code (M),ECS
+Europe & Central Asia,ECS,IEA country,EUROPE
+Europe & Central Asia (excluding high income),ECA,Name (K),Europe & Central Asia (excluding high income)
+Europe & Central Asia (excluding high income),ECA,Name (L), Europe & Central Asia (excluding high income)
+Europe & Central Asia (excluding high income),ECA,Code (M),ECA
+Europe & Central Asia (excluding high income),ECA,IEA country,OEU
+Europe & Central Asia (IDA & IBRD),TEC,Name (K),Europe & Central Asia (IDA & IBRD)
+Europe & Central Asia (IDA & IBRD),TEC,Name (L), Europe & Central Asia (IDA & IBRD)
+Europe & Central Asia (IDA & IBRD),TEC,Code (M),TEC
+European Union,EUU,Name (K),European Union
+European Union,EUU,Name (L), European Union
+European Union,EUU,Code (M),EUU
+European Union,EUU,IEA country,EU28
+Fragile and conflict affected situations,FCS,Name (K),Fragile and conflict affected situations
+Fragile and conflict affected situations,FCS,Name (L), Fragile and conflict affected situations
+Fragile and conflict affected situations,FCS,Code (M),FCS
+Heavily indebted poor countries (HIPC),HPC,Name (K),Heavily indebted poor countries (HIPC)
+Heavily indebted poor countries (HIPC),HPC,Name (L), Heavily indebted poor countries (HIPC)
+Heavily indebted poor countries (HIPC),HPC,Code (M),HPC
+High income,HIC,Name (K),High income
+High income,HIC,Name (L), High income
+High income,HIC,Code (M),HIC
+IBRD only,IBD,Name (K),IBRD only
+IBRD only,IBD,Name (L), IBRD only
+IBRD only,IBD,Code (M),IBD
+IDA & IBRD total,IBT,Name (K),IDA & IBRD total
+IDA & IBRD total,IBT,Name (L), IDA & IBRD total
+IDA & IBRD total,IBT,Code (M),IBT
+IDA blend,IDB,Name (K),IDA blend
+IDA blend,IDB,Name (L), IDA blend
+IDA blend,IDB,Code (M),IDB
+IDA only,IDX,Name (K),IDA only
+IDA only,IDX,Name (L), IDA only
+IDA only,IDX,Code (M),IDX
+IDA total,IDA,Name (K),IDA total
+IDA total,IDA,Name (L), IDA total
+IDA total,IDA,Code (M),IDA
+Late-demographic dividend,LTE,Name (K),Late-demographic dividend
+Late-demographic dividend,LTE,Name (L), Late-demographic dividend
+Late-demographic dividend,LTE,Code (M),LTE
+Latin America & Caribbean,LCN,Name (K),Latin America & Caribbean
+Latin America & Caribbean,LCN,Name (L), Latin America & Caribbean
+Latin America & Caribbean,LCN,Code (M),LCN
+Latin America & Caribbean (excluding high income),LAC,Name (K),Latin America & Caribbean (excluding high income)
+Latin America & Caribbean (excluding high income),LAC,Name (L), Latin America & Caribbean (excluding high income)
+Latin America & Caribbean (excluding high income),LAC,Code (M),LAC
+Latin America & Caribbean (IDA & IBRD),TLA,Name (K),Latin America & Caribbean (IDA & IBRD)
+Latin America & Caribbean (IDA & IBRD),TLA,Name (L), Latin America & Caribbean (IDA & IBRD)
+Latin America & Caribbean (IDA & IBRD),TLA,Code (M),TLA
+Least developed countries: UN classification,LDC,Name (K),Least developed countries: UN classification
+Least developed countries: UN classification,LDC,Name (L), Least developed countries: UN classification
+Least developed countries: UN classification,LDC,Code (M),LDC
+Low & middle income,LMY,Name (K),Low & middle income
+Low & middle income,LMY,Name (L), Low & middle income
+Low & middle income,LMY,Code (M),LMY
+Low income,LIC,Name (K),Low income
+Low income,LIC,Name (L), Low income
+Low income,LIC,Code (M),LIC
+Lower middle income,LMC,Name (K),Lower middle income
+Lower middle income,LMC,Name (L), Lower middle income
+Lower middle income,LMC,Code (M),LMC
+Middle East & North Africa,MEA,Name (K),Middle East & North Africa
+Middle East & North Africa,MEA,Name (L), Middle East & North Africa
+Middle East & North Africa,MEA,Code (M),MEA
+Middle East & North Africa,MEA,IEA country,ASME
+Middle East & North Africa (excluding high income),MNA,Name (K),Middle East & North Africa (excluding high income)
+Middle East & North Africa (excluding high income),MNA,Name (L), Middle East & North Africa (excluding high income)
+Middle East & North Africa (excluding high income),MNA,Code (M),MNA
+Middle East & North Africa (IDA & IBRD),TMN,Name (K),Middle East & North Africa (IDA & IBRD)
+Middle East & North Africa (IDA & IBRD),TMN,Name (L), Middle East & North Africa (IDA & IBRD)
+Middle East & North Africa (IDA & IBRD),TMN,Code (M),TMN
+Middle income,MIC,Name (K),Middle income
+Middle income,MIC,Name (L), Middle income
+Middle income,MIC,Code (M),MIC
+North America,NAC,Name (K),North America
+North America,NAC,Name (L), North America
+North America,NAC,Code (M),NAC
+OECD members,OED,Name (K),OECD members
+OECD members,OED,Name (L), OECD members
+OECD members,OED,Code (M),OED
+OECD members,OED,IEA country,OTO
+Other small states,OSS,Name (K),Other small states
+Other small states,OSS,Name (L), Other small states
+Other small states,OSS,Code (M),OSS
+Pacific island small states,PSS,Name (K),Pacific island small states
+Pacific island small states,PSS,Name (L), Pacific island small states
+Pacific island small states,PSS,Code (M),PSS
+Post-demographic dividend,PST,Name (K),Post-demographic dividend
+Post-demographic dividend,PST,Name (L), Post-demographic dividend
+Post-demographic dividend,PST,Code (M),PST
+Pre-demographic dividend,PRE,Name (K),Pre-demographic dividend
+Pre-demographic dividend,PRE,Name (L), Pre-demographic dividend
+Pre-demographic dividend,PRE,Code (M),PRE
+Small states,SST,Name (K),Small states
+Small states,SST,Name (L), Small states
+Small states,SST,Code (M),SST
+South Asia,SAS,Name (K),South Asia
+South Asia,SAS,Name (L), South Asia
+South Asia,SAS,Code (M),SAS
+South Asia (IDA & IBRD),TSA,Name (K),South Asia (IDA & IBRD)
+South Asia (IDA & IBRD),TSA,Name (L), South Asia (IDA & IBRD)
+South Asia (IDA & IBRD),TSA,Code (M),TSA
+Sub-Saharan Africa,SSF,Name (K),Sub-Saharan Africa
+Sub-Saharan Africa,SSF,Name (L), Sub-Saharan Africa
+Sub-Saharan Africa,SSF,Code (M),SSF
+Sub-Saharan Africa (excluding high income),SSA,Name (K),Sub-Saharan Africa (excluding high income)
+Sub-Saharan Africa (excluding high income),SSA,Name (L), Sub-Saharan Africa (excluding high income)
+Sub-Saharan Africa (excluding high income),SSA,Code (M),SSA
+Sub-Saharan Africa (IDA & IBRD),TSS,Name (K),Sub-Saharan Africa (IDA & IBRD)
+Sub-Saharan Africa (IDA & IBRD),TSS,Name (L), Sub-Saharan Africa (IDA & IBRD)
+Sub-Saharan Africa (IDA & IBRD),TSS,Code (M),TSS
+Upper middle income,UMC,Name (K),Upper middle income
+Upper middle income,UMC,Name (L), Upper middle income
+Upper middle income,UMC,Code (M),UMC
+World,WLD,Name (K),World
+World,WLD,Name (L), World
+World,WLD,Code (M),WLD
+World,WLD,IEA country,WLD

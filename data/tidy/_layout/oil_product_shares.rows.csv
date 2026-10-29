@@ -1,0 +1,223 @@
+_row,countrycode,countryname,incomelevel,region
+0,LUX,Luxembourg,HIC,ECS
+1,WAV,World aviation,HIC,
+2,WMA,World marine,HIC,
+3,ABW,Aruba,HIC,LCN
+4,PAN,Panama,HIC,LCN
+5,LVA,Latvia,HIC,ECS
+6,ATG,Antigua and Barbuda,HIC,LCN
+7,ARG,Argentina,HIC,LCN
+8,KNA,St. Kitts and Nevis,HIC,LCN
+9,SAU,Saudi Arabia,HIC,MEA
+10,TTO,Trinidad and Tobago,HIC,LCN
+11,CHL,Chile,HIC,LCN
+12,TCA,Turks and Caicos Islands,HIC,LCN
+13,BMU,Bermuda,HIC,NAC
+14,IRL,Ireland,HIC,ECS
+15,URY,Uruguay,HIC,LCN
+16,SGP,Singapore,HIC,EAS
+17,SXM,Sint Maarten (Dutch part),HIC,LCN
+18,MAC,Macao SAR,HIC,EAS
+19,GRL,Greenland,HIC,ECS
+20,TWN,Taiwan Province of China,HIC,EAS
+21,MNP,Northern Mariana Islands,HIC,EAS
+22,LIE,Liechtenstein,HIC,ECS
+23,USA,United States,HIC,NAC
+24,FRO,Faroe Islands,HIC,ECS
+25,DEU,Germany,HIC,ECS
+26,GRC,Greece,HIC,ECS
+27,ARE,United Arab Emirates,HIC,MEA
+28,NCL,New Caledonia,HIC,EAS
+29,CZE,Czechia,HIC,ECS
+30,CHI,Channel Islands,HIC,ECS
+31,SVN,Slovenia,HIC,ECS
+32,BEL,Belgium,HIC,ECS
+33,BRB,Barbados,HIC,LCN
+34,FRA,France,HIC,ECS
+35,GBR,United Kingdom,HIC,ECS
+36,MCO,Monaco,HIC,ECS
+37,GIB,Gibraltar,HIC,ECS
+38,FIN,Finland,HIC,ECS
+39,PRT,Portugal,HIC,ECS
+40,CYM,Cayman Islands,HIC,LCN
+41,AUT,Austria,HIC,ECS
+42,VGB,British Virgin Islands,HIC,LCN
+43,CYP,Cyprus,HIC,ECS
+44,NLD,Netherlands,HIC,ECS
+45,NOR,Norway,HIC,ECS
+46,HRV,Croatia,HIC,ECS
+47,HUN,Hungary,HIC,ECS
+48,BHR,Bahrain,HIC,MEA
+49,ISL,Iceland,HIC,ECS
+50,SYC,Seychelles,HIC,SSF
+51,VIR,Virgin Islands (U.S.),HIC,LCN
+52,CHE,Switzerland,HIC,ECS
+53,EST,Estonia,HIC,ECS
+54,DNK,Denmark,HIC,ECS
+55,LTU,Lithuania,HIC,ECS
+56,SMR,San Marino,HIC,ECS
+57,POL,Poland,HIC,ECS
+58,AND,Andorra,HIC,ECS
+59,QAT,Qatar,HIC,MEA
+60,HKG,Hong Kong SAR,HIC,EAS
+61,ITA,Italy,HIC,ECS
+62,ESP,Spain,HIC,ECS
+63,JPN,Japan,HIC,EAS
+64,IMN,Isle of Man,HIC,ECS
+65,PRI,Puerto Rico,HIC,LCN
+66,PYF,French Polynesia,HIC,EAS
+67,SWE,Sweden,HIC,ECS
+68,BHS,"Bahamas, The",HIC,LCN
+69,KOR,Korea,HIC,EAS
+70,ISR,Israel,HIC,MEA
+71,GUM,Guam,HIC,EAS
+72,NZL,New Zealand,HIC,EAS
+73,OMN,Oman,HIC,MEA
+74,PLW,Palau,HIC,EAS
+75,MAF,St. Martin (French part),HIC,LCN
+76,BRN,Brunei Darussalam,HIC,EAS
+77,KWT,Kuwait,HIC,MEA
+78,CUW,Curaçao,HIC,LCN
+79,SVK,Slovak Republic,HIC,ECS
+80,CAN,Canada,HIC,NAC
+81,AUS,Australia,HIC,EAS
+82,MLT,Malta,HIC,MEA
+83,BDI,Burundi,LIC,SSF
+84,GIN,Guinea,LIC,SSF
+85,CAF,Central African Republic,LIC,SSF
+86,COM,Comoros,LIC,SSF
+87,GNB,Guinea-Bissau,LIC,SSF
+88,TGO,Togo,LIC,SSF
+89,MDG,Madagascar,LIC,SSF
+90,ETH,Ethiopia,LIC,SSF
+91,GMB,"Gambia, The",LIC,SSF
+92,MWI,Malawi,LIC,SSF
+93,COD,"Congo, Democratic Republic of the",LIC,SSF
+94,SLE,Sierra Leone,LIC,SSF
+95,TZA,Tanzania,LIC,SSF
+96,PRK,"Korea, Dem. People's Rep.",LIC,EAS
+97,UGA,Uganda,LIC,SSF
+98,TJK,Tajikistan,LIC,ECS
+99,NER,Niger,LIC,SSF
+100,SEN,Senegal,LIC,SSF
+101,LBR,Liberia,LIC,SSF
+102,ZWE,Zimbabwe,LIC,SSF
+103,SOM,Somalia,LIC,SSF
+104,RWA,Rwanda,LIC,SSF
+105,SYR,Syria,LIC,MEA
+106,BFA,Burkina Faso,LIC,SSF
+107,BEN,Benin,LIC,SSF
+108,YEM,Yemen,LIC,MEA
+109,MLI,Mali,LIC,SSF
+110,AFG,Afghanistan,LIC,SAS
+111,NPL,Nepal,LIC,SAS
+112,HTI,Haiti,LIC,LCN
+113,SSD,South Sudan,LIC,SSF
+114,TCD,Chad,LIC,SSF
+115,ERI,Eritrea,LIC,SSF
+116,MOZ,Mozambique,LIC,SSF
+117,BTN,Bhutan,LMIC,SAS
+118,COG,"Congo, Republic of",LMIC,SSF
+119,PNG,Papua New Guinea,LMIC,EAS
+120,MAR,Morocco,LMIC,MEA
+121,ZMB,Zambia,LMIC,SSF
+122,PHL,Philippines,LMIC,EAS
+123,MRT,Mauritania,LMIC,SSF
+124,LSO,Lesotho,LMIC,SSF
+125,KEN,Kenya,LMIC,SSF
+126,KHM,Cambodia,LMIC,EAS
+127,VNM,Vietnam,LMIC,EAS
+128,FSM,Micronesia,LMIC,EAS
+129,MMR,Myanmar,LMIC,EAS
+130,TLS,Timor-Leste,LMIC,EAS
+131,VUT,Vanuatu,LMIC,EAS
+132,IDN,Indonesia,LMIC,EAS
+133,CIV,Côte d'Ivoire,LMIC,SSF
+134,UZB,Uzbekistan,LMIC,ECS
+135,DJI,Djibouti,LMIC,MEA
+136,SDN,Sudan,LMIC,SSF
+137,SLB,Solomon Islands,LMIC,EAS
+138,MDA,Moldova,LMIC,ECS
+139,KIR,Kiribati,LMIC,EAS
+140,KGZ,Kyrgyz Republic,LMIC,ECS
+141,CPV,Cabo Verde,LMIC,SSF
+142,CMR,Cameroon,LMIC,SSF
+143,TUN,Tunisia,LMIC,MEA
+144,LAO,Lao P.D.R.,LMIC,EAS
+145,NGA,Nigeria,LMIC,SSF
+146,MNG,Mongolia,LMIC,EAS
+147,XKX,Kosovo,LMIC,ECS
+148,STP,São Tomé and Príncipe,LMIC,SSF
+149,EGY,Egypt,LMIC,MEA
+150,IND,India,LMIC,SAS
+151,SWZ,Eswatini,LMIC,SSF
+152,BOL,Bolivia,LMIC,LCN
+153,LKA,Sri Lanka,LMIC,SAS
+154,AGO,Angola,LMIC,SSF
+155,NIC,Nicaragua,LMIC,LCN
+156,SLV,El Salvador,LMIC,LCN
+157,GHA,Ghana,LMIC,SSF
+158,HND,Honduras,LMIC,LCN
+159,PSE,West Bank and Gaza,LMIC,MEA
+160,UKR,Ukraine,LMIC,ECS
+161,PAK,Pakistan,LMIC,SAS
+162,BGD,Bangladesh,LMIC,SAS
+163,GEO,Georgia,LMIC,ECS
+164,COL,Colombia,UMIC,LCN
+165,TUR,Turkiye,UMIC,ECS
+166,GNQ,Equatorial Guinea,UMIC,SSF
+167,DOM,Dominican Republic,UMIC,LCN
+168,JAM,Jamaica,UMIC,LCN
+169,GRD,Grenada,UMIC,LCN
+170,MSR,Montserrat,UMIC,LCN
+171,WSM,Samoa,UMIC,EAS
+172,LBY,Libya,UMIC,MEA
+173,ZAF,South Africa,UMIC,SSF
+174,SRB,Serbia,UMIC,ECS
+175,MNE,"Montenegro, Rep. of",UMIC,ECS
+176,ECU,Ecuador,UMIC,LCN
+177,CHN,China,UMIC,EAS
+178,NRU,Nauru,UMIC,EAS
+179,NAM,Namibia,UMIC,SSF
+180,CRI,Costa Rica,UMIC,LCN
+181,MHL,Marshall Islands,UMIC,EAS
+182,PER,Peru,UMIC,LCN
+183,BIH,Bosnia and Herzegovina,UMIC,ECS
+184,VEN,Venezuela,UMIC,LCN
+185,TUV,Tuvalu,UMIC,EAS
+186,MYS,Malaysia,UMIC,EAS
+187,ROU,Romania,UMIC,ECS
+188,AZE,Azerbaijan,UMIC,ECS
+189,VCT,St. Vincent and the Grenadines,UMIC,LCN
+190,ALB,Albania,UMIC,ECS
+191,THA,Thailand,UMIC,EAS
+192,DZA,Algeria,UMIC,MEA
+193,GTM,Guatemala,UMIC,LCN
+194,CUB,Cuba,UMIC,LCN
+195,BLR,Belarus,UMIC,ECS
+196,MKD,North Macedonia,UMIC,ECS
+197,MDV,Maldives,UMIC,SAS
+198,DMA,Dominica,UMIC,LCN
+199,BWA,Botswana,UMIC,SSF
+200,TKM,Turkmenistan,UMIC,ECS
+201,MUS,Mauritius,UMIC,SSF
+202,IRN,Iran,UMIC,MEA
+203,GAB,Gabon,UMIC,SSF
+204,MEX,Mexico,UMIC,LCN
+205,RUS,Russia,UMIC,ECS
+206,JOR,Jordan,UMIC,MEA
+207,PRY,Paraguay,UMIC,LCN
+208,TON,Tonga,UMIC,EAS
+209,LCA,St. Lucia,UMIC,LCN
+210,ASM,American Samoa,UMIC,EAS
+211,AIA,Anguilla,UMIC,LCN
+212,LBN,Lebanon,UMIC,MEA
+213,SUR,Suriname,UMIC,LCN
+214,GUY,Guyana,UMIC,LCN
+215,IRQ,Iraq,UMIC,MEA
+216,BLZ,Belize,UMIC,LCN
+217,KAZ,Kazakhstan,UMIC,ECS
+218,BRA,Brazil,UMIC,LCN
+219,FJI,Fiji,UMIC,EAS
+220,ARM,Armenia,UMIC,ECS
+221,BGR,Bulgaria,UMIC,ECS

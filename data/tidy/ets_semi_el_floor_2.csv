@@ -1,0 +1,361 @@
+country_name,country,sector,value
+Afghanistan,afg,pow,-0.011111111111111
+Afghanistan,afg,tra,-0.0021030494216615
+Afghanistan,afg,res,-0.00158227848101266
+Afghanistan,afg,ind,-0.0169830169830168
+Albania,alb,pow,-0.0127388535031847
+Albania,alb,tra,-0.00123456790123455
+Albania,alb,res,-0.00324675324675327
+Albania,alb,ind,-0.00990099009900991
+Angola,ago,pow,-0.00889164598842018
+Angola,ago,tra,-0.00708297195721308
+Angola,ago,res,-0.00532643433267387
+Angola,ago,ind,-0.00762300762300771
+Argentina,arg,pow,-0.00430705253331065
+Argentina,arg,tra,-0.00271204687079473
+Argentina,arg,res,-0.00457578646329837
+Argentina,arg,ind,-0.00457292613788307
+Armenia,arm,pow,-0.00279524807826692
+Armenia,arm,tra,-0.0030946065428824
+Armenia,arm,res,-0.00488334237655985
+Armenia,arm,ind,-0.00507614213197971
+Australia,aus,pow,-0.0198745012526676
+Australia,aus,tra,-0.00146676991755112
+Australia,aus,res,-0.00287284536597554
+Australia,aus,ind,-0.00535585042219544
+Dominica,dma,pow,-0.0005
+Dominica,dma,tra,-0.0005
+Dominica,dma,res,-0.0005
+Dominica,dma,ind,-0.0005
+Dominican Republic,dom,pow,-0.00721988667519657
+Dominican Republic,dom,tra,-0.00191479176639552
+Dominican Republic,dom,res,-0.0031590031590033
+Dominican Republic,dom,ind,-0.00515862780500375
+Ecuador,ecu,pow,-0.00390915860014895
+Ecuador,ecu,tra,-0.00377453447408149
+Ecuador,ecu,res,-0.0174430128840435
+Ecuador,ecu,ind,-0.00752351097178682
+Egypt,egy,pow,-0.0121994342291371
+Egypt,egy,tra,-0.00569953758468666
+Egypt,egy,res,-0.00897635804290109
+Egypt,egy,ind,-0.0187586772687113
+El Salvador,slv,pow,-0.00155520995334368
+El Salvador,slv,tra,-0.00202156334231817
+El Salvador,slv,res,-0.00230680507497116
+El Salvador,slv,ind,-0.00395647873392679
+Equatorial Guinea,gnq,pow,-0.00255754475703329
+Equatorial Guinea,gnq,tra,-0.00321027287319419
+Equatorial Guinea,gnq,res,-0.00564971751412435
+Equatorial Guinea,gnq,ind,-0.00930405656866395
+Ethiopia,eth,pow,-0.0287141073657928
+Ethiopia,eth,tra,-0.00147970036067701
+Ethiopia,eth,res,-0.00259235255994816
+Ethiopia,eth,ind,-0.00481130657044048
+Fiji,fji,pow,-0.00238095238095237
+Fiji,fji,tra,-0.00214362272240087
+Fiji,fji,res,-0.0005
+Fiji,fji,ind,-0.00566572237960338
+Gabon,gab,pow,-0.00394088669950742
+Gabon,gab,tra,-0.00227272727272731
+Gabon,gab,res,-0.00493827160493831
+Gabon,gab,ind,-0.00500357398141537
+Georgia,geo,pow,-0.00205338809034905
+Georgia,geo,tra,-0.00273722627737238
+Georgia,geo,res,-0.00836570062742758
+Georgia,geo,ind,-0.00783085356303836
+Ghana,gha,pow,-0.0091365920511649
+Ghana,gha,tra,-0.00198685618217941
+Ghana,gha,res,-0.00250752256770303
+Ghana,gha,ind,-0.00438476294875311
+Greenland,grl,pow,-0.0005
+Greenland,grl,tra,-0.0005
+Greenland,grl,res,-0.00366300366300365
+Greenland,grl,ind,-0.0005
+Guatemala,gtm,pow,-0.0107438016528924
+Guatemala,gtm,tra,-0.00189491817398801
+Guatemala,gtm,res,-0.0025591810620601
+Guatemala,gtm,ind,-0.00433973961562295
+Guinea,gin,pow,-0.00431034482758618
+Guinea,gin,tra,-0.00147856086742248
+Guinea,gin,res,-0.0005
+Guinea,gin,ind,-0.0029218407596786
+Guyana,guy,pow,-0.00313676286072783
+Guyana,guy,tra,-0.00163532297628776
+Guyana,guy,res,-0.00270270270270267
+Guyana,guy,ind,-0.00252206809583854
+Haiti,hti,pow,-0.00443951165371814
+Haiti,hti,tra,-0.00257566001287834
+Haiti,hti,res,-0.0005
+Haiti,hti,ind,-0.00542740841248301
+Honduras,hnd,pow,-0.00458575359217372
+Honduras,hnd,tra,-0.00209753539590984
+Honduras,hnd,res,-0.00310559006211175
+Honduras,hnd,ind,-0.00449236298292887
+Hong Kong SAR,hkg,pow,-0.00745250341135728
+Hong Kong SAR,hkg,tra,-0.000661813368630026
+Hong Kong SAR,hkg,res,-0.00177200236266983
+Hong Kong SAR,hkg,ind,-0.00124069478908195
+India,ind,pow,-0.0314890698097023
+India,ind,tra,-0.00213010951321723
+India,ind,res,-0.00546347026685445
+India,ind,ind,-0.0108502439461538
+Iran,irn,pow,-0.0194237472418533
+Iran,irn,tra,-0.0695234332002089
+Iran,irn,res,-0.125297652164237
+Iran,irn,ind,-0.0616567105949829
+Iraq,irq,pow,-0.010392316292306
+Iraq,irq,tra,-0.0048353138493381
+Iraq,irq,res,-0.00267052409035284
+Iraq,irq,ind,-0.00871169611777911
+Jamaica,jam,pow,-0.00189663347558088
+Jamaica,jam,tra,-0.00173085244482906
+Jamaica,jam,res,-0.00222717149220486
+Jamaica,jam,ind,-0.0057755775577557
+Japan,jpn,pow,-0.0056485866985888
+Japan,jpn,tra,-0.00179532376449076
+Japan,jpn,res,-0.00261270664287405
+Japan,jpn,ind,-0.00467434657440291
+Kenya,ken,pow,-0.00594059405940594
+Kenya,ken,tra,-0.00171379605826904
+Kenya,ken,res,-0.00249287749287741
+Kenya,ken,ind,-0.00700144857556739
+Kosovo,xkx,pow,-0.0233861925356398
+Kosovo,xkx,tra,-0.00131752305665344
+Kosovo,xkx,res,-0.00457665903890158
+Kosovo,xkx,ind,-0.00521512385919165
+Kyrgyz Republic,kgz,pow,-0.0217631870158612
+Kyrgyz Republic,kgz,tra,-0.00324825986078869
+Kyrgyz Republic,kgz,res,-0.00641378046545726
+Kyrgyz Republic,kgz,ind,-0.01010101010101
+Lao P.D.R.,lao,pow,-0.0302670119285136
+Lao P.D.R.,lao,tra,-0.00199203187250995
+Lao P.D.R.,lao,res,-0.0005
+Lao P.D.R.,lao,ind,-0.015169194865811
+Lebanon,lbn,pow,-0.00480573429991038
+Lebanon,lbn,tra,-0.00248193298780941
+Lebanon,lbn,res,-0.0015673981191222
+Lebanon,lbn,ind,-0.00799360511590707
+Lesotho,lso,pow,-0.0005
+Lesotho,lso,tra,-0.0005
+Lesotho,lso,res,-0.0005
+Lesotho,lso,ind,-0.00966850828729282
+Liberia,lbr,pow,-0.00424628450106157
+Liberia,lbr,tra,-0.001953125
+Liberia,lbr,res,-0.0005
+Liberia,lbr,ind,-0.0005
+Macao SAR,mac,pow,-0.00178890876565296
+Macao SAR,mac,tra,-0.00215285252960173
+Macao SAR,mac,res,-0.00471698113207552
+Macao SAR,mac,ind,-0.00303951367781152
+Madagascar,mdg,pow,-0.0051622418879057
+Madagascar,mdg,tra,-0.00147710487444607
+Madagascar,mdg,res,-0.0005
+Madagascar,mdg,ind,-0.00729927007299269
+Malawi,mwi,pow,-0.00736842105263158
+Malawi,mwi,tra,-0.00141793690180791
+Malawi,mwi,res,-0.0005
+Malawi,mwi,ind,-0.0111420612813371
+Malaysia,mys,pow,-0.0147185253963342
+Malaysia,mys,tra,-0.0035606508167143
+Malaysia,mys,res,-0.00444664031620556
+Malaysia,mys,ind,-0.00688718714065506
+Mali,mli,pow,-0.00406268136970411
+Mali,mli,tra,-0.00140977443609024
+Mali,mli,res,-0.00291545189504371
+Mali,mli,ind,-0.00763358778625955
+Mauritius,mus,pow,-0.00982890425919169
+Mauritius,mus,tra,-0.00181818181818182
+Mauritius,mus,res,-0.00358422939068103
+Mauritius,mus,ind,-0.0053908355795148
+Moldova,mda,pow,-0.00199714693295283
+Moldova,mda,tra,-0.00208681135225374
+Moldova,mda,res,-0.00332068311195454
+Moldova,mda,ind,-0.00277264325323489
+Mongolia,mng,pow,-0.0413971539456662
+Mongolia,mng,tra,-0.00371747211895911
+Mongolia,mng,res,-0.0107102593010147
+Mongolia,mng,ind,-0.00776627218934922
+Morocco,mar,pow,-0.0166686313804078
+Morocco,mar,tra,-0.00158559664467283
+Morocco,mar,res,-0.00603045379164779
+Morocco,mar,ind,-0.0051635111876076
+Mozambique,moz,pow,-0.0044897959183674
+Mozambique,moz,tra,-0.00156087408949012
+Mozambique,moz,res,-0.0005
+Mozambique,moz,ind,-0.00583771161704616
+Myanmar,mmr,pow,-0.0201993177713866
+Myanmar,mmr,tra,-0.00231984920980132
+Myanmar,mmr,res,-0.00315415954790376
+Myanmar,mmr,ind,-0.00538701445988099
+Namibia,nam,pow,-0.0263157894736841
+Namibia,nam,tra,-0.00261665939816846
+Namibia,nam,res,-0.00369822485207105
+Namibia,nam,ind,-0.00549450549450547
+Nepal,npl,pow,-0.0107991360691145
+Nepal,npl,tra,-0.00157201807820794
+Nepal,npl,res,-0.00330033003300334
+Nepal,npl,ind,-0.00703463203463206
+Nicaragua,nic,pow,-0.00402900886381962
+Nicaragua,nic,tra,-0.00180635838150289
+Nicaragua,nic,res,-0.00213219616204674
+Nicaragua,nic,ind,-0.00475624256837103
+Nigeria,nga,pow,-0.0168643822593312
+Nigeria,nga,tra,-0.00280983442047166
+Nigeria,nga,res,-0.00198452073824162
+Nigeria,nga,ind,-0.00992618074965945
+North Macedonia,mkd,pow,-0.0208733864322988
+North Macedonia,mkd,tra,-0.00170940170940159
+North Macedonia,mkd,res,-0.00424628450106157
+North Macedonia,mkd,ind,-0.00880281690140838
+Pakistan,pak,pow,-0.0087124053740708
+Pakistan,pak,tra,-0.00294390319275239
+Pakistan,pak,res,-0.0109975083770083
+Pakistan,pak,ind,-0.00920999866328042
+Panama,pan,pow,-0.0106117353308364
+Panama,pan,tra,-0.00186974135244633
+Panama,pan,res,-0.00283822138126765
+Panama,pan,ind,-0.00354430379746839
+Papua New Guinea,png,pow,-0.0038935756002596
+Papua New Guinea,png,tra,-0.00291828793774329
+Papua New Guinea,png,res,-0.00289855072463773
+Papua New Guinea,png,ind,-0.00597701149425278
+Paraguay,pry,pow,-0.0382595648912227
+Paraguay,pry,tra,-0.00207770621234149
+Paraguay,pry,res,-0.00308641975308643
+Paraguay,pry,ind,-0.00448430493273543
+Peru,per,pow,-0.00492258122259015
+Peru,per,tra,-0.0019002545624035
+Peru,per,res,-0.00299222022740885
+Peru,per,ind,-0.00661697596592636
+Philippines,phl,pow,-0.0185697427425064
+Philippines,phl,tra,-0.00187999728193155
+Philippines,phl,res,-0.00315829169416426
+Philippines,phl,ind,-0.00790608528988989
+Russia,rus,pow,-0.0196474946065861
+Russia,rus,tra,-0.00341915902556644
+Russia,rus,res,-0.0169407805233349
+Russia,rus,ind,-0.0181672264437833
+Rwanda,rwa,pow,-0.00988467874794074
+Rwanda,rwa,tra,-0.0013140604467805
+Rwanda,rwa,res,-0.00480769230769229
+Rwanda,rwa,ind,-0.0057803468208093
+Samoa,wsm,pow,-0.0005
+Samoa,wsm,tra,-0.00431034482758618
+Samoa,wsm,res,-0.0005
+Samoa,wsm,ind,-0.0005
+SÃ£o TomÃ© and PrÃ­ncipe,stp,pow,-0.00952380952380949
+SÃ£o TomÃ© and PrÃ­ncipe,stp,tra,-0.0005
+SÃ£o TomÃ© and PrÃ­ncipe,stp,res,-0.0005
+SÃ£o TomÃ© and PrÃ­ncipe,stp,ind,-0.0005
+Senegal,sen,pow,-0.00444976895430426
+Senegal,sen,tra,-0.00170116246101503
+Senegal,sen,res,-0.00264200792602375
+Senegal,sen,ind,-0.00757958564931793
+Serbia,srb,pow,-0.0318320742748399
+Serbia,srb,tra,-0.00145583953413142
+Serbia,srb,res,-0.00598431696244328
+Serbia,srb,ind,-0.00729626965368412
+Sierra Leone,sle,pow,-0.0005
+Sierra Leone,sle,tra,-0.00309119010819169
+Sierra Leone,sle,res,-0.0005
+Sierra Leone,sle,ind,-0.0133333333333333
+Singapore,sgp,pow,-0.000955646747990535
+Singapore,sgp,tra,-0.000967741935483879
+Singapore,sgp,res,-0.00143266475644698
+Singapore,sgp,ind,-0.00354676124696662
+Solomon Islands,slb,pow,-0.0104166666666666
+Solomon Islands,slb,tra,-0.00413223140495866
+Solomon Islands,slb,res,-0.0416666666666667
+Solomon Islands,slb,ind,-0.0005
+South Africa,zaf,pow,-0.0284812899833494
+South Africa,zaf,tra,-0.00201326385599254
+South Africa,zaf,res,-0.0145376344086022
+South Africa,zaf,ind,-0.0214003212866497
+Sri Lanka,lka,pow,-0.0121887149311757
+Sri Lanka,lka,tra,-0.00171319157512839
+Sri Lanka,lka,res,-0.00236034618410696
+Sri Lanka,lka,ind,-0.00453172205438068
+St. Vincent and the Grenadines,vct,pow,-0.025
+St. Vincent and the Grenadines,vct,tra,-0.0222222222222222
+St. Vincent and the Grenadines,vct,res,-0.0005
+St. Vincent and the Grenadines,vct,ind,-0.0005
+Sudan,sdn,pow,-0.00589636013153438
+Sudan,sdn,tra,-0.00238663484486878
+Sudan,sdn,res,-0.00371195248700806
+Sudan,sdn,ind,-0.0045385779122542
+Suriname,sur,pow,-0.00426136363636364
+Suriname,sur,tra,-0.00169779286926996
+Suriname,sur,res,-0.0035005834305718
+Suriname,sur,ind,-0.00512820512820511
+Syria,syr,pow,-0.00304235899836191
+Syria,syr,tra,-0.00252188102655381
+Syria,syr,res,-0.00299700299700289
+Syria,syr,ind,-0.00536792663833596
+Taiwan Province of China,twn,pow,-0.0110711571401023
+Taiwan Province of China,twn,tra,-0.00197950628784349
+Taiwan Province of China,twn,res,-0.00427064143359567
+Taiwan Province of China,twn,ind,-0.00644725211875418
+Tajikistan,tjk,pow,-0.0132137800849457
+Tajikistan,tjk,tra,-0.00233972859148334
+Tajikistan,tjk,res,-0.0150176678445228
+Tajikistan,tjk,ind,-0.0155541153596889
+Tanzania,tza,pow,-0.00461361014994232
+Tanzania,tza,tra,-0.00164618086040391
+Tanzania,tza,res,-0.00210748155953632
+Tanzania,tza,ind,-0.0152743142144639
+Thailand,tha,pow,-0.00890351519796239
+Thailand,tha,tra,-0.00208696506174965
+Thailand,tha,res,-0.00391041592605756
+Thailand,tha,ind,-0.00758452089917127
+Togo,tgo,pow,-0.00331125827814571
+Togo,tgo,tra,-0.00207468879668037
+Togo,tgo,res,-0.0005
+Togo,tgo,ind,-0.00467289719626173
+Tunisia,tun,pow,-0.0077412220071884
+Tunisia,tun,tra,-0.00296397628818967
+Tunisia,tun,res,-0.00814699254636852
+Tunisia,tun,ind,-0.00577875619152445
+Turkiye,tur,pow,-0.0127121589124117
+Turkiye,tur,tra,-0.00193895313765712
+Turkiye,tur,res,-0.00768086730200967
+Turkiye,tur,ind,-0.00680305118301283
+Uganda,uga,pow,-0.0152027027027027
+Uganda,uga,tra,-0.00169527442254713
+Uganda,uga,res,-0.00255536626916519
+Uganda,uga,ind,-0.00298284862043252
+Ukraine,ukr,pow,-0.019024742480732
+Ukraine,ukr,tra,-0.0020791537479482
+Ukraine,ukr,res,-0.00686907020872873
+Ukraine,ukr,ind,-0.00949106156032342
+United States,usa,pow,-0.0138948110498997
+United States,usa,tra,-0.00172802132378313
+United States,usa,res,-0.00652246454226346
+United States,usa,ind,-0.00811695166921377
+Uruguay,ury,pow,-0.00270270270270267
+Uruguay,ury,tra,-0.00100300902708128
+Uruguay,ury,res,-0.0025188916876575
+Uruguay,ury,ind,-0.00439238653001461
+Uzbekistan,uzb,pow,-0.00903614457831314
+Uzbekistan,uzb,tra,-0.0272561076948644
+Uzbekistan,uzb,res,-0.0368297436409973
+Uzbekistan,uzb,ind,-0.00985055390186284
+Vanuatu,vut,pow,-0.0227272727272727
+Vanuatu,vut,tra,-0.00490196078431359
+Vanuatu,vut,res,-0.0005
+Vanuatu,vut,ind,-0.0005
+Venezuela,ven,pow,-0.0202419941775836
+Venezuela,ven,tra,-0.0723007712082262
+Venezuela,ven,res,-0.0161424529871859
+Venezuela,ven,ind,-0.0283871564298758
+Vietnam,vnm,pow,-0.0245898321159863
+Vietnam,vnm,tra,-0.00246920207198253
+Vietnam,vnm,res,-0.00476874166752128
+Vietnam,vnm,ind,-0.0145340314136126
+Zambia,zmb,pow,-0.0157728706624604
+Zambia,zmb,tra,-0.00124999999999997
+Zambia,zmb,res,-0.0005
+Zambia,zmb,ind,-0.00665280665280665
+Zimbabwe,zwe,pow,-0.00723116398413803
+Zimbabwe,zwe,tra,-0.00461133069828734
+Zimbabwe,zwe,res,-0.00799999999999989
+Zimbabwe,zwe,ind,-0.014464168310322

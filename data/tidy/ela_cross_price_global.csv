@@ -1,0 +1,16 @@
+item,variable,value
+Biomass with respect to LPG,Elasticity,0.25
+Biomass with respect to LPG,Adjustment,0.225
+Biomass with respect to LPG,Manual,-0.4
+Biomass with respect to LPG,Simple,0.25
+Biomass with respect to LPG,Standard deviation,0.225
+Biomass with respect to kerosene,Elasticity,0.25
+Biomass with respect to kerosene,Adjustment,0.225
+Biomass with respect to kerosene,Manual,-0.7
+Biomass with respect to kerosene,Simple,0.25
+Biomass with respect to kerosene,Standard deviation,0.225
+Gasoline with respect to diesel,Elasticity,0.25
+Gasoline with respect to diesel,Adjustment,0.225
+Gasoline with respect to diesel,Manual,-0.5
+Gasoline with respect to diesel,Simple,0.25
+Gasoline with respect to diesel,Standard deviation,0.225

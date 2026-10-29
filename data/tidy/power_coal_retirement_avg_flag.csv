@@ -1,0 +1,109 @@
+country,country_name,variable,value
+ALB,Albania,DataAvailable,No
+ARG,Argentina,DataAvailable,Yes
+AUS,Australia,DataAvailable,Yes
+AUT,Austria,DataAvailable,Yes
+BGD,Bangladesh,DataAvailable,No
+BLR,Belarus,DataAvailable,No
+BEL,Belgium,DataAvailable,No
+BIH,Bosnia and Herzegovina,DataAvailable,Yes
+BWA,Botswana,DataAvailable,Yes
+BRA,Brazil,DataAvailable,Yes
+BRN,Brunei Darussalam,DataAvailable,No
+BGR,Bulgaria,DataAvailable,No
+KHM,Cambodia,DataAvailable,No
+CAN,Canada,DataAvailable,Yes
+CHL,Chile,DataAvailable,Yes
+CHN,China,DataAvailable,Yes
+COL,Colombia,DataAvailable,Yes
+CIV,Côte d'Ivoire,DataAvailable,No
+HRV,Croatia,DataAvailable,No
+CZE,Czechia,DataAvailable,Yes
+DNK,Denmark,DataAvailable,Yes
+DJI,Djibouti,DataAvailable,No
+DOM,Dominican Republic,DataAvailable,No
+COD,"Congo, Democratic Republic of the",DataAvailable,No
+EGY,Egypt,DataAvailable,No
+SLV,El Salvador,DataAvailable,No
+SWZ,Eswatini,DataAvailable,No
+ETH,Ethiopia,DataAvailable,No
+FIN,Finland,DataAvailable,Yes
+FRA,France,DataAvailable,Yes
+GEO,Georgia,DataAvailable,No
+DEU,Germany,DataAvailable,Yes
+GHA,Ghana,DataAvailable,No
+GRC,Greece,DataAvailable,Yes
+NA,Guadeloupe,DataAvailable,Yes
+GTM,Guatemala,DataAvailable,Yes
+GIN,Guinea,DataAvailable,No
+HND,Honduras,DataAvailable,Yes
+HKG,Hong Kong SAR,DataAvailable,Yes
+HUN,Hungary,DataAvailable,Yes
+IND,India,DataAvailable,Yes
+IDN,Indonesia,DataAvailable,Yes
+IRN,Iran,DataAvailable,No
+IRL,Ireland,DataAvailable,Yes
+ISR,Israel,DataAvailable,Yes
+ITA,Italy,DataAvailable,Yes
+JAM,Jamaica,DataAvailable,No
+JPN,Japan,DataAvailable,Yes
+KAZ,Kazakhstan,DataAvailable,Yes
+KEN,Kenya,DataAvailable,No
+KOR,Korea,DataAvailable,Yes
+PRK,"Korea, Dem. People's Rep.",DataAvailable,No
+XKX,Kosovo,DataAvailable,Yes
+KGZ,Kyrgyz Republic,DataAvailable,Yes
+LAO,Lao P.D.R.,DataAvailable,No
+LVA,Latvia,DataAvailable,No
+MKD,North Macedonia,DataAvailable,Yes
+MDG,Madagascar,DataAvailable,No
+MWI,Malawi,DataAvailable,No
+MYS,Malaysia,DataAvailable,Yes
+MUS,Mauritius,DataAvailable,No
+MEX,Mexico,DataAvailable,Yes
+MDA,Moldova,DataAvailable,No
+MNG,Mongolia,DataAvailable,No
+MNE,"Montenegro, Rep. of",DataAvailable,No
+MAR,Morocco,DataAvailable,Yes
+MOZ,Mozambique,DataAvailable,No
+MMR,Myanmar,DataAvailable,No
+NAM,Namibia,DataAvailable,Yes
+NLD,Netherlands,DataAvailable,Yes
+NCL,New Caledonia,DataAvailable,Yes
+NZL,New Zealand,DataAvailable,No
+NER,Niger,DataAvailable,No
+NGA,Nigeria,DataAvailable,No
+OMN,Oman,DataAvailable,No
+PAK,Pakistan,DataAvailable,No
+PAN,Panama,DataAvailable,Yes
+PNG,Papua New Guinea,DataAvailable,No
+PER,Peru,DataAvailable,Yes
+PHL,Philippines,DataAvailable,Yes
+POL,Poland,DataAvailable,Yes
+PRT,Portugal,DataAvailable,Yes
+ROU,Romania,DataAvailable,Yes
+RUS,Russia,DataAvailable,Yes
+SEN,Senegal,DataAvailable,No
+SRB,Serbia,DataAvailable,Yes
+SVK,Slovak Republic,DataAvailable,Yes
+SVN,Slovenia,DataAvailable,Yes
+ZAF,South Africa,DataAvailable,Yes
+ESP,Spain,DataAvailable,Yes
+LKA,Sri Lanka,DataAvailable,No
+SDN,Sudan,DataAvailable,No
+SWE,Sweden,DataAvailable,Yes
+SYR,Syria,DataAvailable,No
+TWN,Taiwan Province of China,DataAvailable,Yes
+TJK,Tajikistan,DataAvailable,No
+TZA,Tanzania,DataAvailable,No
+THA,Thailand,DataAvailable,Yes
+TUR,Turkiye,DataAvailable,No
+UKR,Ukraine,DataAvailable,Yes
+ARE,United Arab Emirates,DataAvailable,Yes
+GBR,United Kingdom,DataAvailable,Yes
+USA,United States,DataAvailable,Yes
+UZB,Uzbekistan,DataAvailable,No
+VEN,Venezuela,DataAvailable,No
+VNM,Vietnam,DataAvailable,No
+ZMB,Zambia,DataAvailable,No
+ZWE,Zimbabwe,DataAvailable,No

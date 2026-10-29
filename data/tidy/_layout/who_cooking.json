@@ -1,0 +1,1 @@
+{"kind": "table", "header": ["code", "iso3", "year", "sample", "main_fuel", "max_share"], "key_pos": [0], "attr_pos": [1, 2, 3], "val_pos": [4, 5], "skipped": {}, "nrows": 3, "source": "legacy_WHOCooking.csv"}

@@ -1,0 +1,1 @@
+{"kind": "table", "header": ["iso", "country", "passenger", "freight", "cycle", "fit_year", "residual_passenger", "residual_freight", "residual_cycle", "iterations", "source"], "key_pos": [0], "attr_pos": [1], "val_pos": [2, 3, 4, 5, 6, 7, 8, 9, 10], "skipped": {}, "nrows": 1, "source": "../range_anxiety_fit/range_anxiety_fit.csv"}

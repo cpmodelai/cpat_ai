@@ -1,0 +1,1 @@
+{"kind": "table", "header": ["gtap", "cpat", "description"], "key_pos": [0], "attr_pos": [], "val_pos": [1, 2], "skipped": {}, "nrows": 66, "source": "distn_gtapmap.csv"}

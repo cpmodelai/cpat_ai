@@ -1,0 +1,7 @@
+item,sector,value
+Population elasticity,Agriculture,0.9
+Population elasticity,Waste,1
+Population elasticity,Other,1
+Per capita income elasticity,Agriculture,0.15
+Per capita income elasticity,Waste,na
+Per capita income elasticity,Other,na

@@ -1,0 +1,1264 @@
+country_name,code,variable,value
+Abu Dhabi,0x2a,Region,0x2a
+Abu Dhabi,0x2a,Rating-based Default Spread,0.006039908256880735
+Abu Dhabi,0x2a,Equity Risk Premium,0.06792004316400721
+Abu Dhabi,0x2a,Country Risk Premium,0.00852004316400721
+Abu Dhabi,0x2a,Corporate Tax Rate,0.15
+Abu Dhabi,0x2a,Sector Beta,0x2a
+Abu Dhabi,0x2a,Equity weight,0x2a
+Abu Dhabi,0x2a,Lender Margin,0.02
+Albania,ALB,Region,Upper middle income
+Albania,ALB,Rating-based Default Spread,0.05507821100917431
+Albania,ALB,Equity Risk Premium,0.13709467932892289
+Albania,ALB,Country Risk Premium,0.07769467932892289
+Albania,ALB,Corporate Tax Rate,0.15
+Albania,ALB,Sector Beta,0.98244345310766
+Albania,ALB,Equity weight,0.33
+Albania,ALB,Lender Margin,0.02
+Andorra,0x2a,Region,0x2a
+Andorra,0x2a,Rating-based Default Spread,0.023296788990825688
+Andorra,0x2a,Equity Risk Premium,0.09226302363259924
+Andorra,0x2a,Country Risk Premium,0.032863023632599235
+Andorra,0x2a,Corporate Tax Rate,0.1898
+Andorra,0x2a,Sector Beta,0x2a
+Andorra,0x2a,Equity weight,0x2a
+Andorra,0x2a,Lender Margin,0.02
+Angola,AGO,Region,Lower middle income
+Angola,AGO,Rating-based Default Spread,0.07952545871559634
+Angola,AGO,Equity Risk Premium,0.17158056832609495
+Angola,AGO,Country Risk Premium,0.11218056832609494
+Angola,AGO,Corporate Tax Rate,0.25
+Angola,AGO,Sector Beta,1.0045231368785612
+Angola,AGO,Equity weight,0.36
+Angola,AGO,Lender Margin,0.02
+Argentina,ARG,Region,Upper middle income
+Argentina,ARG,Rating-based Default Spread,0.14682729357798166
+Argentina,ARG,Equity Risk Premium,0.26651819215360384
+Argentina,ARG,Country Risk Premium,0.20711819215360386
+Argentina,ARG,Corporate Tax Rate,0.35
+Argentina,ARG,Sector Beta,0.98244345310766
+Argentina,ARG,Equity weight,0.33
+Argentina,ARG,Lender Margin,0.02
+Armenia,ARM,Region,Upper middle income
+Armenia,ARM,Rating-based Default Spread,0.04400504587155964
+Armenia,ARM,Equity Risk Premium,0.12147460019490969
+Armenia,ARM,Country Risk Premium,0.06207460019490968
+Armenia,ARM,Corporate Tax Rate,0.18
+Armenia,ARM,Sector Beta,0.98244345310766
+Armenia,ARM,Equity weight,0.33
+Armenia,ARM,Lender Margin,0.02
+Aruba,0x2a,Region,0x2a
+Aruba,0x2a,Rating-based Default Spread,0.023296788990825688
+Aruba,0x2a,Equity Risk Premium,0.09226302363259924
+Aruba,0x2a,Country Risk Premium,0.032863023632599235
+Aruba,0x2a,Corporate Tax Rate,0.25
+Aruba,0x2a,Sector Beta,0x2a
+Aruba,0x2a,Equity weight,0x2a
+Aruba,0x2a,Lender Margin,0.02
+Australia,AUS,Region,High income
+Australia,AUS,Rating-based Default Spread,0
+Australia,AUS,Equity Risk Premium,0.0594
+Australia,AUS,Country Risk Premium,0
+Australia,AUS,Corporate Tax Rate,0.3
+Australia,AUS,Sector Beta,0.9866451366255751
+Australia,AUS,Equity weight,0.33
+Australia,AUS,Lender Margin,0.02
+Austria,AUT,Region,High income
+Austria,AUT,Rating-based Default Spread,0.004889449541284403
+Austria,AUT,Equity Risk Premium,0.0662971777994344
+Austria,AUT,Country Risk Premium,0.0068971777994344076
+Austria,AUT,Corporate Tax Rate,0.24
+Austria,AUT,Sector Beta,0.9866451366255751
+Austria,AUT,Equity weight,0.33
+Austria,AUT,Lender Margin,0.02
+Azerbaijan,AZE,Region,Upper middle income
+Azerbaijan,AZE,Rating-based Default Spread,0.030630963302752296
+Azerbaijan,AZE,Equity Risk Premium,0.10260879033175085
+Azerbaijan,AZE,Country Risk Premium,0.04320879033175085
+Azerbaijan,AZE,Corporate Tax Rate,0.2
+Azerbaijan,AZE,Sector Beta,0.98244345310766
+Azerbaijan,AZE,Equity weight,0.33
+Azerbaijan,AZE,Lender Margin,0.02
+The Bahamas,BHS,Region,High income
+The Bahamas,BHS,Rating-based Default Spread,0.05507821100917431
+The Bahamas,BHS,Equity Risk Premium,0.13709467932892289
+The Bahamas,BHS,Country Risk Premium,0.07769467932892289
+The Bahamas,BHS,Corporate Tax Rate,0
+The Bahamas,BHS,Sector Beta,0.9866451366255751
+The Bahamas,BHS,Equity weight,0.33
+The Bahamas,BHS,Lender Margin,0.02
+Bahrain,BHR,Region,High income
+Bahrain,BHR,Rating-based Default Spread,0.06730183486238533
+Bahrain,BHR,Equity Risk Premium,0.15433762382750893
+Bahrain,BHR,Country Risk Premium,0.09493762382750894
+Bahrain,BHR,Corporate Tax Rate,0
+Bahrain,BHR,Sector Beta,0.9866451366255751
+Bahrain,BHR,Equity weight,0.33
+Bahrain,BHR,Lender Margin,0.02
+Bangladesh,BGD,Region,Lower middle income
+Bangladesh,BGD,Rating-based Default Spread,0.04400504587155964
+Bangladesh,BGD,Equity Risk Premium,0.12147460019490969
+Bangladesh,BGD,Country Risk Premium,0.06207460019490968
+Bangladesh,BGD,Corporate Tax Rate,0.325
+Bangladesh,BGD,Sector Beta,1.0045231368785612
+Bangladesh,BGD,Equity weight,0.36
+Bangladesh,BGD,Lender Margin,0.02
+Barbados,BRB,Region,High income
+Barbados,BRB,Rating-based Default Spread,0.09174908256880734
+Barbados,BRB,Equity Risk Premium,0.18882351282468096
+Barbados,BRB,Country Risk Premium,0.12942351282468095
+Barbados,BRB,Corporate Tax Rate,0.055
+Barbados,BRB,Sector Beta,0.9866451366255751
+Barbados,BRB,Equity weight,0.33
+Barbados,BRB,Lender Margin,0.02
+Belarus,BLR,Region,Upper middle income
+Belarus,BLR,Rating-based Default Spread,0.14682729357798166
+Belarus,BLR,Equity Risk Premium,0.26651819215360384
+Belarus,BLR,Country Risk Premium,0.20711819215360386
+Belarus,BLR,Corporate Tax Rate,0.18
+Belarus,BLR,Sector Beta,0.98244345310766
+Belarus,BLR,Equity weight,0.33
+Belarus,BLR,Lender Margin,0.02
+Belgium,BEL,Region,High income
+Belgium,BEL,Rating-based Default Spread,0.007334174311926606
+Belgium,BEL,Equity Risk Premium,0.06974576669915161
+Belgium,BEL,Country Risk Premium,0.010345766699151613
+Belgium,BEL,Corporate Tax Rate,0.25
+Belgium,BEL,Sector Beta,0.9866451366255751
+Belgium,BEL,Equity weight,0.33
+Belgium,BEL,Lender Margin,0.02
+Belize,BLZ,Region,Upper middle income
+Belize,BLZ,Rating-based Default Spread,0.11015642201834862
+Belize,BLZ,Equity Risk Premium,0.2147893586578458
+Belize,BLZ,Country Risk Premium,0.15538935865784578
+Belize,BLZ,Corporate Tax Rate,0.2718
+Belize,BLZ,Sector Beta,0.98244345310766
+Belize,BLZ,Equity weight,0.33
+Belize,BLZ,Lender Margin,0.02
+Benin,BEN,Region,Lower middle income
+Benin,BEN,Rating-based Default Spread,0.05507821100917431
+Benin,BEN,Equity Risk Premium,0.13709467932892289
+Benin,BEN,Country Risk Premium,0.07769467932892289
+Benin,BEN,Corporate Tax Rate,0.3
+Benin,BEN,Sector Beta,1.0045231368785612
+Benin,BEN,Equity weight,0.36
+Benin,BEN,Lender Margin,0.02
+Bermuda,BMU,Region,High income
+Bermuda,BMU,Rating-based Default Spread,0.010354128440366973
+Bermuda,BMU,Equity Risk Premium,0.07400578828115521
+Bermuda,BMU,Country Risk Premium,0.014605788281155217
+Bermuda,BMU,Corporate Tax Rate,0
+Bermuda,BMU,Sector Beta,0.9866451366255751
+Bermuda,BMU,Equity weight,0.33
+Bermuda,BMU,Lender Margin,0.02
+Bolivia,BOL,Region,Lower middle income
+Bolivia,BOL,Rating-based Default Spread,0.06730183486238533
+Bolivia,BOL,Equity Risk Premium,0.15433762382750893
+Bolivia,BOL,Country Risk Premium,0.09493762382750894
+Bolivia,BOL,Corporate Tax Rate,0.25
+Bolivia,BOL,Sector Beta,1.0045231368785612
+Bolivia,BOL,Equity weight,0.36
+Bolivia,BOL,Lender Margin,0.02
+Bosnia and Herzegovina,BIH,Region,Upper middle income
+Bosnia and Herzegovina,BIH,Rating-based Default Spread,0.07952545871559634
+Bosnia and Herzegovina,BIH,Equity Risk Premium,0.17158056832609495
+Bosnia and Herzegovina,BIH,Country Risk Premium,0.11218056832609494
+Bosnia and Herzegovina,BIH,Corporate Tax Rate,0.1
+Bosnia and Herzegovina,BIH,Sector Beta,0.98244345310766
+Bosnia and Herzegovina,BIH,Equity weight,0.33
+Bosnia and Herzegovina,BIH,Lender Margin,0.02
+Botswana,BWA,Region,Upper middle income
+Botswana,BWA,Rating-based Default Spread,0.014668348623853212
+Botswana,BWA,Equity Risk Premium,0.08009153339830323
+Botswana,BWA,Country Risk Premium,0.020691533398303225
+Botswana,BWA,Corporate Tax Rate,0.22
+Botswana,BWA,Sector Beta,0.98244345310766
+Botswana,BWA,Equity weight,0.33
+Botswana,BWA,Lender Margin,0.02
+Brazil,BRA,Region,Upper middle income
+Brazil,BRA,Rating-based Default Spread,0.03681467889908257
+Brazil,BRA,Equity Risk Premium,0.11133169166632967
+Brazil,BRA,Country Risk Premium,0.05193169166632966
+Brazil,BRA,Corporate Tax Rate,0.34
+Brazil,BRA,Sector Beta,0.98244345310766
+Brazil,BRA,Equity weight,0.33
+Brazil,BRA,Lender Margin,0.02
+Bulgaria,BGR,Region,High income
+Bulgaria,BGR,Rating-based Default Spread,0.019557798165137613
+Bulgaria,BGR,Equity Risk Premium,0.08698871119773763
+Bulgaria,BGR,Country Risk Premium,0.02758871119773763
+Bulgaria,BGR,Corporate Tax Rate,0.1
+Bulgaria,BGR,Sector Beta,0.9866451366255751
+Bulgaria,BGR,Equity weight,0.33
+Bulgaria,BGR,Lender Margin,0.02
+Burkina Faso,BFA,Region,Low income
+Burkina Faso,BFA,Rating-based Default Spread,0.09174908256880734
+Burkina Faso,BFA,Equity Risk Premium,0.18882351282468096
+Burkina Faso,BFA,Country Risk Premium,0.12942351282468095
+Burkina Faso,BFA,Corporate Tax Rate,0.28
+Burkina Faso,BFA,Sector Beta,1.0045231368785612
+Burkina Faso,BFA,Equity weight,0.36
+Burkina Faso,BFA,Lender Margin,0.02
+Cambodia,KHM,Region,Lower middle income
+Cambodia,KHM,Rating-based Default Spread,0.06730183486238533
+Cambodia,KHM,Equity Risk Premium,0.15433762382750893
+Cambodia,KHM,Country Risk Premium,0.09493762382750894
+Cambodia,KHM,Corporate Tax Rate,0.2
+Cambodia,KHM,Sector Beta,1.0045231368785612
+Cambodia,KHM,Equity weight,0.36
+Cambodia,KHM,Lender Margin,0.02
+Cameroon,CMR,Region,Lower middle income
+Cameroon,CMR,Rating-based Default Spread,0.06730183486238533
+Cameroon,CMR,Equity Risk Premium,0.15433762382750893
+Cameroon,CMR,Country Risk Premium,0.09493762382750894
+Cameroon,CMR,Corporate Tax Rate,0.33
+Cameroon,CMR,Sector Beta,1.0045231368785612
+Cameroon,CMR,Equity weight,0.36
+Cameroon,CMR,Lender Margin,0.02
+Canada,CAN,Region,High income
+Canada,CAN,Rating-based Default Spread,0
+Canada,CAN,Equity Risk Premium,0.0594
+Canada,CAN,Country Risk Premium,0
+Canada,CAN,Corporate Tax Rate,0.25
+Canada,CAN,Sector Beta,0.9866451366255751
+Canada,CAN,Equity weight,0.33
+Canada,CAN,Lender Margin,0.02
+Cape Verde,CPV,Region,Upper middle income
+Cape Verde,CPV,Rating-based Default Spread,0.07952545871559634
+Cape Verde,CPV,Equity Risk Premium,0.17158056832609495
+Cape Verde,CPV,Country Risk Premium,0.11218056832609494
+Cape Verde,CPV,Corporate Tax Rate,0
+Cape Verde,CPV,Sector Beta,0.98244345310766
+Cape Verde,CPV,Equity weight,0.33
+Cape Verde,CPV,Lender Margin,0.02
+Cayman Islands,0x2a,Region,0x2a
+Cayman Islands,0x2a,Rating-based Default Spread,0.007334174311926606
+Cayman Islands,0x2a,Equity Risk Premium,0.06974576669915161
+Cayman Islands,0x2a,Country Risk Premium,0.010345766699151613
+Cayman Islands,0x2a,Corporate Tax Rate,0
+Cayman Islands,0x2a,Sector Beta,0x2a
+Cayman Islands,0x2a,Equity weight,0x2a
+Cayman Islands,0x2a,Lender Margin,0.02
+Chile,CHL,Region,High income
+Chile,CHL,Rating-based Default Spread,0.010354128440366973
+Chile,CHL,Equity Risk Premium,0.07400578828115521
+Chile,CHL,Country Risk Premium,0.014605788281155217
+Chile,CHL,Corporate Tax Rate,0.27
+Chile,CHL,Sector Beta,0.9866451366255751
+Chile,CHL,Equity weight,0.33
+Chile,CHL,Lender Margin,0.02
+China,CHN,Region,Upper middle income
+China,CHN,Rating-based Default Spread,0.008628440366972478
+China,CHN,Equity Risk Premium,0.07157149023429601
+China,CHN,Country Risk Premium,0.012171490234296015
+China,CHN,Corporate Tax Rate,0.25
+China,CHN,Sector Beta,0.98244345310766
+China,CHN,Equity weight,0.33
+China,CHN,Lender Margin,0.02
+Colombia,COL,Region,Upper middle income
+Colombia,COL,Rating-based Default Spread,0.023296788990825688
+Colombia,COL,Equity Risk Premium,0.09226302363259924
+Colombia,COL,Country Risk Premium,0.032863023632599235
+Colombia,COL,Corporate Tax Rate,0.35
+Colombia,COL,Sector Beta,0.98244345310766
+Colombia,COL,Equity weight,0.33
+Colombia,COL,Lender Margin,0.02
+Democratic Republic of the Congo,COD,Region,Low income
+Democratic Republic of the Congo,COD,Rating-based Default Spread,0.07952545871559634
+Democratic Republic of the Congo,COD,Equity Risk Premium,0.17158056832609495
+Democratic Republic of the Congo,COD,Country Risk Premium,0.11218056832609494
+Democratic Republic of the Congo,COD,Corporate Tax Rate,0.3
+Democratic Republic of the Congo,COD,Sector Beta,1.0045231368785612
+Democratic Republic of the Congo,COD,Equity weight,0.36
+Democratic Republic of the Congo,COD,Lender Margin,0.02
+Republic of the Congo,COG,Region,Lower middle income
+Republic of the Congo,COG,Rating-based Default Spread,0.11015642201834862
+Republic of the Congo,COG,Equity Risk Premium,0.2147893586578458
+Republic of the Congo,COG,Country Risk Premium,0.15538935865784578
+Republic of the Congo,COG,Corporate Tax Rate,0.28
+Republic of the Congo,COG,Sector Beta,1.0045231368785612
+Republic of the Congo,COG,Equity weight,0.36
+Republic of the Congo,COG,Lender Margin,0.02
+Cook Islands,0x2a,Region,0x2a
+Cook Islands,0x2a,Rating-based Default Spread,0.05507821100917431
+Cook Islands,0x2a,Equity Risk Premium,0.13709467932892289
+Cook Islands,0x2a,Country Risk Premium,0.07769467932892289
+Cook Islands,0x2a,Corporate Tax Rate,0.2843
+Cook Islands,0x2a,Sector Beta,0x2a
+Cook Islands,0x2a,Equity weight,0x2a
+Cook Islands,0x2a,Lender Margin,0.02
+Costa Rica,CRI,Region,High income
+Costa Rica,CRI,Rating-based Default Spread,0.06730183486238533
+Costa Rica,CRI,Equity Risk Premium,0.15433762382750893
+Costa Rica,CRI,Country Risk Premium,0.09493762382750894
+Costa Rica,CRI,Corporate Tax Rate,0.3
+Costa Rica,CRI,Sector Beta,0.9866451366255751
+Costa Rica,CRI,Equity weight,0.33
+Costa Rica,CRI,Lender Margin,0.02
+Ivory Coast,CIV,Region,Lower middle income
+Ivory Coast,CIV,Rating-based Default Spread,0.04400504587155964
+Ivory Coast,CIV,Equity Risk Premium,0.12147460019490969
+Ivory Coast,CIV,Country Risk Premium,0.06207460019490968
+Ivory Coast,CIV,Corporate Tax Rate,0.25
+Ivory Coast,CIV,Sector Beta,1.0045231368785612
+Ivory Coast,CIV,Equity weight,0.36
+Ivory Coast,CIV,Lender Margin,0.02
+Croatia,HRV,Region,High income
+Croatia,HRV,Rating-based Default Spread,0.023296788990825688
+Croatia,HRV,Equity Risk Premium,0.09226302363259924
+Croatia,HRV,Country Risk Premium,0.032863023632599235
+Croatia,HRV,Corporate Tax Rate,0.18
+Croatia,HRV,Sector Beta,0.9866451366255751
+Croatia,HRV,Equity weight,0.33
+Croatia,HRV,Lender Margin,0.02
+Cuba,CUB,Region,Upper middle income
+Cuba,CUB,Rating-based Default Spread,0.14682729357798166
+Cuba,CUB,Equity Risk Premium,0.26651819215360384
+Cuba,CUB,Country Risk Premium,0.20711819215360386
+Cuba,CUB,Corporate Tax Rate,0.2718
+Cuba,CUB,Sector Beta,0.98244345310766
+Cuba,CUB,Equity weight,0.33
+Cuba,CUB,Lender Margin,0.02
+Curaçao,CUW,Region,High income
+Curaçao,CUW,Rating-based Default Spread,0.023296788990825688
+Curaçao,CUW,Equity Risk Premium,0.09226302363259924
+Curaçao,CUW,Country Risk Premium,0.032863023632599235
+Curaçao,CUW,Corporate Tax Rate,0.22
+Curaçao,CUW,Sector Beta,0.9866451366255751
+Curaçao,CUW,Equity weight,0.33
+Curaçao,CUW,Lender Margin,0.02
+Cyprus,CYP,Region,High income
+Cyprus,CYP,Rating-based Default Spread,0.030630963302752296
+Cyprus,CYP,Equity Risk Premium,0.10260879033175085
+Cyprus,CYP,Country Risk Premium,0.04320879033175085
+Cyprus,CYP,Corporate Tax Rate,0.125
+Cyprus,CYP,Sector Beta,0.9866451366255751
+Cyprus,CYP,Equity weight,0.33
+Cyprus,CYP,Lender Margin,0.02
+Czech Republic,CZE,Region,High income
+Czech Republic,CZE,Rating-based Default Spread,0.007334174311926606
+Czech Republic,CZE,Equity Risk Premium,0.06974576669915161
+Czech Republic,CZE,Country Risk Premium,0.010345766699151613
+Czech Republic,CZE,Corporate Tax Rate,0.19
+Czech Republic,CZE,Sector Beta,0.9866451366255751
+Czech Republic,CZE,Equity weight,0.33
+Czech Republic,CZE,Lender Margin,0.02
+Denmark,DNK,Region,High income
+Denmark,DNK,Rating-based Default Spread,0
+Denmark,DNK,Equity Risk Premium,0.0594
+Denmark,DNK,Country Risk Premium,0
+Denmark,DNK,Corporate Tax Rate,0.22
+Denmark,DNK,Sector Beta,0.9866451366255751
+Denmark,DNK,Equity weight,0.33
+Denmark,DNK,Lender Margin,0.02
+Dominican Republic,DOM,Region,Upper middle income
+Dominican Republic,DOM,Rating-based Default Spread,0.04400504587155964
+Dominican Republic,DOM,Equity Risk Premium,0.12147460019490969
+Dominican Republic,DOM,Country Risk Premium,0.06207460019490968
+Dominican Republic,DOM,Corporate Tax Rate,0.27
+Dominican Republic,DOM,Sector Beta,0.98244345310766
+Dominican Republic,DOM,Equity weight,0.33
+Dominican Republic,DOM,Lender Margin,0.02
+Ecuador,ECU,Region,Upper middle income
+Ecuador,ECU,Rating-based Default Spread,0.12238004587155965
+Ecuador,ECU,Equity Risk Premium,0.23203230315643184
+Ecuador,ECU,Country Risk Premium,0.17263230315643183
+Ecuador,ECU,Corporate Tax Rate,0.25
+Ecuador,ECU,Sector Beta,0.98244345310766
+Ecuador,ECU,Equity weight,0.33
+Ecuador,ECU,Lender Margin,0.02
+Egypt,EGY,Region,Lower middle income
+Egypt,EGY,Rating-based Default Spread,0.06730183486238533
+Egypt,EGY,Equity Risk Premium,0.15433762382750893
+Egypt,EGY,Country Risk Premium,0.09493762382750894
+Egypt,EGY,Corporate Tax Rate,0.225
+Egypt,EGY,Sector Beta,1.0045231368785612
+Egypt,EGY,Equity weight,0.36
+Egypt,EGY,Lender Margin,0.02
+El Salvador,SLV,Region,Upper middle income
+El Salvador,SLV,Rating-based Default Spread,0.12238004587155965
+El Salvador,SLV,Equity Risk Premium,0.23203230315643184
+El Salvador,SLV,Country Risk Premium,0.17263230315643183
+El Salvador,SLV,Corporate Tax Rate,0.3
+El Salvador,SLV,Sector Beta,0.98244345310766
+El Salvador,SLV,Equity weight,0.33
+El Salvador,SLV,Lender Margin,0.02
+Estonia,EST,Region,High income
+Estonia,EST,Rating-based Default Spread,0.008628440366972478
+Estonia,EST,Equity Risk Premium,0.07157149023429601
+Estonia,EST,Country Risk Premium,0.012171490234296015
+Estonia,EST,Corporate Tax Rate,0.2
+Estonia,EST,Sector Beta,0.9866451366255751
+Estonia,EST,Equity weight,0.33
+Estonia,EST,Lender Margin,0.02
+Ethiopia,ETH,Region,Low income
+Ethiopia,ETH,Rating-based Default Spread,0.11015642201834862
+Ethiopia,ETH,Equity Risk Premium,0.2147893586578458
+Ethiopia,ETH,Country Risk Premium,0.15538935865784578
+Ethiopia,ETH,Corporate Tax Rate,0.3
+Ethiopia,ETH,Sector Beta,1.0045231368785612
+Ethiopia,ETH,Equity weight,0.36
+Ethiopia,ETH,Lender Margin,0.02
+Fiji,FJI,Region,Upper middle income
+Fiji,FJI,Rating-based Default Spread,0.05507821100917431
+Fiji,FJI,Equity Risk Premium,0.13709467932892289
+Fiji,FJI,Country Risk Premium,0.07769467932892289
+Fiji,FJI,Corporate Tax Rate,0.2
+Fiji,FJI,Sector Beta,0.98244345310766
+Fiji,FJI,Equity weight,0.33
+Fiji,FJI,Lender Margin,0.02
+Finland,FIN,Region,High income
+Finland,FIN,Rating-based Default Spread,0.004889449541284403
+Finland,FIN,Equity Risk Premium,0.0662971777994344
+Finland,FIN,Country Risk Premium,0.0068971777994344076
+Finland,FIN,Corporate Tax Rate,0.2
+Finland,FIN,Sector Beta,0.9866451366255751
+Finland,FIN,Equity weight,0.33
+Finland,FIN,Lender Margin,0.02
+France,FRA,Region,High income
+France,FRA,Rating-based Default Spread,0.006039908256880735
+France,FRA,Equity Risk Premium,0.06792004316400721
+France,FRA,Country Risk Premium,0.00852004316400721
+France,FRA,Corporate Tax Rate,0.25
+France,FRA,Sector Beta,0.9866451366255751
+France,FRA,Equity weight,0.33
+France,FRA,Lender Margin,0.02
+Gabon,GAB,Region,Upper middle income
+Gabon,GAB,Rating-based Default Spread,0.09174908256880734
+Gabon,GAB,Equity Risk Premium,0.18882351282468096
+Gabon,GAB,Country Risk Premium,0.12942351282468095
+Gabon,GAB,Corporate Tax Rate,0.3
+Gabon,GAB,Sector Beta,0.98244345310766
+Gabon,GAB,Equity weight,0.33
+Gabon,GAB,Lender Margin,0.02
+Georgia,GEO,Region,Upper middle income
+Georgia,GEO,Rating-based Default Spread,0.03681467889908257
+Georgia,GEO,Equity Risk Premium,0.11133169166632967
+Georgia,GEO,Country Risk Premium,0.05193169166632966
+Georgia,GEO,Corporate Tax Rate,0.15
+Georgia,GEO,Sector Beta,0.98244345310766
+Georgia,GEO,Equity weight,0.33
+Georgia,GEO,Lender Margin,0.02
+Germany,DEU,Region,High income
+Germany,DEU,Rating-based Default Spread,0
+Germany,DEU,Equity Risk Premium,0.0594
+Germany,DEU,Country Risk Premium,0
+Germany,DEU,Corporate Tax Rate,0.3
+Germany,DEU,Sector Beta,0.9866451366255751
+Germany,DEU,Equity weight,0.33
+Germany,DEU,Lender Margin,0.02
+Ghana,GHA,Region,Lower middle income
+Ghana,GHA,Rating-based Default Spread,0.14682729357798166
+Ghana,GHA,Equity Risk Premium,0.26651819215360384
+Ghana,GHA,Country Risk Premium,0.20711819215360386
+Ghana,GHA,Corporate Tax Rate,0.25
+Ghana,GHA,Sector Beta,1.0045231368785612
+Ghana,GHA,Equity weight,0.36
+Ghana,GHA,Lender Margin,0.02
+Greece,GRC,Region,High income
+Greece,GRC,Rating-based Default Spread,0.04400504587155964
+Greece,GRC,Equity Risk Premium,0.12147460019490969
+Greece,GRC,Country Risk Premium,0.06207460019490968
+Greece,GRC,Corporate Tax Rate,0.22
+Greece,GRC,Sector Beta,0.9866451366255751
+Greece,GRC,Equity weight,0.33
+Greece,GRC,Lender Margin,0.02
+Guatemala,GTM,Region,Upper middle income
+Guatemala,GTM,Rating-based Default Spread,0.030630963302752296
+Guatemala,GTM,Equity Risk Premium,0.10260879033175085
+Guatemala,GTM,Country Risk Premium,0.04320879033175085
+Guatemala,GTM,Corporate Tax Rate,0.25
+Guatemala,GTM,Sector Beta,0.98244345310766
+Guatemala,GTM,Equity weight,0.33
+Guatemala,GTM,Lender Margin,0.02
+Guernsey,0x2a,Region,0x2a
+Guernsey,0x2a,Rating-based Default Spread,0
+Guernsey,0x2a,Equity Risk Premium,0.0594
+Guernsey,0x2a,Country Risk Premium,0
+Guernsey,0x2a,Corporate Tax Rate,0
+Guernsey,0x2a,Sector Beta,0x2a
+Guernsey,0x2a,Equity weight,0x2a
+Guernsey,0x2a,Lender Margin,0.02
+Honduras,HND,Region,Lower middle income
+Honduras,HND,Rating-based Default Spread,0.05507821100917431
+Honduras,HND,Equity Risk Premium,0.13709467932892289
+Honduras,HND,Country Risk Premium,0.07769467932892289
+Honduras,HND,Corporate Tax Rate,0.25
+Honduras,HND,Sector Beta,1.0045231368785612
+Honduras,HND,Equity weight,0.36
+Honduras,HND,Lender Margin,0.02
+Hong Kong,HKG,Region,High income
+Hong Kong,HKG,Rating-based Default Spread,0.007334174311926606
+Hong Kong,HKG,Equity Risk Premium,0.06974576669915161
+Hong Kong,HKG,Country Risk Premium,0.010345766699151613
+Hong Kong,HKG,Corporate Tax Rate,0.165
+Hong Kong,HKG,Sector Beta,0.9866451366255751
+Hong Kong,HKG,Equity weight,0.33
+Hong Kong,HKG,Lender Margin,0.02
+Hungary,HUN,Region,High income
+Hungary,HUN,Rating-based Default Spread,0.023296788990825688
+Hungary,HUN,Equity Risk Premium,0.09226302363259924
+Hungary,HUN,Country Risk Premium,0.032863023632599235
+Hungary,HUN,Corporate Tax Rate,0.09
+Hungary,HUN,Sector Beta,0.9866451366255751
+Hungary,HUN,Equity weight,0.33
+Hungary,HUN,Lender Margin,0.02
+Iceland,ISL,Region,High income
+Iceland,ISL,Rating-based Default Spread,0.010354128440366973
+Iceland,ISL,Equity Risk Premium,0.07400578828115521
+Iceland,ISL,Country Risk Premium,0.014605788281155217
+Iceland,ISL,Corporate Tax Rate,0.2
+Iceland,ISL,Sector Beta,0.9866451366255751
+Iceland,ISL,Equity weight,0.33
+Iceland,ISL,Lender Margin,0.02
+India,IND,Region,Lower middle income
+India,IND,Rating-based Default Spread,0.026891972477064225
+India,IND,Equity Risk Premium,0.09733447789688926
+India,IND,Country Risk Premium,0.03793447789688925
+India,IND,Corporate Tax Rate,0.3
+India,IND,Sector Beta,1.0045231368785612
+India,IND,Equity weight,0.36
+India,IND,Lender Margin,0.02
+Indonesia,IDN,Region,Upper middle income
+Indonesia,IDN,Rating-based Default Spread,0.023296788990825688
+Indonesia,IDN,Equity Risk Premium,0.09226302363259924
+Indonesia,IDN,Country Risk Premium,0.032863023632599235
+Indonesia,IDN,Corporate Tax Rate,0.15
+Indonesia,IDN,Sector Beta,0.98244345310766
+Indonesia,IDN,Equity weight,0.33
+Indonesia,IDN,Lender Margin,0.02
+Iraq,IRQ,Region,Upper middle income
+Iraq,IRQ,Rating-based Default Spread,0.09174908256880734
+Iraq,IRQ,Equity Risk Premium,0.18882351282468096
+Iraq,IRQ,Country Risk Premium,0.12942351282468095
+Iraq,IRQ,Corporate Tax Rate,0.15
+Iraq,IRQ,Sector Beta,0.98244345310766
+Iraq,IRQ,Equity weight,0.33
+Iraq,IRQ,Lender Margin,0.02
+Republic of Ireland,IRL,Region,High income
+Republic of Ireland,IRL,Rating-based Default Spread,0.008628440366972478
+Republic of Ireland,IRL,Equity Risk Premium,0.07157149023429601
+Republic of Ireland,IRL,Country Risk Premium,0.012171490234296015
+Republic of Ireland,IRL,Corporate Tax Rate,0.125
+Republic of Ireland,IRL,Sector Beta,0.9866451366255751
+Republic of Ireland,IRL,Equity weight,0.33
+Republic of Ireland,IRL,Lender Margin,0.02
+Isle of Man,0x2a,Region,0x2a
+Isle of Man,0x2a,Rating-based Default Spread,0.007334174311926606
+Isle of Man,0x2a,Equity Risk Premium,0.06974576669915161
+Isle of Man,0x2a,Country Risk Premium,0.010345766699151613
+Isle of Man,0x2a,Corporate Tax Rate,0
+Isle of Man,0x2a,Sector Beta,0x2a
+Isle of Man,0x2a,Equity weight,0x2a
+Isle of Man,0x2a,Lender Margin,0.02
+Israel,ISR,Region,High income
+Israel,ISR,Rating-based Default Spread,0.008628440366972478
+Israel,ISR,Equity Risk Premium,0.07157149023429601
+Israel,ISR,Country Risk Premium,0.012171490234296015
+Israel,ISR,Corporate Tax Rate,0.23
+Israel,ISR,Sector Beta,0.9866451366255751
+Israel,ISR,Equity weight,0.33
+Israel,ISR,Lender Margin,0.02
+Italy,ITA,Region,High income
+Italy,ITA,Rating-based Default Spread,0.026891972477064225
+Italy,ITA,Equity Risk Premium,0.09733447789688926
+Italy,ITA,Country Risk Premium,0.03793447789688925
+Italy,ITA,Corporate Tax Rate,0.24
+Italy,ITA,Sector Beta,0.9866451366255751
+Italy,ITA,Equity weight,0.33
+Italy,ITA,Lender Margin,0.02
+Jamaica,JAM,Region,Upper middle income
+Jamaica,JAM,Rating-based Default Spread,0.06730183486238533
+Jamaica,JAM,Equity Risk Premium,0.15433762382750893
+Jamaica,JAM,Country Risk Premium,0.09493762382750894
+Jamaica,JAM,Corporate Tax Rate,0.25
+Jamaica,JAM,Sector Beta,0.98244345310766
+Jamaica,JAM,Equity weight,0.33
+Jamaica,JAM,Lender Margin,0.02
+Japan,JPN,Region,High income
+Japan,JPN,Rating-based Default Spread,0.008628440366972478
+Japan,JPN,Equity Risk Premium,0.07157149023429601
+Japan,JPN,Country Risk Premium,0.012171490234296015
+Japan,JPN,Corporate Tax Rate,0.232
+Japan,JPN,Sector Beta,0.9866451366255751
+Japan,JPN,Equity weight,0.33
+Japan,JPN,Lender Margin,0.02
+Jersey,0x2a,Region,0x2a
+Jersey,0x2a,Rating-based Default Spread,0
+Jersey,0x2a,Equity Risk Premium,0.0594
+Jersey,0x2a,Country Risk Premium,0
+Jersey,0x2a,Corporate Tax Rate,0
+Jersey,0x2a,Sector Beta,0x2a
+Jersey,0x2a,Equity weight,0x2a
+Jersey,0x2a,Lender Margin,0.02
+Jordan,JOR,Region,Lower middle income
+Jordan,JOR,Rating-based Default Spread,0.05507821100917431
+Jordan,JOR,Equity Risk Premium,0.13709467932892289
+Jordan,JOR,Country Risk Premium,0.07769467932892289
+Jordan,JOR,Corporate Tax Rate,0.2
+Jordan,JOR,Sector Beta,1.0045231368785612
+Jordan,JOR,Equity weight,0.36
+Jordan,JOR,Lender Margin,0.02
+Kazakhstan,KAZ,Region,Upper middle income
+Kazakhstan,KAZ,Rating-based Default Spread,0.023296788990825688
+Kazakhstan,KAZ,Equity Risk Premium,0.09226302363259924
+Kazakhstan,KAZ,Country Risk Premium,0.032863023632599235
+Kazakhstan,KAZ,Corporate Tax Rate,0.2
+Kazakhstan,KAZ,Sector Beta,0.98244345310766
+Kazakhstan,KAZ,Equity weight,0.33
+Kazakhstan,KAZ,Lender Margin,0.02
+Kenya,KEN,Region,Lower middle income
+Kenya,KEN,Rating-based Default Spread,0.06730183486238533
+Kenya,KEN,Equity Risk Premium,0.15433762382750893
+Kenya,KEN,Country Risk Premium,0.09493762382750894
+Kenya,KEN,Corporate Tax Rate,0.3
+Kenya,KEN,Sector Beta,1.0045231368785612
+Kenya,KEN,Equity weight,0.36
+Kenya,KEN,Lender Margin,0.02
+South Korea,KOR,Region,High income
+South Korea,KOR,Rating-based Default Spread,0.006039908256880735
+South Korea,KOR,Equity Risk Premium,0.06792004316400721
+South Korea,KOR,Country Risk Premium,0.00852004316400721
+South Korea,KOR,Corporate Tax Rate,0.25
+South Korea,KOR,Sector Beta,0.9866451366255751
+South Korea,KOR,Equity weight,0.33
+South Korea,KOR,Lender Margin,0.02
+Kuwait,KWT,Region,High income
+Kuwait,KWT,Rating-based Default Spread,0.008628440366972478
+Kuwait,KWT,Equity Risk Premium,0.07157149023429601
+Kuwait,KWT,Country Risk Premium,0.012171490234296015
+Kuwait,KWT,Corporate Tax Rate,0.15
+Kuwait,KWT,Sector Beta,0.9866451366255751
+Kuwait,KWT,Equity weight,0.33
+Kuwait,KWT,Lender Margin,0.02
+Kyrgyzstan,KGZ,Region,Lower middle income
+Kyrgyzstan,KGZ,Rating-based Default Spread,0.07952545871559634
+Kyrgyzstan,KGZ,Equity Risk Premium,0.17158056832609495
+Kyrgyzstan,KGZ,Country Risk Premium,0.11218056832609494
+Kyrgyzstan,KGZ,Corporate Tax Rate,0.1
+Kyrgyzstan,KGZ,Sector Beta,1.0045231368785612
+Kyrgyzstan,KGZ,Equity weight,0.36
+Kyrgyzstan,KGZ,Lender Margin,0.02
+Laos,LAO,Region,Lower middle income
+Laos,LAO,Rating-based Default Spread,0.12238004587155965
+Laos,LAO,Equity Risk Premium,0.23203230315643184
+Laos,LAO,Country Risk Premium,0.17263230315643183
+Laos,LAO,Corporate Tax Rate,0.2281
+Laos,LAO,Sector Beta,1.0045231368785612
+Laos,LAO,Equity weight,0.36
+Laos,LAO,Lender Margin,0.02
+Latvia,LVA,Region,High income
+Latvia,LVA,Rating-based Default Spread,0.014668348623853212
+Latvia,LVA,Equity Risk Premium,0.08009153339830323
+Latvia,LVA,Country Risk Premium,0.020691533398303225
+Latvia,LVA,Corporate Tax Rate,0.2
+Latvia,LVA,Sector Beta,0.9866451366255751
+Latvia,LVA,Equity weight,0.33
+Latvia,LVA,Lender Margin,0.02
+Lebanon,LBN,Region,Lower middle income
+Lebanon,LBN,Rating-based Default Spread,0.175
+Lebanon,LBN,Equity Risk Premium,0.3062593048582631
+Lebanon,LBN,Country Risk Premium,0.2468593048582631
+Lebanon,LBN,Corporate Tax Rate,0.17
+Lebanon,LBN,Sector Beta,1.0045231368785612
+Lebanon,LBN,Equity weight,0.36
+Lebanon,LBN,Lender Margin,0.02
+Liechtenstein,0x2a,Region,0x2a
+Liechtenstein,0x2a,Rating-based Default Spread,0
+Liechtenstein,0x2a,Equity Risk Premium,0.0594
+Liechtenstein,0x2a,Country Risk Premium,0
+Liechtenstein,0x2a,Corporate Tax Rate,0.125
+Liechtenstein,0x2a,Sector Beta,0x2a
+Liechtenstein,0x2a,Equity weight,0x2a
+Liechtenstein,0x2a,Lender Margin,0.02
+Lithuania,LTU,Region,High income
+Lithuania,LTU,Rating-based Default Spread,0.010354128440366973
+Lithuania,LTU,Equity Risk Premium,0.07400578828115521
+Lithuania,LTU,Country Risk Premium,0.014605788281155217
+Lithuania,LTU,Corporate Tax Rate,0.15
+Lithuania,LTU,Sector Beta,0.9866451366255751
+Lithuania,LTU,Equity weight,0.33
+Lithuania,LTU,Lender Margin,0.02
+Luxembourg,LUX,Region,High income
+Luxembourg,LUX,Rating-based Default Spread,0
+Luxembourg,LUX,Equity Risk Premium,0.0594
+Luxembourg,LUX,Country Risk Premium,0
+Luxembourg,LUX,Corporate Tax Rate,0.2494
+Luxembourg,LUX,Sector Beta,0.9866451366255751
+Luxembourg,LUX,Equity weight,0.33
+Luxembourg,LUX,Lender Margin,0.02
+Macau,MAC,Region,High income
+Macau,MAC,Rating-based Default Spread,0.007334174311926606
+Macau,MAC,Equity Risk Premium,0.06974576669915161
+Macau,MAC,Country Risk Premium,0.010345766699151613
+Macau,MAC,Corporate Tax Rate,0.2281
+Macau,MAC,Sector Beta,0.9866451366255751
+Macau,MAC,Equity weight,0.33
+Macau,MAC,Lender Margin,0.02
+North Macedonia,MKD,Region,Upper middle income
+North Macedonia,MKD,Rating-based Default Spread,0.04400504587155964
+North Macedonia,MKD,Equity Risk Premium,0.12147460019490969
+North Macedonia,MKD,Country Risk Premium,0.06207460019490968
+North Macedonia,MKD,Corporate Tax Rate,0.1
+North Macedonia,MKD,Sector Beta,0.98244345310766
+North Macedonia,MKD,Equity weight,0.33
+North Macedonia,MKD,Lender Margin,0.02
+Malaysia,MYS,Region,Upper middle income
+Malaysia,MYS,Rating-based Default Spread,0.014668348623853212
+Malaysia,MYS,Equity Risk Premium,0.08009153339830323
+Malaysia,MYS,Country Risk Premium,0.020691533398303225
+Malaysia,MYS,Corporate Tax Rate,0.24
+Malaysia,MYS,Sector Beta,0.98244345310766
+Malaysia,MYS,Equity weight,0.33
+Malaysia,MYS,Lender Margin,0.02
+Maldives,MDV,Region,Upper middle income
+Maldives,MDV,Rating-based Default Spread,0.09174908256880734
+Maldives,MDV,Equity Risk Premium,0.18882351282468096
+Maldives,MDV,Country Risk Premium,0.12942351282468095
+Maldives,MDV,Corporate Tax Rate,0.2281
+Maldives,MDV,Sector Beta,0.98244345310766
+Maldives,MDV,Equity weight,0.33
+Maldives,MDV,Lender Margin,0.02
+Mali,MLI,Region,Low income
+Mali,MLI,Rating-based Default Spread,0.11015642201834862
+Mali,MLI,Equity Risk Premium,0.2147893586578458
+Mali,MLI,Country Risk Premium,0.15538935865784578
+Mali,MLI,Corporate Tax Rate,0.2281
+Mali,MLI,Sector Beta,1.0045231368785612
+Mali,MLI,Equity weight,0.36
+Mali,MLI,Lender Margin,0.02
+Malta,MLT,Region,High income
+Malta,MLT,Rating-based Default Spread,0.010354128440366973
+Malta,MLT,Equity Risk Premium,0.07400578828115521
+Malta,MLT,Country Risk Premium,0.014605788281155217
+Malta,MLT,Corporate Tax Rate,0.35
+Malta,MLT,Sector Beta,0.9866451366255751
+Malta,MLT,Equity weight,0.33
+Malta,MLT,Lender Margin,0.02
+Mauritius,MUS,Region,Upper middle income
+Mauritius,MUS,Rating-based Default Spread,0.026891972477064225
+Mauritius,MUS,Equity Risk Premium,0.09733447789688926
+Mauritius,MUS,Country Risk Premium,0.03793447789688925
+Mauritius,MUS,Corporate Tax Rate,0.15
+Mauritius,MUS,Sector Beta,0.98244345310766
+Mauritius,MUS,Equity weight,0.33
+Mauritius,MUS,Lender Margin,0.02
+Mexico,MEX,Region,Upper middle income
+Mexico,MEX,Rating-based Default Spread,0.023296788990825688
+Mexico,MEX,Equity Risk Premium,0.09226302363259924
+Mexico,MEX,Country Risk Premium,0.032863023632599235
+Mexico,MEX,Corporate Tax Rate,0.3
+Mexico,MEX,Sector Beta,0.98244345310766
+Mexico,MEX,Equity weight,0.33
+Mexico,MEX,Lender Margin,0.02
+Moldova,MDA,Region,Upper middle income
+Moldova,MDA,Rating-based Default Spread,0.07952545871559634
+Moldova,MDA,Equity Risk Premium,0.17158056832609495
+Moldova,MDA,Country Risk Premium,0.11218056832609494
+Moldova,MDA,Corporate Tax Rate,0.12
+Moldova,MDA,Sector Beta,0.98244345310766
+Moldova,MDA,Equity weight,0.33
+Moldova,MDA,Lender Margin,0.02
+Mongolia,MNG,Region,Upper middle income
+Mongolia,MNG,Rating-based Default Spread,0.07952545871559634
+Mongolia,MNG,Equity Risk Premium,0.17158056832609495
+Mongolia,MNG,Country Risk Premium,0.11218056832609494
+Mongolia,MNG,Corporate Tax Rate,0.25
+Mongolia,MNG,Sector Beta,0.98244345310766
+Mongolia,MNG,Equity weight,0.33
+Mongolia,MNG,Lender Margin,0.02
+Montenegro,MNE,Region,Upper middle income
+Montenegro,MNE,Rating-based Default Spread,0.05507821100917431
+Montenegro,MNE,Equity Risk Premium,0.13709467932892289
+Montenegro,MNE,Country Risk Premium,0.07769467932892289
+Montenegro,MNE,Corporate Tax Rate,0.15
+Montenegro,MNE,Sector Beta,0.98244345310766
+Montenegro,MNE,Equity weight,0.33
+Montenegro,MNE,Lender Margin,0.02
+Montserrat,0x2a,Region,0x2a
+Montserrat,0x2a,Rating-based Default Spread,0.026891972477064225
+Montserrat,0x2a,Equity Risk Premium,0.09733447789688926
+Montserrat,0x2a,Country Risk Premium,0.03793447789688925
+Montserrat,0x2a,Corporate Tax Rate,0.2718
+Montserrat,0x2a,Sector Beta,0x2a
+Montserrat,0x2a,Equity weight,0x2a
+Montserrat,0x2a,Lender Margin,0.02
+Morocco,MAR,Region,Lower middle income
+Morocco,MAR,Rating-based Default Spread,0.030630963302752296
+Morocco,MAR,Equity Risk Premium,0.10260879033175085
+Morocco,MAR,Country Risk Premium,0.04320879033175085
+Morocco,MAR,Corporate Tax Rate,0.31
+Morocco,MAR,Sector Beta,1.0045231368785612
+Morocco,MAR,Equity weight,0.36
+Morocco,MAR,Lender Margin,0.02
+Mozambique,MOZ,Region,Low income
+Mozambique,MOZ,Rating-based Default Spread,0.11015642201834862
+Mozambique,MOZ,Equity Risk Premium,0.2147893586578458
+Mozambique,MOZ,Country Risk Premium,0.15538935865784578
+Mozambique,MOZ,Corporate Tax Rate,0.32
+Mozambique,MOZ,Sector Beta,1.0045231368785612
+Mozambique,MOZ,Equity weight,0.36
+Mozambique,MOZ,Lender Margin,0.02
+Namibia,NAM,Region,Lower middle income
+Namibia,NAM,Rating-based Default Spread,0.05507821100917431
+Namibia,NAM,Equity Risk Premium,0.13709467932892289
+Namibia,NAM,Country Risk Premium,0.07769467932892289
+Namibia,NAM,Corporate Tax Rate,0.32
+Namibia,NAM,Sector Beta,1.0045231368785612
+Namibia,NAM,Equity weight,0.36
+Namibia,NAM,Lender Margin,0.02
+Netherlands,NLD,Region,High income
+Netherlands,NLD,Rating-based Default Spread,0
+Netherlands,NLD,Equity Risk Premium,0.0594
+Netherlands,NLD,Country Risk Premium,0
+Netherlands,NLD,Corporate Tax Rate,0.258
+Netherlands,NLD,Sector Beta,0.9866451366255751
+Netherlands,NLD,Equity weight,0.33
+Netherlands,NLD,Lender Margin,0.02
+New Zealand,NZL,Region,High income
+New Zealand,NZL,Rating-based Default Spread,0
+New Zealand,NZL,Equity Risk Premium,0.0594
+New Zealand,NZL,Country Risk Premium,0
+New Zealand,NZL,Corporate Tax Rate,0.28
+New Zealand,NZL,Sector Beta,0.9866451366255751
+New Zealand,NZL,Equity weight,0.33
+New Zealand,NZL,Lender Margin,0.02
+Nicaragua,NIC,Region,Lower middle income
+Nicaragua,NIC,Rating-based Default Spread,0.07952545871559634
+Nicaragua,NIC,Equity Risk Premium,0.17158056832609495
+Nicaragua,NIC,Country Risk Premium,0.11218056832609494
+Nicaragua,NIC,Corporate Tax Rate,0.3
+Nicaragua,NIC,Sector Beta,1.0045231368785612
+Nicaragua,NIC,Equity weight,0.36
+Nicaragua,NIC,Lender Margin,0.02
+Niger,NER,Region,Low income
+Niger,NER,Rating-based Default Spread,0.07952545871559634
+Niger,NER,Equity Risk Premium,0.17158056832609495
+Niger,NER,Country Risk Premium,0.11218056832609494
+Niger,NER,Corporate Tax Rate,0.2281
+Niger,NER,Sector Beta,1.0045231368785612
+Niger,NER,Equity weight,0.36
+Niger,NER,Lender Margin,0.02
+Nigeria,NGA,Region,Lower middle income
+Nigeria,NGA,Rating-based Default Spread,0.07952545871559634
+Nigeria,NGA,Equity Risk Premium,0.17158056832609495
+Nigeria,NGA,Country Risk Premium,0.11218056832609494
+Nigeria,NGA,Corporate Tax Rate,0.3
+Nigeria,NGA,Sector Beta,1.0045231368785612
+Nigeria,NGA,Equity weight,0.36
+Nigeria,NGA,Lender Margin,0.02
+Norway,NOR,Region,High income
+Norway,NOR,Rating-based Default Spread,0
+Norway,NOR,Equity Risk Premium,0.0594
+Norway,NOR,Country Risk Premium,0
+Norway,NOR,Corporate Tax Rate,0.22
+Norway,NOR,Sector Beta,0.9866451366255751
+Norway,NOR,Equity weight,0.33
+Norway,NOR,Lender Margin,0.02
+Oman,OMN,Region,High income
+Oman,OMN,Rating-based Default Spread,0.04400504587155964
+Oman,OMN,Equity Risk Premium,0.12147460019490969
+Oman,OMN,Country Risk Premium,0.06207460019490968
+Oman,OMN,Corporate Tax Rate,0.15
+Oman,OMN,Sector Beta,0.9866451366255751
+Oman,OMN,Equity weight,0.33
+Oman,OMN,Lender Margin,0.02
+Pakistan,PAK,Region,Lower middle income
+Pakistan,PAK,Rating-based Default Spread,0.09174908256880734
+Pakistan,PAK,Equity Risk Premium,0.18882351282468096
+Pakistan,PAK,Country Risk Premium,0.12942351282468095
+Pakistan,PAK,Corporate Tax Rate,0.29
+Pakistan,PAK,Sector Beta,1.0045231368785612
+Pakistan,PAK,Equity weight,0.36
+Pakistan,PAK,Lender Margin,0.02
+Panama,PAN,Region,High income
+Panama,PAN,Rating-based Default Spread,0.023296788990825688
+Panama,PAN,Equity Risk Premium,0.09226302363259924
+Panama,PAN,Country Risk Premium,0.032863023632599235
+Panama,PAN,Corporate Tax Rate,0.25
+Panama,PAN,Sector Beta,0.9866451366255751
+Panama,PAN,Equity weight,0.33
+Panama,PAN,Lender Margin,0.02
+Papua New Guinea,PNG,Region,Lower middle income
+Papua New Guinea,PNG,Rating-based Default Spread,0.06730183486238533
+Papua New Guinea,PNG,Equity Risk Premium,0.15433762382750893
+Papua New Guinea,PNG,Country Risk Premium,0.09493762382750894
+Papua New Guinea,PNG,Corporate Tax Rate,0.3
+Papua New Guinea,PNG,Sector Beta,1.0045231368785612
+Papua New Guinea,PNG,Equity weight,0.36
+Papua New Guinea,PNG,Lender Margin,0.02
+Paraguay,PRY,Region,Upper middle income
+Paraguay,PRY,Rating-based Default Spread,0.030630963302752296
+Paraguay,PRY,Equity Risk Premium,0.10260879033175085
+Paraguay,PRY,Country Risk Premium,0.04320879033175085
+Paraguay,PRY,Corporate Tax Rate,0.1
+Paraguay,PRY,Sector Beta,0.98244345310766
+Paraguay,PRY,Equity weight,0.33
+Paraguay,PRY,Lender Margin,0.02
+Peru,PER,Region,Upper middle income
+Peru,PER,Rating-based Default Spread,0.019557798165137613
+Peru,PER,Equity Risk Premium,0.08698871119773763
+Peru,PER,Country Risk Premium,0.02758871119773763
+Peru,PER,Corporate Tax Rate,0.295
+Peru,PER,Sector Beta,0.98244345310766
+Peru,PER,Equity weight,0.33
+Peru,PER,Lender Margin,0.02
+Philippines,PHL,Region,Lower middle income
+Philippines,PHL,Rating-based Default Spread,0.023296788990825688
+Philippines,PHL,Equity Risk Premium,0.09226302363259924
+Philippines,PHL,Country Risk Premium,0.032863023632599235
+Philippines,PHL,Corporate Tax Rate,0.25
+Philippines,PHL,Sector Beta,1.0045231368785612
+Philippines,PHL,Equity weight,0.36
+Philippines,PHL,Lender Margin,0.02
+Poland,POL,Region,High income
+Poland,POL,Rating-based Default Spread,0.010354128440366973
+Poland,POL,Equity Risk Premium,0.07400578828115521
+Poland,POL,Country Risk Premium,0.014605788281155217
+Poland,POL,Corporate Tax Rate,0.19
+Poland,POL,Sector Beta,0.9866451366255751
+Poland,POL,Equity weight,0.33
+Poland,POL,Lender Margin,0.02
+Portugal,PRT,Region,High income
+Portugal,PRT,Rating-based Default Spread,0.023296788990825688
+Portugal,PRT,Equity Risk Premium,0.09226302363259924
+Portugal,PRT,Country Risk Premium,0.032863023632599235
+Portugal,PRT,Corporate Tax Rate,0.21
+Portugal,PRT,Sector Beta,0.9866451366255751
+Portugal,PRT,Equity weight,0.33
+Portugal,PRT,Lender Margin,0.02
+Qatar,QAT,Region,High income
+Qatar,QAT,Rating-based Default Spread,0.007334174311926606
+Qatar,QAT,Equity Risk Premium,0.06974576669915161
+Qatar,QAT,Country Risk Premium,0.010345766699151613
+Qatar,QAT,Corporate Tax Rate,0.1
+Qatar,QAT,Sector Beta,0.9866451366255751
+Qatar,QAT,Equity weight,0.33
+Qatar,QAT,Lender Margin,0.02
+Emirate of Ras Al Khaimah,0x2a,Region,0x2a
+Emirate of Ras Al Khaimah,0x2a,Rating-based Default Spread,0.014668348623853212
+Emirate of Ras Al Khaimah,0x2a,Equity Risk Premium,0.08009153339830323
+Emirate of Ras Al Khaimah,0x2a,Country Risk Premium,0.020691533398303225
+Emirate of Ras Al Khaimah,0x2a,Corporate Tax Rate,0
+Emirate of Ras Al Khaimah,0x2a,Sector Beta,0x2a
+Emirate of Ras Al Khaimah,0x2a,Equity weight,0x2a
+Emirate of Ras Al Khaimah,0x2a,Lender Margin,0.02
+Romania,ROU,Region,High income
+Romania,ROU,Rating-based Default Spread,0.026891972477064225
+Romania,ROU,Equity Risk Premium,0.09733447789688926
+Romania,ROU,Country Risk Premium,0.03793447789688925
+Romania,ROU,Corporate Tax Rate,0.16
+Romania,ROU,Sector Beta,0.9866451366255751
+Romania,ROU,Equity weight,0.33
+Romania,ROU,Lender Margin,0.02
+Russia,RUS,Region,High income
+Russia,RUS,Rating-based Default Spread,0.09174908256880734
+Russia,RUS,Equity Risk Premium,0.18882351282468096
+Russia,RUS,Country Risk Premium,0.12942351282468095
+Russia,RUS,Corporate Tax Rate,0.2
+Russia,RUS,Sector Beta,0.9866451366255751
+Russia,RUS,Equity weight,0.33
+Russia,RUS,Lender Margin,0.02
+Rwanda,RWA,Region,Low income
+Rwanda,RWA,Rating-based Default Spread,0.06730183486238533
+Rwanda,RWA,Equity Risk Premium,0.15433762382750893
+Rwanda,RWA,Country Risk Premium,0.09493762382750894
+Rwanda,RWA,Corporate Tax Rate,0.3
+Rwanda,RWA,Sector Beta,1.0045231368785612
+Rwanda,RWA,Equity weight,0.36
+Rwanda,RWA,Lender Margin,0.02
+Saudi Arabia,SAU,Region,High income
+Saudi Arabia,SAU,Rating-based Default Spread,0.008628440366972478
+Saudi Arabia,SAU,Equity Risk Premium,0.07157149023429601
+Saudi Arabia,SAU,Country Risk Premium,0.012171490234296015
+Saudi Arabia,SAU,Corporate Tax Rate,0.2
+Saudi Arabia,SAU,Sector Beta,0.9866451366255751
+Saudi Arabia,SAU,Equity weight,0.33
+Saudi Arabia,SAU,Lender Margin,0.02
+Senegal,SEN,Region,Lower middle income
+Senegal,SEN,Rating-based Default Spread,0.04400504587155964
+Senegal,SEN,Equity Risk Premium,0.12147460019490969
+Senegal,SEN,Country Risk Premium,0.06207460019490968
+Senegal,SEN,Corporate Tax Rate,0.3
+Senegal,SEN,Sector Beta,1.0045231368785612
+Senegal,SEN,Equity weight,0.36
+Senegal,SEN,Lender Margin,0.02
+Serbia,SRB,Region,Upper middle income
+Serbia,SRB,Rating-based Default Spread,0.03681467889908257
+Serbia,SRB,Equity Risk Premium,0.11133169166632967
+Serbia,SRB,Country Risk Premium,0.05193169166632966
+Serbia,SRB,Corporate Tax Rate,0.15
+Serbia,SRB,Sector Beta,0.98244345310766
+Serbia,SRB,Equity weight,0.33
+Serbia,SRB,Lender Margin,0.02
+Sharjah,0x2a,Region,0x2a
+Sharjah,0x2a,Rating-based Default Spread,0.030630963302752296
+Sharjah,0x2a,Equity Risk Premium,0.10260879033175085
+Sharjah,0x2a,Country Risk Premium,0.04320879033175085
+Sharjah,0x2a,Corporate Tax Rate,0
+Sharjah,0x2a,Sector Beta,0x2a
+Sharjah,0x2a,Equity weight,0x2a
+Sharjah,0x2a,Lender Margin,0.02
+Singapore,SGP,Region,High income
+Singapore,SGP,Rating-based Default Spread,0
+Singapore,SGP,Equity Risk Premium,0.0594
+Singapore,SGP,Country Risk Premium,0
+Singapore,SGP,Corporate Tax Rate,0.17
+Singapore,SGP,Sector Beta,0.9866451366255751
+Singapore,SGP,Equity weight,0.33
+Singapore,SGP,Lender Margin,0.02
+Slovakia,SVK,Region,High income
+Slovakia,SVK,Rating-based Default Spread,0.010354128440366973
+Slovakia,SVK,Equity Risk Premium,0.07400578828115521
+Slovakia,SVK,Country Risk Premium,0.014605788281155217
+Slovakia,SVK,Corporate Tax Rate,0.21
+Slovakia,SVK,Sector Beta,0.9866451366255751
+Slovakia,SVK,Equity weight,0.33
+Slovakia,SVK,Lender Margin,0.02
+Slovenia,SVN,Region,High income
+Slovenia,SVN,Rating-based Default Spread,0.014668348623853212
+Slovenia,SVN,Equity Risk Premium,0.08009153339830323
+Slovenia,SVN,Country Risk Premium,0.020691533398303225
+Slovenia,SVN,Corporate Tax Rate,0.19
+Slovenia,SVN,Sector Beta,0.9866451366255751
+Slovenia,SVN,Equity weight,0.33
+Slovenia,SVN,Lender Margin,0.02
+Solomon Islands,SLB,Region,Lower middle income
+Solomon Islands,SLB,Rating-based Default Spread,0.09174908256880734
+Solomon Islands,SLB,Equity Risk Premium,0.18882351282468096
+Solomon Islands,SLB,Country Risk Premium,0.12942351282468095
+Solomon Islands,SLB,Corporate Tax Rate,0.3
+Solomon Islands,SLB,Sector Beta,1.0045231368785612
+Solomon Islands,SLB,Equity weight,0.36
+Solomon Islands,SLB,Lender Margin,0.02
+South Africa,ZAF,Region,Upper middle income
+South Africa,ZAF,Rating-based Default Spread,0.03681467889908257
+South Africa,ZAF,Equity Risk Premium,0.11133169166632967
+South Africa,ZAF,Country Risk Premium,0.05193169166632966
+South Africa,ZAF,Corporate Tax Rate,0.27
+South Africa,ZAF,Sector Beta,0.98244345310766
+South Africa,ZAF,Equity weight,0.33
+South Africa,ZAF,Lender Margin,0.02
+Spain,ESP,Region,High income
+Spain,ESP,Rating-based Default Spread,0.019557798165137613
+Spain,ESP,Equity Risk Premium,0.08698871119773763
+Spain,ESP,Country Risk Premium,0.02758871119773763
+Spain,ESP,Corporate Tax Rate,0.25
+Spain,ESP,Sector Beta,0.9866451366255751
+Spain,ESP,Equity weight,0.33
+Spain,ESP,Lender Margin,0.02
+Sri Lanka,LKA,Region,Lower middle income
+Sri Lanka,LKA,Rating-based Default Spread,0.14682729357798166
+Sri Lanka,LKA,Equity Risk Premium,0.26651819215360384
+Sri Lanka,LKA,Country Risk Premium,0.20711819215360386
+Sri Lanka,LKA,Corporate Tax Rate,0.24
+Sri Lanka,LKA,Sector Beta,1.0045231368785612
+Sri Lanka,LKA,Equity weight,0.36
+Sri Lanka,LKA,Lender Margin,0.02
+Sint Maarten,0x2a,Region,0x2a
+Sint Maarten,0x2a,Rating-based Default Spread,0.03681467889908257
+Sint Maarten,0x2a,Equity Risk Premium,0.11133169166632967
+Sint Maarten,0x2a,Country Risk Premium,0.05193169166632966
+Sint Maarten,0x2a,Corporate Tax Rate,0.2718
+Sint Maarten,0x2a,Sector Beta,0x2a
+Sint Maarten,0x2a,Equity weight,0x2a
+Sint Maarten,0x2a,Lender Margin,0.02
+Saint Vincent and the Grenadines,VCT,Region,Upper middle income
+Saint Vincent and the Grenadines,VCT,Rating-based Default Spread,0.07952545871559634
+Saint Vincent and the Grenadines,VCT,Equity Risk Premium,0.17158056832609495
+Saint Vincent and the Grenadines,VCT,Country Risk Premium,0.11218056832609494
+Saint Vincent and the Grenadines,VCT,Corporate Tax Rate,0.2718
+Saint Vincent and the Grenadines,VCT,Sector Beta,0.98244345310766
+Saint Vincent and the Grenadines,VCT,Equity weight,0.33
+Saint Vincent and the Grenadines,VCT,Lender Margin,0.02
+Suriname,SUR,Region,Upper middle income
+Suriname,SUR,Rating-based Default Spread,0.12238004587155965
+Suriname,SUR,Equity Risk Premium,0.23203230315643184
+Suriname,SUR,Country Risk Premium,0.17263230315643183
+Suriname,SUR,Corporate Tax Rate,0.36
+Suriname,SUR,Sector Beta,0.98244345310766
+Suriname,SUR,Equity weight,0.33
+Suriname,SUR,Lender Margin,0.02
+Eswatini,0x2a,Region,0x2a
+Eswatini,0x2a,Rating-based Default Spread,0.07952545871559634
+Eswatini,0x2a,Equity Risk Premium,0.17158056832609495
+Eswatini,0x2a,Country Risk Premium,0.11218056832609494
+Eswatini,0x2a,Corporate Tax Rate,0.275
+Eswatini,0x2a,Sector Beta,0x2a
+Eswatini,0x2a,Equity weight,0x2a
+Eswatini,0x2a,Lender Margin,0.02
+Sweden,SWE,Region,High income
+Sweden,SWE,Rating-based Default Spread,0
+Sweden,SWE,Equity Risk Premium,0.0594
+Sweden,SWE,Country Risk Premium,0
+Sweden,SWE,Corporate Tax Rate,0.20600000000000002
+Sweden,SWE,Sector Beta,0.9866451366255751
+Sweden,SWE,Equity weight,0.33
+Sweden,SWE,Lender Margin,0.02
+Switzerland,CHE,Region,High income
+Switzerland,CHE,Rating-based Default Spread,0
+Switzerland,CHE,Equity Risk Premium,0.0594
+Switzerland,CHE,Country Risk Premium,0
+Switzerland,CHE,Corporate Tax Rate,0.18
+Switzerland,CHE,Sector Beta,0.9866451366255751
+Switzerland,CHE,Equity weight,0.33
+Switzerland,CHE,Lender Margin,0.02
+Taiwan,TWN,Region,High income
+Taiwan,TWN,Rating-based Default Spread,0.007334174311926606
+Taiwan,TWN,Equity Risk Premium,0.06974576669915161
+Taiwan,TWN,Country Risk Premium,0.010345766699151613
+Taiwan,TWN,Corporate Tax Rate,0.2
+Taiwan,TWN,Sector Beta,0.9866451366255751
+Taiwan,TWN,Equity weight,0.33
+Taiwan,TWN,Lender Margin,0.02
+Tajikistan,TJK,Region,Lower middle income
+Tajikistan,TJK,Rating-based Default Spread,0.07952545871559634
+Tajikistan,TJK,Equity Risk Premium,0.17158056832609495
+Tajikistan,TJK,Country Risk Premium,0.11218056832609494
+Tajikistan,TJK,Corporate Tax Rate,0.18
+Tajikistan,TJK,Sector Beta,1.0045231368785612
+Tajikistan,TJK,Equity weight,0.36
+Tajikistan,TJK,Lender Margin,0.02
+Tanzania,TZA,Region,Lower middle income
+Tanzania,TZA,Rating-based Default Spread,0.06730183486238533
+Tanzania,TZA,Equity Risk Premium,0.15433762382750893
+Tanzania,TZA,Country Risk Premium,0.09493762382750894
+Tanzania,TZA,Corporate Tax Rate,0.3
+Tanzania,TZA,Sector Beta,1.0045231368785612
+Tanzania,TZA,Equity weight,0.36
+Tanzania,TZA,Lender Margin,0.02
+Thailand,THA,Region,Upper middle income
+Thailand,THA,Rating-based Default Spread,0.019557798165137613
+Thailand,THA,Equity Risk Premium,0.08698871119773763
+Thailand,THA,Country Risk Premium,0.02758871119773763
+Thailand,THA,Corporate Tax Rate,0.2
+Thailand,THA,Sector Beta,0.98244345310766
+Thailand,THA,Equity weight,0.33
+Thailand,THA,Lender Margin,0.02
+Togo,TGO,Region,Low income
+Togo,TGO,Rating-based Default Spread,0.07952545871559634
+Togo,TGO,Equity Risk Premium,0.17158056832609495
+Togo,TGO,Country Risk Premium,0.11218056832609494
+Togo,TGO,Corporate Tax Rate,0.2281
+Togo,TGO,Sector Beta,1.0045231368785612
+Togo,TGO,Equity weight,0.36
+Togo,TGO,Lender Margin,0.02
+Trinidad and Tobago,TTO,Region,High income
+Trinidad and Tobago,TTO,Rating-based Default Spread,0.03681467889908257
+Trinidad and Tobago,TTO,Equity Risk Premium,0.11133169166632967
+Trinidad and Tobago,TTO,Country Risk Premium,0.05193169166632966
+Trinidad and Tobago,TTO,Corporate Tax Rate,0.3
+Trinidad and Tobago,TTO,Sector Beta,0.9866451366255751
+Trinidad and Tobago,TTO,Equity weight,0.33
+Trinidad and Tobago,TTO,Lender Margin,0.02
+Tunisia,TUN,Region,Lower middle income
+Tunisia,TUN,Rating-based Default Spread,0.09174908256880734
+Tunisia,TUN,Equity Risk Premium,0.18882351282468096
+Tunisia,TUN,Country Risk Premium,0.12942351282468095
+Tunisia,TUN,Corporate Tax Rate,0.15
+Tunisia,TUN,Sector Beta,1.0045231368785612
+Tunisia,TUN,Equity weight,0.36
+Tunisia,TUN,Lender Margin,0.02
+Turkey,TUR,Region,Upper middle income
+Turkey,TUR,Rating-based Default Spread,0.07952545871559634
+Turkey,TUR,Equity Risk Premium,0.17158056832609495
+Turkey,TUR,Country Risk Premium,0.11218056832609494
+Turkey,TUR,Corporate Tax Rate,0.23
+Turkey,TUR,Sector Beta,0.98244345310766
+Turkey,TUR,Equity weight,0.33
+Turkey,TUR,Lender Margin,0.02
+Turks and Caicos Islands,0x2a,Region,0x2a
+Turks and Caicos Islands,0x2a,Rating-based Default Spread,0.019557798165137613
+Turks and Caicos Islands,0x2a,Equity Risk Premium,0.08698871119773763
+Turks and Caicos Islands,0x2a,Country Risk Premium,0.02758871119773763
+Turks and Caicos Islands,0x2a,Corporate Tax Rate,0
+Turks and Caicos Islands,0x2a,Sector Beta,0x2a
+Turks and Caicos Islands,0x2a,Equity weight,0x2a
+Turks and Caicos Islands,0x2a,Lender Margin,0.02
+Uganda,UGA,Region,Low income
+Uganda,UGA,Rating-based Default Spread,0.06730183486238533
+Uganda,UGA,Equity Risk Premium,0.15433762382750893
+Uganda,UGA,Country Risk Premium,0.09493762382750894
+Uganda,UGA,Corporate Tax Rate,0.3
+Uganda,UGA,Sector Beta,1.0045231368785612
+Uganda,UGA,Equity weight,0.36
+Uganda,UGA,Lender Margin,0.02
+Ukraine,UKR,Region,Upper middle income
+Ukraine,UKR,Rating-based Default Spread,0.12238004587155965
+Ukraine,UKR,Equity Risk Premium,0.23203230315643184
+Ukraine,UKR,Country Risk Premium,0.17263230315643183
+Ukraine,UKR,Corporate Tax Rate,0.18
+Ukraine,UKR,Sector Beta,0.98244345310766
+Ukraine,UKR,Equity weight,0.33
+Ukraine,UKR,Lender Margin,0.02
+United Arab Emirates,ARE,Region,High income
+United Arab Emirates,ARE,Rating-based Default Spread,0.006039908256880735
+United Arab Emirates,ARE,Equity Risk Premium,0.06792004316400721
+United Arab Emirates,ARE,Country Risk Premium,0.00852004316400721
+United Arab Emirates,ARE,Corporate Tax Rate,0
+United Arab Emirates,ARE,Sector Beta,0.9866451366255751
+United Arab Emirates,ARE,Equity weight,0.33
+United Arab Emirates,ARE,Lender Margin,0.02
+United Kingdom,GBR,Region,High income
+United Kingdom,GBR,Rating-based Default Spread,0.007334174311926606
+United Kingdom,GBR,Equity Risk Premium,0.06974576669915161
+United Kingdom,GBR,Country Risk Premium,0.010345766699151613
+United Kingdom,GBR,Corporate Tax Rate,0.25
+United Kingdom,GBR,Sector Beta,0.9866451366255751
+United Kingdom,GBR,Equity weight,0.33
+United Kingdom,GBR,Lender Margin,0.02
+United States,USA,Region,High income
+United States,USA,Rating-based Default Spread,0
+United States,USA,Equity Risk Premium,0.0594
+United States,USA,Country Risk Premium,0
+United States,USA,Corporate Tax Rate,0.25
+United States,USA,Sector Beta,0.9866451366255751
+United States,USA,Equity weight,0.33
+United States,USA,Lender Margin,0.02
+Uruguay,URY,Region,High income
+Uruguay,URY,Rating-based Default Spread,0.023296788990825688
+Uruguay,URY,Equity Risk Premium,0.09226302363259924
+Uruguay,URY,Country Risk Premium,0.032863023632599235
+Uruguay,URY,Corporate Tax Rate,0.25
+Uruguay,URY,Sector Beta,0.9866451366255751
+Uruguay,URY,Equity weight,0.33
+Uruguay,URY,Lender Margin,0.02
+Uzbekistan,UZB,Region,Lower middle income
+Uzbekistan,UZB,Rating-based Default Spread,0.05507821100917431
+Uzbekistan,UZB,Equity Risk Premium,0.13709467932892289
+Uzbekistan,UZB,Country Risk Premium,0.07769467932892289
+Uzbekistan,UZB,Corporate Tax Rate,0.15
+Uzbekistan,UZB,Sector Beta,1.0045231368785612
+Uzbekistan,UZB,Equity weight,0.36
+Uzbekistan,UZB,Lender Margin,0.02
+Venezuela,VEN,Region,Low income
+Venezuela,VEN,Rating-based Default Spread,0.175
+Venezuela,VEN,Equity Risk Premium,0.3062593048582631
+Venezuela,VEN,Country Risk Premium,0.2468593048582631
+Venezuela,VEN,Corporate Tax Rate,0.34
+Venezuela,VEN,Sector Beta,1.0045231368785612
+Venezuela,VEN,Equity weight,0.36
+Venezuela,VEN,Lender Margin,0.02
+Vietnam,VNM,Region,Lower middle income
+Vietnam,VNM,Rating-based Default Spread,0.03681467889908257
+Vietnam,VNM,Equity Risk Premium,0.11133169166632967
+Vietnam,VNM,Country Risk Premium,0.05193169166632966
+Vietnam,VNM,Corporate Tax Rate,0.2
+Vietnam,VNM,Sector Beta,1.0045231368785612
+Vietnam,VNM,Equity weight,0.36
+Vietnam,VNM,Lender Margin,0.02
+Zambia,ZMB,Region,Lower middle income
+Zambia,ZMB,Rating-based Default Spread,0.14682729357798166
+Zambia,ZMB,Equity Risk Premium,0.26651819215360384
+Zambia,ZMB,Country Risk Premium,0.20711819215360386
+Zambia,ZMB,Corporate Tax Rate,0.35
+Zambia,ZMB,Sector Beta,1.0045231368785612
+Zambia,ZMB,Equity weight,0.36
+Zambia,ZMB,Lender Margin,0.02
+Default,(Uses Sri Lanka),Rating-based Default Spread,0.14682729357798166
+Default,(Uses Sri Lanka),Equity Risk Premium,0.26651819215360384
+Default,(Uses Sri Lanka),Country Risk Premium,0.20711819215360386
+Default,(Uses Sri Lanka),Corporate Tax Rate,0.24
+Default,(Uses Sri Lanka),Sector Beta,1.0045231368785612
+Default,(Uses Sri Lanka),Equity weight,0.36
+Default,(Uses Sri Lanka),Lender Margin,0.02

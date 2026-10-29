@@ -1,0 +1,17 @@
+category,technology,variable,value
+oldlow,sol,Hist Avg,-0.0897801630966712
+oldlow,sol,Forward projection avg,-0.02118316776173859
+med,sol,Hist Avg,-0.0897801630966712
+med,sol,Forward projection avg,-0.02752710780126488
+hgh,sol,Hist Avg,-0.0897801630966712
+hgh,sol,Forward projection avg,-0.03005138968357389
+oldvhg,sol,Hist Avg,-0.0897801630966712
+oldvhg,sol,Forward projection avg,-0.035490431754702075
+oldlow,wnd,Hist Avg,-0.010444446534892737
+oldlow,wnd,Forward projection avg,-0.008806092043135169
+med,wnd,Hist Avg,-0.010444446534892737
+med,wnd,Forward projection avg,-0.0042220679205387706
+hgh,wnd,Hist Avg,-0.010444446534892737
+hgh,wnd,Forward projection avg,-0.004802895600643804
+oldvhg,wnd,Hist Avg,-0.010444446534892737
+oldvhg,wnd,Forward projection avg,-0.019562541103970824
