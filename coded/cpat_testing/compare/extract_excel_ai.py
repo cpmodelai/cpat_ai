@@ -4,6 +4,8 @@
                                                      plus the Python rows below (cpat_model.inputs.scenarios)
   cpat_testing/compare/reference/excel_ai_<v>.csv    every coded row of sheet Mitigation, scenario groups 1 and 2,
                                                      years as columns: the reference values of the comparison
+  cpat_model/core/variables.csv                      the variable dictionary: every coded Mitigation row's variable,
+                                                     fuel, sector, description, unit and code (scenario 1)
   data/mvp_legacy_extracts/module_<Tab>_cells.csv    the typed module values of tabs FromAirPollution and
                                                      FromTransportCB (row, col, value), for the placeholder modules
 
@@ -76,6 +78,23 @@ def reference(wb):
     return len(out)
 
 
+VARIABLES = CODED / 'cpat_model' / 'core' / 'variables.csv'
+
+
+def variables(wb):
+    rows = list(wb['Mitigation'].iter_rows(max_col=11, values_only=True))
+    out, seen = [], set()
+    for r in rows:
+        code = r[10]
+        if isinstance(code, str) and code.count('.') >= 2 and code.endswith('.1') and code not in seen:
+            seen.add(code)
+            out.append([text(r[0]), text(r[1]), text(r[2]), text(r[7]), text(r[8]), code])
+    with open(VARIABLES, 'w', encoding='utf-8', newline='') as f:
+        csv.writer(f, lineterminator='\n').writerows([['variable', 'fuel', 'sector', 'description', 'unit', 'code']]
+                                                     + out)
+    return len(out)
+
+
 def module_tabs(wb):
     for tab in ('FromAirPollution', 'FromTransportCB'):
         cells = [[r, c, text(v)] for r, row in enumerate(wb[tab].iter_rows(values_only=True), 1)
@@ -90,4 +109,5 @@ if __name__ == '__main__':
     book = openpyxl.load_workbook(WORKBOOK, read_only=True, data_only=True)
     print('scenario rows:', scenarios(book), '->', SCENARIOS)
     print('reference codes:', reference(book), '->', REFERENCE)
+    print('variables:', variables(book), '->', VARIABLES)
     module_tabs(book)

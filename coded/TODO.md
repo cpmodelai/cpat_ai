@@ -25,15 +25,15 @@ Status key: ☐ not started · ◐ in progress · ☑ done (ticked items leave a
 - ☐ Data, from 2.1: assemble the `dummy` database (public files plus dummy Balances, EnergyCons, Prices_dom in the 99-column layout, HHSurvey, IO_GTAP); bring ASPIRE and WHOCooking back whole; extract the FromAirPollution and FromTransportCB values from `build.py` to a data file (2.10).
 - ☑ 2.2 Package skeleton (`cpat_model/` folders, `run()`, `settings.py`), versions `EXCEL_AI_VERSION` and `__version__` = `<Excel-AI>p<Python>` (D14; Excel-AI numbering rebased 2026-10-29: 0.9.0, distribution 0.1.3).
 - ☑ 2.3 Index sets (`core/dims.py`) from the codes map. Check: equal to the codes map.
-- ☐ 2.4 Variable registry (`core/variables.py`) from the codes map with the symbols of `equations.yaml`; resolve the 33 code names marked †. Check: every name in the equation list is in the registry.
+- ☑ 2.4 Variable registry (`core/variables.py`, `core/variables.csv`: 7,541 coded rows, 1,255 stems with description and unit, from Excel-AI's Mitigation sheet). Of the 33 names marked † in the equation list, 4 are stems (cons, pop, reg, trown); the rest are parameters or data and are settled block by block in phase 3.
 - ☑ 2.5 Loop (`core/loop.py`): baseline first, then each scenario (D15); prepare, year loop, finish; `mitigation/chain.py`; policy paths and price indices (`core/paths.py`).
 - ☑ 2.6 Data layer (`data/`): reads the tidy tables of `../data/tidy/` (`DATA_ENVIRONMENT` = `full` or `dummy`, path of the private tidy folder); loaders to labelled arrays; exact float parsing; cache. The old Python-format data (`../data/dummy/`, `convert_data_workbook.py`, `export_to_legacy.py`) serve the old code only and retire with it (6.3).
 - ☑ 2.7 Inputs (`inputs/`): scenario-set table (MTInputs rows + Excel-AI additions + `ModelForm`), advanced-inputs workbook, validation, global-settings check (D16). Check: Excel-AI `ScenarioDefinition` J, K read back unchanged.
 - ☑ 2.8 Forms (`forms/`): registry, slots, the `CPAT` form (its equations come with phase 3); `ModelForm` in the Python scenario set. ☐ The `ModelForm` row in Excel-AI's `ScenarioDefinition`: at its next release (user 2026-10-29).
 - ☑ 2.9 Results (`results/`) by output code; export in the Excel layout.
 - ☑ 2.10 Placeholder modules `air_pollution/`, `transport_cobenefits/`: `prepare` (FromAirPollution, FromTransportCB values) and empty `step(t)` (D10).
-- ☐ 2.11 Comparison harness (`cpat_testing/compare/`): reference values by code for Egypt from the existing Python recomputations (D8), then from Excel-AI.
-- ☐ 2.12 Equation-id test (every id has a function and every cited id exists).
+- ☑ 2.11 Comparison harness (`cpat_testing/compare/`): reference values by code from the stored values of Excel-AI 0.9.1 (user 2026-10-29): `compare.py`, `reference/excel_ai_0.9.1.csv`.
+- ☑ 2.12 Equation-id test (every id has a function and every cited id exists).
 
 ## Phase 3 - Mitigation, block by block (each: equation list appendix, functions, unit tests, comparison for Egypt, register differences)
 
