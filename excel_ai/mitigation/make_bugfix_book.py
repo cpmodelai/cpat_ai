@@ -57,14 +57,9 @@ def bug_type(code):
 
 
 def plans():
-    """Cell-level plans by bug id (excel_ai/legacy/bugfixes/data; v0.7.1: every plan file, distribution included)."""
-    out = {}
-    for name in ('power_engineer', 'transport_engineer', 'other_mitigation', 'other_mitigation_2', 'distribution'):
-        p = os.path.join(PLANS, f'fixes_{name}.json')
-        if os.path.exists(p):
-            for b in json.load(open(p, encoding='utf-8')):
-                out[b['id']] = b
-    return out
+    """Cell-level plans by bug id: every plan file of excel_ai/legacy/bugfixes/data (one loader, register.py; until
+    2026-10-29 this kept its own list and missed fixes_v0_9_0.json, so L171-L229 printed "not written yet")."""
+    return G.plans()
 
 
 def other_sections():
@@ -278,7 +273,7 @@ def procedure_steps(doc):
         ('R Report', 'Number of changed rows; the rows with the largest change as a share of their size.',
          'judgement')], [3.0, 9.0, 4.0])
     doc.add_heading('2.4 Applying a cell-level plan', 2)
-    para(doc, 'For almost every bug (the "Cell plan" column says which) the repository holds a cell-level plan '
+    para(doc, 'For every bug (the "Cell plan" column says which) the repository holds a cell-level plan '
               '(excel_ai/legacy/bugfixes/data, JSON): for each cell the formula now, the new formula, the range to fill and the policy row. Apply a '
               'plan as stage F above: type the new formula in the cell, fill the range, copy the baseline cells onto '
               'the policy row given (Paste Special, Formulas), recalculate, then run T1-T7. The plans are printed with '

@@ -86,7 +86,8 @@ def sort_key(code):
 @functools.lru_cache(maxsize=None)
 def plans():
     out = {}
-    for name in ('power_engineer', 'transport_engineer', 'other_mitigation', 'other_mitigation_2', 'distribution', 'v0_9_0'):
+    for name in ('power_engineer', 'transport_engineer', 'other_mitigation', 'other_mitigation_2', 'distribution', 'v0_9_0',
+                 'other_mitigation_3'):   # 2026-10-29: batch F (L129-L134, L137, L169)
         p = os.path.join(PLANS, f'fixes_{name}.json')
         if os.path.exists(p):
             for b in json.load(open(p, encoding='utf-8')):
