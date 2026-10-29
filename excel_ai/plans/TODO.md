@@ -31,6 +31,14 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
 - ☐ C6 vocabularies (prototype members `vkt`, `own`, `pit`... into the sheets); the legacy MTOutputs code as a second alias; `coded` `ele` -> `ecy` with the shared data (with the Coded CPAT owner).
 - ☑ NOx forcing -6.25 against legacy -5.54 Mt CO2e (Egypt 2022): explained (v8.3 check), the same GWP factor (-7.058 per Mt NOx) on 12.9% more NOx (885.9 against 785.0 kt) from the fixed legacy bugs L22, L23, L58, L59; nothing to register.
 
+## 4a. Remaining functionality and alignment ([`Remaining_functionality.md`](Remaining_functionality.md); decisions open)
+
+- ☐ **A. Measure** the gap: legacy 465 with every cell plan applied against the prototype (U2).
+- ☐ **C. Mitigation functions**: Pigouvian taxes, CBAM process emissions, green public investment, small items.
+- ☐ **D. Modules**: air pollution, transport co-benefits, social costs and benefits (user decision: in or standalone).
+- ☐ **E. MTOutputs** like legacy, without the price build-up intermediates.
+- Not built by decision: the elasticity-based power model.
+
 ## 4b. Consolidation v8.4-v8.5 (2026-10-28/29): left over
 
 - ☐ **Data problems** (issues of area Data, `Legacy_CPAT_Bugs` section 3): I98 (Extremely high) GAINS factor paths or confirmation of the base and final factors, the 2040-2041 extrapolation and the EFSel average with the CPAT team; I97 (Very high) the data team says which blank VAT cells are true zeros, and the CPAT team applies the cell plan of L170; I99 the corrected Egypt prices to the CPAT data team.
