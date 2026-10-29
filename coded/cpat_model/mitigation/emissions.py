@@ -102,10 +102,13 @@ def country_data(db, iso, settings):
     src = {}
     act0 = {'og': d['prd0']['oil'] + d['prd0']['nga'], 'dg': ghg_data.consumption_total(db, iso, 'nga'),
             'cm': d['prd0']['coa'], 'bm': ghg_data.consumption_total(db, iso, 'bio'), 'liv': 1.0, 'ric': 1.0, 'wst': 1.0}
+    meth_avg = ghg_data.methane(db, 'AVG')     # CH4Inputs averages: the curve where the country value is 0 or missing
     for s in CH4_SOURCES:
         row = meth.get(CH4_KEY[s], {})
+        curve = lambda k: (row[k] if row.get(k) and row[k] == row[k]          # 0, blank or NaN: the average (legacy;
+                           else meth_avg.get(CH4_KEY[s], {}).get(k, 0.0))   # Excel-AI 1.0.2 ch4.abc, issue I152)
         share = 1.0 if s == 'wst' else meth.get(CH4_KEY[s] if s in ('liv', 'ric', 'cm') else 'oil', {}).get(CH4_SHARE[s], 0.0)
-        src[s] = {'share': share, 'act0': act0[s], 'a': row.get('avg_pow_a', 0.0), 'b': row.get('avg_pow_b', 0.0),
+        src[s] = {'share': share, 'act0': act0[s], 'a': curve('avg_pow_a'), 'b': curve('avg_pow_b'),
                   'gwp': c('GWPCH4F') if s in CH4_FUEL_SOURCES else c('GWPCH4NF'),
                   'fee': 1.0 if _yes(find(f'Methane fee applies to {CH4_FEE[s]}')) else 0.0,
                   'decline': find(f'autonomous technological improvement - {CH4_DECLINE[s]}')}

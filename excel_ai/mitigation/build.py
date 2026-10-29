@@ -148,7 +148,7 @@ from openpyxl.utils import get_column_letter as L, column_index_from_string as C
 from openpyxl.utils.cell import coordinate_from_string
 from openpyxl.workbook.defined_name import DefinedName
 
-VERSION = '1.0.1'   # also in version.json (read by the deck builder)
+VERSION = '1.0.2'   # also in version.json (read by the deck builder)
 SCRIPTS_TAG = None   # v0.8.0: scripts and notes have stable names (releases are git tags); v0.7.1: a point release renames only the builder, VBA module, workbook and reports; the scripts and
                       # notes keep the tag of the full release (NORMS.md section 5)
 COUNTRY = 'EGY'   # v0.3.3: default of Settings C4 (user input); country data only in the data sheets, by this key
@@ -341,6 +341,9 @@ PW_MT_NEW += ([(f'ConsSubPhaseScope_{pc.replace(".", "_")}', f'Consumer subsidy 
                   f'v0.5.6, was Constants pci)', 'switch', 1) for pc, lab in PRICES]
               + [(f'ProdSubPhaseScope_{f}', f'Producer subsidy phase-out applies to {lab} (1 = yes; v0.5.6, was Constants '
                   f'psi)', 'switch', 1) for f, lab in PROS_FUELS])
+PW_MT_NEW += [('ModelForm', 'Form of the demand equations (Coded CPAT design D4): CPAT, CPAT partial adjustment, CES '
+               'partial adjustment, CDPM-FTT (v1.0.2; only CPAT is built, so the formulas do not read it yet)', 'option',
+               'CPAT')]   # v1.0.2 (user 2026-10-29): the same input row as Coded CPAT's scenario sets
 SCOPE_ROWS = ({'fc.bio': ('ctcov|bio|all', 'CTaxCoversBiomass')}           # v0.5.6: section-1 key -> (Mapping key, MTInputs name)
               | {f'{v}.{pc}': (f'{v}|{pc.replace(".", "|")}', f'{nm}_{pc.replace(".", "_")}') for v, nm in
                  (('csi', 'ConsSubPhaseScope'), ('pci', 'PriceCtrlPhaseScope')) for pc, _l in PRICES}
@@ -3466,6 +3469,9 @@ GHG_BLOCKS = [  # (sub-heading, rows (key, variable, fuel, sector)); a label row
     ('Methane sources: fuel production - production',
      [(f'ch4.prd.{f}', 'ch4.prd', f, 'all') for f in ('oil', 'coa', 'nga')]),
     ('Methane sources: activity', [(f'ch4.act.{j}', 'ch4.act', j, 'all') for j, *_ in CH4_SOURCES]),
+    ('Methane sources: abatement-curve coefficients of the country and the CH4Inputs average (the average where the '
+     'country value is 0 or missing, as legacy; issue I152)', [(f'ch4.abc.{j}', 'ch4.abc', j, 'all')
+                                                               for j, *_ in CH4_SOURCES]),   # v1.0.2
     ('Methane sources: abatement by the methane fee', [(f'ch4.abt.{j}', 'ch4.abt', j, 'all') for j, *_ in CH4_SOURCES]),
     ('Methane sources: intensity index (autonomous decline from GHGYear, Manual inputs J185:J188; v0.9.0, R8.6)',
      [(f'ch4.int.{j}', 'ch4.int', j, 'all') for j, *_ in CH4_SOURCES]),
@@ -3522,7 +3528,8 @@ for _i, (_h, _rows) in enumerate(GHG_BLOCKS):   # v0.4.1: one blank row before e
 R_GHG_AFTER = _r                        # v0.4.1: 14b goes here, then the note and the summary rows
 GHG_ROWS = [x for _h, rows_ in GHG_BLOCKS for x in rows_] + [('ghg.all', 'ghg', 'all', 'all'),
                                                              ('ghg.chg', 'ghg.chg', 'all', 'all')]
-GHG_PARONLY = {'ghg.invb'} | {f'ch4.src.{j}' for j, *_ in CH4_SOURCES}          # parameter rows (no year values)
+GHG_PARONLY = ({'ghg.invb'} | {f'ch4.src.{j}' for j, *_ in CH4_SOURCES}        # parameter rows (no year values)
+               | {f'ch4.abc.{j}' for j, *_ in CH4_SOURCES})                    # v1.0.2 (I152)
 GHG_LAM = ({'pop.g', 'gdppc.g', 'ghg.m', 'ghg.gi', 'ghg.k', 'ghg.flr', 'ch4.rev', 'ch4.revf'}
            | {f'ch4.emf.{j}' for j in CH4S_SRC} | {f'ghg.dr.{c}' for c in GHG_DRV}
            | {f'ch4.act.{j}' for j in ('liv', 'ric', 'wst')} | {f'ch4.abt.{j}' for j, *_ in CH4_SOURCES}
@@ -3970,7 +3977,8 @@ PARAM_LABELS_SET = {  # v0.2.4: parameter labels (Variables G:J) of rows whose D
     'ch4.src': ('input share (CH4Inputs)', 'activity in the base year (data)', 'weight', 'share of the inventory'),
     'ch4.act': ('gas production / income elasticity (Manual inputs row 327)', 'oil production / population '
                 'elasticity (Manual inputs row 326)'),
-    'ch4.abt': ('curve a (CH4Inputs)', 'curve b (CH4Inputs)', 'GWP', 'fee applies (1 = yes; Settings, legacy Manual '
+    'ch4.abc': ('curve a, country', 'curve b, country', 'curve a, average (AVG)', 'curve b, average (AVG)'),   # v1.0.2
+    'ch4.abt': ('curve a (country, else average)', 'curve b (country, else average)', 'GWP', 'fee applies (1 = yes; Settings, legacy Manual '
                 'inputs J196-J200)'),
     'ch4.em': ('emissions in GHGYear (kt CH4)',),
     'ch4.int': ('rate of decline (% per year; Manual inputs J185:J188)',),
@@ -4766,6 +4774,9 @@ VARIABLES = [
     ('ch4.act', 'Methane source: activity', 'ktoe or index', '', 'Oil and gas, coal: production (sheet Balances); '
      'downstream gas, biomass: fuel use (section 11); livestock, rice, waste: index with income and population',
      'legacy Mitigation rows 6146-6151, 6212-6214'),
+    ('ch4.abc', 'Methane source: abatement-curve coefficients, country and average (CH4Inputs)', 'coefficient', '',
+     'CH4Inputs avg_pow_a, avg_pow_b of ISO|tier and of AVG|tier (I152, v1.0.2)',
+     'legacy Mitigation L6084:M6084 and the rows of the other sources (country, else Average)'),
     ('ch4.abt', 'Methane source: abatement share from the methane fee', 'share', '',
      'MIN(1, MAX(0, a x (fee x GWP)^b)), curves of sheet CH4Inputs', 'legacy Mitigation rows 6104-6106, 6126, 6182-6206'),
     ('ch4.int', 'Methane source: intensity index (autonomous technological improvement)', 'index', '',
@@ -6788,8 +6799,9 @@ def build_mtinputs(wb):
             d.number_format = '0' if unit == 'year' else 'General'
         names[n] = r
         rows_.append((r, n, v))
-    put(ws, f'B{MT_PW0}', 'Inputs the prototype adds, per scenario: power (v0.5.4; legacy fixes) and the scope of carbon-tax '
-                          'coverage of biomass and of the subsidy and price-control phase-outs (v0.5.6; were Constants)', FONT_B)
+    put(ws, f'B{MT_PW0}', 'Inputs the prototype adds, per scenario: power (v0.5.4; legacy fixes), the scope of carbon-tax '
+                          'coverage of biomass and of the subsidy and price-control phase-outs (v0.5.6; were Constants) and '
+                          'the form of the demand equations (ModelForm, v1.0.2)', FONT_B)
     for i, (n, lab, unit, v) in enumerate(PW_MT_NEW):     # v0.5.4: power rows after the transport rows
         r = MT_PW0 + 1 + i
         for j, x in zip(range(2, 9), (lab, unit, None, None, v, v, n)):
@@ -7779,7 +7791,14 @@ def build_settings(wb):
                               'Pigouvian road-transport block of section 1; the air-pollution sector position of '
                               'section 17b looked up by its code (ApKapHdr) instead of typed; the driving share of '
                               'section 17b in its own block (label row); the last row of section '
-                              '19 without decimals, as every summary row. Egypt values unchanged.')]
+                              '19 without decimals, as every summary row. Egypt values unchanged.'),
+        ('1.0.2', '2026-10-29', 'User decisions 2026-10-29, Distribution and Coded CPAT aligned (1.0.2, 1.0.2p1.1): methane '
+                              'abatement curves take the CH4Inputs average where the country coefficient is 0 or missing, '
+                              'as legacy (issue I152; helper rows ch4.abc); the vehicle stocks are coded tot '
+                              '(pass/fre/motor.own.tot, tot.own.tot; were *.own.all); input row ModelForm (default CPAT) in '
+                              'ScenarioDefinition. Scope: CBAM process emissions, green public investment, emissions '
+                              'intensity of industrial output and the air pollution and transport co-benefits modules are '
+                              'upgrades (U15-U19), out of scope. Egypt values unchanged.')]
     for i, row in enumerate(log, SET_LOG + 2):
         for j, v in enumerate(row, 1):
             c_ = put(ws, f'{L(j)}{i}', v)
@@ -12557,7 +12576,11 @@ def build_mitigation(wb):
             'E': f'=${b1}${G[f"ch4.act.{j}"]}',      # v0.6.0 (I47, as legacy rows 894-924): base-year data activity
             'F': (f'=MIN(MethShareCap*$E{r}/SUM($E${f0}:$E${f3}),$D{r})' if fossil else f'=$D{r}'),
             'G': (f'=IF(SUM($F${f0}:$F${f3})=0,0,$F{r}/SUM($F${f0}:$F${f3}))' if fossil else f'=$F{r}')}
-        ghg_par[f'ch4.abt.{j}'] = {'D': lk('avg_pow_a'), 'E': lk('avg_pow_b'), 'F': f'={gwp}',
+        la = lambda col_: f'=IFERROR(INDEX(MethVal,MATCH("AVG|{tier}",MethKey,0),MATCH("{col_}",MethCol,0)),0)'
+        ghg_par[f'ch4.abc.{j}'] = {'D': lk('avg_pow_a'), 'E': lk('avg_pow_b'), 'F': la('avg_pow_a'),
+                                   'G': la('avg_pow_b')}   # v1.0.2 (I152): country and average coefficients
+        h = G[f'ch4.abc.{j}']                  # legacy: the average where the country value is 0 or missing
+        ghg_par[f'ch4.abt.{j}'] = {'D': f'=IF($D{h}=0,$F{h},$D{h})', 'E': f'=IF($E{h}=0,$G{h},$E{h})', 'F': f'={gwp}',
                                    'G': f'=IF(LEFT({MFEE_SW[j]},3)="Yes",1,0)'}   # v0.4.12 (LD46): legacy J196-J200
         inv_col = {'enr': 'D', 'agr': 'E', 'wst': 'F'}[cat]
         ghg_par[f'ch4.em.{j}'] = {'D': f'=${inv_col}${G["ghg.invb"]}*$G{r}*ktPerMt/{gwp}'}

@@ -732,7 +732,7 @@
   "effect": "0 (CBAM off).",
   "note": "Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L198",
@@ -753,7 +753,7 @@
   "effect": "0.",
   "note": "",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L199",
@@ -809,7 +809,7 @@
   "effect": "0: all CBAM prices, reductions and revenue are 0.",
   "note": "Equations_addendum R4.5 \"bug -6\". Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L200",
@@ -879,7 +879,7 @@
   "effect": "0.",
   "note": "Equations_addendum R4.9 \"bug -7\". Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L201",
@@ -900,7 +900,7 @@
   "effect": "0.",
   "note": "Intended: post-policy emissions, process inclusion. Equations_addendum R4.12 \"bug -8\".",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L202",
@@ -949,7 +949,7 @@
   "effect": "0 (not read).",
   "note": "Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L203",
@@ -1222,7 +1222,7 @@
   "effect": "None: column K = 2021, K8024 = 0. Out of the prototype horizon.",
   "note": "",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L205",
@@ -1243,7 +1243,7 @@
   "effect": "Scen. 2 shows population growth (0.0149 in 2022 ... 0.04) as net revenue % GDP; intended 0 ... 0.0028 (2040).",
   "note": "",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L206",
@@ -1264,7 +1264,7 @@
   "effect": "Share 0.2 used instead of 0.5 (EXPTransfers vs EXPCapex).",
   "note": "",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L207",
@@ -1285,7 +1285,7 @@
   "effect": "Scen. 2 cached 2040: 16.48 (1648 % of GDP); intended 0.0007 (0.07 %).",
   "note": "",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L208",
@@ -1306,7 +1306,7 @@
   "effect": "0 instead of 0.0086 from 2026 (dead-end row).",
   "note": "",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L209",
@@ -1327,7 +1327,7 @@
   "effect": "phi = 0 every year (should be 1 to 2025, then -1/34 a year): NZ path, reduction and abatement all 0.",
   "note": "",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L210",
@@ -1348,7 +1348,7 @@
   "effect": "0 instead of 0.0088 (2026) ... 0.132 (2040).",
   "note": "",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L211",
@@ -1376,7 +1376,7 @@
   "effect": "#VALUE! in rows 6251, 6261, 6265, 6266 (and 12567, 12577, 12581, 12582).",
   "note": "",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L212",
@@ -1397,7 +1397,7 @@
   "effect": "BAU emissions 0 instead of 400.9 (2022) ... 715.4 Mt (2040).",
   "note": "",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L213",
@@ -1425,7 +1425,7 @@
   "effect": "#VALUE! (scen. 2).",
   "note": "The scenario-1 cell (row 6264 per Equations_addendum gpi.cgi) gives the right value by chance.",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L214",
@@ -1488,7 +1488,7 @@
   "effect": "ftr indirect intensity 453.32 -> 216.35; total 820.06 -> 583.10 tCO2/$m (MTOutputs M134, chart).",
   "note": "Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L217",
@@ -1516,7 +1516,7 @@
   "effect": "Emissions share srv 0.0415 -> 0, foo 0 -> 0.0415 (MTOutputs L143, L135, and O135-O143).",
   "note": "",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L218",
@@ -1537,7 +1537,7 @@
   "effect": "Machinery emissions share 48.78 -> 0; cumulative O141:O143 49.74, 49.74, 49.78 -> 1.00, 1.00, 1.00.",
   "note": "",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L219",
@@ -1565,7 +1565,7 @@
   "effect": "Check column only; not built.",
   "note": "Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
   "status": "fix",
-  "prototype": "Not built: deferred by the user (2026-10-29; CBAM process emissions, green public investment, industrial emissions intensity are work in progress in legacy)"
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
  },
  {
   "id": "L220",

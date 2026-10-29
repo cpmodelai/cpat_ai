@@ -9,7 +9,7 @@ Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logg
 ## 2. Clean-up, left over
 
 - ☑ v0.8.0 full check PASS; old method notes replaced by `docs/methods/`; v0.8.0 on main.
-- ☐ Old session branches on GitHub (7, old history): the user deletes them (or allows the AI to).
+- ☑ Old session branches on GitHub (2026-10-29): the seven old-history branches are gone. Five merged session branches remain (`beautiful-bohr`, `fervent-fermat`, `module-prompts-transport-air-dist`, `fervent-thompson`, `cell-plans-all-bugs`; no unmerged commits): delete when their sessions end.
 - ☑ The register spreadsheet built straight from the register (v0.8.3; was parsed from `BUGS.md`, `ISSUES.md`, `LegacyBugFixes.md`).
 
 ## 3. Modular CPAT ([`Modules.md`](Modules.md); after 2)
@@ -17,9 +17,9 @@ Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logg
 - ☑ **M1 money units** (v0.8.1): one vocabulary (`USD`, `USD m`, `USD bn`, `LCU`, `USD/GJ`, ... real/nominal; never `$`); labels only.
 - ☑ **M2 prototype exports** (v0.8.1; 19b/19c come with M4): Mitigation section 15 (air pollution) moved to the end; new section 19 "Exports to modules" (19a Distribution, 19b AP right after section 15, 19c TCB; one defined name each, plain copies, codes as keys, a scale column); a `FromMitigation` tab first for Distribution, which reads only it (no hard-coded `Billion`/`Thousand` scaling).
 - ☑ **M3 standalone Distribution v0.1.0**: `excel_ai/distribution/` (cut from the built prototype; Cover with the link to `CPAT-AI-Mitigation-Prototype_latest.xlsm`, button Update from Mitigation; check PASS: equal to the prototype cell for cell, and end to end). Left: a data-workbook link for its data tabs (Update data tables), and Excel 365 test of the macro.
-- ☐ **M4 AP and TCB v0.1**: export blocks and small workbooks with the data import and export only (no model).
-- ◐ **M5 documents** for the modules: module rules in `NORMS.md` section 9 and the prompts and Word guides in [`prompts/`](prompts/README.md) (2026-10-29). Left: run the prompts (TCB v0.1.0, AP v0.1.0, Distribution v0.1.4); register the TCB `Engineer` mode as an upgrade (U) linked to I100; then Mitigation reads `OutTCB` and `OutAP` instead of the typed values of FromTransportCB and FromAirPollution.
-- ◐ **M6 `permalink_countryeditable/`** (user 2026-10-29; NORMS 5a): done 2026-10-29: the folder, a copy of `permalink/`; both hold mitigation, distribution and the air-pollution standalone (`_latest`); `shared/release.py` publishes to both (mitigation and distribution builders). Left: transport co-benefits when it exists; the air-pollution builder to publish through `release.py`; the modules read mitigation's export block from `permalink_countryeditable/` by Power Query (Distribution: replaces the Update from Mitigation file search); document it in the module READMEs.
+- ☒ **M4 AP and TCB v0.1**: out of scope (user 2026-10-29): upgrades U18, U19.
+- ☒ **M5 documents** for the modules: module rules in `NORMS.md` section 9 and the prompts in [`prompts/`](prompts/README.md) (2026-10-29). Rest out of scope (user 2026-10-29: air pollution and transport co-benefits are upgrades U18, U19; Mitigation keeps the typed legacy values of FromAirPollution and FromTransportCB).
+- ◐ **M6 `permalink_countryeditable/`** (user 2026-10-29; NORMS 5a): done 2026-10-29: the folder, a copy of `permalink/`; both hold mitigation, distribution and the air-pollution standalone (`_latest`); `shared/release.py` publishes to both (mitigation and distribution builders). Left (air pollution and transport co-benefits out of scope, user 2026-10-29): the modules read mitigation's export block from `permalink_countryeditable/` by Power Query (Distribution: replaces the Update from Mitigation file search); document it in the module READMEs.
 - ☑ **Quick start counts** (done for v0.9.0, 2026-10-29; repeat at each release): after the v0.9.0 release regenerates `BUGS.md` and `ISSUES.md`, update `HumanReadme-QuickStart.docx` (section 5 counts and major open issues, version mentions v0.8.5) to match; keep doing so at each release (hand-written, no version table).
 
 Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored under [`../air_pollution/`](../air_pollution/README.md), with public extracts under `data/air_pollution/legacy_459/`. This does not complete M4/M5 or the model work below.
@@ -37,11 +37,11 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
 
 - ☐ **A. Measure** the gap: legacy 465 with every cell plan applied against the prototype (U2).
 - ☑ **C. Mitigation functions R1-R13** (all agreed 2026-10-29; **built in v0.9.0: R1-R3, R6-R11, R13** and the reverts LD1, LD10, I47, LD16, LD80, LD41, LD58; record in `CAVEATS.md` 2026-10-29; `remaining_functionality.json`): AP and TCB inputs section, social costs and welfare, Pigouvian taxes, CBAM process emissions, green public investment, producer-subsidy price effect, Manual inputs, small items, current account and GVA (typed Egypt values), LD16/LD41/LD58; section 15 as the output block to the air pollution module and section 5b to the transport co-benefits module (no copies; headings say so; 19c dropped); I100 (TCB on engineer vehicle-km, replicated); equations in `../mitigation/Equations_addendum.md` (written 2026-10-29; notes and new codes L173-L222, I101-I146, LD80 in `Equations_addendum_notes.md`); open points in `remaining_functionality.json`.
-- ☐ **R4, R5, R12 deferred** (user 2026-10-29: the legacy WIP is not linked up): CBAM process emissions, green public investment, emissions intensity of industrial output; designs in the commit message on branch `wip-r4-r5-r12`; their bugs (L197-L213, L216-L219) and issues (I123-I128, I131-I134) stay "not built: deferred"; LegacyDiff 90.
-- ☐ **v0.9.0 follow-ups (check_full)**: recomputations not yet written: the 17b/18 rows (cheap first: R1.10, R2.11, R3.17), the Python `ntx` and `ccp` with the [scenario > 1] factor and the Pigouvian netting, the exempt split (lkx) and the R10 rows, the E2 power cost memos; electricity subsidies only through `power_model_ref`'s txo inputs.
-- ☐ **v0.9.0 follow-ups (model)**: (1) I147: section-15 food & forestry emissions far above the legacy AP input (drives wel.air); (2) possible double count of the electricity producer subsidy (its phase-out enters both `rgap` and `rpsu`; Egypt 0); (3) the methane-fee deadweight cost (`mfc`) without the intensity index; (4) last historical price year 2022 against legacy 465's 2024 (issue I89, kept by earlier user decision; recheck only if the user asks); (5) the stored scenario-1 rows of BaselineCO2 (Pigouvian transport and residential coal) are filled only by the full build (quick build: 0).
+- ☒ **R4, R5, R12**: out of scope (user 2026-10-29): upgrades U15 (CBAM process emissions), U16 (green public investment), U17 (emissions intensity of industrial output), with the designs of branch `wip-r4-r5-r12`; their issues (I123-I128, I131-I134) Dropped and their legacy bugs (L197-L213, L216-L219) out of scope in the register.
+- ☒ **v0.9.0 follow-ups (check_full)**: merged into the full-check item below.
+- ☐ **v0.9.0 follow-ups (model)** (none moves Egypt; Coded CPAT replicates Excel-AI, so none is an Excel/Python difference): (1) I147: section-15 food & forestry emissions far above the legacy AP input (drives wel.air, kept with the typed AP values); (2) possible double count of the electricity producer subsidy: after the last price year its phase-out raises the consumer price (pseu in rppre), so `rgap` shrinks, and `rpsu` books the same phase-out again; check legacy rows 3588-3601 and 16xxx before calling it a bug; (3) the methane-fee deadweight cost (`mfc`) without the intensity index: check legacy rows 17628-17634; (4) the stored scenario-1 rows of BaselineCO2 (Pigouvian transport and residential coal) are filled only by the full build (quick build: 0).
 - ☐ **v0.9.0 power (POW465), deferred by the user**: the detailed power checks of `check_full` and the cell-by-cell check of the register mapping (`Power_465.md` section 2) against `issues_register.py` / `legacy/bugfixes/check465/legacy465_check.json`.
-- ☐ **D. Modules**: air pollution, transport co-benefits, social costs and benefits (user decision: in or standalone).
+- ☒ **D. Modules**: air pollution and transport co-benefits out of scope (user 2026-10-29; U18, U19); social costs and benefits are in Mitigation (section 18).
 - ☐ **E. MTOutputs** like legacy, without the price build-up intermediates.
 - Not built by decision: the elasticity-based power model.
 
@@ -49,10 +49,10 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
 
 - ☐ **Data problems** (issues of area Data, `Legacy_CPAT_Bugs` section 3): I98 (Extremely high) GAINS factor paths or confirmation of the base and final factors, the 2040-2041 extrapolation and the EFSel average with the CPAT team; I97 (Very high) the data team says which blank VAT cells are true zeros, and the CPAT team applies the cell plan of L170; I99 the corrected Egypt prices to the CPAT data team.
 - ☐ **Confirm L135, L136** (found by the cell plans, were N1, N2) with the CPAT team.
-- ☐ **LD41 to classify** (data vintage: energy use via the kernel, IIASA EFs without inventory adjustment): an issue replicated, a departure by decision, or a bug.
-- ☐ **Quick check: recalculation of the old release** (v0.8.5): the LibreOffice recalculation of v0.8.4 (cache `.quickcheck/`) returned blanks for about 100 average-price codes (`pav`) that the stored values of both releases hold equally, so the quick check reported 546 changes where the stored values differ in 339 (emissions, GHG, NDC, climate welfare only). Find why and fix the check.
+- ☑ **LD41**: decided (user 2026-10-29): Same, data re-read from legacy 465 (`LD41_data_465.md`).
+- ☑ **Quick check: recalculation of the old release**: not reproduced on 1.0.0 -> 1.0.1 (15,086 shared codes, 0 changed, 2026-10-29); reopen if the false changes come back.
 - ☑ (2026-10-29) **Legacy bug plans complete**: every legacy bug (228) has a cell-level plan in `Legacy_CPAT_Bugs_v1.0.1.docx`; the v0.9.0 plans are written out cell by cell (only L224, a change of method, stays described); L131 register text has its value effect; the lead of results rows 16250/16251 is bug L230 (registered, with its plan).
-- ☐ **Air pollution and transport co-benefits**: their bugs and issues go in the same register (NORMS 0) when their models are built.
+- ☒ **Air pollution and transport co-benefits**: out of scope (user 2026-10-29; U18, U19).
 - ☐ **Data extracts on 465**: the input rows are on 465 (v0.8.4); the data extracts and Methods row numbers still read 456 (item in section 6).
 
 ## 5. With the user
@@ -60,7 +60,7 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
 - ☐ **Excel 365 review** on Windows (macros, no repair prompt, no circular warning, CheckBatchRun, LAMBDAs, dashboard).
 - ☐ **ETS goal seek (I30)**: tested by the user.
 - ☐ **Data requests**: I98 GAINS factor paths, I97 blank VAT cells, I90 proprietary tables for other countries, I95 historical GHGs 2018-2020.
-- ☐ **Report the legacy bugs to the CPAT team**: send `../Legacy_CPAT_Bugs_v0.8.4.docx` and the tracker `../Tracking_Legacy_Bugs_v0.8.4.xlsx`, first Appendix A (fixed with caveats), the caveats on their 465 fixes: L115 wrong row, L95 rows still reading the cleared row 3719, L62 and L63 not fixed, L45, L16, L87, L84; high-priority legacy issues for them: I62, I71, I72-I74.
+- ☐ **Report the legacy bugs to the CPAT team**: send `../Legacy_CPAT_Bugs_v<version>.docx` and the tracker `../Tracking_Legacy_Bugs_v<version>.xlsx` (latest release) with the documentation bugs DOC1-DOC20, first Appendix A (fixed with caveats), the caveats on their 465 fixes: L115 wrong row, L95 rows still reading the cleared row 3719, L62 and L63 not fixed, L45, L16, L87, L84; high-priority legacy issues for them: I62, I71, I72-I74.
 - ☐ **Policy taxonomy with the FTT policies** ([`Policy_taxonomy.md`](Policy_taxonomy.md)): user decisions first.
 
 ## 6. AI backlog
@@ -76,7 +76,7 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
 - ☐ **Copy-paste stress test**: add a fuel, a subsector and a scenario by dragging; fix what breaks.
 - ☑ **Tracker leads** (v0.8.3): Manual inputs J178:J179 are read (Mitigation L753:L754, chosen in K when the price-control option is manual): no bug. MTInputs 182-183 units: legacy bug L134 (labels), fixed in the prototype.
 
-- ☐ **`ModelForm` scenario input (user 2026-10-29, Coded CPAT design D4)**: add a `ModelForm` row at the end of the `ScenarioDefinition` additions (below the legacy rows, NORMS 4), default `CPAT`, read by the LAMBDAs of the demand equations (`FUELUSE`, `DEMANDMULT`); the same row in Coded CPAT's scenario sets. The engineer-or-elasticity selectors of power and road transport are unchanged. Values unchanged (quick check 0 change). Coordinated with `../../coded/TODO.md` task 2.8.
+- ☑ **`ModelForm` scenario input** (v1.0.2, user 2026-10-29): row `ModelForm` (default `CPAT`) in the block of prototype inputs below the legacy rows of `ScenarioDefinition`; Coded CPAT reads it from there (its own extra row removed). The formulas read it when a second demand form is built.
 - ☑ **Version numbering rebased** (done on main 2026-10-29: 9.0 to 0.9.0, distribution 1.3 to 0.1.3); Coded CPAT versions are `<Excel-AI version>p<Python version>` (Coded CPAT design D14).
 
 ## Later (not now)

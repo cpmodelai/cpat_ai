@@ -980,6 +980,23 @@ UPGRADES = [  # id, title, description, priority
     ('U10', 'Data for more countries', 'Energy balances, GDP and EFs beyond Egypt (I90).', 'Medium'),
     ('U13', 'Planned retirement data for Egypt', 'Enter PowerPaths pret|<type> where plans exist.', 'Low'),
     ('U14', 'Python port', 'The check script already recomputes every value in Python.', 'Low'),
+    # v1.0.2 (user 2026-10-29): out of scope, kept as upgrades (designs of branch wip-r4-r5-r12 for U15-U17)
+    ('U15', 'CBAM process emissions (legacy R4)', 'Out of scope (user 2026-10-29). Design: section 17b sub-block; switches '
+     'CBAMProc<S> per scenario (ScenarioDefinition 117-121); production, growth and product prices typed EGY in Constants; '
+     'EFs and semi-elasticities from Manual inputs H30:K37, E40:E47; fuel price per tCO2 = ctr + etr (section 1), process '
+     'price = switch x fuel price; memo rows (legacy reads none). Bugs L197-L213, L216-L219 (part), issue I123.', 'Low'),
+    ('U16', 'Green public investment (legacy R5)', 'Out of scope (user 2026-10-29). Design: section 16c; constants '
+     'GreenInvStart 2026, GreenShare 0.5, NetZeroStart 2026, NetZeroEnd 2060, PublicInvPart 0.5, GreenNeedYrs 35; CCDR '
+     'ratio from ETS+LTS A261:A302 / H261:H302; phi = 1-(t-T0+1)/(T1-T0). Issues I124-I128.', 'Low'),
+    ('U17', 'Emissions intensity of industrial output (legacy R12)', 'Out of scope (user 2026-10-29). Design: block 13b; '
+     'GVA typed EGY in Constants; manufacturing electricity = demtot x (sh_tsd + sh_eou) (legacy row 10071); variable '
+     'co2.idr. Issues I131-I134.', 'Low'),
+    ('U18', 'Air pollution module (standalone)', 'Out of scope (user 2026-10-29). Mitigation keeps the legacy 465 values '
+     'of tab FromAirPollution (Egypt; other countries 0, I106) for the Pigouvian air-pollution cost and the air-pollution '
+     'welfare; the scaffold excel_ai/air_pollution/ stays as it is.', 'Low'),
+    ('U19', 'Transport co-benefits module (standalone)', 'Out of scope (user 2026-10-29). Mitigation keeps the legacy 465 '
+     'values of tab FromTransportCB (Egypt; other countries 0, I106) for the Pigouvian road-transport cost and the road '
+     'welfare; section 5b stays as the block the module would read.', 'Low'),
 ]
 
 IMPROVEMENTS = [
@@ -1316,7 +1333,7 @@ ISSUE_STATUS.update({
 
 # v0.9.0 (2026-10-29): status after the build of R1-R3, R6-R11 (integrator notes v90_*_changes.md, applied and deleted;
 # record in CAVEATS.md). R4, R5, R12 deferred by the user (branch wip-r4-r5-r12): their issues are not built yet.
-_DEFERRED = 'Not built: deferred by the user (2026-10-29; legacy work in progress)'
+_DEFERRED = 'Out of scope (user 2026-10-29): not built; an upgrade (U15-U17)'
 ISSUE_LEGACY.update({c: _DEFERRED for c in ('I123', 'I124', 'I125', 'I126', 'I127', 'I128', 'I131', 'I132', 'I133',
                                             'I134')})
 ISSUE_LEGACY.update({'I53': 'replicated', 'I89': 'not replicated'})
@@ -1338,9 +1355,12 @@ ISSUE_STATUS.update({
              '0.27259 = legacy 0.2726.'),
     'I137': ('Minor', 'Accepted', 'Replicated (v0.9.0, R6.1): Settings C65 fallback "lpg".'),
     'I138': ('Minor', 'Accepted', 'Replicated (v0.9.0, R6.7): lkd on the not-exempt use.')})
-ISSUE_STATUS.update({c: (ISSUE_STATUS[c][0], 'Open', 'Not built: R4, R5, R12 deferred by the user (2026-10-29); '
-                         'replicate when built (' + ISSUE_STATUS[c][2] + ')')
-                     for c in ('I123', 'I124', 'I125', 'I126', 'I127', 'I128', 'I131', 'I132', 'I133', 'I134')})
+ISSUE_STATUS.update({c: (ISSUE_STATUS[c][0], 'Dropped', f'Out of scope (user 2026-10-29): {u} is an upgrade, not '
+                         'built; replicate if it is ever built (' + ISSUE_STATUS[c][2] + ')')
+                     for cs, u in ((('I123',), 'CBAM process emissions (U15)'),
+                                   (('I124', 'I125', 'I126', 'I127', 'I128'), 'green public investment (U16)'),
+                                   (('I131', 'I132', 'I133', 'I134'), 'emissions intensity of industrial output (U17)'))
+                     for c in cs})
 
 ISSUES += [
     ('I147', 'Food & forestry local pollutants far above the legacy air-pollution input', 'The modelled PM2.5 of '
