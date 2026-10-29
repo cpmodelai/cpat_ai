@@ -1,0 +1,46 @@
+project:
+  type: book
+  output-dir: ./docs
+
+
+book:
+  title: "CPAT Documentation" 
+  author: "CPAT Team"
+  date: last-modified
+  favicon: ./00/media/image1.png
+  search: true
+  repo-url: https://github.com/wb-mrio/cpat_public
+  repo-actions: [issue]
+  downloads: [pdf]
+  reader-mode: true
+  page-footer: "WB-IMF Climate Policy Assessment Tool, 2023"
+  chapters:
+    - index.qmd
+    - 01_User_Guide.qmd
+    - 02_Summary.qmd
+    - 03_Mitigation.qmd
+    - 04_Multipliers.qmd
+    - 05_Distribution.qmd
+    - 06_Air_pollution.qmd
+    - 07_Road_Transport.qmd
+
+bibliography: 
+    - 03_Mitigation.bib
+    - 04_Multipliers.bib
+    - 05_Distribution.bib
+    - 06_Air_pollution.bib
+    - 07_Road_Transport.bib
+
+format:
+  html:
+    toc-depth: 4
+    toc-location: left
+    toc-title: "***Chapter Contents***"
+    theme: cosmo
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+
+editor: source
+
