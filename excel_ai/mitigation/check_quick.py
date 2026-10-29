@@ -333,7 +333,8 @@ def stored_complete(path):
         if r[2] is None:
             continue
         ids[r[0]] = ids.get(r[0], 0) + 1
-        if r[4] == 'code not found' or not any(isinstance(v, (int, float)) for v in r[B.SR_Y0 - 1:]):
+        if r[4] == 'code not found' or not any(isinstance(v, (int, float)) or (isinstance(v, str) and v)
+                                               for v in r[B.SR_Y0 - 1:]):   # v1.0.4: a text result (N/A) is a value
             bad.append((r[0], r[2]))
     if not ids and os.environ.get('QUICK'):      # v0.7.2: the quick build runs no batch (StoredOutputs empty)
         lines.append('- StoredOutputs: empty in the quick build (no batch run): skipped')

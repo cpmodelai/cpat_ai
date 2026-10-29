@@ -200,7 +200,7 @@ def check_mto(wbv, groups, label):
             for j in range(B.NY):
                 a, b = wo.cell(r, B.MTO_C0 + j).value, found[key][j]
                 worst = max(worst, abs(a - b) if isinstance(a, (int, float)) and isinstance(b, (int, float))
-                            else float('inf'))
+                            else 0.0 if isinstance(a, str) and a == b else float('inf'))   # v1.0.4: equal text
                 n += 1
     ok = not missing and worst < TOL
     log(f'- MTOutputs {label}: {len(groups)} scenario blocks x {len(MTO_MIT)} Mitigation rows, {n} cells equal '
@@ -4090,6 +4090,8 @@ def definition_mt(num):
 
 
 def rel(a, b):
+    if isinstance(a, str) and isinstance(b, str):         # v1.0.4: text results (an NDC without target: N/A)
+        return 0.0 if a == b else float('inf')
     return abs(a - b) / max(1.0, abs(b)) if isinstance(a, (int, float)) and isinstance(b, (int, float)) else float('inf')
 
 
