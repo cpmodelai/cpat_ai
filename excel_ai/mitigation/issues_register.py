@@ -1307,3 +1307,9 @@ ISSUE_STATUS.update({
     'I148': ('Extremely high', 'Open', 'No cell plan possible (the data are missing): Egypt typed, as legacy\'s '
              'corrected values. Plan: the data team adds the current account (BCA, BCA_NGDPD) to the WEO table for '
              'every country; then read it instead of the typed values.')})
+
+# v9.0 (user 2026-10-29): the last historical price year is 2024, as legacy 456 and 465 (I89 closed)
+ISSUE_LEGACY.update({'I89': 'replicated'})
+ISSUE_STATUS.update({'I89': ('Major', 'Closed', 'v9.0 (user 2026-10-29): the last historical price year is 2024, as '
+                             'legacy (price data through 2024, projection from 2025). v3.7-v8.5 held 2022, to stay close '
+                             'to the legacy cached run of an older price vintage (2026-10-09 comparison).')})

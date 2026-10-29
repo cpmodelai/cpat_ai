@@ -495,7 +495,7 @@ IP_R0 = 7
 IP_R1 = IP_R0 + NP - 1
 HIST_YEARS = [2021, 2022, 2023, 2024]   # years in the IMF price dataset (Prices_dom)
 MARGIN_YEAR = 2024                      # v9.0 (LD16 reverted): legacy reads the coal and gas margins at 2024 (typed; I101)
-LAST_HIST = 2022                        # v3.7: last historical price year (Settings C10), as legacy (decision 2026-10-15)
+LAST_HIST = 2024                        # v9.0 (user 2026-10-29): last historical price year (Settings C10), as legacy 456/465 (v3.7-v8.5: 2022)
 # v9.0 (R8.1-R8.2): manual domestic prices (sheet Manual inputs G59:N146, MTInputs DomPrTax): table on Inputs_prices
 # below the notes, one column per code of Manual inputs rows 60-146: manual value where flagged (block M), else the
 # Prices_dom value of the country (block U, "" where blank). Every domestic price lookup of a historical year reads U.
@@ -9073,7 +9073,7 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
      'MIN(sc, sc of the last price year)); row spe = the supply cost removing the estimation (legacy 3620, 3649), read '
      'by the subsidy and efficient-price lines of section 18',
      'Simplification S4 with the legacy components (v9.0); relabelled v4.11',
-     'Egypt: the residential residual (-0.063 $/kWh at LastHist 2022) shrinks when the supply cost falls below its 2022 '
+     'Egypt: the residential residual (at LastHist) shrinks when the supply cost falls below its LastHist '
      'value: residential price up to +0.0008 $/kWh (2040: 0.0562 against 0.0510)', 'Same'),
     ('Power: historical electricity prices and VAT', 'Legacy vintage (residential 0.112 $/kWh incl. 15.6% VAT in '
      '2022)', 'Corrected Egypt block (residential 0.054, 0.048, 0.043 $/kWh nominal 2022-2024; VAT 0)', 'User data '
