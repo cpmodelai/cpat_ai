@@ -4,6 +4,7 @@ One line per release, newest first. Full notes: the version log in the workbook 
 
 | Version | Date | Change |
 |---|---|---|
+| 1.0.3 | 2026-10-29 | Data links: source "Dummy - GitHub (public repository)" (the data workbook read by Power Query from the public repository, wherever the workbook sits) and a source row for a separate data repository (URL typed; without an address the update stops with a message). Distribution 1.0.3 and Coded CPAT 1.0.3p1.1 aligned. Quick, distribution and full (partial) checks PASS; values unchanged. |
 | 1.0.2 | 2026-10-29 | User decisions 2026-10-29; Distribution 1.0.2 and Coded CPAT 1.0.2p1.1 aligned. Methane abatement curves take the CH4Inputs average where the country coefficient is 0 or missing, as legacy (issue I152; helper rows `ch4.abc`; no change for Egypt). Vehicle stocks coded `tot` (`pass/fre/motor.own.tot`, `tot.own.tot`; were `*.own.all`). Input row `ModelForm` (default CPAT) in ScenarioDefinition. Scope: CBAM process emissions, green public investment, emissions intensity of industrial output and the air pollution and transport co-benefits modules are upgrades U15-U19, out of scope. Quick, distribution and full (partial) checks PASS; 0 values changed. |
 | 1.0.1 | 2026-10-29 | Layout and norms only, from the repaired full check of 1.0.0: a label row above each variable of the Pigouvian road-transport block (section 1) and for the driving share (section 17b, own block); the air-pollution sector position of section 17b looked up by its code (ApKapHdr) instead of typed; the last row of section 19 without decimals. Quick check: 0 output codes changed against 1.0.0; full check (partial) PASS. Egypt values unchanged. |
 | 1.0.0 | 2026-10-29 | First full release (user 2026-10-29): v0.9.2 as released, with the methane fee cap in its short form (M21). Replicated number for number by Coded CPAT 1.0.0p1.0 (Python). Egypt values unchanged. |
@@ -110,6 +111,7 @@ One line per release, newest first. Full notes: the version log in the workbook 
 
 | Version | Date | Change |
 |---|---|---|
+| 1.0.3 | 2026-10-29 | Cut from the mitigation prototype v1.0.3. Update from Mitigation looks in `permalink_countryeditable\` (next to the workbook, then one folder up) before `permalink\`; in `permalink_countryeditable/` it reads the Mitigation copy beside it. Values unchanged. |
 | 1.0.2 | 2026-10-29 | Cut from the mitigation prototype v1.0.2 (versions aligned with Mitigation and Coded CPAT; ScenarioDefinition has the input row ModelForm). Distribution method and values unchanged. Replicated by Coded CPAT 1.0.2p1.1. |
 | 1.0.0 | 2026-10-29 | First full release (user 2026-10-29), cut from the mitigation prototype v1.0.0: Distribution 0.1.4 as released. Replicated number for number by Coded CPAT 1.0.0p1.0. |
 | 0.1.4 | 2026-10-29 | Cut from the mitigation prototype v0.9.2: bug M22 fixed (found by Coded CPAT): the 25th/75th percentile recycling rows (hrec) add the public investment amount per person (pui of the sample, LCU), not its % row. |

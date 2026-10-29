@@ -1,4 +1,4 @@
-# Check report - CPAT-AI-Mitigation-Prototype v1.0.2 (partial: CHECK_PARTIAL=1, sections 0-4b, 7, 8b, 14; LAMBDA-library variant B skipped)
+# Check report - CPAT-AI-Mitigation-Prototype v1.0.3 (partial: CHECK_PARTIAL=1, sections 0-4b, 7, 8b, 14; LAMBDA-library variant B skipped)
 
 ## 0. Formula length (at most 100 characters per cell formula)
 - LAMBDA calls only in the LAMBDA year 2041 of Mitigation and the LAMBDA test group 2 (Mitigation, Distribution): 112179 cells OK
@@ -2234,7 +2234,7 @@ Effect of each bug fix on the legacy Egypt inputs (2040; % change against legacy
 - identities in every column: rnet = rtx + rsub (subsidies negative), rtot = rnet + rnew, fuel use = sector totals + power, power fuel use = fuel types of pe, power CO2 = CO2 by type = ETS sector power: max abs 5.5e-10 OK
 - file references in the workbook texts (3): current ones exist in the folder: OK
 - stale statements about power, revenues or interim data in the workbook texts: none OK
-- versions: Settings log ends with 1.0.2, Mitigation title "Mitigation Module", folder README names the workbook and builder of v1.0.2 OK
+- versions: Settings log ends with 1.0.3, Mitigation title "Mitigation Module", folder README names the workbook and builder of v1.0.3 OK
 - v0.2.8: newer Excel functions (MAXIFS, MINIFS, AGGREGATE, IFNA, ...) carry the _xlfn. prefix in the file (else Excel removes the formula on repair): OK
 - equations: Formulas.md regenerated from the workbook, 1257 variables; every variable of the dictionary has its equation OK
 - scripts and notes have stable names, no version in the name (48 files): OK
