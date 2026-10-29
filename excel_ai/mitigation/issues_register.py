@@ -1039,3 +1039,213 @@ ISSUE_STATUS.update({'I47': ('Minor', 'Accepted', 'Replicated since v9.0 (user 2
                              'circular reference (checked by a full recalculation). v6.2-v8.5 used the stored scenario-1 '
                              'gas and biomass activity (ch4.revf, now a memo row).')})
 
+# v9.0 (user 2026-10-29): issues found while preparing the equations addendum (R1-R13 and the reverts to legacy),
+# I101-I146. Snippet to append to issues_register.py (not imported yet). Legacy rows: legacy 465, sheet Mitigation
+# unless stated (L = 2022 ... AE = 2041; scenario 2 = row + 6316). Bugs L171-L222: legacy/bugfixes/data/fixes_v90.json.
+_NA = 'excel_ai/mitigation/Equations_addendum_notes.md (section A)'
+_NB = 'excel_ai/mitigation/Equations_addendum_notes.md (section B)'
+_NC = 'excel_ai/mitigation/Equations_addendum_notes.md (section C)'
+_ND = 'excel_ai/mitigation/Equations_addendum_notes.md (section D)'
+_NE = 'excel_ai/mitigation/Equations_addendum_notes.md (section E)'
+
+ISSUES += [
+    # A. Reverts to legacy and R13
+    ('I101', 'Coal and gas margins read at a typed year (2024)', 'O747:O752 read the coal and gas margins at '
+     '_Country_code & 2024 (typed), while the oil-product margins (O755:O758), the production cost and the '
+     'domestic-production share read FirstYearCalculations. Replicated (user decision R13): Inputs_prices column mary '
+     '= 2024 for coal and gas, the base year otherwise.', _NA),
+    ('I102', 'Fuel price reform: strict target test; Percentage rate from the first-year step', 'Rows 167-180: the test '
+     'is t < target (strict), and the Percentage rate K for a zero start price uses (H/(G+J))^(1/n) - 1 (growth from '
+     'the first-year step). With the L171 fix the strict test has no effect. No effect for Egypt (no fuel price '
+     'reform). Replicated.', _NA),
+    ('I103', 'Feebates held at the target rate whatever ExtendCarbonPriceBeyondOutro', 'Rows 2001-2004 '
+     '(IF(t>J1977,$J,...)): feebates stay constant at the target rate after the target year whatever '
+     'ExtendCarbonPriceBeyondOutro says. No effect for Egypt (no feebates). Replicated (user decision LD10).', _NA),
+    # B. R1 inputs from air pollution and transport co-benefits; R2 social costs and benefits
+    ('I104', 'Air-pollution unit costs are average, not marginal, damages', 'The unit costs per fuel (F10 rows '
+     '17738-17749 from the Air pollution sheet) use baseline deaths per ug/m3 (plan AP I-b): sum of cost x change in '
+     'use = 0.322 bn in 2030 against legacy wel.air 0.057 bn (5.7 times). Kept as legacy for social costs, subsidies, '
+     'FFS and efficient prices; the welfare uses v_PM (R1.4).', _NB),
+    ('I105', 'wel.air linearised on one legacy policy run', 'The prototype types v_PM = legacy wel.air / change in '
+     'PM2.5 of one policy run (AP 3217 / (AP 981 - AP 1814)); 2023-2026 come from a change of about 1.5e-4 ug/m3, so '
+     'they are noisy (0.196-0.291). O3 deaths and YLD scale with PM2.5; household air pollution does not respond.',
+     _NB),
+    ('I106', 'Typed Egypt values freeze the AP and VSL options of the cached run', 'The air-pollution and VSL options '
+     'of the cached legacy run (SourceAppSel = Manual-FASST in MTInputs F322 and Dashboard F429, VSL Transfer from '
+     'Group, 3% discount, cessation lag Yes) are frozen in the typed tables T1-T4; ScenarioDefinition rows 322-336 stay '
+     'grey (inert). Other countries need their own typed values (R1 issue of the plan).', _NB),
+    ('I107', 'FFS lines: diesel valued at oil-product costs; global SCC; separate welfare', 'F10 rows 17767-17784: the '
+     'FFS lines value diesel in industry, power and "other" at the oil-product climate and air-pollution costs; the '
+     'gasoline and diesel road lines take the transport sector; FFS uses the global SCC; the FFS welfare is a separate '
+     'measure, not in wel.usd. Replicated.', _NB),
+    ('I108', 'Electricity externalities blank in the subsidy block', 'F10 rows 17920-17946: the electricity lines have '
+     'no externalities, so the implicit electricity subsidy is the VAT gap only. Replicated.', _NB),
+    ('I109', 'Subsidy-block VAT: general rate, household share only', 'The subsidy block applies the general VAT rate '
+     '(the fuel-specific VAT rows 17790, 17802, 17813, 17824, 17835, 17855, 17892, 17929 are read but unused), on the '
+     'household share only; none on industry and power. Replicated.', _NB),
+    ('I110', 'Subsidies computed for scenario 1 only', 'Legacy computes the subsidies (rows 17786-17951) and the .1 '
+     'unit costs for scenario 1 only. The prototype computes them in every scenario group (group 1 = legacy).', _NB),
+    ('I111', 'Transport co-benefits: scenario-1 margins, fixed per-km costs, rectangle welfare', 'Vehicle-km from the '
+     'engineer model whatever TrModel (I100); margins from scenario 1 (plan T I111); per-km costs '
+     'scenario-independent, congestion not responding to policy (T I-b); the welfare is a rectangle, road damage only '
+     'for freight, 0.12 USD/km not deflated (T I-d, I-h). Replicated.', _NB),
+    ('I112', 'Air pollution horizon 2040: 2041 = 2040', 'The Air pollution sheet stops at 2040 (K..AC); the '
+     'AP-derived typed values take 2041 = 2040 (plan AP I-o). Replicated.', _NB),
+    # C. R3 Pigouvian taxes; R4 CBAM process emissions
+    ('I113', 'Pigouvian netting: top-up over existing taxes; climate charged twice', 'With AddEfficientTaxes on, the '
+     'whole new excise of the block (reform + manual excise + Pigouvian) becomes MIN(R, MAX(0, R - SUM(existing fixed '
+     'tax, fixed subsidy, floating part, existing carbon tax, existing ETS))) (rows 8782-9012 O:AE): never below 0, '
+     'never above R. The new carbon tax and ETS are not netted, so with ClimateEffTax = Yes* and a carbon tax the '
+     'climate damage is charged twice. No effect for Egypt by default (AddEfficientTaxes No*). Replicated.', _NC),
+    ('I114', 'Pigouvian phase-in anchored on CPIntro; applied in policy scenarios only', 'Row 146: the phase-in starts '
+     'at CPIntro (carbon tax start), linear over AddEfficientTaxesPhaseInYears; computed in every scenario, applied '
+     'only in policy scenarios ($C>1); ntx rows typed 0 for 2022-2024. Replicated.', _NC),
+    ('I115', 'Pigouvian and efficient prices use different externality vintages', 'The Pigouvian tax (rows 128-133) '
+     'uses baseline externalities (Transport mf.1, air pollution .1); the efficient prices (17965-17982) use transport '
+     'mf.2 and air pollution .1. Replicated.', _NC),
+    ('I116', 'Climate damage per unit: national SCC x generic EF', 'Rows 136-142 = 17678-17684: national SCC x a '
+     'generic EF (IIASA average across 2-3 sectors, base-year column L, not the calibrated EF[f,s], not '
+     'inventory-adjusted); the CO2-equivalent rows multiply by the global SCC (17959) and divide by the national '
+     'damage. Replicated.', _NC),
+    ('I117', 'One Pigouvian for all other oil products, at the power-plant AP cost', 'Row 123 ("Power") uses the oil '
+     'power-plant air-pollution cost for every oop use; the industrial oop cost (17749, 23.4 $/GJ in 2022) is unused. '
+     'Replicated.', _NC),
+    ('I118', 'Road damage only for diesel', 'Row 132 and 17967 are empty ("No road damage externalities for '
+     'gasoline"). Replicated.', _NC),
+    ('I119', 'Electricity Pigouvian tax always 0', 'Rows 124-125 hold a formula only in K (2021) (=IFERROR(L18102,0), '
+     '=IFERROR(L18090,0)); L:AE are blank, so L159:AE160 = 0 (checked in the cached run). Filling them would tax '
+     'power-plant air pollution twice (already in the coal, gas and oil-for-power Pigouvian, rows 148, 151, 158). '
+     'Proposed as bug Lnew-R1R2-18, classified as an issue. No effect by default (AddEfficientTaxes No*). Replicated '
+     '(0); K124:K125 are dead cells.', _NC),
+    ('I120', 'Efficient prices: VAT on consumer fuels only, 2022 rate, scenario-1 supply cost', 'Rows 17955-18123: '
+     'potential VAT only on consumer fuels (oil products, residential coal, gas, electricity), typed 0 for industry and '
+     'power; the general VAT rate of 2022 for all years ($E$17956 = L726, label "2018"); supply cost of scenario 1, '
+     'retail price of the live scenario; computed for the live scenario only; no oop, no biomass. Replicated (the '
+     'prototype computes it per scenario group).', _NC),
+    ('I121', 'Electricity AP cost per kWh assumes a fixed 31% thermal efficiency', 'Row 18090 = generation-share-'
+     'weighted fuel cost ($/GJ of fuel) x _conv_ktoe_to_gwh/1000 = 0.01163 GJ/kWh, i.e. a fixed 31% thermal '
+     'efficiency, with the baseline generation mix in every scenario. Replicated in the efficient prices (R3.15).',
+     _NC),
+    ('I122', 'Exact switch texts; dead code cells I2202:I2203', 'F144 "Yes*", F200 "Yes", F17955 "No", I2203 "Yes*" '
+     'are tested as exact texts that match their dropdowns; the prototype uses LEFT(x,3)="Yes" (L113 rule). '
+     'I2202:I2203 (code for VAT optimal taxation) are dead. Replicated.', _NC),
+    ('I123', 'CBAM block: Egypt only, no output read anywhere', 'Rows 5867-6022: typed 2024 production and prices '
+     '(IF(_Country_code="EGY",...)), master switch Dashboard G20 (Manual inputs row 22), switch of the live scenario '
+     'read by both blocks (shared rows 1832-1836); abatement uses the auctioned ETS price; product fuel CO2 is also in '
+     'the energy model (memo rows only); no output is read by revenue, GHG totals, the ETS cap or MTOutputs. No effect '
+     'for Egypt (CBAM off). Replicated; the link to totals is decision D-R4.', _NC),
+    # D. R5 green public investment; R11 current account; R12 GVA and emissions intensity
+    ('I124', 'Green investment: cumulative need uses 35 years, the phase-out 34', 'H6250 =H6227*(2060-2025): 35 years '
+     'hard-coded, while the phase-out spans D6222 - D6221 = 34 years and reaches 0 in 2059. Replicated (35; step '
+     '1/34).', _ND),
+    ('I125', 'Green investment section stops at 2040', 'Section 10 (rows 6215-6267) covers K:AD (2021-2040), as the '
+     'revenue allocation rows 2178-2184; 2041 is blank. Replicated (2041 blank).', _ND),
+    ('I126', 'Green public investment is report only; constants typed in Mitigation', 'No cell outside section 10 '
+     'reads it: it changes neither emissions nor GDP; its five parameters are typed in Mitigation D6219-D6224, not '
+     'MTInputs. Replicated; constants on Settings, labelled legacy hard-coded.', _ND),
+    ('I127', 'Green investment: #N/A for countries outside the CCDR list', 'Countries outside the CCDR list (ETS+LTS '
+     'rows 261-302, 42 rows) get #N/A in D6218 and every row of section 10. Egypt is in the list. Replicated '
+     '(IFERROR would be a departure).', _ND),
+    ('I128', 'Green investment: annual GDP shares summed against a discounted ratio', 'The cumulative green investment '
+     'sums annual GDP shares of different years against a cumulative ratio of discounted CCDR GDP; the net revenue '
+     'includes base erosion (rev.new.usd, I41). Replicated.', _ND),
+    ('I129', 'Current account % GDP: GDP implied by CA / CA%', 'The % of GDP effects (rows 18192-18194) divide by '
+     'the GDP implied by the current account and its % of GDP (row 18192); this fails when the current account is 0. '
+     'Replicated.', _ND),
+    ('I130', 'Current account in current prices: no hold rule after the data', 'Row 18198 has no hold rule: 0 for '
+     '2032-2040 (blank WEO cells), AE = AD; the USD row 18182 tests the % row (J18191) for non-zero. Replicated.', _ND),
+    ('I131', 'GVA shares floored at 1% for the chart', 'L18747:L18756 floor the GVA shares at 1% (sum 1.0032) and '
+     'pass them to MTOutputs. Replicated.', _ND),
+    ('I132', '"GVA" is GTAP gross output; 2014 IO inflated by a fixed CPI index', 'The GVA is the GTAP OUTPUT column '
+     '(gross output), so intensities are per USD of output; the 2014 IO values are inflated by the fixed 2014 CPI '
+     'index $G$15631; label "thousands US$" but the values are USD m. Replicated (typed values).', _ND),
+    ('I133', 'Cumulative table: direct emissions only; repeated MTOutputs codes', 'The cumulative table uses direct '
+     'emissions only (H18762:H18771) next to total intensities; MTOutputs codes repeat (emin.cem in rows 124 and 138) '
+     'and construction is cst (132) and con (140). Replicated.', _ND),
+    ('I134', 'GTAP mapping: coal mining to food, crude to fuel transformation, gas to power', 'Mapping column R sends '
+     'GTAP coa (coal mining) to foo, oil (crude extraction) to ftr, nga to pow. Replicated (typed GVA).', _ND),
+    # E. R6-R10
+    ('I135', 'Initially exempt demand mutes the usage response to every price change', 'Rows 5568-5570 raise the '
+     'after-tax price ratio to eU x phase, phase = 0 before the phase-out, in every scenario including scenario 1 '
+     '(baseline world-price moves too). The prototype already does this (lkx). Replicated.', _NE),
+    ('I136', 'Exempt share denominator: basket spend, not the sum of deciles', 'K1793 = basket budget share x total '
+     'consumption is the economy-wide spend; with mean budget shares the ten decile parts do not sum to 1 (Egypt LPG: '
+     'sum of deciles / basket = 0.822). Egypt, 4 deciles, LPG: legacy 27.26%, prototype before v9.0 33.16% (sum of '
+     'deciles). Replicated in v9.0 (Settings C83, R6.3).', _NE),
+    ('I137', 'Most-used cooking fuel defaults to LPG when the WHO code is missing', 'L1784 IFNA(...,"lpg"): the '
+     'most-used cooking fuel is "lpg" when the WHOCooking code is missing; the prototype before v9.0 gave "" (Settings '
+     'C65; affects leakage too). Replicated in v9.0 (R6.1).', _NE),
+    ('I138', 'Leakage to biomass on the not-exempt use only', 'Rows 5577, 5583, 5588 (5577 = -L5564 x share ...): '
+     'the leakage is computed on the not-exempt use only. Replicated (R6.7).', _NE),
+    ('I139', 'Manual price rows switch on only with a 2021 value; years 2021-2026 only', 'F765:F829 (I53 known): a '
+     'manual price row is used only if it has a 2021 value; manual years are 2021-2026 only. Replicated (R8.1).', _NE),
+    ('I140', 'Blank manual elasticity gives "no data" and an error', 'A blank manual elasticity gives "no data" and an '
+     'error in the elasticity (Elasticities F column). Replicated as #N/A plus a check, not a silent fallback.', _NE),
+    ('I141', 'Methane intensity decline: rates borrowed across sources, decline from 2024', 'Biomass and downstream '
+     'gas use the oil-and-gas rate J185 (rows 6078, 6079); coal J186 = 0; agriculture J187 = 0.4719%/y; waste J188 = '
+     '0.5%/y. Decline from 2024 (index 1 in 2023). Replicated (R8.6).', _NE),
+    ('I142', 'Power cost breakdown: no shadow-price column, floor ignored', 'E5 cost breakdown (rows 3508-3517) has no '
+     'shadow-price (D6) column and ignores the MinPostSubsidyPowerPrice floor; checksum S shows the gap (0 for Egypt in '
+     'both scenarios). Replicated; the checksum kept.', _NE),
+    ('I143', 'Road other biofuels use oil elasticities and oil AEEI', 'Row 5406: road other biofuels (elasticity '
+     'model) use the oil elasticities and the oil AEEI with the biomass price. Replicated (R10.3).', _NE),
+    ('I144', 'Self-generated renewables priced at the solar investment cost, no policy', 'Rows 2805-2806, 5480, 5505: '
+     'self-generated renewables in aviation and navigation are priced at the solar levelised investment cost (row '
+     '3468), carry no new policy (nce typed 0) and no shadow price, with the transport ("rod") renewables '
+     'elasticities. Egypt use 0. Replicated (R10.5-R10.6).', _NE),
+    ('I145', 'Range anxiety: negative values held; one-year fit', 'Rows 4354-4356 IF(N<0,N,...): range anxiety may be '
+     'negative and a negative start value is then held; the fit uses one year (Transport3 A1 = 2025); the freight '
+     'residual is scaled x 10 (no effect on the root); a missing country gets the average of the stored table. '
+     'Replicated (R10.9).', _NE),
+    ('I146', 'Electricity producer subsidy per kWh floored at -0.3 $/kWh', 'H3590:H3591 floor the electricity producer '
+     'subsidy per kWh at -0.3 $/kWh; the part above the floor is a residual (3592) outside prices; allocation by the '
+     'pre-tax gap x consumption (3588). Replicated (R7.5-R7.7).', _NE)]
+ISSUE_LEGACY.update({f'I{n}': 'replicated' for n in range(101, 147)})
+ISSUE_LEGACY.update({'I105': 'not replicated', 'I106': 'not replicated', 'I110': 'not replicated'})
+ISSUE_STATUS.update({
+    'I101': ('Major', 'Accepted', 'Replicated (user decision R13): margin year 2024 for coal and gas (MARGIN_YEAR).'),
+    'I102': ('Minor', 'Accepted', 'Replicated (FPRPATH helper rows); no effect once L171 is fixed.'),
+    'I103': ('Minor', 'Accepted', 'Replicated (user decision LD10): feebates flat after the target year.'),
+    'I104': ('Major', 'Accepted', 'Replicated for unit costs; welfare from v_PM (Equations_addendum R1.4, R2.5).'),
+    'I105': ('Major', 'Accepted', 'Prototype approximation; recompute v_PM from an AP module run for other policies.'),
+    'I106': ('Major', 'Accepted', 'Typed Egypt values; other countries need their own module run (R1 issue).'),
+    'I107': ('Minor', 'Accepted', 'Replicated (Equations_addendum R2.9-R2.10).'),
+    'I108': ('Minor', 'Accepted', 'Replicated (Equations_addendum R2.11: ext_ecy = 0).'),
+    'I109': ('Minor', 'Accepted', 'Replicated (Equations_addendum R2.11).'),
+    'I110': ('Minor', 'Accepted', 'Departure: every scenario group computed; group 1 equals legacy.'),
+    'I111': ('Major', 'Accepted', 'Replicated; pending user decisions B-c, B-d, B-e of the transport plan.'),
+    'I112': ('Minor', 'Accepted', 'Replicated: 2041 = 2040 in the typed AP values.'),
+    'I113': ('Major', 'Accepted', 'Replicated (Equations_addendum R3.9).'),
+    'I114': ('Minor', 'Accepted', 'Replicated (Equations_addendum R3.1, R3.9).'),
+    'I115': ('Minor', 'Accepted', 'Replicated (Equations_addendum R3.5, R3.14).'),
+    'I116': ('Minor', 'Accepted', 'Replicated (Equations_addendum R3.2-R3.3).'),
+    'I117': ('Minor', 'Accepted', 'Replicated (Equations_addendum R3.4).'),
+    'I118': ('Minor', 'Accepted', 'Replicated (Equations_addendum R3.5).'),
+    'I119': ('Minor', 'Accepted', 'Replicated 0; user to decide: keep 0, or fill and drop the AP term of the power fuels.'),
+    'I120': ('Minor', 'Accepted', 'Replicated (Equations_addendum R3.16); the prototype computes every scenario group.'),
+    'I121': ('Minor', 'Accepted', 'Replicated in the efficient prices (Equations_addendum R3.15).'),
+    'I122': ('Minor', 'Accepted', 'Replicated values; the prototype tests LEFT(x,3)="Yes" (L113 rule).'),
+    'I123': ('Major', 'Accepted', 'Replicated; link to revenue, GHG and ETS totals by decision D-R4.'),
+    'I124': ('Minor', 'Accepted', 'Replicated (Equations_addendum R5.10).'),
+    'I125': ('Minor', 'Accepted', 'Replicated: 2041 blank (Equations_addendum R5).'),
+    'I126': ('Minor', 'Accepted', 'Replicated; constants on Settings labelled legacy hard-coded.'),
+    'I127': ('Major', 'Accepted', 'Replicated (#N/A outside the CCDR list); IFERROR would be a departure.'),
+    'I128': ('Minor', 'Accepted', 'Replicated (Equations_addendum R5.18).'),
+    'I129': ('Minor', 'Accepted', 'Replicated (Equations_addendum R11.6).'),
+    'I130': ('Minor', 'Accepted', 'Replicated (Equations_addendum R11.9).'),
+    'I131': ('Minor', 'Accepted', 'Replicated (Equations_addendum R12.7).'),
+    'I132': ('Minor', 'Accepted', 'Replicated (typed GVA, Equations_addendum R12.1).'),
+    'I133': ('Minor', 'Accepted', 'Replicated (Equations_addendum R12.9).'),
+    'I134': ('Minor', 'Accepted', 'Replicated (typed GVA).'),
+    'I135': ('Minor', 'Accepted', 'Replicated (prototype lkx, unchanged).'),
+    'I136': ('Major', 'Accepted', 'Replicate in v9.0: Settings C83 basket denominator (Equations_addendum R6.3).'),
+    'I137': ('Minor', 'Accepted', 'Replicate in v9.0: Settings C65 fallback "lpg" (Equations_addendum R6.1).'),
+    'I138': ('Minor', 'Accepted', 'Replicate in v9.0: lkd on the not-exempt use (Equations_addendum R6.7).'),
+    'I139': ('Minor', 'Accepted', 'Replicated (Equations_addendum R8.1; I53).'),
+    'I140': ('Minor', 'Accepted', 'Replicated as #N/A plus a check (Equations_addendum R8.5).'),
+    'I141': ('Minor', 'Accepted', 'Replicated (Equations_addendum R8.6).'),
+    'I142': ('Minor', 'Accepted', 'Replicated; checksum kept (Equations_addendum R9.12).'),
+    'I143': ('Minor', 'Accepted', 'Replicated (Equations_addendum R10.3).'),
+    'I144': ('Minor', 'Accepted', 'Replicated (Equations_addendum R10.5-R10.6).'),
+    'I145': ('Minor', 'Accepted', 'Replicated (Equations_addendum R10.8-R10.9).'),
+    'I146': ('Minor', 'Accepted', 'Replicated (Equations_addendum R7.6-R7.7).')})

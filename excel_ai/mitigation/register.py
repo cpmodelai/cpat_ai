@@ -74,7 +74,7 @@ def sort_key(code):
 @functools.lru_cache(maxsize=None)
 def plans():
     out = {}
-    for name in ('power_engineer', 'transport_engineer', 'other_mitigation', 'other_mitigation_2', 'distribution'):
+    for name in ('power_engineer', 'transport_engineer', 'other_mitigation', 'other_mitigation_2', 'distribution', 'v90'):
         p = os.path.join(PLANS, f'fixes_{name}.json')
         if os.path.exists(p):
             for b in json.load(open(p, encoding='utf-8')):
@@ -146,6 +146,12 @@ def records():
         out.append(_rec(id=c, title=b['title'], where=b.get('where', ''), description=b.get('why', ''),
                         fix=b.get('ref', ''), effect=b.get('effect', ''),
                         priority=(b.get('pri') or 'Low').split(' (')[0], prototype=EXTRA_STATUS[c]))
+    for c in sorted((k for k in pl if re.fullmatch(r'L(17[1-9]|1[89]\d|2\d\d)', k)), key=sort_key):   # v9.0
+        b = pl[c]
+        out.append(_rec(id=c, title=b['title'], where=b.get('where', ''), description=b.get('why', ''),
+                        fix=b.get('ref', ''), effect=b.get('effect', ''),
+                        priority=(b.get('pri') or 'Low').split(' (')[0], prototype=b.get('prototype', ''),
+                        cell_plan='Yes' if b.get('fixes') else ''))
     for c, title, where, what, st in R.INPUT_BUGS:                              # L137
         out.append(_rec(id=c, title=title, where=where, description=what, priority='Low', prototype=st,
                         fix='Name the MTInputs values without the D_ prefix and without the space.'))
