@@ -1,0 +1,121 @@
+key,type,fuel,sector,legacy_code,table,data_type,data_fuel,data_sector,manual_row,manual_col,legacy_row
+inc|coa|tra,inc,coa,tra,coa_inc_tot,ela_income_by_country,Income,Coal,Transport,279,11,143
+inc|nga|tra,inc,nga,tra,nga_inc_tot,ela_income_by_country,Income,Natural Gas,Transport,280,11,144
+inc|gso|tra,inc,gso,tra,oil_inc_res,ela_income_by_country,Income,Gasoline,Transport,281,11,145
+inc|die|tra,inc,die,tra,bio_inc_res,ela_income_by_country,Income,Diesel,Transport,282,11,146
+inc|oil|tra,inc,oil,tra,oil_inc_tot,ela_income_by_country,Income,Oil Products,Transport,283,11,147
+inc|bio|tra,inc,bio,tra,die_inc_res,ela_income_by_country,Income,Biomass,Transport,284,11,148
+inc|ren|tra,inc,ren,tra,rnw_inc_tot,ela_income_by_country,Income,Renewables,Transport,285,11,149
+inc|ecy|tra,inc,ecy,tra,ecy_inc_tot,ela_income_by_country,Income,Electricity,Transport,286,11,150
+inc|coa|res,inc,coa,res,coa_inc_res,ela_income_by_country,Income,Coal,Residential,279,12,151
+inc|nga|res,inc,nga,res,nga_inc_res,ela_income_by_country,Income,Natural Gas,Residential,280,12,152
+inc|gso|res,inc,gso,res,oil_inc_res,ela_income_by_country,Income,Gasoline,Residential,281,12,153
+inc|die|res,inc,die,res,bio_inc_res,ela_income_by_country,Income,Diesel,Residential,282,12,154
+inc|oil|res,inc,oil,res,oil_inc_res,ela_income_by_country,Income,Oil Products,Residential,283,12,155
+inc|bio|res,inc,bio,res,bio_inc_res,ela_income_by_country,Income,Biomass,Residential,284,12,156
+inc|ren|res,inc,ren,res,rnw_inc_tot,ela_income_by_country,Income,Renewables,Residential,285,12,157
+inc|ecy|res,inc,ecy,res,ecy_inc_res,ela_income_by_country,Income,Electricity,Residential,286,12,158
+inc|coa|ind,inc,coa,ind,coa_inc_ind,ela_income_by_country,Income,Coal,Industry,279,13,159
+inc|nga|ind,inc,nga,ind,nga_inc_ind,ela_income_by_country,Income,Natural Gas,Industry,280,13,160
+inc|gso|ind,inc,gso,ind,oil_inc_res,ela_income_by_country,Income,Gasoline,Industry,281,13,161
+inc|die|ind,inc,die,ind,die_inc_res,ela_income_by_country,Income,Diesel,Industry,282,13,162
+inc|oil|ind,inc,oil,ind,oil_inc_ind,ela_income_by_country,Income,Oil Products,Industry,283,13,163
+inc|bio|ind,inc,bio,ind,bio_inc_res,ela_income_by_country,Income,Biomass,Industry,284,13,164
+inc|ren|ind,inc,ren,ind,rnw_inc_tot,ela_income_by_country,Income,Renewables,Industry,285,13,165
+inc|ecy|ind,inc,ecy,ind,ecy_inc_ind,ela_income_by_country,Income,Electricity,Industry,286,13,166
+inc|coa|srv,inc,coa,srv,coa_inc_srv,ela_income_by_country,Income,Coal,Services,279,14,167
+inc|nga|srv,inc,nga,srv,nga_inc_srv,ela_income_by_country,Income,Natural Gas,Services,280,14,168
+inc|gso|srv,inc,gso,srv,oil_inc_res,ela_income_by_country,Income,Gasoline,Services,281,14,169
+inc|die|srv,inc,die,srv,die_inc_res,ela_income_by_country,Income,Diesel,Services,282,14,170
+inc|oil|srv,inc,oil,srv,oil_inc_srv,ela_income_by_country,Income,Oil Products,Services,283,14,171
+inc|bio|srv,inc,bio,srv,bio_inc_res,ela_income_by_country,Income,Biomass,Services,284,14,172
+inc|ren|srv,inc,ren,srv,rnw_inc_tot,ela_income_by_country,Income,Renewables,Services,285,14,173
+inc|ecy|srv,inc,ecy,srv,ecy_inc_srv,ela_income_by_country,Income,Electricity,Services,286,14,174
+usg|coa|tra,usg,coa,tra,coa_owp_tot_sr,ela_price_by_country,"Own-price, usage",Coal,Transport,291,11,178
+usg|nga|tra,usg,nga,tra,nga_owp_tot_sr,ela_price_by_country,"Own-price, usage",Natural Gas,Transport,292,11,179
+usg|gso|tra,usg,gso,tra,gso_owp_tot_sr,ela_price_by_country,"Own-price, usage",Gasoline,Transport,293,11,180
+usg|die|tra,usg,die,tra,die_owp_tot_sr,ela_price_by_country,"Own-price, usage",Diesel,Transport,294,11,181
+usg|oil|tra,usg,oil,tra,oil_owp_tot_sr,ela_price_by_country,"Own-price, usage",Oil Products,Transport,295,11,182
+usg|bio|tra,usg,bio,tra,bio_owp_ind_sr,ela_price_by_country,"Own-price, usage",Biomass,Transport,296,11,183
+usg|ren|tra,usg,ren,tra,rnw_owp_tot_lr,ela_price_by_country,"Own-price, usage",Renewables,Transport,297,11,184
+usg|ecy|tra,usg,ecy,tra,ecy_owp_tot_sr,ela_price_by_country,"Own-price, usage",Electricity,Transport,298,11,185
+usg|coa|res,usg,coa,res,coa_owp_res_sr,ela_price_by_country,"Own-price, usage",Coal,Residential,291,12,186
+usg|nga|res,usg,nga,res,nga_owp_res_sr,ela_price_by_country,"Own-price, usage",Natural Gas,Residential,292,12,187
+usg|gso|res,usg,gso,res,gso_owp_tot_sr,ela_price_by_country,"Own-price, usage",Gasoline,Residential,293,12,188
+usg|die|res,usg,die,res,die_owp_tot_sr,ela_price_by_country,"Own-price, usage",Diesel,Residential,294,12,189
+usg|oil|res,usg,oil,res,oil_owp_tot_sr,ela_price_by_country,"Own-price, usage",Oil Products,Residential,295,12,190
+usg|bio|res,usg,bio,res,bio_owp_ind_sr,ela_price_by_country,"Own-price, usage",Biomass,Residential,296,12,191
+usg|ren|res,usg,ren,res,rnw_owp_tot_lr,ela_price_by_country,"Own-price, usage",Renewables,Residential,297,12,192
+usg|ecy|res,usg,ecy,res,ecy_owp_res_sr,ela_price_by_country,"Own-price, usage",Electricity,Residential,298,12,193
+usg|coa|ind,usg,coa,ind,coa_owp_ind_sr,ela_price_by_country,"Own-price, usage",Coal,Industry,291,13,194
+usg|nga|ind,usg,nga,ind,nga_owp_ind_sr,ela_price_by_country,"Own-price, usage",Natural Gas,Industry,292,13,195
+usg|gso|ind,usg,gso,ind,gso_owp_tot_sr,ela_price_by_country,"Own-price, usage",Gasoline,Industry,293,13,196
+usg|die|ind,usg,die,ind,die_owp_tot_sr,ela_price_by_country,"Own-price, usage",Diesel,Industry,294,13,197
+usg|oil|ind,usg,oil,ind,oil_owp_ind_sr,ela_price_by_country,"Own-price, usage",Oil Products,Industry,295,13,198
+usg|bio|ind,usg,bio,ind,bio_owp_ind_sr,ela_price_by_country,"Own-price, usage",Biomass,Industry,296,13,199
+usg|ren|ind,usg,ren,ind,rnw_owp_tot_lr,ela_price_by_country,"Own-price, usage",Renewables,Industry,297,13,200
+usg|ecy|ind,usg,ecy,ind,ecy_owp_ind_sr,ela_price_by_country,"Own-price, usage",Electricity,Industry,298,13,201
+usg|coa|srv,usg,coa,srv,coa_owp_ind_sr,ela_price_by_country,"Own-price, usage",Coal,Services,291,14,202
+usg|nga|srv,usg,nga,srv,nga_owp_ind_sr,ela_price_by_country,"Own-price, usage",Natural Gas,Services,292,14,203
+usg|gso|srv,usg,gso,srv,gso_owp_tot_sr,ela_price_by_country,"Own-price, usage",Gasoline,Services,293,14,204
+usg|die|srv,usg,die,srv,die_owp_tot_sr,ela_price_by_country,"Own-price, usage",Diesel,Services,294,14,205
+usg|oil|srv,usg,oil,srv,oil_owp_ind_sr,ela_price_by_country,"Own-price, usage",Oil Products,Services,295,14,206
+usg|bio|srv,usg,bio,srv,bio_owp_ind_sr,ela_price_by_country,"Own-price, usage",Biomass,Services,296,14,207
+usg|ren|srv,usg,ren,srv,rnw_owp_tot_lr,ela_price_by_country,"Own-price, usage",Renewables,Services,297,14,208
+usg|ecy|srv,usg,ecy,srv,ecy_owp_ind_sr,ela_price_by_country,"Own-price, usage",Electricity,Services,298,14,209
+eff|coa|tra,eff,coa,tra,coa_owp_tot_lr,ela_price_by_country,"Own-price, efficiency",Coal,Transport,300,11,211
+eff|nga|tra,eff,nga,tra,nga_owp_tot_lr,ela_price_by_country,"Own-price, efficiency",Natural Gas,Transport,301,11,212
+eff|gso|tra,eff,gso,tra,gso_owp_tot_lr,ela_price_by_country,"Own-price, efficiency",Gasoline,Transport,302,11,213
+eff|die|tra,eff,die,tra,die_owp_tot_lr,ela_price_by_country,"Own-price, efficiency",Diesel,Transport,303,11,214
+eff|oil|tra,eff,oil,tra,oil_owp_tot_lr,ela_price_by_country,"Own-price, efficiency",Oil Products,Transport,304,11,215
+eff|bio|tra,eff,bio,tra,bio_owp_ind_lr,ela_price_by_country,"Own-price, efficiency",Biomass,Transport,305,11,216
+eff|ren|tra,eff,ren,tra,rnw_owp_tot_lr,ela_price_by_country,"Own-price, efficiency",Renewables,Transport,306,11,217
+eff|ecy|tra,eff,ecy,tra,ecy_owp_tot_lr,ela_price_by_country,"Own-price, efficiency",Electricity,Transport,307,11,218
+eff|coa|res,eff,coa,res,coa_owp_res_lr,ela_price_by_country,"Own-price, efficiency",Coal,Residential,300,12,219
+eff|nga|res,eff,nga,res,nga_owp_res_lr,ela_price_by_country,"Own-price, efficiency",Natural Gas,Residential,301,12,220
+eff|gso|res,eff,gso,res,gso_owp_tot_lr,ela_price_by_country,"Own-price, efficiency",Gasoline,Residential,302,12,221
+eff|die|res,eff,die,res,die_owp_tot_lr,ela_price_by_country,"Own-price, efficiency",Diesel,Residential,303,12,222
+eff|oil|res,eff,oil,res,oil_owp_tot_lr,ela_price_by_country,"Own-price, efficiency",Oil Products,Residential,304,12,223
+eff|bio|res,eff,bio,res,bio_owp_ind_lr,ela_price_by_country,"Own-price, efficiency",Biomass,Residential,305,12,224
+eff|ren|res,eff,ren,res,rnw_owp_tot_lr,ela_price_by_country,"Own-price, efficiency",Renewables,Residential,306,12,225
+eff|ecy|res,eff,ecy,res,ecy_owp_res_lr,ela_price_by_country,"Own-price, efficiency",Electricity,Residential,307,12,226
+eff|coa|ind,eff,coa,ind,coa_owp_ind_lr,ela_price_by_country,"Own-price, efficiency",Coal,Industry,300,13,227
+eff|nga|ind,eff,nga,ind,nga_owp_ind_lr,ela_price_by_country,"Own-price, efficiency",Natural Gas,Industry,301,13,228
+eff|gso|ind,eff,gso,ind,gso_owp_tot_lr,ela_price_by_country,"Own-price, efficiency",Gasoline,Industry,302,13,229
+eff|die|ind,eff,die,ind,die_owp_tot_lr,ela_price_by_country,"Own-price, efficiency",Diesel,Industry,303,13,230
+eff|oil|ind,eff,oil,ind,oil_owp_ind_lr,ela_price_by_country,"Own-price, efficiency",Oil Products,Industry,304,13,231
+eff|bio|ind,eff,bio,ind,bio_owp_ind_lr,ela_price_by_country,"Own-price, efficiency",Biomass,Industry,305,13,232
+eff|ren|ind,eff,ren,ind,rnw_owp_tot_lr,ela_price_by_country,"Own-price, efficiency",Renewables,Industry,306,13,233
+eff|ecy|ind,eff,ecy,ind,ecy_owp_ind_lr,ela_price_by_country,"Own-price, efficiency",Electricity,Industry,307,13,234
+eff|coa|srv,eff,coa,srv,coa_owp_ind_lr,ela_price_by_country,"Own-price, efficiency",Coal,Services,300,14,235
+eff|nga|srv,eff,nga,srv,nga_owp_ind_lr,ela_price_by_country,"Own-price, efficiency",Natural Gas,Services,301,14,236
+eff|gso|srv,eff,gso,srv,gso_owp_tot_lr,ela_price_by_country,"Own-price, efficiency",Gasoline,Services,302,14,237
+eff|die|srv,eff,die,srv,die_owp_tot_lr,ela_price_by_country,"Own-price, efficiency",Diesel,Services,303,14,238
+eff|oil|srv,eff,oil,srv,oil_owp_ind_lr,ela_price_by_country,"Own-price, efficiency",Oil Products,Services,304,14,239
+eff|bio|srv,eff,bio,srv,bio_owp_ind_lr,ela_price_by_country,"Own-price, efficiency",Biomass,Services,305,14,240
+eff|ren|srv,eff,ren,srv,rnw_owp_tot_lr,ela_price_by_country,"Own-price, efficiency",Renewables,Services,306,14,241
+eff|ecy|srv,eff,ecy,srv,ecy_owp_ind_lr,ela_price_by_country,"Own-price, efficiency",Electricity,Services,307,14,242
+aei|coa|tra,aei,coa,tra,eff_imp_coa_rod,ela_efficiency_by_country,Autonomous efficiency,Coal,Transport,,11,256
+aei|nga|tra,aei,nga,tra,eff_imp_nga_rod,ela_efficiency_by_country,Autonomous efficiency,Natural Gas,Transport,,11,257
+aei|oil|tra,aei,oil,tra,eff_imp_oil_rod,ela_efficiency_by_country,Autonomous efficiency,Oil,Transport,,11,258
+aei|bio|tra,aei,bio,tra,eff_imp_bio_rod,ela_efficiency_by_country,Autonomous efficiency,Biomass,Transport,,11,259
+aei|ren|tra,aei,ren,tra,eff_imp_ren_rod,ela_efficiency_by_country,Autonomous efficiency,Renewables,Transport,,11,260
+aei|ecy|tra,aei,ecy,tra,eff_imp_ecy_rod,ela_efficiency_by_country,Autonomous efficiency,Electricity,Transport,,11,261
+aei|coa|res,aei,coa,res,eff_imp_coa,ela_efficiency_by_country,Autonomous efficiency,Coal,Residential,,12,263
+aei|nga|res,aei,nga,res,eff_imp_nga,ela_efficiency_by_country,Autonomous efficiency,Natural Gas,Residential,,12,264
+aei|oil|res,aei,oil,res,eff_imp_oil,ela_efficiency_by_country,Autonomous efficiency,Oil,Residential,,12,265
+aei|bio|res,aei,bio,res,eff_imp_bio,ela_efficiency_by_country,Autonomous efficiency,Biomass,Residential,,12,266
+aei|ren|res,aei,ren,res,eff_imp_ren,ela_efficiency_by_country,Autonomous efficiency,Renewables,Residential,,12,267
+aei|ecy|res,aei,ecy,res,eff_imp_ecy,ela_efficiency_by_country,Autonomous efficiency,Electricity,Residential,,12,268
+aei|coa|ind,aei,coa,ind,eff_imp_coa,ela_efficiency_by_country,Autonomous efficiency,Coal,Industry,,13,270
+aei|nga|ind,aei,nga,ind,eff_imp_nga,ela_efficiency_by_country,Autonomous efficiency,Natural Gas,Industry,,13,271
+aei|oil|ind,aei,oil,ind,eff_imp_oil,ela_efficiency_by_country,Autonomous efficiency,Oil,Industry,,13,272
+aei|bio|ind,aei,bio,ind,eff_imp_bio,ela_efficiency_by_country,Autonomous efficiency,Biomass,Industry,,13,273
+aei|ren|ind,aei,ren,ind,eff_imp_ren,ela_efficiency_by_country,Autonomous efficiency,Renewables,Industry,,13,274
+aei|ecy|ind,aei,ecy,ind,eff_imp_ecy,ela_efficiency_by_country,Autonomous efficiency,Electricity,Industry,,13,275
+aei|coa|srv,aei,coa,srv,eff_imp_coa,ela_efficiency_by_country,Autonomous efficiency,Coal,Services,,14,277
+aei|nga|srv,aei,nga,srv,eff_imp_nga,ela_efficiency_by_country,Autonomous efficiency,Natural Gas,Services,,14,278
+aei|oil|srv,aei,oil,srv,eff_imp_oil,ela_efficiency_by_country,Autonomous efficiency,Oil,Services,,14,279
+aei|bio|srv,aei,bio,srv,eff_imp_bio,ela_efficiency_by_country,Autonomous efficiency,Biomass,Services,,14,280
+aei|ren|srv,aei,ren,srv,eff_imp_ren,ela_efficiency_by_country,Autonomous efficiency,Renewables,Services,,14,281
+aei|ecy|srv,aei,ecy,srv,eff_imp_ecy,ela_efficiency_by_country,Autonomous efficiency,Electricity,Services,,14,282

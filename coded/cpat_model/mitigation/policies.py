@@ -125,7 +125,19 @@ def ecp_table(db, iso, infl):
         out[f'ref.{f}'] = series('ecp_ets_fuel_coverage_regional', p + f'eef.{f}')[0] * eu
     out['eer.all'] = series('ecp_ets_price_national', p + 'eer.all')[0] * real
     out['rer.all'] = series('ecp_ets_price_regional', 'eu.mit.eer.all')[0] * real * eu
+    # existing carbon tax and ETS by ECP sector | fuel ($/tCO2 real; Excel-AI Inputs rows 663-739)
+    for s in ('pow', 'trs', 'res', 'ind'):
+        for f in FUELS:
+            out[f'xct|{s}|{f}'] = out[f'ecr.{f}'] * out[f'ecs.{s}'] * out[f'ecf.{f}']
+            out[f'xets|{s}|{f}'] = (out['eer.all'] * out[f'ees.{s}'] * out[f'eef.{f}']
+                                    + out['rer.all'] * out[f'res.{s}'] * out[f'ref.{f}'])
     return out
+
+
+def ecp_embedded_year(settings):
+    """The year of the existing carbon pricing embedded in the price data: the last historical price year, at most
+    the last ECP data year (Excel-AI ECPEmb)."""
+    return min(settings.last_hist_price_year, ECP_YEARS[-1])
 
 
 @lru_cache(maxsize=4)

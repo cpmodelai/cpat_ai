@@ -19,10 +19,11 @@ class Settings:
     last_hist_price_year: int = 2024              # Excel-AI LAST_HIST (Settings C10, L)
     results_year: int = 2026                      # year of the real USD of money values (MTInputs ResultsYear)
     global_settings: dict = field(default_factory=dict)   # D16: from the baseline column of the scenario set
+    base: object = None                           # the baseline inputs (Excel-AI SDBase: settings read from scenario 1)
 
-    def with_globals(self, values):
-        """D16: these settings with the global inputs of a scenario set (its baseline column)."""
-        return replace(self, global_settings=values,
+    def with_globals(self, values, base=None):
+        """D16: these settings with the global inputs of a scenario set (its baseline column) and its baseline inputs."""
+        return replace(self, global_settings=values, base=base,
                        results_year=int(values.get('ResultsYear', self.results_year)),
                        last_hist_price_year=int(values.get('LastHistPriceYear', self.last_hist_price_year)))
 

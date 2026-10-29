@@ -1,0 +1,10 @@
+type,name,legacy,balances_fuels,mt_name,price_code,vre,vre_share,dispatch
+coa,Coal,coa,coa,Coa,coa.pow,0,0,cg
+nga,Natural gas,nga,nga,Nga,nga.pow,0,0,cg
+oop,Oil,oil,oop gso die ker lpg jfu,Oil,oop.all,0,0,fixed
+nuc,Nuclear,nuc,nuc,Nuc,,0,0,fixed
+wnd,Wind,wnd,wnd,Wnd,,1,1,fixed
+sol,Solar,sol,sol,Sol,,1,1,fixed
+hyd,Hydro,hyd,hyd,Hyd,,0,0,fixed
+ore,Other renewables,ore,ore,Ore,,1,1,fixed
+bio,Biomass,bio,bio,Bio,bio.all,0,0,fixed

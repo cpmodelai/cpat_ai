@@ -459,9 +459,49 @@ Over producer fuels $f$ (oil, coal, gas, biomass). Excel-AI notation. $PROS$ pro
 
 To complete: residential leakage to biomass (E69a-e; methodology: substitution share $\epsilon_{bio,f}\,Eff_{bio}/Eff_f$); initially exempt use (R6); biofuels in road, aviation and navigation (R10); self-generated renewables; income elasticity adjustment; residential biomass income elasticity (BiomassNormal).
 
+**A3.1  Elasticities of the country**  *(adjustment)*
+
+$$
+\mathtt{ela}[k|f|g] \text{ for } k \in \{\mathtt{inc}, \mathtt{usg}, \mathtt{eff}, \mathtt{aei}\}
+$$
+
+Over fuel groups $f$ (coal, gas, gasoline, diesel, oil, biomass, renewables, electricity), sector groups $g$ (transport, residential, industry, services). Excel-AI notation: income $Y$, own-price usage $U$ and efficiency $F$ elasticities, autonomous efficiency improvement $\alpha$. Several rows reuse another fuel's or sector's legacy row (core/excel_ai/elasticity_rows.csv). Manual elasticities (MTInputs ElIncMainSrc, ElPrcMainSrc) are not in Coded CPAT yet. Source: Excel-AI: Inputs_ela (build_inputs_ela).
+
 ## A4 Power
 
 To complete: capacity factors and overrides; vintages of capital cost and storage (E34-E36); VRE share and storage (methodology: $sst = 9v^2$, long-term storage above 75%); early coal retirement (E62); investment need (E63, $Req_t^2/Req_{t-1}$); second-round investment; manual capacity; PPAs; supply cost lag (E48); subsidy gap; renewable subsidies and rebates.
+
+**A4.1  Generation types of the country**  *(adjustment)*
+
+$$
+\mathtt{cax0}, \mathtt{life}, \mathtt{opfx}, \mathtt{vop}, \mathtt{cf}, \mathtt{eff}, \mathtt{wacc}, \mathtt{dlf} = \frac{1 - (1+r)^{-N}}{1 - (1+r)^{-1}}
+$$
+
+Over generation types $k$ (coal, gas, oil, nuclear, wind, solar, hydro, other renewables, biomass). Excel-AI notation. Costs, lifetime and capacity factor of the legacy Power table (country where positive, else world); efficiency and capacity factor from the base-year energy balance and installed capacity; WACC by WACCSource (country rate plus the coal or technology premium of the income group, the studies value, a user or income-group rate, at least MinimumWACC). Investment permitted (If Present*: when the type has more than InvPresentShare of capacity) and its first year (hydro from the base year when it has more than HydInvShare of generation). Source: Excel-AI: Inputs_ptech, Inputs_pset (build_inputs_powerdata).
+
+**A4.2  Power year paths**  *(adjustment)*
+
+$$
+\mathtt{tcf}_{k,t}, \mathtt{cbat}_t, \mathtt{cel}_t, \mathtt{incp}_t, \mathtt{incf}_t, \mathtt{shock}_t, \mathtt{pret}_{coa,t}
+$$
+
+Over years $t$. Excel-AI notation. Capex time factors of the RenewableCostDeclineRate scenario for renewables (missing series: the old series for wind and solar, medium otherwise), medium for the others; income factor a quartic polynomial in log GDP per capita of the previous year; demand shock of 2023-2024 (GHGs data); planned coal retirement where the data flag it. Source: Excel-AI: Inputs_ppath (build_inputs_powerdata).
+
+**A4.3  Power parameters and system shares**  *(adjustment)*
+
+$$
+\mathtt{req\_factor} = (1 + s_{nxp} + s_{tsd} + s_{eou} + s_{add})\,\kappa \cdot 1000 / 8760
+$$
+
+Excel-AI notation. $D$ final electricity demand of the base year (energy balance), $G$ base-year generation (ktoe). Source: Excel-AI: Inputs_ppar; Inputs rows 254-263.
+
+**A4.4  Derived constants of the generation types, user and demand groups**  *(adjustment)*
+
+$$
+\mathtt{acap}, \mathtt{afix}, \mathtt{lcap}, \mathtt{lfix}, \mathtt{k}, \mathtt{efk}, \mathtt{xcp0}; \quad \mathtt{aeef}_d = (1 + \alpha_d + a)^{-(1+\epsilon^U_d)}
+$$
+
+Excel-AI notation: $\bar{s}$ the average outstanding share of capital (CapAvgShr). User groups (residential, industry): transmission cost, pass-through, VAT and historical prices; demand groups (transport, residential, industry, services): electricity elasticities and the efficiency multiple; base-year demand by subsector from the energy balance or EnergyCons (BalancesOrConsumption). Source: Excel-AI: Inputs rows 204-252 (build_inputs_power).
 
 ## A5 Road transport
 
@@ -474,6 +514,14 @@ To complete: power-sector revenues (E75: fuel taxes of generation, excise, VAT o
 ## A7 Emissions
 
 To complete: CO2 calibration factor (E77, off by default; baseline pass, spec D15); ETS check (E79); combustion CH4; methane from fuel production with abatement ($red = A\,mf^{B}$); energy-CH4 calibration; N2O scaled to CO2; IPPU, agriculture, LULUCF, waste and other (methodology Emissions); local air pollutants by sector (section 15, E87-E90).
+
+**A7.1  Emission factors of the country**  *(adjustment)*
+
+$$
+\mathtt{EFSel}[f|s] \cdot \mathtt{EFCalib}
+$$
+
+Over fuels $f$, EF sectors $s$ (power, road, residential, industry; jet fuel in aviation). Excel-AI notation. Some rows read another fuel or sector ($f'$, $s'$); jet fuel takes the IEA factor, biomass 0. The calibration factor $\chi$ uses Excel-AI's stored scenario-1 CO2 (user 2026-10-29). Other combustion pollutants (GAINS, t/ktoe): country, else region, else world, else 0; other energy use the largest factor of the fuel across the subsectors above it (issue I149). Source: Excel-AI: Inputs rows 273-312, 933-1471; Settings C26-C30.
 
 ## A8 GDP and results
 

@@ -11,6 +11,8 @@
   cpat_model/core/excel_ai/<table>.csv               the model's own tables on Excel-AI's Settings tab (named
                                                      constants, the input rows read by Mitigation, coverage sectors,
                                                      main scenarios, ETS volatility): structure, not country data
+  cpat_testing/compare/reference/excel_ai_<v>_inputs.csv   the stored values of sheet Inputs (row, col, value): the
+                                                     reference of the data steps
   data/excel_ai_stored/<table>.csv                   values Excel-AI stores from a scenario-1 run (BaselineCO2), read
                                                      as data until Python computes them (user 2026-10-29)
 
@@ -144,6 +146,16 @@ def structure(wb):
         print(f'{name}: {len(out)} rows')
 
 
+INPUTS_REF = CODED / 'cpat_testing' / 'compare' / 'reference' / f'excel_ai_{EXCEL_AI_VERSION}_inputs.csv'
+
+
+def inputs_reference(wb):
+    cells = [[r, c, text(v)] for r, row in enumerate(wb['Inputs'].iter_rows(values_only=True), 1)
+             for c, v in enumerate(row, 1) if v not in (None, '')]
+    write(INPUTS_REF, ['row', 'col', 'value'], cells)
+    print(f'Inputs: {len(cells)} cells')
+
+
 def stored(wb):
     rows = list(wb['BaselineCO2'].iter_rows(min_row=3, values_only=True))
     years = [int(y) for y in rows[0][3:] if y is not None]
@@ -161,3 +173,4 @@ if __name__ == '__main__':
     module_tabs(book)
     structure(book)
     stored(book)
+    inputs_reference(book)
