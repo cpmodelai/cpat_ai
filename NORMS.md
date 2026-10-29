@@ -13,6 +13,7 @@ Rules for every task in this repository. Sections 0-5: the Excel prototypes (`ex
 | 6, 6b | Task completion (CAVEATS.md) and norms that follow the lessons |
 | 7 | Methodology and version notes are different documents |
 | 8 | Data |
+| 9 | **Modules: how they work** (free-standing module workbooks, inputs and outputs, links through the permalink folders) |
 
 ## 0. Replication rule: never replicate bugs; always replicate issues, and track them
 
@@ -69,9 +70,11 @@ Matches legacy `Mitigation` exactly. Row 1 = column headers; row 2 = title band;
 | H | Output Code |
 | I | Note |
 | J | Helper |
-| K..AI | Years **2021..2045** (K=2021, L=2022 base year) |
+| K | Code column of scenario group 1 (`Scenario 1: output code` in row 1) |
+| L..AE | Years **2022..2041** (L = base year 2022, as legacy; AE = 2041, the legacy horizon) |
+| AF | Blank spacer; scenario group *n* starts at column K + 22 x (n - 1) (group 2 in AG, group 3 in BC, ...; 3e) |
 
-Reference implementation: the `Mitigation` sheet of `excel_ai/mitigation/CPAT-AI-Mitigation-Prototype-v<version>.xlsm`.
+Reference implementation: the `Mitigation` sheet of `excel_ai/CPAT-AI-Mitigation-Prototype_v<version>.xlsm` (constants `COL_G0`, `GW`, `BASE_YEAR`, `LAST_YEAR` in `excel_ai/mitigation/build.py`; corrected 2026-10-29: this table said K..AI = 2021..2045). The module workbooks (section 9) use the same columns.
 
 ### 1.1b Distribution-layout sheets (`Distribution`; user decisions 2026-10-17, mitigation prototype v0.4.4)
 Distribution is a short-term, single-year analysis (to 2030), close to legacy's outputs. The sheet keeps Mitigation's rows, descriptor columns and scenario logic, with a narrower column group:
@@ -227,7 +230,7 @@ Rules: inputs green only; never hard-code values in unfilled calculation cells; 
 
 ## 3. Other conventions
 
-- **Exports to modules (user 2026-10-22, v0.8.1).** Mitigation section 19 (last, after section 15) holds plain copies of the rows each module reads: 19a Distribution (defined name `ExportDistn`), later 19b air pollution, 19c transport co-benefits; no calculation there. A copy keeps the code of the row it copies (the key the module matches on); the uniqueness rule C10 counts codes outside section 19. Each module reads only its input tab (`FromMitigation`, same column layout as Mitigation; scale to its base unit in column D), never a Mitigation row; the end-to-end process runs one scenario at a time (no batch).
+- **Exports to modules (user 2026-10-22, v0.8.1; how modules work: section 9, which takes precedence).** Since v0.9.0 (user 2026-10-29) section 19 holds 19a Distribution only; air pollution reads section 15 and transport co-benefits section 5b, without copies (section 9.3). Original rule: Mitigation section 19 (last, after section 15) holds plain copies of the rows each module reads: 19a Distribution (defined name `ExportDistn`), later 19b air pollution, 19c transport co-benefits; no calculation there. A copy keeps the code of the row it copies (the key the module matches on); the uniqueness rule C10 counts codes outside section 19. Each module reads only its input tab (`FromMitigation`, same column layout as Mitigation; scale to its base unit in column D), never a Mitigation row; the end-to-end process runs one scenario at a time (no batch).
 - **Money units (user 2026-10-22, v0.8.1).** One vocabulary, currency first, scale and price basis as words: `USD`, `USD m`, `USD bn`, `LCU`, `LCU bn`, `USD/GJ`, `USD/kWh`, `USD/tCO2`, each with `real` or `nominal` where it matters; never `$`. The builder applies `unit_norm()` to every unit of the variable dictionary. Scaling (bn, m, thousand) lives in the unit label and, where a module converts, in one scale column of its input section: no formula body multiplies by a hard-coded `Billion` or `Thousand` outside that conversion.
 - Formulas live in Excel; no macros in prototypes unless documented (build via Python scripts, see `...\build_workbook.py`).
 - Every prototype records: source legacy sheet, version, and a validation table vs. legacy values (and vs. `coded` where available).
@@ -283,7 +286,7 @@ User decision 2026-10-15. It applies to every result that legacy computes after 
    - New numbered sections exist only for results with no home: **17 Carbon pricing** and **18 Welfare and externalities**.
    - The sections follow dependency order: a section reads earlier sections, data rows, or the baseline through `.ref`. A memo may read rows further down when it is not circular (the section 2 price indices read after-tax prices in sections 5-8).
    - The plan: `mitigation/Results_Assessment_v<n>.md` section 6.
-6. **Modules read `Mitigation` directly.** There is no hand-off block.
+6. **Modules read `Mitigation` directly.** There is no hand-off block. (Inside the integrated prototype only. A free-standing module workbook reads Mitigation through its `FromMitigation` tab: section 9.)
    - A downstream module reads its inputs straight from the `Mitigation` rows of the same scenario column group, by output code, and reads the baseline through its own `.ref` rows.
    - Transformations that only the module needs (ratios to the baseline, unit conversions, its own layout) live on the module sheet.
    - `Mitigation` holds levels as rows with stable codes, ordered where useful like the module's input table (section 15 like the legacy air-pollution input).
@@ -646,3 +649,61 @@ They are written from the Coded CPAT dummy data by [`data/scripts/export_to_lega
 3. **When the dummy data change** (a new country, a new column, new values), regenerate all three dummy legacy-data files in the same task and log it in `CAVEATS.md`.
 4. **No proprietary data.** Only dummy data are committed. An export of real data (`--data` pointing at `REAL_DATA_PATH`) stays out of the repository.
 5. **The dummy data are not legacy values.** The mitigation tables (`EnergyCons`, `Prices_dom`) are randomised and serve as a format sample; do not compare them with the Egypt values cached in the NoPropData workbook. `HHSurvey` and `IO_GTAP` reproduce the NoPropData workbook (Egypt) cell for cell.
+
+## 9. Modules: how they work (user 2026-10-29)
+
+Distribution, air pollution (AP) and transport co-benefits (TCB) are **modules**: free-standing workbooks, each with its own builder, version and release, that exchange values with the mitigation prototype (the core) and with each other through files in the permalink folders. This section is the one place for the module rules; sections 0-8 apply to every module as to the prototype. Plan and history: [`excel_ai/plans/Modules.md`](excel_ai/plans/Modules.md); prompts to build each module: [`excel_ai/plans/prompts/`](excel_ai/plans/prompts/README.md).
+
+### 9.1 What a module is
+
+| | Rule |
+|---|---|
+| Sources | `excel_ai/<module>/` (`distribution/`, `air_pollution/`, `transport_cobenefits/`): builder `build_<module>.py`, check `check_<module>.py`, VBA `.bas`, README, Python reference `<module>_ref.py`; data in `data/<module>/` (section 8) |
+| Files | `excel_ai/CPAT-AI-<Module>-Prototype_v<version>.xlsm` (`Distribution`, `Air-Pollution`, `Transport-Cobenefits`); older versions in `excel_ai/releases/`; `<Name>_latest.xlsm` in **both** `excel_ai/permalink/` and `excel_ai/permalink_countryeditable/`, written by `excel_ai/shared/release.py` `publish(link=True)` (5a) |
+| Version | Its own `VERSION` and version table (5b), which names the mitigation version it was built and checked with |
+| Register | Its bugs and issues go in the one register (`excel_ai/mitigation/issues_register.py`, field Module), with the same codes (section 0); no list of its own |
+| Free-standing | After its inputs are filled, the module calculates with no link to another workbook: no external references in formulas, no Power Query left live, data tabs inside the workbook |
+
+### 9.2 Encapsulation: inputs in, outputs out
+
+Every module workbook has the same tab structure, in this order:
+
+| Tab | Content | Rule |
+|---|---|---|
+| `Cover` | Contents (2.7), the **link table** (source file of each input tab, its path, saved time, scenario names read) and the buttons | The run order of the modules (9.4) is written on it |
+| `From<Source>` | **Inputs from another workbook**, values only: `FromMitigation` (every module), `FromAirPollution` (TCB) | Same rows, codes and columns as the source block (9.3), filled by the update macro, shipped with the values of the build. The only place the module reads another workbook's numbers |
+| `ScenarioDefinition` | The legacy MTInputs rows (section 4); the module's rows green, the rest grey | Module options that legacy does not have (for example a method switch) go below the last legacy row, with the default = legacy |
+| Calculation sheet | The legacy sheet name (`Distribution`, `Air pollution`, `Transport`) | Reads only its `From<Source>` tabs, `ScenarioDefinition`, its data tabs and constants. Never another workbook, never a hard-coded copy of an input |
+| `To<Consumer>` | **Outputs for other workbooks**: `ToMitigation` (AP, TCB), `ToTransportCB` (AP: VSL and earnings) | Plain copies of calculation rows (no calculation), one defined name each (`Out<Module>`: `OutAP`, `OutTCB`, `OutAPtoTCB`), in the layout and codes the consumer's `From<Module>` tab expects |
+| Data tabs, `Check` | Legacy tables unchanged under the legacy dividers (1.5); the check summary | |
+
+Column norms: **a time-series module (AP, TCB) has exactly the Mitigation column layout** (1.1: A-J descriptors, K code column, L..AE = 2022..2041, spacer, groups of 22 columns, years in row 1, scenario name and number in rows 4-5, groups 1-7, group 2 the LAMBDA group, differences against scenario 1 by `.ref`; 3c rule 4, 3e). Its `From`/`To` tabs use the same columns, so a row copies 1:1. A single-year module (Distribution) keeps its own group (1.1b) and reads `FromMitigation` through the offset row. Visual style (2), formulas and names (3, 3b-3d), copy-paste (3e) and lint (3g) apply unchanged.
+
+### 9.3 Links between workbooks (at this stage: files in the permalink folders)
+
+1. **By file, not by formula.** A module's update macro (`UpdateFrom<Source>`, button on Cover) finds `<Source>_latest.xlsm` in `permalink_countryeditable/`, then `permalink/` (next to the module, then one folder up), or the path or web address typed on Cover. If the file is open, its current values are used; otherwise it is opened read-only, without macros or recalculation, and closed. It copies values **by code**, checks that every row is the same variable (stops with a list of mismatches otherwise), writes the link table on Cover and recalculates. Power Query on the same files replaces the file search later (TODO M6); the copy-by-code contract stays.
+2. **What each module reads and writes:**
+
+| Module | Reads (source block in the source workbook) | Writes (its `To` tab) | Read by |
+|---|---|---|---|
+| Distribution | Mitigation section 19a (defined name `ExportDistn`) | Results by decile (LiveOutputs codes `<iso>.distn.*`) | (reports) |
+| Air pollution | Mitigation section 15 "Local air pollutants: outputs to the air pollution module" (emissions `aps.<pol>.<sec>`, fuel use, GDP, population, deflator) | `ToMitigation`: the rows of Mitigation tab `FromAirPollution` (value of averted PM2.5, concentration coefficients, unit costs); `ToTransportCB`: VSL, daily earnings | Mitigation; TCB |
+| Transport co-benefits | Mitigation section 5b "Road transport: engineer model and outputs to the transport co-benefits module" (vehicle-km, freight vehicle-km, fuel economy, class splits, road share of each fuel, road and total fuel use), GDP, population; AP `ToTransportCB` | `ToMitigation`: the rows of Mitigation tab `FromTransportCB` (per-km costs `tran.acc.km`, `tran.con.km`, `tran.rdm.km`), plus $/l and welfare under legacy codes | Mitigation |
+
+3. **The source block names the module.** A Mitigation section a module reads says so in its band ("... outputs to the ... module"); a row in it is never renamed or reordered without the module's builder and check in the same task. Sections 15 and 5b are read in place (no copies, user 2026-10-29); section 19 holds 19a only.
+4. **Until a source module exists**, the consumer's `From<Module>` tab holds legacy 465 Egypt values, typed, with the legacy cell in the source column and an issue in the register ("typed until module X exists"); the tab keeps the layout the module will fill.
+5. **Never commit a copy filled with real data** (sections 5a, 8): the permalink copies hold the dummy or public data of the build.
+
+### 9.4 Scenarios and run order
+
+- **One scenario at a time, no batch** (user 2026-10-22): set the live scenario in Mitigation (group 2), save it as `_latest`, update the module, read its results. The `From` tabs carry the groups of Mitigation (baseline and live scenario; capacity groups 1-7, 3e).
+- **Run order:** Mitigation, then air pollution, then transport co-benefits (it reads AP), then Distribution; then, where Mitigation reads module outputs (welfare, Pigouvian taxes), update Mitigation's `From<Module>` tabs and recalculate. Each update copies values, so there is no circular reference between workbooks; the feedback is one explicit step.
+
+### 9.5 Methods, modes and legacy
+
+- **Legacy first** (section 0): the module reproduces the legacy sheet (465), bugs fixed and registered (L), issues replicated and registered (I).
+- **A method switch is a mode** in `ScenarioDefinition` below the legacy rows (section 4), default = legacy. A mode that departs from legacy is an upgrade (U) or a departure by user decision (LD), registered as such (example: TCB `TcbMode` = `Legacy` | `Engineer`, issue I100).
+
+### 9.6 Checks and release of a module
+
+`check_<module>.py`, at every release: lint (3g); no formula reads outside the `From` tabs, `ScenarioDefinition`, data tabs and constants; no external links; every `From` tab equals its source block through the macro's row mapping; the `To` tab matches the consumer's `From` tab row by row; the Python reference reproduces legacy cached values with the fixes off and the workbook with the fixes on; paste test of the groups (3e); end to end (change Mitigation's live scenario, update, recalculate: the results move as the reference says). Then: README of the module, `CAVEATS.md` entry, TODO, register, publish to `releases/` and both permalink folders.
