@@ -4,7 +4,7 @@ The Python model of CPAT (Coded CPAT): it replicates Excel-AI's mitigation and d
 
 **Status (2026-10-29).** Version `0.9.2p0.1` ([`CHANGELOG.md`](CHANGELOG.md)): Python version 0.1 of the replication of Excel-AI 0.9.2 (mitigation) and Distribution 0.1.4.
 
-- **Mitigation** (plan phase 3): every output code of Excel-AI's stored values for Egypt, scenarios 1 and 2, is produced and matches within 1e-9, 2022-2041 (7,472 codes per scenario).
+- **Mitigation** (plan phase 3): every output code of Excel-AI's stored values for Egypt, scenarios 1 and 2, is produced and matches within 1e-9, 2022-2041 (7,472 reference codes per scenario, 7,458 with values).
 - **Distribution** (phase 4): every code of Excel-AI Distribution 0.1.4 matches for Egypt, scenario groups 1 and 2 (1,684 codes, basket and deciles).
 - **Speed** (5.4): one country and two scenarios in 0.8 s once the baseline is cached (first run of a session about 3 s).
 - **Excel-AI bugs are never replicated** (issues are): the prototype bugs Coded CPAT found (M15-M22, `../excel_ai/BUGS.md`) are fixed in Excel-AI 0.9.2 and Distribution 0.1.4 and in Python (M18 withdrawn); no known differences remain.

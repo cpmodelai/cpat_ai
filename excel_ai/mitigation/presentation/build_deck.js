@@ -27,6 +27,9 @@ const CHK = (() => { const b = require(path.join(HERE, "..", "..", "legacy", "bu
   const v = Object.entries(b).filter(([k]) => k.startsWith("L")).map(([, x]) => x.status);
   return { fixed: v.filter((x) => x === "Confirmed fixed").length, caveats: v.filter((x) => x === "Fixed with caveats").length,
     not: v.filter((x) => x === "Not fixed").length }; })();
+// the Python twin's facts (coded/cpat_documentation/presentation/make_facts.py)
+const CODED = JSON.parse(fs.readFileSync(path.join(HERE, "..", "..", "..", "coded", "cpat_documentation", "presentation",
+  "facts.json"), "utf8"));
 const REG = `Legacy_CPAT_Bugs_v${VER}.docx`;   // v0.8.4: the bugs document carries the prototype version
 
 const THEME = {
@@ -184,10 +187,10 @@ pres.addSection({ title: "Overview" });
     + "GDP) and the distribution module. Generated and checked by AI; every value is recomputed independently.");
 }
 
-// 1b. Where we are (from the management briefing, v0.6.3; updated to v0.7.2) -------------------------------------------
+// 1b. Where we are (from the management briefing, v0.6.3; updated to v0.9.2) -------------------------------------------
 {
   const s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Overview" });
-  header(s, "WHERE WE ARE", "Mitigation: substantial progress. Distribution: done.");
+  header(s, "WHERE WE ARE", "Mitigation and distribution done, and replicated in Python");
   card(s, 0.6, 1.5, 3.85, 2.95, TEAL_T, "C7E3DE", [
     H("MITIGATION"),
     BL("Prices, demand by 16 sectors and 8 fuels, power, road transport"),
@@ -201,11 +204,11 @@ pres.addSection({ title: "Overview" });
     BL(`All ${FACTS.bugs.dist} legacy distribution bugs fixed`, true),
   ]);
   card(s, 8.85, 1.5, 3.85, 2.95, AMBER_T, "F2D9B6", [
-    HA("SINCE v0.6.3"),
+    HA("RECENTLY"),
     BL("Ships with its values: opens without recalculating"),
     BL("Dashboard: Live or Stored results, key table, charts"),
     BL(`${FACTS.links.length} data tabs linked to the data workbook`),
-    BL("Codes on the CPAT code protocol (v0.7.2)"),
+    BL("Coded CPAT: the Python model, equal code by code"),
     BL("Every result checked again in a full check", true),
   ]);
   stat(s, String(BUGS), `legacy bugs found (${FACTS.bugs.mit} mitigation, ${FACTS.bugs.dist} distribution), none `
@@ -215,9 +218,9 @@ pres.addSection({ title: "Overview" });
   stat(s, FACTS.codes, "output codes, checked against an independent Python recomputation", 8.85, 4.75, 3.85, TEAL);
   caption(s, `Source: CPAT-AI repo, release ${VER} and the bug and issue register (${REG}).`, 0.6, 6.6, 12.1);
   s.addNotes("Around it: quick start, equations, method notes, every formula listed; the bug register with cell-by-cell "
-    + "fix plans for legacy CPAT; the Python model (Coded CPAT) shares the same codes. v0.7.2: every prototype code follows the "
-    + "CPAT code protocol (legacy variable names, no model letters, tot for totals, each code once); the v0.7.1 stems stay "
-    + "as aliases for one release.");
+    + "fix plans for legacy CPAT; the Python model (Coded CPAT) shares the same codes and reproduces every result within 1e-9. "
+    + "Every prototype code follows the CPAT code protocol (legacy variable names, no model letters, tot for totals, each "
+    + "code once).");
 }
 
 // 2. What it covers --------------------------------------------------------------------------------------------
@@ -551,6 +554,26 @@ pres.addSection({ title: "Model and results" });
     + (FACTS.full_overall ? ` Full check check_report_v${VER}.md: ${FACTS.full_overall}.` : ""));
 }
 
+// 14b. Coded CPAT -----------------------------------------------------------------------------------------------
+{
+  const s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Model and results" });
+  header(s, "CODED CPAT", "The same model in Python, equal number for number");
+  flow(s, ["Excel-AI prototypes", "Coded CPAT (Python)", "Command line, Python, Shiny app"], 1.6);
+  stat(s, CODED.codes_per_scenario.toLocaleString("en-US"), `result codes per scenario equal to Excel-AI ${CODED.excel_ai} `
+    + "within 1e-9 (Egypt)", 0.6, 3.0, 3.85, TEAL);
+  stat(s, CODED.distribution_codes.toLocaleString("en-US"), `distribution codes equal to Distribution ${CODED.distribution}`,
+    4.72, 3.0, 3.85);
+  stat(s, String(CODED.tests_passed), `tests passing; version ${CODED.version}`, 8.85, 3.0, 3.85, AMBER);
+  card(s, 0.6, 4.75, 12.1, 1.3, CARD, LINE, [
+    H("WHY IT MATTERS"),
+    BL("Writing the model twice found eight prototype bugs (M15-M22); all fixed here and in Python, none copied", false, 15),
+    BL("One function per equation, named with the workbook's codes; a documentation book on the website", true, 15),
+  ]);
+  caption(s, "Source: coded/ in the repository; the Coded CPAT tab of the website; Coded-CPAT_Overview deck.", 0.6, 6.6, 12.1);
+  s.addNotes("Coded CPAT is the Python model of CPAT. Excel-AI is its specification: the tests compare every output code, "
+    + "year by year. Bugs are never copied (they are fixed in the prototype first); issues are copied for now.");
+}
+
 // 15. Getting started --------------------------------------------------------------------------------------------
 pres.addSection({ title: "Next steps" });
 {
@@ -569,7 +592,7 @@ pres.addSection({ title: "Next steps" });
     { text: "WHAT REMAINS", options: { bold: true, fontSize: 11, color: GOLD, charSpacing: 2, breakLine: true } },
     { text: "Review in Excel 365: timings, macros, links (I1)", options: { bullet: true, breakLine: true } },
     { text: "Send bugs and fix plans to the CPAT team (U4)", options: { bullet: true, breakLine: true } },
-    { text: "Align codes: Excel, Python, master list", options: { bullet: true, breakLine: true } },
+    { text: "Every country on the full database", options: { bullet: true, breakLine: true } },
     { text: "Link the other data tabs (GHGs, EF_GHG ...)", options: { bullet: true, breakLine: true } },
     { text: "DATA REQUESTS", options: { bold: true, fontSize: 11, color: GOLD, charSpacing: 2, breakLine: true } },
     { text: "GAINS emission-factor paths (I64)", options: { bullet: true, breakLine: true } },
