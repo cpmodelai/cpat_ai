@@ -15,10 +15,13 @@ xcpb, xpre, ntxb) and the producer subsidies (pros, psd, psu).
 Text inputs are compared as Excel-AI does: `LEFT(x, 3) = "Yes"` (yes()), `x = TRUE` (is_true()), `IF(x, ...)`
 (truthy()); Excel text comparison ignores case.
 """
+from functools import lru_cache
+
 import numpy as np
 import xarray as xr
 
 from cpat_model.core import excel_ai_tables as xt
+from cpat_model.core.rows import Rows, safe_div
 from cpat_model.core.dims import COVERAGE_SECTORS, FUELS, PRICE_FUELS
 
 ETS_GROUPS = ['pow', 'tra', 'res', 'ind']             # benchmark groups = feebate sectors
@@ -62,68 +65,7 @@ def num(x):
 def linear_path(t, t0, t1, x0, x1, hold=True):
     """EQ-M1.1: 0 before t0, linear from x0 to x1 between t0 and t1, held after t1 (or continued: hold=False)."""
     tt = np.minimum(t, t1) if hold else t
-    return xr.where(t < t0, 0.0, x0 + (x1 - x0) / max(t1 - t0, 1) * (tt - t0))
-
-
-# ---- the sheet's rows by code
-class Rows:
-    """The rows of one section: `put(var, values, sector=, fuel=)` keeps a (country, year) array under its code."""
-
-    def __init__(self, state, countries, years):
-        self.state, self.countries = state, countries
-        self.t = xr.DataArray(years, dims='year', coords={'year': years})
-        self.coords = {'country': list(countries), 'year': list(years)}
-        self._parts = {}
-
-    def full(self, values):
-        """Broadcast a scalar, a year array or a country array to (country, year) (numpy: xarray's broadcasting is
-        slow for thousands of small rows)."""
-        shape = (len(self.countries), self.t.size)
-        if isinstance(values, xr.DataArray):
-            dims = set(values.dims)
-            if dims == {'country', 'year'}:
-                data = values.transpose('country', 'year').values
-            elif dims == {'year'}:
-                data = np.broadcast_to(values.values, shape)
-            elif dims == {'country'}:
-                data = np.broadcast_to(values.values[:, None], shape)
-            else:
-                data = np.full(shape, values.item())
-        else:
-            data = np.full(shape, values, dtype=object if isinstance(values, str) else float)
-        return xr.DataArray(np.array(data), dims=['country', 'year'], coords=self.coords)
-
-    def put(self, var, values, sector=None, fuel=None):
-        a = self.full(values)
-        if sector is None and fuel is None:
-            self.state[var] = a
-            return a
-        self._parts.setdefault(var, []).append((sector, fuel, a))
-        return a
-
-    def get(self, var, sector=None, fuel=None):
-        if sector is None and fuel is None:
-            return self.state[var]
-        return next(a for s, f, a in self._parts[var] if s == sector and f == fuel)
-
-    def finish(self):
-        """Stack the sector/fuel rows of each variable into one (sector, fuel, country, year) array; where the rows do
-        not fill the grid, attrs['rows'] lists the (sector, fuel) pairs that are rows (the others are NaN)."""
-        for var, parts in self._parts.items():
-            sectors = list(dict.fromkeys(s for s, _f, _a in parts))
-            fuels = list(dict.fromkeys(f for _s, f, _a in parts))
-            first = parts[0][2]
-            text = any(a.dtype.kind in 'OUS' for _s, _f, a in parts)
-            data = np.full((len(sectors), len(fuels)) + first.shape, np.nan, dtype=object if text else float)
-            for s, f, a in parts:
-                data[sectors.index(s), fuels.index(f)] = a.values
-            arr = xr.DataArray(data, dims=['sector', 'fuel', 'country', 'year'],
-                               coords={'sector': sectors, 'fuel': fuels, 'country': first['country'].values,
-                                       'year': first['year'].values})
-            if len(parts) < len(sectors) * len(fuels):
-                arr.attrs['rows'] = [(s, f) for s, f, _a in parts]
-            self.state[var] = arr
-        self._parts = {}
+    return np.where(t < t0, 0.0, x0 + (x1 - x0) / max(t1 - t0, 1) * (tt - t0))
 
 
 def input_rows(rows, inputs):
@@ -155,14 +97,19 @@ def ecp_table(db, iso, infl):
     single = info.get('Single price?', '') == 'Yes'
     eu = info.get('Is it EU ETS?', '') in ('Yes', 'Both')
     real = np.array([infl.get(y, np.nan) for y in ECP_YEARS])
+    p = f'{iso.lower()}.mit.'
+
+    tables = {}
 
     def series(table, code):
-        df = db.table(table)
+        if table not in tables:                         # each table once, rows of this country (and the EU)
+            df = db.table(table)
+            tables[table] = df[df['code'].str.startswith((p, 'eu.mit.'))]
+        df = tables[table]
         df = df[df['code'] == code]
         v = dict(zip(df['year'].astype(int), df['value']))
         return np.array([float(v[y]) if v.get(y, '') not in ('', None) else 0.0 for y in ECP_YEARS]), len(df) > 0
 
-    p = f'{iso.lower()}.mit.'
     out = {}
     out['ecr.all'] = series('ecp_tax_rate', p + 'ecr.all')[0] * real
     for f in FUELS:
@@ -181,10 +128,17 @@ def ecp_table(db, iso, infl):
     return out
 
 
+@lru_cache(maxsize=4)
+def _stored(path):
+    import pandas as pd
+    return pd.read_csv(path, dtype={'country': str, 'key': str})
+
+
+@lru_cache(maxsize=4)
 def stored_baseline(db_path, countries, years):
     """Excel-AI's stored scenario-1 values (sheet BaselineCO2; data/excel_ai_stored), {key: (country, year)}."""
-    import pandas as pd
-    df = pd.read_csv(db_path, dtype={'country': str, 'key': str})
+    countries, years = list(countries), list(years)
+    df = _stored(db_path)
     out = {}
     for key, g in df.groupby('key'):
         s = g.set_index(['country', 'year'])['value'].astype(float)
@@ -210,10 +164,10 @@ def prepare(state, db, inputs, settings, baseline):
     # carbon price path (EQ-M1.2) and coverage
     linear_after = str(g('ExtendCarbonPriceBeyondOutro')).lower() == 'linear*'
     cp_t = R.put('cp.t', (t if linear_after else np.minimum(t, g('CPOutro'))) - g('CPIntro'))
-    cp_nom = R.put('cp.nom', state['infl'] if str(g('NomorReal'))[:7].lower() == 'nominal' else 1.0)
-    cptraj = R.put('cptraj', xr.where(t < g('CPIntro'), 0.0, g('CPLevelStart') + (g('CPLevelTarget') - g('CPLevelStart'))
+    cp_nom = R.put('cp.nom', R.of('infl') if str(g('NomorReal'))[:7].lower() == 'nominal' else 1.0)
+    cptraj = R.put('cptraj', np.where(t < g('CPIntro'), 0.0, g('CPLevelStart') + (g('CPLevelTarget') - g('CPLevelStart'))
                                       / max(g('CPOutro') - g('CPIntro'), 1) * cp_t) * cp_nom)
-    exph = R.put('exph', xr.where(t >= g('CPIntro'), np.clip((t + 1 - g('YearPha')) / g('ExemptPhaseoutPeriod'), 0, 1),
+    exph = R.put('exph', np.where(t >= g('CPIntro'), np.clip((t + 1 - g('YearPha')) / g('ExemptPhaseoutPeriod'), 0, 1),
                                   0.0) if n > 1 and is_true(g('ExemptPhaseout')) else 0.0)
     for key, v in i.items():
         var, fuel, sector = key.split('|')
@@ -234,7 +188,7 @@ def prepare(state, db, inputs, settings, baseline):
         R.put('fprk', rate, se, fu)
         R.put('fprp', base, se, fu)
         R.put('fpra', after, se, fu)
-        R.put('fpr', xr.where(t < y0, 0.0, xr.where((t < y1) | linear_after, s0 + slope * (t - y0), after)), se, fu)
+        R.put('fpr', np.where(t < y0, 0.0, np.where((t < y1) | linear_after, s0 + slope * (t - y0), after)), se, fu)
 
     # social cost of carbon (EQ-M1.6)
     gr, base_year = G('SCCRise'), settings.base_year
@@ -245,10 +199,9 @@ def prepare(state, db, inputs, settings, baseline):
     man = db.table('mi_scc')
     man = man[man['item'].str.startswith('National')]
     man = dict(zip(man['year'].astype(int), man['value'].astype(float)))
-    scc['man'] = xr.DataArray([man.get(y, np.nan) for y in years], dims='year', coords={'year': years})
+    scc['man'] = np.array([man.get(y, np.nan) for y in years])
     scc['rkg'] = ricke.get(f'wld.{rate_key()}', np.nan) * (1 + gr) ** (t - base_year)
-    rkn = xr.DataArray([ricke.get(f'{c.lower()}.{rate_key()}', np.nan) for c in countries], dims='country',
-                       coords={'country': countries})
+    rkn = np.array([[ricke.get(f'{c.lower()}.{rate_key()}', np.nan)] for c in countries])
     scc['rkn'] = rkn * (1 + gr) ** (t - base_year)
     for k in ('tgt', 'rkn', 'rkg', 'man', 'epa'):
         R.put('scc', scc[k], 'all', k)
@@ -257,9 +210,9 @@ def prepare(state, db, inputs, settings, baseline):
         R.put('scc', scc[pick], 'all', k)
 
     # new ETS (EQ-M1.3, EQ-A1.1)
-    on = yes(g('NewETS')) & (t >= g('ETSIntro'))
+    on = yes(g('NewETS')) & (t >= g('ETSIntro'))                       # (year,)
     R.put('ets.on', on.astype(float))
-    etsc = {s: R.put('etsc', xr.where(on, 1.0 if truthy(i[f'etscov|all|{s}']) else 0.0, 0.0), s, 'all')
+    etsc = {s: R.put('etsc', np.where(on, 1.0 if truthy(i[f'etscov|all|{s}']) else 0.0, 0.0), s, 'all')
             for s in COVERAGE_SECTORS}
     for grp in ETS_GROUPS:
         R.put('etsb.s', 1 - g('ETSAuctStart'), grp, 'all')
@@ -268,11 +221,11 @@ def prepare(state, db, inputs, settings, baseline):
     etsb = {grp: R.put('etsb', linear_path(t, g('ETSIntro'), g('ETSOutro'), 1 - g('ETSAuctStart'),
                                            1 - g('ETSAuctTarget')), grp, 'all') for grp in ETS_GROUPS}
     obr = {s: R.put('obr', np.clip(etsb[cov_group[s]], 0, 1), s, 'all') for s in COVERAGE_SECTORS}
-    stored = stored_baseline(settings_stored_path(settings), countries, years)
-    bco2 = {s: R.put('bco2', stored.get(s, R.full(np.nan)).fillna(0) if s in stored else R.full(0.0), s, 'all')
+    stored = stored_baseline(settings_stored_path(settings), tuple(countries), tuple(years))
+    bco2 = {s: R.put('bco2', np.nan_to_num(stored[s].values) if s in stored else 0.0, s, 'all')
             for s in COVERAGE_SECTORS}
     for k in ('dg', 'bm'):
-        R.put('ch4bs', stored[k] if k in stored else R.full(0.0), k, 'all')
+        R.put('ch4bs', stored[k].values if k in stored else 0.0, k, 'all')
     semi = db.table('ets_semi_elasticities')
     semi = {(c, s): float(v) for c, s, v in zip(semi['country'].str.upper(), semi['sector'], semi['value'])}
     vol = {r['item'][:7]: r for r in xt.table('ets_volatility')}
@@ -282,23 +235,23 @@ def prepare(state, db, inputs, settings, baseline):
     bce = R.put('ets.bce', sum(bco2[s] * etsc[s] for s in COVERAGE_SECTORS))
     chg = R.put('ets.chg', g('ETSChangeRelStart') + (g('ETSChangeRelTarget') - g('ETSChangeRelStart'))
                 / max(g('ETSOutro') - g('ETSIntro'), 1) * (np.minimum(t, g('ETSOutro')) - g('ETSIntro')))
-    cap = (bce * (1 + chg)).where(on, 0.0)
+    cap = np.where(on, bce * (1 + chg), 0.0)
     if str(g('ETSCapCont'))[:8].lower() == 'constant':          # held at the last value after the target year
         for k, y in enumerate(years):
             if y > g('ETSOutro') and k > 0:
-                cap[:, k] = xr.where(on.isel(year=k), cap[:, k - 1], 0.0)
+                cap[:, k] = np.where(on[k], cap[:, k - 1], 0.0)
     R.put('ets.cap', cap)
-    semi_el = {s: xr.DataArray([semi.get((c, cov_semi[s]), np.nan) for c in countries], dims='country',
-                               coords={'country': countries}) for s in COVERAGE_SECTORS}
+    semi_el = {s: np.array([[semi.get((c, cov_semi[s]), np.nan)] for c in countries]) for s in COVERAGE_SECTORS}
     obr_eff = G('ETSOBREffectiveness')
     se_num = sum(bco2[s] * etsc[s] * semi_el[s] * (1 - (1 - obr_eff) * obr[s]) for s in COVERAGE_SECTORS)
-    se = R.put('ets.se', xr.where(bce > 0, se_num / bce.where(bce > 0, 1.0), 0.0))
+    se = R.put('ets.se', np.where(bce > 0, safe_div(se_num, bce), 0.0))
     ok = on & (cap > 0) & (cap < bce) & (se < 0) & (vadj > 0)
-    est = R.put('ets.est', xr.where(ok, np.log((cap / bce).where(ok, 1.0)) / (se * vadj).where(ok, 1.0), 0.0))
+    est = R.put('ets.est', np.where(ok, np.log(np.where(ok, safe_div(cap, bce, 1.0), 1.0)) / np.where(ok, se * vadj, 1.0),
+                                    0.0))
     R.put('ets.ovr', np.nan)
-    price = (cptraj if yes(g('ETSPriceOverride')) else est).where(on, 0.0)
+    price = np.where(on, cptraj if yes(g('ETSPriceOverride')) else est, 0.0)
     pe = R.put('ets.pe', R.put('ets.p', price) * vadj)
-    R.put('ets.rf', xr.where(vadj > 0, 1 / vadj.where(vadj > 0, 1.0), 0.0))
+    R.put('ets.rf', np.where(vadj > 0, safe_div(1.0, vadj), 0.0))
 
     # feebates
     fb = {s: R.put('fb', linear_path(t, g('FeebateIntro'), g('FeebateOutro'), num(i[f'fb.s|all|{s}']),
@@ -323,8 +276,7 @@ def prepare(state, db, inputs, settings, baseline):
 
     # existing carbon pricing (EQ-A2.2): data column of the year, growth after the last data year
     ecp_last = ECP_YEARS[-1]
-    xct_c = R.put('xct.c', xr.DataArray([ECP_YEARS.index(min(y, ecp_last)) + 1 for y in years], dims='year',
-                                        coords={'year': years}).astype(float))
+    xct_c = R.put('xct.c', np.array([ECP_YEARS.index(min(y, ecp_last)) + 1.0 for y in years]))
     for k, sw, gr_ in (('xct.p', 'ExistingCTApply', 'ExistingCTGrowth'), ('xets.p', 'ExistingETSApply',
                                                                           'ExistingETSGrowth')):
         R.put(k, (1 + num(g(gr_))) ** np.maximum(0, t - ecp_last) if yes(g(sw)) else 0.0)
@@ -336,12 +288,10 @@ def prepare(state, db, inputs, settings, baseline):
     ees_of = {'pow': 'pow', 'tra': 'trs', 'res': 'res', 'ind': 'ind'}
     for s in COVERAGE_SECTORS:
         if yes(g('CTaxComplimentaryToETS')):
-            col = (xct_c - 1).astype(int)
-            share = xr.DataArray([[ecp[c][f'ees.{ees_of[cov_group[s]]}'][k] for k in col.values] for c in countries],
-                                 dims=['country', 'year'], coords={'country': countries, 'year': years})
-            cover = 1 - share
+            col = (xct_c[0] - 1).astype(int)
+            cover = 1 - np.array([ecp[c][f'ees.{ees_of[cov_group[s]]}'][col] for c in countries])
         else:
-            cover = R.get('ctcov', s, 'all')
+            cover = R.of('ctcov', s, 'all')
         R.put('ctr', cpx * cover * (1 - etsc[s]), s, 'all')
     for s in COVERAGE_SECTORS:
         R.put('etr', pe * etsc[s] * (1 - obr[s]), s, 'all')
@@ -358,7 +308,7 @@ def prepare(state, db, inputs, settings, baseline):
         R.put('po.on', float(on_), k, 'all')
         R.put('po.n', period, k, 'all')
         R.put('po.sh', share, k, 'all')
-        pof[k] = R.put('pof', np.maximum(1 - share, xr.where(on_ & (t > g(start)), 1 - share * (t - g(start))
+        pof[k] = R.put('pof', np.maximum(1 - share, np.where(on_ & (t > g(start)), 1 - share * (t - g(start))
                                                              / max(num(period), 1), 1.0)), k, 'all')
     for v, inc, k in (('csf', 'csi', 'cs'), ('pcf', 'pci', 'pc')):
         for pc in PRICE_FUELS:
