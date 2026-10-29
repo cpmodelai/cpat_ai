@@ -1,7 +1,7 @@
 {
  "plan": "excel_ai/plans/Remaining_functionality.md",
  "decided": "2026-10-29",
- "scope": "R1-R13 all built; not built: elasticity-based power model (legacy C3)",
+ "scope": "R1-R3, R6-R11, R13 built in v9.0; R4, R5, R12 deferred (user 2026-10-29); not built: elasticity-based power model",
  "out_of_scope": "MTOutputs (outputs plan, decided separately)",
  "equations_addendum": {
   "path": "excel_ai/mitigation/Equations_addendum.md",
@@ -146,5 +146,12 @@
   "Registered bugs not reproduced in 465 formulas (L46, L47, L48, L82, L83, L84 phasing part, L86, L100, L128): check against 465 before treating them as fixes",
   "LD58 register text (175 $/t run) does not match the 465 cached run (5 $/t): update",
   "LD19 text out of date (producer subsidies already have a price effect since v6.1-6.2)"
- ]
+ ],
+ "deferred": {
+  "R4": "CBAM process emissions / ETS connection",
+  "R5": "green public investment",
+  "R12": "industrial emissions intensity (GVA)",
+  "why": "user 2026-10-29: legacy WIP not linked up; design notes on branch wip-r4-r5-r12",
+  "bugs_not_built": "L197-L202, L204-L213, L216-L219"
+ }
 }

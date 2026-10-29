@@ -177,4 +177,6 @@ from legacy 465, sections A-F; research, cell evidence, cell plans, hook points 
 with the v9.0 build): legacy bugs L173-L222, issues I101-I146, departure LD80. Points taken by default, open to the
 user: `remaining_functionality.json` `open_points` (CBAM process emissions in the totals; electricity Pigouvian tax 0
 as legacy; transport candidates B-c, B-d, B-e kept as legacy; registered bugs not reproduced in 465 to check).
-
+- **Deferred (user 2026-10-29, later the same day)**: R4 CBAM process emissions and the ETS connection, R5 green
+  public investment, R12 industrial emissions intensity: the legacy work in progress is not linked up. Their legacy
+  bugs (L197-L202, L204-L213, L216-L219) stay registered as not built; design notes on branch `wip-r4-r5-r12`.
