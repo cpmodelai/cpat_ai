@@ -29,7 +29,7 @@ import build as P                                      # noqa: E402  the prototy
 
 VERSION = '1.2'
 NAME = 'CPAT-AI-Distribution-Prototype'
-OUT = P.REL.versioned(NAME, VERSION, 'xlsm')     # v1.1: excel_ai/<name>_v<version>.xlsm (no _latest copy, NORMS 5a)
+OUT = P.REL.versioned(NAME, VERSION, 'xlsm')     # v1.1: excel_ai/<name>_v<version>.xlsm (_latest copies: NORMS 5a)
 SOURCE = P.LATEST                                     # the mitigation prototype the module is cut from
 BAS = os.path.join(HERE, 'CPATDistribution.bas')
 MIT_FILE = os.path.basename(P.LATEST)
@@ -256,7 +256,7 @@ def main():
     problems = excel_lint.lint(OUT)
     if problems:
         raise SystemExit(f'{OUT}: Excel would repair it:\n  ' + '\n  '.join(problems))
-    P.REL.publish(OUT)                                 # v1.1: older versions to releases/
+    P.REL.publish(OUT, link=True)                      # v1.1: older versions to releases/; _latest in both permalink folders
     stage(f'calculated values stored, linted; saved {OUT}')
 
 
