@@ -27,7 +27,7 @@ sys.path.insert(0, os.path.join(HERE, '..', 'mitigation'))
 sys.path.insert(0, os.path.join(HERE, '..', 'shared'))
 import build as P                                      # noqa: E402  the prototype builder (helpers, layout)
 
-VERSION = '1.0.0'
+VERSION = '1.0.2'
 NAME = 'CPAT-AI-Distribution-Prototype'
 OUT = P.REL.versioned(NAME, VERSION, 'xlsm')     # v0.1.1: excel_ai/<name>_v<version>.xlsm (_latest copies: NORMS 5a)
 SOURCE = P.LATEST                                     # the mitigation prototype the module is cut from
@@ -51,6 +51,8 @@ VERSION_LOG = [  # version, date, change
                           '(pui of the sample, LCU), not its % row.'),
     ('1.0.0', '2026-10-29', f'First full release (user 2026-10-29), cut from the mitigation prototype v{P.VERSION}: '
                           'Distribution 0.1.4 as released. Replicated number for number by Coded CPAT 1.0.0p1.0.'),
+    ('1.0.2', '2026-10-29', f'Cut from the mitigation prototype v{P.VERSION} (version aligned with Mitigation and Coded '
+                          'CPAT; ScenarioDefinition has the input row ModelForm). The Distribution method unchanged.'),
 ]
 
 # the tabs of the module, in order (Cover is added); everything else of the prototype is dropped

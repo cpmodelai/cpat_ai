@@ -1,9 +1,9 @@
-# Check of CPAT-AI-Distribution-Prototype v1.0.0
-Module `CPAT-AI-Distribution-Prototype_v1.0.0.xlsm`; prototype `CPAT-AI-Mitigation-Prototype_latest.xlsm` v1.0.1.
+# Check of CPAT-AI-Distribution-Prototype v1.0.2
+Module `CPAT-AI-Distribution-Prototype_v1.0.2.xlsm`; prototype `CPAT-AI-Mitigation-Prototype_latest.xlsm` v1.0.2.
 
 - tabs: Cover, ScenarioDefinition, FromMitigation, Distribution, Settings, DATA_DISTN->>, DistMapping, IO_GTAP, HHSurvey, HH_Elast, ASPIRE, WHOCooking, GDPRatios, WEO OK
 - Distribution: 25190 cells, values equal to the prototype's: 0 differ [] OK
-- FromMitigation = ExportDistn (Mitigation!$A$9420:$BB$9449, 30 rows) through the macro's row mapping: 0 differ [] OK
+- FromMitigation = ExportDistn (Mitigation!$A$9430:$BB$9459, 30 rows) through the macro's row mapping: 0 differ [] OK
 - FromMitigation holds values only: 0 formulas OK
 - kept tabs (but Cover, Settings, FromMitigation): formulas as the prototype's: 0 differ [] OK
 - formulas reading a dropped tab: 0 [] OK

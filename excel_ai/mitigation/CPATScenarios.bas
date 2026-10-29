@@ -39,13 +39,13 @@ Private Const SH_MIT As String = "Mitigation"
 Private Const SH_OUT As String = "LiveOutputs"
 Private Const SH_SR As String = "StoredOutputs"
 Private Const SH_CHECK As String = "Check, Variables, Lambdas"
-Private Const CHK_FIRST As Long = 2429           ' MacroCheck: first report row (A = check, B = result)
+Private Const CHK_FIRST As Long = 2430           ' MacroCheck: first report row (A = check, B = result)
 Private Const CHK_TOL As Double = 0.000001
 Private Const MT_ROW_RUN As Long = 4
 Private Const MT_ROW_NUM As Long = 5
 Private Const MT_ROW_NAME As Long = 6
 Private Const MT_FIRST As Long = 8
-Private Const MT_LAST As Long = 510
+Private Const MT_LAST As Long = 511
 Private Const MT_ROW_ID As Long = 10          ' formula rows of every scenario column (kept in column K)
 Private Const MT_ROW_IDNAME As Long = 12
 Private Const MT_COL_PARAM As Long = 8        ' H: NameOfParameter

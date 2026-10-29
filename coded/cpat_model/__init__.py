@@ -4,9 +4,9 @@ The one entry point is `run` (coded/NORMS.md section 10); the command line, the 
 Structure and order of the calculation: coded/cpat_documentation/project/Spec.qmd sections 3-4.
 """
 
-EXCEL_AI_VERSION = '1.0.0'            # the Excel-AI version this code replicates (NORMS 0.2, D14)
-DISTRIBUTION_VERSION = '1.0.0'        # the Excel-AI distribution module replicated
-PYTHON_VERSION = '1.0'
+EXCEL_AI_VERSION = '1.0.2'            # the Excel-AI version this code replicates (NORMS 0.2, D14)
+DISTRIBUTION_VERSION = '1.0.2'        # the Excel-AI distribution module replicated
+PYTHON_VERSION = '1.1'
 __version__ = f'{EXCEL_AI_VERSION}p{PYTHON_VERSION}'
 
 

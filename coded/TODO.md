@@ -29,7 +29,7 @@ Status key: ☐ not started · ◐ in progress · ☑ done · ☒ closed without
 - ☑ 2.5 Loop (`core/loop.py`): baseline first, then each scenario (D15); prepare, year loop, finish; `mitigation/chain.py`; policy paths and price indices (`core/paths.py`).
 - ☑ 2.6 Data layer (`data/`): reads the tidy tables of `../data/tidy/` (`DATA_ENVIRONMENT` = `full` or `dummy`, path of the private tidy folder); loaders to labelled arrays; exact float parsing; cache. The old Python-format data (`../data/dummy/`, `convert_data_workbook.py`, `export_to_legacy.py`) serve the old code only and retire with it (6.3).
 - ☑ 2.7 Inputs (`inputs/`): scenario-set table (MTInputs rows + Excel-AI additions + `ModelForm`), advanced-inputs workbook, validation, global-settings check (D16). Check: Excel-AI `ScenarioDefinition` J, K read back unchanged.
-- ☑ 2.8 Forms (`forms/`): registry, slots, the `CPAT` form (its equations come with phase 3); `ModelForm` in the Python scenario set. ☐ The `ModelForm` row in Excel-AI's `ScenarioDefinition`: at its next release (user 2026-10-29).
+- ☑ 2.8 Forms (`forms/`): registry, slots, the `CPAT` form (its equations come with phase 3); `ModelForm` in the Python scenario set. ☑ The `ModelForm` row is in Excel-AI's `ScenarioDefinition` since 1.0.2; `PYTHON_ROWS` is empty.
 - ☑ 2.9 Results (`results/`) by output code; export in the Excel layout.
 - ☑ 2.10 Placeholder modules `air_pollution/`, `transport_cobenefits/`: `prepare` (FromAirPollution, FromTransportCB values) and empty `step(t)` (D10).
 - ☑ 2.11 Comparison harness (`cpat_testing/compare/`): reference values by code from the stored values of Excel-AI 0.9.1 (user 2026-10-29): `compare.py`, `reference/excel_ai_0.9.1.csv`.
@@ -80,7 +80,7 @@ Prototype bugs found by Coded CPAT (`../excel_ai/BUGS.md` section 2). Bugs are n
 ## Later (not now)
 
 - ☐ Demand forms through `ModelForm`: `CPAT partial adjustment`, `CES partial adjustment` (CES-compatible service prices), `CDPM-FTT` (SISEPUEDE-like and FTT-like); each added to Excel-AI and Python together.
-- ☐ Air-pollution and transport co-benefits modules (transport co-benefits linked to the road engineer model).
+- ☒ Air-pollution and transport co-benefits modules: out of scope (user 2026-10-29; Excel-AI upgrades U18, U19). Coded CPAT keeps the typed legacy values of FromAirPollution and FromTransportCB, as Excel-AI. CBAM process emissions, green public investment and the emissions intensity of industrial output are out of scope too (U15-U17).
 
 ## Existing open items (before the project; to be absorbed by the phases above)
 

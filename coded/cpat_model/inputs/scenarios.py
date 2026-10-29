@@ -16,9 +16,9 @@ GLOBAL_INPUTS = ['ResultsYear', 'LastHistPriceYear', 'SCCTargetConsistentCP', 'S
                  'GovPriceControls', 'PriceFloor', 'ApplyDemandShock', 'BiomassLeakage', 'BiomassNormal', 'NatGasEff', 'LPGEff', 'KerEff', 'BioEff',
                  'ETSNextPriceExponent', 'AveragePriceMethod']
 
-# Python inputs below the Excel-AI rows (added to Excel-AI at its next release): name, label, unit, default
-PYTHON_ROWS = [('ModelForm', 'Form of the demand equations (D4): CPAT, CPAT partial adjustment, CES partial '
-                'adjustment, CDPM-FTT', 'option', 'CPAT')]
+# Python inputs below the Excel-AI rows (added to Excel-AI at its next release): name, label, unit, default.
+# None since Excel-AI 1.0.2: ModelForm is a row of Excel-AI's ScenarioDefinition (read with the others).
+PYTHON_ROWS = []
 
 
 def number(text):

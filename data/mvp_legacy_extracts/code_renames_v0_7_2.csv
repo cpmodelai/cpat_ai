@@ -40,13 +40,13 @@ R4,row,trkmc|cyc|all,vkt|all,,"transport: crosswalk trkmc slots",applied
 R4,codevar,trkmt,all,,"transport: crosswalk trkmt",applied
 R4,row,trkmt|all|all,vkt|all,,"transport: crosswalk trkmt slots",applied
 R4,codevar,trvht,pass,,"transport: crosswalk trvht",applied
-R4,row,trvht|pas|all,own|all,,"transport: crosswalk trvht slots",applied
+R4,row,trvht|pas|all,own|tot,,"transport: crosswalk trvht slots; v1.0.2 tot for the total (user 2026-10-29)",applied
 R4,codevar,trvhtf,fre,,"transport: crosswalk trvhtf",applied
-R4,row,trvhtf|fre|all,own|all,,"transport: crosswalk trvhtf slots",applied
+R4,row,trvhtf|fre|all,own|tot,,"transport: crosswalk trvhtf slots; v1.0.2 tot for the total (user 2026-10-29)",applied
 R4,codevar,trvhtc,motor,,"transport: crosswalk trvhtc",applied
-R4,row,trvhtc|cyc|all,own|all,,"transport: crosswalk trvhtc slots",applied
-R4,codevar,trvhta,all,,"transport: crosswalk trvhta",applied
-R4,row,trvhta|all|all,own|all,,"transport: crosswalk trvhta slots",applied
+R4,row,trvhtc|cyc|all,own|tot,,"transport: crosswalk trvhtc slots; v1.0.2 tot for the total (user 2026-10-29)",applied
+R4,codevar,trvhta,tot,,"transport: crosswalk trvhta; v1.0.2 tot (user 2026-10-29)",applied
+R4,row,trvhta|all|all,own|tot,,"transport: crosswalk trvhta slots; v1.0.2 tot for the total (user 2026-10-29)",applied
 R4,codevar,trafg,fecon,,"transport: crosswalk trafg",applied
 R4,codevar,trafo,fecon,,"transport: crosswalk trafo",applied
 R4,codevar,trafe,fecon,,"transport: crosswalk trafe",applied
