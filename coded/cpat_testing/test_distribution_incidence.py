@@ -1,4 +1,4 @@
-"""Phase 4: the distribution module matches Excel-AI Distribution 0.1.3's stored values for Egypt, scenario groups 1
+"""Phase 4: the distribution module matches the Excel-AI distribution module's stored values for Egypt, scenario groups 1
 and 2 (scenarios 1 and 2 against the baseline): every code of the Distribution sheet, the basket and the ten deciles."""
 from pathlib import Path
 
@@ -7,10 +7,11 @@ import pandas as pd
 import pytest
 
 import cpat_model
+from cpat_model import DISTRIBUTION_VERSION
 from cpat_testing.compare.known_differences import KNOWN, bug_of
 from cpat_model.inputs import read_scenario_set
 
-REFERENCE = Path(__file__).parent / 'compare' / 'reference' / 'excel_ai_distribution_0.1.3.csv'
+REFERENCE = Path(__file__).parent / 'compare' / 'reference' / f'excel_ai_distribution_{DISTRIBUTION_VERSION}.csv'
 SECTIONS = {'1 settings': ('YearDistn', 'support'), '2 inputs from mitigation': ('dpr', 'rev'),
             '3 indirect price changes': ('grev', 'dprw'), '4-6 price factors, budget shares, effects': ('eps', 'tef'),
             '7 national accounts': ('consgdpyr', 'tot_cons_na'), '8 revenue recycling': ('rpit', 'rec'),

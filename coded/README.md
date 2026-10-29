@@ -2,14 +2,14 @@
 
 The Python model of CPAT (Coded CPAT): it replicates Excel-AI's mitigation and distribution modules number for number, readable first; the one entry point is `cpat_model.run`. This page is for Python developers; the full documentation (quick start, the database, scenarios, results, editing, testing with the current status, architecture, and appendices with every equation, table, input and variable) is the website's Coded CPAT tab (`../docs/index.html#coded`), written in [`cpat_documentation/guide/`](cpat_documentation/guide/). Excel work is in [`../excel_ai/`](../excel_ai/README.md); rules for every task (logging in `CAVEATS.md`, method vs version notes) are in the root [`../NORMS.md`](../NORMS.md).
 
-**Status (2026-10-29).** Version `0.9.1p0.1` (first release; [`CHANGELOG.md`](CHANGELOG.md)): Python version 0.1 of the replication of Excel-AI 0.9.1 (mitigation) and Distribution 0.1.3.
+**Status (2026-10-29).** Version `0.9.2p0.1` ([`CHANGELOG.md`](CHANGELOG.md)): Python version 0.1 of the replication of Excel-AI 0.9.2 (mitigation) and Distribution 0.1.4.
 
-- **Mitigation** (plan phase 3): every output code of Excel-AI's stored values for Egypt, scenarios 1 and 2, is produced and matches within 1e-9, 2022-2041 (7,470 codes per scenario), except the known differences of the Excel-AI bugs Coded CPAT fixes (below). Not built: the road engineer model driving fuel use (`TrModel = Engineer`), country-estimated and manual fiscal multipliers.
-- **Distribution** (phase 4): every code of Excel-AI Distribution 0.1.3 matches for Egypt, scenario groups 1 and 2 (1,684 codes, basket and deciles).
+- **Mitigation** (plan phase 3): every output code of Excel-AI's stored values for Egypt, scenarios 1 and 2, is produced and matches within 1e-9, 2022-2041 (7,472 codes per scenario).
+- **Distribution** (phase 4): every code of Excel-AI Distribution 0.1.4 matches for Egypt, scenario groups 1 and 2 (1,684 codes, basket and deciles).
 - **Speed** (5.4): one country and two scenarios in 0.8 s once the baseline is cached (first run of a session about 3 s).
-- **Excel-AI bugs are not replicated** (issues are): of the prototype bugs Coded CPAT found (M15-M22, `../excel_ai/BUGS.md`), six are fixed here, M17 follows the prototype's fix, M18 was withdrawn. Only M19 (`gdpn`) and M22 (distribution percentile rows) change Egypt's results; those codes are listed as known differences (`cpat_testing/compare/known_differences.py`) until Excel-AI ships the fixes.
+- **Excel-AI bugs are never replicated** (issues are): the prototype bugs Coded CPAT found (M15-M22, `../excel_ai/BUGS.md`) are fixed in Excel-AI 0.9.2 and Distribution 0.1.4 and in Python (M18 withdrawn); no known differences remain.
 - **Running it** (phase 6, done): `run_model.py`, the Shiny app, the website's Coded CPAT tab.
-- **Next**: systematic comparisons (phase 5.0-5.3: the Python recomputations of Excel-AI, the recalculated release workbook, every country, legacy CPAT), after the prototype's fixes of M15-M22.
+- **Next**: systematic comparisons (phase 5.0-5.3: the Python recomputations of Excel-AI, the recalculated release workbook, every country, legacy CPAT).
 
 Start with the spec and plan [`cpat_documentation/project/Spec.qmd`](cpat_documentation/project/Spec.qmd) (Word: `Spec.docx`), the Python norms [`NORMS.md`](NORMS.md), the plan's checklist [`TODO.md`](TODO.md) and the equation list [`cpat_documentation/equations/`](cpat_documentation/equations/) (`Equations.qmd`, code-name version `Equations_codes.qmd`, both generated from `equations.yaml`).
 

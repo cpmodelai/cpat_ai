@@ -2,7 +2,7 @@
 
 # Variables {#sec-app-variables}
 
-Every variable of the mitigation results (1254 variables, 7541 rows; source `coded/cpat_model/core/variables.csv`), in the order of Excel-AI's Mitigation sheet: its description, unit, number of rows (sector and fuel combinations) and the output code of its first row.
+Every variable of the mitigation results (1256 variables, 7543 rows; source `coded/cpat_model/core/variables.csv`), in the order of Excel-AI's Mitigation sheet: its description, unit, number of rows (sector and fuel combinations) and the output code of its first row.
 
 | Variable | Description | Unit | Rows | First code |
 |---|---|---|---|---|
@@ -791,7 +791,8 @@ Every variable of the mitigation results (1254 variables, 7541 rows; source `cod
 | `trfupbn` | Fuel and distance tax, new BEV passenger | USD/vehicle | 1 | `egy.mit.trfupbn.pass.bev.1` |
 | `trtopbn` | TCO, new BEV passenger | USD/vehicle | 1 | `egy.mit.trtopbn.pass.bev.1` |
 | `trpkpbn` | TCO per km, new BEV passenger | USD/km | 1 | `egy.mit.trpkpbn.pass.bev.1` |
-| `trtcfp` | TCO of a new PHEV (BEV depreciation, no range anxiety: fix B23) | USD/vehicle | 1 | `egy.mit.trtcfp.pass.phv.1` |
+| `trimphv` | Insurance and maintenance, new PHEV (insurance on the BEV price, ICEV maintenance per km and distance; bug M17 fixed) | USD/vehicle | 1 | `egy.mit.trimphv.pass.phv.1` |
+| `trtcfp` | TCO of a new PHEV (BEV depreciation, insurance on the BEV price, no range anxiety: fixes B23, M17) | USD/vehicle | 1 | `egy.mit.trtcfp.pass.phv.1` |
 | `trresb` | Resale price of a 7-year-old BEV before taxes | USD/vehicle | 1 | `egy.mit.trresb.pass.bev.1` |
 | `trresgb` | Price of a used BEV after taxes | USD/vehicle | 1 | `egy.mit.trresgb.pass.bev.1` |
 | `trfbvui` | Vehicle feebate, used passenger ice | USD/vehicle | 1 | `egy.mit.trfbvui.pau.ice.1` |
@@ -812,8 +813,8 @@ Every variable of the mitigation results (1254 variables, 7541 rows; source `cod
 | `trpvaf` | Feebate pivot, average type (fre) | gCO2/km | 1 | `egy.mit.trpvaf.fre.all.1` |
 | `trpvmf` | Feebate pivot, manual type (fre; declining after the start year) | gCO2/km | 1 | `egy.mit.trpvmf.fre.all.1` |
 | `trpvf` | Feebate pivot used (fre) | gCO2/km | 1 | `egy.mit.trpvf.fre.all.1` |
-| `trfbvfi` | Vehicle feebate, freight ice (BEV: ICEV discounted km, as legacy) | USD/vehicle | 1 | `egy.mit.trfbvfi.fre.ice.1` |
-| `trfbvfb` | Vehicle feebate, freight bev (BEV: ICEV discounted km, as legacy) | USD/vehicle | 1 | `egy.mit.trfbvfb.fre.bev.1` |
+| `trfbvfi` | Vehicle feebate, freight ice | USD/vehicle | 1 | `egy.mit.trfbvfi.fre.ice.1` |
+| `trfbvfb` | Vehicle feebate, freight bev | USD/vehicle | 1 | `egy.mit.trfbvfb.fre.bev.1` |
 | `trppfi` | Purchase price after taxes and feebate, new ICE freight vehicle (no VAT, as legacy) | USD/vehicle | 1 | `egy.mit.trppfi.fre.ice.1` |
 | `trdpfin` | First-year depreciation, new ICE freight | USD/vehicle | 1 | `egy.mit.trdpfin.fre.ice.1` |
 | `tranfin` | Depreciation annuity after the first year, new ICE freight | USD/vehicle | 1 | `egy.mit.tranfin.fre.ice.1` |
@@ -1227,6 +1228,7 @@ Every variable of the mitigation results (1254 variables, 7541 rows; source `cod
 | `ffs.q` | Fossil fuel subsidy reform: quantity of the line | ktoe | 16 | `egy.mit.ffs.q.ind.coa.1` |
 | `env.ffs.cost` | Fossil fuel subsidy reform: environmental benefits (Harberger) | USD bn real | 17 | `egy.mit.env.ffs.cost.ind.coa.1` |
 | `wel.ffs` | Total national welfare benefits (FFS) | USD bn real | 1 | `egy.mit.wel.ffs.1` |
+| `vatgen` | General VAT rate of the year | share | 1 | `egy.mit.vatgen.1` |
 | `supcost` | Energy subsidies: supply cost | USD/GJ, USD/kWh | 16 | `egy.mit.supcost.all.gso.1` |
 | `extcost` | Energy subsidies: externalities incl. climate (global SCC) | USD/GJ, USD/kWh | 16 | `egy.mit.extcost.all.gso.1` |
 | `vatext` | Energy subsidies: VAT on supply cost and externalities | USD/GJ, USD/kWh | 16 | `egy.mit.vatext.all.gso.1` |

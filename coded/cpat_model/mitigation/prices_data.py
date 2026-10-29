@@ -19,15 +19,17 @@ SOURCES = {
     'IMF': {'oil': ('data', 'pint_imf', 'POILBRE', 2032), 'coa': ('data', 'pint_imf', 'PCOALAU', 2032),
             'nga.lng': ('data', 'pint_imf', 'PNGASJP', 2032), 'nga.nam': ('data', 'pint_imf', 'PNGASUS', 2032),
             'nga.eur': ('data', 'pint_imf', 'PNGASEU', 2032)},
-    # bug M20 fixed: each World Bank series by its name (Excel-AI reads the rows by position: LNG <- Europe, Europe <- LNG)
+    # each series by its name (bug M20, fixed in Excel-AI 0.9.2: the rows were read by position, LNG and Europe swapped)
     'WB': {'oil': ('data', 'pint_wb', 'Crude oil, Brent', 2027), 'coa': ('data', 'pint_wb', 'Coal, Australia', 2027),
            'nga.lng': ('data', 'pint_wb', 'Liquefied natural gas, Japan', 2027),
            'nga.nam': ('data', 'pint_wb', 'Natural gas, US', 2027),
            'nga.eur': ('data', 'pint_wb', 'Natural gas, Europe', 2027)},
-    'IEA': {'oil': ('data', 'pint_iea', 'Crude Oil', 2100), 'coa': ('data', 'pint_iea', 'Coal', 2031),
-            'nga.lng': ('data', 'pint_iea', 'Natural Gas - LNG', 2100),
-            'nga.nam': ('data', 'pint_iea', 'Natural Gas - North Am', 2100),
-            'nga.eur': ('data', 'pint_iea', 'Natural Gas - Europe', 2100)},
+    # the IEA block by its World Bank labels: its own gas labels are swapped (the values under "Natural Gas - LNG" are
+    # the European price, IMF PNGASEU; bug M20, fixed in Excel-AI 0.9.2)
+    'IEA': {'oil': ('data', 'pint_iea', 'Crude oil, avg', 2100), 'coa': ('data', 'pint_iea', 'Coal, Australia', 2031),
+            'nga.lng': ('data', 'pint_iea', 'Liquefied natural gas, Japan', 2100),
+            'nga.nam': ('data', 'pint_iea', 'Natural gas, US', 2100),
+            'nga.eur': ('data', 'pint_iea', 'Natural gas, Europe', 2100)},
     'EIA': {'oil': ('trend', 'pint_eia', 'Crude Oil (Brent)', 2051), 'coa': ('trend', 'pint_eia', 'Coal (metric ton)', 2041),
             'nga.lng': ('IEA',), 'nga.nam': ('trend', 'pint_eia', 'Natural Gas - North Am (Henry hub)', 2051),
             'nga.eur': ('IEA',)},
@@ -44,7 +46,7 @@ GAS_MARKET = {'LNG': 'lng', 'Europe': 'eus', 'North Am': 'nam'}          # else 
 
 def _series(db, table, name):
     df = db.table(table)
-    key = 'subject_code' if table == 'pint_imf' else 'commodity'
+    key = {'pint_imf': 'subject_code', 'pint_iea': 'wb_commodity'}.get(table, 'commodity')
     df = df[df[key] == name]
     return dict(zip(df['year'].astype(int), to_float(df['value']).fillna(0.0)))   # a blank cell reads as 0
 
@@ -192,7 +194,7 @@ def domestic_prices(db, iso, settings, cpi_index, pass_lo, pass_mid, pass_hi, pr
             p[f'sp{y}'] = spn * cpi_index[y] / gj
             p[f'txo{y}'] = ((rpn / (1 + vry) - spn) if p['rpd'] == 1 else txn) * cpi_index[y] / gj
         p['vr'] = p[f'vry{last}'] * p['osh']
-        p['vat_weo'] = {y: d.value(y, 'VAT_WEO') for y in HIST_YEARS}   # the general VAT rate (bug M15: by year)
+        p['vat_weo'] = {y: d.value(y, 'VAT_WEO') for y in HIST_YEARS}   # the general VAT rate by year
         p['spL'], p['txoL'] = p[f'sp{last}'], p[f'txo{last}']
         out[pc] = p
     return out

@@ -1,4 +1,4 @@
-"""Data step of the distribution module (Excel-AI Distribution 0.1.3, sheet DistMapping and the data tabs). EQ-B1.1.
+"""Data step of the distribution module (Excel-AI Distribution 0.1.4, sheet DistMapping and the data tabs). EQ-B1.1.
 
     survey          household survey (HHSurvey) and price elasticities (HH_Elast) by code and variable, in sheet order
     io_tables       the country's GTAP input-output data by sector: total demand, exports, household demand, output,

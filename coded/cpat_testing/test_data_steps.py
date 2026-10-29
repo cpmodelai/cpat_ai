@@ -63,9 +63,7 @@ def test_prices(ctx):
     pairs = [(f'{ref(r, 1)} {2021 + k - 10}', ip[ref(r, 1)][2021 + k - 10], ref(r, k))
              for r in range(539, 595) for k in range(10, 35)]
     bad = [b for b in differences(pairs) if not (b[0].startswith(('IEA', 'EIA|nga', 'AVG', 'IMF-IEA'))
-                                                and int(b[0][-4:]) >= 2041)      # issue I152
-           and not (b[0].split('|')[0] in ('WB', 'AVG', 'IMF-WB')               # bug M20 fixed here: the World
-                    and b[0].split('|')[1].startswith(('nga.lng', 'nga.eu')))]    # Bank gas series (known difference)
+                                                and int(b[0][-4:]) >= 2041)]     # issue I152
     assert not bad, bad[:10]
     dp = prices_data.domestic_prices(ctx['db'], ISO, ctx['st'], ctx['cpi'], 0.25, 0.5, 0.5, 'Bucketed*', False)
     cols = {7: 'gj', 9: 'pccr', 10: 'pccb', 11: 'pcc', 13: 'mar', 15: 'pcost', 16: 'dsh', 18: 'fixsp', 22: 'vr',

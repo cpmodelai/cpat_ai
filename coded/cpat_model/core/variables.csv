@@ -3340,7 +3340,8 @@ trimpbn,bev,pas,"Insurance and maintenance, new BEV passenger | Passenger and li
 trfupbn,bev,pas,"Fuel and distance tax, new BEV passenger | Passenger and light vehicles | Battery electric",USD/vehicle,egy.mit.trfupbn.pass.bev.1
 trtopbn,bev,pas,"TCO, new BEV passenger | Passenger and light vehicles | Battery electric",USD/vehicle,egy.mit.trtopbn.pass.bev.1
 trpkpbn,bev,pas,"TCO per km, new BEV passenger | Passenger and light vehicles | Battery electric",USD/km,egy.mit.trpkpbn.pass.bev.1
-trtcfp,phv,pas,"TCO of a new PHEV (BEV depreciation, no range anxiety: fix B23) | Passenger and light vehicles | Plug-in hybrid",USD/vehicle,egy.mit.trtcfp.pass.phv.1
+trimphv,phv,pas,"Insurance and maintenance, new PHEV (insurance on the BEV price, ICEV maintenance per km and distance; bug M17 fixed) | Passenger and light vehicles | Plug-in hybrid",USD/vehicle,egy.mit.trimphv.pass.phv.1
+trtcfp,phv,pas,"TCO of a new PHEV (BEV depreciation, insurance on the BEV price, no range anxiety: fixes B23, M17) | Passenger and light vehicles | Plug-in hybrid",USD/vehicle,egy.mit.trtcfp.pass.phv.1
 trresb,bev,pas,Resale price of a 7-year-old BEV before taxes | Passenger and light vehicles | Battery electric,USD/vehicle,egy.mit.trresb.pass.bev.1
 trresgb,bev,pas,Price of a used BEV after taxes | Passenger and light vehicles | Battery electric,USD/vehicle,egy.mit.trresgb.pass.bev.1
 trfbvui,ice,pau,"Vehicle feebate, used passenger ice | Used passenger and light vehicles | Internal combustion",USD/vehicle,egy.mit.trfbvui.pau.ice.1
@@ -3361,8 +3362,8 @@ trpkpbu,bev,pau,"TCO per km, used BEV passenger | Used passenger and light vehic
 trpvaf,all,fre,"Feebate pivot, average type (fre) | Freight vehicles | All fuels",gCO2/km,egy.mit.trpvaf.fre.all.1
 trpvmf,all,fre,"Feebate pivot, manual type (fre; declining after the start year) | Freight vehicles | All fuels",gCO2/km,egy.mit.trpvmf.fre.all.1
 trpvf,all,fre,Feebate pivot used (fre) | Freight vehicles | All fuels,gCO2/km,egy.mit.trpvf.fre.all.1
-trfbvfi,ice,fre,"Vehicle feebate, freight ice (BEV: ICEV discounted km, as legacy) | Freight vehicles | Internal combustion",USD/vehicle,egy.mit.trfbvfi.fre.ice.1
-trfbvfb,bev,fre,"Vehicle feebate, freight bev (BEV: ICEV discounted km, as legacy) | Freight vehicles | Battery electric",USD/vehicle,egy.mit.trfbvfb.fre.bev.1
+trfbvfi,ice,fre,"Vehicle feebate, freight ice | Freight vehicles | Internal combustion",USD/vehicle,egy.mit.trfbvfi.fre.ice.1
+trfbvfb,bev,fre,"Vehicle feebate, freight bev | Freight vehicles | Battery electric",USD/vehicle,egy.mit.trfbvfb.fre.bev.1
 trppfi,ice,fre,"Purchase price after taxes and feebate, new ICE freight vehicle (no VAT, as legacy) | Freight vehicles | Internal combustion",USD/vehicle,egy.mit.trppfi.fre.ice.1
 trdpfin,ice,fre,"First-year depreciation, new ICE freight | Freight vehicles | Internal combustion",USD/vehicle,egy.mit.trdpfin.fre.ice.1
 tranfin,ice,fre,"Depreciation annuity after the first year, new ICE freight | Freight vehicles | Internal combustion",USD/vehicle,egy.mit.tranfin.fre.ice.1
@@ -6984,6 +6985,7 @@ env.ffs.cost,gso,oth,Fossil fuel subsidy reform: environmental benefits (Harberg
 env.ffs.cost,die,oth,Fossil fuel subsidy reform: environmental benefits (Harberger) | Other | Diesel,USD bn real,egy.mit.env.ffs.cost.oth.die.1
 env.ffs.cost,,tot,Fossil fuel subsidy reform: environmental benefits (Harberger) |  | ,USD bn real,egy.mit.env.ffs.cost.tot.1
 wel.ffs,,,Total national welfare benefits (FFS),USD bn real,egy.mit.wel.ffs.1
+vatgen,,,General VAT rate of the year,share,egy.mit.vatgen.1
 supcost,gso,all,Energy subsidies: supply cost | All sectors | Gasoline,"USD/GJ, USD/kWh",egy.mit.supcost.all.gso.1
 supcost,die,all,Energy subsidies: supply cost | All sectors | Diesel,"USD/GJ, USD/kWh",egy.mit.supcost.all.die.1
 supcost,lpg,all,Energy subsidies: supply cost | All sectors | LPG,"USD/GJ, USD/kWh",egy.mit.supcost.all.lpg.1

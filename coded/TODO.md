@@ -64,21 +64,18 @@ Decided 2026-10-29 (user): a block that still differs after a reasonable effort 
 
 ## Excel-AI bugs (root NORMS 0 rule 6; coded NORMS 0.3)
 
-Prototype bugs found by Coded CPAT (`../excel_ai/BUGS.md` section 2). Bugs are not replicated: Coded CPAT fixes them where the fix is obvious (`# bug M<n> fixed` at the line; the codes that then differ from Excel-AI in `cpat_testing/compare/known_differences.py`) and follows the prototype's fixed version otherwise. When Excel-AI ships a fix, add a line here with its version, align Python with the prototype's fix and delete the known differences. Fix brief for Excel-AI: `../excel_ai/plans/Fix_prototype_bugs_M15-M22.md`.
+Prototype bugs found by Coded CPAT (`../excel_ai/BUGS.md` section 2). Bugs are never replicated: Coded CPAT fixes them where the fix is obvious and lists the codes that then differ from Excel-AI in `cpat_testing/compare/known_differences.py` until Excel-AI ships the fix; otherwise it follows the prototype's fixed version. When Excel-AI ships a fix: a line here with its version, Python aligned with the prototype's fix, the known differences deleted.
 
-- ☑ M15 VAT on efficient prices at the 2022 rate in every year: fixed (`welfare.py`: VAT_WEO of the year to LastHistPriceYear, then held; user 2026-10-29). Egypt: no change (14% throughout).
-- ☑ M16 freight BEV feebate at the ICEV distance: fixed (`road.py`: the freight BEV distance). Egypt: no change (no freight feebate).
-- ◐ M17 plug-in hybrid cost basis: replicated until the prototype's fixed version (decided 2026-10-29 in the prototype thread: BEV price, ICE maintenance).
-- ☒ M18 bus electricity: withdrawn 2026-10-29 (not a bug: all base-year bus energy electrifies with the passenger share, as legacy); Python as Excel-AI.
-- ☑ M19 `gdpn` divided by a billion: fixed (`totals.py`; Python = Excel-AI x 1e9, known difference).
-- ☑ M20 World Bank gas series read by position: fixed (`prices_data.py`: by name). Egypt: no change (IMF prices). To check against the prototype's fix in phase 5: after 2021 Excel-AI's World Bank gas rows are not a plain swap of the two series (the data-step test leaves the WB, AVG and IMF-WB gas rows out).
-- ☑ M21 methane fee cap where b = 0: fixed (`welfare.py`: no cap). Egypt: no change.
-- ☑ M22 Distribution percentile recycling rows: fixed (`incidence.py`: public investment per person; known difference, scenario group 2).
+**All closed (2026-10-29): Excel-AI 0.9.2 and Distribution 0.1.4 fixed M15-M17 and M19-M22; M18 withdrawn. Coded CPAT 0.9.2p0.1 is aligned with them; no known differences remain; every reference code of scenarios 1 and 2 matches.**
 
-Excel-AI fixed these (user rule 2026-10-29, root NORMS 0 rule 6: prototype bugs are never put into Coded CPAT; Python moves to the fixed version):
-- Excel-AI v0.9.2 fixed M15 (new section-18 row `vatgen`: VAT_WEO of the year to LastHistPriceYear, then held; `vatext`/`vat.cost` column D is now the consumer flag x household share), M16 (freight BEV feebate at `trdkmfreb.fre.bev`), M17 (new row `trimphv.pas.phv`: insurance on the BEV price, ICEV maintenance x ICEV distance; `trtcfp` uses it), M19 (`gdpn` without /Billion), M20 (WB and IEA, found by the legacy check: LNG = "Liquefied natural gas, Japan", Europe = "Natural gas, Europe"; `data/tidy/pint_iea.csv` maps the IEA labels the swapped way), M21 (`mfp` = fee where b <= 0 or LN(1/a)/b > 700: the data have b ~ 1e-14 for 45 country sources, where the power overflows): Coded CPAT to follow.
-- Distribution v0.1.4 fixed M22 (`hrec` uses the public investment amount `pui` of the sample, LCU): Coded CPAT to follow.
-- M18 withdrawn (user 2026-10-29: not a bug; bus electricity = all base-year bus energy x passenger electricity share, as legacy): keep the formula, drop the bug marker.
+- ☑ M15 VAT of the year in section 18: Python and Excel-AI 0.9.2 (row `vatgen`: VAT_WEO to LastHistPriceYear, then held).
+- ☑ M16 freight BEV feebate at the BEV distance: Python and Excel-AI 0.9.2.
+- ☑ M17 plug-in hybrid: insurance on the BEV price, ICE maintenance (row `trimphv.pas.phv`): Python aligned with Excel-AI 0.9.2.
+- ☒ M18 bus electricity: withdrawn (not a bug: all base-year bus energy electrifies with the passenger share, as legacy).
+- ☑ M19 `gdpn` in bn: Python and Excel-AI 0.9.2.
+- ☑ M20 gas series read by position, LNG and Europe swapped: World Bank and IEA blocks (Excel-AI 0.9.2); Python reads the IEA block by its World Bank labels (its own gas labels are swapped).
+- ☑ M21 methane fee: no cap where b <= 0 or the cap overflows: Python aligned with Excel-AI 0.9.2.
+- ☑ M22 Distribution percentile recycling rows: Python and Distribution 0.1.4.
 
 ## Later (not now)
 

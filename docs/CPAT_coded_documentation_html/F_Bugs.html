@@ -327,22 +327,23 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>The rule</strong> (user 2026-10-29): a bug in the prototype (Excel-AI does not compute what it means to) is not copied: Coded CPAT fixes it and it is registered (<code>excel_ai/BUGS.md</code>, prototype bugs M); an issue (a potential improvement) is logged and copied as it is for now.</p>
 <section id="the-bugs-coded-cpat-found" class="level2">
 <h2 class="anchored" data-anchor-id="the-bugs-coded-cpat-found">The bugs Coded CPAT found</h2>
-<p>Prototype bugs found by Coded CPAT (<code>../excel_ai/BUGS.md</code> section 2). Bugs are not replicated: Coded CPAT fixes them where the fix is obvious (<code># bug M&lt;n&gt; fixed</code> at the line; the codes that then differ from Excel-AI in <code>cpat_testing/compare/known_differences.py</code>) and follows the prototype’s fixed version otherwise. When Excel-AI ships a fix, add a line here with its version, align Python with the prototype’s fix and delete the known differences. Fix brief for Excel-AI: <code>../excel_ai/plans/Fix_prototype_bugs_M15-M22.md</code>.</p>
+<p>Prototype bugs found by Coded CPAT (<code>../excel_ai/BUGS.md</code> section 2). Bugs are never replicated: Coded CPAT fixes them where the fix is obvious and lists the codes that then differ from Excel-AI in <code>cpat_testing/compare/known_differences.py</code> until Excel-AI ships the fix; otherwise it follows the prototype’s fixed version. When Excel-AI ships a fix: a line here with its version, Python aligned with the prototype’s fix, the known differences deleted.</p>
+<p><strong>All closed (2026-10-29): Excel-AI 0.9.2 and Distribution 0.1.4 fixed M15-M17 and M19-M22; M18 withdrawn. Coded CPAT 0.9.2p0.1 is aligned with them; no known differences remain; every reference code of scenarios 1 and 2 matches.</strong></p>
 <ul>
-<li>☑ M15 VAT on efficient prices at the 2022 rate in every year: fixed (<code>welfare.py</code>: VAT_WEO of the year to LastHistPriceYear, then held; user 2026-10-29). Egypt: no change (14% throughout).</li>
-<li>☑ M16 freight BEV feebate at the ICEV distance: fixed (<code>road.py</code>: the freight BEV distance). Egypt: no change (no freight feebate).</li>
-<li>◐ M17 plug-in hybrid cost basis: replicated until the prototype’s fixed version (decided 2026-10-29 in the prototype thread: BEV price, ICE maintenance).</li>
-<li><label><input type="checkbox" checked="">M18 bus electricity: withdrawn 2026-10-29 (not a bug: all base-year bus energy electrifies with the passenger share, as legacy); Python as Excel-AI.</label></li>
-<li>☑ M19 <code>gdpn</code> divided by a billion: fixed (<code>totals.py</code>; Python = Excel-AI x 1e9, known difference).</li>
-<li>☑ M20 World Bank gas series read by position: fixed (<code>prices_data.py</code>: by name). Egypt: no change (IMF prices). To check against the prototype’s fix in phase 5: after 2021 Excel-AI’s World Bank gas rows are not a plain swap of the two series (the data-step test leaves the WB, AVG and IMF-WB gas rows out).</li>
-<li>☑ M21 methane fee cap where b = 0: fixed (<code>welfare.py</code>: no cap). Egypt: no change.</li>
-<li>☑ M22 Distribution percentile recycling rows: fixed (<code>incidence.py</code>: public investment per person; known difference, scenario group 2).</li>
+<li>☑ M15 VAT of the year in section 18: Python and Excel-AI 0.9.2 (row <code>vatgen</code>: VAT_WEO to LastHistPriceYear, then held).</li>
+<li>☑ M16 freight BEV feebate at the BEV distance: Python and Excel-AI 0.9.2.</li>
+<li>☑ M17 plug-in hybrid: insurance on the BEV price, ICE maintenance (row <code>trimphv.pas.phv</code>): Python aligned with Excel-AI 0.9.2.</li>
+<li><label><input type="checkbox" checked="">M18 bus electricity: withdrawn (not a bug: all base-year bus energy electrifies with the passenger share, as legacy).</label></li>
+<li>☑ M19 <code>gdpn</code> in bn: Python and Excel-AI 0.9.2.</li>
+<li>☑ M20 gas series read by position, LNG and Europe swapped: World Bank and IEA blocks (Excel-AI 0.9.2); Python reads the IEA block by its World Bank labels (its own gas labels are swapped).</li>
+<li>☑ M21 methane fee: no cap where b &lt;= 0 or the cap overflows: Python aligned with Excel-AI 0.9.2.</li>
+<li>☑ M22 Distribution percentile recycling rows: Python and Distribution 0.1.4.</li>
 </ul>
 </section>
 <section id="known-differences" class="level2">
 <h2 class="anchored" data-anchor-id="known-differences">Known differences</h2>
 <p>The codes where Coded CPAT differs from Excel-AI’s stored values because it fixes a bug still open in the prototype (<code>coded/cpat_testing/compare/known_differences.py</code>); the tests check that they differ, and the entry is deleted when Excel-AI ships the fix.</p>
-<table class="caption-top table">
+<table class="caption-top">
 <colgroup>
 <col style="width: 50%">
 <col style="width: 50%">
@@ -354,14 +355,6 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td>M19</td>
-<td><code>mit.gdpn.all.lcu</code>, <code>mit.gdpn.all.usd</code></td>
-</tr>
-<tr class="even">
-<td>M22</td>
-<td><code>distn.hrec.p25.dec.ove</code>, <code>distn.hrec.p25.dec.urb</code>, <code>distn.hrec.p25.dec.rur</code>, <code>distn.hrec.p75.dec.ove</code>, <code>distn.hrec.p75.dec.urb</code>, <code>distn.hrec.p75.dec.rur</code>, <code>distn.hnet.p25.dec.ove</code>, <code>distn.hnet.p25.dec.urb</code>, <code>distn.hnet.p25.dec.rur</code>, <code>distn.hnet.p75.dec.ove</code>, <code>distn.hnet.p75.dec.urb</code>, <code>distn.hnet.p75.dec.rur</code></td>
-</tr>
 </tbody>
 </table>
 

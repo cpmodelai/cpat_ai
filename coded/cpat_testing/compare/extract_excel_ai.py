@@ -169,7 +169,7 @@ def stored(wb):
     print(f'baseline_co2: {len(out)} values')
 
 
-DISTRIBUTION_VERSION = '0.1.3'           # the Excel-AI distribution module replicated (user 2026-10-29)
+from cpat_model import DISTRIBUTION_VERSION  # noqa: E402  (the Excel-AI distribution module replicated)
 DIST_WORKBOOK = REPO / 'excel_ai' / f'CPAT-AI-Distribution-Prototype_v{DISTRIBUTION_VERSION}.xlsm'
 DIST_REFERENCE = CODED / 'cpat_testing' / 'compare' / 'reference' / f'excel_ai_distribution_{DISTRIBUTION_VERSION}.csv'
 DIST_GROUPS = [(11, 1), (24, 2)]                            # Distribution: code column K, X; columns 0-10 follow

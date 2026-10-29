@@ -51,10 +51,9 @@ def step(state, db, inputs, settings, baseline, t):
     col = lambda fn: np.array([fn(iso) for iso in countries])
     dp = state['_prices']['domestic']
     gj = lambda code: col(lambda iso: dp[iso][code]['gj'])
-    # the general VAT rate of the year: VAT_WEO data up to the last historical year, then held (bug M15 fixed; user
-    # 2026-10-29; Excel-AI VatGen is the 2022 rate in every year)
+    # the general VAT rate of the year: VAT_WEO data up to the last historical year, then held (user 2026-10-29)
     vat_year = min(t, settings.last_hist_price_year)
-    vatgen = col(lambda iso: dp[iso]['gso.all']['vat_weo'][vat_year])
+    vatgen = put('vatgen', col(lambda iso: dp[iso]['gso.all']['vat_weo'][vat_year]))
     osh = lambda f: col(lambda iso: dp[iso][f'{f}.all']['osh'])
     gdp = at('gdp.usd', 'all', 'all')
     mbn = c('MperBn')
@@ -88,10 +87,10 @@ def step(state, db, inputs, settings, baseline, t):
     for s in CH4_SOURCES:
         a, b = src(s, 'a'), src(s, 'b')
         fee = mfee * src(s, 'gwp') * src(s, 'fee')
-        with np.errstate(divide='ignore', invalid='ignore'):        # the price of full abatement, (1/a)^(1/b)
+        with np.errstate(divide='ignore', invalid='ignore', over='ignore'):   # the price of full abatement, (1/a)^(1/b)
+            no_cap = (b <= 0) | (np.log(safe_div(1.0, a, 1.0)) / np.where(b > 0, b, 1.0) > 700)   # b <= 0 or overflow
             cap = np.power(safe_div(1.0, a), safe_div(1.0, b))
-        # bug M21 fixed: no cap where b = 0 (Excel-AI: #DIV/0)
-        mfp = put('mfp', np.where(a == 0, 0.0, np.where(b == 0, fee, np.minimum(fee, cap))), 'all', s)
+        mfp = put('mfp', np.where(a == 0, 0.0, np.where(no_cap, fee, np.minimum(fee, cap))), 'all', s)
         em = safe_div(src(s, 'em0') * at('ch4.act', 'all', s), src(s, 'act0'))
         put('mfc', em * at('ch4.abt', 'all', s) * mfp * b / (1 + b) / c('Million'), 'all', s)
     mfc = put('mfc', sum(at('mfc', 'all', s) for s in CH4_SOURCES), 'all', 'all')

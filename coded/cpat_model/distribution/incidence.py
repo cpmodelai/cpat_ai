@@ -1,5 +1,5 @@
 """The household incidence of a scenario in the analysis year: Excel-AI's distribution module (CPAT-AI-Distribution-
-Prototype 0.1.3, sheet Distribution), section by section.
+Prototype 0.1.4, sheet Distribution), section by section.
 
 One scenario group at a time: the scenario's mitigation results against scenario 1's (the baseline) in the analysis
 year YearDistn. Every row has 11 columns: 0 the basket (whole sample), 1-10 the deciles. Rows are keyed by Excel-AI's
@@ -323,7 +323,7 @@ def group(data, inputs, scenario, baseline, years, base_year, iso):
                                                       for d in D[1:]]), p, s, deciles_only=True)
             hcpc = S.put('hcpc', np.array([np.nan] + [mapping.number(hh[rows[d]].get('cons_pc_acrent')) * consadj[0]
                                                       for d in D[1:]]), p, s, deciles_only=True)
-            # bug M22 fixed: public investment per person (Excel-AI adds its % of consumption row, pui.tot)
+            # public investment per person, in local currency as the other three (bug M22, fixed in 0.1.4)
             hrec = S.put('hrec', (pit + pui[s] + cts + tgt) / hcpc * pct, p, s, deciles_only=True)
             S.put('hnet', htef + hrec, p, s, deciles_only=True)
     for s in ('urb', 'rur', 'ove'):
