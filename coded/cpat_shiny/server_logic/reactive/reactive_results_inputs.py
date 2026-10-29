@@ -4,7 +4,7 @@ import pandas as pd
 from cpat_shiny.server_logic.apply_results_filters import apply_results_filters
 from cpat_shiny.validation.results_inputs import ResultsInputsValidation
 
-from cpat_shiny.mapping import CPAT_VARIABLES, ALL_INDICATORS, AIR_POLLUTION_VARIABLES, AP_INDICATORS
+from cpat_shiny.mapping import CPAT_VARIABLES, ALL_INDICATORS
 
 results_inputs_selection = reactive.value({
     "vars_to_save_input": (),

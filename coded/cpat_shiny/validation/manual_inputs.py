@@ -3,9 +3,7 @@ from shiny import Inputs
 from shiny.reactive._reactives import Value
 
 from cpat_shiny.ui.labels import VALIDATION
-from cpat_shiny.mapping import ALL_COUNTRIES, CT_AFTER_TARGET_YEAR, PRICES_SELECTION
-
-from cpat_model.constants import BASELINE_SCENARIO
+from cpat_shiny.mapping import ALL_COUNTRIES, CT_AFTER_TARGET_YEAR, PRICES_SELECTION, BASELINE_SCENARIO
 
 
 class ManualInputsValidation:

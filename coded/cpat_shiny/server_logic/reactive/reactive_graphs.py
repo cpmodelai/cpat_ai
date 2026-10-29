@@ -1,17 +1,12 @@
 from shiny import reactive
 import plotly.graph_objects as go
 
-from cpat_shiny.mapping import ALL_COUNTRIES
+from cpat_shiny.server_logic.visualization.figures import figure
 
-from cpat_shiny.server_logic.visualization.graphs_titles import GRAPHS_TITLES
-
-global_graphs = reactive.value({})
 graph_selection = reactive.value({
     "country_visualization": "",
     "scenario_visualization": "",
 })
-
-global_graphs_xl = reactive.value({})
 
 def create_update_country_visualization(inputs):
     @reactive.effect
@@ -31,27 +26,13 @@ def create_update_scenario_visualization(inputs):
 
 def get_graph(
         inputs,
+        results,
         graph_type: str
         ) -> go.Figure:
-    if global_graphs():
-        scenario_name = inputs.scenario_visualization()
-        country = inputs.country_visualization().upper()
-        if graph_type in GRAPHS_TITLES:
-            if graph_type == 'domestic_p':
-                title = GRAPHS_TITLES[graph_type].format(
-                    reference_year=2022, # TODO: softcode this
-                    scenario_name=scenario_name,
-                    country=ALL_COUNTRIES[country]
-                )
-            else:
-                title = GRAPHS_TITLES[graph_type].format(
-                    scenario_name=scenario_name, country=ALL_COUNTRIES[country]
-                )
-        else:
-            title = ''
-        if title in global_graphs():
-            return global_graphs()[title]
-        fig = go.Figure()
-        fig.update_layout(title=title)
-        return fig
-    return go.Figure()
+    """The graph of the selected country and scenario, from the run in `results` (a ModelRun, or None)."""
+    run = results()
+    scenario_name = inputs.scenario_visualization()
+    country = inputs.country_visualization()
+    if run is None or scenario_name not in run.policy_names() or country not in run.countries:
+        return go.Figure()
+    return figure(run, country, scenario_name, graph_type)

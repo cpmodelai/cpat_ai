@@ -1,4 +1,4 @@
-from cpat_model.constants import BASELINE_SCENARIO
+from cpat_shiny.mapping import BASELINE_SCENARIO
 
 PAGE = {
     "tools": "Tools",
@@ -38,7 +38,8 @@ COMMON = {
     "selectFuels": "Select fuels",
     "selectSectors": "Select sectors",
     "addScenario": "Add Scenario",
-    "pricesSourceSelection": "Prices source selection"
+    "pricesSourceSelection": "Prices source selection",
+    "countriesWithData": "The database ({database}) has data for: {countries}. Other countries cannot run yet."
 }
 
 RESULTS = {
@@ -65,7 +66,7 @@ RESULTS = {
 VISUALIZATIONS = {
     "selectedCountry": "Selected Country",
     "selectedScenario": "Selected Scenario",
-    "visualizationsEmpty": "Please run Scenarios and calculate Indicators to generate visualizations.",
+    "visualizationsEmpty": "Please run Scenarios to generate visualizations.",
 }
 
 DOCUMENTATION = {

@@ -19,7 +19,8 @@ from cpat_shiny.ui.components.common.validation_message import validation_messag
 
 from cpat_shiny.server_logic.load_scenario import add_scenario
 from cpat_shiny.server_logic.load_scenarios import process_csv_scenarios
-from cpat_shiny.server_logic.get_scenarios import get_scenarios
+from cpat_shiny.server_logic.run_model import run_ui_scenarios
+from cpat_shiny.server_logic.results_tables import raw_results, indicators_table, excel_bytes
 from cpat_shiny.server_logic.apply_results_filters import (
     apply_results_filters, apply_results_filters_indicators
 )
@@ -28,10 +29,6 @@ from cpat_shiny.server_logic.reactive.reactive_input import (
     create_update_target_year, create_update_start_level, create_update_target_level,
     create_update_ct_projection, create_update_prices_source_selection,
     create_update_fuels, create_update_sectors
-)
-
-from cpat_shiny.server_logic.save_results_handlers import (
-    save_raw_results_handler, extract_raw_results
 )
 from cpat_shiny.server_logic.reactive.reactive_results_inputs import (
     validation_text_raw_results_file, validation_text_raw_results_vars,
@@ -59,11 +56,7 @@ from cpat_shiny.server_logic.reactive.reactive_documentation import (
     documentation_selection, create_update_documentation_selection
 )
 
-from cpat_model.indicators.indicators_handlers import (
-    create_indicators_handler, download_indicators_handler
-)
-
-from cpat_model.constants import BASELINE_SCENARIO
+from cpat_shiny.mapping import ALL_INDICATORS, CPAT_VARIABLES
 
 
 def server(inputs: Inputs, output: Outputs, session: Session) -> None:
@@ -71,12 +64,12 @@ def server(inputs: Inputs, output: Outputs, session: Session) -> None:
     df_scenarios = reactive.value(pd.DataFrame())
     validation_text = reactive.value("")
 
-    results = reactive.value({})
+    results = reactive.value(None)              # the last run (run_model.ModelRun)
 
     selected_countries = reactive.value([])
     scenarios_names = reactive.value([])
 
-    indicators = reactive.value({})
+    indicators = reactive.value(None)           # the indicators table (results_tables.indicators_table)
 
     create_update_scenario_name(inputs)
     create_update_countries(inputs)
@@ -138,21 +131,24 @@ def server(inputs: Inputs, output: Outputs, session: Session) -> None:
     def download_scenarios():
         yield df_scenarios().to_csv(index=False)
 
-    async def run_scenarios_task() -> None:
-        scenarios_input, selected_country_list = get_scenarios(df_scenarios())
-        # This is old run_scenarios, new run_scenarion would look like the logic from run_model.py
-        # results.set(run_scenarios(scenarios_input, selected_country_list))
-        indicators.set({})
+    async def run_scenarios_task() -> bool:
+        try:
+            run = run_ui_scenarios(df_scenarios())
+        except ValueError as message:
+            error_notification(str(message))
+            return False
+        results.set(run)
+        indicators.set(None)
+        global_raw_results.set({})
 
-        all_scenarios = list(results().keys())
-        all_scenarios.remove(BASELINE_SCENARIO)
-        scenarios_names.set(all_scenarios)
-        selected_countries.set(selected_country_list)
+        scenarios_names.set(run.policy_names())
+        selected_countries.set(run.countries)
 
         graph_selection.set({
             "country_visualization": selected_countries()[0],
             "scenario_visualization": scenarios_names()[0]
         })
+        return True
 
 
     @output
@@ -191,7 +187,8 @@ def server(inputs: Inputs, output: Outputs, session: Session) -> None:
     @reactive.event(inputs.extract_vars_raw_results)
     def _():
         if validation_text_raw_results_vars() == '':
-            global_raw_results.set(extract_raw_results(list(inputs.vars_to_save_input()), results()))
+            chosen = [v for v in inputs.vars_to_save_input() if v in CPAT_VARIABLES]
+            global_raw_results.set(raw_results(results(), chosen))
 
             current_selection = results_inputs_selection.get()
             current_selection['raw_results_df_selection'] = list(global_raw_results().keys())[0]
@@ -199,12 +196,11 @@ def server(inputs: Inputs, output: Outputs, session: Session) -> None:
 
             apply_results_filters(global_raw_results, inputs, df_raw_results_to_render)
 
-    @render.download()
+    @render.download(filename=lambda: f"{inputs.raw_results_file_name_input()}.xlsx")
     def save_raw_results():
-        path_name = save_raw_results_handler(
-            inputs.raw_results_file_name_input(), validation_text_raw_results_file, global_raw_results()
-        )
-        return path_name
+        if validation_text_raw_results_file() == '':
+            yield excel_bytes(global_raw_results())
+            success_notification(SERVER["resultsSaved"])
 
     @reactive.effect
     @reactive.event(inputs.rerender_raw_results_df)
@@ -237,11 +233,10 @@ def server(inputs: Inputs, output: Outputs, session: Session) -> None:
     @reactive.effect
     @reactive.event(inputs.create_indicators)
     def _():
-        create_indicators_handler(
-            inputs,
-            validation_text_indicators_selection(),
-            results, indicators, selected_countries
-        )
+        if validation_text_indicators_selection() == '':
+            chosen = [k for k in inputs.indicators_input() if k in ALL_INDICATORS]
+            indicators.set(indicators_table(results(), chosen))
+            success_notification(SERVER["indicatorsCreated"])
         apply_results_filters_indicators(indicators, inputs, df_indicators_to_render)
 
     @reactive.effect
@@ -251,36 +246,39 @@ def server(inputs: Inputs, output: Outputs, session: Session) -> None:
 
     @render.data_frame
     def indicators_df():
-        if indicators():
+        if indicators() is not None:
             return render.DataGrid(df_indicators_to_render())
         return pd.DataFrame()
 
-    @render.download()
+    @render.download(filename=lambda: f"{inputs.indicators_file_name_input()}.xlsx")
     def download_indicators():
-        return download_indicators_handler(
-            inputs, validation_text_indicators_file(),
-            indicators
-        )
+        if validation_text_indicators_file() == '':
+            yield excel_bytes({'Indicators': indicators()})
+            success_notification(SERVER["indicatorsDownloaded"])
 
     @render_widget
     def plot_ec_by_sector():
-        return get_graph(inputs, graph_type='ec_by_sector')
+        return get_graph(inputs, results, graph_type='ec_by_sector')
 
     @render_widget
     def plot_ec_by_fuel():
-        return get_graph(inputs, graph_type='ec_by_fuel')
+        return get_graph(inputs, results, graph_type='ec_by_fuel')
 
     @render_widget
     def plot_ec_change_by_fuel():
-        return get_graph(inputs, graph_type='ec_change_by_fuel')
+        return get_graph(inputs, results, graph_type='ec_change_by_fuel')
 
     @render_widget
     def plot_domestic_p():
-        return get_graph(inputs, graph_type='domestic_p')
+        return get_graph(inputs, results, graph_type='domestic_p')
 
     @render_widget
     def plot_em_by_sector():
-        return get_graph(inputs, graph_type='em_by_sector')
+        return get_graph(inputs, results, graph_type='em_by_sector')
+
+    @render_widget
+    def plot_distribution():
+        return get_graph(inputs, results, graph_type='distribution')
 
     # TODO fix remove scenario
     # def create_remove_handler(index):

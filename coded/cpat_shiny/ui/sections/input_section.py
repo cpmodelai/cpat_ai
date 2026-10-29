@@ -5,8 +5,25 @@ from htmltools import Tag
 
 from cpat_shiny.ui.components.common.multiple_selectize import multiple_selectize
 
+from cpat_model.settings import Settings
+
 from cpat_shiny.mapping import ALL_COUNTRIES, ALL_FUELS, ALL_SECTORS, CT_AFTER_TARGET_YEAR, PRICES_SELECTION
+from cpat_shiny.server_logic.run_model import countries_with_data
 from cpat_shiny.ui.labels import COMMON
+
+
+def country_choices() -> Dict[str, str]:
+    """Only the countries the database has data for (the dummy database: Egypt)."""
+    return {code: ALL_COUNTRIES[code] for code in countries_with_data()}
+
+
+def countries_note() -> Tag:
+    return ui.p(
+        COMMON["countriesWithData"].format(
+            database=Settings().database, countries=', '.join(country_choices().values())
+        ),
+        {"style": "font-size: 0.9em; color: #555; margin-top: 32px;"},
+    )
 
 
 def input_section(
@@ -24,10 +41,10 @@ def input_section(
             multiple_selectize({
                 'id': "countries_input",
                 'label': COMMON["selectCountries"],
-                'choices': ALL_COUNTRIES,
+                'choices': country_choices(),
                 'selected': list(input_selection['countries_input'])
             }),
-            ui.div(), # space placeholder
+            countries_note(),
             ui.layout_columns(
                 ui.input_numeric(
                     id="start_year",
