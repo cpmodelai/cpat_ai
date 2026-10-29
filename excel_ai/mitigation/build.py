@@ -623,8 +623,9 @@ for pc, *_ in PRICE_FUELS:
 # v9.0 (R3, Equations_addendum C, R3.1-R3.12): Pigouvian (efficient) taxes as a policy option (legacy Mitigation rows
 # 111-160, 199-218 and the ntx rows of the policy blocks). The social cost of carbon moved here from section 18: the
 # Pigouvian tax enters the power cost (ccp), whose precedents must be inputs only (quick check: lvc levelises tvc).
-# Components read data only (sheet Inputs_cob, sheet BaselineCO2 for the scenario-1 transport costs, price block
-# parameters): no fuel-use row, so no circular reference through ntx.
+# Components read inputs only (v9.0 PIGAP: marginal air-pollution damages from the module tabs and the emission
+# factors, transport externalities as base-year data x growth of the per-km costs, price block parameters): no
+# fuel-use row and no stored scenario-1 value, so no circular reference through ntx.
 SCC_ROWS = ['tgt', 'rkn', 'rkg', 'man', 'epa', 'nat', 'glo']
 PIG_PARAMS = ['AddEfficientTaxes', 'ClimateEffTax', 'AddEfficientTaxesPhaseInYears', 'ExternalityAddVAT']
 PIG_VARS = ['pig.ap', 'cc.code', 'pig.tr', 'pigx', 'ntxg', 'xcpb', 'xpre', 'ntxb']
@@ -633,6 +634,33 @@ for k_ in SCC_ROWS:
 for p_ in PIG_PARAMS:
     _pol(p_, p_, mt=MT_NAMES[p_])
 _pol('pig.phi', 'pig.phi', kind='plain')
+# v9.0 (PIGAP, user 2026-10-29): Pigouvian components live and acyclic, from inputs only (no stored scenario-1 rows):
+# (1) marginal air-pollution damage per GJ by fuel and subsector (legacy average damages were bug I104): v_PM x
+# sum_p kappa[m(s), p] x EF[f, s, p](t), aggregated to the unit-cost lines; (2) road transport externalities per litre:
+# base-year value (Transport1 data at BaseYr, base-year fuel use, elasticities) x growth of the typed per-km costs
+AP_LINES = [(f, S, ['pow'] if S == 'pow' else [x[0] for x in SUBSECTORS if S == 'all' or x[2] == {'ind': 'ind',
+                                                                                                   'res': 'bld'}[S]])
+            for f, S in [('coa', 'ind'), ('coa', 'res'), ('coa', 'pow'), ('nga', 'ind'), ('nga', 'res'), ('nga', 'pow'),
+                         ('gso', 'all'), ('die', 'all'), ('lpg', 'all'), ('ker', 'all'), ('oop', 'pow'), ('oop', 'ind')]]
+AP_MOD_OF = {'rod': 'rod', 'res': 'gro', 'srv': 'gro', 'cst': 'gro', 'foo': 'foo'}   # module sector (others oth; as
+AP_POW_MOD = {'coa': 'cpp', 'nga': 'gpp', 'oop': 'opp'}                              # section 15 aps rows)
+PIG_TR = ['pig.trk', 'pig.fe0.gso.pas', 'pig.fe0.die.pas', 'pig.wsh.gso', 'pig.wsh.die', 'pig.fe0.gso', 'pig.fe0.die',
+          'pig.mu0.gso', 'pig.mu0.die', 'pig.rsh0.gso', 'pig.rsh0.die', 'pig.kpl.gso', 'pig.kpl.die', 'pig.trg.acc',
+          'pig.trg.con', 'pig.trg.rdm', 'pig.trb.acc.gso', 'pig.trb.con.gso', 'pig.trb.acc.die', 'pig.trb.con.die',
+          'pig.trb.rdm.die']
+PIGM_KEYS = ['pig.efw', 'pig.vpm'] + [f'apmc.{f}.{S}.{s_}' for f, S, ss in AP_LINES for s_ in ss] + PIG_TR
+for k_ in PIGM_KEYS:
+    if k_.startswith('apmc.'):
+        _pol(k_, 'airpol.mc', k_.split('.')[1], k_.split('.')[3], kind='plain')
+    elif k_.count('.') == 2 and k_.split('.')[1] in ('fe0', 'wsh', 'mu0', 'rsh0', 'kpl'):
+        _pol(k_, k_.rsplit('.', 1)[0], k_.split('.')[2], 'rod' if k_.split('.')[1] != 'fe0' else 'all', kind='plain')
+    elif k_.startswith('pig.fe0.'):
+        _pol(k_, 'pig.fe0', k_.split('.')[2], k_.split('.')[3], kind='plain')
+    elif k_.startswith('pig.trb.'):
+        _pol(k_, k_.rsplit('.', 1)[0], k_.split('.')[3], 'rod', kind='plain')
+    else:
+        _pol(k_, k_, kind='plain')
+PIGM_KEYS = set(PIGM_KEYS)
 for v_ in PIG_VARS:
     for pc, *_ in PRICE_FUELS:
         _pol(f'{v_}.{pc}', v_, pc.split('.')[0], pc.split('.')[1], kind='plain')
@@ -905,9 +933,19 @@ SUBHEADS = {'cptraj': None, CP_PARAMS[0]: 'Carbon tax (MTInputs rows 18-21, 265,
                        'moved from section 18, the Pigouvian tax reads the national SCC)',
             PIG_PARAMS[0]: 'Pigouvian (efficient) taxes (v9.0, R3; MTInputs rows 212, 216-218; legacy rows 111-160): '
                            'inputs and phase-in share from CPIntro',
-            'pig.ap.coa.pow': 'Pigouvian tax components per price unit by price fuel: air pollution (typed, sheet '
-                              'Inputs_cob; residential coal: scenario 1, stored), climate damage (national SCC x '
-                              'generic EF), road transport of scenario 1 (stored on sheet BaselineCO2)',
+            'pig.efw': 'Pigouvian tax: marginal air-pollution damage by fuel and subsector (USD/GJ; inputs only, v9.0 '
+                       'PIGAP, I104 fixed): value of averted PM2.5 (FromAirPollution; 2022 takes 2023, legacy has no '
+                       'change in PM2.5 in 2022) x coefficients per t (FromAirPollution) x emission factors on the '
+                       'section-15 path (Inputs); D, E: ug/m3 per ktoe with the base-year and EFEndYear factors, F: '
+                       'base-year fuel use (ktoe, the weights of the Pigouvian lines)',
+            'pig.trk': 'Pigouvian tax: road transport externalities per litre (v9.0 PIGAP): base-year value from base-year '
+                       'data (Transport1 at BaseYr: fuel economy, ownership, fuel shares by vehicle class; base-year fuel '
+                       'use; road elasticities) x growth of the typed per-km costs (FromTransportCB) relative to the '
+                       'base year; no modelled row, so the tax can enter the power cost (issue I151)',
+            'pig.ap.coa.pow': 'Pigouvian tax components per price unit by price fuel: air pollution (marginal damages '
+                              'of the fuel\'s subsectors weighted by base-year fuel use; residential coal only above '
+                              'ApCoalResMin of base-year buildings use), climate damage (national SCC x generic EF), road '
+                              'transport (base-year value x growth of the per-km costs)',
             'pigx.coa.pow': 'Pigouvian tax per price unit (phase-in x components; climate only if ClimateEffTax) and '
                             'gross new excise: fuel price reform + Pigouvian tax if AddEfficientTaxes (legacy rows '
                             '148-160, 205-215)',
@@ -3634,7 +3672,8 @@ R_CPR_NOTE = _r
 R_CPR['ecr'] = R_CPR_NOTE + 2           # v4.1: effective carbon rate, the section's summary row
 CPR_SUM = [('ecr', 'ecr', 'all', 'all')]
 # v9.0 (R1, Equations_addendum B): 17b. Inputs from air pollution and transport co-benefits (typed Egypt values on
-# sheet Inputs_cob; computed rows per scenario group). Sections 15 and 5b are the output blocks to the modules.
+# the module tabs FromAirPollution and FromTransportCB; computed rows per scenario group). Sections 15 and 5b are the
+# output blocks to the modules.
 COB_TYPED = [  # v9.0 (R1, T1, T3, T4): (data key after the country, source, values 2022-2041); Egypt, legacy 465
     # cached run (Equations_addendum_notes.md B.4; generated by r12_extract.py from l465.xlsb); 2041 = 2040 for AP
     ('airpol.cost|ind|coa', 'AP 3924 ($/GJ)',
@@ -3698,11 +3737,20 @@ COB_KAPPA = {  # v9.0 (R1, T2): effective PM2.5 concentration coefficient (ug/m3
     'oth': [5.25284e-05, 5.12222e-06, 0.0, 0.00140994, 0.00139007, 0.00140994, 0.0],
     'foo': [0.000682429, 6.6546e-05, 0.0, 0.0183175, 0.0180593, 0.0183175, 0.0],
 }
-COB_DATA = [k for k, *_x in COB_TYPED]
-ICOB_R0 = 5                              # Inputs_cob: year header in row 4, data rows from row 5
-ICOB_K0 = ICOB_R0 + len(COB_TYPED) + 4   # Inputs_cob: concentration coefficients (pollutants down, sectors across)
-COB_AP = [('coa', 'ind'), ('coa', 'res'), ('coa', 'pow'), ('nga', 'ind'), ('nga', 'res'), ('nga', 'pow'),
-          ('gso', 'all'), ('die', 'all'), ('lpg', 'all'), ('ker', 'all'), ('oop', 'pow'), ('oop', 'ind')]
+# v9.0 (PIGAP, user 2026-10-29): the typed values sit on two stand-alone module tabs (outputs of the modules that
+# Mitigation reads): FromAirPollution (value of averted PM2.5 T3, concentration coefficients T2, memo: legacy average
+# unit costs T1) and FromTransportCB (per-km costs T4); Inputs_cob retired
+AP_TYPED = [x for x in COB_TYPED if x[0] == 'air.vpm']                      # read by Mitigation (welfare, marginal costs)
+AP_MEMO = [x for x in COB_TYPED if x[0].startswith('airpol.cost')]          # memo: legacy average damages (I104 fixed)
+TCB_TYPED = [x for x in COB_TYPED if x[0].startswith('tran.')]              # per-km costs a, k, r
+FAP_V0 = 6                                         # FromAirPollution: value of PM2.5 (header row 5)
+FAP_K0 = FAP_V0 + len(AP_TYPED) + 4                # concentration coefficients by pollutant (sectors across)
+AP_EFP = [p for p, _l in AP_POLS]                  # pollutants of the emission factors (Inputs columns ap0_, ap1_)
+AP_EFCOLS = [f'ap{k}_{p}' for p in AP_EFP for k in (0, 1)]   # Inputs / Inputs_power EF columns, base and final
+FAP_E0 = FAP_K0 + len(APS_POLS) + 4                # coefficients per t of the EF pollutants (derived, read by section 1)
+FAP_M0 = FAP_E0 + 2 * len(AP_SECS) + 4             # memo: legacy average unit costs (T1, not read)
+FTC_R0 = 6                                         # FromTransportCB: per-km costs (header row 5)
+COB_AP = [(f, S) for f, S, _ss in AP_LINES]          # unit-cost lines (fuel x sector group; section 1 AP_LINES)
 COB_TRF = ['gso', 'die', 'lpg', 'nga', 'ecy']        # road fuels of the transport co-benefits (R1.7-R1.10)
 COB_FRE = ['die', 'lpg', 'nga', 'ecy']               # fuels with freight use (road damage)
 COB_GJ = ['gso', 'die', 'lpg']                       # per-GJ rows (R1.11; gas and electricity are not priced per litre)
@@ -3712,13 +3760,16 @@ TR_CLS_ROWS = {'gso': (5339, None, 5350), 'die': (5340, 5345, None), 'lpg': (534
                'nga': (5342, 5347, None), 'ecy': (5343, 5348, 5351)}                           # pas, fre, cyc
 TR_FE_ROW = {'gso': 5356, 'die': 5360, 'lpg': 5364, 'nga': 5368, 'ecy': 5373}                    # 5b fuel economy
 COB_BLOCKS = [
-    ('17b. Air-pollution cost per unit of fuel, typed (USD/GJ; gasoline, diesel, LPG, kerosene USD/l; sheet Inputs_cob; '
-     'legacy rows 17738-17749)', [(f'apct.{s_}.{f}', 'airpol.cost', f, s_) for f, s_ in COB_AP]),
+    ('17b. Air-pollution cost per unit of fuel: marginal damages of the subsectors of the line (section 1) weighted by '
+     'the scenario\'s own fuel use (USD/GJ; gasoline, diesel, LPG, kerosene USD/l; legacy rows 17738-17749 hold average '
+     'damages, I104 fixed)', [(f'apct.{s_}.{f}', 'airpol.cost', f, s_) for f, s_ in COB_AP]),
+    ('17b. Fuel use by subsector of the air-pollution cost lines (ktoe; the weights of the lines above, sections 5-8)',
+     [(f'fus.{f}.{S}.{x}', 'fus', f, x) for f, S, ss in AP_LINES if S != 'pow' for x in ss]),
     ('17b. Air-pollution cost per GJ (residential coal only above ApCoalResMin of buildings fuel use, bug L192 fixed)',
      [(f'apcg.{s_}.{f}', 'airpol.cost.gj', f, s_) for f, s_ in COB_AP]),
     ('17b. Fuel use by sector group (ktoe; weights of the costs per unit; sections 5-8)',
      [(f'fuq.{g}.{f}', 'fuq', f, g) for g in FUQ_GROUPS for f in FUQ_FUELS]),
-    ('17b. Modelled ambient PM2.5 by air-pollution module sector (ug/m3: coefficients of sheet Inputs_cob x emissions of '
+    ('17b. Modelled ambient PM2.5 by air-pollution module sector (ug/m3: coefficients of tab FromAirPollution x emissions of '
      'section 15; the total is the summary row) and value of averted PM2.5 (USD bn per ug/m3, typed)',
      [(f'apm.{m}', 'air.con.pm2', '', m) for m, _n in AP_SECS] + [('air.vpm', 'air.vpm', '', '')]),
     ('17b. Road transport external costs per vehicle-km (USD/km, typed; legacy Transport rows 185, 220, 232)',
@@ -3733,17 +3784,12 @@ COB_BLOCKS = [
      + [(f'trdm.{f}', 'tran.rdm.cost', f, 'all') for f in COB_FRE]),
     ('17b. Road transport external costs per GJ (USD/GJ)', [(f'taccg.{f}', 'tran.acc.gj', f, 'all') for f in COB_GJ]
      + [(f'tcong.{f}', 'tran.con.gj', f, 'all') for f in COB_GJ]
-     + [(f'trdmg.{f}', 'tran.rdm.gj', f, 'all') for f in COB_GJ if f != 'gso']),
-    ('17b. Pigouvian tax: road transport externalities per litre (USD/l; the values of scenario 1 are stored on sheet '
-     'BaselineCO2 for section 1)', [('pig.trs.gso', 'pig.trs', 'gso', 'rod'), ('pig.trs.die', 'pig.trs', 'die', 'rod')])]
+     + [(f'trdmg.{f}', 'tran.rdm.gj', f, 'all') for f in COB_GJ if f != 'gso'])]
 B_COB = R_CPR['ecr'] + 2                 # 17b (v9.0): one blank row before the band
 R_COB, R_COB_LAB, R_COB_HEAD, _r = layout_blocks(COB_BLOCKS, B_COB + 2)
 R_COB_NOTE = _r
 R_COB['air.con.pm2.mod'] = R_COB_NOTE + 2   # modelled ambient PM2.5: the section's summary row
 COB_SUM = [('air.con.pm2.mod', 'air.con.pm2', '', 'mod')]
-R3_STORE = [('apcr', 'apcg.res.coa', 'air-pollution cost of residential coal of scenario 1 (USD/GJ; Pigouvian tax)'),
-            ('trgso', 'pig.trs.gso', 'road transport externalities per litre of gasoline of scenario 1 (USD/l)'),
-            ('trdie', 'pig.trs.die', 'road transport externalities per litre of diesel of scenario 1 (USD/l)')]
 # v3.17: 18. Welfare and externalities (legacy F10, rows 17392-18157); v9.0: R2 social costs and benefits, full welfare,
 # subsidies and the efficient prices (R3.13-R3.22); the SCC options moved to section 1
 WDG_FUELS = [f for f, *_x in FUELS] + ['ecy']
@@ -3960,16 +4006,61 @@ VARIABLES = [
     ('pig.phi', 'Pigouvian tax: phase-in share', 'share', '',
      'MIN(MAX(year - CPIntro + 1, 0) / MAX(AddEfficientTaxesPhaseInYears, 1), 1) (R3.1)',
      'legacy row 146 (L195, L196 fixed)'),
-    ('pig.ap', 'Pigouvian tax component: air-pollution cost per price unit', 'USD per price unit', '',
-     'Typed cost of the fuel and sector (sheet Inputs_cob; other oil products: power cost x GJ per barrel, L194 '
-     'fixed); residential coal: scenario-1 value with the coal switch (sheet BaselineCO2); electricity, biomass 0 '
-     '(R3.4, issue I119)', 'legacy rows 113-123', 'data key (Inputs_cob)', 'factor (GJ per price unit)'),
+    ('pig.ap', 'Pigouvian tax component: air-pollution cost per price unit (marginal damages)', 'USD per price unit',
+     '', 'airpol.mc of the subsectors of the fuel and sector group weighted by base-year fuel use x GJ per price unit '
+     '(other oil products: power cost x GJ per barrel, L194 fixed); residential coal x [base-year coal > ApCoalResMin x '
+     'buildings use]; electricity, biomass 0 (R3.4, issue I119; v9.0 PIGAP: marginal, I104 fixed)', 'legacy rows '
+     '113-123', 'GJ per price unit', 'residential coal switch (base year)'),
+    ('pig.efw', 'Emission-factor path weight (EFEndYear factors), as section 15 ap.w', 'share', '',
+     'EFFinShare x (year - BaseYr) / (EFEndYear - BaseYr) (v9.0 PIGAP)', 'legacy rows 1052-1663 (EF path)'),
+    ('pig.vpm', 'Value of averted modelled ambient PM2.5 for the marginal damages', 'USD bn per ug/m3', '',
+     'FromAirPollution air.vpm of the year; 2022: 2023 (legacy has no change in PM2.5 in 2022, so no value) (v9.0 '
+     'PIGAP)', 'legacy AP rows 3217, 981, 1814'),
+    ('airpol.mc', 'Marginal air-pollution damage per GJ of the fuel in the subsector (power: by plant type)', 'USD/GJ',
+     '', 'pig.vpm x (D x (1 - pig.efw) + E x pig.efw) x Billion / PJperKtoe / Million: value of averted PM2.5 x '
+     'sum over pollutants of coefficient of the module sector x emission factor (v9.0 PIGAP; legacy average damages, '
+     'I104 fixed)', 'legacy AP rows 442-522, 974-981, 3217 (module); Mitigation rows 1052-1663 (EF)',
+     'ug/m3 per ktoe, base-year EF', 'ug/m3 per ktoe, EFEndYear EF', 'base-year fuel use (ktoe; weight)'),
+    ('pig.trk', 'Transport1 row of the country\'s base year', 'row', '', 'MATCH(country|BaseYr, Transport1 key) '
+     '(v9.0 PIGAP)', 'legacy rows 2017-2121 (data year)', 'row'),
+    ('pig.fe0', 'Base-year fuel economy of the road fuel (pas: passenger and light by ownership; all: with 2-3 '
+     'wheelers or freight by fuel share)', 'km/l', '', 'pas: (FE pas x own pas + FE light x own light) / (own pas + '
+     'own light) (legacy trfem); all: w x FE pas + (1 - w) x D, w = pig.wsh (legacy AVGFE with data shares) (v9.0 '
+     'PIGAP)', 'legacy rows 2034-2121, 5356, 5360', 'Transport1 value 1', 'Transport1 value 2', 'Transport1 value 3',
+     'Transport1 value 4'),
+    ('pig.wsh', 'Base-year passenger and light share of the road use of the fuel (Transport1 fuel shares; diesel '
+     'without buses)', 'share', '', 'gasoline: 1 - cycle share; diesel: 1 - freight / (1 - bus) (v9.0 PIGAP)',
+     'legacy rows 2017-2031; 15723-15730 (weights)', 'Transport1 share 1', 'Transport1 share 2'),
+    ('pig.mu0', 'Base-year driving share of the response of the fuel', 'share', '', '(D + w x E) / (F + w x G), w = '
+     'pig.wsh (gasoline: eps_U / (eps_U + eps_F)) (v9.0 PIGAP, R1.8)', 'legacy rows 15721-15730',
+     'eps_U diesel (gasoline: eps_U)', 'eps_U gasoline - diesel (gasoline: eps_F)', 'eps_U + eps_F diesel',
+     'eps_U + eps_F gasoline - diesel'),
+    ('pig.rsh0', 'Base-year road share of the fuel (subsector use)', 'share', '', 'base-year road use / base-year use '
+     'of all subsectors (Inputs; power use not counted) (v9.0 PIGAP)', 'legacy rows 15768-15786',
+     'road use (ktoe)', 'use of all subsectors (ktoe)'),
+    ('pig.kpl', 'Base-year driving-weighted km per litre of all use', 'km/l', '', 'pig.fe0 x pig.mu0 x pig.rsh0 (v9.0 '
+     'PIGAP)', 'legacy Transport rows 186-237 (factors)'),
+    ('pig.trg.acc', 'Growth of the accident cost per vehicle-km relative to the base year', 'ratio', '',
+     'a(year) / a(BaseYr) (FromTransportCB) (v9.0 PIGAP)', 'legacy Transport row 185', 'data key', 'row',
+     'base-year value (USD/km)'),
+    ('pig.trg.con', 'Growth of the congestion cost per vehicle-km relative to the base year', 'ratio', '',
+     'k(year) / k(BaseYr) (FromTransportCB) (v9.0 PIGAP)', 'legacy Transport row 220', 'data key', 'row',
+     'base-year value (USD/km)'),
+    ('pig.trg.rdm', 'Growth of the road damage cost per freight vehicle-km relative to the base year (constant)',
+     'ratio', '', 'r(year) / r(BaseYr) (FromTransportCB) (v9.0 PIGAP)', 'legacy Transport row 232', 'data key', 'row',
+     'base-year value (USD/km)'),
+    ('pig.trb.acc', 'Base-year accident cost per litre', 'USD/l', '', 'a(BaseYr) x pig.kpl (v9.0 PIGAP)',
+     'legacy Transport rows 322, 324 (base year)'),
+    ('pig.trb.con', 'Base-year congestion cost per litre', 'USD/l', '', 'k(BaseYr) x pig.kpl (v9.0 PIGAP)',
+     'legacy Transport rows 333, 335 (base year)'),
+    ('pig.trb.rdm', 'Base-year road damage cost per litre', 'USD/l', '', 'r(BaseYr) x pig.kpl x (1 - pig.wsh) (v9.0 '
+     'PIGAP)', 'legacy Transport row 344 (base year)'),
     ('cc.code', 'Pigouvian tax component: climate damage per price unit (national SCC x generic EF)',
      'USD per price unit', '', 'scc.nat x generic EF (tCO2/GJ, Inputs_ef, not calibrated) x GJ per price unit '
      '(R3.2-R3.3, issue I116)', 'legacy rows 136-142, 17678-17684', 'generic EF (tCO2/GJ)', 'GJ per price unit'),
-    ('pig.tr', 'Pigouvian tax component: road transport externalities per litre, scenario 1', 'USD per price unit', '',
-     'accidents + congestion (+ road damage for diesel) per litre of scenario 1 (section 17b, stored on sheet '
-     'BaselineCO2: the tax would otherwise read the fuel use it changes); 0 for other fuels (R3.5, issue I118)',
+    ('pig.tr', 'Pigouvian tax component: road transport externalities per litre (base-year value x growth)',
+     'USD per price unit', '', 'pig.trb.acc x pig.trg.acc + pig.trb.con x pig.trg.con (+ pig.trb.rdm x pig.trg.rdm '
+     'for diesel); 0 for other fuels (R3.5, issue I118; v9.0 PIGAP: proxy of scenario 1, issue I151)',
      'legacy rows 128-133 (Transport I322-I344)'),
     ('pigx', 'Pigouvian tax per price unit (before the AddEfficientTaxes switch)', 'USD per price unit', '',
      'pig.phi x (pig.ap + cc.code x [ClimateEffTax = Yes] + pig.tr) (R3.6)', 'legacy rows 148-160'),
@@ -4369,10 +4460,10 @@ VARIABLES = [
      '(modelled PM2.5 of scenario 1 - own) (R2.5); pct, cli, eff, air.pct, rod.pct = shares of gdp.usd',
      'legacy rows 17716-17727; v3.17'),
     # v9.0 (R1, Equations_addendum B): section 17b, inputs from air pollution and transport co-benefits
-    ('airpol.cost', 'Air-pollution cost per unit of fuel, typed (Egypt; coal, gas, other oil products USD/GJ; '
-     'gasoline, diesel, LPG, kerosene USD/l)', 'USD per unit', '', 'Sheet Inputs_cob (legacy 465 Air pollution sheet; '
-     '2041 = 2040, I112; L189-L191 fixed; average damages, I104) (R1.1)', 'legacy rows 17738-17749',
-     'data key (Inputs_cob)'),
+    ('airpol.cost', 'Air-pollution cost per unit of fuel, marginal damages (coal, gas, other oil products USD/GJ; '
+     'gasoline, diesel, LPG, kerosene USD/l)', 'USD per unit', '', 'airpol.mc of the subsectors of the line weighted by '
+     'the scenario\'s own fuel use (fus) x GJ per price unit (R1.1; v9.0 PIGAP: legacy average damages, I104 fixed; '
+     'the legacy values are a memo on FromAirPollution)', 'legacy rows 17738-17749', 'GJ per price unit'),
     ('airpol.cost.gj', 'Air-pollution cost per GJ (17b: by fuel and sector; 18: other uses, oil average)', 'USD/GJ', '',
      '17b: typed / GJ per litre (oil products); residential coal x [coal > ApCoalResMin x buildings fuel use] (L192 '
      'fixed); 18: use-weighted averages (L178 fixed) (R1.2-R1.3, R2.3)', 'legacy rows 17738-17753, 113-123',
@@ -4380,17 +4471,18 @@ VARIABLES = [
     ('fuq', 'Fuel use by sector group (weights of the costs per unit)', 'ktoe', '', 'SUMIFS of the subsector rows ener '
      'of the group', 'legacy rows 16849-16930'),
     ('air.con.pm2', 'Modelled ambient PM2.5 by air-pollution module sector (total: the summary row)', 'ug/m3', '',
-     'SUMPRODUCT(emissions of the sector (section 15), coefficients of the sector (Inputs_cob)) x tPerKt (R1.5)',
-     'legacy AP rows 974-981, 1814', 'sector position (Inputs_cob column)'),
+     'SUMPRODUCT(emissions of the sector (section 15), coefficients of the sector (FromAirPollution)) x tPerKt (R1.5)',
+     'legacy AP rows 974-981, 1814', 'sector position (FromAirPollution column)', 'first pollutant row',
+     'last pollutant row'),
     ('air.vpm', 'Value of averted modelled ambient PM2.5, typed', 'USD bn per ug/m3', '',
-     'Sheet Inputs_cob: legacy wel.air / change in modelled PM2.5 of the legacy run (R1.4; issue I105)',
-     'legacy AP rows 3217, 981, 1814', 'data key (Inputs_cob)'),
-    ('tran.acc.km', 'Accident cost per vehicle-km, typed', 'USD/km', '', 'Sheet Inputs_cob (R1.6)',
-     'legacy Transport row 185', 'data key (Inputs_cob)'),
-    ('tran.con.km', 'Congestion cost per vehicle-km, typed', 'USD/km', '', 'Sheet Inputs_cob (R1.6)',
-     'legacy Transport row 220', 'data key (Inputs_cob)'),
-    ('tran.rdm.km', 'Road damage cost per freight vehicle-km, typed', 'USD/km', '', 'Sheet Inputs_cob (R1.6; not '
-     'deflated, issue I111)', 'legacy Transport row 232', 'data key (Inputs_cob)'),
+     'Tab FromAirPollution: legacy wel.air / change in modelled PM2.5 of the legacy run (R1.4; issue I105)',
+     'legacy AP rows 3217, 981, 1814', 'data key (FromAirPollution)'),
+    ('tran.acc.km', 'Accident cost per vehicle-km, typed', 'USD/km', '', 'Tab FromTransportCB (R1.6)',
+     'legacy Transport row 185', 'data key (FromTransportCB)'),
+    ('tran.con.km', 'Congestion cost per vehicle-km, typed', 'USD/km', '', 'Tab FromTransportCB (R1.6)',
+     'legacy Transport row 220', 'data key (FromTransportCB)'),
+    ('tran.rdm.km', 'Road damage cost per freight vehicle-km, typed', 'USD/km', '', 'Tab FromTransportCB (R1.6; not '
+     'deflated, issue I111)', 'legacy Transport row 232', 'data key (FromTransportCB)'),
     ('tran.cls', 'Road fuel use by the vehicle classes of the fuel (passenger and freight; gasoline: passenger and 2-3 '
      'wheelers; electricity: all three)', 'bln liters or kWh', '', 'Section 5b class rows (engineer model, issue I100)',
      'legacy rows 15710-15721'),
@@ -4415,8 +4507,8 @@ VARIABLES = [
      'GJ per price unit'),
     ('tran.rdm.gj', 'Road damage cost per GJ', 'USD/GJ', '', 'tran.rdm.cost / GJ per liter (R1.11)', 'new',
      'GJ per price unit'),
-    ('pig.trs', 'Road transport externalities per litre for the Pigouvian tax (scenario 1 stored on sheet BaselineCO2)',
-     'USD/l', '', 'accidents + congestion (+ road damage, diesel) (R3.5)', 'legacy rows 128-133'),
+    ('fus', 'Fuel use of the subsector (weights of the air-pollution cost lines)', 'ktoe', '', 'ener of the '
+     'subsector and fuel (sections 5-8), scenario\'s own (v9.0 PIGAP)', 'legacy rows 16849-16930'),
     # v9.0 (R2): section 18, social costs and benefits, full welfare, subsidies
     ('cc.nat', 'Climate cost per GJ of fuel, national SCC', 'USD/GJ', '', 'scc.nat x generic EF (R2.1; L176 fixed)',
      'legacy rows 17678-17685', 'generic EF (tCO2/GJ)'),
@@ -6989,11 +7081,6 @@ def build_baseline_co2(wb):
         put(ws, f'A{BCO2_RAW + 1 + i}', f'{COUNTRY}|{j_}')
         put(ws, f'B{BCO2_RAW + 1 + i}', j_)
         put(ws, f'C{BCO2_RAW + 1 + i}', lab_[0].upper() + lab_[1:] + f' (Mitigation row {_k})')
-    for i, (j_, _k, lab_) in enumerate(R3_STORE):                     # v9.0 (R3): scenario-1 rows read by section 1
-        r_ = BCO2_RAW + 1 + len(CH4S_STORE) + i
-        put(ws, f'A{r_}', f'{COUNTRY}|{j_}')
-        put(ws, f'B{r_}', j_)
-        put(ws, f'C{r_}', lab_[0].upper() + lab_[1:] + f' (Mitigation section 17b row {_k})')
     ws.freeze_panes = 'D4'
 
 
@@ -8420,44 +8507,89 @@ def build_inputs_nc(wb):
         ws.column_dimensions[col].width = w
 
 
-def build_inputs_cob(wb):
-    """v9.0 (R1, Equations_addendum B): typed inputs from the air pollution and transport co-benefits modules (Egypt,
-    legacy 465 cached run; other countries: none, so the rows read 0 until the modules export them)."""
-    ws = wb.create_sheet('Inputs_cob')
-    title(ws, 'Inputs from the air pollution and transport co-benefits modules: typed values by country (data step; '
-              'Mitigation section 17b)', 2 + NY)
-    put(ws, 'A3', 'Typed from the legacy 465 Egypt run (Air pollution sheet: unit costs, value of averted PM2.5 and the '
-                  'effective concentration coefficients, options Manual-FASST, VSL Transfer, 3% discount; Transport '
-                  'sheet: external costs per vehicle-km); the air-pollution values of 2041 repeat 2040 (issue I112). '
-                  'Bright yellow: assumptions to be replaced by the modules\' own outputs (issues I104-I106).', FONT)
-    put(ws, f'A{ICOB_R0 - 1}', 'Key (country|data key)', FONT_B, F_INPUT)
-    put(ws, f'B{ICOB_R0 - 1}', 'Source (legacy row, unit)', FONT_B, F_INPUT)
+def _year_table(ws, r0, rows, head):
+    """v9.0 (PIGAP): a typed year table keyed by country|data key (bright yellow assumptions), header row r0 - 1."""
+    put(ws, f'A{r0 - 2}', head, FONT_B)
+    put(ws, f'A{r0 - 1}', 'Key (country|data key)', FONT_B, F_INPUT)
+    put(ws, f'B{r0 - 1}', 'Source (legacy row, unit)', FONT_B, F_INPUT)
     for j, y in enumerate([BASE_YEAR] + YEARS):
-        put(ws, f'{L(3 + j)}{ICOB_R0 - 1}', y, FONT_B, F_INPUT, '0')
-    for i, (k, src, vals) in enumerate(COB_TYPED):
-        r = ICOB_R0 + i
-        put(ws, f'A{r}', f'{COUNTRY}|{k}')
-        put(ws, f'B{r}', src)
+        put(ws, f'{L(3 + j)}{r0 - 1}', y, FONT_B, F_INPUT, '0')
+    for i, (k, src, vals) in enumerate(rows):
+        put(ws, f'A{r0 + i}', f'{COUNTRY}|{k}')
+        put(ws, f'B{r0 + i}', src)
         for j, v in enumerate(vals):
-            put(ws, f'{L(3 + j)}{r}', v, FONT_CHANGED, F_CHANGED, '0.000000')
-    k0 = ICOB_K0
-    put(ws, f'A{k0 - 2}', f'Effective PM2.5 concentration coefficients of {COUNTRY} (ug/m3 per t of emissions; legacy AP '
-                          'F442:F522 x I974:I980): pollutants (section 15 order) down, air-pollution module sectors '
-                          'across', FONT_B)
-    put(ws, f'A{k0 - 1}', 'Pollutant', FONT_B, F_INPUT)
+            put(ws, f'{L(3 + j)}{r0 + i}', v, FONT_CHANGED, F_CHANGED, '0.000000')
+
+
+def build_from_air_pollution(wb):
+    """v9.0 (PIGAP, user 2026-10-29): tab FromAirPollution, the outputs of the air pollution module that Mitigation
+    reads, keyed by country (Egypt only, typed from the legacy 465 run until the module writes them; other countries:
+    no row, so the Mitigation lookups give 0, issue I106): value of averted modelled PM2.5 (T3), effective PM2.5
+    concentration coefficients (T2) and, derived from them, the coefficients per t of the pollutants of the emission
+    factors (read by the marginal air-pollution costs of section 1); memo: legacy average unit costs (T1, not read)."""
+    ws = wb.create_sheet('FromAirPollution')
+    title(ws, 'FromAirPollution - outputs of the air pollution module that Mitigation reads (by country)', 2 + NY)
+    put(ws, 'A3', 'These are the outputs of the air pollution module that Mitigation reads (sections 1, 17b and 18); '
+                  'typed from legacy 465 (Egypt run: options Manual-FASST, VSL Transfer, 3% discount) until the module '
+                  'writes them. Bright yellow: typed assumptions. A country without rows here reads 0 (issue I106).',
+        FONT_NOTE)
+    _year_table(ws, FAP_V0, AP_TYPED, 'Value of averted modelled ambient PM2.5 (USD bn per ug/m3; legacy wel.air / '
+                                      'change in modelled PM2.5, AP 3217 / (AP 981 - AP 1814); 2041 = 2040, I112)')
+    k0 = FAP_K0
+    put(ws, f'A{k0 - 2}', 'Effective PM2.5 concentration coefficients (ug/m3 per t of emissions; legacy AP F442:F522 x '
+                          'I974:I980): pollutants of section 15 down, air-pollution module sectors across', FONT_B)
+    put(ws, f'A{k0 - 1}', 'Key (country|pollutant)', FONT_B, F_INPUT)
     put(ws, f'B{k0 - 1}', 'Label', FONT_B, F_INPUT)
     for j, (m, _n) in enumerate(AP_SECS):
         put(ws, f'{L(3 + j)}{k0 - 1}', m, FONT_B, F_INPUT)
     kp = ['so2', 'nox', 'pm2', 'bc', 'pom', 'opm', 'voc']
     for i, p_ in enumerate(APS_POLS):
         r = k0 + i
-        put(ws, f'A{r}', p_)
+        put(ws, f'A{r}', f'{COUNTRY}|{p_}')
         put(ws, f'B{r}', dict(AP_POLS + AP_PM).get(p_, p_.upper()))
         for j, (m, _n) in enumerate(AP_SECS):
             v = COB_KAPPA[m][kp.index(p_)] if p_ in kp else 0
             put(ws, f'{L(3 + j)}{r}', v, FONT_CHANGED, F_CHANGED, '0.000E+00')
+    e0 = FAP_E0
+    kap = lambda p_, j: f'{L(3 + j)}{k0 + APS_POLS.index(p_)}'      # the coefficient of the country above
+    put(ws, f'A{e0 - 2}', 'Coefficients per t of the pollutants of the emission factors (derived from the table above: '
+                          'other PM2.5 = PM2.5 - black carbon - PomPerOC x organic carbon; ug/m3 per t): key '
+                          'country|sector|0 for the base-year factors, |1 for the EFEndYear factors, columns as the '
+                          'Inputs emission-factor columns (read by the marginal air-pollution costs, Mitigation section 1)',
+        FONT_B)
+    put(ws, f'A{e0 - 1}', 'Key (country|sector|factor)', FONT_B, F_INPUT)
+    put(ws, f'B{e0 - 1}', 'Sector', FONT_B, F_INPUT)
+    for j, c_ in enumerate(AP_EFCOLS):
+        put(ws, f'{L(3 + j)}{e0 - 1}', c_, FONT_B, F_INPUT)
+    for jm, (m, nm) in enumerate(AP_SECS):
+        eff = {'pm2': f'={kap("opm", jm)}', 'nox': f'={kap("nox", jm)}', 'so2': f'={kap("so2", jm)}',
+               'voc': f'={kap("voc", jm)}', 'bc': f'={kap("bc", jm)}-{kap("opm", jm)}',
+               'oc': f'=PomPerOC*({kap("pom", jm)}-{kap("opm", jm)})', 'co': f'={kap("co", jm)}'}
+        for k in (0, 1):
+            r = e0 + 2 * jm + k
+            put(ws, f'A{r}', f'{COUNTRY}|{m}|{k}')
+            put(ws, f'B{r}', nm + (' (base-year factors)' if k == 0 else ' (EFEndYear factors)'))
+            for j, c_ in enumerate(AP_EFCOLS):
+                put(ws, f'{L(3 + j)}{r}', eff[c_[4:]] if int(c_[2]) == k else 0, FONT, None, '0.000E+00')
+    _year_table(ws, FAP_M0, AP_MEMO, 'Memo (not read by Mitigation): legacy air-pollution cost per unit of fuel, '
+                                     'average damages (USD/GJ; gasoline, diesel, LPG, kerosene USD/l; AP sheet, L189-L191 '
+                                     'fixed): Mitigation uses marginal damages (section 1, I104 fixed)')
     ws.column_dimensions['A'].width = 26
     ws.column_dimensions['B'].width = 40
+
+
+def build_from_transport_cb(wb):
+    """v9.0 (PIGAP, user 2026-10-29): tab FromTransportCB, the outputs of the transport co-benefits module that
+    Mitigation reads (per-km costs, T4), keyed by country (Egypt only, typed from legacy 465)."""
+    ws = wb.create_sheet('FromTransportCB')
+    title(ws, 'FromTransportCB - outputs of the transport co-benefits module that Mitigation reads (by country)',
+          2 + NY)
+    put(ws, 'A3', 'These are the outputs of the transport co-benefits module that Mitigation reads (sections 1 and 17b); '
+                  'typed from legacy 465 (Transport sheet, Egypt run) until the module writes them. Bright yellow: typed '
+                  'assumptions. A country without rows here reads 0 (issue I106).', FONT_NOTE)
+    _year_table(ws, FTC_R0, TCB_TYPED, 'Road transport external costs per vehicle-km (USD/km; road damage per freight '
+                                       'vehicle-km, not deflated, issue I111)')
+    ws.column_dimensions['A'].width = 26
 
 
 # v4.7: power data of the country (data step) from the legacy Power, CoC, Balances, WEO and GHGs tabs, as legacy
@@ -10005,10 +10137,17 @@ def defined_names():
         'EFGen': f'Inputs_ef!${IEF_COL["ef"]}${IEF_G0}:${IEF_COL["ef"]}${IEF_G0 + len(EF_GEN) - 1}',
         **{n_: f'Inputs_nc!${INC_COL[k_]}${INC_R0}:${INC_COL[k_]}${INC_R0 + len(NC_ROWS) - 1}'   # v9.0 (EF465)
            for n_, k_ in (('NCEfKey', 'key'), ('NCEfIn', 'in'), ('NCEfFin', 'fin'))},
-        'CobKey': f'Inputs_cob!$A${ICOB_R0}:$A${ICOB_R0 + len(COB_DATA) - 1}',        # v9.0 (R1): typed Egypt values
-        'CobVal': f'Inputs_cob!$C${ICOB_R0}:${L(2 + NY)}${ICOB_R0 + len(COB_DATA) - 1}',
-        'CobYear': f'Inputs_cob!$C${ICOB_R0 - 1}:${L(2 + NY)}${ICOB_R0 - 1}',
-        'CobKap': f'Inputs_cob!$C${ICOB_K0}:${L(2 + len(AP_SECS))}${ICOB_K0 + len(APS_POLS) - 1}',
+        # v9.0 (PIGAP): module tabs of typed outputs, keyed by country (were Cob* on Inputs_cob)
+        'ApKey': f'FromAirPollution!$A${FAP_V0}:$A${FAP_V0 + len(AP_TYPED) - 1}',
+        'ApVal': f'FromAirPollution!$C${FAP_V0}:${L(2 + NY)}${FAP_V0 + len(AP_TYPED) - 1}',
+        'ApYear': f'FromAirPollution!$C${FAP_V0 - 1}:${L(2 + NY)}${FAP_V0 - 1}',
+        'ApKapKey': f'FromAirPollution!$A${FAP_K0}:$A${FAP_K0 + len(APS_POLS) - 1}',
+        'ApKap': f'FromAirPollution!$C${FAP_K0}:${L(2 + len(AP_SECS))}${FAP_K0 + len(APS_POLS) - 1}',
+        'ApEfKey': f'FromAirPollution!$A${FAP_E0}:$A${FAP_E0 + 2 * len(AP_SECS) - 1}',
+        'ApEf': f'FromAirPollution!$C${FAP_E0}:${L(2 + len(AP_EFCOLS))}${FAP_E0 + 2 * len(AP_SECS) - 1}',
+        'TcbKey': f'FromTransportCB!$A${FTC_R0}:$A${FTC_R0 + len(TCB_TYPED) - 1}',
+        'TcbVal': f'FromTransportCB!$C${FTC_R0}:${L(2 + NY)}${FTC_R0 + len(TCB_TYPED) - 1}',
+        'TcbYear': f'FromTransportCB!$C${FTC_R0 - 1}:${L(2 + NY)}${FTC_R0 - 1}',
         'VatGen': f'Inputs_prices!${IPC["vry" + str(BASE_YEAR)]}${IP_VATW}',     # v9.0: VAT_WEO of the base year
         'CtryReg': 'Settings!$C$43',
         **{n_: f'SUMPRODUCT(INDEX(EnergyCons!$E$4:$X$6000,MATCH(LOWER(Settings!$C$4)&".mit.enc.{f_}",EnergyCons!$A$4:$A$6000,0),0)'
@@ -10948,21 +11087,81 @@ def lam_or_plain(name, args, use_lambda):
 
 PIG_ECPS = {'gso': 'trs', 'die': 'trs', 'lpg': 'res', 'ker': 'res', 'oop': 'ind', 'bio': 'res'}   # ECP sector of
 # an all-sector price block (the sector of the block otherwise; v9.0, R3.8)
-PIG_STORE = {('pig.ap', 'coa.res'): 'apcr', ('pig.tr', 'gso.all'): 'trgso', ('pig.tr', 'die.all'): 'trdie'}   # keys
-# of the scenario-1 values stored on sheet BaselineCO2 (17b rows of scenario 1, R3_STORE)
 POL_KIND = {p_[0]: p_[4] for p_ in POL}
+TR1_BASE = {'pig.fe0.gso.pas':['fuel economy gasoline passenger', 'fuel economy light', 'ownership passenger',
+                                  'ownership light'],
+            'pig.fe0.die.pas': ['fuel economy diesel passenger', 'fuel economy light', 'ownership passenger',
+                                'ownership light'],
+            'pig.wsh.gso': ['share of gasoline for cycle'], 'pig.wsh.die': ['share of diesel for bus',
+                                                                            'share of diesel for freight'],
+            'pig.fe0.gso': ['fuel economy gasoline cycle'], 'pig.fe0.die': ['fuel economy diesel freight']}   # v9.0
+# (PIGAP): Transport1 variables of the base year in D:G of the Pigouvian transport rows (legacy rows 2017-2121)
+
+
+def _ap_line(f, S):
+    """v9.0 (PIGAP): section-1 rows (first, last) of the marginal air-pollution costs of a unit-cost line."""
+    ss = next(x for f_, S_, x in AP_LINES if (f_, S_) == (f, S))
+    return R_POL[f'apmc.{f}.{S}.{ss[0]}'], R_POL[f'apmc.{f}.{S}.{ss[-1]}']
+
+
+def _in_row(s_, f):
+    """Inputs row of subsector s_ and fuel f (key fuel|subsector, subsector blocks of NF fuels)."""
+    return IN_R0 + [x[0] for x in SUBSECTORS].index(s_) * NF + [x[0] for x in FUELS].index(f)
 
 
 def pig_dg(key, r):
     """v9.0 (R3): D:G of the section-1 rows of the Pigouvian tax (None = empty)."""
+    if key.startswith('apmc.'):              # PIGAP: base-year and EFEndYear coefficient x EF sums, base-year use
+        _a, f, S, s_ = key.split('.')
+        m = AP_POW_MOD[f] if s_ == 'pow' else AP_MOD_OF.get(s_, 'oth')
+        if s_ == 'pow':
+            i = IPW_R0 + [t for t, _n in PW_TECH].index(f)
+            ef = f'Inputs_power!${IPWC[AP_EFCOLS[0]]}${i}:${IPWC[AP_EFCOLS[-1]]}${i}'
+            w = 1
+        else:
+            i = _in_row(s_, f)
+            ef = f'Inputs!${IC[AP_EFCOLS[0]]}${i}:${IC[AP_EFCOLS[-1]]}${i}'
+            w = f'=Inputs!${IC["f0"]}${i}'
+        k_ = lambda k: f'=IFERROR(SUMPRODUCT(INDEX(ApEf,MATCH(CtryCode&"|{m}|{k}",ApEfKey,0),0),{ef}),0)'
+        return [k_(0), k_(1), w]
+    if key == 'pig.trk':                     # Transport1 row of the country's base year
+        return ['=IFERROR(MATCH(CtryCode&"|"&BaseYr,TrKey,0),0)']
+    if key in TR1_BASE:
+        t = R_POL['pig.trk']
+        return [f'=IF($D${t}=0,0,INDEX(TrVal,$D${t},MATCH("{v_}",TrVar,0))+0)' for v_ in TR1_BASE[key]]
+    if key.startswith('pig.mu0.'):           # road usage and efficiency elasticities (Inputs, road rows)
+        u = lambda f: f'Inputs!${IC["eU"]}${_in_row("rod", f)}'
+        e = lambda f: f'Inputs!${IC["eF"]}${_in_row("rod", f)}'
+        if key.endswith('gso'):
+            return [f'={u("gso")}', f'={e("gso")}']
+        return [f'={u("die")}', f'={u("gso")}-{u("die")}', f'={u("die")}+{e("die")}',
+                f'={u("gso")}+{e("gso")}-{u("die")}-{e("die")}']
+    if key.startswith('pig.rsh0.'):          # base-year road use and use of all subsectors (Inputs f0)
+        f = key.split('.')[2]
+        c = IC['f0']
+        return [f'=Inputs!${c}${_in_row("rod", f)}',
+                f'=SUMIF(Inputs!${IC["fuel"]}${IN_R0}:${IC["fuel"]}${IN_R1},"{f}",Inputs!${c}${IN_R0}:${c}${IN_R1})']
+    if key.startswith('pig.trg.'):           # per-km cost: data key, row on FromTransportCB, base-year value
+        return [f'|tran.{key.split(".")[2]}.km', f'=IFERROR(MATCH(CtryCode&$D{r},TcbKey,0),0)',
+                f'=IF($E{r}=0,0,INDEX(TcbVal,$E{r},MATCH(BaseYr,TcbYear,0)))']
+    if key in PIGM_KEYS:
+        return None
     v, pc = key.rsplit('.', 2)[0], '.'.join(key.rsplit('.', 2)[1:])
     fu, sec = pc.split('.')
     gj = f'=$F{prow("pset", pc)}' if pc in PV_BLOCK else None          # GJ per price unit of the block
     ef = f'=IFERROR(INDEX(EFGen,MATCH($B{r},EFGenKey,0)),0)'
-    if v == 'pig.ap':
-        typed = fu in ('coa', 'nga', 'gso', 'die', 'lpg', 'ker', 'oop') and (v, pc) not in PIG_STORE
-        return [f'|airpol.cost|{"pow" if fu == "oop" else sec}|{fu}' if typed else None,
-                gj if fu == 'oop' else (1 if typed else None)]
+    if v == 'pig.ap':                        # PIGAP: D GJ per price unit (coal, gas 1); E residential coal switch
+        if fu not in ('coa', 'nga', 'gso', 'die', 'lpg', 'ker', 'oop'):
+            return None
+        d = gj if fu in ('gso', 'die', 'lpg', 'ker', 'oop') else 1
+        if pc != 'coa.res':
+            return [d]
+        a, b = _ap_line('coa', 'res')
+        c = IC['f0']
+        bld = [x[0] for x in SUBSECTORS if x[2] == 'bld']
+        tot = f'Inputs!${c}${_in_row(bld[0], FUELS[0][0])}:${c}${_in_row(bld[-1], FUELS[-1][0])}'
+        assert _in_row(bld[-1], FUELS[-1][0]) - _in_row(bld[0], FUELS[0][0]) == len(bld) * NF - 1
+        return [d, f'=--(SUM($F${a}:$F${b})>ApCoalResMin*SUM({tot}))']
     if v == 'cc.code':
         return [ef if gj else None, gj]
     if v == 'xcpb':
@@ -10982,6 +11181,41 @@ def pig_calc(key, col, is_base):
     r = R_POL[key]
     if key == 'pig.phi':                     # R3.1 (L195, L196 fixed: every year from CPIntro, no #DIV/0!)
         return f'=MIN(MAX({y}-{c("CPIntro")}+1,0)/MAX({c("AddEfficientTaxesPhaseInYears")},1),1)'
+    if key == 'pig.efw':                     # PIGAP: emission-factor path weight, as section 15 ap.w (inputs only)
+        return f'=EFFinShare*({y}-BaseYr)/(EFEndYear-BaseYr)'
+    if key == 'pig.vpm':                     # PIGAP: value of averted PM2.5; 2022 (no change in legacy) takes 2023
+        return f'=IFERROR(INDEX(ApVal,MATCH(CtryCode&"|air.vpm",ApKey,0),MATCH(MAX({y},BaseYr+1),ApYear,0)),0)'
+    if key.startswith('apmc.'):              # PIGAP: USD bn per ug/m3 x ug/m3 per ktoe -> USD/GJ
+        w = c('pig.efw')
+        return f'={c("pig.vpm")}*($D{r}*(1-{w})+$E{r}*{w})*Billion/PJperKtoe/Million'
+    if key == 'pig.trk':
+        return f'=$D{r}'
+    if key.startswith('pig.fe0.') and key.endswith('.pas'):   # ownership mix of passenger and light (legacy trfem)
+        return f'=IF($F{r}+$G{r}=0,$D{r},($D{r}*$F{r}+$E{r}*$G{r})/($F{r}+$G{r}))'
+    if key == 'pig.wsh.gso':                 # passenger and light share of gasoline (2-3 wheelers the rest)
+        return f'=1-$D{r}'
+    if key == 'pig.wsh.die':                 # passenger and light share of diesel without buses (as legacy w_f)
+        return f'=IF($D{r}>=1,0,1-$E{r}/(1-$D{r}))'
+    if key.startswith('pig.fe0.'):           # base-year average fuel economy by class share (legacy AVGFE)
+        f = key.split('.')[2]
+        w = rel(f'pig.wsh.{f}')
+        return f'={w}*{rel(f"pig.fe0.{f}.pas")}+(1-{w})*$D{r}'
+    if key == 'pig.mu0.gso':                 # driving share of the response (R1.8, w = 1)
+        return f'=IF($D{r}+$E{r}=0,0,$D{r}/($D{r}+$E{r}))'
+    if key == 'pig.mu0.die':
+        w = rel('pig.wsh.die')
+        return f'=IFERROR(($D{r}+{w}*$E{r})/($F{r}+{w}*$G{r}),0)'
+    if key.startswith('pig.rsh0.'):
+        return f'=IF($E{r}=0,0,$D{r}/$E{r})'
+    if key.startswith('pig.kpl.'):           # driving-weighted km per litre of the base year
+        f = key.split('.')[2]
+        return '=' + '*'.join(rel(f'pig.{k}.{f}') for k in ('fe0', 'mu0', 'rsh0'))
+    if key.startswith('pig.trg.'):           # growth of the per-km cost relative to the base year
+        return f'=IF($F{r}=0,0,INDEX(TcbVal,$E{r},MATCH({y},TcbYear,0))/$F{r})'
+    if key.startswith('pig.trb.'):           # base-year value per litre: base-year per-km cost x km per litre
+        _p, _t, k, f = key.split('.')
+        base = f'=$F${R_POL["pig.trg." + k]}*{rel("pig.kpl." + f)}'
+        return base + (f'*(1-{rel("pig.wsh." + f)})' if k == 'rdm' else '')   # road damage: freight share
     if key == 'scc.man':
         return f'=INDEX(SCCManVal,MATCH({y},SCCManYear,0))'   # v5.2 (L103 fixed): Manual inputs row 237
     if key in ('scc.nat', 'scc.glo'):
@@ -10990,12 +11224,22 @@ def pig_calc(key, col, is_base):
         opts = ','.join(rel(f'scc.{k}') for k in ('tgt', 'rkn' if fu == 'nat' else 'rkg', 'man', 'epa'))
         return f'=CHOOSE(MATCH(LEFT({src},1),{{"T","R","M","U","E"}},0),{opts},{opts.split(",")[-1]})'
     v, pc = key.rsplit('.', 2)[0], '.'.join(key.rsplit('.', 2)[1:])
-    if (v, pc) in PIG_STORE:                 # stored values of scenario 1 (no fuel-use row read here)
-        return f'=INDEX(BaseCO2Val,MATCH(CtryCode&"|{PIG_STORE[(v, pc)]}",BaseCO2Key,0),MATCH({y},BaseCO2Year,0))'
-    if v == 'pig.ap':                        # R3.4: typed AP cost (L194 fixed: oil x GJ per barrel); 0 elsewhere
-        return f'=IFERROR(INDEX(CobVal,MATCH(CtryCode&$D{r},CobKey,0),MATCH({y},CobYear,0)),0)*$E{r}'
-    if v == 'pig.tr':                        # R3.5: only gasoline and diesel (issue I118)
-        return '=0'
+    if v == 'pig.ap':                        # R3.4 with marginal damages (PIGAP, I104 fixed): base-year weights
+        fu, sec = pc.split('.')
+        if fu not in ('coa', 'nga', 'gso', 'die', 'lpg', 'ker', 'oop'):
+            return '=0'                      # electricity (issue I119), biomass
+        a, b = _ap_line(fu, 'pow' if fu == 'oop' else sec)   # other oil products: power cost x GJ per barrel (L194)
+        sw = f'*$E{r}' if pc == 'coa.res' else ''
+        if a == b:
+            return f'={col}{a}*$D{r}'
+        return (f'=IFERROR(SUMPRODUCT({col}{a}:{col}{b},$F${a}:$F${b})/SUM($F${a}:$F${b}),'
+                f'AVERAGE({col}{a}:{col}{b}))*$D{r}{sw}')
+    if v == 'pig.tr':                        # R3.5: only gasoline and diesel (issue I118); PIGAP: base x growth
+        fu = pc.split('.')[0]
+        if fu not in ('gso', 'die'):
+            return '=0'
+        ks = ['acc', 'con'] + (['rdm'] if fu == 'die' else [])
+        return '=' + '+'.join(f'{rel(f"pig.trb.{k}.{fu}")}*{rel("pig.trg." + k)}' for k in ks)
     if v == 'cc.code':                       # R3.2-R3.3: national SCC x generic EF x GJ per price unit
         return f'={c("scc.nat")}*$D{r}*$E{r}'
     if v == 'pigx':                          # R3.6
@@ -11384,7 +11628,7 @@ def build_mitigation(wb):
     band(ws, B_POL, '1. Policies', last)
     keys = [k[0] for k in POL]
     with_dg = ({k for k, *_r, mt in POL if mt} | set(POL_PARAMS) | {k for k in keys if k.startswith('ctr.')}
-               | {k for k in keys if k.rsplit('.', 2)[0] in PIG_VARS and pig_dg(k, 0)})   # v9.0: Pigouvian rows with D:G
+               | {k for k in keys if (k.rsplit('.', 2)[0] in PIG_VARS or k in PIGM_KEYS) and pig_dg(k, 0)})
     for key, var, fuel, sector, kind, mt in POL:
         r = R_POL[key]
         if SUBHEADS.get(key):                # sub-heading = label row of the group: D:G of its first row with D:G
@@ -11405,7 +11649,7 @@ def build_mitigation(wb):
             put(ws, f'D{r}', f'=INDEX(MTRowNum,MATCH($A{r}&"|"&$B{r}&"|"&$C{r},MTRowKey,0))', FONT, None, '0')
         for pc_, k_ in zip(PARAM_COLS, POL_PARAMS.get(key, ())):     # v4.2: Mapping table of coverage sectors
             put(ws, f'{pc_}{r}', COV_LOOKUP[k_].format(r=r), FONT, None, '0.0000000' if pc_ == 'E' else '0')
-        if kind == 'plain' and key.rsplit('.', 2)[0] in PIG_VARS:   # v9.0 (R3): parameters of the Pigouvian rows
+        if kind == 'plain' and (key.rsplit('.', 2)[0] in PIG_VARS or key in PIGM_KEYS):   # v9.0 (R3): parameters
             for pc_, v_ in zip(PARAM_COLS, pig_dg(key, r) or ()):
                 if v_ is not None:
                     put(ws, f'{pc_}{r}', v_, FONT, None, '@' if str(v_).startswith('|') else '0.0000')
@@ -11444,6 +11688,8 @@ def build_mitigation(wb):
                 fmt = 'General'
             if var in ('bco2', 'ets.bce', 'ets.cap', 'ch4bs'):
                 fmt = '#,##0.000'
+            elif key in PIGM_KEYS or var in ('pig.ap', 'pig.tr'):   # v9.0 (PIGAP): small unit costs and shares
+                fmt = '0.0000'
             elif var == 'ets.se':
                 fmt = '0.0000000'
             put(ws, f'{col}{r}', val, FONT_LAMBDA if lam else fnt,
@@ -11602,9 +11848,11 @@ def build_mitigation(wb):
                     q = lambda k: f'{col}{R_PIX[("pavl." + k, f_)]}'
                     a = (f'{col}{prow("rpn", f_ + ".res")}', q('qr'), f'{col}{prow("rpn", f_ + ".ind")}', q('qi'),
                          q('pp'), q('qp'), lv('pav.uv'))
+                    rq = [R_PIX[(f'pavl.{k}', f_)] for k in ('qr', 'qi', 'qp')]   # v9.0 (PIGAP): SUM of the
+                    qs = (f'SUM({q("qr")}:{q("qp")})' if rq == list(range(rq[0], rq[0] + 3))   # consecutive quantity
+                          else f'({a[1]}+{a[3]}+{a[5]})')                    # rows (4-digit rows: 100 characters)
                     f = '=' + (call('LEGAVG', *a) if lam else
-                               f'IF({a[1]}+{a[3]}+{a[5]}=0,{a[6]},({a[0]}*{a[1]}+{a[2]}*{a[3]}+{a[4]}*{a[5]})'
-                               f'/({a[1]}+{a[3]}+{a[5]}))')
+                               f'IF({qs}=0,{a[6]},({a[0]}*{a[1]}+{a[2]}*{a[3]}+{a[4]}*{a[5]})/{qs})')
                     fmt = '0.00'
                 elif v_ == 'pav.leg' and f_ in PAVL_OIL:  # legacy: the single retail price of the fuel
                     a = (f'{col}{prow("rpn", f_ + ".all")}',)
@@ -12933,9 +13181,21 @@ def build_mitigation(wb):
     def c17b(col, r, key, var, fu, sec, is_base, lam):
         cur = lambda k: f'{col}{R_COB[k]}'
         trr = lambda k: f'{col}{R_TR[k]}'
-        if var in ('airpol.cost', 'air.vpm', 'tran.acc.km', 'tran.con.km', 'tran.rdm.km'):   # R1.1, R1.4, R1.6 (typed)
-            return (f'=IFERROR(INDEX(CobVal,MATCH(CtryCode&$D{r},CobKey,0),MATCH({col}${R_YEAR},CobYear,0)),0)',
+        if var == 'air.vpm':                 # R1.4 (typed, tab FromAirPollution)
+            return f'=IFERROR(INDEX(ApVal,MATCH(CtryCode&$D{r},ApKey,0),MATCH({col}${R_YEAR},ApYear,0)),0)', '0.0000'
+        if var in ('tran.acc.km', 'tran.con.km', 'tran.rdm.km'):   # R1.6 (typed, tab FromTransportCB)
+            return (f'=IFERROR(INDEX(TcbVal,MATCH(CtryCode&$D{r},TcbKey,0),MATCH({col}${R_YEAR},TcbYear,0)),0)',
                     '0.0000')
+        if var == 'airpol.cost':             # R1.1 with marginal damages (v9.0 PIGAP, I104 fixed): line average of
+            a, b = _ap_line(fu, sec)         # the section-1 subsector costs, weighted by the scenario's own use
+            if a == b:                       # power: one cost per fuel
+                return f'={col}{a}*$D{r}', '0.0000'
+            ss = next(x for f_, S_, x in AP_LINES if (f_, S_) == (fu, sec))
+            q0, q1 = cur(f'fus.{fu}.{sec}.{ss[0]}'), cur(f'fus.{fu}.{sec}.{ss[-1]}')
+            return (f'=IFERROR(SUMPRODUCT({col}{a}:{col}{b},{q0}:{q1})/SUM({q0}:{q1}),AVERAGE({col}{a}:{col}{b}))'
+                    f'*$D{r}', '0.0000')
+        if var == 'fus':                     # fuel use of the subsector (section 5-8 ener row), own scenario
+            return f'={col}{SUB_HEAD[sec] + VOFF["ener"] + fk[fu]}', '#,##0.0'
         if var == 'airpol.cost.gj':          # R1.2-R1.3
             src = cur(f'apct.{sec}.{fu}')
             if (fu, sec) == ('coa', 'res'):  # L192 fixed: residential coal / buildings fuel use of the year
@@ -12947,8 +13207,9 @@ def build_mitigation(wb):
         if var == 'air.con.pm2' and sec == 'mod':   # R1.5: total over the module sectors
             return f'=SUM({cur("apm." + AP_SECS[0][0])}:{cur("apm." + AP_SECS[-1][0])})', '#,##0.00'
         if var == 'air.con.pm2':             # R1.5: coefficients (pollutant column of the sector) x emissions (t)
-            a, z = R_AP[f'aps.{APS_POLS[0]}.{sec}'], R_AP[f'aps.{APS_POLS[-1]}.{sec}']
-            return f'=SUMPRODUCT({col}{a}:{col}{z},INDEX(CobKap,0,$D{r}))*tPerKt', '#,##0.00'
+            a, z = R_AP[f'aps.{APS_POLS[0]}.{sec}'], R_AP[f'aps.{APS_POLS[-1]}.{sec}']   # E, F: the country's rows
+            return (f'=IF($E{r},SUMPRODUCT({col}{a}:{col}{z},INDEX(ApKap,$E{r},$D{r}):INDEX(ApKap,$F{r},$D{r}))'
+                    f'*tPerKt,0)', '#,##0.00')
         pas, fre, cyc = TR_CLS_ROWS[fu]
         if var == 'tran.cls':                # class use of the engineer model (5b), own scenario
             return '=' + '+'.join(trr(k) for k in (pas, fre, cyc) if k), '0.000'
@@ -12968,22 +13229,20 @@ def build_mitigation(wb):
             return '=' + '*'.join(parts), '0.0000'
         if var in ('tran.acc.gj', 'tran.con.gj', 'tran.rdm.gj'):         # R1.11
             return f'={cur("t" + var.split(".")[1] + "." + fu)}/$D{r}', '0.0000'
-        if var == 'pig.trs':                 # R3.5 terms (accidents + congestion, diesel + road damage)
-            ks = ['tacc', 'tcon'] + (['trdm'] if fu == 'die' else [])
-            return '=' + '+'.join(cur(f'{k}.{fu}') for k in ks), '0.0000'
         raise ValueError(key)
     sub_blocks(COB_BLOCKS + [(None, COB_SUM)], R_COB, R_COB_LAB, R_COB_HEAD, c17b)
     for key, var, fu, sec in [x for _h, rows_ in COB_BLOCKS for x in rows_]:   # parameters (D:G)
         r = R_COB[key]
         vals = []
-        if var == 'airpol.cost':
-            vals = [f'|airpol.cost|{sec}|{fu}']
+        if var == 'airpol.cost':             # v9.0 (PIGAP): GJ per price unit (USD/GJ -> USD/l for oil products)
+            vals = [f'=$F{prow("pset", fu + ".all")}' if sec == 'all' else 1]
         elif var in ('air.vpm', 'tran.acc.km', 'tran.con.km', 'tran.rdm.km'):
             vals = [f'|{var}']
         elif var == 'airpol.cost.gj':
             vals = [f'=$F{prow("pset", fu + ".all")}' if sec == 'all' else 1]
-        elif var == 'air.con.pm2':
-            vals = [[m for m, _n in AP_SECS].index(sec) + 1]
+        elif var == 'air.con.pm2':           # sector column; first and last pollutant row of the country
+            vals = [[m for m, _n in AP_SECS].index(sec) + 1] + [
+                f'=IFERROR(MATCH(CtryCode&"|{p_}",ApKapKey,0),0)' for p_ in (APS_POLS[0], APS_POLS[-1])]
         elif var == 'tran.mrg':
             ug, ud, fg, fd = (TRC(k) for k in ('eldg', 'eldd', 'elfg', 'elfd'))
             vals = [f'={ud}', f'={ug}-{ud}', f'={ud}+{fd}', f'={ug}+{fg}-{ud}-{fd}']
@@ -12992,13 +13251,15 @@ def build_mitigation(wb):
         for pc_, v_ in zip(PARAM_COLS, vals):
             put(ws, f'{pc_}{r}', v_, FONT, None, '@' if str(v_).startswith('|') else '0.0000')
     put(ws, f'H{R_COB_NOTE}', 'Inputs from the air pollution and transport co-benefits modules (v9.0, R1): typed '
-                              'Egypt values of the legacy 465 run (sheet Inputs_cob; other countries 0 until the '
-                              'modules export them, issue I106) and the rows computed from this model: costs per GJ, '
+                              'Egypt values of the legacy 465 run (tabs FromAirPollution and FromTransportCB; other '
+                              'countries 0 until the modules export them, issue I106) and the rows computed from this '
+                              'model: air-pollution costs per unit as marginal damages (section 1, by subsector, '
+                              'weighted by the scenario\'s own fuel use; I104 fixed), costs per GJ, '
                               'modelled ambient PM2.5 from the emissions of section 15 (summary row), transport costs '
                               'per litre from the engineer road model of section 5b whatever TrModel is (issue I100), '
                               'with the passenger weights of scenario 1 (issue I111) and the road share of the '
-                              'switched model. The unit air-pollution costs are average damages (issue I104): the '
-                              'welfare uses the value of averted PM2.5 instead (I105).', FONT_NOTE)
+                              'switched model. The welfare uses the value of averted PM2.5 x the change in modelled '
+                              'PM2.5 (I105).', FONT_NOTE)
 
     # 18. Welfare and externalities (v3.17; v9.0: R2, R3.13-R3.22): Methods, chapter Macro and results
     NEW18 = {k for _h, rows_ in WEL_BLOCKS[5:] for k, *_x in rows_} - {'wel.pct', 'wel.cli', 'wel.eff'}
@@ -13496,8 +13757,7 @@ def fast_batch(wb, log=print, sessions=LO_SESSIONS):
                            for num, name, run, _e in DEFINITIONS if run == 'Yes']      # None: the baseline
     spec = {'first': [('Settings', 26, 3, 29, 3)] + [('Mitigation', R_EMI[f'co2.sec.{x}'], c0, R_EMI[f'co2.sec.{x}'], c1)
                                                        for x in COV_SECTORS]
-                     + [('Mitigation', R_GHG[k_], c0, R_GHG[k_], c1) for _j, k_, _l in CH4S_STORE]
-                     + [('Mitigation', R_COB[k_], c0, R_COB[k_], c1) for _j, k_, _l in R3_STORE],   # v9.0 (R3)
+                     + [('Mitigation', R_GHG[k_], c0, R_GHG[k_], c1) for _j, k_, _l in CH4S_STORE],
             'read': ('LiveOutputs', MTO_R0, 1, MTO_R0 + 2 * MTO_BLOCK, MTO_C0 + NY - 1),
             'plan': [runs[k::sessions] for k in range(sessions)]}
     ctx = mp.get_context('spawn')
@@ -13511,9 +13771,6 @@ def fast_batch(wb, log=print, sessions=LO_SESSIONS):
         st = LO.Grid(26, 3, data[0])
         assert abs(st.cell(29, 3).value - 1) < 1e-12, st.cell(29, 3).value
         n4 = 1 + len(COV_SECTORS) + len(CH4S_STORE)
-        for j, row in zip([x[0] for x in R3_STORE], data[n4:]):                        # v9.0 (R3)
-            for c, v in zip(range(c0, c1 + 1), row[0]):
-                DATA_VALUES[(f'r3s.{j}', year_of(c))] = v if isinstance(v, (int, float)) else 0.0
         for j, row in zip([x[0] for x in CH4S_STORE], data[1 + len(COV_SECTORS):n4]):  # v6.2 (I47, ghg.k)
             for c, v in zip(range(c0, c1 + 1), row[0]):
                 assert isinstance(v, (int, float)), (j, c, v)
@@ -13534,8 +13791,6 @@ def fast_batch(wb, log=print, sessions=LO_SESSIONS):
                  for i, x in enumerate(COV_SECTORS) for j, y in enumerate([BASE_YEAR] + YEARS)]
         cells += [('BaselineCO2', BCO2_RAW + 1 + i, 4 + j, DATA_VALUES[(f'ch4bs.{x}', y)])   # v6.2 (I47)
                   for i, (x, *_r) in enumerate(CH4S_STORE) for j, y in enumerate([BASE_YEAR] + YEARS)]
-        cells += [('BaselineCO2', BCO2_RAW + 1 + len(CH4S_STORE) + i, 4 + j, DATA_VALUES[(f'r3s.{x}', y)])   # v9.0
-                  for i, (x, *_r) in enumerate(R3_STORE) for j, y in enumerate([BASE_YEAR] + YEARS)]
         return cells + [('BaselineCO2', BCO2_RAW, 4 + j, raw[y]) for j, y in enumerate([BASE_YEAR] + YEARS)]
 
     def wait():
@@ -13612,9 +13867,6 @@ def write_bco2(wb, raw):
         put(ws, f'{L(4 + j)}{BCO2_RAW}', raw[y], FONT, F_INPUT, '#,##0.000')
         for i, (x, *_r) in enumerate(CH4S_STORE):                       # v6.2 (I47, ghg.k)
             put(ws, f'{L(4 + j)}{BCO2_RAW + 1 + i}', DATA_VALUES[(f'ch4bs.{x}', y)], FONT, F_INPUT, '#,##0.000')
-        for i, (x, *_r) in enumerate(R3_STORE):                         # v9.0 (R3)
-            put(ws, f'{L(4 + j)}{BCO2_RAW + 1 + len(CH4S_STORE) + i}', DATA_VALUES[(f'r3s.{x}', y)], FONT, F_INPUT,
-                '0.000000')
 
 
 SR_HEAD, SR_FIRST, SR_Y0 = 5, 6, 8      # StoredResults: header row, first data row, first year column (H)
@@ -15354,7 +15606,8 @@ def main():
     build_inputs_prices(wb)
     build_inputs_power(wb)
     build_inputs_ef(wb)                            # v4.5: CO2 EFs selected from the legacy EF_GHG table
-    build_inputs_cob(wb)                           # v9.0 (R1): typed inputs from the co-benefits modules
+    build_from_air_pollution(wb)                   # v9.0 (PIGAP): module tabs of typed outputs (R1)
+    build_from_transport_cb(wb)
     build_inputs_nc(wb)                            # v9.0 (EF465): non-CO2 factors by legacy EF code
     build_inputs_ela(wb)                           # v4.6: elasticities from the legacy Elasticities tab
     build_inputs_mult(wb)                          # v4.6: multipliers from the legacy Multipliers tab
@@ -15398,7 +15651,7 @@ def main():
         wb.defined_names[name] = DefinedName(name, attr_text=ref)
     order = (['Cover', 'ScenarioCompare', 'ScenarioDefinition', 'MAIN->>', 'Mitigation', 'FromMitigation', 'Distribution', 'LiveOutputs',
               'StoredOutputs', 'INPUTS->>', 'Manual inputs', 'Settings', 'Inputs', 'Inputs_prices', 'Inputs_power', 'Inputs_ef', 'Inputs_ela', 'Inputs_mult', 'Inputs_macro', 'Inputs_pint', 'Inputs_ecp', 'Inputs_pset',
-              'Inputs_ptech', 'Inputs_ppath', 'Inputs_ppar', 'Inputs_cob', 'Inputs_nc', 'Mapping',
+              'Inputs_ptech', 'Inputs_ppath', 'Inputs_ppar', 'Inputs_nc', 'FromAirPollution', 'FromTransportCB', 'Mapping',
               'Constants', 'REF->>', 'VersionLog', 'ReadMe', 'LegacyDiff', 'Lambdas', 'Variables', 'MacroCheck']
              + [t for div, tabs in DATA_GROUPS for t in [div] + tabs])   # v4.5: data tabs grouped as legacy
     assert set(order) == set(wb.sheetnames), set(wb.sheetnames) ^ set(order)   # v3.17: no sheet dropped silently
@@ -15533,13 +15786,15 @@ TAB_REF = 'Version Log, About, and Diff'          # v4.2
 TAB_CHECK = 'Check, Variables, Lambdas'         # v4.2
 MERGES = [('Inputs', ['Inputs', 'Inputs_prices', 'Inputs_power', 'Inputs_ef', 'Inputs_ela', 'Inputs_mult',
                       'Inputs_macro', 'Inputs_pint', 'Inputs_ecp', 'Inputs_pset', 'Inputs_ptech', 'Inputs_ppath',
-                      'Inputs_ppar', 'Inputs_cob', 'Inputs_nc']),   # target tab, blocks top to bottom (v9.0: Inputs_cob, _nc)
+                      'Inputs_ppar', 'Inputs_nc']),   # target tab, blocks top to bottom (v9.0: Inputs_nc; Inputs_cob
+                                                      # retired: module tabs FromAirPollution, FromTransportCB)
           ('Settings', ['Settings', 'Constants', 'Mapping']),
           (TAB_REF, ['VersionLog', 'ReadMe', 'LegacyDiff']),
           (TAB_CHECK, ['Variables', 'Lambdas', 'MacroCheck'])]   # v5.3 (user): MacroCheck last, so the 300 rows the
 MERGE_GAP = 3                                                    # macro clears below its report end the tab
 TAB_ORDER = ['Cover', 'ScenarioCompare', 'ScenarioDefinition', 'MAIN->>', 'Mitigation', 'FromMitigation', 'Distribution', 'LiveOutputs',
-             'StoredOutputs', 'INPUTS->>', 'Manual inputs', 'Settings', 'Inputs', 'DATA_MITIGATION->>']   # v4.2: then the data tabs, REF
+             'StoredOutputs', 'INPUTS->>', 'Manual inputs', 'Settings', 'Inputs', 'FromAirPollution', 'FromTransportCB',
+             'DATA_MITIGATION->>']   # v4.2: then the data tabs, REF (v9.0 PIGAP: module tabs after Inputs)
 # v4.5 (user request 2026-10-17): data tabs grouped by module and ordered as legacy CPAT (DATA_MITIGATION->,
 # DATA_DISTN->, DATA_TRAN->, DATA_OUTPUT->); tabs with no legacy data tab last (DATA_OTHER)
 DATA_MIT = ['Power', 'GHGs', 'GHGHist', 'NDCs', 'Countries', 'GoalSeekCoal', 'ECP', 'Balances',
@@ -15682,6 +15937,12 @@ TAB_INFO = [  # divider, tab, content, in legacy CPAT (Yes / Partly / No), legac
      'Dashboard and Manual inputs settings; Mapping'),
     ('INPUTS->>', 'Inputs', 'Data step: every lookup Mitigation reads, by fuel | subsector, price fuel and power type',
      'No', 'Legacy reads the data tabs inside Mitigation'),
+    ('INPUTS->>', 'FromAirPollution', 'Outputs of the air pollution module that Mitigation reads, by country: value of '
+     'averted PM2.5, concentration coefficients (typed Egypt values of legacy 465 until the module writes them); memo: '
+     'legacy average unit costs', 'Partly', 'Air pollution sheet (rows 442-522, 974-981, 1814, 3217, 3731-4378)'),
+    ('INPUTS->>', 'FromTransportCB', 'Outputs of the transport co-benefits module that Mitigation reads, by country: '
+     'accident, congestion and road-damage costs per vehicle-km (typed Egypt values of legacy 465)', 'Partly',
+     'Transport sheet (rows 185, 220, 232)'),
     ('DATA_MITIGATION->>', 'Countries', 'Country list: name, code, region, income group, GAINS region; region codes '
      '(legacy tab at legacy addresses)', 'Yes', 'Countries (same addresses)'),
     ('DATA_MITIGATION->>', 'Elasticities', 'Income, price and efficiency parameters by country (legacy tab at legacy '
