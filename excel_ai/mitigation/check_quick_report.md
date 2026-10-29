@@ -1,25 +1,25 @@
-# Quick check, CPAT-AI-Mitigation-Prototype v1.0.0
+# Quick check, CPAT-AI-Mitigation-Prototype v1.0.1
 
-**PASS** (257 s; the full check is check_full.py, run on request). Changes of output codes are reported, not failed: compare them with what the change intended.
+**PASS** (125 s; the full check is check_full.py, run on request). Changes of output codes are reported, not failed: compare them with what the change intended.
 
 - tab order (main, inputs, data, reference last; 58 tabs): OK
-- 452164 formulas; plain formulas over 100 characters: []: OK
+- 452206 formulas; plain formulas over 100 characters: []: OK
 - numeric literals in formulas: {}: OK
-- 824 defined names; names or LAMBDA parameters that read like cells: []: OK
+- 825 defined names; names or LAMBDA parameters that read like cells: []: OK
 - reserved names (Excel functions, keywords, names Excel rejected; NORMS 3d) used: []: OK
 - sheets named by formulas and names exist: missing []: OK
 - newer functions without the _xlfn. prefix: []: OK
 - 19 section bands with one blank row before and one after: exceptions []: OK
-- 195 sub-section headings with exactly one blank row before: exceptions []: OK
+- 196 sub-section headings with exactly one blank row before: exceptions []: OK
 - rolled up: visible rows below the frozen rows are the bands and summary rows only (43); differences []: OK
 - notes in column H not italic: exceptions []: OK
 - section 0 numbered: A3 = '0': OK
-- scenario groups 1 and 2 identical in relative form outside the LAMBDA cells of group 2 (207680 cells; copy-paste left to right): differences []: OK
+- scenario groups 1 and 2 identical in relative form outside the LAMBDA cells of group 2 (207878 cells; copy-paste left to right): differences []: OK
 - no formula reads a later year except ['dsum', 'lvc', 'mani']: exceptions []: OK
 - no parameter cell (D:G) reads a model year after the base year: exceptions []: OK
 - ['lvc'] levelise inputs only (precedents reach no fuel use, GDP or power quantity row): exceptions []: OK
-- 195 sub-section headings bold underlined in column B, nothing in H: exceptions []: OK
-- 735 label rows bold with a thin bottom border: exceptions []: OK
+- 196 sub-section headings bold underlined in column B, nothing in H: exceptions []: OK
+- 742 label rows bold with a thin bottom border: exceptions []: OK
 - body font sizes on Mitigation (sample): [10.0]: OK
 - tab title bars and sub-heading bars of equal width on every tab: exceptions []: OK
 - table headers without the input fill: exceptions []: OK
@@ -36,4 +36,4 @@
 - code protocol C5 (a total row writes tot): 0 explicit-sum rows write all [] (a row whose code the rename map code_renames_v0_7_2.csv writes is decided): OK
 - Distribution reads Mitigation only through FromMitigation (section 19a): direct references 0 []: OK
 - Excel open and recalculation: skipped (no Excel here: ModuleNotFoundError)
-- output codes vs CPAT-AI-Mitigation-Prototype_v0.9.2.xlsm: 15086 shared, 0 new, 0 gone; 0 change (max abs diff 0); largest: []; other than bco2 (with max abs diff): []
+- output codes vs CPAT-AI-Mitigation-Prototype_v1.0.0.xlsm: 15086 shared, 0 new, 0 gone; 0 change (max abs diff 0); largest: []; other than bco2 (with max abs diff): []

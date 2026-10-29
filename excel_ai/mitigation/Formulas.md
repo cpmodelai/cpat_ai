@@ -1,4 +1,4 @@
-# Workbook formulas of CPAT-AI-Mitigation-Prototype v1.0.0 (implementation reference)
+# Workbook formulas of CPAT-AI-Mitigation-Prototype v1.0.1 (implementation reference)
 
 Generated from the workbook by `make_equations.py` (do not edit by hand): every formula of the Mitigation sheet, scenario 1, with cell references replaced by variable codes, the changes against legacy CPAT (section B) and the LAMBDA library (section C). For the model itself read the equations in mathematical form, `Equations.md`; this file is for checking and editing the workbook.
 
@@ -9205,7 +9205,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Legacy: legacy AP rows 974-981, 1814
 - Rows: cpp, gpp, opp, rod, gro, oth, foo
   - 2022-2041: `air.con.pm2(t) = IF(<first pollutant row>,SUMPRODUCT(aps[10 rows](t),INDEX(ApKap,<first pollutant row>,<sector position (FromAirPollution column)>):INDEX(ApKap,<last pollutant row>,<sector position (FromAirPollution column)>))*tPerKt,0)`
-  - Parameters: `<sector position (FromAirPollution column)>` = `data`; `<first pollutant row>` = `IFERROR(MATCH(CtryCode&"|nox",ApKapKey,0),0)`; `<last pollutant row>` = `IFERROR(MATCH(CtryCode&"|oc",ApKapKey,0),0)`
+  - Parameters: `<sector position (FromAirPollution column)>` = `MATCH("cpp",ApKapHdr,0)`; `<first pollutant row>` = `IFERROR(MATCH(CtryCode&"|nox",ApKapKey,0),0)`; `<last pollutant row>` = `IFERROR(MATCH(CtryCode&"|oc",ApKapKey,0),0)`
 - Rows: mod
   - 2022-2041: `air.con.pm2(t) = SUM(air.con.pm2[7 rows](t))`
 

@@ -148,7 +148,7 @@ from openpyxl.utils import get_column_letter as L, column_index_from_string as C
 from openpyxl.utils.cell import coordinate_from_string
 from openpyxl.workbook.defined_name import DefinedName
 
-VERSION = '1.0.0'   # also in version.json (read by the deck builder)
+VERSION = '1.0.1'   # also in version.json (read by the deck builder)
 SCRIPTS_TAG = None   # v0.8.0: scripts and notes have stable names (releases are git tags); v0.7.1: a point release renames only the builder, VBA module, workbook and reports; the scripts and
                       # notes keep the tag of the full release (NORMS.md section 5)
 COUNTRY = 'EGY'   # v0.3.3: default of Settings C4 (user input); country data only in the data sheets, by this key
@@ -994,6 +994,8 @@ SUBHEADS = {'cptraj': None, CP_PARAMS[0]: 'Carbon tax (MTInputs rows 18-21, 265,
             'shpx.pow': 'Shadow price on the efficiency margin by sector ($/tCO2: feebates and regulations x share + '
                         'ETS tax-equivalent price x ETS coverage x OBR; D: feebate sector position, sheet Constants)'}
 
+POL_LABEL_BREAKS = {'pig.fe0.gso.pas', 'pig.wsh.gso', 'pig.fe0.gso', 'pig.mu0.gso', 'pig.rsh0.gso', 'pig.trg.acc'}
+# v1.0.1: the Pigouvian road-transport rows whose variable starts with its own parameters get a label row above
 B_POL = R_GDP + 2                       # band: 1. Policies (v0.4.1: one blank row before every band)
 R_POL = {}                              # key -> row
 _r = B_POL + 2                          # v0.3.9: one blank row after the band
@@ -1004,6 +1006,8 @@ for key, *_ in POL:
         _first_sub = False
     elif key == 'cptraj':
         _r += 2                         # blank row before the summary line
+    elif key in POL_LABEL_BREAKS:
+        _r += 1                         # v1.0.1: label row of the next variable of the block
     R_POL[key] = _r
     _r += 1
 R_CP = R_POL['cptraj']
@@ -3780,10 +3784,12 @@ COB_BLOCKS = [
      [(f'apm.{m}', 'air.con.pm2', '', m) for m, _n in AP_SECS] + [('air.vpm', 'air.vpm', '', '')]),
     ('17b. Road transport external costs per vehicle-km (USD/km, typed; legacy Transport rows 185, 220, 232)',
      [('tkm.acc', 'tran.acc.km', '', ''), ('tkm.con', 'tran.con.km', '', ''), ('tkm.rdm', 'tran.rdm.km', '', '')]),
-    ('17b. Road transport: class fuel use (bln liters or kWh), passenger weight (scenario 1), driving share, freight '
-     'share (legacy rows 15721-15786; Transport rows 120-157)',
-     [(f'tcls.{f}', 'tran.cls', f, 'rod') for f in COB_TRF] + [(f'twcl.{f}', 'tran.wcl', f, 'rod') for f in COB_TRF]
-     + [(f'tmrg.{f}', 'tran.mrg', f, 'rod') for f in COB_TRF] + [(f'tfsh.{f}', 'tran.fsh', f, 'rod') for f in COB_FRE]),
+    ('17b. Road transport: class fuel use (bln liters or kWh) and passenger weight (scenario 1) (legacy rows '
+     '15721-15786; Transport rows 120-157)',
+     [(f'tcls.{f}', 'tran.cls', f, 'rod') for f in COB_TRF] + [(f'twcl.{f}', 'tran.wcl', f, 'rod') for f in COB_TRF]),
+    ('17b. Road transport: driving share (elasticity combinations in D:G) and freight share (legacy rows 15721-15786; '
+     'Transport rows 120-157)',   # v1.0.1: own block, so the driving-share parameters have their label row
+     [(f'tmrg.{f}', 'tran.mrg', f, 'rod') for f in COB_TRF] + [(f'tfsh.{f}', 'tran.fsh', f, 'rod') for f in COB_FRE]),
     ('17b. Road transport external costs per unit of fuel (USD/l of all use; electricity USD/kWh; legacy Transport rows '
      '186-237, 322-351)', [(f'tacc.{f}', 'tran.acc.cost', f, 'all') for f in COB_TRF]
      + [(f'tcon.{f}', 'tran.con.cost', f, 'all') for f in COB_TRF]
@@ -7768,7 +7774,12 @@ def build_settings(wb):
                               'hnet of the percentiles where public investment is used.'),
         ('1.0.0', '2026-10-29', 'First full release (user 2026-10-29): v0.9.2 as released, with the methane fee cap in '
                               'its short form (M21). Replicated number for number by Coded CPAT 1.0.0p1.0 (Python). '
-                              'Egypt values unchanged.')]
+                              'Egypt values unchanged.'),
+        ('1.0.1', '2026-10-29', 'Layout and norms only (full check of 1.0.0): a label row above each variable of the '
+                              'Pigouvian road-transport block of section 1; the air-pollution sector position of '
+                              'section 17b looked up by its code (ApKapHdr) instead of typed; the driving share of '
+                              'section 17b in its own block (label row); the last row of section '
+                              '19 without decimals, as every summary row. Egypt values unchanged.')]
     for i, row in enumerate(log, SET_LOG + 2):
         for j, v in enumerate(row, 1):
             c_ = put(ws, f'{L(j)}{i}', v)
@@ -10176,6 +10187,7 @@ def defined_names():
         'ApYear': f'FromAirPollution!$C${FAP_V0 - 1}:${L(2 + NY)}${FAP_V0 - 1}',
         'ApKapKey': f'FromAirPollution!$A${FAP_K0}:$A${FAP_K0 + len(APS_POLS) - 1}',
         'ApKap': f'FromAirPollution!$C${FAP_K0}:${L(2 + len(AP_SECS))}${FAP_K0 + len(APS_POLS) - 1}',
+        'ApKapHdr': f'FromAirPollution!$C${FAP_K0 - 1}:${L(2 + len(AP_SECS))}${FAP_K0 - 1}',   # v1.0.1: sector codes
         'ApEfKey': f'FromAirPollution!$A${FAP_E0}:$A${FAP_E0 + 2 * len(AP_SECS) - 1}',
         'ApEf': f'FromAirPollution!$C${FAP_E0}:${L(2 + len(AP_EFCOLS))}${FAP_E0 + 2 * len(AP_SECS) - 1}',
         'TcbKey': f'FromTransportCB!$A${FTC_R0}:$A${FTC_R0 + len(TCB_TYPED) - 1}',
@@ -11676,6 +11688,9 @@ def build_mitigation(wb):
             if src is None:
                 for pc in PARAM_COLS:
                     ws[f'{pc}{r - 1}'].value = None
+            outline[r - 1] = (1, True)
+        elif key in POL_LABEL_BREAKS:         # v1.0.1: label row of a new variable inside the block
+            label_row(r - 1, r)
             outline[r - 1] = (1, True)
         summary = key == 'cptraj'
         fnt = FONT_SUM if summary or kind == 'calc' else FONT
@@ -13276,7 +13291,7 @@ def build_mitigation(wb):
         elif var == 'airpol.cost.gj':
             vals = [f'=$F{prow("pset", fu + ".all")}' if sec == 'all' else 1]
         elif var == 'air.con.pm2':           # sector column; first and last pollutant row of the country
-            vals = [[m for m, _n in AP_SECS].index(sec) + 1] + [
+            vals = [f'=MATCH("{sec}",ApKapHdr,0)'] + [   # v1.0.1: position by the sector code (was typed)
                 f'=IFERROR(MATCH(CtryCode&"|{p_}",ApKapKey,0),0)' for p_ in (APS_POLS[0], APS_POLS[-1])]
         elif var == 'tran.mrg':
             ug, ud, fg, fd = (TRC(k) for k in ('eldg', 'eldd', 'elfg', 'elfd'))
@@ -14968,7 +14983,8 @@ def build_exports(wb):
         for c in range(COL_G0, last + 1):
             v = ws.cell(sr, c).value
             if v is not None and not (k[0] == 'row' and c < COL_G0):
-                put(ws, f'{L(c)}{r}', f'={L(c)}{sr}', FONT, None, ws.cell(sr, c).number_format)
+                put(ws, f'{L(c)}{r}', f'={L(c)}{sr}', FONT, None,   # v1.0.1: last row = summary row, no decimals
+                    '#,##0' if r == R_EXP_LAST else ws.cell(sr, c).number_format)
     wb.defined_names['ExportDistn'] = DefinedName('ExportDistn',
                                                   attr_text=f'Mitigation!$A${R_EXP_HEAD + 1}:${L(last)}${R_EXP_LAST}')
 
