@@ -38,6 +38,7 @@ def test_stored_outputs(run, results, scenario):
     for code, row in ref.iterrows():
         d = '.distn.' in code
         for k, (y, x) in enumerate(row.items()):
+            x = pd.to_numeric(x, errors='coerce')            # text cells (e.g. N/A of an NDC without target)
             if pd.isna(x) or (d and k >= 10):
                 continue
             p = float(dist.loc[code].iloc[1 + k] if d else results.loc[code, int(y)])

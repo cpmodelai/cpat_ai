@@ -7809,7 +7809,7 @@ def build_settings(wb):
                               'MTCode); codes built from the component columns; legacy 465 sections and rows in legacy '
                               'order, one row per quantity in each scenario block (data/mvp_legacy_extracts/'
                               'mtoutputs_map_465.csv), rows the prototype lacks kept with Include? = No; distribution rows '
-                              'in the blocks (deciles in K:T); StoredOutputs stores every row the prototype has. Legacy '
+                              'in the blocks (deciles in K:T, live); StoredOutputs stores the Mitigation rows (each once). Legacy '
                               'bugs L231, L232 (MTOutputs rows). Model values unchanged.')]
     for i, row in enumerate(log, SET_LOG + 2):
         for j, v in enumerate(row, 1):
@@ -14349,7 +14349,8 @@ def stored_rows(vals, sid, src, name, stamp):
     name = name or mo.cell(h, 3).value
     out, seen = [], set()
     for k, (kind, it) in enumerate(MTO_ITEMS):            # v1.0.4: the rows the prototype has (Include? = Yes),
-        if kind != 'row' or not it['var'] or f"{it['tab']}.{it['var']}" in seen:   # each stem once
+        if kind != 'row' or not it['var'] or it['tab'] != 'mit' or f"{it['tab']}.{it['var']}" in seen:   # each stem
+            # once; Mitigation rows only (the Distribution sheet is live only, blank in the batch copies)
             continue
         r = h + 1 + k
         stem = f"{it['tab']}.{it['var']}"

@@ -576,9 +576,10 @@ Taken:
 End Function
 
 Private Function OutStem(ByVal mo As Worksheet, ByVal r As Long) As String
-    ' v1.0.4: the code stem of an MTOutputs row, Tab.Variable (G.H); "" for a section row or a row the prototype
-    ' does not have (Include? = No)
+    ' v1.0.4: the code stem of an MTOutputs row, Tab.Variable (G.H); "" for a section row, a row the prototype does
+    ' not have (Include? = No) and a distribution row (stored results are the Mitigation rows; Distribution live only)
     If CStr(mo.Cells(r, 1).Value) <> "Yes" Then Exit Function
+    If CStr(mo.Cells(r, OUT_COL_TAB).Value) <> "mit" Then Exit Function
     If Len(CStr(mo.Cells(r, OUT_COL_VAR).Value)) = 0 Then Exit Function
     OutStem = CStr(mo.Cells(r, OUT_COL_TAB).Value) & "." & CStr(mo.Cells(r, OUT_COL_VAR).Value)
 End Function

@@ -80,7 +80,7 @@ TOL = 1e-9
 # v1.0.4: MTOutputs rows in the legacy layout: (item index, code stem) of the rows the prototype has (stored), and of
 # its Mitigation rows (compared with the Mitigation cell of their code)
 MTO_STORED = list({f"{it['tab']}.{it['var']}": k for k, (kind, it) in reversed(list(enumerate(B.MTO_ITEMS)))
-                   if kind == 'row' and it['var']}.items())
+                   if kind == 'row' and it['var'] and it['tab'] == 'mit'}.items())
 MTO_STORED = sorted(((k, st) for st, k in MTO_STORED))                          # each stem once, its first row
 MTO_MIT = [k for k, (kind, it) in enumerate(B.MTO_ITEMS) if kind == 'row' and it['var'] and it['tab'] == 'mit']
 # v0.9.2: section-3 rows added in v0.9.0 (R7, R9: cost memos, electricity subsidies and the price-chain residual) that

@@ -234,7 +234,8 @@ vbnewline application thisworkbook worksheets workbooks sheets activesheet activ
 selection rgb filter datediff dateadd year month day hour minute second weekday dateserial timeserial nz
 optionbase'''.split())
 VBA_NAMED_TYPES = {'after', 'backgroundquery', 'destination', 'key', 'order', 'shift', 'source', 'sourcetype', 'chart',
-                   'listobject', 'series', 'worksheet', 'range', 'workbook', 'shape', 'chartobject', 'name'}
+                   'listobject', 'series', 'worksheet', 'range', 'workbook', 'shape', 'chartobject', 'name',
+                   'collection'}                         # v1.0.4: VBA's built-in Collection (store macro)
 VBA_CONSTS = {'vbcrlf', 'vbexclamation', 'vbinformation', 'vblf', 'vbobjecterror', 'vbquestion', 'vbstring', 'vbyes',
               'vbyesno', 'xlascending', 'xlcalculationautomatic', 'xlcalculationmanual', 'xlcmdsql', 'xlmarkerstylenone',
               'xlno', 'xlup', 'xldescending', 'xltoleft', 'xldown', 'xlvalues', 'xlpart', 'xlwhole', 'xlnone'}

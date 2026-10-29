@@ -366,5 +366,5 @@ The VBA project (written by `vba_project.py`) and the stored results were produc
 ### 6. Limits
 
 - The batch run calculates one policy scenario at a time. Further Mitigation scenario groups (copies of group 2) show on the dashboard under Live; the batch macros use the live scenario (group 2) only.
-- MTOutputs (the legacy MTOutputs rows the prototype has, about 1,000 per scenario, and its own key outputs) defines what is stored. To store more, add rows to the MTOutputs blocks first.
+- MTOutputs (the legacy MTOutputs rows the prototype has and its own key outputs) defines what is stored: its Mitigation rows, each code once (about 830 per scenario); the distribution rows are live only. To store more, add rows to the MTOutputs blocks first.
 
