@@ -84,6 +84,10 @@ PW_NOT_RECOMPUTED = ('sys', 'pcbcap', 'pcbom', 'pcbfu', 'pcbchk', 'rpnv', 'txg',
 TR_NOT_RECOMPUTED = ('trbe.aef', 'trbe.obf', 'trbe.bio', 'trp.renaef', 'ener.avi.ren', 'ener.nav.ren')   # v0.9.2: R10 rows
 # (other road biofuels, aviation and navigation renewables: the fuel-use equation) not in the recomputation yet
 # v0.9.2: also ores (price-chain residual) before the last price year (a memo of the same chain; compared from then on)
+UNIFORM_EXCEPTIONS = {  # v0.9.2 (NORMS 3, user 2026-10-29): rows whose formula differs from the variable's by design
+    ('ener', 'rod', 'bio'): 'road biofuels of the elasticity road model, 5b trbe.bio (R10.1)',
+    ('head', 'avi', ''): '+ self-generated renewables, 5b ener.avi.ren (R10.3)',
+    ('head', 'nav', ''): '+ self-generated renewables, 5b ener.nav.ren (R10.3)'}
 PW_MEMOS = ('cur', 'pcbcp', 'pcbrns', 'pcbct')     # v0.9.2: v0.9.0 memos recomputed after the section-3 rows
 VAT_CONSUMER = {'coa.res', 'nga.res', 'gso.all', 'die.all', 'lpg.all', 'ker.all', 'oop.all'}   # independent copy
 report = []
@@ -2073,7 +2077,13 @@ def check_uniformity(wb):
     on = lambda label: grp3 if label == LAMY[0] else grp   # 1-2 are plain in 2041 too): the LAMBDA year is group 3's
     nh = B.LAST_HIST - B.BASE_YEAR           # plain years in the history block after the base year
     for var in B.PVARS + B.VARS:
-        rows = [r for r, _s, _f in rows_of(var)]
+        rows = [r for r, _s, _f in rows_of(var) if (var, _s, _f) not in UNIFORM_EXCEPTIONS]
+        for (v_, s_, f_), why in UNIFORM_EXCEPTIONS.items():   # v0.9.2 (NORMS 3): each exception uniform on its own
+            if v_ == var:
+                r_ = next(r for r, a, b in rows_of(var) if (a, b) == (s_, f_))
+                for label_, cols_ in (('base year', lambda b, ys: [b]), (f'{B.YEARS[0]}-{B.YEARS[-2]}', lambda b, ys: ys[:-1])):
+                    ok &= uniform(ws, [(r_, c) for _, b, ys in grp for c in cols_(b, ys)],
+                                  f'`{var}` {s_}.{f_} {label_} (exception, NORMS 3: {why})')[0]
         if var in ('sp', 'txo', 'txf', 'txfx'):          # v0.4.16: txfx has a history and a projection formula
             blocks = [(f'history {B.BASE_YEAR}-{B.LAST_HIST}', lambda b, ys: [b] + ys[:nh]),
                       (f'projection {B.LAST_HIST + 1}-{B.YEARS[-2]}', lambda b, ys: ys[nh:-1]), LAMY]
@@ -2133,8 +2143,12 @@ def check_uniformity(wb):
         if g and not LAMBDA_CALL.search(f):
             log(f'  - Section 1 `{prefix}*` LAMBDA year: the formula calls no named LAMBDA FAIL')
         ok &= g and bool(LAMBDA_CALL.search(f))
-    heads = list(B.SUB_HEAD.values())
+    heads = [h for k, h in B.SUB_HEAD.items() if ('head', k, '') not in UNIFORM_EXCEPTIONS]
     ok &= uniform(ws, [(h, c) for h in heads for _, b, ys in grp for c in [b] + ys], 'subsector heading totals')[0]
+    for (v_, k, _f), why in UNIFORM_EXCEPTIONS.items():   # v0.9.2 (NORMS 3): exceptions, each uniform on its own
+        if v_ == 'head':
+            ok &= uniform(ws, [(B.SUB_HEAD[k], c) for _, b, ys in grp for c in [b] + ys],
+                          f'subsector heading total {k} (exception, NORMS 3: {why})')[0]
     for var in B.PW_VARS:                       # section 3 (power)
         rows = [r for r, v, *_ in B.PW_ROWS if v == var]
         if var in B.PW_DATA or var in B.PW_SUMS or var in B.PW_NOLAM:
