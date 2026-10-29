@@ -39,7 +39,7 @@ Private Const SH_MIT As String = "Mitigation"
 Private Const SH_OUT As String = "LiveOutputs"
 Private Const SH_SR As String = "StoredOutputs"
 Private Const SH_CHECK As String = "Check, Variables, Lambdas"
-Private Const CHK_FIRST As Long = 2411           ' MacroCheck: first report row (A = check, B = result)
+Private Const CHK_FIRST As Long = 2426           ' MacroCheck: first report row (A = check, B = result)
 Private Const CHK_TOL As Double = 0.000001
 Private Const MT_ROW_RUN As Long = 4
 Private Const MT_ROW_NUM As Long = 5
