@@ -1353,3 +1353,8 @@ ISSUE_STATUS.update({
             'LD33 are Same.'),
     'I150': ('Minor', 'Open', 'The CPAT data team fills the spot cells; the prototype keeps the module values (no '
              'effect unless the spot option is chosen).')})
+
+# v9.0 (user 2026-10-29): combustion CH4 in legacy is a bug with a cell plan (L223); I34 keeps the source allocation
+ISSUE_STATUS.update({'I34': ('Minor', 'Accepted', 'Replicated: the allocation of methane sources in the air-pollution '
+                             'table. The missing combustion CH4 factors are legacy bug L223 (cell plan), fixed in the '
+                             'prototype.')})

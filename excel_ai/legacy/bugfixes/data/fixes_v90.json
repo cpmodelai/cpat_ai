@@ -1230,5 +1230,40 @@
   "note": "",
   "status": "fix",
   "prototype": "Fixed (v9.0): tau_b = cptraj(T_b) x 1[scenario > 1] (Equations_addendum R9.13)."
+ },
+ {
+  "id": "L223",
+  "pri": "Medium",
+  "title": "Combustion CH4 factors blank: base and final factor cells missing",
+  "where": "Mitigation L1514:L1576, AC1514:AC1576 (CH4 block of the combustion emission factors) and L1579:L1586, AC1579:AC1586 (other energy use)",
+  "why": "The CH4 block has the EF_PM lookup (column F) and the final factor (column I; e.g. power coal 0.0413 t/ktoe), but the base-year factor L and the target factor AC are empty, unlike every other pollutant block (e.g. row 1419). So the yearly line M:AE is 0 and legacy combustion CH4 is 0 although the data exist.",
+  "fixes": [
+   {
+    "cell": "L1514",
+    "now": "(empty)",
+    "new": "=_xlfn.IFNA(10^-6*_conv_ktoe_to_gj*10^3*INDEX(EF_PM!$F$3:$F$39323,$F1514),0)",
+    "fill": "L1514:L1576",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   },
+   {
+    "cell": "AC1514",
+    "now": "(empty)",
+    "new": "=_xlfn.IFNA(IF(EFSel=\"constant\",$L1514,IF(EFSel=\"Variable\",$I1514,($I1514+$L1514)/2)),0)",
+    "fill": "AC1514:AC1576",
+    "policy": "none"
+   },
+   {
+    "cell": "L1579",
+    "now": "(empty)",
+    "new": "=MAX(IF($D1514:$D1576=$D1579,L1514:L1576))",
+    "fill": "L1579:L1586, AC1579:AC1586 (column AC: same with AC)",
+    "policy": "none"
+   }
+  ],
+  "ref": "Rows 1419 (L, AC) and 1117 (other energy use: maximum across the other subsectors) of the other pollutant blocks.",
+  "effect": "Egypt 2022 combustion CH4 about 152 kt (about 4 Mt CO2e, 2% of energy GHGs); energy CH4 is calibrated to the inventory in GHGYear, so only the source mix and the path after it change.",
+  "note": "Was described in issue I34 (no combustion CH4 in legacy); a cell-level fix exists, so a bug (user 2026-10-29).",
+  "status": "fix",
+  "prototype": "Fixed (v9.0, EF465): the prototype fills the CH4 factors with the same 465 lookup (table Inputs_nc)."
  }
 ]
