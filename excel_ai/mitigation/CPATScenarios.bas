@@ -140,6 +140,11 @@ Public Sub UpdateDataTables()
         If Len(loc) = 0 Then Exit Sub
         srcExpr = "File.Contents(""" & loc & """)"
     Else
+        If Len(loc) = 0 Then                                  ' v1.0.3: a web source needs its address
+            MsgBox "Data source '" & src & "' has no address: type the URL of the data workbook (" & DATA_FILE & _
+                   ") in its row of the source table on " & SH_DL & ".", vbExclamation, "CPAT data"
+            Exit Sub
+        End If
         If InStr(loc, "/:x:/") > 0 And InStr(loc, "download=1") = 0 Then   ' a Share link: ask for the file itself
             loc = loc & IIf(InStr(loc, "?") > 0, "&", "?") & "download=1"
         End If

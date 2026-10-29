@@ -4,7 +4,11 @@ All data live here (root `NORMS.md` section 8): the inputs of Coded CPAT, the da
 
 ## Quick start
 
-- **MVP data link (Windows):** in `CPAT-AI-Mitigation-MVP-v0.7.1.xlsm`, sheet ScenarioCompare, source table row "Dummy - local file", column Path or URL (blank = searched next to the workbook and in `<repo>/data/workbooks/`): `C:\<your repos>\CPAT-AI\data\workbooks\CPAT_Data_dummy_python.xlsx` (plain text). Then choose that source and click Update data tables. SharePoint: upload this file over the existing one, keeping the SharePoint file name.
+- **Data link of the mitigation prototype (Windows, Excel 365; v1.0.3):** sheet ScenarioCompare, Data source:
+  - **Dummy - GitHub (public repository)**: the data workbook read by Power Query from `https://raw.githubusercontent.com/cpmodelai/cpat_ai/main/data/workbooks/CPAT_Data_dummy_python.xlsx`, wherever the workbook sits (the first time Excel asks how to connect: choose Anonymous).
+  - **Dummy - local file**: `CPAT_Data_dummy_python.xlsx` next to the workbook or in `<repo>/data/workbooks/` (found from `excel_ai/`, `excel_ai/permalink/` and `excel_ai/permalink_countryeditable/`), or the path typed in the source table.
+  - **Dummy - data repository (type its URL)**: a separate repository of the dummy data: type the raw address of its `CPAT_Data_dummy_python.xlsx` in the source table (column Path or URL).
+  - Then click Update data tables. SharePoint: upload this file over the existing one, keeping the SharePoint file name.
 - **Coded CPAT** reads the tidy tables of `tidy/` (database `dummy`, the default; `coded/cpat_model/settings.py`); the full database is a private tidy folder (`FULL_DATA_PATH`, database `full`).
 - **Paste into legacy CPAT:** `workbooks/CPAT_Data_dummy_cpat.xlsx` (Index sheet: the range of each sheet) or `legacy_dummy/`.
 - **After changing `dummy/`:** from `data/`, run `python scripts/build_data_workbook.py`, then `python scripts/convert_data_workbook.py to-cpat`, then `pytest tests`.
