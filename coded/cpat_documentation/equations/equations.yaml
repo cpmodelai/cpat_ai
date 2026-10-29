@@ -417,55 +417,63 @@ parts:
           - id: D1.1
             title: Budget shares
             greek: |
-              \pi^{g}_{j} = \frac{C^{g}_{j}}{C_j}, \qquad \pi^{dg} = \text{population-weighted mean of } \pi^{g}_{j} \text{ over } j \in d
+              \pi^{g}_{j} = \frac{C^{g}_{j}}{C_j}, \qquad \pi^{dg} = \text{population-weighted mean (or median) of } \pi^{g}_{j} \text{ over } j \in d
             codes: |
-              \mathtt{bsh}_{g,d} = \text{weighted mean}_{j \in d}\ \frac{\mathtt{cons}^{\dagger}_{g,j}}{\mathtt{cons}^{\dagger}_{j}}
-            over: "categories $g$, deciles $d$; samples overall, urban, rural"
+              \mathtt{bsh}_{g,d,s} = \text{HHSurvey } \langle g\rangle\text{\_share of } \texttt{bsh.<bkt|dec>.<s>.<stat>.<q>}
+            over: "fuels and categories $g$ (8 fuels, 14 categories, biomass), deciles $d$ and the basket; samples $s$ overall, urban, rural"
+            note: "The survey tables hold the decile statistics; Coded CPAT reads them (QuantilesStatistic: mean or median)."
             doc: "05_Distribution, eq-5_1"
-            excel: "Distribution tab, budget shares (HHSurvey)"
+            excel: "Distribution section 5 (HHSurvey)"
           - id: D1.2
-            title: Energy intensities of consumption categories (input-output)
+            title: Indirect price change of consumption categories (input-output)
             greek: |
-              e_{g} = f\left(I - A\right)^{-1}, \quad f \notin g
+              \phi_k = \frac{\sum_{f \in k} S_f\, t^{a}_f}{U_k}, \qquad t_g = \sum_k \bar{L}_{g,k}\,\phi_k, \qquad \bar{L}_{g,k} = \frac{\sum_{i \in g} H_i L_{i,k}}{\sum_{i \in g} H_i}
             codes: |
-              \mathtt{eint}^{\dagger}_{f,g} = \big[\mathtt{io\_fuel}^{\dagger}\,(I - \mathtt{io\_A}^{\dagger})^{-1}\big]_{f,g}
-            over: "fuels $f$, categories $g$"
+              \mathtt{gfac}_k = \frac{\mathtt{grev}_k}{\mathtt{gtot}_k}, \quad \mathtt{grev}_k = \textstyle\sum_{f \in k} \mathtt{spend}_f\,\mathtt{dpa}_f, \quad \mathtt{dpr}_g = \textstyle\sum_k \mathtt{DLcat}_{g,k}\,\mathtt{gfac}_k
+            over: "fuel groups $k$ (coal, electricity, gas, crude oil, oil products), categories $g$"
+            note: "Excel-AI uses GTAP's total-requirement (Leontief) coefficients $L$ directly, weighted by household demand $H$ of the GTAP sectors in each category; the base-year spending $S_f$ on each fuel (pav.sp) at the industrial price change $t^a_f$, over the group's total use $U_k$ (B1.1). With ScaleGTAP = No, $U_k$ is the spending itself."
             doc: "05_Distribution, eq-5_3"
+            excel: "Distribution section 3; DistMapping DLcat, DIOTot"
           - id: D1.3
             title: Price change by fuel from mitigation
             greek: |
-              t_{fg} = \frac{p^{P}_{f,y}}{p^{B}_{f,y}} - 1, \qquad t^{*}_{fg} = t_{fg}\,\gamma_g
+              t_{f} = \frac{p^{P}_{f,y}}{p^{B}_{f,y}} - 1
             codes: |
-              \mathtt{dp}^{\dagger}_{f,g} = \frac{\mathtt{atp}_{f,y}}{\mathtt{atp}^{B}_{f,y}} - 1, \qquad \mathtt{dp}^{*\dagger}_{f,g} = \mathtt{dp}^{\dagger}_{f,g}\cdot \mathtt{passthrough}^{\dagger}_g
-            over: "fuel-sector pairs (residential prices for direct effects; producer and electricity prices for indirect effects)"
-            note: "$\\gamma_g$ pass-through ($\\le 1$) where the option is on."
+              \mathtt{dpr}_{f.res} = \frac{\mathtt{atp.res}_{f,y}}{\mathtt{atp.res}^{B}_{f,y}} - 1 \ (\mathtt{rp.res.ecy} \text{ for electricity}), \qquad \mathtt{dpa}_f = \frac{\mathtt{rpn}_{f,y}}{\mathtt{rpn}^{B}_{f,y}} - 1 \ (\mathtt{rp.ind.ecy})
+            over: "household fuels $f$ (direct effect); fuels by industrial or average price (indirect effect, D1.2)"
+            note: "Analysis year $y$ = YearDistn; the baseline is scenario 1."
             doc: "05_Distribution, sec 5.3.1, eq-5_8"
+            excel: "Distribution section 2 (FromMitigation)"
           - id: D1.4
-            title: Additional expenditure (direct and indirect effect)
+            title: Direct, indirect and total effect
             greek: |
-              p_j = \sum_{fg} p_{fgj} = \frac{\sum_{fg} \overline{e_{fg}}\; t_{fg}\; C_{gj}}{C_j}, \quad f \in g
+              p_{d} = \lambda \sum_{i} \pi^{di}\, t_i\, (1 + t_i)^{\epsilon_{di}}
             codes: |
-              \mathtt{eff.tot}^{\dagger}_d = \sum_{f,g} \mathtt{eint}^{\dagger}_{f,g}\cdot \mathtt{dp}^{\dagger}_{f,g}\cdot \mathtt{bsh}_{g,d}
-            over: "households $j$ (deciles $d$)"
-            note: "As a share of consumption; the direct effect is the part with $g$ a fuel category, the indirect the rest."
-            doc: "05_Distribution, eq-5_2"
+              \mathtt{fac}_{i} = \mathtt{dpr}_i\,(1 + \mathtt{dpr}_i)^{\mathtt{eps}_i}, \quad \mathtt{def}_f = -\mathtt{fac}_f\,\mathtt{bsh}_f\,\mathtt{lscale}, \quad \mathtt{ief}_g = -\mathtt{fac}_g\,\mathtt{bsh}_g\,\mathtt{lscale}, \quad \mathtt{tef.tot} = \mathtt{def.tot} + \mathtt{ief.tot}
+            over: "fuels and categories $i$, deciles $d$, samples"
+            note: "In % of consumption. The elasticity factor applies when PEDs = Yes (behavioural response, eq-5_7); $\\lambda$ = lscale (B1.3); the cooking fuel is exempt for the poorest deciles where chosen (B1.4)."
+            doc: "05_Distribution, eq-5_2, eq-5_7"
+            excel: "Distribution sections 4 and 6"
           - id: D1.5
             title: Revenue recycling, targeted transfer
             greek: |
-              T^{y} = \frac{P^{y}_{M}}{pop^{y}_{T}}, \qquad T^{y}_{d} = T^{y}\,\frac{\sum pop^{dy}_{T}}{\sum pop^{dy}}
+              T_d = T\,r_d\,w_d, \qquad T = \frac{R\,\sigma_{T}}{\sum_d r_d\,w_d\,N_d}, \qquad r_d = \frac{\tau_d\,cov + (n_d - \tau_d)\,leak}{n_d}
             codes: |
-              \mathtt{trf}^{\dagger}_y = \frac{\mathtt{rnew.tot.tot}_y\cdot \mathtt{xr}}{\mathtt{pop}^{\dagger}_{T,y}}, \qquad \mathtt{trf}^{\dagger}_{d} = \mathtt{trf}^{\dagger}_y\cdot \mathtt{cov}^{\dagger}_d
-            over: "deciles $d$; other recycling options (PIT, existing schemes, infrastructure) in appendix B"
+              \mathtt{tgt}_d = \mathtt{tgtamt}\,\mathtt{recv}_d\,\mathtt{tgtw}_d\,\mathtt{medflag}_d, \quad \mathtt{tgtamt} = \frac{\mathtt{rtgt}}{\sum_d \mathtt{recv}_d\,\mathtt{tgtw}_d\,\mathtt{pop\_tot\_adj}_d}, \quad \mathtt{rtgt} = \mathtt{rev}\cdot\mathtt{EXPTransfers}
+            over: "deciles $d$"
+            note: "$R$ new revenue (rnew $\\times$ xr, local currency), $\\sigma_T$ the transfer share; $\\tau_d$ the share of the decile's population under the targeted percentile (popsh, popcum), $cov$, $leak$ the coverage and leakage rates. The weight $w_d$ is 1, the poverty-line share (TargetBelow) or the ASPIRE programme's benefit by quintile (TransferType). Other recycling options in B1.5 and B1.6."
             doc: "05_Distribution, eq-5_9 to eq-5_12"
+            excel: "Distribution section 8"
           - id: D1.6
             title: Net effect by decile
             greek: |
-              net_d = \frac{T^{y}_{d}}{C_d} - p_d
+              net_d = p_d + \frac{PIT_d + PUI_d + CTS_d + T_d}{c_d}
             codes: |
-              \mathtt{net}^{\dagger}_d = \mathtt{trf}^{\dagger}_d / \mathtt{cons}^{\dagger}_d - \mathtt{eff.tot}^{\dagger}_d
-            over: "deciles $d$"
-            note: "Consumption effects are Laspeyres (upper-bound) estimates unless the behavioural option (eq-5_7) is on."
+              \mathtt{rec.tot}_d = \frac{\mathtt{pit}_d + \mathtt{pui}_d + \mathtt{cts}_d + \mathtt{tgt}_d}{\mathtt{cons\_pc\_na}_d}\cdot 100, \qquad \mathtt{net.tot}_d = \mathtt{tef.tot}_d + \mathtt{rec.tot}_d
+            over: "deciles $d$, samples"
+            note: "Per person, in % of consumption per person scaled to national accounts (B1.2). Consumption effects are Laspeyres (upper-bound) estimates unless PEDs = Yes."
             doc: "05_Distribution, sec 5.4"
+            excel: "Distribution section 9"
 
   - title: "Appendix A: mitigation adjustments"
     text: "Started; completed block by block before each block is coded (coded/TODO.md phase 0). Sources for each block: `excel_ai/mitigation/Equations.md`, `Equations_addendum.md` and `Formulas.md` (the workbook formulas), and the Methods chapters in `excel_ai/mitigation/docs/methods/`."
@@ -807,8 +815,93 @@ parts:
             excel: "Mitigation section 17b"
 
   - title: "Appendix B: distribution adjustments"
-    text: "To complete from `excel_ai/mitigation/docs/methods/Distribution.md` and methodology chapter 5: scaling to national accounts (eq-5_4, eq-5_5); mitigation-adjusted incidence (eq-5_6); behavioural response (eq-5_7); targeting by infrastructure access (eq-5_13); scale-up of existing schemes (eq-5_14); PIT options (targeted exemption, personal allowance, proportional compensation); cooking-fuel exemption."
-    sections: []
+    text: "Excel-AI Distribution 0.1.3 (methodology chapter 5)."
+    sections:
+      - title: "B1 Distribution"
+        equations:
+          - id: B1.1
+            title: Input-output data of the country
+            kind: adjustment
+            greek: |
+              U_k = \frac{D_{y}}{D_{GTAP}}\Big(\sum_{i \notin fuels} (TD_i + X_i)\,L_{i,k} + TD_k\Big)
+            codes: |
+              \mathtt{gtot}_k = \mathtt{DIOTot}_k, \qquad \mathtt{DLcat}_{g,k} = \frac{\sum_{i \in g} \mathtt{HHD}_i\,L_{i,k}}{\sum_{i \in g} \mathtt{HHD}_i}
+            over: "fuel groups $k$, GTAP sectors $i$, categories $g$"
+            note: "Total use of fuel group $k$: embedded in the total demand $TD$ and exports $X$ of non-fuel sectors plus its own demand, at ResultsYear prices (WEO GDP deflator $D$ over the GTAP year)."
+            excel: "DistMapping"
+          - id: B1.2
+            title: Survey to national accounts
+            kind: adjustment
+            greek: |
+              N_{d} = n_{d}\,\frac{POP_y}{\sum n}, \qquad c_d = c^{svy}_d\,\frac{C^{NA}_y}{c^{svy}\,POP_y}, \qquad C^{NA}_y = GDP_y\,\frac{C}{GDP}
+            codes: |
+              \mathtt{pop\_tot\_adj} = \mathtt{popw}\cdot\mathtt{popadj}, \quad \mathtt{cons\_pc\_na} = \mathtt{cons\_pc\_svy}\cdot\mathtt{consadj}, \quad \mathtt{tot\_cons\_na} = \mathtt{cons\_pc\_na}\cdot\mathtt{pop\_tot\_adj}, \quad \mathtt{nacons} = \mathtt{gdp}\cdot\mathtt{consgdp}/100
+            over: "deciles, samples"
+            note: "Population and GDP (local currency) of the scenario in YearDistn; private consumption in % of GDP from WDI (NE.CON.PRVT.ZS) in its latest year."
+            doc: "05_Distribution, eq-5_4, eq-5_5"
+            excel: "Distribution section 7"
+          - id: B1.3
+            title: Mitigation-adjusted incidence and deadweight loss
+            kind: adjustment
+            greek: |
+              \beta = \min\Big(1, \max\big(0, \frac{R}{\sum_d u_d C_d}\big)\Big), \qquad \lambda = \beta + \tfrac{1}{2}(1 - \beta)\ \text{(DWLs)}
+            codes: |
+              \mathtt{badj} = \min(1, \max(0, \mathtt{rev}/\mathtt{revimpl})), \quad \mathtt{revimpl} = \textstyle\sum_d \mathtt{uloss}_d\,\mathtt{tot\_cons\_na}_d / 100, \quad \mathtt{lscale} = \mathtt{badj} + \mathtt{DWLTri}\,(1 - \mathtt{badj})
+            over: ""
+            note: "With InferredDist = Yes the burden is scaled to the revenue mitigation actually raises ($\\beta$ = 1 otherwise); with DWLs = Yes the deadweight triangle is added."
+            doc: "05_Distribution, eq-5_6"
+            excel: "Distribution section 6"
+          - id: B1.4
+            title: Cooking-fuel exemption
+            kind: adjustment
+            greek: |
+              t_{f^c,d} = 0 \quad \text{for } d \le \bar{d}
+            codes: |
+              \mathtt{fac}_{f,d} = 0 \text{ where } \mathtt{exdec}_d = 1 \text{ and } f = \mathtt{exfuel}
+            over: "deciles $d \\le$ ExemptCookDeciles"
+            note: "The main cooking fuel of the country (WHO) when ExemptMostCook = Yes."
+            excel: "Distribution sections 1 and 4"
+          - id: B1.5
+            title: Personal income tax cut
+            kind: adjustment
+            greek: |
+              PIT_d \in \Big\{\min(\bar{p}, p_d) + \tfrac{\sum_d (\bar{p} - p_d)^{+} N_d}{N},\ \ p_d\,\tfrac{R_{PIT}}{B},\ \ \min\big(p_d, \tfrac{(R_{PIT} - P_{d-1})^{+}}{N_d}\big)\Big\}, \quad p_d = \frac{B\,s_d}{\sum s\,N_d}, \ \bar{p} = \frac{R_{PIT}}{N}
+            codes: |
+              \mathtt{pit} = \mathtt{pitpa} \mid \mathtt{pitprop} \mid \mathtt{pitte} \ (\mathtt{PITReductionType}), \quad \mathtt{pitbase} = \mathtt{gdp}\cdot\mathtt{pitind}/100
+            over: "deciles $d$"
+            note: "Personal allowance, proportional compensation or targeted exemption from the bottom up to decile DistExcCfDec ($P_{d-1}$ the PIT paid by the deciles below). PIT shares $s_d$ by MissingDataReplacement."
+            excel: "Distribution section 8"
+          - id: B1.6
+            title: Public investment and current spending
+            kind: adjustment
+            greek: |
+              PUI_d = \frac{R_{PUI}\,(1 - a_d)}{\sum_d (1 - a_d) N_d}, \qquad CTS_d = \frac{R_{CTS}\,b_d}{\sum_d b_d N_d}
+            codes: |
+              \mathtt{pui}_d = \mathtt{puiamt}\,\mathtt{noacc}_d, \quad \mathtt{noacc} = 1 - \mathtt{acs}/100, \qquad \mathtt{cts}_d = \mathtt{ctsamt}\,\mathtt{aspbase}_d
+            over: "deciles $d$, samples (public investment)"
+            note: "$a_d$ access to the infrastructure chosen (PublicInfrastructureInvType); $b_d$ the ASPIRE benefit of the programme chosen (CurrentSpendingType) by quintile."
+            doc: "05_Distribution, eq-5_13, eq-5_14"
+            excel: "Distribution section 8"
+          - id: B1.7
+            title: Gini coefficient
+            kind: adjustment
+            greek: |
+              G = 1 - \frac{\sum_d x_d W_d}{\sum_d x_d}, \qquad L(q) = a q^2 + b q \text{ fitted to the cumulative shares}
+            codes: |
+              \mathtt{gini.g0}, \ \mathtt{gini.gx}, \ \mathtt{gini.gi} \text{ of } \mathtt{tot\_cons\_na}, \ \mathtt{postx}, \ \mathtt{posti}, \quad \mathtt{pct\_gini\_rec} = (\mathtt{gini.gi}/\mathtt{gini.g0} - 1)\cdot 100
+            over: "samples"
+            note: "The legacy Gini: a quadratic Lorenz curve through the origin fitted to the ten decile points (least squares), linear in the decile totals $x_d$ (weights $W_d$, DistMapping DGiniW). Before (postx) and after (posti) recycling."
+            excel: "Distribution section 9; DistMapping DGiniW"
+          - id: B1.8
+            title: Price change by production sector
+            kind: adjustment
+            greek: |
+              t_i = \sum_k L_{i,k}\,\phi_k\ (i \notin fuels), \qquad t^{*}_i = t_i\,\gamma_{s(i)}, \qquad \bar{t}_s = \frac{\sum_{i \in s} Q_i t^{*}_i}{\sum_{i \in s} Q_i}
+            codes: |
+              \mathtt{dps}_i, \ \mathtt{dpsp}_i = \mathtt{dps}_i\cdot\mathtt{passthrough}_{s(i)}, \ \mathtt{dprk}_i, \ \mathtt{ppic}_s, \ \mathtt{ppici}_s, \ \mathtt{outpriin}_s
+            over: "GTAP sectors $i$, CPAT sectors $s$ (by output $Q$ or household demand)"
+            note: "Pass-through $\\gamma$ where PassthroughDist = Yes; the 20 sectors with the largest price change listed (ties by sheet order)."
+            excel: "Distribution section 11"
 
 symbols_text: |
   Main symbols, their CPAT code, meaning and unit. "Notation from" says whether the symbol is the methodology's (M) or Excel-AI's (X). A code marked † is not yet confirmed in the codes map: to be checked and, where the codes map has no code, proposed for it (root NORMS section 3, codes protocol C11).
@@ -851,6 +944,6 @@ symbols:
   - {symbol: "fs, imp", code: "fis.sp, fis.imp", meaning: "Fiscal space, impulse", unit: "share of GDP", from: "X"}
   - {symbol: "\\varepsilon^{GDP}, lvl", code: "gdp.eff, gdp.lvl", meaning: "GDP effect; GDP level factor", unit: "share, factor", from: "X"}
   - {symbol: "\\pi^{dg}", code: "bsh", meaning: "Budget share of category $g$ in decile $d$", unit: "share", from: "M"}
-  - {symbol: "t_{fg}", code: "dp†", meaning: "Price change of fuel $f$ in sector $g$", unit: "share", from: "M"}
-  - {symbol: "e_{fg}", code: "eint†", meaning: "Energy intensity (input-output)", unit: "USD/USD", from: "M"}
-  - {symbol: "T^y, T^y_d", code: "trf†", meaning: "Transfer per person; average by decile", unit: "LCU", from: "M"}
+  - {symbol: "t_{fg}", code: "dpr, dpa", meaning: "Price change of fuel $f$ in sector $g$", unit: "share", from: "M"}
+  - {symbol: "e_{fg}", code: "DLcat", meaning: "Leontief coefficient of fuel group $k$ in category $g$ (input-output)", unit: "USD/USD", from: "M"}
+  - {symbol: "T^y, T^y_d", code: "tgtamt, tgt", meaning: "Transfer per person; by decile", unit: "LCU", from: "M"}

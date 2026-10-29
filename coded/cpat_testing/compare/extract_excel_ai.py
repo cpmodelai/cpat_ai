@@ -15,6 +15,10 @@
                                                      reference of the data steps
   data/excel_ai_stored/<table>.csv                   values Excel-AI stores from a scenario-1 run (BaselineCO2), read
                                                      as data until Python computes them (user 2026-10-29)
+  cpat_testing/compare/reference/excel_ai_distribution_<v>.csv   every coded row of sheet Distribution of the
+                                                     distribution module, scenario groups 1 and 2, columns 0
+                                                     (basket) and deciles 1-10 (python ... --distribution)
+  cpat_model/core/excel_ai/distribution_rows.csv     the Distribution rows: variable, item, sample, parameters, code
 
 Run from coded/:  python cpat_testing/compare/extract_excel_ai.py
 """
@@ -165,7 +169,31 @@ def stored(wb):
     print(f'baseline_co2: {len(out)} values')
 
 
-if __name__ == '__main__':
+DISTRIBUTION_VERSION = '0.1.3'           # the Excel-AI distribution module replicated (user 2026-10-29)
+DIST_WORKBOOK = REPO / 'excel_ai' / f'CPAT-AI-Distribution-Prototype_v{DISTRIBUTION_VERSION}.xlsm'
+DIST_REFERENCE = CODED / 'cpat_testing' / 'compare' / 'reference' / f'excel_ai_distribution_{DISTRIBUTION_VERSION}.csv'
+DIST_GROUPS = [(11, 1), (24, 2)]                            # Distribution: code column K, X; columns 0-10 follow
+
+
+def distribution(wb):
+    """The Distribution sheet: reference values by code (both groups) and the row table (group 1 codes)."""
+    rows = list(wb['Distribution'].iter_rows(values_only=True))
+    ref, table = [], []
+    for i, r in enumerate(rows, 1):
+        for col, n in DIST_GROUPS:
+            code = r[col - 1]
+            if isinstance(code, str) and code.count('.') >= 2:
+                ref.append([code] + [text(v) for v in r[col:col + 11]])
+                if n == 1:
+                    table.append([i, text(r[0]), text(r[1]), text(r[2]), text(r[3]), text(r[4]), code.rsplit('.', 1)[0]])
+    write(DIST_REFERENCE, ['code'] + [str(d) for d in range(11)], ref)
+    write(STRUCTURE / 'distribution_rows.csv', ['row', 'variable', 'item', 'sample', 'param_d', 'param_e', 'code'], table)
+    print(f'distribution: {len(ref)} codes, {len(table)} rows')
+
+
+if __name__ == '__main__' and '--distribution' in sys.argv:
+    distribution(openpyxl.load_workbook(DIST_WORKBOOK, read_only=True, data_only=True))
+elif __name__ == '__main__':
     book = openpyxl.load_workbook(WORKBOOK, read_only=True, data_only=True)
     print('scenario rows:', scenarios(book), '->', SCENARIOS)
     print('reference codes:', reference(book), '->', REFERENCE)

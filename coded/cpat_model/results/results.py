@@ -9,6 +9,7 @@ class Results:
     def __init__(self, settings):
         self.settings = settings
         self.states = {}
+        self.distribution = {}                            # {country: {code: 11 values}} (distribution/incidence.py)
 
     def add(self, number, state):
         self.states[number] = state
@@ -28,6 +29,12 @@ class Results:
         tables = [pd.DataFrame(np.array(rows), index=codes, columns=list(years))
                   for years, (codes, rows) in groups.items()]
         return pd.concat(tables).sort_index()
+
+    def distribution_by_code(self, country='EGY'):
+        """The distribution rows in Excel-AI's form: index = output code (`<iso>.distn.<variable>...<n>`), columns 0
+        (the basket) and 1-10 (the deciles)."""
+        rows = self.distribution.get(country, {})
+        return pd.DataFrame(list(rows.values()), index=list(rows), columns=range(11)).sort_index()
 
 
 def flatten(var, arr, country, n):

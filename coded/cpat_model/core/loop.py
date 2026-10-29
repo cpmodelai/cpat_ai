@@ -4,9 +4,11 @@
     year loop for t = base year ... last year, every block of mitigation/chain.py in order (the base year sets the
               starting values)
     finish    all-year results
-Spec section 4.2. The blocks are added in phase 3.
+Spec section 4.2. The blocks are added in phase 3. Then distribution: every scenario against the baseline in the
+analysis year (distribution/incidence.py), where the scenario set has the distribution inputs.
 """
 from cpat_model.data import open_database
+from cpat_model.distribution import incidence
 from cpat_model.mitigation import chain
 from cpat_model.results import Results
 
@@ -21,6 +23,8 @@ def run_scenarios(scenarios, settings):
         results.add(number, state)
         if number == 1:
             baseline = state
+    if 'YearDistn' in scenarios.inputs(1).values:
+        results.distribution = incidence.run(results, db, settings, scenarios)
     return results
 
 

@@ -361,50 +361,50 @@ One analysis year $y$; households $j$, deciles $d$, consumption categories $g$, 
 **D1.1  Budget shares**
 
 $$
-\pi^{g}_{j} = \frac{C^{g}_{j}}{C_j}, \qquad \pi^{dg} = \text{population-weighted mean of } \pi^{g}_{j} \text{ over } j \in d
+\pi^{g}_{j} = \frac{C^{g}_{j}}{C_j}, \qquad \pi^{dg} = \text{population-weighted mean (or median) of } \pi^{g}_{j} \text{ over } j \in d
 $$
 
-Over categories $g$, deciles $d$; samples overall, urban, rural. Source: methodology: 05_Distribution, eq-5_1; Excel-AI: Distribution tab, budget shares (HHSurvey).
+Over fuels and categories $g$ (8 fuels, 14 categories, biomass), deciles $d$ and the basket; samples $s$ overall, urban, rural. The survey tables hold the decile statistics; Coded CPAT reads them (QuantilesStatistic: mean or median). Source: methodology: 05_Distribution, eq-5_1; Excel-AI: Distribution section 5 (HHSurvey).
 
-**D1.2  Energy intensities of consumption categories (input-output)**
+**D1.2  Indirect price change of consumption categories (input-output)**
 
 $$
-e_{g} = f\left(I - A\right)^{-1}, \quad f \notin g
+\phi_k = \frac{\sum_{f \in k} S_f\, t^{a}_f}{U_k}, \qquad t_g = \sum_k \bar{L}_{g,k}\,\phi_k, \qquad \bar{L}_{g,k} = \frac{\sum_{i \in g} H_i L_{i,k}}{\sum_{i \in g} H_i}
 $$
 
-Over fuels $f$, categories $g$. Source: methodology: 05_Distribution, eq-5_3.
+Over fuel groups $k$ (coal, electricity, gas, crude oil, oil products), categories $g$. Excel-AI uses GTAP's total-requirement (Leontief) coefficients $L$ directly, weighted by household demand $H$ of the GTAP sectors in each category; the base-year spending $S_f$ on each fuel (pav.sp) at the industrial price change $t^a_f$, over the group's total use $U_k$ (B1.1). With ScaleGTAP = No, $U_k$ is the spending itself. Source: methodology: 05_Distribution, eq-5_3; Excel-AI: Distribution section 3; DistMapping DLcat, DIOTot.
 
 **D1.3  Price change by fuel from mitigation**
 
 $$
-t_{fg} = \frac{p^{P}_{f,y}}{p^{B}_{f,y}} - 1, \qquad t^{*}_{fg} = t_{fg}\,\gamma_g
+t_{f} = \frac{p^{P}_{f,y}}{p^{B}_{f,y}} - 1
 $$
 
-Over fuel-sector pairs (residential prices for direct effects; producer and electricity prices for indirect effects). $\gamma_g$ pass-through ($\le 1$) where the option is on. Source: methodology: 05_Distribution, sec 5.3.1, eq-5_8.
+Over household fuels $f$ (direct effect); fuels by industrial or average price (indirect effect, D1.2). Analysis year $y$ = YearDistn; the baseline is scenario 1. Source: methodology: 05_Distribution, sec 5.3.1, eq-5_8; Excel-AI: Distribution section 2 (FromMitigation).
 
-**D1.4  Additional expenditure (direct and indirect effect)**
+**D1.4  Direct, indirect and total effect**
 
 $$
-p_j = \sum_{fg} p_{fgj} = \frac{\sum_{fg} \overline{e_{fg}}\; t_{fg}\; C_{gj}}{C_j}, \quad f \in g
+p_{d} = \lambda \sum_{i} \pi^{di}\, t_i\, (1 + t_i)^{\epsilon_{di}}
 $$
 
-Over households $j$ (deciles $d$). As a share of consumption; the direct effect is the part with $g$ a fuel category, the indirect the rest. Source: methodology: 05_Distribution, eq-5_2.
+Over fuels and categories $i$, deciles $d$, samples. In % of consumption. The elasticity factor applies when PEDs = Yes (behavioural response, eq-5_7); $\lambda$ = lscale (B1.3); the cooking fuel is exempt for the poorest deciles where chosen (B1.4). Source: methodology: 05_Distribution, eq-5_2, eq-5_7; Excel-AI: Distribution sections 4 and 6.
 
 **D1.5  Revenue recycling, targeted transfer**
 
 $$
-T^{y} = \frac{P^{y}_{M}}{pop^{y}_{T}}, \qquad T^{y}_{d} = T^{y}\,\frac{\sum pop^{dy}_{T}}{\sum pop^{dy}}
+T_d = T\,r_d\,w_d, \qquad T = \frac{R\,\sigma_{T}}{\sum_d r_d\,w_d\,N_d}, \qquad r_d = \frac{\tau_d\,cov + (n_d - \tau_d)\,leak}{n_d}
 $$
 
-Over deciles $d$; other recycling options (PIT, existing schemes, infrastructure) in appendix B. Source: methodology: 05_Distribution, eq-5_9 to eq-5_12.
+Over deciles $d$. $R$ new revenue (rnew $\times$ xr, local currency), $\sigma_T$ the transfer share; $\tau_d$ the share of the decile's population under the targeted percentile (popsh, popcum), $cov$, $leak$ the coverage and leakage rates. The weight $w_d$ is 1, the poverty-line share (TargetBelow) or the ASPIRE programme's benefit by quintile (TransferType). Other recycling options in B1.5 and B1.6. Source: methodology: 05_Distribution, eq-5_9 to eq-5_12; Excel-AI: Distribution section 8.
 
 **D1.6  Net effect by decile**
 
 $$
-net_d = \frac{T^{y}_{d}}{C_d} - p_d
+net_d = p_d + \frac{PIT_d + PUI_d + CTS_d + T_d}{c_d}
 $$
 
-Over deciles $d$. Consumption effects are Laspeyres (upper-bound) estimates unless the behavioural option (eq-5_7) is on. Source: methodology: 05_Distribution, sec 5.4.
+Over deciles $d$, samples. Per person, in % of consumption per person scaled to national accounts (B1.2). Consumption effects are Laspeyres (upper-bound) estimates unless PEDs = Yes. Source: methodology: 05_Distribution, sec 5.4; Excel-AI: Distribution section 9.
 
 # Appendix A: mitigation adjustments
 
@@ -700,7 +700,73 @@ Over price codes $c$, sector groups $S$, sources (coal, gas and other power plan
 
 # Appendix B: distribution adjustments
 
-To complete from `excel_ai/mitigation/docs/methods/Distribution.md` and methodology chapter 5: scaling to national accounts (eq-5_4, eq-5_5); mitigation-adjusted incidence (eq-5_6); behavioural response (eq-5_7); targeting by infrastructure access (eq-5_13); scale-up of existing schemes (eq-5_14); PIT options (targeted exemption, personal allowance, proportional compensation); cooking-fuel exemption.
+Excel-AI Distribution 0.1.3 (methodology chapter 5).
+
+## B1 Distribution
+
+**B1.1  Input-output data of the country**  *(adjustment)*
+
+$$
+U_k = \frac{D_{y}}{D_{GTAP}}\Big(\sum_{i \notin fuels} (TD_i + X_i)\,L_{i,k} + TD_k\Big)
+$$
+
+Over fuel groups $k$, GTAP sectors $i$, categories $g$. Total use of fuel group $k$: embedded in the total demand $TD$ and exports $X$ of non-fuel sectors plus its own demand, at ResultsYear prices (WEO GDP deflator $D$ over the GTAP year). Source: Excel-AI: DistMapping.
+
+**B1.2  Survey to national accounts**  *(adjustment)*
+
+$$
+N_{d} = n_{d}\,\frac{POP_y}{\sum n}, \qquad c_d = c^{svy}_d\,\frac{C^{NA}_y}{c^{svy}\,POP_y}, \qquad C^{NA}_y = GDP_y\,\frac{C}{GDP}
+$$
+
+Over deciles, samples. Population and GDP (local currency) of the scenario in YearDistn; private consumption in % of GDP from WDI (NE.CON.PRVT.ZS) in its latest year. Source: methodology: 05_Distribution, eq-5_4, eq-5_5; Excel-AI: Distribution section 7.
+
+**B1.3  Mitigation-adjusted incidence and deadweight loss**  *(adjustment)*
+
+$$
+\beta = \min\Big(1, \max\big(0, \frac{R}{\sum_d u_d C_d}\big)\Big), \qquad \lambda = \beta + \tfrac{1}{2}(1 - \beta)\ \text{(DWLs)}
+$$
+
+With InferredDist = Yes the burden is scaled to the revenue mitigation actually raises ($\beta$ = 1 otherwise); with DWLs = Yes the deadweight triangle is added. Source: methodology: 05_Distribution, eq-5_6; Excel-AI: Distribution section 6.
+
+**B1.4  Cooking-fuel exemption**  *(adjustment)*
+
+$$
+t_{f^c,d} = 0 \quad \text{for } d \le \bar{d}
+$$
+
+Over deciles $d \le$ ExemptCookDeciles. The main cooking fuel of the country (WHO) when ExemptMostCook = Yes. Source: Excel-AI: Distribution sections 1 and 4.
+
+**B1.5  Personal income tax cut**  *(adjustment)*
+
+$$
+PIT_d \in \Big\{\min(\bar{p}, p_d) + \tfrac{\sum_d (\bar{p} - p_d)^{+} N_d}{N},\ \ p_d\,\tfrac{R_{PIT}}{B},\ \ \min\big(p_d, \tfrac{(R_{PIT} - P_{d-1})^{+}}{N_d}\big)\Big\}, \quad p_d = \frac{B\,s_d}{\sum s\,N_d}, \ \bar{p} = \frac{R_{PIT}}{N}
+$$
+
+Over deciles $d$. Personal allowance, proportional compensation or targeted exemption from the bottom up to decile DistExcCfDec ($P_{d-1}$ the PIT paid by the deciles below). PIT shares $s_d$ by MissingDataReplacement. Source: Excel-AI: Distribution section 8.
+
+**B1.6  Public investment and current spending**  *(adjustment)*
+
+$$
+PUI_d = \frac{R_{PUI}\,(1 - a_d)}{\sum_d (1 - a_d) N_d}, \qquad CTS_d = \frac{R_{CTS}\,b_d}{\sum_d b_d N_d}
+$$
+
+Over deciles $d$, samples (public investment). $a_d$ access to the infrastructure chosen (PublicInfrastructureInvType); $b_d$ the ASPIRE benefit of the programme chosen (CurrentSpendingType) by quintile. Source: methodology: 05_Distribution, eq-5_13, eq-5_14; Excel-AI: Distribution section 8.
+
+**B1.7  Gini coefficient**  *(adjustment)*
+
+$$
+G = 1 - \frac{\sum_d x_d W_d}{\sum_d x_d}, \qquad L(q) = a q^2 + b q \text{ fitted to the cumulative shares}
+$$
+
+Over samples. The legacy Gini: a quadratic Lorenz curve through the origin fitted to the ten decile points (least squares), linear in the decile totals $x_d$ (weights $W_d$, DistMapping DGiniW). Before (postx) and after (posti) recycling. Source: Excel-AI: Distribution section 9; DistMapping DGiniW.
+
+**B1.8  Price change by production sector**  *(adjustment)*
+
+$$
+t_i = \sum_k L_{i,k}\,\phi_k\ (i \notin fuels), \qquad t^{*}_i = t_i\,\gamma_{s(i)}, \qquad \bar{t}_s = \frac{\sum_{i \in s} Q_i t^{*}_i}{\sum_{i \in s} Q_i}
+$$
+
+Over GTAP sectors $i$, CPAT sectors $s$ (by output $Q$ or household demand). Pass-through $\gamma$ where PassthroughDist = Yes; the 20 sectors with the largest price change listed (ties by sheet order). Source: Excel-AI: Distribution section 11.
 
 # Appendix: symbols and codes
 
@@ -745,6 +811,6 @@ Main symbols, their CPAT code, meaning and unit. "Notation from" says whether th
 | $fs, imp$ | `fis.sp, fis.imp` | Fiscal space, impulse | share of GDP | X |
 | $\varepsilon^{GDP}, lvl$ | `gdp.eff, gdp.lvl` | GDP effect; GDP level factor | share, factor | X |
 | $\pi^{dg}$ | `bsh` | Budget share of category $g$ in decile $d$ | share | M |
-| $t_{fg}$ | `dp†` | Price change of fuel $f$ in sector $g$ | share | M |
-| $e_{fg}$ | `eint†` | Energy intensity (input-output) | USD/USD | M |
-| $T^y, T^y_d$ | `trf†` | Transfer per person; average by decile | LCU | M |
+| $t_{fg}$ | `dpr, dpa` | Price change of fuel $f$ in sector $g$ | share | M |
+| $e_{fg}$ | `DLcat` | Leontief coefficient of fuel group $k$ in category $g$ (input-output) | USD/USD | M |
+| $T^y, T^y_d$ | `tgtamt, tgt` | Transfer per person; by decile | LCU | M |

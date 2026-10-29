@@ -43,8 +43,8 @@ Decided 2026-10-29 (user): a block that still differs after a reasonable effort 
 
 ## Phase 4 - Distribution
 
-- ☐ 4.1 The distribution package on the new inputs, data and results, reading the 19a results (its 48 tests unchanged).
-- ☐ 4.2 The open distribution items below (revenue units, national totals, projected electricity price). Check: `distribution_ref.py`, then Excel-AI Distribution.
+- ☑ 4.1 Excel-AI Distribution 0.1.3 replicated on the new inputs, data and results (`cpat_model/distribution/mapping.py`, `incidence.py`; run by `run`, `Results.distribution_by_code`): every code of the Distribution sheet matches for Egypt, scenario groups 1 and 2 (1,684 codes, basket and deciles; `test_distribution_incidence.py`). The old package (`distribution.py` and its steps) and its tests are unchanged; to retire once the app reads the new results.
+- ☑ 4.2 The open distribution items, fixed as Distribution 0.1.3 does: revenue = rnew x Million x xr (local currency); national totals = the scenario's population and GDP (LCU) in YearDistn with WDI private consumption in % of GDP; electricity price change = the full end-user price `rp` (residential; industrial for the indirect effect).
 
 ## Phase 5 - Systematic comparisons
 
@@ -70,9 +70,9 @@ Decided 2026-10-29 (user): a block that still differs after a reasonable effort 
 
 Status (user 2026-10-20): the Python part was about 40% complete. Most items below are resolved by the rebuild (phases 2-4) rather than fixed in the old code; each is closed with a note when its phase is done.
 
-- ☐ **Distribution: carbon-pricing revenue units.** `derive_cp_revenue_from_scenarios` multiplies the carbon price (USD/t) by emissions (Mt), i.e. USD million, while the recycling steps treat it as local currency against household consumption in LCU; convert (exchange rate, millions) and validate against the Excel `MTOutputs` revenue. Until then recycling effects from a model run are far too small (the tests use the Excel revenue, so they are not affected).
-- ☐ **Distribution: national totals.** `run_distribution` passes `national_totals=None` (the survey's own population and consumption); wire population and household consumption (GDP x `distn_gdp_ratios`) once GDP exposes a real consumption series.
-- ☐ **Distribution: projected electricity price.** It now uses the power model's simplified price (last historical price + carbon price x emission intensity, `power.demand.rp_demand`); switch to the full electricity price build-up (legacy G1, G2) when it is ported. `EnergyPrices.ele_prices['rp']` holds historical years only.
+- ☑ **Distribution: carbon-pricing revenue units.** (closed by phase 4.2, 2026-10-29: the new distribution module.) `derive_cp_revenue_from_scenarios` multiplies the carbon price (USD/t) by emissions (Mt), i.e. USD million, while the recycling steps treat it as local currency against household consumption in LCU; convert (exchange rate, millions) and validate against the Excel `MTOutputs` revenue. Until then recycling effects from a model run are far too small (the tests use the Excel revenue, so they are not affected).
+- ☑ **Distribution: national totals.** (closed by phase 4.2, 2026-10-29: the new distribution module.) `run_distribution` passes `national_totals=None` (the survey's own population and consumption); wire population and household consumption (GDP x `distn_gdp_ratios`) once GDP exposes a real consumption series.
+- ☑ **Distribution: projected electricity price.** (closed by phase 4.2, 2026-10-29: the new distribution module.) It now uses the power model's simplified price (last historical price + carbon price x emission intensity, `power.demand.rp_demand`); switch to the full electricity price build-up (legacy G1, G2) when it is ported. `EnergyPrices.ele_prices['rp']` holds historical years only.
 - ☐ **Distribution in the Shiny app and the indicators** (results tables by decile).
 - ☐ **Data: other oil products** fall to the 0.01 price floor in the sample data (negative retail price in 2024), so their price change is 0; check the data.
 - ☐ **Data loaders**: the target format is `.pkl.bz2` (developer guide); the policies, GHGs and CH4 loaders read CSV from `DATA_PATH` until the pickles exist there.
