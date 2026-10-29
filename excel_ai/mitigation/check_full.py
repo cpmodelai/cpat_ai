@@ -3746,7 +3746,7 @@ def check_power_results(ws):
 def lam_cols(sheet):
     """v0.4.15: columns of the LAMBDA test group (v0.4.3: group 3 calls the LAMBDA of every row in every year) and the
     spacer test column on its left, which compares group 3 with group 2 (Mitigation and Distribution)."""
-    if sheet == 'Mitigation':
+    if sheet in ('Mitigation', 'FromMitigation'):   # v0.9.2: FromMitigation (v0.8.1) has the Mitigation columns
         code = B.group_cols(B.LAMBDA_GROUP)[0]
         return set(range(code - 1, code + B.GW - 1))
     if sheet == 'Distribution':
