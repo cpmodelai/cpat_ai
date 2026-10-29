@@ -1265,5 +1265,26 @@
   "note": "Was described in issue I34 (no combustion CH4 in legacy); a cell-level fix exists, so a bug (user 2026-10-29).",
   "status": "fix",
   "prototype": "Fixed (v9.0, EF465): the prototype fills the CH4 factors with the same 465 lookup (table Inputs_nc)."
+ },
+ {
+  "id": "L224",
+  "pri": "High",
+  "title": "Air-pollution unit costs are average damages where marginal damages are meant",
+  "where": "Air pollution sheet rows 3731-4378 (attributed deaths per ktoe x VSL), read by Mitigation rows 113-123 (Pigouvian taxes), 17738-17951 (FFS, implicit subsidies), 17964-18102 (efficient prices)",
+  "why": "The per-fuel cost is total attributed damage divided by fuel use (an average; residential LPG and kerosene include household air pollution). Pigouvian taxes, efficient prices and implicit subsidies need the marginal damage of one more unit of fuel; legacy's own welfare uses the concentration model, and the two differ about 5.7x (Egypt 2030).",
+  "fixes": [
+   {
+    "cell": "Air pollution 3731-4378 (unit costs)",
+    "now": "deaths per ktoe x VSL / GJ per ktoe",
+    "new": "v_PM(t) x sum over pollutants of the concentration coefficient of the module sector x the emission factor of the fuel and sector, / GJ per ktoe",
+    "fill": "",
+    "policy": ""
+   }
+  ],
+  "ref": "Legacy's welfare (AP 3217: value of the change in modelled PM2.5).",
+  "effect": "Egypt scenario 1, 2030: implicit subsidies 60.3 -> 44.4 bn; LPG efficient price 1.45 -> 0.66 $/l; most lines x0.68; LPG x0.004, kerosene x0.07 (household air pollution not in the concentration model).",
+  "note": "Was issue I104 (user 2026-10-29: a bug). The fix uses the concentration model of the AP sheet.",
+  "status": "fix",
+  "prototype": "Fixed (v9.0): section 1 rows airpol.mc by fuel and subsector; lines weighted by fuel use; legacy averages kept as a memo on FromAirPollution."
  }
 ]

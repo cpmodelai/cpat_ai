@@ -7742,7 +7742,10 @@ def build_settings(wb):
                               'Last historical price year 2024, as legacy (user; I89 closed). Local-pollutant and '
                               'combustion-CH4 factors as legacy 465 (table Inputs_nc: country, else region, else world; '
                               'other energy the maximum, I149; L58, L59 fixed by the CPAT team): section 15 equals '
-                              'legacy in 2022 except navigation (L22) and CH4 (I34).')]
+                              'legacy in 2022 except navigation (L22) and CH4 (L223). Pigouvian components live and '
+                              'acyclic (base-year value x growth of the per-km costs, I151); air-pollution unit costs as '
+                              'marginal damages (L224); module tabs FromAirPollution and FromTransportCB. Egypt prices '
+                              'equal legacy 465 (I99 closed).')]
     for i, row in enumerate(log, SET_LOG + 2):
         for j, v in enumerate(row, 1):
             c_ = put(ws, f'{L(j)}{i}', v)
@@ -9542,9 +9545,9 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
      '(wel.air from AP 3217); unit-cost bugs L189, L190, L191, L192, L193',
      'wel.usd = climate + air pollution (value per ug/m3 x change in the modelled PM2.5 of the prototype\'s emissions, '
      'section 17b) + road co-benefits (accidents, congestion, road damage per litre) - efficiency costs (v9.0, R1-R2); '
-     'typed Egypt inputs on Inputs_cob',
-     'R2, user decision 2026-10-29; never replicate a bug; unit costs are average damages (I104); issues I105, I106, '
-     'I111, I112', 'wel.usd adds the co-benefits; Egypt $20 tax: 2030 +3.9 bn (driven by food & forestry PM2.5, I147)',
+     'typed Egypt inputs on the module tabs FromAirPollution and FromTransportCB (other countries 0)',
+     'R2, user decision 2026-10-29; never replicate a bug; unit costs as marginal damages (L224); issues I105, I106, '
+     'I111, I112', 'wel.usd adds the co-benefits (food & forestry PM2.5 as legacy since EF465)',
      'Bug fix'),
     ('Social costs, FFS and subsidies', 'Rows 17678-17951 with bugs L176, L177, L178, L179, L180, L181, L182, L183, '
      'L184, L185, L186, L187, L188',
@@ -9555,7 +9558,7 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
     ('Pigouvian taxes', 'Option AddEfficientTaxes (default No*), netting over existing taxes, phase-in from CPIntro '
      '(rows 111-160, 199-218, 8782-9012); bugs L194, L195, L196',
      'Section 1 rows pig.*, cc.code, xcpb, ntxb (v9.0, R3): the same option and netting; the transport and residential '
-     'coal parts read stored scenario-1 values (BaselineCO2); electricity Pigouvian 0 (I119)',
+     'coal parts: base-year value x growth of the per-km costs, live in every group (I151); marginal air-pollution costs (L224); electricity Pigouvian 0 (I119)',
      'R3; issues I113, I114, I115, I116, I117, I118, I119 replicated', 'None by default (AddEfficientTaxes No)', 'Same'),
     ('Efficient prices', 'Rows 17955-18123 for the live scenario only; display rows with bug L203',
      'Section 18 (v9.0, R3.13-R3.22): by price fuel in every scenario group; the year table at YearFuelPrices (R3.23) '
@@ -9590,6 +9593,11 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
      '(CBAM), 6215-6267 (green investment), 18631-18771 (GVA and intensity): work in progress in legacy, no output '
      'read by the model', 'Not built (R4, R5, R12 deferred by the user 2026-10-29; designs on branch wip-r4-r5-r12)',
      'User decision 2026-10-29: the legacy WIP is not linked up', 'None (report rows only in legacy)', 'Not yet'),
+    ('Air-pollution unit costs', 'Average damages per fuel (attributed deaths per ktoe x VSL; AP 3731-4378), used in '
+     'the Pigouvian taxes, efficient prices, implicit subsidies and FFS', 'Marginal damages (v9.0): value of averted '
+     'PM2.5 x concentration coefficients x emission factors, lines weighted by fuel use; legacy values kept as a memo '
+     'on FromAirPollution', 'Legacy bug L224 (user 2026-10-29; was issue I104)', 'Egypt implicit subsidies 2030 60.3 '
+     '-> 44.4 bn; efficient prices of LPG and kerosene about halved', 'Bug fix'),
 ]
 
 

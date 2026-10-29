@@ -1358,3 +1358,20 @@ ISSUE_STATUS.update({
 ISSUE_STATUS.update({'I34': ('Minor', 'Accepted', 'Replicated: the allocation of methane sources in the air-pollution '
                              'table. The missing combustion CH4 factors are legacy bug L223 (cell plan), fixed in the '
                              'prototype.')})
+
+# v9.0 PIGAP (user 2026-10-29): Pigouvian proxy (I151), air-pollution unit costs a bug (L224, was I104), module tabs
+ISSUES += [
+    ('I151', 'Pigouvian road-transport component: base-year value x growth of the per-km costs',
+     'Legacy\'s Pigouvian tax uses scenario 1\'s transport externalities per litre (mf.1, Transport 322-344), which follow '
+     'scenario 1\'s road model. The prototype, live and acyclic in every scenario group, takes base-year fuel economy, '
+     'passenger/freight split (Transport1 fuel shares), driving share and road share, x the growth of the typed per-km '
+     'costs. Egypt against legacy 465 mf.1: gasoline -5.0% (2030), -9.2% (2040); diesel +6.7%, +3.9%.',
+     'CAVEATS.md (2026-10-29, PIGAP)')]
+ISSUE_LEGACY.update({'I151': 'not replicated', 'I104': 'not replicated'})
+ISSUE_STATUS.update({
+    'I151': ('Major', 'Accepted', 'Departure by user decision (2026-10-29: dynamic, copy-pastable, no stored scenario-1 '
+             'values).'),
+    'I104': ('Major', 'Closed', 'A legacy bug (user 2026-10-29): L224, fixed with marginal damages.'),
+    'I106': ('Minor', 'Accepted', 'Typed Egypt values on the module tabs FromAirPollution and FromTransportCB (other '
+             'countries read 0) until the modules write them.'),
+    'I118': ('Minor', 'Accepted', 'Transport part of the Pigouvian tax: the I151 proxy (no stored scenario-1 values).')})
