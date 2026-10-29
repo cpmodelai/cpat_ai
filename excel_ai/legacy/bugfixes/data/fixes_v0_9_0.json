@@ -1286,5 +1286,124 @@
   "note": "Was issue I104 (user 2026-10-29: a bug). The fix uses the concentration model of the AP sheet.",
   "status": "fix",
   "prototype": "Fixed (v0.9.0): section 1 rows airpol.mc by fuel and subsector; lines weighted by fuel use; legacy averages kept as a memo on FromAirPollution."
+ },
+ {
+  "id": "L225",
+  "pri": "Medium",
+  "title": "Efficient prices: potential VAT at the 2022 general rate in every year",
+  "where": "Mitigation 17969, 17984, 17996, 18008, 18032, 18068, 18104 (E17956 = L726)",
+  "why": "The potential VAT of the efficient prices multiplies by $E$17956, one fixed cell (L726: VAT_WEO of 2022, labelled \"General VAT rate (2018)\"), in every year; the energy-subsidy block of the same sheet uses the year's rate (L17787 = L726 by column, data to 2024, then carried forward).",
+  "fixes": [
+   {
+    "cell": "L17969 (and L17984, L17996, L18008, L18032, L18068, L18104)",
+    "now": "=(L17963+SUM(L17964:L17968)*$F$17955)*$E$17956",
+    "new": "=(L17963+SUM(L17964:L17968)*$F$17955)*L$17787",
+    "fill": "L:AE",
+    "policy": "none: the block is computed for the live scenario only (I120)"
+   }
+  ],
+  "ref": "The year's VAT_WEO, as the subsidy block (L17787); relabel or retire D17956:E17956.",
+  "effect": "Egypt none (14% throughout); countries whose VAT changed after 2022: efficient prices and tax gaps.",
+  "note": "Found by the legacy check of prototype bug M15 (2026-10-29).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.2, M15): section 18 row vatgen, the year's VAT_WEO to LastHistPriceYear, then held."
+ },
+ {
+  "id": "L226",
+  "pri": "Low",
+  "title": "Freight BEV feebate valued at the ICEV discounted distance",
+  "where": "Mitigation 4637 (policy copy 10953)",
+  "why": "M4637 = (0 - M4633) * M4634 / 10^6 * M4628 reads the ICEV freight discounted km; the passenger (4521: M4513) and 2-3 wheeler (4694: M4687) BEV feebates read the BEV distance.",
+  "fixes": [
+   {
+    "cell": "M4637",
+    "now": "=( 0 - M4633) * M4634 / 10^6 * M4628",
+    "new": "=( 0 - M4633) * M4634 / 10^6 * M4630",
+    "fill": "M4637:AE4637",
+    "policy": "paste into M10953:AE10953"
+   }
+  ],
+  "ref": "",
+  "effect": "Engineer road model with freight feebates only; Egypt 0 (rows 4491 and 4494 equal in the data).",
+  "note": "Found by the legacy check of prototype bug M16 (2026-10-29).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.2, M16)."
+ },
+ {
+  "id": "L227",
+  "pri": "Low",
+  "title": "PHEV TCO: BEV depreciation with insurance on the ICEV price",
+  "where": "Mitigation 4555 (policy copy 10871)",
+  "why": "L4555 = L4509*L4456 + SUM(L4565:L4567) + L4541 + L4520*L4396/L4397 + L4579 adds the BEV depreciation and salvage to the ICEV insurance and maintenance (row 4541, insurance on the ICEV price L4527). No PHEV purchase price exists in the data. The range-anxiety term L4579 is bug L41.",
+  "fixes": [
+   {
+    "cell": "L4555",
+    "now": "=L4509*L4456+SUM(L4565:L4567)+L4541+L4520*L4396/L4397+L4579",
+    "new": "=L4509*L4456+SUM(L4565:L4567)+(L4562*$J4326)/L4531*(1-(1/(1+L4531)^($J4322+1)))*0.5+$J4327*L4509+L4520*L4396/L4397",
+    "fill": "L4555:AE4555",
+    "policy": "paste into L10871:AE10871"
+   }
+  ],
+  "ref": "Insurance on the BEV price, ICEV maintenance per km and distance (user decision 2026-10-29); also drops L4579 (L41), so it supersedes L41's plan for this cell.",
+  "effect": "Engineer road model (PHEV choice) only.",
+  "note": "Found by the legacy check of prototype bug M17 (2026-10-29).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.2, M17): row im.phv."
+ },
+ {
+  "id": "L228",
+  "pri": "Medium",
+  "title": "World Bank LNG and Europe gas prices read from each other's row",
+  "where": "Mitigation 644, 646 (Prices_int rows 15, 17)",
+  "why": "K644:P644 (WB LNG) read Prices_int row 15, \"Natural gas, Europe\"; K646:P646 (WB Europe) read row 17, \"Liquefied natural gas, Japan\". Q:AE extend P.",
+  "fixes": [
+   {
+    "cell": "K644:P644",
+    "now": "INDEX(Prices_int!$H15:$BZ15,...)",
+    "new": "INDEX(Prices_int!$H17:$BZ17,...)",
+    "fill": "",
+    "policy": ""
+   },
+   {
+    "cell": "K646:P646",
+    "now": "INDEX(Prices_int!$H17:$BZ17,...)",
+    "new": "INDEX(Prices_int!$H15:$BZ15,...)",
+    "fill": "",
+    "policy": ""
+   }
+  ],
+  "ref": "",
+  "effect": "Sources WB, AVG and IMF-WB with gas region LNG or Europe; 2022 LNG 40.34 -> 18.43 $/MMBtu. Egypt none (IMF, global gas).",
+  "note": "Found by the legacy check of prototype bug M20 (2026-10-29).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.2, M20)."
+ },
+ {
+  "id": "L229",
+  "pri": "Medium",
+  "title": "IEA LNG and Europe gas prices read from each other's row",
+  "where": "Mitigation 652, 654 (Prices_int rows 39, 41)",
+  "why": "Prices_int row 39 is \"Natural gas, Europe\" (column K; equals IMF PNGASEU) and row 41 \"Liquefied natural gas, Japan\" (equals PNGASJP); K652:AE652 (IEA LNG) read row 39 and K654:AE654 (IEA Europe) row 41. EIA (660, 662), AVG and IMF-IEA inherit it.",
+  "fixes": [
+   {
+    "cell": "K652:AE652",
+    "now": "Prices_int!$M39:$BZ39",
+    "new": "Prices_int!$M41:$BZ41",
+    "fill": "",
+    "policy": ""
+   },
+   {
+    "cell": "K654:AE654",
+    "now": "Prices_int!$M41:$BZ41",
+    "new": "Prices_int!$M39:$BZ39",
+    "fill": "",
+    "policy": ""
+   }
+  ],
+  "ref": "",
+  "effect": "Sources IEA, EIA, AVG and IMF-IEA with gas region LNG or Europe. Egypt none (IMF, global gas).",
+  "note": "Found by the legacy check of prototype bug M20 (2026-10-29).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.2, M20)."
  }
 ]

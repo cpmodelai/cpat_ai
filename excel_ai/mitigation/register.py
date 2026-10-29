@@ -68,7 +68,11 @@ EXTRA_STATUS = {  # legacy bugs not in R.LEGACY: status in the prototype
 SEE_ALSO = {'I98': ['L58', 'L59'], 'I97': ['L170', 'LD3'], 'L170': ['I97', 'LD3'], 'I99': ['LD4', 'LD33', 'I14'], 
             'LD3': ['L170', 'I97'], 'LD4': ['I99'], 'LD33': ['I99'], 'L58': ['I98'], 'L59': ['I98'], 'L63': [], 'L64': [],
             'L137': ['I86', 'I87', 'I88'], 'I86': ['L137'], 'I87': ['L137'], 'I88': ['L137'],
-            'I147': ['LD53', 'LD81'], 'I148': ['L50', 'LD89'], 'L50': ['I148', 'LD89']}   # v0.9.0
+            'I147': ['LD53', 'LD81'], 'I148': ['L50', 'LD89'], 'L50': ['I148', 'LD89'],   # v0.9.0
+            # v0.9.2: the prototype bugs found by Coded CPAT and the legacy bugs of the same defect
+            'M15': ['L225', 'I120'], 'L225': ['M15', 'I120'], 'M16': ['L226'], 'L226': ['M16'],
+            'M17': ['L227', 'L41'], 'L227': ['M17', 'L41'], 'M18': ['L30'], 'M20': ['L228', 'L229'],
+            'L228': ['M20', 'L229'], 'L229': ['M20', 'L228']}
 
 
 def prefix(code):

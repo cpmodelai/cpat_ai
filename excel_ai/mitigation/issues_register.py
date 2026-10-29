@@ -601,30 +601,39 @@ MVP_BUGS = [  # id, title, found / fixed in, what happened, fix
      'The defined name VatGen was one fixed cell, the general VAT rate (VAT_WEO) of 2022; every year of the energy-subsidy '
      '(vatext) and efficient-price (vat.cost) rows applied it, whatever the year\'s rate.',
      'New section-18 row vatgen: VAT_WEO of the year up to LastHistPriceYear, the last historical rate held after it '
-     '(user assumption 2026-10-29); column D keeps the consumer flag x household share. Egypt unchanged (14% throughout).'),
+     '(user assumption 2026-10-29); column D keeps the consumer flag x household share. Egypt unchanged (14% throughout). '
+     'Legacy: the subsidy block uses the year\'s rate (L17787), so the vatext part was introduced in v0.9.0; the '
+     'efficient-price part is legacy bug L225.'),
     ('M16', 'Road: freight BEV feebate valued at the ICEV truck\'s distance', 'v0.9.1 (Coded CPAT) / v0.9.2',
      'trfbvfb.fre.bev multiplied by the ICEV discounted km (trdkmfrei); the passenger and 2-3 wheeler BEV feebates use '
-     'the BEV distance.', 'The freight BEV discounted km (trdkmfreb.fre.bev, legacy row 4630). Engineer road model only.'),
+     'the BEV distance.', 'The freight BEV discounted km (trdkmfreb.fre.bev, legacy row 4630). Engineer road model only. '
+     'In legacy too: L226.'),
     ('M17', 'Road: plug-in hybrid cost mixed BEV capital cost with ICEV insurance and maintenance',
      'v0.9.1 (Coded CPAT) / v0.9.2',
      'trtcfp.pas.phv took the BEV depreciation and salvage with the ICEV insurance and maintenance (insurance on the ICEV '
      'price).', 'One price basis (user 2026-10-29; no PHEV price in the data): new row trimphv.pas.phv, insurance on the '
-     'BEV price with the ICEV maintenance per km and the ICEV distance. Engineer road model only.'),
+     'BEV price with the ICEV maintenance per km and the ICEV distance. Engineer road model only. In legacy too: L227 '
+     '(with L41, the range anxiety).'),
     ('M19', 'Nominal GDP divided by a billion although WEO is in billions', 'v0.9.1 (Coded CPAT) / v0.9.2',
-     'gdpn = WEO NGDP / Billion: 1e9 too small (Egypt 7.8e-6 bn LCU).', 'No division; unit bn nominal. Output rows only.'),
-    ('M20', 'International prices: World Bank LNG and Europe gas series swapped', 'v0.9.1 (Coded CPAT) / v0.9.2',
-     'With IntEnerPricForeSource = WB the LNG price read Prices_int row 15 ("Natural gas, Europe") and the Europe price '
-     'row 17 ("Liquefied natural gas, Japan").', 'LNG reads row 17, Europe row 15 (by the series labels). Egypt '
-     'unchanged (IMF).'),
+     'gdpn = WEO NGDP / Billion: 1e9 too small (Egypt 7.8e-6 bn LCU). Not in legacy (row 424, no division): introduced '
+     'in v0.5.6.', 'No division; unit bn nominal. Output rows only.'),
+    ('M20', 'International prices: World Bank and IEA LNG and Europe gas series swapped', 'v0.9.1 (Coded CPAT) / v0.9.2',
+     'The WB LNG price read Prices_int row 15 ("Natural gas, Europe") and the Europe price row 17 ("Liquefied natural '
+     'gas, Japan"); the legacy check found the same swap in the IEA block (rows 39 and 41), which EIA, AVG and IMF-IEA '
+     'inherit. In legacy too: L228 (WB), L229 (IEA).', 'Each series read by its label: WB LNG row 17, Europe row 15; '
+     'IEA LNG row 41, Europe row 39. Egypt unchanged (IMF, global gas).'),
     ('M21', 'Methane fee: marginal abatement price #DIV/0 where the curve exponent is 0', 'v0.9.1 (Coded CPAT) / v0.9.2',
-     'mfp = MIN(fee, (1/a)^(1/b)) gave #DIV/0 where b = 0 and a <> 0.', 'IF(b = 0, fee, MIN(...)) (MFEEPRICE). No source '
-     'has b = 0 in the current data.'),
+     'mfp = MIN(fee, (1/a)^(1/b)) gave #DIV/0 where b = 0 and a <> 0, and #NUM! where b is about 1e-14 (45 country '
+     'sources in the data, e.g. AFG coal mining; DMA livestock b = 0). Not in legacy (no cap): introduced in v0.3.17.',
+     'IF(OR(b <= 0, LN(1/a)/b > 700), fee, MIN(fee, (1/a)^(1/b))) (MFEEPRICE): the cap is beyond any fee there. Egypt '
+     'unchanged.'),
     ('M22', 'Distribution: percentile recycling rows added a % row to amounts in local currency',
      'v0.9.1 (Coded CPAT) / v0.9.2 (Distribution 0.1.4)',
      'hrec = (pit + pui + cts + tgt) / hcpc x 100 read the public-investment row by the key pui.<sample>, which the '
      'recycling-gain % row reuses, so it added % of consumption to amounts per person.',
      'hrec reads the public investment amount per person of the sample (LCU). Egypt: the 25th/75th percentile '
-     'recycling and net rows where public investment is used.'),
+     'recycling and net rows where public investment is used. Not in legacy (T3194 uses the amount): introduced in '
+     'v0.6.0 (fixes D18, D19).'),
 ]
 
 # v0.9.1 (user 2026-10-29): prototype bugs found by Coded CPAT, not fixed yet. Prototype bugs are never put into Coded
@@ -639,7 +648,8 @@ WITHDRAWN_PROTO_BUGS = [
      'Registered in v0.9.1 as a bug (column D = base bus use of diesel, LPG, gas and electricity). Withdrawn by the user '
      '(2026-10-29): it is the legacy method (legacy row 5318 sums every bus fuel): bus electricity = all base-year bus '
      'energy x the passenger electricity share, which is how buses electrify. The proposed fix (base-year bus '
-     'electricity only) would keep bus electricity near zero where base-year bus electricity is ~0.'),
+     'electricity only) would keep bus electricity near zero where base-year bus electricity is ~0. Legacy bug L30 '
+     '(units) stays as it is.'),
 ]
 
 ISSUES = [  # id, title, description, where it is documented
@@ -1420,6 +1430,17 @@ ISSUE_STATUS.update({
     'I106': ('Minor', 'Accepted', 'Typed Egypt values on the module tabs FromAirPollution and FromTransportCB (other '
              'countries read 0) until the modules write them.'),
     'I118': ('Minor', 'Accepted', 'Transport part of the Pigouvian tax: the I151 proxy (no stored scenario-1 values).')})
+
+# v0.9.2: found by the legacy check of M21 (2026-10-29)
+ISSUES.append(('I152', 'Methane abatement curves: no fallback to the Average coefficients',
+               'Legacy takes each abatement-curve coefficient (a, b) of the country, and the Average row where the '
+               'country value is 0 or missing (Mitigation L6084:M6084 and the rows of the other sources: IF(country = 0, '
+               'Average, IFNA(country, Average))). The prototype reads the country value, 0 when missing (section 14 '
+               'ch4.abt D:E). Example: DMA livestock b = 0 (legacy: the Average b, 0.7005). Egypt: none (its '
+               'coefficients are non-zero).', 'Register; section 14 (ch4.abt)'))
+ISSUE_LEGACY.update({'I152': 'Not replicated yet: queued to be replicated (no user decision)'})
+ISSUE_STATUS.update({'I152': ('Minor', 'Open', 'Departure not decided by the user: queued to be replicated (NORMS 0): '
+                              'take the Average row where the country coefficient is 0 or missing, as legacy.')})
 
 
 # ---------------------------------------------------------------- documentation bugs (user 2026-10-29): kind DOC

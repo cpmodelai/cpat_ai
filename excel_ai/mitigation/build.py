@@ -5384,7 +5384,8 @@ LAMBDAS = {   # every calculated row calls one of these in the right column (LAS
     'SAFEDIV': (['amount', 'activity'], 'IF(activity=0,0,amount/activity)'),         # v0.3.14: 13b
     'GROWPATH': (['level', 'growth', 'years'], 'level*(1+growth)^years'),             # v0.3.17: section 18
     'TRAPEZOID': (['wedge', 'wedge_ref', 'change'], '-AVERAGE(wedge,wedge_ref)*change/MperBn'),
-    'MFEEPRICE': (['coef_a', 'coef_b', 'fee'], 'IF(coef_a=0,0,IF(coef_b=0,fee,MIN(fee,(1/coef_a)^(1/coef_b))))'),   # v0.9.2: M21
+    'MFEEPRICE': (['coef_a', 'coef_b', 'fee'], 'IF(coef_a=0,0,IF(OR(coef_b<=0,LN(1/coef_a)/coef_b>700),fee,'
+                                               'MIN(fee,(1/coef_a)^(1/coef_b))))'),   # v0.9.2: M21
     'MFEECOST': (['base_kt', 'abated', 'price', 'coef_b'], 'base_kt*abated*price*coef_b/(1+coef_b)/Million'),
     'IMPULSE': (['year', 'start', 'space', 'space_prev', 'gdp_prev', 'gdp'],
                 'IF(year<start,0,space-space_prev*gdp_prev/gdp)'),
@@ -8313,8 +8314,9 @@ IPI_SRC = {  # source: {commodity: (rule, legacy Prices_int row, year row, first
     'WB': {'oil': ('data', 13, 11, 2027), 'coa': ('data', 14, 11, 2027), 'nga.lng': ('data', 17, 11, 2027),
            'nga.nam': ('data', 16, 11, 2027), 'nga.eur': ('data', 15, 11, 2027)},   # v0.9.2 (M20): row 15 is
     # "Natural gas, Europe", row 17 "Liquefied natural gas, Japan" (labels in Prices_int column E; legacy swapped them)
-    'IEA': {'oil': ('data', 37, 36, 2100), 'coa': ('data', 38, 36, 2031), 'nga.lng': ('data', 39, 36, 2100),
-            'nga.nam': ('data', 40, 36, 2100), 'nga.eur': ('data', 41, 36, 2100)},
+    'IEA': {'oil': ('data', 37, 36, 2100), 'coa': ('data', 38, 36, 2031), 'nga.lng': ('data', 41, 36, 2100),
+            'nga.nam': ('data', 40, 36, 2100), 'nga.eur': ('data', 39, 36, 2100)},   # v0.9.2 (M20): the same swap in
+    # the IEA block: row 39 is "Natural gas, Europe" (= IMF PNGASEU), row 41 "Liquefied natural gas, Japan" (column K)
     'EIA': {'oil': ('trend', 50, 49, 2051), 'coa': ('trend', 51, 49, 2041), 'nga.lng': ('IEA', None, None, None),
             'nga.nam': ('trend', 53, 49, 2051), 'nga.eur': ('IEA', None, None, None)},   # legacy ranges AD:BK, AD:BA
     'AVG': {'oil': ('avg', 'EIA IEA WB IMF'), 'coa': ('avg', 'EIA IEA WB IMF'), 'nga.lng': ('avg', 'IEA WB IMF'),
@@ -13502,7 +13504,8 @@ def build_mitigation(wb):
             ab = G18[f'ch4.abt.{fu}']
             a = (f'$D${ab}', f'$E${ab}', f'{col}${R_POL["mfee"]}*$F${ab}*$G${ab}')   # v0.4.12: x fee applies
             return '=' + (call('MFEEPRICE', *a) if lam else
-                          f'IF({a[0]}=0,0,IF({a[1]}=0,{a[2]},MIN({a[2]},(1/{a[0]})^(1/{a[1]}))))'), '#,##0.00'   # v0.9.2: M21
+                          f'IF({a[0]}=0,0,IF(OR({a[1]}<=0,LN(1/{a[0]})/{a[1]}>700),{a[2]},MIN({a[2]},(1/{a[0]})^(1/{a[1]}))))'), \
+                '#,##0.00'   # v0.9.2 (M21): no cap where b <= 0 or the cap overflows (b ~ 1e-14 in the data)
         if var == 'mfc' and fu != 'all':
             em, ab, src = G18[f'ch4.em.{fu}'], G18[f'ch4.abt.{fu}'], G18[f'ch4.src.{fu}']
             base = f'IF($E${src}=0,0,$D${em}*{col}{G18["ch4.act." + fu]}/$E${src})'
