@@ -308,6 +308,7 @@ POW_PARAMS = (['AdditionalEfficiencyPower', 'IncElAdj', 'EngineerModelProportion
                'AdditionalCoalIntangibleCost', 'ManualCoalIntangibleCostST', 'ManualCoalIntangibleCostLT']   # v5.6 (P5)
               + [f'NewInv{t}' for t in ('Coa', 'Nga', 'Oil', 'Nuc', 'Wnd', 'Sol', 'Hyd', 'Ore', 'Bio')]
               + [f'NewInv{t}Year' for t in ('Coa', 'Nga', 'Oil', 'Nuc', 'Wnd', 'Sol', 'Hyd', 'Ore', 'Bio')])
+R9_PARAMS = ['PowerSubsidyExemptInclude', 'SupplyCostDeltaSubsidy']   # v9.0 (R9.1-R9.2): MTInputs rows 138, 351
 RES_PARAMS = ['AlwaysExemptResLPGKer']  # v5.1 (D16, I50): residential LPG and kerosene exempt from the new policies
 #                                         (MTInputs row 268, per scenario; legacy rows 5546-5547)
 LK_FUELS = ['nga', 'lpg', 'ker']        # v5.1 (D9): residential fuels that can leak to biomass (legacy rows 5571-5593)
@@ -495,6 +496,19 @@ IP_R1 = IP_R0 + NP - 1
 HIST_YEARS = [2021, 2022, 2023, 2024]   # years in the IMF price dataset (Prices_dom)
 MARGIN_YEAR = 2024                      # v9.0 (LD16 reverted): legacy reads the coal and gas margins at 2024 (typed; I101)
 LAST_HIST = 2022                        # v3.7: last historical price year (Settings C10), as legacy (decision 2026-10-15)
+# v9.0 (R8.1-R8.2): manual domestic prices (sheet Manual inputs G59:N146, MTInputs DomPrTax): table on Inputs_prices
+# below the notes, one column per code of Manual inputs rows 60-146: manual value where flagged (block M), else the
+# Prices_dom value of the country (block U, "" where blank). Every domestic price lookup of a historical year reads U.
+MP_CODES = [r[2] for r in csv.reader(open(os.path.join(DATA, 'legacy_ManualInputs_cells.csv'), encoding='utf-8'))
+            if r[1] == '7' and r[2].startswith('mit.') and r[0].isdigit() and 60 <= int(r[0]) <= 146]
+MP_YEARS = list(range(2021, 2027))       # Manual inputs I59:N59 (legacy _manual_years)
+
+
+def mp_use(var, ycell, r, code=None):
+    """v9.0 (R8.2): domestic price value of mit.<var>.<code> in the year of cell ycell, manual where flagged (table
+    MPU on Inputs_prices; blank = 0). code: the key in column A of row r unless given."""
+    k = f'"mit.{var}."&$A{r}' if code is None else f'"mit.{var}.{code}"'
+    return f'IFERROR(INDEX(MPU,MATCH({ycell},MPUYr,0),MATCH({k},MPUHdr,0))+0,0)'
 IP_COLS = [
     ('Price code (fuel.sector)', 'key'), ('Label', 'lab'), ('Fuel', 'fuel'), ('Sector', 'sec'),
     ('Block position in Mitigation section 2 (row of the fuel | sector block, first block = 1)', 'pos'), ('International price position (gp row)', 'gpos'),
@@ -525,6 +539,10 @@ IP_COLS = [
     ('Row of the price control in Manual inputs G167:G180 (code mit.rp.<price code>.ctrl; v5.2)', 'pcmr'),
     ('Manual price control (pass-through), Manual inputs J167:J180 (blank = 1, as legacy L747:L760; v5.2)', 'pcm')]
 IPC = {code: L(j) for j, (_, code) in enumerate(IP_COLS, 1)}
+MP_R0 = IP_R1 + 10                       # v9.0 (R8): manual price table (title row; code, row, flag, column below)
+MP_C0 = 4                                # first code column (D)
+MP_M0 = MP_R0 + 7                        # block M (manual values), one row per year of MP_YEARS
+MP_U0 = MP_M0 + len(MP_YEARS) + 2        # block U (values used)
 
 # ---------------------------------------------------------------- Mitigation layout
 PARAM_COLS = ['D', 'E', 'F', 'G']       # hidden by default
@@ -696,8 +714,8 @@ for pfx, var_ in (('csi', 'csi'), ('csf', 'csf'), ('pci', 'pci'), ('pcf', 'pcf')
 for pfx in ('psi', 'psf', 'pros'):                                         # producer subsidies by fuel
     for f_, _l in PROS_FUELS:
         _pol(f'{pfx}.{f_}', pfx, f_, 'all', **({'mt': 0} if pfx == 'psi' else {'kind': 'calc'}))   # v5.6: psi MTInputs
-for pfx in ('psd', 'psu', 'psr'):                                          # v6.1 (I49): demand, per unit (GP order);
-                                                                           # v6.2: psr reform per unit (separate wedge)
+for pfx in ('psd', 'psu'):                                                 # v6.1 (I49): demand, per unit (GP order);
+                                                                           # v9.0 (R7): phase-out in psu (no wedge psr)
     for f_ in PSU_FUELS:
         _pol(f'{pfx}.{f_}', pfx, f_, 'all', kind='calc')
 for p_ in ADDEFF_PARAMS:                                                   # v4.13 (LD21): additional efficiency
@@ -713,6 +731,8 @@ _pol('mfee', 'mfee', kind='calc')                                           # fe
 for p_ in GHG_PARAMS[5:]:                                                  # v2.8: non-energy GHG assumptions
     _pol(p_, p_, mt=MT_NAMES[p_])
 MT_NAMES.update({n: 0 for n, *_x in PW_MT_NEW})                             # v5.4: rows set after the transport rows
+for p_ in R9_PARAMS:                                                       # v9.0 (R9): electricity subsidies
+    _pol(p_, p_, mt=MT_NAMES[p_])
 for p_ in POW_PARAMS:                                                      # v5.4 (P2): power settings by scenario
     _pol(p_, p_, mt=MT_NAMES[p_])
 _pol('cptraj', 'cptraj', kind='calc')       # v2.6: the section's summary line, last (visible when rolled up)
@@ -869,12 +889,15 @@ NAMED_CONSTANTS += [
      'of the decile below the line (%; deciles of 10%)', 'legacy Distribution rows 2649-2651 (v6.0)'),
     ('DWLTri', 0.5, 'ratio', 'Harberger triangle: deadweight loss = 1/2 x lost demand x price change',
      'Legacy Distribution rows 859-883 (units corrected, register)')]
+NAMED_CONSTANTS += [
+    ('PsElFloor', -0.3, 'USD/kWh', 'Floor of the electricity producer subsidy per kWh (the part beyond it is the '
+     'residual pser, outside prices; v9.0, R7.6, I146)', 'Legacy Mitigation H3590:H3591')]
 CONST_ROW = {k: CONST_R0 + i for i, (k, *_r) in enumerate(NAMED_CONSTANTS + POLICY_CONSTANTS)}
 COV_LOOKUP = {  # v4.2: Mitigation D:E of the obr and shpx rows: Mapping table of coverage sectors; ETSSemi data
     'ets.grp': '=INDEX(CovEtsPos,MATCH($C{r},CovKey,0))', 'fb.grp': '=INDEX(CovFbPos,MATCH($C{r},CovKey,0))',
     'ets.semi': '=INDEX(ETSSemiVal,MATCH(CtryCode,ETSSemiKey,0),INDEX(CovSemiPos,MATCH($C{r},CovKey,0)))',
     'cov.pos': '=MATCH($C{r},CovKey,0)',                                     # v4.16: column of the scenario table
-    'pros.col': '=MATCH("mit.pros."&$B{r}&".all",PDomHdr,0)'}               # v4.16: Prices_dom column
+    'pros.col': '=MATCH("mit.pros."&$B{r}&".all",MPUHdr,0)'}               # v9.0 (R8.2): column of table MPU
 POL_PARAMS = {**{f'obr.{s}': ('ets.grp', 'ets.semi') for s in COV_SECTORS},  # D: ETS group, E: semi-elasticity
               **{f'shpx.{s}': ('fb.grp',) for s in COV_SECTORS},            # D: feebate sector position
               **{f'regc.{s}': ('cov.pos',) for s in COV_SECTORS},           # v4.16: D: sector of the scenario table
@@ -979,7 +1002,7 @@ R_PV0 = R_PRI['head.dom'] + 2           # v2.6: price build-up by fuel (heading 
 # subsidies (v6.3: at the bottom, bold, thin top and thick bottom border across titles and numbers); blank.
 PV_INPUTS = ['gpi', 'spf', 'esubpu', 'psp']   # v6.1 (I49): + producer subsidy per price unit
 PV_BUILD = ['sp', 'txf', 'txo', 'txfx', 'txfl', 'etx', 'esub', 'vat', 'rpb']   # v4.16: txo = fixed + floating part
-PV_NEW = ['pnq', 'pctx', 'pets', 'pntx', 'pxcd', 'pcsw', 'ppcw', 'ppsw', 'pvatn', 'pnce']   # v6.2: + ppsw   # v4.1: new taxes and subsidies,
+PV_NEW = ['pnq', 'pctx', 'pets', 'pntx', 'pxcd', 'pcsw', 'ppcw', 'pvatn', 'pnce']   # v9.0 (R7): - ppsw   # v4.1: new taxes and subsidies,
 # weighted; v4.16 (LD18): the consumer subsidy and price-control phase-out wedges of the block, separate lines
 PV_NEWSRC = {'pctx': 'ctxnew', 'pets': 'ets', 'pntx': 'ntx', 'pxcd': 'xcpd', 'rpn': 'atp'}   # subsector rows averaged
 PVARS = PV_INPUTS + PV_BUILD + PV_NEW + ['rpn']   # v6.3: the post-tax price rpn closes the block (was after the inputs)
@@ -1113,6 +1136,22 @@ PW_LAYOUT = [  # legacy sub-table letter, heading, items (kind, variable)
           'electricity VAT and subsidy gap (G) they form the power rows of section 12',
      [('tech', 'prtx'), ('tech', 'prsub'), ('tech', 'prxc'), ('tech', 'prnew'), ('tech', 'prxl'), ('tech', 'prrns')]),
 ]
+# v9.0 (R7.5-R7.9, R9): electricity producer and consumer subsidies and the price-chain residual (sub-table G2,
+# legacy rows 3575-3610, 3604-3607, 3633-3639) and the cost memos of legacy E4, E5 and F1 (sub-table E2)
+PW_LAYOUT.insert([x[0] for x in PW_LAYOUT].index('E') + 1, (
+    'E2', 'E2. Cost memos by type ($/kWh; v9.0, R9; legacy E4, F1 and the E5 breakdown, by year: the value in '
+          'MTInputs CostBreakdownYear is that year\'s column): current total cost, system cost, capital, O&M, fuel, '
+          'new carbon price, renewable subsidy, check (shadow price and the price floor not a column, I142); carbon '
+          'tax of policy scenarios',
+    [('tech', 'cur'), ('tech', 'sys'), ('tech', 'pcbcap'), ('tech', 'pcbom'), ('tech', 'pcbfu'), ('tech', 'pcbcp'),
+     ('tech', 'pcbrns'), ('tech', 'pcbchk'), ('single', 'pcbct')]))
+PW_LAYOUT.insert([x[0] for x in PW_LAYOUT].index('G') + 1, (
+    'G2', 'G2. Electricity subsidies in the price before new policies (v9.0, R7.5-R7.9, R9.1-R9.3; legacy rows '
+          '3575-3610, 3629-3639): data price before VAT, consumer tax / subsidy of the dataset, supply cost of the last '
+          'price year, producer subsidy (allocation by the pre-tax gap, per kWh floored, residual) after its phase-out, '
+          'consumer subsidy phase-out (PowerSubsidyExemptInclude), price-chain residual (rows 3607, 3636)',
+    [('user', 'rpnv'), ('user', 'txg'), ('user', 'txe'), ('user', 'scl'), ('user', 'psegap'), ('single', 'psegs'),
+     ('user', 'psesh'), ('user', 'pseu'), ('single', 'pser'), ('user', 'csd'), ('user', 'ores'), ('user', 'spe')]))
 PW_DATA = {'tcf', 'cbat', 'cint', 'obat', 'elcx', 'eltk', 'elof', 'elov', 'incp', 'shock', 'pret',
            'entxd'}                     # data lookups (PowerPaths; ntxd: Manual inputs), no LAMBDA
 PW_SUMS = {'demtot', 'gtot', 'usdtot', 'captot', 'nimtot', 'demg'}       # plain sums, no LAMBDA
@@ -1162,6 +1201,12 @@ PW_PARAMS = {  # Mitigation D:G of each power variable: ('key',) data key | ('t'
     'cmin': [], 'deficit': [], 'permit': [], 'maxinv': [],
     'lgi': [], 'pni': [], 'first': [], 'space': [], 'second': [('t', 'tb')], 'dgas': [], 'nei': [('t', 'gasf')],
     'nim': [], 'nimtot': [], 'usd': [], 'usdtot': [], 'phi': []}
+PW_PARAMS.update({  # v9.0 (R7, R9)
+    'cur': [], 'sys': [('t', 'dtx'), ('t', 'vre')], 'pcbcap': [], 'pcbom': [('t', 'opfx'), ('t', 'vop')],
+    'pcbfu': [('t', 'ffix')], 'pcbcp': [], 'pcbrns': [], 'pcbchk': [], 'pcbct': [],
+    'rpnv': [('g', 'pos'), ('g', 'vr')], 'txg': [], 'txe': [('g', 'pos')], 'scl': [], 'psegap': [], 'psegs': [],
+    'psesh': [('g', 'wtot')], 'pseu': [], 'pser': [], 'csd': [], 'ores': [], 'spe': []})
+PW_SUMS.add('psegs')
 R_PW, PW_HEAD, PW_ROWS = {}, {}, []      # (var, member) -> row; letter -> heading row; (row, var, B, C, kind)
 PW_LAB = {}                             # v2.4: var -> label row (parameter names D:G) above its block
 _r = B_POW + 2                          # v3.9: one blank row after the band
@@ -1207,7 +1252,7 @@ PW_FMT = {'tcf': '0.000', 'cbat': '#,##0.0', 'cint': '#,##0.0', 'obat': '0.00', 
           'elov': '0.0000', 'incp': '0.0000', 'entxd': '0.0000', 'entx': '0.0000', 'pex': '0.0000', 'rreb': '#,##0.0',
           'rpex': '#,##0.0', 'rexs': '#,##0.0', 'rexm': '#,##0.0', 'aeef': '0.0000', 'gmx': '#,##0', 'glg': '#,##0', 'ppr': '0.0000', 'dgas': '#,##0',
           'prrns': '#,##0.0'}
-VARS = ['ctxnew', 'ets', 'ntx', 'nce', 'xcp', 'xcpd', 'csw', 'pcw', 'psw', 'atp',   # v6.2: + psw   # v4.16: csw, pcw (phase-out wedges)
+VARS = ['ctxnew', 'ets', 'ntx', 'nce', 'xcp', 'xcpd', 'csw', 'pcw', 'atp',   # v9.0 (R7): - psw   # v4.16: csw, pcw (phase-out wedges)
          'shp', 'aef', 'enel', 'ener', 'co2', 'ch4', 'rtx', 'rsub', 'rnew',
         'rxcp', 'rex', 'rvt', 'rsr']    # per subsector, 8 fuels (v1.09: xcp, xcpd, rxcp; v4.15: rex, rvt for 12e;
 REV_VARS = ['rtx', 'rsub', 'rnew', 'rxcp', 'rsr']   # v4.16: rsr subsidy reform revenue)
@@ -2809,6 +2854,60 @@ def _build_tr_spec():
     for f in ('gso', 'die', 'lpg', 'nga', 'ecy'):
         T(f'tran.rsh.{f}', 'tran.rsh', f, 'rod', kind='plain', fmt='0.000',
           plain=lambda x, f=f: f'=IF({x.c("trq.all." + f)}=0,0,{x.c("trq.rod." + f)}/{x.c("trq.all." + f)})')
+    _build_tr_r10(T, R)
+
+
+def _build_tr_r10(T, R):
+    """v9.0 (R10.1-R10.7): road biofuels of the elasticity road model (legacy rows 5390-5392, 5403-5406, 5435) and
+    self-generated renewables of aviation and navigation (legacy rows 2805-2806, 5480, 5491, 5505, 5516)."""
+    rod = lambda v, f: SUB_HEAD['rod'] + VOFF[v] + [x[0] for x in FUELS].index(f)     # a road row of section 5
+    ela = lambda k: f'=INDEX(ElaSel,MATCH("{k}",ElaSelKey,0))'
+    addeff = lambda x: f'{x.col}${R_POL[ADDEFF_PARAMS[AEG["rod"] - 1]]}'             # road group (AdditionalEff.)
+    _th('Elasticity road model (TrModel = Elasticity): road biofuels (bioethanol and biodiesel follow gasoline and '
+        'diesel, other biofuels the fuel-use equation with oil elasticities, I143); self-generated renewables in '
+        'aviation and navigation, priced at the solar levelised investment cost (I144) (v9.0, R10)')
+    for key, f_, lab in (('trp.bfe', 'oil', 'other road biofuels: oil | transport (legacy rows 5392, 5406; I143)'),
+                         ('trp.rne', 'ren', 'self-generated renewables: renewables | transport (legacy 5491, 5516; I144)')):
+        k0 = key.split('.')[1]
+        _tpar(key, key, f'Elasticities and autonomous efficiency gain, {lab}', 'legacy Elasticities (Inputs_ela)',
+              [(f'{k0}|inc', ela(f'inc|{f_}|tra'), 'income elasticity'),
+               (f'{k0}|usg', ela(f'usg|{f_}|tra'), 'usage elasticity'),
+               (f'{k0}|eff', (lambda r, f_=f_, k0=k0: f'{ela(f"eff|{f_}|tra")}*(1+{TRC(k0 + "|usg")})'),
+                'efficiency exponent eps_F x (1 + eps_U)'),
+               (f'{k0}|aei', ela(f'aei|{f_}|tra'), 'autonomous efficiency gain')])
+    cons = lambda s_: (lambda r: f'=IFERROR(INDEX(ConsVal,MATCH(CodePrefix&"enc.ren",ConsKey,0),MATCH("{s_}",ConsSub,0)),0)')
+    _tpar('trp.rn0', 'trp.rn0', 'Self-generated renewables in the base year (ktoe; EnergyCons)', 'legacy rows 5491, 5516 '
+          '(base year)', [('rn0|avi', cons('avi'), 'aviation'), ('rn0|nav', cons('nav'), 'navigation')])
+    _tv('trbe', 'Road biofuels, elasticity road model (bioethanol, biodiesel, other biofuels; total = road biomass '
+        'where TrModel is not Engineer)', 'ktoe', 'legacy rows 5403-5406, 5435-5438', sfx='e')
+    for f_, fo in (('bgs', 'gso'), ('bdi', 'die')):
+        T(f'trbe.{f_}', 'trbe', f_, 'rod', R('BIOFOLLOW', lambda x, fo=fo: [x.self_p, x.X(rod('enel', fo)),
+                                                                          x.XP(rod('enel', fo))]),
+          base=lambda x, f_=f_: f'={TRC("eb|" + f_)}', fmt='#,##0.0')
+    _tv('trbea', 'Efficiency factor of other road biofuels (oil AEEI and the road group additional efficiency)', 'factor',
+        'legacy row 5406 (AEEI term)')
+    T('trbe.aef', 'trbea', 'obf', 'rod', R('AEEIFACTOR', lambda x: [TRC('bfe|aei'), addeff(x), TRC('bfe|usg')]),
+      fmt='0.0000')
+    T('trbe.obf', 'trbe', 'obf', 'rod',
+      R('FUELUSE', lambda x: [x.self_p, x.X(rod('atp', 'bio')), x.XP(rod('atp', 'bio')), x.X(rod('shp', 'bio')),
+                              x.XP(rod('shp', 'bio')), f'{x.col}${R_GDPI}', TRC('bfe|inc'), TRC('bfe|usg'),
+                              TRC('bfe|eff'), x.c('trbe.aef'), f'{x.col}${R_SHOCK}']),
+      base=lambda x: f'={TRC("eb|obf")}', fmt='#,##0.0')
+    T('trbe.bio', 'trbe', 'bio', 'rod', R('ADDTHREE', lambda x: [x.c('trbe.bgs'), x.c('trbe.bdi'), x.c('trbe.obf')]),
+      fmt='#,##0.0')
+    _tv('trpren', 'Price of self-generated renewables: levelised investment cost of solar (section 3 E)', '$/kWh',
+        'legacy rows 2805-2806 (= row 3468), 5480, 5505')
+    T('trp.ren', 'trpren', 'ren', 'tra', R('MEMOOF', lambda x: [x.X(R_PW[('tic', 'sol')])]), fmt='0.0000')
+    _tv('trrena', 'Efficiency factor of self-generated renewables (renewables AEEI and the road group additional '
+        'efficiency)', 'factor', 'legacy rows 5491, 5516 (AEEI term)')
+    T('trp.renaef', 'trrena', 'ren', 'tra', R('AEEIFACTOR', lambda x: [TRC('rne|aei'), addeff(x), TRC('rne|usg')]),
+      fmt='0.0000')
+    for s_ in ('avi', 'nav'):                # fuel use: in the subsector and the energy totals (section 11)
+        T(f'ener.{s_}.ren', 'ener', 'ren', s_,
+          R('FUELUSE', lambda x: [x.self_p, x.c('trp.ren'), x.p('trp.ren'), '0', '0', f'{x.col}${R_GDPI}',
+                                  TRC('rne|inc'), TRC('rne|usg'), TRC('rne|eff'), x.c('trp.renaef'),
+                                  f'{x.col}${R_SHOCK}']),
+          base=lambda x, s_=s_: f'={TRC("rn0|" + s_)}', fmt='#,##0.0')
 
 
 TR_LAMBDAS = {  # v3.5: section 5b (road transport, engineer model)
@@ -2905,6 +3004,7 @@ TR_LAMBDAS = {  # v3.5: section 5b (road transport, engineer model)
     'AVGFEEV': (['test', 'fe_a', 'fe_b', 'fe_c', 'weighted', 'e_sum'],
                 'IF(test=0,fe_a*TrFEWEvP+(fe_b+fe_c)*TrFEWEvO,weighted/e_sum)'),
     'PROD3SUM': (['value_a', 'w_a', 'value_b', 'w_b', 'value_c', 'w_c'], 'value_a*w_a+value_b*w_b+value_c*w_c'),
+    'BIOFOLLOW': (['prev_val', 'fuel_now', 'fuel_prev'], 'IF(fuel_prev=0,prev_val,prev_val*fuel_now/fuel_prev)'),
     'BIOSPLIT': (['gso_bio', 'die_bio', 'gso_base', 'die_base', 'gso_now', 'die_now'],
                  'IF(gso_base=0,gso_bio,gso_bio*gso_now/gso_base)+IF(die_base=0,die_bio,die_bio*die_now/die_base)'),
     'HOLD': (['prev'], 'prev'),
@@ -3005,6 +3105,7 @@ def lambda_plain(name, args):
 
 
 R_TR = {}            # section-5b row key -> Mitigation row
+REN_ROWS = ('ener.avi.ren', 'ener.nav.ren')   # v9.0 (R10.7): 5b rows of fuel use outside the fuel blocks
 TR_RES = (5325, 'trbio')   # section-5b result rows read by ener (gasoline, diesel, LPG, gas, label row, biofuels)
 TR_LAYOUT = []       # (row, kind, item): 'head' text, 'label' (first row item of the run), 'row' item, 'sum'
 TR_OWNBASE = set()   # rows with their own base-year formula (the Lambdas variant keeps it)
@@ -3050,7 +3151,7 @@ def _layout_tr(r0):
             assert k not in seen, f'section 5b: two rows {k}'
             seen.add(k)
             n = len([p for p in it['par']])
-            assert n <= len(TR_VARINFO[it['var']]) - 6 or it['kind'] == 'mt', (it['var'], n)
+            assert it['var'] not in TR_VARINFO or n <= len(TR_VARINFO[it['var']]) - 6 or it['kind'] == 'mt', (it['var'], n)
     return r + 1                     # summary row (after a blank row)
 
 
@@ -3120,7 +3221,8 @@ def _layout_lk(r0):
                                          f'INDEX({x.res("atp", True)},$F{x.r})', f'$E{x.r}')))
     for m in LK_FUELS:               # change in fossil fuel use (legacy 5577, 5583, 5588)
         row(f'lkd.{m}', 'lkd', m, base=zero, fmt='#,##0.0', par=[lambda r: eff.format(r=r), _lk_inp('fpos')],
-            lam=('LEAKCHANGE', lambda x: (f'INDEX({x.res("ener", True)},$E{x.r})', f'$D{x.r}', x.c(f'lkp.{x.m}'))))
+            lam=('LEAKCHANGE', lambda x: (f'INDEX({x.res("ener", True)},$E{x.r})-{x.p(f"lkx.{x.m}")}', f'$D{x.r}',
+                                          x.c(f'lkp.{x.m}'))))   # v9.0 (R6.7, I138): on the not-exempt use only
     for m in LK_FUELS:               # biomass with the same useful energy (legacy 5578, 5584, 5591, 5593; L90 fixed)
         row(f'lkb.{m}', 'lkb', m, fmt='#,##0.0', par=[lambda r: eff.format(r=r), lambda r: '=CookEffBio'],
             lam=('LEAKBIOMASS', lambda x: (x.c(f'lkd.{x.m}'), f'$D{x.r}', f'$E{x.r}')))
@@ -3298,6 +3400,7 @@ CH4_SOURCES = [  # code, label, CH4Inputs source code (abatement curve), share c
     ('ric', 'Rice cultivation', 'ric', 'per_rice', 'GWPCH4NF', 'agr'),
     ('wst', 'Waste', 'tot', None, 'GWPCH4NF', 'wst')]
 CH4_FOSSIL = [x[0] for x in CH4_SOURCES if x[4] == 'GWPCH4F']
+CH4_INTROW = {'og': 185, 'dg': 185, 'bm': 185, 'cm': 186, 'liv': 187, 'ric': 187, 'wst': 188}   # v9.0 (R8.6, I141)
 AEG = {'rod': 1, 'ral': 1, 'avi': 1, 'nav': 1, 'res': 2}   # v4.13 (LD21): legacy groups; others industrial (3), other
 #   energy use included (legacy bug L66: its fossil rows have no additional efficiency)
 MFEE_SW = {'og': 'MFeeFF', 'dg': 'MFeeDG', 'cm': 'MFeeFF', 'bm': 'MFeeBio', 'liv': 'MFeeAgr', 'ric': 'MFeeAgr',
@@ -3325,6 +3428,8 @@ GHG_BLOCKS = [  # (sub-heading, rows (key, variable, fuel, sector)); a label row
      [(f'ch4.prd.{f}', 'ch4.prd', f, 'all') for f in ('oil', 'coa', 'nga')]),
     ('Methane sources: activity', [(f'ch4.act.{j}', 'ch4.act', j, 'all') for j, *_ in CH4_SOURCES]),
     ('Methane sources: abatement by the methane fee', [(f'ch4.abt.{j}', 'ch4.abt', j, 'all') for j, *_ in CH4_SOURCES]),
+    ('Methane sources: intensity index (autonomous decline from GHGYear, Manual inputs J185:J188; v9.0, R8.6)',
+     [(f'ch4.int.{j}', 'ch4.int', j, 'all') for j, *_ in CH4_SOURCES]),
     ('Methane sources: emissions', [(f'ch4.em.{j}', 'ch4.em', j, 'all') for j, *_ in CH4_SOURCES]),
     ('Combustion CH4: power generation', [(f'ch4.pw.{f}', 'ch4', f, 'pow') for f in CH4_PW]),
     ('Energy CH4: combustion by sector, fuel supply', [(f'ch4.c.{g}', 'ch4.c', 'all', g)
@@ -3383,6 +3488,7 @@ GHG_LAM = ({'pop.g', 'gdppc.g', 'ghg.m', 'ghg.gi', 'ghg.k', 'ghg.flr', 'ch4.rev'
            | {f'ch4.emf.{j}' for j in CH4S_SRC} | {f'ghg.dr.{c}' for c in GHG_DRV}
            | {f'ch4.act.{j}' for j in ('liv', 'ric', 'wst')} | {f'ch4.abt.{j}' for j, *_ in CH4_SOURCES}
            | {f'ch4.em.{j}' for j, *_ in CH4_SOURCES} | {f'ch4.pw.{f}' for f in CH4_PW}
+           | {f'ch4.int.{j}' for j, *_ in CH4_SOURCES}
            | {f'ghg.{c}.{g}' for c in GHG_CATS for g in GHG_GASES} - {'ghg.enr.co2'})   # rows calling a LAMBDA in 2041
 # v2.9: 15. Local air pollutants (Methods, chapter Emissions)
 AP_SECS = [('cpp', 'Coal power plants'), ('gpp', 'Gas power plants'), ('opp', 'Other power plants (oil, biomass)'),
@@ -3797,7 +3903,7 @@ def _with_params(v, labels):
 
 
 _MT_VARS = set(CP_PARAMS + PRI_PARAMS + ETS_PARAMS + ECP_PARAMS + GHG_PARAMS + GDP_PARAMS + ADDEFF_PARAMS + SUB_PARAMS
-               + REG_PARAMS + RES_PARAMS + POW_PARAMS + PIG_PARAMS) | {'ctcov', 'fpr.yr0', 'fpr.yr1', 'fpr.s', 'fpr.f',
+               + REG_PARAMS + RES_PARAMS + POW_PARAMS + R9_PARAMS + PIG_PARAMS) | {'ctcov', 'fpr.yr0', 'fpr.yr1', 'fpr.s', 'fpr.f',
                                                                     'etscov', 'fb.yr0', 'fb.yr1', 'fb.s', 'fb.t',
                                                                     'fbcov', 'csi', 'pci', 'psi'}   # v6.0: v5.6 MT rows
 PARAM_LABELS_SET = {  # v2.4: parameter labels (Variables G:J) of rows whose D:G were typed or unlabelled
@@ -3816,6 +3922,7 @@ PARAM_LABELS_SET = {  # v2.4: parameter labels (Variables G:J) of rows whose D:G
     'ch4.abt': ('curve a (CH4Inputs)', 'curve b (CH4Inputs)', 'GWP', 'fee applies (1 = yes; Settings, legacy Manual '
                 'inputs J196-J200)'),
     'ch4.em': ('emissions in GHGYear (kt CH4)',),
+    'ch4.int': ('rate of decline (% per year; Manual inputs J185:J188)',),
     'xnim': ('share traded (sheet WEO)',),                                                        # v3.16: 16b
     'ghg.k': ('inventory energy CH4 (Mt CO2e)', 'combustion CH4 in GHGYear (kt; scenario 1, stored)', 'supply CH4 in GHGYear (kt; scenario 1, stored)'),
     'ghg.flr': ('flared share (CH4Inputs)',),
@@ -3836,7 +3943,7 @@ VAR_PARAMS = {'ctxnew': ['ef', 'fpos', 'spos', 'exg'], 'ets': ['ef', 'spos', 'ex
               'xcp': ['ef', 'ecpk'], 'xcpd': ['ef', 'ecpk', 'xcp0'],
               'atp': ['ppos', 'vr'], 'shp': ['ef', 'spos'], 'aef': ['a', 'aeg', 'eU'], 'enel': ['eY', 'eU', 'effx'], 'ener': ['trpos', 'lkpos'],
               'co2': ['ef'], 'ch4': ['ch4a', 'ch4b'], 'rtx': ['ppos', 'vr'], 'rsub': ['ppos'], 'rnew': ['vr'],
-              'rxcp': [], 'rex': [], 'rvt': ['ppos', 'vr'], 'csw': ['ppos'], 'pcw': ['ppos'], 'psw': ['ppos'], 'rsr': ['vr']}
+              'rxcp': [], 'rex': [], 'rvt': ['ppos', 'vr'], 'csw': ['ppos'], 'pcw': ['ppos'], 'rsr': ['vr']}
 PV_COLS = {'D': 'pcc', 'E': 'vr', 'F': 'gj', 'G': 'gpos'}   # v2.5: one meaning per column in every price block
 PVAR_PARAMS = {v: [] for v in PVARS}    # v2.6: the parameters sit in the block's parameter row pset (D:G)
 PARAM_LABELS = {'ppos': 'price position', 'vr': 'VAT rate', 'ef': 'EF', 'fpos': 'fuel position', 'spos': 'sector position',
@@ -3857,7 +3964,7 @@ VARIABLES = [
      '', 'WEO USA|ngdp_d: deflator(ResultsYear) / deflator(year)', 'legacy Mitigation row 467 (row 630 = 1 / it)'),
 ] + [(p, '=MT', '=MT', '', 'MTInputs (scenario column)', f'MTInputs row {MT_NAMES[p]}')
      for p in ['ExemptPhaseout', 'YearPha', 'ExemptPhaseoutPeriod'] + CP_PARAMS + PRI_PARAMS + ETS_PARAMS + ECP_PARAMS + GHG_PARAMS + GDP_PARAMS + ADDEFF_PARAMS + SUB_PARAMS
-     + REG_PARAMS + RES_PARAMS + POW_PARAMS + PIG_PARAMS] + [
+     + REG_PARAMS + RES_PARAMS + POW_PARAMS + R9_PARAMS + PIG_PARAMS] + [
     # v9.0 (R3, Equations_addendum C): Pigouvian (efficient) taxes, section 1
     ('pig.phi', 'Pigouvian tax: phase-in share', 'share', '',
      'MIN(MAX(year - CPIntro + 1, 0) / MAX(AddEfficientTaxesPhaseInYears, 1), 1) (R3.1)',
@@ -4006,17 +4113,16 @@ VARIABLES = [
     ('pros', 'Producer subsidy of the fuel before the phase-out', 'USD m real', '', 'PRODSUB: Prices_dom mit.pros '
      '(USD bn nominal) x CPI factor up to the last price year, then held', 'legacy rows 825-829 (v4.16)',
      'Prices_dom column'),
-    ('psu', 'Existing producer subsidy per unit of the fuel (negative; $/liter oil, $/GJ coal, gas, biomass)',
+    ('psu', 'Producer subsidy per unit of the fuel after the phase-out (negative; $/liter oil, $/GJ coal, gas, biomass)',
      'per unit real', '', 'PRODSUBUNIT: -pros / demand (oil: world; coal, gas: half world, half domestic; biomass: '
-     'domestic) up to the last price year, then held (v6.2: the phase-out is the separate wedge ppsw)',
-     'legacy rows 825-829 (v6.1, I49)'),
-    ('psr', 'Producer subsidy reform per unit of the fuel (>= 0: the subsidy removed)', 'per unit real', '',
-     'PSREFORM: -psu x (1 - psf)', 'legacy row 2213 x rows 825-829 (v6.2)'),
+     'domestic) up to the last price year, then the last value x psf (v9.0, R7.1: the phase-out in the supply cost, '
+     'as legacy)', 'legacy rows 825-829, 2213 (v6.1, I49)'),
     ('psd', 'Demand spreading the producer subsidy (oil: liters; coal, gas, biomass: GJ)', 'liters | GJ', '',
      'oil: world demand x liters per ktoe; coal, gas: average of world demand and domestic consumption x GJ per ktoe; '
      'biomass: domestic consumption x GJ per ktoe', 'legacy rows 717-719, 584-597, 825-829 (v6.1, I49)'),
-    ('psp', 'Existing producer subsidy of the block (negative; in the supply cost, before taxes)', '$/GJ real', 'a',
-     'psu of the fuel (G position) x liters per barrel for other oil products / GJ per price unit',
+    ('psp', 'Producer subsidy of the block after the phase-out (negative; in the supply cost, before taxes)', '$/GJ real',
+     'a', 'psu of the fuel (G position) x liters per barrel for other oil products / GJ per price unit (v9.0, R7.1: '
+     'psu carries the phase-out factor psf, as legacy O2455 = $J2456 x O2213)',
      'legacy rows 2455-2708 "in which: producer-side subsidies" (v6.1, I49; L124, L125 fixed)'),
     ('txfx', 'Fixed part of the existing taxes / subsidy (txo): pass-through x txo of the last historical year',
      '$/GJ real', '', 'history: pcc x txo; projection: pcc x txo of the last historical year',
@@ -4025,20 +4131,15 @@ VARIABLES = [
      'legacy row 2599 of each block (v4.16)'),
     ('pcsw', 'Consumer subsidy reform wedge of the block (before VAT)', '$/GJ real', '',
      'SUBREFORM: -(1 - csf) x MIN(txfx, 0)', 'legacy row 2598 (fixed subsidy x factor; v4.16, LD18)'),
-    ('ppsw', 'Producer subsidy reform wedge of the block (before VAT; v6.2)', '$/GJ real', '',
-     'PSWEDGE: psr of the fuel (G position) x liters per barrel if oop / GJ per price unit x pass-through (pcc)',
-     'legacy rows 2455-2708 x 2213 (in legacy inside the supply cost; separate here, user 2026-10-20)'),
     ('ppcw', 'Price-control phase-out wedge of the block (before VAT)', '$/GJ real', '',
      'PCREFORM: -(1 - pcf) x txfl', 'legacy row 2599 (floating part x factor; v4.16, LD18)'),
     ('csw', 'Consumer subsidy reform wedge of the subsector (the block\'s pcsw)', '$/GJ real', '', 'BLOCKWEDGE',
      'v4.16 (LD18)', 'price position'),
     ('pcw', 'Price-control phase-out wedge of the subsector (the block\'s ppcw)', '$/GJ real', '', 'BLOCKWEDGE',
      'v4.16 (LD18)', 'price position'),
-    ('psw', 'Producer subsidy reform wedge of the subsector (the block\'s ppsw; v6.2)', '$/GJ real', '', 'BLOCKWEDGE',
-     'v6.2 (user 2026-10-20: reforms separate from the before-tax build-up)', 'price position'),
-    ('rsr', 'Subsidy reform revenue (consumer subsidy and price-control phase-outs incl. VAT; VAT on the producer '
-     'subsidy reform wedge)', 'USD m real', '',
-     'Fuel use x PJ/ktoe x ((csw + pcw) x (1 + VAT rate) + psw x VAT rate)', 'legacy rows 7798-7807 (part of existing revenue; v4.16)',
+    ('rsr', 'Subsidy reform revenue (consumer subsidy and price-control phase-outs incl. VAT)', 'USD m real', '',
+     'Fuel use x PJ/ktoe x (csw + pcw) x (1 + VAT rate) (v9.0, R7.3: the producer subsidy phase-out is in the supply '
+     'cost, its VAT in rvt through vat)', 'legacy rows 7798-7807 (part of existing revenue; v4.16)',
      'VAT rate'),
     ('rpsu', 'Producer subsidies after the phase-out (negative = fiscal cost)', 'USD m real', '',
      '-SUMPRODUCT(pros, psf)', 'legacy rows 7824-7862 (v4.16, LD19)'),
@@ -4344,7 +4445,7 @@ VARIABLES = [
      'legacy rows 17767-17783 (L179, L180 fixed)'),
     ('wel.ffs', 'Total national welfare benefits (FFS)', 'USD bn real', '', 'env.ffs.cost total - eff.all - mfc.all '
      '(R2.10)', 'legacy row 17784'),
-    ('supcost', 'Energy subsidies: supply cost', 'USD/GJ, USD/kWh', '', 'sp of section 2 (electricity: sc of 3 G); '
+    ('supcost', 'Energy subsidies: supply cost', 'USD/GJ, USD/kWh', '', 'sp of section 2 (electricity: spe of 3 G2, v9.0); '
      'other lines: use-weighted (R2.11, L187 fixed)', 'legacy rows 17792-17944'),
     ('extcost', 'Energy subsidies: externalities incl. climate (global SCC)', 'USD/GJ, USD/kWh', '',
      'cc.glo + local costs; electricity 0 (R2.11, issue I108; L183 fixed)', 'legacy rows 17794-17941'),
@@ -4376,7 +4477,7 @@ VARIABLES = [
     ('rdm.cost', 'Efficient price: road damage cost per litre of diesel (scenario)', 'USD/l', '', 'tran.rdm.cost '
      '(R3.14, issue I118)', 'legacy row 17982'),
     ('sup.cost', 'Efficient price: supply cost of scenario 1', 'USD per price unit', '', 'sp of scenario 1 x GJ per '
-     'price unit (electricity: sc) (R3.13)', 'legacy rows 17963-18101 (16194-16206)', 'GJ per price unit'),
+     'price unit (electricity: spe, v9.0) (R3.13)', 'legacy rows 17963-18101 (16194-16206)', 'GJ per price unit'),
     ('airpol.cost.s', 'Efficient price: air-pollution cost', 'USD per price unit', '', 'airpol.cost (oil products), '
      'airpol.cost.gj (coal, gas), airpol.ecy.g of scenario 1 (electricity) (R3.14-R3.15)', 'legacy rows 17964-18102'),
     ('scc.cost', 'Efficient price: climate damage (national SCC)', 'USD per price unit', '', 'cc.code of section 1 '
@@ -4566,8 +4667,13 @@ VARIABLES = [
      'legacy Mitigation rows 6146-6151, 6212-6214'),
     ('ch4.abt', 'Methane source: abatement share from the methane fee', 'share', '',
      'MIN(1, MAX(0, a x (fee x GWP)^b)), curves of sheet CH4Inputs', 'legacy Mitigation rows 6104-6106, 6126, 6182-6206'),
+    ('ch4.int', 'Methane source: intensity index (autonomous technological improvement)', 'index', '',
+     'INTDECLINE: (1 - rate)^MAX(0, year - GHGYear); rate: Manual inputs J185 oil and gas (also downstream gas and '
+     'biomass, I141), J186 coal, J187 agriculture, J188 waste (v9.0, R8.6)',
+     'legacy Mitigation rows 6077-6079, 6103, 6159, 6171, 6183 (Manual inputs J185:J188)'),
     ('ch4.em', 'Methane source: emissions', 'kt CH4', '', 'base-year emissions x activity / activity in GHGYear x '
-     '(1 - abatement)', 'legacy Mitigation rows 6154-6165, 6217-6226'),
+     'intensity index x (1 - abatement) (v9.0, R8.7; L135 fixed: livestock, rice and waste also decline)',
+     'legacy Mitigation rows 6154-6165, 6203, 6206, 6212, 6217-6226'),
     ('ch4.c', 'CH4 from fuel combustion by sector', 'kt CH4', '', 'Sum of the ch4 rows (sectors 5-8; power: section 14)',
      'legacy Mitigation rows 7295-7307'),
     ('ch4.sup', 'CH4 from fossil fuel supply (oil and gas, downstream gas, coal mining, biomass)', 'kt CH4', '',
@@ -4789,7 +4895,8 @@ VARIABLES = [
            'distribution)', '$/kWh', '', 'gncav(t-1) + T&D add-on; base year gncav(t) + T&D',
      'legacy rows 3600, 3629', 'T&D add-on'),
     ('rppre', 'Electricity price before new policies (incl. VAT)', '$/kWh real', '',
-     'Data up to the last historical year (x CPI index), then rppre(t-1) + pass-through x (sc - sc(t-1)) x (1 + VAT)',
+     'Data up to the last historical year (x CPI index), then rppre(t-1) + pass-through x (change in sc + pseu + csd + '
+     'ores) x (1 + VAT) (v9.0, R7.9, R9.3)',
      'legacy rows 3613, 3642 (telescoped: held components cancel; pass-through of the scenario)',
      'user-group position', 'VAT rate'),
     ('entxd', 'New electricity excise typed on \'Manual inputs\' (rows 161-162)', '$/kWh', '', 'Manual inputs J:AF of '
@@ -4952,9 +5059,57 @@ VARIABLES = [
     ('prrns', 'Renewable subsidy revenue by type (negative = fiscal cost)', 'USD m real', '', 'rns x generation (MWy x '
      '8.76 = GWh)', 'legacy rows 3665-3669, 7897-7903 (L108 fixed: the base subsidy once)'),
 ]
+VARIABLES += [  # v9.0 (R9.4-R9.13): power cost memos (sub-table E2)
+    ('cur', 'Memo: current total cost by type', '$/kWh', '', 'INVCOST: MAX(lfx + tvc, MinPostSubsidyPowerPrice)',
+     'legacy E4 rows 3498-3506'),
+    ('sys', 'Memo: system cost by type (decommissioning, transmission share, storage, coal implicit cost)', '$/kWh', '',
+     'SYSCOST: (dtc + TrCostShare x tcx) / (cfu x 8,760 x dlf) + VRE x msc + coal x cic', 'legacy F1 rows 3522-3530',
+     'decommissioning + transmission share ($/kW)', 'VRE flag'),
+    ('pcbcap', 'Memo: cost breakdown, capital', '$/kWh', '', 'LEVCAPEX: cax / (cfu x 8,760 x dlf)',
+     'legacy E5 rows 3509-3517 L (C1)'),
+    ('pcbom', 'Memo: cost breakdown, O&M', '$/kWh', '', 'OMCOST: fixed O&M / (cfu x 8,760) + variable O&M',
+     'legacy E5 rows 3509-3517 M (A16 + D1)', 'fixed O&M ($/kW per year)', 'variable O&M ($/kWh)'),
+    ('pcbfu', 'Memo: cost breakdown, fuel (incl. the change in existing carbon pricing)', '$/kWh', '',
+     'VARCOST: fixed fuel cost + fpp x kwh + xck', 'legacy E5 rows 3509-3517 N (D2)', 'fixed fuel cost ($/kWh)'),
+    ('pcbcp', 'Memo: cost breakdown, new carbon price', '$/kWh', '', 'ccp', 'legacy E5 rows 3509-3517 P (D5)'),
+    ('pcbrns', 'Memo: cost breakdown, renewable subsidy', '$/kWh', '', 'rns', 'legacy E5 rows 3509-3517 Q (A17)'),
+    ('pcbchk', 'Memo: cost breakdown check, parts - current total cost (shadow price, rebate and price floor not a '
+               'column, I142)', '$/kWh', '', 'pcbcap + pcbom + pcbfu + sys + pcbcp + pcbrns - cur',
+     'legacy E5 rows 3509-3517 S'),
+    ('pcbct', 'Memo: carbon tax of the scenario (0 in scenario 1)', 'USD/tCO2 real', '', 'cptraj x (scenario > 1)',
+     'legacy E5 T3509, T9825 (L222 fixed: the block\'s own scenario)'),
+    # v9.0 (R7.5-R7.9, R9.1-R9.3): electricity subsidies (sub-table G2)
+    ('rpnv', 'Electricity price before VAT of the dataset (last price year held)', '$/kWh real', '',
+     'HISTHOLD: retail price (Inputs_power) / (1 + VAT rate)', 'legacy rows 3575, 3581', 'user-group position',
+     'VAT rate'),
+    ('txg', 'Electricity price gap before VAT: price - supply cost - manual excise', '$/kWh real', '',
+     'PRICEGAP: rpnv - sc - entx', 'legacy N3605, N3607 terms'),
+    ('txe', 'Electricity consumer tax / subsidy (dataset, last price year held)', '$/kWh real', '',
+     'ELTAXBASE: Prices_dom mit.txo.ecy x CPI index; no data: txg if SupplyCostDeltaSubsidy = Yes, else 0',
+     'legacy rows 3577, 3583, 3604-3606', 'user-group position'),
+    ('scl', 'Supply cost of electricity, after the last price year capped at its value then', '$/kWh real', '',
+     'CAPLAST: sc; after the last price year MIN(sc, sc of the last price year)', 'legacy O3607 (MIN(0, O3600 - $J3600))'),
+    ('psegap', 'Pre-tax gap of electricity x consumption (allocation of the producer subsidy)', 'USD m real', '',
+     'PREGAP: MAX(0, sc - (rpnv - txe)) x cons', 'legacy row 3588 (terms)'),
+    ('psegs', 'Pre-tax gap x consumption, both user groups', 'USD m real', '', 'SUM(psegap)', 'legacy row 3588 (sum)'),
+    ('psesh', 'Share of the electricity producer subsidy to the user group', 'share', '',
+     'PSALLOC: psegap / psegs, else cons / total, else 1 (residential); held after the last price year',
+     'legacy rows 3588-3589', 'weight on total demand (fallback: 1 - weight)'),
+    ('pseu', 'Electricity producer subsidy per kWh after the phase-out (floored at PsElFloor)', '$/kWh real', '',
+     'PSELEC: MAX(PsElFloor, -pros.ecy x psesh / cons); then the last value x psf.ecy',
+     'legacy rows 3590-3591, 3601, 3630 (I146)'),
+    ('pser', 'Electricity producer subsidy above the floor (memo, outside prices)', 'USD m real', '',
+     'PSERESID: -pros.ecy - SUM(cons x pseu); then the last value x psf.ecy', 'legacy row 3592'),
+    ('csd', 'Consumer subsidy phase-out: change in the electricity price before VAT', '$/kWh real', '',
+     'CSELEC: txe x (pof.cs - 1) if txe < 0 and PowerSubsidyExemptInclude = Include', 'legacy O3606, O3635'),
+    ('ores', 'Electricity price-chain residual (over / under-estimate of the price)', '$/kWh real', '',
+     'ORESID: txg - txe - pseu up to the last price year; then held, a negative one x scl / scl(t-1)',
+     'legacy rows 3607, 3636'),
+    ('spe', 'Electricity supply cost of the subsidy lines (removing the over / under-estimate)', '$/kWh real', '',
+     'ELSUPPLY: sc + ores + ccpav x pass-through x (1 - rbs) + pex', 'legacy rows 3620, 3649 (code sp.res/ind.ecy)')]
 VARIABLES = [_with_params(v, PARAM_LABELS_SET[v[0]]) if v[0] in PARAM_LABELS_SET else v for v in VARIABLES]
 TR_VARS = list(dict.fromkeys(it['var'] for it in TR_ROWS if it['kind'] != 'head'))     # v3.5: section 5b
-VARIABLES += [TR_VARINFO[v] for v in TR_VARS] + [
+VARIABLES += [TR_VARINFO[v] for v in TR_VARS if v in TR_VARINFO] + [   # v9.0: 5b rows of ener (R10.6) excluded
     ('trsum', 'Road fuel and electricity use from the engineer model (used where TrModel = Engineer)', 'ktoe', 'e',
      'Sum of the section 5b result rows (fuels, biofuels, electricity)', 'legacy rows 5325-5331'),
     # v5.1 (D9): section 6b, residential leakage to biomass (legacy rows 5571-5593; bugs L45, L90, L91 fixed)
@@ -4968,8 +5123,9 @@ VARIABLES += [TR_VARINFO[v] for v in TR_VARS] + [
      'on (BioLeak Yes and the most-used cooking fuel CookFuel)', 'coefficient sigma x e_bio / e_fuel / lag',
      'fuel position (residential block)'),
     ('lkd', 'Leakage: change in residential fossil fuel use in the year', 'ktoe', 'e',
-     '- fuel use last year x cookstove efficiency of the fuel x lkp; base year 0 (LEAKCHANGE)',
-     'legacy rows 5577, 5583, 5588 (L45 fixed: on actual use)', 'cookstove efficiency of the fuel',
+     '- (fuel use last year - initially exempt use lkx last year) x cookstove efficiency of the fuel x lkp; base year 0 '
+     '(LEAKCHANGE; v9.0, R6.7: exempt use does not leak, I138)',
+     'legacy rows 5577, 5583, 5588 (L45 fixed: on actual use; as legacy on the not-exempt rows 5564-5566)', 'cookstove efficiency of the fuel',
      'fuel position (residential block)'),
     ('lkb', 'Leakage: biomass replacing the fuel in the year (same useful energy)', 'ktoe', 'e',
      '- lkd x efficiency of the fuel / efficiency of biomass (LEAKBIOMASS)',
@@ -5058,13 +5214,10 @@ LAMBDAS = {   # every calculated row calls one of these in the right column (LAS
     'SHADOWSHARE': (['coverage', 'adjustment'], 'IF(coverage,1,0)*adjustment'),
     'SUPPLYCOST': (['year', 'key', 'fix_sp', 'sp_prev', 'gp_now', 'gp_prev', 'ps_now', 'ps_prev'],   # v6.1 (I49)
                    f'IF(year<=LastHist,{IP_HIST("sp")},fix_sp+(sp_prev-fix_sp-ps_prev)*gp_now/gp_prev+ps_now)'),
-    'PRODSUBUNIT': (['yr', 'subsidy', 'demand', 'last_unit'],   # v6.1 (I49); v6.2: existing subsidy, no phase-out
-                    'IF(yr<=LastHist,IFERROR(-subsidy*USDperM/demand,0),last_unit)'),
-    'PSREFORM': (['per_unit', 'kept'], '-per_unit*(1-kept)'),
+    'PRODSUBUNIT': (['yr', 'subsidy', 'demand', 'last_unit', 'kept'],   # v6.1 (I49); v9.0 (R7.1): x phase-out factor
+                    'IF(yr<=LastHist,IFERROR(-subsidy*USDperM/demand,0),last_unit*kept)'),
     'PSDEMAND': (['world', 'domestic', 'unit'], 'AVERAGE(world,domestic)*unit'),   # v6.2 (I49): psd   # v6.2: producer subsidy reform per unit (>= 0)
     'PSPRICEUNIT': (['per_unit', 'per_barrel', 'gj'], 'per_unit*IF(per_barrel,LitersPerBbl,1)/gj'),   # v6.2: $/GJ
-    'PSWEDGE': (['per_unit', 'per_barrel', 'gj', 'passthrough'],   # v6.2: producer subsidy reform wedge ($/GJ)
-                'per_unit*IF(per_barrel,LitersPerBbl,1)/gj*passthrough'),
     'OTHERTAX': (['year', 'key', 'txo_last', 'before_floor'],    # v2.5: = legacy rule with txo_last >= 0 as the test
                  f'IF(year<=LastHist,{IP_HIST("txo")},IF(txo_last>=0,MAX(txo_last,before_floor),before_floor))'),
     'RETAILPRICE': (['sp', 'txo', 'vat_rate'], '(sp+txo)*(1+vat_rate)'),
@@ -5156,8 +5309,9 @@ LAMBDAS = {   # every calculated row calls one of these in the right column (LAS
     'GROWINDEX': (['prev', 'growth_inc', 'el_inc', 'growth_pop', 'el_pop'],
                   'prev*(1+growth_inc)^el_inc*(1+growth_pop)^el_pop'),
     'ABATE': (['coef_a', 'coef_b', 'fee'], 'MIN(1,MAX(0,coef_a*fee^coef_b))'),
-    'METHSOURCE': (['base_kt', 'activity', 'activity_base', 'abate'],
-                  'IF(activity_base=0,0,base_kt*activity/activity_base*(1-abate))'),
+    'METHSOURCE': (['base_kt', 'activity', 'activity_base', 'intensity', 'abate'],   # v9.0 (R8.7): x intensity
+                  'IF(activity_base=0,0,base_kt*activity/activity_base*intensity*(1-abate))'),
+    'INTDECLINE': (['decline', 'cur_year'], '(1-decline)^MAX(0,cur_year-GHGYear)'),   # v9.0 (R8.6): methane intensity index
     'FLARING': (['flare_share', 'base_kt', 'activity', 'activity_base', 'abate'],
                 'IF(activity_base=0,0,FlareCO2perCH4*flare_share*base_kt*activity/activity_base*abate/ktPerMt)'),
     'CALIBRATE': (['inventory', 'modelled'], 'IF(modelled=0,0,inventory/modelled)'),
@@ -5208,6 +5362,29 @@ LAMBDAS = {   # every calculated row calls one of these in the right column (LAS
     'REBATE': (['fees', 'shares'], '-SUMPRODUCT(fees,shares)'),
     'VARTOTAL': (['base_cost', 'policy_cost', 'shadow', 'rebate'], 'base_cost+policy_cost+shadow+rebate'),
     'INVCOST': (['levelised_fixed', 'levelised_var', 'minimum'], 'MAX(levelised_fixed+levelised_var,minimum)'),
+    # v9.0 (R9.4-R9.13): cost memos by type
+    'SYSCOST': (['dtc_tcx', 'cap_factor', 'dlf', 'vre_flag', 'storage', 'coal_ic'],
+                'dtc_tcx/(cap_factor*HoursYr*dlf)+vre_flag*storage+coal_ic'),
+    'LEVCAPEX': (['capex', 'cap_factor', 'dlf'], 'capex/(cap_factor*HoursYr*dlf)'),
+    'OMCOST': (['opex_fix', 'cap_factor', 'opex_var'], 'opex_fix/(cap_factor*HoursYr)+opex_var'),
+    'MEMOOF': (['amount'], 'amount'),
+    # v9.0 (R7.5-R7.9, R9.1-R9.3): electricity subsidies and the price-chain residual
+    'HISTHOLD': (['cur_year', 'amount', 'held'], 'IF(cur_year<=LastHist,amount,held)'),
+    'PRICEGAP': (['net_price', 'supply', 'excise'], 'net_price-supply-excise'),
+    'ELTAXBASE': (['cur_year', 'data_val', 'gap', 'scds', 'held'],
+                  'IF(cur_year<=LastHist,IFERROR(data_val+0,gap*(scds="Yes")),held)'),
+    'PREGAP': (['supply', 'net_price', 'tax', 'cons'], 'MAX(0,supply-(net_price-tax))*cons'),
+    'PSALLOC': (['cur_year', 'gap_u', 'gaps', 'cons_u', 'conss', 'fallback', 'held'],
+                'IF(cur_year<=LastHist,IFERROR(gap_u/gaps,IFERROR(cons_u/conss,fallback)),held)'),
+    'PSELEC': (['cur_year', 'pros', 'alloc', 'cons', 'last_unit', 'kept'],
+               'IF(cur_year<=LastHist,IFERROR(MAX(PsElFloor,-pros*alloc/cons),0),last_unit*kept)'),
+    'PSERESID': (['cur_year', 'pros', 'used', 'last_val', 'kept'], 'IF(cur_year<=LastHist,-pros-used,last_val*kept)'),
+    'CSELEC': (['cur_year', 'tax', 'incl', 'kept'], 'IF(AND(cur_year>LastHist,tax<0,incl="Include"),tax*(kept-1),0)'),
+    'ELSUPPLY': (['supply', 'resid', 'policy_cost', 'pass', 'rebate', 'excise'],
+                 'supply+resid+policy_cost*pass*(1-rebate)+excise'),
+    'CAPLAST': (['cur_year', 'supply', 'supply_last'], 'IF(cur_year<=LastHist,supply,MIN(supply,supply_last))'),
+    'ORESID': (['cur_year', 'hist_val', 'prev_val', 'capped', 'capped_prev'],
+               'IF(cur_year<=LastHist,hist_val,IF(prev_val<0,prev_val*capped/capped_prev,prev_val))'),
     'CONSUMPTION': (['total', 'res', 'w_total', 'w_res', 'gwh_per_ktoe'], '(w_total*total+w_res*res)*gwh_per_ktoe'),
     'PRICEMIX': (['w_res', 'p_res', 'p_ind'], 'w_res*p_res+(1-w_res)*p_ind'),
     'DEMANDMULT': (['eff_mult', 'gdp_g', 'eps_y', 'income', 'p_now', 'p_prev', 'eps_p', 'shock', 'shock_on'],
@@ -5341,14 +5518,11 @@ LAMBDA_NOTES = {
     'SUPPLYCOST': 'Supply cost: data up to the last historical year (Inputs_prices, price code key), then fixed part + '
                   'floating part x gp(t)/gp(t-1) + producer subsidy per price unit (v6.1, I49: floating part = sp - '
                   'fixed - producer subsidy)',
-    'PRODSUBUNIT': 'Existing producer subsidy per unit (v6.1, I49; v6.2 without the phase-out): -subsidy / demand up '
-                   'to the last price year, then held (legacy rows 825-829)',
+    'PRODSUBUNIT': 'Producer subsidy per unit (v6.1, I49): -subsidy / demand up to the last price year, then the last '
+                   'value x the phase-out factor psf (v9.0, R7.1; legacy rows 825-829, 2213)',
     'PSDEMAND': 'Demand spreading the producer subsidy (v6.2, I49): average of world and domestic demand x units per ktoe (oil: world only, biomass: domestic only)',
-    'PSREFORM': 'Producer subsidy reform per unit (v6.2): -existing subsidy per unit x (1 - kept factor) (legacy row 2213)',
     'PSPRICEUNIT': 'Existing producer subsidy of a block ($/GJ): per unit x liters per barrel for a barrel-priced block '
                    '(L125) / GJ per price unit (v6.1, I49; v6.2: $/GJ)',
-    'PSWEDGE': 'Producer subsidy reform wedge of a block ($/GJ, before VAT; v6.2): reform per unit x liters per barrel '
-               'if barrel-priced / GJ per price unit x pass-through (legacy: the supply-cost rise is passed on at pcc)',
     'OTHERTAX': 'Excise and other taxes: data up to the last historical year, then the value before the floor, not '
                 'below its last historical value if that is >= 0 (legacy rule)',
     'RETAILPRICE': 'Retail price before new policies: (supply cost + excise and other taxes) x (1 + VAT rate)',
@@ -5445,7 +5619,36 @@ LAMBDA_NOTES = {
               'the change in the mitigation effort',
     'GROWINDEX': 'Activity index of a methane source: previous x income and population growth with elasticities',
     'ABATE': 'Methane abatement share: MIN(1, MAX(0, a x fee ^ b)), fee in USD per t CH4 (curves of sheet CH4Inputs)',
-    'METHSOURCE': 'Methane of a source (kt): base-year emissions x activity / base-year activity x (1 - abatement)',
+    'SYSCOST': 'System cost by type ($/kWh; v9.0, R9.5, legacy F1): (decommissioning + transmission share) / (capacity '
+               'factor x 8,760 x discounted lifetime) + storage if VRE + coal implicit cost',
+    'LEVCAPEX': 'Levelised capital cost by type ($/kWh; v9.0, R9.6, legacy E5 C1): capex / (capacity factor x 8,760 x '
+                'discounted lifetime)',
+    'OMCOST': 'O&M cost by type ($/kWh; v9.0, R9.7, legacy E5 A16 + D1): fixed O&M / (capacity factor x 8,760) + '
+              'variable O&M',
+    'MEMOOF': 'Memo copy of a value of the same column (v9.0, R9.10-R9.11)',
+    'HISTHOLD': 'Value up to the last historical price year, then held (v9.0, R7, R9)',
+    'PRICEGAP': 'Electricity price before VAT less the supply cost and the manual excise (v9.0, R9.1, legacy N3605)',
+    'ELTAXBASE': 'Electricity consumer tax / subsidy (v9.0, R9.1, legacy rows 3604-3606): the dataset value up to the '
+                 'last price year (blank: the price gap if SupplyCostDeltaSubsidy = Yes, else 0), then held',
+    'PREGAP': 'Pre-tax gap x consumption: MAX(0, supply cost - (price before VAT - tax)) x GWh (v9.0, R7.5, legacy 3588)',
+    'PSALLOC': 'Share of the electricity producer subsidy (v9.0, R7.5, legacy 3588-3589): by the pre-tax gap, else by '
+               'consumption, else the fallback; held after the last price year',
+    'PSELEC': 'Electricity producer subsidy per kWh (v9.0, R7.6, R7.8, legacy 3590-3591, 3601): -subsidy x share / '
+              'consumption, at least PsElFloor (I146); after the last price year the last value x the phase-out factor',
+    'PSERESID': 'Electricity producer subsidy above the floor (USD m; v9.0, R7.7, legacy 3592): -subsidy - consumption x '
+                'per kWh; after the last price year x the phase-out factor',
+    'CSELEC': 'Electricity consumer subsidy phase-out (v9.0, R9.2, legacy O3606): tax of the last price year x (factor - '
+              '1) if it is a subsidy and PowerSubsidyExemptInclude = Include',
+    'ELSUPPLY': 'Electricity supply cost of the subsidy lines (v9.0, R9; legacy rows 3620, 3649 "supply costs (removing '
+                'estimation)"): supply cost + price-chain residual + new carbon cost passed through (less the rebate) + '
+                'excise',
+    'CAPLAST': 'Supply cost up to the last price year, then capped at its value then (v9.0, R9.3, legacy O3607)',
+    'ORESID': 'Electricity price-chain residual (v9.0, R9.3, legacy rows 3607, 3636): price gap - tax - producer subsidy '
+              'up to the last price year; then held, a negative one x capped supply cost / last year\'s',
+    'METHSOURCE': 'Methane of a source (kt): base-year emissions x activity / base-year activity x intensity index x '
+                  '(1 - abatement) (v9.0, R8.7: intensity decline as legacy rows 6077-6079, 6103, 6159-6183; L135 fixed)',
+    'INTDECLINE': 'Methane intensity index (v9.0, R8.6): (1 - rate of decline)^MAX(0, year - GHGYear) (legacy rows '
+                  '6077-6079, 6103, 6159, 6171, 6183; Manual inputs J185:J188)',
     'FLARING': 'CO2 from flaring the abated oil and gas methane (Mt): FlareCO2perCH4 x flared share x abated CH4',
     'CALIBRATE': 'Calibration factor: inventory / modelled (0 if nothing is modelled)',
     'INVORMODEL': 'Inventory value while the inventory has the year (hist > 0), else the model',
@@ -5669,6 +5872,8 @@ TR_LAMBDA_NOTES = {  # v3.5: section 5b (road transport, engineer model)
     'CLAMPOWN': 'Ownership: data, else the demand within the decline and growth limits',
     'PLUG': 'Data-year adjustment of purchases so that the closing stock equals the data',
     'ADDTHREE': 'Sum of three values',
+    'BIOFOLLOW': 'Road bioethanol / biodiesel of the elasticity road model (v9.0, R10.1-R10.2, legacy 5404-5405): last '
+                 'year x gasoline / diesel use of this year / last year (held if last year is 0)',
     'TURNOVER': 'Share of the stock bought new each year: 1 / weighted life',
     'NEWINSTOCK': 'Share of this year\'s purchases in the closing stock (0 without stock)',
     'CROSSRATIO': 'Weighted change in the TCO of the other fuels (blank if they have no share)',
@@ -5920,6 +6125,28 @@ def legacy_cells(wb, name, title_text, source, header=None):
     return ws, max(int(r) for r, _c, _v in t)
 
 
+RA_FIT = os.path.join(HERE, '..', '..', 'data', 'range_anxiety_fit', 'range_anxiety_fit.csv')
+RA_FIT_COLS = {'passenger': 8, 'freight': 14, 'cycle': 20}     # Transport3 H, N, T (names RAPas, RAFre, RACyc)
+
+
+def ra_fit_apply(ws, last):
+    """v9.0 (R10.8-R10.9): the range-anxiety start values fitted on the prototype's own model (scenario 1, fit year
+    2025, ra_goalseek.py; data/range_anxiety_fit) replace the legacy stored solutions of the country in the Transport3
+    table (bright yellow: data changed by assumption); countries without a fit keep the legacy values."""
+    if not os.path.exists(RA_FIT):
+        return
+    fits = {r['country']: r for r in csv.DictReader(open(RA_FIT, encoding='utf-8'))}
+    for r in range(5, last + 1):
+        f = fits.get(ws.cell(r, 1).value)
+        if not f:
+            continue
+        for k, c in RA_FIT_COLS.items():
+            if f.get(k) not in (None, ''):
+                cell = ws.cell(r, c, float(f[k]))
+                cell.font, cell.fill = FONT_CHANGED, F_CHANGED
+                cell.number_format = '#,##0'
+
+
 def mult_rows():
     """v4.6: legacy Multipliers rows of each (group, instrument): median block (rows 88-145) and standard-deviation block
     (rows 147+), found by group label (column B) and instrument (column B below it) in the legacy tab."""
@@ -6036,8 +6263,10 @@ MI_BLOCKS = [
      'Not read: the prototype reads the feebate coverage on MTInputs rows 66-82 per scenario. Row 54 (legacy name '
      'FeebateInclusion: Dashboard H44, J44, R30 and row 53) typed as its legacy default'),
     (57, 146, ['codes'],                     # the rows with a code in G (mit.<variable>.<fuel>.<sector>), I:N
-     MI_NOTREAD + ' (manual domestic prices and taxes, MTInputs DomPrTax; prices: sheet Prices_dom). Status F57 and '
-     'year headers typed'),
+     'Read (v9.0, R8.1-R8.2): G59:N146 by code (names ManPrKey, ManPrVal, ManPrYr) in the table MPU of Inputs_prices '
+     'when MTInputs DomPrTax = Yes (Settings C86): a code with a 2021 value takes its manual value in every year it has '
+     'one (2021-2026), else Prices_dom (legacy rows 765-829; I53 replicated); fuels, electricity, producer subsidies. '
+     'Status F57 and year headers typed'),
     (148, 163, ['J150:BU163'],
      'Read (v5.4): J161:AF162, the new electricity excise (residential, industry; names ManExcKey, ManExcVal, '
      'ManExcYr), in the policy scenarios whose MTInputs AdditionalExcise = Yes (Mitigation section 3 rows entxd, '
@@ -6050,8 +6279,8 @@ MI_BLOCKS = [
      'read (prototype electricity prices: power section)'),
     (183, 200, ['J185:J188', 'J190:J192', 'J194:J194', 'J196:J200'],
      'Read: J196:J200 = names MFeeBio, MFeeDG, MFeeFF, MFeeAgr, MFeeWst (methane fee scope by source, section 14; '
-     'shown on Settings rows 47-51). J185:J194: ' + MI_NOTREAD + ' (CH4 intensity decline, price response, '
-     'pass-through)'),
+     'shown on Settings rows 47-51). J185:J188 (v9.0, R8.6): methane intensity decline by source, section 14 rows '
+     'ch4.int. J190:J194: production price response and pass-through (section 14 rows ch4.prd, ch4.pi)'),
     (202, 215, ['F207:BU215'],
      'Not read: Distribution pass-through not built (MTInputs PassthroughDist; legacy does not wire it either). GTAP '
      'and CPAT sector rows 205-206 (legacy Distribution H430:BT431) typed'),
@@ -6070,8 +6299,11 @@ MI_BLOCKS = [
      'Manual (row 226); blank = 0'),
     (271, 327, ['K279:N286', 'K291:N298', 'K300:N307', 'K326:M327'],
      'Read: K326:M327 (names GhgElCat, GhgElPop, GhgElInc; text = 0) in the non-energy GHG rows ghg.dr and ch4.act '
-     '(section 14). ' + MI_NOTREAD + ': K279:N321 (manual elasticities, MTInputs ElIncMainSrc, ElPrcMainSrc). Legacy '
-     'K326:K327 (#REF! formula) typed as its default'),
+     '(section 14). Read (v9.0, R8.3-R8.5): K279:N286 (income), K291:N298 (usage), K300:N307 (efficiency) by fuel '
+     'and sector group in Inputs_ela (name ElaManVal) when MTInputs ElIncMainSrc / ElPrcMainSrc = Manual (Settings C87, '
+     'C88; blank: #N/A, I140; services read column N, L101 fixed); L319 (biomass / LPG cross-price) in ResBioSubst '
+     '(Settings C89); defaults L319:L321 = Elasticities G131:G133 (L220 fixed). Legacy K326:K327 (#REF! formula) '
+     'typed as its default'),
     (330, 340, ['J335:AA340'], MI_NOTREAD + ' (Manual option of MTInputs AdditionMitigationPoliciesNonEnergy)'),
     (342, 372, ['J349:AO357', 'J363:AO371'],
      'Read (v5.6, P3): J349:AO357 (scenario 1) and J363:AO371 (other scenarios) by type and year (row 348; names '
@@ -6116,7 +6348,7 @@ def mi_formulas():
             a, b = f'{L(c)}{291 + k}', f'{L(c)}{300 + k}'
             f[(r, c)] = f'={a}+{b}+({a}*{b})'
     for k, r in enumerate((319, 320, 321)):
-        f[(r, 12)] = f'=Elasticities!C{91 + k}'                 # the legacy Elasticities tab (legacy addresses)
+        f[(r, 12)] = f'=Elasticities!G{131 + k}'                # v9.0 (L220 fixed): the simple cross-price value
     for r0 in (349, 363):
         for k, nm in enumerate(MI_NEWINV):
             f[(r0 + k, 6)] = mt_setting(nm)
@@ -6281,9 +6513,10 @@ def build_data_sheets(wb):
         for k, lab in enumerate(['legacy column B (no label)', 'Actual', 'Calculation', '2030', '2035',
                                  'Difference', 'Range anxiety (USD per vehicle)'][1 if c0 > 2 else 0:]):
             hdr[f'{L(c0 + k + (1 if c0 > 2 else 0))}3'] = f'{grp}: {lab}'
-    legacy_cells(wb, 'Transport3', 'Transport3 - range anxiety by country (USD per vehicle) and the EV sales shares of '
-                 'the fit (stored solver results, rows 5-226)', 'legacy sheet Transport3 rows 5+, '
-                 'extract_legacy_tables.py', header=hdr)       # v4.6: legacy rows at legacy addresses
+    ws3, _n3 = legacy_cells(wb, 'Transport3', 'Transport3 - range anxiety by country (USD per vehicle) and the EV sales '
+                            'shares of the fit (stored solver results, rows 5-226)', 'legacy sheet Transport3 rows 5+, '
+                            'extract_legacy_tables.py', header=hdr)   # v4.6: legacy rows at legacy addresses
+    ra_fit_apply(ws3, _n3)
     tp = read_csv('transport_params.csv')
     data_sheet(wb, 'TransportParams', 'Road engineer model parameters (legacy Dashboard and section 5 side tables)',
                tp[0], tp[1:], 'extract_transport.py: legacy Dashboard rows 61-98 and 540-559, Mitigation '
@@ -6853,9 +7086,32 @@ def build_settings(wb):
         put(ws, f'C{r}', f'=IFERROR(INDEX(DHHVal,$E{r},MATCH("cons_pc_acrent",DHHVar,0)),0)', FONT, None, '#,##0')
         put(ws, f'F{r}', f'=IFERROR(INDEX(DHHVal,$E{r},MATCH("popw",DHHVar,0)),0)', FONT, None, '#,##0')
         put(ws, f'D{r}', f'=IF(AND(LEFT($C$69,1)="Y",$A{r}<=$C$70),1,0)', FONT, None, '0')
-    put(ws, 'B83', 'Share of the most-used cooking fuel initially exempt (ExemptCookShare)', FONT_B)
-    put(ws, 'C83', '=IFERROR(SUMPRODUCT(B72:B81,C72:C81,F72:F81,D72:D81)/SUMPRODUCT(B72:B81,C72:C81,F72:F81),0)', FONT,
-        None, '0.0%')
+    r = 82                         # v9.0 (R6.3, I136): the economy-wide spend of the basket row is the denominator
+    put(ws, f'A{r}', 'Basket', FONT)
+    put(ws, f'E{r}', f'=MATCH(CtryCode&".distn.bsh.bkt.ove.mean."&BasketQ,DHHKey,0)', FONT, None, '0')
+    put(ws, f'B{r}', f'=IFERROR(INDEX(DHHVal,$E{r},MATCH(CookFuel&"_share",DHHVar,0)),0)', FONT, None, '0.000')
+    put(ws, f'C{r}', f'=IFERROR(INDEX(DHHVal,$E{r},MATCH("cons_pc_acrent",DHHVar,0)),0)', FONT, None, '#,##0')
+    put(ws, f'F{r}', f'=IFERROR(INDEX(DHHVal,$E{r},MATCH("popw",DHHVar,0)),0)', FONT, None, '#,##0')
+    put(ws, 'B83', 'Share of the most-used cooking fuel initially exempt (ExemptCookShare): spend of the exempt deciles / '
+                   'economy-wide spend of the basket row 82 (v9.0, R6.3, I136, as legacy K1795); 0 unless the fuel is '
+                   'gas, LPG or kerosene', FONT_B)
+    put(ws, f'D{r}', '=OR(CookFuel={' + ','.join(f'"{m}"' for m in LK_FUELS) + '})*1', FONT, None, '0')   # eligible
+    put(ws, 'C83', '=IFERROR(SUMPRODUCT(B72:B81,C72:C81,F72:F81,D72:D81)/(B82*C82*F82)*D82,0)',
+        FONT, None, '0.0%')
+    put(ws, 'B85', 'Manual inputs (v9.0, R8): domestic prices, elasticities (MTInputs DomPrTax, ElIncMainSrc, '
+                   'ElPrcMainSrc, scenario 1)', FONT_B)
+    put(ws, 'B86', 'Manual domestic prices in use (1 / 0; DomPrTax = Yes; ManPrOn; Manual inputs G59:N146, legacy '
+                   'rows 765-829)')
+    put(ws, 'C86', '=IF(LEFT(INDEX(SDBase,MATCH("DomPrTax",SDParam,0)),1)="Y",1,0)', FONT, None, '0')
+    put(ws, 'B87', 'Manual income elasticities (1 / 0; ElIncMainSrc = Manual; ElIncMan; Manual inputs K279:N286)')
+    put(ws, 'C87', '=IF(INDEX(SDBase,MATCH("ElIncMainSrc",SDParam,0))="Manual",1,0)', FONT, None, '0')
+    put(ws, 'B88', 'Manual price elasticities (1 / 0; ElPrcMainSrc = Manual; ElPrcMan; Manual inputs K291:N307, '
+                   'L319:L321)')
+    put(ws, 'C88', '=IF(INDEX(SDBase,MATCH("ElPrcMainSrc",SDParam,0))="Manual",1,0)', FONT, None, '0')
+    put(ws, 'B89', 'Substitution elasticity biomass / LPG of the leakage (ResBioSubst; Elasticities C131, or Manual '
+                   'inputs L319 if ElPrcMan = 1; blank: #N/A, I140; R8.5)')
+    put(ws, 'C89', "=IF(ElPrcMan=1,IF(ISNUMBER('Manual inputs'!$L$319),'Manual inputs'!$L$319,NA()),"
+                   "Elasticities!$C$131)", FONT, None, '0.00')
     put(ws, 'B53', 'Biomass is a normal good: residential biomass grows with income (Yes / No; MTInputs BiomassNormal, '
                    'scenario 1; BioNormal; legacy row 5567; v4.13, I24)')
     put(ws, 'C53', mt_setting('BiomassNormal'))
@@ -6869,7 +7125,7 @@ def build_settings(wb):
         put(ws, f'C{61 + k}', mt_setting(nm), FONT, None, '0.00')
     put(ws, 'B65', 'Most-used cooking fuel of the country (WHOCooking, overall sample; CookFuel: the fuel that leaks to '
                    'biomass; legacy L1784; v5.1)')
-    put(ws, 'C65', '=IFERROR(INDEX(DCookFuel,MATCH(CtryCode&".distn.pcoff.ove",DCookKey,0)),"")')
+    put(ws, 'C65', '=IFERROR(INDEX(DCookFuel,MATCH(CtryCode&".distn.pcoff.ove",DCookKey,0)),"lpg")')   # v9.0 (R6.1, I137)
     put(ws, 'B54', 'Average price change reported (Legacy* / Laspeyres; PavMethod): Legacy* = legacy F5b-c (coal and '
                    'gas over power, residential and industry at scenario-1 quantities; electricity own quantities; oil '
                    'products the single price); Laspeyres = all final uses at scenario-1 quantities (v4.15, I31)')
@@ -7571,12 +7827,12 @@ def build_inputs_prices(wb):
         vals['vrx'] = f'={c("vatc")}*{last_vatw}'          # display: the assumption (vr reads the year columns)
         for y in HIST_YEARS:
             h = lambda v: f'{IPC[v + str(y)]}'
-            vals[f'rpn{y}'] = f'={dom("rp", f"{h("rpn")}${IP_PROW}", r)}'
-            vals[f'spn{y}'] = f'={dom("sp", f"{h("spn")}${IP_PROW}", r)}'
-            vals[f'txn{y}'] = f'={dom("txo", f"{h("txn")}${IP_PROW}", r)}'
-            vrd = f'INDEX(PDomVal,{h("vrb")}${IP_PROW},MATCH("mit.vatrate."&$A{r},PDomHdr,0))'
-            vals[f'vrb{y}'] = f'=IF(IFERROR(ISBLANK({vrd}),TRUE),1,0)'
-            vals[f'vrd{y}'] = f'={dom("vatrate", f"{h("vrd")}${IP_PROW}", r)}'
+            vals[f'rpn{y}'] = f'={mp_use("rp", f"{h("rpn")}${IP_HDR}", r)}'     # v9.0 (R8.2): manual where flagged
+            vals[f'spn{y}'] = f'={mp_use("sp", f"{h("spn")}${IP_HDR}", r)}'
+            vals[f'txn{y}'] = f'={mp_use("txo", f"{h("txn")}${IP_HDR}", r)}'
+            vrd = f'INDEX(MPU,MATCH({h("vrb")}${IP_HDR},MPUYr,0),MATCH("mit.vatrate."&$A{r},MPUHdr,0))'
+            vals[f'vrb{y}'] = f'=IF(IFERROR({vrd}="",TRUE),1,0)'
+            vals[f'vrd{y}'] = f'={mp_use("vatrate", f"{h("vrd")}${IP_HDR}", r)}'
             vals[f'vry{y}'] = f'=IF(${h("vrb")}{r}=1,{c("vatc")}*{h("vry")}${IP_VATW},${h("vrd")}{r})'
             vals[f'sp{y}'] = f'=${h("spn")}{r}*{h("sp")}${IP_CPI}/{c("gj")}'
             vals[f'txo{y}'] = (f'=IF({c("rpd")}=1,${h("rpn")}{r}/(1+${h("vry")}{r})-${h("spn")}{r},${h("txn")}{r})'
@@ -7612,6 +7868,38 @@ def build_inputs_prices(wb):
         'for blank cells (same rule for each historical year).']
     for k, n in enumerate(notes):
         put(ws, f'A{IP_R1 + 2 + k}', n)
+    assert IP_R1 + 2 + len(notes) < MP_R0
+    # v9.0 (R8.1-R8.2, I53/I139 replicated): manual domestic prices (Manual inputs G59:N146) where DomPrTax = Yes and
+    # the code has a 2021 value (legacy F765:F829); block M the manual values, block U the values used (manual, else
+    # the Prices_dom value of the country; "" where blank)
+    put(ws, f'A{MP_R0}', 'Manual domestic prices (v9.0, R8; legacy Mitigation rows 765-829): Manual inputs G59:N146 where '
+                         'MTInputs DomPrTax = Yes (Settings C86) and the code has a 2021 value (I53); block U = the value '
+                         'used (manual, else Prices_dom; "" = blank), read by every historical price lookup (name MPU)',
+        FONT_B)
+    for k, lab in ((1, 'Code ->'), (2, 'Manual inputs row of the code (0 = none) ->'), (3, 'Manual flag (1/0) ->'),
+                   (4, 'Prices_dom column of the code ->')):
+        put(ws, f'A{MP_R0 + k}', lab, FONT_B)
+    put(ws, f'A{MP_M0 - 1}', 'Block M: manual value (year, Prices_dom row, Manual inputs column)', FONT_B)
+    put(ws, f'A{MP_U0 - 1}', 'Block U: value used (year, Prices_dom row)', FONT_B)
+    for j, code in enumerate(MP_CODES):
+        cl = L(MP_C0 + j)
+        put(ws, f'{cl}{MP_R0 + 1}', code, FONT, F_INPUT)
+        put(ws, f'{cl}{MP_R0 + 2}', f'=IFERROR(MATCH({cl}${MP_R0 + 1},ManPrKey,0),0)', FONT, None, '0')
+        put(ws, f'{cl}{MP_R0 + 3}', f'=IF(AND(ManPrOn=1,{cl}${MP_R0 + 2}>0),IF(ISNUMBER(INDEX(ManPrVal,{cl}${MP_R0 + 2},'
+                                    f'1)),1,0),0)', FONT, None, '0')
+        put(ws, f'{cl}{MP_R0 + 4}', f'=IFERROR(MATCH({cl}${MP_R0 + 1},PDomHdr,0),"")', FONT, None, '0')
+    for i, y in enumerate(MP_YEARS):
+        rm, ru = MP_M0 + i, MP_U0 + i
+        for r_ in (rm, ru):
+            put(ws, f'A{r_}', y, FONT_B, F_INPUT, '0')
+            put(ws, f'B{r_}', f'=IFERROR(MATCH(CtryCode&$A{r_},PDomKey,0),"")', FONT, None, '0')
+        put(ws, f'C{rm}', f'=MATCH($A{rm},ManPrYr,0)', FONT, None, '0')
+        for j in range(len(MP_CODES)):
+            cl = L(MP_C0 + j)
+            man = f'INDEX(ManPrVal,{cl}${MP_R0 + 2},$C{rm})'
+            put(ws, f'{cl}{rm}', f'=IF({cl}${MP_R0 + 3}=1,IF(ISNUMBER({man}),{man},""),"")', FONT, None, '0.000')
+            put(ws, f'{cl}{ru}', f'=IF(ISNUMBER({cl}{rm}),{cl}{rm},IFERROR(INDEX(PDomVal,$B{ru},{cl}${MP_R0 + 4})&"",""))',
+                FONT, None, '0.000')
     ws.freeze_panes = f'C{IP_R0}'
     ws.column_dimensions['A'].width = 10
     ws.column_dimensions['B'].width = 22
@@ -7697,7 +7985,9 @@ IPWG_COLS = [('User group', 'grp'), ('Label', 'lab'), ('Position', 'pos'),
              ('Transmission and distribution ($/kWh)', 'tmc'), ('Pass-through of supply-cost changes', 'pass'),
              ('VAT rate, last historical year (data; blank = 0)', 'vr'), ('VAT share of the price: VAT / (1 + VAT)',
                                                                          'vshare')] + \
-    [(f'Retail price {y} (real $/kWh, incl. VAT)', f'rp{y}') for y in HIST_YEARS]
+    [(f'Retail price {y} (real $/kWh, incl. VAT)', f'rp{y}') for y in HIST_YEARS] + \
+    [(f'Excise and other taxes / subsidy {y} (real $/kWh; Prices_dom mit.txo.ecy; "" = no data; v9.0, R7, R9)',
+      f'tx{y}') for y in HIST_YEARS]
 IPWG = {code: L(j) for j, (_h, code) in enumerate(IPWG_COLS, 1)}
 IPWH0 = IPW_G1 + 9                      # demand-group table (legacy H1): header IPWH0 - 1
 IPWH1 = IPWH0 + len(DEM_GROUPS) - 1
@@ -7978,6 +8268,8 @@ def build_inputs_pint(wb):
 
 # v4.6: elasticities of the country from the legacy Elasticities tab: the value in the country's column (legacy column G,
 # 'Elasticity use': INDEX(row, MATCH(country, row 139))); the autonomous-efficiency rows sit one column left, as legacy.
+ELA_MFUELS = ['coa', 'nga', 'gso', 'die', 'oil', 'bio', 'ren', 'ecy']   # v9.0 (R8): Manual inputs rows 279-286 order
+ELA_MSECS = ['tra', 'res', 'ind', 'srv']                                # Manual inputs columns K:N
 ELA_ROWS = read_csv('elasticities.csv')[1:]          # key, type, fuel group, sector group, legacy code, ..., source
 IELA_R0 = 5
 
@@ -7987,7 +8279,9 @@ def build_inputs_ela(wb):
     Elasticities tab, kept at its legacy addresses), the country's value."""
     ws = wb.create_sheet('Inputs_ela')
     cols = ['Key (type|fuel|sector)', 'Type', 'Fuel group', 'Sector group', 'Legacy code', 'Legacy row (Elasticities)',
-            'Column offset (legacy: efficiency rows one column left)', 'Elasticity of the country']
+            'Column offset (legacy: efficiency rows one column left)', 'Elasticity of the country',
+            'Manual inputs row (v9.0, R8)', 'Manual inputs column', 'Manual value (blank: #N/A, I140)',
+            'Manual source in use (1 / 0)', 'Elasticity used']
     title(ws, 'Elasticities of the country by type, fuel group and sector group (data step; legacy Elasticities column G)',
           len(cols))
     put(ws, 'A3', 'The value in the country\'s column of the legacy Elasticities tab (country codes in row 139), as '
@@ -7998,8 +8292,16 @@ def build_inputs_ela(wb):
         r = IELA_R0 + i
         vals = e[:5] + [int(e[-1].split()[-1]), 1 if e[1] == 'aei' else 0,
                         f'=INDEX(ElaAll,$F{r},MATCH(CtryCode,ElaCtry,0)+1-$G{r})']
+        # v9.0 (R8.3-R8.4; L101 fixed: services read column N): Manual inputs rows 279-286 (income), 291-298 (usage),
+        # 300-307 (efficiency), fuel order coa nga gso die oil bio ren ecy, columns K:N = tra res ind srv
+        mrow = ({'inc': 279, 'usg': 291, 'eff': 300}[e[1]] + ELA_MFUELS.index(e[2])) if e[1] in ('inc', 'usg', 'eff') else ''
+        man = f'INDEX(ElaManVal,$I{r},$J{r})'
+        vals += [mrow, CI_('K') + ELA_MSECS.index(e[3]),
+                 f'=IF($I{r}="","",IF(ISNUMBER({man}),{man},NA()))',
+                 f'=IF($B{r}="aei",0,IF($B{r}="inc",ElIncMan,ElPrcMan))',
+                 f'=IF($L{r}=1,IF($B{r}="inc",MAX($K{r},0),MIN($K{r},0)),$H{r})']
         for j, v in enumerate(vals, 1):
-            put(ws, f'{L(j)}{r}', v, FONT, F_INPUT if j in (6, 7) else None)
+            put(ws, f'{L(j)}{r}', v, FONT, F_INPUT if j in (6, 7, 9, 10) else None)
     ws.column_dimensions['A'].width = 16
 
 
@@ -8488,24 +8790,24 @@ def build_inputs_power(wb):
     for j, (h, code) in enumerate(IPWG_COLS, 1):
         c = put(ws, f'{L(j)}{IPW_G0 - 1}', h, FONT_B, F_INPUT)
         c.alignment = Alignment(wrap_text=True, vertical='top')
-    for y in HIST_YEARS:
-        col = IPWG[f'rp{y}']
+    for v_, y in [(v_, y) for v_ in ('rp', 'tx') for y in HIST_YEARS]:   # v9.0: + tx (R7, R9)
+        col = IPWG[f'{v_}{y}']
         put(ws, f'{col}{IPW_G0 - 1}', y, FONT_B, F_INPUT, '0')
         put(ws, f'{col}{IPW_G0 - 3}', f'=MATCH(Settings!$C$4&{col}${IPW_G0 - 1},PDomKey,0)', FONT, None, '0')
         put(ws, f'{col}{IPW_G0 - 2}', f'=CPIRes/INDEX(WEOVal,MATCH("USA|pcpi",WEOKey,0),MATCH({col}${IPW_G0 - 1},WEOYear,0))',
             FONT, None, '0.0000')
 
-    def dom(var, prow, r):
-        """Prices_dom value (blank = 0) of mit.<var>.ecy.<group> in the Prices_dom row prow."""
-        return f'IFERROR(INDEX(PDomVal,{prow},MATCH("mit.{var}.ecy."&$A{r},PDomHdr,0))+0,0)'
     for i, (g, lab) in enumerate(PW_GROUPS):
         r = IPW_G0 + i
         vals = {'grp': g, 'lab': lab, 'pos': i + 1, 'tmc': f'={pw_param("tmc|" + g)}', 'pass': f'={pw_param("pass")}',
                 'wtot': 0 if g == 'res' else 1, 'wres': 1 if g == 'res' else -1,
-                'vr': f'={dom("vatrate", "PDomLast", r)}', 'vshare': f'=${IPWG["vr"]}{r}/(1+${IPWG["vr"]}{r})'}
+                'vr': f'={mp_use("vatrate", "LastHist", r, "ecy." + g)}', 'vshare': f'=${IPWG["vr"]}{r}/(1+${IPWG["vr"]}{r})'}
         for y in HIST_YEARS:
             col = IPWG[f'rp{y}']
-            vals[f'rp{y}'] = f'={dom("rp", f"{col}${IPW_G0 - 3}", r)}*{col}${IPW_G0 - 2}'
+            vals[f'rp{y}'] = f'={mp_use("rp", f"{col}${IPW_G0 - 1}", r, "ecy." + g)}*{col}${IPW_G0 - 2}'   # v9.0 (R8.2)
+            ct = IPWG[f'tx{y}']                  # v9.0 (R7.5, R9.1): "" where the dataset has no value
+            vals[f'tx{y}'] = (f'=IFERROR(INDEX(MPU,MATCH({ct}${IPW_G0 - 1},MPUYr,0),MATCH("mit.txo.ecy.{g}",MPUHdr,0))'
+                              f'*{ct}${IPW_G0 - 2},"")')
         for _h, code in IPWG_COLS:
             v = vals[code]
             put(ws, f'{IPWG[code]}{r}', v, FONT, F_INPUT if not str(v).startswith('=') else None,
@@ -9575,7 +9877,7 @@ def defined_names():
         'ElaAll': 'Elasticities!$H$1:$IZ$400', 'ElaCtry': 'Elasticities!$I$139:$IZ$139',   # v4.6: legacy tab (as
                                                     # legacy column G: country codes from column I, values from H)
         'ElaSelKey': f'Inputs_ela!$A${IELA_R0}:$A${IELA_R0 + len(ELA_ROWS) - 1}',
-        'ElaSel': f'Inputs_ela!$H${IELA_R0}:$H${IELA_R0 + len(ELA_ROWS) - 1}',
+        'ElaSel': f'Inputs_ela!$M${IELA_R0}:$M${IELA_R0 + len(ELA_ROWS) - 1}',   # v9.0 (R8.3-R8.4): used
         **legacy_names('EF_GHG', 20000, {'EFKey': 'Code', 'EFVal': 'FACTOR'}),     # v4.5: legacy EF_GHG
         'EFSelKey': f'Inputs_ef!$A${IEF_R0}:$A${IEF_R0 + len(EF_SEL) - 1}',         # v4.5: selected CO2 EFs
         'EFSel': f'Inputs_ef!${IEF_COL["ef"]}${IEF_R0}:${IEF_COL["ef"]}${IEF_R0 + len(EF_SEL) - 1}',
@@ -9663,6 +9965,19 @@ def defined_names():
         'RickeN': 'Settings!$C$41', 'RickeG': 'Settings!$C$42',
         **{nm: f"'Manual inputs'!$J${lr}" for _r, nm, _l, _v, lr in MFEE_SETTINGS},   # v5.2: legacy addresses
         **{nm: f"'Manual inputs'!${c[0]}${c[1:]}" for nm, (c, _v) in MI_ETS.items()},   # v5.2: ETS goal seek
+        'PwTx': f'Inputs_power!${IPWG["tx" + str(HIST_YEARS[0])]}${IPW_G0}:${IPWG["tx" + str(HIST_YEARS[-1])]}${IPW_G1}',
+        'PwTxYr': f'Inputs_power!${IPWG["tx" + str(HIST_YEARS[0])]}${IPW_G0 - 1}:${IPWG["tx" + str(HIST_YEARS[-1])]}'
+                  f'${IPW_G0 - 1}',
+        'PwRp': f'Inputs_power!${IPWG["rp" + str(HIST_YEARS[0])]}${IPW_G0}:${IPWG["rp" + str(HIST_YEARS[-1])]}${IPW_G1}',
+        'PwRpYr': f'Inputs_power!${IPWG["rp" + str(HIST_YEARS[0])]}${IPW_G0 - 1}:${IPWG["rp" + str(HIST_YEARS[-1])]}'
+                  f'${IPW_G0 - 1}',
+        'ManPrKey': "'Manual inputs'!$G$59:$G$146", 'ManPrVal': "'Manual inputs'!$I$59:$N$146",   # v9.0 (R8)
+        'ManPrYr': "'Manual inputs'!$I$59:$N$59", 'ManPrOn': 'Settings!$C$86',
+        'MPU': f'Inputs_prices!${L(MP_C0)}${MP_U0}:${L(MP_C0 + len(MP_CODES) - 1)}${MP_U0 + len(MP_YEARS) - 1}',
+        'MPUYr': f'Inputs_prices!$A${MP_U0}:$A${MP_U0 + len(MP_YEARS) - 1}',
+        'MPUHdr': f'Inputs_prices!${L(MP_C0)}${MP_R0 + 1}:${L(MP_C0 + len(MP_CODES) - 1)}${MP_R0 + 1}',
+        'ElIncMan': 'Settings!$C$87', 'ElPrcMan': 'Settings!$C$88',
+        'ElaManVal': "'Manual inputs'!$A$1:$N$330",
         'PCtrlKey': "'Manual inputs'!$G$167:$G$180", 'PCtrlVal': "'Manual inputs'!$J$167:$J$180",   # v5.2
         'PIntManVal': "'Manual inputs'!$J$221:$AF$225", 'PIntManLab': "'Manual inputs'!$D$221:$D$225",
         'PIntManYear': "'Manual inputs'!$J$220:$AF$220",
@@ -9678,7 +9993,7 @@ def defined_names():
         'BioNormal': 'Settings!$C$53', 'PavMethod': 'Settings!$C$54',   # v4.15 (I31)
         'BioLeak': 'Settings!$C$59', 'CookEffKey': 'Settings!$B$61:$B$64',   # v5.1 (D9): residential leakage to
         'CookEffVal': 'Settings!$C$61:$C$64', 'CookEffBio': 'Settings!$C$64',   # biomass (section 6b)
-        'CookFuel': 'Settings!$C$65', 'ResBioSubst': 'Elasticities!$C$131',    # legacy L360 = Elasticities C131
+        'CookFuel': 'Settings!$C$65', 'ResBioSubst': 'Settings!$C$89',    # legacy L360 = Elasticities C131
         'LkFuelKey': f'Mitigation!$B${R_LK[LK_RES[0]]}:$B${R_LK[LK_RES[1]]}',
         'MultSrcKey': 'Settings!$B$56:$B$58', 'MultSrcVal': 'Settings!$C$56:$C$58',   # v4.15 (LD56)
         'ScnName': f'Mapping!$A${MAP_SCN0}:$A${MAP_SCN0 + len(SCN_TABLE) - 1}',   # v4.16 (LD9): scenario table
@@ -9802,12 +10117,12 @@ def calc_formula(var, r, col, prev, is_base, use_lambda):
     if var in ('xcp', 'xcpd'):  # v1.09: existing carbon pricing, level or change; v4.12: sector | fuel tables
         a = xcarbon_args(col, f'$D{r}', f'$E{r}', f'$F{r}' if var == 'xcpd' else '0')
         return '=' + (call('XCARBON', *a) if use_lambda else xcarbon_plain(a))
-    if var in ('csw', 'pcw', 'psw'):  # v4.16 (LD18): consumer subsidy / price-control (v6.2: producer subsidy) wedge
-        a = (f'INDEX({pv_range({"csw": "pcsw", "pcw": "ppcw", "psw": "ppsw"}[var], col)},$D{r})',)
+    if var in ('csw', 'pcw'):  # v4.16 (LD18): consumer subsidy / price-control wedge (v9.0, R7.3: producer: none)
+        a = (f'INDEX({pv_range({"csw": "pcsw", "pcw": "ppcw"}[var], col)},$D{r})',)
         return '=' + (call('BLOCKWEDGE', *a) if use_lambda else a[0])
     if var == 'atp':
         rpb = f'INDEX({pv_range("rpb", col)},$D{r})'
-        pol = f'{o("nce")}+{o("xcpd")}+{o("csw")}+{o("pcw")}+{o("psw")}'   # v4.16: + the phase-out wedges (v6.2: psw)
+        pol = f'{o("nce")}+{o("xcpd")}+{o("csw")}+{o("pcw")}'   # v4.16: + the phase-out wedges (v9.0, R7: no psw)
         return (f'={call("POSTTAX", rpb, pol, f"$E{r}")}' if use_lambda
                 else f'=MAX({rpb}+({pol})*(1+$E{r}),PriceFloor)')
     if var == 'aef':        # v4.13 (LD21): AEEI factor with the additional efficiency of the row's group (section 1)
@@ -9824,7 +10139,7 @@ def calc_formula(var, r, col, prev, is_base, use_lambda):
     if var in ('rex', 'rvt'):  # v4.15 (LD37): excise revenue (ntx) and VAT revenue (existing + on the price changes)
         k = 'Settings!$C$13'
         rate = (o('ntx') if var == 'rex' else
-                f'INDEX({pv_range("vat", col)},$D{r})+({o("xcpd")}+{o("nce")}+{o("csw")}+{o("pcw")}+{o("psw")})*$E{r}')
+                f'INDEX({pv_range("vat", col)},$D{r})+({o("xcpd")}+{o("nce")}+{o("csw")}+{o("pcw")})*$E{r}')
         return '=' + (call('REVENUE', o('ener'), k, rate) if use_lambda else f'{o("ener")}*{k}*({rate})')
     if var in REV_VARS:
         pr = lambda v: f'INDEX({pv_range(v, col)},$D{r})'
@@ -9836,7 +10151,7 @@ def calc_formula(var, r, col, prev, is_base, use_lambda):
         elif var == 'rsub':
             rate = pr('esub')
         elif var == 'rsr':                   # v4.16 (LD18): subsidy reform revenue: wedges incl. VAT
-            rate = f'({o("csw")}+{o("pcw")})*(1+$D{r})+{o("psw")}*$D{r}'   # v6.2: VAT on the producer wedge
+            rate = f'({o("csw")}+{o("pcw")})*(1+$D{r})'   # v9.0 (R7.3): no producer wedge (in the supply cost)
         else:
             a = (o('ctxnew'), o('ntx'), o('ets'), f'{col}${R_POL["ets.rf"]}', o('nce'), f'$D{r}')
             rate = call('NEWREVRATE', *a) if use_lambda else f'{a[0]}+{a[1]}+{a[2]}*{a[3]}+{a[4]}*{a[5]}'
@@ -9844,7 +10159,10 @@ def calc_formula(var, r, col, prev, is_base, use_lambda):
             return '=' + call('REVENUE', o('ener'), k, rate)
         return f'={o("ener")}*{k}*({rate})'
     if var == 'ener':       # v3.5: the engineer road model (section 5b) where TrModel = Engineer, else enel
-        a = (f'$D{r}', f'{col}${R_TR["tr.sw"]}', f'{col}${R_TR[TR_RES[0]]}:{col}${R_TR[TR_RES[-1]]}', o('enel'),
+        el_ = o('enel')
+        if r == SUB_HEAD['rod'] + VOFF['ener'] + [x[0] for x in FUELS].index('bio'):
+            el_ = f'{col}${R_TR["trbe.bio"]}'   # v9.0 (R10.4): road biomass = the three biofuels (section 5b)
+        a = (f'$D{r}', f'{col}${R_TR["tr.sw"]}', f'{col}${R_TR[TR_RES[0]]}:{col}${R_TR[TR_RES[-1]]}', el_,
              f'{col}${R_LK[LK_RES[0]]}:{col}${R_LK[LK_RES[-1]]}', f'$E{r}')   # v5.1 (D9): + leakage (section 6b)
         return '=' + (call('ROADSWITCH', *a) if use_lambda else lambda_plain('ROADSWITCH', a))
     if var == 'enel':
@@ -9964,13 +10282,13 @@ def price_formula(var, r, col, prev, block):
         return '=' + (call('TAXPART', o('txo')) if lam else f'MAX({o("txo")},0)')
     if var == 'esub':
         return '=' + (call('SUBSIDYPART', o('txo')) if lam else f'MIN({o("txo")},0)')    # v2.4: negative
-    if var in ('psp', 'ppsw'):               # v6.1 (I49): psu of the fuel (G position); per barrel for oop (L125);
-        k_ = 'psu.' if var == 'psp' else 'psr.'   # v6.2: / GJ per price unit ($/GJ); ppsw: reform wedge x pcc
+    if var == 'psp':                         # v6.1 (I49): psu of the fuel (G position); per barrel for oop (L125);
+        k_ = 'psu.'                          # v6.2: / GJ per price unit ($/GJ); v9.0 (R7.1): psu after the phase-out
         a = (f'INDEX({col}${R_POL[k_ + PSU_FUELS[0]]}:{col}${R_POL[k_ + PSU_FUELS[-1]]},{prm("G")})',
-             f'$B{r}="oop"', prm('F')) + ((prm('D'),) if var == 'ppsw' else ())
+             f'$B{r}="oop"', prm('F'))
         if lam:
-            return '=' + call('PSPRICEUNIT' if var == 'psp' else 'PSWEDGE', *a)
-        return f'={a[0]}*IF({a[1]},LitersPerBbl,1)/{a[2]}' + (f'*{a[3]}' if var == 'ppsw' else '')
+            return '=' + call('PSPRICEUNIT', *a)
+        return f'={a[0]}*IF({a[1]},LitersPerBbl,1)/{a[2]}'
     if var == 'esubpu':
         return '=' + (call('PERUNIT', o('esub'), prm('F')) if lam else f'{o("esub")}*{prm("F")}')
     if var == 'pnq' or var in PV_NEWSRC:     # v4.1: averages over the subsectors priced by this block (atp D = pos)
@@ -9985,7 +10303,7 @@ def price_formula(var, r, col, prev, block):
     if var == 'pnce':                        # total new policy = full retail price - price before new policies
         return '=' + (call('DIFF', o('rpn'), o('rpb')) if lam else f'{o("rpn")}-{o("rpb")}')
     if var == 'pvatn':                       # VAT on the new policies (and the price floor): the residual
-        parts = f'SUM({o("pctx")}:{o("ppsw")})'           # v4.16: incl. the phase-out wedges (v6.2: + ppsw)
+        parts = f'SUM({o("pctx")}:{o("ppcw")})'           # v4.16: incl. the phase-out wedges (v9.0, R7.3: no ppsw)
         return '=' + (call('DIFF', o('pnce'), parts) if lam else f'{o("pnce")}-{parts}')
     raise ValueError(var)
 
@@ -10124,6 +10442,8 @@ def pw_formula(var, r, col, prev, block):
         return fn('INCOMESWITCH', pc('IncElAdj'), one('incp'))
     if var == 'demg':       # memo: demand of the subsectors of this demand group (dem rows: D = group position)
         return f'=SUMIF({pw_pcol("dem", "D")},$D{r},{blk("dem")})'
+    if var == 'psegs':                         # v9.0 (R7.5): sum of the pre-tax gaps x consumption
+        return f'=SUM({blk("psegap")})'
     if var in PW_SUMS:
         src = {'demtot': 'dem', 'gtot': 'gen', 'usdtot': 'usd', 'captot': 'cap', 'nimtot': 'nim'}[var]
         return f'=SUM({blk(src)})'
@@ -10228,6 +10548,57 @@ def pw_formula(var, r, col, prev, block):
     if var == 'sc':
         gen = one('gncav') if block == 'base' else one('gncav', prev)
         return fn('POWERSUPPLY', gen, f'$D{r}', plain=f'{gen}+$D{r}')
+    # ---------------- E2 (v9.0, R9.4-R9.13): cost memos by type
+    if var == 'cur':        # current total cost (legacy E4 rows 3498-3506)
+        return fn('INVCOST', o('lfx'), o('tvc'), pc('MinPostSubsidyPowerPrice'))
+    if var == 'sys':        # system cost (legacy F1 rows 3522-3530)
+        return fn('SYSCOST', f'$D{r}', o('cfu'), o('dlf'), f'$E{r}', one('msc'), f'($B{r}="coa")*{one("cic")}')
+    if var == 'pcbcap':     # capital (legacy E5 L, C1)
+        return fn('LEVCAPEX', o('cax'), o('cfu'), o('dlf'))
+    if var == 'pcbom':      # O&M (legacy E5 M, A16 + D1)
+        return fn('OMCOST', f'$D{r}', o('cfu'), f'$E{r}')
+    if var == 'pcbfu':      # fuel incl. the change in existing carbon pricing (legacy E5 N, D2)
+        return fn('VARCOST', f'$D{r}', o('fpp'), o('kwh'), o('xck'))
+    if var in ('pcbcp', 'pcbrns'):   # new carbon price (legacy E5 P, D5); renewable subsidy (E5 Q, A17)
+        return fn('MEMOOF', o('ccp' if var == 'pcbcp' else 'rns'))
+    if var == 'pcbchk':     # check: parts - current total cost (legacy E5 S; shadow price and floor, I142)
+        parts = '+'.join(o(v) for v in ('pcbcap', 'pcbom', 'pcbfu', 'sys', 'pcbcp', 'pcbrns'))
+        return fn('DIFF', parts, o('cur'))
+    if var == 'pcbct':      # carbon tax of policy scenarios (legacy E5 T; L222 fixed: own scenario)
+        return fn('SCALEBY', f'{col}${R_CP}', f'({col}${R_SCEN}>1)*1')
+    # ---------------- G2 (v9.0, R7.5-R7.9, R9.1-R9.3): electricity subsidies and the price-chain residual
+    lastv = lambda rr: f'INDEX($A{rr}:{prev}{rr},{col}${R_LHCOL})'      # value of the last historical price year
+    if var == 'rpnv':       # data price before VAT up to the last price year, then held (legacy rows 3575, 3604)
+        a = (y, f'INDEX(PwRp,$D{r},MATCH({y},PwRpYr,0))/(1+$E{r})', f'{prev}{r}')
+        return fn('HISTHOLD', *a)
+    if var == 'txg':        # price before VAT - supply cost - manual excise (legacy N3605 without the tax)
+        return fn('PRICEGAP', o('rpnv'), o('sc'), o('entx'))
+    if var == 'txe':        # tax / subsidy of the dataset; else txg if SupplyCostDeltaSubsidy = Yes (rows 3604-3606)
+        a = (y, f'INDEX(PwTx,$D{r},MATCH({y},PwTxYr,0))', o('txg'), pc('SupplyCostDeltaSubsidy'), f'{prev}{r}')
+        return fn('ELTAXBASE', *a)
+    if var == 'scl':        # supply cost, after the last price year capped at its value (legacy $J3600 in O3607)
+        return fn('CAPLAST', y, o('sc'), lastv(r))
+    if var == 'psegap':     # pre-tax gap x consumption (legacy row 3588 terms)
+        return fn('PREGAP', o('sc'), o('rpnv'), o('txe'), o('cons'))
+    if var == 'psesh':      # share of the electricity producer subsidy (legacy rows 3588-3589)
+        a = (y, o('psegap'), one('psegs'), o('cons'), f'SUM({blk("cons")})', f'1-$D{r}', f'{prev}{r}')
+        return fn('PSALLOC', *a)
+    if var == 'pseu':       # per kWh, floored (legacy 3590-3591), then x the phase-out factor (3601, 3630)
+        a = (y, f'{col}${R_POL["pros.ecy"]}', o('psesh'), o('cons'), lastv(r), f'{col}${R_POL["psf.ecy"]}')
+        return fn('PSELEC', *a)
+    if var == 'pser':       # residual above the floor (USD m; legacy row 3592)
+        used = '+'.join(f'{mem("cons", m)}*{mem("pseu", m)}' for m, _n in PW_GROUPS)
+        a = (y, f'{col}${R_POL["pros.ecy"]}', used, lastv(r), f'{col}${R_POL["psf.ecy"]}')
+        return fn('PSERESID', *a)
+    if var == 'csd':        # consumer subsidy phase-out (legacy O3606, O3635; L84 not reproduced in 465)
+        a = (y, o('txe'), pc('PowerSubsidyExemptInclude'), f'{col}${R_POL["pof.cs"]}')
+        return fn('CSELEC', *a)
+    if var == 'ores':       # price-chain residual (legacy rows 3607, 3636): held, scaled down with the supply cost
+        a = (y, f'{o("txg")}-{o("txe")}-{o("pseu")}', f'{prev}{r}', o('scl'), o('scl', prev))
+        return fn('ORESID', *a)
+    if var == 'spe':        # legacy supply cost "removing estimation" (rows 3620, 3649): sc + residual + carbon + excise
+        a = (o('sc'), o('ores'), one('ccpav'), pc('PowerSectorPriceChangePassOn'), one('rbs'), o('pex'))
+        return fn('ELSUPPLY', *a)
     if var == 'rppre':
         hist = (f'INDEX(Inputs_power!${IPWG["rp" + str(HIST_YEARS[0])]}${IPW_G0}:${IPWG["rp" + str(HIST_YEARS[-1])]}'
                 f'${IPW_G1},$D{r},MATCH({col}${R_YEAR},Inputs_power!${IPWG["rp" + str(HIST_YEARS[0])]}${IPW_G0 - 1}:'
@@ -10235,10 +10606,11 @@ def pw_formula(var, r, col, prev, block):
         if block == 'hist':
             return '=' + hist
         ps = pc('PowerSectorPriceChangePassOn')   # v5.4: pass-through of the scenario
+        sc_n = '+'.join(o(v) for v in ('sc', 'pseu', 'csd', 'ores'))   # v9.0 (R7.9, R9.3): + subsidies, residual
+        sc_p = '+'.join(o(v, prev) for v in ('sc', 'pseu', 'csd', 'ores'))
         if lam:
-            return '=' + call('POWERPRICE', f'{col}${R_YEAR}', f'$D{r}', f'{prev}{r}', ps, o('sc'),
-                              o('sc', prev), f'$E{r}')
-        return f'={prev}{r}+{ps}*({o("sc")}-{o("sc", prev)})*(1+$E{r})'
+            return '=' + call('POWERPRICE', f'{col}${R_YEAR}', f'$D{r}', f'{prev}{r}', ps, sc_n, sc_p, f'$E{r}')
+        return f'={prev}{r}+{ps}*({sc_n}-({sc_p}))*(1+$E{r})'
     if var == 'entx':       # v5.4: manual electricity excise of policy scenarios (AdditionalExcise; legacy 3602, 216)
         m = PW_MEMBERS[kind][r - R_PW[(var, first)]]            # v5.6: + electricity fuel price reform (I59,
         a = (f'{col}${R_SCEN}', pc('AdditionalExcise'), o('entxd'), pc('NomorReal'), f'{col}${R_DEFL}',
@@ -10687,7 +11059,7 @@ def pol_calc(key, col, use_lambda=False, is_base=False):
         return '=' + (call('INCLFACTOR', *a) if use_lambda else f'1-{a[0]}*(1-{a[1]})')
     if key.startswith('pros.'):              # producer subsidy (USD m real): data up to the last price year, then held
         prev = L(CI_(col) - 1)
-        a = (y, 'LastHist', f'INDEX(PDomVal,MATCH(CtryCode&{y},PDomKey,0),$D{R_POL[key]})', f'{col}${R_CPI}',
+        a = (y, 'LastHist', f'IFERROR(INDEX(MPU,MATCH({y},MPUYr,0),$D{R_POL[key]})+0,0)', f'{col}${R_CPI}',
              f'{prev}{R_POL[key]}')
         return '=' + (call('PRODSUB', *a) if use_lambda else f'IF({a[0]}<={a[1]},{a[2]}*{a[3]}*MperBn,{a[4]})')
     if key.startswith('psd.'):               # v6.1 (I49): demand spreading the subsidy, legacy rows 825-829
@@ -10699,16 +11071,13 @@ def pol_calc(key, col, use_lambda=False, is_base=False):
             return '=' + call('PSDEMAND', *a)
         return '=' + {'oil': f'{wd}*LitersPerKtoeOil', 'coa': f'AVERAGE({wd},ConsCoa)*MethGJperKtoe',
                       'nga': f'AVERAGE({wd},ConsGas)*MethGJperKtoe', 'bio': 'ConsBio*MethGJperKtoe'}[f_]
-    if key.startswith('psu.'):               # v6.1 (I49): per unit, held at the last price year (v6.2: no phase-out)
-        f_ = key[4:]
+    if key.startswith('psu.'):               # v6.1 (I49): per unit up to the last price year, then the last value x
+        f_ = key[4:]                         # the phase-out factor (v9.0, R7.1: as legacy O2455 = $J2456 x O2213)
         prev = L(CI_(col) - 1)
-        a = (y, c('pros.' + f_), c('psd.' + f_), f'INDEX($A{R_POL[key]}:{prev}{R_POL[key]},{col}${R_LHCOL})')
+        a = (y, c('pros.' + f_), c('psd.' + f_), f'INDEX($A{R_POL[key]}:{prev}{R_POL[key]},{col}${R_LHCOL})',
+             c('psf.' + f_))
         return '=' + (call('PRODSUBUNIT', *a) if use_lambda else
-                       f'IF({a[0]}<=LastHist,IFERROR(-{a[1]}*USDperM/{a[2]},0),{a[3]})')
-    if key.startswith('psr.'):               # v6.2: reform per unit = -existing x (1 - kept factor), separate wedge
-        f_ = key[4:]
-        a = (c('psu.' + f_), c('psf.' + f_))
-        return '=' + (call('PSREFORM', *a) if use_lambda else f'-{a[0]}*(1-{a[1]})')
+                       f'IF({a[0]}<=LastHist,IFERROR(-{a[1]}*USDperM/{a[2]},0),{a[3]}*{a[4]})')
     if key.startswith(('etsbs.', 'etsbt.')):  # v4.15 (I21): benchmark = 1 - auctioned share (MTInputs rows 90-91)
         a = c('ETSAuctStart' if key.startswith('etsbs.') else 'ETSAuctTarget')
         return '=' + (call('FREESHARE', a) if use_lambda else f'1-{a}')
@@ -11269,7 +11638,8 @@ def build_mitigation(wb):
 
         def secsum(c, is_base, is_last, r=r_sum, a=a, z=z):
             col = L(c)
-            put(ws, f'{col}{r}', f'=SUMIFS({col}{a}:{col}{z},$A{a}:$A{z},"ener",$B{a}:$B{z},"<>all")', FONT_SUM,
+            ren = ''.join(f'+{col}{R_TR[k_]}' for k_ in REN_ROWS if grp == 'tra')   # v9.0 (R10.7)
+            put(ws, f'{col}{r}', f'=SUMIFS({col}{a}:{col}{z},$A{a}:$A{z},"ener",$B{a}:$B{z},"<>all"){ren}', FONT_SUM,
                 F_BASE if is_base else None, '#,##0.0')
         each_col(secsum)
         outline[r_sum] = (0, False)
@@ -11291,9 +11661,10 @@ def build_mitigation(wb):
             each_col(eldcell)
             e0 = h + VOFF['ener']
 
-            def subsum(c, is_base, is_last, h=h, e0=e0):
+            def subsum(c, is_base, is_last, h=h, e0=e0, s=s):
                 col = L(c)
-                put(ws, f'{col}{h}', f'=SUM({col}{e0}:{col}{e0 + NF - 1})', FONT_SUM, F_BASE if is_base else None,
+                ren = f'+{col}{R_TR[f"ener.{s}.ren"]}' if f'ener.{s}.ren' in R_TR else ''   # v9.0 (R10.7)
+                put(ws, f'{col}{h}', f'=SUM({col}{e0}:{col}{e0 + NF - 1}){ren}', FONT_SUM, F_BASE if is_base else None,
                     '#,##0.0')
             each_col(subsum)
             for k, var in enumerate(VARS):
@@ -11453,7 +11824,9 @@ def build_mitigation(wb):
     far = L(last + 10 * GW)
     extra = [(R_CHK, 'ener.chk', '', '',
               lambda col: (f'=ABS(SUM({col}{R_SUB0}:{col}{R_EPOW})-{col}{R_TOTAL})'
-                           f'+ABS(SUM({col}{R_FUEL0}:{col}{R_FUEL0 + NF - 1})-{col}{R_TOTAL})'), '0.000', F_CHECK),
+                           f'+ABS(SUM({col}{R_FUEL0}:{col}{R_FUEL0 + NF - 1})'
+                           + ''.join(f'+{col}{R_TR[k_]}' for k_ in REN_ROWS)      # v9.0 (R10.7): renewables
+                           + f'-{col}{R_TOTAL})'), '0.000', F_CHECK),
              (R_REF, 'ener.ref', 'all', 'all',     # v6.2: ref_formula (the range ends at this column, NORMS)
               lambda col: ref_formula(col, R_TOTAL), '#,##0.0', None),
              (R_PCT, 'ener.pct', 'all', 'all', lambda col: f'={col}{R_TOTAL}/{col}{R_REF}-1', '0.00%', None)]
@@ -11768,6 +12141,9 @@ def build_mitigation(wb):
                                    'G': f'=IF(LEFT({MFEE_SW[j]},3)="Yes",1,0)'}   # v4.12 (LD46): legacy J196-J200
         inv_col = {'enr': 'D', 'agr': 'E', 'wst': 'F'}[cat]
         ghg_par[f'ch4.em.{j}'] = {'D': f'=${inv_col}${G["ghg.invb"]}*$G{r}*ktPerMt/{gwp}'}
+        # v9.0 (R8.6, I141 as legacy): oil and gas, downstream gas, biomass J185; coal J186; livestock, rice J187;
+        # waste J188
+        ghg_par[f'ch4.int.{j}'] = {'D': "='Manual inputs'!$J$" + str(CH4_INTROW[j])}
         if j in ('liv', 'ric', 'wst'):
             c_ = 'agr' if j != 'wst' else 'wst'
             el = lambda d_: f'=N(INDEX({MI_GHG_EL[d_]},MATCH("{MI_GHG_CAT[c_]}",GhgElCat,0)))'   # v5.2
@@ -11887,11 +12263,15 @@ def build_mitigation(wb):
                 a = (f'$D{r}', f'$E{r}', f'{col}${R_POL["mfee"]}*$F{r}*$G{r}')       # v4.12: x fee applies
                 f = '=' + (call('ABATE', *a) if lam else f'MIN(1,MAX(0,{a[0]}*({a[2]})^{a[1]}))')
                 fmt = '0.0%'
-            elif var == 'ch4.em':
+            elif var == 'ch4.int':                 # v9.0 (R8.6): intensity index of the source
+                a = (f'$D{r}', y)
+                f = '=' + (call('INTDECLINE', *a) if lam else f'(1-{a[0]})^MAX(0,{a[1]}-GHGYear)')
+                fmt = '0.0000'
+            elif var == 'ch4.em':                  # v9.0 (R8.7): x intensity index (L135 fixed for liv, ric, wst)
                 j = fu
-                a = (f'$D{r}', cur(f'ch4.act.{j}'), f'$E${G[f"ch4.src.{j}"]}', cur(f'ch4.abt.{j}'))
+                a = (f'$D{r}', cur(f'ch4.act.{j}'), f'$E${G[f"ch4.src.{j}"]}', cur(f'ch4.int.{j}'), cur(f'ch4.abt.{j}'))
                 f = '=' + (call('METHSOURCE', *a) if lam else
-                           f'IF({a[2]}=0,0,{a[0]}*{a[1]}/{a[2]}*(1-{a[3]}))')
+                           f'IF({a[2]}=0,0,{a[0]}*{a[1]}/{a[2]}*{a[3]}*(1-{a[4]}))')
             elif var == 'ch4' and sec == 'pow':
                 f = '=' + nonco2_formula(f'{col}{R_PW[("pe", fu)]}', r, col, lam)
             elif var == 'ch4.c':
@@ -11965,8 +12345,9 @@ def build_mitigation(wb):
                 j = fu
                 if j in CH4S_SRC:
                     a = (f'$D${G["ch4.em." + j]}', f'{col}${R_POL["ch4bs." + j]}', f'$E${G[f"ch4.src.{j}"]}',
-                         cur(f'ch4.abt.{j}'))
-                    f = '=' + (call('METHSOURCE', *a) if lam else f'IF({a[2]}=0,0,{a[0]}*{a[1]}/{a[2]}*(1-{a[3]}))')
+                         cur(f'ch4.int.{j}'), cur(f'ch4.abt.{j}'))
+                    f = '=' + (call('METHSOURCE', *a) if lam else
+                               f'IF({a[2]}=0,0,{a[0]}*{a[1]}/{a[2]}*{a[3]}*(1-{a[4]}))')
                 else:
                     f = f'={cur("ch4.em." + j)}'
             elif key == 'ch4bs.chk':                # v6.2 (I47): scenario 1: stored activity - own activity (0 = current)
@@ -12581,7 +12962,7 @@ def build_mitigation(wb):
                 a, q = f'{s(var, cs[0])}:{s(var, cs[-1])}', f'{s("con", cs[0])}:{s("con", cs[-1])}'
                 return f'=IFERROR(SUMPRODUCT({a},{q})/SUM({q}),AVERAGE({a}))', '0.0000'
             if var == 'supcost':
-                return f'={col}{R_PW[("sc", sec)] if fu == "ecy" else prow("sp", pc)}', '0.0000'
+                return f'={col}{R_PW[("spe", sec)] if fu == "ecy" else prow("sp", pc)}', '0.0000'   # v9.0: spe
             if var == 'rpsub':
                 return f'={col}{R_PW[("rp", sec)] if fu == "ecy" else prow("rpn", pc)}', '0.0000'
             if var == 'extcost':
@@ -12623,7 +13004,7 @@ def build_mitigation(wb):
             return '=' + {'all': lambda: q_all(fu), 'ind': lambda: fq('ind', fu), 'res': lambda: fq('bld', fu),
                           'pow': lambda: pe(fu)}[sec](), '#,##0.0'
         if var == 'sup.cost':                # R3.13: scenario 1 x GJ per price unit (D)
-            return f'={ref(R_PW[("sc", sec)] if fu == "ecy" else prow("sp", pc))}*$D{r}', '0.0000'
+            return f'={ref(R_PW[("spe", sec)] if fu == "ecy" else prow("sp", pc))}*$D{r}', '0.0000'   # v9.0: spe
         if var == 'airpol.cost.s':           # R3.14-R3.15
             if fu == 'ecy':
                 return f'={ref(R_WEL["apecy.g"])}', '0.00000'

@@ -830,7 +830,8 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
     # the most-used cooking fuel from WHOCooking, sigma from the legacy Elasticities cell C131, lag from Constants
     mt1 = scenario_mt(1)
     leak = str(mt1[n['BiomassLeakage']]).startswith('Yes')
-    cook = next((r['main_fuel'] for r in read('legacy_WHOCooking.csv') if r['code'] == f'{ISO}.distn.pcoff.ove'), '')
+    cook = next((r['main_fuel'] for r in read('legacy_WHOCooking.csv') if r['code'] == f'{ISO}.distn.pcoff.ove'),
+                'lpg')                                    # v9.0 (R6.1, I137): lpg if the WHOCooking code is missing
     e_ck = {f_: float(mt1[n[nm]]) for f_, nm in (('nga', 'NatGasEff'), ('lpg', 'LPGEff'), ('ker', 'KerEff'),
                                                  ('bio', 'BioEff'))}
     sigma = float(next(r['value'] for r in read('legacy_Elasticities_cells.csv') if r['row'] == '131' and r['col'] == '3'))
@@ -984,6 +985,9 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
             'rp2021_res': val('mit.rp.ecy.res', 2021) * cpi[2021], 'rp2021_ind': val('mit.rp.ecy.ind', 2021) * cpi[2021],
             'rphist_res': hist['res'], 'rphist_ind': hist['ind'], 'vat_res': val('mit.vatrate.ecy.res', last_hist),
             'vat_ind': val('mit.vatrate.ecy.ind', last_hist), 'last_hist': last_hist, 'vbc': vbc, 'd5': d5,
+            # v9.0 (R9.1, R9.3): consumer tax / subsidy of the last price year -> price-chain residual (ores)
+            'txo_res': val('mit.txo.ecy.res', last_hist) * cpi[last_hist],
+            'txo_ind': val('mit.txo.ecy.ind', last_hist) * cpi[last_hist],
             'shp_gj': shp, 'co2k': kc, 'data': pdata, **pset, **(power or {})}
     if road:                                          # v3.5: road electricity from the engineer road model
         pinp['dem_fixed'] = {'rod': road['ele']}
@@ -1717,7 +1721,10 @@ def ghg_section(res, mt, years, pe, ref_fn):
     for j, (lab, tier, sc, gw, cat) in src.items():
         base = invb[cat] * share[j] * 1000 / gwp[gw]
         abt = abt_[j]                                     # v4.12 (LD46): Settings switch of the source
-        em[j] = [0.0 if e_gy[j] == 0 else base * act[j][k] / e_gy[j] * (1 - abt[k]) for k in range(ny)]
+        dec = float(mi(f'J{B.CH4_INTROW[j]}') or 0)    # v9.0 (R8.6-R8.7): intensity decline from GHGYear
+        put(f'ch4.int.{j}', [(1 - dec) ** max(0, y - gy) for y in years])
+        em[j] = [0.0 if e_gy[j] == 0 else base * act[j][k] / e_gy[j] * (1 - dec) ** max(0, years[k] - gy)
+                 * (1 - abt[k]) for k in range(ny)]
         put(f'ch4.act.{j}', act[j]), put(f'ch4.abt.{j}', abt), put(f'ch4.em.{j}', em[j])
         if j == 'og':
             flare = float(ch4i[tier]['per_flare'])
