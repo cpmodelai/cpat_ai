@@ -616,10 +616,39 @@ parts:
               \mathtt{entx}_{u,t}, \mathtt{rnsp}_t, \mathtt{rns}_{k,t}, \mathtt{exs}_t = \mathtt{gint}\cdot \mathtt{cptraj}_t \cdot \mathbb{1}[\text{electricity excise scenario}]
             note: "Excel-AI notation. The manual excise path applies with AdditionalExcise (nominal inputs deflated); the additional renewable subsidy phases out over RenSubsidyAddPhaseoutYrs from its start year; hydro by RenewableSubsidyHydro."
             excel: "Mitigation section 3 (entxd, entx, rnsp, rns, exs)"
+          - id: A4.8
+            title: End-user electricity prices, subsidies and power-sector taxes
+            kind: adjustment
+            greek: |
+              rp_{u,t} = \max\!\left(rp^{pre}_{u,t} + (\bar{c}_t\,\pi\,(1 - rb) + pex_{u,t})(1 + vat_u),\ p^{min}\right), \quad rp^{pre}_{u,t} = rp^{pre}_{u,t-1} + \pi\,\Delta(sc + ps + csd + ores)_{u,t}(1 + vat_u)
+            codes: |
+              \mathtt{rp}_{u,t}, \mathtt{rppre}_{u,t}, \mathtt{sc}_{u,t} = \mathtt{gncav}_{t-1} + \mathtt{tmc}_u, \mathtt{pseu}, \mathtt{ores}, \mathtt{csd}, \mathtt{txe}, \mathtt{rpnv}
+            over: "user groups $u$ (residential, industry)"
+            note: "Excel-AI notation. Historical years: the data price; after the last historical year the price moves with the supply cost (average generation cost of last year plus transmission), the producer subsidy per kWh, the consumer subsidy phase-out and the other residual, passed through at PowerSectorPriceChangePassOn; new policy costs ($\\bar{c}$ the share-weighted policy cost per kWh, rebated if chosen) and the excise of the scenario. Producer subsidies are split between the groups by their supply-cost gap (floor PsElFloor)."
+            excel: "Mitigation section 3 (G1, G2)"
+          - id: A4.9
+            title: Early retirement and second-round investment
+            kind: adjustment
+            greek: |
+              early_t = \frac{\max\!\left(0, \min(K^{eff}_{coal,t}\,\bar{e}, g^{re}_t)(1 - s^{ec}_t)\right)}{cf_{coal}}\,f^{early}(1 - ppa_t), \quad second_k = \min\!\left(space_k,\ deficit - \sum_{j: tic_j < tic_k} space_j\right)
+            codes: |
+              \mathtt{early}, \mathtt{egrow}, \mathtt{ecshr}, \mathtt{second}, \mathtt{deficit}, \mathtt{dgas}
+            note: "Excel-AI notation: coal retires early up to EarlyMaxShare of its effective capacity, as far as wind and solar can grow and are cheaper (logit share $s^{ec}$); the investment need left after the logit allocation goes to the cheapest permitted types with space under their scale-up limit (ties broken by the type order), the rest to gas if PwDeficitGas."
+            excel: "Mitigation section 3 (K4, K5, investment)"
       - title: "A5 Road transport"
         text: "To complete from Methods Transport (T1-T18): retirement, purchases new and used, total cost of ownership, ICE fuel split, new and stock fuel economy, vehicle-km, calibration, buses, range anxiety (fitted offline), biofuels."
       - title: "A6 Revenues"
         text: "To complete: power-sector revenues (E75: fuel taxes of generation, excise, VAT on electricity, subsidy gap, renewable subsidies, rebates); subsidy reform revenue; producer subsidies; price-control losses (memo)."
+        equations:
+          - id: A6.1
+            title: Power-sector revenues by generation type
+            kind: adjustment
+            greek: |
+              R^{tax}_k = PE_k\,\kappa\,(etx + vat)_{f(k)}, \quad R^{new}_k = G_k\,c^{new}_k - CO2_k\,etr\,(1 - rf), \quad R^{xcp}_k = CO2_k\,(XCT\,\phi^{CT} + XETS\,\phi^{ETS})
+            codes: |
+              \mathtt{prtx}, \mathtt{prsub}, \mathtt{prxc}, \mathtt{prnew}, \mathtt{prxl}, \mathtt{prrns}
+            note: "Excel-AI notation: existing taxes and subsidies on power fuels, the new policy cost of generation less the free part of the ETS, existing carbon pricing, renewable subsidies."
+            excel: "Mitigation section 3 (revenues)"
       - title: "A7 Emissions"
         text: "To complete: CO2 calibration factor (E77, off by default; baseline pass, spec D15); ETS check (E79); combustion CH4; methane from fuel production with abatement ($red = A\\,mf^{B}$); energy-CH4 calibration; N2O scaled to CO2; IPPU, agriculture, LULUCF, waste and other (methodology Emissions); local air pollutants by sector (section 15, E87-E90)."
         equations:
