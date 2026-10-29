@@ -20,6 +20,7 @@ Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logg
 - ☐ **M4 AP and TCB v0.1**: export blocks and small workbooks with the data import and export only (no model).
 - ☐ **M5 documents** for the modules.
 - ◐ **M6 `permalink_countryeditable/`** (user 2026-10-29; NORMS 5a): done 2026-10-29: the folder, a copy of `permalink/`; both hold mitigation, distribution and the air-pollution standalone (`_latest`); `shared/release.py` publishes to both (mitigation and distribution builders). Left: transport co-benefits when it exists; the air-pollution builder to publish through `release.py`; the modules read mitigation's export block from `permalink_countryeditable/` by Power Query (Distribution: replaces the Update from Mitigation file search); document it in the module READMEs.
+- ☐ **Quick start counts** (user 2026-10-29): after the v9.0 release regenerates `BUGS.md` and `ISSUES.md`, update `HumanReadme-QuickStart.docx` (section 5 counts and major open issues, version mentions v8.5) to match; keep doing so at each release (hand-written, no version table).
 
 Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored under [`../air_pollution/`](../air_pollution/README.md), with public extracts under `data/air_pollution/legacy_459/`. This does not complete M4/M5 or the model work below.
 
