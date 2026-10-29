@@ -169,6 +169,18 @@ def stored(wb):
     print(f'baseline_co2: {len(out)} values')
 
 
+STORED_REF = CODED / 'cpat_testing' / 'compare' / 'reference' / f'excel_ai_{EXCEL_AI_VERSION}_stored_outputs.csv'
+
+
+def stored_outputs(wb):
+    """Sheet StoredOutputs: the key output codes of every stored scenario (1, 3-6), years as columns (phase 5.1)."""
+    rows = list(wb['StoredOutputs'].iter_rows(min_row=5, values_only=True))
+    years = [(i, int(h)) for i, h in enumerate(rows[0]) if h is not None and str(h).isdigit()]
+    out = [[r[3]] + [text(r[i]) for i, _y in years] for r in rows[1:] if r[0] and r[3]]
+    write(STORED_REF, ['code'] + [str(y) for _i, y in years], out)
+    print(f'stored outputs: {len(out)} codes')
+
+
 from cpat_model import DISTRIBUTION_VERSION  # noqa: E402  (the Excel-AI distribution module replicated)
 DIST_WORKBOOK = REPO / 'excel_ai' / f'CPAT-AI-Distribution-Prototype_v{DISTRIBUTION_VERSION}.xlsm'
 DIST_REFERENCE = CODED / 'cpat_testing' / 'compare' / 'reference' / f'excel_ai_distribution_{DISTRIBUTION_VERSION}.csv'
@@ -198,6 +210,7 @@ elif __name__ == '__main__':
     print('scenario rows:', scenarios(book), '->', SCENARIOS)
     print('reference codes:', reference(book), '->', REFERENCE)
     print('variables:', variables(book), '->', VARIABLES)
+    stored_outputs(book)
     module_tabs(book)
     structure(book)
     stored(book)

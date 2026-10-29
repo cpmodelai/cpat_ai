@@ -9,6 +9,7 @@ analysis year (distribution/incidence.py), where the scenario set has the distri
 """
 from cpat_model.core.rows import State
 from cpat_model.data import open_database
+from cpat_model.data.database import missing_country_data
 from cpat_model.distribution import incidence
 from cpat_model.mitigation import chain
 from cpat_model.results import Results
@@ -22,6 +23,11 @@ _SCENARIOS = {}                                           # policy-scenario runs
 def run_scenarios(scenarios, settings):
     settings = settings.with_globals(scenarios.global_settings(), scenarios.inputs(1))
     db = open_database(settings)
+    missing = missing_country_data(db, settings.countries)
+    if missing:
+        raise ValueError(f'No base data in the {settings.database} database ({settings.tidy_path()}) for '
+                         + '; '.join(f'{iso}: {", ".join(t)}' for iso, t in missing.items())
+                         + '. These tables are proprietary: the full database has every country (docs: The database).')
     results = Results(settings)
     baseline = None
     for number in scenarios.numbers():                    # 1 = baseline, first

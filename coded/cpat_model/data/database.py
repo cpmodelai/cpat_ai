@@ -52,3 +52,15 @@ def _open(path):
 
 def open_database(settings):
     return _open(str(settings.tidy_path()))
+
+
+BASE_TABLES = ['energy_balances', 'prices_domestic']   # a country runs only with its base-year energy use and prices
+
+
+def missing_country_data(db, countries):
+    """{country: [base tables without its rows]}: empty when every country can run. Only Egypt has them in the dummy
+    database; the full database (private) has every country."""
+    have = {t: set(db.table(t)['country']) for t in BASE_TABLES}
+    return {iso: [t for t in BASE_TABLES if iso not in have[t]] for iso in countries
+            if any(iso not in have[t] for t in BASE_TABLES)}
+

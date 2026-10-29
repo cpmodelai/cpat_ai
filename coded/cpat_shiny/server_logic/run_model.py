@@ -12,6 +12,7 @@ import pandas as pd
 
 import cpat_model
 from cpat_model.data import open_database
+from cpat_model.data.database import BASE_TABLES
 from cpat_model.inputs import ScenarioSet, read_scenario_set
 from cpat_model.results import Results
 from cpat_model.settings import Settings
@@ -34,7 +35,7 @@ UI_INPUTS = {
 CT_AFTER_TARGET_OPTION = {'lin': 'Linear*', 'cst': 'No'}
 
 # Countries are run only where the database has the country tables (the dummy database: Egypt only)
-COUNTRY_TABLES = ['energy_balances', 'prices_domestic']
+COUNTRY_TABLES = BASE_TABLES                      # a country runs only with these (cpat_model.data.database)
 
 
 def coverage_input(code: str) -> str:
