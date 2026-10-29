@@ -24,8 +24,11 @@ retirements plus new investment; dispatch fills demand with fixed-output types f
 variable cost; investment fills the gap between demand and capacity after retirements by a logit on levelised cost,
 capped by scale-up rates, with a second round that fills the rest cheapest first.
 
-fix: the bug fixes to apply (names in FIXES). The legacy test runs with fix = frozenset() and reproduces the cached
-legacy rows; the prototype runs with ALL_FIXES. Used by check_v1_07.py and make_bugfix_book.py; independent of the
+fix: the bug fixes to apply (names in FIXES). The prototype runs with ALL_FIXES. v9.0 (Power_465, LD41): the data and
+the cached rows come from legacy 465, where the CPAT team fixed every bug of FIXES, so legacy_test runs with ALL_FIXES
+and reproduces both cached 465 runs (base, ctax) to 2e-12 (456: fix = frozenset(), 4e-13). v9.0 also adds the legacy
+over/under-estimated cost residual of the price chain (rows 3607, 3636; inp txo_res/txo_ind, outputs ores_*), active
+when the residual of the last historical year is negative (Egypt 465 residential); without txo_* it is off. Used by check_v1_07.py and make_bugfix_book.py; independent of the
 workbook builder (reads data/*.csv only).
 """
 import csv
@@ -244,7 +247,7 @@ def engine(inp, years, fix=ALL_FIXES, shock=False):
     for k in ('captot', 'nimtot', 'ecmin', 'ecshr', 'req', 'vre', 'msc', 'cph', 'gncav', 'ccpav', 'demtot', 'early', 'need', 'reb', 'sc_res', 'sc_ind',
               'rppre_res', 'rppre_ind', 'rp_res', 'rp_ind', 'cons_res', 'cons_ind', 'reqcg', 'vcmin', 'rem', 'gtot',
               'dgen', 'egrow', 'kafter', 'cmin', 'deficit', 'usdtot', 'sgap_res', 'sgap_ind', 'rvat_res', 'rvat_ind',
-              'rcarb_res', 'rcarb_ind', 'rgap_res', 'rgap_ind'):
+              'rcarb_res', 'rcarb_ind', 'rgap_res', 'rgap_ind', 'ores_res', 'ores_ind'):
         o[k] = [0.0] * n
     o['mult'] = {g: [0.0] * n for g in GROUPS}
     o['aeef'] = {}                               # v5.4: efficiency multiple of the scenario (AdditionalEfficiencyPower)
@@ -394,6 +397,13 @@ def engine(inp, years, fix=ALL_FIXES, shock=False):
             vat = inp['vat_' + g]
             pre = inp['rphist_' + g][k] if y <= inp['last_hist'] else \
                 o['rppre_' + g][k - 1] + par['pass'] * (sc - o['sc_' + g][k - 1]) * (1 + vat)
+            if 'txo_' + g in inp and y >= inp['last_hist']:    # v9.0 (Power_465): over/under-estimated costs
+                if y == inp['last_hist']:                       # (legacy rows 3607, 3636): the residual of the last
+                    o['ores_' + g][k] = pre / (1 + vat) - sc - ntx[g][k] - inp['txo_' + g] - inp.get('ps_' + g, 0.0)
+                else:                                           # historical year; a negative residual (costs
+                    j_, scl = o['ores_' + g][kl], o['sc_' + g][kl]   # underestimated) scales with the supply cost
+                    o['ores_' + g][k] = j_ * min(sc, scl) / scl if j_ < 0 and scl else j_   # when it falls
+                    pre += par['pass'] * (o['ores_' + g][k] - o['ores_' + g][k - 1]) * (1 + vat)
             o['sc_' + g][k], o['rppre_' + g][k] = sc, pre
             pex = exs[k] + (par['pass'] * (ntx[g][k] - ntx[g][kl]) if y > inp['last_hist'] else 0.0)   # v5.4
             pol = o['ccpav'][k] * par['pass'] * (1 - reb) + pex     # v5.4: rebate (rows 3615, 3644), excise
@@ -507,11 +517,13 @@ def legacy_inputs(run):
         'rphist_res': ser('rppre_res'), 'rphist_ind': ser('rppre_ind'),
         'vat_res': val('vat_res', 2024), 'vat_ind': val('vat_ind', 2024), 'last_hist': 2024,
         'vbc': [ser(f'vbc|{f}') for f in T], 'd5': [ser(f'd5|{f}') for f in T], 'd6': [ser(f'd6|{f}') for f in T],
+        'txo_res': val('txo_res', 2024), 'txo_ind': val('txo_ind', 2024),     # v9.0 (Power_465): rows 3606, 3635
         'tvc_extra': [[val(f'tvc|{f}', 2041)] for f in T]}
 
 
-def legacy_test(run, fix=frozenset(), shock=True):
-    """Engine on the legacy inputs vs the cached legacy rows: [(max relative diff, key, year, legacy, engine)]."""
+def legacy_test(run, fix=ALL_FIXES, shock=True):
+    """v9.0 (Power_465): legacy 465 has every fix of FIXES (the CPAT team fixed L1-L10, L67), so the test runs with
+    ALL_FIXES (456: fix = frozenset()). Engine on the legacy inputs vs the cached legacy rows: [(max relative diff, key, year, legacy, engine)]."""
     years = list(range(2022, 2041))
     o = engine(legacy_inputs(run), years, fix=fix, shock=shock)
     out = []
@@ -520,7 +532,8 @@ def legacy_test(run, fix=frozenset(), shock=True):
             continue
         key = r['key']
         name, f = (key.split('|') + [''])[:2]
-        if name in ('gdp', 'inc', 'shock', 'cpf', 'vbc', 'd5', 'd6', 'cfp', 'df', 'vat_res', 'vat_ind'):
+        if name in ('gdp', 'inc', 'shock', 'cpf', 'vbc', 'd5', 'd6', 'cfp', 'df', 'vat_res', 'vat_ind', 'txo_res',
+                    'txo_ind'):
             continue                                       # inputs
         if name == 'dem':
             got = o['dem'][f]
@@ -529,6 +542,8 @@ def legacy_test(run, fix=frozenset(), shock=True):
         else:
             got = o[name]
         leg = [float(r[str(y)]) for y in years]
+        if name in ('ores_res', 'ores_ind'):               # v9.0: the residual from the last historical year on
+            leg = [a if y >= 2024 else b for a, b, y in zip(leg, got, years)]
         d, yr = max((abs(a - b) / max(1.0, abs(a)), y) for a, b, y in zip(leg, got, years))
         out.append((d, key, yr))
     return sorted(out, reverse=True)

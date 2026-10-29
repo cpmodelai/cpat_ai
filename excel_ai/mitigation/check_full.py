@@ -1793,7 +1793,8 @@ POWER_TECH = ['coa', 'nga', 'oop', 'nuc', 'wnd', 'sol', 'hyd', 'ore', 'bio']    
 
 
 def check_power_method():
-    """Method = legacy: power_model_ref with no bug fixes and the legacy demand shock, fed with the cached legacy
+    """Method = legacy: power_model_ref with the bug fixes of legacy 465 (all of FIXES; v9.0, Power_465) and the legacy
+    demand shock, fed with the cached legacy
     inputs (fuel and policy costs D4-D6, GDP, prices of 2021 and the historical years), reproduces every cached legacy
     row of the engineer model and the price chain, for the baseline and the carbon-tax run."""
     ok = True
@@ -1809,7 +1810,7 @@ def check_power_method():
     years = list(range(2022, 2041))
     k40 = years.index(2040)
     log('')
-    log('Effect of each bug fix on the legacy Egypt inputs (2040; % change against legacy):')
+    log('Effect of each bug fix on the legacy Egypt inputs (2040; % change against legacy 456, no fixes):')
     log('')
     log('| Fix | legacy rows | generation (base) | power CO2 (base) | generation (carbon tax) | VRE share (carbon tax) | '
         'investment USD 2022-2040 (base) |')

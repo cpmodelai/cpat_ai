@@ -1,5 +1,9 @@
 """v2.3: years to 2041 (the horizon of CPAT-AI-Mitigation-Prototype v4.7); otherwise as the previous version in Old/. 
 
+v9.0 (Power_465, excel_ai/plans/Power_465.md): legacy_engineer_reference.csv adds sc_ind (row 3629), the consumer
+tax/subsidy txo_res, txo_ind (rows 3606, 3635) and the over/under-estimated costs ores_res, ores_ind (rows 3607, 3636),
+for the method test of the price chain on 465 (the other files are unchanged).
+
 v8.5 (LD41, 2026-10-29): source moved from legacy 456 to 465. Rows up to 5666 are the same in both files; the
 carbon-tax copy of the engineer model starts at row 9270 (456: 9285), offset 6316 (456: 6331; row map
 legacy/bugfixes/data/rowmap_456_465.json). The 465 carbon-tax run is the 465 Dashboard's US$5 (2040), not US$50.
@@ -201,7 +205,9 @@ def main():
     assert str(R[9270][1]).startswith("Technoeconomic") and "Carbon tax" in str(R[9270][1]), R[9270][:3]
     single = {'gdp': 2446, 'inc': 2433, 'shock': 2439, 'cpf': 3683, 'rp_res': 3617, 'rp_ind': 3646, 'rppre_res': 3613,
               'rppre_ind': 3642, 'vat_res': 3611, 'vat_ind': 3640, 'req': 3752, 'vre': 3907, 'msc': 3912,
-              'gncav': 3495, 'ccpav': 3395, 'need': 4028, 'early': 3993, 'sc_res': 3600, 'demtot': 3741}
+              'gncav': 3495, 'ccpav': 3395, 'need': 4028, 'early': 3993, 'sc_res': 3600, 'demtot': 3741,
+              # v9.0 (Power_465): G1/G2 consumer tax/subsidy (input) and over/under-estimated costs (result)
+              'sc_ind': 3629, 'txo_res': 3606, 'txo_ind': 3635, 'ores_res': 3607, 'ores_ind': 3636}
     per_tech = {'vbc': 3374, 'd5': 3385, 'd6': 3412, 'tvc': 3423, 'cfp': 3049, 'df': 3012, 'cap': 3932, 'gen': 3804,
                 'shr': 3840, 'pe': 3855, 'ret': 3994, 'reteff': 4011, 'pni': 4085, 'first': 4143, 'second': 4238,
                 'nei': 4251, 'nim': 4264, 'usd': 4276, 'phi': 3169, 'tic': 4035, 'lfx': 3326, 'caxav': 3181,
