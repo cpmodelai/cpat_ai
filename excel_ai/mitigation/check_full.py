@@ -1369,6 +1369,7 @@ def tr_expected(o, inp, mt):
     for k_, v_ in o.items():
         if isinstance(k_, int) and isinstance(v_, list):
             e[k_] = v_
+    e['im.phv'] = o['im.phv']                     # v0.9.2 (M17): PHEV insurance and maintenance, no legacy row
     tm = mt[B.MT_NAMES['TrModel']]
     e['TrModel'] = [tm] * n
     for _k, name, *_x in B.TR_MT:
