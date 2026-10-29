@@ -36,8 +36,9 @@ PY_GROUPS = {'SPPEff': 'adj_eff_margins_shadow_pricing', 'AdditionalEfficiency':
 
 def python_keys():
     keys = set()
-    for p in PY:
-        keys |= set(re.findall(r'^\s+(\w+)\s*:', open(p, encoding='utf-8').read(), flags=re.M))
+    for p in PY:   # v0.9.2: retired in Coded CPAT 6.3 (it reads the inputs by NameOfParameter); skipped if gone
+        if os.path.exists(p):
+            keys |= set(re.findall(r'^\s+(\w+)\s*:', open(p, encoding='utf-8').read(), flags=re.M))
     return keys
 
 
