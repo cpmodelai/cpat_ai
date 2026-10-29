@@ -58,11 +58,14 @@ def air(state, db, inputs, settings, baseline, t):
             R.set('fuq', k, sum(at('ener', s, f) for s in subs), g, f)
     R.set('airpol.cost.gj', k, at('airpol.cost', 'res', 'coa')
           * (at('fuq', 'bld', 'coa') > c('ApCoalResMin') * at('ener', 'bld', 'all')), 'res', 'coa')
-    kappa = state['air.kappa'].reindex(country=countries)
+    if '_kappa' not in state:                              # the module's coefficients by source and pollutant, once
+        kappa = state['air.kappa'].reindex(country=countries)
+        state['_kappa'] = {(src, pol): (kappa.sel(pollutant=pol, module_sector=src).values if pol in kappa['pollutant']
+                                        else np.zeros(len(countries))) for src in SOURCES for pol in APS_POLLUTANTS}
+    kap = state['_kappa']
     for src in SOURCES:
-        kap = lambda pol: (kappa.sel(pollutant=pol, module_sector=src).values
-                           if pol in kappa['pollutant'] else np.zeros(len(countries)))
-        R.set('air.con.pm2', k, sum(at('aps', src, pol) * kap(pol) for pol in APS_POLLUTANTS) * c('tPerKt'), src, None)
+        R.set('air.con.pm2', k, sum(at('aps', src, pol) * kap[(src, pol)] for pol in APS_POLLUTANTS) * c('tPerKt'),
+              src, None)
     R.set('air.con.pm2', k, sum(at('air.con.pm2', src) for src in SOURCES), 'mod', None)
 
 

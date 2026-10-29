@@ -12,12 +12,17 @@ RETURNS = ['air.vpm', 'air.kappa']
 
 def prepare(state, db, inputs, settings, baseline):
     """Excel-AI's typed values: air.vpm by year; air.kappa by pollutant and module sector."""
+    from cpat_model.core.rows import cached
+    state.update(cached(state, 'air_pollution', lambda: _typed(db, settings)))
+
+
+def _typed(db, settings):
     from cpat_model.core.module_values import as_year, keyed_array
-    vpm = keyed_array(db, 'air_vpm', settings.countries, 'year')
-    state['air.vpm'] = as_year(vpm['air.vpm'])
-    kappa = keyed_array(db, 'air_kappa', settings.countries, 'module_sector')
     import xarray as xr
-    state['air.kappa'] = xr.concat(list(kappa.values()), dim='pollutant').assign_coords(pollutant=list(kappa))
+    vpm = keyed_array(db, 'air_vpm', settings.countries, 'year')
+    kappa = keyed_array(db, 'air_kappa', settings.countries, 'module_sector')
+    return {'air.vpm': as_year(vpm['air.vpm']),
+            'air.kappa': xr.concat(list(kappa.values()), dim='pollutant').assign_coords(pollutant=list(kappa))}
 
 
 def step(state, db, inputs, settings, baseline, t):

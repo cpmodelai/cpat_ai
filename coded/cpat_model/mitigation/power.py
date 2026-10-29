@@ -12,7 +12,7 @@ Generation types k (rows <var>.pow.<k>): coa nga oop nuc wnd sol hyd ore bio. Us
 import numpy as np
 
 from cpat_model.core import excel_ai_tables as xt
-from cpat_model.core.rows import Rows, safe_div
+from cpat_model.core.rows import Rows, cached, safe_div
 from cpat_model.mitigation import ef_data, elasticity_data, policies, power_data, prices_data
 from cpat_model.mitigation.policies import yes
 
@@ -58,7 +58,7 @@ def prepare(state, db, inputs, settings, baseline):
     R = Rows(state, countries, years)
     t, n, g = R.t, inputs.number, (lambda name: inputs[name])
     c = xt.constant
-    data = {iso: country_data(db, iso, state, settings) for iso in countries}
+    data = {iso: cached(state, ('power', iso), lambda: country_data(db, iso, state, settings)) for iso in countries}
     state['_power'] = data
     col = lambda f: np.array([[f(data[iso])] for iso in countries])                  # (country, 1)
     ty = lambda k, key: col(lambda d: d['types'][k][key])

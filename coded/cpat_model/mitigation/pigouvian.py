@@ -13,7 +13,7 @@ import numpy as np
 
 from cpat_model.core import excel_ai_tables as xt
 from cpat_model.core.dims import FUELS
-from cpat_model.core.rows import Rows, safe_div
+from cpat_model.core.rows import Rows, cached, safe_div
 from cpat_model.mitigation import ef_data, policies, power_data
 from cpat_model.mitigation.prices_data import PRICES
 
@@ -115,7 +115,8 @@ def prepare(state, db, inputs, settings, baseline):
         ap[f'{f}.all'] = average([(s, f) for s in OIL_SUBSECTORS]) * gj(f'{f}.all')
 
     # transport externalities per unit of road fuel (pig.trb, pig.tr)
-    trk = {iso: transport_base(db, iso, settings.base_year) for iso in countries}
+    trk = {iso: cached(state, ('transport_base', iso), lambda: transport_base(db, iso, settings.base_year))
+           for iso in countries}
     R.put('pig.trk', col(lambda iso: trk[iso][1]))
     tv = lambda name: col(lambda iso: trk[iso][0].get(name, 0.0))
     fe0 = {}

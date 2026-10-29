@@ -51,7 +51,7 @@ Decided 2026-10-29 (user): a block that still differs after a reasonable effort 
 - ☐ 5.1 Excel-AI values by code from the recalculated release workbook; Python against them, Egypt.
 - ☐ 5.2 Every country (`full` where available, else `dummy`).
 - ☐ 5.3 Against legacy CPAT: Egypt, then every country, through LegacyDiff.
-- ☐ 5.4 Speed: under 1 second for one country and two scenarios (D11); cache data and the baseline run.
+- ☑ 5.4 Speed: under 1 second for one country and two scenarios (D11); cache data and the baseline run. Done 2026-10-29: 0.8 s with the baseline and the data steps cached (first run of a session about 3.3 s); `test_speed.py`.
 
 ## Phase 6 - Running the model
 

@@ -12,8 +12,10 @@ RETURNS = ['tran.acc.km', 'tran.con.km', 'tran.rdm.km']
 def prepare(state, db, inputs, settings, baseline):
     """Excel-AI's typed values: tran.acc.km, tran.con.km, tran.rdm.km by year."""
     from cpat_model.core.module_values import as_year, keyed_array
-    for code, arr in keyed_array(db, 'transport_cost_per_km', settings.countries, 'year').items():
-        state[code] = as_year(arr)
+    from cpat_model.core.rows import cached
+    typed = cached(state, 'transport_cobenefits', lambda: {
+        code: as_year(arr) for code, arr in keyed_array(db, 'transport_cost_per_km', settings.countries, 'year').items()})
+    state.update(typed)
 
 
 def step(state, db, inputs, settings, baseline, t):

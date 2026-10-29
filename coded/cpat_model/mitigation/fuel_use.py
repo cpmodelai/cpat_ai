@@ -111,17 +111,22 @@ def step(state, db, inputs, settings, baseline, t):
         state['_leak'] = {iso: leakage_settings(db, iso, settings.base) for iso in countries}
     leak = state['_leak'][countries[0]]
 
-    # fuel use by the elasticity model (EQ-M3.1)
-    for s in SECTORS:
-        for f in FUELS:
-            if k == 0:
-                R.set('enel', k, col(f, s, 'ener0'), s, f)
-            else:
-                atp, atp0 = at('atp', s, f), at('atp', s, f, k - 1)
-                shp, shp0 = at('shp', s, f), at('shp', s, f, k - 1)
-                R.set('enel', k, at('enel', s, f, k - 1) * at('aef', s, f) * (1 + gdpi) ** col(f, s, 'ey')
-                      * (atp / atp0) ** col(f, s, 'eu') * ((atp + shp) / (atp0 + shp0)) ** col(f, s, 'eff_exp')
-                      * shock, s, f)
+    # fuel use by the elasticity model (EQ-M3.1), all subsectors and fuels at once: (sector, fuel, country)
+    if '_enel' not in state:
+        grid = lambda fn: np.array([[fn(s, f) for f in FUELS] for s in SECTORS])
+        state['_enel'] = {key: grid(lambda s, f: col(f, s, key)) for key in ('ener0', 'ey', 'eu', 'eff_exp')}
+        state['_enel'].update({var: grid(lambda s, f: R.of(var, s, f)) for var in ('atp', 'shp', 'aef')})
+    E = state['_enel']
+    if k == 0:
+        enel = E['ener0']
+    else:
+        prev = np.array([[at('enel', s, f, k - 1) for f in FUELS] for s in SECTORS])
+        atp, atp0, shp, shp0 = E['atp'][..., k], E['atp'][..., k - 1], E['shp'][..., k], E['shp'][..., k - 1]
+        enel = (prev * E['aef'][..., k] * (1 + gdpi) ** E['ey'] * (atp / atp0) ** E['eu']
+                * ((atp + shp) / (atp0 + shp0)) ** E['eff_exp'] * shock)
+    for i, s in enumerate(SECTORS):
+        for j, f in enumerate(FUELS):
+            R.set('enel', k, enel[i, j], s, f)
 
     # biofuels in road transport, aviation and navigation (EQ-A3.3; Mitigation section 5b)
     ela = state['_power'][countries[0]]['ela']
@@ -200,27 +205,36 @@ def step(state, db, inputs, settings, baseline, t):
     ef_share = {'constant': 0.0, 'Variable': 1.0}.get(str(settings.base['EFSel']), 0.5)
     ef_years = (y - settings.base_year) / (c('EFEndYear') - settings.base_year)
     first = tables[countries[0]]
-    for s in SECTORS:
-        for f in FUELS:
-            p = first[(f, s)]
-            use = at('trbe', 'rod', 'bio') if (s, f) == ('rod', 'bio') else at('enel', s, f)
-            v, fu = leak_rows[p['leak_pos'] - 1].split('.')
-            ener = R.set('ener', k, use + at(v, 'res', fu), s, f)
-            R.set('co2', k, ener * pj * col(f, s, 'co2ef'), s, f)
-            e0, e1 = col(f, s, 'ef0_ch4'), col(f, s, 'ef1_ch4')
-            R.set('ch4', k, ener * (e0 + (e1 - e0) * ef_share * ef_years) / c('tPerKt'), s, f)
-            pf, ps_ = p['price_code'].split('.')
-            vat = col(f, s, 'vat')
-            xcpd, nce, csw, pcw = at('xcpd', s, f), at('nce', s, f), at('csw', s, f), at('pcw', s, f)
-            e = ener * pj
-            R.set('rtx', k, e * (at('etx', ps_, pf) + at('vat', ps_, pf) + xcpd * (1 + vat)), s, f)
-            R.set('rsub', k, e * at('esub', ps_, pf), s, f)
-            R.set('rnew', k, e * (at('ctxnew', s, f) + at('ntx', s, f) + at('ets', s, f) * at('ets.rf') + nce * vat), s, f)
-            R.set('rxcp', k, e * at('xcp', s, f), s, f)
-            R.set('rex', k, e * at('ntx', s, f), s, f)
-            R.set('rvt', k, e * (at('vat', ps_, pf) + (xcpd + nce + csw + pcw) * vat), s, f)
-            R.set('rsr', k, e * ((csw + pcw) * (1 + vat)), s, f)
-        total = sum(at('ener', s, f) for f in FUELS) + (at('ener', s, 'ren') if s in ('avi', 'nav') else 0.0)
+    if '_fu' not in state:                          # the price rows and factors of every fuel block, (sector, fuel, ...)
+        grid = lambda fn: np.array([[fn(s, f) for f in FUELS] for s in SECTORS])
+        code = lambda s, f: first[(f, s)]['price_code'].split('.')
+        F = {key: grid(lambda s, f: col(f, s, key)) for key in ('co2ef', 'ef0_ch4', 'ef1_ch4', 'vat')}
+        F.update({var: grid(lambda s, f: R.of(var, s, f))
+                  for var in ('xcpd', 'nce', 'csw', 'pcw', 'ctxnew', 'ntx', 'ets', 'xcp')})
+        F.update({f'{var}.p': grid(lambda s, f: R.of(var, code(s, f)[1], code(s, f)[0])) for var in ('etx', 'vat', 'esub')})
+        F['leak'] = [[leak_rows[first[(f, s)]['leak_pos'] - 1].split('.') for f in FUELS] for s in SECTORS]
+        state['_fu'] = F
+    F = state['_fu']
+    x = {var: F[var][..., k] for var in ('xcpd', 'nce', 'csw', 'pcw', 'ctxnew', 'ntx', 'ets', 'xcp', 'etx.p', 'vat.p',
+                                         'esub.p')}
+    leak_now = {name: at(name.split('.')[0], 'res', name.split('.')[1]) for name in leak_rows}
+    use = np.array([[at('trbe', 'rod', 'bio') if (s, f) == ('rod', 'bio') else at('enel', s, f) for f in FUELS]
+                    for s in SECTORS])
+    lk = np.array([[leak_now[f'{v}.{fu}'] for v, fu in row] for row in F['leak']])
+    ener = use + lk
+    vat = F['vat']
+    e = ener * pj
+    out = {'ener': ener, 'co2': ener * pj * F['co2ef'],
+           'ch4': ener * (F['ef0_ch4'] + (F['ef1_ch4'] - F['ef0_ch4']) * ef_share * ef_years) / c('tPerKt'),
+           'rtx': e * (x['etx.p'] + x['vat.p'] + x['xcpd'] * (1 + vat)), 'rsub': e * x['esub.p'],
+           'rnew': e * (x['ctxnew'] + x['ntx'] + x['ets'] * at('ets.rf') + x['nce'] * vat), 'rxcp': e * x['xcp'],
+           'rex': e * x['ntx'], 'rvt': e * (x['vat.p'] + (x['xcpd'] + x['nce'] + x['csw'] + x['pcw']) * vat),
+           'rsr': e * ((x['csw'] + x['pcw']) * (1 + vat))}
+    for i, s in enumerate(SECTORS):
+        for var, a in out.items():
+            for j, f in enumerate(FUELS):
+                R.set(var, k, a[i, j], s, f)
+        total = sum(ener[i, j] for j in range(len(FUELS))) + (at('ener', s, 'ren') if s in ('avi', 'nav') else 0.0)
         R.set('ener', k, total, s, 'all')
         R.set('eldem', k, at('dem', s, 'ecy') if s in DEMAND_SUBSECTORS else 0.0, s, 'ecy')
     for grp, subs in GROUP_TOTALS.items():

@@ -11,6 +11,9 @@ Values broadcast to (country, year): a scalar, a year array (year,), a country a
 
 In the year loop a block fills one year at a time: R.set(var, k, values) writes year index k (a row starts as NaN),
 R.at(var, k) reads it; R.of(var) gives the whole row as filled so far.
+
+The state of a run is a `State`: a dict whose block rows stay numpy arrays (fast for the blocks, which read them with
+Rows); a row becomes a labelled xarray array only when something outside the blocks reads it (results, tests).
 """
 import numpy as np
 import xarray as xr
@@ -41,15 +44,23 @@ class Rows:
     def set(self, var, k, values, sector=None, fuel=None):
         """Year index k of a row filled year by year: values per country (country,) or a scalar."""
         key = None if sector is None and fuel is None else (sector, fuel)
-        rows = self._rows.setdefault(var, {})
-        if key not in rows:                               # a text row (labels, keys) is an object array
+        rows = self._rows.get(var)
+        if rows is None:
+            rows = self._rows[var] = {}
+        a = rows.get(key)
+        if a is None:                                     # a text row (labels, keys) is an object array
             text = np.asarray(values).dtype.kind in 'OUS'
-            rows[key] = np.full(self.shape, None if text else np.nan, dtype=object if text else float)
-        rows[key][:, k] = values
-        return rows[key][:, k]
+            a = rows[key] = np.full(self.shape, None if text else np.nan, dtype=object if text else float)
+        a[:, k] = values
+        return a[:, k]
 
     def at(self, var, k, sector=None, fuel=None):
         """Year index k of a row (this block's or an earlier one's): (country,)."""
+        rows = self._rows.get(var)
+        if rows is not None:
+            a = rows.get(None if sector is None and fuel is None else (sector, fuel))
+            if a is not None:
+                return a[:, k]
         return self.of(var, sector, fuel)[:, k]
 
     def of(self, var, sector=None, fuel=None):
@@ -57,6 +68,11 @@ class Rows:
         if var in self._rows and key in self._rows[var]:
             return self._rows[var][key]
         if var not in self._cache:                        # numpy view of a state array, made once per block
+            raw = self.state.raw(var, self.countries, self.years) if isinstance(self.state, State) else None
+            if raw is not None:
+                self._cache[var] = raw
+                values, si, fi = raw
+                return values if key is None else values[si[sector], fi[fuel]]
             a = self.state[var]
             if 'sector' in a.dims:
                 a = a.sel(country=self.countries, year=self.years).transpose('sector', 'fuel', 'country', 'year')
@@ -70,12 +86,11 @@ class Rows:
 
     def finish(self):
         """Every row to the state. The rows of a variable with sectors or fuels form one (sector, fuel, country, year)
-        array; where they do not fill the grid, attrs['rows'] lists the (sector, fuel) pairs that are rows."""
-        coords = {'country': self.countries, 'year': self.years}
-        cy = xr.Coordinates(coords)                       # built once: a DataArray per row is then cheap
+        array; where they do not fill the grid, `rows` lists the (sector, fuel) pairs that are rows."""
+        store = self.state if isinstance(self.state, State) else State()   # a plain dict gets xarray arrays
         for var, rows in self._rows.items():
             if None in rows:
-                self.state[var] = xr.DataArray(rows[None], coords=cy)
+                store.put_raw(var, rows[None], None, None, None, self.countries, self.years)
                 continue
             sectors = list(dict.fromkeys(s for s, _f in rows))
             fuels = list(dict.fromkeys(f for _s, f in rows))
@@ -83,12 +98,108 @@ class Rows:
             data = np.full((len(sectors), len(fuels)) + self.shape, np.nan, dtype=object if text else float)
             for (s, f), a in rows.items():
                 data[sectors.index(s), fuels.index(f)] = a
-            arr = xr.DataArray(data, dims=['sector', 'fuel', 'country', 'year'],
-                               coords={'sector': sectors, 'fuel': fuels, **coords})
-            if len(rows) < len(sectors) * len(fuels):
-                arr.attrs['rows'] = list(rows)
-            self.state[var] = arr
+            store.put_raw(var, data, sectors, fuels, list(rows) if len(rows) < len(sectors) * len(fuels) else None,
+                          self.countries, self.years)
+        if store is not self.state:
+            for var in self._rows:
+                self.state[var] = store[var]
         self._rows = {}
+
+
+class State(dict):
+    """The state of one scenario run: labelled arrays by variable. Rows written by blocks are kept as numpy
+    (`put_raw`); `state[var]` builds the xarray array on first use."""
+
+    def __init__(self):
+        super().__init__()
+        self._raw = {}                                    # var -> (values, sectors, fuels, rows, countries, years)
+
+    def put_raw(self, var, values, sectors, fuels, rows, countries, years):
+        self._raw[var] = (values, sectors, fuels, rows, list(countries), list(years))
+        super().pop(var, None)
+
+    def raw(self, var, countries, years):
+        """(values, sector index, fuel index) of a block row of these countries and years, else None."""
+        r = self._raw.get(var)
+        if r is None or r[4] != countries or r[5] != years:
+            return None
+        values, sectors, fuels = r[0], r[1], r[2]
+        if sectors is None:
+            return values, None, None
+        return values, {x: i for i, x in enumerate(sectors)}, {x: i for i, x in enumerate(fuels)}
+
+    def raw_rows(self, var):
+        """(values, sectors, fuels, rows, countries, years) of a block row, or None."""
+        return self._raw.get(var)
+
+    def __getitem__(self, var):
+        if not super().__contains__(var) and var in self._raw:
+            values, sectors, fuels, rows, countries, years = self._raw[var]
+            coords = {'country': countries, 'year': years}
+            if sectors is None:
+                arr = xr.DataArray(values, coords=coords, dims=['country', 'year'])
+            else:
+                arr = xr.DataArray(values, dims=['sector', 'fuel', 'country', 'year'],
+                                   coords={'sector': sectors, 'fuel': fuels, **coords})
+                if rows is not None:
+                    arr.attrs['rows'] = rows
+            super().__setitem__(var, arr)
+        return super().__getitem__(var)
+
+    def __setitem__(self, var, value):
+        self._raw.pop(var, None)
+        super().__setitem__(var, value)
+
+    def __contains__(self, var):
+        return super().__contains__(var) or var in self._raw
+
+    def __iter__(self):
+        yield from super().__iter__()
+        yield from (v for v in self._raw if not dict.__contains__(self, v))
+
+    def __len__(self):
+        return len(list(iter(self)))
+
+    def keys(self):
+        return list(iter(self))
+
+    def items(self):
+        return [(k, self[k]) for k in self]
+
+    def values(self):
+        return [self[k] for k in self]
+
+    def update(self, other=(), **kw):
+        for var, value in dict(other, **kw).items():
+            self[var] = value
+
+    def setdefault(self, var, default=None):
+        if var not in self:
+            self[var] = default
+        return self[var]
+
+    def get(self, var, default=None):
+        return self[var] if var in self else default
+
+    def pop(self, var, *default):
+        if super().__contains__(var):
+            self._raw.pop(var, None)
+            return super().pop(var)
+        if var in self._raw:
+            value = self[var]
+            super().pop(var)
+            self._raw.pop(var)
+            return value
+        return super().pop(var, *default)
+
+def cached(state, key, fn):
+    """fn() shared by every run with the same baseline (core/loop.py): for data steps that read no scenario input."""
+    store = state.get('_cache') if isinstance(state, dict) else None
+    if store is None:
+        return fn()
+    if key not in store:
+        store[key] = fn()
+    return store[key]
 
 
 def where(cond, a, b):

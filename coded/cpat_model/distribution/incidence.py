@@ -387,12 +387,17 @@ def country_data(db, iso, results_year):
     return d
 
 
+@lru_cache(maxsize=8)
+def _country_data(db, iso, results_year):
+    return country_data(db, iso, results_year)
+
+
 def run(results, db, settings, scenarios):
     """Every scenario group against scenario 1 for each country: {country: {code: 11 values}}."""
     out = {}
     base = results.states[1]
     for iso in settings.countries:
-        data = country_data(db, iso, settings.results_year)
+        data = _country_data(db, iso, settings.results_year)
         rows = {}
         for n, state in results.states.items():
             value = _reader(state, iso)

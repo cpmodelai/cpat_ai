@@ -13,7 +13,7 @@ import numpy as np
 
 from cpat_model.core import excel_ai_tables as xt
 from cpat_model.core.dims import COVERAGE_SECTORS, FUELS, SECTOR_GROUP, SECTORS
-from cpat_model.core.rows import safe_div
+from cpat_model.core.rows import cached, safe_div
 from cpat_model.mitigation import ghg_data, header, policies
 from cpat_model.mitigation.gdp import year_rows
 from cpat_model.mitigation.power import TYPES
@@ -132,7 +132,7 @@ def ghg(state, db, inputs, settings, baseline, t):
     c = xt.constant
     countries = list(settings.countries)
     if '_ghg' not in state:
-        state['_ghg'] = {iso: country_data(db, iso, settings) for iso in countries}
+        state['_ghg'] = {iso: cached(state, ('ghg', iso), lambda: country_data(db, iso, settings)) for iso in countries}
     D = [state['_ghg'][iso] for iso in countries]
     col = lambda fn: np.array([fn(d) for d in D])
     at = lambda var, sector=None, fuel=None, kk=k: R.at(var, kk, sector, fuel)
@@ -477,27 +477,45 @@ def pollutants(state, db, inputs, settings, baseline, t):
     ef_share = {'constant': 0.0, 'Variable': 1.0}.get(str(settings.base['EFSel']), 0.5)
     w = R.set('ap.w', k, ef_share * (y - settings.base_year) / (c('EFEndYear') - settings.base_year), 'all', 'all')
     tables = state['_fuel']
-    fcol = lambda f, s, key: np.array([tables[iso][(f, s)][key] for iso in countries])
-    tcol = lambda kk, key: np.array([state['_power'][iso]['types'][kk][key] for iso in countries])
-    ef = lambda f, s, pol: (fcol(f, s, f'ef0_{pol}') * (1 - w) + w * fcol(f, s, f'ef1_{pol}')) / c('tPerKt')
+    cache = cached(state, 'ap_coef', dict)              # the factors by country, gathered once per baseline
+    def fcol(f, s, key):
+        if (f, s, key) not in cache:
+            cache[(f, s, key)] = np.array([tables[iso][(f, s)][key] for iso in countries])
+        return cache[(f, s, key)]
+    def tcol(kk, key):
+        if (kk, key) not in cache:
+            cache[(kk, key)] = np.array([state['_power'][iso]['types'][kk][key] for iso in countries])
+        return cache[(kk, key)]
+    if 'ef' not in cache:                               # (pollutant, sector, fuel, country) and food (pollutant, fuel)
+        for i in (0, 1):
+            cache[f'ef{i}'] = np.array([[[fcol(f, s, f'ef{i}_{pol}') for f in FUELS] for s in SECTORS]
+                                        for pol in AP_POLLUTANTS])
+        cache['share'] = np.array([fcol(f, 'foo', 'food_share') for f in FUELS])
     tef = lambda kk, pol: (tcol(kk, f'ap0_{pol}') * (1 - w) + w * tcol(kk, f'ap1_{pol}')) / c('tPerKt')
-    food = {f: R.set('apfd', k, at('ener', 'foo', f) * fcol(f, 'foo', 'food_share'), 'foo', f) for f in FUELS}
+    ef = (cache['ef0'] * (1 - w) + w * cache['ef1']) / c('tPerKt')
+    ener = np.array([[at('ener', s, f) for f in FUELS] for s in SECTORS])           # (sector, fuel, country)
+    food = ener[SECTORS.index('foo')] * cache['share']
+    for i, f in enumerate(FUELS):
+        R.set('apfd', k, food[i], 'foo', f)
+    by_sector = np.einsum('psfc,sfc->psc', ef, ener)
+    by_food = np.einsum('pfc,fc->pc', ef[:, SECTORS.index('foo')], food)
     ap = {}
-    for pol in AP_POLLUTANTS:
-        for s in SECTORS:
-            ap[(pol, s)] = R.set('ap', k, sum(at('ener', s, f) * ef(f, s, pol) for f in FUELS), s, pol)
+    for p, pol in enumerate(AP_POLLUTANTS):
+        for i, s in enumerate(SECTORS):
+            ap[(pol, s)] = R.set('ap', k, by_sector[p, i], s, pol)
         ap[(pol, 'pow')] = R.set('ap', k, sum(at('pe', 'pow', kk) * tef(kk, pol) for kk in TYPES), 'pow', pol)
         for g, subs in AP_GROUPS.items():
             R.set('ap', k, sum(ap[(pol, s)] for s in subs), g, pol)
-        fod = R.set('ap', k, sum(food[f] * ef(f, 'foo', pol) for f in FUELS), 'fod', pol)
+        fod = R.set('ap', k, by_food[p], 'fod', pol)
         R.set('ap', k, ap[(pol, 'foo')] - fod, 'fag', pol)
         if pol in AP_GWP or pol == 'pm2':          # pm2: the last row of section 15
             ap[(pol, 'all')] = R.set('ap', k, sum(ap[(pol, s)] for s in SECTORS + ['pow']), 'all', pol)
-    reg = [gwp_region(db, iso) for iso in countries]
-    efv = db.table('ef_ghg')
-    efv = dict(zip(efv['code'], efv['value']))
-    apf = {pol: R.set('apf', k, ap[(pol, 'all')] * np.array([float(efv.get(f'{r}.mit.gwp100.{pol}', 0) or 0) for r in reg])
-                      / c('ktPerMt'), 'all', pol) for pol in AP_GWP}
+    if 'gwp' not in cache:
+        reg = [gwp_region(db, iso) for iso in countries]
+        efv = db.table('ef_ghg')
+        efv = dict(zip(efv['code'], efv['value']))
+        cache['gwp'] = {pol: np.array([float(efv.get(f'{r}.mit.gwp100.{pol}', 0) or 0) for r in reg]) for pol in AP_GWP}
+    apf = {pol: R.set('apf', k, ap[(pol, 'all')] * cache['gwp'][pol] / c('ktPerMt'), 'all', pol) for pol in AP_GWP}
     apf_all = R.set('apf', k, sum(apf.values()), 'all', 'all')
     R.set('ghg.enrp', k, at('ghg', 'enr', 'all') + apf_all, 'enr', 'all')
 

@@ -9,6 +9,7 @@ codes `infl`, `defl`, `gdp.usd`, `gdp.lcu`, `xr`, `gdp.base` (`all.all` in their
 import numpy as np
 import xarray as xr
 
+from cpat_model.core.rows import cached
 from cpat_model.data.database import to_float
 
 MACRO_YEARS = list(range(2018, 2046))     # Excel-AI IMAC_YEARS
@@ -94,7 +95,13 @@ def all_all(arr):
 
 
 def prepare(state, db, inputs, settings, baseline):
-    """EQ-M0.1, EQ-M0.2. The macro series and the header rows, for the run's countries and all years."""
+    """EQ-M0.1, EQ-M0.2. The macro series and the header rows, for the run's countries and all years (data only: shared
+    by the runs of a baseline)."""
+    state.update(cached(state, 'header', lambda: _header(db, settings)))
+
+
+def _header(db, settings):
+    state = {}
     countries = list(settings.countries)
     euro = euro_countries(db)
     w = weo(db, {f'{iso}.{s}.A' for iso in countries + ['USA', EURO_SERIES] for s in WEO_SERIES})
@@ -117,3 +124,4 @@ def prepare(state, db, inputs, settings, baseline):
     state['gdp.lcu'] = all_all(m('gdp_lcu'))
     state['xr'] = state['gdp.lcu'] / state['gdp.usd']               # LCU per USD, real
     state['gdp.base'] = all_all(m('gdp_growth'))                    # baseline real GDP growth
+    return state
