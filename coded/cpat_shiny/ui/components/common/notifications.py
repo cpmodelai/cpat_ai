@@ -23,12 +23,14 @@ def error_notification(
 
 async def progress_bar(
         message: str,
-        task: Callable[[], Awaitable[None]],
+        task: Callable[[], Awaitable[bool]],
         notification: Callable[[], None],
         ) -> None:
+    """Run `task` under a progress bar; `notification` follows if the task returns True (it succeeded)."""
     with ui.Progress(min=1, max=10) as p:
         p.set(message=message, detail="Please wait...")
         p.set(1)
-        await task()
+        succeeded = await task()
         p.set(10)
-        notification()
+        if succeeded:
+            notification()

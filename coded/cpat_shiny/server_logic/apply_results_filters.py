@@ -1,5 +1,3 @@
-
-
 def apply_results_filters(
         global_raw_results,
         inputs,
@@ -7,6 +5,8 @@ def apply_results_filters(
         ) -> None:
     if global_raw_results():
         choice = inputs.raw_results_df_selection()
+        if choice not in global_raw_results():
+            choice = next(iter(global_raw_results()))
 
         ### filter inputs
         countries = list(inputs.raw_results_country_code())
@@ -30,14 +30,14 @@ def apply_results_filters_indicators(
         inputs,
         df_indicators_to_render
         ) -> None:
-    if indicators():
+    if indicators() is not None:
         ### filter inputs
         cpat_code = inputs.indicators_cpat_code()
         unit = list(inputs.indicators_unit())
         header = list(inputs.indicators_header())
-        df = indicators().grouped_indicators
+        df = indicators()
         if cpat_code:
-            df = df[df.index.get_level_values('CPATCode').str.contains(cpat_code)]
+            df = df[df.index.get_level_values('CPATCode').str.contains(cpat_code, regex=False)]
         if unit:
             df = df[df['Unit'].isin(unit)]
         if header:

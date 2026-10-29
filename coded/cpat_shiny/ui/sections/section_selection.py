@@ -30,15 +30,15 @@ def section_selection(
     elif selected_page == "scenarios-section":
         return scenarios_section
     elif selected_page == 'raw-results-section':
-        if results():
+        if results() is not None:
             return raw_results_section(results_inputs_selection, global_raw_results)
         return raw_results_section_empty
     elif selected_page == 'indicators-section':
-        if results():
+        if results() is not None:
             return indicators_section(results_inputs_selection, indicators)
         return indicators_section_empty
     elif selected_page == "visualizations-section":
-        if indicators():
+        if results() is not None:
             return visualizations_section(
                 graph_selection(), selected_countries(), scenarios_names()
             )

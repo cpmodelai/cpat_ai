@@ -44,7 +44,9 @@ def visualizations_section(
         ui.hr(),
         output_widget("plot_domestic_p"),
         ui.hr(),
-        output_widget("plot_em_by_sector")
+        output_widget("plot_em_by_sector"),
+        ui.hr(),
+        output_widget("plot_distribution")
     )
 
 visualizations_section_empty = section_empty(VISUALIZATIONS["visualizationsEmpty"])

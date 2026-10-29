@@ -12,11 +12,9 @@ from cpat_shiny.ui.components.common.validation_output import validation_output
 from cpat_shiny.ui.components.common.results_section_card import results_section_card
 from cpat_shiny.ui.components.common.height_wrapper import height_wrapper
 
-from cpat_shiny.mapping import CPAT_VARIABLES
+from cpat_shiny.mapping import CPAT_VARIABLES, RESULT_ID_COLUMNS
 
 from cpat_shiny.ui.labels import RESULTS
-
-from cpat_model.constants import ID_COL_NAMES
 
 FIRST_VAR = list(CPAT_VARIABLES.keys())[0]
 EMPTY_RESULTS_CHOICES = {FIRST_VAR: ' '}
@@ -44,16 +42,17 @@ def get_filter_choices(
         raw_results: Dict[str, pd.DataFrame] 
         ) -> Dict[str, Dict[str, str]]:
     if raw_results:
+        first_table = next(iter(raw_results.values()))
         choices = {
             code: {
                 unique_code: unique_code
                 for unique_code in
-                raw_results[FIRST_VAR].index.get_level_values(code).unique()
+                first_table.index.get_level_values(code).unique()
             }
-            for code in [*ID_COL_NAMES, 'ScenarioName']
+            for code in [*RESULT_ID_COLUMNS, 'ScenarioName']
         }
         return choices
-    choices = {code: EMPTY_RESULTS_CHOICES for code in [*ID_COL_NAMES, 'ScenarioName']}
+    choices = {code: EMPTY_RESULTS_CHOICES for code in [*RESULT_ID_COLUMNS, 'ScenarioName']}
     return choices
 
 def raw_results_section(

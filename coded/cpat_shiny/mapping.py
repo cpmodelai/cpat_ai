@@ -1,6 +1,11 @@
+from pathlib import Path
+
 import pandas as pd
 
-MAPPINGS_PATH = 'cpat_shiny/mappings.xlsx'
+MAPPINGS_PATH = Path(__file__).with_name('mappings.xlsx')
+
+# the name of scenario 1 in the app's tables (the Excel-AI baseline column, no carbon price)
+BASELINE_SCENARIO = 'Baseline'
 
 df = pd.read_excel(MAPPINGS_PATH, sheet_name='Countries')
 ALL_COUNTRIES = df.set_index('CountryCode')['Country'].to_dict()
@@ -67,22 +72,27 @@ CT_AFTER_TARGET_YEAR = {
     "cst": "Target CT value"
 }
 
+# indicators computed from the result rows (server_logic/results_tables.py INDICATOR_ROWS)
 ALL_INDICATORS = {
+    'cp': 'Carbon price',
+    'em': 'CO2 emissions',
     'ec': 'Energy consumption',
-    'dec': 'Disaggregated energy consumption (Policy)',
-    'p': 'Energy prices',
-    'em': 'Emissions'
+    'rev': 'Total revenue',
+    'gdp': 'Real GDP'
 }
 
+# raw results: variable code (core/variables.csv) -> label
 CPAT_VARIABLES = {
-    'ec': 'Energy consumption',
-    'em': 'CO2 Emissions',
-    'p': 'Retail prices',
+    'ener': 'Energy consumption',
+    'co2': 'CO2 Emissions',
+    'atp': 'Retail prices',
     'txo': 'Excise and other taxes',
-    'cs': 'Consumer-side subsidy',
+    'esub': 'Consumer-side subsidy',
     'ps': 'Producer-side subsidy',
     'sp': 'Supply Price'
 }
+# the index of a raw results table, with ScenarioName
+RESULT_ID_COLUMNS = ['CountryCode', 'SectorCode', 'FuelCode']
 
 # SCENARIOS_TABLE TODO add schema here
 SCENARIOS_COL_TYPES = {
