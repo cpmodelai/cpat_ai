@@ -10,7 +10,41 @@ Type `@` to attach the two files, then:
 @AGENTS.md @excel_ai/plans/prompts/TCB_module_prompt.md Follow these files. Do phase 0 only, then stop and report.
 ```
 
-If `excel_ai/plans/prompts/` is not in your checkout yet (the branch is not merged), sync first; if it is still missing, paste the whole of `TCB_module_prompt.md` instead (Appendix A of the Word guide).
+If `excel_ai/plans/prompts/` is not in your checkout, double-click `SyncRepo.bat` first; if it is still missing, paste the whole of `TCB_module_prompt.md` instead (Appendix A of the Word guide).
+
+## Starter queries
+
+One at a time, after the starter (or in a new session with the two files attached):
+
+- Build it, starting from what already exists
+
+```
+@AGENTS.md @excel_ai/plans/prompts/TCB_module_prompt.md Build the module, starting from what already exists: the plan `excel_ai/plans/Transport_cobenefits.md`, the legacy extracts in `data/mvp_legacy_extracts/`, `transport_model_ref.py`, the typed values of Mitigation's tab FromTransportCB and the distribution module's patterns. Do phase 0 only, then stop and report.
+```
+
+- Check it against legacy outputs
+
+```
+Check it against legacy outputs: compare the transport co-benefits module's results for Egypt with legacy 465's cached values, year by year, both scenarios. List every difference above 0.1% with its cause: a registered bug fix, a replicated issue, or unexplained (then find the cause).
+```
+
+- Produce a short PowerPoint, following the norms of the other documents
+
+```
+Produce a short PowerPoint (about 6 slides) on the transport co-benefits module: what it does, how it links to the other modules, the results for Egypt against legacy, the bugs fixed and issues replicated (codes), open decisions. Follow the norms of the other documents: the CPAT-AI Overview deck (`excel_ai/CPAT-AI_Overview_v<version>.pptx`, builder `excel_ai/mitigation/presentation/build_deck.js`), counts taken from the register, `NORMS.md` 5. Save it as `excel_ai/CPAT-AI_TransportCobenefits_Overview_v<version>.pptx`.
+```
+
+- Check that every bug found is in the registers
+
+```
+Check that every bug and issue you found is in the register (`excel_ai/mitigation/issues_register.py`, `make_legacy_fixes.py`), with its code, legacy cells and cross-references; regenerate `excel_ai/BUGS.md`, `excel_ai/ISSUES.md` and the tracker, and list what you added.
+```
+
+- Adjust what you do not like or what is missing
+
+```
+I found I don't like format (x) / you are lacking output (y): please adjust. Change the builder, not the built workbook; rebuild, rerun the check and show me the result.
+```
 
 ## Next phases
 
