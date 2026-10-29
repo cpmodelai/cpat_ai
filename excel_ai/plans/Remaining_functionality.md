@@ -168,3 +168,13 @@ Not built, by decision: the elasticity-based power model (legacy C3).
   **`excel_ai/mitigation/Equations_addendum.md`** (one entry per new variable: code, equation, legacy rows, inputs),
   written with the build; `Equations.md` and the Methods volume take it in at the next release. Machine-readable plan:
   [`remaining_functionality.json`](remaining_functionality.json).
+
+## 9. Equations addendum (written 2026-10-29)
+
+[`../mitigation/Equations_addendum.md`](../mitigation/Equations_addendum.md): the equations of R1-R13 and the reverts,
+from legacy 465, sections A-F; research, cell evidence, cell plans, hook points in `build.py` and Egypt values in
+[`../mitigation/Equations_addendum_notes.md`](../mitigation/Equations_addendum_notes.md). New register codes (entered
+with the v9.0 build): legacy bugs L173-L222, issues I101-I146, departure LD80. Points taken by default, open to the
+user: `remaining_functionality.json` `open_points` (CBAM process emissions in the totals; electricity Pigouvian tax 0
+as legacy; transport candidates B-c, B-d, B-e kept as legacy; registered bugs not reproduced in 465 to check).
+

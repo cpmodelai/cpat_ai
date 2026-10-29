@@ -5,7 +5,7 @@
  "out_of_scope": "MTOutputs (outputs plan, decided separately)",
  "equations_addendum": {
   "path": "excel_ai/mitigation/Equations_addendum.md",
-  "status": "to be written with the build",
+  "status": "written 2026-10-29 (v9.0 build pending); builder notes: excel_ai/mitigation/Equations_addendum_notes.md",
   "content": "one entry per new variable of R1-R13: code, equation, legacy rows, inputs; merged into Equations.md and the Methods volume at the next release",
   "use": "the Python build (coded/) ports from it in parallel"
  },
@@ -132,5 +132,19 @@
    "title": "Transport co-benefits use the engineer road model whatever TrModel",
    "action": "replicated: legacy takes vehicle-km, freight vehicle-km, fuel economy and class splits from the engineer model (prototype 5b) even when TrModel = Elasticity; road fuel shares follow TrModel"
   }
+ ],
+ "new_register_codes": {
+  "bugs": "L173-L222 (L171, L172 as planned); Lnew-R1R2-18 became issue I119",
+  "issues": "I101-I146",
+  "departures": "LD80 (coal and gas production cost weighted by the domestic production share: prototype aligns with legacy)",
+  "map": "Equations_addendum_notes.md (each section)"
+ },
+ "open_points": [
+  "R4 CBAM process emissions: legacy 465 prices them nowhere (dead links); built as legacy meant it, bugs fixed; whether CBAM revenue, emission cut and ETS coverage enter the totals: user decision (default: as the legacy rows intend)",
+  "Electricity Pigouvian tax: 0 as legacy (issue I119; filling it would count power-plant air pollution twice)",
+  "Transport candidates B-c (value of time share), B-d (road damage per liter with average fuel economy), B-e (earnings not deflated): kept as legacy until the user decides",
+  "Registered bugs not reproduced in 465 formulas (L46, L47, L48, L82, L83, L84 phasing part, L86, L100, L128): check against 465 before treating them as fixes",
+  "LD58 register text (175 $/t run) does not match the 465 cached run (5 $/t): update",
+  "LD19 text out of date (producer subsidies already have a price effect since v6.1-6.2)"
  ]
 }
