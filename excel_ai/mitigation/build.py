@@ -148,7 +148,7 @@ from openpyxl.utils import get_column_letter as L, column_index_from_string as C
 from openpyxl.utils.cell import coordinate_from_string
 from openpyxl.workbook.defined_name import DefinedName
 
-VERSION = '0.9.2'   # also in version.json (read by the deck builder)
+VERSION = '1.0.0'   # also in version.json (read by the deck builder)
 SCRIPTS_TAG = None   # v0.8.0: scripts and notes have stable names (releases are git tags); v0.7.1: a point release renames only the builder, VBA module, workbook and reports; the scripts and
                       # notes keep the tag of the full release (NORMS.md section 5)
 COUNTRY = 'EGY'   # v0.3.3: default of Settings C4 (user input); country data only in the data sheets, by this key
@@ -7765,7 +7765,10 @@ def build_settings(wb):
                               'M19 nominal GDP in bn, M20 World Bank LNG and Europe gas series, M21 methane fee where '
                               'the curve exponent is 0, M22 Distribution percentile recycling rows. M18 withdrawn (not '
                               'a bug). Egypt: only gdpn changes in Mitigation (scenarios 1-6); Distribution hrec and '
-                              'hnet of the percentiles where public investment is used.')]
+                              'hnet of the percentiles where public investment is used.'),
+        ('1.0.0', '2026-10-29', 'First full release (user 2026-10-29): v0.9.2 as released, with the methane fee cap in '
+                              'its short form (M21). Replicated number for number by Coded CPAT 1.0.0p1.0 (Python). '
+                              'Egypt values unchanged.')]
     for i, row in enumerate(log, SET_LOG + 2):
         for j, v in enumerate(row, 1):
             c_ = put(ws, f'{L(j)}{i}', v)
