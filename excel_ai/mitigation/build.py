@@ -148,7 +148,7 @@ from openpyxl.utils import get_column_letter as L, column_index_from_string as C
 from openpyxl.utils.cell import coordinate_from_string
 from openpyxl.workbook.defined_name import DefinedName
 
-VERSION = '1.0.2'   # also in version.json (read by the deck builder)
+VERSION = '1.0.3'   # also in version.json (read by the deck builder)
 SCRIPTS_TAG = None   # v0.8.0: scripts and notes have stable names (releases are git tags); v0.7.1: a point release renames only the builder, VBA module, workbook and reports; the scripts and
                       # notes keep the tag of the full release (NORMS.md section 5)
 COUNTRY = 'EGY'   # v0.3.3: default of Settings C4 (user input); country data only in the data sheets, by this key
@@ -7798,7 +7798,12 @@ def build_settings(wb):
                               '(pass/fre/motor.own.tot, tot.own.tot; were *.own.all); input row ModelForm (default CPAT) in '
                               'ScenarioDefinition. Scope: CBAM process emissions, green public investment, emissions '
                               'intensity of industrial output and the air pollution and transport co-benefits modules are '
-                              'upgrades (U15-U19), out of scope. Egypt values unchanged.')]
+                              'upgrades (U15-U19), out of scope. Egypt values unchanged.'),
+        ('1.0.3', '2026-10-29', 'Data links: new data source "Dummy - GitHub (public repository)" (the data workbook read '
+                              'from the public repository by Power Query, wherever the workbook sits) and a source row for '
+                              'a separate data repository (its URL typed in the table); a web source without an address '
+                              'stops with a message. Distribution and Coded CPAT aligned (1.0.3, 1.0.3p1.1). Values '
+                              'unchanged.')]
     for i, row in enumerate(log, SET_LOG + 2):
         for j, v in enumerate(row, 1):
             c_ = put(ws, f'{L(j)}{i}', v)
@@ -14031,7 +14036,8 @@ def build_scenario_compare(wb):
         dv.add(f'C{r}')
     put(ws, f'E{SC_R_SRC - 1}', 'Data sources (Update data tables)', FONT_B)
     put(ws, f'H{SC_R_SRC - 1}', 'Path or URL (file: blank = CPAT_Data_dummy_python.xlsx next to this workbook or in '
-                               '<repo>/data/workbooks/; SharePoint: File > Info > Copy path)', FONT_B)
+                               '<repo>/data/workbooks/; web: the raw file address, e.g. GitHub raw; SharePoint: File > '
+                               'Info > Copy path)', FONT_B)
     for k, (nm, kind, loc) in enumerate(DATA_SOURCES):
         r = SC_R_SRC + k
         put(ws, f'F{r}', nm, FONT)
@@ -15438,7 +15444,10 @@ def dist_names():
 # ---------------------------------------------------------------- v0.6.5: linked data tables (Power Query)
 DATA_SOURCES = [  # dropdown name, kind (none / file / web), path or URL (file: blank = searched near the workbook)
     ('Embedded (shipped data, no update)', 'none', ''),
+    ('Dummy - GitHub (public repository)', 'web',      # v1.0.3: the repository is public (user 2026-10-29)
+     'https://raw.githubusercontent.com/cpmodelai/cpat_ai/main/data/workbooks/CPAT_Data_dummy_python.xlsx'),
     ('Dummy - local file', 'file', ''),
+    ('Dummy - data repository (type its URL)', 'web', ''),   # v1.0.3: a separate repository of the dummy data
     ('Dummy - SharePoint', 'web', 'https://worldbankgroup.sharepoint.com/:x:/t/CPATWB-IMF-WBGroup/'
                                   'IQCOy1UkpBbpQpkGMxeK0tz9AUVLrABEYpHBGzeLHjCBojg?e=yX8hkz')]
 DATA_LINKS = [  # prototype tab, table in the data workbook (CPAT_Data_<version>.xlsx), header cell, number of columns,
