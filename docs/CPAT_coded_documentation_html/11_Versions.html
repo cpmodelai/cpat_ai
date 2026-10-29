@@ -317,10 +317,10 @@ ul.task-list li input[type="checkbox"] {
 
 
 <ul>
-<li><strong>Version number</strong> (D14): <code>&lt;Excel-AI version&gt;p&lt;Python version&gt;</code>. <code>0.9.2p0.1</code> is Python version 0.1 of the replication of Excel-AI 0.9.2 (and Distribution 0.1.4). <code>cpat_model.__version__</code> holds it; <code>EXCEL_AI_VERSION</code> and <code>DISTRIBUTION_VERSION</code> (<code>cpat_model/__init__.py</code>) name the workbooks the reference values come from.</li>
+<li><strong>Version number</strong> (D14): <code>&lt;Excel-AI version&gt;p&lt;Python version&gt;</code>. <code>1.0.0p1.0</code>, the first full release, is Python version 1.0 of the replication of Excel-AI 1.0.0 (and Distribution 1.0.0). <code>cpat_model.__version__</code> holds it; <code>EXCEL_AI_VERSION</code> and <code>DISTRIBUTION_VERSION</code> (<code>cpat_model/__init__.py</code>) name the workbooks the reference values come from.</li>
 <li><strong>Changelog</strong>: <code>coded/CHANGELOG.md</code>, one row per release (version, date, what changed, the largest difference against Excel-AI).</li>
 <li><strong>A release</strong>: all tests pass; the comparison with the Excel-AI version named in the number is complete (known differences listed); <code>CHANGELOG.md</code> row; <code>CAVEATS.md</code> entry; this book and the Word copies regenerated; git tag <code>coded-v&lt;version&gt;</code>.</li>
-<li><strong>When Excel-AI releases</strong>: re-extract the reference values, align Python with the prototype’s bug fixes (delete their known differences), run the tests, and release <code>&lt;new Excel-AI version&gt;p0.1</code>.</li>
+<li><strong>When Excel-AI releases</strong>: re-extract the reference values, align Python with the prototype’s bug fixes (delete their known differences), run the tests, and release <code>&lt;new Excel-AI version&gt;p1.0</code> (the Python part counts Python-only changes within one Excel-AI version).</li>
 </ul>
 
 

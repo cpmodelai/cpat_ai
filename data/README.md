@@ -5,7 +5,7 @@ All data live here (root `NORMS.md` section 8): the inputs of Coded CPAT, the da
 ## Quick start
 
 - **MVP data link (Windows):** in `CPAT-AI-Mitigation-MVP-v0.7.1.xlsm`, sheet ScenarioCompare, source table row "Dummy - local file", column Path or URL (blank = searched next to the workbook and in `<repo>/data/workbooks/`): `C:\<your repos>\CPAT-AI\data\workbooks\CPAT_Data_dummy_python.xlsx` (plain text). Then choose that source and click Update data tables. SharePoint: upload this file over the existing one, keeping the SharePoint file name.
-- **Coded CPAT** reads `dummy/` by default (`coded/config.py`).
+- **Coded CPAT** reads the tidy tables of `tidy/` (database `dummy`, the default; `coded/cpat_model/settings.py`); the full database is a private tidy folder (`FULL_DATA_PATH`, database `full`).
 - **Paste into legacy CPAT:** `workbooks/CPAT_Data_dummy_cpat.xlsx` (Index sheet: the range of each sheet) or `legacy_dummy/`.
 - **After changing `dummy/`:** from `data/`, run `python scripts/build_data_workbook.py`, then `python scripts/convert_data_workbook.py to-cpat`, then `pytest tests`.
 
@@ -15,7 +15,8 @@ All data live here (root `NORMS.md` section 8): the inputs of Coded CPAT, the da
 
 | Folder | Contents | Written by | Read by |
 |---|---|---|---|
-| `dummy/` | The Coded CPAT inputs, dummy version: 38 CSVs (fake values in the real formats; `HHSurvey`/`IO_GTAP`-type distribution tables are Egypt from the public legacy file) | by hand; `distn_*.csv` by `excel_ai/distribution/scripts/build_distribution_model_data.py` | Coded CPAT (`coded/config.py`: `DATA_PATH`, default `../data/dummy`; `real` reads `REAL_DATA_PATH`) |
+| `tidy/` | The database of Coded CPAT: 218 tidy tables (one CSV per table, long, standard keys) plus `_layout/` and `_manifest.csv`; the public legacy tables and the Egypt rows of the proprietary tables that the public legacy file contains ([`INTERFACE.md`](INTERFACE.md) section 3b) | `scripts/tidy/tidy_convert.py` (exact round trip with the legacy layout) | Coded CPAT (`coded/cpat_model/data/`) |
+| `dummy/` | The earlier Python-format inputs, every table dummy: 38 CSVs (fake values in the real formats; `HHSurvey`/`IO_GTAP`-type distribution tables are Egypt from the public legacy file) | by hand; `distn_*.csv` by `excel_ai/distribution/scripts/build_distribution_model_data.py` | the data workbooks below (no Coded CPAT code reads it since 0.9.1p0.1) |
 | `workbooks/` | The data workbook of each version, in two formats: `CPAT_Data_dummy_python.xlsx` (Python format: one `c_` table per CSV, the `L_` tables, README, Index) and `CPAT_Data_dummy_cpat.xlsx` (CPAT format: the legacy data sheets at legacy cell addresses) | `scripts/build_data_workbook.py`, `scripts/convert_data_workbook.py` | the MVP's DataLinks (Power Query, `L_` tables); people pasting into legacy CPAT |
 | `legacy_dummy/` | `CPAT_LegacyData_dummy.xlsx`, `_csv/`, `_ReadMe.md`: the four proprietary tables (EnergyCons, Prices_dom, HHSurvey, IO_GTAP) in the legacy layout | `scripts/export_to_legacy.py` | legacy CPAT (paste); checks |
 | `mvp_legacy_extracts/` | The tables the mitigation MVP is built from: `legacy_<Tab>.csv` (verbatim from the legacy workbook), `legacy_<Tab>_cells.csv` (tabs kept at legacy addresses), derived tables, `mtinputs_465.csv` (every input row of legacy 465 MTInputs: name, legacy name, Name Manager; `extract_inputs.py`, v0.8.4), `source/` (country price files), `tracker_mapping.json` | the MVP's `extract_*_v<n>.py`, `update_prices_egypt_v<n>.py` | `excel_ai/mitigation/build_v<n>.py`, checks, reference models; `L_Balances` of the data workbook |

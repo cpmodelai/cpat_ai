@@ -10,7 +10,7 @@ Workspace for the World Bank **Climate Policy Assessment Tool (CPAT)**: models o
 | **Use the Excel prototype** (modellers, reviewers) | [`excel_ai/`](excel_ai/README.md): the workbook, the bug-fix register and the deck sit at its top |
 | **See what differs from legacy CPAT** | [`excel_ai/BUGS.md`](excel_ai/BUGS.md) (legacy bugs, all fixed) and [`excel_ai/ISSUES.md`](excel_ai/ISSUES.md) (legacy issues, replicated and tracked) |
 | **Work on the data** | [`data/`](data/README.md): every data table, the converters, the tests |
-| **Work on the Python model** | [`coded/`](coded/README.md) |
+| **Work on the Python model** (Coded CPAT) | [`coded/`](coded/README.md); its documentation book: the Coded CPAT tab of the website (`docs/`) |
 | **Work as an AI agent** | [`AGENTS.md`](AGENTS.md) |
 
 ## Layout
@@ -23,11 +23,11 @@ CAVEATS.md                        Log of every finished task (newest at the bott
 excel_ai/                         The Excel prototypes (Excel-AI): workbook, register, deck at the top;
                                   mitigation/ (builder, checks, notes), legacy/ (legacy CPAT and fix plans),
                                   releases/, plans/, shared/, templates/
-data/                             All data (Python and CPAT formats), converters, tests
+data/                             All data (tidy CSV and CPAT formats), converters, tests
 coded/                            The Python model (Coded CPAT) and its Shiny app
-docs/                             Documentation website: index.html (two tabs: CPAT documentation, CPAT-AI project);
-                                  CPAT_full_documentation_qmd/ and CPAT_ai_documentation_qmd/ (Quarto sources),
-                                  CPAT_full_documentation_html/ and CPAT_ai_documentation_html/ (built pages)
+docs/                             Documentation website: index.html (three tabs: CPAT documentation, CPAT-AI project,
+                                  Coded CPAT); CPAT_full_, CPAT_ai_ and CPAT_coded_documentation_qmd/ (Quarto
+                                  sources) and the matching _html/ folders (built pages)
 other/                            Research papers, other decks, earlier prototypes and notes
 users/                            Personal folders
 ```

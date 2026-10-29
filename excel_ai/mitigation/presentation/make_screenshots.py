@@ -132,13 +132,25 @@ def facts():
     if os.path.exists(full):
         ft = open(full, encoding='utf-8').read()
         m = re.search(r'Overall[^\n]*', ft)
+        v = re.search(r'Prototype v(\S+)', ft)            # v1.0.0: the version the full check last ran on
         out['full_overall'] = m.group(0) if m else None
+        out['full_version'] = v.group(1) if v else None
     import issues_register as IR                 # v0.7.1: counts of the register (as the management briefing)
     from collections import Counter
     st = Counter(IR.ISSUE_LEGACY.values())
-    out['bugs'] = {'mit': len(IR.LEGACY) + len(IR.BUGS), 'dist': len(IR.DIST_BUGS)}
-    out['issues'] = {'mit': st['replicated'] + st['not replicated'], 'dist': len(IR.DIST_ISSUES),
-                     'replicated': st['replicated'] + len(IR.DIST_ISSUES)}
+    # v1.0.0: the counts of BUGS.md and ISSUES.md (generated from the whole register before the deck), so the deck
+    # and the lists agree; mitigation = every area but Distribution
+    top = os.path.dirname(os.path.dirname(HERE))
+    rows = [r.split('|') for r in open(os.path.join(top, 'BUGS.md'), encoding='utf-8').read().split('## 2.')[0]
+            .splitlines() if re.match(r'\| L\d+ ', r)]
+    dist = [r for r in rows if r[3].strip().startswith('Distribution')]
+    out['bugs'] = {'mit': len(rows) - len(dist), 'dist': len(dist)}
+    out['bug_priority'] = dict(Counter(r[4].strip() for r in rows if r not in dist))
+    irows = [r.split('|') for r in open(os.path.join(top, 'ISSUES.md'), encoding='utf-8').read()
+             .split('## 2. Issues (I)')[1].split('## 3.')[0].splitlines() if re.match(r'\| I\d+ ', r)]
+    idist = sum(r[3].strip().startswith('Distribution') for r in irows)
+    out['issues'] = {'mit': len(irows) - idist, 'dist': idist,
+                     'replicated': sum(r[7].strip() == 'Replicated' for r in irows)}
     out['links'] = [t for t, *_x in B.DATA_LINKS]
     with open(os.path.join(IMG, f'{PFX}_facts.json'), 'w', encoding='utf-8') as f:
         json.dump(out, f, indent=1)

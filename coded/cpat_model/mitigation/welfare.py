@@ -87,10 +87,10 @@ def step(state, db, inputs, settings, baseline, t):
     for s in CH4_SOURCES:
         a, b = src(s, 'a'), src(s, 'b')
         fee = mfee * src(s, 'gwp') * src(s, 'fee')
-        with np.errstate(divide='ignore', invalid='ignore', over='ignore'):   # the price of full abatement, (1/a)^(1/b)
-            no_cap = (b <= 0) | (np.log(safe_div(1.0, a, 1.0)) / np.where(b > 0, b, 1.0) > 700)   # b <= 0 or overflow
-            cap = np.power(safe_div(1.0, a), safe_div(1.0, b))
-        mfp = put('mfp', np.where(a == 0, 0.0, np.where(no_cap, fee, np.minimum(fee, cap))), 'all', s)
+        with np.errstate(divide='ignore', invalid='ignore', over='ignore'):   # the price of full abatement, a^(-1/b)
+            cap = np.power(a, -safe_div(1.0, b, np.nan))
+        cap = np.where(np.isfinite(cap), cap, fee)                          # no cap where b = 0 or it overflows (M21)
+        mfp = put('mfp', np.where(a == 0, 0.0, np.minimum(fee, cap)), 'all', s)
         em = safe_div(src(s, 'em0') * at('ch4.act', 'all', s), src(s, 'act0'))
         put('mfc', em * at('ch4.abt', 'all', s) * mfp * b / (1 + b) / c('Million'), 'all', s)
     mfc = put('mfc', sum(at('mfc', 'all', s) for s in CH4_SOURCES), 'all', 'all')

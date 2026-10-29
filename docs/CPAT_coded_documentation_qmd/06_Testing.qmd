@@ -56,11 +56,11 @@ summary(report[report.first_bad.notna()])
 
 `cpat_testing/compare/known_differences.py` lists, by Excel-AI bug, the codes where Python differs on purpose. When Excel-AI ships the fix of a bug, delete its entry: the codes must then match again. A test fails if a listed code matches Excel-AI (the entry is out of date) or if an unlisted code differs.
 
-## Planned comparisons (phase 5)
+## Systematic comparisons (phase 5)
 
 | | Against | Status |
 |---|---|---|
-| 5.0 | The Python recomputations written for Excel-AI (`check_full.py`, `power_model_ref.py`, `transport_model_ref.py`, `distribution_ref.py`) | Planned, after the prototype's bug fixes |
-| 5.1 | The recalculated release workbook, every code and year | Planned |
-| 5.2 | Every country (full database where available, else dummy) | Planned |
-| 5.3 | Legacy CPAT, through the LegacyDiff register | Planned |
+| 5.0 | The Python recomputations written for Excel-AI | Distribution: equal to `distribution_ref.py` within 1e-13, given the same mitigation inputs (`test_recomputations.py`). Mitigation: Excel-AI's full-check recomputation does not run on the current prototype yet (Excel-AI to repair) |
+| 5.1 | Excel-AI's release workbook, every scenario | Live groups 1 and 2: every output code; stored scenarios 1 and 3-6: the 123 key codes each (`test_stored_outputs.py`); all within 1e-9 |
+| 5.2 | Every country | Only Egypt has its base tables in the dummy database; other countries need the full database (a run stops with a clear message) |
+| 5.3 | Legacy CPAT | Egypt baseline against legacy 456's cached run: `python cpat_testing/compare/legacy_comparison.py` writes `legacy_comparison.md` (base-year energy use and CO2 close; prices differ by data vintage and the fixed legacy bugs) |

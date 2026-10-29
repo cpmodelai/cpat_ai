@@ -1,5 +1,5 @@
-# Check of CPAT-AI-Distribution-Prototype v0.1.4
-Module `CPAT-AI-Distribution-Prototype_v0.1.4.xlsm`; prototype `CPAT-AI-Mitigation-Prototype_latest.xlsm` v0.9.2.
+# Check of CPAT-AI-Distribution-Prototype v1.0.0
+Module `CPAT-AI-Distribution-Prototype_v1.0.0.xlsm`; prototype `CPAT-AI-Mitigation-Prototype_latest.xlsm` v1.0.0.
 
 - tabs: Cover, ScenarioDefinition, FromMitigation, Distribution, Settings, DATA_DISTN->>, DistMapping, IO_GTAP, HHSurvey, HH_Elast, ASPIRE, WHOCooking, GDPRatios, WEO OK
 - Distribution: 25190 cells, values equal to the prototype's: 0 differ [] OK
