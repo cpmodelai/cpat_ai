@@ -16,21 +16,39 @@ Rules for every task in this repository. Sections 0-5: the Excel prototypes (`ex
 
 ## 0. Replication rule: never replicate bugs; always replicate issues, and track them
 
-User rule 2026-10-15. It decides every difference between a prototype and legacy CPAT.
+User rules 2026-10-15 and 2026-10-28 (data issues, one register for every module). It decides every difference between a prototype and legacy CPAT, in every module (mitigation, distribution, air pollution, transport co-benefits, the inputs).
 
 | | Bug | Issue |
 |---|---|---|
 | **What it is** | Legacy does not do what it means to: a wrong row or cell reference, a term applied twice, a dead or blank reference, a sign error, a formula that contradicts its label or the CPAT documentation | Legacy does what it means to, but the choice is open to question: old data, a data vintage, a simplification, a design choice, a missing feature, a result nobody can explain yet |
 | **What we do** | **Do not replicate it.** Fix it (or leave the feature out) | **Replicate it.** Do exactly what legacy does |
-| **Where it is tracked** | `BUGS.md`, part 1 (register: `L` item) | `ISSUES.md`, part 1 (register: `I` item, legacy side `replicated`) |
-| **Exceptions** | A bug we still copy is listed in `ISSUES.md`, part 2, and queued to be fixed | An issue we do not replicate is allowed **only by explicit user decision** and is listed in `BUGS.md`, part 2. Without that decision it is queued to be replicated |
+| **Exceptions** | none: a bug is never replicated | An issue we do not replicate is allowed **only by explicit user decision**, recorded with the issue. Without that decision it is queued to be replicated |
+
+**Data.** The same rule holds for the input data:
+
+- **Data issue (`DI`)**: an issue of the input data (vintage, gaps, conventions) that the prototype replicates exactly: it does what legacy does with the data as they are.
+- **Data bug (`DB`)**: a data problem the prototype does **not** replicate (it fills or corrects the data) and whose fix is a **change of the input data**. Every data bug has a plan (how the data get fixed, then the prototype reads them as legacy does).
+- When the fix needs **formulas** to change, it is a legacy bug (`L`), even where data are involved.
+
+**Codes, the same in every module** (one kind per prefix; a module is a field, not a prefix):
+
+| Code | Kind |
+|---|---|
+| `L` | Legacy bug (any module, including the inputs) |
+| `DB` | Data bug (with a plan) |
+| `M` | Prototype bug (a defect of the prototype itself, fixed) |
+| `I` | Issue (replicated, a departure by user decision, or a limitation of the prototype) |
+| `DI` | Data issue (replicated) |
+| `LD` | Departure: a row of the LegacyDiff sheet that is not "Same" |
+| `U` | Upgrade |
 
 Rules that follow:
 
 1. **Default is legacy.** When in doubt whether something is a bug or an issue, treat it as an issue (replicate it), register it, and ask the user.
 2. **Never "improve" legacy silently.** A better method, newer data or a cleaner design is an issue, not a bug: replicate legacy, and propose the improvement as an upgrade (`U` item) for the user to decide.
-3. **Track everything.** Every bug found and every issue met goes in the register `excel_ai/mitigation/issues_register.py` the same day: bugs as `L` items (with priority and fix in `make_legacy_fixes.py`), issues as `I` items with severity, status, next step and legacy side (`ISSUE_STATUS`, `ISSUE_LEGACY`). A departure also gets a row in sheet LegacyDiff.
-4. **Both lists are regenerated at every release** by `make_replication_lists.py`: `excel_ai/BUGS.md` and `excel_ai/ISSUES.md`. Each has a bugs part and an issues part.
+3. **One register, stored the same way for every module.** Every bug found and every issue met goes in the register the same day: data in `excel_ai/mitigation/issues_register.py` (bugs as `L` items with priority and fix in `make_legacy_fixes.py`; issues, data issues and data bugs with severity, status, next step and legacy side in `ISSUE_STATUS`, `ISSUE_LEGACY`; data-bug plans in `DATA_BUG_PLANS`), read through `register.py`, which gives every item the same fields (code, former code, kind, module, area, title, where, description, fix or plan, effect, priority, in the prototype, status, legacy 465, see also, documented in). A departure also gets a row in sheet LegacyDiff. A module with its own bugs (distribution, air pollution, ...) adds them to the same register with the same codes; it keeps no list of its own.
+4. **Where each kind is kept.** The master list is the tracker `excel_ai/Tracking_Legacy_Bugs_v<version>.xlsx` (tabs Bugs: L, DB, M; Issues: DI, I, LD, U; then the CPAT team's tabs, kept as they are). Bugs (L, DB) are documented in `excel_ai/Legacy_CPAT_Bugs_v<version>.docx`, which opens with this rule and a stock table of every legacy bug found and fixed; issues (I, DI), departures, prototype bugs and upgrades in the appendices of the Documentation. `excel_ai/BUGS.md` and `excel_ai/ISSUES.md` are the short lists. All are regenerated at every release from `register.py` (`make_tracker.py`, `make_bugfix_book.py`, `make_docs.py`, `make_replication_lists.py`).
+5. **Cross-reference everywhere.** Every entry gives its code, its former code where it was renumbered, and the codes it relates to (a data bug and its LegacyDiff row, a bug and the issue next to it). Codes are never reused; a renumbering keeps the former code in `FORMER`.
 
 ## 1. Column norms
 
@@ -450,9 +468,9 @@ Add a row in the task that finds a new issue (root `NORMS.md` section 6b).
 
 **Where inputs live (user rule 2026-10-18, mitigation prototype v4.12).** The main inputs are on `ScenarioDefinition`. Policy inputs elsewhere (Settings, data tabs) are allowed, but they should mostly come from legacy (for example legacy `Manual inputs` switches) or from bug fixes, not extend the functionality. An prototype input that extends legacy (for example the ETS benchmarks by sector group, issue I21) is a departure: it needs a user decision, and the legacy `ScenarioDefinition` input it replaces must still work.
 
-All new models take their policy and parameter inputs from a dedicated input tab/file built on the legacy `ScenarioDefinition` structure. Master reference: [`templates/MTInputs_template.xlsx`](../templates/MTInputs_template.xlsx) (single tab named `ScenarioDefinition`, generated from the legacy workbook; save a copy, never edit the master).
+All new models take their policy and parameter inputs from a dedicated input tab/file built on the legacy MTInputs structure (the prototype's `ScenarioDefinition`). Master list of the inputs: tab Inputs of the codes map `excel_ai/CPAT-AI_CodesMap_v<version>.xlsx` (row, label, unit, name, legacy name, Name Manager names, Python key). Its sources: `data/mvp_legacy_extracts/mtinputs_465.csv` and the build's row template `excel_ai/templates/MTInputs_template.xlsx`, both written by `excel_ai/mitigation/extract_inputs.py` from the legacy workbook (never edit them by hand).
 
-- **Exact row structure.** Every model's input sheet reproduces the legacy `ScenarioDefinition` rows exactly, in the same order, **including blank rows and section-heading rows**. Never insert, delete or reorder rows; row numbers must match the legacy tab so references and Python mappings port 1:1.
+- **Exact row structure (user rule 2026-10-28).** Every model's input sheet reproduces the rows of MTInputs of the **latest legacy CPAT** (today `CPAT 1.0pre_465`, rows 8-413) exactly, in the same order, **including blank rows and section-heading rows**. Never insert, delete or reorder rows; row numbers must match the legacy tab so references and Python mappings port 1:1. Inputs the prototype adds (that legacy does not have) go **below** the last legacy row, in blocks with a heading; each is recorded as a departure or an upgrade. When a new legacy file changes MTInputs, rerun `extract_inputs.py` and rebuild.
 - **Colouring.** Parameters actually used by the module: green fill (`EBF1DE`) on B:H. All other parameters: light grey (`F2F2F2`) on B:H. Section-heading rows are bold, unfilled. Rows 1-3 carry the title (`00B050`) and section (`92D050`) bands.
 - **Columns** (column structure of the legacy tab need not be replicated). Required, in this order:
 
@@ -469,16 +487,38 @@ All new models take their policy and parameter inputs from a dedicated input tab
   Columns D and E carry the header text but are hidden and empty (for now). Other legacy columns (e.g. I, "Use Dashboard even if Defaults selected") are dropped. Column A may hold the legacy `X` flag.
 - **Linking.** Module calculations reference the `Used for calculation` column (F) only; defaults feed it until Dashboard/MT columns are activated.
 - **Lookup by name.** Read parameters with `INDEX(ScenarioDefinition!$F$8:$F$415, MATCH("<NameOfParameter>", ScenarioDefinition!$H$8:$H$415, 0))`, not by row reference.
-- **Names.** `NameOfParameter` values are the shared codes used by `coded`.
+- **Names (user rule 2026-10-28).** `NameOfParameter` (column H) is the name of every input in Excel and Python: Excel looks inputs up by it, and the Python input keys (`coded/cpat_model/dashboard_inputs.py`, `distribution_inputs.py`) are the same names. The set is complete: every input row has a name. Names are legacy column H as it is, with two exceptions: a legacy name that is wrong is a bug and is corrected (L137: no `D_` prefix, which in legacy names the Dashboard cell, not the MTInputs value; no spaces); a row legacy leaves without a name gets one (I87), built from its section and label (`FbCov<Sector>`, `ETSCov<Sector>`, `CBAMProc<Sector>`, `Fpr<Start|Final|Unit><Fuel><Sector>`). The legacy name is kept in the codes map. Inconsistencies of legacy names and values that are not wrong are issues and are replicated (I85 percentages typed as whole numbers, I86 spelling). A name is never reused for another input.
 
-## 5. Versions, releases and documents (user rules 2026-10-22, v8.0)
+## 5. Versions, releases and documents (user rules 2026-10-22, v8.0; 2026-10-28, v8.4)
 
-- **Stable names.** Scripts and notes have stable names (`build.py`, `check_full.py`, `check_quick.py`, `make_docs.py`, method chapters in `mitigation/docs/methods/`). A release is a git tag; the history keeps every earlier file. No `Old/` folders.
-- **Main files twice, the same content.** Each main file exists as `<name>_latest.<ext>` at the top of `excel_ai/` and as `<name>_v<version>.<ext>` in `excel_ai/releases/`: the workbook (`CPAT-AI-Mitigation-Prototype`), the bug-fix register (`CPAT-AI_BugsAndIssues`, Word), the register spreadsheet (`CPAT-AI_BugsAndIssues_latest.xlsx`) and the deck (`CPAT-AI_Overview`). The build and the document scripts write both. `excel_ai/releases/` keeps every release from v7.2 on.
-- **Version numbers.** `VERSION` in `build.py` (also `mitigation/version.json` for the deck): minor for fixes and small features, major for structural or methodological change. The register has its own `REGISTER_VERSION` (`issues_register.py`).
-- **Documents, few and simple.** At the top of `excel_ai/`: the workbook, the bug-fix register (Word, with every cell-level fix plan; its JSON in `legacy/`), the register spreadsheet, the deck, `BUGS.md`, `ISSUES.md`, a README. In `excel_ai/mitigation/`: the short **Documentation** (`docs/Documentation.md`, hand-written, about 5-20 pages: what it is, quick start, how each block works with its key equations, results, limits) and the **Methods** volume (`docs/methods/`, one chapter per block; equations and data tabs as appendices). `make_documentation.py` rebuilds them all. The documentation points to the register; it does not repeat bugs, issues or version history. Every release regenerates the deck so its counts match the register.
+### 5a. File naming and the release layout (user rule 2026-10-28)
+
+- **Main files carry their version.** The current version of each main file sits at the top of `excel_ai/` as `<Name>_v<major>.<minor>.<ext>`: `CPAT-AI-Mitigation-Prototype_v8.4.xlsm`, `CPAT-AI-Distribution-Prototype_v<n>.xlsm`, `Legacy_CPAT_Bugs_v8.4.docx`, `Tracking_Legacy_Bugs_v8.4.xlsx`, `CPAT-AI_CodesMap_v8.4.xlsx`, `CPAT-AI_Overview_v8.4.pptx`. The register documents, the tracker and the codes map carry the version of the mitigation prototype they were made with.
+- **Older versions go to `excel_ai/releases/`.** Writing a new version moves the older ones there (`excel_ai/shared/release.py`, `publish`); every builder and document script uses it. `releases/` keeps every release from v7.2 on.
+- **`excel_ai/permalink/`** holds only what other files and tools link to for data transfer, under `<Name>_latest.<ext>`: today `CPAT-AI-Mitigation-Prototype_latest.xlsm` (the distribution module and other modules read it). Nothing else gets a `_latest` copy.
+- **Names.** `<Name>` in words joined by hyphens or underscores, no spaces, no dates; `_v<version>` last, before the extension. Scripts and notes have stable names (`build.py`, `check_full.py`, `check_quick.py`, `make_docs.py`, method chapters in `mitigation/docs/methods/`), never a version. A release is a git tag; the history keeps every earlier file. No `Old/` folders.
+- **Version numbers.** `VERSION` in `build.py` (also `mitigation/version.json` for the deck): minor for fixes and small features, major for structural or methodological change. `REGISTER_VERSION` (`issues_register.py`) equals it. A module with its own builder (distribution, air pollution) has its own `VERSION` and says in its version log which mitigation version it was built from.
+
+### 5b. Version tables (user rule 2026-10-28)
+
+Every workbook and every generated document keeps **one** version table, in the same columns:
+
+| Column | Content |
+|---|---|
+| Version | `<major>.<minor>`, the version in the file name |
+| Date | `YYYY-MM-DD` |
+| Description | One or two sentences: what changed, with register codes (L, DB, I, ...) where a bug or issue is involved |
+| Max abs regression diff | Against the previous release (quick check): `0`, or the largest difference and why (workbooks; `n/a` for documents) |
+
+- Where: a workbook in its version tab (mitigation: `Version Log, About, and Diff`; others: `Settings` or `ReadMe`); a generated document in its first lines (version, date, the prototype version) and, for the change history, `CAVEATS.md`; never in a methodology (section 7).
+- Newest row last. Rows are not edited after the release, except to correct a mistake (say so in the row).
+- The `CAVEATS.md` entry of the task and the version row agree.
+- Documents written by hand (method chapters, NORMS, READMEs) carry no version table: git history and `CAVEATS.md` are their record.
+
+### 5c. Documents, plans and other release rules
+
+- **Documents, few and simple.** At the top of `excel_ai/`: the workbooks, `Legacy_CPAT_Bugs_v<version>.docx` (the legacy bugs, with every cell-level fix plan; the register as JSON in `legacy/Legacy_CPAT_Register.json`), the tracker `Tracking_Legacy_Bugs_v<version>.xlsx` (the master list of bugs and issues), the codes map `CPAT-AI_CodesMap_v<version>.xlsx` (codes and inputs), the deck, `BUGS.md`, `ISSUES.md`, a README. In `excel_ai/mitigation/`: the short **Documentation** (`docs/Documentation.md`, hand-written, about 5-20 pages: what it is, quick start, how each block works with its key equations, results, limits) and the **Methods** volume (`docs/methods/`, one chapter per block; equations and data tabs as appendices). `make_documentation.py` rebuilds them all. The documentation points to the register; it does not repeat bugs, issues or version history. Every release regenerates the deck so its counts match the register.
 - **Plans and lists.** Open work in `excel_ai/plans/TODO.md` (one list); one file per open plan in `excel_ai/plans/`; finished plans leave (their record: `CAVEATS.md`). Legacy material (legacy workbooks, fix-plan sources and tools, surveys of legacy, one-off extraction tools) in `excel_ai/legacy/`.
-- **Version log.** Each workbook keeps a version log (first/ReadMe or Settings tab): version, date, one-line description of changes.
 - **GDP timing rule (v6.2, I72, user 2026-10-20).** Revenue of year t changes GDP only from year t+1 (`gdp.lvl`(t+1) = 1 + `gdp.eff`(t), as legacy row 8776); the fiscal space reads revenue of year t only; no same-year GDP effect reaches same-year demand. Keep it in every change to the GDP block (`GDP_Method_v6_2.md` 2b).
 - **Circular references (v6.0; v6.2).** A LibreOffice load computes a workbook with a circular reference without complaint; only a full recalculation (`calculateAll`) shows Err:522, so the quick check and the checks recalculate fully after loading. Rules: (1) no formula reads a later year (L67 is fixed with this year's growth, not next year's demand); (2) every range is exact: a range shifted by a row offset must not run past its block into other sections (v6.2: the price-block averages ran into section 11 and made the methane fee circular); (3) an average over several years reads one row, never a block area (v6.2: `fpn`/`fpp`); (4) the GDP fiscal space reads no fuel use: where legacy counts a revenue that depends on fuel use incl. power, use the stored scenario-1 activity (sheet BaselineCO2, refreshed by the build, with a check row), as v6.2 does for the methane fee (I47). Excel and LibreOffice treat every cell of a referenced range as a precedent. (5) No parameter cell (D:G), which acts in every year, reads a model year after the base year: store the scenario-1 value instead (v6.2: the methane calibration ghg.k read GHGYear). (6) A running range from the left (INDEX($A..:this year)) keeps the spacer test of the group on its left blank. Tests (quick check, v6.2): no formula reads a later year except the whitelist (mani: data; dsum, lvc: levelised input-driven costs); no parameter cell reads a later model row that is not data; the levelised cost reaches no fuel use, GDP or power quantity row; plus the full recalculation (Err:522).
 - **No ETS goal-seek runs (user rule 2026-10-19).** Do not run the ETS goal seek (`ets_goalseek_v<n>.py`, the macro `SolveETS`/`SolveETSLive`, or any convergence test of it) in builds, checks or tasks, and skip the goal-seek parts of the full check. The user tests the goal seek (issue I30) separately; run it only when the user asks in so many words.
@@ -577,9 +617,9 @@ Rules:
 |---|---|---|
 | `CPAT 1.0pre_456_NoPropData.xlsb` | The legacy CPAT workbook with the proprietary data stripped | Read-only ground truth. Never edit or re-save it; work on a copy in a scratch folder |
 | `CPAT 1.0pre_459_NoPropData.xlsb` | An updated legacy workbook (user 2026-10-18; a few bugs fixed by the CPAT team) | Read-only; superseded by 465 (never reconciled on its own) |
-| `CPAT 1.0pre_465 - No Prop Data.xlsb` | **The latest legacy workbook** (user 2026-10-22; 62 of our bugs marked fixed by the CPAT team, checked in `excel_ai/bugsfixed/`) | Read-only, as the 456 file. Since v8.2 the register's cell references are 465 rows (`excel_ai/legacy/bugfixes/data/rowmap_456_465.json`); the prototype's data extracts and the Methods still read 456 |
+| `CPAT 1.0pre_465_NoPropData.xlsb` | **The latest legacy workbook** (user 2026-10-22; 62 of our bugs marked fixed by the CPAT team, checked in `excel_ai/legacy/bugfixes/check465/`) | Read-only, as the 456 file. Since v8.2 the register's cell references are 465 rows (`excel_ai/legacy/bugfixes/data/rowmap_456_465.json`); since v8.4 ScenarioDefinition has the 465 MTInputs rows; the prototype's data extracts and the Methods still read 456 |
 | `CPATMasterProcessesCodesAndDefaults.xlsx` | The CPAT team's master list of codes, processes and defaults | Read-only reference (may be inaccurate in places; an alignment exercise is planned) |
-| `Tracking issues.xlsx` | The CPAT team's bug and issue tracker | **Editable** (user 2026-10-18): add rows and columns, keep the team's content, use our codes (L, D, I, DI, M, LD); tabs AI-FOUND->>, BUGS, ISSUES-OTHER, PRIOR->> and the code columns of the team's sheets are written by `excel_ai/mitigation/update_tracker.py` at every release |
+| (tracker) | The CPAT team's bug and issue tracker became the master list `excel_ai/Tracking_Legacy_Bugs_v<version>.xlsx` (v8.4, user 2026-10-28; was `excel_ai/legacy/Tracking issues.xlsx`) | **Editable** (user 2026-10-18): the team's tabs are kept as they are; tabs ReadMe, Bugs and Issues are written from the register by `make_tracker.py` at every release (the columns Date, CPAT Version and Issue raised by of tab Bugs are read back, so edits there stay) |
 
 `data/legacy_dummy/` holds the dummy legacy data:
 

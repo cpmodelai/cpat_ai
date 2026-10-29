@@ -1,15 +1,14 @@
-"""documentation/CPAT-AI_BugsAndIssues_v6.4.docx: the one Word register of bugs, issues and upgrades
-(legacy CPAT and the prototype), with the bug-fixing procedure. v6.4: it replaces the three overlapping Word registers
-(this book, CPAT-AI-Mitigation-Prototype_BugsIssuesUpgrades and BUGSandISSUES): it gained a summary, the effect of each
-power fix, the potential upgrades and the improvements made, and is written to the root folder documentation/.
+"""Legacy_CPAT_Bugs_v<version>.docx (excel_ai/): the legacy CPAT bugs, kept like a stock book (v8.4, user 2026-10-28).
 
-Main text: the procedure to fix a bug in the legacy workbook and confirm it all works (excel_ai/legacy/bugfix_procedure,
-updated). Then every legacy bug by type (engineer power, engineer transport, other mitigation, distribution), with the
-cell-level fix plan where one exists (excel_ai/legacy/bugfixes/data/fixes_*.json), the issues (mitigation, distribution,
-open LegacyDiff departures) and an appendix: one reference table in code order.
+Front: the rule (bugs, issues, data issues, data bugs), then one table of every legacy bug found, fixed in the prototype
+and fixed (or not) in legacy 465, then the data bugs with their plans. Then each bug in detail by type (engineer power,
+engineer road transport, other mitigation by area, distribution, inputs), with its cell-level fix plan; the bugs the
+CPAT team fixed in 465 in appendices. Issues, data issues, prototype bugs, departures, upgrades and the bug-fixing
+procedure are in the Documentation (appendices) and the tracker Tracking_Legacy_Bugs_v<version>.xlsx; every code
+cross-refers.
 
-Sources: issues_register.py (bugs, issues, status), make_legacy_fixes.py (priority and the fix legacy
-needs), build.py (LegacyDiff), excel_ai/legacy/bugfixes/data (cell plans).
+Sources: register.py (one record per item: issues_register.py, make_legacy_fixes.py, build.py LegacyDiff, the cell
+plans in excel_ai/legacy/bugfixes/data, the 465 check in excel_ai/legacy/bugfixes/check465).
 
     python make_bugfix_book.py        (needs python-docx)
 """
@@ -30,16 +29,18 @@ import build as B
 import issues_register as R
 import make_legacy_fixes as M
 import power_model_ref as PM
+import register as G
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)                 # excel_ai/ (restructure 2026-10-22)
 PLANS = os.path.join(ROOT, 'legacy', 'bugfixes', 'data')   # v7.1: was excel_ai/legacy/bugfixes/
-OUT = os.path.join(ROOT, 'releases', f'CPAT-AI_BugsAndIssues_v{R.REGISTER_VERSION}.docx')   # v8.0: + _latest copy in excel_ai/
-LATEST = os.path.join(ROOT, 'CPAT-AI_BugsAndIssues_latest.docx')   # v7.1.5: own version   # v6.4: root documentation/
+DOC_NAME = 'Legacy_CPAT_Bugs'
+OUT = B.REL.versioned(DOC_NAME, R.REGISTER_VERSION, 'docx')   # v8.4: excel_ai/Legacy_CPAT_Bugs_v<version>.docx
+TRACKER_NAME = 'Tracking_Legacy_Bugs'
 HEAD, LIGHT, PALE = 'D9E8C4', 'F2F2F2', 'EBF1DE'
 RED = RGBColor(0xC0, 0x00, 0x00)
-LEGACY_FILE = 'CPAT 1.0pre_465 - No Prop Data.xlsb'   # v8.2: cell references moved from 456 (legacy/bugfixes/data/rowmap_456_465.json)
-CHECK465 = os.path.join(ROOT, 'bugsfixed', 'legacy465_check.json')   # the fixes the CPAT team made in 465, checked 2026-10-22
+LEGACY_FILE = 'CPAT 1.0pre_465_NoPropData.xlsb'   # v8.4: the copy in legacy/workbooks (bugsfixed/ retired)
+CHECK465 = os.path.join(ROOT, 'legacy', 'bugfixes', 'check465', 'legacy465_check.json')   # the fixes the CPAT team made in 465, checked 2026-10-22
 MARK = {'Confirmed fixed': 'CONFIRMED in 465', 'Fixed with caveats': 'FIXED WITH CAVEATS in 465',
         'Not fixed': 'NOT FIXED in 465'}
 POWER = ({f'L{k}' for k in range(1, 13)} | {f'L{k}' for k in range(52, 57)}
@@ -47,7 +48,7 @@ POWER = ({f'L{k}' for k in range(1, 13)} | {f'L{k}' for k in range(52, 57)}
          | {f'L{k}' for k in range(107, 112)} | {'L126', 'L127'})   # v5.4: power features; v7.1: L126, L127   # engineer power model (L83, L84: electricity subsidies; L88: power)
 TRANSPORT = {f'L{k}' for k in range(25, 42)}                                          # engineer road model
 TYPE_NAME = {'power': 'Engineer power', 'transport': 'Engineer transport', 'other': 'Other mitigation',
-             'dist': 'Distribution'}
+             'dist': 'Distribution', 'inputs': 'Inputs (ScenarioDefinition)'}
 
 
 # ---------------------------------------------------------------- the data
@@ -73,49 +74,22 @@ def other_sections():
     return [(s['title'], s['intro'], s['ids']) for s in cfg['sections']]
 
 
+def _btype(r):
+    return {'Distribution': 'dist', 'Inputs (ScenarioDefinition)': 'inputs',
+            'Mitigation: engineer power': 'power', 'Mitigation: engineer road transport': 'transport'}.get(r['area'],
+                                                                                                       'other')
+
+
 def legacy_bugs():
-    """Every legacy bug: (code, type, title, where, what legacy does, fix, prototype status, priority, effect)."""
-    rows = []
-    for i, (_k, title, where, what, fix, why) in enumerate(R.BUGS):         # L1-L10 (engineer power)
-        code = f'L{i + 1}'
-        rows.append((code, 'power', title, f'Mitigation {where}', what, fix,
-                     'Fixed in the prototype (v1.06-v1.08; power_model_ref with all fixes).',
-                     M.PRIORITY.get(code, 'Low'), why))
-    for code, title, where, what, status in R.LEGACY:                      # L11 onwards
-        fix, effect = M.FIX.get(code, ('', ''))
-        rows.append((code, bug_type(code), title, where, what, fix, status, M.PRIORITY.get(code, 'Low'), effect))
-    rows.sort(key=lambda x: int(x[0][1:]))
-    return rows
+    """Every legacy bug of the mitigation sheets and the inputs: (code, type, title, where, what legacy does, fix,
+    prototype status, priority, effect), from the register."""
+    return [(r['id'], _btype(r), r['title'], r['where'], r['description'], r['fix'], r['prototype'], r['priority'],
+             r['effect']) for r in G.by_kind('L') if _btype(r) != 'dist']
 
 
 def dist_bugs():
-    return [(c, 'dist', t, w, what, '', st, 'Low', '') for c, t, w, what, st in R.DIST_BUGS]
-
-
-def plan_only():
-    """Bugs found by the cell plans and not in the register (N1, N2): to confirm."""
-    return [(b['id'], 'other', b['title'], b.get('where', ''), b.get('why', ''), '', 'Not in the register: confirm '
-             'before applying.', b.get('pri') or 'Low', b.get('effect') or '') for k, b in plans().items()
-            if k.startswith('N')]
-
-
-def issues():
-    st = R.ISSUE_STATUS
-    out = []
-    for code, title, desc, where in R.ISSUES:
-        sev, status, nxt = st.get(code, ('', '', ''))
-        out.append((code, title, desc, R.ISSUE_LEGACY.get(code, ''), sev, status, nxt, where))
-    out.sort(key=lambda x: int(x[0][1:]))
-    return out
-
-
-def ld_open():
-    """LegacyDiff rows whose type is not Same (departures still open or decided)."""
-    out = []
-    for k, (area, legacy, model, why, effect, typ) in enumerate(B.LEGACY_DIFFS, 1):
-        if typ not in ('Same',):
-            out.append((f'LD{k}', area, legacy, model, why, effect, typ))
-    return out
+    return [(r['id'], 'dist', r['title'], r['where'], r['description'], r['fix'], r['prototype'], r['priority'],
+             r['effect']) for r in G.by_kind('L') if _btype(r) == 'dist']
 
 
 @functools.lru_cache(maxsize=None)
@@ -254,46 +228,6 @@ def toc(doc):
 
 
 # ---------------------------------------------------------------- the document
-def top(codes):
-    return max(int(re.search(r'\d+', c).group(0)) for c in codes)
-
-
-def procedure(doc):
-    doc.add_heading('1. Purpose, scope and the rule for bugs and issues', 1)
-    para(doc, 'This document collects every defect found in the legacy CPAT workbook while it was rebuilt as the '
-              'CPAT-AI-Mitigation-Prototype prototype, and the procedure to fix a defect in the legacy workbook and confirm '
-              'that everything still works. The register is generated from the repository '
-              f'(excel_ai/mitigation/issues_register.py), so this document '
-              f'and the prototype v{B.VERSION} say the same thing.')
-    para(doc, 'A bug is something legacy CPAT computes that it plainly does not intend: a reference to the wrong row, '
-              'a copied formula that points to another sector, a unit applied twice. An issue is something legacy '
-              'does on purpose that is questionable (a method, a default, a data convention).', 'Bugs and issues.')
-    para(doc, 'Bugs are never replicated in the prototype: each is fixed and recorded here with the legacy cells and '
-              'the fix legacy needs. Issues are replicated (the prototype does what legacy does) and tracked, unless '
-              'the user decided otherwise; the decision is recorded with the issue (repository rule NORMS 0, '
-              '2026-10-15).', 'The rule.')
-    para(doc, f'The bugs were found in CPAT 1.0pre_456_NoPropData.xlsb; every cell reference here is a row of the '
-              f'latest file from the CPAT team, {LEGACY_FILE} (sheet Mitigation unless stated), moved from 456 by '
-              'matching the rows of both files on their labels and codes (legacy/bugfixes/data/rowmap_456_465.json). '
-              'Mitigation: rows up to 5666 unchanged; rows 5667-5677, 5727-5728, 5856, 5880 and 8404 deleted; later '
-              'rows 11 to 15 higher; the policy block sits +6,316 rows below the baseline. MTInputs: rows 329-330 '
-              'deleted, later rows 2 higher. Other sheets keep their rows. The CPAT team fixed part of the bugs in 465 '
-              '(Appendices B and C; every bug says its status in legacy). Before applying a fix, run the preflight '
-              '(section 2.3): it tells whether the cell still holds the bug.', 'Legacy version.')
-    table(doc, ['Code', 'Meaning'], [
-        (f'L1-L{top([b[0] for b in legacy_bugs()])}', 'Legacy bugs of the mitigation sheets (L17 was a prototype '
-         'bug, L74 not used)'),
-        (f'D1-D{top([b[0] for b in dist_bugs()])}', 'Legacy bugs of the distribution sheet'),
-        ('N1, N2', 'Defects found while writing the cell plans, not yet confirmed in the register'),
-        (f'M1-M{top([x[0] for x in R.MVP_BUGS])}', 'Bugs of the prototype itself (fixed), kept for the record'),
-        (f'I1-I{top([x[0] for x in issues()])}', 'Issues of the mitigation module (replicated, not replicated by '
-         'decision, or of the prototype)'),
-        (f'DI1-DI{top([x[0] for x in R.DIST_ISSUES])}', 'Issues of the distribution module'),
-        (f'LD1-LD{len(B.LEGACY_DIFFS)}', 'Rows of the LegacyDiff sheet of the prototype: where it departs from '
-         'legacy, and why')],
-        [2.5, 13.5])
-
-
 def procedure_steps(doc):
     doc.add_heading('2. The bug-fixing procedure', 1)
     doc.add_heading('2.1 The two protocols of the legacy workbook', 2)
@@ -414,6 +348,11 @@ def bug_block(doc, b, plan, level=3):
     if effect:
         rows.append(('Effect', effect))
     rows.append(('In the prototype', status))
+    rec = {r['id']: r for r in G.records()}.get(code)
+    if rec and rec['former']:
+        rows.insert(0, ('Former code', rec['former']))
+    if rec and rec['see_also']:
+        rows.append(('See also', rec['see_also']))
     if plan and plan.get('effect') and not effect:
         rows.append(('Effect (plan)', plan['effect']))
     if plan and plan.get('note'):
@@ -422,7 +361,7 @@ def bug_block(doc, b, plan, level=3):
         rows.append(('Cell plan', f'{len(plan.get("fixes", []))} cell(s), below' if plan.get('fixes')
                      else 'no cell to change (see the note)'))
     else:
-        rows.append(('Cell plan', 'not written yet (section 2.4)'))
+        rows.append(('Cell plan', 'not written yet (Documentation: the bug-fixing procedure)'))
     t = doc.add_table(rows=0, cols=2)
     t.style = 'Table Grid'
     t.autofit = False
@@ -442,25 +381,26 @@ def bug_block(doc, b, plan, level=3):
 
 
 def bugs_part(doc):
-    doc.add_heading('3. Legacy bugs by type', 1)
+    doc.add_heading('4. The legacy bugs in detail, by type', 1)
     allb = legacy_bugs()
     pl = plans()
-    groups = [('power', '3.1 Engineer power model'), ('transport', '3.2 Engineer road-transport model'),
-              ('other', '3.3 Other mitigation (prices, policies, ETS, emissions, revenue, GDP, results)')]
+    groups = [('power', '4.1 Engineer power model'), ('transport', '4.2 Engineer road-transport model'),
+              ('other', '4.3 Other mitigation (prices, policies, ETS, emissions, revenue, GDP, results)')]
     n_by = {g: [b for b in allb if b[1] == g] for g, _h in groups}
     chk = check465()
     nc = sum(1 for c in chk if moved(c) == 'C')
     nb_ = sum(1 for c in chk if moved(c) == 'B')
-    para(doc, f'{len(allb)} legacy bugs of the mitigation sheets ({len(n_by["power"])} engineer power, '
-              f'{len(n_by["transport"])} engineer transport, {len(n_by["other"])} other), {len(R.DIST_BUGS)} of the '
-              f'distribution sheet. Every one is fixed in the prototype' + (
+    n_in = len([b for b in allb if b[1] == 'inputs'])
+    para(doc, f'{len(allb) - n_in} legacy bugs of the mitigation sheets ({len(n_by["power"])} engineer power, '
+              f'{len(n_by["transport"])} engineer transport, {len(n_by["other"])} other), {len(dist_bugs())} of the '
+              f'distribution sheet, {n_in} of the inputs (MTInputs). Every one is fixed in the prototype' + (
                   f', except {", ".join(sorted(R.BUGS_REPLICATED))} (copied labels, no value effect; queued to fix)'
                   if R.BUGS_REPLICATED else '; none is replicated') + '. Within each type, the order is by priority, '
               'then by code.')
     nn = sum(1 for c, x in chk.items() if c.startswith('L') and x['status'] == 'Not fixed')
     p_ = para(doc, f'Legacy 465: the CPAT team marked {nc + nb_} of these bugs fixed in {LEGACY_FILE}; each fix was '
-                   f'checked cell by cell against its plan (2026-10-22): {nc} confirmed (Appendix C), {nb_ - nn} fixed '
-                   f'with caveats and {nn} not fixed (Appendix B). This section holds the bugs still open in legacy. '
+                   f'checked cell by cell against its plan (2026-10-22): {nc} confirmed (Appendix B), {nb_ - nn} fixed '
+                   f'with caveats and {nn} not fixed (Appendix A). This part holds the bugs still open in legacy. '
                    'Every bug says its status in legacy.')
     p_.runs[0].font.color.rgb = RED
     n_by = {g: [b for b in v if not moved(b[0])] for g, v in n_by.items()}
@@ -477,7 +417,7 @@ def bugs_part(doc):
             power_effects(doc)
         for b in rows:
             bug_block(doc, b, pl.get(b[0]))
-    doc.add_heading('3.4 Distribution', 2)
+    doc.add_heading('4.4 Distribution', 2)
     para(doc, 'Legacy sheet Distribution (household incidence by decile). Fixed in the prototype v4.4; the fixes '
               'change Egypt\'s legacy numbers only a little (the targeted transfer of deciles 1-4 by up to 0.13 points '
               'of consumption, the Gini change with recycling by 0.0006 points; the urban and rural compensation '
@@ -487,15 +427,19 @@ def bugs_part(doc):
           [1.4, 12.6, 2.0])
     for b in dist:
         bug_block(doc, b, pl.get(b[0]))
-    doc.add_heading('3.5 Bugs of the prototype (fixed, for the record)', 2)
-    table(doc, ['Code', 'Title', 'Found / fixed', 'What happened', 'Fix'],
-          [tuple(x) for x in R.MVP_BUGS], [1.2, 3.6, 2.2, 5.0, 4.0], size=7.5)
+    doc.add_heading('4.5 Inputs (MTInputs, ScenarioDefinition)', 2)
+    para(doc, 'Bugs of the legacy input sheet MTInputs (the prototype\'s ScenarioDefinition). The inconsistencies '
+              'that are issues (I85-I88) are in the Documentation and the tracker.')
+    inp = [b for b in allb if b[1] == 'inputs' and not moved(b[0])]
+    table(doc, ['Code', 'Priority', 'Title'], [(b[0], b[7], b[2]) for b in inp], [1.4, 1.8, 12.8])
+    for b in inp:
+        bug_block(doc, b, pl.get(b[0]))
 
 
 def other_part(doc, bugs, pl, order):
     """v7.1: other mitigation by model area, sections in rough priority order, High/Medium/Low within each (the
     order of the section file within a priority). N1, N2 (found by the plans, not in the register) sit in their area."""
-    by = {b[0]: b for b in bugs + plan_only() if not moved(b[0])}
+    by = {b[0]: b for b in bugs if not moved(b[0])}
     secs = other_sections()
     listed = {c for _t, _i, ids in secs for c in ids}
     rest = [c for c in by if c not in listed]
@@ -504,70 +448,20 @@ def other_part(doc, bugs, pl, order):
                      sorted(rest, key=lambda c: int(c[1:]))))
     para(doc, f'{len(by)} bugs in {len(secs)} sections by model area, ordered roughly by priority (sections holding '
               'High bugs first); within a section High, Medium, Low. Each section has its own table, then the cell '
-              'plans. N1 and N2 were found by the cell plans and are not in the register: confirm before applying.')
+              'plans. L135 and L136 were found by the cell plans (were N1, N2): confirm with the CPAT team before '
+              'applying.')
     table(doc, ['#', 'Section', 'High', 'Medium', 'Low', 'Bugs'],
           [(str(i), t, *[str(sum(1 for c in ids if c in by and by[c][7].startswith(p_))) for p_ in
                          ('High', 'Medium', 'Low')], ', '.join(c for c in ids if c in by))
            for i, (t, _d, ids) in enumerate(secs, 1)], [0.8, 5.0, 1.2, 1.4, 1.0, 6.6], size=8)
     for i, (t, d, ids) in enumerate(secs, 1):
-        doc.add_heading(f'3.3.{i} {t}', 3)
+        doc.add_heading(f'4.3.{i} {t}', 3)
         para(doc, d, size=9)
         rows = sorted((by[c] for c in ids if c in by), key=lambda b: order.get(b[7].split()[0], 3))
         table(doc, ['Code', 'Priority', 'Title', 'Cell plan'],
               [(b[0], b[7], b[2], 'yes' if b[0] in pl else 'not yet') for b in rows], [1.4, 1.8, 10.8, 2.0])
         for b in rows:
             bug_block(doc, b, pl.get(b[0]), 4)
-
-
-def issues_part(doc):
-    doc.add_heading('4. Issues', 1)
-    para(doc, 'Issues are intended behaviours of legacy (or of the prototype) that are questionable. Legacy side: '
-              'replicated = the prototype does what legacy does; not replicated = a departure by user decision or '
-              'still queued; mvp = an issue of the prototype with no legacy counterpart.')
-    doc.add_heading('4.1 Mitigation module', 2)
-    rows = issues()
-    table(doc, ['Code', 'Title', 'Legacy side', 'Severity / status', 'Next step'],
-          [(c, t, lg, f'{sev} / {st}', nxt) for c, t, _d, lg, sev, st, nxt, _w in rows], [1.2, 5.2, 2.2, 2.4, 5.0],
-          size=7.5)
-    for c, t, d, lg, sev, st, nxt, w in rows:
-        doc.add_heading(f'{c}  {t}', 3)
-        para(doc, d, size=9)
-        para(doc, f'{lg}; {sev}, {st}. {nxt} Documented in: {w}.', 'Status:', size=9)
-    doc.add_heading('4.2 Distribution module', 2)
-    table(doc, ['Code', 'Title', 'Description', 'Status'], [tuple(x) for x in R.DIST_ISSUES], [1.4, 4.6, 7.4, 2.6],
-          size=8)
-    doc.add_heading('4.3 Departures from legacy still listed on the LegacyDiff sheet', 2)
-    para(doc, 'Every row of the prototype\'s LegacyDiff sheet whose type is not "Same": a decision, a simplification, '
-              'a part not built yet, or data.')
-    table(doc, ['Row', 'Area', 'Prototype', 'Why', 'Type'],
-          [(c, a, m, w, ty) for c, a, _l, m, w, _e, ty in ld_open()], [1.2, 3.0, 6.0, 4.2, 1.6], size=7)
-
-
-def summary(doc):
-    """v6.4: what the register holds, by part (from the former BugsIssuesUpgrades register)."""
-    doc.add_heading('Summary', 1)
-    n = {c: sum(1 for *_x, k in R.items() if k == c) for c in
-         ('Legacy bug', 'prototype bug (fixed)', 'Known issue', 'Simplification / not yet', 'Upgrade')}
-    up = {p_: sum(1 for u in R.UPGRADES if u[3] == p_) for p_ in ('High', 'Medium', 'Low')}
-    para(doc, 'One register of everything that is wrong, questionable, simplified or still to do, in legacy CPAT and '
-              'in the prototype. Every item has a code that the other documents use. The register is kept in '
-              'issues_register.py and the workbook sheet LegacyDiff; the full check tests that both agree.')
-    table(doc, ['Part', 'Codes', 'Items', 'What it lists'],
-          [('3. Legacy bugs by type', 'L, D', f'{n["Legacy bug"]}, {len(R.DIST_BUGS)}',
-            'Defects of the legacy workbook (mitigation, distribution), with cell-level fix plans; all fixed in the '
-            'prototype'),
-           ('3.5 Bugs of the prototype', 'M', str(n['prototype bug (fixed)']), 'Defects of earlier prototype versions, all '
-            'fixed'),
-           ('4. Issues', 'I, DI', f'{n["Known issue"]}, {len(R.DIST_ISSUES)}', 'Questionable intended behaviours: '
-            'replicated from legacy, departures, or issues of the prototype (status Open, Accepted, Resolved, Dropped)'),
-           ('4.3 LegacyDiff departures', 'LD', str(len(ld_open())), 'Every difference with legacy that is not "Same" '
-            f'({n["Simplification / not yet"]} of them simplifications, not yet built or to check)'),
-           ('5. Potential upgrades', 'U', str(n['Upgrade']), f'{up["High"]} high, {up["Medium"]} medium, {up["Low"]} '
-            'low priority')], [3.6, 1.4, 1.6, 9.4], size=8)
-    bullets(doc, ['Rule (user 2026-10-15): legacy bugs are fixed, legacy issues are replicated and tracked.',
-                  'Priorities: the Excel 365 review by the user (I1), the ETS goal seek tested by the user (I30), the '
-                  'data requests (I64, I65, I13, I68). I62 and I71 are legacy issues, high priority for the CPAT team '
-                  'but not for the prototype.'], size=9)
 
 
 def power_effects(doc):
@@ -603,64 +497,10 @@ def power_effects(doc):
                 'VRE share 2040 (carbon tax)', 'Investment'], rows, [4.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0], size=7.5)
 
 
-def upgrades_part(doc):
-    """v6.4: potential upgrades by priority and the improvements already made (former BugsIssuesUpgrades)."""
-    doc.add_heading('5. Potential upgrades and improvements made', 1)
-    for p_ in ('High', 'Medium', 'Low'):
-        doc.add_heading(f'5.{("High", "Medium", "Low").index(p_) + 1} {p_} priority', 2)
-        table(doc, ['Code', 'Upgrade', 'What and why'], [(i, t, d) for i, t, d, pr in R.UPGRADES if pr == p_],
-              [1.2, 4.6, 10.2], size=8)
-    doc.add_heading('5.4 Improvements already made in the prototype', 2)
-    bullets(doc, [s.replace('**', '') for s in R.IMPROVEMENTS], size=9)
-    doc.add_heading('5.5 Sources and how this register is kept consistent', 2)
-    bullets(doc, ['issues_register.py: the register (L, M, I, U items); LegacyDiff rows come from build.py; '
-                  'cell-level plans from excel_ai/legacy/bugfixes/data (fixes_*.json; the other-mitigation areas in '
-                  'cfg_other_sections.json).',
-                  f'{os.path.basename(OUT)[:-5]}.json: this whole register, cell plans included, as one JSON file for '
-                  'code (written with this document).',
-                  'BUGSandISSUES.xlsx (make_bugs_issues_sheet.py): the same register as one table, and the '
-                  'CPAT team tracker (update_tracker.py), for machines and filters.',
-                  'check_full.py: codes unique, every LegacyDiff row of these types included, workbook texts free of '
-                  'stale statements, file references valid.',
-                  'make_bugfix_book.py builds this document (the power-fix effects are computed when it runs).'],
-            size=9)
-
-
-def appendix(doc):
-    doc.add_heading('Appendix A. Reference table in code order', 1)
-    pl = plans()
-    rows = []
-    short = {'Confirmed fixed': 'fixed', 'Fixed with caveats': 'fixed with caveats', 'Not fixed': 'not fixed'}
-    chk = check465()
-    leg = lambda c: 'legacy 465: ' + short.get(chk.get(c, {}).get('status'), 'open')
-    for b in legacy_bugs():
-        rows.append((b[0], f'Bug: {TYPE_NAME[b[1]].lower()}', b[2], b[7], f'prototype: fixed; {leg(b[0])}',
-                     'yes' if b[0] in pl else ''))
-    for b in dist_bugs():
-        rows.append((b[0], 'Bug: distribution', b[2], '', f'prototype: fixed; {leg(b[0])}', ''))
-    for b in plan_only():
-        rows.append((b[0], 'Bug: to confirm', b[2], b[7], 'not in the register', 'yes'))
-    for x in R.MVP_BUGS:
-        rows.append((x[0], 'Prototype bug', x[1], '', 'fixed', ''))
-    for c, t, _d, lg, sev, st, _n, _w in issues():
-        rows.append((c, 'Issue: mitigation', t, sev, f'{lg}; {st}', ''))
-    for c, t, _d, st in R.DIST_ISSUES:
-        rows.append((c, 'Issue: distribution', t, '', st, ''))
-    for c, a, _l, _m, _w, _e, ty in ld_open():
-        rows.append((c, 'LegacyDiff', a, '', ty, ''))
-    for c, t_, _d, pr in R.UPGRADES:                 # v6.4
-        rows.append((c, 'Upgrade', t_, pr, 'potential', ''))
-    pre = {'L': 0, 'D': 1, 'N': 2, 'M': 3, 'I': 4, 'DI': 5, 'LD': 6, 'U': 7}
-    key = lambda r: (pre[re.match(r'[A-Z]+', r[0]).group(0)], int(re.search(r'\d+', r[0]).group(0)))
-    rows.sort(key=key)
-    table(doc, ['Code', 'Type', 'Title', 'Priority / severity', 'Status', 'Cell plan'], rows,
-          [1.3, 2.8, 7.3, 1.7, 3.2, 1.2], size=7.5)
-
-
 def doc_order():
     """Every legacy bug in the order of section 3 (power, transport, other mitigation by area, distribution)."""
     order = {'High': 0, 'Medium': 1, 'Low': 2}
-    allb = legacy_bugs() + plan_only()
+    allb = legacy_bugs()
     out = []
     for g in ('power', 'transport'):
         out += sorted((b for b in allb if b[1] == g), key=lambda b: (order.get(b[7], 3), int(b[0][1:])))
@@ -668,7 +508,7 @@ def doc_order():
     for _t, _d, ids in other_sections():
         out += sorted((by.pop(c) for c in ids if c in by), key=lambda b: order.get(b[7].split()[0], 3))
     out += sorted(by.values(), key=lambda b: int(b[0][1:]))
-    return out + dist_bugs()
+    return out + dist_bugs()          # inputs bugs are in 'other' order (type inputs) via by
 
 
 def appendices_465(doc):
@@ -676,12 +516,12 @@ def appendices_465(doc):
     pl = plans()
     bugs = doc_order()
     for key, title, intro in (
-            ('B', 'Appendix B. Bugs fixed with caveats in legacy CPAT 1.0pre_465',
+            ('B', 'Appendix A. Bugs fixed with caveats in legacy CPAT 1.0pre_465',
              f'Bugs the CPAT team marked fixed in {LEGACY_FILE} whose fix is incomplete, differs from the plan, or was '
              'not found in the file (checked 2026-10-22, cell by cell against the plans). The red status says what '
-             'remains. The prototype issues I18 and I29, also on the team\'s list, stay in section 4 (nothing to fix '
+             'remains. The issues I18 and I29, also on the team\'s list, are in the Documentation (nothing to fix '
              'in legacy).'),
-            ('C', 'Appendix C. Bugs confirmed fixed in legacy CPAT 1.0pre_465',
+            ('C', 'Appendix B. Bugs confirmed fixed in legacy CPAT 1.0pre_465',
              f'Bugs fixed in {LEGACY_FILE} as their cell plan says (checked 2026-10-22: baseline cell, filled range '
              'and policy copy compared with the plan). The "formula now" of these plans is the 456 formula moved to '
              '465 rows; 465 holds the new formula.')):
@@ -696,43 +536,103 @@ def appendices_465(doc):
             bug_block(doc, b, pl.get(b[0]), 2)
 
 
-def export_json():
-    """v7.1: the whole register as one JSON file next to the Word register (same content, for code)."""
-    pl = plans()
-    area = {c: t for t, _d, ids in other_sections() for c in ids}
-    keys = ('code', 'type', 'title', 'where', 'what_legacy_does', 'fix', 'in_prototype', 'priority', 'effect')
+def rule_part(doc):
+    """v8.4 (user 2026-10-28): the rule up front; bugs here, issues in the Documentation and the tracker."""
+    doc.add_heading('1. The rule: bugs and issues', 1)
+    para(doc, 'Never replicate a legacy bug; always replicate a legacy issue, and track it (repository rule, NORMS 0). '
+              'A bug is something legacy CPAT computes that it plainly does not intend: a reference to the wrong row, '
+              'a copied formula that points to another sector, a unit applied twice. The prototype fixes it and this '
+              'document records it with the cells and the fix legacy needs. An issue is something legacy does on '
+              'purpose that is open to question (a method, a default, a convention): the prototype does what legacy '
+              'does, and the issue is tracked. A departure from legacy that is not a bug fix is an exception, kept only '
+              'by user decision.', 'The rule.')
+    para(doc, 'Problems of the input data follow the same rule. A data issue (DI) is replicated: the prototype does '
+              'exactly what legacy does with the data as they are. A data bug (DB) is a data problem the prototype '
+              'does not replicate (it fills or corrects the data) and whose fix is a change of the input data; each '
+              'has a plan (section 3). When the fix needs formulas to change, it is a legacy bug (L), even where data '
+              'are involved (L58, L59, L63, L64).', 'Data.')
+    table(doc, ['Code', 'Kind', 'What the prototype does', 'Where it is kept'],
+          [(f'{p_}1-{p_}{max(int(re.search(r"[0-9]+", r["id"]).group(0)) for r in G.by_kind(p_))}', d,
+            w, G.KINDS[p_][2] + f'; tracker {TRACKER_NAME}_v{R.REGISTER_VERSION}.xlsx')
+           for p_, d, w in G.DEFINITIONS], [1.8, 7.4, 3.6, 3.2], size=8)
+    para(doc, f'This document is about bugs only: the legacy bugs (L) and the data bugs (DB). The issues (I), data '
+              f'issues (DI), prototype bugs (M), departures (LD) and upgrades (U) are in the appendices of the '
+              f'Documentation (CPAT-AI-Mitigation_Documentation.docx) and, with the bugs, in the tracker '
+              f'{TRACKER_NAME}_v{R.REGISTER_VERSION}.xlsx, the master list (tabs Bugs and Issues). Every entry gives its '
+              f'code, its former code where it was renumbered in v8.4, and the codes it relates to.', size=9)
+    para(doc, f'Every cell reference is a row of the latest file from the CPAT team, {LEGACY_FILE} (sheet Mitigation '
+              'unless stated); the bugs found in CPAT 1.0pre_456_NoPropData.xlsb were moved to 465 rows by matching '
+              'labels and codes (legacy/bugfixes/data/rowmap_456_465.json). The procedure to fix a bug in the legacy '
+              'workbook and confirm it all works is an appendix of the Documentation.', 'Legacy version.', size=9)
 
-    def bug(b):
-        d = dict(zip(keys, b))
-        d['type'] = TYPE_NAME.get(b[1], b[1])
-        if b[1] == 'other':
-            d['area'] = area.get(b[0], '')
-        p_ = pl.get(b[0])
+
+def stock_part(doc):
+    """v8.4: one table of every legacy bug: found, fixed in the prototype, status in legacy 465."""
+    doc.add_heading('2. Stock of legacy bugs: found and fixed', 1)
+    bugs = G.by_kind('L')
+    n = len(bugs)
+    st = {k: sum(1 for r in bugs if r['legacy465'] == k) for k in ('Fixed', 'Fixed with caveats',
+                                                                  'Not fixed (marked fixed)', 'Open')}
+    fixed_p = sum(1 for r in bugs if not r['prototype'].startswith(('Not built', 'Kept', 'Copied')))
+    table(doc, ['Legacy bugs', 'Number'], [
+        ('Found (legacy 456 and 465)', n),
+        ('Fixed in the prototype (or the feature not built; none replicated)', f'{fixed_p} fixed, {n - fixed_p} not '
+                                                                              'built'),
+        ('Fixed in legacy 465, confirmed cell by cell (2026-10-22)', st['Fixed']),
+        ('Fixed with caveats in legacy 465', st['Fixed with caveats']),
+        ('Marked fixed by the CPAT team but not fixed in 465', st['Not fixed (marked fixed)']),
+        ('Still open in legacy 465', st['Open']),
+        ('Data bugs (DB, section 3)', len(G.by_kind('DB')))], [12.0, 4.0], size=9)
+    para(doc, 'One row per bug, in code order. Found: the legacy version and date of the find. In the prototype: '
+              'what the prototype does. Legacy 465: the status of the CPAT team\'s fix. Details in part 4 (bugs '
+              'still open in legacy) or Appendices A and B (fixed in 465).', size=9)
+    short = lambda s: ('Not built' if s.startswith('Not built') else 'Fixed' if s.startswith(('Fixed', 'Fixed in'))
+                       else s.split(':')[0].split('(')[0].strip()[:28])
+    table(doc, ['Code', 'Former', 'Area', 'Bug', 'Priority', 'Found', 'In the prototype', 'Legacy 465'],
+          [(r['id'], r['former'], r['area'].replace('Mitigation: ', ''), r['title'], r['priority'],
+            ' '.join(str(x) for x in G.found(r['id'])[:2] if x), short(r['prototype']), r['legacy465'])
+           for r in bugs], [1.1, 1.1, 2.2, 5.6, 1.3, 1.9, 1.8, 2.0], size=7)
+
+
+def databugs_part(doc):
+    """v8.4: data bugs with their plans."""
+    doc.add_heading('3. Data bugs and their plans', 1)
+    para(doc, 'Problems of the input data that the prototype does not replicate, each fixed by changing the data. '
+              'Until then the prototype departs from legacy (its LegacyDiff row says how). The data issues the '
+              'prototype replicates (DI) are in the Documentation and the tracker.')
+    for r in G.by_kind('DB'):
+        doc.add_heading(f'{r["id"]}  {r["title"]}', 2)
+        t_ = doc.add_table(rows=0, cols=2)
+        t_.style = 'Table Grid'
+        for k, v in (('Former code', r['former']), ('Severity / status', f'{r["priority"]} / {r["status"]}'),
+                     ('The problem', r['description']), ('In the prototype', r['prototype']),
+                     ('Plan', r['fix']), ('See also', r['see_also'])):
+            c = t_.add_row().cells
+            shade(c[0], LIGHT)
+            text(c[0], k, bold=True)
+            text(c[1], v)
+        fit_widths(t_, [3.0, 14.0])
+        doc.add_paragraph()
+
+
+def export_json():
+    """The whole register as one JSON file for code (v8.4: every kind and module, from register.py)."""
+    pl = G.plans()
+    recs = []
+    for r in G.records():
+        d = dict(r)
+        p_ = pl.get(r['id'])
         d['cell_plan'] = None if p_ is None else {k: p_.get(k) for k in ('status', 'note', 'ref', 'fixes')}
-        lst, lnote = legacy_status(b[0])
-        d['legacy_465'] = {'status': lst, 'note': lnote}   # v8.2
-        return d
-    out = {
-        'title': f'{B.NAME}: bugs, issues and upgrades v{R.REGISTER_VERSION} (workbook v{B.VERSION}; with legacy cell-level fix plans)',
-        'generated_by': f'excel_ai/mitigation/make_bugfix_book.py',
-        'word_version': os.path.basename(OUT),
-        'legacy_workbook': LEGACY_FILE,
-        'legacy_rows': 'every cell reference is a 465 row (moved from 456 with legacy/bugfixes/data/rowmap_456_465.json)',
-        'codes': 'L legacy bug (mitigation), D legacy bug (distribution), N found by the cell plans (not in the '
-                 'register), M prototype bug (fixed), I issue, DI distribution issue, LD LegacyDiff departure, U upgrade',
-        'other_mitigation_areas': [{'area': t, 'about': d, 'codes': ids} for t, d, ids in other_sections()],
-        'legacy_bugs': [bug(b) for b in legacy_bugs() + plan_only()],
-        'distribution_bugs': [bug(b) for b in dist_bugs()],
-        'prototype_bugs': [dict(zip(('code', 'title', 'found_fixed', 'what_happened', 'fix'), x)) for x in R.MVP_BUGS],
-        'issues': [dict(zip(('code', 'title', 'description', 'legacy', 'severity', 'status', 'next', 'where'), x))
-                   for x in issues()],
-        'distribution_issues': [dict(zip(('code', 'title', 'description', 'status'), x)) for x in R.DIST_ISSUES],
-        'legacy_diff': [dict(zip(('code', 'area', 'legacy', 'model', 'why', 'effect', 'type'), x)) for x in ld_open()],
-        'upgrades': [dict(zip(('code', 'title', 'description', 'priority'), x)) for x in R.UPGRADES],
-    }
-    path = os.path.join(ROOT, 'legacy', 'CPAT-AI_BugsAndIssues_latest.json')   # the register for code
+        recs.append(d)
+    out = {'title': f'Legacy CPAT bugs and the CPAT-AI register v{R.REGISTER_VERSION} (workbook v{B.VERSION})',
+           'generated_by': 'excel_ai/mitigation/make_bugfix_book.py', 'legacy_workbook': LEGACY_FILE,
+           'kinds': {p_: {'kind': k, 'plural': pl_, 'kept_in': w} for p_, (k, pl_, w) in G.KINDS.items()},
+           'definitions': [dict(zip(('code', 'definition', 'prototype'), d)) for d in G.DEFINITIONS],
+           'other_mitigation_areas': [{'area': t_, 'about': d, 'codes': ids} for t_, d, ids in other_sections()],
+           'records': recs}
+    path = os.path.join(ROOT, 'legacy', 'Legacy_CPAT_Register.json')
     with open(path, 'w', encoding='utf-8') as f:
-        json.dump(out, f, indent=1, ensure_ascii=False)
+        json.dump(out, f, indent=1, ensure_ascii=False, default=str)
     print('wrote', path)
 
 
@@ -745,30 +645,23 @@ def main():
         s.page_width, s.page_height = Cm(21.0), Cm(29.7)
         s.left_margin = s.right_margin = Cm(2.0)
         s.top_margin = s.bottom_margin = Cm(2.0)
-    t = doc.add_heading('CPAT-AI-Mitigation-Prototype: bugs, issues and upgrades, with the bug-fixing procedure for '
-                        'legacy CPAT', 0)
-    para(doc, f'Register version {R.REGISTER_VERSION}, {datetime.date.today().isoformat()}. Generated from the CPAT-AI '
-              f'repository for CPAT-AI-Mitigation-Prototype v{B.VERSION} ({os.path.basename(__file__)}). Legacy workbook: {LEGACY_FILE} (cell references; the bugs were found in '
-              f'CPAT 1.0pre_456_NoPropData.xlsb).',
-         size=9)
+    doc.add_heading(f'Legacy CPAT bugs v{R.REGISTER_VERSION}', 0)
+    para(doc, f'Version {R.REGISTER_VERSION}, {datetime.date.today().isoformat()}, the version of '
+              f'CPAT-AI-Mitigation-Prototype v{B.VERSION}. Generated from the CPAT-AI repository '
+              f'({os.path.basename(__file__)}). Legacy workbook: {LEGACY_FILE}. Master list: tracker '
+              f'{TRACKER_NAME}_v{R.REGISTER_VERSION}.xlsx.', size=9)
     doc.add_heading('Contents', 1)
     toc(doc)
-    summary(doc)
+    rule_part(doc)
     doc.add_page_break()
-    procedure(doc)
-    procedure_steps(doc)
+    stock_part(doc)
+    doc.add_page_break()
+    databugs_part(doc)
     doc.add_page_break()
     bugs_part(doc)
-    doc.add_page_break()
-    issues_part(doc)
-    doc.add_page_break()
-    upgrades_part(doc)
-    doc.add_page_break()
-    appendix(doc)
     appendices_465(doc)
     doc.save(OUT)
-    import shutil
-    shutil.copy(OUT, LATEST)                     # v8.0: the same file with a stable name
+    B.REL.publish(OUT)                            # v8.4: older versions to releases/
     print('wrote', OUT)
     export_json()
 

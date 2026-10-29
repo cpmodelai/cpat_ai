@@ -95,7 +95,7 @@ def mvp_data(iso, years, s, base_year, hyd_share, present_share):
           the CFOverride bounds, else the studies value;
       L54 hydro invests from the base year only when its generation share is above hyd_share, else NewInvHydYear;
       L55 the country row is searched in the country block (Power rows 112-294) only;
-    and the capex time factors from the Power tab (rows 302-330; legacy's stored 2039-2041 values are stale, I38).
+    and the capex time factors from the Power tab (rows 302-330; legacy's stored 2039-2041 values are stale, DI6).
     Returns (tech {code: row}, paths {key: series}, par {key: value}) to override base_data(); the other columns
     (capex, decommissioning and transmission capex, WACC, flags) are the values of power_tech.csv."""
     cells = {}

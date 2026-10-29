@@ -78,7 +78,7 @@ can be copied in. Then (same day): align more fully, going with the recommendati
   PowerTech, PowerPaths and PowerParams, copied from legacy's Egypt run) became the Inputs power blocks, formulas only
   (country, else world parameters; efficiency and generation from Balances; WACC from CoC; capex time factors, storage,
   income factor, emission shocks; settings from ScenarioDefinition scenario 1). The values reproduce the former tables, except
-  the wind and solar capex time factors for 2039-2041 (I38). Effect on Egypt's results: none before 2039; from 2039
+  the wind and solar capex time factors for 2039-2041 (DI6). Effect on Egypt's results: none before 2039; from 2039
   new capacity and investment of solar, wind and gas, then power fuel use and emissions (525 output codes; largest:
   new solar investment in the baseline, by up to 149 MW a year).
 - Dropped in v4.7: PowerTech, PowerPaths, PowerParams (now Inputs blocks from Power, CoC, Balances, WEO, GHGs).

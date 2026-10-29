@@ -6,7 +6,7 @@ Tool-neutral entry point (Claude, Codex, Gemini, Copilot, Cursor, ...). `CLAUDE.
 Two separate projects around the World Bank **Climate Policy Assessment Tool (CPAT)**: **Excel-AI** (`excel_ai/`, Excel prototypes replicating and extending the legacy model) and **Coded CPAT** (`coded/`, a Python reimplementation). Who reads what: [`README.md`](README.md).
 
 ## Bugs and issues: what to replicate
-**Never replicate a legacy bug; always replicate a legacy issue, and track it.** Read [`excel_ai/BUGS.md`](excel_ai/BUGS.md) and [`excel_ai/ISSUES.md`](excel_ai/ISSUES.md) first. The full rule, with the definitions of bug and issue: [`NORMS.md`](NORMS.md) section 0.
+**Never replicate a legacy bug; always replicate a legacy issue, and track it.** Data issues (DI) are replicated; data bugs (DB) are not, and are fixed by changing the data. Read [`excel_ai/BUGS.md`](excel_ai/BUGS.md) and [`excel_ai/ISSUES.md`](excel_ai/ISSUES.md) first; the master list is the tracker `excel_ai/Tracking_Legacy_Bugs_v<version>.xlsx`. The full rule, the codes (L, DB, M, I, DI, LD, U) and where each is kept: [`NORMS.md`](NORMS.md) section 0.
 
 ## Read before you start
 1. [`README.md`](README.md) - who reads what, repo map.
@@ -19,11 +19,11 @@ Two separate projects around the World Bank **Climate Policy Assessment Tool (CP
 ## Hard rules (summary; authority is the documents above)
 - All data live in the root folder `data/`, in subfolders, with the scripts that convert them; new data go there too (`NORMS.md` section 8, `data/README.md`).
 - The legacy workbook in `excel_ai/legacy/workbooks/` is read-only ground truth; the `CPAT_LegacyData_dummy*` files in `data/legacy_dummy/` are generated and must agree with `data/dummy/` (`NORMS.md` section 8).
-- Never edit a released workbook in place; build the next version (released workbooks are kept in `excel_ai/releases/`; `NORMS.md` section 5).
+- Never edit a released workbook in place; build the next version. Main files are named `<Name>_v<version>` at the top of `excel_ai/`, older versions in `excel_ai/releases/`, and `excel_ai/permalink/` holds only the files others link to (`NORMS.md` section 5a). Inputs: legacy MTInputs rows and `NameOfParameter` names, the same in Excel and Python (`NORMS.md` section 4).
 - Every finished task ends with a new entry at the bottom of `CAVEATS.md`, plus the bookkeeping in `NORMS.md` section 6. Earlier entries may be corrected (stale paths, resolved caveats) but not deleted.
 - Final methodology and version notes are always different documents (`NORMS.md` section 7). A methodology describes the current method only: no change history, no version log, no before/after columns.
 - Do not commit unless the user asks.
-- Excel builders run via Excel COM (`win32com`, Windows). On Linux/cloud sessions you can read and edit text/Markdown/Python but cannot rebuild or recalculate those workbooks; say so rather than guessing. Exception: the mitigation MVP (`excel_ai/mitigation/`) builds with openpyxl and is checked in LibreOffice, so it can be rebuilt on Linux (see its README).
+- The Excel builders (mitigation, distribution, air pollution) write with openpyxl and recalculate in LibreOffice, so they run on Linux and in cloud sessions (see each folder's README). Excel COM appears only in the optional Excel-open test of `check_quick.py` (skipped without Excel); the Excel 365 review is the user's.
 
 ## Keeping this file useful
 Add new generic, tool-agnostic guidance to the documents above (or here, if it is routing only). Tool-specific files (`CLAUDE.md` etc.) must stay thin pointers to this file.

@@ -25,30 +25,30 @@ class DistributionInputsDict(TypedDict):
     for the full input inventory this is progressively implementing.
     """
     # B.I Basic inputs
-    analysis_year: int # Distribution!'Analysis Year'
-    statistic_output: StatisticType # Distribution!'Statistic - Outputs', default 'mean'
+    YearDistn: int # Distribution!'Analysis Year'
+    QuantilesStatistic: StatisticType # Distribution!'Statistic - Outputs', default 'mean'
 
     # B.I Incidence adjustments (§4.2)
-    adjust_for_behavioral_change: bool
+    InferredDist: bool
     behavioral_response_adj_factor: float
-    adjust_for_deadweight_losses: bool
-    use_decile_specific_elasticities: bool
-    assume_imperfect_passthrough: bool
+    DWLs: bool
+    PEDs: bool
+    PassthroughDist: bool
 
     # B.I Exemptions (§4.5)
-    exempt_cooking_fuel: bool
+    ExemptMostCook: bool
     exempt_cooking_fuel_code: str # one of c.DISTN_DIRECT_FUELS, used when exempt_cooking_fuel=True
     exempt_cooking_fuel_share: float
-    exempt_cooking_fuel_bottom_deciles: int # exempt the bottom N deciles
+    ExemptCookDeciles: int # exempt the bottom N deciles
 
-    # B.I Revenue recycling (§4.4): shares of CP revenue, should sum to <= 1.0
-    share_labor_tax_reduction: float
-    share_targeted_transfer: float
-    share_public_investment: float
-    share_current_spending: float
+    # B.I Revenue recycling (§4.4): % of CP revenue (legacy convention, issue I85: 30 = 30%), should sum to <= 100
+    EXPLabortax: float
+    EXPTransfers: float
+    EXPCapex: float
+    EXPGoodsandserv: float
 
-    labor_tax_reduction_method: LaborTaxReductionMethodType
-    labor_tax_exempt_bottom_deciles: int # 'Targeted Exemption' method
+    PITReductionType: LaborTaxReductionMethodType
+    DistExcCfDec: int # 'Targeted Exemption' method
     labor_tax_cut_coefficient: float # 'Proportional Compensation' method
 
     # Targeted transfer design (rules-based synthetic transfer -- Dashboard
@@ -56,15 +56,15 @@ class DistributionInputsDict(TypedDict):
     # targeted_transfer_shares, which this configures). Not used when
     # targeted transfers are instead sourced from an ASPIRE program's own
     # incidence (that path isn't wired in yet, see data.load_aspire).
-    transfer_targeted_percentile: float # e.g. 0.4 = bottom 40% of the population targeted
-    transfer_coverage_rate: float # % of the targeted population that receives a transfer
-    transfer_leakage_rate: float # % of the untargeted population that also receives one
+    TargettedPercentile: float # % (legacy, issue I85): e.g. 40 = bottom 40% of the population targeted
+    CoverageRate: float # % (legacy, I85) of the targeted population that receives a transfer
+    LeakageRate: float # % (legacy, I85) of the untargeted population that also receives one
 
     # Public investment incidence (§4.4): which HHSurvey infrastructure-
     # access index to weight by (see recycling.py public_investment_shares).
     # One of 'all_acs_share', 'ely_acs_share', 'wtr_acs_share',
     # 'sani_acs_share', 'ICT_acs_share', 'transp_pub_acs_share'.
-    public_investment_access_type: str
+    PublicInfrastructureInvType: str
 
 
 class DistributionInputs:
@@ -78,34 +78,34 @@ class DistributionInputs:
     def __init__(self, config_input: dict | None = None) -> None:
         # default
         self.d = {
-            'analysis_year': 2030,
-            'statistic_output': 'mean',
+            'YearDistn': 2030,
+            'QuantilesStatistic': 'mean',
 
-            'adjust_for_behavioral_change': False,
+            'InferredDist': False,
             'behavioral_response_adj_factor': 1.0,
-            'adjust_for_deadweight_losses': False,
-            'use_decile_specific_elasticities': False,
-            'assume_imperfect_passthrough': False,
+            'DWLs': False,
+            'PEDs': False,
+            'PassthroughDist': False,
 
-            'exempt_cooking_fuel': False,
+            'ExemptMostCook': False,
             'exempt_cooking_fuel_code': c.KER,
             'exempt_cooking_fuel_share': 0.0,
-            'exempt_cooking_fuel_bottom_deciles': 0,
+            'ExemptCookDeciles': 0,
 
-            'share_labor_tax_reduction': 0.0,
-            'share_targeted_transfer': 0.0,
-            'share_public_investment': 0.0,
-            'share_current_spending': 0.0,
+            'EXPLabortax': 0.0,
+            'EXPTransfers': 0.0,
+            'EXPCapex': 0.0,
+            'EXPGoodsandserv': 0.0,
 
-            'labor_tax_reduction_method': 'Proportional Compensation',
-            'labor_tax_exempt_bottom_deciles': 0,
+            'PITReductionType': 'Proportional Compensation',
+            'DistExcCfDec': 0,
             'labor_tax_cut_coefficient': 0.0,
 
-            'transfer_targeted_percentile': 1.0,
-            'transfer_coverage_rate': 1.0,
-            'transfer_leakage_rate': 0.0,
+            'TargettedPercentile': 100.0,
+            'CoverageRate': 100.0,
+            'LeakageRate': 0.0,
 
-            'public_investment_access_type': 'all_acs_share',
+            'PublicInfrastructureInvType': 'all_acs_share',
         }
 
         if config_input:

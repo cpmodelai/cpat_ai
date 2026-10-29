@@ -418,7 +418,7 @@ def distribution(data):
 def last_release():
     """The last released workbook in excel_ai/releases/ before this version (restructure 2026-10-22: was Old/); the
     release of this version itself while it is the only one."""
-    files = glob.glob(os.path.join(HERE, '..', 'releases', f'{B.NAME}_v*.xlsm'))
+    files = B.REL.all_versions(B.NAME, 'xlsm')             # v8.4: current at the top, older in releases/
     ver = lambda f: tuple(int(x) for x in re.search(r'_v(\d+)\.(\d+)\.xlsm$', f).groups())
     cur = tuple(int(x) for x in B.VERSION.split('.'))
     before = [f for f in files if ver(f) < cur]

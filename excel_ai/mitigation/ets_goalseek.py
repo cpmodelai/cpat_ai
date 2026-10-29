@@ -15,9 +15,9 @@ PricesAdjustedByErrorFactor. This script iterates on that proposal with legacy's
   6. alpha halves when the worst error grows (minimum 0.0625) and rises x1.2 when it more than halves (maximum 1);
   7. stop when the worst |covered / cap - 1| over the ETS years is below the tolerance, or after max_iter.
 
-Each iteration writes the prices into the scenario's override row ets.ovr (with MTInputs D_ETSPriceOverride = Yes)
+Each iteration writes the prices into the scenario's override row ets.ovr (with MTInputs ETSPriceOverride = Yes)
 of a working copy, expands the LAMBDAs and recalculates it in LibreOffice. The result is a CSV of prices per year:
-paste it into the override row ets.ovr of the scenario and set D_ETSPriceOverride = Yes in MTInputs.
+paste it into the override row ets.ovr of the scenario and set ETSPriceOverride = Yes in MTInputs.
 
     python ets_goalseek.py WORKBOOK.xlsx SCENARIO [SCENARIO ...] [--tol 0.005] [--max-iter 20]
     -> ets_override_s<scenario>.csv next to the workbook
@@ -63,7 +63,7 @@ def recalc_with(wb_path, groups, prices):
     wb = openpyxl.load_workbook(wb_path)
     ws, wsm = wb['Mitigation'], wb['ScenarioDefinition']
     for g in groups:
-        wsm.cell(B.MT_NAMES['D_ETSPriceOverride'], B.MT_COL0 + g - 1).value = 'Yes'
+        wsm.cell(B.MT_NAMES['ETSPriceOverride'], B.MT_COL0 + g - 1).value = 'Yes'
         _, base, years = B.group_cols(g)
         for c, p in zip([base] + years, prices[g]):
             ws.cell(B.R_POL['ets.ovr'], c).value = p
@@ -76,7 +76,7 @@ def _evaluate(wb_path, groups, prices):
     wb = openpyxl.load_workbook(wb_path)
     ws, wsm = wb['Mitigation'], wb['ScenarioDefinition']
     for g in groups:
-        wsm.cell(B.MT_NAMES['D_ETSPriceOverride'], B.MT_COL0 + g - 1).value = 'Yes'
+        wsm.cell(B.MT_NAMES['ETSPriceOverride'], B.MT_COL0 + g - 1).value = 'Yes'
         _, base, years = B.group_cols(g)
         for c, p in zip([base] + years, prices[g]):
             ws.cell(B.R_POL['ets.ovr'], c).value = p

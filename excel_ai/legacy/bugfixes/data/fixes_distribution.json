@@ -1,6 +1,6 @@
 [
  {
-  "id": "D1",
+  "id": "L138",
   "pri": "Low",
   "title": "Targeted transfer capped at 10 points, not the decile's population share",
   "where": "Distribution R2562:Z2562",
@@ -27,7 +27,7 @@
   "status": "fix"
  },
  {
-  "id": "D2",
+  "id": "L139",
   "pri": "Low",
   "title": "Basket uses decile 1's elasticity adjustment and exemption test",
   "where": "Distribution C.V (rows 1580-1792) and C.VI (rows 1825-2185), Basket rows, column Q (e.g. Q1607); elasticity rows 743-765, factors 801-825",
@@ -222,7 +222,7 @@
   "status": "fix"
  },
  {
-  "id": "D3",
+  "id": "L140",
   "pri": "Low",
   "title": "Current spending tests the ASPIRE flag of the targeted transfer",
   "where": "Distribution Q2633:Z2633",
@@ -242,7 +242,7 @@
   "status": "fix"
  },
  {
-  "id": "D4",
+  "id": "L141",
   "pri": "Low",
   "title": "Public investment and current spending vanish with the transfer settings",
   "where": "Distribution rows 2701-2703, 2705-2707",
@@ -297,7 +297,7 @@
   "status": "fix"
  },
  {
-  "id": "D5",
+  "id": "L142",
   "pri": "Low",
   "title": "Targeted exemption capped by all revenue; urban and rural not per capita",
   "where": "Distribution Q2749:Z2749, Q2764:Z2765",
@@ -338,7 +338,7 @@
   "status": "fix"
  },
  {
-  "id": "D6",
+  "id": "L143",
   "pri": "Low",
   "title": "Urban and rural compensation shares on overall weights",
   "where": "Distribution Q3259:Z3259, Q3263:Z3263",
@@ -365,7 +365,7 @@
   "status": "fix"
  },
  {
-  "id": "D7",
+  "id": "L144",
   "pri": "Low",
   "title": "Deadweight loss in mixed units",
   "where": "Distribution rows 859-883 (DWL factors) and the effect rows 2828-2835, 2846-2859, 2920-2927, 2930-2943, 2989-2996, 2999-3012",
@@ -434,7 +434,7 @@
   "status": "fix"
  },
  {
-  "id": "D8",
+  "id": "L145",
   "pri": "Low",
   "title": "Analysis year and statistic read MTInputs column D",
   "where": "MTOutputs K1001:K1002",
@@ -461,7 +461,7 @@
   "status": "fix"
  },
  {
-  "id": "D9",
+  "id": "L146",
   "pri": "Low",
   "title": "Rural rows labelled Urban; fuel code oil vs oop",
   "where": "Distribution H2417, H2422; C.II row 746",
@@ -502,7 +502,7 @@
   "status": "fix"
  },
  {
-  "id": "D10",
+  "id": "L147",
   "pri": "Low",
   "title": "ASPIRE transfer pays out more than the revenue",
   "where": "Distribution Q2629:Z2629 (read by rows 2697-2699)",
@@ -522,7 +522,7 @@
   "status": "fix"
  },
  {
-  "id": "D11",
+  "id": "L148",
   "pri": "Low",
   "title": "ASPIRE program without country data: the transfer vanishes",
   "where": "Distribution I215; Dashboard C325",
@@ -549,7 +549,7 @@
   "status": "fix"
  },
  {
-  "id": "D12",
+  "id": "L149",
   "pri": "Low",
   "title": "ASPIRE branch skips the median flag and the zero-coverage test",
   "where": "Distribution Q2697:Z2699",
@@ -576,7 +576,7 @@
   "status": "fix"
  },
  {
-  "id": "D13",
+  "id": "L150",
   "pri": "Low",
   "title": "Public investment and current spending use the targeted-transfer median flag",
   "where": "Distribution Q2701:Z2703, Q2705:Z2707",
@@ -599,11 +599,11 @@
   ],
   "ref": "Rows 2610-2612 and 2645 are per-capita amounts of the whole decile; they do not depend on the transfer.",
   "effect": "Median statistic only; none for Egypt by default (mean). prototype v6.0.",
-  "note": "Accepted as a bug (user 2026-10-20). Includes D4 (the IF on coverage and percentile is dropped too): apply these formulas instead of D4's for the same cells.",
+  "note": "Accepted as a bug (user 2026-10-20). Includes L141 (the IF on coverage and percentile is dropped too): apply these formulas instead of L141's for the same cells.",
   "status": "fix"
  },
  {
-  "id": "D14",
+  "id": "L151",
   "pri": "Low",
   "title": "Poverty targeting: share receiving ignores targeting, coverage and leakage",
   "where": "Distribution Q2679:Z2681",
@@ -633,11 +633,11 @@
   ],
   "ref": "Row 2657 = poor individuals receiving (2568/100 x 2653); 2657 / 2572 x 100 = % receiving x % below the line / 100.",
   "effect": "Poverty targeting only (TargetBelow set, TransferType Cash); none for Egypt by default. Affects the median flags. prototype v6.0.",
-  "note": "Urban and rural use the overall share: after D15 their transfer per capita is the overall one (the cash and ASPIRE branches already use the overall share). The prototype has one flag for all samples.",
+  "note": "Urban and rural use the overall share: after L152 their transfer per capita is the overall one (the cash and ASPIRE branches already use the overall share). The prototype has one flag for all samples.",
   "status": "fix"
  },
  {
-  "id": "D15",
+  "id": "L152",
   "pri": "Low",
   "title": "Poverty targeting: urban and rural pay out about half of the funds",
   "where": "Distribution Q2673:Z2674",
@@ -657,7 +657,7 @@
   "status": "fix"
  },
  {
-  "id": "D16",
+  "id": "L153",
   "pri": "Low",
   "title": "Poverty share x 10 assumes deciles of 10%",
   "where": "Distribution Q2649:Z2651",
@@ -669,7 +669,7 @@
   "status": "none"
  },
  {
-  "id": "D17",
+  "id": "L154",
   "pri": "Low",
   "title": "ASPIRE values converted without a PPP factor",
   "where": "Distribution Q2618:Z2618, Q2634:Z2634; labels O2617:O2622, O2633:O2638",
@@ -710,7 +710,7 @@
   "status": "fix"
  },
  {
-  "id": "D18",
+  "id": "L155",
   "pri": "Low",
   "title": "Horizontal p25/p75 effects inflated",
   "where": "Distribution rows 3188, 3190, 3196, 3198, 3204, 3206 (Q:Z)",
@@ -761,11 +761,11 @@
   ],
   "ref": "Rows 2217-2240 hold the total effects by statistic (e.g. 2236 tef.tot.dec.ove.p75 = 3.09 for decile 1); rows 3189, 3197, 3205 the chosen statistic.",
   "effect": "Egypt decile 1: p75 overall -6.77 -> -3.09, p25 -2.52 -> -1.57 (horizontal-equity charts). prototype v6.0.",
-  "note": "With DWLs = Yes and D7 applied, the chosen-statistic rows include the deadweight loss; to include it here as the prototype does, use *(-1)*(Q$830+Q$859) instead of *(-1)*IF(InferredDist=\"Yes\",$I$145,1).",
+  "note": "With DWLs = Yes and L144 applied, the chosen-statistic rows include the deadweight loss; to include it here as the prototype does, use *(-1)*(Q$830+Q$859) instead of *(-1)*IF(InferredDist=\"Yes\",$I$145,1).",
   "status": "fix"
  },
  {
-  "id": "D19",
+  "id": "L156",
   "pri": "Low",
   "title": "Horizontal \"chosen statistic\" recycling divides by median consumption",
   "where": "Distribution L3193, L3201, L3209",
@@ -799,7 +799,7 @@
   "status": "fix"
  },
  {
-  "id": "D20",
+  "id": "L157",
   "pri": "Low",
   "title": "Decile brackets always divided by 1000",
   "where": "Distribution I2774:AB2774",
@@ -822,11 +822,11 @@
   ],
   "ref": "I249 = household consumption adjustment (national accounts / survey), I243 = deflator ratio to ResultsYear: the same factors as the per-capita consumption rows 2339-2362.",
   "effect": "Decile labels only (MTInputs QuantilesLCU = Yes). Egypt: decile 1 bracket 68,867-147,634 real 2026 LCU (was \"3k-7k\"). prototype v6.0.",
-  "note": "Also carries the survey-year part of D21 (the analysis-year adjustment). G2771 (\"convert to thousands\") is then unused.",
+  "note": "Also carries the survey-year part of L158 (the analysis-year adjustment). G2771 (\"convert to thousands\") is then unused.",
   "status": "fix"
  },
  {
-  "id": "D21",
+  "id": "L158",
   "pri": "Low",
   "title": "Decile bracket labels unusable",
   "where": "Distribution H2775:H2784, I2775",
@@ -847,13 +847,13 @@
     "policy": "none (sheet Distribution)"
    }
   ],
-  "ref": "Row 2774 (after D20) = bracket bounds p1 and p99 of each decile in real LCU of ResultsYear.",
+  "ref": "Row 2774 (after L157) = bracket bounds p1 and p99 of each decile in real LCU of ResultsYear.",
   "effect": "Decile labels only. Egypt: \"68,867-147,634\" ... \"470,027-1,300,726\". prototype v6.0.",
   "note": null,
   "status": "fix"
  },
  {
-  "id": "D22",
+  "id": "L159",
   "pri": "Low",
   "title": "Sector table \"ordered by demand\" sorts each column independently",
   "where": "Distribution G3300:K3310",
@@ -890,11 +890,11 @@
   ],
   "ref": "Unordered table rows 3285-3296 (C code, E name, F HHD, G output, H exports, I:K shares).",
   "effect": "Table only (not charted); Egypt row 1 (Services): output 1,119,645 and exports 41,514 (exports were fuel's 53,010). prototype v6.0.",
-  "note": "Ties in household demand (equal values) still make MATCH return the first sector twice; see D25 for the rank helper.",
+  "note": "Ties in household demand (equal values) still make MATCH return the first sector twice; see L162 for the rank helper.",
   "status": "fix"
  },
  {
-  "id": "D23",
+  "id": "L160",
   "pri": "Low",
   "title": "Ordered sector tables show 11 of 12 sectors",
   "where": "Distribution rows 3311 and 3324; charts 19 and 20",
@@ -917,11 +917,11 @@
   ],
   "ref": "Rows 3311 and 3324 are empty; F uses ROWS(), so the copied row gives rank 12.",
   "effect": "Charts 19 and 20 (Dashboard) show all 12 sectors. prototype v6.0.",
-  "note": "Apply after D22 and D25 (the \"new\" texts are their formulas one row down). Charts 19 and 20 are not cells: extend their series by hand from rows 3313:3323 to 3313:3324 (chart 19: E, T, U; chart 20: J, U).",
+  "note": "Apply after L159 and L162 (the \"new\" texts are their formulas one row down). Charts 19 and 20 are not cells: extend their series by hand from rows 3313:3323 to 3313:3324 (chart 19: E, T, U; chart 20: J, U).",
   "status": "fix"
  },
  {
-  "id": "D24",
+  "id": "L161",
   "pri": "Low",
   "title": "Chemicals and power missing from the CPAT-sector table",
   "where": "Distribution rows 3285-3296, 3300-3311, 3313-3324",
@@ -929,14 +929,14 @@
   "fixes": [
    {
     "cell": "Distribution!3324:3325",
-    "now": "row 3324 = 12th row of the table ordered by output price (after D23)",
+    "now": "row 3324 = 12th row of the table ordered by output price (after L160)",
     "new": "insert 2 rows above row 3324 (inside the table ordered by output price)",
     "fill": "row insert (do the three inserts bottom-up)",
     "policy": "none (sheet Distribution)"
    },
    {
     "cell": "Distribution!3311:3312",
-    "now": "row 3311 = 12th row of the table ordered by demand (after D23)",
+    "now": "row 3311 = 12th row of the table ordered by demand (after L160)",
     "new": "insert 2 rows above row 3311 (inside the table ordered by demand)",
     "fill": "row insert",
     "policy": "none (sheet Distribution)"
@@ -979,11 +979,11 @@
   ],
   "ref": "Row 646 (CPAT code of each GTAP sector); names from the pass-through table C470 (Electricity production) and C478 (Mining & Chemicals).",
   "effect": "CPAT-sector table, charts 19 and 20 and the shares I:K: 14 sectors; chemicals (Egypt input price +2.28% for chm) shows. prototype v6.0.",
-  "note": "Structural: inserted rows. Apply last, after D22, D23 and D25. Inserting inside each range widens every reference ($3285:$3296 -> $3285:$3298, the totals row 3297 -> 3299, the chart 19/20 series) and the ROWS() counters of the last rows, so the copied rows rank 12 and 13 and the last row 14. MTOutputs ppic and outpriin (D27) have no rows for mch and pow: adding them needs new MTOutputs rows (not planned here).",
+  "note": "Structural: inserted rows. Apply last, after L159, L160 and L162. Inserting inside each range widens every reference ($3285:$3296 -> $3285:$3298, the totals row 3297 -> 3299, the chart 19/20 series) and the ROWS() counters of the last rows, so the copied rows rank 12 and 13 and the last row 14. MTOutputs ppic and outpriin (L164) have no rows for mch and pow: adding them needs new MTOutputs rows (not planned here).",
   "status": "struct"
  },
  {
-  "id": "D25",
+  "id": "L162",
   "pri": "Low",
   "title": "Chart 19 labels ranked separately from their values; ties",
   "where": "Distribution C3313:U3323, M3285:M3296; G3277:BR3277, row 662",
@@ -1118,11 +1118,11 @@
   ],
   "ref": "U = output price change weighted by output (the values of charts 19 and 20); row 661 = GTAP output price change (top 20, row 3279 = LARGE of it).",
   "effect": "Charts 19, 20 and the top-20 chart: one ranking, every sector once. prototype v6.0 (rank with ties broken by order).",
-  "note": "New helper column M (rows 3284-3296) and helper row 662 (G:BR); both are empty now. Row 3279 (LARGE) is unchanged and agrees with the new labels. Table 1 (D22) can use the same helper on F (column L) if ties in household demand occur.",
+  "note": "New helper column M (rows 3284-3296) and helper row 662 (G:BR); both are empty now. Row 3279 (LARGE) is unchanged and agrees with the new labels. Table 1 (L159) can use the same helper on F (column L) if ties in household demand occur.",
   "status": "fix"
  },
  {
-  "id": "D26",
+  "id": "L163",
   "pri": "Low",
   "title": "Pass-through coefficients one row off",
   "where": "Distribution G659:BR659, I470",
@@ -1149,7 +1149,7 @@
   "status": "fix"
  },
  {
-  "id": "D27",
+  "id": "L164",
   "pri": "Low",
   "title": "MTOutputs outpriin labels do not match their values",
   "where": "MTOutputs K1048:L1058",
@@ -1169,7 +1169,7 @@
   "status": "fix"
  },
  {
-  "id": "D28",
+  "id": "L165",
   "pri": "Low",
   "title": "MTOutputs codes without a dot",
   "where": "MTOutputs E1006, E1013",
@@ -1196,7 +1196,7 @@
   "status": "fix"
  },
  {
-  "id": "D29",
+  "id": "L166",
   "pri": "Low",
   "title": "MTOutputs ppic.fuel empty",
   "where": "MTOutputs K1046:L1046",
@@ -1216,7 +1216,7 @@
   "status": "fix"
  },
  {
-  "id": "D30",
+  "id": "L167",
   "pri": "Low",
   "title": "Lorenz equality line in 10% steps",
   "where": "Distribution Q2455:Z2457 (charts read rows 3109, 3147, 3182)",
@@ -1243,7 +1243,7 @@
   "status": "fix"
  },
  {
-  "id": "D31",
+  "id": "L168",
   "pri": "Low",
   "title": "Absolute overall rows carry wrong codes",
   "where": "Distribution L3036:L3043, L3049:L3062",

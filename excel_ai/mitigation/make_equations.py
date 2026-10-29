@@ -306,7 +306,7 @@ def write(sections, eqs):
             lines.append('')
     lines += ['## B. Changes against legacy CPAT', '',
               'Each change is described in the workbook sheet `LegacyDiff` (LD) or in the register of bugs, issues '
-              'and upgrades (`CPAT-AI_BugsAndIssues_v6.4.docx`: L legacy bug fixed, M bug of an '
+              'and upgrades (`Legacy_CPAT_Bugs_v<version>.docx` and the tracker: L legacy bug fixed, M bug of an '
               'earlier prototype version). Equations: the numbers of section A it touches.', '',
               '| ID | Area | Type | Equations |', '|---|---|---|---|']
     for k, d in enumerate(B.LEGACY_DIFFS, 1):

@@ -70,10 +70,10 @@ class PowGeneration:
         )
         max_coa_nga.loc[
             max_coa_nga.index.get_level_values(c.FUEL_CODE).isin([c.COA])
-        ] *= d['max_coa_cf']
+        ] *= d['MaximumCoalCF']
         max_coa_nga.loc[
             max_coa_nga.index.get_level_values(c.FUEL_CODE).isin([c.NGA])
-        ] *= d['max_nga_cf']
+        ] *= d['MaximumGasCF']
 
         # Simplified 'Minimum Coal' and 'Minimum Gas' from I2 table
         min_coa_nga = (required_g.sub(max_coa_nga, level=c.COUNTRY_CODE)).clip(lower=0)
@@ -87,7 +87,7 @@ class PowGeneration:
 
         # 'Logit Function Coal' and 'Logit Function Nat Gas' from I2 table
         proportion_coa_nga = np.exp(
-            - d['k_dispatch']
+            - d['kDispatch']
             * var_cost_coa_nga.div(var_cost_coa_nga_min, level=c.COUNTRY_CODE)
         )
         # 'Proportion of Coal in remaining gen mix'

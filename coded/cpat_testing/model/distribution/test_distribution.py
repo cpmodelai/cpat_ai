@@ -66,15 +66,15 @@ def input_data():
 @pytest.fixture(scope='module')
 def distribution(input_data):
     d = DistributionInputs({
-        'analysis_year': 2030,
-        'share_labor_tax_reduction': 0.30,
-        'share_targeted_transfer': 0.20,
-        'share_public_investment': 0.50,
-        'share_current_spending': 0.0,
-        'labor_tax_reduction_method': 'Personal Allowance',
-        'transfer_targeted_percentile': 0.40,
-        'transfer_coverage_rate': 1.0,
-        'transfer_leakage_rate': 0.0,
+        'YearDistn': 2030,
+        'EXPLabortax': 30.0,
+        'EXPTransfers': 20.0,
+        'EXPCapex': 50.0,
+        'EXPGoodsandserv': 0.0,
+        'PITReductionType': 'Personal Allowance',
+        'TargettedPercentile': 40.0,
+        'CoverageRate': 100.0,
+        'LeakageRate': 0.0,
     }).d
     return Distribution(
         d, COUNTRY, input_data, PRICE_CHANGE_DIRECT, CP_REVENUE_2030, NATIONAL_TOTALS_2030

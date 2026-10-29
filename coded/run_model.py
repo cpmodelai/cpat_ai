@@ -44,7 +44,7 @@ def run_model():
     # Distribution module is single-year/single-country; defaults to
     # analysing the last simulated year. See excel_ai/distribution/README.md and
     # other/more/CPAT_Distribution_Module_Pseudocode.docx.
-    distribution_inputs = DistributionInputs({'analysis_year': last_simulation_year})
+    distribution_inputs = DistributionInputs({'YearDistn': last_simulation_year})
 
     # Collects every scenario's finished component outputs so Distribution
     # can compare a policy scenario against the baseline scenario once all
@@ -57,32 +57,32 @@ def run_model():
 
         elasticities = Elasticities(selected_countries, di.d, input_data)
         gdp = GDP(simulation_years, di.d, input_data)
-        efs_co2 = EFsCO2(selected_countries, input_data, di.d['efs_selected'])
+        efs_co2 = EFsCO2(selected_countries, input_data, di.d['EmissionsFactCO2'])
         policies = Policies(
-            simulation_years, selected_countries, di.d['scenario_type'],
+            simulation_years, selected_countries, di.d['ScenarioSelected'],
             input_data, di.d, gdp.deflator
         )
         phaseouts = Phaseouts(
-            simulation_years, di.d['scenario_type'],
-            di.d['energy_sector_reform'], di.d['is_pc_phaseout_baseline']
+            simulation_years, di.d['ScenarioSelected'],
+            di.d['energy_sector_reform'], di.d['PrcContPhaBaseline']
         )
         existing_ct = ExistingCT(
             selected_countries, simulation_years, input_data,
-            di.d['existing_ct_apply'], di.d['existing_ct_growth']
+            di.d['ExistingCTApply'], di.d['ExistingCTGrowth']
         )
         existing_ets = ExistingETS(
             selected_countries, simulation_years, input_data,
-            di.d['existing_ets_apply'], di.d['existing_ets_growth']
+            di.d['ExistingETSApply'], di.d['ExistingETSGrowth']
         )
 
         dom_prices = DomPrices(
-            selected_countries, simulation_years, input_data, di.d['gov_energy_price_controls']
+            selected_countries, simulation_years, input_data, di.d['GovPriceControls']
         )
         int_prices = IntPrices(
             simulation_years, selected_countries, input_data, di.d, gdp.deflator
         )
         energy_prices = EnergyPrices(
-            simulation_years, di.d['scenario_type'], selected_countries, gdp, dom_prices, phaseouts,
+            simulation_years, di.d['ScenarioSelected'], selected_countries, gdp, dom_prices, phaseouts,
             existing_ct, existing_ets, efs_co2, int_prices, input_data, di.d
         )
 
@@ -98,7 +98,7 @@ def run_model():
         for year in range(simulation_years[0], simulation_years[1] + 1):
             policies.calculate_policies_year(year, existing_ets.existing_ets_s_nat, di.d)
             energy_prices.calculate_prices_year(
-                year, di.d['scenario_type'], policies, efs_co2,
+                year, di.d['ScenarioSelected'], policies, efs_co2,
                 dom_prices, phaseouts
             )
             power.calculate_power_year(
@@ -162,13 +162,13 @@ def run_distribution(scenario_results, selected_countries, input_data, distribut
     baseline_name = next(
         (
             name for name, results in scenario_results.items()
-            if results.dashboard_inputs_d['scenario_type'] == c.BASELINE
+            if results.dashboard_inputs_d['ScenarioSelected'] == c.BASELINE
         ),
         None
     )
     if baseline_name is None:
         raise RuntimeError(
-            "No scenario with scenario_type == c.BASELINE found in config.SCENARIOS; "
+            "No scenario with ScenarioSelected == c.BASELINE found in config.SCENARIOS; "
             "the Distribution module needs a baseline run to compare policy scenarios against."
         )
     baseline = scenario_results[baseline_name]
@@ -183,13 +183,13 @@ def run_distribution(scenario_results, selected_countries, input_data, distribut
             continue
         for country in countries:
             price_change_direct = distn_price_changes.derive_price_change_direct_from_scenarios(
-                country, baseline, policy, distribution_inputs.d['analysis_year']
+                country, baseline, policy, distribution_inputs.d['YearDistn']
             )
             # only the 8 priced fuels feed Distribution's constructor; the
             # biomass fuels it adds internally have no Mitigation-side price
             price_change_direct_priced = price_change_direct.drop(c.COOKING_BIOMASS_FUELS)
             cp_revenue = distn_price_changes.derive_cp_revenue_from_scenarios(
-                country, policy, distribution_inputs.d['analysis_year']
+                country, policy, distribution_inputs.d['YearDistn']
             )
             # TODO: national_totals=None falls back to the household survey's own
             # implied population/consumption totals (see rebasing.py module

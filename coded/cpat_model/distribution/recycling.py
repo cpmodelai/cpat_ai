@@ -83,7 +83,7 @@ def pit_targeted_exemption(pit_share: pd.Series, exempt_bottom_deciles: int) -> 
 
 
 def pit_reduction_shares(pit_share: pd.Series, method: str, exempt_bottom_deciles: int = 0) -> pd.Series:
-    """Dispatches to the method named in DistributionInputsDict['labor_tax_reduction_method']."""
+    """Dispatches to the method named in DistributionInputsDict['PITReductionType']."""
     if method == 'Personal Allowance':
         return pit_personal_allowance(pit_share)
     if method == 'Targeted Exemption':

@@ -160,7 +160,7 @@ Egypt 2030:
 - baseline: CO2 x1.17, with energy intensity 0.81 and carbon intensity 1.03;
 - carbon tax: energy intensity 0.74, CO2 x1.10.
 
-The efficiencies of wind (1.004), solar (1.026) and hydro (0.937) are legacy's power data, kept (issue I37).
+The efficiencies of wind (1.004), solar (1.026) and hydro (0.937) are legacy's power data, kept (issue DI5).
 
 Population is the prototype's UN series: 111.7 mn in 2022, against legacy's 103.6 mn (legacy bug L20, fixed). GDP per capita is therefore lower than in legacy, and the identity still holds.
 

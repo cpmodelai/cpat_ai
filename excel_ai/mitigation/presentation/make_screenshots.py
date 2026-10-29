@@ -202,8 +202,8 @@ def main():
 
     # 6. ScenarioDefinition: short names, Run?, scenario definitions J:O
     n = B.MT_NAMES
-    keys = ['CPIntro', 'CPLevelStart', 'CPLevelTarget', 'CPOutro', 'D_Feb_Level_Start_Trans',
-            'D_Feb_Level_Target_Trans', 'D_NewETS', 'D_ETSChangeRelStart', 'D_ETSChangeRelTarget']
+    keys = ['CPIntro', 'CPLevelStart', 'CPLevelTarget', 'CPOutro', 'Feb_Level_Start_Trans',
+            'Feb_Level_Target_Trans', 'NewETS', 'ETSChangeRelStart', 'ETSChangeRelTarget']
     rows = {B.MT_ROW_SHORT, 4, 5, 6} | {n[k] for k in keys}
     render(f'{PFX}_06_definitions', 'ScenarioDefinition', values, f'B1:O{max(rows)}', rows=rows,
            hide_cols=list('CDEFGHI'), widths={'B': 40, **{c: 15 for c in 'JKLMNO'}}, heights={6: 64, 4: 26})

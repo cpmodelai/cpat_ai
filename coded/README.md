@@ -17,8 +17,8 @@ A component-based Python reimplementation of the CPAT model: the mitigation modu
 
 ## Conventions
 
-- Codes (`Input Code`, `Output Code`, `NameOfParameter`) are identical to the Excel models.
-- The legacy workbook `../excel_ai/legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb` is the reference for values; validated Excel prototypes (e.g. the mitigation MVP in `../excel_ai/mitigation/`) are ported here once checked.
+- Codes (`Input Code`, `Output Code`, `NameOfParameter`) are identical to the Excel models. The input keys of `dashboard_inputs.py` and `distribution_inputs.py` are the ScenarioDefinition names (`NameOfParameter`, legacy MTInputs column H; the list with each Python key: tab Inputs of `../excel_ai/CPAT-AI_CodesMap_v<version>.xlsx`), in legacy units (percentages typed as whole numbers where legacy does, issue I85).
+- The legacy workbook `../excel_ai/legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb` is the reference for values (inputs: the rows and names of the latest file, `CPAT 1.0pre_465`); validated Excel prototypes (e.g. the mitigation MVP in `../excel_ai/mitigation/`) are ported here once checked.
 - Python 3.12 (as the repository's Windows environment `cpat312`), pandas 2.2.3, numpy 2.2.0 (`environment.yml`, `requirements.txt`); the code also runs on pandas 3 (copy-on-write rules).
 - Every finished task gets a `../CAVEATS.md` entry (root `NORMS.md` section 6).
 

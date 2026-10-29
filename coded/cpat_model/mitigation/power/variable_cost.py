@@ -79,7 +79,7 @@ class PowVarCost:
         )
 
         # 'Moving Average Fuel Prices' A18 table
-        if d['use_spot_fuel_prices_power']:
+        if d['UseSpotFuelPricesInEngineerModel']:
             a18 = a10 # just address
         else:
             raise NotImplementedError(

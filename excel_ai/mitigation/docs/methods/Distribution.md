@@ -75,19 +75,19 @@ The bug fixes change Egypt's legacy numbers only a little: the targeted transfer
   below the poverty line (TargetBelow, with Cash only; HHSurvey `pct_belowpl_*` x 10, at most 100%, mean as legacy) or
   the ASPIRE benefit of the TransferType program for the decile's quintile. Transfer per capita = revenue x w x share
   receiving / Σ w x share receiving x population, so the payout equals the revenue (legacy pays 125-129% on the ASPIRE
-  path, D10). A program without data for the country falls back to cash and the settings check says so (legacy drops
-  the transfer, D11). Median statistic: the transfer reaches only deciles where more than half receive (legacy row 2685;
-  the money not paid is not redistributed, as legacy); public investment and current spending are not flagged (D13).
+  path, L147). A program without data for the country falls back to cash and the settings check says so (legacy drops
+  the transfer, L148). Median statistic: the transfer reaches only deciles where more than half receive (legacy row 2685;
+  the money not paid is not redistributed, as legacy); public investment and current spending are not flagged (L150).
   Switch tests (Egypt): Cash Transfers program 1, 1, 0.691, 0.691, 0.047 of decile 1; poverty line 6.85: 1, 1, 1,
   0.507, 0.003; as the legacy formulas with the fixes applied to legacy's cached inputs.
 - **Outputs for charts** (section 10, legacy D.I-D.V): decile labels (QuantilesLCU: consumption brackets in real local
-  currency of the analysis year, D20-D21), budget shares by group, urban and rural direct and indirect effects by item,
+  currency of the analysis year, L157-L158), budget shares by group, urban and rural direct and indirect effects by item,
   per-capita (local currency) budgets, effects and net effect, Lorenz curves (baseline as legacy: 4.016, 9.045, 16.106),
-  cumulative compensation, the 25th and 75th percentile households (D18-D19), Gini change in points.
+  cumulative compensation, the 25th and 75th percentile households (L155-L156), Gini change in points.
 - **Production sectors** (section 11, legacy D.VI): input-cost price change of each GTAP sector (Leontief
   coefficients x fuel-group factors, the identity of section 2), output price after pass-through (PassthroughDist;
-  coefficients by CPAT sector, D26), rank and top 20 (ties broken, D25), 14 CPAT sectors (chemicals and power added, D24)
-  with demand and output shares and weighted prices; LiveOutputs `ppic`, `ppici`, `outpriin` by sector code (D27).
+  coefficients by CPAT sector, L163), rank and top 20 (ties broken, L162), 14 CPAT sectors (chemicals and power added, L161)
+  with demand and output shares and weighted prices; LiveOutputs `ppic`, `ppici`, `outpriin` by sector code (L164).
   Data: `data/distn_gtapmap.csv` (legacy Mapping F/R/H), `data/distn_passthrough.csv` (legacy Distribution I470:I486).
 - **Charts** (sheet Charts, below the mitigation charts): the legacy Dashboard distribution charts from group 2.
 

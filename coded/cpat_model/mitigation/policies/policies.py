@@ -92,9 +92,9 @@ class Policies:
             [
                 self.p_cov_s,
                 self.__get_p_cov_s(
-                    d['scenario_type'], d['ct_tax_complimentary_to_ets'], existing_ets_s[[y]],
-                    d['start_cp_year'], year, d['exempt_phaseout'],
-                    d['year_pha'], d['exempt_phaseout_period']
+                    d['ScenarioSelected'], d['CTaxComplimentaryToETS'], existing_ets_s[[y]],
+                    d['CPIntro'], year, d['ExemptPhaseout'],
+                    d['YearPha'], d['ExemptPhaseoutPeriod']
                 )
             ],
             axis=1
@@ -104,8 +104,8 @@ class Policies:
             [
                 self.p_cov_f,
                 self.__get_p_cov_f(
-                    d['scenario_type'], d['start_cp_year'], year,
-                    d['exempt_phaseout'], d['year_pha'], d['exempt_phaseout_period']
+                    d['ScenarioSelected'], d['CPIntro'], year,
+                    d['ExemptPhaseout'], d['YearPha'], d['ExemptPhaseoutPeriod']
                 )
             ],
             axis=1
@@ -533,18 +533,18 @@ class Policies:
 
 
         # exponential trajectory
-        if d['cp_trajectory_type'] == 'exp':
+        if d['CTaxTrajectoryType'] == 'exp':
             # pandas copy-on-write: .values is read-only, so write through .iloc
-            cp_trajectory.iloc[0, years >= d['start_cp_year']] = (
+            cp_trajectory.iloc[0, years >= d['CPIntro']] = (
                 # cp_trajectory(t) = start_cp * ct_exp_rate ** (t - start_cp_year)
-                d['start_cp']
-                * d['ct_exp_rate'] ** np.maximum(
-                    0, years[years >= d['start_cp_year']] - d['start_cp_year']
+                d['CPLevelStart']
+                * d['CtaxExponentialEscalationRate'] ** np.maximum(
+                    0, years[years >= d['CPIntro']] - d['CPIntro']
                 )
             )
             # after target year we keep trajectory constant based on value at target_cp_year
-            cp_trajectory.iloc[0, years > d['target_cp_year']] = (
-                cp_trajectory.iloc[0, np.where(years == d['target_cp_year'])[0][0]]
+            cp_trajectory.iloc[0, years > d['CPOutro']] = (
+                cp_trajectory.iloc[0, np.where(years == d['CPOutro'])[0][0]]
             )
             cp_trajectory = (
                 cp_trajectory.loc[cp_trajectory.index.repeat(len(countries))]
@@ -554,38 +554,38 @@ class Policies:
 
         else: # all linear trajectories
             tax_inc_value = (
-                (d['target_cp'] - d['start_cp'])
-                / (d['target_cp_year'] - d['start_cp_year'])
+                (d['CPLevelTarget'] - d['CPLevelStart'])
+                / (d['CPOutro'] - d['CPIntro'])
             )
-            target_range = (years >= d['start_cp_year']) & (years <= d['target_cp_year'])
-            post_target_range = years > d['target_cp_year']
+            target_range = (years >= d['CPIntro']) & (years <= d['CPOutro'])
+            post_target_range = years > d['CPOutro']
 
-            cp_trajectory.loc[:, years == d['start_cp_year']] = d['start_cp']
+            cp_trajectory.loc[:, years == d['CPIntro']] = d['CPLevelStart']
 
             # Between start_cp_year and target_cp_year
             cp_trajectory.loc[:, target_range] = (
-                d['start_cp'] + (years[target_range] - d['start_cp_year']) * tax_inc_value
+                d['CPLevelStart'] + (years[target_range] - d['CPIntro']) * tax_inc_value
             )
 
-            if d['cp_trajectory_type'] == 'per':
-                per_tax_inc = d['ct_exp_rate']/(d['target_cp'] - d['ct_exp_rate'])
+            if d['CTaxTrajectoryType'] == 'per':
+                per_tax_inc = d['CtaxExponentialEscalationRate']/(d['CPLevelTarget'] - d['CtaxExponentialEscalationRate'])
                 # After target_cp_year, apply the percentage increase
                 for y in years[post_target_range]:
                     cp_trajectory.loc[:, str(y)] += (
                         cp_trajectory.loc[:, str(y - 1)] * (1 + per_tax_inc)
                     )
-            elif d['cp_trajectory_type'] == 'lin':
+            elif d['CTaxTrajectoryType'] == 'lin':
                 # After target_cp_year, continue linear increment
                 for y in years[post_target_range]:
                     cp_trajectory.loc[:, str(y)] += cp_trajectory.loc[:, str(y - 1)] + tax_inc_value
-            elif d['cp_trajectory_type'] == 'cst':
+            elif d['CTaxTrajectoryType'] == 'cst':
                 # After target_cp_year, carry forward previous value
                 cp_trajectory.loc[:, post_target_range] = (
-                    cp_trajectory[str(d['target_cp_year'])].iloc[0]
+                    cp_trajectory[str(d['CPOutro'])].iloc[0]
                 )
 
-            # d['cp_trajectory_type'] != 'exp' included in else: for all linear trajectories
-            if d['tax_pathway'] == 'rea':
+            # d['CTaxTrajectoryType'] != 'exp' included in else: for all linear trajectories
+            if d['NomorReal'] == 'rea':
                 cp_trajectory = deflator.iloc[:, 1:] * cp_trajectory.iloc[0]
             else:
                 # just extend the index
@@ -596,7 +596,7 @@ class Policies:
                 cp_trajectory.index = pd.Index(countries, name=c.COUNTRY_CODE)
 
         if scenario_type == c.ETS:
-            cp_trajectory = cp_trajectory * d['ets_adj']
+            cp_trajectory = cp_trajectory * d['ETSBehavioralAdjustment']
 
         return cp_trajectory
 

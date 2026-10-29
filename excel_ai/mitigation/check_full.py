@@ -642,30 +642,30 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
                   mt[n['ExtendCarbonPriceBeyondOutro']] == 'Linear*') * (cpi[y] if nominal else 1) for y in years}
     fpr = {pc: {y: path(y, mt[140], mt[141], mt[r0] or 0, mt[r1] or 0) for y in years}
            for pc, _l, r0, r1 in B.PRICE_FUELS}
-    fb = {s: {y: path(y, mt[n['D_FeebateIntro']], mt[n['D_FeebateOutro']], mt[n[a]], mt[n[b]]) for y in years}
+    fb = {s: {y: path(y, mt[n['FeebateIntro']], mt[n['FeebateOutro']], mt[n[a]], mt[n[b]]) for y in years}
           for s, a, b in B.FEEBATE_SECTORS}
-    y0, y1 = mt[n['D_ETSIntro']], mt[n['D_ETSOutro']]
-    ets_on = {y: str(mt[n['D_NewETS']]).startswith('Yes') and y >= y0 for y in years}
+    y0, y1 = mt[n['ETSIntro']], mt[n['ETSOutro']]
+    ets_on = {y: str(mt[n['NewETS']]).startswith('Yes') and y >= y0 for y in years}
     ets_cov = {s: {y: 1.0 if ets_on[y] and bool(mt[B.MT_ROWS_FIXED['etscov0'] + k]) else 0.0 for y in years}
                for k, s in enumerate(B.COV_SECTORS)}
-    auct = (float(mt[n['D_ETSAuctStart']] or 0), float(mt[n['D_ETSAuctTarget']] or 0))   # v4.15 (I21): MTInputs 90-91
+    auct = (float(mt[n['ETSAuctStart']] or 0), float(mt[n['ETSAuctTarget']] or 0))   # v4.15 (I21): MTInputs 90-91
     bench = bench or {g: (1 - auct[0], 1 - auct[1]) for g, *_ in B.ETS_GROUPS}
     bm = {g: {y: 0.0 if y < y0 else b0 + (b1 - b0) / max(y1 - y0, 1) * (min(y, y1) - y0) for y in years}
           for g, (b0, b1) in bench.items()}
     obr = {s: {y: min(1.0, max(0.0, bm[B.ETS_GROUP_OF[s]][y])) for y in years} for s in B.COV_SECTORS}
-    vol = ETS_VOL[str(mt[n['D_ETSVolatility']]).replace('*', '')][0]
-    imp = ETS_VOL[str(mt[n['D_ETSVolImpact']]).replace('*', '')][1]
-    vadj = (1 + mt[n['D_ETSCTRisk']] * imp) / (1 + vol * imp)
+    vol = ETS_VOL[str(mt[n['ETSVolatility']]).replace('*', '')][0]
+    imp = ETS_VOL[str(mt[n['ETSVolImpact']]).replace('*', '')][1]
+    vadj = (1 + mt[n['ETSCTRisk']] * imp) / (1 + vol * imp)
     base = baseline_co2() if base is None else base
     bco2 = {s: base.get(s, [0.0] * len(years)) for s in B.COV_SECTORS}
     yi = {y: k for k, y in enumerate(years)}
     bce = {y: sum(bco2[s][yi[y]] * ets_cov[s][y] for s in B.COV_SECTORS) for y in years}
-    rs, rt = mt[n['D_ETSChangeRelStart']], mt[n['D_ETSChangeRelTarget']]
+    rs, rt = mt[n['ETSChangeRelStart']], mt[n['ETSChangeRelTarget']]
     cap = {}
     for y in years:
         if not ets_on[y]:
             cap[y] = 0.0
-        elif y > y1 and str(mt[n['D_ETSCapCont']]).startswith('Constant'):
+        elif y > y1 and str(mt[n['ETSCapCont']]).startswith('Constant'):
             cap[y] = cap[y - 1]
         else:
             cap[y] = bce[y] * (1 + rs + (rt - rs) / max(y1 - y0, 1) * (min(y, y1) - y0))
@@ -675,7 +675,7 @@ def _recompute_once(mt, controls=None, bench=None, ovr=None, base=None, shock_on
               if bce[y] > 0 else 0.0) for y in years}
     est = {y: math.log(cap[y] / bce[y]) / (se[y] * vadj) if ets_on[y] and 0 < cap[y] < bce[y] and se[y] < 0 else 0.0
            for y in years}
-    override = str(mt[n['D_ETSPriceOverride']]).startswith('Yes')
+    override = str(mt[n['ETSPriceOverride']]).startswith('Yes')
     ets_p = {y: ((cp[y] if (ovr or {}).get(y) in (None, '') else ovr[y]) if override else est[y]) if ets_on[y]
              else 0.0 for y in years}
     ets_pe = {y: ets_p[y] * vadj for y in years}
@@ -2201,16 +2201,16 @@ LEGACY_CP = {2022: 0, 2023: 0, 2024: 0, 2025: 0, 2026: 0, 2027: 12.5, 2028: 25, 
 FPR_TEST = {140: 2027, 141: 2030, 150: 0.05, 164: 0.20, 146: 0.5, 160: 2.0,   # gasoline $/l, gas res $/GJ
             'ConsSubPha': True, 'YearConsSubPha': 2026, 'FFPhaseOut': 4, 'PrcContPha': True,   # v4.16 (LD18):
             'YearPrcContPha': 2027, 'PrcControlPhaseout': 5, 'ProdSubPh': True}               # phase-outs too
-ETS_TEST = {'D_NewETS': 'Yes', 'D_ETSIntro': 2027, 'D_ETSOutro': 2035, 'D_ETSChangeRelStart': -0.02,
-            'D_ETSChangeRelTarget': -0.15, 'D_ETSCapCont': 'Constant'}   # template coverage: power, mch, irn, nfm, cem
-ETS_EQUIV = {**ETS_TEST, 'D_ETSPriceOverride': 'Yes', 'D_ETSVolatility': 'Zero',   # blank override: carbon price;
-             'D_ETSCTRisk': 0, 'D_ETSAuctStart': 1, 'D_ETSAuctTarget': 1}         # adjustment 1; full auctioning (v4.15)
+ETS_TEST = {'NewETS': 'Yes', 'ETSIntro': 2027, 'ETSOutro': 2035, 'ETSChangeRelStart': -0.02,
+            'ETSChangeRelTarget': -0.15, 'ETSCapCont': 'Constant'}   # template coverage: power, mch, irn, nfm, cem
+ETS_EQUIV = {**ETS_TEST, 'ETSPriceOverride': 'Yes', 'ETSVolatility': 'Zero',   # blank override: carbon price;
+             'ETSCTRisk': 0, 'ETSAuctStart': 1, 'ETSAuctTarget': 1}         # adjustment 1; full auctioning (v4.15)
 PRICE_TEST = {'IntEnerPricForeSource': 'IMF-WB*', 'IntEnerPricForecastAdjustment': 'High',
               'NomorReal': 'Nominal', 'MultipliersSource': 'Estimated', 'FmAdj': 'High',   # v4.15: country multipliers
               'ScenarioSelected': ' - Energy efficiency regulations'}   # v4.16 (LD9): shadow pricing, no carbon tax
 EXEMPT_TEST = {'AlwaysExemptResLPGKer': 'Yes'}   # v5.1 (D16, I50): residential LPG and kerosene always exempted
-FB_TEST = {'D_FeebateIntro': 2027, 'D_FeebateOutro': 2030, 'D_Feb_Level_Start_Trans': 10,
-           'D_Feb_Level_Target_Trans': 50, 'D_Feb_Level_Start_Ind': 5, 'D_Feb_Level_Target_Ind': 25,
+FB_TEST = {'FeebateIntro': 2027, 'FeebateOutro': 2030, 'Feb_Level_Start_Trans': 10,
+           'Feb_Level_Target_Trans': 50, 'Feb_Level_Start_Ind': 5, 'Feb_Level_Target_Ind': 25,
            67: True, 74: True, 75: True,                                  # feebate coverage: rod, mch, irn
            'MultipliersSource': 'Manual', 'FmAdj': 'Low', 'GDPStartYear': 2028}   # v4.15: Manual inputs, start year
 
@@ -3033,9 +3033,8 @@ def _prev_version():
     """v5.2: the previous version = the highest build_v<major>_<minor>.py in Old/ below this version (v3.13: minor - 1,
     which gave 5.-1 after v4.16); minor - 1 when Old/ has none."""
     cur = tuple(int(x) for x in B.VERSION.split('.'))
-    rel = os.path.join(HERE, '..', 'releases')       # restructure 2026-10-22: released workbooks (was Old/)
-    vs = [tuple(int(x) for x in m.groups()) for m in (re.fullmatch(re.escape(B.NAME) + r'_v(\d+)\.(\d+)\.xlsm', fn)
-                                                      for fn in (os.listdir(rel) if os.path.isdir(rel) else [])) if m]
+    vs = [tuple(int(x) for x in re.search(r'_v(\d+)\.(\d+)\.xlsm$', f).groups())   # v8.4: top and releases/
+          for f in B.REL.all_versions(B.NAME, 'xlsm')]
     below = [v for v in vs if v < cur]
     return '.'.join(map(str, max(below or [v for v in vs if v == cur] or [(cur[0], cur[1] - 1)])))
 
@@ -3048,7 +3047,7 @@ def check_regression(ws_new):
     so every shared output code keeps its value)."""
     pv = PREV.replace('.', '_')
     bo = B                                         # restructure 2026-10-22: the release's layout = this builder's
-    wbo = openpyxl.load_workbook(os.path.join(HERE, '..', 'releases', f'{B.NAME}_v{PREV}.xlsm'))   # (was Old/)
+    wbo = openpyxl.load_workbook(next(f for f in B.REL.all_versions(B.NAME, 'xlsm') if f.endswith(f'_v{PREV}.xlsm')))
     wso = wbo['Mitigation']
     for g in (1, 2):
         c = bo.group_cols(g)[2][-1]
@@ -3998,7 +3997,7 @@ def check_stored(ws_vals):
         ovr = None
         if sid == 5:          # the stored prices as override (the goal seek switches the override on)
             ovr = {y: st[sid][RS('mit.ets.p')][k] for k, y in enumerate(years)}
-            mt[B.MT_NAMES['D_ETSPriceOverride']] = 'Yes'
+            mt[B.MT_NAMES['ETSPriceOverride']] = 'Yes'
         exp = recompute(mt, ovr=ovr)
         d = max(rel(st[sid][stem][k], exp[key][k]) for stem, key in STEM_KEYS.items() for k in range(len(years)))
         ok &= d < 1e-9
@@ -4111,8 +4110,8 @@ def check_macro():
         for c in row:
             c.value = None
     for num, _n, _r, e in B.DEFINITIONS:   # v6.0 (NORMS 5): no goal seek in the macro run: new-ETS definitions at the
-        if str(e.get('D_NewETS', '')).startswith('Yes'):                    # override (not compared, as before)
-            wb['ScenarioDefinition'].cell(B.MT_NAMES['D_ETSPriceOverride'], B.MT_COL0 + num - 1).value = 'Yes'
+        if str(e.get('NewETS', '')).startswith('Yes'):                    # override (not compared, as before)
+            wb['ScenarioDefinition'].cell(B.MT_NAMES['ETSPriceOverride'], B.MT_COL0 + num - 1).value = 'Yes'
     xlsx = variant(wb, 'expand')
     xlsm = xlsx[:-5] + '.xlsm'
     embed_vba(xlsx, xlsm, {'CPATScenarios': B.vba_module_source()})
@@ -4127,8 +4126,8 @@ def check_macro():
     got, gnames = stored_blocks(ran['StoredOutputs'])
     ship, snames = stored_blocks(openpyxl.load_workbook(B.OUT, data_only=True)['StoredOutputs'])
     worst, where = 0.0, None
-    ets_ids = {num for num, _n, _r, e in B.DEFINITIONS if str(e.get('D_NewETS', '')).startswith('Yes')
-               and not str(e.get('D_ETSPriceOverride', '')).startswith('Yes')}   # v5.2: goal-seeked by the macro
+    ets_ids = {num for num, _n, _r, e in B.DEFINITIONS if str(e.get('NewETS', '')).startswith('Yes')
+               and not str(e.get('ETSPriceOverride', '')).startswith('Yes')}   # v5.2: goal-seeked by the macro
     for sid in ship:
         if sid in ets_ids:          # the build stores them at the fast estimate (no goal seek, user rule 2026-10-17)
             continue

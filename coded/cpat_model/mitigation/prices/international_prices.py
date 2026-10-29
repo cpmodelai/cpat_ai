@@ -74,19 +74,19 @@ class IntPrices:
         """
         self.__set_uranium_fuel_cost()
         self.__set_global_fuel_demand(
-            input_data.global_fuel_demand, d['global_energy_demand_scenario']
+            input_data.global_fuel_demand, d['GlobalEnergyDemand']
         )
         # # TODO test for __set_int_prices_from_source and integration test
         self.__set_inv_deflator_growth(deflator)
 
         self.__fist_other_source_year = 2024 # CPAT Excel: E680 (v407)
 
-        if d['price_scenario_used'] in [IMF, WB, IEA]:
+        if d['IntEnerPricForeSource'] in [IMF, WB, IEA]:
             self.prices = self.__set_int_prices_from_source(
                 input_data.international_prices, selected_countries,
-                simulation_years, d['price_scenario_used']
+                simulation_years, d['IntEnerPricForeSource']
             )
-        elif d['price_scenario_used'] == IMF_WB:
+        elif d['IntEnerPricForeSource'] == IMF_WB:
             self.prices = (
                 self.__set_int_prices_from_source(
                     input_data.international_prices, selected_countries,
@@ -98,17 +98,17 @@ class IntPrices:
                 )
             ) / 2 # avg from both
 
-        elif d['price_scenario_used'] in [EIA, AVG, MANUAL, IMF_IEA]:
+        elif d['IntEnerPricForeSource'] in [EIA, AVG, MANUAL, IMF_IEA]:
             raise NotImplementedError("Sources: EIA, AVG, Manual, IMF-IEA not yet supported.")
         else:
             raise ValueError(
-                f"Wrong international price source provided: {d['price_scenario_used']}."
+                f"Wrong international price source provided: {d['IntEnerPricForeSource']}."
             )
 
         # CPAT Excel 683:685 (v407) (inputs included)
         self.__apply_regional_assumtions(
             input_data.int_prices_regional_assumptions, simulation_years,
-            d['int_energy_price_adjustment']
+            d['IntEnerPricForecastAdjustment']
         )
 
         # CPAT Excel 686:688 (v407)

@@ -5,7 +5,7 @@ Option Explicit
 '
 ' MTInputs holds one column per scenario: J = scenario 1 (baseline), K = scenario 2 (the live policy
 ' scenario that Mitigation group 2 calculates), L onwards = scenario definitions (row 4 "Run?" = Yes/No,
-' row 5 number, row 6 name, rows 8-479 the inputs; v3.5: transport rows after 415).
+' row 5 number, row 6 name, rows 8-479 the inputs; v3.5: transport rows after 413; v8.4: legacy 465 rows 8-413).
 '
 ' Public macros (Alt+F8):
 '   RunAllScenarios       stores the baseline (only if not stored yet), then for every definition with
@@ -45,7 +45,7 @@ Private Const MT_ROW_RUN As Long = 4
 Private Const MT_ROW_NUM As Long = 5
 Private Const MT_ROW_NAME As Long = 6
 Private Const MT_FIRST As Long = 8
-Private Const MT_LAST As Long = 512
+Private Const MT_LAST As Long = 510
 Private Const MT_ROW_ID As Long = 10          ' formula rows of every scenario column (kept in column K)
 Private Const MT_ROW_IDNAME As Long = 12
 Private Const MT_COL_PARAM As Long = 8        ' H: NameOfParameter
@@ -423,7 +423,7 @@ Public Function SolveETS() As Double
     Set mit = ThisWorkbook.Worksheets(SH_MIT)
     Set mt = ThisWorkbook.Worksheets(SH_MT)
     liveCol = MTColumn(LIVE_SCEN)
-    mt.Cells(MTParamRow("D_ETSPriceOverride"), liveCol).Value = "Yes"
+    mt.Cells(MTParamRow("ETSPriceOverride"), liveCol).Value = "Yes"
     rO = MitRow("ets.ovr"): rE = MitRow("ets.est"): rN = MitRow("ets.next")
     rG = MitRow("co2.gap"): rC = MitRow("co2.cap")
     b = MitBaseCol(LIVE_SCEN)
@@ -723,8 +723,8 @@ End Function
 Private Function NeedsETS(ByVal liveCol As Long) As Boolean
     Dim mt As Worksheet
     Set mt = ThisWorkbook.Worksheets(SH_MT)
-    NeedsETS = UCase(Left(CStr(mt.Cells(MTParamRow("D_NewETS"), liveCol).Value), 3)) = "YES" And _
-               UCase(Left(CStr(mt.Cells(MTParamRow("D_ETSPriceOverride"), liveCol).Value), 3)) <> "YES"
+    NeedsETS = UCase(Left(CStr(mt.Cells(MTParamRow("NewETS"), liveCol).Value), 3)) = "YES" And _
+               UCase(Left(CStr(mt.Cells(MTParamRow("ETSPriceOverride"), liveCol).Value), 3)) <> "YES"
 End Function
 
 Private Function MitRow(ByVal code As String) As Long
@@ -823,8 +823,8 @@ Public Function CheckBatch() As Double
     ' 1. everything the macros look up
     items = Array("mtcol", "1", "MTInputs: column of scenario 1 (baseline)", _
                   "mtcol", "2", "MTInputs: column of scenario 2 (live)", _
-                  "mtparam", "D_NewETS", "MTInputs: row of D_NewETS", _
-                  "mtparam", "D_ETSPriceOverride", "MTInputs: row of D_ETSPriceOverride", _
+                  "mtparam", "NewETS", "MTInputs: row of NewETS", _
+                  "mtparam", "ETSPriceOverride", "MTInputs: row of ETSPriceOverride", _
                   "mitbase", "2", "Mitigation: base-year column of scenario group 2", _
                   "mitrow", "ets.ovr", "Mitigation: row ets.ovr (ETS override prices)", _
                   "mitrow", "ets.est", "Mitigation: row ets.est (fast estimate)", _

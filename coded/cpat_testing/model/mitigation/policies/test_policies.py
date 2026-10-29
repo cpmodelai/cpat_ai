@@ -315,16 +315,16 @@ def test_set_cp_trajectory():
 
     simulation_years = (2022, 2035)
     d: DashboardInputsDict = {
-        'ets_adj': 1.1,
-        'tax_pathway': 'nom',
+        'ETSBehavioralAdjustment': 1.1,
+        'NomorReal': 'nom',
 
-        'start_cp_year': 2025,
-        'target_cp_year': 2030,
-        'start_cp': 100,
-        'target_cp': 250,
+        'CPIntro': 2025,
+        'CPOutro': 2030,
+        'CPLevelStart': 100,
+        'CPLevelTarget': 250,
 
-        'cp_trajectory_type': 'exp',
-        'ct_exp_rate': 1.1,
+        'CTaxTrajectoryType': 'exp',
+        'CtaxExponentialEscalationRate': 1.1,
         'per_tax_inc': 0.05
     }
     deflator = pd.DataFrame(
@@ -358,7 +358,7 @@ def test_set_cp_trajectory():
     )
 
     # constant after target_cp_year
-    d['cp_trajectory_type'] = 'cst'
+    d['CTaxTrajectoryType'] = 'cst'
     pd.testing.assert_frame_equal(
         set_cp_trajectory(simulation_years, c.CARBON_TAX, d, deflator),
         pd.DataFrame(
@@ -369,7 +369,7 @@ def test_set_cp_trajectory():
     )
 
     # linear
-    d['cp_trajectory_type'] = 'lin'
+    d['CTaxTrajectoryType'] = 'lin'
     pd.testing.assert_frame_equal(
         set_cp_trajectory(simulation_years, c.CARBON_TAX, d, deflator),
         pd.DataFrame(
@@ -383,8 +383,8 @@ def test_set_cp_trajectory():
     )
 
     # percentage increase
-    d['cp_trajectory_type'] = 'per'
-    d['ct_exp_rate'] = 12.5/1.05 # to have 5% increase with target_cp=250
+    d['CTaxTrajectoryType'] = 'per'
+    d['CtaxExponentialEscalationRate'] = 12.5/1.05 # to have 5% increase with target_cp=250
     pd.testing.assert_frame_equal(
         set_cp_trajectory(simulation_years, c.CARBON_TAX, d, deflator),
         pd.DataFrame(
@@ -398,7 +398,7 @@ def test_set_cp_trajectory():
     )
 
     # ETS
-    d['cp_trajectory_type'] = 'lin'
+    d['CTaxTrajectoryType'] = 'lin'
     pd.testing.assert_frame_equal(
         set_cp_trajectory(simulation_years, c.ETS, d, deflator),
         pd.DataFrame(
@@ -412,8 +412,8 @@ def test_set_cp_trajectory():
     )
 
     # Real
-    d['cp_trajectory_type'] = 'lin'
-    d['tax_pathway'] = 'rea'
+    d['CTaxTrajectoryType'] = 'lin'
+    d['NomorReal'] = 'rea'
     pd.testing.assert_frame_equal(
         set_cp_trajectory(simulation_years, c.CARBON_TAX, d, deflator),
         pd.DataFrame(

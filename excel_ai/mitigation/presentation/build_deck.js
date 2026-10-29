@@ -15,19 +15,19 @@ const { applyTheme } = require(process.env.PPTX_SKILL + "/scripts/apply_theme.js
 const HERE = __dirname;
 const IMG = (f) => path.join(HERE, "img", f);
 const VER = require(path.join(HERE, "..", "version.json")).version, PFX = "v" + VER.replace(".", "");
-const OUT = path.join(HERE, "..", "..", "releases", `CPAT-AI_Overview_v${VER}.pptx`);   // + _latest copy
-const LATEST = path.join(HERE, "..", "..", "CPAT-AI_Overview_latest.pptx");
+const OUT = path.join(HERE, "..", "..", `CPAT-AI_Overview_v${VER}.pptx`);   // v8.4: excel_ai/<name>_v<version> (NORMS 5a)
+const RELEASES = path.join(HERE, "..", "..", "releases");
 const DATA = JSON.parse(fs.readFileSync(IMG(`${PFX}_data.json`), "utf8"));
 const FACTS = JSON.parse(fs.readFileSync(IMG(`${PFX}_facts.json`), "utf8"));
 const LEG = JSON.parse(fs.readFileSync(IMG(`${PFX}_legacy.json`), "utf8"));
 const TR = JSON.parse(fs.readFileSync(IMG(`${PFX}_transport.json`), "utf8"));
 const BUGS = FACTS.bugs.mit + FACTS.bugs.dist, ISSUES = FACTS.issues.mit + FACTS.issues.dist;
-// v8.2: the CPAT team's fixes in legacy 465, checked (excel_ai/bugsfixed/legacy465_check.json)
-const CHK = (() => { const b = require(path.join(HERE, "..", "..", "bugsfixed", "legacy465_check.json")).bugs;
+// v8.2: the CPAT team's fixes in legacy 465, checked (v8.4: excel_ai/legacy/bugfixes/check465/legacy465_check.json)
+const CHK = (() => { const b = require(path.join(HERE, "..", "..", "legacy", "bugfixes", "check465", "legacy465_check.json")).bugs;
   const v = Object.entries(b).filter(([k]) => k.startsWith("L")).map(([, x]) => x.status);
   return { fixed: v.filter((x) => x === "Confirmed fixed").length, caveats: v.filter((x) => x === "Fixed with caveats").length,
     not: v.filter((x) => x === "Not fixed").length }; })();
-const REG = `CPAT-AI_BugsAndIssues_v7.2.docx`;   // the register has its own version
+const REG = `Legacy_CPAT_Bugs_v${VER}.docx`;   // v8.4: the bugs document carries the prototype version
 
 const THEME = {
   name: "CPAT AI Mitigation",
@@ -445,7 +445,7 @@ pres.addSection({ title: "Model and results" });
     BL("Switch TrModel per scenario (default: elasticities, as Egypt)"),
     BL("Feebates, distance tax, EV subsidies, purchase taxes, charging subsidies", true),
   ]);
-  caption(s, `The road bugs: register section 3.2 (${REG}); method: Methods, chapter Transport.`, 0.6, 6.75, 12.1);
+  caption(s, `The road bugs: Legacy CPAT bugs, section 4.2 (${REG}); method: Methods, chapter Transport.`, 0.6, 6.75, 12.1);
   s.addNotes("Legacy computes the engineer road model but the Egypt run uses the elasticity approach. The fixes cut the "
     + "engineer baseline by about a third by 2035, mainly through the ownership calibration (L27). Further work on "
     + "the engineer road model was dropped by the user (2026-10-20).");
@@ -586,6 +586,8 @@ pres.addSection({ title: "Next steps" });
 (async () => {
   await pres.writeFile({ fileName: OUT });
   await applyTheme(OUT, THEME);
-  fs.copyFileSync(OUT, LATEST);
-  console.log("wrote", OUT, "and", LATEST);
+  for (const f of fs.readdirSync(path.dirname(OUT)))   // v8.4: older versions to releases/ (NORMS 5a)
+    if (/^CPAT-AI_Overview_v[\d.]+\.pptx$/.test(f) && path.join(path.dirname(OUT), f) !== OUT)
+      fs.renameSync(path.join(path.dirname(OUT), f), path.join(RELEASES, f));
+  console.log("wrote", OUT);
 })();

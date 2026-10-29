@@ -16,7 +16,7 @@ It answers: **what do carbon pricing and related policies do to energy prices, e
 
 # 2. Quick start
 
-1. **Open** `CPAT-AI-Mitigation-Prototype_latest.xlsm` (in `excel_ai/`) in Excel 365 with macros enabled. It opens on `ScenarioCompare`, the dashboard, **without recalculating**: the file ships with its values, in manual calculation.
+1. **Open** `CPAT-AI-Mitigation-Prototype_v<version>.xlsm` (in `excel_ai/`; the same file as `excel_ai/permalink/CPAT-AI-Mitigation-Prototype_latest.xlsm`) in Excel 365 with macros enabled. It opens on `ScenarioCompare`, the dashboard, **without recalculating**: the file ships with its values, in manual calculation.
 2. **After any change, click Recalculate now** (or switch automatic calculation on with Recalculation on/off).
 3. **Read the results on ScenarioCompare.** Choose Live or Stored results and the year. The key table shows CO₂, GHGs, revenue, the GDP effect and welfare against the baseline; the charts show them over time.
 4. **Change a policy** on `ScenarioDefinition`. Column K is the live scenario: for example change `CPLevelTarget` (carbon price in the target year), then Recalculate now.
@@ -152,8 +152,10 @@ Household effects by decile in one analysis year: price changes reach households
 
 # 5. Limits and differences from legacy
 
-- **Legacy bugs:** the prototype fixes every one (132 in mitigation, 31 in distribution). The bug-fix register, `CPAT-AI_BugsAndIssues_latest.docx`, gives each bug and its cell-level fix for legacy CPAT. Its cell references are rows of the latest legacy file, `CPAT 1.0pre_465`, where the CPAT team marked 62 of the bugs fixed (52 confirmed, 8 with caveats, 2 not fixed); the register gives each bug's status in legacy.
-- **Legacy row numbers in the Methods volume** are rows of `CPAT 1.0pre_456_NoPropData.xlsb`, the file the prototype was built and checked against (its data extracts read that file). In `CPAT 1.0pre_465` Mitigation rows from 5667 on sit 11 to 15 rows higher.
-- **Legacy issues:** where legacy works as intended but is open to question, the prototype does the same and tracks the issue (same register; short list in `excel_ai/ISSUES.md`).
-- **Not built:** a few legacy features (listed in the register as upgrades), and the air-pollution co-benefits and transport externalities modules.
-- **Data:** the shipped data are Egypt's; proprietary tables for other countries must be pasted in or linked.
+The rule: never replicate a legacy bug; always replicate a legacy issue, and track it. A **bug** (L) is legacy computing what it does not intend; the prototype fixes it. An **issue** (I) is legacy doing what it means to, where the choice is open to question; the prototype does the same. A **data issue** (DI) is replicated exactly; a **data bug** (DB) is a data problem the prototype does not replicate, fixed by changing the input data (each has a plan). Every item has a code; the codes are explained in Appendix A.
+
+- **Legacy bugs:** the prototype fixes every one, in every module (mitigation, distribution, the inputs). The bugs, with the cell-level fix for legacy CPAT and the status of each in the latest legacy file `CPAT 1.0pre_465`, are in `excel_ai/Legacy_CPAT_Bugs_v<version>.docx`; the master list of bugs and issues is the tracker `excel_ai/Tracking_Legacy_Bugs_v<version>.xlsx`.
+- **Issues, data issues, departures, prototype bugs and upgrades:** the appendices below (and the tracker, tab Issues).
+- **Legacy row numbers in the Methods volume** are rows of `CPAT 1.0pre_456_NoPropData.xlsb`, the file the prototype was built and checked against (its data extracts read that file). In `CPAT 1.0pre_465` Mitigation rows from 5667 on sit 11 to 15 rows higher. The input sheet ScenarioDefinition has the rows of the 465 MTInputs.
+- **Not built:** a few legacy features (upgrades, Appendix E), and the air-pollution co-benefits and transport externalities modules.
+- **Data:** the shipped data are Egypt's; proprietary tables for other countries must be pasted in or linked (data issue DI2).

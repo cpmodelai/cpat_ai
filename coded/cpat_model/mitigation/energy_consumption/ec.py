@@ -1123,7 +1123,7 @@ class EC:
         prev_y = str(year - 1)
 
         self.__calculate_post_tax_p(
-            year, energy_prices, p_cov_s, lcoe, d['always_exempt_res_lpg_ker']
+            year, energy_prices, p_cov_s, lcoe, d['AlwaysExemptResLPGKer']
         )
 
         if year > self.__init_year:# + 1: # TODO: change to > and remove +1

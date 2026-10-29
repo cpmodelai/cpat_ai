@@ -34,11 +34,11 @@ class ShadowPrices:
             policies: Policies,
             ef_tco2_per_volume_unit: pd.DataFrame
             ) -> None:
-        self.__shadow_pricing = EXPLICIT_PRICING_VARIANT[d['scenario_type']]
+        self.__shadow_pricing = EXPLICIT_PRICING_VARIANT[d['ScenarioSelected']]
         self.__first_calc_year = min(map(int, policies.cp_trajectory.columns))
 
         self.__set_shadow_prices(
-            d['scenario_type'], policies.cp_trajectory, ef_tco2_per_volume_unit
+            d['ScenarioSelected'], policies.cp_trajectory, ef_tco2_per_volume_unit
         )
         self.__init_shadow_prices_incr()
         self.__set_percent_of_shadow_p(d, policies.sectors_carbon_price_inclusion)
@@ -151,14 +151,14 @@ class ShadowPrices:
             # 'not in Baseline' logic in F column in CPAT Excel
             # '% of shadow price on efficiency margin' only for scenarios_shadow_price
             # see CPAT Excel baseline C2053 and scenario C6824
-            or (d['scenario_type'] not in scenarios_shadow_price)
+            or (d['ScenarioSelected'] not in scenarios_shadow_price)
         ):
             # all 0.0s
             self.percent_of_shadow_p = self.percent_of_shadow_p.astype(float)
             self.percent_of_shadow_p[:] = 0.0
 
         else:
-            value = d['adj_eff_margins_shadow_pricing'][d['scenario_type']]
+            value = d['adj_eff_margins_shadow_pricing'][d['ScenarioSelected']]
             # if True -> value, if False -> 0.0
             self.percent_of_shadow_p = self.percent_of_shadow_p.astype(float) * value
 

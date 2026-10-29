@@ -31,21 +31,30 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
 - ☐ C6 vocabularies (prototype members `vkt`, `own`, `pit`... into the sheets); the legacy MTOutputs code as a second alias; `coded` `ele` -> `ecy` with the shared data (with the Coded CPAT owner).
 - ☑ NOx forcing -6.25 against legacy -5.54 Mt CO2e (Egypt 2022): explained (v8.3 check), the same GWP factor (-7.058 per Mt NOx) on 12.9% more NOx (885.9 against 785.0 kt) from the fixed legacy bugs L22, L23, L58, L59; nothing to register.
 
+## 4b. Consolidation v8.4 (2026-10-28): left over
+
+- ☐ **Data bugs, the plans** (`Legacy_CPAT_Bugs_v8.4.docx` section 3): DB1 GAINS combustion factor paths, DB2 blank VAT cells, DB3 the corrected Egypt price block to the CPAT data team. Each closes when the data are fixed and the prototype reads them as legacy.
+- ☐ **Confirm L135, L136** (found by the cell plans, were N1, N2) with the CPAT team.
+- ☐ **Data issues to review**: LD41 (data vintage: energy use via the kernel, IIASA EFs without inventory adjustment) may be a data bug or a data issue; decide with the user.
+- ☐ **Air pollution and transport co-benefits**: their bugs and issues go in the same register (NORMS 0) when their models are built.
+- ☐ **Data extracts on 465**: the input rows are on 465 (v8.4); the data extracts and Methods row numbers still read 456 (item in section 6).
+
 ## 5. With the user
 
 - ☐ **Excel 365 review** on Windows (macros, no repair prompt, no circular warning, CheckBatchRun, LAMBDAs, dashboard).
 - ☐ **ETS goal seek (I30)**: tested by the user.
-- ☐ **Data requests**: I64 GAINS factor paths, I65 blank VAT cells, I13 proprietary tables for other countries, I68 historical GHGs 2018-2020.
-- ☐ **Report the legacy bugs to the CPAT team**: send the register (`../CPAT-AI_BugsAndIssues_latest.docx`), first Appendix B, the caveats on their 465 fixes: L115 wrong row, L95 rows still reading the cleared row 3719, L62 and L63 not fixed, L45, L16, L87, L84; high-priority legacy issues for them: I62, I71, I72-I74.
+- ☐ **Data requests**: DB1 GAINS factor paths, DB2 blank VAT cells, DI2 proprietary tables for other countries, DI7 historical GHGs 2018-2020.
+- ☐ **Report the legacy bugs to the CPAT team**: send `../Legacy_CPAT_Bugs_v8.4.docx` and the tracker `../Tracking_Legacy_Bugs_v8.4.xlsx`, first Appendix A (fixed with caveats), the caveats on their 465 fixes: L115 wrong row, L95 rows still reading the cleared row 3719, L62 and L63 not fixed, L45, L16, L87, L84; high-priority legacy issues for them: I62, I71, I72-I74.
 - ☐ **Policy taxonomy with the FTT policies** ([`Policy_taxonomy.md`](Policy_taxonomy.md)): user decisions first.
 
 ## 6. AI backlog
 
-- ☑ **New legacy file**: the register, fix plans and lists moved to the latest file, 465 (v8.2, 2026-10-23; 459 superseded); the CPAT team's 62 fixes checked (52 confirmed, 8 with caveats, L62 and L63 not fixed; `../bugsfixed/`).
+- ☑ **New legacy file**: the register, fix plans and lists moved to the latest file, 465 (v8.2, 2026-10-23; 459 superseded); the CPAT team's 62 fixes checked (52 confirmed, 8 with caveats, L62 and L63 not fixed; `../legacy/bugfixes/check465/`).
 - ☐ **Numerical check on legacy 465** (U2, I14): the legacy Egypt run against the prototype, sector by sector; align with `CPATMasterProcessesCodesAndDefaults.xlsx`. (The caveats for the CPAT team: section 5.)
 - ☐ **Prototype data extracts on 465**: the extracts (`extract_*.py`) and the Methods still read 456; move them when the numerical check (U2) is done.
 - ☐ **Data links, rest**: GHGs, EF_GHG, CH4Inputs, Elasticities, Prices_int, OilProductShares (converters to the prototype layout), Transport1-2 (no dummy data yet).
 - ☑ **Excel lint in every writer** (v8.3; NORMS 3g): `excel_lint.check()` after every save (prototype, distribution, register spreadsheet, tracker, data workbooks, legacy-data export, `other/distribution`).
+- ☐ **No Excel COM needed (checked 2026-10-28)**: the mitigation, distribution and air-pollution builders all write with openpyxl and recalculate in LibreOffice; COM appears only in the optional Excel-open test of `check_quick.py` (skipped on Linux). `AGENTS.md` and the hard rules still say builders run via COM: correct them. Distribution unchanged since v1.0 (2026-10-22; last touched by v8.3, 2026-10-23); the Excel 365 test of its macro (section 3, M3) stays with the user.
 - ☐ **Copy-paste stress test**: add a fuel, a subsector and a scenario by dragging; fix what breaks.
 - ☑ **Tracker leads** (v8.3): Manual inputs J178:J179 are read (Mitigation L753:L754, chosen in K when the price-control option is manual): no bug. MTInputs 182-183 units: legacy bug L134 (labels), fixed in the prototype.
 

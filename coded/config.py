@@ -24,6 +24,6 @@ else:
 SCENARIOS = {
     'Scenario 0': {},
     'Scenario 1': {
-        'scenario_type': c.CARBON_TAX
+        'ScenarioSelected': c.CARBON_TAX
     },
 }

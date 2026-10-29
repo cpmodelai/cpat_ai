@@ -1,4 +1,4 @@
-# Workbook formulas of CPAT-AI-Mitigation-Prototype v8.3 (implementation reference)
+# Workbook formulas of CPAT-AI-Mitigation-Prototype v8.4 (implementation reference)
 
 Generated from the workbook by `make_equations.py` (do not edit by hand): every formula of the Mitigation sheet, scenario 1, with cell references replaced by variable codes, the changes against legacy CPAT (section B) and the LAMBDA library (section C). For the model itself read the equations in mathematical form, `Equations.md`; this file is for checking and editing the workbook.
 
@@ -113,21 +113,21 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 49
-  - 2022-2041: `ExemptPhaseout(t) = INDEX(ScenarioDefinition!J1:AZ512,<p1>,MATCH(scenario(t),ScenarioDefinition!J5:AZ5,0))`
+  - 2022-2041: `ExemptPhaseout(t) = INDEX(ScenarioDefinition!J1:AZ510,<p1>,MATCH(scenario(t),ScenarioDefinition!J5:AZ5,0))`
   - Parameters: `<p1>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E16. `YearPha`: Year to start exemption phaseout (if applicable)** (year)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 50
-  - 2022-2041: `YearPha(t) = INDEX(ScenarioDefinition!J1:AZ512,<p1>,MATCH(scenario(t),ScenarioDefinition!J5:AZ5,0))`
+  - 2022-2041: `YearPha(t) = INDEX(ScenarioDefinition!J1:AZ510,<p1>,MATCH(scenario(t),ScenarioDefinition!J5:AZ5,0))`
   - Parameters: `<p1>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E17. `ExemptPhaseoutPeriod`: Period to reach full exemption phaseout (if applicable)** (year)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 51
-  - 2022-2041: `ExemptPhaseoutPeriod(t) = INDEX(ScenarioDefinition!J1:AZ512,<p1>,MATCH(scenario(t),ScenarioDefinition!J5:AZ5,0))`
+  - 2022-2041: `ExemptPhaseoutPeriod(t) = INDEX(ScenarioDefinition!J1:AZ510,<p1>,MATCH(scenario(t),ScenarioDefinition!J5:AZ5,0))`
   - Parameters: `<p1>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E18. `exph`: Exemption phase-out: share of an uncovered fuel or sector taxed** (share)
@@ -183,95 +183,95 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: coa,pow, coa,res, coa,ind, nga,pow, nga,res, nga,ind, ecy,res, ecy,ind, gso,all, die,all, lpg,all, ker,all, ... (14 rows)
   - 2022-2041: `fpr(t) = IF(year<fpr.yr0(t),0,fpr.s[f,s](t)+(fpr.f[f,s](t)-fpr.s[f,s](t))/MAX(fpr.yr1(t)-fpr.yr0(t),1)*(year-fpr.yr0(t)))`
 
-**E25. `D_NewETS`: Apply new ETS?** (No)
+**E25. `NewETS`: Apply new ETS?** (No)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 84
-  - 2022-2041: `D_NewETS(t) = MTInputs[code](scenario)`
+  - 2022-2041: `NewETS(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E26. `D_ETSChangeRelStart`: Change Relative to Baseline in Start Year** (-)
+**E26. `ETSChangeRelStart`: Change Relative to Baseline in Start Year** (-)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 85
-  - 2022-2041: `D_ETSChangeRelStart(t) = MTInputs[code](scenario)`
+  - 2022-2041: `ETSChangeRelStart(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E27. `D_ETSChangeRelTarget`: Change Relative to Baseline in Target Year** (-)
+**E27. `ETSChangeRelTarget`: Change Relative to Baseline in Target Year** (-)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 86
-  - 2022-2041: `D_ETSChangeRelTarget(t) = MTInputs[code](scenario)`
+  - 2022-2041: `ETSChangeRelTarget(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E28. `D_ETSCapCont`: Cap continuation after target year?** (Constant)
+**E28. `ETSCapCont`: Cap continuation after target year?** (Constant)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 87
-  - 2022-2041: `D_ETSCapCont(t) = MTInputs[code](scenario)`
+  - 2022-2041: `ETSCapCont(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E29. `D_ETSIntro`: ETS Start Year** (-)
+**E29. `ETSIntro`: ETS Start Year** (-)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 88
-  - 2022-2041: `D_ETSIntro(t) = MTInputs[code](scenario)`
+  - 2022-2041: `ETSIntro(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E30. `D_ETSOutro`: ETS Target Year** (-)
+**E30. `ETSOutro`: ETS Target Year** (-)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 89
-  - 2022-2041: `D_ETSOutro(t) = MTInputs[code](scenario)`
+  - 2022-2041: `ETSOutro(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E31. `D_ETSAuctStart`: Proportion Auctioned in Starting Year** (-)
+**E31. `ETSAuctStart`: Proportion Auctioned in Starting Year** (-)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 90
-  - 2022-2041: `D_ETSAuctStart(t) = MTInputs[code](scenario)`
+  - 2022-2041: `ETSAuctStart(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E32. `D_ETSAuctTarget`: Proportion Auctioned in Target Year** (-)
+**E32. `ETSAuctTarget`: Proportion Auctioned in Target Year** (-)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 91
-  - 2022-2041: `D_ETSAuctTarget(t) = MTInputs[code](scenario)`
+  - 2022-2041: `ETSAuctTarget(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E33. `D_ETSPriceOverride`: Override ETS price** (No)
+**E33. `ETSPriceOverride`: Override ETS price** (No)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 93
-  - 2022-2041: `D_ETSPriceOverride(t) = MTInputs[code](scenario)`
+  - 2022-2041: `ETSPriceOverride(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E34. `D_ETSVolatility`: ETS Volatility** (Medium*)
+**E34. `ETSVolatility`: ETS Volatility** (Medium*)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 95
-  - 2022-2041: `D_ETSVolatility(t) = MTInputs[code](scenario)`
+  - 2022-2041: `ETSVolatility(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E35. `D_ETSVolImpact`: Impact of Volatility on Abatement Costs** (Medium*)
+**E35. `ETSVolImpact`: Impact of Volatility on Abatement Costs** (Medium*)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 96
-  - 2022-2041: `D_ETSVolImpact(t) = MTInputs[code](scenario)`
+  - 2022-2041: `ETSVolImpact(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
-**E36. `D_ETSCTRisk`: Carbon Tax Policy Risk** (-)
+**E36. `ETSCTRisk`: Carbon Tax Policy Risk** (-)
 
 - Description: MTInputs (scenario column)
 - Legacy: MTInputs row 97
-  - 2022-2041: `D_ETSCTRisk(t) = MTInputs[code](scenario)`
+  - 2022-2041: `ETSCTRisk(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E37. `ets.on`: New ETS applied and started (1/0)** (0/1)
 
-- Description: D_NewETS = Yes and year >= D_ETSIntro
+- Description: NewETS = Yes and year >= ETSIntro
 - Legacy: new
-  - 2022-2041: `ets.on(t) = IF(AND(LEFT(D_NewETS(t),3)="Yes",year>=D_ETSIntro(t)),1,0)`
+  - 2022-2041: `ets.on(t) = IF(AND(LEFT(NewETS(t),3)="Yes",year>=ETSIntro(t)),1,0)`
 
 **E38. `etscov`: ETS sector coverage (Apply?)** (switch)
 
@@ -290,25 +290,25 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E40. `etsb.s`: ETS benchmark at the start year (share of emission intensity allocated free)** (share)
 
-- Description: 1 - D_ETSAuctStart (FREESHARE)
+- Description: 1 - ETSAuctStart (FREESHARE)
 - Legacy: legacy rows 1806, 1863-1864 (MTInputs row 90; v4.15)
 - Rows: all,pow, all,tra, all,res, all,ind
-  - 2022-2041: `etsb.s(t) = 1-D_ETSAuctStart(t)`
+  - 2022-2041: `etsb.s(t) = 1-ETSAuctStart(t)`
 
 **E41. `etsb.t`: ETS benchmark at the target year (share of emission intensity allocated free)** (share)
 
-- Description: 1 - D_ETSAuctTarget (FREESHARE)
+- Description: 1 - ETSAuctTarget (FREESHARE)
 - Legacy: legacy rows 1807, 1863-1864 (MTInputs row 91; v4.15)
 - Rows: all,pow, all,tra, all,res, all,ind
-  - 2022-2041: `etsb.t(t) = 1-D_ETSAuctTarget(t)`
+  - 2022-2041: `etsb.t(t) = 1-ETSAuctTarget(t)`
 
 **E42. `etsb`: ETS benchmark path** (share)
 
-- Description: Linear from D_ETSIntro to D_ETSOutro, flat after
+- Description: Linear from ETSIntro to ETSOutro, flat after
 - Legacy: new
 - Changes against legacy: LD7 (section B)
 - Rows: all,pow, all,tra, all,res, all,ind
-  - 2022-2041: `etsb(t) = IF(year<D_ETSIntro(t),0,etsb.s[f,s](t)+(etsb.t[f,s](t)-etsb.s[f,s](t))/MAX(D_ETSOutro(t)-D_ETSIntro(t),1)*(MIN(year,D_ETSOutro(t))-D_ETSIntro(t)))`
+  - 2022-2041: `etsb(t) = IF(year<ETSIntro(t),0,etsb.s[f,s](t)+(etsb.t[f,s](t)-etsb.s[f,s](t))/MAX(ETSOutro(t)-ETSIntro(t),1)*(MIN(year,ETSOutro(t))-ETSIntro(t)))`
 
 **E43. `obr`: ETS output-based (OBR) share = benchmark (auctioned share = 1 - OBR)** (share)
 
@@ -333,25 +333,25 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,dg, all,bm
   - 2022-2041: `ch4bs(t) = INDEX(BaseCO2Val,MATCH(CtryCode&"|"&s,BaseCO2Key,0),MATCH(year,BaseCO2Year,0))`
 
-**E46. `ets.vol`: ETS: assumed annual price volatility (Settings table, label D_ETSVolatility)** (share)
+**E46. `ets.vol`: ETS: assumed annual price volatility (Settings table, label ETSVolatility)** (share)
 
 - Description: Settings row 17
 - Legacy: legacy ETS+LTS rows 5-8
 - Changes against legacy: LD8 (section B)
-  - 2022-2041: `ets.vol(t) = INDEX(Settings[Assumed annual price volatility of the ETS]:F17,MATCH(SUBSTITUTE(D_ETSVolatility(t),"*",""),Settings[ETS volatility table]:F16,0))`
+  - 2022-2041: `ets.vol(t) = INDEX(Settings[Assumed annual price volatility of the ETS]:F17,MATCH(SUBSTITUTE(ETSVolatility(t),"*",""),Settings[ETS volatility table]:F16,0))`
 
-**E47. `ets.imp`: ETS: abatement cost increase per unit of volatility (Settings table, label D_ETSVolImpact)** (factor)
+**E47. `ets.imp`: ETS: abatement cost increase per unit of volatility (Settings table, label ETSVolImpact)** (factor)
 
 - Description: Settings row 18
 - Legacy: legacy ETS+LTS rows 5-8
-  - 2022-2041: `ets.imp(t) = INDEX(Settings[Abatement cost increase per unit of volatility]:F18,MATCH(SUBSTITUTE(D_ETSVolImpact(t),"*",""),Settings[ETS volatility table]:F16,0))`
+  - 2022-2041: `ets.imp(t) = INDEX(Settings[Abatement cost increase per unit of volatility]:F18,MATCH(SUBSTITUTE(ETSVolImpact(t),"*",""),Settings[ETS volatility table]:F16,0))`
 
 **E48. `ets.vadj`: ETS volatility adjustment (tax-equivalent price per $ of permit price)** (factor)
 
 - Description: (1 + carbon tax policy risk x impact) / (1 + ETS volatility x impact)
 - Legacy: legacy row 2191 (1/1.1); ETS+LTS rows 5-9
 - Changes against legacy: LD8 (section B)
-  - 2022-2041: `ets.vadj(t) = (1+D_ETSCTRisk(t)*ets.imp(t))/(1+ets.vol(t)*ets.imp(t))`
+  - 2022-2041: `ets.vadj(t) = (1+ETSCTRisk(t)*ets.imp(t))/(1+ets.vol(t)*ets.imp(t))`
 
 **E49. `ets.bce`: Baseline covered emissions** (MtCO2)
 
@@ -361,15 +361,15 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E50. `ets.chg`: ETS cap: change relative to baseline covered emissions** (share)
 
-- Description: Linear from D_ETSChangeRelStart (start year) to D_ETSChangeRelTarget (target year), flat after
+- Description: Linear from ETSChangeRelStart (start year) to ETSChangeRelTarget (target year), flat after
 - Legacy: legacy rows 1958-1960
-  - 2022-2041: `ets.chg(t) = D_ETSChangeRelStart(t)+(D_ETSChangeRelTarget(t)-D_ETSChangeRelStart(t))/MAX(D_ETSOutro(t)-D_ETSIntro(t),1)*(MIN(year,D_ETSOutro(t))-D_ETSIntro(t))`
+  - 2022-2041: `ets.chg(t) = ETSChangeRelStart(t)+(ETSChangeRelTarget(t)-ETSChangeRelStart(t))/MAX(ETSOutro(t)-ETSIntro(t),1)*(MIN(year,ETSOutro(t))-ETSIntro(t))`
 
 **E51. `ets.cap`: ETS cap** (MtCO2)
 
-- Description: Baseline covered emissions x (1 + change path); constant after the target year if D_ETSCapCont = Constant
+- Description: Baseline covered emissions x (1 + change path); constant after the target year if ETSCapCont = Constant
 - Legacy: legacy rows 1958-1960
-  - 2022-2041: `ets.cap(t) = IF(ets.on(t)=1,IF(AND(year>D_ETSOutro(t),LEFT(D_ETSCapCont(t),8)="Constant"),ets.cap(t-1),ets.bce(t)*(1+ets.chg(t))),0)`
+  - 2022-2041: `ets.cap(t) = IF(ets.on(t)=1,IF(AND(year>ETSOutro(t),LEFT(ETSCapCont(t),8)="Constant"),ets.cap(t-1),ets.bce(t)*(1+ets.chg(t))),0)`
 
 **E52. `ets.se`: Effective covered semi-elasticity (allocation effectiveness: auctioned 1, OBR 0.5)** (per USD/tCO2)
 
@@ -392,10 +392,10 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 **E55. `ets.p`: ETS permit price used** (USD/tCO2 real)
 
-- Description: Override row if D_ETSPriceOverride = Yes (blank: carbon price path), else the fast estimate
+- Description: Override row if ETSPriceOverride = Yes (blank: carbon price path), else the fast estimate
 - Legacy: legacy row 1873
 - Changes against legacy: LD6 (section B)
-  - 2022-2041: `ets.p(t) = IF(ets.on(t)=1,IF(LEFT(D_ETSPriceOverride(t),3)="Yes",IF(ets.ovr(t)="",cptraj(t),ets.ovr(t)),ets.est(t)),0)`
+  - 2022-2041: `ets.p(t) = IF(ets.on(t)=1,IF(LEFT(ETSPriceOverride(t),3)="Yes",IF(ets.ovr(t)="",cptraj(t),ets.ovr(t)),ets.est(t)),0)`
 
 **E56. `ets.pe`: ETS tax-equivalent price (permit price x volatility adjustment)** (USD/tCO2 real)
 
@@ -997,21 +997,21 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E138. `EngineerModelProportionOfCovidFactor`: Proportion of GHG adjustment passed on to engineer model power demand** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 374
+- Legacy: MTInputs row 372
   - 2022-2041: `EngineerModelProportionOfCovidFactor(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E139. `PowerRebates`: Power Rebate** (switch)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 342
+- Legacy: MTInputs row 340
   - 2022-2041: `PowerRebates(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E140. `PowerSectorPriceChangePassOn`: Power price: portion of cost change passed-on:** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 343
+- Legacy: MTInputs row 341
   - 2022-2041: `PowerSectorPriceChangePassOn(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
@@ -1025,413 +1025,413 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E142. `kDispatch`: k Parameter dispatch** (coefficient)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 346
+- Legacy: MTInputs row 344
   - 2022-2041: `kDispatch(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E143. `kInvestment`: k Parameter investment** (coefficient)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 347
+- Legacy: MTInputs row 345
   - 2022-2041: `kInvestment(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E144. `MinPostSubsidyPowerPrice`: Minimum (post subsidy) generation cost $/kwh real** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 351
+- Legacy: MTInputs row 349
   - 2022-2041: `MinPostSubsidyPowerPrice(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E145. `MaximumCoalCF`: Maximum Coal Capacity Factor** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 372
+- Legacy: MTInputs row 370
   - 2022-2041: `MaximumCoalCF(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E146. `MaximumGasCF`: Maximum Gas Capacity Factor** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 373
+- Legacy: MTInputs row 371
   - 2022-2041: `MaximumGasCF(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E147. `UseSpotFuelPricesInEngineerModel`: Use Spot Fuel Prices in Engineer Power Model** (No*)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 368
+- Legacy: MTInputs row 366
   - 2022-2041: `UseSpotFuelPricesInEngineerModel(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E148. `MinimumThermalEfficiency`: Minimum Thermal Efficiency** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 380
+- Legacy: MTInputs row 378
   - 2022-2041: `MinimumThermalEfficiency(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E149. `CFOverrideIfBelowWndSol`: Override Capacity Factor if below (Wind and Solar)** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 375
+- Legacy: MTInputs row 373
   - 2022-2041: `CFOverrideIfBelowWndSol(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E150. `CFOverrideIfBelowFosOth`: Override Capacity Factor if below (Others)** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 376
+- Legacy: MTInputs row 374
   - 2022-2041: `CFOverrideIfBelowFosOth(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E151. `CFOverrideIfAbove`: Override Capacity Factor if below (All)** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 377
+- Legacy: MTInputs row 375
   - 2022-2041: `CFOverrideIfAbove(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E152. `WACCSource`: Cost of capital: User-defined, Inc-dep,  or Tech-dep?** (Tech)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 365
+- Legacy: MTInputs row 363
   - 2022-2041: `WACCSource(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E153. `WACCUserGlobal`: If Global, what Value?** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 366
+- Legacy: MTInputs row 364
   - 2022-2041: `WACCUserGlobal(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E154. `MinimumWACC`: Minimum WACC** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 348
+- Legacy: MTInputs row 346
   - 2022-2041: `MinimumWACC(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E155. `RenewableCostDeclineRate`: Renewable Cost Declines** (Medium*)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 367
+- Legacy: MTInputs row 365
   - 2022-2041: `RenewableCostDeclineRate(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E156. `HydroDoesntRetire`: Hydro retirement rate set to zero** (Yes)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 350
+- Legacy: MTInputs row 348
   - 2022-2041: `HydroDoesntRetire(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E157. `MaxCostBasedEarlyRetirement`: Proportion of coal capacity that can be retired** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 378
+- Legacy: MTInputs row 376
   - 2022-2041: `MaxCostBasedEarlyRetirement(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E158. `EarlyRetirementInBaseline`: Allow cost-based coal phaseout in baseline?** (Yes)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 379
+- Legacy: MTInputs row 377
   - 2022-2041: `EarlyRetirementInBaseline(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E159. `MaxNonVREAsPCOfTotalGen`: Max new investment in coal/gas/hyd as a percentage of total generation** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 359
+- Legacy: MTInputs row 357
   - 2022-2041: `MaxNonVREAsPCOfTotalGen(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E160. `MaxNonNucOreBioAsPCOfTotalGen`: Max new investment oil/nucl/ore/bio as a percentage of total generation** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 360
+- Legacy: MTInputs row 358
   - 2022-2041: `MaxNonNucOreBioAsPCOfTotalGen(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E161. `MaxWindSolarScaleup`: User-Defined Setting for VRE Max-Scale up (if used)** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 361
+- Legacy: MTInputs row 359
   - 2022-2041: `MaxWindSolarScaleup(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E162. `MaxScaleUpRateCategory`: Max renewable scaleup rate setting** (switch)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 362
+- Legacy: MTInputs row 360
   - 2022-2041: `MaxScaleUpRateCategory(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E163. `AllocateSTStorageToVRE`: Percent allocation of ST storage costs to VRE** (%)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 388
+- Legacy: MTInputs row 386
   - 2022-2041: `AllocateSTStorageToVRE(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E164. `TotalHoursStorageFor100pcVRE`: Total hours short term strorage for 100% VRE** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 389
+- Legacy: MTInputs row 387
   - 2022-2041: `TotalHoursStorageFor100pcVRE(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E165. `StorageToInterfaceRatioSTStorage`: kwh storage to kw interface ratio (hours)** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 390
+- Legacy: MTInputs row 388
   - 2022-2041: `StorageToInterfaceRatioSTStorage(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E166. `AllocateLTStorageToVRE`: Percent allocation of LT storage costs to VRE** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 392
+- Legacy: MTInputs row 390
   - 2022-2041: `AllocateLTStorageToVRE(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E167. `StartingPointWhenLTStorageIsNeeded`: Starting point of long term storage requirement (%VRE)** (%)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 393
+- Legacy: MTInputs row 391
   - 2022-2041: `StartingPointWhenLTStorageIsNeeded(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E168. `LongTermStorageFor100pcVRE`: GW electrolyzer per Gwy/y for 100% VRE (%)** (%)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 394
+- Legacy: MTInputs row 392
   - 2022-2041: `LongTermStorageFor100pcVRE(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E169. `StorageHoursForLTStorage`: Storage hours for LT storage** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 395
+- Legacy: MTInputs row 393
   - 2022-2041: `StorageHoursForLTStorage(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E170. `PPAProportionCoalGas`: Proportion of PPAs in Coal and Gas Generation** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 382
+- Legacy: MTInputs row 380
   - 2022-2041: `PPAProportionCoalGas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E171. `PhaseOutCoalAndGasPPAsBaseline`: Phase out any coal and gas PPAs? (Baseline)** (Yes*)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 383
+- Legacy: MTInputs row 381
   - 2022-2041: `PhaseOutCoalAndGasPPAsBaseline(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E172. `PhaseOutCoalAndGasPPAsPolicy`: Phase out any coal and gas PPAs? (Policy)** (Yes*)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 384
+- Legacy: MTInputs row 382
   - 2022-2041: `PhaseOutCoalAndGasPPAsPolicy(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E173. `YearPPACoalGas`: Phase begins when?** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 385
+- Legacy: MTInputs row 383
   - 2022-2041: `YearPPACoalGas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E174. `YearsToPhaseOutPPAs`: Phase out coal and gas PPAs over n years?** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 386
+- Legacy: MTInputs row 384
   - 2022-2041: `YearsToPhaseOutPPAs(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E175. `RenewableSubsidyBL`: Baseline renewable energy subsidy, $/kwh nom** ($/kwh nom)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 354
+- Legacy: MTInputs row 352
   - 2022-2041: `RenewableSubsidyBL(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E176. `RenSubsidyAddUSDkwh`: New renewable energy subsidy, $/kwh nom** ($/kwh nom)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 355
+- Legacy: MTInputs row 353
   - 2022-2041: `RenSubsidyAddUSDkwh(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E177. `RenSubsidyAddPhaseoutYrs`: New renewable energy subsidy, phaseout** (years)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 356
+- Legacy: MTInputs row 354
   - 2022-2041: `RenSubsidyAddPhaseoutYrs(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E178. `RenSubsidyAddStartYear`: =MT** (=MT)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 482
+- Legacy: MTInputs row 480
   - 2022-2041: `RenSubsidyAddStartYear(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E179. `RenewableSubsidyHydro`: Apply additional RE subsidy to hydroelectric power?** (switch)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 357
+- Legacy: MTInputs row 355
   - 2022-2041: `RenewableSubsidyHydro(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E180. `AdditionalCoalIntangibleCost`: Use Additional Coal Intangible Cost** (Yes*)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 369
+- Legacy: MTInputs row 367
   - 2022-2041: `AdditionalCoalIntangibleCost(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E181. `ManualCoalIntangibleCostST`: Manual Coal Intangible Cost (short term)** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 370
+- Legacy: MTInputs row 368
   - 2022-2041: `ManualCoalIntangibleCostST(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E182. `ManualCoalIntangibleCostLT`: Manual Coal Intangible Cost (long term)** (-)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 371
+- Legacy: MTInputs row 369
   - 2022-2041: `ManualCoalIntangibleCostLT(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E183. `NewInvCoa`: Coal - New Investment Override** (Switch)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 397
+- Legacy: MTInputs row 395
   - 2022-2041: `NewInvCoa(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E184. `NewInvNga`: Natural gas - New Investment Override** (Switch)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 398
+- Legacy: MTInputs row 396
   - 2022-2041: `NewInvNga(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E185. `NewInvOil`: Oil - New Investment Override** (Switch)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 399
+- Legacy: MTInputs row 397
   - 2022-2041: `NewInvOil(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E186. `NewInvNuc`: Nuclear - New Investment Override** (Switch)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 400
+- Legacy: MTInputs row 398
   - 2022-2041: `NewInvNuc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E187. `NewInvWnd`: Wind - New Investment Override** (Switch)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 401
+- Legacy: MTInputs row 399
   - 2022-2041: `NewInvWnd(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E188. `NewInvSol`: Solar - New Investment Override** (Switch)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 402
+- Legacy: MTInputs row 400
   - 2022-2041: `NewInvSol(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E189. `NewInvHyd`: Hydro - New Investment Override** (Switch)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 403
+- Legacy: MTInputs row 401
   - 2022-2041: `NewInvHyd(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E190. `NewInvOre`: Other renewables - New Investment Override** (Switch)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 404
+- Legacy: MTInputs row 402
   - 2022-2041: `NewInvOre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E191. `NewInvBio`: Biomass - New Investment Override** (Switch)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 405
+- Legacy: MTInputs row 403
   - 2022-2041: `NewInvBio(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E192. `NewInvCoaYear`: Coal** (Year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 407
+- Legacy: MTInputs row 405
   - 2022-2041: `NewInvCoaYear(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E193. `NewInvNgaYear`: Natural gas** (Year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 408
+- Legacy: MTInputs row 406
   - 2022-2041: `NewInvNgaYear(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E194. `NewInvOilYear`: Oil** (Year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 409
+- Legacy: MTInputs row 407
   - 2022-2041: `NewInvOilYear(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E195. `NewInvNucYear`: Nuclear** (Year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 410
+- Legacy: MTInputs row 408
   - 2022-2041: `NewInvNucYear(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E196. `NewInvWndYear`: Wind** (Year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 411
+- Legacy: MTInputs row 409
   - 2022-2041: `NewInvWndYear(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E197. `NewInvSolYear`: Solar** (Year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 412
+- Legacy: MTInputs row 410
   - 2022-2041: `NewInvSolYear(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E198. `NewInvHydYear`: Hydro** (Year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 413
+- Legacy: MTInputs row 411
   - 2022-2041: `NewInvHydYear(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E199. `NewInvOreYear`: Other renewables** (Year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 414
+- Legacy: MTInputs row 412
   - 2022-2041: `NewInvOreYear(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
 **E200. `NewInvBioYear`: Biomass** (Year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 415
+- Legacy: MTInputs row 413
   - 2022-2041: `NewInvBioYear(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
 
@@ -1880,7 +1880,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
   - 2022-2041: `cap0(t) = IF(cfu[f,s](t)=0,0,<base-year generation>/cfu[f,s](t))`
   - Parameters: `<base-year generation>` = `INDEX(Inputs!AF184:AF192,MATCH(f,Inputs!A184:A192,0))`
 
-**E258. `invs`: New investment setting of the type (MTInputs rows 397-405 of the scenario)** (option)
+**E258. `invs`: New investment setting of the type (MTInputs rows 395-403 of the scenario)** (option)
 
 - Description: INDEX(NewInv rows of section 1, type position)
 - Legacy: legacy rows 4061-4069 (L3)
@@ -1895,7 +1895,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: coa,pow, nga,pow, oop,pow, nuc,pow, wnd,pow, sol,pow, hyd,pow, ore,pow, bio,pow
   - 2022-2041: `perm(t) = IF(invs[f,s](t)="If Present*",IF(cap0[f,s](t)/SUM(cap0[9 rows](t))>InvPresentShare,"Yes","No"),invs[f,s](t))`
 
-**E260. `start`: Start year of new investment (MTInputs rows 407-415 of the scenario; hydro rule L54)** (year)
+**E260. `start`: Start year of new investment (MTInputs rows 405-413 of the scenario; hydro rule L54)** (year)
 
 - Description: INVSTART(hydro, base-year generation share, MTInputs year)
 - Legacy: legacy rows 4061-4069 (L3; L54 fixed)
@@ -1940,7 +1940,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E266. `spot`: Spot fuel prices for power (1 / 0): Settings SpotPow or UseSpotFuelPricesInEngineerModel** (0/1)
 
 - Description: SPOTSWITCH(MTInputs switch)
-- Legacy: legacy row 3155 (MTInputs 368)
+- Legacy: legacy row 3155 (MTInputs 366)
   - 2022-2041: `spot(t) = --OR(SpotPow="Yes",LEFT(UseSpotFuelPricesInEngineerModel(t),3)="Yes")`
 
 **E267. `ctf`: Capex time-factor scenario of the renewables (low, med, hgh, vhg)** (code)
@@ -3142,7 +3142,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E415. `TrModel`: Engineering or elasticity model** (option)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 340 (TrModel; legacy Dashboard G61)
+- Legacy: MTInputs row 338 (TrModel; legacy Dashboard G61)
 - Rows: all,all
   - 2022-2041: `TrModel(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3178,7 +3178,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E420. `TrFbYearPas`: Vehicle feebate: year of introduction, passenger** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 418 (v3.5; legacy Dashboard G63)
+- Legacy: MTInputs row 416 (v3.5; legacy Dashboard G63)
 - Rows: all,all
   - 2022-2041: `TrFbYearPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3186,7 +3186,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E421. `TrFbYearFre`: Vehicle feebate: year of introduction, freight** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 419 (v3.5; legacy Dashboard L63)
+- Legacy: MTInputs row 417 (v3.5; legacy Dashboard L63)
 - Rows: all,all
   - 2022-2041: `TrFbYearFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3194,7 +3194,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E422. `TrFbYearCyc`: Vehicle feebate: year of introduction, 2-3 wheeler** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 420 (v3.5; legacy Dashboard Q63)
+- Legacy: MTInputs row 418 (v3.5; legacy Dashboard Q63)
 - Rows: all,all
   - 2022-2041: `TrFbYearCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3202,7 +3202,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E423. `TrFbRatePas`: Vehicle feebate: rate, passenger** (USD/tCO2)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 421 (v3.5; legacy Dashboard G64)
+- Legacy: MTInputs row 419 (v3.5; legacy Dashboard G64)
 - Rows: all,all
   - 2022-2041: `TrFbRatePas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3210,7 +3210,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E424. `TrFbRateFre`: Vehicle feebate: rate, freight** (USD/tCO2)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 422 (v3.5; legacy Dashboard L64)
+- Legacy: MTInputs row 420 (v3.5; legacy Dashboard L64)
 - Rows: all,all
   - 2022-2041: `TrFbRateFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3218,7 +3218,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E425. `TrFbRateCyc`: Vehicle feebate: rate, 2-3 wheeler** (USD/tCO2)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 423 (v3.5; legacy Dashboard Q64)
+- Legacy: MTInputs row 421 (v3.5; legacy Dashboard Q64)
 - Rows: all,all
   - 2022-2041: `TrFbRateCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3226,7 +3226,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E426. `TrFbPivotTypePas`: Vehicle feebate: pivot type (Average / Manual), passenger** (option)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 424 (v3.5; legacy Dashboard G65)
+- Legacy: MTInputs row 422 (v3.5; legacy Dashboard G65)
 - Rows: all,all
   - 2022-2041: `TrFbPivotTypePas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3234,7 +3234,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E427. `TrFbPivotTypeFre`: Vehicle feebate: pivot type (Average / Manual), freight** (option)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 425 (v3.5; legacy Dashboard L65)
+- Legacy: MTInputs row 423 (v3.5; legacy Dashboard L65)
 - Rows: all,all
   - 2022-2041: `TrFbPivotTypeFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3242,7 +3242,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E428. `TrFbPivotTypeCyc`: Vehicle feebate: pivot type (Average / Manual), 2-3 wheeler** (option)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 426 (v3.5; legacy Dashboard Q65)
+- Legacy: MTInputs row 424 (v3.5; legacy Dashboard Q65)
 - Rows: all,all
   - 2022-2041: `TrFbPivotTypeCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3250,7 +3250,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E429. `TrFbPivotPas`: Vehicle feebate: manual pivot point, passenger** (gCO2/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 427 (v3.5; legacy Dashboard G66)
+- Legacy: MTInputs row 425 (v3.5; legacy Dashboard G66)
 - Rows: all,all
   - 2022-2041: `TrFbPivotPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3258,7 +3258,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E430. `TrFbPivotFre`: Vehicle feebate: manual pivot point, freight** (gCO2/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 428 (v3.5; legacy Dashboard L66)
+- Legacy: MTInputs row 426 (v3.5; legacy Dashboard L66)
 - Rows: all,all
   - 2022-2041: `TrFbPivotFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3266,7 +3266,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E431. `TrFbPivotCyc`: Vehicle feebate: manual pivot point, 2-3 wheeler** (gCO2/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 429 (v3.5; legacy Dashboard Q66)
+- Legacy: MTInputs row 427 (v3.5; legacy Dashboard Q66)
 - Rows: all,all
   - 2022-2041: `TrFbPivotCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3274,7 +3274,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E432. `TrFbPivotChgPas`: Vehicle feebate: annual decline of the manual pivot, passenger** (gCO2/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 430 (v3.5; legacy Dashboard G67)
+- Legacy: MTInputs row 428 (v3.5; legacy Dashboard G67)
 - Rows: all,all
   - 2022-2041: `TrFbPivotChgPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3282,7 +3282,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E433. `TrFbPivotChgFre`: Vehicle feebate: annual decline of the manual pivot, freight** (gCO2/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 431 (v3.5; legacy Dashboard L67)
+- Legacy: MTInputs row 429 (v3.5; legacy Dashboard L67)
 - Rows: all,all
   - 2022-2041: `TrFbPivotChgFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3290,7 +3290,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E434. `TrFbPivotChgCyc`: Vehicle feebate: annual decline of the manual pivot, 2-3 wheeler** (gCO2/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 432 (v3.5; legacy Dashboard Q67)
+- Legacy: MTInputs row 430 (v3.5; legacy Dashboard Q67)
 - Rows: all,all
   - 2022-2041: `TrFbPivotChgCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3298,7 +3298,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E435. `TrDtYearPas`: Distance tax: year of introduction, passenger** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 433 (v3.5; legacy Dashboard G73)
+- Legacy: MTInputs row 431 (v3.5; legacy Dashboard G73)
 - Rows: all,all
   - 2022-2041: `TrDtYearPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3306,7 +3306,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E436. `TrDtYearFre`: Distance tax: year of introduction, freight** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 434 (v3.5; legacy Dashboard L73)
+- Legacy: MTInputs row 432 (v3.5; legacy Dashboard L73)
 - Rows: all,all
   - 2022-2041: `TrDtYearFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3314,7 +3314,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E437. `TrDtYearCyc`: Distance tax: year of introduction, 2-3 wheeler** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 435 (v3.5; legacy Dashboard Q73)
+- Legacy: MTInputs row 433 (v3.5; legacy Dashboard Q73)
 - Rows: all,all
   - 2022-2041: `TrDtYearCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3322,7 +3322,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E438. `TrDtStartPas`: Distance tax: amount in the first year, passenger** (USD/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 436 (v3.5; legacy Dashboard G74)
+- Legacy: MTInputs row 434 (v3.5; legacy Dashboard G74)
 - Rows: all,all
   - 2022-2041: `TrDtStartPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3330,7 +3330,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E439. `TrDtStartFre`: Distance tax: amount in the first year, freight** (USD/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 437 (v3.5; legacy Dashboard L74)
+- Legacy: MTInputs row 435 (v3.5; legacy Dashboard L74)
 - Rows: all,all
   - 2022-2041: `TrDtStartFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3338,7 +3338,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E440. `TrDtStartCyc`: Distance tax: amount in the first year, 2-3 wheeler** (USD/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 438 (v3.5; legacy Dashboard Q74)
+- Legacy: MTInputs row 436 (v3.5; legacy Dashboard Q74)
 - Rows: all,all
   - 2022-2041: `TrDtStartCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3346,7 +3346,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E441. `TrDtTargetYearPas`: Distance tax: target year, passenger** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 439 (v3.5; legacy Dashboard G75)
+- Legacy: MTInputs row 437 (v3.5; legacy Dashboard G75)
 - Rows: all,all
   - 2022-2041: `TrDtTargetYearPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3354,7 +3354,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E442. `TrDtTargetYearFre`: Distance tax: target year, freight** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 440 (v3.5; legacy Dashboard L75)
+- Legacy: MTInputs row 438 (v3.5; legacy Dashboard L75)
 - Rows: all,all
   - 2022-2041: `TrDtTargetYearFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3362,7 +3362,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E443. `TrDtTargetYearCyc`: Distance tax: target year, 2-3 wheeler** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 441 (v3.5; legacy Dashboard Q75)
+- Legacy: MTInputs row 439 (v3.5; legacy Dashboard Q75)
 - Rows: all,all
   - 2022-2041: `TrDtTargetYearCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3370,7 +3370,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E444. `TrDtTargetPas`: Distance tax: amount in the target year, passenger** (USD/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 442 (v3.5; legacy Dashboard G76)
+- Legacy: MTInputs row 440 (v3.5; legacy Dashboard G76)
 - Rows: all,all
   - 2022-2041: `TrDtTargetPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3378,7 +3378,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E445. `TrDtTargetFre`: Distance tax: amount in the target year, freight** (USD/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 443 (v3.5; legacy Dashboard L76)
+- Legacy: MTInputs row 441 (v3.5; legacy Dashboard L76)
 - Rows: all,all
   - 2022-2041: `TrDtTargetFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3386,7 +3386,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E446. `TrDtTargetCyc`: Distance tax: amount in the target year, 2-3 wheeler** (USD/km)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 444 (v3.5; legacy Dashboard Q76)
+- Legacy: MTInputs row 442 (v3.5; legacy Dashboard Q76)
 - Rows: all,all
   - 2022-2041: `TrDtTargetCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3394,7 +3394,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E447. `TrSubYearPas`: EV purchase subsidy: year of introduction, passenger** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 445 (v3.5; legacy Dashboard G69)
+- Legacy: MTInputs row 443 (v3.5; legacy Dashboard G69)
 - Rows: all,all
   - 2022-2041: `TrSubYearPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3402,7 +3402,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E448. `TrSubYearFre`: EV purchase subsidy: year of introduction, freight** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 446 (v3.5; legacy Dashboard L69)
+- Legacy: MTInputs row 444 (v3.5; legacy Dashboard L69)
 - Rows: all,all
   - 2022-2041: `TrSubYearFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3410,7 +3410,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E449. `TrSubYearCyc`: EV purchase subsidy: year of introduction, 2-3 wheeler** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 447 (v3.5; legacy Dashboard Q69)
+- Legacy: MTInputs row 445 (v3.5; legacy Dashboard Q69)
 - Rows: all,all
   - 2022-2041: `TrSubYearCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3418,7 +3418,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E450. `TrSubAmountPas`: EV purchase subsidy: amount, passenger** (USD/vehicle)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 448 (v3.5; legacy Dashboard G70)
+- Legacy: MTInputs row 446 (v3.5; legacy Dashboard G70)
 - Rows: all,all
   - 2022-2041: `TrSubAmountPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3426,7 +3426,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E451. `TrSubAmountFre`: EV purchase subsidy: amount, freight** (USD/vehicle)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 449 (v3.5; legacy Dashboard L70)
+- Legacy: MTInputs row 447 (v3.5; legacy Dashboard L70)
 - Rows: all,all
   - 2022-2041: `TrSubAmountFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3434,7 +3434,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E452. `TrSubAmountCyc`: EV purchase subsidy: amount, 2-3 wheeler** (USD/vehicle)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 450 (v3.5; legacy Dashboard Q70)
+- Legacy: MTInputs row 448 (v3.5; legacy Dashboard Q70)
 - Rows: all,all
   - 2022-2041: `TrSubAmountCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3442,7 +3442,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E453. `TrSubChgPas`: EV purchase subsidy: annual change, passenger** (USD/vehicle)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 451 (v3.5; legacy Dashboard G71)
+- Legacy: MTInputs row 449 (v3.5; legacy Dashboard G71)
 - Rows: all,all
   - 2022-2041: `TrSubChgPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3450,7 +3450,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E454. `TrSubChgFre`: EV purchase subsidy: annual change, freight** (USD/vehicle)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 452 (v3.5; legacy Dashboard L71)
+- Legacy: MTInputs row 450 (v3.5; legacy Dashboard L71)
 - Rows: all,all
   - 2022-2041: `TrSubChgFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3458,7 +3458,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E455. `TrSubChgCyc`: EV purchase subsidy: annual change, 2-3 wheeler** (USD/vehicle)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 453 (v3.5; legacy Dashboard Q71)
+- Legacy: MTInputs row 451 (v3.5; legacy Dashboard Q71)
 - Rows: all,all
   - 2022-2041: `TrSubChgCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3466,7 +3466,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E456. `TrAdvIceBasePas`: Ad-valorem purchase tax on ICEVs, baseline, passenger** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 454 (v3.5; legacy Dashboard G89)
+- Legacy: MTInputs row 452 (v3.5; legacy Dashboard G89)
 - Rows: all,all
   - 2022-2041: `TrAdvIceBasePas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3474,7 +3474,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E457. `TrAdvIceBaseFre`: Ad-valorem purchase tax on ICEVs, baseline, freight** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 455 (v3.5; legacy Dashboard L89)
+- Legacy: MTInputs row 453 (v3.5; legacy Dashboard L89)
 - Rows: all,all
   - 2022-2041: `TrAdvIceBaseFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3482,7 +3482,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E458. `TrAdvIceBaseCyc`: Ad-valorem purchase tax on ICEVs, baseline, 2-3 wheeler** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 456 (v3.5; legacy Dashboard Q89)
+- Legacy: MTInputs row 454 (v3.5; legacy Dashboard Q89)
 - Rows: all,all
   - 2022-2041: `TrAdvIceBaseCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3490,7 +3490,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E459. `TrAdvBevBasePas`: Ad-valorem purchase tax on BEVs, baseline, passenger** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 457 (v3.5; legacy Dashboard G90)
+- Legacy: MTInputs row 455 (v3.5; legacy Dashboard G90)
 - Rows: all,all
   - 2022-2041: `TrAdvBevBasePas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3498,7 +3498,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E460. `TrAdvBevBaseFre`: Ad-valorem purchase tax on BEVs, baseline, freight** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 458 (v3.5; legacy Dashboard L90)
+- Legacy: MTInputs row 456 (v3.5; legacy Dashboard L90)
 - Rows: all,all
   - 2022-2041: `TrAdvBevBaseFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3506,7 +3506,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E461. `TrAdvBevBaseCyc`: Ad-valorem purchase tax on BEVs, baseline, 2-3 wheeler** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 459 (v3.5; legacy Dashboard Q90)
+- Legacy: MTInputs row 457 (v3.5; legacy Dashboard Q90)
 - Rows: all,all
   - 2022-2041: `TrAdvBevBaseCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3514,7 +3514,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E462. `TrAdvIcePolPas`: Ad-valorem purchase tax on ICEVs, policy, passenger** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 460 (v3.5; legacy Dashboard G91)
+- Legacy: MTInputs row 458 (v3.5; legacy Dashboard G91)
 - Rows: all,all
   - 2022-2041: `TrAdvIcePolPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3522,7 +3522,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E463. `TrAdvIcePolFre`: Ad-valorem purchase tax on ICEVs, policy, freight** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 461 (v3.5; legacy Dashboard L91)
+- Legacy: MTInputs row 459 (v3.5; legacy Dashboard L91)
 - Rows: all,all
   - 2022-2041: `TrAdvIcePolFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3530,7 +3530,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E464. `TrAdvIcePolCyc`: Ad-valorem purchase tax on ICEVs, policy, 2-3 wheeler** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 462 (v3.5; legacy Dashboard Q91)
+- Legacy: MTInputs row 460 (v3.5; legacy Dashboard Q91)
 - Rows: all,all
   - 2022-2041: `TrAdvIcePolCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3538,7 +3538,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E465. `TrAdvBevPolPas`: Ad-valorem purchase tax on BEVs, policy, passenger** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 463 (v3.5; legacy Dashboard G92)
+- Legacy: MTInputs row 461 (v3.5; legacy Dashboard G92)
 - Rows: all,all
   - 2022-2041: `TrAdvBevPolPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3546,7 +3546,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E466. `TrAdvBevPolFre`: Ad-valorem purchase tax on BEVs, policy, freight** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 464 (v3.5; legacy Dashboard L92)
+- Legacy: MTInputs row 462 (v3.5; legacy Dashboard L92)
 - Rows: all,all
   - 2022-2041: `TrAdvBevPolFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3554,7 +3554,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E467. `TrAdvBevPolCyc`: Ad-valorem purchase tax on BEVs, policy, 2-3 wheeler** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 465 (v3.5; legacy Dashboard Q92)
+- Legacy: MTInputs row 463 (v3.5; legacy Dashboard Q92)
 - Rows: all,all
   - 2022-2041: `TrAdvBevPolCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3562,7 +3562,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E468. `TrAdvYearPas`: Ad-valorem purchase tax: year of the policy rate, passenger** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 466 (v3.5; legacy Dashboard G93)
+- Legacy: MTInputs row 464 (v3.5; legacy Dashboard G93)
 - Rows: all,all
   - 2022-2041: `TrAdvYearPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3570,7 +3570,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E469. `TrAdvYearFre`: Ad-valorem purchase tax: year of the policy rate, freight** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 467 (v3.5; legacy Dashboard L93)
+- Legacy: MTInputs row 465 (v3.5; legacy Dashboard L93)
 - Rows: all,all
   - 2022-2041: `TrAdvYearFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3578,7 +3578,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E470. `TrAdvYearCyc`: Ad-valorem purchase tax: year of the policy rate, 2-3 wheeler** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 468 (v3.5; legacy Dashboard Q93)
+- Legacy: MTInputs row 466 (v3.5; legacy Dashboard Q93)
 - Rows: all,all
   - 2022-2041: `TrAdvYearCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3586,7 +3586,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E471. `TrCustYearPas`: Customs duty on BEVs: year of the policy rate, passenger** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 469 (v3.5; legacy Dashboard G86)
+- Legacy: MTInputs row 467 (v3.5; legacy Dashboard G86)
 - Rows: all,all
   - 2022-2041: `TrCustYearPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3594,7 +3594,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E472. `TrCustYearFre`: Customs duty on BEVs: year of the policy rate, freight** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 470 (v3.5; legacy Dashboard L86)
+- Legacy: MTInputs row 468 (v3.5; legacy Dashboard L86)
 - Rows: all,all
   - 2022-2041: `TrCustYearFre(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3602,7 +3602,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E473. `TrCustYearCyc`: Customs duty on BEVs: year of the policy rate, 2-3 wheeler** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 471 (v3.5; legacy Dashboard Q86)
+- Legacy: MTInputs row 469 (v3.5; legacy Dashboard Q86)
 - Rows: all,all
   - 2022-2041: `TrCustYearCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3610,7 +3610,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E474. `TrVatYearPas`: VAT on BEVs: year of the policy rate, passenger** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 472 (v3.5; legacy Dashboard G81)
+- Legacy: MTInputs row 470 (v3.5; legacy Dashboard G81)
 - Rows: all,all
   - 2022-2041: `TrVatYearPas(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3618,7 +3618,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E475. `TrVatYearCyc`: VAT on BEVs: year of the policy rate, 2-3 wheeler** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 473 (v3.5; legacy Dashboard Q81)
+- Legacy: MTInputs row 471 (v3.5; legacy Dashboard Q81)
 - Rows: all,all
   - 2022-2041: `TrVatYearCyc(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3626,7 +3626,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E476. `TrVatPolFactor`: VAT on BEVs, policy: factor on the baseline VAT rate** (factor)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 474 (v3.5; legacy formula literal *1)
+- Legacy: MTInputs row 472 (v3.5; legacy formula literal *1)
 - Rows: all,all
   - 2022-2041: `TrVatPolFactor(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3634,7 +3634,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E477. `TrCustPolFactor`: Customs duty on BEVs, policy: factor on the baseline duty** (factor)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 475 (v3.5; legacy formula literal *1)
+- Legacy: MTInputs row 473 (v3.5; legacy formula literal *1)
 - Rows: all,all
   - 2022-2041: `TrCustPolFactor(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3642,7 +3642,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E478. `TrCsStartYear`: Charging-station subsidy: start year** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 476 (v3.5; legacy Dashboard G97, labelled "target year")
+- Legacy: MTInputs row 474 (v3.5; legacy Dashboard G97, labelled "target year")
 - Rows: all,all
   - 2022-2041: `TrCsStartYear(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3650,7 +3650,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E479. `TrCsStartLevel`: Charging-station subsidy: share of the cost in the start year** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 477 (v3.5; legacy Dashboard G95, labelled "start year")
+- Legacy: MTInputs row 475 (v3.5; legacy Dashboard G95, labelled "start year")
 - Rows: all,all
   - 2022-2041: `TrCsStartLevel(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3658,7 +3658,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E480. `TrCsTargetYear`: Charging-station subsidy: target year** (year)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 478 (v3.5; legacy Dashboard G98, labelled "target level")
+- Legacy: MTInputs row 476 (v3.5; legacy Dashboard G98, labelled "target level")
 - Rows: all,all
   - 2022-2041: `TrCsTargetYear(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -3666,7 +3666,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 **E481. `TrCsTargetLevel`: Charging-station subsidy: share of the cost in the target year** (share)
 
 - Description: MTInputs (scenario column)
-- Legacy: MTInputs row 479 (v3.5; legacy Dashboard G96, labelled "start level")
+- Legacy: MTInputs row 477 (v3.5; legacy Dashboard G96, labelled "start level")
 - Rows: all,all
   - 2022-2041: `TrCsTargetLevel(t) = MTInputs[code](scenario)`
   - Parameters: `<MTInputs row (Mapping)>` = `INDEX(MTRowNum,MATCH(code&"|"&f&"|"&s,MTRowKey,0))`
@@ -8081,24 +8081,24 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Rows: all,all
   - 2022-2041: `ndc.hh(t) = IFERROR(INDEX(GHHTab,MATCH(CtryCode,GHHIso,0),MATCH(ndc.hk[f,s](t),GHHHdr,0)),"N/A")`
 
-**E1062. `ndc.hc`: GHGs inventory column of the NDC basis (v6.1, I68)** (text)
+**E1062. `ndc.hc`: GHGs inventory column of the NDC basis (v6.1, DI7)** (text)
 
 - Description: texc or tinc & .tot or .co2
-- Legacy: new (v6.1, I68)
+- Legacy: new (v6.1, DI7)
 - Rows: all,all
   - 2022-2041: `ndc.hc(t) = IF(ndc.lu[f,s](t)="Includes","tinc","texc")&IF(ndc.gas[f,s](t)="CO2",".co2",".tot")`
 
-**E1063. `ndc.hv`: Inventory emissions on the NDC basis in the reference year (sheet GHGs, 2021-2024; v6.1, I68)** (Mt CO2e)
+**E1063. `ndc.hv`: Inventory emissions on the NDC basis in the reference year (sheet GHGs, 2021-2024; v6.1, DI7)** (Mt CO2e)
 
 - Description: sheet GHGs
-- Legacy: new (v6.1, I68)
+- Legacy: new (v6.1, DI7)
 - Rows: all,all
   - 2022-2041: `ndc.hv(t) = IFERROR(INDEX(GHGVal,MATCH(CtryCode&"|"&ndc.ref[f,s](t),GHGKey,0),MATCH(ndc.hc[f,s](t),GHGCol,0)),"N/A")`
 
 **E1064. `ndc.h`: Emissions on the NDC basis in the reference year** (Mt CO2e)
 
 - Description: scenario 1 if the year is modelled, else the GHGs inventory (ndc.hv), else GHGHist (ndc.hh)
-- Legacy: legacy rows 18446-18447, 18464 (v6.1: + inventory, I68)
+- Legacy: legacy rows 18446-18447, 18464 (v6.1: + inventory, DI7)
 - Rows: all,all
   - 2022-2041: `ndc.h(t) = IFERROR(INDEX(ndc.bs[f,s](2022..2041),MATCH(ndc.ref[f,s](t),year(2022..2041),0)),IF(ISNUMBER(ndc.hv[f,s](t)),ndc.hv[f,s](t),ndc.hh[f,s](t)))`
 
@@ -8729,7 +8729,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 
 ## B. Changes against legacy CPAT
 
-Each change is described in the workbook sheet `LegacyDiff` (LD) or in the register of bugs, issues and upgrades (`CPAT-AI_BugsAndIssues_v6.4.docx`: L legacy bug fixed, M bug of an earlier prototype version). Equations: the numbers of section A it touches.
+Each change is described in the workbook sheet `LegacyDiff` (LD) or in the register of bugs, issues and upgrades (`Legacy_CPAT_Bugs_v<version>.docx` and the tracker: L legacy bug fixed, M bug of an earlier prototype version). Equations: the numbers of section A it touches.
 
 | ID | Area | Type | Equations |
 |---|---|---|---|
@@ -8753,10 +8753,10 @@ Each change is described in the workbook sheet `LegacyDiff` (LD) or in the regis
 | LD18 | Subsidy and price-control phase-outs: As legacy (v4.16, LD18): separate policy lines, not in the pre-policy build-up (user 2026-10-18): phase-out factors (MTInputs 123-137, 191-195; baseline / policy as legacy rows 264-274), lines by price fuel | sector (inclusion switches on Constants, default every block), txo split into a fixed and a floating part, wedges pcsw (consumer subsidy reform: the fixed subsidy) and ppcw (price-control phase-out: the floating part) by price block, csw and pcw in every subsector block (after-tax price), revenue rsr | Same | E24 |
 | LD19 | Producer subsidies: Fiscal line by fuel (v4.16, LD19): producer subsidies (Prices_dom mit.pros, USD m real) x phase-out factor, in total revenue (rpsu), 12e and the fiscal space; no price effect | Simplification | - |
 | LD20 | Ad-valorem baseline taxes; Europe LNG shift: v5.6: as legacy (Inputs_pint series nga.eus, row 3 share path; Settings C12 = eus for Europe markets); fixed taxes as legacy | Same | E215 |
-| LD21 | Fuel-use equation: CPAT eq. 3.3.3 x the shock factor (v3.11, header row 6, switch Settings C19 on, as legacy; issue I22); v4.12: GDP growth with the income factor (row 14; was issue I23); v4.13: additional policy efficiency gains as legacy (MTInputs 243-245 by scenario: road vehicles = road, rail, aviation, navigation; residential; industrial = the other subsectors; row aef of each subsector); v5.4: power demand takes MTInputs 242 of its own scenario, like every power input (section-1 row AdditionalEfficiencyPower, section 3 row aeef) | Same | E392 |
+| LD21 | Fuel-use equation: CPAT eq. 3.3.3 x the shock factor (v3.11, header row 6, switch Settings C19 on, as legacy; issue DI4); v4.12: GDP growth with the income factor (row 14; was issue I23); v4.13: additional policy efficiency gains as legacy (MTInputs 243-245 by scenario: road vehicles = road, rail, aviation, navigation; residential; industrial = the other subsectors; row aef of each subsector); v5.4: power demand takes MTInputs 242 of its own scenario, like every power input (section-1 row AdditionalEfficiencyPower, section 3 row aeef) | Same | E392 |
 | LD22 | Power engineer model (v1.06): Same method, year by year (method test: 208 legacy rows of the baseline and the carbon-tax run reproduced to 1e-13 with the bugs switched on) | Same | - |
 | LD23 | Power: bug fixes (v1.06): Fixed | Bug fix | E332, E333, E373, E380, E301, E369, E363, E365, E353 |
-| LD24 | Power demand: 2023-2024 demand shock: Same: switch Settings C19, on by default since v3.11 (fuels and power, as legacy; issue I22) | Same | E286, E333 |
+| LD24 | Power demand: 2023-2024 demand shock: Same: switch Settings C19, on by default since v3.11 (fuels and power, as legacy; issue DI4) | Same | E286, E333 |
 | LD25 | Power demand and sector policies: Same; electricity demand shown as memo lines in the sector blocks and section 11 (not in the fuel totals) | Same | E333 |
 | LD26 | Power: planned retirement: Every type: switch planned_retirement (PowerTech) and data rows pret|<type> (PowerPaths); retirement = MIN(planned or rate-based + early coal, capacity) | Same | E357, E358 |
 | LD27 | Power demand: road electricity: v3.5: from section 5b (engineer road model) where TrModel = Engineer; else grows with the transport multiple (legacy fallback) | Same | E333 |
@@ -8766,7 +8766,7 @@ Each change is described in the workbook sheet `LegacyDiff` (LD) or in the regis
 | LD31 | Power: fuel prices: Same (v2.3): centred average of the price before new policies over t-2 .. t+2 within 2022-2041 (row fpp); Settings C21 SpotPow = Yes for spot prices | Same | E296 |
 | LD32 | Power: end-user prices: Telescoped: price(t) = price(t-1) + pass-through x change in supply cost x (1 + VAT) after the last historical year | Same | E315, E316, E320 |
 | LD33 | Power: historical electricity prices and VAT: Corrected Egypt block (residential 0.054, 0.048, 0.043 $/kWh nominal 2022-2024; VAT 0) | Data | E316 |
-| LD34 | Power: coal implicit cost: Built v5.6 (P5): row cic from GoalSeekCoal (legacy table, 85 countries, not Egypt) or the Manual inputs of MTInputs 370-371, in the coal variable cost; in generation cost and tariffs unless Settings PwCoalICTariff = No (default Yes, as legacy); memo rows fce, cik, swi, swd (legacy F2-F4, F7; F1, F5, F6 = rows lfx/tic, tvc). The calibration script (goal seek) is not built: the stored legacy values are used | Same | - |
+| LD34 | Power: coal implicit cost: Built v5.6 (P5): row cic from GoalSeekCoal (legacy table, 85 countries, not Egypt) or the Manual inputs of MTInputs 368-369, in the coal variable cost; in generation cost and tariffs unless Settings PwCoalICTariff = No (default Yes, as legacy); memo rows fce, cik, swi, swd (legacy F2-F4, F7; F1, F5, F6 = rows lfx/tic, tvc). The calibration script (goal seek) is not built: the stored legacy values are used | Same | - |
 | LD35 | Power: new-policy revenue: v1.09: by generation type (prnew): policy cost x generation, the ETS part at the permit price (as the subsectors); rcarb (ccpav x consumption) kept as a memo | Same | E388 |
 | LD36 | Emissions: As legacy: CO2 from fuel combustion (IIASA EFs adjusted to the inventory as legacy since v4.11, issue I32 replicated; power from v1.06); v2.8: CH4 from combustion and fuel supply, the inventory categories (process, agriculture, LULUCF, waste, other) and N2O in section 14; v2.9: local pollutants in section 15 | Same | E350, E1037 |
 | LD37 | Revenue structure: As legacy (v4.15, user 2026-10-18: replicate legacy, note issues): the three calculations per subsector and fuel (existing taxes incl. VAT, consumer subsidies, new policies) and power as before, plus block 12e, total revenue by policy as legacy rows 8016-8027: new carbon tax, new excise, existing taxes and subsidies, VAT, auctioned ETS, producer subsidies (electricity subsidy gap), renewable subsidies, methane fee, transport, total (= rtot, check row); per pair rex (excise) and rvt (VAT) | Same | E408, E409, E410 |
@@ -8792,7 +8792,7 @@ Each change is described in the workbook sheet `LegacyDiff` (LD) or in the regis
 | LD57 | Energy CO2: calibration to the inventory (v3.2): v4.11 as legacy: every CO2 EF x EFCalib = inventory energy CO2 of the year before the base year / scenario-1 energy CO2 of the base year with uncalibrated EFs (Egypt: 2021 inventory against 2022, 0.930); switch Settings C27, default Yes (legacy Yes* for Annex I and non-Annex I) | Same | E350, E394, E395 |
 | LD58 | GDP effects: legacy values (v3.1): Computed | Data | - |
 | LD59 | Road transport: engineer model (v3.5): Section 5b of every scenario group, every row live (Methods, chapter Transport); TrModel default Elasticity, Engineer by switch; the 17 legacy bugs of Methods, chapter Transport section 3 fixed (B1-B23) | Decision | - |
-| LD60 | Road transport: policy inputs (v3.5): Policies: MTInputs rows 418-479 after the template (scenario-specific, legacy Dashboard defaults, all off); parameters and hardcoded literals (Gompertz constant, gas liters per GJ, PHEV kWh per liter, insurance factor, BEV distance caps, price elasticities): sheets TransportParams, TransportPaths and named constants | Decision | - |
+| LD60 | Road transport: policy inputs (v3.5): Policies: MTInputs rows 416-477 after the template (scenario-specific, legacy Dashboard defaults, all off); parameters and hardcoded literals (Gompertz constant, gas liters per GJ, PHEV kWh per liter, insurance factor, BEV distance caps, price elasticities): sheets TransportParams, TransportPaths and named constants | Decision | - |
 | LD61 | Road transport: inputs from the rest of the model (v3.5): Section 5 road after-tax prices x GJ per liter (gas $/GJ / gas liters per GJ); industrial gas: section 2 price + road new policies; power prices of section 3 G (last year); GDP growth of row 7 (last year); population and real GDP after the feedback; carbon price x road feebate coverage; 2-3 wheelers: the gasoline price incl. new policies (legacy row 4438: before new policies); VAT on vehicles: VAT_WEO of the customs year (Egypt 0.14; legacy 0.1531) | Assumption | - |
 | LD62 | Road transport: biofuels (v3.5): Engineer road model as legacy (v4.12): bioethanol and other biofuels follow road gasoline, biodiesel follows diesel (base year x use / base-year use; Balances or EnergyCons); the feebate CO2 per liter of gasoline and diesel x their fossil share (E2146:E2147). Elasticity road model (the default): road biofuels on their own row with the biomass elasticities; legacy ties bioethanol and biodiesel to gasoline and diesel there too (rows 5404-5405) and gives other biofuels an oil row with bugs (5406, survey D11): not yet built | Not yet | - |
 | LD63 | Road transport: range anxiety (v3.5): Same stored values; fit (calculated - actual EV sales share, data years) reported in rows trraf | Not yet | - |
@@ -8806,7 +8806,7 @@ Each change is described in the workbook sheet `LegacyDiff` (LD) or in the regis
 | LD71 | Manual international prices (v5.2): Inputs_pint rows Manual: IMF to 2025, from 2026 Manual inputs D221:AF225 by label and year (before v5.2 typed copies of the same values) | Same | - |
 | LD72 | Non-energy GHG elasticities (v5.2): Read from Manual inputs K326:M327 (legacy default values typed; text "na" = 0) by the rows ghg.dr and ch4.act of section 14; before v5.2 sheet Constants (ghg.el) | Bug fix | - |
 | LD73 | Fuel economy of new BEVs (v5.2): The same cells by year (row 374) in section 5b rows trfen; before v5.2 sheet TransportPaths (bev_fe_new) | Same | - |
-| LD74 | Power: inputs by scenario (v5.4, P2): Every MTInputs power input (rows 242, 262, 342-415, 482) read in the scenario's own column (section-1 rows; section 3 sub-table A0 applies them to the power data); scenario 1 is the baseline of every scenario, so a technical input changed in a policy scenario changes that scenario only | Decision | - |
+| LD74 | Power: inputs by scenario (v5.4, P2): Every MTInputs power input (rows 242, 262, 340-413, 482) read in the scenario's own column (section-1 rows; section 3 sub-table A0 applies them to the power data); scenario 1 is the baseline of every scenario, so a technical input changed in a policy scenario changes that scenario only | Decision | - |
 | LD75 | Power: PPAs (v5.4): Same (rows ppa, ppr, glg, gen, early); the switch accepts Yes or Yes* (issue I54) | Same | - |
 | LD76 | Power: renewable subsidies (v5.4): Rows rnsp, rns, lfx, prrns: own start year RenSubsidyAddStartYear (MTInputs row 482, default 2027 = the default of row 132); revenue = subsidy x generation by type, in the power subsidies and 12e row ren; nominal inputs used as real, as legacy | Bug fix | - |
 | LD77 | Power: revenue rebate and electricity excise (v5.4): Rows rbs, exs, entxd, entx, pex, rp, rnvat, rreb, rpex, rexs, rexm: rebate = carbon cost x pass-through (its VAT falls out of rnvat); excise revenue = the excise in the price x consumption; switches accept Yes or Yes* (issue I58) | Bug fix | - |
@@ -9258,4 +9258,4 @@ Each 2041 cell calls one of these named LAMBDAs (sheet `Lambdas`, name manager).
 
 ## D. Index of variables
 
-`AdditionalCoalIntangibleCost` E180 · `AdditionalEfficiencyIndustrial` E123 · `AdditionalEfficiencyPower` E136 · `AdditionalEfficiencyResidential` E122 · `AdditionalEfficiencyRoadVehicle` E121 · `AdditionalExcise` E141 · `AdditionMitigationPoliciesNonEnergy` E133 · `aeef` E331 · `aef` E405 · `AllocateLTStorageToVRE` E166 · `AllocateSTStorageToVRE` E163 · `AlwaysExemptResLPGKer` E124 · `ap` E1125 · `ap.w` E1123 · `apf` E1126 · `apfd` E1124 · `aps` E1127 · `atp` E403 · `bco2` E44 · `bco2.chk` E1010 · `cap` E354 · `cap0` E257 · `captot` E355 · `cax` E287 · `caxav` E288 · `cbat` E276 · `cchg` E1012 · `ccpav` E308 · `cel` E283 · `CFOverrideIfAbove` E151 · `CFOverrideIfBelowFosOth` E150 · `CFOverrideIfBelowWndSol` E149 · `cfu` E249 · `ch4` E407 · `ch4.abt` E1031 · `ch4.act` E1030 · `ch4.c` E1033 · `ch4.em` E1032 · `ch4.emf` E1042 · `ch4.fk` E1027 · `ch4.pi` E1028 · `ch4.prd` E1029 · `ch4.rev` E1041 · `ch4.revf` E1043 · `ch4.src` E1025 · `ch4.sup` E1034 · `ch4.wd` E1026 · `ch4bs` E45 · `ch4bs.chk` E1044 · `cic` E294 · `cicl` E293 · `cics` E292 · `cik` E311 · `cint` E277 · `cmin` E369 · `co2` E350 · `co2.cap` E1006 · `co2.chg` E1016 · `co2.chk` E1011 · `co2.ets` E1005 · `co2.gap` E1007 · `co2.grid` E1013 · `co2.pct` E1003 · `co2.ref` E1002 · `co2.sec` E1004 · `cons` E314 · `ConsSubPha` E96 · `ConsSubPhaBaseline` E100 · `cov.all` E1113 · `cov.ct` E1111 · `cov.ets` E1112 · `covct` E1110 · `cp.exp` E71 · `cp.nom` E14 · `cp.shd` E73 · `cp.t` E13 · `cpeff` E1109 · `cph` E352 · `CPIntro` E7 · `CPLevelStart` E8 · `CPLevelTarget` E9 · `CPOutro` E10 · `cptraj` E201 · `cpx` E72 · `cs` E217 · `csf` E112 · `csi` E111 · `csw` E400 · `CTaxComplimentaryToETS` E85 · `ctcov` E19 · `ctf` E267 · `CTforMethane` E126 · `ctr` E78 · `ctxnew` E394 · `D_ETSAuctStart` E31 · `D_ETSAuctTarget` E32 · `D_ETSCapCont` E28 · `D_ETSChangeRelStart` E26 · `D_ETSChangeRelTarget` E27 · `D_ETSCTRisk` E36 · `D_ETSIntro` E29 · `D_ETSOutro` E30 · `D_ETSPriceOverride` E33 · `D_ETSVolatility` E34 · `D_ETSVolImpact` E35 · `D_NewETS` E25 · `deficit` E370 · `defl` E2 · `dem` E333 · `demg` E334 · `demtot` E335 · `dgas` E378 · `dgen` E347 · `dlf` E254 · `dlfr` E255 · `dmg` E1116 · `dsum` E304 · `early` E363 · `EarlyRetirementInBaseline` E158 · `echg` E985 · `ecmin` E361 · `ecr` E1114 · `ecshr` E362 · `eff` E1119 · `effcap` E356 · `egrow` E360 · `elcx` E279 · `eldem` E393 · `elof` E281 · `elov` E282 · `eltk` E280 · `enel` E406 · `ener` E392 · `ener.chk` E982 · `ener.pct` E984 · `ener.ref` E983 · `EngineerModelProportionOfCovidFactor` E138 · `entx` E318 · `entxd` E317 · `epct` E986 · `erf` E265 · `esub` E219 · `esubpu` E211 · `etr` E79 · `ets` E395 · `ets.bce` E49 · `ets.cap` E51 · `ets.chg` E50 · `ets.est` E53 · `ets.imp` E47 · `ets.lr` E1008 · `ets.next` E1009 · `ets.on` E37 · `ets.ovr` E54 · `ets.p` E55 · `ets.pe` E56 · `ets.rf` E57 · `ets.se` E52 · `ets.vadj` E48 · `ets.vol` E46 · `etsb` E42 · `etsb.s` E40 · `etsb.t` E41 · `etsc` E39 · `etscov` E38 · `etsnew` E224 · `etx` E218 · `ExemptPhaseout` E15 · `ExemptPhaseoutPeriod` E17 · `exf` E125 · `ExistingCTApply` E81 · `ExistingCTGrowth` E82 · `ExistingETSApply` E83 · `ExistingETSGrowth` E84 · `EXPCapex` E1079 · `EXPCIT` E1078 · `EXPGoodsandserv` E1080 · `exph` E18 · `EXPLabortax` E1077 · `EXPTransfers` E1081 · `exs` E274 · `ExtendCarbonPriceBeyondOutro` E11 · `fadtx` E216 · `fb` E62 · `fb.s` E60 · `fb.t` E61 · `fb.yr0` E58 · `fb.yr1` E59 · `fbcov` E63 · `fce` E310 · `FFPhaseOut` E98 · `FFSConsPhaseoutPeriodBA` E101 · `FFSProdPhaseoutPeriod` E91 · `FFSProdPhaseoutPeriodBA` E94 · `first` E375 · `fis.eff` E1096 · `fis.grp` E1094 · `fis.imp` E1090 · `fis.impp` E1092 · `fis.key` E1095 · `fis.lag` E1091 · `fis.lagp` E1093 · `fis.ref` E1088 · `fis.rev` E1087 · `fis.sp` E1089 · `fix` E290 · `FmAdj` E1084 · `fpn` E295 · `fpp` E296 · `fpr` E24 · `fpr.f` E23 · `fpr.s` E22 · `fpr.yr0` E20 · `fpr.yr1` E21 · `gchg` E1045 · `gdp.base` E1086 · `gdp.chg.usd` E1101 · `gdp.eff` E1107 · `gdp.lcu` E4 · `gdp.lvl` E1097 · `gdp.pos.pct` E6 · `gdp.pos.usd` E1098 · `gdp.usd` E3 · `GDPEndogenous` E1085 · `gdpg` E1099 · `gdpn` E997 · `gdppc.g` E1019 · `GDPStartYear` E1083 · `gdpy` E1100 · `gen_mwy` E345 · `ghg` E1037 · `ghg.chg` E1076 · `ghg.dr` E1023 · `ghg.enrp` E1046 · `ghg.flr` E1036 · `ghg.gi` E1022 · `ghg.h` E1020 · `ghg.inc` E1038 · `ghg.invb` E1024 · `ghg.k` E1035 · `ghg.m` E1021 · `ghg.pct` E1040 · `ghg.ref` E1039 · `glg` E343 · `gmin` E341 · `gmx` E340 · `gnc` E306 · `gncav` E307 · `gp` E207 · `gp.adj` E205 · `gp.src` E204 · `gpi` E209 · `gpn` E206 · `gtot` E346 · `HydroDoesntRetire` E156 · `inc.ela.adj` E285 · `IncElAdj` E137 · `incp` E284 · `IndustrialProcessEmissionsScaleEner` E134 · `infl` E1 · `IntEnerPricForecastAdjustment` E203 · `IntEnerPricForeSource` E202 · `invs` E258 · `kafter` E364 · `kaya` E1014 · `kDispatch` E142 · `kidx` E1015 · `kInvestment` E143 · `kwh` E256 · `lfx` E291 · `lgd` E342 · `lgi` E373 · `lkb` E972 · `lkc` E979 · `lkcb` E980 · `lkd` E971 · `lkp` E970 · `lks` E981 · `lkt` E969 · `lkx` E976 · `lkxa` E977 · `lkxe` E974 · `lkxp` E973 · `lkxr` E975 · `lkz` E978 · `LongTermStorageFor100pcVRE` E168 · `ltu` E269 · `LULUCFAnnualEmissionsDecline` E135 · `lvc` E305 · `mancap` E366 · `mani` E367 · `ManualCoalIntangibleCostLT` E182 · `ManualCoalIntangibleCostST` E181 · `MaxCostBasedEarlyRetirement` E157 · `MaximumCoalCF` E145 · `MaximumGasCF` E146 · `maxinv` E372 · `MaxNonNucOreBioAsPCOfTotalGen` E160 · `MaxNonVREAsPCOfTotalGen` E159 · `MaxScaleUpRateCategory` E162 · `MaxWindSolarScaleup` E161 · `mfc` E1121 · `mfee` E132 · `mfee.p` E131 · `mfp` E1120 · `MinimumThermalEfficiency` E148 · `MinimumWACC` E154 · `MinPostSubsidyPowerPrice` E144 · `MPIntro` E127 · `MPLevelStart` E128 · `MPLevelTarget` E129 · `MPOutro` E130 · `msc` E353 · `mult` E332 · `MultipliersSource` E1082 · `nce` E397 · `ndc.alt` E1051 · `ndc.bau` E1072 · `ndc.bi` E1059 · `ndc.bs` E1057 · `ndc.bty` E1058 · `ndc.co2` E1056 · `ndc.f` E1067 · `ndc.gap` E1074 · `ndc.gas` E1055 · `ndc.gdp` E1065 · `ndc.h` E1064 · `ndc.hc` E1062 · `ndc.hh` E1061 · `ndc.hi` E1066 · `ndc.hk` E1060 · `ndc.hv` E1063 · `ndc.idx` E1071 · `ndc.k` E1049 · `ndc.key` E1047 · `ndc.lu` E1054 · `ndc.lv` E1068 · `ndc.lvl` E1070 · `ndc.over` E1075 · `ndc.r` E1069 · `ndc.red` E1073 · `ndc.ref` E1052 · `ndc.ty` E1050 · `ndc.typ` E1048 · `ndc.x` E1053 · `need` E365 · `needm` E368 · `nei` E379 · `NewInvBio` E191 · `NewInvBioYear` E200 · `NewInvCoa` E183 · `NewInvCoaYear` E192 · `NewInvHyd` E189 · `NewInvHydYear` E198 · `NewInvNga` E184 · `NewInvNgaYear` E193 · `NewInvNuc` E186 · `NewInvNucYear` E195 · `NewInvOil` E185 · `NewInvOilYear` E194 · `NewInvOre` E190 · `NewInvOreYear` E199 · `NewInvSol` E188 · `NewInvSolYear` E197 · `NewInvWnd` E187 · `NewInvWndYear` E196 · `nid` E382 · `nim` E380 · `nimtot` E381 · `NomorReal` E12 · `ntx` E396 · `nuu` E250 · `obat` E278 · `obr` E43 · `pav.idx` E243 · `pav.las` E237 · `pav.leg` E241 · `pav.lidx` E242 · `pav.mix` E240 · `pav.q` E234 · `pav.sp` E233 · `pav.sp0` E238 · `pav.spr` E236 · `pav.time` E239 · `pav.uv` E235 · `pavl.pp` E247 · `pavl.qi` E245 · `pavl.qp` E246 · `pavl.qr` E244 · `pbc` E221 · `pcf` E114 · `pci` E113 · `pcsw` E227 · `pctx` E223 · `pcw` E401 · `pdem` E330 · `pe` E349 · `perm` E259 · `permit` E371 · `pet` E391 · `pex` E319 · `PhaseOutCoalAndGasPPAsBaseline` E171 · `PhaseOutCoalAndGasPPAsPolicy` E172 · `phi` E384 · `pnce` E231 · `pni` E374 · `pnq` E222 · `pntx` E225 · `po.n` E108 · `po.on` E107 · `po.sh` E109 · `pof` E110 · `pop` E1017 · `pop.g` E1018 · `PowerRebates` E139 · `PowerSectorPriceChangePassOn` E140 · `ppa` E270 · `PPAProportionCoalGas` E170 · `ppcw` E228 · `ppr` E344 · `ppsw` E229 · `PrcContPha` E103 · `PrcContPhaBaseline` E106 · `PrcControlPhaseout` E105 · `pret` E357 · `prnew` E388 · `ProdSubPh` E89 · `ProdSubPhaBaseline` E93 · `pros` E117 · `prrns` E390 · `prsub` E386 · `prtx` E385 · `prxc` E387 · `prxl` E389 · `ps` E212 · `psd` E118 · `pset` E208 · `psf` E116 · `psi` E115 · `psr` E120 · `psu` E119 · `psw` E402 · `pvatn` E230 · `pxcd` E226 · `rate` E263 · `rbe` E995 · `rbs` E273 · `rcarb` E322 · `reb` E301 · `rec` E359 · `reg` E76 · `regadj` E74 · `regc` E75 · `rem` E339 · `RenewableCostDeclineRate` E155 · `RenewableSubsidyBL` E175 · `RenewableSubsidyHydro` E179 · `RenSubsidyAddPhaseoutYrs` E177 · `RenSubsidyAddStartYear` E178 · `RenSubsidyAddUSDkwh` E176 · `req` E336 · `reqcg` E337 · `ret` E358 · `rev.chk` E991 · `rex` E412 · `rexm` E324 · `rexs` E323 · `rfg` E993 · `rfu` E992 · `rfu.chk` E994 · `rgap` E329 · `rmf` E987 · `rnet` E989 · `rnew` E410 · `rns` E272 · `rnsp` E271 · `rnvat` E326 · `rp` E320 · `rpct` E996 · `rpe` E248 · `rpex` E328 · `rpn` E232 · `rpol` E998 · `rpol.chk` E999 · `rppre` E316 · `rpsu` E988 · `rr` E264 · `rreb` E327 · `rsr` E414 · `rsub` E409 · `rtot` E1000 · `rtot.chg` E1001 · `rtot.ref` E990 · `rtx` E408 · `rvat` E325 · `rvt` E413 · `rxcp` E411 · `sc` E315 · `scat` E261 · `scc` E1115 · `ScenarioSelected` E64 · `scn` E70 · `scv` E262 · `second` E377 · `sgap` E321 · `ShareOfConsSubPha` E99 · `ShareofConsSubPhaBA` E102 · `ShareofProdSubPha` E92 · `ShareOfProdSubPhaBA` E95 · `shk` E300 · `shock` E286 · `shp` E404 · `shpx` E80 · `shr` E348 · `sp` E213 · `space` E376 · `spf` E210 · `spot` E266 · `SPPEffAdjEnergyEfficiencyRegulations` E65 · `SPPEffAdjFeebates` E69 · `SPPEffAdjInd` E68 · `SPPEffAdjRes` E67 · `SPPEffAdjVehicleFuelEconomy` E66 · `ssc` E77 · `start` E260 · `StartingPointWhenLTStorageIsNeeded` E167 · `stm` E268 · `stoav` E289 · `StorageHoursForLTStorage` E169 · `StorageToInterfaceRatioSTStorage` E165 · `swd` E313 · `swi` E312 · `tcf` E275 · `tcp` E1108 · `tic` E309 · `TotalHoursStorageFor100pcVRE` E164 · `tr.col` E418 · `tr.dk` E417 · `tr.pol` E419 · `tr.sw` E416 · `TrAdvBevBaseCyc` E461 · `TrAdvBevBaseFre` E460 · `TrAdvBevBasePas` E459 · `TrAdvBevPolCyc` E467 · `TrAdvBevPolFre` E466 · `TrAdvBevPolPas` E465 · `tradvcb` E705 · `tradvci` E704 · `tradvfb` E703 · `tradvfi` E702 · `TrAdvIceBaseCyc` E458 · `TrAdvIceBaseFre` E457 · `TrAdvIceBasePas` E456 · `TrAdvIcePolCyc` E464 · `TrAdvIcePolFre` E463 · `TrAdvIcePolPas` E462 · `tradvpb` E701 · `tradvpi` E700 · `TrAdvYearCyc` E470 · `TrAdvYearFre` E469 · `TrAdvYearPas` E468 · `trafe` E960 · `trafen` E959 · `trafg` E957 · `trafo` E958 · `traftc` E601 · `traftf` E600 · `traftn` E598 · `trafts` E618 · `traftsc` E620 · `traftsf` E619 · `traftu` E599 · `trancbn` E785 · `trancin` E778 · `tranfbn` E766 · `tranfin` E758 · `tranpbn` E727 · `tranpbu` E746 · `tranpin` E716 · `tranpiu` E739 · `travc` E593 · `travf` E592 · `travn` E590 · `travu` E591 · `trbevm` E621 · `trbio` E945 · `trbkm` E894 · `trbkm0` E871 · `trbkm0c` E885 · `trbkm0f` E879 · `trbkmb` E903 · `trbkmbc` E930 · `trbkmbf` E917 · `trbkmc` E922 · `trbkmf` E909 · `trbkmt` E906 · `trbkmtc` E932 · `trbkmtf` E919 · `trbu` E888 · `trbus0` E936 · `trbuse` E935 · `trbusel` E938 · `trbusf` E937 · `trbusp` E934 · `trbuyc` E605 · `trbuyf` E604 · `trbuyn` E602 · `trbuyu` E603 · `trbvu` E546 · `trbyt` E801 · `trbytc` E854 · `trbytf` E836 · `trbytn` E802 · `trbytu` E803 · `trcf2` E942 · `trcf2e` E943 · `trchs` E520 · `trckb2` E900 · `trckb2r` E901 · `trckbc` E674 · `trckbc2` E927 · `trckbc2r` E928 · `trckbf` E673 · `trckbf2` E914 · `trckbf2r` E915 · `trckbp` E671 · `trckbr` E672 · `trckc` E683 · `trckcr` E684 · `trckf` E678 · `trckfr` E679 · `trckm` E667 · `trckr` E668 · `trcks` E867 · `trcksc` E882 · `trckscr` E883 · `trcksf` E876 · `trcksfr` E877 · `trcksr` E868 · `trcloc` E613 · `trclof` E612 · `trclon` E610 · `trclou` E611 · `trco2c` E924 · `trco2f` E911 · `trco2p` E896 · `trcpp` E523 · `trcq` E889 · `trcrs` E824 · `trcrsf` E846 · `trcsc` E623 · `trcss` E622 · `TrCsStartLevel` E479 · `TrCsStartYear` E478 · `TrCsTargetLevel` E481 · `TrCsTargetYear` E480 · `trcuec` E708 · `trcuef` E707 · `trcuep` E706 · `TrCustPolFactor` E477 · `TrCustYearCyc` E473 · `TrCustYearFre` E472 · `TrCustYearPas` E471 · `trcyh` E580 · `trdemf` E834 · `trdemp` E799 · `trdfc` E892 · `trdff` E891 · `trdfp` E890 · `trdisc` E538 · `trdkmcycb` E694 · `trdkmcyci` E693 · `trdkmfreb` E692 · `trdkmfrei` E691 · `trdkmpasb` E688 · `trdkmpasi` E687 · `trdkmpaub` E690 · `trdkmpaui` E689 · `trdmcc` E853 · `trdmcf` E835 · `trdmcp` E800 · `trdpcbn` E784 · `trdpcin` E777 · `trdpfbn` E765 · `trdpfin` E757 · `trdppbn` E726 · `trdppin` E715 · `TrDtStartCyc` E440 · `TrDtStartFre` E439 · `TrDtStartPas` E438 · `TrDtTargetCyc` E446 · `TrDtTargetFre` E445 · `TrDtTargetPas` E444 · `TrDtTargetYearCyc` E443 · `TrDtTargetYearFre` E442 · `TrDtTargetYearPas` E441 · `trdtxc` E666 · `trdtxf` E665 · `trdtxp` E664 · `TrDtYearCyc` E437 · `TrDtYearFre` E436 · `TrDtYearPas` E435 · `trdut` E517 · `trelc` E931 · `trelf` E918 · `trelp` E905 · `trelph` E904 · `trelt` E941 · `trevac` E807 · `trevacc` E858 · `trevaf` E840 · `trevbm` E557 · `trevcc` E815 · `trevo` E516 · `trevom` E549 · `trevp` E515 · `trevpm` E560 · `trevsc` E617 · `trevsf` E616 · `trevsh` E816 · `trevst` E615 · `trfbl` E634 · `trfblc` E658 · `trfblf` E650 · `TrFbPivotChgCyc` E434 · `TrFbPivotChgFre` E433 · `TrFbPivotChgPas` E432 · `TrFbPivotCyc` E431 · `TrFbPivotFre` E430 · `TrFbPivotPas` E429 · `TrFbPivotTypeCyc` E428 · `TrFbPivotTypeFre` E427 · `TrFbPivotTypePas` E426 · `trfbr` E635 · `trfbr5` E636 · `TrFbRateCyc` E425 · `TrFbRateFre` E424 · `TrFbRatePas` E423 · `trfbrc` E659 · `trfbrf` E651 · `trfbtc` E633 · `trfbtf` E632 · `trfbtp` E631 · `trfbvcb` E775 · `trfbvci` E774 · `trfbvfb` E755 · `trfbvfi` E754 · `trfbvpb` E699 · `trfbvpi` E698 · `trfbvub` E737 · `trfbvui` E736 · `TrFbYearCyc` E422 · `TrFbYearFre` E421 · `TrFbYearPas` E420 · `trfcc` E956 · `trfcec` E954 · `trfcef` E953 · `trfcep` E952 · `trfcf` E955 · `trfcp` E951 · `trfe` E512 · `trfeb` E522 · `trfebm` E543 · `trfebn` E897 · `trfebo` E898 · `trfeboc` E925 · `trfebof` E912 · `trfebs` E899 · `trfebsc` E926 · `trfebsf` E913 · `trfem` E540 · `trfem2` E541 · `trfen` E524 · `trfeu` E642 · `trfeub` E644 · `trfew` E628 · `trfewf` E648 · `trfn` E637 · `trfna` E639 · `trfnaf` E653 · `trfnc` E660 · `trfnf` E652 · `trfnp` E638 · `trfsc` E865 · `trfscc` E881 · `trfscf` E875 · `trfscp` E866 · `trfsh` E578 · `trfso` E863 · `trfsoc` E880 · `trfsof` E874 · `trfsop` E864 · `trfu0` E873 · `trfu0c` E886 · `trfu0f` E887 · `trfu0g` E872 · `trfua` E939 · `trfub` E940 · `trfuc` E923 · `trfucbn` E787 · `trfucin` E780 · `trfuf` E910 · `trfufbn` E768 · `trfufin` E760 · `trfup` E895 · `trfupbn` E730 · `trfupbu` E748 · `trfupin` E719 · `trfupiu` E741 · `trgdl` E537 · `trgpc` E536 · `trgpcr` E869 · `trgtf` E833 · `trgtp` E798 · `tricd` E822 · `tricdp` E823 · `tricl` E645 · `triclc` E662 · `triclf` E656 · `triclu` E646 · `tricn` E826 · `tricnf` E848 · `trico` E827 · `tricof` E849 · `tricp` E825 · `tricpf` E847 · `trics` E820 · `tricsf` E844 · `tricw` E828 · `tricwf` E850 · `trimcbn` E786 · `trimcin` E779 · `trimfbn` E767 · `trimfin` E759 · `trimp` E518 · `trimpbn` E729 · `trimpbu` E747 · `trimpin` E718 · `trimpiu` E740 · `trint` E640 · `trinta` E641 · `trintaf` E655 · `trintc` E661 · `trintc2` E933 · `trintf` E654 · `trintf2` E920 · `trintp` E907 · `trints` E647 · `trintsc` E663 · `trintsf` E657 · `trintu` E643 · `trjc` E579 · `trjhf` E793 · `trjhp` E790 · `trjif` E794 · `trjip` E791 · `trjjf` E795 · `trjjp` E792 · `trkmc` E949 · `trkmf` E948 · `trkmp` E947 · `trkmt` E950 · `trkt` E944 · `trkte` E946 · `trlgc` E856 · `trlgcb` E857 · `trlgf` E838 · `trlgfb` E839 · `trlgn` E805 · `trlgnb` E806 · `trlgu` E811 · `trlgub` E812 · `trmku` E625 · `TrModel` E415 · `trnc` E577 · `trnwbn` E818 · `trnwbu` E819 · `trnwc` E861 · `trnwf` E843 · `tropc` E589 · `tropf` E588 · `tropn` E586 · `tropu` E587 · `trown` E513 · `trownb` E558 · `trownc` E572 · `trownce` E573 · `trowne` E559 · `trownf` E565 · `trownfe` E566 · `trowny` E582 · `trp.bsh` E526 · `trp.bus` E528 · `trp.cap` E494 · `trp.chs` E495 · `trp.dep` E483 · `trp.dsc` E497 · `trp.eb` E506 · `trp.eb2` E509 · `trp.ebb` E507 · `trp.ebc` E508 · `trp.ef` E505 · `trp.efa` E510 · `trp.ela` E501 · `trp.frs` E499 · `trp.gap` E488 · `trp.gj` E503 · `trp.ice` E498 · `trp.inc` E487 · `trp.ins` E484 · `trp.k` E489 · `trp.life` E482 · `trp.lpk` E504 · `trp.mev` E486 · `trp.mic` E485 · `trp.mku` E496 · `trp.mod` E502 · `trp.odc` E492 · `trp.ogr` E491 · `trp.own` E490 · `trp.tax` E527 · `trp.vkt` E493 · `trp.yrs` E500 · `trpav` E630 · `trpavf` E649 · `trpev` E626 · `trphg` E629 · `trphs` E542 · `trphv` E550 · `trphvs` E556 · `trpkc` E574 · `trpkcbn` E789 · `trpkcin` E782 · `trpkd` E567 · `trpke` E545 · `trpkec` E575 · `trpkef` E568 · `trpkfbn` E770 · `trpkfin` E762 · `trpkg` E544 · `trpkpbn` E732 · `trpkpbu` E750 · `trpkpin` E721 · `trpkpiu` E743 · `trplgc` E609 · `trplgf` E608 · `trplgn` E606 · `trplgu` E607 · `trpop` E535 · `trppbp` E725 · `trppcb` E783 · `trppci` E776 · `trppfb` E764 · `trppfi` E756 · `trpphv` E531 · `trppip` E714 · `trppub` E744 · `trppui` E738 · `trprg` E530 · `trpri` E532 · `trprl` E529 · `trprm` E534 · `trprn` E533 · `trpvac` E771 · `trpvaf` E751 · `trpvap` E695 · `trpvc` E773 · `trpvf` E753 · `trpvmc` E772 · `trpvmf` E752 · `trpvmp` E696 · `trpvp` E697 · `trra` E627 · `trrafc` E967 · `trraff` E966 · `trrafp` E965 · `trrau` E745 · `trresb` E734 · `trresgb` E735 · `trresgp` E723 · `trresp` E722 · `trretc` E597 · `trretf` E596 · `trretn` E594 · `trretu` E595 · `trsat` E521 · `trsatf` E831 · `trsatg` E832 · `trsatp` E796 · `trsatq` E797 · `trshc` E859 · `trshcb` E860 · `trshf` E511 · `trshfb` E842 · `trshfi` E841 · `trshn` E808 · `trshnb` E809 · `trshu` E813 · `trshub` E814 · `trsps` E539 · `trsta` E624 · `trstd` E583 · `trstdc` E585 · `trstdf` E584 · `trstt` E614 · `TrSubAmountCyc` E452 · `TrSubAmountFre` E451 · `TrSubAmountPas` E450 · `trsubc` E713 · `TrSubChgCyc` E455 · `TrSubChgFre` E454 · `TrSubChgPas` E453 · `trsubf` E712 · `trsubp` E711 · `TrSubYearCyc` E449 · `TrSubYearFre` E448 · `TrSubYearPas` E447 · `trsum` E968 · `trsvpbn` E728 · `trsvpin` E717 · `trtcac` E855 · `trtcaf` E837 · `trtcau` E810 · `trtcav` E804 · `trtcf` E724 · `trtcff` E763 · `trtcfp` E733 · `trtcr` E821 · `trtcrf` E845 · `trtocbn` E788 · `trtocin` E781 · `trtofbn` E769 · `trtofin` E761 · `trtopbn` E731 · `trtopbu` E749 · `trtopin` E720 · `trtopiu` E742 · `trtrn` E817 · `trusd` E519 · `trush` E581 · `trvatbc` E710 · `trvatbp` E709 · `TrVatPolFactor` E476 · `TrVatYearCyc` E475 · `TrVatYearPas` E474 · `trveh` E829 · `trvehb` E830 · `trvehc` E862 · `trvehf` E851 · `trvehfb` E852 · `trvht` E961 · `trvhta` E964 · `trvhtc` E963 · `trvhtf` E962 · `trvk0` E554 · `trvkb` E548 · `trvkbc` E576 · `trvkbf` E569 · `trvkc` E893 · `trvkcb` E902 · `trvkcbc` E929 · `trvkcbf` E916 · `trvkcc` E921 · `trvkcf` E908 · `trvkd` E514 · `trvkf` E552 · `trvkfb` E571 · `trvkfd` E570 · `trvkfr` E561 · `trvkg` E551 · `trvkm` E547 · `trvkn` E669 · `trvkna` E670 · `trvknaf` E681 · `trvknb` E675 · `trvknbf` E682 · `trvkncb` E686 · `trvkncg` E685 · `trvknf` E680 · `trvkp` E553 · `trvkr0` E562 · `trvku` E676 · `trvku0` E870 · `trvku0c` E884 · `trvku0f` E878 · `trvkub` E677 · `trvp` E525 · `trvsf` E564 · `trvsf1` E563 · `trvsh` E555 · `tvc` E302 · `tvcx` E303 · `txf` E214 · `txo` E215 · `usdtot` E383 · `UseSpotFuelPricesInEngineerModel` E147 · `vat` E220 · `vbc` E298 · `vcmin` E338 · `vre` E351 · `wac` E253 · `WACCSource` E152 · `WACCUserGlobal` E153 · `wcli` E1117 · `wdg` E1118 · `wel` E1122 · `wfx` E252 · `wsel` E251 · `xac` E299 · `xck` E297 · `xcp` E398 · `xcpd` E399 · `xct.c` E86 · `xct.p` E87 · `xets.p` E88 · `xnim` E1102 · `xnim.pct` E1106 · `xr` E5 · `xtb` E1103 · `xtb.pct` E1105 · `xtbp` E1104 · `YearConsSubPha` E97 · `YearPha` E16 · `YearPPACoalGas` E173 · `YearPrcContPha` E104 · `YearProdSubPha` E90 · `YearsToPhaseOutPPAs` E174
+`AdditionalCoalIntangibleCost` E180 · `AdditionalEfficiencyIndustrial` E123 · `AdditionalEfficiencyPower` E136 · `AdditionalEfficiencyResidential` E122 · `AdditionalEfficiencyRoadVehicle` E121 · `AdditionalExcise` E141 · `AdditionMitigationPoliciesNonEnergy` E133 · `aeef` E331 · `aef` E405 · `AllocateLTStorageToVRE` E166 · `AllocateSTStorageToVRE` E163 · `AlwaysExemptResLPGKer` E124 · `ap` E1125 · `ap.w` E1123 · `apf` E1126 · `apfd` E1124 · `aps` E1127 · `atp` E403 · `bco2` E44 · `bco2.chk` E1010 · `cap` E354 · `cap0` E257 · `captot` E355 · `cax` E287 · `caxav` E288 · `cbat` E276 · `cchg` E1012 · `ccpav` E308 · `cel` E283 · `CFOverrideIfAbove` E151 · `CFOverrideIfBelowFosOth` E150 · `CFOverrideIfBelowWndSol` E149 · `cfu` E249 · `ch4` E407 · `ch4.abt` E1031 · `ch4.act` E1030 · `ch4.c` E1033 · `ch4.em` E1032 · `ch4.emf` E1042 · `ch4.fk` E1027 · `ch4.pi` E1028 · `ch4.prd` E1029 · `ch4.rev` E1041 · `ch4.revf` E1043 · `ch4.src` E1025 · `ch4.sup` E1034 · `ch4.wd` E1026 · `ch4bs` E45 · `ch4bs.chk` E1044 · `cic` E294 · `cicl` E293 · `cics` E292 · `cik` E311 · `cint` E277 · `cmin` E369 · `co2` E350 · `co2.cap` E1006 · `co2.chg` E1016 · `co2.chk` E1011 · `co2.ets` E1005 · `co2.gap` E1007 · `co2.grid` E1013 · `co2.pct` E1003 · `co2.ref` E1002 · `co2.sec` E1004 · `cons` E314 · `ConsSubPha` E96 · `ConsSubPhaBaseline` E100 · `cov.all` E1113 · `cov.ct` E1111 · `cov.ets` E1112 · `covct` E1110 · `cp.exp` E71 · `cp.nom` E14 · `cp.shd` E73 · `cp.t` E13 · `cpeff` E1109 · `cph` E352 · `CPIntro` E7 · `CPLevelStart` E8 · `CPLevelTarget` E9 · `CPOutro` E10 · `cptraj` E201 · `cpx` E72 · `cs` E217 · `csf` E112 · `csi` E111 · `csw` E400 · `CTaxComplimentaryToETS` E85 · `ctcov` E19 · `ctf` E267 · `CTforMethane` E126 · `ctr` E78 · `ctxnew` E394 · `deficit` E370 · `defl` E2 · `dem` E333 · `demg` E334 · `demtot` E335 · `dgas` E378 · `dgen` E347 · `dlf` E254 · `dlfr` E255 · `dmg` E1116 · `dsum` E304 · `early` E363 · `EarlyRetirementInBaseline` E158 · `echg` E985 · `ecmin` E361 · `ecr` E1114 · `ecshr` E362 · `eff` E1119 · `effcap` E356 · `egrow` E360 · `elcx` E279 · `eldem` E393 · `elof` E281 · `elov` E282 · `eltk` E280 · `enel` E406 · `ener` E392 · `ener.chk` E982 · `ener.pct` E984 · `ener.ref` E983 · `EngineerModelProportionOfCovidFactor` E138 · `entx` E318 · `entxd` E317 · `epct` E986 · `erf` E265 · `esub` E219 · `esubpu` E211 · `etr` E79 · `ets` E395 · `ets.bce` E49 · `ets.cap` E51 · `ets.chg` E50 · `ets.est` E53 · `ets.imp` E47 · `ets.lr` E1008 · `ets.next` E1009 · `ets.on` E37 · `ets.ovr` E54 · `ets.p` E55 · `ets.pe` E56 · `ets.rf` E57 · `ets.se` E52 · `ets.vadj` E48 · `ets.vol` E46 · `ETSAuctStart` E31 · `ETSAuctTarget` E32 · `etsb` E42 · `etsb.s` E40 · `etsb.t` E41 · `etsc` E39 · `ETSCapCont` E28 · `ETSChangeRelStart` E26 · `ETSChangeRelTarget` E27 · `etscov` E38 · `ETSCTRisk` E36 · `ETSIntro` E29 · `etsnew` E224 · `ETSOutro` E30 · `ETSPriceOverride` E33 · `ETSVolatility` E34 · `ETSVolImpact` E35 · `etx` E218 · `ExemptPhaseout` E15 · `ExemptPhaseoutPeriod` E17 · `exf` E125 · `ExistingCTApply` E81 · `ExistingCTGrowth` E82 · `ExistingETSApply` E83 · `ExistingETSGrowth` E84 · `EXPCapex` E1079 · `EXPCIT` E1078 · `EXPGoodsandserv` E1080 · `exph` E18 · `EXPLabortax` E1077 · `EXPTransfers` E1081 · `exs` E274 · `ExtendCarbonPriceBeyondOutro` E11 · `fadtx` E216 · `fb` E62 · `fb.s` E60 · `fb.t` E61 · `fb.yr0` E58 · `fb.yr1` E59 · `fbcov` E63 · `fce` E310 · `FFPhaseOut` E98 · `FFSConsPhaseoutPeriodBA` E101 · `FFSProdPhaseoutPeriod` E91 · `FFSProdPhaseoutPeriodBA` E94 · `first` E375 · `fis.eff` E1096 · `fis.grp` E1094 · `fis.imp` E1090 · `fis.impp` E1092 · `fis.key` E1095 · `fis.lag` E1091 · `fis.lagp` E1093 · `fis.ref` E1088 · `fis.rev` E1087 · `fis.sp` E1089 · `fix` E290 · `FmAdj` E1084 · `fpn` E295 · `fpp` E296 · `fpr` E24 · `fpr.f` E23 · `fpr.s` E22 · `fpr.yr0` E20 · `fpr.yr1` E21 · `gchg` E1045 · `gdp.base` E1086 · `gdp.chg.usd` E1101 · `gdp.eff` E1107 · `gdp.lcu` E4 · `gdp.lvl` E1097 · `gdp.pos.pct` E6 · `gdp.pos.usd` E1098 · `gdp.usd` E3 · `GDPEndogenous` E1085 · `gdpg` E1099 · `gdpn` E997 · `gdppc.g` E1019 · `GDPStartYear` E1083 · `gdpy` E1100 · `gen_mwy` E345 · `ghg` E1037 · `ghg.chg` E1076 · `ghg.dr` E1023 · `ghg.enrp` E1046 · `ghg.flr` E1036 · `ghg.gi` E1022 · `ghg.h` E1020 · `ghg.inc` E1038 · `ghg.invb` E1024 · `ghg.k` E1035 · `ghg.m` E1021 · `ghg.pct` E1040 · `ghg.ref` E1039 · `glg` E343 · `gmin` E341 · `gmx` E340 · `gnc` E306 · `gncav` E307 · `gp` E207 · `gp.adj` E205 · `gp.src` E204 · `gpi` E209 · `gpn` E206 · `gtot` E346 · `HydroDoesntRetire` E156 · `inc.ela.adj` E285 · `IncElAdj` E137 · `incp` E284 · `IndustrialProcessEmissionsScaleEner` E134 · `infl` E1 · `IntEnerPricForecastAdjustment` E203 · `IntEnerPricForeSource` E202 · `invs` E258 · `kafter` E364 · `kaya` E1014 · `kDispatch` E142 · `kidx` E1015 · `kInvestment` E143 · `kwh` E256 · `lfx` E291 · `lgd` E342 · `lgi` E373 · `lkb` E972 · `lkc` E979 · `lkcb` E980 · `lkd` E971 · `lkp` E970 · `lks` E981 · `lkt` E969 · `lkx` E976 · `lkxa` E977 · `lkxe` E974 · `lkxp` E973 · `lkxr` E975 · `lkz` E978 · `LongTermStorageFor100pcVRE` E168 · `ltu` E269 · `LULUCFAnnualEmissionsDecline` E135 · `lvc` E305 · `mancap` E366 · `mani` E367 · `ManualCoalIntangibleCostLT` E182 · `ManualCoalIntangibleCostST` E181 · `MaxCostBasedEarlyRetirement` E157 · `MaximumCoalCF` E145 · `MaximumGasCF` E146 · `maxinv` E372 · `MaxNonNucOreBioAsPCOfTotalGen` E160 · `MaxNonVREAsPCOfTotalGen` E159 · `MaxScaleUpRateCategory` E162 · `MaxWindSolarScaleup` E161 · `mfc` E1121 · `mfee` E132 · `mfee.p` E131 · `mfp` E1120 · `MinimumThermalEfficiency` E148 · `MinimumWACC` E154 · `MinPostSubsidyPowerPrice` E144 · `MPIntro` E127 · `MPLevelStart` E128 · `MPLevelTarget` E129 · `MPOutro` E130 · `msc` E353 · `mult` E332 · `MultipliersSource` E1082 · `nce` E397 · `ndc.alt` E1051 · `ndc.bau` E1072 · `ndc.bi` E1059 · `ndc.bs` E1057 · `ndc.bty` E1058 · `ndc.co2` E1056 · `ndc.f` E1067 · `ndc.gap` E1074 · `ndc.gas` E1055 · `ndc.gdp` E1065 · `ndc.h` E1064 · `ndc.hc` E1062 · `ndc.hh` E1061 · `ndc.hi` E1066 · `ndc.hk` E1060 · `ndc.hv` E1063 · `ndc.idx` E1071 · `ndc.k` E1049 · `ndc.key` E1047 · `ndc.lu` E1054 · `ndc.lv` E1068 · `ndc.lvl` E1070 · `ndc.over` E1075 · `ndc.r` E1069 · `ndc.red` E1073 · `ndc.ref` E1052 · `ndc.ty` E1050 · `ndc.typ` E1048 · `ndc.x` E1053 · `need` E365 · `needm` E368 · `nei` E379 · `NewETS` E25 · `NewInvBio` E191 · `NewInvBioYear` E200 · `NewInvCoa` E183 · `NewInvCoaYear` E192 · `NewInvHyd` E189 · `NewInvHydYear` E198 · `NewInvNga` E184 · `NewInvNgaYear` E193 · `NewInvNuc` E186 · `NewInvNucYear` E195 · `NewInvOil` E185 · `NewInvOilYear` E194 · `NewInvOre` E190 · `NewInvOreYear` E199 · `NewInvSol` E188 · `NewInvSolYear` E197 · `NewInvWnd` E187 · `NewInvWndYear` E196 · `nid` E382 · `nim` E380 · `nimtot` E381 · `NomorReal` E12 · `ntx` E396 · `nuu` E250 · `obat` E278 · `obr` E43 · `pav.idx` E243 · `pav.las` E237 · `pav.leg` E241 · `pav.lidx` E242 · `pav.mix` E240 · `pav.q` E234 · `pav.sp` E233 · `pav.sp0` E238 · `pav.spr` E236 · `pav.time` E239 · `pav.uv` E235 · `pavl.pp` E247 · `pavl.qi` E245 · `pavl.qp` E246 · `pavl.qr` E244 · `pbc` E221 · `pcf` E114 · `pci` E113 · `pcsw` E227 · `pctx` E223 · `pcw` E401 · `pdem` E330 · `pe` E349 · `perm` E259 · `permit` E371 · `pet` E391 · `pex` E319 · `PhaseOutCoalAndGasPPAsBaseline` E171 · `PhaseOutCoalAndGasPPAsPolicy` E172 · `phi` E384 · `pnce` E231 · `pni` E374 · `pnq` E222 · `pntx` E225 · `po.n` E108 · `po.on` E107 · `po.sh` E109 · `pof` E110 · `pop` E1017 · `pop.g` E1018 · `PowerRebates` E139 · `PowerSectorPriceChangePassOn` E140 · `ppa` E270 · `PPAProportionCoalGas` E170 · `ppcw` E228 · `ppr` E344 · `ppsw` E229 · `PrcContPha` E103 · `PrcContPhaBaseline` E106 · `PrcControlPhaseout` E105 · `pret` E357 · `prnew` E388 · `ProdSubPh` E89 · `ProdSubPhaBaseline` E93 · `pros` E117 · `prrns` E390 · `prsub` E386 · `prtx` E385 · `prxc` E387 · `prxl` E389 · `ps` E212 · `psd` E118 · `pset` E208 · `psf` E116 · `psi` E115 · `psr` E120 · `psu` E119 · `psw` E402 · `pvatn` E230 · `pxcd` E226 · `rate` E263 · `rbe` E995 · `rbs` E273 · `rcarb` E322 · `reb` E301 · `rec` E359 · `reg` E76 · `regadj` E74 · `regc` E75 · `rem` E339 · `RenewableCostDeclineRate` E155 · `RenewableSubsidyBL` E175 · `RenewableSubsidyHydro` E179 · `RenSubsidyAddPhaseoutYrs` E177 · `RenSubsidyAddStartYear` E178 · `RenSubsidyAddUSDkwh` E176 · `req` E336 · `reqcg` E337 · `ret` E358 · `rev.chk` E991 · `rex` E412 · `rexm` E324 · `rexs` E323 · `rfg` E993 · `rfu` E992 · `rfu.chk` E994 · `rgap` E329 · `rmf` E987 · `rnet` E989 · `rnew` E410 · `rns` E272 · `rnsp` E271 · `rnvat` E326 · `rp` E320 · `rpct` E996 · `rpe` E248 · `rpex` E328 · `rpn` E232 · `rpol` E998 · `rpol.chk` E999 · `rppre` E316 · `rpsu` E988 · `rr` E264 · `rreb` E327 · `rsr` E414 · `rsub` E409 · `rtot` E1000 · `rtot.chg` E1001 · `rtot.ref` E990 · `rtx` E408 · `rvat` E325 · `rvt` E413 · `rxcp` E411 · `sc` E315 · `scat` E261 · `scc` E1115 · `ScenarioSelected` E64 · `scn` E70 · `scv` E262 · `second` E377 · `sgap` E321 · `ShareOfConsSubPha` E99 · `ShareofConsSubPhaBA` E102 · `ShareofProdSubPha` E92 · `ShareOfProdSubPhaBA` E95 · `shk` E300 · `shock` E286 · `shp` E404 · `shpx` E80 · `shr` E348 · `sp` E213 · `space` E376 · `spf` E210 · `spot` E266 · `SPPEffAdjEnergyEfficiencyRegulations` E65 · `SPPEffAdjFeebates` E69 · `SPPEffAdjInd` E68 · `SPPEffAdjRes` E67 · `SPPEffAdjVehicleFuelEconomy` E66 · `ssc` E77 · `start` E260 · `StartingPointWhenLTStorageIsNeeded` E167 · `stm` E268 · `stoav` E289 · `StorageHoursForLTStorage` E169 · `StorageToInterfaceRatioSTStorage` E165 · `swd` E313 · `swi` E312 · `tcf` E275 · `tcp` E1108 · `tic` E309 · `TotalHoursStorageFor100pcVRE` E164 · `tr.col` E418 · `tr.dk` E417 · `tr.pol` E419 · `tr.sw` E416 · `TrAdvBevBaseCyc` E461 · `TrAdvBevBaseFre` E460 · `TrAdvBevBasePas` E459 · `TrAdvBevPolCyc` E467 · `TrAdvBevPolFre` E466 · `TrAdvBevPolPas` E465 · `tradvcb` E705 · `tradvci` E704 · `tradvfb` E703 · `tradvfi` E702 · `TrAdvIceBaseCyc` E458 · `TrAdvIceBaseFre` E457 · `TrAdvIceBasePas` E456 · `TrAdvIcePolCyc` E464 · `TrAdvIcePolFre` E463 · `TrAdvIcePolPas` E462 · `tradvpb` E701 · `tradvpi` E700 · `TrAdvYearCyc` E470 · `TrAdvYearFre` E469 · `TrAdvYearPas` E468 · `trafe` E960 · `trafen` E959 · `trafg` E957 · `trafo` E958 · `traftc` E601 · `traftf` E600 · `traftn` E598 · `trafts` E618 · `traftsc` E620 · `traftsf` E619 · `traftu` E599 · `trancbn` E785 · `trancin` E778 · `tranfbn` E766 · `tranfin` E758 · `tranpbn` E727 · `tranpbu` E746 · `tranpin` E716 · `tranpiu` E739 · `travc` E593 · `travf` E592 · `travn` E590 · `travu` E591 · `trbevm` E621 · `trbio` E945 · `trbkm` E894 · `trbkm0` E871 · `trbkm0c` E885 · `trbkm0f` E879 · `trbkmb` E903 · `trbkmbc` E930 · `trbkmbf` E917 · `trbkmc` E922 · `trbkmf` E909 · `trbkmt` E906 · `trbkmtc` E932 · `trbkmtf` E919 · `trbu` E888 · `trbus0` E936 · `trbuse` E935 · `trbusel` E938 · `trbusf` E937 · `trbusp` E934 · `trbuyc` E605 · `trbuyf` E604 · `trbuyn` E602 · `trbuyu` E603 · `trbvu` E546 · `trbyt` E801 · `trbytc` E854 · `trbytf` E836 · `trbytn` E802 · `trbytu` E803 · `trcf2` E942 · `trcf2e` E943 · `trchs` E520 · `trckb2` E900 · `trckb2r` E901 · `trckbc` E674 · `trckbc2` E927 · `trckbc2r` E928 · `trckbf` E673 · `trckbf2` E914 · `trckbf2r` E915 · `trckbp` E671 · `trckbr` E672 · `trckc` E683 · `trckcr` E684 · `trckf` E678 · `trckfr` E679 · `trckm` E667 · `trckr` E668 · `trcks` E867 · `trcksc` E882 · `trckscr` E883 · `trcksf` E876 · `trcksfr` E877 · `trcksr` E868 · `trcloc` E613 · `trclof` E612 · `trclon` E610 · `trclou` E611 · `trco2c` E924 · `trco2f` E911 · `trco2p` E896 · `trcpp` E523 · `trcq` E889 · `trcrs` E824 · `trcrsf` E846 · `trcsc` E623 · `trcss` E622 · `TrCsStartLevel` E479 · `TrCsStartYear` E478 · `TrCsTargetLevel` E481 · `TrCsTargetYear` E480 · `trcuec` E708 · `trcuef` E707 · `trcuep` E706 · `TrCustPolFactor` E477 · `TrCustYearCyc` E473 · `TrCustYearFre` E472 · `TrCustYearPas` E471 · `trcyh` E580 · `trdemf` E834 · `trdemp` E799 · `trdfc` E892 · `trdff` E891 · `trdfp` E890 · `trdisc` E538 · `trdkmcycb` E694 · `trdkmcyci` E693 · `trdkmfreb` E692 · `trdkmfrei` E691 · `trdkmpasb` E688 · `trdkmpasi` E687 · `trdkmpaub` E690 · `trdkmpaui` E689 · `trdmcc` E853 · `trdmcf` E835 · `trdmcp` E800 · `trdpcbn` E784 · `trdpcin` E777 · `trdpfbn` E765 · `trdpfin` E757 · `trdppbn` E726 · `trdppin` E715 · `TrDtStartCyc` E440 · `TrDtStartFre` E439 · `TrDtStartPas` E438 · `TrDtTargetCyc` E446 · `TrDtTargetFre` E445 · `TrDtTargetPas` E444 · `TrDtTargetYearCyc` E443 · `TrDtTargetYearFre` E442 · `TrDtTargetYearPas` E441 · `trdtxc` E666 · `trdtxf` E665 · `trdtxp` E664 · `TrDtYearCyc` E437 · `TrDtYearFre` E436 · `TrDtYearPas` E435 · `trdut` E517 · `trelc` E931 · `trelf` E918 · `trelp` E905 · `trelph` E904 · `trelt` E941 · `trevac` E807 · `trevacc` E858 · `trevaf` E840 · `trevbm` E557 · `trevcc` E815 · `trevo` E516 · `trevom` E549 · `trevp` E515 · `trevpm` E560 · `trevsc` E617 · `trevsf` E616 · `trevsh` E816 · `trevst` E615 · `trfbl` E634 · `trfblc` E658 · `trfblf` E650 · `TrFbPivotChgCyc` E434 · `TrFbPivotChgFre` E433 · `TrFbPivotChgPas` E432 · `TrFbPivotCyc` E431 · `TrFbPivotFre` E430 · `TrFbPivotPas` E429 · `TrFbPivotTypeCyc` E428 · `TrFbPivotTypeFre` E427 · `TrFbPivotTypePas` E426 · `trfbr` E635 · `trfbr5` E636 · `TrFbRateCyc` E425 · `TrFbRateFre` E424 · `TrFbRatePas` E423 · `trfbrc` E659 · `trfbrf` E651 · `trfbtc` E633 · `trfbtf` E632 · `trfbtp` E631 · `trfbvcb` E775 · `trfbvci` E774 · `trfbvfb` E755 · `trfbvfi` E754 · `trfbvpb` E699 · `trfbvpi` E698 · `trfbvub` E737 · `trfbvui` E736 · `TrFbYearCyc` E422 · `TrFbYearFre` E421 · `TrFbYearPas` E420 · `trfcc` E956 · `trfcec` E954 · `trfcef` E953 · `trfcep` E952 · `trfcf` E955 · `trfcp` E951 · `trfe` E512 · `trfeb` E522 · `trfebm` E543 · `trfebn` E897 · `trfebo` E898 · `trfeboc` E925 · `trfebof` E912 · `trfebs` E899 · `trfebsc` E926 · `trfebsf` E913 · `trfem` E540 · `trfem2` E541 · `trfen` E524 · `trfeu` E642 · `trfeub` E644 · `trfew` E628 · `trfewf` E648 · `trfn` E637 · `trfna` E639 · `trfnaf` E653 · `trfnc` E660 · `trfnf` E652 · `trfnp` E638 · `trfsc` E865 · `trfscc` E881 · `trfscf` E875 · `trfscp` E866 · `trfsh` E578 · `trfso` E863 · `trfsoc` E880 · `trfsof` E874 · `trfsop` E864 · `trfu0` E873 · `trfu0c` E886 · `trfu0f` E887 · `trfu0g` E872 · `trfua` E939 · `trfub` E940 · `trfuc` E923 · `trfucbn` E787 · `trfucin` E780 · `trfuf` E910 · `trfufbn` E768 · `trfufin` E760 · `trfup` E895 · `trfupbn` E730 · `trfupbu` E748 · `trfupin` E719 · `trfupiu` E741 · `trgdl` E537 · `trgpc` E536 · `trgpcr` E869 · `trgtf` E833 · `trgtp` E798 · `tricd` E822 · `tricdp` E823 · `tricl` E645 · `triclc` E662 · `triclf` E656 · `triclu` E646 · `tricn` E826 · `tricnf` E848 · `trico` E827 · `tricof` E849 · `tricp` E825 · `tricpf` E847 · `trics` E820 · `tricsf` E844 · `tricw` E828 · `tricwf` E850 · `trimcbn` E786 · `trimcin` E779 · `trimfbn` E767 · `trimfin` E759 · `trimp` E518 · `trimpbn` E729 · `trimpbu` E747 · `trimpin` E718 · `trimpiu` E740 · `trint` E640 · `trinta` E641 · `trintaf` E655 · `trintc` E661 · `trintc2` E933 · `trintf` E654 · `trintf2` E920 · `trintp` E907 · `trints` E647 · `trintsc` E663 · `trintsf` E657 · `trintu` E643 · `trjc` E579 · `trjhf` E793 · `trjhp` E790 · `trjif` E794 · `trjip` E791 · `trjjf` E795 · `trjjp` E792 · `trkmc` E949 · `trkmf` E948 · `trkmp` E947 · `trkmt` E950 · `trkt` E944 · `trkte` E946 · `trlgc` E856 · `trlgcb` E857 · `trlgf` E838 · `trlgfb` E839 · `trlgn` E805 · `trlgnb` E806 · `trlgu` E811 · `trlgub` E812 · `trmku` E625 · `TrModel` E415 · `trnc` E577 · `trnwbn` E818 · `trnwbu` E819 · `trnwc` E861 · `trnwf` E843 · `tropc` E589 · `tropf` E588 · `tropn` E586 · `tropu` E587 · `trown` E513 · `trownb` E558 · `trownc` E572 · `trownce` E573 · `trowne` E559 · `trownf` E565 · `trownfe` E566 · `trowny` E582 · `trp.bsh` E526 · `trp.bus` E528 · `trp.cap` E494 · `trp.chs` E495 · `trp.dep` E483 · `trp.dsc` E497 · `trp.eb` E506 · `trp.eb2` E509 · `trp.ebb` E507 · `trp.ebc` E508 · `trp.ef` E505 · `trp.efa` E510 · `trp.ela` E501 · `trp.frs` E499 · `trp.gap` E488 · `trp.gj` E503 · `trp.ice` E498 · `trp.inc` E487 · `trp.ins` E484 · `trp.k` E489 · `trp.life` E482 · `trp.lpk` E504 · `trp.mev` E486 · `trp.mic` E485 · `trp.mku` E496 · `trp.mod` E502 · `trp.odc` E492 · `trp.ogr` E491 · `trp.own` E490 · `trp.tax` E527 · `trp.vkt` E493 · `trp.yrs` E500 · `trpav` E630 · `trpavf` E649 · `trpev` E626 · `trphg` E629 · `trphs` E542 · `trphv` E550 · `trphvs` E556 · `trpkc` E574 · `trpkcbn` E789 · `trpkcin` E782 · `trpkd` E567 · `trpke` E545 · `trpkec` E575 · `trpkef` E568 · `trpkfbn` E770 · `trpkfin` E762 · `trpkg` E544 · `trpkpbn` E732 · `trpkpbu` E750 · `trpkpin` E721 · `trpkpiu` E743 · `trplgc` E609 · `trplgf` E608 · `trplgn` E606 · `trplgu` E607 · `trpop` E535 · `trppbp` E725 · `trppcb` E783 · `trppci` E776 · `trppfb` E764 · `trppfi` E756 · `trpphv` E531 · `trppip` E714 · `trppub` E744 · `trppui` E738 · `trprg` E530 · `trpri` E532 · `trprl` E529 · `trprm` E534 · `trprn` E533 · `trpvac` E771 · `trpvaf` E751 · `trpvap` E695 · `trpvc` E773 · `trpvf` E753 · `trpvmc` E772 · `trpvmf` E752 · `trpvmp` E696 · `trpvp` E697 · `trra` E627 · `trrafc` E967 · `trraff` E966 · `trrafp` E965 · `trrau` E745 · `trresb` E734 · `trresgb` E735 · `trresgp` E723 · `trresp` E722 · `trretc` E597 · `trretf` E596 · `trretn` E594 · `trretu` E595 · `trsat` E521 · `trsatf` E831 · `trsatg` E832 · `trsatp` E796 · `trsatq` E797 · `trshc` E859 · `trshcb` E860 · `trshf` E511 · `trshfb` E842 · `trshfi` E841 · `trshn` E808 · `trshnb` E809 · `trshu` E813 · `trshub` E814 · `trsps` E539 · `trsta` E624 · `trstd` E583 · `trstdc` E585 · `trstdf` E584 · `trstt` E614 · `TrSubAmountCyc` E452 · `TrSubAmountFre` E451 · `TrSubAmountPas` E450 · `trsubc` E713 · `TrSubChgCyc` E455 · `TrSubChgFre` E454 · `TrSubChgPas` E453 · `trsubf` E712 · `trsubp` E711 · `TrSubYearCyc` E449 · `TrSubYearFre` E448 · `TrSubYearPas` E447 · `trsum` E968 · `trsvpbn` E728 · `trsvpin` E717 · `trtcac` E855 · `trtcaf` E837 · `trtcau` E810 · `trtcav` E804 · `trtcf` E724 · `trtcff` E763 · `trtcfp` E733 · `trtcr` E821 · `trtcrf` E845 · `trtocbn` E788 · `trtocin` E781 · `trtofbn` E769 · `trtofin` E761 · `trtopbn` E731 · `trtopbu` E749 · `trtopin` E720 · `trtopiu` E742 · `trtrn` E817 · `trusd` E519 · `trush` E581 · `trvatbc` E710 · `trvatbp` E709 · `TrVatPolFactor` E476 · `TrVatYearCyc` E475 · `TrVatYearPas` E474 · `trveh` E829 · `trvehb` E830 · `trvehc` E862 · `trvehf` E851 · `trvehfb` E852 · `trvht` E961 · `trvhta` E964 · `trvhtc` E963 · `trvhtf` E962 · `trvk0` E554 · `trvkb` E548 · `trvkbc` E576 · `trvkbf` E569 · `trvkc` E893 · `trvkcb` E902 · `trvkcbc` E929 · `trvkcbf` E916 · `trvkcc` E921 · `trvkcf` E908 · `trvkd` E514 · `trvkf` E552 · `trvkfb` E571 · `trvkfd` E570 · `trvkfr` E561 · `trvkg` E551 · `trvkm` E547 · `trvkn` E669 · `trvkna` E670 · `trvknaf` E681 · `trvknb` E675 · `trvknbf` E682 · `trvkncb` E686 · `trvkncg` E685 · `trvknf` E680 · `trvkp` E553 · `trvkr0` E562 · `trvku` E676 · `trvku0` E870 · `trvku0c` E884 · `trvku0f` E878 · `trvkub` E677 · `trvp` E525 · `trvsf` E564 · `trvsf1` E563 · `trvsh` E555 · `tvc` E302 · `tvcx` E303 · `txf` E214 · `txo` E215 · `usdtot` E383 · `UseSpotFuelPricesInEngineerModel` E147 · `vat` E220 · `vbc` E298 · `vcmin` E338 · `vre` E351 · `wac` E253 · `WACCSource` E152 · `WACCUserGlobal` E153 · `wcli` E1117 · `wdg` E1118 · `wel` E1122 · `wfx` E252 · `wsel` E251 · `xac` E299 · `xck` E297 · `xcp` E398 · `xcpd` E399 · `xct.c` E86 · `xct.p` E87 · `xets.p` E88 · `xnim` E1102 · `xnim.pct` E1106 · `xr` E5 · `xtb` E1103 · `xtb.pct` E1105 · `xtbp` E1104 · `YearConsSubPha` E97 · `YearPha` E16 · `YearPPACoalGas` E173 · `YearPrcContPha` E104 · `YearProdSubPha` E90 · `YearsToPhaseOutPPAs` E174

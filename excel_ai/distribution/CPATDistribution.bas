@@ -8,7 +8,7 @@ Option Explicit
 '
 ' Public macros (Alt+F8):
 '   UpdateFromMitigation  copies the values of ExportDistn from the mitigation workbook named on Cover
-'                         (MitSource; a name alone is looked for next to this workbook, then one folder up)
+'                         (MitSource; a name alone is looked for next to this workbook, in permalink\, one folder up, then in permalink\ one folder up)
 '                         into FromMitigation, after checking that the rows are the same variables. If the
 '                         mitigation workbook is open, its current values are used (recalculate it first);
 '                         otherwise it is opened read-only, without macros or recalculation, and closed.
@@ -85,7 +85,7 @@ fail:
     Application.Calculation = calc
     Application.ScreenUpdating = True
     MsgBox "Update failed: " & Err.Description & vbLf & vbLf & "Check the mitigation workbook on Cover " & _
-           "(a name alone is looked for next to this workbook, then one folder up).", vbExclamation, "CPAT distribution"
+           "(a name alone is looked for next to this workbook, in permalink\, then one folder up).", vbExclamation, "CPAT distribution"
 End Sub
 
 Public Sub CalculationOn()
@@ -132,7 +132,8 @@ End Function
 
 Private Function MitPath() As String
     ' the mitigation workbook of Cover (MitSource): a full path or a web address as it is; a name alone next to this
-    ' workbook, then one folder up (the release copies sit in excel_ai\releases\); not found: ask
+    ' workbook, in permalink\ next to it, one folder up, or in permalink\ one folder up (v1.1: the mitigation
+    ' prototype's permalink copy is excel_ai\permalink\; release copies sit in excel_ai\releases\); not found: ask
     Dim s As String, cands As Variant, c As Variant, f As Variant
     s = Trim(CStr(ThisWorkbook.Names("MitSource").RefersToRange.Value))
     If Len(s) = 0 Then s = MIT_FILE
@@ -140,7 +141,8 @@ Private Function MitPath() As String
     If Mid(s, 2, 1) = ":" Or Left(s, 2) = "\\" Or Left(s, 1) = "/" Then
         If Len(Dir(s)) > 0 Then MitPath = s: Exit Function
     ElseIf Left(ThisWorkbook.Path, 4) <> "http" Then
-        cands = Array(ThisWorkbook.Path & "\" & s, ThisWorkbook.Path & "\..\" & s)
+        cands = Array(ThisWorkbook.Path & "\" & s, ThisWorkbook.Path & "\permalink\" & s, _
+                      ThisWorkbook.Path & "\..\" & s, ThisWorkbook.Path & "\..\permalink\" & s)
         For Each c In cands
             If Len(Dir(CStr(c))) > 0 Then
                 MitPath = CreateObject("Scripting.FileSystemObject").GetAbsolutePathName(CStr(c))
