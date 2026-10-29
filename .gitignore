@@ -13,3 +13,4 @@ CPAT_LegacyData*.xlsx
 CPAT_Data_*.xlsx
 !data/workbooks/CPAT_Data_dummy_python.xlsx
 !data/workbooks/CPAT_Data_dummy_cpat.xlsx
+.claude/worktrees/
