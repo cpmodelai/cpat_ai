@@ -9374,7 +9374,7 @@ Generated from the workbook by `make_equations.py` (do not edit by hand): every 
 - Description: MIN(fee x GWP, fee where a x fee ^ b = 1) (MFEEPRICE)
 - Legacy: new (v0.3.17)
 - Rows: og,all, dg,all, cm,all, bm,all, liv,all, ric,all, wst,all
-  - 2022-2041: `mfp(t) = IF(<curve a (CH4Inputs) of ch4.abt[f,s]>=0,0,IF(OR(<curve b (CH4Inputs) of ch4.abt[f,s]><=0,LN(1/<curve a (CH4Inputs) of ch4.abt[f,s]>)/<curve b (CH4Inputs) of ch4.abt[f,s]>>700),mfee(t)*<GWP of ch4.abt[f,s]>*<fee applies (1 = yes; Settings, legacy Manual inputs J196-J200) of ch4.abt[f,s]>,MIN(mfee(t)*<GWP of ch4.abt[f,s]>*<fee applies (1 = yes; Settings, legacy Manual inputs J196-J200) of ch4.abt[f,s]>,(1/<curve a (CH4Inputs) of ch4.abt[f,s]>)^(1/<curve b (CH4Inputs) of ch4.abt[f,s]>))))`
+  - 2022-2041: `mfp(t) = IF(<curve a (CH4Inputs) of ch4.abt[f,s]>=0,0,MIN(mfee(t)*<GWP of ch4.abt[f,s]>*<fee applies (1 = yes; Settings, legacy Manual inputs J196-J200) of ch4.abt[f,s]>,IFERROR(<curve a (CH4Inputs) of ch4.abt[f,s]>^(-1/<curve b (CH4Inputs) of ch4.abt[f,s]>),mfee(t)*<GWP of ch4.abt[f,s]>*<fee applies (1 = yes; Settings, legacy Manual inputs J196-J200) of ch4.abt[f,s]>)))`
 
 **E1212. `mfc`: Efficiency cost of the methane fee: area under the abatement curve** (USD bn real)
 
@@ -10199,7 +10199,7 @@ Each 2041 cell calls one of these named LAMBDAs (sheet `Lambdas`, name manager).
 | `SAFEDIV` | amount, activity | `IF(activity=0,0,amount/activity)` | Amount per unit of activity, 0 when the activity is 0 (v0.3.14: grid intensity, Kaya) |
 | `GROWPATH` | level, growth, years | `level*(1+growth)^years` | Level x (1 + real growth) ^ years (v0.3.17: social cost of carbon paths) |
 | `TRAPEZOID` | wedge, wedge_ref, change | `-AVERAGE(wedge,wedge_ref)*change/MperBn` | Efficiency cost (USD bn): -average of the wedge and the scenario-1 wedge x change in use (v0.3.17) |
-| `MFEEPRICE` | coef_a, coef_b, fee | `IF(coef_a=0,0,IF(OR(coef_b<=0,LN(1/coef_a)/coef_b>700),fee,MIN(fee,(1/coef_a)^(1/coef_b))))` | Methane fee per t CH4 used on the abatement curve, capped where abatement reaches 1 (v0.3.17) |
+| `MFEEPRICE` | coef_a, coef_b, fee | `IF(coef_a=0,0,MIN(fee,IFERROR(coef_a^(-1/coef_b),fee)))` | Methane fee per t CH4 used on the abatement curve, capped where abatement reaches 1 (v0.3.17) |
 | `MFEECOST` | base_kt, abated, price, coef_b | `base_kt*abated*price*coef_b/(1+coef_b)/Million` | Area under the abatement curve a x fee ^ b: base x abated share x price x b / (1 + b) (v0.3.17) |
 | `IMPULSE` | year, start, space, space_prev, gdp_prev, gdp | `IF(year<start,0,space-space_prev*gdp_prev/gdp)` | Fiscal impulse (legacy row 14356, v0.4.15): change in revenue above scenario 1 (USD) / this year's GDP, 0 before GDPStartYear |
 | `MULTGROUP` | mult_source, income_group | `IFERROR(INDEX(MultSrcVal,MATCH(LEFT(mult_source,3),MultSrcKey,0)),LOWER(income_group))` | Multiplier group: global, est (country estimates), man (Manual inputs), else the income group of the country (v0.4.15, LD56) |
