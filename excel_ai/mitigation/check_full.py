@@ -2584,7 +2584,8 @@ def check_results_memos(ws):
                 mfc += ex[f'mfc.{j}']
             ex['mfc.all'] = mfc
             gdp = cell(B.R_GDPUSD, c)
-            ex['wel.usd'] = ex['wcli.nat'] - eff - mfc
+            cob = cell(B.R_WEL['wel.air.usd'], c) + sum(cell(B.R_WEL[f'wel.rod.{k}'], c) for k in ('aci', 'con', 'dmg'))
+            ex['wel.usd'] = ex['wcli.nat'] + cob - eff - mfc   # v9.0 (R2.8): + co-benefits (rows of the sheet)
             ex['wel.pct'], ex['wel.cli'], ex['wel.eff'] = ex['wel.usd'] / gdp, ex['wcli.nat'] / gdp, (eff + mfc) / gdp
             for key, x in ex.items():
                 got = cell(B.R_WEL[key], c)

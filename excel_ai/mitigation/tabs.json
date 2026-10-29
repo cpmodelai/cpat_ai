@@ -17,52 +17,57 @@
  "Inputs_ef": [
   "Inputs",
   248,
-  41
+  51
  ],
  "Inputs_ela": [
   "Inputs",
-  292,
+  302,
   124
  ],
  "Inputs_mult": [
   "Inputs",
-  419,
+  429,
   34
  ],
  "Inputs_macro": [
   "Inputs",
-  456,
+  466,
   41
  ],
  "Inputs_pint": [
   "Inputs",
-  500,
+  510,
   66
  ],
  "Inputs_ecp": [
   "Inputs",
-  569,
+  579,
   137
  ],
  "Inputs_pset": [
   "Inputs",
-  709,
+  719,
   44
  ],
  "Inputs_ptech": [
   "Inputs",
-  756,
+  766,
   13
  ],
  "Inputs_ppath": [
   "Inputs",
-  772,
+  782,
   71
  ],
  "Inputs_ppar": [
   "Inputs",
-  846,
+  856,
   49
+ ],
+ "Inputs_cob": [
+  "Inputs",
+  908,
+  34
  ],
  "Settings": [
   "Settings",
@@ -72,12 +77,12 @@
  "Constants": [
   "Settings",
   86,
-  83
+  85
  ],
  "Mapping": [
   "Settings",
-  172,
-  1235
+  174,
+  1283
  ],
  "VersionLog": [
   "Version Log, About, and Diff",
@@ -97,16 +102,16 @@
  "Variables": [
   "Check, Variables, Lambdas",
   0,
-  1144
+  1215
  ],
  "Lambdas": [
   "Check, Variables, Lambdas",
-  1147,
+  1218,
   1132
  ],
  "MacroCheck": [
   "Check, Variables, Lambdas",
-  2282,
+  2353,
   307
  ]
 }
