@@ -1,8 +1,8 @@
-# Check report - CPAT-AI-Mitigation-Prototype v1.0.1 (partial: CHECK_PARTIAL=1, sections 0-4b, 7, 8b, 14; LAMBDA-library variant B skipped)
+# Check report - CPAT-AI-Mitigation-Prototype v1.0.2 (partial: CHECK_PARTIAL=1, sections 0-4b, 7, 8b, 14; LAMBDA-library variant B skipped)
 
 ## 0. Formula length (at most 100 characters per cell formula)
 - LAMBDA calls only in the LAMBDA year 2041 of Mitigation and the LAMBDA test group 2 (Mitigation, Distribution): 112179 cells OK
-- 452206 cell formulas in 58 sheets (112179 call a named LAMBDA): longest plain 100 characters (Mitigation!AA36); over 100: 0 OK
+- 452275 cell formulas in 58 sheets (112179 call a named LAMBDA): longest plain 100 characters (Mitigation!AA36); over 100: 0 OK
 - 310 named LAMBDAs (longest: FUELUSE, 198 characters); 515 defined names for data tables and fixed ranges: ExportDistn, SCCatStem, SCCatLab, SCCatUnit, SCChartCfg, SCSw, SCYc, SCPre, DataSource, DataSrcTable, SCVal, SCCode, SCYear, LOStem, LOUnit, SDBase, SDParam, SDId, SDName, SDShort, DataLastUpdate, DataUsed, DataSavedIn, DataLinkTable, WEOVal, WEOKey, WEOYear, WEOCode, WEOLast, WEOData, WEOYr, CtryEuro, ElaAll, ElaCtry, ElaSelKey, ElaSel, EFKey, EFVal, EFSelKey, EFSel, EFGenKey, EFGen, NCEfKey, NCEfIn, NCEfFin, ApKey, ApVal, ApYear, ApKapKey, ApKap, ApKapHdr, ApEfKey, ApEf, TcbKey, TcbVal, TcbYear, VatWeo, VatWeoYr, CtryReg, ConsGas, ConsBio, ConsCoa, ConsVal, ConsKey, ConsSub, PIntVal, PIntKey, PIntAll, PIntYear, PDomVal, PDomKey, PDomHdr, PPathVal, PPathKey, PPathYear, PTechVal, PTechKey, PTechHdr, PParVal, PParKey, PowA, PowE, PowF, PowG, PowH, PowI, PowJ, PowK, PowCtf, PowCtfYr, PowRows, PowBatYr, PowScB, PowScC, PowPr, PowPrKey, PowPrYr, PowPrFlag, PowACtry, PowAPre, PowIC, PowICKey, PowICYr, CoCC, CoCB, CoCD, CoCAdj, CoCTech, CoCInc, PsMinTE, PsHydNoRet, PsScNonVRE, PsScNonNuc, PsScCat, PsScUser, PsWaccSrc, PsWaccUser, PsWaccMin, PsReDecline, PsLTHours, PsIncElAdj, PsPass, PsSTAlloc, PsSTHours, PsSTRatio, PsLTAlloc, PsLTStart, PsAddEff, PsMaxCoalCF, PsKDisp, PsKInv, PsMinCost, PsEarlyMax, PsEarlyBL, PsCFMinVRE, PsCFMinOth, PsCFMax, PsCtfScen, PsCoCRow, PsCoCData, PsCtryWacc, PsCoalAdj, PsIncWacc, PsScCtry, PsScCatRate, PsScVRE, PsBalOut, PsBalPow, PsDlfRen, VarKey, VarLab, VarUnit, VarSfx, VarSrc, VarEnd, VarCode, SubKey, FuelKey, SecKey, SecLab, FuelKeyL, FuelLab, MemKey, MemLab, MSlot, RowKey, RowCode, VCode, SecVar, SecFuel, SecSub, SemiEl, MitAll, MitScen, MitDesc, MitUnit, TrFuelKey, TrKey, TrYr, TrVal, TrVar, VPKey, VPVal, VPVar, RAKey, CtryName, RAPas, RAFre, RACyc, RAPasA, RAPasC, RAFreA, RAFreC, RACycA, RACycC, TrParKey, TrParVal, TrPathKey, TrPathVal, TrPathYr, SRScen, SRName, SRCode, SRDesc, SRUnit, SRVal, SRYear, CodePrefix, CPfx, SpotPow, CPIRes, DeflRes, PDomBase, PDomLast, OBREff, PJperKtoe, ECPKey, ECPCov, ECPVal, ECPYear, ECPLast, ECPAllKey, XKey, XCTVal, XETSVal, ECPEmb, ECPInfoCode, ECPInfoSgl, ECPInfoEU, ECPAllVal, ECPAllYear, CtryCode, BaseYr, GHGYear, SCCTgt, SCCTgtYr, SCCGr, NSCCSrc, GSCCSrc, SCCEpa, RickeN, RickeG, MFeeBio, MFeeDG, MFeeFF, MFeeAgr, MFeeWst, ETSMaxIterations, ETSStartFreshContinue, ETSErrorTolerance, PwTx, PwTxYr, PwRp, PwRpYr, ManPrKey, ManPrVal, ManPrYr, ManPrOn, MPU, MPUYr, MPUHdr, ElIncMan, ElPrcMan, ElaManVal, PCtrlKey, PCtrlVal, PIntManVal, PIntManLab, PIntManYear, SCCManVal, SCCManYear, WDData, WDYear, WDIdx, ManCapVal, ManCapYr, BEVFEVal, BEVFEYr, BEVFELab, GhgElCat, GhgElPop, GhgElInc, BioNormal, PavMethod, BioLeak, CookEffKey, CookEffVal, CookEffBio, CookFuel, ResBioSubst, LkFuelKey, MultSrcKey, MultSrcVal, ScnName, ScnExpl, ScnAdj, ScnCov, ScnReb, ScnElx, PwDeficitGas, PwCoalICTariff, ExemptCookShare, TrCostShare, NDCTab, NDCKey, NDCHdr, GHHTab, GHHIso, GHHHdr, NDCTypes, NDCSub, EFFinShare, NDCTyr, NDCCond, CoalICKey, CoalICST, CoalICLT, CoalICSTc, CoalICLTc, ManExcKey, ManExcVal, ManExcYr, PowScRate, PowScCat, PwGInt, SCCKey, SCCVal, GHGKey, GHGIso, GHGYr, GHGVal, GHGShock, GHGShockKey, GHGShockYr, GHGCol, MethKey, MethVal, MethCol, NCKey, NCIn, NCFin, NCCtry, NCSub, NCFuel, PopKey, PopVal, PopYear, OPSKey, OPSVal, OPSHdr, RegKey, RegVal, CtryCodes, CtryNames, CtryIncome, CtryRegions, RegNames, RegCodes, MultKey, MultVal, MultD, MultC, MultMan, MultManKey, IncomeGrp, EFCalib, PwRpHist, PwTie, PwCG, SecPar, PVar, PPar, CovKey, CovEtsPos, CovFbPos, CovSemiPos, PwRpYear, ETSSemiKey, ETSSemiVal, ETSSemiCol, BalKey, BalVal, BalFuel, BalInfo, BalOpt, IPKey, LastHist, IPsp, IPtxo, IPspY, IPtxoY, VarP1, VarP2, VarP3, VarP4, ConstKey, ConstVal, ManCapOff, CoalICYr, MethGJperKtoe, MethGJperBbl, MethGJperT, MethGJperMMBtu, PwAvgLag, LitersPerKtoeOil, LitersPerBbl, NDCYrCap, HoursYr, kWperMW, USDperM, MWyMkWh, PriceFloor, GWPCH4F, GWPCH4NF, tPerKt, EFtPerKtoe, ktPerMt, GdpExtHalf, WaccDefault, HydInvShare, UraniumFuel, InvPresentShare, StMargFactor, EarlyMaxShare, KtoeGWh, IncfA, IncfB, IncfC, IncfD, IncfE, IncfLnCap, IncfNorm, MultLastLag, KgPerT, EFOilIEA, ApCoalResMin, EFJetIEA, FlareCO2perCH4, EFEndYear, MperBn, PctPerUnit, PomPerOC, GJperkWh, CapAvgShr, TieBreak, PassLo, PassHi, PassMid, MethShareCap, Thousand, Million, Billion, TrRALag, TrPivotLag, TrOwnDecline, TrFEWGso, TrFEWHalf, TrFEWEvP, TrFEWEvO, ResSubstLag, MitGW, BasketQ, DecPerQuint, PlDecScale, DWLTri, PsElFloor, MTRowKey, MTRowNum, MTDesc, MTName, MTEnd, BaseCO2Key, BaseCO2Val, BaseCO2Year, DHHKey, DHHVal, DHHVar, DElKey, DElVal, DElVar, DIOKey, DIOVal, DIOSec, DIOTKey, DIOTot, DLcatKey, DLcat, DAspKey, DAspVal, DCookKey, DCookFuel, DGDPRKey, DGDPRVal, DGDPRHdr, DProgKey, DProgCode, DGroupKey, DGiniW, DDeflKey, DDeflVal, DDeflYear, DistAll, DistScen, DistDesc, DistUnit, DSecCode, DSecName, DSecCpat, DSecHhd, DSecExp, DSecOut, DSecFuel, DSecLeon, DPTKey, DPTVal
 
 ## 1. Shipped file recalculated in LibreOffice (no LAMBDA support)
@@ -2171,13 +2171,13 @@ Effect of each bug fix on the legacy Egypt inputs (2040; % change against legacy
 | all |  | +12.37% | +15.63% | +12.21% | +1.05% | +27.65% |
 
 ## 7. Labels and codes
-- column H: 7558 cells, 1 formula OK
-- column I: 7558 cells, 1 formula OK
-- column J: 7558 cells, 1 formula OK
-- code column K (scenario 1): 7028 cells, 1 formula OK
+- column H: 7565 cells, 1 formula OK
+- column I: 7565 cells, 1 formula OK
+- column J: 7565 cells, 1 formula OK
+- code column K (scenario 1): 7035 cells, 1 formula OK
 - code column K (scenario 1), rows with their own code: 512 cells, 1 formula OK
 - code column K: 18 rows without a code (the section 11 copies, R7) OK
-- code column AG (scenario 2): 7028 cells, 1 formula OK
+- code column AG (scenario 2): 7035 cells, 1 formula OK
 - code column AG (scenario 2), rows with their own code: 512 cells, 1 formula OK
 - code column AG: 18 rows without a code (the section 11 copies, R7) OK
 - K2696: `egy.mit.ener.rod.gso.1` | Fuel use | Road | Gasoline OK
@@ -2215,7 +2215,7 @@ Effect of each bug fix on the legacy Egypt inputs (2040; % change against legacy
 
 ## 8b. Layout and constants (v0.2.4): years in row 1, labelled D:G, nothing typed
 - years in row 1 of every scenario group (2022-2041): OK
-- 742 label rows; 4197 rows with values in D:G, each with a label in its label row above for every column it uses: OK
+- 743 label rows; 4204 rows with values in D:G, each with a label in its label row above for every column it uses: OK
 - no typed numbers below the top rows (inputs: scenario number K5, ETS override row ets.ovr) and no numeric constants in the formulas of any sheet: OK
   allowed in formulas besides 0 and 1: choice codes of gp.adj (1 none, 2 High, 3 Low); AGGREGATE function codes (average, skip errors); text length in LEFT(switch, n) = "Yes" / "High" ...; functional form of the long-term storage cost (legacy: 2 x, squared); functional form of the long-term storage cost (squared)
 - sheet Constants: 69 named constants (ManCapOff, CoalICYr, MethGJperKtoe, MethGJperBbl, MethGJperT, MethGJperMMBtu, PwAvgLag, LitersPerKtoeOil, LitersPerBbl, NDCYrCap, HoursYr, kWperMW, USDperM, MWyMkWh, PriceFloor, GWPCH4F, GWPCH4NF, tPerKt, EFtPerKtoe, ktPerMt, GdpExtHalf, WaccDefault, HydInvShare, UraniumFuel, InvPresentShare, StMargFactor, EarlyMaxShare, KtoeGWh, IncfA, IncfB, IncfC, IncfD, IncfE, IncfLnCap, IncfNorm, MultLastLag, KgPerT, EFOilIEA, ApCoalResMin, EFJetIEA, FlareCO2perCH4, EFEndYear, MperBn, PctPerUnit, PomPerOC, GJperkWh, CapAvgShr, TieBreak, PassLo, PassHi, PassMid, MethShareCap, Thousand, Million, Billion, TrRALag, TrPivotLag, TrOwnDecline, TrFEWGso, TrFEWHalf, TrFEWEvP, TrFEWEvO, ResSubstLag, MitGW, BasketQ, DecPerQuint, PlDecScale, DWLTri, PsElFloor) and 13 policy assumptions by key OK; MWyMkWh = =HoursYr*kWperMW/USDperM
@@ -2234,11 +2234,11 @@ Effect of each bug fix on the legacy Egypt inputs (2040; % change against legacy
 - identities in every column: rnet = rtx + rsub (subsidies negative), rtot = rnet + rnew, fuel use = sector totals + power, power fuel use = fuel types of pe, power CO2 = CO2 by type = ETS sector power: max abs 5.5e-10 OK
 - file references in the workbook texts (3): current ones exist in the folder: OK
 - stale statements about power, revenues or interim data in the workbook texts: none OK
-- versions: Settings log ends with 1.0.1, Mitigation title "Mitigation Module", folder README names the workbook and builder of v1.0.1 OK
+- versions: Settings log ends with 1.0.2, Mitigation title "Mitigation Module", folder README names the workbook and builder of v1.0.2 OK
 - v0.2.8: newer Excel functions (MAXIFS, MINIFS, AGGREGATE, IFNA, ...) carry the _xlfn. prefix in the file (else Excel removes the formula on repair): OK
-- equations: Formulas.md regenerated from the workbook, 1256 variables; every variable of the dictionary has its equation OK
+- equations: Formulas.md regenerated from the workbook, 1257 variables; every variable of the dictionary has its equation OK
 - scripts and notes have stable names, no version in the name (48 files): OK
-- issues register (issues_register.py, Word register): 291 items, unique IDs; LegacyDiff rows of type Not yet, Simplification, To check (bucket 5) all included (3 of 3) OK
+- issues register (issues_register.py, Word register): 296 items, unique IDs; LegacyDiff rows of type Not yet, Simplification, To check (bucket 5) all included (3 of 3) OK
 - method chapters in docs/methods/ (8: Data_tabs.md, Distribution.md, ETS.md, Emissions.md, Macro_and_results.md, Power.md, Prices.md, Transport.md); no method note left in the folder OK
 
 **Overall (partial): PASS**

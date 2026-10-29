@@ -3704,10 +3704,10 @@ trafo,lpg,all,"Average fuel economy, diesel, LPG, gas (passenger and freight by 
 trafo,nga,all,"Average fuel economy, diesel, LPG, gas (passenger and freight by fuel use) | All sectors | Natural gas",km/l,egy.mit.fecon.all.nga.1
 trafen,ecy,all,"EV fuel economy x electricity use (passenger, freight, 2-3 wheelers) | All sectors | Electricity",km,egy.mit.trafen.all.ecy.1
 trafe,ecy,all,Average fuel economy of EVs (by electricity use; fix B22) | All sectors | Electricity,km/kWh,egy.mit.fecon.all.ecy.1
-trvht,all,pas,"Vehicles, passenger and light (all types) | Passenger and light vehicles | All fuels",million,egy.mit.pass.own.all.1
-trvhtf,all,fre,"Vehicles, freight | Freight vehicles | All fuels",million,egy.mit.fre.own.all.1
-trvhtc,all,cyc,"Vehicles, 2-3 wheelers | 2-3 wheelers | All fuels",million,egy.mit.motor.own.all.1
-trvhta,all,all,"Vehicles, road | All sectors | All fuels",million,egy.mit.all.own.all.1
+trvht,all,pas,"Vehicles, passenger and light (all types) | Passenger and light vehicles | All fuels",million,egy.mit.pass.own.tot.1
+trvhtf,all,fre,"Vehicles, freight | Freight vehicles | All fuels",million,egy.mit.fre.own.tot.1
+trvhtc,all,cyc,"Vehicles, 2-3 wheelers | 2-3 wheelers | All fuels",million,egy.mit.motor.own.tot.1
+trvhta,all,all,"Vehicles, road | All sectors | All fuels",million,egy.mit.tot.own.tot.1
 trrafp,ev,pas,"EV sales share, calculated less actual (pas; data years) | Passenger and light vehicles | Electric (BEV and PHEV)",share,egy.mit.trrafp.pass.ev.1
 trraff,ev,fre,"EV sales share, calculated less actual (fre; data years) | Freight vehicles | Electric (BEV and PHEV)",share,egy.mit.trraff.fre.ev.1
 trrafc,ev,cyc,"EV sales share, calculated less actual (cyc; data years) | 2-3 wheelers | Electric (BEV and PHEV)",share,egy.mit.trrafc.motor.ev.1
@@ -6397,6 +6397,13 @@ ch4.act,bm,all,Methane source: activity | All sectors | Biomass use,ktoe or inde
 ch4.act,liv,all,Methane source: activity | All sectors | Livestock,ktoe or index,egy.mit.ch4.act.all.liv.1
 ch4.act,ric,all,Methane source: activity | All sectors | Rice,ktoe or index,egy.mit.ch4.act.all.ric.1
 ch4.act,wst,all,Methane source: activity | All sectors | Waste,ktoe or index,egy.mit.ch4.act.all.wst.1
+ch4.abc,og,all,"Methane source: abatement-curve coefficients, country and average (CH4Inputs) | All sectors | Oil and gas extraction",coefficient,egy.mit.ch4.abc.all.og.1
+ch4.abc,dg,all,"Methane source: abatement-curve coefficients, country and average (CH4Inputs) | All sectors | Downstream gas",coefficient,egy.mit.ch4.abc.all.dg.1
+ch4.abc,cm,all,"Methane source: abatement-curve coefficients, country and average (CH4Inputs) | All sectors | Coal mining",coefficient,egy.mit.ch4.abc.all.cm.1
+ch4.abc,bm,all,"Methane source: abatement-curve coefficients, country and average (CH4Inputs) | All sectors | Biomass use",coefficient,egy.mit.ch4.abc.all.bm.1
+ch4.abc,liv,all,"Methane source: abatement-curve coefficients, country and average (CH4Inputs) | All sectors | Livestock",coefficient,egy.mit.ch4.abc.all.liv.1
+ch4.abc,ric,all,"Methane source: abatement-curve coefficients, country and average (CH4Inputs) | All sectors | Rice",coefficient,egy.mit.ch4.abc.all.ric.1
+ch4.abc,wst,all,"Methane source: abatement-curve coefficients, country and average (CH4Inputs) | All sectors | Waste",coefficient,egy.mit.ch4.abc.all.wst.1
 ch4.abt,og,all,Methane source: abatement share from the methane fee | All sectors | Oil and gas extraction,share,egy.mit.ch4.abt.all.og.1
 ch4.abt,dg,all,Methane source: abatement share from the methane fee | All sectors | Downstream gas,share,egy.mit.ch4.abt.all.dg.1
 ch4.abt,cm,all,Methane source: abatement share from the methane fee | All sectors | Coal mining,share,egy.mit.ch4.abt.all.cm.1

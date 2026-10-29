@@ -128,3 +128,16 @@ def test_fuel_table(ctx):
         cols[33 + 2 * j], cols[34 + 2 * j] = f'ef0_{pol}', f'ef1_{pol}'
     assert not differences([(f'{(ref(r, 2), ref(r, 3))}.{k}', ft[(ref(r, 2), ref(r, 3))][k], ref(r, col))
                             for r in range(5, 149) for col, k in cols.items()])
+
+
+def test_methane_curve_takes_the_average_where_the_country_value_is_0():
+    """Issue I152 (Excel-AI 1.0.2, ch4.abc): Dominica's livestock exponent b is 0 in CH4Inputs, so the curve takes the
+    CH4Inputs average (AVG, b = 0.7005), as legacy; its own a (non-zero) is kept."""
+    from cpat_model.mitigation import emissions, ghg_data
+    db = open_database(Settings())
+    dma, avg = ghg_data.methane(db, 'DMA')['liv'], ghg_data.methane(db, 'AVG')['liv']
+    assert dma['avg_pow_b'] == 0
+    assert emissions.curve_coefficient(dma, avg, 'avg_pow_b') == pytest.approx(0.7005218267440796)
+    assert emissions.curve_coefficient(dma, avg, 'avg_pow_a') == dma['avg_pow_a']
+    assert emissions.curve_coefficient({}, avg, 'avg_pow_a') == avg['avg_pow_a']
+

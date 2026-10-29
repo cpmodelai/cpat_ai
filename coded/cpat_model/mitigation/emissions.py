@@ -83,6 +83,14 @@ def co2(state, db, inputs, settings, baseline, t):
     R.set('co2.chg', k, total - co2ref, 'all', 'all')
 
 
+def curve_coefficient(country, average, key):
+    """EQ-A6 (methane abatement curve, coefficient a or b): the country's CH4Inputs value, the CH4Inputs average (AVG)
+    where it is 0 or missing, as legacy (Mitigation L6084:M6084: IF(country = 0, Average, IFNA(country, Average))).
+    Excel-AI 1.0.2: rows ch4.abc (country and average) and ch4.abt D:E; issue I152."""
+    v = country.get(key)
+    return v if v and v == v else average.get(key, 0.0)          # 0, blank or NaN: the average
+
+
 def country_data(db, iso, settings):
     """The data of section 14 for one country (ghg_data)."""
     inv, pos, ghg_year = ghg_data.inventory(db, iso)
@@ -105,8 +113,7 @@ def country_data(db, iso, settings):
     meth_avg = ghg_data.methane(db, 'AVG')     # CH4Inputs averages: the curve where the country value is 0 or missing
     for s in CH4_SOURCES:
         row = meth.get(CH4_KEY[s], {})
-        curve = lambda k: (row[k] if row.get(k) and row[k] == row[k]          # 0, blank or NaN: the average (legacy;
-                           else meth_avg.get(CH4_KEY[s], {}).get(k, 0.0))   # Excel-AI 1.0.2 ch4.abc, issue I152)
+        curve = lambda k: curve_coefficient(row, meth_avg.get(CH4_KEY[s], {}), k)
         share = 1.0 if s == 'wst' else meth.get(CH4_KEY[s] if s in ('liv', 'ric', 'cm') else 'oil', {}).get(CH4_SHARE[s], 0.0)
         src[s] = {'share': share, 'act0': act0[s], 'a': curve('avg_pow_a'), 'b': curve('avg_pow_b'),
                   'gwp': c('GWPCH4F') if s in CH4_FUEL_SOURCES else c('GWPCH4NF'),

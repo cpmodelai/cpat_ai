@@ -472,7 +472,7 @@ row,name,label,unit,1,2,3,4,5,6
 476,TrCsTargetYear,Charging-station subsidy: target year,year,2035,2035,2035,2035,2035,2035
 477,TrCsTargetLevel,Charging-station subsidy: share of the cost in the target year,share,0,0,0,0,0,0
 478,,,,,,,,,
-479,,"Inputs the prototype adds, per scenario: power (v0.5.4; legacy fixes) and the scope of carbon-tax coverage of biomass and of the subsidy and price-control phase-outs (v0.5.6; were Constants)",,,,,,,
+479,,"Inputs the prototype adds, per scenario: power (v0.5.4; legacy fixes), the scope of carbon-tax coverage of biomass and of the subsidy and price-control phase-outs (v0.5.6; were Constants) and the form of the demand equations (ModelForm, v1.0.2)",,,,,,,
 480,RenSubsidyAddStartYear,"New renewable energy subsidy: year it starts (v0.5.4; legacy reads the consumer subsidy phase-out year YearConsSubPha, bug L107)",year,2027,2027,2027,2027,2027,2027
 481,CTaxCoversBiomass,"Carbon tax covers biomass (TRUE / FALSE; EF 0, so no effect unless a factor is added; was Constants ctcov|bio|all)",switch,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE
 482,ConsSubPhaseScope_coa_pow,"Consumer subsidy phase-out applies to Coal, Power (1 = yes; v0.5.6, was Constants csi)",switch,1,1,1,1,1,1
@@ -504,37 +504,37 @@ row,name,label,unit,1,2,3,4,5,6
 508,ProdSubPhaseScope_oil,"Producer subsidy phase-out applies to oil (1 = yes; v0.5.6, was Constants psi)",switch,1,1,1,1,1,1
 509,ProdSubPhaseScope_bio,"Producer subsidy phase-out applies to biomass (1 = yes; v0.5.6, was Constants psi)",switch,1,1,1,1,1,1
 510,ProdSubPhaseScope_ecy,"Producer subsidy phase-out applies to electricity (1 = yes; v0.5.6, was Constants psi)",switch,1,1,1,1,1,1
-511,,,,,,,,,
+511,ModelForm,"Form of the demand equations (Coded CPAT design D4): CPAT, CPAT partial adjustment, CES partial adjustment, CDPM-FTT (v1.0.2; only CPAT is built, so the formulas do not read it yet)",option,CPAT,CPAT,CPAT,CPAT,CPAT,CPAT
 512,,,,,,,,,
 513,,,,,,,,,
-514,,"A. Road engineer model: parameters and options (v0.5.6; legacy Dashboard rows 540-559; global rows, read by sheet TransportParams)",,,,,,,
-515,,,,,,,,,
-516,,B. Power: model choices (v0.5.6; legacy Dashboard Q197; global),,,,,,,
-517,TransmissionCostShare,Share of transmission capex in the levelised cost of new plants (legacy IncludeTransmissionCostsInGenerationCostsPercent),share,1,1,1,1,1,1
-518,,,,,,,,,
-519,,C. CPAT-AI settings (v0.5.6; global; Settings reads these rows),,,,,,,
-520,LastHistPriceYear,Last historical price year (LastHist),year,2024,2024,2024,2024,2024,2024
-521,ETSOBREffectiveness,ETS: relative effectiveness of output-based allocation (OBREff),share,0.5,0.5,0.5,0.5,0.5,0.5
-522,ETSNextPriceExponent,ETS: convergence exponent of the next-price proposal,exponent,0.5,0.5,0.5,0.5,0.5,0.5
-523,ApplyDemandShock,Apply the legacy 2023-2024 energy demand shock (1 = yes),0/1,1,1,1,1,1,1
-524,SCCTargetYear,Year of the target-consistent carbon price (SCCTgtYr),year,2030,2030,2030,2030,2030,2030
-525,SCCEpaBaseYear,US EPA SCC in the base year (SCCEpa),$/tCO2,62,62,62,62,62,62
-526,AveragePriceMethod,Average price change reported: Legacy* / Laspeyres (PavMethod),option,Legacy*,Legacy*,Legacy*,Legacy*,Legacy*,Legacy*
-527,PwDeficitGas,Power: investment deficit after the second round to gas (Yes / No),switch,No,No,No,No,No,No
-528,PwCoalICTariff,Power: coal implicit cost in generation costs and tariffs (Yes / No),switch,Yes,Yes,Yes,Yes,Yes,Yes
-529,,,,,,,,,
-530,,D. Choices from Constants (v0.5.6; global; Constants reads these rows),,,,,,,
-531,PassLo,Pass-through buckets: a raw pass-through up to this value counts as 0,share,0.25,0.25,0.25,0.25,0.25,0.25
-532,PassMid,Pass-through of the middle bucket,share,0.5,0.5,0.5,0.5,0.5,0.5
-533,PassHi,"Pass-through buckets: above PassLo and up to this value counts as PassMid, above as 1",share,0.5,0.5,0.5,0.5,0.5,0.5
-534,PriceFloor,Floor of the after-tax fuel price (atp),$/GJ real,0.01,0.01,0.01,0.01,0.01,0.01
-535,EFEndYear,"Year of the final combustion emission factor: linear path from the base year, continued after it, as legacy (v0.8.4, I98",year,2039,2039,2039,2039,2039,2039
-536,MethShareCap,Methane source shares: at most this multiple of the source's share of activity,factor,10,10,10,10,10,10
-537,TrOwnDecline,Maximum annual decrease of passenger and freight ownership (fix B4: the legacy 2-3 wheeler value; legacy 0),share per year,0.1,0.1,0.1,0.1,0.1,0.1
-538,TrRALag,Range anxiety: the start value holds in the first years of the horizon (base year counted as 1),years,3,3,3,3,3,3
-539,TrPivotLag,Feebate pivot: blank in the first years of the horizon (base year counted as 1),years,2,2,2,2,2,2
-540,EarlyMaxShare,"Maximum early coal retirement, share of coal effective capacity (legacy typed)",share,0.8,0.8,0.8,0.8,0.8,0.8
-541,InvPresentShare,"New investment ""If Present"": allowed when the type has more than this share of capacity",share,0.001,0.001,0.001,0.001,0.001,0.001
-542,HydInvShare,"Hydro invests from the base year when its generation share is above this value, else from NewInvHydYear (v0.4.10, L54 fi",share,0.5,0.5,0.5,0.5,0.5,0.5
-543,WaccDefault,"WACC of a country missing from CoC or without CoC risk data (legacy XLOOKUP default; v0.4.10: also without risk data, L5",share,0.075,0.075,0.075,0.075,0.075,0.075
-,ModelForm,"Form of the demand equations (D4): CPAT, CPAT partial adjustment, CES partial adjustment, CDPM-FTT",option,CPAT,CPAT,CPAT,CPAT,CPAT,CPAT
+514,,,,,,,,,
+515,,"A. Road engineer model: parameters and options (v0.5.6; legacy Dashboard rows 540-559; global rows, read by sheet TransportParams)",,,,,,,
+516,,,,,,,,,
+517,,B. Power: model choices (v0.5.6; legacy Dashboard Q197; global),,,,,,,
+518,TransmissionCostShare,Share of transmission capex in the levelised cost of new plants (legacy IncludeTransmissionCostsInGenerationCostsPercent),share,1,1,1,1,1,1
+519,,,,,,,,,
+520,,C. CPAT-AI settings (v0.5.6; global; Settings reads these rows),,,,,,,
+521,LastHistPriceYear,Last historical price year (LastHist),year,2024,2024,2024,2024,2024,2024
+522,ETSOBREffectiveness,ETS: relative effectiveness of output-based allocation (OBREff),share,0.5,0.5,0.5,0.5,0.5,0.5
+523,ETSNextPriceExponent,ETS: convergence exponent of the next-price proposal,exponent,0.5,0.5,0.5,0.5,0.5,0.5
+524,ApplyDemandShock,Apply the legacy 2023-2024 energy demand shock (1 = yes),0/1,1,1,1,1,1,1
+525,SCCTargetYear,Year of the target-consistent carbon price (SCCTgtYr),year,2030,2030,2030,2030,2030,2030
+526,SCCEpaBaseYear,US EPA SCC in the base year (SCCEpa),$/tCO2,62,62,62,62,62,62
+527,AveragePriceMethod,Average price change reported: Legacy* / Laspeyres (PavMethod),option,Legacy*,Legacy*,Legacy*,Legacy*,Legacy*,Legacy*
+528,PwDeficitGas,Power: investment deficit after the second round to gas (Yes / No),switch,No,No,No,No,No,No
+529,PwCoalICTariff,Power: coal implicit cost in generation costs and tariffs (Yes / No),switch,Yes,Yes,Yes,Yes,Yes,Yes
+530,,,,,,,,,
+531,,D. Choices from Constants (v0.5.6; global; Constants reads these rows),,,,,,,
+532,PassLo,Pass-through buckets: a raw pass-through up to this value counts as 0,share,0.25,0.25,0.25,0.25,0.25,0.25
+533,PassMid,Pass-through of the middle bucket,share,0.5,0.5,0.5,0.5,0.5,0.5
+534,PassHi,"Pass-through buckets: above PassLo and up to this value counts as PassMid, above as 1",share,0.5,0.5,0.5,0.5,0.5,0.5
+535,PriceFloor,Floor of the after-tax fuel price (atp),$/GJ real,0.01,0.01,0.01,0.01,0.01,0.01
+536,EFEndYear,"Year of the final combustion emission factor: linear path from the base year, continued after it, as legacy (v0.8.4, I98",year,2039,2039,2039,2039,2039,2039
+537,MethShareCap,Methane source shares: at most this multiple of the source's share of activity,factor,10,10,10,10,10,10
+538,TrOwnDecline,Maximum annual decrease of passenger and freight ownership (fix B4: the legacy 2-3 wheeler value; legacy 0),share per year,0.1,0.1,0.1,0.1,0.1,0.1
+539,TrRALag,Range anxiety: the start value holds in the first years of the horizon (base year counted as 1),years,3,3,3,3,3,3
+540,TrPivotLag,Feebate pivot: blank in the first years of the horizon (base year counted as 1),years,2,2,2,2,2,2
+541,EarlyMaxShare,"Maximum early coal retirement, share of coal effective capacity (legacy typed)",share,0.8,0.8,0.8,0.8,0.8,0.8
+542,InvPresentShare,"New investment ""If Present"": allowed when the type has more than this share of capacity",share,0.001,0.001,0.001,0.001,0.001,0.001
+543,HydInvShare,"Hydro invests from the base year when its generation share is above this value, else from NewInvHydYear (v0.4.10, L54 fi",share,0.5,0.5,0.5,0.5,0.5,0.5
+544,WaccDefault,"WACC of a country missing from CoC or without CoC risk data (legacy XLOOKUP default; v0.4.10: also without risk data, L5",share,0.075,0.075,0.075,0.075,0.075,0.075

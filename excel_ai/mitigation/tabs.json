@@ -87,31 +87,31 @@
  "VersionLog": [
   "Version Log, About, and Diff",
   0,
-  104
+  105
  ],
  "ReadMe": [
   "Version Log, About, and Diff",
-  107,
+  108,
   33
  ],
  "LegacyDiff": [
   "Version Log, About, and Diff",
-  143,
+  144,
   95
  ],
  "Variables": [
   "Check, Variables, Lambdas",
   0,
-  1260
+  1261
  ],
  "Lambdas": [
   "Check, Variables, Lambdas",
-  1263,
+  1264,
   1157
  ],
  "MacroCheck": [
   "Check, Variables, Lambdas",
-  2423,
+  2424,
   307
  ]
 }

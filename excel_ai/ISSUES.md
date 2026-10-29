@@ -1,10 +1,10 @@
-# ISSUES: issues (data problems first), departures and upgrades (v1.0.1)
+# ISSUES: issues (data problems first), departures and upgrades (v1.0.2)
 
 **The rule (NORMS 0).** Never replicate a legacy bug; always replicate a legacy issue, and track it. A bug: legacy does not compute what it means to (a wrong row, a double application, a dead reference); the prototype fixes it. An issue: legacy does what it means to, but the choice is open to question; the prototype does the same and tracks it. A departure that is not a bug fix is kept only by user decision. Data problems are issues (area Data): replicated; where legacy needs a formula fix, that fix is a legacy bug (L) and the issue is Very high; where no cell plan is possible, the prototype aligns with legacy and the issue is Extremely high.
 
-Generated from the register (`mitigation/register.py`) by `mitigation/make_replication_lists.py`. The same items, every column: the tracker `Tracking_Legacy_Bugs_v1.0.1.xlsx` (the master list). Bugs in detail: `Legacy_CPAT_Bugs_v1.0.1.docx`. Issues in detail: the appendices of the Documentation (`mitigation/CPAT-AI-Mitigation_Documentation.docx`). Lists: [`BUGS.md`](BUGS.md), [`ISSUES.md`](ISSUES.md).
+Generated from the register (`mitigation/register.py`) by `mitigation/make_replication_lists.py`. The same items, every column: the tracker `Tracking_Legacy_Bugs_v1.0.2.xlsx` (the master list). Bugs in detail: `Legacy_CPAT_Bugs_v1.0.2.docx`. Issues in detail: the appendices of the Documentation (`mitigation/CPAT-AI-Mitigation_Documentation.docx`). Lists: [`BUGS.md`](BUGS.md), [`ISSUES.md`](ISSUES.md).
 
-**135 issues (14 data problems), 35 departures (LegacyDiff), 9 upgrades.**
+**135 issues (14 data problems), 35 departures (LegacyDiff), 14 upgrades.**
 
 ## 1. Data problems
 
@@ -138,18 +138,18 @@ Replicated, a departure by user decision, or a limitation of the prototype.
 | I120 |  | Mitigation | Minor | Accepted | Efficient prices: VAT on consumer fuels only, 2022 rate, scenario-1 supply cost | Replicated |  |
 | I121 |  | Mitigation | Minor | Accepted | Electricity AP cost per kWh assumes a fixed 31% thermal efficiency | Replicated |  |
 | I122 |  | Mitigation | Minor | Accepted | Exact switch texts; dead code cells I2202:I2203 | Replicated |  |
-| I123 |  | Mitigation | Major | Open | CBAM block: Egypt only, no output read anywhere | Not built: deferred by the user (2026-10-29; legacy work in progress) |  |
-| I124 |  | Mitigation | Minor | Open | Green investment: cumulative need uses 35 years, the phase-out 34 | Not built: deferred by the user (2026-10-29; legacy work in progress) |  |
-| I125 |  | Mitigation | Minor | Open | Green investment section stops at 2040 | Not built: deferred by the user (2026-10-29; legacy work in progress) |  |
-| I126 |  | Mitigation | Minor | Open | Green public investment is report only; constants typed in Mitigation | Not built: deferred by the user (2026-10-29; legacy work in progress) |  |
-| I127 |  | Mitigation | Major | Open | Green investment: #N/A for countries outside the CCDR list | Not built: deferred by the user (2026-10-29; legacy work in progress) |  |
-| I128 |  | Mitigation | Minor | Open | Green investment: annual GDP shares summed against a discounted ratio | Not built: deferred by the user (2026-10-29; legacy work in progress) |  |
+| I123 |  | Mitigation | Major | Dropped | CBAM block: Egypt only, no output read anywhere | Out of scope (user 2026-10-29): not built; an upgrade (U15-U17) |  |
+| I124 |  | Mitigation | Minor | Dropped | Green investment: cumulative need uses 35 years, the phase-out 34 | Out of scope (user 2026-10-29): not built; an upgrade (U15-U17) |  |
+| I125 |  | Mitigation | Minor | Dropped | Green investment section stops at 2040 | Out of scope (user 2026-10-29): not built; an upgrade (U15-U17) |  |
+| I126 |  | Mitigation | Minor | Dropped | Green public investment is report only; constants typed in Mitigation | Out of scope (user 2026-10-29): not built; an upgrade (U15-U17) |  |
+| I127 |  | Mitigation | Major | Dropped | Green investment: #N/A for countries outside the CCDR list | Out of scope (user 2026-10-29): not built; an upgrade (U15-U17) |  |
+| I128 |  | Mitigation | Minor | Dropped | Green investment: annual GDP shares summed against a discounted ratio | Out of scope (user 2026-10-29): not built; an upgrade (U15-U17) |  |
 | I129 |  | Mitigation | Minor | Accepted | Current account % GDP: GDP implied by CA / CA% | Replicated |  |
 | I130 |  | Mitigation | Minor | Accepted | Current account in current prices: no hold rule after the data | Replicated |  |
-| I131 |  | Mitigation | Minor | Open | GVA shares floored at 1% for the chart | Not built: deferred by the user (2026-10-29; legacy work in progress) |  |
-| I132 |  | Mitigation | Minor | Open | "GVA" is GTAP gross output; 2014 IO inflated by a fixed CPI index | Not built: deferred by the user (2026-10-29; legacy work in progress) |  |
-| I133 |  | Mitigation | Minor | Open | Cumulative table: direct emissions only; repeated MTOutputs codes | Not built: deferred by the user (2026-10-29; legacy work in progress) |  |
-| I134 |  | Mitigation | Minor | Open | GTAP mapping: coal mining to food, crude to fuel transformation, gas to power | Not built: deferred by the user (2026-10-29; legacy work in progress) |  |
+| I131 |  | Mitigation | Minor | Dropped | GVA shares floored at 1% for the chart | Out of scope (user 2026-10-29): not built; an upgrade (U15-U17) |  |
+| I132 |  | Mitigation | Minor | Dropped | "GVA" is GTAP gross output; 2014 IO inflated by a fixed CPI index | Out of scope (user 2026-10-29): not built; an upgrade (U15-U17) |  |
+| I133 |  | Mitigation | Minor | Dropped | Cumulative table: direct emissions only; repeated MTOutputs codes | Out of scope (user 2026-10-29): not built; an upgrade (U15-U17) |  |
+| I134 |  | Mitigation | Minor | Dropped | GTAP mapping: coal mining to food, crude to fuel transformation, gas to power | Out of scope (user 2026-10-29): not built; an upgrade (U15-U17) |  |
 | I135 |  | Mitigation | Minor | Accepted | Initially exempt demand mutes the usage response to every price change | Replicated |  |
 | I136 |  | Mitigation | Major | Accepted | Exempt share denominator: basket spend, not the sum of deciles | Replicated |  |
 | I137 |  | Mitigation | Minor | Accepted | Most-used cooking fuel defaults to LPG when the WHO code is missing | Replicated |  |
@@ -222,3 +222,8 @@ Replicated, a departure by user decision, or a limitation of the prototype.
 | U10 | Medium | Data for more countries | Energy balances, GDP and EFs beyond Egypt (I90). |
 | U13 | Low | Planned retirement data for Egypt | Enter PowerPaths pret/<type> where plans exist. |
 | U14 | Low | Python port | The check script already recomputes every value in Python. |
+| U15 | Low | CBAM process emissions (legacy R4) | Out of scope (user 2026-10-29). Design: section 17b sub-block; switches CBAMProc<S> per scenario (ScenarioDefinition 117-121); production, growth and product prices typed EGY in Constants; EFs and semi-elasticities from Manual inputs H30:K37, E40:E47; fuel price per tCO2 = ctr + etr (section 1), process price = switch x fuel price; memo rows (legacy reads none). Bugs L197-L213, L216-L219 (part), issue I123. |
+| U16 | Low | Green public investment (legacy R5) | Out of scope (user 2026-10-29). Design: section 16c; constants GreenInvStart 2026, GreenShare 0.5, NetZeroStart 2026, NetZeroEnd 2060, PublicInvPart 0.5, GreenNeedYrs 35; CCDR ratio from ETS+LTS A261:A302 / H261:H302; phi = 1-(t-T0+1)/(T1-T0). Issues I124-I128. |
+| U17 | Low | Emissions intensity of industrial output (legacy R12) | Out of scope (user 2026-10-29). Design: block 13b; GVA typed EGY in Constants; manufacturing electricity = demtot x (sh_tsd + sh_eou) (legacy row 10071); variable co2.idr. Issues I131-I134. |
+| U18 | Low | Air pollution module (standalone) | Out of scope (user 2026-10-29). Mitigation keeps the legacy 465 values of tab FromAirPollution (Egypt; other countries 0, I106) for the Pigouvian air-pollution cost and the air-pollution welfare; the scaffold excel_ai/air_pollution/ stays as it is. |
+| U19 | Low | Transport co-benefits module (standalone) | Out of scope (user 2026-10-29). Mitigation keeps the legacy 465 values of tab FromTransportCB (Egypt; other countries 0, I106) for the Pigouvian road-transport cost and the road welfare; section 5b stays as the block the module would read. |
