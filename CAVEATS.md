@@ -2948,3 +2948,9 @@ Earlier work was logged in the task documents themselves; they remain the detail
   - Release v8.5 (workbook, Legacy_CPAT_Bugs, tracker, codes map, deck), distribution v1.2.
   - Checks: stored values v8.5 against v8.4: 339 of 13,396 output codes change, all emissions (em), local pollutants, combustion CH4, GHG, NDC and climate welfare; nothing else. Quick check PASS but reports 546 changes: the extra ones are average-price codes the recalculation of v8.4 left blank (TODO 4b).
 - **Caveats:** combustion CH4 has no legacy counterpart (issue I34); the prototype applies the same factor path to it. The EFSel switch is read from scenario 1 only. The 2040-2041 extrapolation and the EFSel average are legacy behaviour to confirm with the CPAT team (I98). L170 is not yet confirmed by the CPAT team; its cell plan was built from the decoded 465 formulas, not applied in Excel.
+
+## 2026-10-29 - Plan: module outputs without copies; transport co-benefits self-consistency (plan only)
+- **Task:** user decision: transport co-benefits take the same no-copy approach as air pollution (section 5b is the output block, heading renamed at the build; 19c dropped); checked whether legacy transport co-benefits are self-consistent.
+- **Inputs:** `excel_ai/plans/Transport_cobenefits.md` (sections 1.3, 5.2), legacy 465 block E rows 15724-15823.
+- **Outputs:** `excel_ai/plans/Remaining_functionality.md` section 8, `remaining_functionality.json` (`exports_to_modules`, `new_issues`), `excel_ai/plans/TODO.md`; new issue I100 in `issues_register.py` (Major, replicated).
+- **Caveats:** not self-consistent in legacy: vehicle-km, fuel economy and class splits come from the engineer road model whatever TrModel; the prototype will match legacy (I100). Headings change with the v9.0 build; registers and documents regenerate then.

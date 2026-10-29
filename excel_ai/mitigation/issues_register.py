@@ -1017,3 +1017,16 @@ ISSUE_STATUS.update({
             'prices). Plan: send the corrected block to the CPAT data team for the legacy Prices_dom table; when legacy '
             'carries it, the two read the same data and LD4, LD33 close.')})
 ISSUE_LEGACY.update({'I97': 'not replicated', 'I98': 'replicated', 'I99': 'not replicated'})
+
+# v8.5 (user 2026-10-29): transport co-benefits self-consistency, checked before the build of R1-R2
+ISSUES += [
+    ('I100', 'Transport co-benefits use the engineer road model whatever TrModel', 'Legacy computes accidents, '
+     'congestion and road damage (Transport sheet, Mitigation block E rows 15724-15823) from the engineer road model\'s '
+     'vehicle-km, freight vehicle-km, fuel economy and passenger/freight splits, even when TrModel = Elasticity (the '
+     'default), while the road share of each fuel follows TrModel. The welfare change is then not consistent with the '
+     'fuel use modelled: Egypt 2031, engineer vehicle-km -8.6% against road gasoline -12.9% and diesel -14.3% in the '
+     'elasticity model. Replicated: the prototype computes section 5b in every scenario and reads it, as legacy.',
+     'excel_ai/plans/Transport_cobenefits.md (section 1.3, issue I-a)')]
+ISSUE_LEGACY.update({'I100': 'replicated'})
+ISSUE_STATUS.update({'I100': ('Major', 'Accepted', 'Replicated (user 2026-10-29: match legacy). Plan for legacy: take '
+                              'vehicle-km from the switched road fuel use when TrModel = Elasticity.')})

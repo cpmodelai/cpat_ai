@@ -27,7 +27,7 @@
  "exports_to_modules": {
   "19a": "Distribution: plain copies (built)",
   "15": "Air pollution: no copies; section 15 is the output block to the air pollution module, heading '15. Local air pollutants: outputs to the air pollution module', with the other rows the module reads (fuel use by sector and fuel, as legacy E3 rows 15810-16065) in the same section",
-  "19c": "Transport co-benefits: vehicle-km and road fuel use (legacy E2 rows 15707-15809)"
+  "5b": "Transport co-benefits: no copies (19c dropped); section 5b is the output block to the transport co-benefits module, heading '5b. Road transport: engineer model and outputs to the transport co-benefits module', with the rows the module reads (total and freight vehicle-km, fuel economy by fuel, passenger/freight splits, road fuel shares of the switched model; legacy block E rows 15724-15823) in the same section"
  },
  "items": [
   {
@@ -124,6 +124,13 @@
    "legacy": "LD16, LD41, LD58",
    "depends_on": [],
    "action": "settle"
+  }
+ ],
+ "new_issues": [
+  {
+   "id": "I100",
+   "title": "Transport co-benefits use the engineer road model whatever TrModel",
+   "action": "replicated: legacy takes vehicle-km, freight vehicle-km, fuel economy and class splits from the engineer model (prototype 5b) even when TrModel = Elasticity; road fuel shares follow TrModel"
   }
  ]
 }

@@ -34,7 +34,7 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
 ## 4a. Remaining functionality and alignment ([`Remaining_functionality.md`](Remaining_functionality.md); decisions open)
 
 - ☐ **A. Measure** the gap: legacy 465 with every cell plan applied against the prototype (U2).
-- ☐ **C. Mitigation functions R1-R13** (all agreed 2026-10-29; `remaining_functionality.json`): AP and TCB inputs section, social costs and welfare, Pigouvian taxes, CBAM process emissions, green public investment, producer-subsidy price effect, Manual inputs, small items, current account and GVA (typed Egypt values), LD16/LD41/LD58; section 15 as the output block to the air pollution module (no copies; heading says so), export 19c; equations in `../mitigation/Equations_addendum.md`.
+- ☐ **C. Mitigation functions R1-R13** (all agreed 2026-10-29; `remaining_functionality.json`): AP and TCB inputs section, social costs and welfare, Pigouvian taxes, CBAM process emissions, green public investment, producer-subsidy price effect, Manual inputs, small items, current account and GVA (typed Egypt values), LD16/LD41/LD58; section 15 as the output block to the air pollution module and section 5b to the transport co-benefits module (no copies; headings say so; 19c dropped); I100 (TCB on engineer vehicle-km, replicated); equations in `../mitigation/Equations_addendum.md`.
 - ☐ **D. Modules**: air pollution, transport co-benefits, social costs and benefits (user decision: in or standalone).
 - ☐ **E. MTOutputs** like legacy, without the price build-up intermediates.
 - Not built by decision: the elasticity-based power model.

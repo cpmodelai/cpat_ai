@@ -17,7 +17,7 @@ intermediate outputs such as the components of the price build-up. Reference: le
 | C10 Green Public Investment (rows 6215-6267) | **Not built** |
 | C11-C17 Results: energy, CO2, non-CO2 and local pollutants, GWP, GHGs, revenues, GDP effects | Built |
 | E1 For Distribution | Built (section 19a; standalone Distribution module) |
-| E2 For Transport module, E3 For Air Pollution module | **Not built** (sections 19b, 19c of the modules plan, step M4) |
+| E2 For Transport module, E3 For Air Pollution module | **Not built**; decided 2026-10-29: no copies, sections 15 and 5b are the output blocks (section 8) |
 | F2-F16 Results for charts | Built: macro drivers, coverage, GDP effects, prices, energy, power, revenues, GHG, CO2, Kaya, methane, transport. **Missing**: F10 monetized social costs and benefits (needs air pollution and transport externalities), F11 balance of payments beyond the energy trade balance (current account, L50) |
 | Air pollution sheet (health, mortality, valuation) | **Not built in the prototype** (issue I69, dropped 2026-10-20); a standalone AP v0.3 scaffold exists (`excel_ai/air_pollution/`) |
 | Transport externalities (accidents, congestion, road damage) | **Not built** (issue I70, dropped 2026-10-20; plan `Transport_cobenefits.md`) |
@@ -88,7 +88,7 @@ Each step: build, quick check, register and documents, commit; full check at the
 | | C4 | Small items: road biofuels in the elasticity model (LD62), range-anxiety fit (LD63), self-generated renewables in aviation and navigation (L47), electricity consumer subsidy option (L84), producer subsidy manual override (L86), manual domestic prices and manual elasticities (Manual inputs; L100, L101, I53), power memo tables F6, CH4 intensity decline as legacy (L135) | Medium |
 | | C5 | Balance of payments (current account, L50) and emissions intensity of output (GVA), once the data are in | Small |
 | D. Modules | D1 | Air pollution: exports (19b), the AP model (plan `Air_pollution.md`; Senegal and Egypt regression) | Large |
-| | D2 | Transport co-benefits: exports (19c), accidents, congestion, road damage (plan `Transport_cobenefits.md`) | Large |
+| | D2 | Transport co-benefits: output block 5b, accidents, congestion, road damage (plan `Transport_cobenefits.md`) | Large |
 | | D3 | Monetized social costs and benefits (F10), welfare, Pigouvian taxes with all externalities (completes C1) | Medium |
 | E. Outputs | E1 | MTOutputs: legacy sections and order, protocol codes with the legacy code as alias, intermediates left out (section 2) | Medium |
 | F. Data | F1 | The data of section 3, as they arrive (data request) | Ongoing |
@@ -149,12 +149,21 @@ Not built, by decision: the elasticity-based power model (legacy C3).
   added unconverted, nominal, into real prices; cell plan: x the CPI index of the data year); LD41 re-extract the price
   forecasts and balances from 465 and compare (then "Same" or a data issue); LD58 "Same" (benchmark: legacy's stored
   carbon-tax run GDP effects, for phase A).
-- **Exports to modules** (user 2026-10-29): section 19 holds 19a Distribution (plain copies, defined name ExportDistn,
-  tab FromMitigation) and 19c Transport co-benefits (vehicle-km and road fuel use, as legacy E2 rows 15707-15809).
-  **Air pollution is not copied** (to save space): section 15 is itself the output block to the air pollution module.
-  Its heading says so: **"15. Local air pollutants: outputs to the air pollution module"**; the other rows the module
-  reads (fuel use by sector and fuel, as legacy E3 rows 15810-16065) sit next to it in the same section, not elsewhere.
-  Section 15 stays just before section 19, so all module outputs are together at the end of the sheet.
+- **Exports to modules** (user 2026-10-29): section 19 holds 19a Distribution only (plain copies, defined name
+  ExportDistn, tab FromMitigation). **Air pollution and transport co-benefits are not copied** (to save space): each
+  reads its own section of the sheet, and the heading says so.
+  - Section 15 is the output block to the air pollution module: **"15. Local air pollutants: outputs to the air
+    pollution module"**; the other rows the module reads (fuel use by sector and fuel, as legacy E3 rows 15810-16065)
+    sit next to it in the same section. Section 15 stays just before section 19.
+  - Section 5b is the output block to the transport co-benefits module: **"5b. Road transport: engineer model and
+    outputs to the transport co-benefits module"**; the rows the module reads (total and freight vehicle-km, average
+    fuel economy by fuel, the passenger/freight splits of diesel, LPG, gas and electricity, and the road share of each
+    fuel in the switched model, as legacy block E rows 15724-15823) sit in the same section. Section 19c is dropped.
+- **Transport co-benefits are not self-consistent in legacy** (checked 2026-10-29): legacy takes vehicle-km, freight
+  vehicle-km, fuel economy and the class splits from the engineer road model even when TrModel = Elasticity (the
+  default), while the road fuel shares follow TrModel. Egypt 2031: engineer vehicle-km -8.6% against road gasoline
+  -12.9% and diesel -14.3% in the elasticity model. The prototype matches legacy (section 5b runs in every scenario)
+  and registers new issue **I100** (replicated). `Transport_cobenefits.md` section 1.3 and issue I-a.
 - **Python build in parallel**: the equations of R1-R13 go in an addendum to the equation list,
   **`excel_ai/mitigation/Equations_addendum.md`** (one entry per new variable: code, equation, legacy rows, inputs),
   written with the build; `Equations.md` and the Methods volume take it in at the next release. Machine-readable plan:
