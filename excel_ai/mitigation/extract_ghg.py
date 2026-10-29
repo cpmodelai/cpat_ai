@@ -6,7 +6,8 @@ Source: legacy CPAT `excel_ai/legacy/workbooks/CPAT 1.0pre_465_NoPropData.xlsb` 
 - `CH4Inputs`: methane abatement curves (avg_pow_a, avg_pow_b, per_flare) and the shares used to split
   inventory CH4 by source (per_upstream_og ... per_rice), by country and source       -> data/ch4_inputs.csv
 - `EF_PM`: combustion emission factors of the country (kt per PJ, base value `FE in` and 2050 value `FE fin`), every
-  pollutant; v8.5: the 465 file holds all countries (456: Egypt only): the rows of SRC_ISO are kept                             -> data/ef_nonco2.csv
+  pollutant; v8.5: the 465 file holds all countries (456: Egypt only): the rows of SRC_ISO are kept (v9.0: no longer
+  read by check_full, which uses the all-country legacy_EF_PM.csv)                             -> data/ef_nonco2.csv
 - `UNPop` (rows below the header `CPAT code`): population by country and year (thousands; UN WPP)              -> data/population.csv
 - `EF_GHG` (gwp100 rows): GWP100 of the local pollutants by GAINS region                -> data/gwp_pollutants.csv
 - `Countries` column O: GAINS region of each country                                   -> data/gains_region.csv

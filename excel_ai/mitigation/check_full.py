@@ -1508,20 +1508,47 @@ class _MFeeOn(dict):
 MFEE_ON = _MFeeOn()
 OIL_SHARE = {pc: float(r[pc.split('.')[0] + '_share']) for r in read('legacy_OilProductShares.csv')
              if r['countrycode'] == ISO for pc in B.OIL_SHARE}      # v4.12 (LD5)
-NC_EF = {(r['subsector'], r['fuel']): (float(r['fe_in']), float(r['fe_fin'])) for r in read('ef_nonco2.csv')
-         if r['pollutant'] == 'ch4' and r['country'] == ISO.lower()}
 _GHG_REF = {}
-NC_ALL = {(r['subsector'], r['fuel'], r['pollutant']): (float(r['fe_in']), float(r['fe_fin']))
-          for r in read('ef_nonco2.csv') if r['country'] == ISO.lower()}
 GWP_AP = {r['pollutant']: float(r['gwp100']) for r in read('gwp_pollutants.csv') if r['region'] == REGION}
-NC_PAIRS = {(s_, f_) for s_, f_, _p in NC_ALL}
+
+
+def _wb_region():
+    """v9.0 (EF465): World Bank region code of the country, lower case (Settings C43 CtryReg; legacy _region_code)."""
+    cells = {(int(r['row']), int(r['col'])): r['value'] for r in read('legacy_Countries_cells.csv')}
+    reg = cells[(next(r for (r, c), v in cells.items() if c == 4 and v == ISO and r < 260), 6)]
+    return next(cells[(r, 4)] for r in range(264, 310) if cells.get((r, 3)) == reg).lower()
+
+
+def _nc_table():
+    """v9.0 (EF465): non-CO2 factors (kt/PJ, base and final) by legacy EF code (subsector, fuel, pollutant), as legacy
+    Mitigation rows 1052-1663 (build.NC_ROWS): the first EF_PM row of the country, else of its World Bank region, else
+    of the world, else 0; other energy (oen) the maximum of the fuel across the other legacy subsectors (issue I147)."""
+    first = {}
+    for r in read('legacy_EF_PM.csv'):
+        if r['Country-Series code'] not in first and r['FE in'] not in ('', None):
+            first[r['Country-Series code']] = (float(r['FE in']), float(r['FE fin'] or 0))
+    pre = [ISO.lower(), _wb_region(), 'wld']
+    out = {}
+    for s_, f_, p in B.NC_ROWS:
+        if s_ != 'oen':
+            out[(s_, f_, p)] = next((first[k] for k in (f'{x}.mit.ef.{s_}.{f_}.{p}' for x in pre) if k in first),
+                                    (0.0, 0.0))
+    others = [s_ for s_, _fs in B.NC_SUBS[:[x for x, _f in B.NC_SUBS].index('oen')]]
+    for f_ in B.NC_FUELS8:
+        for p in B.NC_POLS:
+            v = [out[(s_, f_, p)] for s_ in others if (s_, f_, p) in out]
+            out[('oen', f_, p)] = (max(a for a, _b in v), max(b for _a, b in v))
+    return out
+
+
+NC_ALL = _nc_table()
+NC_EF = {(s_, f_): v for (s_, f_, p), v in NC_ALL.items() if p == 'ch4'}
 
 
 def nc_sub(s_, f_):
-    """v4.12 (bug L59, was I35): GAINS subsector and fuel of the factors of subsector s_ and EF_PM fuel f_: its own
-    (CH4_SUB) if that has factors for the fuel, else the fallback (B.ef_fallback)."""
-    g = B.CH4_SUB.get(s_, 'mnf')
-    return (g, f_) if (g, f_) in NC_PAIRS else B.ef_fallback(s_, f_)
+    """v9.0 (EF465): legacy EF code (subsector, fuel) of prototype subsector s_ and EF_PM fuel f_ (build.CH4_SUB; the
+    bug L59 fallback retired: legacy 465 covers the fuels Egypt uses)."""
+    return B.CH4_SUB.get(s_, 'mnf'), f_
 
 
 def ap_section(res, years, pe):
