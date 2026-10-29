@@ -79,10 +79,11 @@ def bug_rows():
     rows = []
     for r in G.records():
         p = G.prefix(r['id'])
-        if p not in ('L', 'M'):
+        if p not in ('L', 'M', 'DOC'):
             continue
-        ver, date, by = G.found(r['id']) if p == 'L' else ('', '', 'Stephen (CPAT-AI)')
-        fixed = FIXED[r['legacy465']] if p == 'L' else 'Solved'
+        ver, date, by = (G.found(r['id']) if p == 'L' else ('', '2026-10-29', 'CPAT-AI (Coded CPAT planning)')
+                         if p == 'DOC' else ('', '', 'Stephen (CPAT-AI)'))
+        fixed = FIXED[r['legacy465']] if p == 'L' else 'No' if p == 'DOC' else 'Solved'
         solved = ('CPAT team (465)' if p == 'L' and fixed != 'No' else 'CPAT-AI (prototype)' if p == 'M' else '')
         rows.append([r['id'], r['title'], ver, date, PRI.get(r['priority'], r['priority']), fixed, by, solved,
                      comment(r), r['kind'], r['former'], r['module'], r['area'], r['prototype'], r['status'],
@@ -112,7 +113,7 @@ def readme_rows():
                          'legacy does not compute what it means to; the prototype fixes it. An issue: legacy does what '
                          'it means to, but the choice is open to question; the prototype does the same and tracks '
                          'it. A departure from legacy that is not a bug fix is kept only by user decision.'),
-            ('Bugs and issues', 'Bugs are in tab Bugs (L, M) and in the document Legacy_CPAT_Bugs_v'
+            ('Bugs and issues', 'Bugs are in tab Bugs (L, M, DOC) and in the document Legacy_CPAT_Bugs_v'
                                 f'{R.REGISTER_VERSION}.docx (L). Issues are in tab Issues (I, LD, U; data problems: area Data) and in '
                                 'the appendices of the Documentation (CPAT-AI-Mitigation_Documentation.docx). Every row '
                                 'gives its code, its former code (renumbered in v8.4), the codes it relates to (See '

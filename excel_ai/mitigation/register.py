@@ -27,15 +27,19 @@ LEGACY_FILE = 'CPAT 1.0pre_465_NoPropData.xlsb'
 KINDS = {  # prefix: (kind, plural, where the full entry is)
     'L': ('Legacy bug', 'Legacy bugs', 'Legacy CPAT bugs document'),
     'M': ('Prototype bug', 'Prototype bugs', 'Documentation, appendix'),
+    'DOC': ('Documentation bug', 'Documentation bugs', 'Register; methodology documentation (docs/01_MainDocumentation)'),
     'I': ('Issue', 'Issues', 'Documentation, appendix'),
     'LD': ('Departure', 'Departures (LegacyDiff)', 'Documentation, appendix'),
     'U': ('Upgrade', 'Upgrades', 'Documentation, appendix')}
-ORDER = ['L', 'M', 'I', 'LD', 'U']
+ORDER = ['L', 'M', 'DOC', 'I', 'LD', 'U']
 DEFINITIONS = [  # prefix, definition, what the prototype does
     ('L', 'Legacy bug: legacy CPAT does not compute what it means to (a wrong row, a double application, a dead '
           'reference, a blank read as 0 where a value is meant); the fix is a change of formulas, with a cell plan.',
      'Fixes it; never replicated.'),
     ('M', 'Prototype bug: a defect of the prototype itself, found and fixed during development.', 'Fixed.'),
+    ('DOC', 'Documentation bug: the CPAT methodology documentation is wrong, missing or contradicts itself (an '
+            'equation, a sign, a symbol, a unit, a reference); the models are not affected (user 2026-10-29).',
+     'Follows the workbooks; the documentation is to be corrected.'),
     ('I', 'Issue: legacy does what it means to, but the choice is open to question (a method, a default, a '
           'convention, the input data: area Data), or a limitation of the prototype. Priority: Major or Minor; data '
           'problems Very high (a bug fix covers them) or Extremely high (no cell plan possible; the prototype does '
@@ -105,6 +109,8 @@ def _fixes():
 
 
 def _area(code):
+    if code.startswith('DOC'):
+        return 'Documentation'
     if code in DATA:
         return 'Data'
     if code in INPUTS:
@@ -179,6 +185,9 @@ def records():
                         else st, status='Accepted', priority='Minor'))
     for c, title, found, what, fx in R.MVP_BUGS:
         out.append(_rec(id=c, title=title, description=what, fix=fx, prototype=f'Fixed ({found})', status='Closed'))
+    for c, title, where, what, fx, pr in R.DOC_BUGS:                          # user 2026-10-29
+        out.append(_rec(id=c, title=title, where=where, description=what, fix=fx, priority=pr,
+                        prototype='Not affected', status=R.DOC_STATUS))
     for k, (area, legacy, model, why, effect, typ) in enumerate(B.LEGACY_DIFFS, 1):
         if typ == 'Same':
             continue

@@ -73,6 +73,9 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
 - ☐ **Copy-paste stress test**: add a fuel, a subsector and a scenario by dragging; fix what breaks.
 - ☑ **Tracker leads** (v8.3): Manual inputs J178:J179 are read (Mitigation L753:L754, chosen in K when the price-control option is manual): no bug. MTInputs 182-183 units: legacy bug L134 (labels), fixed in the prototype.
 
+- ☐ **`ModelForm` scenario input (user 2026-10-29, Coded CPAT design D4)**: add a `ModelForm` row at the end of the `ScenarioDefinition` additions (below the legacy rows, NORMS 4), default `CPAT`, read by the LAMBDAs of the demand equations (`FUELUSE`, `DEMANDMULT`); the same row in Coded CPAT's scenario sets. The engineer-or-elasticity selectors of power and road transport are unchanged. Values unchanged (quick check 0 change). Coordinated with `../../coded/TODO.md` task 2.8.
+- ☐ **Version numbering rebased** (user 2026-10-29, Coded CPAT design D14): Excel-AI moves to 0.x numbering (today's v9.0 to 0.9.0, to confirm); Coded CPAT versions are `<Excel-AI version>p<Python version>`.
+
 ## Later (not now)
 
 - Power engineer model: final deficit to gas, MaximumGasCF, storage factor; planned retirement data; elasticity-based power model.

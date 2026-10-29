@@ -42,8 +42,8 @@ def table(header, rows):
 def bugs_md():
     c = G.counts()
     L = G.by_kind('L')
-    lines = [f'# BUGS: legacy CPAT bugs and prototype bugs (v{V})', ''] + RULE + [
-        f'**{c["L"]} legacy bugs, {c["M"]} prototype bugs.** Legacy 465: '
+    lines = [f'# BUGS: legacy CPAT bugs, prototype bugs and documentation bugs (v{V})', ''] + RULE + [
+        f'**{c["L"]} legacy bugs, {c["M"]} prototype bugs, {c["DOC"]} documentation bugs.** Legacy 465: '
         f'{sum(r["legacy465"] == "Fixed" for r in L)} fixed (confirmed), '
         f'{sum(r["legacy465"] == "Fixed with caveats" for r in L)} fixed with caveats, '
         f'{sum(r["legacy465"] == "Not fixed (marked fixed)" for r in L)} marked fixed but not fixed, '
@@ -56,6 +56,10 @@ def bugs_md():
                      r['legacy465'], r['see_also']) for r in L])
     lines += ['## 2. Prototype bugs (M)', '', 'Defects of the prototype itself, all fixed.', '']
     lines += table(['Code', 'Bug', 'Fixed'], [(r['id'], r['title'], r['prototype']) for r in G.by_kind('M')])
+    lines += ['## 3. Documentation bugs (DOC)', '', 'Errors in the CPAT methodology documentation '
+              '(`docs/01_MainDocumentation/`); no model is affected, the documentation is to be corrected.', '']
+    lines += table(['Code', 'Priority', 'Bug', 'Where', 'Correction'],
+                   [(r['id'], r['priority'], r['title'], r['where'], r['fix']) for r in G.by_kind('DOC')])
     return lines
 
 

@@ -11,44 +11,55 @@ Status key: ☐ not started · ◐ in progress · ☑ done (ticked items leave a
 - ◐ Equation list, first draft: executive summary of the core equations (M1 policies to M8 GDP, D distribution: 36 equations; 3 adjustments started) in the notation of the methodology, Greek and code-name versions generated from one source (`cpat_documentation/equations/equations.yaml`, D13). Next: (1) complete appendices A (mitigation adjustments) and B (distribution) from `../excel_ai/mitigation/Equations.md`, `Equations_addendum.md`, `Formulas.md` and the Methods chapters, block by block (can run alongside phase 2; each block's equations before its code); (2) confirm the code names marked † in the codes map (or propose codes for them).
 - ☑ Design choices written up with options and recommendations (spec section 10): D1-D16.
 
-## Phase 1 - Design choices with the user
+## Phase 1 - Design choices with the user: done
 
-- ☐ Go through D1-D16 with the user, one question at a time ("ask me the design questions"); record each answer in spec section 10 (status, date) and `../CAVEATS.md`; turn the provisional rules of `NORMS.md` into rules.
-- ☐ Then write the detailed plan (phase 2 onwards broken into tasks of a day or less, with their checks) in spec section 11 and here.
+- ☑ D1-D16 decided by the user (2026-10-29): spec section 10; `NORMS.md` rules made final.
+- ☑ Detailed plan: spec section 11 (the tasks below, each with its check).
+- ☐ Correct `../HumanReadme-QuickStart.docx` when it is next regenerated: every table in `data/dummy/` is dummy, not only the four proprietary tables (user 2026-10-29).
+- ☐ Send the documentation bugs DOC1-DOC20 (`../excel_ai/BUGS.md` section 3) to the CPAT team with the next tracker release.
 
-## Phase 2 - Foundations (after phase 1)
+## Phase 2 - Foundations (spec 11, phase 2)
 
-- ☐ `cpat_model/core/`: index sets (`dims.py`), variable registry generated from `../excel_ai/CPAT-AI_CodesMap_v<version>.xlsx` (`variables.py`), policy paths, units and constants, the three-stage loop (`loop.py`).
-- ☐ `cpat_model/data/`: databases `public`, `full`, `dummy` (D6); manifest; loaders to labelled arrays; the four proprietary tables kept apart.
-- ☐ `cpat_model/inputs/`: scenario set (MTInputs rows x scenarios, `NameOfParameter` keys, D5) read from a file or built by the app; advanced inputs (time series, `Manual inputs`, `Settings`); validation.
-- ☐ `cpat_model/forms/`: the registry and the `standard_cpat` slots (D4).
-- ☐ `cpat_model/results/`: results by Excel-AI output code; export in the Excel layout.
-- ☐ Placeholder modules `air_pollution/` and `transport_cobenefits/` with their declared inputs and outputs (D10).
-- ☐ `cpat_testing/compare/`: Excel-AI values by code from the recalculated release workbook (D8); comparison report by code and block.
+- ☐ 2.1 Data interface for the data person: `../data/INTERFACE.md` (tables, files, columns, keys, units, years, proprietary or not; `full` and `dummy` layout; input files in `../data/inputs/`). Check: loaders read only what it lists.
+- ☐ 2.2 Package skeleton (`cpat_model/` folders, `run()`, `settings.py`), versions `EXCEL_AI_VERSION` and `__version__` = `<Excel-AI>p<Python>` (D14; Excel-AI numbering being rebased, e.g. 9.0 to 0.9.0: confirm before the first release).
+- ☐ 2.3 Index sets (`core/dims.py`) from the codes map. Check: equal to the codes map.
+- ☐ 2.4 Variable registry (`core/variables.py`) from the codes map with the symbols of `equations.yaml`; resolve the 33 code names marked †. Check: every name in the equation list is in the registry.
+- ☐ 2.5 Loop (`core/loop.py`): baseline first, then each scenario (D15); prepare, year loop, finish; `mitigation/chain.py`; policy paths and price indices (`core/paths.py`).
+- ☐ 2.6 Data layer (`data/`): `DATA_ENVIRONMENT` = `full` or `dummy`, path of the private repository; loaders to labelled arrays; exact float parsing; cache.
+- ☐ 2.7 Inputs (`inputs/`): scenario-set table (MTInputs rows + Excel-AI additions + `ModelForm`), advanced-inputs workbook, validation, global-settings check (D16). Check: Excel-AI `ScenarioDefinition` J, K read back unchanged.
+- ☐ 2.8 Forms (`forms/`): registry, slots, the `CPAT` form; with Excel-AI, the `ModelForm` row in `ScenarioDefinition` (default CPAT; Excel quick check unchanged) (D4).
+- ☐ 2.9 Results (`results/`) by output code; export in the Excel layout.
+- ☐ 2.10 Placeholder modules `air_pollution/`, `transport_cobenefits/`: `prepare` (FromAirPollution, FromTransportCB values) and empty `step(t)` (D10).
+- ☐ 2.11 Comparison harness (`cpat_testing/compare/`): reference values by code for Egypt from the existing Python recomputations (D8), then from Excel-AI.
+- ☐ 2.12 Equation-id test (every id has a function and every cited id exists).
 
-## Phase 3 - Mitigation, block by block in Excel-AI order (each: equations, unit tests, Excel-AI comparison for Egypt)
+## Phase 3 - Mitigation, block by block (each: equation list appendix, functions, unit tests, comparison for Egypt, register differences)
 
-- ☐ 1 Policies · ☐ 2 Prices · ☐ 3 Power · ☐ 5 Transport (elasticity and road engineer model) · ☐ 6 Buildings and residential leakage · ☐ 7-8 Industry, other energy use · ☐ 11 Totals · ☐ 12 Revenues · ☐ 13-15 Emissions (CO2, other GHGs, local pollutants) · ☐ 16 GDP · ☐ 17 Carbon-pricing indicators · ☐ 18 Welfare and externalities · ☐ 19 Exports to modules.
+- ☐ 3.1 Header (0) · ☐ 3.2 Policies (1) · ☐ 3.3 Prices (2) · ☐ 3.4 Power costs incl. levelised costs (3) · ☐ 3.5 GDP level (16) · ☐ 3.6 Road engineer model (5b; three tasks) · ☐ 3.7 Fuel demand (5-8) and leakage, exempt use (6b) · ☐ 3.8 Power quantities and prices (3; three tasks) · ☐ 3.9 Totals and revenues (11, 12) · ☐ 3.10 CO2 and ETS check, other GHGs, local pollutants (13-15) · ☐ 3.11 Module steps and GDP effects (16) · ☐ 3.12 Indicators, welfare, exports (17, 17b, 18, 19a).
 
-## Phase 4 - Distribution on the new structure
+## Phase 4 - Distribution
 
-- ☐ Move `cpat_model/distribution/` onto the new inputs, data and results (D7); its tests unchanged; compare with Excel-AI Distribution v1.3, end to end from mitigation.
+- ☐ 4.1 The distribution package on the new inputs, data and results, reading the 19a results (its 48 tests unchanged).
+- ☐ 4.2 The open distribution items below (revenue units, national totals, projected electricity price). Check: `distribution_ref.py`, then Excel-AI Distribution.
 
 ## Phase 5 - Systematic comparisons
 
-- ☐ Python against Excel-AI: every code, Egypt; then every country (D8).
-- ☐ Python or Excel-AI against legacy CPAT: Egypt, then every country, on the systematic dataset (D6).
+- ☐ 5.1 Excel-AI values by code from the recalculated release workbook; Python against them, Egypt.
+- ☐ 5.2 Every country (`full` where available, else `dummy`).
+- ☐ 5.3 Against legacy CPAT: Egypt, then every country, through LegacyDiff.
+- ☐ 5.4 Speed: under 1 second for one country and two scenarios (D11); cache data and the baseline run.
 
 ## Phase 6 - Running the model
 
-- ☐ `run_model.py`: a scenario-set file in, results out (many countries, many scenarios).
-- ☐ Shiny: the app builds the scenario set and calls `cpat_model.run` (one country, two or more scenarios; D11).
-- ☐ Retire the replaced code (old `mitigation/` subpackages, `dashboard_inputs.py`, `distribution_inputs.py`, `data_read/`, `indicators/`) as each replacement passes.
-- ☐ Website: the Python pages in the Quarto site (D12).
+- ☐ 6.1 `run_model.py` for scenario-set files (many countries, many scenarios).
+- ☐ 6.2 Shiny on `cpat_model.run`; rerun only changed scenarios.
+- ☐ 6.3 Retire the replaced code (old `mitigation/` subpackages, `dashboard_inputs.py`, `distribution_inputs.py`, `data_read/`, `indicators/`).
+- ☐ 6.4 Website: the Coded CPAT tab of the Quarto site at `../docs/` (D12).
+- ☐ 6.5 First release `<Excel-AI version>p0.1`.
 
 ## Later (not now)
 
-- ☐ Equation forms: `simple_cpat`, `cpat_partial_adjustment`, `ces_partial_adjustment` (CES-compatible service prices), `cdpm_ftt` (SISEPUEDE-like and FTT-like).
+- ☐ Demand forms through `ModelForm`: `CPAT partial adjustment`, `CES partial adjustment` (CES-compatible service prices), `CDPM-FTT` (SISEPUEDE-like and FTT-like); each added to Excel-AI and Python together.
 - ☐ Air-pollution and transport co-benefits modules (transport co-benefits linked to the road engineer model).
 
 ## Existing open items (before the project; to be absorbed by the phases above)

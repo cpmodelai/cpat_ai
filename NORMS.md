@@ -37,6 +37,7 @@ User rules 2026-10-15, 2026-10-28 (one register for every module) and 2026-10-29
 |---|---|
 | `L` | Legacy bug (any module, including the inputs and the data), with a cell-level fix plan where one is possible |
 | `M` | Prototype bug (a defect of the prototype itself, fixed) |
+| `DOC` | Documentation bug (user 2026-10-29): the CPAT methodology documentation (`docs/01_MainDocumentation/`) is wrong, missing or contradicts itself (an equation, a sign, a symbol, a unit, a reference). No model is affected; the fix is a correction of the documentation. `DOC`, not `D`: `D1`-`D31` were the former distribution bug codes |
 | `I` | Issue (replicated, a departure by user decision, or a limitation of the prototype; data problems in area Data). Priority: Minor, Major; data problems Very high or Extremely high |
 | `LD` | Departure: a row of the LegacyDiff sheet that is not "Same" |
 | `U` | Upgrade |

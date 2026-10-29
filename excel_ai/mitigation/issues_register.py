@@ -1375,3 +1375,112 @@ ISSUE_STATUS.update({
     'I106': ('Minor', 'Accepted', 'Typed Egypt values on the module tabs FromAirPollution and FromTransportCB (other '
              'countries read 0) until the modules write them.'),
     'I118': ('Minor', 'Accepted', 'Transport part of the Pigouvian tax: the I151 proxy (no stored scenario-1 values).')})
+
+
+# ---------------------------------------------------------------- documentation bugs (user 2026-10-29): kind DOC
+# Errors in the CPAT methodology documentation (docs/01_MainDocumentation/*.qmd): the text, an equation or a table is
+# wrong, missing or contradicts itself. They change no model (the prototypes and Coded CPAT follow the workbooks); the
+# fix is a correction of the documentation. Found while extracting the notation for the Coded CPAT equation list
+# (coded/cpat_documentation/equations/reference/notation_from_methodology.md section 4). New prefix DOC because D was
+# used before (distribution bugs D1-D31, now L138-L168) and codes are never reused.
+DOC_BUGS = [  # id, title, where (file, section, line in the qmd), what is wrong, correction, priority
+    ('DOC1', 'No in-model GDP feedback equation',
+     '04_Multipliers.qmd (whole chapter); 03_Mitigation.qmd Appendix E ("Include endogenous GDP effects?")',
+     'The multipliers chapter explains how the multipliers are estimated and Appendix E names the option, but no '
+     'equation shows how the model turns new revenue and its uses into a GDP effect (fiscal space, impulse, '
+     'multipliers by lag, timing) and feeds it back into energy demand.',
+     'Add the in-model equations: fiscal space, impulse, effect of each use with the multipliers by lag, GDP level '
+     'one year later (as Excel-AI Equations.md E91-E95).', 'High'),
+    ('DOC2', 'Electricity price markup has the wrong sign',
+     '03_Mitigation.qmd, Power prices > Concept 4: End-user prices, line 1354',
+     'mu^T = gnc^av + tmc - hrp is then added to the end-user price p^T; in the base year that gives '
+     '2(gnc^av + tmc) - hrp instead of the historical price hrp. The text ("when the markup is negative ... the model '
+     'captures a subsidy") needs the opposite sign.',
+     'mu^T = hrp - gnc^av - tmc.', 'High'),
+    ('DOC3', 'Discount factor and levelised total investment cost written wrongly',
+     '03_Mitigation.qmd, Power prices > Concept 2: Levelized costs of generation, lines 1253-1255',
+     'The discount factor dfc is defined as "1 + wacc^(t - t0)" (should be (1 + wacc)^-(t - t0)), and '
+     'tic = vc cf dfc / (cf dfc) + fix^fl cancels to vc + fix^fl: the sums over the years are missing.',
+     'Write dfc = (1 + wacc)^-(t - t0) and tic = sum_t vc_t cf dfc_t / sum_t cf dfc_t + fix^fl.', 'High'),
+    ('DOC4', 'GDP elasticity of power demand never defined',
+     '03_Mitigation.qmd, Engineer model > Power demand (line 1506); Elasticity model > Total power demand (line 1850)',
+     'Both power-demand equations use epsilon_G, which no notation table defines; the fuel equation uses epsilon_Y.',
+     'Use epsilon_Y (with the income-level adjustment, as the model) or define epsilon_G.', 'Medium'),
+    ('DOC5', 'Undefined symbol tex in the old power cost model',
+     '03_Mitigation.qmd, Appendix C > Power generation costs, line 4225',
+     'gnc = efc + nfc + rps + nct (1 - tex): tex is not defined anywhere (presumably a tax-exemption share).',
+     'Define tex or remove the term.', 'Low'),
+    ('DOC6', 'Derivative of short-term storage wrong',
+     '03_Mitigation.qmd, Storage decision > Short-term storage, line 1730',
+     'sst = 9 v^2, but its derivative is written d sst / dv = 18 v^2.', 'd sst / dv = 18 v.', 'Medium'),
+    ('DOC7', 'Long-term storage table does not match its formula',
+     '03_Mitigation.qmd, Storage decision > Long-term storage, lines 1747-1765',
+     'slt = ((v - 0.75)/(1 - 0.75))^2 above 75% VRE, so the marginal requirement is 2(v - 0.75)/0.25^2 (3.2 at 85%); '
+     'the table gives 2.5 at 85%, 5.0 at 90%, 7.5 at 95%, 10.0 at 100% (a linear rule).',
+     'Make the table and the formula agree (state which one the model uses).', 'Medium'),
+    ('DOC8', 'Efficiency cost: wrong symbol and wrong description',
+     '03_Mitigation.qmd, Efficiency costs in CPAT, lines 2701-2703',
+     'The equation uses nc_ft where the text and the rest of the chapter use ncp_ft; the text calls (ncp - xcp)/2 '
+     '"the average of new and pre-existing tax", but it is half their difference.',
+     'Write ncp_ft and describe the term as half the difference (the Harberger trapezoid).', 'Medium'),
+    ('DOC9', 'Producer subsidies added in one place, subtracted in another',
+     '03_Mitigation.qmd, Prices > Overview (line 737) and Appendix C > Calculations (line 4085)',
+     'The main text says the supply price is fixed plus floating portions "minus any remaining producer '
+     'subsidies"; Appendix C writes sp = fixsp + fltsp + ps.',
+     'State the sign convention of ps once and use it in both places.', 'Medium'),
+    ('DOC10', 'Base year and historical price years stated inconsistently',
+     '03_Mitigation.qmd, Prices > Overview (line 590); Appendix C, lines 4070-4096',
+     'The overview gives base year 2019 and historical price years 2019-2021; Appendix C averages over 2018-2022, '
+     'is headed "Forecasted prices (after 2021)" and says "for years starting from 2023".',
+     'One statement of the base year and the historical window (the current data vintage), used throughout.', 'Low'),
+    ('DOC11', 'Capacity stock equation written in generation and summed over fuels',
+     '03_Mitigation.qmd, Engineer model > Retirement and capacity needed, line 1580',
+     'g_ocft = g_ocf,t-1 - sum_f ret_ocf,t-1 + inv: uses generation g (GWh) for capacity and subtracts the '
+     'retirements of all fuels from a fuel-specific stock; the notation table gives inv and ret in MWh.',
+     'cap_ft = cap_f,t-1 - ret_f,t-1 + inv_f,t-1, in MW.', 'Medium'),
+    ('DOC12', 'Fuel cost of power: text and equation use different prices',
+     '03_Mitigation.qmd, Power prices > Concept 1, lines 1197 and 1202',
+     'The text says fuel cost = pre-tax price (including producer subsidies) ps / thermal efficiency; the equation '
+     'writes the retail price p / nu; ps is elsewhere the producer subsidy itself.',
+     'Use one symbol for the price that enters (the pre-tax price) in both.', 'Medium'),
+    ('DOC13', 'Units wrong or inconsistent in the notation tables',
+     '03_Mitigation.qmd, notation tables of Emissions, Fiscal revenues, Engineer model, Power prices',
+     'em in tCO2/GJ (emissions are MtCO2e); ncp in USD/tCO2 in the revenue table but USD/GJ in the price table; '
+     'lambda_f in GWh (a share); zeta in MWh (text: a percentage); inv, ret in MWh (capacity); dtc and opf per kWh '
+     'in the table but per kW in the text.', 'Correct each unit.', 'Low'),
+    ('DOC14', 'Symbol names differ between the text, the tables and the equations',
+     '03_Mitigation.qmd, several sections',
+     'opv / vop (variable OpEx); ipc / ip / imp (implicit coal price); revEx / revExi; ct / ctr (price controls); '
+     'sp_T / sp^T and mu / mu^T; H_f / H_g and K_g; COA / COAL; CF / cf; IPPU Delta em_ocP (text) / Delta em_ocI '
+     '(equation); LCOE denominator dem / g; rebound term P_t (aggregate price) for p.',
+     'One name per quantity, as in the notation tables.', 'Low'),
+    ('DOC15', 'Elasticity power model: index roles swapped in the share equation',
+     '03_Mitigation.qmd, Elasticity model > Total power supply',
+     'The documented production-share equation sums over i != f in the numerator and j != f in the denominator; the '
+     'form described as implemented sums over f != i in both.', 'Write the implemented form once.', 'Low'),
+    ('DOC16', 'Distribution: wrong equation reference for direct effects',
+     '05_Distribution.qmd, sec 5.3.1, line 384 (eq-5_2, eq-5_3)',
+     'Direct effects are said to be "for f=g, in @eq-5_3", but eq-5_3 is the input-output equation with f not in g; '
+     'the direct effect is the part of eq-5_2 with f in g.', 'Refer to eq-5_2.', 'Low'),
+    ('DOC17', 'Fuel codes: electricity coded two ways, biofuel labels swapped',
+     '03_Mitigation.qmd Appendix F (lines 3725-3727, 4765-4767); 05_Distribution.qmd tbl-5_1',
+     'Electricity is ecy in the mitigation codes and ely in distribution; Appendix F labels bgs "biodiesel" and bdi '
+     '"biogasoline", the reverse of the model (bgs biogasoline, bdi biodiesel).',
+     'ecy everywhere; bgs biogasoline, bdi biodiesel (also in the codes map).', 'Low'),
+    ('DOC18', 'Air pollution: index definitions inconsistent',
+     '06_Air_pollution.qmd, eq-deltae, eq-ifeach, eq-pomincfactor',
+     'eq-deltae defines k as "pollutant" but uses it to index source regions; eq-ifeach writes iF_{p,j,l} on the '
+     'left and iF_{p,j,c} in the definitions; eq-pomincfactor mixes d_{POM,2} and delta_{POM,1}.',
+     'Correct the index definitions.', 'Low'),
+    ('DOC19', 'Road transport: base forecast equation dimensionally ambiguous',
+     '07_Road_Transport.qmd, eq-basefor',
+     'The base forecast subtracts the average growth rate from a gross growth ratio GDP_t/GDP_t-1, so the result '
+     'reads as about 1 - g + g_t rather than 1 + g_t - g.', 'Write the growth terms on one basis.', 'Low'),
+    ('DOC20', 'Letters with several meanings',
+     'All chapters (list: notation_from_methodology.md section 4.1)',
+     'g is the sector group, generation, a growth rate, the consumption category and a PIT gain; gamma has six '
+     'meanings; E is electricity, power demand and the energy UNFCCC sector; p/P, j and i also change meaning. '
+     'Readers cannot tell which is meant without the context.',
+     'One meaning per letter within a chapter; a notation table per chapter.', 'Low'),
+]
+DOC_STATUS = 'Open: correct in the methodology documentation (no model change)'

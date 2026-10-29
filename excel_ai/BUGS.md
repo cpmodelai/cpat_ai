@@ -1,10 +1,10 @@
-# BUGS: legacy CPAT bugs and prototype bugs (v9.0)
+# BUGS: legacy CPAT bugs, prototype bugs and documentation bugs (v9.0)
 
 **The rule (NORMS 0).** Never replicate a legacy bug; always replicate a legacy issue, and track it. A bug: legacy does not compute what it means to (a wrong row, a double application, a dead reference); the prototype fixes it. An issue: legacy does what it means to, but the choice is open to question; the prototype does the same and tracks it. A departure that is not a bug fix is kept only by user decision. Data problems are issues (area Data): replicated; where legacy needs a formula fix, that fix is a legacy bug (L) and the issue is Very high; where no cell plan is possible, the prototype aligns with legacy and the issue is Extremely high.
 
 Generated from the register (`mitigation/register.py`) by `mitigation/make_replication_lists.py`. The same items, every column: the tracker `Tracking_Legacy_Bugs_v9.0.xlsx` (the master list). Bugs in detail: `Legacy_CPAT_Bugs_v9.0.docx`. Issues in detail: the appendices of the Documentation (`mitigation/CPAT-AI-Mitigation_Documentation.docx`). Lists: [`BUGS.md`](BUGS.md), [`ISSUES.md`](ISSUES.md).
 
-**222 legacy bugs, 14 prototype bugs.** Legacy 465: 52 fixed (confirmed), 9 fixed with caveats, 2 marked fixed but not fixed, 159 open.
+**222 legacy bugs, 14 prototype bugs, 20 documentation bugs.** Legacy 465: 52 fixed (confirmed), 9 fixed with caveats, 2 marked fixed but not fixed, 159 open.
 
 ## 1. Legacy bugs (L)
 
@@ -255,3 +255,30 @@ Defects of the prototype itself, all fixed.
 | M12 | Sheet Lambdas: formula texts named merged sheets | Fixed (v3.6 / v3.13) |
 | M13 | Road vehicle feebate counted the carbon price twice | Fixed (v3.5 / v4.16) |
 | M14 | LAMBDA library texts named a merged-away sheet | Fixed (v4.2 / v5.3) |
+
+## 3. Documentation bugs (DOC)
+
+Errors in the CPAT methodology documentation (`docs/01_MainDocumentation/`); no model is affected, the documentation is to be corrected.
+
+| Code | Priority | Bug | Where | Correction |
+|---|---|---|---|---|
+| DOC1 | High | No in-model GDP feedback equation | 04_Multipliers.qmd (whole chapter); 03_Mitigation.qmd Appendix E ("Include endogenous GDP effects?") | Add the in-model equations: fiscal space, impulse, effect of each use with the multipliers by lag, GDP level one year later (as Excel-AI Equations.md E91-E95). |
+| DOC2 | High | Electricity price markup has the wrong sign | 03_Mitigation.qmd, Power prices > Concept 4: End-user prices, line 1354 | mu^T = hrp - gnc^av - tmc. |
+| DOC3 | High | Discount factor and levelised total investment cost written wrongly | 03_Mitigation.qmd, Power prices > Concept 2: Levelized costs of generation, lines 1253-1255 | Write dfc = (1 + wacc)^-(t - t0) and tic = sum_t vc_t cf dfc_t / sum_t cf dfc_t + fix^fl. |
+| DOC4 | Medium | GDP elasticity of power demand never defined | 03_Mitigation.qmd, Engineer model > Power demand (line 1506); Elasticity model > Total power demand (line 1850) | Use epsilon_Y (with the income-level adjustment, as the model) or define epsilon_G. |
+| DOC5 | Low | Undefined symbol tex in the old power cost model | 03_Mitigation.qmd, Appendix C > Power generation costs, line 4225 | Define tex or remove the term. |
+| DOC6 | Medium | Derivative of short-term storage wrong | 03_Mitigation.qmd, Storage decision > Short-term storage, line 1730 | d sst / dv = 18 v. |
+| DOC7 | Medium | Long-term storage table does not match its formula | 03_Mitigation.qmd, Storage decision > Long-term storage, lines 1747-1765 | Make the table and the formula agree (state which one the model uses). |
+| DOC8 | Medium | Efficiency cost: wrong symbol and wrong description | 03_Mitigation.qmd, Efficiency costs in CPAT, lines 2701-2703 | Write ncp_ft and describe the term as half the difference (the Harberger trapezoid). |
+| DOC9 | Medium | Producer subsidies added in one place, subtracted in another | 03_Mitigation.qmd, Prices > Overview (line 737) and Appendix C > Calculations (line 4085) | State the sign convention of ps once and use it in both places. |
+| DOC10 | Low | Base year and historical price years stated inconsistently | 03_Mitigation.qmd, Prices > Overview (line 590); Appendix C, lines 4070-4096 | One statement of the base year and the historical window (the current data vintage), used throughout. |
+| DOC11 | Medium | Capacity stock equation written in generation and summed over fuels | 03_Mitigation.qmd, Engineer model > Retirement and capacity needed, line 1580 | cap_ft = cap_f,t-1 - ret_f,t-1 + inv_f,t-1, in MW. |
+| DOC12 | Medium | Fuel cost of power: text and equation use different prices | 03_Mitigation.qmd, Power prices > Concept 1, lines 1197 and 1202 | Use one symbol for the price that enters (the pre-tax price) in both. |
+| DOC13 | Low | Units wrong or inconsistent in the notation tables | 03_Mitigation.qmd, notation tables of Emissions, Fiscal revenues, Engineer model, Power prices | Correct each unit. |
+| DOC14 | Low | Symbol names differ between the text, the tables and the equations | 03_Mitigation.qmd, several sections | One name per quantity, as in the notation tables. |
+| DOC15 | Low | Elasticity power model: index roles swapped in the share equation | 03_Mitigation.qmd, Elasticity model > Total power supply | Write the implemented form once. |
+| DOC16 | Low | Distribution: wrong equation reference for direct effects | 05_Distribution.qmd, sec 5.3.1, line 384 (eq-5_2, eq-5_3) | Refer to eq-5_2. |
+| DOC17 | Low | Fuel codes: electricity coded two ways, biofuel labels swapped | 03_Mitigation.qmd Appendix F (lines 3725-3727, 4765-4767); 05_Distribution.qmd tbl-5_1 | ecy everywhere; bgs biogasoline, bdi biodiesel (also in the codes map). |
+| DOC18 | Low | Air pollution: index definitions inconsistent | 06_Air_pollution.qmd, eq-deltae, eq-ifeach, eq-pomincfactor | Correct the index definitions. |
+| DOC19 | Low | Road transport: base forecast equation dimensionally ambiguous | 07_Road_Transport.qmd, eq-basefor | Write the growth terms on one basis. |
+| DOC20 | Low | Letters with several meanings | All chapters (list: notation_from_methodology.md section 4.1) | One meaning per letter within a chapter; a notation table per chapter. |
