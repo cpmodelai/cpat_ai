@@ -582,8 +582,8 @@
    }
   ],
   "ref": "Row 3646 (rp.ind.ecy.t.1: the same block with C2173); the code formulas of the other blocks.",
-  "effect": "Codes only, except results row 16236 (reads row 3643 instead of 0 via IFNA; 0 for Egypt, which has no carbon tax on industrial electricity). Excel's MATCH ignores case, so lower-casing changes no lookup in the workbook (the Air pollution readers build the same codes with \"All\").",
-  "note": "Row 7620 (NOx forcing, oc.tot.) is fixed by L133. H2320 then shares ctxnew.oop.pow.1 with rows 2342 and 2366, like the rest of its block (see L131). Policy cells: pasting a baseline cell gives the policy formula (C2173 becomes C8489; the blank references of the policy copies are the baseline ones +6,316). Results rows 16250 and 16251 look up ets.ind.ecy.t.1 and ets.res.ecy.t.1, which no row of the model carries (a separate defect; both 0 by IFNA). New tokens ltc (levelised transmission cost) and gnb (generation cost before storage and carbon tax) are proposals; checked absent from the file.",
+  "effect": "Codes only, except results row 16236, which then finds row 3643 instead of nothing (IFNA 0); row 3643 is the new policy's carbon cost, not the current carbon tax the row is labelled with, so L230 replaces that lookup. Excel's MATCH ignores case, so lower-casing changes no lookup in the workbook (the Air pollution readers build the same codes with \"All\").",
+  "note": "Row 7620 (NOx forcing, oc.tot.) is fixed by L133. H2320 then shares ctxnew.oop.pow.1 with rows 2342 and 2366, like the rest of its block (see L131). Policy cells: pasting a baseline cell gives the policy formula (C2173 becomes C8489; the blank references of the policy copies are the baseline ones +6,316). Results rows 16250 and 16251 look up ets.ind.ecy.t.1 and ets.res.ecy.t.1, which no row of the model carries: bug L230. New tokens ltc (levelised transmission cost) and gnb (generation cost before storage and carbon tax) are proposals; checked absent from the file.",
   "status": "fix",
   "prototype": "Fixed (v0.7.2): prototype codes are lower case with no empty token (code formula; check_codes)."
  },
@@ -845,5 +845,75 @@
   "note": "Rename only the text in column H; the Dashboard defined names D_* stay as they are.",
   "status": "fix",
   "prototype": "Fixed (v0.8.4): the prototype names drop the D_ prefix (FeebateIntro, NewETS, ETSIntro, ...) and the space; the legacy name is kept in the codes map (tab Inputs)."
+ },
+ {
+  "id": "L230",
+  "pri": "Low",
+  "title": "Electricity: current carbon tax and ETS outputs never see the existing carbon price",
+  "where": "Mitigation L16236:AE16237 (current carbon tax, electricity), L16250:AE16251 (current ETS, electricity); published by MTOutputs K229:K230, K242:K243 and rows 16702-16703",
+  "why": "The results rows for the current (existing) carbon tax and ETS on electricity look up a power-price row by code. Rows 16236/16237 (current carbon tax) find ctx.ind.ecy.t / ctx.res.ecy.t, the rows \"Policy (usually carbon price)\" 3643/3614, which carry the new policy's carbon cost (row 3395, from the \"total new policy\" rows 2468, 2537, 2698): 0 in scenario 1 by construction. Rows 16250/16251 (current ETS) look up ets.ind.ecy.t.1 / ets.res.ecy.t.1, which no row carries (IFNA 0). The existing carbon tax and ETS of the power fuels (rows 2462-2463 coal, 2531-2532 gas, 2692-2693 oil) never reach these outputs, so a country with a carbon tax or ETS on power reports 0 for electricity.",
+  "fixes": [
+   {
+    "cell": "L16236",
+    "now": "=_xlfn.IFNA(INDEX(L$2173:L$14755,$J16236),0)",
+    "new": "=(L$2462*_conv_kWh_to_GJ/L$3061*L$3452+L$2531*_conv_kWh_to_GJ/L$3062*L$3453+L$2692*(_conv_kWh_to_GJ/_conv_barrel_to_gj)/L$3063*L$3454)/$J$3395",
+    "fill": "L16236:AE16236",
+    "policy": "none (results block; the rows are scenario 1)"
+   },
+   {
+    "cell": "J16236",
+    "now": "=MATCH($G16236,$H$2173:$H$14755,0)",
+    "new": "(clear: the row no longer looks up a code)",
+    "fill": "single cell",
+    "policy": "none (results block)"
+   },
+   {
+    "cell": "L16237",
+    "now": "=_xlfn.IFNA(INDEX(L$2173:L$14755,$J16237),0)",
+    "new": "=(L$2462*_conv_kWh_to_GJ/L$3061*L$3452+L$2531*_conv_kWh_to_GJ/L$3062*L$3453+L$2692*(_conv_kWh_to_GJ/_conv_barrel_to_gj)/L$3063*L$3454)/$J$3395",
+    "fill": "L16237:AE16237",
+    "policy": "none (results block; the rows are scenario 1)"
+   },
+   {
+    "cell": "J16237",
+    "now": "=MATCH($G16237,$H$2173:$H$14755,0)",
+    "new": "(clear: the row no longer looks up a code)",
+    "fill": "single cell",
+    "policy": "none (results block)"
+   },
+   {
+    "cell": "L16250",
+    "now": "=_xlfn.IFNA(INDEX(L$2173:L$14755,$J16250),0)",
+    "new": "=(L$2463*_conv_kWh_to_GJ/L$3061*L$3452+L$2532*_conv_kWh_to_GJ/L$3062*L$3453+L$2693*(_conv_kWh_to_GJ/_conv_barrel_to_gj)/L$3063*L$3454)/$J$3395",
+    "fill": "L16250:AE16250",
+    "policy": "none (results block; the rows are scenario 1)"
+   },
+   {
+    "cell": "J16250",
+    "now": "=MATCH($G16250,$H$2173:$H$14755,0)",
+    "new": "(clear: the row no longer looks up a code)",
+    "fill": "single cell",
+    "policy": "none (results block)"
+   },
+   {
+    "cell": "L16251",
+    "now": "=_xlfn.IFNA(INDEX(L$2173:L$14755,$J16251),0)",
+    "new": "=(L$2463*_conv_kWh_to_GJ/L$3061*L$3452+L$2532*_conv_kWh_to_GJ/L$3062*L$3453+L$2693*(_conv_kWh_to_GJ/_conv_barrel_to_gj)/L$3063*L$3454)/$J$3395",
+    "fill": "L16251:AE16251",
+    "policy": "none (results block; the rows are scenario 1)"
+   },
+   {
+    "cell": "J16251",
+    "now": "=MATCH($G16251,$H$2173:$H$14755,0)",
+    "new": "(clear: the row no longer looks up a code)",
+    "fill": "single cell",
+    "policy": "none (results block)"
+   }
+  ],
+  "ref": "Rows 3385-3395: the new policy's carbon cost per kWh consumed (fuel cost per GJ / efficiency x generation share, / transmission factor J3395); the same chain on the existing carbon price rows.",
+  "effect": "None for Egypt (no existing carbon tax or ETS on power). Elsewhere the current carbon tax and ETS on electricity (results 16236-16251, MTOutputs K229:K230 and K242:K243, rows 16702-16703) show the existing carbon price per kWh instead of 0. Industry and residential get the same value: the price is upstream, before pass-through and VAT.",
+  "note": "Found 2026-10-29 while planning L132 (the empty code token of row 3643). The G codes of the four rows stay (MTOutputs names them); only the lookup goes.",
+  "status": "fix",
+  "prototype": "Not built in the prototype (it has no current-carbon-price output for electricity): nothing replicated."
  }
 ]

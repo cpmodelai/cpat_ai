@@ -8,88 +8,11 @@ Output: ../data/fixes_other_mitigation_3.json. Needs pyxlsb2 (dec465.py).
 """
 import json
 import os
-import re
-import struct
 
-import dec465 as D
+from xlsb465 import OFF, bal, cur, fx, paste, pol, sub, wrap_lower
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, '..', 'data', 'fixes_other_mitigation_3.json')
-OFF = 6316                                      # policy block offset in 465 (README)
-
-SST = [D.wstr(d, 1)[0] for t, d in D.recs(D.z.read('xl/sharedStrings.bin')) if t == 19]
-_SHEETS = {}
-
-
-def _sheet(name):
-    """(formula cells, shared formulas, constants) of a sheet, read once."""
-    if name not in _SHEETS:
-        cells, sh = D.sheetcells(name)
-        const, row = {}, 0
-        for t, d in D.recs(D.z.read('xl/' + D.rels[D.rids[D.sheets.index(name)]])):
-            if t == 0:
-                row = struct.unpack_from('<I', d, 0)[0]
-            elif t in (5, 6, 7):                 # number, inline string, shared string
-                col = struct.unpack_from('<I', d, 0)[0]
-                const[(row, col)] = (struct.unpack_from('<d', d, 8)[0] if t == 5 else D.wstr(d, 8)[0] if t == 6
-                                     else SST[struct.unpack_from('<I', d, 8)[0]])
-        _SHEETS[name] = cells, sh, const
-    return _SHEETS[name]
-
-
-def cur(a, sheet='Mitigation'):
-    """The formula of a cell, else its constant (text as typed)."""
-    cells, sh, const = _sheet(sheet)
-    f = D.formula(cells, sh, a)
-    if f is not None:
-        return f
-    c, r = re.match(r'([A-Z]+)(\d+)$', a).groups()
-    v = const.get((int(r) - 1, D.ci(c) - 1))
-    assert v is not None, (sheet, a, 'empty')
-    return v if isinstance(v, str) else repr(v)
-
-
-def bal(f):
-    d = 0
-    for ch in f:
-        d += (ch == '(') - (ch == ')')
-        assert d >= 0, f
-    assert d == 0, f
-    return f
-
-
-def sub(a, *pairs, sheet='Mitigation'):
-    f = cur(a, sheet)
-    for o, n in pairs:
-        assert f.count(o) == 1, (a, o, f)
-        f = f.replace(o, n)
-    return bal(f) if f.startswith('=') else f
-
-
-def fx(cell, new, fill='single cell', policy='none (shared rows, one copy only)', sheet='Mitigation'):
-    now = cur(cell, sheet)
-    assert new != now, (cell, 'no change')
-    return dict(cell=cell if sheet == 'Mitigation' else f'{sheet}!{cell}', now=now, new=new, fill=fill, policy=policy)
-
-
-def pol(a):
-    """The policy-block copy of a baseline cell (+6,316 rows)."""
-    c, r = re.match(r'([A-Z]+)(\d+)$', a).groups()
-    return f'{c}{int(r) + OFF}'
-
-
-def paste(a, rng=None):
-    rng = rng or a
-    first, *last = rng.split(':')
-    tgt = pol(first) + (':' + pol(last[0]) if last else '')
-    return f'{tgt}: paste the baseline cells (Paste Special, Formulas; +6,316 rows)'
-
-
-def wrap_lower(a):
-    f = cur(a)
-    assert f.startswith('=LOWER(_Country_code)&'), (a, f)
-    return '=LOWER(' + f[1:] + ')'
-
 
 plans = []
 
@@ -235,14 +158,15 @@ plans.append(dict(
         'rows 3225-3233 are copies of rows 3282-3290 (=L3282) and lose their code.',
     fixes=fixes,
     ref='Row 3646 (rp.ind.ecy.t.1: the same block with C2173); the code formulas of the other blocks.',
-    effect='Codes only, except results row 16236 (reads row 3643 instead of 0 via IFNA; 0 for Egypt, which has no '
-           'carbon tax on industrial electricity). Excel\'s MATCH ignores case, so lower-casing changes no lookup in '
-           'the workbook (the Air pollution readers build the same codes with "All").',
+    effect='Codes only, except results row 16236, which then finds row 3643 instead of nothing (IFNA 0); row 3643 is '
+           'the new policy\'s carbon cost, not the current carbon tax the row is labelled with, so L230 replaces that '
+           'lookup. Excel\'s MATCH ignores case, so lower-casing changes no lookup in the workbook (the Air pollution '
+           'readers build the same codes with "All").',
     note='Row 7620 (NOx forcing, oc.tot.) is fixed by L133. H2320 then shares ctxnew.oop.pow.1 with rows 2342 and '
          '2366, like the rest of its block (see L131). Policy cells: pasting a baseline cell gives the policy formula '
          '(C2173 becomes C8489; the blank references of the policy copies are the baseline ones +6,316). '
          'Results rows 16250 and 16251 look up '
-         'ets.ind.ecy.t.1 and ets.res.ecy.t.1, which no row of the model carries (a separate defect; both 0 by IFNA). '
+         'ets.ind.ecy.t.1 and ets.res.ecy.t.1, which no row of the model carries: bug L230. '
          'New tokens ltc (levelised transmission cost) and gnb (generation cost before storage and carbon tax) are '
          'proposals; checked absent from the file.',
     status='fix', prototype='Fixed (v0.7.2): prototype codes are lower case with no empty token (code formula; '
@@ -311,6 +235,48 @@ plans.append(dict(
     note='Rename only the text in column H; the Dashboard defined names D_* stay as they are.',
     status='fix', prototype='Fixed (v0.8.4): the prototype names drop the D_ prefix (FeebateIntro, NewETS, ETSIntro, '
                             '...) and the space; the legacy name is kept in the codes map (tab Inputs).'))
+
+# ------------------------------------------------------------------ L230 (found 2026-10-29 while planning L132)
+KWH = {'coa': ('_conv_kWh_to_GJ', 3061, 3452), 'nga': ('_conv_kWh_to_GJ', 3062, 3453),
+       'oop': ('(_conv_kWh_to_GJ/_conv_barrel_to_gj)', 3063, 3454)}      # as rows 3385-3387 (oil per barrel)
+
+
+def per_kwh(rows):
+    """Current carbon price of the power fuels per kWh consumed, as rows 3385-3395 do for the new policy."""
+    return '=(' + '+'.join(f'L${r}*{c}/L${e}*L${g}' for r, (c, e, g) in zip(rows, KWH.values())) + ')/$J$3395'
+
+
+for r, lab in ((2462, 'current carbon tax'), (2531, 'current carbon tax'), (2692, 'current carbon tax'),
+               (2463, 'current ETS'), (2532, 'current ETS'), (2693, 'current ETS')):
+    assert lab in cur(f'D{r}'), (r, cur(f'D{r}'))
+assert cur('L3387') == '=L3090*(_conv_kWh_to_GJ/_conv_barrel_to_gj)/L3063' and cur('J3395') == '=1/I3723'
+fixes = []
+for r, src in ((16236, (2462, 2531, 2692)), (16237, (2462, 2531, 2692)), (16250, (2463, 2532, 2693)),
+               (16251, (2463, 2532, 2693))):
+    fixes.append(fx(f'L{r}', bal(per_kwh(src)), f'L{r}:AE{r}', 'none (results block; the rows are scenario 1)'))
+    fixes.append(fx(f'J{r}', '(clear: the row no longer looks up a code)', policy='none (results block)'))
+plans.append(dict(
+    id='L230', pri='Low', title='Electricity: current carbon tax and ETS outputs never see the existing carbon price',
+    where='Mitigation L16236:AE16237 (current carbon tax, electricity), L16250:AE16251 (current ETS, electricity); '
+          'published by MTOutputs K229:K230, K242:K243 and rows 16702-16703',
+    why='The results rows for the current (existing) carbon tax and ETS on electricity look up a power-price row by '
+        'code. Rows 16236/16237 (current carbon tax) find ctx.ind.ecy.t / ctx.res.ecy.t, the rows "Policy (usually '
+        'carbon price)" 3643/3614, which carry the new policy\'s carbon cost (row 3395, from the "total new policy" '
+        'rows 2468, 2537, 2698): 0 in scenario 1 by construction. Rows 16250/16251 (current ETS) look up '
+        'ets.ind.ecy.t.1 / ets.res.ecy.t.1, which no row carries (IFNA 0). The existing carbon tax and ETS of the '
+        'power fuels (rows 2462-2463 coal, 2531-2532 gas, 2692-2693 oil) never reach these outputs, so a country '
+        'with a carbon tax or ETS on power reports 0 for electricity.',
+    fixes=fixes,
+    ref='Rows 3385-3395: the new policy\'s carbon cost per kWh consumed (fuel cost per GJ / efficiency x generation '
+        'share, / transmission factor J3395); the same chain on the existing carbon price rows.',
+    effect='None for Egypt (no existing carbon tax or ETS on power). Elsewhere the current carbon tax and ETS on '
+           'electricity (results 16236-16251, MTOutputs K229:K230 and K242:K243, rows 16702-16703) show the '
+           'existing carbon price per kWh instead of 0. Industry and residential get the same value: the price is '
+           'upstream, before pass-through and VAT.',
+    note='Found 2026-10-29 while planning L132 (the empty code token of row 3643). The G codes of the four rows stay '
+         '(MTOutputs names them); only the lookup goes.',
+    status='fix', prototype='Not built in the prototype (it has no current-carbon-price output for electricity): '
+                            'nothing replicated.'))
 
 json.dump(plans, open(OUT, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
 print('wrote', os.path.normpath(OUT), len(plans), 'bugs', sum(len(p['fixes']) for p in plans), 'cell entries')

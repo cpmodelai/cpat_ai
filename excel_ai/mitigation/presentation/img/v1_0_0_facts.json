@@ -13,7 +13,7 @@
  "full_overall": "Overall: PASS** (sections 0-13 in the full run; section 14 rerun)",
  "full_version": "0.8.0",
  "bugs": {
-  "mit": 196,
+  "mit": 197,
   "dist": 31
  },
  "bug_priority": {

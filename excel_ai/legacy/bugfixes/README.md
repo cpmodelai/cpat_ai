@@ -9,8 +9,8 @@ Manual fix plans for the legacy workbook, sheet Mitigation unless stated. **Sinc
 | `data/fixes_power_engineer.json` | Engineer power model: L1-L12, L52-L56, L67, L83, L84, L88, L95, L107-L111, L126, L127 |
 | `data/fixes_transport_engineer.json` | Engineer road-transport model, L25-L41 |
 | `data/fixes_other_mitigation.json`, `fixes_other_mitigation_2.json` | Other mitigation, both batches (L13-L24, L42-L51, L57-L125, L128, L135, L136) |
-| `data/fixes_v0_9_0.json` | The v0.9.0 bugs L171-L229 (air pollution, climate costs, results; 38 of their 83 entries describe the new formula instead of typing it) |
-| `data/fixes_other_mitigation_3.json` | Batch F (2026-10-29), the last bugs without a plan: L129-L134, L137, L169 (105 cells; `tools/gen_F.py`, every "now" read from the 465 .xlsb) |
+| `data/fixes_v0_9_0.json` | The v0.9.0 bugs L171-L229 (air pollution, climate costs, results); 33 of its plans written out cell by cell from 465 by `tools/gen_G.py` (2026-10-29); only L224, a change of method, stays described |
+| `data/fixes_other_mitigation_3.json` | Batch F (2026-10-29), the last bugs without a plan: L129-L134, L137, L169, and L230 found while planning (113 cells; `tools/gen_F.py`, every "now" read from the 465 .xlsb; helpers in `tools/xlsb465.py`) |
 | `data/cfg_other_sections.json` | The 10 other-mitigation areas (ETS, prices, ...) in rough priority order: the register's section 3.3 follows it; move a bug by editing its `ids` |
 | `data/fixes_distribution.json` | Distribution module, L138-L168 (were D1-D31 until v0.8.4; the history notes below keep the old codes) |
 | `data/fixes_*.json` (all) | Machine-readable (`cell`, `now`, `new`, `fill`, `policy` per cell); usable for a fix macro |
@@ -43,7 +43,7 @@ Manual fix plans for the legacy workbook, sheet Mitigation unless stated. **Sinc
 - Found while planning and registered 2026-10-19: L115 (Mitigation L2555 reads the LPG ETS row 1720 instead of 1715), L116 (Elasticities H53/H54), L117 (Multipliers D44); the kerosene rows 5587/5588 are already in L45.
 - Distribution D10-D31 (2026-10-20, v0.6.2 register; scratch generator `gen_D10.py`, not kept): every "now" decoded from the .xlsb; `chkplans.py` agrees on all 62 single cells of D10-D31 (the 7 D24 range entries are skipped; the 6 differences it reports are D2's empty "now" written as "" and D7's array braces). D24 needs inserted rows and is applied last; D22, D25 and D23 come before it. Rows L3049:L3062 (D31) and D25's top-20 ties (row 3277) were added while planning.
 
-- Batch F (2026-10-29, `tools/gen_F.py`, on 465): every legacy bug now has a plan (227). Found while planning: the reused code sub.new.pct makes results rows 17161/17163 (revenues, % GDP) read the carbon-price subtotal (rows 7737/14053) instead of the total (8013/14329) that their US$ partners 17160/17162 read (L131); the empty scenario token makes results row 16236 find nothing (IFNA 0; L132); the register's policy rows 7883-7886 for L129 are 9101-9104 and 9263-9267 in 465. Results rows 16250/16251 (current ETS on electricity) look up codes no row carries: a lead, not yet registered (TODO). `tools/chkplans.py` still points to the 456 file; gen_F.py checks its own "now" texts.
+- Batch F (2026-10-29, `tools/gen_F.py`, on 465): every legacy bug now has a plan (227). Found while planning: the reused code sub.new.pct makes results rows 17161/17163 (revenues, % GDP) read the carbon-price subtotal (rows 7737/14053) instead of the total (8013/14329) that their US$ partners 17160/17162 read (L131); the empty scenario token makes results row 16236 find nothing (IFNA 0; L132); the register's policy rows 7883-7886 for L129 are 9101-9104 and 9263-9267 in 465. Results rows 16236-16251 (current carbon tax and ETS on electricity) read the new-policy row or a code no row carries: registered as L230 with its plan. `tools/chkplans.py` still points to the 456 file; gen_F.py checks its own "now" texts.
 
 ## How the plans were made (Linux, LibreOffice)
 

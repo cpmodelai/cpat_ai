@@ -72,7 +72,8 @@ SEE_ALSO = {'I98': ['L58', 'L59'], 'I97': ['L170', 'LD3'], 'L170': ['I97', 'LD3'
             # v0.9.2: the prototype bugs found by Coded CPAT and the legacy bugs of the same defect
             'M15': ['L225', 'I120'], 'L225': ['M15', 'I120'], 'M16': ['L226'], 'L226': ['M16'],
             'M17': ['L227', 'L41'], 'L227': ['M17', 'L41'], 'M18': ['L30'], 'M20': ['L228', 'L229'],
-            'L228': ['M20', 'L229'], 'L229': ['M20', 'L228']}
+            'L228': ['M20', 'L229'], 'L229': ['M20', 'L228'],
+            'L230': ['L132'], 'L132': ['L230']}   # 2026-10-29: found while planning L132
 
 
 def prefix(code):
@@ -274,6 +275,8 @@ def found(code):
         return v
     if code == 'L169':                                  # registered as issue I67 (v0.5.7)
         return ('456', '2026-10-19', 'Stephen (CPAT-AI)')
+    if code == 'L230':                                  # found while planning L132
+        return ('465', '2026-10-29', 'Stephen (CPAT-AI)')
     return ('465', NEW_DATE, 'Stephen (CPAT-AI)')
 
 
