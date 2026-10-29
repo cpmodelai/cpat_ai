@@ -651,6 +651,14 @@ $$
 
 Over fuels $f$, sector groups $S$, years $t$. Excel-AI notation (Mitigation section 17). Revenue by fuel includes the power fuel rows (coal, gas, oil); covered CO2 (covct, A6.2) and ETS-covered CO2 as shares of energy CO2. Source: Excel-AI: Mitigation section 17.
 
+**A7.6  Local air pollutants**  *(adjustment)*
+
+$$
+\mathtt{ap}_{s,p}, \ \mathtt{ap.w}, \ \mathtt{apfd}, \ \mathtt{apf}_p, \ \mathtt{aps}_{src,p}, \ \mathtt{apen}, \ \mathtt{ghg.enrp} = \mathtt{ghg}_{enr,all} + \mathtt{apf}_{all}
+$$
+
+Over pollutants $p$ (PM2.5, NOx, SO2, VOC, BC, OC, CO), subsectors $s$ and power, sources (coal and gas plants, other power, road, ground level, other, food and agriculture). Excel-AI notation (Mitigation section 15, read by the air pollution module). Combustion factors of the base year and the final year (A7.1), weighted by $w_t$ (EFSel share $\omega$, final year EFEndYear); power by generation type. Food processing uses the food share of the energy balance; agriculture is the rest of food and forestry. By source, POM = 1.3 OC and other PM = PM2.5 - BC - POM (at least 0); methane by source from the CH4 rows. GWP100 of the GAINS region of the country. Source: Excel-AI: Mitigation section 15.
+
 ## A8 GDP and results
 
 To complete: current account (R11); carbon-pricing indicators (section 17); welfare, externalities, subsidies and efficient prices (section 18; methodology: efficiency cost $ddw = \tfrac{1}{2}(nc - xcp)(F_P - F_B)$).

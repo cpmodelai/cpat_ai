@@ -7,6 +7,7 @@ ghg       section 14: population, non-energy drivers, methane by source (fee aba
 kaya      section 13 (end): Kaya identity, reads section 14
 ndc       section 14 NDC rows: after the year loop (they read the baseline at the NDC target year)
 carbon_pricing  section 17: carbon pricing indicators
+pollutants      section 15: local air pollutants by subsector and source (outputs to the air pollution module)
 """
 import numpy as np
 
@@ -447,3 +448,86 @@ def carbon_pricing(state, db, inputs, settings, baseline, t):
     R.set('cov.all', k, ct + ets, 'all', 'all')
     R.set('cpeff', k, at('cptraj') * ct, 'all', 'all')
     R.set('ecr', k, per_t(at('rnet', 'all', 'all') + at('rnew', 'all', 'all') + at('rsr', 'all', 'all')), 'all', 'all')
+
+
+# ---- local air pollutants (Mitigation section 15: outputs to the air pollution module)
+AP_POLLUTANTS = ['pm2', 'nox', 'so2', 'voc', 'bc', 'oc', 'co']
+AP_GWP = ['bc', 'oc', 'nox', 'so2', 'voc', 'co']                  # rows apf (GWP100 of the GAINS region)
+AP_GROUPS = {'tra': ['rod', 'ral', 'avi', 'nav'], 'bld': ['res', 'foo', 'srv'],
+             'ind': ['mch', 'irn', 'nfm', 'mac', 'cem', 'omn', 'cst', 'ftr']}
+SOURCES = ['cpp', 'gpp', 'opp', 'rod', 'gro', 'oth', 'foo']        # coal and gas plants, other power, road, ground level,
+APS_POLLUTANTS = ['nox', 'so2', 'bc', 'pom', 'opm', 'voc', 'ch4', 'co', 'pm2', 'oc']   # other, food and agriculture
+GROUND = ['res', 'srv', 'cst']
+OTHER = ['ral', 'avi', 'nav', 'mch', 'irn', 'nfm', 'mac', 'cem', 'omn', 'ftr', 'oen']
+
+
+def gwp_region(db, iso):
+    ca = db.table('countries_attributes')
+    v = ca.loc[(ca['code'] == iso) & (ca['variable'] == 'Region Gains code'), 'value']
+    return v.iloc[0] if len(v) else ''
+
+
+def pollutants(state, db, inputs, settings, baseline, t):
+    """EQ-A7.6: local air pollutants by subsector and source, their GWP100 CO2 equivalent (Mitigation section 15)."""
+    R = year_rows(state, settings)
+    k, y = settings.years.index(t), t
+    c = xt.constant
+    countries = list(settings.countries)
+    at = lambda var, sector=None, fuel=None: R.at(var, k, sector, fuel)
+    ef_share = {'constant': 0.0, 'Variable': 1.0}.get(str(settings.base['EFSel']), 0.5)
+    w = R.set('ap.w', k, ef_share * (y - settings.base_year) / (c('EFEndYear') - settings.base_year), 'all', 'all')
+    tables = state['_fuel']
+    fcol = lambda f, s, key: np.array([tables[iso][(f, s)][key] for iso in countries])
+    tcol = lambda kk, key: np.array([state['_power'][iso]['types'][kk][key] for iso in countries])
+    ef = lambda f, s, pol: (fcol(f, s, f'ef0_{pol}') * (1 - w) + w * fcol(f, s, f'ef1_{pol}')) / c('tPerKt')
+    tef = lambda kk, pol: (tcol(kk, f'ap0_{pol}') * (1 - w) + w * tcol(kk, f'ap1_{pol}')) / c('tPerKt')
+    food = {f: R.set('apfd', k, at('ener', 'foo', f) * fcol(f, 'foo', 'food_share'), 'foo', f) for f in FUELS}
+    ap = {}
+    for pol in AP_POLLUTANTS:
+        for s in SECTORS:
+            ap[(pol, s)] = R.set('ap', k, sum(at('ener', s, f) * ef(f, s, pol) for f in FUELS), s, pol)
+        ap[(pol, 'pow')] = R.set('ap', k, sum(at('pe', 'pow', kk) * tef(kk, pol) for kk in TYPES), 'pow', pol)
+        for g, subs in AP_GROUPS.items():
+            R.set('ap', k, sum(ap[(pol, s)] for s in subs), g, pol)
+        fod = R.set('ap', k, sum(food[f] * ef(f, 'foo', pol) for f in FUELS), 'fod', pol)
+        R.set('ap', k, ap[(pol, 'foo')] - fod, 'fag', pol)
+        if pol in AP_GWP or pol == 'pm2':          # pm2: the last row of section 15
+            ap[(pol, 'all')] = R.set('ap', k, sum(ap[(pol, s)] for s in SECTORS + ['pow']), 'all', pol)
+    reg = [gwp_region(db, iso) for iso in countries]
+    efv = db.table('ef_ghg')
+    efv = dict(zip(efv['code'], efv['value']))
+    apf = {pol: R.set('apf', k, ap[(pol, 'all')] * np.array([float(efv.get(f'{r}.mit.gwp100.{pol}', 0) or 0) for r in reg])
+                      / c('ktPerMt'), 'all', pol) for pol in AP_GWP}
+    apf_all = R.set('apf', k, sum(apf.values()), 'all', 'all')
+    R.set('ghg.enrp', k, at('ghg', 'enr', 'all') + apf_all, 'enr', 'all')
+
+    # by source for the air pollution module
+    ch4 = lambda subs: sum(at('ch4', s, f) for s in subs for f in FUELS)
+    src = {}
+    for pol in ('nox', 'so2', 'bc', 'voc', 'co', 'pm2', 'oc'):
+        src[('cpp', pol)] = at('pe', 'pow', 'coa') * tef('coa', pol)
+        src[('gpp', pol)] = at('pe', 'pow', 'nga') * tef('nga', pol)
+        src[('opp', pol)] = ap[(pol, 'pow')] - src[('cpp', pol)] - src[('gpp', pol)]
+        src[('rod', pol)] = ap[(pol, 'rod')]
+        src[('gro', pol)] = sum(ap[(pol, s)] for s in GROUND)
+        src[('oth', pol)] = sum(ap[(pol, s)] for s in OTHER)
+        src[('foo', pol)] = ap[(pol, 'foo')]
+    src[('cpp', 'ch4')], src[('gpp', 'ch4')] = at('ch4', 'pow', 'coa'), at('ch4', 'pow', 'nga')
+    src[('opp', 'ch4')] = at('ch4', 'pow', 'oop') + at('ch4', 'pow', 'bio')
+    src[('rod', 'ch4')], src[('gro', 'ch4')] = ch4(['rod']), ch4(GROUND)
+    src[('oth', 'ch4')] = (at('ch4.c', 'all', 'all') - at('ch4.c', 'pow', 'all') - ch4(['rod']) - ch4(GROUND)
+                           - ch4(['foo']) + at('ch4.sup', 'all', 'all'))
+    src[('foo', 'ch4')] = ch4(['foo']) + sum(at('ch4.em', 'all', s) for s in ('liv', 'ric', 'wst'))
+    for s in SOURCES:
+        src[(s, 'pom')] = src[(s, 'oc')] * c('PomPerOC')
+        src[(s, 'opm')] = np.maximum(0, src[(s, 'pm2')] - src[(s, 'bc')] - src[(s, 'pom')])
+        for pol in APS_POLLUTANTS:
+            R.set('aps', k, src[(s, pol)], s, pol)
+    for pol in APS_POLLUTANTS:
+        R.set('aps', k, sum(src[(s, pol)] for s in SOURCES), 'all', pol)
+    for f in ('coa', 'nga', 'oop', 'bio'):
+        R.set('apen', k, at('pe', 'pow', f), 'pow', f)
+    for f in FUELS:
+        R.set('apen', k, at('ener', 'res', f), 'res', f)
+    R.set('apen', k, at('eldem', 'res', 'ecy'), 'res', 'ecy')
+    R.set('apco2', k, at('co2', 'all', 'all'))

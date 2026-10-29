@@ -15,7 +15,7 @@ PREPARE = [air_pollution.prepare, transport_cobenefits.prepare, header.prepare,
 
 # One year t: 16 GDP level, 5b road, 5-8 fuel demand, 6b leakage, 3 power, 11 totals, 12 revenues, 13 CO2, 14 GHG,
 # 15 local pollutants, then the module steps, then 16 GDP effect
-YEAR = [gdp.start, power.step, fuel_use.step, totals.energy, prices.averages, emissions.co2, emissions.ghg,
+YEAR = [gdp.start, power.step, fuel_use.step, totals.energy, prices.averages, emissions.co2, emissions.ghg, emissions.pollutants,
         totals.revenues, emissions.kaya, emissions.carbon_pricing,
         gdp.effects, gdp.external, air_pollution.step, transport_cobenefits.step]
 
