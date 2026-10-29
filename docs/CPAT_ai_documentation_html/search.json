@@ -124,7 +124,7 @@
     "href": "02_Bugs_and_Issues.html#current-counts",
     "title": "2  Bugs and issues",
     "section": "Current counts",
-    "text": "Current counts\n\n\n222 legacy bugs, 14 prototype bugs. Legacy 465: 52 fixed (confirmed), 9 fixed with caveats, 2 marked fixed but not fixed, 159 open. (register v0.9.0, excel_ai/BUGS.md)\n134 issues (14 data problems), 35 departures (LegacyDiff), 9 upgrades. (register v0.9.0, excel_ai/ISSUES.md)\n\nThe status Legacy 465 records whether the CPAT team has fixed each bug in the latest legacy workbook; each claimed fix is checked against the workbook (excel_ai/legacy/bugfixes/check465/).",
+    "text": "Current counts\n\n\n222 legacy bugs, 22 prototype bugs, 20 documentation bugs. Legacy 465: 52 fixed (confirmed), 9 fixed with caveats, 2 marked fixed but not fixed, 159 open. (register v0.9.1, excel_ai/BUGS.md)\n134 issues (14 data problems), 35 departures (LegacyDiff), 9 upgrades. (register v0.9.1, excel_ai/ISSUES.md)\n\nThe status Legacy 465 records whether the CPAT team has fixed each bug in the latest legacy workbook; each claimed fix is checked against the workbook (excel_ai/legacy/bugfixes/check465/).",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Bugs and issues</span>"
     ]
@@ -727,40 +727,29 @@
     "href": "13_Coded_CPAT.html",
     "title": "13  Coded CPAT",
     "section": "",
-    "text": "Layout\nCoded CPAT is a component-based Python reimplementation of CPAT. It runs the mitigation module and the household distribution module, either from the command line (run_model.py) or through a Shiny application (app.py). Its developer guide is the next chapter (Chapter 14).",
+    "text": "Status (2026-10-29)\nCoded CPAT is the Python model of CPAT. It replicates the Excel-AI prototypes (the mitigation prototype and the distribution module) number for number and is written to be read: one small function per equation of the equation list, named with the codes the Excel models use. Its full documentation is the Coded CPAT tab of this site (overview, developer guide, specification and plan, equation lists, norms and plan), generated from coded/.\nVersion 0.9.1p0.1: Python version 0.1 of the replication of Excel-AI 0.9.1 and Distribution 0.1.3.",
     "crumbs": [
       "Coded CPAT",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Coded CPAT</span>"
     ]
   },
   {
-    "objectID": "13_Coded_CPAT.html#layout",
-    "href": "13_Coded_CPAT.html#layout",
+    "objectID": "13_Coded_CPAT.html#status-2026-10-29",
+    "href": "13_Coded_CPAT.html#status-2026-10-29",
     "title": "13  Coded CPAT",
     "section": "",
-    "text": "Path\nContents\n\n\n\n\ncpat_model/mitigation/\nMitigation module components: GDP, policies, carbon pricing, emission factors, elasticities, prices, energy consumption, emissions, power, methane, revenues, aggregations\n\n\ncpat_model/distribution/\nDistribution module: household incidence by decile, revenue recycling, welfare\n\n\ncpat_model/data_read/\nInputData: every data table, mitigation and distribution\n\n\ncpat_model/dashboard_inputs.py, distribution_inputs.py\nThe default inputs of the two modules\n\n\ncpat_model/scenario_results.py\nOne finished scenario run, so that Distribution can compare a policy scenario with the baseline\n\n\ncpat_model/indicators/\nResult indicators and their Excel export\n\n\ncpat_model/constants.py\nCodes shared with the Excel models\n\n\ncpat_shiny/, app.py\nThe Shiny application\n\n\ncpat_testing/\npytest suite mirroring cpat_model/\n\n\nconfig.py\nThe scenarios run by run_model.py and the data path",
+    "text": "Mitigation: every output code of Excel-AI’s stored values for Egypt, scenarios 1 and 2, is produced and matches within 1e-9, 2022-2041 (7,470 codes per scenario).\nDistribution: every code of the Distribution sheet matches for Egypt, scenario groups 1 and 2 (1,684 codes, basket and deciles).\nSpeed: one country and two scenarios run in 0.8 s once the baseline is cached.\nExcel-AI bugs: Coded CPAT replicates the open prototype bugs M15-M22 (see the bugs chapter) so the numbers stay equal, and follows when Excel-AI fixes them.\nNext: systematic comparisons against the recalculated release workbook, every country and legacy CPAT.",
     "crumbs": [
       "Coded CPAT",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Coded CPAT</span>"
     ]
   },
   {
-    "objectID": "13_Coded_CPAT.html#conventions",
-    "href": "13_Coded_CPAT.html#conventions",
+    "objectID": "13_Coded_CPAT.html#running-it",
+    "href": "13_Coded_CPAT.html#running-it",
     "title": "13  Coded CPAT",
-    "section": "Conventions",
-    "text": "Conventions\n\nSame codes as Excel. Input Code, Output Code and NameOfParameter are identical to the Excel models. The input keys of dashboard_inputs.py and distribution_inputs.py are the ScenarioDefinition names, in legacy units (percentages typed as whole numbers where legacy does).\nLegacy is the reference. Values are checked against the legacy workbook; validated Excel prototypes are ported here once checked.\nData. By default the model reads the dummy data in data/dummy/ (DATA_ENVIRONMENT=dummy in .env); real reads the proprietary data from REAL_DATA_PATH, outside the repository.\nEnvironment. Python 3.12, pandas 2.2, numpy 2.2 (environment.yml, requirements.txt); the code also runs on pandas 3.",
-    "crumbs": [
-      "Coded CPAT",
-      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Coded CPAT</span>"
-    ]
-  },
-  {
-    "objectID": "13_Coded_CPAT.html#running-the-model",
-    "href": "13_Coded_CPAT.html#running-the-model",
-    "title": "13  Coded CPAT",
-    "section": "Running the model",
-    "text": "Running the model\ncd coded\nconda env create -f environment.yml && conda activate cpat_p\n#   or: pip install -r requirements.txt -r dev-requirements.txt   (Python 3.12)\npython run_model.py    # mitigation for the scenarios in config.py, then distribution against the baseline\npytest                 # the test suite\nshiny run app.py       # the application\nrun_model.py runs every scenario in config.py, then takes the baseline scenario and, for every policy scenario and every country with household survey data, runs the distribution module against it.",
+    "section": "Running it",
+    "text": "Running it\ncd coded\nconda env create -f environment.yml && conda activate cpat_p\n#   or: pip install -r requirements.txt -r dev-requirements.txt   (Python 3.12)\npython run_model.py    # the Excel-AI scenario set for Egypt; results by country to coded/outputs/\nshiny run app.py       # the application\npytest                 # the tests: every block against Excel-AI's stored values\nOne entry point, cpat_model.run(scenarios, settings), serves the command line, the app and the tests. Scenario sets are tables of inputs by NameOfParameter (one column per scenario, the baseline first), as Excel-AI’s ScenarioDefinition; the data are the tidy CSV tables of data/tidy/.",
     "crumbs": [
       "Coded CPAT",
       "<span class='chapter-number'>13</span>  <span class='chapter-title'>Coded CPAT</span>"
@@ -771,150 +760,84 @@
     "href": "14_Coded_Developer_Guide.html",
     "title": "14  Coded CPAT: developer guide",
     "section": "",
-    "text": "Project structure\nSource: coded/cpat_documentation/developer/dev_documetation.md.\nFolders located in the root directory:\nFiles contained in the root folder are: - run_model.py - entry point for running model without the Shiny application - config.py - used to define scenarios for run_model.py and contain DATA_PATH for the input data. The keys in CONFIG define the scenario names, and the values define the DashboardInputs that overwrite the default inputs for each scenario. Also holds DATA_PATH for the input data. - app.py - servs as the main entry point to the Shiny application - environment.yml - Defines the Conda environment, including the Python version and all core dependencies installed via Conda (e.g. pandas, numpy, pyarrow, matplotlib) - requirements.txt - lists runtime Python packages installed via pip that are not handled by Conda - dev-requirements.txt - lists additional development dependencies (e.g. testing tools) and extends requirements.txt",
+    "text": "1. The principle\nSource: coded/cpat_documentation/developer/dev_documentation.md.\nHow the Python model is built and how to work on it. What it is and how to run it: ../../README.md. The rules: ../../NORMS.md (Python) and the root ../../../NORMS.md. The design and the plan: ../project/Spec.qmd. The equations: ../equations/Equations.qmd.\nCoded CPAT replicates Excel-AI (excel_ai/CPAT-AI-Mitigation-Prototype_v&lt;version&gt;.xlsm, CPAT-AI-Distribution-Prototype_v&lt;version&gt;.xlsm) number for number, readable first. Excel-AI is the specification: every Excel-AI row has an output code (core/variables.csv), and the tests compare Python with Excel-AI’s stored values code by code within 1e-9. Where Excel-AI is wrong, Python replicates it and the bug is registered (excel_ai/BUGS.md, open prototype bugs M; NORMS 0.3); the replicated lines carry # Excel-AI bug M&lt;n&gt;.",
     "crumbs": [
       "Coded CPAT",
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
     ]
   },
   {
-    "objectID": "14_Coded_Developer_Guide.html#project-structure",
-    "href": "14_Coded_Developer_Guide.html#project-structure",
+    "objectID": "14_Coded_Developer_Guide.html#a-run",
+    "href": "14_Coded_Developer_Guide.html#a-run",
     "title": "14  Coded CPAT: developer guide",
-    "section": "",
-    "text": "├── data\n├── cpat_documentation\n├── cpat_model\n├── cpat_shiny\n├── cpat_testing",
+    "section": "2. A run",
+    "text": "2. A run\ncpat_model.run(scenarios, settings) (core/loop.py):\n\nSettings (settings.py): database (dummy = ../data/tidy/, or full), countries, years 2022-2041, the global inputs read from scenario 1 (D16).\nScenario 1, the baseline, first; then each scenario (D15). Each scenario runs in three stages over the blocks listed in mitigation/chain.py, the only place the order is written:\n\nPREPARE: blocks that read no model quantity, all years at once (header, policies, prices, power costs, fuel prices, Pigouvian taxes, road data).\nYEAR: for t = 2022 … 2041, every year block in order (GDP level, power, fuel use, totals, emissions, revenues, GDP effects, road engineer model, module inputs, welfare). A block reads year t of any earlier row and earlier years of any row.\nFINISH: rows that need all years (NDC).\n\nDistribution: every scenario against scenario 1 in the analysis year (distribution/incidence.py), where the scenario set has the distribution inputs.\nResults (results/results.py): by_code(country) and distribution_by_code(country).\n\nThe baseline run and the data steps are cached per baseline (loop.baseline_key: scenario-1 inputs, database folder, settings): a second run with the same baseline computes only the policy scenarios (0.8 s for one country and two scenarios).",
     "crumbs": [
       "Coded CPAT",
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
     ]
   },
   {
-    "objectID": "14_Coded_Developer_Guide.html#environment-setup",
-    "href": "14_Coded_Developer_Guide.html#environment-setup",
+    "objectID": "14_Coded_Developer_Guide.html#rows-the-state-and-a-block",
+    "href": "14_Coded_Developer_Guide.html#rows-the-state-and-a-block",
     "title": "14  Coded CPAT: developer guide",
-    "section": "Environment setup",
-    "text": "Environment setup\nThis project uses Conda for environment management. The instructions below show an example of how to set up the environment using Conda and the provided environment.yml file.\nCreate the Conda environment from the project root:\nconda env create -f environment.yml\nActivate it:\nconda activate cpat_p\nInstall development dependencies (optional, for developers):\npip install -r dev-requirements.txt\nTo update an existing environment:\nconda env update -f environment.yml --prune\npip install -r dev-requirements.txt --upgrade",
+    "section": "3. Rows, the state and a block",
+    "text": "3. Rows, the state and a block\n\nA row is an Excel-AI row: variable, sector, fuel (as core/variables.csv: Excel columns A, C, B), values by country and year. Its output code is &lt;iso&gt;.mit.&lt;code&gt;.&lt;scenario&gt;.\nRows (core/rows.py) holds the rows of a block as numpy arrays (country, year): R.put(var, values, sector, fuel) (all years), R.set(var, k, values, sector, fuel) (year index k), R.at(var, k, sector, fuel), R.of(var, sector, fuel); R.finish() stores them. Year blocks share one Rows (gdp.year_rows).\nState (core/rows.py): the rows of one scenario. Block rows stay numpy; state[var] builds the labelled xarray array only when something outside the blocks reads it. Working data start with _ (not result rows).\nBaseline values (Excel-AI REFCOL): totals.reference(R, baseline, k, var, sector, fuel).\nData steps (what Excel-AI computes on its Inputs sheet): *_data.py modules, by country; cached with rows.cached(state, key, fn) when they read no scenario input.\nA block is a function (state, db, inputs, settings, baseline) (prepare, finish) or (..., t) (year). Each equation of the equation list is one small function or one marked line, citing its id (EQ-M3.1); test_equation_ids.py checks every cited id exists.",
     "crumbs": [
       "Coded CPAT",
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
     ]
   },
   {
-    "objectID": "14_Coded_Developer_Guide.html#data-structure",
-    "href": "14_Coded_Developer_Guide.html#data-structure",
+    "objectID": "14_Coded_Developer_Guide.html#adding-or-changing-a-block",
+    "href": "14_Coded_Developer_Guide.html#adding-or-changing-a-block",
     "title": "14  Coded CPAT: developer guide",
-    "section": "Data structure",
-    "text": "Data structure\nData handled in the model uses the pd.DataFrame type (or pd.Sereis), typically indexed with 3 main index levels defined as ID_COL_NAMES = ['CountryCode', 'SectorCode', 'FuelCode']. Not all data require all three index levels; when a level is redundant or not optimal for calculations. For time series data frames - columns representing years are stored as strings, e.g. '2025'.\nIndex and columns of the data are marked at the bottom of docstrings each dosctring as “(index), columns”, eg (c, s), 'Scenario', &lt;simulation_years[0] - 1, simulation_years[1]&gt;, meaning it has MultiIndex with 2 index levels 'CountryCode' and 'SectorCode', 1 column named Scenario and rest of the columns representing time series for years in range of &lt;simulation_years[0] - 1, simulation_years[1]&gt;. In index description c relates to CountryCode, s to SectorCode and f to FuelCode.",
+    "section": "4. Adding or changing a block",
+    "text": "4. Adding or changing a block\n\nRead the Excel-AI rows: the formula explainers turn cell references into row names (var.sector.fuel[t]); the stored values are in cpat_testing/compare/reference/excel_ai_&lt;version&gt;.csv.\nWrite the rows in the block’s module, in sheet order, with the equation ids; add the block to chain.py.\nAdd the variables to BUILT in cpat_testing/test_mitigation.py (all codes of those variables, scenarios 1 and 2, must be produced and match).\nAdd or update the equations in cpat_documentation/equations/equations.yaml and run make_equations.py.\nLog the task in ../../CAVEATS.md and tick TODO.md.",
     "crumbs": [
       "Coded CPAT",
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
     ]
   },
   {
-    "objectID": "14_Coded_Developer_Guide.html#cpat_documentation",
-    "href": "14_Coded_Developer_Guide.html#cpat_documentation",
+    "objectID": "14_Coded_Developer_Guide.html#tests-and-comparisons",
+    "href": "14_Coded_Developer_Guide.html#tests-and-comparisons",
     "title": "14  Coded CPAT: developer guide",
-    "section": "cpat_documentation",
-    "text": "cpat_documentation\nIn cpat_documentation/user there are .md files that are used in the application documentation section. Their content is read and embedded in: cpat_shiny\\ui\\sections\\documentation_section.py.\ncpat_documentation/developer contains developer documentation.",
+    "section": "5. Tests and comparisons",
+    "text": "5. Tests and comparisons\npytest from coded/ (about one minute):\n\n\n\n\n\n\n\nTest\nChecks\n\n\n\n\ntest_mitigation.py\nevery block against Excel-AI’s stored values, scenarios 1 and 2, 2022-2041\n\n\ntest_distribution_incidence.py\nthe Distribution sheet, by section, groups 1 and 2, basket and deciles\n\n\ntest_data_steps.py, test_foundations.py\ndata steps, index sets, inputs, the loop\n\n\ntest_equation_ids.py\nequation ids cited in the code exist\n\n\ntest_speed.py\nthe cached two-scenario run is fast and equal to a fresh run\n\n\ntest_run_model.py, test_shiny_app.py\nthe command line and the app\n\n\nmodel/distribution/\nthe earlier distribution package (until retired)\n\n\n\nThe reference values come from the Excel-AI workbooks: python cpat_testing/compare/extract_excel_ai.py (mitigation) and --distribution.",
     "crumbs": [
       "Coded CPAT",
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
     ]
   },
   {
-    "objectID": "14_Coded_Developer_Guide.html#cpat_model",
-    "href": "14_Coded_Developer_Guide.html#cpat_model",
+    "objectID": "14_Coded_Developer_Guide.html#the-app",
+    "href": "14_Coded_Developer_Guide.html#the-app",
     "title": "14  Coded CPAT: developer guide",
-    "section": "cpat_model",
-    "text": "cpat_model\nThis folder contains all the logic used for running the model and processing the results. (TODO: elaborate when WiP code is finished.)\n\n\n\n\n\n\n\nPath\nContents\n\n\n\n\nmitigation/\nThe mitigation module: GDP, policies, carbon pricing, emission factors, elasticities, prices, energy consumption, emissions, power, CH4, GHGs, methane fee, fiscal revenues, aggregations\n\n\ndistribution/\nThe household distribution (incidence) module: one file per step group of the pseudocode (other/more/CPAT_Distribution_Module_Pseudocode.docx): data.py (loaders), price_changes.py (step 1), budget_shares.py (2-3), effects.py (4-6), rebasing.py (7), recycling.py (8), welfare.py (9-12), sectoral.py (13), distribution.py (14, the Distribution class)\n\n\ndata_read/input_data.py\nInputData: every data table, mitigation and distribution (distn_*)\n\n\ndashboard_inputs.py, distribution_inputs.py\nDefault inputs of the mitigation module and of the distribution module (the Excel Distribution sheet has its own input block)\n\n\nscenario_results.py\nScenarioResults: one finished scenario run, so Distribution can compare a policy scenario with the baseline\n\n\nindicators/\nResult indicators and their Excel export\n\n\nconstants.py\nCodes shared with the Excel models (distribution codes at the end; note: hea is heat in mitigation and health services in distribution)\n\n\n\nDistribution in run_model.py. After all scenarios have run, run_distribution takes the baseline scenario (scenario_type == c.BASELINE) and, for every policy scenario and every selected country with household survey data (Egypt so far), derives the direct price change by fuel (residential retail prices; oil products their all-sector price; electricity the power model’s price, power.demand.rp_demand, which covers the projected years) and the carbon-pricing revenue, and builds a Distribution for the analysis year (DistributionInputs, default the last simulated year). run_model() returns (scenario_results, distributions).",
+    "section": "6. The app",
+    "text": "6. The app\napp.py and cpat_shiny/: the scenarios built in the app (carbon tax start and target year and level, price source) become a scenario set over Excel-AI’s (scenario 1 = Excel-AI’s baseline) and run through cpat_model.run; raw results, indicators and graphs read Results.by_code. Run: shiny run app.py. Details in cpat_shiny/.",
     "crumbs": [
       "Coded CPAT",
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
     ]
   },
   {
-    "objectID": "14_Coded_Developer_Guide.html#cpat_shiny",
-    "href": "14_Coded_Developer_Guide.html#cpat_shiny",
+    "objectID": "14_Coded_Developer_Guide.html#data",
+    "href": "14_Coded_Developer_Guide.html#data",
     "title": "14  Coded CPAT: developer guide",
-    "section": "cpat_shiny",
-    "text": "cpat_shiny\nFolder containing Shiny logic. Server and UI are further divided into server_logic and ui folders.\n\nServer\n../server_logic/reactive/ stores definitions and handlers for reactive values that are used to hold the state of different sections while navigating through the application.  Globally relevant reactive values (eg results) are defined in ../server_logic/server.py.\n../server_logic/visualization/ contains all the logic for graph generation.  There are 2 types of graphs implemented for visuzlization. Graph class implements plotly graphs (embedded in Visualization section), whereas GraphXL class Matplotlib graphs (used in indicators.xlsx result file). The only reason of using 2 separates libs is because shinyapps.io does not provide kaleido nor orca for static image export from plotly graphs.  Graphs generation takes place in GraphGenerator class where depending on user selection different graph processors are called. These processors are ECGraphs, EMGraphs and PGraphs, all of them extend from a generic GraphProcessor.\nRest of the files in ../server_logic/ are the main ../server_logic/server.py file and handlers further used in the server.py file.\n\n\nUI\nIn ../ui/components/common/ shared components are located. Shared components are or potentially can be reused in various sections of the application.\n../ui/css/head.py contains global styles included in head content.\n../ui/sections/ hold UI for all the sections availble in the sections selector Section is selected based on the selector state: ../ui/sections/section_selection.py\n../ui/labels.py stores all the UI labels/text so it can be reused in all the application.\n\n\nValidation\n../validation/ includes UI validation logic for user input. It is created in a custom way as at the time of creating the application Python Shiny did not provide any validation logic.\n\n\nMapping\n.../mapping.py holds all the mappings that are used in UI components. Some mappings are provided from an Excel file .../mappings.xlxs, that are loaded in .../mapping.py",
+    "section": "7. Data",
+    "text": "7. Data\nThe model reads tidy CSV tables only (../data/tidy/; the interface for the data person: ../data/INTERFACE.md). dummy is in this repository (Egypt has the Excel-AI data); full (every country, the proprietary tables) lives in a private repository: set DATA_ENVIRONMENT and the path in .env. Never commit proprietary data or results computed from them (NORMS 5.2).",
     "crumbs": [
       "Coded CPAT",
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
     ]
   },
   {
-    "objectID": "14_Coded_Developer_Guide.html#cpat_testing",
-    "href": "14_Coded_Developer_Guide.html#cpat_testing",
+    "objectID": "14_Coded_Developer_Guide.html#environment",
+    "href": "14_Coded_Developer_Guide.html#environment",
     "title": "14  Coded CPAT: developer guide",
-    "section": "cpat_testing",
-    "text": "cpat_testing\nContains unit tests for the new logic. cpat_testing should follow the project structure. cpat_testing/model folder holds unit tests covering functions from cpat_model. Folders inside cpat_testing/model are organised consistant to the cpat_model directory.\nSome unit tests from cpat_testing/model read expected data frames from .csv files located in cpat_model/model/data_expected. Remeber to update share drive files after changing/creating tests that load expected data frames.\npytest: Please name test files test_{tested_file}.py and try to define test functions names so they indicate what they check, eg: def test_{tested_function}(...): or def test_{tested_functionality}(...):. Please mind that by default, pytest looks for files that match the pattern test_*.py or *_test.py, as well as test functions that start with test_.\n../conftest.py holds configuration for all cpat_testing dir. Used to ensure that the root directory is always added to the Python path whenever pytest is ran. We could also hold here fixtures used accross multiple files.\nFor running all tests:\npytest cpat_testing\nFor running tests only in a given dir, eg in model:\npytest cpat_testing/model\nFor running just 1 test:\npytest -k \"test_my_func\"\nAdding -s (pytest -s -k \"test_my_func\") disables output capturing, allowing print statements to appear in the terminal. (for test debugging)",
-    "crumbs": [
-      "Coded CPAT",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
-    ]
-  },
-  {
-    "objectID": "14_Coded_Developer_Guide.html#data-folder-structure-and-data-reading",
-    "href": "14_Coded_Developer_Guide.html#data-folder-structure-and-data-reading",
-    "title": "14  Coded CPAT: developer guide",
-    "section": "Data folder structure and data reading",
-    "text": "Data folder structure and data reading\nAll the data used in the model resides in data/ folder that has the following structure:\n├── data\n│   ├── dummy\nThe distribution tables (data/dummy/distn_*.csv, Egypt household survey, IO_GTAP, HH_Elast, ASPIRE, WHO cooking, GDP ratios, mappings) are real data exported from data/distribution/data_standardized/CPAT_DistributionalData.xlsx by excel_ai/distribution/scripts/build_distribution_model_data.py (rerun it after changing that workbook; it writes to data/dummy/, or to a folder given as its argument, e.g. REAL_DATA_PATH).\nThe target format for data files is .pkl.bz2. Currently, many data input files are still stored as .csv in data/dummy/, but these are temporary and will be migrated to .pkl.bz2 format.\nInput data loading is handled in cpat_model\\data_read\\input_data.py. All functions that are used to load the data should have [Data Loading] tag in their docstring.",
-    "crumbs": [
-      "Coded CPAT",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
-    ]
-  },
-  {
-    "objectID": "14_Coded_Developer_Guide.html#running-the-model",
-    "href": "14_Coded_Developer_Guide.html#running-the-model",
-    "title": "14  Coded CPAT: developer guide",
-    "section": "Running the model",
-    "text": "Running the model\nShiny application is not updated to recent changes and the only way to run the model now is by running python run_model.py. The pinned stack is Python 3.12, pandas 2.2.3, numpy 2.2.0 (environment.yml); the model and the tests also run with pandas 3.x (copy-on-write: write through .iloc/.loc, never into .values).",
-    "crumbs": [
-      "Coded CPAT",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
-    ]
-  },
-  {
-    "objectID": "14_Coded_Developer_Guide.html#run_model.py",
-    "href": "14_Coded_Developer_Guide.html#run_model.py",
-    "title": "14  Coded CPAT: developer guide",
-    "section": "run_model.py",
-    "text": "run_model.py\nDashboard inputs (manual inputs) can be adjusted in config.py file by modifying SCENARIOS. Each key, value pair in SCENARIOS dictionary represents name of a scenario and parameters that overwrite the default dashboard input values for this specific scenario.\nParameters that can be adjusted from the code are: selected_countries and last_simulation_year. Please do not change base_year = 2022.\nSaving the results is not handled by run_model.py and can be easily implemented in a custom way by identifying the scenario via the keys in config.SCENARIOS and saving the desired variables or tables to CSV/XLSX files.",
-    "crumbs": [
-      "Coded CPAT",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
-    ]
-  },
-  {
-    "objectID": "14_Coded_Developer_Guide.html#running-shiny-app-localy",
-    "href": "14_Coded_Developer_Guide.html#running-shiny-app-localy",
-    "title": "14  Coded CPAT: developer guide",
-    "section": "Running Shiny app localy",
-    "text": "Running Shiny app localy\nRun from the project root:\npython -m shiny run app.py\nTip: flag --reload automatically reloads the app when the code is eddited.\nBy default the app can be accessed on:\nhttp://127.0.0.1:8000/",
-    "crumbs": [
-      "Coded CPAT",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
-    ]
-  },
-  {
-    "objectID": "14_Coded_Developer_Guide.html#notes",
-    "href": "14_Coded_Developer_Guide.html#notes",
-    "title": "14  Coded CPAT: developer guide",
-    "section": "Notes",
-    "text": "Notes\nPlease try to use type hinting.  Please try to use docstrings.  Please use feature branches and create Pull Requests.  Please try to follow coding standards: https://peps.python.org/pep-0008/  Using a linter is recommended (Pylint)",
-    "crumbs": [
-      "Coded CPAT",
-      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"
-    ]
-  },
-  {
-    "objectID": "14_Coded_Developer_Guide.html#todos",
-    "href": "14_Coded_Developer_Guide.html#todos",
-    "title": "14  Coded CPAT: developer guide",
-    "section": "TODOs:",
-    "text": "TODOs:\n\nupdate ec after implementing ‘Post policy GDP’\nupdate em after implementing co2_adjustment_factor\nremaining unit tests (and docstrings) for prices, power, ec and em code\nunify constants, including all conversions, …\ninput data -&gt; .csv to .pkl.bz2 files, clean up data paths, create 1 const with data path name\nclass for Manual Inputs (like we have 1 for Dashboard inputs)\nclean up .gitignore\nco_benefits_ffs.csv - some of the ISO codes are missing\n[Post policy GDP] contains code for: ‘Post policy GDP’, ‘Multipliers’ and ‘Revenues’ that needs to be included after Power model implementation, file tmp_logic.py contains order of how the functions should be called. Please mind some of the logic was already moved when implementig prices, therefore all the functions from there should be checked. Data loading functions should be imported and called into InputData. Input data files should be updated to at least v407 so they match base_year = 2022. Tests withs @pytest.mark.skip(reason=“Related to [Post policy GDP], needs reassessment”) should be reassest.",
+    "section": "8. Environment",
+    "text": "8. Environment\nconda env create -f environment.yml && conda activate cpat_p\npip install -r dev-requirements.txt          # tests and tools\nconda env update -f environment.yml --prune   # update",
     "crumbs": [
       "Coded CPAT",
       "<span class='chapter-number'>14</span>  <span class='chapter-title'>Coded CPAT: developer guide</span>"

@@ -273,9 +273,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title"><strong><em>Chapter Contents</em></strong></h2>
    
   <ul>
-  <li><a href="#layout" id="toc-layout" class="nav-link active" data-scroll-target="#layout">Layout</a></li>
-  <li><a href="#conventions" id="toc-conventions" class="nav-link" data-scroll-target="#conventions">Conventions</a></li>
-  <li><a href="#running-the-model" id="toc-running-the-model" class="nav-link" data-scroll-target="#running-the-model">Running the model</a></li>
+  <li><a href="#status-2026-10-29" id="toc-status-2026-10-29" class="nav-link active" data-scroll-target="#status-2026-10-29">Status (2026-10-29)</a></li>
+  <li><a href="#running-it" id="toc-running-it" class="nav-link" data-scroll-target="#running-it">Running it</a></li>
   </ul>
 </nav>
 </nav>
@@ -305,82 +304,27 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Coded CPAT is a component-based Python reimplementation of CPAT. It runs the mitigation module and the household distribution module, either from the command line (<code>run_model.py</code>) or through a Shiny application (<code>app.py</code>). Its developer guide is the next chapter (<a href="14_Coded_Developer_Guide.html" class="quarto-xref"><span>Chapter 14</span></a>).</p>
-<section id="layout" class="level2">
-<h2 class="anchored" data-anchor-id="layout">Layout</h2>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Path</th>
-<th>Contents</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>cpat_model/mitigation/</code></td>
-<td>Mitigation module components: GDP, policies, carbon pricing, emission factors, elasticities, prices, energy consumption, emissions, power, methane, revenues, aggregations</td>
-</tr>
-<tr class="even">
-<td><code>cpat_model/distribution/</code></td>
-<td>Distribution module: household incidence by decile, revenue recycling, welfare</td>
-</tr>
-<tr class="odd">
-<td><code>cpat_model/data_read/</code></td>
-<td><code>InputData</code>: every data table, mitigation and distribution</td>
-</tr>
-<tr class="even">
-<td><code>cpat_model/dashboard_inputs.py</code>, <code>distribution_inputs.py</code></td>
-<td>The default inputs of the two modules</td>
-</tr>
-<tr class="odd">
-<td><code>cpat_model/scenario_results.py</code></td>
-<td>One finished scenario run, so that Distribution can compare a policy scenario with the baseline</td>
-</tr>
-<tr class="even">
-<td><code>cpat_model/indicators/</code></td>
-<td>Result indicators and their Excel export</td>
-</tr>
-<tr class="odd">
-<td><code>cpat_model/constants.py</code></td>
-<td>Codes shared with the Excel models</td>
-</tr>
-<tr class="even">
-<td><code>cpat_shiny/</code>, <code>app.py</code></td>
-<td>The Shiny application</td>
-</tr>
-<tr class="odd">
-<td><code>cpat_testing/</code></td>
-<td>pytest suite mirroring <code>cpat_model/</code></td>
-</tr>
-<tr class="even">
-<td><code>config.py</code></td>
-<td>The scenarios run by <code>run_model.py</code> and the data path</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="conventions" class="level2">
-<h2 class="anchored" data-anchor-id="conventions">Conventions</h2>
+<p>Coded CPAT is the Python model of CPAT. It replicates the Excel-AI prototypes (the mitigation prototype and the distribution module) number for number and is written to be read: one small function per equation of the equation list, named with the codes the Excel models use. Its full documentation is the <strong>Coded CPAT</strong> tab of this site (overview, developer guide, specification and plan, equation lists, norms and plan), generated from <code>coded/</code>.</p>
+<section id="status-2026-10-29" class="level2">
+<h2 class="anchored" data-anchor-id="status-2026-10-29">Status (2026-10-29)</h2>
+<p>Version <code>0.9.1p0.1</code>: Python version 0.1 of the replication of Excel-AI 0.9.1 and Distribution 0.1.3.</p>
 <ul>
-<li><strong>Same codes as Excel.</strong> <code>Input Code</code>, <code>Output Code</code> and <code>NameOfParameter</code> are identical to the Excel models. The input keys of <code>dashboard_inputs.py</code> and <code>distribution_inputs.py</code> are the <code>ScenarioDefinition</code> names, in legacy units (percentages typed as whole numbers where legacy does).</li>
-<li><strong>Legacy is the reference.</strong> Values are checked against the legacy workbook; validated Excel prototypes are ported here once checked.</li>
-<li><strong>Data.</strong> By default the model reads the dummy data in <code>data/dummy/</code> (<code>DATA_ENVIRONMENT=dummy</code> in <code>.env</code>); <code>real</code> reads the proprietary data from <code>REAL_DATA_PATH</code>, outside the repository.</li>
-<li><strong>Environment.</strong> Python 3.12, pandas 2.2, numpy 2.2 (<code>environment.yml</code>, <code>requirements.txt</code>); the code also runs on pandas 3.</li>
+<li><strong>Mitigation</strong>: every output code of Excel-AI’s stored values for Egypt, scenarios 1 and 2, is produced and matches within 1e-9, 2022-2041 (7,470 codes per scenario).</li>
+<li><strong>Distribution</strong>: every code of the Distribution sheet matches for Egypt, scenario groups 1 and 2 (1,684 codes, basket and deciles).</li>
+<li><strong>Speed</strong>: one country and two scenarios run in 0.8 s once the baseline is cached.</li>
+<li><strong>Excel-AI bugs</strong>: Coded CPAT replicates the open prototype bugs M15-M22 (see the bugs chapter) so the numbers stay equal, and follows when Excel-AI fixes them.</li>
+<li><strong>Next</strong>: systematic comparisons against the recalculated release workbook, every country and legacy CPAT.</li>
 </ul>
 </section>
-<section id="running-the-model" class="level2">
-<h2 class="anchored" data-anchor-id="running-the-model">Running the model</h2>
+<section id="running-it" class="level2">
+<h2 class="anchored" data-anchor-id="running-it">Running it</h2>
 <pre><code>cd coded
 conda env create -f environment.yml &amp;&amp; conda activate cpat_p
 #   or: pip install -r requirements.txt -r dev-requirements.txt   (Python 3.12)
-python run_model.py    # mitigation for the scenarios in config.py, then distribution against the baseline
-pytest                 # the test suite
-shiny run app.py       # the application</code></pre>
-<p><code>run_model.py</code> runs every scenario in <code>config.py</code>, then takes the baseline scenario and, for every policy scenario and every country with household survey data, runs the distribution module against it.</p>
+python run_model.py    # the Excel-AI scenario set for Egypt; results by country to coded/outputs/
+shiny run app.py       # the application
+pytest                 # the tests: every block against Excel-AI's stored values</code></pre>
+<p>One entry point, <code>cpat_model.run(scenarios, settings)</code>, serves the command line, the app and the tests. Scenario sets are tables of inputs by <code>NameOfParameter</code> (one column per scenario, the baseline first), as Excel-AI’s ScenarioDefinition; the data are the tidy CSV tables of <code>data/tidy/</code>.</p>
 
 
 </section>

@@ -1,38 +1,26 @@
 # Coded CPAT {#sec-coded}
 
-Coded CPAT is a component-based Python reimplementation of CPAT. It runs the mitigation module and the household distribution module, either from the command line (`run_model.py`) or through a Shiny application (`app.py`). Its developer guide is the next chapter (@sec-coded-dev).
+Coded CPAT is the Python model of CPAT. It replicates the Excel-AI prototypes (the mitigation prototype and the distribution module) number for number and is written to be read: one small function per equation of the equation list, named with the codes the Excel models use. Its full documentation is the **Coded CPAT** tab of this site (overview, developer guide, specification and plan, equation lists, norms and plan), generated from `coded/`.
 
-## Layout
+## Status (2026-10-29)
 
-| Path | Contents |
-|---|---|
-| `cpat_model/mitigation/` | Mitigation module components: GDP, policies, carbon pricing, emission factors, elasticities, prices, energy consumption, emissions, power, methane, revenues, aggregations |
-| `cpat_model/distribution/` | Distribution module: household incidence by decile, revenue recycling, welfare |
-| `cpat_model/data_read/` | `InputData`: every data table, mitigation and distribution |
-| `cpat_model/dashboard_inputs.py`, `distribution_inputs.py` | The default inputs of the two modules |
-| `cpat_model/scenario_results.py` | One finished scenario run, so that Distribution can compare a policy scenario with the baseline |
-| `cpat_model/indicators/` | Result indicators and their Excel export |
-| `cpat_model/constants.py` | Codes shared with the Excel models |
-| `cpat_shiny/`, `app.py` | The Shiny application |
-| `cpat_testing/` | pytest suite mirroring `cpat_model/` |
-| `config.py` | The scenarios run by `run_model.py` and the data path |
+Version `0.9.1p0.1`: Python version 0.1 of the replication of Excel-AI 0.9.1 and Distribution 0.1.3.
 
-## Conventions
+- **Mitigation**: every output code of Excel-AI's stored values for Egypt, scenarios 1 and 2, is produced and matches within 1e-9, 2022-2041 (7,470 codes per scenario).
+- **Distribution**: every code of the Distribution sheet matches for Egypt, scenario groups 1 and 2 (1,684 codes, basket and deciles).
+- **Speed**: one country and two scenarios run in 0.8 s once the baseline is cached.
+- **Excel-AI bugs**: Coded CPAT replicates the open prototype bugs M15-M22 (see the bugs chapter) so the numbers stay equal, and follows when Excel-AI fixes them.
+- **Next**: systematic comparisons against the recalculated release workbook, every country and legacy CPAT.
 
-- **Same codes as Excel.** `Input Code`, `Output Code` and `NameOfParameter` are identical to the Excel models. The input keys of `dashboard_inputs.py` and `distribution_inputs.py` are the `ScenarioDefinition` names, in legacy units (percentages typed as whole numbers where legacy does).
-- **Legacy is the reference.** Values are checked against the legacy workbook; validated Excel prototypes are ported here once checked.
-- **Data.** By default the model reads the dummy data in `data/dummy/` (`DATA_ENVIRONMENT=dummy` in `.env`); `real` reads the proprietary data from `REAL_DATA_PATH`, outside the repository.
-- **Environment.** Python 3.12, pandas 2.2, numpy 2.2 (`environment.yml`, `requirements.txt`); the code also runs on pandas 3.
-
-## Running the model
+## Running it
 
 ```
 cd coded
 conda env create -f environment.yml && conda activate cpat_p
 #   or: pip install -r requirements.txt -r dev-requirements.txt   (Python 3.12)
-python run_model.py    # mitigation for the scenarios in config.py, then distribution against the baseline
-pytest                 # the test suite
+python run_model.py    # the Excel-AI scenario set for Egypt; results by country to coded/outputs/
 shiny run app.py       # the application
+pytest                 # the tests: every block against Excel-AI's stored values
 ```
 
-`run_model.py` runs every scenario in `config.py`, then takes the baseline scenario and, for every policy scenario and every country with household survey data, runs the distribution module against it.
+One entry point, `cpat_model.run(scenarios, settings)`, serves the command line, the app and the tests. Scenario sets are tables of inputs by `NameOfParameter` (one column per scenario, the baseline first), as Excel-AI's ScenarioDefinition; the data are the tidy CSV tables of `data/tidy/`.

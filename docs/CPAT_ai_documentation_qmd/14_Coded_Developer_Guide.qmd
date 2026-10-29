@@ -4,198 +4,71 @@
 
 *Source: [`coded/cpat_documentation/developer/dev_documentation.md`](https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/developer/dev_documentation.md).*
 
-## Project structure
+How the Python model is built and how to work on it. What it is and how to run it: [`../../README.md`](https://github.com/cpmodelai/cpat_ai/blob/main/coded/README.md). The rules: [`../../NORMS.md`](https://github.com/cpmodelai/cpat_ai/blob/main/coded/NORMS.md) (Python) and the root [`../../../NORMS.md`](https://github.com/cpmodelai/cpat_ai/blob/main/NORMS.md). The design and the plan: [`../project/Spec.qmd`](https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/project/Spec.qmd). The equations: [`../equations/Equations.qmd`](https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/equations/Equations.qmd).
 
-Folders located in the root directory:
+## 1. The principle
 
-```
-├── data
-├── cpat_documentation
-├── cpat_model
-├── cpat_shiny
-├── cpat_testing
-```
+Coded CPAT replicates Excel-AI (`excel_ai/CPAT-AI-Mitigation-Prototype_v<version>.xlsm`, `CPAT-AI-Distribution-Prototype_v<version>.xlsm`) number for number, readable first. Excel-AI is the specification: every Excel-AI row has an output code (`core/variables.csv`), and the tests compare Python with Excel-AI's stored values code by code within 1e-9. Where Excel-AI is wrong, Python replicates it and the bug is registered (`excel_ai/BUGS.md`, open prototype bugs M; NORMS 0.3); the replicated lines carry `# Excel-AI bug M<n>`.
 
-Files contained in the root folder are:
-- `run_model.py` - entry point for running model without the Shiny application
-- `config.py` - used to define scenarios for `run_model.py` and contain `DATA_PATH` for the input data. The keys in `CONFIG` define the scenario names, and the values define the `DashboardInputs` that overwrite the default inputs for each scenario. Also holds `DATA_PATH` for the input data.
-- `app.py` - servs as the main entry point to the Shiny application
-- `environment.yml` - Defines the Conda environment, including the Python version and all core dependencies installed via Conda (e.g. pandas, numpy, pyarrow, matplotlib)
-- `requirements.txt` - lists runtime Python packages installed via `pip` that are not handled by Conda
-- `dev-requirements.txt` - lists additional development dependencies (e.g. testing tools) and extends `requirements.txt`
+## 2. A run
 
-## Environment setup
-This project uses Conda for environment management. The instructions below show an example of how to set up the environment using Conda and the provided `environment.yml` file.
+`cpat_model.run(scenarios, settings)` (`core/loop.py`):
 
-Create the Conda environment from the project root:
-```
-conda env create -f environment.yml
-```
+1. **Settings** (`settings.py`): database (`dummy` = `../data/tidy/`, or `full`), countries, years 2022-2041, the global inputs read from scenario 1 (D16).
+2. **Scenario 1, the baseline, first; then each scenario** (D15). Each scenario runs in three stages over the blocks listed in `mitigation/chain.py`, the only place the order is written:
+   - `PREPARE`: blocks that read no model quantity, all years at once (header, policies, prices, power costs, fuel prices, Pigouvian taxes, road data).
+   - `YEAR`: for t = 2022 ... 2041, every year block in order (GDP level, power, fuel use, totals, emissions, revenues, GDP effects, road engineer model, module inputs, welfare). A block reads year t of any earlier row and earlier years of any row.
+   - `FINISH`: rows that need all years (NDC).
+3. **Distribution**: every scenario against scenario 1 in the analysis year (`distribution/incidence.py`), where the scenario set has the distribution inputs.
+4. **Results** (`results/results.py`): `by_code(country)` and `distribution_by_code(country)`.
 
-Activate it:
-```
-conda activate cpat_p
-```
+The baseline run and the data steps are cached per baseline (`loop.baseline_key`: scenario-1 inputs, database folder, settings): a second run with the same baseline computes only the policy scenarios (0.8 s for one country and two scenarios).
 
-Install development dependencies (optional, for developers):
-```
-pip install -r dev-requirements.txt
-```
+## 3. Rows, the state and a block
 
-To update an existing environment:
-```
-conda env update -f environment.yml --prune
-pip install -r dev-requirements.txt --upgrade
-```
+- **A row** is an Excel-AI row: variable, sector, fuel (as `core/variables.csv`: Excel columns A, C, B), values by country and year. Its output code is `<iso>.mit.<code>.<scenario>`.
+- **`Rows`** (`core/rows.py`) holds the rows of a block as numpy arrays (country, year): `R.put(var, values, sector, fuel)` (all years), `R.set(var, k, values, sector, fuel)` (year index k), `R.at(var, k, sector, fuel)`, `R.of(var, sector, fuel)`; `R.finish()` stores them. Year blocks share one `Rows` (`gdp.year_rows`).
+- **`State`** (`core/rows.py`): the rows of one scenario. Block rows stay numpy; `state[var]` builds the labelled xarray array only when something outside the blocks reads it. Working data start with `_` (not result rows).
+- **Baseline values** (Excel-AI `REFCOL`): `totals.reference(R, baseline, k, var, sector, fuel)`.
+- **Data steps** (what Excel-AI computes on its Inputs sheet): `*_data.py` modules, by country; cached with `rows.cached(state, key, fn)` when they read no scenario input.
+- **A block** is a function `(state, db, inputs, settings, baseline)` (prepare, finish) or `(..., t)` (year). Each equation of the equation list is one small function or one marked line, citing its id (`EQ-M3.1`); `test_equation_ids.py` checks every cited id exists.
 
-## Data structure 
-Data handled in the model uses the `pd.DataFrame` type (or `pd.Sereis`), typically indexed with 3 main index levels defined as `ID_COL_NAMES = ['CountryCode', 'SectorCode', 'FuelCode']`.
-Not all data require all three index levels; when a level is redundant or not optimal for calculations.
-For time series data frames - columns representing years are stored as strings, e.g. `'2025'`. 
+## 4. Adding or changing a block
 
-Index and columns of the data are marked at the bottom of docstrings each dosctring as "(index), columns", eg `(c, s), 'Scenario', <simulation_years[0] - 1, simulation_years[1]>`, meaning it has `MultiIndex` with 2 index levels `'CountryCode'` and `'SectorCode'`, 1 column named `Scenario` and rest of the columns representing time series for years in range of `<simulation_years[0] - 1, simulation_years[1]>`. In index description `c` relates to `CountryCode`, `s` to `SectorCode` and `f` to `FuelCode`.
+1. Read the Excel-AI rows: the formula explainers turn cell references into row names (`var.sector.fuel[t]`); the stored values are in `cpat_testing/compare/reference/excel_ai_<version>.csv`.
+2. Write the rows in the block's module, in sheet order, with the equation ids; add the block to `chain.py`.
+3. Add the variables to `BUILT` in `cpat_testing/test_mitigation.py` (all codes of those variables, scenarios 1 and 2, must be produced and match).
+4. Add or update the equations in `cpat_documentation/equations/equations.yaml` and run `make_equations.py`.
+5. Log the task in `../../CAVEATS.md` and tick `TODO.md`.
 
-## cpat_documentation
+## 5. Tests and comparisons
 
-In `cpat_documentation/user` there are `.md` files that are used in the application documentation section. Their content is read and embedded in: `cpat_shiny\ui\sections\documentation_section.py`.
+`pytest` from `coded/` (about one minute):
 
-`cpat_documentation/developer` contains developer documentation.
-
-
-## cpat_model
-This folder contains all the logic used for running the model and processing the results. (TODO: elaborate when WiP code is finished.)
-
-| Path | Contents |
+| Test | Checks |
 |---|---|
-| `mitigation/` | The mitigation module: GDP, policies, carbon pricing, emission factors, elasticities, prices, energy consumption, emissions, power, CH4, GHGs, methane fee, fiscal revenues, aggregations |
-| `distribution/` | The household distribution (incidence) module: one file per step group of the pseudocode (`other/more/CPAT_Distribution_Module_Pseudocode.docx`): `data.py` (loaders), `price_changes.py` (step 1), `budget_shares.py` (2-3), `effects.py` (4-6), `rebasing.py` (7), `recycling.py` (8), `welfare.py` (9-12), `sectoral.py` (13), `distribution.py` (14, the `Distribution` class) |
-| `data_read/input_data.py` | `InputData`: every data table, mitigation and distribution (`distn_*`) |
-| `dashboard_inputs.py`, `distribution_inputs.py` | Default inputs of the mitigation module and of the distribution module (the Excel Distribution sheet has its own input block) |
-| `scenario_results.py` | `ScenarioResults`: one finished scenario run, so Distribution can compare a policy scenario with the baseline |
-| `indicators/` | Result indicators and their Excel export |
-| `constants.py` | Codes shared with the Excel models (distribution codes at the end; note: `hea` is heat in mitigation and health services in distribution) |
+| `test_mitigation.py` | every block against Excel-AI's stored values, scenarios 1 and 2, 2022-2041 |
+| `test_distribution_incidence.py` | the Distribution sheet, by section, groups 1 and 2, basket and deciles |
+| `test_data_steps.py`, `test_foundations.py` | data steps, index sets, inputs, the loop |
+| `test_equation_ids.py` | equation ids cited in the code exist |
+| `test_speed.py` | the cached two-scenario run is fast and equal to a fresh run |
+| `test_run_model.py`, `test_shiny_app.py` | the command line and the app |
+| `model/distribution/` | the earlier distribution package (until retired) |
 
-**Distribution in `run_model.py`.** After all scenarios have run, `run_distribution` takes the baseline scenario (`scenario_type == c.BASELINE`) and, for every policy scenario and every selected country with household survey data (Egypt so far), derives the direct price change by fuel (residential retail prices; oil products their all-sector price; electricity the power model's price, `power.demand.rp_demand`, which covers the projected years) and the carbon-pricing revenue, and builds a `Distribution` for the analysis year (`DistributionInputs`, default the last simulated year). `run_model()` returns `(scenario_results, distributions)`.
+The reference values come from the Excel-AI workbooks: `python cpat_testing/compare/extract_excel_ai.py` (mitigation) and `--distribution`.
 
-## cpat_shiny
-Folder containing Shiny logic. Server and UI are further divided into `server_logic` and `ui` folders.
+## 6. The app
 
-### Server
-`../server_logic/reactive/` stores definitions and handlers for reactive values that are used to hold the state of different sections while navigating through the application. <br />
-Globally relevant reactive values (eg results) are defined in `../server_logic/server.py`.
+`app.py` and `cpat_shiny/`: the scenarios built in the app (carbon tax start and target year and level, price source) become a scenario set over Excel-AI's (scenario 1 = Excel-AI's baseline) and run through `cpat_model.run`; raw results, indicators and graphs read `Results.by_code`. Run: `shiny run app.py`. Details in `cpat_shiny/`.
 
-`../server_logic/visualization/` contains all the logic for graph generation. <br />
-There are 2 types of graphs implemented for visuzlization. `Graph` class implements `plotly` graphs (embedded in Visualization section), whereas `GraphXL` class `Matplotlib` graphs (used in `indicators.xlsx` result file). The only reason of using 2 separates libs is because `shinyapps.io` does not provide `kaleido` nor `orca` for static image export from `plotly` graphs. <br />
-Graphs generation takes place in `GraphGenerator` class where depending on user selection different graph processors are called. These processors are `ECGraphs`, `EMGraphs` and `PGraphs`, all of them extend from a generic `GraphProcessor`.
+## 7. Data
 
-Rest of the files in `../server_logic/` are the main `../server_logic/server.py` file and handlers further used in the `server.py` file.
+The model reads tidy CSV tables only (`../data/tidy/`; the interface for the data person: `../data/INTERFACE.md`). `dummy` is in this repository (Egypt has the Excel-AI data); `full` (every country, the proprietary tables) lives in a private repository: set `DATA_ENVIRONMENT` and the path in `.env`. Never commit proprietary data or results computed from them (NORMS 5.2).
 
-### UI
-In `../ui/components/common/` shared components are located. Shared components are or potentially can be reused in various sections of the application.
+## 8. Environment
 
-`../ui/css/head.py` contains global styles included in head content.
-
-`../ui/sections/` hold UI for all the sections availble in the sections selector
-Section is selected based on the selector state: `../ui/sections/section_selection.py`
-
-`../ui/labels.py` stores all the UI labels/text so it can be reused in all the application.
-
-### Validation
-`../validation/` includes UI validation logic for user input. It is created in a custom way as at the time of creating the application Python Shiny did not provide any validation logic.
-
-### Mapping
-`.../mapping.py` holds all the mappings that are used in UI components.
-Some mappings are provided from an Excel file `.../mappings.xlxs`, that are loaded in `.../mapping.py`
-
-## cpat_testing
-Contains unit tests for the new logic. `cpat_testing` should follow the project structure.
-`cpat_testing/model` folder holds unit tests covering functions from `cpat_model`. Folders inside `cpat_testing/model` are organised consistant to the `cpat_model` directory.
-
-Some unit tests from `cpat_testing/model` read expected data frames from `.csv` files located in `cpat_model/model/data_expected`. Remeber to update share drive files after changing/creating tests that load expected data frames.
-
-`pytest`:
-Please name test files `test_{tested_file}.py` and try to define test functions names so they indicate what they check, eg: `def test_{tested_function}(...):` or `def test_{tested_functionality}(...):`.
-Please mind that by default, `pytest` looks for files that match the pattern `test_*.py` or `*_test.py`, as well as test functions that start with `test_`.
-
-`../conftest.py` holds configuration for all `cpat_testing` dir. Used to ensure that the root directory is always added to the Python path whenever pytest is ran. We could also hold here fixtures used accross multiple files.
-
-For running all tests:
 ```
-pytest cpat_testing
+conda env create -f environment.yml && conda activate cpat_p
+pip install -r dev-requirements.txt          # tests and tools
+conda env update -f environment.yml --prune   # update
 ```
-For running tests only in a given dir, eg in `model`:
-```
-pytest cpat_testing/model
-```
-For running just 1 test:
-```
-pytest -k "test_my_func"
-```
-Adding `-s` (`pytest -s -k "test_my_func"`) disables output capturing, allowing print statements to appear in the terminal. (for test debugging)
-
-
-## Data folder structure and data reading
-
-All the data used in the model resides in `data/` folder that has the following structure:
-```
-├── data
-│   ├── dummy
-```
-
-The distribution tables (`data/dummy/distn_*.csv`, Egypt household survey, IO_GTAP, HH_Elast, ASPIRE, WHO cooking, GDP ratios, mappings) are real data exported from `data/distribution/data_standardized/CPAT_DistributionalData.xlsx` by `excel_ai/distribution/scripts/build_distribution_model_data.py` (rerun it after changing that workbook; it writes to `data/dummy/`, or to a folder given as its argument, e.g. `REAL_DATA_PATH`).
-
-The target format for data files is `.pkl.bz2`. Currently, many data input files are still stored as `.csv` in `data/dummy/`, but these are temporary and will be migrated to  `.pkl.bz2` format.
-
-Input data loading is handled in `cpat_model\data_read\input_data.py`. All functions that are used to load the data should have `[Data Loading]` tag in their docstring.
-
-
-## Running the model
-Shiny application is not updated to recent changes and the only way to run the model now is by running `python run_model.py`. The pinned stack is Python 3.12, pandas 2.2.3, numpy 2.2.0 (`environment.yml`); the model and the tests also run with pandas 3.x (copy-on-write: write through `.iloc`/`.loc`, never into `.values`).
-
-## run_model.py
-Dashboard inputs (manual inputs) can be adjusted in `config.py` file by modifying `SCENARIOS`. Each key, value pair in `SCENARIOS` dictionary represents name of a scenario and parameters that overwrite the default dashboard input values for this specific scenario.
-
-Parameters that can be adjusted from the code are: `selected_countries` and `last_simulation_year`. Please do not change `base_year = 2022`.
-
-Saving the results is not handled by `run_model.py` and can be easily implemented in a custom way by identifying the scenario via the keys in `config.SCENARIOS` and saving the desired variables or tables to CSV/XLSX files.
-
-## Running Shiny app localy
-Run from the project root:
-```
-python -m shiny run app.py
-```
-Tip: flag `--reload` automatically reloads the app when the code is eddited.
-
-By default the app can be accessed on:
-```
-http://127.0.0.1:8000/
-```
-
-
-## Notes
-Please try to use type hinting. <br />
-Please try to use docstrings. <br />
-Please use feature branches and create Pull Requests. <br />
-Please try to follow coding standards: https://peps.python.org/pep-0008/ <br />
-Using a linter is recommended (Pylint)
-
-
-## TODOs:
-- update ec after implementing 'Post policy GDP'
-- update em after implementing co2_adjustment_factor
-- remaining unit tests (and docstrings) for prices, power, ec and em code
-- unify constants, including all conversions, ...
-- input data -> `.csv` to `.pkl.bz2` files, clean up data paths, create 1 const with data path name
-- class for Manual Inputs (like we have 1 for Dashboard inputs)
-- clean up .gitignore
-
-- co_benefits_ffs.csv - some of the ISO codes are missing
-
-- [Post policy GDP] contains code for: 'Post policy GDP', 'Multipliers' and 'Revenues'
-    that needs to be included after Power model implementation, file `tmp_logic.py`
-    contains order of how the functions should be called. Please mind some of the logic
-    was already moved when implementig prices, therefore all the functions from there
-    should be checked. Data loading functions should be imported and called into InputData.
-    Input data files should be updated to at least v407 so they match `base_year = 2022`.
-    Tests withs @pytest.mark.skip(reason="Related to [Post policy GDP], needs reassessment")
-    should be reassest.

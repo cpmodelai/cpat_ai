@@ -1,0 +1,36 @@
+project:
+  type: book
+  output-dir: ../CPAT_coded_documentation_html
+
+book:
+  title: "Coded CPAT"
+  subtitle: "The Python model of CPAT: it replicates Excel-AI number for number, readable first"
+  author: "CPAT-AI Team"
+  date: last-modified
+  favicon: ./00/media/image1.png
+  search: true
+  reader-mode: true
+  page-footer: "CPAT-AI: WB-IMF Climate Policy Assessment Tool"
+  chapters:
+    - index.qmd
+    - 01_Overview.qmd
+    - 02_Developer_Guide.qmd
+    - part: "Design and equations"
+      chapters:
+        - 03_Spec.qmd
+        - 04_Equations.qmd
+        - 05_Equations_codes.qmd
+    - part: "Rules and plan"
+      chapters:
+        - 06_Norms.qmd
+        - 07_Plan.qmd
+
+format:
+  html:
+    toc-depth: 4
+    toc-location: left
+    toc-title: "***Chapter Contents***"
+    number-depth: 1
+    theme: cosmo
+
+editor: source

@@ -1,0 +1,16 @@
+![](./00/media/image1.png){fig-align="center" width="40%"}
+
+# **Coded CPAT** {.unnumbered}
+
+Coded CPAT is the Python model of CPAT. It replicates the Excel-AI prototypes (the mitigation prototype and the distribution module) number for number, and is written to be read: one small function per equation of the equation list, named with the codes the Excel models use. One entry point, `cpat_model.run`, serves the command line (`run_model.py`), the Shiny app and the tests.
+
+This book is generated from the documents kept beside the code in `coded/` (`make_qmd.py` in this folder); edit those, not the chapters.
+
+| Chapter | What it is |
+|---|---|
+| [Overview](01_Overview.qmd) | Status, layout, how to run it |
+| [Developer guide](02_Developer_Guide.qmd) | How a run works, rows and blocks, adding a block, tests |
+| [Specification and plan](03_Spec.qmd) | The design: principles, structure, data, inputs, equation forms, tests, design choices D1-D16, the plan |
+| [Equation list](04_Equations.qmd) | The equations in the notation of the CPAT methodology; [code-name version](05_Equations_codes.qmd) |
+| [Python norms](06_Norms.qmd) | The rules for every task in `coded/` |
+| [The plan and open work](07_Plan.qmd) | The plan's checklist, with the Excel-AI bugs Coded CPAT replicates |

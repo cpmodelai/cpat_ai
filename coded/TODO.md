@@ -55,10 +55,10 @@ Decided 2026-10-29 (user): a block that still differs after a reasonable effort 
 
 ## Phase 6 - Running the model
 
-- ☐ 6.1 `run_model.py` for scenario-set files (many countries, many scenarios).
+- ☑ 6.1 `run_model.py` for scenario-set files (many countries, many scenarios): `python run_model.py [set.csv] --countries --scenarios --database --out --xlsx`; writes `mitigation_<ISO>.csv` (code, variable, sector, fuel, description, unit, years) and `distribution_<ISO>.csv`; `test_run_model.py`.
 - ☐ 6.2 Shiny on `cpat_model.run`; rerun only changed scenarios.
 - ☐ 6.3 Retire the replaced code (old `mitigation/` subpackages, `dashboard_inputs.py`, `distribution_inputs.py`, `data_read/`, `indicators/`).
-- ☐ 6.4 Website: the Coded CPAT tab of the Quarto site at `../docs/` (D12).
+- ☑ 6.4 Website: the Coded CPAT tab of the Quarto site at `../docs/` (D12): a third book `../docs/CPAT_coded_documentation_qmd/` (generated from `coded/` by its `make_qmd.py`: overview, developer guide, spec, equation lists, norms, plan), rendered to `../docs/CPAT_coded_documentation_html/`, tab `#coded` in `../docs/index.html`.
 - ☐ 6.5 First release `<Excel-AI version>p0.1`.
 
 ## Excel-AI bugs replicated (root NORMS 0 rule 6; coded NORMS 0.3)
