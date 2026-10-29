@@ -33,3 +33,12 @@ def test_stored_outputs(results, scenario):
                 bad.append((code, y, x, p))
                 break
     assert not bad, bad[:10]
+
+
+def test_baseline_reproduces_stored_values(results):
+    """Excel-AI reads some scenario-1 values as data (sheet BaselineCO2: baseline CO2 by ETS sector, methane activity;
+    data/excel_ai_stored/). Coded CPAT reads them too; its own baseline run must reproduce them (the check rows)."""
+    for code in ('egy.mit.bco2.chk.tot.tot.1', 'egy.mit.ch4bs.chk.all.all.1'):
+        assert pd.to_numeric(results.loc[code]).abs().max() < 1e-8, code
+    co2_index = results.loc['egy.mit.kidx.all.co2.1'].astype(float)          # the Kaya identity holds
+    assert ((results.loc["egy.mit.kidx.all.chk.1"].astype(float) - co2_index).dropna().abs() < 1e-9).all()

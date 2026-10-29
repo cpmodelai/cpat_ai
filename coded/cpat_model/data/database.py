@@ -41,8 +41,14 @@ class Database:
 
 
 def to_float(col):
-    """Text -> float: blank -> NaN; a non-numeric text stays NaN (keep text columns as text with table())."""
-    return pd.to_numeric(col.replace('', np.nan), errors='coerce')
+    """Text -> float: blank -> NaN; a non-numeric text stays NaN (keep text columns as text with table()). Exact:
+    Python's float() reads every decimal text to the nearest double (pandas' to_numeric can be 1e-16 relative off)."""
+    def number(x):
+        try:
+            return float(x) if x != '' else np.nan
+        except (TypeError, ValueError):
+            return np.nan
+    return pd.Series([number(x) for x in col], index=getattr(col, 'index', None), dtype=float)
 
 
 @lru_cache(maxsize=4)

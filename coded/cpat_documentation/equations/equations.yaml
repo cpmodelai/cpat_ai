@@ -3,13 +3,13 @@
 # over (the indices it ranges over), note, doc (methodology reference), excel (Excel-AI reference).
 # Run make_equations.py after editing; never edit the generated qmd files.
 #
-# Status: FIRST DRAFT (2026-10-29). The executive summary (core equations) is complete in outline; the appendices of
-# adjustments are started and are completed block by block (coded/TODO.md phase 0). Code names marked with a dagger
-# are not yet confirmed in the codes map (see the appendix).
+# Status: complete for Excel-AI 0.9.2 and Distribution 0.1.4 (2026-10-29): every id has a function in the code
+# (test_equation_ids.py). Code names marked with a dagger are parameters or data-step values, not output rows of
+# the codes map.
 
 intro:
   greek: |
-    **Status: first draft.** The core equations are listed for every block; the appendices of adjustments are being completed block by block. Code version: `Equations_codes.qmd` (the same equations with CPAT code names).
+    **Status: complete** for Excel-AI 0.9.2 and Distribution 0.1.4: the core equations of every block, the adjustments in the appendices; every equation has its function in the code. Code version: `Equations_codes.qmd` (the same equations with CPAT code names).
 
     ## How to read this list
 
@@ -19,13 +19,13 @@ intro:
     - **Distribution** uses its own indices (methodology chapter 5): household $j$, decile $d$, consumption category $g$, fuel $f$ (with $f \in g$), analysis year $y$.
     - **Core and adjustments.** The first part is the executive summary: the core equations of each block. The appendices hold the adjustments (exceptions, floors, switches, calibration, memo items).
   codes: |
-    **Status: first draft.** This is the parallel version of `Equations.qmd`: the same equations, ids and order, with the CPAT variable codes of the codes map (`excel_ai/CPAT-AI_CodesMap_v<version>.xlsx`) in place of the symbols. Inputs appear under their `NameOfParameter` (ScenarioDefinition / MTInputs). In the code, the variable of each equation carries the same name.
+    This is the parallel version of `Equations.qmd`: the same equations, ids and order, with the CPAT variable codes of the codes map (`excel_ai/CPAT-AI_CodesMap_v<version>.xlsx`) in place of the symbols. Inputs appear under their `NameOfParameter` (ScenarioDefinition / MTInputs). In the code, the variable of each equation carries the same name.
 
     ## How to read this list
 
     - A code is the stem of the full CPAT code `<iso>.mit.<variable>.<sector>.<fuel>.<scenario>`: here `ener` with subscripts $s, f, t$ stands for `ener.<sector>.<fuel>` in year $t$. Suffixes as in Excel-AI and the code: `_prev` is shown as the subscript $t-1$, the baseline value of the same year as the superscript $B$ (Excel-AI `.ref`).
     - Indices and their omission as in the Greek version: every equation holds for each scenario and country, and each year unless shown; "Over ..." lists the rest. Sector codes (`rod`, `res`, `ind`, ...) and fuel codes (`coa`, `nga`, `gso`, `die`, `lpg`, `ker`, `oop`, `bio`, `ecy`, ...) are those of the codes map.
-    - A name marked $\dagger$ is not yet confirmed in the codes map; the appendix lists them.
+    - A name marked $\dagger$ is a parameter or a data-step value (computed from the data before the model rows), not an output row of the codes map.
 
 parts:
 
@@ -304,7 +304,7 @@ parts:
             greek: |
               O_t = \lambda\,O^{*}_t + (1 - \lambda)\,O_{t-1}, \qquad O^{*}_t = Sat \cdot e^{\beta_1 e^{\beta_2\, y_t}} J
             codes: |
-              \mathtt{trown}^{\dagger}_t = \mathtt{TrOwnAdj}^{\dagger}\cdot \mathtt{trownt}^{\dagger}_t + (1 - \mathtt{TrOwnAdj}^{\dagger})\cdot \mathtt{trown}^{\dagger}_{t-1}
+              \mathtt{trjhp}_t = \mathtt{trsat}\,(1 - \mathtt{fsh})\,e^{a\,e^{b\,\mathtt{gpc}_t}}, \quad \mathtt{trgtp}_t = \mathtt{trsatq}_t\,e^{a\,e^{b\,\mathtt{gpc}_t}}\,\mathtt{trjjp}_{t-1}; \ \text{ownership moves towards the target by partial adjustment, growth capped}
             over: "vehicle classes; growth limited per year"
             note: "$y_t$ GDP per capita, $Sat$ saturation level, $J$ calibration to observed ownership. The only partial-adjustment equation in Excel-AI."
             excel: "Methods Transport, T1-T2 (LAMBDAs OWNDEM, GOMPTGT)"
@@ -313,7 +313,7 @@ parts:
             greek: |
               s^{EV}_t = \frac{e^{-k\,TCO^{EV}_t/\overline{TCO}_t}}{\sum_{v} e^{-k\,TCO^{v}_t/\overline{TCO}_t}}
             codes: |
-              \mathtt{trev}^{\dagger}_t = \frac{\exp(-k\cdot\mathtt{tco}^{\dagger}_{ev,t}/\overline{\mathtt{tco}}_t)}{\sum_v \exp(-k\cdot \mathtt{tco}^{\dagger}_{v,t}/\overline{\mathtt{tco}}_t)}
+              \mathtt{trlgn}_t = \frac{1}{1 + \exp\!\big(-k\,(\mathtt{trpkpbn}_t - \mathtt{trpkpin}_t)/\overline{\mathtt{tco}}_t\big)} \ \text{(ICEV share of new purchases; BEV } 1 - \mathtt{trlgn}\text{)}
             over: "vehicle classes"
             excel: "Methods Transport (demand and choice)"
           - id: M5.3
@@ -321,7 +321,7 @@ parts:
             greek: |
               F^{T}_{f,t} = \sum_{v} VKT_{v,f,t}\,FE_{v,f,t}
             codes: |
-              \mathtt{trfc}^{\dagger}_{f,t} = \sum_{v} \mathtt{trkm}_{v,f,t}\cdot \mathtt{trafg}_{v,f,t}
+              \mathtt{trfup}_{f,t} = \mathtt{trbkm}_{f,t} / \mathtt{fsc}_{f,t}, \quad \mathtt{trbkm}_{f,t} = \mathtt{veh}_{f,t}\cdot\mathtt{trvkc}_{f,t}/1000
             over: "road fuels $f$; vehicle classes $v$"
             note: "$VKT$ vehicle-km, $FE$ fuel use per km of the stock (Excel-AI notation)."
             excel: "Methods Transport T16 (LAMBDA DEMROAD)"
@@ -985,7 +985,7 @@ parts:
             excel: "Distribution section 11"
 
 symbols_text: |
-  Main symbols, their CPAT code, meaning and unit. "Notation from" says whether the symbol is the methodology's (M) or Excel-AI's (X). A code marked † is not yet confirmed in the codes map: to be checked and, where the codes map has no code, proposed for it (root NORMS section 3, codes protocol C11).
+  Main symbols, their CPAT code, meaning and unit. "Notation from" says whether the symbol is the methodology's (M) or Excel-AI's (X). A code marked † is a parameter or a data-step value, not an output row of the codes map.
 
   **Notation clashes to keep in mind.** In the methodology, $g$ is the sector group in mitigation, generation in the power chapter and the consumption category in distribution; $E$ is both electricity and the energy UNFCCC sector; $\gamma$ is a generation share in power and the pass-through in distribution. This list uses $g$ for sector groups (and categories in distribution only), $g_t$ for required generation in M4.2 alone, and $\gamma_g$ only in distribution.
 

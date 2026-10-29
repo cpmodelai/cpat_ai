@@ -532,7 +532,7 @@ def _year(x, state, inputs, settings, k, y):
     tocbn = put('trtocbn.cyc.bev', dpcbn + ancbn + imcbn + fucbn + x('trra.cyc.bev'))
     pkcbn = put('trpkcbn.cyc.bev', tocbn / dkm['cyc.bev'])
 
-    # vehicle ownership: Gompertz demand, partial adjustment, purchases (rows 4236-4249)
+    # vehicle ownership: Gompertz demand, partial adjustment, purchases (EQ-M5.1; rows 4236-4249)
     gomp = lambda b: np.exp(par['gomp_a'] * np.exp(gpc * b / c('Thousand')))
     b_pas, b_fre = par['own_gomp_b|pass'], par['own_gomp_b|fre']
     put('trjhp.pas.all', np.where(dk, (x('trsat.all.all') * (1 - fsh)) * gomp(b_pas), prev('trjhp.pas.all')))
@@ -559,7 +559,7 @@ def _year(x, state, inputs, settings, k, y):
     bytn = put('trbytn.pas.all', byt * (1 - ush))
     bytu = put('trbytu.pau.all', byt - bytn)
 
-    # EV choice: logit of the TCO per km, or the data's purchase shares while there is data (rows 4250-4263)
+    # EV choice: logit of the TCO per km, or the data's purchase shares while there is data (EQ-M5.2; rows 4250-4263)
     logit = lambda kk, ev, ice, avg: 1 / (1 + np.exp(-kk * (ev - ice) / avg))
     tcav = put('trtcav.pas.all', icl * pkpin + (1 - icl) * pkpbn)
     lgn = put('trlgn.pas.ice', logit(par['k|pass'], pkpbn, pkpin, tcav))
@@ -753,7 +753,7 @@ def _fuel_use(x, k, par, p, prl, prn, pev, dtx, fn, fnf, fnc, trn, veh, vehb, ve
     else:
         dfp, dff, dfc = (put(n, prev(n)) for n in ('trdfp.pas.all', 'trdff.fre.all', 'trdfc.cyc.all'))
 
-    # passenger vehicles, calibrated: distance, fuel use, CO2, BEV electricity (rows 4444-4471)
+    # passenger vehicles, calibrated: distance, fuel use (EQ-M5.3), CO2, BEV electricity (rows 4444-4471)
     bkm = {}
     for f in fso:
         vkc = per_vehicle(f'trvkc.pas.{f}', vkm, dfp, x(f'trcksr.pas.{f}'), ela_g, inc_p)
