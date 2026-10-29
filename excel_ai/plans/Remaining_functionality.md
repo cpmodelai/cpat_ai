@@ -1,4 +1,4 @@
-# Remaining functionality, outputs and alignment with legacy (plan, 2026-10-29; decisions open)
+# Remaining functionality, outputs and alignment with legacy (plan, 2026-10-29; decisions of 2026-10-29 in section 7)
 
 Scope (user 2026-10-29): build every legacy function the prototype lacks, **except the elasticity-based power model**
 (legacy Mitigation section C3, not built by decision). MTOutputs of the prototype: comprehensive, like legacy, without
@@ -102,3 +102,39 @@ Each step: build, quick check, register and documents, commit; full check at the
 2. **Departures by decision** (section 4): keep each, or align with legacy?
 3. **MTOutputs codes**: protocol codes with the legacy code as alias (proposed), or legacy codes?
 4. **Order**: measure first (phase A, proposed), or functions first?
+
+## 7. Decisions (user 2026-10-29) and the work they define
+
+- **Outputs (MTOutputs, section 2, phase E): out of scope here**; the user decides separately.
+- **Departures**: LD1 food & forestry takes the industry elasticities (as legacy); LD10 fuel price reform follows
+  ExtendCarbonPriceBeyondOutro as legacy, and legacy's drop to 0 after the target year (any option but Linear* and
+  Percentage) becomes legacy bug L171 with a cell plan (hold the target level; check the option list first); feebates
+  constant after the target year (as legacy); I47 methane fee in the fiscal space on the scenario's own activity (as
+  legacy, exact-year references, full-recalculation test). One release.
+- **Air pollution and transport co-benefits**: no separate models. A new Mitigation section **"Inputs from air
+  pollution and transport co-benefits"**, just before welfare, holds legacy's Egypt values, typed (hard-coded) from
+  legacy 465: per-unit damages (air pollution cost per GJ by fuel and sector, accident, congestion and road-damage cost
+  per vehicle-km or per liter, as legacy's Advanced options rows 112-135 and the Air pollution and Transport sheets) so
+  that scenario totals follow the prototype's own fuel use and vehicle-km. Other countries: a new issue (the inputs are
+  Egypt's legacy values), until the modules exist.
+
+### Remaining functionality (outputs excluded)
+
+| # | Function | Legacy | Depends on |
+|---|---|---|---|
+| R1 | Inputs from air pollution and transport co-benefits (typed Egypt values) | Air pollution sheet, Transport sheet, Mitigation rows 112-135 | - |
+| R2 | Monetized social costs and benefits (F10) and the full welfare (air pollution, accidents, congestion, road damage, climate) | Mitigation F10 rows 17377-18159, welfare rows | R1 |
+| R3 | Pigouvian (efficient) taxes: climate, air pollution and transport externalities, phase-in, VAT base option, as a policy option and as reference prices | Mitigation rows 81-82, 111-147, 200, 2202; inputs AddEfficientTaxes, ClimateEffTax, ExternalityAddVAT, AddEfficientTaxesPhaseInYears | R1 |
+| R4 | CBAM process emissions in the carbon tax and ETS | rows 1832-1836, 1918, 2206, 5867-5874; inputs CBAMProc* | - |
+| R5 | Green public investment | rows 6215-6267 | - |
+| R6 | Residential initially-exempt split (most-used cooking fuel) as legacy | LD67; bugs L48, L92, L94 | - |
+| R7 | Producer subsidies with the price effect (now a fiscal line only) | LD19 | user decision (simplification) |
+| R8 | Manual inputs not yet read: manual domestic prices (I53, L100), manual elasticities (L101), electricity producer subsidy override (L86), CH4 intensity decline (L135) | Manual inputs tab | - |
+| R9 | Electricity consumer subsidy option (L84) and the power memo tables (F6: generation costs, CostBreakdownYear) | Mitigation C4, F6 | - |
+| R10 | Road biofuels in the elasticity road model (LD62), self-generated renewables in aviation and navigation (L47), range-anxiety fit (LD63) | rows 5380-5537 | - |
+| R11 | Balance of payments: current account (L50) | F11; WEO BCA | data (WEO, public) |
+| R12 | Emissions intensity of industrial output (MTOutputs emin) | GVA by sector | data |
+| R13 | Classify and settle LD16 (margins x CPI), LD41 (data vintage), LD58 (GDP effects) | - | phase A |
+| R14 | Measure the alignment (phase A) and the Excel 365 review (I1) | - | - |
+
+Not built, by decision: the elasticity-based power model (legacy C3).
