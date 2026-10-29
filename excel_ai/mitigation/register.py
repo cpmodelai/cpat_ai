@@ -52,15 +52,17 @@ DIST = {f'L{k}' for k in range(138, 169)} | {f'I{k}' for k in range(76, 85)} | {
 INPUTS = {'L137', 'I85', 'I86', 'I87', 'I88'}
 DATA = R.DATA_ISSUES | {'L170'}                       # v8.5: the data problems (were DI, DB)
 EXTRA_STATUS = {  # legacy bugs not in R.LEGACY: status in the prototype
-    'L135': 'Not built in the prototype (Manual inputs J185:J188 not read), so the prototype gives legacy\'s values; '
-            'found by the cell plans (2026-10-20), to confirm with the CPAT team.',
+    'L135': 'Fixed (v9.0, R8.6-R8.7): the methane intensity index (Manual inputs J185:J188) applies to every source, '
+            'agriculture and waste included (section 14 rows ch4.int; issue I141); found by the cell plans '
+            '(2026-10-20), to confirm with the CPAT team.',
     'L136': 'Fixed by construction: every fuel\'s new-policy price carries the new ETS and its VAT; found by the cell '
             'plans (2026-10-20), to confirm with the CPAT team.',
     'L170': 'Fixed: a blank VAT cell takes the general VAT rate (VAT_WEO) for residential coal and gas and the oil '
             'products, 0 for power, industry and biomass (since v0.14; was departure LD3, data bug DB2).'}
 SEE_ALSO = {'I98': ['L58', 'L59'], 'I97': ['L170', 'LD3'], 'L170': ['I97', 'LD3'], 'I99': ['LD4', 'LD33', 'I14'], 
             'LD3': ['L170', 'I97'], 'LD4': ['I99'], 'LD33': ['I99'], 'L58': ['I98'], 'L59': ['I98'], 'L63': [], 'L64': [],
-            'L137': ['I86', 'I87', 'I88'], 'I86': ['L137'], 'I87': ['L137'], 'I88': ['L137']}
+            'L137': ['I86', 'I87', 'I88'], 'I86': ['L137'], 'I87': ['L137'], 'I88': ['L137'],
+            'I147': ['LD53', 'LD81'], 'I148': ['L50', 'LD89'], 'L50': ['I148', 'LD89']}   # v9.0
 
 
 def prefix(code):

@@ -802,7 +802,7 @@
   "effect": "display only.",
   "note": "",
   "status": "fix",
-  "prototype": "Fixed (v9.0): CO2e rows n.a. where the climate cost is 0 (Equations_addendum R3.21); the year table to AE (R3.23)."
+  "prototype": "Fixed (v9.0): CO2e rows n.a. where the climate cost is 0 (Equations_addendum R3.21); the year table at YearFuelPrices (R3.23) is not built (it would read later years; it belongs to the output sheets)."
  },
  {
   "id": "L204",
