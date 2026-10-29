@@ -138,3 +138,22 @@ Each step: build, quick check, register and documents, commit; full check at the
 | R14 | Measure the alignment (phase A) and the Excel 365 review (I1) | - | - |
 
 Not built, by decision: the elasticity-based power model (legacy C3).
+
+## 8. Decisions (user 2026-10-29, later) and scope of the build
+
+- **Scope: R1-R13 are all built**, green public investment (R5) included. Not built: the elasticity-based power model.
+- **R7**: producer subsidies with their price effect, **as legacy**.
+- **R11, R12**: the current account (balance of payments) and the GVA of the industrial sectors are **legacy Egypt
+  values typed in** (as R1), not new data links; other countries: the same issue as R1.
+- **R13**: LD16 margin read from the 2024 column as legacy, and new legacy bug **L172** (margin and production cost
+  added unconverted, nominal, into real prices; cell plan: x the CPI index of the data year); LD41 re-extract the price
+  forecasts and balances from 465 and compare (then "Same" or a data issue); LD58 "Same" (benchmark: legacy's stored
+  carbon-tax run GDP effects, for phase A).
+- **Exports to modules**: section 19 holds 19a Distribution (plain copies, defined name ExportDistn, tab
+  FromMitigation). Add **19b Air pollution** (copies of the section 15 emissions and the fuel use by sector the air
+  pollution module reads, as legacy E3 rows 15810-16065) and **19c Transport co-benefits** (vehicle-km and road fuel
+  use, as legacy E2 rows 15707-15809), so every module reads one block. Section 15 sits just before section 19.
+- **Python build in parallel**: the equations of R1-R13 go in an addendum to the equation list,
+  **`excel_ai/mitigation/Equations_addendum.md`** (one entry per new variable: code, equation, legacy rows, inputs),
+  written with the build; `Equations.md` and the Methods volume take it in at the next release. Machine-readable plan:
+  [`remaining_functionality.json`](remaining_functionality.json).
