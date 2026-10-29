@@ -38,7 +38,9 @@ BUILT = {
                             'effcap', 'ret', 'rec', 'egrow', 'ecmin', 'ecshr', 'early', 'kafter', 'need', 'mancap', 'mani',
                             'needm', 'cmin', 'deficit', 'maxinv', 'lgi', 'pni', 'first', 'space', 'second', 'dgas', 'nei',
                             'nim', 'nid', 'phi', 'prtx', 'prsub', 'prxc', 'prnew', 'prxl', 'prrns', 'pet'],
-    '3.7b fuel use by subsector': ['enel', 'ener', 'eldem', 'co2', 'ch4', 'rtx', 'rsub', 'rnew', 'rxcp', 'rsr', 'rex', 'rvt', 'trbe', 'trbea', 'trpren', 'trrena',
+    # section 5b in full (its scenario input rows too), less the biofuel rows of 3.7b; parameter rows have no values
+    '3.6 road engineer model': section('TrModel', 'trsum', ['trbe', 'trbea', 'trpren', 'trrena', 'ener']),
+    '3.7b fuel use by subsector':['enel', 'ener', 'eldem', 'co2', 'ch4', 'rtx', 'rsub', 'rnew', 'rxcp', 'rsr', 'rex', 'rvt', 'trbe', 'trbea', 'trpren', 'trrena',
                                    'lkt', 'lkp', 'lkd', 'lkb', 'lkxp', 'lkxe', 'lkxr', 'lkx', 'lkxa', 'lkz', 'lkc', 'lkcb'],
     '3.3b price averages': ['pnq', 'pctx', 'etsnew', 'pntx', 'pxcd', 'pvatn', 'pnce', 'rpn', 'pav.sp', 'pav.q', 'pav.uv',
                             'pav.spr', 'pav.las', 'pav.sp0', 'pav.time', 'pav.mix', 'pav.leg', 'pav.lidx', 'pav.idx',
