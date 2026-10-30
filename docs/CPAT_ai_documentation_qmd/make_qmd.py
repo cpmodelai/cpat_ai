@@ -24,7 +24,6 @@ CHAPTERS = [
     ('excel_ai/mitigation/docs/methods/Macro_and_results.md', '09_Macro_and_Results.qmd', None, 'sec-macro'),
     ('excel_ai/mitigation/docs/methods/Distribution.md', '10_Distribution_Tab.qmd', 'The distribution tab', 'sec-distribution-tab'),
     ('excel_ai/mitigation/docs/methods/Data_tabs.md', '11_Data_Tabs.qmd', None, 'sec-data-tabs'),
-    ('coded/cpat_documentation/developer/dev_documentation.md', '14_Coded_Developer_Guide.qmd', 'Coded CPAT: developer guide', 'sec-coded-dev'),
 ]
 
 HEADING = re.compile(r'^(#{1,6})\s+(.*)$')
@@ -99,7 +98,7 @@ def convert(src_rel, title, sec_id):
 def counts():
     out = []
     for name in ('BUGS.md', 'ISSUES.md'):
-        with open(os.path.join(REPO, 'excel_ai', name), encoding='utf-8') as f:
+        with open(os.path.join(REPO, 'excel_ai', 'core', name), encoding='utf-8') as f:
             text = f.read()
         version = re.search(r'^# .*\((v[\d.]+)\)', text, re.M)
         line = next(l for l in text.splitlines() if l.startswith('**') and not l.startswith('**The rule'))

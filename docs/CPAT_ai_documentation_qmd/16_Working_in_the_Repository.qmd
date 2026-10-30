@@ -1,22 +1,20 @@
 # Working in the repository {#sec-working}
 
-The project works under written norms (`NORMS.md` at the root of the repository). They bind people and AI agents alike; `AGENTS.md` routes any AI agent to them. This chapter summarises the norms that shape the files a reader meets; `NORMS.md` is the authority.
+The project works under written norms (`excel_ai/core/NORMS.md`). They bind people and AI agents alike; `AGENTS.md` at the root of the repository routes any AI agent to them. This chapter summarises the norms that shape the files a reader meets; `NORMS.md` is the authority.
 
 ## Files, versions and releases
 
-**Main files carry their version.** The current version of each main file sits at the top of `excel_ai/` as `<Name>_v<version>.<ext>`, for example `CPAT-AI-Mitigation-Prototype_v0.9.0.xlsm`:
+**Where the files are.** People open the workbooks in `excel_ai/active_workbooks/` (`<Name>_latest`, the permalinked copies the modules link to). Every version of a module workbook, the current one included, is in the module's `releases/` folder as `<Name>_v<version>.<ext>` (for example `excel_ai/mitigation/releases/CPAT-AI-Mitigation-Prototype_v1.1.0.xlsm`). The documents:
 
-| File | What it is |
-|---|---|
-| `CPAT-AI-Mitigation-Prototype_v<version>.xlsm` | The integrated prototype |
-| `CPAT-AI-Distribution-Prototype_v<version>.xlsm` | The standalone distribution module |
-| `Legacy_CPAT_Bugs_v<version>.docx` | The legacy bugs, with every cell-level fix plan |
-| `Tracking_Legacy_Bugs_v<version>.xlsx` | The master list of bugs and issues |
-| `CPAT-AI_CodesMap_v<version>.xlsx` | The code protocol, vocabularies, variables, output codes and every input |
-| `CPAT-AI_Overview_v<version>.pptx` | The slide deck: status, how to use it, results |
+| File | Where | What it is |
+|---|---|---|
+| `Legacy_CPAT_Bugs_v<version>.docx` | `excel_ai/bugs_and_legacy/` | The legacy bugs, with every cell-level fix plan |
+| `Tracking_Legacy_Bugs_v<version>.xlsx` | `excel_ai/bugs_and_legacy/` | The master list of bugs and issues |
+| `CPAT-AI_CodesMap_v<version>.xlsx` | `excel_ai/` | The code protocol, vocabularies, variables, output codes and every input |
+| `CPAT-AI_Overview_v<version>.pptx` | `excel_ai/` | The slide deck: status, how to use it, results |
+| `BUGS.md`, `ISSUES.md`, `NORMS.md`, `TODO.md`, `CAVEATS.md` | `excel_ai/core/` | The bug and issue lists, the rules, the open work, the task log |
 
-- **Older versions** move to `excel_ai/<module>/releases/` when a new version is written.
-- **`excel_ai/active_workbooks/`** holds only what other files link to, under `<Name>_latest`: every module. **`excel_ai/active_workbooks/`** is a copy for local, country-specific runs.
+- **Older versions** of the documents move to `excel_ai/bugs_and_legacy/register/releases/` (the deck's to `excel_ai/mitigation/releases/`) when a new version is written (`excel_ai/core/tools/release.py`).
 - **Version numbers.** Three parts, `0.<major>.<minor>`, until the first full release `1.0.0`: the last part for fixes and small features, the middle part for structural or methodological change. Each module with its own builder (distribution, air pollution) has its own version and records which mitigation version it was built from. Files released before the change to three parts were renamed; their contents keep the old two-part numbers. The register documents, the tracker and the codes map carry the version of the mitigation prototype they were made with.
 - **One version table** per workbook and generated document, in the same columns: version, date, description (with register codes), and the largest regression difference against the previous release.
 
@@ -37,7 +35,7 @@ The Excel prototypes are written with openpyxl and recalculated in LibreOffice, 
 
 ## Task completion
 
-Every finished task ends with an entry at the bottom of `CAVEATS.md`, the single record of completed work: the task, its inputs, its outputs and its caveats. Earlier entries may be corrected but not deleted. Open work is listed in `excel_ai/core/TODO.md` and `coded/TODO.md`.
+Every finished task ends with an entry at the bottom of `excel_ai/core/CAVEATS.md`, the single record of completed work: the task, its inputs, its outputs and its caveats. Earlier entries may be corrected but not deleted. Open work is listed in `excel_ai/core/TODO.md` and `coded/TODO.md`.
 
 **Norms follow the lessons.** A mistake whose cause could recur ends with a norm and a check that would have caught it, added in the same task.
 
@@ -49,14 +47,15 @@ A methodology describes the method as it is now, for a reader who has never seen
 
 | Folder | Contents |
 |---|---|
-| `docs/index.html` | The website: two tabs, the CPAT documentation and this documentation |
+| `docs/index.html` | The website ([https://cpmodelai.github.io/cpat_ai/](https://cpmodelai.github.io/cpat_ai/)): three tabs, the CPAT documentation, this documentation (`#cpat-ai`) and Coded CPAT (`#coded`) |
 | `docs/CPAT_full_documentation_qmd/`, `docs/CPAT_full_documentation_html/` | The CPAT documentation: Quarto sources and built pages |
 | `docs/CPAT_ai_documentation_qmd/`, `docs/CPAT_ai_documentation_html/` | This documentation: Quarto sources and built pages |
+| `docs/CPAT_coded_documentation_qmd/`, `docs/CPAT_coded_documentation_html/` | The Coded CPAT documentation: Quarto sources (the guide chapters are written there) and built pages |
 
-The chapters on the mitigation prototype and the Coded CPAT developer guide are generated from the documents beside the code by `make_qmd.py`; edit those sources, not the generated chapters. To rebuild:
+The chapters on the mitigation prototype are generated from the documents beside the code by `make_qmd.py`; edit those sources, not the generated chapters. GitHub builds and publishes the website on every push to `main` that changes the documentation (`.github/workflows/pages.yml`). To rebuild by hand:
 
 ```
 cd docs/CPAT_ai_documentation_qmd
-python make_qmd.py     # regenerate the chapters from excel_ai/mitigation/docs/ and coded/
+python make_qmd.py     # regenerate the chapters from excel_ai/mitigation/docs/
 quarto render          # write ../CPAT_ai_documentation_html/
 ```

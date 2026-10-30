@@ -28,7 +28,7 @@ It answers: **what do carbon pricing and related policies do to energy prices, e
 6. **Update the data** from the data workbook: choose the source on `ScenarioCompare`, click Update data tables. The status is on `Cover`.
 7. **First time only:** click First-run test (grey buttons). The check table must show PASS.
 
-The tabs, left to right: the front (`Cover`, `ScenarioCompare`, `ScenarioDefinition`), the model (`Mitigation`, `Distribution`, `LiveOutputs`, `StoredOutputs`), the inputs (`Manual inputs`, `Settings`, `Inputs`), the data tabs (legacy tables, unchanged), and the reference tabs (version log, differences with legacy, variable dictionary).
+The tabs, left to right: the front (`Cover`, `ScenarioCompare`, `ScenarioDefinition`), the model (`Mitigation`, `Distribution`, `MTOutputs`, `StoredOutputs`), the inputs (`Manual inputs`, `Settings`, `Inputs`), the data tabs (legacy tables, unchanged), and the reference tabs (version log, differences with legacy, variable dictionary).
 
 ## 3. How it works
 
@@ -152,7 +152,7 @@ Household effects by decile in one analysis year: price changes reach households
 - **Key table:** energy CO₂, GHGs, revenue, GDP effect and welfare, as levels and differences from the baseline.
 - **Charts:** one bar chart of CO₂ and four time-series charts; the title of each is a dropdown of indicators.
 
-**LiveOutputs** lists the key indicators of each live scenario by output code; **StoredOutputs** keeps the stored scenarios as values. Every row carries a code (for example `egy.mit.co2.tot.tot.2`: country, module, variable, sector, fuel, scenario), the same codes as the Python model.
+**MTOutputs** lists the key indicators of each live scenario by output code; **StoredOutputs** keeps the stored scenarios as values. Every row carries a code (for example `egy.mit.co2.tot.tot.2`: country, module, variable, sector, fuel, scenario), the same codes as the Python model.
 
 ## 5. Limits and differences from legacy
 

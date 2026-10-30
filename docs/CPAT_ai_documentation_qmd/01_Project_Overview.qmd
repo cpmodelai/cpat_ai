@@ -48,18 +48,17 @@ The legacy workbook is never edited or re-saved; work is done on copies in scrat
 | Air pollution | Standalone workbook: data scaffold built, calculations open | Not yet |
 | Road transport co-benefits | Values typed into the prototype from the module | Not yet |
 
-The current versions are in the file names at the top of `excel_ai/` and in the release notes of the repository (`CAVEATS.md`).
+The current workbooks are in `excel_ai/active_workbooks/`; every version is in the module's `releases/` folder, and the release notes are in the task log (`excel_ai/core/CAVEATS.md`).
 
 ## Repository map
 
 ```
-README.md, AGENTS.md, CLAUDE.md   Orientation; instructions for AI agents
-QuickStart.docx       Quick start guide for people
-NORMS.md                          Rules for every task
-CAVEATS.md                        Log of every finished task
-excel_ai/                         The Excel prototypes (Excel-AI)
-coded/                            The Python model (Coded CPAT) and its Shiny app
-data/                             All data, converters, tests
+README.md, AGENTS.md, CLAUDE.md   Orientation; the entry point for AI agents
+QuickStart.docx                   Quick start guide for people
+excel_ai/                         The Excel prototypes (Excel-AI): active_workbooks/ (the workbooks), core/ (rules,
+                                  task log, bug lists, TODO), mitigation/, distribution/, air_pollution/, bugs_and_legacy/
+coded/                            The Python model (Coded CPAT) and its Shiny app (its own documentation tab)
+data/                             All data, as editions (data/Public01/), with the scripts and tests
 docs/                             This website and the documentation sources
 other/                            Research papers, other decks, earlier prototypes
 users/                            Personal folders

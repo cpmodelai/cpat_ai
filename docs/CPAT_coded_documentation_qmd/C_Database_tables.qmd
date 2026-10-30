@@ -2,7 +2,7 @@
 
 # Database tables {#sec-app-tables}
 
-Every table of the database (`data/Public01/tidy/`, 218 tables; source `data/Public01/tidy/_manifest.csv`): its columns, the keys of a row, the number of rows in the dummy database, the legacy tab it comes from, and whether it is proprietary (energy consumption is treated as proprietary too, with the energy balances). Column meanings and units: `data_old/INTERFACE.md`.
+Every table of the database (`data/Public01/tidy/`, 268 tables; source `data/Public01/tidy/_manifest.csv`): its columns, the keys of a row, the number of rows in the dummy database, the legacy tab it comes from, and whether it is proprietary (energy consumption is treated as proprietary too, with the energy balances). Column meanings and units: `data/README.md` and `data/catalog.csv`.
 
 | Table | Columns | Keys | Rows | Legacy tab | Proprietary |
 |---|---|---|---|---|---|
@@ -10,6 +10,16 @@ Every table of the database (`data/Public01/tidy/`, 218 tables; source `data/Pub
 | `air_kappa` | key, module_sector, value | key | 70 | FromAirPollution |  |
 | `air_unit_costs` | key, year, value | key | 240 | FromAirPollution |  |
 | `air_vpm` | key, year, value | key | 20 | FromAirPollution |  |
+| `ap459_air_data` | Other data for air pollution module |  | 3153 | ap459_air_data |  |
+| `ap459_air_meta` | , Input data information and sources |  | 81 | ap459_air_meta |  |
+| `ap459_conc_mat` | Concentration  matricies for PM2.5 and Ozone |  | 31200 | ap459_conc_mat |  |
+| `ap459_exposure_coefs` | Parameters for polynomial regression, for share and for level of household pollution exposure |  | 840 | ap459_exposure_coefs |  |
+| `ap459_gbd` | Data from Global Burden of Disease study |  | 21226 | ap459_gbd |  |
+| `ap459_if_pp` | Intake Fractions |  | 1780 | ap459_if_pp |  |
+| `ap459_ihme` | Data from Institute for Health Metrics and Evaluation |  | 986 | ap459_ihme |  |
+| `ap459_ilo` | Data from International Labour Organization Statistics |  | 602 | ap459_ilo |  |
+| `ap459_manifest` | Source workbook, Source sheet, Output CSV, Rows, Columns |  | 9 | ap459_manifest |  |
+| `ap459_wb` | Time series data, for the air pollution tab |  | 648 | ap459_wb |  |
 | `aspire` | code, value | code | 30 | ASPIRE |  |
 | `ch4_inputs` | country, source, avg_pow_a, avg_pow_b, per_flare, per_upstream_og, per_downstream_g, per_upstream_c, per_biomass, per_livestock, per_rice | country source | 1105 | CH4Inputs |  |
 | `coal_implicit_price` | country_name, country, first_year, year_2030 | country_name country | 85 | GoalSeekCoal |  |
@@ -62,7 +72,7 @@ Every table of the database (`data/Public01/tidy/`, 218 tables; source `data/Pub
 | `ela_source_options` | option, variable, value | option | 2 | Elasticities |  |
 | `ela_type_sector_codes` | name, variable, value | name | 7 | Elasticities |  |
 | `energy_balances` | country, year, unit, flow, fuel, value | country year unit flow | 777 | Balances | yes |
-| `energy_consumption` | code, year, sector, value | code year | 380 | EnergyCons |  |
+| `energy_consumption` | code, year, sector, value | code year | 380 | EnergyCons | yes |
 | `ets_assumptions` | assumption, case, value | assumption | 10 | ETS+LTS |  |
 | `ets_cap_calculator` | item, variable, value | item | 4 | ETS+LTS |  |
 | `ets_ctax_policy_risk` | item, variable, value | item | 1 | ETS+LTS |  |
@@ -214,6 +224,7 @@ Every table of the database (`data/Public01/tidy/`, 218 tables; source `data/Pub
 | `prices_domestic_corrections` | country_year, code, old, new, source | country_year code | 291 | Prices_dom_changes |  |
 | `range_anxiety_fit` | country, passenger, freight, cycle, fit_year, residual_passenger, residual_freight, residual_cycle, iterations, source | country | 1 | RangeAnxietyFit |  |
 | `scc` | code, value | code | 680 | SCC |  |
+| `tran_scatter` | country, code, year, value | country code | 46 | Tran_Scatter | yes |
 | `transport3_range_anxiety` | country_name, country_name_u, variable, value | country_name country_name_u | 3535 | Transport3 |  |
 | `transport3_range_anxiety_repeat` | country_name, country_name_u, variable, value | country_name country_name_u | 209 | Transport3 |  |
 | `transport_cost_per_km` | key, year, value | key | 60 | FromTransportCB |  |
@@ -224,3 +235,42 @@ Every table of the database (`data/Public01/tidy/`, 218 tables; source `data/Pub
 | `vehicle_prices` | country, year, variable, value | country year | 25080 | Transport2 |  |
 | `weo` | series_code, country, last_year, year, value | series_code country last_year | 101712 | WEO |  |
 | `who_cooking` | code, main_fuel, max_share | code | 3 | WHOCooking |  |
+| `xai_ch4_inputs` | iso, source, avg_pow_a, avg_pow_b, per_flare, per_upstream_og, per_downstream_g, per_upstream_c, per_biomass, per_livestock, per_rice |  | 1105 | xai_ch4_inputs |  |
+| `xai_code_renames_v0_7_2` | step, kind, old, new, scope, crosswalk_ref, status |  | 269 | xai_code_renames_v0_7_2 |  |
+| `xai_codes_crosswalk_v0_7_1` | mvp_var, mvp_example, mvp_rows, legacy_var, legacy_example, legacy_rows, match_type, variance, fix_code, evidence, review |  | 233 | xai_codes_crosswalk_v0_7_1 |  |
+| `xai_countries` | code, name, region, income_group, source |  | 222 | xai_countries |  |
+| `xai_ecp` | key, country, code, 2021, 2022, 2023, 2024, 2025 |  | 857 | xai_ecp |  |
+| `xai_ef_co2` | key, country, fuel, ef_sector, ef_tco2_per_gj, source |  | 37 | xai_ef_co2 |  |
+| `xai_ef_nonco2` | country, subsector, fuel, pollutant, fe_in, fe_fin |  | 229 | xai_ef_nonco2 |  |
+| `xai_elasticities` | key, type, fuel_group, sector_group, legacy_code, LIC, LMIC, UMIC, HIC, source |  | 120 | xai_elasticities |  |
+| `xai_energy_balance` | country, fuel, imports, production, exports, stock_change, tpes, stat_diff, transfers, own_use, dist_loss |  | 7 | xai_energy_balance |  |
+| `xai_energy_use` | key, country, year, subsector, fuel, ktoe, source |  | 144 | xai_energy_use |  |
+| `xai_ets_semi` | iso, country, pow, tra, res, ind, source |  | 175 | xai_ets_semi |  |
+| `xai_gains_region` | iso, gains_region |  | 222 | xai_gains_region |  |
+| `xai_gdp_level` | key, country, variable, unit, source, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038, 2039, 2040, 2041 |  | 9 | xai_gdp_level |  |
+| `xai_ghg_inventory` | iso, year, enr.co2, enr.ch4, enr.n2o, enr.fga, enr.tot, ipr.co2, ipr.ch4, ipr.n2o, ipr.fga, ipr.tot, agr.co2, agr.ch4, agr.n2o, agr.fga, agr.tot, lucf.co2, lucf.ch4, lucf.n2o, lucf.fga, lucf.tot, wst.co2, wst.ch4, wst.n2o, wst.fga, wst.tot, oth.co2, oth.ch4, oth.n2o, oth.fga, oth.tot, tinc.co2, tinc.ch4, tinc.n2o, tinc.fga, tinc.tot, texc.co2, texc.ch4, texc.n2o, texc.fga, texc.tot, fug.co2, fug.ch4, fug.n2o |  | 939 | xai_ghg_inventory |  |
+| `xai_gwp_pollutants` | region, pollutant, gwp100 |  | 42 | xai_gwp_pollutants |  |
+| `xai_legacy_cached_baseline` | code, legacy_row, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038, 2039, 2040, source |  | 273 | xai_legacy_cached_baseline |  |
+| `xai_legacy_engineer_reference` | key, run, legacy_row, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038, 2039, 2040, 2041 |  | 528 | xai_legacy_engineer_reference |  |
+| `xai_legacy_ghgs` | , , Country, ISO, Year, , UNFCCC category, CO2, CH4, N2O, F-gas, Aggregate GHGs, CO2, CH4, N2O, F-gas, Aggregate GHGs, CO2, CH4, N2O, F-gas, Aggregate GHGs, CO2, CH4, N2O, F-gas, Aggregate GHGs, CO2, CH4, N2O, F-gas, Aggregate GHGs, CO2, CH4, N2O, F-gas, Aggregate GHGs, Total CO₂, Total CH₄, Total N₂O, Total F-gases, Total Aggregate GHGs, Total CO₂, Total CH₄, Total N₂O, Total F-gases, Total Aggregate GHGs, CO2, CH4, N2O, F-gas, Total GHGs |  | 940 | xai_legacy_ghgs |  |
+| `xai_legacy_mtoutputs_465` | legacy_row, section, indicator, legacy_code, legacy_body, tab, variable, unit, subscenario, proto_code_body, match |  | 1284 | xai_legacy_mtoutputs_465 |  |
+| `xai_legacy_power_reference` | key, legacy_row, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038, 2039, 2040, 2041 |  | 105 | xai_legacy_power_reference |  |
+| `xai_legacy_transport_reference` | key, run, legacy_row, description, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038, 2039, 2040, 2041 |  | 2328 | xai_legacy_transport_reference |  |
+| `xai_legacy_weo_ngdp_d` | last year, countrycode, DATASET, SERIES_CODE, COUNTRY, INDICATOR, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038, 2039, 2040 |  | 201 | xai_legacy_weo_ngdp_d |  |
+| `xai_mtinputs_465` | row, kind, section, label, unit, legacy_default, legacy_name, name, change, register, name_manager_F, name_manager_other, dashboard_twin |  | 406 | xai_mtinputs_465 |  |
+| `xai_mtoutputs_map_465` | legacy_row, section, indicator, legacy_body, tab, unit, proto_code_body, match, reason |  | 1284 | xai_mtoutputs_map_465 |  |
+| `xai_multipliers` | group, stat, instrument, lag0, lag1, lag2, lag3, lag4, lag5, lag6, lag7, lag8, lag9, lag10, lag11, lag12, lag13, lag14, lag15, lag16, lag17, lag18, lag19 |  | 80 | xai_multipliers |  |
+| `xai_population` | iso, year, population_thousands |  | 7584 | xai_population |  |
+| `xai_power_demand` | country, subsector, name, ktoe_2022, legacy_row |  | 15 | xai_power_demand |  |
+| `xai_power_params` | country, key, value, unit, description, legacy_row |  | 22 | xai_power_params |  |
+| `xai_power_paths` | country, key, unit, description, legacy_row, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038, 2039, 2040, 2041 |  | 24 | xai_power_paths |  |
+| `xai_power_tech` | country, code, name, cax0_usd_per_kw, life_years, efficiency, capacity_factor, wacc, dtc_usd_per_kw, tcx_usd_per_kw, opf_usd_per_kwh, vop_usd_per_kwh, fuel_fixed_usd_per_kwh, rns_usd_per_kwh, price_code, vre, vre_share, cap0_mw, gen0_mwy, retire_rate, invest_permitted, invest_start, scaleup_rate, dispatch, planned_retirement, source |  | 9 | xai_power_tech |  |
+| `xai_price_assumptions` | country_name, baseline_taxes, gas_market, source |  | 220 | xai_price_assumptions |  |
+| `xai_prices_int` | key, source, commodity, label, unit, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038, 2039, 2040, 2041, 2042, 2043, 2044, 2045, source_row |  | 48 | xai_prices_int |  |
+| `xai_range_anxiety` | iso, country, passenger, freight, cycle, pass_actual, pass_calc, freight_actual, freight_calc, cycle_actual, cycle_calc, source |  | 194 | xai_range_anxiety |  |
+| `xai_scc` | code, iso3, prtp, eta, central_usd_per_tco2 |  | 680 | xai_scc |  |
+| `xai_transport_data` | iso, country, variable, 2022, 2023, 2024, 2025 |  | 12980 | xai_transport_data |  |
+| `xai_transport_data_sources` | iso, country, variable, 2022, 2023, 2024, 2025 |  | 7920 | xai_transport_data_sources |  |
+| `xai_vehicle_prices` | iso, variable, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038, 2039, 2040 |  | 1320 | xai_vehicle_prices |  |
+| `xai_weo` | key, country, variable, unit, source, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038, 2039, 2040, 2041, 2042, 2043, 2044, 2045 |  | 1 | xai_weo |  |
+| `xai_weo_us` | key, country, variable, unit, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036, 2037, 2038, 2039, 2040, 2041, 2042, 2043, 2044, 2045, source |  | 2 | xai_weo_us |  |

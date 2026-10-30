@@ -1,6 +1,6 @@
 # Coded CPAT (Python)
 
-The Python model of CPAT (Coded CPAT): it replicates Excel-AI's mitigation and distribution modules number for number, readable first; the one entry point is `cpat_model.run`. This page is for Python developers; the full documentation (quick start, the database, scenarios, results, editing, testing with the current status, architecture, and appendices with every equation, table, input and variable) is the website's Coded CPAT tab (`../docs/index.html#coded`), written in [`cpat_documentation/guide/`](cpat_documentation/guide/). Excel work is in [`../excel_ai/`](../excel_ai/README.md); rules for every task (logging in `CAVEATS.md`, method vs version notes) are in the root [`../NORMS.md`](../excel_ai/core/NORMS.md).
+The Python model of CPAT (Coded CPAT): it replicates Excel-AI's mitigation and distribution modules number for number, readable first; the one entry point is `cpat_model.run`. This page is for Python developers; the full documentation (quick start, the database, scenarios, results, editing, testing with the current status, architecture, and appendices with every equation, table, input and variable) is the website's **Coded CPAT tab: <https://cpmodelai.github.io/cpat_ai/#coded>** (sources: [`../docs/CPAT_coded_documentation_qmd/`](../docs/CPAT_coded_documentation_qmd/); offline: `../docs/index.html#coded`). Excel work is in [`../excel_ai/`](../excel_ai/README.md); rules for every task (logging in `CAVEATS.md`, method vs version notes) are in [`../excel_ai/core/NORMS.md`](../excel_ai/core/NORMS.md).
 
 **Status (2026-10-29).** Version `1.0.4p1.2` ([`CHANGELOG.md`](CHANGELOG.md)): Python version 1.2 of the replication of Excel-AI 1.0.4 (mitigation) and Distribution 1.0.4 (first full release 1.0.0p1.0).
 
@@ -30,7 +30,7 @@ Start with the spec and plan [`cpat_documentation/project/Spec.qmd`](cpat_docume
 | `cpat_shiny/`, `app.py` | Shiny application on `cpat_model.run`: scenarios (carbon tax path, price source, fuel and sector coverage) over Excel-AI's carbon-tax scenario; raw results, indicators, graphs (`server_logic/run_model.py`, `results_tables.py`, `visualization/figures.py`); start it from `coded/` |
 | `cpat_testing/` | pytest suite: each mitigation block and the distribution sheet against Excel-AI's stored values; `compare/` extracts the reference values (`extract_excel_ai.py`, `reference/`) |
 | [`NORMS.md`](NORMS.md), [`TODO.md`](TODO.md) | Python norms (add to the root `NORMS.md`); the plan and open work |
-| `cpat_documentation/` | `guide/` the documentation book's chapters (website tab Coded CPAT), `project/` spec and plan, `equations/` equation list, `user/` texts of the app; `make_docs.py` writes the Word copies |
+| `cpat_documentation/` | `project/` spec and plan, `equations/` equation list, `user/` texts of the app; `make_docs.py` writes the Word copies |
 
 ## Running
 

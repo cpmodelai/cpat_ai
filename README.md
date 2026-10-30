@@ -11,6 +11,7 @@ Workspace for the World Bank **Climate Policy Assessment Tool (CPAT)**: models o
 | **See what differs from legacy CPAT** | [`excel_ai/core/BUGS.md`](excel_ai/core/BUGS.md) (legacy bugs, all fixed) and [`excel_ai/core/ISSUES.md`](excel_ai/core/ISSUES.md) (legacy issues, replicated and tracked) |
 | **Work on the data** | [`data/`](data/README.md): the data editions (`Public01` here), the catalogue of every table, the legacy workbook shell |
 | **Work on the Python model** (Coded CPAT) | [`coded/`](coded/README.md); its documentation book: the Coded CPAT tab of the website (`docs/`) |
+| **Read the documentation** (website) | <https://cpmodelai.github.io/cpat_ai/>: tabs CPAT documentation, CPAT-AI (`#cpat-ai`), Coded CPAT (`#coded`); offline: `docs/index.html` |
 | **Work as an AI agent** | [`AGENTS.md`](AGENTS.md) |
 
 ## Layout

@@ -4,7 +4,7 @@ project:
 
 book:
   title: "CPAT-AI Documentation"
-  subtitle: "The CPAT-AI project: Excel prototypes and Coded CPAT"
+  subtitle: "The CPAT-AI project: the Excel prototypes (Excel-AI)"
   author: "CPAT-AI Team"
   date: last-modified
   favicon: ./00/media/image1.png
@@ -29,10 +29,6 @@ book:
     - part: "Excel-AI: other modules"
       chapters:
         - 12_Other_Excel_Modules.qmd
-    - part: "Coded CPAT"
-      chapters:
-        - 13_Coded_CPAT.qmd
-        - 14_Coded_Developer_Guide.qmd
     - part: "Data and working practice"
       chapters:
         - 15_Data.qmd

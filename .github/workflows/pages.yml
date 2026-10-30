@@ -1,0 +1,71 @@
+# The documentation website on GitHub Pages: https://cpmodelai.github.io/cpat_ai/
+# (tabs: #documentation, #cpat-ai, #coded). On every push to main that changes the documentation, or by hand
+# (Actions > Documentation website > Run workflow): the CPAT-AI and Coded CPAT books are regenerated from their
+# sources (make_qmd.py) and rendered with Quarto; the CPAT documentation (methodology) is published as committed.
+# One-off setting by a repository admin: Settings > Pages > Build and deployment > Source: GitHub Actions.
+name: Documentation website
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'excel_ai/mitigation/docs/**'
+      - 'excel_ai/core/BUGS.md'
+      - 'excel_ai/core/ISSUES.md'
+      - 'coded/cpat_documentation/**'
+      - 'coded/NORMS.md'
+      - 'coded/TODO.md'
+      - 'coded/cpat_model/core/variables.csv'
+      - 'data/Public01/tidy/_manifest.csv'
+      - 'data/inputs/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.10.19
+      - name: Generate the chapters from their sources
+        run: |
+          cd docs/CPAT_ai_documentation_qmd && python make_qmd.py
+          cd ../CPAT_coded_documentation_qmd && python make_qmd.py
+      - name: Render the CPAT-AI and Coded CPAT books
+        run: |
+          quarto render docs/CPAT_ai_documentation_qmd --to html
+          quarto render docs/CPAT_coded_documentation_qmd --to html
+      - name: Assemble the site
+        run: |
+          mkdir _site
+          cp docs/index.html _site/
+          cp -r docs/CPAT_full_documentation_html docs/CPAT_ai_documentation_html docs/CPAT_coded_documentation_html _site/
+          touch _site/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -2,7 +2,7 @@
 
 # Variables {#sec-app-variables}
 
-Every variable of the mitigation results (1256 variables, 7543 rows; source `coded/cpat_model/core/variables.csv`), in the order of Excel-AI's Mitigation sheet: its description, unit, number of rows (sector and fuel combinations) and the output code of its first row.
+Every variable of the mitigation results (1257 variables, 7550 rows; source `coded/cpat_model/core/variables.csv`), in the order of Excel-AI's Mitigation sheet: its description, unit, number of rows (sector and fuel combinations) and the output code of its first row.
 
 | Variable | Description | Unit | Rows | First code |
 |---|---|---|---|---|
@@ -1020,10 +1020,10 @@ Every variable of the mitigation results (1256 variables, 7543 rows; source `cod
 | `trafo` | Average fuel economy, diesel, LPG, gas (passenger and freight by fuel use) | km/l | 3 | `egy.mit.fecon.all.die.1` |
 | `trafen` | EV fuel economy x electricity use (passenger, freight, 2-3 wheelers) | km | 1 | `egy.mit.trafen.all.ecy.1` |
 | `trafe` | Average fuel economy of EVs (by electricity use; fix B22) | km/kWh | 1 | `egy.mit.fecon.all.ecy.1` |
-| `trvht` | Vehicles, passenger and light (all types) | million | 1 | `egy.mit.pass.own.all.1` |
-| `trvhtf` | Vehicles, freight | million | 1 | `egy.mit.fre.own.all.1` |
-| `trvhtc` | Vehicles, 2-3 wheelers | million | 1 | `egy.mit.motor.own.all.1` |
-| `trvhta` | Vehicles, road | million | 1 | `egy.mit.all.own.all.1` |
+| `trvht` | Vehicles, passenger and light (all types) | million | 1 | `egy.mit.pass.own.tot.1` |
+| `trvhtf` | Vehicles, freight | million | 1 | `egy.mit.fre.own.tot.1` |
+| `trvhtc` | Vehicles, 2-3 wheelers | million | 1 | `egy.mit.motor.own.tot.1` |
+| `trvhta` | Vehicles, road | million | 1 | `egy.mit.tot.own.tot.1` |
 | `trrafp` | EV sales share, calculated less actual (pas; data years) | share | 1 | `egy.mit.trrafp.pass.ev.1` |
 | `trraff` | EV sales share, calculated less actual (fre; data years) | share | 1 | `egy.mit.trraff.fre.ev.1` |
 | `trrafc` | EV sales share, calculated less actual (cyc; data years) | share | 1 | `egy.mit.trrafc.motor.ev.1` |
@@ -1099,6 +1099,7 @@ Every variable of the mitigation results (1256 variables, 7543 rows; source `cod
 | `ch4.pi` | Producer price index from the methane fee | index | 3 | `egy.mit.ch4.pi.all.oil.1` |
 | `ch4.prd` | Fuel production | ktoe | 3 | `egy.mit.ch4.prd.all.oil.1` |
 | `ch4.act` | Methane source: activity | ktoe or index | 7 | `egy.mit.ch4.act.all.og.1` |
+| `ch4.abc` | Methane source: abatement-curve coefficients, country and average (CH4Inputs) | coefficient | 7 | `egy.mit.ch4.abc.all.og.1` |
 | `ch4.abt` | Methane source: abatement share from the methane fee | share | 7 | `egy.mit.ch4.abt.all.og.1` |
 | `ch4.int` | Methane source: intensity index (autonomous technological improvement) | index | 7 | `egy.mit.ch4.int.all.og.1` |
 | `ch4.em` | Methane source: emissions | kt CH4 | 7 | `egy.mit.ch4.em.all.og.1` |

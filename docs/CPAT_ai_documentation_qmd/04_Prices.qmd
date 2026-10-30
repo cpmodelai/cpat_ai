@@ -135,7 +135,7 @@ The memo summarises the after-tax prices including new policies (`atp`, sections
 | `pav.mix` | (uv / uv₁) / las | Mix effect: what the unit-value ratio adds to the price index |
 | `pav.leg` | see below | **Average price as legacy F5b** (v0.4.15, I31) |
 | `pav.lidx` | leg / leg₁ | Legacy average price against scenario 1 (fuels without a legacy average: `pav.las`) |
-| `pav.idx` | Settings C54 | **Price index reported** (LiveOutputs `mit.pav.idx`): Legacy* = `pav.lidx` (default), Laspeyres = `pav.las` |
+| `pav.idx` | Settings C54 | **Price index reported** (MTOutputs `mit.pav.idx`): Legacy* = `pav.lidx` (default), Laspeyres = `pav.las` |
 
 Legacy averages (v0.4.15, issue I31, user 2026-10-18: legacy as the default; legacy rows 16293-16405): coal and gas average the prices of power generation, residential and industry (section 2 blocks `.res`, `.ind`: `rpn`; power: the pre-policy price `rpb` of `.pow` plus the policy cost per GJ of the power type, `pavl.pp`) with the scenario-1 quantities of the same year (residential subsector `pavl.qr`, the 8 industry subsectors `pavl.qi`, power generation `pavl.qp`): a Laspeyres index on three sectors. Electricity averages residential and industry with each scenario's own consumption (= `pav.uv`). Oil products take the single price of their `.all` block. Biomass, jet fuel and all energy have no legacy average: their reported index is the Laspeyres one. Legacy bug L77 fixed (its index rows read the wrong fuels).
 

@@ -6,7 +6,8 @@ the generated chapters.
     python make_qmd.py --tests    also runs the tests (about a minute) and rewrites the test status
     quarto render                 the HTML book in ../CPAT_coded_documentation_html/
 
-Sources: `coded/cpat_documentation/guide/*.qmd` (Part I, Part II, glossary), the equation lists, `data/Public01/tidy/_manifest.csv`
+The guide chapters (index, 01-11 Part I and Part II, J glossary) are written here, in this folder (since 2026-10-30;
+they were copied from `coded/cpat_documentation/guide/`). Sources of the appendices: the equation lists, `data/Public01/tidy/_manifest.csv`
 (database tables), `data/inputs/scenarios_excel_ai.csv` (inputs), `coded/cpat_model/core/variables.csv` (variables),
 `coded/cpat_testing/compare/known_differences.py` and the bugs section of `coded/TODO.md` (bugs), the spec, the norms
 and the plan.
@@ -27,7 +28,6 @@ import make_qmd as ai                                    # noqa: E402  (the CPAT
 REPO = ai.REPO
 CODED = os.path.join(REPO, 'coded')
 DOC = 'coded/cpat_documentation'
-GUIDE = os.path.join(REPO, DOC, 'guide')
 GENERATED = ['A_Equations.qmd', 'B_Equations_codes.qmd', 'C_Database_tables.qmd', 'D_Inputs.qmd', 'E_Variables.qmd',
              'F_Bugs.qmd', 'G_Spec.qmd', 'H_Norms.qmd', 'I_Plan.qmd']
 
@@ -59,7 +59,7 @@ def convert_qmd(src_rel, title, sec_id):
 
 
 def database_tables():
-    path = os.path.join(REPO, 'data', 'tidy')
+    path = os.path.join(REPO, 'data', 'Public01', 'tidy')
     with open(os.path.join(path, '_manifest.csv'), encoding='utf-8') as f:
         man = list(csv.DictReader(f))
     rows = []
@@ -153,12 +153,9 @@ def test_status():
 
 
 def main():
-    for old in os.listdir(HERE):                              # chapters of earlier layouts
-        if re.match(r'^\d\d_.*\.qmd$', old) or old in GENERATED or old == 'J_Glossary.qmd':
+    for old in GENERATED:                                     # the appendices are rewritten; the guide chapters
+        if os.path.exists(os.path.join(HERE, old)):           # (index, 01-11, J) are written here by hand
             os.remove(os.path.join(HERE, old))
-    for name in sorted(os.listdir(GUIDE)):
-        if name.endswith('.qmd'):
-            shutil.copy(os.path.join(GUIDE, name), os.path.join(HERE, name))
     eq = f'{DOC}/equations'
     out = {'A_Equations.qmd': convert_qmd(f'{eq}/Equations.qmd', 'Equation list: methodology notation', 'sec-app-eq'),
            'B_Equations_codes.qmd': convert_qmd(f'{eq}/Equations_codes.qmd', 'Equation list: CPAT code names',
@@ -174,7 +171,7 @@ def main():
     shutil.copytree(os.path.join(REPO, DOC, 'project', 'figures'), os.path.join(HERE, 'figures'), dirs_exist_ok=True)
     if '--tests' in sys.argv or not os.path.exists(os.path.join(HERE, '_test_status.md')):
         test_status()
-    print('wrote the guide chapters and', ', '.join(out))
+    print('wrote', ', '.join(out))
 
 
 if __name__ == '__main__':

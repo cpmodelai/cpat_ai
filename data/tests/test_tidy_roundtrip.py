@@ -5,7 +5,8 @@
 - Every tidy table is in data/catalog.csv and in <edition>/data_sources.csv; the proprietary tabs are the six.
 - EDITION.json: public-perturbed only in this repository, checksums current; no table marked real; proprietary tables
   perturbed.
-- The legacy shell (data/legacy/) has the six proprietary tabs empty below their headers.
+- The legacy shell (data/legacy/) has the six proprietary tabs empty below their headers; each edition's legacy copy holds
+  exactly its tidy tables in those tabs.
 - A row added in tidy form (a new country) comes back in the legacy table, in the legacy key case.
 """
 import csv
@@ -92,3 +93,31 @@ def test_added_country_comes_back():
         head, body = tc.from_tidy(tmp)['legacy_IO_GTAP.csv']
         new = [r for r in body if r[head.index('iso3')] == 'xeg']     # written back in the legacy (lower) case
         assert len(new) == 1 and new[0][head.index('afs')] == '1.5'
+
+
+@pytest.mark.parametrize('edition', EDITIONS)
+def test_legacy_copy_holds_the_edition(edition):
+    """The edition's legacy workbook holds, in its six proprietary tabs, exactly the edition's tidy tables."""
+    from pyxlsb import open_workbook
+    import legacy_proprietary as LP
+    tables = tc.from_tidy(ED.tidy(edition))
+    with open_workbook(ED.legacy_filled(edition)) as wb:
+        for tab, (src, hr) in LP.TABS.items():
+            head, body = tables[src]
+            with wb.get_sheet(tab) as sh:
+                rows = {c.r: {} for r in sh.rows() for c in r}
+                cols = {}
+                for r in sh.rows():
+                    for c in r:
+                        if c.v not in (None, ''):
+                            rows.setdefault(c.r, {})[c.c] = c.v
+                            if c.r == hr:
+                                cols[LP.label(c.v)] = c.c
+            got = [r for r in sorted(rows) if r > hr and rows[r]]
+            assert len(got) == len(body), f'{tab}: {len(got)} rows, tidy {len(body)}'
+            for i, r in enumerate(body, hr + 1):
+                for name, v in zip(head, r):
+                    x = rows.get(i, {}).get(cols[name])
+                    want = LP.as_value(v) if v != '' else None
+                    assert x == want or (isinstance(x, float) and isinstance(want, float)
+                                         and abs(x - want) <= 1e-12 * max(1, abs(want))), (tab, i, name, x, want)

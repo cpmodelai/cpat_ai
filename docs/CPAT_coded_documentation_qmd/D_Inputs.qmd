@@ -458,27 +458,27 @@ Every input of a scenario set (476; source: Excel-AI's scenario set `data/inputs
 | `ProdSubPhaseScope_oil` | Producer subsidy phase-out applies to oil (1 = yes; v0.5.6, was Constants psi) | switch | 1 | 508 |
 | `ProdSubPhaseScope_bio` | Producer subsidy phase-out applies to biomass (1 = yes; v0.5.6, was Constants psi) | switch | 1 | 509 |
 | `ProdSubPhaseScope_ecy` | Producer subsidy phase-out applies to electricity (1 = yes; v0.5.6, was Constants psi) | switch | 1 | 510 |
-| `TransmissionCostShare` | Share of transmission capex in the levelised cost of new plants (legacy IncludeTransmissionCostsInGenerationCostsPercent) | share | 1 | 517 |
-| `LastHistPriceYear` | Last historical price year (LastHist) | year | 2024 | 520 |
-| `ETSOBREffectiveness` | ETS: relative effectiveness of output-based allocation (OBREff) | share | 0.5 | 521 |
-| `ETSNextPriceExponent` | ETS: convergence exponent of the next-price proposal | exponent | 0.5 | 522 |
-| `ApplyDemandShock` | Apply the legacy 2023-2024 energy demand shock (1 = yes) | 0/1 | 1 | 523 |
-| `SCCTargetYear` | Year of the target-consistent carbon price (SCCTgtYr) | year | 2030 | 524 |
-| `SCCEpaBaseYear` | US EPA SCC in the base year (SCCEpa) | \$/tCO2 | 62 | 525 |
-| `AveragePriceMethod` | Average price change reported: Legacy* / Laspeyres (PavMethod) | option | Legacy* | 526 |
-| `PwDeficitGas` | Power: investment deficit after the second round to gas (Yes / No) | switch | No | 527 |
-| `PwCoalICTariff` | Power: coal implicit cost in generation costs and tariffs (Yes / No) | switch | Yes | 528 |
-| `PassLo` | Pass-through buckets: a raw pass-through up to this value counts as 0 | share | 0.25 | 531 |
-| `PassMid` | Pass-through of the middle bucket | share | 0.5 | 532 |
-| `PassHi` | Pass-through buckets: above PassLo and up to this value counts as PassMid, above as 1 | share | 0.5 | 533 |
-| `PriceFloor` | Floor of the after-tax fuel price (atp) | \$/GJ real | 0.01 | 534 |
-| `EFEndYear` | Year of the final combustion emission factor: linear path from the base year, continued after it, as legacy (v0.8.4, I98 | year | 2039 | 535 |
-| `MethShareCap` | Methane source shares: at most this multiple of the source's share of activity | factor | 10 | 536 |
-| `TrOwnDecline` | Maximum annual decrease of passenger and freight ownership (fix B4: the legacy 2-3 wheeler value; legacy 0) | share per year | 0.1 | 537 |
-| `TrRALag` | Range anxiety: the start value holds in the first years of the horizon (base year counted as 1) | years | 3 | 538 |
-| `TrPivotLag` | Feebate pivot: blank in the first years of the horizon (base year counted as 1) | years | 2 | 539 |
-| `EarlyMaxShare` | Maximum early coal retirement, share of coal effective capacity (legacy typed) | share | 0.8 | 540 |
-| `InvPresentShare` | New investment "If Present": allowed when the type has more than this share of capacity | share | 0.001 | 541 |
-| `HydInvShare` | Hydro invests from the base year when its generation share is above this value, else from NewInvHydYear (v0.4.10, L54 fi | share | 0.5 | 542 |
-| `WaccDefault` | WACC of a country missing from CoC or without CoC risk data (legacy XLOOKUP default; v0.4.10: also without risk data, L5 | share | 0.075 | 543 |
-| `ModelForm` | Form of the demand equations (D4): CPAT, CPAT partial adjustment, CES partial adjustment, CDPM-FTT | option | CPAT |  |
+| `ModelForm` | Form of the demand equations (Coded CPAT design D4): CPAT, CPAT partial adjustment, CES partial adjustment, CDPM-FTT (v1.0.2; only CPAT is built, so the formulas do not read it yet) | option | CPAT | 511 |
+| `TransmissionCostShare` | Share of transmission capex in the levelised cost of new plants (legacy IncludeTransmissionCostsInGenerationCostsPercent) | share | 1 | 518 |
+| `LastHistPriceYear` | Last historical price year (LastHist) | year | 2024 | 521 |
+| `ETSOBREffectiveness` | ETS: relative effectiveness of output-based allocation (OBREff) | share | 0.5 | 522 |
+| `ETSNextPriceExponent` | ETS: convergence exponent of the next-price proposal | exponent | 0.5 | 523 |
+| `ApplyDemandShock` | Apply the legacy 2023-2024 energy demand shock (1 = yes) | 0/1 | 1 | 524 |
+| `SCCTargetYear` | Year of the target-consistent carbon price (SCCTgtYr) | year | 2030 | 525 |
+| `SCCEpaBaseYear` | US EPA SCC in the base year (SCCEpa) | \$/tCO2 | 62 | 526 |
+| `AveragePriceMethod` | Average price change reported: Legacy* / Laspeyres (PavMethod) | option | Legacy* | 527 |
+| `PwDeficitGas` | Power: investment deficit after the second round to gas (Yes / No) | switch | No | 528 |
+| `PwCoalICTariff` | Power: coal implicit cost in generation costs and tariffs (Yes / No) | switch | Yes | 529 |
+| `PassLo` | Pass-through buckets: a raw pass-through up to this value counts as 0 | share | 0.25 | 532 |
+| `PassMid` | Pass-through of the middle bucket | share | 0.5 | 533 |
+| `PassHi` | Pass-through buckets: above PassLo and up to this value counts as PassMid, above as 1 | share | 0.5 | 534 |
+| `PriceFloor` | Floor of the after-tax fuel price (atp) | \$/GJ real | 0.01 | 535 |
+| `EFEndYear` | Year of the final combustion emission factor: linear path from the base year, continued after it, as legacy (v0.8.4, I98 | year | 2039 | 536 |
+| `MethShareCap` | Methane source shares: at most this multiple of the source's share of activity | factor | 10 | 537 |
+| `TrOwnDecline` | Maximum annual decrease of passenger and freight ownership (fix B4: the legacy 2-3 wheeler value; legacy 0) | share per year | 0.1 | 538 |
+| `TrRALag` | Range anxiety: the start value holds in the first years of the horizon (base year counted as 1) | years | 3 | 539 |
+| `TrPivotLag` | Feebate pivot: blank in the first years of the horizon (base year counted as 1) | years | 2 | 540 |
+| `EarlyMaxShare` | Maximum early coal retirement, share of coal effective capacity (legacy typed) | share | 0.8 | 541 |
+| `InvPresentShare` | New investment "If Present": allowed when the type has more than this share of capacity | share | 0.001 | 542 |
+| `HydInvShare` | Hydro invests from the base year when its generation share is above this value, else from NewInvHydYear (v0.4.10, L54 fi | share | 0.5 | 543 |
+| `WaccDefault` | WACC of a country missing from CoC or without CoC risk data (legacy XLOOKUP default; v0.4.10: also without risk data, L5 | share | 0.075 | 544 |

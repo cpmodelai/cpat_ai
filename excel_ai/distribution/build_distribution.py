@@ -31,7 +31,7 @@ from openpyxl.workbook.defined_name import DefinedName
 HERE = os.path.dirname(os.path.abspath(__file__))
 import build as P                                      # noqa: E402  the prototype builder (helpers, layout)
 
-VERSION = '1.0.4'
+VERSION = '1.1.0'
 NAME = 'CPAT-AI-Distribution-Prototype'
 OUT = P.REL.versioned(NAME, VERSION, 'xlsm')     # distribution/releases/<name>_v<version>.xlsm (_latest copy: active_workbooks/)
 SOURCE = P.LATEST                                     # the mitigation prototype the module is cut from
@@ -62,6 +62,9 @@ VERSION_LOG = [  # version, date, change
                           'The Distribution method unchanged.'),
     ('1.0.4', '2026-10-29', f'Cut from the mitigation prototype v{P.VERSION} (outputs tab MTOutputs in the legacy layout); '
                           'versions aligned. The Distribution method unchanged.'),
+    ('1.1.0', '2026-10-30', f'Cut from the mitigation prototype v{P.VERSION}: data edition Public01 (perturbed proprietary '
+                          'tables); Update from Mitigation looks next to this workbook, then in active_workbooks\\ (one '
+                          'or two folders up). The Distribution method unchanged.'),
 ]
 
 # the tabs of the module, in order (Cover is added); everything else of the prototype is dropped

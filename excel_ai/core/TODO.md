@@ -45,6 +45,7 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
 - ☐ **v0.9.0 power (POW465), deferred by the user**: the detailed power checks of `check_full` and the cell-by-cell check of the register mapping (`Power_465.md` section 2) against `issues_register.py` / `legacy/bugfixes/check465/legacy465_check.json`.
 - ☒ **D. Modules**: air pollution and transport co-benefits out of scope (user 2026-10-29; U18, U19); social costs and benefits are in Mitigation (section 18).
 - ◐ **E. MTOutputs** like legacy (v1.0.4, user 2026-10-29): done: legacy columns, sections and rows, our codes and the legacy code, 1,284 legacy rows mapped (`data_old/mvp_legacy_extracts/mtoutputs_map_465.csv`). Left: review the 64 guesses and the 263 rows without a prototype code (column `reason`); the unit differences noted there (oil prices USD/GJ vs USD/l or bbl, revenues USD m vs bn, generation MWy vs TWh) are not converted; the comparison itself against a legacy run (U2) uses column F.
+- ☐ **E2. MTOutputs scenarios side by side** (user 2026-10-30): the scenario groups across the sheet as on Mitigation, the scenario number at the top of each group driving the lookups (one formula per row, not one block per scenario); lookups automatic where possible (the code columns built from the row and the scenario number, no typed references).
 - Not built by decision: the elasticity-based power model.
 
 ## 4b. Consolidation v0.8.4-v0.8.5 (2026-10-28/29): left over

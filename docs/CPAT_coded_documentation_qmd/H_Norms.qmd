@@ -4,7 +4,7 @@
 
 *Source: [`coded/NORMS.md`](https://github.com/cpmodelai/cpat_ai/blob/main/coded/NORMS.md).*
 
-Rules for every task in `coded/`. They add to the repository-wide [`../NORMS.md`](https://github.com/cpmodelai/cpat_ai/blob/main/NORMS.md), of which these sections apply to Python as written: **0** (never replicate a legacy bug; always replicate a legacy issue, and track it), **4** (inputs: MTInputs rows and `NameOfParameter` names), **6, 6b** (task completion: `CAVEATS.md`; norms follow the lessons), **7** (methodology and version notes are different documents) and **8** (data). Its Excel sections (1-3, 5: columns, style, LAMBDA encoding, releases) do not apply, except where this file points to them.
+Rules for every task in `coded/`. They add to the repository-wide [`../NORMS.md`](https://github.com/cpmodelai/cpat_ai/blob/main/excel_ai/core/NORMS.md), of which these sections apply to Python as written: **0** (never replicate a legacy bug; always replicate a legacy issue, and track it), **4** (inputs: MTInputs rows and `NameOfParameter` names), **6, 6b** (task completion: `CAVEATS.md`; norms follow the lessons), **7** (methodology and version notes are different documents) and **8** (data). Its Excel sections (1-3, 5: columns, style, LAMBDA encoding, releases) do not apply, except where this file points to them.
 
 The design choices behind these rules (D1-D16) were decided by the user on 2026-10-29: spec [`cpat_documentation/project/Spec.qmd`](https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/project/Spec.qmd) section 10. A rule citing Dn follows that decision.
 

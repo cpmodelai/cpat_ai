@@ -155,7 +155,7 @@ from openpyxl.utils import get_column_letter as L, column_index_from_string as C
 from openpyxl.utils.cell import coordinate_from_string
 from openpyxl.workbook.defined_name import DefinedName
 
-VERSION = '1.0.4'   # also in version.json (read by the deck builder)
+VERSION = '1.1.0'   # also in version.json (read by the deck builder)
 SCRIPTS_TAG = None   # v0.8.0: scripts and notes have stable names (releases are git tags); v0.7.1: a point release renames only the builder, VBA module, workbook and reports; the scripts and
                       # notes keep the tag of the full release (NORMS.md section 5)
 COUNTRY = 'EGY'   # v0.3.3: default of Settings C4 (user input); country data only in the data sheets, by this key
@@ -7814,7 +7814,13 @@ def build_settings(wb):
                               'order, one row per quantity in each scenario block (the legacy-form cache (data/scripts/legacy_csv.py) '
                               'mtoutputs_map_465.csv), rows the prototype lacks kept with Include? = No; distribution rows '
                               'in the blocks (deciles in K:T, live); StoredOutputs stores the Mitigation rows (each once). Legacy '
-                              'bugs L231, L232 (MTOutputs rows). Model values unchanged.')]
+                              'bugs L231, L232 (MTOutputs rows). Model values unchanged.'),
+        ('1.1.0', '2026-10-30', 'Data edition Public01 (user 2026-10-30): the data tabs come from data/Public01/tidy/ (the '
+                              'six proprietary tables as perturbed Egypt values, +-3%, identities kept; Tran_Scatter added); '
+                              'Cover shows the edition and version; data sources Public01 - GitHub '
+                              '(main/data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx) and Public01 - local file; the '
+                              'permalinked copy in excel_ai/active_workbooks/ (was permalink folders); range-anxiety fit '
+                              'redone on the new data. Values change with the data; formulas unchanged.')]
     for i, row in enumerate(log, SET_LOG + 2):
         for j, v in enumerate(row, 1):
             c_ = put(ws, f'{L(j)}{i}', v)
@@ -15485,12 +15491,11 @@ def dist_names():
 # ---------------------------------------------------------------- v0.6.5: linked data tables (Power Query)
 DATA_SOURCES = [  # dropdown name, kind (none / file / web), path or URL (file: blank = searched near the workbook)
     ('Embedded (shipped data, no update)', 'none', ''),
-    ('Dummy - GitHub (public repository)', 'web',      # v1.0.3: the repository is public (user 2026-10-29)
+    ('Public01 - GitHub (public repository)', 'web',   # v1.0.3: the repository is public; 1.1.0: data edition Public01
      'https://raw.githubusercontent.com/cpmodelai/cpat_ai/main/data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx'),   # data edition Public01
-    ('Dummy - local file', 'file', ''),
-    ('Dummy - data repository (type its URL)', 'web', ''),   # v1.0.3: a separate repository of the dummy data
-    ('Dummy - SharePoint', 'web', 'https://worldbankgroup.sharepoint.com/:x:/t/CPATWB-IMF-WBGroup/'
-                                  'IQCOy1UkpBbpQpkGMxeK0tz9AUVLrABEYpHBGzeLHjCBojg?e=yX8hkz')]
+    ('Public01 - local file', 'file', ''),
+    ('Data repository (type its URL)', 'web', ''),   # v1.0.3: a separate repository of the dummy data
+    ('SharePoint (type its URL)', 'web', '')]   # 1.1.0: the old address held the retired dummy workbook
 DATA_LINKS = [  # prototype tab, table in the data workbook (data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx, written from its tidy/
     # by data/scripts/tidy_convert.py: tidy_specs.LINKS), header cell, number of columns,
     # rows (country: the rows of Settings C4; all: every row, for tabs whose lookups use other countries or regions)
@@ -15514,7 +15519,11 @@ def data_link_status(ws, r):
     data source and paths, are on ScenarioCompare). Returns the next free row."""
     bar(ws, r, 'Linked data tables (Power Query): status. Data source and paths: ScenarioCompare; button Update data '
                'tables', 4, F_BAND, FONT_SUBBAR)
-    lines = [('Data source (ScenarioCompare)', '=DataSource', None), ('Country (Settings C4)', '=CtryCode', None),
+    import editions as ED                        # 1.1.0: the data edition the workbook is built with (data/editions.csv)
+    ed = ED.info()
+    lines = [('Data shipped (data edition)', f"{ed['edition']} ({ed['type']}), version {ed['version']}: public data; the six "
+                                             'proprietary tables as perturbed Egypt values, not the real data', None),
+             ('Data source (ScenarioCompare)', '=DataSource', None), ('Country (Settings C4)', '=CtryCode', None),
              ('Last update', 'none (shipped data)', 'DataLastUpdate'),
              ('File or URL used by the last update', 'none', 'DataUsed'),
              ('This workbook is saved in', '(written by Update data tables)', 'DataSavedIn'),
