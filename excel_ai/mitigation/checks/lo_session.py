@@ -280,6 +280,7 @@ def _paste_xml(xml, c0, c1, dests, shift, overwrite=False):
 
 
 def expanded_zip(src, call, expand, pastes=None, shift=None, overwrite=False):
+    import shared_formulas as SF
     """The copy LibreOffice recalculates (check variant 'expand': LAMBDA calls expanded), written from the file's
     XML: every <f> element whose formula matches call (the LAMBDA call pattern) gets expand(formula). A few seconds,
     no openpyxl load (same formulas as variant 'expand': checked on all 422,845 formulas of v0.4.9). pastes: {sheet:
@@ -305,7 +306,7 @@ def expanded_zip(src, call, expand, pastes=None, shift=None, overwrite=False):
         for item in zin.infolist():
             data = zin.read(item.filename)
             if item.filename.startswith('xl/worksheets/sheet') and item.filename.endswith('.xml'):
-                xml = _F.sub(fix, data.decode('utf-8'))
+                xml = _F.sub(fix, SF.unshare(data.decode('utf-8')))   # 1.1.1: shared formulas written in full first
                 if item.filename in part_of:
                     xml = _paste_xml(xml, *part_of[item.filename], shift, overwrite)
                     xml = re.sub(r'<dimension ref="[^"]*"/>', '', xml, count=1)   # recomputed by the reader

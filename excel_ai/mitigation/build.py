@@ -15841,6 +15841,7 @@ def main():
     stage('macros and buttons added')
     store_values(OUT)                              # v0.6.6: calculated values in the file, no recalculation on open
     link_chart_titles(OUT)                         # v0.6.7: line-chart titles follow the dropdown of their block
+    stage(share_formulas(OUT))                     # v1.1.1: repeated formulas stored once (smaller, faster to open)
     import excel_lint
     problems = excel_lint.lint(OUT)
     if problems:
@@ -15848,6 +15849,16 @@ def main():
     stage('calculated values stored (LibreOffice), calculation manual')
     REL.publish(OUT, link=True)                    # the _latest copy in active_workbooks/
     stage(f'saved {OUT}')
+
+
+def share_formulas(path):
+    """v1.1.1 (user 2026-10-30): each run of a row's cells holding the same formula in relative terms is written as one
+    shared formula, as Excel writes a fill (core/tools/shared_formulas.py; results unchanged). SHARED_FORMULAS=0: off."""
+    if os.environ.get('SHARED_FORMULAS', '1') == '0':
+        return 'shared formulas: off (SHARED_FORMULAS=0)'
+    import shared_formulas as SF
+    n, groups, refs = SF.share_file(path)
+    return f'shared formulas: {refs} of {n} formulas written as references to {groups} groups'
 
 
 # ---------------------------------------------------------------- v0.6.6: shipped with calculated values

@@ -120,7 +120,8 @@ def build(no_macros, no_lambdas, out):
                             stats['cells'] += 1
                             stats['longest'] = max(stats['longest'], len(g.replace('_xlfn.', '')))
                             return m.group(1) + html.escape(g, quote=False) + m.group(3)
-                        txt = F_RE.sub(sub, txt)
+                        import shared_formulas as SF
+                        txt = F_RE.sub(sub, SF.unshare(txt))     # 1.1.1: shared formulas written in full first
                 data = txt.encode('utf-8')
             zout.writestr(item, data)
     print(f'{os.path.basename(out)}: LAMBDA cells expanded {stats["cells"]}, longest formula {stats["longest"]} chars'

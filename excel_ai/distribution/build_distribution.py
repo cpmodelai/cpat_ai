@@ -273,6 +273,7 @@ def main():
     P.add_macro_buttons(OUT, 'Cover', MACRO_BUTTONS, col0=2, row0=5, across=3)
     stage('saved, macros and buttons added')
     P.store_values(OUT)
+    stage(P.share_formulas(OUT))                       # 1.1.1: repeated formulas stored once (results unchanged)
     import excel_lint
     problems = excel_lint.lint(OUT)
     if problems:
