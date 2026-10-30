@@ -1,5 +1,8 @@
 """Phase 2 foundations: version, scenario set, database, placeholder modules, a run end to end."""
+import csv
 import re
+
+import pytest
 
 import cpat_model
 from cpat_model.data import open_database
@@ -25,7 +28,10 @@ def test_database_reads_tidy_tables():
     db = open_database(Settings())
     assert 'energy_balances' in db.tables
     v = db.array('energy_balances', ['country', 'flow', 'fuel']).sel(country='EGY', flow='cement', fuel='coa').item()
-    assert v == 1422.2413
+    with open(Settings().tidy_path() / 'energy_balances.csv', encoding='utf-8') as f:     # the value as stored in tidy
+        want = next(float(r['value']) for r in csv.DictReader(f)
+                    if (r['country'], r['flow'], r['fuel']) == ('EGY', 'cement', 'coa'))
+    assert v == pytest.approx(want, rel=1e-12)
 
 
 def test_run_end_to_end_with_placeholders():
