@@ -1,6 +1,6 @@
 # Quick check, CPAT-AI-Mitigation-Prototype v1.0.4
 
-**FAIL** (179 s; the full check is check_full.py, run on request). Changes of output codes are reported, not failed: compare them with what the change intended.
+**PASS** (185 s; the full check is check_full.py, run on request). Changes of output codes are reported, not failed: compare them with what the change intended.
 
 - tab order (main, inputs, data, reference last; 58 tabs): OK
 - 497541 formulas; plain formulas over 100 characters: []: OK
@@ -28,7 +28,7 @@
 - LAMBDA group 2 (the live scenario, LAMBDAs base year to 2041): 146278 numeric cells; tested against plain formulas by the output-code regression (last release) and the Distribution reference: OK
 - Distribution group 2 vs the Python reference (distribution_ref, same inputs): 505 values, max relative difference 6.6e-13 ('pct_gini_rec.rur', 0); tef.ove deciles 1, 10: -1.761, -1.454; Gini change with recycling -1.821: OK
 - Distribution scenario numbers equal Mitigation group by group (1-2): True: OK
-- StoredOutputs: rows by scenario ID {1: 708, 3: 708, 4: 708, 5: 708, 6: 708}; rows without values 20 [(1, 'mit.ndc.idx.all.c'), (3, 'mit.ndc.idx.all.c'), (4, 'mit.ndc.idx.all.c'), (5, 'mit.ndc.idx.all.c')]: FAIL
+- StoredOutputs: rows by scenario ID {1: 708, 3: 708, 4: 708, 5: 708, 6: 708}; rows without values 0 []: OK
 - VBA module CPATScenarios.bas: identifiers not declared, not VBA, Excel or a known constant: none: OK
 - code protocol C1 (lower case, digits, underscore, no empty token): 0 codes break it []: OK
 - code protocol C7 (no model letter): 0 codes end in a model letter []: OK
