@@ -12,7 +12,8 @@ the scripts that edit formulas in the XML (lo_session.expanded_zip, make_variant
 A formula that names another sheet (Sheet!A1, 'My sheet'!A1) is never shared: Excel 365 removed every such shared
 formula on open ("Removed Records: Shared formula from /xl/worksheets/sheetN.xml", user test 2026-10-30), and only
 the sheets with them were repaired. Nor is a formula with a newer function (_xlfn.MINIFS, ...): the binary format
-stores those as external names, which a shared formula cannot hold (Excel could not save the shared copy as .xlsb).
+stores those as external names (kept in full as a precaution). Nor is a formula with an array constant ({"T","R"}):
+Excel opened such a shared formula but could not save the workbook as .xlsb (user test 2026-10-30).
 
     import shared_formulas as SF
     SF.share_file(path)                 # in place; returns (formulas, shared groups, cells written as references)
@@ -30,6 +31,9 @@ CELL = re.compile(r'<c r="([A-Z]+)(\d+)"((?:\s[^>]*?)?)(?<!/)>(.*?)</c>', re.S)
 PLAIN_F = re.compile(r'^<f>(.*?)</f>', re.S)                     # a formula without attributes, first in the cell
 ANY_F = re.compile(r'<f(\s[^>]*)?(?:/>|>(.*?)</f>)', re.S)
 MIN_RUN = 2
+# formulas Excel cannot hold as shared formulas (user tests 2026-10-30): '!' another sheet (removed on open), '{' an array
+# constant (the copy could not be saved as .xlsb), '_xl' a newer function (kept in full as a precaution)
+NOT_SHARED = ('!', '{', '_xl')
 
 
 def _col(letters):
@@ -62,8 +66,8 @@ def share(xml, keep=None):
         while i < n:
             col, r, f = info[i]
             j = i + 1
-            if f is not None and ('!' in f or '_xl' in f or (keep is not None and not keep(f))):
-                f = None                         # a sheet reference or a newer function (_xlfn.): not shared
+            if f is not None and (any(x in f for x in NOT_SHARED) or (keep is not None and not keep(f))):
+                f = None                         # a sheet reference, a newer function, an array constant: in full
             if f is not None:
                 tr = Translator('=' + f, origin=f'{col}{r}')
                 while j < n and info[j][2] is not None and _col(info[j][0]) == _col(info[j - 1][0]) + 1:
