@@ -1,4 +1,4 @@
-# Check report - CPAT-AI-Mitigation-Prototype v1.0.4 (partial: CHECK_PARTIAL=1, sections 0-4b, 7, 8b, 14; LAMBDA-library variant B skipped)
+# Check report - CPAT-AI-Mitigation-Prototype v1.1.0 (partial: CHECK_PARTIAL=1, sections 0-4b, 7, 8b, 14; LAMBDA-library variant B skipped)
 
 ## 0. Formula length (at most 100 characters per cell formula)
 - LAMBDA calls only in the LAMBDA year 2041 of Mitigation and the LAMBDA test group 2 (Mitigation, Distribution): 112179 cells OK
@@ -2144,31 +2144,31 @@
 
 ## 4. Values vs independent Python recomputation
 - section-3 rows not recomputed yet (v0.9.0 R7, R9; power_model_ref): sys, pcbcap, pcbom, pcbfu, pcbchk, rpnv, txg, txe, scl, psegap, psegs, psesh, pseu, pser, csd, spe
-- A. as shipped, evaluated as a LAMBDA host (2041 LAMBDAs expanded), scenario 1: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 23 price-fuel and 22 subsector variables, 163 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 91136 cells, max relative diff 7.28e-12 (at O7789) OK; not in the Python reference (not compared): ['apco2', 'apen.pow.bio', 'apen.pow.coa', 'apen.pow.nga', 'apen.pow.oop', 'apen.res.bio', 'apen.res.coa', 'apen.res.die', 'apen.res.ecy', 'apen.res.gso', 'apen.res.jfu', 'apen.res.ker', 'apen.res.lpg', 'apen.res.nga', 'apen.res.oop', 'ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'csd', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'pcbcap', 'pcbchk', 'pcbfu', 'pcbom', 'perm', 'psegap', 'psegs', 'pser', 'psesh', 'pseu', 'psp', 'rpnv', 'scl', 'spe', 'sys', 'txe', 'txg', 'wfx', 'wsel']
-- A. as shipped, scenario 1: section 5b, 886 rows (16640 cells incl. the side-table parameters) vs transport_model_ref.engine (all fixes), max relative diff 6.34e-14 (at S4331 (4927, 2029)); not recomputed yet (v0.9.0 R10, listed): trbe.aef, trbe.obf, trbe.bio, trp.renaef, ener.avi.ren, ener.nav.ren OK
-- A. as shipped, evaluated as a LAMBDA host (2041 LAMBDAs expanded), scenario 2: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 23 price-fuel and 22 subsector variables, 163 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 91136 cells, max relative diff 1.46e-11 (at AZ7789) OK; not in the Python reference (not compared): ['apco2', 'apen.pow.bio', 'apen.pow.coa', 'apen.pow.nga', 'apen.pow.oop', 'apen.res.bio', 'apen.res.coa', 'apen.res.die', 'apen.res.ecy', 'apen.res.gso', 'apen.res.jfu', 'apen.res.ker', 'apen.res.lpg', 'apen.res.nga', 'apen.res.oop', 'ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'csd', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'pcbcap', 'pcbchk', 'pcbfu', 'pcbom', 'perm', 'psegap', 'psegs', 'pser', 'psesh', 'pseu', 'psp', 'rpnv', 'scl', 'spe', 'sys', 'txe', 'txg', 'wfx', 'wsel']
-- A. as shipped, scenario 2: section 5b, 886 rows (16640 cells incl. the side-table parameters) vs transport_model_ref.engine (all fixes), max relative diff 7.75e-14 (at AN4331 (4927, 2028)); not recomputed yet (v0.9.0 R10, listed): trbe.aef, trbe.obf, trbe.bio, trp.renaef, ener.avi.ren, ener.nav.ren OK
+- A. as shipped, evaluated as a LAMBDA host (2041 LAMBDAs expanded), scenario 1: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 23 price-fuel and 22 subsector variables, 163 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 91136 cells, max relative diff 7.28e-12 (at R7789) OK; not in the Python reference (not compared): ['apco2', 'apen.pow.bio', 'apen.pow.coa', 'apen.pow.nga', 'apen.pow.oop', 'apen.res.bio', 'apen.res.coa', 'apen.res.die', 'apen.res.ecy', 'apen.res.gso', 'apen.res.jfu', 'apen.res.ker', 'apen.res.lpg', 'apen.res.nga', 'apen.res.oop', 'ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'csd', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'pcbcap', 'pcbchk', 'pcbfu', 'pcbom', 'perm', 'psegap', 'psegs', 'pser', 'psesh', 'pseu', 'psp', 'rpnv', 'scl', 'spe', 'sys', 'txe', 'txg', 'wfx', 'wsel']
+- A. as shipped, scenario 1: section 5b, 886 rows (16640 cells incl. the side-table parameters) vs transport_model_ref.engine (all fixes), max relative diff 1.52e-14 (at S4331 (4927, 2029)); not recomputed yet (v0.9.0 R10, listed): trbe.aef, trbe.obf, trbe.bio, trp.renaef, ener.avi.ren, ener.nav.ren OK
+- A. as shipped, evaluated as a LAMBDA host (2041 LAMBDAs expanded), scenario 2: carbon price, ETS rows (price, tax-equivalent, cap, estimate, baseline, semi-elasticity, baseline CO2 and OBR share by sector), revenue, CO2 and covered CO2 totals, gp, 23 price-fuel and 22 subsector variables, 163 power variables, sections 14-16 (GHGs, methane, local air pollutants, GDP effects), GDP growth, 91136 cells, max relative diff 1.46e-11 (at AJ7789) OK; not in the Python reference (not compared): ['apco2', 'apen.pow.bio', 'apen.pow.coa', 'apen.pow.nga', 'apen.pow.oop', 'apen.res.bio', 'apen.res.coa', 'apen.res.die', 'apen.res.ecy', 'apen.res.gso', 'apen.res.jfu', 'apen.res.ker', 'apen.res.lpg', 'apen.res.nga', 'apen.res.oop', 'ch4.emf.bm', 'ch4.emf.cm', 'ch4.emf.dg', 'ch4.emf.liv', 'ch4.emf.og', 'ch4.emf.ric', 'ch4.emf.wst', 'ch4.revf', 'ch4bs.chk', 'csd', 'ctf', 'invs', 'lkx', 'lkxa', 'lkxe', 'lkxp', 'lkxr', 'pcbcap', 'pcbchk', 'pcbfu', 'pcbom', 'perm', 'psegap', 'psegs', 'pser', 'psesh', 'pseu', 'psp', 'rpnv', 'scl', 'spe', 'sys', 'txe', 'txg', 'wfx', 'wsel']
+- A. as shipped, scenario 2: section 5b, 886 rows (16640 cells incl. the side-table parameters) vs transport_model_ref.engine (all fixes), max relative diff 5.45e-14 (at AL4331 (4927, 2026)); not recomputed yet (v0.9.0 R10, listed): trbe.aef, trbe.obf, trbe.bio, trp.renaef, ener.avi.ren, ener.nav.ren OK
 
 ## 4b. Power method = legacy (Python reference with the legacy inputs vs cached legacy rows)
-- baseline: 211 legacy rows (demand by subsector, required generation, capacity, generation, shares, fuel use, retirements, investment shares and both rounds, nameplate and USD investment, B1 phi, E1 investment cost, C7, B2, B6, E3, J, G1 prices, early retirement), 2022-2040: max relative diff 1.7e-12 (at second|wnd 2031) OK
-- carbon-tax run: 211 legacy rows (demand by subsector, required generation, capacity, generation, shares, fuel use, retirements, investment shares and both rounds, nameplate and USD investment, B1 phi, E1 investment cost, C7, B2, B6, E3, J, G1 prices, early retirement), 2022-2040: max relative diff 9.2e-13 (at second|nga 2032) OK
+- baseline: 211 legacy rows (demand by subsector, required generation, capacity, generation, shares, fuel use, retirements, investment shares and both rounds, nameplate and USD investment, B1 phi, E1 investment cost, C7, B2, B6, E3, J, G1 prices, early retirement), 2022-2040: max relative diff 1.3e+02 (at second|hyd 2030) FAIL
+- carbon-tax run: 211 legacy rows (demand by subsector, required generation, capacity, generation, shares, fuel use, retirements, investment shares and both rounds, nameplate and USD investment, B1 phi, E1 investment cost, C7, B2, B6, E3, J, G1 prices, early retirement), 2022-2040: max relative diff 1.0e+00 (at second|nga 2027) FAIL
 
 Effect of each bug fix on the legacy Egypt inputs (2040; % change against legacy 456, no fixes):
 
 | Fix | legacy rows | generation (base) | power CO2 (base) | generation (carbon tax) | VRE share (carbon tax) | investment USD 2022-2040 (base) |
 |---|---|---|---|---|---|---|
-| services | 3731 | +10.86% | +14.62% | +10.61% | -5.37% | +13.15% |
-| aee | 3691, 3697, 3703, 3709 | +0.91% | +1.19% | +0.90% | -0.50% | +1.08% |
-| income | 3692, 3698, 3704, 3710 | +3.22% | +4.20% | +3.22% | -1.83% | +4.13% |
+| services | 3731 | +10.98% | +14.82% | +10.72% | -5.44% | +13.18% |
+| aee | 3691, 3697, 3703, 3709 | +0.91% | +1.15% | +0.90% | -0.44% | +1.12% |
+| income | 3692, 3698, 3704, 3710 | +3.22% | +4.22% | +3.22% | -1.83% | +4.10% |
 | lt_alloc | 3911, 3912 | +0.00% | +0.00% | +0.00% | +0.00% | +0.00% |
-| invcost | 4276-4284 | +0.00% | +0.00% | +0.00% | +0.00% | -9.61% |
+| invcost | 4276-4284 | +0.00% | +0.00% | +0.00% | +0.00% | -9.54% |
 | cmin | 4046, 4073-4081 | +0.00% | +0.00% | +0.00% | +0.00% | +0.00% |
 | retlag | 3973 | +0.00% | +0.00% | +0.00% | +0.00% | +0.00% |
 | coalret | 4009-4011 | +0.00% | +0.00% | +0.00% | +0.00% | +0.00% |
 | rebate | 3407-3409 | +0.00% | +0.00% | +0.00% | +0.00% | +0.00% |
-| kcheck | 4024 | -1.39% | -2.53% | -1.30% | +5.38% | +9.52% |
-| nextyear | 4027 | -0.48% | +5.02% | -0.47% | -7.09% | -4.97% |
-| all |  | +12.37% | +15.63% | +12.21% | +1.05% | +27.65% |
+| kcheck | 4024 | -1.39% | -2.56% | -1.29% | +5.39% | +9.52% |
+| nextyear | 4027 | -0.46% | +6.33% | -0.47% | -8.88% | -6.29% |
+| all |  | +12.66% | +16.13% | +12.45% | -0.15% | +27.57% |
 
 ## 7. Labels and codes
 - column H: 7565 cells, 1 formula OK
@@ -2231,14 +2231,14 @@ Effect of each bug fix on the legacy Egypt inputs (2040; % change against legacy
 
 ## 14. Consistency (v0.1.09, v0.2.4): check rows, identities, references, versions, stale texts
 - check rows in groups [1, 2]: ener.chk 0, rev.chk 0, co2.chk 0, bco2.chk 0, ch4bs.chk 0 OK
-- identities in every column: rnet = rtx + rsub (subsidies negative), rtot = rnet + rnew, fuel use = sector totals + power, power fuel use = fuel types of pe, power CO2 = CO2 by type = ETS sector power: max abs 5.5e-10 OK
+- identities in every column: rnet = rtx + rsub (subsidies negative), rtot = rnet + rnew, fuel use = sector totals + power, power fuel use = fuel types of pe, power CO2 = CO2 by type = ETS sector power: max abs 5.7e-10 OK
 - file references in the workbook texts (3): current ones exist in the folder: OK
 - stale statements about power, revenues or interim data in the workbook texts: none OK
-- versions: Settings log ends with 1.0.4, Mitigation title "Mitigation Module", folder README names the workbook and builder of v1.0.4 OK
+- versions: Settings log ends with 1.1.0, Mitigation title "Mitigation Module", folder README names the workbook and builder of v1.1.0 OK
 - v0.2.8: newer Excel functions (MAXIFS, MINIFS, AGGREGATE, IFNA, ...) carry the _xlfn. prefix in the file (else Excel removes the formula on repair): OK
 - equations: Formulas.md regenerated from the workbook, 1257 variables; every variable of the dictionary has its equation OK
-- scripts and notes have stable names, no version in the name (48 files): OK
+- scripts and notes have stable names, no version in the name (44 files): OK
 - issues register (issues_register.py, Word register): 296 items, unique IDs; LegacyDiff rows of type Not yet, Simplification, To check (bucket 5) all included (3 of 3) OK
 - method chapters in docs/methods/ (8: Data_tabs.md, Distribution.md, ETS.md, Emissions.md, Macro_and_results.md, Power.md, Prices.md, Transport.md); no method note left in the folder OK
 
-**Overall (partial): PASS**
+**Overall (partial): FAIL**
