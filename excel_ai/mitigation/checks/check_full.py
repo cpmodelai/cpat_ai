@@ -1966,6 +1966,7 @@ def compare(ws, g, exp, label, focus=None):
     FOCUS[label] (a test of one feature, apart from known differences elsewhere)."""
     _, base, years = B.group_cols(g)
     worst, n, fworst, missing = (0.0, None), 0, (0.0, None), set()
+    vworst = {}                                # v1.1.0: the worst cell of each variable, reported when over TOL
     pk = ('cptraj', 'ets.p', 'ets.pe', 'ets.cap', 'ets.est', 'ets.bce', 'ets.se', 'xct.p', 'xets.p',
           'xct.c', 'mfee.p', 'mfee', 'cpx')    # v0.4.15: data column of the year (v0.4.12); v0.4.16: explicit price
     rev = [(B.R_REV[f'{v}.all'], 'all', 'all') for v in B.REV_VARS + ['rtot']]
@@ -2002,9 +2003,15 @@ def compare(ws, g, exp, label, focus=None):
                 n += 1
                 if d > worst[0]:
                     worst = (d, f'{L(c)}{r}')
+                if d > vworst.get(var, (0.0,))[0]:
+                    vworst[var] = (d, f'{L(c)}{r}', v, e)
                 if focus and r in focus and d > fworst[0]:
                     fworst = (d, f'{L(c)}{r}')
     ok = worst[0] < TOL
+    over = sorted(((d, var, cell, v, e) for var, (d, cell, v, e) in vworst.items() if d >= TOL), reverse=True)
+    if over:                                   # v1.1.0: which variables, with the workbook and reference values
+        log(f'  - {label}: variables over the tolerance (worst first, {len(over)}): '
+            + ', '.join(f'{var} {cell} {d:.3g} (workbook {v!r}, reference {e:.6g})' for d, var, cell, v, e in over[:25]))
     if focus:                                  # v0.5.1: judged on the focus rows; the rest reported
         FOCUS[label] = fworst
         ok = fworst[0] < TOL

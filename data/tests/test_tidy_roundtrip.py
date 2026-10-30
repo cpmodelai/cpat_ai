@@ -8,6 +8,7 @@
 - The legacy shell (data/legacy/) has the six proprietary tabs empty below their headers; each edition's legacy copy holds
   exactly its tidy tables in those tabs.
 - A row added in tidy form (a new country) comes back in the legacy table, in the legacy key case.
+- The tables derived from the energy balance agree with it (perturb_proprietary.py, check-only).
 """
 import csv
 import json
@@ -121,3 +122,16 @@ def test_legacy_copy_holds_the_edition(edition):
                     want = LP.as_value(v) if v != '' else None
                     assert x == want or (isinstance(x, float) and isinstance(want, float)
                                          and abs(x - want) <= 1e-12 * max(1, abs(want))), (tab, i, name, x, want)
+
+
+@pytest.mark.parametrize('edition', EDITIONS)
+def test_balance_copies_agree(edition):
+    """The tables derived from the energy balance (xai_energy_balance, xai_energy_use, xai_power_demand, the power
+    ratios of xai_power_params, energy_consumption) agree with the edition's balance: a perturbation that missed one
+    shows here (1.1.0: the power ratios were left unperturbed and the full check's power recomputation failed)."""
+    import perturb_proprietary as P
+    P.TIDY = ED.tidy(edition)
+    k, g = {}, {}
+    for _c, _y, unit, _flow, fuel, v in P.read('energy_balances')[1]:
+        (k.setdefault(_flow, {}) if unit == 'ktoe' else g)[fuel] = P.num(v)
+    P.recompute_xai(k, g, P.recompute_consumption(k, g, check_only=True), check_only=True)   # exits on a mismatch

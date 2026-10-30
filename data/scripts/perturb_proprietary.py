@@ -15,7 +15,8 @@ Identities kept (each is checked on the input and on the output; the script stop
                        wind: power = -eloutput x their ratio, production = -power. Per flow: total = the sum of the
                        fuels (not obf, totren); obf = bio; totren = wnd + sol + hyd + ore
   energy_consumption   recomputed from energy_balances with legacy's mapping (Excel-AI extract_legacy_tables.py)
-  xai_energy_balance, xai_energy_use, xai_power_demand
+  xai_energy_balance, xai_energy_use, xai_power_demand, and the power ratios of xai_power_params (shares of final power
+  demand, generation / consumption: Excel-AI's formulas on the balance)
                        Excel-AI's copies of Balances and EnergyCons values: recomputed from the two tables above
   prices_domestic      the US$ amounts (supply cost sp, excise and other taxes txo, margin mar, production costs) are
                        perturbed; rates and shares (VAT, passthrough, domestic portions) and international spot prices
@@ -177,7 +178,7 @@ def recompute_consumption(k, g, check_only=False):
     return {(c.split('.')[-1], s): num(x) for c, _y, s, x in out}
 
 
-def recompute_xai(k, enc, check_only=False):
+def recompute_xai(k, g, enc, check_only=False):
     cols = {'imports': 'imports', 'production': 'production', 'exports': 'exports', 'stock_change': 'stockcha',
             'tpes': 'tes', 'stat_diff': 'statdiff', 'transfers': 'transfer', 'own_use': 'ownuse',
             'dist_loss': 'distloss'}
@@ -203,6 +204,35 @@ def recompute_xai(k, enc, check_only=False):
             r[head.index(val)] = txt(x)
             out.append(r)
         check_only or write(name, head, out)
+    power_ratios(k, g, check_only)
+
+
+# electricity flows of the power ratios (Excel-AI build.py PR_FLOWS_DEM; Inputs: the country's power parameters)
+DEM_FLOWS = ['road', 'rail', 'domesair', 'domesnav', 'resident', 'food_forest', 'services', 'mining_chemicals', 'ironstl',
+             'nonferrmet', 'machinery', 'cement', 'other_manufact', 'construc', 'ononspec']
+
+
+def power_ratios(k, g, check_only=False):
+    """xai_power_params: the shares of final power demand and generation / consumption, from the (perturbed) balance's
+    electricity column and its electricity output (GWh), with Excel-AI's formulas (they are not data of their own)."""
+    e = lambda fl: k[fl].get('ecy', 0.0)
+    dem = sum(e(fl) for fl in DEM_FLOWS)
+    gen = g['total'] / 11.63                            # base-year generation, ktoe (GWh per ktoe 11.63)
+    v = {'gen_per_cons': gen / dem,
+         'sh_nxp': -(e('imports') + e('exports')) / dem if dem else 0.0,
+         'sh_tsd': -(e('statdiff') + e('transfer') + e('distloss')) / dem if dem else 0.0,
+         'sh_eou': -e('ownuse') / dem if dem else 0.0}
+    v['sh_add'] = v['gen_per_cons'] - 1 - v['sh_nxp'] - v['sh_tsd'] - v['sh_eou']
+    head, rows = read('xai_power_params')
+    out = []
+    for r in rows:
+        r = list(r)
+        if r[head.index('country')] == 'EGY' and r[head.index('key')] in v:
+            x = v[r[head.index('key')]]
+            check(not check_only or abs(x - num(r[head.index('value')])) < TOL, f'xai_power_params {r[1]}')
+            r[head.index('value')] = txt(x)
+        out.append(r)
+    check_only or write('xai_power_params', head, out)
 
 
 # ------------------------------------------------------------------------------------------------ domestic prices
@@ -301,15 +331,16 @@ def main():
     k0, g0 = {}, {}                                   # the copies agree with the balances before anything changes
     for _c, _y, unit, flow, fuel, v in read('energy_balances')[1]:
         (k0.setdefault(flow, {}) if unit == 'ktoe' else g0)[fuel] = num(v)
-    recompute_xai(k0, recompute_consumption(k0, g0, check_only=True), check_only=True)
+    recompute_xai(k0, g0, recompute_consumption(k0, g0, check_only=True), check_only=True)
     k, g, _ = perturb_balances()
-    recompute_xai(k, recompute_consumption(k, g))
+    recompute_xai(k, g, recompute_consumption(k, g))
     perturb_prices()
     perturb_survey()
     perturb_io()
     perturb_scatter()
     print('perturbed (factors not stored): energy_balances, energy_consumption, xai_energy_balance, xai_energy_use, '
-          'xai_power_demand, prices_domestic, prices_domestic_corrections, hh_survey, io_gtap, tran_scatter')
+          'xai_power_demand, xai_power_params (ratios), prices_domestic, prices_domestic_corrections, hh_survey, io_gtap, '
+          'tran_scatter')
 
 
 if __name__ == '__main__':
