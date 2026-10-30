@@ -93,7 +93,7 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
 - ☐ **Recompute** the 16 v0.9.0 power memo rows and 6 R10 rows in `check_full.py` (now listed as not recomputed).
 - ☐ **Data requests** I97, I98, I99 outstanding.
 - ☑ **History rewrite**: done 2026-10-30 (above).
-- ☐ **Release 1.1 follow-ups** (2026-10-30, CAVEATS): (a) enable the website: Settings > Pages > Source: GitHub Actions (admin), then run the workflow *Documentation website*; (b) open `data/Public01/legacy/CPAT 1.0pre_465_Public01.xlsb` in Excel, recalculate, save, and rebuild the five derived-real `xai_legacy_*` tables from it; (c) regenerate the two decks; (d) freeze Public01 in `data/editions.csv` once 1.1 is accepted; (e) delete the seven old branches and ask GitHub Support to purge the old pull-request refs (user).
+- ☐ **Release 1.1 follow-ups** (2026-10-30, CAVEATS): (a) enable the website: Settings > Pages > Source: GitHub Actions (admin), then run the workflow *Documentation website*; (b) open `data/Public01/legacy/CPAT 1.0pre_465_Public01.xlsb` in Excel, recalculate, save, and rebuild the five derived-real `xai_legacy_*` tables from it; (c) regenerate the two decks; (d) freeze Public01 in `data/editions.csv` once 1.1 is accepted; (e) delete the seven old branches and ask GitHub Support to purge the old pull-request refs (user); (f) the full check beyond the partial set (section 5 on: one LibreOffice recalculation ran over 40 minutes) and section 4b after (b).
 
 ## Later (not now)
 
