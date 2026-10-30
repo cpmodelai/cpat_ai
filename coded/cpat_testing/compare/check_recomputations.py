@@ -48,7 +48,8 @@ def plain(v):
 
 def distribution(n=2, iso='EGY'):
     """Coded CPAT's Distribution sheet for scenario n against distribution_ref with the same mitigation inputs."""
-    sys.path.insert(0, str(MIT))
+    sys.path.insert(0, str(MIT.parent / 'core' / 'tools'))
+    import xlpaths  # noqa: F401,E402  (every excel_ai code folder on the path)
     import distribution_ref as DR
     scen = read_scenario_set()
     res = cpat_model.run(ScenarioSet(scen.rows, ['1', str(n)]))
@@ -85,7 +86,8 @@ def distribution(n=2, iso='EGY'):
 
 def mitigation():
     """check_full.recompute for scenarios 1 and 2, or the reason it does not run."""
-    sys.path.insert(0, str(MIT))
+    sys.path.insert(0, str(MIT.parent / 'core' / 'tools'))
+    import xlpaths  # noqa: F401,E402  (every excel_ai code folder on the path)
     try:
         import check_full as C
         C.recompute(C.scenario_mt(1))

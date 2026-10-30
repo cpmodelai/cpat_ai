@@ -38,7 +38,7 @@ from cpat_model import EXCEL_AI_VERSION  # noqa: E402
 from cpat_model.inputs.scenarios import PYTHON_ROWS  # noqa: E402
 from cpat_model.settings import edition  # noqa: E402
 
-WORKBOOK = REPO / 'excel_ai' / f'CPAT-AI-Mitigation-Prototype_v{EXCEL_AI_VERSION}.xlsm'
+WORKBOOK = REPO / 'excel_ai' / 'mitigation' / 'releases' / f'CPAT-AI-Mitigation-Prototype_v{EXCEL_AI_VERSION}.xlsm'
 SCENARIOS = REPO / 'data' / 'inputs' / 'scenarios_excel_ai.csv'
 REFERENCE = CODED / 'cpat_testing' / 'compare' / 'reference' / f'excel_ai_{EXCEL_AI_VERSION}.csv'
 SD_FIRST, SD_LAST, SD_COLS = 8, 600, range(10, 16)          # ScenarioDefinition rows, columns J-O (scenarios 1-6)
@@ -186,7 +186,7 @@ def stored_outputs(wb):
 
 
 from cpat_model import DISTRIBUTION_VERSION  # noqa: E402  (the Excel-AI distribution module replicated)
-DIST_WORKBOOK = REPO / 'excel_ai' / f'CPAT-AI-Distribution-Prototype_v{DISTRIBUTION_VERSION}.xlsm'
+DIST_WORKBOOK = REPO / 'excel_ai' / 'distribution' / 'releases' / f'CPAT-AI-Distribution-Prototype_v{DISTRIBUTION_VERSION}.xlsm'
 DIST_REFERENCE = CODED / 'cpat_testing' / 'compare' / 'reference' / f'excel_ai_distribution_{DISTRIBUTION_VERSION}.csv'
 DIST_GROUPS = [(11, 1), (24, 2)]                            # Distribution: code column K, X; columns 0-10 follow
 
