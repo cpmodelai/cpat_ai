@@ -48,9 +48,11 @@ def key(v):
 
 def table_of(dw, name):
     for ws in dw.worksheets:
-        if name in ws.tables:
-            rows = list(ws.iter_rows(values_only=True))
-            return list(rows[0]), [list(r) for r in rows[1:]]
+        if name in ws.tables:                       # the table's range, as Power Query reads it (not the sheet)
+            ref = ws.tables[name].ref
+            rows = [list(r) for r in ws[ref.split(':')[0]:ref.split(':')[1]]]
+            rows = [[c.value for c in r] for r in rows]
+            return rows[0], rows[1:]
     return None
 
 
