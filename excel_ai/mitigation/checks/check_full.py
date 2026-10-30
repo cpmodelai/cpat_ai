@@ -4280,7 +4280,7 @@ def check_macro():
     xlsm = xlsx[:-5] + '.xlsm'
     embed_vba(xlsx, xlsm, {'CPATScenarios': B.vba_module_source()})
     out = xlsx[:-5] + '_ran.xlsx'
-    res = subprocess.run(['python3', os.path.join(HERE, 'lo_run_macro.py'), xlsm, 'CPATScenarios.RunAll', out],
+    res = subprocess.run(['python3', os.path.join(HERE, 'checks', 'lo_run_macro.py'), xlsm, 'CPATScenarios.RunAll', out],
                          capture_output=True, text=True, timeout=3000)
     log(f'- LibreOffice ran the embedded macro: {res.stdout.strip().splitlines()[-1] if res.stdout.strip() else res.stderr[-300:]}')
     if not os.path.exists(out):
@@ -4328,7 +4328,7 @@ def run_macro_lo(wb, proc, tag):
     xlsm = xlsx[:-5] + f'_{tag}.xlsm'                              # an openpyxl copy has no values (NORMS 3i.3)
     embed_vba(xlsx, xlsm, {'CPATScenarios': B.vba_module_source()})
     out = xlsx[:-5] + f'_{tag}_ran.xlsx'
-    res = subprocess.run(['python3', os.path.join(HERE, 'lo_run_macro.py'), xlsm, f'CPATScenarios.{proc}', out],
+    res = subprocess.run(['python3', os.path.join(HERE, 'checks', 'lo_run_macro.py'), xlsm, f'CPATScenarios.{proc}', out],
                          capture_output=True, text=True, timeout=3000)
     line = res.stdout.strip().splitlines()[-1] if res.stdout.strip() else res.stderr[-300:]
     return line, (openpyxl.load_workbook(out, data_only=True) if os.path.exists(out) else None)
