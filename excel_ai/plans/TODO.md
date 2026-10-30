@@ -81,6 +81,16 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
 - ☑ **`ModelForm` scenario input** (v1.0.2, user 2026-10-29): row `ModelForm` (default `CPAT`) in the block of prototype inputs below the legacy rows of `ScenarioDefinition`; Coded CPAT reads it from there (its own extra row removed). The formulas read it when a second demand form is built.
 - ☑ **Version numbering rebased** (done on main 2026-10-29: 9.0 to 0.9.0, distribution 1.3 to 0.1.3); Coded CPAT versions are `<Excel-AI version>p<Python version>` (Coded CPAT design D14).
 
+## Open at thread close (2026-10-30)
+
+- ☐ **Backup of the old history**: the full-history mirror was only in the working container (`cpat_ai_history.git`, 374 MB); copy a durable one before any history rewrite, if the old history is to be kept.
+- ☐ **CheckBatchRun** (first-run macro) timed out after 3,000 s in LibreOffice and was not rerun: unverified.
+- ☐ **Excel 365 test** of the store macros and dashboard (user).
+- ☐ **MTOutputs map review**: 64 guessed and 263 unmapped legacy rows (`data/mvp_legacy_extracts/mtoutputs_map_465.csv`).
+- ☐ **Recompute** the 16 v0.9.0 power memo rows and 6 R10 rows in `check_full.py` (now listed as not recomputed).
+- ☐ **Data requests** I97, I98, I99 outstanding.
+- ☐ **History rewrite**: not executed; a new proprietary-free dataset is being generated in parallel, which may replace it.
+
 ## Later (not now)
 
 - Power engineer model: final deficit to gas, MaximumGasCF, storage factor; planned retirement data; elasticity-based power model.
