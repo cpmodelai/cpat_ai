@@ -1,6 +1,6 @@
 # Fix the prototype bugs M15-M22 (found by Coded CPAT), then check legacy
 
-Written 2026-10-29 (user request). These eight prototype bugs were found while Coded CPAT (`coded/`) replicated Excel-AI number for number. **Status: done in v0.9.2 / Distribution 0.1.4** (M15-M17, M19-M22 fixed; M18 withdrawn by the user as not a bug: the legacy bus-electricity method; M17 basis decided by the user: insurance on the BEV price, ICEV maintenance and distance). The rule changed the same day: prototype bugs are never put into Coded CPAT; Python has the correct formula and the prototype is fixed to align (NORMS 0, rule 6). This file is the brief for the AI that fixes them in the prototype. The register entries are in `excel_ai/legacy/register/issues_register.py` (`OPEN_PROTO_BUGS`), listed in [`../BUGS.md`](../BUGS.md) section 2.
+Written 2026-10-29 (user request). These eight prototype bugs were found while Coded CPAT (`coded/`) replicated Excel-AI number for number. **Status: done in v0.9.2 / Distribution 0.1.4** (M15-M17, M19-M22 fixed; M18 withdrawn by the user as not a bug: the legacy bus-electricity method; M17 basis decided by the user: insurance on the BEV price, ICEV maintenance and distance). The rule changed the same day: prototype bugs are never put into Coded CPAT; Python has the correct formula and the prototype is fixed to align (NORMS 0, rule 6). This file is the brief for the AI that fixes them in the prototype. The register entries are in `excel_ai/bugs_and_legacy/register/issues_register.py` (`OPEN_PROTO_BUGS`), listed in [`../BUGS.md`](../BUGS.md) section 2.
 
 Read first: [`../../NORMS.md`](../NORMS.md) (section 0, the replication rule; sections 3-6 on building, checks, versions and the caveats log) and [`../mitigation/README.md`](../../mitigation/README.md) (build and check commands).
 
@@ -28,14 +28,14 @@ For each fix:
 
 ## Part 2. Check whether each bug is in legacy CPAT as well
 
-Legacy: `CPAT 1.0pre_465_NoPropData.xlsb` (mitigation; the extracts in `data_old/mvp_legacy_extracts/` and `excel_ai/legacy/`) and the legacy distribution sheets. The prototype's builder comments give the legacy row of most prototype rows (`T(<legacy row>, ...)`, "legacy row ..." in the row notes).
+Legacy: `CPAT 1.0pre_465_NoPropData.xlsb` (mitigation; the extracts in `data_old/mvp_legacy_extracts/` and `excel_ai/bugs_and_legacy/`) and the legacy distribution sheets. The prototype's builder comments give the legacy row of most prototype rows (`T(<legacy row>, ...)`, "legacy row ..." in the row notes).
 
 For each of M15-M22:
 
 1. **Does legacy have the same defect?** Find the legacy cells that compute the same quantity and compare the formula. M15: how legacy applies VAT in its efficient-price block; M16-M18: the engineer road model (legacy rows 4555, 5318 and the freight feebate rows); M19: legacy nominal GDP rows; M20: legacy `Prices_int` World Bank rows; M21: the methane block; M22: the legacy distribution percentile rows (if legacy has them; the prototype may have added them).
 2. **If legacy has it:** look in the register for an existing legacy bug (`BUGS.md` section 1, `Tracking_Legacy_Bugs_v<version>.xlsx` tab Bugs, `Legacy_CPAT_Bugs_v<version>.docx`; search by row, variable and title).
-   - Already registered: add the cross-reference (`SEE_ALSO` in `register.py`, both ways), and record whether legacy 465 fixed it (the check of the CPAT team's fixes: `excel_ai/legacy/fixes/check465/`; column "Legacy 465" in `BUGS.md`).
-   - Not registered: register a new legacy bug (`L`, next free number) with its cell-level fix plan (`excel_ai/legacy/fixes/data`; NORMS 0 rule 3), priority and effect, cross-referenced to the M item. Check legacy 465 for whether it is fixed there.
+   - Already registered: add the cross-reference (`SEE_ALSO` in `register.py`, both ways), and record whether legacy 465 fixed it (the check of the CPAT team's fixes: `excel_ai/bugs_and_legacy/fixes/check465/`; column "Legacy 465" in `BUGS.md`).
+   - Not registered: register a new legacy bug (`L`, next free number) with its cell-level fix plan (`excel_ai/bugs_and_legacy/fixes/data`; NORMS 0 rule 3), priority and effect, cross-referenced to the M item. Check legacy 465 for whether it is fixed there.
 3. **If legacy does not have it** (the prototype introduced it): say so in the M item's description ("not in legacy: introduced in v<version>").
 4. Regenerate the register documents (`python make_documentation.py`) and log the result in `CAVEATS.md` (one entry: per bug, in legacy yes/no, registered as L<n> or new, fixed in 465 yes/no).
 

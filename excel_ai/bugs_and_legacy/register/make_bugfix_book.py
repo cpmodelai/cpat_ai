@@ -1,4 +1,4 @@
-"""Legacy_CPAT_Bugs_v<version>.docx (excel_ai/): the legacy CPAT bugs, kept like a stock book (v0.8.4, user 2026-10-28).
+"""Legacy_CPAT_Bugs_v<version>.docx (excel_ai/bugs_and_legacy/): the legacy CPAT bugs, kept like a stock book (v0.8.4, user 2026-10-28).
 
 Front: the rule (bugs and issues; data problems are issues), then one table of every legacy bug found, fixed in the
 prototype and fixed (or not) in legacy 465, then the data problems with their priority. Then each bug in detail by type (engineer power,
@@ -8,7 +8,7 @@ procedure are in the Documentation (appendices) and the tracker Tracking_Legacy_
 cross-refers.
 
 Sources: register.py (one record per item: issues_register.py, make_legacy_fixes.py, build.py LegacyDiff, the cell
-plans in excel_ai/legacy/fixes/data, the 465 check in excel_ai/legacy/fixes/check465).
+plans in excel_ai/bugs_and_legacy/fixes/data, the 465 check in excel_ai/bugs_and_legacy/fixes/check465).
 
     python make_bugfix_book.py        (needs python-docx)
 """
@@ -39,14 +39,14 @@ import register as G
 
 HERE = xlpaths.MIT                     # excel_ai/mitigation/ (the script sits in a subfolder)
 ROOT = os.path.dirname(HERE)                 # excel_ai/ (restructure 2026-10-22)
-PLANS = os.path.join(ROOT, 'legacy', 'fixes', 'data')   # v0.7.1: was excel_ai/legacy/fixes/
+PLANS = os.path.join(ROOT, 'bugs_and_legacy', 'fixes', 'data')   # v0.7.1: was excel_ai/bugs_and_legacy/fixes/
 DOC_NAME = 'Legacy_CPAT_Bugs'
-OUT = B.REL.versioned(DOC_NAME, R.REGISTER_VERSION, 'docx')   # v0.8.4: excel_ai/Legacy_CPAT_Bugs_v<version>.docx
+OUT = B.REL.versioned(DOC_NAME, R.REGISTER_VERSION, 'docx')   # v0.8.4: excel_ai/bugs_and_legacy/Legacy_CPAT_Bugs_v<version>.docx
 TRACKER_NAME = 'Tracking_Legacy_Bugs'
 HEAD, LIGHT, PALE = 'D9E8C4', 'F2F2F2', 'EBF1DE'
 RED = RGBColor(0xC0, 0x00, 0x00)
 LEGACY_FILE = 'CPAT 1.0pre_465_NoPropData.xlsb'   # v0.8.4: the copy in legacy/workbooks (bugsfixed/ retired)
-CHECK465 = os.path.join(ROOT, 'legacy', 'fixes', 'check465', 'legacy465_check.json')   # the fixes the CPAT team made in 465, checked 2026-10-22
+CHECK465 = os.path.join(ROOT, 'bugs_and_legacy', 'fixes', 'check465', 'legacy465_check.json')   # the fixes the CPAT team made in 465, checked 2026-10-22
 MARK = {'Confirmed fixed': 'CONFIRMED in 465', 'Fixed with caveats': 'FIXED WITH CAVEATS in 465',
         'Not fixed': 'NOT FIXED in 465'}
 POWER = ({f'L{k}' for k in range(1, 13)} | {f'L{k}' for k in range(52, 57)}
@@ -63,13 +63,13 @@ def bug_type(code):
 
 
 def plans():
-    """Cell-level plans by bug id: every plan file of excel_ai/legacy/fixes/data (one loader, register.py; until
+    """Cell-level plans by bug id: every plan file of excel_ai/bugs_and_legacy/fixes/data (one loader, register.py; until
     2026-10-29 this kept its own list and missed fixes_v0_9_0.json, so L171-L229 printed "not written yet")."""
     return G.plans()
 
 
 def other_sections():
-    """v0.7.1: other-mitigation bugs by model area (excel_ai/legacy/fixes/data/cfg_other_sections.json), sections in
+    """v0.7.1: other-mitigation bugs by model area (excel_ai/bugs_and_legacy/fixes/data/cfg_other_sections.json), sections in
     rough priority order; a bug the file does not list goes to a last section."""
     cfg = json.load(open(os.path.join(PLANS, 'cfg_other_sections.json'), encoding='utf-8'))
     return [(s['title'], s['intro'], s['ids']) for s in cfg['sections']]
@@ -280,12 +280,12 @@ def procedure_steps(doc):
          'judgement')], [3.0, 9.0, 4.0])
     doc.add_heading('2.4 Applying a cell-level plan', 2)
     para(doc, 'For every bug (the "Cell plan" column says which) the repository holds a cell-level plan '
-              '(excel_ai/legacy/fixes/data, JSON): for each cell the formula now, the new formula, the range to fill and the policy row. Apply a '
+              '(excel_ai/bugs_and_legacy/fixes/data, JSON): for each cell the formula now, the new formula, the range to fill and the policy row. Apply a '
               'plan as stage F above: type the new formula in the cell, fill the range, copy the baseline cells onto '
               'the policy row given (Paste Special, Formulas), recalculate, then run T1-T7. The plans are printed with '
               'each bug in section 3.')
     para(doc, 'For bugs without a cell plan yet the bug entry gives the legacy rows, what legacy does '
-              'and the fix it needs. Write the plan as the existing ones were made (excel_ai/legacy/fixes/tools: build '
+              'and the fix it needs. Write the plan as the existing ones were made (excel_ai/bugs_and_legacy/fixes/tools: build '
               'the new formula by exact text substitution of the legacy formula, stop if the legacy text is not found, '
               'check the brackets), add it to the JSON and regenerate this document.')
     doc.add_heading('2.5 Worked example: bug L1', 2)
@@ -616,12 +616,12 @@ def export_json():
         d['cell_plan'] = None if p_ is None else {k: p_.get(k) for k in ('status', 'note', 'ref', 'fixes')}
         recs.append(d)
     out = {'title': f'Legacy CPAT bugs and the CPAT-AI register v{R.REGISTER_VERSION} (workbook v{B.VERSION})',
-           'generated_by': 'excel_ai/legacy/register/make_bugfix_book.py', 'legacy_workbook': LEGACY_FILE,
+           'generated_by': 'excel_ai/bugs_and_legacy/register/make_bugfix_book.py', 'legacy_workbook': LEGACY_FILE,
            'kinds': {p_: {'kind': k, 'plural': pl_, 'kept_in': w} for p_, (k, pl_, w) in G.KINDS.items()},
            'definitions': [dict(zip(('code', 'definition', 'prototype'), d)) for d in G.DEFINITIONS],
            'other_mitigation_areas': [{'area': t_, 'about': d, 'codes': ids} for t_, d, ids in other_sections()],
            'records': recs}
-    path = os.path.join(ROOT, 'legacy', 'register', 'Legacy_CPAT_Register.json')
+    path = os.path.join(ROOT, 'bugs_and_legacy', 'register', 'Legacy_CPAT_Register.json')
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(out, f, indent=1, ensure_ascii=False, default=str)
     print('wrote', path)

@@ -22,8 +22,8 @@ const FACTS = JSON.parse(fs.readFileSync(IMG(`${PFX}_facts.json`), "utf8"));
 const LEG = JSON.parse(fs.readFileSync(IMG(`${PFX}_legacy.json`), "utf8"));
 const TR = JSON.parse(fs.readFileSync(IMG(`${PFX}_transport.json`), "utf8"));
 const BUGS = FACTS.bugs.mit + FACTS.bugs.dist, ISSUES = FACTS.issues.mit + FACTS.issues.dist;
-// v0.8.2: the CPAT team's fixes in legacy 465, checked (v0.8.4: excel_ai/legacy/fixes/check465/legacy465_check.json)
-const CHK = (() => { const b = require(path.join(HERE, "..", "..", "..", "legacy", "fixes", "check465", "legacy465_check.json")).bugs;
+// v0.8.2: the CPAT team's fixes in legacy 465, checked (v0.8.4: excel_ai/bugs_and_legacy/fixes/check465/legacy465_check.json)
+const CHK = (() => { const b = require(path.join(HERE, "..", "..", "..", "bugs_and_legacy", "fixes", "check465", "legacy465_check.json")).bugs;
   const v = Object.entries(b).filter(([k]) => k.startsWith("L")).map(([, x]) => x.status);
   return { fixed: v.filter((x) => x === "Confirmed fixed").length, caveats: v.filter((x) => x === "Fixed with caveats").length,
     not: v.filter((x) => x === "Not fixed").length }; })();

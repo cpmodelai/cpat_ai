@@ -1,6 +1,6 @@
 import zipfile,struct,re,sys,json
 from openpyxl.utils import get_column_letter as L
-p='/home/user/CPAT-AI-Local/excel_ai/legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb'
+p='/home/user/CPAT-AI-Local/excel_ai/bugs_and_legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb'
 z=zipfile.ZipFile(p)
 exec(open('names.py').read().split("def sh(ix)")[0].split("z=zipfile.ZipFile(p)")[1].replace("b=z.read","b=z.read",1)) if False else None
 b=z.read('xl/workbook.bin')

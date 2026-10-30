@@ -37,7 +37,7 @@ Produce a short PowerPoint (about 6 slides) on the air pollution module: what it
 - Check that every bug found is in the registers
 
 ```
-Check that every bug and issue you found is in the register (`excel_ai/legacy/register/issues_register.py`, `make_legacy_fixes.py`), with its code, legacy cells and cross-references; regenerate `excel_ai/core/BUGS.md`, `excel_ai/core/ISSUES.md` and the tracker, and list what you added.
+Check that every bug and issue you found is in the register (`excel_ai/bugs_and_legacy/register/issues_register.py`, `make_legacy_fixes.py`), with its code, legacy cells and cross-references; regenerate `excel_ai/core/BUGS.md`, `excel_ai/core/ISSUES.md` and the tracker, and list what you added.
 ```
 
 - Adjust what you do not like or what is missing

@@ -61,8 +61,8 @@ The separate root `documentation/` disappears: each product's documents move int
 | `presentation/` | `mitigation/src/deck/` (builder), deck output in `mitigation/docs/` |
 | `lo_session`, `lo_run_macro`, `vba_project`, `excel_lint.py`, `xlsb_*` | `shared/` |
 | `documentation/*_Documentation_*.docx`, `*_Overview_*.pptx` | `mitigation/docs/` |
-| `documentation/*_BugsAndIssues_*.docx`, `excel_ai/legacy/fixes/`, `excel_ai/legacy/fixes/procedure/BugFixProcedure.md`, `LegacyBugFixes`, `Replicated`/`NotReplicated` lists, `issues_register` | `legacy/` (register sources and outputs; the two lists stay linked from the root README) |
-| `excel_ai/legacy/workbooks/` | `legacy/workbooks/` |
+| `documentation/*_BugsAndIssues_*.docx`, `excel_ai/bugs_and_legacy/fixes/`, `excel_ai/bugs_and_legacy/fixes/procedure/BugFixProcedure.md`, `LegacyBugFixes`, `Replicated`/`NotReplicated` lists, `issues_register` | `legacy/` (register sources and outputs; the two lists stay linked from the root README) |
+| `excel_ai/bugs_and_legacy/workbooks/` | `legacy/workbooks/` |
 | `other/research/`, `presentations/`, `more/` | `docs/research/`, `docs/decks/`, `docs/` |
 | `Plans.md`, `TODO*.md`, `Codes_Remediation_Plan`, `CPAT_CodesMap` | `docs/plans/` (one file per plan) and `mitigation/TODO.md` |
 | `Old/`, `excel_ai/old/`, `standalone_initial_prototypes/`, `tecp_and_validation/`, `distribution/` (pre-prototype pipeline), `bugfix_procedure/` variants | removed from the tree (git tag `archive-2026-10` keeps them); anything still used moves first |
@@ -81,7 +81,7 @@ The separate root `documentation/` disappears: each product's documents move int
 
 1. **No `documentation/` folder.** Excel documents go into `excel_ai/`; everything else (research, other decks, `more/`) into `other/`.
 2. **No `cpat_` prefix**: `excel_ai` -> `excel_ai` (user 2026-10-22: a name with AI; underscore as the other folders), `data` -> `data`, `coded` -> `coded` (every path in scripts, tests, READMEs and NORMS updated).
-3. **`excel_ai/` shows three main files at its top**: the latest prototype workbook, the bug-fix documentation (the register of bugs and issues, Word) and the integrated slide deck. The integrated mitigation tool is the special one and is shown there; its sources live in `excel_ai/mitigation/` (src, checks, docs). Modules in `excel_ai/distribution/`, `excel_ai/air_pollution/`, `excel_ai/transport_cobenefits/`; `excel_ai/core/tools/`, `excel_ai/legacy/` as above.
+3. **`excel_ai/` shows three main files at its top**: the latest prototype workbook, the bug-fix documentation (the register of bugs and issues, Word) and the integrated slide deck. The integrated mitigation tool is the special one and is shown there; its sources live in `excel_ai/mitigation/` (src, checks, docs). Modules in `excel_ai/distribution/`, `excel_ai/air_pollution/`, `excel_ai/transport_cobenefits/`; `excel_ai/core/tools/`, `excel_ai/bugs_and_legacy/` as above.
 4. **`BUGS.md` and `ISSUES.md`** (short names, in `excel_ai/`) replace `BUGS.md` and `ISSUES.md`.
 5. **History removed**: the repository restarts from one commit of the cleaned tree (966 MB of history dropped; nobody else works on it yet). Dropped outright, no archive (user 2026-10-22).
 6. **Versioned and latest copies, both kept**: each main file exists twice with equivalent contents, `..._v0.8.0` and `..._latest` (workbook, register, deck); the version table (the workbook's version log) is the same in both, and `excel_ai/<module>/releases/.md` lists every release (version, date, summary, files). The `_latest` copies sit at the top of `excel/`, the versioned copies of every release from v0.7.2 on in `excel_ai/<module>/releases/`. Scripts and notes keep stable names (the git tag of each release marks their state).

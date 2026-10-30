@@ -7,7 +7,7 @@ intro = r"""const intro=[
  new Paragraph({heading:HeadingLevel.TITLE,children:[new TextRun({text:CFG.title,font:FONT})]}),
  P('Workbook: CPAT 1.0pre_456_NoPropData.xlsb, sheet Mitigation unless stated. Prepared from the formulas stored in the file (defined names recovered from the .xlsb) and its cached Egypt values. Bug IDs are those of the repo register (excel_ai/working_version/LegacyBugFixes_v3_8.md). Companion documents: '+CFG.others+'.'),
  H1('How to apply every fix'),
- bullet([R('Work in a copy of the workbook and fix one bug at a time (excel_ai/legacy/fixes/procedure/BugFixProcedure.md; macro template FixL1_ServicesElectricity.bas).')]),
+ bullet([R('Work in a copy of the workbook and fix one bug at a time (excel_ai/bugs_and_legacy/fixes/procedure/BugFixProcedure.md; macro template FixL1_ServicesElectricity.bas).')]),
  bullet([R('Year columns: K = 2021, L = 2022, M = 2023 … AE = 2041. Type the new formula in the cell named, then drag right as stated under "Fill".')]),
  bullet([R(CFG.policy)]),
  bullet([R('Recalculate fully, check that legacy check cells (e.g. B6602, B7640) still read "OK", and compare with the expected effect.')]),

@@ -1,4 +1,4 @@
-"""Legacy 465 (excel_ai/legacy/workbooks, read-only): formulas (defined names kept) and cached values together.
+"""Legacy 465 (excel_ai/bugs_and_legacy/workbooks, read-only): formulas (defined names kept) and cached values together.
 Usage: python3 lx465.py "Sheet" 1825-1840[,6210-6220] [A:L]     (default A:L; Mitigation L = 2022 ... AE = 2041, K = 2021)
 Each non-empty cell prints as  COL: formula => cached value  (or the constant)."""
 import sys,os,pickle,re

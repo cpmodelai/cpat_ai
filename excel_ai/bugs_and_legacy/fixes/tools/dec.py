@@ -4,7 +4,7 @@ Needs pyxlsb2 (pip install pyxlsb2) for the table of Excel function numbers only
 import zipfile,struct,re,sys,json,pickle
 from pyxlsb2.ptgs import function_names
 from openpyxl.utils import get_column_letter as L, column_index_from_string as ci
-p='/home/user/CPAT-AI/excel_ai/legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb'
+p='/home/user/CPAT-AI/excel_ai/bugs_and_legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb'
 z=zipfile.ZipFile(p)
 def recs(b):
     i=0

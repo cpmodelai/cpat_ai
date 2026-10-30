@@ -36,4 +36,4 @@ Every script starts by importing `../core/tools/xlpaths.py`, which puts every Ex
 | `extract/` | `extract_*.py` (from the legacy workbook and the data edition), `update_prices_egypt.py`, `ra_goalseek.py` (range-anxiety fit), `ets_goalseek.py` |
 | `docs/` | `Documentation.md`, `methods/`, `Equations*.md`, `Formulas.md`, the Word documents and their scripts (`make_docs.py`, `make_equations.py`, `make_documentation.py`, `make_transport_doc.py`, `make_codesmap.py`), `presentation/` (the deck) |
 | `releases/` | Every version of the workbook, and the older decks |
-| elsewhere | The register and its documents: `../legacy/register/` (`issues_register.py`, `register.py`, `make_legacy_fixes.py`, `make_bugfix_book.py`, `make_tracker.py`, `make_replication_lists.py`); release layout and lint: `../core/tools/` |
+| elsewhere | The register and its documents: `../bugs_and_legacy/register/` (`issues_register.py`, `register.py`, `make_legacy_fixes.py`, `make_bugfix_book.py`, `make_tracker.py`, `make_replication_lists.py`); release layout and lint: `../core/tools/` |

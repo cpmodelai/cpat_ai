@@ -33,7 +33,7 @@ START = [
     'Under the prompt box: workspace **Current checkout** (local mode); model **Claude Opus** (Auto off); mode '
     '**Interactive**.',
     'Type @ to attach `AGENTS.md` and the long prompt file, then send the starter prompt of section 1.',
-    'Approve each step; refuse deletions, changes to `excel_ai/legacy/` and pushes. Read each report before the next '
+    'Approve each step; refuse deletions, changes to `excel_ai/bugs_and_legacy/` and pushes. Read each report before the next '
     'prompt.',
     'Send one query or phase at a time.',
     'When done: close the workbooks in Excel and double-click `SyncRepo.bat`; read the list of changed files (no real '

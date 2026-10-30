@@ -37,7 +37,7 @@ function summary(list){
     ...list.map(b=>new TableRow({children:[tc(b.id,w[0]),tc(b.pri,w[1]),tc(b.title,w[2]),tc(b.fixes.length?b.fixes.map(f=>f.fill.split(' ')[0].replace(/,$/,'')).join(', ')+(b.status&&b.status!=='fix'?' + '+b.status:''):(b.status==='struct'?'Insert rows (see L22)':'None: not reproduced'),w[3])]}))]});
 }
 const H1=(t)=>new Paragraph({heading:HeadingLevel.HEADING_1,spacing:{before:360,after:120},children:[new TextRun({text:t,font:FONT})]});
-// Other-mitigation plan by section: node render_other.js <out.docx> data/cfg_other_sections.json (run from excel_ai/legacy/fixes)
+// Other-mitigation plan by section: node render_other.js <out.docx> data/cfg_other_sections.json (run from excel_ai/bugs_and_legacy/fixes)
 const CFG=JSON.parse(fs.readFileSync(process.argv[3]));
 const byId={}; for(const f of CFG.data) for(const b of JSON.parse(fs.readFileSync('data/'+f))) byId[b.id]=b;
 const secs=CFG.sections.map(s=>({...s,bugs:s.ids.map(i=>byId[i])}));
@@ -52,7 +52,7 @@ const intro=[
  new Paragraph({heading:HeadingLevel.TITLE,children:[new TextRun({text:CFG.title,font:FONT})]}),
  P('Workbook: CPAT 1.0pre_456_NoPropData.xlsb, sheet Mitigation unless stated. Prepared from the formulas stored in the file (decoded from the .xlsb where the conversion loses them) and its cached Egypt values. Bug IDs are those of the repo register. Companion documents: '+CFG.others+'.'),
  H1('How to apply every fix'),
- bullet([R('Work in a copy of the workbook and fix one bug at a time (excel_ai/legacy/fixes/procedure/BugFixProcedure.md; macro template FixL1_ServicesElectricity.bas).')]),
+ bullet([R('Work in a copy of the workbook and fix one bug at a time (excel_ai/bugs_and_legacy/fixes/procedure/BugFixProcedure.md; macro template FixL1_ServicesElectricity.bas).')]),
  bullet([R('Year columns: K = 2021, L = 2022, M = 2023 … AE = 2041. Type the new formula in the cell named, then drag right as stated under "Fill".')]),
  bullet([R(CFG.policy)]),
  bullet([R('Recalculate fully, check that legacy check cells (e.g. B6602, B7640) still read "OK", and compare with the expected effect.')]),

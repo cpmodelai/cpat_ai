@@ -1,6 +1,6 @@
 """CPAT-AI_CodesMap_v<version>.xlsx (excel_ai/): the single codes map (v0.8.4, user 2026-10-28), inputs included.
 
-The codes map of v0.7.1 (excel_ai/legacy/reference/codes_v0_7_1/CPAT_CodesMap_v0_7_1.xlsx: protocol, vocabularies, variables, crosswalk;
+The codes map of v0.7.1 (excel_ai/bugs_and_legacy/reference/codes_v0_7_1/CPAT_CodesMap_v0_7_1.xlsx: protocol, vocabularies, variables, crosswalk;
 built by legacy/codes/make_codes_map_v0_7_1.py) with the current state added in front:
   - Inputs: every row of ScenarioDefinition (legacy MTInputs 465 rows 8-413, then the inputs the prototype adds): row,
     label, unit, the name (NameOfParameter, the code of the input in Excel and Python), the legacy name and what changed
@@ -31,7 +31,7 @@ import issues_register as R
 HERE = xlpaths.MIT                     # excel_ai/mitigation/ (the script sits in a subfolder)
 XL = os.path.join(HERE, '..')
 ROOT = os.path.join(XL, '..')
-BASE = os.path.join(XL, 'legacy', 'reference', 'codes_v0_7_1', 'CPAT_CodesMap_v0_7_1.xlsx')
+BASE = os.path.join(XL, 'bugs_and_legacy', 'reference', 'codes_v0_7_1', 'CPAT_CodesMap_v0_7_1.xlsx')
 INPUTS = os.path.join(legacy_dir(), 'mtinputs_465.csv')
 RENAMES = os.path.join(legacy_dir(), 'code_renames_v0_7_2.csv')
 PY = [os.path.join(ROOT, 'coded', 'cpat_model', f) for f in ('dashboard_inputs.py', 'distribution_inputs.py')]

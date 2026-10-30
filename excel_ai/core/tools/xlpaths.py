@@ -15,7 +15,7 @@ ACTIVE = os.path.join(XL, 'active_workbooks')            # the permalinked _late
 MIT = os.path.join(XL, 'mitigation')
 DIST = os.path.join(XL, 'distribution')
 AP = os.path.join(XL, 'air_pollution')
-LEGACY = os.path.join(XL, 'legacy')
+LEGACY = os.path.join(XL, 'bugs_and_legacy')
 REGISTER = os.path.join(LEGACY, 'register')
 FIXES = os.path.join(LEGACY, 'fixes')
 

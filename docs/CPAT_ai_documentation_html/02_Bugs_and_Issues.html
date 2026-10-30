@@ -388,11 +388,11 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>excel_ai/Legacy_CPAT_Bugs_v&lt;version&gt;.docx</code></td>
+<td><code>excel_ai/bugs_and_legacy/Legacy_CPAT_Bugs_v&lt;version&gt;.docx</code></td>
 <td>The legacy bugs, each with its cell-level fix plan, and the data problems by priority</td>
 </tr>
 <tr class="even">
-<td><code>excel_ai/Tracking_Legacy_Bugs_v&lt;version&gt;.xlsx</code></td>
+<td><code>excel_ai/bugs_and_legacy/Tracking_Legacy_Bugs_v&lt;version&gt;.xlsx</code></td>
 <td>The master list of bugs and issues, every module, in the same columns; shared with the CPAT team</td>
 </tr>
 <tr class="odd">
@@ -400,12 +400,12 @@ ul.task-list li input[type="checkbox"] {
 <td>The two short lists</td>
 </tr>
 <tr class="even">
-<td><code>excel_ai/legacy/register/Legacy_CPAT_Register.json</code></td>
+<td><code>excel_ai/bugs_and_legacy/register/Legacy_CPAT_Register.json</code></td>
 <td>The register as data</td>
 </tr>
 </tbody>
 </table>
-<p>The register is written in <code>excel_ai/legacy/register/issues_register.py</code> and <code>register.py</code>; <code>make_documentation.py</code> regenerates every document from it at each release.</p>
+<p>The register is written in <code>excel_ai/bugs_and_legacy/register/issues_register.py</code> and <code>register.py</code>; <code>make_documentation.py</code> regenerates every document from it at each release.</p>
 </section>
 <section id="current-counts" class="level2">
 <h2 class="anchored" data-anchor-id="current-counts">Current counts</h2>
@@ -414,7 +414,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>228 legacy bugs, 22 prototype bugs, 20 documentation bugs.</strong> Legacy 465: 52 fixed (confirmed), 9 fixed with caveats, 2 marked fixed but not fixed, 165 open. <em>(register v1.0.0, <code>excel_ai/core/BUGS.md</code>)</em></li>
 <li><strong>135 issues (14 data problems), 35 departures (LegacyDiff), 9 upgrades.</strong> <em>(register v1.0.0, <code>excel_ai/core/ISSUES.md</code>)</em></li>
 </ul>
-<p>The status <em>Legacy 465</em> records whether the CPAT team has fixed each bug in the latest legacy workbook; each claimed fix is checked against the workbook (<code>excel_ai/legacy/fixes/check465/</code>).</p>
+<p>The status <em>Legacy 465</em> records whether the CPAT team has fixed each bug in the latest legacy workbook; each claimed fix is checked against the workbook (<code>excel_ai/bugs_and_legacy/fixes/check465/</code>).</p>
 </section>
 <section id="priorities" class="level2">
 <h2 class="anchored" data-anchor-id="priorities">Priorities</h2>

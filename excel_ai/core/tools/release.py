@@ -4,8 +4,9 @@
   <Name>_v<version>.<ext> (mitigation/releases/, distribution/releases/, air_pollution/releases/).
 - excel_ai/active_workbooks/ holds the permalinked copy of each module, <Name>_latest.<ext>: what people open and
   what the modules and links read (it replaced permalink/ and permalink_countryeditable/, 2026-10-30).
-- The documents people read (the bug book, the tracker, the codes map, the overview deck) keep their current version at
-  the top of excel_ai/; writing a new version moves the older ones to their releases/ folder.
+- The documents people read keep their current version where people look: the bug book and the tracker in
+  excel_ai/bugs_and_legacy/, the codes map and the overview deck at the top of excel_ai/; writing a new version moves
+  the older ones to their releases/ folder.
 """
 import glob
 import os
@@ -14,7 +15,7 @@ import shutil
 
 XL = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))   # excel_ai/
 ACTIVE = os.path.join(XL, 'active_workbooks')
-REGISTER_RELEASES = os.path.join(XL, 'legacy', 'register', 'releases')
+REGISTER_RELEASES = os.path.join(XL, 'bugs_and_legacy', 'register', 'releases')
 
 # name -> (folder of the current version, folder of the older versions)
 HOME = {
@@ -22,15 +23,15 @@ HOME = {
     'CPAT-AI-Distribution-Prototype': ('distribution/releases', 'distribution/releases'),
     'CPAT-AI-Air-Pollution-Standalone': ('air_pollution/releases', 'air_pollution/releases'),
     'CPAT-AI_Overview': ('', 'mitigation/releases'),
-    'Legacy_CPAT_Bugs': ('', 'legacy/register/releases'),
-    'Tracking_Legacy_Bugs': ('', 'legacy/register/releases'),
-    'CPAT-AI_CodesMap': ('', 'legacy/register/releases'),
-    'CPAT-AI_BugsAndIssues': ('', 'legacy/register/releases'),
+    'Legacy_CPAT_Bugs': ('bugs_and_legacy', 'bugs_and_legacy/register/releases'),
+    'Tracking_Legacy_Bugs': ('bugs_and_legacy', 'bugs_and_legacy/register/releases'),
+    'CPAT-AI_CodesMap': ('', 'bugs_and_legacy/register/releases'),
+    'CPAT-AI_BugsAndIssues': ('', 'bugs_and_legacy/register/releases'),
 }
 
 
 def _dirs(name):
-    cur, old = HOME.get(name, ('', 'legacy/register/releases'))
+    cur, old = HOME.get(name, ('', 'bugs_and_legacy/register/releases'))
     return os.path.join(XL, cur), os.path.join(XL, old)
 
 

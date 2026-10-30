@@ -42,7 +42,7 @@ const intro=[
  new Paragraph({heading:HeadingLevel.TITLE,children:[new TextRun({text:'Legacy CPAT bug fixes: cell-by-cell plan',font:FONT})]}),
  P('Workbook: CPAT 1.0pre_456_NoPropData.xlsb, sheet Mitigation unless stated. Prepared 2026-10-15 from the formulas stored in the file (defined names recovered from the .xlsb) and its cached Egypt values. Bug IDs are those of the repo register (excel_ai/working_version/LegacyBugFixes_v3_8.md).'),
  H1('How to apply every fix'),
- bullet([R('Work in a copy of the workbook and fix one bug at a time (excel_ai/legacy/fixes/procedure/BugFixProcedure.md; macro template FixL1_ServicesElectricity.bas).')]),
+ bullet([R('Work in a copy of the workbook and fix one bug at a time (excel_ai/bugs_and_legacy/fixes/procedure/BugFixProcedure.md; macro template FixL1_ServicesElectricity.bas).')]),
  bullet([R('Year columns: K = 2021, L = 2022, M = 2023 … AE = 2041. Type the new formula in the cell named, then drag right as stated under "Fill".')]),
  bullet([R('Policy block: copy the fixed baseline row and Paste Special → Formulas onto the policy row given. Up to row ~6070 the policy block is the baseline + 6,331 rows; from the other-energy-use block (row 6066) on it is + 6,317. A paste works in both cases except L43 (its formulas point back to driver rows at + 6,331), where the policy edit is spelled out.')]),
  bullet([R('Recalculate fully, check legacy\'s own check cells (e.g. B6602, B7640 must still read "OK"), and compare with the expected effect.')]),

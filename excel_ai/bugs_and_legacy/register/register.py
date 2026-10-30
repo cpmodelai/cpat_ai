@@ -1,8 +1,8 @@
 """The register as one list of records, the same fields for every module and kind (v0.8.4, user 2026-10-28).
 
 Source data: issues_register.py (bugs, issues, upgrades), build.py (LegacyDiff rows), make_legacy_fixes.py (priority,
-fix and effect of the legacy bugs), the cell plans (excel_ai/legacy/fixes/data) and the check of the CPAT team's
-fixes in legacy 465 (excel_ai/legacy/fixes/check465). Every output reads records() from here: the legacy bugs
+fix and effect of the legacy bugs), the cell plans (excel_ai/bugs_and_legacy/fixes/data) and the check of the CPAT team's
+fixes in legacy 465 (excel_ai/bugs_and_legacy/fixes/check465). Every output reads records() from here: the legacy bugs
 document (make_bugfix_book.py), the tracker (make_tracker.py), the documentation appendices (make_docs.py) and the
 lists BUGS.md, ISSUES.md (make_replication_lists.py).
 
@@ -26,8 +26,8 @@ import issues_register as R
 
 HERE = xlpaths.MIT                     # excel_ai/mitigation/ (the script sits in a subfolder)
 XL = os.path.join(HERE, '..')
-PLANS = os.path.join(XL, 'legacy', 'fixes', 'data')
-CHECK465 = os.path.join(XL, 'legacy', 'fixes', 'check465', 'legacy465_check.json')
+PLANS = os.path.join(XL, 'bugs_and_legacy', 'fixes', 'data')
+CHECK465 = os.path.join(XL, 'bugs_and_legacy', 'fixes', 'check465', 'legacy465_check.json')
 LEGACY_FILE = 'CPAT 1.0pre_465_NoPropData.xlsb'
 
 KINDS = {  # prefix: (kind, plural, where the full entry is)
@@ -243,7 +243,7 @@ if __name__ == '__main__':
     print(counts())
 
 
-TRACKER_OLD = os.path.join(XL, 'legacy', 'Tracking issues.xlsx')      # the tracker before v0.8.4 (tab CPAT-AI_bugs)
+TRACKER_OLD = os.path.join(XL, 'bugs_and_legacy', 'Tracking issues.xlsx')      # the tracker before v0.8.4 (tab CPAT-AI_bugs)
 NEW_DATE = '2026-10-28'
 
 
@@ -254,8 +254,8 @@ def _tracker_rows():
     import glob
     import openpyxl
     out = {}
-    new = sorted(glob.glob(os.path.join(XL, 'Tracking_Legacy_Bugs_v*.xlsx')) +
-                 glob.glob(os.path.join(XL, 'legacy', 'register', 'releases', 'Tracking_Legacy_Bugs_v*.xlsx')))
+    new = sorted(glob.glob(os.path.join(XL, 'bugs_and_legacy', 'Tracking_Legacy_Bugs_v*.xlsx')) +
+                 glob.glob(os.path.join(XL, 'bugs_and_legacy', 'register', 'releases', 'Tracking_Legacy_Bugs_v*.xlsx')))
     if new:
         ws = openpyxl.load_workbook(new[-1], read_only=True)['Bugs']
         rows = ws.iter_rows(values_only=True)

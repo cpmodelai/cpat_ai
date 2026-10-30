@@ -264,7 +264,7 @@ PRIORITY.update(TR_PRI)
 FIX.update(TR_FIX)
 
 
-CHECK465 = os.path.join(HERE, '..', 'legacy', 'fixes', 'check465', 'legacy465_check.json')   # v0.8.2: fixes the CPAT team made in 465
+CHECK465 = os.path.join(HERE, '..', 'bugs_and_legacy', 'fixes', 'check465', 'legacy465_check.json')   # v0.8.2: fixes the CPAT team made in 465
 
 
 def legacy465(lid):

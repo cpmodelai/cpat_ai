@@ -56,7 +56,7 @@ def appendices():
     # v0.7.1 (user 2026-10-22): the legacy bugs, the road-model bugs, the differences with legacy (LegacyDiff) and the
     # upgrades are in the register (v0.8.4: Legacy_CPAT_Bugs_v<n>.docx, the tracker, the appendices); this document points to it
     text = ['# Bugs, issues, differences with legacy and upgrades', '',
-            'In the register (`excel_ai/Legacy_CPAT_Bugs_v<version>.docx`, the tracker `excel_ai/Tracking_Legacy_Bugs_v<version>.xlsx`): the legacy '
+            'In the register (`excel_ai/bugs_and_legacy/Legacy_CPAT_Bugs_v<version>.docx`, the tracker `excel_ai/bugs_and_legacy/Tracking_Legacy_Bugs_v<version>.xlsx`): the legacy '
             f'CPAT bugs ({len(ld)} differences with legacy are listed there too) with the bug-fixing procedure and '
             'the cell-level plans (`bugfixes/`), the issues, the departures from legacy and the potential upgrades. '
             'This document does not repeat them.', '',
@@ -105,8 +105,8 @@ def register_appendices():
                                    for r in rows)
     out = ['# Appendix A. The register: bugs and issues', '',
            f'Every bug and issue of legacy CPAT and of the prototypes has a code. The master list is the tracker '
-           f'`excel_ai/Tracking_Legacy_Bugs_v{v}.xlsx` (tabs Bugs and Issues, every module in the same columns); the '
-           f'bugs are documented in `excel_ai/Legacy_CPAT_Bugs_v{v}.docx`, the rest in these appendices. Codes '
+           f'`excel_ai/bugs_and_legacy/Tracking_Legacy_Bugs_v{v}.xlsx` (tabs Bugs and Issues, every module in the same columns); the '
+           f'bugs are documented in `excel_ai/bugs_and_legacy/Legacy_CPAT_Bugs_v{v}.docx`, the rest in these appendices. Codes '
            f'renumbered in v0.8.4 give their former code.', '',
            table(['Code', 'Number', 'Kind', 'What the prototype does', 'Where'],
                  [(p_, G.counts()[p_], d, w, G.KINDS[p_][2]) for p_, d, w in G.DEFINITIONS], [1, 1, 8, 4, 3]),

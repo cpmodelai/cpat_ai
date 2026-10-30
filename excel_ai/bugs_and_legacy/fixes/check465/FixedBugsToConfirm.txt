@@ -6,7 +6,7 @@ below are 465 cells (as the bug fix plan since 2026-10-22): Mitigation rows up t
 Where the results are (v0.8.2): the bug-fix register excel_ai/CPAT-AI_BugsAndIssues_latest.docx has the confirmed
 bugs in Appendix C (last) and those with caveats in Appendix B, each with its status in legacy in red; the register
 spreadsheet, BUGS.md and LegacyBugFixes.md have a column "Status in legacy 465"; the CPAT team's tracker
-excel_ai/legacy/workbooks/Tracking issues.xlsx has tab BUGS with "Status in legacy" (from legacy465_check.json).
+excel_ai/bugs_and_legacy/workbooks/Tracking issues.xlsx has tab BUGS with "Status in legacy" (from legacy465_check.json).
 
 Confirmed fixed (52)
 

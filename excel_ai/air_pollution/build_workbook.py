@@ -146,7 +146,7 @@ def build_cover(wb: Workbook) -> None:
         ("Not implemented", "Calculation formulas, results, legacy regression, and coded-module numeric reconciliation."),
         ("Method source", "coded/cpat_documentation/user/06_Air_pollution.html"),
         ("Equation inventory", "excel_ai/air_pollution/docs/Equations_v1_0.md (working; reconcile before formulas)."),
-        ("Legacy target", "excel_ai/legacy/workbooks/CPAT 1.0pre_459_NoPropData.xlsb (read-only ground truth)."),
+        ("Legacy target", "excel_ai/bugs_and_legacy/workbooks/CPAT 1.0pre_459_NoPropData.xlsb (read-only ground truth)."),
     ]
     for row, (label, text) in enumerate(status_rows, start=17):
         ws.cell(row=row, column=2, value=label).font = HEADER_FONT

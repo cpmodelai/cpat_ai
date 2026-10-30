@@ -1,6 +1,6 @@
 import zipfile,struct
 from openpyxl.utils import get_column_letter as L
-p='/home/user/CPAT-AI-Local/excel_ai/legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb'
+p='/home/user/CPAT-AI-Local/excel_ai/bugs_and_legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb'
 z=zipfile.ZipFile(p); b=z.read('xl/workbook.bin')
 def recs(b):
     i=0

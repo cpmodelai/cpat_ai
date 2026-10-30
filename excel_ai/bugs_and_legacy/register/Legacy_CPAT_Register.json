@@ -1,6 +1,6 @@
 {
  "title": "Legacy CPAT bugs and the CPAT-AI register v1.0.4 (workbook v1.0.4)",
- "generated_by": "excel_ai/legacy/register/make_bugfix_book.py",
+ "generated_by": "excel_ai/bugs_and_legacy/register/make_bugfix_book.py",
  "legacy_workbook": "CPAT 1.0pre_465_NoPropData.xlsb",
  "kinds": {
   "L": {

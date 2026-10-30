@@ -4,7 +4,7 @@ The distribution module already exists (`excel_ai/CPAT-AI-Distribution-Prototype
 
 ---
 
-You are working in the CPAT-AI repository on the local checkout. Follow `AGENTS.md` and every document it points to, above all `NORMS.md` section 0 (bugs and issues), section 1.1b (the distribution layout) and **section 9 (how modules work)**. Read before you start: `excel_ai/distribution/README.md`, `build_distribution.py`, `CPATDistribution.bas`, `check_distribution.py` and its last report; `excel_ai/core/plans/Modules.md` (M3, M6); the distribution items of the register (`excel_ai/legacy/register/issues_register.py`, Module = Distribution; former codes D1-D31, DI1-DI4) and of `excel_ai/core/BUGS.md` and `excel_ai/core/ISSUES.md`; `other/distribution/LESSONS_LEARNED.md`; `excel_ai/mitigation/checks/distribution_ref.py`; the bottom of `CAVEATS.md`.
+You are working in the CPAT-AI repository on the local checkout. Follow `AGENTS.md` and every document it points to, above all `NORMS.md` section 0 (bugs and issues), section 1.1b (the distribution layout) and **section 9 (how modules work)**. Read before you start: `excel_ai/distribution/README.md`, `build_distribution.py`, `CPATDistribution.bas`, `check_distribution.py` and its last report; `excel_ai/core/plans/Modules.md` (M3, M6); the distribution items of the register (`excel_ai/bugs_and_legacy/register/issues_register.py`, Module = Distribution; former codes D1-D31, DI1-DI4) and of `excel_ai/core/BUGS.md` and `excel_ai/core/ISSUES.md`; `other/distribution/LESSONS_LEARNED.md`; `excel_ai/mitigation/checks/distribution_ref.py`; the bottom of `CAVEATS.md`.
 
 ## Rules (do not break them)
 

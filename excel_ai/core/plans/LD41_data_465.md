@@ -1,7 +1,7 @@
 # LD41: prototype data extracts moved from legacy 456 to legacy 465
 
 User decision LD41 (2026-10-29): the data extracts of the prototype come from `CPAT 1.0pre_465_NoPropData.xlsb`
-instead of `CPAT 1.0pre_456_NoPropData.xlsb`. Both files are read-only, in `excel_ai/legacy/workbooks/`. This note
+instead of `CPAT 1.0pre_456_NoPropData.xlsb`. Both files are read-only, in `excel_ai/bugs_and_legacy/workbooks/`. This note
 lists what the move changed in `data_old/mvp_legacy_extracts/*.csv`. The prototype has not been rebuilt (`build.py` was not run or changed).
 
 ## 1. What was done
@@ -9,7 +9,7 @@ lists what the move changed in `data_old/mvp_legacy_extracts/*.csv`. The prototy
 - **Extractors moved to 465.** `extract_data.py`, `extract_legacy_tables.py`, `extract_ecp.py`, `extract_ets.py`,
   `extract_gdp.py`, `extract_ghg.py`, `extract_power.py` and `extract_transport.py` now read 465.
   `extract_inputs.py` already read 465. Each docstring has a v0.8.5 (LD41) note.
-- **Row numbers.** The Mitigation rows were mapped with `excel_ai/legacy/fixes/data/rowmap_456_465.json`. Rows
+- **Row numbers.** The Mitigation rows were mapped with `excel_ai/bugs_and_legacy/fixes/data/rowmap_456_465.json`. Rows
   1-5666 are the same in both files, so only rows below 5666 move:
 
   | Extractor | 456 rows | 465 rows |

@@ -7,7 +7,7 @@ Workspace for the World Bank **Climate Policy Assessment Tool (CPAT)**: models o
 | You want to... | Go to |
 |---|---|
 | **A short human-readable orientation** | [`QuickStart.docx`](QuickStart.docx) |
-| **Use the Excel prototype** (modellers, reviewers) | [`excel_ai/active_workbooks/`](excel_ai/README.md): the current workbooks; the bug book, tracker, codes map and deck sit at the top of `excel_ai/` |
+| **Use the Excel prototype** (modellers, reviewers) | [`excel_ai/active_workbooks/`](excel_ai/README.md): the current workbooks; the bug book and tracker in `excel_ai/bugs_and_legacy/` |
 | **See what differs from legacy CPAT** | [`excel_ai/core/BUGS.md`](excel_ai/core/BUGS.md) (legacy bugs, all fixed) and [`excel_ai/core/ISSUES.md`](excel_ai/core/ISSUES.md) (legacy issues, replicated and tracked) |
 | **Work on the data** | [`data/`](data/README.md): the data editions (`Public01` here), the catalogue of every table, the legacy workbook shell |
 | **Work on the Python model** (Coded CPAT) | [`coded/`](coded/README.md); its documentation book: the Coded CPAT tab of the website (`docs/`) |
@@ -21,7 +21,8 @@ AGENTS.md, CLAUDE.md              The entry point for AI agents (routes to each 
 QuickStart.docx                   Quick start guide for people (Word)
 excel_ai/                         The Excel prototypes (Excel-AI): active_workbooks/ (the current workbooks),
                                   core/ (rules, task log, bug lists, TODO, plans, prompts, tools),
-                                  mitigation/, distribution/, air_pollution/ (each with releases/), legacy/
+                                  mitigation/, distribution/, air_pollution/ (each with releases/),
+                                  bugs_and_legacy/ (bug book, tracker, register, fix plans, legacy reference)
 data/                             All data, as editions (data/Public01/), the catalogue, the legacy shell, scripts
 coded/                            The Python model (Coded CPAT) and its Shiny app
 docs/                             Documentation website: index.html (three tabs: CPAT documentation, CPAT-AI project,

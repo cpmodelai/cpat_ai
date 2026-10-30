@@ -91,7 +91,7 @@ function copilotSteps(m) {
     para('Option B (the file is not in your checkout yet, or you prefer to paste): copy the whole text of **Appendix A** into the prompt box, after `@AGENTS.md `, and press Enter.'),
     ...img(`05_prompt_box_${m.key}.png`, 'The prompt box with both files attached (illustration)'),
     H2('Step 6. Let it work, approve each step, read the report'),
-    para('Copilot reads the documents, runs commands and asks for approval. Approve reading files and running Python; refuse anything that would delete files, change `excel_ai/legacy/` or push to GitHub. When it stops, it reports what it did, the bugs and issues it registered, and the decisions it needs from you. Answer the decisions in plain words before going on.'),
+    para('Copilot reads the documents, runs commands and asks for approval. Approve reading files and running Python; refuse anything that would delete files, change `excel_ai/bugs_and_legacy/` or push to GitHub. When it stops, it reports what it did, the bugs and issues it registered, and the decisions it needs from you. Answer the decisions in plain words before going on.'),
     ...img('06_session_at_work.png', 'A session at work: the steps on the left, the plan on the right'),
     H2('Step 7. The next phases, one message each'),
     para('Send these one at a time. Read each report and check it (the third column) before sending the next.'),

@@ -21,7 +21,7 @@ The two models share:
 
 ## Legacy CPAT: the reference
 
-The legacy workbook is the ground truth for both models. Three versions are kept, read-only, in `excel_ai/legacy/workbooks/`:
+The legacy workbook is the ground truth for both models. Three versions are kept, read-only, in `excel_ai/bugs_and_legacy/workbooks/`:
 
 | File | Role |
 |---|---|

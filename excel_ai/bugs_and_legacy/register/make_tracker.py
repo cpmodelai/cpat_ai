@@ -1,12 +1,12 @@
-"""Tracking_Legacy_Bugs_v<version>.xlsx (excel_ai/): the master list of bugs and issues (v0.8.4, user 2026-10-28).
+"""Tracking_Legacy_Bugs_v<version>.xlsx (excel_ai/bugs_and_legacy/): the master list of bugs and issues (v0.8.4, user 2026-10-28).
 
-The CPAT team's tracker (was excel_ai/legacy/Tracking issues.xlsx) with three tabs in front, written from the register
+The CPAT team's tracker (was excel_ai/bugs_and_legacy/Tracking issues.xlsx) with three tabs in front, written from the register
 (register.py): ReadMe (the rule, the codes, where each item is documented), Bugs (L legacy bugs, M prototype bugs)
 and Issues (I issues, data included; LD departures; U upgrades). Every module in the same columns: the
 team's columns A-I (as on CPAT_issues), then ours. The team's own tabs are kept as they are: the tabs are written
 into the file's XML, so threaded comments and the rest of the team's file survive.
 
-Source: the latest Tracking_Legacy_Bugs_v*.xlsx (top of excel_ai/ or releases/), else legacy/Tracking issues.xlsx.
+Source: the latest Tracking_Legacy_Bugs_v*.xlsx (excel_ai/bugs_and_legacy/ or its register/releases/), else legacy/Tracking issues.xlsx.
 The columns Date, CPAT Version with identified issue and Issue raised by of tab Bugs are read back from the source, so
 an edit there is kept.
 
@@ -35,7 +35,7 @@ HERE = xlpaths.MIT                     # excel_ai/mitigation/ (the script sits i
 XL = os.path.join(HERE, '..')
 NAME = 'Tracking_Legacy_Bugs'
 OUT = B.REL.versioned(NAME, R.REGISTER_VERSION, 'xlsx')
-OLD = os.path.join(XL, 'legacy', 'Tracking issues.xlsx')
+OLD = os.path.join(XL, 'bugs_and_legacy', 'Tracking issues.xlsx')
 OURS = ('ReadMe', 'Bugs', 'Issues', 'CPAT-AI_bugs')        # tabs written here (CPAT-AI_bugs: the tab before v0.8.4)
 
 # style indices of the team's xl/styles.xml (as on CPAT_issues): header, centred, wrapped, Fixed = Solved / In progress / No
@@ -113,7 +113,7 @@ def readme_rows():
     c = G.counts()
     rows = [('Tracking legacy bugs', f'Version {R.REGISTER_VERSION}: the master list of the bugs and issues of legacy '
                                      f'CPAT and the CPAT-AI prototypes (every module). Generated from the register '
-                                     f'(excel_ai/legacy/register/register.py) by make_tracker.py; the tabs after Issues are '
+                                     f'(excel_ai/bugs_and_legacy/register/register.py) by make_tracker.py; the tabs after Issues are '
                                      f'the CPAT team\'s, kept as they are.'),
             ('The rule', 'Never replicate a legacy bug; always replicate a legacy issue, and track it (NORMS 0). A bug: '
                          'legacy does not compute what it means to; the prototype fixes it. An issue: legacy does what '

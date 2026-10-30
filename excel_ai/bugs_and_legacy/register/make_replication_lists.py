@@ -29,9 +29,10 @@ RULE = ['**The rule (NORMS 0).** Never replicate a legacy bug; always replicate 
         'issues (area Data): replicated; where legacy needs a formula fix, that fix is a legacy bug (L) and the issue '
         'is Very high; where no cell plan is possible, the prototype aligns with legacy and the issue is Extremely '
         'high.', '',
-        f'Generated from the register (`mitigation/register.py`) by `mitigation/make_replication_lists.py`. The same '
-        f'items, every column: the tracker `Tracking_Legacy_Bugs_v{V}.xlsx` (the master list). Bugs in detail: '
-        f'`Legacy_CPAT_Bugs_v{V}.docx`. Issues in detail: the appendices of the Documentation '
+        f'Generated from the register (`../bugs_and_legacy/register/register.py`) by '
+        f'`../bugs_and_legacy/register/make_replication_lists.py`. The same items, every column: the tracker '
+        f'`../bugs_and_legacy/Tracking_Legacy_Bugs_v{V}.xlsx` (the master list). Bugs in detail: '
+        f'`../bugs_and_legacy/Legacy_CPAT_Bugs_v{V}.docx`. Issues in detail: the appendices of the Documentation '
         f'(`../mitigation/docs/CPAT-AI-Mitigation_Documentation.docx`). Lists: [`BUGS.md`](BUGS.md), [`ISSUES.md`](ISSUES.md).',
         '']
 
