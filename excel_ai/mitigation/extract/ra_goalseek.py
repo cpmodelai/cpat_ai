@@ -110,7 +110,8 @@ def solve(path, tol=1e-6, max_iter=8, log=print):
                 if not a_ < nxt < b_:
                     nxt = (lo[0] + hi[0]) / 2
             x[k] = nxt
-    return x, res, max_iter
+    best = {k: min(pts[k], key=lambda q: abs(q[1])) for k in pts}   # the evaluated point nearest the root, per class
+    return {k: best[k][0] for k in best}, {k: best[k][1] for k in best}, max_iter
 
 
 def store(x, res, it, path):

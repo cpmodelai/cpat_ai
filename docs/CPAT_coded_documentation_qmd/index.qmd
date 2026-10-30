@@ -15,4 +15,4 @@ Coded CPAT is the Python model of CPAT, the World Bank-IMF Climate Policy Assess
 | Change or extend the model | [Editing the model](05_Editing.qmd), then [Architecture](07_Architecture.qmd) |
 | Check that the model still matches Excel-AI | [Testing](06_Testing.qmd) |
 
-*Version `1.0.0p1.0` (replicates Excel-AI 1.0.0 and Distribution 1.0.0; the first full release). This book is generated from `coded/cpat_documentation/guide/` and the code and data (`docs/CPAT_coded_documentation_qmd/make_qmd.py`): edit those, never the generated chapters.*
+*Version `1.1.0p1.3` (replicates Excel-AI 1.1.0 and Distribution 1.1.0; data edition Public01). The guide chapters (this page, chapters 1-11 and the glossary) are written in this folder, `docs/CPAT_coded_documentation_qmd/`; only the appendices A-I are generated from the code and data by `make_qmd.py`: edit their sources, never the generated appendices.*

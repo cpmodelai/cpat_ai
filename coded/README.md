@@ -2,7 +2,7 @@
 
 The Python model of CPAT (Coded CPAT): it replicates Excel-AI's mitigation and distribution modules number for number, readable first; the one entry point is `cpat_model.run`. This page is for Python developers; the full documentation (quick start, the database, scenarios, results, editing, testing with the current status, architecture, and appendices with every equation, table, input and variable) is the website's **Coded CPAT tab: <https://cpmodelai.github.io/cpat_ai/#coded>** (sources: [`../docs/CPAT_coded_documentation_qmd/`](../docs/CPAT_coded_documentation_qmd/); offline: `../docs/index.html#coded`). Excel work is in [`../excel_ai/`](../excel_ai/README.md); rules for every task (logging in `CAVEATS.md`, method vs version notes) are in [`../excel_ai/core/NORMS.md`](../excel_ai/core/NORMS.md).
 
-**Status (2026-10-29).** Version `1.0.4p1.2` ([`CHANGELOG.md`](CHANGELOG.md)): Python version 1.2 of the replication of Excel-AI 1.0.4 (mitigation) and Distribution 1.0.4 (first full release 1.0.0p1.0).
+**Status (2026-10-30).** Version `1.1.0p1.3` ([`CHANGELOG.md`](CHANGELOG.md)): Python version 1.3 of the replication of Excel-AI 1.1.0 (mitigation) and Distribution 1.1.0, on data edition Public01 (first full release 1.0.0p1.0).
 
 - **Mitigation** (plan phase 3): every output code of Excel-AI's stored values for Egypt, scenarios 1 and 2, is produced and matches within 1e-9, 2022-2041 (7,472 reference codes per scenario, 7,458 with values).
 - **Distribution** (phase 4): every code of Excel-AI Distribution 1.0.0 matches for Egypt, scenario groups 1 and 2 (1,684 codes, basket and deciles).
@@ -57,4 +57,4 @@ results.distribution_by_code('EGY').loc['egy.distn.net.tot.dec.ove.2']   # net e
 - Codes (`NameOfParameter`, variable and output codes) are Excel-AI's and the codes map's (`../excel_ai/CPAT-AI_CodesMap_v<version>.xlsx`); Python never invents a second name (NORMS 0.4).
 - Excel-AI is the specification except in its bugs (NORMS 0.3): a prototype bug is fixed here (`# bug M<n> fixed`) and registered, never replicated; an issue (a potential improvement) is logged and replicated.
 - Python 3.12, pandas 2.2.3, numpy 2.2.0 (`environment.yml`, `requirements.txt`); the code also runs on pandas 3 and Python 3.13.
-- Every finished task gets a `../CAVEATS.md` entry (root `NORMS.md` section 6).
+- Every finished task gets a `../excel_ai/core/CAVEATS.md` entry (`../excel_ai/core/NORMS.md` section 6).

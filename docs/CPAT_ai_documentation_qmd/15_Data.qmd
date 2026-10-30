@@ -5,7 +5,7 @@ All data of the project live in the root folder `data/` (rebuilt 2026-10-30). Th
 ::: {.callout-note}
 ## Six proprietary tables
 
-Balances, EnergyCons, Prices_dom, IO_GTAP, HHSurvey and Tran_Scatter are proprietary; every other table is non-proprietary. Their full versions stay outside the repository, on the restricted team site, and are read through `FULL_DATA_PATH`. The repository holds the public data and the Egypt rows of the proprietary tables that the public legacy file contains.
+Balances, EnergyCons, Prices_dom, IO_GTAP, HHSurvey and Tran_Scatter are proprietary; every other table is non-proprietary. Their full versions stay outside the repository, on the restricted team site, and are read through `FULL_DATA_PATH`. The repository holds the public data and the Egypt rows of the proprietary tables perturbed within ±3%, identities kept (edition Public01).
 :::
 
 ## Layout

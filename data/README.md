@@ -1,6 +1,6 @@
 # data - the CPAT data: editions, the generic catalogue and legacy shell, the scripts
 
-All data live here (`excel_ai/NORMS.md` section 8), as **editions**: folders of the same structure, each one data set (public perturbed here; real in the private data repository). What does not depend on the data (the scripts, the tests, the table catalogue, the legacy model without its proprietary data, the scenario sets) is generic and sits beside the editions. Restructured 2026-10-30 (user).
+All data live here (`excel_ai/core/NORMS.md` section 8), as **editions**: folders of the same structure, each one data set (public perturbed here; real in the private data repository). What does not depend on the data (the scripts, the tests, the table catalogue, the legacy model without its proprietary data, the scenario sets) is generic and sits beside the editions. Restructured 2026-10-30 (user).
 
 ## Layout
 
@@ -138,7 +138,7 @@ python -m pytest data/tests
 - **Adding data in tidy form:** a row with a new key (a new country) is written after the rows the layout knows, with the legacy case of the country key. A new column of a melted header (a new year) stops the conversion.
 - **Scripts that write tables** (Excel-AI `extract_*.py`, `update_prices_egypt.py`, `legacy_compare.py`, `ra_goalseek.py`, Coded CPAT `extract_excel_ai.py`) write into the cache (`.buildcache/legacy_csv/<edition>/`, git-ignored); `legacy_csv.py --save` puts the result into the edition's `tidy/`.
 - **Legacy workbooks:** the scripts edit the `.xlsb` records directly (other parts stay byte for byte); the sheets' binary row indexes are dropped and the workbook recalculates fully when Excel opens it. The Excel-AI tools read the shell (`extract_legacy_tables.py`, which reads the proprietary tabs, reads the edition's copy).
-- `build_catalog.py` needs `pyxlsb`. Every workbook a script writes passes `excel_ai/shared/excel_lint.py`.
+- `build_catalog.py` needs `pyxlsb`. Every workbook a script writes passes `excel_ai/core/tools/excel_lint.py`.
 
 ## Known gaps
 
@@ -146,4 +146,4 @@ python -m pytest data/tests
 - The `xai_*` tables are Excel-AI's derived tables kept as they are (not melted, no legacy layout).
 - Some tidy tables come from older legacy versions or from Excel-AI, not 465 (see `provenance`: HHSurvey and HH_Elast from 456; FromAirPollution, FromTransportCB, RangeAnxietyFit from Excel-AI).
 - `IO_GTAP`, `ASPIRE` and `WHOCooking` are cut to Egypt although 465 has every country; Prices_dom has Egypt 2019-2024.
-- The released prototypes (1.0.3, 1.0.4, `excel_ai/permalink*/`) still link `main/data/workbooks/CPAT_Data_dummy_python.xlsx`; the builder links `main/data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx` from the next release. The user's price file read by `update_prices_egypt.py` is an argument (archived: git 2a446e4).
+- The released prototypes up to 1.0.4 (`excel_ai/mitigation/releases/`) still link `main/data/workbooks/CPAT_Data_dummy_python.xlsx`; the builder links `main/data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx` from 1.1.0. The user's price file read by `update_prices_egypt.py` is an argument (archived: git 2a446e4).

@@ -23,7 +23,7 @@ After the input block is populated, the workbook must run without links to anoth
 - Python comparison: [`Python_Comparison_v0_2.md`](docs/Python_Comparison_v0_2.md). The external implementation is a secondary cross-check, not the legacy authority.
 - Upstream pollutant input codes and units: [`../mitigation/docs/methods/Emissions.md`](../mitigation/docs/methods/Emissions.md).
 - Legacy target: legacy 1.0pre_459 (the workbook was removed 2026-10-30; the reference is now [`CPAT 1.0pre_465_Shell.xlsb`](../../data/legacy/CPAT%201.0pre_465_Shell.xlsb), read-only).
-- Mitigation and Distribution workbook layout, visual, formula, data, versioning, and bug/issue rules: [`../../NORMS.md`](../core/NORMS.md).
+- Mitigation and Distribution workbook layout, visual, formula, data, versioning, and bug/issue rules: [`../core/NORMS.md`](../core/NORMS.md).
 
 In 1.0pre_459, the Mitigation-to-Air-Pollution handoff is `country.mit.em.<pollutant>.<sector>.<scenario>` in tonnes per year (`.1` baseline, `.2` policy). The current Mitigation module uses country-neutral `aps.<pollutant>.<sector>` outputs in kt. The input sheet shows this code crosswalk, but conversion and calculation are not implemented until verified against the coded module and legacy formulas.
 

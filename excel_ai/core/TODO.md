@@ -1,6 +1,6 @@
 # TODO - Excel-AI, open work (one list, in order)
 
-Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logged in [`../../CAVEATS.md`](CAVEATS.md). Plans with details: one file per plan in this folder. Python work: [`../../coded/TODO.md`](../../coded/TODO.md).
+Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logged in [`CAVEATS.md`](CAVEATS.md). Plans with details: one file per plan in this folder. Python work: [`../../coded/TODO.md`](../../coded/TODO.md).
 
 ## 1. Release v0.7.2 and the clean-up: done (2026-10-22)
 
@@ -24,7 +24,7 @@ Status key: ☐ not started · ◐ in progress · ⏸ waiting. Done work is logg
 - ◐ **M6 `active_workbooks/`** (was `permalink_countryeditable/`) (user 2026-10-29; NORMS 5a): done v1.0.3: data from the public repository by Power Query (source "Dummy - GitHub (public repository)"), a source row for a separate data repository, Distribution's Update from Mitigation looks in `permalink_countryeditable/` first. Left: the Excel 365 test (Power Query and the macros cannot run in LibreOffice): choose each source and click Update data tables; in `permalink_countryeditable/`, run Mitigation, then Update from Mitigation in Distribution; the URL of the colleague's data repository once it exists.
 - ☑ **Quick start counts** (done for v0.9.0, 2026-10-29; repeat at each release): after the v0.9.0 release regenerates `BUGS.md` and `ISSUES.md`, update `QuickStart.docx` (section 5 counts and major open issues, version mentions v0.8.5) to match; keep doing so at each release (hand-written, no version table).
 
-Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored under [`../air_pollution/`](../air_pollution/README.md), with public extracts under `data_old/air_pollution/legacy_459/`. This does not complete M4/M5 or the model work below.
+Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored under [`../air_pollution/`](../air_pollution/README.md), with public extracts as the `ap459_*` tables of `data/Public01/tidy/`. This does not complete M4/M5 or the model work below.
 
 - [x] Recover the missing Paulina Air Pollution files without replacing current shared documents or workbook releases.
 - [ ] Reconcile the recovered legacy-459/v0.7.1 handoff with the current prototype and legacy 465; verify codes, years and kt-to-tonnes conversion, implement calculations and outputs, then run Senegal numerical regression.
@@ -44,7 +44,7 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
 - ☐ **v0.9.0 follow-ups (model)** (none moves Egypt; Coded CPAT replicates Excel-AI, so none is an Excel/Python difference): (1) I147: section-15 food & forestry emissions far above the legacy AP input (drives wel.air, kept with the typed AP values); (2) possible double count of the electricity producer subsidy: after the last price year its phase-out raises the consumer price (pseu in rppre), so `rgap` shrinks, and `rpsu` books the same phase-out again; check legacy rows 3588-3601 and 16xxx before calling it a bug; (3) the methane-fee deadweight cost (`mfc`) without the intensity index: check legacy rows 17628-17634; (4) the stored scenario-1 rows of BaselineCO2 (Pigouvian transport and residential coal) are filled only by the full build (quick build: 0).
 - ☐ **v0.9.0 power (POW465), deferred by the user**: the detailed power checks of `check_full` and the cell-by-cell check of the register mapping (`Power_465.md` section 2) against `issues_register.py` / `legacy/bugfixes/check465/legacy465_check.json`.
 - ☒ **D. Modules**: air pollution and transport co-benefits out of scope (user 2026-10-29; U18, U19); social costs and benefits are in Mitigation (section 18).
-- ◐ **E. MTOutputs** like legacy (v1.0.4, user 2026-10-29): done: legacy columns, sections and rows, our codes and the legacy code, 1,284 legacy rows mapped (`data_old/mvp_legacy_extracts/mtoutputs_map_465.csv`). Left: review the 64 guesses and the 263 rows without a prototype code (column `reason`); the unit differences noted there (oil prices USD/GJ vs USD/l or bbl, revenues USD m vs bn, generation MWy vs TWh) are not converted; the comparison itself against a legacy run (U2) uses column F.
+- ◐ **E. MTOutputs** like legacy (v1.0.4, user 2026-10-29): done: legacy columns, sections and rows, our codes and the legacy code, 1,284 legacy rows mapped (`data/Public01/tidy/xai_mtoutputs_map_465.csv`). Left: review the 64 guesses and the 263 rows without a prototype code (column `reason`); the unit differences noted there (oil prices USD/GJ vs USD/l or bbl, revenues USD m vs bn, generation MWy vs TWh) are not converted; the comparison itself against a legacy run (U2) uses column F.
 - ☐ **E2. MTOutputs scenarios side by side** (user 2026-10-30): the scenario groups across the sheet as on Mitigation, the scenario number at the top of each group driving the lookups (one formula per row, not one block per scenario); lookups automatic where possible (the code columns built from the row and the scenario number, no typed references).
 - Not built by decision: the elasticity-based power model.
 

@@ -3,7 +3,7 @@
 ## In short
 
 - **Format: tidy CSV.** One table per file; long format, one observation per row; standard keys first, then `value` (or one column per variable). Country codes are ISO3 in upper case (`EGY`).
-- **Where: `data/Public01/tidy/`** in this repository: the **dummy** database. It holds the public data and Egypt's rows of the proprietary tables that the public legacy file contains; every country can be added. The **full** database (every country, the proprietary tables) lives in a private repository, never in this one.
+- **Where: `data/Public01/tidy/`** in this repository: the **dummy** database. It is data edition Public01 (`data/editions.csv`): the public data, and Egypt's rows of the six proprietary tables perturbed within ±3% (identities kept); every country can be added. The **full** database (every country, the proprietary tables) lives in a private repository, never in this one.
 - **Choosing a database:** `Settings(database='dummy')` (default) reads `data/Public01/tidy/`; `Settings(database='full')` reads the folder named by the environment variable `FULL_DATA_PATH` (set it in `coded/.env` or your shell). Command line: `--database full`.
 - **One table list:** `data/Public01/tidy/_manifest.csv` lists every table (218 tables, plus the layout entries of the 13 tabs kept at their cell addresses), its kind, its legacy source, its keys, rows and whether it is proprietary. [Appendix C](C_Database_tables.qmd) shows them all with their columns.
 - **Tidy is the source of truth.** The legacy-compatible workbook `data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx` is written from it by `data/scripts/tidy_convert.py` (tested round trip), for pasting into legacy CPAT and for Excel-AI.
@@ -11,7 +11,7 @@
 
 ::: {.callout-warning}
 ## Proprietary data
-Six tables are proprietary: energy balances (`energy_balances`), energy consumption (`energy_consumption`), domestic prices (`prices_domestic`), the GTAP input-output tables (`io_gtap`), the household survey (`hh_survey`) and the transport scatter data (legacy tab `Tran_Scatter`, not in tidy yet). Their full versions, and anything computed from them, are **never committed to this repository**. The repository holds dummy values, or Egypt's rows that the public legacy file contains.
+Six tables are proprietary: energy balances (`energy_balances`), energy consumption (`energy_consumption`), domestic prices (`prices_domestic`), the GTAP input-output tables (`io_gtap`), the household survey (`hh_survey`) and the transport scatter data (`tran_scatter`). Their full versions, and anything computed from them, are **never committed to this repository**. The repository holds them only perturbed (Egypt's rows within ±3%, identities kept; `data/README.md`).
 :::
 
 ## What a table looks like

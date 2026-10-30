@@ -1,6 +1,6 @@
 # Distribution module: sources
 
-The sources of the distribution module (every version in [`releases/`](releases/), the permalinked copy `../active_workbooks/CPAT-AI-Distribution-Prototype_latest.xlsm`), the standalone distribution module (household effects by decile of a mitigation scenario). Plan: [`../plans/Modules.md`](../core/plans/Modules.md). Rules: [`../../NORMS.md`](../core/NORMS.md).
+The sources of the distribution module (every version in [`releases/`](releases/), the permalinked copy `../active_workbooks/CPAT-AI-Distribution-Prototype_latest.xlsm`), the standalone distribution module (household effects by decile of a mitigation scenario). Plan: [`../core/plans/Modules.md`](../core/plans/Modules.md). Rules: [`../core/NORMS.md`](../core/NORMS.md).
 
 ## How it works
 

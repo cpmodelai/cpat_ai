@@ -21,13 +21,12 @@ The two models share:
 
 ## Legacy CPAT: the reference
 
-The legacy workbook is the ground truth for both models. Three versions are kept, read-only, in `excel_ai/bugs_and_legacy/workbooks/`:
+The legacy workbook is the ground truth for both models. The latest version, 1.0pre_465, is kept read-only in `data/` (the earlier NoPropData copies of 456, 459 and 465 are no longer in the repository):
 
 | File | Role |
 |---|---|
-| `CPAT 1.0pre_456_NoPropData.xlsb` | The legacy CPAT workbook with the proprietary data stripped; the reference for values |
-| `CPAT 1.0pre_459_NoPropData.xlsb` | An updated legacy workbook with a few bugs fixed by the CPAT team; the reference for the air-pollution module |
-| `CPAT 1.0pre_465_NoPropData.xlsb` | The latest legacy workbook; the reference for input rows and names, and for the register's cell references |
+| `data/legacy/CPAT 1.0pre_465_Shell.xlsb` | The legacy CPAT workbook with its six proprietary tabs empty (every other tab filled); the reference for input rows and names, and for the register's cell references |
+| `data/Public01/legacy/CPAT 1.0pre_465_Public01.xlsb` | The shell filled with data edition Public01's tables (the proprietary ones perturbed) |
 
 The legacy workbook is never edited or re-saved; work is done on copies in scratch folders.
 

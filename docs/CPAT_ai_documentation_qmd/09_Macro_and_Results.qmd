@@ -66,7 +66,7 @@ Fiscal space jumps to about 0.75% of GDP when the policies start (v0.4.15: total
 
 ## Results sections of
 
-This note covers the results that came over from legacy's post-processing (blocks E, F and G) into the scenario sections. The rules are in `../NORMS.md` 3c and the plan in `Old/Plan_v3_9_to_v3_17.md`. Each later version adds its sub-block here. Every row is recomputed in Python by `check_full.py` (`check_results_memos`) in every scenario group.
+This note covers the results that came over from legacy's post-processing (blocks E, F and G) into the scenario sections. The rules are in `excel_ai/core/NORMS.md` 3c and the plan in `Old/Plan_v3_9_to_v3_17.md`. Each later version adds its sub-block here. Every row is recomputed in Python by `check_full.py` (`check_results_memos`) in every scenario group.
 
 ### 0. Layout: summary rows
 
