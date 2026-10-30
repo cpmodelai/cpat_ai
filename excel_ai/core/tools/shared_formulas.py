@@ -11,7 +11,8 @@ the scripts that edit formulas in the XML (lo_session.expanded_zip, make_variant
 (no array formulas); a cell is shared only when the shift gives exactly its formula, so the round trip is exact.
 A formula that names another sheet (Sheet!A1, 'My sheet'!A1) is never shared: Excel 365 removed every such shared
 formula on open ("Removed Records: Shared formula from /xl/worksheets/sheetN.xml", user test 2026-10-30), and only
-the sheets with them were repaired.
+the sheets with them were repaired. Nor is a formula with a newer function (_xlfn.MINIFS, ...): the binary format
+stores those as external names, which a shared formula cannot hold (Excel could not save the shared copy as .xlsb).
 
     import shared_formulas as SF
     SF.share_file(path)                 # in place; returns (formulas, shared groups, cells written as references)
@@ -61,8 +62,8 @@ def share(xml, keep=None):
         while i < n:
             col, r, f = info[i]
             j = i + 1
-            if f is not None and ('!' in f or (keep is not None and not keep(f))):
-                f = None                                         # a sheet reference: Excel rejects it shared
+            if f is not None and ('!' in f or '_xl' in f or (keep is not None and not keep(f))):
+                f = None                         # a sheet reference or a newer function (_xlfn.): not shared
             if f is not None:
                 tr = Translator('=' + f, origin=f'{col}{r}')
                 while j < n and info[j][2] is not None and _col(info[j][0]) == _col(info[j - 1][0]) + 1:
