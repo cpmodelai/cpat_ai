@@ -1,0 +1,349 @@
+country_name,country,sector_fuel,code,year,value
+Australia,AUS,ind,aus.mit.ees.ind,2023,0.3611508
+Australia,AUS,ind,aus.mit.ees.ind,2024,0.3611508
+Australia,AUS,ind,aus.mit.ees.ind,2025,0.3611508
+Australia,AUS,pow,aus.mit.ees.pow,2023,0.3611508
+Australia,AUS,pow,aus.mit.ees.pow,2024,0.3611508
+Australia,AUS,pow,aus.mit.ees.pow,2025,0.3611508
+Australia,AUS,res,aus.mit.ees.res,2023,0
+Australia,AUS,res,aus.mit.ees.res,2024,0
+Australia,AUS,res,aus.mit.ees.res,2025,0
+Australia,AUS,trs,aus.mit.ees.trs,2023,0.3611508
+Australia,AUS,trs,aus.mit.ees.trs,2024,0.3611508
+Australia,AUS,trs,aus.mit.ees.trs,2025,0.3611508
+Austria,AUT,ind,aut.mit.ees.ind,2023,0.4666409
+Austria,AUT,ind,aut.mit.ees.ind,2024,0.4666409
+Austria,AUT,ind,aut.mit.ees.ind,2025,0.4666409
+Austria,AUT,pow,aut.mit.ees.pow,2023,0.4666409
+Austria,AUT,pow,aut.mit.ees.pow,2024,0.4666409
+Austria,AUT,pow,aut.mit.ees.pow,2025,0.4666409
+Austria,AUT,res,aut.mit.ees.res,2023,0.4666409
+Austria,AUT,res,aut.mit.ees.res,2024,0.4666409
+Austria,AUT,res,aut.mit.ees.res,2025,0.4666409
+Austria,AUT,trs,aut.mit.ees.trs,2023,0.4666409
+Austria,AUT,trs,aut.mit.ees.trs,2024,0.4666409
+Austria,AUT,trs,aut.mit.ees.trs,2025,0.4666409
+Canada,CAN,ind,can.mit.ees.ind,2020,0.0813368
+Canada,CAN,ind,can.mit.ees.ind,2021,0.0805076
+Canada,CAN,ind,can.mit.ees.ind,2022,0.0814669
+Canada,CAN,ind,can.mit.ees.ind,2023,0.0825739
+Canada,CAN,ind,can.mit.ees.ind,2024,0.0825739
+Canada,CAN,ind,can.mit.ees.ind,2025,0.0825739
+Canada,CAN,pow,can.mit.ees.pow,2020,0.0813368
+Canada,CAN,pow,can.mit.ees.pow,2021,0.0805076
+Canada,CAN,pow,can.mit.ees.pow,2022,0.0814669
+Canada,CAN,pow,can.mit.ees.pow,2023,0.0825739
+Canada,CAN,pow,can.mit.ees.pow,2024,0.0825739
+Canada,CAN,pow,can.mit.ees.pow,2025,0.0825739
+Canada,CAN,res,can.mit.ees.res,2020,0
+Canada,CAN,res,can.mit.ees.res,2021,0
+Canada,CAN,res,can.mit.ees.res,2022,0
+Canada,CAN,res,can.mit.ees.res,2023,0
+Canada,CAN,res,can.mit.ees.res,2024,0
+Canada,CAN,res,can.mit.ees.res,2025,0
+Canada,CAN,trs,can.mit.ees.trs,2020,0
+Canada,CAN,trs,can.mit.ees.trs,2021,0
+Canada,CAN,trs,can.mit.ees.trs,2022,0
+Canada,CAN,trs,can.mit.ees.trs,2023,0
+Canada,CAN,trs,can.mit.ees.trs,2024,0
+Canada,CAN,trs,can.mit.ees.trs,2025,0
+China,CHN,ind,chn.mit.ees.ind,2020,0.8214053
+China,CHN,ind,chn.mit.ees.ind,2021,0.8092722999999999
+China,CHN,ind,chn.mit.ees.ind,2022,0.8049054
+China,CHN,ind,chn.mit.ees.ind,2023,0.8002518
+China,CHN,ind,chn.mit.ees.ind,2024,0.8002518
+China,CHN,ind,chn.mit.ees.ind,2025,0.8002518
+China,CHN,pow,chn.mit.ees.pow,2020,0.8214053
+China,CHN,pow,chn.mit.ees.pow,2021,0.8092722999999999
+China,CHN,pow,chn.mit.ees.pow,2022,0.8049054
+China,CHN,pow,chn.mit.ees.pow,2023,0.8002518
+China,CHN,pow,chn.mit.ees.pow,2024,0.8002518
+China,CHN,pow,chn.mit.ees.pow,2025,0.8002518
+China,CHN,res,chn.mit.ees.res,2020,0
+China,CHN,res,chn.mit.ees.res,2021,0
+China,CHN,res,chn.mit.ees.res,2022,0
+China,CHN,res,chn.mit.ees.res,2023,0
+China,CHN,res,chn.mit.ees.res,2024,0
+China,CHN,res,chn.mit.ees.res,2025,0
+China,CHN,trs,chn.mit.ees.trs,2020,0
+China,CHN,trs,chn.mit.ees.trs,2021,0
+China,CHN,trs,chn.mit.ees.trs,2022,0
+China,CHN,trs,chn.mit.ees.trs,2023,0
+China,CHN,trs,chn.mit.ees.trs,2024,0
+China,CHN,trs,chn.mit.ees.trs,2025,0
+Germany,DEU,ind,deu.mit.ees.ind,2023,0.7138748
+Germany,DEU,pow,deu.mit.ees.pow,2023,0.7138748
+Germany,DEU,res,deu.mit.ees.res,2023,0.7138748
+Germany,DEU,res,deu.mit.ees.res,2024,0.7138748
+Germany,DEU,res,deu.mit.ees.res,2025,0.7138748
+Germany,DEU,trs,deu.mit.ees.trs,2023,0.7138748
+Germany,DEU,trs,deu.mit.ees.trs,2024,0.7138748
+Germany,DEU,trs,deu.mit.ees.trs,2025,0.7138748
+Indonesia,IDN,ind,idn.mit.ees.ind,2022,0
+Indonesia,IDN,ind,idn.mit.ees.ind,2023,0
+Indonesia,IDN,ind,idn.mit.ees.ind,2024,0
+Indonesia,IDN,ind,idn.mit.ees.ind,2025,0
+Indonesia,IDN,pow,idn.mit.ees.pow,2022,1
+Indonesia,IDN,pow,idn.mit.ees.pow,2023,1
+Indonesia,IDN,pow,idn.mit.ees.pow,2024,1
+Indonesia,IDN,pow,idn.mit.ees.pow,2025,1
+Indonesia,IDN,res,idn.mit.ees.res,2022,0
+Indonesia,IDN,res,idn.mit.ees.res,2023,0
+Indonesia,IDN,res,idn.mit.ees.res,2024,0
+Indonesia,IDN,res,idn.mit.ees.res,2025,0
+Indonesia,IDN,trs,idn.mit.ees.trs,2022,0
+Indonesia,IDN,trs,idn.mit.ees.trs,2023,0
+Indonesia,IDN,trs,idn.mit.ees.trs,2024,0
+Indonesia,IDN,trs,idn.mit.ees.trs,2025,0
+Kazakhstan,KAZ,ind,kaz.mit.ees.ind,2015,1
+Kazakhstan,KAZ,ind,kaz.mit.ees.ind,2016,1
+Kazakhstan,KAZ,ind,kaz.mit.ees.ind,2017,1
+Kazakhstan,KAZ,ind,kaz.mit.ees.ind,2018,1
+Kazakhstan,KAZ,ind,kaz.mit.ees.ind,2019,1
+Kazakhstan,KAZ,ind,kaz.mit.ees.ind,2020,0.9764888
+Kazakhstan,KAZ,ind,kaz.mit.ees.ind,2021,0.9710585
+Kazakhstan,KAZ,ind,kaz.mit.ees.ind,2022,0.9725686
+Kazakhstan,KAZ,ind,kaz.mit.ees.ind,2023,0.9799154
+Kazakhstan,KAZ,ind,kaz.mit.ees.ind,2024,0.9799154
+Kazakhstan,KAZ,ind,kaz.mit.ees.ind,2025,0.9799154
+Kazakhstan,KAZ,pow,kaz.mit.ees.pow,2015,1
+Kazakhstan,KAZ,pow,kaz.mit.ees.pow,2016,1
+Kazakhstan,KAZ,pow,kaz.mit.ees.pow,2017,1
+Kazakhstan,KAZ,pow,kaz.mit.ees.pow,2018,1
+Kazakhstan,KAZ,pow,kaz.mit.ees.pow,2019,1
+Kazakhstan,KAZ,pow,kaz.mit.ees.pow,2020,0.9764888
+Kazakhstan,KAZ,pow,kaz.mit.ees.pow,2021,0.9710585
+Kazakhstan,KAZ,pow,kaz.mit.ees.pow,2022,0.9725686
+Kazakhstan,KAZ,pow,kaz.mit.ees.pow,2023,0.9799154
+Kazakhstan,KAZ,pow,kaz.mit.ees.pow,2024,0.9799154
+Kazakhstan,KAZ,pow,kaz.mit.ees.pow,2025,0.9799154
+Kazakhstan,KAZ,res,kaz.mit.ees.res,2015,0
+Kazakhstan,KAZ,res,kaz.mit.ees.res,2016,0
+Kazakhstan,KAZ,res,kaz.mit.ees.res,2017,0
+Kazakhstan,KAZ,res,kaz.mit.ees.res,2018,0
+Kazakhstan,KAZ,res,kaz.mit.ees.res,2019,0
+Kazakhstan,KAZ,res,kaz.mit.ees.res,2020,0
+Kazakhstan,KAZ,res,kaz.mit.ees.res,2021,0
+Kazakhstan,KAZ,res,kaz.mit.ees.res,2022,0
+Kazakhstan,KAZ,res,kaz.mit.ees.res,2023,0
+Kazakhstan,KAZ,res,kaz.mit.ees.res,2024,0
+Kazakhstan,KAZ,res,kaz.mit.ees.res,2025,0
+Kazakhstan,KAZ,trs,kaz.mit.ees.trs,2015,0
+Kazakhstan,KAZ,trs,kaz.mit.ees.trs,2016,0
+Kazakhstan,KAZ,trs,kaz.mit.ees.trs,2017,0
+Kazakhstan,KAZ,trs,kaz.mit.ees.trs,2018,0
+Kazakhstan,KAZ,trs,kaz.mit.ees.trs,2019,0
+Kazakhstan,KAZ,trs,kaz.mit.ees.trs,2020,0
+Kazakhstan,KAZ,trs,kaz.mit.ees.trs,2021,0
+Kazakhstan,KAZ,trs,kaz.mit.ees.trs,2022,0
+Kazakhstan,KAZ,trs,kaz.mit.ees.trs,2023,0
+Kazakhstan,KAZ,trs,kaz.mit.ees.trs,2024,0
+Kazakhstan,KAZ,trs,kaz.mit.ees.trs,2025,0
+Korea,KOR,ind,kor.mit.ees.ind,2015,0.8621275
+Korea,KOR,ind,kor.mit.ees.ind,2016,0.8787897
+Korea,KOR,ind,kor.mit.ees.ind,2017,0.8749673
+Korea,KOR,ind,kor.mit.ees.ind,2018,0.8726419
+Korea,KOR,ind,kor.mit.ees.ind,2019,0.8742713
+Korea,KOR,ind,kor.mit.ees.ind,2020,0.8876068
+Korea,KOR,ind,kor.mit.ees.ind,2021,0.8941506
+Korea,KOR,ind,kor.mit.ees.ind,2022,0.901193
+Korea,KOR,ind,kor.mit.ees.ind,2023,0.9013547
+Korea,KOR,ind,kor.mit.ees.ind,2024,0.9013547
+Korea,KOR,ind,kor.mit.ees.ind,2025,0.9013547
+Korea,KOR,pow,kor.mit.ees.pow,2015,0.8621275
+Korea,KOR,pow,kor.mit.ees.pow,2016,0.8787897
+Korea,KOR,pow,kor.mit.ees.pow,2017,0.8749673
+Korea,KOR,pow,kor.mit.ees.pow,2018,0.8726419
+Korea,KOR,pow,kor.mit.ees.pow,2019,0.8742713
+Korea,KOR,pow,kor.mit.ees.pow,2020,0.8876068
+Korea,KOR,pow,kor.mit.ees.pow,2021,0.8941506
+Korea,KOR,pow,kor.mit.ees.pow,2022,0.901193
+Korea,KOR,pow,kor.mit.ees.pow,2023,0.9013547
+Korea,KOR,pow,kor.mit.ees.pow,2024,0.9013547
+Korea,KOR,pow,kor.mit.ees.pow,2025,0.9013547
+Korea,KOR,res,kor.mit.ees.res,2015,0.8621275
+Korea,KOR,res,kor.mit.ees.res,2016,0.8787897
+Korea,KOR,res,kor.mit.ees.res,2017,0.8749673
+Korea,KOR,res,kor.mit.ees.res,2018,0.8726419
+Korea,KOR,res,kor.mit.ees.res,2019,0.8742713
+Korea,KOR,res,kor.mit.ees.res,2020,0.8876068
+Korea,KOR,res,kor.mit.ees.res,2021,0.8941506
+Korea,KOR,res,kor.mit.ees.res,2022,0.901193
+Korea,KOR,res,kor.mit.ees.res,2023,0.9013547
+Korea,KOR,res,kor.mit.ees.res,2024,0.9013547
+Korea,KOR,res,kor.mit.ees.res,2025,0.9013547
+Korea,KOR,trs,kor.mit.ees.trs,2015,0.8621275
+Korea,KOR,trs,kor.mit.ees.trs,2016,0.8787897
+Korea,KOR,trs,kor.mit.ees.trs,2017,0.8749673
+Korea,KOR,trs,kor.mit.ees.trs,2018,0.8726419
+Korea,KOR,trs,kor.mit.ees.trs,2019,0.8742713
+Korea,KOR,trs,kor.mit.ees.trs,2020,0.8876068
+Korea,KOR,trs,kor.mit.ees.trs,2021,0.8941506
+Korea,KOR,trs,kor.mit.ees.trs,2022,0.901193
+Korea,KOR,trs,kor.mit.ees.trs,2023,0.9013547
+Korea,KOR,trs,kor.mit.ees.trs,2024,0.9013547
+Korea,KOR,trs,kor.mit.ees.trs,2025,0.9013547
+Mexico,MEX,ind,mex.mit.ees.ind,2015,0.9783287
+Mexico,MEX,ind,mex.mit.ees.ind,2016,0.9976935
+Mexico,MEX,ind,mex.mit.ees.ind,2017,0.9902458
+Mexico,MEX,ind,mex.mit.ees.ind,2018,1
+Mexico,MEX,ind,mex.mit.ees.ind,2019,1
+Mexico,MEX,ind,mex.mit.ees.ind,2020,1
+Mexico,MEX,ind,mex.mit.ees.ind,2021,1
+Mexico,MEX,ind,mex.mit.ees.ind,2022,1
+Mexico,MEX,ind,mex.mit.ees.ind,2023,1
+Mexico,MEX,ind,mex.mit.ees.ind,2024,1
+Mexico,MEX,ind,mex.mit.ees.ind,2025,1
+Mexico,MEX,pow,mex.mit.ees.pow,2015,0.9783287
+Mexico,MEX,pow,mex.mit.ees.pow,2016,0.9976935
+Mexico,MEX,pow,mex.mit.ees.pow,2017,0.9902458
+Mexico,MEX,pow,mex.mit.ees.pow,2018,1
+Mexico,MEX,pow,mex.mit.ees.pow,2019,1
+Mexico,MEX,pow,mex.mit.ees.pow,2020,1
+Mexico,MEX,pow,mex.mit.ees.pow,2021,1
+Mexico,MEX,pow,mex.mit.ees.pow,2022,1
+Mexico,MEX,pow,mex.mit.ees.pow,2023,1
+Mexico,MEX,pow,mex.mit.ees.pow,2024,1
+Mexico,MEX,pow,mex.mit.ees.pow,2025,1
+Mexico,MEX,res,mex.mit.ees.res,2015,0
+Mexico,MEX,res,mex.mit.ees.res,2016,0
+Mexico,MEX,res,mex.mit.ees.res,2017,0
+Mexico,MEX,res,mex.mit.ees.res,2018,0
+Mexico,MEX,res,mex.mit.ees.res,2019,0
+Mexico,MEX,res,mex.mit.ees.res,2020,0
+Mexico,MEX,res,mex.mit.ees.res,2021,0
+Mexico,MEX,res,mex.mit.ees.res,2022,0
+Mexico,MEX,res,mex.mit.ees.res,2023,0
+Mexico,MEX,res,mex.mit.ees.res,2024,0
+Mexico,MEX,res,mex.mit.ees.res,2025,0
+Mexico,MEX,trs,mex.mit.ees.trs,2015,0
+Mexico,MEX,trs,mex.mit.ees.trs,2016,0
+Mexico,MEX,trs,mex.mit.ees.trs,2017,0
+Mexico,MEX,trs,mex.mit.ees.trs,2018,0
+Mexico,MEX,trs,mex.mit.ees.trs,2019,0
+Mexico,MEX,trs,mex.mit.ees.trs,2020,0
+Mexico,MEX,trs,mex.mit.ees.trs,2021,0
+Mexico,MEX,trs,mex.mit.ees.trs,2022,0
+Mexico,MEX,trs,mex.mit.ees.trs,2023,0
+Mexico,MEX,trs,mex.mit.ees.trs,2024,0
+Mexico,MEX,trs,mex.mit.ees.trs,2025,0
+Montenegro,MNE,ind,mne.mit.ees.ind,2023,1
+Montenegro,MNE,ind,mne.mit.ees.ind,2024,1
+Montenegro,MNE,ind,mne.mit.ees.ind,2025,1
+Montenegro,MNE,pow,mne.mit.ees.pow,2023,1
+Montenegro,MNE,pow,mne.mit.ees.pow,2024,1
+Montenegro,MNE,pow,mne.mit.ees.pow,2025,1
+Montenegro,MNE,res,mne.mit.ees.res,2023,0
+Montenegro,MNE,res,mne.mit.ees.res,2024,0
+Montenegro,MNE,res,mne.mit.ees.res,2025,0
+Montenegro,MNE,trs,mne.mit.ees.trs,2023,0
+Montenegro,MNE,trs,mne.mit.ees.trs,2024,0
+Montenegro,MNE,trs,mne.mit.ees.trs,2025,0
+New Zealand,NZL,ind,nzl.mit.ees.ind,2015,0.6870595
+New Zealand,NZL,ind,nzl.mit.ees.ind,2016,0.6871898
+New Zealand,NZL,ind,nzl.mit.ees.ind,2017,0.6963773
+New Zealand,NZL,ind,nzl.mit.ees.ind,2018,0.7024026
+New Zealand,NZL,ind,nzl.mit.ees.ind,2019,0.6955033
+New Zealand,NZL,ind,nzl.mit.ees.ind,2020,0.7171637
+New Zealand,NZL,ind,nzl.mit.ees.ind,2021,0.7363284
+New Zealand,NZL,ind,nzl.mit.ees.ind,2022,0.7393236
+New Zealand,NZL,ind,nzl.mit.ees.ind,2023,0.7264925
+New Zealand,NZL,ind,nzl.mit.ees.ind,2024,0.7264925
+New Zealand,NZL,ind,nzl.mit.ees.ind,2025,0.7264925
+New Zealand,NZL,pow,nzl.mit.ees.pow,2015,0.6870595
+New Zealand,NZL,pow,nzl.mit.ees.pow,2016,0.6871898
+New Zealand,NZL,pow,nzl.mit.ees.pow,2017,0.6963773
+New Zealand,NZL,pow,nzl.mit.ees.pow,2018,0.7024026
+New Zealand,NZL,pow,nzl.mit.ees.pow,2019,0.6955033
+New Zealand,NZL,pow,nzl.mit.ees.pow,2020,0.7171637
+New Zealand,NZL,pow,nzl.mit.ees.pow,2021,0.7363284
+New Zealand,NZL,pow,nzl.mit.ees.pow,2022,0.7393236
+New Zealand,NZL,pow,nzl.mit.ees.pow,2023,0.7264925
+New Zealand,NZL,pow,nzl.mit.ees.pow,2024,0.7264925
+New Zealand,NZL,pow,nzl.mit.ees.pow,2025,0.7264925
+New Zealand,NZL,res,nzl.mit.ees.res,2015,0.6870595
+New Zealand,NZL,res,nzl.mit.ees.res,2016,0.6871898
+New Zealand,NZL,res,nzl.mit.ees.res,2017,0.6963773
+New Zealand,NZL,res,nzl.mit.ees.res,2018,0.7024026
+New Zealand,NZL,res,nzl.mit.ees.res,2019,0.6955033
+New Zealand,NZL,res,nzl.mit.ees.res,2020,0.7171637
+New Zealand,NZL,res,nzl.mit.ees.res,2021,0.7363284
+New Zealand,NZL,res,nzl.mit.ees.res,2022,0.7393236
+New Zealand,NZL,res,nzl.mit.ees.res,2023,0.7264925
+New Zealand,NZL,res,nzl.mit.ees.res,2024,0.7264925
+New Zealand,NZL,res,nzl.mit.ees.res,2025,0.7264925
+New Zealand,NZL,trs,nzl.mit.ees.trs,2015,0.6870595
+New Zealand,NZL,trs,nzl.mit.ees.trs,2016,0.6871898
+New Zealand,NZL,trs,nzl.mit.ees.trs,2017,0.6963773
+New Zealand,NZL,trs,nzl.mit.ees.trs,2018,0.7024026
+New Zealand,NZL,trs,nzl.mit.ees.trs,2019,0.6955033
+New Zealand,NZL,trs,nzl.mit.ees.trs,2020,0.7171637
+New Zealand,NZL,trs,nzl.mit.ees.trs,2021,0.7363284
+New Zealand,NZL,trs,nzl.mit.ees.trs,2022,0.7393236
+New Zealand,NZL,trs,nzl.mit.ees.trs,2023,0.7264925
+New Zealand,NZL,trs,nzl.mit.ees.trs,2024,0.7264925
+New Zealand,NZL,trs,nzl.mit.ees.trs,2025,0.7264925
+Switzerland,CHE,ind,che.mit.ees.ind,2015,0.2587058
+Switzerland,CHE,ind,che.mit.ees.ind,2016,0.2610395
+Switzerland,CHE,ind,che.mit.ees.ind,2017,0.261537
+Switzerland,CHE,ind,che.mit.ees.ind,2018,0.2574601
+Switzerland,CHE,ind,che.mit.ees.ind,2019,0.2534123
+Switzerland,CHE,ind,che.mit.ees.ind,2020,0.2581536
+Switzerland,CHE,ind,che.mit.ees.ind,2021,0.2607591
+Switzerland,CHE,ind,che.mit.ees.ind,2022,0.2493908
+Switzerland,CHE,ind,che.mit.ees.ind,2023,0.2480638
+Switzerland,CHE,ind,che.mit.ees.ind,2024,0.2480638
+Switzerland,CHE,ind,che.mit.ees.ind,2025,0.2480638
+Switzerland,CHE,pow,che.mit.ees.pow,2015,0.2587058
+Switzerland,CHE,pow,che.mit.ees.pow,2016,0.2610395
+Switzerland,CHE,pow,che.mit.ees.pow,2017,0.261537
+Switzerland,CHE,pow,che.mit.ees.pow,2018,0.2574601
+Switzerland,CHE,pow,che.mit.ees.pow,2019,0.2534123
+Switzerland,CHE,pow,che.mit.ees.pow,2020,0.2581536
+Switzerland,CHE,pow,che.mit.ees.pow,2021,0.2607591
+Switzerland,CHE,pow,che.mit.ees.pow,2022,0.2493908
+Switzerland,CHE,pow,che.mit.ees.pow,2023,0.2480638
+Switzerland,CHE,pow,che.mit.ees.pow,2024,0.2480638
+Switzerland,CHE,pow,che.mit.ees.pow,2025,0.2480638
+Switzerland,CHE,res,che.mit.ees.res,2015,0
+Switzerland,CHE,res,che.mit.ees.res,2016,0
+Switzerland,CHE,res,che.mit.ees.res,2017,0
+Switzerland,CHE,res,che.mit.ees.res,2018,0
+Switzerland,CHE,res,che.mit.ees.res,2019,0
+Switzerland,CHE,res,che.mit.ees.res,2020,0
+Switzerland,CHE,res,che.mit.ees.res,2021,0
+Switzerland,CHE,res,che.mit.ees.res,2022,0
+Switzerland,CHE,res,che.mit.ees.res,2023,0
+Switzerland,CHE,res,che.mit.ees.res,2024,0
+Switzerland,CHE,res,che.mit.ees.res,2025,0
+Switzerland,CHE,trs,che.mit.ees.trs,2015,0.2587058
+Switzerland,CHE,trs,che.mit.ees.trs,2016,0.2610395
+Switzerland,CHE,trs,che.mit.ees.trs,2017,0.261537
+Switzerland,CHE,trs,che.mit.ees.trs,2018,0.2574601
+Switzerland,CHE,trs,che.mit.ees.trs,2019,0.2534123
+Switzerland,CHE,trs,che.mit.ees.trs,2020,0.2581536
+Switzerland,CHE,trs,che.mit.ees.trs,2021,0.2607591
+Switzerland,CHE,trs,che.mit.ees.trs,2022,0.2493908
+Switzerland,CHE,trs,che.mit.ees.trs,2023,0.2480638
+Switzerland,CHE,trs,che.mit.ees.trs,2024,0.2480638
+Switzerland,CHE,trs,che.mit.ees.trs,2025,0.2480638
+United Kingdom,GBR,ind,gbr.mit.ees.ind,2021,0.5015536
+United Kingdom,GBR,ind,gbr.mit.ees.ind,2022,0.4784787
+United Kingdom,GBR,ind,gbr.mit.ees.ind,2023,0.4840049
+United Kingdom,GBR,ind,gbr.mit.ees.ind,2024,0.4840049
+United Kingdom,GBR,ind,gbr.mit.ees.ind,2025,0.4840049
+United Kingdom,GBR,pow,gbr.mit.ees.pow,2021,0.5015536
+United Kingdom,GBR,pow,gbr.mit.ees.pow,2022,0.4784787
+United Kingdom,GBR,pow,gbr.mit.ees.pow,2023,0.4840049
+United Kingdom,GBR,pow,gbr.mit.ees.pow,2024,0.4840049
+United Kingdom,GBR,pow,gbr.mit.ees.pow,2025,0.4840049
+United Kingdom,GBR,res,gbr.mit.ees.res,2021,0
+United Kingdom,GBR,res,gbr.mit.ees.res,2022,0
+United Kingdom,GBR,res,gbr.mit.ees.res,2023,0
+United Kingdom,GBR,res,gbr.mit.ees.res,2024,0
+United Kingdom,GBR,res,gbr.mit.ees.res,2025,0
+United Kingdom,GBR,trs,gbr.mit.ees.trs,2021,0.5015536
+United Kingdom,GBR,trs,gbr.mit.ees.trs,2022,0.4784787
+United Kingdom,GBR,trs,gbr.mit.ees.trs,2023,0.4840049
+United Kingdom,GBR,trs,gbr.mit.ees.trs,2024,0.4840049
+United Kingdom,GBR,trs,gbr.mit.ees.trs,2025,0.4840049

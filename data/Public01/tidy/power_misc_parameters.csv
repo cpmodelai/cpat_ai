@@ -1,0 +1,12 @@
+quantity,sector,variable,value
+Transmission & Distribution Cost,Residential,Source,IEA
+Transmission & Distribution Cost,Residential,Unit,$/kwhe
+Transmission & Distribution Cost,Residential,Value,0.04
+Transmission & Distribution Cost,Industrial,Source,IEA
+Transmission & Distribution Cost,Industrial,Unit,$/kwhe
+Transmission & Distribution Cost,Industrial,Value,0.015
+Nuclear Fuel cost per kwhe final electricity,Nuclear,Source,NEA
+Nuclear Fuel cost per kwhe final electricity,Nuclear,Unit,$/kwhe
+Nuclear Fuel cost per kwhe final electricity,Nuclear,Value,0.004
+Average WACC,All,Source,CPAT (from BNEF)
+Average WACC,All,Value,0x17

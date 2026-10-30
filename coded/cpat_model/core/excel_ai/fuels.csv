@@ -1,0 +1,10 @@
+fuel,name,elasticity_fuel,aeei_fuel,price_rule,unit,gj_per_unit,position,price_fuel
+coa,Coal,coa,coa,sub,$/GJ,1,1,coa
+nga,Natural gas,nga,nga,sub,$/GJ,1,2,nga
+gso,Gasoline,gso,oil,all,$/liter,0.03496974000000001,3,gso
+die,Diesel,die,oil,all,$/liter,0.03729519000000001,4,die
+lpg,LPG,oil,oil,all,$/liter,0.02577968854495125,5,lpg
+ker,Kerosene,oil,oil,all,$/liter,0.03774882965510715,6,ker
+jfu,Jet fuel,oil,oil,all,$/liter,0.0348608,7,ker
+oop,Other oil products,oil,oil,all,$/bbl,6.12,8,oop
+bio,Biomass,bio,bio,all,$/GJ,1,9,bio

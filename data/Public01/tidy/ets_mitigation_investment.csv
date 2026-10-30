@@ -1,0 +1,463 @@
+country,country_name,variable,value
+CAF,Central African Republic,Income group,Low-income
+CAF,Central African Republic,"Mitigation
+($2020 bn)",5.6
+CAF,Central African Republic,"Multiple-obj.
+($2020 bn)",1.3
+CAF,Central African Republic,"Mitigation+Multiple
+($2020 bn)",6.8999999999999995
+CAF,Central African Republic,"GDP (cumul.)
+($2020 bn)",16
+CAF,Central African Republic,"Mitigation
+(% of GDP)",0.35
+YEM,Yemen,Income group,Low-income
+YEM,Yemen,"Mitigation
+($2020 bn)",1.79
+YEM,Yemen,"Multiple-obj.
+($2020 bn)",0
+YEM,Yemen,"Mitigation+Multiple
+($2020 bn)",1.79
+YEM,Yemen,"GDP (cumul.)
+($2020 bn)",123.218
+YEM,Yemen,"Mitigation
+(% of GDP)",0.014527098313558084
+G5S,Sahel,Income group,Low-income
+G5S,Sahel,"Mitigation
+($2020 bn)",0
+G5S,Sahel,"Multiple-obj.
+($2020 bn)",38.49
+G5S,Sahel,"Mitigation+Multiple
+($2020 bn)",38.49
+G5S,Sahel,"GDP (cumul.)
+($2020 bn)",885
+G5S,Sahel,"Mitigation
+(% of GDP)",0
+LBR,Liberia,Income group,Low-income
+LBR,Liberia,"Mitigation
+($2020 bn)",0
+LBR,Liberia,"Multiple-obj.
+($2020 bn)",0
+LBR,Liberia,"Mitigation+Multiple
+($2020 bn)",0
+LBR,Liberia,"GDP (cumul.)
+($2020 bn)",40.77
+LBR,Liberia,"Mitigation
+(% of GDP)",0
+PAK,Pakistan,Income group,Lower-middle-income
+PAK,Pakistan,"Mitigation
+($2020 bn)",167.7047
+PAK,Pakistan,"Multiple-obj.
+($2020 bn)",111.2
+PAK,Pakistan,"Mitigation+Multiple
+($2020 bn)",278.9047
+PAK,Pakistan,"GDP (cumul.)
+($2020 bn)",3273.972
+PAK,Pakistan,"Mitigation
+(% of GDP)",0.051223620727361134
+PHL,Philippines,Income group,Lower-middle-income
+PHL,Philippines,"Mitigation
+($2020 bn)",41.5508
+PHL,Philippines,"Multiple-obj.
+($2020 bn)",0
+PHL,Philippines,"Mitigation+Multiple
+($2020 bn)",41.5508
+PHL,Philippines,"GDP (cumul.)
+($2020 bn)",3864.5612
+PHL,Philippines,"Mitigation
+(% of GDP)",0.01075175106555435
+VNM,Vietnam,Income group,Lower-middle-income
+VNM,Vietnam,"Mitigation
+($2020 bn)",34.9794
+VNM,Vietnam,"Multiple-obj.
+($2020 bn)",0
+VNM,Vietnam,"Mitigation+Multiple
+($2020 bn)",34.9794
+VNM,Vietnam,"GDP (cumul.)
+($2020 bn)",3241.8519
+VNM,Vietnam,"Mitigation
+(% of GDP)",0.010789943858940625
+EGY,Egypt,Income group,Lower-middle-income
+EGY,Egypt,"Mitigation
+($2020 bn)",29.7
+EGY,Egypt,"Multiple-obj.
+($2020 bn)",119.4917
+EGY,Egypt,"Mitigation+Multiple
+($2020 bn)",149.1917
+EGY,Egypt,"GDP (cumul.)
+($2020 bn)",3467.8765
+EGY,Egypt,"Mitigation
+(% of GDP)",0.008564318827386154
+MAR,Morocco,Income group,Lower-middle-income
+MAR,Morocco,"Mitigation
+($2020 bn)",8.3
+MAR,Morocco,"Multiple-obj.
+($2020 bn)",0
+MAR,Morocco,"Mitigation+Multiple
+($2020 bn)",8.3
+MAR,Morocco,"GDP (cumul.)
+($2020 bn)",847.5471
+MAR,Morocco,"Mitigation
+(% of GDP)",0.009792966078227393
+CMR,Cameroon,Income group,Lower-middle-income
+CMR,Cameroon,"Mitigation
+($2020 bn)",7.8
+CMR,Cameroon,"Multiple-obj.
+($2020 bn)",0
+CMR,Cameroon,"Mitigation+Multiple
+($2020 bn)",7.8
+CMR,Cameroon,"GDP (cumul.)
+($2020 bn)",284.2
+CMR,Cameroon,"Mitigation
+(% of GDP)",0.02744546094299789
+GHA,Ghana,Income group,Lower-middle-income
+GHA,Ghana,"Mitigation
+($2020 bn)",6.7
+GHA,Ghana,"Multiple-obj.
+($2020 bn)",3.8
+GHA,Ghana,"Mitigation+Multiple
+($2020 bn)",10.5
+GHA,Ghana,"GDP (cumul.)
+($2020 bn)",600.6035
+GHA,Ghana,"Mitigation
+(% of GDP)",0.011155446147083725
+KEN,Kenya,Income group,Lower-middle-income
+KEN,Kenya,"Mitigation
+($2020 bn)",5.1
+KEN,Kenya,"Multiple-obj.
+($2020 bn)",4.9983
+KEN,Kenya,"Mitigation+Multiple
+($2020 bn)",10.0983
+KEN,Kenya,"GDP (cumul.)
+($2020 bn)",771.26
+KEN,Kenya,"Mitigation
+(% of GDP)",0.006612556077068692
+TUN,Tunisia,Income group,Lower-middle-income
+TUN,Tunisia,"Mitigation
+($2020 bn)",4.471
+TUN,Tunisia,"Multiple-obj.
+($2020 bn)",5.206
+TUN,Tunisia,"Mitigation+Multiple
+($2020 bn)",9.677
+TUN,Tunisia,"GDP (cumul.)
+($2020 bn)",308.01
+TUN,Tunisia,"Mitigation
+(% of GDP)",0.01451576247524431
+JOR,Jordan,Income group,Lower-middle-income
+JOR,Jordan,"Mitigation
+($2020 bn)",3
+JOR,Jordan,"Multiple-obj.
+($2020 bn)",0
+JOR,Jordan,"Mitigation+Multiple
+($2020 bn)",3
+JOR,Jordan,"GDP (cumul.)
+($2020 bn)",373.9511
+JOR,Jordan,"Mitigation
+(% of GDP)",0.008022439297544518
+MNG,Mongolia,Income group,Lower-middle-income
+MNG,Mongolia,"Mitigation
+($2020 bn)",2.5
+MNG,Mongolia,"Multiple-obj.
+($2020 bn)",0
+MNG,Mongolia,"Mitigation+Multiple
+($2020 bn)",2.5
+MNG,Mongolia,"GDP (cumul.)
+($2020 bn)",212
+MNG,Mongolia,"Mitigation
+(% of GDP)",0.01179245283018868
+KHM,Cambodia,Income group,Lower-middle-income
+KHM,Cambodia,"Mitigation
+($2020 bn)",1.5198
+KHM,Cambodia,"Multiple-obj.
+($2020 bn)",6.364
+KHM,Cambodia,"Mitigation+Multiple
+($2020 bn)",7.8838
+KHM,Cambodia,"GDP (cumul.)
+($2020 bn)",678.3333
+KHM,Cambodia,"Mitigation
+(% of GDP)",0.0022404915105892634
+TJK,Tajikistan,Income group,Lower-middle-income
+TJK,Tajikistan,"Mitigation
+($2020 bn)",1
+TJK,Tajikistan,"Multiple-obj.
+($2020 bn)",0
+TJK,Tajikistan,"Mitigation+Multiple
+($2020 bn)",1
+TJK,Tajikistan,"GDP (cumul.)
+($2020 bn)",139.337
+TJK,Tajikistan,"Mitigation
+(% of GDP)",0.007176844628490638
+UZB,Uzbekistan,Income group,Lower-middle-income
+UZB,Uzbekistan,"Mitigation
+($2020 bn)",0.3
+UZB,Uzbekistan,"Multiple-obj.
+($2020 bn)",0
+UZB,Uzbekistan,"Mitigation+Multiple
+($2020 bn)",0.3
+UZB,Uzbekistan,"GDP (cumul.)
+($2020 bn)",4823.1
+UZB,Uzbekistan,"Mitigation
+(% of GDP)",6.220065932698886e-05
+TZA,Tanzania,Income group,Lower-middle-income
+TZA,Tanzania,"Mitigation
+($2020 bn)",0.18
+TZA,Tanzania,"Multiple-obj.
+($2020 bn)",0.44
+TZA,Tanzania,"Mitigation+Multiple
+($2020 bn)",0.62
+TZA,Tanzania,"GDP (cumul.)
+($2020 bn)",514
+TZA,Tanzania,"Mitigation
+(% of GDP)",0.00035019455252918285
+CIV,Cote di Ivoire,Income group,Lower-middle-income
+CIV,Cote di Ivoire,"Mitigation
+($2020 bn)",0
+CIV,Cote di Ivoire,"Multiple-obj.
+($2020 bn)",9.146
+CIV,Cote di Ivoire,"Mitigation+Multiple
+($2020 bn)",9.146
+CIV,Cote di Ivoire,"GDP (cumul.)
+($2020 bn)",750.221
+CIV,Cote di Ivoire,"Mitigation
+(% of GDP)",0
+CHN,China,Income group,Upper-middle-income
+CHN,China,"Mitigation
+($2020 bn)",1598.25
+CHN,China,"Multiple-obj.
+($2020 bn)",0
+CHN,China,"Mitigation+Multiple
+($2020 bn)",1598.25
+CHN,China,"GDP (cumul.)
+($2020 bn)",164719.88
+CHN,China,"Mitigation
+(% of GDP)",0.009702836111828154
+ZAF,South Africa,Income group,Upper-middle-income
+ZAF,South Africa,"Mitigation
+($2020 bn)",55
+ZAF,South Africa,"Multiple-obj.
+($2020 bn)",33
+ZAF,South Africa,"Mitigation+Multiple
+($2020 bn)",88
+ZAF,South Africa,"GDP (cumul.)
+($2020 bn)",3312
+ZAF,South Africa,"Mitigation
+(% of GDP)",0.016606280193236716
+TUR,Turkiye,Income group,Upper-middle-income
+TUR,Turkiye,"Mitigation
+($2020 bn)",52.6
+TUR,Turkiye,"Multiple-obj.
+($2020 bn)",2
+TUR,Turkiye,"Mitigation+Multiple
+($2020 bn)",54.6
+TUR,Turkiye,"GDP (cumul.)
+($2020 bn)",6742
+TUR,Turkiye,"Mitigation
+(% of GDP)",0.0078018392168495996
+ECU,Ecuador,Income group,Upper-middle-income
+ECU,Ecuador,"Mitigation
+($2020 bn)",43.7
+ECU,Ecuador,"Multiple-obj.
+($2020 bn)",0.59
+ECU,Ecuador,"Mitigation+Multiple
+($2020 bn)",44.290000000000006
+ECU,Ecuador,"GDP (cumul.)
+($2020 bn)",648
+ECU,Ecuador,"Mitigation
+(% of GDP)",0.06743827160493827
+PER,Peru,Income group,Upper-middle-income
+PER,Peru,"Mitigation
+($2020 bn)",28.57
+PER,Peru,"Multiple-obj.
+($2020 bn)",2.8
+PER,Peru,"Mitigation+Multiple
+($2020 bn)",31.37
+PER,Peru,"GDP (cumul.)
+($2020 bn)",1080
+PER,Peru,"Mitigation
+(% of GDP)",0.026453703703703705
+BRA,Brazil,Income group,Upper-middle-income
+BRA,Brazil,"Mitigation
+($2020 bn)",28.152
+BRA,Brazil,"Multiple-obj.
+($2020 bn)",65.4886
+BRA,Brazil,"Mitigation+Multiple
+($2020 bn)",93.6406
+BRA,Brazil,"GDP (cumul.)
+($2020 bn)",11895.0567
+BRA,Brazil,"Mitigation
+(% of GDP)",0.002366697419777747
+KAZ,Kazakhstan,Income group,Upper-middle-income
+KAZ,Kazakhstan,"Mitigation
+($2020 bn)",14.65
+KAZ,Kazakhstan,"Multiple-obj.
+($2020 bn)",0
+KAZ,Kazakhstan,"Mitigation+Multiple
+($2020 bn)",14.65
+KAZ,Kazakhstan,"GDP (cumul.)
+($2020 bn)",1516.1902
+KAZ,Kazakhstan,"Mitigation
+(% of GDP)",0.009662376131965501
+ARG,Argentina,Income group,Upper-middle-income
+ARG,Argentina,"Mitigation
+($2020 bn)",9
+ARG,Argentina,"Multiple-obj.
+($2020 bn)",82
+ARG,Argentina,"Mitigation+Multiple
+($2020 bn)",91
+ARG,Argentina,"GDP (cumul.)
+($2020 bn)",4546
+ARG,Argentina,"Mitigation
+(% of GDP)",0.001979762428508579
+MDA,Moldova,Income group,Upper-middle-income
+MDA,Moldova,"Mitigation
+($2020 bn)",3.245
+MDA,Moldova,"Multiple-obj.
+($2020 bn)",0
+MDA,Moldova,"Mitigation+Multiple
+($2020 bn)",3.245
+MDA,Moldova,"GDP (cumul.)
+($2020 bn)",65.993
+MDA,Moldova,"Mitigation
+(% of GDP)",0.049171881866258545
+AZE,Azerbaijan,Income group,Upper-middle-income
+AZE,Azerbaijan,"Mitigation
+($2020 bn)",2.4129
+AZE,Azerbaijan,"Multiple-obj.
+($2020 bn)",6.2572
+AZE,Azerbaijan,"Mitigation+Multiple
+($2020 bn)",8.6701
+AZE,Azerbaijan,"GDP (cumul.)
+($2020 bn)",522.3722
+AZE,Azerbaijan,"Mitigation
+(% of GDP)",0.004619120236490379
+MKD,Republic of North Macedonia,Income group,Upper-middle-income
+MKD,Republic of North Macedonia,"Mitigation
+($2020 bn)",1.709
+MKD,Republic of North Macedonia,"Multiple-obj.
+($2020 bn)",0
+MKD,Republic of North Macedonia,"Mitigation+Multiple
+($2020 bn)",1.709
+MKD,Republic of North Macedonia,"GDP (cumul.)
+($2020 bn)",95.43
+MKD,Republic of North Macedonia,"Mitigation
+(% of GDP)",0.017908414544692445
+XKX,Kosovo,Income group,Upper-middle-income
+XKX,Kosovo,"Mitigation
+($2020 bn)",0.74
+XKX,Kosovo,"Multiple-obj.
+($2020 bn)",0
+XKX,Kosovo,"Mitigation+Multiple
+($2020 bn)",0.74
+XKX,Kosovo,"GDP (cumul.)
+($2020 bn)",71.75
+XKX,Kosovo,"Mitigation
+(% of GDP)",0.010313588850174216
+BIH,Bosnia and Herzegovina,Income group,Upper-middle-income
+BIH,Bosnia and Herzegovina,"Mitigation
+($2020 bn)",0.48
+BIH,Bosnia and Herzegovina,"Multiple-obj.
+($2020 bn)",0
+BIH,Bosnia and Herzegovina,"Mitigation+Multiple
+($2020 bn)",0.48
+BIH,Bosnia and Herzegovina,"GDP (cumul.)
+($2020 bn)",164
+BIH,Bosnia and Herzegovina,"Mitigation
+(% of GDP)",0.002926829268292683
+ALB,Albania,Income group,Upper-middle-income
+ALB,Albania,"Mitigation
+($2020 bn)",0.211
+ALB,Albania,"Multiple-obj.
+($2020 bn)",0
+ALB,Albania,"Mitigation+Multiple
+($2020 bn)",0.211
+ALB,Albania,"GDP (cumul.)
+($2020 bn)",116.91
+ALB,Albania,"Mitigation
+(% of GDP)",0.0018048071165854076
+MNE,Montenegro,Income group,Upper-middle-income
+MNE,Montenegro,"Mitigation
+($2020 bn)",0.0487
+MNE,Montenegro,"Multiple-obj.
+($2020 bn)",0
+MNE,Montenegro,"Mitigation+Multiple
+($2020 bn)",0.0487
+MNE,Montenegro,"GDP (cumul.)
+($2020 bn)",43.57
+MNE,Montenegro,"Mitigation
+(% of GDP)",0.0011177415652972229
+ARM,Armenia,Income group,Upper-middle-income
+ARM,Armenia,"Mitigation
+($2020 bn)",0
+ARM,Armenia,"Multiple-obj.
+($2020 bn)",0.95
+ARM,Armenia,"Mitigation+Multiple
+($2020 bn)",0.95
+ARM,Armenia,"GDP (cumul.)
+($2020 bn)",105
+ARM,Armenia,"Mitigation
+(% of GDP)",0
+COL,Colombia,Income group,Upper-middle-income
+COL,Colombia,"Mitigation
+($2020 bn)",0
+COL,Colombia,"Multiple-obj.
+($2020 bn)",40
+COL,Colombia,"Mitigation+Multiple
+($2020 bn)",40
+COL,Colombia,"GDP (cumul.)
+($2020 bn)",2763
+COL,Colombia,"Mitigation
+(% of GDP)",0
+DOM,Dominican Republic,Income group,Upper-middle-income
+DOM,Dominican Republic,"Mitigation
+($2020 bn)",0
+DOM,Dominican Republic,"Multiple-obj.
+($2020 bn)",33.7426
+DOM,Dominican Republic,"Mitigation+Multiple
+($2020 bn)",33.7426
+DOM,Dominican Republic,"GDP (cumul.)
+($2020 bn)",724.6769
+DOM,Dominican Republic,"Mitigation
+(% of GDP)",0
+IRQ,Iraq,Income group,Upper-middle-income
+IRQ,Iraq,"Mitigation
+($2020 bn)",0
+IRQ,Iraq,"Multiple-obj.
+($2020 bn)",57.6533
+IRQ,Iraq,"Mitigation+Multiple
+($2020 bn)",57.6533
+IRQ,Iraq,"GDP (cumul.)
+($2020 bn)",1465.6745
+IRQ,Iraq,"Mitigation
+(% of GDP)",0
+PRY,Paraguay,Income group,Upper-middle-income
+PRY,Paraguay,"Mitigation
+($2020 bn)",0
+PRY,Paraguay,"Multiple-obj.
+($2020 bn)",3.1981
+PRY,Paraguay,"Mitigation+Multiple
+($2020 bn)",3.1981
+PRY,Paraguay,"GDP (cumul.)
+($2020 bn)",441.4302
+PRY,Paraguay,"Mitigation
+(% of GDP)",0
+SRB,Serbia,Income group,Upper-middle-income
+SRB,Serbia,"Mitigation
+($2020 bn)",0
+SRB,Serbia,"Multiple-obj.
+($2020 bn)",0
+SRB,Serbia,"Mitigation+Multiple
+($2020 bn)",0
+SRB,Serbia,"GDP (cumul.)
+($2020 bn)",426.9248
+SRB,Serbia,"Mitigation
+(% of GDP)",0
+ROU,Romania,Income group,High-income
+ROU,Romania,"Mitigation
+($2020 bn)",7.2764
+ROU,Romania,"Multiple-obj.
+($2020 bn)",2.177
+ROU,Romania,"Mitigation+Multiple
+($2020 bn)",9.4534
+ROU,Romania,"GDP (cumul.)
+($2020 bn)",2554
+ROU,Romania,"Mitigation
+(% of GDP)",0.00284902114330462

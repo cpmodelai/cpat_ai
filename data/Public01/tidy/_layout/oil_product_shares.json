@@ -1,0 +1,1 @@
+{"kind": "table", "header": ["countryname", "countrycode", "incomelevel", "region", "die_share", "die_road_share", "ker_share", "ker_road_share", "lpg_share", "lpg_road_share", "gso_share", "gso_road_share"], "key_pos": [1], "attr_pos": [0, 2, 3], "val_pos": [4, 5, 6, 7, 8, 9, 10, 11], "skipped": {}, "nrows": 222, "source": "legacy_OilProductShares.csv"}

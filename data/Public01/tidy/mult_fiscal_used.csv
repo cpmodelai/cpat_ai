@@ -1,0 +1,129 @@
+instrument,instrument_name,lag,value
+EXC,Energy taxes,0,0
+EXC,Energy taxes,1,0.37
+EXC,Energy taxes,2,0.53
+EXC,Energy taxes,3,0.48
+EXC,Energy taxes,4,0.48
+EXC,Energy taxes,5,0.41
+EXC,Energy taxes,6,0.35
+EXC,Energy taxes,7,0.32
+EXC,Energy taxes,8,0.27
+EXC,Energy taxes,9,0.22
+EXC,Energy taxes,10,0.18
+EXC,Energy taxes,11,0.16
+EXC,Energy taxes,12,0.16
+EXC,Energy taxes,13,0.16
+EXC,Energy taxes,14,0.16
+EXC,Energy taxes,15,0.16
+PIT,Personal income taxes,0,0
+PIT,Personal income taxes,1,0.25
+PIT,Personal income taxes,2,0.25
+PIT,Personal income taxes,3,0.24
+PIT,Personal income taxes,4,0.2
+PIT,Personal income taxes,5,0.19
+PIT,Personal income taxes,6,0.19
+PIT,Personal income taxes,7,0.18
+PIT,Personal income taxes,8,0.19
+PIT,Personal income taxes,9,0.18
+PIT,Personal income taxes,10,0.17
+PIT,Personal income taxes,11,0.16
+PIT,Personal income taxes,12,0.16
+PIT,Personal income taxes,13,0.16
+PIT,Personal income taxes,14,0.16
+PIT,Personal income taxes,15,0.16
+CIT,Corporate income tax,0,0
+CIT,Corporate income tax,1,0.03
+CIT,Corporate income tax,2,0.06
+CIT,Corporate income tax,3,0.09
+CIT,Corporate income tax,4,0.1
+CIT,Corporate income tax,5,0.1
+CIT,Corporate income tax,6,0.1
+CIT,Corporate income tax,7,0.1
+CIT,Corporate income tax,8,0.11
+CIT,Corporate income tax,9,0.12
+CIT,Corporate income tax,10,0.14
+CIT,Corporate income tax,11,0.14
+CIT,Corporate income tax,12,0.14
+CIT,Corporate income tax,13,0.14
+CIT,Corporate income tax,14,0.14
+CIT,Corporate income tax,15,0.14
+VAT,Sales tax,0,0
+VAT,Sales tax,1,0.37
+VAT,Sales tax,2,0.44
+VAT,Sales tax,3,0.46
+VAT,Sales tax,4,0.43
+VAT,Sales tax,5,0.38
+VAT,Sales tax,6,0.38
+VAT,Sales tax,7,0.37
+VAT,Sales tax,8,0.37
+VAT,Sales tax,9,0.34
+VAT,Sales tax,10,0.34
+VAT,Sales tax,11,0.32
+VAT,Sales tax,12,0.32
+VAT,Sales tax,13,0.32
+VAT,Sales tax,14,0.32
+VAT,Sales tax,15,0.32
+CAPT,Public investment,0,0
+CAPT,Public investment,1,0.62
+CAPT,Public investment,2,0.66
+CAPT,Public investment,3,0.64
+CAPT,Public investment,4,0.56
+CAPT,Public investment,5,0.58
+CAPT,Public investment,6,0.62
+CAPT,Public investment,7,0.69
+CAPT,Public investment,8,0.74
+CAPT,Public investment,9,0.88
+CAPT,Public investment,10,0.95
+CAPT,Public investment,11,1.02
+CAPT,Public investment,12,1.02
+CAPT,Public investment,13,1.02
+CAPT,Public investment,14,1.02
+CAPT,Public investment,15,1.02
+GNFS,General expenditures,0,0
+GNFS,General expenditures,1,0.53
+GNFS,General expenditures,2,0.46
+GNFS,General expenditures,3,0.39
+GNFS,General expenditures,4,0.4
+GNFS,General expenditures,5,0.4
+GNFS,General expenditures,6,0.39
+GNFS,General expenditures,7,0.36
+GNFS,General expenditures,8,0.37
+GNFS,General expenditures,9,0.36
+GNFS,General expenditures,10,0.3
+GNFS,General expenditures,11,0.31
+GNFS,General expenditures,12,0.31
+GNFS,General expenditures,13,0.31
+GNFS,General expenditures,14,0.31
+GNFS,General expenditures,15,0.31
+TRNS,Transfers,0,0
+TRNS,Transfers,1,0.16
+TRNS,Transfers,2,0.27
+TRNS,Transfers,3,0.32
+TRNS,Transfers,4,0.3
+TRNS,Transfers,5,0.29
+TRNS,Transfers,6,0.28
+TRNS,Transfers,7,0.28
+TRNS,Transfers,8,0.27
+TRNS,Transfers,9,0.28
+TRNS,Transfers,10,0.24
+TRNS,Transfers,11,0.24
+TRNS,Transfers,12,0.24
+TRNS,Transfers,13,0.24
+TRNS,Transfers,14,0.24
+TRNS,Transfers,15,0.24
+WAGE,Wage expenditures,0,0
+WAGE,Wage expenditures,1,0.73
+WAGE,Wage expenditures,2,0.72
+WAGE,Wage expenditures,3,0.69
+WAGE,Wage expenditures,4,0.63
+WAGE,Wage expenditures,5,0.66
+WAGE,Wage expenditures,6,0.59
+WAGE,Wage expenditures,7,0.6
+WAGE,Wage expenditures,8,0.61
+WAGE,Wage expenditures,9,0.62
+WAGE,Wage expenditures,10,0.48
+WAGE,Wage expenditures,11,0.55
+WAGE,Wage expenditures,12,0.55
+WAGE,Wage expenditures,13,0.55
+WAGE,Wage expenditures,14,0.55
+WAGE,Wage expenditures,15,0.55

@@ -1,0 +1,585 @@
+_row,round,code,country
+0,Latest*,AFG,Afghanistan
+1,Latest*,ALB,Albania
+2,Latest*,DZA,Algeria
+3,Latest*,AND,Andorra
+4,Latest*,AGO,Angola
+5,Latest*,ATG,Antigua and Barbuda
+6,Latest*,ARG,Argentina
+7,Latest*,ARM,Armenia
+8,Latest*,AUS,Australia
+9,Latest*,AUT,Austria
+10,Latest*,AZE,Azerbaijan
+11,Latest*,BHS,"Bahamas, The"
+12,Latest*,BHR,Bahrain
+13,Latest*,BGD,Bangladesh
+14,Latest*,BRB,Barbados
+15,Latest*,BLR,Belarus
+16,Latest*,BEL,Belgium
+17,Latest*,BLZ,Belize
+18,Latest*,BEN,Benin
+19,Latest*,BTN,Bhutan
+20,Latest*,BOL,Bolivia
+21,Latest*,BIH,Bosnia and Herzegovina
+22,Latest*,BWA,Botswana
+23,Latest*,BRA,Brazil
+24,Latest*,BRN,Brunei Darussalam
+25,Latest*,BGR,Bulgaria
+26,Latest*,BFA,Burkina Faso
+27,Latest*,BDI,Burundi
+28,Latest*,CPV,Cabo Verde
+29,Latest*,KHM,Cambodia
+30,Latest*,CMR,Cameroon
+31,Latest*,CAN,Canada
+32,Latest*,CAF,Central African Republic
+33,Latest*,TCD,Chad
+34,Latest*,CHL,Chile
+35,Latest*,CHN,China
+36,Latest*,COL,Colombia
+37,Latest*,COG,"Congo, Republic of"
+38,Latest*,COM,Comoros
+39,Latest*,CRI,Costa Rica
+40,Latest*,HRV,Croatia
+41,Latest*,CUB,Cuba
+42,Latest*,CYP,Cyprus
+43,Latest*,CZE,Czechia
+44,Latest*,DNK,Denmark
+45,Latest*,DJI,Djibouti
+46,Latest*,DMA,Dominica
+47,Latest*,DOM,Dominican Republic
+48,Latest*,COD,"Congo, Democratic Republic of the"
+49,Latest*,COK,Cook Islands
+50,Latest*,ECU,Ecuador
+51,Latest*,EGY,Egypt
+52,Latest*,SLV,El Salvador
+53,Latest*,GNQ,Equatorial Guinea
+54,Latest*,ERI,Eritrea
+55,Latest*,EST,Estonia
+56,Latest*,ETH,Ethiopia
+57,Latest*,EU,European Union
+58,Latest*,FJI,Fiji
+59,Latest*,FIN,Finland
+60,Latest*,FRA,France
+61,Latest*,FSM,Micronesia
+62,Latest*,GAB,Gabon
+63,Latest*,GMB,"Gambia, The"
+64,Latest*,GEO,Georgia
+65,Latest*,DEU,Germany
+66,Latest*,GHA,Ghana
+67,Latest*,GRC,Greece
+68,Latest*,GRD,Grenada
+69,Latest*,GTM,Guatemala
+70,Latest*,GIN,Guinea
+71,Latest*,GNB,Guinea-Bissau
+72,Latest*,GUY,Guyana
+73,Latest*,HTI,Haiti
+74,Latest*,HND,Honduras
+75,Latest*,HUN,Hungary
+76,Latest*,ISL,Iceland
+77,Latest*,IND,India
+78,Latest*,IDN,Indonesia
+79,Latest*,IRN,Iran
+80,Latest*,IRQ,Iraq
+81,Latest*,IRL,Ireland
+82,Latest*,ISR,Israel
+83,Latest*,ITA,Italy
+84,Latest*,CIV,Côte d'Ivoire
+85,Latest*,JAM,Jamaica
+86,Latest*,JPN,Japan
+87,Latest*,JOR,Jordan
+88,Latest*,KAZ,Kazakhstan
+89,Latest*,KEN,Kenya
+90,Latest*,KIR,Kiribati
+91,Latest*,XKX,Kosovo
+92,Latest*,KWT,Kuwait
+93,Latest*,KGZ,Kyrgyz Republic
+94,Latest*,LAO,Lao P.D.R.
+95,Latest*,LVA,Latvia
+96,Latest*,LBN,Lebanon
+97,Latest*,LSO,Lesotho
+98,Latest*,LBR,Liberia
+99,Latest*,LIE,Liechtenstein
+100,Latest*,LTU,Lithuania
+101,Latest*,LUX,Luxembourg
+102,Latest*,MKD,North Macedonia
+103,Latest*,MDG,Madagascar
+104,Latest*,MWI,Malawi
+105,Latest*,MYS,Malaysia
+106,Latest*,MDV,Maldives
+107,Latest*,MLI,Mali
+108,Latest*,MLT,Malta
+109,Latest*,MHL,Marshall Islands
+110,Latest*,MRT,Mauritania
+111,Latest*,MUS,Mauritius
+112,Latest*,MEX,Mexico
+113,Latest*,MDA,Moldova
+114,Latest*,MCO,Monaco
+115,Latest*,MNG,Mongolia
+116,Latest*,MNE,"Montenegro, Rep. of"
+117,Latest*,MAR,Morocco
+118,Latest*,MOZ,Mozambique
+119,Latest*,MMR,Myanmar
+120,Latest*,NAM,Namibia
+121,Latest*,NRU,Nauru
+122,Latest*,NPL,Nepal
+123,Latest*,NLD,Netherlands
+124,Latest*,NZL,New Zealand
+125,Latest*,NIC,Nicaragua
+126,Latest*,NER,Niger
+127,Latest*,NGA,Nigeria
+128,Latest*,PRK,"Korea, Dem. People's Rep."
+129,Latest*,NOR,Norway
+130,Latest*,OMN,Oman
+131,Latest*,PAK,Pakistan
+132,Latest*,PLW,Palau
+133,Latest*,PALEST,West Bank and Gaza
+134,Latest*,PAN,Panama
+135,Latest*,PNG,Papua New Guinea
+136,Latest*,PRY,Paraguay
+137,Latest*,PER,Peru
+138,Latest*,PHL,Philippines
+139,Latest*,POL,Poland
+140,Latest*,PRT,Portugal
+141,Latest*,QAT,Qatar
+142,Latest*,ROU,Romania
+143,Latest*,RUS,Russia
+144,Latest*,RWA,Rwanda
+145,Latest*,WSM,Samoa
+146,Latest*,SMR,San Marino
+147,Latest*,STP,São Tomé and Príncipe
+148,Latest*,SAU,Saudi Arabia
+149,Latest*,SEN,Senegal
+150,Latest*,SRB,Serbia
+151,Latest*,SYC,Seychelles
+152,Latest*,SLE,Sierra Leone
+153,Latest*,SGP,Singapore
+154,Latest*,SVK,Slovak Republic
+155,Latest*,SVN,Slovenia
+156,Latest*,SLB,Solomon Islands
+157,Latest*,SOM,Somalia
+158,Latest*,ZAF,South Africa
+159,Latest*,KOR,Korea
+160,Latest*,SSD,South Sudan
+161,Latest*,ESP,Spain
+162,Latest*,LKA,Sri Lanka
+163,Latest*,KNA,St. Kitts and Nevis
+164,Latest*,LCA,St. Lucia
+165,Latest*,VCT,St. Vincent and the Grenadines
+166,Latest*,SDN,Sudan
+167,Latest*,SUR,Suriname
+168,Latest*,SWZ,Eswatini
+169,Latest*,SWE,Sweden
+170,Latest*,CHE,Switzerland
+171,Latest*,TJK,Tajikistan
+172,Latest*,TZA,Tanzania
+173,Latest*,THA,Thailand
+174,Latest*,TLS,Timor-Leste
+175,Latest*,TGO,Togo
+176,Latest*,TON,Tonga
+177,Latest*,TTO,Trinidad and Tobago
+178,Latest*,TUN,Tunisia
+179,Latest*,TUR,Turkiye
+180,Latest*,TKM,Turkmenistan
+181,Latest*,TUV,Tuvalu
+182,Latest*,UGA,Uganda
+183,Latest*,UKR,Ukraine
+184,Latest*,ARE,United Arab Emirates
+185,Latest*,GBR,United Kingdom
+186,Latest*,USA,United States
+187,Latest*,URY,Uruguay
+188,Latest*,UZB,Uzbekistan
+189,Latest*,VUT,Vanuatu
+190,Latest*,VEN,Venezuela
+191,Latest*,VNM,Vietnam
+192,Latest*,YEM,Yemen
+193,Latest*,ZMB,Zambia
+194,Latest*,ZWE,Zimbabwe
+195,Second round,AFG,Afghanistan
+196,Second round,ALB,Albania
+197,Second round,DZA,Algeria
+198,Second round,AND,Andorra
+199,Second round,AGO,Angola
+200,Second round,ATG,Antigua and Barbuda
+201,Second round,ARG,Argentina
+202,Second round,ARM,Armenia
+203,Second round,AUS,Australia
+204,Second round,AUT,Austria
+205,Second round,AZE,Azerbaijan
+206,Second round,BHS,"Bahamas, The"
+207,Second round,BHR,Bahrain
+208,Second round,BGD,Bangladesh
+209,Second round,BRB,Barbados
+210,Second round,BLR,Belarus
+211,Second round,BEL,Belgium
+212,Second round,BLZ,Belize
+213,Second round,BEN,Benin
+214,Second round,BTN,Bhutan
+215,Second round,BOL,Bolivia
+216,Second round,BIH,Bosnia and Herzegovina
+217,Second round,BWA,Botswana
+218,Second round,BRA,Brazil
+219,Second round,BRN,Brunei Darussalam
+220,Second round,BGR,Bulgaria
+221,Second round,BFA,Burkina Faso
+222,Second round,BDI,Burundi
+223,Second round,CPV,Cabo Verde
+224,Second round,KHM,Cambodia
+225,Second round,CMR,Cameroon
+226,Second round,CAN,Canada
+227,Second round,CAF,Central African Republic
+228,Second round,TCD,Chad
+229,Second round,CHL,Chile
+230,Second round,CHN,China
+231,Second round,COL,Colombia
+232,Second round,COG,"Congo, Republic of"
+233,Second round,COM,Comoros
+234,Second round,CRI,Costa Rica
+235,Second round,HRV,Croatia
+236,Second round,CUB,Cuba
+237,Second round,CYP,Cyprus
+238,Second round,CZE,Czechia
+239,Second round,DNK,Denmark
+240,Second round,DJI,Djibouti
+241,Second round,DMA,Dominica
+242,Second round,DOM,Dominican Republic
+243,Second round,COD,"Congo, Democratic Republic of the"
+244,Second round,COK,Cook islands
+245,Second round,ECU,Ecuador
+246,Second round,EGY,Egypt
+247,Second round,SLV,El Salvador
+248,Second round,GNQ,Equatorial Guinea
+249,Second round,ERI,Eritrea
+250,Second round,EST,Estonia
+251,Second round,ETH,Ethiopia
+252,Second round,EU,European Union
+253,Second round,FJI,Fiji
+254,Second round,FIN,Finland
+255,Second round,FRA,France
+256,Second round,FSM,Micronesia
+257,Second round,GAB,Gabon
+258,Second round,GMB,"Gambia, The"
+259,Second round,GEO,Georgia
+260,Second round,DEU,Germany
+261,Second round,GHA,Ghana
+262,Second round,GRC,Greece
+263,Second round,GRD,Grenada
+264,Second round,GTM,Guatemala
+265,Second round,GIN,Guinea
+266,Second round,GNB,Guinea-Bissau
+267,Second round,GUY,Guyana
+268,Second round,HTI,Haiti
+269,Second round,HND,Honduras
+270,Second round,HUN,Hungary
+271,Second round,ISL,Iceland
+272,Second round,IND,India
+273,Second round,IDN,Indonesia
+274,Second round,IRN,Iran
+275,Second round,IRQ,Iraq
+276,Second round,IRL,Ireland
+277,Second round,ISR,Israel
+278,Second round,ITA,Italy
+279,Second round,CIV,Côte d'Ivoire
+280,Second round,JAM,Jamaica
+281,Second round,JPN,Japan
+282,Second round,JOR,Jordan
+283,Second round,KAZ,Kazakhstan
+284,Second round,KEN,Kenya
+285,Second round,KIR,Kiribati
+286,Second round,XKX,Kosovo
+287,Second round,KWT,Kuwait
+288,Second round,KGZ,Kyrgyz Republic
+289,Second round,LAO,Lao P.D.R.
+290,Second round,LVA,Latvia
+291,Second round,LBN,Lebanon
+292,Second round,LSO,Lesotho
+293,Second round,LBR,Liberia
+294,Second round,LIE,Liechtenstein
+295,Second round,LTU,Lithuania
+296,Second round,LUX,Luxembourg
+297,Second round,MKD,North Macedonia
+298,Second round,MDG,Madagascar
+299,Second round,MWI,Malawi
+300,Second round,MYS,Malaysia
+301,Second round,MDV,Maldives
+302,Second round,MLI,Mali
+303,Second round,MLT,Malta
+304,Second round,MHL,Marshall Islands
+305,Second round,MRT,Mauritania
+306,Second round,MUS,Mauritius
+307,Second round,MEX,Mexico
+308,Second round,MDA,Moldova
+309,Second round,MCO,Monaco
+310,Second round,MNG,Mongolia
+311,Second round,MNE,"Montenegro, Rep. of"
+312,Second round,MAR,Morocco
+313,Second round,MOZ,Mozambique
+314,Second round,MMR,Myanmar
+315,Second round,NAM,Namibia
+316,Second round,NRU,Nauru
+317,Second round,NPL,Nepal
+318,Second round,NLD,Netherlands
+319,Second round,NZL,New Zealand
+320,Second round,NIC,Nicaragua
+321,Second round,NER,Niger
+322,Second round,NGA,Nigeria
+323,Second round,PRK,"Korea, Dem. People's Rep."
+324,Second round,NOR,Norway
+325,Second round,OMN,Oman
+326,Second round,PAK,Pakistan
+327,Second round,PLW,Palau
+328,Second round,PALEST,West Bank and Gaza
+329,Second round,PAN,Panama
+330,Second round,PNG,Papua New Guinea
+331,Second round,PRY,Paraguay
+332,Second round,PER,Peru
+333,Second round,PHL,Philippines
+334,Second round,POL,Poland
+335,Second round,PRT,Portugal
+336,Second round,QAT,Qatar
+337,Second round,ROU,Romania
+338,Second round,RUS,Russia
+339,Second round,RWA,Rwanda
+340,Second round,WSM,Samoa
+341,Second round,SMR,San Marino
+342,Second round,STP,São Tomé and Príncipe
+343,Second round,SAU,Saudi Arabia
+344,Second round,SEN,Senegal
+345,Second round,SRB,Serbia
+346,Second round,SYC,Seychelles
+347,Second round,SLE,Sierra Leone
+348,Second round,SGP,Singapore
+349,Second round,SVK,Slovak Republic
+350,Second round,SVN,Slovenia
+351,Second round,SLB,Solomon Islands
+352,Second round,SOM,Somalia
+353,Second round,ZAF,South Africa
+354,Second round,KOR,Korea
+355,Second round,SSD,South Sudan
+356,Second round,ESP,Spain
+357,Second round,LKA,Sri Lanka
+358,Second round,KNA,St. Kitts and Nevis
+359,Second round,LCA,St. Lucia
+360,Second round,VCT,St. Vincent and the Grenadines
+361,Second round,SDN,Sudan
+362,Second round,SUR,Suriname
+363,Second round,SWZ,Eswatini
+364,Second round,SWE,Sweden
+365,Second round,CHE,Switzerland
+366,Second round,TJK,Tajikistan
+367,Second round,TZA,Tanzania
+368,Second round,THA,Thailand
+369,Second round,TLS,Timor-Leste
+370,Second round,TGO,Togo
+371,Second round,TON,Tonga
+372,Second round,TTO,Trinidad and Tobago
+373,Second round,TUN,Tunisia
+374,Second round,TUR,Turkiye
+375,Second round,TKM,Turkmenistan
+376,Second round,TUV,Tuvalu
+377,Second round,UGA,Uganda
+378,Second round,UKR,Ukraine
+379,Second round,ARE,United Arab Emirates
+380,Second round,GBR,United Kingdom
+381,Second round,USA,United States
+382,Second round,URY,Uruguay
+383,Second round,UZB,Uzbekistan
+384,Second round,VUT,Vanuatu
+385,Second round,VEN,Venezuela
+386,Second round,VNM,Vietnam
+387,Second round,YEM,Yemen
+388,Second round,ZMB,Zambia
+389,Second round,ZWE,Zimbabwe
+390,First round,AFG,Afghanistan
+391,First round,ALB,Albania
+392,First round,DZA,Algeria
+393,First round,AND,Andorra
+394,First round,AGO,Angola
+395,First round,ATG,Antigua and Barbuda
+396,First round,ARG,Argentina
+397,First round,ARM,Armenia
+398,First round,AUS,Australia
+399,First round,AUT,Austria
+400,First round,AZE,Azerbaijan
+401,First round,BHS,Bahamas
+402,First round,BHR,Bahrain
+403,First round,BGD,Bangladesh
+404,First round,BRB,Barbados
+405,First round,BLR,Belarus
+406,First round,BEL,Belgium
+407,First round,BLZ,Belize
+408,First round,BEN,Benin
+409,First round,BTN,Bhutan
+410,First round,BOL,Bolivia
+411,First round,BIH,Bosnia-Herzegowina
+412,First round,BWA,Botswana
+413,First round,BRA,Brazil
+414,First round,BRN,Brunei
+415,First round,BGR,Bulgaria
+416,First round,BFA,Burkina Faso
+417,First round,BDI,Burundi
+418,First round,CPV,Cabo Verde
+419,First round,KHM,Cambodia
+420,First round,CMR,Cameroon
+421,First round,CAN,Canada
+422,First round,CAF,Central African Republic
+423,First round,TCD,Chad
+424,First round,CHL,Chile
+425,First round,CHN,China
+426,First round,COL,Colombia
+427,First round,COG,Congo
+428,First round,COM,Comoros
+429,First round,CRI,Costa Rica
+430,First round,HRV,Croatia
+431,First round,CUB,Cuba
+432,First round,CYP,Cyprus
+433,First round,CZE,Czechia
+434,First round,DNK,Denmark
+435,First round,DJI,Djibouti
+436,First round,DMA,Dominica
+437,First round,DOM,Dominican Republic
+438,First round,COD,DR Congo
+439,First round,COK,Cook islands
+440,First round,ECU,Ecuador
+441,First round,EGY,Egypt
+442,First round,SLV,El Salvador
+443,First round,GNQ,Equatorial Guinea
+444,First round,ERI,Eritrea
+445,First round,EST,Estonia
+446,First round,ETH,Ethiopia
+447,First round,EU,European Union
+448,First round,FJI,Fiji
+449,First round,FIN,Finland
+450,First round,FRA,France
+451,First round,FSM,FS Micronesia
+452,First round,GAB,Gabon
+453,First round,GMB,Gambia
+454,First round,GEO,Georgia
+455,First round,DEU,Germany
+456,First round,GHA,Ghana
+457,First round,GRC,Greece
+458,First round,GRD,Grenada
+459,First round,GTM,Guatemala
+460,First round,GIN,Guinea
+461,First round,GNB,Guinea Bissau
+462,First round,GUY,Guyana
+463,First round,HTI,Haiti
+464,First round,HND,Honduras
+465,First round,HUN,Hungary
+466,First round,ISL,Iceland
+467,First round,IND,India
+468,First round,IDN,Indonesia
+469,First round,IRN,Iran
+470,First round,IRQ,Iraq
+471,First round,IRL,Ireland
+472,First round,ISR,Israel
+473,First round,ITA,Italy
+474,First round,CIV,Ivory Coast
+475,First round,JAM,Jamaica
+476,First round,JPN,Japan
+477,First round,JOR,Jordan
+478,First round,KAZ,Kazakhstan
+479,First round,KEN,Kenya
+480,First round,KIR,Kiribati
+481,First round,KWT,Kuwait
+482,First round,KGZ,Kyrgyzstan
+483,First round,LAO,Lao People’s Democratic Republic
+484,First round,LVA,Latvia
+485,First round,LBN,Lebanon
+486,First round,LSO,Lesotho
+487,First round,LBR,Liberia
+488,First round,LIE,Liechtenstein
+489,First round,LTU,Lithuania
+490,First round,LUX,Luxembourg
+491,First round,MKD,North Macedonia
+492,First round,MDG,Madagascar
+493,First round,MWI,Malawi
+494,First round,MYS,Malaysia
+495,First round,MDV,Maldives
+496,First round,MLI,Mali
+497,First round,MLT,Malta
+498,First round,MHL,Marshall Islands
+499,First round,MRT,Mauritania
+500,First round,MUS,Mauritius
+501,First round,MEX,Mexico
+502,First round,MDA,Moldova
+503,First round,MCO,Monaco
+504,First round,MNG,Mongolia
+505,First round,MNE,Montenegro
+506,First round,MAR,Morocco
+507,First round,MOZ,Mozambique
+508,First round,MMR,Myanmar
+509,First round,NAM,Namibia
+510,First round,NRU,Nauru
+511,First round,NPL,Nepal
+512,First round,NLD,Netherlands
+513,First round,NZL,New Zealand
+514,First round,NIC,Nicaragua
+515,First round,NER,Niger
+516,First round,NGA,Nigeria
+517,First round,PRK,North Korea
+518,First round,NOR,Norway
+519,First round,OMN,Oman
+520,First round,PAK,Pakistan
+521,First round,PLW,Palau
+522,First round,PALEST,Palestine
+523,First round,PAN,Panama
+524,First round,PNG,Papua New Guinea
+525,First round,PRY,Paraguay
+526,First round,PER,Peru
+527,First round,PHL,Philippines
+528,First round,POL,Poland
+529,First round,PRT,Portugal
+530,First round,QAT,Qatar
+531,First round,ROU,Romania
+532,First round,RUS,Russia
+533,First round,RWA,Rwanda
+534,First round,WSM,Samoa
+535,First round,SMR,San Marino
+536,First round,STP,Sao Tome & Principe
+537,First round,SAU,Saudi Arabia
+538,First round,SEN,Senegal
+539,First round,SRB,Serbia
+540,First round,SYC,Seychelles
+541,First round,SLE,Sierra Leone
+542,First round,SGP,Singapore
+543,First round,SVK,Slovak Republic
+544,First round,SVN,Slovenia
+545,First round,SLB,Solomon Islands
+546,First round,SOM,Somalia
+547,First round,ZAF,South Africa
+548,First round,KOR,South Korea
+549,First round,SSD,South Sudan
+550,First round,ESP,Spain
+551,First round,LKA,Sri Lanka
+552,First round,KNA,St. Kitts and Nevis
+553,First round,LCA,St. Lucia
+554,First round,VCT,St. Vincent and the Grenadines
+555,First round,SDN,Sudan
+556,First round,SUR,Suriname
+557,First round,SWZ,Swaziland
+558,First round,SWE,Sweden
+559,First round,CHE,Switzerland
+560,First round,TJK,Tajikistan
+561,First round,TZA,Tanzania
+562,First round,THA,Thailand
+563,First round,TLS,Timor-Leste
+564,First round,TGO,Togo
+565,First round,TON,Tonga
+566,First round,TTO,Trinidad & Tobago
+567,First round,TUN,Tunisia
+568,First round,TUR,Turkiye
+569,First round,TKM,Turkmenistan
+570,First round,TUV,Tuvalu
+571,First round,UGA,Uganda
+572,First round,UKR,Ukraine
+573,First round,ARE,United Arab Emirates
+574,First round,GBR,United Kingdom
+575,First round,USA,United States
+576,First round,URY,Uruguay
+577,First round,UZB,Uzbekistan
+578,First round,VUT,Vanuatu
+579,First round,VEN,Venezuela
+580,First round,VNM,Vietnam
+581,First round,YEM,Yemen
+582,First round,ZMB,Zambia
+583,First round,ZWE,Zimbabwe

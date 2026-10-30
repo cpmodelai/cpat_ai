@@ -1,0 +1,122 @@
+country_name,country,sector_fuel,code,year,value
+Australia,AUS,all,aus.mit.erv.all,2016,0
+Australia,AUS,all,aus.mit.erv.all,2017,0
+Australia,AUS,all,aus.mit.erv.all,2018,0
+Australia,AUS,all,aus.mit.erv.all,2019,0
+Australia,AUS,all,aus.mit.erv.all,2020,0
+Australia,AUS,all,aus.mit.erv.all,2021,0
+Australia,AUS,all,aus.mit.erv.all,2022,0
+Australia,AUS,all,aus.mit.erv.all,2023,0
+Australia,AUS,all,aus.mit.erv.all,2024,0
+Australia,AUS,all,aus.mit.erv.all,2025,0
+Austria,AUT,all,aut.mit.erv.all,2015,0
+Austria,AUT,all,aut.mit.erv.all,2016,0
+Austria,AUT,all,aut.mit.erv.all,2017,0
+Austria,AUT,all,aut.mit.erv.all,2018,0
+Austria,AUT,all,aut.mit.erv.all,2019,0
+Austria,AUT,all,aut.mit.erv.all,2020,0
+Austria,AUT,all,aut.mit.erv.all,2021,0
+Austria,AUT,all,aut.mit.erv.all,2023,916.32978
+Austria,AUT,all,aut.mit.erv.all,2024,1264.2567
+Austria,AUT,all,aut.mit.erv.all,2025,1264.2567
+Canada,CAN,all,can.mit.erv.all,2015,0
+Canada,CAN,all,can.mit.erv.all,2016,0
+Canada,CAN,all,can.mit.erv.all,2017,0
+Canada,CAN,all,can.mit.erv.all,2018,0
+Canada,CAN,all,can.mit.erv.all,2019,0
+Canada,CAN,all,can.mit.erv.all,2020,120.3404755
+Canada,CAN,all,can.mit.erv.all,2021,192.0284008
+Canada,CAN,all,can.mit.erv.all,2022,228.9306224
+Canada,CAN,all,can.mit.erv.all,2023,0
+Canada,CAN,all,can.mit.erv.all,2024,0
+Canada,CAN,all,can.mit.erv.all,2025,0
+Germany,DEU,all,deu.mit.erv.all,2015,0
+Germany,DEU,all,deu.mit.erv.all,2016,0
+Germany,DEU,all,deu.mit.erv.all,2017,0
+Germany,DEU,all,deu.mit.erv.all,2018,0
+Germany,DEU,all,deu.mit.erv.all,2019,0
+Germany,DEU,all,deu.mit.erv.all,2020,0
+Germany,DEU,all,deu.mit.erv.all,2021,8537.207956
+Germany,DEU,all,deu.mit.erv.all,2022,6675.073102
+Germany,DEU,all,deu.mit.erv.all,2023,11670.20513
+Germany,DEU,all,deu.mit.erv.all,2024,13933.16874
+Germany,DEU,all,deu.mit.erv.all,2025,13933.16874
+Indonesia,IDN,all,idn.mit.erv.all,2015,0
+Indonesia,IDN,all,idn.mit.erv.all,2016,0
+Indonesia,IDN,all,idn.mit.erv.all,2017,0
+Indonesia,IDN,all,idn.mit.erv.all,2018,0
+Indonesia,IDN,all,idn.mit.erv.all,2019,0
+Indonesia,IDN,all,idn.mit.erv.all,2020,0
+Indonesia,IDN,all,idn.mit.erv.all,2021,0
+Indonesia,IDN,all,idn.mit.erv.all,2022,0
+Kazakhstan,KAZ,all,kaz.mit.erv.all,2015,0
+Kazakhstan,KAZ,all,kaz.mit.erv.all,2016,0
+Kazakhstan,KAZ,all,kaz.mit.erv.all,2017,0
+Kazakhstan,KAZ,all,kaz.mit.erv.all,2018,0
+Kazakhstan,KAZ,all,kaz.mit.erv.all,2019,0
+Kazakhstan,KAZ,all,kaz.mit.erv.all,2020,0
+Kazakhstan,KAZ,all,kaz.mit.erv.all,2021,0
+Kazakhstan,KAZ,all,kaz.mit.erv.all,2022,0
+Korea,KOR,all,kor.mit.erv.all,2015,0
+Korea,KOR,all,kor.mit.erv.all,2016,0
+Korea,KOR,all,kor.mit.erv.all,2017,0
+Korea,KOR,all,kor.mit.erv.all,2018,97.78957763969723
+Korea,KOR,all,kor.mit.erv.all,2019,200.994271
+Korea,KOR,all,kor.mit.erv.all,2020,207.1671439
+Korea,KOR,all,kor.mit.erv.all,2021,260.9862157
+Korea,KOR,all,kor.mit.erv.all,2022,243.9323242
+Korea,KOR,all,kor.mit.erv.all,2023,64.12266149
+Korea,KOR,all,kor.mit.erv.all,2024,134.4467701
+Korea,KOR,all,kor.mit.erv.all,2025,134.4467701
+Mexico,MEX,all,mex.mit.erv.all,2015,0
+Mexico,MEX,all,mex.mit.erv.all,2016,0
+Mexico,MEX,all,mex.mit.erv.all,2017,0
+Mexico,MEX,all,mex.mit.erv.all,2018,0
+Mexico,MEX,all,mex.mit.erv.all,2019,0
+Mexico,MEX,all,mex.mit.erv.all,2020,0
+Mexico,MEX,all,mex.mit.erv.all,2021,0
+Mexico,MEX,all,mex.mit.erv.all,2022,0
+Mexico,MEX,all,mex.mit.erv.all,2023,0
+Montenegro,MNE,all,mne.mit.erv.all,2015,0
+Montenegro,MNE,all,mne.mit.erv.all,2016,0
+Montenegro,MNE,all,mne.mit.erv.all,2017,0
+Montenegro,MNE,all,mne.mit.erv.all,2018,0
+Montenegro,MNE,all,mne.mit.erv.all,2019,0
+Montenegro,MNE,all,mne.mit.erv.all,2020,0
+Montenegro,MNE,all,mne.mit.erv.all,2021,0
+Montenegro,MNE,all,mne.mit.erv.all,2023,10.061916
+Montenegro,MNE,all,mne.mit.erv.all,2024,13.80456606
+Montenegro,MNE,all,mne.mit.erv.all,2025,13.80456606
+New Zealand,NZL,all,nzl.mit.erv.all,2015,0.000305505
+New Zealand,NZL,all,nzl.mit.erv.all,2016,0.00028512
+New Zealand,NZL,all,nzl.mit.erv.all,2017,0.0703296
+New Zealand,NZL,all,nzl.mit.erv.all,2018,0.769266068
+New Zealand,NZL,all,nzl.mit.erv.all,2019,281.6064631
+New Zealand,NZL,all,nzl.mit.erv.all,2020,149.2341828
+New Zealand,NZL,all,nzl.mit.erv.all,2021,1664.77979
+New Zealand,NZL,all,nzl.mit.erv.all,2022,1280.882844
+New Zealand,NZL,all,nzl.mit.erv.all,2023,21.09215396
+New Zealand,NZL,all,nzl.mit.erv.all,2024,293.3856903
+New Zealand,NZL,all,nzl.mit.erv.all,2025,293.3856903
+Switzerland,CHE,all,che.mit.erv.all,2015,5.056454438
+Switzerland,CHE,all,che.mit.erv.all,2016,4.117089583
+Switzerland,CHE,all,che.mit.erv.all,2017,4.903205272
+Switzerland,CHE,all,che.mit.erv.all,2018,4.441529604
+Switzerland,CHE,all,che.mit.erv.all,2019,8.712732635
+Switzerland,CHE,all,che.mit.erv.all,2020,8.270122305
+Switzerland,CHE,all,che.mit.erv.all,2021,18.93428704
+Switzerland,CHE,all,che.mit.erv.all,2022,45.65282985
+Switzerland,CHE,all,che.mit.erv.all,2023,38.74602159
+Switzerland,CHE,all,che.mit.erv.all,2024,49.9576117
+Switzerland,CHE,all,che.mit.erv.all,2025,49.9576117
+United Kingdom,GBR,all,gbr.mit.erv.all,2015,0
+United Kingdom,GBR,all,gbr.mit.erv.all,2016,0
+United Kingdom,GBR,all,gbr.mit.erv.all,2017,0
+United Kingdom,GBR,all,gbr.mit.erv.all,2018,0
+United Kingdom,GBR,all,gbr.mit.erv.all,2019,0
+United Kingdom,GBR,all,gbr.mit.erv.all,2020,0
+United Kingdom,GBR,all,gbr.mit.erv.all,2021,5943.445822
+United Kingdom,GBR,all,gbr.mit.erv.all,2022,7395.64853
+United Kingdom,GBR,all,gbr.mit.erv.all,2023,5315.370593
+United Kingdom,GBR,all,gbr.mit.erv.all,2024,3249.599462
+United Kingdom,GBR,all,gbr.mit.erv.all,2025,3249.599462

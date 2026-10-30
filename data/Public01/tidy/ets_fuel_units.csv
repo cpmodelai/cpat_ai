@@ -1,0 +1,19 @@
+fuel,variable,value
+Coal,unit_1,$/GJ
+Coal,unit_2,$/tCO2
+Coal,unit_3,$/ton
+Nat. Gas,unit_1,$/GJ
+Nat. Gas,unit_2,$/tCO2
+Nat. Gas,unit_3,$/tcm
+Gasoline,unit_1,$/liter
+Gasoline,unit_2,$/tCO2
+Diesel,unit_1,$/liter
+Diesel,unit_2,$/tCO2
+LPG,unit_1,$/liter
+LPG,unit_2,$/tCO2
+Kero.,unit_1,$/liter
+Kero.,unit_2,$/tCO2
+Other oil,unit_1,$/liter
+Other oil,unit_2,$/tCO2
+Electricity,unit_1,$/kWh
+Electricity,unit_2,$/tCO2

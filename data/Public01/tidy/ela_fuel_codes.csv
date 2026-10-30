@@ -1,0 +1,11 @@
+fuel,variable,value
+biomass,code,bio
+coal,code,coa
+diesel,code,die
+electricity,code,ecy
+gasoline,code,gso
+kerosene,code,ker
+LPG,code,lpg
+natural gas,code,nga
+oil products,code,oil
+renewable energy,code,rnw

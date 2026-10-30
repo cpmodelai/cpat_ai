@@ -1,0 +1,210 @@
+country_name,country_name_u,variable,value
+Nepal,Nepal,B (no header),0.3986805356220312
+Nepal,Nepal,passenger|actual,0.10486035065918355
+Nepal,Nepal,passenger|calculation,0.1052102794750192
+Nepal,Nepal,passenger|2030,0.15760539417913785
+Nepal,Nepal,passenger|2035,0.20789894043228765
+Nepal,Nepal,passenger|difference,0.0003499288158356484
+Nepal,Nepal,passenger|range_anxiety,74522.86441361575
+Nepal,Nepal,freight|actual,0.000699999975040555
+Nepal,Nepal,freight|calculation,0.0007237735874828788
+Nepal,Nepal,freight|2030,0.0028506675204508225
+Nepal,Nepal,freight|2035,0.016559217278168448
+Nepal,Nepal,freight|difference,0.00023773612442323788
+Nepal,Nepal,freight|range_anxiety,640169.051995702
+Nepal,Nepal,two_three_wheeler|actual,0.05999999865889549
+Nepal,Nepal,two_three_wheeler|calculation,0.05972455029652446
+Nepal,Nepal,two_three_wheeler|2030,0.16420610369933442
+Nepal,Nepal,two_three_wheeler|2035,0.3718183891367062
+Nepal,Nepal,two_three_wheeler|difference,-0.00027544836237103354
+Nepal,Nepal,two_three_wheeler|range_anxiety,1971.0478266302744
+Cameroon,Cameroon,B (no header),0.5003523033565068
+Cameroon,Cameroon,passenger|actual,0.006510769004286083
+Cameroon,Cameroon,passenger|calculation,0.0073469735460529595
+Cameroon,Cameroon,passenger|2030,0.05568420125009563
+Cameroon,Cameroon,passenger|2035,0.17573933636608646
+Cameroon,Cameroon,passenger|difference,0.0008362045417668763
+Cameroon,Cameroon,passenger|range_anxiety,110025.07555798243
+Cameroon,Cameroon,freight|actual,0.00039999998989515007
+Cameroon,Cameroon,freight|calculation,0.0004259685499369281
+Cameroon,Cameroon,freight|2030,0.005750683613881757
+Cameroon,Cameroon,freight|2035,0.0379083920768144
+Cameroon,Cameroon,freight|difference,0.00025968560041778055
+Cameroon,Cameroon,freight|range_anxiety,1052452.7209312506
+Cameroon,Cameroon,two_three_wheeler|actual,0.019999999552965164
+Cameroon,Cameroon,two_three_wheeler|calculation,0.020926387182257256
+Cameroon,Cameroon,two_three_wheeler|2030,0.13675257227147686
+Cameroon,Cameroon,two_three_wheeler|2035,0.3729849637949112
+Cameroon,Cameroon,two_three_wheeler|difference,0.0009263876292920914
+Cameroon,Cameroon,two_three_wheeler|range_anxiety,2900
+Tanzania,Tanzania,B (no header),0.3659632522462316
+Tanzania,Tanzania,passenger|actual,0.0066637822191827475
+Tanzania,Tanzania,passenger|calculation,0.006845748081524471
+Tanzania,Tanzania,passenger|2030,0.032938031910007555
+Tanzania,Tanzania,passenger|2035,0.14657159866616168
+Tanzania,Tanzania,passenger|difference,0.00018196586234172328
+Tanzania,Tanzania,passenger|range_anxiety,74081.16604809913
+Tanzania,Tanzania,freight|actual,0.00039999998989515007
+Tanzania,Tanzania,freight|calculation,0.0004459996748846784
+Tanzania,Tanzania,freight|2030,0.0029814386903385115
+Tanzania,Tanzania,freight|2035,0.026440647568360842
+Tanzania,Tanzania,freight|difference,0.00045999684989528333
+Tanzania,Tanzania,freight|range_anxiety,1052563.3413518898
+Tanzania,Tanzania,two_three_wheeler|actual,0.019999999552965164
+Tanzania,Tanzania,two_three_wheeler|calculation,0.020406130472788053
+Tanzania,Tanzania,two_three_wheeler|2030,0.07973299048098348
+Tanzania,Tanzania,two_three_wheeler|2035,0.2664186750496389
+Tanzania,Tanzania,two_three_wheeler|difference,0.00040613091982288907
+Tanzania,Tanzania,two_three_wheeler|range_anxiety,2510.3808043654376
+Haiti,Haiti,B (no header),0.7581053184829756
+Haiti,Haiti,passenger|actual,0.03994221713893661
+Haiti,Haiti,passenger|calculation,0.040190566414290516
+Haiti,Haiti,passenger|2030,0.0647730121064698
+Haiti,Haiti,passenger|2035,0.15545510381797598
+Haiti,Haiti,passenger|difference,0.0002483492753539082
+Haiti,Haiti,passenger|range_anxiety,53979.31560669801
+Haiti,Haiti,freight|actual,0.002199999988079071
+Haiti,Haiti,freight|calculation,0.002211244573868343
+Haiti,Haiti,freight|2030,0.004713163837773093
+Haiti,Haiti,freight|2035,0.02171021950240626
+Haiti,Haiti,freight|difference,0.00011244585789271788
+Haiti,Haiti,freight|range_anxiety,402168.1339903948
+Haiti,Haiti,two_three_wheeler|actual,0.003800000064074993
+Haiti,Haiti,two_three_wheeler|calculation,0.004500924412048302
+Haiti,Haiti,two_three_wheeler|2030,0.01901337110067658
+Haiti,Haiti,two_three_wheeler|2035,0.08628796047552267
+Haiti,Haiti,two_three_wheeler|difference,0.0007009243479733085
+Haiti,Haiti,two_three_wheeler|range_anxiety,3362.944417058625
+São Tomé and Príncipe,São Tomé and Príncipe,B (no header),0.36476962034900207
+São Tomé and Príncipe,São Tomé and Príncipe,passenger|actual,0.006681021796435794
+São Tomé and Príncipe,São Tomé and Príncipe,passenger|calculation,0.007167547114075683
+São Tomé and Príncipe,São Tomé and Príncipe,passenger|2030,0.05681315539673954
+São Tomé and Príncipe,São Tomé and Príncipe,passenger|2035,0.15309875171043544
+São Tomé and Príncipe,São Tomé and Príncipe,passenger|difference,0.000486525317639889
+São Tomé and Príncipe,São Tomé and Príncipe,passenger|range_anxiety,102325.37809440082
+São Tomé and Príncipe,São Tomé and Príncipe,freight|actual,0.00039999998989515007
+São Tomé and Príncipe,São Tomé and Príncipe,freight|calculation,0.00043198557038681695
+São Tomé and Príncipe,São Tomé and Príncipe,freight|2030,0.008702762639163475
+São Tomé and Príncipe,São Tomé and Príncipe,freight|2035,0.05605089867196478
+São Tomé and Príncipe,São Tomé and Príncipe,freight|difference,0.0003198558049166689
+São Tomé and Príncipe,São Tomé and Príncipe,freight|range_anxiety,993142.4254732963
+São Tomé and Príncipe,São Tomé and Príncipe,two_three_wheeler|actual,0.019999999552965164
+São Tomé and Príncipe,São Tomé and Príncipe,two_three_wheeler|calculation,0.019609818831031745
+São Tomé and Príncipe,São Tomé and Príncipe,two_three_wheeler|2030,0.14746737221398343
+São Tomé and Príncipe,São Tomé and Príncipe,two_three_wheeler|2035,0.40973672829056407
+São Tomé and Príncipe,São Tomé and Príncipe,two_three_wheeler|difference,-0.0003901807219334197
+São Tomé and Príncipe,São Tomé and Príncipe,two_three_wheeler|range_anxiety,3417.0641602593423
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",B (no header),0.6464747599807916
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",passenger|actual,0.006598232802750446
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",passenger|calculation,0.007306552571842878
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",passenger|2030,0.025375247994752822
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",passenger|2035,0.10773453528013151
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",passenger|difference,0.0007083197690924319
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",passenger|range_anxiety,61849.445077034994
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",freight|actual,0.00039999998989515007
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",freight|calculation,0.00047798081434968775
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",freight|2030,0.002050868195425659
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",freight|2035,0.014932804208646289
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",freight|difference,0.0007798082445453769
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",freight|range_anxiety,787443.0991987044
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",two_three_wheeler|actual,0.019999999552965164
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",two_three_wheeler|calculation,0.020624904381065456
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",two_three_wheeler|2030,0.06801235423401497
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",two_three_wheeler|2035,0.2214550229895128
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",two_three_wheeler|difference,0.0006249048281002922
+"Congo, Democratic Republic of the","Congo, Democratic Republic of the",two_three_wheeler|range_anxiety,2545.8602063726503
+Malawi,Malawi,B (no header),0.6792014051149835
+Malawi,Malawi,passenger|actual,0.006637325962187908
+Malawi,Malawi,passenger|calculation,0.007164106012171412
+Malawi,Malawi,passenger|2030,0.0267329976524713
+Malawi,Malawi,passenger|2035,0.12155272503338126
+Malawi,Malawi,passenger|difference,0.0005267800499835044
+Malawi,Malawi,passenger|range_anxiety,84539.56396748449
+Malawi,Malawi,freight|actual,0.00039999998989515007
+Malawi,Malawi,freight|calculation,0.00043296349303312276
+Malawi,Malawi,freight|2030,0.0019679494446050994
+Malawi,Malawi,freight|2035,0.015787883655128065
+Malawi,Malawi,freight|difference,0.00032963503137972694
+Malawi,Malawi,freight|range_anxiety,972454.1464664926
+Malawi,Malawi,two_three_wheeler|actual,0.019999999552965164
+Malawi,Malawi,two_three_wheeler|calculation,0.01994664493819731
+Malawi,Malawi,two_three_wheeler|2030,0.07376912355305809
+Malawi,Malawi,two_three_wheeler|2035,0.257663275776413
+Malawi,Malawi,two_three_wheeler|difference,-5.335461476785319e-05
+Malawi,Malawi,two_three_wheeler|range_anxiety,3662.989682599852
+Central African Republic,Central African Republic,B (no header),0.44713830622599804
+Central African Republic,Central African Republic,passenger|actual,0.006598258107509654
+Central African Republic,Central African Republic,passenger|calculation,0.007370874522377381
+Central African Republic,Central African Republic,passenger|2030,0.027746384570431326
+Central African Republic,Central African Republic,passenger|2035,0.09995390674437675
+Central African Republic,Central African Republic,passenger|difference,0.0007726164148677273
+Central African Republic,Central African Republic,passenger|range_anxiety,94229.27071721952
+Central African Republic,Central African Republic,freight|actual,0.00039999998989515007
+Central African Republic,Central African Republic,freight|calculation,0.0004236183884699374
+Central African Republic,Central African Republic,freight|2030,0.0021885588112439125
+Central African Republic,Central African Republic,freight|2035,0.013628338622003189
+Central African Republic,Central African Republic,freight|difference,0.00023618398574787314
+Central African Republic,Central African Republic,freight|range_anxiety,1395432.237761417
+Central African Republic,Central African Republic,two_three_wheeler|actual,0.019999999552965164
+Central African Republic,Central African Republic,two_three_wheeler|calculation,0.02095078707960152
+Central African Republic,Central African Republic,two_three_wheeler|2030,0.07090790987505013
+Central African Republic,Central African Republic,two_three_wheeler|2035,0.21011806428803692
+Central African Republic,Central African Republic,two_three_wheeler|difference,0.0009507875266363541
+Central African Republic,Central African Republic,two_three_wheeler|range_anxiety,4342.808767310667
+Burundi,Burundi,B (no header),0.4005064618650996
+Burundi,Burundi,passenger|actual,0.005813348250231335
+Burundi,Burundi,passenger|calculation,0.006012595345478512
+Burundi,Burundi,passenger|2030,0.02645289303492911
+Burundi,Burundi,passenger|2035,0.08650635080243595
+Burundi,Burundi,passenger|difference,0.00019924709524717695
+Burundi,Burundi,passenger|range_anxiety,100141.96550030193
+Burundi,Burundi,freight|actual,0.00039999998989515007
+Burundi,Burundi,freight|calculation,0.0004455223696484545
+Burundi,Burundi,freight|2030,0.002556510102040166
+Burundi,Burundi,freight|2035,0.011889785560076804
+Burundi,Burundi,freight|difference,0.0004552237975330442
+Burundi,Burundi,freight|range_anxiety,1017292.2891011969
+Burundi,Burundi,two_three_wheeler|actual,0.019999999552965164
+Burundi,Burundi,two_three_wheeler|calculation,0.020177659719802787
+Burundi,Burundi,two_three_wheeler|2030,0.06871350464422632
+Burundi,Burundi,two_three_wheeler|2035,0.17197355141452775
+Burundi,Burundi,two_three_wheeler|difference,0.0001776601668376232
+Burundi,Burundi,two_three_wheeler|range_anxiety,4037.500551532563
+Guinea,Guinea,B (no header),0.6183457343147944
+Guinea,Guinea,passenger|actual,0.007290956013464833
+Guinea,Guinea,passenger|calculation,0.00762803760542755
+Guinea,Guinea,passenger|2030,0.04858250989637571
+Guinea,Guinea,passenger|2035,0.2022661498992667
+Guinea,Guinea,passenger|difference,0.00033708159196271705
+Guinea,Guinea,passenger|range_anxiety,79198.74394962036
+Guinea,Guinea,freight|actual,0.00039999998989515007
+Guinea,Guinea,freight|calculation,0.0004470509949582313
+Guinea,Guinea,freight|2030,0.0037391697558466497
+Guinea,Guinea,freight|2035,0.02880405197767888
+Guinea,Guinea,freight|difference,0.0004705100506308124
+Guinea,Guinea,freight|range_anxiety,769920.6209764254
+Guinea,Guinea,two_three_wheeler|actual,0.019999999552965164
+Guinea,Guinea,two_three_wheeler|calculation,0.019865699293155847
+Guinea,Guinea,two_three_wheeler|2030,0.07823758763161803
+Guinea,Guinea,two_three_wheeler|2035,0.2933241269640311
+Guinea,Guinea,two_three_wheeler|difference,-0.0001343002598093168
+Guinea,Guinea,two_three_wheeler|range_anxiety,3117.156154921313
+Ethiopia,Ethiopia,B (no header),0.2562086556442573
+Ethiopia,Ethiopia,passenger|actual,0.005903829338022154
+Ethiopia,Ethiopia,passenger|calculation,0.006740953984647002
+Ethiopia,Ethiopia,passenger|2030,0.02337773548661364
+Ethiopia,Ethiopia,passenger|2035,0.1545133611201611
+Ethiopia,Ethiopia,passenger|difference,0.0008371246466248481
+Ethiopia,Ethiopia,passenger|range_anxiety,63350.23983903829
+Ethiopia,Ethiopia,freight|actual,0.00039999998989515007
+Ethiopia,Ethiopia,freight|calculation,0.0004383981004606463
+Ethiopia,Ethiopia,freight|2030,0.00176524887246865
+Ethiopia,Ethiopia,freight|2035,0.02491251769412306
+Ethiopia,Ethiopia,freight|difference,0.00038398110565496246
+Ethiopia,Ethiopia,freight|range_anxiety,606706.6464901804
+Ethiopia,Ethiopia,two_three_wheeler|actual,0.019999999552965164
+Ethiopia,Ethiopia,two_three_wheeler|calculation,0.019069362741437335
+Ethiopia,Ethiopia,two_three_wheeler|2030,0.05173888680777017
+Ethiopia,Ethiopia,two_three_wheeler|2035,0.25794299041182656
+Ethiopia,Ethiopia,two_three_wheeler|difference,-0.0009306368115278296
+Ethiopia,Ethiopia,two_three_wheeler|range_anxiety,2238.932123993552

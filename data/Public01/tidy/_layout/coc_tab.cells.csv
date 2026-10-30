@@ -1,0 +1,766 @@
+row,col,value
+18,1,As-of-date
+21,1,>>> Data 
+22,1,Time Data
+23,1,Year
+23,2,"Average of Market yield on U.S. Treasury securities at 10-year constant maturity, quoted on investment basis"
+23,3,Real risk-free rate
+23,4,US GDP Deflator - WEO (from CPAT)
+23,6,10 year average inflation
+24,1,2021
+25,1,2022
+26,1,2023
+27,1,2024
+28,1,2025
+29,1,2026
+30,1,2027
+31,1,2028
+32,1,2029
+33,1,2030
+34,1,2031
+35,1,2032
+36,1,2033
+38,1,Fixed Data
+39,1,Year = 2022
+40,1,Country
+40,2,Code
+40,3,Region
+40,4,Rating-based Default Spread
+40,5,Equity Risk Premium
+40,6,Country Risk Premium
+40,7,Corporate Tax Rate
+40,8,Sector Beta
+40,9,Equity weight
+40,10,Lender Margin
+41,1,Abu Dhabi
+41,2,0x2a
+42,1,Albania
+42,2,ALB
+43,1,Andorra
+43,2,0x2a
+44,1,Angola
+44,2,AGO
+45,1,Argentina
+45,2,ARG
+46,1,Armenia
+46,2,ARM
+47,1,Aruba
+47,2,0x2a
+48,1,Australia
+48,2,AUS
+49,1,Austria
+49,2,AUT
+50,1,Azerbaijan
+50,2,AZE
+51,1,The Bahamas
+51,2,BHS
+52,1,Bahrain
+52,2,BHR
+53,1,Bangladesh
+53,2,BGD
+54,1,Barbados
+54,2,BRB
+55,1,Belarus
+55,2,BLR
+56,1,Belgium
+56,2,BEL
+57,1,Belize
+57,2,BLZ
+58,1,Benin
+58,2,BEN
+59,1,Bermuda
+59,2,BMU
+60,1,Bolivia
+60,2,BOL
+61,1,Bosnia and Herzegovina
+61,2,BIH
+62,1,Botswana
+62,2,BWA
+63,1,Brazil
+63,2,BRA
+64,1,Bulgaria
+64,2,BGR
+65,1,Burkina Faso
+65,2,BFA
+66,1,Cambodia
+66,2,KHM
+67,1,Cameroon
+67,2,CMR
+68,1,Canada
+68,2,CAN
+69,1,Cape Verde
+69,2,CPV
+70,1,Cayman Islands
+70,2,0x2a
+71,1,Chile
+71,2,CHL
+72,1,China
+72,2,CHN
+73,1,Colombia
+73,2,COL
+74,1,Democratic Republic of the Congo
+74,2,COD
+75,1,Republic of the Congo
+75,2,COG
+76,1,Cook Islands
+76,2,0x2a
+77,1,Costa Rica
+77,2,CRI
+78,1,Ivory Coast
+78,2,CIV
+79,1,Croatia
+79,2,HRV
+80,1,Cuba
+80,2,CUB
+81,1,Curaçao
+81,2,CUW
+82,1,Cyprus
+82,2,CYP
+83,1,Czech Republic
+83,2,CZE
+84,1,Denmark
+84,2,DNK
+85,1,Dominican Republic
+85,2,DOM
+86,1,Ecuador
+86,2,ECU
+87,1,Egypt
+87,2,EGY
+88,1,El Salvador
+88,2,SLV
+89,1,Estonia
+89,2,EST
+90,1,Ethiopia
+90,2,ETH
+91,1,Fiji
+91,2,FJI
+92,1,Finland
+92,2,FIN
+93,1,France
+93,2,FRA
+94,1,Gabon
+94,2,GAB
+95,1,Georgia
+95,2,GEO
+96,1,Germany
+96,2,DEU
+97,1,Ghana
+97,2,GHA
+98,1,Greece
+98,2,GRC
+99,1,Guatemala
+99,2,GTM
+100,1,Guernsey
+100,2,0x2a
+101,1,Honduras
+101,2,HND
+102,1,Hong Kong
+102,2,HKG
+103,1,Hungary
+103,2,HUN
+104,1,Iceland
+104,2,ISL
+105,1,India
+105,2,IND
+106,1,Indonesia
+106,2,IDN
+107,1,Iraq
+107,2,IRQ
+108,1,Republic of Ireland
+108,2,IRL
+109,1,Isle of Man
+109,2,0x2a
+110,1,Israel
+110,2,ISR
+111,1,Italy
+111,2,ITA
+112,1,Jamaica
+112,2,JAM
+113,1,Japan
+113,2,JPN
+114,1,Jersey
+114,2,0x2a
+115,1,Jordan
+115,2,JOR
+116,1,Kazakhstan
+116,2,KAZ
+117,1,Kenya
+117,2,KEN
+118,1,South Korea
+118,2,KOR
+119,1,Kuwait
+119,2,KWT
+120,1,Kyrgyzstan
+120,2,KGZ
+121,1,Laos
+121,2,LAO
+122,1,Latvia
+122,2,LVA
+123,1,Lebanon
+123,2,LBN
+124,1,Liechtenstein
+124,2,0x2a
+125,1,Lithuania
+125,2,LTU
+126,1,Luxembourg
+126,2,LUX
+127,1,Macau
+127,2,MAC
+128,1,North Macedonia
+128,2,MKD
+129,1,Malaysia
+129,2,MYS
+130,1,Maldives
+130,2,MDV
+131,1,Mali
+131,2,MLI
+132,1,Malta
+132,2,MLT
+133,1,Mauritius
+133,2,MUS
+134,1,Mexico
+134,2,MEX
+135,1,Moldova
+135,2,MDA
+136,1,Mongolia
+136,2,MNG
+137,1,Montenegro
+137,2,MNE
+138,1,Montserrat
+138,2,0x2a
+139,1,Morocco
+139,2,MAR
+140,1,Mozambique
+140,2,MOZ
+141,1,Namibia
+141,2,NAM
+142,1,Netherlands
+142,2,NLD
+143,1,New Zealand
+143,2,NZL
+144,1,Nicaragua
+144,2,NIC
+145,1,Niger
+145,2,NER
+146,1,Nigeria
+146,2,NGA
+147,1,Norway
+147,2,NOR
+148,1,Oman
+148,2,OMN
+149,1,Pakistan
+149,2,PAK
+150,1,Panama
+150,2,PAN
+151,1,Papua New Guinea
+151,2,PNG
+152,1,Paraguay
+152,2,PRY
+153,1,Peru
+153,2,PER
+154,1,Philippines
+154,2,PHL
+155,1,Poland
+155,2,POL
+156,1,Portugal
+156,2,PRT
+157,1,Qatar
+157,2,QAT
+158,1,Emirate of Ras Al Khaimah
+158,2,0x2a
+159,1,Romania
+159,2,ROU
+160,1,Russia
+160,2,RUS
+161,1,Rwanda
+161,2,RWA
+162,1,Saudi Arabia
+162,2,SAU
+163,1,Senegal
+163,2,SEN
+164,1,Serbia
+164,2,SRB
+165,1,Sharjah
+165,2,0x2a
+166,1,Singapore
+166,2,SGP
+167,1,Slovakia
+167,2,SVK
+168,1,Slovenia
+168,2,SVN
+169,1,Solomon Islands
+169,2,SLB
+170,1,South Africa
+170,2,ZAF
+171,1,Spain
+171,2,ESP
+172,1,Sri Lanka
+172,2,LKA
+173,1,Sint Maarten
+173,2,0x2a
+174,1,Saint Vincent and the Grenadines
+174,2,VCT
+175,1,Suriname
+175,2,SUR
+176,1,Eswatini
+176,2,0x2a
+177,1,Sweden
+177,2,SWE
+178,1,Switzerland
+178,2,CHE
+179,1,Taiwan
+179,2,TWN
+180,1,Tajikistan
+180,2,TJK
+181,1,Tanzania
+181,2,TZA
+182,1,Thailand
+182,2,THA
+183,1,Togo
+183,2,TGO
+184,1,Trinidad and Tobago
+184,2,TTO
+185,1,Tunisia
+185,2,TUN
+186,1,Turkey
+186,2,TUR
+187,1,Turks and Caicos Islands
+187,2,0x2a
+188,1,Uganda
+188,2,UGA
+189,1,Ukraine
+189,2,UKR
+190,1,United Arab Emirates
+190,2,ARE
+191,1,United Kingdom
+191,2,GBR
+192,1,United States
+192,2,USA
+193,1,Uruguay
+193,2,URY
+194,1,Uzbekistan
+194,2,UZB
+195,1,Venezuela
+195,2,VEN
+196,1,Vietnam
+196,2,VNM
+197,1,Zambia
+197,2,ZMB
+198,1,Default
+198,2,(Uses Sri Lanka)
+200,1,>>> Real WACC
+201,1,Country
+201,2,Country_Code
+201,3,S&P
+201,4,2022
+201,5,2023
+201,6,2024
+201,7,2025
+201,8,2026
+201,9,2027
+201,10,2028
+201,11,2029
+201,12,2030
+201,13,2031
+201,14,2032
+201,15,2033
+201,16,2034
+201,17,2035
+201,18,2036
+201,19,2037
+201,20,2038
+201,21,2039
+201,22,2040
+201,24,Tech Adjustment - Hatton et al. (2025)
+202,1,Afghanistan
+202,2,AFG
+202,24,(CPAT) Tech
+202,25,HIC
+202,26,UMIC
+202,27,LMIC
+202,28,LIC
+203,1,Albania
+203,2,ALB
+203,24,bio
+204,1,Algeria
+204,2,DZA
+204,24,nga
+205,1,Angola
+205,2,AGO
+205,24,coa
+206,1,Argentina
+206,2,ARG
+206,24,ore
+207,1,Armenia
+207,2,ARM
+207,24,hyd
+208,1,Australia
+208,2,AUS
+208,24,sol
+209,1,Austria
+209,2,AUT
+209,24,oil
+210,1,Azerbaijan
+210,2,AZE
+210,24,nuc
+211,1,The Bahamas
+211,2,BHS
+211,24,wnd
+212,1,Bahrain
+212,2,BHR
+213,1,Bangladesh
+213,2,BGD
+214,1,Barbados
+214,2,BRB
+215,1,Belarus
+215,2,BLR
+216,1,Belgium
+216,2,BEL
+217,1,Belize
+217,2,BLZ
+218,1,Benin
+218,2,BEN
+219,1,Bermuda
+219,2,BMU
+220,1,Bhutan
+220,2,BTN
+221,1,Bolivia
+221,2,BOL
+222,1,Bosnia and Herzegovina
+222,2,BIH
+223,1,Botswana
+223,2,BWA
+224,1,Brazil
+224,2,BRA
+225,1,Brunei
+225,2,BRN
+226,1,Bulgaria
+226,2,BGR
+227,1,Burkina Faso
+227,2,BFA
+228,1,Burundi
+228,2,BDI
+229,1,Cape Verde
+229,2,CPV
+230,1,Cambodia
+230,2,KHM
+231,1,Cameroon
+231,2,CMR
+232,1,Canada
+232,2,CAN
+233,1,Central African Republic
+233,2,CAF
+234,1,Chad
+234,2,TCD
+235,1,Chile
+235,2,CHL
+236,1,China
+236,2,CHN
+237,1,Colombia
+237,2,COL
+238,1,Comoros
+238,2,COM
+239,1,Democratic Republic of the Congo
+239,2,COD
+240,1,Republic of the Congo
+240,2,COG
+241,1,Costa Rica
+241,2,CRI
+242,1,Ivory Coast
+242,2,CIV
+243,1,Croatia
+243,2,HRV
+244,1,Cuba
+244,2,CUB
+245,1,Curaçao
+245,2,CUW
+246,1,Cyprus
+246,2,CYP
+247,1,Czech Republic
+247,2,CZE
+248,1,Denmark
+248,2,DNK
+249,1,Djibouti
+249,2,DJI
+250,1,Dominica
+250,2,DMA
+251,1,Dominican Republic
+251,2,DOM
+252,1,Ecuador
+252,2,ECU
+253,1,Egypt
+253,2,EGY
+254,1,El Salvador
+254,2,SLV
+255,1,Equatorial Guinea
+255,2,GNQ
+256,1,Eritrea
+256,2,ERI
+257,1,Estonia
+257,2,EST
+258,1,Ethiopia
+258,2,ETH
+259,1,Fiji
+259,2,FJI
+260,1,Finland
+260,2,FIN
+261,1,France
+261,2,FRA
+262,1,Gabon
+262,2,GAB
+263,1,The Gambia
+263,2,GMB
+264,1,Georgia
+264,2,GEO
+265,1,Germany
+265,2,DEU
+266,1,Ghana
+266,2,GHA
+267,1,Gibraltar
+267,2,GIB
+268,1,Greece
+268,2,GRC
+269,1,Greenland
+269,2,GRL
+270,1,Grenada
+270,2,GRD
+271,1,Guatemala
+271,2,GTM
+272,1,Guinea
+272,2,GIN
+273,1,Guinea-Bissau
+273,2,GNB
+274,1,Guyana
+274,2,GUY
+275,1,Haiti
+275,2,HTI
+276,1,Honduras
+276,2,HND
+277,1,Hong Kong
+277,2,HKG
+278,1,Hungary
+278,2,HUN
+279,1,Iceland
+279,2,ISL
+280,1,India
+280,2,IND
+281,1,Indonesia
+281,2,IDN
+282,1,Iran
+282,2,IRN
+283,1,Iraq
+283,2,IRQ
+284,1,Republic of Ireland
+284,2,IRL
+285,1,Israel
+285,2,ISR
+286,1,Italy
+286,2,ITA
+287,1,Jamaica
+287,2,JAM
+288,1,Japan
+288,2,JPN
+289,1,Jordan
+289,2,JOR
+290,1,Kazakhstan
+290,2,KAZ
+291,1,Kenya
+291,2,KEN
+292,1,Kiribati
+292,2,KIR
+293,1,North Korea
+293,2,PRK
+294,1,South Korea
+294,2,KOR
+295,1,Kosovo
+295,2,XKX
+296,1,Kuwait
+296,2,KWT
+297,1,Kyrgyzstan
+297,2,KGZ
+298,1,Laos
+298,2,LAO
+299,1,Latvia
+299,2,LVA
+300,1,Lebanon
+300,2,LBN
+301,1,Lesotho
+301,2,LSO
+302,1,Liberia
+302,2,LBR
+303,1,Libya
+303,2,LBY
+304,1,Lithuania
+304,2,LTU
+305,1,Luxembourg
+305,2,LUX
+306,1,Macau
+306,2,MAC
+307,1,Madagascar
+307,2,MDG
+308,1,Malawi
+308,2,MWI
+309,1,Malaysia
+309,2,MYS
+310,1,Maldives
+310,2,MDV
+311,1,Mali
+311,2,MLI
+312,1,Malta
+312,2,MLT
+313,1,Mauritania
+313,2,MRT
+314,1,Mauritius
+314,2,MUS
+315,1,Mexico
+315,2,MEX
+316,1,Moldova
+316,2,MDA
+317,1,Mongolia
+317,2,MNG
+318,1,Montenegro
+318,2,MNE
+319,1,Morocco
+319,2,MAR
+320,1,Mozambique
+320,2,MOZ
+321,1,Myanmar
+321,2,MMR
+322,1,Namibia
+322,2,NAM
+323,1,Nepal
+323,2,NPL
+324,1,Netherlands
+324,2,NLD
+325,1,New Zealand
+325,2,NZL
+326,1,Nicaragua
+326,2,NIC
+327,1,Niger
+327,2,NER
+328,1,Nigeria
+328,2,NGA
+329,1,North Macedonia
+329,2,MKD
+330,1,Norway
+330,2,NOR
+331,1,Oman
+331,2,OMN
+332,1,Pakistan
+332,2,PAK
+333,1,Panama
+333,2,PAN
+334,1,Papua New Guinea
+334,2,PNG
+335,1,Paraguay
+335,2,PRY
+336,1,Peru
+336,2,PER
+337,1,Philippines
+337,2,PHL
+338,1,Poland
+338,2,POL
+339,1,Portugal
+339,2,PRT
+340,1,Qatar
+340,2,QAT
+341,1,Romania
+341,2,ROU
+342,1,Russia
+342,2,RUS
+343,1,Rwanda
+343,2,RWA
+344,1,Samoa
+344,2,WSM
+345,1,São Tomé and Príncipe
+345,2,STP
+346,1,Saudi Arabia
+346,2,SAU
+347,1,Senegal
+347,2,SEN
+348,1,Serbia
+348,2,SRB
+349,1,Seychelles
+349,2,SYC
+350,1,Sierra Leone
+350,2,SLE
+351,1,Singapore
+351,2,SGP
+352,1,Slovakia
+352,2,SVK
+353,1,Slovenia
+353,2,SVN
+354,1,Solomon Islands
+354,2,SLB
+355,1,Somalia
+355,2,SOM
+356,1,South Africa
+356,2,ZAF
+357,1,South Sudan
+357,2,SSD
+358,1,Spain
+358,2,ESP
+359,1,Sri Lanka
+359,2,LKA
+360,1,Saint Lucia
+360,2,LCA
+361,1,Saint Vincent and the Grenadines
+361,2,VCT
+362,1,Sudan
+362,2,SDN
+363,1,Suriname
+363,2,SUR
+364,1,Sweden
+364,2,SWE
+365,1,Switzerland
+365,2,CHE
+366,1,Syria
+366,2,SYR
+367,1,Taiwan
+367,2,TWN
+368,1,Tajikistan
+368,2,TJK
+369,1,Tanzania
+369,2,TZA
+370,1,Thailand
+370,2,THA
+371,1,Togo
+371,2,TGO
+372,1,Tonga
+372,2,TON
+373,1,Trinidad and Tobago
+373,2,TTO
+374,1,Tunisia
+374,2,TUN
+375,1,Turkey
+375,2,TUR
+376,1,Turkmenistan
+376,2,TKM
+377,1,Uganda
+377,2,UGA
+378,1,Ukraine
+378,2,UKR
+379,1,United Arab Emirates
+379,2,ARE
+380,1,United Kingdom
+380,2,GBR
+381,1,United States
+381,2,USA
+382,1,Uruguay
+382,2,URY
+383,1,Uzbekistan
+383,2,UZB
+384,1,Vanuatu
+384,2,VUT
+385,1,Venezuela
+385,2,VEN
+386,1,Vietnam
+386,2,VNM
+387,1,Palestinian Authority
+387,2,PSE
+388,1,Yemen
+388,2,YEM
+389,1,Zambia
+389,2,ZMB
+390,1,Zimbabwe
+390,2,ZWE

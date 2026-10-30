@@ -1,0 +1,25 @@
+type,fuel,sector,code,variable,value
+Autonomous efficiency,Coal,Transport,eff_imp_coa_rod,Parameter used,0.01
+Autonomous efficiency,Natural Gas,Transport,eff_imp_nga_rod,Parameter used,0.01
+Autonomous efficiency,Oil,Transport,eff_imp_oil_rod,Parameter used,0.01
+Autonomous efficiency,Biomass,Transport,eff_imp_bio_rod,Parameter used,0.01
+Autonomous efficiency,Renewables,Transport,eff_imp_ren_rod,Parameter used,0.01
+Autonomous efficiency,Electricity,Transport,eff_imp_ecy_rod,Parameter used,0.01
+Autonomous efficiency,Coal,Residential,eff_imp_coa,Parameter used,0.005
+Autonomous efficiency,Natural Gas,Residential,eff_imp_nga,Parameter used,0.01
+Autonomous efficiency,Oil,Residential,eff_imp_oil,Parameter used,0.005
+Autonomous efficiency,Biomass,Residential,eff_imp_bio,Parameter used,0.005
+Autonomous efficiency,Renewables,Residential,eff_imp_ren,Parameter used,0.005
+Autonomous efficiency,Electricity,Residential,eff_imp_ecy,Parameter used,0.005
+Autonomous efficiency,Coal,Industry,eff_imp_coa,Parameter used,0.005
+Autonomous efficiency,Natural Gas,Industry,eff_imp_nga,Parameter used,0.01
+Autonomous efficiency,Oil,Industry,eff_imp_oil,Parameter used,0.005
+Autonomous efficiency,Biomass,Industry,eff_imp_bio,Parameter used,0.005
+Autonomous efficiency,Renewables,Industry,eff_imp_ren,Parameter used,0.005
+Autonomous efficiency,Electricity,Industry,eff_imp_ecy,Parameter used,0.005
+Autonomous efficiency,Coal,Services,eff_imp_coa,Parameter used,0.005
+Autonomous efficiency,Natural Gas,Services,eff_imp_nga,Parameter used,0.01
+Autonomous efficiency,Oil,Services,eff_imp_oil,Parameter used,0.005
+Autonomous efficiency,Biomass,Services,eff_imp_bio,Parameter used,0.005
+Autonomous efficiency,Renewables,Services,eff_imp_ren,Parameter used,0.005
+Autonomous efficiency,Electricity,Services,eff_imp_ecy,Parameter used,0.005

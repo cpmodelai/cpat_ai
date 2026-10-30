@@ -1,0 +1,66 @@
+# Project overview {#sec-overview}
+
+## The two models
+
+CPAT-AI rebuilds the Climate Policy Assessment Tool twice, in two forms that serve different users.
+
+| | Excel-AI | Coded CPAT |
+|---|---|---|
+| What it is | Excel prototypes of legacy CPAT, written by Python builders | A component-based Python reimplementation of CPAT |
+| For whom | Modellers and reviewers who work in Excel, and the CPAT team | Python developers; users of the Shiny application |
+| Where | `excel_ai/` | `coded/` |
+| Modules | Mitigation (integrated, with the distribution tab), distribution (standalone), air pollution (standalone) | Mitigation, household distribution |
+| Built and checked with | openpyxl and LibreOffice; independent Python recomputation | pytest |
+
+The two models share:
+
+- **Inputs.** The policy and parameter inputs are the rows and names of the legacy `MTInputs` sheet (`NameOfParameter`), in legacy units. A scenario defined for one model means the same thing in the other. The codes map (`excel_ai/CPAT-AI_CodesMap_v<version>.xlsx`, tab Inputs) lists every input with its row, its name, its legacy name and its Python key.
+- **Codes.** Input codes, output codes and the sector and fuel vocabularies are identical in Excel and Python.
+- **Data.** Both read the root folder `data/` (@sec-data).
+- **The rule** on bugs and issues (@sec-bugs).
+
+## Legacy CPAT: the reference
+
+The legacy workbook is the ground truth for both models. Three versions are kept, read-only, in `excel_ai/legacy/workbooks/`:
+
+| File | Role |
+|---|---|
+| `CPAT 1.0pre_456_NoPropData.xlsb` | The legacy CPAT workbook with the proprietary data stripped; the reference for values |
+| `CPAT 1.0pre_459_NoPropData.xlsb` | An updated legacy workbook with a few bugs fixed by the CPAT team; the reference for the air-pollution module |
+| `CPAT 1.0pre_465_NoPropData.xlsb` | The latest legacy workbook; the reference for input rows and names, and for the register's cell references |
+
+The legacy workbook is never edited or re-saved; work is done on copies in scratch folders.
+
+## How the work proceeds
+
+1. **Replicate.** A block of legacy CPAT is rebuilt in the prototype, formula by formula, with the same sections and the same codes.
+2. **Check.** An independent Python recomputation of the block reproduces every number; the prototype's result is compared with legacy's stored results.
+3. **Classify every difference.** A difference is either a legacy bug (fixed in the prototype, with a cell-level fix plan for legacy), a legacy issue (replicated and tracked), or a departure decided by the team (tracked).
+4. **Release.** The builder writes a new version; the quick check, the paste test and the regression against the previous release must pass; the register documents, the tracker, the codes map and the deck are regenerated.
+5. **Port.** Validated blocks of the Excel prototype are ported to Coded CPAT.
+
+## Status of the modules
+
+| Module | Excel-AI | Coded CPAT |
+|---|---|---|
+| Mitigation: prices, power, transport, buildings, industry, emissions, ETS, revenues, GDP, welfare | Integrated prototype, released | Mitigation components |
+| Distribution: household effects by decile | Tab of the prototype and standalone module, released | Distribution module |
+| Air pollution | Standalone workbook: data scaffold built, calculations open | Not yet |
+| Road transport co-benefits | Values typed into the prototype from the module | Not yet |
+
+The current versions are in the file names at the top of `excel_ai/` and in the release notes of the repository (`CAVEATS.md`).
+
+## Repository map
+
+```
+README.md, AGENTS.md, CLAUDE.md   Orientation; instructions for AI agents
+HumanReadme-QuickStart.docx       Quick start guide for people
+NORMS.md                          Rules for every task
+CAVEATS.md                        Log of every finished task
+excel_ai/                         The Excel prototypes (Excel-AI)
+coded/                            The Python model (Coded CPAT) and its Shiny app
+data/                             All data, converters, tests
+docs/                             This website and the documentation sources
+other/                            Research papers, other decks, earlier prototypes
+users/                            Personal folders
+```

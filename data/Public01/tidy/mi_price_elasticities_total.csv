@@ -1,0 +1,33 @@
+item,sector,value
+ - coal,Transport,-0.75
+ - coal,Residential,-0.75
+ - coal,Industries,-0.75
+ - coal,Services,-0.75
+ - natural gas,Transport,-0.75
+ - natural gas,Residential,-0.75
+ - natural gas,Industries,-0.75
+ - natural gas,Services,-0.75
+ - gasoline,Transport,-0.75
+ - gasoline,Residential,-0.75
+ - gasoline,Industries,-0.75
+ - gasoline,Services,-0.75
+ - diesel,Transport,-0.75
+ - diesel,Residential,-0.75
+ - diesel,Industries,-0.75
+ - diesel,Services,-0.75
+ - oil,Transport,-0.75
+ - oil,Residential,-0.75
+ - oil,Industries,-0.75
+ - oil,Services,-0.75
+ - biomass,Transport,-0.75
+ - biomass,Residential,-0.75
+ - biomass,Industries,-0.75
+ - biomass,Services,-0.75
+ - renewables,Transport,-0.75
+ - renewables,Residential,-0.75
+ - renewables,Industries,-0.75
+ - renewables,Services,-0.75
+ - electricity,Transport,-0.75
+ - electricity,Residential,-0.75
+ - electricity,Industries,-0.75
+ - electricity,Services,-0.75

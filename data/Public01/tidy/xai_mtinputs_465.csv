@@ -1,0 +1,407 @@
+row,kind,section,label,unit,legacy_default,legacy_name,name,change,register,name_manager_F,name_manager_other,dashboard_twin
+8,input,,Country,,Egypt,Countryname,Countryname,,,_Countryname,D8:_M_Countryname,Dashboard!E2
+9,heading,,Scenario identification,,,,,,,,,
+10,input,Scenario identification,Scenario ID,#,N/A,MSTScenarioID,MSTScenarioID,,,,D10:MSTScenarioID,
+11,input,Scenario identification,Scenario status,switch,N/A,,ScenarioStatus,name added (legacy has none),I87,,,
+12,input,Scenario identification,Scenario name,name,N/A,,ScenarioName,name added (legacy has none),I87,,,
+13,input,Scenario identification,Chosen policy,switch, - Carbon tax,ScenarioSelected,ScenarioSelected,,,ScenarioSelected,D13:M_ScenarioSelected,Dashboard!I3
+14,input,Scenario identification,Scenario status for macro,#,N/A,,ScenarioStatusMacro,name added (legacy has none),I87,,,
+15,input,Scenario identification,Scenario parameters override?,#,N/A,,ScenarioParamOverride,name added (legacy has none),I87,,,
+16,input,Scenario identification,CPAT-side parameters override?,switch,Manual*,CPATDefaultsOrUserDefined,CPATDefaultsOrUserDefined,,,CPATDefaultsOrUserDefined;Simple_CPATDefaultsOrUserDefined,,Dashboard!I8
+17,heading,,Carbon pricing: main inputs,,,,,,,,,
+18,input,Carbon pricing: main inputs,Carbon pricing start year,year,2027.0,CPIntro,CPIntro,,,CPIntro,D18:_M_CP_Intro,Dashboard!I4
+19,input,Carbon pricing: main inputs,Starting carbon price,nom. USD/tCO2,20.0,CPLevelStart,CPLevelStart,,,CPLevelStart,D19:_M_CP_LevelStart,Dashboard!I5
+20,input,Carbon pricing: main inputs,Target level of carbon price,nom. USD/tCO2,50.0,CPLevelTarget,CPLevelTarget,,,CPLevelTarget,D20:_M_CP_LevelTarget,Dashboard!I6
+21,input,Carbon pricing: main inputs,Year to reach target level,year,2035.0,CPOutro,CPOutro,,,CPOutro,D21:_M_CP_Outro,Dashboard!I7
+22,heading,,Carbon pricing: fuel coverage,,,,,,,,,
+23,input,Carbon pricing: fuel coverage,Apply tax to coal?,switch,True,MCovCoa,MCovCoa,,,MCovCoa,E23:MTI_MCovCoa,
+24,input,Carbon pricing: fuel coverage,Apply tax to natural gas?,switch,True,MCovNga,MCovNga,,,MCovNga,E24:MTI_MCovNga,
+25,input,Carbon pricing: fuel coverage,Apply tax to gasoline?,switch,True,MCovGso,MCovGso,,,MCovGso,E25:MTI_MCovGso,
+26,input,Carbon pricing: fuel coverage,Apply tax to diesel?,switch,True,MCovDie,MCovDie,,,MCovDie,E26:MTI_MCovDie,
+27,input,Carbon pricing: fuel coverage,Apply tax to LPG?,switch,True,MCovLpg,MCovLpg,,,MCovLpg,E27:MTI_MCovLpg,
+28,input,Carbon pricing: fuel coverage,Apply tax to kerosene?,switch,True,MCovKer,MCovKer,,,MCovKer,E28:MTI_MCovKer,
+29,input,Carbon pricing: fuel coverage,Apply tax to non-road oil products?,switch,True,MCovOop,MCovOop,,,MCovOop,E29:MTI_MCovOop,
+30,heading,,Carbon pricing: sector coverage,,,,,,,,,
+31,input,Carbon pricing: sector coverage,Apply tax to power sector?,switch,True,MCovPow,MCovPow,,,MCovPow,E31:MTI_MCovPow,
+32,input,Carbon pricing: sector coverage,Apply tax to road transportation?,switch,True,MCovRod,MCovRod,,,MCovRod,E32:MTI_MCovRod,
+33,input,Carbon pricing: sector coverage,Apply tax to rail transportation?,switch,True,MCovRal,MCovRal,,,MCovRal,E33:MTI_MCovRal,
+34,input,Carbon pricing: sector coverage,Apply tax to domestic aviation?,switch,True,MCovAvi,MCovAvi,,,MCovAvi,E34:MTI_MCovAvi,
+35,input,Carbon pricing: sector coverage,Apply tax to domestic shipping?,switch,True,MCovNav,MCovNav,,,MCovNav,E35:MTI_MCovNav,
+36,input,Carbon pricing: sector coverage,Apply tax to residential sector?,switch,True,MCovRes,MCovRes,,,MCovRes,E36:MTI_MCovRes,
+37,input,Carbon pricing: sector coverage,Apply tax to food & forestry?,switch,True,MCovFoo,MCovFoo,,,MCovFoo,E37:MTI_MCovFoo,
+38,input,Carbon pricing: sector coverage,Apply tax to services (private / public)?,switch,True,MCovSrv,MCovSrv,,,MCovSrv,E38:MTI_MCovSrv,
+39,input,Carbon pricing: sector coverage,Apply tax to mining & chemicals?,switch,True,MCovMch,MCovMch,,,MCovMch,E39:MTI_MCovMch,
+40,input,Carbon pricing: sector coverage,Apply tax to iron and steel?,switch,True,MCovIrn,MCovIrn,,,MCovIrn,E40:MTI_MCovIrn,
+41,input,Carbon pricing: sector coverage,Apply tax to non-ferrous metals?,switch,True,MCovNfm,MCovNfm,,,MCovNfm,E41:MTI_MCovNfm,
+42,input,Carbon pricing: sector coverage,Apply tax to machinery?,switch,True,MCovMac,MCovMac,,,MCovMac,E42:MTI_MCovMac,
+43,input,Carbon pricing: sector coverage,Apply tax to cement?,switch,True,MCovCem,MCovCem,,,MCovCem,E43:MTI_MCovCem,
+44,input,Carbon pricing: sector coverage,Apply tax to other manucfacturing?,switch,True,MCovOmn,MCovOmn,,,MCovOmn,E44:MTI_MCovOmn,
+45,input,Carbon pricing: sector coverage,Apply tax to construction?,switch,True,MCovCst,MCovCst,,,MCovCst,E45:MTI_MCovCst,
+46,input,Carbon pricing: sector coverage,Apply tax to fuel transformation?,switch,True,MCovFtr,MCovFtr,,,MCovFtr,E46:MTI_MCovFtr,
+47,input,Carbon pricing: sector coverage,Apply tax to other energy use?,switch,True,MCovOen,MCovOen,,,MCovOen,E47:MTI_MCovOen,
+48,heading,,Exemptions phaseout,,,,,,,,,
+49,input,Exemptions phaseout,Apply exemption phaseout?,switch,False,ExemptPhaseout,ExemptPhaseout,,,ExemptPhaseout,E49:MTI_ExemptPhaseout,
+50,input,Exemptions phaseout,Year to start exemption phaseout (if applicable),year,2027.0,YearPha,YearPha,,,YearPha,,Dashboard!P2
+51,input,Exemptions phaseout,Period to reach full exemption phaseout (if applicable),year,5.0,ExemptPhaseoutPeriod,ExemptPhaseoutPeriod,,,ExemptPhaseoutPeriod,D51:_M_Exempt_phaseout,Dashboard!Q2
+52,heading,,Feebates: Starting and End Date,,,,,,,,,
+53,input,Feebates: Starting and End Date,Start date,,2027.0,D_FeebateIntro,FeebateIntro,D_ prefix dropped (D_ names the Dashboard cell),L137,,,Dashboard!D31
+54,input,Feebates: Starting and End Date,Target date,,2035.0,D_FeebateOutro,FeebateOutro,D_ prefix dropped (D_ names the Dashboard cell),L137,,,Dashboard!D32
+55,heading,,Feebates: Feebate starting rate,,,,,,,,,
+56,input,Feebates: Feebate starting rate,Power sector,USD/tCO2,0.0,D_Feb_Level_Start_Pow,Feb_Level_Start_Pow,D_ prefix dropped (D_ names the Dashboard cell),L137,,,Dashboard!H46
+57,input,Feebates: Feebate starting rate,Transport,USD/tCO2,0.0,D_Feb_Level_Start_Trans,Feb_Level_Start_Trans,D_ prefix dropped (D_ names the Dashboard cell),L137,,,
+58,input,Feebates: Feebate starting rate,Residential,USD/tCO2,0.0,D_Feb_Level_Start_Res,Feb_Level_Start_Res,D_ prefix dropped (D_ names the Dashboard cell),L137,,,Dashboard!J46
+59,input,Feebates: Feebate starting rate,Industry,USD/tCO2,0.0,D_Feb_Level_Start_Ind,Feb_Level_Start_Ind,D_ prefix dropped (D_ names the Dashboard cell),L137,,,Dashboard!K46
+60,heading,,Feebates: Feebate target rate,,,,,,,,,
+61,input,Feebates: Feebate target rate,Power sector,USD/tCO2,0.0,D_Feb_Level_Target_Pow,Feb_Level_Target_Pow,D_ prefix dropped (D_ names the Dashboard cell),L137,,,Dashboard!H47
+62,input,Feebates: Feebate target rate,Transport,USD/tCO2,0.0,D_Feb_Level_Target_Trans,Feb_Level_Target_Trans,D_ prefix dropped (D_ names the Dashboard cell),L137,,,
+63,input,Feebates: Feebate target rate,Residential,USD/tCO2,0.0,D_Feb_Level_Target_Res,Feb_Level_Target_Res,D_ prefix dropped (D_ names the Dashboard cell),L137,,,Dashboard!J47
+64,input,Feebates: Feebate target rate,Industry,USD/tCO2,0.0,D_Feb_Level_Target_Ind,Feb_Level_Target_Ind,D_ prefix dropped (D_ names the Dashboard cell),L137,,,Dashboard!K47
+65,heading,,Feebates sector coverage,,,,,,,,,
+66,input,Feebates sector coverage,Apply tax to power sector?,switch,True,,FbCovPow,name added (legacy has none),I87,,,
+67,input,Feebates sector coverage,Apply tax to road transportation?,,False,,FbCovRod,name added (legacy has none),I87,,,
+68,input,Feebates sector coverage,Apply tax to rail transportation?,,False,,FbCovRal,name added (legacy has none),I87,,,
+69,input,Feebates sector coverage,Apply tax to domestic aviation?,,False,,FbCovAvi,name added (legacy has none),I87,,,
+70,input,Feebates sector coverage,Apply tax to domestic shipping?,,False,,FbCovNav,name added (legacy has none),I87,,,
+71,input,Feebates sector coverage,Apply tax to residential sector?,switch,True,,FbCovRes,name added (legacy has none),I87,,,
+72,input,Feebates sector coverage,Apply tax to food & forestry?,,True,,FbCovFoo,name added (legacy has none),I87,,,
+73,input,Feebates sector coverage,Apply tax to services (private / public)?,,True,,FbCovSrv,name added (legacy has none),I87,,,
+74,input,Feebates sector coverage,Apply tax to mining & chemicals?,,True,,FbCovMch,name added (legacy has none),I87,,,
+75,input,Feebates sector coverage,Apply tax to iron and steel?,,True,,FbCovIrn,name added (legacy has none),I87,,,
+76,input,Feebates sector coverage,Apply tax to non-ferrous metals?,,True,,FbCovNfm,name added (legacy has none),I87,,,
+77,input,Feebates sector coverage,Apply tax to machinery?,,True,,FbCovMac,name added (legacy has none),I87,,,
+78,input,Feebates sector coverage,Apply tax to cement?,,True,,FbCovCem,name added (legacy has none),I87,,,
+79,input,Feebates sector coverage,Apply tax to other manucfacturing?,,True,,FbCovOmn,name added (legacy has none),I87,,,
+80,input,Feebates sector coverage,Apply tax to construction?,,True,,FbCovCst,name added (legacy has none),I87,,,
+81,input,Feebates sector coverage,Apply tax to fuel transformation?,,True,,FbCovFtr,name added (legacy has none),I87,,,
+82,input,Feebates sector coverage,Apply tax to other energy use?,,True,,FbCovOen,name added (legacy has none),I87,,,
+83,heading,,ETS Main Characteristics,,,,,,,,,
+84,input,ETS Main Characteristics,Apply new ETS?,,No,D_NewETS,NewETS,D_ prefix dropped (D_ names the Dashboard cell),L137,ETSOnMTInputs,,Dashboard!D30
+85,input,ETS Main Characteristics,Change Relative to Baseline in Start Year,,0.0,D_ETSChangeRelStart,ETSChangeRelStart,D_ prefix dropped (D_ names the Dashboard cell),L137,,,Dashboard!H31
+86,input,ETS Main Characteristics,Change Relative to Baseline in Target Year,,0.0,D_ETSChangeRelTarget,ETSChangeRelTarget,D_ prefix dropped (D_ names the Dashboard cell),L137,,,Dashboard!H32
+87,input,ETS Main Characteristics,Cap continuation after target year?,,KeepRelativeCapConstant,D_ETSCapCont,ETSCapCont,D_ prefix dropped (D_ names the Dashboard cell),L137,,,Dashboard!H33
+88,input,ETS Main Characteristics,ETS Start Year,,2026.0,D_ETSIntro,ETSIntro,D_ prefix dropped (D_ names the Dashboard cell),L137,,,Dashboard!D31
+89,input,ETS Main Characteristics,ETS Target Year,,2035.0,D_ETSOutro,ETSOutro,D_ prefix dropped (D_ names the Dashboard cell),L137,,,Dashboard!D32
+90,input,ETS Main Characteristics,Proportion Auctioned in Starting Year,,0.0,D_ETSAuctStart,ETSAuctStart,D_ prefix dropped (D_ names the Dashboard cell),L137,,,Dashboard!I31
+91,input,ETS Main Characteristics,Proportion Auctioned in Target Year,,1.0,D_ETSAuctTarget,ETSAuctTarget,D_ prefix dropped (D_ names the Dashboard cell),L137,,,Dashboard!I32
+92,input,ETS Main Characteristics,Auction proportion continuation after target year?,,Constant,D_ETSAuctCont,ETSAuctCont,D_ prefix dropped (D_ names the Dashboard cell),L137,,,
+93,input,ETS Main Characteristics,Override ETS price,,No,D_ETSPriceOverride,ETSPriceOverride,D_ prefix dropped (D_ names the Dashboard cell),L137,,,Dashboard!V30
+94,heading,,ETS: modelling assumptions,,,,,,,,,
+95,input,ETS: modelling assumptions,ETS Volatility,,Medium*,D_ETSVolatility,ETSVolatility,D_ prefix dropped (D_ names the Dashboard cell),L137,,,
+96,input,ETS: modelling assumptions,Impact of Volatility on Abatement Costs,,Medium*,D_ETSVolImpact,ETSVolImpact,D_ prefix dropped (D_ names the Dashboard cell),L137,,,
+97,input,ETS: modelling assumptions,Carbon Tax Policy Risk,,0.2,D_ETSCTRisk,ETSCTRisk,D_ prefix dropped (D_ names the Dashboard cell),L137,,,
+98,heading,,ETS: sector coverage,,,,,,,,,
+99,input,ETS: sector coverage,power sector,switch,True,,ETSCovPow,name added (legacy has none),I87,,,
+100,input,ETS: sector coverage,road transportation,,True,,ETSCovRod,name added (legacy has none),I87,,,
+101,input,ETS: sector coverage,rail transportation,,True,,ETSCovRal,name added (legacy has none),I87,,,
+102,input,ETS: sector coverage,domestic aviation,,True,,ETSCovAvi,name added (legacy has none),I87,,,
+103,input,ETS: sector coverage,domestic shipping,,True,,ETSCovNav,name added (legacy has none),I87,,,
+104,input,ETS: sector coverage,residential,switch,True,,ETSCovRes,name added (legacy has none),I87,,,
+105,input,ETS: sector coverage,food & forestry,,True,,ETSCovFoo,name added (legacy has none),I87,,,
+106,input,ETS: sector coverage,services (private / public),,True,,ETSCovSrv,name added (legacy has none),I87,,,
+107,input,ETS: sector coverage,mining & chemicals,,True,,ETSCovMch,name added (legacy has none),I87,,,
+108,input,ETS: sector coverage,iron and steel,,True,,ETSCovIrn,name added (legacy has none),I87,,,
+109,input,ETS: sector coverage,non-ferrous metals,,True,,ETSCovNfm,name added (legacy has none),I87,,,
+110,input,ETS: sector coverage,machinery,,True,,ETSCovMac,name added (legacy has none),I87,,,
+111,input,ETS: sector coverage,cement,,True,,ETSCovCem,name added (legacy has none),I87,,,
+112,input,ETS: sector coverage,other manucfacturing,,True,,ETSCovOmn,name added (legacy has none),I87,,,
+113,input,ETS: sector coverage,construction,,True,,ETSCovCst,name added (legacy has none),I87,,,
+114,input,ETS: sector coverage,fuel transformation,,True,,ETSCovFtr,name added (legacy has none),I87,,,
+115,input,ETS: sector coverage,other energy use,,True,,ETSCovOen,name added (legacy has none),I87,,,
+116,heading,,CBAM Goods Non-Fuel Process Emissions,,,,,,,,,
+117,input,CBAM Goods Non-Fuel Process Emissions,mining & chemicals,,True,,CBAMProcMch,name added (legacy has none),I87,,,
+118,input,CBAM Goods Non-Fuel Process Emissions,iron and steel,,True,,CBAMProcIrn,name added (legacy has none),I87,,,
+119,input,CBAM Goods Non-Fuel Process Emissions,non-ferrous metals,,True,,CBAMProcNfm,name added (legacy has none),I87,,,
+120,input,CBAM Goods Non-Fuel Process Emissions,machinery,,False,,CBAMProcMac,name added (legacy has none),I87,,,
+121,input,CBAM Goods Non-Fuel Process Emissions,cement,,True,,CBAMProcCem,name added (legacy has none),I87,,,
+122,heading,,Fossil fuel subsidies (producer-side),,,,,,,,,
+123,input,Fossil fuel subsidies (producer-side),Apply producer subsidies phaseout in the policy scenario?,TRUE/FALSE,False,ProdSubPh,ProdSubPh,,,ProdSubPh,E123:MTI_ProdSubPh,
+124,input,Fossil fuel subsidies (producer-side),Year to start producer subsidies phaseout (if applicable),year,2027.0,YearProdSubPha,YearProdSubPha,,,YearProdSubPha,,Dashboard!P3
+125,input,Fossil fuel subsidies (producer-side),Period to reach full producer subsidies phaseout (if applicable),year,5.0,FFSProdPhaseoutPeriod,FFSProdPhaseoutPeriod,,,FFSProdPhaseoutPeriod,,Dashboard!Q3
+126,input,Fossil fuel subsidies (producer-side),Share of producer subsidies to phase-out,%,1.0,ShareofProdSubPha,ShareofProdSubPha,,,ShareofProdSubPha,,Dashboard!V138
+127,input,Fossil fuel subsidies (producer-side),Apply producer subsidies phaseout in the baseline?,Yes/No,No,ProdSubPhaBaseline,ProdSubPhaBaseline,,,ProdSubPhaBaseline,,Dashboard!V139
+128,input,Fossil fuel subsidies (producer-side),Period to reach full producer subsidies phaseout (baseline),year,5.0,FFSProdPhaseoutPeriodBA,FFSProdPhaseoutPeriodBA,,,FFSProdPhaseoutPeriodBA,,Dashboard!V140
+129,input,Fossil fuel subsidies (producer-side),Share of producer subsidies to phase-out in the baseline,%,0.0,ShareOfProdSubPhaBA,ShareOfProdSubPhaBA,,,ShareOfProdSubPhaBA,,Dashboard!V141
+130,heading,,Fossil fuel subsidies (consumer-side),,,,,,,,,
+131,input,Fossil fuel subsidies (consumer-side),Apply consumer subsidies phaseout?,TRUE/FALSE,False,ConsSubPha,ConsSubPha,,,ConsSubPha,E131:MTI_ConsSubPha,
+132,input,Fossil fuel subsidies (consumer-side),Year to start consumer subsidies phaseout (if applicable),year,2027.0,YearConsSubPha,YearConsSubPha,,,YearConsSubPha,,Dashboard!P4
+133,input,Fossil fuel subsidies (consumer-side),Period to reach full consumer subsidies phaseout (if applicable),year,5.0,FFPhaseOut,FFPhaseOut,,,FFPhaseOut,D133:_M_FF_Phaseout,Dashboard!Q4
+134,input,Fossil fuel subsidies (consumer-side),Share of consumer subsidies to phase-out,%,1.0,ShareOfConsSubPha,ShareOfConsSubPha,,,ShareOfConsSubPha,,Dashboard!V144
+135,input,Fossil fuel subsidies (consumer-side),Apply consumer subsidies phaseout in the baseline?,Yes/No,No,ConsSubPhaBaseline,ConsSubPhaBaseline,,,ConsSubPhaBaseline,,Dashboard!V145
+136,input,Fossil fuel subsidies (consumer-side),Period to reach full consumer subsidies phaseout (baseline),year,5.0,FFSConsPhaseoutPeriodBA,FFSConsPhaseoutPeriodBA,,,FFSConsPhaseoutPeriodBA,,Dashboard!V146
+137,input,Fossil fuel subsidies (consumer-side),Share of consumer subsidies to phase-out in the baseline,%,0.0,ShareofConsSubPhaBA,ShareofConsSubPhaBA,,,ShareofConsSubPhaBA,,Dashboard!V147
+138,input,Fossil fuel subsidies (consumer-side),Include power subsidies in any phase out?,Exempt/Include*,DoNotPhaseOut*,PowerSubsidyExemptInclude,PowerSubsidyExemptInclude,,,PowerSubsidyExemptInclude,,Dashboard!L54
+139,heading,,Fuel Price Reform,,,,,,,,,
+140,input,Fuel Price Reform,Starting year,,2027.0,,FprIntro,name added (legacy has none),I87,,,
+141,input,Fuel Price Reform,Target year,,2035.0,,FprOutro,name added (legacy has none),I87,,,
+142,input,Fuel Price Reform,"Starting price increase, Coal , Power",,0.0,,FprStartCoaPow,name added (legacy has none),I87,,,
+143,input,Fuel Price Reform,"Starting price increase, Coal , Residential",,0.0,,FprStartCoaRes,name added (legacy has none),I87,,,
+144,input,Fuel Price Reform,"Starting price increase, Coal , Industry",,0.0,,FprStartCoaInd,name added (legacy has none),I87,,,
+145,input,Fuel Price Reform,"Starting price increase, Natural gas , Power",,0.0,,FprStartNgaPow,name added (legacy has none),I87,,,
+146,input,Fuel Price Reform,"Starting price increase, Natural gas , Residential",,0.0,,FprStartNgaRes,name added (legacy has none),I87,,,
+147,input,Fuel Price Reform,"Starting price increase, Natural gas , Industry",,0.0,,FprStartNgaInd,name added (legacy has none),I87,,,
+148,input,Fuel Price Reform,"Starting price increase, Electricity , Residential",,0.0,,FprStartEcyRes,name added (legacy has none),I87,,,
+149,input,Fuel Price Reform,"Starting price increase, Electricity , Industry",,0.0,,FprStartEcyInd,name added (legacy has none),I87,,,
+150,input,Fuel Price Reform,"Starting price increase, Gasoline , All",,0.0,,FprStartGsoAll,name added (legacy has none),I87,,,
+151,input,Fuel Price Reform,"Starting price increase, Diesel  , All",,0.0,,FprStartDieAll,name added (legacy has none),I87,,,
+152,input,Fuel Price Reform,"Starting price increase, LPG , All",,0.0,,FprStartLpgAll,name added (legacy has none),I87,,,
+153,input,Fuel Price Reform,"Starting price increase, Kerosene , All",,0.0,,FprStartKerAll,name added (legacy has none),I87,,,
+154,input,Fuel Price Reform,"Starting price increase, Other oil products , All",,0.0,,FprStartOopAll,name added (legacy has none),I87,,,
+155,input,Fuel Price Reform,"Starting price increase, Biomass , All",,0.0,,FprStartBioAll,name added (legacy has none),I87,,,
+156,input,Fuel Price Reform,"Final price increase, Coal , Power",,0.0,,FprFinalCoaPow,name added (legacy has none),I87,,,
+157,input,Fuel Price Reform,"Final price increase, Coal , Residential",,0.0,,FprFinalCoaRes,name added (legacy has none),I87,,,
+158,input,Fuel Price Reform,"Final price increase, Coal , Industry",,0.0,,FprFinalCoaInd,name added (legacy has none),I87,,,
+159,input,Fuel Price Reform,"Final price increase, Natural gas , Power",,0.0,,FprFinalNgaPow,name added (legacy has none),I87,,,
+160,input,Fuel Price Reform,"Final price increase, Natural gas , Residential",,0.0,,FprFinalNgaRes,name added (legacy has none),I87,,,
+161,input,Fuel Price Reform,"Final price increase, Natural gas , Industry",,0.0,,FprFinalNgaInd,name added (legacy has none),I87,,,
+162,input,Fuel Price Reform,"Final price increase, Electricity , Residential",,0.0,,FprFinalEcyRes,name added (legacy has none),I87,,,
+163,input,Fuel Price Reform,"Final price increase, Electricity , Industry",,0.0,,FprFinalEcyInd,name added (legacy has none),I87,,,
+164,input,Fuel Price Reform,"Final price increase, Gasoline , All",,0.0,,FprFinalGsoAll,name added (legacy has none),I87,,,
+165,input,Fuel Price Reform,"Final price increase, Diesel  , All",,0.0,,FprFinalDieAll,name added (legacy has none),I87,,,
+166,input,Fuel Price Reform,"Final price increase, LPG , All",,0.0,,FprFinalLpgAll,name added (legacy has none),I87,,,
+167,input,Fuel Price Reform,"Final price increase, Kerosene , All",,0.0,,FprFinalKerAll,name added (legacy has none),I87,,,
+168,input,Fuel Price Reform,"Final price increase, Other oil products , All",,0.0,,FprFinalOopAll,name added (legacy has none),I87,,,
+169,input,Fuel Price Reform,"Final price increase, Biomass , All",,0.0,,FprFinalBioAll,name added (legacy has none),I87,,,
+170,input,Fuel Price Reform,"Price increase units, Coal , Power",,$/GJ,,FprUnitCoaPow,name added (legacy has none),I87,,,
+171,input,Fuel Price Reform,"Price increase units, Coal , Residential",,$/GJ,,FprUnitCoaRes,name added (legacy has none),I87,,,
+172,input,Fuel Price Reform,"Price increase units, Coal , Industry",,$/GJ,,FprUnitCoaInd,name added (legacy has none),I87,,,
+173,input,Fuel Price Reform,"Price increase units, Natural gas , Power",,$/GJ,,FprUnitNgaPow,name added (legacy has none),I87,,,
+174,input,Fuel Price Reform,"Price increase units, Natural gas , Residential",,$/GJ,,FprUnitNgaRes,name added (legacy has none),I87,,,
+175,input,Fuel Price Reform,"Price increase units, Natural gas , Industry",,$/GJ,,FprUnitNgaInd,name added (legacy has none),I87,,,
+176,input,Fuel Price Reform,"Price increase units, Electricity , Residential",,$/kwh,,FprUnitEcyRes,name added (legacy has none),I87,,,
+177,input,Fuel Price Reform,"Price increase units, Electricity , Industry",,$/kwh,,FprUnitEcyInd,name added (legacy has none),I87,,,
+178,input,Fuel Price Reform,"Price increase units, Gasoline , All",,$/liter,,FprUnitGsoAll,name added (legacy has none),I87,,,
+179,input,Fuel Price Reform,"Price increase units, Diesel  , All",,$/liter,,FprUnitDieAll,name added (legacy has none),I87,,,
+180,input,Fuel Price Reform,"Price increase units, LPG , All",,$/liter,,FprUnitLpgAll,name added (legacy has none),I87,,,
+181,input,Fuel Price Reform,"Price increase units, Kerosene , All",,$/liter,,FprUnitKerAll,name added (legacy has none),I87,,,
+182,input,Fuel Price Reform,"Price increase units, Other oil products , All",,$/liter,,FprUnitOopAll,name added (legacy has none),I87,,,
+183,input,Fuel Price Reform,"Price increase units, Biomass , All",,$/liter,,FprUnitBioAll,name added (legacy has none),I87,,,
+184,heading,,Methane tax,,,,,,,,,
+185,input,Methane tax,Apply carbon tax to methane,switch,No,CTforMethane,CTforMethane,,,CTforMethane,,Dashboard!V152
+186,input,Methane tax,Year of methane fee introduction,year,2027.0,MPIntro,MPIntro,,,MPIntro,,Dashboard!V153
+187,input,Methane tax,Starting methane fee (real USD per ton CO2eq),USD per ton of CO2 eq,0.0,MPLevelStart,MPLevelStart,,,MPLevelStart,,Dashboard!V154
+188,input,Methane tax,Target level of methane fee,USD per ton of CO2 eq,0.0,MPLevelTarget,MPLevelTarget,,,MPLevelTarget,,Dashboard!V155
+189,input,Methane tax,Year to reach target methane fee level,year,2030.0,MPOutro,MPOutro,,,MPOutro,,Dashboard!V156
+190,heading,,Price liberalization,,,,,,,,,
+191,input,Price liberalization,Apply price controls phaseout?,switch,False,PrcContPha,PrcContPha,,,PrcContPha,E191:MTI_PrcContPha,
+192,input,Price liberalization,Year to start price controls phaseout (if applicable),year,2027.0,YearPrcContPha,YearPrcContPha,,,YearPrcContPha,,Dashboard!P5
+193,input,Price liberalization,Period to reach full price controls phaseout (if applicable),year,5.0,PrcControlPhaseout,PrcControlPhaseout,,,PrcControlPhaseout,,Dashboard!Q5
+194,input,Price liberalization,Government energy price controls,switch,Bucketed*,GovPriceControls,GovPriceControls,,,GovPriceControls,,Dashboard!V149
+195,input,Price liberalization,Apply price controls phaseout in the baseline scenario?,switch,No,PrcContPhaBaseline,PrcContPhaBaseline,,,PrcContPhaBaseline,,Dashboard!V150
+196,heading,,Revenues use,,,,,,,,,
+197,input,Revenues use,Labor tax reductions,% of revenues,30.0,EXPLabortax,EXPLabortax,,,EXPLabortax,D197:_M_EXP_labortax,Dashboard!P7
+198,input,Revenues use,Corporate taxes,% of revenues,0.0,EXPCIT,EXPCIT,,,EXPCIT,D198:_M_EXP_CIT,Dashboard!P8
+199,input,Revenues use,Public investment,% of revenues,50.0,EXPCapex,EXPCapex,,,EXPCapex,D199:_M_EXP_capex,Dashboard!P9
+200,input,Revenues use,Current spending,% of revenues,0.0,EXPGoodsandserv,EXPGoodsandserv,,,EXPGoodsandserv,D200:_M_EXP_goodsandserv,Dashboard!P10
+201,input,Revenues use,Targeted transfers,% of revenues,20.0,EXPTransfers,EXPTransfers,,,EXPTransfers,D201:_M_EXP_transfers,Dashboard!P11
+202,heading,,of which:,,,,,,,,,
+203,input,of which:,targeted percentile,% bottom targetting (from bottom of distribution),40.0,TargettedPercentile,TargettedPercentile,,,TargettedPercentile,D203:_M_TargettedPercentile,Dashboard!Q12
+204,input,of which:,coverage rate,% of targeted percentile that receive transfers,100.0,CoverageRate,CoverageRate,,,CoverageRate,D204:_M_CoverageRate,Dashboard!Q13
+205,input,of which:,leakage rate,% of untargeted percentile that receive transfers,0.0,LeakageRate,LeakageRate,,,LeakageRate,D205:_M_LeakageRate,Dashboard!Q14
+206,heading,,Policy options,,,,,,,,,
+207,input,Policy options,Additional mitigation policies in non-energy sectors?,switch,Yes*,AdditionMitigationPoliciesNonEnergy,AdditionMitigationPoliciesNonEnergy,,,AdditionMitigationPoliciesNonEnergy,,Dashboard!G19
+208,input,Policy options,Apply existing ETS (if exists)?,switch,Yes*,ExistingETSApply,ExistingETSApply,,,ExistingETSApply,,Dashboard!Q148
+209,input,Policy options,Existing ETS permit price growth per annum (real terms),"%, real",0.0,ExistingETSGrowth,ExistingETSGrowth,,,ExistingETSGrowth,,Dashboard!Q149
+210,input,Policy options,New carbon tax complementary to existing ETS coverage,switch,No*,CTaxComplimentaryToETS,CTaxComplimentaryToETS,,,CTaxComplimentaryToETS,,Dashboard!Q150
+211,input,Policy options,ETS behavioral responses and revenues adjustment,%,0.9,ETSBehavioralAdjustment,ETSBehavioralAdjustment,,,ETSBehavioralAdjustment,,Dashboard!Q152
+212,input,Policy options,Years to phase in Pigouvian tax?,year,5.0,AddEfficientTaxesPhaseInYears,AddEfficientTaxesPhaseInYears,,,AddEfficientTaxesPhaseInYears,,Dashboard!G23
+213,input,Policy options,Apply existing carbon tax (if exists)?,switch,Yes*,ExistingCTApply,ExistingCTApply,,,ExistingCTApply,,Dashboard!Q145
+214,input,Policy options,Assumed existing carbon tax growth per annum (real terms),"%, real",0.0,ExistingCTGrowth,ExistingCTGrowth,,,ExistingCTGrowth,,Dashboard!Q146
+215,input,Policy options,Add additional excise tax (see 'Manual inputs' tab)?,switch,No*,AdditionalExcise,AdditionalExcise,,,AdditionalExcise,,Dashboard!U43
+216,input,Policy options,Include climate externality in Pigouvian tax?,switch,Yes*,ClimateEffTax,ClimateEffTax,,,ClimateEffTax,,Dashboard!G22
+217,input,Policy options,Add Pigouvian tax on top?,switch,No*,AddEfficientTaxes,AddEfficientTaxes,,,AddEfficientTaxes,,Dashboard!G21
+218,input,Policy options,Externalities are part of VAT base for optimal taxes?,switch,Yes*,ExternalityAddVAT,ExternalityAddVAT,,,ExternalityAddVAT,,Dashboard!V136
+219,heading,,Sources for key inputs,,,,,,,,,
+220,input,Sources for key inputs,International energy price forecasts,switch,IMF-WB*,IntEnerPricForeSource,IntEnerPricForeSource,,,IntEnerPricForeSource,,Dashboard!Q19
+221,input,Sources for key inputs,Global energy demand scenario,switch,Stated Policies*,GlobalEnergyDemand,GlobalEnergyDemand,,,GlobalEnergyDemand,,Dashboard!G149
+222,input,Sources for key inputs,GDP growth forecasts,switch,WEO*,GDPScenario,GDPScenario,,,GDPScenario,,Dashboard!Q20
+223,input,Sources for key inputs,Primary source for price elasticities of demand,switch,Simple*,ElPrcMainSrc,ElPrcMainSrc,,,ElPrcMainSrc,,Dashboard!Q21
+224,input,Sources for key inputs,Primary source for income elasticities of demand,switch,Simple*,ElIncMainSrc,ElIncMainSrc,,,ElIncMainSrc,,Dashboard!Q22
+225,input,Sources for key inputs,CO2 emissions factors,switch,IIASA*,EmissionsFactCO2,EmissionsFactCO2,,,EmissionsFactCO2,,Dashboard!Q23
+226,input,Sources for key inputs,Fiscal multipliers,switch,Income-grp*,MultipliersSource,MultipliersSource,,,MultipliersSource,,Dashboard!L23
+227,input,Sources for key inputs,Power sector model (elasticity or engineering)?,switch,Engineer,PowModelSelected,PowModelSelected,,,PowModelSelected,,Dashboard!G50
+228,input,Sources for key inputs,NDC submission,switch,Latest*,NDCs,NDCs,,,NDCs,,Dashboard!G139
+229,input,Sources for key inputs,NDC target year,switch,Main*,NDCTargetYear,NDCTargetYear,,,NDCtargetyear,,
+230,input,Sources for key inputs,"If conditional NDC, use:",switch,Average*,Conditionality,Conditionality,,,,,
+231,heading,,General assumptions,,,,,,,,,
+232,input,General assumptions,First year of model calculations?,year,2022.0,FirstYearCalculations,FirstYearCalculations,,,FirstYearCalculations,,Dashboard!G134
+233,input,General assumptions,Nominal results in real terms of which year?,year,2026.0,ResultsYear,ResultsYear,,,ResultsYear,,Dashboard!G135
+234,input,General assumptions,Use energy balances or (CPAT) energy consumption data,year,Balances,BalancesOrConsumption,BalancesOrConsumption,,,BalancesOrConsumption,,Dashboard!G136
+235,input,General assumptions,Generate Matrix of Energy Consumption Projections for Year,year,2026.0,EnergyConsumptionsMatrixProjectionsYear,EnergyConsumptionsMatrixProjectionsYear,,,EnergyConsumptionsMatrixProjectionsYear,,Dashboard!G137
+236,input,General assumptions,Start year for GDP calculations,year,2024.0,GDPStartYear,GDPStartYear,,,GDPStartYear,,
+237,input,General assumptions,Adjust Annex I country energy-related CO2 EFs to match UNFCCC GHG inventories?,switch,Yes*,EFsAdjustmentAnnexI,EFsAdjustmentAnnexI,,,EFsAdjustmentAnnexI,,Dashboard!G144
+238,input,General assumptions,Adjust non-Annex I country energy-related CO2 EFs to match CAIT GHG inventories?,switch,Yes*,EFsAdjustmentNonAnnexI,EFsAdjustmentNonAnnexI,,,EFsAdjustmentNonAnnexI,,Dashboard!G145
+239,input,General assumptions,Industrial process emissions scale with industrial CO2 energy emissions?,switch,Yes*,IndustrialProcessEmissionsScaleEner,IndustrialProcessEmissionsScaleEner,,,IndustrialProcessEmissionsScaleEner,,Dashboard!G147
+240,input,General assumptions,LULUCF emissions decline at % pa (in absolute value of start year)?,%,0.025,LULUCFAnnualEmissionsDecline,LULUCFAnnualEmissionsDecline,,,LULUCFAnnualEmissionsDecline,,Dashboard!G148
+241,heading,,Additional policy-induced efficiency gains pa by sector:,,,,,,,,,
+242,input,Additional policy-induced efficiency gains pa by sector:,Power,,0.0,AdditionalEfficiencyPower,AdditionalEfficiencyPower,,,,,Dashboard!L134
+243,input,Additional policy-induced efficiency gains pa by sector:,Road vehicles,,0.0,AdditionalEfficiencyRoadVehicle,AdditionalEfficiencyRoadVehicle,,,AdditionalEfficiencyRoadVehicle,,Dashboard!L135
+244,input,Additional policy-induced efficiency gains pa by sector:,Residential,,0.0,AdditionalEfficiencyResidential,AdditionalEfficiencyResidential,,,AdditionalEfficiencyResidential,,Dashboard!L136
+245,input,Additional policy-induced efficiency gains pa by sector:,Industrial,,0.0,AdditionalEfficiencyIndustrial,AdditionalEfficiencyIndustrial,,,AdditionalEfficiencyIndustrial,,Dashboard!L137
+246,heading,,Adjustment to efficiency margins for shadow pricing policies:,,,,,,,,,
+247,input,Adjustment to efficiency margins for shadow pricing policies:,Energy efficiency regulations,,0.7,SPPEffAdjEnergyEfficiencyRegulations,SPPEffAdjEnergyEfficiencyRegulations,,,SPPEffAdjEnergyEfficiencyRegulations,,Dashboard!L141
+248,input,Adjustment to efficiency margins for shadow pricing policies:,Vehicle fuel economy,,0.7,SPPEffAdjVehicleFuelEconomy,SPPEffAdjVehicleFuelEconomy,,,SPPEffAdjVehicleFuelEconomy,,Dashboard!L142
+249,input,Adjustment to efficiency margins for shadow pricing policies:,Residential efficiency regulations,,0.7,SPPEffAdjRes,SPPEffAdjRes,,,SPPEffAdjRes,,Dashboard!L143
+250,input,Adjustment to efficiency margins for shadow pricing policies:,Industrial efficiency regulations,,0.7,SPPEffAdjInd,SPPEffAdjInd,,,SPPEffAdjInd,,Dashboard!L144
+251,input,Adjustment to efficiency margins for shadow pricing policies:,Feebates,,1.0,SPPEffAdjFeebates,SPPEffAdjFeebates,,,SPPEffAdjFeebates,,Dashboard!L145
+252,heading,,Residential Substitution Implicit Efficiencies,,,,,,,,,
+253,input,Residential Substitution Implicit Efficiencies,LPG,,0.56,ResSubstLPGEff,ResSubstLPGEff,,,ResSubstLPGEff,,Dashboard!L147
+254,input,Residential Substitution Implicit Efficiencies,Kerosene,,0.45,ResSubstKerEff,ResSubstKerEff,,,ResSubstKerEff,,Dashboard!L148
+255,input,Residential Substitution Implicit Efficiencies,Biomass,,0.2,ResSubstBioEff,ResSubstBioEff,,,ResSubstBioEff,,Dashboard!L149
+256,input,Residential Substitution Implicit Efficiencies,NatGas,,0.58,ResSubstNatGasEff,ResSubstNatGasEff,,,ResSubstNatGasEff,,Dashboard!L150
+257,heading,,Uncertainty adjustments,,,,,,,,,
+258,input,Uncertainty adjustments,International energy prices adjustment,switch,Base*,IntEnerPricForecastAdjustment,IntEnerPricForecastAdjustment,,,IntEnerPricForecastAdjustment,,Dashboard!V19
+259,input,Uncertainty adjustments,GDP growth adjustment,switch,Base*,GdpAdj,GdpAdj,,,GdpAdj,,Dashboard!V20
+260,input,Uncertainty adjustments,Price elasticities adjustment,switch,Base*,ElastPriceAdjustment,ElastPriceAdjustment,,,ElastPriceAdjustment,,Dashboard!V21
+261,input,Uncertainty adjustments,Income elasticities adjustment,switch,Base*,ElastIncAdjustment,ElastIncAdjustment,,,ElastIncAdjustment,,Dashboard!V22
+262,input,Uncertainty adjustments,Adjust income elasticities for GDP levels?,switch,Yes*,IncElAdj,IncElAdj,,,IncElAdj,,Dashboard!L24
+263,input,Uncertainty adjustments,Fiscal multipliers adjustment,switch,Base*,FmAdj,FmAdj,,,FmAdj,,Dashboard!V23
+264,heading,,Miscellaneous,,,,,,,,,
+265,input,Miscellaneous,Price pathway continues to rise after target year?,switch,Linear*,ExtendCarbonPriceBeyondOutro,ExtendCarbonPriceBeyondOutro,,,ExtendCarbonPriceBeyondOutro,,Dashboard!L20
+266,input,Miscellaneous,Tax pathway is in nominal or real terms?,switch,Real*,NomorReal,NomorReal,,,NomorReal,,Dashboard!L21
+267,input,Miscellaneous,Include endogenous GDP effects?,switch,Yes*,GDPEndogenous,GDPEndogenous,,,GDPEndogenous,,Dashboard!L25
+268,input,Miscellaneous,Residential LPG/kerosene always exempted,switch,No*,AlwaysExemptResLPGKer,AlwaysExemptResLPGKer,,,AlwaysExemptResLPGKer,,Dashboard!G25
+269,input,Miscellaneous,National social cost of carbon (NSCC) source,switch,Target*,NSCCSource,NSCCSource,,,NSCCSource,,Dashboard!Q24
+270,input,Miscellaneous,Override dashboard and impose a linear or exponential carbon price trajectory?,,Linear*,CTaxTrajectoryType,CTaxTrajectoryType,,,CTaxTrajectoryType,,Dashboard!L152
+271,input,Miscellaneous,"If overridden and exponential, what is the real escalation rate per year?",,0.0,CtaxExponentialEscalationRate,CtaxExponentialEscalationRate,,,CtaxExponentialEscalationRate,,Dashboard!L153
+272,heading,,Social cost of carbon,,,,,,,,,
+273,input,Social cost of carbon,NSCC discount rate (ρ),%,2%*,NSCCDiscountRate,NSCCDiscountRate,,,NSCCDiscountRate,,Dashboard!G153
+274,input,Social cost of carbon,NSCC elasticity of marginal utility (μ),%,1.5%*,NSCCMargUtilofCons,NSCCMargUtilofCons,,,NSCCMargUtilofCons,,Dashboard!G154
+275,input,Social cost of carbon,Global social cost of carbon (GSCC) source,switch,Target*,GSCCSource,GSCCSource,,,GSCCSource,,Dashboard!G155
+276,heading,,Manual - assumed starting in year 2021,,,,,,,,,
+277,input,Manual - assumed starting in year 2021,SCC (both NSCC and GSCC),"real growth, %",0.04,SCCRise,SCCRise,,,SCCRise,,Dashboard!G156
+278,input,Manual - assumed starting in year 2021,Target-consistent carbon price by 2030 (for 'Target' option),,75.0,SCCTargetConsistentCP,SCCTargetConsistentCP,,,SCCTargetConsistentCP,,Dashboard!G152
+279,heading,,Energy pricing assumptions,,,,,,,,,
+280,input,Energy pricing assumptions,Use manual domestic prices?,switch,No,DomPrTax,DomPrTax,,,DomPrTax;EnergyPricesManualSwitch,,Dashboard!V134
+281,input,Energy pricing assumptions,Use uniform global assumption for fuel prices (normally 'No'),switch,No,UseGlobalPrices,UseGlobalPrices,,,UseGlobalPrices,,Dashboard!V135
+282,input,Energy pricing assumptions,Year of interest for energy externalities & prices,year,2030.0,YearFuelPrices,YearFuelPrices,,,YearFuelPrices,,Dashboard!V158
+283,heading,,VAT reform,,,,,,,,,
+284,input,VAT reform,Apply general VAT rate on residential and transport consumption?,switch,No*,VatRef,VatRef,,,VatRef,,Dashboard!G24
+285,heading,,Existing non-carbon taxes,,,,,,,,,
+286,input,Existing non-carbon taxes,Apply existing non-carbon taxes on coal?,switch,Yes*,ApplyExistingNonCarbonTaxCoa,ApplyExistingNonCarbonTaxCoa,,,ApplyExistingNonCarbonTaxCoa,G286:ExtCoa,Dashboard!Q134
+287,input,Existing non-carbon taxes,Apply existing non-carbon taxes on natural gas?,switch,Yes*,ApplyExistingNonCarbonTaxNga,ApplyExistingNonCarbonTaxNga,,,ApplyExistingNonCarbonTaxNga,,Dashboard!Q135
+288,input,Existing non-carbon taxes,Apply existing non-carbon taxes on gasoline?,switch,Yes*,ApplyExistingNonCarbonTaxGso,ApplyExistingNonCarbonTaxGso,,,ApplyExistingNonCarbonTaxGso,,Dashboard!Q136
+289,input,Existing non-carbon taxes,Apply existing non-carbon taxes on diesel?,switch,Yes*,ApplyExistingNonCarbonTaxDie,ApplyExistingNonCarbonTaxDie,,,ApplyExistingNonCarbonTaxDie,,Dashboard!Q137
+290,input,Existing non-carbon taxes,Apply existing non-carbon taxes on other oil products?,switch,Yes*,ApplyExistingNonCarbonTaxOop,ApplyExistingNonCarbonTaxOop,,,ApplyExistingNonCarbonTaxOop,,Dashboard!Q138
+291,input,Existing non-carbon taxes,Apply existing non-carbon taxes on LPG?,switch,Yes*,ApplyExistingNonCarbonTaxLpg,ApplyExistingNonCarbonTaxLpg,,,ApplyExistingNonCarbonTaxLpg,,Dashboard!Q139
+292,input,Existing non-carbon taxes,Apply existing non-carbon taxes on kerosene?,switch,Yes*,ApplyExistingNonCarbonTaxKer,ApplyExistingNonCarbonTaxKer,,,ApplyExistingNonCarbonTaxKer,,Dashboard!Q140
+293,input,Existing non-carbon taxes,Apply existing non-carbon taxes on biomass?,switch,Yes*,ApplyExistingNonCarbonTaxBio,ApplyExistingNonCarbonTaxBio,,,ApplyExistingNonCarbonTaxBio,,Dashboard!Q141
+294,input,Existing non-carbon taxes,Apply existing non-carbon taxes on electricity?,switch,Yes*,ApplyExistingNonCarbonTaxEcy,ApplyExistingNonCarbonTaxEcy,,,ApplyExistingNonCarbonTaxEcy,,Dashboard!Q142
+295,heading,,Other assumptions: mitigation module,,,,,,,,,
+296,input,Other assumptions: mitigation module,Use 'world' (USA) or country-specific discount factors?,switch,World,DfSelection,DfSelection,,,DfSelection,,Dashboard!G142
+297,input,Other assumptions: mitigation module,Sum all oil products in industrial transformation sector,switch,Converted,NonEnergyTransformationMethod,NonEnergyTransformationMethod,,,NonEnergyTransformationMethod,,Dashboard!G143
+298,input,Other assumptions: mitigation module,LPG in residential implicit (cookstove) efficiency,,0.56,LPGEff,LPGEff,,,LPGEff,,Dashboard!L147
+299,input,Other assumptions: mitigation module,Kerosene in residential implicit (cookstove) efficiency,,0.45,KerEff,KerEff,,,KerEff,,Dashboard!L148
+300,input,Other assumptions: mitigation module,Biomass in residential implicit (cookstove) efficiency,,0.2,BioEff,BioEff,,,BioEff,,Dashboard!L149
+301,input,Other assumptions: mitigation module,Natural gas in residential implicit (cookstove) efficiency,,0.58,NatGasEff,NatGasEff,,,NatGasEff,,Dashboard!L150
+302,input,Other assumptions: mitigation module,Include producer-side subsidies as part of TCP measure,switch,No*,PsInTCP,PsInTCP,,,PsInTCP,,
+303,heading,,Distributional module assumptions,,,,,,,,,
+304,input,Distributional module assumptions,Analysis year for distributional module,year,2030.0,YearDistn,YearDistn,,,YearDistn,,Dashboard!V326
+305,input,Distributional module assumptions,Targeted transfer type,switch,Cash,TransferType,TransferType,,,TransferType,,Dashboard!F324
+306,input,Distributional module assumptions,Target households below poverty line (2011 PPP$/day),number,No,TargetBelow,TargetBelow,,,TargetBelow,,Dashboard!G329
+307,input,Distributional module assumptions,Public/infrastructure investment type,switch,All Infr.,PublicInfrastructureInvType,PublicInfrastructureInvType,,,PublicInfrastructureInvType,,Dashboard!K324
+308,input,Distributional module assumptions,Current spending type,switch,All Social Protection and Labor,CurrentSpendingType,CurrentSpendingType,,,CurrentSpendingType,,Dashboard!K326
+309,input,Distributional module assumptions,Personal Income Tax (PIT) reduction type,switch,Personal Allowance,PITReductionType,PITReductionType,,,PITReductionType,,Dashboard!K328
+310,input,Distributional module assumptions,"""Targeted Exemption"" for bottom XX deciles",number,4.0,DistExcCfDec,DistExcCfDec,,,DistExcCfDec,,Dashboard!L330
+311,input,Distributional module assumptions,"Replace missing labor tax data, grouping by country",switch,income,MissingDataReplacement,MissingDataReplacement,,,MissingDataReplacement,,Dashboard!L331
+312,input,Distributional module assumptions,Exempt most-used cooking fossil fuel?,switch,No,ExemptMostCook,ExemptMostCook,,,ExemptMostCook,,Dashboard!Q329
+313,input,Distributional module assumptions,Exempt cooking fossil fuel for bottom XX deciles:,switch,4.0,ExemptCookDeciles,ExemptCookDeciles,,,ExemptCookDeciles,,Dashboard!Q330
+314,input,Distributional module assumptions,Adjust for behavioral & structural change?,switch,No,InferredDist,InferredDist,,,InferredDist,,Dashboard!Q324
+315,input,Distributional module assumptions,Include decile-specific price elasticities?,switch,Yes,PEDs,PEDs,,,PEDs,,Dashboard!Q325
+316,input,Distributional module assumptions,Adjust GTAP-implied CP revenues to CPAT?,switch,Yes,ScaleGTAP,ScaleGTAP,,,ScaleGTAP,,Dashboard!Q326
+317,input,Distributional module assumptions,Adjust for deadweight losses?,switch,No,DWLs,DWLs,,,DWLs,,Dashboard!Q327
+318,input,Distributional module assumptions,Imperfect pass-through?,switch,No,PassthroughDist,PassthroughDist,,,PassthroughDist,,Dashboard!Q328
+319,input,Distributional module assumptions,"Impacts for average, median, p25, or p75?",switch,mean,QuantilesStatistic,QuantilesStatistic,,,QuantilesStatistic,,Dashboard!V324
+320,input,Distributional module assumptions,Quantiles in LCU?,switch,No,QuantilesLCU,QuantilesLCU,,,QuantilesLCU,,Dashboard!V325
+321,heading,,Air pollution module assumptions,,,,,,,,,
+322,input,Air pollution module assumptions,"Emissions to concentrations, PM2.5",switch,Avg. iF and LS FASST*,SourceAppSel,SourceAppSel,,,SourceAppSel,,Dashboard!F429
+323,input,Air pollution module assumptions,"Emissions to concentrations, Ozone",switch,TM5-FASST,SourceAppO3,SourceAppO3,,,SourceAppO3,,Dashboard!F430
+324,input,Air pollution module assumptions,Emission factors,switch,Average,EFSel,EFSel,,,EFSel,,Dashboard!G431
+325,input,Air pollution module assumptions,Include leakage to biomass in residential sector,switch,No,BiomassLeakage,BiomassLeakage,,,BiomassLeakage,,Dashboard!G432
+326,input,Air pollution module assumptions,Biomass is a normal good,switch,No,BiomassNormal,BiomassNormal,,,BiomassNormal,,Dashboard!G433
+327,input,Air pollution module assumptions,VSL source,switch,Transfer from OECD,VSLMethod,VSLMethod,,,VSLMethod,,Dashboard!K429
+328,input,Air pollution module assumptions,VSL (where manual source),switch,500000.0,VSLManual,VSLManual,,,VSLManual,,Dashboard!L430
+329,input,Air pollution module assumptions,Discount rate selection,switch,3% (Robinson 2019),DiscSel,DiscSel,,,DiscSel,,Dashboard!K431
+330,input,Air pollution module assumptions,Discount rate (where manual source),switch,0.03,DiscRate,DiscRate,,,DiscRate,,Dashboard!L432
+331,heading,,Other assumptions: air pollution module,,,,,,,,,
+332,input,Other assumptions: air pollution module,Number of working days per month,days,20.0,WorkDays,WorkDays,,,WorkDays,,Air pollution!G80
+333,input,Other assumptions: air pollution module,"Labor share of GDP, default value",%,0.65,ApLabSh,ApLabSh,,,ApLabSh,,Air pollution!G82
+334,input,Other assumptions: air pollution module,Max % of households using solid fuels,%,0.99,ApMaxSs,ApMaxSs,,,ApMaxSs,,Air pollution!G84
+335,input,Other assumptions: air pollution module,Leakage converted into % HH using solid fuels,%,0.5,ApLeakHh,ApLeakHh,,,ApLeakHh,,Air pollution!G86
+336,input,Other assumptions: air pollution module,Apply cessation lag when discounting averted deaths,switch,Yes,ApCessLag,ApCessLag,,,ApCessLag,,Air pollution!G88
+337,heading,,Transportation,,,,,,,,,
+338,input,Transportation,Engineering or elasticity model,option,Engineer,TrModel,TrModel,,,TrModel,,
+339,heading,,Power Sector,,,,,,,,,
+340,input,Power Sector,Power Rebate,switch,No*,PowerRebates,PowerRebates,,,PowerRebates,,Dashboard!L52
+341,input,Power Sector,Power price: portion of cost change passed-on:,,1.0,PowerSectorPriceChangePassOn,PowerSectorPriceChangePassOn,,,PowerSectorPriceChangePassOn,,Dashboard!L51
+342,input,Power Sector,Year of interest for power sector costs,year,2030.0,CostBreakdownYear,CostBreakdownYear,,,CostBreakdownYear,,Dashboard!V187
+343,input,Power Sector,Estimate economy-wide or sectoral power demand?,switch,Economy-wide,ElasticityModel ,ElasticityModel,trailing space removed,L137,ElasticityModel,,Dashboard!G55
+344,input,Power Sector,k Parameter dispatch,coefficient,2.0,kDispatch,kDispatch,,,kDispatch,,Dashboard!G190
+345,input,Power Sector,k Parameter investment,coefficient,2.0,kInvestment,kInvestment,,,kInvestment,,Dashboard!Q190
+346,input,Power Sector,Minimum WACC,,0.01,MinimumWACC,MinimumWACC,,,MinimumWACC,,Dashboard!Q193
+347,input,Power Sector,Use old or new generation costs in elasticity model?,switch,New*,PowGenCostsOldNew,PowGenCostsOldNew,,,PowGenCostsOldNew,,Dashboard!G56
+348,input,Power Sector,Hydro retirement rate set to zero,,Yes,HydroDoesntRetire,HydroDoesntRetire,,,HydroDoesntRetire,,Dashboard!V198
+349,input,Power Sector,Minimum (post subsidy) generation cost $/kwh real,,0.01,MinPostSubsidyPowerPrice,MinPostSubsidyPowerPrice,,,MinPostSubsidyPowerPrice,,Dashboard!L192
+350,heading,,RE Subsidies,,,,,,,,,
+351,input,RE Subsidies,Treat over/underestimate of supply costs as subsidy/tax,switch,No,SupplyCostDeltaSubsidy,SupplyCostDeltaSubsidy,,,SupplyCostDeltaSubsidy,,Dashboard!L190
+352,input,RE Subsidies,"Baseline renewable energy subsidy, $/kwh nom",$/kwh nom,0.0,RenewableSubsidyBL,RenewableSubsidyBL,,,RenewableSubsidyBL,,Dashboard!L55
+353,input,RE Subsidies,"New renewable energy subsidy, $/kwh nom",$/kwh nom,0.0,RenSubsidyAddUSDkwh,RenSubsidyAddUSDkwh,,,RenSubsidyAddUSDkwh,D353:_M_RenSubsidy,Dashboard!P6
+354,input,RE Subsidies,"New renewable energy subsidy, phaseout",years,10.0,RenSubsidyAddPhaseoutYrs,RenSubsidyAddPhaseoutYrs,,,RenSubsidyAddPhaseoutYrs,,Dashboard!Q6
+355,input,RE Subsidies,Apply additional RE subsidy to hydroelectric power?,switch,No,RenewableSubsidyHydro,RenewableSubsidyHydro,,,RenewableSubsidyHydro,,Dashboard!L191
+356,heading,,Electrical Generation Scale-up limits,,,,,,,,,
+357,input,Electrical Generation Scale-up limits,Max new investment in coal/gas/hyd as a percentage of total generation,,0.05,MaxNonVREAsPCOfTotalGen,MaxNonVREAsPCOfTotalGen,,,MaxNonVREAsPCOfTotalGen,,Dashboard!Q194
+358,input,Electrical Generation Scale-up limits,Max new investment oil/nucl/ore/bio as a percentage of total generation,,0.02,MaxNonNucOreBioAsPCOfTotalGen,MaxNonNucOreBioAsPCOfTotalGen,,,MaxNonNucOreBioAsPCOfTotalGen,,
+359,input,Electrical Generation Scale-up limits,User-Defined Setting for VRE Max-Scale up (if used),,0.05,MaxWindSolarScaleup,MaxWindSolarScaleup,,,MaxWindSolarScaleup,,Dashboard!Q196
+360,input,Electrical Generation Scale-up limits,Max renewable scaleup rate setting,switch,CtryDefault*,MaxScaleUpRateCategory,MaxScaleUpRateCategory,,,MaxScaleUpRateCategory,,Dashboard!G53
+361,heading,,More Power Generation Settings,,,,,,,,,
+362,input,More Power Generation Settings,Use Elasticity Model Power Demand In Engineer Model,,No*,UseElasticityModelPowerDemandInEngineerModel,UseElasticityModelPowerDemandInEngineerModel,,,UseElasticityModelPowerDemandInEngineerModel,,Dashboard!G57
+363,input,More Power Generation Settings,"Cost of capital: User-defined, Inc-dep,  or Tech-dep?",,Income*,WACCSource,WACCSource,,,WACCSource,,Dashboard!Q191
+364,input,More Power Generation Settings,"If Global, what Value?",,0.075,WACCUserGlobal,WACCUserGlobal,,,WACCUserGlobal,,Dashboard!Q192
+365,input,More Power Generation Settings,Renewable Cost Declines,,Medium*,RenewableCostDeclineRate,RenewableCostDeclineRate,,,RenewableCostDeclineRate,,Dashboard!G52
+366,input,More Power Generation Settings,Use Spot Fuel Prices in Engineer Power Model,,No*,UseSpotFuelPricesInEngineerModel,UseSpotFuelPricesInEngineerModel,,,UseSpotFuelPricesInEngineerModel,,Dashboard!G191
+367,input,More Power Generation Settings,Use Additional Coal Intangible Cost,,Yes*,AdditionalCoalIntangibleCost,AdditionalCoalIntangibleCost,,,AdditionalCoalIntangibleCost,,Dashboard!L194
+368,input,More Power Generation Settings,Manual Coal Intangible Cost (short term),,0.0,ManualCoalIntangibleCostST,ManualCoalIntangibleCostST,,,ManualCoalIntangibleCostST,,Dashboard!L195
+369,input,More Power Generation Settings,Manual Coal Intangible Cost (long term),,0.0,ManualCoalIntangibleCostLT,ManualCoalIntangibleCostLT,,,ManualCoalIntangibleCostLT,,Dashboard!L196
+370,input,More Power Generation Settings,Maximum Coal Capacity Factor,,0.9,MaximumCoalCF,MaximumCoalCF,,,MaximumCoalCF,,Dashboard!G192
+371,input,More Power Generation Settings,Maximum Gas Capacity Factor,,0.9,MaximumGasCF,MaximumGasCF,,,MaximumGasCF,,Dashboard!G193
+372,input,More Power Generation Settings,Proportion of GHG adjustment passed on to engineer model power demand,,1.0,EngineerModelProportionOfCovidFactor,EngineerModelProportionOfCovidFactor,,,EngineerModelProportionOfCovidFactor;EngineerModeProportionOfCovidFactor,,Dashboard!L197
+373,input,More Power Generation Settings,Override Capacity Factor if below (Wind and Solar),,0.1,CFOverrideIfBelowWndSol,CFOverrideIfBelowWndSol,,,CFOverrideIfBelowWndSol,,Dashboard!G196
+374,input,More Power Generation Settings,Override Capacity Factor if below (Others),,0.01,CFOverrideIfBelowFosOth,CFOverrideIfBelowFosOth,,,CFOverrideIfBelowFosOth,,Dashboard!G197
+375,input,More Power Generation Settings,Override Capacity Factor if below (All),,1.0,CFOverrideIfAbove,CFOverrideIfAbove,,,CFOverrideIfAbove,,Dashboard!G198
+376,input,More Power Generation Settings,Proportion of coal capacity that can be retired,,0.8,MaxCostBasedEarlyRetirement,MaxCostBasedEarlyRetirement,,,MaxCostBasedEarlyRetirement,,Dashboard!Q51
+377,input,More Power Generation Settings,Allow cost-based coal phaseout in baseline?,,Yes,EarlyRetirementInBaseline,EarlyRetirementInBaseline,,,EarlyRetirementInBaseline,,
+378,input,More Power Generation Settings,Minimum Thermal Efficiency,,0.1,MinimumThermalEfficiency,MinimumThermalEfficiency,,,MinimumThermalEfficiency,,Dashboard!G194
+379,heading,,Coal and Gas Power Purchase Agreements,,,,,,,,,
+380,input,Coal and Gas Power Purchase Agreements,Proportion of PPAs in Coal and Gas Generation,,0.0,PPAProportionCoalGas,PPAProportionCoalGas,,,PPAProportionCoalGas,,Dashboard!Q54
+381,input,Coal and Gas Power Purchase Agreements,Phase out any coal and gas PPAs? (Baseline),,Yes*,PhaseOutCoalAndGasPPAsBaseline,PhaseOutCoalAndGasPPAsBaseline,,,PhaseOutCoalAndGasPPAsBaseline,,Dashboard!Q55
+382,input,Coal and Gas Power Purchase Agreements,Phase out any coal and gas PPAs? (Policy),,Yes*,PhaseOutCoalAndGasPPAsPolicy,PhaseOutCoalAndGasPPAsPolicy,,,,,Dashboard!Q56
+383,input,Coal and Gas Power Purchase Agreements,Phase begins when?,,2027.0,YearPPACoalGas,YearPPACoalGas,,,YearPPACoalGas,,Dashboard!Q57
+384,input,Coal and Gas Power Purchase Agreements,Phase out coal and gas PPAs over n years?,,5.0,YearsToPhaseOutPPAs,YearsToPhaseOutPPAs,,,YearsToPhaseOutPPAs,,Dashboard!Q58
+385,heading,,Short Term Storage Parameters,,,,,,,,,
+386,input,Short Term Storage Parameters,Percent allocation of ST storage costs to VRE,%,1.0,AllocateSTStorageToVRE,AllocateSTStorageToVRE,,,AllocateSTStorageToVRE,,Dashboard!V190
+387,input,Short Term Storage Parameters,Total hours short term strorage for 100% VRE,,9.0,TotalHoursStorageFor100pcVRE,TotalHoursStorageFor100pcVRE,,,TotalHoursStorageFor100pcVRE,,Dashboard!V191
+388,input,Short Term Storage Parameters,kwh storage to kw interface ratio (hours),,2.0,StorageToInterfaceRatioSTStorage,StorageToInterfaceRatioSTStorage,,,StorageToInterfaceRatioSTStorage,,Dashboard!V192
+389,heading,,Long Term Storage Parameters,,,,,,,,,
+390,input,Long Term Storage Parameters,Percent allocation of LT storage costs to VRE,,0.33,AllocateLTStorageToVRE,AllocateLTStorageToVRE,,,AllocateLTStorageToVRE,,Dashboard!V193
+391,input,Long Term Storage Parameters,Starting point of long term storage requirement (%VRE),%,0.75,StartingPointWhenLTStorageIsNeeded,StartingPointWhenLTStorageIsNeeded,,,StartingPointWhenLTStorageIsNeeded,,Dashboard!V194
+392,input,Long Term Storage Parameters,GW electrolyzer per Gwy/y for 100% VRE (%),%,1.0,LongTermStorageFor100pcVRE,LongTermStorageFor100pcVRE,,,LongTermStorageFor100pcVRE,,Dashboard!V195
+393,input,Long Term Storage Parameters,Storage hours for LT storage,,1000.0,StorageHoursForLTStorage,StorageHoursForLTStorage,,,StorageHoursForLTStorage,,Dashboard!V196
+394,heading,,Allowed New Investments Override if selected,,,,,,,,,
+395,input,Allowed New Investments Override if selected,Coal - New Investment Override,Switch,If Present*,NewInvCoa,NewInvCoa,,,NewInvCoa,,Dashboard!U51
+396,input,Allowed New Investments Override if selected,Natural gas - New Investment Override,Switch,If Present*,NewInvNga,NewInvNga,,,NewInvNga,,Dashboard!U52
+397,input,Allowed New Investments Override if selected,Oil - New Investment Override,Switch,If Present*,NewInvOil,NewInvOil,,,NewInvOil,,Dashboard!U53
+398,input,Allowed New Investments Override if selected,Nuclear - New Investment Override,Switch,If Present*,NewInvNuc,NewInvNuc,,,NewInvNuc,,Dashboard!U54
+399,input,Allowed New Investments Override if selected,Wind - New Investment Override,Switch,Yes,NewInvWnd,NewInvWnd,,,NewInvWnd,,Dashboard!U55
+400,input,Allowed New Investments Override if selected,Solar - New Investment Override,Switch,Yes,NewInvSol,NewInvSol,,,NewInvSol,,Dashboard!U56
+401,input,Allowed New Investments Override if selected,Hydro - New Investment Override,Switch,If Present*,NewInvHyd,NewInvHyd,,,NewInvHyd,,Dashboard!U57
+402,input,Allowed New Investments Override if selected,Other renewables - New Investment Override,Switch,If Present*,NewInvOre,NewInvOre,,,NewInvOre,,Dashboard!U58
+403,input,Allowed New Investments Override if selected,Biomass - New Investment Override,Switch,If Present*,NewInvBio,NewInvBio,,,NewInvBio,,Dashboard!U59
+404,heading,,Allowed New Investments (Date of Coming Online),,,,,,,,,
+405,input,Allowed New Investments (Date of Coming Online),Coal,Year,2022.0,NewInvCoaYear,NewInvCoaYear,,,NewInvCoaYear,,Dashboard!V51
+406,input,Allowed New Investments (Date of Coming Online),Natural gas,Year,2022.0,NewInvNgaYear,NewInvNgaYear,,,NewInvNgaYear,,Dashboard!V52
+407,input,Allowed New Investments (Date of Coming Online),Oil,Year,2022.0,NewInvOilYear,NewInvOilYear,,,NewInvOilYear,,Dashboard!V53
+408,input,Allowed New Investments (Date of Coming Online),Nuclear,Year,2030.0,NewInvNucYear,NewInvNucYear,,,NewInvNucYear,,Dashboard!V54
+409,input,Allowed New Investments (Date of Coming Online),Wind,Year,2022.0,NewInvWndYear,NewInvWndYear,,,NewInvWndYear,,Dashboard!V55
+410,input,Allowed New Investments (Date of Coming Online),Solar,Year,2022.0,NewInvSolYear,NewInvSolYear,,,NewInvSolYear,,Dashboard!V56
+411,input,Allowed New Investments (Date of Coming Online),Hydro,Year,2030.0,NewInvHydYear,NewInvHydYear,,,NewInvHydYear,,Dashboard!V57
+412,input,Allowed New Investments (Date of Coming Online),Other renewables,Year,2030.0,NewInvOreYear,NewInvOreYear,,,NewInvOreYear,,Dashboard!V58
+413,input,Allowed New Investments (Date of Coming Online),Biomass,Year,2022.0,NewInvBioYear,NewInvBioYear,,,NewInvBioYear,,Dashboard!V59

@@ -1,0 +1,1 @@
+{"kind": "table", "header": ["Series_Code", "Country Name", "ISO-3 Country Code", "Year", "(firstnm) Value", "(firstnm) indicator_name", "(firstnm) Sub_Topic5", "(firstnm) Sub_Topic6"], "key_pos": [0], "attr_pos": [1, 2, 3, 5, 6, 7], "val_pos": [4], "skipped": {}, "nrows": 30, "source": "legacy_ASPIRE.csv"}

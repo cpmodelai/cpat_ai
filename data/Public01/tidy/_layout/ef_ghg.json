@@ -1,0 +1,1 @@
+{"kind": "table", "header": ["Code", "Region/country", "Series name", "Atribute 1", "Atribute 2", "FACTOR"], "key_pos": [0], "attr_pos": [1, 2, 3, 4], "val_pos": [5], "skipped": {"169": ["Code", "Region/country", "Series name", "Atribute 1", "Atribute 2", "0xf"]}, "nrows": 3722, "source": "legacy_EF_GHG.csv"}

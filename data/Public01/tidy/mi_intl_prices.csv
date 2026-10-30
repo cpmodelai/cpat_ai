@@ -1,0 +1,101 @@
+commodity,unit,year,value
+Crude Oil,$/bbl nom,2025,30.293333333333333
+Crude Oil,$/bbl nom,2026,27.869866666666667
+Crude Oil,$/bbl nom,2027,24.234666666666666
+Crude Oil,$/bbl nom,2028,21.073623188405797
+Crude Oil,$/bbl nom,2029,18.324889729048518
+Crude Oil,$/bbl nom,2030,18.324889729048518
+Crude Oil,$/bbl nom,2031,18.324889729048518
+Crude Oil,$/bbl nom,2032,18.324889729048518
+Crude Oil,$/bbl nom,2033,18.324889729048518
+Crude Oil,$/bbl nom,2034,18.324889729048518
+Crude Oil,$/bbl nom,2035,18.324889729048518
+Crude Oil,$/bbl nom,2036,18.324889729048518
+Crude Oil,$/bbl nom,2037,18.324889729048518
+Crude Oil,$/bbl nom,2038,18.324889729048518
+Crude Oil,$/bbl nom,2039,18.324889729048518
+Crude Oil,$/bbl nom,2040,18.324889729048518
+Crude Oil,$/bbl nom,2041,18.324889729048518
+Crude Oil,$/bbl nom,2042,18.324889729048518
+Crude Oil,$/bbl nom,2043,18.324889729048518
+Crude Oil,$/bbl nom,2044,18.324889729048518
+Coal,$/ton nom,2025,54.79466666666667
+Coal,$/ton nom,2026,37.26037333333334
+Coal,$/ton nom,2027,33.90693973333334
+Coal,$/ton nom,2028,30.85531515733334
+Coal,$/ton nom,2029,28.078336793173342
+Coal,$/ton nom,2030,28.078336793173342
+Coal,$/ton nom,2031,28.078336793173342
+Coal,$/ton nom,2032,28.078336793173342
+Coal,$/ton nom,2033,28.078336793173342
+Coal,$/ton nom,2034,28.078336793173342
+Coal,$/ton nom,2035,28.078336793173342
+Coal,$/ton nom,2036,28.078336793173342
+Coal,$/ton nom,2037,28.078336793173342
+Coal,$/ton nom,2038,28.078336793173342
+Coal,$/ton nom,2039,28.078336793173342
+Coal,$/ton nom,2040,28.078336793173342
+Coal,$/ton nom,2041,28.078336793173342
+Coal,$/ton nom,2042,28.078336793173342
+Coal,$/ton nom,2043,28.078336793173342
+Coal,$/ton nom,2044,28.078336793173342
+Natural Gas - LNG,$/MMBtu nom,2025,9.685409128161417
+Natural Gas - LNG,$/MMBtu nom,2026,7.121624358942219
+Natural Gas - LNG,$/MMBtu nom,2027,6.352488928176459
+Natural Gas - LNG,$/MMBtu nom,2028,5.666420123933402
+Natural Gas - LNG,$/MMBtu nom,2029,5.054446750548594
+Natural Gas - LNG,$/MMBtu nom,2030,5.054446750548594
+Natural Gas - LNG,$/MMBtu nom,2031,5.054446750548594
+Natural Gas - LNG,$/MMBtu nom,2032,5.054446750548594
+Natural Gas - LNG,$/MMBtu nom,2033,5.054446750548594
+Natural Gas - LNG,$/MMBtu nom,2034,5.054446750548594
+Natural Gas - LNG,$/MMBtu nom,2035,5.054446750548594
+Natural Gas - LNG,$/MMBtu nom,2036,5.054446750548594
+Natural Gas - LNG,$/MMBtu nom,2037,5.054446750548594
+Natural Gas - LNG,$/MMBtu nom,2038,5.054446750548594
+Natural Gas - LNG,$/MMBtu nom,2039,5.054446750548594
+Natural Gas - LNG,$/MMBtu nom,2040,5.054446750548594
+Natural Gas - LNG,$/MMBtu nom,2041,5.054446750548594
+Natural Gas - LNG,$/MMBtu nom,2042,5.054446750548594
+Natural Gas - LNG,$/MMBtu nom,2043,5.054446750548594
+Natural Gas - LNG,$/MMBtu nom,2044,5.054446750548594
+Natural Gas - North Am,$/MMBtu nom,2025,1.7012999999999998
+Natural Gas - North Am,$/MMBtu nom,2026,1.5704307692307689
+Natural Gas - North Am,$/MMBtu nom,2027,1.5377134615384613
+Natural Gas - North Am,$/MMBtu nom,2028,1.505677764423077
+Natural Gas - North Am,$/MMBtu nom,2029,1.4743094776642636
+Natural Gas - North Am,$/MMBtu nom,2030,1.4743094776642636
+Natural Gas - North Am,$/MMBtu nom,2031,1.4743094776642636
+Natural Gas - North Am,$/MMBtu nom,2032,1.4743094776642636
+Natural Gas - North Am,$/MMBtu nom,2033,1.4743094776642636
+Natural Gas - North Am,$/MMBtu nom,2034,1.4743094776642636
+Natural Gas - North Am,$/MMBtu nom,2035,1.4743094776642636
+Natural Gas - North Am,$/MMBtu nom,2036,1.4743094776642636
+Natural Gas - North Am,$/MMBtu nom,2037,1.4743094776642636
+Natural Gas - North Am,$/MMBtu nom,2038,1.4743094776642636
+Natural Gas - North Am,$/MMBtu nom,2039,1.4743094776642636
+Natural Gas - North Am,$/MMBtu nom,2040,1.4743094776642636
+Natural Gas - North Am,$/MMBtu nom,2041,1.4743094776642636
+Natural Gas - North Am,$/MMBtu nom,2042,1.4743094776642636
+Natural Gas - North Am,$/MMBtu nom,2043,1.4743094776642636
+Natural Gas - North Am,$/MMBtu nom,2044,1.4743094776642636
+Natural Gas - Europe,$/MMBtu nom,2025,1.8158849191396769
+Natural Gas - Europe,$/MMBtu nom,2026,1.3380204667344986
+Natural Gas - Europe,$/MMBtu nom,2027,1.2711194433977737
+Natural Gas - Europe,$/MMBtu nom,2028,1.207563471227885
+Natural Gas - Europe,$/MMBtu nom,2029,1.1471852976664907
+Natural Gas - Europe,$/MMBtu nom,2030,1.1471852976664907
+Natural Gas - Europe,$/MMBtu nom,2031,1.1471852976664907
+Natural Gas - Europe,$/MMBtu nom,2032,1.1471852976664907
+Natural Gas - Europe,$/MMBtu nom,2033,1.1471852976664907
+Natural Gas - Europe,$/MMBtu nom,2034,1.1471852976664907
+Natural Gas - Europe,$/MMBtu nom,2035,1.1471852976664907
+Natural Gas - Europe,$/MMBtu nom,2036,1.1471852976664907
+Natural Gas - Europe,$/MMBtu nom,2037,1.1471852976664907
+Natural Gas - Europe,$/MMBtu nom,2038,1.1471852976664907
+Natural Gas - Europe,$/MMBtu nom,2039,1.1471852976664907
+Natural Gas - Europe,$/MMBtu nom,2040,1.1471852976664907
+Natural Gas - Europe,$/MMBtu nom,2041,1.1471852976664907
+Natural Gas - Europe,$/MMBtu nom,2042,1.1471852976664907
+Natural Gas - Europe,$/MMBtu nom,2043,1.1471852976664907
+Natural Gas - Europe,$/MMBtu nom,2044,1.1471852976664907

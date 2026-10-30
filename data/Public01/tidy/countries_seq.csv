@@ -1,0 +1,223 @@
+name,code,variable,value
+Afghanistan,AFG,seq,1
+Albania,ALB,seq,2
+Algeria,DZA,seq,3
+American Samoa,ASM,seq,4
+Andorra,AND,seq,5
+Angola,AGO,seq,6
+Anguilla,AIA,seq,7
+Antigua and Barbuda,ATG,seq,8
+Argentina,ARG,seq,9
+Armenia,ARM,seq,10
+Aruba,ABW,seq,11
+Australia,AUS,seq,12
+Austria,AUT,seq,13
+Azerbaijan,AZE,seq,14
+"Bahamas, The",BHS,seq,15
+Bahrain,BHR,seq,16
+Bangladesh,BGD,seq,17
+Barbados,BRB,seq,18
+Belarus,BLR,seq,19
+Belgium,BEL,seq,20
+Belize,BLZ,seq,21
+Benin,BEN,seq,22
+Bermuda,BMU,seq,23
+Bhutan,BTN,seq,24
+Bolivia,BOL,seq,25
+Bosnia and Herzegovina,BIH,seq,26
+Botswana,BWA,seq,27
+Brazil,BRA,seq,28
+British Virgin Islands,VGB,seq,29
+Brunei Darussalam,BRN,seq,30
+Bulgaria,BGR,seq,31
+Burkina Faso,BFA,seq,32
+Burundi,BDI,seq,33
+Cabo Verde,CPV,seq,34
+Cambodia,KHM,seq,35
+Cameroon,CMR,seq,36
+Canada,CAN,seq,37
+Cayman Islands,CYM,seq,38
+Central African Republic,CAF,seq,39
+Chad,TCD,seq,40
+Channel Islands,CHI,seq,41
+Chile,CHL,seq,42
+China,CHN,seq,43
+Colombia,COL,seq,44
+Comoros,COM,seq,45
+"Congo, Democratic Republic of the",COD,seq,46
+"Congo, Republic of",COG,seq,47
+Costa Rica,CRI,seq,48
+Côte d'Ivoire,CIV,seq,49
+Croatia,HRV,seq,50
+Cuba,CUB,seq,51
+Curaçao,CUW,seq,52
+Cyprus,CYP,seq,53
+Czechia,CZE,seq,54
+Denmark,DNK,seq,55
+Djibouti,DJI,seq,56
+Dominica,DMA,seq,57
+Dominican Republic,DOM,seq,58
+Ecuador,ECU,seq,59
+Egypt,EGY,seq,60
+El Salvador,SLV,seq,61
+Equatorial Guinea,GNQ,seq,62
+Eritrea,ERI,seq,63
+Estonia,EST,seq,64
+Eswatini,SWZ,seq,65
+Ethiopia,ETH,seq,66
+Faroe Islands,FRO,seq,67
+Fiji,FJI,seq,68
+Finland,FIN,seq,69
+France,FRA,seq,70
+French Polynesia,PYF,seq,71
+Gabon,GAB,seq,72
+"Gambia, The",GMB,seq,73
+Georgia,GEO,seq,74
+Germany,DEU,seq,75
+Ghana,GHA,seq,76
+Gibraltar,GIB,seq,77
+Greece,GRC,seq,78
+Greenland,GRL,seq,79
+Grenada,GRD,seq,80
+Guam,GUM,seq,81
+Guatemala,GTM,seq,82
+Guinea,GIN,seq,83
+Guinea-Bissau,GNB,seq,84
+Guyana,GUY,seq,85
+Haiti,HTI,seq,86
+Honduras,HND,seq,87
+Hong Kong SAR,HKG,seq,88
+Hungary,HUN,seq,89
+Iceland,ISL,seq,90
+India,IND,seq,91
+Indonesia,IDN,seq,92
+Iran,IRN,seq,93
+Iraq,IRQ,seq,94
+Ireland,IRL,seq,95
+Isle of Man,IMN,seq,96
+Israel,ISR,seq,97
+Italy,ITA,seq,98
+Jamaica,JAM,seq,99
+Japan,JPN,seq,100
+Jordan,JOR,seq,101
+Kazakhstan,KAZ,seq,102
+Kenya,KEN,seq,103
+Kiribati,KIR,seq,104
+Korea,KOR,seq,105
+"Korea, Dem. People's Rep.",PRK,seq,106
+Kosovo,XKX,seq,107
+Kuwait,KWT,seq,108
+Kyrgyz Republic,KGZ,seq,109
+Lao P.D.R.,LAO,seq,110
+Latvia,LVA,seq,111
+Lebanon,LBN,seq,112
+Lesotho,LSO,seq,113
+Liberia,LBR,seq,114
+Libya,LBY,seq,115
+Liechtenstein,LIE,seq,116
+Lithuania,LTU,seq,117
+Luxembourg,LUX,seq,118
+Macao SAR,MAC,seq,119
+Madagascar,MDG,seq,120
+Malawi,MWI,seq,121
+Malaysia,MYS,seq,122
+Maldives,MDV,seq,123
+Mali,MLI,seq,124
+Malta,MLT,seq,125
+Marshall Islands,MHL,seq,126
+Mauritania,MRT,seq,127
+Mauritius,MUS,seq,128
+Mexico,MEX,seq,129
+Micronesia,FSM,seq,130
+Moldova,MDA,seq,131
+Monaco,MCO,seq,132
+Mongolia,MNG,seq,133
+"Montenegro, Rep. of",MNE,seq,134
+Montserrat,MSR,seq,135
+Morocco,MAR,seq,136
+Mozambique,MOZ,seq,137
+Myanmar,MMR,seq,138
+Namibia,NAM,seq,139
+Nauru,NRU,seq,140
+Nepal,NPL,seq,141
+Netherlands,NLD,seq,142
+New Caledonia,NCL,seq,143
+New Zealand,NZL,seq,144
+Nicaragua,NIC,seq,145
+Niger,NER,seq,146
+Nigeria,NGA,seq,147
+North Macedonia,MKD,seq,148
+Northern Mariana Islands,MNP,seq,149
+Norway,NOR,seq,150
+Oman,OMN,seq,151
+Pakistan,PAK,seq,152
+Palau,PLW,seq,153
+Panama,PAN,seq,154
+Papua New Guinea,PNG,seq,155
+Paraguay,PRY,seq,156
+Peru,PER,seq,157
+Philippines,PHL,seq,158
+Poland,POL,seq,159
+Portugal,PRT,seq,160
+Puerto Rico,PRI,seq,161
+Qatar,QAT,seq,162
+Romania,ROU,seq,163
+Russia,RUS,seq,164
+Rwanda,RWA,seq,165
+Samoa,WSM,seq,166
+San Marino,SMR,seq,167
+São Tomé and Príncipe,STP,seq,168
+Saudi Arabia,SAU,seq,169
+Senegal,SEN,seq,170
+Serbia,SRB,seq,171
+Seychelles,SYC,seq,172
+Sierra Leone,SLE,seq,173
+Singapore,SGP,seq,174
+Sint Maarten (Dutch part),SXM,seq,175
+Slovak Republic,SVK,seq,176
+Slovenia,SVN,seq,177
+Solomon Islands,SLB,seq,178
+Somalia,SOM,seq,179
+South Africa,ZAF,seq,180
+South Sudan,SSD,seq,181
+Spain,ESP,seq,182
+Sri Lanka,LKA,seq,183
+St. Kitts and Nevis,KNA,seq,184
+St. Lucia,LCA,seq,185
+St. Martin (French part),MAF,seq,186
+St. Vincent and the Grenadines,VCT,seq,187
+Sudan,SDN,seq,188
+Suriname,SUR,seq,189
+Sweden,SWE,seq,190
+Switzerland,CHE,seq,191
+Syria,SYR,seq,192
+Taiwan Province of China,TWN,seq,193
+Tajikistan,TJK,seq,194
+Tanzania,TZA,seq,195
+Thailand,THA,seq,196
+Timor-Leste,TLS,seq,197
+Togo,TGO,seq,198
+Tonga,TON,seq,199
+Trinidad and Tobago,TTO,seq,200
+Tunisia,TUN,seq,201
+Turkiye,TUR,seq,202
+Turkmenistan,TKM,seq,203
+Turks and Caicos Islands,TCA,seq,204
+Tuvalu,TUV,seq,205
+Uganda,UGA,seq,206
+Ukraine,UKR,seq,207
+United Arab Emirates,ARE,seq,208
+United Kingdom,GBR,seq,209
+United States,USA,seq,210
+Uruguay,URY,seq,211
+Uzbekistan,UZB,seq,212
+Vanuatu,VUT,seq,213
+Venezuela,VEN,seq,214
+Vietnam,VNM,seq,215
+Virgin Islands (U.S.),VIR,seq,216
+West Bank and Gaza,PSE,seq,217
+World aviation,WAV,seq,221
+World marine,WMR,seq,222
+Yemen,YEM,seq,223
+Zambia,ZMB,seq,224
+Zimbabwe,ZWE,seq,225

@@ -1,0 +1,165 @@
+{
+ "data": [
+  "fixes_other_mitigation.json",
+  "fixes_other_mitigation_2.json"
+ ],
+ "title": "Legacy CPAT bug fixes: other mitigation bugs",
+ "others": "the engineer power model plan, the engineer road-transport plan and the distribution plan",
+ "policy": "Policy block: copy the fixed baseline row and Paste Special → Formulas onto the policy row given. Up to row ~6070 the policy block is the baseline + 6,331 rows; from the other-energy-use block (row 6066) on it is + 6,317. Where a paste would point at the wrong row (e.g. L43), the policy formula is spelled out.",
+ "extra": [
+  "Expected effects from cached Egypt values, the registers (LegacyBugFixes.md, LegacyBugFixes_v5_4.md) and the prototype, which fixes every one of these bugs. Nothing was recalculated in Excel or Python.",
+  "Formulas were read from the .xlsb itself where the LibreOffice conversion loses them (formulas with IFNA become constants); every 'formula now' of sheet Mitigation was checked against the .xlsb.",
+  "Items marked 'to confirm' in the notes take the prototype's choice; confirm before applying."
+ ],
+ "summary": "82 other-mitigation bugs (everything outside the engineer power and road models and the distribution module), in 10 sections by model area. Sections are ordered roughly by priority (sections holding High bugs first), and bugs within a section High, Medium, Low. Each section has its own summary table followed by its cell plans. L15, L18, L92 and L123 do not reproduce in this file (no cell to change); L22 and L86 need new rows or names; L16/L57 and L82/L124 are duplicate register entries for the same cells.",
+ "sections": [
+  {
+   "title": "Macro drivers and GDP effects",
+   "intro": "Population, GDP growth and the GDP-effect multipliers: everything downstream depends on them.",
+   "ids": [
+    "L20",
+    "L24",
+    "L68",
+    "L69",
+    "L76",
+    "L117"
+   ]
+  },
+  {
+   "title": "Prices, taxes and subsidies",
+   "intro": "Price parameters, pass-through, VAT, consumer and producer subsidies, and the average-price reports.",
+   "ids": [
+    "L13",
+    "L14",
+    "L77",
+    "L129",
+    "L44",
+    "L46",
+    "L60",
+    "L81",
+    "L82",
+    "L124",
+    "L125",
+    "L113",
+    "L114",
+    "L136",
+    "L134",
+    "L170"
+   ]
+  },
+  {
+   "title": "GHG and local pollutants",
+   "intro": "Methane, flaring, waste and the local-pollutant emission factors and totals.",
+   "ids": [
+    "L18",
+    "L19",
+    "L21",
+    "L22",
+    "L58",
+    "L59",
+    "L23",
+    "L135"
+   ]
+  },
+  {
+   "title": "Regulations and feebates",
+   "intro": "Regulation shares and adjustments, feebate inclusion and rates.",
+   "ids": [
+    "L87",
+    "L98",
+    "L105",
+    "L104"
+   ]
+  },
+  {
+   "title": "ETS and carbon pricing",
+   "intro": "New and existing ETS, existing carbon taxes, coverage and the shadow prices.",
+   "ids": [
+    "L15",
+    "L16",
+    "L57",
+    "L79",
+    "L99",
+    "L112",
+    "L115",
+    "L61",
+    "L62",
+    "L63",
+    "L64",
+    "L65",
+    "L78",
+    "L80",
+    "L93",
+    "L230"
+   ]
+  },
+  {
+   "title": "Fuel use, demand and exemptions",
+   "intro": "Sector fuel-use blocks (aviation, other energy use, residential, road), exemptions and leakage, manual power investment.",
+   "ids": [
+    "L42",
+    "L43",
+    "L118",
+    "L45",
+    "L47",
+    "L48",
+    "L66",
+    "L89",
+    "L90",
+    "L91",
+    "L92",
+    "L94",
+    "L96",
+    "L97",
+    "L116"
+   ]
+  },
+  {
+   "title": "NDC",
+   "intro": "NDC targets and index rows.",
+   "ids": [
+    "L119",
+    "L122",
+    "L123",
+    "L120",
+    "L121",
+    "L130",
+    "L169"
+   ]
+  },
+  {
+   "title": "Balance of payments",
+   "intro": "Energy trade balance and current account.",
+   "ids": [
+    "L49",
+    "L50",
+    "L51"
+   ]
+  },
+  {
+   "title": "Revenue and revenue reports",
+   "intro": "Revenue rows and the revenue reports.",
+   "ids": [
+    "L70",
+    "L71",
+    "L72",
+    "L73",
+    "L75",
+    "L85",
+    "L128"
+   ]
+  },
+  {
+   "title": "Manual inputs",
+   "intro": "Manual-input blocks and the names that read them.",
+   "ids": [
+    "L86",
+    "L100",
+    "L101",
+    "L102",
+    "L103",
+    "L106"
+   ]
+  }
+ ]
+}

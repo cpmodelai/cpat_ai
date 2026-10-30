@@ -1,0 +1,161 @@
+item,variable,value
+" - coal, transport",Elasticity,0
+" - coal, transport",Adjustment,0
+" - coal, transport",Manual,0.5
+" - coal, transport",Simple,0
+" - coal, transport",Standard deviation,0.06
+" - natural gas, transport",Elasticity,0.5
+" - natural gas, transport",Adjustment,0
+" - natural gas, transport",Manual,0.5
+" - natural gas, transport",Simple,0.5
+" - natural gas, transport",Standard deviation,0.06
+" - gaseoline, transport",Elasticity,0.7
+" - gaseoline, transport",Adjustment,0
+" - gaseoline, transport",Manual,0.5
+" - gaseoline, transport",Simple,0.7
+" - gaseoline, transport",Standard deviation,0.06
+" - diesel, transport",Elasticity,0.6
+" - diesel, transport",Adjustment,0
+" - diesel, transport",Manual,0.5
+" - diesel, transport",Simple,0.6
+" - diesel, transport",Standard deviation,0.06
+" - oil products, transport",Elasticity,0.8
+" - oil products, transport",Adjustment,0
+" - oil products, transport",Manual,0.5
+" - oil products, transport",Simple,0.8
+" - oil products, transport",Standard deviation,0.06
+" - biomass, transport",Elasticity,0
+" - biomass, transport",Adjustment,0
+" - biomass, transport",Manual,0.5
+" - biomass, transport",Simple,0
+" - biomass, transport",Standard deviation,0
+" - renewables, transport",Elasticity,1
+" - renewables, transport",Adjustment,0
+" - renewables, transport",Manual,0.5
+" - renewables, transport",Simple,1
+" - renewables, transport",Standard deviation,0.06
+" - electricity, transport",Elasticity,1.2
+" - electricity, transport",Adjustment,0
+" - electricity, transport",Manual,0.5
+" - electricity, transport",Simple,1.2
+" - electricity, transport",Standard deviation,0.06
+" - coal, residential",Elasticity,0.3
+" - coal, residential",Adjustment,0
+" - coal, residential",Manual,0.5
+" - coal, residential",Simple,0.3
+" - coal, residential",Standard deviation,0.08
+" - natural gas, residential",Elasticity,0.3
+" - natural gas, residential",Adjustment,0
+" - natural gas, residential",Manual,0.5
+" - natural gas, residential",Simple,0.3
+" - natural gas, residential",Standard deviation,0.08
+" - gaseoline, residential",Elasticity,0.5
+" - gaseoline, residential",Adjustment,0
+" - gaseoline, residential",Manual,0.5
+" - gaseoline, residential",Simple,0.5
+" - gaseoline, residential",Standard deviation,0.08
+" - diesel, residential",Elasticity,0.5
+" - diesel, residential",Adjustment,0
+" - diesel, residential",Manual,0.5
+" - diesel, residential",Simple,0.5
+" - diesel, residential",Standard deviation,0.08
+" - oil products, residential",Elasticity,0.5
+" - oil products, residential",Adjustment,0
+" - oil products, residential",Manual,0.5
+" - oil products, residential",Simple,0.5
+" - oil products, residential",Standard deviation,0.08
+" - biomass, residential",Elasticity,0.1
+" - biomass, residential",Adjustment,0
+" - biomass, residential",Manual,0.5
+" - biomass, residential",Simple,0.1
+" - biomass, residential",Standard deviation,0.09000000000000001
+" - renewables, residential",Elasticity,0.8
+" - renewables, residential",Adjustment,0
+" - renewables, residential",Manual,0.5
+" - renewables, residential",Simple,0.8
+" - renewables, residential",Standard deviation,0.08
+" - electricity, residential",Elasticity,0.8
+" - electricity, residential",Adjustment,0
+" - electricity, residential",Manual,0.5
+" - electricity, residential",Simple,0.8
+" - electricity, residential",Standard deviation,0.08
+" - coal, industry",Elasticity,0.5
+" - coal, industry",Adjustment,0
+" - coal, industry",Manual,0.5
+" - coal, industry",Simple,0.5
+" - coal, industry",Standard deviation,0.1
+" - natural gas, industry",Elasticity,1
+" - natural gas, industry",Adjustment,0
+" - natural gas, industry",Manual,0.5
+" - natural gas, industry",Simple,1
+" - natural gas, industry",Standard deviation,0.1
+" - gaseoline, industry",Elasticity,0.5
+" - gaseoline, industry",Adjustment,0
+" - gaseoline, industry",Manual,0.5
+" - gaseoline, industry",Simple,0.5
+" - gaseoline, industry",Standard deviation,0.1
+" - diesel, industry",Elasticity,0.5
+" - diesel, industry",Adjustment,0
+" - diesel, industry",Manual,0.5
+" - diesel, industry",Simple,0.5
+" - diesel, industry",Standard deviation,0.09000000000000001
+" - oil products, industry",Elasticity,0.8
+" - oil products, industry",Adjustment,0
+" - oil products, industry",Manual,0.5
+" - oil products, industry",Simple,0.8
+" - oil products, industry",Standard deviation,0.1
+" - biomass, industry",Elasticity,0.1
+" - biomass, industry",Adjustment,0
+" - biomass, industry",Manual,0.5
+" - biomass, industry",Simple,0.1
+" - biomass, industry",Standard deviation,0.09000000000000001
+" - renewables, industry",Elasticity,0.8
+" - renewables, industry",Adjustment,0
+" - renewables, industry",Manual,0.5
+" - renewables, industry",Simple,0.8
+" - renewables, industry",Standard deviation,0.1
+" - electricity, industry",Elasticity,0.8
+" - electricity, industry",Adjustment,0
+" - electricity, industry",Manual,0.5
+" - electricity, industry",Simple,0.8
+" - electricity, industry",Standard deviation,0.1
+" - coal, services",Elasticity,0.7
+" - coal, services",Adjustment,0
+" - coal, services",Manual,0.5
+" - coal, services",Simple,0.7
+" - coal, services",Standard deviation,0.13
+" - natural gas, services",Elasticity,1
+" - natural gas, services",Adjustment,0
+" - natural gas, services",Manual,0.5
+" - natural gas, services",Simple,1
+" - natural gas, services",Standard deviation,0.13
+" - gaseoline, services",Elasticity,0.5
+" - gaseoline, services",Adjustment,0
+" - gaseoline, services",Manual,0.5
+" - gaseoline, services",Simple,0.5
+" - gaseoline, services",Standard deviation,0.13
+" - diesel, services",Elasticity,0.5
+" - diesel, services",Adjustment,0
+" - diesel, services",Manual,0.5
+" - diesel, services",Simple,0.5
+" - diesel, services",Standard deviation,0.13
+" - oil products, services",Elasticity,1.2
+" - oil products, services",Adjustment,0
+" - oil products, services",Manual,0.5
+" - oil products, services",Simple,1.2
+" - oil products, services",Standard deviation,0.13
+" - biomass, services",Elasticity,0.1
+" - biomass, services",Adjustment,0
+" - biomass, services",Manual,0.5
+" - biomass, services",Simple,0.1
+" - biomass, services",Standard deviation,0.09000000000000001
+" - renewables, services",Elasticity,1
+" - renewables, services",Adjustment,0
+" - renewables, services",Manual,0.5
+" - renewables, services",Simple,1
+" - renewables, services",Standard deviation,0.13
+" - electricity, services",Elasticity,1.1
+" - electricity, services",Adjustment,0
+" - electricity, services",Manual,0.5
+" - electricity, services",Simple,1.1
+" - electricity, services",Standard deviation,0.13

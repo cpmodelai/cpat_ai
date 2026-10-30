@@ -1,0 +1,27 @@
+type,fuel,sector,code,variable,value
+Productivity gains,Oil,Power,eff_imp_gen_coa,Parameter used,0.005
+Productivity gains,Natural Gas,Power,eff_imp_gen_nga,Parameter used,0.01
+Productivity gains,Oil,Power,eff_imp_gen_oil,Parameter used,0.005
+Productivity gains,Nuclear,Power,eff_imp_gen_nuc,Parameter used,0.01
+Productivity gains,Wind,Power,eff_imp_gen_wnd,Parameter used,0.05
+Productivity gains,Solar,Power,eff_imp_gen_sol,Parameter used,0.05
+Productivity gains,Hydro,Power,eff_imp_gen_hyd,Parameter used,0.01
+Productivity gains,Other Renewables,Power,eff_imp_gen_ore,Parameter used,0.05
+Productivity gains,Biomass,Power,eff_imp_gen_bio,Parameter used,0.01
+,,,trans_elec,Parameter used,0.67
+Non-fuel costs,Coal,Power,nfc.coa.pow,Parameter used,0.4
+Non-fuel costs,Natural Gas,Power,nfc.nga.pow,Parameter used,0.5
+Non-fuel costs,Oil,Power,nfc.oil.pow,Parameter used,0.666666666666667
+Non-fuel costs,Nuclear,Power,nfc.nuc.pow,Parameter used,0.07842368395255367
+Non-fuel costs,Wind,Power,nfc.wnd.pow,Parameter used,0.0475695
+Non-fuel costs,Solar,Power,nfc.sol.pow,Parameter used,0.050933
+Non-fuel costs,Other Renewables,Power,nfc.ore.pow,Parameter used,0.18140589569160995
+Non-fuel costs,Hydro,Power,nfc.hyd.pow,Parameter used,0.06862072345848447
+Non-fuel costs,Biomass,Power,nfc.bio.pow,Parameter used,0.19605920988138417
+"Price, conditional",Coal,Power,elo.coa.pow,Parameter used,-0.5
+"Price, conditional",Natural Gas,Power,elo.nga.pow,Parameter used,-0.5
+"Price, conditional",Oil,Power,elo.oop.pow,Parameter used,-0.5
+"Price, conditional",Nuclear,Power,elo.nuc.pow,Parameter used,-0.5
+"Price, conditional",Renewables,Power,elo.ren.pow,Parameter used,-0.5
+"Price, conditional",Hydro,Power,elo.hyd.pow,Parameter used,-0.5
+"Price, conditional",Biomass,Power,elo.bio.pow,Parameter used,-0.5

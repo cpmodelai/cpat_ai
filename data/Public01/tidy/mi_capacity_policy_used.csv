@@ -1,0 +1,10 @@
+scenario,technology,technology_name,code,variable,value
+2,coa,Coal,egy.mit.mancap.pow.coa.t.2,Whether Used?,If Present*
+2,nga,Natural gas,egy.mit.mancap.pow.nga.t.2,Whether Used?,If Present*
+2,oop,Oil,egy.mit.mancap.pow.oop.t.2,Whether Used?,If Present*
+2,nuc,Nuclear,egy.mit.mancap.pow.nuc.t.2,Whether Used?,If Present*
+2,wnd,Wind,egy.mit.mancap.pow.wnd.t.2,Whether Used?,Yes
+2,sol,Solar,egy.mit.mancap.pow.sol.t.2,Whether Used?,Yes
+2,hyd,Hydro,egy.mit.mancap.pow.hyd.t.2,Whether Used?,If Present*
+2,ore,Other renewables,egy.mit.mancap.pow.ore.t.2,Whether Used?,If Present*
+2,bio,Biomass,egy.mit.mancap.pow.bio.t.2,Whether Used?,If Present*

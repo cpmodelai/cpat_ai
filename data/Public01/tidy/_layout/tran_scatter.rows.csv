@@ -1,0 +1,5 @@
+_row,Country code,Code
+0,EGY,egy.tran.congestion
+1,EGY,egy.tran.fatal_100000
+2,EGY,egy.tran.p_super
+3,EGY,egy.tran.select

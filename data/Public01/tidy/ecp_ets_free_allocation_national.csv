@@ -1,0 +1,79 @@
+country_name,country,sector_fuel,code,year,value
+Australia,AUS,all,aus.mit.efa.all,2020,1
+Australia,AUS,all,aus.mit.efa.all,2021,1
+Australia,AUS,all,aus.mit.efa.all,2022,1
+Australia,AUS,all,aus.mit.efa.all,2023,1
+Australia,AUS,all,aus.mit.efa.all,2024,1
+Australia,AUS,all,aus.mit.efa.all,2025,1
+Austria,AUT,all,aut.mit.efa.all,2020,0.3591402541290103
+Austria,AUT,all,aut.mit.efa.all,2021,0.3591402541290103
+Austria,AUT,all,aut.mit.efa.all,2022,0.3591402541290103
+Austria,AUT,all,aut.mit.efa.all,2023,0.3591402541290103
+Austria,AUT,all,aut.mit.efa.all,2024,0
+Austria,AUT,all,aut.mit.efa.all,2025,0
+Canada,CAN,all,can.mit.efa.all,2020,0.7000876
+Canada,CAN,all,can.mit.efa.all,2021,0.7000876
+Canada,CAN,all,can.mit.efa.all,2022,0.7221938
+Canada,CAN,all,can.mit.efa.all,2023,1
+Canada,CAN,all,can.mit.efa.all,2024,1
+Canada,CAN,all,can.mit.efa.all,2025,1
+China,CHN,all,chn.mit.efa.all,2020,1
+China,CHN,all,chn.mit.efa.all,2021,1
+China,CHN,all,chn.mit.efa.all,2022,1
+China,CHN,all,chn.mit.efa.all,2023,1
+China,CHN,all,chn.mit.efa.all,2024,1
+China,CHN,all,chn.mit.efa.all,2025,1
+Germany,DEU,all,deu.mit.efa.all,2020,0.0196005
+Germany,DEU,all,deu.mit.efa.all,2021,0.0196005
+Germany,DEU,all,deu.mit.efa.all,2022,0.3007647
+Germany,DEU,all,deu.mit.efa.all,2023,0
+Germany,DEU,all,deu.mit.efa.all,2024,0
+Germany,DEU,all,deu.mit.efa.all,2025,0
+Indonesia,IDN,all,idn.mit.efa.all,2020,1
+Indonesia,IDN,all,idn.mit.efa.all,2021,1
+Indonesia,IDN,all,idn.mit.efa.all,2022,1
+Indonesia,IDN,all,idn.mit.efa.all,2023,1
+Indonesia,IDN,all,idn.mit.efa.all,2024,1
+Indonesia,IDN,all,idn.mit.efa.all,2025,1
+Kazakhstan,KAZ,all,kaz.mit.efa.all,2020,1
+Kazakhstan,KAZ,all,kaz.mit.efa.all,2021,1
+Kazakhstan,KAZ,all,kaz.mit.efa.all,2022,1
+Kazakhstan,KAZ,all,kaz.mit.efa.all,2023,1
+Kazakhstan,KAZ,all,kaz.mit.efa.all,2024,1
+Kazakhstan,KAZ,all,kaz.mit.efa.all,2025,1
+Korea,KOR,all,kor.mit.efa.all,2020,0.9883934
+Korea,KOR,all,kor.mit.efa.all,2021,0.9707439
+Korea,KOR,all,kor.mit.efa.all,2022,0.9753586
+Korea,KOR,all,kor.mit.efa.all,2023,0.988952
+Korea,KOR,all,kor.mit.efa.all,2024,0.958701
+Korea,KOR,all,kor.mit.efa.all,2025,0.9596655
+Mexico,MEX,all,mex.mit.efa.all,2020,1
+Mexico,MEX,all,mex.mit.efa.all,2021,1
+Mexico,MEX,all,mex.mit.efa.all,2022,1
+Mexico,MEX,all,mex.mit.efa.all,2023,1
+Mexico,MEX,all,mex.mit.efa.all,2024,1
+Mexico,MEX,all,mex.mit.efa.all,2025,1
+Montenegro,MNE,all,mne.mit.efa.all,2020,1
+Montenegro,MNE,all,mne.mit.efa.all,2021,1
+Montenegro,MNE,all,mne.mit.efa.all,2022,1
+Montenegro,MNE,all,mne.mit.efa.all,2023,1
+Montenegro,MNE,all,mne.mit.efa.all,2024,1
+Montenegro,MNE,all,mne.mit.efa.all,2025,1
+New Zealand,NZL,all,nzl.mit.efa.all,2020,0.6933758
+New Zealand,NZL,all,nzl.mit.efa.all,2021,0
+New Zealand,NZL,all,nzl.mit.efa.all,2022,0.2723537
+New Zealand,NZL,all,nzl.mit.efa.all,2023,0.9818383
+New Zealand,NZL,all,nzl.mit.efa.all,2024,0.7538983
+New Zealand,NZL,all,nzl.mit.efa.all,2025,0.7300788
+Switzerland,CHE,all,che.mit.efa.all,2020,0.9268084
+Switzerland,CHE,all,che.mit.efa.all,2021,0.9300069
+Switzerland,CHE,all,che.mit.efa.all,2022,0.8725891
+Switzerland,CHE,all,che.mit.efa.all,2023,0.9240682
+Switzerland,CHE,all,che.mit.efa.all,2024,0.8447928
+Switzerland,CHE,all,che.mit.efa.all,2025,0.8581595
+United Kingdom,GBR,all,gbr.mit.efa.all,2020,0
+United Kingdom,GBR,all,gbr.mit.efa.all,2021,0
+United Kingdom,GBR,all,gbr.mit.efa.all,2022,0.3327615
+United Kingdom,GBR,all,gbr.mit.efa.all,2023,0.426801
+United Kingdom,GBR,all,gbr.mit.efa.all,2024,0.3146726
+United Kingdom,GBR,all,gbr.mit.efa.all,2025,0.4603673

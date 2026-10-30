@@ -1,0 +1,157 @@
+key,value,unit,description,legacy_cell,use
+fb_year|pass,2027.0,year,feebate: year of introduction (Dashboard G63),Mitigation J4304,default
+fb_year|fre,2028.0,year,feebate: year of introduction (Dashboard L63),Mitigation K4304,default
+fb_year|cyc,2026.0,year,feebate: year of introduction (Dashboard Q63),Mitigation L4304,default
+fb_rate|pass,0.0,USD/tCO2,feebate: price level (Dashboard G64),Mitigation J4305,default
+fb_rate|fre,0.0,USD/tCO2,feebate: price level (Dashboard L64),Mitigation K4305,default
+fb_rate|cyc,0.0,USD/tCO2,feebate: price level (Dashboard Q64),Mitigation L4305,default
+fb_pivot_type|pass,Manual,option,feebate: pivot type Average/Manual (Dashboard G65),Mitigation J4306,default
+fb_pivot_type|fre,Average,option,feebate: pivot type Average/Manual (Dashboard L65),Mitigation K4306,default
+fb_pivot_type|cyc,Average,option,feebate: pivot type Average/Manual (Dashboard Q65),Mitigation L4306,default
+fb_pivot|pass,0.0,gCO2/km,feebate: manual pivot point (Dashboard G66),Mitigation J4307,default
+fb_pivot|fre,500.0,gCO2/km,feebate: manual pivot point (Dashboard L66),Mitigation K4307,default
+fb_pivot|cyc,50.0,gCO2/km,feebate: manual pivot point (Dashboard Q66),Mitigation L4307,default
+fb_pivot_chg|pass,5.0,gCO2/km,feebate: annual decline of manual pivot (Dashboard G67),Mitigation J4308,default
+fb_pivot_chg|fre,5.0,gCO2/km,feebate: annual decline of manual pivot (Dashboard L67),Mitigation K4308,default
+fb_pivot_chg|cyc,5.0,gCO2/km,feebate: annual decline of manual pivot (Dashboard Q67),Mitigation L4308,default
+dt_year|pass,2027.0,year,distance tax: year of introduction (Dashboard G73),Mitigation P4304,default
+dt_year|fre,2027.0,year,distance tax: year of introduction (Dashboard L73),Mitigation Q4304,default
+dt_year|cyc,2027.0,year,distance tax: year of introduction (Dashboard Q73),Mitigation R4304,default
+dt_start|pass,0.0,USD/km,distance tax: amount in first year (Dashboard G74),Mitigation P4305,default
+dt_start|fre,0.0,USD/km,distance tax: amount in first year (Dashboard L74),Mitigation Q4305,default
+dt_start|cyc,0.0,USD/km,distance tax: amount in first year (Dashboard Q74),Mitigation R4305,default
+dt_target_year|pass,2030.0,year,distance tax: target year (Dashboard G75),Mitigation P4306,default
+dt_target_year|fre,2030.0,year,distance tax: target year (Dashboard L75),Mitigation Q4306,default
+dt_target_year|cyc,2030.0,year,distance tax: target year (Dashboard Q75),Mitigation R4306,default
+dt_target|pass,0.0,USD/km,distance tax: amount in target year (Dashboard G76),Mitigation P4307,default
+dt_target|fre,0.0,USD/km,distance tax: amount in target year (Dashboard L76),Mitigation Q4307,default
+dt_target|cyc,0.0,USD/km,distance tax: amount in target year (Dashboard Q76),Mitigation R4307,default
+vat_year|pass,2026.0,year,year of policy VAT change on BEVs (Dashboard G81),Mitigation V4307,default
+vat_year|cyc,2026.0,year,year of policy VAT change on BEVs (Dashboard Q81),Mitigation X4307,default
+cust_year|pass,2026.0,year,year of policy customs change on BEVs (Dashboard G86),Mitigation V4311,default
+cust_year|fre,2026.0,year,year of policy customs change on BEVs (Dashboard L86),Mitigation W4311,default
+cust_year|cyc,2026.0,year,year of policy customs change on BEVs (Dashboard Q86),Mitigation X4311,default
+sub_year|pass,2030.0,year,EV subsidy: year of introduction (Dashboard G69),Mitigation AB4304,default
+sub_year|fre,2030.0,year,EV subsidy: year of introduction (Dashboard L69),Mitigation AC4304,default
+sub_year|cyc,2030.0,year,EV subsidy: year of introduction (Dashboard Q69),Mitigation AD4304,default
+sub_amount|pass,0.0,USD/vehicle,EV subsidy: amount (Dashboard G70),Mitigation AB4305,default
+sub_amount|fre,0.0,USD/vehicle,EV subsidy: amount (Dashboard L70),Mitigation AC4305,default
+sub_amount|cyc,0.0,USD/vehicle,EV subsidy: amount (Dashboard Q70),Mitigation AD4305,default
+sub_chg|pass,0.0,USD/vehicle,EV subsidy: annual change (Dashboard G71),Mitigation AB4306,default
+sub_chg|fre,0.0,USD/vehicle,EV subsidy: annual change (Dashboard L71),Mitigation AC4306,default
+sub_chg|cyc,0.0,USD/vehicle,EV subsidy: annual change (Dashboard Q71),Mitigation AD4306,default
+adv_ice_base|pass,0.0,share,"ad-valorem tax on ICEVs, baseline (Dashboard G89)",Mitigation J4315,default
+adv_ice_base|fre,0.0,share,"ad-valorem tax on ICEVs, baseline (Dashboard L89)",Mitigation K4315,default
+adv_ice_base|cyc,0.0,share,"ad-valorem tax on ICEVs, baseline (Dashboard Q89)",Mitigation L4315,default
+adv_bev_base|pass,0.0,share,"ad-valorem tax on BEVs, baseline (Dashboard G90)",Mitigation J4316,default
+adv_bev_base|fre,0.0,share,"ad-valorem tax on BEVs, baseline (Dashboard L90)",Mitigation K4316,default
+adv_bev_base|cyc,0.0,share,"ad-valorem tax on BEVs, baseline (Dashboard Q90)",Mitigation L4316,default
+adv_ice_pol|pass,0.0,share,"ad-valorem tax on ICEVs, policy (Dashboard G91)",Mitigation J4317,default
+adv_ice_pol|fre,0.0,share,"ad-valorem tax on ICEVs, policy (Dashboard L91)",Mitigation K4317,default
+adv_ice_pol|cyc,0.0,share,"ad-valorem tax on ICEVs, policy (Dashboard Q91)",Mitigation L4317,default
+adv_bev_pol|pass,0.0,share,"ad-valorem tax on BEVs, policy (Dashboard G92)",Mitigation J4318,default
+adv_bev_pol|fre,0.0,share,"ad-valorem tax on BEVs, policy (Dashboard L92)",Mitigation K4318,default
+adv_bev_pol|cyc,0.0,share,"ad-valorem tax on BEVs, policy (Dashboard Q92)",Mitigation L4318,default
+adv_year|pass,2026.0,year,year of policy ad-valorem tax change (Dashboard G93),Mitigation J4319,default
+adv_year|fre,2028.0,year,year of policy ad-valorem tax change (Dashboard L93),Mitigation K4319,default
+adv_year|cyc,2030.0,year,year of policy ad-valorem tax change (Dashboard Q93),Mitigation L4319,default
+own_years|pass,7.0,years,years of ownership of a new vehicle (Dashboard G542),Mitigation J4322,default
+life|pass,20.0,years,useful life (Dashboard G543),Mitigation J4324,default
+life|fre,10.0,years,useful life (Dashboard L543),Mitigation K4324,default
+life|cyc,7.0,years,useful life (Dashboard Q543),Mitigation L4324,default
+dep1|pass,0.3,share,depreciation in first year (Dashboard G544),Mitigation J4325,default
+dep1|fre,0.3,share,depreciation in first year (Dashboard L544),Mitigation K4325,default
+dep1|cyc,0.3,share,depreciation in first year (Dashboard Q544),Mitigation L4325,default
+ins|pass,0.015,share/y,"insurance, share of value (Dashboard G545)",Mitigation J4326,default
+ins|fre,0.015,share/y,"insurance, share of value (Dashboard L545)",Mitigation K4326,default
+ins|cyc,0.015,share/y,"insurance, share of value (Dashboard Q545)",Mitigation L4326,default
+maint_ice|pass,0.07093749999999999,USD/km,ICEV maintenance (Dashboard G546),Mitigation J4327,default
+maint_ice|fre,0.09,USD/km,ICEV maintenance (Dashboard L546),Mitigation K4327,default
+maint_ice|cyc,0.025,USD/km,ICEV maintenance (Dashboard Q546),Mitigation L4327,default
+maint_ev|pass,0.047291666666666655,USD/km,EV maintenance (Dashboard G547 = ICEV x 2/3),Mitigation J4328,default
+maint_ev|fre,0.06,USD/km,EV maintenance (Dashboard L547 = ICEV x 2/3),Mitigation K4328,default
+maint_ev|cyc,0.016666666666666666,USD/km,EV maintenance (Dashboard Q547 = ICEV x 2/3),Mitigation L4328,default
+inc_el_vkt|pass,0.1,elasticity,"income elasticity of distance driven (Dashboard V548 passenger and freight, V549 2-3 wheeler)",Mitigation J4330,default
+inc_el_vkt|fre,0.1,elasticity,"income elasticity of distance driven (Dashboard V548 passenger and freight, V549 2-3 wheeler)",Mitigation K4330,default
+inc_el_vkt|cyc,-0.4,elasticity,"income elasticity of distance driven (Dashboard V548 passenger and freight, V549 2-3 wheeler)",Mitigation L4330,default
+fe_gap|pass,0.05,share,new versus stock-average fuel economy (Dashboard V542),Mitigation J4331,default
+fe_gap|fre,0.05,share,new versus stock-average fuel economy (Dashboard V542),Mitigation K4331,default
+fe_gap|cyc,0.05,share,new versus stock-average fuel economy (Dashboard V542),Mitigation L4331,default
+k|pass,3.0,factor,logit k-parameter of the EV choice (Dashboard L551-L553),Mitigation J4332,default
+k|fre,2.0,factor,logit k-parameter of the EV choice (Dashboard L551-L553),Mitigation K4332,default
+k|cyc,4.0,factor,logit k-parameter of the EV choice (Dashboard L551-L553),Mitigation L4332,default
+own_adj|pass,0.09,share/y,partial adjustment speed of ownership (Dashboard V543),Mitigation T4322,default
+own_adj|fre,0.09,share/y,partial adjustment speed of ownership (Dashboard V543),Mitigation U4322,default
+own_adj|cyc,0.09,share/y,partial adjustment speed of ownership (Dashboard V543),Mitigation V4322,default
+own_gomp_b|pass,-0.23,per 1000 USD,Gompertz income coefficient (Dashboard V544),Mitigation T4323,default
+own_gomp_b|fre,-0.23,per 1000 USD,Gompertz income coefficient (Dashboard V544),Mitigation U4323,default
+own_max_growth|pass,0.075,share/y,ownership: maximum annual growth (Dashboard L554),Mitigation T4327,default
+own_max_growth|fre,0.075,share/y,ownership: maximum annual growth (Dashboard L554),Mitigation U4327,default
+own_max_growth|cyc,0.075,share/y,ownership: maximum annual growth (Dashboard L554),Mitigation V4327,default
+own_max_decline|pass,0.0,share/y,ownership: maximum annual decrease (Dashboard L555; 2-3 wheeler L556),Mitigation T4328,default
+own_max_decline|fre,0.0,share/y,ownership: maximum annual decrease (Dashboard L555; 2-3 wheeler L556),Mitigation U4328,default
+own_max_decline|cyc,0.1,share/y,ownership: maximum annual decrease (Dashboard L555; 2-3 wheeler L556),Mitigation V4328,default
+vkt_disc_gap,0.4693280768000003,share,"difference between discounted and average VKT (Dashboard V545; unused, B15)",Mitigation U4324,default
+fre_vkt_min,50000.0,km,"minimum VKT, freight, TCO (Dashboard V546)",Mitigation U4325,default
+fre_vkt_max,120000.0,km,"maximum VKT, freight, TCO (Dashboard V547)",Mitigation U4326,default
+ch_el_stock,0.3,elasticity,elasticity of charging stations to the BEV stock (Dashboard G551),Mitigation P4322,default
+ch_cost_max,0.3,USD/kWh,maximum charging cost mark-up (Dashboard G552),Mitigation P4323,default
+ch_cost_min,0.02,USD/kWh,minimum charging cost mark-up (Dashboard G553),Mitigation P4324,default
+ch_sat,0.5,share,EV fleet share where the mark-up reaches its minimum (Dashboard G554),Mitigation P4325,default
+ch_public,0.2,share,share of public charging (Dashboard G555),Mitigation P4326,default
+ra_el_stations,-0.5,elasticity,elasticity of range anxiety to charging stations (Dashboard G556),Mitigation P4327,default
+ch_el_cost,-0.67,elasticity,elasticity of charging stations to their cost (Dashboard G557),Mitigation P4328,default
+cs_start_level,0.0,share,"charging-station subsidy, start level (Dashboard G95, labelled ""start year"")",Mitigation P4315,default
+cs_target_level,0.0,share,"charging-station subsidy, target level (Dashboard G96, labelled ""start level"")",Mitigation P4316,default
+cs_start_year,2026.0,year,"charging-station subsidy, start year (Dashboard G97, labelled ""target year"")",Mitigation P4317,default
+cs_target_year,2035.0,year,"charging-station subsidy, target year (Dashboard G98, labelled ""target level"")",Mitigation P4318,default
+disc_max,0.15,share,consumer discount rate at low income (Dashboard Q552),Mitigation Z4322,default
+disc_inc_low,1000.0,USD/cap,"income threshold, low income (Dashboard Q553)",Mitigation Z4323,default
+disc_min,0.05,share,consumer discount rate at high income (Dashboard Q554),Mitigation Z4324,default
+disc_inc_high,50000.0,USD/cap,"income threshold, high income (Dashboard Q555)",Mitigation Z4325,default
+own_price_el,-1.2650000000000001,elasticity,"ICE fuel split: own-TCO elasticity, hardcoded =AVERAGE(-1.72,-1.27,-1.08,-0.99) (T4329:V4329)",Mitigation T4329,default
+cross_price_el,0.5725,elasticity,"ICE fuel split: cross-TCO elasticity, hardcoded =AVERAGE(0.71,0.43,0.51,0.64) (T4330:V4330)",Mitigation T4330,default
+tr_model,Elasticity,option,TrModel default (Engineer/Elasticity); MTInputs F340 = Dashboard G61,Dashboard G61,default
+ra_source,Solver,option,"RngAnxietySource: Solver = Transport3 per country, Dashboard = values below",Dashboard L61,default
+ra_dash|pass,10000.0,USD/vehicle,"range anxiety, start value if the source is Dashboard (PassAnxiety)",Dashboard G548,default
+ra_dash|fre,10000.0,USD/vehicle,"range anxiety, start value if the source is Dashboard (FreightAnxiety)",Dashboard L548,default
+ra_dash|cyc,10000.0,USD/vehicle,"range anxiety, start value if the source is Dashboard (MotorAnxiety)",Dashboard Q548,default
+ra_decline|pass,0.0,share/y,"range anxiety, annual decline (PassAnxietyDecline)",Dashboard G549,default
+ra_decline|fre,0.0,share/y,"range anxiety, annual decline (FreightAnxietyDecline)",Dashboard L549,default
+ra_decline|cyc,0.0,share/y,"range anxiety, annual decline (MotorAnxietyDecline)",Dashboard Q549,default
+vkt_new_price,No,option,TCO distance of new vehicles responds to prices (Yes/No; rows 4465-4505),Dashboard Q551,default
+recon_ele,No,option,reconcile road electricity with the energy balance (Yes/No; E5331),Dashboard Q556,default
+cyc_peak_inc,7000.0,USD/cap,2-3 wheeler ownership hump: peak income H2169,Dashboard V551,default
+cyc_scale,0.737,factor,2-3 wheeler ownership hump: scaling factor I2169,Dashboard V552,default
+fre_inc_target,87398.38276906498,USD/cap,income where the freight/passenger ownership ratio reaches its target H2168,Dashboard V553,default
+fre_share_target,0.023600416257977486,share,target freight/passenger ownership ratio I2168,Dashboard V554,default
+purch_gdp,0.01,share of GDP,"vehicle purchases, actual data (unused by the formulas)",Dashboard L557,default
+purch_year,2025.0,year,"vehicle purchases, actual data year (unused)",Dashboard L558,default
+purch_anchor,No,option,anchor vehicle purchases (unused),Dashboard L559,default
+gomp_a,-5.897,factor,Gompertz constant of ownership demand exp(a*exp(b*GDPpc/1000)),"L4786, H4787, L4902, H4903",default
+gas_l_per_gj,26.0,l/GJ,natural gas $/GJ to $/liter-equivalent (prices /26; EF per GJ /26),"L4370, L4412, G4378, G4421",default
+phev_l_per_kwh,9.0,kWh/l,PHEV: kWh x 9 = liter gasoline equivalent in the PHEV fuel price,L4371,default
+ins_factor,0.5,factor,factor 0.5 on the insurance annuity,"L4541, L4573, L4600, L4615, L4648, L4672, L4706, L4727",default
+station_life,15.0,years,"charging-station life in ""stations added"" (memo row)",M4348,default
+bev_vkt_cap|pass,1.2,factor,"cap on BEV/ICEV distance ratio, passenger (TCO distance)",H2056,default
+bev_vkt_cap|fre,1.0,factor,"cap on BEV/ICEV distance ratio, freight",H2114,default
+bev_vkt_cap|cyc,1.0,factor,"cap on BEV/ICEV distance ratio, 2-3 wheeler",H2136,default
+vat_pol_factor,1.0,factor,policy VAT on BEVs = baseline x factor (formula literal *1),"Dashboard G80, Q80",default
+cust_pol_factor,1.0,factor,policy customs on BEVs = baseline x factor (formula literal *1),"Dashboard G85, L85, Q85",default
+customs_year,2024,year,data year of the customs rates (Dashboard G83:Q84 = Mitigation N2157:N2162),Dashboard G83:Q84,default
+import_year,2022,year,"data year of the import shares (Dashboard G87 = L2163, L87 = L2164; 2-3 wheeler = passenger)",Dashboard G87:Q87,default
+own_calib_year,2024,year,year of the ownership calibration actual/expected (B3: column N hardcoded),"H4787:I4787, H4903:I4903, $N2168, J2169",default
+bus_ele_year,2024,year,year of the EV stock share used for bus electricity (N2064),L2143,default
+ra_avg|pass,51852.946894125176,USD/vehicle,"range anxiety, average of Transport3 rows 5-226 (legacy fallback when a country has no value)",Transport3 H3/N3/T3 (IFERROR ... AVERAGE),default
+ra_avg|fre,646188.3077242246,USD/vehicle,"range anxiety, average of Transport3 rows 5-226 (legacy fallback when a country has no value)",Transport3 H3/N3/T3 (IFERROR ... AVERAGE),default
+ra_avg|cyc,1550.0901026310983,USD/vehicle,"range anxiety, average of Transport3 rows 5-226 (legacy fallback when a country has no value)",Transport3 H3/N3/T3 (IFERROR ... AVERAGE),default
+note|disc_max,0.3,share,"discount rate, low-income countries (note: 30%; legacy 15%)",Transportation_methodology.docx,note
+note|disc_min,0.1,share,"discount rate, high-income countries (note: 10%; legacy 5%)",Transportation_methodology.docx,note
+note|inc_el_vkt,0.05,elasticity,"income elasticity of distance driven (note: 0.05; legacy 0.1, 2-3 wheeler -0.4)",Transportation_methodology.docx,note
+note|el_vkt_ldv,-0.3,elasticity,"driving elasticity, LDV and 2-3 wheelers (note: -0.3; legacy _el_dem_gso_rod -0.4)",Transportation_methodology.docx,note
+note|el_vkt_hdv,-0.2,elasticity,"driving elasticity, HDV (note: -0.2; legacy _el_dem_die_rod -0.3)",Transportation_methodology.docx,note
+note|maint_ev_factor,0.3333333333333333,factor,EV maintenance = ICEV x factor (note: 1/3; legacy 2/3),Transportation_methodology.docx,note
+note|bev_vkt_cap|pass,1.0,factor,BEV and ICEV distance identical in the TCO (note; legacy cap 1.2),Transportation_methodology.docx,note
+note|ch_cost_max,0.1,USD/kWh,maximum charging mark-up (note: 0.10; legacy 0.3),Transportation_methodology.docx,note
+note|maint_wages,,text,maintenance cost varies with wages (note); legacy fixed USD/km,Transportation_methodology.docx,note
+note|icev_price_income,,text,ICEV price rises with income (note); legacy Transport2 path,Transportation_methodology.docx,note

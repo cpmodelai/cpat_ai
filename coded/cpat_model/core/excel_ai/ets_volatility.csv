@@ -1,0 +1,4 @@
+item,Medium,High,Low,Zero
+"ETS volatility table (sheet ETS+LTS rows 5-7; MTInputs labels ETSVolatility, ETSVolImpact)",Medium,High,Low,Zero
+Assumed annual price volatility of the ETS,0.42,0.63,0.28,0
+Abatement cost increase per unit of volatility (impact),0.5,0.75,0.3333333333333333,0

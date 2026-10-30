@@ -1,0 +1,37 @@
+# Distribution and air-pollution modules {#sec-modules}
+
+The mitigation prototype is the integrated model. Two further modules are standalone workbooks that take their inputs from it: the distribution module and the air-pollution module. Every module is published under `<Name>_latest` in `excel_ai/permalink/` and `excel_ai/permalink_countryeditable/`, through which the modules link to each other.
+
+## Distribution module
+
+The standalone distribution module (`excel_ai/CPAT-AI-Distribution-Prototype_v<version>.xlsm`) computes the household effects by decile of a mitigation scenario: price changes, budget shares, direct and indirect effects, revenue recycling and welfare. Its method is the Distribution tab of the mitigation prototype (@sec-distribution-tab).
+
+**One copy of the formulas.** The module is cut from the built mitigation prototype: its Distribution and FromMitigation tabs, the distribution data tabs, `ScenarioDefinition` (distribution rows shown) and `Settings`. To change a formula, change the mitigation builder, rebuild the prototype, then rebuild the module.
+
+**One input tab.** Its only input from Mitigation is the tab `FromMitigation`: the values of the prototype's export block (section 19a, defined name `ExportDistn`), in the Mitigation column layout. The button *Update from Mitigation* on `Cover` copies those values from the mitigation workbook named on `Cover`. If that workbook is open, its current values are used; otherwise it is opened read-only, without macros or recalculation. The module runs one scenario at a time.
+
+**Build and check.**
+
+```
+cd excel_ai/distribution
+python build_distribution.py    # the module, about 1 minute
+python check_distribution.py    # about 4 minutes
+```
+
+The check confirms that the Distribution tab equals the prototype's cell for cell, that `FromMitigation` equals section 19a through the macro's row mapping, that no formula reads a dropped tab or an undefined name, and, end to end, that a carbon price changed in the prototype and carried over by the update gives the same Distribution.
+
+## Air-pollution module
+
+The air-pollution module (`excel_ai/air_pollution/`) is a standalone rebuild of the Air Pollution module of legacy CPAT 1.0pre_459. It starts from the pollutant emissions produced by Mitigation and does not recalculate fuel use or emissions.
+
+**Boundary.** The inputs are the baseline and policy emission series keyed by the codes `aps.<pollutant>.<sector>`, with year, country, unit, scenario and source traceability. In legacy 459 the handoff is `country.mit.em.<pollutant>.<sector>.<scenario>` in tonnes per year; the current Mitigation outputs are in kt, so units are converted explicitly at the boundary. Once the input block is filled, the workbook runs without links to another workbook.
+
+**Scope.** The module reproduces the calculations and options of legacy 459: emissions to concentrations, exposure and health burden, and economic outputs, for baseline and policy scenarios and their difference. Fuel externalities are reported as outputs only and are not fed back into Mitigation prices.
+
+**Status.** The current workbook holds the scaffold: Cover, Data Sources, Mitigation Inputs and the nine public reference tables extracted from legacy 459 (`data_old/air_pollution/legacy_459/`). The calculations, unit conversion, outputs and the numerical regression are open. The first regression case is Senegal, the country selected in the legacy NoPropData dashboard.
+
+**Validation.** Each selected output is compared with legacy 459 by scenario and year, and every difference is classified as a confirmed bug fix, a replicated issue, or unresolved. Numerical equivalence is not claimed until the selected country has populated, reproducible inputs.
+
+## Road transport co-benefits
+
+The prototype reads the road-transport co-benefits as values typed on its tab `FromTransportCB`, as it reads the air-pollution marginal damages on `FromAirPollution` (both 0 for countries without values). They feed the Pigouvian components of the prototype. A standalone transport co-benefits module is planned to supply them.

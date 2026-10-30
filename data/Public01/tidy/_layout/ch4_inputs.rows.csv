@@ -1,0 +1,1106 @@
+_row,cpat_ccode3,tier3,countryname
+0,AFG,Coal Mining,Afghanistan
+1,AFG,Livestock,Afghanistan
+2,AFG,Oil and Natural Gas,Afghanistan
+3,AFG,Rice Cultivation,Afghanistan
+4,AFG,Total Waste,Afghanistan
+5,ALB,Coal Mining,Albania
+6,ALB,Livestock,Albania
+7,ALB,Oil and Natural Gas,Albania
+8,ALB,Rice Cultivation,Albania
+9,ALB,Total Waste,Albania
+10,DZA,Coal Mining,Algeria
+11,DZA,Livestock,Algeria
+12,DZA,Oil and Natural Gas,Algeria
+13,DZA,Rice Cultivation,Algeria
+14,DZA,Total Waste,Algeria
+15,ASM,Coal Mining,American Samoa
+16,ASM,Livestock,American Samoa
+17,ASM,Oil and Natural Gas,American Samoa
+18,ASM,Rice Cultivation,American Samoa
+19,ASM,Total Waste,American Samoa
+20,AND,Coal Mining,Andorra
+21,AND,Livestock,Andorra
+22,AND,Oil and Natural Gas,Andorra
+23,AND,Rice Cultivation,Andorra
+24,AND,Total Waste,Andorra
+25,AGO,Coal Mining,Angola
+26,AGO,Livestock,Angola
+27,AGO,Oil and Natural Gas,Angola
+28,AGO,Rice Cultivation,Angola
+29,AGO,Total Waste,Angola
+30,AIA,Coal Mining,Anguilla
+31,AIA,Livestock,Anguilla
+32,AIA,Oil and Natural Gas,Anguilla
+33,AIA,Rice Cultivation,Anguilla
+34,AIA,Total Waste,Anguilla
+35,ATG,Coal Mining,Antigua and Barbuda
+36,ATG,Livestock,Antigua and Barbuda
+37,ATG,Oil and Natural Gas,Antigua and Barbuda
+38,ATG,Rice Cultivation,Antigua and Barbuda
+39,ATG,Total Waste,Antigua and Barbuda
+40,ARG,Coal Mining,Argentina
+41,ARG,Livestock,Argentina
+42,ARG,Oil and Natural Gas,Argentina
+43,ARG,Rice Cultivation,Argentina
+44,ARG,Total Waste,Argentina
+45,ARM,Coal Mining,Armenia
+46,ARM,Livestock,Armenia
+47,ARM,Oil and Natural Gas,Armenia
+48,ARM,Rice Cultivation,Armenia
+49,ARM,Total Waste,Armenia
+50,ABW,Coal Mining,Aruba
+51,ABW,Livestock,Aruba
+52,ABW,Oil and Natural Gas,Aruba
+53,ABW,Rice Cultivation,Aruba
+54,ABW,Total Waste,Aruba
+55,AUS,Coal Mining,Australia
+56,AUS,Livestock,Australia
+57,AUS,Oil and Natural Gas,Australia
+58,AUS,Rice Cultivation,Australia
+59,AUS,Total Waste,Australia
+60,AUT,Coal Mining,Austria
+61,AUT,Livestock,Austria
+62,AUT,Oil and Natural Gas,Austria
+63,AUT,Rice Cultivation,Austria
+64,AUT,Total Waste,Austria
+65,AVG,Coal Mining,Average
+66,AVG,Livestock,Average
+67,AVG,Oil and Natural Gas,Average
+68,AVG,Rice Cultivation,Average
+69,AVG,Total Waste,Average
+70,AZE,Coal Mining,Azerbaijan
+71,AZE,Livestock,Azerbaijan
+72,AZE,Oil and Natural Gas,Azerbaijan
+73,AZE,Rice Cultivation,Azerbaijan
+74,AZE,Total Waste,Azerbaijan
+75,BHS,Coal Mining,"Bahamas, The"
+76,BHS,Livestock,"Bahamas, The"
+77,BHS,Oil and Natural Gas,"Bahamas, The"
+78,BHS,Rice Cultivation,"Bahamas, The"
+79,BHS,Total Waste,"Bahamas, The"
+80,BHR,Coal Mining,Bahrain
+81,BHR,Livestock,Bahrain
+82,BHR,Oil and Natural Gas,Bahrain
+83,BHR,Rice Cultivation,Bahrain
+84,BHR,Total Waste,Bahrain
+85,BGD,Coal Mining,Bangladesh
+86,BGD,Livestock,Bangladesh
+87,BGD,Oil and Natural Gas,Bangladesh
+88,BGD,Rice Cultivation,Bangladesh
+89,BGD,Total Waste,Bangladesh
+90,BRB,Coal Mining,Barbados
+91,BRB,Livestock,Barbados
+92,BRB,Oil and Natural Gas,Barbados
+93,BRB,Rice Cultivation,Barbados
+94,BRB,Total Waste,Barbados
+95,BLR,Coal Mining,Belarus
+96,BLR,Livestock,Belarus
+97,BLR,Oil and Natural Gas,Belarus
+98,BLR,Rice Cultivation,Belarus
+99,BLR,Total Waste,Belarus
+100,BEL,Coal Mining,Belgium
+101,BEL,Livestock,Belgium
+102,BEL,Oil and Natural Gas,Belgium
+103,BEL,Rice Cultivation,Belgium
+104,BEL,Total Waste,Belgium
+105,BLZ,Coal Mining,Belize
+106,BLZ,Livestock,Belize
+107,BLZ,Oil and Natural Gas,Belize
+108,BLZ,Rice Cultivation,Belize
+109,BLZ,Total Waste,Belize
+110,BEN,Coal Mining,Benin
+111,BEN,Livestock,Benin
+112,BEN,Oil and Natural Gas,Benin
+113,BEN,Rice Cultivation,Benin
+114,BEN,Total Waste,Benin
+115,BMU,Coal Mining,Bermuda
+116,BMU,Livestock,Bermuda
+117,BMU,Oil and Natural Gas,Bermuda
+118,BMU,Rice Cultivation,Bermuda
+119,BMU,Total Waste,Bermuda
+120,BTN,Coal Mining,Bhutan
+121,BTN,Livestock,Bhutan
+122,BTN,Oil and Natural Gas,Bhutan
+123,BTN,Rice Cultivation,Bhutan
+124,BTN,Total Waste,Bhutan
+125,BOL,Coal Mining,Bolivia
+126,BOL,Livestock,Bolivia
+127,BOL,Oil and Natural Gas,Bolivia
+128,BOL,Rice Cultivation,Bolivia
+129,BOL,Total Waste,Bolivia
+130,BIH,Coal Mining,Bosnia and Herzegovina
+131,BIH,Livestock,Bosnia and Herzegovina
+132,BIH,Oil and Natural Gas,Bosnia and Herzegovina
+133,BIH,Rice Cultivation,Bosnia and Herzegovina
+134,BIH,Total Waste,Bosnia and Herzegovina
+135,BWA,Coal Mining,Botswana
+136,BWA,Livestock,Botswana
+137,BWA,Oil and Natural Gas,Botswana
+138,BWA,Rice Cultivation,Botswana
+139,BWA,Total Waste,Botswana
+140,BRA,Coal Mining,Brazil
+141,BRA,Livestock,Brazil
+142,BRA,Oil and Natural Gas,Brazil
+143,BRA,Rice Cultivation,Brazil
+144,BRA,Total Waste,Brazil
+145,VGB,Coal Mining,British Virgin Islands
+146,VGB,Livestock,British Virgin Islands
+147,VGB,Oil and Natural Gas,British Virgin Islands
+148,VGB,Rice Cultivation,British Virgin Islands
+149,VGB,Total Waste,British Virgin Islands
+150,BRN,Coal Mining,Brunei Darussalam
+151,BRN,Livestock,Brunei Darussalam
+152,BRN,Oil and Natural Gas,Brunei Darussalam
+153,BRN,Rice Cultivation,Brunei Darussalam
+154,BRN,Total Waste,Brunei Darussalam
+155,BGR,Coal Mining,Bulgaria
+156,BGR,Livestock,Bulgaria
+157,BGR,Oil and Natural Gas,Bulgaria
+158,BGR,Rice Cultivation,Bulgaria
+159,BGR,Total Waste,Bulgaria
+160,BFA,Coal Mining,Burkina Faso
+161,BFA,Livestock,Burkina Faso
+162,BFA,Oil and Natural Gas,Burkina Faso
+163,BFA,Rice Cultivation,Burkina Faso
+164,BFA,Total Waste,Burkina Faso
+165,BDI,Coal Mining,Burundi
+166,BDI,Livestock,Burundi
+167,BDI,Oil and Natural Gas,Burundi
+168,BDI,Rice Cultivation,Burundi
+169,BDI,Total Waste,Burundi
+170,CPV,Coal Mining,Cabo Verde
+171,CPV,Livestock,Cabo Verde
+172,CPV,Oil and Natural Gas,Cabo Verde
+173,CPV,Rice Cultivation,Cabo Verde
+174,CPV,Total Waste,Cabo Verde
+175,KHM,Coal Mining,Cambodia
+176,KHM,Livestock,Cambodia
+177,KHM,Oil and Natural Gas,Cambodia
+178,KHM,Rice Cultivation,Cambodia
+179,KHM,Total Waste,Cambodia
+180,CMR,Coal Mining,Cameroon
+181,CMR,Livestock,Cameroon
+182,CMR,Oil and Natural Gas,Cameroon
+183,CMR,Rice Cultivation,Cameroon
+184,CMR,Total Waste,Cameroon
+185,CAN,Coal Mining,Canada
+186,CAN,Livestock,Canada
+187,CAN,Oil and Natural Gas,Canada
+188,CAN,Rice Cultivation,Canada
+189,CAN,Total Waste,Canada
+190,CYM,Coal Mining,Cayman Islands
+191,CYM,Livestock,Cayman Islands
+192,CYM,Oil and Natural Gas,Cayman Islands
+193,CYM,Rice Cultivation,Cayman Islands
+194,CYM,Total Waste,Cayman Islands
+195,CAF,Coal Mining,Central African Republic
+196,CAF,Livestock,Central African Republic
+197,CAF,Oil and Natural Gas,Central African Republic
+198,CAF,Rice Cultivation,Central African Republic
+199,CAF,Total Waste,Central African Republic
+200,TCD,Coal Mining,Chad
+201,TCD,Livestock,Chad
+202,TCD,Oil and Natural Gas,Chad
+203,TCD,Rice Cultivation,Chad
+204,TCD,Total Waste,Chad
+205,CHI,Coal Mining,Channel Islands
+206,CHI,Livestock,Channel Islands
+207,CHI,Oil and Natural Gas,Channel Islands
+208,CHI,Rice Cultivation,Channel Islands
+209,CHI,Total Waste,Channel Islands
+210,CHL,Coal Mining,Chile
+211,CHL,Livestock,Chile
+212,CHL,Oil and Natural Gas,Chile
+213,CHL,Rice Cultivation,Chile
+214,CHL,Total Waste,Chile
+215,CHN,Coal Mining,China
+216,CHN,Livestock,China
+217,CHN,Oil and Natural Gas,China
+218,CHN,Rice Cultivation,China
+219,CHN,Total Waste,China
+220,COL,Coal Mining,Colombia
+221,COL,Livestock,Colombia
+222,COL,Oil and Natural Gas,Colombia
+223,COL,Rice Cultivation,Colombia
+224,COL,Total Waste,Colombia
+225,COM,Coal Mining,Comoros
+226,COM,Livestock,Comoros
+227,COM,Oil and Natural Gas,Comoros
+228,COM,Rice Cultivation,Comoros
+229,COM,Total Waste,Comoros
+230,COD,Coal Mining,"Congo, Democratic Republic of the"
+231,COD,Livestock,"Congo, Democratic Republic of the"
+232,COD,Oil and Natural Gas,"Congo, Democratic Republic of the"
+233,COD,Rice Cultivation,"Congo, Democratic Republic of the"
+234,COD,Total Waste,"Congo, Democratic Republic of the"
+235,COG,Coal Mining,"Congo, Republic of"
+236,COG,Livestock,"Congo, Republic of"
+237,COG,Oil and Natural Gas,"Congo, Republic of"
+238,COG,Rice Cultivation,"Congo, Republic of"
+239,COG,Total Waste,"Congo, Republic of"
+240,CRI,Coal Mining,Costa Rica
+241,CRI,Livestock,Costa Rica
+242,CRI,Oil and Natural Gas,Costa Rica
+243,CRI,Rice Cultivation,Costa Rica
+244,CRI,Total Waste,Costa Rica
+245,HRV,Coal Mining,Croatia
+246,HRV,Livestock,Croatia
+247,HRV,Oil and Natural Gas,Croatia
+248,HRV,Rice Cultivation,Croatia
+249,HRV,Total Waste,Croatia
+250,CUB,Coal Mining,Cuba
+251,CUB,Livestock,Cuba
+252,CUB,Oil and Natural Gas,Cuba
+253,CUB,Rice Cultivation,Cuba
+254,CUB,Total Waste,Cuba
+255,CUW,Coal Mining,Curaçao
+256,CUW,Livestock,Curaçao
+257,CUW,Oil and Natural Gas,Curaçao
+258,CUW,Rice Cultivation,Curaçao
+259,CUW,Total Waste,Curaçao
+260,CYP,Coal Mining,Cyprus
+261,CYP,Livestock,Cyprus
+262,CYP,Oil and Natural Gas,Cyprus
+263,CYP,Rice Cultivation,Cyprus
+264,CYP,Total Waste,Cyprus
+265,CZE,Coal Mining,Czechia
+266,CZE,Livestock,Czechia
+267,CZE,Oil and Natural Gas,Czechia
+268,CZE,Rice Cultivation,Czechia
+269,CZE,Total Waste,Czechia
+270,CIV,Coal Mining,Côte d'Ivoire
+271,CIV,Livestock,Côte d'Ivoire
+272,CIV,Oil and Natural Gas,Côte d'Ivoire
+273,CIV,Rice Cultivation,Côte d'Ivoire
+274,CIV,Total Waste,Côte d'Ivoire
+275,DNK,Coal Mining,Denmark
+276,DNK,Livestock,Denmark
+277,DNK,Oil and Natural Gas,Denmark
+278,DNK,Rice Cultivation,Denmark
+279,DNK,Total Waste,Denmark
+280,DJI,Coal Mining,Djibouti
+281,DJI,Livestock,Djibouti
+282,DJI,Oil and Natural Gas,Djibouti
+283,DJI,Rice Cultivation,Djibouti
+284,DJI,Total Waste,Djibouti
+285,DMA,Coal Mining,Dominica
+286,DMA,Livestock,Dominica
+287,DMA,Oil and Natural Gas,Dominica
+288,DMA,Rice Cultivation,Dominica
+289,DMA,Total Waste,Dominica
+290,DOM,Coal Mining,Dominican Republic
+291,DOM,Livestock,Dominican Republic
+292,DOM,Oil and Natural Gas,Dominican Republic
+293,DOM,Rice Cultivation,Dominican Republic
+294,DOM,Total Waste,Dominican Republic
+295,ECU,Coal Mining,Ecuador
+296,ECU,Livestock,Ecuador
+297,ECU,Oil and Natural Gas,Ecuador
+298,ECU,Rice Cultivation,Ecuador
+299,ECU,Total Waste,Ecuador
+300,EGY,Coal Mining,Egypt
+301,EGY,Livestock,Egypt
+302,EGY,Oil and Natural Gas,Egypt
+303,EGY,Rice Cultivation,Egypt
+304,EGY,Total Waste,Egypt
+305,SLV,Coal Mining,El Salvador
+306,SLV,Livestock,El Salvador
+307,SLV,Oil and Natural Gas,El Salvador
+308,SLV,Rice Cultivation,El Salvador
+309,SLV,Total Waste,El Salvador
+310,GNQ,Coal Mining,Equatorial Guinea
+311,GNQ,Livestock,Equatorial Guinea
+312,GNQ,Oil and Natural Gas,Equatorial Guinea
+313,GNQ,Rice Cultivation,Equatorial Guinea
+314,GNQ,Total Waste,Equatorial Guinea
+315,ERI,Coal Mining,Eritrea
+316,ERI,Livestock,Eritrea
+317,ERI,Oil and Natural Gas,Eritrea
+318,ERI,Rice Cultivation,Eritrea
+319,ERI,Total Waste,Eritrea
+320,EST,Coal Mining,Estonia
+321,EST,Livestock,Estonia
+322,EST,Oil and Natural Gas,Estonia
+323,EST,Rice Cultivation,Estonia
+324,EST,Total Waste,Estonia
+325,SWZ,Coal Mining,Eswatini
+326,SWZ,Livestock,Eswatini
+327,SWZ,Oil and Natural Gas,Eswatini
+328,SWZ,Rice Cultivation,Eswatini
+329,SWZ,Total Waste,Eswatini
+330,ETH,Coal Mining,Ethiopia
+331,ETH,Livestock,Ethiopia
+332,ETH,Oil and Natural Gas,Ethiopia
+333,ETH,Rice Cultivation,Ethiopia
+334,ETH,Total Waste,Ethiopia
+335,FRO,Coal Mining,Faroe Islands
+336,FRO,Livestock,Faroe Islands
+337,FRO,Oil and Natural Gas,Faroe Islands
+338,FRO,Rice Cultivation,Faroe Islands
+339,FRO,Total Waste,Faroe Islands
+340,FJI,Coal Mining,Fiji
+341,FJI,Livestock,Fiji
+342,FJI,Oil and Natural Gas,Fiji
+343,FJI,Rice Cultivation,Fiji
+344,FJI,Total Waste,Fiji
+345,FIN,Coal Mining,Finland
+346,FIN,Livestock,Finland
+347,FIN,Oil and Natural Gas,Finland
+348,FIN,Rice Cultivation,Finland
+349,FIN,Total Waste,Finland
+350,FRA,Coal Mining,France
+351,FRA,Livestock,France
+352,FRA,Oil and Natural Gas,France
+353,FRA,Rice Cultivation,France
+354,FRA,Total Waste,France
+355,PYF,Coal Mining,French Polynesia
+356,PYF,Livestock,French Polynesia
+357,PYF,Oil and Natural Gas,French Polynesia
+358,PYF,Rice Cultivation,French Polynesia
+359,PYF,Total Waste,French Polynesia
+360,GAB,Coal Mining,Gabon
+361,GAB,Livestock,Gabon
+362,GAB,Oil and Natural Gas,Gabon
+363,GAB,Rice Cultivation,Gabon
+364,GAB,Total Waste,Gabon
+365,GMB,Coal Mining,"Gambia, The"
+366,GMB,Livestock,"Gambia, The"
+367,GMB,Oil and Natural Gas,"Gambia, The"
+368,GMB,Rice Cultivation,"Gambia, The"
+369,GMB,Total Waste,"Gambia, The"
+370,GEO,Coal Mining,Georgia
+371,GEO,Livestock,Georgia
+372,GEO,Oil and Natural Gas,Georgia
+373,GEO,Rice Cultivation,Georgia
+374,GEO,Total Waste,Georgia
+375,DEU,Coal Mining,Germany
+376,DEU,Livestock,Germany
+377,DEU,Oil and Natural Gas,Germany
+378,DEU,Rice Cultivation,Germany
+379,DEU,Total Waste,Germany
+380,GHA,Coal Mining,Ghana
+381,GHA,Livestock,Ghana
+382,GHA,Oil and Natural Gas,Ghana
+383,GHA,Rice Cultivation,Ghana
+384,GHA,Total Waste,Ghana
+385,GIB,Coal Mining,Gibraltar
+386,GIB,Livestock,Gibraltar
+387,GIB,Oil and Natural Gas,Gibraltar
+388,GIB,Rice Cultivation,Gibraltar
+389,GIB,Total Waste,Gibraltar
+390,GRC,Coal Mining,Greece
+391,GRC,Livestock,Greece
+392,GRC,Oil and Natural Gas,Greece
+393,GRC,Rice Cultivation,Greece
+394,GRC,Total Waste,Greece
+395,GRL,Coal Mining,Greenland
+396,GRL,Livestock,Greenland
+397,GRL,Oil and Natural Gas,Greenland
+398,GRL,Rice Cultivation,Greenland
+399,GRL,Total Waste,Greenland
+400,GRD,Coal Mining,Grenada
+401,GRD,Livestock,Grenada
+402,GRD,Oil and Natural Gas,Grenada
+403,GRD,Rice Cultivation,Grenada
+404,GRD,Total Waste,Grenada
+405,GUM,Coal Mining,Guam
+406,GUM,Livestock,Guam
+407,GUM,Oil and Natural Gas,Guam
+408,GUM,Rice Cultivation,Guam
+409,GUM,Total Waste,Guam
+410,GTM,Coal Mining,Guatemala
+411,GTM,Livestock,Guatemala
+412,GTM,Oil and Natural Gas,Guatemala
+413,GTM,Rice Cultivation,Guatemala
+414,GTM,Total Waste,Guatemala
+415,GIN,Coal Mining,Guinea
+416,GIN,Livestock,Guinea
+417,GIN,Oil and Natural Gas,Guinea
+418,GIN,Rice Cultivation,Guinea
+419,GIN,Total Waste,Guinea
+420,GNB,Coal Mining,Guinea-Bissau
+421,GNB,Livestock,Guinea-Bissau
+422,GNB,Oil and Natural Gas,Guinea-Bissau
+423,GNB,Rice Cultivation,Guinea-Bissau
+424,GNB,Total Waste,Guinea-Bissau
+425,GUY,Coal Mining,Guyana
+426,GUY,Livestock,Guyana
+427,GUY,Oil and Natural Gas,Guyana
+428,GUY,Rice Cultivation,Guyana
+429,GUY,Total Waste,Guyana
+430,HTI,Coal Mining,Haiti
+431,HTI,Livestock,Haiti
+432,HTI,Oil and Natural Gas,Haiti
+433,HTI,Rice Cultivation,Haiti
+434,HTI,Total Waste,Haiti
+435,HND,Coal Mining,Honduras
+436,HND,Livestock,Honduras
+437,HND,Oil and Natural Gas,Honduras
+438,HND,Rice Cultivation,Honduras
+439,HND,Total Waste,Honduras
+440,HKG,Coal Mining,Hong Kong SAR
+441,HKG,Livestock,Hong Kong SAR
+442,HKG,Oil and Natural Gas,Hong Kong SAR
+443,HKG,Rice Cultivation,Hong Kong SAR
+444,HKG,Total Waste,Hong Kong SAR
+445,HUN,Coal Mining,Hungary
+446,HUN,Livestock,Hungary
+447,HUN,Oil and Natural Gas,Hungary
+448,HUN,Rice Cultivation,Hungary
+449,HUN,Total Waste,Hungary
+450,ISL,Coal Mining,Iceland
+451,ISL,Livestock,Iceland
+452,ISL,Oil and Natural Gas,Iceland
+453,ISL,Rice Cultivation,Iceland
+454,ISL,Total Waste,Iceland
+455,IND,Coal Mining,India
+456,IND,Livestock,India
+457,IND,Oil and Natural Gas,India
+458,IND,Rice Cultivation,India
+459,IND,Total Waste,India
+460,IDN,Coal Mining,Indonesia
+461,IDN,Livestock,Indonesia
+462,IDN,Oil and Natural Gas,Indonesia
+463,IDN,Rice Cultivation,Indonesia
+464,IDN,Total Waste,Indonesia
+465,IRN,Coal Mining,Iran
+466,IRN,Livestock,Iran
+467,IRN,Oil and Natural Gas,Iran
+468,IRN,Rice Cultivation,Iran
+469,IRN,Total Waste,Iran
+470,IRQ,Coal Mining,Iraq
+471,IRQ,Livestock,Iraq
+472,IRQ,Oil and Natural Gas,Iraq
+473,IRQ,Rice Cultivation,Iraq
+474,IRQ,Total Waste,Iraq
+475,IRL,Coal Mining,Ireland
+476,IRL,Livestock,Ireland
+477,IRL,Oil and Natural Gas,Ireland
+478,IRL,Rice Cultivation,Ireland
+479,IRL,Total Waste,Ireland
+480,IMN,Coal Mining,Isle of Man
+481,IMN,Livestock,Isle of Man
+482,IMN,Oil and Natural Gas,Isle of Man
+483,IMN,Rice Cultivation,Isle of Man
+484,IMN,Total Waste,Isle of Man
+485,ISR,Coal Mining,Israel
+486,ISR,Livestock,Israel
+487,ISR,Oil and Natural Gas,Israel
+488,ISR,Rice Cultivation,Israel
+489,ISR,Total Waste,Israel
+490,ITA,Coal Mining,Italy
+491,ITA,Livestock,Italy
+492,ITA,Oil and Natural Gas,Italy
+493,ITA,Rice Cultivation,Italy
+494,ITA,Total Waste,Italy
+495,JAM,Coal Mining,Jamaica
+496,JAM,Livestock,Jamaica
+497,JAM,Oil and Natural Gas,Jamaica
+498,JAM,Rice Cultivation,Jamaica
+499,JAM,Total Waste,Jamaica
+500,JPN,Coal Mining,Japan
+501,JPN,Livestock,Japan
+502,JPN,Oil and Natural Gas,Japan
+503,JPN,Rice Cultivation,Japan
+504,JPN,Total Waste,Japan
+505,JOR,Coal Mining,Jordan
+506,JOR,Livestock,Jordan
+507,JOR,Oil and Natural Gas,Jordan
+508,JOR,Rice Cultivation,Jordan
+509,JOR,Total Waste,Jordan
+510,KAZ,Coal Mining,Kazakhstan
+511,KAZ,Livestock,Kazakhstan
+512,KAZ,Oil and Natural Gas,Kazakhstan
+513,KAZ,Rice Cultivation,Kazakhstan
+514,KAZ,Total Waste,Kazakhstan
+515,KEN,Coal Mining,Kenya
+516,KEN,Livestock,Kenya
+517,KEN,Oil and Natural Gas,Kenya
+518,KEN,Rice Cultivation,Kenya
+519,KEN,Total Waste,Kenya
+520,KIR,Coal Mining,Kiribati
+521,KIR,Livestock,Kiribati
+522,KIR,Oil and Natural Gas,Kiribati
+523,KIR,Rice Cultivation,Kiribati
+524,KIR,Total Waste,Kiribati
+525,KOR,Coal Mining,Korea
+526,KOR,Livestock,Korea
+527,KOR,Oil and Natural Gas,Korea
+528,KOR,Rice Cultivation,Korea
+529,KOR,Total Waste,Korea
+530,PRK,Coal Mining,"Korea, Dem. People's Rep."
+531,PRK,Livestock,"Korea, Dem. People's Rep."
+532,PRK,Oil and Natural Gas,"Korea, Dem. People's Rep."
+533,PRK,Rice Cultivation,"Korea, Dem. People's Rep."
+534,PRK,Total Waste,"Korea, Dem. People's Rep."
+535,XKX,Coal Mining,Kosovo
+536,XKX,Livestock,Kosovo
+537,XKX,Oil and Natural Gas,Kosovo
+538,XKX,Rice Cultivation,Kosovo
+539,XKX,Total Waste,Kosovo
+540,KWT,Coal Mining,Kuwait
+541,KWT,Livestock,Kuwait
+542,KWT,Oil and Natural Gas,Kuwait
+543,KWT,Rice Cultivation,Kuwait
+544,KWT,Total Waste,Kuwait
+545,KGZ,Coal Mining,Kyrgyz Republic
+546,KGZ,Livestock,Kyrgyz Republic
+547,KGZ,Oil and Natural Gas,Kyrgyz Republic
+548,KGZ,Rice Cultivation,Kyrgyz Republic
+549,KGZ,Total Waste,Kyrgyz Republic
+550,LAO,Coal Mining,Lao P.D.R.
+551,LAO,Livestock,Lao P.D.R.
+552,LAO,Oil and Natural Gas,Lao P.D.R.
+553,LAO,Rice Cultivation,Lao P.D.R.
+554,LAO,Total Waste,Lao P.D.R.
+555,LVA,Coal Mining,Latvia
+556,LVA,Livestock,Latvia
+557,LVA,Oil and Natural Gas,Latvia
+558,LVA,Rice Cultivation,Latvia
+559,LVA,Total Waste,Latvia
+560,LBN,Coal Mining,Lebanon
+561,LBN,Livestock,Lebanon
+562,LBN,Oil and Natural Gas,Lebanon
+563,LBN,Rice Cultivation,Lebanon
+564,LBN,Total Waste,Lebanon
+565,LSO,Coal Mining,Lesotho
+566,LSO,Livestock,Lesotho
+567,LSO,Oil and Natural Gas,Lesotho
+568,LSO,Rice Cultivation,Lesotho
+569,LSO,Total Waste,Lesotho
+570,LBR,Coal Mining,Liberia
+571,LBR,Livestock,Liberia
+572,LBR,Oil and Natural Gas,Liberia
+573,LBR,Rice Cultivation,Liberia
+574,LBR,Total Waste,Liberia
+575,LBY,Coal Mining,Libya
+576,LBY,Livestock,Libya
+577,LBY,Oil and Natural Gas,Libya
+578,LBY,Rice Cultivation,Libya
+579,LBY,Total Waste,Libya
+580,LIE,Coal Mining,Liechtenstein
+581,LIE,Livestock,Liechtenstein
+582,LIE,Oil and Natural Gas,Liechtenstein
+583,LIE,Rice Cultivation,Liechtenstein
+584,LIE,Total Waste,Liechtenstein
+585,LTU,Coal Mining,Lithuania
+586,LTU,Livestock,Lithuania
+587,LTU,Oil and Natural Gas,Lithuania
+588,LTU,Rice Cultivation,Lithuania
+589,LTU,Total Waste,Lithuania
+590,LUX,Coal Mining,Luxembourg
+591,LUX,Livestock,Luxembourg
+592,LUX,Oil and Natural Gas,Luxembourg
+593,LUX,Rice Cultivation,Luxembourg
+594,LUX,Total Waste,Luxembourg
+595,MAC,Coal Mining,Macao SAR
+596,MAC,Livestock,Macao SAR
+597,MAC,Oil and Natural Gas,Macao SAR
+598,MAC,Rice Cultivation,Macao SAR
+599,MAC,Total Waste,Macao SAR
+600,MDG,Coal Mining,Madagascar
+601,MDG,Livestock,Madagascar
+602,MDG,Oil and Natural Gas,Madagascar
+603,MDG,Rice Cultivation,Madagascar
+604,MDG,Total Waste,Madagascar
+605,MWI,Coal Mining,Malawi
+606,MWI,Livestock,Malawi
+607,MWI,Oil and Natural Gas,Malawi
+608,MWI,Rice Cultivation,Malawi
+609,MWI,Total Waste,Malawi
+610,MYS,Coal Mining,Malaysia
+611,MYS,Livestock,Malaysia
+612,MYS,Oil and Natural Gas,Malaysia
+613,MYS,Rice Cultivation,Malaysia
+614,MYS,Total Waste,Malaysia
+615,MDV,Coal Mining,Maldives
+616,MDV,Livestock,Maldives
+617,MDV,Oil and Natural Gas,Maldives
+618,MDV,Rice Cultivation,Maldives
+619,MDV,Total Waste,Maldives
+620,MLI,Coal Mining,Mali
+621,MLI,Livestock,Mali
+622,MLI,Oil and Natural Gas,Mali
+623,MLI,Rice Cultivation,Mali
+624,MLI,Total Waste,Mali
+625,MLT,Coal Mining,Malta
+626,MLT,Livestock,Malta
+627,MLT,Oil and Natural Gas,Malta
+628,MLT,Rice Cultivation,Malta
+629,MLT,Total Waste,Malta
+630,MHL,Coal Mining,Marshall Islands
+631,MHL,Livestock,Marshall Islands
+632,MHL,Oil and Natural Gas,Marshall Islands
+633,MHL,Rice Cultivation,Marshall Islands
+634,MHL,Total Waste,Marshall Islands
+635,MRT,Coal Mining,Mauritania
+636,MRT,Livestock,Mauritania
+637,MRT,Oil and Natural Gas,Mauritania
+638,MRT,Rice Cultivation,Mauritania
+639,MRT,Total Waste,Mauritania
+640,MUS,Coal Mining,Mauritius
+641,MUS,Livestock,Mauritius
+642,MUS,Oil and Natural Gas,Mauritius
+643,MUS,Rice Cultivation,Mauritius
+644,MUS,Total Waste,Mauritius
+645,MEX,Coal Mining,Mexico
+646,MEX,Livestock,Mexico
+647,MEX,Oil and Natural Gas,Mexico
+648,MEX,Rice Cultivation,Mexico
+649,MEX,Total Waste,Mexico
+650,FSM,Coal Mining,Micronesia
+651,FSM,Livestock,Micronesia
+652,FSM,Oil and Natural Gas,Micronesia
+653,FSM,Rice Cultivation,Micronesia
+654,FSM,Total Waste,Micronesia
+655,MDA,Coal Mining,Moldova
+656,MDA,Livestock,Moldova
+657,MDA,Oil and Natural Gas,Moldova
+658,MDA,Rice Cultivation,Moldova
+659,MDA,Total Waste,Moldova
+660,MCO,Coal Mining,Monaco
+661,MCO,Livestock,Monaco
+662,MCO,Oil and Natural Gas,Monaco
+663,MCO,Rice Cultivation,Monaco
+664,MCO,Total Waste,Monaco
+665,MNG,Coal Mining,Mongolia
+666,MNG,Livestock,Mongolia
+667,MNG,Oil and Natural Gas,Mongolia
+668,MNG,Rice Cultivation,Mongolia
+669,MNG,Total Waste,Mongolia
+670,MNE,Coal Mining,"Montenegro, Rep. of"
+671,MNE,Livestock,"Montenegro, Rep. of"
+672,MNE,Oil and Natural Gas,"Montenegro, Rep. of"
+673,MNE,Rice Cultivation,"Montenegro, Rep. of"
+674,MNE,Total Waste,"Montenegro, Rep. of"
+675,MSR,Coal Mining,Montserrat
+676,MSR,Livestock,Montserrat
+677,MSR,Oil and Natural Gas,Montserrat
+678,MSR,Rice Cultivation,Montserrat
+679,MSR,Total Waste,Montserrat
+680,MAR,Coal Mining,Morocco
+681,MAR,Livestock,Morocco
+682,MAR,Oil and Natural Gas,Morocco
+683,MAR,Rice Cultivation,Morocco
+684,MAR,Total Waste,Morocco
+685,MOZ,Coal Mining,Mozambique
+686,MOZ,Livestock,Mozambique
+687,MOZ,Oil and Natural Gas,Mozambique
+688,MOZ,Rice Cultivation,Mozambique
+689,MOZ,Total Waste,Mozambique
+690,MMR,Coal Mining,Myanmar
+691,MMR,Livestock,Myanmar
+692,MMR,Oil and Natural Gas,Myanmar
+693,MMR,Rice Cultivation,Myanmar
+694,MMR,Total Waste,Myanmar
+695,NAM,Coal Mining,Namibia
+696,NAM,Livestock,Namibia
+697,NAM,Oil and Natural Gas,Namibia
+698,NAM,Rice Cultivation,Namibia
+699,NAM,Total Waste,Namibia
+700,NRU,Coal Mining,Nauru
+701,NRU,Livestock,Nauru
+702,NRU,Oil and Natural Gas,Nauru
+703,NRU,Rice Cultivation,Nauru
+704,NRU,Total Waste,Nauru
+705,NPL,Coal Mining,Nepal
+706,NPL,Livestock,Nepal
+707,NPL,Oil and Natural Gas,Nepal
+708,NPL,Rice Cultivation,Nepal
+709,NPL,Total Waste,Nepal
+710,NLD,Coal Mining,Netherlands
+711,NLD,Livestock,Netherlands
+712,NLD,Oil and Natural Gas,Netherlands
+713,NLD,Rice Cultivation,Netherlands
+714,NLD,Total Waste,Netherlands
+715,NCL,Coal Mining,New Caledonia
+716,NCL,Livestock,New Caledonia
+717,NCL,Oil and Natural Gas,New Caledonia
+718,NCL,Rice Cultivation,New Caledonia
+719,NCL,Total Waste,New Caledonia
+720,NZL,Coal Mining,New Zealand
+721,NZL,Livestock,New Zealand
+722,NZL,Oil and Natural Gas,New Zealand
+723,NZL,Rice Cultivation,New Zealand
+724,NZL,Total Waste,New Zealand
+725,NIC,Coal Mining,Nicaragua
+726,NIC,Livestock,Nicaragua
+727,NIC,Oil and Natural Gas,Nicaragua
+728,NIC,Rice Cultivation,Nicaragua
+729,NIC,Total Waste,Nicaragua
+730,NER,Coal Mining,Niger
+731,NER,Livestock,Niger
+732,NER,Oil and Natural Gas,Niger
+733,NER,Rice Cultivation,Niger
+734,NER,Total Waste,Niger
+735,NGA,Coal Mining,Nigeria
+736,NGA,Livestock,Nigeria
+737,NGA,Oil and Natural Gas,Nigeria
+738,NGA,Rice Cultivation,Nigeria
+739,NGA,Total Waste,Nigeria
+740,MKD,Coal Mining,North Macedonia
+741,MKD,Livestock,North Macedonia
+742,MKD,Oil and Natural Gas,North Macedonia
+743,MKD,Rice Cultivation,North Macedonia
+744,MKD,Total Waste,North Macedonia
+745,MNP,Coal Mining,Northern Mariana Islands
+746,MNP,Livestock,Northern Mariana Islands
+747,MNP,Oil and Natural Gas,Northern Mariana Islands
+748,MNP,Rice Cultivation,Northern Mariana Islands
+749,MNP,Total Waste,Northern Mariana Islands
+750,NOR,Coal Mining,Norway
+751,NOR,Livestock,Norway
+752,NOR,Oil and Natural Gas,Norway
+753,NOR,Rice Cultivation,Norway
+754,NOR,Total Waste,Norway
+755,OMN,Coal Mining,Oman
+756,OMN,Livestock,Oman
+757,OMN,Oil and Natural Gas,Oman
+758,OMN,Rice Cultivation,Oman
+759,OMN,Total Waste,Oman
+760,PAK,Coal Mining,Pakistan
+761,PAK,Livestock,Pakistan
+762,PAK,Oil and Natural Gas,Pakistan
+763,PAK,Rice Cultivation,Pakistan
+764,PAK,Total Waste,Pakistan
+765,PLW,Coal Mining,Palau
+766,PLW,Livestock,Palau
+767,PLW,Oil and Natural Gas,Palau
+768,PLW,Rice Cultivation,Palau
+769,PLW,Total Waste,Palau
+770,PAN,Coal Mining,Panama
+771,PAN,Livestock,Panama
+772,PAN,Oil and Natural Gas,Panama
+773,PAN,Rice Cultivation,Panama
+774,PAN,Total Waste,Panama
+775,PNG,Coal Mining,Papua New Guinea
+776,PNG,Livestock,Papua New Guinea
+777,PNG,Oil and Natural Gas,Papua New Guinea
+778,PNG,Rice Cultivation,Papua New Guinea
+779,PNG,Total Waste,Papua New Guinea
+780,PRY,Coal Mining,Paraguay
+781,PRY,Livestock,Paraguay
+782,PRY,Oil and Natural Gas,Paraguay
+783,PRY,Rice Cultivation,Paraguay
+784,PRY,Total Waste,Paraguay
+785,PER,Coal Mining,Peru
+786,PER,Livestock,Peru
+787,PER,Oil and Natural Gas,Peru
+788,PER,Rice Cultivation,Peru
+789,PER,Total Waste,Peru
+790,PHL,Coal Mining,Philippines
+791,PHL,Livestock,Philippines
+792,PHL,Oil and Natural Gas,Philippines
+793,PHL,Rice Cultivation,Philippines
+794,PHL,Total Waste,Philippines
+795,POL,Coal Mining,Poland
+796,POL,Livestock,Poland
+797,POL,Oil and Natural Gas,Poland
+798,POL,Rice Cultivation,Poland
+799,POL,Total Waste,Poland
+800,PRT,Coal Mining,Portugal
+801,PRT,Livestock,Portugal
+802,PRT,Oil and Natural Gas,Portugal
+803,PRT,Rice Cultivation,Portugal
+804,PRT,Total Waste,Portugal
+805,PRI,Coal Mining,Puerto Rico
+806,PRI,Livestock,Puerto Rico
+807,PRI,Oil and Natural Gas,Puerto Rico
+808,PRI,Rice Cultivation,Puerto Rico
+809,PRI,Total Waste,Puerto Rico
+810,QAT,Coal Mining,Qatar
+811,QAT,Livestock,Qatar
+812,QAT,Oil and Natural Gas,Qatar
+813,QAT,Rice Cultivation,Qatar
+814,QAT,Total Waste,Qatar
+815,ROU,Coal Mining,Romania
+816,ROU,Livestock,Romania
+817,ROU,Oil and Natural Gas,Romania
+818,ROU,Rice Cultivation,Romania
+819,ROU,Total Waste,Romania
+820,RUS,Coal Mining,Russia
+821,RUS,Livestock,Russia
+822,RUS,Oil and Natural Gas,Russia
+823,RUS,Rice Cultivation,Russia
+824,RUS,Total Waste,Russia
+825,RWA,Coal Mining,Rwanda
+826,RWA,Livestock,Rwanda
+827,RWA,Oil and Natural Gas,Rwanda
+828,RWA,Rice Cultivation,Rwanda
+829,RWA,Total Waste,Rwanda
+830,WSM,Coal Mining,Samoa
+831,WSM,Livestock,Samoa
+832,WSM,Oil and Natural Gas,Samoa
+833,WSM,Rice Cultivation,Samoa
+834,WSM,Total Waste,Samoa
+835,SMR,Coal Mining,San Marino
+836,SMR,Livestock,San Marino
+837,SMR,Oil and Natural Gas,San Marino
+838,SMR,Rice Cultivation,San Marino
+839,SMR,Total Waste,San Marino
+840,SAU,Coal Mining,Saudi Arabia
+841,SAU,Livestock,Saudi Arabia
+842,SAU,Oil and Natural Gas,Saudi Arabia
+843,SAU,Rice Cultivation,Saudi Arabia
+844,SAU,Total Waste,Saudi Arabia
+845,SEN,Coal Mining,Senegal
+846,SEN,Livestock,Senegal
+847,SEN,Oil and Natural Gas,Senegal
+848,SEN,Rice Cultivation,Senegal
+849,SEN,Total Waste,Senegal
+850,SRB,Coal Mining,Serbia
+851,SRB,Livestock,Serbia
+852,SRB,Oil and Natural Gas,Serbia
+853,SRB,Rice Cultivation,Serbia
+854,SRB,Total Waste,Serbia
+855,SYC,Coal Mining,Seychelles
+856,SYC,Livestock,Seychelles
+857,SYC,Oil and Natural Gas,Seychelles
+858,SYC,Rice Cultivation,Seychelles
+859,SYC,Total Waste,Seychelles
+860,SLE,Coal Mining,Sierra Leone
+861,SLE,Livestock,Sierra Leone
+862,SLE,Oil and Natural Gas,Sierra Leone
+863,SLE,Rice Cultivation,Sierra Leone
+864,SLE,Total Waste,Sierra Leone
+865,SGP,Coal Mining,Singapore
+866,SGP,Livestock,Singapore
+867,SGP,Oil and Natural Gas,Singapore
+868,SGP,Rice Cultivation,Singapore
+869,SGP,Total Waste,Singapore
+870,SXM,Coal Mining,Sint Maarten (Dutch part)
+871,SXM,Livestock,Sint Maarten (Dutch part)
+872,SXM,Oil and Natural Gas,Sint Maarten (Dutch part)
+873,SXM,Rice Cultivation,Sint Maarten (Dutch part)
+874,SXM,Total Waste,Sint Maarten (Dutch part)
+875,SVK,Coal Mining,Slovak Republic
+876,SVK,Livestock,Slovak Republic
+877,SVK,Oil and Natural Gas,Slovak Republic
+878,SVK,Rice Cultivation,Slovak Republic
+879,SVK,Total Waste,Slovak Republic
+880,SVN,Coal Mining,Slovenia
+881,SVN,Livestock,Slovenia
+882,SVN,Oil and Natural Gas,Slovenia
+883,SVN,Rice Cultivation,Slovenia
+884,SVN,Total Waste,Slovenia
+885,SLB,Coal Mining,Solomon Islands
+886,SLB,Livestock,Solomon Islands
+887,SLB,Oil and Natural Gas,Solomon Islands
+888,SLB,Rice Cultivation,Solomon Islands
+889,SLB,Total Waste,Solomon Islands
+890,SOM,Coal Mining,Somalia
+891,SOM,Livestock,Somalia
+892,SOM,Oil and Natural Gas,Somalia
+893,SOM,Rice Cultivation,Somalia
+894,SOM,Total Waste,Somalia
+895,ZAF,Coal Mining,South Africa
+896,ZAF,Livestock,South Africa
+897,ZAF,Oil and Natural Gas,South Africa
+898,ZAF,Rice Cultivation,South Africa
+899,ZAF,Total Waste,South Africa
+900,SSD,Coal Mining,South Sudan
+901,SSD,Livestock,South Sudan
+902,SSD,Oil and Natural Gas,South Sudan
+903,SSD,Rice Cultivation,South Sudan
+904,SSD,Total Waste,South Sudan
+905,ESP,Coal Mining,Spain
+906,ESP,Livestock,Spain
+907,ESP,Oil and Natural Gas,Spain
+908,ESP,Rice Cultivation,Spain
+909,ESP,Total Waste,Spain
+910,LKA,Coal Mining,Sri Lanka
+911,LKA,Livestock,Sri Lanka
+912,LKA,Oil and Natural Gas,Sri Lanka
+913,LKA,Rice Cultivation,Sri Lanka
+914,LKA,Total Waste,Sri Lanka
+915,KNA,Coal Mining,St. Kitts and Nevis
+916,KNA,Livestock,St. Kitts and Nevis
+917,KNA,Oil and Natural Gas,St. Kitts and Nevis
+918,KNA,Rice Cultivation,St. Kitts and Nevis
+919,KNA,Total Waste,St. Kitts and Nevis
+920,LCA,Coal Mining,St. Lucia
+921,LCA,Livestock,St. Lucia
+922,LCA,Oil and Natural Gas,St. Lucia
+923,LCA,Rice Cultivation,St. Lucia
+924,LCA,Total Waste,St. Lucia
+925,MAF,Coal Mining,St. Martin (French part)
+926,MAF,Livestock,St. Martin (French part)
+927,MAF,Oil and Natural Gas,St. Martin (French part)
+928,MAF,Rice Cultivation,St. Martin (French part)
+929,MAF,Total Waste,St. Martin (French part)
+930,VCT,Coal Mining,St. Vincent and the Grenadines
+931,VCT,Livestock,St. Vincent and the Grenadines
+932,VCT,Oil and Natural Gas,St. Vincent and the Grenadines
+933,VCT,Rice Cultivation,St. Vincent and the Grenadines
+934,VCT,Total Waste,St. Vincent and the Grenadines
+935,SDN,Coal Mining,Sudan
+936,SDN,Livestock,Sudan
+937,SDN,Oil and Natural Gas,Sudan
+938,SDN,Rice Cultivation,Sudan
+939,SDN,Total Waste,Sudan
+940,SUR,Coal Mining,Suriname
+941,SUR,Livestock,Suriname
+942,SUR,Oil and Natural Gas,Suriname
+943,SUR,Rice Cultivation,Suriname
+944,SUR,Total Waste,Suriname
+945,SWE,Coal Mining,Sweden
+946,SWE,Livestock,Sweden
+947,SWE,Oil and Natural Gas,Sweden
+948,SWE,Rice Cultivation,Sweden
+949,SWE,Total Waste,Sweden
+950,CHE,Coal Mining,Switzerland
+951,CHE,Livestock,Switzerland
+952,CHE,Oil and Natural Gas,Switzerland
+953,CHE,Rice Cultivation,Switzerland
+954,CHE,Total Waste,Switzerland
+955,SYR,Coal Mining,Syria
+956,SYR,Livestock,Syria
+957,SYR,Oil and Natural Gas,Syria
+958,SYR,Rice Cultivation,Syria
+959,SYR,Total Waste,Syria
+960,STP,Coal Mining,São Tomé and Príncipe
+961,STP,Livestock,São Tomé and Príncipe
+962,STP,Oil and Natural Gas,São Tomé and Príncipe
+963,STP,Rice Cultivation,São Tomé and Príncipe
+964,STP,Total Waste,São Tomé and Príncipe
+965,TWN,Coal Mining,Taiwan Province of China
+966,TWN,Livestock,Taiwan Province of China
+967,TWN,Oil and Natural Gas,Taiwan Province of China
+968,TWN,Rice Cultivation,Taiwan Province of China
+969,TWN,Total Waste,Taiwan Province of China
+970,TJK,Coal Mining,Tajikistan
+971,TJK,Livestock,Tajikistan
+972,TJK,Oil and Natural Gas,Tajikistan
+973,TJK,Rice Cultivation,Tajikistan
+974,TJK,Total Waste,Tajikistan
+975,TZA,Coal Mining,Tanzania
+976,TZA,Livestock,Tanzania
+977,TZA,Oil and Natural Gas,Tanzania
+978,TZA,Rice Cultivation,Tanzania
+979,TZA,Total Waste,Tanzania
+980,THA,Coal Mining,Thailand
+981,THA,Livestock,Thailand
+982,THA,Oil and Natural Gas,Thailand
+983,THA,Rice Cultivation,Thailand
+984,THA,Total Waste,Thailand
+985,TLS,Coal Mining,Timor-Leste
+986,TLS,Livestock,Timor-Leste
+987,TLS,Oil and Natural Gas,Timor-Leste
+988,TLS,Rice Cultivation,Timor-Leste
+989,TLS,Total Waste,Timor-Leste
+990,TGO,Coal Mining,Togo
+991,TGO,Livestock,Togo
+992,TGO,Oil and Natural Gas,Togo
+993,TGO,Rice Cultivation,Togo
+994,TGO,Total Waste,Togo
+995,TON,Coal Mining,Tonga
+996,TON,Livestock,Tonga
+997,TON,Oil and Natural Gas,Tonga
+998,TON,Rice Cultivation,Tonga
+999,TON,Total Waste,Tonga
+1000,TTO,Coal Mining,Trinidad and Tobago
+1001,TTO,Livestock,Trinidad and Tobago
+1002,TTO,Oil and Natural Gas,Trinidad and Tobago
+1003,TTO,Rice Cultivation,Trinidad and Tobago
+1004,TTO,Total Waste,Trinidad and Tobago
+1005,TUN,Coal Mining,Tunisia
+1006,TUN,Livestock,Tunisia
+1007,TUN,Oil and Natural Gas,Tunisia
+1008,TUN,Rice Cultivation,Tunisia
+1009,TUN,Total Waste,Tunisia
+1010,TUR,Coal Mining,Turkiye
+1011,TUR,Livestock,Turkiye
+1012,TUR,Oil and Natural Gas,Turkiye
+1013,TUR,Rice Cultivation,Turkiye
+1014,TUR,Total Waste,Turkiye
+1015,TKM,Coal Mining,Turkmenistan
+1016,TKM,Livestock,Turkmenistan
+1017,TKM,Oil and Natural Gas,Turkmenistan
+1018,TKM,Rice Cultivation,Turkmenistan
+1019,TKM,Total Waste,Turkmenistan
+1020,TCA,Coal Mining,Turks and Caicos Islands
+1021,TCA,Livestock,Turks and Caicos Islands
+1022,TCA,Oil and Natural Gas,Turks and Caicos Islands
+1023,TCA,Rice Cultivation,Turks and Caicos Islands
+1024,TCA,Total Waste,Turks and Caicos Islands
+1025,TUV,Coal Mining,Tuvalu
+1026,TUV,Livestock,Tuvalu
+1027,TUV,Oil and Natural Gas,Tuvalu
+1028,TUV,Rice Cultivation,Tuvalu
+1029,TUV,Total Waste,Tuvalu
+1030,UGA,Coal Mining,Uganda
+1031,UGA,Livestock,Uganda
+1032,UGA,Oil and Natural Gas,Uganda
+1033,UGA,Rice Cultivation,Uganda
+1034,UGA,Total Waste,Uganda
+1035,UKR,Coal Mining,Ukraine
+1036,UKR,Livestock,Ukraine
+1037,UKR,Oil and Natural Gas,Ukraine
+1038,UKR,Rice Cultivation,Ukraine
+1039,UKR,Total Waste,Ukraine
+1040,ARE,Coal Mining,United Arab Emirates
+1041,ARE,Livestock,United Arab Emirates
+1042,ARE,Oil and Natural Gas,United Arab Emirates
+1043,ARE,Rice Cultivation,United Arab Emirates
+1044,ARE,Total Waste,United Arab Emirates
+1045,GBR,Coal Mining,United Kingdom
+1046,GBR,Livestock,United Kingdom
+1047,GBR,Oil and Natural Gas,United Kingdom
+1048,GBR,Rice Cultivation,United Kingdom
+1049,GBR,Total Waste,United Kingdom
+1050,USA,Coal Mining,United States
+1051,USA,Livestock,United States
+1052,USA,Oil and Natural Gas,United States
+1053,USA,Rice Cultivation,United States
+1054,USA,Total Waste,United States
+1055,URY,Coal Mining,Uruguay
+1056,URY,Livestock,Uruguay
+1057,URY,Oil and Natural Gas,Uruguay
+1058,URY,Rice Cultivation,Uruguay
+1059,URY,Total Waste,Uruguay
+1060,UZB,Coal Mining,Uzbekistan
+1061,UZB,Livestock,Uzbekistan
+1062,UZB,Oil and Natural Gas,Uzbekistan
+1063,UZB,Rice Cultivation,Uzbekistan
+1064,UZB,Total Waste,Uzbekistan
+1065,VUT,Coal Mining,Vanuatu
+1066,VUT,Livestock,Vanuatu
+1067,VUT,Oil and Natural Gas,Vanuatu
+1068,VUT,Rice Cultivation,Vanuatu
+1069,VUT,Total Waste,Vanuatu
+1070,VEN,Coal Mining,Venezuela
+1071,VEN,Livestock,Venezuela
+1072,VEN,Oil and Natural Gas,Venezuela
+1073,VEN,Rice Cultivation,Venezuela
+1074,VEN,Total Waste,Venezuela
+1075,VNM,Coal Mining,Vietnam
+1076,VNM,Livestock,Vietnam
+1077,VNM,Oil and Natural Gas,Vietnam
+1078,VNM,Rice Cultivation,Vietnam
+1079,VNM,Total Waste,Vietnam
+1080,VIR,Coal Mining,Virgin Islands (U.S.)
+1081,VIR,Livestock,Virgin Islands (U.S.)
+1082,VIR,Oil and Natural Gas,Virgin Islands (U.S.)
+1083,VIR,Rice Cultivation,Virgin Islands (U.S.)
+1084,VIR,Total Waste,Virgin Islands (U.S.)
+1085,PSE,Coal Mining,West Bank and Gaza
+1086,PSE,Livestock,West Bank and Gaza
+1087,PSE,Oil and Natural Gas,West Bank and Gaza
+1088,PSE,Rice Cultivation,West Bank and Gaza
+1089,PSE,Total Waste,West Bank and Gaza
+1090,YEM,Coal Mining,Yemen
+1091,YEM,Livestock,Yemen
+1092,YEM,Oil and Natural Gas,Yemen
+1093,YEM,Rice Cultivation,Yemen
+1094,YEM,Total Waste,Yemen
+1095,ZMB,Coal Mining,Zambia
+1096,ZMB,Livestock,Zambia
+1097,ZMB,Oil and Natural Gas,Zambia
+1098,ZMB,Rice Cultivation,Zambia
+1099,ZMB,Total Waste,Zambia
+1100,ZWE,Coal Mining,Zimbabwe
+1101,ZWE,Livestock,Zimbabwe
+1102,ZWE,Oil and Natural Gas,Zimbabwe
+1103,ZWE,Rice Cultivation,Zimbabwe
+1104,ZWE,Total Waste,Zimbabwe

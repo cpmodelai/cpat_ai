@@ -1,0 +1,1285 @@
+legacy_row,section,indicator,legacy_code,legacy_body,tab,variable,unit,subscenario,proto_code_body,match
+6,Policy characteristics,Emissions coverage,egy.mit.co2cov.2,mit.co2cov,mit,co2cov,pc,2,,
+7,Policy characteristics,Carbon tax trajectory,egy.mit.cptraj.2,mit.cptraj,mit,cptraj,usdtco2,2,mit.cptraj,exact
+8,Policy characteristics,Effective carbon tax trajectory,egy.mit.eff.cptraj.2,mit.eff.cptraj,mit,effcptraj,usdtco2,2,,
+9,Policy characteristics,ETS Trajector\y,egy.mit.etstraj.2,mit.etstraj,mit,etstraj,usdtco2,2.0,,
+10,Policy characteristics,Emissions covered by sector: power sector,egy.mit.co2cov.pow.cont.2,mit.co2cov.pow.cont,mit,co2cov,pc,2,,
+11,Policy characteristics,"Emissions covered, transport sector",egy.mit.co2cov.tra.cont.2,mit.co2cov.tra.cont,mit,co2cov,pc,2,,
+12,Policy characteristics,"Emissions covered, residential sector",egy.mit.co2cov.res.cont.2,mit.co2cov.res.cont,mit,co2cov,pc,2,,
+13,Policy characteristics,"Emissions covered, industry",egy.mit.co2cov.ind.cont.2,mit.co2cov.ind.cont,mit,co2cov,pc,2,,
+14,Policy characteristics,"Emissions covered, other energy use",egy.mit.co2cov.oth.cont.2,mit.co2cov.oth.cont,mit,co2cov,pc,2,,
+16,Macro effects,Effect on GDP: Baseline GDP growth,egy.mit.gdp.pre.pct.2,mit.gdp.pre.pct,mit,gdp,pc,2,,
+17,Macro effects,Effect on GDP:  - Carbon tax,egy.mit.gdp.exc.pct.2,mit.gdp.exc.pct,mit,gdp,pc,2,,
+18,Macro effects,Effect on GDP: Personal income tax,egy.mit.gdp.pit.pct.2,mit.gdp.pit.pct,mit,gdp,pc,2,,
+19,Macro effects,Effect on GDP: Public investment,egy.mit.gdp.inv.pct.2,mit.gdp.inv.pct,mit,gdp,pc,2,,
+20,Macro effects,Effect on GDP: Current Spending,egy.mit.gdp.cur.pct.2,mit.gdp.cur.pct,mit,gdp,pc,2,,
+21,Macro effects,Effect on GDP: Transfers,egy.mit.gdp.tra.pct.2,mit.gdp.tra.pct,mit,gdp,pc,2,,
+22,Macro effects,Effect on GDP: total policy (%),egy.mit.gdp.tot.pct.2,mit.gdp.tot.pct,mit,gdp,pc,2,mit.gdp.pct.tot,reordered
+23,Macro effects,"Total revenues, bn $2026 (baseline)",egy.mit.rev.new.usd.1,mit.rev.new.usd,mit,rev,usdbn,1,,
+24,Macro effects,"Total revenues, bn $2026 (policy)",egy.mit.rev.new.usd.2,mit.rev.new.usd,mit,rev,usdbn,2,,
+25,Macro effects,"Total revenues, % of GDP (baseline)",egy.mit.rev.new.pct.1,mit.rev.new.pct,mit,rev,pc,1,,
+26,Macro effects,"Total revenues, % of GDP (policy)",egy.mit.rev.new.pct.2,mit.rev.new.pct,mit,rev,pc,2,,
+27,Macro effects,"Base erosion, % of GDP",egy.mit.ers,mit.ers,,,,2,,
+28,Macro effects,"Revenues - Carbon tax, % of GDP",egy.mit.rcp,mit.rcp,,,,2,,
+29,Macro effects,Power sector carbon tax revenues,egy.mit.rcp.pow,mit.rcp.pow,,,,2,,
+30,Macro effects,Transport sector carbon tax revenues,egy.mit.rcp.trs,mit.rcp.trs,,,,2,,
+31,Macro effects,Buildings sector carbon tax revenues,egy.mit.rcp.bld,mit.rcp.bld,,,,2,,
+32,Macro effects,Industry sector carbon tax revenues,egy.mit.rcp.ind,mit.rcp.ind,,,,2,,
+33,Macro effects,Baseline ln(GDP per capita),egy.mit.ln.gdppc,mit.ln.gdppc,mit,lngdppc,unitless,1,,
+34,Macro effects,Baseline GDP,egy.mit.gdp.pre.lvl.1,mit.gdp.pre.lvl,mit,gdp,usdbn,1,,
+35,Macro effects,Post-policy GDP,egy.mit.gdp.pst.lvl.2,mit.gdp.pst.lvl,mit,gdp,usdbn,2,,
+36,Macro effects,Population,egy.mit.pop.mn,mit.pop.mn,mit,pop,mn,1.0,,
+38,Emissions,"Total GHG emissions, exc. LULUCF (baseline)",egy.mit.ghg.tot.exc.1,mit.ghg.tot.exc,mit,emis,mtco2e,1,,
+39,Emissions,"Total GHG emissions, inc. LULUCF (baseline)",egy.mit.ghg.tot.inc.1,mit.ghg.tot.inc,mit,emis,mtco2e,1,,
+40,Emissions,Energy-related GHG emissions (baseline),egy.mit.ghg.enr.tot.1,mit.ghg.enr.tot,mit,emis,mtco2e,1,mit.ghg.enr.tot,exact
+41,Emissions,Industrial processes GHG emissions (baseline),egy.mit.ghg.ipr.tot.1,mit.ghg.ipr.tot,mit,emis,mtco2e,1,mit.ghg.ipr.tot,exact
+42,Emissions,"Agriculture, GHG emissions (baseline)",egy.mit.ghg.agr.tot.1,mit.ghg.agr.tot,mit,emis,mtco2e,1,mit.ghg.agr.tot,exact
+43,Emissions,Waste GHG emissions (baseline),egy.mit.ghg.wst.tot.1,mit.ghg.wst.tot,mit,emis,mtco2e,1,mit.ghg.wst.tot,exact
+44,Emissions,"LULUCF, GHG emissions (baseline)",egy.mit.ghg.lucf.tot.1,mit.ghg.lucf.tot,mit,emis,mtco2e,1,mit.ghg.lucf.tot,exact
+45,Emissions,Total CO2 emissions - baseline,egy.mit.co2.tot.1,mit.co2.tot,mit,emis,mtco2,1,mit.co2.tot,exact
+46,Emissions,Total energy related CO2 emissions (baseline),egy.mit.co2.enr.tot.1,mit.co2.enr.tot,mit,emis,mtco2,1,,
+47,Emissions,Energy related CO2 emissions - Coal (baseline),egy.mit.co2.coa.1,mit.co2.coa,mit,emis,mtco2,1,,
+48,Emissions,Energy related CO2 emissions - Natural gas (baseline),egy.mit.co2.nga.1,mit.co2.nga,mit,emis,mtco2,1,,
+49,Emissions,Energy related CO2 emissions - Non-road oil (baseline),egy.mit.co2.oil.1,mit.co2.oil,mit,emis,mtco2,1,,
+50,Emissions,Energy related CO2 emissions  - Gasoline (baseline),egy.mit.co2.gso.1,mit.co2.gso,mit,emis,mtco2,1,,
+51,Emissions,Energy related CO2 emissions - Diesel (baseline),egy.mit.co2.die.1,mit.co2.die,mit,emis,mtco2,1,,
+52,Emissions,Energy related CO2 emissions - LPG (baseline),egy.mit.co2.lpg.1,mit.co2.lpg,mit,emis,mtco2,1,,
+53,Emissions,Energy related CO2 emissions - Kerosene (baseline),egy.mit.co2.ker.1,mit.co2.ker,mit,emis,mtco2,1,,
+54,Emissions,Energy related CO2 emissions - Power sector (baseline),egy.mit.co2.pow.1,mit.co2.pow,mit,emis,mtco2,1,,
+55,Emissions,Energy related CO2 emissions - Transport (baseline),egy.mit.co2.tra.1,mit.co2.tra,mit,emis,mtco2,1,,
+56,Emissions,Energy related CO2 emissions - Residential (baseline),egy.mit.co2.res.1,mit.co2.res,mit,emis,mtco2,1,,
+57,Emissions,Energy related CO2 emissions - Industry (baseline),egy.mit.co2.ind.1,mit.co2.ind,mit,emis,mtco2,1,,
+58,Emissions,Energy related CO2 emissions - Other (baseline),egy.mit.co2.oth.1,mit.co2.oth,mit,emis,mtco2,1,,
+59,Emissions,"Total GHG emissions, exc. LULUCF (policy)",egy.mit.ghg.tot.exc.2,mit.ghg.tot.exc,mit,emis,mtco2e,2,,
+60,Emissions,"Total GHG emissions, inc. LULUCF (policy)",egy.mit.ghg.tot.inc.2,mit.ghg.tot.inc,mit,emis,mtco2e,2,,
+61,Emissions,Energy-related GHG emissions (policy),egy.mit.ghg.enr.tot.2,mit.ghg.enr.tot,mit,emis,mtco2e,2,mit.ghg.enr.tot,exact
+62,Emissions,Industrial processes GHG emissions (policy),egy.mit.ghg.ipr.tot.2,mit.ghg.ipr.tot,mit,emis,mtco2e,2,mit.ghg.ipr.tot,exact
+63,Emissions,"Agriculture, GHG emissions (policy)",egy.mit.ghg.agr.tot.2,mit.ghg.agr.tot,mit,emis,mtco2e,2,mit.ghg.agr.tot,exact
+64,Emissions,"LULUCF, GHG emissions (policy)",egy.mit.ghg.lucf.tot.2,mit.ghg.lucf.tot,mit,emis,mtco2e,2,mit.ghg.lucf.tot,exact
+65,Emissions,Waste GHG emissions (policy),egy.mit.ghg.wst.tot.2,mit.ghg.wst.tot,mit,emis,mtco2e,2,mit.ghg.wst.tot,exact
+66,Emissions,Total CO2 emissions - policy,egy.mit.co2.tot.2,mit.co2.tot,mit,emis,mtco2,2,mit.co2.tot,exact
+67,Emissions,Total energy related CO2 emissions - policy,egy.mit.co2.enr.tot.2,mit.co2.enr.tot,mit,emis,mtco2,2,,
+68,Emissions,Energy related CO2 emissions - Coal (policy),egy.mit.co2.coa.2,mit.co2.coa,mit,emis,mtco2,2,,
+69,Emissions,Energy related CO2 emissions - Natural gas (policy),egy.mit.co2.nga.2,mit.co2.nga,mit,emis,mtco2,2,,
+70,Emissions,Energy related CO2 emissions - Non-road oil (policy),egy.mit.co2.oil.2,mit.co2.oil,mit,emis,mtco2,2,,
+71,Emissions,Energy related CO2 emissions  - Gasoline (policy),egy.mit.co2.gso.2,mit.co2.gso,mit,emis,mtco2,2,,
+72,Emissions,Energy related CO2 emissions - Diesel (policy),egy.mit.co2.die.2,mit.co2.die,mit,emis,mtco2,2,,
+73,Emissions,Energy related CO2 emissions - LPG (policy),egy.mit.co2.lpg.2,mit.co2.lpg,mit,emis,mtco2,2,,
+74,Emissions,Energy related CO2 emissions - Kerosene (policy),egy.mit.co2.ker.2,mit.co2.ker,mit,emis,mtco2,2,,
+75,Emissions,Energy related CO2 emissions - Power sector (policy),egy.mit.co2.pow.2,mit.co2.pow,mit,emis,mtco2,2,,
+76,Emissions,Energy related CO2 emissions - Transport (policy),egy.mit.co2.tra.2,mit.co2.tra,mit,emis,mtco2,2,,
+77,Emissions,Energy related CO2 emissions - Residential (policy),egy.mit.co2.res.2,mit.co2.res,mit,emis,mtco2,2,,
+78,Emissions,Energy related CO2 emissions - Industry (policy),egy.mit.co2.ind.2,mit.co2.ind,mit,emis,mtco2,2,,
+79,Emissions,Energy related CO2 emissions - Other (policy),egy.mit.co2.oth.2,mit.co2.oth,mit,emis,mtco2,2,,
+80,Emissions,Change in CO2 emissions - (policy vs. baseline),egy.mit.co2.tot.red.pct,mit.co2.tot.red.pct,mit,co2red,mtco2,t,,
+81,Emissions,"Total GHG emissions, excl LULUCF - baseline",egy.mit.ghg.tot.exc.fuel.1,mit.ghg.tot.exc.fuel,mit,emis,mtco2e,1,,
+82,Emissions,Carbon dioxide (CO2) - baseline,egy.mit.co2.tot.1,mit.co2.tot,mit,emis,mtco2,1,mit.co2.tot,exact
+83,Emissions,Methane (CH4) - baseline,egy.mit.ch4.tot.1,mit.ch4.tot,mit,emis,mtco2e,1,mit.ch4.tot,exact
+84,Emissions,Nitrous oxide (N2O) - baseline,egy.mit.nox.tot.1,mit.nox.tot,mit,emis,mtco2e,1,mit.nox.tot,exact
+85,Emissions,"F-gases (PFCs, HFCs, SF6, NF3) - baseline",egy.mit.fga.tot.1,mit.fga.tot,mit,emis,mtco2e,1,mit.fga.tot,exact
+86,Emissions,"Total GHG emissions, excl LULUCF - policy",egy.mit.ghg.tot.exc.fuel.2,mit.ghg.tot.exc.fuel,mit,emis,mtco2e,2,,
+87,Emissions,Carbon dioxide (CO2) - policy,egy.mit.co2.tot.2,mit.co2.tot,mit,emis,mtco2,2,mit.co2.tot,exact
+88,Emissions,Methane (CH4) - policy,egy.mit.ch4.tot.2,mit.ch4.tot,mit,emis,mtco2e,2,mit.ch4.tot,exact
+89,Emissions,Nitrous oxide (N2O) - policy,egy.mit.nox.tot.2,mit.nox.tot,mit,emis,mtco2e,2,mit.nox.tot,exact
+90,Emissions,"F-gases (PFCs, HFCs, SF6, NF3) - policy",egy.mit.fga.tot.2,mit.fga.tot,mit,emis,mtco2e,2,mit.fga.tot,exact
+91,Emissions,"Total methane, incl. LULUCF (baseline)",egy.mit.ghg.tot.inc.ch4.1,mit.ghg.tot.inc.ch4,mit,emis,mtco2e,1,,
+92,Emissions,"Total methane, excl. LULUCF (baseline)",egy.mit.ghg.tot.exc.ch4.1,mit.ghg.tot.exc.ch4,mit,emis,mtco2e,1,,
+93,Emissions,Methane: energy (baseline),egy.mit.ghg.enr.ch4.1,mit.ghg.enr.ch4,mit,emis,mtco2e,1,mit.ghg.enr.ch4,exact
+94,Emissions,Methane: industrial processes (baseline),egy.mit.ghg.ipr.ch4.1,mit.ghg.ipr.ch4,mit,emis,mtco2e,1,mit.ghg.ipr.ch4,exact
+95,Emissions,Methane: agriculture,egy.mit.ghg.agr.ch4.1,mit.ghg.agr.ch4,mit,emis,mtco2e,1,mit.ghg.agr.ch4,exact
+96,Emissions,Methane: LULUCF (baseline),egy.mit.ghg.lucf.ch4.1,mit.ghg.lucf.ch4,mit,emis,mtco2e,1,mit.ghg.lucf.ch4,exact
+97,Emissions,Methane: waste (baseline),egy.mit.ghg.wst.ch4.1,mit.ghg.wst.ch4,mit,emis,mtco2e,1,mit.ghg.wst.ch4,exact
+98,Emissions,Methane: other (baseline),egy.mit.ghg.oth.ch4.1,mit.ghg.oth.ch4,mit,emis,mtco2e,1,mit.ghg.oth.ch4,exact
+99,Emissions,Methane: memo energy distribution (baseline),egy.mit.ghg.fug.ch4.1,mit.ghg.fug.ch4,mit,emis,mtco2e,1,,
+100,Emissions,"Total methane, incl. LULUCF (policy)",egy.mit.ghg.tot.inc.ch4.2,mit.ghg.tot.inc.ch4,mit,emis,mtco2e,2,,
+101,Emissions,"Total methane, excl. LULUCF (policy)",egy.mit.ghg.tot.exc.ch4.2,mit.ghg.tot.exc.ch4,mit,emis,mtco2e,2,,
+102,Emissions,Methane: energy (policy),egy.mit.ghg.enr.ch4.2,mit.ghg.enr.ch4,mit,emis,mtco2e,2,mit.ghg.enr.ch4,exact
+103,Emissions,Methane: industrial processes (policy),egy.mit.ghg.ipr.ch4.2,mit.ghg.ipr.ch4,mit,emis,mtco2e,2,mit.ghg.ipr.ch4,exact
+104,Emissions,Methane: agriculture,egy.mit.ghg.agr.ch4.2,mit.ghg.agr.ch4,mit,emis,mtco2e,2,mit.ghg.agr.ch4,exact
+105,Emissions,Methane: LULUCF (policy),egy.mit.ghg.lucf.ch4.2,mit.ghg.lucf.ch4,mit,emis,mtco2e,2,mit.ghg.lucf.ch4,exact
+106,Emissions,Methane: waste (policy),egy.mit.ghg.wst.ch4.2,mit.ghg.wst.ch4,mit,emis,mtco2e,2,mit.ghg.wst.ch4,exact
+107,Emissions,Methane: other (policy),egy.mit.ghg.oth.ch4.2,mit.ghg.oth.ch4,mit,emis,mtco2e,2,mit.ghg.oth.ch4,exact
+108,Emissions,Methane: memo energy distribution (policy),egy.mit.ghg.fug.ch4.2,mit.ghg.fug.ch4,mit,emis,mtco2e,2,,
+109,Emissions,"GHG emissions, baseline (2018=100)",egy.mit.ghg.index.1,mit.ghg.index,mit,emis,index,1,,
+110,Emissions,"GHG emissions, policy (2018=100)",egy.mit.ghg.index.2,mit.ghg.index,mit,emis,index,2,,
+111,Emissions,Change in GHG emissions exc LULUCF - (policy vs. baseline),egy.mit.ghg.tot.inc.red.pct,mit.ghg.tot.inc.red.pct,mit,ghgchange,pc,2.0,,
+112,Emissions,NDC option,egy.mit.ndc.option,mit.ndc.option,mit,ndcoption,text,1.0,,
+113,Emissions,NDC target year,egy.mit.ndc.targetyear,mit.ndc.targetyear,mit,ndctargetyear,text,1.0,,
+114,Emissions,"NDC, description - long",egy.mit.ndc.desc.lng,mit.ndc.desc.lng,mit,ndcdesclong,text,1.0,,
+115,Emissions,"NDC, description - short",egy.mit.ndc.desc.sht,mit.ndc.desc.sht,mit,ndcdescshort,text,1.0,,
+116,Emissions,NDC target: unconditional (2018=100),egy.mit.undc.index,mit.undc.index,mit,ndcunct,index,1.0,,
+117,Emissions,NDC target: conditional (2018=100),egy.mit.cndc.index,mit.cndc.index,mit,ndccont,index,1.0,,
+118,Emissions,"Unconditional NDC, target level (mtCO2e)",egy.mit.undc.trg.ton,mit.undc.trg.ton,mit,ndcunclevel,ton,1.0,,
+119,Emissions,"Conditional NDC, target level (mtCO2e)",egy.mit.cndc.trg.ton,mit.cndc.trg.ton,mit,ndcconlevel,ton,1.0,,
+120,Emissions,"Unconditional NDC, reduction against the modelled baseline (% by 2030)",egy.mit.undc.2030.pct,mit.undc.2030.pct,mit,undc,pct,1.0,,
+121,Emissions,"Conditional NDC, reduction against the modelled baseline (% by 2030)",egy.mit.cndc.2030.pct,mit.cndc.2030.pct,mit,cndc,pct,1.0,,
+122,Emissions,"Average NDC, reduction against the modelled baseline (% by 2030)",egy.mit.andc.2030.pct,mit.andc.2030.pct,mit,andc,pct,1.0,,
+124,Industrial sector CO2 emissions intensity of output (tCO2 per $m GVA),"CO2 emissions intensity of output,cement (tCO2 per $m GVA)",egy.mit.emin.cem,mit.emin.cem,mit,,,,,
+125,Industrial sector CO2 emissions intensity of output (tCO2 per $m GVA),"CO2 emissions intensity of output, iron/steel (tCO2 per $m GVA)",egy.mit.emin.irn,mit.emin.irn,mit,,,,,
+126,Industrial sector CO2 emissions intensity of output (tCO2 per $m GVA),"CO2 emissions intensity of output, mining (tCO2 per $m GVA)",egy.mit.emin.mch,mit.emin.mch,mit,,,,,
+127,Industrial sector CO2 emissions intensity of output (tCO2 per $m GVA),"CO2 emissions intensity of output, manufactures (tCO2 per $m GVA)",egy.mit.emin.man,mit.emin.man,mit,,,,,
+128,Industrial sector CO2 emissions intensity of output (tCO2 per $m GVA),"CO2 emissions intensity of output, other metals (tCO2 per $m GVA)",egy.mit.emin.oth,mit.emin.oth,mit,,,,,
+129,Industrial sector CO2 emissions intensity of output (tCO2 per $m GVA),"CO2 emissions intensity of output, food (tCO2 per $m GVA)",egy.mit.emin.foo,mit.emin.foo,mit,,,,,
+130,Industrial sector CO2 emissions intensity of output (tCO2 per $m GVA),"CO2 emissions intensity of output, services (tCO2 per $m GVA)",egy.mit.emin.srv,mit.emin.srv,mit,,,,,
+131,Industrial sector CO2 emissions intensity of output (tCO2 per $m GVA),"CO2 emissions intensity of output, machinery (tCO2 per $m GVA)",egy.mit.emin.mac,mit.emin.mac,mit,,,,,
+132,Industrial sector CO2 emissions intensity of output (tCO2 per $m GVA),"CO2 emissions intensity of output, construction (tCO2 per $m GVA)",egy.mit.emin.cst,mit.emin.cst,mit,,,,,
+134,Cumulative industrial sector CO2 emissions and gross value added (GVA) by sector,"CO2 emissions and GVA, fuel refining",egy.mit.emin.ftr,mit.emin.ftr,mit,,,,,
+135,Cumulative industrial sector CO2 emissions and gross value added (GVA) by sector,"CO2 emissions and GVA, food",egy.mit.emin.foo,mit.emin.foo,mit,,,,,
+136,Cumulative industrial sector CO2 emissions and gross value added (GVA) by sector,"CO2 emissions and GVA, mining",egy.mit.emin.mch,mit.emin.mch,mit,,,,,
+137,Cumulative industrial sector CO2 emissions and gross value added (GVA) by sector,"CO2 emissions and GVA, manufactures",egy.mit.emin.man,mit.emin.man,mit,,,,,
+138,Cumulative industrial sector CO2 emissions and gross value added (GVA) by sector,"CO2 emissions and GVA, cement",egy.mit.emin.cem,mit.emin.cem,mit,,,,,
+139,Cumulative industrial sector CO2 emissions and gross value added (GVA) by sector,"CO2 emissions and GVA, iron/steel",egy.mit.emin.irn,mit.emin.irn,mit,,,,,
+140,Cumulative industrial sector CO2 emissions and gross value added (GVA) by sector,"CO2 emissions and GVA, construction",egy.mit.emin.con,mit.emin.con,mit,,,,,
+141,Cumulative industrial sector CO2 emissions and gross value added (GVA) by sector,"CO2 emissions and GVA, machinery",egy.mit.emin.mac,mit.emin.mac,mit,,,,,
+142,Cumulative industrial sector CO2 emissions and gross value added (GVA) by sector,"CO2 emissions and GVA, other metals",egy.mit.emin.oth,mit.emin.oth,mit,,,,,
+143,Cumulative industrial sector CO2 emissions and gross value added (GVA) by sector,"CO2 emissions and GVA, services",egy.mit.emin.srv,mit.emin.srv,mit,,,,,
+145,Energy prices ,Electricity ($/kwh),egy.mit.rp.all.ecy.wtd.1,mit.rp.all.ecy.wtd,mit,rp,usdkwh,1.0,,
+146,Energy prices ,Coal ($/GJ),egy.mit.rp.all.coa.wtd.1,mit.rp.all.coa.wtd,mit,rp,usdgj,1.0,,
+147,Energy prices ,Natural gas ($/GJ),egy.mit.rp.all.nga.wtd.1,mit.rp.all.nga.wtd,mit,rp,usdgj,1.0,,
+148,Energy prices ,Oil ($/bbl),egy.mit.rp.all.oil.wtd.1,mit.rp.all.oil.wtd,mit,rp,bbusdl,1.0,,
+149,Energy prices ,Gasoline ($/liter),egy.mit.rp.all.gso.wtd.1,mit.rp.all.gso.wtd,mit,rp,usdl,1.0,,
+150,Energy prices ,Diesel ($/liter),egy.mit.rp.all.die.wtd.1,mit.rp.all.die.wtd,mit,rp,usdl,1.0,,
+151,Energy prices ,LPG ($/liter),egy.mit.rp.all.lpg.wtd.1,mit.rp.all.lpg.wtd,mit,rp,usdl,1.0,,
+152,Energy prices ,Kerosene ($/liter),egy.mit.rp.all.ker.wtd.1,mit.rp.all.ker.wtd,mit,rp,usdl,1.0,,
+153,Energy prices ,Electricity ($/kwh),egy.mit.rp.all.ecy.wtd.2,mit.rp.all.ecy.wtd,mit,rp,usdkwh,2.0,,
+154,Energy prices ,Coal ($/GJ),egy.mit.rp.coa.wtd.2,mit.rp.coa.wtd,mit,rp,usdgj,2.0,,
+155,Energy prices ,Natural gas ($/GJ),egy.mit.rp.nga.wtd.2,mit.rp.nga.wtd,mit,rp,usdgj,2.0,,
+156,Energy prices ,Oil ($/bbl),egy.mit.rp.oil.wtd.2,mit.rp.oil.wtd,mit,rp,bbusdl,2.0,,
+157,Energy prices ,Gasoline ($/liter),egy.mit.rp.gso.wtd.2,mit.rp.gso.wtd,mit,rp,usdl,2.0,,
+158,Energy prices ,Diesel ($/liter),egy.mit.rp.die.wtd.2,mit.rp.die.wtd,mit,rp,usdl,2.0,,
+159,Energy prices ,LPG ($/liter),egy.mit.rp.lpg.wtd.2,mit.rp.lpg.wtd,mit,rp,usdl,2.0,,
+160,Energy prices ,Kerosene ($/liter),egy.mit.rp.ker.wtd.2,mit.rp.ker.wtd,mit,rp,usdl,2.0,,
+161,Energy prices ,Electricity (% change),egy.mit.rp.all.ecy.pct.2,mit.rp.all.ecy.pct,mit,rp,pc,2.0,,
+162,Energy prices ,Coal (% change),egy.mit.rp.all.coa.pct.2,mit.rp.all.coa.pct,mit,rp,pc,2.0,,
+163,Energy prices ,Natural gas (% change),egy.mit.rp.all.nga.pct.2,mit.rp.all.nga.pct,mit,rp,pc,2.0,,
+164,Energy prices ,Oil (% change),egy.mit.rp.all.oil.pct.2,mit.rp.all.oil.pct,mit,rp,pc,2.0,,
+165,Energy prices ,Gasoline (% change),egy.mit.rp.all.gso.pct.2,mit.rp.all.gso.pct,mit,rp,pc,2.0,,
+166,Energy prices ,Diesel (% change),egy.mit.rp.all.die.pct.2,mit.rp.all.die.pct,mit,rp,pc,2.0,,
+167,Energy prices ,LPG (% change),egy.mit.rp.all.lpg.pct.2,mit.rp.all.lpg.pct,mit,rp,pc,2.0,,
+168,Energy prices ,Kerosene (% change),egy.mit.rp.all.ker.pct.2,mit.rp.all.ker.pct,mit,rp,pc,2.0,,
+169,Energy prices ,Implied economy-wide CO2 elasticity,egy.mit.co2.ela.eco.2,mit.co2.ela.eco,mit,co2ela,unitusdless,2.0,,
+170,Energy prices ,Implied additional carbon price to achieve NDC (US$ per ton CO2),egy.mit.ndc.ecr.2,mit.ndc.ecr,mit,ndcerc,usdtco2,2.0,,
+171,Energy prices ,Effective carbon rate - economy-wide (US$ per ton CO2),egy.mit.ecr.1,mit.ecr,mit,ecr,usdtco2,1.0,,
+172,Energy prices ,Effective carbon rate - economy-wide (US$ per ton CO2),egy.mit.ecr.2,mit.ecr,mit,ecr,usdtco2,2.0,,
+173,Energy prices ,"Electricity retail price in industry, ($/kWh), baseline",egy.mit.rp.ind.ecy.t.1,mit.rp.ind.ecy.t,mit,rp,usdkwh,1.0,mit.rp.ind.ecy,reordered
+174,Energy prices ,"Electricity retail price in residential use, $/kWh (baseline)",egy.mit.rp.res.ecy.t.1,mit.rp.res.ecy.t,mit,rp,usdkwh,1.0,mit.rp.res.ecy,reordered
+175,Energy prices ,"Coal retail price in industry, ($/GJ), baseline",egy.mit.rp.ind.coa.a.1,mit.rp.ind.coa.a,mit,rp,usdgj,1.0,,
+176,Energy prices ,"Natural gas retail price in industry, ($/GJ), baseline",egy.mit.rp.ind.nga.a.1,mit.rp.ind.nga.a,mit,rp,usdgj,1.0,,
+177,Energy prices ,"Coal retail price in residential use, ($/GJ), baseline",egy.mit.rp.res.coa.a.1,mit.rp.res.coa.a,mit,rp,usdgj,1.0,,
+178,Energy prices ,"Natural gas retail price in residential use, ($/GJ), baseline",egy.mit.rp.res.nga.a.1,mit.rp.res.nga.a,mit,rp,usdgj,1.0,,
+179,Energy prices ,"Coal retail price in power sector, ($/GJ), baseline",egy.mit.rp.pow.coa.a.1,mit.rp.pow.coa.a,mit,rp,usdgj,1.0,,
+180,Energy prices ,"Natural gas retail price in power sector ($/GJ), baseline",egy.mit.rp.pow.nga.a.1,mit.rp.pow.nga.a,mit,rp,usdgj,1.0,,
+181,Energy prices ,"Electricity retail price in industry, ($/kWh), policy",egy.mit.rp.ind.ecy.t.2,mit.rp.ind.ecy.t,mit,rp,usdkwh,2.0,mit.rp.ind.ecy,reordered
+182,Energy prices ,"Electricity retail price in residential use, ($/kWh), policy",egy.mit.rp.res.ecy.t.2,mit.rp.res.ecy.t,mit,rp,usdkwh,2.0,mit.rp.res.ecy,reordered
+183,Energy prices ,"Coal retail price in industry, ($/GJ), policy",egy.mit.rp.ind.coa.a.2,mit.rp.ind.coa.a,mit,rp,usdgj,2.0,,
+184,Energy prices ,"Natural gas retail price in industry, ($/GJ), policy",egy.mit.rp.ind.nga.a.2,mit.rp.ind.nga.a,mit,rp,usdgj,2.0,,
+185,Energy prices ,"Coal retail price in residential use, ($/GJ), policy",egy.mit.rp.res.coa.a.2,mit.rp.res.coa.a,mit,rp,usdgj,2.0,,
+186,Energy prices ,"Natural gas retail price in residential use, ($/GJ), policy",egy.mit.rp.res.nga.a.2,mit.rp.res.nga.a,mit,rp,usdgj,2.0,,
+187,Energy prices ,"Coal retail price in power sector, ($/GJ), policy",egy.mit.rp.pow.coa.a.2,mit.rp.pow.coa.a,mit,rp,usdgj,2.0,,
+188,Energy prices ,"Natural gas retail price in power sector ($/GJ), policy",egy.mit.rp.pow.nga.a.2,mit.rp.pow.nga.a,mit,rp,usdgj,2.0,,
+190,Energy price components (baseline),"Electricity supply costs in industry, $/kWh",egy.mit.sup.cost.ecy.ind.1,mit.sup.cost.ecy.ind,mit,sup_cost,usdkwh,1.0,mit.sup.cost.ind.ecy,reordered
+191,Energy price components (baseline),"Electricity supply costs in residential use, $/kWh",egy.mit.sup.cost.ecy.res.2,mit.sup.cost.ecy.res,mit,sup_cost,usdkwh,1.0,mit.sup.cost.res.ecy,reordered
+192,Energy price components (baseline),"Coal supply costs in industry, ($/GJ)",egy.mit.sp.ind.coa.a.1,mit.sp.ind.coa.a,mit,sp,usdgj,1.0,mit.sp.ind.coa,reordered
+193,Energy price components (baseline),"Natural gas supply costs in industry, ($/GJ)",egy.mit.sp.ind.nga.a.1,mit.sp.ind.nga.a,mit,sp,usdgj,1.0,mit.sp.ind.nga,reordered
+194,Energy price components (baseline),"Coal supply costs in residential use, ($/GJ)",egy.mit.sp.res.coa.a.1,mit.sp.res.coa.a,mit,sp,usdgj,1.0,mit.sp.res.coa,reordered
+195,Energy price components (baseline),"Natural gas supply costs in residential use, ($/GJ)",egy.mit.sp.res.nga.a.1,mit.sp.res.nga.a,mit,sp,usdgj,1.0,mit.sp.res.nga,reordered
+196,Energy price components (baseline),"Coal supply costs in power sector, ($/GJ)",egy.mit.sp.pow.coa.a.1,mit.sp.pow.coa.a,mit,sp,usdgj,1.0,mit.sp.pow.coa,reordered
+197,Energy price components (baseline),Natural gas supply costs in power sector ($/GJ),egy.mit.sp.pow.nga.a.1,mit.sp.pow.nga.a,mit,sp,usdgj,1.0,mit.sp.pow.nga,reordered
+198,Energy price components (baseline),"Oil  supply costs, ($/bbl)",egy.mit.sp.all.oop.a.1,mit.sp.all.oop.a,mit,sp,bbusdl,1.0,mit.sp.all.oop,reordered
+199,Energy price components (baseline),"Gasoline supply costs, ($/liter)",egy.mit.sp.all.gso.a.1,mit.sp.all.gso.a,mit,sp,usdl,1.0,mit.sp.all.gso,reordered
+200,Energy price components (baseline),"Diesel supply costs, ($/liter)",egy.mit.sp.all.die.a.1,mit.sp.all.die.a,mit,sp,usdl,1.0,mit.sp.all.die,reordered
+201,Energy price components (baseline),"LPG supply costs, ($/liter)",egy.mit.sp.all.lpg.a.1,mit.sp.all.lpg.a,mit,sp,usdl,1.0,mit.sp.all.lpg,reordered
+202,Energy price components (baseline),"Kerosene supply costs, ($/liter)",egy.mit.sp.all.ker.a.1,mit.sp.all.ker.a,mit,sp,usdl,1.0,mit.sp.all.ker,reordered
+203,Energy price components (baseline),"Electricity, excise and other taxes in industry, ($/kWh)",egy.mit.txo.ind.ecy.t.1,mit.txo.ind.ecy.t,mit,txo,usdkwh,1.0,,
+204,Energy price components (baseline),"Electricity, excise and other taxes in residential use, ($/kWh)",egy.mit.txo.res.ecy.t.1,mit.txo.res.ecy.t,mit,txo,usdkwh,1.0,,
+205,Energy price components (baseline),"Coal, excise and other taxes in industry, ($/GJ)",egy.mit.txo.ind.coa.a.1,mit.txo.ind.coa.a,mit,txo,usdgj,1.0,mit.txo.ind.coa,reordered
+206,Energy price components (baseline),"Natural gas, excise and other taxes in industry, ($/GJ)",egy.mit.txo.ind.nga.a.1,mit.txo.ind.nga.a,mit,txo,usdgj,1.0,mit.txo.ind.nga,reordered
+207,Energy price components (baseline),"Coal, excise and other taxes in residential use, ($/GJ)",egy.mit.txo.res.coa.a.1,mit.txo.res.coa.a,mit,txo,usdgj,1.0,mit.txo.res.coa,reordered
+208,Energy price components (baseline),"Natural gas, excise and other taxes in residential use, ($/GJ)",egy.mit.txo.res.nga.a.1,mit.txo.res.nga.a,mit,txo,usdgj,1.0,mit.txo.res.nga,reordered
+209,Energy price components (baseline),"Coal, excise and other taxes in power, ($/GJ)",egy.mit.txo.pow.coa.a.1,mit.txo.pow.coa.a,mit,txo,usdgj,1.0,mit.txo.pow.coa,reordered
+210,Energy price components (baseline),"Natural gas, excise and other taxes in power, ($/GJ)",egy.mit.txo.pow.nga.a.1,mit.txo.pow.nga.a,mit,txo,usdgj,1.0,mit.txo.pow.nga,reordered
+211,Energy price components (baseline),"Oil, excise and other taxes , ($/bbl)",egy.mit.txo.all.oop.a.1,mit.txo.all.oop.a,mit,txo,bbusdl,1.0,mit.txo.all.oop,reordered
+212,Energy price components (baseline),"Gasoline, excise and other taxes, ($/liter)",egy.mit.txo.all.gso.a.1,mit.txo.all.gso.a,mit,txo,usdl,1.0,mit.txo.all.gso,reordered
+213,Energy price components (baseline),"Diesel, excise and other taxes, ($/liter)",egy.mit.txo.all.die.a.1,mit.txo.all.die.a,mit,txo,usdl,1.0,mit.txo.all.die,reordered
+214,Energy price components (baseline),"LPG, excise and other taxes, ($/liter)",egy.mit.txo.all.lpg.a.1,mit.txo.all.lpg.a,mit,txo,usdl,1.0,mit.txo.all.lpg,reordered
+215,Energy price components (baseline),"Kerosene, excise and other taxes, ($/liter)",egy.mit.txo.all.ker.a.1,mit.txo.all.ker.a,mit,txo,usdl,1.0,mit.txo.all.ker,reordered
+216,Energy price components (baseline),"Electricity, VAT in industry, ($/kWh)",egy.mit.vat.ind.ecy.t.1,mit.vat.ind.ecy.t,c,vat,usdkwh,1.0,,
+217,Energy price components (baseline),"Electricity, VAT in residential use, ($/kWh)",egy.mit.vat.res.ecy.t.1,mit.vat.res.ecy.t,mit,vat,usdkwh,1.0,,
+218,Energy price components (baseline),"Coal, VAT in industry, ($/GJ)",egy.mit.vat.ind.coa.a.1,mit.vat.ind.coa.a,mit,vat,usdgj,1.0,mit.vat.ind.coa,reordered
+219,Energy price components (baseline),"Natural gas, VAT in industry, ($/GJ)",egy.mit.vat.ind.nga.a.1,mit.vat.ind.nga.a,mit,vat,usdgj,1.0,mit.vat.ind.nga,reordered
+220,Energy price components (baseline),"Coal, VAT in residential use, ($/GJ)",egy.mit.vat.res.coa.a.1,mit.vat.res.coa.a,mit,vat,usdgj,1.0,mit.vat.res.coa,reordered
+221,Energy price components (baseline),"Natural gas, VAT in residential use, ($/GJ)",egy.mit.vat.res.nga.a.1,mit.vat.res.nga.a,mit,vat,usdgj,1.0,mit.vat.res.nga,reordered
+222,Energy price components (baseline),"Coal, VAT in power sector, ($/GJ)",egy.mit.vat.pow.coa.a.1,mit.vat.pow.coa.a,mit,vat,usdgj,1.0,mit.vat.pow.coa,reordered
+223,Energy price components (baseline),"Natural gas, VAT in power sector, ($/GJ)",egy.mit.vat.pow.nga.a.1,mit.vat.pow.nga.a,mit,vat,usdgj,1.0,mit.vat.pow.nga,reordered
+224,Energy price components (baseline),"Oil, VAT, ($/bbl)",egy.mit.vat.all.oop.a.1,mit.vat.all.oop.a,mit,vat,bbusdl,1.0,mit.vat.all.oop,reordered
+225,Energy price components (baseline),"Gasoline, VAT, ($/liter)",egy.mit.vat.all.gso.a.1,mit.vat.all.gso.a,mit,vat,usdl,1.0,mit.vat.all.gso,reordered
+226,Energy price components (baseline),"Diesel, VAT, ($/liter)",egy.mit.vat.all.die.a.1,mit.vat.all.die.a,mit,vat,usdl,1.0,mit.vat.all.die,reordered
+227,Energy price components (baseline),"LPG, VAT, ($/liter)",egy.mit.vat.all.lpg.a.1,mit.vat.all.lpg.a,mit,vat,usdl,1.0,mit.vat.all.lpg,reordered
+228,Energy price components (baseline),"Kerosene, VAT, ($/liter)",egy.mit.vat.all.ker.a.1,mit.vat.all.ker.a,mit,vat,usdl,1.0,mit.vat.all.ker,reordered
+229,Energy price components (baseline),"Electricity, Current Carbon Tax in industry, ($/kWh)",egy.mit.ctx.ind.ecy.t.1,mit.ctx.ind.ecy.t,mit,vat,usdkwh,1.0,,
+230,Energy price components (baseline),"Electricity, Current Carbon Tax in residential use, ($/kWh)",egy.mit.ctx.res.ecy.t.1,mit.ctx.res.ecy.t,mit,vat,usdkwh,1.0,,
+231,Energy price components (baseline),"Coal, Current Carbon Tax in industry, ($/GJ)",egy.mit.ctx.ind.coa.a.1,mit.ctx.ind.coa.a,mit,vat,usdgj,1.0,,
+232,Energy price components (baseline),"Natural gas, Current Carbon Tax in industry, ($/GJ)",egy.mit.ctx.ind.nga.a.1,mit.ctx.ind.nga.a,mit,vat,usdgj,1.0,,
+233,Energy price components (baseline),"Coal, Current Carbon Tax in residential use, ($/GJ)",egy.mit.ctx.res.coa.a.1,mit.ctx.res.coa.a,mit,vat,usdgj,1.0,,
+234,Energy price components (baseline),"Natural gas, Current Carbon Tax in residential use, ($/GJ)",egy.mit.ctx.res.nga.a.1,mit.ctx.res.nga.a,mit,vat,usdgj,1.0,,
+235,Energy price components (baseline),"Coal, Current Carbon Tax in power sector, ($/GJ)",egy.mit.ctx.pow.coa.a.1,mit.ctx.pow.coa.a,mit,vat,usdgj,1.0,,
+236,Energy price components (baseline),"Natural gas, Current Carbon Tax in power sector, ($/GJ)",egy.mit.ctx.pow.nga.a.1,mit.ctx.pow.nga.a,mit,vat,usdgj,1.0,,
+237,Energy price components (baseline),"Oil, Current Carbon Tax, ($/bbl)",egy.mit.ctx.all.oop.a.1,mit.ctx.all.oop.a,mit,vat,bbusdl,1.0,,
+238,Energy price components (baseline),"Gasoline, Current Carbon Tax, ($/liter)",egy.mit.ctx.all.gso.a.1,mit.ctx.all.gso.a,mit,vat,usdl,1.0,,
+239,Energy price components (baseline),"Diesel, Current Carbon Tax, ($/liter)",egy.mit.ctx.all.die.a.1,mit.ctx.all.die.a,mit,vat,usdl,1.0,,
+240,Energy price components (baseline),"LPG, Current Carbon Tax, ($/liter)",egy.mit.ctx.all.lpg.a.1,mit.ctx.all.lpg.a,mit,vat,usdl,1.0,,
+241,Energy price components (baseline),"Kerosene, Current Carbon Tax, ($/liter)",egy.mit.ctx.all.ker.a.1,mit.ctx.all.ker.a,mit,vat,usdl,1.0,,
+242,Energy price components (baseline),"Electricity, Current ETS in industry, ($/kWh)",egy.mit.ets.ind.ecy.t.1,mit.ets.ind.ecy.t,mit,ets,usdkwh,1.0,,
+243,Energy price components (baseline),"Electricity, Current ETS in residential use, ($/kWh)",egy.mit.ets.res.ecy.t.1,mit.ets.res.ecy.t,mit,ets,usdkwh,1.0,,
+244,Energy price components (baseline),"Coal, Current ETS in industry, ($/GJ)",egy.mit.ets.ind.coa.a.1,mit.ets.ind.coa.a,mit,ets,usdgj,1.0,,
+245,Energy price components (baseline),"Natural gas, Current ETS in industry, ($/GJ)",egy.mit.ets.ind.nga.a.1,mit.ets.ind.nga.a,mit,ets,usdgj,1.0,,
+246,Energy price components (baseline),"Coal, Current ETS in residential use, ($/GJ)",egy.mit.ets.res.coa.a.1,mit.ets.res.coa.a,mit,ets,usdgj,1.0,mit.ets.res.coa,reordered
+247,Energy price components (baseline),"Natural gas, Current ETS in residential use, ($/GJ)",egy.mit.ets.res.nga.a.1,mit.ets.res.nga.a,mit,ets,usdgj,1.0,mit.ets.res.nga,reordered
+248,Energy price components (baseline),"Coal, Current ETS in power sector, ($/GJ)",egy.mit.ets.pow.coa.a.1,mit.ets.pow.coa.a,mit,ets,usdgj,1.0,,
+249,Energy price components (baseline),"Natural gas, Current ETS in power sector, ($/GJ)",egy.mit.ets.pow.nga.a.1,mit.ets.pow.nga.a,mit,ets,usdgj,1.0,,
+250,Energy price components (baseline),"Oil, Current ETS, ($/bbl)",egy.mit.ets.all.oop.a.1,mit.ets.all.oop.a,mit,ets,bbusdl,1.0,,
+251,Energy price components (baseline),"Gasoline, Current ETS, ($/liter)",egy.mit.ets.all.gso.a.1,mit.ets.all.gso.a,mit,ets,usdl,1.0,,
+252,Energy price components (baseline),"Diesel, Current ETS, ($/liter)",egy.mit.ets.all.die.a.1,mit.ets.all.die.a,mit,ets,usdl,1.0,,
+253,Energy price components (baseline),"LPG, Current ETS, ($/liter)",egy.mit.ets.all.lpg.a.1,mit.ets.all.lpg.a,mit,ets,usdl,1.0,,
+254,Energy price components (baseline),"Kerosene, Current ETS, ($/liter)",egy.mit.ets.all.ker.a.1,mit.ets.all.ker.a,mit,ets,usdl,1.0,,
+256,Total Carbon Price,Baseline Total Carbon Price - coal,egy.mit.tcp.all.coa.a.1,mit.tcp.all.coa.a,mit,tcp,usd/tCO2,1.0,mit.tcp.all.coa,reordered
+257,Total Carbon Price,Baseline Total Carbon Price - natural gas,egy.mit.tcp.all.nga.a.1,mit.tcp.all.nga.a,mit,tcp,usd/tCO2,1.0,mit.tcp.all.nga,reordered
+258,Total Carbon Price,Baseline Total Carbon Price - gasoline,egy.mit.tcp_csf.rod.gso.a.1,mit.tcp_csf.rod.gso.a,mit,tcp,usd/tCO2,1.0,,
+259,Total Carbon Price,Baseline Total Carbon Price - diesel,egy.mit.tcp_csf.rod.die.a1,mit.tcp_csf.rod.die.a1,mit,tcp,usd/tCO2,1.0,,
+260,Total Carbon Price,Baseline Total Carbon Price - lpg,egy.mit.tcp_csf.res.lpg.a.1,mit.tcp_csf.res.lpg.a,mit,tcp,usd/tCO2,1.0,,
+261,Total Carbon Price,Baseline Total Carbon Price - kerosene,egy.mit.tcp_csf.all.ker.a.1,mit.tcp_csf.all.ker.a,mit,tcp,usd/tCO2,1.0,,
+262,Total Carbon Price,Baseline Total Carbon Price - other oil products,egy.mit.tcp_csf.all.oop.a.1,mit.tcp_csf.all.oop.a,mit,tcp,usd/tCO2,1.0,,
+263,Total Carbon Price,Baseline Total Carbon Price,egy.mit.tcp.all.all.a.1,mit.tcp.all.all.a,mit,tcp,usd/tCO2,1.0,mit.tcp.all.all,reordered
+264,Total Carbon Price,Policy Total Carbon Price - coal,egy.mit.tcp.all.coa.a.2,mit.tcp.all.coa.a,mit,tcp,usd/tCO2,1.0,mit.tcp.all.coa,reordered
+265,Total Carbon Price,Policy Total Carbon Price - natural gas,egy.mit.tcp.all.nga.a.2,mit.tcp.all.nga.a,mit,tcp,usd/tCO2,1.0,mit.tcp.all.nga,reordered
+266,Total Carbon Price,Policy Total Carbon Price - gasoline,egy.mit.tcp_csf.rod.gso.a.2,mit.tcp_csf.rod.gso.a,mit,tcp,usd/tCO2,1.0,,
+267,Total Carbon Price,Policy Total Carbon Price - diesel,egy.mit.tcp_csf.rod.die.a2,mit.tcp_csf.rod.die.a2,mit,tcp,usd/tCO2,1.0,,
+268,Total Carbon Price,Policy Total Carbon Price - lpg,egy.mit.tcp_csf.res.lpg.a.2,mit.tcp_csf.res.lpg.a,mit,tcp,usd/tCO2,1.0,,
+269,Total Carbon Price,Policy Total Carbon Price - kerosene,egy.mit.tcp_csf.all.ker.a.2,mit.tcp_csf.all.ker.a,mit,tcp,usd/tCO2,1.0,,
+270,Total Carbon Price,Policy Total Carbon Price - other oil products,egy.mit.tcp_csf.all.oop.a.2,mit.tcp_csf.all.oop.a,mit,tcp,usd/tCO2,1.0,,
+271,Total Carbon Price,Policy Total Carbon Price,egy.mit.tcp.all.all.a.2,mit.tcp.all.all.a,mit,tcp,usd/tCO2,2.0,mit.tcp.all.all,reordered
+273,Pigouvian taxes,"Gasoline - efficient price, gso, all",egy.mit.eff.price.gso.all.2,mit.eff.price.gso.all,mit,eff_price,usdliter,2,mit.eff.price.all.gso,reordered
+274,Pigouvian taxes,"Supply cost, gso, all",egy.mit.sup.cost.gso.all.2,mit.sup.cost.gso.all,mit,sup_cost,usdliter,2,mit.sup.cost.all.gso,reordered
+275,Pigouvian taxes,"Air pollution costs, gso, all",egy.mit.airpol.cost.gso.all.2,mit.airpol.cost.gso.all,mit,airpol_cost,usdliter,2,mit.airpol.cost.all.gso,reordered
+276,Pigouvian taxes,"Road accident costs, gso, all",egy.mit.acc.cost.gso.all.2,mit.acc.cost.gso.all,mit,acc_cost,usdliter,2,mit.acc.cost.all.gso,reordered
+277,Pigouvian taxes,"Congestion costs, gso, all",egy.mit.con.cost.gso.all.2,mit.con.cost.gso.all,mit,con_cost,usdliter,2,mit.con.cost.all.gso,reordered
+278,Pigouvian taxes,"Road damage costs, gso, all",egy.mit.rdm.cost.gso.all.2,mit.rdm.cost.gso.all,mit,rdm_cost,usdliter,2,,
+279,Pigouvian taxes,"Global warming costs (national), gso, all",egy.mit.scc.cost.gso.all.2,mit.scc.cost.gso.all,mit,scc_cost,usdliter,2,mit.scc.cost.all.gso,reordered
+280,Pigouvian taxes,"Potential VAT (assuming general rate), gso, all",egy.mit.vat.cost.gso.all.2,mit.vat.cost.gso.all,mit,vat_cost,usdliter,2,mit.vat.cost.all.gso,reordered
+281,Pigouvian taxes,"Retail price, gso, all",egy.mit.rp.gso.all.2,mit.rp.gso.all,mit,rp_gso,usdliter,2,,
+282,Pigouvian taxes,"Tax gap, gso, all",egy.mit.tgap.gso.all.2,mit.tgap.gso.all,mit,tgap_gso,usdliter,2,mit.tgap.all.gso,reordered
+283,Pigouvian taxes,"Baseline excises and other taxes, gso, all",egy.mit.txo.all.gso.a.1,mit.txo.all.gso.a,mit,txo,usdliter,1,mit.txo.all.gso,reordered
+284,Pigouvian taxes,"Baseline excises and other taxes - CO2 equivalent, gso, all",egy.mit.txo.co2e.gso.all.1,mit.txo.co2e.gso.all,mit,txo_co2e,usdtonco2,1,mit.txo.co2e.all.gso,reordered
+285,Pigouvian taxes,"Pigouvian tax, gso, all",egy.mit.pig.gso.all.2,mit.pig.gso.all,mit,pig_gso,usdliter,2,mit.pig.all.gso,reordered
+286,Pigouvian taxes,"Pigouvian tax CO2 equivalent, gso, all",egy.mit.pig.co2e.gso.all.2,mit.pig.co2e.gso.all,mit,pig_co2e,usdtonco2,2,mit.pig.co2e.all.gso,reordered
+287,Pigouvian taxes,"Diesel - efficient price, die, all",egy.mit.eff.price.die.all.2,mit.eff.price.die.all,mit,eff_price,usdliter,2,mit.eff.price.all.die,reordered
+288,Pigouvian taxes,"Supply cost, die, all",egy.mit.sup.cost.die.all.2,mit.sup.cost.die.all,mit,sup_cost,usdliter,2,mit.sup.cost.all.die,reordered
+289,Pigouvian taxes,"Air pollution costs, die, all",egy.mit.airpol.cost.die.all.2,mit.airpol.cost.die.all,mit,airpol_cost,usdliter,2,mit.airpol.cost.all.die,reordered
+290,Pigouvian taxes,"Road accident costs, die, all",egy.mit.acc.cost.die.all.2,mit.acc.cost.die.all,mit,acc_cost,usdliter,2,mit.acc.cost.all.die,reordered
+291,Pigouvian taxes,"Congestion costs, die, all",egy.mit.con.cost.die.all.2,mit.con.cost.die.all,mit,con_cost,usdliter,2,mit.con.cost.all.die,reordered
+292,Pigouvian taxes,"Road damage costs, die, all",egy.mit.rdm.cost.die.all.2,mit.rdm.cost.die.all,mit,rdm_cost,usdliter,2,mit.rdm.cost.all.die,reordered
+293,Pigouvian taxes,"Global warming costs (national), die, all",egy.mit.scc.cost.die.all.2,mit.scc.cost.die.all,mit,scc_cost,usdliter,2,mit.scc.cost.all.die,reordered
+294,Pigouvian taxes,"Potential VAT (assuming general rate), die, all",egy.mit.vat.cost.die.all.2,mit.vat.cost.die.all,mit,vat_cost,usdliter,2,mit.vat.cost.all.die,reordered
+295,Pigouvian taxes,"Retail price, die, all",egy.mit.rp.die.all.2,mit.rp.die.all,mit,rp_die,usdliter,2,,
+296,Pigouvian taxes,"Tax gap, die, all",egy.mit.tgap.die.all.2,mit.tgap.die.all,mit,tgap_die,usdliter,2,mit.tgap.all.die,reordered
+297,Pigouvian taxes,"Baseline excises and other taxes, die, all",egy.mit.txo.all.die.a.1,mit.txo.all.die.a,mit,txo,usdliter,1,mit.txo.all.die,reordered
+298,Pigouvian taxes,"Baseline excises and other taxes - CO2 equivalent, die, all",egy.mit.txo.co2e.die.all.1,mit.txo.co2e.die.all,mit,txo_co2e,usdtonco2,1,mit.txo.co2e.all.die,reordered
+299,Pigouvian taxes,"Pigouvian tax, die, all",egy.mit.pig.die.all.2,mit.pig.die.all,mit,pig_die,usdliter,2,mit.pig.all.die,reordered
+300,Pigouvian taxes,"Pigouvian tax CO2 equivalent, die, all",egy.mit.pig.co2e.die.all.2,mit.pig.co2e.die.all,mit,pig_co2e,usdtonco2,2,mit.pig.co2e.all.die,reordered
+301,Pigouvian taxes,"LPG - efficient price, lpg, all",egy.mit.eff.price.lpg.all.2,mit.eff.price.lpg.all,mit,eff_price,usdliter,2,mit.eff.price.all.lpg,reordered
+302,Pigouvian taxes,"Supply cost, lpg, all",egy.mit.sup.cost.lpg.all.2,mit.sup.cost.lpg.all,mit,sup_cost,usdliter,2,mit.sup.cost.all.lpg,reordered
+303,Pigouvian taxes,"Air pollution costs, lpg, all",egy.mit.airpol.cost.lpg.all.2,mit.airpol.cost.lpg.all,mit,airpol_cost,usdliter,2,mit.airpol.cost.all.lpg,reordered
+304,Pigouvian taxes,"Global warming costs (national), lpg, all",egy.mit.scc.cost.lpg.all.2,mit.scc.cost.lpg.all,mit,scc_cost,usdliter,2,mit.scc.cost.all.lpg,reordered
+305,Pigouvian taxes,"Potential VAT (assuming general rate), lpg, all",egy.mit.vat.cost.lpg.all.2,mit.vat.cost.lpg.all,mit,vat_cost,usdliter,2,mit.vat.cost.all.lpg,reordered
+306,Pigouvian taxes,"Retail price, lpg, all",egy.mit.rp.lpg.all.2,mit.rp.lpg.all,mit,rp_lpg,usdliter,2,,
+307,Pigouvian taxes,"Tax gap, lpg, all",egy.mit.tgap.lpg.all.2,mit.tgap.lpg.all,mit,tgap_lpg,usdliter,2,mit.tgap.all.lpg,reordered
+308,Pigouvian taxes,"Baseline excises and other taxes, lpg, all",egy.mit.txo.all.lpg.a.1,mit.txo.all.lpg.a,mit,txo,usdliter,1,mit.txo.all.lpg,reordered
+309,Pigouvian taxes,"Baseline excises and other taxes - CO2 equivalent, lpg, all",egy.mit.txo.co2e.lpg.all.1,mit.txo.co2e.lpg.all,mit,txo_co2e,usdtonco2,1,mit.txo.co2e.all.lpg,reordered
+310,Pigouvian taxes,"Pigouvian tax, lpg, all",egy.mit.pig.lpg.all.2,mit.pig.lpg.all,mit,pig_lpg,usdliter,2,mit.pig.all.lpg,reordered
+311,Pigouvian taxes,"Pigouvian tax CO2 equivalent, lpg, all",egy.mit.pig.co2e.lpg.all.2,mit.pig.co2e.lpg.all,mit,pig_co2e,usdtonco2,2,mit.pig.co2e.all.lpg,reordered
+312,Pigouvian taxes,"Kerosene - efficient price, ker, all",egy.mit.eff.price.ker.all.2,mit.eff.price.ker.all,mit,eff_price,usdliter,2,mit.eff.price.all.ker,reordered
+313,Pigouvian taxes,"Supply cost, ker, all",egy.mit.sup.cost.ker.all.2,mit.sup.cost.ker.all,mit,sup_cost,usdliter,2,mit.sup.cost.all.ker,reordered
+314,Pigouvian taxes,"Air pollution costs, ker, all",egy.mit.airpol.cost.ker.all.2,mit.airpol.cost.ker.all,mit,airpol_cost,usdliter,2,mit.airpol.cost.all.ker,reordered
+315,Pigouvian taxes,"Global warming costs (national), ker, all",egy.mit.scc.cost.ker.all.2,mit.scc.cost.ker.all,mit,scc_cost,usdliter,2,mit.scc.cost.all.ker,reordered
+316,Pigouvian taxes,"Potential VAT (assuming general rate), ker, all",egy.mit.vat.cost.ker.all.2,mit.vat.cost.ker.all,mit,vat_cost,usdliter,2,mit.vat.cost.all.ker,reordered
+317,Pigouvian taxes,"Retail price, ker, all",egy.mit.rp.ker.all.2,mit.rp.ker.all,mit,rp_ker,usdliter,2,,
+318,Pigouvian taxes,"Tax gap, ker, all",egy.mit.tgap.ker.all.2,mit.tgap.ker.all,mit,tgap_ker,usdliter,2,mit.tgap.all.ker,reordered
+319,Pigouvian taxes,"Baseline excises and other taxes, ker, all",egy.mit.txo.all.ker.a.1,mit.txo.all.ker.a,mit,txo,usdliter,1,mit.txo.all.ker,reordered
+320,Pigouvian taxes,"Baseline excises and other taxes - CO2 equivalent, ker, all",egy.mit.txo.co2e.ker.all.1,mit.txo.co2e.ker.all,mit,txo_co2e,usdtonco2,1,mit.txo.co2e.all.ker,reordered
+321,Pigouvian taxes,"Pigouvian tax, ker, all",egy.mit.pig.ker.all.2,mit.pig.ker.all,mit,pig_ker,usdliter,2,mit.pig.all.ker,reordered
+322,Pigouvian taxes,"Pigouvian tax CO2 equivalent, ker, all",egy.mit.pig.co2e.ker.all.2,mit.pig.co2e.ker.all,mit,pig_co2e,usdtonco2,2,mit.pig.co2e.all.ker,reordered
+323,Pigouvian taxes,"Coal in industry - efficient price, coa, ind",egy.mit.eff.price.coa.ind.2,mit.eff.price.coa.ind,mit,eff_price,usdGJ,2,mit.eff.price.ind.coa,reordered
+324,Pigouvian taxes,"Supply cost, coa, ind",egy.mit.sup.cost.coa.ind.2,mit.sup.cost.coa.ind,mit,sup_cost,usdGJ,2,mit.sup.cost.ind.coa,reordered
+325,Pigouvian taxes,"Air pollution costs, coa, ind",egy.mit.airpol.cost.coa.ind.2,mit.airpol.cost.coa.ind,mit,airpol_cost,usdGJ,2,mit.airpol.cost.ind.coa,reordered
+326,Pigouvian taxes,"Global warming costs (national), coa, ind",egy.mit.scc.cost.coa.ind.2,mit.scc.cost.coa.ind,mit,scc_cost,usdGJ,2,mit.scc.cost.ind.coa,reordered
+327,Pigouvian taxes,"Potential VAT (assuming general rate), coa, ind",egy.mit.vat.cost.coa.ind.2,mit.vat.cost.coa.ind,mit,vat_cost,usdGJ,2,mit.vat.cost.ind.coa,reordered
+328,Pigouvian taxes,"Retail price, coa, ind",egy.mit.rp.coa.ind.2,mit.rp.coa.ind,mit,rp_coa,usdGJ,2,,
+329,Pigouvian taxes,"Tax gap, coa, ind",egy.mit.tgap.coa.ind.2,mit.tgap.coa.ind,mit,tgap_coa,usdGJ,2,mit.tgap.ind.coa,reordered
+330,Pigouvian taxes,"Baseline excises and other taxes, coa, ind",egy.mit.txo.ind.coa.a.1,mit.txo.ind.coa.a,mit,txo_ind,usdGJ,1,mit.txo.ind.coa,reordered
+331,Pigouvian taxes,"Baseline excises and other taxes - CO2 equivalent, coa, ind",egy.mit.txo.co2e.coa.ind.1,mit.txo.co2e.coa.ind,mit,txo_co2e,usdtonco2,1,mit.txo.co2e.ind.coa,reordered
+332,Pigouvian taxes,"Pigouvian tax, coa, ind",egy.mit.pig.coa.ind.2,mit.pig.coa.ind,mit,pig_coa,usdGJ,2,mit.pig.ind.coa,reordered
+333,Pigouvian taxes,"Pigouvian tax CO2 equivalent, coa, ind",egy.mit.pig.co2e.coa.ind.2,mit.pig.co2e.coa.ind,mit,pig_co2e,usdtonco2,2,mit.pig.co2e.ind.coa,reordered
+334,Pigouvian taxes,"Coal in residential - efficient price, coa, res",egy.mit.eff.price.coa.res.2,mit.eff.price.coa.res,mit,eff_price,usdGJ,2,mit.eff.price.res.coa,reordered
+335,Pigouvian taxes,"Supply cost, coa, res",egy.mit.sup.cost.coa.res.2,mit.sup.cost.coa.res,mit,sup_cost,usdGJ,2,mit.sup.cost.res.coa,reordered
+336,Pigouvian taxes,"Air pollution costs, coa, res",egy.mit.airpol.cost.coa.res.2,mit.airpol.cost.coa.res,mit,airpol_cost,usdGJ,2,mit.airpol.cost.res.coa,reordered
+337,Pigouvian taxes,"Global warming costs (national), coa, res",egy.mit.scc.cost.coa.res.2,mit.scc.cost.coa.res,mit,scc_cost,usdGJ,2,mit.scc.cost.res.coa,reordered
+338,Pigouvian taxes,"Potential VAT (assuming general rate), coa, res",egy.mit.vat.cost.coa.res.2,mit.vat.cost.coa.res,mit,vat_cost,usdGJ,2,mit.vat.cost.res.coa,reordered
+339,Pigouvian taxes,"Retail price, coa, res",egy.mit.rp.coa.res.2,mit.rp.coa.res,mit,rp_coa,usdGJ,2,,
+340,Pigouvian taxes,"Tax gap, coa, res",egy.mit.tgap.coa.res.2,mit.tgap.coa.res,mit,tgap_coa,usdGJ,2,mit.tgap.res.coa,reordered
+341,Pigouvian taxes,"Baseline excises and other taxes, coa, res",egy.mit.txo.res.coa.a.1,mit.txo.res.coa.a,mit,txo_res,usdGJ,1,mit.txo.res.coa,reordered
+342,Pigouvian taxes,"Baseline excises and other taxes - CO2 equivalent, coa, res",egy.mit.txo.co2e.coa.res.1,mit.txo.co2e.coa.res,mit,txo_co2e,usdtonco2,1,mit.txo.co2e.res.coa,reordered
+343,Pigouvian taxes,"Pigouvian tax, coa, res",egy.mit.pig.coa.res.2,mit.pig.coa.res,mit,pig_coa,usdGJ,2,mit.pig.res.coa,reordered
+344,Pigouvian taxes,"Pigouvian tax CO2 equivalent, coa, res",egy.mit.pig.co2e.coa.res.2,mit.pig.co2e.coa.res,mit,pig_co2e,usdtonco2,2,mit.pig.co2e.res.coa,reordered
+345,Pigouvian taxes,"Coal in power - efficient price, coa, pow",egy.mit.eff.price.coa.pow.2,mit.eff.price.coa.pow,mit,eff_price,usdGJ,2,mit.eff.price.pow.coa,reordered
+346,Pigouvian taxes,"Supply cost, coa, pow",egy.mit.sup.cost.coa.pow.2,mit.sup.cost.coa.pow,mit,sup_cost,usdGJ,2,mit.sup.cost.pow.coa,reordered
+347,Pigouvian taxes,"Air pollution costs, coa, pow",egy.mit.airpol.cost.coa.pow.2,mit.airpol.cost.coa.pow,mit,airpol_cost,usdGJ,2,mit.airpol.cost.pow.coa,reordered
+348,Pigouvian taxes,"Global warming costs (national), coa, pow",egy.mit.scc.cost.coa.pow.2,mit.scc.cost.coa.pow,mit,scc_cost,usdGJ,2,mit.scc.cost.pow.coa,reordered
+349,Pigouvian taxes,"Potential VAT (assuming general rate), coa, pow",egy.mit.vat.cost.coa.pow.2,mit.vat.cost.coa.pow,mit,vat_cost,usdGJ,2,mit.vat.cost.pow.coa,reordered
+350,Pigouvian taxes,"Retail price, coa, pow",egy.mit.rp.coa.pow.2,mit.rp.coa.pow,mit,rp_coa,usdGJ,2,,
+351,Pigouvian taxes,"Tax gap, coa, pow",egy.mit.tgap.coa.pow.2,mit.tgap.coa.pow,mit,tgap_coa,usdGJ,2,mit.tgap.pow.coa,reordered
+352,Pigouvian taxes,"Baseline excises and other taxes, coa, pow",egy.mit.txo.pow.coa.a.1,mit.txo.pow.coa.a,mit,txo_pow,usdGJ,1,mit.txo.pow.coa,reordered
+353,Pigouvian taxes,"Baseline excises and other taxes - CO2 equivalent, coa, pow",egy.mit.txo.co2e.coa.pow.1,mit.txo.co2e.coa.pow,mit,txo_co2e,usdtonco2,1,mit.txo.co2e.pow.coa,reordered
+354,Pigouvian taxes,"Pigouvian tax, coa, pow",egy.mit.pig.coa.pow.2,mit.pig.coa.pow,mit,pig_coa,usdGJ,2,mit.pig.pow.coa,reordered
+355,Pigouvian taxes,"Pigouvian tax CO2 equivalent, coa, pow",egy.mit.pig.co2e.coa.pow.2,mit.pig.co2e.coa.pow,mit,pig_co2e,usdtonco2,2,mit.pig.co2e.pow.coa,reordered
+356,Pigouvian taxes,"Natural gas in industry - efficient price, nga, ind",egy.mit.eff.price.nga.ind.2,mit.eff.price.nga.ind,mit,eff_price,usdGJ,2,mit.eff.price.ind.nga,reordered
+357,Pigouvian taxes,"Supply cost, nga, ind",egy.mit.sup.cost.nga.ind.2,mit.sup.cost.nga.ind,mit,sup_cost,usdGJ,2,mit.sup.cost.ind.nga,reordered
+358,Pigouvian taxes,"Air pollution costs, nga, ind",egy.mit.airpol.cost.nga.ind.2,mit.airpol.cost.nga.ind,mit,airpol_cost,usdGJ,2,mit.airpol.cost.ind.nga,reordered
+359,Pigouvian taxes,"Global warming costs (national), nga, ind",egy.mit.scc.cost.nga.ind.2,mit.scc.cost.nga.ind,mit,scc_cost,usdGJ,2,mit.scc.cost.ind.nga,reordered
+360,Pigouvian taxes,"Potential VAT (assuming general rate), nga, ind",egy.mit.vat.cost.nga.ind.2,mit.vat.cost.nga.ind,mit,vat_cost,usdGJ,2,mit.vat.cost.ind.nga,reordered
+361,Pigouvian taxes,"Retail price, nga, ind",egy.mit.rp.nga.ind.2,mit.rp.nga.ind,mit,rp_nga,usdGJ,2,,
+362,Pigouvian taxes,"Tax gap, nga, ind",egy.mit.tgap.nga.ind.2,mit.tgap.nga.ind,mit,tgap_nga,usdGJ,2,mit.tgap.ind.nga,reordered
+363,Pigouvian taxes,"Baseline excises and other taxes, nga, ind",egy.mit.txo.ind.nga.a.1,mit.txo.ind.nga.a,mit,txo_ind,usdGJ,1,mit.txo.ind.nga,reordered
+364,Pigouvian taxes,"Baseline excises and other taxes - CO2 equivalent, nga, ind",egy.mit.txo.co2e.nga.ind.1,mit.txo.co2e.nga.ind,mit,txo_co2e,usdtonco2,1,mit.txo.co2e.ind.nga,reordered
+365,Pigouvian taxes,"Pigouvian tax, nga, ind",egy.mit.pig.nga.ind.2,mit.pig.nga.ind,mit,pig_nga,usdGJ,2,mit.pig.ind.nga,reordered
+366,Pigouvian taxes,"Pigouvian tax CO2 equivalent, nga, ind",egy.mit.pig.co2e.nga.ind.2,mit.pig.co2e.nga.ind,mit,pig_co2e,usdtonco2,2,mit.pig.co2e.ind.nga,reordered
+367,Pigouvian taxes,"Natural gas in residential - efficient price, nga, res",egy.mit.eff.price.nga.res.2,mit.eff.price.nga.res,mit,eff_price,usdGJ,2,mit.eff.price.res.nga,reordered
+368,Pigouvian taxes,"Supply cost, nga, res",egy.mit.sup.cost.nga.res.2,mit.sup.cost.nga.res,mit,sup_cost,usdGJ,2,mit.sup.cost.res.nga,reordered
+369,Pigouvian taxes,"Air pollution costs, nga, res",egy.mit.airpol.cost.nga.res.2,mit.airpol.cost.nga.res,mit,airpol_cost,usdGJ,2,mit.airpol.cost.res.nga,reordered
+370,Pigouvian taxes,"Global warming costs (national), nga, res",egy.mit.scc.cost.nga.res.2,mit.scc.cost.nga.res,mit,scc_cost,usdGJ,2,mit.scc.cost.res.nga,reordered
+371,Pigouvian taxes,"Potential VAT (assuming general rate), nga, res",egy.mit.vat.cost.nga.res.2,mit.vat.cost.nga.res,mit,vat_cost,usdGJ,2,mit.vat.cost.res.nga,reordered
+372,Pigouvian taxes,"Retail price, nga, res",egy.mit.rp.nga.res.2,mit.rp.nga.res,mit,rp_nga,usdGJ,2,,
+373,Pigouvian taxes,"Tax gap, nga, res",egy.mit.tgap.nga.res.2,mit.tgap.nga.res,mit,tgap_nga,usdGJ,2,mit.tgap.res.nga,reordered
+374,Pigouvian taxes,"Baseline excises and other taxes, nga, res",egy.mit.txo.res.nga.a.1,mit.txo.res.nga.a,mit,txo_res,usdGJ,1,mit.txo.res.nga,reordered
+375,Pigouvian taxes,"Baseline excises and other taxes - CO2 equivalent, nga, res",egy.mit.txo.co2e.nga.res.1,mit.txo.co2e.nga.res,mit,txo_co2e,usdtonco2,1,mit.txo.co2e.res.nga,reordered
+376,Pigouvian taxes,"Pigouvian tax, nga, res",egy.mit.pig.nga.res.2,mit.pig.nga.res,mit,pig_nga,usdGJ,2,mit.pig.res.nga,reordered
+377,Pigouvian taxes,"Pigouvian tax CO2 equivalent, nga, res",egy.mit.pig.co2e.nga.res.2,mit.pig.co2e.nga.res,mit,pig_co2e,usdtonco2,2,mit.pig.co2e.res.nga,reordered
+378,Pigouvian taxes,"Natural gas in power - efficient price, nga, pow",egy.mit.eff.price.nga.pow.2,mit.eff.price.nga.pow,mit,eff_price,usdGJ,2,mit.eff.price.pow.nga,reordered
+379,Pigouvian taxes,"Supply cost, nga, pow",egy.mit.sup.cost.nga.pow.2,mit.sup.cost.nga.pow,mit,sup_cost,usdGJ,2,mit.sup.cost.pow.nga,reordered
+380,Pigouvian taxes,"Air pollution costs, nga, pow",egy.mit.airpol.cost.nga.pow.2,mit.airpol.cost.nga.pow,mit,airpol_cost,usdGJ,2,mit.airpol.cost.pow.nga,reordered
+381,Pigouvian taxes,"Global warming costs (national), nga, pow",egy.mit.scc.cost.nga.pow.2,mit.scc.cost.nga.pow,mit,scc_cost,usdGJ,2,mit.scc.cost.pow.nga,reordered
+382,Pigouvian taxes,"Potential VAT (assuming general rate), nga, pow",egy.mit.vat.cost.nga.pow.2,mit.vat.cost.nga.pow,mit,vat_cost,usdGJ,2,mit.vat.cost.pow.nga,reordered
+383,Pigouvian taxes,"Retail price, nga, pow",egy.mit.rp.nga.pow.2,mit.rp.nga.pow,mit,rp_nga,usdGJ,2,,
+384,Pigouvian taxes,"Tax gap, nga, pow",egy.mit.tgap.nga.pow.2,mit.tgap.nga.pow,mit,tgap_nga,usdGJ,2,mit.tgap.pow.nga,reordered
+385,Pigouvian taxes,"Baseline excises and other taxes, nga, pow",egy.mit.txo.pow.nga.a.1,mit.txo.pow.nga.a,mit,txo_pow,usdGJ,1,mit.txo.pow.nga,reordered
+386,Pigouvian taxes,"Baseline excises and other taxes - CO2 equivalent, nga, pow",egy.mit.txo.co2e.nga.pow.1,mit.txo.co2e.nga.pow,mit,txo_co2e,usdtonco2,1,mit.txo.co2e.pow.nga,reordered
+387,Pigouvian taxes,"Pigouvian tax, nga, pow",egy.mit.pig.nga.pow.2,mit.pig.nga.pow,mit,pig_nga,usdGJ,2,mit.pig.pow.nga,reordered
+388,Pigouvian taxes,"Pigouvian tax CO2 equivalent, nga, pow",egy.mit.pig.co2e.nga.pow.2,mit.pig.co2e.nga.pow,mit,pig_co2e,usdtonco2,2,mit.pig.co2e.pow.nga,reordered
+389,Pigouvian taxes,"Electricity in industry - efficient price, ecy, ind",egy.mit.eff.price.ecy.ind.2,mit.eff.price.ecy.ind,mit,eff_price,usdkwh,2,mit.eff.price.ind.ecy,reordered
+390,Pigouvian taxes,"Supply cost, ecy, ind",egy.mit.sup.cost.ecy.ind.2,mit.sup.cost.ecy.ind,mit,sup_cost,usdkwh,2,mit.sup.cost.ind.ecy,reordered
+391,Pigouvian taxes,"Air pollution costs, ecy, ind",egy.mit.airpol.cost.ecy.ind.2,mit.airpol.cost.ecy.ind,mit,airpol_cost,usdkwh,2,,
+392,Pigouvian taxes,"Global warming costs (national), ecy, ind",egy.mit.scc.cost.ecy.ind.2,mit.scc.cost.ecy.ind,mit,scc_cost,usdkwh,2,mit.scc.cost.ind.ecy,reordered
+393,Pigouvian taxes,"Potential VAT (assuming general rate), ecy, ind",egy.mit.vat.cost.ecy.ind.2,mit.vat.cost.ecy.ind,mit,vat_cost,usdkwh,2,mit.vat.cost.ind.ecy,reordered
+394,Pigouvian taxes,"Retail price, ecy, ind",egy.mit.rp.ecy.ind.2,mit.rp.ecy.ind,mit,rp_ecy,usdkwh,2,mit.rp.ind.ecy,reordered
+395,Pigouvian taxes,"Tax gap, ecy, ind",egy.mit.tgap.ecy.ind.2,mit.tgap.ecy.ind,mit,tgap_ecy,usdkwh,2,mit.tgap.ind.ecy,reordered
+396,Pigouvian taxes,"Baseline excises and other taxes, ecy, ind",egy.mit.txo.ind.ecy.t.1,mit.txo.ind.ecy.t,mit,txo_ind,usdkwh,1,,
+397,Pigouvian taxes,"Baseline excises and other taxes - CO2 equivalent, ecy, ind",egy.mit.txo.co2e.ecy.ind.1,mit.txo.co2e.ecy.ind,mit,txo_co2e,usdtonco2,1,mit.txo.co2e.ind.ecy,reordered
+398,Pigouvian taxes,"Pigouvian tax, ecy, ind",egy.mit.pig.ecy.ind.2,mit.pig.ecy.ind,mit,pig_ecy,usdkwh,2,mit.pig.ind.ecy,reordered
+399,Pigouvian taxes,"Pigouvian tax CO2 equivalent, ecy, ind",egy.mit.pig.co2e.ecy.ind.2,mit.pig.co2e.ecy.ind,mit,pig_co2e,usdtonco2,2,mit.pig.co2e.ind.ecy,reordered
+400,Pigouvian taxes,"Electricity in residential - efficient price, ecy, res",egy.mit.eff.price.ecy.res.2,mit.eff.price.ecy.res,mit,eff_price,usdkwh,2,mit.eff.price.res.ecy,reordered
+401,Pigouvian taxes,"Supply cost, ecy, res",egy.mit.sup.cost.ecy.res.2,mit.sup.cost.ecy.res,mit,sup_cost,usdkwh,2,mit.sup.cost.res.ecy,reordered
+402,Pigouvian taxes,"Air pollution costs, ecy, res",egy.mit.airpol.cost.ecy.res.2,mit.airpol.cost.ecy.res,mit,airpol_cost,usdkwh,2,,
+403,Pigouvian taxes,"Global warming costs (national), ecy, res",egy.mit.scc.cost.ecy.res.2,mit.scc.cost.ecy.res,mit,scc_cost,usdkwh,2,mit.scc.cost.res.ecy,reordered
+404,Pigouvian taxes,"Potential VAT (assuming general rate), ecy, res",egy.mit.vat.cost.ecy.res.2,mit.vat.cost.ecy.res,mit,vat_cost,usdkwh,2,mit.vat.cost.res.ecy,reordered
+405,Pigouvian taxes,"Retail price, ecy, res",egy.mit.rp.ecy.res.2,mit.rp.ecy.res,mit,rp_ecy,usdkwh,2,mit.rp.res.ecy,reordered
+406,Pigouvian taxes,"Tax gap residential, ecy, res",egy.mit.tgap.ecy.res.2,mit.tgap.ecy.res,mit,tgap_ecy,usdkwh,2,mit.tgap.res.ecy,reordered
+407,Pigouvian taxes,"Baseline excises and other taxes, ecy, res",egy.mit.txo.res.ecy.t.1,mit.txo.res.ecy.t,mit,txo_res,usdkwh,1,,
+408,Pigouvian taxes,"Baseline excises and other taxes - CO2 equivalent, ecy, res",egy.mit.txo.co2e.ecy.res.1,mit.txo.co2e.ecy.res,mit,txo_co2e,usdtonco2,1,mit.txo.co2e.res.ecy,reordered
+409,Pigouvian taxes,"Pigouvian tax, ecy, res",egy.mit.pig.ecy.res.2,mit.pig.ecy.res,mit,pig_ecy,usdkwh,2,mit.pig.res.ecy,reordered
+410,Pigouvian taxes,"Pigouvian tax CO2 equivalent, ecy, res",egy.mit.pig.co2e.ecy.res.2,mit.pig.co2e.ecy.res,mit,pig_co2e,usdtonco2,2,mit.pig.co2e.res.ecy,reordered
+411,Pigouvian taxes,"Pigouvian tax CO2 equivalent, all sectors, all fossil fuels, baseline",egy.mit.pig.co2e.all.all.1,mit.pig.co2e.all.all,mit,pig_co2e,usdtonco2,1,,
+412,Pigouvian taxes,"Pigouvian tax CO2 equivalent, all sectors, all fossil fuels, scenario",egy.mit.pig.co2e.all.all.2,mit.pig.co2e.all.all,mit,pig_co2e,usdtonco2,2,,
+413,Pigouvian taxes,"Air pollution Pigouvian tax CO2 equivalent, all, gso",egy.mit.app.gso.all.2,mit.app.gso.all,mit,app_co2e,usdtonco2,2,mit.app.all.gso,reordered
+414,Pigouvian taxes,"Air pollution Pigouvian tax CO2 equivalent, all, die",egy.mit.app.die.all.2,mit.app.die.all,mit,app_co2e,usdtonco2,2,mit.app.all.die,reordered
+415,Pigouvian taxes,"Air pollution Pigouvian tax CO2 equivalent, all, lpg",egy.mit.app.lpg.all.2,mit.app.lpg.all,mit,app_co2e,usdtonco2,2,mit.app.all.lpg,reordered
+416,Pigouvian taxes,"Air pollution Pigouvian tax CO2 equivalent, all, ker",egy.mit.app.ker.all.2,mit.app.ker.all,mit,app_co2e,usdtonco2,2,mit.app.all.ker,reordered
+417,Pigouvian taxes,"Air pollution Pigouvian tax CO2 equivalent, ind, coa",egy.mit.app.coa.ind.2,mit.app.coa.ind,mit,app_co2e,usdtonco2,2,mit.app.ind.coa,reordered
+418,Pigouvian taxes,"Air pollution Pigouvian tax CO2 equivalent, res, coa",egy.mit.app.coa.res.2,mit.app.coa.res,mit,app_co2e,usdtonco2,2,mit.app.res.coa,reordered
+419,Pigouvian taxes,"Air pollution Pigouvian tax CO2 equivalent, pow, coa",egy.mit.app.coa.pow.2,mit.app.coa.pow,mit,app_co2e,usdtonco2,2,mit.app.pow.coa,reordered
+420,Pigouvian taxes,"Air pollution Pigouvian tax CO2 equivalent, ind, nga",egy.mit.app.nga.ind.2,mit.app.nga.ind,mit,app_co2e,usdtonco2,2,mit.app.ind.nga,reordered
+421,Pigouvian taxes,"Air pollution Pigouvian tax CO2 equivalent, res, nga",egy.mit.app.nga.res.2,mit.app.nga.res,mit,app_co2e,usdtonco2,2,mit.app.res.nga,reordered
+422,Pigouvian taxes,"Air pollution Pigouvian tax CO2 equivalent, pow, nga",egy.mit.app.nga.pow.2,mit.app.nga.pow,mit,app_co2e,usdtonco2,2,mit.app.pow.nga,reordered
+423,Pigouvian taxes,"Air pollution Pigouvian tax CO2 equivalent, all sectors, all fossil fuels, baseline",egy.mit.app.co2e.all.all.1,mit.app.co2e.all.all,mit,app_co2e,usdtonco2,1,,
+424,Pigouvian taxes,"Air pollution Pigouvian tax CO2 equivalent, all sectors, all fossil fuels, baseline",egy.mit.app.co2e.all.all.2,mit.app.co2e.all.all,mit,app_co2e,usdtonco2,2,,
+425,Pigouvian taxes,Selected Social Cost of Carbon (usd per ton CO2),egy.mit.scc.1,mit.scc,mit,sel_scc,usdtonco2,1,,
+427,Energy consumption,"Total Energy consumption, ktoe (baseline)",egy.mit.ener.con.tot.1,mit.ener.con.tot,mit,ener,ktoe,1.0,,
+428,Energy consumption,Energy consumption - Coal (baseline),egy.mit.ener.con.coa.1,mit.ener.con.coa,mit,ener,ktoe,1.0,,
+429,Energy consumption,Energy consumption - Natural gas (baseline),egy.mit.ener.con.nga.1,mit.ener.con.nga,mit,ener,ktoe,1.0,,
+430,Energy consumption,Energy consumption - Non-road oil (baseline),egy.mit.ener.con.oop.1,mit.ener.con.oop,mit,ener,ktoe,1.0,,
+431,Energy consumption,Energy consumption - Gasoline (baseline),egy.mit.ener.con.gso.1,mit.ener.con.gso,mit,ener,ktoe,1.0,,
+432,Energy consumption,Energy consumption - Diesel (baseline),egy.mit.ener.con.die.1,mit.ener.con.die,mit,ener,ktoe,1.0,,
+433,Energy consumption,Energy consumption - LPG (baseline),egy.mit.ener.con.lpg.1,mit.ener.con.lpg,mit,ener,ktoe,1.0,,
+434,Energy consumption,Energy consumption - Kerosene (baseline),egy.mit.ener.con.ker.1,mit.ener.con.ker,mit,ener,ktoe,1.0,,
+435,Energy consumption,Energy consumption - Nuclear final electricity (baseline),egy.mit.ener.con.nuc.1,mit.ener.con.nuc,mit,ener,ktoe,1.0,,
+436,Energy consumption,Energy consumption - Non-biomass renewable final electricity (baseline),egy.mit.ener.con.rnw.1,mit.ener.con.rnw,mit,ener,ktoe,1.0,,
+437,Energy consumption,Energy consumption - Biomass (baseline),egy.mit.ener.con.bio.1,mit.ener.con.bio,mit,ener,ktoe,1.0,,
+438,Energy consumption,"Total Energy consumption, ktoe (policy)",egy.mit.ener.con.tot.2,mit.ener.con.tot,mit,ener,ktoe,2.0,,
+439,Energy consumption,Energy consumption - Coal (policy),egy.mit.ener.con.coa.2,mit.ener.con.coa,mit,ener,ktoe,2.0,,
+440,Energy consumption,Energy consumption - Natural gas (policy),egy.mit.ener.con.nga.2,mit.ener.con.nga,mit,ener,ktoe,2.0,,
+441,Energy consumption,Energy consumption - Non-road oil (policy),egy.mit.ener.con.oop.2,mit.ener.con.oop,mit,ener,ktoe,2.0,,
+442,Energy consumption,Energy consumption - Gasoline (policy),egy.mit.ener.con.gso.2,mit.ener.con.gso,mit,ener,ktoe,2.0,,
+443,Energy consumption,Energy consumption - Diesel (policy),egy.mit.ener.con.die.2,mit.ener.con.die,mit,ener,ktoe,2.0,,
+444,Energy consumption,Energy consumption - LPG (policy),egy.mit.ener.con.lpg.2,mit.ener.con.lpg,mit,ener,ktoe,2.0,,
+445,Energy consumption,Energy consumption - Kerosene (policy),egy.mit.ener.con.ker.2,mit.ener.con.ker,mit,ener,ktoe,2.0,,
+446,Energy consumption,Energy consumption - Nuclear final electricity (policy),egy.mit.ener.con.nuc.2,mit.ener.con.nuc,mit,ener,ktoe,2.0,,
+447,Energy consumption,Energy consumption - Non-biomass renewable final electricity (policy),egy.mit.ener.con.rnw.2,mit.ener.con.rnw,mit,ener,ktoe,2.0,,
+448,Energy consumption,Energy consumption - Biomass (policy),egy.mit.ener.con.bio.2,mit.ener.con.bio,mit,ener,ktoe,2.0,,
+449,Energy consumption,Fossil fuel consumption by sector: coal (baseline),egy.mit.ener.con.coa.1,mit.ener.con.coa,mit,ener,ktoe,1.0,,
+450,Energy consumption,Coal consumption: Power sector (baseline),egy.mit.ener.coa.pow.1,mit.ener.coa.pow,mit,ener,ktoe,1.0,,
+451,Energy consumption,Coal consumption: Transport (baseline),egy.mit.ener.coa.tra.1,mit.ener.coa.tra,mit,ener,ktoe,1.0,,
+452,Energy consumption,Coal consumption: Buildings (baseline),egy.mit.ener.coa.res.1,mit.ener.coa.res,mit,ener,ktoe,1.0,mit.ener.res.coa,reordered
+453,Energy consumption,Coal consumption: Industry (baseline),egy.mit.ener.coa.ind.1,mit.ener.coa.ind,mit,ener,ktoe,1.0,,
+454,Energy consumption,Coal consumption: Other energy use (baseline),egy.mit.ener.coa.oen.1,mit.ener.coa.oen,mit,ener,ktoe,1.0,mit.ener.oen.coa,reordered
+455,Energy consumption,Fossil fuel consumption by sector: natural gas (baseline),egy.mit.ener.con.nga.1,mit.ener.con.nga,mit,ener,ktoe,1.0,,
+456,Energy consumption,Natural gas consumption: Power sector (baseline),egy.mit.ener.nga.pow.1,mit.ener.nga.pow,mit,ener,ktoe,1.0,,
+457,Energy consumption,Natural gas consumption: Transport (baseline),egy.mit.ener.nga.tra.1,mit.ener.nga.tra,mit,ener,ktoe,1.0,,
+458,Energy consumption,Natural gas consumption: Buildings (baseline),egy.mit.ener.nga.res.1,mit.ener.nga.res,mit,ener,ktoe,1.0,mit.ener.res.nga,reordered
+459,Energy consumption,Natural gas consumption: Industry (baseline),egy.mit.ener.nga.ind.1,mit.ener.nga.ind,mit,ener,ktoe,1.0,,
+460,Energy consumption,Natural gas consumption: Other energy use (baseline),egy.mit.ener.nga.oen.1,mit.ener.nga.oen,mit,ener,ktoe,1.0,mit.ener.oen.nga,reordered
+461,Energy consumption,Fossil fuel consumption by sector: gasoline (baseline),egy.mit.ener.con.gso.1,mit.ener.con.gso,mit,ener,ktoe,1.0,,
+462,Energy consumption,Gasoline consumption: Power sector (baseline),egy.mit.ener.gso.pow.1,mit.ener.gso.pow,mit,ener,ktoe,1.0,,
+463,Energy consumption,Gasoline consumption: Transport (baseline),egy.mit.ener.gso.tra.1,mit.ener.gso.tra,mit,ener,ktoe,1.0,,
+464,Energy consumption,Gasoline consumption: Buildings (baseline),egy.mit.ener.gso.res.1,mit.ener.gso.res,mit,ener,ktoe,1.0,mit.ener.res.gso,reordered
+465,Energy consumption,Gasoline consumption: Industry (baseline),egy.mit.ener.gso.ind.1,mit.ener.gso.ind,mit,ener,ktoe,1.0,,
+466,Energy consumption,Gasoline consumption: Other energy use (baseline),egy.mit.ener.gso.oen.1,mit.ener.gso.oen,mit,ener,ktoe,1.0,mit.ener.oen.gso,reordered
+467,Energy consumption,Fossil fuel consumption by sector: diesel (baseline),egy.mit.ener.con.die.1,mit.ener.con.die,mit,ener,ktoe,1.0,,
+468,Energy consumption,Diesel consumption: Power sector (baseline),egy.mit.ener.die.pow.1,mit.ener.die.pow,mit,ener,ktoe,1.0,,
+469,Energy consumption,Diesel consumption: Transport (baseline),egy.mit.ener.die.tra.1,mit.ener.die.tra,mit,ener,ktoe,1.0,,
+470,Energy consumption,Diesel consumption: Buildings (baseline),egy.mit.ener.die.res.1,mit.ener.die.res,mit,ener,ktoe,1.0,mit.ener.res.die,reordered
+471,Energy consumption,Diesel consumption: Industry (baseline),egy.mit.ener.die.ind.1,mit.ener.die.ind,mit,ener,ktoe,1.0,,
+472,Energy consumption,Diesel consumption: Other energy use (baseline),egy.mit.ener.die.oen.1,mit.ener.die.oen,mit,ener,ktoe,1.0,mit.ener.oen.die,reordered
+473,Energy consumption,Fossil fuel consumption by sector: LPG (baseline),egy.mit.ener.con.lpg.1,mit.ener.con.lpg,mit,ener,ktoe,1.0,,
+474,Energy consumption,LPG consumption: Power sector (baseline),egy.mit.ener.lpg.pow.1,mit.ener.lpg.pow,mit,ener,ktoe,1.0,,
+475,Energy consumption,LPG consumption: Transport (baseline),egy.mit.ener.lpg.tra.1,mit.ener.lpg.tra,mit,ener,ktoe,1.0,,
+476,Energy consumption,LPG consumption: Buildings (baseline),egy.mit.ener.lpg.res.1,mit.ener.lpg.res,mit,ener,ktoe,1.0,mit.ener.res.lpg,reordered
+477,Energy consumption,LPG consumption: Industry (baseline),egy.mit.ener.lpg.ind.1,mit.ener.lpg.ind,mit,ener,ktoe,1.0,,
+478,Energy consumption,LPG consumption: Other energy use (baseline),egy.mit.ener.lpg.oen.1,mit.ener.lpg.oen,mit,ener,ktoe,1.0,mit.ener.oen.lpg,reordered
+479,Energy consumption,Fossil fuel consumption by sector: kerosene and jet fuel (baseline),egy.mit.ener.con.ker.1,mit.ener.con.ker,mit,ener,ktoe,1.0,,
+480,Energy consumption,Kerosene and jet fuel consumption: Power sector (baseline),egy.mit.ener.ker.pow.1,mit.ener.ker.pow,mit,ener,ktoe,1.0,,
+481,Energy consumption,Kerosene and jet fuel consumption: Transport (baseline),egy.mit.ener.ker.tra.1,mit.ener.ker.tra,mit,ener,ktoe,1.0,,
+482,Energy consumption,Kerosene and jet fuel consumption: Buildings(baseline),egy.mit.ener.ker.res.1,mit.ener.ker.res,mit,ener,ktoe,1.0,mit.ener.res.ker,reordered
+483,Energy consumption,Kerosene and jet fuel consumption: Industry (baseline),egy.mit.ener.ker.ind.1,mit.ener.ker.ind,mit,ener,ktoe,1.0,,
+484,Energy consumption,Kerosene and jet fuel consumption: Other energy use (baseline),egy.mit.ener.ker.oen.1,mit.ener.ker.oen,mit,ener,ktoe,1.0,mit.ener.oen.ker,reordered
+485,Energy consumption,Fossil fuel consumption by sector: other oil products (baseline),egy.mit.ener.con.oop.1,mit.ener.con.oop,mit,ener,ktoe,1.0,,
+486,Energy consumption,Other oil products consumption: Power sector (baseline),egy.mit.ener.oop.pow.1,mit.ener.oop.pow,mit,ener,ktoe,1.0,,
+487,Energy consumption,Other oil products consumption: Transport (baseline),egy.mit.ener.oop.tra.1,mit.ener.oop.tra,mit,ener,ktoe,1.0,,
+488,Energy consumption,Other oil products consumption: Buildings (baseline),egy.mit.ener.oop.res.1,mit.ener.oop.res,mit,ener,ktoe,1.0,mit.ener.res.oop,reordered
+489,Energy consumption,Other oil products consumption: Industry (baseline),egy.mit.ener.oop.ind.1,mit.ener.oop.ind,mit,ener,ktoe,1.0,,
+490,Energy consumption,Other oil products consumption: Other energy use (baseline),egy.mit.ener.oop.oen.1,mit.ener.oop.oen,mit,ener,ktoe,1.0,mit.ener.oen.oop,reordered
+491,Energy consumption,Total fossil fuel energy consumption (baseline),egy.mit.ener.tot.tot.1,mit.ener.tot.tot,mit,ener,ktoe,1.0,mit.ener.tot.tot,exact
+492,Energy consumption,Fuel consumption by sector: biomass (baseline),egy.mit.ener.con.bio.1,mit.ener.con.bio,mit,ener,ktoe,1.0,,
+493,Energy consumption,Biomass consumption: Power sector (baseline),egy.mit.ener.bio.pow.1,mit.ener.bio.pow,mit,ener,ktoe,1.0,,
+494,Energy consumption,Biomass consumption: Transport (baseline),egy.mit.ener.bio.tra.1,mit.ener.bio.tra,mit,ener,ktoe,1.0,,
+495,Energy consumption,Biomass consumption: Buildings (baseline),egy.mit.ener.bio.res.1,mit.ener.bio.res,mit,ener,ktoe,1.0,mit.ener.res.bio,reordered
+496,Energy consumption,Biomass consumption: Industry (baseline),egy.mit.ener.bio.ind.1,mit.ener.bio.ind,mit,ener,ktoe,1.0,,
+497,Energy consumption,Biomass consumption: Other energy use (baseline),egy.mit.ener.bio.oen.1,mit.ener.bio.oen,mit,ener,ktoe,1.0,mit.ener.oen.bio,reordered
+498,Energy consumption,Total energy consumption (baseline),egy.mit.ener.con.tot.1,mit.ener.con.tot,mit,ener,ktoe,1.0,,
+499,Energy consumption,Total consumption by fuel type: Coal (baseline),egy.mit.ener.con.coa.1,mit.ener.con.coa,mit,ener,ktoe,1.0,,
+500,Energy consumption,Total consumption by fuel type: Natural gas (baseline),egy.mit.ener.con.nga.1,mit.ener.con.nga,mit,ener,ktoe,1.0,,
+501,Energy consumption,Total consumption by fuel type: Other oil products (baseline),egy.mit.ener.con.oop.1,mit.ener.con.oop,mit,ener,ktoe,1.0,,
+502,Energy consumption,Total consumption by fuel type: Gasoline (baseline),egy.mit.ener.con.gso.1,mit.ener.con.gso,mit,ener,ktoe,1.0,,
+503,Energy consumption,Total consumption by fuel type: Diesel (baseline),egy.mit.ener.con.die.1,mit.ener.con.die,mit,ener,ktoe,1.0,,
+504,Energy consumption,Total consumption by fuel type: LPG (baseline),egy.mit.ener.con.lpg.1,mit.ener.con.lpg,mit,ener,ktoe,1.0,,
+505,Energy consumption,Total consumption by fuel type: Kerosene and Jet Fuel (baseline),egy.mit.ener.con.ker.1,mit.ener.con.ker,mit,ener,ktoe,1.0,,
+506,Energy consumption,Total consumption by fuel type: Biomass (baseline),egy.mit.ener.con.bio.1,mit.ener.con.bio,mit,ener,ktoe,1.0,,
+507,Energy consumption,Total consumption by fuel type: Nuclear & renewables (baseline),egy.mit.ener.con.nrn.1,mit.ener.con.nrn,mit,ener,ktoe,1.0,,
+508,Energy consumption,Fossil fuel consumption by sector: coal (policy),egy.mit.ener.con.coa.2,mit.ener.con.coa,mit,ener,ktoe,1.0,,
+509,Energy consumption,Coal consumption: Power sector (policy),egy.mit.ener.coa.pow.2,mit.ener.coa.pow,mit,ener,ktoe,1.0,,
+510,Energy consumption,Coal consumption: Transport (policy),egy.mit.ener.coa.tra.2,mit.ener.coa.tra,mit,ener,ktoe,1.0,,
+511,Energy consumption,Coal consumption: Buildings (policy),egy.mit.ener.coa.res.2,mit.ener.coa.res,mit,ener,ktoe,1.0,mit.ener.res.coa,reordered
+512,Energy consumption,Coal consumption: Industry (policy),egy.mit.ener.coa.ind.2,mit.ener.coa.ind,mit,ener,ktoe,2.0,,
+513,Energy consumption,Coal consumption: Other energy use (policy),egy.mit.ener.coa.oen.2,mit.ener.coa.oen,mit,ener,ktoe,2.0,mit.ener.oen.coa,reordered
+514,Energy consumption,Fossil fuel consumption by sector: natural gas (policy),egy.mit.ener.con.nga.2,mit.ener.con.nga,mit,ener,ktoe,2.0,,
+515,Energy consumption,Natural gas consumption: Power sector (policy),egy.mit.ener.nga.pow.2,mit.ener.nga.pow,mit,ener,ktoe,2.0,,
+516,Energy consumption,Natural gas consumption: Transport (policy),egy.mit.ener.nga.tra.2,mit.ener.nga.tra,mit,ener,ktoe,2.0,,
+517,Energy consumption,Natural gas consumption: Buildings (policy),egy.mit.ener.nga.res.2,mit.ener.nga.res,mit,ener,ktoe,2.0,mit.ener.res.nga,reordered
+518,Energy consumption,Natural gas consumption: Industry (policy),egy.mit.ener.nga.ind.2,mit.ener.nga.ind,mit,ener,ktoe,2.0,,
+519,Energy consumption,Natural gas consumption: Other energy use (policy),egy.mit.ener.nga.oen.2,mit.ener.nga.oen,mit,ener,ktoe,2.0,mit.ener.oen.nga,reordered
+520,Energy consumption,Fossil fuel consumption by sector: gasoline (policy),egy.mit.ener.con.gso.2,mit.ener.con.gso,mit,ener,ktoe,2.0,,
+521,Energy consumption,Gasoline consumption: Power sector (policy),egy.mit.ener.gso.pow.2,mit.ener.gso.pow,mit,ener,ktoe,2.0,,
+522,Energy consumption,Gasoline consumption: Transport (policy),egy.mit.ener.gso.tra.2,mit.ener.gso.tra,mit,ener,ktoe,2.0,,
+523,Energy consumption,Gasoline consumption: Buildings (policy),egy.mit.ener.gso.res.2,mit.ener.gso.res,mit,ener,ktoe,2.0,mit.ener.res.gso,reordered
+524,Energy consumption,Gasoline consumption: Industry (policy),egy.mit.ener.gso.ind.2,mit.ener.gso.ind,mit,ener,ktoe,2.0,,
+525,Energy consumption,Gasoline consumption: Other energy use (policy),egy.mit.ener.gso.oen.2,mit.ener.gso.oen,mit,ener,ktoe,2.0,mit.ener.oen.gso,reordered
+526,Energy consumption,Fossil fuel consumption by sector: diesel (policy),egy.mit.ener.con.die.2,mit.ener.con.die,mit,ener,ktoe,2.0,,
+527,Energy consumption,Diesel consumption: Power sector (policy),egy.mit.ener.die.pow.2,mit.ener.die.pow,mit,ener,ktoe,2.0,,
+528,Energy consumption,Diesel consumption: Transport (policy),egy.mit.ener.die.tra.2,mit.ener.die.tra,mit,ener,ktoe,2.0,,
+529,Energy consumption,Diesel consumption: Buildings (policy),egy.mit.ener.die.res.2,mit.ener.die.res,mit,ener,ktoe,2.0,mit.ener.res.die,reordered
+530,Energy consumption,Diesel consumption: Industry (policy),egy.mit.ener.die.ind.2,mit.ener.die.ind,mit,ener,ktoe,2.0,,
+531,Energy consumption,Diesel consumption: Other energy use (policy),egy.mit.ener.die.oen.2,mit.ener.die.oen,mit,ener,ktoe,2.0,mit.ener.oen.die,reordered
+532,Energy consumption,Fossil fuel consumption by sector: LPG (policy),egy.mit.ener.con.lpg.2,mit.ener.con.lpg,mit,ener,ktoe,2.0,,
+533,Energy consumption,LPG consumption: Power sector (policy),egy.mit.ener.lpg.pow.2,mit.ener.lpg.pow,mit,ener,ktoe,2.0,,
+534,Energy consumption,LPG consumption: Transport (policy),egy.mit.ener.lpg.tra.2,mit.ener.lpg.tra,mit,ener,ktoe,2.0,,
+535,Energy consumption,LPG consumption: Buildings (policy),egy.mit.ener.lpg.res.2,mit.ener.lpg.res,mit,ener,ktoe,2.0,mit.ener.res.lpg,reordered
+536,Energy consumption,LPG consumption: Industry (policy),egy.mit.ener.lpg.ind.2,mit.ener.lpg.ind,mit,ener,ktoe,2.0,,
+537,Energy consumption,LPG consumption: Other energy use (policy),egy.mit.ener.lpg.oen.2,mit.ener.lpg.oen,mit,ener,ktoe,2.0,mit.ener.oen.lpg,reordered
+538,Energy consumption,Fossil fuel consumption by sector: kerosene and jet fuel (policy),egy.mit.ener.con.ker.2,mit.ener.con.ker,mit,ener,ktoe,2.0,,
+539,Energy consumption,Kerosene and jet fuel consumption: Power sector (policy),egy.mit.ener.ker.pow.2,mit.ener.ker.pow,mit,ener,ktoe,2.0,,
+540,Energy consumption,Kerosene and jet fuel consumption: Transport (policy),egy.mit.ener.ker.tra.2,mit.ener.ker.tra,mit,ener,ktoe,2.0,,
+541,Energy consumption,Kerosene and jet fuel consumption: Buildings (policy),egy.mit.ener.ker.res.2,mit.ener.ker.res,mit,ener,ktoe,2.0,mit.ener.res.ker,reordered
+542,Energy consumption,Kerosene and jet fuel consumption: Industry (policy),egy.mit.ener.ker.ind.2,mit.ener.ker.ind,mit,ener,ktoe,2.0,,
+543,Energy consumption,Kerosene and jet fuel consumption: Other energy use (policy),egy.mit.ener.ker.oen.2,mit.ener.ker.oen,mit,ener,ktoe,2.0,mit.ener.oen.ker,reordered
+544,Energy consumption,Fossil fuel consumption by sector: other oil products (policy),egy.mit.ener.con.oop.2,mit.ener.con.oop,mit,ener,ktoe,2.0,,
+545,Energy consumption,Other oil products consumption: Power sector (policy),egy.mit.ener.oop.pow.2,mit.ener.oop.pow,mit,ener,ktoe,2.0,,
+546,Energy consumption,Other oil products consumption: Transport (policy),egy.mit.ener.oop.tra.2,mit.ener.oop.tra,mit,ener,ktoe,2.0,,
+547,Energy consumption,Other oil products consumption: Buildings (policy),egy.mit.ener.oop.res.2,mit.ener.oop.res,mit,ener,ktoe,2.0,mit.ener.res.oop,reordered
+548,Energy consumption,Other oil products consumption: Industry (policy),egy.mit.ener.oop.ind.2,mit.ener.oop.ind,mit,ener,ktoe,2.0,,
+549,Energy consumption,Other oil products consumption: Other energy use (policy),egy.mit.ener.oop.oen.2,mit.ener.oop.oen,mit,ener,ktoe,2.0,mit.ener.oen.oop,reordered
+550,Energy consumption,Total fossil fuel energy consumption (policy),egy.mit.ener.tot.tot.2,mit.ener.tot.tot,mit,ener,ktoe,2.0,mit.ener.tot.tot,exact
+551,Energy consumption,Fuel consumption by sector: biomass (policy),egy.mit.ener.con.bio.2,mit.ener.con.bio,mit,ener,ktoe,2.0,,
+552,Energy consumption,Biomass consumption: Power sector (policy),egy.mit.ener.bio.pow.2,mit.ener.bio.pow,mit,ener,ktoe,2.0,,
+553,Energy consumption,Biomass consumption: Transport (policy),egy.mit.ener.bio.tra.2,mit.ener.bio.tra,mit,ener,ktoe,2.0,,
+554,Energy consumption,Biomass consumption: Buildings (policy),egy.mit.ener.bio.res.2,mit.ener.bio.res,mit,ener,ktoe,2.0,mit.ener.res.bio,reordered
+555,Energy consumption,Biomass consumption: Industry (policy),egy.mit.ener.bio.ind.2,mit.ener.bio.ind,mit,ener,ktoe,2.0,,
+556,Energy consumption,Biomass consumption: Other energy use (policy),egy.mit.ener.bio.oen.2,mit.ener.bio.oen,mit,ener,ktoe,2.0,mit.ener.oen.bio,reordered
+557,Energy consumption,Total energy consumption (policy),egy.mit.ener.con.tot.2,mit.ener.con.tot,mit,ener,ktoe,2.0,,
+558,Energy consumption,Total consumption by fuel type: Coal (policy),egy.mit.ener.con.coa.2,mit.ener.con.coa,mit,ener,ktoe,2.0,,
+559,Energy consumption,Total consumption by fuel type: Natural gas (policy),egy.mit.ener.con.nga.2,mit.ener.con.nga,mit,ener,ktoe,2.0,,
+560,Energy consumption,Total consumption by fuel type: Other oil products (policy),egy.mit.ener.con.oop.2,mit.ener.con.oop,mit,ener,ktoe,2.0,,
+561,Energy consumption,Total consumption by fuel type: Gasoline (policy),egy.mit.ener.con.gso.2,mit.ener.con.gso,mit,ener,ktoe,2.0,,
+562,Energy consumption,Total consumption by fuel type: Diesel (policy),egy.mit.ener.con.die.2,mit.ener.con.die,mit,ener,ktoe,2.0,,
+563,Energy consumption,Total consumption by fuel type: LPG (policy),egy.mit.ener.con.lpg.2,mit.ener.con.lpg,mit,ener,ktoe,2.0,,
+564,Energy consumption,Total consumption by fuel type: Kerosene and Jet Fuel (policy),egy.mit.ener.con.ker.2,mit.ener.con.ker,mit,ener,ktoe,2.0,,
+565,Energy consumption,Total consumption by fuel type: Biomass (policy),egy.mit.ener.con.bio.2,mit.ener.con.bio,mit,ener,ktoe,2.0,,
+566,Energy consumption,Total consumption by fuel type: Nuclear and renewables (policy),egy.mit.ener.con.nrn.2,mit.ener.con.nrn,mit,ener,ktoe,2.0,,
+567,Energy consumption,"Total electricity supplied, baseline (TWh)",egy.mit.elec.twh.tot.1,mit.elec.twh.tot,mit,elec,twh,1.0,,
+568,Energy consumption,"Electricity generation from coal, baseline (TWh)",egy.mit.elec.twh.coa.1,mit.elec.twh.coa,mit,elec,twh,1.0,,
+569,Energy consumption,"Electricity generation from natural gas, baseline (TWh)",egy.mit.elec.twh.nga.1,mit.elec.twh.nga,mit,elec,twh,1.0,,
+570,Energy consumption,"Electricity generation from non-road oil, baseline (TWh)",egy.mit.elec.twh.oop.1,mit.elec.twh.oop,mit,elec,twh,1.0,,
+571,Energy consumption,"Electricity generation from nuclear, baseline (TWh)",egy.mit.elec.twh.nuc.1,mit.elec.twh.nuc,mit,elec,twh,1.0,,
+572,Energy consumption,"Electricity generation from wind, baseline (TWh)",egy.mit.elec.twh.wnd.1,mit.elec.twh.wnd,mit,elec,twh,1.0,,
+573,Energy consumption,"Electricity generation from solar, baseline (TWh)",egy.mit.elec.twh.sol.1,mit.elec.twh.sol,mit,elec,twh,1.0,,
+574,Energy consumption,"Electricity generation from hydro, baseline (TWh)",egy.mit.elec.twh.hyd.1,mit.elec.twh.hyd,mit,elec,twh,1.0,,
+575,Energy consumption,"Electricity generation from other renewables, baseline (TWh)",egy.mit.elec.twh.ore.1,mit.elec.twh.ore,mit,elec,twh,1.0,,
+576,Energy consumption,"Electricity generation from biomass, baseline (TWh)",egy.mit.elec.twh.bio.1,mit.elec.twh.bio,mit,elec,twh,1.0,,
+577,Energy consumption,"Electricity generation from decentralized renewables, baseline (TWh)",egy.mit.elec.twh.ren.1,mit.elec.twh.ren,mit,elec,twh,1.0,,
+578,Energy consumption,"Total electricity supplied, policy (TWh)",egy.mit.elec.twh.tot.2,mit.elec.twh.tot,mit,elec,twh,2.0,,
+579,Energy consumption,"Electricity generation from coal, policy (TWh)",egy.mit.elec.twh.coa.2,mit.elec.twh.coa,mit,elec,twh,2.0,,
+580,Energy consumption,"Electricity generation from natural gas, policy (TWh)",egy.mit.elec.twh.nga.2,mit.elec.twh.nga,mit,elec,twh,2.0,,
+581,Energy consumption,"Electricity generation from non-road oil, policy (TWh)",egy.mit.elec.twh.oop.2,mit.elec.twh.oop,mit,elec,twh,2.0,,
+582,Energy consumption,"Electricity generation from nuclear, policy (TWh)",egy.mit.elec.twh.nuc.2,mit.elec.twh.nuc,mit,elec,twh,2.0,,
+583,Energy consumption,"Electricity generation from wind, policy (TWh)",egy.mit.elec.twh.wnd.2,mit.elec.twh.wnd,mit,elec,twh,2.0,,
+584,Energy consumption,"Electricity generation from solar, policy (TWh)",egy.mit.elec.twh.sol.2,mit.elec.twh.sol,mit,elec,twh,2.0,,
+585,Energy consumption,"Electricity generation from hydro, policy (TWh)",egy.mit.elec.twh.hyd.2,mit.elec.twh.hyd,mit,elec,twh,2.0,,
+586,Energy consumption,"Electricity generation from other renewables, policy (TWh)",egy.mit.elec.twh.ore.2,mit.elec.twh.ore,mit,elec,twh,2.0,,
+587,Energy consumption,"Electricity generation from biomass, policy (TWh)",egy.mit.elec.twh.bio.2,mit.elec.twh.bio,mit,elec,twh,2.0,,
+588,Energy consumption,"Electricity generation from decentralized renewables, policy (TWh)",egy.mit.elec.twh.ren.2,mit.elec.twh.ren,mit,elec,twh,2.0,,
+590,Disaggregated energy consumption (Policy),"Fossil fuel consumption by sector: Transport, policy (ktoe)",egy.mit.ener.rod.nga.pass.e.2,mit.ener.rod.nga.pass.e,mit,ener,ktoe,2.0,,
+591,Disaggregated energy consumption (Policy),"Energy consumption, road, coal, policy",egy.mit.tot.rod.nga.e.2,mit.tot.rod.nga.e,mit,ener,ktoe,2.0,mit.tot.rod.nga,reordered
+592,Disaggregated energy consumption (Policy),"Energy consumption, road, natural gas, policy",,,mit,ener,ktoe,2.0,,
+593,Disaggregated energy consumption (Policy),"Energy consumption, road, gasoline, policy",,,mit,ener,ktoe,2.0,,
+594,Disaggregated energy consumption (Policy),"Energy consumption, road, diesel, policy",egy.mit.tot.rod.ele.e.2,mit.tot.rod.ele.e,mit,ener,ktoe,2.0,,
+595,Disaggregated energy consumption (Policy),"Energy consumption, road, lpg, policy",,,mit,ener,ktoe,2.0,,
+596,Disaggregated energy consumption (Policy),"Energy consumption, road, kerosene, policy",egy.mit.pass.vkt.all.e.2,mit.pass.vkt.all.e,mit,ener,ktoe,2.0,mit.pass.vkt.all,reordered
+597,Disaggregated energy consumption (Policy),"Energy consumption, road, other oil products, policy",egy.mit.fre.vkt.all.e.2,mit.fre.vkt.all.e,mit,ener,ktoe,2.0,mit.fre.vkt.all,reordered
+598,Disaggregated energy consumption (Policy),"Energy consumption, road, biomass, policy",egy.mit.motor.vkt.all.e.2,mit.motor.vkt.all.e,mit,ener,ktoe,2.0,mit.motor.vkt.all,reordered
+599,Disaggregated energy consumption (Policy),"Energy consumption, road, sector-generated renewables, policy",,,mit,ener,ktoe,2.0,,
+600,Disaggregated energy consumption (Policy),"Energy consumption, rail, coal, policy",,,mit,ener,ktoe,2.0,,
+601,Disaggregated energy consumption (Policy),"Energy consumption, rail, natural gas, policy",,,mit,ener,ktoe,2.0,,
+602,Disaggregated energy consumption (Policy),"Energy consumption, rail, gasoline, policy",egy.mit.fecon.die.all.e.2,mit.fecon.die.all.e,mit,ener,ktoe,2.0,mit.fecon.all.die,reordered
+603,Disaggregated energy consumption (Policy),"Energy consumption, rail, diesel, policy",,,mit,ener,ktoe,2.0,,
+604,Disaggregated energy consumption (Policy),"Energy consumption, rail, lpg, policy",,,mit,ener,ktoe,2.0,,
+605,Disaggregated energy consumption (Policy),"Energy consumption, rail, kerosene, policy",,,mit,ener,ktoe,2.0,,
+606,Disaggregated energy consumption (Policy),"Energy consumption, rail, other oil products, policy",egy.mit.fecon.lpg.all.e.2,mit.fecon.lpg.all.e,mit,ener,ktoe,2.0,mit.fecon.all.lpg,reordered
+607,Disaggregated energy consumption (Policy),"Energy consumption, rail, biomass, policy",,,mit,ener,ktoe,2.0,,
+608,Disaggregated energy consumption (Policy),"Energy consumption, rail, sector-generated renewables, policy",,,mit,ener,ktoe,2.0,,
+609,Disaggregated energy consumption (Policy),"Energy consumption, navigation, coal, policy",,,mit,ener,ktoe,2.0,,
+610,Disaggregated energy consumption (Policy),"Energy consumption, navigation, natural gas, policy",,,mit,ener,ktoe,2.0,,
+611,Disaggregated energy consumption (Policy),"Energy consumption, navigation, gasoline, policy",,,mit,ener,ktoe,2.0,,
+612,Disaggregated energy consumption (Policy),"Energy consumption, navigation, diesel, policy",,,mit,ener,ktoe,2.0,,
+613,Disaggregated energy consumption (Policy),"Energy consumption, navigation, lpg, policy",Output Code,,mit,ener,ktoe,2.0,,
+614,Disaggregated energy consumption (Policy),"Energy consumption, navigation, kerosene, policy",,,mit,ener,ktoe,2.0,,
+615,Disaggregated energy consumption (Policy),"Energy consumption, navigation, other oil products, policy",egy.mit.atp.rod.coa.e.2,mit.atp.rod.coa.e,mit,ener,ktoe,2.0,mit.atp.rod.coa,reordered
+616,Disaggregated energy consumption (Policy),"Energy consumption, navigation, biomass, policy",egy.mit.atp.rod.nga.e.2,mit.atp.rod.nga.e,mit,ener,ktoe,2.0,mit.atp.rod.nga,reordered
+617,Disaggregated energy consumption (Policy),"Energy consumption, navigation, sector-generated renewables, policy",egy.mit.atp.rod.gso.e.2,mit.atp.rod.gso.e,mit,ener,ktoe,2.0,mit.atp.rod.gso,reordered
+618,Disaggregated energy consumption (Policy),"Energy consumption, aviation, coal, policy",,,mit,ener,ktoe,2.0,,
+619,Disaggregated energy consumption (Policy),"Energy consumption, aviation, natural gas, policy",,,mit,ener,ktoe,2.0,,
+620,Disaggregated energy consumption (Policy),"Energy consumption, aviation, gasoline, policy",,,mit,ener,ktoe,2.0,,
+621,Disaggregated energy consumption (Policy),"Energy consumption, aviation, diesel, policy",,,mit,ener,ktoe,2.0,,
+622,Disaggregated energy consumption (Policy),"Energy consumption, aviation, lpg, policy",,,mit,ener,ktoe,2.0,,
+623,Disaggregated energy consumption (Policy),"Energy consumption, aviation, kerosene, policy",,,mit,ener,ktoe,2.0,,
+624,Disaggregated energy consumption (Policy),"Energy consumption, aviation, other oil products, policy",,,mit,ener,ktoe,2.0,,
+625,Disaggregated energy consumption (Policy),"Energy consumption, aviation, biomass, policy",,,mit,ener,ktoe,2.0,,
+626,Disaggregated energy consumption (Policy),"Energy consumption, aviation, sector-generated renewables, policy",,,mit,ener,ktoe,2.0,,
+627,Disaggregated energy consumption (Policy),"Energy consumption, aviation, jetfuel, policy",,,mit,ener,ktoe,2.0,,
+628,Disaggregated energy consumption (Policy),"Fossil fuel consumption by sector, Buildings, policy (ktoe)",,,mit,ener,ktoe,2.0,,
+629,Disaggregated energy consumption (Policy),"Energy consumption, residential, coal, policy",egy.mit.atp.ral.oop.e.2,mit.atp.ral.oop.e,mit,ener,ktoe,2.0,mit.atp.ral.oop,reordered
+630,Disaggregated energy consumption (Policy),"Energy consumption, residential, natural gas, policy",egy.mit.atp.ral.bio.e.2,mit.atp.ral.bio.e,mit,ener,ktoe,2.0,mit.atp.ral.bio,reordered
+631,Disaggregated energy consumption (Policy),"Energy consumption, residential, gasoline, policy",egy.mit.atp.ral.ren.e.2,mit.atp.ral.ren.e,mit,ener,ktoe,2.0,,
+632,Disaggregated energy consumption (Policy),"Energy consumption, residential, diesel, policy",,,mit,ener,ktoe,2.0,,
+633,Disaggregated energy consumption (Policy),"Energy consumption, residential, lpg, policy",,,mit,ener,ktoe,2.0,,
+634,Disaggregated energy consumption (Policy),"Energy consumption, residential, kerosene, policy",egy.mit.ener.ral.coa.e.2,mit.ener.ral.coa.e,mit,ener,ktoe,2.0,mit.ener.ral.coa,reordered
+635,Disaggregated energy consumption (Policy),"Energy consumption, residential, other oil products, policy",egy.mit.ener.ral.nga.e.2,mit.ener.ral.nga.e,mit,ener,ktoe,2.0,mit.ener.ral.nga,reordered
+636,Disaggregated energy consumption (Policy),"Energy consumption, residential, biomass, policy",egy.mit.ener.ral.gso.e.2,mit.ener.ral.gso.e,mit,ener,ktoe,2.0,mit.ener.ral.gso,reordered
+637,Disaggregated energy consumption (Policy),"Energy consumption, residential, sector-generated renewables, policy",egy.mit.ener.ral.die.e.2,mit.ener.ral.die.e,mit,ener,ktoe,2.0,mit.ener.ral.die,reordered
+638,Disaggregated energy consumption (Policy),"Energy consumption, food & forestry, coal, policy",egy.mit.ener.nav.nga.e.2,mit.ener.nav.nga.e,mit,ener,ktoe,2.0,mit.ener.nav.nga,reordered
+639,Disaggregated energy consumption (Policy),"Energy consumption, food & forestry, natural gas, policy",egy.mit.ener.nav.gso.e.2,mit.ener.nav.gso.e,mit,ener,ktoe,2.0,mit.ener.nav.gso,reordered
+640,Disaggregated energy consumption (Policy),"Energy consumption, food & forestry, gasoline, policy",egy.mit.ener.nav.die.e.2,mit.ener.nav.die.e,mit,ener,ktoe,2.0,mit.ener.nav.die,reordered
+641,Disaggregated energy consumption (Policy),"Energy consumption, food & forestry, diesel, policy",egy.mit.ener.nav.lpg.e.2,mit.ener.nav.lpg.e,mit,ener,ktoe,2.0,mit.ener.nav.lpg,reordered
+642,Disaggregated energy consumption (Policy),"Energy consumption, food & forestry, lpg, policy",egy.mit.ener.nav.ker.e.2,mit.ener.nav.ker.e,mit,ener,ktoe,2.0,mit.ener.nav.ker,reordered
+643,Disaggregated energy consumption (Policy),"Energy consumption, food & forestry, kerosene, policy",egy.mit.ener.nav.oop.e.2,mit.ener.nav.oop.e,mit,ener,ktoe,2.0,mit.ener.nav.oop,reordered
+644,Disaggregated energy consumption (Policy),"Energy consumption, food & forestry, other oil products, policy",egy.mit.ener.nav.bio.e.2,mit.ener.nav.bio.e,mit,ener,ktoe,2.0,mit.ener.nav.bio,reordered
+645,Disaggregated energy consumption (Policy),"Energy consumption, food & forestry, biomass, policy",egy.mit.ener.nav.ren.e.2,mit.ener.nav.ren.e,mit,ener,ktoe,2.0,mit.ener.nav.ren,reordered
+646,Disaggregated energy consumption (Policy),"Energy consumption, food & forestry, sector-generated renewables, policy",egy.mit.ener.nav.tot.e.2,mit.ener.nav.tot.e,mit,ener,ktoe,2.0,mit.ener.nav.tot,reordered
+647,Disaggregated energy consumption (Policy),"Energy consumption, services (public & private), coal, policy",egy.mit.ener.tra.tot.e.2,mit.ener.tra.tot.e,mit,ener,ktoe,2.0,mit.ener.tra.tot,reordered
+648,Disaggregated energy consumption (Policy),"Energy consumption, services (public & private), natural gas, policy",,,mit,ener,ktoe,2.0,,
+649,Disaggregated energy consumption (Policy),"Energy consumption, services (public & private), gasoline, policy",,,mit,ener,ktoe,2.0,,
+650,Disaggregated energy consumption (Policy),"Energy consumption, services (public & private), diesel, policy",egy.mit.ener.tra.tot.e.2,mit.ener.tra.tot.e,mit,ener,ktoe,2.0,mit.ener.tra.tot,reordered
+651,Disaggregated energy consumption (Policy),"Energy consumption, services (public & private), lpg, policy",,,mit,ener,ktoe,2.0,,
+652,Disaggregated energy consumption (Policy),"Energy consumption, services (public & private), kerosene, policy",,,mit,ener,ktoe,2.0,,
+653,Disaggregated energy consumption (Policy),"Energy consumption, services (public & private), other oil products, policy",Output Code,,mit,ener,ktoe,2.0,,
+654,Disaggregated energy consumption (Policy),"Energy consumption, services (public & private), biomass, policy",,,mit,ener,ktoe,2.0,,
+655,Disaggregated energy consumption (Policy),"Energy consumption, services (public & private), sector-generated renewables, policy",egy.mit.atp.res.coa.e.2,mit.atp.res.coa.e,mit,ener,ktoe,2.0,mit.atp.res.coa,reordered
+656,Disaggregated energy consumption (Policy),"Fossil fuel consumption by sector, Industry, policy (ktoe)",,,mit,ener,ktoe,2.0,,
+657,Disaggregated energy consumption (Policy),"Energy consumption, mining & chemicals, coal, policy",,,mit,ener,ktoe,2.0,,
+658,Disaggregated energy consumption (Policy),"Energy consumption, mining & chemicals, natural gas, policy",,,mit,ener,ktoe,2.0,,
+659,Disaggregated energy consumption (Policy),"Energy consumption, mining & chemicals, gasoline, policy",,,mit,ener,ktoe,2.0,,
+660,Disaggregated energy consumption (Policy),"Energy consumption, mining & chemicals, diesel, policy",,,mit,ener,ktoe,2.0,,
+661,Disaggregated energy consumption (Policy),"Energy consumption, mining & chemicals, lpg, policy",,,mit,ener,ktoe,2.0,,
+662,Disaggregated energy consumption (Policy),"Energy consumption, mining & chemicals, kerosene, policy",,,mit,ener,ktoe,2.0,,
+663,Disaggregated energy consumption (Policy),"Energy consumption, mining & chemicals, other oil products, policy",,,mit,ener,ktoe,2.0,,
+664,Disaggregated energy consumption (Policy),"Energy consumption, mining & chemicals, biomass, policy",,,mit,ener,ktoe,2.0,,
+665,Disaggregated energy consumption (Policy),"Energy consumption, mining & chemicals, sector-generated renewables, policy",,,mit,ener,ktoe,2.0,,
+666,Disaggregated energy consumption (Policy),"Energy consumption, iron and steel, coal, policy",egy.mit.atp.foo.oop.e.2,mit.atp.foo.oop.e,mit,ener,ktoe,2.0,mit.atp.foo.oop,reordered
+667,Disaggregated energy consumption (Policy),"Energy consumption, iron and steel, natural gas, policy",egy.mit.atp.foo.bio.e.2,mit.atp.foo.bio.e,mit,ener,ktoe,2.0,mit.atp.foo.bio,reordered
+668,Disaggregated energy consumption (Policy),"Energy consumption, iron and steel, gasoline, policy",egy.mit.atp.foo.ren.e.2,mit.atp.foo.ren.e,mit,ener,ktoe,2.0,,
+669,Disaggregated energy consumption (Policy),"Energy consumption, iron and steel, diesel, policy",,,mit,ener,ktoe,2.0,,
+670,Disaggregated energy consumption (Policy),"Energy consumption, iron and steel, lpg, policy",,,mit,ener,ktoe,2.0,,
+671,Disaggregated energy consumption (Policy),"Energy consumption, iron and steel, kerosene, policy",egy.mit.ener.foo.coa.e.2,mit.ener.foo.coa.e,mit,ener,ktoe,2.0,mit.ener.foo.coa,reordered
+672,Disaggregated energy consumption (Policy),"Energy consumption, iron and steel, other oil products, policy",egy.mit.ener.foo.nga.e.2,mit.ener.foo.nga.e,mit,ener,ktoe,2.0,mit.ener.foo.nga,reordered
+673,Disaggregated energy consumption (Policy),"Energy consumption, iron and steel, biomass, policy",egy.mit.ener.foo.gso.e.2,mit.ener.foo.gso.e,mit,ener,ktoe,2.0,mit.ener.foo.gso,reordered
+674,Disaggregated energy consumption (Policy),"Energy consumption, iron and steel, sector-generated renewables, policy",egy.mit.ener.foo.die.e.2,mit.ener.foo.die.e,mit,ener,ktoe,2.0,mit.ener.foo.die,reordered
+675,Disaggregated energy consumption (Policy),"Energy consumption, non-ferrous metals, coal, policy",egy.mit.atp.srv.oop.e.2,mit.atp.srv.oop.e,mit,ener,ktoe,2.0,mit.atp.srv.oop,reordered
+676,Disaggregated energy consumption (Policy),"Energy consumption, non-ferrous metals, natural gas, policy",egy.mit.atp.srv.bio.e.2,mit.atp.srv.bio.e,mit,ener,ktoe,2.0,mit.atp.srv.bio,reordered
+677,Disaggregated energy consumption (Policy),"Energy consumption, non-ferrous metals, gasoline, policy",egy.mit.atp.srv.ren.e.2,mit.atp.srv.ren.e,mit,ener,ktoe,2.0,,
+678,Disaggregated energy consumption (Policy),"Energy consumption, non-ferrous metals, diesel, policy",,,mit,ener,ktoe,2.0,,
+679,Disaggregated energy consumption (Policy),"Energy consumption, non-ferrous metals, lpg, policy",,,mit,ener,ktoe,2.0,,
+680,Disaggregated energy consumption (Policy),"Energy consumption, non-ferrous metals, kerosene, policy",egy.mit.ener.srv.coa.e.2,mit.ener.srv.coa.e,mit,ener,ktoe,2.0,mit.ener.srv.coa,reordered
+681,Disaggregated energy consumption (Policy),"Energy consumption, non-ferrous metals, other oil products, policy",egy.mit.ener.srv.nga.e.2,mit.ener.srv.nga.e,mit,ener,ktoe,2.0,mit.ener.srv.nga,reordered
+682,Disaggregated energy consumption (Policy),"Energy consumption, non-ferrous metals, biomass, policy",egy.mit.ener.srv.gso.e.2,mit.ener.srv.gso.e,mit,ener,ktoe,2.0,mit.ener.srv.gso,reordered
+683,Disaggregated energy consumption (Policy),"Energy consumption, non-ferrous metals, sector-generated renewables, policy",egy.mit.ener.srv.die.e.2,mit.ener.srv.die.e,mit,ener,ktoe,2.0,mit.ener.srv.die,reordered
+684,Disaggregated energy consumption (Policy),"Energy consumption, machinery, coal, policy",,,mit,ener,ktoe,2.0,,
+685,Disaggregated energy consumption (Policy),"Energy consumption, machinery, natural gas, policy",,,mit,ener,ktoe,2.0,,
+686,Disaggregated energy consumption (Policy),"Energy consumption, machinery, gasoline, policy",,,mit,ener,ktoe,2.0,,
+687,Disaggregated energy consumption (Policy),"Energy consumption, machinery, diesel, policy",,,mit,ener,ktoe,2.0,,
+688,Disaggregated energy consumption (Policy),"Energy consumption, machinery, lpg, policy",,,mit,ener,ktoe,2.0,,
+689,Disaggregated energy consumption (Policy),"Energy consumption, machinery, kerosene, policy",egy.mit.ener.srv.tot.e.2,mit.ener.srv.tot.e,mit,ener,ktoe,2.0,mit.ener.srv.tot,reordered
+690,Disaggregated energy consumption (Policy),"Energy consumption, machinery, other oil products, policy",egy.mit.ener.res.tot.e.2,mit.ener.res.tot.e,mit,ener,ktoe,2.0,mit.ener.res.tot,reordered
+691,Disaggregated energy consumption (Policy),"Energy consumption, machinery, biomass, policy",,,mit,ener,ktoe,2.0,,
+692,Disaggregated energy consumption (Policy),"Energy consumption, machinery, sector-generated renewables, policy",,,mit,ener,ktoe,2.0,,
+693,Disaggregated energy consumption (Policy),"Energy consumption, cement, coal, policy",egy.mit.ener.mch.coa.e.2,mit.ener.mch.coa.e,mit,ener,ktoe,2.0,mit.ener.mch.coa,reordered
+694,Disaggregated energy consumption (Policy),"Energy consumption, cement, natural gas, policy",egy.mit.ener.mch.nga.e.2,mit.ener.mch.nga.e,mit,ener,ktoe,2.0,mit.ener.mch.nga,reordered
+695,Disaggregated energy consumption (Policy),"Energy consumption, cement, gasoline, policy",egy.mit.ener.mch.gso.e.2,mit.ener.mch.gso.e,mit,ener,ktoe,2.0,mit.ener.mch.gso,reordered
+696,Disaggregated energy consumption (Policy),"Energy consumption, cement, diesel, policy",egy.mit.ener.mch.die.e.2,mit.ener.mch.die.e,mit,ener,ktoe,2.0,mit.ener.mch.die,reordered
+697,Disaggregated energy consumption (Policy),"Energy consumption, cement, lpg, policy",egy.mit.ener.mch.lpg.e.2,mit.ener.mch.lpg.e,mit,ener,ktoe,2.0,mit.ener.mch.lpg,reordered
+698,Disaggregated energy consumption (Policy),"Energy consumption, cement, kerosene, policy",egy.mit.ener.mch.ker.e.2,mit.ener.mch.ker.e,mit,ener,ktoe,2.0,mit.ener.mch.ker,reordered
+699,Disaggregated energy consumption (Policy),"Energy consumption, cement, other oil products, policy",egy.mit.ener.mch.oop.e.2,mit.ener.mch.oop.e,mit,ener,ktoe,2.0,mit.ener.mch.oop,reordered
+700,Disaggregated energy consumption (Policy),"Energy consumption, cement, biomass, policy",egy.mit.ener.mch.bio.e.2,mit.ener.mch.bio.e,mit,ener,ktoe,2.0,mit.ener.mch.bio,reordered
+701,Disaggregated energy consumption (Policy),"Energy consumption, cement, sector-generated renewables, policy",egy.mit.ener.mch.ren.e.2,mit.ener.mch.ren.e,mit,ener,ktoe,2.0,,
+702,Disaggregated energy consumption (Policy),"Energy consumption, other manufacturing, coal, policy",egy.mit.ener.irn.coa.e.2,mit.ener.irn.coa.e,mit,ener,ktoe,2.0,mit.ener.irn.coa,reordered
+703,Disaggregated energy consumption (Policy),"Energy consumption, other manufacturing, natural gas, policy",egy.mit.ener.irn.nga.e.2,mit.ener.irn.nga.e,mit,ener,ktoe,2.0,mit.ener.irn.nga,reordered
+704,Disaggregated energy consumption (Policy),"Energy consumption, other manufacturing, gasoline, policy",egy.mit.ener.irn.gso.e.2,mit.ener.irn.gso.e,mit,ener,ktoe,2.0,mit.ener.irn.gso,reordered
+705,Disaggregated energy consumption (Policy),"Energy consumption, other manufacturing, diesel, policy",egy.mit.ener.irn.die.e.2,mit.ener.irn.die.e,mit,ener,ktoe,2.0,mit.ener.irn.die,reordered
+706,Disaggregated energy consumption (Policy),"Energy consumption, other manufacturing, lpg, policy",egy.mit.ener.irn.lpg.e.2,mit.ener.irn.lpg.e,mit,ener,ktoe,2.0,mit.ener.irn.lpg,reordered
+707,Disaggregated energy consumption (Policy),"Energy consumption, other manufacturing, kerosene, policy",egy.mit.ener.irn.ker.e.2,mit.ener.irn.ker.e,mit,ener,ktoe,2.0,mit.ener.irn.ker,reordered
+708,Disaggregated energy consumption (Policy),"Energy consumption, other manufacturing, other oil products, policy",egy.mit.ener.irn.oop.e.2,mit.ener.irn.oop.e,mit,ener,ktoe,2.0,mit.ener.irn.oop,reordered
+709,Disaggregated energy consumption (Policy),"Energy consumption, other manufacturing, biomass, policy",egy.mit.ener.irn.bio.e.2,mit.ener.irn.bio.e,mit,ener,ktoe,2.0,mit.ener.irn.bio,reordered
+710,Disaggregated energy consumption (Policy),"Energy consumption, other manufacturing, sector-generated renewables, policy",egy.mit.ener.irn.ren.e.2,mit.ener.irn.ren.e,mit,ener,ktoe,2.0,,
+711,Disaggregated energy consumption (Policy),"Energy consumption, construction, coal, policy",egy.mit.ener.nfm.coa.e.2,mit.ener.nfm.coa.e,mit,ener,ktoe,2.0,mit.ener.nfm.coa,reordered
+712,Disaggregated energy consumption (Policy),"Energy consumption, construction, natural gas, policy",egy.mit.ener.nfm.nga.e.2,mit.ener.nfm.nga.e,mit,ener,ktoe,2.0,mit.ener.nfm.nga,reordered
+713,Disaggregated energy consumption (Policy),"Energy consumption, construction, gasoline, policy",egy.mit.ener.nfm.gso.e.2,mit.ener.nfm.gso.e,mit,ener,ktoe,2.0,mit.ener.nfm.gso,reordered
+714,Disaggregated energy consumption (Policy),"Energy consumption, construction, diesel, policy",egy.mit.ener.nfm.die.e.2,mit.ener.nfm.die.e,mit,ener,ktoe,2.0,mit.ener.nfm.die,reordered
+715,Disaggregated energy consumption (Policy),"Energy consumption, construction, lpg, policy",egy.mit.ener.nfm.lpg.e.2,mit.ener.nfm.lpg.e,mit,ener,ktoe,2.0,mit.ener.nfm.lpg,reordered
+716,Disaggregated energy consumption (Policy),"Energy consumption, construction, kerosene, policy",egy.mit.ener.nfm.ker.e.2,mit.ener.nfm.ker.e,mit,ener,ktoe,2.0,mit.ener.nfm.ker,reordered
+717,Disaggregated energy consumption (Policy),"Energy consumption, construction, other oil products, policy",egy.mit.ener.nfm.oop.e.2,mit.ener.nfm.oop.e,mit,ener,ktoe,2.0,mit.ener.nfm.oop,reordered
+718,Disaggregated energy consumption (Policy),"Energy consumption, construction, biomass, policy",egy.mit.ener.nfm.bio.e.2,mit.ener.nfm.bio.e,mit,ener,ktoe,2.0,mit.ener.nfm.bio,reordered
+719,Disaggregated energy consumption (Policy),"Energy consumption, construction, sector-generated renewables, policy",egy.mit.ener.nfm.ren.e.2,mit.ener.nfm.ren.e,mit,ener,ktoe,2.0,,
+720,Disaggregated energy consumption (Policy),"Energy consumption, fuel transformation & transportation, coal, policy",egy.mit.ener.mac.coa.e.2,mit.ener.mac.coa.e,mit,ener,ktoe,2.0,mit.ener.mac.coa,reordered
+721,Disaggregated energy consumption (Policy),"Energy consumption, fuel transformation & transportation, natural gas, policy",egy.mit.ener.mac.nga.e.2,mit.ener.mac.nga.e,mit,ener,ktoe,2.0,mit.ener.mac.nga,reordered
+722,Disaggregated energy consumption (Policy),"Energy consumption, fuel transformation & transportation, gasoline, policy",egy.mit.ener.mac.gso.e.2,mit.ener.mac.gso.e,mit,ener,ktoe,2.0,mit.ener.mac.gso,reordered
+723,Disaggregated energy consumption (Policy),"Energy consumption, fuel transformation & transportation, diesel, policy",egy.mit.ener.mac.die.e.2,mit.ener.mac.die.e,mit,ener,ktoe,2.0,mit.ener.mac.die,reordered
+724,Disaggregated energy consumption (Policy),"Energy consumption, fuel transformation & transportation, lpg, policy",egy.mit.ener.mac.lpg.e.2,mit.ener.mac.lpg.e,mit,ener,ktoe,2.0,mit.ener.mac.lpg,reordered
+725,Disaggregated energy consumption (Policy),"Energy consumption, fuel transformation & transportation, kerosene, policy",egy.mit.ener.mac.ker.e.2,mit.ener.mac.ker.e,mit,ener,ktoe,2.0,mit.ener.mac.ker,reordered
+726,Disaggregated energy consumption (Policy),"Energy consumption, fuel transformation & transportation, other oil products, policy",egy.mit.ener.mac.oop.e.2,mit.ener.mac.oop.e,mit,ener,ktoe,2.0,mit.ener.mac.oop,reordered
+727,Disaggregated energy consumption (Policy),"Energy consumption, fuel transformation & transportation, biomass, policy",egy.mit.ener.mac.bio.e.2,mit.ener.mac.bio.e,mit,ener,ktoe,2.0,mit.ener.mac.bio,reordered
+728,Disaggregated energy consumption (Policy),"Energy consumption, fuel transformation & transportation, sector-generated renewables, policy",egy.mit.ener.mac.ren.e.2,mit.ener.mac.ren.e,mit,ener,ktoe,2.0,,
+729,Disaggregated energy consumption (Policy),"   Total Electricity consumption, policy (ktoe)",egy.mit.ener.foo.ecy.t.2,mit.ener.foo.ecy.t,mit,ener,ktoe,2.0,,
+730,Disaggregated energy consumption (Policy),"Electricity consumption, road, electricity, policy",,,mit,ener,ktoe,2.0,,
+731,Disaggregated energy consumption (Policy),"Electricity consumption, rail, electricity, policy",,,mit,ener,ktoe,2.0,,
+732,Disaggregated energy consumption (Policy),"Electricity consumption, aviation, electricity, policy",,,mit,ener,ktoe,2.0,,
+733,Disaggregated energy consumption (Policy),"Electricity consumption, navigation, electricity, policy",,,mit,ener,ktoe,2.0,,
+734,Disaggregated energy consumption (Policy),"Electricity consumption, residential, electricity, policy",,,mit,ener,ktoe,2.0,,
+735,Disaggregated energy consumption (Policy),"Electricity consumption, food & forestry, electricity, policy",egy.mit.nxp.ecy.2,mit.nxp.ecy,mit,ener,ktoe,2.0,,
+736,Disaggregated energy consumption (Policy),"Electricity consumption, services (public & private), electricity, policy",egy.mit.tsd.ecy.2,mit.tsd.ecy,mit,ener,ktoe,2.0,,
+737,Disaggregated energy consumption (Policy),"Electricity consumption, mining & chemicals, electricity, policy",egy.mit.eou.ecy.2,mit.eou.ecy,mit,ener,ktoe,2.0,,
+738,Disaggregated energy consumption (Policy),"Electricity consumption, iron and steel, electricity, policy",,,mit,ener,ktoe,2.0,,
+739,Disaggregated energy consumption (Policy),"Electricity consumption, non-ferrous metals, electricity, policy",,,mit,ener,ktoe,2.0,,
+740,Disaggregated energy consumption (Policy),"Electricity consumption, machinery, electricity, policy",CPAT Code,,mit,ener,ktoe,2.0,,
+741,Disaggregated energy consumption (Policy),"Electricity consumption, cement, electricity, policy",egy.mit.ener.rod.ecy.t.2,mit.ener.rod.ecy.t,mit,ener,ktoe,2.0,,
+742,Disaggregated energy consumption (Policy),"Electricity consumption, other manufacturing, electricity, policy",egy.mit.ener.ral.ecy.t.2,mit.ener.ral.ecy.t,mit,ener,ktoe,2.0,,
+743,Disaggregated energy consumption (Policy),"Electricity consumption, construction, electricity, policy",egy.mit.ener.avi.ecy.t.2,mit.ener.avi.ecy.t,mit,ener,ktoe,2.0,,
+744,Disaggregated energy consumption (Policy),"Electricity consumption, fuel transformation & transportation, electricity, policy",,,mit,ener,ktoe,2.0,,
+745,Disaggregated energy consumption (Policy),"Electricity consumption, other energy use, policy",egy.mit.ener.nav.ecy.t.2,mit.ener.nav.ecy.t,mit,ener,ktoe,2.0,,
+746,Disaggregated energy consumption (Policy),"Energy consumption, electricity, net exports ",egy.mit.ener.srv.ecy.t.2,mit.ener.srv.ecy.t,mit,ener,ktoe,2.0,,
+747,Disaggregated energy consumption (Policy),"Fossil fuel consumption by sector, Power, technoeconomic, policy (ktoe)",,,mit,ener,ktoe,2.0,,
+748,Disaggregated energy consumption (Policy),"Energy consumption, power, coal, policy",,,mit,ener,ktoe,2.0,,
+749,Disaggregated energy consumption (Policy),"Energy consumption, power, natural gas, policy",,,mit,ener,ktoe,2.0,,
+750,Disaggregated energy consumption (Policy),"Energy consumption, power, other oil products, policy",,,mit,ener,ktoe,2.0,,
+751,Disaggregated energy consumption (Policy),"Energy consumption, power, nuclear, policy",,,mit,ener,ktoe,2.0,,
+752,Disaggregated energy consumption (Policy),"Energy consumption, power, wind, policy",,,mit,ener,ktoe,2.0,,
+753,Disaggregated energy consumption (Policy),"Energy consumption, power, solar, policy",,,mit,ener,ktoe,2.0,,
+754,Disaggregated energy consumption (Policy),"Energy consumption, power, hydro, policy",,,mit,ener,ktoe,2.0,,
+755,Disaggregated energy consumption (Policy),"Energy consumption, power, other sector-generated renewables, policy",,,mit,ener,ktoe,2.0,,
+756,Disaggregated energy consumption (Policy),"Energy consumption, power, biomass, policy",,,mit,ener,ktoe,2.0,,
+757,Disaggregated energy consumption (Policy),"Fossil fuel consumption by sector, Power, elasticity, policy (ktoe)",,,mit,ener,ktoe,2.0,,
+758,Disaggregated energy consumption (Policy),"Energy consumption, power, coal, policy",,,mit,ener,ktoe,2.0,,
+759,Disaggregated energy consumption (Policy),"Energy consumption, power, natural gas, policy",,,mit,ener,ktoe,2.0,,
+760,Disaggregated energy consumption (Policy),"Energy consumption, power, other oil products, policy",,,mit,ener,ktoe,2.0,,
+761,Disaggregated energy consumption (Policy),"Energy consumption, power, nuclear, policy",egy.mit.ener.em.ngaoil.e.2,mit.ener.em.ngaoil.e,mit,ener,ktoe,2.0,,
+762,Disaggregated energy consumption (Policy),"Energy consumption, power, wind, policy",,,mit,ener,ktoe,2.0,,
+763,Disaggregated energy consumption (Policy),"Energy consumption, power, solar, policy",,,mit,ener,ktoe,2.0,,
+764,Disaggregated energy consumption (Policy),"Energy consumption, power, hydro, policy",egy.mit.ener.em.coa.e.2,mit.ener.em.coa.e,mit,ener,ktoe,2.0,,
+765,Disaggregated energy consumption (Policy),"Energy consumption, power, other sector-generated renewables, policy",,,mit,ener,ktoe,2.0,,
+766,Disaggregated energy consumption (Policy),"Energy consumption, power, biomass, policy",,,mit,ener,ktoe,2.0,,
+767,Disaggregated energy consumption (Policy),"Fossil fuel consumption by sector, Power, average, policy (ktoe)",0x17,,mit,ener,ktoe,2.0,,
+768,Disaggregated energy consumption (Policy),"Energy consumption, power, coal, policy",0x17,,mit,ener,ktoe,2.0,,
+769,Disaggregated energy consumption (Policy),"Energy consumption, power, natural gas, policy",0x17,,mit,ener,ktoe,2.0,,
+770,Disaggregated energy consumption (Policy),"Energy consumption, power, other oil products, policy",0x17,,mit,ener,ktoe,2.0,,
+771,Disaggregated energy consumption (Policy),"Energy consumption, power, nuclear, policy",0x17,,mit,ener,ktoe,2.0,,
+772,Disaggregated energy consumption (Policy),"Energy consumption, power, wind, policy",0x17,,mit,ener,ktoe,2.0,,
+773,Disaggregated energy consumption (Policy),"Energy consumption, power, solar, policy",0x17,,mit,ener,ktoe,2.0,,
+774,Disaggregated energy consumption (Policy),"Energy consumption, power, hydro, policy",0x17,,mit,ener,ktoe,2.0,,
+775,Disaggregated energy consumption (Policy),"Energy consumption, power, other sector-generated renewables, policy",0x17,,mit,ener,ktoe,2.0,,
+776,Disaggregated energy consumption (Policy),"Energy consumption, power, biomass, policy",0x17,,mit,ener,ktoe,2.0,,
+778,Revenues,"Fiscal revenues by fuel, total, net of subsidies, baseline (real 2021 US$bn)",egy.mit.rev.new.usd.1,mit.rev.new.usd,mit,rev,usd,1.0,,
+779,Revenues,"Fiscal revenues, coal, baseline",,,mit,rev,usd,1.0,,
+780,Revenues,"Fiscal revenues, natural gas, baseline",,,mit,rev,usd,1.0,,
+781,Revenues,"Fiscal revenues, non-road oil, baseline",,,mit,rev,usd,1.0,,
+782,Revenues,"Fiscal revenues, gasoline, baseline",,,mit,rev,usd,1.0,,
+783,Revenues,"Fiscal revenues, diesel, baseline",,,mit,rev,usd,1.0,,
+784,Revenues,"Fiscal revenues, lpg & kerosene, baseline",,,mit,rev,usd,1.0,,
+785,Revenues,"Fiscal revenues by fuel, total, net of subsidies, policy (real 2021 US$bn)",egy.mit.rev.new.usd.2,mit.rev.new.usd,mit,rev,usd,2.0,,
+786,Revenues,"Fiscal revenues, coal, policy",egy.mit.rev.new.coa.usd.2,mit.rev.new.coa.usd,mit,rev,usd,2.0,,
+787,Revenues,"Fiscal revenues, natural gas, policy",egy.mit.rev.new.nga.usd.2,mit.rev.new.nga.usd,mit,rev,usd,2.0,,
+788,Revenues,"Fiscal revenues, non-road oil, policy",egy.mit.rev.new.oil.usd.2,mit.rev.new.oil.usd,mit,rev,usd,2.0,,
+789,Revenues,"Fiscal revenues, gasoline, policy",egy.mit.rev.new.gso.usd.2,mit.rev.new.gso.usd,mit,rev,usd,2.0,,
+790,Revenues,"Fiscal revenues, diesel, policy",egy.mit.rev.new.die.usd.2,mit.rev.new.die.usd,mit,rev,usd,2.0,,
+791,Revenues,"Fiscal revenues, lpg & kerosene, policy",egy.mit.rev.new.lpk.usd.2,mit.rev.new.lpk.usd,mit,rev,usd,2.0,,
+792,Revenues,"Additional fiscal revenues, total, net of subsidies, baseline (real 2021 US$bn)",egy.mit.rev.tot.usd.1,mit.rev.tot.usd,mit,rev,usd,1.0,mit.rev.usd.tot,reordered
+793,Revenues,"Additional fiscal revenues, coal, baseline",egy.mit.rev.tot.coa.usd.1,mit.rev.tot.coa.usd,mit,rev,usd,1.0,mit.rev.usd.tot.coa,reordered
+794,Revenues,"Additional fiscal revenues , natural gas, baseline",egy.mit.rev.tot.nga.usd.1,mit.rev.tot.nga.usd,mit,rev,usd,1.0,mit.rev.usd.tot.nga,reordered
+795,Revenues,"Additional fiscal revenues , non-road oil, baseline",egy.mit.rev.tot.oil.usd.1,mit.rev.tot.oil.usd,mit,rev,usd,1.0,,
+796,Revenues,"Additional fiscal revenues , gasoline, baseline",egy.mit.rev.tot.gso.usd.1,mit.rev.tot.gso.usd,mit,rev,usd,1.0,mit.rev.usd.tot.gso,reordered
+797,Revenues,"Additional fiscal revenues , diesel, baseline",egy.mit.rev.tot.die.usd.1,mit.rev.tot.die.usd,mit,rev,usd,1.0,mit.rev.usd.tot.die,reordered
+798,Revenues,"Additional fiscal revenues , lpg & kerosene, baseline",egy.mit.rev.tot.lpk.usd.1,mit.rev.tot.lpk.usd,mit,rev,usd,1.0,,
+799,Revenues,"Additional fiscal revenues , renewable subsidies, baseline",egy.mit.sub.ren.usd.1,mit.sub.ren.usd,mit,sub,usd,1.0,,
+800,Revenues,"Additional fiscal revenues , electricity, baseline",egy.mit.rev.tot.ecy.usd.1,mit.rev.tot.ecy.usd,mit,rev,usd,1.0,,
+801,Revenues,"Additional fiscal revenues, total, net of subsidies, policy (real 2021 US$bn)",egy.mit.rev.tot.usd.2,mit.rev.tot.usd,mit,rev,usd,2.0,mit.rev.usd.tot,reordered
+802,Revenues,"Additional fiscal revenues , coal, policy",egy.mit.rev.tot.coa.usd.2,mit.rev.tot.coa.usd,mit,rev,usd,2.0,mit.rev.usd.tot.coa,reordered
+803,Revenues,"Additional fiscal revenues , natural gas, policy",egy.mit.rev.tot.nga.usd.2,mit.rev.tot.nga.usd,mit,rev,usd,2.0,mit.rev.usd.tot.nga,reordered
+804,Revenues,"Additional fiscal revenues , non-road oil, policy",egy.mit.rev.tot.oil.usd.2,mit.rev.tot.oil.usd,mit,rev,usd,2.0,,
+805,Revenues,"Additional fiscal revenues , gasoline, policy",egy.mit.rev.tot.gso.usd.2,mit.rev.tot.gso.usd,mit,rev,usd,2.0,mit.rev.usd.tot.gso,reordered
+806,Revenues,"Additional fiscal revenues , diesel, policy",egy.mit.rev.tot.die.usd.2,mit.rev.tot.die.usd,mit,rev,usd,2.0,mit.rev.usd.tot.die,reordered
+807,Revenues,"Additional fiscal revenues , lpg & kerosene, policy",egy.mit.rev.tot.lpk.usd.2,mit.rev.tot.lpk.usd,mit,rev,usd,2.0,,
+808,Revenues,"Additional fiscal revenues , renewable subsidies, policy",egy.mit.sub.ren.usd.2,mit.sub.ren.usd,mit,sub,usd,2.0,,
+809,Revenues,"Additional fiscal revenues , electricity, policy",egy.mit.rev.tot.ecy.usd.2,mit.rev.tot.ecy.usd,mit,rev,usd,2.0,,
+811,Air pollution effects,"Ambient PM2.5 - urban, Baseline",egy.air.con.pm2.oap.urb.1,air.con.pm2.oap.urb,air,oap,,1.0,,
+812,Air pollution effects,"Ambient PM2.5 - rural, Baseline",egy.air.con.pm2.oap.rur.1,air.con.pm2.oap.rur,air,oap,,1.0,,
+813,Air pollution effects,"Ambient PM2.5 - urban, Policy",egy.air.con.pm2.oap.urb.2,air.con.pm2.oap.urb,air,oap,,2.0,,
+814,Air pollution effects,"Ambient PM2.5 - rural, Policy",egy.air.con.pm2.oap.rur.2,air.con.pm2.oap.rur,air,oap,,2.0,,
+815,Air pollution effects,Modeled PM2.5 - all areas Baseline,egy.air.con.pm2.mod.all.1,air.con.pm2.mod.all,air,mod,,1.0,,
+816,Air pollution effects,Observed PM2.5 - all areas Baseline,egy.air.con.pm2.obs.all.1,air.con.pm2.obs.all,air,obs,,1.0,,
+817,Air pollution effects,Recommended WHO concentration,who_guidelines,,gui,whoguidelines,,,,
+818,Air pollution effects,Cumulative averted deaths - Ambient ozone,egy.air.cad.ao3,air.cad.ao3,air,cad,,,,
+819,Air pollution effects,Cumulative averted deaths - Ambient PM2.5,egy.air.cad.apm25,air.cad.apm25,air,cad,,,,
+820,Air pollution effects,Cumulative averted deaths - Household PM2.5,egy.air.cad.hpm25,air.cad.hpm25,air,cad,,,,
+821,Air pollution effects,Cumulative averted deaths - net,egy.air.cad.net,air.cad.net,air,cad,,,,
+822,Air pollution effects,Averted deaths by age group: 25 to 64 years,egy.air.ada.2464,air.ada,air,ada,,,,
+823,Air pollution effects,Averted deaths by age group: 65+ years,egy.air.ada.65,air.ada,air,ada,,,,
+824,Air pollution effects,Averted deaths by age group: under 24 years (including neonatal),egy.air.ada.u24,air.ada.u24,air,ada,,,,
+825,Air pollution effects,Averted YLL (years of life lost),egy.air.av.yll,air.av.yll,air,yll,,,,
+826,Air pollution effects,Averted YLD (years lived with disability),egy.air.av.yld,air.av.yld,air,yld,,,,
+827,Air pollution effects,Baseline air pollution deaths,egy.air.mort,air.mort,air,mort,,,,
+828,Air pollution effects,Externalities power plants: coal,egy.air.ext.pp.coa,air.ext.pp.coa,air,ext,,,,
+829,Air pollution effects,Externalities power plants: gas,egy.air.ext.pp.gas,air.ext.pp.gas,air,ext,,,,
+830,Air pollution effects,Externalities power plants: oil,egy.air.ext.pp.oil,air.ext.pp.oil,air,ext,,,,
+831,Air pollution effects,Externalities industries: coal,egy.air.ext.ind.coa,air.ext.ind.coa,air,ext,,,,
+832,Air pollution effects,Externalities industries: gas,egy.air.ext.ind.gas,air.ext.ind.gas,air,ext,,,,
+833,Air pollution effects,Externalities industries: oil,egy.air.ext.ind.oil,air.ext.ind.oil,air,ext,,,,
+834,Air pollution effects,Externalities road transport: gasoline,egy.air.ext.tra.gso,air.ext.tra.gso,air,ext,,,,
+835,Air pollution effects,Externalities road transport: diesel,egy.air.ext.tra.die,air.ext.tra.die,air,ext,,,,
+836,Air pollution effects,Baseline GDP loss due to pollution,egy.air.gdp.loss,air.gdp.loss,air,gdploss,loss,,,
+837,Air pollution effects,Change in GDP loss due to pollution,egy.air.gdp.loss.ch,air.gdp.loss.ch,air,gdploss,loss,,,
+838,Air pollution effects,"Coal air pollution cost per GJ, industry",egy.mit.airpol.cost.coa.ind.1,mit.airpol.cost.coa.ind,mit,airpolcost,usdgj,,mit.airpol.cost.ind.coa,reordered
+839,Air pollution effects,"Coal air pollution cost per GJ, residential",egy.mit.airpol.cost.coa.res.1,mit.airpol.cost.coa.res,mit,airpolcost,usdgj,,mit.airpol.cost.res.coa,reordered
+840,Air pollution effects,"Coal air pollution cost per GJ, power sector",egy.mit.airpol.cost.coa.pow.1,mit.airpol.cost.coa.pow,mit,airpolcost,usdgj,,mit.airpol.cost.pow.coa,reordered
+841,Air pollution effects,"Natural gas air pollution cost per GJ, industry",egy.mit.airpol.cost.nga.ind.1,mit.airpol.cost.nga.ind,mit,airpolcost,usdgj,,mit.airpol.cost.ind.nga,reordered
+842,Air pollution effects,"Natural gas air pollution cost per GJ, residential",egy.mit.airpol.cost.nga.res.1,mit.airpol.cost.nga.res,mit,airpolcost,usdgj,,mit.airpol.cost.res.nga,reordered
+843,Air pollution effects,"Natural gas air pollution cost per GJ, power sector",egy.mit.airpol.cost.nga.pow.1,mit.airpol.cost.nga.pow,mit,airpolcost,usdgj,,mit.airpol.cost.pow.nga,reordered
+844,Air pollution effects,Gasoline air pollution cost per liter,egy.mit.airpol.cost.gso.1,mit.airpol.cost.gso,mit,airpolcost,lit,,,
+845,Air pollution effects,Diesel air pollution cost per liter,egy.mit.airpol.cost.die.1,mit.airpol.cost.die,mit,airpolcost,lit,,,
+846,Air pollution effects,LPG air pollution cost per liter,egy.mit.airpol.cost.lpg.1,mit.airpol.cost.lpg,mit,airpolcost,lit,,,
+847,Air pollution effects,Kerosene air pollution cost per liter,egy.mit.airpol.cost.ker.1,mit.airpol.cost.ker,mit,airpolcost,lit,,,
+848,Air pollution effects,Savings health expenditure - Government - Real US$mn,egy.air.sav.the.gov,air.sav.the.gov,air,sav,usdm,,,
+849,Air pollution effects,Savings health expenditure - Prepaid Private - Real US$mn,egy.air.sav.the.ppr,air.sav.the.ppr,air,sav,usdm,,,
+850,Air pollution effects,Savings health expenditure - Out-of-pocket - Real US$mn,egy.air.sav.the.opo,air.sav.the.opo,air,sav,usdm,,,
+851,Air pollution effects,Savings health expenditure - Development assistance for health - Real US$mn,egy.air.sav.the.das,air.sav.the.das,air,sav,usdm,,,
+852,Air pollution effects,"Deaths per Ktoe, Coal power plants",egy.dth.ktoe.pow.coa.1,dth.ktoe.pow.coa,air,dthktoe,deathsktoe,1.0,,
+853,Air pollution effects,"Deaths per Ktoe, gas power plants",egy.dth.ktoe.pow.nga.1,dth.ktoe.pow.nga,air,dthktoe,deathsktoe,1.0,,
+854,Air pollution effects,"Deaths per Ktoe, oil power plants",egy.dth.ktoe.pow.opp.1,dth.ktoe.pow.opp,air,dthktoe,deathsktoe,1.0,,
+855,Air pollution effects,"Deaths per Ktoe, gasoline in transport",egy.dth.ktoe.rod.gso.1,dth.ktoe.rod.gso,air,dthktoe,deathsktoe,1.0,,
+856,Air pollution effects,"Deaths per Ktoe, diesel in transport",egy.dth.ktoe.rod.die.1,dth.ktoe.rod.die,air,dthktoe,deathsktoe,1.0,,
+857,Air pollution effects,"Deaths per Ktoe, coal in all industries",egy.dth.ktoe.ind.coa.1,dth.ktoe.ind.coa,air,dthktoe,deathsktoe,1.0,,
+858,Air pollution effects,"Deaths per Ktoe, other oil in all industries",egy.dth.ktoe.ind.oop.1,dth.ktoe.ind.oop,air,dthktoe,deathsktoe,1.0,,
+859,Air pollution effects,"Deaths per Ktoe, natural gas in all industries",egy.dth.ktoe.ind.nga.1,dth.ktoe.ind.nga,air,dthktoe,deathsktoe,1.0,,
+860,Air pollution effects,"Deaths per Ktoe, natural gas in residential",egy.dth.ktoe.res.nga.1,dth.ktoe.res.nga,air,dthktoe,deathsktoe,1.0,,
+861,Air pollution effects,Baseline PM2.5 (in µg/m3) from coal power plants,egy.air.conc.pm2.cpp.1,air.conc.pm2.cpp,air,conc_pm,ugm3,1.0,,
+862,Air pollution effects,Baseline PM2.5 (in µg/m3) from gas power plants,egy.air.conc.pm2.gpp.1,air.conc.pm2.gpp,air,conc_pm,ugm3,1.0,,
+863,Air pollution effects,Baseline PM2.5 (in µg/m3) from other power plants,egy.air.conc.pm2.opp.1,air.conc.pm2.opp,air,conc_pm,ugm3,1.0,,
+864,Air pollution effects,Baseline PM2.5 (in µg/m3) from road transport,egy.air.conc.pm2.rod.1,air.conc.pm2.rod,air,conc_pm,ugm3,1.0,,
+865,Air pollution effects,"Baseline PM2.5 (in µg/m3) from residential, services and construction",egy.air.conc.pm2.gro.1,air.conc.pm2.gro,air,conc_pm,ugm3,1.0,,
+866,Air pollution effects,Baseline PM2.5 (in µg/m3) from industries and other energy,egy.air.conc.pm2.oth.1,air.conc.pm2.oth,air,conc_pm,ugm3,1.0,,
+867,Air pollution effects,Baseline PM2.5 (in µg/m3) from food & forestry,egy.air.conc.pm2.foo.1,air.conc.pm2.foo,air,conc_pm,ugm3,1.0,,
+868,Air pollution effects,Baseline PM2.5 (in µg/m3) total,egy.air.conc.pm2.tot.1,air.conc.pm2.tot,air,conc_pm,ugm3,1.0,,
+869,Air pollution effects,Scenario PM2.5 (in µg/m3) from coal power plants,egy.air.conc.pm2.cpp.2,air.conc.pm2.cpp,air,conc_pm,ugm3,2.0,,
+870,Air pollution effects,Scenario PM2.5 (in µg/m3) from gas power plants,egy.air.conc.pm2.gpp.2,air.conc.pm2.gpp,air,conc_pm,ugm3,2.0,,
+871,Air pollution effects,Scenario PM2.5 (in µg/m3) from other power plants,egy.air.conc.pm2.opp.2,air.conc.pm2.opp,air,conc_pm,ugm3,2.0,,
+872,Air pollution effects,Scenario PM2.5 (in µg/m3) from road transport,egy.air.conc.pm2.rod.2,air.conc.pm2.rod,air,conc_pm,ugm3,2.0,,
+873,Air pollution effects,"Scenario PM2.5 (in µg/m3) from residential, services and construction",egy.air.conc.pm2.gro.2,air.conc.pm2.gro,air,conc_pm,ugm3,2.0,,
+874,Air pollution effects,Scenario PM2.5 (in µg/m3) from industries and other energy,egy.air.conc.pm2.oth.2,air.conc.pm2.oth,air,conc_pm,ugm3,2.0,,
+875,Air pollution effects,Scenario PM2.5 (in µg/m3) from food & forestry,egy.air.conc.pm2.foo.2,air.conc.pm2.foo,air,conc_pm,ugm3,2.0,,
+876,Air pollution effects,Scenario PM2.5 (in µg/m3) total,egy.air.conc.pm2.tot.2,air.conc.pm2.tot,air,conc_pm,ugm3,2.0,,
+878,Climate costs,Coal climate costs per GJ,egy.mit.cc.code.coa.1,mit.cc.code.coa,mit,cccosts,usdgj,1.0,,
+879,Climate costs,Natural gas climate costs per GJ,egy.mit.cc.code.nga.1,mit.cc.code.nga,mit,cccosts,usdgj,1.0,,
+880,Climate costs,Gasoline climate costs per GJ,egy.mit.cc.code.gso.1,mit.cc.code.gso,mit,cccosts,usdgj,1.0,,
+881,Climate costs,Diesel climate costs per GJ,egy.mit.cc.code.die.1,mit.cc.code.die,mit,cccosts,usdgj,1.0,,
+882,Climate costs,LPG climate costs per GJ,egy.mit.cc.code.lpg.1,mit.cc.code.lpg,mit,cccosts,usdgj,1.0,,
+883,Climate costs,Kerosene climate costs per GJ,egy.mit.cc.code.ker.1,mit.cc.code.ker,mit,cccosts,usdgj,1.0,,
+885,Transportation effects,"VMT, Baseline",egy.tran.vmt.1,tran.vmt,tran,vmt,,1.0,,
+886,Transportation effects,"VMT, Policy",egy.tran.vmt.2,tran.vmt,tran,vmt,,1.0,,
+887,Transportation effects,"Transport accidents, Baseline",egy.tran.deaths.1,tran.deaths,tran,vmt,,2.0,,
+888,Transportation effects,"Transport accidents, Policy",egy.tran.deaths.2,tran.deaths,tran,deaths,,1.0,,
+889,Transportation effects,Cumulative averted deaths from accidents,egy.tran.acc.avd.cum.2,tran.acc.avd.cum,tran,deaths,,2.0,,
+890,Transportation effects,Peak hours: baseline,egy.tran.congestionP.1,tran.congestionP,tran,congestionP,,1.0,,
+891,Transportation effects,Peak hours: policy,egy.tran.congestionP.2,tran.congestionP,tran,congestionP,,2.0,,
+892,Transportation effects,Gasoline accident damage per liter,egy.tran.acc.cost.gso.1,tran.acc.cost.gso,tran,acccost,,1.0,,
+893,Transportation effects,Diesel accident damage per liter,egy.tran.acc.cost.die.1,tran.acc.cost.die,tran,acccost,,1.0,,
+894,Transportation effects,Gasoline congestion damage per liter,egy.tran.con.cost.gso.1,tran.con.cost.gso,tran,concost,,1.0,,
+895,Transportation effects,Diesel congestion damage per liter,egy.tran.con.cost.die.1,tran.con.cost.die,tran,concost,,1.0,,
+896,Transportation effects,Gasoline road damage per liter,egy.tran.rdm.cost.gso.1,tran.rdm.cost.gso,tran,rdmcost,,1.0,,
+897,Transportation effects,Diesel road damage per liter,egy.tran.rdm.cost.die.1,tran.rdm.cost.die,tran,rdmcost,,1.0,,
+899,Welfare effects,Averted climate damages (national) (real US$ 2026 bn),egy.mit.wel.cli.usd,mit.wel.cli.usd,mit,wel,usd,,,
+900,Welfare effects,Averted air pollution mortality/morbidity (real US$ 2026 bn),egy.mit.wel.air.usd,mit.wel.air.usd,mit,wel,usd,,mit.wel.air.usd,exact
+901,Welfare effects,Averted road accidents (real US$ 2026 bn),egy.mit.wel.rod.aci.usd,mit.wel.rod.aci.usd,mit,wel,usd,,mit.wel.rod.aci.usd,exact
+902,Welfare effects,Reduced congestion (real US$ 2026 bn),egy.mit.wel.rod.con.usd,mit.wel.rod.con.usd,mit,wel,usd,,mit.wel.rod.con.usd,exact
+903,Welfare effects,Efficiency costs (real US$ 2026 bn),egy.mit.wel.eco.dwl.usd,mit.wel.eco.dwl.usd,mit,wel,usd,,,
+904,Welfare effects,Total national welfare benefits (real US$ 2026 bn),egy.mit.wel.tot.tot,mit.wel.tot.tot,mit,wel,pc,,,
+905,Welfare effects,Climate benefits (real US$ 2026 bn),egy.mit.wel.cli.pct,mit.wel.cli.pct,mit,wel,pc,,mit.wel.cli.pct,exact
+906,Welfare effects,Air pollution co-benefits (% GDP),egy.mit.wel.air.pct,mit.wel.air.pct,mit,wel,pc,,mit.wel.air.pct,exact
+907,Welfare effects,Transport co-benefits (% GDP),egy.mit.wel.rod.pct,mit.wel.rod.pct,mit,wel,pc,,mit.wel.rod.pct,exact
+908,Welfare effects,Efficiency costs (% GDP),egy.mit.wel.eco.dwl.pct,mit.wel.eco.dwl.pct,mit,wel,pc,,mit.wel.eco.dwl.pct,exact
+909,Welfare effects,Total national welfare benefits (% GDP),egy.mit.wel.tot.pct,mit.wel.tot.pct,mit,wel,pc,,mit.wel.pct.tot,reordered
+911,Distributional effects,Relative loss in consumption by prices increases on rural population (% consumption),egy.distn.tef.tot.dec.rur,distn.tef.tot.dec.rur,distn,tef,dec,,distn.tef.tot.dec.rur,exact
+912,Distributional effects,Relative loss in consumption by prices increases on urban population (% consumption),egy.distn.tef.tot.dec.urb,distn.tef.tot.dec.urb,distn,tef,dec,,distn.tef.tot.dec.urb,exact
+913,Distributional effects,Relative price impacts on consumption deciles: direct effect  (% consumption),egy.distn.def.tot.dec.ove,distn.def.tot.dec.ove,distn,def,dec,,distn.def.tot.dec.ove,exact
+914,Distributional effects,Relative price impacts on consumption deciles: coal direct effect  (% consumption),egy.distn.def.coa.dec.ove,distn.def.coa.dec.ove,distn,def,dec,,distn.def.coa.dec.ove,exact
+915,Distributional effects,Relative price impacts on consumption deciles: electricity direct effect  (% consumption),egy.distn.def.ely.dec.ove,distn.def.ely.dec.ove,distn,def,dec,,distn.def.ely.dec.ove,exact
+916,Distributional effects,Relative price impacts on consumption deciles: natural gas direct effect  (% consumption),egy.distn.def.nga.dec.ove,distn.def.nga.dec.ove,distn,def,dec,,distn.def.nga.dec.ove,exact
+917,Distributional effects,Relative price impacts on consumption deciles: oil direct effect  (% consumption),egy.distn.def.oil.dec.ove,distn.def.oil.dec.ove,distn,def,dec,,distn.def.oil.dec.ove,exact
+918,Distributional effects,Relative price impacts on consumption deciles: gasoline direct effect  (% consumption),egy.distn.def.gso.dec.ove,distn.def.gso.dec.ove,distn,def,dec,,distn.def.gso.dec.ove,exact
+919,Distributional effects,Relative price impacts on consumption deciles: diesel direct effect  (% consumption),egy.distn.def.die.dec.ove,distn.def.die.dec.ove,distn,def,dec,,distn.def.die.dec.ove,exact
+920,Distributional effects,Relative price impacts on consumption deciles: kerosene direct effect  (% consumption),egy.distn.def.ker.dec.ove,distn.def.ker.dec.ove,distn,def,dec,,distn.def.ker.dec.ove,exact
+921,Distributional effects,Relative price impacts on consumption deciles: lpg direct effect  (% consumption),egy.distn.def.lpg.dec.ove,distn.def.lpg.dec.ove,distn,def,dec,,distn.def.lpg.dec.ove,exact
+922,Distributional effects,Relative price impacts on consumption deciles: indirect effect  (% consumption),egy.distn.ief.tot.dec.ove,distn.ief.tot.dec.ove,distn,ief,dec,,distn.ief.tot.dec.ove,exact
+923,Distributional effects,Relative price impacts on consumption deciles: appliances indirect effect  (% consumption),egy.distn.ief.app.dec.ove,distn.ief.app.dec.ove,distn,ief,dec,,distn.ief.app.dec.ove,exact
+924,Distributional effects,Relative price impacts on consumption deciles: chemicals indirect effect  (% consumption),egy.distn.ief.che.dec.ove,distn.ief.che.dec.ove,distn,ief,dec,,distn.ief.che.dec.ove,exact
+925,Distributional effects,Relative price impacts on consumption deciles: clothing indirect effect  (% consumption),egy.distn.ief.clo.dec.ove,distn.ief.clo.dec.ove,distn,ief,dec,,distn.ief.clo.dec.ove,exact
+926,Distributional effects,Relative price impacts on consumption deciles: communications indirect effect  (% consumption),egy.distn.ief.com.dec.ove,distn.ief.com.dec.ove,distn,ief,dec,,distn.ief.com.dec.ove,exact
+927,Distributional effects,Relative price impacts on consumption deciles: education indirect effect  (% consumption),egy.distn.ief.edu.dec.ove,distn.ief.edu.dec.ove,distn,ief,dec,,distn.ief.edu.dec.ove,exact
+928,Distributional effects,Relative price impacts on consumption deciles: food indirect effect  (% consumption),egy.distn.ief.food.dec.ove,distn.ief.food.dec.ove,distn,ief,dec,,distn.ief.food.dec.ove,exact
+929,Distributional effects,Relative price impacts on consumption deciles: health services indirect effect  (% consumption),egy.distn.ief.hea.dec.ove,distn.ief.hea.dec.ove,distn,ief,dec,,distn.ief.hea.dec.ove,exact
+930,Distributional effects,Relative price impacts on consumption deciles: housing indirect effect  (% consumption),egy.distn.ief.hou.dec.ove,distn.ief.hou.dec.ove,distn,ief,dec,,distn.ief.hou.dec.ove,exact
+931,Distributional effects,Relative price impacts on consumption deciles: other indirect effect  (% consumption),egy.distn.ief.oth.dec.ove,distn.ief.oth.dec.ove,distn,ief,dec,,distn.ief.oth.dec.ove,exact
+932,Distributional effects,Relative price impacts on consumption deciles: paper indirect effect  (% consumption),egy.distn.ief.pap.dec.ove,distn.ief.pap.dec.ove,distn,ief,dec,,distn.ief.pap.dec.ove,exact
+933,Distributional effects,Relative price impacts on consumption deciles: pharmaceuticals indirect effect  (% consumption),egy.distn.ief.pha.dec.ove,distn.ief.pha.dec.ove,distn,ief,dec,,distn.ief.pha.dec.ove,exact
+934,Distributional effects,Relative price impacts on consumption deciles: recreation and tourism indirect effect  (% consumption),egy.distn.ief.ret.dec.ove,distn.ief.ret.dec.ove,distn,ief,dec,,distn.ief.ret.dec.ove,exact
+935,Distributional effects,Relative price impacts on consumption deciles: transportation equipment indirect effect  (% consumption),egy.distn.ief.teq.dec.ove,distn.ief.teq.dec.ove,distn,ief,dec,,distn.ief.teq.dec.ove,exact
+936,Distributional effects,Relative price impacts on consumption deciles: public transportation indirect effect  (% consumption),egy.distn.ief.tpu.dec.ove,distn.ief.tpu.dec.ove,distn,ief,dec,,distn.ief.tpu.dec.ove,exact
+937,Distributional effects,Budget shares for consumption deciles: coal (% consumption),egy.distn.bsh.coa.dec.ove,distn.bsh.coa.dec.ove,distn,bsh,dec,,distn.bsh.coa.dec.ove,exact
+938,Distributional effects,Budget shares for consumption deciles: electricity (% consumption),egy.distn.bsh.ely.dec.ove,distn.bsh.ely.dec.ove,distn,bsh,dec,,distn.bsh.ely.dec.ove,exact
+939,Distributional effects,Budget shares for consumption deciles: natural gas (% consumption),egy.distn.bsh.nga.dec.ove,distn.bsh.nga.dec.ove,distn,bsh,dec,,distn.bsh.nga.dec.ove,exact
+940,Distributional effects,Budget shares for consumption deciles: oil (% consumption),egy.distn.bsh.oil.dec.ove,distn.bsh.oil.dec.ove,distn,bsh,dec,,distn.bsh.oil.dec.ove,exact
+941,Distributional effects,Budget shares for consumption deciles: gasoline (% consumption),egy.distn.bsh.gso.dec.ove,distn.bsh.gso.dec.ove,distn,bsh,dec,,distn.bsh.gso.dec.ove,exact
+942,Distributional effects,Budget shares for consumption deciles: diesel (% consumption),egy.distn.bsh.die.dec.ove,distn.bsh.die.dec.ove,distn,bsh,dec,,distn.bsh.die.dec.ove,exact
+943,Distributional effects,Budget shares for consumption deciles: kerosene (% consumption),egy.distn.bsh.ker.dec.ove,distn.bsh.ker.dec.ove,distn,bsh,dec,,distn.bsh.ker.dec.ove,exact
+944,Distributional effects,Budget shares for consumption deciles: lpg (% consumption),egy.distn.bsh.lpg.dec.ove,distn.bsh.lpg.dec.ove,distn,bsh,dec,,distn.bsh.lpg.dec.ove,exact
+945,Distributional effects,Budget shares for consumption deciles: charcoal (% consumption),egy.distn.bsh.ccl.dec.ove,distn.bsh.ccl.dec.ove,distn,bsh,dec,,distn.bsh.ccl.dec.ove,exact
+946,Distributional effects,Budget shares for consumption deciles: ethanol (% consumption),egy.distn.bsh.ethanol.dec.ove,distn.bsh.ethanol.dec.ove,distn,bsh,dec,,distn.bsh.ethanol.dec.ove,exact
+947,Distributional effects,Budget shares for consumption deciles: firewood (% consumption),egy.distn.bsh.fwd.dec.ove,distn.bsh.fwd.dec.ove,distn,bsh,dec,,distn.bsh.fwd.dec.ove,exact
+948,Distributional effects,Budget shares for consumption deciles: appliances (% consumption),egy.distn.bsh.app.dec.ove,distn.bsh.app.dec.ove,distn,bsh,dec,,distn.bsh.app.dec.ove,exact
+949,Distributional effects,Budget shares for consumption deciles: chemicals (% consumption),egy.distn.bsh.che.dec.ove,distn.bsh.che.dec.ove,distn,bsh,dec,,distn.bsh.che.dec.ove,exact
+950,Distributional effects,Budget shares for consumption deciles: clothing (% consumption),egy.distn.bsh.clo.dec.ove,distn.bsh.clo.dec.ove,distn,bsh,dec,,distn.bsh.clo.dec.ove,exact
+951,Distributional effects,Budget shares for consumption deciles: communications (% consumption),egy.distn.bsh.com.dec.ove,distn.bsh.com.dec.ove,distn,bsh,dec,,distn.bsh.com.dec.ove,exact
+952,Distributional effects,Budget shares for consumption deciles: education (% consumption),egy.distn.bsh.edu.dec.ove,distn.bsh.edu.dec.ove,distn,bsh,dec,,distn.bsh.edu.dec.ove,exact
+953,Distributional effects,Budget shares for consumption deciles: food (% consumption),egy.distn.bsh.food.dec.ove,distn.bsh.food.dec.ove,distn,bsh,dec,,distn.bsh.food.dec.ove,exact
+954,Distributional effects,Budget shares for consumption deciles: heatlh services (% consumption),egy.distn.bsh.hea.dec.ove,distn.bsh.hea.dec.ove,distn,bsh,dec,,distn.bsh.hea.dec.ove,exact
+955,Distributional effects,Budget shares for consumption deciles: housing (% consumption),egy.distn.bsh.hou.dec.ove,distn.bsh.hou.dec.ove,distn,bsh,dec,,distn.bsh.hou.dec.ove,exact
+956,Distributional effects,Budget shares for consumption deciles: other (% consumption),egy.distn.bsh.oth.dec.ove,distn.bsh.oth.dec.ove,distn,bsh,dec,,distn.bsh.oth.dec.ove,exact
+957,Distributional effects,Budget shares for consumption deciles: paper (% consumption),egy.distn.bsh.pap.dec.ove,distn.bsh.pap.dec.ove,distn,bsh,dec,,distn.bsh.pap.dec.ove,exact
+958,Distributional effects,Budget shares for consumption deciles: pharmaceuticals (% consumption),egy.distn.bsh.pha.dec.ove,distn.bsh.pha.dec.ove,distn,bsh,dec,,distn.bsh.pha.dec.ove,exact
+959,Distributional effects,Budget shares for consumption deciles: recreation and tourism (% consumption),egy.distn.bsh.ret.dec.ove,distn.bsh.ret.dec.ove,distn,bsh,dec,,distn.bsh.ret.dec.ove,exact
+960,Distributional effects,Budget shares for consumption deciles: transportation equipment (% consumption),egy.distn.bsh.teq.dec.ove,distn.bsh.teq.dec.ove,distn,bsh,dec,,distn.bsh.teq.dec.ove,exact
+961,Distributional effects,Budget shares for consumption deciles: public transportation (% consumption),egy.distn.bsh.tpu.dec.ove,distn.bsh.tpu.dec.ove,distn,bsh,dec,,distn.bsh.tpu.dec.ove,exact
+962,Distributional effects,Real per-capita national accounts-adjusted consumption by decile (real 2026 LCU in year 2030),egy.distn.cons_pc_na.dec.ove,distn.cons_pc_na.dec.ove,distn,cons_pc_na,dec,,distn.cons_pc_na.dec.ove,exact
+963,Distributional effects,Real total national accounts-adjusted consumption by decile (real 2026 LCU in year 2030),egy.distn.tot_cons_na.dec.ove,distn.tot_cons_na.dec.ove,distn,tot_cons_na,dec,,distn.tot_cons_na.dec.ove,exact
+964,Distributional effects,Total population by decile (individuals in year 2030),egy.distn.pop_tot_adj.dec.ove,distn.pop_tot_adj.dec.ove,distn,pop_tot_adj,dec,,distn.pop_tot_adj.dec.ove,exact
+965,Distributional effects,Share of CP Revenues to Compenate each Decile - Rural,egy.distn.pctrev_comp.dec.rur,distn.pctrev_comp.dec.rur,distn,pctrev_comp,dec,,distn.pctrev_comp.dec.rur,exact
+966,Distributional effects,Share of CP Revenues to Compenate each Decile - Urban,egy.distn.pctrev_comp.dec.urb,distn.pctrev_comp.dec.urb,distn,pctrev_comp,dec,,distn.pctrev_comp.dec.urb,exact
+967,Distributional effects,Share of CP Revenues to Compenate each Decile - Overall,egy.distn.pctrev_comp.dec.ove,distn.pctrev_comp.dec.ove,distn,pctrev_comp,dec,,distn.pctrev_comp.dec.ove,exact
+968,Distributional effects,Percent change in consumption-based Gini coefficient (% excl. recycling) - Overall,egy.distn.pct_gini_norec.dec.ove,distn.pct_gini_norec.dec.ove,distn,pct_gini_norec,,,distn.pct_gini_norec.dec.ove,exact
+969,Distributional effects,Percent change in consumption-based Gini coefficient (% excl. recycling) - Urban,egy.distn.pct_gini_norec.dec.urb,distn.pct_gini_norec.dec.urb,distn,pct_gini_norec,,,distn.pct_gini_norec.dec.urb,exact
+970,Distributional effects,Percent change in consumption-based Gini coefficient (% excl. recycling) - Rural,egy.distn.pct_gini_norec.dec.rur,distn.pct_gini_norec.dec.rur,distn,pct_gini_norec,,,distn.pct_gini_norec.dec.rur,exact
+971,Distributional effects,Percent change in consumption-based Gini coefficient (% incl. recycling) - Overall,egy.distn.pct_gini_rec.dec.ove,distn.pct_gini_rec.dec.ove,distn,pct_gini_rec,,,distn.pct_gini_rec.dec.ove,exact
+972,Distributional effects,Percent change in consumption-based Gini coefficient (% incl. recycling) - Urban,egy.distn.pct_gini_rec.dec.urb,distn.pct_gini_rec.dec.urb,distn,pct_gini_rec,,,distn.pct_gini_rec.dec.urb,exact
+973,Distributional effects,Percent change in consumption-based Gini coefficient (% incl. recycling) - Rural,egy.distn.pct_gini_rec.dec.rur,distn.pct_gini_rec.dec.rur,distn,pct_gini_rec,,,distn.pct_gini_rec.dec.rur,exact
+974,Distributional effects,Percent Price Increases: coal (%),egy.distn.dpr.coa.res,distn.dpr.coa.res,distn,dpr,,,distn.dpr.coa.res,exact
+975,Distributional effects,Percent Price Increases: electricity (%),egy.distn.dpr.ely.res,distn.dpr.ely.res,distn,dpr,,,distn.dpr.ely.res,exact
+976,Distributional effects,Percent Price Increases: natural gas (%),egy.distn.dpr.nga.res,distn.dpr.nga.res,distn,dpr,,,distn.dpr.nga.res,exact
+977,Distributional effects,Percent Price Increases: oil (%),egy.distn.dpr.oop.res,distn.dpr.oop.res,distn,dpr,,,distn.dpr.oop.res,exact
+978,Distributional effects,Percent Price Increases: gasoline (%),egy.distn.dpr.gso.res,distn.dpr.gso.res,distn,dpr,,,distn.dpr.gso.res,exact
+979,Distributional effects,Percent Price Increases: diesel (%),egy.distn.dpr.die.res,distn.dpr.die.res,distn,dpr,,,distn.dpr.die.res,exact
+980,Distributional effects,Percent Price Increases: kerosene (%),egy.distn.dpr.ker.res,distn.dpr.ker.res,distn,dpr,,,distn.dpr.ker.res,exact
+981,Distributional effects,Percent Price Increases: lpg (%),egy.distn.dpr.lpg.res,distn.dpr.lpg.res,distn,dpr,,,distn.dpr.lpg.res,exact
+982,Distributional effects,Percent Price Increases: appliances (%),egy.distn.dpr.app,distn.dpr.app,distn,dpr,,,distn.dpr.app,exact
+983,Distributional effects,Percent Price Increases: chemicals (%),egy.distn.dpr.che,distn.dpr.che,distn,dpr,,,distn.dpr.che,exact
+984,Distributional effects,Percent Price Increases: clothing (%),egy.distn.dpr.clo,distn.dpr.clo,distn,dpr,,,distn.dpr.clo,exact
+985,Distributional effects,Percent Price Increases: communications (%),egy.distn.dpr.com,distn.dpr.com,distn,dpr,,,distn.dpr.com,exact
+986,Distributional effects,Percent Price Increases: education (%),egy.distn.dpr.edu,distn.dpr.edu,distn,dpr,,,distn.dpr.edu,exact
+987,Distributional effects,Percent Price Increases: food (%),egy.distn.dpr.food,distn.dpr.food,distn,dpr,,,distn.dpr.food,exact
+988,Distributional effects,Percent Price Increases: heatlh services (%),egy.distn.dpr.hea,distn.dpr.hea,distn,dpr,,,distn.dpr.hea,exact
+989,Distributional effects,Percent Price Increases: housing (%),egy.distn.dpr.hou,distn.dpr.hou,distn,dpr,,,distn.dpr.hou,exact
+990,Distributional effects,Percent Price Increases: other (%),egy.distn.dpr.oth,distn.dpr.oth,distn,dpr,,,distn.dpr.oth,exact
+991,Distributional effects,Percent Price Increases: paper (%),egy.distn.dpr.pap,distn.dpr.pap,distn,dpr,,,distn.dpr.pap,exact
+992,Distributional effects,Percent Price Increases: pharmaceuticals (%),egy.distn.dpr.pha,distn.dpr.pha,distn,dpr,,,distn.dpr.pha,exact
+993,Distributional effects,Percent Price Increases: recreation and tourism (%),egy.distn.dpr.ret,distn.dpr.ret,distn,dpr,,,distn.dpr.ret,exact
+994,Distributional effects,Percent Price Increases: transportation equipment (%),egy.distn.dpr.teq,distn.dpr.teq,distn,dpr,,,distn.dpr.teq,exact
+995,Distributional effects,Percent Price Increases: public transportation (%),egy.distn.dpr.tpu,distn.dpr.tpu,distn,dpr,,,distn.dpr.tpu,exact
+996,Distributional effects,Relative gains from revenue recycling on consumption deciles: labor tax reductions  (% consumption),egy.distn.pit.tot.dec.ove,distn.pit.tot.dec.ove,distn,pit,dec,,distn.pit.tot.dec.ove,exact
+997,Distributional effects,Relative gains from revenue recycling on consumption deciles: public investment  (% consumption),egy.distn.pui.tot.dec.ove,distn.pui.tot.dec.ove,distn,pui,dec,,distn.pui.tot.dec.ove,exact
+998,Distributional effects,Relative gains from revenue recycling on consumption deciles: current spending  (% consumption),egy.distn.cts.tot.dec.ove,distn.cts.tot.dec.ove,distn,cts,dec,,distn.cts.tot.dec.ove,exact
+999,Distributional effects,Relative gains from revenue recycling on consumption deciles: targeted transfer  (% consumption),egy.distn.tgt.tot.dec.ove,distn.tgt.tot.dec.ove,distn,tgt,dec,,distn.tgt.tot.dec.ove,exact
+1000,Distributional effects,Relative price impacts on consumption deciles: total effect  (% consumption),egy.distn.tef.tot.dec.ove,distn.tef.tot.dec.ove,distn,tef,dec,,distn.tef.tot.dec.ove,exact
+1001,Distributional effects,Distributional analysis year,dist.year,year,,,,,,
+1002,Distributional effects,"Distributional impacts on average, p25, p75, median",dist.stat,stat,,,,,,
+1004,Gains from revenue recycling,PIT reductions (Personal Allowance),egy.distn.pit.tot.dec.ove.mean,distn.pit.tot.dec.ove.mean,distn,pit,dec,,,
+1005,Gains from revenue recycling,Public Investment (All Infr.),egy.distn.pui.tot.dec.ove.mean,distn.pui.tot.dec.ove.mean,distn,pui,dec,,,
+1006,Gains from revenue recycling,Current Spending (All Social Protection and Labor),egydistn.cts.tot.dec.ove.mean,distn.cts.tot.dec.ove.mean,distn,cts,dec,,,
+1007,Gains from revenue recycling,Targeted Transfer (Cash),egy.distn.tgt.tot.dec.ove.mean,distn.tgt.tot.dec.ove.mean,distn,tgt,dec,,,
+1008,Gains from revenue recycling,Total Recycled - Overall,egy.distn.rec.tot.dec.ove.mean,distn.rec.tot.dec.ove.mean,distn,rec,dec,,,
+1009,Gains from revenue recycling,Rural: PIT reductions (Personal Allowance),egy.distn.pit.tot.dec.rur.mean,distn.pit.tot.dec.rur.mean,distn,pit,dec,,,
+1010,Gains from revenue recycling,Rural: Public Investment (All Infr.),egy.distn.pui.tot.dec.rur.mean,distn.pui.tot.dec.rur.mean,distn,pui,dec,,,
+1011,Gains from revenue recycling,Rural: Current Spending (All Social Protection and Labor),egy.distn.cts.tot.dec.rur.mean,distn.cts.tot.dec.rur.mean,distn,cts,dec,,,
+1012,Gains from revenue recycling,Rural: Targeted Transfer (Cash),egy.distn.tgt.tot.dec.rur.mean,distn.tgt.tot.dec.rur.mean,distn,tgt,dec,,,
+1013,Gains from revenue recycling,Total Recycled - Rural,egydistn.rec.tot.dec.rur.mean,distn.rec.tot.dec.rur.mean,distn,rec,dec,,,
+1014,Gains from revenue recycling,Urban: PIT reductions (Personal Allowance),egy.distn.pit.tot.dec.urb.mean,distn.pit.tot.dec.urb.mean,distn,pit,dec,,,
+1015,Gains from revenue recycling,Urban: Public Investment (All Infr.),egy.distn.pui.tot.dec.urb.mean,distn.pui.tot.dec.urb.mean,distn,pui,dec,,,
+1016,Gains from revenue recycling,Urban: Current Spending (All Social Protection and Labor),egy.distn.cts.tot.dec.urb.mean,distn.cts.tot.dec.urb.mean,distn,cts,dec,,,
+1017,Gains from revenue recycling,Urban: Targeted Transfer (Cash),egy.distn.tgt.tot.dec.urb.mean,distn.tgt.tot.dec.urb.mean,distn,tgt,dec,,,
+1018,Gains from revenue recycling,Total Recycled - Urban,egy.distn.rec.tot.dec.urb.mean,distn.rec.tot.dec.urb.mean,distn,rec,dec,,,
+1020,Direct and indirect price changes: by aggregated CPAT non-fuel consumption category,food,egy.distn.dpr.food,distn.dpr.food,distn,dpr,,,distn.dpr.food,exact
+1021,Direct and indirect price changes: by aggregated CPAT non-fuel consumption category,edu,egy.distn.dpr.edu,distn.dpr.edu,distn,dpr,,,distn.dpr.edu,exact
+1022,Direct and indirect price changes: by aggregated CPAT non-fuel consumption category,hea,egy.distn.dpr.hea,distn.dpr.hea,distn,dpr,,,distn.dpr.hea,exact
+1023,Direct and indirect price changes: by aggregated CPAT non-fuel consumption category,clo,egy.distn.dpr.clo,distn.dpr.clo,distn,dpr,,,distn.dpr.clo,exact
+1024,Direct and indirect price changes: by aggregated CPAT non-fuel consumption category,hou,egy.distn.dpr.hou,distn.dpr.hou,distn,dpr,,,distn.dpr.hou,exact
+1025,Direct and indirect price changes: by aggregated CPAT non-fuel consumption category,app,egy.distn.dpr.app,distn.dpr.app,distn,dpr,,,distn.dpr.app,exact
+1026,Direct and indirect price changes: by aggregated CPAT non-fuel consumption category,che,egy.distn.dpr.che,distn.dpr.che,distn,dpr,,,distn.dpr.che,exact
+1027,Direct and indirect price changes: by aggregated CPAT non-fuel consumption category,tpu,egy.distn.dpr.tpu,distn.dpr.tpu,distn,dpr,,,distn.dpr.tpu,exact
+1028,Direct and indirect price changes: by aggregated CPAT non-fuel consumption category,teq,egy.distn.dpr.teq,distn.dpr.teq,distn,dpr,,,distn.dpr.teq,exact
+1029,Direct and indirect price changes: by aggregated CPAT non-fuel consumption category,pap,egy.distn.dpr.pap,distn.dpr.pap,distn,dpr,,,distn.dpr.pap,exact
+1030,Direct and indirect price changes: by aggregated CPAT non-fuel consumption category,com,egy.distn.dpr.com,distn.dpr.com,distn,dpr,,,distn.dpr.com,exact
+1031,Direct and indirect price changes: by aggregated CPAT non-fuel consumption category,pha,egy.distn.dpr.pha,distn.dpr.pha,distn,dpr,,,distn.dpr.pha,exact
+1032,Direct and indirect price changes: by aggregated CPAT non-fuel consumption category,ret,egy.distn.dpr.ret,distn.dpr.ret,distn,dpr,,,distn.dpr.ret,exact
+1033,Direct and indirect price changes: by aggregated CPAT non-fuel consumption category,oth,egy.distn.dpr.oth,distn.dpr.oth,distn,dpr,,,distn.dpr.oth,exact
+1035,Percent increase in input costs and output prices by sector (weighted by output),Aviation,egy.ppic.avi,ppic.avi,distn,,,,,
+1036,Percent increase in input costs and output prices by sector (weighted by output),Food,egy.ppic.foo,ppic.foo,distn,,,,,
+1037,Percent increase in input costs and output prices by sector (weighted by output),Services,egy.ppic.srv,ppic.srv,distn,,,,,
+1038,Percent increase in input costs and output prices by sector (weighted by output),Construction,egy.ppic.con,ppic.con,distn,,,,,
+1039,Percent increase in input costs and output prices by sector (weighted by output),Machinery,egy.ppic.mac,ppic.mac,distn,,,,,
+1040,Percent increase in input costs and output prices by sector (weighted by output),Iron/steel,egy.ppic.irn,ppic.irn,distn,,,,,
+1041,Percent increase in input costs and output prices by sector (weighted by output),Manufactures,egy.ppic.man,ppic.man,distn,,,,,
+1042,Percent increase in input costs and output prices by sector (weighted by output),Other metals,egy.ppic.oth,ppic.oth,distn,,,,,
+1043,Percent increase in input costs and output prices by sector (weighted by output),Cement,egy.ppic.cem,ppic.cem,distn,,,,,
+1044,Percent increase in input costs and output prices by sector (weighted by output),Shipping,egy.ppic.shi,ppic.shi,distn,,,,,
+1045,Percent increase in input costs and output prices by sector (weighted by output),Residential,egy.ppic.res,ppic.res,distn,,,,,
+1046,Percent increase in input costs and output prices by sector (weighted by output),Fuel,egy.ppic.fuel,ppic.fuel,distn,,,,,
+1048,Sectoral output price increases and share in total output,Aviation,egy.outpriin.avi,outpriin.avi,distn,,,,,
+1049,Sectoral output price increases and share in total output,Shipping,egy.outpriin.shi,outpriin.shi,distn,,,,,
+1050,Sectoral output price increases and share in total output,Cement,egy.outpriin.cem,outpriin.cem,distn,,,,,
+1051,Sectoral output price increases and share in total output,Iron/steel,egy.outpriin.irn,outpriin.irn,distn,,,,,
+1052,Sectoral output price increases and share in total output,Other metals,egy.outpriin.oth,outpriin.oth,distn,,,,,
+1053,Sectoral output price increases and share in total output,Manufactures,egy.outpriin.man,outpriin.man,distn,,,,,
+1054,Sectoral output price increases and share in total output,Food,egy.outpriin.foo,outpriin.foo,distn,,,,,
+1055,Sectoral output price increases and share in total output,Machinery,egy.outpriin.mac,outpriin.mac,distn,,,,,
+1056,Sectoral output price increases and share in total output,Residential,egy.outpriin.res,outpriin.res,distn,,,,,
+1057,Sectoral output price increases and share in total output,Construction,egy.outpriin.con,outpriin.con,distn,,,,,
+1058,Sectoral output price increases and share in total output,Services,egy.outpriin.srv,outpriin.srv,distn,,,,,
+1060,Input parameters,Income elasticity - electricity,egy.mit.el.inc.ecy.res,mit.el.inc.ecy.res,mit,elinc,,,,
+1061,Input parameters,Income elasticity - motor fuels (gasoline),egy.mit.el.inc.gso.res,mit.el.inc.gso.res,mit,elinc,,,,
+1062,Input parameters,Income elasticity - non-road transport (diesel),egy.mit.el.inc.die.res,mit.el.inc.die.res,mit,elinc,,,,
+1064,Power Sector Sustainability Indicators,GDP (USD bn),gdp,,mit,gdpr,,,,
+1065,Power Sector Sustainability Indicators,Power sector CO2 emissions ,emisco2,,mit,co2,,,,
+1066,Power Sector Sustainability Indicators,Total CO2 Emissions (all sectors),co2,,mit,co2,,,,
+1067,Power Sector Sustainability Indicators,Total CO2 emisions to USD GDP,co2intensityusdgdp,,mit,co2inte,,,,
+1068,Power Sector Sustainability Indicators,Electricity Generated,elec,,mit,elec,,,,
+1069,Power Sector Sustainability Indicators,"Proportion of renewables in total generation, base year",renpropbase,,mit,renprop,,,,
+1070,Power Sector Sustainability Indicators,Proportion of variable renewables in total,renprop,,mit,renprop,,,,
+1071,Power Sector Sustainability Indicators,CO2 intensity of power generation,co2intpow,,mit,co2intp,,,,
+1072,Power Sector Sustainability Indicators,Transmission & Stat Differences,egy.mit.tsd.ecy.1,mit.tsd.ecy,mit,tsd,,1.0,,
+1073,Power Sector Sustainability Indicators,Energy Industry Own Use,egy.mit.eou.ecy.1,mit.eou.ecy,mit,eou,,1.0,,
+1074,Power Sector Sustainability Indicators,Net Exports (Imports negative),egy.mit.nxp.ecy.1,mit.nxp.ecy,mit,nxp,,1.0,,
+1076,Energy consumption,Energy Consumption - Electricity,egy.mit.ec.ele.2026.1,mit.ec.ele.2026,mit,ec,,1.0,,
+1077,Energy consumption,Energy Consumption - Coal,egy.mit.ec.coa.2026.1,mit.ec.coa.2026,mit,ec,,1.0,,
+1078,Energy consumption,Energy Consumption - Natural gas,egy.mit.ec.nga.2026.1,mit.ec.nga.2026,mit,ec,,1.0,,
+1079,Energy consumption,Energy Consumption - Other oil products,egy.mit.ec.oop.2026.1,mit.ec.oop.2026,mit,ec,,1.0,,
+1080,Energy consumption,Energy Consumption - Gasoline,egy.mit.ec.gso.2026.1,mit.ec.gso.2026,mit,ec,,1.0,,
+1081,Energy consumption,Energy Consumption - Diesel,egy.mit.ec.die.2026.1,mit.ec.die.2026,mit,ec,,1.0,,
+1082,Energy consumption,Energy Consumption - Kerosene,egy.mit.ec.ker.2026.1,mit.ec.ker.2026,mit,ec,,1.0,,
+1083,Energy consumption,Energy Consumption - LPG,egy.mit.ec.lpg.2026.1,mit.ec.lpg.2026,mit,ec,,1.0,,
+1084,Energy consumption,Energy Consumption - Jet fuel,egy.mit.ec.jfu.2026.1,mit.ec.jfu.2026,mit,ec,,1.0,,
+1085,Energy consumption,Energy Consumption - Wind,egy.mit.ec.wnd.2026.1,mit.ec.wnd.2026,mit,ec,,1.0,,
+1086,Energy consumption,Energy Consumption - Solar,egy.mit.ec.sol.2026.1,mit.ec.sol.2026,mit,ec,,1.0,,
+1087,Energy consumption,Energy Consumption - Hydro,egy.mit.ec.hyd.2026.1,mit.ec.hyd.2026,mit,ec,,1.0,,
+1088,Energy consumption,Energy Consumption - Other renewables / Total self generated renewables,egy.mit.ec.ore.2026.1,mit.ec.ore.2026,mit,ec,,1.0,,
+1089,Energy consumption,Energy Consumption - Nuclear,egy.mit.ec.nuc.2026.1,mit.ec.nuc.2026,mit,ec,,1.0,,
+1090,Energy consumption,Energy Consumption - Biomass,egy.mit.ec.bio.2026.1,mit.ec.bio.2026,mit,ec,,1.0,,
+1091,Energy consumption,Energy Consumption - - in which: biogasoline,egy.mit.ec.bgs.2026.1,mit.ec.bgs.2026,mit,ec,,1.0,,
+1092,Energy consumption,Energy Consumption - - in which: biodiesel,egy.mit.ec.bdi.2026.1,mit.ec.bdi.2026,mit,ec,,1.0,,
+1093,Energy consumption,Energy Consumption - - in which: other liquid biofuels,egy.mit.ec.obf.2026.1,mit.ec.obf.2026,mit,ec,,1.0,,
+1094,Energy consumption,Energy Consumption - Heat,egy.mit.ec.heat.2026.1,mit.ec.heat.2026,mit,ec,,1.0,,
+1096,Electricity Demand,Power demand TWh - Total - Baseline ,egy.mit.elec.twh.sel.tot.ecy.1,mit.elec.twh.sel.tot.ecy,mit,,,,,
+1097,Electricity Demand,Power demand TWh - Total - Policy ,egy.mit.elec.twh.sel.tot.ecy.2,mit.elec.twh.sel.tot.ecy,mit,,,,,
+1099,Capacity,Nameplate Capacity (MW) - Total - Baseline,egy.mit.msc.pow.hyd.t.1,mit.msc.pow.hyd.t,mit,cap,MWe,,,
+1100,Capacity,Effective Capacity (MW) - Total - Baseline,egy.mit.mancap.pow.oop.t.1,mit.mancap.pow.oop.t,mit,effcap,MWe,,mit.mancap.pow.oop,reordered
+1102,New Power Investment,New Investment MW - Coal - Baseline,egy.mit.nim.pow.coa.t.1,mit.nim.pow.coa.t,mit,nni,,1.0,mit.nim.pow.coa,reordered
+1103,New Power Investment,New Investment MW - Natural gas - Baseline,egy.mit.nim.pow.nga.t.1,mit.nim.pow.nga.t,mit,nni,,1.0,mit.nim.pow.nga,reordered
+1104,New Power Investment,New Investment MW - Oil - Baseline,egy.mit.nim.pow.oop.t.1,mit.nim.pow.oop.t,mit,nni,,1.0,mit.nim.pow.oop,reordered
+1105,New Power Investment,New Investment MW - Nuclear - Baseline,egy.mit.nim.pow.nuc.t.1,mit.nim.pow.nuc.t,mit,nni,,1.0,mit.nim.pow.nuc,reordered
+1106,New Power Investment,New Investment MW - Wind - Baseline,egy.mit.nim.pow.wnd.t.1,mit.nim.pow.wnd.t,mit,nni,,1.0,mit.nim.pow.wnd,reordered
+1107,New Power Investment,New Investment MW - Solar - Baseline,egy.mit.nim.pow.sol.t.1,mit.nim.pow.sol.t,mit,nni,,1.0,mit.nim.pow.sol,reordered
+1108,New Power Investment,New Investment MW - Hydro - Baseline,egy.mit.nim.pow.hyd.t.1,mit.nim.pow.hyd.t,mit,nni,,1.0,mit.nim.pow.hyd,reordered
+1109,New Power Investment,New Investment MW - Other renewables - Baseline,egy.mit.nim.pow.ore.t.1,mit.nim.pow.ore.t,mit,nni,,1.0,mit.nim.pow.ore,reordered
+1110,New Power Investment,New Investment MW - Biomass - Baseline,egy.mit.nim.pow.bio.t.1,mit.nim.pow.bio.t,mit,nni,,1.0,mit.nim.pow.bio,reordered
+1111,New Power Investment,New Investment MW - Coal - Policy,egy.mit.nim.pow.coa.t.2,mit.nim.pow.coa.t,mit,nni,,2.0,mit.nim.pow.coa,reordered
+1112,New Power Investment,New Investment MW - Natural gas - Policy,egy.mit.nim.pow.nga.t.2,mit.nim.pow.nga.t,mit,nni,,2.0,mit.nim.pow.nga,reordered
+1113,New Power Investment,New Investment MW - Oil - Policy,egy.mit.nim.pow.oop.t.2,mit.nim.pow.oop.t,mit,nni,,2.0,mit.nim.pow.oop,reordered
+1114,New Power Investment,New Investment MW - Nuclear - Policy,egy.mit.nim.pow.nuc.t.2,mit.nim.pow.nuc.t,mit,nni,,2.0,mit.nim.pow.nuc,reordered
+1115,New Power Investment,New Investment MW - Wind - Policy,egy.mit.nim.pow.wnd.t.2,mit.nim.pow.wnd.t,mit,nni,,2.0,mit.nim.pow.wnd,reordered
+1116,New Power Investment,New Investment MW - Solar - Policy,egy.mit.nim.pow.sol.t.2,mit.nim.pow.sol.t,mit,nni,,2.0,mit.nim.pow.sol,reordered
+1117,New Power Investment,New Investment MW - Hydro - Policy,egy.mit.nim.pow.hyd.t.2,mit.nim.pow.hyd.t,mit,nni,,2.0,mit.nim.pow.hyd,reordered
+1118,New Power Investment,New Investment MW - Other renewables - Policy,egy.mit.nim.pow.ore.t.2,mit.nim.pow.ore.t,mit,nni,,2.0,mit.nim.pow.ore,reordered
+1119,New Power Investment,New Investment MW - Biomass - Policy,egy.mit.nim.pow.bio.t.2,mit.nim.pow.bio.t,mit,nni,,2.0,mit.nim.pow.bio,reordered
+1120,New Power Investment,New Investment USDbn- Coal - Baseline,egy.mit.nid.pow.coa.t.1,mit.nid.pow.coa.t,mit,,,,mit.nid.pow.coa,reordered
+1121,New Power Investment,New Investment USDbn- Natural gas - Baseline,egy.mit.nid.pow.nga.t.1,mit.nid.pow.nga.t,mit,,,,mit.nid.pow.nga,reordered
+1122,New Power Investment,New Investment USDbn- Oil - Baseline,egy.mit.nid.pow.oop.t.1,mit.nid.pow.oop.t,mit,,,,mit.nid.pow.oop,reordered
+1123,New Power Investment,New Investment USDbn- Nuclear - Baseline,egy.mit.nid.pow.nuc.t.1,mit.nid.pow.nuc.t,mit,,,,mit.nid.pow.nuc,reordered
+1124,New Power Investment,New Investment USDbn- Wind - Baseline,egy.mit.nid.pow.wnd.t.1,mit.nid.pow.wnd.t,mit,,,,mit.nid.pow.wnd,reordered
+1125,New Power Investment,New Investment USDbn- Solar - Baseline,egy.mit.nid.pow.sol.t.1,mit.nid.pow.sol.t,mit,,,,mit.nid.pow.sol,reordered
+1126,New Power Investment,New Investment USDbn- Hydro - Baseline,egy.mit.nid.pow.hyd.t.1,mit.nid.pow.hyd.t,mit,,,,mit.nid.pow.hyd,reordered
+1127,New Power Investment,New Investment USDbn- Other renewables - Baseline,egy.mit.nid.pow.ore.t.1,mit.nid.pow.ore.t,mit,,,,mit.nid.pow.ore,reordered
+1128,New Power Investment,New Investment USDbn- Biomass - Baseline,egy.mit.nid.pow.bio.t.1,mit.nid.pow.bio.t,mit,,,,mit.nid.pow.bio,reordered
+1129,New Power Investment,New Investment USDbn- Coal - Policy,egy.mit.nid.pow.coa.t.2,mit.nid.pow.coa.t,mit,,,,mit.nid.pow.coa,reordered
+1130,New Power Investment,New Investment USDbn- Natural gas - Policy,egy.mit.nid.pow.nga.t.2,mit.nid.pow.nga.t,mit,,,,mit.nid.pow.nga,reordered
+1131,New Power Investment,New Investment USDbn- Oil - Policy,egy.mit.nid.pow.oop.t.2,mit.nid.pow.oop.t,mit,,,,mit.nid.pow.oop,reordered
+1132,New Power Investment,New Investment USDbn- Nuclear - Policy,egy.mit.nid.pow.nuc.t.2,mit.nid.pow.nuc.t,mit,,,,mit.nid.pow.nuc,reordered
+1133,New Power Investment,New Investment USDbn- Wind - Policy,egy.mit.nid.pow.wnd.t.2,mit.nid.pow.wnd.t,mit,,,,mit.nid.pow.wnd,reordered
+1134,New Power Investment,New Investment USDbn- Solar - Policy,egy.mit.nid.pow.sol.t.2,mit.nid.pow.sol.t,mit,,,,mit.nid.pow.sol,reordered
+1135,New Power Investment,New Investment USDbn- Hydro - Policy,egy.mit.nid.pow.hyd.t.2,mit.nid.pow.hyd.t,mit,,,,mit.nid.pow.hyd,reordered
+1136,New Power Investment,New Investment USDbn- Other renewables - Policy,egy.mit.nid.pow.ore.t.2,mit.nid.pow.ore.t,mit,,,,mit.nid.pow.ore,reordered
+1137,New Power Investment,New Investment USDbn- Biomass - Policy,egy.mit.nid.pow.bio.t.2,mit.nid.pow.bio.t,mit,,,,mit.nid.pow.bio,reordered
+1139,Simplified prices,"Inflation index, 2026 = 100",inflation,,mit,inflation,index,,,
+1140,Simplified prices,VAT rate,vat,,mit,vat,pc,,,
+1141,Simplified prices,Crude Oil forecast - international,realoilbbl,,mit,realoilbbl,usdbbl,,,
+1142,Simplified prices,Coal forecast  - international,realcoalton,,mit,realcoalton,usdton,,,
+1143,Simplified prices,Natural gas forecast - international,realngammbtu,,mit,realngammbtu,usdbbbtu,,,
+1144,Simplified prices,Crude Oil forecast - international,realoilglobal,,mit,realoilglobal,usdbbl,,,
+1145,Simplified prices,Coal forecast  - international,reacoalglobal,,mit,reacoalglobal,usdton,,,
+1146,Simplified prices,Natural gas forecast - international,realngaglobal,,mit,realngaglobal,usdbbbtu,,,
+1147,Simplified prices,For gasoline mark-up,forgasolinemarkup,,mit,forgasolinemarkup,usdpl,,,
+1148,Simplified prices,For diesel mark-up,fordieselmarkup,,mit,fordieselmarkup,usdpl,,,
+1149,Simplified prices,For kerosene mark-up,forkerosenemarkup,,mit,forkerosenemarkup,usdpl,,,
+1150,Simplified prices,For LPG mark-up,forglpgmarkup,,mit,forglpgmarkup,usdpl,,,
+1152,Markups,Markup1 (global price to Retail price) coa - pow,egy.mit.mu1.coa.res.1,mit.mu1.coa.res,mit,,,,,
+1153,Markups,Markup1 (global price to Retail price) coa - res,egy.mit.mu1.coa.ind.1,mit.mu1.coa.ind,mit,,,,,
+1154,Markups,Markup1 (global price to Retail price) coa - ind,egy.mit.mu1.nga.pow.1,mit.mu1.nga.pow,mit,mu1,,1.0,,
+1155,Markups,Markup1 (global price to Retail price) nga - pow,egy.mit.mu1.nga.res.1,mit.mu1.nga.res,mit,mu1,,1.0,,
+1156,Markups,Markup1 (global price to Retail price) nga - res,egy.mit.mu1.nga.ind.1,mit.mu1.nga.ind,mit,mu1,,1.0,,
+1157,Markups,Markup1 (global price to Retail price) nga - ind,egy.mit.mu1.gso.all.1,mit.mu1.gso.all,mit,mu1,,1.0,,
+1158,Markups,Markup1 (global price to Retail price) gso - all,egy.mit.mu1.die.all.1,mit.mu1.die.all,mit,mu1,,1.0,,
+1159,Markups,Markup1 (global price to Retail price) die - all,egy.mit.mu1.lpg.all.1,mit.mu1.lpg.all,mit,mu1,,1.0,,
+1160,Markups,Markup1 (global price to Retail price) lpg - all,egy.mit.mu1.ker.all.1,mit.mu1.ker.all,mit,mu1,,1.0,,
+1161,Markups,Markup1 (global price to Retail price) ker - all,egy.mit.mu1.oop.all.1,mit.mu1.oop.all,mit,mu1,,1.0,,
+1162,Markups,Markup1 (global price to Retail price) oop - all,egy.mit.mu1.bio.all.1,mit.mu1.bio.all,mit,mu1,,1.0,,
+1163,Markups,Markup1 (global price to Retail price) bio - all,egy.mit.mu2.coa.pow.1,mit.mu2.coa.pow,mit,mu2,,1.0,,
+1164,Markups,Markup2 (pretax to Retail Price) coa - res,egy.mit.mu2.coa.res.1,mit.mu2.coa.res,mit,mu2,,1.0,,
+1165,Markups,Markup2 (pretax to Retail Price) coa - ind,egy.mit.mu2.coa.ind.1,mit.mu2.coa.ind,mit,mu2,,1.0,,
+1166,Markups,Markup2 (pretax to Retail Price) nga - pow,egy.mit.mu2.nga.pow.1,mit.mu2.nga.pow,mit,mu2,,1.0,,
+1167,Markups,Markup2 (pretax to Retail Price) nga - res,egy.mit.mu2.nga.res.1,mit.mu2.nga.res,mit,mu2,,1.0,,
+1168,Markups,Markup2 (pretax to Retail Price) nga - ind,egy.mit.mu2.nga.ind.1,mit.mu2.nga.ind,mit,mu2,,1.0,,
+1169,Markups,Markup2 (pretax to Retail Price) gso - all,egy.mit.mu2.gso.all.1,mit.mu2.gso.all,mit,mu2,,1.0,,
+1170,Markups,Markup2 (pretax to Retail Price) die - all,egy.mit.mu2.die.all.1,mit.mu2.die.all,mit,mu2,,1.0,,
+1171,Markups,Markup2 (pretax to Retail Price) lpg - all,egy.mit.mu2.lpg.all.1,mit.mu2.lpg.all,mit,mu2,,1.0,,
+1172,Markups,Markup2 (pretax to Retail Price) ker - all,egy.mit.mu2.ker.all.1,mit.mu2.ker.all,mit,mu2,,1.0,,
+1173,Markups,Markup2 (pretax to Retail Price) oop - all,egy.mit.mu2.oop.all.1,mit.mu2.oop.all,mit,mu2,,1.0,,
+1174,Markups,Markup2 (pretax to Retail Price) bio - all,egy.mit.mu2.bio.all.1,mit.mu2.bio.all,mit,mu2,,1.0,,
+1175,Markups,Forecasted Pretax Price - coa - pow,egy.mit.sp.coa.pow.1,mit.sp.coa.pow,mit,sp,,1.0,mit.sp.pow.coa,reordered
+1176,Markups,Forecasted Pretax Price - coa - res,egy.mit.sp.coa.res.1,mit.sp.coa.res,mit,sp,,1.0,mit.sp.res.coa,reordered
+1177,Markups,Forecasted Pretax Price - coa - ind,egy.mit.sp.coa.ind.1,mit.sp.coa.ind,mit,sp,,1.0,mit.sp.ind.coa,reordered
+1178,Markups,Forecasted Pretax Price - nga - pow,egy.mit.sp.nga.pow.1,mit.sp.nga.pow,mit,sp,,1.0,mit.sp.pow.nga,reordered
+1179,Markups,Forecasted Pretax Price - nga - res,egy.mit.sp.nga.res.1,mit.sp.nga.res,mit,sp,,1.0,mit.sp.res.nga,reordered
+1180,Markups,Forecasted Pretax Price - nga - ind,egy.mit.sp.nga.ind.1,mit.sp.nga.ind,mit,sp,,1.0,mit.sp.ind.nga,reordered
+1181,Markups,Forecasted Pretax Price - gso - all,egy.mit.sp.gso.all.1,mit.sp.gso.all,mit,sp,,1.0,mit.sp.all.gso,reordered
+1182,Markups,Forecasted Pretax Price - die - all,egy.mit.sp.die.all.1,mit.sp.die.all,mit,sp,,1.0,mit.sp.all.die,reordered
+1183,Markups,Forecasted Pretax Price - lpg - all,egy.mit.sp.lpg.all.1,mit.sp.lpg.all,mit,sp,,1.0,mit.sp.all.lpg,reordered
+1184,Markups,Forecasted Pretax Price - ker - all,egy.mit.sp.ker.all.1,mit.sp.ker.all,mit,sp,,1.0,mit.sp.all.ker,reordered
+1185,Markups,Forecasted Pretax Price - oop - all,egy.mit.sp.oop.all.1,mit.sp.oop.all,mit,sp,,1.0,mit.sp.all.oop,reordered
+1186,Markups,Retail Price - coa - pow,egy.mit.rp.pow.coa.a.1,mit.rp.pow.coa.a,mit,rp,,1.0,,
+1187,Markups,Retail Price - coa - res,egy.mit.rp.res.coa.a.1,mit.rp.res.coa.a,mit,rp,,1.0,,
+1188,Markups,Retail Price - coa - ind,egy.mit.rp.ind.coa.a.1,mit.rp.ind.coa.a,mit,rp,,1.0,,
+1189,Markups,Retail Price - nga - pow,egy.mit.rp.pow.nga.a.1,mit.rp.pow.nga.a,mit,rp,,1.0,,
+1190,Markups,Retail Price - nga - res,egy.mit.rp.res.nga.a.1,mit.rp.res.nga.a,mit,rp,,1.0,,
+1191,Markups,Retail Price - nga - ind,egy.mit.rp.ind.nga.a.1,mit.rp.ind.nga.a,mit,rp,,1.0,,
+1192,Markups,Retail Price - die - all,egy.mit.rp.all.die.a.1,mit.rp.all.die.a,mit,rp,,1.0,,
+1193,Markups,Retail Price - lpg - all,egy.mit.rp.all.lpg.a.1,mit.rp.all.lpg.a,mit,rp,,1.0,,
+1194,Markups,Retail Price - ker - all,egy.mit.rp.all.ker.a.1,mit.rp.all.ker.a,mit,rp,,1.0,,
+1195,Markups,Retail Price - oop - all,egy.mit.rp.all.oop.a.1,mit.rp.all.oop.a,mit,rp,,1.0,,
+1197,Methane,"Oil and natural gas extraction - CH4 emissions factor, after abatement - baseline",egy.air.ef.ext.ngaoil.ch4.1,air.ef.ext.ngaoil.ch4,mit,ef,,1.0,,
+1198,Methane,"Oil and natural gas extraction - CH4 emissions factor, after abatement - policy",egy.air.ef.ext.ngaoil.ch4.2,air.ef.ext.ngaoil.ch4,mit,ef,,2.0,,
+1199,Methane,"Coal extraction - CH4 emissions factor, after abatement - baseline",egy.air.ef.ext.coa.ch4.1,air.ef.ext.coa.ch4,mit,ef,,1.0,,
+1200,Methane,"Coal extraction - CH4 emissions factor, after abatement - policy",egy.air.ef.ext.coa.ch4.2,air.ef.ext.coa.ch4,mit,ef,,2.0,,
+1201,Methane,Energy related CH4 emissions - baseline,egy.mit.ghg.enr.ch4.1,mit.ghg.enr.ch4,mit,ef,,1.0,mit.ghg.enr.ch4,exact
+1202,Methane,Agriculture CH4 emissions - baseline,egy.mit.ghg.agr.ch4.1,mit.ghg.agr.ch4,mit,ef,,1.0,mit.ghg.agr.ch4,exact
+1203,Methane,Waste CH4 emissions - baseline,egy.mit.ghg.wst.ch4.1,mit.ghg.wst.ch4,mit,ef,,1.0,mit.ghg.wst.ch4,exact
+1204,Methane,Other CH4 emissions - baseline,egy.mit.ghg.oth.ch4.1,mit.ghg.oth.ch4,mit,ef,,1.0,mit.ghg.oth.ch4,exact
+1205,Methane,"Total CH4 emissions, including LULUCF - baseline",egy.mit.ghg.tot.inc.ch4.1,mit.ghg.tot.inc.ch4,mit,ef,,1.0,,
+1206,Methane,"Total CH4 emissions, excluding LULUCF - baseline",egy.mit.ghg.tot.exc.ch4.1,mit.ghg.tot.exc.ch4,mit,ef,,1.0,,
+1207,Methane,Energy related CH4 emissions - policy,egy.mit.ghg.enr.ch4.2,mit.ghg.enr.ch4,mit,ef,,2.0,mit.ghg.enr.ch4,exact
+1208,Methane,Agriculture CH4 emissions - policy,egy.mit.ghg.agr.ch4.2,mit.ghg.agr.ch4,mit,ef,,2.0,mit.ghg.agr.ch4,exact
+1209,Methane,Waste CH4 emissions - policy,egy.mit.ghg.wst.ch4.2,mit.ghg.wst.ch4,mit,ef,,2.0,mit.ghg.wst.ch4,exact
+1210,Methane,Other CH4 emissions - policy,egy.mit.ghg.oth.ch4.2,mit.ghg.oth.ch4,mit,ef,,2.0,mit.ghg.oth.ch4,exact
+1211,Methane,"Total CH4 emissions, including LULUCF - policy",egy.mit.ghg.tot.inc.ch4.2,mit.ghg.tot.inc.ch4,mit,ef,,2.0,,
+1212,Methane,"Total CH4 emissions, excluding LULUCF - policy",egy.mit.ghg.tot.exc.ch4.2,mit.ghg.tot.exc.ch4,mit,ef,,2.0,,
+1213,Methane,"Methane fee - fossil, baseline",egy.mit.mftrajfossil.1,mit.mftrajfossil,mit,ef,,1.0,,
+1214,Methane,"Methane fee - non-fossil, baseline",egy.mit.mftrajnonfossil.1,mit.mftrajnonfossil,mit,ef,,1.0,,
+1215,Methane,"Methane fee - fossil, policy",egy.mit.mftrajfossil.2,mit.mftrajfossil,mit,ef,,1.0,,
+1216,Methane,"Methane fee - non-fossil, policy",egy.mit.mftrajnonfossil.2,mit.mftrajnonfossil,mit,ef,,1.0,,
+1217,Methane,Efficiency cost - extractives,egy.mit.wel.eco.ext.dwl.pct,mit.wel.eco.ext.dwl.pct,mit,ef,,1.0,,
+1218,Methane,Efficiency cost - agriculture,egy.mit.wel.eco.agc.dwl.pct,mit.wel.eco.agc.dwl.pct,mit,ef,,1.0,,
+1219,Methane,Efficiency cost - waste,egy.mit.wel.eco.was.dwl.pct,mit.wel.eco.was.dwl.pct,mit,ef,,1.0,,
+1220,Methane,"Crude oil - producer price increase, percent",egy.mit.ener.mfpct.oil.e.2,mit.ener.mfpct.oil.e,mit,ef,,1.0,,
+1221,Methane,"Natural gas - producer price increase, percent",egy.mit.ener.mfpct.coa.e.2,mit.ener.mfpct.coa.e,mit,ef,,1.0,,
+1222,Methane,"Coal - producer price increase, percent",egy.mit.ener.mfpct.nga.e.2,mit.ener.mfpct.nga.e,mit,ef,,1.0,,
+1224,Subsidies,Gasoline - portion used for transportation,egy.mit.trs.gso.all.a.1,mit.trs.gso.all.a,mit,trs,,1.0,,
+1225,Subsidies,Gasoline - VAT rate,egy.mit.vatrate.all.gso.a.1,mit.vatrate.all.gso.a,mit,vat,,1.0,,
+1226,Subsidies,Gasoline - portion used for residential consumption,egy.mit.rescon.gso.all.1,mit.rescon.gso.all,mit,res,,1.0,,
+1227,Subsidies,Gasoline - efficient price,egy.mit.effprice.gso.all.1,mit.effprice.gso.all,mit,eff,,1.0,mit.effprice.all.gso,reordered
+1228,Subsidies,Gasoline - consumption,egy.mit.con.gso.all.1,mit.con.gso.all,mit,con,,1.0,mit.con.all.gso,reordered
+1229,Subsidies,Gasoline - explicit subsidy,egy.mit.expsub.con.gso.all.1,mit.expsub.con.gso.all,mit,exp,,1.0,mit.expsub.con.all.gso,reordered
+1230,Subsidies,Gasoline - implicit subsidy,egy.mit.impsub.con.gso.all.1,mit.impsub.con.gso.all,mit,imp,,1.0,mit.impsub.con.all.gso,reordered
+1231,Subsidies,Diesel - portion used for transportation,egy.mit.trs.die.all.a.1,mit.trs.die.all.a,mit,trs,,1.0,,
+1232,Subsidies,Diesel - VAT rate,egy.mit.vatrate.all.die.a.1,mit.vatrate.all.die.a,mit,vat,,1.0,,
+1233,Subsidies,Diesel - portion used for residential consumption,egy.mit.rescon.die.all.1,mit.rescon.die.all,mit,res,,1.0,,
+1234,Subsidies,Diesel - efficient price,egy.mit.effprice.die.all.1,mit.effprice.die.all,mit,eff,,1.0,mit.effprice.all.die,reordered
+1235,Subsidies,Diesel - consumption,egy.mit.con.die.all.1,mit.con.die.all,mit,con,,1.0,mit.con.all.die,reordered
+1236,Subsidies,Diesel - explicit subsidy,egy.mit.expsub.con.die.all.1,mit.expsub.con.die.all,mit,exp,,1.0,mit.expsub.con.all.die,reordered
+1237,Subsidies,Diesel - implicit subsidy,egy.mit.impsub.con.die.all.1,mit.impsub.con.die.all,mit,imp,,1.0,mit.impsub.con.all.die,reordered
+1238,Subsidies,LPG - VAT rate,egy.mit.vatrate.all.lpg.a.1,mit.vatrate.all.lpg.a,mit,vat,,1.0,,
+1239,Subsidies,LPG - portion used for residential consumption,egy.mit.rescon.lpg.all.1,mit.rescon.lpg.all,mit,res,,1.0,,
+1240,Subsidies,LPG - efficient price,egy.mit.effprice.lpg.all.1,mit.effprice.lpg.all,mit,eff,,1.0,mit.effprice.all.lpg,reordered
+1241,Subsidies,LPG - consumption,egy.mit.con.lpg.all.1,mit.con.lpg.all,mit,con,,1.0,mit.con.all.lpg,reordered
+1242,Subsidies,LPG - explicit subsidy,egy.mit.expsub.con.lpg.all.1,mit.expsub.con.lpg.all,mit,exp,,1.0,mit.expsub.con.all.lpg,reordered
+1243,Subsidies,LPG - implicit subsidy,egy.mit.impsub.con.lpg.all.1,mit.impsub.con.lpg.all,mit,imp,,1.0,mit.impsub.con.all.lpg,reordered
+1244,Subsidies,Kerosene - VAT rate,egy.mit.vatrate.all.ker.a.1,mit.vatrate.all.ker.a,mit,vat,,1.0,,
+1245,Subsidies,Kerosene - portion used for residential consumption,egy.mit.rescon.ker.all.1,mit.rescon.ker.all,mit,res,,1.0,,
+1246,Subsidies,Kerosene - efficient price,egy.mit.effprice.ker.all.1,mit.effprice.ker.all,mit,eff,,1.0,mit.effprice.all.ker,reordered
+1247,Subsidies,Kerosene - consumption,egy.mit.con.ker.all.1,mit.con.ker.all,mit,con,,1.0,mit.con.all.ker,reordered
+1248,Subsidies,Kerosene - explicit subsidy,egy.mit.expsub.con.ker.all.1,mit.expsub.con.ker.all,mit,exp,,1.0,mit.expsub.con.all.ker,reordered
+1249,Subsidies,Kerosene - implicit subsidy,egy.mit.impsub.con.ker.all.1,mit.impsub.con.ker.all,mit,imp,,1.0,mit.impsub.con.all.ker,reordered
+1250,Subsidies,Other oil products - VAT rate,egy.mit.vatrate.all.oop.a.1,mit.vatrate.all.oop.a,mit,vat,,1.0,,
+1251,Subsidies,Other oil products - portion used for residential consumption,egy.mit.rescon.oop.all.1,mit.rescon.oop.all,mit,res,,1.0,,
+1252,Subsidies,Other oil products - efficient price,egy.mit.effprice.oop.all.1,mit.effprice.oop.all,mit,eff,,1.0,mit.effprice.all.oop,reordered
+1253,Subsidies,"Other oil products - retail price, baseline",egy.mit.rp.oop.all.1,mit.rp.oop.all,mit,rp.,,1.0,,
+1254,Subsidies,Other oil products - consumption,egy.mit.con.oop.all.1,mit.con.oop.all,mit,con,,1.0,mit.con.all.oop,reordered
+1255,Subsidies,Other oil products - explicit subsidy,egy.mit.expsub.con.oop.all.1,mit.expsub.con.oop.all,mit,exp,,1.0,mit.expsub.con.all.oop,reordered
+1256,Subsidies,"Natural gas, industry - VAT",egy.mit.vatext.nga.ind.1,mit.vatext.nga.ind,mit,vat,,1.0,mit.vatext.ind.nga,reordered
+1257,Subsidies,"Natural gas, industry - efficient price",egy.mit.effprice.nga.ind.1,mit.effprice.nga.ind,mit,eff,,1.0,mit.effprice.ind.nga,reordered
+1258,Subsidies,"Natural gas, industry - consumption",egy.mit.con.nga.ind.1,mit.con.nga.ind,mit,con,,1.0,mit.con.ind.nga,reordered
+1259,Subsidies,"Natural gas, industry - explicit subsidy",egy.mit.expsub.con.nga.ind.1,mit.expsub.con.nga.ind,mit,exp,,1.0,mit.expsub.con.ind.nga,reordered
+1260,Subsidies,"Natural gas, industry - implicit subsidy",egy.mit.impsub.con.nga.ind.1,mit.impsub.con.nga.ind,mit,imp,,1.0,mit.impsub.con.ind.nga,reordered
+1261,Subsidies,"Natural gas, residential - VAT rate",egy.mit.vatrate.res.nga.a.1,mit.vatrate.res.nga.a,mit,vat,,1.0,,
+1262,Subsidies,"Natural gas, residential - efficient price",egy.mit.effprice.nga.res.1,mit.effprice.nga.res,mit,eff,,1.0,mit.effprice.res.nga,reordered
+1263,Subsidies,"Natural gas, residential - consumption",egy.mit.con.nga.res.1,mit.con.nga.res,mit,con,,1.0,mit.con.res.nga,reordered
+1264,Subsidies,"Natural gas, residential - explicit subsidy",egy.mit.expsub.con.nga.res.1,mit.expsub.con.nga.res,mit,exp,,1.0,mit.expsub.con.res.nga,reordered
+1265,Subsidies,"Natural gas, residential - implicit subsidy",egy.mit.impsub.con.nga.res.1,mit.impsub.con.nga.res,mit,imp,,1.0,mit.impsub.con.res.nga,reordered
+1266,Subsidies,"Natural gas, power - efficient price",egy.mit.effprice.nga.pow.1,mit.effprice.nga.pow,mit,eff,,1.0,mit.effprice.pow.nga,reordered
+1267,Subsidies,"Natural gas, power - consumption",egy.mit.con.nga.pow.1,mit.con.nga.pow,mit,con,,1.0,mit.con.pow.nga,reordered
+1268,Subsidies,"Natural gas, power - explicit subsidy",egy.mit.expsub.con.nga.pow.1,mit.expsub.con.nga.pow,mit,exp,,1.0,mit.expsub.con.pow.nga,reordered
+1269,Subsidies,"Natural gas, power - implicit subsidy",egy.mit.impsub.con.nga.pow.1,mit.impsub.con.nga.pow,mit,imp,,1.0,mit.impsub.con.pow.nga,reordered
+1270,Subsidies,"Natural gas, other - supply cost",egy.mit.supcost.nga.other.1,mit.supcost.nga.other,mit,sup,,1.0,,
+1271,Subsidies,"Natural gas, other - externalities",egy.mit.extcost.nga.other.1,mit.extcost.nga.other,mit,ext,,1.0,,
+1272,Subsidies,"Natural gas, other - VAT",egy.mit.vatext.nga.other.1,mit.vatext.nga.other,mit,vat,,1.0,,
+1273,Subsidies,"Natural gas, other - efficient price",egy.mit.effprice.nga.other.1,mit.effprice.nga.other,mit,eff,,1.0,,
+1274,Subsidies,"Natural gas, other - retail price, baseline",egy.mit.rp.nga.other.1,mit.rp.nga.other,mit,rp.,,1.0,,
+1275,Subsidies,"Natural gas, other - consumption",egy.mit.con.nga.other.1,mit.con.nga.other,mit,con,,1.0,,
+1276,Subsidies,"Natural gas, other - explicit subsidy",egy.mit.expsub.con.nga.other.1,mit.expsub.con.nga.other,mit,exp,,1.0,,
+1277,Subsidies,"Natural gas, other - implicit subsidy",egy.mit.impsub.con.nga.other.1,mit.impsub.con.nga.other,mit,imp,,1.0,,
+1278,Subsidies,"Coal, industry - efficient price",egy.mit.effprice.coa.ind.1,mit.effprice.coa.ind,mit,eff,,1.0,mit.effprice.ind.coa,reordered
+1279,Subsidies,"Coal, industry - consumption",egy.mit.con.coa.ind.1,mit.con.coa.ind,mit,con,,1.0,mit.con.ind.coa,reordered
+1280,Subsidies,"Coal, industry - explicit subsidy",egy.mit.expsub.con.coa.ind.1,mit.expsub.con.coa.ind,mit,exp,,1.0,mit.expsub.con.ind.coa,reordered
+1281,Subsidies,"Coal, industry - implicit subsidy",egy.mit.impsub.con.coa.ind.1,mit.impsub.con.coa.ind,mit,imp,,1.0,mit.impsub.con.ind.coa,reordered
+1282,Subsidies,"Coal, residential - VAT rate",egy.mit.vatrate.res.coa.a.1,mit.vatrate.res.coa.a,mit,vat,,1.0,,
+1283,Subsidies,"Coal, residential - efficient price",egy.mit.effprice.coa.res.1,mit.effprice.coa.res,mit,eff,,1.0,mit.effprice.res.coa,reordered
+1284,Subsidies,"Coal, residential - consumption",egy.mit.con.coa.res.1,mit.con.coa.res,mit,con,,1.0,mit.con.res.coa,reordered
+1285,Subsidies,"Coal, residential - explicit subsidy",egy.mit.expsub.con.coa.res.1,mit.expsub.con.coa.res,mit,exp,,1.0,mit.expsub.con.res.coa,reordered
+1286,Subsidies,"Coal, residential - implicit subsidy",egy.mit.impsub.con.coa.res.1,mit.impsub.con.coa.res,mit,imp,,1.0,mit.impsub.con.res.coa,reordered
+1287,Subsidies,"Coal, power - efficient price",egy.mit.effprice.coa.pow.1,mit.effprice.coa.pow,mit,eff,,1.0,mit.effprice.pow.coa,reordered
+1288,Subsidies,"Coal, power - consumption",egy.mit.con.coa.pow.1,mit.con.coa.pow,mit,con,,1.0,mit.con.pow.coa,reordered
+1289,Subsidies,"Coal, power - explicit subsidy",egy.mit.expsub.con.coa.pow.1,mit.expsub.con.coa.pow,mit,exp,,1.0,mit.expsub.con.pow.coa,reordered
+1290,Subsidies,"Coal, power - implicit subsidy",egy.mit.impsub.con.coa.pow.1,mit.impsub.con.coa.pow,mit,imp,,1.0,mit.impsub.con.pow.coa,reordered
+1291,Subsidies,"Coal, other - supply cost",egy.mit.supcost.coa.other.1,mit.supcost.coa.other,mit,sup,,1.0,,
+1292,Subsidies,"Coal, other - externalities",egy.mit.extcost.coa.other.1,mit.extcost.coa.other,mit,ext,,1.0,,
+1293,Subsidies,"Coal, other - VAT",egy.mit.vatext.coa.other.1,mit.vatext.coa.other,mit,vat,,1.0,,
+1294,Subsidies,"Coal, other - efficient price",egy.mit.effprice.coa.other.1,mit.effprice.coa.other,mit,eff,,1.0,,
+1295,Subsidies,"Coal, other - retail price, baseline",egy.mit.rp.coa.other.1,mit.rp.coa.other,mit,rp.,,1.0,,
+1296,Subsidies,"Coal, other - consumption",egy.mit.con.coa.other.1,mit.con.coa.other,mit,con,,1.0,,
+1297,Subsidies,"Coal, other - explicit subsidy",egy.mit.expsub.con.coa.other.1,mit.expsub.con.coa.other,mit,exp,,1.0,,
+1298,Subsidies,"Coal, other - implicit subsidy",egy.mit.impsub.con.coa.other.1,mit.impsub.con.coa.other,mit,imp,,1.0,,
+1299,Subsidies,"Electricity, industry - efficient price",egy.mit.effprice.ecy.ind.1,mit.effprice.ecy.ind,mit,eff,,1.0,mit.effprice.ind.ecy,reordered
+1300,Subsidies,"Electricity, industry - consumption",egy.mit.con.ecy.ind.1,mit.con.ecy.ind,mit,con,,1.0,mit.con.ind.ecy,reordered
+1301,Subsidies,"Electricity, industry - explicit subsidy",egy.mit.expsub.con.ecy.ind.1,mit.expsub.con.ecy.ind,mit,exp,,1.0,mit.expsub.con.ind.ecy,reordered
+1302,Subsidies,"Electricity, industry - implicit subsidy",egy.mit.impsub.con.ecy.ind.1,mit.impsub.con.ecy.ind,mit,imp,,1.0,mit.impsub.con.ind.ecy,reordered
+1303,Subsidies,"Electricity, residential - VAT rate",egy.mit.vatrate.res.ecy.t.1,mit.vatrate.res.ecy.t,mit,vat,,1.0,,
+1304,Subsidies,"Electricity, residential - efficient price",egy.mit.effprice.ecy.res.1,mit.effprice.ecy.res,mit,eff,,1.0,mit.effprice.res.ecy,reordered
+1305,Subsidies,"Electricity, residential - consumption",egy.mit.con.ecy.res.1,mit.con.ecy.res,mit,con,,1.0,mit.con.res.ecy,reordered
+1306,Subsidies,"Electricity, residential - explicit subsidy",egy.mit.expsub.con.ecy.res.1,mit.expsub.con.ecy.res,mit,exp,,1.0,mit.expsub.con.res.ecy,reordered
+1307,Subsidies,"Electricity, residential - implicit subsidy",egy.mit.impsub.con.ecy.res.1,mit.impsub.con.ecy.res,mit,imp,,1.0,mit.impsub.con.res.ecy,reordered
+1308,Subsidies,"Electricity, other - supply cost",egy.mit.supcost.ecy.other.1,mit.supcost.ecy.other,mit,sup,,1.0,,
+1309,Subsidies,"Electricity, other - externalities",egy.mit.extcost.ecy.other.1,mit.extcost.ecy.other,mit,ext,,1.0,,
+1310,Subsidies,"Electricity, other - VAT",egy.mit.vatext.ecy.other.1,mit.vatext.ecy.other,mit,vat,,1.0,,
+1311,Subsidies,"Electricity, other - efficient price",egy.mit.effprice.ecy.other.1,mit.effprice.ecy.other,mit,eff,,1.0,,
+1312,Subsidies,"Electricity, other - retail price, baseline",egy.mit.rp.ecy.other.1,mit.rp.ecy.other,mit,rp.,,1.0,,
+1313,Subsidies,"Electricity, other - consumption",egy.mit.con.ecy.other.1,mit.con.ecy.other,mit,con,,1.0,,
+1314,Subsidies,"Electricity, other - explicit subsidy",egy.mit.expsub.con.ecy.other.1,mit.expsub.con.ecy.other,mit,exp,,1.0,,
+1315,Subsidies,"Electricity, other - implicit subsidy",egy.mit.impsub.con.ecy.other.1,mit.impsub.con.ecy.other,mit,imp,,1.0,,
+1316,Subsidies,Total - explicit subsidy,egy.mit.expsub.con.all.all.1,mit.expsub.con.all.all,mit,exp,,1.0,,
+1317,Subsidies,Total - implicit subsidy,egy.mit.impsub.con.all.all.1,mit.impsub.con.all.all,mit,imp,,1.0,,
+1318,Subsidies,Total - explicit subsidy,egy.mit.expsubgdp.con.all.all.1,mit.expsubgdp.con.all.all,mit,exp,,1.0,,
+1319,Subsidies,Total - implicit subsidy,egy.mit.impsubgdp.con.all.all.1,mit.impsubgdp.con.all.all,mit,imp,,1.0,,

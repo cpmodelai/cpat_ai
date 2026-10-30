@@ -1,0 +1,19 @@
+code,item,region,technology,variable,value
+wld.dtc.coa,dtc,wld,coa,Decommissioning costs,0.05
+wld.dtc.coa,dtc,wld,coa,Transmission costs,0.2987370506072484
+wld.dtc.nga,dtc,wld,nga,Decommissioning costs,0.01
+wld.dtc.nga,dtc,wld,nga,Transmission costs,0.2930391826613844
+wld.dtc.oil,dtc,wld,oil,Decommissioning costs,0.02454403019931086
+wld.dtc.oil,dtc,wld,oil,Transmission costs,0.33290115711044577
+wld.dtc.nuc,dtc,wld,nuc,Decommissioning costs,0.13303342375124902
+wld.dtc.nuc,dtc,wld,nuc,Transmission costs,0.11235658532216616
+wld.dtc.wnd,dtc,wld,wnd,Decommissioning costs,0.03
+wld.dtc.wnd,dtc,wld,wnd,Transmission costs,0.3118989288293047
+wld.dtc.sol,dtc,wld,sol,Decommissioning costs,0.06
+wld.dtc.sol,dtc,wld,sol,Transmission costs,0.27426120138111104
+wld.dtc.hyd,dtc,wld,hyd,Decommissioning costs,0.2
+wld.dtc.hyd,dtc,wld,hyd,Transmission costs,0.22925103062673835
+wld.dtc.ore,dtc,wld,ore,Decommissioning costs,0.07251106485007999
+wld.dtc.ore,dtc,wld,ore,Transmission costs,0.09933067490909611
+wld.dtc.bio,dtc,wld,bio,Decommissioning costs,0.07251106485007999
+wld.dtc.bio,dtc,wld,bio,Transmission costs,0.133812013679321

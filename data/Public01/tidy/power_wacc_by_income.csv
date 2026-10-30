@@ -1,0 +1,5 @@
+income_level,variable,value
+HIC,WACC Assumed,0.075
+UMIC,WACC Assumed,0.1
+LMIC,WACC Assumed,0.125
+LIC,WACC Assumed,0.15

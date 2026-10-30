@@ -1,0 +1,22 @@
+__pycache__/
+*.pyc
+.quickcheck/
+.buildcache/
+*_quick.xlsx
+
+# legacy-compatible workbooks (hold proprietary data when written from the full database; only the public one is committed)
+CPAT_LegacyData*.xlsx
+!data/*/legacy_xlsx/CPAT_LegacyData.xlsx
+*.whl
+
+# data workbooks of the earlier data folder (real versions hold proprietary data)
+CPAT_Data_*.xlsx
+.claude/worktrees/
+
+# Coded CPAT run outputs (coded/NORMS.md section 2)
+coded/outputs/
+# temporary files of the document builders
+coded/cpat_documentation/**/tmp*.md
+
+# archive of the earlier data folder (removed 2026-10-30; the user keeps it locally)
+data_old/

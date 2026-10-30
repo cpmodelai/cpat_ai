@@ -1,0 +1,393 @@
+row,col,value
+5,1,Venezuela
+5,21,Venezuela
+6,1,India
+6,21,India
+7,1,St. Kitts and Nevis
+7,21,St. Kitts and Nevis
+8,1,Italy
+8,21,Italy
+9,1,Liberia
+9,21,Liberia
+10,1,Turks and Caicos Islands
+10,21,Turks and Caicos Islands
+11,1,Andorra
+11,21,Andorra
+12,1,Jamaica
+12,21,Jamaica
+13,1,Tonga
+13,21,Tonga
+14,1,Nauru
+14,21,Nauru
+15,1,Guyana
+15,21,Guyana
+16,1,Czechia
+16,21,Czechia
+17,1,Malaysia
+17,21,Malaysia
+18,1,Brunei Darussalam
+18,21,Brunei Darussalam
+19,1,Samoa
+19,21,Samoa
+20,1,Saudi Arabia
+20,21,Saudi Arabia
+21,1,Turkmenistan
+21,21,Turkmenistan
+22,1,Seychelles
+22,21,Seychelles
+23,1,Romania
+23,21,Romania
+24,1,Belgium
+24,21,Belgium
+25,1,Solomon Islands
+25,21,Solomon Islands
+26,1,Libya
+26,21,Libya
+27,1,Lithuania
+27,21,Lithuania
+28,1,Kiribati
+28,21,Kiribati
+29,1,Macao SAR
+29,21,Macao SAR
+30,1,Qatar
+30,21,Qatar
+31,1,Bahrain
+31,21,Bahrain
+32,1,Ireland
+32,21,Ireland
+33,1,Finland
+33,21,Finland
+34,1,Luxembourg
+34,21,Luxembourg
+35,1,Algeria
+35,21,Algeria
+36,1,Cyprus
+36,21,Cyprus
+37,1,Mexico
+37,21,Mexico
+38,1,Kuwait
+38,21,Kuwait
+39,1,Japan
+39,21,Japan
+40,1,Malta
+40,21,Malta
+41,1,Latvia
+41,21,Latvia
+42,1,Portugal
+42,21,Portugal
+43,1,Kazakhstan
+43,21,Kazakhstan
+44,1,Denmark
+44,21,Denmark
+45,1,Belarus
+45,21,Belarus
+46,1,Gabon
+46,21,Gabon
+47,1,United Arab Emirates
+47,21,United Arab Emirates
+48,1,Russia
+48,21,Russia
+49,1,Turkiye
+49,21,Turkiye
+50,1,Slovak Republic
+50,21,Slovak Republic
+51,1,Iran
+51,21,Iran
+52,1,Trinidad and Tobago
+52,21,Trinidad and Tobago
+53,1,Taiwan Province of China
+53,21,Taiwan Province of China
+54,1,Sweden
+54,21,Sweden
+55,1,Hungary
+55,21,Hungary
+56,1,Bulgaria
+56,21,Bulgaria
+57,1,Oman
+57,21,Oman
+58,1,Austria
+58,21,Austria
+59,1,Norway
+59,21,Norway
+60,1,Egypt
+60,21,Egypt
+61,1,Grenada
+61,21,Grenada
+62,1,Poland
+62,21,Poland
+63,1,Greece
+63,21,Greece
+64,1,Estonia
+64,21,Estonia
+65,1,Panama
+65,21,Panama
+66,1,Australia
+66,21,Australia
+67,1,Switzerland
+67,21,Switzerland
+68,1,"Bahamas, The"
+68,21,"Bahamas, The"
+69,1,Iraq
+69,21,Iraq
+70,1,Pakistan
+70,21,Pakistan
+71,1,Equatorial Guinea
+71,21,Equatorial Guinea
+72,1,Spain
+72,21,Spain
+73,1,Ukraine
+73,21,Ukraine
+74,1,Croatia
+74,21,Croatia
+75,1,Sudan
+75,21,Sudan
+76,1,Colombia
+76,21,Colombia
+77,1,Timor-Leste
+77,21,Timor-Leste
+78,1,Peru
+78,21,Peru
+79,1,Korea
+79,21,Korea
+80,1,North Macedonia
+80,21,North Macedonia
+81,1,Ecuador
+81,21,Ecuador
+82,1,Singapore
+82,21,Singapore
+83,1,Argentina
+83,21,Argentina
+84,1,Bolivia
+84,21,Bolivia
+85,1,New Zealand
+85,21,New Zealand
+86,1,"Montenegro, Rep. of"
+86,21,"Montenegro, Rep. of"
+87,1,Azerbaijan
+87,21,Azerbaijan
+88,1,Slovenia
+88,21,Slovenia
+89,1,Maldives
+89,21,Maldives
+90,1,Tunisia
+90,21,Tunisia
+91,1,Mauritius
+91,21,Mauritius
+92,1,Côte d'Ivoire
+92,21,Côte d'Ivoire
+93,1,Armenia
+93,21,Armenia
+94,1,Iceland
+94,21,Iceland
+95,1,Angola
+95,21,Angola
+96,1,Vanuatu
+96,21,Vanuatu
+97,1,St. Lucia
+97,21,St. Lucia
+98,1,Palau
+98,21,Palau
+99,1,Canada
+99,21,Canada
+100,1,Yemen
+100,21,Yemen
+101,1,Indonesia
+101,21,Indonesia
+102,1,Thailand
+102,21,Thailand
+103,1,Cabo Verde
+103,21,Cabo Verde
+104,1,Dominica
+104,21,Dominica
+105,1,Aruba
+105,21,Aruba
+106,1,Djibouti
+106,21,Djibouti
+107,1,Namibia
+107,21,Namibia
+108,1,Serbia
+108,21,Serbia
+109,1,Belize
+109,21,Belize
+110,1,United Kingdom
+110,21,United Kingdom
+111,1,Fiji
+111,21,Fiji
+112,1,Sri Lanka
+112,21,Sri Lanka
+113,1,Dominican Republic
+113,21,Dominican Republic
+114,1,Botswana
+114,21,Botswana
+115,1,United States
+115,21,United States
+116,1,Paraguay
+116,21,Paraguay
+117,1,El Salvador
+117,21,El Salvador
+118,1,Antigua and Barbuda
+118,21,Antigua and Barbuda
+119,1,Mongolia
+119,21,Mongolia
+120,1,Kyrgyz Republic
+120,21,Kyrgyz Republic
+121,1,Papua New Guinea
+121,21,Papua New Guinea
+122,1,Chile
+122,21,Chile
+123,1,Uruguay
+123,21,Uruguay
+124,1,Jordan
+124,21,Jordan
+125,1,Uzbekistan
+125,21,Uzbekistan
+126,1,Cambodia
+126,21,Cambodia
+127,1,Moldova
+127,21,Moldova
+128,1,Vietnam
+128,21,Vietnam
+129,21,Mongolia
+130,1,Israel
+130,21,Israel
+131,1,"Congo, Republic of"
+131,21,"Congo, Republic of"
+132,1,Eswatini
+132,21,Eswatini
+133,1,Morocco
+133,21,Morocco
+134,1,Guinea-Bissau
+134,21,Guinea-Bissau
+135,1,Honduras
+135,21,Honduras
+136,1,Philippines
+136,21,Philippines
+137,1,Guatemala
+137,21,Guatemala
+138,1,Kenya
+138,21,Kenya
+139,1,Lebanon
+139,21,Lebanon
+140,1,Costa Rica
+140,21,Costa Rica
+141,1,Bosnia and Herzegovina
+141,21,Bosnia and Herzegovina
+142,1,Somalia
+142,21,Somalia
+143,1,Nicaragua
+143,21,Nicaragua
+144,1,Barbados
+144,21,Barbados
+145,1,Germany
+145,21,Germany
+146,1,France
+146,21,France
+147,1,China
+147,21,China
+148,1,South Sudan
+148,21,South Sudan
+149,1,Comoros
+149,21,Comoros
+150,21,Kenya
+151,1,Brazil
+151,21,Brazil
+152,21,Costa Rica
+153,1,Georgia
+153,21,Georgia
+154,1,Bangladesh
+154,21,Bangladesh
+155,1,Senegal
+155,21,Senegal
+156,1,Niger
+156,21,Niger
+157,1,Zambia
+157,21,Zambia
+158,1,Afghanistan
+158,21,Afghanistan
+159,1,Lesotho
+159,21,Lesotho
+160,1,Nigeria
+160,21,Nigeria
+161,1,Benin
+161,21,Benin
+162,1,Rwanda
+162,21,Rwanda
+163,1,South Africa
+163,21,South Africa
+164,1,Burkina Faso
+164,21,Burkina Faso
+165,1,Togo
+165,21,Togo
+166,1,Madagascar
+166,21,Madagascar
+167,1,Netherlands
+167,21,Netherlands
+168,1,Mauritania
+168,21,Mauritania
+169,1,Myanmar
+169,21,Myanmar
+170,1,Mali
+170,21,Mali
+171,1,Ghana
+171,21,Ghana
+172,1,Hong Kong SAR
+172,21,Hong Kong SAR
+173,1,Uganda
+173,21,Uganda
+174,1,Tajikistan
+174,21,Tajikistan
+175,1,Albania
+175,21,Albania
+176,1,Lao P.D.R.
+176,21,Lao P.D.R.
+177,1,Sierra Leone
+177,21,Sierra Leone
+178,1,Chad
+178,21,Chad
+179,1,Mozambique
+179,21,Mozambique
+180,1,Nepal
+180,21,Nepal
+181,1,Cameroon
+181,21,Cameroon
+182,1,Tanzania
+182,21,Tanzania
+183,21,Ghana
+184,1,Haiti
+184,21,Haiti
+185,1,São Tomé and Príncipe
+185,21,São Tomé and Príncipe
+186,1,"Congo, Democratic Republic of the"
+186,21,"Congo, Democratic Republic of the"
+187,1,Malawi
+187,21,Malawi
+188,1,Central African Republic
+188,21,Central African Republic
+189,1,Burundi
+189,21,Burundi
+190,1,Guinea
+190,21,Guinea
+191,1,Ethiopia
+191,21,Ethiopia
+192,1,Nepal
+192,21,Nepal
+193,1,Cameroon
+193,21,Cameroon
+194,1,Tanzania
+194,21,Tanzania
+196,1,Haiti
+196,21,Haiti
+197,1,São Tomé and Príncipe
+197,21,São Tomé and Príncipe
+198,1,"Congo, Democratic Republic of the"
+198,21,"Congo, Democratic Republic of the"
+199,1,Malawi
+199,21,Malawi
+200,1,Central African Republic
+200,21,Central African Republic
+201,1,Burundi
+201,21,Burundi
+202,1,Guinea
+202,21,Guinea
+203,1,Ethiopia
+203,21,Ethiopia

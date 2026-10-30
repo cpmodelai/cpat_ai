@@ -1,0 +1,881 @@
+_row,iso3,year,country
+0,AFG,2022,Afghanistan
+1,AFG,2023,Afghanistan
+2,AFG,2024,Afghanistan
+3,AFG,2025,Afghanistan
+4,ALB,2022,Albania
+5,ALB,2023,Albania
+6,ALB,2024,Albania
+7,ALB,2025,Albania
+8,DZA,2022,Algeria
+9,DZA,2023,Algeria
+10,DZA,2024,Algeria
+11,DZA,2025,Algeria
+12,ASM,2022,American Samoa
+13,ASM,2023,American Samoa
+14,ASM,2024,American Samoa
+15,ASM,2025,American Samoa
+16,AND,2022,Andorra
+17,AND,2023,Andorra
+18,AND,2024,Andorra
+19,AND,2025,Andorra
+20,AGO,2022,Angola
+21,AGO,2023,Angola
+22,AGO,2024,Angola
+23,AGO,2025,Angola
+24,AIA,2022,Anguilla
+25,AIA,2023,Anguilla
+26,AIA,2024,Anguilla
+27,AIA,2025,Anguilla
+28,ATG,2022,Antigua and Barbuda
+29,ATG,2023,Antigua and Barbuda
+30,ATG,2024,Antigua and Barbuda
+31,ATG,2025,Antigua and Barbuda
+32,ARG,2022,Argentina
+33,ARG,2023,Argentina
+34,ARG,2024,Argentina
+35,ARG,2025,Argentina
+36,ARM,2022,Armenia
+37,ARM,2023,Armenia
+38,ARM,2024,Armenia
+39,ARM,2025,Armenia
+40,ABW,2022,Aruba
+41,ABW,2023,Aruba
+42,ABW,2024,Aruba
+43,ABW,2025,Aruba
+44,AUS,2022,Australia
+45,AUS,2023,Australia
+46,AUS,2024,Australia
+47,AUS,2025,Australia
+48,AUT,2022,Austria
+49,AUT,2023,Austria
+50,AUT,2024,Austria
+51,AUT,2025,Austria
+52,AZE,2022,Azerbaijan
+53,AZE,2023,Azerbaijan
+54,AZE,2024,Azerbaijan
+55,AZE,2025,Azerbaijan
+56,BHS,2022,"Bahamas, The"
+57,BHS,2023,"Bahamas, The"
+58,BHS,2024,"Bahamas, The"
+59,BHS,2025,"Bahamas, The"
+60,BHR,2022,Bahrain
+61,BHR,2023,Bahrain
+62,BHR,2024,Bahrain
+63,BHR,2025,Bahrain
+64,BGD,2022,Bangladesh
+65,BGD,2023,Bangladesh
+66,BGD,2024,Bangladesh
+67,BGD,2025,Bangladesh
+68,BRB,2022,Barbados
+69,BRB,2023,Barbados
+70,BRB,2024,Barbados
+71,BRB,2025,Barbados
+72,BLR,2022,Belarus
+73,BLR,2023,Belarus
+74,BLR,2024,Belarus
+75,BLR,2025,Belarus
+76,BEL,2022,Belgium
+77,BEL,2023,Belgium
+78,BEL,2024,Belgium
+79,BEL,2025,Belgium
+80,BLZ,2022,Belize
+81,BLZ,2023,Belize
+82,BLZ,2024,Belize
+83,BLZ,2025,Belize
+84,BEN,2022,Benin
+85,BEN,2023,Benin
+86,BEN,2024,Benin
+87,BEN,2025,Benin
+88,BMU,2022,Bermuda
+89,BMU,2023,Bermuda
+90,BMU,2024,Bermuda
+91,BMU,2025,Bermuda
+92,BTN,2022,Bhutan
+93,BTN,2023,Bhutan
+94,BTN,2024,Bhutan
+95,BTN,2025,Bhutan
+96,BOL,2022,Bolivia
+97,BOL,2023,Bolivia
+98,BOL,2024,Bolivia
+99,BOL,2025,Bolivia
+100,BIH,2022,Bosnia and Herzegovina
+101,BIH,2023,Bosnia and Herzegovina
+102,BIH,2024,Bosnia and Herzegovina
+103,BIH,2025,Bosnia and Herzegovina
+104,BWA,2022,Botswana
+105,BWA,2023,Botswana
+106,BWA,2024,Botswana
+107,BWA,2025,Botswana
+108,BRA,2022,Brazil
+109,BRA,2023,Brazil
+110,BRA,2024,Brazil
+111,BRA,2025,Brazil
+112,VGB,2022,British Virgin Islands
+113,VGB,2023,British Virgin Islands
+114,VGB,2024,British Virgin Islands
+115,VGB,2025,British Virgin Islands
+116,BRN,2022,Brunei Darussalam
+117,BRN,2023,Brunei Darussalam
+118,BRN,2024,Brunei Darussalam
+119,BRN,2025,Brunei Darussalam
+120,BGR,2022,Bulgaria
+121,BGR,2023,Bulgaria
+122,BGR,2024,Bulgaria
+123,BGR,2025,Bulgaria
+124,BFA,2022,Burkina Faso
+125,BFA,2023,Burkina Faso
+126,BFA,2024,Burkina Faso
+127,BFA,2025,Burkina Faso
+128,BDI,2022,Burundi
+129,BDI,2023,Burundi
+130,BDI,2024,Burundi
+131,BDI,2025,Burundi
+132,CPV,2022,Cabo Verde
+133,CPV,2023,Cabo Verde
+134,CPV,2024,Cabo Verde
+135,CPV,2025,Cabo Verde
+136,KHM,2022,Cambodia
+137,KHM,2023,Cambodia
+138,KHM,2024,Cambodia
+139,KHM,2025,Cambodia
+140,CMR,2022,Cameroon
+141,CMR,2023,Cameroon
+142,CMR,2024,Cameroon
+143,CMR,2025,Cameroon
+144,CAN,2022,Canada
+145,CAN,2023,Canada
+146,CAN,2024,Canada
+147,CAN,2025,Canada
+148,CYM,2022,Cayman Islands
+149,CYM,2023,Cayman Islands
+150,CYM,2024,Cayman Islands
+151,CYM,2025,Cayman Islands
+152,CAF,2022,Central African Republic
+153,CAF,2023,Central African Republic
+154,CAF,2024,Central African Republic
+155,CAF,2025,Central African Republic
+156,TCD,2022,Chad
+157,TCD,2023,Chad
+158,TCD,2024,Chad
+159,TCD,2025,Chad
+160,CHI,2022,Channel Islands
+161,CHI,2023,Channel Islands
+162,CHI,2024,Channel Islands
+163,CHI,2025,Channel Islands
+164,CHL,2022,Chile
+165,CHL,2023,Chile
+166,CHL,2024,Chile
+167,CHL,2025,Chile
+168,CHN,2022,China
+169,CHN,2023,China
+170,CHN,2024,China
+171,CHN,2025,China
+172,COL,2022,Colombia
+173,COL,2023,Colombia
+174,COL,2024,Colombia
+175,COL,2025,Colombia
+176,COM,2022,Comoros
+177,COM,2023,Comoros
+178,COM,2024,Comoros
+179,COM,2025,Comoros
+180,COD,2022,"Congo, Democratic Republic of the"
+181,COD,2023,"Congo, Democratic Republic of the"
+182,COD,2024,"Congo, Democratic Republic of the"
+183,COD,2025,"Congo, Democratic Republic of the"
+184,COG,2022,"Congo, Republic of"
+185,COG,2023,"Congo, Republic of"
+186,COG,2024,"Congo, Republic of"
+187,COG,2025,"Congo, Republic of"
+188,CRI,2022,Costa Rica
+189,CRI,2023,Costa Rica
+190,CRI,2024,Costa Rica
+191,CRI,2025,Costa Rica
+192,HRV,2022,Croatia
+193,HRV,2023,Croatia
+194,HRV,2024,Croatia
+195,HRV,2025,Croatia
+196,CUB,2022,Cuba
+197,CUB,2023,Cuba
+198,CUB,2024,Cuba
+199,CUB,2025,Cuba
+200,CUW,2022,Curaçao
+201,CUW,2023,Curaçao
+202,CUW,2024,Curaçao
+203,CUW,2025,Curaçao
+204,CYP,2022,Cyprus
+205,CYP,2023,Cyprus
+206,CYP,2024,Cyprus
+207,CYP,2025,Cyprus
+208,CZE,2022,Czechia
+209,CZE,2023,Czechia
+210,CZE,2024,Czechia
+211,CZE,2025,Czechia
+212,CIV,2022,Côte d'Ivoire
+213,CIV,2023,Côte d'Ivoire
+214,CIV,2024,Côte d'Ivoire
+215,CIV,2025,Côte d'Ivoire
+216,DNK,2022,Denmark
+217,DNK,2023,Denmark
+218,DNK,2024,Denmark
+219,DNK,2025,Denmark
+220,DJI,2022,Djibouti
+221,DJI,2023,Djibouti
+222,DJI,2024,Djibouti
+223,DJI,2025,Djibouti
+224,DMA,2022,Dominica
+225,DMA,2023,Dominica
+226,DMA,2024,Dominica
+227,DMA,2025,Dominica
+228,DOM,2022,Dominican Republic
+229,DOM,2023,Dominican Republic
+230,DOM,2024,Dominican Republic
+231,DOM,2025,Dominican Republic
+232,ECU,2022,Ecuador
+233,ECU,2023,Ecuador
+234,ECU,2024,Ecuador
+235,ECU,2025,Ecuador
+236,EGY,2022,Egypt
+237,EGY,2023,Egypt
+238,EGY,2024,Egypt
+239,EGY,2025,Egypt
+240,SLV,2022,El Salvador
+241,SLV,2023,El Salvador
+242,SLV,2024,El Salvador
+243,SLV,2025,El Salvador
+244,GNQ,2022,Equatorial Guinea
+245,GNQ,2023,Equatorial Guinea
+246,GNQ,2024,Equatorial Guinea
+247,GNQ,2025,Equatorial Guinea
+248,ERI,2022,Eritrea
+249,ERI,2023,Eritrea
+250,ERI,2024,Eritrea
+251,ERI,2025,Eritrea
+252,EST,2022,Estonia
+253,EST,2023,Estonia
+254,EST,2024,Estonia
+255,EST,2025,Estonia
+256,SWZ,2022,Eswatini
+257,SWZ,2023,Eswatini
+258,SWZ,2024,Eswatini
+259,SWZ,2025,Eswatini
+260,ETH,2022,Ethiopia
+261,ETH,2023,Ethiopia
+262,ETH,2024,Ethiopia
+263,ETH,2025,Ethiopia
+264,FRO,2022,Faroe Islands
+265,FRO,2023,Faroe Islands
+266,FRO,2024,Faroe Islands
+267,FRO,2025,Faroe Islands
+268,FJI,2022,Fiji
+269,FJI,2023,Fiji
+270,FJI,2024,Fiji
+271,FJI,2025,Fiji
+272,FIN,2022,Finland
+273,FIN,2023,Finland
+274,FIN,2024,Finland
+275,FIN,2025,Finland
+276,FRA,2022,France
+277,FRA,2023,France
+278,FRA,2024,France
+279,FRA,2025,France
+280,PYF,2022,French Polynesia
+281,PYF,2023,French Polynesia
+282,PYF,2024,French Polynesia
+283,PYF,2025,French Polynesia
+284,GAB,2022,Gabon
+285,GAB,2023,Gabon
+286,GAB,2024,Gabon
+287,GAB,2025,Gabon
+288,GMB,2022,"Gambia, The"
+289,GMB,2023,"Gambia, The"
+290,GMB,2024,"Gambia, The"
+291,GMB,2025,"Gambia, The"
+292,GEO,2022,Georgia
+293,GEO,2023,Georgia
+294,GEO,2024,Georgia
+295,GEO,2025,Georgia
+296,DEU,2022,Germany
+297,DEU,2023,Germany
+298,DEU,2024,Germany
+299,DEU,2025,Germany
+300,GHA,2022,Ghana
+301,GHA,2023,Ghana
+302,GHA,2024,Ghana
+303,GHA,2025,Ghana
+304,GIB,2022,Gibraltar
+305,GIB,2023,Gibraltar
+306,GIB,2024,Gibraltar
+307,GIB,2025,Gibraltar
+308,GRC,2022,Greece
+309,GRC,2023,Greece
+310,GRC,2024,Greece
+311,GRC,2025,Greece
+312,GRL,2022,Greenland
+313,GRL,2023,Greenland
+314,GRL,2024,Greenland
+315,GRL,2025,Greenland
+316,GRD,2022,Grenada
+317,GRD,2023,Grenada
+318,GRD,2024,Grenada
+319,GRD,2025,Grenada
+320,GUM,2022,Guam
+321,GUM,2023,Guam
+322,GUM,2024,Guam
+323,GUM,2025,Guam
+324,GTM,2022,Guatemala
+325,GTM,2023,Guatemala
+326,GTM,2024,Guatemala
+327,GTM,2025,Guatemala
+328,GIN,2022,Guinea
+329,GIN,2023,Guinea
+330,GIN,2024,Guinea
+331,GIN,2025,Guinea
+332,GNB,2022,Guinea-Bissau
+333,GNB,2023,Guinea-Bissau
+334,GNB,2024,Guinea-Bissau
+335,GNB,2025,Guinea-Bissau
+336,GUY,2022,Guyana
+337,GUY,2023,Guyana
+338,GUY,2024,Guyana
+339,GUY,2025,Guyana
+340,HTI,2022,Haiti
+341,HTI,2023,Haiti
+342,HTI,2024,Haiti
+343,HTI,2025,Haiti
+344,HND,2022,Honduras
+345,HND,2023,Honduras
+346,HND,2024,Honduras
+347,HND,2025,Honduras
+348,HKG,2022,Hong Kong SAR
+349,HKG,2023,Hong Kong SAR
+350,HKG,2024,Hong Kong SAR
+351,HKG,2025,Hong Kong SAR
+352,HUN,2022,Hungary
+353,HUN,2023,Hungary
+354,HUN,2024,Hungary
+355,HUN,2025,Hungary
+356,ISL,2022,Iceland
+357,ISL,2023,Iceland
+358,ISL,2024,Iceland
+359,ISL,2025,Iceland
+360,IND,2022,India
+361,IND,2023,India
+362,IND,2024,India
+363,IND,2025,India
+364,IDN,2022,Indonesia
+365,IDN,2023,Indonesia
+366,IDN,2024,Indonesia
+367,IDN,2025,Indonesia
+368,IRN,2022,Iran
+369,IRN,2023,Iran
+370,IRN,2024,Iran
+371,IRN,2025,Iran
+372,IRQ,2022,Iraq
+373,IRQ,2023,Iraq
+374,IRQ,2024,Iraq
+375,IRQ,2025,Iraq
+376,IRL,2022,Ireland
+377,IRL,2023,Ireland
+378,IRL,2024,Ireland
+379,IRL,2025,Ireland
+380,IMN,2022,Isle of Man
+381,IMN,2023,Isle of Man
+382,IMN,2024,Isle of Man
+383,IMN,2025,Isle of Man
+384,ISR,2022,Israel
+385,ISR,2023,Israel
+386,ISR,2024,Israel
+387,ISR,2025,Israel
+388,ITA,2022,Italy
+389,ITA,2023,Italy
+390,ITA,2024,Italy
+391,ITA,2025,Italy
+392,JAM,2022,Jamaica
+393,JAM,2023,Jamaica
+394,JAM,2024,Jamaica
+395,JAM,2025,Jamaica
+396,JPN,2022,Japan
+397,JPN,2023,Japan
+398,JPN,2024,Japan
+399,JPN,2025,Japan
+400,JOR,2022,Jordan
+401,JOR,2023,Jordan
+402,JOR,2024,Jordan
+403,JOR,2025,Jordan
+404,KAZ,2022,Kazakhstan
+405,KAZ,2023,Kazakhstan
+406,KAZ,2024,Kazakhstan
+407,KAZ,2025,Kazakhstan
+408,KEN,2022,Kenya
+409,KEN,2023,Kenya
+410,KEN,2024,Kenya
+411,KEN,2025,Kenya
+412,KIR,2022,Kiribati
+413,KIR,2023,Kiribati
+414,KIR,2024,Kiribati
+415,KIR,2025,Kiribati
+416,KOR,2022,Korea
+417,KOR,2023,Korea
+418,KOR,2024,Korea
+419,KOR,2025,Korea
+420,PRK,2022,"Korea, Dem. People's Rep."
+421,PRK,2023,"Korea, Dem. People's Rep."
+422,PRK,2024,"Korea, Dem. People's Rep."
+423,PRK,2025,"Korea, Dem. People's Rep."
+424,XKX,2022,Kosovo
+425,XKX,2023,Kosovo
+426,XKX,2024,Kosovo
+427,XKX,2025,Kosovo
+428,KWT,2022,Kuwait
+429,KWT,2023,Kuwait
+430,KWT,2024,Kuwait
+431,KWT,2025,Kuwait
+432,KGZ,2022,Kyrgyz Republic
+433,KGZ,2023,Kyrgyz Republic
+434,KGZ,2024,Kyrgyz Republic
+435,KGZ,2025,Kyrgyz Republic
+436,LAO,2022,Lao P.D.R.
+437,LAO,2023,Lao P.D.R.
+438,LAO,2024,Lao P.D.R.
+439,LAO,2025,Lao P.D.R.
+440,LVA,2022,Latvia
+441,LVA,2023,Latvia
+442,LVA,2024,Latvia
+443,LVA,2025,Latvia
+444,LBN,2022,Lebanon
+445,LBN,2023,Lebanon
+446,LBN,2024,Lebanon
+447,LBN,2025,Lebanon
+448,LSO,2022,Lesotho
+449,LSO,2023,Lesotho
+450,LSO,2024,Lesotho
+451,LSO,2025,Lesotho
+452,LBR,2022,Liberia
+453,LBR,2023,Liberia
+454,LBR,2024,Liberia
+455,LBR,2025,Liberia
+456,LBY,2022,Libya
+457,LBY,2023,Libya
+458,LBY,2024,Libya
+459,LBY,2025,Libya
+460,LIE,2022,Liechtenstein
+461,LIE,2023,Liechtenstein
+462,LIE,2024,Liechtenstein
+463,LIE,2025,Liechtenstein
+464,LTU,2022,Lithuania
+465,LTU,2023,Lithuania
+466,LTU,2024,Lithuania
+467,LTU,2025,Lithuania
+468,LUX,2022,Luxembourg
+469,LUX,2023,Luxembourg
+470,LUX,2024,Luxembourg
+471,LUX,2025,Luxembourg
+472,MAC,2022,Macao SAR
+473,MAC,2023,Macao SAR
+474,MAC,2024,Macao SAR
+475,MAC,2025,Macao SAR
+476,MDG,2022,Madagascar
+477,MDG,2023,Madagascar
+478,MDG,2024,Madagascar
+479,MDG,2025,Madagascar
+480,MWI,2022,Malawi
+481,MWI,2023,Malawi
+482,MWI,2024,Malawi
+483,MWI,2025,Malawi
+484,MYS,2022,Malaysia
+485,MYS,2023,Malaysia
+486,MYS,2024,Malaysia
+487,MYS,2025,Malaysia
+488,MDV,2022,Maldives
+489,MDV,2023,Maldives
+490,MDV,2024,Maldives
+491,MDV,2025,Maldives
+492,MLI,2022,Mali
+493,MLI,2023,Mali
+494,MLI,2024,Mali
+495,MLI,2025,Mali
+496,MLT,2022,Malta
+497,MLT,2023,Malta
+498,MLT,2024,Malta
+499,MLT,2025,Malta
+500,MHL,2022,Marshall Islands
+501,MHL,2023,Marshall Islands
+502,MHL,2024,Marshall Islands
+503,MHL,2025,Marshall Islands
+504,MRT,2022,Mauritania
+505,MRT,2023,Mauritania
+506,MRT,2024,Mauritania
+507,MRT,2025,Mauritania
+508,MUS,2022,Mauritius
+509,MUS,2023,Mauritius
+510,MUS,2024,Mauritius
+511,MUS,2025,Mauritius
+512,MEX,2022,Mexico
+513,MEX,2023,Mexico
+514,MEX,2024,Mexico
+515,MEX,2025,Mexico
+516,FSM,2022,Micronesia
+517,FSM,2023,Micronesia
+518,FSM,2024,Micronesia
+519,FSM,2025,Micronesia
+520,MDA,2022,Moldova
+521,MDA,2023,Moldova
+522,MDA,2024,Moldova
+523,MDA,2025,Moldova
+524,MCO,2022,Monaco
+525,MCO,2023,Monaco
+526,MCO,2024,Monaco
+527,MCO,2025,Monaco
+528,MNG,2022,Mongolia
+529,MNG,2023,Mongolia
+530,MNG,2024,Mongolia
+531,MNG,2025,Mongolia
+532,MNE,2022,"Montenegro, Rep. of"
+533,MNE,2023,"Montenegro, Rep. of"
+534,MNE,2024,"Montenegro, Rep. of"
+535,MNE,2025,"Montenegro, Rep. of"
+536,MSR,2022,Montserrat
+537,MSR,2023,Montserrat
+538,MSR,2024,Montserrat
+539,MSR,2025,Montserrat
+540,MAR,2022,Morocco
+541,MAR,2023,Morocco
+542,MAR,2024,Morocco
+543,MAR,2025,Morocco
+544,MOZ,2022,Mozambique
+545,MOZ,2023,Mozambique
+546,MOZ,2024,Mozambique
+547,MOZ,2025,Mozambique
+548,MMR,2022,Myanmar
+549,MMR,2023,Myanmar
+550,MMR,2024,Myanmar
+551,MMR,2025,Myanmar
+552,NAM,2022,Namibia
+553,NAM,2023,Namibia
+554,NAM,2024,Namibia
+555,NAM,2025,Namibia
+556,NRU,2022,Nauru
+557,NRU,2023,Nauru
+558,NRU,2024,Nauru
+559,NRU,2025,Nauru
+560,NPL,2022,Nepal
+561,NPL,2023,Nepal
+562,NPL,2024,Nepal
+563,NPL,2025,Nepal
+564,NLD,2022,Netherlands
+565,NLD,2023,Netherlands
+566,NLD,2024,Netherlands
+567,NLD,2025,Netherlands
+568,NCL,2022,New Caledonia
+569,NCL,2023,New Caledonia
+570,NCL,2024,New Caledonia
+571,NCL,2025,New Caledonia
+572,NZL,2022,New Zealand
+573,NZL,2023,New Zealand
+574,NZL,2024,New Zealand
+575,NZL,2025,New Zealand
+576,NIC,2022,Nicaragua
+577,NIC,2023,Nicaragua
+578,NIC,2024,Nicaragua
+579,NIC,2025,Nicaragua
+580,NER,2022,Niger
+581,NER,2023,Niger
+582,NER,2024,Niger
+583,NER,2025,Niger
+584,NGA,2022,Nigeria
+585,NGA,2023,Nigeria
+586,NGA,2024,Nigeria
+587,NGA,2025,Nigeria
+588,MKD,2022,North Macedonia
+589,MKD,2023,North Macedonia
+590,MKD,2024,North Macedonia
+591,MKD,2025,North Macedonia
+592,MNP,2022,Northern Mariana Islands
+593,MNP,2023,Northern Mariana Islands
+594,MNP,2024,Northern Mariana Islands
+595,MNP,2025,Northern Mariana Islands
+596,NOR,2022,Norway
+597,NOR,2023,Norway
+598,NOR,2024,Norway
+599,NOR,2025,Norway
+600,OMN,2022,Oman
+601,OMN,2023,Oman
+602,OMN,2024,Oman
+603,OMN,2025,Oman
+604,PAK,2022,Pakistan
+605,PAK,2023,Pakistan
+606,PAK,2024,Pakistan
+607,PAK,2025,Pakistan
+608,PLW,2022,Palau
+609,PLW,2023,Palau
+610,PLW,2024,Palau
+611,PLW,2025,Palau
+612,PAN,2022,Panama
+613,PAN,2023,Panama
+614,PAN,2024,Panama
+615,PAN,2025,Panama
+616,PNG,2022,Papua New Guinea
+617,PNG,2023,Papua New Guinea
+618,PNG,2024,Papua New Guinea
+619,PNG,2025,Papua New Guinea
+620,PRY,2022,Paraguay
+621,PRY,2023,Paraguay
+622,PRY,2024,Paraguay
+623,PRY,2025,Paraguay
+624,PER,2022,Peru
+625,PER,2023,Peru
+626,PER,2024,Peru
+627,PER,2025,Peru
+628,PHL,2022,Philippines
+629,PHL,2023,Philippines
+630,PHL,2024,Philippines
+631,PHL,2025,Philippines
+632,POL,2022,Poland
+633,POL,2023,Poland
+634,POL,2024,Poland
+635,POL,2025,Poland
+636,PRT,2022,Portugal
+637,PRT,2023,Portugal
+638,PRT,2024,Portugal
+639,PRT,2025,Portugal
+640,PRI,2022,Puerto Rico
+641,PRI,2023,Puerto Rico
+642,PRI,2024,Puerto Rico
+643,PRI,2025,Puerto Rico
+644,QAT,2022,Qatar
+645,QAT,2023,Qatar
+646,QAT,2024,Qatar
+647,QAT,2025,Qatar
+648,ROU,2022,Romania
+649,ROU,2023,Romania
+650,ROU,2024,Romania
+651,ROU,2025,Romania
+652,RUS,2022,Russia
+653,RUS,2023,Russia
+654,RUS,2024,Russia
+655,RUS,2025,Russia
+656,RWA,2022,Rwanda
+657,RWA,2023,Rwanda
+658,RWA,2024,Rwanda
+659,RWA,2025,Rwanda
+660,WSM,2022,Samoa
+661,WSM,2023,Samoa
+662,WSM,2024,Samoa
+663,WSM,2025,Samoa
+664,SMR,2022,San Marino
+665,SMR,2023,San Marino
+666,SMR,2024,San Marino
+667,SMR,2025,San Marino
+668,SAU,2022,Saudi Arabia
+669,SAU,2023,Saudi Arabia
+670,SAU,2024,Saudi Arabia
+671,SAU,2025,Saudi Arabia
+672,SEN,2022,Senegal
+673,SEN,2023,Senegal
+674,SEN,2024,Senegal
+675,SEN,2025,Senegal
+676,SRB,2022,Serbia
+677,SRB,2023,Serbia
+678,SRB,2024,Serbia
+679,SRB,2025,Serbia
+680,SYC,2022,Seychelles
+681,SYC,2023,Seychelles
+682,SYC,2024,Seychelles
+683,SYC,2025,Seychelles
+684,SLE,2022,Sierra Leone
+685,SLE,2023,Sierra Leone
+686,SLE,2024,Sierra Leone
+687,SLE,2025,Sierra Leone
+688,SGP,2022,Singapore
+689,SGP,2023,Singapore
+690,SGP,2024,Singapore
+691,SGP,2025,Singapore
+692,SXM,2022,Sint Maarten (Dutch part)
+693,SXM,2023,Sint Maarten (Dutch part)
+694,SXM,2024,Sint Maarten (Dutch part)
+695,SXM,2025,Sint Maarten (Dutch part)
+696,SVK,2022,Slovak Republic
+697,SVK,2023,Slovak Republic
+698,SVK,2024,Slovak Republic
+699,SVK,2025,Slovak Republic
+700,SVN,2022,Slovenia
+701,SVN,2023,Slovenia
+702,SVN,2024,Slovenia
+703,SVN,2025,Slovenia
+704,SLB,2022,Solomon Islands
+705,SLB,2023,Solomon Islands
+706,SLB,2024,Solomon Islands
+707,SLB,2025,Solomon Islands
+708,SOM,2022,Somalia
+709,SOM,2023,Somalia
+710,SOM,2024,Somalia
+711,SOM,2025,Somalia
+712,ZAF,2022,South Africa
+713,ZAF,2023,South Africa
+714,ZAF,2024,South Africa
+715,ZAF,2025,South Africa
+716,SSD,2022,South Sudan
+717,SSD,2023,South Sudan
+718,SSD,2024,South Sudan
+719,SSD,2025,South Sudan
+720,ESP,2022,Spain
+721,ESP,2023,Spain
+722,ESP,2024,Spain
+723,ESP,2025,Spain
+724,LKA,2022,Sri Lanka
+725,LKA,2023,Sri Lanka
+726,LKA,2024,Sri Lanka
+727,LKA,2025,Sri Lanka
+728,KNA,2022,St. Kitts and Nevis
+729,KNA,2023,St. Kitts and Nevis
+730,KNA,2024,St. Kitts and Nevis
+731,KNA,2025,St. Kitts and Nevis
+732,LCA,2022,St. Lucia
+733,LCA,2023,St. Lucia
+734,LCA,2024,St. Lucia
+735,LCA,2025,St. Lucia
+736,MAF,2022,St. Martin (French part)
+737,MAF,2023,St. Martin (French part)
+738,MAF,2024,St. Martin (French part)
+739,MAF,2025,St. Martin (French part)
+740,VCT,2022,St. Vincent and the Grenadines
+741,VCT,2023,St. Vincent and the Grenadines
+742,VCT,2024,St. Vincent and the Grenadines
+743,VCT,2025,St. Vincent and the Grenadines
+744,SDN,2022,Sudan
+745,SDN,2023,Sudan
+746,SDN,2024,Sudan
+747,SDN,2025,Sudan
+748,SUR,2022,Suriname
+749,SUR,2023,Suriname
+750,SUR,2024,Suriname
+751,SUR,2025,Suriname
+752,SWE,2022,Sweden
+753,SWE,2023,Sweden
+754,SWE,2024,Sweden
+755,SWE,2025,Sweden
+756,CHE,2022,Switzerland
+757,CHE,2023,Switzerland
+758,CHE,2024,Switzerland
+759,CHE,2025,Switzerland
+760,SYR,2022,Syria
+761,SYR,2023,Syria
+762,SYR,2024,Syria
+763,SYR,2025,Syria
+764,STP,2022,São Tomé and Príncipe
+765,STP,2023,São Tomé and Príncipe
+766,STP,2024,São Tomé and Príncipe
+767,STP,2025,São Tomé and Príncipe
+768,TWN,2022,Taiwan Province of China
+769,TWN,2023,Taiwan Province of China
+770,TWN,2024,Taiwan Province of China
+771,TWN,2025,Taiwan Province of China
+772,TJK,2022,Tajikistan
+773,TJK,2023,Tajikistan
+774,TJK,2024,Tajikistan
+775,TJK,2025,Tajikistan
+776,TZA,2022,Tanzania
+777,TZA,2023,Tanzania
+778,TZA,2024,Tanzania
+779,TZA,2025,Tanzania
+780,THA,2022,Thailand
+781,THA,2023,Thailand
+782,THA,2024,Thailand
+783,THA,2025,Thailand
+784,TLS,2022,Timor-Leste
+785,TLS,2023,Timor-Leste
+786,TLS,2024,Timor-Leste
+787,TLS,2025,Timor-Leste
+788,TGO,2022,Togo
+789,TGO,2023,Togo
+790,TGO,2024,Togo
+791,TGO,2025,Togo
+792,TON,2022,Tonga
+793,TON,2023,Tonga
+794,TON,2024,Tonga
+795,TON,2025,Tonga
+796,TTO,2022,Trinidad and Tobago
+797,TTO,2023,Trinidad and Tobago
+798,TTO,2024,Trinidad and Tobago
+799,TTO,2025,Trinidad and Tobago
+800,TUN,2022,Tunisia
+801,TUN,2023,Tunisia
+802,TUN,2024,Tunisia
+803,TUN,2025,Tunisia
+804,TUR,2022,Turkiye
+805,TUR,2023,Turkiye
+806,TUR,2024,Turkiye
+807,TUR,2025,Turkiye
+808,TKM,2022,Turkmenistan
+809,TKM,2023,Turkmenistan
+810,TKM,2024,Turkmenistan
+811,TKM,2025,Turkmenistan
+812,TCA,2022,Turks and Caicos Islands
+813,TCA,2023,Turks and Caicos Islands
+814,TCA,2024,Turks and Caicos Islands
+815,TCA,2025,Turks and Caicos Islands
+816,TUV,2022,Tuvalu
+817,TUV,2023,Tuvalu
+818,TUV,2024,Tuvalu
+819,TUV,2025,Tuvalu
+820,UGA,2022,Uganda
+821,UGA,2023,Uganda
+822,UGA,2024,Uganda
+823,UGA,2025,Uganda
+824,UKR,2022,Ukraine
+825,UKR,2023,Ukraine
+826,UKR,2024,Ukraine
+827,UKR,2025,Ukraine
+828,ARE,2022,United Arab Emirates
+829,ARE,2023,United Arab Emirates
+830,ARE,2024,United Arab Emirates
+831,ARE,2025,United Arab Emirates
+832,GBR,2022,United Kingdom
+833,GBR,2023,United Kingdom
+834,GBR,2024,United Kingdom
+835,GBR,2025,United Kingdom
+836,USA,2022,United States
+837,USA,2023,United States
+838,USA,2024,United States
+839,USA,2025,United States
+840,URY,2022,Uruguay
+841,URY,2023,Uruguay
+842,URY,2024,Uruguay
+843,URY,2025,Uruguay
+844,UZB,2022,Uzbekistan
+845,UZB,2023,Uzbekistan
+846,UZB,2024,Uzbekistan
+847,UZB,2025,Uzbekistan
+848,VUT,2022,Vanuatu
+849,VUT,2023,Vanuatu
+850,VUT,2024,Vanuatu
+851,VUT,2025,Vanuatu
+852,VEN,2022,Venezuela
+853,VEN,2023,Venezuela
+854,VEN,2024,Venezuela
+855,VEN,2025,Venezuela
+856,VNM,2022,Vietnam
+857,VNM,2023,Vietnam
+858,VNM,2024,Vietnam
+859,VNM,2025,Vietnam
+860,VIR,2022,Virgin Islands (U.S.)
+861,VIR,2023,Virgin Islands (U.S.)
+862,VIR,2024,Virgin Islands (U.S.)
+863,VIR,2025,Virgin Islands (U.S.)
+864,PSE,2022,West Bank and Gaza
+865,PSE,2023,West Bank and Gaza
+866,PSE,2024,West Bank and Gaza
+867,PSE,2025,West Bank and Gaza
+868,YEM,2022,Yemen
+869,YEM,2023,Yemen
+870,YEM,2024,Yemen
+871,YEM,2025,Yemen
+872,ZMB,2022,Zambia
+873,ZMB,2023,Zambia
+874,ZMB,2024,Zambia
+875,ZMB,2025,Zambia
+876,ZWE,2022,Zimbabwe
+877,ZWE,2023,Zimbabwe
+878,ZWE,2024,Zimbabwe
+879,ZWE,2025,Zimbabwe

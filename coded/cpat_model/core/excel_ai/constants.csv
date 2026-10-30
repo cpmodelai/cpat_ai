@@ -1,0 +1,83 @@
+key,value,unit,description,source
+ManCapOff,14,rows,Manual inputs: rows from the scenario-1 to the other-scenario capacity block (349 -> 363),"legacy Manual inputs rows 349-357, 363-371 (v0.5.6, P3)"
+CoalICYr,2030,year,Year the coal implicit cost reaches its long-term value,"legacy K88 (v0.5.6, P5)"
+MethGJperKtoe,41868,GJ per ktoe,Production of fuels for supply methane: GJ per ktoe,legacy rows 6137-6144 (v0.6.0)
+MethGJperBbl,6.1408,GJ per barrel,Crude oil: GJ per barrel (legacy unit of the oil price),legacy rows 6137-6144 (v0.6.0)
+MethGJperT,29.3076,GJ per tonne,Coal: GJ per tonne (legacy unit of the coal price),legacy rows 6137-6144 (v0.6.0)
+MethGJperMMBtu,1.055056,GJ per MMBtu,Natural gas: GJ per MMBtu (legacy unit of the gas price),legacy rows 6137-6144 (v0.6.0)
+PwAvgLag,4,years,Fuel price for power: trailing average over this year and the 4 before,v0.6.2 (legacy bug L126: legacy rows 3155-3163 average t-2 .. t+2)
+LitersPerKtoeOil,1108792,liters per ktoe,Crude oil: liters per ktoe (spreads the oil producer subsidy),"legacy _conv_ktoe_liter_oil, Mitigation O953 (v0.6.1, I49)"
+LitersPerBbl,158.987294928,liters per barrel,Liters in a barrel (other oil products are priced per barrel),"Definition (v0.6.1, I49; legacy bug L125)"
+NDCYrCap,2035,year,Latest NDC target year used (later targets are compared in this year),legacy Mitigation F18405 (v0.5.7)
+HoursYr,8760,hours per year,Hours in a year,Definition
+kWperMW,1000,kW per MW,Kilowatts per megawatt,Definition
+USDperM,1000000,USD per USD million,US dollars per million US dollars,Definition
+MWyMkWh,8.76,million kWh per MWy,Million kWh in one MW-year (8.76): $/kWh x MWy x MWyMkWh = USD million,Definition
+PriceFloor,0.01,$/GJ real,Floor of the after-tax fuel price (atp),Legacy CPAT (fuel price floor)
+GWPCH4F,29.8,t CO2e per t CH4,Global warming potential (100 years) of fossil methane,IPCC AR6; legacy Mitigation row 1030
+GWPCH4NF,27.2,t CO2e per t CH4,Global warming potential (100 years) of non-fossil methane,IPCC AR6; legacy Mitigation row 1029
+tPerKt,1000,t per kt,Tonnes per kilotonne,Definition
+EFtPerKtoe,41.868,t/ktoe per kt/PJ,Converts an emission factor in kt per PJ to t per ktoe (PJ per ktoe x tPerKt),Definition
+ktPerMt,1000,kt per Mt,Kilotonnes per megatonne,Definition
+GdpExtHalf,0.5,factor,"Real GDP growth past the last WEO year, when it was falling: at least this factor times the average of the last three years (otherwise the linear trend)",Legacy Mitigation row 420
+WaccDefault,0.075,share,"WACC of a country missing from CoC or without CoC risk data (legacy XLOOKUP default; v0.4.10: also without risk data, L56)",Legacy Mitigation rows 2988-2996
+HydInvShare,0.5,share,"Hydro invests from the base year when its generation share is above this value, else from NewInvHydYear (v0.4.10, L54 fixed)",Legacy Mitigation row 4067 (intended test of row 3846)
+UraniumFuel,0.004,$/kWh,Nuclear fuel cost per kWh of final electricity (legacy typed constant),Legacy Mitigation row 710
+InvPresentShare,0.001,share,"New investment ""If Present"": allowed when the type has more than this share of capacity",Legacy Mitigation rows 4061-4069
+StMargFactor,2,factor,Marginal hours of short-term storage = this x total hours for 100% VRE,Legacy Mitigation row 3873
+EarlyMaxShare,0.8,share,"Maximum early coal retirement, share of coal effective capacity (legacy typed)",Legacy Mitigation row 3975
+KtoeGWh,11.63,GWh per ktoe,GWh in a ktoe,Legacy Mitigation row 1033
+IncfA,0.012019,factor,Income factor polynomial in x = ln GDP per capita: coefficient of x^4,Legacy Mitigation row 2432
+IncfB,-0.365464,factor,Income factor polynomial: coefficient of x^3,Legacy Mitigation row 2432
+IncfC,4.011846,factor,Income factor polynomial: coefficient of x^2,Legacy Mitigation row 2432
+IncfD,-18.722243,factor,Income factor polynomial: coefficient of x,Legacy Mitigation row 2432
+IncfE,31.75949,factor,Income factor polynomial: constant (31.59949 + 0.16),Legacy Mitigation row 2432
+IncfLnCap,10,ln USD,Cap on ln GDP per capita in the income factor,Legacy Mitigation row 2431
+IncfNorm,0.74,factor,Income factor divisor (normalisation),Legacy Mitigation row 2433 (G2432)
+MultLastLag,11,years,Last lag of the legacy multiplier tables (columns D:O = lags 0-11); later lags hold its value,"Legacy Multipliers rows 36-57, 90-203"
+KgPerT,1000,kg per t,Kilograms per tonne (EF_GHG factors are kg CO2 per GJ),Definition
+EFOilIEA,0.07333333333333333,tCO2/GJ,"Generic CO2 factor of other oil products, IEA (20 tC/TJ x 44/12; v0.9.0, R3.2)",Legacy Mitigation row 967
+ApCoalResMin,0.001,share,"Residential coal air-pollution cost applies only where coal is above this share of buildings fuel use (v0.9.0, R1.3; bug L192 fixed: legacy divides by a typed 9127)",Legacy Mitigation row 17739
+EFJetIEA,0.0715,tCO2/GJ,"CO2 emission factor of jet fuel, IEA global (19.5 tC/TJ x 44/12): legacy uses it for aviation and for jet fuel in every sector","Legacy Mitigation rows 970, 1010-1011"
+FlareCO2perCH4,2.75,t CO2 per t CH4,CO2 from burning (flaring) one tonne of methane (44/16),Definition
+EFEndYear,2039,year,"Year of the final combustion emission factor: linear path from the base year, continued after it, as legacy (v0.8.4, I98; the final factor follows EFSel, name EFFinShare)","Legacy Mitigation rows 1052-1663 (column AC = 2039; AD, AE extrapolate)"
+MperBn,1000,USD million per USD billion,"Millions in a billion (GDP in USD bn, revenue in USD m)",Definition
+PctPerUnit,100,percent per unit,MTInputs revenue-use shares are in percent,Definition
+PomPerOC,1.3,t POM per t OC,Primary organic matter per tonne of organic carbon (POM = 1.3 x OC),Legacy Mitigation rows 7428-7435
+GJperkWh,0.0036,GJ per kWh,Gigajoules in one kilowatt-hour,Definition
+CapAvgShr,0.5,share,Average outstanding share of the capital over the lifetime (straight-line repayment): amortised capex = capex x (1/N + wacc x CapAvgShr),Legacy Mitigation rows 3247-3255 (B8)
+TieBreak,1.356e-06,$/kWh,Tie breaker added to the cost of each generation type (x its position - 1),Legacy CPAT (dispatch tie breaker)
+PassLo,0.25,share,Pass-through buckets: a raw pass-through up to this value counts as 0,Legacy CPAT (pass-through buckets)
+PassHi,0.5,share,"Pass-through buckets: above PassLo and up to this value counts as PassMid, above as 1",Legacy CPAT (pass-through buckets)
+PassMid,0.5,share,Pass-through of the middle bucket,Legacy CPAT (pass-through buckets)
+MethShareCap,10,factor,Methane source shares: at most this multiple of the source's share of activity,Legacy Mitigation row 899
+Thousand,1000,units per thousand,"Thousand (per-1,000 people, kt, GWh)",Definition
+Million,1000000,units per million,"Million (population, GJ per PJ, grams per tonne)",Definition
+Billion,1000000000,units per billion,"Billion (liters, km)",Definition
+TrRALag,3,years,Range anxiety: the start value holds in the first years of the horizon (base year counted as 1),Legacy Mitigation rows 4354-4356 (range anxiety from column O)
+TrPivotLag,2,years,Feebate pivot: blank in the first years of the horizon (base year counted as 1),"Legacy Mitigation rows 4517, 4633, 4690 (from column N)"
+TrOwnDecline,0.1,share per year,Maximum annual decrease of passenger and freight ownership (fix B4: the legacy 2-3 wheeler value; legacy 0),"Methods, chapter Transport B4"
+TrFEWGso,0.75,share,Average gasoline fuel economy without fuel use: weight of passenger vehicles (2-3 wheelers the rest),Legacy Mitigation row 5356
+TrFEWHalf,0.5,share,"Average diesel, LPG and gas fuel economy without fuel use: weight of passenger vehicles (freight the rest)","Legacy Mitigation rows 5360, 5364, 5368"
+TrFEWEvP,0.5,share,Average EV fuel economy without electricity use: weight of passenger BEVs,Legacy Mitigation row 5373
+TrFEWEvO,0.25,share,Average EV fuel economy without electricity use: weight of freight and of 2-3 wheeler BEVs each,Legacy Mitigation row 5373
+ResSubstLag,1,years,Residential leakage to biomass: substitution lag (the coefficient of the leaked share is divided by it; v0.5.1),Legacy Mitigation E5571 (typed 1)
+MitGW,22,columns,"Width of a Mitigation scenario group (code column, years, spacer); Distribution reads group n of Mitigation at (n - 1) x MitGW + the year column of group 1",Definition (v0.4.4)
+BasketQ,9999,code,Quantile code of the basket (whole sample) in HHSurvey and HH_Elast,Legacy HHSurvey (quant_cons 9999)
+DecPerQuint,2,deciles per quintile,ASPIRE data are by quintile: decile d reads quintile ROUNDUP(d / 2),Legacy Distribution row 2558
+PlDecScale,10,ratio,Poverty-line targeting: the HHSurvey pct_belowpl_* value of a decile x 10 = share of the decile below the line (%; deciles of 10%),legacy Distribution rows 2649-2651 (v0.6.0)
+DWLTri,0.5,ratio,Harberger triangle: deadweight loss = 1/2 x lost demand x price change,"Legacy Distribution rows 859-883 (units corrected, register)"
+PsElFloor,-0.3,USD/kWh,"Floor of the electricity producer subsidy per kWh (the part beyond it is the residual pser, outside prices; v0.9.0, R7.6, I146)",Legacy Mitigation H3590:H3591
+exf|all|all,1,factor,Exemption factor of the new policies where no exemption applies (1 = taxed; v0.5.1),Definition
+gp.hi|oil,1.5,factor,"International price, High forecast adjustment: Crude oil",Legacy CPAT
+gp.hi|coa,1.25,factor,"International price, High forecast adjustment: Coal",Legacy CPAT
+gp.hi|nga,1.25,factor,"International price, High forecast adjustment: Natural gas (country gas market)",Legacy CPAT
+gp.hi|one,1,factor,"International price, High forecast adjustment: Flat (no price change)",Legacy CPAT
+gp.lo|oil,0.5,factor,"International price, Low forecast adjustment: Crude oil",Legacy CPAT
+gp.lo|coa,0.75,factor,"International price, Low forecast adjustment: Coal",Legacy CPAT
+gp.lo|nga,0.75,factor,"International price, Low forecast adjustment: Natural gas (country gas market)",Legacy CPAT
+gp.lo|one,1,factor,"International price, Low forecast adjustment: Flat (no price change)",Legacy CPAT
+pw.c|gncav,1,factor,Scale factor of power row gncav,Definition (1)
+pw.c|rcarb,1,factor,Scale factor of power row rcarb,Definition (1)
+pw.c|rgap,1,factor,Scale factor of power row rgap,Definition (1)
+pw.c|vre,1,factor,Scale factor of power row vre,Definition (1)

@@ -1,0 +1,44 @@
+# Bugs and issues {#sec-bugs}
+
+::: {.callout-important}
+## The rule
+
+**Never replicate a legacy bug; always replicate a legacy issue, and track it.**
+:::
+
+The rule applies to every model of the project, in Excel and in Python. It keeps the prototypes faithful to legacy CPAT where legacy does what it means to, and correct where it does not, and it makes every difference from legacy visible.
+
+## Definitions
+
+| Kind | Code | Meaning | What the prototype does |
+|---|---|---|---|
+| Legacy bug | L | Legacy does not compute what it means to: a wrong row, a double application, a dead reference | Fixes it, never replicates it; the fix is written up as a cell-level plan for legacy |
+| Prototype bug | M | A bug found in the prototype itself | Fixes it and records it |
+| Issue | I | Legacy does what it means to, but the choice is open to question | Does the same as legacy and tracks it |
+| Departure | LD | A deliberate difference from legacy that is not a bug fix | Kept only by decision of the team; tracked in the prototype's `LegacyDiff` sheet |
+| Upgrade | U | A feature beyond legacy | Tracked |
+
+**Data problems are issues.** They are replicated. Where legacy needs a formula fix to handle the data correctly, that fix is a legacy bug (L) with a cell plan and the issue is ranked *Very high*; where no cell plan is possible, the prototype aligns with legacy exactly and the issue is ranked *Extremely high*.
+
+## The register
+
+Every bug and issue lives in one register, the single source from which the documents are generated:
+
+| Document | What it holds |
+|---|---|
+| `excel_ai/Legacy_CPAT_Bugs_v<version>.docx` | The legacy bugs, each with its cell-level fix plan, and the data problems by priority |
+| `excel_ai/Tracking_Legacy_Bugs_v<version>.xlsx` | The master list of bugs and issues, every module, in the same columns; shared with the CPAT team |
+| `excel_ai/BUGS.md`, `excel_ai/ISSUES.md` | The two short lists |
+| `excel_ai/legacy/Legacy_CPAT_Register.json` | The register as data |
+
+The register is written in `excel_ai/mitigation/issues_register.py` and `register.py`; `make_documentation.py` regenerates every document from it at each release.
+
+## Current counts
+
+{{< include _counts.md >}}
+
+The status *Legacy 465* records whether the CPAT team has fixed each bug in the latest legacy workbook; each claimed fix is checked against the workbook (`excel_ai/legacy/bugfixes/check465/`).
+
+## Priorities
+
+Issues and data problems are ranked so the most urgent are seen first: *Extremely high* and *Very high* for data problems (as defined above), then *Major* and *Minor*. Bugs carry *High*, *Medium* or *Low* by their effect on results.

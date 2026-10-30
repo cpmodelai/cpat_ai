@@ -1,0 +1,67 @@
+gtap_sector,cpat,description
+wol,foo,Wool
+pdr,foo,Rice
+wht,foo,Wheat
+gro,foo,Other grains
+v_f,foo,Veg & fruit
+osd,foo,Oil Seeds
+c_b,foo,Cane & Beet
+pfb,foo,Fibres crops
+ocr,foo,Other Crops
+ctl,foo,Cattle
+oap,foo,Other Animal Products
+rmk,foo,Raw milk
+frs,foo,Forestry
+chm,mch,Chemicals
+bph,mch,Pharmaceuticals
+cmn,srv,Telecomms
+omf,srv,Other Manufacturing
+rsa,srv,Real estate activities
+whs,srv,Warehousing
+ofi,srv,Other financial intermediation
+ins,srv,Insurance
+obs,srv,Other Business Services
+osg,srv,Government services
+afs,srv,Hotels
+trd,srv,Vehicles repair
+cns,cst,Construction
+fsh,foo,Fishing
+b_t,foo,Beverages & Tobacco
+cmt,foo,Cattle Meat
+omt,foo,Other Meat
+vol,foo,Vegetable Oils
+mil,foo,Dairy
+pcr,foo,Processed Rice
+sgr,foo,Sugar and molasses
+ofd,foo,Other Food
+rpp,omn,Rubber & plastics
+i_s,irn,Iron & Steel
+ele,mac,Computer equipment
+eeq,mac,Electrical equipment
+ome,mac,Machinery
+fmp,mac,Fabricated metals
+oxt,mch,Other Mining
+nfm,nfm,Non-Ferrous Metals
+nmm,cem,Non-metallic minerals
+ppp,omn,Paper
+wtr,srv,Water supply
+gdt,pow,Gas distribution
+nga,pow,Natural gas
+ros,res,Recreation
+tex,omn,Textiles
+wap,omn,Apparel
+lea,omn,Leather
+otp,nav,Land transport
+wtp,nav,Water transport
+atp,avi,Air transport
+mvh,mac,Motor vehicles
+otn,mac,Other transport equipment
+lum,foo,Lumber
+coa,foo,Coal
+edu,srv,Education
+ely,pow,Electricity supply
+oil,ftr,Oil
+gas,ftr,Gas extraction
+p_c,ftr,Petroleum & Coke
+hht,srv,Human health & social work
+dwe,srv,Housing rent

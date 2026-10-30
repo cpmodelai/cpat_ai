@@ -1,0 +1,1942 @@
+__123Graph_ACurrent	-1	ext0!O263:O310
+__123Graph_AGRAPH1	-1	ext0!E831:I831
+__123Graph_BCurrent	-1	ext0!S263:S310
+__123Graph_BGRAPH1	-1	ext0!E832:I832
+__123Graph_CGRAPH1	-1	ext0!E834:I834
+__123Graph_DGRAPH1	-1	ext0!E835:I835
+__123Graph_EGRAPH1	-1	ext0!E837:I837
+__123Graph_FGRAPH1	-1	ext0!E838:I838
+__123Graph_XCurrent	-1	ext0!B263:B310
+__123Graph_XGRAPH1	-1	ext0!E829:I829
+_10__123Graph_BChart_1A	-1	ext0!S263:S310
+_18__123Graph_XChart_1A	-1	ext0!B263:B310
+_2__123Graph_AChart_1A	-1	ext0!O263:O310
+_20__123Graph_XChart_2A	-1	ext0!B203:B310
+_22__123Graph_XChart_3A	-1	ext0!B203:B310
+_24__123Graph_XChart_4A	-1	ext0!B239:B298
+_4__123Graph_AChart_2A	-1	ext0!K203:K304
+_6__123Graph_AChart_3A	-1	ext0!O203:O304
+_8__123Graph_AChart_4A	-1	ext0!O239:O298
+_AtRisk_SimSetting_AutomaticallyGenerateReports	-1	<complex 1d00>
+_AtRisk_SimSetting_AutomaticResultsDisplayMode	-1	<complex 1e0000>
+_AtRisk_SimSetting_ConvergenceConfidenceLevel	-1	<complex 1f666666666666ee3f>
+_AtRisk_SimSetting_ConvergencePercentileToTest	-1	<complex 1fcdccccccccccec3f>
+_AtRisk_SimSetting_ConvergencePerformMeanTest	-1	<complex 1d01>
+_AtRisk_SimSetting_ConvergencePerformPercentileTest	-1	<complex 1d00>
+_AtRisk_SimSetting_ConvergencePerformStdDeviationTest	-1	<complex 1d00>
+_AtRisk_SimSetting_ConvergenceTestAllOutputs	-1	<complex 1d01>
+_AtRisk_SimSetting_ConvergenceTestingPeriod	-1	<complex 1e6400>
+_AtRisk_SimSetting_ConvergenceTolerance	-1	<complex 1fb81e85eb51b89e3f>
+_AtRisk_SimSetting_LiveUpdate	-1	<complex 1d01>
+_AtRisk_SimSetting_LiveUpdatePeriod	-1	<complex 1f000000000000f0bf>
+_AtRisk_SimSetting_RandomNumberGenerator	-1	<complex 1e0000>
+_AtRisk_SimSetting_ReportsList	-1	<complex 1e0000>
+_AtRisk_SimSetting_SimNameCount	-1	<complex 1e0000>
+_AtRisk_SimSetting_StdRecalcBehavior	-1	<complex 1e0000>
+_AtRisk_SimSetting_StdRecalcWithoutRiskStatic	-1	<complex 1e0000>
+_AtRisk_SimSetting_StdRecalcWithoutRiskStaticPercentile	-1	<complex 1f000000000000e03f>
+_AvGrowthRate_World_Sol	-1	Power!G2334
+_AvGrowthRate_World_Wnd	-1	Power!G2335
+_bal_countries	17	Balances!A13:A4044
+_bal_countries	-1	Balances!A13:A4044
+_bal_flows	17	Balances!E13:E4044
+_bal_flows	-1	Balances!E13:E4044
+_bal_fuels	17	Balances!A13:Z13
+_bal_fuels	-1	Balances!A13:Z13
+_balances	17	Balances!A13:Z4044
+_balances	-1	Balances!A13:Z4044
+_balances_iea_meta	-1	Balances!A1:Z11
+_conv_barrel_to_gj	17	Mitigation!E1043
+_conv_barrel_to_gj	-1	Mitigation!E1043
+_conv_barrel_to_liter	17	Mitigation!E1038
+_conv_barrel_to_liter	-1	Mitigation!E1038
+_conv_coaltonne_to_GJ	17	Mitigation!E1039
+_conv_coaltonne_to_GJ	-1	Mitigation!E1039
+_conv_gwh_to_mwy	17	Mitigation!E1044
+_conv_gwh_to_mwy	-1	Mitigation!E1044
+_conv_kt_to_ton	-1	Mitigation!E1041
+_conv_ktoe_liter_die	17	Mitigation!O950
+_conv_ktoe_liter_die	-1	Mitigation!O950
+_conv_ktoe_liter_gso	17	Mitigation!O949
+_conv_ktoe_liter_gso	-1	Mitigation!O949
+_conv_ktoe_liter_jfu	17	Mitigation!O956
+_conv_ktoe_liter_jfu	-1	Mitigation!O956
+_conv_ktoe_liter_ker	17	Mitigation!O952
+_conv_ktoe_liter_ker	-1	Mitigation!O952
+_conv_ktoe_liter_lpg	17	Mitigation!O951
+_conv_ktoe_liter_lpg	-1	Mitigation!O951
+_conv_ktoe_liter_lpk	-1	Mitigation!O957
+_conv_ktoe_liter_nga	-1	Mitigation!O948
+_conv_ktoe_liter_oil	17	Mitigation!O953
+_conv_ktoe_liter_oil	-1	Mitigation!O953
+_conv_ktoe_to_barrel	17	Mitigation!E1036
+_conv_ktoe_to_barrel	-1	Mitigation!E1036
+_conv_ktoe_to_gj	17	Mitigation!E1035
+_conv_ktoe_to_gj	-1	Mitigation!E1035
+_conv_ktoe_to_gwh	17	Mitigation!E1033
+_conv_ktoe_to_gwh	-1	Mitigation!E1033
+_conv_ktoe_to_mmbtu	17	Mitigation!E1037
+_conv_ktoe_to_mmbtu	-1	Mitigation!E1037
+_conv_ktoe_to_mwy	17	Mitigation!E1034
+_conv_ktoe_to_mwy	-1	Mitigation!E1034
+_conv_ktonPJ_TonLiter_die	-1	Mitigation!P950
+_conv_ktonPJ_TonLiter_gso	-1	Mitigation!P949
+_conv_ktonPJ_TonLiter_jfu	-1	Mitigation!P956
+_conv_ktonPJ_TonLiter_lpk	-1	Mitigation!P954
+_conv_ktonPJ_TonLiter_oil	-1	Mitigation!P953
+_conv_kWh_to_GJ	17	Mitigation!E1045
+_conv_kWh_to_GJ	-1	Mitigation!E1045
+_conv_mmbtu_to_gj	17	Mitigation!E1042
+_conv_mmbtu_to_gj	-1	Mitigation!E1042
+_conv_pj_to_gj	-1	Mitigation!E1040
+_convGCalToGJ	-1	Mitigation!E1046
+_Countries	-1	ext0!B18:B240
+_Country_code	17	Dashboard!D644
+_Country_code	-1	Dashboard!D644
+_Country_IFS_code	17	Dashboard!D645
+_Country_IFS_code	-1	Dashboard!D645
+_Countryname	17	MTInputs!F8
+_Countryname	-1	MTInputs!F8
+_CP_Increment	17	Mitigation!E2192
+_CP_Increment	-1	Mitigation!E2202
+_CP_Leveldistn	17	Distribution!I152
+_CP_Leveldistn	-1	Distribution!I152
+_CPCoal	-1	Mitigation!G229
+_CPDiesel	-1	Mitigation!G232
+_CPGas	-1	Mitigation!G230
+_CPGasoline	-1	Mitigation!G231
+_CPOil	-1	Mitigation!G235
+_cs_elasticities	-1	<complex 292f003b130089000000f50000000d00ea003b13>
+_EB_source	-1	Mitigation!D497
+_ef_co2_bio_pow_gj	-1	Mitigation!O1006
+_ef_co2_coa_ind_gj	-1	Mitigation!O981
+_ef_co2_coa_pow_gj	-1	Mitigation!O980
+_ef_co2_coa_res_gj	-1	Mitigation!O982
+_ef_co2_die_ind_lit	-1	Mitigation!O997
+_ef_co2_die_pow_lit	-1	Mitigation!O995
+_ef_co2_die_res_lit	-1	Mitigation!O996
+_ef_co2_die_rod_lit	-1	Mitigation!O994
+_ef_co2_gso_ind_lit	-1	Mitigation!O1010
+_ef_co2_gso_pow_lit	-1	Mitigation!O990
+_ef_co2_gso_res_lit	-1	Mitigation!O991
+_ef_co2_gso_rod_lit	-1	Mitigation!O989
+_ef_co2_hfo_pow_lit	-1	Mitigation!O998
+_ef_co2_jet_avi_lit	-1	Mitigation!O1005
+_ef_co2_ker_ind_lit	17	Mitigation!O1004
+_ef_co2_ker_ind_lit	-1	Mitigation!O1004
+_ef_co2_ker_res_lit	17	Mitigation!O1003
+_ef_co2_ker_res_lit	-1	Mitigation!O1003
+_ef_co2_lpg_ind_lit	-1	Mitigation!O1002
+_ef_co2_lpg_res_lit	17	Mitigation!O999
+_ef_co2_lpg_res_lit	-1	Mitigation!O999
+_ef_co2_lpg_rod_lit	-1	Mitigation!O1001
+_ef_co2_nga_ind_gj	-1	Mitigation!O1008
+_ef_co2_nga_pow_gj	-1	Mitigation!O983
+_ef_co2_nga_res_gj	-1	Mitigation!O1009
+_EF_GHGs	-1	EF_GHG!A4:F3725
+_EF_local_countries	-1	EF_PM!A3:G39323
+_eff_imp_bio_ind	17	Mitigation!M374
+_eff_imp_bio_ind	-1	Mitigation!M374
+_eff_imp_bio_res	17	Mitigation!L374
+_eff_imp_bio_res	-1	Mitigation!L374
+_eff_imp_bio_rod	17	Mitigation!K374
+_eff_imp_bio_rod	-1	Mitigation!K374
+_eff_imp_bio_srv	17	Mitigation!N374
+_eff_imp_bio_srv	-1	Mitigation!N374
+_eff_imp_coa_ind	17	Mitigation!M371
+_eff_imp_coa_ind	-1	Mitigation!M371
+_eff_imp_coa_res	17	Mitigation!L371
+_eff_imp_coa_res	-1	Mitigation!L371
+_eff_imp_coa_rod	17	Mitigation!K371
+_eff_imp_coa_rod	-1	Mitigation!K371
+_eff_imp_coa_srv	17	Mitigation!N371
+_eff_imp_coa_srv	-1	Mitigation!N371
+_eff_imp_ecy_ind	-1	Mitigation!M376
+_eff_imp_ecy_res	-1	Mitigation!L376
+_eff_imp_ecy_rod	-1	Mitigation!K376
+_eff_imp_ecy_srv	-1	Mitigation!N376
+_eff_imp_gen_bio_pow	17	Mitigation!L388
+_eff_imp_gen_bio_pow	-1	Mitigation!L388
+_eff_imp_gen_coa_pow	17	Mitigation!L380
+_eff_imp_gen_coa_pow	-1	Mitigation!L380
+_eff_imp_gen_hyd_pow	17	Mitigation!L386
+_eff_imp_gen_hyd_pow	-1	Mitigation!L386
+_eff_imp_gen_nga_pow	17	Mitigation!L381
+_eff_imp_gen_nga_pow	-1	Mitigation!L381
+_eff_imp_gen_nuc_pow	17	Mitigation!L383
+_eff_imp_gen_nuc_pow	-1	Mitigation!L383
+_eff_imp_gen_oil_pow	17	Mitigation!L382
+_eff_imp_gen_oil_pow	-1	Mitigation!L382
+_eff_imp_gen_ore_pow	17	Mitigation!L387
+_eff_imp_gen_ore_pow	-1	Mitigation!L387
+_eff_imp_gen_sol_pow	17	Mitigation!L385
+_eff_imp_gen_sol_pow	-1	Mitigation!L385
+_eff_imp_gen_wnd_pow	17	Mitigation!L384
+_eff_imp_gen_wnd_pow	-1	Mitigation!L384
+_eff_imp_nga_ind	17	Mitigation!M372
+_eff_imp_nga_ind	-1	Mitigation!M372
+_eff_imp_nga_res	17	Mitigation!L372
+_eff_imp_nga_res	-1	Mitigation!L372
+_eff_imp_nga_rod	17	Mitigation!K372
+_eff_imp_nga_rod	-1	Mitigation!K372
+_eff_imp_nga_srv	17	Mitigation!N372
+_eff_imp_nga_srv	-1	Mitigation!N372
+_eff_imp_oil_ind	17	Mitigation!M373
+_eff_imp_oil_ind	-1	Mitigation!M373
+_eff_imp_oil_res	17	Mitigation!L373
+_eff_imp_oil_res	-1	Mitigation!L373
+_eff_imp_oil_rod	17	Mitigation!K373
+_eff_imp_oil_rod	-1	Mitigation!K373
+_eff_imp_oil_srv	17	Mitigation!N373
+_eff_imp_oil_srv	-1	Mitigation!N373
+_eff_imp_ren_ind	17	Mitigation!M375
+_eff_imp_ren_ind	-1	Mitigation!M375
+_eff_imp_ren_res	17	Mitigation!L375
+_eff_imp_ren_res	-1	Mitigation!L375
+_eff_imp_ren_rod	17	Mitigation!K375
+_eff_imp_ren_rod	-1	Mitigation!K375
+_eff_imp_ren_srv	17	Mitigation!N375
+_eff_imp_ren_srv	-1	Mitigation!N375
+_el_dem_bio_ind	17	Mitigation!M333
+_el_dem_bio_ind	-1	Mitigation!M333
+_el_dem_bio_res	17	Mitigation!L333
+_el_dem_bio_res	-1	Mitigation!L333
+_el_dem_bio_rod	17	Mitigation!K333
+_el_dem_bio_rod	-1	Mitigation!K333
+_el_dem_bio_srv	17	Mitigation!N333
+_el_dem_bio_srv	-1	Mitigation!N333
+_el_dem_coa_ind	17	Mitigation!M328
+_el_dem_coa_ind	-1	Mitigation!M328
+_el_dem_coa_res	17	Mitigation!L328
+_el_dem_coa_res	-1	Mitigation!L328
+_el_dem_coa_rod	17	Mitigation!K328
+_el_dem_coa_rod	-1	Mitigation!K328
+_el_dem_coa_srv	17	Mitigation!N328
+_el_dem_coa_srv	-1	Mitigation!N328
+_el_dem_die_ind	17	Mitigation!M331
+_el_dem_die_ind	-1	Mitigation!M331
+_el_dem_die_res	17	Mitigation!L331
+_el_dem_die_res	-1	Mitigation!L331
+_el_dem_die_rod	17	Mitigation!K331
+_el_dem_die_rod	-1	Mitigation!K331
+_el_dem_die_srv	17	Mitigation!N331
+_el_dem_die_srv	-1	Mitigation!N331
+_el_dem_ecy_ind	-1	Mitigation!M335
+_el_dem_ecy_res	-1	Mitigation!L335
+_el_dem_ecy_rod	17	Mitigation!K335
+_el_dem_ecy_rod	-1	Mitigation!K335
+_el_dem_ecy_srv	-1	Mitigation!N335
+_el_dem_gso_ind	17	Mitigation!M330
+_el_dem_gso_ind	-1	Mitigation!M330
+_el_dem_gso_res	17	Mitigation!L330
+_el_dem_gso_res	-1	Mitigation!L330
+_el_dem_gso_rod	17	Mitigation!K330
+_el_dem_gso_rod	-1	Mitigation!K330
+_el_dem_gso_srv	17	Mitigation!N330
+_el_dem_gso_srv	-1	Mitigation!N330
+_el_dem_nga_ind	17	Mitigation!M329
+_el_dem_nga_ind	-1	Mitigation!M329
+_el_dem_nga_res	17	Mitigation!L329
+_el_dem_nga_res	-1	Mitigation!L329
+_el_dem_nga_rod	17	Mitigation!K329
+_el_dem_nga_rod	-1	Mitigation!K329
+_el_dem_nga_srv	17	Mitigation!N329
+_el_dem_nga_srv	-1	Mitigation!N329
+_el_dem_oil_ind	17	Mitigation!M332
+_el_dem_oil_ind	-1	Mitigation!M332
+_el_dem_oil_res	17	Mitigation!L332
+_el_dem_oil_res	-1	Mitigation!L332
+_el_dem_oil_rod	17	Mitigation!K332
+_el_dem_oil_rod	-1	Mitigation!K332
+_el_dem_oil_srv	17	Mitigation!N332
+_el_dem_oil_srv	-1	Mitigation!N332
+_el_dem_ren_ind	17	Mitigation!M334
+_el_dem_ren_ind	-1	Mitigation!M334
+_el_dem_ren_res	17	Mitigation!L334
+_el_dem_ren_res	-1	Mitigation!L334
+_el_dem_ren_rod	17	Mitigation!K334
+_el_dem_ren_rod	-1	Mitigation!K334
+_el_dem_ren_srv	17	Mitigation!N334
+_el_dem_ren_srv	-1	Mitigation!N334
+_el_eff_bio_ind	17	Mitigation!M342
+_el_eff_bio_ind	-1	Mitigation!M342
+_el_eff_bio_res	17	Mitigation!L342
+_el_eff_bio_res	-1	Mitigation!L342
+_el_eff_bio_rod	17	Mitigation!K342
+_el_eff_bio_rod	-1	Mitigation!K342
+_el_eff_bio_srv	17	Mitigation!N342
+_el_eff_bio_srv	-1	Mitigation!N342
+_el_eff_coa_ind	17	Mitigation!M337
+_el_eff_coa_ind	-1	Mitigation!M337
+_el_eff_coa_res	17	Mitigation!L337
+_el_eff_coa_res	-1	Mitigation!L337
+_el_eff_coa_rod	17	Mitigation!K337
+_el_eff_coa_rod	-1	Mitigation!K337
+_el_eff_coa_srv	17	Mitigation!N337
+_el_eff_coa_srv	-1	Mitigation!N337
+_el_eff_die_ind	17	Mitigation!M340
+_el_eff_die_ind	-1	Mitigation!M340
+_el_eff_die_res	17	Mitigation!L340
+_el_eff_die_res	-1	Mitigation!L340
+_el_eff_die_rod	17	Mitigation!K340
+_el_eff_die_rod	-1	Mitigation!K340
+_el_eff_die_srv	17	Mitigation!N340
+_el_eff_die_srv	-1	Mitigation!N340
+_el_eff_ecy_ind	-1	Mitigation!M344
+_el_eff_ecy_res	-1	Mitigation!L344
+_el_eff_ecy_rod	17	Mitigation!K344
+_el_eff_ecy_rod	-1	Mitigation!K344
+_el_eff_ecy_srv	-1	Mitigation!N344
+_el_eff_gso_ind	17	Mitigation!M339
+_el_eff_gso_ind	-1	Mitigation!M339
+_el_eff_gso_res	17	Mitigation!L339
+_el_eff_gso_res	-1	Mitigation!L339
+_el_eff_gso_rod	17	Mitigation!K339
+_el_eff_gso_rod	-1	Mitigation!K339
+_el_eff_gso_srv	17	Mitigation!N339
+_el_eff_gso_srv	-1	Mitigation!N339
+_el_eff_nga_ind	17	Mitigation!M338
+_el_eff_nga_ind	-1	Mitigation!M338
+_el_eff_nga_res	17	Mitigation!L338
+_el_eff_nga_res	-1	Mitigation!L338
+_el_eff_nga_rod	17	Mitigation!K338
+_el_eff_nga_rod	-1	Mitigation!K338
+_el_eff_nga_srv	17	Mitigation!N338
+_el_eff_nga_srv	-1	Mitigation!N338
+_el_eff_oil_ind	17	Mitigation!M341
+_el_eff_oil_ind	-1	Mitigation!M341
+_el_eff_oil_res	17	Mitigation!L341
+_el_eff_oil_res	-1	Mitigation!L341
+_el_eff_oil_rod	17	Mitigation!K341
+_el_eff_oil_rod	-1	Mitigation!K341
+_el_eff_oil_srv	17	Mitigation!N341
+_el_eff_oil_srv	-1	Mitigation!N341
+_el_eff_ren_ind	17	Mitigation!M343
+_el_eff_ren_ind	-1	Mitigation!M343
+_el_eff_ren_res	17	Mitigation!L343
+_el_eff_ren_res	-1	Mitigation!L343
+_el_eff_ren_rod	17	Mitigation!K343
+_el_eff_ren_rod	-1	Mitigation!K343
+_el_eff_ren_srv	17	Mitigation!N343
+_el_eff_ren_srv	-1	Mitigation!N343
+_el_inc_agr	17	Mitigation!K367
+_el_inc_agr	-1	Mitigation!K367
+_el_inc_bio_ind	17	Mitigation!M302
+_el_inc_bio_ind	-1	Mitigation!M302
+_el_inc_bio_res	17	Mitigation!L302
+_el_inc_bio_res	-1	Mitigation!L302
+_el_inc_bio_rod	17	Mitigation!K302
+_el_inc_bio_rod	-1	Mitigation!K302
+_el_inc_bio_srv	17	Mitigation!N302
+_el_inc_bio_srv	-1	Mitigation!N302
+_el_inc_coa_ind	17	Mitigation!M297
+_el_inc_coa_ind	-1	Mitigation!M297
+_el_inc_coa_res	17	Mitigation!L297
+_el_inc_coa_res	-1	Mitigation!L297
+_el_inc_coa_rod	17	Mitigation!K297
+_el_inc_coa_rod	-1	Mitigation!K297
+_el_inc_coa_srv	17	Mitigation!N297
+_el_inc_coa_srv	-1	Mitigation!N297
+_el_inc_die_ind	17	Mitigation!M300
+_el_inc_die_ind	-1	Mitigation!M300
+_el_inc_die_res	17	Mitigation!L300
+_el_inc_die_res	-1	Mitigation!L300
+_el_inc_die_rod	17	Mitigation!K300
+_el_inc_die_rod	-1	Mitigation!K300
+_el_inc_die_srv	17	Mitigation!N300
+_el_inc_die_srv	-1	Mitigation!N300
+_el_inc_ecy_ind	17	Mitigation!M304
+_el_inc_ecy_ind	-1	Mitigation!M304
+_el_inc_ecy_res	17	Mitigation!L304
+_el_inc_ecy_res	-1	Mitigation!L304
+_el_inc_ecy_rod	-1	Mitigation!E3878
+_el_inc_ecy_srv	-1	Mitigation!N304
+_el_inc_gso_ind	17	Mitigation!M299
+_el_inc_gso_ind	-1	Mitigation!M299
+_el_inc_gso_res	17	Mitigation!L299
+_el_inc_gso_res	-1	Mitigation!L299
+_el_inc_gso_rod	17	Mitigation!K299
+_el_inc_gso_rod	-1	Mitigation!K299
+_el_inc_gso_srv	17	Mitigation!N299
+_el_inc_gso_srv	-1	Mitigation!N299
+_el_inc_nga_ind	17	Mitigation!M298
+_el_inc_nga_ind	-1	Mitigation!M298
+_el_inc_nga_res	17	Mitigation!L298
+_el_inc_nga_res	-1	Mitigation!L298
+_el_inc_nga_rod	17	Mitigation!K298
+_el_inc_nga_rod	-1	Mitigation!K298
+_el_inc_nga_srv	17	Mitigation!N298
+_el_inc_nga_srv	-1	Mitigation!N298
+_el_inc_oil_ind	17	Mitigation!M301
+_el_inc_oil_ind	-1	Mitigation!M301
+_el_inc_oil_res	17	Mitigation!L301
+_el_inc_oil_res	-1	Mitigation!L301
+_el_inc_oil_rod	17	Mitigation!K301
+_el_inc_oil_rod	-1	Mitigation!K301
+_el_inc_oil_srv	17	Mitigation!N301
+_el_inc_oil_srv	-1	Mitigation!N301
+_el_inc_ren_ind	17	Mitigation!M303
+_el_inc_ren_ind	-1	Mitigation!M303
+_el_inc_ren_res	17	Mitigation!L303
+_el_inc_ren_res	-1	Mitigation!L303
+_el_inc_ren_rod	17	Mitigation!K303
+_el_inc_ren_rod	-1	Mitigation!K303
+_el_inc_ren_srv	17	Mitigation!N303
+_el_inc_ren_srv	-1	Mitigation!N303
+_el_pop_agr	17	Mitigation!K366
+_el_pop_agr	-1	Mitigation!K366
+_el_pop_oth	17	Mitigation!M366
+_el_pop_oth	-1	Mitigation!M366
+_el_pop_was	17	Mitigation!L366
+_el_pop_was	-1	Mitigation!L366
+_elo_gen_old_bio_pow	17	Mitigation!L409
+_elo_gen_old_bio_pow	-1	Mitigation!L409
+_elo_gen_old_coa_pow	17	Mitigation!L403
+_elo_gen_old_coa_pow	-1	Mitigation!L403
+_elo_gen_old_hyd_pow	17	Mitigation!L408
+_elo_gen_old_hyd_pow	-1	Mitigation!L408
+_elo_gen_old_nga_pow	17	Mitigation!L404
+_elo_gen_old_nga_pow	-1	Mitigation!L404
+_elo_gen_old_nuc_pow	17	Mitigation!L406
+_elo_gen_old_nuc_pow	-1	Mitigation!L406
+_elo_gen_old_oop_pow	17	Mitigation!L405
+_elo_gen_old_oop_pow	-1	Mitigation!L405
+_elo_gen_old_ren_pow	17	Mitigation!L407
+_elo_gen_old_ren_pow	-1	Mitigation!L407
+_EnergyConsumptionBaseYear	17	Mitigation!F583:W602
+_EnergyConsumptionBaseYear	-1	Mitigation!F583:W602
+_export_switches	-1	MTOutputs!A4:A1349
+_ext_bio	-1	Mitigation!S77
+_ext_coa	-1	Mitigation!S70
+_ext_die	-1	Mitigation!S73
+_ext_ecy	-1	Mitigation!S78
+_ext_gso	-1	Mitigation!S72
+_ext_ker	-1	Mitigation!S76
+_ext_lpg	-1	Mitigation!S75
+_ext_nga	-1	Mitigation!S71
+_ext_oop	-1	Mitigation!S74
+_Fill	-1	<complex 3c0f00020002000000>
+_filterd	-1	ext0!P428:T428
+_FilterDatabase	6	Air pollution!C3556:I3556
+_FilterDatabase	64	Air_Data!A3:F3
+_FilterDatabase	65	Air_meta!A2:E2
+_FilterDatabase	43	ASPIRE!A1:H1
+_FilterDatabase	19	Balances!A13:Z50
+_FilterDatabase	36	CalVal!A2:G935
+_FilterDatabase	22	CH4Inputs!A1:M1315
+_FilterDatabase	63	ConcMat!A2:G31201
+_FilterDatabase	15	Countries!A5:AB227
+_FilterDatabase	7	Distribution!C30:H115
+_FilterDatabase	17	ECP!A7:L60
+_FilterDatabase	32	EF_GHG!A3:F3725
+_FilterDatabase	35	EF_PM!A2:G39323
+_FilterDatabase	20	EnergyCons!A1:X1
+_FilterDatabase	61	ExposureCoefs!A623:E841
+_FilterDatabase	58	GBD!A4:G21227
+_FilterDatabase	45	GDPRatios!A1:BQ799
+_FilterDatabase	13	<complex 3d1600d6030000d603000000003a00>
+_FilterDatabase	42	HH_Elast!A1:AE1574
+_FilterDatabase	41	HHSurvey!A1:BP133
+_FilterDatabase	60	ILO!A3:H424
+_FilterDatabase	40	IO_GTAP!A1:BP12
+_FilterDatabase	39	Mapping!B4:T166
+_FilterDatabase	10	MTInputs!B7:I415
+_FilterDatabase	12	MTOutputs!A5:AD1349
+_FilterDatabase	14	NDCs!B46:P242
+_FilterDatabase	33	OtherPowerUse!A1:G655
+_FilterDatabase	26	Prices_dom!A8:DR1694
+_FilterDatabase	25	Prices_int!G61:I281
+_FilterDatabase	51	Tran_Elast!A1:BB1
+_FilterDatabase	48	Transport2!A1:AF14903
+_FilterDatabase	66	VersionTracker!B991:G1269
+_FilterDatabase	57	WB!A4:X468
+_FilterDatabase	30	WDI!D265:AR408
+_FilterDatabase	29	WEO!A9:AU3333
+_FilterDatabase	44	WHOCooking!A1:F1
+_FilterDatabase	-1	ext0!P428:T428
+_FirstYearTransport	17	Transport!F39
+_FirstYearTransport	-1	Transport!F39
+_ftn1	65	Air_meta!D45
+_ftn1	50	Notes!G28
+_ftnref1	65	Air_meta!C24
+_FuelTypesForEnergyConsumptionBaseYear	17	Mitigation!C583:C602
+_FuelTypesForEnergyConsumptionBaseYear	-1	Mitigation!C583:C602
+_gbd_fact	17	Air pollution!G104
+_gbd_fact	-1	Air pollution!G92
+_GHG_2018	-1	<complex 3d1600e9050000d606000007002e00>
+_GHG_2019	17	<complex 3d1600ef030000dc04000007002e00>
+_GHG_2019	-1	<complex 3d1600e0040000cd05000007002e00>
+_GHG_2020	17	GHGs!H743:AU948
+_GHG_2020	-1	<complex 3d1600d7030000c404000007002e00>
+_GHG_2021	17	GHGs!H505:AU712
+_GHG_2021	-1	GHGs!H713:AU947
+_GHG_2022	17	GHGs!H243:AU477
+_GHG_2022	-1	GHGs!H478:AU712
+_GHG_2023	-1	GHGs!H243:AU477
+_GHG_Historical	17	<complex 3d1600b5030000b503000007001300>
+_GHG_Historical	-1	GHGs!H955:T1189
+_indicators_to_export	-1	MTOutputs!A4:A1222
+_Inferred_dist	-1	
+_IOCPATCodes	17	IO_GTAP!A2:A438
+_IOCPATCodes	-1	IO_GTAP!A2:A438
+_Key1	-1	<complex 3c0f00020002000300>
+_M_Countryname	-1	MTInputs!D8
+_M_CoverageRate	-1	MTInputs!D204
+_M_CP_Intro	-1	MTInputs!D18
+_M_CP_LevelStart	-1	MTInputs!D19
+_M_CP_LevelTarget	-1	MTInputs!D20
+_M_CP_Outro	-1	MTInputs!D21
+_M_Exempt_phaseout	-1	MTInputs!D51
+_M_EXP_capex	-1	MTInputs!D199
+_M_EXP_CIT	-1	MTInputs!D198
+_M_EXP_goodsandserv	-1	MTInputs!D200
+_M_EXP_labortax	-1	MTInputs!D197
+_M_EXP_transfers	-1	MTInputs!D201
+_M_FF_Phaseout	-1	MTInputs!D133
+_M_LeakageRate	-1	MTInputs!D205
+_M_RenSubsidy	-1	MTInputs!D355
+_M_TargettedPercentile	-1	MTInputs!D203
+_manual_codes	17	Manual inputs!G59:G133
+_manual_codes	-1	Manual inputs!G59:G133
+_manual_multipliers	-1	Manual inputs!J261:U268
+_manual_prices	17	Manual inputs!G59:N133
+_manual_prices	-1	Manual inputs!G59:N133
+_manual_years	17	Manual inputs!G59:N59
+_manual_years	-1	Manual inputs!G59:N59
+_MaxGrowthRate_World_Sol	-1	Power!H2334
+_MaxGrowthRate_World_Wnd	-1	Power!H2335
+_MTdistribution	-1	Distribution!B3362:BQ3382
+_NDC_conditional	17	Mitigation!S62
+_NDC_conditional	-1	Mitigation!S62
+_NDC_End	17	Mitigation!S59
+_NDC_End	-1	Mitigation!S59
+_NDC_LULUCF_included	17	Mitigation!S64
+_NDC_LULUCF_included	-1	Mitigation!S64
+_NDC_Type	17	Mitigation!S56
+_NDC_Type	-1	Mitigation!S56
+_NDC_unconditional	17	Mitigation!S61
+_NDC_unconditional	-1	Mitigation!S61
+_NDC_Year	17	Mitigation!S57
+_NDC_Year	-1	Mitigation!S57
+_nfc_gen_bio_pow	17	Mitigation!L400
+_nfc_gen_bio_pow	-1	Mitigation!L400
+_nfc_gen_coa_pow	17	Mitigation!L392
+_nfc_gen_coa_pow	-1	Mitigation!L392
+_nfc_gen_hyd_pow	17	Mitigation!L399
+_nfc_gen_hyd_pow	-1	Mitigation!L399
+_nfc_gen_nga_pow	17	Mitigation!L393
+_nfc_gen_nga_pow	-1	Mitigation!L393
+_nfc_gen_nuc_pow	17	Mitigation!L395
+_nfc_gen_nuc_pow	-1	Mitigation!L395
+_nfc_gen_oil_pow	17	Mitigation!L394
+_nfc_gen_oil_pow	-1	Mitigation!L394
+_nfc_gen_ore_pow	17	Mitigation!L398
+_nfc_gen_ore_pow	-1	Mitigation!L398
+_nfc_gen_sol_pow	17	Mitigation!L397
+_nfc_gen_sol_pow	-1	Mitigation!L397
+_nfc_gen_wnd_pow	17	Mitigation!L396
+_nfc_gen_wnd_pow	-1	Mitigation!L396
+_Order1	-1	<complex 1eff00>
+_Order2	-1	<complex 1e0000>
+_PEDs	-1	
+_PolicyPricingVariant	17	Mitigation!G259
+_PolicyPricingVariant	-1	Mitigation!G259
+_PolicyScenarioPolicy	17	Mitigation!G223
+_PolicyScenarioPolicy	-1	Mitigation!G223
+_PolicySubscenarioPolicy	-1	Mitigation!G223
+_Power_Use_Formatted	17	Mitigation!G582:T583
+_Power_Use_Formatted	-1	Mitigation!G582:T583
+_PowerUseBreakdown	-1	Mitigation!D502:AI503
+_price_controls	17	<complex 29cf003b3300450000008300000000000f003b33>
+_price_controls	-1	<complex 29cf003b3300450000008300000000000f003b33>
+_PriceControlPhaseout	17	Mitigation!G272
+_PriceControlPhaseout	-1	Mitigation!G272
+_prices_codes	17	Prices_dom!A8:EN8
+_prices_codes	-1	Prices_dom!A8:EV8
+_prices_country_years	17	Prices_dom!A9:A1062
+_prices_country_years	-1	Prices_dom!A9:A1062
+_prices_main	-1	Prices_dom!A9:EL1062
+_region	17	Dashboard!C644
+_region	-1	Dashboard!C644
+_region_code	17	Dashboard!C645
+_region_code	-1	Dashboard!C645
+_Regression_Int	-1	<complex 1e0100>
+_ResLpgKerBioSubstElasticity	17	Mitigation!L360
+_ResLpgKerBioSubstElasticity	-1	Mitigation!L360
+_scc_countries	-1	SCC!B8:F687
+_Scenarios	-1	ext0!C18:C37
+_ScenarioToRun	17	MTInputs!D6
+_ScenarioToRun	-1	MTInputs!D6
+_ScenarioType	-1	Mitigation!G278
+_SectorsForEnergyConsumptionBaseYear	17	Mitigation!F581:X581
+_SectorsForEnergyConsumptionBaseYear	-1	Mitigation!F581:X581
+_Sort	-1	<complex 3c0f00020002000100>
+_StartOfScenarioIndexMatches	-1	Mitigation!H1781
+_SubsectorNameLookup	17	Mitigation!F582:V582
+_SubsectorNameLookup	-1	Mitigation!F582:V582
+_SubsectorsLookup	17	Mitigation!F581:V581
+_SubsectorsLookup	-1	Mitigation!F581:V581
+_tran_elastcountries	17	Tran_Elast!B2:B226
+_tran_elastcountries	-1	Tran_Elast!B2:B226
+_tran_elasticities	17	Tran_Elast!C2:BB226
+_tran_elasticities	-1	Tran_Elast!C2:BB226
+_tran_elastnames	17	Tran_Elast!C1:BB1
+_tran_elastnames	-1	Tran_Elast!C1:BB1
+_tran_scatter	17	Tran_Scatter!A1:W124
+_tran_scatter	-1	Tran_Scatter!A1:W124
+_tran_scenario	17	Transport!F30
+_tran_scenario	-1	Transport!F30
+_tran_years_SRLR	17	Transport!F40
+_tran_years_SRLR	-1	Transport!F40
+_trans_cos_pow	17	Mitigation!L391
+_trans_cos_pow	-1	Mitigation!L391
+_vsl_oecd	17	Air pollution!G88
+_vsl_oecd	-1	Air pollution!G76
+_WDI_countries	-1	WDI!A10:CA260
+_Work_days	-1	Air pollution!G80
+_xlchart.v1.0	-1	Distribution!D3219:D3248
+_xlchart.v1.1	-1	Distribution!E3219:E3248
+_xlchart.v1.10	-1	Mitigation!D16120
+_xlchart.v1.11	-1	Mitigation!D16121
+_xlchart.v1.12	-1	Mitigation!D16122
+_xlchart.v1.13	-1	Mitigation!E16118:P16118
+_xlchart.v1.14	-1	Mitigation!E16119:P16119
+_xlchart.v1.15	-1	Mitigation!E16120:P16120
+_xlchart.v1.16	-1	Mitigation!E16121:P16121
+_xlchart.v1.17	-1	Mitigation!E16122:P16122
+_xlchart.v1.2	-1	Distribution!D3219:D3248
+_xlchart.v1.3	-1	Distribution!O3219:O3248
+_xlchart.v1.4	-1	Distribution!D3219:D3248
+_xlchart.v1.5	-1	Distribution!M3219:M3248
+_xlchart.v1.6	-1	Distribution!D3219:D3248
+_xlchart.v1.7	-1	Distribution!N3219:N3248
+_xlchart.v1.8	-1	Mitigation!D16118
+_xlchart.v1.9	-1	Mitigation!D16119
+_xleta.ABS	-1	<complex 1c1d>
+_xleta.AND	-1	<complex 1c1d>
+_xleta.AVERAGE	-1	<complex 1c1d>
+_xleta.CONCAT	-1	<complex 1c1d>
+_xleta.COUNT	-1	<complex 1c1d>
+_xleta.COUNTBLANK	-1	<complex 1c1d>
+_xleta.COUNTIF	-1	<complex 1c1d>
+_xleta.FILTER	-1	<complex 1c1d>
+_xleta.IF	-1	<complex 1c1d>
+_xleta.IFERROR	-1	<complex 1c1d>
+_xleta.ISBLANK	-1	<complex 1c1d>
+_xleta.LN	-1	<complex 1c1d>
+_xleta.MATCH	-1	<complex 1c1d>
+_xleta.MAX	-1	<complex 1c1d>
+_xleta.MIN	-1	<complex 1c1d>
+_xleta.N	-1	<complex 1c1d>
+_xleta.NOT	-1	<complex 1c1d>
+_xleta.OR	-1	<complex 1c1d>
+_xleta.PRICE	-1	<complex 1c1d>
+_xleta.RATE	-1	<complex 1c1d>
+_xleta.RIGHT	-1	<complex 1c1d>
+_xleta.ROUND	-1	<complex 1c1d>
+_xleta.SIN	-1	<complex 1c1d>
+_xleta.SINGLE	-1	<complex 1c1d>
+_xleta.SUM	-1	<complex 1c1d>
+_xleta.SUMPRODUCT	-1	<complex 1c1d>
+_xleta.T	-1	<complex 1c1d>
+_xleta.TODAY	-1	<complex 1c1d>
+_xleta.YEAR	-1	<complex 1c1d>
+_xlfn._FV	-1	<complex 1c1d>
+_xlfn._ONEDARRAY	-1	<complex 1c1d>
+_xlfn._SORT	-1	<complex 1c1d>
+_xlfn._xlws.FILTER	-1	<complex 1c1d>
+_xlfn.AGGREGATE	-1	<complex 1c1d>
+_xlfn.ANCHORARRAY	-1	<complex 1c1d>
+_xlfn.AVERAGEIF	-1	<complex 1c1d>
+_xlfn.AVERAGEIFS	-1	<complex 1c1d>
+_xlfn.BASE	-1	<complex 1c1d>
+_xlfn.CEILING.MATH	-1	<complex 1c1d>
+_xlfn.CONCAT	-1	<complex 1c1d>
+_xlfn.IFERROR	-1	<complex 1c1d>
+_xlfn.IFNA	-1	<complex 1c1d>
+_xlfn.IFS	-1	<complex 1c1d>
+_xlfn.LET	-1	<complex 1c1d>
+_xlfn.MAXIFS	-1	<complex 1c1d>
+_xlfn.MINIFS	-1	<complex 1c1d>
+_xlfn.NUMBERVALUE	-1	<complex 1c1d>
+_xlfn.RANK.AVG	-1	
+_xlfn.RRI	-1	<complex 1c1d>
+_xlfn.SINGLE	-1	<complex 1c1d>
+_xlfn.SUMIFS	-1	<complex 1c1d>
+_xlfn.SWITCH	-1	<complex 1c1d>
+_xlfn.TEXTJOIN	-1	<complex 1c1d>
+_xlfn.UNIQUE	-1	<complex 1c1d>
+_xlfn.XLOOKUP	-1	<complex 1c1d>
+_xlfn.XMATCH	-1	<complex 1c1d>
+_xlpm.annEnd	-1	<complex 1c1d>
+_xlpm.base	-1	<complex 1c1d>
+_xlpm.baseGJ	-1	<complex 1c1d>
+_xlpm.baseL	-1	<complex 1c1d>
+_xlpm.Beta	-1	<complex 1c1d>
+_xlpm.cN	-1	<complex 1c1d>
+_xlpm.col	-1	<complex 1c1d>
+_xlpm.colStart	-1	<complex 1c1d>
+_xlpm.colTarget	-1	<complex 1c1d>
+_xlpm.country	-1	<complex 1c1d>
+_xlpm.data	-1	<complex 1c1d>
+_xlpm.DS	-1	<complex 1c1d>
+_xlpm.ef_gj	-1	<complex 1c1d>
+_xlpm.ef_l	-1	<complex 1c1d>
+_xlpm.ef_sel	-1	<complex 1c1d>
+_xlpm.ERP	-1	<complex 1c1d>
+_xlpm.etsRow	-1	<complex 1c1d>
+_xlpm.ex	-1	<complex 1c1d>
+_xlpm.excRow	-1	<complex 1c1d>
+_xlpm.explicit	-1	<complex 1c1d>
+_xlpm.fuel	-1	<complex 1c1d>
+_xlpm.fuelHdr	-1	<complex 1c1d>
+_xlpm.fuelName	-1	<complex 1c1d>
+_xlpm.hasETS	-1	<complex 1c1d>
+_xlpm.hasTax	-1	<complex 1c1d>
+_xlpm.Kd	-1	<complex 1c1d>
+_xlpm.Ke	-1	<complex 1c1d>
+_xlpm.labels	-1	<complex 1c1d>
+_xlpm.LM	-1	<complex 1c1d>
+_xlpm.names	-1	<complex 1c1d>
+_xlpm.pctEnd	-1	<complex 1c1d>
+_xlpm.pre	-1	<complex 1c1d>
+_xlpm.rChg	-1	<complex 1c1d>
+_xlpm.rETS	-1	<complex 1c1d>
+_xlpm.Rf	-1	<complex 1c1d>
+_xlpm.rp	-1	<complex 1c1d>
+_xlpm.rPct	-1	<complex 1c1d>
+_xlpm.rSub	-1	<complex 1c1d>
+_xlpm.rTax	-1	<complex 1c1d>
+_xlpm.sc	-1	<complex 1c1d>
+_xlpm.scale	-1	<complex 1c1d>
+_xlpm.sectHdr	-1	<complex 1c1d>
+_xlpm.sel	-1	<complex 1c1d>
+_xlpm.subList	-1	<complex 1c1d>
+_xlpm.subMask	-1	<complex 1c1d>
+_xlpm.subRow	-1	<complex 1c1d>
+_xlpm.suf	-1	<complex 1c1d>
+_xlpm.Tax	-1	<complex 1c1d>
+_xlpm.taxRow	-1	<complex 1c1d>
+_xlpm.te	-1	<complex 1c1d>
+_xlpm.v	-1	<complex 1c1d>
+_xlpm.vA	-1	<complex 1c1d>
+_xlpm.val	-1	<complex 1c1d>
+_xlpm.valStart	-1	<complex 1c1d>
+_xlpm.valTarget	-1	<complex 1c1d>
+_xlpm.vat	-1	<complex 1c1d>
+_xlpm.vB	-1	<complex 1c1d>
+_xlpm.vC	-1	<complex 1c1d>
+_xlpm.WeE	-1	<complex 1c1d>
+_xlpm.y0	-1	<complex 1c1d>
+_xlpm.yN	-1	<complex 1c1d>
+_xlpm.yr	-1	<complex 1c1d>
+_xlpm.yrs	-1	<complex 1c1d>
+aa	7	<complex 6003001200000078a3c86ea0f73a01>
+aa	17	<complex 6003001200000078a3c86ea0d13a01>
+aa	28	<complex 6003001200000078a3c86ea0723a01>
+aa	45	<complex 6003001200000078a3c86ea0983a01>
+aa	39	<complex 6003001200000078a3c86ea05f3a01>
+aa	23	<complex 6003001200000078a3c86e208f3a01>
+aa	-1	<complex 6003001200000078a3c86e20ee3a01>
+aa_2	28	<complex 6003001200000078a3c86ea0c83b01>
+aa_2	-1	<complex 6003001200000078a3c86ea0273c01>
+AddEfficientTaxes	17	MTInputs!F217
+AddEfficientTaxes	-1	MTInputs!F217
+AddEfficientTaxesPhaseInYears	17	MTInputs!F212
+AddEfficientTaxesPhaseInYears	-1	MTInputs!F212
+AdditionalCoalIntangibleCost	17	MTInputs!F368
+AdditionalCoalIntangibleCost	-1	MTInputs!F369
+AdditionalEfficiencyIndustrial	-1	MTInputs!F245
+AdditionalEfficiencyResidential	-1	MTInputs!F244
+AdditionalEfficiencyRoadVehicle	-1	MTInputs!F243
+AdditionalExcise	17	MTInputs!F215
+AdditionalExcise	-1	MTInputs!F215
+AdditionMitigationPoliciesNonEnergy	17	MTInputs!F207
+AdditionMitigationPoliciesNonEnergy	-1	MTInputs!F207
+AlgeriaCCS1	-1	<complex 3c0f00020002000300>
+all_prices	-1	Prices_dom!A9:EV1062
+AllocateLTStorageToVRE	-1	MTInputs!F392
+AllocateSTStorageToVRE	-1	MTInputs!F388
+AlwaysExemptResLPGKer	17	MTInputs!F267
+AlwaysExemptResLPGKer	-1	MTInputs!F268
+ApCessLag	-1	MTInputs!F338
+ApLabSh	-1	MTInputs!F335
+ApLeakHh	-1	MTInputs!F337
+ApMaxSs	-1	MTInputs!F336
+ApplyExistingNonCarbonTaxBio	-1	MTInputs!F293
+ApplyExistingNonCarbonTaxCoa	-1	MTInputs!F286
+ApplyExistingNonCarbonTaxDie	-1	MTInputs!F289
+ApplyExistingNonCarbonTaxEcy	-1	MTInputs!F294
+ApplyExistingNonCarbonTaxGso	-1	MTInputs!F288
+ApplyExistingNonCarbonTaxKer	-1	MTInputs!F292
+ApplyExistingNonCarbonTaxLpg	-1	MTInputs!F291
+ApplyExistingNonCarbonTaxNga	-1	MTInputs!F287
+ApplyExistingNonCarbonTaxOop	-1	MTInputs!F290
+ASPIRECODES	17	ASPIRE!A2:A71
+ASPIRECODES	-1	ASPIRE!A2:A71
+ASPIRECountries	17	ASPIRE!C2:C71
+ASPIRECountries	-1	ASPIRE!C2:C71
+ASPIREData	17	ASPIRE!E2:E71
+ASPIREData	-1	ASPIRE!E2:E71
+ASPIREYrs	17	ASPIRE!D2:D71
+ASPIREYrs	-1	ASPIRE!D2:D71
+avg_data_cntr	-1	Power!A1750:BD1857
+BalancesOrConsumption	17	MTInputs!F233
+BalancesOrConsumption	-1	MTInputs!F234
+base_O3	17	Air pollution!H912
+base_PM	17	Air pollution!H777
+BaselineFirstRow	-1	Mitigation!A2173
+bb	7	<complex 6003001200000078a3c86e20733b01>
+bb	17	<complex 6003001200000078a3c86ea0013c01>
+bb	28	<complex 6003001200000078a3c86ea0a23b01>
+bb	45	<complex 6003001200000078a3c86ea0303b01>
+bb	39	<complex 6003001200000078a3c86e20bf3b01>
+bb	23	<complex 6003001200000078a3c86ea08f3b01>
+bb	-1	<complex 6003001200000078a3c86ea0db3b01>
+bbb	7	<complex 6003001200000078a3c86e200b3c01>
+bbb	17	<complex 6003001200000078a3c86e20313c01>
+bbb	28	<complex 6003001200000078a3c86ea07c3b01>
+bbb	45	<complex 6003001200000078a3c86e20573c01>
+bbb	39	<complex 6003001200000078a3c86ea0693b01>
+bbb	23	<complex 6003001200000078a3c86ea0433b01>
+bbb	-1	<complex 6003001200000078a3c86e20ac3b01>
+beta_dep	17	Air pollution!G67
+beta_dep	-1	Air pollution!G67
+beta_o3	17	Air pollution!G62
+beta_o3	-1	Air pollution!G62
+beta_ostro	17	Air pollution!G57
+beta_ostro	-1	Air pollution!G57
+BigEmitters	17	GHGs!C1235:C1241
+BigEmitters	-1	GHGs!C1480:C1486
+BioEff	17	MTInputs!F299
+BioEff	-1	MTInputs!F300
+BiomassLeakage	17	MTInputs!F324
+BiomassLeakage	-1	MTInputs!F325
+BiomassNormal	17	MTInputs!F325
+BiomassNormal	-1	MTInputs!F326
+BL_TaxFixvAdVal	17	Mitigation!F77
+BL_TaxFixvAdVal	-1	Mitigation!F77
+BoxPlot	-1	<complex 17070042006f00780050006c006f007400>
+Bubble	-1	<complex 17060042007500620062006c006500>
+c0_O3	17	Air pollution!K2012
+c0_O3	-1	Air pollution!K1105
+c0_OAP	17	Air pollution!K2000
+c0_OAP	-1	Air pollution!K1097
+c0_OAP_rur	-1	Air pollution!K1096
+c0_OAP_urb	-1	Air pollution!K1095
+Candlestick	-1	<complex 170b00430061006e0064006c0065007300740069>
+CapexTimeFactorYearRange	17	Power!F302:BD302
+CapexTimeFactorYearRange	-1	Power!F302:BD302
+CBWorkbookPriority	-1	<complex 1f000080d60129ccc1>
+cdt_cntr	-1	Power!A356:M1882
+CFOverrideIfAbove	17	MTInputs!F376
+CFOverrideIfAbove	-1	MTInputs!F377
+CFOverrideIfBelowFosOth	17	MTInputs!F375
+CFOverrideIfBelowFosOth	-1	MTInputs!F376
+CFOverrideIfBelowWndSol	17	MTInputs!F374
+CFOverrideIfBelowWndSol	-1	MTInputs!F375
+CH4Feebate	-1	Manual inputs!J217
+Chart	-1	<complex 17050043006800610072007400>
+ChartImage	-1	<complex 170a004300680061007200740049006d00610067>
+ClimateEffTax	-1	MTInputs!F216
+CO2AdjustmentFactor	17	Mitigation!D977
+CO2AdjustmentFactor	-1	Mitigation!D977
+coal_countries	-1	<complex 1819290001000300000000000000>
+CodeToEF	-1	ETS+LTS!B49:C73
+ColumnRange	-1	<complex 170b0043006f006c0075006d006e00520061006e>
+ConsSubPha	-1	MTInputs!F131
+ConsSubPhaBaseline	17	MTInputs!F135
+ConsSubPhaBaseline	-1	MTInputs!F135
+CostBreakdownYear	17	MTInputs!F343
+CostBreakdownYear	-1	MTInputs!F344
+CountryList	-1	Transport3!A5:A226
+CoverageRate	17	MTInputs!F204
+CoverageRate	-1	MTInputs!F204
+CPAT_Filename	-1	Dashboard!C643
+CPATDefaultsOrUserDefined	17	MTInputs!F16
+CPATDefaultsOrUserDefined	-1	MTInputs!F16
+CPIntro	17	MTInputs!F18
+CPIntro	-1	MTInputs!F18
+CPLevelStart	17	MTInputs!F19
+CPLevelStart	-1	MTInputs!F19
+CPLevelTarget	17	MTInputs!F20
+CPLevelTarget	-1	MTInputs!F20
+CPOutro	17	MTInputs!F21
+CPOutro	-1	MTInputs!F21
+cpp_retir	-1	Power!A1639:BD1746
+cs_elasticities	27	<complex 292f003b130089000000f50000000d00ea003b13>
+CTaxComplimentaryToETS	17	MTInputs!F210
+CTaxComplimentaryToETS	-1	MTInputs!F210
+CtaxExponentialEscalationRate	17	MTInputs!F270
+CtaxExponentialEscalationRate	-1	MTInputs!F271
+CTaxTrajectoryType	17	MTInputs!F270
+CTaxTrajectoryType	-1	MTInputs!F270
+CTforMethane	17	MTInputs!F185
+CTforMethane	-1	MTInputs!F185
+CurrentSpendingType	17	MTInputs!F307
+CurrentSpendingType	-1	MTInputs!F308
+Cwvu.Print.	-1	<complex 293f003b0f006c0000006c0000000000ff003b0f>
+D_AddEfficientTaxes	-1	Dashboard!G21
+D_AddEfficientTaxesPhaseInYears	-1	Dashboard!G23
+D_AdditionalCoalIntangibleCost	-1	Dashboard!L194
+D_AdditionalEfficiencyIndustrial	-1	Dashboard!L137
+D_AdditionalEfficiencyPower	-1	Dashboard!L134
+D_AdditionalEfficiencyResidential	-1	Dashboard!L136
+D_AdditionalEfficiencyRoadVehicle	-1	Dashboard!L135
+D_AdditionalExcise	-1	Dashboard!U43
+D_AdditionMitigationPoliciesNonEnergy	-1	Dashboard!G19
+D_AllocateLTStorageToVRE	-1	Dashboard!V193
+D_AllocateSTStorageToVRE	-1	Dashboard!V190
+D_AlwaysExemptResLPGKer	-1	Dashboard!G25
+D_ApCessLag	-1	Air pollution!G88
+D_ApLabSh	-1	Air pollution!G82
+D_ApLeakHh	-1	Air pollution!G86
+D_ApMaxSs	-1	Air pollution!G84
+D_ApplyExistingNonCarbonTaxBio	-1	Dashboard!Q141
+D_ApplyExistingNonCarbonTaxCoa	-1	Dashboard!Q134
+D_ApplyExistingNonCarbonTaxDie	-1	Dashboard!Q137
+D_ApplyExistingNonCarbonTaxEcy	-1	Dashboard!Q142
+D_ApplyExistingNonCarbonTaxGso	-1	Dashboard!Q136
+D_ApplyExistingNonCarbonTaxKer	-1	Dashboard!Q140
+D_ApplyExistingNonCarbonTaxLpg	-1	Dashboard!Q139
+D_ApplyExistingNonCarbonTaxNga	-1	Dashboard!Q135
+D_ApplyExistingNonCarbonTaxOop	-1	Dashboard!Q138
+D_BalancesOrConsumption	-1	Dashboard!G136
+D_BioEff	-1	Dashboard!L149
+D_BiomassLeakage	-1	Dashboard!G432
+D_BiomassNormal	-1	Dashboard!G433
+D_CFOverrideIfAbove	-1	Dashboard!G198
+D_CFOverrideIfBelowFosOth	-1	Dashboard!G197
+D_CFOverrideIfBelowWndSol	-1	Dashboard!G196
+D_ClimateEffTax	-1	Dashboard!G22
+D_ConsSubPhaBaseline	-1	Dashboard!V145
+D_CostBreakdownYear	17	Dashboard!V187
+D_CostBreakdownYear	-1	Dashboard!V187
+D_Countryname	-1	Dashboard!E2
+D_CoverageRate	-1	Dashboard!Q13
+D_CPATDefaultsOrUserDefined	-1	Dashboard!I8
+D_CPIntro	-1	Dashboard!I4
+D_CPLevelStart	-1	Dashboard!I5
+D_CPLevelTarget	17	Dashboard!I6
+D_CPLevelTarget	-1	Dashboard!I6
+D_CPOutro	-1	Dashboard!I7
+D_CTaxComplimentaryToETS	-1	Dashboard!Q150
+D_CtaxExponentialEscalationRate	-1	Dashboard!L153
+D_CTaxTrajectoryType	-1	Dashboard!L152
+D_CTforMethane	-1	Dashboard!V152
+D_CurrentSpendingType	-1	Dashboard!K326
+D_DfSelection	-1	Dashboard!G142
+D_DiscRate	-1	Dashboard!L432
+D_DiscSel	-1	Dashboard!K431
+D_DistExcCfDec	-1	Dashboard!L330
+D_DomPrTax	-1	Dashboard!V134
+D_DWLs	-1	Dashboard!Q327
+D_EFsAdjustmentAnnexI	-1	Dashboard!G144
+D_EFsAdjustmentNonAnnexI	-1	Dashboard!G145
+D_EFSel	-1	Dashboard!G431
+D_ElasticityModel	-1	Dashboard!G55
+D_ElastIncAdjustment	-1	Dashboard!V22
+D_ElastPriceAdjustment	-1	Dashboard!V21
+D_ElIncMainSrc	-1	Dashboard!Q22
+D_ElPrcMainSrc	-1	Dashboard!Q21
+D_EmissionsFactCO2	-1	Dashboard!Q23
+D_EnergyConsumptionsMatrixProjectionsYear	-1	Dashboard!G137
+D_EngineerModelProportionOfCovidFactor	-1	Dashboard!L197
+D_ETSAuctStart	-1	Dashboard!I31
+D_ETSAuctTarget	-1	Dashboard!I32
+D_ETSBehavioralAdjustment	-1	Dashboard!Q152
+D_ETSCapCont	-1	Dashboard!H33
+D_ETSChangeRelStart	-1	Dashboard!H31
+D_ETSChangeRelTarget	-1	Dashboard!H32
+D_ETSIntro	-1	Dashboard!D31
+D_ETSOutro	-1	Dashboard!D32
+D_ETSPriceOverride	-1	Dashboard!V30
+D_ExemptCookDeciles	-1	Dashboard!Q330
+D_ExemptMostCook	-1	Dashboard!Q329
+D_ExemptPhaseoutPeriod	-1	Dashboard!Q2
+D_ExistingCTApply	-1	Dashboard!Q145
+D_ExistingCTGrowth	-1	Dashboard!Q146
+D_ExistingETSApply	-1	Dashboard!Q148
+D_ExistingETSGrowth	-1	Dashboard!Q149
+D_EXPCapex	-1	Dashboard!P9
+D_EXPCIT	-1	Dashboard!P8
+D_EXPGoodsandserv	-1	Dashboard!P10
+D_EXPLabortax	-1	Dashboard!P7
+D_EXPTransfers	-1	Dashboard!P11
+D_ExtendCarbonPriceBeyondOutro	-1	Dashboard!L20
+D_ExternalityAddVAT	-1	Dashboard!V136
+D_Feb_Level_Start_Ind	-1	Dashboard!K46
+D_Feb_Level_Start_Pow	-1	Dashboard!H46
+D_Feb_Level_Start_Res	-1	Dashboard!J46
+D_Feb_Level_Target_Ind	-1	Dashboard!K47
+D_Feb_Level_Target_Pow	-1	Dashboard!H47
+D_Feb_Level_Target_Res	-1	Dashboard!J47
+D_FeebateIntro	-1	Dashboard!D31
+D_FeebateOutro	-1	Dashboard!D32
+D_FFPhaseOut	-1	Dashboard!Q4
+D_FFSConsPhaseoutPeriodBA	-1	Dashboard!V146
+D_FFSProdPhaseoutPeriod	-1	Dashboard!Q3
+D_FFSProdPhaseoutPeriodBA	-1	Dashboard!V140
+D_FirstYearCalculations	-1	Dashboard!G134
+D_FmAdj	-1	Dashboard!V23
+D_GdpAdj	-1	Dashboard!V20
+D_GDPEndogenous	-1	Dashboard!L25
+D_GDPScenario	-1	Dashboard!Q20
+D_GlobalEnergyDemand	-1	Dashboard!G149
+D_GovPriceControls	-1	Dashboard!V149
+D_GSCCSource	-1	Dashboard!G155
+D_HydroDoesntRetire	-1	Dashboard!V198
+D_IncElAdj	-1	Dashboard!L24
+D_IndustrialProcessEmissionsScaleEner	-1	Dashboard!G147
+D_InferredDist	-1	Dashboard!Q324
+D_IntEnerPricForecastAdjustment	-1	Dashboard!V19
+D_IntEnerPricForeSource	-1	Dashboard!Q19
+D_kDispatch	-1	Dashboard!G190
+D_KerEff	-1	Dashboard!L148
+D_kInvestment	-1	Dashboard!Q190
+D_LeakageRate	-1	Dashboard!Q14
+D_LongTermStorageFor100pcVRE	-1	Dashboard!V195
+D_LPGEff	-1	Dashboard!L147
+D_LULUCFAnnualEmissionsDecline	-1	Dashboard!G148
+D_ManualCoalIntangibleCostLT	-1	Dashboard!L196
+D_ManualCoalIntangibleCostST	-1	Dashboard!L195
+D_MaxCostBasedEarlyRetirement	-1	Dashboard!Q51
+D_MaximumCoalCF	-1	Dashboard!G192
+D_MaximumGasCF	-1	Dashboard!G193
+D_MaxNonHydNucOreBioAsPCOfTotalGen	-1	Dashboard!Q195
+D_MaxNonVREAsPCOfTotalGen	-1	Dashboard!Q194
+D_MaxScaleUpRateCategory	-1	Dashboard!G53
+D_MaxWindSolarScaleup	-1	Dashboard!Q196
+D_MinimumThermalEfficiency	-1	Dashboard!G194
+D_MinimumWACC	-1	Dashboard!Q193
+D_MinPostSubsidyPowerPrice	-1	Dashboard!L192
+D_MissingDataReplacement	-1	Dashboard!L331
+D_MPIntro	-1	Dashboard!V153
+D_MPLevelStart	-1	Dashboard!V154
+D_MPLevelTarget	-1	Dashboard!V155
+D_MPOutro	-1	Dashboard!V156
+D_MultipliersSource	-1	Dashboard!L23
+D_NatGasEff	-1	Dashboard!L150
+D_NDCs	-1	Dashboard!G139
+D_NewETS	-1	Dashboard!D30
+D_NewInvBio	-1	Dashboard!U59
+D_NewInvBioYear	-1	Dashboard!V59
+D_NewInvCoa	-1	Dashboard!U51
+D_NewInvCoaYear	-1	Dashboard!V51
+D_NewInvHyd	-1	Dashboard!U57
+D_NewInvHydYear	-1	Dashboard!V57
+D_NewInvNga	-1	Dashboard!U52
+D_NewInvNgaYear	-1	Dashboard!V52
+D_NewInvNuc	-1	Dashboard!U54
+D_NewInvNucYear	-1	Dashboard!V54
+D_NewInvOil	-1	Dashboard!U53
+D_NewInvOilYear	-1	Dashboard!V53
+D_NewInvOre	-1	Dashboard!U58
+D_NewInvOreYear	-1	Dashboard!V58
+D_NewInvSol	-1	Dashboard!U56
+D_NewInvSolYear	-1	Dashboard!V56
+D_NewInvWnd	-1	Dashboard!U55
+D_NewInvWndYear	-1	Dashboard!V55
+D_NomorReal	-1	Dashboard!L21
+D_NonEnergyTransformationMethod	-1	Dashboard!G143
+D_NSCCDiscountRate	-1	Dashboard!G153
+D_NSCCMargUtilofCons	-1	Dashboard!G154
+D_NSCCSource	-1	Dashboard!Q24
+D_PassthroughDist	-1	Dashboard!Q328
+D_PEDs	-1	Dashboard!Q325
+D_PhaseOutCoalAndGasPPAs	-1	Dashboard!Q55
+D_PhaseOutCoalAndGasPPAsBaseline	-1	Dashboard!Q55
+D_PhaseOutCoalAndGasPPAsPolicy	-1	Dashboard!Q56
+D_PITReductionType	-1	Dashboard!K328
+D_PowerRebates	-1	Dashboard!L52
+D_PowerSectorPriceChangePassOn	-1	Dashboard!L51
+D_PowerSubsidyExemptInclude	-1	Dashboard!L54
+D_PowGenCostsOldNew	-1	Dashboard!G56
+D_PowModelSelected	-1	Dashboard!G50
+D_PPAProportionCoalGas	-1	Dashboard!Q54
+D_PrcContPhaBaseline	-1	Dashboard!V150
+D_PrcControlPhaseout	-1	Dashboard!Q5
+D_ProdSubPhaBaseline	-1	Dashboard!V139
+D_PublicInfrastructureInvType	-1	Dashboard!K324
+D_QuantilesLCU	-1	Dashboard!V325
+D_QuantilesStatistic	-1	Dashboard!V324
+D_RenewableCostDeclineRate	-1	Dashboard!G52
+D_RenewableSubsidyBL	-1	Dashboard!L55
+D_RenewableSubsidyHydro	-1	Dashboard!L191
+D_RenSubsidyAddPhaseoutYrs	-1	Dashboard!Q6
+D_RenSubsidyAddUSDkwh	-1	Dashboard!P6
+D_ResSubstBioEff	-1	Dashboard!L149
+D_ResSubstKerEff	-1	Dashboard!L148
+D_ResSubstLPGEff	-1	Dashboard!L147
+D_ResSubstNatGasEff	-1	Dashboard!L150
+D_ResultsYear	-1	Dashboard!G135
+D_ScaleGTAP	-1	Dashboard!Q326
+D_SCCRise	-1	Dashboard!G156
+D_SCCTargetConsistentCP	-1	Dashboard!G152
+D_ScenarioSelected	17	Dashboard!I3
+D_ScenarioSelected	-1	Dashboard!I3
+D_ShareOfConsSubPha	-1	Dashboard!V144
+D_ShareofConsSubPhaBA	-1	Dashboard!V147
+D_ShareofProdSubPha	-1	Dashboard!V138
+D_ShareOfProdSubPhaBA	-1	Dashboard!V141
+D_SourceAppO3	-1	Dashboard!F430
+D_SourceAppSel	-1	Dashboard!F429
+D_SPPEffAdjEnergyEfficiencyRegulations	-1	Dashboard!L141
+D_SPPEffAdjFeebates	-1	Dashboard!L145
+D_SPPEffAdjInd	-1	Dashboard!L144
+D_SPPEffAdjRes	-1	Dashboard!L143
+D_SPPEffAdjVehicleFuelEconomy	-1	Dashboard!L142
+D_StartingPointWhenLTStorageIsNeeded	-1	Dashboard!V194
+D_StorageHoursForLTStorage	-1	Dashboard!V196
+D_StorageToInterfaceRatioSTStorage	-1	Dashboard!V192
+D_SupplyCostDeltaSubsidy	-1	Dashboard!L190
+D_TargetBelow	-1	Dashboard!G329
+D_TargettedPercentile	-1	Dashboard!Q12
+D_TotalHoursStorageFor100pcVRE	-1	Dashboard!V191
+D_TransExternAttribPortion	-1	Dashboard!G22
+D_TransferType	-1	Dashboard!F324
+D_UseElasticityModelPowerDemandInEngineerModel	-1	Dashboard!G57
+D_UseGlobalPrices	-1	Dashboard!V135
+D_UseSpotFuelPricesInEngineerModel	-1	Dashboard!G191
+D_VatRef	-1	Dashboard!G24
+D_VslEl	-1	<complex 3c0300af0100000b00>
+D_VslElSource	-1	<complex 3c0300ae0100000a00>
+D_VSLManual	-1	Dashboard!L430
+D_VSLMethod	-1	Dashboard!K429
+D_WACCSource	-1	Dashboard!Q191
+D_WACCUserGlobal	-1	Dashboard!Q192
+D_WorkDays	-1	Air pollution!G80
+D_YearConsSubPha	-1	Dashboard!P4
+D_YearDistn	-1	Dashboard!V326
+D_YearFuelPrices	-1	Dashboard!V158
+D_YearPha	-1	Dashboard!P2
+D_YearPPACoalGas	-1	Dashboard!Q57
+D_YearPrcContPha	-1	Dashboard!P5
+D_YearProdSubPha	-1	Dashboard!P3
+D_YearsToPhaseOutPPAs	-1	Dashboard!Q58
+Depression_counterfact	17	Air pollution!G68
+Depression_counterfact	-1	Air pollution!G68
+DfSelection	17	MTInputs!F295
+DfSelection	-1	MTInputs!F296
+dhdh	7	<complex 6003001200000078a3c86e20443c01>
+dhdh	17	<complex 6003001200000078a3c86ea0563b01>
+dhdh	28	<complex 6003001200000078a3c86ea04d3c01>
+dhdh	45	<complex 6003001200000078a3c86e20603b01>
+dhdh	39	<complex 6003001200000078a3c86ea0143c01>
+dhdh	23	<complex 6003001200000078a3c86e20863b01>
+dhdh	-1	<complex 6003001200000078a3c86e203a3b01>
+DiffFromBaseline2026	-1	Mitigation!P1961
+discount_rate	17	Air pollution!K1175
+discount_rate	-1	Air pollution!K757
+DiscRate	-1	MTInputs!F332
+DiscSel	-1	MTInputs!F331
+DistExcCfDec	-1	MTInputs!F310
+DomPrTax	17	MTInputs!F279
+DomPrTax	-1	MTInputs!F280
+Dumbbell	-1	<complex 170800440075006d006200620065006c006c00>
+DWLs	17	MTInputs!F316
+DWLs	-1	MTInputs!F317
+EarlyRetirementInBaseline	17	MTInputs!F378
+EarlyRetirementInBaseline	-1	MTInputs!F379
+EF_Code	-1	ETS+LTS!B49:B73
+EF_Value	-1	ETS+LTS!C49:C73
+EFsAdjustmentAnnexI	17	MTInputs!F235
+EFsAdjustmentAnnexI	-1	MTInputs!F237
+EFsAdjustmentNonAnnexI	17	MTInputs!F237
+EFsAdjustmentNonAnnexI	-1	MTInputs!F238
+EFSel	17	MTInputs!F323
+EFSel	-1	MTInputs!F324
+el_cro_bio_die_res	-1	Mitigation!L362
+el_cro_bio_ker_res	-1	Mitigation!L361
+el_cro_bio_lpg_res	-1	Mitigation!L360
+ElasticityModel	-1	MTInputs!F345
+ElastIncAdjustment	-1	MTInputs!F261
+ElastPriceAdjustment	-1	MTInputs!F260
+elec	7	<complex 6003001200000078a3c86e20e53b01>
+elec	17	<complex 6003001200000078a3c86ea03a3c01>
+elec	28	<complex 6003001200000078a3c86ea0ee3b01>
+elec	45	<complex 6003001200000078a3c86e20993b01>
+elec	39	<complex 6003001200000078a3c86e204d3b01>
+elec	23	<complex 6003001200000078a3c86e20f83b01>
+elec	-1	<complex 6003001200000078a3c86e20d23b01>
+elec2	7	<complex 6003001200000078a3c86ea0b53b01>
+elec2	17	<complex 6003001200000078a3c86e201e3c01>
+elec2	28	<complex 6003001200000078a3c86e206a3c01>
+elec2	45	<complex 6003001200000078a3c86ea0ac3c01>
+elec2	39	<complex 6003001200000078a3c86ea0603c01>
+elec2	23	<complex 6003001200000078a3c86e20b63c01>
+elec2	-1	<complex 6003001200000078a3c86e20903c01>
+elec3	7	<complex 6003001200000078a3c86e20a33c01>
+elec3	17	<complex 6003001200000078a3c86e207d3c01>
+elec3	28	<complex 6003001200000078a3c86ea0863c01>
+elec3	45	<complex 6003001200000078a3c86ea0733c01>
+elec3	39	<complex 6003001200000078a3c86ea0993c01>
+elec3	23	<complex 6003001200000078a3c86ea0bf3c01>
+elec3	-1	<complex 6003001200000078a3c86ea0683901>
+elecc	7	<complex 6003001200000078a3c86ea0d03801>
+elecc	17	<complex 6003001200000078a3c86e20d13901>
+elecc	28	<complex 6003001200000078a3c86e20853901>
+elecc	45	<complex 6003001200000078a3c86ea0b43901>
+elecc	39	<complex 6003001200000078a3c86e20be3901>
+elecc	23	<complex 6003001200000078a3c86e20723901>
+elecc	-1	<complex 6003001200000078a3c86e20983901>
+ElIncMainSrc	17	MTInputs!F224
+ElIncMainSrc	-1	MTInputs!F224
+ElPrcMainSrc	17	MTInputs!F223
+ElPrcMainSrc	-1	MTInputs!F223
+Em_fact	17	Mitigation!I1052:AE1663
+Em_fact	-1	Mitigation!I1052:AE1663
+Em_ReductionPercentRange	28	<complex 2985003b0f0077000000770000000a0019005a0f>
+Em_ReductionPercentRange	-1	<complex 2985003d340032000000320000000a0019003c34>
+EmissionsFactCO2	17	MTInputs!F225
+EmissionsFactCO2	-1	MTInputs!F225
+EmissionsReductionRange	28	<complex 2985003b0f0076000000760000000a0019005a0f>
+EmissionsReductionRange	-1	<complex 2985003d340031000000310000000a0019003c34>
+Energy_balances	-1	Balances!A14:Z50
+EnergyConsumptionsMatrixProjectionsYear	17	MTInputs!F234
+EnergyConsumptionsMatrixProjectionsYear	-1	MTInputs!F235
+EnergyPricesManualSwitch	17	MTInputs!F279
+EnergyPricesManualSwitch	-1	MTInputs!F280
+EngineerModelProportionOfCovidFactor	17	MTInputs!F373
+EngineerModelProportionOfCovidFactor	-1	MTInputs!F374
+EngineerModeProportionOfCovidFactor	-1	MTInputs!F374
+erwre	7	<complex 6002000000000078a3c86e206c527d>
+erwre	17	<complex 6002000000000078a3c86ec06e527d>
+erwre	28	<complex 6002000000000078a3c86ee072527d>
+erwre	45	<complex 6002000000000078a3c86ee069527d>
+erwre	39	<complex 6002000000000078a3c86e606e527d>
+erwre	23	<complex 6002000000000078a3c86ea070527d>
+erwre	-1	<complex 6002000000000078a3c86e006b527d>
+ETSBehavioralAdjustment	17	MTInputs!F211
+ETSBehavioralAdjustment	-1	MTInputs!F211
+ETSCoverage	-1	Dashboard!O30:R30
+ETSEndDate	-1	Dashboard!D32
+ETSErrorRange	-1	Mitigation!Q1963:AD1963
+ETSErrorTolerance	-1	Manual inputs!E12
+ETSInclusion	-1	Manual inputs!H11:X11
+ETSMaxIterations	-1	Manual inputs!E10
+ETSOnDash	-1	Dashboard!D30
+ETSOnMTInputs	-1	MTInputs!F84
+ETSStartDate	-1	Dashboard!D31
+ETSStartFreshContinue	-1	Manual inputs!E11
+EUETSPriceBaseOfFutureForecast	-1	Mitigation!L84
+ExemptCookDeciles	-1	MTInputs!F313
+ExemptMostCook	-1	MTInputs!F312
+ExemptPhaseout	17	MTInputs!F49
+ExemptPhaseout	-1	MTInputs!F49
+ExemptPhaseoutPeriod	17	MTInputs!F51
+ExemptPhaseoutPeriod	-1	MTInputs!F51
+existing_cp	17	ECP!B66:Y1188
+ExistingCTApply	17	MTInputs!F213
+ExistingCTApply	-1	MTInputs!F213
+ExistingCTGrowth	17	MTInputs!F214
+ExistingCTGrowth	-1	MTInputs!F214
+ExistingETSApply	17	MTInputs!F208
+ExistingETSApply	-1	MTInputs!F208
+ExistingETSGrowth	17	MTInputs!F209
+ExistingETSGrowth	-1	MTInputs!F209
+EXPCapex	17	MTInputs!F199
+EXPCapex	-1	MTInputs!F199
+EXPCIT	17	MTInputs!F198
+EXPCIT	-1	MTInputs!F198
+EXPGoodsandserv	17	MTInputs!F200
+EXPGoodsandserv	-1	MTInputs!F200
+EXPLabortax	17	MTInputs!F197
+EXPLabortax	-1	MTInputs!F197
+EXPTransfers	17	MTInputs!F201
+EXPTransfers	-1	MTInputs!F201
+ExtCoa	-1	MTInputs!G286
+ExtendCarbonPriceBeyondOutro	17	MTInputs!F264
+ExtendCarbonPriceBeyondOutro	-1	MTInputs!F265
+ExternalityAddVAT	17	MTInputs!F218
+ExternalityAddVAT	-1	MTInputs!F218
+FASST	17	<complex 3d0900be020000c20200000a000a00>
+FASST	-1	Air pollution!K440:K444
+FeebateInclusion	-1	Manual inputs!H54:X54
+FFPhaseOut	-1	MTInputs!F133
+FFSConsPhaseoutPeriodBA	17	MTInputs!F136
+FFSConsPhaseoutPeriodBA	-1	MTInputs!F136
+FFSProdPhaseoutPeriod	-1	MTInputs!F125
+FFSProdPhaseoutPeriodBA	17	MTInputs!F128
+FFSProdPhaseoutPeriodBA	-1	MTInputs!F128
+FirstYearCalculations	17	MTInputs!F231
+FirstYearCalculations	-1	MTInputs!F232
+FmAdj	-1	MTInputs!F263
+FreightAct	-1	Transport3!I4
+FreightAnxiety	-1	Dashboard!L548
+FreightAnxietyDecline	-1	Dashboard!L549
+FreightCalc	-1	Transport3!J4
+FreightDiff	-1	Transport3!M4
+FuelLookups	-1	ETS+LTS!B19:C26
+FuelPriceIncreaseStartYearMitMod	-1	Mitigation!E163
+FuelPriceIncreaseTargetYearMitMod	-1	Mitigation!E164
+GBD_data	58	GBD!A5:F21227
+gbd_fact	-1	Air pollution!G92
+GdpAdj	-1	MTInputs!F259
+GDPEndogenous	17	MTInputs!F266
+GDPEndogenous	-1	MTInputs!F267
+GDPScenario	17	MTInputs!F222
+GDPScenario	-1	MTInputs!F222
+GDPStartYear	-1	MTInputs!F236
+Generation	17	Mitigation!D3787:W3795
+Generation	-1	Mitigation!D3797:W3805
+GHGs_2018_2023	13	<complex 293f003b160007000000f1000000020033003b16>
+GlobalEnergyDemand	17	MTInputs!F221
+GlobalEnergyDemand	-1	MTInputs!F221
+GoalSeekRange	-1	ext1!G31
+GovPriceControls	17	MTInputs!F194
+GovPriceControls	-1	MTInputs!F194
+GSCCSource	17	MTInputs!F274
+GSCCSource	-1	MTInputs!F275
+Heatmap	-1	<complex 17070048006500610074006d0061007000>
+HHCategories_NEW	17	HHSurvey!H1:BU1
+HHCategories_NEW	-1	HHSurvey!H1:BP1
+HHCcodes_NEW	17	HHSurvey!B2:B3714
+HHCcodes_NEW	-1	HHSurvey!B2:B3714
+HHCODES	17	HHSurvey!A2:A3714
+HHCODES	-1	HHSurvey!A2:A3714
+HHData_NEW	17	HHSurvey!H2:BU3714
+HHData_NEW	-1	HHSurvey!H2:BP3714
+HHQuantile_NEW	17	HHSurvey!G2:G3714
+HHQuantile_NEW	-1	HHSurvey!G2:G3714
+HHSample_NEW	17	HHSurvey!D2:D3714
+HHSample_NEW	-1	HHSurvey!D2:D3714
+HHStatistics_NEW	17	HHSurvey!F2:F3714
+HHStatistics_NEW	-1	HHSurvey!F2:F3714
+HHType_NEW	17	HHSurvey!E2:E3714
+HHType_NEW	-1	HHSurvey!E2:E3714
+HHYrs_NEW	17	HHSurvey!C2:C3714
+HHYrs_NEW	-1	HHSurvey!C2:C3714
+Histogram	-1	<complex 17090048006900730074006f006700720061006d>
+historical_ghgs	-1	GHGs!C955:AU1189
+HTML_CodePage	-1	<complex 1ee404>
+HTML_Control	7	<complex 6000000000000078a3c86ec0117e01>
+HTML_Control	17	<complex 6000000000000078a3c86e20137e01>
+HTML_Control	28	<complex 6000000000000078a3c86ee0127e01>
+HTML_Control	45	<complex 6000000000000078a3c86e40127e01>
+HTML_Control	39	<complex 6000000000000078a3c86e40147e01>
+HTML_Control	23	<complex 6000000000000078a3c86ec0127e01>
+HTML_Control	-1	<complex 6000000000000078a3c86e00157e01>
+HTML_Control_2	7	<complex 6000000000000078a3c86e40157e01>
+HTML_Control_2	17	<complex 6000000000000078a3c86e60127e01>
+HTML_Control_2	28	<complex 6000000000000078a3c86e00177e01>
+HTML_Control_2	45	<complex 6000000000000078a3c86e80187e01>
+HTML_Control_2	39	<complex 6000000000000078a3c86e20197e01>
+HTML_Control_2	23	<complex 6000000000000078a3c86ee0167e01>
+HTML_Control_2	-1	<complex 6000000000000078a3c86ee0187e01>
+HTML_Header	-1	<complex 170900530069006e006700610070006f00720065>
+HTML_LastUpdate	-1	<complex 170900330031002d004a0061006e002d00390038>
+HTML_LineAfter	-1	<complex 1d01>
+HTML_LineBefore	-1	<complex 1d01>
+HTML_Name	-1	<complex 170b0043002000520020004c0061007500720065>
+HTML_OBDlg2	-1	<complex 1d01>
+HTML_OBDlg3	-1	<complex 1d01>
+HTML_OBDlg4	-1	<complex 1d01>
+HTML_OS	-1	<complex 1e0000>
+HTML_PathFile	-1	<complex 172d0043003a005c00460072006f006e00740050>
+HTML_PathFileMac	-1	<complex 173f004d006100630069006e0074006f00730068>
+HTML_PathTemplate	-1	<complex 172e0043003a005c0041007300690061006e0044>
+HTML_Title	-1	<complex 170f00530069006e006700610070006f00720065>
+HydroDoesntRetire	17	MTInputs!F349
+HydroDoesntRetire	-1	MTInputs!F350
+IncElAdj	17	MTInputs!F261
+IncElAdj	-1	MTInputs!F262
+IncludeTransmissionCostsInGenerationCostsPercent	17	Dashboard!Q197
+IncludeTransmissionCostsInGenerationCostsPercent	-1	Dashboard!Q197
+IncomeDepWACC	17	Mitigation!S82
+IncomeDepWACC	-1	Mitigation!S82
+IndustrialPowerEfficiencyLag	-1	Mitigation!G3883
+IndustrialProcessEmissionsScaleEner	17	MTInputs!F238
+IndustrialProcessEmissionsScaleEner	-1	MTInputs!F239
+IndustrialTransmissionCost	17	Power!G21
+IndustrialTransmissionCost	-1	Power!G21
+InferredDist	17	MTInputs!F313
+InferredDist	-1	MTInputs!F314
+instcap_cntr	-1	Power!A358:BD1635
+IntEnerPricForecastAdjustment	-1	MTInputs!F258
+IntEnerPricForeSource	17	MTInputs!F220
+IntEnerPricForeSource	-1	MTInputs!F220
+InterpolatedCPrice	-1	ext1!B38
+IOCcodes_NEW	17	IO_GTAP!B2:B438
+IOCcodes_NEW	-1	IO_GTAP!B2:B438
+IOCols_NEW	17	IO_GTAP!E1:BP1
+IOCols_NEW	-1	IO_GTAP!E1:BP1
+IOData_NEW	17	IO_GTAP!E2:BP438
+IOData_NEW	-1	IO_GTAP!E2:BP438
+IORows_NEW	-1	IO_GTAP!D2:D438
+IOYrs_NEW	17	IO_GTAP!C2:C438
+IOYrs_NEW	-1	IO_GTAP!C2:C438
+IQ_CH	-1	<complex 1f0000000000dbfa40>
+IQ_CQ	-1	<complex 1e8813>
+IQ_CY	-1	<complex 1e1027>
+IQ_DAILY	-1	<complex 1f0000000080841e41>
+IQ_FH	-1	<complex 1f00000000006af840>
+IQ_FQ	-1	<complex 1ef401>
+IQ_FWD_CY	-1	<complex 1e1127>
+IQ_FWD_CY1	-1	<complex 1e1227>
+IQ_FWD_CY2	-1	<complex 1e1327>
+IQ_FWD_FY	-1	<complex 1ee903>
+IQ_FWD_FY1	-1	<complex 1eea03>
+IQ_FWD_FY2	-1	<complex 1eeb03>
+IQ_FWD_Q	-1	<complex 1ef501>
+IQ_FWD_Q1	-1	<complex 1ef601>
+IQ_FWD_Q2	-1	<complex 1ef701>
+IQ_FY	-1	<complex 1ee803>
+IQ_LATESTK	-1	<complex 1ee803>
+IQ_LATESTQ	-1	<complex 1ef401>
+IQ_LTM	-1	<complex 1ed007>
+IQ_LTMMONTH	-1	<complex 1f00000000004cfd40>
+IQ_MONTH	-1	<complex 1e983a>
+IQ_NTM	-1	<complex 1e7017>
+IQ_TODAY	-1	<complex 1e0000>
+IQ_WEEK	-1	<complex 1e50c3>
+IQ_YTD	-1	<complex 1eb80b>
+IQ_YTDMONTH	-1	<complex 1f0000000000bdff40>
+kDispatch	17	MTInputs!F345
+kDispatch	-1	MTInputs!F346
+KerEff	17	MTInputs!F298
+KerEff	-1	MTInputs!F299
+kInvestment	17	MTInputs!F346
+kInvestment	-1	MTInputs!F347
+lambda_0	-1	Air pollution!O672:Q701
+lambda_tmrel	17	Air pollution!W1062:Y1091
+lambda_tmrel	-1	Air pollution!W672:Y701
+LeakageRate	17	MTInputs!F205
+LeakageRate	-1	MTInputs!F205
+LiveData	-1	Transport3!C4:U4
+LongTermStorageFor100pcVRE	-1	MTInputs!F394
+loop_countries	-1	GHGs!D1202:D1388
+LPGEff	17	MTInputs!F297
+LPGEff	-1	MTInputs!F298
+LULUCFAnnualEmissionsDecline	17	MTInputs!F239
+LULUCFAnnualEmissionsDecline	-1	MTInputs!F240
+M_baselineCapacity	-1	Mitigation!D17095:AC17103
+M_baselineElectricitySupplied	-1	Mitigation!D17008:AC17020
+M_baselineInvestment	-1	Mitigation!D17115:AB17124
+M_emissionsReductions	-1	Mitigation!L18644:AB18644
+M_policyCapacity	-1	Mitigation!D17105:AC17113
+M_policyElectricitySupplied	-1	Mitigation!D17023:AC17036
+M_policyInvestment	-1	Mitigation!D17125:AB17134
+M_ScenarioSelected	-1	MTInputs!D13
+main_ghgs	-1	<complex 3d1600d5030000c404000002002e00>
+ManualCoalIntangibleCostLT	-1	MTInputs!F371
+ManualCoalIntangibleCostST	17	MTInputs!F369
+ManualCoalIntangibleCostST	-1	MTInputs!F370
+Map	-1	<complex 1703004d0061007000>
+max_avg_cap_inc	-1	Power!A1921:BD2335
+max_en	17	Air pollution!H30
+max_en	-1	Air pollution!H30
+MaxCostBasedEarlyRetirement	17	MTInputs!F377
+MaxCostBasedEarlyRetirement	-1	MTInputs!F378
+MaximumCoalCF	17	MTInputs!F371
+MaximumCoalCF	-1	MTInputs!F372
+MaximumGasCF	17	MTInputs!F372
+MaximumGasCF	-1	MTInputs!F373
+MaxNonNucOreBioAsPCOfTotalGen	17	MTInputs!F359
+MaxNonNucOreBioAsPCOfTotalGen	-1	MTInputs!F360
+MaxNonVREAsPCOfTotalGen	17	MTInputs!F358
+MaxNonVREAsPCOfTotalGen	-1	MTInputs!F359
+MaxScaleUpRateCategory	-1	MTInputs!F362
+MaxWindSolarScaleup	17	MTInputs!F360
+MaxWindSolarScaleup	-1	MTInputs!F361
+MCovAvi	-1	MTInputs!F34
+MCovCem	-1	MTInputs!F43
+MCovCoa	-1	MTInputs!F23
+MCovCst	-1	MTInputs!F45
+MCovDie	-1	MTInputs!F26
+MCovFoo	-1	MTInputs!F37
+MCovFtr	-1	MTInputs!F46
+MCovGso	-1	MTInputs!F25
+MCovIrn	-1	MTInputs!F40
+MCovKer	-1	MTInputs!F28
+MCovLpg	-1	MTInputs!F27
+MCovMac	-1	MTInputs!F42
+MCovMch	-1	MTInputs!F39
+MCovNav	-1	MTInputs!F35
+MCovNfm	-1	MTInputs!F41
+MCovNga	-1	MTInputs!F24
+MCovOen	-1	MTInputs!F47
+MCovOmn	-1	MTInputs!F44
+MCovOop	-1	MTInputs!F29
+MCovPow	-1	MTInputs!F31
+MCovRal	-1	MTInputs!F33
+MCovRes	-1	MTInputs!F36
+MCovRod	-1	MTInputs!F32
+MCovSrv	-1	MTInputs!F38
+memo_emissions	-1	<complex 3d1600af0400009b05000002000b00>
+MinimumGrowthRateRenewables	17	Power!H1919
+MinimumGrowthRateRenewables	-1	Power!H1919
+MinimumThermalEfficiency	17	MTInputs!F379
+MinimumThermalEfficiency	-1	MTInputs!F380
+MinimumWACC	17	MTInputs!F347
+MinimumWACC	-1	MTInputs!F348
+MinPostSubsidyPowerPrice	17	MTInputs!F350
+MinPostSubsidyPowerPrice	-1	MTInputs!F351
+MinSemiElasticity	-1	ETS+LTS!D76
+MissingDataReplacement	17	MTInputs!F310
+MissingDataReplacement	-1	MTInputs!F311
+Module2.CalibrateAnxiety	-1	
+MotorAct	-1	Transport3!O4
+MotorAnxiety	-1	Dashboard!Q548
+MotorAnxietyDecline	-1	Dashboard!Q549
+MotorCalc	-1	Transport3!P4
+MotorDiff	-1	Transport3!S4
+MPIntro	17	MTInputs!F186
+MPIntro	-1	MTInputs!F186
+MPLevelStart	17	MTInputs!F187
+MPLevelStart	-1	MTInputs!F187
+MPLevelTarget	17	MTInputs!F188
+MPLevelTarget	-1	MTInputs!F188
+MPOutro	17	MTInputs!F189
+MPOutro	-1	MTInputs!F189
+mpp_cntr	-1	Power!A112:BD299
+MSTScenarioID	17	MTInputs!D10
+MSTScenarioID	-1	MTInputs!D10
+MTAct	17	MTInputs!C5
+MTAct	-1	MTInputs!C5
+MTI_ConsSubPha	-1	MTInputs!E131
+MTI_ExemptPhaseout	-1	MTInputs!E49
+MTI_MCovAvi	-1	MTInputs!E34
+MTI_MCovCem	-1	MTInputs!E43
+MTI_MCovCoa	-1	MTInputs!E23
+MTI_MCovCst	-1	MTInputs!E45
+MTI_MCovDie	-1	MTInputs!E26
+MTI_MCovFoo	-1	MTInputs!E37
+MTI_MCovFtr	-1	MTInputs!E46
+MTI_MCovGso	-1	MTInputs!E25
+MTI_MCovIrn	-1	MTInputs!E40
+MTI_MCovKer	-1	MTInputs!E28
+MTI_MCovLpg	-1	MTInputs!E27
+MTI_MCovMac	-1	MTInputs!E42
+MTI_MCovMch	-1	MTInputs!E39
+MTI_MCovNav	-1	MTInputs!E35
+MTI_MCovNfm	-1	MTInputs!E41
+MTI_MCovNga	-1	MTInputs!E24
+MTI_MCovOen	-1	MTInputs!E47
+MTI_MCovOmn	-1	MTInputs!E44
+MTI_MCovOop	-1	MTInputs!E29
+MTI_MCovPow	-1	MTInputs!E31
+MTI_MCovRal	-1	MTInputs!E33
+MTI_MCovRes	-1	MTInputs!E36
+MTI_MCovRod	-1	MTInputs!E32
+MTI_MCovSrv	-1	MTInputs!E38
+MTI_PrcContPha	-1	MTInputs!E191
+MTI_ProdSubPh	-1	MTInputs!E123
+MultipliersSource	17	MTInputs!F226
+MultipliersSource	-1	MTInputs!F226
+natal	-1	VersionTracker!F295
+NatGasEff	17	MTInputs!F300
+NatGasEff	-1	MTInputs!F301
+NDC_gap	-1	Mitigation!G18501
+NDCPrice	-1	Mitigation!H18501
+NDCrefyear	-1	NDCs!E11
+NDCs	17	MTInputs!F228
+NDCs	-1	MTInputs!F228
+NDCs_2015_table	-1	NDCs!C451:AB644
+NDCs_2020_table	-1	NDCs!C250:U444
+NDCs_2025_table	-1	NDCs!C48:P242
+NDCs_LULUCF	-1	NDCs!C655:K846
+NDCs_tax_regimes	-1	Prices_int!G62:I281
+NDCtargetyear	-1	MTInputs!F229
+new_EU_NDCs	-1	NDCs!E892:O919
+NewAa	7	<complex 6003001200000078a3c86ea02f3901>
+NewAa	17	<complex 6003001200000078a3c86ea0f63801>
+NewAa	28	<complex 6003001200000078a3c86ea0da3901>
+NewAa	45	<complex 6003001200000078a3c86ea0ed3901>
+NewAa	39	<complex 6003001200000078a3c86e20263901>
+NewAa	23	<complex 6003001200000078a3c86e20133901>
+NewAa	-1	<complex 6003001200000078a3c86ea0c73901>
+NewInvBio	-1	MTInputs!F405
+NewInvBioYear	17	MTInputs!F414
+NewInvBioYear	-1	MTInputs!F415
+NewInvCoa	-1	MTInputs!F397
+NewInvCoaYear	17	MTInputs!F406
+NewInvCoaYear	-1	MTInputs!F407
+NewInvHyd	-1	MTInputs!F403
+NewInvHydYear	17	MTInputs!F412
+NewInvHydYear	-1	MTInputs!F413
+NewInvNga	-1	MTInputs!F398
+NewInvNgaYear	17	MTInputs!F407
+NewInvNgaYear	-1	MTInputs!F408
+NewInvNuc	-1	MTInputs!F400
+NewInvNucYear	17	MTInputs!F409
+NewInvNucYear	-1	MTInputs!F410
+NewInvOil	-1	MTInputs!F399
+NewInvOilYear	17	MTInputs!F408
+NewInvOilYear	-1	MTInputs!F409
+NewInvOre	-1	MTInputs!F404
+NewInvOreYear	17	MTInputs!F413
+NewInvOreYear	-1	MTInputs!F414
+NewInvSol	-1	MTInputs!F402
+NewInvSolYear	17	MTInputs!F411
+NewInvSolYear	-1	MTInputs!F412
+NewInvWnd	-1	MTInputs!F401
+NewInvWndYear	17	MTInputs!F410
+NewInvWndYear	-1	MTInputs!F411
+NomorReal	17	MTInputs!F265
+NomorReal	-1	MTInputs!F266
+NonEnergyTransformationMethod	-1	MTInputs!F297
+NotesRow	-1	Mitigation!A19219
+NSCCDiscountRate	17	MTInputs!F272
+NSCCDiscountRate	-1	MTInputs!F273
+NSCCMargUtilofCons	17	MTInputs!F273
+NSCCMargUtilofCons	-1	MTInputs!F274
+NSCCSource	17	MTInputs!F268
+NSCCSource	-1	MTInputs!F269
+numbers	-1	GHGs!J1202:J1388
+OHLC	-1	<complex 1704004f0048004c004300>
+old_EU_NDCs	-1	NDCs!E855:O882
+OverrideETSFast	-1	
+OverrideETSPrice2026	-1	Manual inputs!N15
+OverrideOfETSPrices	-1	Manual inputs!O15:AB15
+OverridePriceDashboard	-1	Dashboard!V30
+PassAct	-1	Transport3!C4
+PassAnxiety	-1	Dashboard!G548
+PassAnxietyDecline	-1	Dashboard!G549
+PassCalc	-1	Transport3!D4
+PassDiff	-1	Transport3!G4
+PassthroughDist	17	MTInputs!F317
+PassthroughDist	-1	MTInputs!F318
+PEDs	17	MTInputs!F314
+PEDs	-1	MTInputs!F315
+PELCategories	17	HH_Elast!H1:AE1
+PELCategories	-1	HH_Elast!H1:AE1
+PELCODES	17	HH_Elast!A2:A2500
+PELCODES	-1	HH_Elast!A2:A2500
+PELData	17	HH_Elast!H2:AE2500
+PELData	-1	HH_Elast!H2:AE2500
+PhaseOutCoalAndGasPPAsBaseline	-1	MTInputs!F383
+PieChart	-1	<complex 17080050006900650043006800610072007400>
+PITReductionType	17	MTInputs!F308
+PITReductionType	-1	MTInputs!F309
+PolicyAnnouncementDate	-1	Mitigation!F78
+PolicyScenarioFirstRow	-1	Mitigation!A8504
+population	-1	Air pollution!H417:Y423
+PowerRebates	17	MTInputs!F341
+PowerRebates	-1	MTInputs!F342
+PowerSectorPriceChangePassOn	17	MTInputs!F342
+PowerSectorPriceChangePassOn	-1	MTInputs!F343
+PowerSubsidyExemptInclude	17	MTInputs!F138
+PowerSubsidyExemptInclude	-1	MTInputs!F138
+PowGenCostsOldNew	17	MTInputs!F348
+PowGenCostsOldNew	-1	MTInputs!F349
+PowModelSelected	17	MTInputs!F227
+PowModelSelected	-1	MTInputs!F227
+PPAProportionCoalGas	-1	MTInputs!F382
+PrcContPha	-1	MTInputs!F191
+PrcContPhaBaseline	17	MTInputs!F195
+PrcContPhaBaseline	-1	MTInputs!F195
+PrcControlPhaseout	17	MTInputs!F193
+PrcControlPhaseout	-1	MTInputs!F193
+price_controls	-1	<complex 29bf003b3300450000008300000000000f003b33>
+PriceIncreaseUnits	-1	Mitigation!AE17205
+PricesAdjustedByErrorFactor	-1	Mitigation!Q1964:AD1964
+Print_Area	2	Dashboard!A1:Z620
+ProdSubPh	-1	MTInputs!F123
+ProdSubPhaBaseline	17	MTInputs!F127
+ProdSubPhaBaseline	-1	MTInputs!F127
+PsInTCP	17	MTInputs!F301
+PsInTCP	-1	MTInputs!F302
+PublicInfrastructureInvType	17	MTInputs!F306
+PublicInfrastructureInvType	-1	MTInputs!F307
+Q10561Q10424	-1	Mitigation!Q13876
+QC_B_10	17	Mitigation!B6596
+QC_B_10	-1	Mitigation!B6507
+QC_B_11	17	Mitigation!B6692
+QC_B_11	-1	Mitigation!B6603
+QC_B_14	17	Mitigation!B8026
+QC_B_14	-1	Mitigation!B7641
+QC_B_15	17	Mitigation!B8026
+QC_B_15	-1	Mitigation!B8026
+QC_B_2	17	Mitigation!B2720
+QC_B_2	-1	Mitigation!B2730
+QC_Dashboard	-1	Dashboard!H642:H651
+QC_P_10	17	Mitigation!B12745
+QC_P_10	-1	Mitigation!B12745
+QC_P_11	17	Mitigation!B12841
+QC_P_11	-1	Mitigation!B12841
+QC_P_14	17	Mitigation!B13879
+QC_P_14	-1	Mitigation!B13879
+QC_P_15	17	Mitigation!B14236
+QC_P_15	-1	Mitigation!B14236
+QC_P_2	17	Mitigation!B9232
+QC_P_2	-1	Mitigation!B9061
+QC_VarEmissions	17	Mitigation!T18516
+QC_VarEmissions	-1	Mitigation!T18516
+QC_VarRevenues	17	Mitigation!AE17154
+QC_VarRevenues	-1	Mitigation!AE17154
+QuantilesLCU	17	MTInputs!F319
+QuantilesLCU	-1	MTInputs!F320
+QuantilesStatistic	17	MTInputs!F318
+QuantilesStatistic	-1	MTInputs!F319
+QuickEstimateOfETSPrices	-1	Mitigation!Q1868:AD1868
+RatioCcodes	17	GDPRatios!B2:B800
+RatioCcodes	-1	GDPRatios!B2:B800
+RatioData	17	GDPRatios!F2:BT800
+RatioData	-1	GDPRatios!F2:BT800
+RatioLatestYr	17	GDPRatios!E2:E800
+RatioLatestYr	-1	GDPRatios!E2:E800
+RatioVarCodes	17	GDPRatios!D2:D800
+RatioVarCodes	-1	GDPRatios!D2:D800
+RatioYrs	17	GDPRatios!F1:BT1
+RatioYrs	-1	GDPRatios!F1:BT1
+RealPriceTrajectory	17	Mitigation!L16882:AC16882
+RealPriceTrajectory	-1	Mitigation!L16136:AC16136
+reg_ctf	-1	Power!A302:BE343
+reg_mpp	-1	Power!A41:BD109
+RenewableCostDeclineRate	17	MTInputs!F366
+RenewableCostDeclineRate	-1	MTInputs!F367
+RenewableSubsidyBL	17	MTInputs!F353
+RenewableSubsidyBL	-1	MTInputs!F354
+RenewableSubsidyHydro	17	MTInputs!F356
+RenewableSubsidyHydro	-1	MTInputs!F357
+RenSubsidyAddPhaseoutYrs	17	MTInputs!F355
+RenSubsidyAddPhaseoutYrs	-1	MTInputs!F356
+RenSubsidyAddUSDkwh	17	MTInputs!F354
+RenSubsidyAddUSDkwh	-1	MTInputs!F355
+ResidentialTransmissionCost	17	Power!G20
+ResidentialTransmissionCost	-1	Power!G20
+ResSubstBioEff	-1	MTInputs!F255
+ResSubstKerEff	-1	MTInputs!F254
+ResSubstLPGEff	-1	MTInputs!F253
+ResSubstNatGasEff	-1	MTInputs!F256
+Result	-1	Transport3!B4
+ResultsFirstRow	-1	Mitigation!A14770
+ResultsYear	17	MTInputs!F232
+ResultsYear	-1	MTInputs!F233
+RiskBeforeSimMacro	-1	<complex 1706004200650066006f0072006500>
+RiskCollectDistributionSamples	-1	<complex 1e0200>
+RiskMinimizeOnStart	-1	<complex 1d00>
+RiskMonitorConvergence	-1	<complex 1d00>
+RiskRunAfterRecalcMacro	-1	<complex 1d00>
+RngAnxietySource	-1	Dashboard!L61
+row_number	-1	<complex 1819290001000300000003000300>
+ScaleGTAP	17	MTInputs!F315
+ScaleGTAP	-1	MTInputs!F316
+Scatter	-1	<complex 1707005300630061007400740065007200>
+scatter_congestion	-1	Transport!N508:R725
+scatter_data	-1	Transport!I462:AB464
+scatter_fatalities	-1	Transport!F508:J725
+SCCRise	17	MTInputs!F276
+SCCRise	-1	MTInputs!F277
+SCCTargetConsistentCP	17	MTInputs!F277
+SCCTargetConsistentCP	-1	MTInputs!F278
+ScenarioNum	17	Dashboard!D647
+ScenarioNum	-1	Dashboard!D647
+ScenarioSelected	17	MTInputs!F13
+ScenarioSelected	-1	MTInputs!F13
+ScenarioSelectedTrans	17	Transport!G31
+ScenarioSelectedTrans	-1	Transport!G31
+SemiElasticities	-1	ETS+LTS!C82:G191
+Series	-1	<complex 170600530065007200690065007300>
+ShareOfConsSubPha	17	MTInputs!F134
+ShareOfConsSubPha	-1	MTInputs!F134
+ShareofConsSubPhaBA	17	MTInputs!F137
+ShareofConsSubPhaBA	-1	MTInputs!F137
+ShareofProdSubPha	17	MTInputs!F126
+ShareofProdSubPha	-1	MTInputs!F126
+ShareOfProdSubPhaBA	17	MTInputs!F129
+ShareOfProdSubPhaBA	-1	MTInputs!F129
+Simple_CPATDefaultsOrUserDefined	-1	MTInputs!F16
+Simple_MTAct	-1	MTInputs!C5
+Simple_ScenarioToRun	-1	MTInputs!D6
+SmoothedETSPrices	-1	<complex 3d02004e0700004e07000010001d00>
+sol_wind	-1	Power!A2573:BD4792
+solver_adj	2	Dashboard!I5:I6
+solver_adj	5	Mitigation!H18501
+solver_cvg	2	<complex 1f2d431cebe2361a3f>
+solver_cvg	5	<complex 1f2d431cebe2361a3f>
+solver_drv	2	<complex 1e0100>
+solver_drv	5	<complex 1e0100>
+solver_eng	2	<complex 1e0200>
+solver_eng	5	<complex 1e0100>
+solver_eng	10	<complex 1e0100>
+solver_eng	34	<complex 1e0100>
+solver_est	2	<complex 1e0100>
+solver_est	5	<complex 1e0100>
+solver_itr	2	<complex 1f0000c0ffffffdf41>
+solver_itr	5	<complex 1f0000c0ffffffdf41>
+solver_lhs1	2	Dashboard!I5
+solver_lhs1	5	Mitigation!H18501
+solver_lhs2	2	Dashboard!I6
+solver_lhs2	5	Mitigation!H18501
+solver_mip	2	<complex 1f0000c0ffffffdf41>
+solver_mip	5	<complex 1f0000c0ffffffdf41>
+solver_mni	2	<complex 1e1e00>
+solver_mni	5	<complex 1e1e00>
+solver_mrt	2	<complex 1f333333333333b33f>
+solver_mrt	5	<complex 1f333333333333b33f>
+solver_msl	2	<complex 1e0200>
+solver_msl	5	<complex 1e0200>
+solver_neg	2	<complex 1e0100>
+solver_neg	5	<complex 1e0100>
+solver_neg	10	<complex 1e0100>
+solver_neg	34	<complex 1e0100>
+solver_nod	2	<complex 1f0000c0ffffffdf41>
+solver_nod	5	<complex 1f0000c0ffffffdf41>
+solver_num	2	<complex 1e0200>
+solver_num	5	<complex 1e0100>
+solver_num	10	<complex 1e0000>
+solver_num	34	<complex 1e0000>
+solver_nwt	2	<complex 1e0100>
+solver_nwt	5	<complex 1e0100>
+solver_opt	5	Mitigation!G18501
+solver_opt	34	SCC!F438
+solver_pre	2	<complex 1f8dedb5a0f7c6b03e>
+solver_pre	5	<complex 1ffca9f1d24d62503f>
+solver_pre	10	<complex 1ffca9f1d24d62503f>
+solver_rbv	2	<complex 1e0100>
+solver_rbv	5	<complex 1e0100>
+solver_rel1	2	<complex 1e0100>
+solver_rel1	5	<complex 1e0300>
+solver_rel2	2	<complex 1e0100>
+solver_rel2	5	<complex 1e0300>
+solver_rhs1	2	<complex 1e6400>
+solver_rhs1	5	<complex 1e0000>
+solver_rhs2	2	<complex 1e6400>
+solver_rhs2	5	<complex 1e0000>
+solver_rlx	2	<complex 1e0200>
+solver_rlx	5	<complex 1e0200>
+solver_rsd	2	<complex 1e0000>
+solver_rsd	5	<complex 1e0000>
+solver_scl	2	<complex 1e0100>
+solver_scl	5	<complex 1e0100>
+solver_sho	2	<complex 1e0200>
+solver_sho	5	<complex 1e0100>
+solver_ssz	2	<complex 1e6400>
+solver_ssz	5	<complex 1e6400>
+solver_tim	2	<complex 1f0000c0ffffffdf41>
+solver_tim	5	<complex 1f0000c0ffffffdf41>
+solver_tol	2	<complex 1f7b14ae47e17a843f>
+solver_tol	5	<complex 1f7b14ae47e17a843f>
+solver_typ	2	<complex 1e0100>
+solver_typ	5	<complex 1e0300>
+solver_typ	10	<complex 1e0100>
+solver_typ	34	<complex 1e0100>
+solver_val	2	<complex 1e0000>
+solver_val	5	<complex 1e0000>
+solver_val	10	<complex 1e0000>
+solver_val	34	<complex 1e0000>
+solver_ver	2	<complex 1e0300>
+solver_ver	5	<complex 1e0300>
+solver_ver	10	<complex 1e0300>
+solver_ver	34	<complex 1e0300>
+source_app_aux	17	Air pollution!H29
+source_app_aux	-1	Air pollution!H29
+SourceAppO3	17	MTInputs!F322
+SourceAppO3	-1	MTInputs!F323
+SourceAppSel	17	MTInputs!F321
+SourceAppSel	-1	MTInputs!F322
+SPPEffAdjEnergyEfficiencyRegulations	-1	MTInputs!F247
+SPPEffAdjFeebates	-1	MTInputs!F251
+SPPEffAdjInd	-1	MTInputs!F250
+SPPEffAdjRes	-1	MTInputs!F249
+SPPEffAdjVehicleFuelEconomy	-1	MTInputs!F248
+StandardOutputCodeRange	-1	Mitigation!H2173:H14770
+StartingPointWhenLTStorageIsNeeded	17	MTInputs!F392
+StartingPointWhenLTStorageIsNeeded	-1	MTInputs!F393
+StartingPrice	-1	Dashboard!H39:O39
+StorageHoursForLTStorage	17	MTInputs!F394
+StorageHoursForLTStorage	-1	MTInputs!F395
+StorageToInterfaceRatioSTStorage	17	MTInputs!F389
+StorageToInterfaceRatioSTStorage	-1	MTInputs!F390
+Stripe	-1	<complex 170600530074007200690070006500>
+SupplyCostDeltaSubsidy	-1	MTInputs!F353
+Table	-1	<complex 1705005400610062006c006500>
+table6	7	<complex 6003001200000078a3c86e20393901>
+table6	17	<complex 6003001200000078a3c86ea0423901>
+table6	28	<complex 6003001200000078a3c86e20da3801>
+table6	45	<complex 6003001200000078a3c86e20f73901>
+table6	39	<complex 6003001200000078a3c86ea0e33801>
+table6	23	<complex 6003001200000078a3c86ea01c3901>
+table6	-1	<complex 6003001200000078a3c86e20433a01>
+TargetBelow	17	MTInputs!F305
+TargetBelow	-1	MTInputs!F306
+TargetLevelExciseReform	-1	Dashboard!H40:O40
+TargettedPercentile	17	MTInputs!F203
+TargettedPercentile	-1	MTInputs!F203
+TCRE	17	Air pollution!G102
+TCRE	-1	Air pollution!G90
+time_factor	17	Air pollution!H1167
+time_factor	-1	Air pollution!K749
+tmrel_GBD	17	Air pollution!G72
+tmrel_GBD	-1	Air pollution!G72
+tmrel_O3	17	Air pollution!G63
+tmrel_O3	-1	Air pollution!G63
+tmrel_WDL	17	Air pollution!G58
+tmrel_WDL	-1	Air pollution!G58
+TotalHoursStorageFor100pcVRE	-1	MTInputs!F389
+TransferType	17	MTInputs!F304
+TransferType	-1	MTInputs!F305
+TreeMap	-1	<complex 17070054007200650065004d0061007000>
+TrModel	-1	MTInputs!F340
+turner	-1	Air pollution!F62
+UnitLookups	-1	ETS+LTS!B30:C36
+UseElasticityModelPowerDemandInEngineerModel	17	MTInputs!F363
+UseElasticityModelPowerDemandInEngineerModel	-1	MTInputs!F364
+UseGlobalPrices	-1	MTInputs!F281
+UseSpotFuelPricesInEngineerModel	17	MTInputs!F367
+UseSpotFuelPricesInEngineerModel	-1	MTInputs!F368
+VatRef	-1	MTInputs!F284
+VREMaxPercentagePointofTotalGen	17	Mitigation!S91
+VREMaxPercentagePointofTotalGen	-1	Mitigation!S91
+VslEl	-1	MTInputs!F330
+VslElast	17	<complex 3c09002e0000000600>
+VslElast	-1	<complex 3c09002e0000000600>
+VslElSource	-1	MTInputs!F329
+VSLManual	17	MTInputs!F327
+VSLManual	-1	MTInputs!F328
+VSLMethod	17	MTInputs!F326
+VSLMethod	-1	MTInputs!F327
+WACCSource	17	MTInputs!F364
+WACCSource	-1	MTInputs!F365
+WACCUserGlobal	17	MTInputs!F365
+WACCUserGlobal	-1	MTInputs!F366
+Waterfall	-1	<complex 17090057006100740065007200660061006c006c>
+WDI_codes	17	WDI!B265:B415
+WDI_codes	-1	WDI!D265:D415
+WDI_data	17	WDI!B266:AT415
+WDI_data	-1	WDI!B265:AU415
+WDI_years	17	WDI!D265:S265
+WDI_years	-1	WDI!B265:AU265
+WEO	-1	
+WEO_codes	-1	WEO!D9:D3333
+WEO_upd	-1	WEO!C9:AU3333
+WEO_years	-1	WEO!C9:AU9
+WHOCODES	17	WHOCooking!A2:A190
+WHOCODES	-1	WHOCooking!A2:A190
+WHOfuels	17	WHOCooking!E2:E190
+WHOfuels	-1	WHOCooking!E2:E190
+WHOfuelshares	17	WHOCooking!F2:F190
+WHOfuelshares	-1	WHOCooking!F2:F190
+WorkDays	17	MTInputs!F333
+WorkDays	-1	MTInputs!F334
+WorstYearlyETSError	-1	Mitigation!K1963
+wrn.AE201.	28	<complex 6003000500000078a3c86e50932d7d>
+wrn.AE201.	-1	<complex 6003000500000078a3c86e50ab2d7d>
+wrn.Coal._.Questionnaire.	28	<complex 6003000900000078a3c86e60872e7d>
+wrn.Coal._.Questionnaire.	-1	<complex 6003000900000078a3c86e609b2e7d>
+wrn.Electricity._.Questionnaire.	28	<complex 6003001200000078a3c86ea0853a01>
+wrn.Electricity._.Questionnaire.	-1	<complex 6003001200000078a3c86e200a3a01>
+YearConsSubPha	-1	MTInputs!F132
+YearDistn	2	MTInputs!F304
+YearDistn	17	MTInputs!F303
+YearDistn	-1	MTInputs!F304
+YearFuelPrices	17	MTInputs!F281
+YearFuelPrices	-1	MTInputs!F282
+YearPha	17	MTInputs!F50
+YearPha	-1	MTInputs!F50
+YearPPACoalGas	17	MTInputs!F384
+YearPPACoalGas	-1	MTInputs!F385
+YearPrcContPha	17	MTInputs!F192
+YearPrcContPha	-1	MTInputs!F192
+YearProdSubPha	-1	MTInputs!F124
+YearsToPhaseOutPPAs	-1	MTInputs!F386
+YEmissions	28	<complex 2985003b0f0073000000730000000a0019005a0f>
+YEmissions	-1	<complex 2985003d34002e0000002e0000000a0019003c34>
+Z_112B8339_2081_11D2_BFD2_00A02466506E_.wvu.PrintTitles	-1	<complex 291f003b0f0000000000ffff0000010003003b0f>
+Z_112B833B_2081_11D2_BFD2_00A02466506E_.wvu.PrintTitles	-1	<complex 291f003b0f0000000000ffff0000010003003b0f>
+Z_65976840_70A2_11D2_BFD1_C1F7123CE332_.wvu.PrintTitles	-1	<complex 291f003b0f0000000000ffff0000010003003b0f>
+Z_B424DD41_AAD0_11D2_BFD1_00A02466506E_.wvu.PrintTitles	-1	<complex 291f003b0f0000000000ffff0000010003003b0f>
+Z_BC2BFA12_1C91_11D2_BFD2_00A02466506E_.wvu.PrintTitles	-1	<complex 291f003b0f0000000000ffff0000010003003b0f>
+Z_E6B74681_BCE1_11D2_BFD1_00A02466506E_.wvu.PrintTitles	-1	<complex 291f003b0f0000000000ffff0000010003003b0f>

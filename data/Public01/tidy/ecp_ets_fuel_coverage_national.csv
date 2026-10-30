@@ -1,0 +1,757 @@
+country_name,country,sector_fuel,code,year,value
+Australia ,AUS,coa,aus.mit.eef.coa,2024,1
+Australia ,AUS,coa,aus.mit.eef.coa,2025,1
+Australia ,AUS,nga,aus.mit.eef.nga,2024,1
+Australia ,AUS,nga,aus.mit.eef.nga,2025,1
+Australia ,AUS,oop,aus.mit.eef.oop,2024,1
+Australia ,AUS,oop,aus.mit.eef.oop,2025,1
+Australia ,AUS,gso,aus.mit.eef.gso,2024,1
+Australia ,AUS,gso,aus.mit.eef.gso,2025,1
+Australia ,AUS,die,aus.mit.eef.die,2024,1
+Australia ,AUS,die,aus.mit.eef.die,2025,1
+Australia ,AUS,ker,aus.mit.eef.ker,2024,1
+Australia ,AUS,ker,aus.mit.eef.ker,2025,1
+Australia ,AUS,lpg,aus.mit.eef.lpg,2024,1
+Australia ,AUS,lpg,aus.mit.eef.lpg,2025,1
+Australia ,AUS,jfu,aus.mit.eef.jfu,2024,1
+Australia ,AUS,jfu,aus.mit.eef.jfu,2025,1
+Australia ,AUS,bio,aus.mit.eef.bio,2024,0
+Australia ,AUS,bio,aus.mit.eef.bio,2025,0
+Austria,AUT,coa,aut.mit.eef.coa,2015,0
+Austria,AUT,coa,aut.mit.eef.coa,2016,0
+Austria,AUT,coa,aut.mit.eef.coa,2017,0
+Austria,AUT,coa,aut.mit.eef.coa,2018,0
+Austria,AUT,coa,aut.mit.eef.coa,2019,0
+Austria,AUT,coa,aut.mit.eef.coa,2020,0
+Austria,AUT,coa,aut.mit.eef.coa,2021,0
+Austria,AUT,coa,aut.mit.eef.coa,2022,0
+Austria,AUT,coa,aut.mit.eef.coa,2023,1
+Austria,AUT,coa,aut.mit.eef.coa,2024,1
+Austria,AUT,coa,aut.mit.eef.coa,2025,1
+Austria,AUT,nga,aut.mit.eef.nga,2015,0
+Austria,AUT,nga,aut.mit.eef.nga,2016,0
+Austria,AUT,nga,aut.mit.eef.nga,2017,0
+Austria,AUT,nga,aut.mit.eef.nga,2018,0
+Austria,AUT,nga,aut.mit.eef.nga,2019,0
+Austria,AUT,nga,aut.mit.eef.nga,2020,0
+Austria,AUT,nga,aut.mit.eef.nga,2021,0
+Austria,AUT,nga,aut.mit.eef.nga,2022,0
+Austria,AUT,nga,aut.mit.eef.nga,2023,1
+Austria,AUT,nga,aut.mit.eef.nga,2024,1
+Austria,AUT,nga,aut.mit.eef.nga,2025,1
+Austria,AUT,oop,aut.mit.eef.oop,2015,0
+Austria,AUT,oop,aut.mit.eef.oop,2016,0
+Austria,AUT,oop,aut.mit.eef.oop,2017,0
+Austria,AUT,oop,aut.mit.eef.oop,2018,0
+Austria,AUT,oop,aut.mit.eef.oop,2019,0
+Austria,AUT,oop,aut.mit.eef.oop,2020,0
+Austria,AUT,oop,aut.mit.eef.oop,2021,0
+Austria,AUT,oop,aut.mit.eef.oop,2022,0
+Austria,AUT,oop,aut.mit.eef.oop,2023,1
+Austria,AUT,oop,aut.mit.eef.oop,2024,1
+Austria,AUT,oop,aut.mit.eef.oop,2025,1
+Austria,AUT,gso,aut.mit.eef.gso,2015,0
+Austria,AUT,gso,aut.mit.eef.gso,2016,0
+Austria,AUT,gso,aut.mit.eef.gso,2017,0
+Austria,AUT,gso,aut.mit.eef.gso,2018,0
+Austria,AUT,gso,aut.mit.eef.gso,2019,0
+Austria,AUT,gso,aut.mit.eef.gso,2020,0
+Austria,AUT,gso,aut.mit.eef.gso,2021,0
+Austria,AUT,gso,aut.mit.eef.gso,2022,0
+Austria,AUT,gso,aut.mit.eef.gso,2023,1
+Austria,AUT,gso,aut.mit.eef.gso,2024,1
+Austria,AUT,gso,aut.mit.eef.gso,2025,1
+Austria,AUT,die,aut.mit.eef.die,2015,0
+Austria,AUT,die,aut.mit.eef.die,2016,0
+Austria,AUT,die,aut.mit.eef.die,2017,0
+Austria,AUT,die,aut.mit.eef.die,2018,0
+Austria,AUT,die,aut.mit.eef.die,2019,0
+Austria,AUT,die,aut.mit.eef.die,2020,0
+Austria,AUT,die,aut.mit.eef.die,2021,0
+Austria,AUT,die,aut.mit.eef.die,2022,0
+Austria,AUT,die,aut.mit.eef.die,2023,1
+Austria,AUT,die,aut.mit.eef.die,2024,1
+Austria,AUT,die,aut.mit.eef.die,2025,1
+Austria,AUT,ker,aut.mit.eef.ker,2015,0
+Austria,AUT,ker,aut.mit.eef.ker,2016,0
+Austria,AUT,ker,aut.mit.eef.ker,2017,0
+Austria,AUT,ker,aut.mit.eef.ker,2018,0
+Austria,AUT,ker,aut.mit.eef.ker,2019,0
+Austria,AUT,ker,aut.mit.eef.ker,2020,0
+Austria,AUT,ker,aut.mit.eef.ker,2021,0
+Austria,AUT,ker,aut.mit.eef.ker,2022,0
+Austria,AUT,ker,aut.mit.eef.ker,2023,1
+Austria,AUT,ker,aut.mit.eef.ker,2024,1
+Austria,AUT,ker,aut.mit.eef.ker,2025,1
+Austria,AUT,lpg,aut.mit.eef.lpg,2015,0
+Austria,AUT,lpg,aut.mit.eef.lpg,2016,0
+Austria,AUT,lpg,aut.mit.eef.lpg,2017,0
+Austria,AUT,lpg,aut.mit.eef.lpg,2018,0
+Austria,AUT,lpg,aut.mit.eef.lpg,2019,0
+Austria,AUT,lpg,aut.mit.eef.lpg,2020,0
+Austria,AUT,lpg,aut.mit.eef.lpg,2021,0
+Austria,AUT,lpg,aut.mit.eef.lpg,2022,0
+Austria,AUT,lpg,aut.mit.eef.lpg,2023,1
+Austria,AUT,lpg,aut.mit.eef.lpg,2024,1
+Austria,AUT,lpg,aut.mit.eef.lpg,2025,1
+Austria,AUT,jfu,aut.mit.eef.jfu,2015,0
+Austria,AUT,jfu,aut.mit.eef.jfu,2016,0
+Austria,AUT,jfu,aut.mit.eef.jfu,2017,0
+Austria,AUT,jfu,aut.mit.eef.jfu,2018,0
+Austria,AUT,jfu,aut.mit.eef.jfu,2019,0
+Austria,AUT,jfu,aut.mit.eef.jfu,2020,0
+Austria,AUT,jfu,aut.mit.eef.jfu,2021,0
+Austria,AUT,jfu,aut.mit.eef.jfu,2022,0
+Austria,AUT,jfu,aut.mit.eef.jfu,2023,0
+Austria,AUT,jfu,aut.mit.eef.jfu,2024,0
+Austria,AUT,jfu,aut.mit.eef.jfu,2025,0
+Austria,AUT,bio,aut.mit.eef.bio,2015,0
+Austria,AUT,bio,aut.mit.eef.bio,2016,0
+Austria,AUT,bio,aut.mit.eef.bio,2017,0
+Austria,AUT,bio,aut.mit.eef.bio,2018,0
+Austria,AUT,bio,aut.mit.eef.bio,2019,0
+Austria,AUT,bio,aut.mit.eef.bio,2020,0
+Austria,AUT,bio,aut.mit.eef.bio,2021,0
+Austria,AUT,bio,aut.mit.eef.bio,2022,0
+Austria,AUT,bio,aut.mit.eef.bio,2023,0
+Austria,AUT,bio,aut.mit.eef.bio,2024,0
+Austria,AUT,bio,aut.mit.eef.bio,2025,0
+Canada,CAN,coa,can.mit.eef.coa,2021,1
+Canada,CAN,coa,can.mit.eef.coa,2022,1
+Canada,CAN,coa,can.mit.eef.coa,2023,1
+Canada,CAN,coa,can.mit.eef.coa,2024,1
+Canada,CAN,coa,can.mit.eef.coa,2025,1
+Canada,CAN,nga,can.mit.eef.nga,2021,1
+Canada,CAN,nga,can.mit.eef.nga,2022,1
+Canada,CAN,nga,can.mit.eef.nga,2023,1
+Canada,CAN,nga,can.mit.eef.nga,2024,1
+Canada,CAN,nga,can.mit.eef.nga,2025,1
+Canada,CAN,oop,can.mit.eef.oop,2021,1
+Canada,CAN,oop,can.mit.eef.oop,2022,1
+Canada,CAN,oop,can.mit.eef.oop,2023,1
+Canada,CAN,oop,can.mit.eef.oop,2024,1
+Canada,CAN,oop,can.mit.eef.oop,2025,1
+Canada,CAN,gso,can.mit.eef.gso,2021,1
+Canada,CAN,gso,can.mit.eef.gso,2022,1
+Canada,CAN,gso,can.mit.eef.gso,2023,1
+Canada,CAN,gso,can.mit.eef.gso,2024,1
+Canada,CAN,gso,can.mit.eef.gso,2025,1
+Canada,CAN,die,can.mit.eef.die,2021,1
+Canada,CAN,die,can.mit.eef.die,2022,1
+Canada,CAN,die,can.mit.eef.die,2023,1
+Canada,CAN,die,can.mit.eef.die,2024,1
+Canada,CAN,die,can.mit.eef.die,2025,1
+Canada,CAN,ker,can.mit.eef.ker,2021,1
+Canada,CAN,ker,can.mit.eef.ker,2022,1
+Canada,CAN,ker,can.mit.eef.ker,2023,1
+Canada,CAN,ker,can.mit.eef.ker,2024,1
+Canada,CAN,ker,can.mit.eef.ker,2025,1
+Canada,CAN,lpg,can.mit.eef.lpg,2021,1
+Canada,CAN,lpg,can.mit.eef.lpg,2022,1
+Canada,CAN,lpg,can.mit.eef.lpg,2023,1
+Canada,CAN,lpg,can.mit.eef.lpg,2024,1
+Canada,CAN,lpg,can.mit.eef.lpg,2025,1
+Canada,CAN,jfu,can.mit.eef.jfu,2021,0
+Canada,CAN,jfu,can.mit.eef.jfu,2022,0
+Canada,CAN,jfu,can.mit.eef.jfu,2023,0
+Canada,CAN,jfu,can.mit.eef.jfu,2024,0
+Canada,CAN,jfu,can.mit.eef.jfu,2025,0
+Canada,CAN,bio,can.mit.eef.bio,2021,0
+Canada,CAN,bio,can.mit.eef.bio,2022,0
+Canada,CAN,bio,can.mit.eef.bio,2023,0
+Canada,CAN,bio,can.mit.eef.bio,2024,0
+Canada,CAN,bio,can.mit.eef.bio,2025,0
+China,CHN,coa,chn.mit.eef.coa,2021,1
+China,CHN,coa,chn.mit.eef.coa,2022,1
+China,CHN,coa,chn.mit.eef.coa,2023,1
+China,CHN,coa,chn.mit.eef.coa,2024,1
+China,CHN,coa,chn.mit.eef.coa,2025,1
+China,CHN,nga,chn.mit.eef.nga,2021,1
+China,CHN,nga,chn.mit.eef.nga,2022,1
+China,CHN,nga,chn.mit.eef.nga,2023,1
+China,CHN,nga,chn.mit.eef.nga,2024,1
+China,CHN,nga,chn.mit.eef.nga,2025,1
+China,CHN,oop,chn.mit.eef.oop,2021,1
+China,CHN,oop,chn.mit.eef.oop,2022,1
+China,CHN,oop,chn.mit.eef.oop,2023,1
+China,CHN,oop,chn.mit.eef.oop,2024,1
+China,CHN,oop,chn.mit.eef.oop,2025,1
+China,CHN,gso,chn.mit.eef.gso,2021,1
+China,CHN,gso,chn.mit.eef.gso,2022,1
+China,CHN,gso,chn.mit.eef.gso,2023,1
+China,CHN,gso,chn.mit.eef.gso,2024,1
+China,CHN,gso,chn.mit.eef.gso,2025,1
+China,CHN,die,chn.mit.eef.die,2021,1
+China,CHN,die,chn.mit.eef.die,2022,1
+China,CHN,die,chn.mit.eef.die,2023,1
+China,CHN,die,chn.mit.eef.die,2024,1
+China,CHN,die,chn.mit.eef.die,2025,1
+China,CHN,ker,chn.mit.eef.ker,2021,1
+China,CHN,ker,chn.mit.eef.ker,2022,1
+China,CHN,ker,chn.mit.eef.ker,2023,1
+China,CHN,ker,chn.mit.eef.ker,2024,1
+China,CHN,ker,chn.mit.eef.ker,2025,1
+China,CHN,lpg,chn.mit.eef.lpg,2021,1
+China,CHN,lpg,chn.mit.eef.lpg,2022,1
+China,CHN,lpg,chn.mit.eef.lpg,2023,1
+China,CHN,lpg,chn.mit.eef.lpg,2024,1
+China,CHN,lpg,chn.mit.eef.lpg,2025,1
+China,CHN,jfu,chn.mit.eef.jfu,2021,0
+China,CHN,jfu,chn.mit.eef.jfu,2022,0
+China,CHN,jfu,chn.mit.eef.jfu,2023,0
+China,CHN,jfu,chn.mit.eef.jfu,2024,0
+China,CHN,jfu,chn.mit.eef.jfu,2025,0
+China,CHN,bio,chn.mit.eef.bio,2021,1
+China,CHN,bio,chn.mit.eef.bio,2022,1
+China,CHN,bio,chn.mit.eef.bio,2023,1
+China,CHN,bio,chn.mit.eef.bio,2024,1
+China,CHN,bio,chn.mit.eef.bio,2025,1
+Germany,DEU,coa,deu.mit.eef.coa,2021,0
+Germany,DEU,coa,deu.mit.eef.coa,2022,0
+Germany,DEU,coa,deu.mit.eef.coa,2023,0
+Germany,DEU,coa,deu.mit.eef.coa,2024,1
+Germany,DEU,coa,deu.mit.eef.coa,2025,1
+Germany,DEU,nga,deu.mit.eef.nga,2021,1
+Germany,DEU,nga,deu.mit.eef.nga,2022,1
+Germany,DEU,nga,deu.mit.eef.nga,2023,1
+Germany,DEU,nga,deu.mit.eef.nga,2024,1
+Germany,DEU,nga,deu.mit.eef.nga,2025,1
+Germany,DEU,oop,deu.mit.eef.oop,2021,1
+Germany,DEU,oop,deu.mit.eef.oop,2022,1
+Germany,DEU,oop,deu.mit.eef.oop,2023,1
+Germany,DEU,oop,deu.mit.eef.oop,2024,1
+Germany,DEU,oop,deu.mit.eef.oop,2025,1
+Germany,DEU,gso,deu.mit.eef.gso,2021,1
+Germany,DEU,gso,deu.mit.eef.gso,2022,1
+Germany,DEU,gso,deu.mit.eef.gso,2023,1
+Germany,DEU,gso,deu.mit.eef.gso,2024,1
+Germany,DEU,gso,deu.mit.eef.gso,2025,1
+Germany,DEU,die,deu.mit.eef.die,2021,1
+Germany,DEU,die,deu.mit.eef.die,2022,1
+Germany,DEU,die,deu.mit.eef.die,2023,1
+Germany,DEU,die,deu.mit.eef.die,2024,1
+Germany,DEU,die,deu.mit.eef.die,2025,1
+Germany,DEU,ker,deu.mit.eef.ker,2021,1
+Germany,DEU,ker,deu.mit.eef.ker,2022,1
+Germany,DEU,ker,deu.mit.eef.ker,2023,1
+Germany,DEU,ker,deu.mit.eef.ker,2024,1
+Germany,DEU,ker,deu.mit.eef.ker,2025,1
+Germany,DEU,lpg,deu.mit.eef.lpg,2021,1
+Germany,DEU,lpg,deu.mit.eef.lpg,2022,1
+Germany,DEU,lpg,deu.mit.eef.lpg,2023,1
+Germany,DEU,lpg,deu.mit.eef.lpg,2024,1
+Germany,DEU,lpg,deu.mit.eef.lpg,2025,1
+Germany,DEU,jfu,deu.mit.eef.jfu,2021,1
+Germany,DEU,jfu,deu.mit.eef.jfu,2022,1
+Germany,DEU,jfu,deu.mit.eef.jfu,2023,1
+Germany,DEU,jfu,deu.mit.eef.jfu,2024,1
+Germany,DEU,jfu,deu.mit.eef.jfu,2025,1
+Germany,DEU,bio,deu.mit.eef.bio,2021,0
+Germany,DEU,bio,deu.mit.eef.bio,2022,0
+Germany,DEU,bio,deu.mit.eef.bio,2023,0
+Germany,DEU,bio,deu.mit.eef.bio,2024,1
+Germany,DEU,bio,deu.mit.eef.bio,2025,1
+Indonesia,IDN,coa,idn.mit.eef.coa,2023,1
+Indonesia,IDN,coa,idn.mit.eef.coa,2024,1
+Indonesia,IDN,coa,idn.mit.eef.coa,2025,1
+Indonesia,IDN,nga,idn.mit.eef.nga,2023,0
+Indonesia,IDN,nga,idn.mit.eef.nga,2024,0
+Indonesia,IDN,nga,idn.mit.eef.nga,2025,0
+Indonesia,IDN,oop,idn.mit.eef.oop,2023,0
+Indonesia,IDN,oop,idn.mit.eef.oop,2024,0
+Indonesia,IDN,oop,idn.mit.eef.oop,2025,0
+Indonesia,IDN,gso,idn.mit.eef.gso,2023,0
+Indonesia,IDN,gso,idn.mit.eef.gso,2024,0
+Indonesia,IDN,gso,idn.mit.eef.gso,2025,0
+Indonesia,IDN,die,idn.mit.eef.die,2023,0
+Indonesia,IDN,die,idn.mit.eef.die,2024,0
+Indonesia,IDN,die,idn.mit.eef.die,2025,0
+Indonesia,IDN,ker,idn.mit.eef.ker,2023,0
+Indonesia,IDN,ker,idn.mit.eef.ker,2024,0
+Indonesia,IDN,ker,idn.mit.eef.ker,2025,0
+Indonesia,IDN,lpg,idn.mit.eef.lpg,2023,0
+Indonesia,IDN,lpg,idn.mit.eef.lpg,2024,0
+Indonesia,IDN,lpg,idn.mit.eef.lpg,2025,0
+Indonesia,IDN,jfu,idn.mit.eef.jfu,2023,0
+Indonesia,IDN,jfu,idn.mit.eef.jfu,2024,0
+Indonesia,IDN,jfu,idn.mit.eef.jfu,2025,0
+Indonesia,IDN,bio,idn.mit.eef.bio,2023,0
+Indonesia,IDN,bio,idn.mit.eef.bio,2024,0
+Indonesia,IDN,bio,idn.mit.eef.bio,2025,0
+Kazakhstan,KAZ,coa,kaz.mit.eef.coa,2015,1
+Kazakhstan,KAZ,coa,kaz.mit.eef.coa,2020,1
+Kazakhstan,KAZ,coa,kaz.mit.eef.coa,2021,1
+Kazakhstan,KAZ,coa,kaz.mit.eef.coa,2022,1
+Kazakhstan,KAZ,coa,kaz.mit.eef.coa,2023,1
+Kazakhstan,KAZ,coa,kaz.mit.eef.coa,2024,1
+Kazakhstan,KAZ,coa,kaz.mit.eef.coa,2025,1
+Kazakhstan,KAZ,nga,kaz.mit.eef.nga,2015,1
+Kazakhstan,KAZ,nga,kaz.mit.eef.nga,2020,1
+Kazakhstan,KAZ,nga,kaz.mit.eef.nga,2021,1
+Kazakhstan,KAZ,nga,kaz.mit.eef.nga,2022,1
+Kazakhstan,KAZ,nga,kaz.mit.eef.nga,2023,1
+Kazakhstan,KAZ,nga,kaz.mit.eef.nga,2024,1
+Kazakhstan,KAZ,nga,kaz.mit.eef.nga,2025,1
+Kazakhstan,KAZ,oop,kaz.mit.eef.oop,2015,1
+Kazakhstan,KAZ,oop,kaz.mit.eef.oop,2020,1
+Kazakhstan,KAZ,oop,kaz.mit.eef.oop,2021,1
+Kazakhstan,KAZ,oop,kaz.mit.eef.oop,2022,1
+Kazakhstan,KAZ,oop,kaz.mit.eef.oop,2023,1
+Kazakhstan,KAZ,oop,kaz.mit.eef.oop,2024,1
+Kazakhstan,KAZ,oop,kaz.mit.eef.oop,2025,1
+Kazakhstan,KAZ,gso,kaz.mit.eef.gso,2015,1
+Kazakhstan,KAZ,gso,kaz.mit.eef.gso,2020,1
+Kazakhstan,KAZ,gso,kaz.mit.eef.gso,2021,1
+Kazakhstan,KAZ,gso,kaz.mit.eef.gso,2022,1
+Kazakhstan,KAZ,gso,kaz.mit.eef.gso,2023,1
+Kazakhstan,KAZ,gso,kaz.mit.eef.gso,2024,1
+Kazakhstan,KAZ,gso,kaz.mit.eef.gso,2025,1
+Kazakhstan,KAZ,die,kaz.mit.eef.die,2015,1
+Kazakhstan,KAZ,die,kaz.mit.eef.die,2020,1
+Kazakhstan,KAZ,die,kaz.mit.eef.die,2021,1
+Kazakhstan,KAZ,die,kaz.mit.eef.die,2022,1
+Kazakhstan,KAZ,die,kaz.mit.eef.die,2023,1
+Kazakhstan,KAZ,die,kaz.mit.eef.die,2024,1
+Kazakhstan,KAZ,die,kaz.mit.eef.die,2025,1
+Kazakhstan,KAZ,ker,kaz.mit.eef.ker,2015,1
+Kazakhstan,KAZ,ker,kaz.mit.eef.ker,2020,1
+Kazakhstan,KAZ,ker,kaz.mit.eef.ker,2021,1
+Kazakhstan,KAZ,ker,kaz.mit.eef.ker,2022,1
+Kazakhstan,KAZ,ker,kaz.mit.eef.ker,2023,1
+Kazakhstan,KAZ,ker,kaz.mit.eef.ker,2024,1
+Kazakhstan,KAZ,ker,kaz.mit.eef.ker,2025,1
+Kazakhstan,KAZ,lpg,kaz.mit.eef.lpg,2015,1
+Kazakhstan,KAZ,lpg,kaz.mit.eef.lpg,2020,1
+Kazakhstan,KAZ,lpg,kaz.mit.eef.lpg,2021,1
+Kazakhstan,KAZ,lpg,kaz.mit.eef.lpg,2022,1
+Kazakhstan,KAZ,lpg,kaz.mit.eef.lpg,2023,1
+Kazakhstan,KAZ,lpg,kaz.mit.eef.lpg,2024,1
+Kazakhstan,KAZ,lpg,kaz.mit.eef.lpg,2025,1
+Kazakhstan,KAZ,jfu,kaz.mit.eef.jfu,2015,0
+Kazakhstan,KAZ,jfu,kaz.mit.eef.jfu,2020,0
+Kazakhstan,KAZ,jfu,kaz.mit.eef.jfu,2021,0
+Kazakhstan,KAZ,jfu,kaz.mit.eef.jfu,2022,0
+Kazakhstan,KAZ,jfu,kaz.mit.eef.jfu,2023,0
+Kazakhstan,KAZ,jfu,kaz.mit.eef.jfu,2024,0
+Kazakhstan,KAZ,jfu,kaz.mit.eef.jfu,2025,0
+Kazakhstan,KAZ,bio,kaz.mit.eef.bio,2015,0
+Kazakhstan,KAZ,bio,kaz.mit.eef.bio,2020,0
+Kazakhstan,KAZ,bio,kaz.mit.eef.bio,2021,0
+Kazakhstan,KAZ,bio,kaz.mit.eef.bio,2022,0
+Kazakhstan,KAZ,bio,kaz.mit.eef.bio,2023,0
+Kazakhstan,KAZ,bio,kaz.mit.eef.bio,2024,0
+Kazakhstan,KAZ,bio,kaz.mit.eef.bio,2025,0
+Korea,KOR,coa,kor.mit.eef.coa,2015,1
+Korea,KOR,coa,kor.mit.eef.coa,2016,1
+Korea,KOR,coa,kor.mit.eef.coa,2017,1
+Korea,KOR,coa,kor.mit.eef.coa,2018,1
+Korea,KOR,coa,kor.mit.eef.coa,2019,1
+Korea,KOR,coa,kor.mit.eef.coa,2020,1
+Korea,KOR,coa,kor.mit.eef.coa,2021,1
+Korea,KOR,coa,kor.mit.eef.coa,2022,1
+Korea,KOR,coa,kor.mit.eef.coa,2023,1
+Korea,KOR,coa,kor.mit.eef.coa,2024,1
+Korea,KOR,coa,kor.mit.eef.coa,2025,1
+Korea,KOR,nga,kor.mit.eef.nga,2015,1
+Korea,KOR,nga,kor.mit.eef.nga,2016,1
+Korea,KOR,nga,kor.mit.eef.nga,2017,1
+Korea,KOR,nga,kor.mit.eef.nga,2018,1
+Korea,KOR,nga,kor.mit.eef.nga,2019,1
+Korea,KOR,nga,kor.mit.eef.nga,2020,1
+Korea,KOR,nga,kor.mit.eef.nga,2021,1
+Korea,KOR,nga,kor.mit.eef.nga,2022,1
+Korea,KOR,nga,kor.mit.eef.nga,2023,1
+Korea,KOR,nga,kor.mit.eef.nga,2024,1
+Korea,KOR,nga,kor.mit.eef.nga,2025,1
+Korea,KOR,oop,kor.mit.eef.oop,2015,1
+Korea,KOR,oop,kor.mit.eef.oop,2016,1
+Korea,KOR,oop,kor.mit.eef.oop,2017,1
+Korea,KOR,oop,kor.mit.eef.oop,2018,1
+Korea,KOR,oop,kor.mit.eef.oop,2019,1
+Korea,KOR,oop,kor.mit.eef.oop,2020,1
+Korea,KOR,oop,kor.mit.eef.oop,2021,1
+Korea,KOR,oop,kor.mit.eef.oop,2022,1
+Korea,KOR,oop,kor.mit.eef.oop,2023,1
+Korea,KOR,oop,kor.mit.eef.oop,2024,1
+Korea,KOR,oop,kor.mit.eef.oop,2025,1
+Korea,KOR,gso,kor.mit.eef.gso,2015,1
+Korea,KOR,gso,kor.mit.eef.gso,2016,1
+Korea,KOR,gso,kor.mit.eef.gso,2017,1
+Korea,KOR,gso,kor.mit.eef.gso,2018,1
+Korea,KOR,gso,kor.mit.eef.gso,2019,1
+Korea,KOR,gso,kor.mit.eef.gso,2020,1
+Korea,KOR,gso,kor.mit.eef.gso,2021,1
+Korea,KOR,gso,kor.mit.eef.gso,2022,1
+Korea,KOR,gso,kor.mit.eef.gso,2023,1
+Korea,KOR,gso,kor.mit.eef.gso,2024,1
+Korea,KOR,gso,kor.mit.eef.gso,2025,1
+Korea,KOR,die,kor.mit.eef.die,2015,1
+Korea,KOR,die,kor.mit.eef.die,2016,1
+Korea,KOR,die,kor.mit.eef.die,2017,1
+Korea,KOR,die,kor.mit.eef.die,2018,1
+Korea,KOR,die,kor.mit.eef.die,2019,1
+Korea,KOR,die,kor.mit.eef.die,2020,1
+Korea,KOR,die,kor.mit.eef.die,2021,1
+Korea,KOR,die,kor.mit.eef.die,2022,1
+Korea,KOR,die,kor.mit.eef.die,2023,1
+Korea,KOR,die,kor.mit.eef.die,2024,1
+Korea,KOR,die,kor.mit.eef.die,2025,1
+Korea,KOR,ker,kor.mit.eef.ker,2015,1
+Korea,KOR,ker,kor.mit.eef.ker,2016,1
+Korea,KOR,ker,kor.mit.eef.ker,2017,1
+Korea,KOR,ker,kor.mit.eef.ker,2018,1
+Korea,KOR,ker,kor.mit.eef.ker,2019,1
+Korea,KOR,ker,kor.mit.eef.ker,2020,1
+Korea,KOR,ker,kor.mit.eef.ker,2021,1
+Korea,KOR,ker,kor.mit.eef.ker,2022,1
+Korea,KOR,ker,kor.mit.eef.ker,2023,1
+Korea,KOR,ker,kor.mit.eef.ker,2024,1
+Korea,KOR,ker,kor.mit.eef.ker,2025,1
+Korea,KOR,lpg,kor.mit.eef.lpg,2015,1
+Korea,KOR,lpg,kor.mit.eef.lpg,2016,1
+Korea,KOR,lpg,kor.mit.eef.lpg,2017,1
+Korea,KOR,lpg,kor.mit.eef.lpg,2018,1
+Korea,KOR,lpg,kor.mit.eef.lpg,2019,1
+Korea,KOR,lpg,kor.mit.eef.lpg,2020,1
+Korea,KOR,lpg,kor.mit.eef.lpg,2021,1
+Korea,KOR,lpg,kor.mit.eef.lpg,2022,1
+Korea,KOR,lpg,kor.mit.eef.lpg,2023,1
+Korea,KOR,lpg,kor.mit.eef.lpg,2024,1
+Korea,KOR,lpg,kor.mit.eef.lpg,2025,1
+Korea,KOR,jfu,kor.mit.eef.jfu,2015,1
+Korea,KOR,jfu,kor.mit.eef.jfu,2016,1
+Korea,KOR,jfu,kor.mit.eef.jfu,2017,1
+Korea,KOR,jfu,kor.mit.eef.jfu,2018,1
+Korea,KOR,jfu,kor.mit.eef.jfu,2019,1
+Korea,KOR,jfu,kor.mit.eef.jfu,2020,1
+Korea,KOR,jfu,kor.mit.eef.jfu,2021,1
+Korea,KOR,jfu,kor.mit.eef.jfu,2022,1
+Korea,KOR,jfu,kor.mit.eef.jfu,2023,1
+Korea,KOR,jfu,kor.mit.eef.jfu,2024,1
+Korea,KOR,jfu,kor.mit.eef.jfu,2025,1
+Korea,KOR,bio,kor.mit.eef.bio,2015,0
+Korea,KOR,bio,kor.mit.eef.bio,2016,0
+Korea,KOR,bio,kor.mit.eef.bio,2017,0
+Korea,KOR,bio,kor.mit.eef.bio,2018,0
+Korea,KOR,bio,kor.mit.eef.bio,2019,0
+Korea,KOR,bio,kor.mit.eef.bio,2020,0
+Korea,KOR,bio,kor.mit.eef.bio,2021,0
+Korea,KOR,bio,kor.mit.eef.bio,2022,0
+Korea,KOR,bio,kor.mit.eef.bio,2023,0
+Korea,KOR,bio,kor.mit.eef.bio,2024,0
+Korea,KOR,bio,kor.mit.eef.bio,2025,0
+Mexico,MEX,coa,mex.mit.eef.coa,2020,1
+Mexico,MEX,coa,mex.mit.eef.coa,2021,1
+Mexico,MEX,coa,mex.mit.eef.coa,2022,1
+Mexico,MEX,coa,mex.mit.eef.coa,2023,1
+Mexico,MEX,coa,mex.mit.eef.coa,2024,1
+Mexico,MEX,coa,mex.mit.eef.coa,2025,1
+Mexico,MEX,nga,mex.mit.eef.nga,2020,1
+Mexico,MEX,nga,mex.mit.eef.nga,2021,1
+Mexico,MEX,nga,mex.mit.eef.nga,2022,1
+Mexico,MEX,nga,mex.mit.eef.nga,2023,1
+Mexico,MEX,nga,mex.mit.eef.nga,2024,1
+Mexico,MEX,nga,mex.mit.eef.nga,2025,1
+Mexico,MEX,oop,mex.mit.eef.oop,2020,1
+Mexico,MEX,oop,mex.mit.eef.oop,2021,1
+Mexico,MEX,oop,mex.mit.eef.oop,2022,1
+Mexico,MEX,oop,mex.mit.eef.oop,2023,1
+Mexico,MEX,oop,mex.mit.eef.oop,2024,1
+Mexico,MEX,oop,mex.mit.eef.oop,2025,1
+Mexico,MEX,gso,mex.mit.eef.gso,2020,1
+Mexico,MEX,gso,mex.mit.eef.gso,2021,1
+Mexico,MEX,gso,mex.mit.eef.gso,2022,1
+Mexico,MEX,gso,mex.mit.eef.gso,2023,1
+Mexico,MEX,gso,mex.mit.eef.gso,2024,1
+Mexico,MEX,gso,mex.mit.eef.gso,2025,1
+Mexico,MEX,die,mex.mit.eef.die,2020,1
+Mexico,MEX,die,mex.mit.eef.die,2021,1
+Mexico,MEX,die,mex.mit.eef.die,2022,1
+Mexico,MEX,die,mex.mit.eef.die,2023,1
+Mexico,MEX,die,mex.mit.eef.die,2024,1
+Mexico,MEX,die,mex.mit.eef.die,2025,1
+Mexico,MEX,ker,mex.mit.eef.ker,2020,1
+Mexico,MEX,ker,mex.mit.eef.ker,2021,1
+Mexico,MEX,ker,mex.mit.eef.ker,2022,1
+Mexico,MEX,ker,mex.mit.eef.ker,2023,1
+Mexico,MEX,ker,mex.mit.eef.ker,2024,1
+Mexico,MEX,ker,mex.mit.eef.ker,2025,1
+Mexico,MEX,lpg,mex.mit.eef.lpg,2020,1
+Mexico,MEX,lpg,mex.mit.eef.lpg,2021,1
+Mexico,MEX,lpg,mex.mit.eef.lpg,2022,1
+Mexico,MEX,lpg,mex.mit.eef.lpg,2023,1
+Mexico,MEX,lpg,mex.mit.eef.lpg,2024,1
+Mexico,MEX,lpg,mex.mit.eef.lpg,2025,1
+Mexico,MEX,jfu,mex.mit.eef.jfu,2020,0
+Mexico,MEX,jfu,mex.mit.eef.jfu,2021,0
+Mexico,MEX,jfu,mex.mit.eef.jfu,2022,0
+Mexico,MEX,jfu,mex.mit.eef.jfu,2023,0
+Mexico,MEX,jfu,mex.mit.eef.jfu,2024,0
+Mexico,MEX,jfu,mex.mit.eef.jfu,2025,0
+Mexico,MEX,bio,mex.mit.eef.bio,2020,0
+Mexico,MEX,bio,mex.mit.eef.bio,2021,0
+Mexico,MEX,bio,mex.mit.eef.bio,2022,0
+Mexico,MEX,bio,mex.mit.eef.bio,2023,0
+Mexico,MEX,bio,mex.mit.eef.bio,2024,0
+Mexico,MEX,bio,mex.mit.eef.bio,2025,0
+"Montenegro, Rep.",MNE,coa,mne.mit.eef.coa,2023,1
+"Montenegro, Rep.",MNE,coa,mne.mit.eef.coa,2024,1
+"Montenegro, Rep.",MNE,coa,mne.mit.eef.coa,2025,1
+"Montenegro, Rep.",MNE,nga,mne.mit.eef.nga,2023,1
+"Montenegro, Rep.",MNE,nga,mne.mit.eef.nga,2024,1
+"Montenegro, Rep.",MNE,nga,mne.mit.eef.nga,2025,1
+"Montenegro, Rep.",MNE,oop,mne.mit.eef.oop,2023,0
+"Montenegro, Rep.",MNE,oop,mne.mit.eef.oop,2024,0
+"Montenegro, Rep.",MNE,oop,mne.mit.eef.oop,2025,0
+"Montenegro, Rep.",MNE,gso,mne.mit.eef.gso,2023,1
+"Montenegro, Rep.",MNE,gso,mne.mit.eef.gso,2024,1
+"Montenegro, Rep.",MNE,gso,mne.mit.eef.gso,2025,1
+"Montenegro, Rep.",MNE,die,mne.mit.eef.die,2023,1
+"Montenegro, Rep.",MNE,die,mne.mit.eef.die,2024,1
+"Montenegro, Rep.",MNE,die,mne.mit.eef.die,2025,1
+"Montenegro, Rep.",MNE,ker,mne.mit.eef.ker,2023,1
+"Montenegro, Rep.",MNE,ker,mne.mit.eef.ker,2024,1
+"Montenegro, Rep.",MNE,ker,mne.mit.eef.ker,2025,1
+"Montenegro, Rep.",MNE,lpg,mne.mit.eef.lpg,2023,1
+"Montenegro, Rep.",MNE,lpg,mne.mit.eef.lpg,2024,1
+"Montenegro, Rep.",MNE,lpg,mne.mit.eef.lpg,2025,1
+"Montenegro, Rep.",MNE,jfu,mne.mit.eef.jfu,2023,0
+"Montenegro, Rep.",MNE,jfu,mne.mit.eef.jfu,2024,0
+"Montenegro, Rep.",MNE,jfu,mne.mit.eef.jfu,2025,0
+"Montenegro, Rep.",MNE,bio,mne.mit.eef.bio,2023,0
+"Montenegro, Rep.",MNE,bio,mne.mit.eef.bio,2024,0
+"Montenegro, Rep.",MNE,bio,mne.mit.eef.bio,2025,0
+New Zealand,NZL,coa,nzl.mit.eef.coa,2015,1
+New Zealand,NZL,coa,nzl.mit.eef.coa,2016,1
+New Zealand,NZL,coa,nzl.mit.eef.coa,2017,1
+New Zealand,NZL,coa,nzl.mit.eef.coa,2018,1
+New Zealand,NZL,coa,nzl.mit.eef.coa,2019,1
+New Zealand,NZL,coa,nzl.mit.eef.coa,2020,1
+New Zealand,NZL,coa,nzl.mit.eef.coa,2021,1
+New Zealand,NZL,coa,nzl.mit.eef.coa,2022,1
+New Zealand,NZL,coa,nzl.mit.eef.coa,2023,1
+New Zealand,NZL,coa,nzl.mit.eef.coa,2024,1
+New Zealand,NZL,coa,nzl.mit.eef.coa,2025,1
+New Zealand,NZL,nga,nzl.mit.eef.nga,2015,1
+New Zealand,NZL,nga,nzl.mit.eef.nga,2016,1
+New Zealand,NZL,nga,nzl.mit.eef.nga,2017,1
+New Zealand,NZL,nga,nzl.mit.eef.nga,2018,1
+New Zealand,NZL,nga,nzl.mit.eef.nga,2019,1
+New Zealand,NZL,nga,nzl.mit.eef.nga,2020,1
+New Zealand,NZL,nga,nzl.mit.eef.nga,2021,1
+New Zealand,NZL,nga,nzl.mit.eef.nga,2022,1
+New Zealand,NZL,nga,nzl.mit.eef.nga,2023,1
+New Zealand,NZL,nga,nzl.mit.eef.nga,2024,1
+New Zealand,NZL,nga,nzl.mit.eef.nga,2025,1
+New Zealand,NZL,oop,nzl.mit.eef.oop,2015,1
+New Zealand,NZL,oop,nzl.mit.eef.oop,2016,1
+New Zealand,NZL,oop,nzl.mit.eef.oop,2017,1
+New Zealand,NZL,oop,nzl.mit.eef.oop,2018,1
+New Zealand,NZL,oop,nzl.mit.eef.oop,2019,1
+New Zealand,NZL,oop,nzl.mit.eef.oop,2020,1
+New Zealand,NZL,oop,nzl.mit.eef.oop,2021,1
+New Zealand,NZL,oop,nzl.mit.eef.oop,2022,1
+New Zealand,NZL,oop,nzl.mit.eef.oop,2023,1
+New Zealand,NZL,oop,nzl.mit.eef.oop,2024,1
+New Zealand,NZL,oop,nzl.mit.eef.oop,2025,1
+New Zealand,NZL,gso,nzl.mit.eef.gso,2015,1
+New Zealand,NZL,gso,nzl.mit.eef.gso,2016,1
+New Zealand,NZL,gso,nzl.mit.eef.gso,2017,1
+New Zealand,NZL,gso,nzl.mit.eef.gso,2018,1
+New Zealand,NZL,gso,nzl.mit.eef.gso,2019,1
+New Zealand,NZL,gso,nzl.mit.eef.gso,2020,1
+New Zealand,NZL,gso,nzl.mit.eef.gso,2021,1
+New Zealand,NZL,gso,nzl.mit.eef.gso,2022,1
+New Zealand,NZL,gso,nzl.mit.eef.gso,2023,1
+New Zealand,NZL,gso,nzl.mit.eef.gso,2024,1
+New Zealand,NZL,gso,nzl.mit.eef.gso,2025,1
+New Zealand,NZL,die,nzl.mit.eef.die,2015,1
+New Zealand,NZL,die,nzl.mit.eef.die,2016,1
+New Zealand,NZL,die,nzl.mit.eef.die,2017,1
+New Zealand,NZL,die,nzl.mit.eef.die,2018,1
+New Zealand,NZL,die,nzl.mit.eef.die,2019,1
+New Zealand,NZL,die,nzl.mit.eef.die,2020,1
+New Zealand,NZL,die,nzl.mit.eef.die,2021,1
+New Zealand,NZL,die,nzl.mit.eef.die,2022,1
+New Zealand,NZL,die,nzl.mit.eef.die,2023,1
+New Zealand,NZL,die,nzl.mit.eef.die,2024,1
+New Zealand,NZL,die,nzl.mit.eef.die,2025,1
+New Zealand,NZL,ker,nzl.mit.eef.ker,2015,1
+New Zealand,NZL,ker,nzl.mit.eef.ker,2016,1
+New Zealand,NZL,ker,nzl.mit.eef.ker,2017,1
+New Zealand,NZL,ker,nzl.mit.eef.ker,2018,1
+New Zealand,NZL,ker,nzl.mit.eef.ker,2019,1
+New Zealand,NZL,ker,nzl.mit.eef.ker,2020,1
+New Zealand,NZL,ker,nzl.mit.eef.ker,2021,1
+New Zealand,NZL,ker,nzl.mit.eef.ker,2022,1
+New Zealand,NZL,ker,nzl.mit.eef.ker,2023,1
+New Zealand,NZL,ker,nzl.mit.eef.ker,2024,1
+New Zealand,NZL,ker,nzl.mit.eef.ker,2025,1
+New Zealand,NZL,lpg,nzl.mit.eef.lpg,2015,1
+New Zealand,NZL,lpg,nzl.mit.eef.lpg,2016,1
+New Zealand,NZL,lpg,nzl.mit.eef.lpg,2017,1
+New Zealand,NZL,lpg,nzl.mit.eef.lpg,2018,1
+New Zealand,NZL,lpg,nzl.mit.eef.lpg,2019,1
+New Zealand,NZL,lpg,nzl.mit.eef.lpg,2020,1
+New Zealand,NZL,lpg,nzl.mit.eef.lpg,2021,1
+New Zealand,NZL,lpg,nzl.mit.eef.lpg,2022,1
+New Zealand,NZL,lpg,nzl.mit.eef.lpg,2023,1
+New Zealand,NZL,lpg,nzl.mit.eef.lpg,2024,1
+New Zealand,NZL,lpg,nzl.mit.eef.lpg,2025,1
+New Zealand,NZL,jfu,nzl.mit.eef.jfu,2015,1
+New Zealand,NZL,jfu,nzl.mit.eef.jfu,2016,1
+New Zealand,NZL,jfu,nzl.mit.eef.jfu,2017,1
+New Zealand,NZL,jfu,nzl.mit.eef.jfu,2018,1
+New Zealand,NZL,jfu,nzl.mit.eef.jfu,2019,1
+New Zealand,NZL,jfu,nzl.mit.eef.jfu,2020,1
+New Zealand,NZL,jfu,nzl.mit.eef.jfu,2021,1
+New Zealand,NZL,jfu,nzl.mit.eef.jfu,2022,1
+New Zealand,NZL,jfu,nzl.mit.eef.jfu,2023,1
+New Zealand,NZL,jfu,nzl.mit.eef.jfu,2024,1
+New Zealand,NZL,jfu,nzl.mit.eef.jfu,2025,1
+New Zealand,NZL,bio,nzl.mit.eef.bio,2015,0
+New Zealand,NZL,bio,nzl.mit.eef.bio,2016,0
+New Zealand,NZL,bio,nzl.mit.eef.bio,2017,0
+New Zealand,NZL,bio,nzl.mit.eef.bio,2018,0
+New Zealand,NZL,bio,nzl.mit.eef.bio,2019,0
+New Zealand,NZL,bio,nzl.mit.eef.bio,2020,0
+New Zealand,NZL,bio,nzl.mit.eef.bio,2021,0
+New Zealand,NZL,bio,nzl.mit.eef.bio,2022,0
+New Zealand,NZL,bio,nzl.mit.eef.bio,2023,0
+New Zealand,NZL,bio,nzl.mit.eef.bio,2024,0
+New Zealand,NZL,bio,nzl.mit.eef.bio,2025,0
+Switzerland,CHE,coa,che.mit.eef.coa,2015,1
+Switzerland,CHE,coa,che.mit.eef.coa,2016,1
+Switzerland,CHE,coa,che.mit.eef.coa,2017,1
+Switzerland,CHE,coa,che.mit.eef.coa,2018,1
+Switzerland,CHE,coa,che.mit.eef.coa,2019,1
+Switzerland,CHE,coa,che.mit.eef.coa,2020,1
+Switzerland,CHE,coa,che.mit.eef.coa,2021,1
+Switzerland,CHE,coa,che.mit.eef.coa,2022,1
+Switzerland,CHE,coa,che.mit.eef.coa,2023,1
+Switzerland,CHE,coa,che.mit.eef.coa,2024,1
+Switzerland,CHE,coa,che.mit.eef.coa,2025,1
+Switzerland,CHE,nga,che.mit.eef.nga,2015,1
+Switzerland,CHE,nga,che.mit.eef.nga,2016,1
+Switzerland,CHE,nga,che.mit.eef.nga,2017,1
+Switzerland,CHE,nga,che.mit.eef.nga,2018,1
+Switzerland,CHE,nga,che.mit.eef.nga,2019,1
+Switzerland,CHE,nga,che.mit.eef.nga,2020,1
+Switzerland,CHE,nga,che.mit.eef.nga,2021,1
+Switzerland,CHE,nga,che.mit.eef.nga,2022,1
+Switzerland,CHE,nga,che.mit.eef.nga,2023,1
+Switzerland,CHE,nga,che.mit.eef.nga,2024,1
+Switzerland,CHE,nga,che.mit.eef.nga,2025,1
+Switzerland,CHE,oop,che.mit.eef.oop,2015,1
+Switzerland,CHE,oop,che.mit.eef.oop,2016,1
+Switzerland,CHE,oop,che.mit.eef.oop,2017,1
+Switzerland,CHE,oop,che.mit.eef.oop,2018,1
+Switzerland,CHE,oop,che.mit.eef.oop,2019,1
+Switzerland,CHE,oop,che.mit.eef.oop,2020,1
+Switzerland,CHE,oop,che.mit.eef.oop,2021,1
+Switzerland,CHE,oop,che.mit.eef.oop,2022,1
+Switzerland,CHE,oop,che.mit.eef.oop,2023,1
+Switzerland,CHE,oop,che.mit.eef.oop,2024,1
+Switzerland,CHE,oop,che.mit.eef.oop,2025,1
+Switzerland,CHE,gso,che.mit.eef.gso,2015,1
+Switzerland,CHE,gso,che.mit.eef.gso,2016,1
+Switzerland,CHE,gso,che.mit.eef.gso,2017,1
+Switzerland,CHE,gso,che.mit.eef.gso,2018,1
+Switzerland,CHE,gso,che.mit.eef.gso,2019,1
+Switzerland,CHE,gso,che.mit.eef.gso,2020,1
+Switzerland,CHE,gso,che.mit.eef.gso,2021,1
+Switzerland,CHE,gso,che.mit.eef.gso,2022,1
+Switzerland,CHE,gso,che.mit.eef.gso,2023,1
+Switzerland,CHE,gso,che.mit.eef.gso,2024,1
+Switzerland,CHE,gso,che.mit.eef.gso,2025,1
+Switzerland,CHE,die,che.mit.eef.die,2015,1
+Switzerland,CHE,die,che.mit.eef.die,2016,1
+Switzerland,CHE,die,che.mit.eef.die,2017,1
+Switzerland,CHE,die,che.mit.eef.die,2018,1
+Switzerland,CHE,die,che.mit.eef.die,2019,1
+Switzerland,CHE,die,che.mit.eef.die,2020,1
+Switzerland,CHE,die,che.mit.eef.die,2021,1
+Switzerland,CHE,die,che.mit.eef.die,2022,1
+Switzerland,CHE,die,che.mit.eef.die,2023,1
+Switzerland,CHE,die,che.mit.eef.die,2024,1
+Switzerland,CHE,die,che.mit.eef.die,2025,1
+Switzerland,CHE,ker,che.mit.eef.ker,2015,1
+Switzerland,CHE,ker,che.mit.eef.ker,2016,1
+Switzerland,CHE,ker,che.mit.eef.ker,2017,1
+Switzerland,CHE,ker,che.mit.eef.ker,2018,1
+Switzerland,CHE,ker,che.mit.eef.ker,2019,1
+Switzerland,CHE,ker,che.mit.eef.ker,2020,1
+Switzerland,CHE,ker,che.mit.eef.ker,2021,1
+Switzerland,CHE,ker,che.mit.eef.ker,2022,1
+Switzerland,CHE,ker,che.mit.eef.ker,2023,1
+Switzerland,CHE,ker,che.mit.eef.ker,2024,1
+Switzerland,CHE,ker,che.mit.eef.ker,2025,1
+Switzerland,CHE,lpg,che.mit.eef.lpg,2015,1
+Switzerland,CHE,lpg,che.mit.eef.lpg,2016,1
+Switzerland,CHE,lpg,che.mit.eef.lpg,2017,1
+Switzerland,CHE,lpg,che.mit.eef.lpg,2018,1
+Switzerland,CHE,lpg,che.mit.eef.lpg,2019,1
+Switzerland,CHE,lpg,che.mit.eef.lpg,2020,1
+Switzerland,CHE,lpg,che.mit.eef.lpg,2021,1
+Switzerland,CHE,lpg,che.mit.eef.lpg,2022,1
+Switzerland,CHE,lpg,che.mit.eef.lpg,2023,1
+Switzerland,CHE,lpg,che.mit.eef.lpg,2024,1
+Switzerland,CHE,lpg,che.mit.eef.lpg,2025,1
+Switzerland,CHE,jfu,che.mit.eef.jfu,2015,1
+Switzerland,CHE,jfu,che.mit.eef.jfu,2016,1
+Switzerland,CHE,jfu,che.mit.eef.jfu,2017,1
+Switzerland,CHE,jfu,che.mit.eef.jfu,2018,1
+Switzerland,CHE,jfu,che.mit.eef.jfu,2019,1
+Switzerland,CHE,jfu,che.mit.eef.jfu,2020,1
+Switzerland,CHE,jfu,che.mit.eef.jfu,2021,1
+Switzerland,CHE,jfu,che.mit.eef.jfu,2022,1
+Switzerland,CHE,jfu,che.mit.eef.jfu,2023,1
+Switzerland,CHE,jfu,che.mit.eef.jfu,2024,1
+Switzerland,CHE,jfu,che.mit.eef.jfu,2025,1
+Switzerland,CHE,bio,che.mit.eef.bio,2015,0
+Switzerland,CHE,bio,che.mit.eef.bio,2016,0
+Switzerland,CHE,bio,che.mit.eef.bio,2017,0
+Switzerland,CHE,bio,che.mit.eef.bio,2018,0
+Switzerland,CHE,bio,che.mit.eef.bio,2019,0
+Switzerland,CHE,bio,che.mit.eef.bio,2020,0
+Switzerland,CHE,bio,che.mit.eef.bio,2021,0
+Switzerland,CHE,bio,che.mit.eef.bio,2022,0
+Switzerland,CHE,bio,che.mit.eef.bio,2023,0
+Switzerland,CHE,bio,che.mit.eef.bio,2024,0
+Switzerland,CHE,bio,che.mit.eef.bio,2025,0
+United Kingdom,GBR,coa,gbr.mit.eef.coa,2022,1
+United Kingdom,GBR,coa,gbr.mit.eef.coa,2023,1
+United Kingdom,GBR,coa,gbr.mit.eef.coa,2024,1
+United Kingdom,GBR,coa,gbr.mit.eef.coa,2025,1
+United Kingdom,GBR,nga,gbr.mit.eef.nga,2022,1
+United Kingdom,GBR,nga,gbr.mit.eef.nga,2023,1
+United Kingdom,GBR,nga,gbr.mit.eef.nga,2024,1
+United Kingdom,GBR,nga,gbr.mit.eef.nga,2025,1
+United Kingdom,GBR,oop,gbr.mit.eef.oop,2022,1
+United Kingdom,GBR,oop,gbr.mit.eef.oop,2023,1
+United Kingdom,GBR,oop,gbr.mit.eef.oop,2024,1
+United Kingdom,GBR,oop,gbr.mit.eef.oop,2025,1
+United Kingdom,GBR,gso,gbr.mit.eef.gso,2022,1
+United Kingdom,GBR,gso,gbr.mit.eef.gso,2023,1
+United Kingdom,GBR,gso,gbr.mit.eef.gso,2024,1
+United Kingdom,GBR,gso,gbr.mit.eef.gso,2025,1
+United Kingdom,GBR,die,gbr.mit.eef.die,2022,1
+United Kingdom,GBR,die,gbr.mit.eef.die,2023,1
+United Kingdom,GBR,die,gbr.mit.eef.die,2024,1
+United Kingdom,GBR,die,gbr.mit.eef.die,2025,1
+United Kingdom,GBR,ker,gbr.mit.eef.ker,2022,1
+United Kingdom,GBR,ker,gbr.mit.eef.ker,2023,1
+United Kingdom,GBR,ker,gbr.mit.eef.ker,2024,1
+United Kingdom,GBR,ker,gbr.mit.eef.ker,2025,1
+United Kingdom,GBR,lpg,gbr.mit.eef.lpg,2022,1
+United Kingdom,GBR,lpg,gbr.mit.eef.lpg,2023,1
+United Kingdom,GBR,lpg,gbr.mit.eef.lpg,2024,1
+United Kingdom,GBR,lpg,gbr.mit.eef.lpg,2025,1
+United Kingdom,GBR,jfu,gbr.mit.eef.jfu,2022,1
+United Kingdom,GBR,jfu,gbr.mit.eef.jfu,2023,1
+United Kingdom,GBR,jfu,gbr.mit.eef.jfu,2024,1
+United Kingdom,GBR,jfu,gbr.mit.eef.jfu,2025,1
+United Kingdom,GBR,bio,gbr.mit.eef.bio,2022,0
+United Kingdom,GBR,bio,gbr.mit.eef.bio,2023,0
+United Kingdom,GBR,bio,gbr.mit.eef.bio,2024,0
+United Kingdom,GBR,bio,gbr.mit.eef.bio,2025,0

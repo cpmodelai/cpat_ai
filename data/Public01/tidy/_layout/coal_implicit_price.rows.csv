@@ -1,0 +1,86 @@
+_row,Country,Region,RowNumber
+0,China,CHN,1
+1,India,IND,2
+2,United States,USA,3
+3,Japan,APAC,4
+4,South Africa,,5
+5,Russia,RUS,6
+6,Indonesia,APAC,7
+7,Korea,APAC,8
+8,Germany,ECA,9
+9,Australia,APAC,10
+10,Vietnam,APAC,11
+11,Poland,ECA,12
+12,Taiwan Province of China,APAC,13
+13,Turkiye,ECA,14
+14,Malaysia,APAC,15
+15,Philippines,APAC,16
+16,Kazakhstan,ECA,17
+17,Ukraine,ECA,18
+18,Czechia,ECA,19
+19,Thailand,APAC,20
+20,Canada,NAM,21
+21,Morocco,AFR,22
+22,Serbia,ECA,23
+23,Chile,WLD,24
+24,Brazil,BRA,25
+25,Pakistan,APAC,26
+26,Mexico,WLD,27
+27,Bulgaria,ECA,28
+28,Italy,ECA,29
+29,Israel,AFR,30
+30,Hong Kong SAR,APAC,31
+31,Netherlands,ECA,32
+32,Mongolia,APAC,33
+33,Lao P.D.R.,APAC,34
+34,Romania,ECA,35
+35,Bosnia and Herzegovina,ECA,36
+36,United Kingdom,ECA,37
+37,France,ECA,38
+38,Sri Lanka,APAC,39
+39,Greece,ECA,40
+40,Dominican Republic,WLD,41
+41,Finland,ECA,42
+42,Spain,ECA,43
+43,Colombia,WLD,44
+44,Bangladesh,APAC,45
+45,Estonia,ECA,46
+46,Zimbabwe,AFR,47
+47,Denmark,ECA,48
+48,Slovenia,ECA,49
+49,Cambodia,APAC,50
+50,Guatemala,WLD,51
+51,Hungary,ECA,52
+52,Botswana,AFR,53
+53,New Zealand,APAC,54
+54,Ireland,ECA,55
+55,Argentina,WLD,56
+56,Myanmar,APAC,57
+57,Uzbekistan,ECA,58
+58,United Arab Emirates,AFR,59
+59,Kyrgyz Republic,ECA,60
+60,North Macedonia,ECA,61
+61,Panama,WLD,62
+62,Slovak Republic,ECA,63
+63,Austria,ECA,64
+64,Belgium,ECA,65
+65,Tajikistan,ECA,66
+66,Brunei Darussalam,APAC,67
+67,Zambia,AFR,68
+68,Croatia,ECA,69
+69,Iran,AFR,70
+70,Singapore,APAC,71
+71,Sweden,ECA,72
+72,Portugal,ECA,73
+73,Senegal,AFR,74
+74,Peru,WLD,75
+75,Madagascar,AFR,76
+76,Niger,AFR,77
+77,Belarus,ECA,78
+78,Norway,ECA,79
+79,Eswatini,AFR,80
+80,Rwanda,AFR,81
+81,Honduras,WLD,82
+82,Namibia,AFR,83
+83,Afghanistan,APAC,84
+84,Latvia,ECA,85

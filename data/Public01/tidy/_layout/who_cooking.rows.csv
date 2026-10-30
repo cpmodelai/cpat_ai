@@ -1,0 +1,4 @@
+_row,code,iso3,year,sample
+0,EGY.distn.pcoff.ove,EGY,2017,Overall
+1,EGY.distn.pcoff.rur,EGY,2017,Rural
+2,EGY.distn.pcoff.urb,EGY,2017,Urban

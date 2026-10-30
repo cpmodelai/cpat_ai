@@ -1,0 +1,613 @@
+fuel,fuel_code,gtap_sector,value
+Coal,coa,all,1
+Coal,coa,afs,1
+Coal,coa,atp,1
+Coal,coa,b_t,1
+Coal,coa,bph,1
+Coal,coa,c_b,1
+Coal,coa,chm,1
+Coal,coa,cmn,1
+Coal,coa,cmt,1
+Coal,coa,cns,1
+Coal,coa,coa,1
+Coal,coa,ctl,1
+Coal,coa,dwe,1
+Coal,coa,edu,1
+Coal,coa,eeq,1
+Coal,coa,ele,1
+Coal,coa,ely,1
+Coal,coa,fmp,1
+Coal,coa,frs,1
+Coal,coa,fsh,1
+Coal,coa,gro,1
+Coal,coa,hht,1
+Coal,coa,i_s,1
+Coal,coa,ins,1
+Coal,coa,lea,1
+Coal,coa,lum,1
+Coal,coa,mil,1
+Coal,coa,mvh,1
+Coal,coa,nfm,1
+Coal,coa,nga,1
+Coal,coa,nmm,1
+Coal,coa,oap,1
+Coal,coa,obs,1
+Coal,coa,ocr,1
+Coal,coa,ofd,1
+Coal,coa,ofi,1
+Coal,coa,oil,1
+Coal,coa,ome,1
+Coal,coa,omf,1
+Coal,coa,omt,1
+Coal,coa,osd,1
+Coal,coa,osg,1
+Coal,coa,otn,1
+Coal,coa,otp,1
+Coal,coa,oxt,1
+Coal,coa,p_c,1
+Coal,coa,pcr,1
+Coal,coa,pdr,1
+Coal,coa,pfb,1
+Coal,coa,ppp,1
+Coal,coa,rmk,1
+Coal,coa,ros,1
+Coal,coa,rpp,1
+Coal,coa,rsa,1
+Coal,coa,sgr,1
+Coal,coa,tex,1
+Coal,coa,trd,1
+Coal,coa,v_f,1
+Coal,coa,vol,1
+Coal,coa,wap,1
+Coal,coa,whs,1
+Coal,coa,wht,1
+Coal,coa,wol,1
+Coal,coa,wtp,1
+Coal,coa,wtr,1
+Coal,coa,BS (#N/A),1
+Coal,coa,BT (#N/A),1
+Coal,coa,BU (#N/A),1
+Electricity,ely,all,1
+Electricity,ely,afs,1
+Electricity,ely,atp,1
+Electricity,ely,b_t,1
+Electricity,ely,bph,1
+Electricity,ely,c_b,1
+Electricity,ely,chm,1
+Electricity,ely,cmn,1
+Electricity,ely,cmt,1
+Electricity,ely,cns,1
+Electricity,ely,coa,1
+Electricity,ely,ctl,1
+Electricity,ely,dwe,1
+Electricity,ely,edu,1
+Electricity,ely,eeq,1
+Electricity,ely,ele,1
+Electricity,ely,ely,1
+Electricity,ely,fmp,1
+Electricity,ely,frs,1
+Electricity,ely,fsh,1
+Electricity,ely,gro,1
+Electricity,ely,hht,1
+Electricity,ely,i_s,1
+Electricity,ely,ins,1
+Electricity,ely,lea,1
+Electricity,ely,lum,1
+Electricity,ely,mil,1
+Electricity,ely,mvh,1
+Electricity,ely,nfm,1
+Electricity,ely,nga,1
+Electricity,ely,nmm,1
+Electricity,ely,oap,1
+Electricity,ely,obs,1
+Electricity,ely,ocr,1
+Electricity,ely,ofd,1
+Electricity,ely,ofi,1
+Electricity,ely,oil,1
+Electricity,ely,ome,1
+Electricity,ely,omf,1
+Electricity,ely,omt,1
+Electricity,ely,osd,1
+Electricity,ely,osg,1
+Electricity,ely,otn,1
+Electricity,ely,otp,1
+Electricity,ely,oxt,1
+Electricity,ely,p_c,1
+Electricity,ely,pcr,1
+Electricity,ely,pdr,1
+Electricity,ely,pfb,1
+Electricity,ely,ppp,1
+Electricity,ely,rmk,1
+Electricity,ely,ros,1
+Electricity,ely,rpp,1
+Electricity,ely,rsa,1
+Electricity,ely,sgr,1
+Electricity,ely,tex,1
+Electricity,ely,trd,1
+Electricity,ely,v_f,1
+Electricity,ely,vol,1
+Electricity,ely,wap,1
+Electricity,ely,whs,1
+Electricity,ely,wht,1
+Electricity,ely,wol,1
+Electricity,ely,wtp,1
+Electricity,ely,wtr,1
+Electricity,ely,BS (#N/A),1
+Electricity,ely,BT (#N/A),1
+Electricity,ely,BU (#N/A),1
+Natural gas,nga,all,1
+Natural gas,nga,afs,1
+Natural gas,nga,atp,1
+Natural gas,nga,b_t,1
+Natural gas,nga,bph,1
+Natural gas,nga,c_b,1
+Natural gas,nga,chm,1
+Natural gas,nga,cmn,1
+Natural gas,nga,cmt,1
+Natural gas,nga,cns,1
+Natural gas,nga,coa,1
+Natural gas,nga,ctl,1
+Natural gas,nga,dwe,1
+Natural gas,nga,edu,1
+Natural gas,nga,eeq,1
+Natural gas,nga,ele,1
+Natural gas,nga,ely,1
+Natural gas,nga,fmp,1
+Natural gas,nga,frs,1
+Natural gas,nga,fsh,1
+Natural gas,nga,gro,1
+Natural gas,nga,hht,1
+Natural gas,nga,i_s,1
+Natural gas,nga,ins,1
+Natural gas,nga,lea,1
+Natural gas,nga,lum,1
+Natural gas,nga,mil,1
+Natural gas,nga,mvh,1
+Natural gas,nga,nfm,1
+Natural gas,nga,nga,1
+Natural gas,nga,nmm,1
+Natural gas,nga,oap,1
+Natural gas,nga,obs,1
+Natural gas,nga,ocr,1
+Natural gas,nga,ofd,1
+Natural gas,nga,ofi,1
+Natural gas,nga,oil,1
+Natural gas,nga,ome,1
+Natural gas,nga,omf,1
+Natural gas,nga,omt,1
+Natural gas,nga,osd,1
+Natural gas,nga,osg,1
+Natural gas,nga,otn,1
+Natural gas,nga,otp,1
+Natural gas,nga,oxt,1
+Natural gas,nga,p_c,1
+Natural gas,nga,pcr,1
+Natural gas,nga,pdr,1
+Natural gas,nga,pfb,1
+Natural gas,nga,ppp,1
+Natural gas,nga,rmk,1
+Natural gas,nga,ros,1
+Natural gas,nga,rpp,1
+Natural gas,nga,rsa,1
+Natural gas,nga,sgr,1
+Natural gas,nga,tex,1
+Natural gas,nga,trd,1
+Natural gas,nga,v_f,1
+Natural gas,nga,vol,1
+Natural gas,nga,wap,1
+Natural gas,nga,whs,1
+Natural gas,nga,wht,1
+Natural gas,nga,wol,1
+Natural gas,nga,wtp,1
+Natural gas,nga,wtr,1
+Natural gas,nga,BS (#N/A),1
+Natural gas,nga,BT (#N/A),1
+Natural gas,nga,BU (#N/A),1
+Other oil products,oil,all,1
+Other oil products,oil,afs,1
+Other oil products,oil,atp,1
+Other oil products,oil,b_t,1
+Other oil products,oil,bph,1
+Other oil products,oil,c_b,1
+Other oil products,oil,chm,1
+Other oil products,oil,cmn,1
+Other oil products,oil,cmt,1
+Other oil products,oil,cns,1
+Other oil products,oil,coa,1
+Other oil products,oil,ctl,1
+Other oil products,oil,dwe,1
+Other oil products,oil,edu,1
+Other oil products,oil,eeq,1
+Other oil products,oil,ele,1
+Other oil products,oil,ely,1
+Other oil products,oil,fmp,1
+Other oil products,oil,frs,1
+Other oil products,oil,fsh,1
+Other oil products,oil,gro,1
+Other oil products,oil,hht,1
+Other oil products,oil,i_s,1
+Other oil products,oil,ins,1
+Other oil products,oil,lea,1
+Other oil products,oil,lum,1
+Other oil products,oil,mil,1
+Other oil products,oil,mvh,1
+Other oil products,oil,nfm,1
+Other oil products,oil,nga,1
+Other oil products,oil,nmm,1
+Other oil products,oil,oap,1
+Other oil products,oil,obs,1
+Other oil products,oil,ocr,1
+Other oil products,oil,ofd,1
+Other oil products,oil,ofi,1
+Other oil products,oil,oil,1
+Other oil products,oil,ome,1
+Other oil products,oil,omf,1
+Other oil products,oil,omt,1
+Other oil products,oil,osd,1
+Other oil products,oil,osg,1
+Other oil products,oil,otn,1
+Other oil products,oil,otp,1
+Other oil products,oil,oxt,1
+Other oil products,oil,p_c,1
+Other oil products,oil,pcr,1
+Other oil products,oil,pdr,1
+Other oil products,oil,pfb,1
+Other oil products,oil,ppp,1
+Other oil products,oil,rmk,1
+Other oil products,oil,ros,1
+Other oil products,oil,rpp,1
+Other oil products,oil,rsa,1
+Other oil products,oil,sgr,1
+Other oil products,oil,tex,1
+Other oil products,oil,trd,1
+Other oil products,oil,v_f,1
+Other oil products,oil,vol,1
+Other oil products,oil,wap,1
+Other oil products,oil,whs,1
+Other oil products,oil,wht,1
+Other oil products,oil,wol,1
+Other oil products,oil,wtp,1
+Other oil products,oil,wtr,1
+Other oil products,oil,BS (#N/A),1
+Other oil products,oil,BT (#N/A),1
+Other oil products,oil,BU (#N/A),1
+Gasoline,gso,all,1
+Gasoline,gso,afs,1
+Gasoline,gso,atp,1
+Gasoline,gso,b_t,1
+Gasoline,gso,bph,1
+Gasoline,gso,c_b,1
+Gasoline,gso,chm,1
+Gasoline,gso,cmn,1
+Gasoline,gso,cmt,1
+Gasoline,gso,cns,1
+Gasoline,gso,coa,1
+Gasoline,gso,ctl,1
+Gasoline,gso,dwe,1
+Gasoline,gso,edu,1
+Gasoline,gso,eeq,1
+Gasoline,gso,ele,1
+Gasoline,gso,ely,1
+Gasoline,gso,fmp,1
+Gasoline,gso,frs,1
+Gasoline,gso,fsh,1
+Gasoline,gso,gro,1
+Gasoline,gso,hht,1
+Gasoline,gso,i_s,1
+Gasoline,gso,ins,1
+Gasoline,gso,lea,1
+Gasoline,gso,lum,1
+Gasoline,gso,mil,1
+Gasoline,gso,mvh,1
+Gasoline,gso,nfm,1
+Gasoline,gso,nga,1
+Gasoline,gso,nmm,1
+Gasoline,gso,oap,1
+Gasoline,gso,obs,1
+Gasoline,gso,ocr,1
+Gasoline,gso,ofd,1
+Gasoline,gso,ofi,1
+Gasoline,gso,oil,1
+Gasoline,gso,ome,1
+Gasoline,gso,omf,1
+Gasoline,gso,omt,1
+Gasoline,gso,osd,1
+Gasoline,gso,osg,1
+Gasoline,gso,otn,1
+Gasoline,gso,otp,1
+Gasoline,gso,oxt,1
+Gasoline,gso,p_c,1
+Gasoline,gso,pcr,1
+Gasoline,gso,pdr,1
+Gasoline,gso,pfb,1
+Gasoline,gso,ppp,1
+Gasoline,gso,rmk,1
+Gasoline,gso,ros,1
+Gasoline,gso,rpp,1
+Gasoline,gso,rsa,1
+Gasoline,gso,sgr,1
+Gasoline,gso,tex,1
+Gasoline,gso,trd,1
+Gasoline,gso,v_f,1
+Gasoline,gso,vol,1
+Gasoline,gso,wap,1
+Gasoline,gso,whs,1
+Gasoline,gso,wht,1
+Gasoline,gso,wol,1
+Gasoline,gso,wtp,1
+Gasoline,gso,wtr,1
+Gasoline,gso,BS (#N/A),1
+Gasoline,gso,BT (#N/A),1
+Gasoline,gso,BU (#N/A),1
+Diesel,die,all,1
+Diesel,die,afs,1
+Diesel,die,atp,1
+Diesel,die,b_t,1
+Diesel,die,bph,1
+Diesel,die,c_b,1
+Diesel,die,chm,1
+Diesel,die,cmn,1
+Diesel,die,cmt,1
+Diesel,die,cns,1
+Diesel,die,coa,1
+Diesel,die,ctl,1
+Diesel,die,dwe,1
+Diesel,die,edu,1
+Diesel,die,eeq,1
+Diesel,die,ele,1
+Diesel,die,ely,1
+Diesel,die,fmp,1
+Diesel,die,frs,1
+Diesel,die,fsh,1
+Diesel,die,gro,1
+Diesel,die,hht,1
+Diesel,die,i_s,1
+Diesel,die,ins,1
+Diesel,die,lea,1
+Diesel,die,lum,1
+Diesel,die,mil,1
+Diesel,die,mvh,1
+Diesel,die,nfm,1
+Diesel,die,nga,1
+Diesel,die,nmm,1
+Diesel,die,oap,1
+Diesel,die,obs,1
+Diesel,die,ocr,1
+Diesel,die,ofd,1
+Diesel,die,ofi,1
+Diesel,die,oil,1
+Diesel,die,ome,1
+Diesel,die,omf,1
+Diesel,die,omt,1
+Diesel,die,osd,1
+Diesel,die,osg,1
+Diesel,die,otn,1
+Diesel,die,otp,1
+Diesel,die,oxt,1
+Diesel,die,p_c,1
+Diesel,die,pcr,1
+Diesel,die,pdr,1
+Diesel,die,pfb,1
+Diesel,die,ppp,1
+Diesel,die,rmk,1
+Diesel,die,ros,1
+Diesel,die,rpp,1
+Diesel,die,rsa,1
+Diesel,die,sgr,1
+Diesel,die,tex,1
+Diesel,die,trd,1
+Diesel,die,v_f,1
+Diesel,die,vol,1
+Diesel,die,wap,1
+Diesel,die,whs,1
+Diesel,die,wht,1
+Diesel,die,wol,1
+Diesel,die,wtp,1
+Diesel,die,wtr,1
+Diesel,die,BS (#N/A),1
+Diesel,die,BT (#N/A),1
+Diesel,die,BU (#N/A),1
+LPG,lpg,all,1
+LPG,lpg,afs,1
+LPG,lpg,atp,1
+LPG,lpg,b_t,1
+LPG,lpg,bph,1
+LPG,lpg,c_b,1
+LPG,lpg,chm,1
+LPG,lpg,cmn,1
+LPG,lpg,cmt,1
+LPG,lpg,cns,1
+LPG,lpg,coa,1
+LPG,lpg,ctl,1
+LPG,lpg,dwe,1
+LPG,lpg,edu,1
+LPG,lpg,eeq,1
+LPG,lpg,ele,1
+LPG,lpg,ely,1
+LPG,lpg,fmp,1
+LPG,lpg,frs,1
+LPG,lpg,fsh,1
+LPG,lpg,gro,1
+LPG,lpg,hht,1
+LPG,lpg,i_s,1
+LPG,lpg,ins,1
+LPG,lpg,lea,1
+LPG,lpg,lum,1
+LPG,lpg,mil,1
+LPG,lpg,mvh,1
+LPG,lpg,nfm,1
+LPG,lpg,nga,1
+LPG,lpg,nmm,1
+LPG,lpg,oap,1
+LPG,lpg,obs,1
+LPG,lpg,ocr,1
+LPG,lpg,ofd,1
+LPG,lpg,ofi,1
+LPG,lpg,oil,1
+LPG,lpg,ome,1
+LPG,lpg,omf,1
+LPG,lpg,omt,1
+LPG,lpg,osd,1
+LPG,lpg,osg,1
+LPG,lpg,otn,1
+LPG,lpg,otp,1
+LPG,lpg,oxt,1
+LPG,lpg,p_c,1
+LPG,lpg,pcr,1
+LPG,lpg,pdr,1
+LPG,lpg,pfb,1
+LPG,lpg,ppp,1
+LPG,lpg,rmk,1
+LPG,lpg,ros,1
+LPG,lpg,rpp,1
+LPG,lpg,rsa,1
+LPG,lpg,sgr,1
+LPG,lpg,tex,1
+LPG,lpg,trd,1
+LPG,lpg,v_f,1
+LPG,lpg,vol,1
+LPG,lpg,wap,1
+LPG,lpg,whs,1
+LPG,lpg,wht,1
+LPG,lpg,wol,1
+LPG,lpg,wtp,1
+LPG,lpg,wtr,1
+LPG,lpg,BS (#N/A),1
+LPG,lpg,BT (#N/A),1
+LPG,lpg,BU (#N/A),1
+Kerosene,ker,all,1
+Kerosene,ker,afs,1
+Kerosene,ker,atp,1
+Kerosene,ker,b_t,1
+Kerosene,ker,bph,1
+Kerosene,ker,c_b,1
+Kerosene,ker,chm,1
+Kerosene,ker,cmn,1
+Kerosene,ker,cmt,1
+Kerosene,ker,cns,1
+Kerosene,ker,coa,1
+Kerosene,ker,ctl,1
+Kerosene,ker,dwe,1
+Kerosene,ker,edu,1
+Kerosene,ker,eeq,1
+Kerosene,ker,ele,1
+Kerosene,ker,ely,1
+Kerosene,ker,fmp,1
+Kerosene,ker,frs,1
+Kerosene,ker,fsh,1
+Kerosene,ker,gro,1
+Kerosene,ker,hht,1
+Kerosene,ker,i_s,1
+Kerosene,ker,ins,1
+Kerosene,ker,lea,1
+Kerosene,ker,lum,1
+Kerosene,ker,mil,1
+Kerosene,ker,mvh,1
+Kerosene,ker,nfm,1
+Kerosene,ker,nga,1
+Kerosene,ker,nmm,1
+Kerosene,ker,oap,1
+Kerosene,ker,obs,1
+Kerosene,ker,ocr,1
+Kerosene,ker,ofd,1
+Kerosene,ker,ofi,1
+Kerosene,ker,oil,1
+Kerosene,ker,ome,1
+Kerosene,ker,omf,1
+Kerosene,ker,omt,1
+Kerosene,ker,osd,1
+Kerosene,ker,osg,1
+Kerosene,ker,otn,1
+Kerosene,ker,otp,1
+Kerosene,ker,oxt,1
+Kerosene,ker,p_c,1
+Kerosene,ker,pcr,1
+Kerosene,ker,pdr,1
+Kerosene,ker,pfb,1
+Kerosene,ker,ppp,1
+Kerosene,ker,rmk,1
+Kerosene,ker,ros,1
+Kerosene,ker,rpp,1
+Kerosene,ker,rsa,1
+Kerosene,ker,sgr,1
+Kerosene,ker,tex,1
+Kerosene,ker,trd,1
+Kerosene,ker,v_f,1
+Kerosene,ker,vol,1
+Kerosene,ker,wap,1
+Kerosene,ker,whs,1
+Kerosene,ker,wht,1
+Kerosene,ker,wol,1
+Kerosene,ker,wtp,1
+Kerosene,ker,wtr,1
+Kerosene,ker,BS (#N/A),1
+Kerosene,ker,BT (#N/A),1
+Kerosene,ker,BU (#N/A),1
+Fuel transformation & transportiation,p_c,all,1
+Fuel transformation & transportiation,p_c,afs,1
+Fuel transformation & transportiation,p_c,atp,1
+Fuel transformation & transportiation,p_c,b_t,1
+Fuel transformation & transportiation,p_c,bph,1
+Fuel transformation & transportiation,p_c,c_b,1
+Fuel transformation & transportiation,p_c,chm,1
+Fuel transformation & transportiation,p_c,cmn,1
+Fuel transformation & transportiation,p_c,cmt,1
+Fuel transformation & transportiation,p_c,cns,1
+Fuel transformation & transportiation,p_c,coa,1
+Fuel transformation & transportiation,p_c,ctl,1
+Fuel transformation & transportiation,p_c,dwe,1
+Fuel transformation & transportiation,p_c,edu,1
+Fuel transformation & transportiation,p_c,eeq,1
+Fuel transformation & transportiation,p_c,ele,1
+Fuel transformation & transportiation,p_c,ely,1
+Fuel transformation & transportiation,p_c,fmp,1
+Fuel transformation & transportiation,p_c,frs,1
+Fuel transformation & transportiation,p_c,fsh,1
+Fuel transformation & transportiation,p_c,gro,1
+Fuel transformation & transportiation,p_c,hht,1
+Fuel transformation & transportiation,p_c,i_s,1
+Fuel transformation & transportiation,p_c,ins,1
+Fuel transformation & transportiation,p_c,lea,1
+Fuel transformation & transportiation,p_c,lum,1
+Fuel transformation & transportiation,p_c,mil,1
+Fuel transformation & transportiation,p_c,mvh,1
+Fuel transformation & transportiation,p_c,nfm,1
+Fuel transformation & transportiation,p_c,nga,1
+Fuel transformation & transportiation,p_c,nmm,1
+Fuel transformation & transportiation,p_c,oap,1
+Fuel transformation & transportiation,p_c,obs,1
+Fuel transformation & transportiation,p_c,ocr,1
+Fuel transformation & transportiation,p_c,ofd,1
+Fuel transformation & transportiation,p_c,ofi,1
+Fuel transformation & transportiation,p_c,oil,1
+Fuel transformation & transportiation,p_c,ome,1
+Fuel transformation & transportiation,p_c,omf,1
+Fuel transformation & transportiation,p_c,omt,1
+Fuel transformation & transportiation,p_c,osd,1
+Fuel transformation & transportiation,p_c,osg,1
+Fuel transformation & transportiation,p_c,otn,1
+Fuel transformation & transportiation,p_c,otp,1
+Fuel transformation & transportiation,p_c,oxt,1
+Fuel transformation & transportiation,p_c,p_c,1
+Fuel transformation & transportiation,p_c,pcr,1
+Fuel transformation & transportiation,p_c,pdr,1
+Fuel transformation & transportiation,p_c,pfb,1
+Fuel transformation & transportiation,p_c,ppp,1
+Fuel transformation & transportiation,p_c,rmk,1
+Fuel transformation & transportiation,p_c,ros,1
+Fuel transformation & transportiation,p_c,rpp,1
+Fuel transformation & transportiation,p_c,rsa,1
+Fuel transformation & transportiation,p_c,sgr,1
+Fuel transformation & transportiation,p_c,tex,1
+Fuel transformation & transportiation,p_c,trd,1
+Fuel transformation & transportiation,p_c,v_f,1
+Fuel transformation & transportiation,p_c,vol,1
+Fuel transformation & transportiation,p_c,wap,1
+Fuel transformation & transportiation,p_c,whs,1
+Fuel transformation & transportiation,p_c,wht,1
+Fuel transformation & transportiation,p_c,wol,1
+Fuel transformation & transportiation,p_c,wtp,1
+Fuel transformation & transportiation,p_c,wtr,1
+Fuel transformation & transportiation,p_c,BS (#N/A),1
+Fuel transformation & transportiation,p_c,BT (#N/A),1
+Fuel transformation & transportiation,p_c,BU (#N/A),1

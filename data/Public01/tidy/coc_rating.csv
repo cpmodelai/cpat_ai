@@ -1,0 +1,190 @@
+country_name,code,variable,value
+Afghanistan,AFG,S&P,Not Found
+Albania,ALB,S&P,BB
+Algeria,DZA,S&P,Not Found
+Angola,AGO,S&P,B-
+Argentina,ARG,S&P,CCC
+Armenia,ARM,S&P,BB-
+Australia,AUS,S&P,AAA
+Austria,AUT,S&P,AA+
+Azerbaijan,AZE,S&P,BB+
+The Bahamas,BHS,S&P,B+
+Bahrain,BHR,S&P,B+
+Bangladesh,BGD,S&P,B+
+Barbados,BRB,S&P,B
+Belarus,BLR,S&P,Not Found
+Belgium,BEL,S&P,AA
+Belize,BLZ,S&P,B-
+Benin,BEN,S&P,BB-
+Bermuda,BMU,S&P,A+
+Bhutan,BTN,S&P,Not Found
+Bolivia,BOL,S&P,CCC-
+Bosnia and Herzegovina,BIH,S&P,B+
+Botswana,BWA,S&P,BBB+
+Brazil,BRA,S&P,BB
+Brunei,BRN,S&P,Not Found
+Bulgaria,BGR,S&P,BBB
+Burkina Faso,BFA,S&P,CCC+
+Burundi,BDI,S&P,Not Found
+Cape Verde,CPV,S&P,B
+Cambodia,KHM,S&P,Not Found
+Cameroon,CMR,S&P,B-
+Canada,CAN,S&P,AAA
+Central African Republic,CAF,S&P,Not Found
+Chad,TCD,S&P,B-
+Chile,CHL,S&P,A
+China,CHN,S&P,A+
+Colombia,COL,S&P,BB
+Comoros,COM,S&P,Not Found
+Democratic Republic of the Congo,COD,S&P,Not Found
+Republic of the Congo,COG,S&P,CCC+
+Costa Rica,CRI,S&P,BB-
+Ivory Coast,CIV,S&P,BB
+Croatia,HRV,S&P,A-
+Cuba,CUB,S&P,Not Found
+Curaçao,CUW,S&P,BBB-
+Cyprus,CYP,S&P,A-
+Czech Republic,CZE,S&P,AA-
+Denmark,DNK,S&P,AAA
+Djibouti,DJI,S&P,Not Found
+Dominica,DMA,S&P,Not Found
+Dominican Republic,DOM,S&P,BB
+Ecuador,ECU,S&P,B-
+Egypt,EGY,S&P,B-
+El Salvador,SLV,S&P,B-
+Equatorial Guinea,GNQ,S&P,Not Found
+Eritrea,ERI,S&P,Not Found
+Estonia,EST,S&P,Not Found
+Ethiopia,ETH,S&P,SD
+Fiji,FJI,S&P,B+
+Finland,FIN,S&P,AA+
+France,FRA,S&P,AA-
+Gabon,GAB,S&P,Not Found
+The Gambia,GMB,S&P,Not Found
+Georgia,GEO,S&P,BB
+Germany,DEU,S&P,AAA
+Ghana,GHA,S&P,CCC+
+Gibraltar,GIB,S&P,Not Found
+Greece,GRC,S&P,BBB
+Greenland,GRL,S&P,Not Found
+Grenada,GRD,S&P,Not Found
+Guatemala,GTM,S&P,BB+
+Guinea,GIN,S&P,Not Found
+Guinea-Bissau,GNB,S&P,Not Found
+Guyana,GUY,S&P,Not Found
+Haiti,HTI,S&P,Not Found
+Honduras,HND,S&P,BB-
+Hong Kong,HKG,S&P,AA+
+Hungary,HUN,S&P,BBB-
+Iceland,ISL,S&P,A+
+India,IND,S&P,BBB-
+Indonesia,IDN,S&P,BBB
+Iran,IRN,S&P,Not Found
+Iraq,IRQ,S&P,B-
+Republic of Ireland,IRL,S&P,AA
+Israel,ISR,S&P,A
+Italy,ITA,S&P,BBB+
+Jamaica,JAM,S&P,BB-
+Japan,JPN,S&P,A+
+Jordan,JOR,S&P,BB-
+Kazakhstan,KAZ,S&P,BBB-
+Kenya,KEN,S&P,B-
+Kiribati,KIR,S&P,Not Found
+North Korea,PRK,S&P,Not Found
+South Korea,KOR,S&P,AA
+Kosovo,XKX,S&P,Not Found
+Kuwait,KWT,S&P,A+
+Kyrgyzstan,KGZ,S&P,B+
+Laos,LAO,S&P,Not Found
+Latvia,LVA,S&P,A
+Lebanon,LBN,S&P,SD
+Lesotho,LSO,S&P,Not Found
+Liberia,LBR,S&P,Not Found
+Libya,LBY,S&P,Not Found
+Lithuania,LTU,S&P,A
+Luxembourg,LUX,S&P,AAA
+Macau,MAC,S&P,Not Found
+Madagascar,MDG,S&P,B-
+Malawi,MWI,S&P,Not Found
+Malaysia,MYS,S&P,A-
+Maldives,MDV,S&P,Not Found
+Mali,MLI,S&P,Not Found
+Malta,MLT,S&P,Not Found
+Mauritania,MRT,S&P,Not Found
+Mauritius,MUS,S&P,BBB-
+Mexico,MEX,S&P,BBB
+Moldova,MDA,S&P,Not Found
+Mongolia,MNG,S&P,B+
+Montenegro,MNE,S&P,B+
+Morocco,MAR,S&P,BB+
+Mozambique,MOZ,S&P,CCC+
+Myanmar,MMR,S&P,Not Found
+Namibia,NAM,S&P,Not Found
+Nepal,NPL,S&P,Not Found
+Netherlands,NLD,S&P,AAA
+New Zealand,NZL,S&P,AA+
+Nicaragua,NIC,S&P,B+
+Niger,NER,S&P,Not Found
+Nigeria,NGA,S&P,B-
+North Macedonia,MKD,S&P,BB-
+Norway,NOR,S&P,AAA
+Oman,OMN,S&P,BBB-
+Pakistan,PAK,S&P,CCC+
+Panama,PAN,S&P,BBB-
+Papua New Guinea,PNG,S&P,B-
+Paraguay,PRY,S&P,BB+
+Peru,PER,S&P,BBB-
+Philippines,PHL,S&P,BBB+
+Poland,POL,S&P,A-
+Portugal,PRT,S&P,A
+Qatar,QAT,S&P,AA
+Romania,ROU,S&P,BBB-
+Russia,RUS,S&P,Not Found
+Rwanda,RWA,S&P,B+
+Samoa,WSM,S&P,Not Found
+São Tomé and Príncipe,STP,S&P,Not Found
+Saudi Arabia,SAU,S&P,A+
+Senegal,SEN,S&P,B
+Serbia,SRB,S&P,BBB-
+Seychelles,SYC,S&P,Not Found
+Sierra Leone,SLE,S&P,Not Found
+Singapore,SGP,S&P,AAA
+Slovakia,SVK,S&P,A+
+Slovenia,SVN,S&P,AA
+Solomon Islands,SLB,S&P,Not Found
+Somalia,SOM,S&P,Not Found
+South Africa,ZAF,S&P,BB-
+South Sudan,SSD,S&P,Not Found
+Spain,ESP,S&P,A
+Sri Lanka,LKA,S&P,SD
+Saint Lucia,LCA,S&P,Not Found
+Saint Vincent and the Grenadines,VCT,S&P,Not Found
+Sudan,SDN,S&P,Not Found
+Suriname,SUR,S&P,CCC+
+Sweden,SWE,S&P,AAA
+Switzerland,CHE,S&P,AAA
+Syria,SYR,S&P,Not Found
+Taiwan,TWN,S&P,AA+
+Tajikistan,TJK,S&P,B
+Tanzania,TZA,S&P,Not Found
+Thailand,THA,S&P,BBB+
+Togo,TGO,S&P,B+
+Tonga,TON,S&P,Not Found
+Trinidad and Tobago,TTO,S&P,BBB-
+Tunisia,TUN,S&P,Not Found
+Turkey,TUR,S&P,BB-
+Turkmenistan,TKM,S&P,Not Found
+Uganda,UGA,S&P,B-
+Ukraine,UKR,S&P,SD
+United Arab Emirates,ARE,S&P,AA
+United Kingdom,GBR,S&P,AA
+United States,USA,S&P,AA+
+Uruguay,URY,S&P,BBB+
+Uzbekistan,UZB,S&P,BB-
+Vanuatu,VUT,S&P,Not Found
+Venezuela,VEN,S&P,Not Found
+Vietnam,VNM,S&P,BB+
+Palestinian Authority,PSE,S&P,Not Found
+Yemen,YEM,S&P,Not Found
+Zambia,ZMB,S&P,SD
+Zimbabwe,ZWE,S&P,Not Found

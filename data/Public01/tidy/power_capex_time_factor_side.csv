@@ -1,0 +1,141 @@
+technology_name,year,value
+Utility PV,2023,1
+Utility PV,2024,0.955
+Utility PV,2025,0.909
+Utility PV,2026,0.864
+Utility PV,2027,0.818
+Utility PV,2028,0.773
+Utility PV,2029,0.727
+Utility PV,2030,0.682
+Utility PV,2031,0.671
+Utility PV,2032,0.66
+Utility PV,2033,0.65
+Utility PV,2034,0.639
+Utility PV,2035,0.628
+Utility PV,2036,0.618
+Utility PV,2037,0.607
+Utility PV,2038,0.597
+Utility PV,2039,0.586
+Utility PV,2040,0.575
+Utility PV,2041,0.565
+Utility PV,2042,0.554
+Utility PV,2043,0.543
+Utility PV,2044,0.533
+Utility PV,2045,0.522
+Utility PV,2046,0.511
+Utility PV,2047,0.501
+Utility PV,2048,0.49
+Utility PV,2049,0.479
+Utility PV,2050,0.469
+Rooftop PV ,2023,1
+Rooftop PV ,2024,0.968
+Rooftop PV ,2025,0.937
+Rooftop PV ,2026,0.905
+Rooftop PV ,2027,0.874
+Rooftop PV ,2028,0.842
+Rooftop PV ,2029,0.811
+Rooftop PV ,2030,0.779
+Rooftop PV ,2031,0.747
+Rooftop PV ,2032,0.716
+Rooftop PV ,2033,0.684
+Rooftop PV ,2034,0.653
+Rooftop PV ,2035,0.621
+Rooftop PV ,2036,0.611
+Rooftop PV ,2037,0.6
+Rooftop PV ,2038,0.59
+Rooftop PV ,2039,0.58
+Rooftop PV ,2040,0.569
+Rooftop PV ,2041,0.559
+Rooftop PV ,2042,0.549
+Rooftop PV ,2043,0.538
+Rooftop PV ,2044,0.528
+Rooftop PV ,2045,0.518
+Rooftop PV ,2046,0.507
+Rooftop PV ,2047,0.497
+Rooftop PV ,2048,0.486
+Rooftop PV ,2049,0.476
+Rooftop PV ,2050,0.466
+Onshore Wind,2023,1
+Onshore Wind,2024,0.993
+Onshore Wind,2025,0.985
+Onshore Wind,2026,0.978
+Onshore Wind,2027,0.971
+Onshore Wind,2028,0.963
+Onshore Wind,2029,0.956
+Onshore Wind,2030,0.949
+Onshore Wind,2031,0.946
+Onshore Wind,2032,0.943
+Onshore Wind,2033,0.94
+Onshore Wind,2034,0.937
+Onshore Wind,2035,0.934
+Onshore Wind,2036,0.932
+Onshore Wind,2037,0.929
+Onshore Wind,2038,0.926
+Onshore Wind,2039,0.923
+Onshore Wind,2040,0.92
+Onshore Wind,2041,0.918
+Onshore Wind,2042,0.915
+Onshore Wind,2043,0.912
+Onshore Wind,2044,0.909
+Onshore Wind,2045,0.906
+Onshore Wind,2046,0.904
+Onshore Wind,2047,0.901
+Onshore Wind,2048,0.898
+Onshore Wind,2049,0.895
+Onshore Wind,2050,0.892
+Offshore Wind,2023,1
+Offshore Wind,2024,0.953
+Offshore Wind,2025,0.906
+Offshore Wind,2026,0.859
+Offshore Wind,2027,0.812
+Offshore Wind,2028,0.765
+Offshore Wind,2029,0.718
+Offshore Wind,2030,0.671
+Offshore Wind,2031,0.66
+Offshore Wind,2032,0.649
+Offshore Wind,2033,0.638
+Offshore Wind,2034,0.628
+Offshore Wind,2035,0.617
+Offshore Wind,2036,0.606
+Offshore Wind,2037,0.595
+Offshore Wind,2038,0.584
+Offshore Wind,2039,0.573
+Offshore Wind,2040,0.563
+Offshore Wind,2041,0.552
+Offshore Wind,2042,0.541
+Offshore Wind,2043,0.53
+Offshore Wind,2044,0.519
+Offshore Wind,2045,0.508
+Offshore Wind,2046,0.497
+Offshore Wind,2047,0.487
+Offshore Wind,2048,0.476
+Offshore Wind,2049,0.465
+Offshore Wind,2050,0.454
+Battery storage,2023,1
+Battery storage,2024,0.962
+Battery storage,2025,0.862
+Battery storage,2026,0.831
+Battery storage,2027,0.799
+Battery storage,2028,0.768
+Battery storage,2029,0.737
+Battery storage,2030,0.705
+Battery storage,2031,0.694
+Battery storage,2032,0.684
+Battery storage,2033,0.673
+Battery storage,2034,0.662
+Battery storage,2035,0.651
+Battery storage,2036,0.641
+Battery storage,2037,0.63
+Battery storage,2038,0.619
+Battery storage,2039,0.608
+Battery storage,2040,0.598
+Battery storage,2041,0.587
+Battery storage,2042,0.576
+Battery storage,2043,0.566
+Battery storage,2044,0.555
+Battery storage,2045,0.544
+Battery storage,2046,0.534
+Battery storage,2047,0.523
+Battery storage,2048,0.513
+Battery storage,2049,0.502
+Battery storage,2050,0.492

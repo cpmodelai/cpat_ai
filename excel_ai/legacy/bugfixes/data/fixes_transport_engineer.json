@@ -1,0 +1,580 @@
+[
+ {
+  "id": "L27",
+  "pri": "Medium",
+  "title": "Vehicle ownership calibration only scales up (and uses 2024) (survey B3)",
+  "where": "Mitigation H4787:J4787, H4903:J4903",
+  "why": "J = MAX(1, actual/expected), so a country below its Gompertz curve (Egypt: actual 57.8 against 138.9) is never scaled down; H and I read column N (2024) although the data run to 2025.",
+  "fixes": [
+   {
+    "cell": "H4787",
+    "now": "= N4783 * EXP(-5.897 * EXP(N4784 * $T4323 / 1000))",
+    "new": "= INDEX($L4783:$AE4783,MATCH($E$2089,$L$2033:$AE$2033,0)) * EXP(-5.897 * EXP(INDEX($L4784:$AE4784,MATCH($E$2089,$L$2033:$AE$2033,0)) * $T4323 / 1000))",
+    "fill": "single cell",
+    "policy": "paste into H11103 (+6,316)"
+   },
+   {
+    "cell": "I4787",
+    "now": "= N4761 + N4742",
+    "new": "= INDEX($L4761:$AE4761,MATCH($E$2089,$L$2033:$AE$2033,0)) + INDEX($L4742:$AE4742,MATCH($E$2089,$L$2033:$AE$2033,0))",
+    "fill": "single cell",
+    "policy": "paste into I11103 (+6,316)"
+   },
+   {
+    "cell": "J4787",
+    "now": "= MAX(1, I4787 / H4787)",
+    "new": "= I4787 / H4787",
+    "fill": "single cell",
+    "policy": "paste into J11103 (+6,316)"
+   },
+   {
+    "cell": "H4903",
+    "now": "= N4899 * EXP(-5.897 * EXP(N4900 * $U4323 / 1000))",
+    "new": "= INDEX($L4899:$AE4899,MATCH($E$2089,$L$2033:$AE$2033,0)) * EXP(-5.897 * EXP(INDEX($L4900:$AE4900,MATCH($E$2089,$L$2033:$AE$2033,0)) * $U4323 / 1000))",
+    "fill": "single cell",
+    "policy": "paste into H11219 (+6,316)"
+   },
+   {
+    "cell": "I4903",
+    "now": "= N4886 + N4876",
+    "new": "= INDEX($L4886:$AE4886,MATCH($E$2089,$L$2033:$AE$2033,0)) + INDEX($L4876:$AE4876,MATCH($E$2089,$L$2033:$AE$2033,0))",
+    "fill": "single cell",
+    "policy": "paste into I11219 (+6,316)"
+   },
+   {
+    "cell": "J4903",
+    "now": "= MAX(1, I4903 / H4903)",
+    "new": "= I4903 / H4903",
+    "fill": "single cell",
+    "policy": "paste into J11219 (+6,316)"
+   }
+  ],
+  "ref": "E2089 (\"Data available\" = last year with passenger data, 2025) and the year row 2033, both legacy rows. The same calibration ratio applied in both directions.",
+  "effect": "Egypt engineer baseline 2035 (legacy inputs, TrModel = Engineer): gasoline -33.9%, diesel -37.9%, road electricity -52.4%, passenger EV sales share -2.6 points.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L28",
+  "pri": "Medium",
+  "title": "Freight-share cap and 2-3 wheeler peak use 2024 (survey B3b)",
+  "where": "Mitigation J2168 (new helper), L2168:AE2168, J2169 (above the scenario blocks)",
+  "why": "The freight-share cap reads $N2168 and the 2-3 wheeler peak J2169 reads N444 and N2129: column N (2024) is hardcoded although data run to 2025.",
+  "fixes": [
+   {
+    "cell": "J2168",
+    "now": "(empty)",
+    "new": "=INDEX($L2108:$AE2108,MATCH($E$2089,$L$2033:$AE$2033,0)) / (INDEX($L2036:$AE2036,MATCH($E$2089,$L$2033:$AE$2033,0)) + INDEX($L2037:$AE2037,MATCH($E$2089,$L$2033:$AE$2033,0)))",
+    "fill": "single cell (empty today; helper = freight share at the last data year)",
+    "policy": "none (above the scenario blocks)"
+   },
+   {
+    "cell": "L2168",
+    "now": "= IF(ISNUMBER(L2108),  L2108 / (L2036 + L2037), MIN( $N2168, MAX( $I2168, $N2168 - ($N2168 - $I2168) * L2167 / $H2168)))",
+    "new": "= IF(ISNUMBER(L2108),  L2108 / (L2036 + L2037), MIN( $J2168, MAX( $I2168, $J2168 - ($J2168 - $I2168) * L2167 / $H2168)))",
+    "fill": "L2168:AE2168",
+    "policy": "none (above the scenario blocks)"
+   },
+   {
+    "cell": "J2169",
+    "now": "=(1 + (1-N444/H2169) * I2169) * N2129",
+    "new": "=(1 + (1-INDEX($L444:$AE444,MATCH($E$2089,$L$2033:$AE$2033,0))/H2169) * I2169) * INDEX($L2129:$AE2129,MATCH($E$2089,$L$2033:$AE$2033,0))",
+    "fill": "single cell",
+    "policy": "none (above the scenario blocks)"
+   }
+  ],
+  "ref": "E2089 (last data year). A helper in J2168 avoids L2168:AE2168 pointing into its own row.",
+  "effect": "Egypt engineer baseline 2035 (legacy inputs, TrModel = Engineer): road electricity -0.6%, passenger EV sales share -0.1 points.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L30",
+  "pri": "Medium",
+  "title": "Bus fuel scaled by the wrong rows (survey B6)",
+  "where": "Mitigation rows 5310-5314, 5318",
+  "why": "Rows 5310-5313 (labelled gasoline, diesel, LPG, gas passenger fuel use) read rows 5191-5194 (LPG, gas, PHEV VKT and a blank row); 5314 (labelled passenger electricity) reads BEV vehicles (5219). Row 5318 adds base bus energy in liters and kWh.",
+  "fixes": [
+   {
+    "cell": "L5310",
+    "now": "=L5191 * $E5310/10^3",
+    "new": "=L5195/$E5310*10^9",
+    "fill": "L5310:AE5310",
+    "policy": "paste into L11626:AE11626 (+6,316)"
+   },
+   {
+    "cell": "L5311",
+    "now": "=L5192* $E5311/10^3",
+    "new": "=L5196/$E5311*10^9",
+    "fill": "L5311:AE5311",
+    "policy": "paste into L11627:AE11627 (+6,316)"
+   },
+   {
+    "cell": "L5312",
+    "now": "=L5193* $E5312/10^3",
+    "new": "=L5197/$E5312*10^9",
+    "fill": "L5312:AE5312",
+    "policy": "paste into L11628:AE11628 (+6,316)"
+   },
+   {
+    "cell": "L5313",
+    "now": "=L5194* $E5313/10^3",
+    "new": "=L5198/$E5313*10^9",
+    "fill": "L5313:AE5313",
+    "policy": "paste into L11629:AE11629 (+6,316)"
+   },
+   {
+    "cell": "L5314",
+    "now": "=L5219* $E5314",
+    "new": "=L5223*10^3/_conv_ktoe_to_gwh",
+    "fill": "L5314:AE5314",
+    "policy": "paste into L11630:AE11630 (+6,316)"
+   },
+   {
+    "cell": "L5318",
+    "now": "= SUMPRODUCT($L5306:$L5309, $E5306:$E5309)/10^9* L5314 / SUM($L5310:$L5314)",
+    "new": "= SUM($L5306:$L5309)*_conv_ktoe_to_gwh/10^3 * L5314 / SUM($L5310:$L5314)",
+    "fill": "L5318:AE5318",
+    "policy": "paste into L11634:AE11634 (+6,316)"
+   }
+  ],
+  "ref": "Column D of rows 5310-5314 already names the intended rows (=D5195 ... =D5198, =D5223); column F says ktoe. Rows 5195-5198 are passenger fuel use in bln liters, 5223 passenger electricity in bln kWh.",
+  "effect": "Egypt engineer baseline 2035 (legacy inputs, TrModel = Engineer): diesel -0.3%, road electricity -16.8%.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L31",
+  "pri": "Medium",
+  "title": "Bus share grossed up as x(1+share) (survey B6b)",
+  "where": "Mitigation O5171:O5173",
+  "why": "The bus share of fuel use (column M) is added to the bottom-up use as x(1 + share); a share of the total needs /(1 - share).",
+  "fixes": [
+   {
+    "cell": "O5171",
+    "now": "= L5171 / $N5171 * 10^9 * (1 + M5171)",
+    "new": "= L5171 / $N5171 * 10^9 / (1 - M5171)",
+    "fill": "single cell",
+    "policy": "paste into O11487 (+6,316)"
+   },
+   {
+    "cell": "O5172",
+    "now": "= L5172 / $N5172 * 10^9 * (1 + M5172)",
+    "new": "= L5172 / $N5172 * 10^9 / (1 - M5172)",
+    "fill": "single cell",
+    "policy": "paste into O11488 (+6,316)"
+   },
+   {
+    "cell": "O5173",
+    "now": "= L5173 / $N5173 * 10^9 * (1 + M5173)",
+    "new": "= L5173 / $N5173 * 10^9 / (1 - M5173)",
+    "fill": "single cell",
+    "policy": "paste into O11489 (+6,316)"
+   }
+  ],
+  "ref": "Column header M5169 \"Share for buses\" (a share of the total).",
+  "effect": "Egypt engineer baseline 2035 (legacy inputs, TrModel = Engineer): road electricity -0.3%.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L33",
+  "pri": "Medium",
+  "title": "Wrong elasticities and rows in freight and 2-3 wheeler distance (survey B8)",
+  "where": "Mitigation rows 5232, 5261, 5295 (and L4646, see L34)",
+  "why": "LPG freight VKT reads row 5126 instead of the freight VKT row 5230; BEV freight VKT uses the 2-3 wheeler income elasticity $L4330; BEV 2-3 wheeler VKT uses the cost ratio M5292 twice and no income term.",
+  "fixes": [
+   {
+    "cell": "L5232",
+    "now": "= IF( ISNUMBER(L5126), L5126 * $G5232, K5232 * L5117 ^ _el_dem_die_rod * L5125 ^ $K4330)",
+    "new": "= IF( ISNUMBER(L5230), L5230 * $G5232, K5232 * L5117 ^ _el_dem_die_rod * L5125 ^ $K4330)",
+    "fill": "L5232:AE5232",
+    "policy": "paste into L11548:AE11548 (+6,316)"
+   },
+   {
+    "cell": "L5261",
+    "now": "= IF( ISNUMBER(L5260), L5260 * $G5261, K5261 * L5258 ^ _el_dem_die_rod * L5125 ^ $L4330)",
+    "new": "= IF( ISNUMBER(L5260), L5260 * $G5261, K5261 * L5258 ^ _el_dem_die_rod * L5125 ^ $K4330)",
+    "fill": "L5261:AE5261",
+    "policy": "paste into L11577:AE11577 (+6,316)"
+   },
+   {
+    "cell": "L5295",
+    "now": "= IF( ISNUMBER(L5294), L5294*$G5295, K5295 * L5292 ^ _el_dem_gso_rod * L5292 ^ $L4330)",
+    "new": "= IF( ISNUMBER(L5294), L5294*$G5295, K5295 * L5292 ^ _el_dem_gso_rod * L5158 ^ $L4330)",
+    "fill": "L5295:AE5295",
+    "policy": "paste into L11611:AE11611 (+6,316)"
+   }
+  ],
+  "ref": "Sibling rows 5231/5233 (base row 5230), 5231 ($K4330 for freight) and 5273 (2-3 wheeler gasoline: income term M5158 ^ $L4330).",
+  "effect": "Egypt engineer baseline 2035 (legacy inputs, TrModel = Engineer): diesel -0.2%, road electricity +4.0%.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L34",
+  "pri": "Medium",
+  "title": "Freight discounted at the power-sector WACC (survey B8w)",
+  "where": "Mitigation rows 4628, 4630, 4646, 4648, 4670, 4672",
+  "why": "Freight TCO rows discount at $K4329 = AVERAGE(I2988:I2996), the power-sector cost of capital; passenger rows use the consumer discount rate row 4531, and freight depreciation 4646 already switches to it from 2023.",
+  "fixes": [
+   {
+    "cell": "L4646",
+    "now": "=((L4642 - L4645) / ($K4324 - 1)) / $K4329 * (1 - (1 / (1 + $K4329) ^ ($K4324 - 1)))",
+    "new": "=((L4642 - L4645) / ($K4324 - 1)) / L4531 * (1 - (1 / (1 + L4531) ^ ($K4324 - 1)))",
+    "fill": "L4646 only (M4646:AE4646 already read row 4531)",
+    "policy": "paste into L10962 (+6,316)"
+   },
+   {
+    "cell": "L4628",
+    "now": "=PV($K4329, $K4324, L4627) * -1",
+    "new": "=PV(L4531, $K4324, L4627) * -1",
+    "fill": "L4628:AE4628",
+    "policy": "paste into L10944:AE10944 (+6,316)"
+   },
+   {
+    "cell": "L4630",
+    "now": "=PV($K4329, $K4324, L4629) * -1",
+    "new": "=PV(L4531, $K4324, L4629) * -1",
+    "fill": "L4630:AE4630",
+    "policy": "paste into L10946:AE10946 (+6,316)"
+   },
+   {
+    "cell": "L4648",
+    "now": "=(L4642 * $K4326) / $K4329 *(1 - (1 / (1 + $K4329) ^ ($K4324 + 1))) * 0.5 + $K4327 * L4628",
+    "new": "=(L4642 * $K4326) / L4531 *(1 - (1 / (1 + L4531) ^ ($K4324 + 1))) * 0.5 + $K4327 * L4628",
+    "fill": "L4648:AE4648",
+    "policy": "paste into L10964:AE10964 (+6,316)"
+   },
+   {
+    "cell": "L4670",
+    "now": "=((L4666 - L4669) / ($K4324 - 1)) / $K4329 * (1 - (1 / (1 + $K4329) ^ ($K4324 - 1)))",
+    "new": "=((L4666 - L4669) / ($K4324 - 1)) / L4531 * (1 - (1 / (1 + L4531) ^ ($K4324 - 1)))",
+    "fill": "L4670:AE4670",
+    "policy": "paste into L10986:AE10986 (+6,316)"
+   },
+   {
+    "cell": "L4672",
+    "now": "=(L4666 * $K4326) / $K4329 *(1 - (1 / (1 + $K4329) ^ ($K4324 + 1))) * 0.5 + $K4328 * L4630",
+    "new": "=(L4666 * $K4326) / L4531 *(1 - (1 / (1 + L4531) ^ ($K4324 + 1))) * 0.5 + $K4328 * L4630",
+    "fill": "L4672:AE4672",
+    "policy": "paste into L10988:AE10988 (+6,316)"
+   }
+  ],
+  "ref": "Passenger rows (e.g. 4573, 4598) and M4646:AE4646, which use the year's consumer discount rate (row 4531).",
+  "effect": "Egypt engineer baseline 2035 (legacy inputs, TrModel = Engineer): diesel +0.2%, road electricity -1.0%.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L35",
+  "pri": "Medium",
+  "title": "Negative PHEV sales share (survey B9)",
+  "where": "Mitigation rows 4846-4850",
+  "why": "PHEV share = passenger PHEV+BEV share (4845) minus the blended passenger/light BEV share (4805): negative for Egypt (-0.07% in 2022).",
+  "fixes": [
+   {
+    "cell": "L4850",
+    "now": "= L4845 - L4805",
+    "new": "=MAX(0,L2063-L2065)*L2038",
+    "fill": "L4850:O4850 (data years)",
+    "policy": "paste into L11166:O11166 (+6,316)"
+   },
+   {
+    "cell": "P4850",
+    "now": "= IF(ISNUMBER(P4845), P4845 - P4805, O4850 * (P4844 ^ $T4329) * ((O4847*P4841+O4848*P4842+O4849*P4843+O4846*P4840)/SUM(O4846:O4849)) ^ $T4330)",
+    "new": "= IF(ISNUMBER(P4845), MAX(0,P2063-P2065)*P2038, O4850 * (P4844 ^ $T4329) * ((O4847*P4841+O4848*P4842+O4849*P4843+O4846*P4840)/SUM(O4846:O4849)) ^ $T4330)",
+    "fill": "P4850:AE4850 (only the data branch changes)",
+    "policy": "paste into P11166:AE11166 (+6,316)"
+   },
+   {
+    "cell": "L4846",
+    "now": "= L4835 / SUM(L4835:L4838) * (1 - L4845)",
+    "new": "= L4835 / SUM(L4835:L4838) * (1 - L4805 - L4850)",
+    "fill": "L4846:O4846",
+    "policy": "paste into L11162:O11162 (+6,316)"
+   },
+   {
+    "cell": "L4847",
+    "now": "= L4836 / SUM(L4835:L4838) * (1 - L4845)",
+    "new": "= L4836 / SUM(L4835:L4838) * (1 - L4805 - L4850)",
+    "fill": "L4847:O4847",
+    "policy": "paste into L11163:O11163 (+6,316)"
+   },
+   {
+    "cell": "L4848",
+    "now": "= L4837 / SUM(L4835:L4838) * (1 - L4845)",
+    "new": "= L4837 / SUM(L4835:L4838) * (1 - L4805 - L4850)",
+    "fill": "L4848:O4848",
+    "policy": "paste into L11164:O11164 (+6,316)"
+   },
+   {
+    "cell": "L4849",
+    "now": "= L4838 / SUM(L4835:L4838) * (1 - L4845)",
+    "new": "= L4838 / SUM(L4835:L4838) * (1 - L4805 - L4850)",
+    "fill": "L4849:O4849",
+    "policy": "paste into L11165:O11165 (+6,316)"
+   }
+  ],
+  "ref": "Rows 2063 (PHEV+BEV passenger share), 2065 (BEV passenger share) and 2038 (passenger share of passenger/light).",
+  "effect": "Egypt engineer baseline 2035 (legacy inputs, TrModel = Engineer): diesel +0.1%, road electricity +0.2%.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L37",
+  "pri": "Medium",
+  "title": "New BEV maintenance at the ICEV rate (survey B19)",
+  "where": "Mitigation row 4573",
+  "why": "BEV insurance and maintenance uses $J4327 (ICEV maintenance) instead of $J4328 (EV maintenance).",
+  "fixes": [
+   {
+    "cell": "L4573",
+    "now": "=(L4562 * $J4326) /L4531 *(1 - (1 / (1 + L4531) ^ ($J4322 + 1))) * 0.5 + $J4327 * L4513",
+    "new": "=(L4562 * $J4326) /L4531 *(1 - (1 / (1 + L4531) ^ ($J4322 + 1))) * 0.5 + $J4328 * L4513",
+    "fill": "L4573:AE4573",
+    "policy": "paste into L10889:AE10889 (+6,316)"
+   }
+  ],
+  "ref": "Parameter table: J4327 ICEV, J4328 EV maintenance.",
+  "effect": "Egypt engineer baseline 2035 (legacy inputs, TrModel = Engineer): gasoline -0.1%, road electricity +1.2%, passenger EV sales share +0.5 points.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L38",
+  "pri": "Medium",
+  "title": "Used ICEV and BEV depreciation over different periods (survey B20)",
+  "where": "Mitigation row 4598",
+  "why": "Used ICEV depreciation is an annuity over $J4322-1 (6) years, the used BEV over 12 ($J4323-1).",
+  "fixes": [
+   {
+    "cell": "L4598",
+    "now": "=((L4597) / ($J4322 - 1)) / L4531 * (1 - (1 / (1 + L4531) ^ ($J4322 - 1)))",
+    "new": "=((L4597) / ($J4323 - 1)) / L4531 * (1 - (1 / (1 + L4531) ^ ($J4323 - 1)))",
+    "fill": "L4598:AE4598",
+    "policy": "paste into L10914:AE10914 (+6,316)"
+   }
+  ],
+  "ref": "Row 4600 (used ICEV insurance) and the used BEV rows, which use $J4323 (\"Used vehicle useful life\").",
+  "effect": "Egypt engineer baseline 2035 (legacy inputs, TrModel = Engineer): gasoline +5.1%, diesel +3.1%, road electricity -50.7%, passenger EV sales share -10.0 points.",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L25",
+  "pri": "Low",
+  "title": "Distance tax and 2-3 wheeler EV subsidy apply in the baseline (survey B1)",
+  "where": "Mitigation rows 4451, 4720",
+  "why": "The scenario test is ($C2227 > 1); C2227 is the text \"res\" and text > number is TRUE, so both policies are on in the baseline.",
+  "fixes": [
+   {
+    "cell": "L4451",
+    "now": "= IF( L4450 = $P4304, $P4305, MIN($P4307, K4451 + ($P4307 - $P4305) / ($P4306 - $P4304))) * (L4450 >= $P4304) * ($C2227 > 1)",
+    "new": "= IF( L4450 = $P4304, $P4305, MIN($P4307, K4451 + ($P4307 - $P4305) / ($P4306 - $P4304))) * (L4450 >= $P4304) * ($C2173 > 1)",
+    "fill": "L4451:AE4451",
+    "policy": "paste into L10767:AE10767 (+6,316)"
+   },
+   {
+    "cell": "L4720",
+    "now": "= IF( L4683 = $AD4304, $AD4305*-1, IF( L4683 > $AD4304, MIN(0, K4720 - $AD4306), 0)) * ($C2227 > 1)",
+    "new": "= IF( L4683 = $AD4304, $AD4305*-1, IF( L4683 > $AD4304, MIN(0, K4720 - $AD4306), 0)) * ($C2173 > 1)",
+    "fill": "L4720:AE4720",
+    "policy": "paste into L11036:AE11036 (+6,316)"
+   }
+  ],
+  "ref": "C2173 = scenario number (used by e.g. row 4343, IF($C2173 = 1, 0, ...)).",
+  "effect": "None in the Egypt engineer run (the policy or fuel is zero there).",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L26",
+  "pri": "Low",
+  "title": "Freight and 2-3 wheeler income growth read coal subsidies from 2038 (survey B2)",
+  "where": "Mitigation row 4487 (4501 follows)",
+  "why": "L4487:AA4487 = row 4463 (lagged GDP growth); AB4487:AE4487 = row 2455 (coal producer-side subsidies).",
+  "fixes": [
+   {
+    "cell": "AB4487",
+    "now": "=AB2455",
+    "new": "=AB4463",
+    "fill": "AB4487:AE4487",
+    "policy": "paste into AB10803:AE10803 (+6,316)"
+   }
+  ],
+  "ref": "L4487:AA4487 (= the same column of row 4463).",
+  "effect": "None in the Egypt engineer run (the policy or fuel is zero there).",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L29",
+  "pri": "Low",
+  "title": "Ownership of cars and trucks cannot fall (survey B4)",
+  "where": "Mitigation T4328, U4328",
+  "why": "The maximum annual decrease of ownership is 0 for passenger and freight (Dashboard L555), so ownership never falls; 2-3 wheelers have 10% (V4328 = Dashboard L556).",
+  "fixes": [
+   {
+    "cell": "T4328",
+    "now": "=Dashboard!L$555",
+    "new": "=$V4328",
+    "fill": "single cell",
+    "policy": "paste into T10644 (+6,316)"
+   },
+   {
+    "cell": "U4328",
+    "now": "=Dashboard!L$555",
+    "new": "=$V4328",
+    "fill": "single cell",
+    "policy": "paste into U10644 (+6,316)"
+   }
+  ],
+  "ref": "V4328 (2-3 wheelers, 10%).",
+  "effect": "None in the Egypt engineer run (the policy or fuel is zero there).",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L32",
+  "pri": "Low",
+  "title": "Industry emission factors for road diesel and LPG (survey B7)",
+  "where": "Mitigation G4376-G4378, G4419-G4421",
+  "why": "The defined names in these cells point to the wrong rows of the EF table: _ef_co2_ker_ind_lit = O1004 (diesel industry), _ef_co2_jet_avi_lit = O1005 (LPG industry), _ef_co2_die_pow_lit = O995 (gas residential, per GJ).",
+  "fixes": [
+   {
+    "cell": "G4376",
+    "now": "=_ef_co2_ker_ind_lit*$E$2147",
+    "new": "=$O$990*$E$2147",
+    "fill": "single cell",
+    "policy": "paste into G10692 (+6,316)"
+   },
+   {
+    "cell": "G4377",
+    "now": "=_ef_co2_jet_avi_lit",
+    "new": "=$O$991",
+    "fill": "single cell",
+    "policy": "paste into G10693 (+6,316)"
+   },
+   {
+    "cell": "G4378",
+    "now": "=_ef_co2_die_pow_lit/26",
+    "new": "=$O$988/26",
+    "fill": "single cell",
+    "policy": "paste into G10694 (+6,316)"
+   },
+   {
+    "cell": "G4419",
+    "now": "=_ef_co2_ker_ind_lit*$E$2147",
+    "new": "=$O$990*$E$2147",
+    "fill": "single cell",
+    "policy": "paste into G10735 (+6,316)"
+   },
+   {
+    "cell": "G4420",
+    "now": "=_ef_co2_jet_avi_lit",
+    "new": "=$O$991",
+    "fill": "single cell",
+    "policy": "paste into G10736 (+6,316)"
+   },
+   {
+    "cell": "G4421",
+    "now": "=_ef_co2_die_pow_lit/26",
+    "new": "=$O$988/26",
+    "fill": "single cell",
+    "policy": "paste into G10737 (+6,316)"
+   }
+  ],
+  "ref": "Road rows of the EF table: O990 diesel road, O991 LPG road, O988 natural gas road; G4375 (gasoline) already uses the road row (O989). Rows 5196-5198 and 5243-5245 take these cells.",
+  "effect": "Diesel road EF 0.002679 to 0.002641 t/l (-1.4%); LPG and gas unchanged in value. None in the Egypt engineer run (the policy or fuel is zero there).",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L36",
+  "pri": "Low",
+  "title": "Charging-station subsidy ramp (survey B10)",
+  "where": "Mitigation row 4343; Dashboard C95:C98 labels",
+  "why": "The ramp adds a step every year from the first column (also before the start year) and is only capped at 1, not at the target level after the target year. The Dashboard labels of rows 95-98 do not match how the inputs are used (values: G97 = 2026, G98 = 2035 are the years).",
+  "fixes": [
+   {
+    "cell": "L4343",
+    "now": "= IF( $C2173 = 1, 0, IF(L4334 = $P4317, $P4315, MIN(1, MAX(0, K4343 + ($P4316 - $P4315)/ ($P4318 - $P4317)))))",
+    "new": "= IF( $C2173 = 1, 0, IF( L4334 < $P4317, 0, IF( L4334 >= $P4318, $P4316, $P4315 + ($P4316 - $P4315) * (L4334 - $P4317) / ($P4318 - $P4317))))",
+    "fill": "L4343:AE4343",
+    "policy": "paste into L10659:AE10659 (+6,316)"
+   }
+  ],
+  "ref": "P4315 start level, P4316 target level, P4317 start year, P4318 target year (as the formula and the default values use them).",
+  "effect": "None in the Egypt engineer run (the policy or fuel is zero there).",
+  "note": "Also relabel Dashboard C95 \"start level\", C96 \"target level\", C97 \"start year\", C98 \"target year\" (the M4315:M4318 labels read from there).",
+  "status": "fix"
+ },
+ {
+  "id": "L39",
+  "pri": "Low",
+  "title": "Freight distance output omits LPG and LNG trucks (survey B21)",
+  "where": "Mitigation row 5267",
+  "why": "All-freight VKT sums SUM(5239:5239) (diesel only) plus BEV.",
+  "fixes": [
+   {
+    "cell": "L5267",
+    "now": "= SUM(L5239:L5239, L5264)",
+    "new": "= SUM(L5239:L5241, L5264)",
+    "fill": "L5267:AE5267",
+    "policy": "paste into L11583:AE11583 (+6,316)"
+   }
+  ],
+  "ref": "Rows 5239-5241 (diesel, LPG, gas freight VKT).",
+  "effect": "None in the Egypt engineer run (the policy or fuel is zero there).",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L40",
+  "pri": "Low",
+  "title": "Wrong rows in average gas and EV fuel economy (survey B22)",
+  "where": "Mitigation rows 5368, 5373",
+  "why": "Average gas fuel economy weights freight by LPG freight fuel (5244) instead of LNG (5245); the EV fallback tests diesel use (5326) instead of electricity (5330).",
+  "fixes": [
+   {
+    "cell": "L5368",
+    "now": "= IF(L5324 = 0, AVERAGE(L5367, L5366), L5366 * L5198 / (L5198 + L5244) + L5244 / (L5198 + L5244) * L5367)",
+    "new": "= IF(L5324 = 0, AVERAGE(L5367, L5366), L5366 * L5198 / (L5198 + L5245) + L5245 / (L5198 + L5245) * L5367)",
+    "fill": "L5368:AE5368",
+    "policy": "paste into L11684:AE11684 (+6,316)"
+   },
+   {
+    "cell": "L5373",
+    "now": "= IF(L5326 = 0, L5370*0.5+L5371*0.25+L5372*0.25, L5370 * L5223 / (L5223 + L5265 + L5299) + L5265 / (L5223 + L5265 + L5299) * L5371 + L5299 / (L5223 + L5265 + L5299) * L5372)",
+    "new": "= IF(L5330 = 0, L5370*0.5+L5371*0.25+L5372*0.25, L5370 * L5223 / (L5223 + L5265 + L5299) + L5265 / (L5223 + L5265 + L5299) * L5371 + L5299 / (L5223 + L5265 + L5299) * L5372)",
+    "fill": "L5373:AE5373",
+    "policy": "paste into L11689:AE11689 (+6,316)"
+   }
+  ],
+  "ref": "Row 5324 (gas = 5198 + 5245 + 5317) and row 5330 (electricity, all).",
+  "effect": "None in the Egypt engineer run (the policy or fuel is zero there).",
+  "note": null,
+  "status": "fix"
+ },
+ {
+  "id": "L41",
+  "pri": "Low",
+  "title": "PHEVs carry the full BEV range anxiety (survey B23)",
+  "where": "Mitigation row 4555",
+  "why": "PHEV TCO adds row 4579 (BEV range anxiety, about 100,000 $/vehicle), so PHEV sales vanish.",
+  "fixes": [
+   {
+    "cell": "L4555",
+    "now": "= L4509 * L4456 + SUM(L4565:L4567) + L4541 + L4520 * L4396 / L4397 + L4579",
+    "new": "= L4509 * L4456 + SUM(L4565:L4567) + L4541 + L4520 * L4396 / L4397",
+    "fill": "L4555:AE4555",
+    "policy": "paste into L10871:AE10871 (+6,316)"
+   }
+  ],
+  "ref": "Rows 4551-4554 (ICE TCOs, no range anxiety). User decision 2026-10-14: PHEVs refuel with gasoline.",
+  "effect": "None in the Egypt engineer run (the policy or fuel is zero there).",
+  "note": null,
+  "status": "fix"
+ }
+]

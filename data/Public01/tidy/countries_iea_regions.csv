@@ -1,0 +1,27 @@
+code,variable,value
+WLD,IEA regions,World
+AFRICATOT,IEA regions,Memo: Africa (UN)
+AMERICAS,IEA regions,Memo: Americas (UN)
+ASIATOT,IEA regions,Memo: Asia (UN)
+EUROPE,IEA regions,Memo: Europe (UN)
+OCEANIA,IEA regions,Memo: Oceania (UN)
+AFRIC,IEA regions,Africa
+MASEAN,IEA regions,Memo: ASEAN
+EU28,IEA regions,Memo: European Union-28
+FSU_15,IEA regions,Memo: FSU 15
+G7,IEA regions,Memo: G7
+G8,IEA regions,Memo: G8
+IEATOT,IEA regions,Memo: IEA Total
+IEAFAMILY,IEA regions,Memo: IEA and Accession/Association countries
+OPEC,IEA regions,Memo: OPEC
+ASME,IEA regions,Middle East
+LATAMER,IEA regions,Non-OECD Americas
+ASIA,IEA regions,Non-OECD Asia (excluding China)
+NON-OECDEUROPEANDEURASIA,IEA regions,Non-OECD Europe and Eurasia
+OENN,IEA regions,OECD Americas
+OEPN,IEA regions,OECD Asia Oceania
+OTHERAFRIC,IEA regions,Other Africa
+OTHERLATIN,IEA regions,Other non-OECD Americas
+OTHERASIA,IEA regions,Other non-OECD Asia
+WORLDAV,IEA regions,World aviation bunkers
+WORLDMAR,IEA regions,World marine bunkers

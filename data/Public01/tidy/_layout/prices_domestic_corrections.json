@@ -1,0 +1,1 @@
+{"kind": "table", "header": ["country_year", "column", "old", "new", "source"], "key_pos": [0, 1], "attr_pos": [], "val_pos": [2, 3, 4], "skipped": {}, "nrows": 291, "source": "prices_dom_changes.csv"}

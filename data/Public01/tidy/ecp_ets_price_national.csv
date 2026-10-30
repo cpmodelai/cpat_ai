@@ -1,0 +1,77 @@
+country_name,country,sector_fuel,code,year,value
+Australia,AUS,all,aus.mit.eer.all,2024,21.90375
+Australia,AUS,all,aus.mit.eer.all,2025,21.81612
+Austria,AUT,all,aut.mit.eer.all,2023,35.34375
+Austria,AUT,all,aut.mit.eer.all,2024,48.3705
+Austria,AUT,all,aut.mit.eer.all,2025,48.546
+Canada,CAN,all,can.mit.eer.all,2021,31.8344608
+Canada,CAN,all,can.mit.eer.all,2022,39.96163683
+Canada,CAN,all,can.mit.eer.all,2023,48.03073967
+Canada,CAN,all,can.mit.eer.all,2024,58.94488653
+Canada,CAN,all,can.mit.eer.all,2025,66.21131865
+China,CHN,all,chn.mit.eer.all,2022,9.199849028
+China,CHN,all,chn.mit.eer.all,2023,8.15316299
+China,CHN,all,chn.mit.eer.all,2024,12.57307921
+China,CHN,all,chn.mit.eer.all,2025,11.76462495
+Germany,DEU,all,deu.mit.eer.all,2021,29.365
+Germany,DEU,all,deu.mit.eer.all,2022,33.156
+Germany,DEU,all,deu.mit.eer.all,2023,32.625
+Germany,DEU,all,deu.mit.eer.all,2024,48.3705
+Germany,DEU,all,deu.mit.eer.all,2025,48.546
+Indonesia,IDN,all,idn.mit.eer.all,2023,0.612165181373164
+Indonesia,IDN,all,idn.mit.eer.all,2024,0.612165181
+Indonesia,IDN,all,idn.mit.eer.all,2025,0.724375226
+Kazakhstan,KAZ,all,kaz.mit.eer.all,2015,2.04
+Kazakhstan,KAZ,all,kaz.mit.eer.all,2016,0
+Kazakhstan,KAZ,all,kaz.mit.eer.all,2020,1.112451318
+Kazakhstan,KAZ,all,kaz.mit.eer.all,2021,1.176775165
+Kazakhstan,KAZ,all,kaz.mit.eer.all,2022,1.08082606
+Kazakhstan,KAZ,all,kaz.mit.eer.all,2023,1.115760112
+Kazakhstan,KAZ,all,kaz.mit.eer.all,2024,1.059208169
+Kazakhstan,KAZ,all,kaz.mit.eer.all,2025,0.931726271
+Korea,KOR,all,kor.mit.eer.all,2015,9.104020191
+Korea,KOR,all,kor.mit.eer.all,2016,6.885102665
+Korea,KOR,all,kor.mit.eer.all,2017,18.23313323
+Korea,KOR,all,kor.mit.eer.all,2018,20.62822316
+Korea,KOR,all,kor.mit.eer.all,2019,23.45744213
+Korea,KOR,all,kor.mit.eer.all,2020,32.78688525
+Korea,KOR,all,kor.mit.eer.all,2021,15.89263641
+Korea,KOR,all,kor.mit.eer.all,2022,18.74948377
+Korea,KOR,all,kor.mit.eer.all,2023,11.23638595
+Korea,KOR,all,kor.mit.eer.all,2024,6.302427437
+Korea,KOR,all,kor.mit.eer.all,2025,6.453148375
+Mexico,MEX,all,mex.mit.eer.all,2021,0
+Mexico,MEX,all,mex.mit.eer.all,2022,0
+Mexico,MEX,all,mex.mit.eer.all,2023,0
+Mexico,MEX,all,mex.mit.eer.all,2024,0
+Mexico,MEX,all,mex.mit.eer.all,2025,0
+"Montenegro, Rep.",MNE,all,mne.mit.eer.all,2023,25.7976
+"Montenegro, Rep.",MNE,all,mne.mit.eer.all,2024,25.7976
+"Montenegro, Rep.",MNE,all,mne.mit.eer.all,2025,25.8912
+New Zealand,NZL,all,nzl.mit.eer.all,2015,4.93
+New Zealand,NZL,all,nzl.mit.eer.all,2016,13.03
+New Zealand,NZL,all,nzl.mit.eer.all,2017,12.51389
+New Zealand,NZL,all,nzl.mit.eer.all,2018,15.090285
+New Zealand,NZL,all,nzl.mit.eer.all,2019,17.53254
+New Zealand,NZL,all,nzl.mit.eer.all,2020,14.304
+New Zealand,NZL,all,nzl.mit.eer.all,2021,25.75989
+New Zealand,NZL,all,nzl.mit.eer.all,2022,52.6224
+New Zealand,NZL,all,nzl.mit.eer.all,2023,34.19875
+New Zealand,NZL,all,nzl.mit.eer.all,2024,35.105
+New Zealand,NZL,all,nzl.mit.eer.all,2025,32.007124
+Switzerland,CHE,all,che.mit.eer.all,2015,12.906
+Switzerland,CHE,all,che.mit.eer.all,2016,10.2888
+Switzerland,CHE,all,che.mit.eer.all,2017,6.94915
+Switzerland,CHE,all,che.mit.eer.all,2018,9.24075
+Switzerland,CHE,all,che.mit.eer.all,2019,8.03374
+Switzerland,CHE,all,che.mit.eer.all,2020,19.84884
+Switzerland,CHE,all,che.mit.eer.all,2021,46.10305
+Switzerland,CHE,all,che.mit.eer.all,2022,65.59362
+Switzerland,CHE,all,che.mit.eer.all,2023,93.80775
+Switzerland,CHE,all,che.mit.eer.all,2024,59.173245
+Switzerland,CHE,all,che.mit.eer.all,2025,64.749576
+United Kingdom,GBR,all,gbr.mit.eer.all,2021,0
+United Kingdom,GBR,all,gbr.mit.eer.all,2022,98.5575
+United Kingdom,GBR,all,gbr.mit.eer.all,2023,88.1259355
+United Kingdom,GBR,all,gbr.mit.eer.all,2024,45.061676
+United Kingdom,GBR,all,gbr.mit.eer.all,2025,57.2278135

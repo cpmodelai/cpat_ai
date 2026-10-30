@@ -1,0 +1,10 @@
+item,variable,value
+Country:,value,EGY
+Country:,index,54
+Source:,value,Income-grp*
+Source:,index,2
+Category:,value,LMIC
+Category:,index,4
+Category:,index_2,4
+Range:,value,Base*
+Range:,index,1

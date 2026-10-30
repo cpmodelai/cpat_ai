@@ -1,0 +1,313 @@
+product,unit,cn_codes,route,variable,value
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,S1.fc,0.12903
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,S1.fp,0.561
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,S1.np,0.04
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,S1.no,0
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,S1 own,0.7300300000000001
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,"Embed
+NH₃",0
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,"S1 incl
+NH₃",0.7300300000000001
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,S2,0.25
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,"S2 in CBAM
+scope?",0
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,"S1+S2
+total",0.9800300000000001
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,"CBAM-
+equiv",0.7300300000000001
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,"fc
+GJ/t",5
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,"fc
+EF",56.1
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,"fp
+GJ/t",24
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,"fp
+EF",56.1
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,"EU def
+base",1.82
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,"mark
+up",0.1
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,"EU def
+2026",2.0020000000000002
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,"EU
+bench",0.481
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,"Gap vs
+def",-1.27197
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,"Gap vs
+bench",0.24903000000000008
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,Latest EU regulatory note (May 2026),DRI-EAF. Default base 1.820 ×1.10 markup = 2.002 (2026). Benchmark 0.481 (final IR 2025/2620). CAUTION: CBAM default matrix for HRC CN 7208 may assign only BF-BOF route (4.454) — 'DRI default vacancy' risk for flat products.
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,S1.fc / S1.fp confidence,S1.fc: Est: Midrex heat:reductant ratio 5:24 GJ/t NG. Total EF Auth (WSA 2023 / S1.fp: Est: Midrex standard ratio; IPCC 2006 Vol2 2C1; WSA 2023. Total Auth; 
+DRI-EAF steel,t crude steel,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,Midrex NG shaft furnace + EAF,S1.np / S1.no confidence,S1.np: Auth: IPCC 2006 2C1 — DRI process CO2 = 0 / S1.no: Auth: IPCC 2006 2C1
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,S1.fc,0.14025
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,S1.fp,0
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,S1.np,0.015
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,S1.no,0
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,S1 own,0.15525
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,"Embed
+NH₃",0
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,"S1 incl
+NH₃",0.15525
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,S2,0.25
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,"S2 in CBAM
+scope?",0
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,"S1+S2
+total",0.40525
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,"CBAM-
+equiv",0.15525
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,"fc
+GJ/t",2.5
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,"fc
+EF",56.1
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,"fp
+GJ/t",0
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,"fp
+EF",0
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,"EU def
+base",0.72
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,"mark
+up",0.1
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,"EU def
+2026",0.792
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,"EU
+bench",0.072
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,"Gap vs
+def",-0.63675
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,"Gap vs
+bench",0.08325
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,Latest EU regulatory note (May 2026),"Scrap-EAF. Default base 0.720 ×1.10 = 0.792 (2026). Benchmark 0.072 (final, scrap route)."
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,S1.fc / S1.fp confidence,S1.fc: Est: IEA Egypt sector average; WSA 2023 scrap-EAF range 2-3 GJ/t. Tota / S1.fp: Auth: no reductant in scrap melting process
+Scrap-EAF steel,t crude steel,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,Scrap-EAF,S1.np / S1.no confidence,S1.np: Est: IPCC 2006 Vol2 2C1 default 0.01-0.02 tCO2/t for scrap-EAF / S1.no: Auth: IPCC 2006 2C1
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,S1.fc,0.38439999999999996
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,S1.fp,1.5375999999999999
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,S1.np,0.25
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,S1.no,0
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,S1 own,2.1719999999999997
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,"Embed
+NH₃",0
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,"S1 incl
+NH₃",2.1719999999999997
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,S2,0.1875
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,"S2 in CBAM
+scope?",0
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,"S1+S2
+total",2.3594999999999997
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,"CBAM-
+equiv",2.1719999999999997
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,"fc
+GJ/t",4
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,"fc
+EF",96.1
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,"fp
+GJ/t",16
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,"fp
+EF",96.1
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,"EU def
+base",2.8
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,"mark
+up",0.1
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,"EU def
+2026",3.08
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,"EU
+bench",1.37
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,"Gap vs
+def",-0.9080000000000004
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,"Gap vs
+bench",0.8019999999999996
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,Latest EU regulatory note (May 2026),BF-BOF reference. Default base 2.800 ×1.10 = 3.080 (2026). Benchmark 1.370 (final IR 2025/2620).
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,S1.fc / S1.fp confidence,S1.fc: Prox: WSA 2023 global BF-BOF average. No Egypt-specific data (no produ / S1.fp: Prox: WSA 2023 BF standard; IPCC 2006 Vol2 2C1. Split Est within proxy
+BF-BOF steel (reference),t crude steel,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),BF-BOF coal/coke,S1.np / S1.no confidence,S1.np: Auth: IPCC 2006 Vol2 2C1 default 0.22-0.28 tCO2/t crude steel / S1.no: Auth: IPCC 2006 2C1
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,S1.fc,0.28829999999999995
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,S1.fp,0
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,S1.np,0.526
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,S1.no,0
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,S1 own,0.8143
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,"Embed
+NH₃",0
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,"S1 incl
+NH₃",0.8143
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,S2,0.05625
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,"S2 in CBAM
+scope?",1
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,"S1+S2
+total",0.87055
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,"CBAM-
+equiv",0.87055
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,"fc
+GJ/t",3
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,"fc
+EF",96.1
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,"fp
+GJ/t",0
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,"fp
+EF",0
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,"EU def
+base",1.58
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,"mark
+up",0.1
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,"EU def
+2026",1.7380000000000002
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,"EU
+bench",0.666
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,"Gap vs
+def",-0.8674500000000002
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,"Gap vs
+bench",0.20455
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,Latest EU regulatory note (May 2026),Cement clinker. Default base 1.580 ×1.10 = 1.738 (2026). Benchmark 0.666 (col B). S2 IN CBAM scope.
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,S1.fc / S1.fp confidence,S1.fc: Est: IEA Egypt cement sector; CSI/GCCA GNR Egypt 2022. Total AukCoa / S1.fp: Auth: cement production has no chemical reductant fuel
+Grey clinker (dry-process),t clinker,2523 10 (clinker); 2523 21; 2523 29 Portland cement,Dry rotary kiln,S1.np / S1.no confidence,S1.np: Auth: IPCC 2006 2A1 stoichiometric constant (44/100 × fraction CaCO3 i / S1.no: Auth
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,S1.fc,0.3927
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,S1.fp,1.4586000000000001
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,S1.np,0
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,S1.no,0
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,S1 own,1.8513000000000002
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,"Embed
+NH₃",0
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,"S1 incl
+NH₃",1.8513000000000002
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,S2,0.0375
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,"S2 in CBAM
+scope?",1
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,"S1+S2
+total",1.8888000000000003
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,"CBAM-
+equiv",1.8888000000000003
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,"fc
+GJ/t",7
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,"fc
+EF",56.1
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,"fp
+GJ/t",26
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,"fp
+EF",56.1
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,"EU def
+base",2.05
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,"mark
+up",0.01
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,"EU def
+2026",2.0705
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,"EU
+bench",1.484
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,"Gap vs
+def",-0.18169999999999975
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,"Gap vs
+bench",0.40480000000000027
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,Latest EU regulatory note (May 2026),Egypt ammonia 2026 default = 2.07 tCO2e/t (incl 1% fertiliser markup; Argus 17 Dec 2025). Benchmark 1.522 → 1.484 after 2.5% reduction in 2026. S2 IN CBAM scope.
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,S1.fc / S1.fp confidence,S1.fc: Est: IFA/EFMA BAT Vol.1; combustion ~6-8 GJ/t NH3. Total Auth (IFA sta / S1.fp: Est: IFA/EFMA BAT Vol.1 standard SMR ~24-28 GJ/t NH3. Total Auth; comb
+Ammonia (net merchant),t NH3,2814 10 (anhydrous ammonia),Steam methane reforming (SMR) + Haber-Bosch synthesis,S1.np / S1.no confidence,S1.np: Auth: NH3 synthesis has no carbon process emissions / S1.no: Auth
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,S1.fc,0.11220000000000001
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,S1.fp,0
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,S1.np,-0.733
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,S1.no,0
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,S1 own,-0.6208
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,"Embed
+NH₃",1.0709495999999998
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,"S1 incl
+NH₃",0.4501495999999998
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,S2,0.0375
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,"S2 in CBAM
+scope?",1
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,"S1+S2
+total",0.4876495999999998
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,"CBAM-
+equiv",0.4876495999999998
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,"fc
+GJ/t",2
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,"fc
+EF",56.1
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,"fp
+GJ/t",0
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,"fp
+EF",0
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,"EU def
+base",1.39
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,"mark
+up",0.01
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,"EU def
+2026",1.4039
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,"EU
+bench",0.902
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,"Gap vs
+def",-0.9162504000000001
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,"Gap vs
+bench",-0.41435040000000023
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,Latest EU regulatory note (May 2026),NH₃ INTEGRATED in headline. Egypt urea 2026 default = 1.404 tCO2e/t (incl 1% markup; Sandbag Feb 2026). Benchmark col B 0.902 (col A 0.053 for actual-data pathway). SEFA chain uses ammonia benchmark 1.522. S2 IN CBAM scope.
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,S1.fc / S1.fp confidence,S1.fc: Est: IFA/EFMA; small relative to NH3 chain. ~1.5-2.5 GJ/t urea typical / S1.fp: Auth: no additional reductant/feedstock in urea synthesis itself
+Urea,t urea,3102 10 (urea >= 45% N),Urea synthesis from captured CO2 + NH3 feedstock,S1.np / S1.no confidence,S1.np: Auth: IPCC 2006 Vol2 3G stoichiometric constant. 44/60 = 0.733 tCO2 ab / S1.no: Auth
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),S1.fc,0.11220000000000001
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),S1.fp,0
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),S1.np,0
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),S1.no,0.97
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),S1 own,1.0822
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),"Embed
+NH₃",0.40137
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),"S1 incl
+NH₃",1.48357
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),S2,0.04375
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),"S2 in CBAM
+scope?",1
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),"S1+S2
+total",1.52732
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),"CBAM-
+equiv",1.52732
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),"fc
+GJ/t",2
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),"fc
+EF",56.1
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),"fp
+GJ/t",0
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),"fp
+EF",0
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),"EU def
+base",2.64
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),"mark
+up",0.01
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),"EU def
+2026",2.6664000000000003
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),"EU
+bench",0.302
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),"Gap vs
+def",-1.1390800000000003
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),"Gap vs
+bench",1.22532
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),Latest EU regulatory note (May 2026),"NH₃ INTEGRATED in headline. AN/CAN. Default base ~2.64 ×1.01 = 2.666 (2026, N2O-driven). Benchmark 0.302. S2 IN CBAM scope. Default value highly sensitive to assumed N2O abatement."
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),S1.fc / S1.fp confidence,S1.fc: Est: IFA/EFMA BAT Vol.3; 1.5-2.5 GJ/t AN typical. Total direct EF less / S1.fp: Auth: HNO3 and neutralisation have no reductant
+Ammonium nitrate,t AN,3102 30 (AN >= 28% N); 3102 40 (CAN),Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),S1.np / S1.no confidence,S1.np: Auth: AN chemistry (NH4NO3) contains no carbon / S1.no: Est: IPCC 2006 2B2; GWP AR6 AII.1.2. CRITICAL: range 0.21 (with high-e
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,S1.fc,0.156
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,S1.fp,0
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,S1.np,1.5
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,S1.no,0.85
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,S1 own,2.506
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,"Embed
+NH₃",0
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,"S1 incl
+NH₃",2.506
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,S2,6.75
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,"S2 in CBAM
+scope?",0
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,"S1+S2
+total",9.256
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,"CBAM-
+equiv",2.506
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,"fc
+GJ/t",2
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,"fc
+EF",78
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,"fp
+GJ/t",0
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,"fp
+EF",0
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,"EU def
+base",2.06
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,"mark
+up",0.1
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,"EU def
+2026",2.2660000000000005
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,"EU
+bench",1.423
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,"Gap vs
+def",0.23999999999999932
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,"Gap vs
+bench",1.0829999999999997
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,Latest EU regulatory note (May 2026),Primary aluminium. Default base 2.060 ×1.10 = 2.266 (2026). Benchmark 1.423. S2 NOT in CBAM scope (direct emissions only).
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,S1.fc / S1.fp confidence,S1.fc: Est: IAI 2023 smelter profile; 1.5-2.5 GJ/t range. Weighted EF 78 kgCO / S1.fp: Auth: Hall-Héroult is electrolytic; reduction is electrical not fuel-d
+Primary aluminium,t Al,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",Hall-Héroult electrolysis + carbon anode prebaking,S1.np / S1.no confidence,S1.np: Auth: IPCC 2006 Vol2 2C3 default 1.5 tCO2/t Al for prebaked anodes. Ra / S1.no: Est: IAI 2023 Egypt country profile. Global prebaked average 0.38 tCO2

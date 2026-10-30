@@ -1,0 +1,280 @@
+scenario_no,scenario,fuel,unit,indicator,year,value
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2020,3722.819593787336
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2021,3990.4420549581837
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2022,4117.371565113501
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2023,4192.210274790919
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2024,4124.294248165215
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2025,4056.3782215395113
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2026,3988.4621949138073
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2027,3920.5461682881037
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2028,3852.6301416623996
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2029,3784.7141150366956
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2030,3716.7980884109916
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2031,3597.189964157706
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2032,3477.5818399044206
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2033,3357.973715651135
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2034,3238.3655913978496
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2035,3118.757467144564
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2036,3038.872162485066
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2037,2958.9868578255678
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2038,2879.101553166069
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2039,2799.216248506571
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2040,2719.330943847073
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2041,2670.8864994026285
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2042,2622.442054958184
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2043,2573.9976105137393
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2044,2525.553166069295
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2045,2477.1087216248507
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2046,2428.6642771804063
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2047,2380.219832735962
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2048,2331.775388291517
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2049,2283.330943847073
+1,Stated Policies Scenario,Coal,MTOE,SPS - production,2050,2234.8864994026285
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2020,3722.819593787336
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2021,3990.4420549581837
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2022,4117.371565113501
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2023,4192.210274790919
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2024,4063.713944359105
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2025,3935.2176139272906
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2026,3806.721283495476
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2027,3678.224953063662
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2028,3549.728622631848
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2029,3421.2322922000335
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2030,3292.735961768219
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2031,3086.733572281959
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2032,2880.7311827956983
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2033,2674.728793309438
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2034,2468.726403823178
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2035,2262.724014336917
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2036,2123.732377538829
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2037,1984.7407407407406
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2038,1845.7491039426523
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2039,1706.757467144564
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2040,1567.7658303464757
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2041,1506.9438470728794
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2042,1446.1218637992833
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2043,1385.299880525687
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2044,1324.4778972520908
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2045,1263.6559139784947
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2046,1202.8339307048984
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2047,1142.0119474313024
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2048,1081.189964157706
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2049,1020.3679808841098
+2,Announced Pledges Scenario,Coal,MTOE,APS - production,2050,959.5459976105136
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2020,3722.819593787336
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2021,3990.4420549581837
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2022,4117.371565113501
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2023,4192.210274790919
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2024,3937.5012800819245
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2025,3682.79228537293
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2026,3428.0832906639353
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2027,3173.374295954941
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2028,2918.665301245946
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2029,2663.956306536951
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2030,2409.2473118279568
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2031,2171.4551971326164
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2032,1933.663082437276
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2033,1695.8709677419354
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2034,1458.078853046595
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2035,1220.2867383512546
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2036,1095.746714456392
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2037,971.2066905615293
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2038,846.6666666666667
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2039,722.1266427718041
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2040,597.5866188769414
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2041,572.8960573476702
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2042,548.205495818399
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2043,523.5149342891278
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2044,498.8243727598566
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2045,474.13381123058537
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2046,449.4432497013142
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2047,424.752688172043
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2048,400.0621266427718
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2049,375.3715651135006
+4,Net Zero Scenario,Coal,MTOE,NZS - production,2050,350.68100358422936
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2020,4095.57945041816
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2021,4348.864994026284
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2022,4476.463560334528
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2023,4594.432497013142
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2024,4604.2089093702
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2025,4613.985321727257
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2026,4623.761734084314
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2027,4633.538146441372
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2028,4643.31455879843
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2029,4653.090971155487
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2030,4662.867383512545
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2031,4632.248506571087
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2032,4601.62962962963
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2033,4571.010752688172
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2034,4540.3918757467145
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2035,4509.772998805257
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2036,4475.899641577061
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2037,4442.0262843488645
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2038,4408.152927120669
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2039,4374.279569892473
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2040,4340.406212664277
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2041,4325.73715651135
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2042,4311.068100358422
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2043,4296.399044205496
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2044,4281.729988052568
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2045,4267.060931899641
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2046,4252.3918757467145
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2047,4237.722819593787
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2048,4223.05376344086
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2049,4208.3847072879325
+1,Stated Policies Scenario,Oil,MTOE,SPS - production,2050,4193.715651135006
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2020,4095.57945041816
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2021,4348.864994026284
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2022,4476.463560334528
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2023,4594.432497013142
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2024,4547.096774193548
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2025,4499.761051373955
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2026,4452.425328554361
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2027,4405.089605734766
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2028,4357.753882915173
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2029,4310.418160095579
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2030,4263.082437275985
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2031,4157.42413381123
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2032,4051.765830346475
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2033,3946.10752688172
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2034,3840.4492234169647
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2035,3734.7909199522096
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2036,3622.21266427718
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2037,3509.63440860215
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2038,3397.0561529271204
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2039,3284.4778972520903
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2040,3171.8996415770607
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2041,3093.464755077658
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2042,3015.0298685782554
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2043,2936.594982078853
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2044,2858.16009557945
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2045,2779.7252090800475
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2046,2701.290322580645
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2047,2622.8554360812423
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2048,2544.4205495818396
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2049,2465.985663082437
+2,Announced Pledges Scenario,Oil,MTOE,APS - production,2050,2387.5507765830343
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2020,4095.57945041816
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2021,4348.864994026284
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2022,4476.463560334528
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2023,4594.432497013142
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2024,4452.080559822495
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2025,4309.728622631848
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2026,4167.3766854412015
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2027,4025.0247482505547
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2028,3882.6728110599074
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2029,3740.3208738692606
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2030,3597.9689366786138
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2031,3400.7885304659494
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2032,3203.608124253285
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2033,3006.4277180406207
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2034,2809.2473118279568
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2035,2612.0669056152924
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2036,2458.3416965352444
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2037,2304.616487455197
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2038,2150.891278375149
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2039,1997.1660692951014
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2040,1843.4408602150536
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2041,1755.2281959378731
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2042,1667.015531660693
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2043,1578.8028673835124
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2044,1490.590203106332
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2045,1402.3775388291515
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2046,1314.1648745519713
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2047,1225.952210274791
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2048,1137.7395459976105
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2049,1049.52688172043
+4,Net Zero Scenario,Oil,MTOE,NZS - production,2050,961.3142174432497
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2020,3323.775388291517
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2021,3512.5448028673836
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2022,3449.8685782556754
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2023,3466.3082437275984
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2024,3494.5041816009557
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2025,3522.700119474313
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2026,3550.89605734767
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2027,3579.091995221027
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2028,3607.2879330943842
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2029,3635.4838709677415
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2030,3663.6798088410987
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2031,3662.413381123058
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2032,3661.1469534050175
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2033,3659.880525686977
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2034,3658.614097968936
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2035,3657.3476702508956
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2036,3652.6356033452803
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2037,3647.923536439665
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2038,3643.21146953405
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2039,3638.499402628435
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2040,3633.7873357228195
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2041,3632.6427718040622
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2042,3631.4982078853045
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2043,3630.3536439665468
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2044,3629.2090800477895
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2045,3628.064516129032
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2046,3626.9199522102745
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2047,3625.7753882915167
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2048,3624.6308243727594
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2049,3623.486260454002
+1,Stated Policies Scenario,Natural gas,MTOE,SPS - production,2050,3622.3416965352444
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2020,3323.775388291517
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2021,3512.5448028673836
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2022,3449.8685782556754
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2023,3466.3082437275984
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2024,3443.6115378050863
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2025,3420.9148318825737
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2026,3398.2181259600616
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2027,3375.521420037549
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2028,3352.824714115037
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2029,3330.1280081925242
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2030,3307.431302270012
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2031,3223.655913978495
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2032,3139.8805256869773
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2033,3056.10513739546
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2034,2972.3297491039425
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2035,2888.5543608124253
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2036,2818.2078853046596
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2037,2747.861409796894
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2038,2677.5149342891277
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2039,2607.168458781362
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2040,2536.8219832735963
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2041,2488.3440860215055
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2042,2439.8661887694147
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2043,2391.388291517324
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2044,2342.910394265233
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2045,2294.432497013142
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2046,2245.954599761051
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2047,2197.4767025089604
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2048,2148.9988052568697
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2049,2100.520908004779
+2,Announced Pledges Scenario,Natural gas,MTOE,APS - production,2050,2052.043010752688
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2020,3323.775388291517
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2021,3512.5448028673836
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2022,3449.8685782556754
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2023,3466.3082437275984
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2024,3400.836320191159
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2025,3335.3643966547193
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2026,3269.8924731182797
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2027,3204.4205495818396
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2028,3138.9486260454
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2029,3073.4767025089604
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2030,3008.004778972521
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2031,2781.816009557945
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2032,2555.6272401433694
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2033,2329.4384707287936
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2034,2103.2497013142174
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2035,1877.0609318996417
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2036,1755.3882915173238
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2037,1633.715651135006
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2038,1512.0430107526881
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2039,1390.3703703703704
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2040,1268.6977299880525
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2041,1215.1708482676224
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2042,1161.6439665471923
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2043,1108.1170848267623
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2044,1054.5902031063322
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2045,1001.063321385902
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2046,947.5364396654719
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2047,894.0095579450417
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2048,840.4826762246116
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2049,786.9557945041815
+4,Net Zero Scenario,Natural gas,MTOE,NZS - production,2050,733.4289127837515

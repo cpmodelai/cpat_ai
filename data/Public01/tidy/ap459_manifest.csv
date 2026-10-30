@@ -1,0 +1,10 @@
+Source workbook,Source sheet,Output CSV,Rows,Columns
+CPAT 1.0pre_459_NoPropData.xlsb,WB,wb.csv,649,25
+CPAT 1.0pre_459_NoPropData.xlsb,GBD,gbd.csv,21227,7
+CPAT 1.0pre_459_NoPropData.xlsb,IHME,ihme.csv,987,24
+CPAT 1.0pre_459_NoPropData.xlsb,ILO,ilo.csv,603,11
+CPAT 1.0pre_459_NoPropData.xlsb,ExposureCoefs,exposure_coefs.csv,841,5
+CPAT 1.0pre_459_NoPropData.xlsb,IF PP,if_pp.csv,1781,7
+CPAT 1.0pre_459_NoPropData.xlsb,ConcMat,conc_mat.csv,31201,6
+CPAT 1.0pre_459_NoPropData.xlsb,Air_Data,air_data.csv,3154,6
+CPAT 1.0pre_459_NoPropData.xlsb,Air_meta,air_meta.csv,82,5

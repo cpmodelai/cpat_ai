@@ -1,0 +1,117 @@
+{
+ "Inputs": [
+  "Inputs",
+  0,
+  148
+ ],
+ "Inputs_prices": [
+  "Inputs",
+  151,
+  48
+ ],
+ "Inputs_power": [
+  "Inputs",
+  202,
+  66
+ ],
+ "Inputs_ef": [
+  "Inputs",
+  271,
+  51
+ ],
+ "Inputs_ela": [
+  "Inputs",
+  325,
+  124
+ ],
+ "Inputs_mult": [
+  "Inputs",
+  452,
+  34
+ ],
+ "Inputs_macro": [
+  "Inputs",
+  489,
+  41
+ ],
+ "Inputs_pint": [
+  "Inputs",
+  533,
+  66
+ ],
+ "Inputs_ecp": [
+  "Inputs",
+  602,
+  137
+ ],
+ "Inputs_pset": [
+  "Inputs",
+  742,
+  44
+ ],
+ "Inputs_ptech": [
+  "Inputs",
+  789,
+  13
+ ],
+ "Inputs_ppath": [
+  "Inputs",
+  805,
+  71
+ ],
+ "Inputs_ppar": [
+  "Inputs",
+  879,
+  49
+ ],
+ "Inputs_nc": [
+  "Inputs",
+  931,
+  540
+ ],
+ "Settings": [
+  "Settings",
+  0,
+  89
+ ],
+ "Constants": [
+  "Settings",
+  92,
+  86
+ ],
+ "Mapping": [
+  "Settings",
+  181,
+  1291
+ ],
+ "VersionLog": [
+  "Version Log, About, and Diff",
+  0,
+  107
+ ],
+ "ReadMe": [
+  "Version Log, About, and Diff",
+  110,
+  33
+ ],
+ "LegacyDiff": [
+  "Version Log, About, and Diff",
+  146,
+  95
+ ],
+ "Variables": [
+  "Check, Variables, Lambdas",
+  0,
+  1261
+ ],
+ "Lambdas": [
+  "Check, Variables, Lambdas",
+  1264,
+  1157
+ ],
+ "MacroCheck": [
+  "Check, Variables, Lambdas",
+  2424,
+  307
+ ]
+}

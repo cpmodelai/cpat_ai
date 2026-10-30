@@ -1,0 +1,32 @@
+row,col,value
+2,1,FromTransportCB - outputs of the transport co-benefits module that Mitigation reads (by country)
+3,1,"These are the outputs of the transport co-benefits module that Mitigation reads (sections 1 and 17b); typed from legacy 465 (Transport sheet, Egypt run) until the module writes them. Bright yellow: typed assumptions. A country without rows here reads 0 (issue I106)."
+4,1,"Road transport external costs per vehicle-km (USD/km; road damage per freight vehicle-km, not deflated, issue I111)"
+5,1,Key (country|data key)
+5,2,"Source (legacy row, unit)"
+5,3,2022
+5,4,2023
+5,5,2024
+5,6,2025
+5,7,2026
+5,8,2027
+5,9,2028
+5,10,2029
+5,11,2030
+5,12,2031
+5,13,2032
+5,14,2033
+5,15,2034
+5,16,2035
+5,17,2036
+5,18,2037
+5,19,2038
+5,20,2039
+5,21,2040
+5,22,2041
+6,1,EGY|tran.acc.km
+6,2,Transport 185 (USD/km)
+7,1,EGY|tran.con.km
+7,2,Transport 220 (USD/km)
+8,1,EGY|tran.rdm.km
+8,2,Transport 232 (USD/freight km)

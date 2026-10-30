@@ -1,0 +1,8 @@
+name,variable,value
+own price,code,owp
+income,code,inc
+cross-price,code,srp
+industry,code,ind
+residential,code,res
+road,code,trs
+total,code,tot

@@ -1,0 +1,29 @@
+# The mitigation blocks {#sec-blocks}
+
+Each block replicates one part of Excel-AI's Mitigation sheet. The order of the run is `mitigation/chain.py`; the equations are in [Appendix A](A_Equations.qmd); the test of each block is a `BUILT` entry of `cpat_testing/test_mitigation.py`.
+
+| Block (module.function) | Excel-AI section | What it computes | Equations | Test block |
+|---|---|---|---|---|
+| `header.prepare` | 0 Header | Macro series: deflators, GDP (USD, LCU), exchange rate, baseline growth | M0 | 3.1 header |
+| `policies.prepare` | 1 Policies | Policy paths: carbon tax, ETS, excise, subsidy reforms, regulations, feebates, social cost of carbon | M1, A1 | 3.2 policies |
+| `pigouvian.prepare` | 1 (rows 185-418) | Pigouvian taxes: air pollution, climate and road transport costs per unit; existing carbon pricing | A1.2 | 3.2 policies |
+| `prices.prepare` | 2 Prices | International prices, supply prices, taxes and subsidies before new policies | M2, A2 | 3.3 prices |
+| `power.prepare` | 3 Power (costs) | Power data steps, levelised costs, investment and fixed-cost rows | M4, A4 | 3.4 power costs |
+| `fuel_use.prepare` | 5-8 (price rows) | New taxes, ETS cost, after-tax price and shadow price by subsector and fuel | M2.x, A2.x | 3.7a fuel prices |
+| `road.prepare`, `road.step` | 5b Road engineer model | Vehicle stocks, purchases and retirements, TCO and EV choice, fuel economy, distance, road fuel use | A3.5-A3.9 | 3.6 road engineer model |
+| `gdp.start` | 16 (GDP level) | GDP level factor and growth of year t | M8.3 | 3.11 GDP effects |
+| `power.step` | 3 Power (year) | Demand, generation dispatch, capacity, prices, power revenues | M4, A4 | 3.8 power year step |
+| `fuel_use.step` | 5-8, 6b | Fuel use (elasticity model), biofuels, leakage to biomass, emissions and revenues by subsector | M3.1, M3.2, A3.3, A3.4, M6, M7.1 | 3.7b fuel use |
+| `totals.energy` | 11 | Energy totals by sector group and fuel, change against the baseline | M3.3 | 3.9a energy totals |
+| `prices.averages` | 2 (averages) | Prices averaged over fuel use, price indices | A2.6 | 3.3b price averages |
+| `emissions.co2`, `.ghg`, `.kaya` | 13, 14 | CO2 and ETS check, other gases and methane, Kaya indices | M7, A7.2-A7.5 | 3.10 CO2, GHG, NDC |
+| `emissions.pollutants` | 15 | Local air pollutants by subsector and source | A7.6 | 3.10b local pollutants |
+| `totals.revenues` | 12 | Revenue totals, revenue in % of GDP | M6, A6.2 | 3.9b revenue totals |
+| `emissions.carbon_pricing` | 17 | Carbon-pricing indicators: coverage, effective rates | A7.x | 3.12a carbon pricing |
+| `externalities.air` | 17b | Air pollution costs weighted by fuel use, PM2.5 by source | A8.3 | 3.12b air pollution inputs |
+| `gdp.effects`, `gdp.external` | 16, 16b | Fiscal impulse, multipliers, GDP effect; external balance | M8.1, M8.2, A8.1, A8.2 | 3.11 GDP effects, 3.11b external balance |
+| `externalities.transport` | 17b | Accident, congestion and road-damage costs per unit of road fuel | A8.4 | 3.12c transport externalities |
+| `welfare.step` | 18 | Welfare gains, fossil fuel subsidies, efficient prices | A8.5, A8.6 | 3.12d welfare |
+| `emissions.ndc` | 14 (NDC) | NDC targets and the gap | A7.x | 3.10 CO2, GHG, NDC |
+
+Data steps: `power_data.py`, `prices_data.py`, `fuel_data.py`, `elasticity_data.py`, `ef_data.py`, `ghg_data.py`, `road_data.py` (tested in `test_data_steps.py`).

@@ -1,0 +1,65 @@
+item,code,sector,value
+ - coal,el_dem_coa,Transport,-0.5
+ - coal,el_dem_coa,Residential,-0.5
+ - coal,el_dem_coa,Industries,-0.5
+ - coal,el_dem_coa,Services,-0.5
+ - natural gas,el_dem_nga,Transport,-0.5
+ - natural gas,el_dem_nga,Residential,-0.5
+ - natural gas,el_dem_nga,Industries,-0.5
+ - natural gas,el_dem_nga,Services,-0.5
+ - gasoline,el_dem_gso,Transport,-0.5
+ - gasoline,el_dem_gso,Residential,-0.5
+ - gasoline,el_dem_gso,Industries,-0.5
+ - gasoline,el_dem_gso,Services,-0.5
+ - diesel,el_dem_die,Transport,-0.5
+ - diesel,el_dem_die,Residential,-0.5
+ - diesel,el_dem_die,Industries,-0.5
+ - diesel,el_dem_die,Services,-0.5
+ - other oil products,el_dem_oil,Transport,-0.5
+ - other oil products,el_dem_oil,Residential,-0.5
+ - other oil products,el_dem_oil,Industries,-0.5
+ - other oil products,el_dem_oil,Services,-0.5
+ - biomass,el_dem_bio,Transport,-0.5
+ - biomass,el_dem_bio,Residential,-0.5
+ - biomass,el_dem_bio,Industries,-0.5
+ - biomass,el_dem_bio,Services,-0.5
+ - renewables,el_dem_ren,Transport,-0.5
+ - renewables,el_dem_ren,Residential,-0.5
+ - renewables,el_dem_ren,Industries,-0.5
+ - renewables,el_dem_ren,Services,-0.5
+ - electricity,el_dem_ecy,Transport,-0.5
+ - electricity,el_dem_ecy,Residential,-0.5
+ - electricity,el_dem_ecy,Industries,-0.5
+ - electricity,el_dem_ecy,Services,-0.5
+ - coal,el_eff_coa,Transport,-0.5
+ - coal,el_eff_coa,Residential,-0.5
+ - coal,el_eff_coa,Industries,-0.5
+ - coal,el_eff_coa,Services,-0.5
+ - natural gas,el_eff_nga,Transport,-0.5
+ - natural gas,el_eff_nga,Residential,-0.5
+ - natural gas,el_eff_nga,Industries,-0.5
+ - natural gas,el_eff_nga,Services,-0.5
+ - gasoline,el_eff_gso,Transport,-0.5
+ - gasoline,el_eff_gso,Residential,-0.5
+ - gasoline,el_eff_gso,Industries,-0.5
+ - gasoline,el_eff_gso,Services,-0.5
+ - diesel,el_eff_die,Transport,-0.5
+ - diesel,el_eff_die,Residential,-0.5
+ - diesel,el_eff_die,Industries,-0.5
+ - diesel,el_eff_die,Services,-0.5
+ - oil,el_eff_oil,Transport,-0.5
+ - oil,el_eff_oil,Residential,-0.5
+ - oil,el_eff_oil,Industries,-0.5
+ - oil,el_eff_oil,Services,-0.5
+ - biomass,el_eff_bio,Transport,-0.5
+ - biomass,el_eff_bio,Residential,-0.5
+ - biomass,el_eff_bio,Industries,-0.5
+ - biomass,el_eff_bio,Services,-0.5
+ - renewables,el_eff_ren,Transport,-0.5
+ - renewables,el_eff_ren,Residential,-0.5
+ - renewables,el_eff_ren,Industries,-0.5
+ - renewables,el_eff_ren,Services,-0.5
+ - electricity,el_eff_ecy,Transport,-0.5
+ - electricity,el_eff_ecy,Residential,-0.5
+ - electricity,el_eff_ecy,Industries,-0.5
+ - electricity,el_eff_ecy,Services,-0.5

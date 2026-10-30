@@ -1,0 +1,15 @@
+fuel,sector,variable,code,variable,value
+Coal,Power,Retail price control (pass-through),mit.rp.coa.pow.ctrl,pass_through,0.8
+Coal,Residential,Retail price control (pass-through),mit.rp.coa.res.ctrl,pass_through,0.8
+Coal,Industry,Retail price control (pass-through),mit.rp.coa.ind.ctrl,pass_through,0.8
+Natural gas,Power,Retail price control (pass-through),mit.rp.nga.pow.ctrl,pass_through,0.8
+Natural gas,Residential,Retail price control (pass-through),mit.rp.nga.res.ctrl,pass_through,0.8
+Natural gas,Industry,Retail price control (pass-through),mit.rp.nga.ind.ctrl,pass_through,0.8
+Gasoline,All,Retail price control (pass-through),mit.rp.gso.all.ctrl,pass_through,0.8
+Diesel ,All,Retail price control (pass-through),mit.rp.die.all.ctrl,pass_through,0.8
+LPG,All,Retail price control (pass-through),mit.rp.lpg.all.ctrl,pass_through,0.8
+Kerosene,All,Retail price control (pass-through),mit.rp.ker.all.ctrl,pass_through,0.8
+Other oil products,All,Retail price control (pass-through),mit.rp.oop.all.ctrl,pass_through,0.8
+Electricity,Residential,Retail price control (pass-through),mit.rp.ele.res.ctrl,pass_through,0.8
+Electricity,Industry,Retail price control (pass-through),mit.rp.ele.ind.ctrl,pass_through,0.8
+Biomass,All,Retail price control (pass-through),mit.rp.bio.all.ctrl,pass_through,0.8

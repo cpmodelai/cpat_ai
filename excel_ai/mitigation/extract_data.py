@@ -1,0 +1,181 @@
+"""v0.2.3 (version number aligned with CPAT-AI-Mitigation-Prototype v0.4.7; content as the previous version in Old/). 
+
+Extract the source data for CPAT_Mitigation_CopyPaste (v0.0.9 onwards) into data/*.csv.
+
+v0.2 adds: international price forecasts by source (legacy Mitigation rows 633-695), US CPI and GDP
+deflator (legacy Mitigation rows 452, 455) and the country price assumptions (Prices_int regional table).
+
+Sources (all non-proprietary, already in the repo):
+v0.8.5 (LD41, 2026-10-29): legacy source moved from CPAT 1.0pre_456 to CPAT 1.0pre_465 (same rows: all rows read here are
+above the first row 465 deleted, Mitigation 5667); base-year energy use and GDP growth now read from legacy 465 itself
+(cached values of Mitigation rows 583-601 and 2446) instead of the Kernel v1.6 file (a copy of the 456 rows).
+
+- Legacy CPAT `data/legacy/CPAT 1.0pre_465_Shell.xlsb` (read-only):
+    * `Elasticities` rows 138-141 (country list, region, income group),
+      rows 143-174 (income), 178-209 (usage), 211-242 (efficiency),
+      rows 256-282 (autonomous efficiency improvement), income-group columns LIC..HIC.
+    * `Mitigation` rows 980-1009 (IIASA CO2 EFs, Egypt, tCO2/GJ, and volume-unit-to-GJ factors).
+    * `Mitigation` rows 583-601 (base-year energy use by fuel, column C codes, and subsector, row 581 codes; Egypt,
+      ktoe, cached values) and row 2446 (post-policy real GDP growth, scenario 1 = baseline; cached values).
+- Domestic prices are not extracted here: `prices_dom.csv` holds Egypt only (as the public legacy file) and is
+  maintained directly (`update_prices_egypt.py`).
+
+Needs pyxlsb (pip install pyxlsb). Run from the repo root or anywhere:
+    python extract_data_v0_1.py
+"""
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', '..', 'data', 'scripts'))
+from legacy_csv import legacy_dir, save_to_tidy  # noqa: E402,F401  (data/Public01/tidy/ in the legacy CSV form)
+import csv
+import os
+
+from pyxlsb import open_workbook
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.abspath(os.path.join(HERE, '..'))     # excel_ai/
+LEGACY = os.path.join(ROOT, '..', 'data', 'legacy', 'CPAT 1.0pre_465_Shell.xlsb')   # v0.8.5 (LD41): was 456
+OUT = legacy_dir()
+SRC_ISO = 'EGY'   # v0.3.3: country of the source files (legacy run): the key of the rows written
+
+GROUPS = ['LIC', 'LMIC', 'UMIC', 'HIC']
+SECTOR_CODE = {'Transport': 'tra', 'Residential': 'res', 'Industry': 'ind', 'Services': 'srv'}
+FUEL_CODE = {'Coal': 'coa', 'Natural Gas': 'nga', 'Gasoline': 'gso', 'Diesel': 'die',
+             'Oil Products': 'oil', 'Oil': 'oil', 'Biomass': 'bio', 'Renewables': 'ren',
+             'Electricity': 'ecy'}
+SUBSECTORS = ['rod', 'ral', 'avi', 'nav', 'res', 'foo', 'srv',
+              'mch', 'irn', 'nfm', 'mac', 'cem', 'omn', 'cst', 'ftr', 'oen']
+FUELS = ['coa', 'nga', 'gso', 'die', 'lpg', 'ker', 'jfu', 'oop', 'bio']   # v0.3.11: jet fuel (issue I19)
+
+
+def write(name, header, rows):
+    os.makedirs(OUT, exist_ok=True)
+    with open(os.path.join(OUT, name), 'w', newline='', encoding='utf-8') as f:
+        w = csv.writer(f, lineterminator='\n')       # v0.5.7 (I33): LF line ends, as the files in the repository
+        w.writerow(header)
+        w.writerows(rows)
+    print(f'{name}: {len(rows)} rows')
+
+
+def legacy_sheet(name, ncols=None):
+    with open_workbook(LEGACY) as wb:
+        with wb.get_sheet(name) as sh:
+            return [[c.v for c in r][:ncols] if ncols else [c.v for c in r] for r in sh.rows()]
+
+
+def extract_elasticities():
+    rows = legacy_sheet('Elasticities')
+    # Country header block, rows 138-141 (1-based); countries start at column index 13.
+    names, codes, regions, groups = (rows[i] for i in (137, 138, 139, 140))
+    countries = []
+    for j in range(13, len(codes)):
+        if codes[j] not in (None, ''):
+            countries.append([codes[j], names[j], regions[j], groups[j], f'Elasticities!{j}:138-141'])
+    write('countries.csv', ['code', 'name', 'region', 'income_group', 'source'], countries)
+
+    out = []
+    # (type code, first row, last row, column index of LIC); LIC..HIC are 4 consecutive columns.
+    blocks = [('inc', 143, 174, 9), ('usg', 178, 209, 9), ('eff', 211, 242, 9)]
+    for typ, r0, r1, c0 in blocks:
+        for i in range(r0 - 1, r1):
+            r = rows[i]
+            fuel, sector = FUEL_CODE[r[3]], SECTOR_CODE[r[4]]
+            out.append([f'{typ}|{fuel}|{sector}', typ, fuel, sector, r[5]]
+                       + [r[c0 + k] for k in range(4)] + [f'Elasticities row {i + 1}'])
+    # Autonomous efficiency improvement: LIC..HIC start one column earlier (index 8).
+    for i in range(255, 282):
+        r = rows[i]
+        if r[2] != 'Autonomous efficiency':
+            continue
+        fuel, sector = FUEL_CODE[r[3]], SECTOR_CODE[r[4]]
+        out.append([f'aei|{fuel}|{sector}', 'aei', fuel, sector, r[5]]
+                   + [r[8 + k] for k in range(4)] + [f'Elasticities row {i + 1}'])
+    write('elasticities.csv', ['key', 'type', 'fuel_group', 'sector_group', 'legacy_code'] + GROUPS + ['source'], out)
+
+
+def extract_ef():
+    rows = legacy_sheet('Mitigation', 20)
+    out, conv = [], {}
+    for i in range(979, 1011):  # rows 980-1011 (v0.3.11: 1010-1011 jet fuel)
+        r = rows[i]
+        fuel, sec = r[1], r[2]
+        if fuel not in FUELS:
+            continue
+        conv.setdefault(fuel, (r[8], r[9]))
+        secs = ['pow', 'rod', 'res', 'ind'] if sec == 'all' else [sec]
+        for s in secs:  # sector-specific rows come first and win over 'all' in the de-duplication below
+            out.append([f'{SRC_ISO}|{fuel}|{s}', SRC_ISO, fuel, s, r[15], f'Mitigation row {i + 1} ({r[7]})'])
+    seen, uniq = set(), []
+    for row in out:
+        if row[0] not in seen:
+            seen.add(row[0])
+            uniq.append(row)
+    write('ef_co2.csv', ['key', 'country', 'fuel', 'ef_sector', 'ef_tco2_per_gj', 'source'], uniq)
+    # Price-unit to GJ factor per fuel (legacy 'Conversion factor (volume unit to GJ)').
+    write('fuel_units.csv', ['fuel', 'gj_per_price_unit', 'ef_unit_in_legacy'],
+          [[f, conv[f][0], conv[f][1]] for f in FUELS])
+
+
+def extract_base_year():
+    """v0.8.5 (LD41): base-year energy use (Mitigation rows 583-601) and real GDP growth (row 2446) from the cached values
+    of legacy 465. Until v0.8.4 both came from Kernel v1.6 (Data_Energy, Data_Macro), a copy of the same 456 rows."""
+    rows = legacy_sheet('Mitigation', 40)
+    assert rows[0][10] == 2021 and rows[0][11] == 2022, rows[0][10:12]       # row 1: K = 2021, L = 2022
+    sub = {v: j for j, v in enumerate(rows[580]) if v in SUBSECTORS}         # row 581: subsector codes E-V
+    assert sorted(sub) == sorted(SUBSECTORS), sub
+    fuel_row = {rows[i][2]: i for i in range(582, 601)}                        # rows 583-601: fuel code in column C
+    out = []
+    for fuel in ['coa', 'nga', 'oop', 'gso', 'die', 'ker', 'lpg', 'jfu', 'bio']:   # order of the kernel file (v0.8.4)
+        i = fuel_row[fuel]
+        assert str(rows[i][1]).startswith(f'{SRC_ISO.lower()}.mit.enc.'), rows[i][1]
+        for s in SUBSECTORS:
+            out.append([f'{SRC_ISO}|2022|{s}|{fuel}', SRC_ISO, 2022, s, fuel, rows[i][sub[s]] or 0.0,
+                        f'legacy 465 Mitigation row {i + 1} (cached values)'])
+    write('energy_use.csv', ['key', 'country', 'year', 'subsector', 'fuel', 'ktoe', 'source'], out)
+
+    g = rows[2445]
+    assert g[3] == 'Post-policy GDP growth', g[3]
+    write('weo.csv', ['key', 'country', 'variable', 'unit', 'source'] + YEARS_LEGACY,
+          [[f'{SRC_ISO}|gdp_growth', SRC_ISO, 'Real GDP growth', 'fraction',
+            'legacy 465 Mitigation row 2446 (egy.mit.gdp.pos.pct.1, cached values)']
+           + [g[10 + j] if isinstance(g[10 + j], (int, float)) else '' for j in range(len(YEARS_LEGACY))]])
+
+
+YEARS_LEGACY = list(range(2021, 2046))      # legacy Mitigation columns K..AI (index 10..34)
+INT_SOURCES = {634: 'IMF', 642: 'WB', 650: 'IEA', 658: 'EIA', 666: 'AVG', 674: 'IMF-IEA', 682: 'IMF-WB',
+               690: 'Manual'}              # first row (1-based) of each source block, 6 commodities each
+INT_COMMODITIES = ['oil', 'coa', 'nga.lng', 'nga.nam', 'nga.eur', 'nga.glo']
+
+
+def extract_int_prices():
+    rows = legacy_sheet('Mitigation', 40)
+    out = []
+    for r0, src in INT_SOURCES.items():
+        for k, com in enumerate(INT_COMMODITIES):
+            r = rows[r0 - 1 + k]
+            vals = [r[10 + j] if isinstance(r[10 + j], (int, float)) else '' for j in range(len(YEARS_LEGACY))]
+            out.append([f'{src}|{com}', src, com, r[3], r[4]] + vals + [f'legacy Mitigation row {r0 + k}'])
+    write('prices_int.csv', ['key', 'source', 'commodity', 'label', 'unit'] + YEARS_LEGACY + ['source_row'], out)
+    # US CPI (PCPI) and US GDP deflator (NGDP_D), WEO, used for the two real-terms indices
+    us = []
+    for row, var, lab in ((455, 'pcpi', 'US consumer price index (PCPI)'), (452, 'ngdp_d', 'US GDP deflator (NGDP_D)')):
+        r = rows[row - 1]
+        us.append([f'USA|{var}', 'USA', lab, 'index'] + [r[10 + j] for j in range(len(YEARS_LEGACY))]
+                  + [f'legacy Mitigation row {row}'])
+    write('weo_us.csv', ['key', 'country', 'variable', 'unit'] + YEARS_LEGACY + ['source'], us)
+
+
+def extract_price_assumptions():
+    rows = legacy_sheet('Prices_int', 12)
+    out = [[r[6], r[7], r[8], f'Prices_int row {i + 1}'] for i, r in enumerate(rows)
+           if i >= 61 and isinstance(r[6], str) and r[7] in ('Fixed', 'Ad-Valorem')]
+    write('price_assumptions.csv', ['country_name', 'baseline_taxes', 'gas_market', 'source'], out)
+
+
+if __name__ == '__main__':
+    extract_int_prices()
+    extract_price_assumptions()
+    extract_elasticities()
+    extract_ef()
+    import update_prices_egypt          # v0.5.7 (I33): the corrected Egypt block goes back over the dataset
+    update_prices_egypt.main()
+    extract_base_year()

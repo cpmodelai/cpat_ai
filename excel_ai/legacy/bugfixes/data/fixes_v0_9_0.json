@@ -1,0 +1,1969 @@
+[
+ {
+  "id": "L171",
+  "pri": "Medium",
+  "title": "Fuel price reform drops to 0 after the target year unless the path continues (option No)",
+  "where": "Mitigation L167:AE180 (fuel price reform paths, shared by both blocks)",
+  "why": "ExtendCarbonPriceBeyondOutro has three options (Dashboard L20 validation list No, Linear*, Percentage; Mitigation C67). From the target year on, any option but Linear* and Percentage (i.e. No) returns 0: the reform price increase disappears in and after the target year, although No means 'do not continue to rise'. The carbon price with the same switch (row 2248) holds its level under No (adds 0 to last year's price).",
+  "fixes": [
+   {
+    "cell": "L167",
+    "now": "=IF(L$166<FuelPriceIncreaseStartYearMitMod,0,IF(OR(L$166<FuelPriceIncreaseTargetYearMitMod,ExtendCarbonPriceBeyondOutro=\"Linear*\"),$G167+$J167*(L$166-FuelPriceIncreaseStartYearMitMod),IF(ExtendCarbonPriceBeyondOutro=\"Percentage\",$K167*K167,0)))",
+    "new": "=IF(L$166<FuelPriceIncreaseStartYearMitMod,0,IF(OR(L$166<FuelPriceIncreaseTargetYearMitMod,ExtendCarbonPriceBeyondOutro=\"Linear*\"),$G167+$J167*(L$166-FuelPriceIncreaseStartYearMitMod),IF(ExtendCarbonPriceBeyondOutro=\"Percentage\",$K167*K167,$G167+$J167*(FuelPriceIncreaseTargetYearMitMod-FuelPriceIncreaseStartYearMitMod))))",
+    "fill": "L167:L180",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   },
+   {
+    "cell": "M167",
+    "now": "=IF(M$166<FuelPriceIncreaseStartYearMitMod,0,IF(OR(M$166<FuelPriceIncreaseTargetYearMitMod,ExtendCarbonPriceBeyondOutro=\"Linear*\"),$G167+$J167*(M$166-FuelPriceIncreaseStartYearMitMod),IF(ExtendCarbonPriceBeyondOutro=\"Percentage\",$K167*L167,0)))",
+    "new": "=IF(M$166<FuelPriceIncreaseStartYearMitMod,0,IF(OR(M$166<FuelPriceIncreaseTargetYearMitMod,ExtendCarbonPriceBeyondOutro=\"Linear*\"),$G167+$J167*(M$166-FuelPriceIncreaseStartYearMitMod),IF(ExtendCarbonPriceBeyondOutro=\"Percentage\",$K167*L167,$G167+$J167*(FuelPriceIncreaseTargetYearMitMod-FuelPriceIncreaseStartYearMitMod))))",
+    "fill": "M167:AE180",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   }
+  ],
+  "ref": "Row 2248 (carbon price, same switch: No = hold the level). Hold level = the linear value at the target year ($G+$J*(target-start)) = the target price H when target > start (J = 0 otherwise, as the linear branch).",
+  "effect": "None for Egypt (no fuel price reform; switch Linear*). With option No the reform keeps its target level instead of falling to 0 from the target year (prices, demand, revenue).",
+  "note": "The test is t < target (strict), so the target year itself already takes the No/Percentage branch; with the fix the target year gets the hold level = the linear value, so the strict test no longer matters. Column L reads K (the rate column) as 'previous year' in the Percentage branch; see L173.",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): the fuel price reform path holds the target level under option No (FPRPATH helper rows; Equations_addendum LD10.3)."
+ },
+ {
+  "id": "L172",
+  "pri": "High",
+  "title": "Margins and domestic production cost added in nominal USD to real prices",
+  "where": "Mitigation O747:O752, O755:O758 (margins), Q747:Q752 (production cost); read by the fixed portion of supply costs J/K 2453, 2476, 2499, 2522, 2545, 2568, 2591, 2614, 2637, 2660, 2683, 2706 and the policy copies (+6316)",
+  "why": "The supply costs and retail prices of the IMF dataset are converted to real USD of the results year with the CPI index row 725 (L773: ...*L$725), but the margin (mit.mar, read at 2024 for coal and gas, at FirstYearCalculations for oil products) and the domestic production cost (mit.coa/nga.prod.cost, FirstYearCalculations) are not: the fixed portion (margin + share produced domestically x cost) is nominal and the floating portion (sp - fixed - ps) absorbs the difference.",
+  "fixes": [
+   {
+    "cell": "O747",
+    "now": "=AVERAGE(INDEX(_prices_main,MATCH(_Country_code & 2024, _prices_country_years,0),MATCH(O$745 & \".\" & $G747,_prices_codes,0)))",
+    "new": "=AVERAGE(INDEX(_prices_main,MATCH(_Country_code & 2024, _prices_country_years,0),MATCH(O$745 & \".\" & $G747,_prices_codes,0)))*INDEX($K$725:$AE$725,MATCH(2024,$K$724:$AE$724,0))",
+    "fill": "O747:O752",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   },
+   {
+    "cell": "O755",
+    "now": "=AVERAGE(INDEX(_prices_main,MATCH(_Country_code & FirstYearCalculations, _prices_country_years,0),MATCH(O$745 & \".\" & $G755,_prices_codes,0)))",
+    "new": "=AVERAGE(INDEX(_prices_main,MATCH(_Country_code & FirstYearCalculations, _prices_country_years,0),MATCH(O$745 & \".\" & $G755,_prices_codes,0)))*INDEX($K$725:$AE$725,MATCH(FirstYearCalculations,$K$724:$AE$724,0))",
+    "fill": "O755:O758",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   },
+   {
+    "cell": "Q747",
+    "now": "=AVERAGE(INDEX(_prices_main,MATCH(_Country_code & FirstYearCalculations, _prices_country_years,0),MATCH(\"mit.coa.prod.cost\",_prices_codes,0)))",
+    "new": "=AVERAGE(INDEX(_prices_main,MATCH(_Country_code & FirstYearCalculations, _prices_country_years,0),MATCH(\"mit.coa.prod.cost\",_prices_codes,0)))*INDEX($K$725:$AE$725,MATCH(FirstYearCalculations,$K$724:$AE$724,0))",
+    "fill": "Q747:Q749",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   },
+   {
+    "cell": "Q750",
+    "now": "=AVERAGE(INDEX(_prices_main,MATCH(_Country_code & FirstYearCalculations, _prices_country_years,0),MATCH(\"mit.nga.prod.cost\",_prices_codes,0)))",
+    "new": "=AVERAGE(INDEX(_prices_main,MATCH(_Country_code & FirstYearCalculations, _prices_country_years,0),MATCH(\"mit.nga.prod.cost\",_prices_codes,0)))*INDEX($K$725:$AE$725,MATCH(FirstYearCalculations,$K$724:$AE$724,0))",
+    "fill": "Q750:Q752",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   }
+  ],
+  "ref": "Row 725 (CPI index, results year = 1, by year of row 724) and its use in L773:AE830. O759, O760 (typed 0) unchanged.",
+  "effect": "Egypt fixed supply cost ($/GJ, $/l): coal pow 1.324 -> 1.404, res 7.944 -> 8.424, ind 3.972 -> 4.212; gas pow 7.607 -> 8.570, res 13.406 -> 14.719, ind 8.534 -> 9.553; gasoline/diesel/LPG/kerosene 0.123 -> 0.140. The historical pre-tax price is unchanged (data); the floating part falls by the same amount, so projected supply costs follow international prices less.",
+  "note": "The year 2024 of the coal and gas margins is typed (issue I101, replicated); the conversion uses the CPI index of the year actually read.",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): the margin and the production cost are converted with the CPI index of the year read (Inputs_prices mcpi, bcpi; Equations_addendum R13.3)."
+ },
+ {
+  "id": "L173",
+  "pri": "Low",
+  "title": "Fuel price reform 'Percentage' continuation multiplies by the rate, not by 1 + rate",
+  "where": "Mitigation L167:AE180 (Percentage branch), rate K167:K180",
+  "why": "K is the annual percentage increase ((H/G)^(1/n) - 1). After the target year the Percentage branch returns $K x last year's value, e.g. 5% of the price increase instead of 105%: the path collapses. The carbon price with the same switch adds $F$69 x last year to last year (row 2248). Column L (first year) reads K167, the rate itself, as last year's value.",
+  "fixes": [
+   {
+    "cell": "L167",
+    "now": "=IF(L$166<FuelPriceIncreaseStartYearMitMod,0,IF(OR(L$166<FuelPriceIncreaseTargetYearMitMod,ExtendCarbonPriceBeyondOutro=\"Linear*\"),$G167+$J167*(L$166-FuelPriceIncreaseStartYearMitMod),IF(ExtendCarbonPriceBeyondOutro=\"Percentage\",$K167*K167,$G167+$J167*(FuelPriceIncreaseTargetYearMitMod-FuelPriceIncreaseStartYearMitMod))))",
+    "new": "=IF(L$166<FuelPriceIncreaseStartYearMitMod,0,IF(OR(L$166<FuelPriceIncreaseTargetYearMitMod,ExtendCarbonPriceBeyondOutro=\"Linear*\"),$G167+$J167*(L$166-FuelPriceIncreaseStartYearMitMod),IF(ExtendCarbonPriceBeyondOutro=\"Percentage\",$G167+$J167*(FuelPriceIncreaseTargetYearMitMod-FuelPriceIncreaseStartYearMitMod),$G167+$J167*(FuelPriceIncreaseTargetYearMitMod-FuelPriceIncreaseStartYearMitMod))))",
+    "fill": "L167:L180",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   },
+   {
+    "cell": "M167",
+    "now": "=IF(M$166<FuelPriceIncreaseStartYearMitMod,0,IF(OR(M$166<FuelPriceIncreaseTargetYearMitMod,ExtendCarbonPriceBeyondOutro=\"Linear*\"),$G167+$J167*(M$166-FuelPriceIncreaseStartYearMitMod),IF(ExtendCarbonPriceBeyondOutro=\"Percentage\",$K167*L167,$G167+$J167*(FuelPriceIncreaseTargetYearMitMod-FuelPriceIncreaseStartYearMitMod))))",
+    "new": "=IF(M$166<FuelPriceIncreaseStartYearMitMod,0,IF(OR(M$166<FuelPriceIncreaseTargetYearMitMod,ExtendCarbonPriceBeyondOutro=\"Linear*\"),$G167+$J167*(M$166-FuelPriceIncreaseStartYearMitMod),IF(ExtendCarbonPriceBeyondOutro=\"Percentage\",(1+$K167)*L167,$G167+$J167*(FuelPriceIncreaseTargetYearMitMod-FuelPriceIncreaseStartYearMitMod))))",
+    "fill": "M167:AE180",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   }
+  ],
+  "ref": "Row 2248 (carbon price Percentage: K2248 + $F$69*K2248). 'now' is the formula after the L171 fix (apply L171 first).",
+  "effect": "None for Egypt (no fuel price reform; Linear*). With Percentage, the reform path grows at the rate after the target year instead of falling to rate x price.",
+  "note": "Column L only reaches the branch if the target year is 2022 or earlier; there it takes the hold level.",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): under Percentage the reform path grows at (1 + rate) x last year from the hold level (FPRPATH helper rows; Equations_addendum LD10.3)."
+ },
+ {
+  "id": "L174",
+  "pri": "Low",
+  "title": "Feebate slope divides by (target year - start year): #DIV/0! when they are equal",
+  "where": "Mitigation K2001:K2004 (and the paths L2001:AE2004 that read it)",
+  "why": "The slope has no guard, unlike the fuel price reform slope (J167 = IF($E$164>$E$163, ..., 0)): a feebate that starts in its target year gives #DIV/0! in every year, and the error reaches prices, fuel use and revenue.",
+  "fixes": [
+   {
+    "cell": "K2001",
+    "now": "=($J2001-$I2001)/($J$1977-$I$1977)",
+    "new": "=IF($J$1977>$I$1977,($J2001-$I2001)/($J$1977-$I$1977),0)",
+    "fill": "K2001:K2004",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   }
+  ],
+  "ref": "Row 167 J (fuel price reform guard). With J1977 = I1977 the path then jumps to the target rate from the start year (L2001: t > target gives $J2001).",
+  "effect": "None for Egypt (feebate years 2027/2035, rates 0).",
+  "note": "",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): the feebate slope divides by max(target - start, 1), no #DIV/0! (Equations_addendum LD10.4)."
+ },
+ {
+  "id": "L175",
+  "pri": "Low",
+  "title": "Feebates of food and services: on/off flag from industry rates, rate from residential",
+  "where": "Mitigation G1988:G1989 (rates L1988:AE1989 read row 2003)",
+  "why": "Rows 1988-1989 (group 'Commercial') take the residential feebate rate (L$2003, L2003) but their flag G tests the industry rates ($I$2004:$J$2004), so a residential-only feebate does not reach them and an industry-only feebate switches them on at the residential rate (0).",
+  "fixes": [
+   {
+    "cell": "G1988",
+    "now": "=IF(MAX($I$2004:$J$2004)>0,1,0)",
+    "new": "=IF(MAX($I$2003:$J$2003)>0,1,0)",
+    "fill": "G1988:G1989",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   }
+  ],
+  "ref": "Row 1987 (residential: flag and rate both row 2003). The prototype maps food and services to the residential feebate group (SUBSECTORS column 7).",
+  "effect": "None for Egypt (no feebates).",
+  "note": "Labels F1985/F1986 (tra.nav/tra.avi) are swapped; cosmetic.",
+  "status": "fix",
+  "prototype": "Fixed (already): the prototype gives each subsector one feebate sector for both the on/off flag and the rate (food and services in the residential group, SUBSECTORS column 7)."
+ },
+ {
+  "id": "L176",
+  "pri": "High",
+  "title": "Other oil products: climate cost per barrel added to costs per GJ",
+  "where": "Mitigation 17704 (cc.code.oop.1, label \"damage/GJ\"), read by 17838, 17777, 17778, 17782",
+  "why": "L17704 = L$17698*$G17680 with G17680 = L967*_conv_barrel_to_liter: the climate cost of other oil products is in $/bbl, but L17838 = L17704 + L17753 adds it to a cost in $/GJ and L17777 = -(L17704+L17748)*(...)*_conv_ktoe_to_gj/10^9 multiplies it by GJ.",
+  "fixes": [
+   {
+    "cell": "L17704",
+    "now": "=L$17698 * $G17680",
+    "new": "=L$17698 * $G17680 / _conv_barrel_to_gj",
+    "fill": "L17704:AE17704",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "oop externality 2022 34.77 -> 15.86 $/GJ; implicit oop subsidy 2022 11.19 -> 5.11, 2030 28.78 -> 11.01, 2041 42.65 -> 16.26 bn; FFS oop rows 2030 0.301 -> 0.151 bn.",
+  "note": "Equations_addendum code L-R2-1. Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): climate cost per unit in $/GJ for every fuel, oop included (Equations_addendum R2.1)."
+ },
+ {
+  "id": "L177",
+  "pri": "Medium",
+  "title": "Air-pollution cost of electricity weights $/GJ of fuel by generation shares",
+  "where": "Mitigation 18090 (and 18102 = 18090)",
+  "why": "=(L17740*L$16993/L$17003+L17743*L$16994/L$17003+L17748*L$16995/L$17003)*(_conv_ktoe_to_gwh/1000): the cost per GJ of fuel times the generation share times 0.01163, which is not GJ of fuel per kWh.",
+  "fixes": [
+   {
+    "cell": "L18090",
+    "now": "=(L17740*L$16993/L$17003+L17743*L$16994/L$17003+L17748*L$16995/L$17003)*(_conv_ktoe_to_gwh/1000)",
+    "new": "=(L17740*L$16850+L17743*L$16856+L17748*(L$16886+L$16868))*_conv_ktoe_to_gj/(L$17003*10^9)",
+    "fill": "L18090:AE18090 (L18102 =L18090 follows)",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "2022 0.01103 -> 0.00882 $/kWh (-20%); R3 efficient electricity prices.",
+  "note": "Equations_addendum code L-R2-2. The R3 efficient-price block keeps the legacy form as issue I121. Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0) in the subsidy and welfare rows: cost weighted by fuel use per kWh generated (Equations_addendum R2.2); the R3 efficient price keeps legacy 18090 (issue I121)."
+ },
+ {
+  "id": "L178",
+  "pri": "Medium",
+  "title": "Air-pollution cost of coal and gas \"other\" crosses the sector weights",
+  "where": "Mitigation 17750, 17751",
+  "why": "L17750 = (L17738*L16911 + L17739*L16913 + L17740*L16914)/(...): the industry cost is weighted by power coal (16911) and the power cost by industry coal (16914); 17751 does the same for gas (16917 power, 16920 industry).",
+  "fixes": [
+   {
+    "cell": "L17750",
+    "now": "= IFERROR( (L17738 * L16911 + L17739 * L16913 + L17740 * L16914) / (L16911 + L16913 + L16914), AVERAGE(L17738:L17740))",
+    "new": "= IFERROR( (L17738 * L16914 + L17739 * L16913 + L17740 * L16911) / (L16911 + L16913 + L16914), AVERAGE(L17738:L17740))",
+    "fill": "L17750:AA17750 (AB:AE hold AA until L191)",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L17751",
+    "now": "= IFERROR( (L17741 * L16917 + L17742 * L16919 + L17743 * L16920) / (L16917 + L16919 + L16920), AVERAGE(L17741:L17743))",
+    "new": "= IFERROR( (L17741 * L16920 + L17742 * L16919 + L17743 * L16917) / (L16917 + L16919 + L16920), AVERAGE(L17741:L17743))",
+    "fill": "L17751:AA17751 (AB:AE hold AA until L191)",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "coal other 2022 0.7475 -> 2.374 $/GJ (no Egypt use); gas other 0.350 -> 0.465 $/GJ (FFS nga.oth line, small).",
+  "note": "Equations_addendum code L-R2-3. Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): other-use cost weighted by each sector's own fuel use (Equations_addendum R2.3)."
+ },
+ {
+  "id": "L179",
+  "pri": "Medium",
+  "title": "FFS benefits: coal and gas lines take the change in fuel use of another sector",
+  "where": "Mitigation 17767, 17768, 17769, 17770, 17772",
+  "why": "17767 (coal ind) uses L16911-L16850 (coal power); 17769 (coal pow) L16914-L16853 (coal industry); 17768 (coal res) L16912-L16851 (coal transport); 17770 (gas ind) L16917-L16856 (gas power); 17772 (gas pow) L16920-L16859 (gas industry).",
+  "fixes": [
+   {
+    "cell": "L17767",
+    "now": "=-(L17702 + L17738)*(L16911-L16850)*_conv_ktoe_to_gj/10^9",
+    "new": "=-(L17702 + L17738)*(L16914-L16853)*_conv_ktoe_to_gj/10^9",
+    "fill": "L17767:AE17767",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L17768",
+    "now": "=-(L17702 + L17739)*(L16912-L16851)*_conv_ktoe_to_gj/10^9",
+    "new": "=-(L17702 + L17739)*(L16913-L16852)*_conv_ktoe_to_gj/10^9",
+    "fill": "L17768:AE17768",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L17769",
+    "now": "=-(L17702 + L17740)*(L16914-L16853)*_conv_ktoe_to_gj/10^9",
+    "new": "=-(L17702 + L17740)*(L16911-L16850)*_conv_ktoe_to_gj/10^9",
+    "fill": "L17769:AE17769",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L17770",
+    "now": "=-(L17703 + L17741)*(L16917-L16856)*_conv_ktoe_to_gj/10^9",
+    "new": "=-(L17703 + L17741)*(L16920-L16859)*_conv_ktoe_to_gj/10^9",
+    "fill": "L17770:AE17770",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L17772",
+    "now": "=-(L17703 + L17743)*(L16920-L16859)*_conv_ktoe_to_gj/10^9",
+    "new": "=-(L17703 + L17743)*(L16917-L16856)*_conv_ktoe_to_gj/10^9",
+    "fill": "L17772:AE17772",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "the 5 lines 2030 0.0957 -> 0.0989 bn, 2041 0.575 -> 0.586 bn.",
+  "note": "Equations_addendum code L-R2-4. Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): each FFS line takes its own sector's fuel use change (Equations_addendum R2.9)."
+ },
+ {
+  "id": "L180",
+  "pri": "Medium",
+  "title": "FFS diesel road line: gasoline litre conversion and no road damage",
+  "where": "Mitigation 17774",
+  "why": "=-(L17706+L17745+L17757+L17759)*(L16930-L16869)*_conv_ktoe_liter_gso/10^9: diesel converted with the gasoline litres per ktoe, and the road damage (L17761) left out.",
+  "fixes": [
+   {
+    "cell": "L17774",
+    "now": "=-(L17706+L17745+L17757+L17759)*(L16930-L16869)*_conv_ktoe_liter_gso/10^9",
+    "new": "=-(L17706+L17745+L17757+L17759+L17761)*(L16930-L16869)*_conv_ktoe_liter_die/10^9",
+    "fill": "L17774:AE17774",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "diesel road line 2030 0.0538 -> 0.0658 bn.",
+  "note": "Plan T B-i. Equations_addendum code L-R2-5. Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): FFS diesel road line in GJ with the road damage (Equations_addendum R2.4, R2.9)."
+ },
+ {
+  "id": "L181",
+  "pri": "Medium",
+  "title": "Coal residential retail price reads the gas industry price",
+  "where": "Mitigation 17897",
+  "why": "The coal residential retail price is =L17385 (gas industry price).",
+  "fixes": [
+   {
+    "cell": "L17897",
+    "now": "=L17385",
+    "new": "=L17386",
+    "fill": "",
+    "policy": ""
+   }
+  ],
+  "ref": "",
+  "effect": "coal res explicit 2022 0.00103 -> 0, implicit 0.00061 -> 0.00040 bn.",
+  "note": "Equations_addendum code L-R2-6.",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): each subsidy line reads its own after-tax price (Equations_addendum R2.11)."
+ },
+ {
+  "id": "L182",
+  "pri": "Low",
+  "title": "Coal power retail price reads the coal residential price",
+  "where": "Mitigation 17906",
+  "why": "The coal power retail price is =L17386 (coal residential).",
+  "fixes": [
+   {
+    "cell": "L17906",
+    "now": "=L17386",
+    "new": "=L17388",
+    "fill": "",
+    "policy": ""
+   }
+  ],
+  "ref": "",
+  "effect": "0 (no coal power).",
+  "note": "Equations_addendum code L-R2-7.",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): each subsidy line reads its own after-tax price (Equations_addendum R2.11)."
+ },
+ {
+  "id": "L183",
+  "pri": "Low",
+  "title": "Gas power externalities use the national SCC row",
+  "where": "Mitigation 17866",
+  "why": "Gas power externalities =L17679+L17743 (national SCC); every other line uses the global rows 17702-17709.",
+  "fixes": [
+   {
+    "cell": "L17866",
+    "now": "=L17679+L17743",
+    "new": "=L17703+L17743",
+    "fill": "",
+    "policy": ""
+   }
+  ],
+  "ref": "",
+  "effect": "0 while NSCC and GSCC sources agree (default Target).",
+  "note": "Equations_addendum code L-R2-8.",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): nga.pow uses the global-SCC climate cost as every line (Equations_addendum R2.11)."
+ },
+ {
+  "id": "L184",
+  "pri": "High",
+  "title": "LPG household share of the subsidy-block VAT is 0",
+  "where": "Mitigation 17814",
+  "why": "LPG household share = IF(L17811>L17810,0,(L17810-MAX(L17811,L17807)))*L17812: a subsidy formula reading diesel rows and a blank row, which gives 0.",
+  "fixes": [
+   {
+    "cell": "L17814",
+    "now": "= IF( L17811 > L17810, 0, (L17810 - MAX(L17811, L17807))) * L17812",
+    "new": "=L811",
+    "fill": "L17814:AE17814 (as the kerosene row 17825 =L816)",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "LPG VAT 0 -> 0.20 $/l; LPG implicit subsidy 2022 6.76 -> 8.52, 2030 11.25 -> 13.67, 2041 15.92 -> 19.24 bn.",
+  "note": "Equations_addendum code L-R2-9. Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): LPG VAT on the LPG household share (Equations_addendum R2.11, h_lpg)."
+ },
+ {
+  "id": "L185",
+  "pri": "Low",
+  "title": "Other oil products household share reads the VAT rate row",
+  "where": "Mitigation 17836",
+  "why": "oop household share =L820 (the oop VAT rate row).",
+  "fixes": [
+   {
+    "cell": "L17836",
+    "now": "=L820",
+    "new": "=IFERROR(L16888 / L16885, 0)",
+    "fill": "L17836:AE17836 (AE was =AD17836)",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "0.",
+  "note": "Equations_addendum code L-R2-10. Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): oop household share 0 (Equations_addendum R2.11)."
+ },
+ {
+  "id": "L186",
+  "pri": "Medium",
+  "title": "Kerosene consumption converted with the diesel litres per ktoe",
+  "where": "Mitigation 17831",
+  "why": "Kerosene consumption = L16879*_conv_ktoe_liter_die.",
+  "fixes": [
+   {
+    "cell": "L17831",
+    "now": "=L16879 * _conv_ktoe_liter_die / 10^9",
+    "new": "=L16879 * _conv_ktoe_liter_ker / 10^9",
+    "fill": "L17831:AE17831",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "kerosene subsidy lines x conv_ker/conv_die (prototype: in PJ, no conversion).",
+  "note": "Equations_addendum code L-R2-11. Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): consumption in PJ, no litre conversion (Equations_addendum R2.11)."
+ },
+ {
+  "id": "L187",
+  "pri": "Medium",
+  "title": "Electricity \"other\" subsidy line: M:AE not copied from L",
+  "where": "Mitigation M17939:AE17943",
+  "why": "L17939 is the consumption-weighted supply cost, but M17939 =M16204 (diesel supply cost), M17943 =M17391 (gasoline retail), M17941 =SUM(M17939:M17940)*M$17787.",
+  "fixes": [
+   {
+    "cell": "M17939",
+    "now": "=M16204",
+    "new": "= M17920 * M$17925 / SUM(M$17925, M$17935) +  M17930 * M$17935 / SUM(M$17925, M$17935)",
+    "fill": "L17939:AE17939 (fill the L formula right)",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "M17941",
+    "now": "= SUM(M17939:M17940)*M$17787",
+    "new": "= M17922 * M$17925 / SUM(M$17925, M$17935) +  M17932 * M$17935 / SUM(M$17925, M$17935)",
+    "fill": "L17941:AE17941 (fill the L formula right)",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "M17943",
+    "now": "=M17391",
+    "new": "= M17924 * M$17925 / SUM(M$17925, M$17935) +  M17934 * M$17935 / SUM(M$17925, M$17935)",
+    "fill": "L17943:AE17943 (fill the L formula right)",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "electricity-other explicit 2030 0.228 -> 0.044, implicit 0.069 -> 0.004 bn.",
+  "note": "Equations_addendum code L-R2-12. Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): oth lines are consumption-weighted averages in every year (Equations_addendum R2.11)."
+ },
+ {
+  "id": "L188",
+  "pri": "High",
+  "title": "Subsidies as % of GDP divide by the previous year's GDP",
+  "where": "Mitigation 17950, 17951",
+  "why": "=L17948/K$16082: GDP of the previous year (K16081 = 2021).",
+  "fixes": [
+   {
+    "cell": "L17950",
+    "now": "=L17948/K$16082",
+    "new": "=L17948/L$16082",
+    "fill": "L17950:AE17951 (both rows)",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "explicit subsidy 2022 7.54% -> 7.07% of GDP.",
+  "note": "Equations_addendum code L-R2-13. Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): totals divided by the GDP of the same year (Equations_addendum R2.12)."
+ },
+ {
+  "id": "L189",
+  "pri": "Medium",
+  "title": "Residential gas air-pollution cost reads deaths, not dollars",
+  "where": "Mitigation 17742",
+  "why": "='Air pollution'!K4382 (deaths 15-64 per ktoe).",
+  "fixes": [
+   {
+    "cell": "L17742",
+    "now": "='Air pollution'!K4382",
+    "new": "='Air pollution'!K4378*'Air pollution'!K$741*time_factor*(1+'Air pollution'!K$1713)/_conv_ktoe_to_gj",
+    "fill": "L17742:AA17742 (AB:AE hold AA until L191)",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "res. gas 2022 0.00148 -> 0.0371 $/GJ.",
+  "note": "Plan AP B2. Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): typed airpol.cost.nga.res from AP 4378 in $/GJ (Equations_addendum R1.1, table T1)."
+ },
+ {
+  "id": "L190",
+  "pri": "Medium",
+  "title": "LPG air-pollution cost fixed at 2022",
+  "where": "Mitigation 17746",
+  "why": "='Air pollution'!$K$4314 (2022 for every year).",
+  "fixes": [
+   {
+    "cell": "L17746",
+    "now": "='Air pollution'!$K$4314",
+    "new": "='Air pollution'!K$4314",
+    "fill": "L17746:AA17746 (AB:AE hold AA until L191)",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "LPG 2030 0.675 -> 0.689 $/l.",
+  "note": "Plan AP B3. Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): typed airpol.cost.lpg.all by year (Equations_addendum R1.1, table T1)."
+ },
+ {
+  "id": "L191",
+  "pri": "Medium",
+  "title": "Air-pollution unit costs held at 2037 and wel.air at 2039",
+  "where": "Mitigation AB17738:AE17749 (=AA...), AD17717:AE17717 (=AC...)",
+  "why": "Unit costs are held at 2037 from 2038; wel.air is held at 2039 in 2040, although the AP sheet has 2040.",
+  "fixes": [
+   {
+    "cell": "AB17738",
+    "now": "=AA17738",
+    "new": "=IFERROR('Air pollution'!AA3924,AA17738)",
+    "fill": "AA17738:AD17752 (fill each row's AA formula right to AD; apply L178, L189, L190, L192 first); AE stays =AD",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "AD17717",
+    "now": "=AC17717",
+    "new": "=IFERROR('Air pollution'!AC3217,AC17717)",
+    "fill": "single cell; AE17717 stays =AD17717",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "wel.air 2040 0.2856 -> 0.3183 bn; diesel 2040 0.2887 -> 0.3259 $/l.",
+  "note": "Plan AP B4. Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): typed AP values to 2040, 2041 = 2040 (Equations_addendum R1.1, R1.4; issue I112)."
+ },
+ {
+  "id": "L192",
+  "pri": "Low",
+  "title": "Residential coal switch tests a typed total (9127)",
+  "where": "Mitigation 17739",
+  "why": "=IF(L16282/9127>0.1%,...): a typed constant 9127 (about a year's residential total use).",
+  "fixes": [
+   {
+    "cell": "L17739",
+    "now": "=IF(L16282/9127>0.1%,'Air pollution'!K4351,0)",
+    "new": "=IF(IFERROR(L16282/L$5562,0)>0.1%,'Air pollution'!K4351,0)",
+    "fill": "L17739:AA17739 (AB:AE hold AA until L191)",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "0.",
+  "note": "Plan AP B12. Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): switch on residential coal over the residential total of the year (Equations_addendum R1.3)."
+ },
+ {
+  "id": "L193",
+  "pri": "Low",
+  "title": "Transport margins: #DIV/0! when a fuel has no class use (LPG)",
+  "where": "Transport 188, 223, 235 (+ policy rows)",
+  "why": "#DIV/0! when a fuel has no class use (LPG), masked to 0 by IFERROR in rows 326-351.",
+  "fixes": [
+   {
+    "cell": "Transport!I188",
+    "now": "= I185 * I164 * I$153 / SUM(I$152:I$153) * IF($D159 = 1, I$124, I$142)",
+    "new": "=IFERROR( I185 * I164 * I$153 / SUM(I$152:I$153) * IF($D159 = 1, I$124, I$142),0)",
+    "fill": "I188:AB188",
+    "policy": "row 268 listed (Transport policy rows)"
+   },
+   {
+    "cell": "Transport!I223",
+    "now": "= I220 * I164 * I$153 / SUM(I$152:I$153) * IF($D159 = 1, I$124, I$142)",
+    "new": "=IFERROR( I220 * I164 * I$153 / SUM(I$152:I$153) * IF($D159 = 1, I$124, I$142),0)",
+    "fill": "I223:AB223",
+    "policy": "row 303 listed (Transport policy rows)"
+   },
+   {
+    "cell": "Transport!I235",
+    "now": "= I232 * I164 * I$153 / SUM(I$152:I$153) * IF($D159 = 1, I$123*I$124, I$141*I$142)",
+    "new": "=IFERROR( I232 * I164 * I$153 / SUM(I$152:I$153) * IF($D159 = 1, I$123*I$124, I$141*I$142),0)",
+    "fill": "I235:AB235",
+    "policy": "row 315 listed (Transport policy rows)"
+   },
+   {
+    "cell": "Transport!I268",
+    "now": "= I265 * I244 * I$153 / SUM(I$152:I$153) * IF($D239 = 1, I$124, I$142)",
+    "new": "=IFERROR( I265 * I244 * I$153 / SUM(I$152:I$153) * IF($D239 = 1, I$124, I$142),0)",
+    "fill": "I268:AB268",
+    "policy": "none (rows 268, 303, 315 are the policy copies, listed)"
+   },
+   {
+    "cell": "Transport!I303",
+    "now": "= I300 * I244 * I$153 / SUM(I$152:I$153) * IF($D239 = 1, I$124, I$142)",
+    "new": "=IFERROR( I300 * I244 * I$153 / SUM(I$152:I$153) * IF($D239 = 1, I$124, I$142),0)",
+    "fill": "I303:AB303",
+    "policy": "none (rows 268, 303, 315 are the policy copies, listed)"
+   },
+   {
+    "cell": "Transport!I315",
+    "now": "= I312 * I244 * I$153 / SUM(I$152:I$153) * IF($D239 = 1, I$123*I$124, I$141*I$142)",
+    "new": "=IFERROR( I312 * I244 * I$153 / SUM(I$152:I$153) * IF($D239 = 1, I$123*I$124, I$141*I$142),0)",
+    "fill": "I315:AB315",
+    "policy": "none (rows 268, 303, 315 are the policy copies, listed)"
+   }
+  ],
+  "ref": "",
+  "effect": "0.",
+  "note": "Plan T B-b. Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): driving share 0 when the class use is 0 (Equations_addendum R1.8)."
+ },
+ {
+  "id": "L194",
+  "pri": "Low",
+  "title": "Other oil products Pigouvian: air-pollution cost in $/GJ added to $/bbl",
+  "where": "Mitigation L123:AE123 (feeds L158, ntx oop row 215, policy 9012)",
+  "why": "=IFERROR(L17748,0) = 'Air pollution'!K3733, US$ per GJ, in a row labelled $/barrel and added to the climate damage in $/bbl (L142).",
+  "fixes": [
+   {
+    "cell": "L123:AE123",
+    "now": "=IFERROR(L17748,0)",
+    "new": "=IFERROR(L17748,0)*_conv_barrel_to_gj (6.12 GJ/bbl)",
+    "fill": "",
+    "policy": ""
+   }
+  ],
+  "ref": "",
+  "effect": "0 by default (AddEfficientTaxes No*). With Yes: oop Pigouvian 2030 36.62 -> 65.77 $/bbl (AP 5.69 $/GJ -> 34.82 $/bbl).",
+  "note": "",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): ap_oop = ap.cost[oop,pow] x GJ per bbl (Equations_addendum R3.4)."
+ },
+ {
+  "id": "L195",
+  "pri": "Low",
+  "title": "Pigouvian phase-in: no phase-in in 2022-2024",
+  "where": "Mitigation L146:N146 (2022-2024)",
+  "why": "=IF(L204>=CPIntro,1,0): no phase-in in the first three columns.",
+  "fixes": [
+   {
+    "cell": "L146",
+    "now": "=IF(L204>=CPIntro,1,0)",
+    "new": "=IF(L204>=CPIntro,MIN((L204-CPIntro+1)/$E$145,1),0)",
+    "fill": "L146:N146",
+    "policy": "none (shared rows, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "0 (CPIntro 2026).",
+  "note": "Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): one phase-in formula in every year (Equations_addendum R3.1)."
+ },
+ {
+  "id": "L196",
+  "pri": "Low",
+  "title": "Pigouvian phase-in: #DIV/0! when the phase-in years are 0",
+  "where": "Mitigation O146:AE146",
+  "why": "MIN((t-CPIntro+1)/$E$145,1): #DIV/0! when AddEfficientTaxesPhaseInYears = 0, propagating into ntx (rows 205-215, 8782-9012).",
+  "fixes": [
+   {
+    "cell": "O146",
+    "now": "=IF(O204>=CPIntro,MIN((O204-CPIntro+1)/$E$145,1),0)",
+    "new": "=IF(O204>=CPIntro,MIN((O204-CPIntro+1)/MAX($E$145,1),1),0)",
+    "fill": "O146:AE146 (with L195: L146:AE146)",
+    "policy": "none (shared rows, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "0 (5 years).",
+  "note": "Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): divide by max(n, 1) (Equations_addendum R3.1)."
+ },
+ {
+  "id": "L197",
+  "pri": "Low",
+  "title": "CBAM: ETS-table emission lookup is text and finds the fuel CO2 rows",
+  "where": "Mitigation L1905 (and M1905:AE1909 empty); duplicate codes H5996:H6000 = H6007:H6011",
+  "why": "L1905 is text '=@INDEX(L$2170:L$14547,$J1905)' (range also 3 rows off); J1905 = MATCH of egy.mit.cpe.ind.mch.1 finds 5996 (fuel CO2 rows) before 6007 (process rows).",
+  "fixes": [
+   {
+    "cell": "L1905",
+    "now": "=@INDEX(L$2170:L$14547,$J1905)",
+    "new": "=INDEX(L$2173:L$14755,$J1905)",
+    "fill": "L1905:AE1909",
+    "policy": "rows 1939-1943: J1939 =MATCH($G1939,$H$2173:$H$14755,0) filled to J1943, and L1939 =INDEX(L$2173:L$14755,$J1939) filled to AE1943"
+   },
+   {
+    "cell": "H5996",
+    "now": "=LOWER(_Country_code)&\".mit.cpe.ind.mch.\"&C2173",
+    "new": "=LOWER(_Country_code)&\".mit.cfe.ind.mch.\"&C2173",
+    "fill": "single cell",
+    "policy": "H12312: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "H5997",
+    "now": "=LOWER(_Country_code)&\".mit.cpe.ind.irn.\"&C2173",
+    "new": "=LOWER(_Country_code)&\".mit.cfe.ind.irn.\"&C2173",
+    "fill": "single cell",
+    "policy": "H12313: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "H5998",
+    "now": "=LOWER(_Country_code)&\".mit.cpe.ind.nfm.\"&C2173",
+    "new": "=LOWER(_Country_code)&\".mit.cfe.ind.nfm.\"&C2173",
+    "fill": "single cell",
+    "policy": "H12314: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "H5999",
+    "now": "=LOWER(_Country_code)&\".mit.cpe.ind.mac.\"&C2173",
+    "new": "=LOWER(_Country_code)&\".mit.cfe.ind.mac.\"&C2173",
+    "fill": "single cell",
+    "policy": "H12315: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "H6000",
+    "now": "=LOWER(_Country_code)&\".mit.cpe.ind.cem.\"&C2173",
+    "new": "=LOWER(_Country_code)&\".mit.cfe.ind.cem.\"&C2173",
+    "fill": "single cell",
+    "policy": "H12316: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "H6001",
+    "now": "=LOWER(_Country_code)&\".mit.emis.cbam.tot.\"&C2173",
+    "new": "=LOWER(_Country_code)&\".mit.cfe.cbam.tot.\"&C2173",
+    "fill": "single cell",
+    "policy": "H12317: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   }
+  ],
+  "ref": "",
+  "effect": "0 (CBAM off).",
+  "note": "Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L198",
+  "pri": "Low",
+  "title": "CBAM: ETS-table sum leaves out cement",
+  "where": "Mitigation L1918:AE1918",
+  "why": "=SUM(L1905:L1908): cement (1909) left out.",
+  "fixes": [
+   {
+    "cell": "L1918:AE1918",
+    "now": "=SUM(L1905:L1908)",
+    "new": "=SUM(L1905:L1909)",
+    "fill": "",
+    "policy": ""
+   }
+  ],
+  "ref": "",
+  "effect": "0.",
+  "note": "",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L199",
+  "pri": "Low",
+  "title": "CBAM: carbon prices typed 0, intended links left as text",
+  "where": "Mitigation K5869:AE5871 (policy +6,316)",
+  "why": "L:AE typed 0; K holds text '=L2727' (now Nuclear fuel cost), '=L2322', '=L2346'.",
+  "fixes": [
+   {
+    "cell": "L5869",
+    "now": "0.0",
+    "new": "=L2251",
+    "fill": "L5869:AE5869",
+    "policy": "L12185:AE12185: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "K5869",
+    "now": "=L2727",
+    "new": "(clear: the text of the intended link)",
+    "fill": "single cell",
+    "policy": "K12185: clear"
+   },
+   {
+    "cell": "L5870",
+    "now": "0.0",
+    "new": "=L2252",
+    "fill": "L5870:AE5870",
+    "policy": "L12186:AE12186: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "K5870",
+    "now": "=L2322",
+    "new": "(clear: the text of the intended link)",
+    "fill": "single cell",
+    "policy": "K12186: clear"
+   },
+   {
+    "cell": "L5871",
+    "now": "0.0",
+    "new": "=L2009",
+    "fill": "L5871:AE5871",
+    "policy": "L12187:AE12187: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "K5871",
+    "now": "=L2346",
+    "new": "(clear: the text of the intended link)",
+    "fill": "single cell",
+    "policy": "K12187: clear"
+   }
+  ],
+  "ref": "",
+  "effect": "0: all CBAM prices, reductions and revenue are 0.",
+  "note": "Equations_addendum R4.5 \"bug -6\". Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L200",
+  "pri": "Low",
+  "title": "CBAM: fuel abatement uses the \"Revenues Fund\" row as price",
+  "where": "Mitigation L5974:AE5981; M5981:AE5981",
+  "why": "=L5952*(EXP(-($E5974)*(L5872))-1): price = row 5872 \"Revenues Fund\" (typed 0); M5981 EXP(-(F5981)*...), N5981 G5981 (relative drift).",
+  "fixes": [
+   {
+    "cell": "L5974",
+    "now": "=L5952*(EXP(-($E5974)*(L5872))-1)",
+    "new": "=L5952*(EXP(-($E5974)*($F5921*L5869+$G5921*L5870))-1)",
+    "fill": "L5974:AE5974 (replaces M:AE, incl. the drifting E5981 of M5981:AE5981)",
+    "policy": "L12290:AE12290: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "L5975",
+    "now": "=L5953*(EXP(-($E5975)*(L5872))-1)",
+    "new": "=L5953*(EXP(-($E5975)*($F5922*L5869+$G5922*L5870))-1)",
+    "fill": "L5975:AE5975 (replaces M:AE, incl. the drifting E5981 of M5981:AE5981)",
+    "policy": "L12291:AE12291: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "L5976",
+    "now": "=L5954*(EXP(-($E5976)*(L5872))-1)",
+    "new": "=L5954*(EXP(-($E5976)*($F5923*L5869+$G5923*L5870))-1)",
+    "fill": "L5976:AE5976 (replaces M:AE, incl. the drifting E5981 of M5981:AE5981)",
+    "policy": "L12292:AE12292: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "L5977",
+    "now": "=L5955*(EXP(-($E5977)*(L5872))-1)",
+    "new": "=L5955*(EXP(-($E5977)*($F5924*L5869+$G5924*L5870))-1)",
+    "fill": "L5977:AE5977 (replaces M:AE, incl. the drifting E5981 of M5981:AE5981)",
+    "policy": "L12293:AE12293: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "L5978",
+    "now": "=L5956*(EXP(-($E5978)*(L5872))-1)",
+    "new": "=L5956*(EXP(-($E5978)*($F5925*L5869+$G5925*L5870))-1)",
+    "fill": "L5978:AE5978 (replaces M:AE, incl. the drifting E5981 of M5981:AE5981)",
+    "policy": "L12294:AE12294: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "L5979",
+    "now": "=L5957*(EXP(-($E5979)*(L5872))-1)",
+    "new": "=L5957*(EXP(-($E5979)*($F5926*L5869+$G5926*L5870))-1)",
+    "fill": "L5979:AE5979 (replaces M:AE, incl. the drifting E5981 of M5981:AE5981)",
+    "policy": "L12295:AE12295: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "L5980",
+    "now": "=L5958*(EXP(-($E5980)*(L5872))-1)",
+    "new": "=L5958*(EXP(-($E5980)*($F5927*L5869+$G5927*L5870))-1)",
+    "fill": "L5980:AE5980 (replaces M:AE, incl. the drifting E5981 of M5981:AE5981)",
+    "policy": "L12296:AE12296: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "L5981",
+    "now": "=L5959*(EXP(-(E5981)*(L5872))-1)",
+    "new": "=L5959*(EXP(-($E5981)*($F5928*L5869+$G5928*L5870))-1)",
+    "fill": "L5981:AE5981 (replaces M:AE, incl. the drifting E5981 of M5981:AE5981)",
+    "policy": "L12297:AE12297: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   }
+  ],
+  "ref": "",
+  "effect": "0.",
+  "note": "Equations_addendum R4.9 \"bug -7\". Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L201",
+  "pri": "Low",
+  "title": "CBAM: revenue on pre-policy process emissions at the fuel inclusion",
+  "where": "Mitigation L6014:AE6021",
+  "why": "=L5963*(L5869*F5921+L5870*G5921): pre-policy process emissions x the fuel inclusion (sector coverage, ignores CBAMProc).",
+  "fixes": [
+   {
+    "cell": "L6014:AE6021",
+    "now": "=L5963*(L5869*F5921+L5870*G5921)",
+    "new": "=(L5963+L5985)*(L5869*F5932+L5870*G5932)",
+    "fill": "",
+    "policy": ""
+   }
+  ],
+  "ref": "",
+  "effect": "0.",
+  "note": "Intended: post-policy emissions, process inclusion. Equations_addendum R4.12 \"bug -8\".",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L202",
+  "pri": "Low",
+  "title": "CBAM: post-policy process emissions typed in M:AE, total row empty",
+  "where": "Mitigation M5996:AE6000; L6012:AE6012",
+  "why": "M:AE typed constants (equal to the process rows 6007-6011) while L sums fuel CO2 (5952..+5974..); 6012 empty.",
+  "fixes": [
+   {
+    "cell": "M5996",
+    "now": "0.5694716242661447",
+    "new": "=SUM(M5956:M5958)+SUM(M5978:M5980)",
+    "fill": "L5996:AE5996 (fill the L formula right)",
+    "policy": "L12312:AE12312: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "M5997",
+    "now": "0.26436781609195403",
+    "new": "=SUM(M5952:M5954)+SUM(M5974:M5976)",
+    "fill": "L5997:AE5997 (fill the L formula right)",
+    "policy": "L12313:AE12313: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "M5998",
+    "now": "0.6682464454976303",
+    "new": "=M5959+M5981",
+    "fill": "L5998:AE5998 (fill the L formula right)",
+    "policy": "L12314:AE12314: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "M6000",
+    "now": "25.45982575024202",
+    "new": "=M5955+M5977",
+    "fill": "L6000:AE6000 (fill the L formula right)",
+    "policy": "L12316:AE12316: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   },
+   {
+    "cell": "L6012",
+    "now": "(empty)",
+    "new": "=SUM(L6007:L6011)",
+    "fill": "L6012:AE6012",
+    "policy": "L12328:AE12328: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   }
+  ],
+  "ref": "",
+  "effect": "0 (not read).",
+  "note": "Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L203",
+  "pri": "Low",
+  "title": "Efficient-price display rows: #DIV/0!, wrong columns, ranges to AD",
+  "where": "Mitigation L18096:AE18096, L18108:AE18108; L18152:L18157; INDEX ranges $L:$AD in 18128-18156",
+  "why": "#DIV/0! (CO2e of electricity taxes over a blank climate cost); the residential electricity column copies industry (=K18152), check row L18157 tests the gas rows; YearFuelPrices = 2041 gives #N/A.",
+  "fixes": [
+   {
+    "cell": "L18096",
+    "now": "=L18095*L$17959/L18091",
+    "new": "=IFERROR(L18095*L$17959/L18091,\"n.a.\")",
+    "fill": "L18096:AE18096",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18108",
+    "now": "=L18107*L$17959/L18103",
+    "new": "=IFERROR(L18107*L$17959/L18103,\"n.a.\")",
+    "fill": "L18108:AE18108",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18152",
+    "now": "=K18152",
+    "new": "=INDEX($L18101:$AE18101,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18153",
+    "now": "=K18153",
+    "new": "=INDEX($L18102:$AE18102,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18154",
+    "now": "=K18154",
+    "new": "=INDEX($L18103:$AE18103,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18155",
+    "now": "=K18155",
+    "new": "=INDEX($L18104:$AE18104,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18156",
+    "now": "=K18156",
+    "new": "=INDEX($L$18100:$AE$18100,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18157",
+    "now": "=SUM(L18145:L18148)-L18149",
+    "new": "=SUM(L18152:L18155)-L18156",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18128",
+    "now": "=INDEX($L$16202:$AD$16202,MATCH($F$18127,$L$16192:$AD$16192,0))",
+    "new": "=INDEX($L$16202:$AE$16202,MATCH($F$18127,$L$16192:$AE$16192,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "K18138",
+    "now": "=INDEX($L18017:$AD18017,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18017:$AE18017,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18138",
+    "now": "=INDEX($L18029:$AD18029,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18029:$AE18029,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "K18139",
+    "now": "=INDEX($L18018:$AD18018,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18018:$AE18018,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18139",
+    "now": "=INDEX($L18030:$AD18030,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18030:$AE18030,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "K18140",
+    "now": "=INDEX($L18019:$AD18019,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18019:$AE18019,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18140",
+    "now": "=INDEX($L18031:$AD18031,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18031:$AE18031,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "K18141",
+    "now": "=INDEX($L18020:$AD18020,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18020:$AE18020,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18141",
+    "now": "=INDEX($L18032:$AD18032,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18032:$AE18032,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "K18142",
+    "now": "=INDEX($L$18016:$AD$18016,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L$18016:$AE$18016,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18142",
+    "now": "=INDEX($L$18028:$AD$18028,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L$18028:$AE$18028,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "K18145",
+    "now": "=INDEX($L18053:$AD18053,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18053:$AE18053,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18145",
+    "now": "=INDEX($L18065:$AD18065,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18065:$AE18065,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "K18146",
+    "now": "=INDEX($L18054:$AD18054,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18054:$AE18054,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18146",
+    "now": "=INDEX($L18066:$AD18066,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18066:$AE18066,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "K18147",
+    "now": "=INDEX($L18055:$AD18055,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18055:$AE18055,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18147",
+    "now": "=INDEX($L18067:$AD18067,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18067:$AE18067,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "K18148",
+    "now": "=INDEX($L18056:$AD18056,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18056:$AE18056,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18148",
+    "now": "=INDEX($L18068:$AD18068,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18068:$AE18068,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "K18149",
+    "now": "=INDEX($L$18052:$AD$18052,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L$18052:$AE$18052,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "L18149",
+    "now": "=INDEX($L$18064:$AD$18064,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L$18064:$AE$18064,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "K18152",
+    "now": "=INDEX($L18089:$AD18089,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18089:$AE18089,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "K18153",
+    "now": "=INDEX($L18090:$AD18090,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18090:$AE18090,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "K18154",
+    "now": "=INDEX($L18091:$AD18091,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18091:$AE18091,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "K18155",
+    "now": "=INDEX($L18092:$AD18092,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L18092:$AE18092,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "K18156",
+    "now": "=INDEX($L$18088:$AD$18088,MATCH($F$18127,$L$17961:$AD$17961,0))",
+    "new": "=INDEX($L$18088:$AE$18088,MATCH($F$18127,$L$17961:$AE$17961,0))",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "display only.",
+  "note": "Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): CO2e rows n.a. where the climate cost is 0 (Equations_addendum R3.21); the year table at YearFuelPrices (R3.23) is not built (it would read later years; it belongs to the output sheets)."
+ },
+ {
+  "id": "L204",
+  "pri": "Low",
+  "title": "Green investment: 2021 net public investment uses the cash transfer share",
+  "where": "Mitigation K6239 (and K12555)",
+  "why": "=K6238*K$6234 (cash transfers) in column K, while L:AD use public capital investment.",
+  "fixes": [
+   {
+    "cell": "K6239",
+    "now": "=K6238*K$6234",
+    "new": "=K6238*K6232",
+    "fill": "",
+    "policy": "K12555"
+   }
+  ],
+  "ref": "",
+  "effect": "None: column K = 2021, K8024 = 0. Out of the prototype horizon.",
+  "note": "",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L205",
+  "pri": "High",
+  "title": "Green investment: net revenue % GDP reads the change in population",
+  "where": "Mitigation K6243:AD6243; K12559:AD12559",
+  "why": "=K8029 / =K14345: row 8029 is \"Change in population\".",
+  "fixes": [
+   {
+    "cell": "K6243:AD6243",
+    "now": "=K8029",
+    "new": "=K8020 (fiscal revenues raised, % GDP, additional)",
+    "fill": "",
+    "policy": "K12559:AD12559: =K14345 -> =K14336"
+   }
+  ],
+  "ref": "",
+  "effect": "Scen. 2 shows population growth (0.0149 in 2022 ... 0.04) as net revenue % GDP; intended 0 ... 0.0028 (2040).",
+  "note": "",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L206",
+  "pri": "High",
+  "title": "Green investment: % GDP uses the cash transfer share, not public capital",
+  "where": "Mitigation K6244:AD6244; K12560:AD12560",
+  "why": "=K6243*K$6234 / =K12559*K$6234: the cash transfer share (and the scen.-1 block's, in scenario 2).",
+  "fixes": [
+   {
+    "cell": "K6244:AD6244",
+    "now": "=K6243*K$6234",
+    "new": "=K6243*K6232",
+    "fill": "",
+    "policy": "K12560:AD12560: =K12559*K$6234 -> =K12559*K12548"
+   }
+  ],
+  "ref": "",
+  "effect": "Share 0.2 used instead of 0.5 (EXPTransfers vs EXPCapex).",
+  "note": "",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L207",
+  "pri": "High",
+  "title": "Green investment: green share % GDP multiplied by the net zero end year",
+  "where": "Mitigation K6245:AD6245; K12561:AD12561",
+  "why": "=$D$6222*K6244: D6222 is the Net Zero End Year (2060), not the green proportion.",
+  "fixes": [
+   {
+    "cell": "K6245:AD6245",
+    "now": "=$D$6222*K6244",
+    "new": "=$D6220*K6244 (green proportion 0.5, as row 6240)",
+    "fill": "",
+    "policy": "K12561:AD12561: =$D12536*K12560"
+   }
+  ],
+  "ref": "",
+  "effect": "Scen. 2 cached 2040: 16.48 (1648 % of GDP); intended 0.0007 (0.07 %).",
+  "note": "",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L208",
+  "pri": "Medium",
+  "title": "Green investment: public investment need reads a blank cell",
+  "where": "Mitigation K6249:AD6249; K12565:AD12565",
+  "why": "=IF(K6248>=$D6219,$H$6229,0): H6229 is blank.",
+  "fixes": [
+   {
+    "cell": "K6249:AD6249",
+    "now": "=IF(K6248>=$D6219,$H$6229,0)",
+    "new": "=IF(K6248>=$D6219,$H$6227,0)",
+    "fill": "",
+    "policy": "K12565:AD12565: $H$12543"
+   }
+  ],
+  "ref": "",
+  "effect": "0 instead of 0.0086 from 2026 (dead-end row).",
+  "note": "",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L209",
+  "pri": "High",
+  "title": "Green investment: net zero phase-out factor reads the wrong constants",
+  "where": "Mitigation L6256:AD6256; L12572:AD12572",
+  "why": "=IF(L6248<$D$6223,1,K6256-$D$6225): D6223 is the increment 0.029 (not the start year) and D6225 is blank.",
+  "fixes": [
+   {
+    "cell": "L6256:AD6256",
+    "now": "=IF(L6248<$D$6223,1,K6256-$D$6225)",
+    "new": "=IF(L6248<$D6221,1,K6256-$D6223) (start year; increment)",
+    "fill": "",
+    "policy": "L12572:AD12572: $D12537, $D12539"
+   }
+  ],
+  "ref": "",
+  "effect": "phi = 0 every year (should be 1 to 2025, then -1/34 a year): NZ path, reduction and abatement all 0.",
+  "note": "",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L210",
+  "pri": "High",
+  "title": "Green investment: requirement to date reads a blank cell",
+  "where": "Mitigation P6250:AD6250; P12566:AD12566",
+  "why": "=$H$6252*(1-P6256): H6252 is blank.",
+  "fixes": [
+   {
+    "cell": "P6250:AD6250",
+    "now": "=$H$6252*(1-P6256)",
+    "new": "=$H$6250*(1-P6256)",
+    "fill": "",
+    "policy": "P12566:AD12566: =$H$12566*(1-P12572)"
+   }
+  ],
+  "ref": "",
+  "effect": "0 instead of 0.0088 (2026) ... 0.132 (2040).",
+  "note": "",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L211",
+  "pri": "High",
+  "title": "Green investment: public part multiplies by a header text (#VALUE!)",
+  "where": "Mitigation P6251:AD6251, L6261:AD6261; P12567:AD12567, L12577:AD12577",
+  "why": "=P6250*$D$6226, =L6260*$D$6226: D6226 is the header text \"Mitigation ($2020 bn)\".",
+  "fixes": [
+   {
+    "cell": "P6251:AD6251",
+    "now": "=P6250*$D$6226",
+    "new": "=P6250*$D6224",
+    "fill": "",
+    "policy": "P12567:AD12567: $D12540"
+   },
+   {
+    "cell": "L6261:AD6261",
+    "now": "=L6260*$D$6226",
+    "new": "=L6260*$D6224",
+    "fill": "",
+    "policy": "L12577:AD12577: $D12540"
+   }
+  ],
+  "ref": "H6251 = H6261 = D6224 show the intent (public part 0.5).",
+  "effect": "#VALUE! in rows 6251, 6261, 6265, 6266 (and 12567, 12577, 12581, 12582).",
+  "note": "",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L212",
+  "pri": "High",
+  "title": "Green investment: BAU emissions read a blank row",
+  "where": "Mitigation L6255:AD6255; L12571:AD12571",
+  "why": "=L$7628: row 7628 is blank (between the section-16 band 7627 and its info rows).",
+  "fixes": [
+   {
+    "cell": "L6255:AD6255",
+    "now": "=L$7628",
+    "new": "=L$7626 (Total GHGs exc LULUCF, ghg.tot.1; scenario 1 in both blocks = BAU)",
+    "fill": "",
+    "policy": "L12571:AD12571: same"
+   }
+  ],
+  "ref": "Row 7626 is the only total in reach (rows inserted above shifted the reference); prototype: ghg.ref.",
+  "effect": "BAU emissions 0 instead of 400.9 (2022) ... 715.4 Mt (2040).",
+  "note": "",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L213",
+  "pri": "High",
+  "title": "Green investment: cumulative green investment sums thousands of rows (scen. 2)",
+  "where": "Mitigation L12580:AD12580 (scen. 2)",
+  "why": "=SUM($K$6247:L12561) sums rows 6247-12561; scen. 1 =SUM($K6245:L$6247) works only because 6246-6247 are blank.",
+  "fixes": [
+   {
+    "cell": "L12580:AD12580",
+    "now": "=SUM($K$6247:L12561)",
+    "new": "=SUM($K12561:L12561)",
+    "fill": "",
+    "policy": ""
+   },
+   {
+    "cell": "L6264:AD6264",
+    "now": "=SUM($K6245:L$6247)",
+    "new": "=SUM($K6245:L6245)",
+    "fill": "",
+    "policy": ""
+   }
+  ],
+  "ref": "",
+  "effect": "#VALUE! (scen. 2).",
+  "note": "The scenario-1 cell (row 6264 per Equations_addendum gpi.cgi) gives the right value by chance.",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L214",
+  "pri": "Medium",
+  "title": "Current account after policy (% GDP) leaves out coal",
+  "where": "Mitigation L18195:AE18195",
+  "why": "=L18191+L18192+L18193: the coal effect (18194) is left out, unlike 18188 = SUM(18184:18187).",
+  "fixes": [
+   {
+    "cell": "L18195:AE18195",
+    "now": "=L18191+L18192+L18193",
+    "new": "=L18191+L18192+L18193+L18194",
+    "fill": "",
+    "policy": ""
+   }
+  ],
+  "ref": "Row 18188 = SUM(18184:18187).",
+  "effect": "Coal effect left out of the % GDP total (2041: 0.0037 pp; coal use change -102.5 ktoe).",
+  "note": "",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0, R11): coal in the current account % of GDP total"
+ },
+ {
+  "id": "L215",
+  "pri": "Medium",
+  "title": "Gas import bill: $/MMBtu price times GJ",
+  "where": "Mitigation L18172:AE18172",
+  "why": "=L18171*_conv_ktoe_to_gj*L709/10^9*$H741: L709 is in $/MMBtu.",
+  "fixes": [
+   {
+    "cell": "L18172",
+    "now": "=L18171*_conv_ktoe_to_gj*L709/10^9*$H741",
+    "new": "=L18171*_conv_ktoe_to_gj*L733/10^9*$H741",
+    "fill": "L18172:AE18172",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "Gas effect 5.5 % too large (1.055 GJ per MMBtu).",
+  "note": "Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0, R11): the fuel effect uses xnim (gas in $/GJ), not $/MMBtu x GJ"
+ },
+ {
+  "id": "L216",
+  "pri": "High",
+  "title": "Fuel transformation indirect intensity uses total industrial indirect CO2",
+  "where": "Mitigation H18756",
+  "why": "=L18731/(SUMIF(..,\"ftr\",..)*(1+$J$15705))*10^6: L18731 is the total industrial indirect CO2.",
+  "fixes": [
+   {
+    "cell": "H18756",
+    "now": "=L18731/(SUMIF($B$15636:$B$15699,$C18756,$I$15636:$I$15699)*(1+$J$15705))*10^6",
+    "new": "=L18730/(SUMIF($B$15636:$B$15699,$C18756,$I$15636:$I$15699)*(1+$J$15705))*10^6",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "ftr indirect intensity 453.32 -> 216.35; total 820.06 -> 583.10 tCO2/$m (MTOutputs M134, chart).",
+  "note": "Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L217",
+  "pri": "Medium",
+  "title": "Emissions shares of food and services swapped",
+  "where": "Mitigation H18762, H18763",
+  "why": "=L18638 (srv row reads food CO2), =L18639 (foo row reads services CO2).",
+  "fixes": [
+   {
+    "cell": "H18762",
+    "now": "=L18638",
+    "new": "=L18639",
+    "fill": "",
+    "policy": ""
+   },
+   {
+    "cell": "H18763",
+    "now": "=L18639",
+    "new": "=L18638",
+    "fill": "",
+    "policy": ""
+   }
+  ],
+  "ref": "G18747 = L18638 for food.",
+  "effect": "Emissions share srv 0.0415 -> 0, foo 0 -> 0.0415 (MTOutputs L143, L135, and O135-O143).",
+  "note": "",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L218",
+  "pri": "High",
+  "title": "MTOutputs: machinery emissions share reads the intensity",
+  "where": "MTOutputs L141",
+  "why": "=ROUND(Mitigation!J18767,2): the intensity, not the emissions share.",
+  "fixes": [
+   {
+    "cell": "MTOutputs L141",
+    "now": "=ROUND(Mitigation!J18767,2)",
+    "new": "=ROUND(Mitigation!I18767,2) (emissions share, as L134:L143)",
+    "fill": "",
+    "policy": ""
+   }
+  ],
+  "ref": "",
+  "effect": "Machinery emissions share 48.78 -> 0; cumulative O141:O143 49.74, 49.74, 49.78 -> 1.00, 1.00, 1.00.",
+  "note": "",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L219",
+  "pri": "Low",
+  "title": "Intensity check column reads a label row and a year row",
+  "where": "Mitigation J18747, J18748 (check column)",
+  "why": "=L18733/..., =L18734/...: a label row and a year row.",
+  "fixes": [
+   {
+    "cell": "J18747",
+    "now": "=L18733/(SUMIF($B$15636:$B$15699,$C18747,$I$15636:$I$15699)*(1+$J$15705)*1000-I18747)",
+    "new": "(clear: no food & forestry or services row in 18735-18742)",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   },
+   {
+    "cell": "J18748",
+    "now": "=L18734/(SUMIF($B$15636:$B$15699,$C18748,$I$15636:$I$15699)*(1+$J$15705)*1000-I18748)",
+    "new": "(clear: no food & forestry or services row in 18735-18742)",
+    "fill": "single cell",
+    "policy": "none (results block, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "Check column only; not built.",
+  "note": "Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Out of scope (user 2026-10-29): CBAM process emissions, green public investment and industrial emissions intensity are upgrades (U15-U17), not built"
+ },
+ {
+  "id": "L220",
+  "pri": "Low",
+  "title": "Manual cross-price elasticities default to usage elasticities",
+  "where": "Manual inputs L319:L321 (feed Elasticities F131:F133, then C131:C133 when ElPrcMainSrc = Manual)",
+  "why": "=Elasticities!C91, C92, C93: the usage elasticities of services biomass, renewables, electricity (-0.4, -0.7, -0.5) as defaults of the cross-price elasticities.",
+  "fixes": [
+   {
+    "cell": "Manual inputs!L319",
+    "now": "=Elasticities!C91",
+    "new": "=Elasticities!G131",
+    "fill": "single cell",
+    "policy": "none"
+   },
+   {
+    "cell": "Manual inputs!L320",
+    "now": "=Elasticities!C92",
+    "new": "=Elasticities!G132",
+    "fill": "single cell",
+    "policy": "none"
+   },
+   {
+    "cell": "Manual inputs!L321",
+    "now": "=Elasticities!C93",
+    "new": "=Elasticities!G133",
+    "fill": "single cell",
+    "policy": "none"
+   }
+  ],
+  "ref": "",
+  "effect": "None by default (ElPrcMainSrc = Simple*). With Manual: the biomass/LPG substitution elasticity of the leakage (C131 -> _ResLpgKerBioSubstElasticity, E5572) turns -0.4, reversing leakage.",
+  "note": "Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): the manual default is the simple cross-price value (Equations_addendum R8.5)."
+ },
+ {
+  "id": "L221",
+  "pri": "Low",
+  "title": "Elasticity standard deviations read other fuels' rows",
+  "where": "Elasticities H29, H30, H37, H38, H45, H46 (standard deviation used by the Low / High adjustment)",
+  "why": "=H149, =H150, =H151, =H152, =H163, =H164 instead of the own fuel's rows.",
+  "fixes": [
+   {
+    "cell": "Elasticities!H29",
+    "now": "=H149",
+    "new": "=H145",
+    "fill": "single cell",
+    "policy": "none"
+   },
+   {
+    "cell": "Elasticities!H30",
+    "now": "=H150",
+    "new": "=H146",
+    "fill": "single cell",
+    "policy": "none"
+   },
+   {
+    "cell": "Elasticities!H37",
+    "now": "=H151",
+    "new": "=H153",
+    "fill": "single cell",
+    "policy": "none"
+   },
+   {
+    "cell": "Elasticities!H38",
+    "now": "=H152",
+    "new": "=H154",
+    "fill": "single cell",
+    "policy": "none"
+   },
+   {
+    "cell": "Elasticities!H45",
+    "now": "=H163",
+    "new": "=H161",
+    "fill": "single cell",
+    "policy": "none"
+   },
+   {
+    "cell": "Elasticities!H46",
+    "now": "=H164",
+    "new": "=H162",
+    "fill": "single cell",
+    "policy": "none"
+   }
+  ],
+  "ref": "",
+  "effect": "None (equal values within a sector; only with ElastIncAdjustment Low/High).",
+  "note": "Extends known L116 (H53, H54), whose text \"every other row reads its own\" is wrong. Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Not built (feature not in the prototype)"
+ },
+ {
+  "id": "L222",
+  "pri": "Medium",
+  "title": "Power cost breakdown (scenario 2): carbon tax memo tests the baseline name",
+  "where": "Mitigation T9825 (E5 cost breakdown, scenario-2 block); header P9824",
+  "why": "=IF(B$2173=\"Baseline\",0,INDEX(L9400:AE9400,...)) tests the scenario-1 block's name; P9824 =B$2173.",
+  "fixes": [
+   {
+    "cell": "T9825",
+    "now": "=IF(B$2173=\"Baseline\",0,INDEX(L9400:AE9400,1,MATCH(CostBreakdownYear,$L$1:$AE$1)))",
+    "new": "=IF(B$8489=\"Baseline\",0,INDEX(L9400:AE9400,1,MATCH(CostBreakdownYear,$L$1:$AE$1)))",
+    "fill": "single cell (the baseline T3509 tests B$2173, correct)",
+    "policy": "this is the policy copy"
+   },
+   {
+    "cell": "P9824",
+    "now": "=B$2173",
+    "new": "=B$8489",
+    "fill": "single cell",
+    "policy": "this is the policy copy"
+   }
+  ],
+  "ref": "",
+  "effect": "Policy scenario 2030: carbon-tax memo 0 instead of 1.4286 $/tCO2 (L9400 row = cptraj); header shows \"Baseline\" in both blocks.",
+  "note": "Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): tau_b = cptraj(T_b) x 1[scenario > 1] (Equations_addendum R9.13)."
+ },
+ {
+  "id": "L223",
+  "pri": "Medium",
+  "title": "Combustion CH4 factors blank: base and final factor cells missing",
+  "where": "Mitigation L1514:L1576, AC1514:AC1576 (CH4 block of the combustion emission factors) and L1579:L1586, AC1579:AC1586 (other energy use)",
+  "why": "The CH4 block has the EF_PM lookup (column F) and the final factor (column I; e.g. power coal 0.0413 t/ktoe), but the base-year factor L and the target factor AC are empty, unlike every other pollutant block (e.g. row 1419). So the yearly line M:AE is 0 and legacy combustion CH4 is 0 although the data exist.",
+  "fixes": [
+   {
+    "cell": "L1514",
+    "now": "(empty)",
+    "new": "=_xlfn.IFNA(10^-6*_conv_ktoe_to_gj*10^3*INDEX(EF_PM!$F$3:$F$39323,$F1514),0)",
+    "fill": "L1514:L1576",
+    "policy": "none (rows above 2173 are shared by both blocks)"
+   },
+   {
+    "cell": "AC1514",
+    "now": "(empty)",
+    "new": "=_xlfn.IFNA(IF(EFSel=\"constant\",$L1514,IF(EFSel=\"Variable\",$I1514,($I1514+$L1514)/2)),0)",
+    "fill": "AC1514:AC1576",
+    "policy": "none"
+   },
+   {
+    "cell": "L1579",
+    "now": "(empty)",
+    "new": "=MAX(IF($D1514:$D1576=$D1579,L1514:L1576))",
+    "fill": "L1579:L1586, AC1579:AC1586 (column AC: same with AC)",
+    "policy": "none"
+   }
+  ],
+  "ref": "Rows 1419 (L, AC) and 1117 (other energy use: maximum across the other subsectors) of the other pollutant blocks.",
+  "effect": "Egypt 2022 combustion CH4 about 152 kt (about 4 Mt CO2e, 2% of energy GHGs); energy CH4 is calibrated to the inventory in GHGYear, so only the source mix and the path after it change.",
+  "note": "Was described in issue I34 (no combustion CH4 in legacy); a cell-level fix exists, so a bug (user 2026-10-29).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0, EF465): the prototype fills the CH4 factors with the same 465 lookup (table Inputs_nc)."
+ },
+ {
+  "id": "L224",
+  "pri": "High",
+  "title": "Air-pollution unit costs are average damages where marginal damages are meant",
+  "where": "Air pollution sheet rows 3731-4378 (attributed deaths per ktoe x VSL), read by Mitigation rows 113-123 (Pigouvian taxes), 17738-17951 (FFS, implicit subsidies), 17964-18102 (efficient prices)",
+  "why": "The per-fuel cost is total attributed damage divided by fuel use (an average; residential LPG and kerosene include household air pollution). Pigouvian taxes, efficient prices and implicit subsidies need the marginal damage of one more unit of fuel; legacy's own welfare uses the concentration model, and the two differ about 5.7x (Egypt 2030).",
+  "fixes": [
+   {
+    "cell": "Air pollution 3731-4378 (unit costs)",
+    "now": "deaths per ktoe x VSL / GJ per ktoe",
+    "new": "v_PM(t) x sum over pollutants of the concentration coefficient of the module sector x the emission factor of the fuel and sector, / GJ per ktoe",
+    "fill": "",
+    "policy": ""
+   }
+  ],
+  "ref": "Legacy's welfare (AP 3217: value of the change in modelled PM2.5).",
+  "effect": "Egypt scenario 1, 2030: implicit subsidies 60.3 -> 44.4 bn; LPG efficient price 1.45 -> 0.66 $/l; most lines x0.68; LPG x0.004, kerosene x0.07 (household air pollution not in the concentration model).",
+  "note": "Was issue I104 (user 2026-10-29: a bug). The fix uses the concentration model of the AP sheet.",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.0): section 1 rows airpol.mc by fuel and subsector; lines weighted by fuel use; legacy averages kept as a memo on FromAirPollution."
+ },
+ {
+  "id": "L225",
+  "pri": "Medium",
+  "title": "Efficient prices: potential VAT at the 2022 general rate in every year",
+  "where": "Mitigation 17969, 17984, 17996, 18008, 18032, 18068, 18104 (E17956 = L726)",
+  "why": "The potential VAT of the efficient prices multiplies by $E$17956, one fixed cell (L726: VAT_WEO of 2022, labelled \"General VAT rate (2018)\"), in every year; the energy-subsidy block of the same sheet uses the year's rate (L17787 = L726 by column, data to 2024, then carried forward).",
+  "fixes": [
+   {
+    "cell": "L17969",
+    "now": "=(L17963+SUM(L17964:L17968)*$F$17955)*$E$17956",
+    "new": "=(L17963+SUM(L17964:L17968)*$F$17955)*L$17787",
+    "fill": "L17969:AE17969",
+    "policy": "none: the block is computed for the live scenario only (I120)"
+   },
+   {
+    "cell": "L17984",
+    "now": "=(L17978+SUM(L17979:L17983)*$F$17955)*$E$17956",
+    "new": "=(L17978+SUM(L17979:L17983)*$F$17955)*L$17787",
+    "fill": "L17984:AE17984",
+    "policy": "none: the block is computed for the live scenario only (I120)"
+   },
+   {
+    "cell": "L17996",
+    "now": "=(L17993+SUM(L17994:L17995)*$F$17955)*$E$17956",
+    "new": "=(L17993+SUM(L17994:L17995)*$F$17955)*L$17787",
+    "fill": "L17996:AE17996",
+    "policy": "none: the block is computed for the live scenario only (I120)"
+   },
+   {
+    "cell": "L18008",
+    "now": "=(L18005+SUM(L18006:L18007)*$F$17955)*$E$17956",
+    "new": "=(L18005+SUM(L18006:L18007)*$F$17955)*L$17787",
+    "fill": "L18008:AE18008",
+    "policy": "none: the block is computed for the live scenario only (I120)"
+   },
+   {
+    "cell": "L18032",
+    "now": "=(L18029+SUM(L18030:L18031)*$F$17955)*$E$17956",
+    "new": "=(L18029+SUM(L18030:L18031)*$F$17955)*L$17787",
+    "fill": "L18032:AE18032",
+    "policy": "none: the block is computed for the live scenario only (I120)"
+   },
+   {
+    "cell": "L18068",
+    "now": "=(L18065+SUM(L18066:L18067)*$F$17955)*$E$17956",
+    "new": "=(L18065+SUM(L18066:L18067)*$F$17955)*L$17787",
+    "fill": "L18068:AE18068",
+    "policy": "none: the block is computed for the live scenario only (I120)"
+   },
+   {
+    "cell": "L18104",
+    "now": "=(L18101+SUM(L18102:L18103)*$F$17955)*$E$17956",
+    "new": "=(L18101+SUM(L18102:L18103)*$F$17955)*L$17787",
+    "fill": "L18104:AE18104",
+    "policy": "none: the block is computed for the live scenario only (I120)"
+   }
+  ],
+  "ref": "The year's VAT_WEO, as the subsidy block (L17787); relabel or retire D17956:E17956.",
+  "effect": "Egypt none (14% throughout); countries whose VAT changed after 2022: efficient prices and tax gaps.",
+  "note": "Found by the legacy check of prototype bug M15 (2026-10-29). Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.2, M15): section 18 row vatgen, the year's VAT_WEO to LastHistPriceYear, then held."
+ },
+ {
+  "id": "L226",
+  "pri": "Low",
+  "title": "Freight BEV feebate valued at the ICEV discounted distance",
+  "where": "Mitigation 4637 (policy copy 10953)",
+  "why": "M4637 = (0 - M4633) * M4634 / 10^6 * M4628 reads the ICEV freight discounted km; the passenger (4521: M4513) and 2-3 wheeler (4694: M4687) BEV feebates read the BEV distance.",
+  "fixes": [
+   {
+    "cell": "M4637",
+    "now": "= ( 0 - M4633) * M4634 / 10^6 * M4628",
+    "new": "= ( 0 - M4633) * M4634 / 10^6 * M4630",
+    "fill": "M4637:AE4637",
+    "policy": "M10953:AE10953: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   }
+  ],
+  "ref": "",
+  "effect": "Engineer road model with freight feebates only; Egypt 0 (rows 4491 and 4494 equal in the data).",
+  "note": "Found by the legacy check of prototype bug M16 (2026-10-29). Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.2, M16)."
+ },
+ {
+  "id": "L227",
+  "pri": "Low",
+  "title": "PHEV TCO: BEV depreciation with insurance on the ICEV price",
+  "where": "Mitigation 4555 (policy copy 10871)",
+  "why": "L4555 = L4509*L4456 + SUM(L4565:L4567) + L4541 + L4520*L4396/L4397 + L4579 adds the BEV depreciation and salvage to the ICEV insurance and maintenance (row 4541, insurance on the ICEV price L4527). No PHEV purchase price exists in the data. The range-anxiety term L4579 is bug L41.",
+  "fixes": [
+   {
+    "cell": "L4555",
+    "now": "= L4509 * L4456 + SUM(L4565:L4567) + L4541 + L4520 * L4396 / L4397 + L4579",
+    "new": "=L4509*L4456+SUM(L4565:L4567)+(L4562*$J4326)/L4531*(1-(1/(1+L4531)^($J4322+1)))*0.5+$J4327*L4509+L4520*L4396/L4397",
+    "fill": "L4555:AE4555",
+    "policy": "L10871:AE10871: paste the baseline cells (Paste Special, Formulas; +6,316 rows)"
+   }
+  ],
+  "ref": "Insurance on the BEV price, ICEV maintenance per km and distance (user decision 2026-10-29); also drops L4579 (L41), so it supersedes L41's plan for this cell.",
+  "effect": "Engineer road model (PHEV choice) only.",
+  "note": "Found by the legacy check of prototype bug M17 (2026-10-29). Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.2, M17): row im.phv."
+ },
+ {
+  "id": "L228",
+  "pri": "Medium",
+  "title": "World Bank LNG and Europe gas prices read from each other's row",
+  "where": "Mitigation 644, 646 (Prices_int rows 15, 17)",
+  "why": "K644:P644 (WB LNG) read Prices_int row 15, \"Natural gas, Europe\"; K646:P646 (WB Europe) read row 17, \"Liquefied natural gas, Japan\". Q:AE extend P.",
+  "fixes": [
+   {
+    "cell": "K644",
+    "now": "=INDEX(Prices_int!$H15:$BZ15,1,MATCH(Mitigation!K$641,Prices_int!$H$11:$BZ$11,0))",
+    "new": "=INDEX(Prices_int!$H17:$BZ17,1,MATCH(Mitigation!K$641,Prices_int!$H$11:$BZ$11,0))",
+    "fill": "K644:P644 (Q:AE extend P)",
+    "policy": "none (shared rows, one copy only)"
+   },
+   {
+    "cell": "K646",
+    "now": "=INDEX(Prices_int!$H17:$BZ17,1,MATCH(Mitigation!K$641,Prices_int!$H$11:$BZ$11,0))",
+    "new": "=INDEX(Prices_int!$H15:$BZ15,1,MATCH(Mitigation!K$641,Prices_int!$H$11:$BZ$11,0))",
+    "fill": "K646:P646 (Q:AE extend P)",
+    "policy": "none (shared rows, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "Sources WB, AVG and IMF-WB with gas region LNG or Europe; 2022 LNG 40.34 -> 18.43 $/MMBtu. Egypt none (IMF, global gas).",
+  "note": "Found by the legacy check of prototype bug M20 (2026-10-29). Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.2, M20)."
+ },
+ {
+  "id": "L229",
+  "pri": "Medium",
+  "title": "IEA LNG and Europe gas prices read from each other's row",
+  "where": "Mitigation 652, 654 (Prices_int rows 39, 41)",
+  "why": "Prices_int row 39 is \"Natural gas, Europe\" (column K; equals IMF PNGASEU) and row 41 \"Liquefied natural gas, Japan\" (equals PNGASJP); K652:AE652 (IEA LNG) read row 39 and K654:AE654 (IEA Europe) row 41. EIA (660, 662), AVG and IMF-IEA inherit it.",
+  "fixes": [
+   {
+    "cell": "K652",
+    "now": "=IFERROR(INDEX(Prices_int!$M39:$BZ39,MATCH(Mitigation!K$649,Prices_int!$M$36:$BZ$36,0)),\"NA\")",
+    "new": "=IFERROR(INDEX(Prices_int!$M41:$BZ41,MATCH(Mitigation!K$649,Prices_int!$M$36:$BZ$36,0)),\"NA\")",
+    "fill": "K652:AE652",
+    "policy": "none (shared rows, one copy only)"
+   },
+   {
+    "cell": "K654",
+    "now": "=IFERROR(INDEX(Prices_int!$M41:$BZ41,MATCH(Mitigation!K$649,Prices_int!$M$36:$BZ$36,0)),\"NA\")",
+    "new": "=IFERROR(INDEX(Prices_int!$M39:$BZ39,MATCH(Mitigation!K$649,Prices_int!$M$36:$BZ$36,0)),\"NA\")",
+    "fill": "K654:AE654",
+    "policy": "none (shared rows, one copy only)"
+   }
+  ],
+  "ref": "",
+  "effect": "Sources IEA, EIA, AVG and IMF-IEA with gas region LNG or Europe. Egypt none (IMF, global gas).",
+  "note": "Found by the legacy check of prototype bug M20 (2026-10-29). Cells written out from the 465 file on 2026-10-29 (tools/gen_G.py).",
+  "status": "fix",
+  "prototype": "Fixed (v0.9.2, M20)."
+ },
+ {
+  "id": "L231",
+  "pri": "Medium",
+  "title": "MTOutputs \"Disaggregated energy consumption (Policy)\": rows read shifted, stale Mitigation rows",
+  "where": "MTOutputs rows 590-776 (K:AD and the codes in E)",
+  "why": "Almost every cell of the section reads a Mitigation row other than the one its label names (shifted and stale references): e.g. K591 \"road, coal\" reads L11644 (road natural gas, 495.2); K615 \"navigation, other oil products\" reads L11730 (an after-tax price); others read blank rows or headings. The codes in E are taken from the rows actually read, so they are wrong too; rows 767-776 show #REF!.",
+  "fixes": [
+   {
+    "cell": "MTOutputs K590:AD776, E590:E776",
+    "now": "references to shifted rows (e.g. K591 =Mitigation!L11644)",
+    "new": "each row reads the Mitigation row its label names (fuel use of the subsector and fuel, policy group); the code formula from the same row",
+    "fill": "K:AD",
+    "policy": ""
+   }
+  ],
+  "ref": "The prototype MTOutputs (v1.0.4) maps each row by its label (data_old/mvp_legacy_extracts/mtoutputs_map_465.csv, column reason gives the cell legacy reads).",
+  "effect": "Reports only (MTOutputs, the MT exports): the disaggregated fuel use by subsector is wrong in legacy outputs; no model value changes.",
+  "note": "Found by the MTOutputs mapping of 2026-10-29.",
+  "status": "fix",
+  "prototype": "Fixed (v1.0.4): MTOutputs rows map to the quantities their labels name."
+ },
+ {
+  "id": "L232",
+  "pri": "Low",
+  "title": "MTOutputs: methane-fee price-change codes of coal and gas swapped",
+  "where": "MTOutputs E1221:E1222",
+  "why": "Row 1221 (label and value: natural gas) carries the code mfpct.coa, row 1222 (coal) the code mfpct.nga.",
+  "fixes": [
+   {
+    "cell": "MTOutputs E1221, E1222",
+    "now": "...mfpct.coa (row 1221), ...mfpct.nga (row 1222)",
+    "new": "...mfpct.nga (row 1221), ...mfpct.coa (row 1222)",
+    "fill": "",
+    "policy": ""
+   }
+  ],
+  "ref": "",
+  "effect": "Reports only: a reader by code takes the coal value for gas and the reverse.",
+  "note": "Found by the MTOutputs mapping of 2026-10-29.",
+  "status": "fix",
+  "prototype": "Not applicable: the prototype codes come from the row (v1.0.4)."
+ },
+ {
+  "id": "L233",
+  "pri": "Low",
+  "title": "MTOutputs: rows that read cells other than their labels name (Markups, capacity, GHG)",
+  "where": "MTOutputs rows 1152-1174 (Markups), 1099-1100 (Capacity), 109-111 (Emissions)",
+  "why": "Markups block: labels and codes shifted against each other, the cells read unrelated rows. Row 1099 (nameplate capacity) reads a hydro storage cost; row 1100 (effective capacity, total) reads the manual capacity of oil. Rows 109-111 read GHG including LULUCF though labelled excluding.",
+  "fixes": [
+   {
+    "cell": "MTOutputs K1152:AD1174, K1099:AD1100, K109:AD111",
+    "now": "references to unrelated or neighbouring rows",
+    "new": "each row reads the Mitigation row its label names (GHG excluding LULUCF for 109-111)",
+    "fill": "K:AD",
+    "policy": ""
+   }
+  ],
+  "ref": "The prototype MTOutputs (v1.0.4) maps by the label (data_old/mvp_legacy_extracts/mtoutputs_map_465.csv).",
+  "effect": "Reports only (MTOutputs and the MT exports).",
+  "note": "Found by the MTOutputs mapping of 2026-10-29.",
+  "status": "fix",
+  "prototype": "Fixed (v1.0.4): MTOutputs rows map to the quantities their labels name; legacy-only rows kept with Include? = No."
+ }
+]

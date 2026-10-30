@@ -1,0 +1,31 @@
+_row,Series_Code,Country Name,ISO-3 Country Code,Year,(firstnm) indicator_name,(firstnm) Sub_Topic5,(firstnm) Sub_Topic6
+0,EGY.per_allsp.avt_q1_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 1st quintile (poorest) -All Social Protection and Labor (preT),All Social Protection and Labor,All Social Protection and Labor
+1,EGY.per_allsp.avt_q2_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 2nd quintile -All Social Protection and Labor (preT),All Social Protection and Labor,All Social Protection and Labor
+2,EGY.per_allsp.avt_q3_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 3rd quintile -All Social Protection and Labor (preT),All Social Protection and Labor,All Social Protection and Labor
+3,EGY.per_allsp.avt_q4_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 4th quintile -All Social Protection and Labor (preT),All Social Protection and Labor,All Social Protection and Labor
+4,EGY.per_allsp.avt_q5_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 5th quintile (richest) -All Social Protection and Labor (preT),All Social Protection and Labor,All Social Protection and Labor
+5,EGY.per_sa_allsa.avt_q1_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 1st quintile (poorest) - All Social Assistance (preT),Social Assistance,All Social Assistance
+6,EGY.per_sa_allsa.avt_q2_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 2nd quintile - All Social Assistance (preT),Social Assistance,All Social Assistance
+7,EGY.per_sa_allsa.avt_q3_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 3rd quintile - All Social Assistance (preT),Social Assistance,All Social Assistance
+8,EGY.per_sa_allsa.avt_q4_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 4th quintile - All Social Assistance (preT),Social Assistance,All Social Assistance
+9,EGY.per_sa_allsa.avt_q5_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 5th quintile (richest) - All Social Assistance (preT),Social Assistance,All Social Assistance
+10,EGY.per_sa_ct.avt_q1_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 1st quintile (poorest) - Cash Transfer (preT),Social Assistance,Cash Transfers
+11,EGY.per_sa_ct.avt_q2_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 2nd quintile - Cash Transfer (preT),Social Assistance,Cash Transfers
+12,EGY.per_sa_ct.avt_q3_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 3rd quintile - Cash Transfer (preT),Social Assistance,Cash Transfers
+13,EGY.per_sa_ct.avt_q4_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 4th quintile - Cash Transfer (preT),Social Assistance,Cash Transfers
+14,EGY.per_sa_ct.avt_q5_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 5th quintile (richest) - Cash Transfer (preT),Social Assistance,Cash Transfers
+15,EGY.per_sa_ik.avt_q1_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 1st quintile (poorest) - In-Kind (preT),Social Assistance,In-Kind
+16,EGY.per_sa_ik.avt_q2_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 2nd quintile - In-Kind (preT),Social Assistance,In-Kind
+17,EGY.per_sa_ik.avt_q3_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 3rd quintile - In-Kind (preT),Social Assistance,In-Kind
+18,EGY.per_sa_ik.avt_q4_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 4th quintile - In-Kind (preT),Social Assistance,In-Kind
+19,EGY.per_sa_ik.avt_q5_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 5th quintile (richest) - In-Kind (preT),Social Assistance,In-Kind
+20,EGY.per_si_allsi.avt_q1_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 1st quintile (poorest) - All Social Insurance (preT),Social Insurance,All Social Insurance
+21,EGY.per_si_allsi.avt_q2_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 2nd quintile - All Social Insurance (preT),Social Insurance,All Social Insurance
+22,EGY.per_si_allsi.avt_q3_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 3rd quintile - All Social Insurance (preT),Social Insurance,All Social Insurance
+23,EGY.per_si_allsi.avt_q4_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 4th quintile - All Social Insurance (preT),Social Insurance,All Social Insurance
+24,EGY.per_si_allsi.avt_q5_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 5th quintile (richest) - All Social Insurance (preT),Social Insurance,All Social Insurance
+25,EGY.per_si_cp.avt_q1_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 1st quintile (poorest) - Contributory Pensions (preT),Social Insurance,Contributory Pensions
+26,EGY.per_si_cp.avt_q2_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 2nd quintile - Contributory Pensions (preT),Social Insurance,Contributory Pensions
+27,EGY.per_si_cp.avt_q3_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 3rd quintile - Contributory Pensions (preT),Social Insurance,Contributory Pensions
+28,EGY.per_si_cp.avt_q4_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 4th quintile - Contributory Pensions (preT),Social Insurance,Contributory Pensions
+29,EGY.per_si_cp.avt_q5_preT_tot,"Egypt, Arab Rep.",EGY,2008,Average per capita transfer held by 5th quintile (richest) - Contributory Pensions (preT),Social Insurance,Contributory Pensions

@@ -1,0 +1,16 @@
+country,subsector,name,ktoe_2022,legacy_row
+EGY,rod,Road,0,3725
+EGY,ral,Rail,43.293249150090794,3726
+EGY,avi,Domestic aviation,0,3727
+EGY,nav,Domestic navigation,0,3728
+EGY,res,Residential,5771.968329881539,3729
+EGY,foo,Food & forestry,1192.529587338073,3730
+EGY,srv,Services (public & private),3778.5250283494015,3731
+EGY,mch,Mining & Chemicals,401.0063671821847,3732
+EGY,irn,Iron and steel,748.8236066568924,3733
+EGY,nfm,Other metals,6.353271970598906,3734
+EGY,mac,Machinery,585.4799029458944,3735
+EGY,cem,Cement,1165.4020767396673,3736
+EGY,omn,Other manufacturing,698.8392103370692,3737
+EGY,cst,Construction,0,3738
+EGY,oen,Other - energy use,0,3739

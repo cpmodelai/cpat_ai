@@ -1,0 +1,12 @@
+_row,iso3,year,sector,dis
+0,egy,2014,DOMCONS,egy.domcons
+1,egy,2014,Exports,egy.exports
+2,egy,2014,HHD,egy.hhd
+3,egy,2014,Imports,egy.imports
+4,egy,2014,Output,egy.output
+5,egy,2014,TOTD,egy.totd
+6,egy,2014,coa,egy.coa.leontiefs
+7,egy,2014,ely,egy.ely.leontiefs
+8,egy,2014,nga,egy.nga.leontiefs
+9,egy,2014,oil,egy.oil.leontiefs
+10,egy,2014,p_c,egy.p_c.leontiefs

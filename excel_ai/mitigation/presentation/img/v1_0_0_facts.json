@@ -1,0 +1,40 @@
+{
+ "quick": "PASS",
+ "formulas": "452,164",
+ "errors": "0",
+ "prev": "CPAT-AI-Mitigation-Prototype_v0.9.2.xlsm",
+ "shared": "15,086",
+ "codes": "15,086",
+ "changed": "0",
+ "distn_ref": [
+  "505",
+  "6.6e-13"
+ ],
+ "full_overall": "Overall: PASS** (sections 0-13 in the full run; section 14 rerun)",
+ "full_version": "0.8.0",
+ "bugs": {
+  "mit": 197,
+  "dist": 31
+ },
+ "bug_priority": {
+  "High": 24,
+  "Medium": 62,
+  "Low": 110
+ },
+ "issues": {
+  "mit": 126,
+  "dist": 9,
+  "replicated": 93
+ },
+ "links": [
+  "Balances",
+  "EnergyCons",
+  "Prices_dom",
+  "HHSurvey",
+  "IO_GTAP",
+  "HH_Elast",
+  "WEO",
+  "GDPRatios",
+  "UNPop"
+ ]
+}

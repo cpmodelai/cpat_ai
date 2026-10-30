@@ -1,0 +1,17 @@
+process,variable,value
+DRI-EAF steel,Half Elasticity,0.0010536051565782627
+DRI-EAF steel,ER at $100 (%),0.1
+Scrap-EAF steel,Half Elasticity,0.00020202707317519466
+Scrap-EAF steel,ER at $100 (%),0.02
+BF-BOF steel reference,Half Elasticity,0.0005129329438755058
+BF-BOF steel reference,ER at $100 (%),0.05
+Grey clinker dry-process,Half Elasticity,0.0008338160893905101
+Grey clinker dry-process,ER at $100 (%),0.08
+Ammonia net,Half Elasticity,0.0019845093872383817
+Ammonia net,ER at $100 (%),0.18
+Urea,Half Elasticity,0
+Urea,ER at $100 (%),0
+AN,Half Elasticity,0.010498221244986778
+AN,ER at $100 (%),0.65
+Primary aluminium,Half Elasticity,0.0008338160893905101
+Primary aluminium,ER at $100 (%),0.08

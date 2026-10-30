@@ -1,0 +1,1 @@
+{"kind": "table", "header": ["key", "value", "unit", "description", "legacy_cell", "use"], "key_pos": [0], "attr_pos": [], "val_pos": [1, 2, 3, 4, 5], "skipped": {}, "nrows": 156, "source": "transport_params.csv"}

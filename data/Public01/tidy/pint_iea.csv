@@ -1,0 +1,232 @@
+commodity,unit,wb_commodity,year,value
+Crude Oil,$/bbl nom,"Crude oil, avg",1999,18.108219
+Crude Oil,$/bbl nom,"Crude oil, avg",2000,28.845275
+Crude Oil,$/bbl nom,"Crude oil, avg",2001,24.713763
+Crude Oil,$/bbl nom,"Crude oil, avg",2002,25.115096
+Crude Oil,$/bbl nom,"Crude oil, avg",2003,28.779103
+Crude Oil,$/bbl nom,"Crude oil, avg",2004,38.23358
+Crude Oil,$/bbl nom,"Crude oil, avg",2005,54.683848
+Crude Oil,$/bbl nom,"Crude oil, avg",2006,65.604743
+Crude Oil,$/bbl nom,"Crude oil, avg",2007,72.652806
+Crude Oil,$/bbl nom,"Crude oil, avg",2008,97.330152
+Crude Oil,$/bbl nom,"Crude oil, avg",2009,61.58105
+Crude Oil,$/bbl nom,"Crude oil, avg",2010,79.807008
+Crude Oil,$/bbl nom,"Crude oil, avg",2011,111.539226
+Crude Oil,$/bbl nom,"Crude oil, avg",2012,112.011673
+Crude Oil,$/bbl nom,"Crude oil, avg",2013,108.961725
+Crude Oil,$/bbl nom,"Crude oil, avg",2014,99.345446
+Crude Oil,$/bbl nom,"Crude oil, avg",2015,53.022712
+Crude Oil,$/bbl nom,"Crude oil, avg",2016,45.079076
+Crude Oil,$/bbl nom,"Crude oil, avg",2017,54.886916
+Crude Oil,$/bbl nom,"Crude oil, avg",2018,71.612593
+Crude Oil,$/bbl nom,"Crude oil, avg",2019,64.198474
+Crude Oil,$/bbl nom,"Crude oil, avg",2020,43.333843
+Crude Oil,$/bbl nom,"Crude oil, avg",2021,70.8315
+Crude Oil,$/bbl nom,"Crude oil, avg",2022,98.996328
+Crude Oil,$/bbl nom,"Crude oil, avg",2023,82.321243
+Crude Oil,$/bbl nom,"Crude oil, avg",2024,79.911739
+Crude Oil,$/bbl nom,"Crude oil, avg",2025,81.9050907294759
+Crude Oil,$/bbl nom,"Crude oil, avg",2026,83.8984424589518
+Crude Oil,$/bbl nom,"Crude oil, avg",2027,85.89179418842772
+Crude Oil,$/bbl nom,"Crude oil, avg",2028,87.88514591790363
+Crude Oil,$/bbl nom,"Crude oil, avg",2029,89.87849764737953
+Crude Oil,$/bbl nom,"Crude oil, avg",2030,91.87184937685544
+Crude Oil,$/bbl nom,"Crude oil, avg",2031,93.60026940671912
+Crude Oil,$/bbl nom,"Crude oil, avg",2032,95.3286894365828
+Crude Oil,$/bbl nom,"Crude oil, avg",2033,97.05710946644649
+Crude Oil,$/bbl nom,"Crude oil, avg",2034,98.78552949631018
+Crude Oil,$/bbl nom,"Crude oil, avg",2035,100.51394952617386
+Crude Oil,$/bbl nom,"Crude oil, avg",2036,102.24236955603754
+Crude Oil,$/bbl nom,"Crude oil, avg",2037,103.97078958590124
+Crude Oil,$/bbl nom,"Crude oil, avg",2038,105.69920961576493
+Crude Oil,$/bbl nom,"Crude oil, avg",2039,107.42762964562861
+Crude Oil,$/bbl nom,"Crude oil, avg",2040,109.1560496754923
+Coal,$/ton nom,"Coal, Australia",1999,25.891667
+Coal,$/ton nom,"Coal, Australia",2000,26.25
+Coal,$/ton nom,"Coal, Australia",2001,32.3125
+Coal,$/ton nom,"Coal, Australia",2002,27.06
+Coal,$/ton nom,"Coal, Australia",2003,27.954241
+Coal,$/ton nom,"Coal, Australia",2004,56.729911
+Coal,$/ton nom,"Coal, Australia",2005,50.816313
+Coal,$/ton nom,"Coal, Australia",2006,52.730772
+Coal,$/ton nom,"Coal, Australia",2007,70.089198
+Coal,$/ton nom,"Coal, Australia",2008,138.023796
+Coal,$/ton nom,"Coal, Australia",2009,76.159665
+Coal,$/ton nom,"Coal, Australia",2010,104.598814
+Coal,$/ton nom,"Coal, Australia",2011,129.607283
+Coal,$/ton nom,"Coal, Australia",2012,101.442892
+Coal,$/ton nom,"Coal, Australia",2013,90.134096
+Coal,$/ton nom,"Coal, Australia",2014,75.728981
+Coal,$/ton nom,"Coal, Australia",2015,62.692553
+Coal,$/ton nom,"Coal, Australia",2016,70.081806
+Coal,$/ton nom,"Coal, Australia",2017,94.138079
+Coal,$/ton nom,"Coal, Australia",2018,113.230785
+Coal,$/ton nom,"Coal, Australia",2019,82.193236
+Coal,$/ton nom,"Coal, Australia",2020,61.983198
+Coal,$/ton nom,"Coal, Australia",2021,143.984744
+Coal,$/ton nom,"Coal, Australia",2022,384.169733
+Coal,$/ton nom,"Coal, Australia",2023,188.152584
+Coal,$/ton nom,"Coal, Australia",2024,143.551382
+Coal,$/ton nom,"Coal, Australia",2025,112.437589
+Coal,$/ton nom,"Coal, Australia",2026,135.601486
+Coal,$/ton nom,"Coal, Australia",2027,143.176523
+Coal,$/ton nom,"Coal, Australia",2028,143.310932
+Coal,$/ton nom,"Coal, Australia",2029,143.44086
+Coal,$/ton nom,"Coal, Australia",2030,143.44086
+Coal,$/ton nom,"Coal, Australia",2031,143.44086
+Coal,$/ton nom,"Coal, Australia",2032,0
+Coal,$/ton nom,"Coal, Australia",2033,0
+Coal,$/ton nom,"Coal, Australia",2034,0
+Coal,$/ton nom,"Coal, Australia",2035,0
+Coal,$/ton nom,"Coal, Australia",2036,0
+Coal,$/ton nom,"Coal, Australia",2037,0
+Coal,$/ton nom,"Coal, Australia",2038,0
+Coal,$/ton nom,"Coal, Australia",2039,0
+Coal,$/ton nom,"Coal, Australia",2040,0
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",1999,1.806944
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2000,3.453889
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2001,3.873214
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2002,2.666335
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2003,3.486327
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2004,3.755
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2005,5.915
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2006,8.2125
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2007,8.1425
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2008,13.1375
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2009,8.855
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2010,8.2225
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2011,10.596667
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2012,11.980833
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2013,11.189167
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2014,10.463333
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2015,7.305
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2016,4.353333
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2017,5.744051
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2018,7.916094
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2019,4.454858
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2020,3.17823
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2021,15.907363
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2022,37.519835
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2023,12.883181
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2024,10.891141
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2025,10.335796869091899
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2026,9.780452738183799
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2027,9.225108607275699
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2028,8.669764476367599
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2029,8.114420345459498
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2030,7.559076214551397
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2031,7.8805529795037135
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2032,8.20202974445603
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2033,8.523506509408348
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2034,8.844983274360665
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2035,9.16646003931298
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2036,9.487936804265297
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2037,9.809413569217615
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2038,10.13089033416993
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2039,10.452367099122247
+Natural Gas - LNG,$/MMBtu nom,"Natural gas, Europe",2040,10.773843864074564
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",1999,2.26106
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2000,4.307599
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2001,3.958993
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2002,3.36087
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2003,5.507282
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2004,5.908138
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2005,8.894677
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2006,6.740344
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2007,6.981663
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2008,8.857868
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2009,3.945746
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2010,4.386124
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2011,4.000005
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2012,2.752445
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2013,3.727615
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2014,4.275588
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2015,2.630371
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2016,2.552605
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2017,3.019347
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2018,3.06905
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2019,2.528527
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2020,2.129911
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2021,3.716119
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2022,6.516296
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2023,2.671452
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2024,2.417967
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2025,2.7708801214551397
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2026,3.1237932429102795
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2027,3.4767063643654192
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2028,3.829619485820559
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2029,4.182532607275698
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2030,4.5354457287308385
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2031,4.663121680103883
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2032,4.790797631476926
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2033,4.91847358284997
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2034,5.046149534223014
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2035,5.173825485596058
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2036,5.301501436969102
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2037,5.429177388342145
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2038,5.55685333971519
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2039,5.684529291088234
+Natural Gas - North Am,$/MMBtu nom,"Natural gas, US",2040,5.812205242461277
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",1999,3.3425
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2000,5.235
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2001,4.669167
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2002,4.426667
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2003,4.980833
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2004,5.890833
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2005,7.0325
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2006,8.049167
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2007,8.410833
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2008,11.590833
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2009,7.490833
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2010,9.380833
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2011,15.553333
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2012,18.145
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2013,17.339167
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2014,16.9975
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2015,10.958333
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2016,7.439167
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2017,7.247445
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2018,9.795415
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2019,5.444624
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2020,4.366424
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2021,18.600467
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2022,33.297022
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2023,13.463505
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2024,11.708527
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2025,11.365832309763503
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2026,11.023137619527006
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2027,10.680442929290507
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2028,10.33774823905401
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2029,9.995053548817513
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2030,9.652358858581016
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2031,9.934620683299968
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2032,10.216882508018923
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2033,10.499144332737876
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2034,10.781406157456829
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2035,11.063667982175783
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2036,11.345929806894736
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2037,11.628191631613689
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2038,11.910453456332643
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2039,12.192715281051596
+Natural Gas - Europe,$/MMBtu nom,"Liquefied natural gas, Japan",2040,12.474977105770549
+US CPI,,,2020,258.8461666666675
+US CPI,,,2021,270.9658333333325
+US CPI,,,2022,292.6205833333325
+US CPI,,,2023,304.70075
+US CPI,,,2024,313.80315075956
+US CPI,,,2025,319.6161599749825
+US CPI,,,2026,326.175811527735
+US CPI,,,2027,333.0403588876325
+US CPI,,,2028,340.1112615702825
+US CPI,,,2029,347.3991239639475
+US CPI,,,2030,354.34710644322644
+US CPI,,,2031,361.43404857209094
+US CPI,,,2032,368.66272954353275
+US CPI,,,2033,376.0359841344034
+US CPI,,,2034,383.5567038170915
+US CPI,,,2035,391.22783789343333
+US CPI,,,2036,399.052394651302
+US CPI,,,2037,407.03344254432807
+US CPI,,,2038,415.17411139521465
+US CPI,,,2039,423.47759362311893
+US CPI,,,2040,431.9471454955813

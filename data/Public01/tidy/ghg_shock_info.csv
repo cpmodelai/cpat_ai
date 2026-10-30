@@ -1,0 +1,749 @@
+code,variable,value
+CHN,Region,Asia & Oceania
+CHN,Country,China
+CHN,2023 emissions,10537.6636863583
+CHN,2024 vs 2023 change,-0.003
+USA,Region,North America
+USA,Country,United States
+USA,2023 emissions,4670.36138213464
+USA,2024 vs 2023 change,0.016
+IND,Region,Asia & Oceania
+IND,Country,India
+IND,2023 emissions,2722.30874890805
+IND,2024 vs 2023 change,0.045
+BRA,Region,North America
+BRA,Country,Brazil
+BRA,2023 emissions,395.058520941804
+BRA,2024 vs 2023 change,0.04
+RUS,Region,Eurasia
+RUS,Country,Russia
+RUS,2023 emissions,1534.07198412307
+RUS,2024 vs 2023 change,0.035
+IDN,Region,Asia & Oceania
+IDN,Country,Indonesia
+IDN,2023 emissions,762.89082428099
+IDN,2024 vs 2023 change,0.04558073794256612
+JPN,Region,Asia & Oceania
+JPN,Country,Japan
+JPN,2023 emissions,938.279582068119
+JPN,2024 vs 2023 change,-0.006
+IRN,Region,Middle East
+IRN,Country,Iran
+IRN,2023 emissions,751.092135851278
+IRN,2024 vs 2023 change,0.02247223118875552
+SAU,Region,Middle East
+SAU,Country,Saudi Arabia
+SAU,2023 emissions,614.392062711313
+SAU,2024 vs 2023 change,0.02247223118875552
+MEX,Region,North America
+MEX,Country,Mexico
+MEX,2023 emissions,474.498974885747
+MEX,2024 vs 2023 change,0.005438426812317321
+CAN,Region,North America
+CAN,Country,Canada
+CAN,2023 emissions,500.890986136618
+CAN,2024 vs 2023 change,0.005438426812317321
+KOR,Region,Asia & Oceania
+KOR,Country,Korea
+KOR,2023 emissions,524.217007588598
+KOR,2024 vs 2023 change,0.04558073794256612
+DEU,Region,Europe
+DEU,Country,Germany
+DEU,2023 emissions,554.46939728863
+DEU,2024 vs 2023 change,-0.05357106541343637
+PAK,Region,Asia & Oceania
+PAK,Country,Pakistan
+PAK,2023 emissions,178.193087503438
+PAK,2024 vs 2023 change,0.04558073794256612
+VNM,Region,Asia & Oceania
+VNM,Country,Vietnam
+VNM,2023 emissions,338.260638319219
+VNM,2024 vs 2023 change,0.04558073794256612
+COD,Region,Africa
+COD,Country,"Congo, Democratic Republic of the"
+COD,2023 emissions,5.12105636612455
+COD,2024 vs 2023 change,0.1337122269473796
+TUR,Region,Europe
+TUR,Country,Turkiye
+TUR,2023 emissions,425.627386500847
+TUR,2024 vs 2023 change,-0.0026294481655283475
+ZAF,Region,Africa
+ZAF,Country,South Africa
+ZAF,2023 emissions,362.966616249059
+ZAF,2024 vs 2023 change,0.1337122269473796
+THA,Region,Asia & Oceania
+THA,Country,Thailand
+THA,2023 emissions,232.214163925662
+THA,2024 vs 2023 change,0.04558073794256612
+NGA,Region,Africa
+NGA,Country,Nigeria
+NGA,2023 emissions,120.822067354228
+NGA,2024 vs 2023 change,0.1337122269473796
+AUS,Region,Asia & Oceania
+AUS,Country,Australia
+AUS,2023 emissions,361.299620835763
+AUS,2024 vs 2023 change,0.04558073794256612
+ARG,Region,North America
+ARG,Country,Argentina
+ARG,2023 emissions,170.74636333028
+ARG,2024 vs 2023 change,0.005438426812317321
+EGY,Region,Africa
+EGY,Country,Egypt
+EGY,2023 emissions,267.368130539456
+EGY,2024 vs 2023 change,0.1337122269473796
+MYS,Region,Asia & Oceania
+MYS,Country,Malaysia
+MYS,2023 emissions,264.168987668195
+MYS,2024 vs 2023 change,0.04558073794256612
+GBR,Region,Europe
+GBR,Country,United Kingdom
+GBR,2023 emissions,290.448156949073
+GBR,2024 vs 2023 change,-0.025
+FRA,Region,Europe
+FRA,Country,France
+FRA,2023 emissions,250.807462522226
+FRA,2024 vs 2023 change,-0.03314677624214901
+IRQ,Region,Middle East
+IRQ,Country,Iraq
+IRQ,2023 emissions,218.083540136283
+IRQ,2024 vs 2023 change,0.02247223118875552
+ITA,Region,Europe
+ITA,Country,Italy
+ITA,2023 emissions,299.152137680937
+ITA,2024 vs 2023 change,-0.02657411720406677
+POL,Region,Europe
+POL,Country,Poland
+POL,2023 emissions,266.974632037012
+POL,2024 vs 2023 change,-0.012205327388578824
+WAV,Region,North America
+WAV,Country,World aviation
+WAV,2023 emissions,0
+WAV,2024 vs 2023 change,0.003
+WMR,Region,North America
+WMR,Country,World navigation
+WMR,2023 emissions,0
+WMR,2024 vs 2023 change,0.003
+ARE,Region,Middle East
+ARE,Country,United Arab Emirates
+ARE,2023 emissions,173.585411970079
+ARE,2024 vs 2023 change,0.02247223118875552
+KAZ,Region,Eurasia
+KAZ,Country,Kazakhstan
+KAZ,2023 emissions,247.429103522722
+KAZ,2024 vs 2023 change,-0.05895373223579048
+UKR,Region,Eurasia
+UKR,Country,Ukraine
+UKR,2023 emissions,122.252975331872
+UKR,2024 vs 2023 change,-0.05895373223579048
+BGD,Region,Asia & Oceania
+BGD,Country,Bangladesh
+BGD,2023 emissions,103.100563887378
+BGD,2024 vs 2023 change,0.04558073794256612
+PHL,Region,Asia & Oceania
+PHL,Country,Philippines
+PHL,2023 emissions,148.566664617322
+PHL,2024 vs 2023 change,0.04558073794256612
+DZA,Region,Africa
+DZA,Country,Algeria
+DZA,2023 emissions,174.694996047072
+DZA,2024 vs 2023 change,0.1337122269473796
+TWN,Region,Asia & Oceania
+TWN,Country,Taiwan Province of China
+TWN,2023 emissions,263.594450474286
+TWN,2024 vs 2023 change,0.04558073794256612
+MMR,Region,Asia & Oceania
+MMR,Country,Myanmar
+MMR,2023 emissions,26.0326739616167
+MMR,2024 vs 2023 change,0.04558073794256612
+COL,Region,North America
+COL,Country,Colombia
+COL,2023 emissions,85.9377279731306
+COL,2024 vs 2023 change,0.005438426812317321
+ESP,Region,Europe
+ESP,Country,Spain
+ESP,2023 emissions,199.722017961064
+ESP,2024 vs 2023 change,-0.02015455427763746
+UZB,Region,Eurasia
+UZB,Country,Uzbekistan
+UZB,2023 emissions,111.861993504339
+UZB,2024 vs 2023 change,-0.05895373223579048
+ETH,Region,Africa
+ETH,Country,Ethiopia
+ETH,2023 emissions,15.3040376866767
+ETH,2024 vs 2023 change,0.1337122269473796
+VEN,Region,North America
+VEN,Country,Venezuela
+VEN,2023 emissions,81.3893030904081
+VEN,2024 vs 2023 change,0.005438426812317321
+QAT,Region,Middle East
+QAT,Country,Qatar
+QAT,2023 emissions,113.422646514533
+QAT,2024 vs 2023 change,0.02247223118875552
+SDN,Region,Africa
+SDN,Country,Sudan
+SDN,2023 emissions,20.3957762079401
+SDN,2024 vs 2023 change,0.1337122269473796
+PER,Region,North America
+PER,Country,Peru
+PER,2023 emissions,58.4126678346855
+PER,2024 vs 2023 change,0.005438426812317321
+NLD,Region,Europe
+NLD,Country,Netherlands
+NLD,2023 emissions,105.57886400872
+NLD,2024 vs 2023 change,-0.013059329753195792
+KWT,Region,Middle East
+KWT,Country,Kuwait
+KWT,2023 emissions,103.031923028749
+KWT,2024 vs 2023 change,0.02247223118875552
+OMN,Region,Middle East
+OMN,Country,Oman
+OMN,2023 emissions,80.9896277426308
+OMN,2024 vs 2023 change,0.02247223118875552
+TZA,Region,Africa
+TZA,Country,Tanzania
+TZA,2023 emissions,18.1869259959081
+TZA,2024 vs 2023 change,0.1337122269473796
+MAR,Region,Africa
+MAR,Country,Morocco
+MAR,2023 emissions,65.0309435816397
+MAR,2024 vs 2023 change,0.1337122269473796
+TKM,Region,Eurasia
+TKM,Country,Turkmenistan
+TKM,2023 emissions,92.0398611550505
+TKM,2024 vs 2023 change,-0.05895373223579048
+BEL,Region,Europe
+BEL,Country,Belgium
+BEL,2023 emissions,71.4876075816811
+BEL,2024 vs 2023 change,-0.04490817109473577
+TCD,Region,Africa
+TCD,Country,Chad
+TCD,2023 emissions,2.62437565298216
+TCD,2024 vs 2023 change,0.1337122269473796
+BOL,Region,North America
+BOL,Country,Bolivia
+BOL,2023 emissions,22.8410930868657
+BOL,2024 vs 2023 change,0.005438426812317321
+AGO,Region,Africa
+AGO,Country,Angola
+AGO,2023 emissions,25.5382644301886
+AGO,2024 vs 2023 change,0.1337122269473796
+ZWE,Region,Africa
+ZWE,Country,Zimbabwe
+ZWE,2023 emissions,12.2747273992551
+ZWE,2024 vs 2023 change,0.1337122269473796
+KEN,Region,Africa
+KEN,Country,Kenya
+KEN,2023 emissions,15.5306679061097
+KEN,2024 vs 2023 change,0.1337122269473796
+LBY,Region,Africa
+LBY,Country,Libya
+LBY,2023 emissions,60.4986107831385
+LBY,2024 vs 2023 change,0.1337122269473796
+MOZ,Region,Africa
+MOZ,Country,Mozambique
+MOZ,2023 emissions,8.59685475750525
+MOZ,2024 vs 2023 change,0.1337122269473796
+ECU,Region,North America
+ECU,Country,Ecuador
+ECU,2023 emissions,44.2549608982698
+ECU,2024 vs 2023 change,0.005438426812317321
+CZE,Region,Europe
+CZE,Country,Czechia
+CZE,2023 emissions,74.2744252799528
+CZE,2024 vs 2023 change,-0.04308336282496539
+KHM,Region,Asia & Oceania
+KHM,Country,Cambodia
+KHM,2023 emissions,15.1923197177974
+KHM,2024 vs 2023 change,0.04558073794256612
+PRY,Region,North America
+PRY,Country,Paraguay
+PRY,2023 emissions,7.09011382361015
+PRY,2024 vs 2023 change,0.005438426812317321
+MNG,Region,Asia & Oceania
+MNG,Country,Mongolia
+MNG,2023 emissions,26.5822853395214
+MNG,2024 vs 2023 change,0.04558073794256612
+CMR,Region,Africa
+CMR,Country,Cameroon
+CMR,2023 emissions,8.10625934289771
+CMR,2024 vs 2023 change,0.1337122269473796
+ZMB,Region,Africa
+ZMB,Country,Zambia
+ZMB,2023 emissions,9.8164578080878
+ZMB,2024 vs 2023 change,0.1337122269473796
+UGA,Region,Africa
+UGA,Country,Uganda
+UGA,2023 emissions,6.16771922254498
+UGA,2024 vs 2023 change,0.1337122269473796
+ISR,Region,Middle East
+ISR,Country,Israel
+ISR,2023 emissions,60.10420218
+ISR,2024 vs 2023 change,0.02247223118875552
+SGP,Region,Asia & Oceania
+SGP,Country,Singapore
+SGP,2023 emissions,46.2630730663591
+SGP,2024 vs 2023 change,0.04558073794256612
+CHL,Region,North America
+CHL,Country,Chile
+CHL,2023 emissions,69.6255808601706
+CHL,2024 vs 2023 change,0.005438426812317321
+ROU,Region,Europe
+ROU,Country,Romania
+ROU,2023 emissions,61.3728083102445
+ROU,2024 vs 2023 change,0.013078198759783222
+AUT,Region,Europe
+AUT,Country,Austria
+AUT,2023 emissions,43.2330150693823
+AUT,2024 vs 2023 change,-0.06380936693898065
+BHR,Region,Middle East
+BHR,Country,Bahrain
+BHR,2023 emissions,34.6662742151947
+BHR,2024 vs 2023 change,0.02247223118875552
+NPL,Region,Asia & Oceania
+NPL,Country,Nepal
+NPL,2023 emissions,14.0759539167453
+NPL,2024 vs 2023 change,0.04558073794256612
+AZE,Region,Eurasia
+AZE,Country,Azerbaijan
+AZE,2023 emissions,46.1191001586017
+AZE,2024 vs 2023 change,-0.05895373223579048
+LAO,Region,Asia & Oceania
+LAO,Country,Lao P.D.R.
+LAO,2023 emissions,20.4898974192652
+LAO,2024 vs 2023 change,0.04558073794256612
+IRL,Region,Europe
+IRL,Country,Ireland
+IRL,2023 emissions,30.8213422471037
+IRL,2024 vs 2023 change,-0.02414253133758948
+NZL,Region,Asia & Oceania
+NZL,Country,New Zealand
+NZL,2023 emissions,28.1116061368012
+NZL,2024 vs 2023 change,0.04558073794256612
+GRC,Region,Europe
+GRC,Country,Greece
+GRC,2023 emissions,47.5498375878455
+GRC,2024 vs 2023 change,0.009359139958716511
+GTM,Region,North America
+GTM,Country,Guatemala
+GTM,2023 emissions,19.180706868271
+GTM,2024 vs 2023 change,0.005438426812317321
+MLI,Region,Africa
+MLI,Country,Mali
+MLI,2023 emissions,6.30877247280892
+MLI,2024 vs 2023 change,0.1337122269473796
+HUN,Region,Europe
+HUN,Country,Hungary
+HUN,2023 emissions,36.7442608393572
+HUN,2024 vs 2023 change,-0.05226117698089161
+DNK,Region,Europe
+DNK,Country,Denmark
+DNK,2023 emissions,24.3617792981871
+DNK,2024 vs 2023 change,-0.018225363793947125
+PRT,Region,Europe
+PRT,Country,Portugal
+PRT,2023 emissions,34.4059026162071
+PRT,2024 vs 2023 change,-0.04266237994144351
+BLR,Region,Eurasia
+BLR,Country,Belarus
+BLR,2023 emissions,49.8906884547339
+BLR,2024 vs 2023 change,-0.05895373223579048
+DOM,Region,North America
+DOM,Country,Dominican Republic
+DOM,2023 emissions,30.0556250247632
+DOM,2024 vs 2023 change,0.005438426812317321
+NOR,Region,Europe
+NOR,Country,Norway
+NOR,2023 emissions,31.007457029575
+NOR,2024 vs 2023 change,-0.0026294481655283475
+TTO,Region,North America
+TTO,Country,Trinidad and Tobago
+TTO,2023 emissions,15.1226705272826
+TTO,2024 vs 2023 change,0.005438426812317321
+BWA,Region,Africa
+BWA,Country,Botswana
+BWA,2023 emissions,6.36603426050037
+BWA,2024 vs 2023 change,0.1337122269473796
+TUN,Region,Africa
+TUN,Country,Tunisia
+TUN,2023 emissions,27.9223885504421
+TUN,2024 vs 2023 change,0.1337122269473796
+SYR,Region,Middle East
+SYR,Country,Syria
+SYR,2023 emissions,29.8219347713363
+SYR,2024 vs 2023 change,0.02247223118875552
+YEM,Region,Middle East
+YEM,Country,Yemen
+YEM,2023 emissions,9.36366081238184
+YEM,2024 vs 2023 change,0.02247223118875552
+FIN,Region,Europe
+FIN,Country,Finland
+FIN,2023 emissions,27.7534850204759
+FIN,2024 vs 2023 change,-0.04061282484920614
+CHE,Region,Europe
+CHE,Country,Switzerland
+CHE,2023 emissions,30.0656744431476
+CHE,2024 vs 2023 change,-0.0026294481655283475
+BFA,Region,Africa
+BFA,Country,Burkina Faso
+BFA,2023 emissions,4.99960205033184
+BFA,2024 vs 2023 change,0.1337122269473796
+GIN,Region,Africa
+GIN,Country,Guinea
+GIN,2023 emissions,4.32961298237353
+GIN,2024 vs 2023 change,0.1337122269473796
+MDG,Region,Africa
+MDG,Country,Madagascar
+MDG,2023 emissions,4.4714254126779
+MDG,2024 vs 2023 change,0.1337122269473796
+CIV,Region,Africa
+CIV,Country,Côte d'Ivoire
+CIV,2023 emissions,15.5656595942575
+CIV,2024 vs 2023 change,0.1337122269473796
+URY,Region,North America
+URY,Country,Uruguay
+URY,2023 emissions,7.26073545637441
+URY,2024 vs 2023 change,0.005438426812317321
+GHA,Region,Africa
+GHA,Country,Ghana
+GHA,2023 emissions,19.9461680847412
+GHA,2024 vs 2023 change,0.1337122269473796
+JOR,Region,Middle East
+JOR,Country,Jordan
+JOR,2023 emissions,22.0587574008637
+JOR,2024 vs 2023 change,0.02247223118875552
+NIC,Region,North America
+NIC,Country,Nicaragua
+NIC,2023 emissions,5.14515864181329
+NIC,2024 vs 2023 change,0.005438426812317321
+PNG,Region,Asia & Oceania
+PNG,Country,Papua New Guinea
+PNG,2023 emissions,5.36398623865706
+PNG,2024 vs 2023 change,0.04558073794256612
+CAF,Region,Africa
+CAF,Country,Central African Republic
+CAF,2023 emissions,0.32157026256145
+CAF,2024 vs 2023 change,0.1337122269473796
+COG,Region,Africa
+COG,Country,"Congo, Republic of"
+COG,2023 emissions,7.50767375474488
+COG,2024 vs 2023 change,0.1337122269473796
+HND,Region,North America
+HND,Country,Honduras
+HND,2023 emissions,11.1468592982901
+HND,2024 vs 2023 change,0.005438426812317321
+SEN,Region,Africa
+SEN,Country,Senegal
+SEN,2023 emissions,10.4941164530211
+SEN,2024 vs 2023 change,0.1337122269473796
+SVK,Region,Europe
+SVK,Country,Slovak Republic
+SVK,2023 emissions,23.9724066369576
+SVK,2024 vs 2023 change,-0.027692815784131186
+LBN,Region,Middle East
+LBN,Country,Lebanon
+LBN,2023 emissions,16.6777809267938
+LBN,2024 vs 2023 change,0.02247223118875552
+LKA,Region,Asia & Oceania
+LKA,Country,Sri Lanka
+LKA,2023 emissions,0
+LKA,2024 vs 2023 change,0.04558073794256612
+AFG,Region,Asia & Oceania
+AFG,Country,Afghanistan
+AFG,2023 emissions,11.5032086120035
+AFG,2024 vs 2023 change,0.04558073794256612
+BGR,Region,Europe
+BGR,Country,Bulgaria
+BGR,2023 emissions,31.284446180944
+BGR,2024 vs 2023 change,-0.07959633235141172
+BEN,Region,Africa
+BEN,Country,Benin
+BEN,2023 emissions,5.62360288492127
+BEN,2024 vs 2023 change,0.1337122269473796
+SRB,Region,Europe
+SRB,Country,Serbia
+SRB,2023 emissions,46.3464305670897
+SRB,2024 vs 2023 change,-0.0026294481655283475
+MWI,Region,Africa
+MWI,Country,Malawi
+MWI,2023 emissions,4.43540053395434
+MWI,2024 vs 2023 change,0.1337122269473796
+TJK,Region,Eurasia
+TJK,Country,Tajikistan
+TJK,2023 emissions,7.39098803688965
+TJK,2024 vs 2023 change,-0.05895373223579048
+HKG,Region,Asia & Oceania
+HKG,Country,Hong Kong SAR
+HKG,2023 emissions,33.4433746248836
+HKG,2024 vs 2023 change,0.04558073794256612
+GAB,Region,Africa
+GAB,Country,Gabon
+GAB,2023 emissions,4.8832567975909
+GAB,2024 vs 2023 change,0.1337122269473796
+NER,Region,Africa
+NER,Country,Niger
+NER,2023 emissions,2.96057940712605
+NER,2024 vs 2023 change,0.1337122269473796
+NAM,Region,Africa
+NAM,Country,Namibia
+NAM,2023 emissions,3.52143047611228
+NAM,2024 vs 2023 change,0.1337122269473796
+BIH,Region,Europe
+BIH,Country,Bosnia and Herzegovina
+BIH,2023 emissions,19.4386419838047
+BIH,2024 vs 2023 change,-0.0026294481655283475
+GUY,Region,North America
+GUY,Country,Guyana
+GUY,2023 emissions,3.81524476234054
+GUY,2024 vs 2023 change,0.005438426812317321
+PAN,Region,North America
+PAN,Country,Panama
+PAN,2023 emissions,16.119760130345
+PAN,2024 vs 2023 change,0.005438426812317321
+MRT,Region,Africa
+MRT,Country,Mauritania
+MRT,2023 emissions,4.41971620164269
+MRT,2024 vs 2023 change,0.1337122269473796
+GEO,Region,Eurasia
+GEO,Country,Georgia
+GEO,2023 emissions,11.0307147484504
+GEO,2024 vs 2023 change,-0.05895373223579048
+HRV,Region,Europe
+HRV,Country,Croatia
+HRV,2023 emissions,16.8969146922388
+HRV,2024 vs 2023 change,-0.05483394519259177
+KGZ,Region,Eurasia
+KGZ,Country,Kyrgyz Republic
+KGZ,2023 emissions,8.94139797314949
+KGZ,2024 vs 2023 change,-0.05895373223579048
+BRN,Region,Asia & Oceania
+BRN,Country,Brunei Darussalam
+BRN,2023 emissions,12.7486066146057
+BRN,2024 vs 2023 change,0.04558073794256612
+LBR,Region,Africa
+LBR,Country,Liberia
+LBR,2023 emissions,0.643474812986268
+LBR,2024 vs 2023 change,0.1337122269473796
+GNQ,Region,Africa
+GNQ,Country,Equatorial Guinea
+GNQ,2023 emissions,4.03368822097479
+GNQ,2024 vs 2023 change,0.1337122269473796
+HTI,Region,North America
+HTI,Country,Haiti
+HTI,2023 emissions,3.08375404609867
+HTI,2024 vs 2023 change,0.005438426812317321
+LTU,Region,Eurasia
+LTU,Country,Lithuania
+LTU,2023 emissions,10.9877501293474
+LTU,2024 vs 2023 change,0.061832220066363464
+SLV,Region,North America
+SLV,Country,El Salvador
+SLV,2023 emissions,8.63185388095792
+SLV,2024 vs 2023 change,0.005438426812317321
+EST,Region,Eurasia
+EST,Country,Estonia
+EST,2023 emissions,8.646153759284
+EST,2024 vs 2023 change,0.00011285891079482191
+MDA,Region,Eurasia
+MDA,Country,Moldova
+MDA,2023 emissions,8.62069710847033
+MDA,2024 vs 2023 change,-0.05895373223579048
+TGO,Region,Africa
+TGO,Country,Togo
+TGO,2023 emissions,1.84542011472501
+TGO,2024 vs 2023 change,0.1337122269473796
+ISL,Region,Europe
+ISL,Country,Iceland
+ISL,2023 emissions,1.74862117311302
+ISL,2024 vs 2023 change,-0.0026294481655283475
+SUR,Region,North America
+SUR,Country,Suriname
+SUR,2023 emissions,2.47444062836036
+SUR,2024 vs 2023 change,0.005438426812317321
+LVA,Region,Eurasia
+LVA,Country,Latvia
+LVA,2023 emissions,5.92206716787989
+LVA,2024 vs 2023 change,0.017702090579144292
+SVN,Region,Europe
+SVN,Country,Slovenia
+SVN,2023 emissions,11.3144486319106
+SVN,2024 vs 2023 change,-0.0005610194331886476
+RWA,Region,Africa
+RWA,Country,Rwanda
+RWA,2023 emissions,1.89382522676018
+RWA,2024 vs 2023 change,0.1337122269473796
+CRI,Region,North America
+CRI,Country,Costa Rica
+CRI,2023 emissions,0
+CRI,2024 vs 2023 change,0.005438426812317321
+ARM,Region,Eurasia
+ARM,Country,Armenia
+ARM,2023 emissions,6.99927548168684
+ARM,2024 vs 2023 change,-0.05895373223579048
+BDI,Region,Africa
+BDI,Country,Burundi
+BDI,2023 emissions,0.814471184520229
+BDI,2024 vs 2023 change,0.1337122269473796
+LUX,Region,Europe
+LUX,Country,Luxembourg
+LUX,2023 emissions,6.47372423132046
+LUX,2024 vs 2023 change,0.03629341916374518
+MKD,Region,Europe
+MKD,Country,North Macedonia
+MKD,2023 emissions,7.44712237105944
+MKD,2024 vs 2023 change,-0.0026294481655283475
+ALB,Region,Europe
+ALB,Country,Albania
+ALB,2023 emissions,3.33916153092201
+ALB,2024 vs 2023 change,-0.0026294481655283475
+JAM,Region,North America
+JAM,Country,Jamaica
+JAM,2023 emissions,7.25693761198312
+JAM,2024 vs 2023 change,0.005438426812317321
+CYP,Region,Europe
+CYP,Country,Cyprus
+CYP,2023 emissions,6.22224662355898
+CYP,2024 vs 2023 change,0.01787444866097787
+ERI,Region,Africa
+ERI,Country,Eritrea
+ERI,2023 emissions,0.682135224406091
+ERI,2024 vs 2023 change,0.1337122269473796
+BLZ,Region,North America
+BLZ,Country,Belize
+BLZ,2023 emissions,0.372466107683121
+BLZ,2024 vs 2023 change,0.005438426812317321
+GNB,Region,Africa
+GNB,Country,Guinea-Bissau
+GNB,2023 emissions,0.2945103383875
+GNB,2024 vs 2023 change,0.1337122269473796
+MDV,Region,Asia & Oceania
+MDV,Country,Maldives
+MDV,2023 emissions,2.28666916225981
+MDV,2024 vs 2023 change,0.04558073794256612
+MAC,Region,Asia & Oceania
+MAC,Country,Macao SAR
+MAC,2023 emissions,1.67579626968818
+MAC,2024 vs 2023 change,0.04558073794256612
+LSO,Region,Africa
+LSO,Country,Lesotho
+LSO,2023 emissions,0.985531407667356
+LSO,2024 vs 2023 change,0.1337122269473796
+GMB,Region,Africa
+GMB,Country,"Gambia, The"
+GMB,2023 emissions,0.468903591758802
+GMB,2024 vs 2023 change,0.1337122269473796
+SWE,Region,Europe
+SWE,Country,Sweden
+SWE,2023 emissions,29.6873133915592
+SWE,2024 vs 2023 change,0.06483935767878535
+BTN,Region,Asia & Oceania
+BTN,Country,Bhutan
+BTN,2023 emissions,0.562200342828496
+BTN,2024 vs 2023 change,0.04558073794256612
+DJI,Region,Africa
+DJI,Country,Djibouti
+DJI,2023 emissions,0.689804216402885
+DJI,2024 vs 2023 change,0.1337122269473796
+MLT,Region,Europe
+MLT,Country,Malta
+MLT,2023 emissions,1.76170042721375
+MLT,2024 vs 2023 change,0.13837265625688033
+BHS,Region,North America
+BHS,Country,"Bahamas, The"
+BHS,2023 emissions,1.40450597950773
+BHS,2024 vs 2023 change,0.005438426812317321
+CPV,Region,Africa
+CPV,Country,Cabo Verde
+CPV,2023 emissions,0.648800180459149
+CPV,2024 vs 2023 change,0.1337122269473796
+COM,Region,Africa
+COM,Country,Comoros
+COM,2023 emissions,0.435973056663523
+COM,2024 vs 2023 change,0.1337122269473796
+BRB,Region,North America
+BRB,Country,Barbados
+BRB,2023 emissions,1.18101779129318
+BRB,2024 vs 2023 change,0.005438426812317321
+FJI,Region,Asia & Oceania
+FJI,Country,Fiji
+FJI,2023 emissions,1.38657655488305
+FJI,2024 vs 2023 change,0.04558073794256612
+GRD,Region,North America
+GRD,Country,Grenada
+GRD,2023 emissions,0.169188732423508
+GRD,2024 vs 2023 change,0.005438426812317321
+DMA,Region,North America
+DMA,Country,Dominica
+DMA,2023 emissions,0.0798951317656778
+DMA,2024 vs 2023 change,0.005438426812317321
+KIR,Region,Asia & Oceania
+KIR,Country,Kiribati
+KIR,2023 emissions,0.075569072263561
+KIR,2024 vs 2023 change,0.04558073794256612
+SWZ,Region,Africa
+SWZ,Country,Eswatini
+SWZ,2023 emissions,1.07399220270224
+SWZ,2024 vs 2023 change,0.1337122269473796
+WSM,Region,Asia & Oceania
+WSM,Country,Samoa
+WSM,2023 emissions,0.332057517659426
+WSM,2024 vs 2023 change,0.04558073794256612
+STP,Region,Africa
+STP,Country,São Tomé and Príncipe
+STP,2023 emissions,0.145001120372591
+STP,2024 vs 2023 change,0.1337122269473796
+SYC,Region,Africa
+SYC,Country,Seychelles
+SYC,2023 emissions,0.837840030966769
+SYC,2024 vs 2023 change,0.1337122269473796
+SLE,Region,Africa
+SLE,Country,Sierra Leone
+SLE,2023 emissions,1.25725573050448
+SLE,2024 vs 2023 change,0.1337122269473796
+SLB,Region,Asia & Oceania
+SLB,Country,Solomon Islands
+SLB,2023 emissions,0.298119818879247
+SLB,2024 vs 2023 change,0.04558073794256612
+SOM,Region,Africa
+SOM,Country,Somalia
+SOM,2023 emissions,0.817962476148483
+SOM,2024 vs 2023 change,0.1337122269473796
+LCA,Region,North America
+LCA,Country,St. Lucia
+LCA,2023 emissions,0.295594734502679
+LCA,2024 vs 2023 change,0.005438426812317321
+VCT,Region,North America
+VCT,Country,St. Vincent and the Grenadines
+VCT,2023 emissions,0.126846507708963
+VCT,2024 vs 2023 change,0.005438426812317321
+TON,Region,Asia & Oceania
+TON,Country,Tonga
+TON,2023 emissions,0.161334041713873
+TON,2024 vs 2023 change,0.04558073794256612
+CUB,Region,North America
+CUB,Country,Cuba
+CUB,2023 emissions,26.6976942700533
+CUB,2024 vs 2023 change,0.005438426812317321
+GIB,Region,Europe
+GIB,Country,Gibraltar
+GIB,2023 emissions,0.62854337114587
+GIB,2024 vs 2023 change,-0.0026294481655283475
+GRL,Region,Europe
+GRL,Country,Greenland
+GRL,2023 emissions,0.583707755797281
+GRL,2024 vs 2023 change,-0.0026294481655283475
+PRK,Region,Asia & Oceania
+PRK,Country,"Korea, Dem. People's Rep."
+PRK,2023 emissions,62.6768562219174
+PRK,2024 vs 2023 change,0.04558073794256612
+MUS,Region,Africa
+MUS,Country,Mauritius
+MUS,2023 emissions,4.7245796405088
+MUS,2024 vs 2023 change,0.1337122269473796
+BMU,Region,North America
+BMU,Country,Bermuda
+BMU,2023 emissions,0.257411303460607
+BMU,2024 vs 2023 change,0.005438426812317321
+VUT,Region,Asia & Oceania
+VUT,Country,Vanuatu
+VUT,2023 emissions,0.27061652714619
+VUT,2024 vs 2023 change,0.04558073794256612

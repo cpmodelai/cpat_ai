@@ -1,0 +1,2 @@
+pytest==8.3.5
+pyxlsb==1.0.10                 # legacy_export --rebuild-layouts and the legacy comparison test (skipped without it)

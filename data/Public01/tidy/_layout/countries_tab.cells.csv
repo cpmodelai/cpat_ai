@@ -1,0 +1,664 @@
+row,col,value
+3,1,World Bank list of economies (June 2018)
+4,1,(Bold indicates a change of classification)
+4,4, 
+5,1,x
+5,2,x
+5,3,Economy
+5,4,Code
+5,5,Code alpha2
+5,6,Region
+5,7,Income group
+5,9,Lending category
+5,10,Other
+5,14,Region Gains
+5,15,Region Gains code
+5,16,Using euro
+5,17,IFS codes
+5,18,WEO ISO
+5,19,Crude market
+5,20,IEA code
+5,21,IEA country
+5,22,Enerdata code
+5,23,Enerdata country
+5,24,VSL country grouping
+6,3,Afghanistan
+6,4,AFG
+7,3,Albania
+7,4,ALB
+8,3,Algeria
+8,4,DZA
+9,3,American Samoa
+9,4,ASM
+10,3,Andorra
+10,4,AND
+11,3,Angola
+11,4,AGO
+12,3,Anguilla
+12,4,AIA
+13,3,Antigua and Barbuda
+13,4,ATG
+14,3,Argentina
+14,4,ARG
+15,3,Armenia
+15,4,ARM
+16,3,Aruba
+16,4,ABW
+17,3,Australia
+17,4,AUS
+18,3,Austria
+18,4,AUT
+19,3,Azerbaijan
+19,4,AZE
+20,3,"Bahamas, The"
+20,4,BHS
+21,3,Bahrain
+21,4,BHR
+22,3,Bangladesh
+22,4,BGD
+23,3,Barbados
+23,4,BRB
+24,3,Belarus
+24,4,BLR
+25,3,Belgium
+25,4,BEL
+26,3,Belize
+26,4,BLZ
+27,3,Benin
+27,4,BEN
+28,3,Bermuda
+28,4,BMU
+29,3,Bhutan
+29,4,BTN
+30,3,Bolivia
+30,4,BOL
+31,3,Bosnia and Herzegovina
+31,4,BIH
+32,3,Botswana
+32,4,BWA
+33,3,Brazil
+33,4,BRA
+34,3,British Virgin Islands
+34,4,VGB
+35,3,Brunei Darussalam
+35,4,BRN
+36,3,Bulgaria
+36,4,BGR
+37,3,Burkina Faso
+37,4,BFA
+38,3,Burundi
+38,4,BDI
+39,3,Cabo Verde
+39,4,CPV
+40,3,Cambodia
+40,4,KHM
+41,3,Cameroon
+41,4,CMR
+42,3,Canada
+42,4,CAN
+43,3,Cayman Islands
+43,4,CYM
+44,3,Central African Republic
+44,4,CAF
+45,3,Chad
+45,4,TCD
+46,3,Channel Islands
+46,4,CHI
+47,3,Chile
+47,4,CHL
+48,3,China
+48,4,CHN
+49,3,Colombia
+49,4,COL
+50,3,Comoros
+50,4,COM
+51,3,"Congo, Democratic Republic of the"
+51,4,COD
+52,3,"Congo, Republic of"
+52,4,COG
+53,3,Costa Rica
+53,4,CRI
+54,3,Côte d'Ivoire
+54,4,CIV
+55,3,Croatia
+55,4,HRV
+56,3,Cuba
+56,4,CUB
+57,3,Curaçao
+57,4,CUW
+58,3,Cyprus
+58,4,CYP
+59,3,Czechia
+59,4,CZE
+60,3,Denmark
+60,4,DNK
+61,3,Djibouti
+61,4,DJI
+62,3,Dominica
+62,4,DMA
+63,3,Dominican Republic
+63,4,DOM
+64,3,Ecuador
+64,4,ECU
+65,3,Egypt
+65,4,EGY
+66,3,El Salvador
+66,4,SLV
+67,3,Equatorial Guinea
+67,4,GNQ
+68,3,Eritrea
+68,4,ERI
+69,3,Estonia
+69,4,EST
+70,3,Eswatini
+70,4,SWZ
+71,3,Ethiopia
+71,4,ETH
+72,3,Faroe Islands
+72,4,FRO
+73,3,Fiji
+73,4,FJI
+74,3,Finland
+74,4,FIN
+75,3,France
+75,4,FRA
+76,3,French Polynesia
+76,4,PYF
+77,3,Gabon
+77,4,GAB
+78,3,"Gambia, The"
+78,4,GMB
+79,3,Georgia
+79,4,GEO
+80,3,Germany
+80,4,DEU
+81,3,Ghana
+81,4,GHA
+82,3,Gibraltar
+82,4,GIB
+83,3,Greece
+83,4,GRC
+84,3,Greenland
+84,4,GRL
+85,3,Grenada
+85,4,GRD
+86,3,Guam
+86,4,GUM
+87,3,Guatemala
+87,4,GTM
+88,3,Guinea
+88,4,GIN
+89,3,Guinea-Bissau
+89,4,GNB
+90,3,Guyana
+90,4,GUY
+91,3,Haiti
+91,4,HTI
+92,3,Honduras
+92,4,HND
+93,3,Hong Kong SAR
+93,4,HKG
+94,3,Hungary
+94,4,HUN
+95,3,Iceland
+95,4,ISL
+96,3,India
+96,4,IND
+97,3,Indonesia
+97,4,IDN
+98,3,Iran
+98,4,IRN
+99,3,Iraq
+99,4,IRQ
+100,3,Ireland
+100,4,IRL
+101,3,Isle of Man
+101,4,IMN
+102,3,Israel
+102,4,ISR
+103,3,Italy
+103,4,ITA
+104,3,Jamaica
+104,4,JAM
+105,3,Japan
+105,4,JPN
+106,3,Jordan
+106,4,JOR
+107,3,Kazakhstan
+107,4,KAZ
+108,3,Kenya
+108,4,KEN
+109,3,Kiribati
+109,4,KIR
+110,3,Korea
+110,4,KOR
+111,3,"Korea, Dem. People's Rep."
+111,4,PRK
+112,3,Kosovo
+112,4,XKX
+113,3,Kuwait
+113,4,KWT
+114,3,Kyrgyz Republic
+114,4,KGZ
+115,3,Lao P.D.R.
+115,4,LAO
+116,3,Latvia
+116,4,LVA
+117,3,Lebanon
+117,4,LBN
+118,3,Lesotho
+118,4,LSO
+119,3,Liberia
+119,4,LBR
+120,3,Libya
+120,4,LBY
+121,3,Liechtenstein
+121,4,LIE
+122,3,Lithuania
+122,4,LTU
+123,3,Luxembourg
+123,4,LUX
+124,3,Macao SAR
+124,4,MAC
+125,3,Madagascar
+125,4,MDG
+126,3,Malawi
+126,4,MWI
+127,3,Malaysia
+127,4,MYS
+128,3,Maldives
+128,4,MDV
+129,3,Mali
+129,4,MLI
+130,3,Malta
+130,4,MLT
+131,3,Marshall Islands
+131,4,MHL
+132,3,Mauritania
+132,4,MRT
+133,3,Mauritius
+133,4,MUS
+134,3,Mexico
+134,4,MEX
+135,3,Micronesia
+135,4,FSM
+136,3,Moldova
+136,4,MDA
+137,3,Monaco
+137,4,MCO
+138,3,Mongolia
+138,4,MNG
+139,3,"Montenegro, Rep. of"
+139,4,MNE
+140,3,Montserrat
+140,4,MSR
+141,3,Morocco
+141,4,MAR
+142,3,Mozambique
+142,4,MOZ
+143,3,Myanmar
+143,4,MMR
+144,3,Namibia
+144,4,NAM
+145,3,Nauru
+145,4,NRU
+146,3,Nepal
+146,4,NPL
+147,3,Netherlands
+147,4,NLD
+148,3,New Caledonia
+148,4,NCL
+149,3,New Zealand
+149,4,NZL
+150,3,Nicaragua
+150,4,NIC
+151,3,Niger
+151,4,NER
+152,3,Nigeria
+152,4,NGA
+153,3,North Macedonia
+153,4,MKD
+154,3,Northern Mariana Islands
+154,4,MNP
+155,3,Norway
+155,4,NOR
+156,3,Oman
+156,4,OMN
+157,3,Pakistan
+157,4,PAK
+158,3,Palau
+158,4,PLW
+159,3,Panama
+159,4,PAN
+160,3,Papua New Guinea
+160,4,PNG
+161,3,Paraguay
+161,4,PRY
+162,3,Peru
+162,4,PER
+163,3,Philippines
+163,4,PHL
+164,3,Poland
+164,4,POL
+165,3,Portugal
+165,4,PRT
+166,3,Puerto Rico
+166,4,PRI
+167,3,Qatar
+167,4,QAT
+168,3,Romania
+168,4,ROU
+169,3,Russia
+169,4,RUS
+170,3,Rwanda
+170,4,RWA
+171,3,Samoa
+171,4,WSM
+172,3,San Marino
+172,4,SMR
+173,3,São Tomé and Príncipe
+173,4,STP
+174,3,Saudi Arabia
+174,4,SAU
+175,3,Senegal
+175,4,SEN
+176,3,Serbia
+176,4,SRB
+177,3,Seychelles
+177,4,SYC
+178,3,Sierra Leone
+178,4,SLE
+179,3,Singapore
+179,4,SGP
+180,3,Sint Maarten (Dutch part)
+180,4,SXM
+181,3,Slovak Republic
+181,4,SVK
+182,3,Slovenia
+182,4,SVN
+183,3,Solomon Islands
+183,4,SLB
+184,3,Somalia
+184,4,SOM
+185,3,South Africa
+185,4,ZAF
+186,3,South Sudan
+186,4,SSD
+187,3,Spain
+187,4,ESP
+188,3,Sri Lanka
+188,4,LKA
+189,3,St. Kitts and Nevis
+189,4,KNA
+190,3,St. Lucia
+190,4,LCA
+191,3,St. Martin (French part)
+191,4,MAF
+192,3,St. Vincent and the Grenadines
+192,4,VCT
+193,3,Sudan
+193,4,SDN
+194,3,Suriname
+194,4,SUR
+195,3,Sweden
+195,4,SWE
+196,3,Switzerland
+196,4,CHE
+197,3,Syria
+197,4,SYR
+198,3,Taiwan Province of China
+198,4,TWN
+199,3,Tajikistan
+199,4,TJK
+200,3,Tanzania
+200,4,TZA
+201,3,Thailand
+201,4,THA
+202,3,Timor-Leste
+202,4,TLS
+203,3,Togo
+203,4,TGO
+204,3,Tonga
+204,4,TON
+205,3,Trinidad and Tobago
+205,4,TTO
+206,3,Tunisia
+206,4,TUN
+207,3,Turkiye
+207,4,TUR
+208,3,Turkmenistan
+208,4,TKM
+209,3,Turks and Caicos Islands
+209,4,TCA
+210,3,Tuvalu
+210,4,TUV
+211,3,Uganda
+211,4,UGA
+212,3,Ukraine
+212,4,UKR
+213,3,United Arab Emirates
+213,4,ARE
+214,3,United Kingdom
+214,4,GBR
+215,3,United States
+215,4,USA
+216,3,Uruguay
+216,4,URY
+217,3,Uzbekistan
+217,4,UZB
+218,3,Vanuatu
+218,4,VUT
+219,3,Venezuela
+219,4,VEN
+220,3,Vietnam
+220,4,VNM
+221,3,Virgin Islands (U.S.)
+221,4,VIR
+222,3,West Bank and Gaza
+222,4,PSE
+223,3,World aviation
+223,4,WAV
+224,3,World marine
+224,4,WMR
+225,3,Yemen
+225,4,YEM
+226,3,Zambia
+226,4,ZMB
+227,3,Zimbabwe
+227,4,ZWE
+229,3,World
+229,4,WLD
+230,3,Memo: Africa (UN)
+230,4,AFRICATOT
+231,3,Memo: Americas (UN)
+231,4,AMERICAS
+232,3,Memo: Asia (UN)
+232,4,ASIATOT
+233,3,Memo: Europe (UN)
+233,4,EUROPE
+234,3,Memo: Oceania (UN)
+234,4,OCEANIA
+235,3,Europe & Central Asia (excluding high income)
+235,4,OEU
+236,3,Africa
+236,4,AFRIC
+237,3,Memo: ASEAN
+237,4,MASEAN
+238,3,Memo: European Union-28
+238,4,EU28
+239,3,Memo: FSU 15
+239,4,FSU_15
+240,3,Memo: G7
+240,4,G7
+241,3,Memo: G8
+241,4,G8
+242,3,Memo: IEA Total
+242,4,IEATOT
+243,3,Memo: IEA and Accession/Association countries
+243,4,IEAFAMILY
+244,3,Memo: OPEC
+244,4,OPEC
+245,3,Middle East
+245,4,ASME
+246,3,Non-OECD Americas
+246,4,LATAMER
+247,3,Non-OECD Asia (excluding China)
+247,4,ASIA
+248,3,Non-OECD Europe and Eurasia
+248,4,NON-OECDEUROPEANDEURASIA
+249,3,OECD Americas
+249,4,OENN
+250,3,OECD Asia Oceania
+250,4,OEPN
+251,3,Other Africa
+251,4,OTHERAFRIC
+252,3,Other non-OECD Americas
+252,4,OTHERLATIN
+253,3,Other non-OECD Asia
+253,4,OTHERASIA
+254,3,World aviation bunkers
+254,4,WORLDAV
+255,3,World marine bunkers
+255,4,WORLDMAR
+256,3,Non-OECD Total
+256,4,NOC
+257,3,OECD Total
+257,4,OTO
+258,3,Former Yugoslavia
+258,4,YUG
+259,3,OECD Europe
+259,4,OEU
+260,3,European Union-27
+260,4,EU27_2020
+261,3,G20
+261,4,G20
+262,11,0
+262,12, 
+262,13,0
+263,11,0
+263,12, 
+263,13,0
+264,3,Arab World
+264,4,ARB
+265,3,Caribbean small states
+265,4,CSS
+266,3,Central Europe and the Baltics
+266,4,CEB
+267,3,Early-demographic dividend
+267,4,EAR
+268,3,East Asia & Pacific
+268,4,EAS
+269,3,East Asia & Pacific (excluding high income)
+269,4,EAP
+270,3,East Asia & Pacific (IDA & IBRD)
+270,4,TEA
+271,3,Euro area
+271,4,EMU
+272,3,Europe & Central Asia
+272,4,ECS
+273,3,Europe & Central Asia (excluding high income)
+273,4,ECA
+274,3,Europe & Central Asia (IDA & IBRD)
+274,4,TEC
+275,3,European Union
+275,4,EUU
+276,3,Fragile and conflict affected situations
+276,4,FCS
+277,3,Heavily indebted poor countries (HIPC)
+277,4,HPC
+278,3,High income
+278,4,HIC
+279,3,IBRD only
+279,4,IBD
+280,3,IDA & IBRD total
+280,4,IBT
+281,3,IDA blend
+281,4,IDB
+282,3,IDA only
+282,4,IDX
+283,3,IDA total
+283,4,IDA
+284,3,Late-demographic dividend
+284,4,LTE
+285,3,Latin America & Caribbean
+285,4,LCN
+286,3,Latin America & Caribbean (excluding high income)
+286,4,LAC
+287,3,Latin America & Caribbean (IDA & IBRD)
+287,4,TLA
+288,3,Least developed countries: UN classification
+288,4,LDC
+289,3,Low & middle income
+289,4,LMY
+290,3,Low income
+290,4,LIC
+291,3,Lower middle income
+291,4,LMC
+292,3,Middle East & North Africa
+292,4,MEA
+293,3,Middle East & North Africa (excluding high income)
+293,4,MNA
+294,3,Middle East & North Africa (IDA & IBRD)
+294,4,TMN
+295,3,Middle income
+295,4,MIC
+296,3,North America
+296,4,NAC
+297,3,OECD members
+297,4,OED
+298,3,Other small states
+298,4,OSS
+299,3,Pacific island small states
+299,4,PSS
+300,3,Post-demographic dividend
+300,4,PST
+301,3,Pre-demographic dividend
+301,4,PRE
+302,3,Small states
+302,4,SST
+303,3,South Asia
+303,4,SAS
+304,3,South Asia (IDA & IBRD)
+304,4,TSA
+305,3,Sub-Saharan Africa
+305,4,SSF
+306,3,Sub-Saharan Africa (excluding high income)
+306,4,SSA
+307,3,Sub-Saharan Africa (IDA & IBRD)
+307,4,TSS
+308,3,Upper middle income
+308,4,UMC
+309,3,World
+309,4,WLD
+311,1,"This table classifies all World Bank member countries (189), and all other economies with populations of more than 30,000. For operational and analytical purposes, economies are divided among income groups according to 2017 gross national income (GNI) per capita, calculated using the World Bank Atlas method. The groups are: low income, $995 or less; lower middle income, $996–3,895; upper middle income, $3,896–12,055; and high income, $12,056 or more. The effective operational cutoff for IDA eligibility is $1,145 or less."
+313,1,Geographic classifications in this table cover all income levels.
+315,1,IDA countries are those that lack the financial ability to borrow from IBRD. IDA credits are deeply concessional—interest-free loans and grants for programs aimed at boosting economic growth and improving living conditions. IBRD loans are noncessional. Blend countries are eligible for IDA credits because of their low per capita incomes but are also eligible for IBRD because they are financially creditworthy.
+317,1,"Note: The term country, used interchangeably with economy, does not imply political independence but refers to any territory for which authorities report separate social or economic statistics. Income classifications set on 1 July 2018 remain in effect until 1 July 2019. Argentina, which was temporarily unclassified in July 2016 pending release of revised national accounts statistics, was classified as upper middle income for FY17 as of 29 September 2016 based on alternative conversion factors. Also effective 29 September 2016, Syrian Arab Republic is reclassified from IBRD lending category to IDA-only. On 29 March 2017, new country codes were introduced to align World Bank 3-letter codes with ISO 3-letter codes: Andorra (AND), Dem. Rep. Congo (COD), Isle of Man (IMN), Kosovo (XKX), Romania (ROU), Timor-Leste (TLS), and West Bank and Gaza (PSE)."
+319,3,IEA regions
+320,2,WLD
+321,2,AFRICATOT
+322,2,AMERICAS
+323,2,ASIATOT
+324,2,EUROPE
+325,2,OCEANIA
+326,2,CHINAREG
+327,2,AFRIC
+328,2,MASEAN
+329,2,EU28
+330,2,FSU_15
+331,2,G7
+332,2,G8
+333,2,IEATOT
+334,2,IEAFAMILY
+335,2,OPEC
+336,2,ASME
+337,2,LATAMER
+338,2,ASIA
+339,2,NON-OECDEUROPEANDEURASIA
+340,2,OENN
+341,2,OEPN
+342,2,OTHERAFRIC
+343,2,OTHERLATIN
+344,2,OTHERASIA
+345,2,WORLDAV
+346,2,WORLDMAR

@@ -1,0 +1,1 @@
+{"kind": "table", "header": ["cpat", "description", "coefficient", "source"], "key_pos": [0], "attr_pos": [], "val_pos": [1, 2, 3], "skipped": {}, "nrows": 16, "source": "distn_passthrough.csv"}

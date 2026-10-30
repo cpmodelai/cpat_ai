@@ -1,0 +1,1579 @@
+row,col,value,formula
+3,2,NB: Please change only yellow cells and check that the units are correct.,0
+5,1,.,0
+5,2,ETS,0
+5,4,Override set to 'yes'? (see Dashboard) -->,0
+5,6,No,1
+6,2,Advanced ETS Parameters,0
+7,4,ETS Volatility,0
+7,8,Subsectoral Coverage,0
+8,4,C-Tax Risk,0
+9,4,Impact of Volatility on Mitigation Costs,0
+9,8,power,0
+9,9,road transportation,0
+9,10,rail transportation,0
+9,11,domestic aviation,0
+9,12,domestic shipping,0
+9,13,residential,0
+9,14,food & forestry,0
+9,15,services (private / public),0
+9,16,mining & chemicals,0
+9,17,iron and steel,0
+9,18,non-ferrous metals,0
+9,19,machinery,0
+9,20,cement,0
+9,21,other manucfacturing,0
+9,22,construction,0
+9,23,fuel transformation,0
+9,24,other energy use,0
+10,4,Max Iterations,0
+10,8,(direct from d/b),0
+10,9,True,0
+10,10,True,0
+10,11,True,0
+10,12,True,0
+10,13,True,0
+10,14,True,0
+10,15,True,0
+10,16,True,0
+10,17,True,0
+10,18,True,0
+10,19,True,0
+10,20,True,0
+10,21,True,0
+10,22,True,0
+10,23,True,0
+10,24,True,0
+11,4,StartFresh or Continue old Goal Seek?,0
+11,8,False,1
+11,9,False,1
+11,10,False,1
+11,11,False,1
+11,12,False,1
+11,13,False,1
+11,14,False,1
+11,15,False,1
+11,16,False,1
+11,17,False,1
+11,18,False,1
+11,19,False,1
+11,20,False,1
+11,21,False,1
+11,22,False,1
+11,23,False,1
+11,24,False,1
+12,4,Max error,0
+14,2,Override to ETS Price (2025 onwards),0
+14,8,real 2026,1
+14,9,2021,1
+14,10,2022,1
+14,11,2023,1
+14,12,2024,1
+14,13,2025,1
+14,14,2026,1
+14,15,2027,1
+14,16,2028,1
+14,17,2029,1
+14,18,2030,1
+14,19,2031,1
+14,20,2032,1
+14,21,2033,1
+14,22,2034,1
+14,23,2035,1
+14,24,2036,1
+14,25,2037,1
+14,26,2038,1
+14,27,2039,1
+14,28,2040,1
+14,29,2041 (projection),0
+15,2,Override for ETS price assumed,0
+18,1,.,0
+18,2,Process Emissions,0
+19,2,Non-Fuel Process Emissions Coverage (CBAM goods only) for ETS and Carbon Tax,0
+20,8,mining & chemicals,0
+20,9,iron and steel,0
+20,10,non-ferrous metals,0
+20,11,machinery,0
+20,12,cement,0
+21,8,True,0
+21,9,True,0
+21,10,True,0
+21,12,True,0
+22,8,False,1
+22,9,False,1
+22,10,False,1
+22,11,False,0
+22,12,False,1
+28,2,Emission Factors,0
+28,8,"SCOPE 1  (tCO₂e/t, NH₃ integrated)",0
+28,15,SCOPE 2 + TOTALS,0
+28,19,EF INPUTS,0
+28,23,LATEST MAY 2026 EU DEFAULTS + BENCHMARKS,0
+28,30,CONFIDENCE,0
+29,4,Product,0
+29,5,Unit,0
+29,6,CN codes,0
+29,7,Route,0
+29,8,S1.fc,0
+29,9,S1.fp,0
+29,10,S1.np,0
+29,11,S1.no,0
+29,12,S1 own,0
+29,13,"Embed
+NH₃",0
+29,14,"S1 incl
+NH₃",0
+29,15,S2,0
+29,16,"S2 in CBAM
+scope?",0
+29,17,"S1+S2
+total",0
+29,18,"CBAM-
+equiv",0
+29,19,"fc
+GJ/t",0
+29,20,"fc
+EF",0
+29,21,"fp
+GJ/t",0
+29,22,"fp
+EF",0
+29,23,"EU def
+base",0
+29,24,"mark
+up",0
+29,25,"EU def
+2026",0
+29,26,"EU
+bench",0
+29,27,"Gap vs
+def",0
+29,28,"Gap vs
+bench",0
+29,29,Latest EU regulatory note (May 2026),0
+29,30,S1.fc / S1.fp confidence,0
+29,31,S1.np / S1.no confidence,0
+30,4,DRI-EAF steel,0
+30,5,t crude steel,0
+30,6,7207 10 (D); 7207 12 (D); 7208/7209 flat (partial); 7214 rebar,0
+30,7,Midrex NG shaft furnace + EAF,0
+31,4,Scrap-EAF steel,0
+31,5,t crude steel,0
+31,6,7206 10; 7207 10 (E); 7214 rebar; 7208 HRC (E-route); 7216 sections,0
+31,7,Scrap-EAF,0
+32,4,BF-BOF steel (reference),0
+32,5,t crude steel,0
+32,6,7206 10 (C); 7207 10 (C); 7209 CR (C-route); 7208 HRC (C-route),0
+32,7,BF-BOF coal/coke,0
+33,4,Grey clinker (dry-process),0
+33,5,t clinker,0
+33,6,2523 10 (clinker); 2523 21; 2523 29 Portland cement,0
+33,7,Dry rotary kiln,0
+34,4,Ammonia (net merchant),0
+34,5,t NH3,0
+34,6,2814 10 (anhydrous ammonia),0
+34,7,Steam methane reforming (SMR) + Haber-Bosch synthesis,0
+35,4,Urea,0
+35,5,t urea,0
+35,6,3102 10 (urea >= 45% N),0
+35,7,Urea synthesis from captured CO2 + NH3 feedstock,0
+36,4,Ammonium nitrate,0
+36,5,t AN,0
+36,6,3102 30 (AN >= 28% N); 3102 40 (CAN),0
+36,7,Ostwald process (NH3 → HNO3) + neutralisation (HNO3 + NH3 → NH4NO3),0
+37,4,Primary aluminium,0
+37,5,t Al,0
+37,6,"7601 10 (unwrought primary); 7601 20 (alloys, semi-finished); 7604 (bars/rods); 7606 (sheet/plate)",0
+37,7,Hall-Héroult electrolysis + carbon anode prebaking,0
+38,2,Process Emissions Half Elasticities,0
+39,4,Process,0
+39,5,Half Elasticity,0
+39,6,ER at $100 (%),0
+40,4,DRI-EAF steel,0
+41,4,Scrap-EAF steel,0
+42,4,BF-BOF steel reference,0
+43,4,Grey clinker dry-process,0
+44,4,Ammonia net,0
+45,4,Urea,0
+46,4,AN,0
+47,4,Primary aluminium,0
+49,1,.,0
+49,2,Feebates,0
+50,2,Feebates,0
+52,8,power,0
+52,9,road transportation,0
+52,10,rail transportation,0
+52,11,domestic aviation,0
+52,12,domestic shipping,0
+52,13,residential,0
+52,14,food & forestry,0
+52,15,services (private / public),0
+52,16,mining & chemicals,0
+52,17,iron and steel,0
+52,18,non-ferrous metals,0
+52,19,machinery,0
+52,20,cement,0
+52,21,other manucfacturing,0
+52,22,construction,0
+52,23,fuel transformation,0
+52,24,other energy use,0
+53,8,(direct from d/b),0
+53,9,Not Used - see transport section instead,0
+53,13,True,0
+53,14,True,0
+53,15,True,0
+53,16,True,0
+53,17,True,0
+53,18,True,0
+53,19,True,0
+53,20,True,0
+53,21,True,0
+53,22,True,0
+53,23,True,0
+53,24,True,0
+54,8,False,1
+54,9,False,0
+54,10,False,0
+54,11,False,0
+54,12,False,0
+54,13,False,1
+54,14,False,1
+54,15,False,1
+54,16,False,1
+54,17,False,1
+54,18,False,1
+54,19,False,1
+54,20,False,1
+54,21,False,1
+54,22,False,1
+54,23,False,1
+54,24,False,1
+57,1,.,0
+57,2,Domestic energy prices & taxes,0
+57,4,Energy prices & taxes set to 'manual'? (see Advanced options in 'Dashboard') -->,0
+57,6,No,1
+59,2,Sector,0
+59,3,Fuel,0
+59,4,Variable,0
+59,5,Units,0
+59,7,Code,0
+59,9,2021,1
+59,10,2022,1
+59,11,2023,1
+59,12,2024,1
+59,13,2025,1
+59,14,2026,1
+60,2,Power sector,0
+60,3,Coal,0
+60,4,Supply costs,0
+60,5,"$/GJ, current",0
+60,7,mit.sp.coa.pow,0
+61,2,Power sector,0
+61,3,Coal,0
+61,4,VAT rate,0
+61,5,%,0
+61,7,mit.vatrate.coa.pow,0
+62,2,Power sector,0
+62,3,Coal,0
+62,4,Excise and other taxes,0
+62,5,"$/GJ, current",0
+62,7,mit.txo.coa.pow,0
+63,2,Power sector,0
+63,3,Coal,0
+63,4,Retail price,0
+63,5,"$/GJ, current",0
+63,7,mit.rp.coa.pow,0
+65,2,Residential,0
+65,3,Coal,0
+65,4,Supply costs,0
+65,5,"$/GJ, current",0
+65,7,mit.sp.coa.res,0
+66,2,Residential,0
+66,3,Coal,0
+66,4,VAT rate,0
+66,5,%,0
+66,7,mit.vatrate.coa.res,0
+67,2,Residential,0
+67,3,Coal,0
+67,4,Excise and other taxes,0
+67,5,"$/GJ, current",0
+67,7,mit.txo.coa.res,0
+68,2,Residential,0
+68,3,Coal,0
+68,4,Retail price,0
+68,5,"$/GJ, current",0
+68,7,mit.rp.coa.res,0
+70,2,Industry,0
+70,3,Coal,0
+70,4,Supply costs,0
+70,5,"$/GJ, current",0
+70,7,mit.sp.coa.ind,0
+71,2,Industry,0
+71,3,Coal,0
+71,4,VAT rate,0
+71,5,%,0
+71,7,mit.vatrate.coa.ind,0
+72,2,Industry,0
+72,3,Coal,0
+72,4,Excise and other taxes,0
+72,5,"$/GJ, current",0
+72,7,mit.txo.coa.ind,0
+73,2,Industry,0
+73,3,Coal,0
+73,4,Retail price,0
+73,5,"$/GJ, current",0
+73,7,mit.rp.coa.ind,0
+75,2,All,0
+75,3,Coal,0
+75,4,Producer-side subsidy,0
+75,5,USD bln,0
+75,7,mit.pros.coa.all,0
+77,2,Sector,0
+77,3,Fuel,0
+77,4,Variable,0
+77,5,Units,0
+77,7,Code,0
+77,9,2021,1
+77,10,2022,1
+77,11,2023,1
+77,12,2024,1
+77,13,2025,1
+77,14,2026,1
+78,2,Power sector,0
+78,3,Natural gas,0
+78,4,Supply costs,0
+78,5,"$/GJ, current",0
+78,7,mit.sp.nga.pow,0
+79,2,Power sector,0
+79,3,Natural gas,0
+79,4,VAT rate,0
+79,5,%,0
+79,7,mit.vatrate.nga.pow,0
+80,2,Power sector,0
+80,3,Natural gas,0
+80,4,Excise and other taxes,0
+80,5,"$/GJ, current",0
+80,7,mit.txo.nga.pow,0
+81,2,Power sector,0
+81,3,Natural gas,0
+81,4,Retail price,0
+81,5,"$/GJ, current",0
+81,7,mit.rp.nga.pow,0
+83,2,Residential,0
+83,3,Natural gas,0
+83,4,Supply costs,0
+83,5,"$/GJ, current",0
+83,7,mit.sp.nga.res,0
+84,2,Residential,0
+84,3,Natural gas,0
+84,4,VAT rate,0
+84,5,%,0
+84,7,mit.vatrate.nga.res,0
+85,2,Residential,0
+85,3,Natural gas,0
+85,4,Excise and other taxes,0
+85,5,"$/GJ, current",0
+85,7,mit.txo.nga.res,0
+86,2,Residential,0
+86,3,Natural gas,0
+86,4,Retail price,0
+86,5,"$/GJ, current",0
+86,7,mit.rp.nga.res,0
+88,2,Industry,0
+88,3,Natural gas,0
+88,4,Supply costs,0
+88,5,"$/GJ, current",0
+88,7,mit.sp.nga.ind,0
+89,2,Industry,0
+89,3,Natural gas,0
+89,4,VAT rate,0
+89,5,%,0
+89,7,mit.vatrate.nga.ind,0
+90,2,Industry,0
+90,3,Natural gas,0
+90,4,Excise and other taxes,0
+90,5,"$/GJ, current",0
+90,7,mit.txo.nga.ind,0
+91,2,Industry,0
+91,3,Natural gas,0
+91,4,Retail price,0
+91,5,"$/GJ, current",0
+91,7,mit.rp.nga.ind,0
+93,2,All,0
+93,3,Natural gas,0
+93,4,Producer-side subsidy,0
+93,5,USD bln,0
+93,7,mit.pros.nga.all,0
+95,2,Sector,0
+95,3,Fuel,0
+95,4,Variable,0
+95,5,Units,0
+95,7,Code,0
+95,9,2021,1
+95,10,2022,1
+95,11,2023,1
+95,12,2024,1
+95,13,2025,1
+95,14,2026,1
+96,2,All,0
+96,3,Gasoline,0
+96,4,Supply costs,0
+96,5,"$/lit, current",0
+96,7,mit.sp.gso.all,0
+97,2,All,0
+97,3,Gasoline,0
+97,4,VAT rate,0
+97,5,%,0
+97,7,mit.vatrate.gso.all,0
+98,2,All,0
+98,3,Gasoline,0
+98,4,Excise and other taxes,0
+98,5,"$/lit, current",0
+98,7,mit.txo.gso.all,0
+99,2,All,0
+99,3,Gasoline,0
+99,4,Retail price,0
+99,5,"$/lit, current",0
+99,7,mit.rp.gso.all,0
+101,2,Sector,0
+101,3,Fuel,0
+101,4,Variable,0
+101,5,Units,0
+101,7,Code,0
+101,9,2021,1
+101,10,2022,1
+101,11,2023,1
+101,12,2024,1
+101,13,2025,1
+101,14,2026,1
+102,2,All,0
+102,3,Diesel,0
+102,4,Supply costs,0
+102,5,"$/lit, current",0
+102,7,mit.sp.die.all,0
+103,2,All,0
+103,3,Diesel,0
+103,4,VAT rate,0
+103,5,%,0
+103,7,mit.vatrate.die.all,0
+104,2,All,0
+104,3,Diesel,0
+104,4,Excise and other taxes,0
+104,5,"$/lit, current",0
+104,7,mit.txo.die.all,0
+105,2,All,0
+105,3,Diesel,0
+105,4,Retail price,0
+105,5,"$/lit, current",0
+105,7,mit.rp.die.all,0
+107,2,Sector,0
+107,3,Fuel,0
+107,4,Variable,0
+107,5,Units,0
+107,7,Code,0
+107,9,2021,1
+107,10,2022,1
+107,11,2023,1
+107,12,2024,1
+107,13,2025,1
+107,14,2026,1
+108,2,All,0
+108,3,LPG,0
+108,4,Supply costs,0
+108,5,"$/lit, current",0
+108,7,mit.sp.lpg.all,0
+109,2,All,0
+109,3,LPG,0
+109,4,VAT rate,0
+109,5,%,0
+109,7,mit.vatrate.lpg.all,0
+110,2,All,0
+110,3,LPG,0
+110,4,Excise and other taxes,0
+110,5,"$/lit, current",0
+110,7,mit.txo.lpg.all,0
+111,2,All,0
+111,3,LPG,0
+111,4,Retail price,0
+111,5,"$/lit, current",0
+111,7,mit.rp.lpg.all,0
+113,2,Sector,0
+113,3,Fuel,0
+113,4,Variable,0
+113,5,Units,0
+113,7,Code,0
+113,9,2021,1
+113,10,2022,1
+113,11,2023,1
+113,12,2024,1
+113,13,2025,1
+113,14,2026,1
+114,2,All,0
+114,3,Kerosene,0
+114,4,Supply costs,0
+114,5,"$/lit, current",0
+114,7,mit.sp.ker.all,0
+115,2,All,0
+115,3,Kerosene,0
+115,4,VAT rate,0
+115,5,%,0
+115,7,mit.vatrate.ker.all,0
+116,2,All,0
+116,3,Kerosene,0
+116,4,Excise and other taxes,0
+116,5,"$/lit, current",0
+116,7,mit.txo.ker.all,0
+117,2,All,0
+117,3,Kerosene,0
+117,4,Retail price,0
+117,5,"$/lit, current",0
+117,7,mit.rp.ker.all,0
+119,2,Sector,0
+119,3,Fuel,0
+119,4,Variable,0
+119,5,Units,0
+119,7,Code,0
+119,9,2021,1
+119,10,2022,1
+119,11,2023,1
+119,12,2024,1
+119,13,2025,1
+119,14,2026,1
+120,2,All,0
+120,3,Biomass,0
+120,4,Supply costs,0
+120,5,"$/GJ, current",0
+120,7,mit.sp.bio.all,0
+121,2,All,0
+121,3,Biomass,0
+121,4,VAT rate,0
+121,5,%,0
+121,7,mit.vatrate.bio.all,0
+122,2,All,0
+122,3,Biomass,0
+122,4,Excise and other taxes,0
+122,5,"$/GJ, current",0
+122,7,mit.txo.bio.all,0
+123,2,All,0
+123,3,Biomass,0
+123,4,Retail price,0
+123,5,"$/GJ, current",0
+123,7,mit.rp.bio.all,0
+125,2,All,0
+125,3,Biomass,0
+125,4,Producer-side subsidy,0
+125,5,USD bln,0
+125,7,mit.pros.bio.all,0
+127,2,Sector,0
+127,3,Fuel,0
+127,4,Variable,0
+127,5,Units,0
+127,7,Code,0
+127,9,2021,1
+127,10,2022,1
+127,11,2023,1
+127,12,2024,1
+127,13,2025,1
+127,14,2026,1
+128,2,All,0
+128,3,Oil,0
+128,4,Producer-side subsidy,0
+128,5,USD bln,0
+128,7,mit.pros.oil.all,0
+130,2,All,0
+130,3,Other oil products,0
+130,4,Supply costs,0
+130,5,"$/bbl, current",0
+130,7,mit.sp.oop.all,0
+131,2,All,0
+131,3,Other oil products,0
+131,4,VAT rate,0
+131,5,%,0
+131,7,mit.vatrate.oop.all,0
+132,2,All,0
+132,3,Other oil products,0
+132,4,Excise and other taxes,0
+132,5,"$/bbl, current",0
+132,7,mit.txo.oop.all,0
+133,2,All,0
+133,3,Other oil products,0
+133,4,Retail price,0
+133,5,"$/bbl, current",0
+133,7,mit.rp.oop.all,0
+135,2,Sector,0
+135,3,Fuel,0
+135,4,Variable,0
+135,5,Units,0
+135,7,Code,0
+135,9,2021,1
+135,10,2022,1
+135,11,2023,1
+135,12,2024,1
+135,13,2025,1
+135,14,2026,1
+136,2,Residential,0
+136,3,Electricity,0
+136,4,Supply costs,0
+136,5,"$/kwh, current",0
+136,7,mit.sp.ecy.res,0
+137,2,Residential,0
+137,3,Electricity,0
+137,4,VAT rate,0
+137,5,%,0
+137,7,mit.vatrate.ecy.res,0
+138,2,Residential,0
+138,3,Electricity,0
+138,4,Excise and other taxes,0
+138,5,"$/kwh, current",0
+138,7,mit.txo.ecy.res,0
+139,2,Residential,0
+139,3,Electricity,0
+139,4,Retail price,0
+139,5,"$/kwh, current",0
+139,7,mit.rp.ecy.res,0
+141,2,Industry,0
+141,3,Electricity,0
+141,4,Supply costs,0
+141,5,"$/kwh, current",0
+141,7,mit.sp.ecy.ind,0
+142,2,Industry,0
+142,3,Electricity,0
+142,4,VAT rate,0
+142,5,%,0
+142,7,mit.vatrate.ecy.ind,0
+143,2,Industry,0
+143,3,Electricity,0
+143,4,Excise and other taxes,0
+143,5,"$/kwh, current",0
+143,7,mit.txo.ecy.ind,0
+144,2,Industry,0
+144,3,Electricity,0
+144,4,Retail price,0
+144,5,"$/kwh, current",0
+144,7,mit.rp.ecy.ind,0
+146,2,All,0
+146,3,Electricity,0
+146,4,Producer-side subsidy,0
+146,5,USD bln,0
+146,7,mit.pros.ecy.all,0
+148,1,.,0
+148,2,Excise reform,0
+148,4,Additional excise tax set to 'yes'? (see Dashboard) -->,0
+148,6,No,1
+148,8,real 2026,1
+149,2,Fuel,0
+149,3,Sector,0
+149,4,Variable,0
+149,5,Units,0
+149,7,Code,0
+149,10,2022,1
+149,11,2023,1
+149,12,2024,1
+149,13,2025,1
+149,14,2026,1
+149,15,2027,1
+149,16,2028,1
+149,17,2029,1
+149,18,2030,1
+149,19,2031,1
+149,20,2032,1
+149,21,2033,1
+149,22,2034,1
+149,23,2035,1
+149,24,2036,1
+149,25,2037,1
+149,26,2038,1
+149,27,2039,1
+149,28,2040,1
+149,29,2041,1
+149,30,2042,1
+149,31,2043,1
+149,32,2044,1
+149,33,2045,1
+149,34,2046,1
+149,35,2047,1
+149,36,2048,1
+149,37,2049,1
+149,38,2050,1
+149,39,2051,1
+149,40,2052,1
+149,41,2053,1
+149,42,2054,1
+149,43,2055,1
+149,44,2056,1
+149,45,2057,1
+149,46,2058,1
+149,47,2059,1
+149,48,2060,1
+149,49,2061,1
+149,50,2062,1
+149,51,2063,1
+149,52,2064,1
+149,53,2065,1
+149,54,2066,1
+149,55,2067,1
+149,56,2068,1
+149,57,2069,1
+149,58,2070,1
+149,59,2071,1
+149,60,2072,1
+149,61,2073,1
+149,62,2074,1
+149,63,2075,1
+149,64,2076,1
+149,65,2077,1
+149,66,2078,1
+149,67,2079,1
+149,68,2080,1
+149,69,2081,1
+149,70,2082,1
+149,71,2083,1
+149,72,2084,1
+149,73,2085,1
+150,2,Coal,0
+150,3,Power,0
+150,4,New excise tax,0
+150,5,"$/GJ, real 2026",1
+150,7,mit.ntx.coa.pow,0
+151,2,Coal,0
+151,3,Residential,0
+151,4,New excise tax,0
+151,5,"$/GJ, real 2026",1
+151,7,mit.ntx.coa.res,0
+152,2,Coal,0
+152,3,Industry,0
+152,4,New excise tax,0
+152,5,"$/GJ, real 2026",1
+152,7,mit.ntx.coa.ind,0
+153,2,Natural gas,0
+153,3,Power,0
+153,4,New excise tax,0
+153,5,"$/GJ, real 2026",1
+153,7,mit.ntx.nga.pow,0
+154,2,Natural gas,0
+154,3,Residential,0
+154,4,New excise tax,0
+154,5,"$/GJ, real 2026",1
+154,7,mit.ntx.nga.res,0
+155,2,Natural gas,0
+155,3,Industry,0
+155,4,New excise tax,0
+155,5,"$/GJ, real 2026",1
+155,7,mit.ntx.nga.ind,0
+156,2,Gasoline,0
+156,3,All,0
+156,4,New excise tax,0
+156,5,"$/lit, real 2026",1
+156,7,mit.ntx.gso.all,0
+157,2,Diesel ,0
+157,3,All,0
+157,4,New excise tax,0
+157,5,"$/lit, real 2026",1
+157,7,mit.ntx.die.all,0
+158,2,LPG,0
+158,3,All,0
+158,4,New excise tax,0
+158,5,"$/lit, real 2026",1
+158,7,mit.ntx.lpg.all,0
+159,2,Kerosene,0
+159,3,All,0
+159,4,New excise tax,0
+159,5,"$/lit, real 2026",1
+159,7,mit.ntx.ker.all,0
+160,2,Other oil products,0
+160,3,All,0
+160,4,New excise tax,0
+160,5,"$/bbl, real 2026",1
+160,7,mit.ntx.oop.all,0
+161,2,Electricity,0
+161,3,Residential,0
+161,4,New excise tax,0
+161,5,"$/kWh, real 2026",1
+161,7,mit.ntx.ecy.res,0
+162,2,Electricity,0
+162,3,Industry,0
+162,4,New excise tax,0
+162,5,"$/kWh, real 2026",1
+162,7,mit.ntx.ecy.ind,0
+163,2,Biomass,0
+163,3,All,0
+163,4,New excise tax,0
+163,5,"$/GJ, real 2026",1
+163,7,mit.ntx.bio.all,0
+165,1,.,0
+165,2,Domestic energy price controls,0
+165,4,Energy price controls set to 'manual'? -->,0
+165,6,No,1
+166,7,Code,0
+167,2,Coal,0
+167,3,Power,0
+167,4,Retail price control (pass-through),0
+167,7,mit.rp.coa.pow.ctrl,0
+168,2,Coal,0
+168,3,Residential,0
+168,4,Retail price control (pass-through),0
+168,7,mit.rp.coa.res.ctrl,0
+169,2,Coal,0
+169,3,Industry,0
+169,4,Retail price control (pass-through),0
+169,7,mit.rp.coa.ind.ctrl,0
+170,2,Natural gas,0
+170,3,Power,0
+170,4,Retail price control (pass-through),0
+170,7,mit.rp.nga.pow.ctrl,0
+171,2,Natural gas,0
+171,3,Residential,0
+171,4,Retail price control (pass-through),0
+171,7,mit.rp.nga.res.ctrl,0
+172,2,Natural gas,0
+172,3,Industry,0
+172,4,Retail price control (pass-through),0
+172,7,mit.rp.nga.ind.ctrl,0
+173,2,Gasoline,0
+173,3,All,0
+173,4,Retail price control (pass-through),0
+173,7,mit.rp.gso.all.ctrl,0
+174,2,Diesel ,0
+174,3,All,0
+174,4,Retail price control (pass-through),0
+174,7,mit.rp.die.all.ctrl,0
+175,2,LPG,0
+175,3,All,0
+175,4,Retail price control (pass-through),0
+175,7,mit.rp.lpg.all.ctrl,0
+176,2,Kerosene,0
+176,3,All,0
+176,4,Retail price control (pass-through),0
+176,7,mit.rp.ker.all.ctrl,0
+177,2,Other oil products,0
+177,3,All,0
+177,4,Retail price control (pass-through),0
+177,7,mit.rp.oop.all.ctrl,0
+178,2,Electricity,0
+178,3,Residential,0
+178,4,Retail price control (pass-through),0
+178,7,mit.rp.ele.res.ctrl,0
+179,2,Electricity,0
+179,3,Industry,0
+179,4,Retail price control (pass-through),0
+179,7,mit.rp.ele.ind.ctrl,0
+180,2,Biomass,0
+180,3,All,0
+180,4,Retail price control (pass-through),0
+180,7,mit.rp.bio.all.ctrl,0
+183,1,.,0
+183,2,Methane fee related inputs,0
+185,3,Reduction in intensity due to autonomous technological improvement - oil and natural gas,0
+185,6,% per year,0
+186,3,Reduction in intensity due to autonomous technological improvement - coal,0
+186,6,% per year,0
+187,3,Reduction in intensity due to autonomous technological improvement - agriculture,0
+187,6,% per year,0
+188,3,Reduction in intensity due to autonomous technological improvement - waste,0
+188,6,% per year,0
+190,3,"Elasticity of demand w/r/price - oil, average",0
+190,6,factor,0
+191,3,"Elasticity of demand w/r/price - coal, average",0
+191,6,factor,0
+192,3,"Elasticity of demand w/r/price - natural gas, average",0
+192,6,factor,0
+194,3,Pass-through of methane fee on fossil fuels to consumers,0
+194,6,%,0
+196,3,Methane fee applies to biomass,0
+196,6,option,0
+197,3,Methane fee applies to downstream gas,0
+197,6,option,0
+198,3,Methane fee applies to fossil fuel production,0
+198,6,option,0
+199,3,Methane fee applies to agriculture,0
+199,6,option,0
+200,3,Methane fee applies to waste,0
+200,6,option,0
+202,1,.,0
+202,2,Market-induced imperfect pass-through (for Distributional results only),0
+203,2,This is for tweaking pass-through of cost price increases for intermediate consumption within sectors (NB: this only affects the distributional results on households),0
+205,5,GTAP Sector -->,0
+205,6,all,1
+205,7,afs,1
+205,8,atp,1
+205,9,b_t,1
+205,10,bph,1
+205,11,c_b,1
+205,12,chm,1
+205,13,cmn,1
+205,14,cmt,1
+205,15,cns,1
+205,16,coa,1
+205,17,ctl,1
+205,18,dwe,1
+205,19,edu,1
+205,20,eeq,1
+205,21,ele,1
+205,22,ely,1
+205,23,fmp,1
+205,24,frs,1
+205,25,fsh,1
+205,26,gro,1
+205,27,hht,1
+205,28,i_s,1
+205,29,ins,1
+205,30,lea,1
+205,31,lum,1
+205,32,mil,1
+205,33,mvh,1
+205,34,nfm,1
+205,35,nga,1
+205,36,nmm,1
+205,37,oap,1
+205,38,obs,1
+205,39,ocr,1
+205,40,ofd,1
+205,41,ofi,1
+205,42,oil,1
+205,43,ome,1
+205,44,omf,1
+205,45,omt,1
+205,46,osd,1
+205,47,osg,1
+205,48,otn,1
+205,49,otp,1
+205,50,oxt,1
+205,51,p_c,1
+205,52,pcr,1
+205,53,pdr,1
+205,54,pfb,1
+205,55,ppp,1
+205,56,rmk,1
+205,57,ros,1
+205,58,rpp,1
+205,59,rsa,1
+205,60,sgr,1
+205,61,tex,1
+205,62,trd,1
+205,63,v_f,1
+205,64,vol,1
+205,65,wap,1
+205,66,whs,1
+205,67,wht,1
+205,68,wol,1
+205,69,wtp,1
+205,70,wtr,1
+205,71,0x2a,1
+205,72,0x2a,1
+205,73,0x2a,1
+206,4,Passthrough Coefficient Assumptions (User Input):,0
+206,5,CPAT Sector -->,0
+206,6,all,1
+206,7,srv,1
+206,8,avi,1
+206,9,foo,1
+206,10,mch,1
+206,11,foo,1
+206,12,mch,1
+206,13,srv,1
+206,14,foo,1
+206,15,cst,1
+206,16,foo,1
+206,17,foo,1
+206,18,srv,1
+206,19,srv,1
+206,20,mac,1
+206,21,mac,1
+206,22,pow,1
+206,23,mac,1
+206,24,foo,1
+206,25,foo,1
+206,26,foo,1
+206,27,srv,1
+206,28,irn,1
+206,29,srv,1
+206,30,omn,1
+206,31,foo,1
+206,32,foo,1
+206,33,mac,1
+206,34,nfm,1
+206,35,pow,1
+206,36,cem,1
+206,37,foo,1
+206,38,srv,1
+206,39,foo,1
+206,40,foo,1
+206,41,srv,1
+206,42,ftr,1
+206,43,mac,1
+206,44,srv,1
+206,45,foo,1
+206,46,foo,1
+206,47,srv,1
+206,48,mac,1
+206,49,nav,1
+206,50,mch,1
+206,51,ftr,1
+206,52,foo,1
+206,53,foo,1
+206,54,foo,1
+206,55,omn,1
+206,56,foo,1
+206,57,res,1
+206,58,omn,1
+206,59,srv,1
+206,60,foo,1
+206,61,omn,1
+206,62,srv,1
+206,63,foo,1
+206,64,foo,1
+206,65,omn,1
+206,66,srv,1
+206,67,foo,1
+206,68,foo,1
+206,69,nav,1
+206,70,srv,1
+206,71,0x2a,1
+206,72,0x2a,1
+206,73,0x2a,1
+207,4,Coal,0
+207,5,coa,0
+208,4,Electricity,0
+208,5,ely,0
+209,4,Natural gas,0
+209,5,nga,0
+210,4,Other oil products,0
+210,5,oil,0
+211,4,Gasoline,0
+211,5,gso,0
+212,4,Diesel,0
+212,5,die,0
+213,4,LPG,0
+213,5,lpg,0
+214,4,Kerosene,0
+214,5,ker,0
+215,4,Fuel transformation & transportiation,0
+215,5,p_c,0
+218,1,.,0
+218,2,Energy price forecasts,0
+218,4,International energy prices set to 'Manual' option?,0
+218,6,No,1
+220,2,International energy price forecasts,0
+220,5,Units,0
+220,7,Code,0
+220,10,2022,1
+220,11,2023,1
+220,12,2024,1
+220,13,2025,1
+220,14,2026,1
+220,15,2027,1
+220,16,2028,1
+220,17,2029,1
+220,18,2030,1
+220,19,2031,1
+220,20,2032,1
+220,21,2033,1
+220,22,2034,1
+220,23,2035,1
+220,24,2036,1
+220,25,2037,1
+220,26,2038,1
+220,27,2039,1
+220,28,2040,1
+220,29,2041,1
+220,30,2042,1
+220,31,2043,1
+220,32,2044,1
+221,4,Crude Oil,0
+221,5,$/bbl nom,0
+222,4,Coal,0
+222,5,$/ton nom,0
+223,4,Natural Gas - LNG,0
+223,5,$/MMBtu nom,0
+224,4,Natural Gas - North Am,0
+224,5,$/MMBtu nom,0
+225,4,Natural Gas - Europe,0
+225,5,$/MMBtu nom,0
+228,1,.,0
+228,2,GDP & population forecasts,0
+228,4,GDP growth forecasts set to 'Manual' option?,0
+228,6,No,1
+230,2,GDP forecasts,0
+230,5,Units,0
+230,7,Code,0
+230,10,2022,1
+230,11,2023,1
+230,12,2024,1
+230,13,2025,1
+230,14,2026,1
+230,15,2027,1
+230,16,2028,1
+230,17,2029,1
+230,18,2030,1
+230,19,2031,1
+230,20,2032,1
+230,21,2033,1
+230,22,2034,1
+230,23,2035,1
+230,24,2036,1
+230,25,2037,1
+230,26,2038,1
+230,27,2039,1
+230,28,2040,1
+230,29,2041,1
+230,30,2042,1
+230,31,2043,1
+230,32,2044,1
+230,33,2045,1
+230,34,2046,1
+230,35,2047,1
+230,36,2048,1
+230,37,2049,1
+230,38,2050,1
+230,39,2051,1
+230,40,2052,1
+230,41,2053,1
+230,42,2054,1
+230,43,2055,1
+230,44,2056,1
+230,45,2057,1
+230,46,2058,1
+230,47,2059,1
+230,48,2060,1
+230,49,2061,1
+230,50,2062,1
+230,51,2063,1
+230,52,2064,1
+230,53,2065,1
+230,54,2066,1
+230,55,2067,1
+230,56,2068,1
+230,57,2069,1
+230,58,2070,1
+230,59,2071,1
+230,60,2072,1
+230,61,2073,1
+230,62,2074,1
+230,63,2075,1
+230,64,2076,1
+230,65,2077,1
+230,66,2078,1
+230,67,2079,1
+230,68,2080,1
+230,69,2081,1
+230,70,2082,1
+230,71,2083,1
+230,72,2084,1
+230,73,2085,1
+231,4,GDP - real (constant prices),0
+231,5,% change,0
+234,1,.,0
+234,2,Social cost of carbon (SCC),0
+234,4,SCC set to 'Manual' option?,0
+234,6,No,1
+236,2,Social cost of carbon - national and global,0
+236,5,Units,0
+236,7,Code,0
+236,10,2022,1
+236,11,2023,1
+236,12,2024,1
+236,13,2025,1
+236,14,2026,1
+236,15,2027,1
+236,16,2028,1
+236,17,2029,1
+236,18,2030,1
+236,19,2031,1
+236,20,2032,1
+236,21,2033,1
+236,22,2034,1
+236,23,2035,1
+236,24,2036,1
+236,25,2037,1
+236,26,2038,1
+236,27,2039,1
+236,28,2040,1
+236,29,2041,1
+236,30,2042,1
+236,31,2043,1
+236,32,2044,1
+237,4,National social cost of carbon (NSCC),0
+237,5,$US per ton CO2,0
+238,4,"Global SCC assumed, (2018US$per ton of CO2, starting in year 2021)",0
+239,4,Global - rising in real terms at,0
+240,4,Global social cost of carbon (GSCC),0
+240,5,$US per ton CO2,0
+243,1,.,0
+243,2,Local air pollution source apportionment,0
+245,3,Source apportionment for Egypt:,1
+246,6,Contribution to PM2.5,0
+247,4,Coal Power Plants,0
+248,4,Gas Power Plants,0
+249,4,Other Power Plants,0
+250,4,Road transport,0
+251,4,"Residential, services and construction",0
+252,4,Industries and other energy,0
+253,4,Food & forestry,0
+254,4,"Non modeled sources (residual; natural, transboundary and other sources) ",0
+257,1,.,0
+257,2,Fiscal multipliers,0
+257,4,Mutlipliers set to 'Manual' option?,0
+257,6,No,1
+259,3,Fiscal multipliers (taxes and expenditures),0
+260,10,0,0
+260,11,1,0
+260,12,2,0
+260,13,3,0
+260,14,4,0
+260,15,5,0
+260,16,6,0
+260,17,7,0
+260,18,8,0
+260,19,9,0
+260,20,10,0
+260,21,11,0
+261,4,EXC,0
+261,5,Energy Excise taxes (EXC),0
+262,4,PIT,0
+262,5,Personal income tax (PIT),0
+263,4,CIT,0
+263,5,Corporate income tax (CIT),0
+264,4,VAT,0
+264,5,Sales tax (VAT),0
+265,4,CAPT,0
+265,5,Capital expenditures (CAPT),0
+266,4,GNFS,0
+266,5,Expenditures on goods and services (GNFS),0
+267,4,TRNS,0
+267,5,Transfers (TRNS),0
+268,4,WAGE,0
+268,5,Wage expenditures (WAGE),0
+269,4,NB: multipliers are expressed as % change in GDP for a permanent 1% GDP decrease in taxes or increase in expenditures (i.e. positive figures) after the year of implementation (1 = 1 year after implementation),0
+271,1,.,0
+271,2,Elasticities & Effc. Improvements,0
+271,4,Income elasticities source set to 'manual'? ->,0
+271,5,No,1
+271,6,Price elasticities ->,0
+271,7,No,1
+273,3,Income elasticities - energy use,0
+275,3,Adjust income elasticities for GDP levels?,0
+275,5,Yes*,1
+277,4,Income elasticities of demand (before GDP per capita adjustment),0
+277,8,Code,0
+277,9,Notes,0
+277,10,Sector -->,0
+277,11,Transport,0
+277,12,Residential,0
+277,13,Industries,0
+277,14,Services,0
+278,4,Income elasticities of demand,0
+279,4, - coal,0
+279,8,el_inc_coa,0
+280,4, - natural gas,0
+280,8,el_inc_nga,0
+281,4, - gasoline,0
+281,8,el_inc_gso,0
+282,4, - diesel,0
+282,8,el_inc_die,0
+283,4, - other oil,0
+283,8,el_inc_oil,0
+284,4, - biomass,0
+284,8,el_inc_bio,0
+285,4, - renewables,0
+285,8,el_inc_ren,0
+286,4, - electricity,0
+286,8,el_inc_ecy,0
+288,3,Price elasticities,0
+289,4,Price elasticities of demand ,0
+289,8,Code,0
+289,10,Sector -->,0
+289,11,Transport,0
+289,12,Residential,0
+289,13,Industries,0
+289,14,Services,0
+290,4,Own-price elasticities of demand - intensive margin (usage of energy-using capital),0
+291,4, - coal,0
+291,8,el_dem_coa,0
+292,4, - natural gas,0
+292,8,el_dem_nga,0
+293,4, - gasoline,0
+293,8,el_dem_gso,0
+294,4, - diesel,0
+294,8,el_dem_die,0
+295,4, - other oil products,0
+295,8,el_dem_oil,0
+296,4, - biomass,0
+296,8,el_dem_bio,0
+297,4, - renewables,0
+297,8,el_dem_ren,0
+298,4, - electricity,0
+298,8,el_dem_ecy,0
+299,4,Own-price elasticities of demand - efficiency and extenstive margin (fuel economy of energy-using capital and ownership),0
+300,4, - coal,0
+300,8,el_eff_coa,0
+301,4, - natural gas,0
+301,8,el_eff_nga,0
+302,4, - gasoline,0
+302,8,el_eff_gso,0
+303,4, - diesel,0
+303,8,el_eff_die,0
+304,4, - oil,0
+304,8,el_eff_oil,0
+305,4, - biomass,0
+305,8,el_eff_bio,0
+306,4, - renewables,0
+306,8,el_eff_ren,0
+307,4, - electricity,0
+307,8,el_eff_ecy,0
+308,4,Memo: implied total demand elasticities (taking into account rebound from endogenous energy efficiency improvements),0
+309,4, - coal,0
+310,4, - natural gas,0
+311,4, - gasoline,0
+312,4, - diesel,0
+313,4, - oil,0
+314,4, - biomass,0
+315,4, - renewables,0
+316,4, - electricity,0
+318,4,Substitution elasticities,0
+318,8,Code,0
+318,10,Sector -->,0
+318,11,Transport,0
+318,12,Residential,0
+318,13,Industries,0
+318,14,Services,0
+319,4,Biomass wrt LPG in residential,0
+319,8,el_cro_bio_lpg_res,0
+320,4,Biomass wrt kerosene in residential,0
+320,8,el_cro_bio_ker_res,0
+321,4,Gasoline wrt diesel,0
+321,8,el_cro_bio_die_res,0
+324,3,Elasticities - non-energy sector,0
+325,4,Income and population elasticities for non-energy emissions,0
+325,8,Code,0
+325,10,Sector -->,0
+325,11,Agriculture,0
+325,12,Waste,0
+325,13,Other,0
+326,4,Population elasticity,0
+327,4,Per capita income elasticity,0
+330,1,.,0
+330,2,Additional mitigation effort,0
+330,4,Additional mitigation effort set to 'Manual' option on dashboard?,0
+330,6,No,1
+331,1,.,0
+331,2,Additional mitigation effort in non-energy sectors,0
+331,5,Effort set to 'manual'? ->,0
+331,6,No,1
+333,2,Additional mitigation effort (% change in GHG emissions on prior year - brought forward into subsequent years),0
+334,4,GHG-emitting sector,0
+334,10,2022,1
+334,11,2023,1
+334,12,2024,1
+334,13,2025,1
+334,14,2026,1
+334,15,2027,1
+334,16,2028,1
+334,17,2029,1
+334,18,2030,1
+334,19,2031,1
+334,20,2032,1
+334,21,2033,1
+334,22,2034,1
+334,23,2035,1
+334,24,2036,1
+334,25,2037,1
+334,26,2038,1
+334,27,2039,1
+335,4,Industrial processses,0
+335,5,%,0
+336,4,Agriculture,0
+336,5,%,0
+337,4,LULUCF,0
+337,5,%,0
+338,4,Waste,0
+338,5,%,0
+339,4,Other,0
+339,5,%,0
+340,4,Fugitive emissions,0
+340,5,%,0
+342,1,.,0
+342,2,Enable new investments ,0
+342,4,New investments set to 'Manual' option on dashboard? ->,0
+342,6,No,1
+342,7,Investment,0
+344,2,Egypt,1
+345,6,Please fill in amber cells.,0
+346,6,If all of these are 'Manual' this sheet determines capacity exogenously. ,0
+347,2,Baseline,0
+347,6,"If only some, this attempts to set investment to find this capacity for the Manual generation types selected",0
+348,4,Capacity (in MW),0
+348,5,Generation type,0
+348,6,Whether Used?,0
+348,7,Code,0
+348,10,2022,1
+348,11,2023,1
+348,12,2024,1
+348,13,2025,1
+348,14,2026,1
+348,15,2027,1
+348,16,2028,1
+348,17,2029,1
+348,18,2030,1
+348,19,2031,1
+348,20,2032,1
+348,21,2033,1
+348,22,2034,1
+348,23,2035,1
+348,24,2036,1
+348,25,2037,1
+348,26,2038,1
+348,27,2039,1
+348,28,2040,1
+348,29,2041,1
+348,30,2042,1
+348,31,2043,1
+348,32,2044,1
+348,33,2045,1
+348,34,2046,1
+348,35,2047,1
+348,36,2048,1
+348,37,2049,1
+348,38,2050,1
+348,39,2051,1
+348,40,2052,1
+348,41,2053,1
+349,3,1,0
+349,4,coa,0
+349,5,Coal,0
+349,7,egy.mit.mancap.pow.coa.t.1,1
+350,3,1,0
+350,4,nga,0
+350,5,Natural gas,0
+350,7,egy.mit.mancap.pow.nga.t.1,1
+351,3,1,0
+351,4,oop,0
+351,5,Oil,0
+351,7,egy.mit.mancap.pow.oop.t.1,1
+352,3,1,0
+352,4,nuc,0
+352,5,Nuclear,0
+352,7,egy.mit.mancap.pow.nuc.t.1,1
+353,3,1,0
+353,4,wnd,0
+353,5,Wind,0
+353,7,egy.mit.mancap.pow.wnd.t.1,1
+354,3,1,0
+354,4,sol,0
+354,5,Solar,0
+354,7,egy.mit.mancap.pow.sol.t.1,1
+355,3,1,0
+355,4,hyd,0
+355,5,Hydro,0
+355,7,egy.mit.mancap.pow.hyd.t.1,1
+356,3,1,0
+356,4,ore,0
+356,5,Other renewables,0
+356,7,egy.mit.mancap.pow.ore.t.1,1
+357,3,1,0
+357,4,bio,0
+357,5,Biomass,0
+357,7,egy.mit.mancap.pow.bio.t.1,1
+358,10,Do not change base year data,0
+361,2,Policy scenario,0
+362,4,Capacity (in MW),0
+362,5,Generation type,0
+362,6,Whether Used?,0
+362,7,Code,0
+362,10,2022,1
+362,11,2023,1
+362,12,2024,1
+362,13,2025,1
+362,14,2026,1
+362,15,2027,1
+362,16,2028,1
+362,17,2029,1
+362,18,2030,1
+362,19,2031,1
+362,20,2032,1
+362,21,2033,1
+362,22,2034,1
+362,23,2035,1
+362,24,2036,1
+362,25,2037,1
+362,26,2038,1
+362,27,2039,1
+362,28,2040,1
+362,29,2041,1
+362,30,2042,1
+362,31,2043,1
+362,32,2044,1
+362,33,2045,1
+362,34,2046,1
+362,35,2047,1
+362,36,2048,1
+362,37,2049,1
+362,38,2050,1
+362,39,2051,1
+362,40,2052,1
+362,41,2053,1
+363,3,2,0
+363,4,coa,0
+363,5,Coal,0
+363,7,egy.mit.mancap.pow.coa.t.2,1
+364,3,2,0
+364,4,nga,0
+364,5,Natural gas,0
+364,7,egy.mit.mancap.pow.nga.t.2,1
+365,3,2,0
+365,4,oop,0
+365,5,Oil,0
+365,7,egy.mit.mancap.pow.oop.t.2,1
+366,3,2,0
+366,4,nuc,0
+366,5,Nuclear,0
+366,7,egy.mit.mancap.pow.nuc.t.2,1
+367,3,2,0
+367,4,wnd,0
+367,5,Wind,0
+367,7,egy.mit.mancap.pow.wnd.t.2,1
+368,3,2,0
+368,4,sol,0
+368,5,Solar,0
+368,7,egy.mit.mancap.pow.sol.t.2,1
+369,3,2,0
+369,4,hyd,0
+369,5,Hydro,0
+369,7,egy.mit.mancap.pow.hyd.t.2,1
+370,3,2,0
+370,4,ore,0
+370,5,Other renewables,0
+370,7,egy.mit.mancap.pow.ore.t.2,1
+371,3,2,0
+371,4,bio,0
+371,5,Biomass,0
+371,7,egy.mit.mancap.pow.bio.t.2,1
+372,10,Do not change base year data,0
+373,1,.,0
+373,2,Transport,0
+374,2,Fuel economy of new EVs,0
+374,10,2022,1
+374,11,2023,1
+374,12,2024,1
+374,13,2025,1
+374,14,2026,1
+374,15,2027,1
+374,16,2028,1
+374,17,2029,1
+374,18,2030,1
+374,19,2031,1
+374,20,2032,1
+374,21,2033,1
+374,22,2034,1
+374,23,2035,1
+374,24,2036,1
+374,25,2037,1
+374,26,2038,1
+374,27,2039,1
+374,28,2040,1
+374,29,2041,1
+375,4,"BEV - passenger/light, new, fuel economy, vehicles purchases, all",0
+375,6,km per kWh,0
+376,4,"BEV - freight, new, fuel economy, vehicles purchases, all",0
+376,6,km per kWh,0
+377,4,"BEV - 2-3 wheeler, new, fuel economy, vehicles purchases, all",0
+377,6,km per kWh,0

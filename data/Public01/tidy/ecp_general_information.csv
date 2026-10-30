@@ -1,0 +1,330 @@
+country_name,country,variable,value
+Albania,ALB,Carbon tax (Yes/No),Yes
+Albania,ALB,Single price?,Yes
+Albania,ALB,ETS (Yes/No),No
+Argentina,ARG,Carbon tax (Yes/No),Yes
+Argentina,ARG,ETS (Yes/No),No
+Australia,AUS,Carbon tax (Yes/No),No
+Australia,AUS,ETS (Yes/No),Yes
+Australia,AUS,Allocation: auctioning (Yes/No)*,No 
+Australia,AUS,Allocation: free allocation (Yes/No),Yes
+Australia,AUS,"If free allocation, subcategory**",Output based benchmarking 
+Australia,AUS,Intensity-based*** (Yes/No),Yes 
+Australia,AUS,Is it EU ETS?,No
+Austria,AUT,Carbon tax (Yes/No),No
+Austria,AUT,ETS (Yes/No),Yes
+Austria,AUT,Allocation: auctioning (Yes/No)*,Yes
+Austria,AUT,Allocation: free allocation (Yes/No),No 
+Austria,AUT,Intensity-based*** (Yes/No),No
+Austria,AUT,Is it EU ETS?,Both
+Belgium,BEL,Carbon tax (Yes/No),No
+Belgium,BEL,ETS (Yes/No),Yes
+Belgium,BEL,Allocation: auctioning (Yes/No)*,Yes
+Belgium,BEL,Allocation: free allocation (Yes/No),Yes
+Belgium,BEL,"If free allocation, subcategory**",Fixed Benchmarking
+Belgium,BEL,Intensity-based*** (Yes/No),No
+Belgium,BEL,Is it EU ETS?,Yes
+Bulgaria,BGR,Carbon tax (Yes/No),No
+Bulgaria,BGR,ETS (Yes/No),Yes
+Bulgaria,BGR,Allocation: auctioning (Yes/No)*,Yes
+Bulgaria,BGR,Allocation: free allocation (Yes/No),Yes
+Bulgaria,BGR,"If free allocation, subcategory**",Fixed Benchmarking
+Bulgaria,BGR,Intensity-based*** (Yes/No),No
+Bulgaria,BGR,Is it EU ETS?,Yes
+Canada,CAN,Carbon tax (Yes/No),Yes
+Canada,CAN,Single price?,Yes
+Canada,CAN,ETS (Yes/No),Yes
+Canada,CAN,Allocation: auctioning (Yes/No)*,No 
+Canada,CAN,Allocation: free allocation (Yes/No),Yes
+Canada,CAN,"If free allocation, subcategory**",Output based benchmarking 
+Canada,CAN,Intensity-based*** (Yes/No),Yes 
+Canada,CAN,Is it EU ETS?,No
+Chile,CHL,Carbon tax (Yes/No),Yes
+Chile,CHL,Single price?,Yes
+Chile,CHL,ETS (Yes/No),No
+China,CHN,Carbon tax (Yes/No),No
+China,CHN,ETS (Yes/No),Yes
+China,CHN,Allocation: auctioning (Yes/No)*,No 
+China,CHN,Allocation: free allocation (Yes/No),Yes 
+China,CHN,"If free allocation, subcategory**",Output based benchmarking 
+China,CHN,Intensity-based*** (Yes/No),Yes 
+China,CHN,Is it EU ETS?,No
+China,CHN,Comments,"Allocation currently takes place through free allocation, but the Interim Regulations clarify that auctioning is to be introduced and gradually expanded."
+Colombia,COL,Carbon tax (Yes/No),Yes
+Colombia,COL,Single price?,Yes
+Colombia,COL,ETS (Yes/No),No
+Croatia,HRV,Carbon tax (Yes/No),No
+Croatia,HRV,ETS (Yes/No),Yes
+Croatia,HRV,Allocation: auctioning (Yes/No)*,Yes
+Croatia,HRV,Allocation: free allocation (Yes/No),Yes
+Croatia,HRV,"If free allocation, subcategory**",Fixed Benchmarking
+Croatia,HRV,Intensity-based*** (Yes/No),No
+Croatia,HRV,Is it EU ETS?,Yes
+Cyprus,CYP,Carbon tax (Yes/No),No
+Cyprus,CYP,ETS (Yes/No),Yes
+Cyprus,CYP,Allocation: auctioning (Yes/No)*,Yes
+Cyprus,CYP,Allocation: free allocation (Yes/No),Yes
+Cyprus,CYP,"If free allocation, subcategory**",Fixed Benchmarking
+Cyprus,CYP,Intensity-based*** (Yes/No),No
+Cyprus,CYP,Is it EU ETS?,Yes
+Czechia,CZE,Carbon tax (Yes/No),No
+Czechia,CZE,ETS (Yes/No),Yes
+Czechia,CZE,Allocation: auctioning (Yes/No)*,Yes
+Czechia,CZE,Allocation: free allocation (Yes/No),Yes
+Czechia,CZE,"If free allocation, subcategory**",Fixed Benchmarking
+Czechia,CZE,Intensity-based*** (Yes/No),No
+Czechia,CZE,Is it EU ETS?,Yes
+Denmark,DNK,Carbon tax (Yes/No),Yes
+Denmark,DNK,Single price?,Yes
+Denmark,DNK,ETS (Yes/No),Yes
+Denmark,DNK,Allocation: auctioning (Yes/No)*,Yes
+Denmark,DNK,Allocation: free allocation (Yes/No),Yes
+Denmark,DNK,"If free allocation, subcategory**",Fixed Benchmarking
+Denmark,DNK,Intensity-based*** (Yes/No),No
+Denmark,DNK,Is it EU ETS?,Yes
+Estonia,EST,Carbon tax (Yes/No),Yes
+Estonia,EST,Single price?,Yes
+Estonia,EST,ETS (Yes/No),Yes
+Estonia,EST,Allocation: auctioning (Yes/No)*,Yes
+Estonia,EST,Allocation: free allocation (Yes/No),Yes
+Estonia,EST,"If free allocation, subcategory**",Fixed Benchmarking
+Estonia,EST,Intensity-based*** (Yes/No),No
+Estonia,EST,Is it EU ETS?,Yes
+Finland,FIN,Carbon tax (Yes/No),Yes
+Finland,FIN,ETS (Yes/No),Yes
+Finland,FIN,Allocation: auctioning (Yes/No)*,Yes
+Finland,FIN,Allocation: free allocation (Yes/No),Yes
+Finland,FIN,"If free allocation, subcategory**",Fixed Benchmarking
+Finland,FIN,Intensity-based*** (Yes/No),No
+Finland,FIN,Is it EU ETS?,Yes
+France,FRA,Carbon tax (Yes/No),Yes
+France,FRA,Single price?,Yes
+France,FRA,ETS (Yes/No),Yes
+France,FRA,Allocation: auctioning (Yes/No)*,Yes
+France,FRA,Allocation: free allocation (Yes/No),Yes
+France,FRA,"If free allocation, subcategory**",Fixed Benchmarking
+France,FRA,Intensity-based*** (Yes/No),No
+France,FRA,Is it EU ETS?,Yes
+Germany,DEU,Carbon tax (Yes/No),No
+Germany,DEU,ETS (Yes/No),Yes
+Germany,DEU,Allocation: auctioning (Yes/No)*,Yes
+Germany,DEU,Allocation: free allocation (Yes/No),Both
+Germany,DEU,"If free allocation, subcategory**",Fixed Benchmarking
+Germany,DEU,Intensity-based*** (Yes/No),Yes
+Germany,DEU,Is it EU ETS?,Both
+Germany,DEU,Comments,partially intensity based - accompanied by a compensation mechanism to avoid carbon leakage for emission-intensive trade-exposed sectors.
+Greece,GRC,Carbon tax (Yes/No),No
+Greece,GRC,ETS (Yes/No),Yes
+Greece,GRC,Allocation: auctioning (Yes/No)*,Yes
+Greece,GRC,Allocation: free allocation (Yes/No),Yes
+Greece,GRC,"If free allocation, subcategory**",Fixed Benchmarking
+Greece,GRC,Intensity-based*** (Yes/No),No
+Greece,GRC,Is it EU ETS?,Yes
+Hungary,HUN,Carbon tax (Yes/No),Yes
+Hungary,HUN,Single price?,Yes
+Hungary,HUN,ETS (Yes/No),Yes
+Hungary,HUN,Allocation: auctioning (Yes/No)*,Yes
+Hungary,HUN,Allocation: free allocation (Yes/No),Yes
+Hungary,HUN,"If free allocation, subcategory**",Fixed Benchmarking
+Hungary,HUN,Intensity-based*** (Yes/No),No
+Hungary,HUN,Is it EU ETS?,Yes
+Iceland,ISL,Carbon tax (Yes/No),Yes
+Iceland,ISL,ETS (Yes/No),Yes
+Iceland,ISL,Allocation: auctioning (Yes/No)*,Yes
+Iceland,ISL,Allocation: free allocation (Yes/No),Yes
+Iceland,ISL,"If free allocation, subcategory**",Fixed Benchmarking
+Iceland,ISL,Intensity-based*** (Yes/No),No
+Iceland,ISL,Is it EU ETS?,Yes
+Indonesia,IDN,Carbon tax (Yes/No),No
+Indonesia,IDN,ETS (Yes/No),Yes
+Indonesia,IDN,Allocation: auctioning (Yes/No)*,No 
+Indonesia,IDN,Allocation: free allocation (Yes/No),Yes 
+Indonesia,IDN,"If free allocation, subcategory**",Output based benchmarking 
+Indonesia,IDN,Intensity-based*** (Yes/No),Yes 
+Indonesia,IDN,Is it EU ETS?,No
+Ireland,IRL,Carbon tax (Yes/No),Yes
+Ireland,IRL,Single price?,Yes
+Ireland,IRL,ETS (Yes/No),Yes
+Ireland,IRL,Allocation: auctioning (Yes/No)*,Yes
+Ireland,IRL,Allocation: free allocation (Yes/No),Yes
+Ireland,IRL,"If free allocation, subcategory**",Fixed Benchmarking
+Ireland,IRL,Intensity-based*** (Yes/No),No
+Ireland,IRL,Is it EU ETS?,Yes
+Italy,ITA,Carbon tax (Yes/No),No
+Italy,ITA,ETS (Yes/No),Yes
+Italy,ITA,Allocation: auctioning (Yes/No)*,Yes
+Italy,ITA,Allocation: free allocation (Yes/No),Yes
+Italy,ITA,"If free allocation, subcategory**",Fixed Benchmarking
+Italy,ITA,Intensity-based*** (Yes/No),No
+Italy,ITA,Is it EU ETS?,Yes
+Japan,JPN,Carbon tax (Yes/No),Yes
+Japan,JPN,Single price?,Yes
+Japan,JPN,ETS (Yes/No),No
+Kazakhstan,KAZ,Carbon tax (Yes/No),No
+Kazakhstan,KAZ,ETS (Yes/No),Yes
+Kazakhstan,KAZ,Allocation: auctioning (Yes/No)*,No 
+Kazakhstan,KAZ,Allocation: free allocation (Yes/No),Yes 
+Kazakhstan,KAZ,"If free allocation, subcategory**",Output based benchmarking 
+Kazakhstan,KAZ,Intensity-based*** (Yes/No),No
+Kazakhstan,KAZ,Is it EU ETS?,No
+Korea,KOR,Carbon tax (Yes/No),No
+Korea,KOR,ETS (Yes/No),Yes
+Korea,KOR,Allocation: auctioning (Yes/No)*,Yes
+Korea,KOR,Allocation: free allocation (Yes/No),Yes
+Korea,KOR,"If free allocation, subcategory**","Fixed benchmarking, Grandparenting "
+Korea,KOR,Intensity-based*** (Yes/No),Yes 
+Korea,KOR,Is it EU ETS?,No
+Latvia,LVA,Carbon tax (Yes/No),Yes
+Latvia,LVA,Single price?,Yes
+Latvia,LVA,ETS (Yes/No),Yes
+Latvia,LVA,Allocation: auctioning (Yes/No)*,Yes
+Latvia,LVA,Allocation: free allocation (Yes/No),Yes
+Latvia,LVA,"If free allocation, subcategory**",Fixed Benchmarking
+Latvia,LVA,Intensity-based*** (Yes/No),No
+Latvia,LVA,Is it EU ETS?,Yes
+Liechtenstein,LIE,Carbon tax (Yes/No),Yes
+Liechtenstein,LIE,Single price?,Yes
+Liechtenstein,LIE,ETS (Yes/No),Yes
+Liechtenstein,LIE,Allocation: auctioning (Yes/No)*,Yes
+Liechtenstein,LIE,Allocation: free allocation (Yes/No),Yes
+Liechtenstein,LIE,"If free allocation, subcategory**",Fixed Benchmarking
+Liechtenstein,LIE,Intensity-based*** (Yes/No),No
+Liechtenstein,LIE,Is it EU ETS?,Yes
+Lithuania,LTU,Carbon tax (Yes/No),No
+Lithuania,LTU,ETS (Yes/No),Yes
+Lithuania,LTU,Allocation: auctioning (Yes/No)*,Yes
+Lithuania,LTU,Allocation: free allocation (Yes/No),Yes
+Lithuania,LTU,"If free allocation, subcategory**",Fixed Benchmarking
+Lithuania,LTU,Intensity-based*** (Yes/No),No
+Lithuania,LTU,Is it EU ETS?,Yes
+Luxembourg,LUX,Carbon tax (Yes/No),Yes
+Luxembourg,LUX,ETS (Yes/No),Yes
+Luxembourg,LUX,Allocation: auctioning (Yes/No)*,Yes
+Luxembourg,LUX,Allocation: free allocation (Yes/No),Yes
+Luxembourg,LUX,"If free allocation, subcategory**",Fixed Benchmarking
+Luxembourg,LUX,Intensity-based*** (Yes/No),No
+Luxembourg,LUX,Is it EU ETS?,Yes
+Malta,MLT,Carbon tax (Yes/No),No
+Malta,MLT,ETS (Yes/No),Yes
+Malta,MLT,Allocation: auctioning (Yes/No)*,Yes
+Malta,MLT,Allocation: free allocation (Yes/No),Yes
+Malta,MLT,"If free allocation, subcategory**",Fixed Benchmarking
+Malta,MLT,Intensity-based*** (Yes/No),No
+Malta,MLT,Is it EU ETS?,Yes
+Mauritania,MRT,Carbon tax (Yes/No),Yes
+Mauritania,MRT,Single price?,Yes 
+Mauritania,MRT,ETS (Yes/No),No 
+Mexico,MEX,Carbon tax (Yes/No),Yes
+Mexico,MEX,ETS (Yes/No),Yes
+Mexico,MEX,Allocation: auctioning (Yes/No)*,No 
+Mexico,MEX,Allocation: free allocation (Yes/No),Yes 
+Mexico,MEX,"If free allocation, subcategory**",Grandparenting 
+Mexico,MEX,Intensity-based*** (Yes/No),No
+Mexico,MEX,Is it EU ETS?,No
+"Montenegro, Rep. of",MNE,Carbon tax (Yes/No),No
+"Montenegro, Rep. of",MNE,ETS (Yes/No),Yes
+"Montenegro, Rep. of",MNE,Allocation: auctioning (Yes/No)*,Yes 
+"Montenegro, Rep. of",MNE,Allocation: free allocation (Yes/No),Yes 
+"Montenegro, Rep. of",MNE,"If free allocation, subcategory**","Grandparenting, benchmarking (for new installations)"
+"Montenegro, Rep. of",MNE,Intensity-based*** (Yes/No),No 
+"Montenegro, Rep. of",MNE,Is it EU ETS?,No
+Netherlands,NLD,Carbon tax (Yes/No),Yes
+Netherlands,NLD,ETS (Yes/No),Yes
+Netherlands,NLD,Allocation: auctioning (Yes/No)*,Yes
+Netherlands,NLD,Allocation: free allocation (Yes/No),Yes
+Netherlands,NLD,"If free allocation, subcategory**",Fixed Benchmarking
+Netherlands,NLD,Intensity-based*** (Yes/No),No
+Netherlands,NLD,Is it EU ETS?,Yes
+New Zealand,NZL,Carbon tax (Yes/No),No
+New Zealand,NZL,ETS (Yes/No),Yes
+New Zealand,NZL,Allocation: auctioning (Yes/No)*,Yes 
+New Zealand,NZL,Allocation: free allocation (Yes/No),Yes 
+New Zealand,NZL,"If free allocation, subcategory**",Output and intensity based benchmarking 
+New Zealand,NZL,Intensity-based*** (Yes/No),Yes 
+New Zealand,NZL,Is it EU ETS?,No
+Norway,NOR,Carbon tax (Yes/No),Yes
+Norway,NOR,ETS (Yes/No),Yes
+Norway,NOR,Allocation: auctioning (Yes/No)*,Yes
+Norway,NOR,Allocation: free allocation (Yes/No),Yes
+Norway,NOR,"If free allocation, subcategory**",Fixed Benchmarking
+Norway,NOR,Intensity-based*** (Yes/No),No
+Norway,NOR,Is it EU ETS?,Yes
+Poland,POL,Carbon tax (Yes/No),Yes
+Poland,POL,ETS (Yes/No),Yes
+Poland,POL,Allocation: auctioning (Yes/No)*,Yes
+Poland,POL,Allocation: free allocation (Yes/No),Yes
+Poland,POL,"If free allocation, subcategory**",Fixed Benchmarking
+Poland,POL,Intensity-based*** (Yes/No),No
+Poland,POL,Is it EU ETS?,Yes
+Portugal,PRT,Carbon tax (Yes/No),Yes
+Portugal,PRT,ETS (Yes/No),Yes
+Portugal,PRT,Allocation: auctioning (Yes/No)*,Yes
+Portugal,PRT,Allocation: free allocation (Yes/No),Yes
+Portugal,PRT,"If free allocation, subcategory**",Fixed Benchmarking
+Portugal,PRT,Intensity-based*** (Yes/No),No
+Portugal,PRT,Is it EU ETS?,Yes
+Romania,ROU,Carbon tax (Yes/No),No
+Romania,ROU,ETS (Yes/No),Yes
+Romania,ROU,Allocation: auctioning (Yes/No)*,Yes
+Romania,ROU,Allocation: free allocation (Yes/No),Yes
+Romania,ROU,"If free allocation, subcategory**",Fixed Benchmarking
+Romania,ROU,Intensity-based*** (Yes/No),No
+Romania,ROU,Is it EU ETS?,Yes
+Singapore,SGP,Carbon tax (Yes/No),Yes
+Singapore,SGP,Single price?,Yes
+Singapore,SGP,ETS (Yes/No),No
+Slovak Republic,SVK,Carbon tax (Yes/No),No
+Slovak Republic,SVK,ETS (Yes/No),Yes
+Slovak Republic,SVK,Allocation: auctioning (Yes/No)*,Yes
+Slovak Republic,SVK,Allocation: free allocation (Yes/No),Yes
+Slovak Republic,SVK,"If free allocation, subcategory**",Fixed Benchmarking
+Slovak Republic,SVK,Intensity-based*** (Yes/No),No
+Slovak Republic,SVK,Is it EU ETS?,Yes
+Slovenia,SVN,Carbon tax (Yes/No),Yes
+Slovenia,SVN,Single price?,Yes
+Slovenia,SVN,ETS (Yes/No),Yes
+Slovenia,SVN,Allocation: auctioning (Yes/No)*,Yes
+Slovenia,SVN,Allocation: free allocation (Yes/No),Yes
+Slovenia,SVN,"If free allocation, subcategory**",Fixed Benchmarking
+Slovenia,SVN,Intensity-based*** (Yes/No),No
+Slovenia,SVN,Is it EU ETS?,Yes
+South Africa,ZAF,Carbon tax (Yes/No),Yes
+South Africa,ZAF,Single price?,Yes
+South Africa,ZAF,ETS (Yes/No),No
+Spain,ESP,Carbon tax (Yes/No),Yes
+Spain,ESP,Single price?,Yes
+Spain,ESP,ETS (Yes/No),Yes
+Spain,ESP,Allocation: auctioning (Yes/No)*,Yes
+Spain,ESP,Allocation: free allocation (Yes/No),Yes
+Spain,ESP,"If free allocation, subcategory**",Fixed Benchmarking
+Spain,ESP,Intensity-based*** (Yes/No),No
+Spain,ESP,Is it EU ETS?,Yes
+Sweden,SWE,Carbon tax (Yes/No),Yes
+Sweden,SWE,ETS (Yes/No),Yes
+Sweden,SWE,Allocation: auctioning (Yes/No)*,Yes
+Sweden,SWE,Allocation: free allocation (Yes/No),Yes
+Sweden,SWE,"If free allocation, subcategory**",Fixed Benchmarking
+Sweden,SWE,Intensity-based*** (Yes/No),No
+Sweden,SWE,Is it EU ETS?,Yes
+Switzerland,CHE,Carbon tax (Yes/No),Yes
+Switzerland,CHE,Single price?,Yes
+Switzerland,CHE,ETS (Yes/No),Yes
+Switzerland,CHE,Allocation: auctioning (Yes/No)*,Yes
+Switzerland,CHE,Allocation: free allocation (Yes/No),Yes 
+Switzerland,CHE,"If free allocation, subcategory**",Fixed benchmarking 
+Switzerland,CHE,Intensity-based*** (Yes/No),No 
+Switzerland,CHE,Is it EU ETS?,No
+Ukraine,UKR,Carbon tax (Yes/No),Yes
+Ukraine,UKR,Single price?,Yes
+Ukraine,UKR,ETS (Yes/No),No
+United Kingdom,GBR,Carbon tax (Yes/No),Yes
+United Kingdom,GBR,Single price?,Yes
+United Kingdom,GBR,ETS (Yes/No),Yes
+United Kingdom,GBR,Allocation: auctioning (Yes/No)*,Yes
+United Kingdom,GBR,Allocation: free allocation (Yes/No),Yes
+United Kingdom,GBR,"If free allocation, subcategory**",Fixed benchmarking 
+United Kingdom,GBR,Intensity-based*** (Yes/No),No
+United Kingdom,GBR,Is it EU ETS?,No
+Uruguay,URY,Carbon tax (Yes/No),Yes
+Uruguay,URY,Single price?,Yes
+Uruguay,URY,ETS (Yes/No),No

@@ -1,0 +1,3705 @@
+name,code,variable,value
+Afghanistan,AFG,Code alpha2,AF
+Afghanistan,AFG,Region,South Asia
+Afghanistan,AFG,Income group,Low income
+Afghanistan,AFG,Income code,LIC
+Afghanistan,AFG,Lending category,IDA
+Afghanistan,AFG,Other,HIPC
+Afghanistan,AFG,Name (K),Afghanistan
+Afghanistan,AFG,Name (L), Afghanistan
+Afghanistan,AFG,Code (M),AFG
+Afghanistan,AFG,Region Gains,Asia & Oceania
+Afghanistan,AFG,Region Gains code,aso
+Afghanistan,AFG,IFS codes,512
+Afghanistan,AFG,WEO ISO,512
+Afghanistan,AFG,Crude market,sng
+Afghanistan,AFG,VSL country grouping,Low income
+Albania,ALB,Code alpha2,AL
+Albania,ALB,Region,Europe & Central Asia
+Albania,ALB,Income group,Upper middle income
+Albania,ALB,Income code,UMIC
+Albania,ALB,Lending category,IBRD
+Albania,ALB,Name (K),Albania
+Albania,ALB,Name (L), Albania
+Albania,ALB,Code (M),ALB
+Albania,ALB,Region Gains,Europe
+Albania,ALB,Region Gains code,eur
+Albania,ALB,IFS codes,914
+Albania,ALB,WEO ISO,914
+Albania,ALB,Crude market,rtd
+Albania,ALB,IEA code,ALB
+Albania,ALB,IEA country,Albania
+Albania,ALB,Enerdata code,Albania
+Albania,ALB,VSL country grouping,Upper middle income
+Algeria,DZA,Code alpha2,DZ
+Algeria,DZA,Region,Middle East & North Africa
+Algeria,DZA,Income group,Upper middle income
+Algeria,DZA,Income code,UMIC
+Algeria,DZA,Lending category,IBRD
+Algeria,DZA,Name (K),Algeria
+Algeria,DZA,Name (L), Algeria
+Algeria,DZA,Code (M),DZA
+Algeria,DZA,Region Gains,Africa
+Algeria,DZA,Region Gains code,afr
+Algeria,DZA,IFS codes,612
+Algeria,DZA,WEO ISO,612
+Algeria,DZA,Crude market,rtd
+Algeria,DZA,IEA code,DZA
+Algeria,DZA,IEA country,Algeria
+Algeria,DZA,Enerdata code,Algeria
+Algeria,DZA,VSL country grouping,Upper middle income
+American Samoa,ASM,Code alpha2,AS
+American Samoa,ASM,Region,East Asia & Pacific
+American Samoa,ASM,Income group,Upper middle income
+American Samoa,ASM,Income code,UMIC
+American Samoa,ASM,Lending category,..
+American Samoa,ASM,Name (K),American Samoa
+American Samoa,ASM,Name (L), American Samoa
+American Samoa,ASM,Code (M),ASM
+American Samoa,ASM,Region Gains,Asia & Oceania
+American Samoa,ASM,Region Gains code,aso
+American Samoa,ASM,IFS codes,859
+American Samoa,ASM,WEO ISO,0x2a
+American Samoa,ASM,Crude market,sng
+American Samoa,ASM,VSL country grouping,Upper middle income
+Andorra,AND,Code alpha2,AD
+Andorra,AND,Region,Europe & Central Asia
+Andorra,AND,Income group,High income
+Andorra,AND,Income code,HIC
+Andorra,AND,Lending category,..
+Andorra,AND,Name (K),Andorra
+Andorra,AND,Name (L), Andorra
+Andorra,AND,Code (M),AND
+Andorra,AND,Region Gains,Europe
+Andorra,AND,Region Gains code,eur
+Andorra,AND,IFS codes,0x2a
+Andorra,AND,WEO ISO,171
+Andorra,AND,Crude market,rtd
+Andorra,AND,VSL country grouping,High income
+Angola,AGO,Code alpha2,AO
+Angola,AGO,Region,Sub-Saharan Africa
+Angola,AGO,Income group,Lower middle income
+Angola,AGO,Income code,LMIC
+Angola,AGO,Lending category,IBRD
+Angola,AGO,Name (K),Angola
+Angola,AGO,Name (L), Angola
+Angola,AGO,Code (M),AGO
+Angola,AGO,Region Gains,Africa
+Angola,AGO,Region Gains code,afr
+Angola,AGO,IFS codes,614
+Angola,AGO,WEO ISO,614
+Angola,AGO,Crude market,rtd
+Angola,AGO,IEA code,AGO
+Angola,AGO,IEA country,Angola
+Angola,AGO,Enerdata code,Angola
+Angola,AGO,VSL country grouping,Lower middle income
+Anguilla,AIA,Code alpha2,AI
+Anguilla,AIA,Region,Latin America & Caribbean
+Anguilla,AIA,Income group,Upper middle income
+Anguilla,AIA,Income code,UMIC
+Anguilla,AIA,Name (K),Anguilla
+Anguilla,AIA,Name (L), Anguilla
+Anguilla,AIA,Code (M),AIA
+Anguilla,AIA,Region Gains,North America
+Anguilla,AIA,Region Gains code,nam
+Anguilla,AIA,IFS codes,312
+Anguilla,AIA,WEO ISO,312
+Anguilla,AIA,Crude market,usa
+Anguilla,AIA,VSL country grouping,Upper middle income
+Antigua and Barbuda,ATG,Code alpha2,AG
+Antigua and Barbuda,ATG,Region,Latin America & Caribbean
+Antigua and Barbuda,ATG,Income group,High income
+Antigua and Barbuda,ATG,Income code,HIC
+Antigua and Barbuda,ATG,Lending category,IBRD
+Antigua and Barbuda,ATG,Name (K),Antigua and Barbuda
+Antigua and Barbuda,ATG,Name (L), Antigua and Barbuda
+Antigua and Barbuda,ATG,Code (M),ATG
+Antigua and Barbuda,ATG,Region Gains,North America
+Antigua and Barbuda,ATG,Region Gains code,nam
+Antigua and Barbuda,ATG,IFS codes,311
+Antigua and Barbuda,ATG,WEO ISO,311
+Antigua and Barbuda,ATG,Crude market,usa
+Antigua and Barbuda,ATG,VSL country grouping,High income
+Argentina,ARG,Code alpha2,AR
+Argentina,ARG,Region,Latin America & Caribbean
+Argentina,ARG,Income group,High income
+Argentina,ARG,Income code,HIC
+Argentina,ARG,Lending category,IBRD
+Argentina,ARG,Name (K),Argentina
+Argentina,ARG,Name (L), Argentina
+Argentina,ARG,Code (M),ARG
+Argentina,ARG,Region Gains,North America
+Argentina,ARG,Region Gains code,nam
+Argentina,ARG,IFS codes,213
+Argentina,ARG,WEO ISO,213
+Argentina,ARG,Crude market,usa
+Argentina,ARG,IEA code,ARG
+Argentina,ARG,IEA country,Argentina
+Argentina,ARG,Enerdata code,Argentina
+Argentina,ARG,VSL country grouping,High income
+Armenia,ARM,Code alpha2,AM
+Armenia,ARM,Region,Europe & Central Asia
+Armenia,ARM,Income group,Upper middle income
+Armenia,ARM,Income code,UMIC
+Armenia,ARM,Lending category,IBRD
+Armenia,ARM,Name (K),Armenia
+Armenia,ARM,Name (L), Armenia
+Armenia,ARM,Code (M),ARM
+Armenia,ARM,Region Gains,Eurasia
+Armenia,ARM,Region Gains code,eua
+Armenia,ARM,IFS codes,911
+Armenia,ARM,WEO ISO,911
+Armenia,ARM,Crude market,rtd
+Armenia,ARM,IEA code,ARM
+Armenia,ARM,IEA country,Armenia
+Armenia,ARM,Enerdata code,Armenia
+Armenia,ARM,VSL country grouping,Upper middle income
+Aruba,ABW,Code alpha2,AW
+Aruba,ABW,Region,Latin America & Caribbean
+Aruba,ABW,Income group,High income
+Aruba,ABW,Income code,HIC
+Aruba,ABW,Lending category,..
+Aruba,ABW,Name (K),Aruba
+Aruba,ABW,Name (L), Aruba
+Aruba,ABW,Code (M),ABW
+Aruba,ABW,Region Gains,North America
+Aruba,ABW,Region Gains code,nam
+Aruba,ABW,IFS codes,314
+Aruba,ABW,WEO ISO,314
+Aruba,ABW,Crude market,usa
+Aruba,ABW,VSL country grouping,High income
+Australia,AUS,Code alpha2,AU
+Australia,AUS,Region,East Asia & Pacific
+Australia,AUS,Income group,High income
+Australia,AUS,Income code,HIC
+Australia,AUS,Lending category,..
+Australia,AUS,Name (K),Australia
+Australia,AUS,Name (L), Australia
+Australia,AUS,Code (M),AUS
+Australia,AUS,Region Gains,Asia & Oceania
+Australia,AUS,Region Gains code,aso
+Australia,AUS,IFS codes,193
+Australia,AUS,WEO ISO,193
+Australia,AUS,Crude market,sng
+Australia,AUS,IEA code,AUS
+Australia,AUS,IEA country,Australia
+Australia,AUS,Enerdata code,Australia
+Australia,AUS,VSL country grouping,OECD
+Austria,AUT,Code alpha2,AT
+Austria,AUT,Region,Europe & Central Asia
+Austria,AUT,Income group,High income
+Austria,AUT,Income code,HIC
+Austria,AUT,Lending category,..
+Austria,AUT,Other,EMU
+Austria,AUT,Name (K),Austria
+Austria,AUT,Name (L), Austria
+Austria,AUT,Code (M),AUT
+Austria,AUT,Region Gains,Europe
+Austria,AUT,Region Gains code,eur
+Austria,AUT,Using euro,1
+Austria,AUT,IFS codes,122
+Austria,AUT,WEO ISO,122
+Austria,AUT,Crude market,rtd
+Austria,AUT,IEA code,AUT
+Austria,AUT,IEA country,Austria
+Austria,AUT,Enerdata code,Austria
+Austria,AUT,VSL country grouping,EU
+Azerbaijan,AZE,Code alpha2,AZ
+Azerbaijan,AZE,Region,Europe & Central Asia
+Azerbaijan,AZE,Income group,Upper middle income
+Azerbaijan,AZE,Income code,UMIC
+Azerbaijan,AZE,Lending category,IBRD
+Azerbaijan,AZE,Name (K),Azerbaijan
+Azerbaijan,AZE,Name (L), Azerbaijan
+Azerbaijan,AZE,Code (M),AZE
+Azerbaijan,AZE,Region Gains,Eurasia
+Azerbaijan,AZE,Region Gains code,eua
+Azerbaijan,AZE,IFS codes,912
+Azerbaijan,AZE,WEO ISO,912
+Azerbaijan,AZE,Crude market,rtd
+Azerbaijan,AZE,IEA code,AZE
+Azerbaijan,AZE,IEA country,Azerbaijan
+Azerbaijan,AZE,Enerdata code,Azerbaijan
+Azerbaijan,AZE,VSL country grouping,Upper middle income
+"Bahamas, The",BHS,Code alpha2,BS
+"Bahamas, The",BHS,Region,Latin America & Caribbean
+"Bahamas, The",BHS,Income group,High income
+"Bahamas, The",BHS,Income code,HIC
+"Bahamas, The",BHS,Lending category,..
+"Bahamas, The",BHS,Name (K),"Bahamas, The"
+"Bahamas, The",BHS,Name (L)," Bahamas, The"
+"Bahamas, The",BHS,Code (M),BHS
+"Bahamas, The",BHS,Region Gains,North America
+"Bahamas, The",BHS,Region Gains code,nam
+"Bahamas, The",BHS,IFS codes,313
+"Bahamas, The",BHS,WEO ISO,313
+"Bahamas, The",BHS,Crude market,usa
+"Bahamas, The",BHS,VSL country grouping,High income
+Bahrain,BHR,Code alpha2,BH
+Bahrain,BHR,Region,Middle East & North Africa
+Bahrain,BHR,Income group,High income
+Bahrain,BHR,Income code,HIC
+Bahrain,BHR,Lending category,..
+Bahrain,BHR,Name (K),Bahrain
+Bahrain,BHR,Name (L), Bahrain
+Bahrain,BHR,Code (M),BHR
+Bahrain,BHR,Region Gains,Middle East
+Bahrain,BHR,Region Gains code,mea
+Bahrain,BHR,IFS codes,419
+Bahrain,BHR,WEO ISO,419
+Bahrain,BHR,Crude market,rtd
+Bahrain,BHR,IEA code,BHR
+Bahrain,BHR,IEA country,Bahrain
+Bahrain,BHR,Enerdata code,Bahrain
+Bahrain,BHR,VSL country grouping,High income
+Bangladesh,BGD,Code alpha2,BD
+Bangladesh,BGD,Region,South Asia
+Bangladesh,BGD,Income group,Lower middle income
+Bangladesh,BGD,Income code,LMIC
+Bangladesh,BGD,Lending category,IDA
+Bangladesh,BGD,Name (K),Bangladesh
+Bangladesh,BGD,Name (L), Bangladesh
+Bangladesh,BGD,Code (M),BGD
+Bangladesh,BGD,Region Gains,Asia & Oceania
+Bangladesh,BGD,Region Gains code,aso
+Bangladesh,BGD,IFS codes,513
+Bangladesh,BGD,WEO ISO,513
+Bangladesh,BGD,Crude market,sng
+Bangladesh,BGD,IEA code,BGD
+Bangladesh,BGD,IEA country,Bangladesh
+Bangladesh,BGD,Enerdata code,Bangladesh
+Bangladesh,BGD,VSL country grouping,Lower middle income
+Barbados,BRB,Code alpha2,BB
+Barbados,BRB,Region,Latin America & Caribbean
+Barbados,BRB,Income group,High income
+Barbados,BRB,Income code,HIC
+Barbados,BRB,Lending category,..
+Barbados,BRB,Name (K),Barbados
+Barbados,BRB,Name (L), Barbados
+Barbados,BRB,Code (M),BRB
+Barbados,BRB,Region Gains,North America
+Barbados,BRB,Region Gains code,nam
+Barbados,BRB,IFS codes,316
+Barbados,BRB,WEO ISO,316
+Barbados,BRB,Crude market,usa
+Barbados,BRB,VSL country grouping,High income
+Belarus,BLR,Code alpha2,BY
+Belarus,BLR,Region,Europe & Central Asia
+Belarus,BLR,Income group,Upper middle income
+Belarus,BLR,Income code,UMIC
+Belarus,BLR,Lending category,IBRD
+Belarus,BLR,Name (K),Belarus
+Belarus,BLR,Name (L), Belarus
+Belarus,BLR,Code (M),BLR
+Belarus,BLR,Region Gains,Eurasia
+Belarus,BLR,Region Gains code,eua
+Belarus,BLR,IFS codes,913
+Belarus,BLR,WEO ISO,913
+Belarus,BLR,Crude market,rtd
+Belarus,BLR,IEA code,BLR
+Belarus,BLR,IEA country,Belarus
+Belarus,BLR,Enerdata code,Belarus
+Belarus,BLR,VSL country grouping,Upper middle income
+Belgium,BEL,Code alpha2,BE
+Belgium,BEL,Region,Europe & Central Asia
+Belgium,BEL,Income group,High income
+Belgium,BEL,Income code,HIC
+Belgium,BEL,Lending category,..
+Belgium,BEL,Other,EMU
+Belgium,BEL,Name (K),Belgium
+Belgium,BEL,Name (L), Belgium
+Belgium,BEL,Code (M),BEL
+Belgium,BEL,Region Gains,Europe
+Belgium,BEL,Region Gains code,eur
+Belgium,BEL,Using euro,1
+Belgium,BEL,IFS codes,124
+Belgium,BEL,WEO ISO,124
+Belgium,BEL,Crude market,rtd
+Belgium,BEL,IEA code,BEL
+Belgium,BEL,IEA country,Belgium
+Belgium,BEL,Enerdata code,Belgium
+Belgium,BEL,VSL country grouping,EU
+Belize,BLZ,Code alpha2,BZ
+Belize,BLZ,Region,Latin America & Caribbean
+Belize,BLZ,Income group,Upper middle income
+Belize,BLZ,Income code,UMIC
+Belize,BLZ,Lending category,IBRD
+Belize,BLZ,Name (K),Belize
+Belize,BLZ,Name (L), Belize
+Belize,BLZ,Code (M),BLZ
+Belize,BLZ,Region Gains,North America
+Belize,BLZ,Region Gains code,nam
+Belize,BLZ,IFS codes,339
+Belize,BLZ,WEO ISO,339
+Belize,BLZ,Crude market,usa
+Belize,BLZ,VSL country grouping,Upper middle income
+Benin,BEN,Code alpha2,BJ
+Benin,BEN,Region,Sub-Saharan Africa
+Benin,BEN,Income group,Low income
+Benin,BEN,Income code,LIC
+Benin,BEN,Lending category,IDA
+Benin,BEN,Other,HIPC
+Benin,BEN,Name (K),Benin
+Benin,BEN,Name (L), Benin
+Benin,BEN,Code (M),BEN
+Benin,BEN,Region Gains,Africa
+Benin,BEN,Region Gains code,afr
+Benin,BEN,IFS codes,638
+Benin,BEN,WEO ISO,638
+Benin,BEN,Crude market,rtd
+Benin,BEN,IEA code,BEN
+Benin,BEN,IEA country,Benin
+Benin,BEN,Enerdata code,Benin
+Benin,BEN,VSL country grouping,Low income
+Bermuda,BMU,Code alpha2,BM
+Bermuda,BMU,Region,North America
+Bermuda,BMU,Income group,High income
+Bermuda,BMU,Income code,HIC
+Bermuda,BMU,Lending category,..
+Bermuda,BMU,Name (K),Bermuda
+Bermuda,BMU,Name (L), Bermuda
+Bermuda,BMU,Code (M),BMU
+Bermuda,BMU,Region Gains,North America
+Bermuda,BMU,Region Gains code,nam
+Bermuda,BMU,IFS codes,319
+Bermuda,BMU,WEO ISO,0x2a
+Bermuda,BMU,Crude market,usa
+Bermuda,BMU,VSL country grouping,High income
+Bhutan,BTN,Code alpha2,BT
+Bhutan,BTN,Region,South Asia
+Bhutan,BTN,Income group,Lower middle income
+Bhutan,BTN,Income code,LMIC
+Bhutan,BTN,Lending category,IDA
+Bhutan,BTN,Name (K),Bhutan
+Bhutan,BTN,Name (L), Bhutan
+Bhutan,BTN,Code (M),BTN
+Bhutan,BTN,Region Gains,Asia & Oceania
+Bhutan,BTN,Region Gains code,aso
+Bhutan,BTN,IFS codes,514
+Bhutan,BTN,WEO ISO,514
+Bhutan,BTN,Crude market,sng
+Bhutan,BTN,VSL country grouping,Lower middle income
+Bolivia,BOL,Code alpha2,BO
+Bolivia,BOL,Region,Latin America & Caribbean
+Bolivia,BOL,Income group,Lower middle income
+Bolivia,BOL,Income code,LMIC
+Bolivia,BOL,Lending category,IBRD
+Bolivia,BOL,Other,HIPC
+Bolivia,BOL,Name (K),Bolivia
+Bolivia,BOL,Name (L), Bolivia
+Bolivia,BOL,Code (M),BOL
+Bolivia,BOL,Region Gains,North America
+Bolivia,BOL,Region Gains code,nam
+Bolivia,BOL,IFS codes,218
+Bolivia,BOL,WEO ISO,218
+Bolivia,BOL,Crude market,usa
+Bolivia,BOL,IEA code,BOL
+Bolivia,BOL,IEA country,Plurinational State of Bolivia
+Bolivia,BOL,Enerdata code,Bolivia
+Bolivia,BOL,VSL country grouping,Lower middle income
+Bosnia and Herzegovina,BIH,Code alpha2,BA
+Bosnia and Herzegovina,BIH,Region,Europe & Central Asia
+Bosnia and Herzegovina,BIH,Income group,Upper middle income
+Bosnia and Herzegovina,BIH,Income code,UMIC
+Bosnia and Herzegovina,BIH,Lending category,IBRD
+Bosnia and Herzegovina,BIH,Name (K),Bosnia and Herzegovina
+Bosnia and Herzegovina,BIH,Name (L), Bosnia and Herzegovina
+Bosnia and Herzegovina,BIH,Code (M),BIH
+Bosnia and Herzegovina,BIH,Region Gains,Europe
+Bosnia and Herzegovina,BIH,Region Gains code,eur
+Bosnia and Herzegovina,BIH,IFS codes,963
+Bosnia and Herzegovina,BIH,WEO ISO,963
+Bosnia and Herzegovina,BIH,Crude market,rtd
+Bosnia and Herzegovina,BIH,IEA code,BIH
+Bosnia and Herzegovina,BIH,IEA country,Bosnia and Herzegovina
+Bosnia and Herzegovina,BIH,Enerdata code,Bosnia and Herzegovina
+Bosnia and Herzegovina,BIH,VSL country grouping,Upper middle income
+Botswana,BWA,Code alpha2,BW
+Botswana,BWA,Region,Sub-Saharan Africa
+Botswana,BWA,Income group,Upper middle income
+Botswana,BWA,Income code,UMIC
+Botswana,BWA,Lending category,IBRD
+Botswana,BWA,Name (K),Botswana
+Botswana,BWA,Name (L), Botswana
+Botswana,BWA,Code (M),BWA
+Botswana,BWA,Region Gains,Africa
+Botswana,BWA,Region Gains code,afr
+Botswana,BWA,IFS codes,616
+Botswana,BWA,WEO ISO,616
+Botswana,BWA,Crude market,rtd
+Botswana,BWA,IEA code,BWA
+Botswana,BWA,IEA country,Botswana
+Botswana,BWA,Enerdata code,Botswana
+Botswana,BWA,VSL country grouping,Upper middle income
+Brazil,BRA,Code alpha2,BR
+Brazil,BRA,Region,Latin America & Caribbean
+Brazil,BRA,Income group,Upper middle income
+Brazil,BRA,Income code,UMIC
+Brazil,BRA,Lending category,IBRD
+Brazil,BRA,Name (K),Brazil
+Brazil,BRA,Name (L), Brazil
+Brazil,BRA,Code (M),BRA
+Brazil,BRA,Region Gains,North America
+Brazil,BRA,Region Gains code,nam
+Brazil,BRA,IFS codes,223
+Brazil,BRA,WEO ISO,223
+Brazil,BRA,Crude market,usa
+Brazil,BRA,IEA code,BRA
+Brazil,BRA,IEA country,Brazil
+Brazil,BRA,Enerdata code,Brazil
+Brazil,BRA,VSL country grouping,Upper middle income
+British Virgin Islands,VGB,Code alpha2,VG
+British Virgin Islands,VGB,Region,Latin America & Caribbean
+British Virgin Islands,VGB,Income group,High income
+British Virgin Islands,VGB,Income code,HIC
+British Virgin Islands,VGB,Lending category,..
+British Virgin Islands,VGB,Name (K),British Virgin Islands
+British Virgin Islands,VGB,Name (L), British Virgin Islands
+British Virgin Islands,VGB,Code (M),VGB
+British Virgin Islands,VGB,Region Gains,North America
+British Virgin Islands,VGB,Region Gains code,nam
+British Virgin Islands,VGB,IFS codes,0x2a
+British Virgin Islands,VGB,WEO ISO,0x2a
+British Virgin Islands,VGB,Crude market,usa
+British Virgin Islands,VGB,VSL country grouping,High income
+Brunei Darussalam,BRN,Code alpha2,BN
+Brunei Darussalam,BRN,Region,East Asia & Pacific
+Brunei Darussalam,BRN,Income group,High income
+Brunei Darussalam,BRN,Income code,HIC
+Brunei Darussalam,BRN,Lending category,..
+Brunei Darussalam,BRN,Name (K),Brunei Darussalam
+Brunei Darussalam,BRN,Name (L), Brunei Darussalam
+Brunei Darussalam,BRN,Code (M),BRN
+Brunei Darussalam,BRN,Region Gains,Asia & Oceania
+Brunei Darussalam,BRN,Region Gains code,aso
+Brunei Darussalam,BRN,IFS codes,516
+Brunei Darussalam,BRN,WEO ISO,516
+Brunei Darussalam,BRN,Crude market,sng
+Brunei Darussalam,BRN,IEA code,BRN
+Brunei Darussalam,BRN,IEA country,Brunei Darussalam
+Brunei Darussalam,BRN,Enerdata code,Brunei Darussalam
+Brunei Darussalam,BRN,VSL country grouping,High income
+Bulgaria,BGR,Code alpha2,BG
+Bulgaria,BGR,Region,Europe & Central Asia
+Bulgaria,BGR,Income group,Upper middle income
+Bulgaria,BGR,Income code,UMIC
+Bulgaria,BGR,Lending category,IBRD
+Bulgaria,BGR,Name (K),Bulgaria
+Bulgaria,BGR,Name (L), Bulgaria
+Bulgaria,BGR,Code (M),BGR
+Bulgaria,BGR,Region Gains,Europe
+Bulgaria,BGR,Region Gains code,eur
+Bulgaria,BGR,Using euro,1
+Bulgaria,BGR,IFS codes,918
+Bulgaria,BGR,WEO ISO,918
+Bulgaria,BGR,Crude market,rtd
+Bulgaria,BGR,IEA code,BGR
+Bulgaria,BGR,IEA country,Bulgaria
+Bulgaria,BGR,Enerdata code,Bulgaria
+Bulgaria,BGR,VSL country grouping,EU
+Burkina Faso,BFA,Code alpha2,BF
+Burkina Faso,BFA,Region,Sub-Saharan Africa
+Burkina Faso,BFA,Income group,Low income
+Burkina Faso,BFA,Income code,LIC
+Burkina Faso,BFA,Lending category,IDA
+Burkina Faso,BFA,Other,HIPC
+Burkina Faso,BFA,Name (K),Burkina Faso
+Burkina Faso,BFA,Name (L), Burkina Faso
+Burkina Faso,BFA,Code (M),BFA
+Burkina Faso,BFA,Region Gains,Africa
+Burkina Faso,BFA,Region Gains code,afr
+Burkina Faso,BFA,IFS codes,748
+Burkina Faso,BFA,WEO ISO,748
+Burkina Faso,BFA,Crude market,rtd
+Burkina Faso,BFA,IEA code,BFA
+Burkina Faso,BFA,IEA country,Burkina Faso
+Burkina Faso,BFA,Enerdata code,Burkina Faso
+Burkina Faso,BFA,VSL country grouping,Low income
+Burundi,BDI,Code alpha2,BI
+Burundi,BDI,Region,Sub-Saharan Africa
+Burundi,BDI,Income group,Low income
+Burundi,BDI,Income code,LIC
+Burundi,BDI,Lending category,IDA
+Burundi,BDI,Other,HIPC
+Burundi,BDI,Name (K),Burundi
+Burundi,BDI,Name (L), Burundi
+Burundi,BDI,Code (M),BDI
+Burundi,BDI,Region Gains,Africa
+Burundi,BDI,Region Gains code,afr
+Burundi,BDI,IFS codes,618
+Burundi,BDI,WEO ISO,618
+Burundi,BDI,Crude market,rtd
+Burundi,BDI,VSL country grouping,Low income
+Cabo Verde,CPV,Code alpha2,CV
+Cabo Verde,CPV,Region,Sub-Saharan Africa
+Cabo Verde,CPV,Income group,Lower middle income
+Cabo Verde,CPV,Income code,LMIC
+Cabo Verde,CPV,Lending category,Blend
+Cabo Verde,CPV,Name (K),Cabo Verde
+Cabo Verde,CPV,Name (L), Cabo Verde
+Cabo Verde,CPV,Code (M),CPV
+Cabo Verde,CPV,Region Gains,Africa
+Cabo Verde,CPV,Region Gains code,afr
+Cabo Verde,CPV,IFS codes,624
+Cabo Verde,CPV,WEO ISO,624
+Cabo Verde,CPV,Crude market,rtd
+Cabo Verde,CPV,VSL country grouping,Lower middle income
+Cambodia,KHM,Code alpha2,KH
+Cambodia,KHM,Region,East Asia & Pacific
+Cambodia,KHM,Income group,Lower middle income
+Cambodia,KHM,Income code,LMIC
+Cambodia,KHM,Lending category,IDA
+Cambodia,KHM,Name (K),Cambodia
+Cambodia,KHM,Name (L), Cambodia
+Cambodia,KHM,Code (M),KHM
+Cambodia,KHM,Region Gains,Asia & Oceania
+Cambodia,KHM,Region Gains code,aso
+Cambodia,KHM,IFS codes,522
+Cambodia,KHM,WEO ISO,522
+Cambodia,KHM,Crude market,sng
+Cambodia,KHM,IEA code,KHM
+Cambodia,KHM,IEA country,Cambodia
+Cambodia,KHM,Enerdata code,Cambodia
+Cambodia,KHM,VSL country grouping,Lower middle income
+Cameroon,CMR,Code alpha2,CM
+Cameroon,CMR,Region,Sub-Saharan Africa
+Cameroon,CMR,Income group,Lower middle income
+Cameroon,CMR,Income code,LMIC
+Cameroon,CMR,Lending category,Blend
+Cameroon,CMR,Other,HIPC
+Cameroon,CMR,Name (K),Cameroon
+Cameroon,CMR,Name (L), Cameroon
+Cameroon,CMR,Code (M),CMR
+Cameroon,CMR,Region Gains,Africa
+Cameroon,CMR,Region Gains code,afr
+Cameroon,CMR,IFS codes,622
+Cameroon,CMR,WEO ISO,622
+Cameroon,CMR,Crude market,rtd
+Cameroon,CMR,IEA code,CMR
+Cameroon,CMR,IEA country,Cameroon
+Cameroon,CMR,Enerdata code,Cameroon
+Cameroon,CMR,VSL country grouping,Lower middle income
+Canada,CAN,Code alpha2,CA
+Canada,CAN,Region,North America
+Canada,CAN,Income group,High income
+Canada,CAN,Income code,HIC
+Canada,CAN,Lending category,..
+Canada,CAN,Name (K),Canada
+Canada,CAN,Name (L), Canada
+Canada,CAN,Code (M),CAN
+Canada,CAN,Region Gains,North America
+Canada,CAN,Region Gains code,nam
+Canada,CAN,IFS codes,156
+Canada,CAN,WEO ISO,156
+Canada,CAN,Crude market,usa
+Canada,CAN,IEA code,CAN
+Canada,CAN,IEA country,Canada
+Canada,CAN,Enerdata code,Canada
+Canada,CAN,VSL country grouping,OECD
+Cayman Islands,CYM,Code alpha2,KY
+Cayman Islands,CYM,Region,Latin America & Caribbean
+Cayman Islands,CYM,Income group,High income
+Cayman Islands,CYM,Income code,HIC
+Cayman Islands,CYM,Lending category,..
+Cayman Islands,CYM,Name (K),Cayman Islands
+Cayman Islands,CYM,Name (L), Cayman Islands
+Cayman Islands,CYM,Code (M),CYM
+Cayman Islands,CYM,Region Gains,North America
+Cayman Islands,CYM,Region Gains code,nam
+Cayman Islands,CYM,IFS codes,377
+Cayman Islands,CYM,WEO ISO,0x2a
+Cayman Islands,CYM,Crude market,usa
+Cayman Islands,CYM,VSL country grouping,High income
+Central African Republic,CAF,Code alpha2,CF
+Central African Republic,CAF,Region,Sub-Saharan Africa
+Central African Republic,CAF,Income group,Low income
+Central African Republic,CAF,Income code,LIC
+Central African Republic,CAF,Lending category,IDA
+Central African Republic,CAF,Other,HIPC
+Central African Republic,CAF,Name (K),Central African Republic
+Central African Republic,CAF,Name (L), Central African Republic
+Central African Republic,CAF,Code (M),CAF
+Central African Republic,CAF,Region Gains,Africa
+Central African Republic,CAF,Region Gains code,afr
+Central African Republic,CAF,IFS codes,626
+Central African Republic,CAF,WEO ISO,626
+Central African Republic,CAF,Crude market,rtd
+Central African Republic,CAF,VSL country grouping,Low income
+Chad,TCD,Code alpha2,TD
+Chad,TCD,Region,Sub-Saharan Africa
+Chad,TCD,Income group,Low income
+Chad,TCD,Income code,LIC
+Chad,TCD,Lending category,IDA
+Chad,TCD,Other,HIPC
+Chad,TCD,Name (K),Chad
+Chad,TCD,Name (L), Chad
+Chad,TCD,Code (M),TCD
+Chad,TCD,Region Gains,Africa
+Chad,TCD,Region Gains code,afr
+Chad,TCD,IFS codes,628
+Chad,TCD,WEO ISO,628
+Chad,TCD,Crude market,rtd
+Chad,TCD,VSL country grouping,Low income
+Channel Islands,CHI,Region,Europe & Central Asia
+Channel Islands,CHI,Income group,High income
+Channel Islands,CHI,Income code,HIC
+Channel Islands,CHI,Lending category,..
+Channel Islands,CHI,Name (K),Channel Islands
+Channel Islands,CHI,Name (L), Channel Islands
+Channel Islands,CHI,Code (M),CHI
+Channel Islands,CHI,Region Gains,Europe
+Channel Islands,CHI,Region Gains code,eur
+Channel Islands,CHI,IFS codes,0x2a
+Channel Islands,CHI,WEO ISO,0x2a
+Channel Islands,CHI,Crude market,rtd
+Channel Islands,CHI,VSL country grouping,High income
+Chile,CHL,Code alpha2,CL
+Chile,CHL,Region,Latin America & Caribbean
+Chile,CHL,Income group,High income
+Chile,CHL,Income code,HIC
+Chile,CHL,Lending category,IBRD
+Chile,CHL,Name (K),Chile
+Chile,CHL,Name (L), Chile
+Chile,CHL,Code (M),CHL
+Chile,CHL,Region Gains,North America
+Chile,CHL,Region Gains code,nam
+Chile,CHL,IFS codes,228
+Chile,CHL,WEO ISO,228
+Chile,CHL,Crude market,usa
+Chile,CHL,IEA code,CHL
+Chile,CHL,IEA country,Chile
+Chile,CHL,Enerdata code,Chile
+Chile,CHL,VSL country grouping,High income
+China,CHN,Code alpha2,CN
+China,CHN,Region,East Asia & Pacific
+China,CHN,Income group,Upper middle income
+China,CHN,Income code,UMIC
+China,CHN,Lending category,IBRD
+China,CHN,Name (K),China
+China,CHN,Name (L), China
+China,CHN,Code (M),CHN
+China,CHN,Region Gains,Asia & Oceania
+China,CHN,Region Gains code,aso
+China,CHN,IFS codes,924
+China,CHN,WEO ISO,924
+China,CHN,Crude market,sng
+China,CHN,IEA code,CHN
+China,CHN,IEA country,China
+China,CHN,Enerdata code,China
+China,CHN,VSL country grouping,Upper middle income
+Colombia,COL,Code alpha2,CO
+Colombia,COL,Region,Latin America & Caribbean
+Colombia,COL,Income group,Upper middle income
+Colombia,COL,Income code,UMIC
+Colombia,COL,Lending category,IBRD
+Colombia,COL,Name (K),Colombia
+Colombia,COL,Name (L), Colombia
+Colombia,COL,Code (M),COL
+Colombia,COL,Region Gains,North America
+Colombia,COL,Region Gains code,nam
+Colombia,COL,IFS codes,233
+Colombia,COL,WEO ISO,233
+Colombia,COL,Crude market,usa
+Colombia,COL,IEA code,COL
+Colombia,COL,IEA country,Colombia
+Colombia,COL,Enerdata code,Colombia
+Colombia,COL,VSL country grouping,Upper middle income
+Comoros,COM,Code alpha2,KM
+Comoros,COM,Region,Sub-Saharan Africa
+Comoros,COM,Income group,Low income
+Comoros,COM,Income code,LIC
+Comoros,COM,Lending category,IDA
+Comoros,COM,Other,HIPC
+Comoros,COM,Name (K),Comoros
+Comoros,COM,Name (L), Comoros
+Comoros,COM,Code (M),COM
+Comoros,COM,Region Gains,Africa
+Comoros,COM,Region Gains code,afr
+Comoros,COM,IFS codes,632
+Comoros,COM,WEO ISO,632
+Comoros,COM,Crude market,rtd
+Comoros,COM,VSL country grouping,Low income
+"Congo, Democratic Republic of the",COD,Code alpha2,CD
+"Congo, Democratic Republic of the",COD,Region,Sub-Saharan Africa
+"Congo, Democratic Republic of the",COD,Income group,Low income
+"Congo, Democratic Republic of the",COD,Income code,LIC
+"Congo, Democratic Republic of the",COD,Lending category,IDA
+"Congo, Democratic Republic of the",COD,Other,HIPC
+"Congo, Democratic Republic of the",COD,Name (K),"Congo, Democratic Republic of the"
+"Congo, Democratic Republic of the",COD,Name (L)," Congo, Democratic Republic of the"
+"Congo, Democratic Republic of the",COD,Code (M),COD
+"Congo, Democratic Republic of the",COD,Region Gains,Africa
+"Congo, Democratic Republic of the",COD,Region Gains code,afr
+"Congo, Democratic Republic of the",COD,IFS codes,636
+"Congo, Democratic Republic of the",COD,WEO ISO,636
+"Congo, Democratic Republic of the",COD,Crude market,rtd
+"Congo, Democratic Republic of the",COD,IEA code,COD
+"Congo, Democratic Republic of the",COD,IEA country,"Congo, Democratic Republic of the"
+"Congo, Democratic Republic of the",COD,Enerdata code,"Congo, Democratic Republic of the"
+"Congo, Democratic Republic of the",COD,VSL country grouping,Low income
+"Congo, Republic of",COG,Code alpha2,CG
+"Congo, Republic of",COG,Region,Sub-Saharan Africa
+"Congo, Republic of",COG,Income group,Lower middle income
+"Congo, Republic of",COG,Income code,LMIC
+"Congo, Republic of",COG,Lending category,Blend
+"Congo, Republic of",COG,Other,HIPC
+"Congo, Republic of",COG,Name (K),"Congo, Republic of"
+"Congo, Republic of",COG,Name (L)," Congo, Republic of"
+"Congo, Republic of",COG,Code (M),COG
+"Congo, Republic of",COG,Region Gains,Africa
+"Congo, Republic of",COG,Region Gains code,afr
+"Congo, Republic of",COG,IFS codes,634
+"Congo, Republic of",COG,WEO ISO,634
+"Congo, Republic of",COG,Crude market,rtd
+"Congo, Republic of",COG,IEA code,COG
+"Congo, Republic of",COG,IEA country,Republic of the Congo
+"Congo, Republic of",COG,Enerdata code,"Congo, Republic of"
+"Congo, Republic of",COG,VSL country grouping,Lower middle income
+Costa Rica,CRI,Code alpha2,CR
+Costa Rica,CRI,Region,Latin America & Caribbean
+Costa Rica,CRI,Income group,Upper middle income
+Costa Rica,CRI,Income code,UMIC
+Costa Rica,CRI,Lending category,IBRD
+Costa Rica,CRI,Name (K),Costa Rica
+Costa Rica,CRI,Name (L), Costa Rica
+Costa Rica,CRI,Code (M),CRI
+Costa Rica,CRI,Region Gains,North America
+Costa Rica,CRI,Region Gains code,nam
+Costa Rica,CRI,IFS codes,238
+Costa Rica,CRI,WEO ISO,238
+Costa Rica,CRI,Crude market,usa
+Costa Rica,CRI,IEA code,CRI
+Costa Rica,CRI,IEA country,Costa Rica
+Costa Rica,CRI,Enerdata code,Costa Rica
+Costa Rica,CRI,VSL country grouping,Upper middle income
+Côte d'Ivoire,CIV,Code alpha2,CI
+Côte d'Ivoire,CIV,Region,Sub-Saharan Africa
+Côte d'Ivoire,CIV,Income group,Lower middle income
+Côte d'Ivoire,CIV,Income code,LMIC
+Côte d'Ivoire,CIV,Lending category,IDA
+Côte d'Ivoire,CIV,Other,HIPC
+Côte d'Ivoire,CIV,Name (K),Côte d'Ivoire
+Côte d'Ivoire,CIV,Name (L), Côte d'Ivoire
+Côte d'Ivoire,CIV,Code (M),CIV
+Côte d'Ivoire,CIV,Region Gains,Africa
+Côte d'Ivoire,CIV,Region Gains code,afr
+Côte d'Ivoire,CIV,IFS codes,662
+Côte d'Ivoire,CIV,WEO ISO,662
+Côte d'Ivoire,CIV,Crude market,rtd
+Côte d'Ivoire,CIV,IEA code,CIV
+Côte d'Ivoire,CIV,IEA country,Côte d'Ivoire
+Côte d'Ivoire,CIV,Enerdata code,Côte d'Ivoire
+Côte d'Ivoire,CIV,VSL country grouping,Lower middle income
+Croatia,HRV,Code alpha2,HR
+Croatia,HRV,Region,Europe & Central Asia
+Croatia,HRV,Income group,High income
+Croatia,HRV,Income code,HIC
+Croatia,HRV,Lending category,IBRD
+Croatia,HRV,Name (K),Croatia
+Croatia,HRV,Name (L), Croatia
+Croatia,HRV,Code (M),HRV
+Croatia,HRV,Region Gains,Europe
+Croatia,HRV,Region Gains code,eur
+Croatia,HRV,Using euro,1
+Croatia,HRV,IFS codes,960
+Croatia,HRV,WEO ISO,960
+Croatia,HRV,Crude market,rtd
+Croatia,HRV,IEA code,HRV
+Croatia,HRV,IEA country,Croatia
+Croatia,HRV,Enerdata code,Croatia
+Croatia,HRV,VSL country grouping,EU
+Cuba,CUB,Code alpha2,CU
+Cuba,CUB,Region,Latin America & Caribbean
+Cuba,CUB,Income group,Upper middle income
+Cuba,CUB,Income code,UMIC
+Cuba,CUB,Lending category,..
+Cuba,CUB,Name (K),Cuba
+Cuba,CUB,Name (L), Cuba
+Cuba,CUB,Code (M),CUB
+Cuba,CUB,Region Gains,North America
+Cuba,CUB,Region Gains code,nam
+Cuba,CUB,IFS codes,928
+Cuba,CUB,WEO ISO,0x2a
+Cuba,CUB,Crude market,usa
+Cuba,CUB,IEA code,CUB
+Cuba,CUB,IEA country,Cuba
+Cuba,CUB,Enerdata code,Cuba
+Cuba,CUB,VSL country grouping,Upper middle income
+Curaçao,CUW,Code alpha2,CW
+Curaçao,CUW,Region,Latin America & Caribbean
+Curaçao,CUW,Income group,High income
+Curaçao,CUW,Income code,HIC
+Curaçao,CUW,Lending category,..
+Curaçao,CUW,Name (K),Curaçao
+Curaçao,CUW,Name (L), Curaçao
+Curaçao,CUW,Code (M),CUW
+Curaçao,CUW,Region Gains,North America
+Curaçao,CUW,Region Gains code,nam
+Curaçao,CUW,IFS codes,0x2a
+Curaçao,CUW,WEO ISO,0x2a
+Curaçao,CUW,Crude market,usa
+Curaçao,CUW,IEA code,CUW
+Curaçao,CUW,IEA country,Curaçao/Netherlands Antilles
+Curaçao,CUW,Enerdata code,Curaçao
+Curaçao,CUW,VSL country grouping,High income
+Cyprus,CYP,Code alpha2,CY
+Cyprus,CYP,Region,Europe & Central Asia
+Cyprus,CYP,Income group,High income
+Cyprus,CYP,Income code,HIC
+Cyprus,CYP,Lending category,..
+Cyprus,CYP,Other,EMU
+Cyprus,CYP,Name (K),Cyprus
+Cyprus,CYP,Name (L), Cyprus
+Cyprus,CYP,Code (M),CYP
+Cyprus,CYP,Region Gains,Europe
+Cyprus,CYP,Region Gains code,eur
+Cyprus,CYP,Using euro,1
+Cyprus,CYP,IFS codes,423
+Cyprus,CYP,WEO ISO,423
+Cyprus,CYP,Crude market,rtd
+Cyprus,CYP,IEA code,CYP
+Cyprus,CYP,IEA country,Cyprus
+Cyprus,CYP,Enerdata code,Cyprus
+Cyprus,CYP,VSL country grouping,EU
+Czechia,CZE,Code alpha2,CZ
+Czechia,CZE,Region,Europe & Central Asia
+Czechia,CZE,Income group,High income
+Czechia,CZE,Income code,HIC
+Czechia,CZE,Lending category,..
+Czechia,CZE,Name (K),Czechia
+Czechia,CZE,Name (L), Czechia
+Czechia,CZE,Code (M),CZE
+Czechia,CZE,Region Gains,Europe
+Czechia,CZE,Region Gains code,eur
+Czechia,CZE,IFS codes,935
+Czechia,CZE,WEO ISO,935
+Czechia,CZE,Crude market,rtd
+Czechia,CZE,IEA code,CZE
+Czechia,CZE,IEA country,Czechia
+Czechia,CZE,Enerdata code,Czechia
+Czechia,CZE,VSL country grouping,EU
+Denmark,DNK,Code alpha2,DK
+Denmark,DNK,Region,Europe & Central Asia
+Denmark,DNK,Income group,High income
+Denmark,DNK,Income code,HIC
+Denmark,DNK,Lending category,..
+Denmark,DNK,Name (K),Denmark
+Denmark,DNK,Name (L), Denmark
+Denmark,DNK,Code (M),DNK
+Denmark,DNK,Region Gains,Europe
+Denmark,DNK,Region Gains code,eur
+Denmark,DNK,IFS codes,128
+Denmark,DNK,WEO ISO,128
+Denmark,DNK,Crude market,rtd
+Denmark,DNK,IEA code,DNK
+Denmark,DNK,IEA country,Denmark
+Denmark,DNK,Enerdata code,Denmark
+Denmark,DNK,VSL country grouping,EU
+Djibouti,DJI,Code alpha2,DJ
+Djibouti,DJI,Region,Middle East & North Africa
+Djibouti,DJI,Income group,Lower middle income
+Djibouti,DJI,Income code,LMIC
+Djibouti,DJI,Lending category,IDA
+Djibouti,DJI,Name (K),Djibouti
+Djibouti,DJI,Name (L), Djibouti
+Djibouti,DJI,Code (M),DJI
+Djibouti,DJI,Region Gains,Africa
+Djibouti,DJI,Region Gains code,afr
+Djibouti,DJI,IFS codes,611
+Djibouti,DJI,WEO ISO,611
+Djibouti,DJI,Crude market,rtd
+Djibouti,DJI,VSL country grouping,Lower middle income
+Dominica,DMA,Code alpha2,DM
+Dominica,DMA,Region,Latin America & Caribbean
+Dominica,DMA,Income group,Upper middle income
+Dominica,DMA,Income code,UMIC
+Dominica,DMA,Lending category,Blend
+Dominica,DMA,Name (K),Dominica
+Dominica,DMA,Name (L), Dominica
+Dominica,DMA,Code (M),DMA
+Dominica,DMA,Region Gains,North America
+Dominica,DMA,Region Gains code,nam
+Dominica,DMA,IFS codes,321
+Dominica,DMA,WEO ISO,321
+Dominica,DMA,Crude market,usa
+Dominica,DMA,VSL country grouping,Upper middle income
+Dominican Republic,DOM,Code alpha2,DO
+Dominican Republic,DOM,Region,Latin America & Caribbean
+Dominican Republic,DOM,Income group,Upper middle income
+Dominican Republic,DOM,Income code,UMIC
+Dominican Republic,DOM,Lending category,IBRD
+Dominican Republic,DOM,Name (K),Dominican Republic
+Dominican Republic,DOM,Name (L), Dominican Republic
+Dominican Republic,DOM,Code (M),DOM
+Dominican Republic,DOM,Region Gains,North America
+Dominican Republic,DOM,Region Gains code,nam
+Dominican Republic,DOM,IFS codes,243
+Dominican Republic,DOM,WEO ISO,243
+Dominican Republic,DOM,Crude market,usa
+Dominican Republic,DOM,IEA code,DOM
+Dominican Republic,DOM,IEA country,Dominican Republic
+Dominican Republic,DOM,Enerdata code,Dominican Republic
+Dominican Republic,DOM,VSL country grouping,Upper middle income
+Ecuador,ECU,Code alpha2,EC
+Ecuador,ECU,Region,Latin America & Caribbean
+Ecuador,ECU,Income group,Upper middle income
+Ecuador,ECU,Income code,UMIC
+Ecuador,ECU,Lending category,IBRD
+Ecuador,ECU,Name (K),Ecuador
+Ecuador,ECU,Name (L), Ecuador
+Ecuador,ECU,Code (M),ECU
+Ecuador,ECU,Region Gains,North America
+Ecuador,ECU,Region Gains code,nam
+Ecuador,ECU,IFS codes,248
+Ecuador,ECU,WEO ISO,248
+Ecuador,ECU,Crude market,usa
+Ecuador,ECU,IEA code,ECU
+Ecuador,ECU,IEA country,Ecuador
+Ecuador,ECU,Enerdata code,Ecuador
+Ecuador,ECU,VSL country grouping,Upper middle income
+Egypt,EGY,Code alpha2,EG
+Egypt,EGY,Region,Middle East & North Africa
+Egypt,EGY,Income group,Lower middle income
+Egypt,EGY,Income code,LMIC
+Egypt,EGY,Lending category,IBRD
+Egypt,EGY,Name (K),Egypt
+Egypt,EGY,Name (L), Egypt
+Egypt,EGY,Code (M),EGY
+Egypt,EGY,Region Gains,Africa
+Egypt,EGY,Region Gains code,afr
+Egypt,EGY,IFS codes,469
+Egypt,EGY,WEO ISO,469
+Egypt,EGY,Crude market,rtd
+Egypt,EGY,IEA code,EGY
+Egypt,EGY,IEA country,Egypt
+Egypt,EGY,Enerdata code,Egypt
+Egypt,EGY,VSL country grouping,Lower middle income
+El Salvador,SLV,Code alpha2,SV
+El Salvador,SLV,Region,Latin America & Caribbean
+El Salvador,SLV,Income group,Lower middle income
+El Salvador,SLV,Income code,LMIC
+El Salvador,SLV,Lending category,IBRD
+El Salvador,SLV,Name (K),El Salvador
+El Salvador,SLV,Name (L), El Salvador
+El Salvador,SLV,Code (M),SLV
+El Salvador,SLV,Region Gains,North America
+El Salvador,SLV,Region Gains code,nam
+El Salvador,SLV,IFS codes,253
+El Salvador,SLV,WEO ISO,253
+El Salvador,SLV,Crude market,usa
+El Salvador,SLV,IEA code,SLV
+El Salvador,SLV,IEA country,El Salvador
+El Salvador,SLV,Enerdata code,El Salvador
+El Salvador,SLV,VSL country grouping,Lower middle income
+Equatorial Guinea,GNQ,Code alpha2,GQ
+Equatorial Guinea,GNQ,Region,Sub-Saharan Africa
+Equatorial Guinea,GNQ,Income group,Upper middle income
+Equatorial Guinea,GNQ,Income code,UMIC
+Equatorial Guinea,GNQ,Lending category,IBRD
+Equatorial Guinea,GNQ,Name (K),Equatorial Guinea
+Equatorial Guinea,GNQ,Name (L), Equatorial Guinea
+Equatorial Guinea,GNQ,Code (M),GNQ
+Equatorial Guinea,GNQ,Region Gains,Africa
+Equatorial Guinea,GNQ,Region Gains code,afr
+Equatorial Guinea,GNQ,IFS codes,642
+Equatorial Guinea,GNQ,WEO ISO,642
+Equatorial Guinea,GNQ,Crude market,rtd
+Equatorial Guinea,GNQ,IEA code,EQGUINEA
+Equatorial Guinea,GNQ,IEA country,Equatorial Guinea
+Equatorial Guinea,GNQ,Enerdata code,Equatorial Guinea
+Equatorial Guinea,GNQ,VSL country grouping,Upper middle income
+Eritrea,ERI,Code alpha2,ER
+Eritrea,ERI,Region,Sub-Saharan Africa
+Eritrea,ERI,Income group,Low income
+Eritrea,ERI,Income code,LIC
+Eritrea,ERI,Lending category,IDA
+Eritrea,ERI,Other,HIPC
+Eritrea,ERI,Name (K),Eritrea
+Eritrea,ERI,Name (L), Eritrea
+Eritrea,ERI,Code (M),ERI
+Eritrea,ERI,Region Gains,Africa
+Eritrea,ERI,Region Gains code,afr
+Eritrea,ERI,IFS codes,643
+Eritrea,ERI,WEO ISO,643
+Eritrea,ERI,Crude market,rtd
+Eritrea,ERI,IEA code,ERI
+Eritrea,ERI,IEA country,Eritrea
+Eritrea,ERI,Enerdata code,Eritrea
+Eritrea,ERI,VSL country grouping,Low income
+Estonia,EST,Code alpha2,EE
+Estonia,EST,Region,Europe & Central Asia
+Estonia,EST,Income group,High income
+Estonia,EST,Income code,HIC
+Estonia,EST,Lending category,..
+Estonia,EST,Other,EMU
+Estonia,EST,Name (K),Estonia
+Estonia,EST,Name (L), Estonia
+Estonia,EST,Code (M),EST
+Estonia,EST,Region Gains,Eurasia
+Estonia,EST,Region Gains code,eua
+Estonia,EST,Using euro,1
+Estonia,EST,IFS codes,939
+Estonia,EST,WEO ISO,939
+Estonia,EST,Crude market,rtd
+Estonia,EST,IEA code,EST
+Estonia,EST,IEA country,Estonia
+Estonia,EST,Enerdata code,Estonia
+Estonia,EST,VSL country grouping,EU
+Eswatini,SWZ,Code alpha2,SZ
+Eswatini,SWZ,Region,Sub-Saharan Africa
+Eswatini,SWZ,Income group,Lower middle income
+Eswatini,SWZ,Income code,LMIC
+Eswatini,SWZ,Lending category,IBRD
+Eswatini,SWZ,Name (K),Eswatini
+Eswatini,SWZ,Name (L), Eswatini
+Eswatini,SWZ,Code (M),SWZ
+Eswatini,SWZ,Region Gains,Africa
+Eswatini,SWZ,Region Gains code,afr
+Eswatini,SWZ,IFS codes,0x2a
+Eswatini,SWZ,WEO ISO,734
+Eswatini,SWZ,Crude market,rtd
+Eswatini,SWZ,VSL country grouping,Lower middle income
+Ethiopia,ETH,Code alpha2,ET
+Ethiopia,ETH,Region,Sub-Saharan Africa
+Ethiopia,ETH,Income group,Low income
+Ethiopia,ETH,Income code,LIC
+Ethiopia,ETH,Lending category,IDA
+Ethiopia,ETH,Other,HIPC
+Ethiopia,ETH,Name (K),Ethiopia
+Ethiopia,ETH,Name (L), Ethiopia
+Ethiopia,ETH,Code (M),ETH
+Ethiopia,ETH,Region Gains,Africa
+Ethiopia,ETH,Region Gains code,afr
+Ethiopia,ETH,IFS codes,644
+Ethiopia,ETH,WEO ISO,644
+Ethiopia,ETH,Crude market,rtd
+Ethiopia,ETH,IEA code,ETH
+Ethiopia,ETH,IEA country,Ethiopia
+Ethiopia,ETH,Enerdata code,Ethiopia
+Ethiopia,ETH,VSL country grouping,Low income
+Faroe Islands,FRO,Code alpha2,FO
+Faroe Islands,FRO,Region,Europe & Central Asia
+Faroe Islands,FRO,Income group,High income
+Faroe Islands,FRO,Income code,HIC
+Faroe Islands,FRO,Lending category,..
+Faroe Islands,FRO,Name (K),Faroe Islands
+Faroe Islands,FRO,Name (L), Faroe Islands
+Faroe Islands,FRO,Code (M),FRO
+Faroe Islands,FRO,Region Gains,Europe
+Faroe Islands,FRO,Region Gains code,eur
+Faroe Islands,FRO,IFS codes,0x2a
+Faroe Islands,FRO,WEO ISO,0x2a
+Faroe Islands,FRO,Crude market,rtd
+Faroe Islands,FRO,VSL country grouping,High income
+Fiji,FJI,Code alpha2,FJ
+Fiji,FJI,Region,East Asia & Pacific
+Fiji,FJI,Income group,Upper middle income
+Fiji,FJI,Income code,UMIC
+Fiji,FJI,Lending category,IBRD
+Fiji,FJI,Name (K),Fiji
+Fiji,FJI,Name (L), Fiji
+Fiji,FJI,Code (M),FJI
+Fiji,FJI,Region Gains,Asia & Oceania
+Fiji,FJI,Region Gains code,aso
+Fiji,FJI,IFS codes,819
+Fiji,FJI,WEO ISO,819
+Fiji,FJI,Crude market,sng
+Fiji,FJI,VSL country grouping,Upper middle income
+Finland,FIN,Code alpha2,FI
+Finland,FIN,Region,Europe & Central Asia
+Finland,FIN,Income group,High income
+Finland,FIN,Income code,HIC
+Finland,FIN,Lending category,..
+Finland,FIN,Other,EMU
+Finland,FIN,Name (K),Finland
+Finland,FIN,Name (L), Finland
+Finland,FIN,Code (M),FIN
+Finland,FIN,Region Gains,Europe
+Finland,FIN,Region Gains code,eur
+Finland,FIN,Using euro,1
+Finland,FIN,IFS codes,172
+Finland,FIN,WEO ISO,172
+Finland,FIN,Crude market,rtd
+Finland,FIN,IEA code,FIN
+Finland,FIN,IEA country,Finland
+Finland,FIN,Enerdata code,Finland
+Finland,FIN,VSL country grouping,EU
+France,FRA,Code alpha2,FR
+France,FRA,Region,Europe & Central Asia
+France,FRA,Income group,High income
+France,FRA,Income code,HIC
+France,FRA,Lending category,..
+France,FRA,Other,EMU
+France,FRA,Name (K),France
+France,FRA,Name (L), France
+France,FRA,Code (M),FRA
+France,FRA,Region Gains,Europe
+France,FRA,Region Gains code,eur
+France,FRA,Using euro,1
+France,FRA,IFS codes,132
+France,FRA,WEO ISO,132
+France,FRA,Crude market,rtd
+France,FRA,IEA code,FRA
+France,FRA,IEA country,France
+France,FRA,Enerdata code,France
+France,FRA,VSL country grouping,EU
+French Polynesia,PYF,Code alpha2,PF
+French Polynesia,PYF,Region,East Asia & Pacific
+French Polynesia,PYF,Income group,High income
+French Polynesia,PYF,Income code,HIC
+French Polynesia,PYF,Lending category,..
+French Polynesia,PYF,Name (K),French Polynesia
+French Polynesia,PYF,Name (L), French Polynesia
+French Polynesia,PYF,Code (M),PYF
+French Polynesia,PYF,Region Gains,Asia & Oceania
+French Polynesia,PYF,Region Gains code,aso
+French Polynesia,PYF,IFS codes,887
+French Polynesia,PYF,WEO ISO,0x2a
+French Polynesia,PYF,Crude market,sng
+French Polynesia,PYF,VSL country grouping,High income
+Gabon,GAB,Code alpha2,GA
+Gabon,GAB,Region,Sub-Saharan Africa
+Gabon,GAB,Income group,Upper middle income
+Gabon,GAB,Income code,UMIC
+Gabon,GAB,Lending category,IBRD
+Gabon,GAB,Name (K),Gabon
+Gabon,GAB,Name (L), Gabon
+Gabon,GAB,Code (M),GAB
+Gabon,GAB,Region Gains,Africa
+Gabon,GAB,Region Gains code,afr
+Gabon,GAB,IFS codes,646
+Gabon,GAB,WEO ISO,646
+Gabon,GAB,Crude market,rtd
+Gabon,GAB,IEA code,GAB
+Gabon,GAB,IEA country,Gabon
+Gabon,GAB,Enerdata code,Gabon
+Gabon,GAB,VSL country grouping,Upper middle income
+"Gambia, The",GMB,Code alpha2,GM
+"Gambia, The",GMB,Region,Sub-Saharan Africa
+"Gambia, The",GMB,Income group,Low income
+"Gambia, The",GMB,Income code,LIC
+"Gambia, The",GMB,Lending category,IDA
+"Gambia, The",GMB,Other,HIPC
+"Gambia, The",GMB,Name (K),"Gambia, The"
+"Gambia, The",GMB,Name (L)," Gambia, The"
+"Gambia, The",GMB,Code (M),GMB
+"Gambia, The",GMB,Region Gains,Africa
+"Gambia, The",GMB,Region Gains code,afr
+"Gambia, The",GMB,IFS codes,648
+"Gambia, The",GMB,WEO ISO,648
+"Gambia, The",GMB,Crude market,rtd
+"Gambia, The",GMB,VSL country grouping,Low income
+Georgia,GEO,Code alpha2,GE
+Georgia,GEO,Region,Europe & Central Asia
+Georgia,GEO,Income group,Lower middle income
+Georgia,GEO,Income code,LMIC
+Georgia,GEO,Lending category,IBRD
+Georgia,GEO,Name (K),Georgia
+Georgia,GEO,Name (L), Georgia
+Georgia,GEO,Code (M),GEO
+Georgia,GEO,Region Gains,Eurasia
+Georgia,GEO,Region Gains code,eua
+Georgia,GEO,IFS codes,915
+Georgia,GEO,WEO ISO,915
+Georgia,GEO,Crude market,rtd
+Georgia,GEO,IEA code,GEO
+Georgia,GEO,IEA country,Georgia
+Georgia,GEO,Enerdata code,Georgia
+Georgia,GEO,VSL country grouping,Lower middle income
+Germany,DEU,Code alpha2,DE
+Germany,DEU,Region,Europe & Central Asia
+Germany,DEU,Income group,High income
+Germany,DEU,Income code,HIC
+Germany,DEU,Lending category,..
+Germany,DEU,Other,EMU
+Germany,DEU,Name (K),Germany
+Germany,DEU,Name (L), Germany
+Germany,DEU,Code (M),DEU
+Germany,DEU,Region Gains,Europe
+Germany,DEU,Region Gains code,eur
+Germany,DEU,Using euro,1
+Germany,DEU,IFS codes,134
+Germany,DEU,WEO ISO,134
+Germany,DEU,Crude market,rtd
+Germany,DEU,IEA code,DEU
+Germany,DEU,IEA country,Germany
+Germany,DEU,Enerdata code,Germany
+Germany,DEU,VSL country grouping,EU
+Ghana,GHA,Code alpha2,GH
+Ghana,GHA,Region,Sub-Saharan Africa
+Ghana,GHA,Income group,Lower middle income
+Ghana,GHA,Income code,LMIC
+Ghana,GHA,Lending category,IDA
+Ghana,GHA,Other,HIPC
+Ghana,GHA,Name (K),Ghana
+Ghana,GHA,Name (L), Ghana
+Ghana,GHA,Code (M),GHA
+Ghana,GHA,Region Gains,Africa
+Ghana,GHA,Region Gains code,afr
+Ghana,GHA,IFS codes,652
+Ghana,GHA,WEO ISO,652
+Ghana,GHA,Crude market,rtd
+Ghana,GHA,IEA code,GHA
+Ghana,GHA,IEA country,Ghana
+Ghana,GHA,Enerdata code,Ghana
+Ghana,GHA,VSL country grouping,Lower middle income
+Gibraltar,GIB,Code alpha2,GI
+Gibraltar,GIB,Region,Europe & Central Asia
+Gibraltar,GIB,Income group,High income
+Gibraltar,GIB,Income code,HIC
+Gibraltar,GIB,Lending category,..
+Gibraltar,GIB,Name (K),Gibraltar
+Gibraltar,GIB,Name (L), Gibraltar
+Gibraltar,GIB,Code (M),GIB
+Gibraltar,GIB,Region Gains,Europe
+Gibraltar,GIB,Region Gains code,eur
+Gibraltar,GIB,IFS codes,823
+Gibraltar,GIB,WEO ISO,0x2a
+Gibraltar,GIB,Crude market,rtd
+Gibraltar,GIB,IEA code,GIB
+Gibraltar,GIB,IEA country,Gibraltar
+Gibraltar,GIB,Enerdata code,Gibraltar
+Gibraltar,GIB,VSL country grouping,High income
+Greece,GRC,Code alpha2,GR
+Greece,GRC,Region,Europe & Central Asia
+Greece,GRC,Income group,High income
+Greece,GRC,Income code,HIC
+Greece,GRC,Lending category,..
+Greece,GRC,Other,EMU
+Greece,GRC,Name (K),Greece
+Greece,GRC,Name (L), Greece
+Greece,GRC,Code (M),GRC
+Greece,GRC,Region Gains,Europe
+Greece,GRC,Region Gains code,eur
+Greece,GRC,Using euro,1
+Greece,GRC,IFS codes,174
+Greece,GRC,WEO ISO,174
+Greece,GRC,Crude market,rtd
+Greece,GRC,IEA code,GRC
+Greece,GRC,IEA country,Greece
+Greece,GRC,Enerdata code,Greece
+Greece,GRC,VSL country grouping,EU
+Greenland,GRL,Code alpha2,GL
+Greenland,GRL,Region,Europe & Central Asia
+Greenland,GRL,Income group,High income
+Greenland,GRL,Income code,HIC
+Greenland,GRL,Lending category,..
+Greenland,GRL,Name (K),Greenland
+Greenland,GRL,Name (L), Greenland
+Greenland,GRL,Code (M),GRL
+Greenland,GRL,Region Gains,Europe
+Greenland,GRL,Region Gains code,eur
+Greenland,GRL,Using euro,1
+Greenland,GRL,IFS codes,326
+Greenland,GRL,WEO ISO,0x2a
+Greenland,GRL,Crude market,rtd
+Greenland,GRL,IEA code,GREENLAND
+Greenland,GRL,IEA country,Memo: Greenland
+Greenland,GRL,Enerdata code,Greenland
+Greenland,GRL,VSL country grouping,High income
+Grenada,GRD,Code alpha2,GD
+Grenada,GRD,Region,Latin America & Caribbean
+Grenada,GRD,Income group,Upper middle income
+Grenada,GRD,Income code,UMIC
+Grenada,GRD,Lending category,Blend
+Grenada,GRD,Name (K),Grenada
+Grenada,GRD,Name (L), Grenada
+Grenada,GRD,Code (M),GRD
+Grenada,GRD,Region Gains,North America
+Grenada,GRD,Region Gains code,nam
+Grenada,GRD,IFS codes,328
+Grenada,GRD,WEO ISO,328
+Grenada,GRD,Crude market,usa
+Grenada,GRD,VSL country grouping,Upper middle income
+Guam,GUM,Code alpha2,GU
+Guam,GUM,Region,East Asia & Pacific
+Guam,GUM,Income group,High income
+Guam,GUM,Income code,HIC
+Guam,GUM,Lending category,..
+Guam,GUM,Name (K),Guam
+Guam,GUM,Name (L), Guam
+Guam,GUM,Code (M),GUM
+Guam,GUM,Region Gains,Asia & Oceania
+Guam,GUM,Region Gains code,aso
+Guam,GUM,IFS codes,829
+Guam,GUM,WEO ISO,0x2a
+Guam,GUM,Crude market,sng
+Guam,GUM,VSL country grouping,High income
+Guatemala,GTM,Code alpha2,GT
+Guatemala,GTM,Region,Latin America & Caribbean
+Guatemala,GTM,Income group,Upper middle income
+Guatemala,GTM,Income code,UMIC
+Guatemala,GTM,Lending category,IBRD
+Guatemala,GTM,Name (K),Guatemala
+Guatemala,GTM,Name (L), Guatemala
+Guatemala,GTM,Code (M),GTM
+Guatemala,GTM,Region Gains,North America
+Guatemala,GTM,Region Gains code,nam
+Guatemala,GTM,IFS codes,258
+Guatemala,GTM,WEO ISO,258
+Guatemala,GTM,Crude market,usa
+Guatemala,GTM,IEA code,GTM
+Guatemala,GTM,IEA country,Guatemala
+Guatemala,GTM,Enerdata code,Guatemala
+Guatemala,GTM,VSL country grouping,Upper middle income
+Guinea,GIN,Code alpha2,GN
+Guinea,GIN,Region,Sub-Saharan Africa
+Guinea,GIN,Income group,Low income
+Guinea,GIN,Income code,LIC
+Guinea,GIN,Lending category,IDA
+Guinea,GIN,Other,HIPC
+Guinea,GIN,Name (K),Guinea
+Guinea,GIN,Name (L), Guinea
+Guinea,GIN,Code (M),GIN
+Guinea,GIN,Region Gains,Africa
+Guinea,GIN,Region Gains code,afr
+Guinea,GIN,IFS codes,656
+Guinea,GIN,WEO ISO,656
+Guinea,GIN,Crude market,rtd
+Guinea,GIN,VSL country grouping,Low income
+Guinea-Bissau,GNB,Code alpha2,GW
+Guinea-Bissau,GNB,Region,Sub-Saharan Africa
+Guinea-Bissau,GNB,Income group,Low income
+Guinea-Bissau,GNB,Income code,LIC
+Guinea-Bissau,GNB,Lending category,IDA
+Guinea-Bissau,GNB,Other,HIPC
+Guinea-Bissau,GNB,Name (K),Guinea-Bissau
+Guinea-Bissau,GNB,Name (L), Guinea-Bissau
+Guinea-Bissau,GNB,Code (M),GNB
+Guinea-Bissau,GNB,Region Gains,Africa
+Guinea-Bissau,GNB,Region Gains code,afr
+Guinea-Bissau,GNB,IFS codes,654
+Guinea-Bissau,GNB,WEO ISO,654
+Guinea-Bissau,GNB,Crude market,rtd
+Guinea-Bissau,GNB,VSL country grouping,Low income
+Guyana,GUY,Code alpha2,GY
+Guyana,GUY,Region,Latin America & Caribbean
+Guyana,GUY,Income group,Upper middle income
+Guyana,GUY,Income code,UMIC
+Guyana,GUY,Lending category,IDA
+Guyana,GUY,Other,HIPC
+Guyana,GUY,Name (K),Guyana
+Guyana,GUY,Name (L), Guyana
+Guyana,GUY,Code (M),GUY
+Guyana,GUY,Region Gains,North America
+Guyana,GUY,Region Gains code,nam
+Guyana,GUY,IFS codes,336
+Guyana,GUY,WEO ISO,336
+Guyana,GUY,Crude market,usa
+Guyana,GUY,IEA code,MGUYANA
+Guyana,GUY,IEA country,Memo: Guyana
+Guyana,GUY,Enerdata code,Guyana
+Guyana,GUY,VSL country grouping,Upper middle income
+Haiti,HTI,Code alpha2,HT
+Haiti,HTI,Region,Latin America & Caribbean
+Haiti,HTI,Income group,Low income
+Haiti,HTI,Income code,LIC
+Haiti,HTI,Lending category,IDA
+Haiti,HTI,Other,HIPC
+Haiti,HTI,Name (K),Haiti
+Haiti,HTI,Name (L), Haiti
+Haiti,HTI,Code (M),HTI
+Haiti,HTI,Region Gains,North America
+Haiti,HTI,Region Gains code,nam
+Haiti,HTI,IFS codes,263
+Haiti,HTI,WEO ISO,263
+Haiti,HTI,Crude market,usa
+Haiti,HTI,IEA code,HTI
+Haiti,HTI,IEA country,Haiti
+Haiti,HTI,Enerdata code,Haiti
+Haiti,HTI,VSL country grouping,Low income
+Honduras,HND,Code alpha2,HN
+Honduras,HND,Region,Latin America & Caribbean
+Honduras,HND,Income group,Lower middle income
+Honduras,HND,Income code,LMIC
+Honduras,HND,Lending category,IDA
+Honduras,HND,Other,HIPC
+Honduras,HND,Name (K),Honduras
+Honduras,HND,Name (L), Honduras
+Honduras,HND,Code (M),HND
+Honduras,HND,Region Gains,North America
+Honduras,HND,Region Gains code,nam
+Honduras,HND,IFS codes,268
+Honduras,HND,WEO ISO,268
+Honduras,HND,Crude market,usa
+Honduras,HND,IEA code,HND
+Honduras,HND,IEA country,Honduras
+Honduras,HND,Enerdata code,Honduras
+Honduras,HND,VSL country grouping,Lower middle income
+Hong Kong SAR,HKG,Code alpha2,HK
+Hong Kong SAR,HKG,Region,East Asia & Pacific
+Hong Kong SAR,HKG,Income group,High income
+Hong Kong SAR,HKG,Income code,HIC
+Hong Kong SAR,HKG,Lending category,..
+Hong Kong SAR,HKG,Name (K),Hong Kong SAR
+Hong Kong SAR,HKG,Name (L), Hong Kong SAR
+Hong Kong SAR,HKG,Code (M),HKG
+Hong Kong SAR,HKG,Region Gains,Asia & Oceania
+Hong Kong SAR,HKG,Region Gains code,aso
+Hong Kong SAR,HKG,IFS codes,532
+Hong Kong SAR,HKG,WEO ISO,532
+Hong Kong SAR,HKG,Crude market,sng
+Hong Kong SAR,HKG,IEA code,HKG
+Hong Kong SAR,HKG,IEA country,Hong Kong (China)
+Hong Kong SAR,HKG,Enerdata code,Hong Kong SAR
+Hong Kong SAR,HKG,VSL country grouping,High income
+Hungary,HUN,Code alpha2,HU
+Hungary,HUN,Region,Europe & Central Asia
+Hungary,HUN,Income group,High income
+Hungary,HUN,Income code,HIC
+Hungary,HUN,Lending category,..
+Hungary,HUN,Name (K),0x17
+Hungary,HUN,Name (L), Hungary
+Hungary,HUN,Code (M),HUN
+Hungary,HUN,Region Gains,Europe
+Hungary,HUN,Region Gains code,eur
+Hungary,HUN,IFS codes,944
+Hungary,HUN,WEO ISO,944
+Hungary,HUN,Crude market,rtd
+Hungary,HUN,IEA code,HUN
+Hungary,HUN,IEA country,Hungary
+Hungary,HUN,Enerdata code,Hungary
+Hungary,HUN,VSL country grouping,EU
+Iceland,ISL,Code alpha2,IS
+Iceland,ISL,Region,Europe & Central Asia
+Iceland,ISL,Income group,High income
+Iceland,ISL,Income code,HIC
+Iceland,ISL,Lending category,..
+Iceland,ISL,Name (K),Iceland
+Iceland,ISL,Name (L), Iceland
+Iceland,ISL,Code (M),ISL
+Iceland,ISL,Region Gains,Europe
+Iceland,ISL,Region Gains code,eur
+Iceland,ISL,IFS codes,176
+Iceland,ISL,WEO ISO,176
+Iceland,ISL,Crude market,rtd
+Iceland,ISL,IEA code,ISL
+Iceland,ISL,IEA country,Iceland
+Iceland,ISL,Enerdata code,Iceland
+Iceland,ISL,VSL country grouping,OECD
+India,IND,Code alpha2,IN
+India,IND,Region,South Asia
+India,IND,Income group,Lower middle income
+India,IND,Income code,LMIC
+India,IND,Lending category,IBRD
+India,IND,Name (K),India
+India,IND,Name (L), India
+India,IND,Code (M),IND
+India,IND,Region Gains,Asia & Oceania
+India,IND,Region Gains code,aso
+India,IND,IFS codes,534
+India,IND,WEO ISO,534
+India,IND,Crude market,sng
+India,IND,IEA code,IND
+India,IND,IEA country,India
+India,IND,Enerdata code,India
+India,IND,VSL country grouping,Lower middle income
+Indonesia,IDN,Code alpha2,ID
+Indonesia,IDN,Region,East Asia & Pacific
+Indonesia,IDN,Income group,Lower middle income
+Indonesia,IDN,Income code,LMIC
+Indonesia,IDN,Lending category,IBRD
+Indonesia,IDN,Name (K),Indonesia
+Indonesia,IDN,Name (L), Indonesia
+Indonesia,IDN,Code (M),IDN
+Indonesia,IDN,Region Gains,Asia & Oceania
+Indonesia,IDN,Region Gains code,aso
+Indonesia,IDN,IFS codes,536
+Indonesia,IDN,WEO ISO,536
+Indonesia,IDN,Crude market,sng
+Indonesia,IDN,IEA code,IDN
+Indonesia,IDN,IEA country,Indonesia
+Indonesia,IDN,Enerdata code,Indonesia
+Indonesia,IDN,VSL country grouping,Lower middle income
+Iran,IRN,Code alpha2,IR
+Iran,IRN,Region,Middle East & North Africa
+Iran,IRN,Income group,Upper middle income
+Iran,IRN,Income code,UMIC
+Iran,IRN,Lending category,IBRD
+Iran,IRN,Name (K),Iran
+Iran,IRN,Name (L), Iran
+Iran,IRN,Code (M),IRN
+Iran,IRN,Region Gains,Middle East
+Iran,IRN,Region Gains code,mea
+Iran,IRN,IFS codes,429
+Iran,IRN,WEO ISO,429
+Iran,IRN,Crude market,rtd
+Iran,IRN,IEA code,IRN
+Iran,IRN,IEA country,Iran
+Iran,IRN,Enerdata code,Iran
+Iran,IRN,VSL country grouping,Upper middle income
+Iraq,IRQ,Code alpha2,IQ
+Iraq,IRQ,Region,Middle East & North Africa
+Iraq,IRQ,Income group,Upper middle income
+Iraq,IRQ,Income code,UMIC
+Iraq,IRQ,Lending category,IBRD
+Iraq,IRQ,Name (K),Iraq
+Iraq,IRQ,Name (L), Iraq
+Iraq,IRQ,Code (M),IRQ
+Iraq,IRQ,Region Gains,Middle East
+Iraq,IRQ,Region Gains code,mea
+Iraq,IRQ,IFS codes,433
+Iraq,IRQ,WEO ISO,433
+Iraq,IRQ,Crude market,rtd
+Iraq,IRQ,IEA code,IRQ
+Iraq,IRQ,IEA country,Iraq
+Iraq,IRQ,Enerdata code,Iraq
+Iraq,IRQ,VSL country grouping,Upper middle income
+Ireland,IRL,Code alpha2,IE
+Ireland,IRL,Region,Europe & Central Asia
+Ireland,IRL,Income group,High income
+Ireland,IRL,Income code,HIC
+Ireland,IRL,Lending category,..
+Ireland,IRL,Other,EMU
+Ireland,IRL,Name (K),Ireland
+Ireland,IRL,Name (L), Ireland
+Ireland,IRL,Code (M),IRL
+Ireland,IRL,Region Gains,Europe
+Ireland,IRL,Region Gains code,eur
+Ireland,IRL,Using euro,1
+Ireland,IRL,IFS codes,178
+Ireland,IRL,WEO ISO,178
+Ireland,IRL,Crude market,rtd
+Ireland,IRL,IEA code,IRL
+Ireland,IRL,IEA country,Ireland
+Ireland,IRL,Enerdata code,Ireland
+Ireland,IRL,VSL country grouping,EU
+Isle of Man,IMN,Code alpha2,IM
+Isle of Man,IMN,Region,Europe & Central Asia
+Isle of Man,IMN,Income group,High income
+Isle of Man,IMN,Income code,HIC
+Isle of Man,IMN,Lending category,..
+Isle of Man,IMN,Name (K),Isle of Man
+Isle of Man,IMN,Name (L), Isle of Man
+Isle of Man,IMN,Code (M),IMN
+Isle of Man,IMN,Region Gains,Europe
+Isle of Man,IMN,Region Gains code,eur
+Isle of Man,IMN,IFS codes,0x2a
+Isle of Man,IMN,WEO ISO,0x2a
+Isle of Man,IMN,Crude market,rtd
+Isle of Man,IMN,VSL country grouping,High income
+Israel,ISR,Code alpha2,IL
+Israel,ISR,Region,Middle East & North Africa
+Israel,ISR,Income group,High income
+Israel,ISR,Income code,HIC
+Israel,ISR,Lending category,..
+Israel,ISR,Name (K),Israel
+Israel,ISR,Name (L), Israel
+Israel,ISR,Code (M),ISR
+Israel,ISR,Region Gains,Middle East
+Israel,ISR,Region Gains code,mea
+Israel,ISR,IFS codes,436
+Israel,ISR,WEO ISO,436
+Israel,ISR,Crude market,rtd
+Israel,ISR,IEA code,ISR
+Israel,ISR,IEA country,Israel
+Israel,ISR,Enerdata code,Israel
+Israel,ISR,VSL country grouping,High income
+Italy,ITA,Code alpha2,IT
+Italy,ITA,Region,Europe & Central Asia
+Italy,ITA,Income group,High income
+Italy,ITA,Income code,HIC
+Italy,ITA,Lending category,..
+Italy,ITA,Other,EMU
+Italy,ITA,Name (K),Italy
+Italy,ITA,Name (L), Italy
+Italy,ITA,Code (M),ITA
+Italy,ITA,Region Gains,Europe
+Italy,ITA,Region Gains code,eur
+Italy,ITA,Using euro,1
+Italy,ITA,IFS codes,136
+Italy,ITA,WEO ISO,136
+Italy,ITA,Crude market,rtd
+Italy,ITA,IEA code,ITA
+Italy,ITA,IEA country,Italy
+Italy,ITA,Enerdata code,Italy
+Italy,ITA,VSL country grouping,EU
+Jamaica,JAM,Code alpha2,JM
+Jamaica,JAM,Region,Latin America & Caribbean
+Jamaica,JAM,Income group,Upper middle income
+Jamaica,JAM,Income code,UMIC
+Jamaica,JAM,Lending category,IBRD
+Jamaica,JAM,Name (K),Jamaica
+Jamaica,JAM,Name (L), Jamaica
+Jamaica,JAM,Code (M),JAM
+Jamaica,JAM,Region Gains,North America
+Jamaica,JAM,Region Gains code,nam
+Jamaica,JAM,IFS codes,343
+Jamaica,JAM,WEO ISO,343
+Jamaica,JAM,Crude market,usa
+Jamaica,JAM,IEA code,JAM
+Jamaica,JAM,IEA country,Jamaica
+Jamaica,JAM,Enerdata code,Jamaica
+Jamaica,JAM,VSL country grouping,Upper middle income
+Japan,JPN,Code alpha2,JP
+Japan,JPN,Region,East Asia & Pacific
+Japan,JPN,Income group,High income
+Japan,JPN,Income code,HIC
+Japan,JPN,Lending category,..
+Japan,JPN,Name (K),Japan
+Japan,JPN,Name (L), Japan
+Japan,JPN,Code (M),JPN
+Japan,JPN,Region Gains,Asia & Oceania
+Japan,JPN,Region Gains code,aso
+Japan,JPN,IFS codes,158
+Japan,JPN,WEO ISO,158
+Japan,JPN,Crude market,sng
+Japan,JPN,IEA code,JPN
+Japan,JPN,IEA country,Japan
+Japan,JPN,Enerdata code,Japan
+Japan,JPN,VSL country grouping,OECD
+Jordan,JOR,Code alpha2,JO
+Jordan,JOR,Region,Middle East & North Africa
+Jordan,JOR,Income group,Upper middle income
+Jordan,JOR,Income code,UMIC
+Jordan,JOR,Lending category,IBRD
+Jordan,JOR,Name (K),Jordan
+Jordan,JOR,Name (L), Jordan
+Jordan,JOR,Code (M),JOR
+Jordan,JOR,Region Gains,Middle East
+Jordan,JOR,Region Gains code,mea
+Jordan,JOR,IFS codes,439
+Jordan,JOR,WEO ISO,439
+Jordan,JOR,Crude market,rtd
+Jordan,JOR,IEA code,JOR
+Jordan,JOR,IEA country,Jordan
+Jordan,JOR,Enerdata code,Jordan
+Jordan,JOR,VSL country grouping,Upper middle income
+Kazakhstan,KAZ,Code alpha2,KZ
+Kazakhstan,KAZ,Region,Europe & Central Asia
+Kazakhstan,KAZ,Income group,Upper middle income
+Kazakhstan,KAZ,Income code,UMIC
+Kazakhstan,KAZ,Lending category,IBRD
+Kazakhstan,KAZ,Name (K),Kazakhstan
+Kazakhstan,KAZ,Name (L), Kazakhstan
+Kazakhstan,KAZ,Code (M),KAZ
+Kazakhstan,KAZ,Region Gains,Eurasia
+Kazakhstan,KAZ,Region Gains code,eua
+Kazakhstan,KAZ,IFS codes,916
+Kazakhstan,KAZ,WEO ISO,916
+Kazakhstan,KAZ,Crude market,rtd
+Kazakhstan,KAZ,IEA code,KAZ
+Kazakhstan,KAZ,IEA country,Kazakhstan
+Kazakhstan,KAZ,Enerdata code,Kazakhstan
+Kazakhstan,KAZ,VSL country grouping,Upper middle income
+Kenya,KEN,Code alpha2,KE
+Kenya,KEN,Region,Sub-Saharan Africa
+Kenya,KEN,Income group,Lower middle income
+Kenya,KEN,Income code,LMIC
+Kenya,KEN,Lending category,Blend
+Kenya,KEN,Name (K),Kenya
+Kenya,KEN,Name (L), Kenya
+Kenya,KEN,Code (M),KEN
+Kenya,KEN,Region Gains,Africa
+Kenya,KEN,Region Gains code,afr
+Kenya,KEN,IFS codes,664
+Kenya,KEN,WEO ISO,664
+Kenya,KEN,Crude market,rtd
+Kenya,KEN,IEA code,KEN
+Kenya,KEN,IEA country,Kenya
+Kenya,KEN,Enerdata code,Kenya
+Kenya,KEN,VSL country grouping,Lower middle income
+Kiribati,KIR,Code alpha2,KI
+Kiribati,KIR,Region,East Asia & Pacific
+Kiribati,KIR,Income group,Lower middle income
+Kiribati,KIR,Income code,LMIC
+Kiribati,KIR,Lending category,IDA
+Kiribati,KIR,Name (K),Kiribati
+Kiribati,KIR,Name (L), Kiribati
+Kiribati,KIR,Code (M),KIR
+Kiribati,KIR,Region Gains,Asia & Oceania
+Kiribati,KIR,Region Gains code,aso
+Kiribati,KIR,IFS codes,826
+Kiribati,KIR,WEO ISO,826
+Kiribati,KIR,Crude market,sng
+Kiribati,KIR,VSL country grouping,Lower middle income
+Korea,KOR,Code alpha2,KP
+Korea,KOR,Region,East Asia & Pacific
+Korea,KOR,Income group,High income
+Korea,KOR,Income code,HIC
+Korea,KOR,Lending category,..
+Korea,KOR,Name (K),Korea
+Korea,KOR,Name (L), Korea
+Korea,KOR,Code (M),KOR
+Korea,KOR,Region Gains,Asia & Oceania
+Korea,KOR,Region Gains code,aso
+Korea,KOR,IFS codes,542
+Korea,KOR,WEO ISO,542
+Korea,KOR,Crude market,sng
+Korea,KOR,IEA code,KOR
+Korea,KOR,IEA country,Korea
+Korea,KOR,Enerdata code,Korea
+Korea,KOR,VSL country grouping,OECD
+"Korea, Dem. People's Rep.",PRK,Code alpha2,KR
+"Korea, Dem. People's Rep.",PRK,Region,East Asia & Pacific
+"Korea, Dem. People's Rep.",PRK,Income group,Low income
+"Korea, Dem. People's Rep.",PRK,Income code,LIC
+"Korea, Dem. People's Rep.",PRK,Lending category,..
+"Korea, Dem. People's Rep.",PRK,Name (K),"Korea, Dem. People's Rep."
+"Korea, Dem. People's Rep.",PRK,Name (L)," Korea, Dem. People's Rep."
+"Korea, Dem. People's Rep.",PRK,Code (M),PRK
+"Korea, Dem. People's Rep.",PRK,Region Gains,Asia & Oceania
+"Korea, Dem. People's Rep.",PRK,Region Gains code,aso
+"Korea, Dem. People's Rep.",PRK,IFS codes,0x2a
+"Korea, Dem. People's Rep.",PRK,WEO ISO,0x2a
+"Korea, Dem. People's Rep.",PRK,Crude market,sng
+"Korea, Dem. People's Rep.",PRK,IEA code,PRK
+"Korea, Dem. People's Rep.",PRK,IEA country,Democratic People's Republic of Korea
+"Korea, Dem. People's Rep.",PRK,Enerdata code,"Korea, Dem. People's Rep."
+"Korea, Dem. People's Rep.",PRK,VSL country grouping,Low income
+Kosovo,XKX,Code alpha2,XK
+Kosovo,XKX,Region,Europe & Central Asia
+Kosovo,XKX,Income group,Lower middle income
+Kosovo,XKX,Income code,LMIC
+Kosovo,XKX,Lending category,IDA
+Kosovo,XKX,Name (K),Kosovo
+Kosovo,XKX,Name (L), Kosovo
+Kosovo,XKX,Code (M),XKX
+Kosovo,XKX,Region Gains,Europe
+Kosovo,XKX,Region Gains code,eur
+Kosovo,XKX,IFS codes,967
+Kosovo,XKX,WEO ISO,967
+Kosovo,XKX,Crude market,rtd
+Kosovo,XKX,IEA code,KOSOVO
+Kosovo,XKX,IEA country,Kosovo
+Kosovo,XKX,Enerdata code,Kosovo
+Kosovo,XKX,VSL country grouping,Lower middle income
+Kuwait,KWT,Code alpha2,KW
+Kuwait,KWT,Region,Middle East & North Africa
+Kuwait,KWT,Income group,High income
+Kuwait,KWT,Income code,HIC
+Kuwait,KWT,Lending category,..
+Kuwait,KWT,Name (K),Kuwait
+Kuwait,KWT,Name (L), Kuwait
+Kuwait,KWT,Code (M),KWT
+Kuwait,KWT,Region Gains,Middle East
+Kuwait,KWT,Region Gains code,mea
+Kuwait,KWT,IFS codes,443
+Kuwait,KWT,WEO ISO,443
+Kuwait,KWT,Crude market,rtd
+Kuwait,KWT,IEA code,KWT
+Kuwait,KWT,IEA country,Kuwait
+Kuwait,KWT,Enerdata code,Kuwait
+Kuwait,KWT,VSL country grouping,High income
+Kyrgyz Republic,KGZ,Code alpha2,KG
+Kyrgyz Republic,KGZ,Region,Europe & Central Asia
+Kyrgyz Republic,KGZ,Income group,Lower middle income
+Kyrgyz Republic,KGZ,Income code,LMIC
+Kyrgyz Republic,KGZ,Lending category,IDA
+Kyrgyz Republic,KGZ,Name (K),Kyrgyz Republic
+Kyrgyz Republic,KGZ,Name (L), Kyrgyz Republic
+Kyrgyz Republic,KGZ,Code (M),KGZ
+Kyrgyz Republic,KGZ,Region Gains,Eurasia
+Kyrgyz Republic,KGZ,Region Gains code,eua
+Kyrgyz Republic,KGZ,IFS codes,917
+Kyrgyz Republic,KGZ,WEO ISO,917
+Kyrgyz Republic,KGZ,Crude market,rtd
+Kyrgyz Republic,KGZ,IEA code,KGZ
+Kyrgyz Republic,KGZ,IEA country,Kyrgyz Republic
+Kyrgyz Republic,KGZ,Enerdata code,Kyrgyz Republic
+Kyrgyz Republic,KGZ,VSL country grouping,Lower middle income
+Lao P.D.R.,LAO,Code alpha2,LA
+Lao P.D.R.,LAO,Region,East Asia & Pacific
+Lao P.D.R.,LAO,Income group,Lower middle income
+Lao P.D.R.,LAO,Income code,LMIC
+Lao P.D.R.,LAO,Lending category,IDA
+Lao P.D.R.,LAO,Name (K),Lao P.D.R.
+Lao P.D.R.,LAO,Name (L), Lao P.D.R.
+Lao P.D.R.,LAO,Code (M),LAO
+Lao P.D.R.,LAO,Region Gains,Asia & Oceania
+Lao P.D.R.,LAO,Region Gains code,aso
+Lao P.D.R.,LAO,IFS codes,544
+Lao P.D.R.,LAO,WEO ISO,544
+Lao P.D.R.,LAO,Crude market,sng
+Lao P.D.R.,LAO,IEA code,LAO
+Lao P.D.R.,LAO,IEA country,Lao People's Democratic Republic
+Lao P.D.R.,LAO,Enerdata code,Lao P.D.R.
+Lao P.D.R.,LAO,VSL country grouping,Lower middle income
+Latvia,LVA,Code alpha2,LV
+Latvia,LVA,Region,Europe & Central Asia
+Latvia,LVA,Income group,High income
+Latvia,LVA,Income code,HIC
+Latvia,LVA,Lending category,..
+Latvia,LVA,Other,EMU
+Latvia,LVA,Name (K),Latvia
+Latvia,LVA,Name (L), Latvia
+Latvia,LVA,Code (M),LVA
+Latvia,LVA,Region Gains,Eurasia
+Latvia,LVA,Region Gains code,eua
+Latvia,LVA,Using euro,1
+Latvia,LVA,IFS codes,941
+Latvia,LVA,WEO ISO,941
+Latvia,LVA,Crude market,rtd
+Latvia,LVA,IEA code,LVA
+Latvia,LVA,IEA country,Latvia
+Latvia,LVA,Enerdata code,Latvia
+Latvia,LVA,VSL country grouping,EU
+Lebanon,LBN,Code alpha2,LB
+Lebanon,LBN,Region,Middle East & North Africa
+Lebanon,LBN,Income group,Upper middle income
+Lebanon,LBN,Income code,UMIC
+Lebanon,LBN,Lending category,IBRD
+Lebanon,LBN,Name (K),Lebanon
+Lebanon,LBN,Name (L), Lebanon
+Lebanon,LBN,Code (M),LBN
+Lebanon,LBN,Region Gains,Middle East
+Lebanon,LBN,Region Gains code,mea
+Lebanon,LBN,IFS codes,446
+Lebanon,LBN,WEO ISO,446
+Lebanon,LBN,Crude market,rtd
+Lebanon,LBN,IEA code,LBN
+Lebanon,LBN,IEA country,Lebanon
+Lebanon,LBN,Enerdata code,Lebanon
+Lebanon,LBN,VSL country grouping,Upper middle income
+Lesotho,LSO,Code alpha2,LS
+Lesotho,LSO,Region,Sub-Saharan Africa
+Lesotho,LSO,Income group,Lower middle income
+Lesotho,LSO,Income code,LMIC
+Lesotho,LSO,Lending category,IDA
+Lesotho,LSO,Name (K),Lesotho
+Lesotho,LSO,Name (L), Lesotho
+Lesotho,LSO,Code (M),LSO
+Lesotho,LSO,Region Gains,Africa
+Lesotho,LSO,Region Gains code,afr
+Lesotho,LSO,IFS codes,666
+Lesotho,LSO,WEO ISO,666
+Lesotho,LSO,Crude market,rtd
+Lesotho,LSO,VSL country grouping,Lower middle income
+Liberia,LBR,Code alpha2,LR
+Liberia,LBR,Region,Sub-Saharan Africa
+Liberia,LBR,Income group,Low income
+Liberia,LBR,Income code,LIC
+Liberia,LBR,Lending category,IDA
+Liberia,LBR,Other,HIPC
+Liberia,LBR,Name (K),Liberia
+Liberia,LBR,Name (L), Liberia
+Liberia,LBR,Code (M),LBR
+Liberia,LBR,Region Gains,Africa
+Liberia,LBR,Region Gains code,afr
+Liberia,LBR,IFS codes,668
+Liberia,LBR,WEO ISO,668
+Liberia,LBR,Crude market,rtd
+Liberia,LBR,VSL country grouping,Low income
+Libya,LBY,Code alpha2,LY
+Libya,LBY,Region,Middle East & North Africa
+Libya,LBY,Income group,Upper middle income
+Libya,LBY,Income code,UMIC
+Libya,LBY,Lending category,IBRD
+Libya,LBY,Name (K),Libya
+Libya,LBY,Name (L), Libya
+Libya,LBY,Code (M),LBY
+Libya,LBY,Region Gains,Africa
+Libya,LBY,Region Gains code,afr
+Libya,LBY,IFS codes,672
+Libya,LBY,WEO ISO,672
+Libya,LBY,Crude market,rtd
+Libya,LBY,IEA code,LBY
+Libya,LBY,IEA country,Libya
+Libya,LBY,Enerdata code,Libya
+Libya,LBY,VSL country grouping,Upper middle income
+Liechtenstein,LIE,Code alpha2,LI
+Liechtenstein,LIE,Region,Europe & Central Asia
+Liechtenstein,LIE,Income group,High income
+Liechtenstein,LIE,Income code,HIC
+Liechtenstein,LIE,Lending category,..
+Liechtenstein,LIE,Name (K),Liechtenstein
+Liechtenstein,LIE,Name (L), Liechtenstein
+Liechtenstein,LIE,Code (M),LIE
+Liechtenstein,LIE,Region Gains,Europe
+Liechtenstein,LIE,Region Gains code,eur
+Liechtenstein,LIE,IFS codes,0x2a
+Liechtenstein,LIE,WEO ISO,0x2a
+Liechtenstein,LIE,Crude market,rtd
+Liechtenstein,LIE,VSL country grouping,High income
+Lithuania,LTU,Code alpha2,LT
+Lithuania,LTU,Region,Europe & Central Asia
+Lithuania,LTU,Income group,High income
+Lithuania,LTU,Income code,HIC
+Lithuania,LTU,Lending category,..
+Lithuania,LTU,Other,EMU
+Lithuania,LTU,Name (K),Lithuania
+Lithuania,LTU,Name (L), Lithuania
+Lithuania,LTU,Code (M),LTU
+Lithuania,LTU,Region Gains,Eurasia
+Lithuania,LTU,Region Gains code,eua
+Lithuania,LTU,Using euro,1
+Lithuania,LTU,IFS codes,946
+Lithuania,LTU,WEO ISO,946
+Lithuania,LTU,Crude market,rtd
+Lithuania,LTU,IEA code,LTU
+Lithuania,LTU,IEA country,Lithuania
+Lithuania,LTU,Enerdata code,Lithuania
+Lithuania,LTU,VSL country grouping,EU
+Luxembourg,LUX,Code alpha2,LU
+Luxembourg,LUX,Region,Europe & Central Asia
+Luxembourg,LUX,Income group,High income
+Luxembourg,LUX,Income code,HIC
+Luxembourg,LUX,Lending category,..
+Luxembourg,LUX,Other,EMU
+Luxembourg,LUX,Name (K),Luxembourg
+Luxembourg,LUX,Name (L), Luxembourg
+Luxembourg,LUX,Code (M),LUX
+Luxembourg,LUX,Region Gains,Europe
+Luxembourg,LUX,Region Gains code,eur
+Luxembourg,LUX,Using euro,1
+Luxembourg,LUX,IFS codes,137
+Luxembourg,LUX,WEO ISO,137
+Luxembourg,LUX,Crude market,rtd
+Luxembourg,LUX,IEA code,LUX
+Luxembourg,LUX,IEA country,Luxembourg
+Luxembourg,LUX,Enerdata code,Luxembourg
+Luxembourg,LUX,VSL country grouping,EU
+Macao SAR,MAC,Code alpha2,MO
+Macao SAR,MAC,Region,East Asia & Pacific
+Macao SAR,MAC,Income group,High income
+Macao SAR,MAC,Income code,HIC
+Macao SAR,MAC,Lending category,..
+Macao SAR,MAC,Name (K),Macao SAR
+Macao SAR,MAC,Name (L), Macao SAR
+Macao SAR,MAC,Code (M),MAC
+Macao SAR,MAC,Region Gains,Asia & Oceania
+Macao SAR,MAC,Region Gains code,aso
+Macao SAR,MAC,IFS codes,546
+Macao SAR,MAC,WEO ISO,546
+Macao SAR,MAC,Crude market,sng
+Macao SAR,MAC,VSL country grouping,High income
+Madagascar,MDG,Code alpha2,MG
+Madagascar,MDG,Region,Sub-Saharan Africa
+Madagascar,MDG,Income group,Low income
+Madagascar,MDG,Income code,LIC
+Madagascar,MDG,Lending category,IDA
+Madagascar,MDG,Other,HIPC
+Madagascar,MDG,Name (K),Madagascar
+Madagascar,MDG,Name (L), Madagascar
+Madagascar,MDG,Code (M),MDG
+Madagascar,MDG,Region Gains,Africa
+Madagascar,MDG,Region Gains code,afr
+Madagascar,MDG,IFS codes,674
+Madagascar,MDG,WEO ISO,674
+Madagascar,MDG,Crude market,rtd
+Madagascar,MDG,IEA code,MMADAGASCA
+Madagascar,MDG,IEA country,Memo: Madagascar
+Madagascar,MDG,Enerdata code,Madagascar
+Madagascar,MDG,VSL country grouping,Low income
+Malawi,MWI,Code alpha2,MW
+Malawi,MWI,Region,Sub-Saharan Africa
+Malawi,MWI,Income group,Low income
+Malawi,MWI,Income code,LIC
+Malawi,MWI,Lending category,IDA
+Malawi,MWI,Other,HIPC
+Malawi,MWI,Name (K),Malawi
+Malawi,MWI,Name (L), Malawi
+Malawi,MWI,Code (M),MWI
+Malawi,MWI,Region Gains,Africa
+Malawi,MWI,Region Gains code,afr
+Malawi,MWI,IFS codes,676
+Malawi,MWI,WEO ISO,676
+Malawi,MWI,Crude market,rtd
+Malawi,MWI,VSL country grouping,Low income
+Malaysia,MYS,Code alpha2,MY
+Malaysia,MYS,Region,East Asia & Pacific
+Malaysia,MYS,Income group,Upper middle income
+Malaysia,MYS,Income code,UMIC
+Malaysia,MYS,Lending category,IBRD
+Malaysia,MYS,Name (K),Malaysia
+Malaysia,MYS,Name (L), Malaysia
+Malaysia,MYS,Code (M),MYS
+Malaysia,MYS,Region Gains,Asia & Oceania
+Malaysia,MYS,Region Gains code,aso
+Malaysia,MYS,IFS codes,548
+Malaysia,MYS,WEO ISO,548
+Malaysia,MYS,Crude market,sng
+Malaysia,MYS,IEA code,MYS
+Malaysia,MYS,IEA country,Malaysia
+Malaysia,MYS,Enerdata code,Malaysia
+Malaysia,MYS,VSL country grouping,Upper middle income
+Maldives,MDV,Code alpha2,MV
+Maldives,MDV,Region,South Asia
+Maldives,MDV,Income group,Upper middle income
+Maldives,MDV,Income code,UMIC
+Maldives,MDV,Lending category,IDA
+Maldives,MDV,Name (K),Maldives
+Maldives,MDV,Name (L), Maldives
+Maldives,MDV,Code (M),MDV
+Maldives,MDV,Region Gains,Asia & Oceania
+Maldives,MDV,Region Gains code,aso
+Maldives,MDV,IFS codes,556
+Maldives,MDV,WEO ISO,556
+Maldives,MDV,Crude market,sng
+Maldives,MDV,VSL country grouping,Upper middle income
+Mali,MLI,Code alpha2,ML
+Mali,MLI,Region,Sub-Saharan Africa
+Mali,MLI,Income group,Low income
+Mali,MLI,Income code,LIC
+Mali,MLI,Lending category,IDA
+Mali,MLI,Other,HIPC
+Mali,MLI,Name (K),Mali
+Mali,MLI,Name (L), Mali
+Mali,MLI,Code (M),MLI
+Mali,MLI,Region Gains,Africa
+Mali,MLI,Region Gains code,afr
+Mali,MLI,IFS codes,678
+Mali,MLI,WEO ISO,678
+Mali,MLI,Crude market,rtd
+Mali,MLI,IEA code,MALI
+Mali,MLI,IEA country,Memo: Mali
+Mali,MLI,Enerdata code,Mali
+Mali,MLI,VSL country grouping,Low income
+Malta,MLT,Code alpha2,MT
+Malta,MLT,Region,Middle East & North Africa
+Malta,MLT,Income group,High income
+Malta,MLT,Income code,HIC
+Malta,MLT,Lending category,..
+Malta,MLT,Other,EMU
+Malta,MLT,Name (K),Malta
+Malta,MLT,Name (L), Malta
+Malta,MLT,Code (M),MLT
+Malta,MLT,Region Gains,Europe
+Malta,MLT,Region Gains code,eur
+Malta,MLT,Using euro,1
+Malta,MLT,IFS codes,181
+Malta,MLT,WEO ISO,181
+Malta,MLT,Crude market,rtd
+Malta,MLT,IEA code,MLT
+Malta,MLT,IEA country,Malta
+Malta,MLT,Enerdata code,Malta
+Malta,MLT,VSL country grouping,EU
+Marshall Islands,MHL,Code alpha2,MH
+Marshall Islands,MHL,Region,East Asia & Pacific
+Marshall Islands,MHL,Income group,Upper middle income
+Marshall Islands,MHL,Income code,UMIC
+Marshall Islands,MHL,Lending category,IDA
+Marshall Islands,MHL,Name (K),Marshall Islands
+Marshall Islands,MHL,Name (L), Marshall Islands
+Marshall Islands,MHL,Code (M),MHL
+Marshall Islands,MHL,Region Gains,Asia & Oceania
+Marshall Islands,MHL,Region Gains code,aso
+Marshall Islands,MHL,IFS codes,867
+Marshall Islands,MHL,WEO ISO,867
+Marshall Islands,MHL,Crude market,sng
+Marshall Islands,MHL,VSL country grouping,Upper middle income
+Mauritania,MRT,Code alpha2,MR
+Mauritania,MRT,Region,Sub-Saharan Africa
+Mauritania,MRT,Income group,Lower middle income
+Mauritania,MRT,Income code,LMIC
+Mauritania,MRT,Lending category,IDA
+Mauritania,MRT,Other,HIPC
+Mauritania,MRT,Name (K),Mauritania
+Mauritania,MRT,Name (L), Mauritania
+Mauritania,MRT,Code (M),MRT
+Mauritania,MRT,Region Gains,Africa
+Mauritania,MRT,Region Gains code,afr
+Mauritania,MRT,IFS codes,682
+Mauritania,MRT,WEO ISO,682
+Mauritania,MRT,Crude market,rtd
+Mauritania,MRT,VSL country grouping,Lower middle income
+Mauritius,MUS,Code alpha2,MU
+Mauritius,MUS,Region,Sub-Saharan Africa
+Mauritius,MUS,Income group,Upper middle income
+Mauritius,MUS,Income code,UMIC
+Mauritius,MUS,Lending category,IBRD
+Mauritius,MUS,Name (K),Mauritius
+Mauritius,MUS,Name (L), Mauritius
+Mauritius,MUS,Code (M),MUS
+Mauritius,MUS,Region Gains,Africa
+Mauritius,MUS,Region Gains code,afr
+Mauritius,MUS,IFS codes,684
+Mauritius,MUS,WEO ISO,684
+Mauritius,MUS,Crude market,rtd
+Mauritius,MUS,IEA code,MAURITIUS
+Mauritius,MUS,IEA country,Mauritius
+Mauritius,MUS,Enerdata code,Mauritius
+Mauritius,MUS,VSL country grouping,Upper middle income
+Mexico,MEX,Code alpha2,MX
+Mexico,MEX,Region,Latin America & Caribbean
+Mexico,MEX,Income group,Upper middle income
+Mexico,MEX,Income code,UMIC
+Mexico,MEX,Lending category,IBRD
+Mexico,MEX,Name (K),Mexico
+Mexico,MEX,Name (L), Mexico
+Mexico,MEX,Code (M),MEX
+Mexico,MEX,Region Gains,North America
+Mexico,MEX,Region Gains code,nam
+Mexico,MEX,IFS codes,273
+Mexico,MEX,WEO ISO,273
+Mexico,MEX,Crude market,usa
+Mexico,MEX,IEA code,MEX
+Mexico,MEX,IEA country,Mexico
+Mexico,MEX,Enerdata code,Mexico
+Mexico,MEX,VSL country grouping,OECD
+Micronesia,FSM,Code alpha2,FM
+Micronesia,FSM,Region,East Asia & Pacific
+Micronesia,FSM,Income group,Lower middle income
+Micronesia,FSM,Income code,LMIC
+Micronesia,FSM,Lending category,IDA
+Micronesia,FSM,Name (K),Micronesia
+Micronesia,FSM,Name (L), Micronesia
+Micronesia,FSM,Code (M),FSM
+Micronesia,FSM,Region Gains,Asia & Oceania
+Micronesia,FSM,Region Gains code,aso
+Micronesia,FSM,IFS codes,868
+Micronesia,FSM,WEO ISO,868
+Micronesia,FSM,Crude market,sng
+Micronesia,FSM,VSL country grouping,Lower middle income
+Moldova,MDA,Code alpha2,MD
+Moldova,MDA,Region,Europe & Central Asia
+Moldova,MDA,Income group,Lower middle income
+Moldova,MDA,Income code,LMIC
+Moldova,MDA,Lending category,Blend
+Moldova,MDA,Name (K),Moldova
+Moldova,MDA,Name (L), Moldova
+Moldova,MDA,Code (M),MDA
+Moldova,MDA,Region Gains,Eurasia
+Moldova,MDA,Region Gains code,eua
+Moldova,MDA,IFS codes,921
+Moldova,MDA,WEO ISO,921
+Moldova,MDA,Crude market,rtd
+Moldova,MDA,IEA code,MDA
+Moldova,MDA,IEA country,Republic of Moldova
+Moldova,MDA,Enerdata code,Moldova
+Moldova,MDA,VSL country grouping,Lower middle income
+Monaco,MCO,Code alpha2,MC
+Monaco,MCO,Region,Europe & Central Asia
+Monaco,MCO,Income group,High income
+Monaco,MCO,Income code,HIC
+Monaco,MCO,Lending category,..
+Monaco,MCO,Name (K),Monaco
+Monaco,MCO,Name (L), Monaco
+Monaco,MCO,Code (M),MCO
+Monaco,MCO,Region Gains,Europe
+Monaco,MCO,Region Gains code,eur
+Monaco,MCO,IFS codes,948
+Monaco,MCO,WEO ISO,948
+Monaco,MCO,Crude market,rtd
+Monaco,MCO,VSL country grouping,High income
+Mongolia,MNG,Code alpha2,MN
+Mongolia,MNG,Region,East Asia & Pacific
+Mongolia,MNG,Income group,Lower middle income
+Mongolia,MNG,Income code,LMIC
+Mongolia,MNG,Lending category,Blend
+Mongolia,MNG,Name (K),Mongolia
+Mongolia,MNG,Name (L), Mongolia
+Mongolia,MNG,Code (M),MNG
+Mongolia,MNG,Region Gains,Asia & Oceania
+Mongolia,MNG,Region Gains code,aso
+Mongolia,MNG,IFS codes,948
+Mongolia,MNG,WEO ISO,948
+Mongolia,MNG,Crude market,sng
+Mongolia,MNG,IEA code,MNG
+Mongolia,MNG,IEA country,Mongolia
+Mongolia,MNG,Enerdata code,Mongolia
+Mongolia,MNG,VSL country grouping,Lower middle income
+"Montenegro, Rep. of",MNE,Code alpha2,ME
+"Montenegro, Rep. of",MNE,Region,Europe & Central Asia
+"Montenegro, Rep. of",MNE,Income group,Upper middle income
+"Montenegro, Rep. of",MNE,Income code,UMIC
+"Montenegro, Rep. of",MNE,Lending category,IBRD
+"Montenegro, Rep. of",MNE,Name (K),"Montenegro, Rep. of"
+"Montenegro, Rep. of",MNE,Name (L)," Montenegro, Rep. of"
+"Montenegro, Rep. of",MNE,Code (M),MNE
+"Montenegro, Rep. of",MNE,Region Gains,Europe
+"Montenegro, Rep. of",MNE,Region Gains code,eur
+"Montenegro, Rep. of",MNE,IFS codes,943
+"Montenegro, Rep. of",MNE,WEO ISO,943
+"Montenegro, Rep. of",MNE,Crude market,rtd
+"Montenegro, Rep. of",MNE,IEA code,MNE
+"Montenegro, Rep. of",MNE,IEA country,Montenegro
+"Montenegro, Rep. of",MNE,Enerdata code,"Montenegro, Rep. of"
+"Montenegro, Rep. of",MNE,VSL country grouping,Upper middle income
+Montserrat,MSR,Code alpha2,MS
+Montserrat,MSR,Region,Latin America & Caribbean
+Montserrat,MSR,Income group,Upper middle income
+Montserrat,MSR,Income code,UMIC
+Montserrat,MSR,Name (K),Montserrat
+Montserrat,MSR,Name (L), Montserrat
+Montserrat,MSR,Code (M),MSR
+Montserrat,MSR,Region Gains,North America
+Montserrat,MSR,Region Gains code,nam
+Montserrat,MSR,IFS codes,351
+Montserrat,MSR,WEO ISO,351
+Montserrat,MSR,Crude market,usa
+Montserrat,MSR,VSL country grouping,Upper middle income
+Morocco,MAR,Code alpha2,MA
+Morocco,MAR,Region,Middle East & North Africa
+Morocco,MAR,Income group,Lower middle income
+Morocco,MAR,Income code,LMIC
+Morocco,MAR,Lending category,IBRD
+Morocco,MAR,Name (K),Morocco
+Morocco,MAR,Name (L), Morocco
+Morocco,MAR,Code (M),MAR
+Morocco,MAR,Region Gains,Africa
+Morocco,MAR,Region Gains code,afr
+Morocco,MAR,IFS codes,686
+Morocco,MAR,WEO ISO,686
+Morocco,MAR,Crude market,rtd
+Morocco,MAR,IEA code,MAR
+Morocco,MAR,IEA country,Morocco
+Morocco,MAR,Enerdata code,Morocco
+Morocco,MAR,VSL country grouping,Lower middle income
+Mozambique,MOZ,Code alpha2,MZ
+Mozambique,MOZ,Region,Sub-Saharan Africa
+Mozambique,MOZ,Income group,Low income
+Mozambique,MOZ,Income code,LIC
+Mozambique,MOZ,Lending category,IDA
+Mozambique,MOZ,Other,HIPC
+Mozambique,MOZ,Name (K),Mozambique
+Mozambique,MOZ,Name (L), Mozambique
+Mozambique,MOZ,Code (M),MOZ
+Mozambique,MOZ,Region Gains,Africa
+Mozambique,MOZ,Region Gains code,afr
+Mozambique,MOZ,IFS codes,688
+Mozambique,MOZ,WEO ISO,688
+Mozambique,MOZ,Crude market,rtd
+Mozambique,MOZ,IEA code,MOZ
+Mozambique,MOZ,IEA country,Mozambique
+Mozambique,MOZ,Enerdata code,Mozambique
+Mozambique,MOZ,VSL country grouping,Low income
+Myanmar,MMR,Code alpha2,MM
+Myanmar,MMR,Region,East Asia & Pacific
+Myanmar,MMR,Income group,Lower middle income
+Myanmar,MMR,Income code,LMIC
+Myanmar,MMR,Lending category,IDA
+Myanmar,MMR,Name (K),Myanmar
+Myanmar,MMR,Name (L), Myanmar
+Myanmar,MMR,Code (M),MMR
+Myanmar,MMR,Region Gains,Asia & Oceania
+Myanmar,MMR,Region Gains code,aso
+Myanmar,MMR,IFS codes,518
+Myanmar,MMR,WEO ISO,518
+Myanmar,MMR,Crude market,sng
+Myanmar,MMR,IEA code,MMR
+Myanmar,MMR,IEA country,Myanmar
+Myanmar,MMR,Enerdata code,Myanmar
+Myanmar,MMR,VSL country grouping,Lower middle income
+Namibia,NAM,Code alpha2,NA
+Namibia,NAM,Region,Sub-Saharan Africa
+Namibia,NAM,Income group,Upper middle income
+Namibia,NAM,Income code,UMIC
+Namibia,NAM,Lending category,IBRD
+Namibia,NAM,Name (K),Namibia
+Namibia,NAM,Name (L), Namibia
+Namibia,NAM,Code (M),NAM
+Namibia,NAM,Region Gains,Africa
+Namibia,NAM,Region Gains code,afr
+Namibia,NAM,IFS codes,728
+Namibia,NAM,WEO ISO,728
+Namibia,NAM,Crude market,rtd
+Namibia,NAM,IEA code,NAM
+Namibia,NAM,IEA country,Namibia
+Namibia,NAM,Enerdata code,Namibia
+Namibia,NAM,VSL country grouping,Upper middle income
+Nauru,NRU,Code alpha2,NR
+Nauru,NRU,Region,East Asia & Pacific
+Nauru,NRU,Income group,Upper middle income
+Nauru,NRU,Income code,UMIC
+Nauru,NRU,Lending category,IBRD
+Nauru,NRU,Name (K),Nauru
+Nauru,NRU,Name (L), Nauru
+Nauru,NRU,Code (M),NRU
+Nauru,NRU,Region Gains,Asia & Oceania
+Nauru,NRU,Region Gains code,aso
+Nauru,NRU,IFS codes,836
+Nauru,NRU,WEO ISO,836
+Nauru,NRU,Crude market,sng
+Nauru,NRU,VSL country grouping,Upper middle income
+Nepal,NPL,Code alpha2,NP
+Nepal,NPL,Region,South Asia
+Nepal,NPL,Income group,Low income
+Nepal,NPL,Income code,LIC
+Nepal,NPL,Lending category,IDA
+Nepal,NPL,Name (K),Nepal
+Nepal,NPL,Name (L), Nepal
+Nepal,NPL,Code (M),NPL
+Nepal,NPL,Region Gains,Asia & Oceania
+Nepal,NPL,Region Gains code,aso
+Nepal,NPL,IFS codes,558
+Nepal,NPL,WEO ISO,558
+Nepal,NPL,Crude market,sng
+Nepal,NPL,IEA code,NPL
+Nepal,NPL,IEA country,Nepal
+Nepal,NPL,Enerdata code,Nepal
+Nepal,NPL,VSL country grouping,Low income
+Netherlands,NLD,Code alpha2,NL
+Netherlands,NLD,Region,Europe & Central Asia
+Netherlands,NLD,Income group,High income
+Netherlands,NLD,Income code,HIC
+Netherlands,NLD,Lending category,..
+Netherlands,NLD,Other,EMU
+Netherlands,NLD,Name (K),Netherlands
+Netherlands,NLD,Name (L), Netherlands
+Netherlands,NLD,Code (M),NLD
+Netherlands,NLD,Region Gains,Europe
+Netherlands,NLD,Region Gains code,eur
+Netherlands,NLD,Using euro,1
+Netherlands,NLD,IFS codes,138
+Netherlands,NLD,WEO ISO,138
+Netherlands,NLD,Crude market,rtd
+Netherlands,NLD,IEA code,NLD
+Netherlands,NLD,IEA country,Netherlands
+Netherlands,NLD,Enerdata code,Netherlands
+Netherlands,NLD,VSL country grouping,EU
+New Caledonia,NCL,Code alpha2,NC
+New Caledonia,NCL,Region,East Asia & Pacific
+New Caledonia,NCL,Income group,High income
+New Caledonia,NCL,Income code,HIC
+New Caledonia,NCL,Lending category,..
+New Caledonia,NCL,Name (K),New Caledonia
+New Caledonia,NCL,Name (L), New Caledonia
+New Caledonia,NCL,Code (M),NCL
+New Caledonia,NCL,Region Gains,Asia & Oceania
+New Caledonia,NCL,Region Gains code,aso
+New Caledonia,NCL,IFS codes,839
+New Caledonia,NCL,WEO ISO,0x2a
+New Caledonia,NCL,Crude market,sng
+New Caledonia,NCL,VSL country grouping,High income
+New Zealand,NZL,Code alpha2,NZ
+New Zealand,NZL,Region,East Asia & Pacific
+New Zealand,NZL,Income group,High income
+New Zealand,NZL,Income code,HIC
+New Zealand,NZL,Lending category,..
+New Zealand,NZL,Name (K),New Zealand
+New Zealand,NZL,Name (L), New Zealand
+New Zealand,NZL,Code (M),NZL
+New Zealand,NZL,Region Gains,Asia & Oceania
+New Zealand,NZL,Region Gains code,aso
+New Zealand,NZL,IFS codes,196
+New Zealand,NZL,WEO ISO,196
+New Zealand,NZL,Crude market,sng
+New Zealand,NZL,IEA code,NZL
+New Zealand,NZL,IEA country,New Zealand
+New Zealand,NZL,Enerdata code,New Zealand
+New Zealand,NZL,VSL country grouping,OECD
+Nicaragua,NIC,Code alpha2,NI
+Nicaragua,NIC,Region,Latin America & Caribbean
+Nicaragua,NIC,Income group,Lower middle income
+Nicaragua,NIC,Income code,LMIC
+Nicaragua,NIC,Lending category,IDA
+Nicaragua,NIC,Other,HIPC
+Nicaragua,NIC,Name (K),Nicaragua
+Nicaragua,NIC,Name (L), Nicaragua
+Nicaragua,NIC,Code (M),NIC
+Nicaragua,NIC,Region Gains,North America
+Nicaragua,NIC,Region Gains code,nam
+Nicaragua,NIC,IFS codes,278
+Nicaragua,NIC,WEO ISO,278
+Nicaragua,NIC,Crude market,usa
+Nicaragua,NIC,IEA code,NIC
+Nicaragua,NIC,IEA country,Nicaragua
+Nicaragua,NIC,Enerdata code,Nicaragua
+Nicaragua,NIC,VSL country grouping,Lower middle income
+Niger,NER,Code alpha2,NE
+Niger,NER,Region,Sub-Saharan Africa
+Niger,NER,Income group,Low income
+Niger,NER,Income code,LIC
+Niger,NER,Lending category,IDA
+Niger,NER,Other,HIPC
+Niger,NER,Name (K),Niger
+Niger,NER,Name (L), Niger
+Niger,NER,Code (M),NER
+Niger,NER,Region Gains,Africa
+Niger,NER,Region Gains code,afr
+Niger,NER,IFS codes,692
+Niger,NER,WEO ISO,692
+Niger,NER,Crude market,rtd
+Niger,NER,IEA code,NER
+Niger,NER,IEA country,Niger
+Niger,NER,Enerdata code,Niger
+Niger,NER,VSL country grouping,Low income
+Nigeria,NGA,Code alpha2,NG
+Nigeria,NGA,Region,Sub-Saharan Africa
+Nigeria,NGA,Income group,Lower middle income
+Nigeria,NGA,Income code,LMIC
+Nigeria,NGA,Lending category,Blend
+Nigeria,NGA,Name (K),Nigeria
+Nigeria,NGA,Name (L), Nigeria
+Nigeria,NGA,Code (M),NGA
+Nigeria,NGA,Region Gains,Africa
+Nigeria,NGA,Region Gains code,afr
+Nigeria,NGA,IFS codes,694
+Nigeria,NGA,WEO ISO,694
+Nigeria,NGA,Crude market,rtd
+Nigeria,NGA,IEA code,NGA
+Nigeria,NGA,IEA country,Nigeria
+Nigeria,NGA,Enerdata code,Nigeria
+Nigeria,NGA,VSL country grouping,Lower middle income
+North Macedonia,MKD,Code alpha2,MK
+North Macedonia,MKD,Region,Europe & Central Asia
+North Macedonia,MKD,Income group,Upper middle income
+North Macedonia,MKD,Income code,UMIC
+North Macedonia,MKD,Lending category,IBRD
+North Macedonia,MKD,Name (K),North Macedonia
+North Macedonia,MKD,Name (L), North Macedonia
+North Macedonia,MKD,Code (M),MKD
+North Macedonia,MKD,Region Gains,Europe
+North Macedonia,MKD,Region Gains code,eur
+North Macedonia,MKD,IFS codes,962
+North Macedonia,MKD,WEO ISO,962
+North Macedonia,MKD,Crude market,rtd
+North Macedonia,MKD,IEA code,MKD
+North Macedonia,MKD,IEA country,North Macedonia
+North Macedonia,MKD,Enerdata code,North Macedonia
+North Macedonia,MKD,VSL country grouping,Upper middle income
+Northern Mariana Islands,MNP,Code alpha2,MP
+Northern Mariana Islands,MNP,Region,East Asia & Pacific
+Northern Mariana Islands,MNP,Income group,High income
+Northern Mariana Islands,MNP,Income code,HIC
+Northern Mariana Islands,MNP,Lending category,..
+Northern Mariana Islands,MNP,Name (K),Northern Mariana Islands
+Northern Mariana Islands,MNP,Name (L), Northern Mariana Islands
+Northern Mariana Islands,MNP,Code (M),MNP
+Northern Mariana Islands,MNP,Region Gains,Asia & Oceania
+Northern Mariana Islands,MNP,Region Gains code,aso
+Northern Mariana Islands,MNP,IFS codes,0x2a
+Northern Mariana Islands,MNP,WEO ISO,0x2a
+Northern Mariana Islands,MNP,Crude market,sng
+Northern Mariana Islands,MNP,VSL country grouping,High income
+Norway,NOR,Code alpha2,NO
+Norway,NOR,Region,Europe & Central Asia
+Norway,NOR,Income group,High income
+Norway,NOR,Income code,HIC
+Norway,NOR,Lending category,..
+Norway,NOR,Name (K),Norway
+Norway,NOR,Name (L), Norway
+Norway,NOR,Code (M),NOR
+Norway,NOR,Region Gains,Europe
+Norway,NOR,Region Gains code,eur
+Norway,NOR,IFS codes,142
+Norway,NOR,WEO ISO,142
+Norway,NOR,Crude market,rtd
+Norway,NOR,IEA code,NOR
+Norway,NOR,IEA country,Norway
+Norway,NOR,Enerdata code,Norway
+Norway,NOR,VSL country grouping,OECD
+Oman,OMN,Code alpha2,OM
+Oman,OMN,Region,Middle East & North Africa
+Oman,OMN,Income group,High income
+Oman,OMN,Income code,HIC
+Oman,OMN,Lending category,..
+Oman,OMN,Name (K),Oman
+Oman,OMN,Name (L), Oman
+Oman,OMN,Code (M),OMN
+Oman,OMN,Region Gains,Middle East
+Oman,OMN,Region Gains code,mea
+Oman,OMN,IFS codes,449
+Oman,OMN,WEO ISO,449
+Oman,OMN,Crude market,rtd
+Oman,OMN,IEA code,OMN
+Oman,OMN,IEA country,Oman
+Oman,OMN,Enerdata code,Oman
+Oman,OMN,VSL country grouping,High income
+Pakistan,PAK,Code alpha2,PK
+Pakistan,PAK,Region,South Asia
+Pakistan,PAK,Income group,Lower middle income
+Pakistan,PAK,Income code,LMIC
+Pakistan,PAK,Lending category,Blend
+Pakistan,PAK,Name (K),Pakistan
+Pakistan,PAK,Name (L), Pakistan
+Pakistan,PAK,Code (M),PAK
+Pakistan,PAK,Region Gains,Asia & Oceania
+Pakistan,PAK,Region Gains code,aso
+Pakistan,PAK,IFS codes,564
+Pakistan,PAK,WEO ISO,564
+Pakistan,PAK,Crude market,sng
+Pakistan,PAK,IEA code,PAK
+Pakistan,PAK,IEA country,Pakistan
+Pakistan,PAK,Enerdata code,Pakistan
+Pakistan,PAK,VSL country grouping,Lower middle income
+Palau,PLW,Code alpha2,PW
+Palau,PLW,Region,East Asia & Pacific
+Palau,PLW,Income group,High income
+Palau,PLW,Income code,HIC
+Palau,PLW,Lending category,IBRD
+Palau,PLW,Name (K),Palau
+Palau,PLW,Name (L), Palau
+Palau,PLW,Code (M),PLW
+Palau,PLW,Region Gains,Asia & Oceania
+Palau,PLW,Region Gains code,aso
+Palau,PLW,IFS codes,565
+Palau,PLW,WEO ISO,565
+Palau,PLW,Crude market,sng
+Palau,PLW,VSL country grouping,High income
+Panama,PAN,Code alpha2,PA
+Panama,PAN,Region,Latin America & Caribbean
+Panama,PAN,Income group,High income
+Panama,PAN,Income code,HIC
+Panama,PAN,Lending category,IBRD
+Panama,PAN,Name (K),Panama
+Panama,PAN,Name (L), Panama
+Panama,PAN,Code (M),PAN
+Panama,PAN,Region Gains,North America
+Panama,PAN,Region Gains code,nam
+Panama,PAN,IFS codes,283
+Panama,PAN,WEO ISO,283
+Panama,PAN,Crude market,usa
+Panama,PAN,IEA code,PAN
+Panama,PAN,IEA country,Panama
+Panama,PAN,Enerdata code,Panama
+Panama,PAN,VSL country grouping,High income
+Papua New Guinea,PNG,Code alpha2,PG
+Papua New Guinea,PNG,Region,East Asia & Pacific
+Papua New Guinea,PNG,Income group,Lower middle income
+Papua New Guinea,PNG,Income code,LMIC
+Papua New Guinea,PNG,Lending category,Blend
+Papua New Guinea,PNG,Name (K),Papua New Guinea
+Papua New Guinea,PNG,Name (L), Papua New Guinea
+Papua New Guinea,PNG,Code (M),PNG
+Papua New Guinea,PNG,Region Gains,Asia & Oceania
+Papua New Guinea,PNG,Region Gains code,aso
+Papua New Guinea,PNG,IFS codes,853
+Papua New Guinea,PNG,WEO ISO,853
+Papua New Guinea,PNG,Crude market,sng
+Papua New Guinea,PNG,VSL country grouping,Lower middle income
+Paraguay,PRY,Code alpha2,PY
+Paraguay,PRY,Region,Latin America & Caribbean
+Paraguay,PRY,Income group,Upper middle income
+Paraguay,PRY,Income code,UMIC
+Paraguay,PRY,Lending category,IBRD
+Paraguay,PRY,Name (K),Paraguay
+Paraguay,PRY,Name (L), Paraguay
+Paraguay,PRY,Code (M),PRY
+Paraguay,PRY,Region Gains,North America
+Paraguay,PRY,Region Gains code,nam
+Paraguay,PRY,IFS codes,288
+Paraguay,PRY,WEO ISO,288
+Paraguay,PRY,Crude market,usa
+Paraguay,PRY,IEA code,PRY
+Paraguay,PRY,IEA country,Paraguay
+Paraguay,PRY,Enerdata code,Paraguay
+Paraguay,PRY,VSL country grouping,Upper middle income
+Peru,PER,Code alpha2,PE
+Peru,PER,Region,Latin America & Caribbean
+Peru,PER,Income group,Upper middle income
+Peru,PER,Income code,UMIC
+Peru,PER,Lending category,IBRD
+Peru,PER,Name (K),Peru
+Peru,PER,Name (L), Peru
+Peru,PER,Code (M),PER
+Peru,PER,Region Gains,North America
+Peru,PER,Region Gains code,nam
+Peru,PER,IFS codes,293
+Peru,PER,WEO ISO,293
+Peru,PER,Crude market,usa
+Peru,PER,IEA code,PER
+Peru,PER,IEA country,Peru
+Peru,PER,Enerdata code,Peru
+Peru,PER,VSL country grouping,Upper middle income
+Philippines,PHL,Code alpha2,PH
+Philippines,PHL,Region,East Asia & Pacific
+Philippines,PHL,Income group,Lower middle income
+Philippines,PHL,Income code,LMIC
+Philippines,PHL,Lending category,IBRD
+Philippines,PHL,Name (K),Philippines
+Philippines,PHL,Name (L), Philippines
+Philippines,PHL,Code (M),PHL
+Philippines,PHL,Region Gains,Asia & Oceania
+Philippines,PHL,Region Gains code,aso
+Philippines,PHL,IFS codes,566
+Philippines,PHL,WEO ISO,566
+Philippines,PHL,Crude market,sng
+Philippines,PHL,IEA code,PHL
+Philippines,PHL,IEA country,Philippines
+Philippines,PHL,Enerdata code,Philippines
+Philippines,PHL,VSL country grouping,Lower middle income
+Poland,POL,Code alpha2,PL
+Poland,POL,Region,Europe & Central Asia
+Poland,POL,Income group,High income
+Poland,POL,Income code,HIC
+Poland,POL,Lending category,IBRD
+Poland,POL,Name (K),Poland
+Poland,POL,Name (L), Poland
+Poland,POL,Code (M),POL
+Poland,POL,Region Gains,Europe
+Poland,POL,Region Gains code,eur
+Poland,POL,IFS codes,964
+Poland,POL,WEO ISO,964
+Poland,POL,Crude market,rtd
+Poland,POL,IEA code,POL
+Poland,POL,IEA country,Poland
+Poland,POL,Enerdata code,Poland
+Poland,POL,VSL country grouping,EU
+Portugal,PRT,Code alpha2,PT
+Portugal,PRT,Region,Europe & Central Asia
+Portugal,PRT,Income group,High income
+Portugal,PRT,Income code,HIC
+Portugal,PRT,Lending category,..
+Portugal,PRT,Other,EMU
+Portugal,PRT,Name (K),Portugal
+Portugal,PRT,Name (L), Portugal
+Portugal,PRT,Code (M),PRT
+Portugal,PRT,Region Gains,Europe
+Portugal,PRT,Region Gains code,eur
+Portugal,PRT,Using euro,1
+Portugal,PRT,IFS codes,182
+Portugal,PRT,WEO ISO,182
+Portugal,PRT,Crude market,rtd
+Portugal,PRT,IEA code,PRT
+Portugal,PRT,IEA country,Portugal
+Portugal,PRT,Enerdata code,Portugal
+Portugal,PRT,VSL country grouping,EU
+Puerto Rico,PRI,Code alpha2,PR
+Puerto Rico,PRI,Region,Latin America & Caribbean
+Puerto Rico,PRI,Income group,High income
+Puerto Rico,PRI,Income code,HIC
+Puerto Rico,PRI,Lending category,..
+Puerto Rico,PRI,Name (K),Puerto Rico
+Puerto Rico,PRI,Name (L), Puerto Rico
+Puerto Rico,PRI,Code (M),PRI
+Puerto Rico,PRI,Region Gains,North America
+Puerto Rico,PRI,Region Gains code,nam
+Puerto Rico,PRI,IFS codes,0x2a
+Puerto Rico,PRI,WEO ISO,359
+Puerto Rico,PRI,Crude market,usa
+Puerto Rico,PRI,VSL country grouping,High income
+Qatar,QAT,Code alpha2,QA
+Qatar,QAT,Region,Middle East & North Africa
+Qatar,QAT,Income group,High income
+Qatar,QAT,Income code,HIC
+Qatar,QAT,Lending category,..
+Qatar,QAT,Name (K),Qatar
+Qatar,QAT,Name (L), Qatar
+Qatar,QAT,Code (M),QAT
+Qatar,QAT,Region Gains,Middle East
+Qatar,QAT,Region Gains code,mea
+Qatar,QAT,IFS codes,453
+Qatar,QAT,WEO ISO,453
+Qatar,QAT,Crude market,rtd
+Qatar,QAT,IEA code,QAT
+Qatar,QAT,IEA country,Qatar
+Qatar,QAT,Enerdata code,Qatar
+Qatar,QAT,VSL country grouping,High income
+Romania,ROU,Code alpha2,RO
+Romania,ROU,Region,Europe & Central Asia
+Romania,ROU,Income group,Upper middle income
+Romania,ROU,Income code,UMIC
+Romania,ROU,Lending category,IBRD
+Romania,ROU,Name (K),Romania
+Romania,ROU,Name (L), Romania
+Romania,ROU,Code (M),ROU
+Romania,ROU,Region Gains,Europe
+Romania,ROU,Region Gains code,eur
+Romania,ROU,IFS codes,968
+Romania,ROU,WEO ISO,968
+Romania,ROU,Crude market,rtd
+Romania,ROU,IEA code,ROU
+Romania,ROU,IEA country,Romania
+Romania,ROU,Enerdata code,Romania
+Romania,ROU,VSL country grouping,EU
+Russia,RUS,Code alpha2,RU
+Russia,RUS,Region,Europe & Central Asia
+Russia,RUS,Income group,Upper middle income
+Russia,RUS,Income code,UMIC
+Russia,RUS,Lending category,IBRD
+Russia,RUS,Name (K),Russia
+Russia,RUS,Name (L), Russia
+Russia,RUS,Code (M),RUS
+Russia,RUS,Region Gains,Eurasia
+Russia,RUS,Region Gains code,eua
+Russia,RUS,IFS codes,922
+Russia,RUS,WEO ISO,922
+Russia,RUS,Crude market,rtd
+Russia,RUS,IEA code,RUS
+Russia,RUS,IEA country,Russia
+Russia,RUS,Enerdata code,Russia
+Russia,RUS,VSL country grouping,Upper middle income
+Rwanda,RWA,Code alpha2,RW
+Rwanda,RWA,Region,Sub-Saharan Africa
+Rwanda,RWA,Income group,Low income
+Rwanda,RWA,Income code,LIC
+Rwanda,RWA,Lending category,IDA
+Rwanda,RWA,Other,HIPC
+Rwanda,RWA,Name (K),Rwanda
+Rwanda,RWA,Name (L), Rwanda
+Rwanda,RWA,Code (M),RWA
+Rwanda,RWA,Region Gains,Africa
+Rwanda,RWA,Region Gains code,afr
+Rwanda,RWA,IFS codes,714
+Rwanda,RWA,WEO ISO,714
+Rwanda,RWA,Crude market,rtd
+Rwanda,RWA,IEA code,RWA
+Rwanda,RWA,IEA country,Rwanda
+Rwanda,RWA,Enerdata code,Rwanda
+Rwanda,RWA,VSL country grouping,Low income
+Samoa,WSM,Code alpha2,WS
+Samoa,WSM,Region,East Asia & Pacific
+Samoa,WSM,Income group,Upper middle income
+Samoa,WSM,Income code,UMIC
+Samoa,WSM,Lending category,IDA
+Samoa,WSM,Name (K),Samoa
+Samoa,WSM,Name (L), Samoa
+Samoa,WSM,Code (M),WSM
+Samoa,WSM,Region Gains,Asia & Oceania
+Samoa,WSM,Region Gains code,aso
+Samoa,WSM,IFS codes,862
+Samoa,WSM,WEO ISO,862
+Samoa,WSM,Crude market,sng
+Samoa,WSM,VSL country grouping,Upper middle income
+San Marino,SMR,Code alpha2,SM
+San Marino,SMR,Region,Europe & Central Asia
+San Marino,SMR,Income group,High income
+San Marino,SMR,Income code,HIC
+San Marino,SMR,Lending category,..
+San Marino,SMR,Name (K),San Marino
+San Marino,SMR,Name (L), San Marino
+San Marino,SMR,Code (M),SMR
+San Marino,SMR,Region Gains,Europe
+San Marino,SMR,Region Gains code,eur
+San Marino,SMR,IFS codes,135
+San Marino,SMR,WEO ISO,135
+San Marino,SMR,Crude market,rtd
+San Marino,SMR,VSL country grouping,High income
+São Tomé and Príncipe,STP,Code alpha2,ST
+São Tomé and Príncipe,STP,Region,Sub-Saharan Africa
+São Tomé and Príncipe,STP,Income group,Lower middle income
+São Tomé and Príncipe,STP,Income code,LMIC
+São Tomé and Príncipe,STP,Lending category,IDA
+São Tomé and Príncipe,STP,Other,HIPC
+São Tomé and Príncipe,STP,Name (K),São Tomé and Príncipe
+São Tomé and Príncipe,STP,Name (L), São Tomé and Príncipe
+São Tomé and Príncipe,STP,Code (M),STP
+São Tomé and Príncipe,STP,Region Gains,Africa
+São Tomé and Príncipe,STP,Region Gains code,afr
+São Tomé and Príncipe,STP,IFS codes,716
+São Tomé and Príncipe,STP,WEO ISO,716
+São Tomé and Príncipe,STP,Crude market,rtd
+São Tomé and Príncipe,STP,VSL country grouping,Lower middle income
+Saudi Arabia,SAU,Code alpha2,SA
+Saudi Arabia,SAU,Region,Middle East & North Africa
+Saudi Arabia,SAU,Income group,High income
+Saudi Arabia,SAU,Income code,HIC
+Saudi Arabia,SAU,Lending category,..
+Saudi Arabia,SAU,Name (K),Saudi Arabia
+Saudi Arabia,SAU,Name (L), Saudi Arabia
+Saudi Arabia,SAU,Code (M),SAU
+Saudi Arabia,SAU,Region Gains,Middle East
+Saudi Arabia,SAU,Region Gains code,mea
+Saudi Arabia,SAU,IFS codes,456
+Saudi Arabia,SAU,WEO ISO,456
+Saudi Arabia,SAU,Crude market,rtd
+Saudi Arabia,SAU,IEA code,SAU
+Saudi Arabia,SAU,IEA country,Saudi Arabia
+Saudi Arabia,SAU,Enerdata code,Saudi Arabia
+Saudi Arabia,SAU,VSL country grouping,High income
+Senegal,SEN,Code alpha2,SN
+Senegal,SEN,Region,Sub-Saharan Africa
+Senegal,SEN,Income group,Low income
+Senegal,SEN,Income code,LIC
+Senegal,SEN,Lending category,IDA
+Senegal,SEN,Other,HIPC
+Senegal,SEN,Name (K),Senegal
+Senegal,SEN,Name (L), Senegal
+Senegal,SEN,Code (M),SEN
+Senegal,SEN,Region Gains,Africa
+Senegal,SEN,Region Gains code,afr
+Senegal,SEN,IFS codes,722
+Senegal,SEN,WEO ISO,722
+Senegal,SEN,Crude market,rtd
+Senegal,SEN,IEA code,SEN
+Senegal,SEN,IEA country,Senegal
+Senegal,SEN,Enerdata code,Senegal
+Senegal,SEN,VSL country grouping,Low income
+Serbia,SRB,Code alpha2,RS
+Serbia,SRB,Region,Europe & Central Asia
+Serbia,SRB,Income group,Upper middle income
+Serbia,SRB,Income code,UMIC
+Serbia,SRB,Lending category,IBRD
+Serbia,SRB,Name (K),Serbia
+Serbia,SRB,Name (L), Serbia
+Serbia,SRB,Code (M),SRB
+Serbia,SRB,Region Gains,Europe
+Serbia,SRB,Region Gains code,eur
+Serbia,SRB,IFS codes,942
+Serbia,SRB,WEO ISO,942
+Serbia,SRB,Crude market,rtd
+Serbia,SRB,IEA code,SRB
+Serbia,SRB,IEA country,Serbia
+Serbia,SRB,Enerdata code,Serbia
+Serbia,SRB,VSL country grouping,Upper middle income
+Seychelles,SYC,Code alpha2,SC
+Seychelles,SYC,Region,Sub-Saharan Africa
+Seychelles,SYC,Income group,High income
+Seychelles,SYC,Income code,HIC
+Seychelles,SYC,Lending category,IBRD
+Seychelles,SYC,Name (K),Seychelles
+Seychelles,SYC,Name (L), Seychelles
+Seychelles,SYC,Code (M),SYC
+Seychelles,SYC,Region Gains,Africa
+Seychelles,SYC,Region Gains code,afr
+Seychelles,SYC,IFS codes,718
+Seychelles,SYC,WEO ISO,718
+Seychelles,SYC,Crude market,rtd
+Seychelles,SYC,VSL country grouping,High income
+Sierra Leone,SLE,Code alpha2,SL
+Sierra Leone,SLE,Region,Sub-Saharan Africa
+Sierra Leone,SLE,Income group,Low income
+Sierra Leone,SLE,Income code,LIC
+Sierra Leone,SLE,Lending category,IDA
+Sierra Leone,SLE,Other,HIPC
+Sierra Leone,SLE,Name (K),Sierra Leone
+Sierra Leone,SLE,Name (L), Sierra Leone
+Sierra Leone,SLE,Code (M),SLE
+Sierra Leone,SLE,Region Gains,Africa
+Sierra Leone,SLE,Region Gains code,afr
+Sierra Leone,SLE,IFS codes,724
+Sierra Leone,SLE,WEO ISO,724
+Sierra Leone,SLE,Crude market,rtd
+Sierra Leone,SLE,VSL country grouping,Low income
+Singapore,SGP,Code alpha2,SG
+Singapore,SGP,Region,East Asia & Pacific
+Singapore,SGP,Income group,High income
+Singapore,SGP,Income code,HIC
+Singapore,SGP,Lending category,..
+Singapore,SGP,Name (K),Singapore
+Singapore,SGP,Name (L), Singapore
+Singapore,SGP,Code (M),SGP
+Singapore,SGP,Region Gains,Asia & Oceania
+Singapore,SGP,Region Gains code,aso
+Singapore,SGP,IFS codes,576
+Singapore,SGP,WEO ISO,576
+Singapore,SGP,Crude market,sng
+Singapore,SGP,IEA code,SGP
+Singapore,SGP,IEA country,Singapore
+Singapore,SGP,Enerdata code,Singapore
+Singapore,SGP,VSL country grouping,High income
+Sint Maarten (Dutch part),SXM,Code alpha2,SX
+Sint Maarten (Dutch part),SXM,Region,Latin America & Caribbean
+Sint Maarten (Dutch part),SXM,Income group,High income
+Sint Maarten (Dutch part),SXM,Income code,HIC
+Sint Maarten (Dutch part),SXM,Lending category,..
+Sint Maarten (Dutch part),SXM,Name (K),Sint Maarten (Dutch part)
+Sint Maarten (Dutch part),SXM,Name (L), Sint Maarten (Dutch part)
+Sint Maarten (Dutch part),SXM,Code (M),SXM
+Sint Maarten (Dutch part),SXM,Region Gains,North America
+Sint Maarten (Dutch part),SXM,Region Gains code,nam
+Sint Maarten (Dutch part),SXM,IFS codes,0x2a
+Sint Maarten (Dutch part),SXM,WEO ISO,0x2a
+Sint Maarten (Dutch part),SXM,Crude market,usa
+Sint Maarten (Dutch part),SXM,VSL country grouping,High income
+Slovak Republic,SVK,Code alpha2,SK
+Slovak Republic,SVK,Region,Europe & Central Asia
+Slovak Republic,SVK,Income group,High income
+Slovak Republic,SVK,Income code,HIC
+Slovak Republic,SVK,Lending category,..
+Slovak Republic,SVK,Other,EMU
+Slovak Republic,SVK,Name (K),Slovak Republic
+Slovak Republic,SVK,Name (L), Slovak Republic
+Slovak Republic,SVK,Code (M),SVK
+Slovak Republic,SVK,Region Gains,Europe
+Slovak Republic,SVK,Region Gains code,eur
+Slovak Republic,SVK,Using euro,1
+Slovak Republic,SVK,IFS codes,936
+Slovak Republic,SVK,WEO ISO,936
+Slovak Republic,SVK,Crude market,rtd
+Slovak Republic,SVK,IEA code,SVK
+Slovak Republic,SVK,IEA country,Slovak Republic
+Slovak Republic,SVK,Enerdata code,Slovak Republic
+Slovak Republic,SVK,VSL country grouping,EU
+Slovenia,SVN,Code alpha2,SI
+Slovenia,SVN,Region,Europe & Central Asia
+Slovenia,SVN,Income group,High income
+Slovenia,SVN,Income code,HIC
+Slovenia,SVN,Lending category,..
+Slovenia,SVN,Other,EMU
+Slovenia,SVN,Name (K),Slovenia
+Slovenia,SVN,Name (L), Slovenia
+Slovenia,SVN,Code (M),SVN
+Slovenia,SVN,Region Gains,Europe
+Slovenia,SVN,Region Gains code,eur
+Slovenia,SVN,Using euro,1
+Slovenia,SVN,IFS codes,961
+Slovenia,SVN,WEO ISO,961
+Slovenia,SVN,Crude market,rtd
+Slovenia,SVN,IEA code,SVN
+Slovenia,SVN,IEA country,Slovenia
+Slovenia,SVN,Enerdata code,Slovenia
+Slovenia,SVN,VSL country grouping,EU
+Solomon Islands,SLB,Code alpha2,SB
+Solomon Islands,SLB,Region,East Asia & Pacific
+Solomon Islands,SLB,Income group,Lower middle income
+Solomon Islands,SLB,Income code,LMIC
+Solomon Islands,SLB,Lending category,IDA
+Solomon Islands,SLB,Name (K),Solomon Islands
+Solomon Islands,SLB,Name (L), Solomon Islands
+Solomon Islands,SLB,Code (M),SLB
+Solomon Islands,SLB,Region Gains,Asia & Oceania
+Solomon Islands,SLB,Region Gains code,aso
+Solomon Islands,SLB,IFS codes,813
+Solomon Islands,SLB,WEO ISO,813
+Solomon Islands,SLB,Crude market,sng
+Solomon Islands,SLB,VSL country grouping,Lower middle income
+Somalia,SOM,Code alpha2,SO
+Somalia,SOM,Region,Sub-Saharan Africa
+Somalia,SOM,Income group,Low income
+Somalia,SOM,Income code,LIC
+Somalia,SOM,Lending category,IDA
+Somalia,SOM,Other,HIPC
+Somalia,SOM,Name (K),Somalia
+Somalia,SOM,Name (L), Somalia
+Somalia,SOM,Code (M),SOM
+Somalia,SOM,Region Gains,Africa
+Somalia,SOM,Region Gains code,afr
+Somalia,SOM,IFS codes,726
+Somalia,SOM,WEO ISO,726
+Somalia,SOM,Crude market,rtd
+Somalia,SOM,VSL country grouping,Low income
+South Africa,ZAF,Code alpha2,ZA
+South Africa,ZAF,Region,Sub-Saharan Africa
+South Africa,ZAF,Income group,Upper middle income
+South Africa,ZAF,Income code,UMIC
+South Africa,ZAF,Lending category,IBRD
+South Africa,ZAF,Name (K),South Africa
+South Africa,ZAF,Name (L), South Africa
+South Africa,ZAF,Code (M),ZAF
+South Africa,ZAF,Region Gains,Africa
+South Africa,ZAF,Region Gains code,afr
+South Africa,ZAF,IFS codes,199
+South Africa,ZAF,WEO ISO,199
+South Africa,ZAF,Crude market,rtd
+South Africa,ZAF,IEA code,ZAF
+South Africa,ZAF,IEA country,South Africa
+South Africa,ZAF,Enerdata code,South Africa
+South Africa,ZAF,VSL country grouping,Upper middle income
+South Sudan,SSD,Code alpha2,SS
+South Sudan,SSD,Region,Sub-Saharan Africa
+South Sudan,SSD,Income group,Low income
+South Sudan,SSD,Income code,LIC
+South Sudan,SSD,Lending category,IDA
+South Sudan,SSD,Name (K),South Sudan
+South Sudan,SSD,Name (L), South Sudan
+South Sudan,SSD,Code (M),SSD
+South Sudan,SSD,Region Gains,Africa
+South Sudan,SSD,Region Gains code,afr
+South Sudan,SSD,IFS codes,733
+South Sudan,SSD,WEO ISO,733
+South Sudan,SSD,Crude market,rtd
+South Sudan,SSD,IEA code,SSD
+South Sudan,SSD,IEA country,South Sudan
+South Sudan,SSD,Enerdata code,South Sudan
+South Sudan,SSD,VSL country grouping,Low income
+Spain,ESP,Code alpha2,ES
+Spain,ESP,Region,Europe & Central Asia
+Spain,ESP,Income group,High income
+Spain,ESP,Income code,HIC
+Spain,ESP,Lending category,..
+Spain,ESP,Other,EMU
+Spain,ESP,Name (K),Spain
+Spain,ESP,Name (L), Spain
+Spain,ESP,Code (M),ESP
+Spain,ESP,Region Gains,Europe
+Spain,ESP,Region Gains code,eur
+Spain,ESP,Using euro,1
+Spain,ESP,IFS codes,184
+Spain,ESP,WEO ISO,184
+Spain,ESP,Crude market,rtd
+Spain,ESP,IEA code,ESP
+Spain,ESP,IEA country,Spain
+Spain,ESP,Enerdata code,Spain
+Spain,ESP,VSL country grouping,EU
+Sri Lanka,LKA,Code alpha2,LK
+Sri Lanka,LKA,Region,South Asia
+Sri Lanka,LKA,Income group,Lower middle income
+Sri Lanka,LKA,Income code,LMIC
+Sri Lanka,LKA,Lending category,IBRD
+Sri Lanka,LKA,Name (K),Sri Lanka
+Sri Lanka,LKA,Name (L), Sri Lanka
+Sri Lanka,LKA,Code (M),LKA
+Sri Lanka,LKA,Region Gains,Asia & Oceania
+Sri Lanka,LKA,Region Gains code,aso
+Sri Lanka,LKA,IFS codes,524
+Sri Lanka,LKA,WEO ISO,524
+Sri Lanka,LKA,Crude market,sng
+Sri Lanka,LKA,IEA code,LKA
+Sri Lanka,LKA,IEA country,Sri Lanka
+Sri Lanka,LKA,Enerdata code,Sri Lanka
+Sri Lanka,LKA,VSL country grouping,Lower middle income
+St. Kitts and Nevis,KNA,Code alpha2,KN
+St. Kitts and Nevis,KNA,Region,Latin America & Caribbean
+St. Kitts and Nevis,KNA,Income group,High income
+St. Kitts and Nevis,KNA,Income code,HIC
+St. Kitts and Nevis,KNA,Lending category,IBRD
+St. Kitts and Nevis,KNA,Name (K),St. Kitts and Nevis
+St. Kitts and Nevis,KNA,Name (L), St. Kitts and Nevis
+St. Kitts and Nevis,KNA,Code (M),KNA
+St. Kitts and Nevis,KNA,Region Gains,North America
+St. Kitts and Nevis,KNA,Region Gains code,nam
+St. Kitts and Nevis,KNA,IFS codes,361
+St. Kitts and Nevis,KNA,WEO ISO,361
+St. Kitts and Nevis,KNA,Crude market,usa
+St. Kitts and Nevis,KNA,VSL country grouping,High income
+St. Lucia,LCA,Code alpha2,LC
+St. Lucia,LCA,Region,Latin America & Caribbean
+St. Lucia,LCA,Income group,Upper middle income
+St. Lucia,LCA,Income code,UMIC
+St. Lucia,LCA,Lending category,Blend
+St. Lucia,LCA,Name (K),St. Lucia
+St. Lucia,LCA,Name (L), St. Lucia
+St. Lucia,LCA,Code (M),LCA
+St. Lucia,LCA,Region Gains,North America
+St. Lucia,LCA,Region Gains code,nam
+St. Lucia,LCA,IFS codes,362
+St. Lucia,LCA,WEO ISO,362
+St. Lucia,LCA,Crude market,usa
+St. Lucia,LCA,VSL country grouping,Upper middle income
+St. Martin (French part),MAF,Code alpha2,MF
+St. Martin (French part),MAF,Region,Latin America & Caribbean
+St. Martin (French part),MAF,Income group,High income
+St. Martin (French part),MAF,Income code,HIC
+St. Martin (French part),MAF,Lending category,..
+St. Martin (French part),MAF,Name (K),St. Martin (French part)
+St. Martin (French part),MAF,Name (L), St. Martin (French part)
+St. Martin (French part),MAF,Code (M),MAF
+St. Martin (French part),MAF,Region Gains,North America
+St. Martin (French part),MAF,Region Gains code,nam
+St. Martin (French part),MAF,IFS codes,0x2a
+St. Martin (French part),MAF,WEO ISO,0x2a
+St. Martin (French part),MAF,Crude market,usa
+St. Martin (French part),MAF,VSL country grouping,High income
+St. Vincent and the Grenadines,VCT,Code alpha2,VC
+St. Vincent and the Grenadines,VCT,Region,Latin America & Caribbean
+St. Vincent and the Grenadines,VCT,Income group,Upper middle income
+St. Vincent and the Grenadines,VCT,Income code,UMIC
+St. Vincent and the Grenadines,VCT,Lending category,Blend
+St. Vincent and the Grenadines,VCT,Name (K),St. Vincent and the Grenadines
+St. Vincent and the Grenadines,VCT,Name (L), St. Vincent and the Grenadines
+St. Vincent and the Grenadines,VCT,Code (M),VCT
+St. Vincent and the Grenadines,VCT,Region Gains,North America
+St. Vincent and the Grenadines,VCT,Region Gains code,nam
+St. Vincent and the Grenadines,VCT,IFS codes,364
+St. Vincent and the Grenadines,VCT,WEO ISO,364
+St. Vincent and the Grenadines,VCT,Crude market,usa
+St. Vincent and the Grenadines,VCT,VSL country grouping,Upper middle income
+Sudan,SDN,Code alpha2,SD
+Sudan,SDN,Region,Sub-Saharan Africa
+Sudan,SDN,Income group,Lower middle income
+Sudan,SDN,Income code,LMIC
+Sudan,SDN,Lending category,IDA
+Sudan,SDN,Other,HIPC
+Sudan,SDN,Name (K),Sudan
+Sudan,SDN,Name (L), Sudan
+Sudan,SDN,Code (M),SDN
+Sudan,SDN,Region Gains,Africa
+Sudan,SDN,Region Gains code,afr
+Sudan,SDN,IFS codes,732
+Sudan,SDN,WEO ISO,732
+Sudan,SDN,Crude market,rtd
+Sudan,SDN,IEA code,SDN
+Sudan,SDN,IEA country,Sudan
+Sudan,SDN,Enerdata code,Sudan
+Sudan,SDN,VSL country grouping,Lower middle income
+Suriname,SUR,Code alpha2,SR
+Suriname,SUR,Region,Latin America & Caribbean
+Suriname,SUR,Income group,Upper middle income
+Suriname,SUR,Income code,UMIC
+Suriname,SUR,Lending category,IBRD
+Suriname,SUR,Name (K),Suriname
+Suriname,SUR,Name (L), Suriname
+Suriname,SUR,Code (M),SUR
+Suriname,SUR,Region Gains,North America
+Suriname,SUR,Region Gains code,nam
+Suriname,SUR,IFS codes,366
+Suriname,SUR,WEO ISO,366
+Suriname,SUR,Crude market,usa
+Suriname,SUR,IEA code,SUR
+Suriname,SUR,IEA country,Suriname
+Suriname,SUR,Enerdata code,Suriname
+Suriname,SUR,VSL country grouping,Upper middle income
+Sweden,SWE,Code alpha2,SE
+Sweden,SWE,Region,Europe & Central Asia
+Sweden,SWE,Income group,High income
+Sweden,SWE,Income code,HIC
+Sweden,SWE,Lending category,..
+Sweden,SWE,Name (K),Sweden
+Sweden,SWE,Name (L), Sweden
+Sweden,SWE,Code (M),SWE
+Sweden,SWE,Region Gains,Europe
+Sweden,SWE,Region Gains code,eur
+Sweden,SWE,IFS codes,144
+Sweden,SWE,WEO ISO,144
+Sweden,SWE,Crude market,rtd
+Sweden,SWE,IEA code,SWE
+Sweden,SWE,IEA country,Sweden
+Sweden,SWE,Enerdata code,Sweden
+Sweden,SWE,VSL country grouping,EU
+Switzerland,CHE,Code alpha2,CH
+Switzerland,CHE,Region,Europe & Central Asia
+Switzerland,CHE,Income group,High income
+Switzerland,CHE,Income code,HIC
+Switzerland,CHE,Lending category,..
+Switzerland,CHE,Name (K),Switzerland
+Switzerland,CHE,Name (L), Switzerland
+Switzerland,CHE,Code (M),CHE
+Switzerland,CHE,Region Gains,Europe
+Switzerland,CHE,Region Gains code,eur
+Switzerland,CHE,IFS codes,146
+Switzerland,CHE,WEO ISO,146
+Switzerland,CHE,Crude market,rtd
+Switzerland,CHE,IEA code,CHE
+Switzerland,CHE,IEA country,Switzerland
+Switzerland,CHE,Enerdata code,Switzerland
+Switzerland,CHE,VSL country grouping,OECD
+Syria,SYR,Code alpha2,SY
+Syria,SYR,Region,Middle East & North Africa
+Syria,SYR,Income group,Low income
+Syria,SYR,Income code,LIC
+Syria,SYR,Lending category,IDA
+Syria,SYR,Name (K),Syria
+Syria,SYR,Name (L), Syria
+Syria,SYR,Code (M),SYR
+Syria,SYR,Region Gains,Middle East
+Syria,SYR,Region Gains code,mea
+Syria,SYR,IFS codes,463
+Syria,SYR,WEO ISO,463
+Syria,SYR,Crude market,rtd
+Syria,SYR,IEA code,SYR
+Syria,SYR,IEA country,Syria
+Syria,SYR,Enerdata code,Syria
+Syria,SYR,VSL country grouping,Low income
+Taiwan Province of China,TWN,Code alpha2,TW
+Taiwan Province of China,TWN,Region,East Asia & Pacific
+Taiwan Province of China,TWN,Income group,High income
+Taiwan Province of China,TWN,Income code,HIC
+Taiwan Province of China,TWN,Lending category,..
+Taiwan Province of China,TWN,Name (K),Taiwan Province of China
+Taiwan Province of China,TWN,Name (L), Taiwan Province of China
+Taiwan Province of China,TWN,Code (M),TWN
+Taiwan Province of China,TWN,Region Gains,Asia & Oceania
+Taiwan Province of China,TWN,Region Gains code,aso
+Taiwan Province of China,TWN,IFS codes,528
+Taiwan Province of China,TWN,WEO ISO,528
+Taiwan Province of China,TWN,Crude market,sng
+Taiwan Province of China,TWN,IEA code,TWN
+Taiwan Province of China,TWN,IEA country,Chinese Taipei
+Taiwan Province of China,TWN,Enerdata code,Taiwan Province of China
+Taiwan Province of China,TWN,VSL country grouping,High income
+Tajikistan,TJK,Code alpha2,TJ
+Tajikistan,TJK,Region,Europe & Central Asia
+Tajikistan,TJK,Income group,Low income
+Tajikistan,TJK,Income code,LIC
+Tajikistan,TJK,Lending category,IDA
+Tajikistan,TJK,Name (K),Tajikistan
+Tajikistan,TJK,Name (L), Tajikistan
+Tajikistan,TJK,Code (M),TJK
+Tajikistan,TJK,Region Gains,Eurasia
+Tajikistan,TJK,Region Gains code,eua
+Tajikistan,TJK,IFS codes,923
+Tajikistan,TJK,WEO ISO,923
+Tajikistan,TJK,Crude market,rtd
+Tajikistan,TJK,IEA code,TJK
+Tajikistan,TJK,IEA country,Tajikistan
+Tajikistan,TJK,Enerdata code,Tajikistan
+Tajikistan,TJK,VSL country grouping,Low income
+Tanzania,TZA,Code alpha2,TZ
+Tanzania,TZA,Region,Sub-Saharan Africa
+Tanzania,TZA,Income group,Low income
+Tanzania,TZA,Income code,LIC
+Tanzania,TZA,Lending category,IDA
+Tanzania,TZA,Other,HIPC
+Tanzania,TZA,Name (K),Tanzania
+Tanzania,TZA,Name (L), Tanzania
+Tanzania,TZA,Code (M),TZA
+Tanzania,TZA,Region Gains,Africa
+Tanzania,TZA,Region Gains code,afr
+Tanzania,TZA,IFS codes,738
+Tanzania,TZA,WEO ISO,738
+Tanzania,TZA,Crude market,rtd
+Tanzania,TZA,IEA code,TZA
+Tanzania,TZA,IEA country,United Republic of Tanzania
+Tanzania,TZA,Enerdata code,Tanzania
+Tanzania,TZA,VSL country grouping,Low income
+Thailand,THA,Code alpha2,TH
+Thailand,THA,Region,East Asia & Pacific
+Thailand,THA,Income group,Upper middle income
+Thailand,THA,Income code,UMIC
+Thailand,THA,Lending category,IBRD
+Thailand,THA,Name (K),Thailand
+Thailand,THA,Name (L), Thailand
+Thailand,THA,Code (M),THA
+Thailand,THA,Region Gains,Asia & Oceania
+Thailand,THA,Region Gains code,aso
+Thailand,THA,IFS codes,578
+Thailand,THA,WEO ISO,578
+Thailand,THA,Crude market,sng
+Thailand,THA,IEA code,THA
+Thailand,THA,IEA country,Thailand
+Thailand,THA,Enerdata code,Thailand
+Thailand,THA,VSL country grouping,Upper middle income
+Timor-Leste,TLS,Code alpha2,TL
+Timor-Leste,TLS,Region,East Asia & Pacific
+Timor-Leste,TLS,Income group,Lower middle income
+Timor-Leste,TLS,Income code,LMIC
+Timor-Leste,TLS,Lending category,Blend
+Timor-Leste,TLS,Name (K),Timor-Leste
+Timor-Leste,TLS,Name (L), Timor-Leste
+Timor-Leste,TLS,Code (M),TLS
+Timor-Leste,TLS,Region Gains,Asia & Oceania
+Timor-Leste,TLS,Region Gains code,aso
+Timor-Leste,TLS,IFS codes,537
+Timor-Leste,TLS,WEO ISO,537
+Timor-Leste,TLS,Crude market,sng
+Timor-Leste,TLS,VSL country grouping,Lower middle income
+Togo,TGO,Code alpha2,TG
+Togo,TGO,Region,Sub-Saharan Africa
+Togo,TGO,Income group,Low income
+Togo,TGO,Income code,LIC
+Togo,TGO,Lending category,IDA
+Togo,TGO,Other,HIPC
+Togo,TGO,Name (K),Togo
+Togo,TGO,Name (L), Togo
+Togo,TGO,Code (M),TGO
+Togo,TGO,Region Gains,Africa
+Togo,TGO,Region Gains code,afr
+Togo,TGO,IFS codes,742
+Togo,TGO,WEO ISO,742
+Togo,TGO,Crude market,rtd
+Togo,TGO,IEA code,TGO
+Togo,TGO,IEA country,Togo
+Togo,TGO,Enerdata code,Togo
+Togo,TGO,VSL country grouping,Low income
+Tonga,TON,Code alpha2,TO
+Tonga,TON,Region,East Asia & Pacific
+Tonga,TON,Income group,Upper middle income
+Tonga,TON,Income code,UMIC
+Tonga,TON,Lending category,IDA
+Tonga,TON,Name (K),Tonga
+Tonga,TON,Name (L), Tonga
+Tonga,TON,Code (M),TON
+Tonga,TON,Region Gains,Asia & Oceania
+Tonga,TON,Region Gains code,aso
+Tonga,TON,IFS codes,866
+Tonga,TON,WEO ISO,866
+Tonga,TON,Crude market,sng
+Tonga,TON,VSL country grouping,Upper middle income
+Trinidad and Tobago,TTO,Code alpha2,TT
+Trinidad and Tobago,TTO,Region,Latin America & Caribbean
+Trinidad and Tobago,TTO,Income group,High income
+Trinidad and Tobago,TTO,Income code,HIC
+Trinidad and Tobago,TTO,Lending category,IBRD
+Trinidad and Tobago,TTO,Name (K),Trinidad and Tobago
+Trinidad and Tobago,TTO,Name (L), Trinidad and Tobago
+Trinidad and Tobago,TTO,Code (M),TTO
+Trinidad and Tobago,TTO,Region Gains,North America
+Trinidad and Tobago,TTO,Region Gains code,nam
+Trinidad and Tobago,TTO,IFS codes,369
+Trinidad and Tobago,TTO,WEO ISO,369
+Trinidad and Tobago,TTO,Crude market,usa
+Trinidad and Tobago,TTO,IEA code,TTO
+Trinidad and Tobago,TTO,IEA country,Trinidad and Tobago
+Trinidad and Tobago,TTO,Enerdata code,Trinidad and Tobago
+Trinidad and Tobago,TTO,VSL country grouping,High income
+Tunisia,TUN,Code alpha2,TN
+Tunisia,TUN,Region,Middle East & North Africa
+Tunisia,TUN,Income group,Lower middle income
+Tunisia,TUN,Income code,LMIC
+Tunisia,TUN,Lending category,IBRD
+Tunisia,TUN,Name (K),Tunisia
+Tunisia,TUN,Name (L), Tunisia
+Tunisia,TUN,Code (M),TUN
+Tunisia,TUN,Region Gains,Africa
+Tunisia,TUN,Region Gains code,afr
+Tunisia,TUN,IFS codes,744
+Tunisia,TUN,WEO ISO,744
+Tunisia,TUN,Crude market,rtd
+Tunisia,TUN,IEA code,TUN
+Tunisia,TUN,IEA country,Tunisia
+Tunisia,TUN,Enerdata code,Tunisia
+Tunisia,TUN,VSL country grouping,Lower middle income
+Turkiye,TUR,Code alpha2,TR
+Turkiye,TUR,Region,Europe & Central Asia
+Turkiye,TUR,Income group,Upper middle income
+Turkiye,TUR,Income code,UMIC
+Turkiye,TUR,Lending category,IBRD
+Turkiye,TUR,Name (K),Turkiye
+Turkiye,TUR,Name (L), Turkiye
+Turkiye,TUR,Code (M),TUR
+Turkiye,TUR,Region Gains,Europe
+Turkiye,TUR,Region Gains code,eur
+Turkiye,TUR,IFS codes,186
+Turkiye,TUR,WEO ISO,186
+Turkiye,TUR,Crude market,rtd
+Turkiye,TUR,IEA code,TUR
+Turkiye,TUR,IEA country,Turkiye
+Turkiye,TUR,Enerdata code,Turkiye
+Turkiye,TUR,VSL country grouping,Upper middle income
+Turkmenistan,TKM,Code alpha2,TM
+Turkmenistan,TKM,Region,Europe & Central Asia
+Turkmenistan,TKM,Income group,Upper middle income
+Turkmenistan,TKM,Income code,UMIC
+Turkmenistan,TKM,Lending category,IBRD
+Turkmenistan,TKM,Name (K),Turkmenistan
+Turkmenistan,TKM,Name (L), Turkmenistan
+Turkmenistan,TKM,Code (M),TKM
+Turkmenistan,TKM,Region Gains,Eurasia
+Turkmenistan,TKM,Region Gains code,eua
+Turkmenistan,TKM,IFS codes,925
+Turkmenistan,TKM,WEO ISO,925
+Turkmenistan,TKM,Crude market,rtd
+Turkmenistan,TKM,IEA code,TKM
+Turkmenistan,TKM,IEA country,Turkmenistan
+Turkmenistan,TKM,Enerdata code,Turkmenistan
+Turkmenistan,TKM,VSL country grouping,Upper middle income
+Turks and Caicos Islands,TCA,Code alpha2,TC
+Turks and Caicos Islands,TCA,Region,Latin America & Caribbean
+Turks and Caicos Islands,TCA,Income group,High income
+Turks and Caicos Islands,TCA,Income code,HIC
+Turks and Caicos Islands,TCA,Lending category,..
+Turks and Caicos Islands,TCA,Name (K),Turks and Caicos Islands
+Turks and Caicos Islands,TCA,Name (L), Turks and Caicos Islands
+Turks and Caicos Islands,TCA,Code (M),TCA
+Turks and Caicos Islands,TCA,Region Gains,North America
+Turks and Caicos Islands,TCA,Region Gains code,nam
+Turks and Caicos Islands,TCA,IFS codes,0x2a
+Turks and Caicos Islands,TCA,WEO ISO,0x2a
+Turks and Caicos Islands,TCA,Crude market,usa
+Turks and Caicos Islands,TCA,VSL country grouping,High income
+Tuvalu,TUV,Code alpha2,TV
+Tuvalu,TUV,Region,East Asia & Pacific
+Tuvalu,TUV,Income group,Upper middle income
+Tuvalu,TUV,Income code,UMIC
+Tuvalu,TUV,Lending category,IDA
+Tuvalu,TUV,Name (K),Tuvalu
+Tuvalu,TUV,Name (L), Tuvalu
+Tuvalu,TUV,Code (M),TUV
+Tuvalu,TUV,Region Gains,Asia & Oceania
+Tuvalu,TUV,Region Gains code,aso
+Tuvalu,TUV,IFS codes,869
+Tuvalu,TUV,WEO ISO,869
+Tuvalu,TUV,Crude market,sng
+Tuvalu,TUV,VSL country grouping,Upper middle income
+Uganda,UGA,Code alpha2,UG
+Uganda,UGA,Region,Sub-Saharan Africa
+Uganda,UGA,Income group,Low income
+Uganda,UGA,Income code,LIC
+Uganda,UGA,Lending category,IDA
+Uganda,UGA,Other,HIPC
+Uganda,UGA,Name (K),Uganda
+Uganda,UGA,Name (L), Uganda
+Uganda,UGA,Code (M),UGA
+Uganda,UGA,Region Gains,Africa
+Uganda,UGA,Region Gains code,afr
+Uganda,UGA,IFS codes,746
+Uganda,UGA,WEO ISO,746
+Uganda,UGA,Crude market,rtd
+Uganda,UGA,IEA code,MUGANDA
+Uganda,UGA,IEA country,Memo: Uganda
+Uganda,UGA,Enerdata code,Uganda
+Uganda,UGA,VSL country grouping,Low income
+Ukraine,UKR,Code alpha2,UA
+Ukraine,UKR,Region,Europe & Central Asia
+Ukraine,UKR,Income group,Lower middle income
+Ukraine,UKR,Income code,LMIC
+Ukraine,UKR,Lending category,IBRD
+Ukraine,UKR,Name (K),Ukraine
+Ukraine,UKR,Name (L), Ukraine
+Ukraine,UKR,Code (M),UKR
+Ukraine,UKR,Region Gains,Eurasia
+Ukraine,UKR,Region Gains code,eua
+Ukraine,UKR,IFS codes,926
+Ukraine,UKR,WEO ISO,926
+Ukraine,UKR,Crude market,rtd
+Ukraine,UKR,IEA code,UKR
+Ukraine,UKR,IEA country,Ukraine
+Ukraine,UKR,Enerdata code,Ukraine
+Ukraine,UKR,VSL country grouping,Lower middle income
+United Arab Emirates,ARE,Code alpha2,AE
+United Arab Emirates,ARE,Region,Middle East & North Africa
+United Arab Emirates,ARE,Income group,High income
+United Arab Emirates,ARE,Income code,HIC
+United Arab Emirates,ARE,Lending category,..
+United Arab Emirates,ARE,Name (K),United Arab Emirates
+United Arab Emirates,ARE,Name (L), United Arab Emirates
+United Arab Emirates,ARE,Code (M),ARE
+United Arab Emirates,ARE,Region Gains,Middle East
+United Arab Emirates,ARE,Region Gains code,mea
+United Arab Emirates,ARE,IFS codes,466
+United Arab Emirates,ARE,WEO ISO,466
+United Arab Emirates,ARE,Crude market,rtd
+United Arab Emirates,ARE,IEA code,ARE
+United Arab Emirates,ARE,IEA country,United Arab Emirates
+United Arab Emirates,ARE,Enerdata code,United Arab Emirates
+United Arab Emirates,ARE,VSL country grouping,High income
+United Kingdom,GBR,Code alpha2,GB
+United Kingdom,GBR,Region,Europe & Central Asia
+United Kingdom,GBR,Income group,High income
+United Kingdom,GBR,Income code,HIC
+United Kingdom,GBR,Lending category,..
+United Kingdom,GBR,Name (K),United Kingdom
+United Kingdom,GBR,Name (L), United Kingdom
+United Kingdom,GBR,Code (M),GBR
+United Kingdom,GBR,Region Gains,Europe
+United Kingdom,GBR,Region Gains code,eur
+United Kingdom,GBR,IFS codes,112
+United Kingdom,GBR,WEO ISO,112
+United Kingdom,GBR,Crude market,rtd
+United Kingdom,GBR,IEA code,GBR
+United Kingdom,GBR,IEA country,United Kingdom
+United Kingdom,GBR,Enerdata code,United Kingdom
+United Kingdom,GBR,VSL country grouping,OECD
+United States,USA,Code alpha2,US
+United States,USA,Region,North America
+United States,USA,Income group,High income
+United States,USA,Income code,HIC
+United States,USA,Lending category,..
+United States,USA,Name (K),United States
+United States,USA,Name (L), United States
+United States,USA,Code (M),USA
+United States,USA,Region Gains,North America
+United States,USA,Region Gains code,nam
+United States,USA,IFS codes,111
+United States,USA,WEO ISO,111
+United States,USA,Crude market,usa
+United States,USA,IEA code,USA
+United States,USA,IEA country,United States
+United States,USA,Enerdata code,United States
+United States,USA,VSL country grouping,USA
+Uruguay,URY,Code alpha2,UY
+Uruguay,URY,Region,Latin America & Caribbean
+Uruguay,URY,Income group,High income
+Uruguay,URY,Income code,HIC
+Uruguay,URY,Lending category,IBRD
+Uruguay,URY,Name (K),Uruguay
+Uruguay,URY,Name (L), Uruguay
+Uruguay,URY,Code (M),URY
+Uruguay,URY,Region Gains,North America
+Uruguay,URY,Region Gains code,nam
+Uruguay,URY,IFS codes,298
+Uruguay,URY,WEO ISO,298
+Uruguay,URY,Crude market,usa
+Uruguay,URY,IEA code,URY
+Uruguay,URY,IEA country,Uruguay
+Uruguay,URY,Enerdata code,Uruguay
+Uruguay,URY,VSL country grouping,High income
+Uzbekistan,UZB,Code alpha2,UZ
+Uzbekistan,UZB,Region,Europe & Central Asia
+Uzbekistan,UZB,Income group,Lower middle income
+Uzbekistan,UZB,Income code,LMIC
+Uzbekistan,UZB,Lending category,Blend
+Uzbekistan,UZB,Name (K),Uzbekistan
+Uzbekistan,UZB,Name (L), Uzbekistan
+Uzbekistan,UZB,Code (M),UZB
+Uzbekistan,UZB,Region Gains,Eurasia
+Uzbekistan,UZB,Region Gains code,eua
+Uzbekistan,UZB,IFS codes,927
+Uzbekistan,UZB,WEO ISO,927
+Uzbekistan,UZB,Crude market,rtd
+Uzbekistan,UZB,IEA code,UZB
+Uzbekistan,UZB,IEA country,Uzbekistan
+Uzbekistan,UZB,Enerdata code,Uzbekistan
+Uzbekistan,UZB,VSL country grouping,Lower middle income
+Vanuatu,VUT,Code alpha2,VU
+Vanuatu,VUT,Region,East Asia & Pacific
+Vanuatu,VUT,Income group,Lower middle income
+Vanuatu,VUT,Income code,LMIC
+Vanuatu,VUT,Lending category,IDA
+Vanuatu,VUT,Name (K),Vanuatu
+Vanuatu,VUT,Name (L), Vanuatu
+Vanuatu,VUT,Code (M),VUT
+Vanuatu,VUT,Region Gains,Asia & Oceania
+Vanuatu,VUT,Region Gains code,aso
+Vanuatu,VUT,IFS codes,846
+Vanuatu,VUT,WEO ISO,846
+Vanuatu,VUT,Crude market,sng
+Vanuatu,VUT,VSL country grouping,Lower middle income
+Venezuela,VEN,Code alpha2,VE
+Venezuela,VEN,Region,Latin America & Caribbean
+Venezuela,VEN,Income group,Upper middle income
+Venezuela,VEN,Income code,UMIC
+Venezuela,VEN,Lending category,IBRD
+Venezuela,VEN,Name (K),Venezuela
+Venezuela,VEN,Name (L), Venezuela
+Venezuela,VEN,Code (M),VEN
+Venezuela,VEN,Region Gains,North America
+Venezuela,VEN,Region Gains code,nam
+Venezuela,VEN,IFS codes,299
+Venezuela,VEN,WEO ISO,299
+Venezuela,VEN,Crude market,usa
+Venezuela,VEN,IEA code,VEN
+Venezuela,VEN,IEA country,Bolivarian Republic of Venezuela
+Venezuela,VEN,Enerdata code,Venezuela
+Venezuela,VEN,VSL country grouping,Upper middle income
+Vietnam,VNM,Code alpha2,VN
+Vietnam,VNM,Region,East Asia & Pacific
+Vietnam,VNM,Income group,Lower middle income
+Vietnam,VNM,Income code,LMIC
+Vietnam,VNM,Lending category,IBRD
+Vietnam,VNM,Name (K),Vietnam
+Vietnam,VNM,Name (L), Vietnam
+Vietnam,VNM,Code (M),VNM
+Vietnam,VNM,Region Gains,Asia & Oceania
+Vietnam,VNM,Region Gains code,aso
+Vietnam,VNM,IFS codes,582
+Vietnam,VNM,WEO ISO,582
+Vietnam,VNM,Crude market,sng
+Vietnam,VNM,IEA code,VNM
+Vietnam,VNM,IEA country,Vietnam
+Vietnam,VNM,Enerdata code,Vietnam
+Vietnam,VNM,VSL country grouping,Lower middle income
+Virgin Islands (U.S.),VIR,Code alpha2,VI
+Virgin Islands (U.S.),VIR,Region,Latin America & Caribbean
+Virgin Islands (U.S.),VIR,Income group,High income
+Virgin Islands (U.S.),VIR,Income code,HIC
+Virgin Islands (U.S.),VIR,Lending category,..
+Virgin Islands (U.S.),VIR,Name (K),Virgin Islands (U.S.)
+Virgin Islands (U.S.),VIR,Name (L), Virgin Islands (U.S.)
+Virgin Islands (U.S.),VIR,Code (M),VIR
+Virgin Islands (U.S.),VIR,Region Gains,North America
+Virgin Islands (U.S.),VIR,Region Gains code,nam
+Virgin Islands (U.S.),VIR,IFS codes,0x2a
+Virgin Islands (U.S.),VIR,WEO ISO,0x2a
+Virgin Islands (U.S.),VIR,Crude market,usa
+Virgin Islands (U.S.),VIR,VSL country grouping,High income
+West Bank and Gaza,PSE,Code alpha2,PS
+West Bank and Gaza,PSE,Region,Middle East & North Africa
+West Bank and Gaza,PSE,Income group,Lower middle income
+West Bank and Gaza,PSE,Income code,LMIC
+West Bank and Gaza,PSE,Lending category,..
+West Bank and Gaza,PSE,Name (K),West Bank and Gaza
+West Bank and Gaza,PSE,Name (L), West Bank and Gaza
+West Bank and Gaza,PSE,Code (M),PSE
+West Bank and Gaza,PSE,Region Gains,Middle East
+West Bank and Gaza,PSE,Region Gains code,mea
+West Bank and Gaza,PSE,IFS codes,0x2a
+West Bank and Gaza,PSE,WEO ISO,487
+West Bank and Gaza,PSE,Crude market,rtd
+West Bank and Gaza,PSE,IEA code,MPALESTINE
+West Bank and Gaza,PSE,IEA country,Memo: Palestinian Authority
+West Bank and Gaza,PSE,Enerdata code,West Bank and Gaza
+West Bank and Gaza,PSE,VSL country grouping,Lower middle income
+World aviation,WAV,Code alpha2,WA
+World aviation,WAV,Region,World
+World aviation,WAV,Income group,High income
+World aviation,WAV,Income code,HIC
+World aviation,WAV,Lending category,..
+World aviation,WAV,Region Gains,North America
+World aviation,WAV,Region Gains code,nam
+World aviation,WAV,IEA code,WORLDAV
+World aviation,WAV,IEA country,WORLDAV
+World aviation,WAV,VSL country grouping,High income
+World marine,WMR,Code alpha2,WM
+World marine,WMR,Region,World
+World marine,WMR,Income group,High income
+World marine,WMR,Income code,HIC
+World marine,WMR,Lending category,..
+World marine,WMR,Region Gains,North America
+World marine,WMR,Region Gains code,nam
+World marine,WMR,IEA code,WORLDMAR
+World marine,WMR,IEA country,World marine bunkers
+World marine,WMR,VSL country grouping,High income
+Yemen,YEM,Code alpha2,YE
+Yemen,YEM,Region,Middle East & North Africa
+Yemen,YEM,Income group,Low income
+Yemen,YEM,Income code,LIC
+Yemen,YEM,Lending category,IDA
+Yemen,YEM,Name (K),Yemen
+Yemen,YEM,Name (L), Yemen
+Yemen,YEM,Code (M),YEM
+Yemen,YEM,Region Gains,Middle East
+Yemen,YEM,Region Gains code,mea
+Yemen,YEM,IFS codes,474
+Yemen,YEM,WEO ISO,474
+Yemen,YEM,Crude market,rtd
+Yemen,YEM,IEA code,YEM
+Yemen,YEM,IEA country,Yemen
+Yemen,YEM,Enerdata code,Yemen
+Yemen,YEM,VSL country grouping,Low income
+Zambia,ZMB,Code alpha2,ZM
+Zambia,ZMB,Region,Sub-Saharan Africa
+Zambia,ZMB,Income group,Lower middle income
+Zambia,ZMB,Income code,LMIC
+Zambia,ZMB,Lending category,IDA
+Zambia,ZMB,Other,HIPC
+Zambia,ZMB,Name (K),Zambia
+Zambia,ZMB,Name (L), Zambia
+Zambia,ZMB,Code (M),ZMB
+Zambia,ZMB,Region Gains,Africa
+Zambia,ZMB,Region Gains code,afr
+Zambia,ZMB,IFS codes,754
+Zambia,ZMB,WEO ISO,754
+Zambia,ZMB,Crude market,rtd
+Zambia,ZMB,IEA code,ZMB
+Zambia,ZMB,IEA country,Zambia
+Zambia,ZMB,Enerdata code,Zambia
+Zambia,ZMB,VSL country grouping,Lower middle income
+Zimbabwe,ZWE,Code alpha2,ZW
+Zimbabwe,ZWE,Region,Sub-Saharan Africa
+Zimbabwe,ZWE,Income group,Low income
+Zimbabwe,ZWE,Income code,LIC
+Zimbabwe,ZWE,Lending category,Blend
+Zimbabwe,ZWE,Name (K),Zimbabwe
+Zimbabwe,ZWE,Name (L), Zimbabwe
+Zimbabwe,ZWE,Code (M),ZWE
+Zimbabwe,ZWE,Region Gains,Africa
+Zimbabwe,ZWE,Region Gains code,afr
+Zimbabwe,ZWE,IFS codes,698
+Zimbabwe,ZWE,WEO ISO,698
+Zimbabwe,ZWE,Crude market,rtd
+Zimbabwe,ZWE,IEA code,ZWE
+Zimbabwe,ZWE,IEA country,Zimbabwe
+Zimbabwe,ZWE,Enerdata code,Zimbabwe
+Zimbabwe,ZWE,VSL country grouping,Low income
+World,WLD,IFS codes,1
+World,WLD,WEO ISO,1
+World,WLD,IEA code,WLD
+World,WLD,IEA country,World
+Memo: Africa (UN),AFRICATOT,IEA code,AFRICATOT
+Memo: Africa (UN),AFRICATOT,IEA country,Memo: Africa (UN)
+Memo: Americas (UN),AMERICAS,IEA code,AMERICAS
+Memo: Americas (UN),AMERICAS,IEA country,Memo: Americas (UN)
+Memo: Asia (UN),ASIATOT,IEA code,ASIATOT
+Memo: Asia (UN),ASIATOT,IEA country,Memo: Asia (UN)
+Memo: Europe (UN),EUROPE,IEA code,EUROPE
+Memo: Europe (UN),EUROPE,IEA country,Memo: Europe (UN)
+Memo: Oceania (UN),OCEANIA,IEA code,OCEANIA
+Memo: Oceania (UN),OCEANIA,IEA country,Memo: Oceania (UN)
+Europe & Central Asia (excluding high income),OEU,IEA code,OEU
+Europe & Central Asia (excluding high income),OEU,IEA country,Europe & Central Asia (excluding high income)
+Africa,AFRIC,IEA code,AFRIC
+Africa,AFRIC,IEA country,Africa
+Memo: ASEAN,MASEAN,IEA code,MASEAN
+Memo: ASEAN,MASEAN,IEA country,Memo: ASEAN
+Memo: European Union-28,EU28,IEA code,EU28
+Memo: European Union-28,EU28,IEA country,Memo: European Union-28
+Memo: FSU 15,FSU_15,IEA code,FSU_15
+Memo: FSU 15,FSU_15,IEA country,Memo: FSU 15
+Memo: G7,G7,IEA code,G7
+Memo: G7,G7,IEA country,Memo: G7
+Memo: G8,G8,IEA code,G8
+Memo: G8,G8,IEA country,Memo: G8
+Memo: IEA Total,IEATOT,IEA code,IEATOT
+Memo: IEA Total,IEATOT,IEA country,Memo: IEA Total
+Memo: IEA and Accession/Association countries,IEAFAMILY,IEA code,IEAFAMILY
+Memo: IEA and Accession/Association countries,IEAFAMILY,IEA country,Memo: IEA and Accession/Association countries
+Memo: OPEC,OPEC,IEA code,OPEC
+Memo: OPEC,OPEC,IEA country,Memo: OPEC
+Middle East,ASME,IEA code,ASME
+Middle East,ASME,IEA country,Middle East
+Non-OECD Americas,LATAMER,IEA code,LATAMER
+Non-OECD Americas,LATAMER,IEA country,Non-OECD Americas
+Non-OECD Asia (excluding China),ASIA,IEA code,ASIA
+Non-OECD Asia (excluding China),ASIA,IEA country,Non-OECD Asia (excluding China)
+Non-OECD Europe and Eurasia,NON-OECDEUROPEANDEURASIA,IEA code,NON-OECDEUROPEANDEURASIA
+Non-OECD Europe and Eurasia,NON-OECDEUROPEANDEURASIA,IEA country,Non-OECD Europe and Eurasia
+OECD Americas,OENN,IEA code,OENN
+OECD Americas,OENN,IEA country,OECD Americas
+OECD Asia Oceania,OEPN,IEA code,OEPN
+OECD Asia Oceania,OEPN,IEA country,OECD Asia Oceania
+Other Africa,OTHERAFRIC,IEA code,OTHERAFRIC
+Other Africa,OTHERAFRIC,IEA country,Other Africa
+Other non-OECD Americas,OTHERLATIN,IEA code,OTHERLATIN
+Other non-OECD Americas,OTHERLATIN,IEA country,Other non-OECD Americas
+Other non-OECD Asia,OTHERASIA,IEA code,OTHERASIA
+Other non-OECD Asia,OTHERASIA,IEA country,Other non-OECD Asia
+World aviation bunkers,WORLDAV,IEA code,WORLDAV
+World aviation bunkers,WORLDAV,IEA country,World aviation bunkers
+World marine bunkers,WORLDMAR,IEA code,WORLDMAR
+World marine bunkers,WORLDMAR,IEA country,World marine bunkers
+Non-OECD Total,NOC,IEA code,NOC
+Non-OECD Total,NOC,IEA country,Memo: Non-OECD Total
+OECD Total,OTO,IEA code,OTO
+OECD Total,OTO,IEA country,Memo: OECD Total
+Former Yugoslavia,YUG,IEA code,YUG
+Former Yugoslavia,YUG,IEA country,Memo: Former Yugoslavia
+OECD Europe,OEU,IEA code,OEU
+OECD Europe,OEU,IEA country,OECD Europe
+European Union-27,EU27_2020,IEA code,EU27_2020
+European Union-27,EU27_2020,IEA country,Memo: European Union-27
+G20,G20,IEA code,G20
+G20,G20,IEA country,Memo: G20

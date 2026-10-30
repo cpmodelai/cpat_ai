@@ -1,0 +1,52 @@
+# The database {#sec-database}
+
+## In short
+
+- **Format: tidy CSV.** One table per file; long format, one observation per row; standard keys first, then `value` (or one column per variable). Country codes are ISO3 in upper case (`EGY`).
+- **Where: `data/Public01/tidy/`** in this repository: the **dummy** database. It holds the public data and Egypt's rows of the proprietary tables that the public legacy file contains; every country can be added. The **full** database (every country, the proprietary tables) lives in a private repository, never in this one.
+- **Choosing a database:** `Settings(database='dummy')` (default) reads `data/Public01/tidy/`; `Settings(database='full')` reads the folder named by the environment variable `FULL_DATA_PATH` (set it in `coded/.env` or your shell). Command line: `--database full`.
+- **One table list:** `data/Public01/tidy/_manifest.csv` lists every table (218 tables, plus the layout entries of the 13 tabs kept at their cell addresses), its kind, its legacy source, its keys, rows and whether it is proprietary. [Appendix C](C_Database_tables.qmd) shows them all with their columns.
+- **Tidy is the source of truth.** The legacy-compatible workbook `data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx` is written from it by `data/scripts/tidy_convert.py` (tested round trip), for pasting into legacy CPAT and for Excel-AI.
+- **Master table:** `data/catalog.csv` lists every data table: tidy file, Excel tab, proprietary or not, provenance, and the legacy data sources.
+
+::: {.callout-warning}
+## Proprietary data
+Six tables are proprietary: energy balances (`energy_balances`), energy consumption (`energy_consumption`), domestic prices (`prices_domestic`), the GTAP input-output tables (`io_gtap`), the household survey (`hh_survey`) and the transport scatter data (legacy tab `Tran_Scatter`, not in tidy yet). Their full versions, and anything computed from them, are **never committed to this repository**. The repository holds dummy values, or Egypt's rows that the public legacy file contains.
+:::
+
+## What a table looks like
+
+```text
+data/Public01/tidy/energy_balances.csv            data/Public01/tidy/prices_domestic.csv
+country,year,unit,flow,fuel,value        country,year,code,value
+EGY,2022,ktoe,cement,ecy,1158.39         EGY,2019,VAT_WEO,0.14
+EGY,2022,ktoe,cement,coa,1422.24         EGY,2019,mit.sp.coa.pow,3.88
+```
+
+Keys come first (country, year, codes), then the value. Years, fuels, sectors and price codes are columns of keys, not column headers. A blank is a missing value.
+
+## The tables, by group
+
+| Group | Examples | What for |
+|---|---|---|
+| Energy | `energy_balances`, `energy_consumption` | Base-year fuel use by sector and fuel |
+| Prices | `prices_domestic`, `pint_imf`, `pint_wb`, `pint_iea` | Domestic price build-up; international price forecasts |
+| Macro | `weo`, `gdp_ratios`, `un_population` | GDP, deflators, exchange rates, population |
+| Power | `power_*` | Power plants, costs, capacity paths |
+| Elasticities | `ela_*` | Price, income and efficiency elasticities |
+| Emissions | `ef_ghg`, `ef_local_pollutants`, `ghg_*`, `ch4_inputs` | Emission factors, other gases, methane |
+| Carbon pricing | `ecp_*`, `ets_assumptions` | Existing carbon taxes and ETSs |
+| Transport | `transport_*` | The road engineer model |
+| Distribution | `hh_survey`, `hh_elasticities`, `io_gtap`, `aspire`, `who_cooking`, `distn_*` | Household survey, input-output, social programmes |
+| Modules | `air_*`, `transport_cost_per_km` | Values from the air-pollution and transport co-benefits modules |
+| Manual inputs | `mi_*` | Excel-AI's Manual inputs tab |
+
+`data/Public01/tidy/_layout/` holds what is not data (legacy headers, row order, notes) so the legacy form can be rebuilt; never edit it.
+
+## Adding or updating data
+
+1. **Edit the tidy table** (add the country's rows with the same keys), then rewrite the legacy workbook (`python data/scripts/tidy_convert.py to-xlsx`, see `data/README.md`).
+2. **Run the data tests**: `python -m pytest data/tests` (the round trip tidy to workbook to tidy must give every value back, and the committed workbook must be current).
+3. **Run the model** for the country (`python run_model.py --countries XXX`). A country needs at least its energy balance and domestic prices; the app offers only countries that have both.
+
+Every data table, with its proprietary status and provenance: `data/catalog.csv` (`data/README.md`).

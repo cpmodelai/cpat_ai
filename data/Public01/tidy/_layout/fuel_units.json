@@ -1,0 +1,1 @@
+{"kind": "table", "header": ["fuel", "gj_per_price_unit", "ef_unit_in_legacy"], "key_pos": [0], "attr_pos": [], "val_pos": [1, 2], "skipped": {}, "nrows": 9, "source": "fuel_units.csv"}
