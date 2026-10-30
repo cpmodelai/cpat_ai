@@ -21,6 +21,8 @@ All data live here (root `NORMS.md` section 8): the inputs of Coded CPAT, the da
 | `scripts/` | The conversion scripts: `export_to_legacy.py` (+ `legacy_layouts.json`), `build_data_workbook.py`, `convert_data_workbook.py` (+ `cpat_layouts.json`) | - | - |
 | `tests/` | pytest for the scripts: `pytest tests` from this folder (15 tests; about 2 minutes) | - | - |
 
+`CPAT 1.0pre_467_Randomized.xlsb` (this folder, temporary location): the legacy workbook with randomized data in the four proprietary tabs (Balances, Prices_dom, HHSurvey, IO_GTAP), for development. Random values, not realistic; see the `CAVEATS.md` entry of 2026-10-30.
+
 The legacy workbook itself (`excel_ai/legacy/workbooks/CPAT 1.0pre_456_NoPropData.xlsb`, and 459) stays in `excel_ai/legacy/workbooks/`: it is the read-only reference model, not data. The test fixtures of Coded CPAT stay in `coded/cpat_testing/model/data_expected/`.
 
 ## Scripts
