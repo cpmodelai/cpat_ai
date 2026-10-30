@@ -14003,7 +14003,7 @@ def model_fingerprint(wb):
         for row in ws.iter_rows(values_only=True):
             h.update(repr(row).encode())
     for f in CACHE_CODE:
-        h.update(open(os.path.join(HERE, f), 'rb').read())
+        h.update(open(os.path.join(HERE, 'checks', f), 'rb').read())
     return h.hexdigest()
 
 
