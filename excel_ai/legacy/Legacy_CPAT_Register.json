@@ -1,5 +1,5 @@
 {
- "title": "Legacy CPAT bugs and the CPAT-AI register v1.0.3 (workbook v1.0.3)",
+ "title": "Legacy CPAT bugs and the CPAT-AI register v1.0.4 (workbook v1.0.4)",
  "generated_by": "excel_ai/mitigation/make_bugfix_book.py",
  "legacy_workbook": "CPAT 1.0pre_465_NoPropData.xlsb",
  "kinds": {
@@ -11473,6 +11473,105 @@
       "new": "(clear: the row no longer looks up a code)",
       "fill": "single cell",
       "policy": "none (results block)"
+     }
+    ]
+   }
+  },
+  {
+   "id": "L231",
+   "former": "",
+   "kind": "Legacy bug",
+   "module": "Mitigation",
+   "area": "Mitigation",
+   "title": "MTOutputs \"Disaggregated energy consumption (Policy)\": rows read shifted, stale Mitigation rows",
+   "where": "MTOutputs rows 590-776 (K:AD and the codes in E)",
+   "description": "Almost every cell of the section reads a Mitigation row other than the one its label names (shifted and stale references): e.g. K591 \"road, coal\" reads L11644 (road natural gas, 495.2); K615 \"navigation, other oil products\" reads L11730 (an after-tax price); others read blank rows or headings. The codes in E are taken from the rows actually read, so they are wrong too; rows 767-776 show #REF!.",
+   "fix": "The prototype MTOutputs (v1.0.4) maps each row by its label (data/mvp_legacy_extracts/mtoutputs_map_465.csv, column reason gives the cell legacy reads).",
+   "effect": "Reports only (MTOutputs, the MT exports): the disaggregated fuel use by subsector is wrong in legacy outputs; no model value changes.",
+   "priority": "Medium",
+   "prototype": "Fixed (v1.0.4): MTOutputs rows map to the quantities their labels name.",
+   "legacy465": "Open",
+   "legacy465_note": "",
+   "status": "Open in legacy",
+   "see_also": "",
+   "documented": "Legacy CPAT bugs document",
+   "cell_plan": {
+    "status": "fix",
+    "note": "Found by the MTOutputs mapping of 2026-10-29.",
+    "ref": "The prototype MTOutputs (v1.0.4) maps each row by its label (data/mvp_legacy_extracts/mtoutputs_map_465.csv, column reason gives the cell legacy reads).",
+    "fixes": [
+     {
+      "cell": "MTOutputs K590:AD776, E590:E776",
+      "now": "references to shifted rows (e.g. K591 =Mitigation!L11644)",
+      "new": "each row reads the Mitigation row its label names (fuel use of the subsector and fuel, policy group); the code formula from the same row",
+      "fill": "K:AD",
+      "policy": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "L232",
+   "former": "",
+   "kind": "Legacy bug",
+   "module": "Mitigation",
+   "area": "Mitigation",
+   "title": "MTOutputs: methane-fee price-change codes of coal and gas swapped",
+   "where": "MTOutputs E1221:E1222",
+   "description": "Row 1221 (label and value: natural gas) carries the code mfpct.coa, row 1222 (coal) the code mfpct.nga.",
+   "fix": "",
+   "effect": "Reports only: a reader by code takes the coal value for gas and the reverse.",
+   "priority": "Low",
+   "prototype": "Not applicable: the prototype codes come from the row (v1.0.4).",
+   "legacy465": "Open",
+   "legacy465_note": "",
+   "status": "Open in legacy",
+   "see_also": "",
+   "documented": "Legacy CPAT bugs document",
+   "cell_plan": {
+    "status": "fix",
+    "note": "Found by the MTOutputs mapping of 2026-10-29.",
+    "ref": "",
+    "fixes": [
+     {
+      "cell": "MTOutputs E1221, E1222",
+      "now": "...mfpct.coa (row 1221), ...mfpct.nga (row 1222)",
+      "new": "...mfpct.nga (row 1221), ...mfpct.coa (row 1222)",
+      "fill": "",
+      "policy": ""
+     }
+    ]
+   }
+  },
+  {
+   "id": "L233",
+   "former": "",
+   "kind": "Legacy bug",
+   "module": "Mitigation",
+   "area": "Mitigation",
+   "title": "MTOutputs: rows that read cells other than their labels name (Markups, capacity, GHG)",
+   "where": "MTOutputs rows 1152-1174 (Markups), 1099-1100 (Capacity), 109-111 (Emissions)",
+   "description": "Markups block: labels and codes shifted against each other, the cells read unrelated rows. Row 1099 (nameplate capacity) reads a hydro storage cost; row 1100 (effective capacity, total) reads the manual capacity of oil. Rows 109-111 read GHG including LULUCF though labelled excluding.",
+   "fix": "The prototype MTOutputs (v1.0.4) maps by the label (data/mvp_legacy_extracts/mtoutputs_map_465.csv).",
+   "effect": "Reports only (MTOutputs and the MT exports).",
+   "priority": "Low",
+   "prototype": "Fixed (v1.0.4): MTOutputs rows map to the quantities their labels name; legacy-only rows kept with Include? = No.",
+   "legacy465": "Open",
+   "legacy465_note": "",
+   "status": "Open in legacy",
+   "see_also": "",
+   "documented": "Legacy CPAT bugs document",
+   "cell_plan": {
+    "status": "fix",
+    "note": "Found by the MTOutputs mapping of 2026-10-29.",
+    "ref": "The prototype MTOutputs (v1.0.4) maps by the label (data/mvp_legacy_extracts/mtoutputs_map_465.csv).",
+    "fixes": [
+     {
+      "cell": "MTOutputs K1152:AD1174, K1099:AD1100, K109:AD111",
+      "now": "references to unrelated or neighbouring rows",
+      "new": "each row reads the Mitigation row its label names (GHG excluding LULUCF for 109-111)",
+      "fill": "K:AD",
+      "policy": ""
      }
     ]
    }

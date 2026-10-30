@@ -6,7 +6,7 @@ built by legacy/codes/make_codes_map_v0_7_1.py) with the current state added in 
     label, unit, the name (NameOfParameter, the code of the input in Excel and Python), the legacy name and what changed
     with its register code (bug L137, issue I87), the Name Manager names, the Dashboard twin and the Python key;
   - CodeRenames: the code renames applied since v0.7.2 (data/mvp_legacy_extracts/code_renames_v0_7_2.csv);
-  - Outputs: every output code of the workbook (LiveOutputs) with its description.
+  - Outputs: every output code of the workbook (MTOutputs) with its description.
 The v0.7.1 tabs keep their content (their names are as of v0.7.1; the renames tab says what changed since).
 
     python make_codesmap.py          (after build.py)
@@ -84,13 +84,12 @@ def input_rows():
 
 def output_rows():
     wb = openpyxl.load_workbook(B.OUT, read_only=True, data_only=True)
-    ws = wb['LiveOutputs']
+    ws = wb['MTOutputs']                                   # v1.0.4: legacy layout, E code, D description
     out = []
-    for row in ws.iter_rows(values_only=True):
-        codes = [v for v in row if isinstance(v, str) and re.fullmatch(r'[a-z]{3}\.mit\.[\w.]+', v)]
-        if codes:
-            desc = next((v for v in row if isinstance(v, str) and v not in codes and len(v) > 3), '')
-            out.append([codes[0], desc])
+    for row in ws.iter_rows(min_row=B.MTO_R0, values_only=True):
+        code = row[4] if len(row) > 4 else None
+        if isinstance(code, str) and re.fullmatch(r'[a-z]{3}\.mit\.[\w.]+', code):
+            out.append([code, row[3] or ''])
     return out
 
 
@@ -119,8 +118,8 @@ def main():
              'name that changed or was added (register: bug L137, issue I87). Legacy inconsistencies kept as issues: '
              'I85 (percentages typed as whole numbers), I86 (spelling), I88 (one Dashboard cell for two inputs).',
              'CodeRenames - the output-code renames applied since v0.7.2 (code_renames_v0_7_2.csv).',
-             f'Outputs - every output code of LiveOutputs ({len(outs)}).',
-             'Protocol, Positions, vocabularies (Tab ... CountryCode), Variables, Crosswalk, LiveOutputs, MVPOnly, Checks '
+             f'Outputs - every output code of MTOutputs ({len(outs)}).',
+             'Protocol, Positions, vocabularies (Tab ... CountryCode), Variables, Crosswalk, MTOutputs, MVPOnly, Checks '
              '- as of v0.7.1 (make_codes_map_v0_7_1.py); codes renamed since are in CodeRenames.', None,
              'Remediation plan of v0.7.1: legacy/codes/Codes_Remediation_Plan_v0_7_1.md. Bugs and issues: tracker '
              f'Tracking_Legacy_Bugs_v{R.REGISTER_VERSION}.xlsx.']

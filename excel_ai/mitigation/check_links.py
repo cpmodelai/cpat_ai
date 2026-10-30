@@ -8,7 +8,7 @@ name, the tab's header row and its formula columns left as they are, the old row
 Test A (identity, no recalculation): a data workbook made from the prototype's own tabs, columns in reverse order and an
 extra column; the update must give back every cell of every linked tab. Test B (the dummy data workbook): every
 link finds its table and every prototype column in it, the country has rows; the prototype recalculated in LibreOffice after the
-update has no error values in the plain scenario group (group 1) and LiveOutputs block 1; a link whose data fail the
+update has no error values in the plain scenario group (group 1) and MTOutputs block 1; a link whose data fail the
 sanity check (negative retail prices: the model needs positive prices) is reported and left out of that run; the change
 of the key results is reported (dummy values differ from the shipped Egypt data).
 Report: check_links_report_v0.7.1.md.
@@ -92,15 +92,15 @@ def negative_prices(dw, iso):
 
 
 def new_errors(vals, shipped):
-    """Error cells in group 1 (2022-2040) of Mitigation and in LiveOutputs block 1 that the shipped file has not."""
+    """Error cells in group 1 (2022-2040) of Mitigation and in MTOutputs block 1 that the shipped file has not."""
     _c, b, ys = B.group_cols(1)
     errs = []
-    for sheet, cols in (('Mitigation', [b] + ys[:-1]), ('LiveOutputs', None)):
+    for sheet, cols in (('Mitigation', [b] + ys[:-1]), ('MTOutputs', None)):
         ws, w0 = vals[sheet], shipped[sheet]
         for row in ws.iter_rows():
             for c in row:
                 if (cols is None or c.column in cols) and C.is_err(c.value) and not C.is_err(w0[c.coordinate].value):
-                    if sheet == 'LiveOutputs' and not (B.MTO_R0 <= c.row < B.MTO_R0 + B.MTO_BLOCK):
+                    if sheet == 'MTOutputs' and not (B.MTO_R0 <= c.row < B.MTO_R0 + B.MTO_BLOCK):
                         continue
                     errs.append(f'{sheet}!{c.coordinate}')
     return errs
@@ -170,7 +170,7 @@ def main():
     shipped = C.recalc_wb(C.variant(openpyxl.load_workbook(B.OUT), 'expand'))
     errs_all = new_errors(C.recalc_wb(C.variant(wb, 'expand')), shipped)
     log(f'- all {len(B.DATA_LINKS)} links updated, recalculated in LibreOffice: new error values in group 1 '
-        f'(2022-2040) and LiveOutputs block 1: {len(errs_all)} {errs_all[:6]}')
+        f'(2022-2040) and MTOutputs block 1: {len(errs_all)} {errs_all[:6]}')
     skip = {'Prices_dom'} if neg else set()           # v0.7.1: a link whose data fail the sanity check is left out
     wb = openpyxl.load_workbook(B.OUT, keep_vba=True)
     links = [l for l in B.DATA_LINKS if l[0] not in skip]
@@ -183,13 +183,13 @@ def main():
     good = not errs
     ok &= good
     log(f'- the {len(links)} links {"without " + ", ".join(sorted(skip)) if skip else ""} updated, recalculated in '
-        f'LibreOffice: new error values in group 1 (2022-2040) and LiveOutputs block 1: {len(errs)} {errs[:10]} '
+        f'LibreOffice: new error values in group 1 (2022-2040) and MTOutputs block 1: {len(errs)} {errs[:10]} '
         f'{"OK" if good else "FAIL"}')
-    lo, lo0 = vals['LiveOutputs'], shipped['LiveOutputs']
-    log('- key results of the baseline (LiveOutputs block 1, 2030), shipped Egypt data -> dummy data:')
+    lo, lo0 = vals['MTOutputs'], shipped['MTOutputs']
+    log('- key results of the baseline (MTOutputs block 1, 2030), shipped Egypt data -> dummy data:')
     y = B.MTO_C0 + 2030 - B.BASE_YEAR
     for r in range(B.MTO_R0 + 1, B.MTO_R0 + B.MTO_BLOCK):
-        stem = lo.cell(r, 2).value
+        stem = lo.cell(r, B.MTO_C0 + B.NY + 2).value       # v1.0.4: helper column, code stem
         if stem in [s for s, _l in B.SC_KEY]:
             log(f'  - {stem}: {lo0.cell(r, y).value} -> {lo.cell(r, y).value}')
     log(f'\n**Overall: {"PASS" if ok else "FAIL"}**')

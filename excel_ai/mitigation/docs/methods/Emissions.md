@@ -145,7 +145,7 @@ The calibrated base year equals the 2021 inventory (211.1), as legacy. Egypt's i
 
 Equations: `Equations.md`; workbook formulas: `Formulas.md`.
 
-The model computes emissions of seven local air pollutants from the fuel use of every subsector and of power generation: fine particulate matter (PM2.5), nitrogen oxides (NOx), sulphur dioxide (SO2), volatile organic compounds (VOC), black carbon (BC), organic carbon (OC) and carbon monoxide (CO). A memo converts them into CO2 equivalents (forcing). The emissions are also grouped into the sectors of the legacy air-pollution module, with primary organic matter and other PM2.5, its inputs. The pollutants are not part of the GHG totals. LiveOutputs reports total PM2.5, NOx, SO2, black carbon and the forcing for every scenario; the Charts sheet plots PM2.5 and SO2.
+The model computes emissions of seven local air pollutants from the fuel use of every subsector and of power generation: fine particulate matter (PM2.5), nitrogen oxides (NOx), sulphur dioxide (SO2), volatile organic compounds (VOC), black carbon (BC), organic carbon (OC) and carbon monoxide (CO). A memo converts them into CO2 equivalents (forcing). The emissions are also grouped into the sectors of the legacy air-pollution module, with primary organic matter and other PM2.5, its inputs. The pollutants are not part of the GHG totals. MTOutputs reports total PM2.5, NOx, SO2, black carbon and the forcing for every scenario; the Charts sheet plots PM2.5 and SO2.
 
 Units: emissions in kt; factors in t per ktoe; forcing in Mt CO2e (GWP100).
 

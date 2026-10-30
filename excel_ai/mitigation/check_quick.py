@@ -234,7 +234,8 @@ vbnewline application thisworkbook worksheets workbooks sheets activesheet activ
 selection rgb filter datediff dateadd year month day hour minute second weekday dateserial timeserial nz
 optionbase'''.split())
 VBA_NAMED_TYPES = {'after', 'backgroundquery', 'destination', 'key', 'order', 'shift', 'source', 'sourcetype', 'chart',
-                   'listobject', 'series', 'worksheet', 'range', 'workbook', 'shape', 'chartobject', 'name'}
+                   'listobject', 'series', 'worksheet', 'range', 'workbook', 'shape', 'chartobject', 'name',
+                   'collection'}                         # v1.0.4: VBA's built-in Collection (store macro)
 VBA_CONSTS = {'vbcrlf', 'vbexclamation', 'vbinformation', 'vblf', 'vbobjecterror', 'vbquestion', 'vbstring', 'vbyes',
               'vbyesno', 'xlascending', 'xlcalculationautomatic', 'xlcalculationmanual', 'xlcmdsql', 'xlmarkerstylenone',
               'xlno', 'xlup', 'xldescending', 'xltoleft', 'xldown', 'xlvalues', 'xlpart', 'xlwhole', 'xlnone'}
@@ -332,7 +333,8 @@ def stored_complete(path):
         if r[2] is None:
             continue
         ids[r[0]] = ids.get(r[0], 0) + 1
-        if r[4] == 'code not found' or not any(isinstance(v, (int, float)) for v in r[B.SR_Y0 - 1:]):
+        if r[4] == 'code not found' or not any(isinstance(v, (int, float)) or (isinstance(v, str) and v)
+                                               for v in r[B.SR_Y0 - 1:]):   # v1.0.4: a text result (N/A) is a value
             bad.append((r[0], r[2]))
     if not ids and os.environ.get('QUICK'):      # v0.7.2: the quick build runs no batch (StoredOutputs empty)
         lines.append('- StoredOutputs: empty in the quick build (no batch run): skipped')
@@ -479,7 +481,7 @@ def excel_open():
             return
         xl.CalculateFull()
         errs = []
-        for name in ('Mitigation', 'LiveOutputs', 'ScenarioCompare', 'StoredOutputs'):
+        for name in ('Mitigation', 'MTOutputs', 'ScenarioCompare', 'StoredOutputs'):
             vals = wb.Worksheets(name).UsedRange.Value or ()
             errs += [(name, i, j) for i, row in enumerate(vals, 1) for j, v in enumerate(row, 1)
                      if isinstance(v, int) and v < -2146820000]                 # COM error values (#NAME? etc.)

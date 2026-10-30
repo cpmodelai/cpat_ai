@@ -1,9 +1,9 @@
-# Quick check, CPAT-AI-Mitigation-Prototype v1.0.3
+# Quick check, CPAT-AI-Mitigation-Prototype v1.0.4
 
-**PASS** (248 s; the full check is check_full.py, run on request). Changes of output codes are reported, not failed: compare them with what the change intended.
+**PASS** (185 s; the full check is check_full.py, run on request). Changes of output codes are reported, not failed: compare them with what the change intended.
 
 - tab order (main, inputs, data, reference last; 58 tabs): OK
-- 452275 formulas; plain formulas over 100 characters: []: OK
+- 497541 formulas; plain formulas over 100 characters: []: OK
 - numeric literals in formulas: {}: OK
 - 825 defined names; names or LAMBDA parameters that read like cells: []: OK
 - reserved names (Excel functions, keywords, names Excel rejected; NORMS 3d) used: []: OK
@@ -28,7 +28,7 @@
 - LAMBDA group 2 (the live scenario, LAMBDAs base year to 2041): 146278 numeric cells; tested against plain formulas by the output-code regression (last release) and the Distribution reference: OK
 - Distribution group 2 vs the Python reference (distribution_ref, same inputs): 505 values, max relative difference 6.6e-13 ('pct_gini_rec.rur', 0); tef.ove deciles 1, 10: -1.761, -1.454; Gini change with recycling -1.821: OK
 - Distribution scenario numbers equal Mitigation group by group (1-2): True: OK
-- StoredOutputs: rows by scenario ID {1: 123, 3: 123, 4: 123, 5: 123, 6: 123}; rows without values 0 []: OK
+- StoredOutputs: rows by scenario ID {1: 708, 3: 708, 4: 708, 5: 708, 6: 708}; rows without values 0 []: OK
 - VBA module CPATScenarios.bas: identifiers not declared, not VBA, Excel or a known constant: none: OK
 - code protocol C1 (lower case, digits, underscore, no empty token): 0 codes break it []: OK
 - code protocol C7 (no model letter): 0 codes end in a model letter []: OK
@@ -36,4 +36,4 @@
 - code protocol C5 (a total row writes tot): 0 explicit-sum rows write all [] (a row whose code the rename map code_renames_v0_7_2.csv writes is decided): OK
 - Distribution reads Mitigation only through FromMitigation (section 19a): direct references 0 []: OK
 - Excel open and recalculation: skipped (no Excel here: ModuleNotFoundError)
-- output codes vs CPAT-AI-Mitigation-Prototype_v1.0.2.xlsm: 15100 shared, 0 new, 0 gone; 0 change (max abs diff 0); largest: []; other than bco2 (with max abs diff): []
+- output codes vs CPAT-AI-Mitigation-Prototype_v1.0.3.xlsm: 15100 shared, 0 new, 0 gone; 0 change (max abs diff 0); largest: []; other than bco2 (with max abs diff): []

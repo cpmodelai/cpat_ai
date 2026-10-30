@@ -14,21 +14,34 @@ STORED = Path(__file__).parent / 'compare' / 'reference' / f'excel_ai_{EXCEL_AI_
 
 
 @pytest.fixture(scope='module')
-def results():
-    return cpat_model.run(read_scenario_set()).by_code('EGY')
+def run():
+    return cpat_model.run(read_scenario_set())
+
+
+@pytest.fixture(scope='module')
+def results(run):
+    return run.by_code('EGY')
 
 
 @pytest.mark.parametrize('scenario', ['1', '3', '4', '5', '6'])
-def test_stored_outputs(results, scenario):
+def test_stored_outputs(run, results, scenario):
+    """Mitigation codes by year; distribution codes (Excel-AI 1.0.4: MTOutputs in the legacy layout stores them too)
+    by decile: the first ten year columns hold deciles 1-10."""
     ref = pd.read_csv(STORED, index_col='code')
     ref = ref[ref.index.str.endswith('.' + scenario)]
     assert len(ref) > 100
-    missing = sorted(set(ref.index) - set(results.index))
+    dist = run.distribution_by_code('EGY')
+    is_d = ref.index.str.contains('.distn.', regex=False)
+    missing = sorted(set(ref.index[~is_d]) - set(results.index)) + sorted(set(ref.index[is_d]) - set(dist.index))
     assert not missing, missing[:10]
     bad = []
     for code, row in ref.iterrows():
-        for y, x in row.dropna().items():
-            p = float(results.loc[code, int(y)])
+        d = '.distn.' in code
+        for k, (y, x) in enumerate(row.items()):
+            x = pd.to_numeric(x, errors='coerce')            # text cells (e.g. N/A of an NDC without target)
+            if pd.isna(x) or (d and k >= 10):
+                continue
+            p = float(dist.loc[code].iloc[1 + k] if d else results.loc[code, int(y)])
             if abs(p - x) > 1e-9 * max(1.0, abs(x)):
                 bad.append((code, y, x, p))
                 break
