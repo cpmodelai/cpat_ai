@@ -406,7 +406,7 @@ The user went through the choices on 2026-10-29. The table gives each decision; 
 | D5 | Input files | **Scenario set as an MTInputs table** (rows by `NameOfParameter`, a column per scenario, each scenario for a list of countries) **plus an advanced-inputs workbook** |
 | D6 | Databases | **CSV folders in the current `data/` structure, augmented by the input files; Coded CPAT reads tidy CSV (`data/Public01/tidy/`), with two-way converters to and from the legacy layout Excel-AI reads (user 2026-10-29)**; document the code interface (the tables, columns and keys the model reads, not a user interface) for the data person. Databases: `full` (private repository; used for comparisons where available) and `dummy` (`data_old/dummy/`, every table dummy) |
 | D7 | Existing code | **Rebuild inside `coded/`, block by block**; delete each old part when its replacement passes |
-| D8 | Comparison source | **The existing Python recomputations first** (`excel_ai/mitigation/check_full.py`, `power_model_ref.py`, `transport_model_ref.py`, `distribution_ref.py`), then Excel-AI values by code |
+| D8 | Comparison source | **The existing Python recomputations first** (`excel_ai/mitigation/checks/check_full.py`, `power_model_ref.py`, `transport_model_ref.py`, `distribution_ref.py`), then Excel-AI values by code |
 | D9 | Time window | **As Excel-AI, as run settings** (base year, last year 2041) |
 | D10 | Placeholder modules | **Two hooks**: `prepare` (Excel-AI's typed values, which feed the Pigouvian taxes) and `step(t)` in the year loop (empty until the module is built) |
 | D11 | Performance | **Under 1 second** for the user interface (one country, two scenarios) |
@@ -462,7 +462,7 @@ The user went through the choices on 2026-10-29. The table gives each decision; 
 **D8. Excel-AI as the comparison source** *(decided: see the table)*
 
 - **A. Extract Excel-AI values by code** (all codes, both scenario groups, every year) from the recalculated release workbook into a fixture table, one per release and country set, with a script in `cpat_testing/compare/` (LibreOffice recalculation, as the Excel checks). Python compares code by code, tolerance 1e-9.
-- B. Compare against the existing Python recomputations of `excel_ai/mitigation/check_full.py`. Faster to start, but it is a second implementation, not Excel-AI itself.
+- B. Compare against the existing Python recomputations of `excel_ai/mitigation/checks/check_full.py`. Faster to start, but it is a second implementation, not Excel-AI itself.
 - Question: which countries for "all countries": every country in the data, or a fixed test set?
 
 ### Scope and behaviour
@@ -583,7 +583,7 @@ The overriding norm is to replicate Excel-AI. These choices are replicated as th
 
 ### 12b. Apparent errors in the methodology documentation
 
-Registered as documentation bugs **DOC1-DOC20** (new code `DOC`, root NORMS section 0; `excel_ai/BUGS.md` section 3). Found while extracting the notation (full list: [`../equations/reference/notation_from_methodology.md`](../equations/reference/notation_from_methodology.md) section 4). They do not change Coded CPAT, which follows Excel-AI, but the methodology should be corrected:
+Registered as documentation bugs **DOC1-DOC20** (new code `DOC`, root NORMS section 0; `excel_ai/core/BUGS.md` section 3). Found while extracting the notation (full list: [`../equations/reference/notation_from_methodology.md`](../equations/reference/notation_from_methodology.md) section 4). They do not change Coded CPAT, which follows Excel-AI, but the methodology should be corrected:
 
 - **No in-model GDP equation:** neither the multipliers chapter nor the mitigation chapter gives the GDP feedback; the equation list takes it from Excel-AI.
 - **Undefined symbols:** $\epsilon_G$ in both power-demand equations (presumably $\epsilon_Y$); $tex$ in Appendix C.

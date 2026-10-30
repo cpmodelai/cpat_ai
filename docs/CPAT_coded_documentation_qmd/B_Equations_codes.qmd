@@ -403,7 +403,7 @@ Over deciles $d$, samples. Per person, in % of consumption per person scaled to 
 
 # Appendix A: mitigation adjustments
 
-Started; completed block by block before each block is coded (coded/TODO.md phase 0). Sources for each block: `excel_ai/mitigation/Equations.md`, `Equations_addendum.md` and `Formulas.md` (the workbook formulas), and the Methods chapters in `excel_ai/mitigation/docs/methods/`.
+Started; completed block by block before each block is coded (coded/TODO.md phase 0). Sources for each block: `excel_ai/mitigation/docs/Equations.md`, `Equations_addendum.md` and `Formulas.md` (the workbook formulas), and the Methods chapters in `excel_ai/mitigation/docs/methods/`.
 
 ## A1 Policies
 

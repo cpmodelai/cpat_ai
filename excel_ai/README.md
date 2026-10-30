@@ -1,33 +1,37 @@
 # Excel-AI: the CPAT prototypes in Excel
 
-New here? Read the human quick start first: [`../HumanReadme-QuickStart.docx`](../HumanReadme-QuickStart.docx).
+New here? Read the human quick start first: [`../QuickStart.docx`](../QuickStart.docx). AI agents: [`core/AGENTS.md`](core/AGENTS.md).
 
-## The main files
+## The workbooks
 
-The current version of each main file, `<Name>_v<version>` (NORMS 5a); older versions are in `releases/`.
+Open the permalinked copies in **[`active_workbooks/`](active_workbooks/)** (Excel 365, macros on): they are the current versions, and the modules link to each other there.
 
 | File | What it is |
 |---|---|
-| `CPAT-AI-Mitigation-Prototype_v<version>.xlsm` | **The integrated prototype** (mitigation, with the distribution tab): open it in Excel 365, macros on |
-| `CPAT-AI-Distribution-Prototype_v<version>.xlsm` | **The standalone distribution module**: household effects by decile of a mitigation scenario; its Cover links to the prototype in `permalink/` (button Update from Mitigation) |
-| `Legacy_CPAT_Bugs_v<version>.docx` | **The legacy CPAT bugs**: the rule (bugs and issues; data problems are issues), the stock table of every legacy bug found and fixed (prototype and legacy 465), the data problems by priority, each bug with its cell-level fix plan |
+| `active_workbooks/CPAT-AI-Mitigation-Prototype_latest.xlsm` | **The integrated prototype** (mitigation, with the distribution tab) |
+| `active_workbooks/CPAT-AI-Distribution-Prototype_latest.xlsm` | **The standalone distribution module**: household effects by decile of a mitigation scenario (button Update from Mitigation reads the prototype beside it) |
+| `active_workbooks/CPAT-AI-Air-Pollution-Standalone_latest.xlsx` | The air-pollution scaffold (calculations and regression open) |
+
+Every version, the current one included, is in the module's `releases/` folder (`<Name>_v<version>`).
+
+## The documents (current versions; older ones in `legacy/register/releases/` and `mitigation/releases/`)
+
+| File | What it is |
+|---|---|
+| `Legacy_CPAT_Bugs_v<version>.docx` | **The legacy CPAT bugs**: the rule (bugs and issues; data problems are issues), every legacy bug found and fixed (prototype and legacy 465), the data problems by priority, each bug with its cell-level fix plan |
 | `Tracking_Legacy_Bugs_v<version>.xlsx` | **The master list of bugs and issues** (every module, the same columns): tabs ReadMe, Bugs, Issues, then the CPAT team's tabs |
-| `CPAT-AI_CodesMap_v<version>.xlsx` | **The codes map**: the code protocol, vocabularies, variables, output codes and every input (tab Inputs: row, name, legacy name, Python key) |
+| `CPAT-AI_CodesMap_v<version>.xlsx` | **The codes map**: the code protocol, vocabularies, variables, output codes and every input |
 | `CPAT-AI_Overview_v<version>.pptx` | **The slide deck**: status, how to use it, results |
-| [`BUGS.md`](BUGS.md), [`ISSUES.md`](ISSUES.md) | The two short lists: bugs (L, M) and issues (I, data problems first; LD, U) |
 
 ## Folders
 
 | Folder | Contents |
 |---|---|
-| [`mitigation/`](mitigation/README.md) | The prototype's sources: builder, VBA, checks, the register and its documents, method notes, the Word documentation (issues and the bug-fixing procedure in its appendices) |
-| [`distribution/`](distribution/README.md) | The distribution module's sources: builder (cuts the module from the prototype), VBA, check |
-| [`air_pollution/`](air_pollution/README.md) | Recovered standalone v0.3 scaffold, public reference tables, equation inventory and Python comparison; calculations and numerical regression remain open |
-| `permalink/` | Only what other files link to: every module as `<Name>_latest` (mitigation, distribution, air pollution; data transfer between the modules) |
-| `permalink_countryeditable/` | A copy of `permalink/` for local, country-specific runs: open and edit the copies here; the modules link to each other through it (NORMS 5a) |
-| `releases/` | Every earlier version of the main files since v0.7.2 |
-| `legacy/` | Legacy CPAT: the reference workbooks and codes master (`workbooks/`); the fix-plan sources and tools (`bugfixes/`, with the 456 to 465 row map and `check465/`, the check of the bugs the CPAT team fixed in 465); the bug-fix procedure; the register as JSON (`Legacy_CPAT_Register.json`); the v0.7.1 codes work (`codes/`) |
-| [`plans/`](plans/TODO.md) | The to-do list and the plans |
-| `shared/`, `templates/` | Code (release layout, Excel lint) and the input row template used by the builders |
+| [`active_workbooks/`](active_workbooks/) | The permalinked `_latest` copy of each module: what people open, what the modules and links read |
+| [`core/`](core/AGENTS.md) | The rules, records and plans (read by people and agents): `AGENTS.md`, `CLAUDE.md`, `NORMS.md`, [`BUGS.md`](core/BUGS.md), [`ISSUES.md`](core/ISSUES.md), `CAVEATS.md` (task log), `CHANGELOG.md`, [`TODO.md`](core/TODO.md) (the one list), `plans/` (open plans), `prompts/` (module prompts and guides), `tools/` (`xlpaths.py`, `release.py`, `excel_lint.py`, the MTInputs template) |
+| [`mitigation/`](mitigation/README.md) | The prototype: `build.py`, the VBA module and build files at the top; `checks/` (quick and full checks, reference models, LibreOffice session, reports), `extract/` (the extract scripts from the legacy workbook, goal seeks), `docs/` (equations, formulas, method notes, Word documentation, deck), `releases/` |
+| [`distribution/`](distribution/README.md) | The distribution module: builder (cuts the module from the prototype), VBA, check, `releases/` |
+| [`air_pollution/`](air_pollution/README.md) | The air-pollution scaffold: builder, `docs/` (equation inventory, Python comparison, recovery notes), `releases/` |
+| `legacy/` | Legacy CPAT (the workbook itself is in `../data/legacy/`): `register/` (the register `Legacy_CPAT_Register.json` and the scripts that write `core/BUGS.md`, `core/ISSUES.md`, the tracker and the bug book; `releases/` of those documents), `fixes/` (cell-level fix plans, the 456-to-465 row map, `check465/`, the bug-fix procedure, their tools), `reference/` (the CPAT team's codes master, surveys, the v0.7.1 codes work), `tools/` (.xlsb readers) |
 
-Rules: [`../NORMS.md`](../NORMS.md).
+Rules: [`core/NORMS.md`](core/NORMS.md). Data: [`../data/README.md`](../data/README.md).

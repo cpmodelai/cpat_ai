@@ -112,7 +112,7 @@ def bugs():
     known = table(['Bug', 'Codes that differ from Excel-AI (country prefix and scenario left out)'],
                   [(b, ', '.join(f'`{c}`' for c in codes)) for b, codes in KNOWN.items()])
     body = ('**The rule** (user 2026-10-29): a bug in the prototype (Excel-AI does not compute what it means to) is not '
-            'copied: Coded CPAT fixes it and it is registered (`excel_ai/BUGS.md`, prototype bugs M); an issue (a '
+            'copied: Coded CPAT fixes it and it is registered (`excel_ai/core/BUGS.md`, prototype bugs M); an issue (a '
             'potential improvement) is logged and copied as it is for now.\n\n'
             '## The bugs Coded CPAT found\n\n' + (m.group(1).strip() if m else '') + '\n\n'
             '## Known differences\n\nThe codes where Coded CPAT differs from Excel-AI\'s stored values because it fixes '

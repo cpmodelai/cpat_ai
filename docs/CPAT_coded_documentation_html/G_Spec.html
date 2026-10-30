@@ -1242,7 +1242,7 @@ window.Quarto = {
 <tr class="even">
 <td>D8</td>
 <td>Comparison source</td>
-<td><strong>The existing Python recomputations first</strong> (<code>excel_ai/mitigation/check_full.py</code>, <code>power_model_ref.py</code>, <code>transport_model_ref.py</code>, <code>distribution_ref.py</code>), then Excel-AI values by code</td>
+<td><strong>The existing Python recomputations first</strong> (<code>excel_ai/mitigation/checks/check_full.py</code>, <code>power_model_ref.py</code>, <code>transport_model_ref.py</code>, <code>distribution_ref.py</code>), then Excel-AI values by code</td>
 </tr>
 <tr class="odd">
 <td>D9</td>
@@ -1332,7 +1332,7 @@ window.Quarto = {
 <p><strong>D8. Excel-AI as the comparison source</strong> <em>(decided: see the table)</em></p>
 <ul>
 <li><strong>A. Extract Excel-AI values by code</strong> (all codes, both scenario groups, every year) from the recalculated release workbook into a fixture table, one per release and country set, with a script in <code>cpat_testing/compare/</code> (LibreOffice recalculation, as the Excel checks). Python compares code by code, tolerance 1e-9.</li>
-<li>B. Compare against the existing Python recomputations of <code>excel_ai/mitigation/check_full.py</code>. Faster to start, but it is a second implementation, not Excel-AI itself.</li>
+<li>B. Compare against the existing Python recomputations of <code>excel_ai/mitigation/checks/check_full.py</code>. Faster to start, but it is a second implementation, not Excel-AI itself.</li>
 <li>Question: which countries for “all countries”: every country in the data, or a fixed test set?</li>
 </ul>
 </section>
@@ -1647,7 +1647,7 @@ window.Quarto = {
 </ol>
 <section id="b.-apparent-errors-in-the-methodology-documentation" class="level3">
 <h3 class="anchored" data-anchor-id="b.-apparent-errors-in-the-methodology-documentation">12b. Apparent errors in the methodology documentation</h3>
-<p>Registered as documentation bugs <strong>DOC1-DOC20</strong> (new code <code>DOC</code>, root NORMS section 0; <code>excel_ai/BUGS.md</code> section 3). Found while extracting the notation (full list: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/equations/reference/notation_from_methodology.md"><code>../equations/reference/notation_from_methodology.md</code></a> section 4). They do not change Coded CPAT, which follows Excel-AI, but the methodology should be corrected:</p>
+<p>Registered as documentation bugs <strong>DOC1-DOC20</strong> (new code <code>DOC</code>, root NORMS section 0; <code>excel_ai/core/BUGS.md</code> section 3). Found while extracting the notation (full list: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/equations/reference/notation_from_methodology.md"><code>../equations/reference/notation_from_methodology.md</code></a> section 4). They do not change Coded CPAT, which follows Excel-AI, but the methodology should be corrected:</p>
 <ul>
 <li><strong>No in-model GDP equation:</strong> neither the multipliers chapter nor the mitigation chapter gives the GDP feedback; the equation list takes it from Excel-AI.</li>
 <li><strong>Undefined symbols:</strong> <span class="math inline">\(\epsilon_G\)</span> in both power-demand equations (presumably <span class="math inline">\(\epsilon_Y\)</span>); <span class="math inline">\(tex\)</span> in Appendix C.</li>

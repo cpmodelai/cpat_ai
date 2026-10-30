@@ -3,7 +3,7 @@
 ## In short
 
 - **A scenario set is one CSV file**: one row per input, one column per scenario. Scenario 1, the **baseline**, comes first; every other scenario is compared with it.
-- **Inputs are named as in Excel-AI** (`NameOfParameter`, the ScenarioDefinition sheet): `CPLevelTarget`, `CPIntro`, `IntEnerPricForeSource`, ... Every input is listed in [Appendix D](D_Inputs.qmd).
+- **Inputs are named as in Excel-AI** (`NameOfParameter`, the ScenarioDefinition sheet): `CPLevelTarget`, `CPIntro`, `IntEnerPricForeSource`, ... Every input is listed in [Appendix D](../../../docs/CPAT_coded_documentation_qmd/D_Inputs.qmd).
 - **The example** is Excel-AI's own set, `data/inputs/scenarios_excel_ai.csv` (six scenarios for Egypt). Copy it and change the values to make your own.
 
 ## The file

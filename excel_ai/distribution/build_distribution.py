@@ -1,7 +1,7 @@
 """CPAT-AI Distribution Prototype: the standalone distribution module (Plan_Modules M3).
 
 The module is cut from the built mitigation prototype (one source of truth: the prototype builder's Distribution,
-FromMitigation and data tabs, not a second copy of them). From ../permalink/CPAT-AI-Mitigation-Prototype_latest.xlsm it keeps
+FromMitigation and data tabs, not a second copy of them). From ../active_workbooks/CPAT-AI-Mitigation-Prototype_latest.xlsm it keeps
 the tabs the Distribution tab reads, turns every formula that reads a dropped tab into its value (FromMitigation
 entirely: the button Update from Mitigation refreshes it), keeps the defined names and LAMBDAs still used, shows only
 the distribution rows of ScenarioDefinition, and adds a Cover with the link to the mitigation workbook and the VBA
@@ -11,6 +11,12 @@ linted.
     python build_distribution.py       # writes ../CPAT-AI-Distribution-Prototype_v<version>.xlsm (older versions to
                                        # ../releases/; NORMS 5a; about 2 min)
 """
+import os as _os, sys as _sys  # the excel_ai code folders and data/scripts on the path (core/tools/xlpaths.py)
+_xl = _os.path.dirname(_os.path.abspath(__file__))
+while _os.path.basename(_xl) != 'excel_ai':
+    _xl = _os.path.dirname(_xl)
+_sys.path.insert(0, _os.path.join(_xl, 'core', 'tools'))
+import xlpaths  # noqa: E402,F401
 import os
 import re
 import shutil
@@ -23,13 +29,11 @@ from openpyxl.styles import Alignment, Border
 from openpyxl.workbook.defined_name import DefinedName
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(HERE, '..', 'mitigation'))
-sys.path.insert(0, os.path.join(HERE, '..', 'shared'))
 import build as P                                      # noqa: E402  the prototype builder (helpers, layout)
 
 VERSION = '1.0.4'
 NAME = 'CPAT-AI-Distribution-Prototype'
-OUT = P.REL.versioned(NAME, VERSION, 'xlsm')     # v0.1.1: excel_ai/<name>_v<version>.xlsm (_latest copies: NORMS 5a)
+OUT = P.REL.versioned(NAME, VERSION, 'xlsm')     # distribution/releases/<name>_v<version>.xlsm (_latest copy: active_workbooks/)
 SOURCE = P.LATEST                                     # the mitigation prototype the module is cut from
 BAS = os.path.join(HERE, 'CPATDistribution.bas')
 MIT_FILE = os.path.basename(P.LATEST)
@@ -186,7 +190,7 @@ def build_cover(wb):
     r += len(steps) + 2
     P.bar(ws, r, 'Link to the mitigation workbook', w, P.F_BAND, P.FONT_SUBBAR)
     lines = [('Mitigation workbook (input)', MIT_FILE, 'MitSource', P.F_INPUT),
-             ('', 'A name alone is looked for next to this workbook, in permalink_countryeditable\\ and permalink\\, '
+             ('', 'A name alone is looked for next to this workbook, in active_workbooks\\ and one or two folders up, '
                   'then the same one folder up; or a full path or web address', None, None),
              ('File used by the last update', 'none (shipped values)', 'MitUsed', None),
              ('Last update', f'shipped: values of {MIT_FILE} v{P.VERSION}', 'MitLastUpdate', None),
@@ -270,7 +274,7 @@ def main():
     problems = excel_lint.lint(OUT)
     if problems:
         raise SystemExit(f'{OUT}: Excel would repair it:\n  ' + '\n  '.join(problems))
-    P.REL.publish(OUT, link=True)                      # v0.1.1: older versions to releases/; _latest in both permalink folders
+    P.REL.publish(OUT, link=True)                      # the _latest copy in active_workbooks/
     stage(f'calculated values stored, linted; saved {OUT}')
 
 

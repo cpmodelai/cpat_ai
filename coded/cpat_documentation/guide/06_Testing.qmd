@@ -4,7 +4,7 @@
 
 - **Run `pytest` from `coded/`** before every commit (about one minute). Everything must pass.
 - **The main test is the comparison with Excel-AI**: every output code of every built block, for Egypt's scenarios 1 and 2, every year 2022-2041, must equal Excel-AI's stored value within 1e-9 (relative where the value is above 1). The distribution sheet is compared the same way, basket and deciles.
-- **Known differences** are the codes where Coded CPAT fixes an Excel-AI bug that is still open in the prototype; the tests leave them out of the match and check that they do differ ([Appendix F](F_Bugs.qmd)).
+- **Known differences** are the codes where Coded CPAT fixes an Excel-AI bug that is still open in the prototype; the tests leave them out of the match and check that they do differ ([Appendix F](../../../docs/CPAT_coded_documentation_qmd/F_Bugs.qmd)).
 - **The status below is generated**: `python make_qmd.py --tests` (in `docs/CPAT_coded_documentation_qmd/`) runs the tests and rewrites it.
 
 ## Current status

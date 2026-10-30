@@ -1,6 +1,6 @@
 # Distribution and air-pollution modules {#sec-modules}
 
-The mitigation prototype is the integrated model. Two further modules are standalone workbooks that take their inputs from it: the distribution module and the air-pollution module. Every module is published under `<Name>_latest` in `excel_ai/permalink/` and `excel_ai/permalink_countryeditable/`, through which the modules link to each other.
+The mitigation prototype is the integrated model. Two further modules are standalone workbooks that take their inputs from it: the distribution module and the air-pollution module. Every module is published under `<Name>_latest` in `excel_ai/active_workbooks/` and `excel_ai/active_workbooks/`, through which the modules link to each other.
 
 ## Distribution module
 

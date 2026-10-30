@@ -2,11 +2,11 @@
 
 # Excel-AI bugs and known differences {#sec-app-bugs}
 
-**The rule** (user 2026-10-29): a bug in the prototype (Excel-AI does not compute what it means to) is not copied: Coded CPAT fixes it and it is registered (`excel_ai/BUGS.md`, prototype bugs M); an issue (a potential improvement) is logged and copied as it is for now.
+**The rule** (user 2026-10-29): a bug in the prototype (Excel-AI does not compute what it means to) is not copied: Coded CPAT fixes it and it is registered (`excel_ai/core/BUGS.md`, prototype bugs M); an issue (a potential improvement) is logged and copied as it is for now.
 
 ## The bugs Coded CPAT found
 
-Prototype bugs found by Coded CPAT (`../excel_ai/BUGS.md` section 2). Bugs are never replicated: Coded CPAT fixes them where the fix is obvious and lists the codes that then differ from Excel-AI in `cpat_testing/compare/known_differences.py` until Excel-AI ships the fix; otherwise it follows the prototype's fixed version. When Excel-AI ships a fix: a line here with its version, Python aligned with the prototype's fix, the known differences deleted.
+Prototype bugs found by Coded CPAT (`../excel_ai/core/BUGS.md` section 2). Bugs are never replicated: Coded CPAT fixes them where the fix is obvious and lists the codes that then differ from Excel-AI in `cpat_testing/compare/known_differences.py` until Excel-AI ships the fix; otherwise it follows the prototype's fixed version. When Excel-AI ships a fix: a line here with its version, Python aligned with the prototype's fix, the known differences deleted.
 
 **All closed (2026-10-29): Excel-AI 0.9.2 and Distribution 0.1.4 fixed M15-M17 and M19-M22; M18 withdrawn. Coded CPAT 0.9.2p0.1 aligned with them, and 1.0.0p1.0 (the first full release) replicates Excel-AI 1.0.0 and Distribution 1.0.0; no known differences remain; every reference code of scenarios 1 and 2 matches.**
 

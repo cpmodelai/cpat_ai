@@ -6,24 +6,23 @@ Workspace for the World Bank **Climate Policy Assessment Tool (CPAT)**: models o
 
 | You want to... | Go to |
 |---|---|
-| **A short human-readable orientation** | [`HumanReadme-QuickStart.docx`](HumanReadme-QuickStart.docx) |
-| **Use the Excel prototype** (modellers, reviewers) | [`excel_ai/`](excel_ai/README.md): the workbook, the bug-fix register and the deck sit at its top |
-| **See what differs from legacy CPAT** | [`excel_ai/BUGS.md`](excel_ai/BUGS.md) (legacy bugs, all fixed) and [`excel_ai/ISSUES.md`](excel_ai/ISSUES.md) (legacy issues, replicated and tracked) |
-| **Work on the data** | [`data/`](data/README.md): the tidy tables, the legacy-compatible workbook, the legacy 465 workbook, the master table of data sources |
+| **A short human-readable orientation** | [`QuickStart.docx`](QuickStart.docx) |
+| **Use the Excel prototype** (modellers, reviewers) | [`excel_ai/active_workbooks/`](excel_ai/README.md): the current workbooks; the bug book, tracker, codes map and deck sit at the top of `excel_ai/` |
+| **See what differs from legacy CPAT** | [`excel_ai/core/BUGS.md`](excel_ai/core/BUGS.md) (legacy bugs, all fixed) and [`excel_ai/core/ISSUES.md`](excel_ai/core/ISSUES.md) (legacy issues, replicated and tracked) |
+| **Work on the data** | [`data/`](data/README.md): the data editions (`Public01` here), the catalogue of every table, the legacy workbook shell |
 | **Work on the Python model** (Coded CPAT) | [`coded/`](coded/README.md); its documentation book: the Coded CPAT tab of the website (`docs/`) |
 | **Work as an AI agent** | [`AGENTS.md`](AGENTS.md) |
 
 ## Layout
 
 ```
-README.md, AGENTS.md, CLAUDE.md   This page; instructions for AI agents
-HumanReadme-QuickStart.docx       Quick start guide for people (Word)
-NORMS.md                          Rules for every task (task log, method vs version notes, data)
-CAVEATS.md                        Log of every finished task (newest at the bottom)
-excel_ai/                         The Excel prototypes (Excel-AI): workbook, register, deck at the top;
-                                  mitigation/ (builder, checks, notes), legacy/ (legacy CPAT and fix plans),
-                                  releases/, plans/, shared/, templates/
-data/                             All data: tidy CSV (source of truth), legacy xlsx, legacy 465, data_sources.csv
+README.md                         This page
+AGENTS.md, CLAUDE.md              The entry point for AI agents (routes to each project's rules)
+QuickStart.docx                   Quick start guide for people (Word)
+excel_ai/                         The Excel prototypes (Excel-AI): active_workbooks/ (the current workbooks),
+                                  core/ (rules, task log, bug lists, TODO, plans, prompts, tools),
+                                  mitigation/, distribution/, air_pollution/ (each with releases/), legacy/
+data/                             All data, as editions (data/Public01/), the catalogue, the legacy shell, scripts
 coded/                            The Python model (Coded CPAT) and its Shiny app
 docs/                             Documentation website: index.html (three tabs: CPAT documentation, CPAT-AI project,
                                   Coded CPAT); CPAT_full_, CPAT_ai_ and CPAT_coded_documentation_qmd/ (Quarto

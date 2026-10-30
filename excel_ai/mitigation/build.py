@@ -133,12 +133,16 @@ The distance between variables is the same in every subsector, so every variable
   atp, ener.
 - Each scenario group starts with a code column building country.mit.<var>.<subsector>.<fuel>.<suffix>.<scen>.
 
-Reads data/*.csv (extract_data.py) and excel_ai/templates/MTInputs_template.xlsx. Writes formulas only.
+Reads data/*.csv (extract_data.py) and excel_ai/core/tools/MTInputs_template.xlsx. Writes formulas only.
 
     python build_v1_05.py
 """
-import os as _os, sys as _sys
-_sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '..', '..', 'data', 'scripts'))
+import os as _os, sys as _sys  # the excel_ai code folders and data/scripts on the path (core/tools/xlpaths.py)
+_xl = _os.path.dirname(_os.path.abspath(__file__))
+while _os.path.basename(_xl) != 'excel_ai':
+    _xl = _os.path.dirname(_xl)
+_sys.path.insert(0, _os.path.join(_xl, 'core', 'tools'))
+import xlpaths  # noqa: E402,F401
 from legacy_csv import legacy_dir, save_to_tidy  # noqa: E402,F401  (the data edition's tidy/ in the legacy CSV form)
 import csv
 import os
@@ -160,10 +164,9 @@ LAMBDA_ROWS = []                        # v0.2.3: LAMBDA year 2041; v0.1.08: (ro
 NAME = 'CPAT-AI-Mitigation-Prototype'
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = legacy_dir()
-sys.path.insert(0, os.path.join(HERE, '..', 'shared'))
 import release as REL                   # noqa: E402  v0.8.4: file naming and release layout (NORMS 5)
-OUT = REL.versioned(NAME, VERSION, 'xlsm')   # v0.8.4: excel_ai/<name>_v<version>.xlsm, older versions to releases/
-LATEST = REL.permalink(NAME, 'xlsm')      # v0.8.4: excel_ai/permalink/<name>_latest.xlsm (modules link to it)
+OUT = REL.versioned(NAME, VERSION, 'xlsm')   # mitigation/releases/<name>_v<version>.xlsm (2026-10-30)
+LATEST = REL.permalink(NAME, 'xlsm')      # excel_ai/active_workbooks/<name>_latest.xlsm (modules link to it)
 QUICK_OUT = os.path.join(HERE, f'{NAME}_quick.xlsx')   # the quick build (no batch), for the checks
 BAS = os.path.join(HERE, 'CPATScenarios.bas')          # VBA module (embedded; also for import)
 
@@ -264,9 +267,7 @@ DEFINITIONS = [  # scenario definitions on MTInputs (columns after the live scen
      {'CPIntro': 2027, 'CPLevelStart': 50, 'CPLevelTarget': 50, 'CPOutro': 2030, 'MCovOen': False}),
 ]
 MT_ROW_RUN = 4                          # MTInputs: Run? flag of a scenario definition
-MT_TEMPLATE = next(os.path.join(d, 'templates', 'MTInputs_template.xlsx')      # repo templates folder,
-                   for d in [os.path.abspath(os.path.join(HERE, *['..'] * k)) for k in range(1, 5)]   # v0.7.1: excel_ai/templates; also from Old/
-                   if os.path.exists(os.path.join(d, 'templates', 'MTInputs_template.xlsx')))
+MT_TEMPLATE = os.path.join(xlpaths.TOOLS, 'MTInputs_template.xlsx')   # excel_ai/core/tools/ (2026-10-30; was templates/)
 MT_COL0 = 10                            # J: first scenario column on MTInputs
 MT_ROW_SCEN, MT_ROW_NAME = 5, 6
 MT_ROW_SHORT = 2                        # v0.6.7: short name of each scenario (the chart legends)
@@ -7453,7 +7454,7 @@ def build_settings(wb):
                               'SCALE and SHARE (sheet Mitigation); renamed SCALEBY and SHAREOF. '
                               'Defaults closer to legacy (user decision): last historical price year 2022 (Settings '
                               'C10; was 2024); ETS benchmarks 1.0 flat (nothing auctioned, the legacy default; was '
-                              '1.0 -> 0.8). Replication lists (excel_ai/BUGS.md, ISSUES.md).',
+                              '1.0 -> 0.8). Replication lists (excel_ai/core/BUGS.md, ISSUES.md).',
          'Intended: prices from 2023 and all that follows; ETS allocation. Other codes 0'),
         ('0.3.8', '2026-10-15', 'Rebuild of v0.3.7 from the merged builder: the v0.3.7 defaults (prices to 2022, ETS benchmarks '
                               '1.0) with the LAMBDAs SCALEBY and SHAREOF. The shipped v0.3.7 file was built before the '
@@ -7727,7 +7728,7 @@ def build_settings(wb):
                               'recalculated). Results unchanged.'),
         ('0.8.0', '2026-10-22', 'Renamed CPAT-AI-Mitigation-Prototype (was MVP). Repository restructured: the '
                               'workbook as excel_ai/CPAT-AI-Mitigation-Prototype_latest.xlsm and, the same file, '
-                              'excel_ai/releases/CPAT-AI-Mitigation-Prototype_v0.8.0.xlsm; scripts and notes with '
+                              'excel_ai/mitigation/releases/CPAT-AI-Mitigation-Prototype_v0.8.0.xlsm; scripts and notes with '
                               'stable names. Results unchanged.'),
         ('0.8.1', '2026-10-22', 'Modules (Plan_Modules M1-M2): one money-unit vocabulary (USD, never $); section 15 '
                               'moved to the end; new section 19 Exports to modules (19a Distribution: plain copies, '
@@ -9376,7 +9377,7 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
     ('Data vintage', 'Legacy 465 NoPropData tables', 'The same: every extract re-read from legacy 465 (v0.9.0; was '
      '456): balances, base-year fuel use (465 rows 583-601), power plant data, GTAP, non-CO2 EFs changed; prices, '
      'CO2 EFs, elasticities identical; HHSurvey and HH_Elast still from 456 (465 holds only headers)',
-     'User decision 2026-10-29: re-extract from 465 (excel_ai/plans/LD41_data_465.md)',
+     'User decision 2026-10-29: re-extract from 465 (excel_ai/core/plans/LD41_data_465.md)',
      'Egypt base-year fuel use -4.2%; power capacity data', 'Same'),
     ('Formula structure', 'Different formulas by block and year',
      'One plain formula per variable block for 2022-2040 (at most 100 characters, no LAMBDA needed); the '
@@ -15831,13 +15832,12 @@ def main():
     stage('macros and buttons added')
     store_values(OUT)                              # v0.6.6: calculated values in the file, no recalculation on open
     link_chart_titles(OUT)                         # v0.6.7: line-chart titles follow the dropdown of their block
-    sys.path.insert(0, os.path.join(HERE, '..', 'shared'))   # v0.6.7: NORMS 3g, every workbook written by code is linted
     import excel_lint
     problems = excel_lint.lint(OUT)
     if problems:
         raise SystemExit(f'{OUT}: Excel would repair it:\n  ' + '\n  '.join(problems))
     stage('calculated values stored (LibreOffice), calculation manual')
-    REL.publish(OUT, link=True)                    # v0.8.4: older versions to releases/, copy to permalink/
+    REL.publish(OUT, link=True)                    # the _latest copy in active_workbooks/
     stage(f'saved {OUT}')
 
 

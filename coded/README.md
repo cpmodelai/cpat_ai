@@ -1,13 +1,13 @@
 # Coded CPAT (Python)
 
-The Python model of CPAT (Coded CPAT): it replicates Excel-AI's mitigation and distribution modules number for number, readable first; the one entry point is `cpat_model.run`. This page is for Python developers; the full documentation (quick start, the database, scenarios, results, editing, testing with the current status, architecture, and appendices with every equation, table, input and variable) is the website's Coded CPAT tab (`../docs/index.html#coded`), written in [`cpat_documentation/guide/`](cpat_documentation/guide/). Excel work is in [`../excel_ai/`](../excel_ai/README.md); rules for every task (logging in `CAVEATS.md`, method vs version notes) are in the root [`../NORMS.md`](../NORMS.md).
+The Python model of CPAT (Coded CPAT): it replicates Excel-AI's mitigation and distribution modules number for number, readable first; the one entry point is `cpat_model.run`. This page is for Python developers; the full documentation (quick start, the database, scenarios, results, editing, testing with the current status, architecture, and appendices with every equation, table, input and variable) is the website's Coded CPAT tab (`../docs/index.html#coded`), written in [`cpat_documentation/guide/`](cpat_documentation/guide/). Excel work is in [`../excel_ai/`](../excel_ai/README.md); rules for every task (logging in `CAVEATS.md`, method vs version notes) are in the root [`../NORMS.md`](../excel_ai/core/NORMS.md).
 
 **Status (2026-10-29).** Version `1.0.4p1.2` ([`CHANGELOG.md`](CHANGELOG.md)): Python version 1.2 of the replication of Excel-AI 1.0.4 (mitigation) and Distribution 1.0.4 (first full release 1.0.0p1.0).
 
 - **Mitigation** (plan phase 3): every output code of Excel-AI's stored values for Egypt, scenarios 1 and 2, is produced and matches within 1e-9, 2022-2041 (7,472 reference codes per scenario, 7,458 with values).
 - **Distribution** (phase 4): every code of Excel-AI Distribution 1.0.0 matches for Egypt, scenario groups 1 and 2 (1,684 codes, basket and deciles).
 - **Speed** (5.4): one country and two scenarios in 0.8 s once the baseline is cached (first run of a session about 3 s).
-- **Excel-AI bugs are never replicated** (issues are): the prototype bugs Coded CPAT found (M15-M22, `../excel_ai/BUGS.md`) were fixed in Excel-AI 0.9.2 and Distribution 0.1.4 and in Python (M18 withdrawn); no known differences remain.
+- **Excel-AI bugs are never replicated** (issues are): the prototype bugs Coded CPAT found (M15-M22, `../excel_ai/core/BUGS.md`) were fixed in Excel-AI 0.9.2 and Distribution 0.1.4 and in Python (M18 withdrawn); no known differences remain.
 - **Running it** (phase 6, done): `run_model.py`, the Shiny app, the website's Coded CPAT tab.
 - **Next**: systematic comparisons (phase 5.0-5.3: the Python recomputations of Excel-AI, the recalculated release workbook, every country, legacy CPAT).
 
@@ -19,7 +19,7 @@ Start with the spec and plan [`cpat_documentation/project/Spec.qmd`](cpat_docume
 |---|---|
 | `cpat_model/` | The model: `run()` and versions (`__init__.py`), `settings.py` |
 | `cpat_model/core/` | Index sets (`dims.py`), the variable registry (`variables.py`, `variables.csv`: every Excel-AI row and its output code), the run loop (`loop.py`: baseline first, then each scenario; prepare, year loop, finish; the baseline cache), the rows of a block (`rows.py`: `Rows`, `State`), policy paths, module values, Excel-AI tables (`excel_ai/`) |
-| `cpat_model/data/` | The database: tidy CSV tables (`../data/Public01/tidy/`, [`../data_old/INTERFACE.md`](../data_old/INTERFACE.md)) |
+| `cpat_model/data/` | The database: tidy CSV tables (`../data/Public01/tidy/`; [`../data/README.md`](../data/README.md)) |
 | `cpat_model/inputs/` | Scenario sets (inputs by `NameOfParameter`, one column per scenario; `../data/inputs/scenarios_excel_ai.csv` is Excel-AI's) |
 | `cpat_model/mitigation/` | The blocks of the Mitigation sheet in calculation order (`chain.py` is the only place the order is written): header, policies, Pigouvian taxes, prices, power, fuel use, road engineer model, totals and revenues, emissions, GDP effects, module inputs, welfare |
 | `cpat_model/distribution/` | `mapping.py` (DistMapping data), `incidence.py` (the Distribution sheet) |

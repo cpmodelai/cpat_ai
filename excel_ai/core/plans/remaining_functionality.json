@@ -1,0 +1,157 @@
+{
+ "plan": "excel_ai/core/plans/Remaining_functionality.md",
+ "decided": "2026-10-29",
+ "scope": "R1-R3, R6-R11, R13 built in v0.9.0; R4, R5, R12 deferred (user 2026-10-29); not built: elasticity-based power model",
+ "out_of_scope": "MTOutputs (outputs plan, decided separately)",
+ "equations_addendum": {
+  "path": "excel_ai/mitigation/docs/Equations_addendum.md",
+  "status": "written 2026-10-29 (v0.9.0 build pending); builder notes: excel_ai/mitigation/docs/Equations_addendum_notes.md",
+  "content": "one entry per new variable of R1-R13: code, equation, legacy rows, inputs; merged into Equations.md and the Methods volume at the next release",
+  "use": "the Python build (coded/) ports from it in parallel"
+ },
+ "departures_to_revert": [
+  {
+   "id": "LD1",
+   "action": "food & forestry: industry elasticities as legacy"
+  },
+  {
+   "id": "LD10",
+   "action": "fuel price reform follows ExtendCarbonPriceBeyondOutro; feebates constant after the target year",
+   "new_bug": "L171 (fuel price reform drops to 0 after the target year with options other than Linear* and Percentage; cell plan: hold the target level)"
+  },
+  {
+   "id": "I47",
+   "action": "methane fee in the fiscal space on the scenario's own activity (exact-year references, full-recalculation test)"
+  }
+ ],
+ "exports_to_modules": {
+  "19a": "Distribution: plain copies (built)",
+  "15": "Air pollution: no copies; section 15 is the output block to the air pollution module, heading '15. Local air pollutants: outputs to the air pollution module', with the other rows the module reads (fuel use by sector and fuel, as legacy E3 rows 15810-16065) in the same section",
+  "5b": "Transport co-benefits: no copies (19c dropped); section 5b is the output block to the transport co-benefits module, heading '5b. Road transport: engineer model and outputs to the transport co-benefits module', with the rows the module reads (total and freight vehicle-km, fuel economy by fuel, passenger/freight splits, road fuel shares of the switched model; legacy block E rows 15724-15823) in the same section"
+ },
+ "items": [
+  {
+   "id": "R1",
+   "what": "Inputs from air pollution and transport co-benefits (typed legacy Egypt per-unit values), a section just before welfare",
+   "legacy": "Air pollution sheet; Transport sheet; Mitigation rows 112-135",
+   "depends_on": [],
+   "action": "build"
+  },
+  {
+   "id": "R2",
+   "what": "Monetized social costs and benefits (F10) and full welfare (air pollution, accidents, congestion, road damage, climate)",
+   "legacy": "Mitigation F10 rows 17377-18159; welfare rows",
+   "depends_on": [
+    "R1"
+   ],
+   "action": "build"
+  },
+  {
+   "id": "R3",
+   "what": "Pigouvian (efficient) taxes: climate, air pollution, transport externalities; phase-in; VAT base option; policy and reference prices",
+   "legacy": "Mitigation rows 81-82, 111-147, 200, 2202; inputs AddEfficientTaxes, ClimateEffTax, ExternalityAddVAT, AddEfficientTaxesPhaseInYears",
+   "depends_on": [
+    "R1"
+   ],
+   "action": "build"
+  },
+  {
+   "id": "R4",
+   "what": "CBAM process emissions in the carbon tax and ETS",
+   "legacy": "Mitigation rows 1832-1836, 1918, 2206, 5867-5874; inputs CBAMProc*",
+   "depends_on": [],
+   "action": "build"
+  },
+  {
+   "id": "R5",
+   "what": "Green public investment",
+   "legacy": "Mitigation rows 6215-6267",
+   "depends_on": [],
+   "action": "build"
+  },
+  {
+   "id": "R6",
+   "what": "Residential initially-exempt split (most-used cooking fuel) as legacy",
+   "legacy": "LD67; bugs L48, L92, L94",
+   "depends_on": [],
+   "action": "build"
+  },
+  {
+   "id": "R7",
+   "what": "Producer subsidies with their price effect, as legacy",
+   "legacy": "LD19",
+   "depends_on": [],
+   "action": "build (follow legacy)"
+  },
+  {
+   "id": "R8",
+   "what": "Manual inputs not yet read: manual domestic prices, manual elasticities, electricity producer subsidy override, CH4 intensity decline",
+   "legacy": "Manual inputs; I53, L100, L101, L86, L135",
+   "depends_on": [],
+   "action": "build"
+  },
+  {
+   "id": "R9",
+   "what": "Electricity consumer subsidy option and the power memo tables (F6, CostBreakdownYear)",
+   "legacy": "Mitigation C4, F6; L84",
+   "depends_on": [],
+   "action": "build"
+  },
+  {
+   "id": "R10",
+   "what": "Road biofuels in the elasticity road model, self-generated renewables in aviation and navigation, range-anxiety fit",
+   "legacy": "Mitigation rows 5380-5537; LD62, L47, LD63",
+   "depends_on": [],
+   "action": "build"
+  },
+  {
+   "id": "R11",
+   "what": "Balance of payments: current account",
+   "legacy": "F11; L50",
+   "depends_on": [],
+   "action": "build (typed legacy Egypt values)"
+  },
+  {
+   "id": "R12",
+   "what": "Emissions intensity of industrial output (GVA by sector)",
+   "legacy": "MTOutputs emin",
+   "depends_on": [],
+   "action": "build (typed legacy Egypt values)"
+  },
+  {
+   "id": "R13",
+   "what": "Settle LD16 (margin year 2024 as legacy; bug L172 CPI conversion), LD41 (re-extract from 465), LD58 (Same; benchmark)",
+   "legacy": "LD16, LD41, LD58",
+   "depends_on": [],
+   "action": "settle"
+  }
+ ],
+ "new_issues": [
+  {
+   "id": "I100",
+   "title": "Transport co-benefits use the engineer road model whatever TrModel",
+   "action": "replicated: legacy takes vehicle-km, freight vehicle-km, fuel economy and class splits from the engineer model (prototype 5b) even when TrModel = Elasticity; road fuel shares follow TrModel"
+  }
+ ],
+ "new_register_codes": {
+  "bugs": "L173-L222 (L171, L172 as planned); Lnew-R1R2-18 became issue I119",
+  "issues": "I101-I146",
+  "departures": "LD80 (coal and gas production cost weighted by the domestic production share: prototype aligns with legacy)",
+  "map": "Equations_addendum_notes.md (each section)"
+ },
+ "open_points": [
+  "R4 CBAM process emissions: legacy 465 prices them nowhere (dead links); built as legacy meant it, bugs fixed; whether CBAM revenue, emission cut and ETS coverage enter the totals: user decision (default: as the legacy rows intend)",
+  "Electricity Pigouvian tax: 0 as legacy (issue I119; filling it would count power-plant air pollution twice)",
+  "Transport candidates B-c (value of time share), B-d (road damage per liter with average fuel economy), B-e (earnings not deflated): kept as legacy until the user decides",
+  "Registered bugs not reproduced in 465 formulas (L46, L47, L48, L82, L83, L84 phasing part, L86, L100, L128): check against 465 before treating them as fixes",
+  "LD58 register text (175 $/t run) does not match the 465 cached run (5 $/t): update",
+  "LD19 text out of date (producer subsidies already have a price effect since v0.6.1-0.6.2)"
+ ],
+ "deferred": {
+  "R4": "CBAM process emissions / ETS connection",
+  "R5": "green public investment",
+  "R12": "industrial emissions intensity (GVA)",
+  "why": "user 2026-10-29: legacy WIP not linked up; design notes on branch wip-r4-r5-r12",
+  "bugs_not_built": "L197-L202, L204-L213, L216-L219"
+ }
+}

@@ -350,8 +350,8 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 <ul>
-<li><strong>Older versions</strong> move to <code>excel_ai/releases/</code> when a new version is written.</li>
-<li><strong><code>excel_ai/permalink/</code></strong> holds only what other files link to, under <code>&lt;Name&gt;_latest</code>: every module. <strong><code>excel_ai/permalink_countryeditable/</code></strong> is a copy for local, country-specific runs.</li>
+<li><strong>Older versions</strong> move to <code>excel_ai/<module>/releases/</code> when a new version is written.</li>
+<li><strong><code>excel_ai/active_workbooks/</code></strong> holds only what other files link to, under <code>&lt;Name&gt;_latest</code>: every module. <strong><code>excel_ai/active_workbooks/</code></strong> is a copy for local, country-specific runs.</li>
 <li><strong>Version numbers.</strong> Three parts, <code>0.&lt;major&gt;.&lt;minor&gt;</code>, until the first full release <code>1.0.0</code>: the last part for fixes and small features, the middle part for structural or methodological change. Each module with its own builder (distribution, air pollution) has its own version and records which mitigation version it was built from. Files released before the change to three parts were renamed; their contents keep the old two-part numbers. The register documents, the tracker and the codes map carry the version of the mitigation prototype they were made with.</li>
 <li><strong>One version table</strong> per workbook and generated document, in the same columns: version, date, description (with register codes), and the largest regression difference against the previous release.</li>
 </ul>
@@ -402,7 +402,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="task-completion" class="level2">
 <h2 class="anchored" data-anchor-id="task-completion">Task completion</h2>
-<p>Every finished task ends with an entry at the bottom of <code>CAVEATS.md</code>, the single record of completed work: the task, its inputs, its outputs and its caveats. Earlier entries may be corrected but not deleted. Open work is listed in <code>excel_ai/plans/TODO.md</code> and <code>coded/TODO.md</code>.</p>
+<p>Every finished task ends with an entry at the bottom of <code>CAVEATS.md</code>, the single record of completed work: the task, its inputs, its outputs and its caveats. Earlier entries may be corrected but not deleted. Open work is listed in <code>excel_ai/core/TODO.md</code> and <code>coded/TODO.md</code>.</p>
 <p><strong>Norms follow the lessons.</strong> A mistake whose cause could recur ends with a norm and a check that would have caught it, added in the same task.</p>
 </section>
 <section id="methodology-and-version-notes" class="level2">

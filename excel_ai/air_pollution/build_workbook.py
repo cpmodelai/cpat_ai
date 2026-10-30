@@ -1,6 +1,12 @@
 """Build the standalone Air Pollution workbook input scaffold."""
 
 from __future__ import annotations
+import os as _os, sys as _sys  # the excel_ai code folders and data/scripts on the path (core/tools/xlpaths.py)
+_xl = _os.path.dirname(_os.path.abspath(__file__))
+while _os.path.basename(_xl) != 'excel_ai':
+    _xl = _os.path.dirname(_xl)
+_sys.path.insert(0, _os.path.join(_xl, 'core', 'tools'))
+import xlpaths  # noqa: E402,F401
 
 import sys
 import csv
@@ -16,7 +22,7 @@ from openpyxl.worksheet.datavalidation import DataValidation
 HERE = Path(__file__).resolve().parent
 REPO_ROOT = HERE.parents[1]
 VERSION = "0.3"
-OUTPUT = HERE / f"CPAT-AI-Air-Pollution-Standalone-v{VERSION}.xlsx"
+OUTPUT = HERE / "releases" / f"CPAT-AI-Air-Pollution-Standalone-v{VERSION}.xlsx"   # 2026-10-30: releases/
 sys.path.insert(0, str(REPO_ROOT / "data" / "scripts"))
 import editions  # noqa: E402
 
@@ -139,7 +145,7 @@ def build_cover(wb: Workbook) -> None:
         ("Implemented", "Cover, paste-ready Mitigation inputs, Data Sources index, and nine legacy AP data tabs."),
         ("Not implemented", "Calculation formulas, results, legacy regression, and coded-module numeric reconciliation."),
         ("Method source", "coded/cpat_documentation/user/06_Air_pollution.html"),
-        ("Equation inventory", "excel_ai/air_pollution/Equations_v1_0.md (working; reconcile before formulas)."),
+        ("Equation inventory", "excel_ai/air_pollution/docs/Equations_v1_0.md (working; reconcile before formulas)."),
         ("Legacy target", "excel_ai/legacy/workbooks/CPAT 1.0pre_459_NoPropData.xlsb (read-only ground truth)."),
     ]
     for row, (label, text) in enumerate(status_rows, start=17):
@@ -396,7 +402,6 @@ def build_workbook() -> Path:
     wb.calculation.calcMode = "manual"
     wb.save(OUTPUT)
 
-    sys.path.insert(0, str(REPO_ROOT / "excel_ai" / "shared"))
     import excel_lint
 
     problems = excel_lint.lint(OUTPUT)

@@ -1,6 +1,6 @@
 # The mitigation blocks {#sec-blocks}
 
-Each block replicates one part of Excel-AI's Mitigation sheet. The order of the run is `mitigation/chain.py`; the equations are in [Appendix A](A_Equations.qmd); the test of each block is a `BUILT` entry of `cpat_testing/test_mitigation.py`.
+Each block replicates one part of Excel-AI's Mitigation sheet. The order of the run is `mitigation/chain.py`; the equations are in [Appendix A](../../../docs/CPAT_coded_documentation_qmd/A_Equations.qmd); the test of each block is a `BUILT` entry of `cpat_testing/test_mitigation.py`.
 
 | Block (module.function) | Excel-AI section | What it computes | Equations | Test block |
 |---|---|---|---|---|

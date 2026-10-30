@@ -14,7 +14,7 @@ format:
 ## How to read this list
 
 - **What it is.** The equations Coded CPAT implements, in the order the model computes them. Coded CPAT replicates Excel-AI (`excel_ai/CPAT-AI-Mitigation-Prototype_v<version>.xlsm`); where the methodology and Excel-AI differ, the equation is Excel-AI's and the note says so. Each equation has an id (`M3.1`, ...) that the code cites (`EQ-M3.1`).
-- **Notation** follows the CPAT methodology (`docs/01_MainDocumentation/03_Mitigation.qmd`, `05_Distribution.qmd`). Where the methodology has no symbol for a quantity, the symbol of the Excel-AI equation note (`excel_ai/mitigation/Equations.md`) is used and marked *(Excel-AI notation)*.
+- **Notation** follows the CPAT methodology (`docs/01_MainDocumentation/03_Mitigation.qmd`, `05_Distribution.qmd`). Where the methodology has no symbol for a quantity, the symbol of the Excel-AI equation note (`excel_ai/mitigation/docs/Equations.md`) is used and marked *(Excel-AI notation)*.
 - **Indices** (methodology, "Dimensions"): scenario $o$ (baseline $B$, policy $P$), country $c$, UNFCCC sector $u$, sector group $g$, sector $s$, fuel or generation type $f$, pollutant $p$, year $t$. **Indices are omitted where they add nothing:** every mitigation equation holds for each scenario $o$ and country $c$, and for each year $t$ unless $t$ is shown; the line "Over ..." under an equation lists the other indices it ranges over. A previous-year value carries $t-1$; a baseline value of the same year carries the superscript $B$.
 - **Distribution** uses its own indices (methodology chapter 5): household $j$, decile $d$, consumption category $g$, fuel $f$ (with $f \in g$), analysis year $y$.
 - **Core and adjustments.** The first part is the executive summary: the core equations of each block. The appendices hold the adjustments (exceptions, floors, switches, calibration, memo items).
@@ -408,7 +408,7 @@ Over deciles $d$, samples. Per person, in % of consumption per person scaled to 
 
 # Appendix A: mitigation adjustments
 
-Started; completed block by block before each block is coded (coded/TODO.md phase 0). Sources for each block: `excel_ai/mitigation/Equations.md`, `Equations_addendum.md` and `Formulas.md` (the workbook formulas), and the Methods chapters in `excel_ai/mitigation/docs/methods/`.
+Started; completed block by block before each block is coded (coded/TODO.md phase 0). Sources for each block: `excel_ai/mitigation/docs/Equations.md`, `Equations_addendum.md` and `Formulas.md` (the workbook formulas), and the Methods chapters in `excel_ai/mitigation/docs/methods/`.
 
 ## A1 Policies
 

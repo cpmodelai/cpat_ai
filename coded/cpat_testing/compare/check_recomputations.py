@@ -2,7 +2,7 @@
 
     python cpat_testing/compare/check_recomputations.py
 
-Distribution: `excel_ai/mitigation/distribution_ref.py` (an independent recomputation of the Distribution sheet) is
+Distribution: `excel_ai/mitigation/checks/distribution_ref.py` (an independent recomputation of the Distribution sheet) is
 given the inputs Coded CPAT's distribution module took from mitigation (price changes, spending, GDP, population,
 new revenue, the scenario's distribution settings), and its household results are compared with Coded CPAT's rows.
 

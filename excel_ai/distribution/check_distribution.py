@@ -13,6 +13,12 @@
    recalculated (LibreOffice), the module updated from it (the macro's copy, emulated) and recalculated: the module's
    Distribution equals the prototype's, and differs from the shipped values (the test moves the results).
 """
+import os as _os, sys as _sys  # the excel_ai code folders and data/scripts on the path (core/tools/xlpaths.py)
+_xl = _os.path.dirname(_os.path.abspath(__file__))
+while _os.path.basename(_xl) != 'excel_ai':
+    _xl = _os.path.dirname(_xl)
+_sys.path.insert(0, _os.path.join(_xl, 'core', 'tools'))
+import xlpaths  # noqa: E402,F401
 import os
 import re
 import sys

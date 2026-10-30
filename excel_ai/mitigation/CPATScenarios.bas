@@ -316,7 +316,7 @@ End Function
 
 Private Sub Recalc()
     ' v0.7.1: recalculate twice. In Excel the second pass finds nothing left to calculate (no cost); LibreOffice, where
-    ' the macros are tested, leaves differences of up to 2e-3 after one pass (excel_ai/NORMS.md 3i.2)
+    ' the macros are tested, leaves differences of up to 2e-3 after one pass (excel_ai/core/NORMS.md 3i.2)
     Application.Calculate
     Application.Calculate
 End Sub

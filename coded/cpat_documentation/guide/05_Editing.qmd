@@ -2,10 +2,10 @@
 
 ## The rules in ten lines
 
-The full rules are the Python norms ([Appendix H](H_Norms.qmd)); these are the ones you need first.
+The full rules are the Python norms ([Appendix H](../../../docs/CPAT_coded_documentation_qmd/H_Norms.qmd)); these are the ones you need first.
 
 1. **Excel-AI is the specification.** Python computes what Excel-AI computes, row for row, except Excel-AI's bugs.
-2. **Bugs are not copied; issues are.** A bug (Excel-AI does not compute what it means to) is fixed in Python and registered the same day; an issue (a potential improvement) is logged and copied as it is ([Appendix F](F_Bugs.qmd)).
+2. **Bugs are not copied; issues are.** A bug (Excel-AI does not compute what it means to) is fixed in Python and registered the same day; an issue (a potential improvement) is logged and copied as it is ([Appendix F](../../../docs/CPAT_coded_documentation_qmd/F_Bugs.qmd)).
 3. **Codes are shared.** Inputs, variables and outputs carry Excel-AI's names; never invent a second name.
 4. **One equation, one function.** Each equation of the equation list is a small function or one marked line, citing its id (`EQ-M3.1`).
 5. **The order is written once**, in `cpat_model/mitigation/chain.py`.
@@ -46,7 +46,7 @@ A row is set with `R.set(variable, year index, values, sector, fuel)` and read w
 
 ## Changing an equation
 
-1. Find the Excel-AI rows (the formulas: `excel_ai/mitigation/Formulas.md`; the variable's rows: `core/variables.csv`).
+1. Find the Excel-AI rows (the formulas: `excel_ai/mitigation/docs/Formulas.md`; the variable's rows: `core/variables.csv`).
 2. Change the function; keep the equation id.
 3. Update the equation in `cpat_documentation/equations/equations.yaml` and run `python make_equations.py`.
 4. Run the tests. If Excel-AI changed too, re-extract the reference values first ([Testing](06_Testing.qmd)).

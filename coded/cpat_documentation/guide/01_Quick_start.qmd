@@ -3,9 +3,9 @@
 ## What Coded CPAT is
 
 - **A replication.** Coded CPAT computes what the Excel-AI prototypes compute: the mitigation model (prices, power, fuel use, emissions, revenues, GDP effects, welfare, for 2022-2041) and the household distribution module (incidence by decile). The tests check every output code against Excel-AI's values.
-- **Readable code.** Each equation of the [equation list](A_Equations.qmd) is one small function or one marked line, with the code names of the Excel models (`ener` energy use, `atp` after-tax price, `co2` emissions, ...).
+- **Readable code.** Each equation of the [equation list](../../../docs/CPAT_coded_documentation_qmd/A_Equations.qmd) is one small function or one marked line, with the code names of the Excel models (`ener` energy use, `atp` after-tax price, `co2` emissions, ...).
 - **One entry point.** `cpat_model.run(scenarios, settings)` serves the command line, the Shiny app and the tests.
-- **Bugs are not copied.** Where Excel-AI has a bug, Coded CPAT fixes it and registers it ([Appendix F](F_Bugs.qmd)); everything else follows Excel-AI exactly.
+- **Bugs are not copied.** Where Excel-AI has a bug, Coded CPAT fixes it and registers it ([Appendix F](../../../docs/CPAT_coded_documentation_qmd/F_Bugs.qmd)); everything else follows Excel-AI exactly.
 
 ## Install
 

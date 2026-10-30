@@ -13,7 +13,7 @@
 |---|---|---|
 | Country | `egy` | ISO3, lower case |
 | Module | `mit`, `distn` | Mitigation or distribution |
-| Variable | `co2`, `ener`, `atp`, `rnew` | What it is ([Appendix E](E_Variables.qmd) lists every variable with its description and unit) |
+| Variable | `co2`, `ener`, `atp`, `rnew` | What it is ([Appendix E](../../../docs/CPAT_coded_documentation_qmd/E_Variables.qmd) lists every variable with its description and unit) |
 | Sector | `rod`, `res`, `pow`, `tot` | Subsector, sector group, or the total |
 | Fuel | `gso`, `nga`, `ecy`, `tot` | Fuel, or all fuels |
 | Scenario | `1`, `2` | The scenario's column number |

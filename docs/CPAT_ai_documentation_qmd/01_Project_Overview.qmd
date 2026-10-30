@@ -54,7 +54,7 @@ The current versions are in the file names at the top of `excel_ai/` and in the 
 
 ```
 README.md, AGENTS.md, CLAUDE.md   Orientation; instructions for AI agents
-HumanReadme-QuickStart.docx       Quick start guide for people
+QuickStart.docx       Quick start guide for people
 NORMS.md                          Rules for every task
 CAVEATS.md                        Log of every finished task
 excel_ai/                         The Excel prototypes (Excel-AI)

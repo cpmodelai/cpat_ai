@@ -1,5 +1,5 @@
 // Build coded/cpat_documentation/Coded-CPAT_Overview_v<version>.pptx: the overview deck of Coded CPAT, the Python
-// model of CPAT. Same style as the Excel-AI core deck (excel_ai/mitigation/presentation/build_deck.js): navy / teal /
+// model of CPAT. Same style as the Excel-AI core deck (excel_ai/mitigation/docs/presentation/build_deck.js): navy / teal /
 // amber, Cambria headings, Calibri body. The numbers come from facts.json (make_facts.py), so the deck stays current.
 //
 //   python make_facts.py && NODE_PATH=<node_modules with pptxgenjs> PPTX_SKILL=<pptx skill dir> node build_deck.js

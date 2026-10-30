@@ -28,16 +28,16 @@ Every bug and issue lives in one register, the single source from which the docu
 |---|---|
 | `excel_ai/Legacy_CPAT_Bugs_v<version>.docx` | The legacy bugs, each with its cell-level fix plan, and the data problems by priority |
 | `excel_ai/Tracking_Legacy_Bugs_v<version>.xlsx` | The master list of bugs and issues, every module, in the same columns; shared with the CPAT team |
-| `excel_ai/BUGS.md`, `excel_ai/ISSUES.md` | The two short lists |
-| `excel_ai/legacy/Legacy_CPAT_Register.json` | The register as data |
+| `excel_ai/core/BUGS.md`, `excel_ai/core/ISSUES.md` | The two short lists |
+| `excel_ai/legacy/register/Legacy_CPAT_Register.json` | The register as data |
 
-The register is written in `excel_ai/mitigation/issues_register.py` and `register.py`; `make_documentation.py` regenerates every document from it at each release.
+The register is written in `excel_ai/legacy/register/issues_register.py` and `register.py`; `make_documentation.py` regenerates every document from it at each release.
 
 ## Current counts
 
 {{< include _counts.md >}}
 
-The status *Legacy 465* records whether the CPAT team has fixed each bug in the latest legacy workbook; each claimed fix is checked against the workbook (`excel_ai/legacy/bugfixes/check465/`).
+The status *Legacy 465* records whether the CPAT team has fixed each bug in the latest legacy workbook; each claimed fix is checked against the workbook (`excel_ai/legacy/fixes/check465/`).
 
 ## Priorities
 

@@ -46,7 +46,7 @@ A row is set with `R.set(variable, year index, values, sector, fuel)` and read w
 
 ## Changing an equation
 
-1. Find the Excel-AI rows (the formulas: `excel_ai/mitigation/Formulas.md`; the variable's rows: `core/variables.csv`).
+1. Find the Excel-AI rows (the formulas: `excel_ai/mitigation/docs/Formulas.md`; the variable's rows: `core/variables.csv`).
 2. Change the function; keep the equation id.
 3. Update the equation in `cpat_documentation/equations/equations.yaml` and run `python make_equations.py`.
 4. Run the tests. If Excel-AI changed too, re-extract the reference values first ([Testing](06_Testing.qmd)).

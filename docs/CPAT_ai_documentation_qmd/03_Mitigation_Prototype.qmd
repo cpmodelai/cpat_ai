@@ -20,7 +20,7 @@ It answers: **what do carbon pricing and related policies do to energy prices, e
 
 ## 2. Quick start
 
-1. **Open** `CPAT-AI-Mitigation-Prototype_v<version>.xlsm` (in `excel_ai/`; the same file as `excel_ai/permalink/CPAT-AI-Mitigation-Prototype_latest.xlsm`) in Excel 365 with macros enabled. It opens on `ScenarioCompare`, the dashboard, **without recalculating**: the file ships with its values, in manual calculation.
+1. **Open** `CPAT-AI-Mitigation-Prototype_v<version>.xlsm` (in `excel_ai/`; the same file as `excel_ai/active_workbooks//CPAT-AI-Mitigation-Prototype_latest.xlsm`) in Excel 365 with macros enabled. It opens on `ScenarioCompare`, the dashboard, **without recalculating**: the file ships with its values, in manual calculation.
 2. **After any change, click Recalculate now** (or switch automatic calculation on with Recalculation on/off).
 3. **Read the results on ScenarioCompare.** Choose Live or Stored results and the year. The key table shows CO₂, GHGs, revenue, the GDP effect and welfare against the baseline; the charts show them over time.
 4. **Change a policy** on `ScenarioDefinition`. Column K is the live scenario: for example change `CPLevelTarget` (carbon price in the target year), then Recalculate now.
