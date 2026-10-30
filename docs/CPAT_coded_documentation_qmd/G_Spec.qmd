@@ -299,8 +299,7 @@ Why the module values enter in **prepare**, not in the loop: in Excel-AI the Pig
 | Database | Contents | Where | Used for |
 |---|---|---|---|
 | `full` | Every table, including the six proprietary tables | Private repository, cloned outside this one; path in `.env` | Real runs (Coded CPAT, Excel-AI and legacy CPAT alike) |
-| `public` | Every table except the six proprietary tables (real values) | Not yet available (D6); planned for `data/` | Everything that may be shared |
-| `dummy` | Today's `data_old/dummy/`: every table in the real formats, all with dummy values (user 2026-10-29) | `data_old/dummy/` | Development, tests, the shipped Excel files; the comparisons where `full` is not available |
+| `dummy` | Edition Public01 (2026-10-30): the public tables with their values, the six proprietary tables perturbed within +-3% (identities kept); earlier every table dummy | `data/Public01/tidy/` (`data/README.md`) | Development, tests, the shipped Excel files, everything that may be shared; the comparisons where `full` is not available |
 
 The six proprietary tables (user 2026-10-30; was four, with Balances and EnergyCons counted as one), with their tidy and legacy names (master list: `data/catalog.csv`):
 
@@ -311,11 +310,11 @@ The six proprietary tables (user 2026-10-30; was four, with Balances and EnergyC
 | Domestic prices | `prices_domestic.csv` | `Prices_dom` |
 | GTAP input-output | `io_gtap.csv` | `IO_GTAP` |
 | Household survey | `hh_survey.csv` | `HHSurvey` |
-| Transport scatter (IRF World Road Statistics) | not in tidy yet | `Tran_Scatter` |
+| Transport scatter (IRF World Road Statistics) | `tran_scatter.csv` | `Tran_Scatter` |
 
-- **One database, every model.** Excel-AI's data workbook is built from the same database (`data_old/scripts/build_data_workbook.py`), and the legacy layout of the four tables from it (`export_to_legacy.py`), so the three models read identical numbers.
+- **One database, every model.** Excel-AI's data workbook (`data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx`) is written from the same tidy tables (`data/scripts/tidy_convert.py`), and the legacy workbook's six proprietary tabs are filled from them (`data/scripts/legacy_proprietary.py`), so the three models read identical numbers.
 - **The systematic dataset** for comparisons is the private `full` database where it is available, with `dummy` as the option that always works (user 2026-10-29); every model in a comparison reads the same one.
-- **Storage (D6):** CSV folders in the current `data/` structure; the model's input files (scenario sets, advanced inputs) are kept there too (`data/inputs/`). **The code interface** (every table, column, key and unit the model reads) is documented for the data person in `data_old/INTERFACE.md` (phase 2).
+- **Storage (D6):** CSV folders in the current `data/` structure; the model's input files (scenario sets, advanced inputs) are kept there too (`data/inputs/`). **The code interface** (every table, column, key and unit the model reads) is the edition's tidy manifest (`data/Public01/tidy/_manifest.csv`; `data/README.md` and `data/catalog.csv` for the data person).
 - **The loader layer** (`cpat_model/data/`) reads a database into labelled arrays (country, year, fuel, sector, ...) once per session and caches it; the Shiny app keeps it in memory.
 - The rules of root `NORMS.md` section 8 stand: only `public` and `dummy` data are committed; nothing computed from `full` is committed either.
 

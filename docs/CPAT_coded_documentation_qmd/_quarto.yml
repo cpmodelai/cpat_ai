@@ -10,7 +10,7 @@ book:
   favicon: ./00/media/image1.png
   search: true
   reader-mode: true
-  page-footer: "CPAT-AI: WB-IMF Climate Policy Assessment Tool"
+  page-footer: "CPAT-AI: WB-IMF Climate Policy Assessment Tool. Documentation release 1.1.0 (2026-10-30): Excel-AI 1.1.0, Coded CPAT 1.1.0p1.3, data edition Public01"
   chapters:
     - index.qmd
     - part: "Part I: What you need to know"
