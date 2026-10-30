@@ -15853,9 +15853,10 @@ def main():
 
 def share_formulas(path):
     """v1.1.1 (user 2026-10-30): each run of a row's cells holding the same formula in relative terms is written as one
-    shared formula, as Excel writes a fill (core/tools/shared_formulas.py; results unchanged). SHARED_FORMULAS=0: off."""
-    if os.environ.get('SHARED_FORMULAS', '1') == '0':
-        return 'shared formulas: off (SHARED_FORMULAS=0)'
+    shared formula, as Excel writes a fill (core/tools/shared_formulas.py; results unchanged). Off by default until Excel
+    opens the result without a repair (2026-10-30: the first test copy was repaired); SHARED_FORMULAS=1: on."""
+    if os.environ.get('SHARED_FORMULAS', '0') != '1':
+        return 'shared formulas: off (SHARED_FORMULAS=1 to turn on)'
     import shared_formulas as SF
     n, groups, refs = SF.share_file(path)
     return f'shared formulas: {refs} of {n} formulas written as references to {groups} groups'

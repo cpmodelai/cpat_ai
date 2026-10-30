@@ -9,6 +9,9 @@ share(xml) turns each run of adjacent cells of a row whose formulas are the firs
 Translator, the same shift as a fill) into one shared formula; unshare(xml) writes every formula in full again, for
 the scripts that edit formulas in the XML (lo_session.expanded_zip, make_variants.py). Only plain formulas are shared
 (no array formulas); a cell is shared only when the shift gives exactly its formula, so the round trip is exact.
+A formula that names another sheet (Sheet!A1, 'My sheet'!A1) is never shared: Excel 365 removed every such shared
+formula on open ("Removed Records: Shared formula from /xl/worksheets/sheetN.xml", user test 2026-10-30), and only
+the sheets with them were repaired.
 
     import shared_formulas as SF
     SF.share_file(path)                 # in place; returns (formulas, shared groups, cells written as references)
@@ -39,8 +42,9 @@ def _esc(s):
     return html.escape(s, quote=False)
 
 
-def share(xml):
-    """The sheet XML with each run of shiftable formulas along a row written as one shared formula."""
+def share(xml, keep=None):
+    """The sheet XML with each run of shiftable formulas along a row written as one shared formula. keep(formula):
+    False leaves the formula unshared (tests)."""
     si = [max((int(x) for x in re.findall(r'<f[^>]*\bsi="(\d+)"', xml)), default=-1) + 1]
     stats = [0, 0, 0]                                            # formulas, groups, cells written as references
 
@@ -57,6 +61,8 @@ def share(xml):
         while i < n:
             col, r, f = info[i]
             j = i + 1
+            if f is not None and ('!' in f or (keep is not None and not keep(f))):
+                f = None                                         # a sheet reference: Excel rejects it shared
             if f is not None:
                 tr = Translator('=' + f, origin=f'{col}{r}')
                 while j < n and info[j][2] is not None and _col(info[j][0]) == _col(info[j - 1][0]) + 1:
@@ -119,7 +125,7 @@ def unshare(xml):
     return CELL.sub(cell, xml)
 
 
-def share_file(path):
+def share_file(path, keep=None):
     """Share the formulas of every worksheet of the workbook at path, in place. Returns (formulas, groups, cells
     written as references to their group's first cell)."""
     tot = [0, 0, 0]
@@ -128,7 +134,7 @@ def share_file(path):
         for item in zin.infolist():
             data = zin.read(item.filename)
             if item.filename.startswith('xl/worksheets/sheet') and item.filename.endswith('.xml'):
-                xml, st = share(data.decode('utf-8'))
+                xml, st = share(data.decode('utf-8'), keep)
                 tot = [a + b for a, b in zip(tot, st)]
                 data = xml.encode('utf-8')
             zout.writestr(item, data)
