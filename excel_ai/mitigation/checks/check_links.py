@@ -6,11 +6,11 @@ name, the tab's header row and its formula columns left as they are, the old row
     python check_links.py [data workbook]     (default: data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx)
 
 Test A (identity, no recalculation): a data workbook made from the prototype's own tabs, columns in reverse order and an
-extra column; the update must give back every cell of every linked tab. Test B (the dummy data workbook): every
+extra column; the update must give back every cell of every linked tab. Test B (the data edition's workbook): every
 link finds its table and every prototype column in it, the country has rows; the prototype recalculated in LibreOffice after the
 update has no error values in the plain scenario group (group 1) and MTOutputs block 1; a link whose data fail the
 sanity check (negative retail prices: the model needs positive prices) is reported and left out of that run; the change
-of the key results is reported (dummy values differ from the shipped Egypt data).
+of the key results is reported (none when the edition's data are the shipped data, as Public01 in 1.1.0).
 Report: check_links_report_v0.7.1.md.
 """
 import os as _os, sys as _sys  # the excel_ai code folders and data/scripts on the path (core/tools/xlpaths.py)
@@ -194,7 +194,7 @@ def main():
         f'LibreOffice: new error values in group 1 (2022-2040) and MTOutputs block 1: {len(errs)} {errs[:10]} '
         f'{"OK" if good else "FAIL"}')
     lo, lo0 = vals['MTOutputs'], shipped['MTOutputs']
-    log('- key results of the baseline (MTOutputs block 1, 2030), shipped Egypt data -> dummy data:')
+    log('- key results of the baseline (MTOutputs block 1, 2030), shipped data -> the data workbook:')
     y = B.MTO_C0 + 2030 - B.BASE_YEAR
     for r in range(B.MTO_R0 + 1, B.MTO_R0 + B.MTO_BLOCK):
         stem = lo.cell(r, B.MTO_C0 + B.NY + 2).value       # v1.0.4: helper column, code stem
