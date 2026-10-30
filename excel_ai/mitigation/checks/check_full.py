@@ -3347,7 +3347,8 @@ def check_consistency(ws):
     ok &= good
     log(f'- equations: {os.path.basename(EQ.OUT)} regenerated from the workbook, {n_eq} variables; every variable of the '
         f'dictionary has its equation {"OK" if good else "FAIL " + str(miss_eq[:8])}')
-    cur = [f for d in ('', 'presentation') for f in os.listdir(os.path.join(HERE, d))
+    dirs = ('', 'checks', 'extract', 'docs', os.path.join('docs', 'presentation'))   # 2026-10-30: the subfolders
+    cur = [f for d in dirs for f in os.listdir(os.path.join(HERE, d))
            if os.path.isfile(os.path.join(HERE, d, f)) and f.endswith(('.py', '.md', '.js', '.bas'))]
     off = [f for f in cur if re.search(r'[_-]v\d+[._]\d+', f)]   # v0.8.0: stable names (releases are git tags)
     ok &= not off

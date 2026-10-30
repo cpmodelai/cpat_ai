@@ -1,6 +1,6 @@
 # Mitigation prototype: sources
 
-The sources of the mitigation prototype: every version in [`releases/`](releases/) (`CPAT-AI-Mitigation-Prototype_v<version>.xlsm`), the permalinked copy in [`../active_workbooks/`](../active_workbooks/) (`_latest`, the copy people open and other modules link to). Rules: [`../core/NORMS.md`](../core/NORMS.md). Open work: [`../core/TODO.md`](../core/TODO.md).
+The sources of the mitigation prototype: every version in [`releases/`](releases/) (`CPAT-AI-Mitigation-Prototype_v<version>.xlsm`), the permalinked copy in [`../active_workbooks/`](../active_workbooks/) (`CPAT-AI-Mitigation-Prototype_latest.xlsm`, the copy people open and other modules link to). Rules: [`../core/NORMS.md`](../core/NORMS.md). Open work: [`../core/TODO.md`](../core/TODO.md).
 
 ## Read
 
