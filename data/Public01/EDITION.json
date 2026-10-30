@@ -13,10 +13,10 @@
   "date": "2026.10.30"
  },
  "files": {
-  "data_sources.csv": "905ae31c9be6519a00793223fc4dad0bc862958e2018cd05b7ef53c7ec3b8de4",
+  "data_sources.csv": "6cd93dbff08f402069b84af25b8672c8e03cd56bd8f71bb38a92381a1fe7f857",
   "inputs/baseline_co2.csv": "67c3c6b07077ca9c39ec33b5731eb070b60c199dd3196d6ee988ee04e2cf4911",
   "legacy/CPAT 1.0pre_465_Public01.xlsb": "cdff203aacb53a937bb1e1ef28286ef5c047810ab33227463a4ea443db75de1a",
-  "legacy_xlsx/CPAT_LegacyData.xlsx": "19bb0551831dde60d9cb515e278ad0b11fb8f34cda3c79d464ed9655c7fe035e",
+  "legacy_xlsx/CPAT_LegacyData.xlsx": "e6d0063db4279e0f3ddb54c74542a9727e9467599b8c8fb28ba13fb55abe7465",
   "tidy/_layout/aspire.json": "c98387899cf30900a0364faed1431550031d073fba452fdc2540e0dd8989d054",
   "tidy/_layout/aspire.rows.csv": "b026363cf9298e302aa4d41bc86ca7c790250e332549299493a733234f55d348",
   "tidy/_layout/ch4_inputs.json": "fa751c93f86b1a5bbebd8996b41475fa2818f4e328b4679711fdf9c952890d6f",
@@ -323,7 +323,7 @@
   "tidy/power_wacc_previous.csv": "00358ac850e9bb2f62440efbfa319dbee9f81409cdfae83e9c33188acf73db72",
   "tidy/prices_domestic.csv": "0d116595e386db122dbed93f6735ab772f32d4f4fabbf01b633865908a54346a",
   "tidy/prices_domestic_corrections.csv": "a8194e6e308661e0553deb2dd7ec90833809263fb6a51d2a3a930da64795d846",
-  "tidy/range_anxiety_fit.csv": "7ea49588c02454461c7478bce5dfe977a635ed9da875c7eb21e23f0a134fe548",
+  "tidy/range_anxiety_fit.csv": "e3c277f82d22377c7fc729acd88c6b492887e27797586f65af4d75d8a22aa53c",
   "tidy/scc.csv": "997e3babb93a5c51e64c57e071c6c44c003580ec1f1116fc10c3e9af423870c3",
   "tidy/tran_scatter.csv": "e4c1ee48f201323e9618719a31b7707b2ea23b925de0341f06afdc16a9ef2f32",
   "tidy/transport3_range_anxiety.csv": "83b93073db5a315f8c23f003d5ada5ac70e7223d61e5e9b67ccad416d1d5ea56",

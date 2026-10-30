@@ -1,2 +1,2 @@
 country,passenger,freight,cycle,fit_year,residual_passenger,residual_freight,residual_cycle,iterations,source
-EGY,71335.031198,603242.300526,1213.950879,2025,1.310e-07,5.412e-07,-1.777e-07,7,ra_goalseek.py on CPAT-AI-Mitigation-Prototype_quick.xlsx (scenario 1)
+EGY,64064.354283,469574.408675,1027.021993,2025,2.505e-07,7.946e-07,8.634e-07,12,ra_goalseek.py on CPAT-AI-Mitigation-Prototype_quick.xlsx (scenario 1)

@@ -36,7 +36,7 @@ PERTURBED = {'energy_balances.csv', 'energy_consumption.csv', 'prices_domestic.c
 # Public01: tables computed from the real data before the perturbation (empty once rebuilt on the perturbed data)
 DERIVED_REAL = {'Public01': {'xai_legacy_cached_baseline.csv', 'xai_legacy_engineer_reference.csv',
                              'xai_legacy_power_reference.csv', 'xai_legacy_transport_reference.csv',
-                             'xai_legacy_mtoutputs_465.csv', 'range_anxiety_fit.csv'}}
+                             'xai_legacy_mtoutputs_465.csv'}}
 PERTURBATION = {'scripts': 'data/scripts/perturb_proprietary.py, data/scripts/legacy_proprietary.py fill',
                 'delta': 0.03, 'factors_stored': False}
 
