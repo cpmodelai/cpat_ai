@@ -57,7 +57,7 @@ def log(msg, ok=True):
 
 
 def structure(wb):
-    tail = ['REF->>'] + [t for t, _b in B.MERGES[2:]]
+    tail = ['REF->>'] + B.REF_TABS
     log(f'tab order (main, inputs, data, reference last; {len(wb.sheetnames)} tabs)',
         wb.sheetnames[:len(B.TAB_ORDER)] == B.TAB_ORDER and wb.sheetnames[-len(tail):] == tail)
     long_, lits, missing = [], {}, set()
@@ -71,7 +71,7 @@ def structure(wb):
                     continue
                 n += 1
                 if not C.LAMBDA_CALL.search(v):
-                    if len(v) > 100:
+                    if B.formula_len(v) > 100:                  # v1.2.0: sheet qualifiers not counted
                         long_.append(f'{ws.title}!{c.coordinate}')
                     x = v
                     for rx, _w in C.ALLOWED:

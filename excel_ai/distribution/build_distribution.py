@@ -71,7 +71,7 @@ VERSION_LOG = [  # version, date, change
 ]
 
 # the tabs of the module, in order (Cover is added); everything else of the prototype is dropped
-TABS = ['ScenarioDefinition', 'FromMitigation', 'Distribution', 'Settings', 'DATA_DISTN->>', 'DistMapping',
+TABS = ['ScenarioDefinition', 'FromMitigation', 'Distribution', P.TAB_CM, 'DATA_DISTN->>', 'DistMapping',
         'IO_GTAP', 'HHSurvey', 'HH_Elast', 'ASPIRE', 'WHOCooking', 'GDPRatios', 'WEO']
 TAB_INFO = [  # tab, content
     ('Cover', 'This page: what the module is, the link to the mitigation workbook, the buttons'),
@@ -80,7 +80,8 @@ TAB_INFO = [  # tab, content
     ('FromMitigation', 'The inputs from Mitigation (section 19a of the mitigation workbook): values, refreshed by '
                        'Update from Mitigation'),
     ('Distribution', 'The model: household incidence by decile in the analysis year, one column group per scenario'),
-    ('Settings', 'Constants and lookups (the mitigation ones are values here)'),
+    (P.TAB_CM, 'Settings, constants, mappings and the data step of the mitigation workbook (those Mitigation reads are '
+               'values here)'),
     ('DistMapping ... WEO', 'The data tabs: mappings, input-output table, household survey, elasticities, ASPIRE, '
                             'cooking fuels, GDP ratios, WEO'),
 ]

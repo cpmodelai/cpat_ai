@@ -374,9 +374,9 @@ def mt_used():
         _MT_TPL.update({r: tpl.cell(r, 6).value for r in range(8, tpl.max_row + 1)})
     mt = dict(_MT_TPL)
     par = {r['key']: r['value'] for r in read('transport_params.csv')}     # v0.3.5: transport policy rows (defaults)
-    for i, (k, *_x) in enumerate(B.TR_MT):
+    for k, name, *_x in B.TR_MT:                     # v1.2.0: rows by name (layout MT_EXTRA)
         v = TM.fnum(par[k])
-        mt[B.MT_TR0 + 1 + i] = int(v) if isinstance(v, float) and v.is_integer() and v >= 1000 else v
+        mt[B.MT_NAMES[name]] = int(v) if isinstance(v, float) and v.is_integer() and v >= 1000 else v
     for name, _lab, _unit, v in B.PW_MT_NEW:        # v0.5.4: power rows after the transport rows
         mt[B.MT_NAMES[name]] = v
     return mt
@@ -2664,7 +2664,7 @@ def check_results_memos(ws):
     ok5 = w5 < 1e-9
     # v0.3.17: section 18 from the settings, the data and the source rows
     w6, n6, at6 = 0.0, 0, None
-    st = ws.parent['Settings']
+    st = ws.parent[B.TAB_CM]                         # v1.2.0: the Settings block, rows as before
     sv = lambda r: st.cell(r, 3).value
     tgt, tyr, gr, nsrc, gsrc, rho, eta, epa = (sv(r) for r in range(33, 41))
     rk = {r['code']: float(r['central_usd_per_tco2']) for r in read('scc.csv')}
@@ -2965,7 +2965,7 @@ def check_power_features():
         f'revenue 2030: carbon-based {cell(("rexs", ""), 9, 2030):,.1f}, manual {cell(("rexm", ""), 9, 2030):,.1f} USD m')
     # the global switch PwDeficitGas (Settings C45) with tight scale-up limits in scenarios 1 and 2
     wb = openpyxl.load_workbook(B.OUT)
-    wb['Settings']['C45'].value = 'Yes'
+    wb[B.TAB_CM]['C45'].value = 'Yes'                 # v1.2.0: Settings block of Constants and Mappings
     for g in (1, 2):
         for k, v in PW_GLOBAL.items():
             mt_set(wb['ScenarioDefinition'], B.MT_COL0 + g - 1, k, v)
@@ -3536,7 +3536,7 @@ def check_outline(wsf):
         f'ScenarioCompare: {"OK" if first else "FAIL"}; Mitigation zoom 75%: '
         f'{"OK" if zoom else "FAIL"}')
     want = B.TAB_ORDER                                   # v0.3.6: consolidated tabs; reference group last
-    tail = ['REF->>'] + [t for t, _b in B.MERGES[2:]]
+    tail = ['REF->>'] + B.REF_TABS
     tabs = wbf.sheetnames[:len(want)] == want and wbf.sheetnames[-len(tail):] == tail
     ok &= tabs
     log(f'- tab groups MAIN->>, INPUTS->>, DATA->>, REF->> (last) in that order: {"OK" if tabs else "FAIL " + str(wbf.sheetnames[:22])}')
@@ -3792,7 +3792,7 @@ def check_formula_length():
             for c in row:
                 v = c.value
                 if isinstance(v, str) and v.startswith('='):
-                    k = len(v.replace('_xlfn.', '').replace('_xlpm.', ''))
+                    k = B.formula_len(v)                          # v1.2.0: sheet qualifiers not counted
                     n += 1
                     is_lam = bool(LAMBDA_CALL.search(v))
                     lam_calls += is_lam

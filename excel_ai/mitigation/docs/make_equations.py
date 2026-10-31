@@ -65,7 +65,7 @@ SETTINGS = {}
 
 def load():
     wb = openpyxl.load_workbook(B.OUT, read_only=True)
-    for i, row in enumerate(wb['Settings'].iter_rows(max_col=2, values_only=True), 1):
+    for i, row in enumerate(wb[B.TAB_CM].iter_rows(max_col=2, max_row=90, values_only=True), 1):
         if isinstance(row[1], str):
             SETTINGS[i] = row[1].split(' (')[0][:50]
     rows = [list(r) for r in wb['Mitigation'].iter_rows(max_col=YCOLS[-1] + 1, values_only=True)]

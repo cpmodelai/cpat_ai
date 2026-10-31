@@ -1346,16 +1346,37 @@ TR_MT = ([(f'{k}|{cp}', f'Tr{stem}{cs}', f'{lab}, {cl.lower()}', unit) for k, st
           for c, cp, cl, cs in TR_CLS] + TR_POLICY1)                 # (engine key, NameOfParameter, label, unit)
 TR_MT_NAME = {k: n for k, n, *_x in TR_MT}
 MT_TEMPLATE_LAST = 413                  # last row of the legacy MTInputs template (465; 456 had 415)
-MT_TR0 = MT_TEMPLATE_LAST + 2           # v0.3.5: heading of the transport policy rows (after a blank row)
-MT_TR_END = MT_TR0 + len(TR_MT)         # last transport policy row
-MT_PW0 = MT_TR_END + 2                  # v0.5.4: heading of the power rows after the template (after a blank row)
-MT_END = MT_PW0 + len(PW_MT_NEW)        # last MTInputs row read by the model (template, transport and power rows)
+# v1.2.0 (user 2026-10-31): the rows the prototype adds below the legacy table, in three parts: new policies,
+# treatment of existing policies, model settings (the per-scenario ones here; the global ones below, appendix).
+# Coded CPAT and the checks read these rows by NameOfParameter, never by position.
+TR_EXISTING = {n for _k, n, *_x in TR_MT if n.startswith(('TrAdvIceBase', 'TrAdvBevBase'))}
+MT_EXTRA = (
+    [('band', 'New policies (rows the prototype adds below the legacy table; per scenario)'),
+     ('head', 'Road transport: engineer road model policies (legacy Dashboard rows 61-98, all off by default; used '
+              'when TrModel = Engineer)')]
+    + [('row', n) for _k, n, *_x in TR_MT if n not in TR_EXISTING]
+    + [('blank',), ('head', 'Power: new renewable energy subsidy'), ('row', 'RenSubsidyAddStartYear'),
+       ('blank',), ('head', 'Carbon tax: coverage of biomass'), ('row', 'CTaxCoversBiomass'),
+       ('blank',), ('band', 'Treatment of existing policies (per scenario)'),
+       ('head', 'Road transport: purchase taxes of the baseline')]
+    + [('row', n) for _k, n, *_x in TR_MT if n in TR_EXISTING]
+    + [x for nm, lab in (('ConsSubPhaseScope', 'Consumer subsidy phase-out: the prices it applies to (1 = yes)'),
+                         ('PriceCtrlPhaseScope', 'Price-control phase-out: the prices it applies to (1 = yes)'),
+                         ('ProdSubPhaseScope', 'Producer subsidy phase-out: the fuels it applies to (1 = yes)'))
+       for x in [('blank',), ('head', lab)] + [('row', n) for n, *_x in PW_MT_NEW if n.startswith(nm + '_')]]
+    + [('blank',), ('band', 'Model settings (per scenario here; global settings below)'),
+       ('head', 'Form of the model'), ('row', 'ModelForm')])
+MT_EXTRA_ROW = {}                       # layout row -> entry
+for _i, _e in enumerate(MT_EXTRA, MT_TEMPLATE_LAST + 2):
+    MT_EXTRA_ROW[_i] = _e
+assert sorted(n for k_, *n in MT_EXTRA if k_ == 'row' for n in n) == sorted(
+    [n for _k, n, *_x in TR_MT] + [n for n, *_x in PW_MT_NEW]), 'every added MTInputs row placed once'
+MT_END = max(MT_EXTRA_ROW)              # last MTInputs row read per scenario (template, then the added rows)
 TR1_CAP, TR2_CAP, GHG_CAP, METH_CAP = 6000, 9000, 6000, 6000     # v0.4.5: rows of the key columns (all countries)
 GHG_R0, GHG_R1, GHG_KEYCOL = 8, 947, 53     # v0.4.7: legacy GHGs inventory rows (at legacy addresses), key column BA
-MT_NAMES.update({n: MT_TR0 + 1 + i for i, (_k, n, *_x) in enumerate(TR_MT)})
-MT_LABELS.update({MT_TR0 + 1 + i: lab for i, (_k, _n, lab, _u) in enumerate(TR_MT)})
-MT_NAMES.update({n: MT_PW0 + 1 + i for i, (n, *_x) in enumerate(PW_MT_NEW)})    # v0.5.4
-MT_LABELS.update({MT_PW0 + 1 + i: lab for i, (_n, lab, *_x) in enumerate(PW_MT_NEW)})
+MT_NAMES.update({e[1]: r for r, e in MT_EXTRA_ROW.items() if e[0] == 'row'})        # v1.2.0: by the layout
+MT_LABELS.update({MT_NAMES[n]: lab for _k, n, lab, _u in TR_MT})
+MT_LABELS.update({MT_NAMES[n]: lab for n, lab, *_x in PW_MT_NEW})
 POL[:] = [x[:5] + (MT_NAMES[SCOPE_ROWS[x[0]][1] if x[0] in SCOPE_ROWS else x[0]],)
           if (x[0] in MT_NAMES or x[0] in SCOPE_ROWS) and x[4] == 'mt' and x[5] == 0 else x for x in POL]
 MT_KEYS[:] = [(k, MT_NAMES[SCOPE_NAME.get(k, k.split('|')[0])] if r == 0 else r) for k, r in MT_KEYS]
@@ -1447,7 +1468,7 @@ def _build_tr_spec():
       plain=lambda x: f'=IF({x.col}${R_SCEN}>1,1,0)')
     _th('Policies (MTInputs rows after the template, scenario-specific; legacy Dashboard rows 61-98)')
     for k, name, lab, unit in TR_MT:
-        _tv(name, lab, unit, f'MTInputs row {MT_TR0 + 1 + [n for _k, n, *_x in TR_MT].index(name)} (v0.3.5; legacy '
+        _tv(name, lab, unit, f'MTInputs row {MT_NAMES[name]} (v0.3.5; legacy '
             f'{TR_PAR[k]["description"].split("(")[-1].rstrip(")")})', 'MTInputs row (Mapping)',
             src='MTInputs (scenario column)')
         T(name, name, 'all', 'all', kind='mt', fmt='0' if unit == 'year' else 'General')
@@ -5317,7 +5338,7 @@ LAMBDAS = {   # every calculated row calls one of these in the right column (LAS
     'ETSPRICE': (['ets_on', 'override', 'override_price', 'estimate', 'carbon_price'],
                  'IF(ets_on=1,IF(LEFT(override,3)="Yes",IF(override_price="",carbon_price,override_price),estimate),0)'),
     'OBRSHARE': (['benchmark'], 'MIN(1,MAX(0,benchmark))'),
-    'VOLPICK': (['label', 'values'], 'INDEX(values,MATCH(SUBSTITUTE(label,"*",""),Settings!$C$16:$F$16,0))'),
+    'VOLPICK': (['label', 'values'], 'INDEX(values,MATCH(SUBSTITUTE(label,"*",""),ETSVolLab,0))'),   # v1.2.0: a name
     'VOLADJ': (['volatility', 'impact', 'ct_risk'], '(1+ct_risk*impact)/(1+volatility*impact)'),
     'COVERED': (['emissions', 'coverage'], 'SUMPRODUCT(emissions,coverage)'),
     'CAPCHANGE': (['year', 'start_yr', 'target_yr', 'change_start', 'change_target'],
@@ -5474,7 +5495,7 @@ LAMBDAS = {   # every calculated row calls one of these in the right column (LAS
                     'st_hours*vre*cph+2*MAX(0,vre-lt_start)/(1-lt_start)^2*lt_cost*lt_units'),
     'POWERSUPPLY': (['gen_cost', 'tmc'], 'gen_cost+tmc'),
     'POWERPRICE': (['year', 'pos', 'price_prev', 'pass', 'sc_now', 'sc_prev', 'vat_rate'],
-                   'IF(year<=Settings!$C$10,HIST,price_prev+pass*(sc_now-sc_prev)*(1+vat_rate))'),   # HIST: below
+                   'IF(year<=LastHist,HIST,price_prev+pass*(sc_now-sc_prev)*(1+vat_rate))'),   # HIST: below
     'ENDUSERPOWER': (['pre_policy_p', 'policy_cost', 'pass', 'vat_rate', 'rebate', 'excise', 'min_price'],   # v0.5.4
                      'MAX(pre_policy_p+(policy_cost*pass*(1-rebate)+excise)*(1+vat_rate),min_price)'),   # v0.5.6: floor (I60)
     'SUBSIDYGAP': (['supply_cost', 'pre_policy_p', 'vat_rate'], 'pre_policy_p/(1+vat_rate)-supply_cost'),
@@ -6336,6 +6357,7 @@ def build_inputs_mult(wb):
     for k, lab in enumerate(labels):
         put(ws, f'A{IMULT_HDR + k}', lab, FONT_B, F_INPUT)
     lc = L(len(cols) + 1)
+    hl = L(len(cols) + 3)                          # v1.2.0: helper column, the lag index of each row
     grow = lambda k, c: f'INDEX(${L(2)}${IMULT_HDR + k}:${lc}${IMULT_HDR + k},{c}${IMULT_HDR + 9})'   # income group's
     for j, (g, rng, i, sg) in enumerate(cols, 2):
         c = L(j)
@@ -6354,14 +6376,16 @@ def build_inputs_mult(wb):
                                med, sd, sg, r0, r1, gcol, gmed]):
             formula = isinstance(v, str) and v.startswith('=')
             put(ws, f'{c}{IMULT_HDR + k}', v, FONT_B if k == 0 else FONT, F_INPUT if 0 < k and not formula else None)
-        lag = lambda r: f'MIN($A{r},MultLastLag)+1'
+        lag = lambda r: f'${hl}{r}'              # v1.2.0: the lag index (helper column, short formulas)
         src = 'MultMan' if g == 'man' else 'MultD'
         for t in range(MULT_LAGS):
             r = IMULT_R0 + t
             put(ws, f'{c}{r}', f'=INDEX({src},{c}${IMULT_HDR + 4},{lag(r)})+{c}${IMULT_HDR + 6}*INDEX(MultD,'
                                f'{c}${IMULT_HDR + 5},{lag(r)})', FONT, None, '0.00')
+    put(ws, f'{hl}{IMULT_HDR}', 'Lag index (MIN(lag, MultLastLag) + 1)', FONT_B, F_INPUT)
     for t in range(MULT_LAGS):
         put(ws, f'A{IMULT_R0 + t}', t, FONT)
+        put(ws, f'{hl}{IMULT_R0 + t}', f'=MIN($A{IMULT_R0 + t},MultLastLag)+1', FONT_HELP, None, '0')
     assert len(cols) + 1 <= 208, 'MultKey range (B:GZ) too short'
 
 
@@ -6797,29 +6821,26 @@ def build_mtinputs(wb):
     assert len(unit_fix) == len(L134_UNITS), unit_fix
     names = {src.cell(r, 8).value: r for r in range(8, src.max_row + 1) if src.cell(r, 8).value}
     rows_ = [(r, src.cell(r, 8).value, unit_fix.get(r, src.cell(r, 6).value)) for r in range(8, src.max_row + 1)]
-    put(ws, f'B{MT_TR0}', 'Transportation: engineer road model policies (legacy Dashboard rows 61-98, all off '
-                          'by default; used when TrModel = Engineer)', FONT_B)
-    for i, (k, n, lab, unit) in enumerate(TR_MT):          # v0.3.5: rows after the template (section 5b)
-        r, v = MT_TR0 + 1 + i, _tr_num(TR_PAR[k]['value'])
-        for j, x in zip(range(2, 9), (lab, unit, None, None, v, v, n)):
-            d = ws.cell(r, j, x)
-            t = src.cell(MT_NAMES['TrModel'], j)
-            d.font, d.fill, d.border, d.alignment = copy(t.font), copy(t.fill), copy(t.border), copy(t.alignment)
-            d.number_format = '0' if unit == 'year' else 'General'
-        names[n] = r
-        rows_.append((r, n, v))
-    put(ws, f'B{MT_PW0}', 'Inputs the prototype adds, per scenario: power (v0.5.4; legacy fixes), the scope of carbon-tax '
-                          'coverage of biomass and of the subsidy and price-control phase-outs (v0.5.6; were Constants) and '
-                          'the form of the demand equations (ModelForm, v1.0.2)', FONT_B)
-    for i, (n, lab, unit, v) in enumerate(PW_MT_NEW):     # v0.5.4: power rows after the transport rows
-        r = MT_PW0 + 1 + i
-        for j, x in zip(range(2, 9), (lab, unit, None, None, v, v, n)):
-            d = ws.cell(r, j, x)
-            t = src.cell(MT_NAMES['RenSubsidyAddPhaseoutYrs'], j)
-            d.font, d.fill, d.border, d.alignment = copy(t.font), copy(t.fill), copy(t.border), copy(t.alignment)
-            d.number_format = '0' if unit == 'year' else 'General'
-        names[n] = r
-        rows_.append((r, n, v))
+    spec = {n: (lab, unit, _tr_num(TR_PAR[k]['value']), 'TrModel') for k, n, lab, unit in TR_MT}
+    spec.update({n: (lab, unit, v, 'RenSubsidyAddPhaseoutYrs') for n, lab, unit, v in PW_MT_NEW})
+    last_col = MT_COL0 + len(SCENARIOS) + len(DEFINITIONS) - 1
+    for r, e in MT_EXTRA_ROW.items():                  # v1.2.0: new policies, existing policies, model settings
+        if e[0] == 'band':
+            for j in range(2, last_col + 1):
+                ws.cell(r, j).fill = F_BAND
+            put(ws, f'B{r}', e[1], FONT_BAND, F_BAND)
+        elif e[0] == 'head':
+            put(ws, f'B{r}', e[1], FONT_HEAD)
+        elif e[0] == 'row':
+            n = e[1]
+            lab, unit, v, like = spec[n]
+            for j, x in zip(range(2, 9), (lab, unit, None, None, v, v, n)):
+                d = ws.cell(r, j, x)
+                t = src.cell(MT_NAMES[like], j)
+                d.font, d.fill, d.border, d.alignment = copy(t.font), copy(t.fill), copy(t.border), copy(t.alignment)
+                d.number_format = '0' if unit == 'year' else 'General'
+            names[n] = r
+            rows_.append((r, n, v))
     for k in MT_SCENARIO_INPUTS[1]:
         assert k in names, k
     flags = {1: 'Baseline (stored once)', 2: 'Live (batch target)'}
@@ -6994,6 +7015,8 @@ def build_mapping(wb):
 # v0.5.6 (MTInputs_Appendix_Plan): global inputs appended at the bottom of MTInputs; their old cells read them, so the
 # defined names, LAMBDAs and lookups stay. (sheet, locator, NameOfParameter, label, unit, legacy source)
 MT_APPX_SETTINGS = [  # block C (2b) and the duplicates of 2a whose coding is the same
+    ('C4', 'CountryCode', 'Country code (ISO3): every data tab is keyed by it', 'code', 'legacy Dashboard country'),
+    ('C7', 'BaseYear', 'Base year (first model year; the data and calibration year)', 'year', 'legacy 2022'),
     ('C10', 'LastHistPriceYear', 'Last historical price year (LastHist)', 'year', 'prototype'),
     ('C14', 'ETSOBREffectiveness', 'ETS: relative effectiveness of output-based allocation (OBREff)', 'share', 'legacy hardcoded'),
     ('C15', 'ETSNextPriceExponent', 'ETS: convergence exponent of the next-price proposal', 'exponent', 'legacy row 1966'),
@@ -7003,6 +7026,8 @@ MT_APPX_SETTINGS = [  # block C (2b) and the duplicates of 2a whose coding is th
     ('C54', 'AveragePriceMethod', 'Average price change reported: Legacy* / Laspeyres (PavMethod)', 'option', 'prototype (I31)'),
     ('C45', 'PwDeficitGas', 'Power: investment deficit after the second round to gas (Yes / No)', 'switch', 'legacy E4248'),
     ('C66', 'PwCoalICTariff', 'Power: coal implicit cost in generation costs and tariffs (Yes / No)', 'switch', 'prototype (P5)'),
+    ('C21', 'PwSpotPricesAll', 'Power: use spot fuel prices in every scenario (Yes; No = each scenario\'s own switch, '
+                               'UseSpotFuelPricesInEngineerModel)', 'switch', 'legacy option'),
 ]
 MT_APPX_DUP = [  # 2a: Settings cells that repeat a template row: they now read it (scenario 1)
     # C21 SpotPow stays: a global override OR the scenario's own switch (v0.5.4), not a duplicate of row 368
@@ -7016,11 +7041,15 @@ MT_APPX_CONST = ['PassLo', 'PassMid', 'PassHi', 'PriceFloor', 'EFEndYear', 'Meth
 
 
 def append_mt_appendix(wb):
-    """v0.5.6: blocks A (road parameters, TransportParams), B (power: transmission share), C (Settings) and D
-    (Constants) appended below the last MTInputs row; values in every scenario column (J typed, others = J: global
-    rows); the old cells become =ScenarioDefinition!$J$row."""
+    """v0.5.6: the global inputs appended below the last MTInputs row; values in every scenario column (J typed, others
+    = J: global rows); the old cells become =ScenarioDefinition!$J$row. v1.2.0 (user 2026-10-31): part of the Model
+    settings, ordered general (country, years, prices, ETS, SCC), power, road engineer model, choices of the constants;
+    the country code, base year and the spot-price override move here from Settings."""
     mt, n_sc = wb['ScenarioDefinition'], len(SCENARIOS) + len(DEFINITIONS)
-    r = MT_END + 2
+    r = MT_END + 1
+    put(mt, f'B{r + 1}', 'Global model settings: one value for every scenario (type it in column J; the other columns '
+                         'repeat it)', FONT_B)
+    r += 1
     def row(name, lab, unit, val, src, where):
         nonlocal r
         r += 1
@@ -7033,9 +7062,22 @@ def append_mt_appendix(wb):
     def head(t):
         nonlocal r
         r += 2
-        put(mt, f'B{r}', t, FONT_B)
-    head('A. Road engineer model: parameters and options (v0.5.6; legacy Dashboard rows 540-559; global rows, read by '
-         'sheet TransportParams)')
+        put(mt, f'B{r}', t, FONT_HEAD)
+    head('General: country, years, prices, ETS, social cost of carbon (read by tab Constants and Mappings, block '
+         'Settings)')
+    st = wb['Settings']
+    for cell, name, lab, unit, src in MT_APPX_SETTINGS:
+        v = st[cell].value
+        if isinstance(v, str) and v.startswith('='):
+            continue
+        st[cell].value = row(name, lab, unit, v, src, f'Settings {cell}')
+    for cell, name, conv in MT_APPX_DUP:
+        st[cell].value = '=' + (conv.format(x=mt_setting(name)[1:]) if name else conv)
+    head('Power: model choices (legacy Dashboard Q197)')
+    row('TransmissionCostShare', 'Share of transmission capex in the levelised cost of new plants (legacy '
+        'IncludeTransmissionCostsInGenerationCostsPercent)', 'share', 1, 'legacy Dashboard Q197', 'name TrCostShare')
+    head('Road engineer model: parameters and options (legacy Dashboard rows 540-559; read by sheet TransportParams)')
+    r_head = r
     tp = wb['TransportParams']
     for rr in range(1, tp.max_row + 1):
         k, use = tp.cell(rr, 1).value, None
@@ -7049,19 +7091,10 @@ def append_mt_appendix(wb):
         tp.cell(rr, 2).value = row('Tr_' + re.sub(r'[^A-Za-z0-9]', '_', k), str(tp.cell(rr, 4).value or k), 
                                    str(tp.cell(rr, 3).value or ''), v, 'legacy ' + str(tp.cell(rr, 5).value or ''),
                                    f'TransportParams {k}')
-    head('B. Power: model choices (v0.5.6; legacy Dashboard Q197; global)')
-    row('TransmissionCostShare', 'Share of transmission capex in the levelised cost of new plants (legacy '
-        'IncludeTransmissionCostsInGenerationCostsPercent)', 'share', 1, 'legacy Dashboard Q197', 'name TrCostShare')
-    head('C. CPAT-AI settings (v0.5.6; global; Settings reads these rows)')
-    st = wb['Settings']
-    for cell, name, lab, unit, src in MT_APPX_SETTINGS:
-        v = st[cell].value
-        if isinstance(v, str) and v.startswith('='):
-            continue
-        st[cell].value = row(name, lab, unit, v, src, f'Settings {cell}')
-    for cell, name, conv in MT_APPX_DUP:
-        st[cell].value = '=' + (conv.format(x=mt_setting(name)[1:]) if name else conv)
-    head('D. Choices from Constants (v0.5.6; global; Constants reads these rows)')
+    if r == r_head:                                   # no global road parameter left (all are policy rows)
+        mt.cell(r, 2).value = None
+        r -= 2
+    head('Choices of the constants (read by tab Constants and Mappings, block Constants)')
     cs = wb['Constants']
     for key in MT_APPX_CONST:
         if key not in CONST_ROW:
@@ -7445,8 +7478,8 @@ def build_settings(wb):
          'Scenario 1 fuel use, prices, revenues: 0 vs v0.3.3; CO2 back to uncalibrated (v0.3.1 levels)'),
         ('0.3.5', '2026-10-14', 'Engineer road transport model (legacy section 5 with 17 bugs fixed, '
                               'Methods, chapter Transport) as section 5b of every scenario group: data sheets '
-                              'Transport1-3, TransportParams, TransportPaths; transport policies in MTInputs rows '
-                              f'{MT_TR0 + 1}-{MT_TR_END}; switch TrModel (MTInputs row 338, default Elasticity): Engineer '
+                              'Transport1-3, TransportParams, TransportPaths; transport policies in the MTInputs rows '
+                              'after the template (New policies; baseline taxes: Treatment of existing policies); switch TrModel (MTInputs row 338, default Elasticity): Engineer '
                               'replaces road gasoline, diesel, LPG, gas and biofuels (section 5, ener) and road '
                               'electricity demand (section 3 H) (Methods, chapter Transport).',
          '0 on all v0.3.4 codes (Elasticity by default)'),
@@ -8816,8 +8849,8 @@ def build_inputs_powerdata(wb):
     for i, (f, name) in enumerate(PW_TECH):
         r = IPT_R0 + i
         t = PW_LEG.get(f, f)
-        pc = lambda rng: (f'IF(INDEX({rng},{c(PT_HELP[3], r)})>0,INDEX({rng},{c(PT_HELP[3], r)}),'
-                          f'INDEX({rng},{c(PT_HELP[2], r)}))')
+        pc = lambda rng: (f'INDEX({rng},IF(INDEX({rng},{c(PT_HELP[3], r)})>0,{c(PT_HELP[3], r)},'
+                          f'{c(PT_HELP[2], r)}))')                      # v1.2.0: one INDEX (shorter, same value)
         ps = lambda rng: f'IF({c(PT_HELP[1], r)}="W",INDEX({rng},{c(PT_HELP[2], r)}),{pc(rng)})'
         out, inp, cf = c(PT_HELP[6], r), c(PT_HELP[7], r), c('capacity_factor', r)
         act = f'{out}/({inp}*KtoeGWh)'
@@ -8826,7 +8859,7 @@ def build_inputs_powerdata(wb):
              'efficiency': f'=IFERROR(IF({act}<PsMinTE,{c(PT_HELP[8], r)},{act}),{c(PT_HELP[8], r)})',
              'capacity_factor': (f'=IF(AND({c(PT_HELP[18], r)}>{c(PT_HELP[19], r)},{c(PT_HELP[18], r)}<PsCFMax),'
                                  f'{c(PT_HELP[18], r)},{c(PT_HELP[16], r)})'),            # v0.4.10: L53 fixed
-             'wacc': (f'=IF(LEFT(PsWaccSrc,7)="Country",PsCtryWacc+PsCoalAdj,IF(PsWaccSrc="Tech",PsCtryWacc+'
+             'wacc': (f'=IF(PsWaccCty,PsCtryWacc+PsCoalAdj,IF(PsWaccSrc="Tech",PsCtryWacc+'
                       f'{c(PT_HELP[10], r)},{c(PT_HELP[9], r)}))'),
              'dtc_usd_per_kw': f'=INDEX(PowE,{c(PT_HELP[4], r)})*{c("cax0_usd_per_kw", r)}',
              'tcx_usd_per_kw': f'=INDEX(PowF,{c(PT_HELP[4], r)})*{c("cax0_usd_per_kw", r)}',
@@ -9481,7 +9514,8 @@ LEGACY_DIFFS = [  # area, legacy CPAT, this model, reason, effect, type
      'legacy has a bug; results unchanged until the engineer run is reviewed', 'None by default; with Engineer: road '
      'fuel use and EV shares as in Methods, chapter Transport section 4', 'Decision'),
     ('Road transport: policy inputs (v0.3.5)', 'Dashboard rows 61-98 and 540-559 (outside MTInputs)', 'Policies: '
-     f'MTInputs rows {MT_TR0 + 1}-{MT_TR_END} after the template (scenario-specific, legacy Dashboard defaults, all off); '
+     'MTInputs rows after the template (New policies and Treatment of existing policies; scenario-specific, legacy '
+     'Dashboard defaults, all off); '
      'parameters and hardcoded literals (Gompertz constant, gas liters per GJ, PHEV kWh per liter, insurance factor, '
      'BEV distance caps, price elasticities): sheets TransportParams, TransportPaths and named constants',
      'Scenarios carry the transport policies; no literal in a formula (Methods, chapter Transport section 2)',
@@ -10500,6 +10534,8 @@ def defined_names():
         'BalOpt': 'Settings!$C$31',                                  # v0.4.5: MTInputs BalancesOrConsumption
         # v0.2.4: parameter labels (Variables G:J), constants, MTInputs row table, baseline CO2
         'IPKey': f'Inputs_prices!$A${IP_R0}:$A${IP_R1}', 'LastHist': 'Settings!$C$10',   # v0.2.5
+        'ETSVolLab': 'Settings!$C$16:$F$16',      # v1.2.0: ETS volatility labels (LAMBDA VOLPICK: no sheet names)
+        'PsWaccCty': 'LEFT(PsWaccSrc,7)="Country"',   # v1.2.0: WACC source Country* (short formulas)
         **{f'IP{v_}': f'Inputs_prices!${IPC[v_ + str(HIST_YEARS[0])]}${IP_R0}:${IPC[v_ + str(HIST_YEARS[-1])]}${IP_R1}'
            for v_ in ('sp', 'txo')},
         **{f'IP{v_}Y': f'Inputs_prices!${IPC[v_ + str(HIST_YEARS[0])]}${IP_HDR}:${IPC[v_ + str(HIST_YEARS[-1])]}${IP_HDR}'
@@ -15891,14 +15927,15 @@ def store_values(path):
 # ---------------------------------------------------------------- v0.3.6: consolidated tabs
 TAB_REF = 'Version Log, About, and Diff'          # v0.4.2
 TAB_CHECK = 'Variables and Lambdas'         # v0.4.2; v1.2.0: no MacroCheck block
-MERGES = [('Inputs', ['Inputs', 'Inputs_prices', 'Inputs_power', 'Inputs_ef', 'Inputs_ela', 'Inputs_mult',
-                      'Inputs_macro', 'Inputs_pint', 'Inputs_ecp', 'Inputs_pset', 'Inputs_ptech', 'Inputs_ppath',
-                      'Inputs_ppar', 'Inputs_nc']),   # target tab, blocks top to bottom (v0.9.0: Inputs_nc; Inputs_cob
-                                                      # retired: module tabs FromAirPollution, FromTransportCB)
-          ('Settings', ['Settings', 'Constants', 'Mapping']),
+TAB_CM = 'Constants and Mappings'         # v1.2.0 (user 2026-10-31): Settings and Inputs in one tab
+MERGES = [(TAB_CM, ['Settings', 'Constants', 'Mapping', 'Inputs', 'Inputs_prices', 'Inputs_power', 'Inputs_ef',
+                    'Inputs_ela', 'Inputs_mult', 'Inputs_macro', 'Inputs_pint', 'Inputs_ecp', 'Inputs_pset',
+                    'Inputs_ptech', 'Inputs_ppath', 'Inputs_ppar', 'Inputs_nc']),   # target tab, blocks top to bottom
+          # (the user settings are on MTInputs; Settings keeps the derived global values and the links to them)
           (TAB_REF, ['VersionLog', 'ReadMe', 'LegacyDiff']),
           (TAB_CHECK, ['Variables', 'Lambdas'])]   # v1.2.0: MacroCheck gone with the macros (the Master holds them)
 MERGE_GAP = 3
+REF_TABS = [TAB_REF, TAB_CHECK]          # the reference tabs, last
 # v1.2.0 (user 2026-10-31): tab groups MAIN (the model), OUTPUT (its results), INPUTS, OTHER MODULES (the interfaces
 # with the other modules), then the data groups and REF. Distribution and FromMitigation only in the distribution build.
 # ScenarioCompare reads the live results: after Mitigation and MTOutputs (LibreOffice calculates in tab order and
@@ -15907,7 +15944,7 @@ FRONT_TABS = (['Cover', 'ScenarioDefinition', 'MAIN->>', 'Mitigation']
               + (['FromMitigation', 'Distribution'] if WITH_DIST else [])
               + ['OUTPUT->>', 'MTOutputs', 'ScenarioCompare', 'INPUTS->>', 'Manual inputs'])
 MODULE_TABS = ['OTHER MODULES->>', 'FromAirPollution', 'FromTransportCB']
-TAB_ORDER = FRONT_TABS + ['Settings', 'Inputs'] + MODULE_TABS + ['DATA_MITIGATION->>']   # then the data tabs, REF
+TAB_ORDER = FRONT_TABS + [TAB_CM] + MODULE_TABS + ['DATA_MITIGATION->>']   # then the data tabs, REF
 # v0.4.5 (user request 2026-10-17): data tabs grouped by module and ordered as legacy CPAT (DATA_MITIGATION->,
 # DATA_DISTN->, DATA_TRAN->, DATA_OUTPUT->); tabs with no legacy data tab last (DATA_OTHER)
 DATA_MIT = ['Power', 'GHGs', 'GHGHist', 'NDCs', 'Countries', 'GoalSeekCoal', 'ECP', 'Balances',
@@ -16015,7 +16052,7 @@ def merge_tabs(wb):
     assert set(data) == set(tabs), set(data) ^ set(tabs)          # v0.4.2: every data tab in a group
     wb._sheets = [wb[n] for n in TAB_ORDER + DATA_GROUPS[0][1] + [t for div, tabs_ in DATA_GROUPS[1:] for t in [div] + tabs_]
                   + ['REF->>']
-                  + [t for t, _b in MERGES[2:]]]
+                  + REF_TABS]
     style_tabs(wb, tmap)                             # v0.4.2: title bars, sub-heading bars, header fills, widths
     wb.active = wb.sheetnames.index('ScenarioCompare')
     if WITH_DIST:                                    # v1.2.0: the tab map is the mitigation workbook's
@@ -16048,10 +16085,9 @@ TAB_INFO = [  # divider, tab, content, in legacy CPAT (Yes / Partly / No), legac
      'blocks); read: ETS goal-seek settings, price controls, methane fee scope, manual international prices, fiscal '
      'multipliers, non-energy GHG elasticities, BEV fuel economy of new vehicles (the note on each block)', 'Yes',
      'Manual inputs (same addresses)'),
-    ('INPUTS->>', 'Settings', 'Global settings (country, years, switches, SCC), named constants, mappings', 'Partly',
-     'Dashboard and Manual inputs settings; Mapping'),
-    ('INPUTS->>', 'Inputs', 'Data step: every lookup Mitigation reads, by fuel | subsector, price fuel and power type',
-     'No', 'Legacy reads the data tabs inside Mitigation'),
+    ('INPUTS->>', TAB_CM, 'Derived global settings (their inputs are on MTInputs, Model settings), named constants, '
+     'mappings, and the data step: every lookup Mitigation reads, by fuel | subsector, price fuel and power type',
+     'Partly', 'Dashboard and Manual inputs settings; Mapping; legacy reads the data tabs inside Mitigation'),
     ('OTHER MODULES->>', 'FromAirPollution', 'Outputs of the air pollution module that Mitigation reads, by country: value of '
      'averted PM2.5, concentration coefficients (typed Egypt values of legacy 465 until the module writes them); memo: '
      'legacy average unit costs', 'Partly', 'Air pollution sheet (rows 442-522, 974-981, 1814, 3217, 3731-4378)'),
@@ -16145,11 +16181,11 @@ DIVIDER_TITLE = {'START': 'Start: the cover and the scenario definitions',
                  'DATA_OTHER->>': 'Other data: tables with no legacy data tab (side tables, derived values)',
                  'REF->>': 'Reference: version log, about, differences with legacy, checks, variables, LAMBDAs'}
 TAB_EXPL = {  # v0.4.2: tab -> explanation in the title bar (merged tabs and the input tabs)
-    'Settings': 'Settings: global settings, named constants and policy assumptions, mappings',
-    'Inputs': 'Inputs: the data step, every lookup Mitigation reads (by fuel | subsector, price fuel, power type)',
+    TAB_CM: 'Constants and Mappings: global settings (from MTInputs), named constants, mappings, the data step (every '
+            'lookup Mitigation reads)',
     TAB_REF: 'Version Log, About, and Diff: what changed, what the workbook is, how it differs from legacy CPAT',
     TAB_CHECK: 'Variables and Lambdas: variable dictionary, LAMBDA formulas'}
-BLOCK1_BAR = {'VersionLog': 'Version log', 'Settings': 'Global settings'}   # sub-heading row 3 of a first block
+BLOCK1_BAR = {'VersionLog': 'Version log', 'Settings': 'Global settings (inputs: MTInputs, Model settings)'}
 TAB_WIDTHS = {TAB_REF: {'A': 14, 'B': 28, 'C': 90, 'D': 40, 'E': 6, 'F': 40, 'G': 30, 'H': 14, 'I': 16, 'J': 22},
               TAB_CHECK: {'A': 30, 'B': 50, 'C': 90, 'D': 24, 'E': 34, 'F': 50, 'G': 16, 'H': 16, 'I': 16, 'J': 16,
                           'K': 12}}
@@ -16255,6 +16291,13 @@ def fill_divider(ws):
 
 
 ZOOM = 80                               # v1.2.0 (user 2026-10-31): every tab at 80%
+_SHEET_Q = re.compile(r"(?:'(?:[^']|'')+'|[A-Za-z_][\w.]*)!")
+
+
+def formula_len(v):
+    """v1.2.0 (NORMS 3, short formulas): the length of a formula as the rule counts it: as Excel shows it, without
+    the sheet qualifiers (a tab named 'Constants and Mappings' lengthens references, not the logic)."""
+    return len(_SHEET_Q.sub('', v.replace('_xlfn.', '').replace('_xlpm.', '')))
 
 
 def mark_data_tables(ws):
@@ -16325,9 +16368,9 @@ def style_tabs(wb, tmap, only=None):
             mark_data_tables(ws)
         if blocks[0] in BLOCK1_BAR:
             bar(ws, 3, BLOCK1_BAR[blocks[0]], width, F_BAND, FONT_SUBBAR)
-        if ws.title == 'Settings':                   # mapping tables are structure, not inputs: no fill
-            off = tmap['Mapping'][1]
-            for row in ws.iter_rows(min_row=off + 1):
+        if ws.title == TAB_CM:                       # mapping tables are structure, not inputs: no fill
+            _t, off, h = tmap['Mapping']
+            for row in ws.iter_rows(min_row=off + 1, max_row=off + h):
                 for c in row:
                     if c.fill and c.fill.fgColor and str(c.fill.fgColor.rgb).endswith('EBF1DE'):
                         c.fill = PatternFill(fill_type=None)
