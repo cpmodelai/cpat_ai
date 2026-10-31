@@ -147,16 +147,19 @@ the baseline.
 
 ```{mermaid}
 flowchart TB
-  P["Prepare, all years<br/>macro header, policies, prices,<br/>power cost paths"]
+  P["Prepare, all years<br/>macro header, policies, prices, power cost paths"]
   subgraph YL["Year loop, t = t0 ... 2041"]
-    direction TB
-    G["GDP level of t"] --> PW["Power"] --> FU["Fuel use"] --> EM["Emissions"] --> RV["Revenues"] --> GE["GDP effect of t"]
+    direction LR
+    G["GDP level<br/>of t"] --> PW["Power"] --> FU["Fuel use"] --> EM["Emissions"] --> RV["Revenues"] --> GE["GDP effect<br/>of t"]
   end
-  F["Finish, all years<br/>NDC gap"]
-  D["Distribution<br/>analysis year, deciles"]
-  P --> G
-  GE -. "feeds GDP of t+1" .-> G
+  F["Finish, all years: NDC gap"]
+  D["Distribution: analysis year, deciles"]
+  P --> YL
+  GE -. "GDP of t+1" .-> G
   YL --> F --> D
+  style YL fill:#f3f6fa,stroke:#8a9bb0,color:#1a1a1a
+  classDef blk fill:#ffffff,stroke:#4a6a8a,color:#1a1a1a
+  class P,G,PW,FU,EM,RV,GE,F,D blk
 ```
 
 ### One year of the loop {#sec-ov-year}

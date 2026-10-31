@@ -373,10 +373,10 @@ $J_{fre}$.
 factor of the last data year is held for all later years:
 
 $$
-J_k = \frac{O^{data}_{k,T}}{\overline{S}\,(1 - \phi^{fre}_{T})\, e^{\,a\, e^{\,b\, y_{T}/1000}}}, \qquad T = \text{last data year (2025)}
+J_{pas} = \frac{O^{data}_{pas,T}}{\overline{S}\,(1 - \phi^{fre}_{T})\, e^{\,a\, e^{\,b\, y_{T}/1000}}}, \qquad T = \text{last data year (2025)}
 $$ {#eq-tr-calib}
 
-The factor works both ways: a country below the curve stays below it. For Egypt, ownership was 55 per 1,000 in 2025
+Freight's $J_{fre}$ is the same ratio with the freight curve. The factor works both ways: a country below the curve stays below it. For Egypt, ownership was 55 per 1,000 in 2025
 against a Gompertz level of 152, so $J = 0.36$.
 
 **Partial adjustment and limits.** Desired ownership moves a fraction $\mu$ of the way to the target, and actual
