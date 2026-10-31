@@ -1583,7 +1583,10 @@ present and so not permitted. Data edition Public01:
 | Hydro, scenario 1 | 0 | 0 | 0 | 414 | 717 | 754 |
 
 - Solar's first-round investment equals its scale-up limit in most years (2026: 546 effective MW): the logit wants
-  more solar than the limit allows, and the deficit (2026: 4,312 MW) goes to the second round.
+  more solar than the limit allows. Wind and gas are also at their limits (gas: 5% of total effective capacity,
+  1,365 effective MW). Of the deficit of 4,312 effective MW in 2026, the second round places 517 MW (oil, the only
+  type with space left); the rest stays unplaced (`PwDeficitGas` = No). Dispatch absorbs the shortfall: gas runs
+  above its base-year capacity factor, up to its maximum of 0.9.
 - In 2023 the demand shock leaves no need, so nothing is built.
 - Scenario test (manual capacity, scenario 2, nuclear 2,400 MW from 2030): 2,400 MW nameplate is built in 2029, then
   the retirements are replaced.

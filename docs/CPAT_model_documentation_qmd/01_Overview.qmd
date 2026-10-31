@@ -725,17 +725,17 @@ where
 
 $$
 \begin{aligned}
-bce_t &= \sum_s CO2^{B}_{s,t}\;\kappa_{s,t} \\
-chg_t &= \bar{\Lambda}\big(t;\, T^{E}_0, T^{E}_1,\, chg_0,\, chg_1\big) \\
-cap_t &= \begin{cases} cap_{t-1} & t > T^{E}_1 \text{ and the cap is held Constant} \\ \text{on}_t\; bce_t\,(1 + chg_t) & \text{otherwise} \end{cases}
+\mathit{bce}_t &= \sum_s \mathit{CO2}^{B}_{s,t}\;\kappa_{s,t} \\
+\mathit{chg}_t &= \bar{\Lambda}\big(t;\, T^{E}_0, T^{E}_1,\, \mathit{chg}_0,\, \mathit{chg}_1\big) \\
+\mathit{cap}_t &= \begin{cases} \mathit{cap}_{t-1} & t > T^{E}_1 \text{ and the cap is held Constant} \\ \text{on}_t\; \mathit{bce}_t\,(1 + \mathit{chg}_t) & \text{otherwise} \end{cases}
 \end{aligned}
 $$ {#eq-ov-ets-cap}
 
 where
 
-- $bce_t$ (`ets.bce`, MtCO2) is the baseline covered emissions;
-- $CO2^{B}_{s,t}$ (`bco2`) is the baseline CO2 of ETS sector $s$, stored from scenario 1 as data;
-- $chg_0$, $chg_1$ are `ETSChangeRelStart`, `ETSChangeRelTarget` (for example $-0.05$ and $-0.20$);
+- $\mathit{bce}_t$ (`ets.bce`, MtCO2) is the baseline covered emissions;
+- $\mathit{CO2}^{B}_{s,t}$ (`bco2`) is the baseline CO2 of ETS sector $s$, stored from scenario 1 as data;
+- $\mathit{chg}_0$, $\mathit{chg}_1$ are `ETSChangeRelStart`, `ETSChangeRelTarget` (for example $-0.05$ and $-0.20$);
 - `ETSCapCont` = Constant holds the cap at its last level after the target year (and only while the ETS is on);
   otherwise the relative change is held.
 
@@ -765,11 +765,11 @@ covered emissions from $bce$ to the cap solves $cap = bce\; e^{\bar{\sigma} V p}
 ([A1.1](A_Equations.qmd#eqlist-A1-1)):
 
 $$
-\bar{\sigma}_t = \frac{\sum_s CO2^{B}_{s,t}\,\kappa_{s,t}\,\sigma_s\,\big(1 - (1 - \vartheta)\,\omega_{s,t}\big)}{bce_t}
+\bar{\sigma}_t = \frac{\sum_s \mathit{CO2}^{B}_{s,t}\,\kappa_{s,t}\,\sigma_s\,\big(1 - (1 - \vartheta)\,\omega_{s,t}\big)}{\mathit{bce}_t}
 $$ {#eq-ov-ets-se}
 
 $$
-\hat{p}_t = \begin{cases} \dfrac{\ln(cap_t / bce_t)}{\bar{\sigma}_t\, V} & \text{on}_t = 1,\ 0 < cap_t < bce_t,\ \bar{\sigma}_t < 0 \\[8pt] 0 & \text{otherwise} \end{cases}
+\hat{p}_t = \begin{cases} \dfrac{\ln(\mathit{cap}_t / \mathit{bce}_t)}{\bar{\sigma}_t\, V} & \text{on}_t = 1,\ 0 < \mathit{cap}_t < \mathit{bce}_t,\ \bar{\sigma}_t < 0 \\[8pt] 0 & \text{otherwise} \end{cases}
 $$ {#eq-ov-ets-est}
 
 where
@@ -875,17 +875,17 @@ efficiency margin (Egypt: 0.7 for the regulations, 1 for feebates). Under shadow
 tax ($\tau^x = 0$), and the carbon price path becomes the shadow carbon price:
 
 $$
-reg_{s,t} = (\tau_t - \tau^{x}_t)\; a^{reg}\; \mathbb{1}[\text{main scenario covers } s]
+\mathit{reg}_{s,t} = (\tau_t - \tau^{x}_t)\; a^{reg}\; \mathbb{1}[\text{main scenario covers } s]
 $$ {#eq-ov-reg}
 
-where $reg_{s,t}$ (`reg`) is the regulation shadow price of sector $s$, $\tau_t - \tau^x_t$ the shadow carbon price
+where $\mathit{reg}_{s,t}$ (`reg`) is the regulation shadow price of sector $s$, $\tau_t - \tau^x_t$ the shadow carbon price
 (`cp.shd`) and $a^{reg}$ (`regadj`) the efficiency adjustment of the main scenario.
 
 **The shadow price by sector.** Feebates, regulations and the free part of the ETS add up
 ([M1.4](A_Equations.qmd#eqlist-M1-4)):
 
 $$
-\Sigma_{s,t} = b_{G(s),t}\; a^{fb}\; \mathbb{1}[\text{feebate covers } s] \;+\; reg_{s,t} \;+\; \tilde{p}^{E}_t\;\kappa_{s,t}\;\omega_{s,t}
+\Sigma_{s,t} = b_{G(s),t}\; a^{fb}\; \mathbb{1}[\text{feebate covers } s] \;+\; \mathit{reg}_{s,t} \;+\; \tilde{p}^{E}_t\;\kappa_{s,t}\;\omega_{s,t}
 $$ {#eq-ov-shadow}
 
 where
@@ -1029,7 +1029,7 @@ switch is on (and, in the baseline, the baseline switch too), and they use the c
 **Scope by fuel and sector.** Scope switches let a reform cover some price blocks or fuels only:
 
 $$
-cs_{g,f,t} = 1 - i^{cs}_{g,f}\,(1 - \phi_{cs,t}), \qquad pc_{g,f,t} = 1 - i^{pc}_{g,f}\,(1 - \phi_{pc,t}), \qquad ps_{f,t} = 1 - i^{ps}_{f}\,(1 - \phi_{ps,t})
+cs_{g,f,t} = 1 - i^{cs}_{g,f}\,(1 - \phi_{cs,t}), \qquad pc_{g,f,t} = 1 - i^{pc}_{g,f}\,(1 - \phi_{pc,t}), \qquad \mathit{ps}_{f,t} = 1 - i^{ps}_{f}\,(1 - \phi_{ps,t})
 $$ {#eq-ov-scope}
 
 where
@@ -1073,19 +1073,19 @@ spreads it over the demand it supports to get a subsidy per unit, and lowers it 
 after the last historical price year ([A2.5](A_Equations.qmd#eqlist-A2-5)):
 
 $$
-ps_{f,t} = \begin{cases} -\dfrac{PROS_{f,t}}{D_{f,t}} & t \le L \\[8pt] ps_{f,L}\;ps^{\phi}_{f,t} & t > L \end{cases}
+\mathit{ps}_{f,t} = \begin{cases} -\dfrac{\mathit{PROS}_{f,t}}{D_{f,t}} & t \le L \\[8pt] \mathit{ps}_{f,L}\;\mathit{ps}^{\phi}_{f,t} & t > L \end{cases}
 $$ {#eq-ov-producer}
 
 where
 
-- $ps_{f,t}$ (`psu`) is the producer subsidy per unit of fuel $f$ (negative: USD/liter for oil, USD/GJ for coal,
+- $\mathit{ps}_{f,t}$ (`psu`) is the producer subsidy per unit of fuel $f$ (negative: USD/liter for oil, USD/GJ for coal,
   gas and biomass);
-- $PROS_{f,t}$ (`pros`) is the producer subsidy (price data, USD billion nominal, times the CPI index and 1000:
+- $\mathit{PROS}_{f,t}$ (`pros`) is the producer subsidy (price data, USD billion nominal, times the CPI index and 1000:
   USD million real; held after $L$), times $10^6$ to get USD;
 - $D_{f,t}$ (`psd`) is the demand that carries the subsidy: world demand times liters per ktoe for oil; the average
   of world demand and domestic consumption (excluding electricity and heat) times GJ per ktoe for coal and gas;
   domestic consumption times GJ per ktoe for biomass;
-- $ps^{\phi}_{f,t}$ is the producer-subsidy factor `psf` of @eq-ov-scope.
+- $\mathit{ps}^{\phi}_{f,t}$ is the producer-subsidy factor `psf` of @eq-ov-scope.
 
 The per-unit subsidy enters the supply cost of each price block of the fuel, so the floating taxes and price controls
 absorb part of a phase-out, as in legacy (@sec-prices). The subsidy itself is a fiscal line (`rpsu`, @sec-fiscal).
@@ -1175,12 +1175,12 @@ in [methodology, section 3.7](../CPAT_full_documentation_html/03_Mitigation.html
 Five paths are computed, each growing at the rate $g^{scc}$ ([M1.6](A_Equations.qmd#eqlist-M1-6)):
 
 $$
-SCC^{tgt}_t = SCC^{*}\,(1 + g^{scc})^{t - T^{*}}, \qquad SCC^{x}_t = SCC^{x}\,(1 + g^{scc})^{t - t_0} \quad (x = \text{Ricke national, Ricke global, EPA})
+\mathit{SCC}^{tgt}_t = \mathit{SCC}^{*}\,(1 + g^{scc})^{t - T^{*}}, \qquad \mathit{SCC}^{x}_t = \mathit{SCC}^{x}\,(1 + g^{scc})^{t - t_0} \quad (x = \text{Ricke national, Ricke global, EPA})
 $$ {#eq-ov-scc}
 
 | Path | Value | Default |
 |---|---|---|
-| Target-consistent price $SCC^{*}$ in year $T^{*}$ | `SCCTargetConsistentCP`, `SCCTargetYear` | 75 USD/tCO2 in 2030 |
+| Target-consistent price $\mathit{SCC}^{*}$ in year $T^{*}$ | `SCCTargetConsistentCP`, `SCCTargetYear` | 75 USD/tCO2 in 2030 |
 | Ricke et al. (2018), national and global | Sheet SCC, by discount rate `NSCCDiscountRate` and elasticity `NSCCMargUtilofCons` | 2%, 1.5% |
 | Manual | Data path by year | — |
 | US EPA | `SCCEpaBaseYear` in the base year | 62 USD/tCO2 |
