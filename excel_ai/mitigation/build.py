@@ -155,7 +155,7 @@ from openpyxl.utils import get_column_letter as L, column_index_from_string as C
 from openpyxl.utils.cell import coordinate_from_string
 from openpyxl.workbook.defined_name import DefinedName
 
-VERSION = '1.1.0'   # also in version.json (read by the deck builder)
+VERSION = '1.2.0'   # also in version.json (read by the deck builder)
 SCRIPTS_TAG = None   # v0.8.0: scripts and notes have stable names (releases are git tags); v0.7.1: a point release renames only the builder, VBA module, workbook and reports; the scripts and
                       # notes keep the tag of the full release (NORMS.md section 5)
 # v1.2.0 (user 2026-10-31): the mitigation workbook holds no other module. The Distribution tab, its input tab
@@ -165,7 +165,7 @@ WITH_DIST = os.environ.get('CPAT_WITH_DIST') == '1'
 COUNTRY = 'EGY'   # v0.3.3: default of Settings C4 (user input); country data only in the data sheets, by this key
 LAMBDA_ROWS = []                        # v0.2.3: LAMBDA year 2041; v0.1.08: (row, variable, fuel, sector, LAMBDA formula of the scenario-1 right
                                         # column) - the optional LAMBDA library, written to sheet Lambdas, not to cells
-NAME = 'CPAT-AI-Mitigation-Prototype'
+NAME = 'CPAT-AI-Mitigation'   # v1.2.0 (user 2026-10-31): was CPAT-AI-Mitigation-Prototype
 HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = legacy_dir()
 import release as REL                   # noqa: E402  v0.8.4: file naming and release layout (NORMS 5)
@@ -7134,7 +7134,7 @@ def build_baseline_co2(wb):
     ws = wb.create_sheet('BaselineCO2')
     title(ws, 'Baseline CO2 by ETS sector (MtCO2; values of scenario 1, Mitigation section 13 rows co2.sec; key '
               'country|sector)', 4 + NY)
-    put(ws, 'A1', 'Source: CPAT-AI-Mitigation-Prototype scenario 1 of the country in the key (refreshed by the build; check '
+    put(ws, 'A1', 'Source: CPAT-AI-Mitigation scenario 1 of the country in the key (refreshed by the build; check '
                   'row bco2.chk). Another country needs its own rows: rebuild, or paste the values of its scenario 1.',
         FONT)
     for j, h in enumerate(['Key', 'ETS sector', 'Label'] + [BASE_YEAR] + YEARS, 1):
@@ -7315,7 +7315,7 @@ def build_settings(wb):
         put(ws, f'C{r}', val, FONT, None, fmt)
     ws_set = ws
     ws = wb.create_sheet('VersionLog')                 # v0.3.6: own block (tab Version Log and Reference)
-    title(ws, 'Version log of CPAT-AI-Mitigation-Prototype', 5)
+    title(ws, 'Version log of CPAT-AI-Mitigation', 5)
     for j, h in enumerate(['Version', 'Date', 'Description', 'Max abs regression diff'], 1):   # v0.4.2: from column A
         put(ws, f'{L(j)}{SET_LOG + 1}', h, FONT_B, F_INPUT)
     log = [
@@ -7857,7 +7857,15 @@ def build_settings(wb):
                               'Cover shows the edition and version; data sources Public01 - GitHub '
                               '(main/data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx) and Public01 - local file; the '
                               'permalinked copy in excel_ai/active_workbooks/ (was permalink folders); range-anxiety fit '
-                              'redone on the new data. Values change with the data; formulas unchanged.')]
+                              'redone on the new data. Values change with the data; formulas unchanged.'),
+        ('1.2.0', '2026-10-31', 'Restructure (user 2026-10-31): renamed CPAT-AI-Mitigation (.xlsx, no macros: they are in '
+                              'the Master workbook, which activates the module); formulas to 2035 shipped, the Master fills '
+                              'them to 2041; no Distribution or distribution-only data (own workbook); tab groups OUTPUT and '
+                              'OTHER MODULES (FromMaster); MTOutputs in the Mitigation column layout (scenarios side by '
+                              'side); ScenarioCompare live only; StoredOutputs moved to the Master; Settings and Inputs '
+                              'merged into Constants and Mappings, the user settings on MTInputs (new policies, existing '
+                              'policies, model settings); data tables marked; EF_PM and CH4Inputs linked. Results '
+                              'unchanged.')]
     for i, row in enumerate(log, SET_LOG + 2):
         for j, v in enumerate(row, 1):
             c_ = put(ws, f'{L(j)}{i}', v)

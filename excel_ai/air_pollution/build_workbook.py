@@ -22,7 +22,7 @@ from openpyxl.worksheet.datavalidation import DataValidation
 HERE = Path(__file__).resolve().parent
 REPO_ROOT = HERE.parents[1]
 VERSION = "0.3"
-OUTPUT = HERE / "releases" / f"CPAT-AI-Air-Pollution-Standalone-v{VERSION}.xlsx"   # 2026-10-30: releases/
+OUTPUT = HERE / "releases" / f"CPAT-AI-AirPollution_v{VERSION}.xlsx"   # 2026-10-30: releases/; v1.2.0: name
 sys.path.insert(0, str(REPO_ROOT / "data" / "scripts"))
 import editions  # noqa: E402
 

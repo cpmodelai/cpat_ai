@@ -7,7 +7,7 @@ Workspace for the World Bank **Climate Policy Assessment Tool (CPAT)**: models o
 | You want to... | Go to |
 |---|---|
 | **A short human-readable orientation** | [`QuickStart.docx`](QuickStart.docx) |
-| **Use the Excel prototype** (modellers, reviewers) | [`excel_ai/active_workbooks/`](excel_ai/README.md): the current workbooks; the bug book and tracker in `excel_ai/bugs_and_legacy/` |
+| **Use the Excel prototype** (modellers, reviewers) | [`excel_ai/active_workbooks/`](excel_ai/README.md): the Master workbook (user guide, macros) and the activated modules; the bug book and tracker in `excel_ai/bugs_and_legacy/` |
 | **See what differs from legacy CPAT** | [`excel_ai/core/BUGS.md`](excel_ai/core/BUGS.md) (legacy bugs, all fixed) and [`excel_ai/core/ISSUES.md`](excel_ai/core/ISSUES.md) (legacy issues, replicated and tracked) |
 | **Work on the data** | [`data/`](data/README.md): the data editions (`Public01` here), the catalogue of every table, the legacy workbook shell |
 | **Work on the Python model** (Coded CPAT) | [`coded/`](coded/README.md); its documentation book: the Coded CPAT tab of the website (`docs/`) |
@@ -20,7 +20,7 @@ Workspace for the World Bank **Climate Policy Assessment Tool (CPAT)**: models o
 README.md                         This page
 AGENTS.md, CLAUDE.md              The entry point for AI agents (routes to each project's rules)
 QuickStart.docx                   Quick start guide for people (Word)
-excel_ai/                         The Excel prototypes (Excel-AI): active_workbooks/ (the current workbooks),
+excel_ai/                         The Excel prototypes (Excel-AI): active_workbooks/ (the Master and the activated modules),
                                   core/ (rules, task log, bug lists, TODO, plans, prompts, tools),
                                   mitigation/, distribution/, air_pollution/ (each with releases/),
                                   bugs_and_legacy/ (bug book, tracker, register, fix plans, legacy reference)

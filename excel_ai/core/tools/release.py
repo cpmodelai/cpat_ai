@@ -21,7 +21,10 @@ REGISTER_RELEASES = os.path.join(XL, 'bugs_and_legacy', 'register', 'releases')
 
 # name -> (folder of the current version, folder of the older versions)
 HOME = {
-    'CPAT-AI-Mitigation-Prototype': ('mitigation/releases', 'mitigation/releases'),
+    'CPAT-AI-Mitigation': ('mitigation/releases', 'mitigation/releases'),   # v1.2.0 names (user 2026-10-31)
+    'CPAT-AI-Distribution': ('distribution/releases', 'distribution/releases'),
+    'CPAT-AI-AirPollution': ('air_pollution/releases', 'air_pollution/releases'),
+    'CPAT-AI-Mitigation-Prototype': ('mitigation/releases', 'mitigation/releases'),   # the names of releases to 1.1.0
     'CPAT-AI-Distribution-Prototype': ('distribution/releases', 'distribution/releases'),
     'CPAT-AI-Air-Pollution-Standalone': ('air_pollution/releases', 'air_pollution/releases'),
     'CPAT-AI-Master_UserGuide': ('master/releases', 'master/releases'),   # v1.2.0: the Master (copy: active_workbooks)
@@ -43,8 +46,10 @@ def versioned(name, version, ext):
     return os.path.join(_dirs(name)[0], f'{name}_v{version}.{ext}')
 
 
-MODULE_DIR = {'CPAT-AI-Mitigation-Prototype': 'mitigation', 'CPAT-AI-Distribution-Prototype': 'distribution',
-              'CPAT-AI-Air-Pollution-Standalone': 'air_pollution'}
+MODULE_DIR = {'CPAT-AI-Mitigation': 'mitigation', 'CPAT-AI-Distribution': 'distribution',
+              'CPAT-AI-AirPollution': 'air_pollution'}
+OLD_NAMES = {'CPAT-AI-Mitigation': 'CPAT-AI-Mitigation-Prototype', 'CPAT-AI-Distribution': 'CPAT-AI-Distribution-Prototype',
+             'CPAT-AI-AirPollution': 'CPAT-AI-Air-Pollution-Standalone'}   # v1.2.0: the releases keep their names
 
 
 def permalink(name, ext):
@@ -75,8 +80,11 @@ def publish(path, link=False):
 
 
 def all_versions(name, ext):
-    """Every version of a file, current and released, sorted by version."""
+    """Every version of a file, current and released, sorted by version (v1.2.0: under the old name too, and in
+    .xlsx and .xlsm for a workbook)."""
     cur, old_dir = _dirs(name)
-    files = set(glob.glob(os.path.join(cur, f'{name}_v*.{ext}')) + glob.glob(os.path.join(old_dir, f'{name}_v*.{ext}')))
+    exts = ['xlsx', 'xlsm'] if ext in ('xlsx', 'xlsm') else [ext]
+    files = {f for n in {name, OLD_NAMES.get(name, name)} for e in exts for d in (cur, old_dir)
+             for f in glob.glob(os.path.join(d, f'{n}_v*.{e}'))}
     ver = lambda f: tuple(int(x) for x in re.search(r'_v(\d+(?:\.\d+)*)\.\w+$', f).group(1).split('.'))
     return sorted(files, key=ver)

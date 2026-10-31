@@ -47,7 +47,7 @@ const CARD = "F4F6FB", LINE = "D5DAE3", TEAL_T = "EAF4F2", AMBER_T = "FDF3E6", I
 
 const pres = new pptxgen();
 pres.layout = "LAYOUT_WIDE";
-pres.title = `CPAT-AI-Mitigation-Prototype v${VER}: overview, status, legacy bugs and user guide`;
+pres.title = `CPAT-AI-Mitigation v${VER}: overview, status, legacy bugs and user guide`;
 pres.theme = { headFontFace: THEME.headFontFace, bodyFontFace: THEME.bodyFontFace };
 
 pres.defineSlideMaster({
@@ -66,7 +66,7 @@ pres.defineSlideMaster({
       fontSize: 11, bold: true, color: TEAL, charSpacing: 2, margin: 0 }, text: "" } },
     { placeholder: { options: { name: "title", type: "title", x: 0.6, y: 0.62, w: 12.1, h: 0.7, fontFace: "Cambria",
       fontSize: 30, bold: true, color: NAVY, valign: "top", align: "left", margin: 0 }, text: "" } },
-    { text: { text: `CPAT-AI-Mitigation-Prototype v${VER}  ·  core deck  ·  screenshots and charts from the workbook`,
+    { text: { text: `CPAT-AI-Mitigation v${VER}  ·  core deck  ·  screenshots and charts from the workbook`,
       options: { x: 0.6, y: 7.05, w: 9.5, h: 0.25, fontSize: 9, color: GREY, margin: 0 } } },
   ],
   slideNumber: { x: 12.3, y: 7.05, w: 0.5, h: 0.25, fontSize: 9, color: GREY, align: "right" },
@@ -167,7 +167,7 @@ pres.addSection({ title: "Overview" });
   const s = pres.addSlide({ masterName: "TITLE_DARK", sectionTitle: "Overview" });
   s.addText("OVERVIEW + USER GUIDE", { x: 0.6, y: 1.05, w: 6, h: 0.35, fontSize: 12, bold: true, color: GOLD,
     charSpacing: 3, margin: 0, isTextBox: true, objectName: nm("kicker") });
-  s.addText("CPAT-AI-Mitigation-Prototype", { placeholder: "title" });
+  s.addText("CPAT-AI-Mitigation", { placeholder: "title" });
   s.addText("The CPAT mitigation and distribution modules as a readable Excel workbook, generated and checked by AI.",
     { x: 0.6, y: 3.25, w: 5.9, h: 1.2, fontSize: 18, color: ICE, valign: "top", margin: 0, isTextBox: true,
       objectName: nm("subtitle") });
@@ -603,7 +603,7 @@ pres.addSection({ title: "Next steps" });
     { text: "Historical GHGs 2018-2020 (I68)", options: { bullet: true } },
   ], { x: 8.35, y: 1.75, w: 4.1, h: 4.6, fontSize: 14, color: "FFFFFF", valign: "top", margin: 0, paraSpaceAfter: 8,
     isTextBox: true, objectName: nm("next") });
-  s.addNotes(`Files: CPAT-AI-Mitigation-Prototype-v${VER}.xlsm (repository root), the Documentation, `
+  s.addNotes(`Files: CPAT-AI-Mitigation_v${VER}.xlsx (excel_ai/mitigation/releases), the Documentation, `
     + `${REG}. Also open: the numerical check on the latest legacy file, 465 (U2); ETS goal seek user test (I30). `
     + "Open items from issues_register.py; I52 and I53 wait for features not planned.");
 }

@@ -1,4 +1,4 @@
-"""Workbook formulas of CPAT-AI-Mitigation-Prototype, generated from the workbook (Formulas.md): the implementation
+"""Workbook formulas of CPAT-AI-Mitigation, generated from the workbook (Formulas.md): the implementation
 reference. The model equations in mathematical form are in Equations.md (written by hand, no cell detail).
 
 Every equation is read from the Mitigation sheet itself (scenario 1, years 2022-2041), so the list always matches
@@ -251,7 +251,7 @@ def mods_of(code):
 
 
 def write(sections, eqs):
-    lines = [f'# Workbook formulas of CPAT-AI-Mitigation-Prototype v{B.VERSION} (implementation reference)', '',
+    lines = [f'# Workbook formulas of CPAT-AI-Mitigation v{B.VERSION} (implementation reference)', '',
              'Generated from the workbook by `make_equations.py` (do not edit by hand): every formula of the '
              'Mitigation sheet, scenario 1, with cell references replaced by variable codes, the changes against '
              'legacy CPAT (section B) and the LAMBDA library (section C). For the model itself read the equations in '

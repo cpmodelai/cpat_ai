@@ -47,9 +47,9 @@ MODULES = [  # module, version, unactivated file (relative to excel_ai), sheets 
     ('Mitigation', P.VERSION, os.path.relpath(P.LATEST, P.REL.XL).replace(os.sep, '/'), 'Mitigation,MTOutputs'),
     ('Distribution', module_version(os.path.join(P.REL.XL, 'distribution', 'build_distribution.py'),
                                     r"^VERSION = '([^']+)'"),
-     os.path.relpath(P.REL.permalink('CPAT-AI-Distribution-Prototype', 'xlsx'), P.REL.XL).replace(os.sep, '/'), ''),
+     os.path.relpath(P.REL.permalink('CPAT-AI-Distribution', 'xlsx'), P.REL.XL).replace(os.sep, '/'), ''),
     ('Air pollution', module_version(os.path.join(P.REL.XL, 'air_pollution', 'build_workbook.py'), r'^VERSION = "([^"]+)"'),
-     os.path.relpath(P.REL.permalink('CPAT-AI-Air-Pollution-Standalone', 'xlsx'), P.REL.XL).replace(os.sep, '/'), '')]
+     os.path.relpath(P.REL.permalink('CPAT-AI-AirPollution', 'xlsx'), P.REL.XL).replace(os.sep, '/'), '')]
 MOD_HEAD = ['Module', 'Latest version', 'Unactivated workbook (.xlsx, in the repository, relative to excel_ai)',
             'GitHub link (the same file)', 'Activated workbook (.xlsb, next to this workbook)',
             'Filled on activation (sheets)', 'Last activated (here)']

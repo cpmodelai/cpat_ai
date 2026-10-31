@@ -71,22 +71,24 @@ The World Bank/IMF **Climate Policy Assessment Tool (CPAT)** models the fiscal, 
 
 # 3. The modules and who is responsible
 
-| **Module** | **Workbook (open it in `excel_ai/active_workbooks/`)** | **Responsible** |
+| **Module** | **Workbook (activated by the Master into `excel_ai/active_workbooks/`)** | **Responsible** |
 |---|---|---|
-| Mitigation (1.1.0) | `CPAT-AI-Mitigation-Prototype_latest.xlsm`; sources in `excel_ai/mitigation/` | Stephen (others joining soon) |
-| Distribution (1.1.0) | `CPAT-AI-Distribution-Prototype_latest.xlsm`; sources in `excel_ai/distribution/` | Faustyna (Victor joining soon) |
-| Air Pollution (AP) (scaffold v0.3, a separate track) | `CPAT-AI-Air-Pollution-Standalone_latest.xlsx`; sources in `excel_ai/air_pollution/` | Paulina |
+| Master (1.2.0) | `CPAT-AI-Master_UserGuide.xlsm` in `excel_ai/active_workbooks/`: the user guide and every macro; sources in `excel_ai/master/` | Stephen |
+| Mitigation (1.2.0) | `CPAT-AI-Mitigation_latest.xlsx` in `excel_ai/mitigation/`, activated as `CPAT-AI-Mitigation_latest.xlsb` | Stephen (others joining soon) |
+| Distribution (1.2.0) | `CPAT-AI-Distribution_latest.xlsx` in `excel_ai/distribution/`, activated as `..._latest.xlsb` | Faustyna (Victor joining soon) |
+| Air Pollution (AP) (scaffold v0.3, a separate track) | `CPAT-AI-AirPollution_latest.xlsx` in `excel_ai/air_pollution/` | Paulina |
 | Transport Co-benefits | Planned (`excel_ai/core/plans/Transport_cobenefits.md`) | Alexandra |
 
 ## The active workbooks
 
-`excel_ai/active_workbooks/` holds the current copy of each module under a fixed name (`<Name>_latest.<ext>`). It is what people open (Excel 365, macros on) and what the modules link to, so links do not break when the version number changes. It replaced the old `permalink/` and `permalink_countryeditable/` folders. Run a module for a particular country there, on your local drive; keep copies holding real data local and never commit them. Every version, the current one included, is kept in the module's `releases/` folder (`excel_ai/mitigation/releases/`, `excel_ai/distribution/releases/`, `excel_ai/air_pollution/releases/`) as `<Name>_v<version>`; the builders publish to both.
+Open **`excel_ai/active_workbooks/CPAT-AI-Master_UserGuide.xlsm`** first (Excel 365, macros on). It is the user guide and the only workbook with macros. Its module table lists each module's latest version, its `.xlsx` in the repository and its GitHub link. **Activate** a module there: the Master opens the `.xlsx` (shipped with formulas to 2035, so it is small and quick to open), fills the formulas across to 2041, recalculates and saves `<Name>_latest.xlsb` next to itself in `active_workbooks/`. Work in the `.xlsb`. The `.xlsb` are generated: on a git conflict take either side and activate again. Run a module for a particular country there, on your local drive; keep copies holding real data local and never commit them. Every version is kept in the module's `releases/` folder (`excel_ai/mitigation/releases/`, ...) as `<Name>_v<version>`.
 
 ## How the modules connect and how data flow
 
 - Mitigation is the hub. The blocks other modules read are named in their section bands: section 19a for Distribution, section 15 for Air Pollution, section 5b for Transport Co-benefits.
-- Distribution reads its block with the **Update from Mitigation** button on its Cover, from the Mitigation prototype beside it (in `active_workbooks/`). The values are copied by code; a Power Query link may replace the file search later (TODO M6).
-- Data tables flow the same way: from the data workbook `data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx` into the prototype's data tabs by Power Query.
+- Distribution receives its block from the Master: **Update Distribution from Mitigation** copies section 19a of the activated mitigation workbook into the activated distribution workbook, by code.
+- Data tables: the Master's **Update data tables** loads them from the data workbook `data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx` (or GitHub, or another data repository) into the module's data tabs by Power Query, for the module's country or all countries (tab Settings of the Master).
+- Results: MTOutputs in the mitigation workbook shows the live scenarios side by side; the Master stores them as values (StoredScenarios) and compares them (CompareStored).
 
 # 4. Data and information security
 
@@ -148,10 +150,10 @@ To raise a bug or issue: add it to the tracker (or ask the AI to register it). I
 
 - **Bugs vs issues** (section 0): as above. When in doubt, treat it as an issue, replicate it and ask.
 - **Never improve legacy silently:** newer data or a better method is an upgrade (U) for the team to decide, e.g. a new population source.
-- **Versions** (section 5): never edit a released workbook; build the next version. Workbooks are `<Name>_v<version>` in the module's `releases/`, e.g. `CPAT-AI-Mitigation-Prototype_v1.1.0.xlsm`.
-- **Active workbooks** (section 5a): only the module workbooks get a `_latest` copy, in `excel_ai/active_workbooks/`.
+- **Versions** (section 5): never edit a released workbook; build the next version. Workbooks are `<Name>_v<version>` in the module's `releases/`, e.g. `CPAT-AI-Mitigation_v1.2.0.xlsx` (to 1.1.0: `CPAT-AI-Mitigation-Prototype_v1.1.0.xlsm`).
+- **Latest and active workbooks** (sections 5a, 9.7): the latest `.xlsx` of each module sits in its folder; `excel_ai/active_workbooks/` holds the Master and the activated `.xlsb`.
 - **Inputs** (section 4): use legacy MTInputs names, e.g. CPLevelTarget for the carbon price in the target year, the same in Excel and Python.
-- **Style** (sections 1-2): fixed column layout and CPAT colours, e.g. input cells light green, code cells light blue, calculation cells unfilled; every formula at most 100 characters.
+- **Style** (sections 1-2): fixed column layout and CPAT colours, e.g. input cells light green, code cells light blue, calculation cells unfilled; formulas short (target 90 characters, at most 115).
 - **Data** (section 8): all data live in `data/`, as editions; tidy is the source of truth; only public or perturbed data are committed.
 - **Every finished task is logged** in `excel_ai/core/CAVEATS.md` (section 6); methodology and version notes are separate documents (section 7).
 

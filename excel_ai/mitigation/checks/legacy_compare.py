@@ -1,6 +1,6 @@
 """v0.2.3: imports build / check_full (previous version in Old/; method unchanged).
 
-Compare CPAT-AI-Mitigation-Prototype (scenario 1, baseline) with the cached baseline results in the legacy workbook.
+Compare CPAT-AI-Mitigation (scenario 1, baseline) with the cached baseline results in the legacy workbook.
 
 The legacy file CPAT 1.0pre_456_NoPropData.xlsb keeps the cached values of its last full run (its country: Egypt, real data; the comparison needs COUNTRY of the build to match):
 fuel use and after-tax prices by subsector and fuel, CO2 by subsector. This script
@@ -120,7 +120,7 @@ def main():
         sfx = '.e' if var == 'ener' else '.e'
         return [v[f'{P}.mit.{var}.{grp}.all{sfx}.1'][yi[y]] for y in show]
 
-    lines = ['# Legacy CPAT cached baseline vs CPAT-AI-Mitigation-Prototype (scenario 1)', '',
+    lines = ['# Legacy CPAT cached baseline vs CPAT-AI-Mitigation (scenario 1)', '',
              'Legacy: cached values of the last full run stored in `CPAT 1.0pre_456_NoPropData.xlsb` (Egypt, real '
              f'data), extracted to `data/legacy_cached_baseline.csv`. prototype: v{B.VERSION} scenario 1 recalculated in '
              'LibreOffice, (a) as shipped, last historical price year 2022 (as legacy); (b) last historical price year '

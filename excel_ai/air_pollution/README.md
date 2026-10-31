@@ -35,7 +35,7 @@ The first numerical comparison is Senegal against CPAT 1.0pre_459_NoPropData. Co
 
 ## Current Scaffold
 
-- Latest workbook: [`CPAT-AI-Air-Pollution-Standalone-v0.3.xlsx`](releases/CPAT-AI-Air-Pollution-Standalone-v0.3.xlsx) (permalinked copy: [`../active_workbooks/`](../active_workbooks/)); v0.1 and v0.2 are in [`releases/`](releases/).
+- Latest workbook: [`CPAT-AI-Air-Pollution-Standalone-v0.3.xlsx`](releases/CPAT-AI-Air-Pollution-Standalone-v0.3.xlsx); its latest unactivated copy `CPAT-AI-AirPollution_latest.xlsx` here (v1.2.0 name; the Master workbook activates it into `../active_workbooks/`); v0.1 and v0.2 are in [`releases/`](releases/). The next build writes `releases/CPAT-AI-AirPollution_v<version>.xlsx`.
 - Builder: [`build_workbook.py`](build_workbook.py).
 - Python cross-check: [`Python_Comparison_v0_2.md`](docs/Python_Comparison_v0_2.md).
 - Rebuild command: `python excel_ai/air_pollution/build_workbook.py`. The recovered v0.3 workbook is retained unchanged; use a new version/output path for a released rebuild.

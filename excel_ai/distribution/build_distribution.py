@@ -10,7 +10,7 @@ the distribution rows of ScenarioDefinition, and adds a Cover with the link to t
 module CPATDistribution.bas. Then, as the prototype: shipped with its values (LibreOffice), manual calculation,
 linted.
 
-    python build_distribution.py       # writes ../CPAT-AI-Distribution-Prototype_v<version>.xlsm (older versions to
+    python build_distribution.py       # writes releases/CPAT-AI-Distribution_v<version>.xlsx and distribution/CPAT-AI-Distribution_latest.xlsx (older versions to
                                        # ../releases/; NORMS 5a; about 2 min)
 """
 import os as _os, sys as _sys  # the excel_ai code folders and data/scripts on the path (core/tools/xlpaths.py)
@@ -34,8 +34,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 os.environ['CPAT_WITH_DIST'] = '1'                     # v1.2.0: the full build, with the Distribution tabs
 import build as P                                      # noqa: E402  the prototype builder (helpers, layout)
 
-VERSION = '1.1.0'
-NAME = 'CPAT-AI-Distribution-Prototype'
+VERSION = '1.2.0'
+NAME = 'CPAT-AI-Distribution'   # v1.2.0 (user 2026-10-31): was CPAT-AI-Distribution-Prototype
 OUT = P.REL.versioned(NAME, VERSION, 'xlsx')     # distribution/releases/<name>_v<version>.xlsx (v1.2.0: no macros)
 SOURCE = P.LATEST                                     # the mitigation workbook (baseline CO2 values, its name)
 MIT_FILE = os.path.basename(P.LATEST)
@@ -67,6 +67,10 @@ VERSION_LOG = [  # version, date, change
     ('1.1.0', '2026-10-30', f'Cut from the mitigation prototype v{P.VERSION}: data edition Public01 (perturbed proprietary '
                           'tables); Update from Mitigation looks next to this workbook, then in active_workbooks\\ (one '
                           'or two folders up). The Distribution method unchanged.'),
+    ('1.2.0', '2026-10-31', f'Renamed CPAT-AI-Distribution (user 2026-10-31); cut from a full build of the mitigation '
+                          f'workbook v{P.VERSION} (which no longer holds Distribution); .xlsx without macros: the Master '
+                          'workbook activates it and updates FromMitigation; tab FromMaster. The Distribution method and '
+                          'values unchanged.'),
 ]
 
 # the tabs of the module, in order (Cover is added); everything else of the prototype is dropped

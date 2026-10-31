@@ -1,4 +1,4 @@
-"""Quick check of CPAT-AI-Mitigation-Prototype (a few minutes): run after every change. The full check (check_full.py,
+"""Quick check of CPAT-AI-Mitigation (a few minutes): run after every change. The full check (check_full.py,
 about an hour) runs only when the user asks (milestones, end of the day): user rule 2026-10-15.
 
 1. Structure of the shipped file (no recalculation): tab order; every plain formula at most 100 characters; no
@@ -664,7 +664,7 @@ def main():
                  f'{max(diff.values(), default=0):.4g}); largest: {changed[:8]}; other than bco2 (with max abs diff): '
                  f'{[(k, round(diff[k], 6)) for k in changed if ".bco2." not in k][:40]}')
     print(lines[-1])
-    head = [f'# Quick check, CPAT-AI-Mitigation-Prototype v{B.VERSION}', '',
+    head = [f'# Quick check, CPAT-AI-Mitigation v{B.VERSION}', '',
             f'**{"PASS" if not fails else "FAIL"}** ({time.time() - t0:.0f} s; the full check is check_full.py, run '
             f'on request). Changes of output codes are reported, not failed: compare them with what the change '
             f'intended.', '']

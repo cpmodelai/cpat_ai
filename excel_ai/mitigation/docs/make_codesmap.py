@@ -116,7 +116,7 @@ def main():
     for row in ws.iter_rows():
         for c in row:
             c.value = None
-    lines = [f'CPAT codes map v{R.REGISTER_VERSION} (the single codes map; CPAT-AI-Mitigation-Prototype v{B.VERSION})',
+    lines = [f'CPAT codes map v{R.REGISTER_VERSION} (the single codes map; CPAT-AI-Mitigation v{B.VERSION})',
              f'Built by excel_ai/mitigation/docs/make_codesmap.py from the v0.7.1 codes map (legacy/codes/CPAT_CodesMap_v0_7_1.xlsx), '
              f'the input names (the legacy-form cache (data/scripts/legacy_csv.py) mtinputs_465.csv, extract_inputs.py), the code renames since '
              f'v0.7.2 and the workbook. Do not edit: change the scripts or their sources.', None, 'Sheets',
