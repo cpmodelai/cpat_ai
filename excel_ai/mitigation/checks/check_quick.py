@@ -244,10 +244,11 @@ vartype typename chr chrw asc ascw space string dir environ vbcr vblf vbcrlf vbt
 vbinformation vbexclamation vbcritical vbokonly vbokcancel vbstring vbempty vbdouble vblong vbinteger vbboolean vbdate
 vbnewline application thisworkbook worksheets workbooks sheets activesheet activeworkbook range cells rows columns
 selection rgb filter datediff dateadd year month day hour minute second weekday dateserial timeserial nz
-optionbase'''.split())
+optionbase empty filedatetime'''.split())
 VBA_NAMED_TYPES = {'after', 'backgroundquery', 'destination', 'key', 'order', 'shift', 'source', 'sourcetype', 'chart',
                    'listobject', 'series', 'worksheet', 'range', 'workbook', 'shape', 'chartobject', 'name',
-                   'collection'}                         # v1.0.4: VBA's built-in Collection (store macro)
+                   'collection',                         # v1.0.4: VBA's built-in Collection (store macro)
+                   'filename', 'fileformat', 'updatelinks', 'readonly', 'savechanges'}   # v1.2.0: Open/SaveAs/Close args
 VBA_CONSTS = {'vbcrlf', 'vbexclamation', 'vbinformation', 'vblf', 'vbobjecterror', 'vbquestion', 'vbstring', 'vbyes',
               'vbyesno', 'xlascending', 'xlcalculationautomatic', 'xlcalculationmanual', 'xlcmdsql', 'xlmarkerstylenone',
               'xlno', 'xlup', 'xldescending', 'xltoleft', 'xldown', 'xlvalues', 'xlpart', 'xlwhole', 'xlnone'}
@@ -259,7 +260,9 @@ def vba_names():
     Excel library and stdole, so an Office constant (msoTrue: v0.7.0) is "Variable not defined" under Option Explicit;
     LibreOffice Basic does not report it."""
     lines = []
-    for ln in open(B.BAS, encoding='utf-8', errors='ignore').read().splitlines():
+    sys.path.insert(0, os.path.join(xlpaths.XL, 'master'))
+    import build_master                              # v1.2.0: the Master's module, with the constants the build writes
+    for ln in build_master.vba_source().splitlines():
         out, ins = '', False
         for ch in ln:
             if ch == '"':
@@ -286,9 +289,10 @@ def vba_names():
             if nm:
                 declared.add(nm.group(1).lower())
     declared |= {m.group(1).lower() for m in re.finditer(r'^\s*(\w+):', code, re.M)}
+    declared |= {m.group(1).lower() for m in re.finditer(r'^\s*(?:Private|Public)\s+(\w+)\s+As\b', code, re.M | re.I)}
     bad = sorted({w for w in re.findall(r'(?<![.\w])([A-Za-z_]\w*)', code)
                   if w.lower() not in VBA_KNOWN | VBA_NAMED_TYPES | VBA_CONSTS | declared})
-    log(f'VBA module {os.path.basename(B.BAS)}: identifiers not declared, not VBA, Excel or a known constant: '
+    log(f'VBA module CPATMaster.bas (the Master workbook): identifiers not declared, not VBA, Excel or a known constant: '
         f'{bad or "none"}', not bad)
 
 
@@ -612,7 +616,8 @@ def forward_reads(ws):
 def main():
     t0 = time.time()
     stage = lambda what: print(f'[{time.time() - t0:5.0f} s] {what}', flush=True)   # v0.4.9: stage timings
-    wait = LO.start_values(LO.expanded_zip(B.OUT, C.LAMBDA_CALL, C.expand),   # v0.4.9: recalculated meanwhile
+    src = B.OUT if os.environ.get('QUICK') else B.activated_copy(B.OUT)   # v1.2.0: shipped to 2035, activated here
+    wait = LO.start_values(LO.expanded_zip(src, C.LAMBDA_CALL, C.expand),   # v0.4.9: recalculated meanwhile
                            ['Mitigation', 'Distribution', 'DistMapping', 'MTOutputs', 'ScenarioCompare'])
     stage('expanded copy written, LibreOffice session started')
     wbf = openpyxl.load_workbook(B.OUT)

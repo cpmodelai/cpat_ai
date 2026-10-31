@@ -170,10 +170,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 DATA = legacy_dir()
 import release as REL                   # noqa: E402  v0.8.4: file naming and release layout (NORMS 5)
 OUT = REL.versioned(NAME, VERSION, 'xlsx')   # mitigation/releases/<name>_v<version>.xlsx (v1.2.0: no macros)
-LATEST = REL.permalink(NAME, 'xlsx')      # excel_ai/active_workbooks/<name>_latest.xlsx (modules link to it)
+LATEST = REL.permalink(NAME, 'xlsx')      # excel_ai/mitigation/<name>_latest.xlsx (v1.2.0; the Master activates it)
 STORED_CSV = os.path.join(HERE, 'stored_scenarios.csv')   # v1.2.0: stored scenarios of the build (Master workbook)
 QUICK_OUT = os.path.join(HERE, f'{NAME}_quick.xlsx')   # the quick build (no batch), for the checks
-BAS = os.path.join(HERE, 'CPATScenarios.bas')          # VBA module (embedded; also for import)
 
 # ---------------------------------------------------------------- dimensions
 SUBSECTORS = [  # code, name, group, elasticity sector, EF sector, coal/gas price sector, feebate sector
@@ -8696,6 +8695,36 @@ def build_from_air_pollution(wb):
     ws.column_dimensions['B'].width = 40
 
 
+SHIP_LAST_YEAR = 2035                   # v1.2.0 (user 2026-10-31): shipped with formulas to 2035; the Master fills on
+FM_ROWS = [  # v1.2.0: tab FromMaster (what the Master workbook writes here): name, label, shipped value
+    ('FMMaster', 'Master workbook (writes this tab)', 'CPAT-AI-Master_UserGuide.xlsm'),
+    ('FMVersion', 'Version of the Master that last wrote here', 'none (shipped)'),
+    ('FMActivated', 'Activated (formulas to the last year, recalculated, saved as .xlsb)', 'not activated: formulas to '
+                    f'{SHIP_LAST_YEAR}'),
+    ('FMSource', 'Data source of the linked tables', 'Embedded (shipped data, no update)'),
+    ('FMRows', 'Rows loaded (Country = the country of MTInputs; All countries)', 'Country'),
+    ('FMPath', 'File or URL of the data source', ''),
+]
+
+
+def build_from_master(wb):
+    """v1.2.0 (user 2026-10-31): the module reads the Master workbook natively through this tab: values the Master's
+    macros write (activation, data source, rows loaded); the Cover shows them. No link formula to another file."""
+    ws = wb.create_sheet('FromMaster')
+    title(ws, 'FromMaster - what the Master workbook wrote here (activation, data source); values', 3)
+    put(ws, 'A3', 'Written by the macros of the Master workbook (CPAT-AI-Master_UserGuide.xlsm, active_workbooks); '
+                  'read by the Cover. Values only: the module has no macros and no link to another file.', FONT)
+    for j, h in enumerate(['Name', 'Item', 'Value'], 1):
+        put(ws, f'{L(j)}5', h, FONT_B)
+    for k, (nm, lab, v) in enumerate(FM_ROWS, 6):
+        put(ws, f'A{k}', nm, FONT_HELP)
+        put(ws, f'B{k}', lab, FONT)
+        put(ws, f'C{k}', v, FONT)
+        wb.defined_names[nm] = DefinedName(nm, attr_text=f'FromMaster!$C${k}')
+    for col, w in {'A': 14, 'B': 60, 'C': 60}.items():
+        ws.column_dimensions[col].width = w
+
+
 def build_from_transport_cb(wb):
     """v0.9.0 (PIGAP, user 2026-10-29): tab FromTransportCB, the outputs of the transport co-benefits module that
     Mitigation reads (per-km costs, T4), keyed by country (Egypt only, typed from legacy 465)."""
@@ -14157,28 +14186,17 @@ def build_scenario_compare(wb):
     ws = wb.create_sheet('ScenarioCompare')
     last = SC_CHART_COL + 9
     title(ws, 'ScenarioCompare - the dashboard: the live scenarios against the baseline (from MTOutputs)', last)
-    put(ws, 'A3', 'The scenario groups of MTOutputs (the scenario groups of Mitigation). Choose the year and the data '
-                  'source, then recalculate (F9; the workbook is in manual calculation). Charts show only the '
-                  'scenarios with results. Indicator of each time series: the dropdown in its title. Stored scenarios: '
-                  'the Master workbook.', FONT)
-    rows_ = [(SC_R_YEAR, 'Year', SC_YEAR, '"' + ','.join(str(BASE_YEAR + k) for k in range(NY)) + '"'),
-             (SC_R_DS, 'Data source (linked tables)', DATA_SOURCES[0][0],
-              f'=$F${SC_R_SRC}:$F${SC_R_SRC + len(DATA_SOURCES) - 1}')]
+    put(ws, 'A3', 'The scenario groups of MTOutputs (the scenario groups of Mitigation). Choose the year, then '
+                  'recalculate (F9; the workbook is in manual calculation). Charts show only the scenarios with '
+                  'results. Indicator of each time series: the dropdown in its title. Stored scenarios and the data '
+                  'source: the Master workbook.', FONT)
+    rows_ = [(SC_R_YEAR, 'Year', SC_YEAR, '"' + ','.join(str(BASE_YEAR + k) for k in range(NY)) + '"')]
     for r, lab, v, lst in rows_:
         put(ws, f'B{r}', lab, FONT_B)
         put(ws, f'C{r}', v, FONT_B, F_INPUT, '0' if r == SC_R_YEAR else None)
         dv = DataValidation(type='list', formula1=lst, allow_blank=False)
         ws.add_data_validation(dv)
         dv.add(f'C{r}')
-    put(ws, f'E{SC_R_SRC - 1}', 'Data sources (Update data tables)', FONT_B)
-    put(ws, f'H{SC_R_SRC - 1}', 'Path or URL (file: blank = CPAT_LegacyData.xlsx next to this workbook or in '
-                               '<repo>/data/Public01/legacy_xlsx/; web: the raw file address, e.g. GitHub raw; SharePoint: File > '
-                               'Info > Copy path)', FONT_B)
-    for k, (nm, kind, loc) in enumerate(DATA_SOURCES):
-        r = SC_R_SRC + k
-        put(ws, f'F{r}', nm, FONT)
-        put(ws, f'G{r}', kind, FONT)
-        put(ws, f'H{r}', loc, FONT, F_INPUT if kind != 'none' else None)
     put(ws, f'B{SC_R_YC}', 'Position of the year in a scenario group', FONT_HELP)
     put(ws, f'C{SC_R_YC}', f'=MATCH($C${SC_R_YEAR},SCYear,0)', FONT_HELP, None, '0')
     put(ws, f'C{SC_R_ID}', 'Scenario ID', FONT_B)
@@ -14279,8 +14297,7 @@ def build_scenario_compare(wb):
         ws.column_dimensions[L(SC_C0 + k)].width = 11
     ws.row_dimensions[SC_R_YC].hidden = True
     ws.sheet_view.zoomScale = ZOOM
-    names = {'SCYc': f'$C${SC_R_YC}', 'DataSource': f'$C${SC_R_DS}',
-             'DataSrcTable': f'$F${SC_R_SRC}:$H${SC_R_SRC + len(DATA_SOURCES) - 1}'}
+    names = {'SCYc': f'$C${SC_R_YC}'}
     for nm, ref in names.items():
         wb.defined_names[nm] = DefinedName(nm, attr_text=f'ScenarioCompare!{ref}')
     g_last = L(mto_cols()[-1][1] + 1)               # v1.2.0: MTOutputs names (rows to MTO_LAST, every group)
@@ -15510,6 +15527,11 @@ DATA_LINKS = [  # prototype tab, table in the data workbook (data/Public01/legac
     ('GDPRatios', 'L_GDPRatios', 'A3', 69, 'all'),          # regional fallbacks; column BR (key) is a formula
     ('UNPop', 'L_UNPop', 'B3', 35, 'all')]                  # column A is blank
 FILTER_COL = 'FilterISO3'                                    # the country column of every data-workbook table
+
+
+def data_links():
+    """v1.2.0: the linked tabs of this workbook (the distribution tabs only in the distribution build)."""
+    return [x for x in DATA_LINKS if WITH_DIST or x[0] not in DIST_ONLY]
 DATA_PLANNED = ['GHGs, EF_GHG, CH4Inputs, Elasticities, Prices_int, OilProductShares (layouts differ: converters '
                 'to the prototype layout needed)', 'Transport1, Transport2 (no dummy data yet)']
 DL_SRC0, DL_LINK0 = 12, 12 + len(DATA_SOURCES) + 4   # first row of the source table and of the linked-tab table
@@ -15518,18 +15540,20 @@ DL_SRC0, DL_LINK0 = 12, 12 + len(DATA_SOURCES) + 4   # first row of the source t
 def data_link_status(ws, r):
     """v0.6.7: the status of the linked data tables at the top of the Cover (v0.6.5-v0.6.6: sheet DataLinks; the entries,
     data source and paths, are on ScenarioCompare). Returns the next free row."""
-    bar(ws, r, 'Linked data tables (Power Query): status. Data source and paths: ScenarioCompare; button Update data '
-               'tables', 4, F_BAND, FONT_SUBBAR)
+    bar(ws, r, 'Linked data tables (Power Query): status. Data source and update: the Master workbook (tab '
+               'FromMaster here)', 4, F_BAND, FONT_SUBBAR)
     import editions as ED                        # 1.1.0: the data edition the workbook is built with (data/editions.csv)
     ed = ED.info()
     lines = [('Data shipped (data edition)', f"{ed['edition']} ({ed['type']}), version {ed['version']}: public data; the six "
                                              'proprietary tables as perturbed Egypt values, not the real data', None),
-             ('Data source (ScenarioCompare)', '=DataSource', None), ('Country (Settings C4)', '=CtryCode', None),
+             ('Data source (from the Master: FromMaster)', '=FMSource', None),
+             ('Country (MTInputs, Model settings)', '=CtryCode', None),
              ('Last update', 'none (shipped data)', 'DataLastUpdate'),
              ('File or URL used by the last update', 'none', 'DataUsed'),
              ('This workbook is saved in', '(written by Update data tables)', 'DataSavedIn'),
-             ('Calculation', 'Shipped with its values, manual calculation: buttons Recalculate now and Recalculation '
-                             'on/off on ScenarioCompare', None)]
+             ('Calculation', f'Shipped with its values, manual calculation, formulas to {SHIP_LAST_YEAR}: the Master '
+                             f'workbook activates it (formulas to {LAST_YEAR}, full recalculation, saved as .xlsb in '
+                             'active_workbooks). F9 recalculates', None)]
     for k, (lab, v, nm) in enumerate(lines, r + 1):
         put(ws, f'A{k}', lab, FONT_B)
         put(ws, f'B{k}', v, FONT)
@@ -15539,12 +15563,12 @@ def data_link_status(ws, r):
     for j, h in enumerate(['Linked tab', 'Data-workbook table', 'Header cell', 'Columns', 'Rows (country / all)',
                            'Status (last update)'], 1):
         put(ws, f'{L(j)}{r}', h, FONT_B).border = Border(bottom=THIN)
-    for k, (tab_, tbl, hdr, ncol, rows_of) in enumerate(DATA_LINKS, r + 1):
+    for k, (tab_, tbl, hdr, ncol, rows_of) in enumerate(data_links(), r + 1):
         for j, v in enumerate([tab_, tbl, hdr, ncol, rows_of, 'shipped data'], 1):
             put(ws, f'{L(j)}{k}', v, FONT)
     ws.parent.defined_names['DataLinkTable'] = DefinedName(   # v0.7.1: + column Rows (country / all)
-        'DataLinkTable', attr_text=f'Cover!$A${r + 1}:$F${r + len(DATA_LINKS)}')
-    r += len(DATA_LINKS) + 2
+        'DataLinkTable', attr_text=f'Cover!$A${r + 1}:$F${r + len(data_links())}')
+    r += len(data_links()) + 2
     put(ws, f'A{r}', 'Planned links: ' + '; '.join(DATA_PLANNED), FONT)
     return r + 2
 
@@ -15745,6 +15769,7 @@ def generate():
     build_inputs_ef(wb)                            # v0.4.5: CO2 EFs selected from the legacy EF_GHG table
     build_from_air_pollution(wb)                   # v0.9.0 (PIGAP): module tabs of typed outputs (R1)
     build_from_transport_cb(wb)
+    build_from_master(wb)                          # v1.2.0: what the Master workbook writes here
     build_inputs_nc(wb)                            # v0.9.0 (EF465): non-CO2 factors by legacy EF code
     build_inputs_ela(wb)                           # v0.4.6: elasticities from the legacy Elasticities tab
     build_inputs_mult(wb)                          # v0.4.6: multipliers from the legacy Multipliers tab
@@ -15831,10 +15856,15 @@ def main():
     for w in wb.worksheets:                         # v0.2.7: default column width 10.14 (76 pixels) everywhere
         w.sheet_format.defaultColWidth = COL_W
     os.makedirs(os.path.dirname(OUT), exist_ok=True)   # v1.2.0: no macros in the module (they are in the Master)
+    import tempfile
+    full = os.path.join(tempfile.mkdtemp(), f'{NAME}_full.xlsx')
+    wb.save(full)                                  # v1.2.0: the full model (formulas to LAST_YEAR) gives the values
+    fix_outline_levels(full)
+    n_cut = ship_years(wb)
     wb.save(OUT)
     fix_outline_levels(OUT)
-    stage('saved (no macros)')
-    store_values(OUT)                              # v0.6.6: calculated values in the file, no recalculation on open
+    stage(f'saved (no macros; formulas to {SHIP_LAST_YEAR}: {n_cut} cells of later years left to the activation)')
+    store_values(OUT, values_from=full)                              # v0.6.6: calculated values in the file, no recalculation on open
     link_chart_titles(OUT)                         # v0.6.7: line-chart titles follow the dropdown of their block
     stage(share_formulas(OUT))                     # v1.1.1: repeated formulas stored once (smaller, faster to open)
     import excel_lint
@@ -15842,7 +15872,7 @@ def main():
     if problems:
         raise SystemExit(f'{OUT}: Excel would repair it:\n  ' + '\n  '.join(problems))
     stage('calculated values stored (LibreOffice), calculation manual')
-    REL.publish(OUT, link=True)                    # the _latest copy in active_workbooks/
+    REL.publish(OUT, link=True)                    # the _latest copy in the module folder (v1.2.0)
     stage(f'saved {OUT}')
 
 
@@ -15862,7 +15892,61 @@ def share_formulas(path):
 CALC_PR = '<calcPr calcId="191029" calcMode="manual" calcOnSave="0"/>'   # Excel 365 engine: no full calc on open
 
 
-def store_values(path):
+FILL_SHEETS = ['Mitigation', 'MTOutputs']   # v1.2.0: the sheets whose year columns the activation fills
+
+
+def fill_columns(ws):
+    """v1.2.0: (column of SHIP_LAST_YEAR, columns of the later years) of each scenario group of a sheet with the
+    Mitigation column layout (Mitigation, MTOutputs)."""
+    out = []
+    for c0, _c1 in (mto_cols() if ws.title == 'MTOutputs' else
+                    [(group_cols(g)[0], group_cols(g)[2][-1]) for g in range(1, len(SCENARIOS) + 1)]):
+        k = c0 + 1 + (SHIP_LAST_YEAR - BASE_YEAR)
+        out.append((k, list(range(k + 1, k + 1 + LAST_YEAR - SHIP_LAST_YEAR))))
+    return out
+
+
+def ship_years(wb):
+    """v1.2.0 (user 2026-10-31): the module ships with formulas to SHIP_LAST_YEAR in every scenario group of
+    Mitigation and MTOutputs; the later years are emptied (the Master's activation copies the SHIP_LAST_YEAR column
+    across). Returns the number of cells emptied."""
+    n = 0
+    for name in FILL_SHEETS:
+        ws = wb[name]
+        for _k, later in fill_columns(ws):
+            for c in later:
+                for r in range(1, ws.max_row + 1):
+                    cell = ws._cells.get((r, c))
+                    if cell is not None and cell.value is not None:
+                        cell.value = None
+                        n += 1
+    return n
+
+
+def activated_copy(path, out=None):
+    """v1.2.0: what the Master's activation does, in Python (for the checks): every formula of the SHIP_LAST_YEAR
+    column of each scenario group of Mitigation and MTOutputs copied across to LAST_YEAR (references shifted as
+    Excel's fill right does). Returns the path of the activated copy."""
+    import tempfile
+    import openpyxl
+    from openpyxl.formula.translate import Translator
+    wb = openpyxl.load_workbook(path)
+    for name in FILL_SHEETS:
+        ws = wb[name]
+        for k, later in fill_columns(ws):
+            for r in range(1, ws.max_row + 1):
+                v = ws.cell(r, k).value
+                if v is None:
+                    continue
+                for c in later:
+                    ws.cell(r, c).value = (Translator(v, origin=f'{L(k)}{r}').translate_formula(f'{L(c)}{r}')
+                                           if isinstance(v, str) and v.startswith('=') else v)
+    out = out or os.path.join(tempfile.mkdtemp(), os.path.basename(path).replace('.xlsx', '_activated.xlsx'))
+    wb.save(out)
+    return out
+
+
+def store_values(path, values_from=None):
     """v0.6.6 (user 2026-10-20): the workbook ships with the value of every formula, so Excel opens it without
     recalculating (calculation manual; buttons Recalculate now and Recalculation on/off). The values come from a
     LibreOffice recalculation of the LAMBDA-expanded copy (as the quick check), written into the <v> of every formula
@@ -15871,7 +15955,7 @@ def store_values(path):
     import zipfile
     import check_full as C
     import lo_session as LO
-    vals, errs = LO.start_values(LO.expanded_zip(path, C.LAMBDA_CALL, C.expand))()
+    vals, errs = LO.start_values(LO.expanded_zip(values_from or path, C.LAMBDA_CALL, C.expand))()   # v1.2.0
     err_cells = {}
     for sheet, ranges in errs:
         cells = err_cells.setdefault(sheet, set())
@@ -15943,7 +16027,7 @@ REF_TABS = [TAB_REF, TAB_CHECK]          # the reference tabs, last
 FRONT_TABS = (['Cover', 'ScenarioDefinition', 'MAIN->>', 'Mitigation']
               + (['FromMitigation', 'Distribution'] if WITH_DIST else [])
               + ['OUTPUT->>', 'MTOutputs', 'ScenarioCompare', 'INPUTS->>', 'Manual inputs'])
-MODULE_TABS = ['OTHER MODULES->>', 'FromAirPollution', 'FromTransportCB']
+MODULE_TABS = ['OTHER MODULES->>', 'FromMaster', 'FromAirPollution', 'FromTransportCB']
 TAB_ORDER = FRONT_TABS + [TAB_CM] + MODULE_TABS + ['DATA_MITIGATION->>']   # then the data tabs, REF
 # v0.4.5 (user request 2026-10-17): data tabs grouped by module and ordered as legacy CPAT (DATA_MITIGATION->,
 # DATA_DISTN->, DATA_TRAN->, DATA_OUTPUT->); tabs with no legacy data tab last (DATA_OTHER)
@@ -16088,6 +16172,8 @@ TAB_INFO = [  # divider, tab, content, in legacy CPAT (Yes / Partly / No), legac
     ('INPUTS->>', TAB_CM, 'Derived global settings (their inputs are on MTInputs, Model settings), named constants, '
      'mappings, and the data step: every lookup Mitigation reads, by fuel | subsector, price fuel and power type',
      'Partly', 'Dashboard and Manual inputs settings; Mapping; legacy reads the data tabs inside Mitigation'),
+    ('OTHER MODULES->>', 'FromMaster', 'What the Master workbook wrote here: activation, data source of the linked '
+     'tables (values; read by the Cover)', 'No', ''),
     ('OTHER MODULES->>', 'FromAirPollution', 'Outputs of the air pollution module that Mitigation reads, by country: value of '
      'averted PM2.5, concentration coefficients (typed Egypt values of legacy 465 until the module writes them); memo: '
      'legacy average unit costs', 'Partly', 'Air pollution sheet (rows 442-522, 974-981, 1814, 3217, 3731-4378)'),
@@ -16171,8 +16257,8 @@ DIVIDER_TITLE = {'START': 'Start: the cover and the scenario definitions',
                  'MAIN->>': 'Main tab: the mitigation model',
                  'OUTPUT->>': 'Outputs: the results of the scenarios',
                  'INPUTS->>': 'Inputs: scenarios, settings and the data step',
-                 'OTHER MODULES->>': 'Other modules: what Mitigation reads from the other CPAT modules (its exports '
-                                     'to them: Mitigation section 19)',
+                 'OTHER MODULES->>': 'Other modules: what Mitigation reads from the Master workbook and the other CPAT '
+                                     'modules (its exports to them: Mitigation section 19)',
                  'DATA_MITIGATION->>': 'Mitigation data: the data tabs of legacy CPAT used by the mitigation module',
                  'DATA_DISTN->>': 'Distribution data: the data tabs of legacy CPAT used by the distribution module (DATA_DISTN)',
                  'DATA_TRAN->>': 'Transport data: the data tabs of legacy CPAT used by the road transport model '
@@ -16420,7 +16506,7 @@ def tab(wb, old):
     return Tab(wb, old) if old in tab_map() else wb[old]
 
 
-MACRO_BUTTONS = [  # v0.6.7: the core buttons on ScenarioCompare (label, macro), green
+MACRO_BUTTONS = [  # v0.6.7: the core buttons (v1.2.0: the modules have no macros; add_macro_buttons serves the Master)
     ('Recalculate now', 'RecalculateNow'), ('Recalculation on/off', 'ToggleRecalculation'),
     ('Run stored scenarios', 'RunAllScenarios'), ('Update data tables', 'UpdateDataTables')]
 MORE_BUTTONS = [  # v0.6.7: the other buttons, grey, below the core ones
@@ -16515,24 +16601,6 @@ def add_macro_buttons(path, sheet='ScenarioCompare', buttons=None, col0=BTN_COL0
         for n, d in parts.items():
             zo.writestr(n, d)
     shutil.move(tmp, path)
-
-
-def vba_module_source():
-    """The module text of CPATScenarios.bas without its Attribute VB_Name line (added by the VBA writer)."""
-    text = open(BAS, encoding='cp1252').read()
-    assert text.startswith('Attribute VB_Name = "CPATScenarios"')
-    m = re.search(r'Private Const NYEARS As Long = (\d+)', text)     # v0.2.3: the macros read this many year columns
-    assert m and int(m.group(1)) == NY, f'CPATScenarios NYEARS {m and m.group(1)} differs from the {NY} model years'
-    chk = tab_map()['MacroCheck']                                              # v0.3.6: MacroCheck block
-    text = re.sub(r'Private Const SH_CHECK As String = "[^"]*"', f'Private Const SH_CHECK As String = "{chk[0]}"', text)
-    text = re.sub(r'Private Const CHK_FIRST As Long = \d+', f'Private Const CHK_FIRST As Long = {chk[1] + CHK_FIRST}',
-                  text)
-    with open(BAS, 'w', encoding='cp1252', newline='') as f:                  # keep the importable module in step
-        f.write(text)
-    for const, want in (('MT_LAST', MT_END), ('MIT_MAX_ROW', MIT_MAX)):        # v0.3.5: transport rows
-        m = re.search(rf'Private Const {const} As Long = (\d+)', text)
-        assert m and int(m.group(1)) == want, f'CPATScenarios {const} {m and m.group(1)} differs from {want}'
-    return text.split('\n', 1)[1]
 
 
 MTO_ITEMS = mto_spec()                  # v1.0.4: the rows of an MTOutputs block (legacy order), final stems
