@@ -1,0 +1,1166 @@
+# Distribution {#sec-distribution}
+
+The distribution module shows who bears the cost of a scenario. It takes the price changes and the revenue
+that mitigation computes for one year, the **analysis year**, and turns them into a change in the consumption of
+households, decile by decile. It then gives the revenue back to households through the recycling options chosen
+in the scenario and reports what is left: the net effect, the inequality it implies and the sectors whose prices
+rise most.
+
+The methodology describes the module in
+[methodology, chapter 5](../CPAT_full_documentation_html/05_Distribution.html#sec-5_1); its overview of
+functions is in [section 5.1.1.2](../CPAT_full_documentation_html/05_Distribution.html#sec-5_1_1_2). This
+chapter is the model as Excel-AI and CPAT Python compute it, with the places where it simplifies or departs from
+the methodology.
+
+## The module at a glance {#sec-di-glance}
+
+The module works on one scenario at a time and always against scenario 1, the baseline. Every result has eleven
+values: the **basket** (the whole survey sample) and the ten consumption **deciles**, from the poorest (decile 1)
+to the wealthiest (decile 10). Most results are given for three **samples**: overall, urban and rural.
+
+The calculation runs in eleven steps, the sections of the Distribution sheet.
+
+```{mermaid}
+flowchart TD
+  M["Mitigation, analysis year<br/>prices, spending, GDP, population, revenue"] --> P["2 Price changes by fuel"]
+  P --> I["3 Indirect price changes<br/>(input-output table)"]
+  P --> F["4 Price factors"]
+  I --> F
+  S["5 Budget shares (survey)"] --> E["6 Direct and indirect effects"]
+  F --> E
+  N["7 Survey to national accounts"] --> E
+  N --> R["8 Revenue recycling"]
+  M --> R
+  E --> T["9 Net effect, compensation, Gini"]
+  R --> T
+  T --> C["10 Outputs for charts"]
+  I --> X["11 Price changes by production sector"]
+```
+
+| Section | What it computes | Equations |
+|---|---|---|
+| 1 Settings | The scenario's distribution options and the programmes they select | |
+| 2 Inputs from mitigation | Price changes by fuel, base-year spending, GDP, population, new revenue | [D1.3](A_Equations.qmd#eqlist-D1-3) |
+| 3 Indirect prices | Price change of 14 consumption categories through the GTAP input-output table | [D1.2](A_Equations.qmd#eqlist-D1-2), [B1.1](A_Equations.qmd#eqlist-B1-1) |
+| 4 Price factors | Price change with the elasticity adjustment and the cooking-fuel exemption | [D1.4](A_Equations.qmd#eqlist-D1-4), [B1.4](A_Equations.qmd#eqlist-B1-4) |
+| 5 Budget shares | Survey budget shares by sample, statistic and decile | [D1.1](A_Equations.qmd#eqlist-D1-1) |
+| 6 Effects | Direct, indirect and total effect in % of consumption | [D1.4](A_Equations.qmd#eqlist-D1-4), [B1.3](A_Equations.qmd#eqlist-B1-3) |
+| 7 Rebasing | Survey population and consumption scaled to national totals | [B1.2](A_Equations.qmd#eqlist-B1-2) |
+| 8 Recycling | Income-tax cut, public investment, current spending, targeted transfer | [D1.5](A_Equations.qmd#eqlist-D1-5), [B1.5](A_Equations.qmd#eqlist-B1-5), [B1.6](A_Equations.qmd#eqlist-B1-6) |
+| 9 Net effect | Net effect, compensation shares, Gini before and after recycling | [D1.6](A_Equations.qmd#eqlist-D1-6), [B1.7](A_Equations.qmd#eqlist-B1-7) |
+| 10 Chart outputs | Labels, amounts per person, Lorenz curves, percentile households | |
+| 11 Production sectors | Input-cost and output price change of each GTAP sector, top 20, 14 CPAT sectors | [B1.8](A_Equations.qmd#eqlist-B1-8) |
+
+Budget shares (section 5) come before the price factors (section 4) in the code, because the weighted summary of
+the price factors uses them; the rebasing (section 7) comes before the effects (section 6), because the
+mitigation adjustment of section 6 needs national consumption. The order of the sections in the sheet is kept for
+reading.
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet `Distribution`, sections 1-11, one row group per scenario; data on `DistMapping` and the data
+  tabs `HHSurvey`, `HH_Elast` and the GTAP input-output table; settings on `ScenarioDefinition` rows 197-205 and
+  304-320; inputs from Mitigation through the export block of section 19a (defined name `ExportDistn`).
+  Built by `build.py` (`build_distribution`, `build_distribution_data`, `build_mto_distribution`); the data by
+  `extract_distn.py` (`data/distn_*.csv`).
+- **CPAT Python:** `cpat_model/distribution/mapping.py` (the data step, sheet `DistMapping`: `country_data`,
+  `io_tables`, `survey`, `programmes`, `passthrough`, `aspire`, `gini_weights`) and
+  `cpat_model/distribution/incidence.py` (`group`, one scenario group, sections 1-11; `run`, every scenario of
+  every country against scenario 1). The rows are returned by output code (`core/excel_ai/distribution_rows.csv`)
+  and stored in `Results.distribution`. See the
+  [blocks of CPAT Python](../CPAT_coded_documentation_html/02_How_it_works.html#sec-blocks).
+- **Equations:** D1.1-D1.6 ([list](A_Equations.qmd#eqlist-D1-1)) and B1.1-B1.8
+  ([list](A_Equations.qmd#eqlist-B1-1)); code names in @sec-eqcodes.
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI: the layout of the Distribution sheet"}
+**Rows 1-12 (header).**
+
+| Row | Content |
+|---|---|
+| 1 | 0 (shown as `Basket`) and the deciles 1-10 |
+| 4-5 | Scenario name and number, formatted as on Mitigation (frozen with rows 1-3) |
+| 6 | Position of the group |
+| 7-8 | Mitigation column of the analysis year in group 1 and in this group |
+| 9 | Statistic (mean, median, p25, p75) |
+| 10-11 | Survey code parts |
+| 12 | Analysis year (the summary of section 0) |
+
+**Columns.** A variable, B item, C sample (`ove`, `urb`, `rur`), D-E parameters (data variable, sample label),
+H description, I unit, J source (legacy rows). Columns C:G and I:K are one column group each, rolled up, as on
+Mitigation; zoom 75. Each scenario group has 13 columns from K: a code column, the basket, the deciles 1-10 and a
+spacer. Decile columns are 9 wide; totals in local currency are shown in billions and population in millions (the
+values are unchanged).
+
+**Groups.** Group 1 is scenario 1 (levels; effects 0). Group 2 is the policy scenario. Group 3 is the LAMBDA test
+group: it runs group 2's scenario and reads Mitigation's LAMBDA group. Pasting group 2 to the right adds scenarios
+3-6.
+
+**Row kinds.**
+
+| Kind | Layout |
+|---|---|
+| Settings and one-value rows | The value in the basket column, repeated across the deciles, so every cell refers to its own column |
+| Decile rows | One formula across basket and deciles |
+| Decile-only rows (recycling) | The basket column is blank |
+
+**Roll-up.** One row group per section: the band and, below the hidden rows, the summary row (last in its section)
+and one blank row stay visible. The summaries, all for the overall sample:
+
+| Section | Summary |
+|---|---|
+| 0 | Analysis year |
+| 1 | Options check |
+| 2 | Revenue |
+| 3 | Average indirect price change of the consumption categories (budget-share weighted) |
+| 4 | Average price factor of the household fuels (budget-share weighted) |
+| 5 | Energy budget share (fuels and biomass) |
+| 6 | Total effect |
+| 7 | Total consumption |
+| 8 | Recycling gain |
+| 9 | Net effect after recycling |
+
+Sections 6-9 list urban and rural first and overall last.
+
+**Codes.** `iso.distn.<variable>[.<item>][.dec.<sample>].<scenario>`. MTOutputs reads them in each scenario block
+(deciles 1-10 in K:T); its column F gives the legacy code (without the scenario suffix, as legacy). The legacy
+distribution charts of the Dashboard are drawn from group 2 on sheet `Charts`, below the mitigation charts.
+
+**Standalone workbook.** The same sheet also runs as a standalone Distribution workbook fed by an
+*Update from Mitigation* button; see the
+[Excel-AI user guide](../CPAT_ai_documentation_html/03_Other_Modules.html).
+:::
+
+### Notation {#sec-di-notation}
+
+The module uses the indices of methodology chapter 5. Every equation holds for one country, one scenario and the
+analysis year $y$; these indices are omitted.
+
+| Symbol | Meaning |
+|---|---|
+| $d$ | Decile, 1 (poorest) to 10; the basket is written $d = 0$ |
+| $s$ | Sample: overall, urban, rural (in @sec-di-sectors: CPAT sector) |
+| $f$ | Household fuel: coal, electricity, natural gas, other oil products, gasoline, diesel, kerosene, LPG |
+| $g$ | Consumption category (14, @tbl-di-categories) |
+| $i$ | Item: a fuel or a category; in @sec-di-io and @sec-di-sectors, a GTAP sector |
+| $k$ | GTAP fuel group: coal, electricity, gas, crude oil, petroleum and coke products |
+| $y$ | Analysis year, input `YearDistn` |
+| $B$, $P$ | Scenario 1 (baseline), the scenario under study |
+
+Price changes are fractions (0.18 is 18%). Budget shares, effects and recycling gains are in percent of
+consumption. Amounts are in local currency.
+
+## Settings {#sec-di-settings}
+
+Each scenario carries its own distribution settings. They choose the analysis year, the survey statistic, the
+optional adjustments of the price effect and how the revenue is recycled.
+
+| Setting | Meaning | Default | Section |
+|---|---|---|---|
+| `YearDistn` | Analysis year | 2030 | all |
+| `QuantilesStatistic` | Survey statistic of the budget shares: mean, median, p25, p75 | mean | 5 |
+| `PEDs` | Decile-specific price elasticities | Yes | 4 |
+| `ScaleGTAP` | Scale GTAP-implied revenue to CPAT's | Yes | 3 |
+| `InferredDist` | Adjust for behavioural and structural change | No | 6 |
+| `DWLs` | Adjust for deadweight losses | No | 6 |
+| `ExemptMostCook` | Exempt the most-used cooking fossil fuel | No | 4 |
+| `ExemptCookDeciles` | ... for the bottom deciles | 4 | 4 |
+| `EXPLabortax` | Share of revenue to labour-tax (income-tax) reductions | 30% | 8 |
+| `EXPCapex` | Share to public investment | 50% | 8 |
+| `EXPGoodsandserv` | Share to current spending | 0% | 8 |
+| `EXPTransfers` | Share to targeted transfers | 20% | 8 |
+| `PITReductionType` | Personal Allowance, Proportional Compensation or Targeted Exemption | Personal Allowance | 8 |
+| `DistExcCfDec` | Targeted exemption for the bottom deciles | 4 | 8 |
+| `MissingDataReplacement` | Fill missing income-tax shares by income group or region | income | 8 |
+| `TransferType` | Cash, or an ASPIRE programme | Cash | 8 |
+| `TargetBelow` | Target households below a poverty line (USD a day), or No | No | 8 |
+| `TargettedPercentile` | Bottom share of the population targeted | 40% | 8 |
+| `CoverageRate` | Share of the targeted who receive | 100% | 8 |
+| `LeakageRate` | Share of the untargeted who receive | 0% | 8 |
+| `PublicInfrastructureInvType` | Infrastructure of the public investment | All Infr. | 8 |
+| `CurrentSpendingType` | ASPIRE programme scaled up by current spending | All Social Protection and Labor | 8 |
+| `PassthroughDist` | Imperfect pass-through | No | 11 |
+| `QuantilesLCU` | Decile labels in local currency | No | 10 |
+
+: Distribution settings (ScenarioDefinition) {#tbl-di-settings}
+
+The percentages are entered in percent (30 means 30%) and divided by 100 where they are used.
+
+Four values are **derived** from the settings:
+
+- **Infrastructure-access variable**, from `PublicInfrastructureInvType`: All Infr. (`all_acs_share`), ICT
+  (`ICT_acs_share`), Electricity (`ely_acs_share`), Water (`wtr_acs_share`), Sanitation (`sani_acs_share`),
+  Public Transport (`transp_pub_acs_share`).
+- **ASPIRE programme code**, from `CurrentSpendingType` and from `TransferType`: Active Labor Market, All Labor
+  Market, All Social Assistance, All Social Insurance, All Social Protection and Labor, Cash Transfers, Conditional
+  Cash Transfers, Contributory Pensions, Fee waivers and targeted subsidies, In-Kind, Other Social Assistance,
+  Other Social Insurance, Passive Labor Market, Public Works, School Feeding, Social Pensions.
+- **Most-used cooking fuel** of the country, from the WHO Household Energy Database (the fossil fuel with the
+  largest share of the population cooking with it).
+- **Targeting mode** of the transfer: *ASPIRE* when `TransferType` names a programme with data for the country;
+  *Cash* when it is Cash (or a programme without data) and `TargetBelow` is No; *PL* (poverty line) when it is
+  Cash and `TargetBelow` names a line.
+
+A **support check** reports `OK`, or names the option that falls back: "TransferType: no ASPIRE data, cash used".
+
+## Inputs from mitigation {#sec-di-inputs}
+
+The module needs five things from mitigation: the price change of each household fuel, the economy-wide price
+change of each fuel, what the economy spent on each fuel, GDP and population, and the revenue to recycle. All are
+read for the analysis year, in the scenario and in scenario 1. The methodology describes the link in
+[section 5.3.1](../CPAT_full_documentation_html/05_Distribution.html#sec-5_3_1).
+
+### Household price change by fuel {#sec-di-dpr}
+
+The direct effect uses the residential price, the price households pay
+([M2.5](A_Equations.qmd#eqlist-M2-5), @sec-prices):
+
+$$
+t_f = \frac{p^{P}_{f,\text{res},y}}{p^{B}_{f,\text{res},y}} - 1
+$$ {#eq-di-dpr}
+
+where
+
+- $t_f$ is the household price change of fuel $f$ (fraction; code `dpr.<f>.res`);
+- $p_{f,\text{res},y}$ is the residential after-tax price `atp` of fuel $f$ in the analysis year (local unit);
+  for electricity, the residential retail price `rp.res.ecy`;
+- $P$ and $B$ mark the scenario and scenario 1.
+
+This is [D1.3](A_Equations.qmd#eqlist-D1-3). Oil (`oil` in the survey) takes the price of other oil products
+(`oop`).
+
+### Economy-wide price change and spending {#sec-di-dpa}
+
+The indirect effect uses the price that producers pay. It is the change in the average price over sectors
+(`rpn`, [@sec-prices]):
+
+$$
+t^{a}_f = \frac{\bar{p}^{P}_{f,y}}{\bar{p}^{B}_{f,y}} - 1
+$$ {#eq-di-dpa}
+
+where
+
+- $t^{a}_f$ is the economy-wide price change of fuel $f$ (code `dpa.<f>`);
+- $\bar{p}_{f,y}$ is the average price `rpn` of the **industry** sector for coal and natural gas, of **all sectors**
+  for other oil products, gasoline, diesel, LPG and kerosene, and the industrial retail price `rp.ind.ecy` for
+  electricity.
+
+Each fuel is weighted by what the economy spent on it, in scenario 1 and in the base year:
+
+$$
+S_f = \text{pav.sp}^{B}_{f,t_0} \times
+\begin{cases} 0.041868 & f \neq \text{electricity} \\ 1 & f = \text{electricity} \end{cases}
+$$ {#eq-di-spend}
+
+where
+
+- $S_f$ is the base-year spending on fuel $f$ (USD million; code `spend.<f>`);
+- $\text{pav.sp}$ is the economy-wide spending on the fuel, all sectors, from the price block ([@sec-prices]);
+- $0.041868$ is PJ per ktoe, which turns the fuels' spending into USD million (electricity's already is);
+- $t_0$ is the base year. The spending of the base year is paired with the price changes of the analysis year
+  (issue I76, below).
+
+### Macro inputs {#sec-di-macro}
+
+| Input | Formula | Code |
+|---|---|---|
+| GDP | $GDP_y$ = scenario `gdp.lcu` × $10^9$ (local currency) | `gdp` |
+| Population | $POP_y$ = scenario `pop` × 1000 | `pop` |
+| Revenue to recycle | $R$ = scenario `rnew` × $10^6$ × `xr` (local currency) | `rev` |
+
+The revenue is the **revenue from new policies** ([M6.1](A_Equations.qmd#eqlist-M6-1), @sec-fiscal): carbon tax,
+the VAT on it and auctioned ETS permits. It stands for legacy's carbon-pricing revenue (issue I80).
+
+::: {.callout-tip icon=false title="Pseudocode: inputs from mitigation"}
+```
+y = YearDistn
+for f in [coa, ely, nga, oop, gso, die, ker, lpg]:          # household fuels
+    v = 'rp' if f == 'ely' else 'atp'                        # electricity: retail price
+    dpr[f] = P[v, 'res', f][y] / B[v, 'res', f][y] - 1
+for f, var, sector, group in [(coa, rpn, ind, coa), (nga, rpn, ind, nga),
+                              (oop, rpn, all, oil), (gso, rpn, all, p_c),
+                              (die, rpn, all, p_c), (lpg, rpn, all, p_c),
+                              (ker, rpn, all, p_c), (ecy, rp,  ind, ely)]:
+    dpa[f]   = P[var, sector, f][y] / B[var, sector, f][y] - 1
+    spend[f] = B['pav.sp', 'all', f][base_year] * (1 if f == ecy else PJ_PER_KTOE)
+gdp = P['gdp.lcu'][y] * 1e9
+pop = P['pop'][y] * 1e3
+rev = P['rnew'][y] * 1e6 * P['xr'][y]
+```
+:::
+
+## Budget shares {#sec-di-bsh}
+
+A household loses more from a price rise the more of its budget goes to the good. The budget shares come from
+household budget surveys, prepared as the methodology describes in
+[section 5.2.1](../CPAT_full_documentation_html/05_Distribution.html#sec-5_2_1)
+([eq-5_1](../CPAT_full_documentation_html/05_Distribution.html#eq-5_1)):
+
+$$
+\pi^{g}_{j} = \frac{C^{g}_{j}}{C_j}, \qquad
+\pi^{dg} = \underset{j \in d}{\text{mean, median, p25 or p75}}\ \pi^{g}_{j}
+$$ {#eq-di-bsh}
+
+where
+
+- $\pi^{g}_{j}$ is household $j$'s share of its consumption $C_j$ spent on item $g$;
+- $\pi^{dg}$ is the population-weighted statistic over the households of decile $d$ (percent; code
+  `bsh.<g>.dec.<s>`).
+
+This is [D1.1](A_Equations.qmd#eqlist-D1-1). The survey tables (`HHSurvey`) already hold the decile statistics;
+the model reads them by sample (overall, urban, rural), by the statistic `QuantilesStatistic` and by decile. The
+basket reads the whole-sample row (quantile code 9999).
+
+The items are the eight household fuels, the 14 consumption categories and, in the overall sample, three biomass
+fuels (charcoal, ethanol, firewood). Biomass has a budget share but no price change. The **energy budget share**,
+fuels plus biomass, is the summary row of the section.
+
+| Code | Category | Code | Category |
+|---|---|---|---|
+| `app` | Appliances | `hou` | Housing |
+| `che` | Chemicals | `oth` | Other |
+| `clo` | Clothing | `pap` | Paper |
+| `com` | Communications | `pha` | Pharmaceuticals |
+| `edu` | Education | `ret` | Recreation and tourism |
+| `food` | Food | `teq` | Transport equipment |
+| `hea` | Health services | `tpu` | Public transport |
+
+: The 14 consumption categories {#tbl-di-categories}
+
+Not every survey row follows the chosen statistic. Population weights, consumption per person, infrastructure
+access and the poverty-line shares are always read from the **mean** rows; income-tax shares and the
+PIT-to-GDP ratio follow the statistic.
+
+## Indirect price changes through the input-output table {#sec-di-io}
+
+A carbon price also raises the price of food, transport and everything else made with energy. The module finds
+these indirect price changes with the GTAP input-output table of the country: how much of each fuel group is
+embedded, directly and upstream, in one unit of each sector's output. The methodology describes the approach in
+[section 5.3.1](../CPAT_full_documentation_html/05_Distribution.html#sec-5_3_1)
+([eq-5_3](../CPAT_full_documentation_html/05_Distribution.html#eq-5_3)) and the scaling in
+[section 5.3.2.4](../CPAT_full_documentation_html/05_Distribution.html#sec-5_3_2_4).
+
+The table has 64 GTAP sectors: five fuel groups and 59 non-fuel sectors, which map to the 14 categories. CPAT's
+eight fuels map to the five GTAP fuel groups:
+
+| GTAP group $k$ | CPAT fuels |
+|---|---|
+| Coal (`coa`) | coal |
+| Electricity (`ely`) | electricity |
+| Gas (`nga`) | natural gas |
+| Crude oil (`oil`) | other oil products |
+| Petroleum and coke products (`p_c`) | gasoline, diesel, LPG, kerosene |
+
+: CPAT fuels and GTAP fuel groups {#tbl-di-groups}
+
+### Step 1: the price factor of each fuel group {#sec-di-gfac}
+
+First, the spending-weighted price change of each group, and the group's total use:
+
+$$
+R_k = \sum_{f \in k} S_f\, t^{a}_f
+$$ {#eq-di-grev}
+
+$$
+U_k = \frac{D_{t_R}}{D_{GTAP}} \Big( \sum_{i \notin \text{fuels}} (TD_i + X_i)\, L_{i,k} + TD_k \Big)
+$$ {#eq-di-gtot}
+
+where
+
+- $R_k$ is the extra cost of group $k$ at base-year spending (USD million; code `grev.<k>`);
+- $U_k$ is the total use of group $k$: embedded in the total demand $TD_i$ and exports $X_i$ of the non-fuel
+  sectors, plus the group's own demand $TD_k$ (USD million; code `gtot.<k>`, `DIOTot` on `DistMapping`);
+- $L_{i,k}$ is GTAP's total-requirement (Leontief) coefficient of group $k$ in sector $i$;
+- $D_{t_R} / D_{GTAP}$ is the WEO GDP deflator of the results year over that of the GTAP year (issue I77).
+
+@eq-di-gtot is [B1.1](A_Equations.qmd#eqlist-B1-1). The price factor of the group is
+
+$$
+\phi_k =
+\begin{cases}
+R_k / U_k & \texttt{ScaleGTAP} = \text{Yes} \\[2pt]
+R_k / \sum_{f \in k} S_f & \texttt{ScaleGTAP} = \text{No}\ (0 \text{ without spending})
+\end{cases}
+$$ {#eq-di-gfac}
+
+where $\phi_k$ is the factor applied to the Leontief coefficients of group $k$ (code `gfac.<k>`).
+
+With `ScaleGTAP` = Yes the extra cost CPAT computes for the fuels is spread over everything the group is used for.
+With `ScaleGTAP` = No, $\phi_k$ is simply the spending-weighted economy-wide price change of the group's fuels.
+
+### Step 2: the price change of each category {#sec-di-cat}
+
+$$
+t_g = \sum_k \bar{L}_{g,k}\, \phi_k, \qquad
+\bar{L}_{g,k} = \frac{\sum_{i \in g} H_i\, L_{i,k}}{\sum_{i \in g} H_i}
+$$ {#eq-di-cat}
+
+where
+
+- $t_g$ is the price change of category $g$ (fraction; code `dpr.<g>`);
+- $\bar{L}_{g,k}$ is the household-demand weighted Leontief coefficient of the category (`DLcat` on
+  `DistMapping`);
+- $H_i$ is GTAP household demand for the output of sector $i$.
+
+This is [D1.2](A_Equations.qmd#eqlist-D1-2). The summary row of the section is the budget-share weighted average
+of $t_g$ over the categories, overall sample.
+
+::: {.callout-tip icon=false title="Pseudocode: indirect price changes"}
+```
+# data step (once per country)
+ratio = weo_deflator[results_year] / weo_deflator[gtap_year]
+for k in [coa, ely, nga, oil, p_c]:
+    gtot[k] = ratio * (sum((TD[i] + X[i]) * L[i, k] for i in nonfuel_sectors) + TD[k])
+    for g in categories:
+        DLcat[g, k] = sum(H[i] * L[i, k] for i in g) / sum(H[i] for i in g)
+
+# each scenario
+for k in groups:
+    grev[k]   = sum(spend[f] * dpa[f] for f in fuels_of[k])
+    gspend[k] = sum(spend[f] for f in fuels_of[k])
+    if ScaleGTAP == 'Yes':
+        gfac[k] = grev[k] / gtot[k]
+    else:
+        gfac[k] = grev[k] / gspend[k] if gspend[k] > 0 else 0
+for g in categories:
+    dpr[g] = sum(DLcat[g, k] * gfac[k] for k in groups)
+```
+:::
+
+::: {.callout-note collapse="true" title="Why one factor per fuel group is legacy's rescaling"}
+Legacy CPAT (with `ScaleGTAP` = Yes, its default) rescales the raw price change of each GTAP sector $s$ by
+
+$$
+\kappa_s = \frac{\sum_k \sigma_{k,s}\, R_k}{\sum_k Emb_{k,s}\, t_{k,s}},
+$$
+
+where $Emb_{k,s}$ is the use of group $k$ embedded in sector $s$, $\sigma_{k,s}$ its share in the group's total
+use and $t_{k,s}$ the price change of the fuel for that sector. With $Emb_{k,s} = Y_s L_{s,k}$ and
+$\sigma_{k,s} = Emb_{k,s} / U_k$, the sector's adjusted price change becomes
+
+$$
+\kappa_s \sum_k L_{s,k}\, t_{k,s} = \sum_k L_{s,k}\, \frac{R_k}{U_k} = \sum_k L_{s,k}\, \phi_k .
+$$
+
+The sector-specific fuel prices cancel. The model therefore keeps one factor per group. Checked on legacy's cache:
+all 59 sectors agree to 4e-16, and the 14 categories to 3e-6 (legacy prints six digits).
+:::
+
+## Price factors {#sec-di-fac}
+
+A price change costs a household its budget share times the change, if it buys the same quantities. When it
+buys less, the cost is smaller. The **price factor** carries this behavioural response; it is the methodology's
+decile-specific price elasticity of demand
+([section 5.3.2.2](../CPAT_full_documentation_html/05_Distribution.html#sec-5_3_2_2),
+[eq-5_7](../CPAT_full_documentation_html/05_Distribution.html#eq-5_7)):
+
+$$
+\psi_{d,i} =
+\begin{cases}
+t_i\, (1 + t_i)^{\epsilon_{d,i}} & \texttt{PEDs} = \text{Yes} \\
+t_i & \texttt{PEDs} = \text{No}
+\end{cases}
+$$ {#eq-di-fac}
+
+where
+
+- $\psi_{d,i}$ is the price factor of item $i$ in decile $d$ (fraction; code `fac.<i>`);
+- $t_i$ is the household price change of a fuel (@eq-di-dpr) or of a category (@eq-di-cat);
+- $\epsilon_{d,i}$ is the decile's own-price elasticity of item $i$ (`HH_Elast`; code `eps.<i>`). The basket
+  uses the basket elasticity.
+
+$t_i (1 + t_i)^{\epsilon}$ is the price change times the quantity the household still buys: with a negative
+elasticity the factor is below $t_i$.
+
+### Cooking-fuel exemption {#sec-di-exempt}
+
+To keep the poorest households from switching back to firewood or charcoal, the scenario can exempt their main
+cooking fuel ([section 5.3.2.5](../CPAT_full_documentation_html/05_Distribution.html#sec-5_3_2_5)). In policy
+terms it is a rebate: the household pays the tax and gets it back.
+
+$$
+\psi_{d,f^c} = 0 \qquad \text{for } 1 \le d \le \bar{d}, \text{ when } \texttt{ExemptMostCook} = \text{Yes}
+$$ {#eq-di-exempt}
+
+where
+
+- $f^c$ is the country's most-used fossil cooking fuel (WHO Household Energy Database; LPG for Egypt);
+- $\bar{d}$ is `ExemptCookDeciles` (default 4).
+
+This is [B1.4](A_Equations.qmd#eqlist-B1-4). The basket is never exempt. The summary row of the section is the
+budget-share weighted average of the fuel price factors, overall sample.
+
+::: {.callout-tip icon=false title="Pseudocode: price factors"}
+```
+for i in fuels + categories:
+    dp = dpr[i + '.res'] if i in fuels else dpr[i]       # oil reads dpr['oop.res']
+    for d in [basket, 1, ..., 10]:
+        fac[i][d] = dp * (1 + dp) ** eps[i][d] if PEDs == 'Yes' else dp
+        if i == cooking_fuel and ExemptMostCook == 'Yes' and 1 <= d <= ExemptCookDeciles:
+            fac[i][d] = 0
+facw = sum(fac[f] * bsh[f, 'ove'] for f in fuels) / sum(bsh[f, 'ove'] for f in fuels)   # summary
+```
+:::
+
+## Rebasing the survey to national accounts {#sec-di-rebase}
+
+Survey totals rarely match national accounts, and the survey year is not the analysis year. The module scales the
+survey population to the projected population and survey consumption to private consumption in national accounts
+([section 5.3.2.1](../CPAT_full_documentation_html/05_Distribution.html#sec-5_3_2_1),
+[eq-5_5](../CPAT_full_documentation_html/05_Distribution.html#eq-5_5),
+[eq-5_11](../CPAT_full_documentation_html/05_Distribution.html#eq-5_11)).
+
+$$
+C^{NA}_y = GDP_y \times \frac{\theta_c}{100}
+$$ {#eq-di-nacons}
+
+$$
+N_{d,s} = n_{d,s}\, \frac{POP_y}{n_0}, \qquad
+c_{d,s} = c^{svy}_{d,s}\, \frac{C^{NA}_y}{c^{svy}_0\, POP_y}, \qquad
+X_{d,s} = c_{d,s}\, N_{d,s}
+$$ {#eq-di-rebase}
+
+where
+
+- $C^{NA}_y$ is national private consumption in the analysis year (local currency; code `nacons`);
+- $\theta_c$ is households' final consumption in % of GDP, WDI `NE.CON.PRVT.ZS`, in its latest year (code
+  `consgdp`; Egypt: 82.6% in 2023);
+- $n_{d,s}$ is the survey population weight of decile $d$ in sample $s$ (`popw`), $n_0$ that of the whole
+  overall sample;
+- $c^{svy}_{d,s}$ is survey consumption per person including actual rent (`cons_pc_acrent`), $c^{svy}_0$ that of
+  the overall basket;
+- $N_{d,s}$, $c_{d,s}$ and $X_{d,s}$ are the decile's population, consumption per person and total consumption,
+  scaled (codes `pop_tot_adj`, `cons_pc_na`, `tot_cons_na`).
+
+This is [B1.2](A_Equations.qmd#eqlist-B1-2). The two scaling factors (codes `popadj` and `consadj`) come from the
+overall sample and apply to urban and rural alike. The summary row of the section is total consumption.
+
+::: {.callout-tip icon=false title="Pseudocode: survey to national accounts"}
+```
+nacons  = gdp * consgdp / 100
+popadj  = pop / popw['ove'][basket]
+consadj = nacons / cons_pc_svy['ove'][basket] / pop
+for s in [ove, urb, rur]:
+    for d in [basket, 1, ..., 10]:
+        pop_tot_adj[s][d] = popw[s][d] * popadj
+        cons_pc_na[s][d]  = cons_pc_svy[s][d] * consadj
+        tot_cons_na[s][d] = cons_pc_na[s][d] * pop_tot_adj[s][d]
+```
+:::
+
+## Direct, indirect and total effect {#sec-di-effects}
+
+The effect of the price changes on a decile is the budget-share weighted sum of its price factors, as a loss
+(negative) in percent of consumption. Fuels give the **direct** effect, categories the **indirect** effect
+([eq-5_2](../CPAT_full_documentation_html/05_Distribution.html#eq-5_2)). The methodology's corrections of
+2026-10-31 (DOC16) make the direct effect refer to eq-5_2, with $f \in g$.
+
+$$
+e^{dir}_{d,s} = -\lambda \sum_{f} \psi_{d,f}\, \pi^{df}_s, \qquad
+e^{ind}_{d,s} = -\lambda \sum_{g} \psi_{d,g}\, \pi^{dg}_s, \qquad
+e_{d,s} = e^{dir}_{d,s} + e^{ind}_{d,s}
+$$ {#eq-di-effect}
+
+where
+
+- $e^{dir}$, $e^{ind}$, $e$ are the direct, indirect and total effect (percent of consumption, a loss is negative;
+  codes `def.tot`, `ief.tot`, `tef.tot`; by item `def.<f>`, `ief.<g>`);
+- $\pi^{di}_s$ is the budget share of item $i$ in decile $d$ of sample $s$ (@eq-di-bsh);
+- $\lambda$ is the loss scale (@eq-di-lscale), 1 unless an adjustment is chosen.
+
+This is [D1.4](A_Equations.qmd#eqlist-D1-4) (there written as the burden $p_d = -e_d$). The urban and rural
+samples use their own budget shares with the overall price factors. Without `PEDs` these are Laspeyres
+(upper-bound) estimates: households keep their quantities.
+
+### Mitigation adjustment and deadweight loss {#sec-di-lscale}
+
+The input-output effect assumes that households and firms keep buying the same quantities. Mitigation, which
+lets them adjust, raises less revenue. With `InferredDist` the effect is scaled down to the revenue mitigation
+actually raises ([section 5.3.2.1](../CPAT_full_documentation_html/05_Distribution.html#sec-5_3_2_1),
+[eq-5_4](../CPAT_full_documentation_html/05_Distribution.html#eq-5_4),
+[eq-5_6](../CPAT_full_documentation_html/05_Distribution.html#eq-5_6)). First, the revenue the household effect
+implies:
+
+$$
+P_D = \sum_{d=1}^{10} \Big( \sum_i \psi_{d,i}\, \pi^{di} \Big) \frac{X_d}{100}
+$$ {#eq-di-revimpl}
+
+Then the share mitigation raises, and the loss scale:
+
+$$
+\beta =
+\begin{cases}
+\min\!\big(1, \max(0, R / P_D)\big) & \texttt{InferredDist} = \text{Yes} \\
+1 & \text{otherwise}
+\end{cases}
+\qquad
+\lambda = \beta + \begin{cases} \tfrac{1}{2}(1 - \beta) & \texttt{DWLs} = \text{Yes} \\ 0 & \text{otherwise} \end{cases}
+$$ {#eq-di-lscale}
+
+where
+
+- $P_D$ is the implied revenue, overall sample (local currency; code `revimpl`);
+- $R$ is the new revenue of mitigation (@sec-di-macro);
+- $\beta$ is the behavioural factor (code `badj`), $1 - p_{Adj}$ in the methodology's terms;
+- $\tfrac{1}{2}$ is the Harberger triangle (constant `DWLTri`): the deadweight loss is half the lost demand times
+  the price change, added back to the households' loss;
+- $\lambda$ is the loss scale (code `lscale`).
+
+This is [B1.3](A_Equations.qmd#eqlist-B1-3). Since the deadweight loss is a share of the gap $1 - \beta$,
+`DWLs` has no effect unless `InferredDist` is Yes.
+
+::: {.callout-tip icon=false title="Pseudocode: effects"}
+```
+for s in [ove, urb, rur]:
+    uloss[s] = sum(fac[i] * bsh[i, s] for i in fuels + categories)
+revimpl = sum(uloss['ove'][d] * tot_cons_na['ove'][d] for d in 1..10) / 100
+badj    = min(1, max(0, rev / revimpl)) if InferredDist == 'Yes' else 1
+lscale  = badj + (DWLTri * (1 - badj) if DWLs == 'Yes' else 0)
+for s in [ove, urb, rur]:
+    for f in fuels:      def[f, s] = -fac[f] * bsh[f, s] * lscale
+    for g in categories: ief[g, s] = -fac[g] * bsh[g, s] * lscale
+    def['tot', s] = sum(def[f, s] for f in fuels)
+    ief['tot', s] = sum(ief[g, s] for g in categories)
+    tef['tot', s] = def['tot', s] + ief['tot', s]                     # = -uloss[s] * lscale
+```
+:::
+
+## Revenue recycling {#sec-di-recycling}
+
+The revenue $R$ goes back to households in four ways, each with its share of the revenue. The methodology
+describes them in [section 5.4](../CPAT_full_documentation_html/05_Distribution.html#sec-5_4). All four are
+computed as an amount per person by decile, in local currency, then turned into percent of each sample's
+consumption.
+
+$$
+R_{PIT} = R\,\frac{\sigma_{PIT}}{100}, \quad
+R_{PUI} = R\,\frac{\sigma_{PUI}}{100}, \quad
+R_{CTS} = R\,\frac{\sigma_{CTS}}{100}, \quad
+R_{T} = R\,\frac{\sigma_{T}}{100}
+$$ {#eq-di-shares}
+
+where $\sigma_{PIT}$, $\sigma_{PUI}$, $\sigma_{CTS}$, $\sigma_T$ are `EXPLabortax`, `EXPCapex`,
+`EXPGoodsandserv` and `EXPTransfers` (percent; defaults 30, 50, 0, 20) and $R_{\cdot}$ the amounts (codes `rpit`,
+`rpui`, `rcts`, `rtgt`). Let $N = \sum_{d=1}^{10} N_d$ be the overall population (code `poptot`).
+
+The amounts per person come from the overall sample; urban and rural deciles receive the same amount per person,
+except for public investment, which follows each sample's access (issue I78).
+
+### Personal income-tax cut {#sec-di-pit}
+
+Part of the revenue can cut the personal income tax (PIT) households pay
+([section 5.4.3](../CPAT_full_documentation_html/05_Distribution.html#sec-5_4_3)). First, the PIT each decile pays
+per person:
+
+$$
+B = GDP_y\, \frac{\tau_{PIT}}{100}, \qquad
+\ell_d = \frac{B\, s_d}{\sum_{d'} s_{d'}\; N_d}
+$$ {#eq-di-pitpc}
+
+where
+
+- $B$ is economy-wide PIT (local currency; code `pitbase`);
+- $\tau_{PIT}$ is the PIT-to-GDP ratio of the country (percent; survey variable `indv`, code `pitind`);
+- $s_d$ is the decile's share of PIT paid (survey variable `pit_share_income` or `pit_share_region` by
+  `MissingDataReplacement`; code `pitsh`);
+- $\ell_d$ is PIT paid per person in decile $d$ (code `pitpc`).
+
+Then one of three cuts, chosen by `PITReductionType`:
+
+$$
+PIT_d =
+\begin{cases}
+\min(\bar{r}, \ell_d) + \dfrac{1}{N}\sum_{d'} (\bar{r} - \ell_{d'})^{+} N_{d'} & \text{PA} \\[8pt]
+\ell_d\, \dfrac{R_{PIT}}{B} & \text{PC} \\[8pt]
+\min\!\Big(\ell_d, \dfrac{(R_{PIT} - \Lambda_{d-1})^{+}}{N_d}\Big)\ (d \le \bar{d}_{PIT}),\ 0 \text{ above} & \text{TE}
+\end{cases}
+$$ {#eq-di-pit}
+
+where
+
+- $PIT_d$ is the PIT cut per person in decile $d$ (local currency; code `pit`); PA is Personal Allowance (code
+  `pitpa`), PC Proportional Compensation (`pitprop`), TE Targeted Exemption (`pitte`);
+- $\bar{r} = R_{PIT} / N$ is the most each person can get under the allowance (code `pitmax`); the second term
+  shares out equally what the deciles that pay less than $\bar{r}$ leave over (code `pitextra`);
+- $\Lambda_{d-1} = \sum_{d' < d} \ell_{d'} N_{d'}$ is the PIT paid by the deciles below $d$ (code `pitcum`);
+- $\bar{d}_{PIT}$ is `DistExcCfDec` (default 4): the exemption works from the bottom up while revenue lasts.
+
+This is [B1.5](A_Equations.qmd#eqlist-B1-5). The personal allowance is like a lump sum to taxpayers and is
+progressive; the proportional cut follows the PIT schedule and is relatively regressive.
+
+::: {.callout-tip icon=false title="Pseudocode: income-tax cut"}
+```
+rpit    = rev * EXPLabortax / 100
+poptot  = sum(N[d] for d in 1..10)
+pitbase = gdp * pitind / 100
+for d in 1..10:
+    pitpc[d] = pitbase * pitsh[d] / sum(pitsh) / N[d]
+pitmax   = rpit / poptot
+pitextra = sum(max(pitmax - pitpc[d], 0) * N[d] for d in 1..10) / poptot
+cum = 0
+for d in 1..10:
+    pitpa[d]   = min(pitmax, pitpc[d]) + pitextra
+    pitprop[d] = pitpc[d] * rpit / pitbase
+    pitte[d]   = min(pitpc[d], max(rpit - cum, 0) / N[d]) if d <= DistExcCfDec else 0
+    cum += pitpc[d] * N[d]
+    pit[d] = {'Personal Allowance': pitpa, 'Proportional Compensation': pitprop}.get(
+                 PITReductionType, pitte)[d]
+```
+:::
+
+### Targeted transfers {#sec-di-transfer}
+
+A targeted transfer goes to the bottom of the distribution. The scenario sets the targeted percentile, how many of
+the targeted receive (coverage) and how many of the others receive by mistake (leakage)
+([section 5.4.1](../CPAT_full_documentation_html/05_Distribution.html#sec-5_4_1),
+[eq-5_9](../CPAT_full_documentation_html/05_Distribution.html#eq-5_9) to
+[eq-5_12](../CPAT_full_documentation_html/05_Distribution.html#eq-5_12)). The model builds it in three steps.
+
+**The targeted share of each decile.** Deciles are not exactly 10% of the population once weighted, so the share
+of each decile inside the bottom percentile follows the cumulative population:
+
+$$
+n^{sh}_d = \frac{N_d}{N}, \qquad
+\tau_d = \max\!\Big(0,\ \min\big(n^{sh}_d,\ \tfrac{p_T}{100} - \textstyle\sum_{d' \le d} n^{sh}_{d'} + n^{sh}_d\big)\Big)
+$$ {#eq-di-tgtsh}
+
+where $n^{sh}_d$ is the decile's population share (code `popsh`), $p_T$ the targeted percentile
+`TargettedPercentile` (percent; default 40) and $\tau_d$ the targeted share of the population, in the decile
+(code `tgtsh`).
+
+**The share of the decile that receives.**
+
+$$
+r_d = \frac{\tau_d\, cov + (n^{sh}_d - \tau_d)\, leak}{100\; n^{sh}_d}
+$$ {#eq-di-recv}
+
+where $cov$ and $leak$ are `CoverageRate` and `LeakageRate` (percent; defaults 100 and 0) and $r_d$ the share of
+the decile that receives (code `recv`).
+
+**The transfer.** One formula serves the three targeting modes, through a weight $w_d$:
+
+$$
+T_d = T\, r_d\, w_d\, \mu_d, \qquad
+T = \frac{R_T}{\sum_{d=1}^{10} r_d\, w_d\, N_d}
+$$ {#eq-di-tgt}
+
+$$
+w_d =
+\begin{cases}
+1 & \text{Cash} \\
+\min(10\, b^{PL}_d,\ 100) / 100 & \text{PL (poverty line)} \\
+A_{\lceil d/2 \rceil} & \text{ASPIRE}
+\end{cases}
+$$ {#eq-di-tgtw}
+
+$$
+\mu_d =
+\begin{cases}
+0 & \text{median statistic and } r_d\, w^{PL}_d \le \tfrac{1}{2} \\
+1 & \text{otherwise}
+\end{cases}
+$$ {#eq-di-medflag}
+
+where
+
+- $T_d$ is the transfer per person in decile $d$ (local currency; code `tgt`) and $T$ the amount per weighted
+  recipient (code `tgtamt`);
+- $b^{PL}_d$ is the percentage of decile $d$ below the poverty line `TargetBelow` (survey `pct_belowpl_215`,
+  `pct_belowpl_365` or `pct_belowpl_685`: lines of 2.15, 3.65 and 6.85 USD a day); times 10 it is the share of
+  the decile below the line if deciles hold 10% of the sample (constant `PlDecScale`), capped at 100% (code
+  `plsh`);
+- $A_q$ is the ASPIRE benefit per person of the `TransferType` programme in quintile $q = \lceil d/2 \rceil$
+  (constant `DecPerQuint` = 2; PPP USD a day, as in the data; 0 when absent; code `aspt`);
+- $w^{PL}_d$ is the poverty-line share (1 outside PL mode) and $r_d w^{PL}_d$ the share of the decile that receives
+  (code `rshare`);
+- $\mu_d$ is the median flag (code `medflag`): with the median statistic the representative household of a decile
+  receives the transfer only if more than half the decile receives.
+
+This is [D1.5](A_Equations.qmd#eqlist-D1-5). The denominator makes the payout equal the revenue share exactly, in
+every mode, except that money the median flag withholds is not redistributed (as legacy). Poverty-line targeting
+works only with `TransferType` = Cash. A programme without ASPIRE data for the country falls back to cash, and the
+support check says so.
+
+::: {.callout-tip icon=false title="Pseudocode: targeted transfer"}
+```
+rtgt = rev * EXPTransfers / 100
+popcum = 0
+for d in 1..10:
+    popsh[d] = N[d] / poptot
+    popcum  += popsh[d]
+    tgtsh[d] = max(0, min(popsh[d], TargettedPercentile / 100 - popcum + popsh[d]))
+    recv[d]  = (tgtsh[d] * CoverageRate + (popsh[d] - tgtsh[d]) * LeakageRate) / 100 / popsh[d]
+    q        = ceil(d / DecPerQuint)
+    aspt[d]  = aspire.get(f'{iso}.{tgtcode}{q}_preT_tot', 0)
+    plsh[d]  = min(PlDecScale * pct_belowpl[d], 100) / 100 if tgtmode == 'PL' else 1
+    tgtw[d]  = aspt[d] if tgtmode == 'ASPIRE' else plsh[d]
+    rshare   = recv[d] * plsh[d]
+    medflag[d] = 0 if QuantilesStatistic == 'median' and rshare <= 1 - rshare else 1
+den    = sum(recv[d] * tgtw[d] * N[d] for d in 1..10)
+tgtamt = rtgt / den if den else 0
+for d in 1..10:
+    tgt[d] = tgtamt * recv[d] * tgtw[d] * medflag[d]
+```
+:::
+
+### Public investment and current spending {#sec-di-pui}
+
+**Public investment** reaches the people who lack the chosen infrastructure: water, sanitation, electricity, ICT,
+public transport, or all of them ([section 5.2.2](../CPAT_full_documentation_html/05_Distribution.html#sec-5_2_2),
+[eq-5_13](../CPAT_full_documentation_html/05_Distribution.html#eq-5_13)). Its value is counted as cash.
+**Current spending** scales up an existing social-protection programme in proportion to what each quintile
+receives from it today ([section 5.4.2](../CPAT_full_documentation_html/05_Distribution.html#sec-5_4_2),
+[eq-5_14](../CPAT_full_documentation_html/05_Distribution.html#eq-5_14)).
+
+$$
+PUI_{d,s} = \frac{R_{PUI}}{\sum_{d'} (1 - a_{d'})\, N_{d'}}\,(1 - a_{d,s}), \qquad
+CTS_d = \frac{R_{CTS}}{\sum_{d'} b_{d'}\, N_{d'}}\, b_d
+$$ {#eq-di-pui}
+
+where
+
+- $PUI_{d,s}$ is public investment per person in decile $d$ of sample $s$, $CTS_d$ current spending per person
+  (local currency; codes `pui`, `cts`);
+- $a_{d,s}$ is the share of the decile with access to the infrastructure `PublicInfrastructureInvType` (survey,
+  percent / 100; code `acs`); $1 - a$ is code `noacc`;
+- $b_d$ is the ASPIRE benefit per person of the `CurrentSpendingType` programme in quintile $\lceil d/2 \rceil$
+  (code `aspbase`; 0 if absent);
+- the sums run over the overall deciles; the amount per person without access (code `puiamt`) is then applied to
+  each sample's own access.
+
+This is [B1.6](A_Equations.qmd#eqlist-B1-6). Both are independent of the transfer settings and carry no median
+flag.
+
+::: {.callout-tip icon=false title="Pseudocode: public investment and current spending"}
+```
+rpui = rev * EXPCapex / 100
+rcts = rev * EXPGoodsandserv / 100
+for s in [ove, urb, rur]:
+    noacc[s] = [1 - acs[s][d] / 100 for d in 1..10]       # access variable of the chosen type
+puiamt = rpui / sum(noacc['ove'][d] * N[d] for d in 1..10)
+for s in [ove, urb, rur]:
+    pui[s] = [puiamt * noacc[s][d] for d in 1..10]
+aspbase = [aspire.get(f'{iso}.{aspcode}{ceil(d / 2)}_preT_tot', 0) for d in 1..10]
+ctsamt  = rcts / sum(aspbase[d] * N[d] for d in 1..10)
+cts     = [ctsamt * aspbase[d] for d in 1..10]
+```
+:::
+
+### Recycling gain in percent of consumption {#sec-di-rec}
+
+Each amount per person is divided by the consumption per person of the sample's decile:
+
+$$
+G_{d,s} = \frac{PIT_d + PUI_{d,s} + CTS_d + T_d}{c_{d,s}} \times 100
+$$ {#eq-di-rec}
+
+where $G_{d,s}$ is the recycling gain (percent of consumption; code `rec.tot`; its parts `pit.tot`, `pui.tot`,
+`cts.tot`, `tgt.tot`) and $c_{d,s}$ consumption per person (@eq-di-rebase). Recycling rows have deciles only; the
+basket is blank.
+
+## Net effect, compensation and inequality {#sec-di-net}
+
+The net effect is what each decile gains or loses once the revenue comes back
+([section 5.4](../CPAT_full_documentation_html/05_Distribution.html#sec-5_4)):
+
+$$
+net_{d,s} = e_{d,s} + G_{d,s}
+$$ {#eq-di-net}
+
+where $net_{d,s}$ is the net effect (percent of consumption; code `net.tot`). This is
+[D1.6](A_Equations.qmd#eqlist-D1-6).
+
+### Compensation shares {#sec-di-comp}
+
+How much of the revenue would it take to make each decile whole? The share of the total loss each decile bears:
+
+$$
+\chi_{d,s} = \frac{e_{d,s}\, X_{d,s}}{\sum_{d'} e_{d',s}\, X_{d',s}} \times 100
+$$ {#eq-di-comp}
+
+where $\chi_{d,s}$ is the compensation share of decile $d$ (percent; code `pctrev_comp`; 0 when there is no loss).
+In each sample the shares sum to 100.
+
+### Gini coefficient {#sec-di-gini}
+
+Inequality is measured three times: on consumption before the scenario, after the price effects, and after
+recycling.
+
+$$
+X^{x}_{d,s} = X_{d,s}\Big(1 + \frac{e_{d,s}}{100}\Big), \qquad
+X^{i}_{d,s} = X_{d,s}\Big(1 + \frac{net_{d,s}}{100}\Big)
+$$ {#eq-di-post}
+
+$$
+G(x) = 1 - \frac{\sum_{d=1}^{10} x_d\, W_d}{\sum_{d=1}^{10} x_d}
+$$ {#eq-di-gini}
+
+where
+
+- $X^{x}$ and $X^{i}$ are decile consumption after the price effects and after recycling (codes `postx`, `posti`);
+- $G$ is the Gini coefficient of the decile totals $x_d$; $G_0 = G(X)$, $G_x = G(X^x)$, $G_i = G(X^i)$ (codes
+  `gini.g0`, `gini.gx`, `gini.gi`);
+- $W_d$ are fixed weights (`DGiniW` on `DistMapping`).
+
+This is [B1.7](A_Equations.qmd#eqlist-B1-7). The weights come from legacy's Lorenz fit: a quadratic
+$L(q) = a q^2 + b q$ through the origin fitted by least squares to the ten cumulative shares at
+$q = 1, \dots, 10$, with $G = (5 - \text{area under } L) / 5$. The fit is linear in the shares, so
+
+$$
+W_d = \frac{2}{n} \sum_{q \ge d} \omega_q, \qquad
+\omega_q = \frac{\tfrac{n^3}{3}(S_2 q^2 - S_3 q) + \tfrac{n^2}{2}(S_4 q - S_3 q^2)}{S_4 S_2 - S_3^2}, \qquad
+S_m = \sum_{q=1}^{n} q^m
+$$ {#eq-di-giniw}
+
+with $n = 10$. The weights are:
+
+| $d$ | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| $W_d$ | 1.78715 | 1.70902 | 1.56797 | 1.37921 | 1.15797 | 0.91944 | 0.67884 | 0.45138 | 0.25228 | 0.09675 |
+
+: Gini weights {#tbl-di-giniw}
+
+The reported changes:
+
+| Code | Meaning |
+|---|---|
+| `pct_gini_norec`, `pct_gini_rec` | $(G_x / G_0 - 1) \times 100$ and $(G_i / G_0 - 1) \times 100$: percent change |
+| `gini.ptx`, `gini.pti` | $G_x - G_0$ and $G_i - G_0$: change in Gini points |
+
+::: {.callout-tip icon=false title="Pseudocode: net effect, compensation and Gini"}
+```
+W = gini_weights()                                           # tbl-di-giniw
+gini = lambda x: 1 - sum(x[d] * W[d] for d in 1..10) / sum(x[d] for d in 1..10)
+for s in [ove, urb, rur]:
+    for d in 1..10:
+        net[s][d] = tef[s][d] + rec[s][d]
+    compden = sum(tef[s][d] * tot_cons_na[s][d] for d in 1..10)
+    for d in 1..10:
+        pctrev_comp[s][d] = 0 if compden == 0 else tef[s][d] * tot_cons_na[s][d] / compden * 100
+        postx[s][d] = tot_cons_na[s][d] * (1 + tef[s][d] / 100)
+        posti[s][d] = tot_cons_na[s][d] * (1 + net[s][d] / 100)
+    g0, gx, gi = gini(tot_cons_na[s]), gini(postx[s]), gini(posti[s])
+    pct_gini_norec[s] = (gx / g0 - 1) * 100
+    pct_gini_rec[s]   = (gi / g0 - 1) * 100
+    gini_ptx[s], gini_pti[s] = gx - g0, gi - g0
+```
+:::
+
+## Outputs for charts {#sec-di-charts}
+
+Section 10 prepares what the distribution charts show. It adds no new economics; each row is a rearrangement of the
+results above.
+
+| Output | Content | Codes |
+|---|---|---|
+| Decile names | Poorest, Decile 2 ... Decile 9, Wealthiest | `dname` |
+| Decile brackets | Lowest and highest consumption per person of each decile (survey p1 and p99) × `consadj`: real local currency of the analysis year | `dbr.p1`, `dbr.p99` |
+| Decile labels | The names, or the brackets in local currency when `QuantilesLCU` = Yes | `dlab` |
+| Budget shares by group | Fossil fuels, biomass, non-fuel categories | `bshg.fos`, `bshg.bio`, `bshg.nfu` |
+| Urban and rural effects by item | Direct effect by fuel, indirect by category, for each sample | `def.<f>`, `ief.<g>` |
+| Amounts per person | Budget, direct and indirect effect by item; total, net effect: $c_{d,s} \times$ the percentage / 100 | `abud`, `adef`, `aief`, `atef`, `anet` |
+| Lorenz curves | Cumulative share of population, of consumption before, after the price effects and after recycling | `lzp`, `lz0`, `lzx`, `lzi` |
+| Cumulative compensation | Running sum of the compensation shares | `ccomp` |
+| Percentile households | The 25th and 75th percentile households of each decile: their effect (decile price factors × their own budget shares × $\lambda$), consumption, recycling gain and net effect | `hrow`, `htef`, `hcpc`, `hrec`, `hnet` |
+| Gini change | In Gini points, by sample | `gini.ptx`, `gini.pti` |
+
+The equality line of the Lorenz chart is the cumulative population share, not steps of 10%. The percentile
+households give the horizontal spread: how different two households of the same decile fare.
+
+## Price changes by production sector {#sec-di-sectors}
+
+The same input-output factors tell how much each producing sector's costs rise. Section 11 lists the sectors hit
+hardest and summarises them by CPAT sector. The methodology treats pass-through in
+[section 5.3.2.3](../CPAT_full_documentation_html/05_Distribution.html#sec-5_3_2_3)
+([eq-5_8](../CPAT_full_documentation_html/05_Distribution.html#eq-5_8)).
+
+$$
+t_i = \begin{cases} \sum_k L_{i,k}\, \phi_k & i \notin \text{fuels} \\ 0 & i \in \text{fuels} \end{cases}
+\qquad
+t^{*}_i = t_i\, \gamma_{s(i)}
+$$ {#eq-di-dps}
+
+$$
+\bar{t}_s = \frac{\sum_{i \in s} Q_i\, t^{*}_i}{\sum_{i \in s} Q_i}
+$$ {#eq-di-ppic}
+
+where
+
+- $t_i$ is the input-cost price change of GTAP sector $i$ (code `dps.<i>`);
+- $\gamma_{s(i)}$ is the pass-through of the CPAT sector $s$ that sector $i$ belongs to, when `PassthroughDist` =
+  Yes (1 otherwise; @tbl-di-passthrough);
+- $t^{*}_i$ is the output price change after pass-through (code `dpsp.<i>`);
+- $Q_i$ is GTAP output; $\bar{t}_s$ the output-weighted price change of CPAT sector $s$.
+
+This is [B1.8](A_Equations.qmd#eqlist-B1-8).
+
+| CPAT sector | $\gamma$ | CPAT sector | $\gamma$ |
+|---|---|---|---|
+| Electricity production (`pow`) | 1 | Mining and chemicals (`mch`) | 0.711 |
+| Rail (`ral`) | 0.905 | Iron and steel (`irn`) | 0.711 |
+| Road (`rod`) | 0.905 | Non-ferrous metals (`nfm`) | 0.711 |
+| Domestic aviation (`avi`) | 0.905 | Machinery (`mac`) | 0.692 |
+| Domestic navigation (`nav`) | 0.905 | Cement (`cem`) | 0.775 |
+| Residential (`res`) | 0.905 | Other manufacturing (`omn`) | 0.692 |
+| Food and forestry (`foo`) | 0.681 | Construction (`cst`) | 0.692 |
+| Services (`srv`) | 0.963 | Fuel transformation and transport (`ftr`) | 0.327 |
+
+: Pass-through coefficients (Ganapati 2019; Abdallah and others 2020) {#tbl-di-passthrough}
+
+The outputs:
+
+| Output | Content | Codes |
+|---|---|---|
+| Rank | Rank of each GTAP sector by $t^*_i$, largest first; ties broken by sheet order | `dprk` |
+| Top 20 | Code, name and price change of the 20 sectors with the largest $t^*_i$ | `rks`, `rkn`, `rkp` |
+| Sector shares | Share of each of the 14 CPAT sectors in household demand and in output | `secshh`, `secsout` |
+| Sector prices | Output-weighted $t_i$ (before pass-through), output-weighted $t^*_i$, household-demand weighted $t^*_i$ | `ppici`, `ppic`, `outpriin` |
+| Whole economy | Output-weighted $t^*_i$ over all sectors | `ppic.all` |
+
+The 14 CPAT sectors are aviation, navigation, food, services, mining and chemicals, iron and steel, non-ferrous
+metals, machinery, cement, other manufacturing, construction, fuel transformation, residential and power.
+MTOutputs reads `ppic`, `ppici` and `outpriin` by sector code.
+
+::: {.callout-tip icon=false title="Pseudocode: production sectors"}
+```
+for i in gtap_sectors:
+    dps[i]  = 0 if i in fuel_sectors else sum(L[i, k] * gfac[k] for k in groups)
+    gamma   = passthrough.get(cpat_of[i], 1) if PassthroughDist == 'Yes' else 1
+    dpsp[i] = dps[i] * gamma
+for n, i in enumerate(gtap_sectors):                         # rank, ties by order
+    dprk[i] = 1 + count(dpsp > dpsp[i]) + count(dpsp[j] == dpsp[i] for j before n)
+for r in 1..20:
+    i = the sector with dprk == r
+    rks[r], rkn[r], rkp[r] = i, name[i], dpsp[i]
+for s in cpat_sectors:
+    m = [i for i in gtap_sectors if cpat_of[i] == s]
+    secshh[s]   = sum(H[m]) / sum(H)
+    secsout[s]  = sum(Q[m]) / sum(Q)
+    ppici[s]    = sum(Q[m] * dps[m])  / sum(Q[m])
+    ppic[s]     = sum(Q[m] * dpsp[m]) / sum(Q[m])
+    outpriin[s] = sum(H[m] * dpsp[m]) / sum(H[m])
+ppic['all'] = sum(Q * dpsp) / sum(Q)
+```
+:::
+
+## Where the model departs from the methodology {#sec-di-departures}
+
+The model follows the methodology's chapter 5 with these simplifications and choices. The legacy-specific items
+are in the next box.
+
+| Topic | Methodology | Model |
+|---|---|---|
+| Mitigation adjustment ([eq-5_6](../CPAT_full_documentation_html/05_Distribution.html#eq-5_6)) | Downward factor $p_{Adj} = (P_D - P_M)/P_D$ | Scale $\beta = R / P_D = 1 - p_{Adj}$, bounded to [0, 1]; $P_M$ is the new-policy revenue `rnew`; optional deadweight triangle |
+| Elasticities ([eq-5_7](../CPAT_full_documentation_html/05_Distribution.html#eq-5_7)) | Quantity changes by $(p_t / p_{t-1})^{\epsilon}$ | Price factor $t (1+t)^{\epsilon}$; the overall-sample mean elasticities for every sample and statistic |
+| Pass-through ([eq-5_8](../CPAT_full_documentation_html/05_Distribution.html#eq-5_8)) | Applied to the tax rate; coefficients 0.7-0.9, average 0.8 | Applied only to the production-sector prices of section 11; coefficients 0.327-1 by CPAT sector |
+| Indirect prices ([eq-5_3](../CPAT_full_documentation_html/05_Distribution.html#eq-5_3)) | Energy intensities times fuel price changes | GTAP Leontief coefficients times one factor per fuel group; with `ScaleGTAP` the factor spreads CPAT's extra fuel cost over the group's total use |
+| ASPIRE scaling ([eq-5_14](../CPAT_full_documentation_html/05_Distribution.html#eq-5_14)) | Quintile amounts × a fifth of the population | Quintile amounts × each decile's scaled population |
+| Poverty lines ([section 5.2.1](../CPAT_full_documentation_html/05_Distribution.html#sec-5_2_1)) | 1.9 and 3.2 USD a day (2011 PPP) | The survey data hold 2.15, 3.65 and 6.85 USD a day |
+| PIT base ([section 5.4.3.1](../CPAT_full_documentation_html/05_Distribution.html#sec-5_4_3_1)) | Average PIT-to-GDP ratio × real GDP (constant 2021 local currency) | PIT-to-GDP ratio of the survey table × the scenario's GDP in local currency (`gdp.lcu`) in the analysis year |
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: bugs fixed"}
+Legacy bugs are never replicated. The register codes (L, with the former distribution codes D) and the legacy
+cells:
+
+| Code | Legacy | Bug | Model |
+|---|---|---|---|
+| L138 (D1) | R2562:Z2562 | Targeted share of a decile capped at 10 points, not its population share: 105.6% of decile 2 receives | Capped at the decile's population share (@eq-di-tgtsh) |
+| L139 (D2) | C.V, C.VI basket (e.g. Q1607) | Basket uses decile 1's elasticity adjustment and exemption test | Basket elasticity; the basket is never exempt |
+| L140 (D3) | Q2633 | Current spending tests the ASPIRE flag of the targeted transfer (I213), not of current spending (I214) | No flag: the ASPIRE programme of the chosen type, 0 if absent |
+| L141 (D4) | rows 2701-2707 | Public investment and current spending are 0 when the transfer coverage or percentile is 0 | Independent of the transfer settings |
+| L142 (D5) | Q2749 | Targeted exemption capped by all carbon-pricing revenue (I154), not the PIT share (I163); urban and rural values not per capita | Capped by the PIT revenue; per capita in every sample |
+| L143 (D6) | Q3259, Q3263 | Urban and rural compensation shares divide by overall weights (they sum to 52 and 47) | Each sample's own weights; each sums to 100 |
+| L144 (D7) | rows 859-883 | Deadweight loss is a price fraction subtracted from a % of consumption | `DWLTri` × (1 − factor) × the effect, same units (@eq-di-lscale) |
+| L145 (D8) | MTOutputs 1001-1002 | `dist.year` and `dist.stat` read ScenarioDefinition column D (0 in dashboard mode) | The analysis year and statistic of the group |
+| L146 (D9) | H2417, H2422; row 746 | Rural rows labelled Urban; fuel code `oil` against price rows `oop` | Own labels; rows by key; one code `oop` for the price |
+| L147 (D10) | row 2629 | ASPIRE transfer pays out 125-129% of the revenue | Payout = revenue (@eq-di-tgt) |
+| L148 (D11) | row 2617, I213 | ASPIRE programme without country data: the transfer vanishes | Cash used; the support check says so |
+| L149 (D12) | row 2697 | ASPIRE branch skips the median flag and the zero-coverage test | One formula for every targeting mode |
+| L150 (D13) | rows 2701-2707 | Public investment and current spending use the targeted-transfer median flag | The flag applies to the targeted transfer only |
+| L151 (D14) | row 2679 | Poverty targeting: the share receiving ignores targeting, coverage and leakage | Share receiving = receiving × below the line |
+| L152 (D15) | rows 2650-2674 | Poverty targeting: urban and rural pay out about half the funds | Urban and rural per person = overall per person (I78) |
+| L154 (D17) | row 2618, I220-I223 | ASPIRE values converted without a PPP factor | Labelled PPP USD a day; no conversion |
+| L155 (D18) | rows 3188-3206 | Horizontal p25/p75 effects inflated | Price factors × the percentile's budget shares × loss scale |
+| L156 (D19) | rows 3193, 3201, 3209 | Horizontal recycling of the chosen statistic divides by median consumption | The recycling row of the chosen statistic |
+| L157 (D20) | row 2774 | Decile brackets always divided by 1000 | No scaling; brackets in local currency |
+| L158 (D21) | rows 2775-2784 | Decile bracket labels unusable | Real local currency of the analysis year, full numbers |
+| L159 (D22) | rows 3300-3310 | Sector table "ordered by demand" sorts each column independently | One rank per sector; values read by rank |
+| L160 (D23) | rows 3300-3323 | Ordered sector tables show 11 of 12 sectors | Every sector listed |
+| L161 (D24) | rows 3285-3296 | Chemicals and power missing from the CPAT-sector table | 14 sectors, chemicals and power included |
+| L162 (D25) | row 3313 | Chart 19 labels ranked separately from their values; ties | One ranking; ties broken by order |
+| L163 (D26) | G659:BR659 | Pass-through coefficients one row off | Coefficient of the sector's own row; power 1 |
+| L164 (D27) | MTOutputs K1048:L1058 | `outpriin` labels do not match their values | `outpriin` by sector code |
+| L165 (D28) | MTOutputs E1006, E1013 | Codes without a dot | Not replicated: the right codes |
+| L166 (D29) | MTOutputs K1046 | `ppic.fuel` empty | The fuel transformation sector is read (0) |
+| L167 (D30) | rows 2455-2457, 3109 | Lorenz equality line in 10% steps | Equality line = cumulative population share |
+| L168 (D31) | L3036:L3043 | Absolute overall rows carry wrong codes | Codes built from the row ids |
+
+One legacy bug is **kept**, as a data limitation: L153 (D16), the poverty share × 10 assumes deciles of 10%; the
+model caps the result at 100% (@eq-di-tgtw).
+
+One **prototype** bug was fixed in both models: M22, the percentile-household recycling rows added a percentage
+row to amounts in local currency (public investment); now every part is per person in local currency before the
+division.
+
+The bug fixes move Egypt's legacy numbers only a little: the targeted transfer in deciles 1-4 by up to 0.13
+points of consumption and the Gini change with recycling by 0.0006 points. The urban and rural compensation shares
+move most, because each now sums to 100.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: issues replicated"}
+Legacy issues are replicated and tracked: legacy does what it means to, but the choice is open to question.
+
+| Code | Issue | What the model does |
+|---|---|---|
+| I76 | Spending year | Fuel spending of the base year (legacy's first calculation year), with the analysis year's price changes (@eq-di-spend) |
+| I77 | Deflator | GTAP values (USD) converted with the local GDP deflator (legacy I244; @eq-di-gtot) |
+| I96 | Elasticities | Always overall, mean: the data have no other |
+| I78 | Recycled amounts | Per person from the overall sample, applied to urban and rural consumption (public investment follows each sample's access) |
+| I79 | Gini | From the fitted quadratic Lorenz curve, not the trapezoid rule (@eq-di-gini) |
+| I80 | Revenue | Revenue from new policies (`rnew`) stands for legacy's carbon-pricing revenue (carbon tax, VAT on it, auctioned ETS) |
+| I81 | ASPIRE-targeted transfers | `TransferType` other than Cash weights the transfer by the programme's benefit |
+| I82 | Poverty-line targeting | `TargetBelow` works with Cash only; poverty share from the mean rows |
+| I83 | Pass-through | `PassthroughDist` changes the production-sector prices only, not the household effects |
+| I84 | Median statistic | The targeted transfer reaches only deciles where more than half receive; the money withheld is not redistributed |
+
+**A simplification.** With `ScaleGTAP` = No the model uses the economy-wide price change of each fuel group
+(@eq-di-gfac). Legacy uses the price change of each GTAP sector's CPAT sector. The difference is recorded.
+:::
+
+## Checks {#sec-di-checks}
+
+::: {.callout-note collapse="true" title="Check: how the module is verified"}
+| Check | Result |
+|---|---|
+| Python reference `distribution_ref.py`, fed with legacy's cached Egypt inputs | Reproduces legacy's outputs to the precision of the cache: effects, recycling, net effect and compensation to 4e-4, Gini changes to 7e-6 |
+| Excel-AI quick check | Group 2 equals the reference fed with the sheet's own inputs; the LAMBDA group equals group 2; no error values; scenario numbers align with Mitigation group by group |
+| Excel-AI paste test (`check_paste.py`) | Distribution groups 4-7 are pasted with Mitigation's |
+| CPAT Python against Excel-AI (`test_distribution_incidence.py`) | Every code of sections 1-11, basket and deciles, for Egypt scenario groups 1 and 2, equal within 1e-9 |
+| CPAT Python against `distribution_ref.py` (`check_recomputations.py`) | Same household results with the same mitigation inputs |
+| Indirect-price identity | All 59 sectors to 4e-16, the 14 categories to 3e-6 |
+| Switch tests (Egypt, targeted transfer, decile 1 = 1) | Cash Transfers programme: 1, 1, 0.691, 0.691, 0.047; poverty line 6.85: 1, 1, 1, 0.507, 0.003; as the legacy formulas with the fixes applied to legacy's cached inputs |
+| Baseline Lorenz curve | 4.016, 9.045, 16.106 (first three deciles), as legacy |
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Scenario 2 (carbon price of USD 20 per tCO2 from 2027) against scenario 1, analysis year 2030, default settings,
+overall sample. Revenue to recycle $R$ = 74.4 billion local currency; the implied revenue $P_D$ = 125.7 billion,
+so $\beta$ would be 0.59 with `InferredDist` (it is off: $\lambda$ = 1).
+
+| Decile | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Total effect $e_d$ (%) | −1.67 | −1.52 | −1.51 | −1.41 | −1.39 | −1.39 | −1.42 | −1.46 | −1.41 | −1.49 |
+| Recycling gain $G_d$ (%) | 4.33 | 3.02 | 1.86 | 1.47 | 1.03 | 0.58 | 0.37 | 0.28 | 0.34 | 0.13 |
+| Net effect (%) | 2.67 | 1.50 | 0.35 | 0.06 | −0.37 | −0.81 | −1.05 | −1.18 | −1.07 | −1.36 |
+| Compensation share (%) | 4.6 | 5.3 | 7.3 | 7.3 | 7.8 | 9.1 | 10.9 | 13.4 | 14.2 | 20.1 |
+
+- Basket: direct effect −1.30%, indirect −0.16%, total −1.46%.
+- Household price changes: electricity +18.4%, natural gas +61.8%, LPG +33.6%, diesel +21.4%, gasoline +14.9%.
+- Targeted transfer: 314 local currency per person in deciles 1-4, 14 in decile 5 (the 40% line falls inside
+  it).
+- Gini: 0.2538 before, 0.2538 after the price effects (+0.00009 points, +0.03%), 0.2489 after recycling
+  (−0.0049 points, −1.93%). The trapezoid rule would give 0.2506 for the baseline (issue I79).
+- Top production sectors: air transport +0.75%, chemicals +0.69%, water transport +0.67%, other mining +0.60%,
+  land transport +0.57%.
+- In the urban sample, the survey gives an access share above 100% in deciles 3 and 9, so their public-investment
+  gain is slightly negative; the model takes the data as they are.
+:::

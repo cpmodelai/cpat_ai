@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Multipliers – CPAT Documentation</title>
+<title>4&nbsp; Multipliers – CPAT Methodology</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -133,7 +133,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">CPAT Documentation</a> 
+      <a href="./">CPAT Methodology</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/wb-mrio/cpat_public" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <a href="./CPAT-Documentation.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
@@ -155,7 +155,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Cover</strong></span></a>
+ <span class="menu-text">CPAT Methodology</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -200,6 +200,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Road Transport Module</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_Corrections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Corrections</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
     <nav id="TOC" role="doc-toc" class="toc-active">
@@ -226,7 +232,8 @@ window.Quarto = {
   <li><a href="#trade-openness" id="toc-trade-openness" class="nav-link" data-scroll-target="#trade-openness"><span class="header-section-number">4.6.8</span> Trade openness</a></li>
   <li><a href="#computation-of-country-specific-dynamic-multipliers" id="toc-computation-of-country-specific-dynamic-multipliers" class="nav-link" data-scroll-target="#computation-of-country-specific-dynamic-multipliers"><span class="header-section-number">4.6.9</span> Computation of country specific dynamic multipliers</a></li>
   </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">4.7</span> References</a></li>
+  <li><a href="#sec-GDPFeedback" id="toc-sec-GDPFeedback" class="nav-link" data-scroll-target="#sec-GDPFeedback"><span class="header-section-number">4.7</span> GDP feedback in CPAT</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">4.8</span> References</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/wb-mrio/cpat_public/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
 </nav>
@@ -316,7 +323,7 @@ window.Quarto = {
 <section id="methodology-for-estimating-dynamic-multipliers-using-panel-data" class="level3" data-number="4.6.1">
 <h3 data-number="4.6.1" class="anchored" data-anchor-id="methodology-for-estimating-dynamic-multipliers-using-panel-data"><span class="header-section-number">4.6.1</span> Methodology for estimating dynamic multipliers using panel data</h3>
 <p>A thorough discussion of the underlying methodology is provided by Schoder (2022) who exploits the global dataset to study how environmental tax multipliers vary over the business cycle. To obtain dynamic multiplier estimates we employ the local projection method proposed by Jordà (2005) and extended to panel data by Jordà, Schularick, and Taylor (2015) and Jordà, Schularick, and Taylor (2020). As in Dabla-Norris and Lima (2018), we estimate for every horizon <span class="math inline">\(h = 0,1,\ldots,H - 1\)</span>,</p>
-<p><span class="math inline">\(y_{i,t + h} - y_{i,t - 1} = \alpha_{i,h} + \delta_{t,h} + \text{Δs}_{i,t}\beta_{h} + \Delta x_{i,t}\gamma_{h} + \epsilon_{t,i,h}\)</span></p>
+<p><span class="math inline">\(y_{i,t + h} - y_{i,t - 1} = \alpha_{i,h} + \delta_{t,h} + \text{Δs}_{i,t}\beta_{h} + \Delta x_{i,t}\gamma_{h} + \varepsilon_{t,i,h}\)</span></p>
 <p>where <span class="math inline">\(y_{i,t}\)</span> is the dependent variable. We are interested in explaining 100 times the log of real per-capita GDP in percent. Note that we are estimating cumulative multipliers. Hence, for each horizon we use the change of these variables relative to <span class="math inline">\(t - 1\)</span> as the dependent variable. <span class="math inline">\(s_{i,t}\)</span> is the identified shock variable. For each tax instrument considered, it is the cyclically adjusted tax revenue-GDP ratio in percent. Hence, <span class="math inline">\(\beta_{h}\)</span> has the interpretation of a cumulative multiplier. In particular, <span class="math inline">\(\beta_{h}\)</span> tells us, under the identifying assumption made and discussed below, by how many percent(age-points) output (employment) increases in <span class="math inline">\(t + h\)</span> relative to <span class="math inline">\(t - 1\)</span> if discrete policy increases tax revenues by 1% of GDP. <span class="math inline">\(x_{i,t}\)</span> is a vector of control variables. <span class="math inline">\(\alpha_{i,h}\)</span> and <span class="math inline">\(\delta_{t,h}\)</span> are country and time fixed effects, respectively. To account for heteroskedasticity and autocorrelation we apply the method proposed by Driscoll and Kraay (1998) for estimating a robust covariance matrix of parameters for a panel model. <span class="math inline">\(\varepsilon_{t,i,h}\)</span> is the error term.</p>
 </section>
 <section id="data-set" class="level3" data-number="4.6.2">
@@ -3609,8 +3616,27 @@ window.Quarto = {
 <p>Finally, the energy excise tax multipliers are approximated by the means of the EGT and EVT multipliers.</p>
 </section>
 </section>
-<section id="references" class="level2" data-number="4.7">
-<h2 data-number="4.7" class="anchored" data-anchor-id="references"><span class="header-section-number">4.7</span> References</h2>
+<section id="sec-GDPFeedback" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="sec-GDPFeedback"><span class="header-section-number">4.7</span> GDP feedback in CPAT</h2>
+<p>When endogenous GDP effects are switched on (setting “Include endogenous GDP effects?”, Appendix E of the Mitigation chapter), CPAT applies the multipliers of the selected source to the additional fiscal revenues of the policy scenario, year by year from the base year <span class="math inline">\(t_{0}\)</span>. The notation follows the Mitigation chapter: <span class="math inline">\(c\)</span> is the country, <span class="math inline">\(t\)</span> the year, and the subscripts <span class="math inline">\(B\)</span> and <span class="math inline">\(P\)</span> denote the baseline and the policy scenario.</p>
+<p><strong>Fiscal space</strong>: the additional total revenue of the policy scenario relative to the baseline, as a share of baseline real GDP,</p>
+<p><span class="math display">\[fs_{ct} = \frac{rev_{P,ct} - rev_{B,ct}}{Y_{B,ct}}\]</span></p>
+<p>where <span class="math inline">\(rev\)</span> is total fiscal revenue: existing taxes net of subsidies (power included), the new policies, subsidy reform, producer subsidies and the methane fee (see the Fiscal revenues section of the Mitigation chapter). Lower fuel use also lowers the cost of existing subsidies, and that counts. <span class="math inline">\(Y_{B,ct}\)</span> is baseline real GDP, in the same units.</p>
+<p><strong>Fiscal impulse</strong>: the new revenue gain of the year, that is the change in the gain in US dollars, over this year’s GDP. It is zero before the first year of the GDP calculations <span class="math inline">\(t^{GDP}\)</span>:</p>
+<p><span class="math display">\[imp_{ct} = \begin{cases} 0 &amp; t &lt; t^{GDP} \\ fs_{ct} &amp; t = t_{0} \ge t^{GDP} \\ fs_{ct} - fs_{c,t - 1}\,\dfrac{Y_{B,c,t-1}}{Y_{B,ct}} &amp; \text{otherwise} \end{cases}\]</span></p>
+<p>The uses of the revenue take the impulse only from the year the carbon price starts; earlier impulses still act through the revenue itself (the energy-tax term below).</p>
+<p><strong>Effect of each use of the revenue</strong>: for each use <span class="math inline">\(i\)</span> (cuts in labour taxes, cuts in corporate income taxes, public investment, public consumption and transfers), with share <span class="math inline">\(sh_{ci}\)</span> (in %) of the revenue allocated to it by the user and multiplier <span class="math inline">\(m_{ci,h}\)</span> of instrument <span class="math inline">\(i\)</span> at horizon <span class="math inline">\(h\)</span> (in % of GDP per 1% of GDP),</p>
+<p><span class="math display">\[eff_{cit} = \frac{sh_{ci}}{100}\sum_{h = 0}^{19}imp_{c,t - h}\, m_{ci,h}\]</span></p>
+<p>Multipliers beyond the last horizon reported keep the value of that horizon. The revenue itself enters as one more use, with share <span class="math inline">\(- 100\%\)</span> and the energy excise tax (EET) multipliers: it captures the effect of the higher energy taxes themselves.</p>
+<p><strong>GDP effect</strong>: the sum over the uses, zero when endogenous GDP effects are switched off,</p>
+<p><span class="math display">\[eff_{ct} = \sum_{i}^{}eff_{cit}\]</span></p>
+<p><strong>Feedback on GDP, one year later</strong>: the effect raises the level of real GDP in the following year,</p>
+<p><span class="math display">\[lvl_{ct} = 1 + eff_{c,t - 1}, \qquad lvl_{ct_{0}} = 1\]</span></p>
+<p><span class="math display">\[Y_{P,ct} = Y_{B,ct}\, lvl_{ct}, \qquad 1 + g_{P,ct} = \left( 1 + g_{B,ct} \right)\frac{lvl_{ct}}{lvl_{c,t - 1}}\]</span></p>
+<p>where <span class="math inline">\(g\)</span> is the growth rate of real GDP. The policy-scenario GDP <span class="math inline">\(Y_{P,ct}\)</span> then drives fuel and power demand through the GDP-elasticities <span class="math inline">\(\epsilon_{Y}\)</span> of the Mitigation chapter, which closes the second channel described in the Introduction. In the baseline the fiscal space is zero, so baseline GDP is unchanged.</p>
+</section>
+<section id="references" class="level2" data-number="4.8">
+<h2 data-number="4.8" class="anchored" data-anchor-id="references"><span class="header-section-number">4.8</span> References</h2>
 <ol type="1">
 <li><p>Burns, Andrew, Benoit Campagne, Charl Jooste, David Stephan, Thi Thanh Bui. 2019. “The World Bank Macro-Fiscal Model Technical Description.” World Bank Working Paper 8965.</p></li>
 <li><p>Dabla-Norris, Era, and Frederico Lima. 2018. “Macroeconomic Effects of Tax Rate and Base Changes: Evidence from Fiscal Consolidations.” IMF Working Papers 18/220. International Monetary Fund.</p></li>
@@ -4046,7 +4072,7 @@ window.Quarto = {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>WB-IMF Climate Policy Assessment Tool, 2023</p>
+<p>WB-IMF Climate Policy Assessment Tool, 2023; corrections 2026-10-31 (see Corrections)</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/wb-mrio/cpat_public/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

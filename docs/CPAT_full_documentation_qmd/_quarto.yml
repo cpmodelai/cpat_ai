@@ -4,16 +4,15 @@ project:
 
 
 book:
-  title: "CPAT Documentation" 
-  author: "CPAT Team"
-  date: last-modified
+  title: "CPAT Methodology"
+  output-file: "CPAT-Documentation"
   favicon: ./00/media/image1.png
   search: true
   repo-url: https://github.com/wb-mrio/cpat_public
   repo-actions: [issue]
   downloads: [pdf]
   reader-mode: true
-  page-footer: "WB-IMF Climate Policy Assessment Tool, 2023"
+  page-footer: "WB-IMF Climate Policy Assessment Tool, 2023; corrections 2026-10-31 (see Corrections)"
   chapters:
     - index.qmd
     - 01_User_Guide.qmd
@@ -23,6 +22,7 @@ book:
     - 05_Distribution.qmd
     - 06_Air_pollution.qmd
     - 07_Road_Transport.qmd
+    - 08_Corrections.qmd
 
 bibliography: 
     - 03_Mitigation.bib

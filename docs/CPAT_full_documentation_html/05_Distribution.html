@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Distribution Module – CPAT Documentation</title>
+<title>5&nbsp; Distribution Module – CPAT Methodology</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -152,7 +152,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">CPAT Documentation</a> 
+      <a href="./">CPAT Methodology</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/wb-mrio/cpat_public" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <a href="./CPAT-Documentation.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
@@ -174,7 +174,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Cover</strong></span></a>
+ <span class="menu-text">CPAT Methodology</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -217,6 +217,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./07_Road_Transport.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Road Transport Module</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_Corrections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Corrections</span></span></a>
   </div>
 </li>
     </ul>
@@ -374,9 +380,9 @@ Figure&nbsp;5.1: Overview of the deployed microsimulation approach and respectiv
 <section id="sec-5_3_1" class="level3" data-number="5.3.1">
 <h3 data-number="5.3.1" class="anchored" data-anchor-id="sec-5_3_1"><span class="header-section-number">5.3.1</span> Tax incidence analysis</h3>
 <p>CPAT assesses the consumption incidence of carbon fiscal policies across different income groups by means of a microsimulation model. Consumption effects are measured as the costs of maintaining pre-reform consumption (i.e., households’ additional expenditures), observed from country-level HBS data, with the user-defined carbon tax scenario in place. Thus, this microsimulation focuses on the short-term consumption changes in terms of compensating variation, assuming fixed consumption patterns. In other words, households are assumed not to adjust their behavior in response to the carbon price, and consumption effects represent upper-bound estimates (Dorband et al 2019). Estimating price and income elasticities of demand, differentiated across countries, income levels and energy/non-energy products is a data- and resource-intensive task, which can be partly integrated into the analysis via a user option to apply decile-specific price elasticities of demand (based on USDA data<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>) to said microsimulation estimates (see also <a href="#sec-5_3_2" class="quarto-xref"><span>Section 5.3.2</span></a>).</p>
-<p>The <strong>consumer incidence of an energy-based upstream carbon tax</strong> is determined by the tax-induced price changes of fossil fuels, as well as by the direct and indirect energy consumption bundles of households; that is, by households’ direct fuel combustion or use of electricity, and the indirect consumption of energy embedded in other goods and services. Thus, the proportion of additional expenditures <em>P</em> of individual <em>j</em> after the policy intervention is a multiplicative function of (i) average energy intensities <span class="math inline">\(\overline{e_{\text{fg}}}\)</span> (USD/USD) of fuel <em>f</em> of consumption items from each sector <em>g (note that f</em> ∈ <em>g</em>); (ii) total expenditures <span class="math inline">\(C\)</span><em>;</em> and (iii) the tax rate <em>t for fuel f in sector g, expressed as the price increase post- (p2) relative to pre-reform (p1)</em> (USD<sub>p2</sub>/USD<sub>p1</sub>) (c.f. endnote 3).</p>
+<p>The <strong>consumer incidence of an energy-based upstream carbon tax</strong> is determined by the tax-induced price changes of fossil fuels, as well as by the direct and indirect energy consumption bundles of households; that is, by households’ direct fuel combustion or use of electricity, and the indirect consumption of energy embedded in other goods and services. Thus, the proportion of additional expenditures <span class="math inline">\(p_{j}\)</span> of individual <em>j</em> after the policy intervention is a multiplicative function of (i) average energy intensities <span class="math inline">\(\overline{e_{\text{fg}}}\)</span> (USD/USD) of fuel <em>f</em> of consumption items from each sector <em>g (note that f</em> ∈ <em>g</em>); (ii) total expenditures <span class="math inline">\(C\)</span><em>;</em> and (iii) the tax rate <em>t for fuel f in sector g, expressed as the price increase post- (p2) relative to pre-reform (p1)</em> (USD<sub>p2</sub>/USD<sub>p1</sub>) (c.f. endnote 3).</p>
 <p><span id="eq-5_2"><span class="math display">\[p_{j} = \sum_{\text{fg}}p_{\text{fgj}}  = \frac{\sum_{\text{fg}}{\overline{e_{\text{fg}}}\ *t_{\text{fg}}* C_{\text{gj}}}}{C_{j}} \;\; , f \in g \tag{5.2}\]</span></span></p>
-<p>The <strong>tax-induced price changes of fossil fuels</strong> (c.f. <a href="#tbl-5_1" class="quarto-xref">Table&nbsp;<span>5.1</span></a> for a list of fuels), which determine households’ additional expenditures on direct fuel consumption (for f=g, in <a href="#eq-5_3" class="quarto-xref">Equation&nbsp;<span>5.3</span></a>), are a function of fuels’ carbon intensities, <span class="math inline">\(e_{f}\)</span>, measured by emissions factors, and pre-existing price distortions in the Mitigation Module. For each user-defined carbon fiscal scenario, price changes are obtained from the Mitigation Module (see respective Mitigation Module Documentation). As price increases vary for each fuel by sector (due to varying emissions factors and baseline pricing), price changes are estimated for each country, year and fuel-sector pair <span class="math inline">\(t_{\text{fg}}\)</span>, where “sectors” here are power, industry, and residential. Residential sector fuel price changes are used to calculate the direct consumption effects.</p>
+<p>The <strong>tax-induced price changes of fossil fuels</strong> (c.f. <a href="#tbl-5_1" class="quarto-xref">Table&nbsp;<span>5.1</span></a> for a list of fuels), which determine households’ additional expenditures on direct fuel consumption (for <span class="math inline">\(f \in g\)</span>, in <a href="#eq-5_2" class="quarto-xref">Equation&nbsp;<span>5.2</span></a>), are a function of fuels’ carbon intensities, <span class="math inline">\(e_{f}\)</span>, measured by emissions factors, and pre-existing price distortions in the Mitigation Module. For each user-defined carbon fiscal scenario, price changes are obtained from the Mitigation Module (see respective Mitigation Module Documentation). As price increases vary for each fuel by sector (due to varying emissions factors and baseline pricing), price changes are estimated for each country, year and fuel-sector pair <span class="math inline">\(t_{\text{fg}}\)</span>, where “sectors” here are power, industry, and residential. Residential sector fuel price changes are used to calculate the direct consumption effects.</p>
 <p>The <strong>tax-induced price changes of goods and services based on the domestic carbon price</strong>, which determine households’ additional expenditures on indirect fuel consumption (for <em>f</em> ∉ <em>g</em>, in <a href="#eq-5_3" class="quarto-xref">Equation&nbsp;<span>5.3</span></a>), follow a standard input-output (IO) approach. Consistent with much of the carbon tax literature, all price increases resulting from the user-defined carbon fiscal reform are expected to be fully passed forward, from producers and suppliers to final consumers. Estimated consumer price increases are, thus, absolute upper bounds.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> Adapted from basic IO analyses (cf. <span class="citation" data-cites="leontief1986input">Leontief (<a href="#ref-leontief1986input" role="doc-biblioref">1986</a>)</span>; <span class="citation" data-cites="minx2009input"><span class="nocase">Minx et al.</span> (<a href="#ref-minx2009input" role="doc-biblioref">2009</a>)</span>), household energy intensities <span class="math inline">\(\overline{e_{g}}\)</span> result as entries of the vector:</p>
 <p><span id="eq-5_3"><span class="math display">\[e_{g} = f\left( I - A \right)^{- 1}, \; f \notin g \tag{5.3}\]</span></span></p>
 <p>where each fossil fuel sector, <em>f</em> is a vector assigning an energy intensity coefficient to each non-fuel sector. The <span class="math inline">\(( I - A )^{- 1}\)</span> matrix, or Leontief inverse (cf.&nbsp;Leontief, 1986), accounts for all upstream inputs that are required to produce one unit of final demand for each sector. <span class="math inline">\(I\)</span> is the identity matrix and <span class="math inline">\(\text{A\ }\)</span>is a normalized matrix of technical coefficients based on inter-sectoral commodity flows.</p>
@@ -402,7 +408,7 @@ Table&nbsp;5.1: Concordance table of CPAT fossil fuels (with acronyms) to GTAP-1
 <td>coa</td>
 </tr>
 <tr class="odd">
-<td>Electricity (ely)</td>
+<td>Electricity (ecy)</td>
 <td>ely</td>
 </tr>
 <tr class="even">
@@ -1775,7 +1781,7 @@ Wier, Mette, Katja Birr-Pedersen, Henrik Klinge Jacobsen, and Jacob Klok. 2005. 
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>WB-IMF Climate Policy Assessment Tool, 2023</p>
+<p>WB-IMF Climate Policy Assessment Tool, 2023; corrections 2026-10-31 (see Corrections)</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/wb-mrio/cpat_public/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

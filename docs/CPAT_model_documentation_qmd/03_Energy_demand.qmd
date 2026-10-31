@@ -1,0 +1,1139 @@
+# Energy demand {#sec-demand}
+
+This chapter explains how the model projects the use of each fuel in each sector of the economy, year by year. Fuel
+use is the quantity at the heart of the model: emissions, revenues, the GDP effect and the household effects are all
+fuel use multiplied by something else.
+
+The core is one behavioural equation, the same for every sector and fuel: last year's use grows with GDP, shrinks with
+autonomous efficiency gains, and responds to the after-tax price through two margins, how much the equipment is used
+and how efficient it is. A handful of special cases sit around it: biofuels blended into road fuels, renewables used
+outside the power sector, a possible shift of households from modern cooking fuels to biomass, and cooking fuel that is
+initially exempt from price increases.
+
+The chapter also computes electricity demand by sector, which it hands to the power model (@sec-power), and it closes
+with the energy totals by sector group and fuel and their change against the baseline.
+
+The methodology describes this block in
+[methodology, section 3.3](../CPAT_full_documentation_html/03_Mitigation.html#sec-FuelConsumption). The prices that
+drive it are built in @sec-prices; road fuel use under the engineer model is in @sec-transport; the GDP growth that
+feeds the income term comes from @sec-fiscal.
+
+**Indices.** Every equation holds for each scenario $o$ and country $c$, which are omitted. Sector (subsector) $s$,
+fuel $f$, sector group $g$ and year $t$ are shown where they matter; electricity demand uses the demand group $d$. A
+value of the baseline (scenario 1) in the same year carries the superscript $B$.
+
+## Overview {#sec-dm-overview}
+
+The model distinguishes 16 sectors (Excel-AI calls them subsectors) in four groups, and 9 fuels. Power generation is a
+fifth group whose fuel input comes from @sec-power. The tables below give, for each sector and fuel, the keys that the
+fuel-use equation reads: which row of the elasticity table applies, which additional efficiency input applies, and which
+electricity demand group the sector belongs to.
+
+| Code | Sector | Group $g$ | Elasticity sector | Additional efficiency group | Electricity demand group $d$ |
+|---|---|---|---|---|---|
+| `rod` | Road | transport (`tra`) | transport | road vehicles | transport |
+| `ral` | Rail | transport | transport | road vehicles | transport |
+| `avi` | Domestic aviation | transport | transport | road vehicles | transport |
+| `nav` | Domestic navigation | transport | transport | road vehicles | transport |
+| `res` | Residential | buildings (`bld`) | residential | residential | residential |
+| `foo` | Food & forestry | buildings | industry | industrial | industry |
+| `srv` | Services (public & private) | buildings | services | industrial | services |
+| `mch` | Mining & chemicals | industry (`ind`) | industry | industrial | industry |
+| `irn` | Iron & steel | industry | industry | industrial | industry |
+| `nfm` | Other metals | industry | industry | industrial | industry |
+| `mac` | Machinery | industry | industry | industrial | industry |
+| `cem` | Cement | industry | industry | industrial | industry |
+| `omn` | Other manufacturing | industry | industry | industrial | industry |
+| `cst` | Construction | industry | industry | industrial | industry |
+| `ftr` | Fuel transformation | industry | industry | industrial | (no electricity demand) |
+| `oen` | Other energy use | other (`oen`) | industry | industrial | industry |
+
+: Sectors, their groups and the keys of the fuel-use equation {#tbl-dm-sectors}
+
+| Code | Fuel | Elasticity fuel | Autonomous efficiency fuel | Price fuel |
+|---|---|---|---|---|
+| `coa` | Coal | coal | coal | coal of the sector's price group |
+| `nga` | Natural gas | gas | gas | gas of the sector's price group |
+| `gso` | Gasoline | gasoline | oil | gasoline |
+| `die` | Diesel | diesel | oil | diesel |
+| `lpg` | LPG | oil products | oil | LPG |
+| `ker` | Kerosene | oil products | oil | kerosene |
+| `jfu` | Jet fuel | oil products | oil | kerosene |
+| `oop` | Other oil products | oil products | oil | other oil products |
+| `bio` | Biomass | biomass | biomass | biomass |
+
+: Fuels and their keys {#tbl-dm-fuels}
+
+Two more "fuels" appear outside this grid: renewables used directly in aviation and navigation
+(@sec-dm-biofuels), and electricity, whose demand by sector is computed here but which is supplied by the power
+model (@sec-dm-electricity).
+
+Within one year the block runs in a fixed order. GDP growth is known first, because the GDP effect of a policy enters
+one year later; electricity demand reads last year's power price; fuel use reads this year's after-tax prices, which
+were computed for all years before the year loop.
+
+```{mermaid}
+flowchart LR
+  A["GDP growth g(t)<br/>after the feedback"] --> B["Electricity demand<br/>by sector"]
+  A --> C["Fuel use<br/>elasticity model"]
+  P["After-tax and<br/>shadow prices"] --> C
+  C --> D["Biofuels, renewables,<br/>leakage, exempt use"]
+  D --> E["Fuel use<br/>used (ener)"]
+  B --> W["Power model"]
+  W --> T["Totals and change<br/>against the baseline"]
+  E --> T
+```
+
+## The fuel-use equation {#sec-dm-fueluse}
+
+Each year, fuel use in a sector is last year's use multiplied by five growth factors. This is the constant-elasticity
+form of the methodology
+([methodology, section 3.3.3](../CPAT_full_documentation_html/03_Mitigation.html#sec-FuelConsumptionDynamics)),
+with three additions: the shadow price of non-pricing policies acts on the efficiency margin only, an additional
+policy-induced efficiency gain joins the autonomous one, and the income elasticity is adjusted to the country's income
+level.
+
+In full ([M3.1](A_Equations.qmd#eqlist-M3-1)):
+
+$$
+\frac{F^{e}_{s,f,t}}{F^{e}_{s,f,t-1}} =
+\left(\frac{1}{1 + \alpha_{s,f} + \alpha^{+}_{g(s)}}\right)^{1 + \epsilon_{U}}
+\;\Psi_t\;
+\left(1 + g_t\right)^{\epsilon_{Y}\, inc_t}
+\left(\frac{p_{s,f,t}}{p_{s,f,t-1}}\right)^{\epsilon_{U}}
+\left(\frac{p_{s,f,t} + sh_{s,f,t}}{p_{s,f,t-1} + sh_{s,f,t-1}}\right)^{\epsilon_{F}(1 + \epsilon_{U})}
+$$ {#eq-dm-fueluse}
+
+where
+
+- $F^{e}_{s,f,t}$ is fuel use by the elasticity model (ktoe; code `enel`); in the base year $t_0$ it is the
+  base-year use of the energy data (@sec-dm-data);
+- $\epsilon_Y$, $\epsilon_U$, $\epsilon_F$ are the income, usage and efficiency elasticities of the fuel in the sector
+  (they depend on the country, the fuel and the sector; the indices are dropped);
+- $\alpha_{s,f}$ is the autonomous energy efficiency improvement (share per year) and $\alpha^{+}_{g(s)}$ the
+  additional policy-induced efficiency gain of the sector's efficiency group (@sec-dm-aeei);
+- $\Psi_t$ is the exogenous demand shock factor (@sec-dm-shock);
+- $g_t$ is real GDP growth after the GDP feedback and $inc_t$ the income-level factor on the GDP elasticities
+  (@sec-dm-income);
+- $p_{s,f,t}$ is the after-tax price of the fuel in the sector (USD per GJ, real; code `atp`) and $sh_{s,f,t}$ the
+  shadow price of non-pricing policies (USD per GJ; code `shp`), both from @sec-prices (@sec-dm-shadow).
+
+The methodology writes the GDP term as $(Y_t / Y_{t-1})^{\epsilon_Y}$, total real GDP (not per capita). The model writes
+the same ratio as $1 + g_t$.
+
+The equation is easier to read as a product of named factors. Each is one idea:
+
+$$
+F^{e}_{s,f,t} = F^{e}_{s,f,t-1} \cdot A_{s,f} \cdot \Psi_t \cdot G_{s,f,t} \cdot U_{s,f,t} \cdot E_{s,f,t}
+$$ {#eq-dm-factors}
+
+| Factor | Formula | What it captures | Code |
+|---|---|---|---|
+| Efficiency factor $A$ | $\left(1 / (1 + \alpha + \alpha^{+})\right)^{1+\epsilon_U}$ | autonomous and additional efficiency gains, net of their rebound | `aef` |
+| Shock $\Psi$ | $1 + \text{shock}_t \cdot \text{switch}$ | the legacy 2023-2024 calibration shock | `SHOCK` |
+| Income term $G$ | $(1 + g_t)^{\epsilon_Y inc_t}$ | GDP growth, adjusted to the income level | `GDPI` holds $(1+g_t)^{inc_t} - 1$ |
+| Usage term $U$ | $(p_t / p_{t-1})^{\epsilon_U}$ | how intensively existing equipment is used | |
+| Efficiency term $E$ | $\left((p_t + sh_t)/(p_{t-1} + sh_{t-1})\right)^{\epsilon_F(1+\epsilon_U)}$ | how efficient the equipment is, net of rebound | `eff_exp` $= \epsilon_F(1+\epsilon_U)$ |
+
+: The five growth factors of fuel use {#tbl-dm-factors}
+
+The methodology assumes that all effects take place within the year: the elasticities are long-term elasticities
+applied in one step. CPAT is therefore better suited to anticipated and progressively phased policies over the medium
+term than to sudden shocks.
+
+### Autonomous and additional efficiency {#sec-dm-aeei}
+
+Equipment becomes more efficient over time even without new policies. The autonomous energy efficiency improvement
+$\alpha$ captures this; the methodology sets it between 0.5% and 1% per year depending on the fuel and sector
+([methodology, section 3.3.5.6](../CPAT_full_documentation_html/03_Mitigation.html#rates-of-technological-change-and-exogenous-rebound-effects)).
+
+A scenario can add a policy-induced gain $\alpha^{+}$ for three groups of sectors:
+
+$$
+A_{s,f} = \left(\frac{1}{1 + \alpha_{s,f} + \alpha^{+}_{g(s)}}\right)^{1 + \epsilon_{U}}
+$$ {#eq-dm-aef}
+
+where
+
+- $\alpha_{s,f}$ is the autonomous efficiency gain of the sector's elasticity sector and the fuel's autonomous
+  efficiency fuel (@tbl-dm-sectors, @tbl-dm-fuels); gasoline and diesel take the oil value;
+- $\alpha^{+}_{g(s)}$ is the scenario input of the sector's additional efficiency group (share per year, default 0).
+
+| Additional efficiency group | Sectors | Scenario input (ScenarioDefinition row) |
+|---|---|---|
+| Road vehicles | road, rail, domestic aviation, domestic navigation | `AdditionalEfficiencyRoadVehicle` (243) |
+| Residential | residential | `AdditionalEfficiencyResidential` (244) |
+| Industrial | every other sector: food & forestry, services, the industry sectors, fuel transformation, other energy use | `AdditionalEfficiencyIndustrial` (245) |
+| Power demand | electricity demand of every sector (@sec-dm-electricity) | `AdditionalEfficiencyPower` (242) |
+
+: Additional policy-induced efficiency gains {#tbl-dm-addeff}
+
+The exponent $1 + \epsilon_U$ (with $\epsilon_U < 0$) is the rebound: more efficient equipment makes each unit of
+service cheaper, so part of the saving is used up by more use. The methodology puts this rebound from exogenous
+efficiency between 20% and 60% across fuels and sectors.
+
+### Income term, income-level adjustment and GDP feedback {#sec-dm-income}
+
+Energy demand grows with the economy. The income term raises GDP growth to the power of the income elasticity, and the
+income elasticity is scaled by a factor that depends on the country's GDP per capita:
+
+$$
+G_{s,f,t} = \left(1 + g_t\right)^{\epsilon_{Y}\, inc_t}
+$$ {#eq-dm-income}
+
+where $\epsilon_Y$ is the income (GDP) elasticity of the fuel in the sector, $g_t$ real GDP growth after the feedback,
+and $inc_t$ the income-level factor.
+
+**The income-level factor.** The literature finds that income elasticities rise as countries leave low income, peak
+around lower-middle income (about USD 3,000 per capita) and then decline towards the level of developed countries
+([methodology, section 3.3.5.2](../CPAT_full_documentation_html/03_Mitigation.html#income-elasticities)). The model
+draws this reverse-U as a polynomial in log GDP per capita:
+
+$$
+x_t = \min\left(\bar{x},\ \ln y_{t-1}\right), \qquad
+inc_t = \begin{cases}
+\dfrac{\max\left(0,\ a x_t^4 + b x_t^3 + c x_t^2 + d x_t + e\right)}{n} & \text{if IncElAdj is Yes} \\[1ex]
+1 & \text{otherwise}
+\end{cases}
+$$ {#eq-dm-incfactor}
+
+where
+
+- $y_{t-1}$ is baseline real GDP per capita of the previous year (USD; in the base year, the base year's own value),
+  from the macro series (real GDP over population);
+- $\bar{x} = 10$ caps log GDP per capita (about USD 22,000, the methodology's "developed country" level);
+- $a, \dots, e$ and $n$ are fixed constants (table below), $n = 0.74$ normalising the factor to the global average
+  income elasticity of Burke and Csereklyei (2016);
+- IncElAdj is the scenario switch "Adjust income elasticities for GDP levels?" (default `Yes*`; a starred Yes counts as
+  Yes).
+
+| Constant | Value | Role |
+|---|---|---|
+| $a$ (`IncfA`) | 0.012019 | coefficient of $x^4$ |
+| $b$ (`IncfB`) | −0.365464 | coefficient of $x^3$ |
+| $c$ (`IncfC`) | 4.011846 | coefficient of $x^2$ |
+| $d$ (`IncfD`) | −18.722243 | coefficient of $x$ |
+| $e$ (`IncfE`) | 31.75949 | constant (31.59949 + 0.16, as legacy) |
+| $\bar{x}$ (`IncfLnCap`) | 10 | cap on log GDP per capita |
+| $n$ (`IncfNorm`) | 0.74 | divisor |
+
+: Constants of the income-level factor (sheet Constants; legacy Mitigation rows 2431-2433) {#tbl-dm-incf}
+
+The factor is a data path: it is computed from baseline GDP per capita before the year loop (code `incp`, then
+`inc.ela.adj` after the switch), so it is the same in every scenario. The same factor multiplies the GDP elasticities
+of electricity demand (@sec-dm-electricity).
+
+**The GDP feedback.** $g_t$ is not the baseline growth rate but growth after the effect of the policy's revenue use on
+GDP ([methodology, section 4.7](../CPAT_full_documentation_html/04_Multipliers.html#sec-GDPFeedback)). The effect is
+computed in @sec-fiscal and enters with a lag of one year, as a change in the GDP level:
+
+$$
+\ell_t = 1 + \epsilon^{GDP}_{t-1}, \qquad 1 + g_t = \left(1 + g^{0}_t\right)\frac{\ell_t}{\ell_{t-1}}
+$$ {#eq-dm-gdpfeedback}
+
+where $g^{0}_t$ is baseline real GDP growth (IMF WEO), $\epsilon^{GDP}_{t-1}$ last year's GDP effect (share of GDP;
+0 when endogenous GDP effects are switched off) and $\ell_t$ the GDP level factor ($\ell_{t_0} = 1$; code `gdp.lvl`).
+The baseline has no fiscal space of its own, so its growth is $g^{0}_t$. Because the effect is lagged, fuel use in
+year $t$ never depends on revenue in year $t$: there is no circular reference. This is the "rebound" through GDP that
+Appendix E of the methodology mentions under "Include endogenous GDP effects?".
+
+**Residential biomass.** Residential biomass is treated as an inferior good by default: its income elasticity is set
+to 0 unless the setting `BiomassNormal` ("Biomass is a normal good", read from the baseline column; default No) is Yes.
+
+### Price terms: usage, efficiency and rebound {#sec-dm-price}
+
+A higher price reduces fuel use through two margins
+([methodology, section 3.3.5.3](../CPAT_full_documentation_html/03_Mitigation.html#price-elasticities)):
+
+- the **usage** (intensive) margin: existing equipment is used less (fewer kilometres driven), elasticity $\epsilon_U$;
+- the **efficiency** (extensive) margin: equipment is replaced by more efficient equipment, elasticity $\epsilon_F$.
+
+$$
+U_{s,f,t} = \left(\frac{p_{s,f,t}}{p_{s,f,t-1}}\right)^{\epsilon_{U}}, \qquad
+E_{s,f,t} = \left(\frac{p_{s,f,t} + sh_{s,f,t}}{p_{s,f,t-1} + sh_{s,f,t-1}}\right)^{\epsilon_{F}(1 + \epsilon_{U})}
+$$ {#eq-dm-priceterms}
+
+where $p$ is the after-tax price and $sh$ the shadow price, both per GJ. The after-tax price
+([M2.5](A_Equations.qmd#eqlist-M2-5)) includes existing taxes and subsidies, the new carbon tax, the auctioned ETS
+cost, the new excise, the change in existing carbon pricing, the subsidy and price-control phase-outs, and VAT on all
+of them; it has a floor of USD 0.01 per GJ. It is built in @sec-prices.
+
+**Rebound.** When the shadow price is zero the two price terms combine into one:
+
+$$
+U_{s,f,t}\,E_{s,f,t} = \left(\frac{p_{s,f,t}}{p_{s,f,t-1}}\right)^{\epsilon_{U} + \epsilon_{F} + \epsilon_{U}\epsilon_{F}}
+$$ {#eq-dm-rebound}
+
+The cross term $\epsilon_U \epsilon_F$ is positive (both elasticities are negative): it is the direct rebound, the
+extra use of equipment that has become cheaper to run
+([methodology, section 3.3.5.4](../CPAT_full_documentation_html/03_Mitigation.html#rebound-effect)). With
+$\epsilon_U = \epsilon_F = -0.3$ the combined exponent is $-0.51$ instead of $-0.6$, so the rebound offsets about 15%
+of the price response (the methodology quotes 15.5%, against 26-29% in a meta-analysis of 74 studies).
+
+### Shadow prices of non-pricing policies {#sec-dm-shadow}
+
+Some policies do not raise the fuel price but push towards more efficient equipment: feebates, efficiency regulations,
+vehicle fuel-economy standards, and the free (output-based) allocation of an ETS. The model expresses each as a
+**shadow price** per tonne of CO2, which enters the efficiency term only (@eq-dm-priceterms) and raises no revenue.
+A regulation does not make fuel dearer to use, so it has no usage effect; it changes which equipment is bought.
+
+Demand reads the shadow price per GJ ([M2.6](A_Equations.qmd#eqlist-M2-6)):
+
+$$
+sh_{s,f,t} = \Sigma_{s,t}\; ef_{s,f}
+$$ {#eq-dm-shp}
+
+where $ef_{s,f}$ is the calibrated CO2 emission factor (tCO2 per GJ; @sec-emissions) and $\Sigma_{s,t}$ the shadow
+price of the sector (USD per tCO2; code `shpx`; [M1.4](A_Equations.qmd#eqlist-M1-4)), built in @sec-prices from
+three parts:
+
+$$
+\Sigma_{s,t} = \underbrace{b_{g(s),t}\, a_{s}}_{\text{feebate}} \;+\; \underbrace{reg_{s,t}}_{\text{regulation}} \;+\; \underbrace{\tilde{p}^{E}_t\, \kappa_{s,t}\, \omega_{s,t}}_{\text{ETS free allocation}}
+$$ {#eq-dm-shpx}
+
+where
+
+- $b_{g,t}$ is the feebate rate of the sector's feebate group (USD per tCO2) and
+  $a_s = \mathbb{1}[\text{feebate covers } s] \times$ `SPPEffAdjFeebates` the share of the feebate on the efficiency
+  margin (code `ssc`; ScenarioDefinition row 251, default 1);
+- $reg_{s,t}$ is the regulation shadow price (below);
+- $\tilde{p}^{E}_t$ is the tax-equivalent ETS price, $\kappa_{s,t}$ the new ETS coverage and $\omega_{s,t}$ the share
+  allocated free (output-based) (@sec-emissions).
+
+**Regulations as shadow prices.** The scenario's main policy (`ScenarioSelected`, ScenarioDefinition row 13) picks a
+row of the legacy table of main scenarios. Explicit-pricing scenarios (carbon tax, total carbon price, coal excise, road
+fuel tax, electricity emissions tax and excise) use the carbon price path as the carbon tax. Shadow-pricing scenarios
+(feebates, power supply feebates, energy efficiency regulations, power feebate, vehicle fuel economy, residential and
+industrial efficiency regulations, and "Baseline") have no explicit carbon tax; the carbon price path becomes a shadow
+price:
+
+$$
+reg_{s,t} = \left(\tau_t - \tau^{x}_t\right) \cdot r \cdot \mathbb{1}[\text{the scenario covers } s]
+$$ {#eq-dm-reg}
+
+where $\tau_t$ is the carbon price path (code `cptraj`), $\tau^{x}_t$ the explicit carbon price (equal to $\tau_t$ in an
+explicit scenario and 0 otherwise; code `cpx`), so the bracket is the shadow carbon price (code `cp.shd`); $r$ is the
+efficiency adjustment of the scenario (code `regadj`) and the coverage comes from the scenario table (code `regc`).
+
+| Efficiency adjustment | ScenarioDefinition row | Default |
+|---|---|---|
+| `SPPEffAdjEnergyEfficiencyRegulations` | 247 | 0.7 |
+| `SPPEffAdjVehicleFuelEconomy` | 248 | 0.7 |
+| `SPPEffAdjRes` (residential efficiency regulations) | 249 | 0.7 |
+| `SPPEffAdjInd` (industrial efficiency regulations) | 250 | 0.7 |
+| `SPPEffAdjFeebates` | 251 | 1 |
+
+: Efficiency adjustments of shadow-pricing scenarios {#tbl-dm-regadj}
+
+A text that is not in the scenario table counts as explicit pricing (the shipped scenarios use `" - Carbon tax"`). Power
+demand responds to the same shadow prices through the costs of the power model (@sec-power). The shadow price is not removed for
+exempt residential LPG and kerosene (@sec-dm-exempt), as legacy.
+
+### Exogenous demand shock {#sec-dm-shock}
+
+Legacy CPAT calibrates the first projection years to observed emissions with a one-off shock on energy demand. The
+model keeps it as a factor:
+
+$$
+\Psi_t = 1 + \text{shock}_t \cdot \text{switch}
+$$ {#eq-dm-shock}
+
+where $\text{shock}_t$ is the country's shock (share; code `shock`) and the switch is the setting "Fuel use and power
+demand: apply the legacy 2023-2024 shock" (Settings C19; 1 = on, the default, as legacy).
+
+The shock values are typed calibration values of the legacy GHGs tab (rows 1202-1388, columns G and H), by country, for
+the first two projection years (2023 and 2024) and 0 afterwards; a country without a value gets 0. For Egypt they are
+−20.8% in 2023 and +9.2% in 2024. The same shock multiplies electricity demand, scaled there by
+`EngineerModelProportionOfCovidFactor` (@sec-dm-electricity).
+
+The methodology describes the shock as a Covid adjustment of 2020 and 2021, calibrated to emissions outturns
+([methodology, section 3.3.4.4](../CPAT_full_documentation_html/03_Mitigation.html#sec-CalibrationCovid)). The model's
+base year is 2022, so the shock that remains is legacy's 2023-2024 calibration.
+
+### Elasticities and base-year fuel use {#sec-dm-data}
+
+Every fuel and sector pair reads its parameters from one table, the fuel | subsector table (Excel-AI sheet Inputs
+rows 5-148; [A3.2](A_Equations.qmd#eqlist-A3-2)).
+
+**Elasticities** ([A3.1](A_Equations.qmd#eqlist-A3-1)). Legacy CPAT holds income, usage and efficiency elasticities for
+8 elasticity fuels (coal, natural gas, gasoline, diesel, oil products, biomass, renewables, electricity) in 4 elasticity
+sectors (transport, residential, industry, services), and autonomous efficiency gains for 6 fuels (coal, gas, oil,
+biomass, renewables, electricity) in the same sectors. The country's value is read from the legacy Elasticities table
+(column "Elasticity use"; Excel-AI sheet Inputs_ela). A fuel and sector pair takes the values of its elasticity fuel
+and elasticity sector (@tbl-dm-sectors, @tbl-dm-fuels). A blank cell reads as 0.
+
+The methodology explains how these values were chosen
+([methodology, section 3.3.5](../CPAT_full_documentation_html/03_Mitigation.html#income-and-price-elasticities-of-demand)):
+32 base income elasticities from Burke and Csereklyei (2016), adjusted for income levels after Gertler and others
+(2016); price elasticities from the meta-study of Labandeira and others (2017), split into the usage and efficiency
+margins and raised slightly for developing countries; all checked against in-house databases and other models.
+
+**Base-year fuel use.** $F^{e}_{s,f,t_0}$ comes from one of two sources, chosen by `BalancesOrConsumption`
+(ScenarioDefinition row 234; default Balances):
+
+- **Balances:** the IEA energy balance flow of the sector, plus a second signed flow where there is one. Fuel
+  transformation is the negative of own use plus heat (both flows with sign −1), so the residual between primary and
+  final consumption becomes an additional industrial sector
+  ([methodology, section 3.3.4.5](../CPAT_full_documentation_html/03_Mitigation.html#fuel-transformation)).
+- **EnergyCons:** the CPAT energy consumption table (`enc.<fuel>` of the sector; blank or missing is 0).
+
+**Other energy use** contains principally military fuel use; it follows the same equation
+([methodology, section 3.3.4.6](../CPAT_full_documentation_html/03_Mitigation.html#other-energy-use)). Whether it is
+taxed is a matter of coverage (@sec-prices).
+
+::: {.callout-tip icon=false title="Pseudocode: fuel use by the elasticity model"}
+```
+# before the year loop (prices are known for every year)
+for s in sectors:
+    for f in fuels:
+        # additional efficiency group: road vehicles / residential / industrial
+        alpha_add = AdditionalEfficiency[eff_group[s]]
+        aef[s,f] = (1 / (1 + alpha[s,f] + alpha_add)) ** (1 + eu[s,f])
+        eff_exp[s,f] = ef[s,f] * (1 + eu[s,f])
+
+# year loop
+for t in years:
+    g = gdp.pos.pct[t]                     # growth after the GDP feedback (lag 1)
+    GDPI = (1 + g) ** inc.ela.adj[t] - 1   # income-level factor on the elasticity
+    SHOCK = 1 + shock[t] * ApplyDemandShock
+    for s in sectors:
+        for f in fuels:
+            if t == t0:
+                enel[s,f,t] = ener0[s,f]   # energy balance or EnergyCons
+                continue
+            usage = (atp[s,f,t] / atp[s,f,t-1]) ** eu[s,f]
+            effic = ((atp[s,f,t] + shp[s,f,t])
+                     / (atp[s,f,t-1] + shp[s,f,t-1])) ** eff_exp[s,f]
+            # ey = 0 for residential biomass unless BiomassNormal
+            enel[s,f,t] = (enel[s,f,t-1] * aef[s,f] * (1 + GDPI) ** ey[s,f]
+                           * usage * effic * SHOCK)
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, sections 5-8, one block per sector with one row per fuel: rows `aef` (efficiency
+  factor), `enel` (fuel use, elasticity model), `ener` (fuel use). The GDP growth raised to the income factor and the
+  shock factor are helper rows of the section-0 header. Parameters: sheet Inputs rows 5-148 (the fuel | subsector
+  table: elasticities, AEEI, additional efficiency group, efficiency exponent, base-year use), sheet Inputs_ela
+  (elasticities of the country). Rows `incp`, `inc.ela.adj`, `shock` in section 3 (from the power paths, sheet
+  Inputs_ppath). Inputs on ScenarioDefinition: `AdditionalEfficiencyRoadVehicle`, `AdditionalEfficiencyResidential`,
+  `AdditionalEfficiencyIndustrial` (rows 243-245), `IncElAdj` (262), `GDPEndogenous` (267), `BalancesOrConsumption`
+  (234), `ElPrcMainSrc`, `ElIncMainSrc` (223-224), `BiomassNormal` (326, baseline column); Settings C19 (shock switch).
+- **CPAT Python:** `cpat_model/mitigation/fuel_use.py`: `prepare()` computes `aef` (with the price rows `atp`, `shp`),
+  `step()` computes `enel`; `fuel_data.fuel_table()` builds the fuel | subsector table and
+  `elasticity_data.elasticities()` reads the elasticities; `gdp.start()` computes `GDPI` and `SHOCK`;
+  `power_data.power_paths()` the income factor path `incp`, and `power.prepare()` applies the switch
+  (`inc.ela.adj`). Equations M3.1, A3.1, A3.2. Manual elasticities (`ElIncMainSrc` or `ElPrcMainSrc` = Manual) are not
+  in CPAT Python yet; the run stops with a message.
+- Order of calculation: [the blocks of CPAT Python](../CPAT_coded_documentation_html/02_How_it_works.html#sec-blocks)
+  (`gdp.start`, `power.step`, `fuel_use.step`, `totals.energy`).
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **LD21 (same as legacy, kept on purpose):** the fuel-use equation is CPAT equation 3.3.3 times the shock factor
+  (switch Settings C19 on, as legacy; issue I92). GDP growth enters with the income factor (was issue I23). The
+  additional policy efficiency gains are by scenario, as legacy, in three groups (road vehicles; residential;
+  industrial = every other sector).
+- **L66 (legacy bug, replicated):** other energy use belongs to the industrial group, so it takes the additional
+  industrial efficiency gain; legacy applies no additional policy efficiency gain to its fossil fuels.
+- **I24:** residential biomass has an income elasticity of 0 unless `BiomassNormal` = Yes (legacy row 5567).
+- **LD1:** food & forestry uses the industry elasticities, the same as legacy (earlier prototype versions used the
+  services elasticities).
+- **Shadow prices (LD9; legacy bugs L87, L88 fixed):** in legacy the regulation share is 0 and the scenario's efficiency
+  adjustments are read but never used, so regulations never act, and never reach power. The model applies them as in
+  @eq-dm-reg, including power. The feebate share on the efficiency margin is `SPPEffAdjFeebates` (was the constant 1).
+- **M13 (prototype bug, fixed):** the road vehicle feebate of the engineer road model adds the road regulation shadow
+  price, not the carbon price, which is already in the fuel price.
+- **Methodology:** the methodology's equation has one price ratio for both margins; the model puts the shadow price in
+  the efficiency margin only, which the methodology also describes in words.
+:::
+
+## Biofuels, jet fuel and self-generated renewables {#sec-dm-biofuels}
+
+A few fuels do not fit the grid of 9 fuels by 16 sectors
+([methodology, section 3.3.4.1](../CPAT_full_documentation_html/03_Mitigation.html#biofuels-and-jet-fuel)). Jet fuel
+is a fuel of its own, used in domestic aviation; it follows the fuel-use equation with the oil-products elasticities
+and is priced at the kerosene price. Road biomass is split into three biofuels, and aviation and navigation can use
+renewables directly ([A3.3](A_Equations.qmd#eqlist-A3-3)).
+
+**Blended biofuels.** Bioethanol and biodiesel are blended into gasoline and diesel, so they follow the road use of the
+fossil fuel they are blended into:
+
+$$
+B^{bgs}_t = B^{bgs}_{t-1}\,\frac{F^{e}_{rod,gso,t}}{F^{e}_{rod,gso,t-1}}, \qquad
+B^{bdi}_t = B^{bdi}_{t-1}\,\frac{F^{e}_{rod,die,t}}{F^{e}_{rod,die,t-1}}
+$$ {#eq-dm-blend}
+
+where $B^{bgs}$ and $B^{bdi}$ are road bioethanol and biodiesel (ktoe; code `trbe`). Where last year's fossil use is 0
+the biofuel holds its value.
+
+**Other biofuels** follow the fuel-use equation with the oil | transport elasticities and autonomous efficiency, the
+road vehicles additional efficiency, and the road biomass price:
+
+$$
+B^{obf}_t = B^{obf}_{t-1}\,
+\left(\frac{1}{1 + \alpha^{oil,tra} + \alpha^{+}_{rod}}\right)^{1 + \epsilon_{U}}
+\Psi_t \left(1 + g_t\right)^{\epsilon_{Y}\,inc_t}
+\left(\frac{p_{rod,bio,t}}{p_{rod,bio,t-1}}\right)^{\epsilon_{U}}
+\left(\frac{p_{rod,bio,t} + sh_{rod,bio,t}}{p_{rod,bio,t-1} + sh_{rod,bio,t-1}}\right)^{\epsilon_{F}(1+\epsilon_{U})}
+$$ {#eq-dm-obf}
+
+with $\epsilon_Y, \epsilon_U, \epsilon_F$ of oil products in transport (code `trp.bfe`; efficiency factor code
+`trbea`). Road biomass is the sum of the three:
+
+$$
+F^{e}_{rod,bio,t} = B^{bgs}_t + B^{bdi}_t + B^{obf}_t
+$$ {#eq-dm-roadbio}
+
+The base-year biofuels are the road flows of the energy balance (bioethanol, biodiesel, other biofuels) or the
+EnergyCons values, following `BalancesOrConsumption`.
+
+**Self-generated renewables.** Renewable energy used directly in domestic aviation and navigation (base year: the
+EnergyCons value `enc.ren` of the sector) follows the fuel-use equation with the renewables | transport elasticities,
+the road vehicles additional efficiency and, as its price, the levelised investment cost of solar power from
+@sec-power ([methodology, section 3.3.4.2](../CPAT_full_documentation_html/03_Mitigation.html#self-generated-renewables)):
+
+$$
+R_{s,t} = R_{s,t-1}
+\left(\frac{1}{1 + \alpha^{ren,tra} + \alpha^{+}_{rod}}\right)^{1 + \epsilon_{U}}
+\Psi_t \left(1 + g_t\right)^{\epsilon_{Y}\,inc_t}
+\left(\frac{tic^{sol}_t}{tic^{sol}_{t-1}}\right)^{\epsilon_{U} + \epsilon_{F}(1+\epsilon_{U})},
+\qquad s \in \{avi, nav\}
+$$ {#eq-dm-ren}
+
+where $R_{s,t}$ is renewable use (ktoe; code `ener` with fuel `ren`), $tic^{sol}_t$ the levelised investment cost of
+solar (USD per kWh; code `trpren`) and the elasticities those of renewables in transport (code `trp.rne`; efficiency
+factor code `trrena`). There is no shadow price on this price. Renewables count in the sector, group and grand totals,
+but not in any fuel total (@sec-dm-totals).
+
+::: {.callout-tip icon=false title="Pseudocode: biofuels and self-generated renewables"}
+```
+for t in years:
+    # blended biofuels follow the fossil fuel they are blended into
+    for b, fossil in (("bgs", "gso"), ("bdi", "die")):
+        if t == t0:
+            trbe[rod,b,t] = road_biofuel_base[b]       # balance or EnergyCons
+        elif enel[rod,fossil,t-1] == 0:
+            trbe[rod,b,t] = trbe[rod,b,t-1]
+        else:
+            growth = enel[rod,fossil,t] / enel[rod,fossil,t-1]
+            trbe[rod,b,t] = trbe[rod,b,t-1] * growth
+
+    # other biofuels: oil | transport elasticities, road biomass price
+    add = AdditionalEfficiencyRoadVehicle
+    trbea = (1 / (1 + aei[oil,tra] + add)) ** (1 + usg[oil,tra])
+    if t == t0:
+        trbe[rod,obf,t] = road_biofuel_base["obf"]
+    else:
+        usage = (atp[rod,bio,t] / atp[rod,bio,t-1]) ** usg[oil,tra]
+        effic = ((atp[rod,bio,t] + shp[rod,bio,t])
+                 / (atp[rod,bio,t-1] + shp[rod,bio,t-1])) \
+                ** (eff[oil,tra] * (1 + usg[oil,tra]))
+        trbe[rod,obf,t] = (trbe[rod,obf,t-1] * trbea
+                           * (1 + GDPI) ** inc[oil,tra] * usage * effic * SHOCK)
+    trbe[rod,bio,t] = trbe[rod,bgs,t] + trbe[rod,bdi,t] + trbe[rod,obf,t]
+
+    # renewables in aviation and navigation: price = solar investment cost
+    trpren[t] = tic[pow,sol,t]
+    trrena = (1 / (1 + aei[ren,tra] + add)) ** (1 + usg[ren,tra])
+    for s in ("avi", "nav"):
+        if t == t0:
+            ener[s,ren,t] = enc_ren[s]
+            continue
+        r = trpren[t] / trpren[t-1]
+        price = r ** usg[ren,tra] * r ** (eff[ren,tra] * (1 + usg[ren,tra]))
+        ener[s,ren,t] = (ener[s,ren,t-1] * trrena
+                         * (1 + GDPI) ** inc[ren,tra] * price * SHOCK)
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 5b (rows `trp.eb2` base-year road biofuels, `trbe`, `trbea`, `trp.bfe`,
+  `trpren`, `trrena`, `trp.rne`, `trp.rn0`), and the rows `ener` of renewables in the aviation and navigation blocks
+  (section 5).
+- **CPAT Python:** `cpat_model/mitigation/fuel_use.py`, `step()` (block "biofuels in road transport, aviation and
+  navigation"), with `_road_biofuel()` and `_renewable_use()` for the base year. Equation A3.3.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **I143, I144:** the elasticities of other road biofuels (oil | transport) and of self-generated renewables
+  (renewables | transport) are read as legacy rows 5392, 5406 and 5491, 5516 do.
+- **Methodology:** the methodology places self-generated renewables in the buildings and industry sectors; the model,
+  like legacy, has them only in domestic aviation and navigation, where the EnergyCons data hold them.
+- Under the engineer road model (`TrModel` = Engineer) road biofuels come from @sec-transport instead.
+:::
+
+## Residential leakage to biomass {#sec-dm-leakage}
+
+When modern cooking fuels become dearer, some households may switch back to traditional biomass. This "leakage"
+reduces the emission savings and worsens household air pollution
+([methodology, section 3.3.4.3](../CPAT_full_documentation_html/03_Mitigation.html#biomass-substitution-in-the-residential-sector);
+air pollution effects in
+[methodology, section 6.6.5](../CPAT_full_documentation_html/06_Air_pollution.html#leakage-to-biomass)).
+
+The option is off by default. It is switched on by `BiomassLeakage` ("Include leakage to biomass in residential sector",
+ScenarioDefinition row 325, read from the baseline column; on when it starts with "Yes"). It applies only to the
+country's most-used cooking fuel, and only if that fuel is natural gas, LPG or kerosene
+([A3.4](A_Equations.qmd#eqlist-A3-4)).
+
+The calculation runs in five steps for each leaking fuel $m \in \{nga, lpg, ker\}$ in the residential sector, from the
+first projection year (all flows are 0 in the base year).
+
+**Step 1: the new policy in the price.** Only new policies cause leakage, not movements of the international price:
+
+$$
+W_{m,t} = N_{res,m,t}\left(1 + v_m\right)
+$$ {#eq-dm-lkt}
+
+where $N_{res,m,t}$ is the total new policy per GJ of the residential row (new carbon tax, ETS cost and new excise;
+code `nce`) and $v_m$ its VAT rate. An exempt fuel (@sec-dm-exempt) has no new policy, so it does not leak.
+
+**Step 2: the share that leaks.** A rise in the new policy relative to last year's price moves a share of the fuel to
+biomass:
+
+$$
+\pi_{m,t} = \mathbb{1}[\text{on},\ m = m^{*}] \cdot
+\min\left( \left(1 + \frac{W_{m,t} - W_{m,t-1}}{p_{res,m,t-1}}\right)^{\sigma \eta_{bio} / (\eta_m L)} - 1,\ 1 \right)
+$$ {#eq-dm-lkp}
+
+where
+
+- $m^{*}$ is the country's most-used cooking fuel (WHO cooking data, overall sample; LPG if the country has no entry);
+- $\sigma$ is the cross-price elasticity of biomass with respect to LPG (default 0.25; legacy Elasticities C131, legacy
+  row 360);
+- $\eta_m$, $\eta_{bio}$ are the cookstove efficiencies of the fuel and of biomass (table below);
+- $L$ is the substitution lag (1 year, sheet Constants; it divides the exponent);
+- $p_{res,m,t-1}$ is last year's after-tax price of the fuel.
+
+**Step 3: the change in fossil use.** The share is read as a share of useful energy, so it is weighted by the stove
+efficiency of the fuel:
+
+$$
+d_{m,t} = -\left(F_{res,m,t-1} - X_{m,t-1}\right)\eta_m\,\pi_{m,t}
+$$ {#eq-dm-lkd}
+
+where $F_{res,m,t-1}$ is last year's actual fuel use (which already includes earlier leakage) and $X_{m,t-1}$ the
+initially exempt use (@sec-dm-exempt; 0 unless that option is on), which does not leak.
+
+**Step 4: the biomass that replaces it.** Biomass supplies the same useful energy:
+
+$$
+b_{m,t} = -d_{m,t}\,\frac{\eta_m}{\eta_{bio}}, \qquad \text{so that}\quad \eta_m d_{m,t} + \eta_{bio} b_{m,t} = 0
+$$ {#eq-dm-lkb}
+
+**Step 5: cumulative changes.** The yearly changes add up to level shifts that are added to residential fuel use:
+
+$$
+Lk_{m,t} = Lk_{m,t-1} + d_{m,t} + \left(X^{a}_{m,t} - X^{a}_{m,t-1}\right), \qquad
+Lk_{bio,t} = Lk_{bio,t-1} + \sum_{m} b_{m,t}
+$$ {#eq-dm-lkc}
+
+where $X^{a}$ is the adjustment for initially exempt use (@eq-dm-exempt-adj; 0 unless that option is on), and
+$Lk_{t_0} = 0$. The net change $\sum_m Lk_m + Lk_{bio}$ is reported as a memo row (code `lks`).
+
+| Parameter | Symbol | Default | Source |
+|---|---|---|---|
+| Natural gas cookstove efficiency | $\eta_{nga}$ | 0.58 | `NatGasEff` (ScenarioDefinition row 301, baseline column) |
+| LPG cookstove efficiency | $\eta_{lpg}$ | 0.56 | `LPGEff` (row 298) |
+| Kerosene cookstove efficiency | $\eta_{ker}$ | 0.45 | `KerEff` (row 299) |
+| Biomass cookstove efficiency | $\eta_{bio}$ | 0.20 | `BioEff` (row 300) |
+| Cross-price elasticity of biomass w.r.t. LPG | $\sigma$ | 0.25 | Elasticities table (global) |
+| Substitution lag | $L$ | 1 year | sheet Constants (`ResSubstLag`) |
+| Most-used cooking fuel | $m^{*}$ | country data | WHO cooking table |
+
+: Parameters of residential leakage (efficiencies from Malla and Timilsina, 2014) {#tbl-dm-leak}
+
+How the leakage behaves:
+
+- A **fall** in the new policy moves fuel back from biomass ($\pi < 0$). The share is capped at 1.
+- A policy that rises and then stays flat moves fuel only in the years it rises. The shift then stays as a level
+  shift: $Lk$ is not grown with GDP.
+- With natural gas and a 10% rise in its price from new policies, the exponent is
+  $0.25 \times 0.20 / 0.58 \approx 0.086$, so $\pi \approx 0.8\%$; the fossil change is $\pi \eta_{nga} \approx 0.5\%$ of
+  gas use, replaced by $0.5\% \times 0.58/0.20 \approx 1.4\%$ of gas use in biomass (in ktoe).
+- Every product of residential fuel use follows the leakage: CO2, CH4, local pollutants, revenues, the weights of the
+  average prices and the distribution module. $F^{e}$ stays the elasticity model.
+
+::: {.callout-tip icon=false title="Pseudocode: residential leakage to biomass"}
+```
+on = BiomassLeakage.startswith("Yes")
+LEAK = ("nga", "lpg", "ker")
+for t in years:
+    for m in LEAK:
+        lkt[m,t] = nce[res,m,t] * (1 + vat[res,m])    # new policy, with VAT
+        if t == t0:
+            lkp[m,t] = 0
+            lkd[m,t] = 0
+        else:
+            expo = sigma * BioEff / Eff[m] / ResSubstLag
+            active = 1 if (on and m == CookFuel) else 0
+            rise = (lkt[m,t] - lkt[m,t-1]) / atp[res,m,t-1]
+            lkp[m,t] = active * min((1 + rise) ** expo - 1, 1)
+            not_exempt = ener[res,m,t-1] - lkx[m,t-1]
+            lkd[m,t] = -not_exempt * Eff[m] * lkp[m,t]
+        lkb[m,t] = -lkd[m,t] * Eff[m] / BioEff
+    for m in LEAK:
+        if t == t0:
+            lkc[m,t] = 0
+        else:
+            lkc[m,t] = (lkc[m,t-1] + lkd[m,t]
+                        + (lkxa[m,t] - lkxa[m,t-1]))  # exempt-use adjustment
+    lkcb[t] = 0 if t == t0 else lkcb[t-1] + sum(lkb[m,t] for m in LEAK)
+    lks[t] = sum(lkc[m,t] for m in LEAK) + lkcb[t]
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 6b, rows `lkt`, `lkp`, `lkd`, `lkb`, `lkc`, `lkcb`, `lkz` (a row of zeros
+  for the sectors and fuels that do not leak), `lks`. The leakage rows are added to `ener` through the leakage position
+  of the fuel | subsector table (Inputs column BF). Settings C59-C89 hold the switch, the cooking fuel, the stove
+  efficiencies and the substitution elasticity.
+- **CPAT Python:** `cpat_model/mitigation/fuel_use.py`, `leakage_settings()` (switch, most-used cooking fuel,
+  efficiencies, elasticity) and `step()` (block "residential leakage to biomass"). Equation A3.4.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **L45 (legacy bug, fixed):** legacy's leakage is inconsistent; the model gives kerosene its own price and share and
+  computes the change on actual use, including earlier leakage.
+- **L90 (legacy bug, fixed):** legacy multiplies the biomass replacement by the biomass efficiency again, which breaks
+  the balance of useful energy; the model keeps $\eta_m d + \eta_{bio} b = 0$.
+- **L91 (legacy bug, fixed):** in legacy an exempt residential fuel still leaks; the model reads the row's own new
+  policy, which is 0 for an exempt fuel.
+- **I138:** initially exempt use does not leak (the change is computed on use net of the exempt part).
+- **I137:** LPG is the cooking fuel when the WHO code of the country is missing.
+- **Methodology:** the methodology's example says a 10% price change moves 0.9% of natural gas use to biomass; with
+  the defaults the leaked share $\pi$ is about 0.8%, and the model applies it to useful energy.
+:::
+
+## Exempt residential cooking fuel {#sec-dm-exempt}
+
+Two options protect households' cooking fuel from new policies. Both act through the price or the quantity of the
+residential rows.
+
+**Always exempt residential LPG and kerosene.** With `AlwaysExemptResLPGKer` (ScenarioDefinition row 268, by
+scenario; default `No*`; a starred `Yes*` counts as Yes) the new carbon tax, the new ETS cost and the new excise of the
+residential LPG and kerosene rows are 0 (exemption factor, code `exf`; @sec-prices). Their after-tax price then keeps
+only existing taxes, the change in existing carbon pricing and the subsidy phase-outs, so their demand responds only
+to those. The shadow price stays, and so does their place in ETS-covered emissions where the residential sector is in
+an ETS. Exempt fuels do not leak to biomass. Exemptions are introduced in
+[user guide, section 1.2.4](../CPAT_full_documentation_html/01_User_Guide.html#exemptions).
+
+**Initially exempt demand of the most-used cooking fuel.** With `ExemptMostCook` = Yes (row 312), the use of the
+most-used cooking fuel by the bottom deciles of households is initially shielded from the price response, which is
+phased in later. The shielded share $\chi$ is the spending of the bottom `ExemptCookDeciles` deciles (row 313, default
+4) on the fuel, over the economy-wide spending on it: household survey budget share times consumption per capita times
+the weight of each decile (Settings C83, `ExemptCookShare`).
+
+The exempt use starts as a share of base-year use and then grows with the elasticity model, but with the usage response
+to the price removed until the phase-in:
+
+$$
+X_{m,t_0} = \chi\,F^{e}_{res,m,t_0}, \qquad
+X_{m,t} = X_{m,t-1}\;\frac{F^{e}_{res,m,t}}{F^{e}_{res,m,t-1}}\;\left(\frac{p_{res,m,t}}{p_{res,m,t-1}}\right)^{\epsilon_U(\phi_t - 1)}
+$$ {#eq-dm-exempt}
+
+where $m$ is the most-used cooking fuel ($\chi = 0$ for the other fuels), $\epsilon_U$ its residential usage
+elasticity, and $\phi_t$ the phase-in of the usage response:
+
+$$
+\phi_t = \begin{cases}
+\min\left(\max\left(\dfrac{t + 1 - T^{pha}}{N^{pha}},\ 0\right),\ 1\right) & \text{if ExemptPhaseout} \\[1ex]
+0 & \text{otherwise}
+\end{cases}
+$$ {#eq-dm-phasein}
+
+with $T^{pha}$ = `YearPha` (row 50, default 2027), $N^{pha}$ = `ExemptPhaseoutPeriod` (row 51, default 5 years) and
+`ExemptPhaseout` (row 49, default FALSE). Where last year's use or price is 0, the ratio is taken as 1.
+
+$F^{e}$ already contains the usage term $(p_t/p_{t-1})^{\epsilon_U}$; the last factor multiplies it by
+$(p_t/p_{t-1})^{-\epsilon_U(1-\phi_t)}$, which takes out the share $1 - \phi_t$ of it. Before the phase-in the exempt use
+keeps only the income, efficiency and shock terms; once $\phi_t = 1$ it responds like the rest.
+
+The difference with the share of the elasticity model is added to residential fuel use through the leakage rows
+(@eq-dm-lkc):
+
+$$
+X^{a}_{m,t} = X_{m,t} - \chi\,F^{e}_{res,m,t}, \qquad X^{a}_{m,t_0} = 0
+$$ {#eq-dm-exempt-adj}
+
+So residential use of the cooking fuel is $(1-\chi)F^{e} + X$ plus the leakage, and the leakage is computed on the use
+that is not exempt.
+
+::: {.callout-tip icon=false title="Pseudocode: initially exempt cooking fuel"}
+```
+for t in years:
+    if ExemptPhaseout:
+        lkxp[t] = clip((t + 1 - YearPha) / ExemptPhaseoutPeriod, 0, 1)
+    else:
+        lkxp[t] = 0
+    for m in ("nga", "lpg", "ker"):
+        share = ExemptCookShare if m == CookFuel else 0
+        if t == t0:
+            lkx[m,t] = share * enel[res,m,t]
+            lkxa[m,t] = 0
+            continue
+        lkxe = ratio(enel[res,m,t], enel[res,m,t-1])   # 1 if last year is 0
+        lkxr = ratio(atp[res,m,t], atp[res,m,t-1])     # 1 if last year is 0
+        lkx[m,t] = lkx[m,t-1] * lkxe * lkxr ** (eu[res,m] * (lkxp[t] - 1))
+        lkxa[m,t] = lkx[m,t] - share * enel[res,m,t]   # enters lkc, so ener
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** exemption factor rows `exf` (section 1); sheet Mitigation, section 6b, rows `lkxp`, `lkxe`, `lkxr`,
+  `lkx`, `lkxa`, entering `lkc`. Inputs on ScenarioDefinition: `AlwaysExemptResLPGKer` (268), `ExemptMostCook` (312),
+  `ExemptCookDeciles` (313), `ExemptPhaseout`, `YearPha`, `ExemptPhaseoutPeriod` (49-51); Settings C83
+  (`ExemptCookShare`, from the household survey).
+- **CPAT Python:** `cpat_model/mitigation/fuel_use.py`: `prepare()` applies `exf`; `step()` computes `lkxp` to `lkxa`.
+  The share needs the household survey deciles, which CPAT Python does not read yet: with `ExemptMostCook` = Yes the
+  run stops with a message, and the share is 0 otherwise. Equation A3.4.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **LD67 (same as legacy):** the initially exempt residential demand of the most-used cooking fuel is built as legacy
+  rows 5568-5570; v0.9.0 (R6) takes the share over the economy-wide basket spend (I136), uses LPG if the WHO cooking
+  code is missing (I137) and computes leakage on the use that is not exempt (I138).
+- **L48 (legacy bug, fixed):** legacy's initially exempt rows have no income factor, and its exemption test misses a
+  starred `Yes*`; the model grows the exempt use with the row's own elasticity path, income factor included.
+- **L94 (legacy bug, fixed):** legacy's phase-in rules differ between rows; the model uses one rule (that of legacy rows
+  2259-2265) everywhere.
+- Always exempt LPG and kerosene: as legacy rows 5546-5547 (`IF(AlwaysExemptResLPGKer="Yes", 0, ...)`); the shadow
+  price is not exempted, as legacy.
+:::
+
+## Fuel use used by the rest of the model {#sec-dm-ener}
+
+The elasticity model $F^{e}$ is not always the fuel use that the rest of the model reads. Two things can replace or
+adjust it: the road engineer model, and the residential adjustments above. The result is the fuel use $F$ (code
+`ener`) used everywhere else ([M3.2](A_Equations.qmd#eqlist-M3-2)):
+
+$$
+F_{s,f,t} = \begin{cases}
+F^{T}_{f,t} & s = \text{road},\ f \in \{gso, die, lpg, nga, bio\},\ \text{TrModel} = \text{Engineer} \\
+F^{e}_{s,f,t} + Lk_{s,f,t} & \text{otherwise}
+\end{cases}
+$$ {#eq-dm-ener}
+
+where
+
+- $F^{T}_{f,t}$ is road fuel use from the engineer road model, calibrated to the energy balance in the base year
+  (@sec-transport); it covers gasoline, diesel, LPG, natural gas and biofuels;
+- $F^{e}$ is the elasticity model (@eq-dm-fueluse), with road biomass from @eq-dm-roadbio;
+- $Lk_{s,f,t}$ is the cumulative residential leakage and exempt-use adjustment (@eq-dm-lkc) for residential natural
+  gas, LPG, kerosene and biomass, and 0 for every other pair.
+
+`TrModel` (ScenarioDefinition row 338) is Elasticity by default; then road fuel use stays the elasticity model's and
+the engineer model's results go only to the transport co-benefits.
+
+Everything downstream reads $F$: CO2 and other emissions (@sec-emissions), revenues and the GDP effect (@sec-fiscal),
+the price averages and indices (@sec-prices) and the distribution module (@sec-distribution).
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, sections 5-8, row `ener` of each fuel:
+  `IF(engineer road row × tr.sw > 0, trkt, enel) + leakage row`; road biomass reads `trbe` instead of `enel`. The engineer
+  road row and the leakage row are positions in the fuel | subsector table (Inputs columns AF and BF).
+- **CPAT Python:** `cpat_model/mitigation/fuel_use.py`, `step()` (block "fuel use, emissions and revenues"). The
+  engineer road model as the source of road fuel use is not in CPAT Python yet: with `TrModel` = Engineer the run stops
+  with a message (`road.prepare`). Equation M3.2.
+:::
+
+## Electricity demand {#sec-dm-electricity}
+
+Electricity demand by sector follows the same logic as fuel use, with its own elasticities by demand group. It is
+computed at the start of the year, before the power model, which turns it into the generation required
+(@sec-power). The methodology describes it in
+[methodology, section 3.4.2.3](../CPAT_full_documentation_html/03_Mitigation.html#power-demand)
+([M4.1](A_Equations.qmd#eqlist-M4-1)).
+
+Sector policies (carbon tax, ETS, feebates, fuel price reform) act on electricity demand only through the electricity
+price, which carries the policy cost of power generation. The demand price is a blend of last year's end-user prices,
+so demand never depends on this year's power price:
+
+$$
+\bar{p}_{d,t} = w_d\,p^{res}_{t-1} + \left(1 - w_d\right) p^{ind}_{t-1}
+$$ {#eq-dm-pdem}
+
+where $p^{res}$ and $p^{ind}$ are the residential and industrial end-user electricity prices (USD per kWh, real;
+@sec-power) and $w_d$ the weight of the residential price in demand group $d$. In the base year the demand price is the
+price of the year before (data).
+
+The demand multiple of each group combines the same terms as fuel use:
+
+$$
+M_{d,t} = \left(\frac{1}{1 + \alpha_d + \alpha^{+}_{pow}}\right)^{1 + \epsilon_{U,d}}
+\left(1 + g_t\right)^{\epsilon_{Y,d}\,inc_t}
+\left(\frac{\bar{p}_{d,t}}{\bar{p}_{d,t-1}}\right)^{\epsilon_{U,d} + \epsilon_{F,d} + \epsilon_{U,d}\epsilon_{F,d}}
+\left(1 + \text{shock}_t \cdot \text{switch} \cdot \kappa^{cov}\right)
+$$ {#eq-dm-mult}
+
+where
+
+- $\alpha_d$, $\epsilon_{Y,d}$, $\epsilon_{U,d}$, $\epsilon_{F,d}$ are the electricity elasticities and autonomous
+  efficiency gain of the group (electricity row of the elasticity table, in the group's elasticity sector);
+- $\alpha^{+}_{pow}$ is `AdditionalEfficiencyPower` (ScenarioDefinition row 242, by scenario, default 0);
+- $\kappa^{cov}$ is `EngineerModelProportionOfCovidFactor`, the share of the shock passed on to power demand
+  (ScenarioDefinition row 372, default 1);
+- there is no shadow price term: the shadow prices reach power through its own costs (@sec-power).
+
+Demand of each sector is last year's demand times its group's multiple:
+
+$$
+E_{s,t} = \begin{cases}
+E^{T}_{t} & s = \text{road and TrModel} = \text{Engineer} \\
+E_{s,t-1}\,M_{d(s),t} & \text{otherwise}
+\end{cases}
+\qquad E_{s,t_0} = \text{data}
+$$ {#eq-dm-dem}
+
+where $E_{s,t}$ is electricity demand (ktoe; code `dem`), $E^{T}$ road electricity from the engineer road model
+(@sec-transport) and $d(s)$ the demand group of the sector (@tbl-dm-sectors). Demand covers 15 sectors (fuel
+transformation has none). The base-year demand comes from the energy balance.
+
+| Demand group $d$ | Sectors | Weight $w_d$ on the residential price | Elasticity sector |
+|---|---|---|---|
+| Transport | road, rail, aviation, navigation | 0.5 | transport |
+| Residential | residential | 1 | residential |
+| Industry | food & forestry, the industry sectors, other energy use | 0 | industry |
+| Services | services | 0 | services |
+
+: Electricity demand groups {#tbl-dm-elgroups}
+
+The power model (@sec-power) adds up demand, $E_t = \sum_s E_{s,t}$, converts it into required generation and splits
+consumption into residential and industrial users.
+
+**A memo, not a fuel.** Electricity demand is shown in the sector blocks and summed by sector group (code `eldem`),
+but it is not part of the fuel totals: the fuels burnt to generate it are (@sec-dm-totals). Nothing is counted twice.
+
+::: {.callout-tip icon=false title="Pseudocode: electricity demand"}
+```
+for t in years:
+    for d in ("tra", "res", "ind", "srv"):
+        if t == t0:
+            pdem[d,t] = p2021[d]
+        else:
+            pdem[d,t] = w[d] * rp[res,t-1] + (1 - w[d]) * rp[ind,t-1]
+        add = AdditionalEfficiencyPower
+        aeef = (1 / (1 + alpha[ecy,d] + add)) ** (1 + eu[ecy,d])
+        eps = eu[ecy,d] + ef[ecy,d] + eu[ecy,d] * ef[ecy,d]
+        shock_d = shock[t] * ApplyDemandShock * EngineerModelProportionOfCovidFactor
+        if t == t0:
+            mult[d,t] = 1
+        else:
+            mult[d,t] = (aeef
+                         * (1 + gdp.pos.pct[t]) ** (ey[ecy,d] * inc.ela.adj[t])
+                         * (pdem[d,t] / pdem[d,t-1]) ** eps
+                         * (1 + shock_d))
+    for s in demand_sectors:                 # 15 sectors, no fuel transformation
+        if t == t0:
+            dem[s,t] = dem0[s]
+        elif s == "rod" and TrModel == "Engineer":
+            dem[s,t] = trkte[t]               # road electricity, engineer model
+        else:
+            dem[s,t] = dem[s,t-1] * mult[group[s],t]
+    demtot[t] = sum(dem[s,t] for s in demand_sectors)   # -> power model
+    for s in sectors:                                    # memo rows
+        eldem[s,t] = dem[s,t] if s in demand_sectors else 0
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 3, part H: rows `pdem`, `aeef`, `mult`, `dem`, `demg`, `demtot`; memo rows
+  `eldem` in the sector blocks and in section 11. Parameters: sheet Inputs rows 231-234 (demand groups: price weight,
+  elasticities, base prices) and 238-252 (sectors: demand group, base-year demand, road flag).
+- **CPAT Python:** `cpat_model/mitigation/power.py`, `step()` (block "demand"); memo rows `eldem` in
+  `fuel_use.step()` and `totals.energy()`. Equation M4.1.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **L1 (legacy bug, fixed):** in legacy, services electricity demand grows with the industrial multiple after 2023;
+  here services keep the services multiple in every year.
+- **L2 (legacy bug, fixed):** legacy's autonomous efficiency gain uses the efficiency elasticity in the exponent; here it
+  uses the usage elasticity, as fuel use.
+- **L3 (legacy bug, fixed):** legacy applies the income factor twice and anchors it to 2023; here it multiplies the GDP
+  elasticity once.
+- **LD24 (same as legacy):** the 2023-2024 demand shock applies to power demand too, switch Settings C19, on by default.
+- **LD21:** power demand takes `AdditionalEfficiencyPower` of its own scenario, like every power input.
+- **Methodology:** the methodology writes a GDP elasticity $\epsilon_G$ that it does not define; the model uses
+  $\epsilon_Y$ with the income factor. The demand price is lagged one year on purpose (legacy rows 3687-3689).
+:::
+
+## Energy totals and changes against the baseline {#sec-dm-totals}
+
+The last step adds fuel use up by sector group and by fuel, adds the fuels burnt in power plants, and compares every
+total with the baseline of the same year ([M3.3](A_Equations.qmd#eqlist-M3-3)).
+
+**By sector.** The total of a sector is the sum over its fuels, plus renewables in aviation and navigation:
+
+$$
+F_{s,t} = \sum_{f} F_{s,f,t} + R_{s,t}\,\mathbb{1}[s \in \{avi, nav\}], \qquad
+F_{g,t} = \sum_{s \in g} F_{s,t}
+$$ {#eq-dm-sectortotal}
+
+for the sector groups $g$ transport, buildings, industry and other energy use (@tbl-dm-sectors).
+
+**Power.** The power group is the fuel input of power generation, coal, gas, oil and biomass (code `pet`; @sec-power):
+
+$$
+F_{pow,t} = \sum_{k \in \{coa,\, nga,\, oop,\, bio\}} F^{pow}_{k,t}
+$$ {#eq-dm-powtotal}
+
+Nuclear, wind, solar, hydro and other renewables have no fuel input in this total.
+
+**By fuel and in total.**
+
+$$
+F_{f,t} = \sum_{s} F_{s,f,t} + F^{pow}_{f,t}, \qquad
+F_t = \sum_{s} F_{s,t} + F_{pow,t}
+$$ {#eq-dm-fueltotal}
+
+where $F^{pow}_{f,t}$ is the generation fuel use of the type that burns fuel $f$ (0 for the other fuels). Renewables
+in aviation and navigation are in $F_t$ but in no fuel total. A check row confirms that the totals agree:
+
+$$
+\left|\sum_{s} F_{s,t} + F_{pow,t} - F_t\right| + \left|\sum_{f} F_{f,t} + R_{avi,t} + R_{nav,t} - F_t\right| = 0
+$$ {#eq-dm-check}
+
+**Change against the baseline.** Each total $x$ (the 9 fuel totals, the 4 sector groups, power and the grand total) is
+compared with the baseline value of the same year:
+
+$$
+\Delta F_{x,t} = F_{x,t} - F^{B}_{x,t}, \qquad
+\%\Delta F_{x,t} = \begin{cases} \dfrac{\Delta F_{x,t}}{F_{x,t} - \Delta F_{x,t}} & F_{x,t} - \Delta F_{x,t} \ne 0 \\[1ex] 0 & \text{otherwise} \end{cases}
+$$ {#eq-dm-change}
+
+where $F^{B}_{x,t}$ is scenario 1's value in the same year (codes `echg` and `epct`). In the baseline itself the
+change is 0. The grand total also has its baseline value and percentage change as rows (`ener.ref`, `ener.pct`
+$= F_t / F^{B}_t - 1$).
+
+**Electricity totals.** Electricity demand (memo) is summed by sector group and in total:
+$E_{g,t} = \sum_{s \in g} E_{s,t}$, $E_t = \sum_g E_{g,t}$ (code `eldem`).
+
+::: {.callout-tip icon=false title="Pseudocode: totals and change against the baseline"}
+```
+GROUPS = ("tra", "bld", "ind", "oen")
+for t in years:
+    for s in sectors:
+        ren = ener[s,ren,t] if s in ("avi", "nav") else 0
+        ener[s,all,t] = sum(ener[s,f,t] for f in fuels) + ren
+    for g in GROUPS:
+        ener[g,all,t] = sum(ener[s,all,t] for s in sectors if group[s] == g)
+    ener[pow,all,t] = pet[t]          # coal, gas, oil, biomass burnt in power
+    for f in fuels:
+        burnt = pe[pow,f,t] if f in power_types else 0
+        ener[all,f,t] = sum(ener[s,f,t] for s in sectors) + burnt
+    total = sum(ener[s,all,t] for s in sectors) + ener[pow,all,t]
+    ener[all,all,t] = total
+    by_sector = sum(ener[s,all,t] for s in sectors) + ener[pow,all,t]
+    by_fuel = (sum(ener[all,f,t] for f in fuels)
+               + ener[avi,ren,t] + ener[nav,ren,t])
+    ener.chk[t] = abs(by_sector - total) + abs(by_fuel - total)
+    ener.ref[t] = baseline.ener[all,all,t]
+    ener.pct[t] = total / ener.ref[t] - 1
+    rows = ([(all,f) for f in fuels] + [(g,all) for g in GROUPS + ("pow",)]
+            + [(all,all)])
+    for x in rows:
+        echg[x,t] = ener[x,t] - baseline.ener[x,t]
+        level = ener[x,t] - echg[x,t]
+        epct[x,t] = 0 if level == 0 else echg[x,t] / level
+    for g in GROUPS:
+        eldem[g,t] = sum(eldem[s,t] for s in sectors if group[s] == g)
+    eldem[all,t] = sum(eldem[g,t] for g in GROUPS)
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 11 (rows `ener` by group, fuel and in total, `eldem`, `ener.chk`,
+  `ener.ref`, `ener.pct`) and sub-block 11b (rows `echg`, `epct`). The baseline value is read through a helper row that
+  finds scenario 1's column of the same year (REFCOL). Section 11 ends with two summary rows: total energy use and its
+  change against scenario 1 (`echg.all`). The energy-balance matrix of legacy (block G) is not built as rows: it is a
+  rearrangement of section 11.
+- **CPAT Python:** `cpat_model/mitigation/totals.py`, `energy()`, with `reference()` for the baseline value; the sector
+  and group totals of the four groups are set at the end of `fuel_use.step()`. Equation M3.3. In the results the code
+  `ener.all.all` is written as Excel-AI's `ener.tot.tot`.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **LD39 (same as legacy):** generation fuel use (coal, gas, oil, biomass) is in the fuel totals; electricity final
+  demand is a memo.
+- The change against the baseline replaces legacy's post-processing block F7.
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Values of Excel-AI 1.1.0 for Egypt (`coded/cpat_testing/compare/reference/excel_ai_1.1.0.csv`), which CPAT Python
+reproduces (test "fuel use by subsector": pass). Scenario 1 is the baseline; scenario 2 a carbon tax of USD 20 per
+tCO2 from 2027. Leakage to biomass and the exemptions are off.
+
+**Baseline energy use (ktoe).**
+
+| Group | 2022 | 2023 | 2030 | 2041 |
+|---|---|---|---|---|
+| Transport | 18,799 | 19,280 | 27,128 | 34,169 |
+| Buildings | 7,283 | 7,815 | 10,023 | 11,412 |
+| Industry | 21,715 | 20,178 | 28,784 | 40,075 |
+| Other energy use | 96 | 83 | 117 | 165 |
+| Power (fuel input) | 33,221 | 31,499 | 44,396 | 47,996 |
+| **Total** | **81,114** | **78,856** | **110,448** | **133,816** |
+
+- The 2023 shock (−20.8%) outweighs GDP growth (3.8%) and the fall in prices: total energy use falls 2.8% in 2023,
+  then rises 17% in 2024 (shock +9.2%) to 92,610 ktoe.
+- The income-level factor is 1.027 in 2022 and 2023, 0.970 in 2030 and 0.946 in 2041: Egypt's GDP per capita is past
+  the peak of the reverse-U.
+- Residential biomass declines from 1,495 ktoe (2022) to 1,210 (2041): its income elasticity is 0.
+- Electricity demand of buildings rises from 10,743 ktoe (2022) to 16,868 (2030); industry from 3,606 to 4,924;
+  transport from 43 to 66.
+
+**Change against the baseline in 2030, carbon tax scenario.**
+
+| Total | Change (ktoe) | Change (%) |
+|---|---|---|
+| Transport | −2,601 | −9.6 |
+| Buildings | −1,861 | −18.6 |
+| Industry | −4,601 | −16.0 |
+| Other energy use | −0.1 | −0.06 |
+| Power (fuel input) | −3,370 | −7.6 |
+| Coal | −284 | −13.3 |
+| Natural gas | −4,938 | −9.7 |
+| Gasoline | −988 | −8.3 |
+| Diesel | −2,865 | −12.9 |
+| LPG | −1,120 | −16.2 |
+| Other oil products | −2,149 | −14.9 |
+| Biomass | 0 | 0 |
+| **Total** | **−12,432** | **−11.3** |
+
+Before 2027 the two scenarios differ by about 22 ktoe, all in power fuel use; sector
+demand is identical. GDP growth after the feedback is 4.70% in 2030 against 4.84% in the baseline.
+
+**Against legacy CPAT (Egypt baseline, 129 fuel-use rows).** In 2022 81% of the rows are within 1% of legacy and 91%
+within 5%; from 2025 about 80% are within 1%. The largest gap in 2030 is fuel transformation diesel (legacy 883,
+model 1,386 ktoe). The gaps follow the newer price data (prices from 2024 instead of 2022) and the fixed fuel-use bugs;
+the base year uses the same energy balance.
+:::
+
+## Summary of variables {#sec-dm-variables}
+
+| Symbol | Meaning | Unit | Code |
+|---|---|---|---|
+| $F^{e}_{s,f}$ | fuel use, elasticity model | ktoe | `enel` |
+| $F_{s,f}$ | fuel use used by the rest of the model | ktoe | `ener` |
+| $A_{s,f}$ | efficiency factor (autonomous and additional) | factor | `aef` |
+| $\alpha_{s,f}$, $\alpha^{+}_{g}$ | autonomous and additional efficiency gains | share per year | `alpha`; `AdditionalEfficiency*` |
+| $\epsilon_Y, \epsilon_U, \epsilon_F$ | income, usage and efficiency elasticities | | `ey`, `eu`, `ef` (Python); Inputs columns |
+| $inc_t$ | income-level factor on the GDP elasticities | factor | `incp`, `inc.ela.adj` |
+| $(1+g_t)^{inc_t} - 1$ | GDP growth raised to the income factor | share | `GDPI` |
+| $g_t$, $\ell_t$ | GDP growth after the feedback, GDP level factor | share, factor | `gdp.pos.pct`, `gdp.lvl` |
+| $\Psi_t$, $\text{shock}_t$ | demand shock factor, shock | factor, share | `SHOCK`, `shock` |
+| $p_{s,f}$, $sh_{s,f}$ | after-tax price, shadow price | USD/GJ | `atp`, `shp` |
+| $\Sigma_s$, $reg_s$, $a_s$ | shadow price by sector, regulation part, feebate share | USD/tCO2, share | `shpx`, `reg`, `ssc` |
+| $\tau_t - \tau^{x}_t$, $r$ | shadow carbon price, efficiency adjustment | USD/tCO2, share | `cp.shd`, `regadj` |
+| $B^{bgs}, B^{bdi}, B^{obf}$ | road biofuels | ktoe | `trbe` |
+| $R_{s}$, $tic^{sol}$ | renewables in aviation and navigation, their price | ktoe, USD/kWh | `ener` (fuel `ren`), `trpren` |
+| $W_m$, $\pi_m$, $d_m$, $b_m$ | leakage: new policy in the price, leaked share, fossil change, biomass | USD/GJ, share, ktoe | `lkt`, `lkp`, `lkd`, `lkb` |
+| $Lk_m$, $Lk_{bio}$ | cumulative leakage added to fuel use | ktoe | `lkc`, `lkcb` (none: `lkz`; net: `lks`) |
+| $\phi_t$, $X_m$, $X^{a}_m$ | exempt use: phase-in, exempt use, adjustment | share, ktoe | `lkxp`, `lkx`, `lkxa` (ratios `lkxe`, `lkxr`) |
+| $\bar{p}_d$, $M_d$ | electricity demand price, demand multiple | USD/kWh, factor | `pdem`, `mult` (efficiency `aeef`) |
+| $E_s$, $E$ | electricity demand by sector, total | ktoe | `dem`, `demtot`; memo `eldem` |
+| $F_g$, $F_f$, $F$ | totals by group, by fuel, grand total | ktoe | `ener` (`all` rows) |
+| $F_{pow}$ | fuel input of power generation | ktoe | `pet` |
+| $\Delta F$, $\%\Delta F$ | change against the baseline | ktoe, % | `echg`, `epct`; `ener.ref`, `ener.pct` |
+
+: Variables of the energy demand block {#tbl-dm-variables}

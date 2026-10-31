@@ -1,0 +1,41 @@
+# Corrections {#sec-corrections}
+
+This edition of the methodology is the CPAT team's 2023 text with errors corrected in place. The errors were found by the CPAT-AI project while it rebuilt CPAT in Excel and Python and wrote out every equation (the *Documentation bugs* DOC1-DOC20 of its register, `excel_ai/core/BUGS.md`). No model changes: CPAT, Excel-AI and CPAT Python already compute what the corrected text says.
+
+::: {.callout-note}
+#### The PDF download
+
+The downloadable PDF is the 2023 edition, without these corrections. Read the web pages for the corrected text.
+:::
+
+## Version history
+
+| Date | Version | Changes |
+|---|---|---|
+| 2026-10-31 | 2023 edition, corrected | Twenty documentation errors corrected (DOC1-DOC20, below): 14 in full, 6 in part. New section [GDP feedback in CPAT](04_Multipliers.qmd#sec-GDPFeedback). |
+| 2023 | 2023 edition | The CPAT team's methodology. |
+
+## Corrections of 2026-10-31
+
+| Code | Where | Correction | Status |
+|---|---|---|---|
+| DOC1 | Multipliers, new section *GDP feedback in CPAT*; Mitigation Appendix E ("Include endogenous GDP effects?") | Added the in-model equations, as the model and legacy compute them: fiscal space on total revenue, fiscal impulse (the change in the revenue gain in USD over this year's GDP, with its start years), effect of each revenue use with the multipliers by lag (the revenue itself enters with the multipliers of energy taxes), GDP effect, GDP level one year later and the policy GDP growth rate. The Appendix E row links to it. | Fixed |
+| DOC2 | Mitigation, Power prices > Concept 4: End-user prices | Electricity markup sign: $mu^T = gnc^{av} + tmc - hrp$ → $mu^T = hrp - gnc^{av} - tmc$, so the base-year price equals the historical price. | Fixed |
+| DOC3 | Mitigation, Power prices > Concept 2: Levelized costs | Discount factor $1 + wacc^{t-t_0}$ → $(1 + wacc)^{-(t-t_0)}$; levelised investment cost written with the sums over years ($\sum_t vc\,cf\,dfc / \sum_t cf\,dfc + fix^{fl}$). Symbol names in the text aligned (`opf`, `pusRen`). | Fixed |
+| DOC4 | Mitigation, Engineer model > Power demand; Elasticity model > Total power demand | The undefined $\epsilon_G$ → $\epsilon_Y$, the real-GDP elasticity of power demand adjusted for income level. | Fixed |
+| DOC5 | Mitigation, Appendix C > Power generation costs | Undefined $tex_{P,tcft}$ → $tex_{P,cft}$, defined as the exempted share; $nct_P$ defined. | Fixed |
+| DOC6 | Mitigation, Storage > Short-term storage | Derivative $d\,sst/dv = 18v^2$ → $18v$. | Fixed |
+| DOC7 | Mitigation, Storage > Long-term storage | The marginal-storage table now follows the formula the model uses, $2\max(0, v - 0.75)/0.25^2$: 2.5, 5.0, 7.5, 10.0 → 3.2, 4.8, 6.4, 8.0 at 85-100%. | Fixed |
+| DOC8 | Mitigation, Efficiency costs in CPAT | $nc_{ft}$ → $ncp_{ft}$; "the average of new and pre-existing tax" → "half the difference" (the Harberger trapezoid). | Fixed |
+| DOC9 | Mitigation, Prices > Overview and notation; Appendix C | One sign convention for producer subsidies: $ps$ is negative where a subsidy lowers the price, and $sp = fixsp + fltsp + ps$ throughout. | Fixed |
+| DOC10 | Mitigation, Prices > Overview; Appendix C | One statement of the time window for prices: base year $t_0 = 2022$, historical price years 2018-2022, forecasts from 2023 (the current data). $t_0$ is no longer also a summation index. | Fixed for prices; the year 2019 in the emissions calibration is unchanged |
+| DOC11 | Mitigation, Engineer model > Retirement and capacity needed | Capacity stock written in capacity (MW), not generation, with no sum over fuels: $cap_{ocft} = cap_{ocf,t-1} - ret_{ocf,t-1} + inv_{ocf,t-1}$; units of $cap$, $inv$, $ret$ in MW. | Fixed |
+| DOC12 | Mitigation, Power prices > Concept 1 | Text and equation use the same fuel price: the retail price before new policies, $p_{ocft}/\nu_{cf}$ (as the model). Implicit coal price written $ipc$ throughout. | Fixed |
+| DOC13 | Mitigation, notation tables | Units corrected: $opf$ US\$/kWh, $dtc$ US\$/kW, $E$ ktoe, $\lambda_f$ %, $\zeta$ %, $inv$ and $ret$ MW, $em$ tCO2e, $ncp$ US\$/GJ. | Partly fixed: units of $hrp$, $\Psi$ and the elasticity-model $E$ remain to check |
+| DOC14 | Mitigation, several sections | One name per quantity: $opv$ → $vop$; dispatch sums over one index with costs $c_f$; $H_g, K_g$ → $H_f, K_{dispatch}$; COAL → COA; LCOE denominator $dem$; IPPU $\Delta em_{ocI}$; $Y_{grow}$; LULUCF bars and indices; $revExi$, $ctr$; one VAT family ($vat$, $vatrate$); coverage $\varphi_{NETS}$; $XCT$ and $XETSP$ added to the prices notation table. | Partly fixed: index-order variants (e.g. $rev_{ocfgt}$), the $ame$ variants and some symbols missing from the notation tables remain |
+| DOC15 | Mitigation, Elasticity model > Total power supply | The share equation written once, in the index form of the general equation; $\iota$ carries the scenario index. | Partly fixed: the elasticity power model is not in Excel-AI, so the implemented form could not be checked |
+| DOC16 | Distribution, 5.3.1 Tax incidence | Direct effects refer to @eq-5_2 ($f \in g$), not @eq-5_3. | Fixed |
+| DOC17 | Mitigation Appendices B and F; Distribution tbl-5_1 | Biofuel labels swapped back: `bgs` biogasoline, `bdi` biodiesel; electricity coded `ecy`. | Partly fixed: the survey variable `ely` and the codes map are unchanged |
+| DOC18 | Air pollution, eq-deltae, eq-ifeach, eq-pomincfactor, eq-modeled | Index definitions corrected ($k$ source regions, $i$ precursor, $j$ component, $iF_{p,j,l}$, $d_{POM,1}$); eq-modeled uses $i$ and $j$ as eq-sourcerecep does. | Fixed |
+| DOC19 | Road transport, eq-basefor | Growth terms on one basis: $(1 + g^{GDP}_t - \overline{g^{GDP}})$ with net growth rates; $Y^f_t$ → $Y^{simple}_t$. | Fixed |
+| DOC20 | All chapters | Clashes within a chapter removed where clear-cut (Mitigation: $g$ as growth rate → $\tau$, $P_t$ → $p_t$ in the rebound term; Multipliers: error term $\varepsilon$; Distribution: $p_j$; Air pollution and Road transport as DOC18, DOC19). | Partly fixed: letters reused across chapters, and $g$ as both sector group and generation in Mitigation, remain |

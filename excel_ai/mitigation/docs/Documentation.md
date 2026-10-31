@@ -28,7 +28,7 @@ The tabs, left to right: the front (`Cover`, `ScenarioCompare`, `ScenarioDefinit
 
 # 3. How it works
 
-The `Mitigation` tab runs top to bottom, one section per step, with the section numbers of legacy CPAT. Each scenario is a group of columns: group 1 is the baseline, group 2 the live scenario. Years run across, 2022 to 2041.
+The `Mitigation` tab runs top to bottom, one section per step, with the section numbers of legacy CPAT. The method of each block, with its equations and pseudocode, is in the website's CPAT-AI Model tab (<https://cpmodelai.github.io/cpat_ai/#model>; sources `docs/CPAT_model_documentation_qmd/`), shared with CPAT Python; the Word Methods volume (`docs/methods/`) is the compact version. Each scenario is a group of columns: group 1 is the baseline, group 2 the live scenario. Years run across, 2022 to 2041.
 
 | Section | Step | Methods chapter |
 |---|---|---|

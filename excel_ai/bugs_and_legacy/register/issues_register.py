@@ -1470,7 +1470,7 @@ ISSUE_STATUS.update({'I152': ('Minor', 'Open', 'Departure not decided by the use
 
 
 # ---------------------------------------------------------------- documentation bugs (user 2026-10-29): kind DOC
-# Errors in the CPAT methodology documentation (docs/01_MainDocumentation/*.qmd): the text, an equation or a table is
+# Errors in the CPAT methodology documentation (docs/CPAT_full_documentation_qmd/*.qmd; was docs/01_MainDocumentation): the text, an equation or a table is
 # wrong, missing or contradicts itself. They change no model (the prototypes and Coded CPAT follow the workbooks); the
 # fix is a correction of the documentation. Found while extracting the notation for the Coded CPAT equation list
 # (coded/cpat_documentation/equations/reference/notation_from_methodology.md section 4). New prefix DOC because D was
@@ -1576,3 +1576,16 @@ DOC_BUGS = [  # id, title, where (file, section, line in the qmd), what is wrong
      'One meaning per letter within a chapter; a notation table per chapter.', 'Low'),
 ]
 DOC_STATUS = 'Open: correct in the methodology documentation (no model change)'
+# Corrected in the methodology book on 2026-10-31 (user request; its chapter Corrections lists each change). What is
+# left of a partly fixed one is open.
+_FIXED = 'Fixed in the methodology documentation (2026-10-31)'
+DOC_STATUS_BY_CODE = {c: _FIXED for c in ('DOC1', 'DOC2', 'DOC3', 'DOC4', 'DOC5', 'DOC6', 'DOC7', 'DOC8', 'DOC9',
+                                          'DOC11', 'DOC12', 'DOC16', 'DOC18', 'DOC19')}
+DOC_STATUS_BY_CODE.update({
+    'DOC10': 'Fixed for prices (2026-10-31); open: the year 2019 of the emissions calibration',
+    'DOC13': 'Partly fixed (2026-10-31); open: units of hrp, Psi and the elasticity-model E',
+    'DOC14': 'Partly fixed (2026-10-31); open: index-order variants, the ame variants, symbols missing from the tables',
+    'DOC15': 'Partly fixed (2026-10-31): written in one form; open: check against an implementation',
+    'DOC17': 'Partly fixed (2026-10-31); open: the survey variable ely and the codes map',
+    'DOC20': 'Partly fixed (2026-10-31): clashes within a chapter; open: letters reused across chapters',
+})

@@ -3,49 +3,25 @@ project:
   output-dir: ../CPAT_coded_documentation_html
 
 book:
-  title: "Coded CPAT"
-  subtitle: "The Python model of CPAT: what you need to know to run it and to edit it"
-  author: "CPAT-AI Team"
-  date: last-modified
+  title: "CPAT Python"
   favicon: ./00/media/image1.png
   search: true
   reader-mode: true
   page-footer: "CPAT-AI: WB-IMF Climate Policy Assessment Tool. Documentation release 1.1.0 (2026-10-30): Excel-AI 1.1.0, Coded CPAT 1.1.0p1.3, data edition Public01"
   chapters:
     - index.qmd
-    - part: "Part I: What you need to know"
-      chapters:
-        - 01_Quick_start.qmd
-        - 02_Database.qmd
-        - 03_Scenarios.qmd
-        - 04_Results.qmd
-        - 05_Editing.qmd
-        - 06_Testing.qmd
-    - part: "Part II: How it works"
-      chapters:
-        - 07_Architecture.qmd
-        - 08_Mitigation_blocks.qmd
-        - 09_Distribution.qmd
-        - 10_App.qmd
-        - 11_Versions.qmd
+    - 01_Using_the_model.qmd
+    - 02_How_it_works.qmd
   appendices:
-    - A_Equations.qmd
-    - B_Equations_codes.qmd
-    - C_Database_tables.qmd
-    - D_Inputs.qmd
-    - E_Variables.qmd
-    - F_Bugs.qmd
-    - G_Spec.qmd
-    - H_Norms.qmd
-    - I_Plan.qmd
-    - J_Glossary.qmd
+    - A_Reference.qmd
+    - B_Project.qmd
 
 format:
   html:
     toc-depth: 3
     toc-location: left
     toc-title: "***Chapter Contents***"
-    number-depth: 1
+    number-depth: 3
     theme: cosmo
 
 editor: source

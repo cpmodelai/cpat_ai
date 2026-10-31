@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>7&nbsp; Road Transport Module – CPAT Documentation</title>
+<title>7&nbsp; Road Transport Module – CPAT Methodology</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -55,6 +55,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./08_Corrections.html" rel="next">
 <link href="./06_Air_pollution.html" rel="prev">
 <link href="././00/media/image1.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
@@ -151,7 +152,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">CPAT Documentation</a> 
+      <a href="./">CPAT Methodology</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/wb-mrio/cpat_public" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <a href="./CPAT-Documentation.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
@@ -173,7 +174,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Cover</strong></span></a>
+ <span class="menu-text">CPAT Methodology</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -216,6 +217,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./07_Road_Transport.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Road Transport Module</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_Corrections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Corrections</span></span></a>
   </div>
 </li>
     </ul>
@@ -2652,19 +2659,19 @@ Figure&nbsp;7.10: Input and output of CPAT’s Road Transport Module
 <li><p>for (forecasted) future deviations from (observed) average past population growth using the estimated elasticity of the outcome wrt population.</p></li>
 </ul></li>
 </ul>
-<p><span id="eq-basefor"><span class="math display">\[Y_{t}^{\text{baseline}} = \left( \frac{\text{GDP}_{t}}{\text{GDP}_{t - 1}} - \overline{g^{\text{GDP}}} \right)^{\eta_{\text{GDP}}}{\left( \frac{\text{pop}_{t}}{\text{pop}_{t - 1}} - \overline{g^{\text{pop}}} \right)^{\eta_{\text{pop}}}Y}_{t}^{\text{simple}} \tag{7.8}\]</span></span></p>
+<p><span id="eq-basefor"><span class="math display">\[Y_{t}^{\text{baseline}} = \left( 1 + g_{t}^{\text{GDP}} - \overline{g^{\text{GDP}}} \right)^{\eta_{\text{GDP}}}\left( 1 + g_{t}^{\text{pop}} - \overline{g^{\text{pop}}} \right)^{\eta_{\text{pop}}}Y_{t}^{\text{simple}} \tag{7.8}\]</span></span></p>
 <p>where:</p>
 <ul>
 <li><p><span class="math inline">\(Y_{t}^{\text{baseline}}\)</span> is the baseline (without policy) forecast of variable <span class="math inline">\(Y\)</span>,</p></li>
 <li><p><span class="math inline">\(Y_{t}^{\text{simple}}\)</span> is the “naïve” linear forecast based only on past observed values of <span class="math inline">\(Y\)</span>,</p></li>
-<li><p><span class="math inline">\(\text{GDP}_{t}\)</span> and <span class="math inline">\(\text{GDP}_{t - 1}\)</span> are the contemporary and previous GDP (GDP growth forecast for coming years from IMF World Economic Outlook),</p></li>
-<li><p><span class="math inline">\(\overline{g^{\text{GDP}}}\)</span> is the expected GDP growth (geometric average growth over past years),</p></li>
+<li><p><span class="math inline">\(g_{t}^{\text{GDP}} = \frac{\text{GDP}_{t}}{\text{GDP}_{t - 1}} - 1\)</span> is the GDP growth rate, from the contemporary and previous GDP (GDP growth forecast for coming years from IMF World Economic Outlook),</p></li>
+<li><p><span class="math inline">\(\overline{g^{\text{GDP}}}\)</span> is the expected GDP growth rate (geometric average growth rate over past years, a net rate like <span class="math inline">\(g_{t}^{\text{GDP}}\)</span>),</p></li>
 <li><p><span class="math inline">\(\eta_{\text{GDP}}\)</span> is the elasticity of the outcome wrt GDP,</p></li>
-<li><p><span class="math inline">\(\text{pop}_{t}\)</span> and <span class="math inline">\(\text{pop}_{t - 1}\)</span> are the contemporary and previous population sizes (WB Population Estimates and Projections),</p></li>
-<li><p><span class="math inline">\(\overline{g^{\text{pop}}}\)</span> is the expected population growth (geometric average growth over past years),</p></li>
+<li><p><span class="math inline">\(g_{t}^{\text{pop}} = \frac{\text{pop}_{t}}{\text{pop}_{t - 1}} - 1\)</span> is the population growth rate, from the contemporary and previous population sizes (WB Population Estimates and Projections),</p></li>
+<li><p><span class="math inline">\(\overline{g^{\text{pop}}}\)</span> is the expected population growth rate (geometric average growth rate over past years, a net rate like <span class="math inline">\(g_{t}^{\text{pop}}\)</span>),</p></li>
 <li><p>and <span class="math inline">\(\eta_{\text{pop}}\)</span> is the elasticity of the outcome wrt population size.</p></li>
 </ul>
-<p>We need to subtract expected GDP/population growth from the actual (forecasted) GDP/population growth, as the past growth rates are implicitly included in the linear forecast <span class="math inline">\(Y_{t}^{f}\)</span>.</p>
+<p>We need to subtract expected GDP/population growth from the actual (forecasted) GDP/population growth, as the past growth rates are implicitly included in the linear forecast <span class="math inline">\(Y_{t}^{\text{simple}}\)</span>.</p>
 <p>Adjusting for GDP growth in this way should allow us to account for booms and recessions, as for example the graphically impressive drop caused by Covid-19.</p>
 </section>
 <section id="policy-forecast" class="level3" data-number="7.7.3">
@@ -10411,6 +10418,9 @@ World Health Organization and others. 2013. <em>Global Status Report on Road Saf
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./08_Corrections.html" class="pagination-link" aria-label="Corrections">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Corrections</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -10420,7 +10430,7 @@ World Health Organization and others. 2013. <em>Global Status Report on Road Saf
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>WB-IMF Climate Policy Assessment Tool, 2023</p>
+<p>WB-IMF Climate Policy Assessment Tool, 2023; corrections 2026-10-31 (see Corrections)</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/wb-mrio/cpat_public/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

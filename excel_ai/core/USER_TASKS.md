@@ -7,7 +7,7 @@ what to tell the agent afterwards. Source: `TODO.md` (sections 5 and "Open at th
 
 1. **Turn on the documentation website.** GitHub > `cpmodelai/cpat_ai` > Settings > Pages > Build and deployment >
    Source: **GitHub Actions**. Then Actions > *Documentation website* > Run workflow (or push any change to `docs/`).
-   The site is then at <https://cpmodelai.github.io/cpat_ai/> (tabs `#documentation`, `#cpat-ai`, `#coded`).
+   The site is then at <https://cpmodelai.github.io/cpat_ai/> (Home, then tabs `#methodology`, `#excel-ai`, `#python`).
    The workflow already builds both books; only the publish step failed ("Ensure GitHub Pages has been enabled").
 2. **Delete the seven old branches** on GitHub (Code > Branches): they still hold the old history with the real
    values (the agent may not delete branches: HTTP 403).

@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="CPAT-AI Team">
-<meta name="dcterms.date" content="2026-10-29">
 
-<title>Coded CPAT</title>
+<title>CPAT Python</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -38,7 +36,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./01_Quick_start.html" rel="next">
+<link href="./01_Using_the_model.html" rel="next">
 <link href="././00/media/image1.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -90,7 +88,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><strong>Coded CPAT</strong></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">CPAT Python</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -105,7 +103,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Coded CPAT</a> 
+      <a href="./">CPAT Python</a> 
         <div class="sidebar-tools-main">
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
@@ -125,13 +123,25 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><strong>Coded CPAT</strong></span></a>
+ <span class="menu-text">CPAT Python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_Using_the_model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Using the model</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_How_it_works.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">How it works</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Part I: What you need to know</span></a>
+ <span class="menu-text">Appendices</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -139,150 +149,14 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_Quick_start.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Quick start</span></span></a>
+  <a href="./A_Reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Data, inputs and variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_Database.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The database</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./03_Scenarios.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Scenarios and inputs</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./04_Results.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Results</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./05_Editing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Editing the model</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./06_Testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Testing</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Part II: How it works</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./07_Architecture.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Architecture</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./08_Mitigation_blocks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">The mitigation blocks</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./09_Distribution.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">The distribution module</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./10_App.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">The app</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./11_Versions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Versions and releases</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./A_Equations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Equation list: methodology notation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./B_Equations_codes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Equation list: CPAT code names</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./C_Database_tables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Database tables</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./D_Inputs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Inputs</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./E_Variables.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Variables</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./F_Bugs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Excel-AI bugs and known differences</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./G_Spec.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Specification and design decisions</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./H_Norms.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">Python norms</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./I_Plan.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">I</span>&nbsp; <span class="chapter-title">The plan and open work</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./J_Glossary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">J</span>&nbsp; <span class="chapter-title">Glossary</span></span></a>
+  <a href="./B_Project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Project documents</span></span></a>
   </div>
 </li>
       </ul>
@@ -293,7 +167,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title"><strong><em>Chapter Contents</em></strong></h2>
    
   <ul>
-  <li><a href="#coded-cpat" id="toc-coded-cpat" class="nav-link active" data-scroll-target="#coded-cpat"><strong>Coded CPAT</strong></a></li>
+  <li><a href="#book-home" id="toc-book-home" class="nav-link active" data-scroll-target="#book-home">CPAT Python</a></li>
   </ul>
 </nav>
 </nav>
@@ -306,27 +180,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Coded CPAT</h1>
-<p class="subtitle lead">The Python model of CPAT: what you need to know to run it and to edit it</p>
+<h1 class="title">CPAT Python</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>CPAT-AI Team </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">October 29, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -336,15 +197,13 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="./00/media/image1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%"></p>
-</figure>
+<section id="book-home" class="level1 unnumbered">
+<h1 class="unnumbered">CPAT Python</h1>
+<style>#book-home > h1 { display: none; }</style>
+<div class="decks">
+<a class="deck-card" href="../presentations/03_Coded-CPAT_Overview_latest.pptx" style="display:flex;gap:14px;align-items:center;text-decoration:none;border:1px solid #dee2e6;border-radius:6px;padding:10px;margin:0 0 12px;max-width:640px;color:inherit"><img src="../presentations/thumbs/03_Coded-CPAT_Overview_latest.png" alt="First slide of Coded CPAT overview" style="width:200px;border-radius:4px;border:1px solid #dee2e6;margin:0"><span><b style="color:#2780e3">Coded CPAT overview</b><br><span style="font-size:.9em;color:#6c757d">Status, how a run works, testing, ways in · PowerPoint, latest version</span></span></a>
 </div>
-<section id="coded-cpat" class="level1 unnumbered">
-<h1 class="unnumbered"><strong>Coded CPAT</strong></h1>
-<p>Coded CPAT is the Python model of CPAT, the World Bank-IMF Climate Policy Assessment Tool. It reproduces the Excel-AI prototypes (the mitigation prototype and the distribution module) number for number, and it is written to be read: one small function per equation, named with the codes the Excel models use.</p>
-<p><strong>How to read this book.</strong> Part I is what you need to know, short enough to read before you start: how to run the model, where the data are and in what format, how scenarios and results work, how to edit the model and how to test it. Part II explains how the model works. The appendices hold the complete reference material (every equation, table, input, variable and rule); most of them are generated from the code and data, so they stay current.</p>
+<p>CPAT Python (Coded CPAT) is the Python model of CPAT. It reproduces the Excel-AI prototypes number for number (every result code within 1e-9), runs one country and two scenarios in under a second, and is written to be read: one small function per equation, named with the codes of the Excel models. It runs from the command line, from Python or in a Shiny app.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -355,31 +214,31 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td>Run the model</td>
-<td><a href="./01_Quick_start.html">Quick start</a></td>
+<td><a href="./01_Using_the_model.html#sec-quick-start">Quick start</a></td>
 </tr>
 <tr class="even">
-<td>Know where the data are and what they look like</td>
-<td><a href="./02_Database.html">The database</a></td>
+<td>Know where the data are</td>
+<td><a href="./01_Using_the_model.html#sec-database">The database</a></td>
 </tr>
 <tr class="odd">
-<td>Define your own scenarios</td>
-<td><a href="./03_Scenarios.html">Scenarios and inputs</a></td>
+<td>Define scenarios, read results</td>
+<td><a href="./01_Using_the_model.html#sec-scenarios">Scenarios</a>, <a href="./01_Using_the_model.html#sec-results">Results</a></td>
 </tr>
 <tr class="even">
-<td>Find a number in the results</td>
-<td><a href="./04_Results.html">Results</a></td>
+<td>Change or test the model</td>
+<td><a href="./01_Using_the_model.html#sec-editing">Editing</a>, <a href="./01_Using_the_model.html#sec-testing">Testing</a>, <a href="./02_How_it_works.html">How it works</a></td>
 </tr>
 <tr class="odd">
-<td>Change or extend the model</td>
-<td><a href="./05_Editing.html">Editing the model</a>, then <a href="./07_Architecture.html">Architecture</a></td>
+<td>Understand the method of a block, with its equations</td>
+<td>The <a href="../CPAT_model_documentation_html/index.html">CPAT-AI Model</a> tab, shared with Excel-AI</td>
 </tr>
 <tr class="even">
-<td>Check that the model still matches Excel-AI</td>
-<td><a href="./06_Testing.html">Testing</a></td>
+<td>Look up a table, input or variable</td>
+<td><a href="./A_Reference.html">Appendix A</a></td>
 </tr>
 </tbody>
 </table>
-<p><em>Version <code>1.0.0p1.0</code> (replicates Excel-AI 1.0.0 and Distribution 1.0.0; the first full release). This book is generated from <code>coded/cpat_documentation/guide/</code> and the code and data (<code>docs/CPAT_coded_documentation_qmd/make_qmd.py</code>): edit those, never the generated chapters.</em></p>
+<p><em>Version <code>1.1.0p1.3</code> (replicates Excel-AI 1.1.0 and Distribution 1.1.0; data edition Public01). Chapters 1-2 and the glossary are written in <code>docs/CPAT_coded_documentation_qmd/</code>; appendices A-B are generated from the code and data by <code>make_qmd.py</code>.</em></p>
 
 
 </section>
@@ -789,8 +648,8 @@ ul.task-list li input[type="checkbox"] {
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01_Quick_start.html" class="pagination-link" aria-label="Quick start">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Quick start</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./01_Using_the_model.html" class="pagination-link" aria-label="Using the model">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Using the model</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -801,7 +660,7 @@ ul.task-list li input[type="checkbox"] {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool</p>
+<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool. Documentation release 1.1.0 (2026-10-30): Excel-AI 1.1.0, Coded CPAT 1.1.0p1.3, data edition Public01</p>
 </div>
     <div class="nav-footer-right">
       &nbsp;

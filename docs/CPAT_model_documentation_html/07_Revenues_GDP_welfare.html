@@ -1,0 +1,2932 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>7&nbsp; Revenues, GDP and welfare – CPAT-AI Model</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./08_Distribution.html" rel="next">
+<link href="./06_Emissions_and_ETS.html" rel="prev">
+<link href="././00/media/image1.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d8e5dfa8330daa7b2a69354212dbf2ec.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07_Revenues_GDP_welfare.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Revenues, GDP and welfare</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">CPAT-AI Model</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CPAT-AI Model</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_Overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview, notation and policies</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_Prices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Energy prices</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_Energy_demand.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Energy demand</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_Power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_Road_transport.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Road transport</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_Emissions_and_ETS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Emissions and emissions trading</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_Revenues_GDP_welfare.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Revenues, GDP and welfare</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_Distribution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Distribution</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A_Equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Equation list: methodology notation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./B_Equations_codes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Equation list: CPAT code names</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title"><strong><em>Chapter Contents</em></strong></h2>
+   
+  <ul>
+  <li><a href="#sec-fi-header" id="toc-sec-fi-header" class="nav-link active" data-scroll-target="#sec-fi-header"><span class="header-section-number">7.1</span> Header and summary rows</a>
+  <ul class="collapse">
+  <li><a href="#sec-fi-header-gdp" id="toc-sec-fi-header-gdp" class="nav-link" data-scroll-target="#sec-fi-header-gdp"><span class="header-section-number">7.1.1</span> GDP rows of the header</a></li>
+  <li><a href="#sec-fi-summary" id="toc-sec-fi-summary" class="nav-link" data-scroll-target="#sec-fi-summary"><span class="header-section-number">7.1.2</span> Summary rows</a></li>
+  </ul></li>
+  <li><a href="#sec-fi-revenues" id="toc-sec-fi-revenues" class="nav-link" data-scroll-target="#sec-fi-revenues"><span class="header-section-number">7.2</span> Revenues</a>
+  <ul class="collapse">
+  <li><a href="#sec-fi-rev-pair" id="toc-sec-fi-rev-pair" class="nav-link" data-scroll-target="#sec-fi-rev-pair"><span class="header-section-number">7.2.1</span> Revenue of each fuel and subsector</a></li>
+  <li><a href="#sec-fi-rev-power" id="toc-sec-fi-rev-power" class="nav-link" data-scroll-target="#sec-fi-rev-power"><span class="header-section-number">7.2.2</span> Power-sector revenues</a></li>
+  <li><a href="#sec-fi-rev-other" id="toc-sec-fi-rev-other" class="nav-link" data-scroll-target="#sec-fi-rev-other"><span class="header-section-number">7.2.3</span> Producer subsidies and the methane fee</a></li>
+  <li><a href="#sec-fi-rev-totals" id="toc-sec-fi-rev-totals" class="nav-link" data-scroll-target="#sec-fi-rev-totals"><span class="header-section-number">7.2.4</span> Totals</a></li>
+  <li><a href="#sec-fi-reports" id="toc-sec-fi-reports" class="nav-link" data-scroll-target="#sec-fi-reports"><span class="header-section-number">7.2.5</span> Fiscal reports</a></li>
+  </ul></li>
+  <li><a href="#sec-fi-gdp" id="toc-sec-fi-gdp" class="nav-link" data-scroll-target="#sec-fi-gdp"><span class="header-section-number">7.3</span> GDP effects</a>
+  <ul class="collapse">
+  <li><a href="#sec-fi-gdp-inputs" id="toc-sec-fi-gdp-inputs" class="nav-link" data-scroll-target="#sec-fi-gdp-inputs"><span class="header-section-number">7.3.1</span> Inputs and defaults</a></li>
+  <li><a href="#sec-fi-multipliers" id="toc-sec-fi-multipliers" class="nav-link" data-scroll-target="#sec-fi-multipliers"><span class="header-section-number">7.3.2</span> Fiscal multipliers</a></li>
+  <li><a href="#sec-fi-fiscal-space" id="toc-sec-fi-fiscal-space" class="nav-link" data-scroll-target="#sec-fi-fiscal-space"><span class="header-section-number">7.3.3</span> Fiscal space</a></li>
+  <li><a href="#sec-fi-impulse" id="toc-sec-fi-impulse" class="nav-link" data-scroll-target="#sec-fi-impulse"><span class="header-section-number">7.3.4</span> Fiscal impulse</a></li>
+  <li><a href="#sec-fi-effects" id="toc-sec-fi-effects" class="nav-link" data-scroll-target="#sec-fi-effects"><span class="header-section-number">7.3.5</span> GDP effect of each use</a></li>
+  <li><a href="#sec-fi-feedback" id="toc-sec-fi-feedback" class="nav-link" data-scroll-target="#sec-fi-feedback"><span class="header-section-number">7.3.6</span> GDP level and growth: the feedback</a></li>
+  <li><a href="#sec-fi-timing" id="toc-sec-fi-timing" class="nav-link" data-scroll-target="#sec-fi-timing"><span class="header-section-number">7.3.7</span> The timing rule</a></li>
+  <li><a href="#sec-fi-gdp-memo" id="toc-sec-fi-gdp-memo" class="nav-link" data-scroll-target="#sec-fi-gdp-memo"><span class="header-section-number">7.3.8</span> Memo rows</a></li>
+  </ul></li>
+  <li><a href="#sec-fi-external" id="toc-sec-fi-external" class="nav-link" data-scroll-target="#sec-fi-external"><span class="header-section-number">7.4</span> External balance</a>
+  <ul class="collapse">
+  <li><a href="#sec-fi-trade-data" id="toc-sec-fi-trade-data" class="nav-link" data-scroll-target="#sec-fi-trade-data"><span class="header-section-number">7.4.1</span> Trade data</a></li>
+  <li><a href="#sec-fi-xnim" id="toc-sec-fi-xnim" class="nav-link" data-scroll-target="#sec-fi-xnim"><span class="header-section-number">7.4.2</span> Change in net imports</a></li>
+  <li><a href="#sec-fi-ca" id="toc-sec-fi-ca" class="nav-link" data-scroll-target="#sec-fi-ca"><span class="header-section-number">7.4.3</span> Trade balance and current account</a></li>
+  </ul></li>
+  <li><a href="#sec-fi-carbon-pricing" id="toc-sec-fi-carbon-pricing" class="nav-link" data-scroll-target="#sec-fi-carbon-pricing"><span class="header-section-number">7.5</span> Carbon pricing indicators</a>
+  <ul class="collapse">
+  <li><a href="#sec-fi-tcp" id="toc-sec-fi-tcp" class="nav-link" data-scroll-target="#sec-fi-tcp"><span class="header-section-number">7.5.1</span> Implicit carbon price and effective carbon rate</a></li>
+  <li><a href="#sec-fi-coverage" id="toc-sec-fi-coverage" class="nav-link" data-scroll-target="#sec-fi-coverage"><span class="header-section-number">7.5.2</span> Coverage</a></li>
+  </ul></li>
+  <li><a href="#sec-fi-welfare" id="toc-sec-fi-welfare" class="nav-link" data-scroll-target="#sec-fi-welfare"><span class="header-section-number">7.6</span> Welfare and externalities</a>
+  <ul class="collapse">
+  <li><a href="#sec-fi-scc" id="toc-sec-fi-scc" class="nav-link" data-scroll-target="#sec-fi-scc"><span class="header-section-number">7.6.1</span> Social cost of carbon</a></li>
+  <li><a href="#sec-fi-climate" id="toc-sec-fi-climate" class="nav-link" data-scroll-target="#sec-fi-climate"><span class="header-section-number">7.6.2</span> Climate damages</a></li>
+  <li><a href="#sec-fi-efficiency" id="toc-sec-fi-efficiency" class="nav-link" data-scroll-target="#sec-fi-efficiency"><span class="header-section-number">7.6.3</span> Efficiency costs</a></li>
+  <li><a href="#sec-fi-airpol" id="toc-sec-fi-airpol" class="nav-link" data-scroll-target="#sec-fi-airpol"><span class="header-section-number">7.6.4</span> Air pollution costs</a></li>
+  <li><a href="#sec-fi-roadext" id="toc-sec-fi-roadext" class="nav-link" data-scroll-target="#sec-fi-roadext"><span class="header-section-number">7.6.5</span> Road transport externalities</a></li>
+  <li><a href="#sec-fi-welfare-gains" id="toc-sec-fi-welfare-gains" class="nav-link" data-scroll-target="#sec-fi-welfare-gains"><span class="header-section-number">7.6.6</span> Welfare gains</a></li>
+  <li><a href="#sec-fi-ffs" id="toc-sec-fi-ffs" class="nav-link" data-scroll-target="#sec-fi-ffs"><span class="header-section-number">7.6.7</span> Benefits of fossil fuel subsidy reform</a></li>
+  <li><a href="#sec-fi-subsidies" id="toc-sec-fi-subsidies" class="nav-link" data-scroll-target="#sec-fi-subsidies"><span class="header-section-number">7.6.8</span> Fossil fuel subsidies</a></li>
+  <li><a href="#sec-fi-efficient" id="toc-sec-fi-efficient" class="nav-link" data-scroll-target="#sec-fi-efficient"><span class="header-section-number">7.6.9</span> Efficient prices</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-fiscal" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Revenues, GDP and welfare</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This chapter follows the money. Once the model knows how much of each fuel is used and how much electricity is generated in a year, it can say what the government collects and what it pays out, how spending that revenue moves GDP, how the energy import bill changes, how heavily carbon is priced in effect, and what the policy is worth to society once climate damages, air pollution, road externalities and efficiency costs are counted.</p>
+<p>The blocks of the chapter, in the order the model computes them within a year:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A["Fuel use, power"] --&gt; R["Revenues&lt;br/&gt;by fuel, sector, instrument"]
+  R --&gt; C["Carbon pricing&lt;br/&gt;indicators"]
+  R --&gt; F["Fiscal space,&lt;br/&gt;impulse, GDP effect"]
+  F -- "next year" --&gt; G["GDP level and growth"]
+  G --&gt; A
+  A --&gt; X["External balance"]
+  A --&gt; W["Welfare and&lt;br/&gt;externalities"]
+  E["Emissions"] --&gt; W
+  E --&gt; C
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>The GDP effect of a year acts on GDP only in the following year. That one-year lag is the only link from year <span class="math inline">\(t\)</span> to year <span class="math inline">\(t+1\)</span> in this chapter, and it is what keeps the model free of circular references (<a href="#sec-fi-timing" class="quarto-xref"><span>Section 7.3.7</span></a>).</p>
+<p><strong>Notation.</strong> Every equation holds for each scenario <span class="math inline">\(o\)</span> and country <span class="math inline">\(c\)</span>; these indices are omitted. The year <span class="math inline">\(t\)</span> is shown only where an equation reaches into another year. A superscript <span class="math inline">\(B\)</span> marks the value of the baseline (scenario 1) in the same year, and <span class="math inline">\(\Delta x = x - x^{B}\)</span>. Subsector <span class="math inline">\(s\)</span>, sector group <span class="math inline">\(g\)</span> (transport, buildings, industry, other energy use, power) and fuel <span class="math inline">\(f\)</span> follow <a href="01_Overview.html" class="quarto-xref"><span>Chapter 1</span></a>. Equation ids in brackets, such as (<a href="./A_Equations.html#eqlist-M6-1">M6.1</a>), point to the equation list.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+<th>Unit or value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\theta\)</span></td>
+<td>PJ per ktoe (<code>PJ per ktoe</code>)</td>
+<td>fuel use in ktoe times <span class="math inline">\(\theta\)</span> times USD/GJ gives USD million</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(F_{s,f}\)</span></td>
+<td>fuel use of fuel <span class="math inline">\(f\)</span> in subsector <span class="math inline">\(s\)</span> (<code>ener</code>)</td>
+<td>ktoe</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(Y^{0}\)</span></td>
+<td>baseline real GDP (<code>gdp.usd</code>)</td>
+<td>USD bn</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(M\)</span></td>
+<td>million per billion (<code>MperBn</code>)</td>
+<td>1000</td>
+</tr>
+<tr class="odd">
+<td>money</td>
+<td>real USD of the results year</td>
+<td>USD million for revenues, USD bn for GDP, trade and welfare</td>
+</tr>
+</tbody>
+</table>
+<section id="sec-fi-header" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="sec-fi-header"><span class="header-section-number">7.1</span> Header and summary rows</h2>
+<p>A handful of macro rows sit at the top of every scenario: they give the GDP against which revenues, trade and welfare are scaled. Every section of the model also ends with a summary row, so the results can be read at a glance.</p>
+<section id="sec-fi-header-gdp" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="sec-fi-header-gdp"><span class="header-section-number">7.1.1</span> GDP rows of the header</h3>
+<p>Baseline real GDP comes from the IMF World Economic Outlook, extended past its last data year as described in (<a href="./A_Equations.html#eqlist-M0-1">M0.1</a>). The exchange rate is the one implied by real GDP in the two currencies, so it is constant in real terms:</p>
+<p><span id="eq-fi-xr"><span class="math display">\[
+e = \frac{Y^{LCU}}{Y^{0}}
+\tag{7.1}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(Y^{LCU}\)</span> is baseline real GDP in local currency (<code>gdp.lcu</code>), bn;</li>
+<li><span class="math inline">\(Y^{0}\)</span> is baseline real GDP in USD (<code>gdp.usd</code>), bn;</li>
+<li><span class="math inline">\(e\)</span> is the exchange rate (<code>xr</code>), local currency per USD (Egypt: 14.34 EGP per USD).</li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Code</th>
+<th>Content</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>gdp.usd</code></td>
+<td>Real GDP, baseline, USD bn</td>
+<td>WEO; every “% of GDP” row of this chapter divides by it</td>
+</tr>
+<tr class="even">
+<td><code>gdp.lcu</code></td>
+<td>Real GDP, baseline, local currency bn</td>
+<td>WEO</td>
+</tr>
+<tr class="odd">
+<td><code>xr</code></td>
+<td>Exchange rate implied by real GDP (<a href="#eq-fi-xr" class="quarto-xref">Equation&nbsp;<span>7.1</span></a>)</td>
+<td>computed</td>
+</tr>
+<tr class="even">
+<td><code>gdp.pos.pct</code></td>
+<td>Real GDP growth after the GDP feedback (<a href="#eq-fi-growth" class="quarto-xref">Equation&nbsp;<span>7.28</span></a>)</td>
+<td>computed; the summary row of the header</td>
+</tr>
+<tr class="odd">
+<td><code>gdpn.lcu</code>, <code>gdpn.usd</code></td>
+<td>Nominal GDP in local currency and in USD, bn</td>
+<td>WEO <code>NGDP</code> and <code>NGDPD</code>, extended with the last nominal growth rate</td>
+</tr>
+</tbody>
+</table>
+<p>Baseline real GDP is data, not a model result, so dividing by it never creates a circular reference.</p>
+</section>
+<section id="sec-fi-summary" class="level3" data-number="7.1.2">
+<h3 data-number="7.1.2" class="anchored" data-anchor-id="sec-fi-summary"><span class="header-section-number">7.1.2</span> Summary rows</h3>
+<p>Every section of the model ends with its summary row: the one row shown when the section is rolled up. Four sections have a second summary row, the change against the baseline. Sub-blocks (11b, 12d, 13b, 14b, 16b) sit inside their section, before its notes and summary.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Summary row</th>
+<th>Change against the baseline</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0 Header</td>
+<td><code>gdp.pos.pct</code> real GDP growth after the feedback</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>2 Prices</td>
+<td><code>rpe</code> average retail energy price, all energy (USD/GJ)</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>11 Energy use</td>
+<td>total energy use</td>
+<td><code>echg.all</code></td>
+</tr>
+<tr class="even">
+<td>12 Revenues</td>
+<td><code>rtot</code> total revenue</td>
+<td><code>rtot.chg</code></td>
+</tr>
+<tr class="odd">
+<td>13 CO2</td>
+<td>energy CO2</td>
+<td><code>co2.chg</code></td>
+</tr>
+<tr class="even">
+<td>14 GHGs</td>
+<td>total GHG emissions</td>
+<td><code>ghg.chg</code></td>
+</tr>
+<tr class="odd">
+<td>17 Carbon pricing</td>
+<td><code>ecr</code> effective carbon rate</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>18 Welfare</td>
+<td><code>wel.usd</code> national welfare gain</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Every “change against the baseline” reads scenario 1 in the same year only. The lookup stops at the current year, so it can never reach a later year of scenario 1 (<a href="#sec-fi-timing" class="quarto-xref"><span>Section 7.3.7</span></a>).</p>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> sheet Mitigation, section 0 (rows 11-14: <code>gdp.usd</code>, <code>gdp.lcu</code>, <code>xr</code>, <code>gdp.pos.pct</code>; rows 1-5 hold the years, title, band, scenario name and number and are frozen); <code>gdpn</code> in section 12. The baseline value of the same year is read through helper row 10 (<code>INDEX</code> of scenario 1 up to this column at the position of this year).</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/header.py</code>, <code>prepare()</code> (equations M0.1, M0.2); the baseline value of the same year is <code>totals.reference()</code>.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-fi-revenues" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="sec-fi-revenues"><span class="header-section-number">7.2</span> Revenues</h2>
+<p>Revenue is computed fuel by fuel and subsector by subsector: fuel use times a tax, subsidy or policy rate per GJ. The model keeps three separate lines (existing taxes, existing subsidies, new policies), adds the power sector, subsidy reforms, producer subsidies and the methane fee, and then rearranges the same money by fuel and by policy instrument. The methodology describes this in <a href="../CPAT_full_documentation_html/03_Mitigation.html#fiscal-revenues">section 3.6, Fiscal revenues</a>.</p>
+<p>All revenue rows are in USD million, real. A negative number is a fiscal cost (a subsidy).</p>
+<section id="sec-fi-rev-pair" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="sec-fi-rev-pair"><span class="header-section-number">7.2.1</span> Revenue of each fuel and subsector</h3>
+<p>For each subsector <span class="math inline">\(s\)</span> and fuel <span class="math inline">\(f\)</span>, the price block of the fuel (<a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a>) gives the components of the retail price per GJ. Revenue multiplies them by fuel use.</p>
+<p><strong>Existing taxes</strong> include excise and other taxes, the VAT payment, and the change in existing carbon pricing against the year embedded in the price data, with VAT on that change (<a href="./A_Equations.html#eqlist-M6-2">M6.2</a>):</p>
+<p><span id="eq-fi-rtx"><span class="math display">\[
+revExi_{s,f} = \theta\,F_{s,f}\left(txo^{+}_{c} + vat_{c} + \Delta xcp_{s,f}\,(1 + v_{s,f})\right)
+\tag{7.2}\]</span></span></p>
+<p><strong>Existing consumer subsidies</strong> are the negative part of the existing taxes:</p>
+<p><span id="eq-fi-rsub"><span class="math display">\[
+cs_{s,f} = \theta\,F_{s,f}\,txo^{-}_{c}
+\tag{7.3}\]</span></span></p>
+<p><strong>New policies</strong> are the new carbon tax, the new excise (fuel price reform, and Pigouvian taxes where they are switched on), the ETS cost on the auctioned part, and VAT on all of them (<a href="./A_Equations.html#eqlist-M6-1">M6.1</a>):</p>
+<p><span id="eq-fi-rnew"><span class="math display">\[
+rev^{new}_{s,f} = \theta\,F_{s,f}\left(nct_{s,f} + nexc_{s,f} + \rho\,nets_{s,f} + v_{s,f}\,nce_{s,f}\right)
+\tag{7.4}\]</span></span></p>
+<p><strong>Subsidy reform</strong> removes consumer subsidies and price controls as separate policy lines; its revenue includes VAT:</p>
+<p><span id="eq-fi-rsr"><span class="math display">\[
+rev^{sr}_{s,f} = \theta\,F_{s,f}\,(csw_{s,f} + pcw_{s,f})\,(1 + v_{s,f})
+\tag{7.5}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(c = c(s,f)\)</span> is the price fuel of the pair (its price position in the price blocks);</li>
+<li><span class="math inline">\(txo^{+}_{c}\)</span>, <span class="math inline">\(txo^{-}_{c}\)</span> are the positive part (taxes, <code>etx</code>) and negative part (subsidies, <code>esub</code>) of excise and other taxes, USD/GJ;</li>
+<li><span class="math inline">\(vat_{c}\)</span> is the VAT payment on the price before new policies (<code>vat</code>), USD/GJ;</li>
+<li><span class="math inline">\(\Delta xcp_{s,f}\)</span> is the change in existing carbon pricing against the price data (<code>xcpd</code>), USD/GJ;</li>
+<li><span class="math inline">\(v_{s,f}\)</span> is the VAT rate of the pair (Inputs), share;</li>
+<li><span class="math inline">\(nct\)</span>, <span class="math inline">\(nexc\)</span>, <span class="math inline">\(nets\)</span> are the new carbon tax (<code>ctxnew</code>), new excise (<code>ntx</code>) and ETS cost (<code>ets</code>), USD/GJ, and <span class="math inline">\(nce\)</span> their total (<code>nce</code>);</li>
+<li><span class="math inline">\(\rho\)</span> is the ETS revenue factor, the auctioned share (<code>ets.rf</code>); feebates are revenue-neutral and raise nothing;</li>
+<li><span class="math inline">\(csw\)</span>, <span class="math inline">\(pcw\)</span> are the consumer subsidy reform wedge and the price-control phase-out wedge of the subsector (<code>csw</code>, <code>pcw</code>; <a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a>), USD/GJ.</li>
+</ul>
+<p>Two splits of the same money are kept per pair for the report by instrument (<a href="#sec-fi-reports" class="quarto-xref"><span>Section 7.2.5</span></a>): the new excise and the VAT.</p>
+<p><span id="eq-fi-rex"><span class="math display">\[
+rev^{exc}_{s,f} = \theta\,F_{s,f}\,nexc_{s,f}, \qquad
+rev^{vat}_{s,f} = \theta\,F_{s,f}\left(vat_{c} + (\Delta xcp_{s,f} + nce_{s,f} + csw_{s,f} + pcw_{s,f})\,v_{s,f}\right)
+\tag{7.6}\]</span></span></p>
+<p>A memo row gives the level of existing carbon pricing, <span class="math inline">\(rev^{xcp}_{s,f} = \theta\,F_{s,f}\,xcp_{s,f}\)</span> (<code>rxcp</code>). Only its change against the price data is revenue (inside <a href="#eq-fi-rtx" class="quarto-xref">Equation&nbsp;<span>7.2</span></a>); the part embedded in the price data is already in the excise.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Row</th>
+<th>Content</th>
+<th>Equation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>rtx</code></td>
+<td>Existing taxes (excise and other taxes, VAT, change in existing carbon pricing)</td>
+<td><a href="#eq-fi-rtx" class="quarto-xref">Equation&nbsp;<span>7.2</span></a></td>
+</tr>
+<tr class="even">
+<td><code>rsub</code></td>
+<td>Existing consumer subsidies (negative)</td>
+<td><a href="#eq-fi-rsub" class="quarto-xref">Equation&nbsp;<span>7.3</span></a></td>
+</tr>
+<tr class="odd">
+<td><code>rnew</code></td>
+<td>New policies (carbon tax, excise, auctioned ETS, VAT on them)</td>
+<td><a href="#eq-fi-rnew" class="quarto-xref">Equation&nbsp;<span>7.4</span></a></td>
+</tr>
+<tr class="even">
+<td><code>rsr</code></td>
+<td>Subsidy reform (consumer subsidy and price-control phase-outs, VAT included)</td>
+<td><a href="#eq-fi-rsr" class="quarto-xref">Equation&nbsp;<span>7.5</span></a></td>
+</tr>
+<tr class="odd">
+<td><code>rex</code>, <code>rvt</code></td>
+<td>New excise; VAT (parts of the rows above, for the report by instrument)</td>
+<td><a href="#eq-fi-rex" class="quarto-xref">Equation&nbsp;<span>7.6</span></a></td>
+</tr>
+<tr class="even">
+<td><code>rxcp</code></td>
+<td>Existing carbon pricing, level (memo)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: revenue of each fuel and subsector">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: revenue of each fuel and subsector
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>for t in years:
+    for s in subsectors:
+        for f in fuels:
+            c = price_fuel[f, s]; q = ener[f, s, t] * PJ_PER_KTOE
+            v = vat_rate[f, s]
+            rtx[f, s, t]  = q * (etx[c, t] + vat[c, t] + xcpd[f, s, t] * (1 + v))
+            rsub[f, s, t] = q * esub[c, t]                               # negative
+            rnew[f, s, t] = q * (ctxnew[f, s, t] + ntx[f, s, t]
+                                 + ets[f, s, t] * ets_rf[t] + nce[f, s, t] * v)
+            rsr[f, s, t]  = q * (csw[f, s, t] + pcw[f, s, t]) * (1 + v)
+            rex[f, s, t]  = q * ntx[f, s, t]
+            wedge = xcpd[f, s, t] + nce[f, s, t] + csw[f, s, t] + pcw[f, s, t]
+            rvt[f, s, t]  = q * (vat[c, t] + wedge * v)
+            rxcp[f, s, t] = q * xcp[f, s, t]                             # memo</code></pre>
+</div>
+</div>
+</section>
+<section id="sec-fi-rev-power" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="sec-fi-rev-power"><span class="header-section-number">7.2.2</span> Power-sector revenues</h3>
+<p>The power sector raises revenue in two places: on the fuels burnt in power plants, and on the electricity sold to users. Both are computed in the power block (<a href="04_Power.html" class="quarto-xref"><span>Chapter 4</span></a>) and summed here (<a href="./A_Equations.html#eqlist-A6-1">A6.1</a>).</p>
+<p><strong>By generation type <span class="math inline">\(k\)</span></strong> (coal, gas, oil, nuclear, wind, solar, hydro, other renewables, biomass):</p>
+<p><span id="eq-fi-prev"><span class="math display">\[
+\begin{aligned}
+rev^{tx}_{k}  &amp;= \delta_k\,\theta\,PE_k\,(txo^{+} + vat)_{c(k)} &amp;&amp; \text{existing fuel taxes }(\texttt{prtx})\\
+rev^{sub}_{k} &amp;= \delta_k\,\theta\,PE_k\,txo^{-}_{c(k)} &amp;&amp; \text{existing fuel subsidies }(\texttt{prsub})\\
+rev^{xc}_{k}  &amp;= xc_k\,H\,G_k &amp;&amp; \text{change in existing carbon pricing }(\texttt{prxc})\\
+rev^{new}_{k} &amp;= pc_k\,H\,G_k - CO2_k\,A_{pow}\,(1 - \rho) &amp;&amp; \text{new policies }(\texttt{prnew})\\
+rev^{rns}_{k} &amp;= rns_k\,H\,G_k &amp;&amp; \text{renewable subsidies }(\texttt{prrns}\text{, negative})
+\end{aligned}
+\tag{7.7}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(\delta_k\)</span> is 1 for a type that burns a fuel (coal, gas, oil, biomass), else 0;</li>
+<li><span class="math inline">\(PE_k\)</span> is the fuel use of type <span class="math inline">\(k\)</span> (<code>pe</code>), ktoe, and <span class="math inline">\(c(k)\)</span> its price fuel;</li>
+<li><span class="math inline">\(G_k\)</span> is generation (<code>gen_mwy</code>), MW-years, and <span class="math inline">\(H\)</span> converts MW-years to million kWh (<code>MWyMkWh</code>, 8.76);</li>
+<li><span class="math inline">\(xc_k\)</span>, <span class="math inline">\(pc_k\)</span> are the existing carbon cost and the new policy cost per kWh of the type (<code>xck</code>, <code>xac</code>), USD/kWh;</li>
+<li><span class="math inline">\(CO2_k\)</span> is the CO2 of the type, MtCO2, and <span class="math inline">\(A_{pow}\)</span> the ETS cost rate of power (<code>etr</code>), USD/tCO2: the free part of the ETS, <span class="math inline">\(1-\rho\)</span>, is not revenue, so the ETS counts at the permit price on the auctioned part only;</li>
+<li><span class="math inline">\(rns_k\)</span> is the renewable subsidy per kWh (<code>rns</code>), USD/kWh.</li>
+</ul>
+<p>A memo row gives the level of existing carbon pricing of each type, <code>prxl</code> = <span class="math inline">\(CO2_k\)</span> times the existing carbon tax and ETS prices of the price data year.</p>
+<p><strong>By electricity user group <span class="math inline">\(u\)</span></strong> (residential, industry):</p>
+<p><span id="eq-fi-uelec"><span class="math display">\[
+\begin{aligned}
+rev^{vat}_{u}  &amp;= pp_u\,\frac{v_u}{1+v_u}\,cons_u &amp;&amp; \text{VAT on electricity }(\texttt{rvat})\\
+rev^{nvat}_{u} &amp;= \left(\overline{pc}\,\pi\,(1 - rb) + x_u\right) v_u\,cons_u &amp;&amp; \text{VAT on the policy cost passed through }(\texttt{rnvat})\\
+rev^{reb}_{u}  &amp;= -\,rb\,\overline{pc}\,\pi\,cons_u &amp;&amp; \text{rebate of the carbon cost }(\texttt{rreb}\text{, negative})\\
+rev^{x}_{u}    &amp;= x_u\,cons_u &amp;&amp; \text{electricity excise }(\texttt{rpex})\\
+rev^{gap}_{u}  &amp;= gap_u\,cons_u &amp;&amp; \text{electricity subsidy gap }(\texttt{rgap}\text{, negative})
+\end{aligned}
+\tag{7.8}\]</span></span></p>
+<p>where <span class="math inline">\(pp_u\)</span> is the electricity price before policies (<code>rppre</code>), <span class="math inline">\(\overline{pc}\)</span> the average policy cost of generation (<code>ccpav</code>), <span class="math inline">\(\pi\)</span> the pass-through of the power-sector price change (<code>PowerSectorPriceChangePassOn</code>), <span class="math inline">\(rb\)</span> the rebate switch (<code>rbs</code>), <span class="math inline">\(x_u\)</span> the electricity excise (<code>pex</code>), <span class="math inline">\(gap_u\)</span> the subsidy gap (<code>sgap</code>), all per kWh, <span class="math inline">\(v_u\)</span> the VAT rate and <span class="math inline">\(cons_u\)</span> consumption in million kWh. The excise splits into the excise of the scenario “Electricity excise” (<code>rexs</code> = <code>exs</code> times total consumption) and the manual excise (<code>rexm</code>, the rest).</p>
+<p>The power sector’s lines of the three revenue totals are then:</p>
+<p><span id="eq-fi-powtot"><span class="math display">\[
+\begin{aligned}
+rev^{tx}_{pow}  &amp;= \textstyle\sum_k (rev^{tx}_{k} + rev^{xc}_{k}) + \sum_u rev^{vat}_{u}\\
+rev^{sub}_{pow} &amp;= \textstyle\sum_k (rev^{sub}_{k} + rev^{rns}_{k}) + \sum_u rev^{gap}_{u}\\
+rev^{new}_{pow} &amp;= \textstyle\sum_k rev^{new}_{k} + \sum_u (rev^{nvat}_{u} + rev^{reb}_{u} + rev^{x}_{u})
+\end{aligned}
+\tag{7.9}\]</span></span></p>
+<p>Subsidy reform raises nothing in power (<code>rsr.pow</code> = 0).</p>
+</section>
+<section id="sec-fi-rev-other" class="level3" data-number="7.2.3">
+<h3 data-number="7.2.3" class="anchored" data-anchor-id="sec-fi-rev-other"><span class="header-section-number">7.2.3</span> Producer subsidies and the methane fee</h3>
+<p><strong>Producer subsidies</strong> are a fiscal cost outside the fuel and subsector pairs. For each fuel group <span class="math inline">\(f\)</span> (coal, gas, oil, biomass, electricity), the subsidy before any phase-out is scaled by the phase-out factor:</p>
+<p><span id="eq-fi-rpsu"><span class="math display">\[
+rev^{psu} = -\sum_{f} pros_f\,psf_f, \qquad psf_f = 1 - \psi_f\,(1 - pof)
+\tag{7.10}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(pros_f\)</span> is the producer subsidy before the phase-out (<code>pros</code>), USD million: price data (USD bn nominal) times the CPI factor up to the last price year, then held;</li>
+<li><span class="math inline">\(\psi_f\)</span> is the inclusion switch of the fuel and <span class="math inline">\(pof\)</span> the phase-out factor of producer subsidies (<a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a>);</li>
+<li><span class="math inline">\(psf_f\)</span> is the share that remains (<code>psf</code>).</li>
+</ul>
+<p>The phase-out also lowers the supply cost and so the prices (<a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a>); this row is its fiscal line (<code>rpsu</code>).</p>
+<p><strong>The methane fee</strong> raises <span class="math inline">\(rev^{mf}\)</span> (<code>rmf</code> = <code>ch4.rev</code>): methane emissions of the sources the fee covers, times their global warming potential, times the fee. It is computed with the methane block (<a href="06_Emissions_and_ETS.html" class="quarto-xref"><span>Chapter 6</span></a>). It is not a fuel revenue, so it appears in the totals and in the report by instrument, not in the report by fuel.</p>
+</section>
+<section id="sec-fi-rev-totals" class="level3" data-number="7.2.4">
+<h3 data-number="7.2.4" class="anchored" data-anchor-id="sec-fi-rev-totals"><span class="header-section-number">7.2.4</span> Totals</h3>
+<p>The totals add the pairs over subsectors and fuels and add the power line. Net revenue from existing taxes and subsidies, and total revenue (<a href="./A_Equations.html#eqlist-M6-3">M6.3</a>):</p>
+<p><span id="eq-fi-rnet"><span class="math display">\[
+rev^{net} = \sum_{s,f} (revExi_{s,f} + cs_{s,f}) + rev^{tx}_{pow} + rev^{sub}_{pow}
+\tag{7.11}\]</span></span></p>
+<p><span id="eq-fi-rtot"><span class="math display">\[
+rev = rev^{net} + rev^{new} + rev^{sr} + rev^{psu} + rev^{mf}
+\tag{7.12}\]</span></span></p>
+<p><span id="eq-fi-rchg"><span class="math display">\[
+\Delta rev = rev - rev^{B}
+\tag{7.13}\]</span></span></p>
+<p>where <span class="math inline">\(rev^{new} = \sum_{s,f} rev^{new}_{s,f} + rev^{new}_{pow}\)</span> and <span class="math inline">\(rev^{sr} = \sum_{s,f} rev^{sr}_{s,f}\)</span>. The lines <code>rtx</code>, <code>rsub</code>, <code>rnew</code>, <code>rxcp</code> and <code>rsr</code> are also summed by sector group (transport, buildings, industry, other energy use) and given for power.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Row</th>
+<th>Content</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>rnet</code></td>
+<td>Net revenue from existing taxes and subsidies (<a href="#eq-fi-rnet" class="quarto-xref">Equation&nbsp;<span>7.11</span></a>)</td>
+<td>USD m</td>
+</tr>
+<tr class="even">
+<td><code>rtot</code></td>
+<td>Total revenue (<a href="#eq-fi-rtot" class="quarto-xref">Equation&nbsp;<span>7.12</span></a>); summary row of section 12</td>
+<td>USD m</td>
+</tr>
+<tr class="odd">
+<td><code>rtot.ref</code></td>
+<td>Total revenue of scenario 1, same year</td>
+<td>USD m</td>
+</tr>
+<tr class="even">
+<td><code>rtot.chg</code></td>
+<td>Change in total revenue against scenario 1 (<a href="#eq-fi-rchg" class="quarto-xref">Equation&nbsp;<span>7.13</span></a>); second summary row</td>
+<td>USD m</td>
+</tr>
+<tr class="odd">
+<td><code>rev.chk</code></td>
+<td>Check: totals of <code>rtx</code>, <code>rsub</code>, <code>rnew</code> minus the sum of their sector and power rows (0)</td>
+<td>USD m</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: revenue totals">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: revenue totals
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>for t in years:
+    power = {
+        'rtx':  sum(prtx[k, t] + prxc[k, t] for k in types)
+                + sum(rvat[u, t] for u in users),
+        'rsub': sum(prsub[k, t] + prrns[k, t] for k in types)
+                + sum(rgap[u, t] for u in users),
+        'rnew': sum(prnew[k, t] for k in types)
+                + sum(rnvat[u, t] + rreb[u, t] + rpex[u, t] for u in users),
+        'rxcp': sum(prxl[k, t] for k in types),
+        'rsr':  0.0,
+    }
+    for var in ['rtx', 'rsub', 'rnew', 'rxcp', 'rsr']:
+        for g in groups:                                  # tra, bld, ind, oen
+            var[g, t] = sum(var[f, s, t] for s in subsectors_of(g) for f in fuels)
+        var['pow', t] = power[var]
+        var['all', t] = sum(var[f, s, t] for s in subsectors for f in fuels) \
+                        + power[var]
+    rmf[t]  = ch4_rev[t]
+    rpsu[t] = -sum(pros[f, t] * psf[f, t] for f in ['coa', 'nga', 'oil', 'bio', 'ecy'])
+    rnet[t] = rtx['all', t] + rsub['all', t]
+    rtot[t] = rnet[t] + rnew['all', t] + rsr['all', t] + rpsu[t] + rmf[t]
+    rtot_chg[t] = rtot[t] - baseline.rtot[t]              # scenario 1, same year</code></pre>
+</div>
+</div>
+</section>
+<section id="sec-fi-reports" class="level3" data-number="7.2.5">
+<h3 data-number="7.2.5" class="anchored" data-anchor-id="sec-fi-reports"><span class="header-section-number">7.2.5</span> Fiscal reports</h3>
+<p>The fiscal reports (block 12d) rearrange the same revenue three ways: by fuel, by policy instrument, and against GDP. Each report has a check row that must be 0, because it splits the totals exactly.</p>
+<p><strong>Revenue by fuel, net of subsidies.</strong> For each final-use fuel, the existing taxes, subsidies, new policies and subsidy reform over all subsectors. Electricity collects its VAT, subsidy gap, VAT on the policy cost, rebates, excise and renewable subsidies. Fuels burnt in power plants have their own rows:</p>
+<p><span id="eq-fi-rfu"><span class="math display">\[
+rfu_{f} = \sum_{s} \left(revExi_{s,f} + cs_{s,f} + rev^{new}_{s,f} + rev^{sr}_{s,f}\right), \qquad
+rfu_{ecy} = \sum_u \left(rev^{vat}_u + rev^{nvat}_u + rev^{reb}_u + rev^{x}_u + rev^{gap}_u\right) + \sum_k rev^{rns}_k
+\tag{7.14}\]</span></span></p>
+<p><span id="eq-fi-rfg"><span class="math display">\[
+rfg_{k} = rev^{tx}_{k} + rev^{xc}_{k} + rev^{sub}_{k} + rev^{new}_{k}, \qquad k \in \{\text{coal, gas, oil, biomass}\}
+\tag{7.15}\]</span></span></p>
+<p>The check <code>rfu.chk</code> = <span class="math inline">\(\left|\sum_f rfu_f + rfu_{ecy} + \sum_k rfg_k - rev^{net} - rev^{new} - rev^{sr}\right|\)</span> is 0. The methane fee and producer subsidies are not fuel revenues and are not in these rows.</p>
+<p><strong>Total revenue by policy instrument</strong> (block 12e, <a href="./A_Equations.html#eqlist-A6-2">A6.2</a>). The same total, split by the instrument that raises it:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Row</th>
+<th>Instrument</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>rpol.ct</code></td>
+<td>New carbon tax</td>
+<td><span class="math inline">\(\sum_e CO2^{cov}_e\,ct_e\)</span> over the 17 coverage sectors <span class="math inline">\(e\)</span> (power included) + electricity rebates <code>rreb</code> + electricity excise of the scenario <code>rexs</code></td>
+</tr>
+<tr class="even">
+<td><code>rpol.ets</code></td>
+<td>Auctioned ETS</td>
+<td><span class="math inline">\(\rho \sum_e CO2_e\,etr_e\)</span></td>
+</tr>
+<tr class="odd">
+<td><code>rpol.exc</code></td>
+<td>New excise (fuel price reform)</td>
+<td><span class="math inline">\(\sum_{s,f} rev^{exc}_{s,f} + \sum_k rev^{new}_k\)</span> − <code>rpol.ctp</code> − <code>rpol.etp</code> + manual electricity excise <code>rexm</code></td>
+</tr>
+<tr class="even">
+<td><code>rpol.vat</code></td>
+<td>VAT</td>
+<td><span class="math inline">\(\sum_{s,f} rev^{vat}_{s,f} + \sum_u (rev^{vat}_u + rev^{nvat}_u)\)</span></td>
+</tr>
+<tr class="odd">
+<td><code>rpol.psu</code></td>
+<td>Producer subsidies</td>
+<td>electricity subsidy gap <span class="math inline">\(\sum_u rev^{gap}_u\)</span> + <span class="math inline">\(rev^{psu}\)</span></td>
+</tr>
+<tr class="even">
+<td><code>rpol.ren</code></td>
+<td>Renewable subsidies</td>
+<td><span class="math inline">\(\sum_k rev^{rns}_k\)</span></td>
+</tr>
+<tr class="odd">
+<td><code>rpol.mf</code></td>
+<td>Methane fee</td>
+<td><span class="math inline">\(rev^{mf}\)</span></td>
+</tr>
+<tr class="even">
+<td><code>rpol.trs</code></td>
+<td>Transport revenues</td>
+<td>0 (not modelled)</td>
+</tr>
+<tr class="odd">
+<td><code>rpol.exi</code></td>
+<td>Existing taxes and subsidies</td>
+<td>the remainder: <span class="math inline">\(rev\)</span> − <code>rpol.mf</code> − <code>ct</code> − <code>exc</code> − <code>vat</code> − <code>ets</code> − <code>psu</code> − <code>ren</code></td>
+</tr>
+<tr class="even">
+<td><code>rpol.tot</code></td>
+<td>Total</td>
+<td>sum of the rows above; equals <span class="math inline">\(rev\)</span> (check <code>rpol.chk</code> = 0)</td>
+</tr>
+<tr class="odd">
+<td><code>rpol.ctp</code>, <code>rpol.etp</code></td>
+<td>Of which power: carbon tax, ETS</td>
+<td><span class="math inline">\(CO2^{cov}_{pow}\,ct_{pow}\)</span>; <span class="math inline">\(CO2_{pow}\,etr_{pow}\,\rho\)</span> (memo, not in the total)</td>
+</tr>
+</tbody>
+</table>
+<p>Here <span class="math inline">\(CO2^{cov}_e\)</span> is the CO2 covered by the new carbon tax in sector <span class="math inline">\(e\)</span> (<code>covct</code>, <a href="#eq-fi-covct" class="quarto-xref">Equation&nbsp;<span>7.37</span></a>), <span class="math inline">\(ct_e\)</span> the sector’s carbon tax rate (<code>ctr</code>), <span class="math inline">\(CO2_e\)</span> the sector’s CO2 (<code>co2.sec</code>) and <span class="math inline">\(etr_e\)</span> its ETS cost rate. “Existing taxes and subsidies” is the remainder: fuel use times excise and the change in existing carbon pricing, consumer subsidies, subsidy reform, and the taxes and subsidies on power fuels.</p>
+<p><strong>Base erosion and shares of GDP.</strong> A policy that lowers fuel use also changes what the existing taxes raise and what the existing subsidies cost. Base erosion measures that change:</p>
+<p><span id="eq-fi-rbe"><span class="math display">\[
+rbe = rev^{net} - rev^{net,B}
+\tag{7.16}\]</span></span></p>
+<p>Each total is also given as a share of baseline real GDP:</p>
+<p><span id="eq-fi-rpct"><span class="math display">\[
+rpct_{x} = \frac{x}{Y^{0}\,M}, \qquad x \in \{rev,\ rev^{net},\ rev^{sub},\ rev^{new},\ \Delta rev,\ rbe\}
+\tag{7.17}\]</span></span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Row</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>rfu.&lt;fuel&gt;</code>, <code>rfu.ecy</code></td>
+<td>Revenue by final-use fuel and electricity, net of subsidies (<a href="#eq-fi-rfu" class="quarto-xref">Equation&nbsp;<span>7.14</span></a>)</td>
+</tr>
+<tr class="even">
+<td><code>rfg.&lt;type&gt;</code></td>
+<td>Revenue from fuels burnt in power generation (<a href="#eq-fi-rfg" class="quarto-xref">Equation&nbsp;<span>7.15</span></a>)</td>
+</tr>
+<tr class="odd">
+<td><code>rfu.chk</code></td>
+<td>Check of the report by fuel (0)</td>
+</tr>
+<tr class="even">
+<td><code>rpol.&lt;instrument&gt;</code></td>
+<td>Total revenue by policy instrument (table above); <code>rpol.chk</code> its check (0)</td>
+</tr>
+<tr class="odd">
+<td><code>rbe</code></td>
+<td>Base erosion (<a href="#eq-fi-rbe" class="quarto-xref">Equation&nbsp;<span>7.16</span></a>)</td>
+</tr>
+<tr class="even">
+<td><code>rpct.tot</code>, <code>.net</code>, <code>.sub</code>, <code>.new</code>, <code>.chg</code>, <code>.be</code></td>
+<td>Total, net existing, subsidies, new policies, change against scenario 1, base erosion, as shares of GDP (<a href="#eq-fi-rpct" class="quarto-xref">Equation&nbsp;<span>7.17</span></a>)</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: fiscal reports">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: fiscal reports
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>for t in years:
+    for f in fuels:
+        rfu[f, t] = sum(rtx[f, s, t] + rsub[f, s, t] + rnew[f, s, t] + rsr[f, s, t]
+                        for s in subsectors)
+    rfu['ecy', t] = sum(rvat[u, t] + rnvat[u, t] + rreb[u, t] + rpex[u, t] + rgap[u, t]
+                        for u in users) + sum(prrns[k, t] for k in types)
+    for k in ['coa', 'nga', 'oop', 'bio']:
+        rfg[k, t] = prtx[k, t] + prxc[k, t] + prsub[k, t] + prnew[k, t]
+
+    for e in coverage_sectors:                       # 17: power and the 16 subsectors
+        fuels_e = ['coa', 'nga', 'oop'] if e == 'pow' else fuels
+        covct[e, t] = sum(co2[f, e, t] * ctcov[f, t] for f in fuels_e) * (ctr[e, t] &gt; 0)
+    ctp = covct['pow', t] * ctr['pow', t]
+    etp = co2_sec['pow', t] * etr['pow', t] * ets_rf[t]
+    rpol['ct']  = sum(covct[e, t] * ctr[e, t] for e in coverage_sectors) \
+                  + sum(rreb[u, t] for u in users) + rexs[t]
+    rpol['exc'] = sum(rex[f, s, t]) + sum(prnew[k, t]) - ctp - etp + rexm[t]
+    rpol['vat'] = sum(rvt[f, s, t]) + sum(rvat[u, t] + rnvat[u, t] for u in users)
+    rpol['ets'] = sum(co2_sec[e, t] * etr[e, t] for e in coverage_sectors) * ets_rf[t]
+    rpol['psu'] = sum(rgap[u, t] for u in users) + rpsu[t]
+    rpol['ren'] = sum(prrns[k, t] for k in types)
+    rpol['mf'], rpol['trs'] = rmf[t], 0.0
+    rpol['exi'] = rtot[t] - rmf[t] - rpol['ct'] - rpol['exc'] - rpol['vat'] \
+                  - rpol['ets'] - rpol['psu'] - rpol['ren']
+
+    rbe[t] = rnet[t] - baseline.rnet[t]
+    for key, x in [('tot', rtot), ('net', rnet), ('sub', rsub['all']),
+                   ('new', rnew['all']), ('chg', rtot_chg), ('be', rbe)]:
+        rpct[key, t] = x[t] / (gdp_usd[t] * M_PER_BN)</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> the pair rows <code>rtx</code>, <code>rsub</code>, <code>rnew</code>, <code>rxcp</code>, <code>rsr</code>, <code>rex</code>, <code>rvt</code> sit in every subsector block of sections 5-8; the power rows <code>prtx</code> … <code>prrns</code> in section 3 (block M) and <code>rvat</code> … <code>rgap</code> in section 3 (block G); <code>pros</code>, <code>psf</code> in section 2. Sheet Mitigation, section 12: the totals (<code>rmf</code>, <code>rpsu</code>, <code>rnet</code>, <code>rtot</code>, <code>rtot.ref</code>, <code>rtot.chg</code>, <code>rev.chk</code>), block 12d (<code>rfu</code>, <code>rfg</code>, <code>rfu.chk</code>, <code>rbe</code>, <code>rpct</code>, <code>gdpn</code>) and block 12e (<code>rpol</code>, <code>rpol.chk</code>). Sums over subsectors use <code>SUMIFS</code> on the block columns <code>SecVar</code> and <code>SecFuel</code>; shares of GDP call the LAMBDA <code>GDPSHARE</code> in the LAMBDA column.</li>
+<li><strong>CPAT Python:</strong> the pair rows in <code>cpat_model/mitigation/fuel_use.py</code>, <code>step()</code>; the power rows in <code>cpat_model/mitigation/power.py</code>, <code>step()</code>; totals and reports in <code>cpat_model/mitigation/totals.py</code>, <code>revenues()</code> (equations M6.1-M6.3, A6.1, A6.2).</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Revenue structure (LD37), as legacy:</strong> the three calculations per subsector and fuel (existing taxes with VAT, consumer subsidies, new policies), power as before, plus block 12e, total revenue by policy as legacy rows 8016-8027. Legacy bugs L70 (industry gas excise uses the coal rate and coal use), L71 (biomass taxes, subsidies and VAT divided by the unit conversion), L72 (next-year references), L73 (wrong coverage shares) and L75 (revenue reports: hard-coded row and mixed totals) do not arise: each pair takes its own rates, use and coverage.</li>
+<li><strong>Subsidy and price-control phase-outs (LD18):</strong> separate policy lines as in legacy, with their revenue <code>rsr</code>.</li>
+<li><strong>Producer subsidies (LD19):</strong> in the supply cost as in legacy, with the fiscal line <code>rpsu</code> by fuel.</li>
+<li><strong>Power:</strong> the ETS revenue of power is valued at the permit price on the auctioned part (prototype bug M6 fixed); VAT on the policy term of electricity is included (M2 fixed); the renewable subsidy counts the base subsidy once (legacy bug L108 fixed).</li>
+<li><strong>Transport revenues</strong> (<code>rpol.trs</code>) are 0: the vehicle revenues of the road engineer model are not modelled (issue I46).</li>
+<li><strong>Not built.</strong> Revenue lost to price controls (the methodology’s memo, <a href="../CPAT_full_documentation_html/03_Mitigation.html#revenueslosses-from-price-controls">section 3.6.4.1</a>): legacy holds only pass-through coefficients (rows 746-760, 2216-2220), not a revenue row. Total fuel expenditures (<a href="../CPAT_full_documentation_html/03_Mitigation.html#total-fuel-expenditures">section 3.6.4.2</a>) are the spending rows of the price memo (<code>pav.sp</code>, <a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a>) and are not repeated here.</li>
+<li><strong>Methodology.</strong> The methodology’s revenue from existing taxes and VAT leaves out the other energy use sector and treats existing ETS permits differently when the existing ETS is the EU ETS (<a href="../CPAT_full_documentation_html/03_Mitigation.html#total-revenues-raised-by-policy">section 3.6.3</a>). The model follows legacy’s revenue rows: each pair takes its own price components, and existing carbon pricing enters through its change against the price data.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Check: results for Egypt">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Check: results for Egypt
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Carbon tax scenario, 2030, revenue by policy: carbon tax 4.2 bn USD (of which power 1.8), existing taxes and subsidies −10.3 bn, electricity subsidy gap −10.0 bn, total −16.1 bn.</p>
+<p>Base erosion, same scenario, 2030: about +1.5 bn USD. Fuel use falls, so subsidies (negative) shrink more than existing taxes do.</p>
+<p>Total revenue in 2022 is −8.6% of GDP, because consumer subsidies exceed taxes.</p>
+<p><code>rfu.chk</code>, <code>rpol.chk</code> and <code>rev.chk</code> are 0 in every year and scenario. Every row is recomputed independently in Python in every scenario group.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-fi-gdp" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="sec-fi-gdp"><span class="header-section-number">7.3</span> GDP effects</h2>
+<p>The policies change what the government collects. The model assumes that the extra revenue is spent, in shares the user chooses, on tax cuts, investment, current spending or transfers. Fiscal multipliers translate each use into a change in GDP over the following years. The higher energy taxes themselves weigh on GDP too, at the excise multiplier. The resulting change in the GDP level then feeds back into GDP growth, which drives fuel use, power demand and the non-energy GHG drivers.</p>
+<p>The methodology describes the multipliers in <a href="../CPAT_full_documentation_html/04_Multipliers.html#introduction">chapter 4</a> and the feedback in <a href="../CPAT_full_documentation_html/04_Multipliers.html#sec-GDPFeedback">section 4.7, GDP feedback in CPAT</a>. The model follows legacy CPAT section 17, with legacy bug L24 fixed.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  R["Total revenue,&lt;br/&gt;scenario and baseline"] --&gt; FS["Fiscal space fs(t)"]
+  FS --&gt; IM["Impulse imp(t)"]
+  IM --&gt; EX["Excise drag&lt;br/&gt;share −1"]
+  IM --&gt; US["Revenue uses&lt;br/&gt;pit, cit, capt, gnfs, trns"]
+  M["Multipliers m_i(k),&lt;br/&gt;lags 0-19"] --&gt; EX
+  M --&gt; US
+  EX --&gt; EF["GDP effect ε(t)"]
+  US --&gt; EF
+  EF -- "t + 1" --&gt; LV["GDP level lvl(t+1)"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<section id="sec-fi-gdp-inputs" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="sec-fi-gdp-inputs"><span class="header-section-number">7.3.1</span> Inputs and defaults</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Input</th>
+<th>Code</th>
+<th>Egypt default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Revenue use: labour tax cuts</td>
+<td><code>EXPLabortax</code></td>
+<td>30%</td>
+</tr>
+<tr class="even">
+<td>Revenue use: corporate tax cuts</td>
+<td><code>EXPCIT</code></td>
+<td>0%</td>
+</tr>
+<tr class="odd">
+<td>Revenue use: public investment</td>
+<td><code>EXPCapex</code></td>
+<td>50%</td>
+</tr>
+<tr class="even">
+<td>Revenue use: current spending (goods and services)</td>
+<td><code>EXPGoodsandserv</code></td>
+<td>0%</td>
+</tr>
+<tr class="odd">
+<td>Revenue use: targeted transfers</td>
+<td><code>EXPTransfers</code></td>
+<td>20%</td>
+</tr>
+<tr class="even">
+<td>Multiplier source: Global, income group, Estimated or Manual</td>
+<td><code>MultipliersSource</code></td>
+<td>income group (LMIC)</td>
+</tr>
+<tr class="odd">
+<td>Multiplier range: Base, Low or High</td>
+<td><code>FmAdj</code></td>
+<td>Base</td>
+</tr>
+<tr class="even">
+<td>Start year for GDP calculations</td>
+<td><code>GDPStartYear</code></td>
+<td>2025</td>
+</tr>
+<tr class="odd">
+<td>Include endogenous GDP effects?</td>
+<td><code>GDPEndogenous</code></td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<td>Baseline real GDP growth</td>
+<td><code>gdp.base</code></td>
+<td>WEO</td>
+</tr>
+<tr class="odd">
+<td>Baseline real GDP</td>
+<td><code>gdp.usd</code></td>
+<td>WEO (Egypt: 547 USD bn in 2022)</td>
+</tr>
+</tbody>
+</table>
+<p>The shares are in percent of the revenue gained.</p>
+</section>
+<section id="sec-fi-multipliers" class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="sec-fi-multipliers"><span class="header-section-number">7.3.2</span> Fiscal multipliers</h3>
+<p>A multiplier says by how many percent GDP responds, in the year of a fiscal change and in each later year, to a change of a fiscal instrument by 1% of GDP. The model holds one multiplier per instrument <span class="math inline">\(i\)</span> and lag <span class="math inline">\(k = 0, \dots, 19\)</span> (<a href="./A_Equations.html#eqlist-A8-1">A8.1</a>):</p>
+<p><span id="eq-fi-mult"><span class="math display">\[
+m_{i}(k) = \bar{m}_{G,i}\big(\min(k, k^{last})\big) + \sigma\,s_{G,i}\big(\min(k, k^{last})\big)
+\tag{7.18}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(G\)</span> is the multiplier group (<code>fis.grp</code>): global, the country’s income group (HIC, UMIC, LMIC, LIC), the country’s estimated table, or the manual table;</li>
+<li><span class="math inline">\(\bar{m}_{G,i}(k)\)</span> is the multiplier of the group at lag <span class="math inline">\(k\)</span>: for global and income groups, the median of the World Bank’s MFMod (<a href="../CPAT_full_documentation_html/04_Multipliers.html#income-group-specific-multipliers">methodology 4.3</a>, <a href="../CPAT_full_documentation_html/04_Multipliers.html#global-multipliers">4.4</a>);</li>
+<li><span class="math inline">\(s_{G,i}(k)\)</span> is the standard deviation of the income group, and <span class="math inline">\(\sigma\)</span> is 0 for Base, −1 for Low, +1 for High;</li>
+<li><span class="math inline">\(k^{last}\)</span> is the last lag with data (11): lags 12-19 hold the lag-11 value, as in legacy.</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Source (<code>MultipliersSource</code>, first three letters)</th>
+<th>Group used</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Glo...</code></td>
+<td>global</td>
+<td>MFMod medians averaged over all countries</td>
+</tr>
+<tr class="even">
+<td><code>Est...</code></td>
+<td>the country’s table of the legacy Multipliers tab</td>
+<td>exact match of the country code; the income group where the country is missing, and for CIT and WAGE, whose legacy tables are empty or wrong (<a href="../CPAT_full_documentation_html/04_Multipliers.html#estimated-multipliers">methodology 4.6</a>)</td>
+</tr>
+<tr class="odd">
+<td><code>Man...</code></td>
+<td>sheet Manual inputs J261:U268</td>
+<td>legacy addresses; lags 0-11; blank = 0 (<a href="../CPAT_full_documentation_html/04_Multipliers.html#manual-multipliers">methodology 4.5</a>)</td>
+</tr>
+<tr class="even">
+<td>any other text</td>
+<td>the country’s income group</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>For Estimated and Manual, Low and High also add or subtract the income group’s standard deviation, as legacy does (issue I44).</p>
+<p>The revenue uses map to the instruments of the multiplier tables:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Use</th>
+<th>Instrument</th>
+<th>Share</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>The revenue itself (higher energy taxes)</td>
+<td><code>exc</code> energy excise</td>
+<td>−1</td>
+</tr>
+<tr class="even">
+<td>Labour tax cuts</td>
+<td><code>pit</code> personal income tax</td>
+<td><code>EXPLabortax</code> / 100</td>
+</tr>
+<tr class="odd">
+<td>Corporate tax cuts</td>
+<td><code>cit</code> corporate income tax</td>
+<td><code>EXPCIT</code> / 100</td>
+</tr>
+<tr class="even">
+<td>Public investment</td>
+<td><code>capt</code> capital spending</td>
+<td><code>EXPCapex</code> / 100</td>
+</tr>
+<tr class="odd">
+<td>Current spending</td>
+<td><code>gnfs</code> goods and services</td>
+<td><code>EXPGoodsandserv</code> / 100</td>
+</tr>
+<tr class="even">
+<td>Targeted transfers</td>
+<td><code>trns</code> transfers</td>
+<td><code>EXPTransfers</code> / 100</td>
+</tr>
+</tbody>
+</table>
+<p>The tables also hold <code>vat</code> and <code>wage</code>, which no revenue use reads.</p>
+</section>
+<section id="sec-fi-fiscal-space" class="level3" data-number="7.3.3">
+<h3 data-number="7.3.3" class="anchored" data-anchor-id="sec-fi-fiscal-space"><span class="header-section-number">7.3.3</span> Fiscal space</h3>
+<p>The fiscal space is the revenue the scenario gains over the baseline, as a share of baseline GDP. It is total revenue: existing taxes net of subsidies (power included), new policies, subsidy reform, producer subsidies and the methane fee (<a href="./A_Equations.html#eqlist-M8-1">M8.1</a>):</p>
+<p><span id="eq-fi-fisrev"><span class="math display">\[
+rev^{fis} = rev^{net} + rev^{new} + rev^{sr} + rev^{psu} + rev^{mf}
+\tag{7.19}\]</span></span></p>
+<p><span id="eq-fi-fs"><span class="math display">\[
+fs_t = \frac{rev^{fis}_t - rev^{fis,B}_t}{Y^{0}_t\,M}
+\tag{7.20}\]</span></span></p>
+<p>where <span class="math inline">\(rev^{fis}\)</span> is in USD million (<code>fis.rev</code>; equal to <span class="math inline">\(rev\)</span> of <a href="#eq-fi-rtot" class="quarto-xref">Equation&nbsp;<span>7.12</span></a>), <span class="math inline">\(rev^{fis,B}\)</span> is that of scenario 1 in the same year (<code>fis.ref</code>), and <span class="math inline">\(fs\)</span> is the fiscal space (<code>fis.sp</code>), share of GDP.</p>
+<p>Lower fuel use also lowers the cost of existing subsidies (base erosion, <a href="#eq-fi-rbe" class="quarto-xref">Equation&nbsp;<span>7.16</span></a>), and that counts. The methane fee counts on the scenario’s own methane activity. In the baseline, <span class="math inline">\(fs = 0\)</span>, so scenario 1 has no GDP effect.</p>
+</section>
+<section id="sec-fi-impulse" class="level3" data-number="7.3.4">
+<h3 data-number="7.3.4" class="anchored" data-anchor-id="sec-fi-impulse"><span class="header-section-number">7.3.4</span> Fiscal impulse</h3>
+<p>The impulse of a year is the new revenue gain of that year: the change in the gain in USD, over this year’s GDP. It is 0 before the start year of the GDP calculations:</p>
+<p><span id="eq-fi-imp"><span class="math display">\[
+imp_t =
+\begin{cases}
+0 &amp; t &lt; t^{GDP}\\[2pt]
+fs_{t} &amp; t = t_0 \ge t^{GDP}\\[2pt]
+fs_t - fs_{t-1}\,\dfrac{Y^{0}_{t-1}}{Y^{0}_t} &amp; \text{otherwise}
+\end{cases}
+\tag{7.21}\]</span></span></p>
+<p>where <span class="math inline">\(t^{GDP}\)</span> is <code>GDPStartYear</code>, <span class="math inline">\(t_0\)</span> the base year and <span class="math inline">\(imp_t\)</span> the impulse (<code>fis.imp</code>), share of GDP.</p>
+<p>The revenue uses take the impulse only from the year the carbon price starts, as legacy does (it sets the revenue-use shares to 0 before then):</p>
+<p><span id="eq-fi-impp"><span class="math display">\[
+imp^{p}_t = \begin{cases} 0 &amp; t &lt; T^{ct}_0\\ imp_t &amp; \text{otherwise}\end{cases}
+\tag{7.22}\]</span></span></p>
+<p>where <span class="math inline">\(T^{ct}_0\)</span> is the carbon pricing start year (<code>CPIntro</code>) and <span class="math inline">\(imp^{p}\)</span> is <code>fis.impp</code>. Earlier impulses still act through the excise drag.</p>
+<p>Each impulse starts a cohort that acts for 20 years. The rows <code>fis.lag.l1</code> … <code>fis.lag.l19</code> (and <code>fis.lagp.l1</code> … <code>fis.lagp.l19</code> for <span class="math inline">\(imp^{p}\)</span>) hold the impulses of the 19 earlier years: each is the previous year’s value of the row above it, and 0 in the base year.</p>
+</section>
+<section id="sec-fi-effects" class="level3" data-number="7.3.5">
+<h3 data-number="7.3.5" class="anchored" data-anchor-id="sec-fi-effects"><span class="header-section-number">7.3.5</span> GDP effect of each use</h3>
+<p>The effect of each use is its share times the sum, over the 20 lags, of the impulse of that cohort times the multiplier at that lag. The impulse of year <span class="math inline">\(t\)</span> counts at lag 0 in year <span class="math inline">\(t\)</span> (<a href="./A_Equations.html#eqlist-M8-2">M8.2</a>):</p>
+<p><span id="eq-fi-effexc"><span class="math display">\[
+eff_{exc,t} = -\sum_{k=0}^{19} imp_{t-k}\; m_{exc}(k)
+\tag{7.23}\]</span></span></p>
+<p><span id="eq-fi-effuse"><span class="math display">\[
+eff_{i,t} = \frac{sh_i}{100}\sum_{k=0}^{19} imp^{p}_{t-k}\; m_{i}(k), \qquad i \in \{pit, cit, capt, gnfs, trns\}
+\tag{7.24}\]</span></span></p>
+<p><span id="eq-fi-eps"><span class="math display">\[
+\varepsilon_t = \mathbb{1}[\text{GDPEndogenous} = \text{Yes}]\;\Big(eff_{exc,t} + \sum_{i} eff_{i,t}\Big)
+\tag{7.25}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(sh_i\)</span> is the revenue share of use <span class="math inline">\(i\)</span>, percent;</li>
+<li><span class="math inline">\(eff_{i,t}\)</span> is the GDP effect of use <span class="math inline">\(i\)</span> (<code>fis.eff.&lt;i&gt;</code>), share of GDP;</li>
+<li><span class="math inline">\(\varepsilon_t\)</span> is the GDP effect (<code>gdp.eff</code>): the change of the GDP level against the baseline, as a share of GDP; 0 if endogenous GDP effects are off.</li>
+</ul>
+<p>The revenue itself counts as an energy tax increase: share −1 at the excise multipliers.</p>
+</section>
+<section id="sec-fi-feedback" class="level3" data-number="7.3.6">
+<h3 data-number="7.3.6" class="anchored" data-anchor-id="sec-fi-feedback"><span class="header-section-number">7.3.6</span> GDP level and growth: the feedback</h3>
+<p>The GDP effect of year <span class="math inline">\(t\)</span> raises the level of real GDP from year <span class="math inline">\(t+1\)</span> (<a href="./A_Equations.html#eqlist-M8-3">M8.3</a>):</p>
+<p><span id="eq-fi-lvl"><span class="math display">\[
+lvl_t = \begin{cases} 1 &amp; t = t_0 \\ 1 + \varepsilon_{t-1} &amp; t &gt; t_0 \end{cases}
+\tag{7.26}\]</span></span></p>
+<p><span id="eq-fi-gdppos"><span class="math display">\[
+Y_t = Y^{0}_t\; lvl_t
+\tag{7.27}\]</span></span></p>
+<p><span id="eq-fi-growth"><span class="math display">\[
+1 + g_t = (1 + g^{0}_t)\,\frac{lvl_t}{lvl_{t-1}}, \qquad g_{t_0} = g^{0}_{t_0}
+\tag{7.28}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(lvl_t\)</span> is the GDP level factor used this year (<code>gdp.lvl</code>);</li>
+<li><span class="math inline">\(Y_t\)</span> is real GDP after the feedback (<code>gdp.pos.usd</code>), USD bn;</li>
+<li><span class="math inline">\(g^{0}_t\)</span> is baseline real GDP growth (<code>gdp.base</code>) and <span class="math inline">\(g_t\)</span> real GDP growth after the feedback (<code>gdp.pos.pct</code>).</li>
+</ul>
+<p>A steady effect therefore raises the level once and leaves growth unchanged afterwards; it does not compound.</p>
+<p>Growth after the feedback is what drives demand in the year: it is computed at the very start of year <span class="math inline">\(t\)</span>, before the power and fuel-use blocks. The fuel-use block reads it raised to the income factor of the elasticities (Python <code>GDPI</code> = <span class="math inline">\((1+g_t)^{\,inc}-1\)</span>, with <span class="math inline">\(inc\)</span> = <code>inc.ela.adj</code>), together with the demand shock factor <code>SHOCK</code>; see <a href="03_Energy_demand.html" class="quarto-xref"><span>Chapter 3</span></a>. The road engineer model reads GDP after the feedback too (<a href="05_Road_transport.html" class="quarto-xref"><span>Chapter 5</span></a>), and the non-energy GHG drivers read GDP growth (<a href="06_Emissions_and_ETS.html" class="quarto-xref"><span>Chapter 6</span></a>).</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: GDP effects and feedback">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: GDP effects and feedback
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code># start of year t (before power and fuel use)
+def gdp_start(t):
+    if t == t0:
+        gdp_lvl[t] = 1.0
+        gdp_pos_pct[t] = gdp_base[t]
+    else:
+        gdp_lvl[t] = 1 + gdp_eff[t - 1]                       # last year's effect
+        gdp_pos_pct[t] = (1 + gdp_base[t]) * gdp_lvl[t] / gdp_lvl[t - 1] - 1
+    GDPI[t] = (1 + gdp_pos_pct[t]) ** inc_ela_adj[t] - 1      # read by fuel use
+
+# end of year t (after revenues)
+def gdp_effects(t):
+    fis_rev[t] = rnet[t] + rnew[t] + rsr[t] + rpsu[t] + ch4_rev[t]
+    fis_sp[t]  = (fis_rev[t] - baseline.fis_rev[t]) / (gdp_usd[t] * M_PER_BN)
+    if t &lt; GDPStartYear:
+        fis_imp[t] = 0.0
+    elif t == t0:
+        fis_imp[t] = fis_sp[t]
+    else:
+        fis_imp[t] = fis_sp[t] - fis_sp[t - 1] * gdp_usd[t - 1] / gdp_usd[t]
+    fis_impp[t] = 0.0 if t &lt; CPIntro else fis_imp[t]
+
+    group = multiplier_group(MultipliersSource, income_group)
+    sign  = {'Base': 0, 'Low': -1, 'High': +1}[FmAdj]
+    def m(i, k):                                  # k = 0..19, held after lag 11
+        kk = min(k, 11)
+        return median[group, i, kk] + sign * sd[income_group, i, kk]
+
+    eff = {'exc': -sum(fis_imp[t - k] * m('exc', k)
+                       for k in range(20) if t - k &gt;= t0)}
+    for i, share in [('pit', EXPLabortax), ('cit', EXPCIT), ('capt', EXPCapex),
+                     ('gnfs', EXPGoodsandserv), ('trns', EXPTransfers)]:
+        eff[i] = share / 100 * sum(fis_impp[t - k] * m(i, k)
+                                   for k in range(20) if t - k &gt;= t0)
+    gdp_eff[t] = sum(eff.values()) if GDPEndogenous == 'Yes' else 0.0
+    gdp_pos_usd[t] = gdp_usd[t] * gdp_lvl[t]</code></pre>
+</div>
+</div>
+</section>
+<section id="sec-fi-timing" class="level3" data-number="7.3.7">
+<h3 data-number="7.3.7" class="anchored" data-anchor-id="sec-fi-timing"><span class="header-section-number">7.3.7</span> The timing rule</h3>
+<p><strong>Revenue of year <span class="math inline">\(t\)</span> changes GDP only from year <span class="math inline">\(t+1\)</span>.</strong> GDP growth after the feedback reads the level of the current year, which holds the effect of the previous year. The rule has three consequences, kept as rules of the model:</p>
+<ol type="1">
+<li>The fiscal space of year <span class="math inline">\(t\)</span> reads revenue of year <span class="math inline">\(t\)</span> only: no later year, no lookup over a whole row.</li>
+<li>A same-year GDP effect never reaches same-year demand. The impulse of year <span class="math inline">\(t\)</span> counts at lag 0 in <span class="math inline">\(\varepsilon_t\)</span>, which acts on GDP from <span class="math inline">\(t+1\)</span>.</li>
+<li>No other block reads a later year. With this lag, no revenue line can close a circular reference, whatever it reads (fuel use, power, methane).</li>
+</ol>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  a1["Year t: GDP level&lt;br/&gt;1 + ε(t−1)"] --&gt; b1["Year t: power,&lt;br/&gt;fuel use"] --&gt; c1["Year t:&lt;br/&gt;revenues"] --&gt; d1["Year t: fiscal space,&lt;br/&gt;impulse, ε(t)"]
+  d1 --&gt; a2["Year t+1: GDP level&lt;br/&gt;1 + ε(t)"] --&gt; b2["Year t+1: power,&lt;br/&gt;fuel use"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>This lag is what makes the whole model computable year by year: GDP growth depends only on earlier years.</p>
+</section>
+<section id="sec-fi-gdp-memo" class="level3" data-number="7.3.8">
+<h3 data-number="7.3.8" class="anchored" data-anchor-id="sec-fi-gdp-memo"><span class="header-section-number">7.3.8</span> Memo rows</h3>
+<p>Three memo rows report the GDP effects in other forms.</p>
+<p><strong>Contribution of each use to GDP growth.</strong> The change in the use’s effect over the previous year, on the level:</p>
+<p><span id="eq-fi-gdpg"><span class="math display">\[
+gdpg_{i,t} = \mathbb{1}[\text{GDPEndogenous} = \text{Yes}]\;(1 + g^{0}_t)\,\frac{eff_{i,t-1} - eff_{i,t-2}}{lvl_{t-1}}
+\tag{7.29}\]</span></span></p>
+<p>with <span class="math inline">\(eff_{i,t-2} = 0\)</span> in the first projection year and <span class="math inline">\(gdpg = 0\)</span> in the base year. The total <span class="math inline">\(gdpg_{all}\)</span> uses <span class="math inline">\(\varepsilon\)</span> in place of <span class="math inline">\(eff_i\)</span> and equals <span class="math inline">\(g_t - g^{0}_t\)</span>: the channels sum to it.</p>
+<p><strong>Year of the reform.</strong> <span class="math inline">\(gdpy_t = t - t^{GDP} + 1\)</span>. The growth effect of reform year <span class="math inline">\(N\)</span> is <span class="math inline">\(gdpg_{all}\)</span> in the year where <span class="math inline">\(gdpy = N\)</span>.</p>
+<p><strong>Change in real GDP.</strong> <span class="math inline">\(\Delta Y_t = Y_t - Y^{0}_t\)</span> (<code>gdp.chg.usd</code>), USD bn.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Row</th>
+<th>Content</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>fis.rev</code>, <code>fis.ref</code></td>
+<td>Total revenue of the scenario and of scenario 1 (<a href="#eq-fi-fisrev" class="quarto-xref">Equation&nbsp;<span>7.19</span></a>)</td>
+<td>USD m</td>
+</tr>
+<tr class="even">
+<td><code>fis.sp</code></td>
+<td>Fiscal space (<a href="#eq-fi-fs" class="quarto-xref">Equation&nbsp;<span>7.20</span></a>)</td>
+<td>share of GDP</td>
+</tr>
+<tr class="odd">
+<td><code>fis.imp</code>, <code>fis.impp</code></td>
+<td>Impulse; impulse used by the revenue uses (<a href="#eq-fi-imp" class="quarto-xref">Equation&nbsp;<span>7.21</span></a>, <a href="#eq-fi-impp" class="quarto-xref">Equation&nbsp;<span>7.22</span></a>)</td>
+<td>share of GDP</td>
+</tr>
+<tr class="even">
+<td><code>fis.lag.l1</code>-<code>l19</code>, <code>fis.lagp.l1</code>-<code>l19</code></td>
+<td>Impulses 1 to 19 years back</td>
+<td>share of GDP</td>
+</tr>
+<tr class="odd">
+<td><code>fis.grp</code>, <code>fis.key</code></td>
+<td>Multiplier group; key (group, range) into sheet Multipliers</td>
+<td>text</td>
+</tr>
+<tr class="even">
+<td><code>fis.eff.&lt;i&gt;</code></td>
+<td>GDP effect of each use and of the excise drag (<a href="#eq-fi-effexc" class="quarto-xref">Equation&nbsp;<span>7.23</span></a>, <a href="#eq-fi-effuse" class="quarto-xref">Equation&nbsp;<span>7.24</span></a>)</td>
+<td>share of GDP</td>
+</tr>
+<tr class="odd">
+<td><code>gdp.eff</code></td>
+<td>GDP effect (<a href="#eq-fi-eps" class="quarto-xref">Equation&nbsp;<span>7.25</span></a>)</td>
+<td>share of GDP</td>
+</tr>
+<tr class="even">
+<td><code>gdp.lvl</code></td>
+<td>GDP level factor (<a href="#eq-fi-lvl" class="quarto-xref">Equation&nbsp;<span>7.26</span></a>)</td>
+<td>factor</td>
+</tr>
+<tr class="odd">
+<td><code>gdp.pos.usd</code></td>
+<td>Real GDP after the feedback (<a href="#eq-fi-gdppos" class="quarto-xref">Equation&nbsp;<span>7.27</span></a>)</td>
+<td>USD bn</td>
+</tr>
+<tr class="even">
+<td><code>gdp.pos.pct</code></td>
+<td>Real GDP growth after the feedback (<a href="#eq-fi-growth" class="quarto-xref">Equation&nbsp;<span>7.28</span></a>)</td>
+<td>%</td>
+</tr>
+<tr class="odd">
+<td><code>gdpg.&lt;i&gt;</code>, <code>gdpg.all</code></td>
+<td>Contribution to GDP growth (<a href="#eq-fi-gdpg" class="quarto-xref">Equation&nbsp;<span>7.29</span></a>)</td>
+<td>share</td>
+</tr>
+<tr class="even">
+<td><code>gdpy</code></td>
+<td>Year of the reform</td>
+<td>number</td>
+</tr>
+<tr class="odd">
+<td><code>gdp.chg.usd</code></td>
+<td>Change in real GDP against the baseline</td>
+<td>USD bn</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> sheet Mitigation, section 16 “GDP effects and external balance” (<code>fis.*</code>, <code>gdp.*</code>, <code>gdpg</code>, <code>gdpy</code>), with <code>gdp.pos.pct</code> in the header (section 0). Inputs on ScenarioDefinition: <code>EXPLabortax</code>, <code>EXPCIT</code>, <code>EXPCapex</code>, <code>EXPGoodsandserv</code>, <code>EXPTransfers</code>, <code>MultipliersSource</code> (row 226), <code>GDPStartYear</code> (row 236), <code>FmAdj</code> (row 263), <code>GDPEndogenous</code>. Multipliers on sheet Multipliers (from the legacy sheet: MFMod medians and standard deviations by group, instrument and lag), looked up by <code>fis.key</code> &amp; instrument in <code>MultVal</code>; manual multipliers on sheet Manual inputs J261:U268. The lag rows are “previous column of the row above”.</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/gdp.py</code>: <code>start()</code> at the start of the year (equation M8.3; also <code>GDPI</code>, <code>SHOCK</code>), <code>effects()</code> at the end (M8.1, M8.2), <code>multipliers()</code> (A8.1, tables <code>mult_mfmod_median_&lt;group&gt;</code>, <code>mult_mfmod_sd_&lt;group&gt;</code>). In the chain, <code>gdp.start</code> is the first block of the year and <code>gdp.effects</code> follows the revenues (<code>chain.py</code>).</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT and from the methodology">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT and from the methodology
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>L24 fixed (LD54):</strong> the effect raises the GDP level once, one year later (<span class="math inline">\(lvl_t = 1 + \varepsilon_{t-1}\)</span>). Legacy adds the effect to the growth rate every year, so a steady effect compounds. The one-year lag also avoids a circular reference (revenue depends on fuel use, which depends on growth).</li>
+<li><strong>Revenue (LD55), as legacy:</strong> total revenue (legacy’s <code>rev.new.usd</code>, row 8026, the total of all instruments), not new-policy revenue only. The methane fee counts on the scenario’s own activity, as legacy (issue I47). Before the revenue was summed from its parts, a form <code>rtot − rmf</code> still referenced the methane fee and LibreOffice reported a circular reference (Err:522) on a full recalculation: the fiscal revenue is therefore written as the sum of its parts (<a href="#eq-fi-fisrev" class="quarto-xref">Equation&nbsp;<span>7.19</span></a>).</li>
+<li><strong>Impulse and start year, as legacy</strong> (legacy row 14356; issues I41, I42). The revenue uses take the impulse only from <code>CPIntro</code>, as legacy sets the revenue-use shares to 0 before then (issue I43); earlier impulses count only as an excise drag (tiny for Egypt).</li>
+<li><strong>Multipliers (LD56), as legacy:</strong> Global, income group, Estimated or Manual; Base, Low and High with the income group’s standard deviation (I44). Legacy bug L76 fixed: legacy’s CIT table is empty, WAGE reads the GNFS table, the country match is approximate and the source defaults to Estimated.</li>
+<li><strong>Legacy bugs fixed:</strong> L68 (legacy applies the lag-1 multiplier in the impulse year; here lag 0 acts in the impulse year), L69 (the first cohort’s excise drag is lost).</li>
+<li><strong>Scenario-1 lookups stop at the current year</strong>, which avoids a circular reference with the GDP feedback. Values are unchanged.</li>
+<li><strong>Methodology (<a href="../CPAT_full_documentation_html/04_Multipliers.html#sec-GDPFeedback">section 4.7</a>).</strong> The section was added to the methodology on 2026-10-31 (correction DOC1) and follows this model: fiscal space on total revenue (as legacy), the impulse scaled by the GDP ratio <span class="math inline">\(Y^{0}_{t-1}/Y^{0}_t\)</span>, from <code>GDPStartYear</code>, the revenue uses from <code>CPIntro</code>, and the same feedback equations (<a href="#eq-fi-lvl" class="quarto-xref">Equation&nbsp;<span>7.26</span></a>, <a href="#eq-fi-growth" class="quarto-xref">Equation&nbsp;<span>7.28</span></a>).</li>
+<li><strong>CPAT Python:</strong> the Estimated and Manual multiplier sources are not implemented yet (<code>multipliers()</code> raises <code>NotImplementedError</code>); Global and the income groups are.</li>
+<li><strong>Memo rows:</strong> legacy rows 16166-16175 add the effects to growth every year (L24), so its channel contributions are not comparable with <code>gdpg</code>. Legacy shifts a row to later columns for the year of the reform; that row read forward through the GDP chain and made a circular reference, so <code>gdpy</code> is a number row instead.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Check: results for Egypt">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Check: results for Egypt
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Scenario 2 of the shipped file:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>2027</th>
+<th>2030</th>
+<th>2035</th>
+<th>2040</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fiscal space (share of GDP)</td>
+<td>0.74%</td>
+<td>0.75%</td>
+<td>0.65%</td>
+<td>0.57%</td>
+</tr>
+<tr class="even">
+<td>GDP effect (level)</td>
+<td>0.00%</td>
+<td>−0.02%</td>
+<td>0.17%</td>
+<td>0.39%</td>
+</tr>
+</tbody>
+</table>
+<p>The fiscal space jumps to about 0.75% of GDP when the policies start. With new-policy revenue only, as in earlier versions, it was 0.55% in 2030. The revenue first lowers GDP: the excise multiplier peaks two years after the impulse. From the early 2030s public investment and transfers outweigh it, and GDP ends about 0.4% above the baseline. The effect raises fuel use a little through the income elasticities.</p>
+<p><strong>Legacy benchmark.</strong> The legacy file without proprietary data sets the baseline GDP-effect rows to 0, but its policy rows 14584-14607 hold the cached values of a carbon-tax run: GDP effect −0.07% in 2030, +0.34% in 2035, +1.22% in 2040. Its carbon price rises to about 175 USD/t in 2041, so it is not the prototype’s scenario. The comparison is therefore against an independent Python recomputation that iterates the whole model on the growth path until it converges; growth depends only on earlier years. A second benchmark is legacy’s cached Egypt policy run (carbon tax 0 to 5 USD/t, linear 2026-2040): compare <span class="math inline">\(\varepsilon\)</span> (<code>gdp.eff</code>) with legacy row 14592 and the fiscal space with row 14336, not GDP growth (which differs because of L24).</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-fi-external" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="sec-fi-external"><span class="header-section-number">7.4</span> External balance</h2>
+<p>Lower fossil fuel use means lower imports, or more exports, of oil, gas and coal. Block 16b values the change in fuel use at the supply price and scales it by the share of each fuel group that is traded, then adds it to the energy trade balance and to the current account of the baseline. All rows are in USD bn, real (<a href="./A_Equations.html#eqlist-A8-2">A8.2</a>).</p>
+<section id="sec-fi-trade-data" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="sec-fi-trade-data"><span class="header-section-number">7.4.1</span> Trade data</h3>
+<p>For each trade group <span class="math inline">\(g\)</span> (oil products, gas, coal) the base-year energy balance gives imports <span class="math inline">\(M_g\)</span>, production <span class="math inline">\(P_g\)</span> and exports <span class="math inline">\(X_g\)</span> (exports are negative in the balance). From them:</p>
+<p><span id="eq-fi-ts"><span class="math display">\[
+ts_g = \frac{M_g - X_g}{M_g + P_g - X_g} \quad (1 \text{ where the denominator is } 0)
+\tag{7.30}\]</span></span></p>
+<p><span id="eq-fi-tb"><span class="math display">\[
+TB_{g,t} = -(M_g + X_g)\,\theta\,\frac{p^{int}_{g,t}}{u_g}\,\frac{1}{M}
+\tag{7.31}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(ts_g\)</span> is the share traded of the group (<code>ts_&lt;group&gt;</code>); Egypt: gas 0.19, oil products 0.47, coal 1.0;</li>
+<li><span class="math inline">\(TB_{g,t}\)</span> is the baseline energy trade balance, exports minus imports (<code>xtb.&lt;group&gt;</code>);</li>
+<li><span class="math inline">\(p^{int}_{g,t}\)</span> is the real international price of scenario 1’s price source (oil per barrel, gas per MMBtu on the country’s gas market, coal per tonne), and <span class="math inline">\(u_g\)</span> the GJ per unit (6.12 GJ per barrel, 1.055056 GJ per MMBtu, 25.14 GJ per tonne).</li>
+</ul>
+<p>The oil group holds gasoline, diesel, LPG, kerosene, jet fuel and other oil products.</p>
+</section>
+<section id="sec-fi-xnim" class="level3" data-number="7.4.2">
+<h3 data-number="7.4.2" class="anchored" data-anchor-id="sec-fi-xnim"><span class="header-section-number">7.4.2</span> Change in net imports</h3>
+<p>For each fossil fuel, the change in use against the baseline is valued at the supply price and scaled by the share traded of its group:</p>
+<p><span id="eq-fi-xnim"><span class="math display">\[
+\Delta NIM_{f,t} = \Delta F_{f,t}\;\theta\;sp_{f,t}\;ts_{g(f)}\;\frac{1}{M}
+\tag{7.32}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(\Delta F_{f,t}\)</span> is the change in total use of the fuel against scenario 1 (<code>echg</code>, block 11b, <a href="03_Energy_demand.html" class="quarto-xref"><span>Chapter 3</span></a>), ktoe;</li>
+<li><span class="math inline">\(sp_{f,t}\)</span> is the supply price (<code>sp</code>, <a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a>), USD/GJ;</li>
+<li><span class="math inline">\(\Delta NIM_{f,t}\)</span> is the change in net energy imports (<code>xnim.&lt;fuel&gt;</code>), positive for more imports.</li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fuel</th>
+<th>Supply price used</th>
+<th>Trade group</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Coal</td>
+<td>industry supply price of coal</td>
+<td>coal</td>
+</tr>
+<tr class="even">
+<td>Natural gas</td>
+<td>industry supply price of gas</td>
+<td>gas</td>
+</tr>
+<tr class="odd">
+<td>Jet fuel</td>
+<td>kerosene</td>
+<td>oil</td>
+</tr>
+<tr class="even">
+<td>Gasoline, diesel, LPG, kerosene, other oil products</td>
+<td>the fuel’s own price</td>
+<td>oil</td>
+</tr>
+</tbody>
+</table>
+<p>The fuel rows are summed by group (<code>xnim.grp.oil</code>, <code>.nga</code>, <code>.coa</code>) and in total (<code>xnim.all</code>).</p>
+</section>
+<section id="sec-fi-ca" class="level3" data-number="7.4.3">
+<h3 data-number="7.4.3" class="anchored" data-anchor-id="sec-fi-ca"><span class="header-section-number">7.4.3</span> Trade balance and current account</h3>
+<p>The scenario’s energy trade balance is the baseline balance less the change in net imports:</p>
+<p><span id="eq-fi-xtbp"><span class="math display">\[
+TB^{P}_t = \sum_g TB_{g,t} - \sum_f \Delta NIM_{f,t}
+\tag{7.33}\]</span></span></p>
+<p>Both, and the change in net imports, are also given as shares of baseline real GDP (<code>xtb.pct</code> = <span class="math inline">\(TB^P/Y^0\)</span>, <code>xnim.pct</code> = <span class="math inline">\(\Delta NIM/Y^0\)</span>; 0 where GDP is 0).</p>
+<p>The current account starts from the WEO series and adds the change in net imports, in USD and in percent of GDP:</p>
+<p><span id="eq-fi-bca"><span class="math display">\[
+\begin{aligned}
+CA^{r}_t &amp;= CA_t\,\nu_t &amp;&amp; \text{real current account, pre-policy }(\texttt{bca.r})\\
+\Delta CA_{g,t} &amp;= -\Delta NIM_{g,t} &amp;&amp; \text{change by fuel group }(\texttt{bca.d})\\
+CA^{P}_t &amp;= CA^{r}_t + \textstyle\sum_g \Delta CA_{g,t} &amp;&amp; \text{after the policy }(\texttt{bca.p})\\
+\hat{Y}_t &amp;= \left|CA^{r}_t / ca_t\right| &amp;&amp; \text{implied GDP / 100 }(\texttt{bca.y}\text{; 0 if }ca_t = 0)\\
+ca^{P}_t &amp;= ca_t + \textstyle\sum_g \Delta CA_{g,t} / \hat{Y}_t &amp;&amp; \text{after the policy, percent of GDP }(\texttt{bca.pp})
+\end{aligned}
+\tag{7.34}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(CA_t\)</span> is the current account balance (WEO <code>BCA</code>, <code>bca</code>), USD bn nominal, held after its last data year;</li>
+<li><span class="math inline">\(ca_t\)</span> is the current account in percent of GDP (WEO <code>BCA_NGDPD</code>, <code>bca.gdp</code>), held likewise;</li>
+<li><span class="math inline">\(\nu_t\)</span> is the US CPI index (<code>infl</code>, 1 in the results year);</li>
+<li><code>bca.dp.&lt;group&gt;</code> = <span class="math inline">\(\Delta CA_{g,t}/\hat{Y}_t\)</span>; the memo <code>bca.n</code> is the current account in current prices, 0 after the last data year.</li>
+</ul>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: external balance">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: external balance
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>for t in years:
+    for f, g in [('coa', 'coa'), ('nga', 'nga'), ('gso', 'oil'), ('die', 'oil'),
+                 ('lpg', 'oil'), ('ker', 'oil'), ('jfu', 'oil'), ('oop', 'oil')]:
+        if f in ('coa', 'nga'):
+            price = sp['ind', f, t]
+        else:
+            price = sp['all', 'ker' if f == 'jfu' else f, t]
+        xnim[f, t] = echg[f, t] * PJ_PER_KTOE * price * ts[g] / M_PER_BN
+    for g in ['oil', 'nga', 'coa']:
+        xnim_grp[g, t] = sum(xnim[f, t] for f in fuels_of(g))
+        xtb[g, t] = -(imports[g] + exports[g]) * PJ_PER_KTOE / M_PER_BN \
+                    * p_int[g, t] / gj_per_unit[g]
+    xnim_all[t] = sum(xnim_grp[g, t] for g in groups)
+    xtbp[t]     = sum(xtb[g, t] for g in groups) - xnim_all[t]
+    xtb_pct[t]  = safe_div(xtbp[t], gdp_usd[t])
+    xnim_pct[t] = safe_div(xnim_all[t], gdp_usd[t])
+
+    bca_r[t] = bca[t] * infl[t]
+    bca_p[t] = bca_r[t] - sum(xnim_grp[g, t] for g in groups)
+    bca_y[t] = abs(bca_r[t] / bca_gdp[t]) if bca_gdp[t] != 0 else 0.0
+    bca_pp[t] = bca_gdp[t] + sum(safe_div(-xnim_grp[g, t], bca_y[t]) for g in groups)</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> sheet Mitigation, block 16b inside section 16 (<code>xnim</code>, <code>xtb</code>, <code>xtbp</code>, <code>xtb.pct</code>, <code>xnim.pct</code>, <code>bca*</code>). The share traded and the trade balance are data on sheet WEO (keys <code>&lt;country&gt;|ts_&lt;group&gt;</code>, <code>&lt;country&gt;|tb_&lt;group&gt;</code>, from the data step <code>extract_gdp</code>; legacy Mitigation rows 741-743); the current account is typed for Egypt (<code>bca</code>, <code>bca_gdp</code>, <code>bca_n</code>; other countries 0).</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/gdp.py</code>, <code>trade_data()</code> (share traded and trade balance from the energy balance and the international prices; WEO current account for any country) and <code>external()</code> (equation A8.2).</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>L49 fixed:</strong> legacy leaves the share traded out for oil, so its oil effect is about twice as large.</li>
+<li><strong>L50 fixed:</strong> legacy’s balance-of-payments panel (rows 18160-18204) has a pre-policy current account of <code>#NAME?</code> (stale WEO codes), rows that lag one column (it shows the 2021 balance, −5.85, in 2022), and a sign of the policy net imports that looks reversed.</li>
+<li><strong>L214 fixed:</strong> legacy’s current account after the policy in % of GDP leaves coal out.</li>
+<li><strong>L215 not replicated:</strong> legacy values the gas import bill with a unit error (USD per MMBtu on GJ); here every fuel is valued at its supply price in USD/GJ.</li>
+<li><strong>As legacy:</strong> the implied GDP of the % of GDP rows (issue I129); the current account in current prices is 0 after the last data year (issue I130).</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Check: results for Egypt">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Check: results for Egypt
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Carbon tax of 20 USD, 2030: change in net imports −1.2 bn USD, of which oil −0.93 bn. Baseline energy trade balance 2022: −6.7 bn USD.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-fi-carbon-pricing" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="sec-fi-carbon-pricing"><span class="header-section-number">7.5</span> Carbon pricing indicators</h2>
+<p>How heavily is carbon priced, once every tax and subsidy on energy is counted? Section 17 answers with revenue per tonne of CO2, by fuel and for the economy, and with the share of emissions the new carbon tax and ETS cover (<a href="./A_Equations.html#eqlist-A7-5">A7.5</a>). The methodology discusses coverage in <a href="../CPAT_full_documentation_html/03_Mitigation.html#policy-coverage-and-exemptions">section 3.9.3.1.1</a>.</p>
+<section id="sec-fi-tcp" class="level3" data-number="7.5.1">
+<h3 data-number="7.5.1" class="anchored" data-anchor-id="sec-fi-tcp"><span class="header-section-number">7.5.1</span> Implicit carbon price and effective carbon rate</h3>
+<p><strong>Implicit carbon price by fuel.</strong> The revenue net of subsidies of the fuel, final use and power generation, divided by its CO2:</p>
+<p><span id="eq-fi-tcp"><span class="math display">\[
+tcp_f = \frac{rfu_f + rfg_f}{CO2_f}, \qquad
+tcp_{all} = \frac{\sum_{f \in \text{fossil}} rfu_f + \sum_{k \in \{coal,gas,oil\}} rfg_k}{CO2}
+\tag{7.35}\]</span></span></p>
+<p>where <span class="math inline">\(CO2_f\)</span> is the CO2 of the fuel (power included; <a href="06_Emissions_and_ETS.html" class="quarto-xref"><span>Chapter 6</span></a>), MtCO2, <span class="math inline">\(rfg_f\)</span> applies to coal, gas and other oil products only, and <span class="math inline">\(tcp\)</span> is in USD/tCO2 (<code>tcp</code>; 0 where the CO2 is 0). Biomass is left out: it has no CO2.</p>
+<p>This is the tax-and-subsidy wedge per GJ divided by the emission factor. A carbon tax of <span class="math inline">\(\tau\)</span> USD/t raises every fuel’s implicit price by about <span class="math inline">\(\tau\)</span>.</p>
+<p><strong>Effective carbon rate.</strong> All revenue net of subsidies, per tonne of energy CO2:</p>
+<p><span id="eq-fi-ecr"><span class="math display">\[
+ecr = \frac{rev^{net} + rev^{new} + rev^{sr}}{CO2}
+\tag{7.36}\]</span></span></p>
+<p>so VAT, the electricity subsidy gap and electricity VAT count. <code>ecr</code> is the summary row of section 17.</p>
+</section>
+<section id="sec-fi-coverage" class="level3" data-number="7.5.2">
+<h3 data-number="7.5.2" class="anchored" data-anchor-id="sec-fi-coverage"><span class="header-section-number">7.5.2</span> Coverage</h3>
+<p><strong>CO2 covered by the new carbon tax</strong> in each of the 17 coverage sectors <span class="math inline">\(e\)</span> (power and the 16 subsectors): the CO2 of the fuels whose coverage switch is on, counted only where the sector’s carbon tax rate is above 0:</p>
+<p><span id="eq-fi-covct"><span class="math display">\[
+CO2^{cov}_e = \mathbb{1}[ct_e &gt; 0]\sum_{f} CO2_{e,f}\;\kappa^{ct}_f
+\tag{7.37}\]</span></span></p>
+<p>where <span class="math inline">\(\kappa^{ct}_f\)</span> is the fuel’s carbon tax coverage switch (<code>ctcov</code>). Power uses the CO2 of coal, gas and oil generation. A sector in a non-complementary ETS has a carbon tax rate of 0 and so no covered CO2.</p>
+<p><strong>Coverage shares and effective carbon tax:</strong></p>
+<p><span id="eq-fi-cov"><span class="math display">\[
+cov^{ct}_G = \frac{\sum_{e \in G} CO2^{cov}_e}{CO2}, \qquad
+cov^{ets} = \frac{CO2^{ets}}{CO2}, \qquad
+cov = cov^{ct}_{all} + cov^{ets}, \qquad
+p^{eff} = \tau\;cov^{ct}_{all}
+\tag{7.38}\]</span></span></p>
+<p>where <span class="math inline">\(G\)</span> is a sector group (transport, buildings, industry, other energy use, power) or all sectors, <span class="math inline">\(CO2^{ets}\)</span> the CO2 covered by the new ETS (<code>co2.ets</code>, <a href="06_Emissions_and_ETS.html" class="quarto-xref"><span>Chapter 6</span></a>), <span class="math inline">\(\tau\)</span> the carbon price (<code>cptraj</code>) and <span class="math inline">\(p^{eff}\)</span> the effective carbon tax (<code>cpeff</code>), USD/tCO2.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Row</th>
+<th>Content</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>tcp.&lt;fuel&gt;</code>, <code>tcp.all</code></td>
+<td>Implicit carbon price (<a href="#eq-fi-tcp" class="quarto-xref">Equation&nbsp;<span>7.35</span></a>)</td>
+<td>USD/tCO2</td>
+</tr>
+<tr class="even">
+<td><code>ecr</code></td>
+<td>Effective carbon rate (<a href="#eq-fi-ecr" class="quarto-xref">Equation&nbsp;<span>7.36</span></a>); summary row</td>
+<td>USD/tCO2</td>
+</tr>
+<tr class="odd">
+<td><code>covct.&lt;sector&gt;</code></td>
+<td>CO2 covered by the new carbon tax (<a href="#eq-fi-covct" class="quarto-xref">Equation&nbsp;<span>7.37</span></a>)</td>
+<td>MtCO2</td>
+</tr>
+<tr class="even">
+<td><code>cov.ct.&lt;group&gt;</code>, <code>cov.ct.all</code></td>
+<td>Shares of energy CO2 covered by the carbon tax</td>
+<td>%</td>
+</tr>
+<tr class="odd">
+<td><code>cov.ets</code></td>
+<td>Share covered by the new ETS</td>
+<td>%</td>
+</tr>
+<tr class="even">
+<td><code>cov.all</code></td>
+<td>Covered by the carbon tax or the ETS</td>
+<td>%</td>
+</tr>
+<tr class="odd">
+<td><code>cpeff</code></td>
+<td>Effective carbon tax (<a href="#eq-fi-cov" class="quarto-xref">Equation&nbsp;<span>7.38</span></a>)</td>
+<td>USD/tCO2</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: carbon pricing indicators">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: carbon pricing indicators
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>for t in years:
+    for f in ['coa', 'nga', 'gso', 'die', 'lpg', 'ker', 'jfu', 'oop']:
+        rev = rfu[f, t] + (rfg[f, t] if f in ('coa', 'nga', 'oop') else 0.0)
+        tcp[f, t] = rev / co2[f, t] if co2[f, t] != 0 else 0.0
+    rev_all = sum(rfu[f, t] for f in fossil) \
+              + sum(rfg[k, t] for k in ('coa', 'nga', 'oop'))
+    tcp['all', t] = safe_div(rev_all, co2_all[t])
+    for g in groups + ['pow']:
+        cov_ct[g, t] = safe_div(sum(covct[e, t] for e in sectors_of(g)), co2_all[t])
+    cov_ct['all', t] = safe_div(sum(covct[e, t] for e in coverage_sectors), co2_all[t])
+    cov_ets[t] = safe_div(co2_ets[t], co2_all[t])
+    cov_all[t] = cov_ct['all', t] + cov_ets[t]
+    cpeff[t]   = cptraj[t] * cov_ct['all', t]
+    ecr[t]     = safe_div(rnet[t] + rnew['all', t] + rsr['all', t], co2_all[t])</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> sheet Mitigation, section 17 (<code>tcp</code>, <code>cpeff</code>, <code>covct</code>, <code>cov.ct</code>, <code>cov.ets</code>, <code>cov.all</code>, <code>ecr</code>); the shares call <code>SAFEDIV</code> and <code>SCALEBY</code> in the LAMBDA column.</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/emissions.py</code>, <code>carbon_pricing()</code> (equation A7.5); <code>covct</code> is computed with the report by instrument in <code>totals.revenues()</code>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Implicit carbon price:</strong> legacy’s “total carbon price” by fuel (F5d). Biomass is left out; legacy gives <code>#DIV/0!</code>.</li>
+<li><strong>Effective carbon rate</strong> (legacy row 16662), as legacy: VAT, the electricity subsidy gap and electricity VAT count. The OECD’s effective carbon rate counts carbon taxes, excises and permit prices only (issue I36).</li>
+<li><strong>Coverage</strong> shares as legacy rows 16152-16157; the effective carbon tax as legacy row 16137.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Check: results for Egypt">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Check: results for Egypt
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Implicit carbon price in 2022 (subsidies make it negative): gas −151, diesel −249, LPG −280, all fossil fuels −179 USD/tCO2. A carbon tax of 20 USD raises every fuel by about 20.</p>
+<p>Effective carbon rate 2022: −207 USD/tCO2 (legacy −122; the price data differ).</p>
+<p>Coverage of the carbon tax, carbon tax scenario, 2030: 99.8% of energy CO2 (legacy 98.8%), of which power 41%.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-fi-welfare" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="sec-fi-welfare"><span class="header-section-number">7.6</span> Welfare and externalities</h2>
+<p>Section 18 puts a money value on what the policy does to society. It values climate damages at the social cost of carbon, air pollution and road transport externalities with the inputs of the two co-benefit modules, and efficiency (deadweight) costs with the tax wedges. From the same building blocks it computes fossil fuel subsidies, explicit and implicit, and efficient prices. The methodology describes the framework in <a href="../CPAT_full_documentation_html/03_Mitigation.html#monetized-social-costs-and-benefits">section 3.7, Monetized social costs and benefits</a>.</p>
+<p>Results are in USD bn, real, unless stated.</p>
+<section id="sec-fi-scc" class="level3" data-number="7.6.1">
+<h3 data-number="7.6.1" class="anchored" data-anchor-id="sec-fi-scc"><span class="header-section-number">7.6.1</span> Social cost of carbon</h3>
+<p>The social cost of carbon (SCC) values a tonne of CO2. The model offers five paths and picks one for the national value and one for the global value (<a href="./A_Equations.html#eqlist-M1-6">M1.6</a>):</p>
+<p><span id="eq-fi-scc"><span class="math display">\[
+\begin{aligned}
+SCC^{tgt}_t &amp;= SCC^{*}\,(1 + g^{scc})^{\,t - T^{*}}\\
+SCC^{Rn}_t &amp;= SCC^{R}_{c}\,(1 + g^{scc})^{\,t - t_0}, \qquad SCC^{Rg}_t = SCC^{R}_{world}\,(1 + g^{scc})^{\,t - t_0}\\
+SCC^{EPA}_t &amp;= SCC^{EPA}\,(1 + g^{scc})^{\,t - t_0}\\
+SCC^{man}_t &amp;= \text{manual path}
+\end{aligned}
+\tag{7.39}\]</span></span></p>
+<p>where <span class="math inline">\(SCC^{R}_c\)</span> is the national value of Ricke et al.&nbsp;(2018) for the chosen pure rate of time preference and elasticity of marginal utility (sheet SCC, key <code>&lt;country&gt;.&lt;rate&gt;.&lt;elasticity&gt;</code>), <span class="math inline">\(SCC^{R}_{world}\)</span> the global value (key <code>wld.&lt;rate&gt;.&lt;elasticity&gt;</code>), and <span class="math inline">\(t_0\)</span> the base year. The national SCC (<span class="math inline">\(SCC^{nat}\)</span>, <code>scc.nat</code>) and the global SCC (<span class="math inline">\(SCC^{glo}\)</span>, <code>scc.glo</code>) take the path chosen by <code>NSCCSrc</code> and <code>GSCCSrc</code> (first letter: T, R, M, U or E).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Setting</th>
+<th>Code</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Target-consistent price <span class="math inline">\(SCC^{*}\)</span></td>
+<td><code>SCCTgt</code></td>
+<td>75 USD/tCO2, real</td>
+</tr>
+<tr class="even">
+<td>Its year <span class="math inline">\(T^{*}\)</span></td>
+<td><code>SCCTgtYr</code></td>
+<td>2030</td>
+</tr>
+<tr class="odd">
+<td>Real growth <span class="math inline">\(g^{scc}\)</span></td>
+<td><code>SCCGr</code></td>
+<td>4% a year</td>
+</tr>
+<tr class="even">
+<td>National and global SCC source</td>
+<td><code>NSCCSrc</code>, <code>GSCCSrc</code></td>
+<td>Target (choices: Target, Ricke, Manual, EPA)</td>
+</tr>
+<tr class="odd">
+<td>Ricke et al.&nbsp;(2018) settings</td>
+<td></td>
+<td>pure rate of time preference 2, elasticity 1.5</td>
+</tr>
+<tr class="even">
+<td>US EPA SCC in the base year</td>
+<td></td>
+<td>62 USD/tCO2</td>
+</tr>
+<tr class="odd">
+<td>Manual path</td>
+<td>Manual inputs row 237</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Climate cost per GJ</strong> of each fossil fuel, with the generic CO2 factor of the fuel (not calibrated):</p>
+<p><span id="eq-fi-cc"><span class="math display">\[
+cc^{nat}_f = SCC^{nat}\,EF_f, \qquad cc^{glo}_f = SCC^{glo}\,EF_f
+\tag{7.40}\]</span></span></p>
+<p>for coal, gas, other oil products, gasoline, diesel, LPG and kerosene, where <span class="math inline">\(EF_f\)</span> is the generic emission factor (tCO2/GJ) and <span class="math inline">\(cc\)</span> is in USD/GJ (<code>cc.nat</code>, <code>cc.glo</code>).</p>
+</section>
+<section id="sec-fi-climate" class="level3" data-number="7.6.2">
+<h3 data-number="7.6.2" class="anchored" data-anchor-id="sec-fi-climate"><span class="header-section-number">7.6.2</span> Climate damages</h3>
+<p>Climate damages are the SCC times GHG emissions excluding LULUCF (<a href="06_Emissions_and_ETS.html" class="quarto-xref"><span>Chapter 6</span></a>); the welfare gain is the damage avoided against the baseline:</p>
+<p><span id="eq-fi-dmg"><span class="math display">\[
+D^{x} = \frac{SCC^{x}\;GHG}{M}, \qquad W^{cli,x} = D^{x,B} - D^{x}, \qquad x \in \{nat, glo\}
+\tag{7.41}\]</span></span></p>
+<p>where <span class="math inline">\(GHG\)</span> is in Mt CO2e, <span class="math inline">\(D\)</span> the climate damage (<code>dmg.nat</code>, <code>dmg.glo</code>) and <span class="math inline">\(W^{cli}\)</span> the damage avoided (<code>wcli.nat</code>, <code>wcli.glo</code>), USD bn.</p>
+</section>
+<section id="sec-fi-efficiency" class="level3" data-number="7.6.3">
+<h3 data-number="7.6.3" class="anchored" data-anchor-id="sec-fi-efficiency"><span class="header-section-number">7.6.3</span> Efficiency costs</h3>
+<p>A tax or subsidy drives a wedge between what users pay and what supply costs. When a policy changes fuel use, the welfare cost is the wedge times the change in use: a Harberger triangle plus, with a prior tax, a rectangle (<a href="../CPAT_full_documentation_html/03_Mitigation.html#efficiency-costs-in-cpat">methodology 3.7.1.3</a>). The model takes the average of the wedges of the scenario and the baseline (a trapezoid).</p>
+<p><strong>The wedge</strong> is revenue net of subsidies per unit of use:</p>
+<p><span id="eq-fi-wdg"><span class="math display">\[
+w_f = \frac{rfu_f + rfg_f}{F_f}, \qquad w_{ecy} = \frac{rfu_{ecy}}{F_{ecy}}
+\tag{7.42}\]</span></span></p>
+<p>where <span class="math inline">\(F_f\)</span> is total use of the fuel (<code>ener</code>, section 11), <span class="math inline">\(F_{ecy}\)</span> electricity demand (<code>eldem</code>), both ktoe, <span class="math inline">\(rfg\)</span> applies to coal, gas, other oil products and biomass, and <span class="math inline">\(w\)</span> is in USD million per ktoe (<code>wdg</code>; 0 where use is 0).</p>
+<p><strong>The efficiency cost</strong> of each fuel (biomass and the power fuels included) and of electricity:</p>
+<p><span id="eq-fi-eff"><span class="math display">\[
+EC_f = -\,\frac{w_f + w^{B}_f}{2}\;\frac{\Delta F_f}{M}, \qquad EC = \sum_f EC_f + EC_{ecy}
+\tag{7.43}\]</span></span></p>
+<p>where <span class="math inline">\(\Delta F_f\)</span> is the change in use against the baseline (<code>echg</code>; electricity: <code>eldem</code> − <code>eldem</code><span class="math inline">\(^B\)</span>) and <span class="math inline">\(EC\)</span> is the efficiency cost (<code>eff</code>), USD bn: positive is a cost. With subsidies (negative wedges), a fall in use is a gain.</p>
+<p><strong>Efficiency cost of the methane fee.</strong> For each methane source <span class="math inline">\(j\)</span> (oil and gas upstream, downstream gas, coal mines, biomass, livestock, rice, waste), the abatement curve gives the abated share <span class="math inline">\(a_j\,p^{b_j}\)</span> at a fee <span class="math inline">\(p\)</span> per tonne of CH4. The fee used on the curve is capped where abatement reaches 1:</p>
+<p><span id="eq-fi-mfp"><span class="math display">\[
+p^{mf}_j = \begin{cases} 0 &amp; a_j = 0\\ \min\!\left(m\,GWP_j\,\delta^{mf}_j,\ a_j^{-1/b_j}\right) &amp; \text{otherwise}\end{cases}
+\tag{7.44}\]</span></span></p>
+<p><span id="eq-fi-mfc"><span class="math display">\[
+MC_j = E^{0}_j\,\frac{Act_j}{Act^{0}_j}\;abt_j\;p^{mf}_j\;\frac{b_j}{1+b_j}\;\frac{1}{10^{6}}, \qquad MC = \sum_j MC_j
+\tag{7.45}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(m\)</span> is the methane fee (<code>mfee</code>), USD/tCO2e, <span class="math inline">\(GWP_j\)</span> the global warming potential and <span class="math inline">\(\delta^{mf}_j\)</span> 1 if the fee applies to the source;</li>
+<li><span class="math inline">\(a_j\)</span>, <span class="math inline">\(b_j\)</span> are the parameters of the abatement curve (country, else average); where <span class="math inline">\(b_j = 0\)</span> or the cap overflows, there is no cap;</li>
+<li><span class="math inline">\(E^{0}_j\)</span> is the source’s emissions in the inventory year (kt CH4), <span class="math inline">\(Act_j / Act^{0}_j\)</span> its activity against the base year, and <span class="math inline">\(abt_j\)</span> its abated share (<a href="06_Emissions_and_ETS.html" class="quarto-xref"><span>Chapter 6</span></a>);</li>
+<li><span class="math inline">\(p^{mf}_j\)</span> is <code>mfp</code> (USD/tCH4) and <span class="math inline">\(MC\)</span> the methane fee cost (<code>mfc</code>), USD bn: the area under the abatement curve.</li>
+</ul>
+</section>
+<section id="sec-fi-airpol" class="level3" data-number="7.6.4">
+<h3 data-number="7.6.4" class="anchored" data-anchor-id="sec-fi-airpol"><span class="header-section-number">7.6.4</span> Air pollution costs</h3>
+<p>The air pollution module provides two things (<a href="06_Emissions_and_ETS.html" class="quarto-xref"><span>Chapter 6</span></a> gives the pollutant emissions it reads): the marginal damage of each fuel in each subsector, and the value of a change in modelled PM2.5 concentration (<a href="./A_Equations.html#eqlist-A8-3">A8.3</a>). The methodology describes the economic valuation in <a href="../CPAT_full_documentation_html/06_Air_pollution.html#sec-eco_ap">chapter 6, section 6.7</a>.</p>
+<p><strong>Cost per unit of fuel, by price code.</strong> The marginal damage per GJ of each subsector (<code>airpol.mc</code>, computed before the year loop with the Pigouvian taxes, <a href="./A_Equations.html#eqlist-A1-2">A1.2</a>) is averaged over the subsectors of the price code, weighted by the scenario’s own fuel use of the year:</p>
+<p><span id="eq-fi-apc"><span class="math display">\[
+ap_{c} = u_c\;\frac{\sum_{s \in c} mc^{ap}_{s,f}\,F_{s,f}}{\sum_{s \in c} F_{s,f}}
+\quad \Big(\text{the plain average where } \textstyle\sum_{s \in c} F_{s,f} = 0\Big)
+\tag{7.46}\]</span></span></p>
+<p>where <span class="math inline">\(u_c\)</span> is the GJ per price unit (litres for gasoline, diesel, LPG and kerosene; 1 for coal, gas and other oil products, which are in USD/GJ) and <span class="math inline">\(ap_c\)</span> is <code>airpol.cost</code>. The price codes are coal and gas for industry, residential (buildings subsectors) and power (the plant’s own value), the four road and household oil products over all oil-using subsectors, and other oil products for power and industry. Per GJ, <span class="math inline">\(ap^{gj}_c = ap_c / u_c\)</span> (<code>airpol.cost.gj</code>). Residential coal counts only where buildings’ coal use exceeds <code>ApCoalResMin</code> (0.1%) of buildings’ total fuel use.</p>
+<p><strong>Averages for other uses</strong> (block 18), weighted by the use of the year (<code>apq</code>): coal and gas “other” average industry, residential (buildings use) and power (power fuel use); “other oil and diesel” (<code>odo</code>) averages diesel in transport and other oil products in power and industry (0 where all three are 0); <code>oop.avg</code> averages other oil products in power and industry.</p>
+<p><strong>Air pollution cost of electricity</strong> (memo), USD/kWh:</p>
+<p><span id="eq-fi-apecy"><span class="math display">\[
+ap_{ecy} = \frac{\sum_{k \in \{coal, gas, oil\}} ap^{gj}_{pow,k}\;PE_k\;\theta}{G^{tot}\,H}
+\tag{7.47}\]</span></span></p>
+<p><strong>Modelled PM2.5 concentration</strong> by module source <span class="math inline">\(m\)</span> (coal, gas and other power plants, road, ground level, other, food), from the pollutant emissions of section 15:</p>
+<p><span id="eq-fi-pm"><span class="math display">\[
+PM_m = 1000 \sum_p AP_{m,p}\;\kappa_{m,p}, \qquad PM = \sum_m PM_m
+\tag{7.48}\]</span></span></p>
+<p>where <span class="math inline">\(AP_{m,p}\)</span> is the emission of pollutant <span class="math inline">\(p\)</span> by source <span class="math inline">\(m\)</span> (<code>aps</code>), kt, <span class="math inline">\(\kappa_{m,p}\)</span> the module’s concentration coefficient (µg/m³ per t; NOx, SO2, BC, POM, other PM, VOC, CH4, CO, PM2.5, OC) and <span class="math inline">\(PM\)</span> the modelled ambient PM2.5 (<code>air.con.pm2.mod</code>), µg/m³.</p>
+</section>
+<section id="sec-fi-roadext" class="level3" data-number="7.6.5">
+<h3 data-number="7.6.5" class="anchored" data-anchor-id="sec-fi-roadext"><span class="header-section-number">7.6.5</span> Road transport externalities</h3>
+<p>The transport co-benefits module gives the cost of accidents, congestion and road damage per vehicle-km. The model turns them into a cost per litre (or kWh) of road fuel, using the road engineer model (<a href="05_Road_transport.html" class="quarto-xref"><span>Chapter 5</span></a>) for fuel economy and the split between passenger and freight use (<a href="./A_Equations.html#eqlist-A8-4">A8.4</a>). The methodology describes these costs in <a href="../CPAT_full_documentation_html/07_Road_Transport.html#sec-extcost">chapter 7, section 7.7.5</a>.</p>
+<p>A change in fuel use comes partly from driving less and partly from more efficient vehicles. Only the driving part changes the externalities. Its share, for road fuel <span class="math inline">\(f\)</span> (gasoline, diesel, LPG, gas, electricity), is:</p>
+<p><span id="eq-fi-mrg"><span class="math display">\[
+w_f = 1 - \frac{Q^{fre,B}_f}{Q^{cls,B}_f} \;(w_{gso} = 1), \qquad
+\mu_f = \frac{\epsilon^{U}_{die} + w_f\,(\epsilon^{U}_{gso} - \epsilon^{U}_{die})}
+{\epsilon^{U}_{die} + \epsilon^{F}_{die} + w_f\,(\epsilon^{U}_{gso} + \epsilon^{F}_{gso} - \epsilon^{U}_{die} - \epsilon^{F}_{die})}
+\tag{7.49}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(Q^{cls}_f\)</span> is the road fuel use of the vehicle classes of the fuel (<code>tran.cls</code>: passenger and freight; gasoline: passenger and two-three wheelers; electricity: all three), bn litres or kWh, and <span class="math inline">\(Q^{fre}_f\)</span> its freight part;</li>
+<li><span class="math inline">\(w_f\)</span> is the passenger weight of the fuel in the baseline (<code>tran.wcl</code>);</li>
+<li><span class="math inline">\(\epsilon^{U}\)</span>, <span class="math inline">\(\epsilon^{F}\)</span> are the road usage and efficiency elasticities of gasoline and diesel;</li>
+<li><span class="math inline">\(\mu_f\)</span> is the driving share of the response (<code>tran.mrg</code>), 0 where the baseline class use is 0.</li>
+</ul>
+<p>The cost per unit of fuel, for each kind of externality:</p>
+<p><span id="eq-fi-trcost"><span class="math display">\[
+\begin{aligned}
+acc_f &amp;= a^{km}\;\overline{fe}_f\;\mu_f\;\rho_f &amp;&amp; \text{accidents }(\texttt{tran.acc.cost})\\
+con_f &amp;= k^{km}\;\overline{fe}_f\;\mu_f\;\rho_f &amp;&amp; \text{congestion }(\texttt{tran.con.cost})\\
+rdm_f &amp;= r^{km}\;\overline{fe}_f\;\mu_f\;\phi_f\;\rho_f &amp;&amp; \text{road damage, not gasoline }(\texttt{tran.rdm.cost})
+\end{aligned}
+\tag{7.50}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(a^{km}\)</span>, <span class="math inline">\(k^{km}\)</span>, <span class="math inline">\(r^{km}\)</span> are the accident, congestion and road-damage costs per vehicle-km of the module (<code>tran.acc.km</code>, <code>tran.con.km</code>, <code>tran.rdm.km</code>), USD/km; road damage is per freight vehicle-km;</li>
+<li><span class="math inline">\(\overline{fe}_f\)</span> is the average fuel economy of the stock (<code>trafg</code>, <code>trafo</code>, <code>trafe</code>), km per litre or kWh;</li>
+<li><span class="math inline">\(\phi_f = Q^{fre}_f / Q^{cls}_f\)</span> is the freight share of the scenario (<code>tran.fsh</code>);</li>
+<li><span class="math inline">\(\rho_f\)</span> is the road share of the fuel’s total use (<code>tran.rsh</code>; electricity: road demand over total demand);</li>
+<li>the costs are in USD per litre (USD per kWh for electricity).</li>
+</ul>
+<p>Per GJ, for gasoline, diesel and LPG, divide by the GJ per litre (<code>tran.acc.gj</code>, <code>tran.con.gj</code>, <code>tran.rdm.gj</code>). The <strong>total road externality excluding climate</strong>, USD/GJ (<code>tot.ext</code>):</p>
+<p><span id="eq-fi-totext"><span class="math display">\[
+ext_{gso} = ap^{gj}_{gso} + acc^{gj}_{gso} + con^{gj}_{gso}, \qquad
+ext_{die} = ap^{gj}_{die} + acc^{gj}_{die} + con^{gj}_{die} + rdm^{gj}_{die}
+\tag{7.51}\]</span></span></p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: air pollution and road transport externalities">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: air pollution and road transport externalities
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>for t in years:
+    # air pollution cost per unit, weighted by this year's fuel use
+    # cost rows: coal, gas x ind, res, pow; gso, die, lpg, ker; oop x pow, ind
+    for (S, f, subsectors) in cost_rows:
+        u = gj_per_unit[f] if S == 'all' else 1.0
+        if subsectors is None:                           # power: the plant's own value
+            cost = airpol_mc['pow', f, t]
+        else:
+            w = sum(ener[f, s, t] for s in subsectors)
+            if w &gt; 0:
+                cost = sum(airpol_mc[s, f, t] * ener[f, s, t] for s in subsectors) / w
+            else:
+                cost = mean(airpol_mc[s, f, t] for s in subsectors)
+        airpol_cost[S, f, t] = cost * u
+        airpol_cost_gj[S, f, t] = cost
+    coal_res_on = fuq['bld', 'coa', t] &gt; ApCoalResMin * ener['bld', 'all', t]
+    airpol_cost_gj['res', 'coa', t] *= coal_res_on
+    for m in sources:                           # cpp, gpp, opp, rod, gro, oth, foo
+        pm2[m, t] = sum(aps[m, p, t] * kappa[m, p] for p in pollutants) * T_PER_KT
+    pm2['mod', t] = sum(pm2[m, t] for m in sources)
+
+    # road transport externalities per unit of fuel
+    for f in ['gso', 'die', 'lpg', 'nga', 'ecy']:
+        cls0, fre0 = baseline.class_use[f, t], baseline.freight_use[f, t]
+        wcl = 1.0 if f == 'gso' else 1 - safe_div(fre0, cls0)
+        num = eU['die'] + wcl * (eU['gso'] - eU['die'])
+        den = eU['die'] + eF['die'] \
+              + wcl * (eU['gso'] + eF['gso'] - eU['die'] - eF['die'])
+        mrg = 0.0 if cls0 == 0 else num / den
+        fsh = safe_div(freight_use[f, t], class_use[f, t])
+        acc_cost[f, t] = acc_km[t] * avg_fe[f, t] * mrg * road_share[f, t]
+        con_cost[f, t] = con_km[t] * avg_fe[f, t] * mrg * road_share[f, t]
+        if f != 'gso':
+            rdm_cost[f, t] = rdm_km[t] * avg_fe[f, t] * mrg * fsh * road_share[f, t]
+    tot_ext['gso', t] = airpol_cost_gj['all', 'gso', t] \
+                        + (acc_cost['gso', t] + con_cost['gso', t]) / gj['gso']
+    tot_ext['die', t] = airpol_cost_gj['all', 'die', t] \
+                        + (acc_cost['die', t] + con_cost['die', t]
+                           + rdm_cost['die', t]) / gj['die']</code></pre>
+</div>
+</div>
+</section>
+<section id="sec-fi-welfare-gains" class="level3" data-number="7.6.6">
+<h3 data-number="7.6.6" class="anchored" data-anchor-id="sec-fi-welfare-gains"><span class="header-section-number">7.6.6</span> Welfare gains</h3>
+<p>The national welfare gain adds the climate damages avoided at the national SCC, the air pollution and road transport co-benefits, and subtracts the efficiency costs (<a href="./A_Equations.html#eqlist-A8-5">A8.5</a>, <a href="../CPAT_full_documentation_html/03_Mitigation.html#monetized-welfare-benefits">methodology 3.7.3</a>).</p>
+<p><strong>Air pollution.</strong> The value of a change in modelled PM2.5:</p>
+<p><span id="eq-fi-welair"><span class="math display">\[
+W^{air} = v^{PM}\,\left(PM^{B} - PM\right)
+\tag{7.52}\]</span></span></p>
+<p>where <span class="math inline">\(v^{PM}\)</span> is the value of averted modelled ambient PM2.5 (<code>air.vpm</code>), USD bn per µg/m³, from the air pollution module.</p>
+<p><strong>Road transport.</strong> The per-km costs times the change in vehicle-km of the road engineer model:</p>
+<p><span id="eq-fi-welrod"><span class="math display">\[
+W^{acc} = a^{km}\,(VKT^{B} - VKT), \qquad W^{con} = k^{km}\,(VKT^{B} - VKT), \qquad W^{rdm} = r^{km}\,(VKT^{fre,B} - VKT^{fre})
+\tag{7.53}\]</span></span></p>
+<p>where <span class="math inline">\(VKT\)</span> is total road vehicle-km (<code>trkmt</code>) and <span class="math inline">\(VKT^{fre}\)</span> freight vehicle-km (<code>trkmf</code>), bn km, from the road engineer model whatever road model is selected (<a href="05_Road_transport.html" class="quarto-xref"><span>Chapter 5</span></a>).</p>
+<p><strong>National welfare gain</strong>, the summary row of section 18:</p>
+<p><span id="eq-fi-wel"><span class="math display">\[
+W = W^{cli,nat} + W^{air} + W^{acc} + W^{con} + W^{rdm} - EC - MC
+\tag{7.54}\]</span></span></p>
+<p>and its parts as shares of baseline real GDP:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Row</th>
+<th>Content</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>wel.usd</code></td>
+<td>National welfare gain, USD bn</td>
+<td><a href="#eq-fi-wel" class="quarto-xref">Equation&nbsp;<span>7.54</span></a></td>
+</tr>
+<tr class="even">
+<td><code>wel.pct</code></td>
+<td>Same, share of GDP</td>
+<td><span class="math inline">\(W / Y^{0}\)</span></td>
+</tr>
+<tr class="odd">
+<td><code>wel.cli</code></td>
+<td>Climate, share of GDP</td>
+<td><span class="math inline">\(W^{cli,nat} / Y^{0}\)</span></td>
+</tr>
+<tr class="even">
+<td><code>wel.air.usd</code>, <code>wel.air.pct</code></td>
+<td>Air pollution</td>
+<td><a href="#eq-fi-welair" class="quarto-xref">Equation&nbsp;<span>7.52</span></a>; <span class="math inline">\(W^{air} / Y^{0}\)</span></td>
+</tr>
+<tr class="odd">
+<td><code>wel.rod.aci</code>, <code>.con</code>, <code>.dmg</code>; <code>wel.rod.pct</code></td>
+<td>Accidents, congestion, road damage</td>
+<td><a href="#eq-fi-welrod" class="quarto-xref">Equation&nbsp;<span>7.53</span></a>; their sum over <span class="math inline">\(Y^{0}\)</span></td>
+</tr>
+<tr class="even">
+<td><code>wel.eff</code></td>
+<td>Efficiency costs, share of GDP</td>
+<td><span class="math inline">\((EC + MC) / Y^{0}\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: climate damages, efficiency costs and welfare">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: climate damages, efficiency costs and welfare
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>for t in years:
+    for x in ['nat', 'glo']:
+        dmg[x, t]  = scc[x, t] * ghg_excl_lulucf[t] / M_PER_BN
+        wcli[x, t] = baseline.dmg[x, t] - dmg[x, t]
+
+    for f in ['coa', 'nga', 'gso', 'die', 'lpg', 'ker', 'jfu', 'oop', 'bio']:
+        tax = rfu[f, t] + (rfg[f, t] if f in ('coa', 'nga', 'oop', 'bio') else 0.0)
+        wdg[f, t] = safe_div(tax, ener['all', f, t])
+        eff[f, t] = -(wdg[f, t] + baseline.wdg[f, t]) / 2 * echg[f, t] / M_PER_BN
+    wdg['ecy', t] = safe_div(rfu['ecy', t], eldem[t])
+    d_ecy = eldem[t] - baseline.eldem[t]
+    eff['ecy', t] = -(wdg['ecy', t] + baseline.wdg['ecy', t]) / 2 * d_ecy / M_PER_BN
+    eff_all = sum(eff[f, t] for f in fuels + ['ecy'])
+
+    for j in methane_sources:
+        fee = mfee[t] * gwp[j] * fee_applies[j]
+        cap = a[j] ** (-1 / b[j]) if b[j] != 0 else fee     # no cap where b = 0
+        mfp[j, t] = 0.0 if a[j] == 0 else min(fee, cap)
+        unabated = safe_div(em0[j] * ch4_act[j, t], act0[j])
+        mfc[j, t] = unabated * ch4_abt[j, t] * mfp[j, t] * b[j] / (1 + b[j]) / MILLION
+    mfc_all = sum(mfc[j, t] for j in methane_sources)
+
+    wel_air = air_vpm[t] * (baseline.pm2['mod', t] - pm2['mod', t])
+    dkm = baseline.trkmt[t] - trkmt[t]
+    dkm_fre = baseline.trkmf[t] - trkmf[t]
+    wel_rod = acc_km[t] * dkm + con_km[t] * dkm + rdm_km[t] * dkm_fre
+    wel_usd[t] = wcli['nat', t] + wel_air + wel_rod - eff_all - mfc_all
+    wel_pct[t] = safe_div(wel_usd[t], gdp_usd[t])</code></pre>
+</div>
+</div>
+</section>
+<section id="sec-fi-ffs" class="level3" data-number="7.6.7">
+<h3 data-number="7.6.7" class="anchored" data-anchor-id="sec-fi-ffs"><span class="header-section-number">7.6.7</span> Benefits of fossil fuel subsidy reform</h3>
+<p>A second welfare measure, kept separate from the national welfare gain, values the environmental gain of the change in fossil fuel use at the global climate cost plus the local costs (a Harberger rectangle, <a href="../CPAT_full_documentation_html/03_Mitigation.html#co-benefits">methodology 3.7.1.4</a>). For each of 16 lines <span class="math inline">\(j\)</span>:</p>
+<p><span id="eq-fi-ffs"><span class="math display">\[
+B^{ffs}_j = -\left(cc^{glo}_{f(j)} + ext_j\right)\;\Delta q_j\;\frac{\theta}{M}, \qquad
+W^{ffs} = \sum_j B^{ffs}_j - EC - MC
+\tag{7.55}\]</span></span></p>
+<p>where <span class="math inline">\(q_j\)</span> is the fuel use of the line (<code>ffs.q</code>), ktoe, <span class="math inline">\(ext_j\)</span> its local external cost per GJ, and <span class="math inline">\(B^{ffs}_j\)</span> is <code>env.ffs.cost</code> (USD bn); <span class="math inline">\(W^{ffs}\)</span> is <code>wel.ffs</code>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Line</th>
+<th>Quantity <span class="math inline">\(q_j\)</span></th>
+<th>Climate fuel</th>
+<th>Local cost <span class="math inline">\(ext_j\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>coal, gas × industry</td>
+<td>industry use</td>
+<td>coal, gas</td>
+<td><code>airpol.cost.gj</code> industry</td>
+</tr>
+<tr class="even">
+<td>coal, gas × residential</td>
+<td>buildings use</td>
+<td>coal, gas</td>
+<td><code>airpol.cost.gj</code> residential</td>
+</tr>
+<tr class="odd">
+<td>coal, gas × power</td>
+<td>power fuel use</td>
+<td>coal, gas</td>
+<td><code>airpol.cost.gj</code> power</td>
+</tr>
+<tr class="even">
+<td>gasoline, road</td>
+<td>transport use</td>
+<td>gasoline</td>
+<td><code>tot.ext</code> gasoline</td>
+</tr>
+<tr class="odd">
+<td>diesel, road</td>
+<td>transport use</td>
+<td>diesel</td>
+<td><code>tot.ext</code> diesel</td>
+</tr>
+<tr class="even">
+<td>LPG</td>
+<td>total use</td>
+<td>LPG</td>
+<td><code>airpol.cost.gj</code> LPG</td>
+</tr>
+<tr class="odd">
+<td>kerosene</td>
+<td>total use of kerosene and jet fuel</td>
+<td>kerosene</td>
+<td><code>airpol.cost.gj</code> kerosene</td>
+</tr>
+<tr class="even">
+<td>other oil, power</td>
+<td>power fuel use</td>
+<td>other oil</td>
+<td><code>airpol.cost.gj</code> other oil, power</td>
+</tr>
+<tr class="odd">
+<td>other oil, industry</td>
+<td>industry use of other oil and diesel</td>
+<td>other oil</td>
+<td><code>airpol.cost.gj</code> other oil, industry</td>
+</tr>
+<tr class="even">
+<td>coal, gas, other</td>
+<td>transport and other energy use</td>
+<td>coal, gas</td>
+<td><code>airpol.cost.gj</code> “other” average</td>
+</tr>
+<tr class="odd">
+<td>gasoline, other</td>
+<td>total use less transport</td>
+<td>gasoline</td>
+<td><code>airpol.cost.gj</code> gasoline</td>
+</tr>
+<tr class="even">
+<td>diesel, other</td>
+<td>diesel in buildings and other energy, other oil in transport, buildings and other energy</td>
+<td>other oil</td>
+<td><code>airpol.cost.gj</code> <code>odo</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sec-fi-subsidies" class="level3" data-number="7.6.8">
+<h3 data-number="7.6.8" class="anchored" data-anchor-id="sec-fi-subsidies"><span class="header-section-number">7.6.8</span> Fossil fuel subsidies</h3>
+<p>Explicit subsidies are the gap between the supply cost and the retail price, where users pay less than supply costs. Implicit subsidies are the further gap up to the efficient price: the supply cost plus external costs plus the VAT consumers would pay on both (<a href="./A_Equations.html#eqlist-A8-6">A8.6</a>). They are computed for 16 lines <span class="math inline">\(j\)</span>: gasoline, diesel, LPG, kerosene and other oil products; gas and coal for industry, residential, power and “other”; electricity for industry, residential and “other”.</p>
+<p><span id="eq-fi-effprice"><span class="math display">\[
+p^{*}_j = sc_j + ext_j + vat_j, \qquad vat_j = (sc_j + ext_j)\;\eta_j\;\bar{v}_t
+\tag{7.56}\]</span></span></p>
+<p><span id="eq-fi-subs"><span class="math display">\[
+S^{exp}_j = \max(0,\ sc_j - p_j)\;\frac{Q_j}{M}, \qquad
+S^{imp}_j = \mathbb{1}[p_j \le p^{*}_j]\;\left(p^{*}_j - \max(p_j, sc_j)\right)\frac{Q_j}{M}
+\tag{7.57}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(sc_j\)</span> is the supply cost of the scenario (<code>supcost</code>: <code>sp</code>; electricity <code>spe</code>), USD/GJ or USD/kWh;</li>
+<li><span class="math inline">\(ext_j\)</span> is the external cost (<code>extcost</code>): global climate cost plus <code>tot.ext</code> for gasoline and diesel; plus the air pollution cost for LPG, kerosene, other oil products (the <code>oop.avg</code> average) and coal and gas lines; 0 for electricity;</li>
+<li><span class="math inline">\(\eta_j\)</span> is the VAT base flag: the household share of the oil product for gasoline, diesel, LPG and kerosene, 1 for residential lines, 0 for other oil products, industry and power;</li>
+<li><span class="math inline">\(\bar{v}_t\)</span> is the general VAT rate of the year (<code>vatgen</code>): the WEO VAT rate up to the last historical price year, then held;</li>
+<li><span class="math inline">\(p_j\)</span> is the retail price of the scenario (<code>rpsub</code>: <code>rpn</code>; electricity <code>rp</code>);</li>
+<li><span class="math inline">\(Q_j\)</span> is consumption (<code>con</code>), PJ (GWh for electricity): total use for oil products (kerosene with jet fuel), sector use for coal and gas (residential = buildings; power = power fuel use; other = transport and other energy use), electricity demand of industry, buildings, and transport with other energy use;</li>
+<li>the “other” lines of coal, gas and electricity take the consumption-weighted averages of <span class="math inline">\(sc\)</span>, <span class="math inline">\(ext\)</span>, <span class="math inline">\(vat\)</span> and <span class="math inline">\(p\)</span> of the lines above them (the plain average where consumption is 0);</li>
+<li><span class="math inline">\(S^{exp}\)</span>, <span class="math inline">\(S^{imp}\)</span> are the explicit and implicit subsidies (<code>expsub.con</code>, <code>impsub.con</code>), USD bn; their totals are also given as shares of GDP (<code>expsubgdp.con</code>, <code>impsubgdp.con</code>).</li>
+</ul>
+</section>
+<section id="sec-fi-efficient" class="level3" data-number="7.6.9">
+<h3 data-number="7.6.9" class="anchored" data-anchor-id="sec-fi-efficient"><span class="header-section-number">7.6.9</span> Efficient prices</h3>
+<p>The efficient price of a fuel is what it would cost with every externality priced: the supply cost, the Pigouvian taxes (air pollution, climate, road transport) and VAT. The tax gap compares it with the retail price (<a href="../CPAT_full_documentation_html/03_Mitigation.html#energy-externalities-costs">methodology 3.7.2</a>). It is computed per price unit (USD per litre for oil products, USD/GJ for coal and gas, USD/kWh for electricity) for 12 price codes <span class="math inline">\(c\)</span>: gasoline, diesel, LPG, kerosene; coal and gas for industry, residential and power; electricity for industry and residential.</p>
+<p><span id="eq-fi-pig"><span class="math display">\[
+pig_c = ap_c + cd_c + acc_c + con_c + rdm_c
+\tag{7.58}\]</span></span></p>
+<p><span id="eq-fi-effp"><span class="math display">\[
+p^{eff}_c = sc^{B}_c\,u_c + pig_c + \left(sc^{B}_c\,u_c + \chi\,pig_c\right)\eta_c\,\bar{v}_t, \qquad
+tg_c = p_c\,u_c - p^{eff}_c
+\tag{7.59}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(ap_c\)</span> is the air pollution cost (<code>airpol.cost.s</code>): <code>airpol.cost</code> for oil products, <code>airpol.cost.gj</code> for coal and gas, and for electricity the baseline value of the generation-weighted cost <span class="math inline">\(\sum_k ap^{gj}_{pow,k} G_k / G^{tot}\)</span> converted to USD/kWh (<code>airpol.ecy.g</code>);</li>
+<li><span class="math inline">\(cd_c\)</span> is the climate damage per unit at the national SCC (<code>scc.cost</code> = <code>cc.code</code> = <span class="math inline">\(SCC^{nat}\,EF_c\,u_c\)</span>), 0 for electricity;</li>
+<li><span class="math inline">\(acc_c\)</span>, <span class="math inline">\(con_c\)</span> (gasoline and diesel) and <span class="math inline">\(rdm_c\)</span> (diesel) are the road externalities per litre of the scenario (<a href="#eq-fi-trcost" class="quarto-xref">Equation&nbsp;<span>7.50</span></a>); 0 for other codes;</li>
+<li><span class="math inline">\(sc^{B}_c\)</span> is the baseline supply cost per GJ (electricity per kWh), <span class="math inline">\(u_c\)</span> the GJ per price unit;</li>
+<li><span class="math inline">\(\chi\)</span> is 1 if <code>ExternalityAddVAT</code> = Yes (externalities are part of the VAT base), else 0; <span class="math inline">\(\eta_c\)</span> is 1 for consumer codes (oil products and residential), else 0;</li>
+<li><span class="math inline">\(p_c\)</span> is the retail price of the scenario (<code>rpn</code>; electricity <code>rp</code>), so <span class="math inline">\(p_c u_c\)</span> is <code>rp.eff</code>;</li>
+<li><span class="math inline">\(pig_c\)</span> is the Pigouvian tax (<code>pig</code>), <span class="math inline">\(p^{eff}_c\)</span> the efficient price (<code>eff.price</code>; its VAT part is <code>vat.cost</code>) and <span class="math inline">\(tg_c\)</span> the tax gap (<code>tgap</code>).</li>
+</ul>
+<p><strong>Per tonne of CO2.</strong> The Pigouvian tax and its air pollution part are also expressed per tonne of CO2, and the baseline excise likewise:</p>
+<p><span id="eq-fi-pigco2"><span class="math display">\[
+pig^{CO2}_c = pig_c\,\frac{SCC^{glo}}{cd_c}, \qquad app_c = pig^{CO2}_c\,\frac{ap_c}{pig_c}, \qquad
+txo^{CO2}_c = txo^{B}_c\,u_c\,\frac{SCC^{glo}}{cd_c}
+\tag{7.60}\]</span></span></p>
+<p>each 0 where its denominator is 0 (and <span class="math inline">\(txo^{CO2} = 0\)</span> for electricity). The averages <code>pig.co2e.avg</code> and <code>app.avg</code> weight the ten fossil codes by fuel use (<code>effp.q</code>: total use for oil products, kerosene with jet fuel; industry, buildings and power use for coal and gas).</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: fossil fuel subsidies and efficient prices">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: fossil fuel subsidies and efficient prices
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>for t in years:
+    vatgen[t] = VAT_WEO[min(t, LastHistPriceYear)]
+    # subsidies, 16 lines
+    for (s, f) in sub_lines_without_other:
+        supcost[s, f] = spe[s, t] if f == 'ecy' else sp[s, f, t]
+        extcost[s, f] = 0.0 if f == 'ecy' else cc_glo[f, t] + local_cost(s, f)
+        vatext[s, f]  = (supcost[s, f] + extcost[s, f]) * vat_base(s, f) * vatgen[t]
+        effprice[s, f] = supcost[s, f] + extcost[s, f] + vatext[s, f]
+        rpsub[s, f]   = rp[s, t] if f == 'ecy' else rpn[s, f, t]
+    for f in ['nga', 'coa', 'ecy']:             # 'oth' lines: weighted by consumption
+        for var in [supcost, extcost, vatext, effprice, rpsub]:
+            var['oth', f] = weighted_mean([var[s, f] for s in sectors_of(f)],
+                                          weights=[con[s, f] for s in sectors_of(f)])
+    for j in sub_lines:
+        expsub[j] = max(0, supcost[j] - rpsub[j]) * con[j] / M_PER_BN
+        gap = effprice[j] - max(rpsub[j], supcost[j])
+        impsub[j] = (rpsub[j] &lt;= effprice[j]) * gap * con[j] / M_PER_BN
+    expsubgdp[t] = sum(expsub.values()) / gdp_usd[t]
+    impsubgdp[t] = sum(impsub.values()) / gdp_usd[t]
+
+    # efficient prices, 12 price codes, per price unit
+    for c in price_codes:
+        u = 1.0 if c.fuel == 'ecy' else gj_per_unit[c]
+        sup = baseline.supply_cost[c, t] * u
+        pig = airpol_cost_s[c, t] + scc_cost[c, t] + acc[c, t] + con[c, t] + rdm[c, t]
+        vat = (sup + pig * (ExternalityAddVAT == 'Yes')) * consumer[c] * vatgen[t]
+        eff_price[c, t] = sup + pig + vat
+        tgap[c, t] = retail_price[c, t] * u - eff_price[c, t]
+        pig_co2e[c, t] = safe_div(pig * scc_glo[t], scc_cost[c, t])
+        app[c, t] = safe_div(pig_co2e[c, t] * airpol_cost_s[c, t], pig)</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> sheet Mitigation. The SCC rows and <code>cc.code</code> are in section 1 (with the Pigouvian taxes); the settings <code>SCCTgt</code>, <code>SCCTgtYr</code>, <code>SCCGr</code>, <code>NSCCSrc</code>, <code>GSCCSrc</code> and the Ricke and EPA settings are on the settings rows of the scenario (legacy rows 17671-17677); the Ricke values on sheet SCC; the manual path on sheet Manual inputs, row 237. Section 17b holds the inputs from the co-benefit modules (<code>airpol.cost</code>, <code>fus</code>, <code>airpol.cost.gj</code>, <code>fuq</code>, <code>air.con.pm2</code>, <code>air.vpm</code>, <code>tran.*</code>), typed for Egypt on the tabs FromAirPollution and FromTransportCB (other countries 0). Section 18 holds the rest: <code>dmg</code>, <code>wcli</code>, <code>wdg</code>, <code>eff</code> (LAMBDA <code>TRAPEZOID</code>), <code>mfp</code> (<code>MFEEPRICE</code>), <code>mfc</code> (<code>MFEECOST</code>), <code>cc.nat</code>, <code>cc.glo</code>, <code>airpol.ecy</code>, <code>apq</code>, <code>tot.ext</code>, <code>wel</code>, <code>wel.rod</code>, <code>ffs.q</code>, <code>env.ffs.cost</code>, <code>wel.ffs</code>, <code>vatgen</code>, the subsidy block and the efficient price block.</li>
+<li><strong>CPAT Python:</strong> SCC in <code>cpat_model/mitigation/policies.py</code>, <code>prepare()</code> (equation M1.6); the module inputs in <code>cpat_model/air_pollution/</code> and <code>cpat_model/transport_cobenefits/</code> (<code>prepare()</code>); section 17b in <code>cpat_model/mitigation/externalities.py</code>, <code>air()</code> (A8.3) and <code>transport()</code> (A8.4); section 18 in <code>cpat_model/mitigation/welfare.py</code>, <code>step()</code> (A8.5, A8.6).</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>SCC:</strong> all options equal legacy. The manual SCC reads Manual inputs row 237; legacy reads a path typed on Mitigation row 17683 (bug L103 fixed).</li>
+<li><strong>Climate damages</strong> use GHG excluding LULUCF of section 14.</li>
+<li><strong>Efficiency costs:</strong> legacy’s trapezoid (Harberger triangle plus rectangle), rows 17636-17648. Legacy bugs not replicated: the LPG pre-existing tax row is empty (the LPG average tax is halved); diesel and kerosene are converted with the wrong factors; the coal row is offset; non-road oil is <code>#N/A</code>.</li>
+<li><strong>Methane fee cost:</strong> legacy’s integral (rows 17628-17634). Prototype bug M21 fixed: the cap divided by zero where the curve exponent is 0.</li>
+<li><strong>Welfare (LD81):</strong> legacy takes <code>wel.air</code> and the road co-benefits from the Air pollution and Transport sheets’ own runs. Here the air pollution welfare follows the model’s own emissions (the module’s concentration coefficients and value per µg/m³, issue I105) and the road co-benefits follow the road engineer model’s vehicle-km (issue I100, for every road model). Legacy’s per-fuel unit costs are average, not marginal, damages and cannot reproduce its <code>wel.air</code> (issue I104): the model uses marginal damages (L224). Legacy unit-cost bugs L189-L193 fixed (L192: the residential coal switch tested a typed total; L193: the driving share without class use).</li>
+<li><strong>Transport co-benefits (issue I111), as legacy:</strong> margins from scenario 1, per-km costs independent of the scenario (congestion does not respond to the policy), welfare a rectangle, road damage only for freight; the road damage cost of 0.12 USD/km is not deflated. Average fuel economy of passenger and freight vehicles, as legacy.</li>
+<li><strong>Social costs, FFS and subsidies (LD82):</strong> legacy bugs fixed: L176 (other oil products: climate cost per barrel added to costs per GJ), L177 (air pollution cost of electricity), L178 (other-use averages), L179 (FFS coal and gas lines take another sector’s change in use), L180 (FFS conversion and road damage), L181-L182 (retail price of the subsidy lines), L183 (climate cost on gas for power), L184-L185 (VAT base of the subsidy lines), L186 (consumption of the lines), L187 (other-line averages), L188 (GDP of the year in the shares). Replicated issues: I107 (FFS lines value diesel in industry, power and “other” at oil-product costs; FFS uses the global SCC; FFS welfare is a separate measure, not in <code>wel.usd</code>), I108 (electricity external cost 0), I109 (VAT base). Explicit and implicit subsidies are computed in every scenario group with the scenario’s own prices and use; legacy computes scenario 1 only (I110).</li>
+<li><strong>VAT of the year:</strong> the general VAT rate follows the WEO rate of the year up to the last historical price year (prototype bug M15 fixed: the 2022 rate in every year).</li>
+<li><strong>Efficient prices (LD83):</strong> as legacy, with the road externalities of the scenario (I118), electricity air pollution from the baseline generation mix (I121), electricity Pigouvian tax 0 (I119), potential VAT on the externalities when <code>ExternalityAddVAT</code> = Yes (I120); <code>txo.co2e</code> is 0 where the climate cost is 0 (L203).</li>
+<li><strong>Methodology.</strong> The methodology’s efficiency cost is <span class="math inline">\(\tfrac{1}{2}(ncp - xcp)(F_P - F_B)\)</span>; the model uses the average wedge of all taxes and subsidies in the scenario and the baseline, so subsidies count too. The methodology’s footnote says road damage is not in the welfare benefits; the model includes it.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Check: results for Egypt">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Check: results for Egypt
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-25" class="callout-25-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>SCC options in 2022 (all equal legacy):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>Egypt 2022, USD/tCO2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Target-consistent</td>
+<td>54.8</td>
+</tr>
+<tr class="even">
+<td>Ricke national (key <code>egy.2.1p5</code>)</td>
+<td>6.87</td>
+</tr>
+<tr class="odd">
+<td>Ricke global (key <code>wld.2.1p5</code>)</td>
+<td>462</td>
+</tr>
+<tr class="even">
+<td>Manual</td>
+<td>50.0 in 2025, +4% a year</td>
+</tr>
+<tr class="odd">
+<td>US EPA</td>
+<td>62</td>
+</tr>
+</tbody>
+</table>
+<p>Climate damages 2022 at the national SCC: 22.9 bn USD, against legacy’s 22.0, because the inventories differ slightly.</p>
+<p>Efficiency costs, carbon tax of 20 USD, 2031: −1.25 bn USD (a gain), mostly electricity and diesel, because they are subsidised.</p>
+<p>Methane fee: the fee is 0 in the shipped scenarios. A test with a fee of 50 USD per tCO2e agrees with the Python recomputation.</p>
+<p>Welfare, carbon tax of 20 USD, 2031, climate and efficiency parts only: +3.2 bn USD (0.39% of GDP). The air pollution and road co-benefits come on top of this.</p>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./06_Emissions_and_ETS.html" class="pagination-link" aria-label="Emissions and emissions trading">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Emissions and emissions trading</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./08_Distribution.html" class="pagination-link" aria-label="Distribution">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Distribution</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool. The model shared by Excel-AI 1.1.0 and CPAT Python 1.1.0p1.3; data edition Public01</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

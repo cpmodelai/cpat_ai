@@ -17,6 +17,7 @@ const IMG = (f) => path.join(HERE, "img", f);
 const VER = require(path.join(HERE, "..", "..", "version.json")).version, PFX = "v" + VER.replace(/\./g, "_");   // 0.9.0 -> v0_9_0
 const OUT = path.join(HERE, "..", "..", "..", `CPAT-AI_Overview_v${VER}.pptx`);   // excel_ai/<name>_v<version> (NORMS 5a)
 const RELEASES = path.join(HERE, "..", "..", "releases");   // excel_ai/mitigation/releases/ (2026-10-30)
+const LATEST = path.join(HERE, "..", "..", "..", "..", "docs", "presentations", "01_CPAT-AI_Overview_latest.pptx");   // website permalink (NORMS 5a)
 const DATA = JSON.parse(fs.readFileSync(IMG(`${PFX}_data.json`), "utf8"));
 const FACTS = JSON.parse(fs.readFileSync(IMG(`${PFX}_facts.json`), "utf8"));
 const LEG = JSON.parse(fs.readFileSync(IMG(`${PFX}_legacy.json`), "utf8"));
@@ -614,5 +615,7 @@ pres.addSection({ title: "Next steps" });
   for (const f of fs.readdirSync(path.dirname(OUT)))   // v0.8.4: older versions to releases/ (NORMS 5a)
     if (/^CPAT-AI_Overview_v[\d.]+\.pptx$/.test(f) && path.join(path.dirname(OUT), f) !== OUT)
       fs.renameSync(path.join(path.dirname(OUT), f), path.join(RELEASES, f));
-  console.log("wrote", OUT);
+  fs.copyFileSync(OUT, LATEST);
+  require("child_process").execFileSync("python3", [path.join(path.dirname(LATEST), "make_thumbnails.py")]);   // preview image for the website
+  console.log("wrote", OUT, "and", LATEST);
 })();

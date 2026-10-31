@@ -1,0 +1,37 @@
+project:
+  type: book
+  output-dir: ../CPAT_model_documentation_html
+
+book:
+  title: "CPAT-AI Model"
+  favicon: ./00/media/image1.png
+  search: true
+  reader-mode: true
+  page-footer: "CPAT-AI: WB-IMF Climate Policy Assessment Tool. The model shared by Excel-AI 1.1.0 and CPAT Python 1.1.0p1.3; data edition Public01"
+  chapters:
+    - index.qmd
+    - 01_Overview.qmd
+    - 02_Prices.qmd
+    - 03_Energy_demand.qmd
+    - 04_Power.qmd
+    - 05_Road_transport.qmd
+    - 06_Emissions_and_ETS.qmd
+    - 07_Revenues_GDP_welfare.qmd
+    - 08_Distribution.qmd
+  appendices:
+    - A_Equations.qmd
+    - B_Equations_codes.qmd
+
+format:
+  html:
+    toc-depth: 3
+    toc-location: left
+    toc-title: "***Chapter Contents***"
+    number-depth: 3
+    theme: cosmo
+    html-math-method: mathjax
+
+crossref:
+  chapters: true
+
+editor: source

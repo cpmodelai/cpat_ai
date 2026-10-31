@@ -1,0 +1,2815 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>8&nbsp; Distribution – CPAT-AI Model</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./A_Equations.html" rel="next">
+<link href="./07_Revenues_GDP_welfare.html" rel="prev">
+<link href="././00/media/image1.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d8e5dfa8330daa7b2a69354212dbf2ec.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08_Distribution.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Distribution</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">CPAT-AI Model</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CPAT-AI Model</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_Overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview, notation and policies</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_Prices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Energy prices</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_Energy_demand.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Energy demand</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_Power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Power</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_Road_transport.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Road transport</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_Emissions_and_ETS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Emissions and emissions trading</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_Revenues_GDP_welfare.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Revenues, GDP and welfare</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_Distribution.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Distribution</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A_Equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Equation list: methodology notation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./B_Equations_codes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Equation list: CPAT code names</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title"><strong><em>Chapter Contents</em></strong></h2>
+   
+  <ul>
+  <li><a href="#sec-di-glance" id="toc-sec-di-glance" class="nav-link active" data-scroll-target="#sec-di-glance"><span class="header-section-number">8.1</span> The module at a glance</a>
+  <ul class="collapse">
+  <li><a href="#sec-di-notation" id="toc-sec-di-notation" class="nav-link" data-scroll-target="#sec-di-notation"><span class="header-section-number">8.1.1</span> Notation</a></li>
+  </ul></li>
+  <li><a href="#sec-di-settings" id="toc-sec-di-settings" class="nav-link" data-scroll-target="#sec-di-settings"><span class="header-section-number">8.2</span> Settings</a></li>
+  <li><a href="#sec-di-inputs" id="toc-sec-di-inputs" class="nav-link" data-scroll-target="#sec-di-inputs"><span class="header-section-number">8.3</span> Inputs from mitigation</a>
+  <ul class="collapse">
+  <li><a href="#sec-di-dpr" id="toc-sec-di-dpr" class="nav-link" data-scroll-target="#sec-di-dpr"><span class="header-section-number">8.3.1</span> Household price change by fuel</a></li>
+  <li><a href="#sec-di-dpa" id="toc-sec-di-dpa" class="nav-link" data-scroll-target="#sec-di-dpa"><span class="header-section-number">8.3.2</span> Economy-wide price change and spending</a></li>
+  <li><a href="#sec-di-macro" id="toc-sec-di-macro" class="nav-link" data-scroll-target="#sec-di-macro"><span class="header-section-number">8.3.3</span> Macro inputs</a></li>
+  </ul></li>
+  <li><a href="#sec-di-bsh" id="toc-sec-di-bsh" class="nav-link" data-scroll-target="#sec-di-bsh"><span class="header-section-number">8.4</span> Budget shares</a></li>
+  <li><a href="#sec-di-io" id="toc-sec-di-io" class="nav-link" data-scroll-target="#sec-di-io"><span class="header-section-number">8.5</span> Indirect price changes through the input-output table</a>
+  <ul class="collapse">
+  <li><a href="#sec-di-gfac" id="toc-sec-di-gfac" class="nav-link" data-scroll-target="#sec-di-gfac"><span class="header-section-number">8.5.1</span> Step 1: the price factor of each fuel group</a></li>
+  <li><a href="#sec-di-cat" id="toc-sec-di-cat" class="nav-link" data-scroll-target="#sec-di-cat"><span class="header-section-number">8.5.2</span> Step 2: the price change of each category</a></li>
+  </ul></li>
+  <li><a href="#sec-di-fac" id="toc-sec-di-fac" class="nav-link" data-scroll-target="#sec-di-fac"><span class="header-section-number">8.6</span> Price factors</a>
+  <ul class="collapse">
+  <li><a href="#sec-di-exempt" id="toc-sec-di-exempt" class="nav-link" data-scroll-target="#sec-di-exempt"><span class="header-section-number">8.6.1</span> Cooking-fuel exemption</a></li>
+  </ul></li>
+  <li><a href="#sec-di-rebase" id="toc-sec-di-rebase" class="nav-link" data-scroll-target="#sec-di-rebase"><span class="header-section-number">8.7</span> Rebasing the survey to national accounts</a></li>
+  <li><a href="#sec-di-effects" id="toc-sec-di-effects" class="nav-link" data-scroll-target="#sec-di-effects"><span class="header-section-number">8.8</span> Direct, indirect and total effect</a>
+  <ul class="collapse">
+  <li><a href="#sec-di-lscale" id="toc-sec-di-lscale" class="nav-link" data-scroll-target="#sec-di-lscale"><span class="header-section-number">8.8.1</span> Mitigation adjustment and deadweight loss</a></li>
+  </ul></li>
+  <li><a href="#sec-di-recycling" id="toc-sec-di-recycling" class="nav-link" data-scroll-target="#sec-di-recycling"><span class="header-section-number">8.9</span> Revenue recycling</a>
+  <ul class="collapse">
+  <li><a href="#sec-di-pit" id="toc-sec-di-pit" class="nav-link" data-scroll-target="#sec-di-pit"><span class="header-section-number">8.9.1</span> Personal income-tax cut</a></li>
+  <li><a href="#sec-di-transfer" id="toc-sec-di-transfer" class="nav-link" data-scroll-target="#sec-di-transfer"><span class="header-section-number">8.9.2</span> Targeted transfers</a></li>
+  <li><a href="#sec-di-pui" id="toc-sec-di-pui" class="nav-link" data-scroll-target="#sec-di-pui"><span class="header-section-number">8.9.3</span> Public investment and current spending</a></li>
+  <li><a href="#sec-di-rec" id="toc-sec-di-rec" class="nav-link" data-scroll-target="#sec-di-rec"><span class="header-section-number">8.9.4</span> Recycling gain in percent of consumption</a></li>
+  </ul></li>
+  <li><a href="#sec-di-net" id="toc-sec-di-net" class="nav-link" data-scroll-target="#sec-di-net"><span class="header-section-number">8.10</span> Net effect, compensation and inequality</a>
+  <ul class="collapse">
+  <li><a href="#sec-di-comp" id="toc-sec-di-comp" class="nav-link" data-scroll-target="#sec-di-comp"><span class="header-section-number">8.10.1</span> Compensation shares</a></li>
+  <li><a href="#sec-di-gini" id="toc-sec-di-gini" class="nav-link" data-scroll-target="#sec-di-gini"><span class="header-section-number">8.10.2</span> Gini coefficient</a></li>
+  </ul></li>
+  <li><a href="#sec-di-charts" id="toc-sec-di-charts" class="nav-link" data-scroll-target="#sec-di-charts"><span class="header-section-number">8.11</span> Outputs for charts</a></li>
+  <li><a href="#sec-di-sectors" id="toc-sec-di-sectors" class="nav-link" data-scroll-target="#sec-di-sectors"><span class="header-section-number">8.12</span> Price changes by production sector</a></li>
+  <li><a href="#sec-di-departures" id="toc-sec-di-departures" class="nav-link" data-scroll-target="#sec-di-departures"><span class="header-section-number">8.13</span> Where the model departs from the methodology</a></li>
+  <li><a href="#sec-di-checks" id="toc-sec-di-checks" class="nav-link" data-scroll-target="#sec-di-checks"><span class="header-section-number">8.14</span> Checks</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-distribution" class="quarto-section-identifier"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Distribution</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The distribution module shows who bears the cost of a scenario. It takes the price changes and the revenue that mitigation computes for one year, the <strong>analysis year</strong>, and turns them into a change in the consumption of households, decile by decile. It then gives the revenue back to households through the recycling options chosen in the scenario and reports what is left: the net effect, the inequality it implies and the sectors whose prices rise most.</p>
+<p>The methodology describes the module in <a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_1">methodology, chapter 5</a>; its overview of functions is in <a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_1_1_2">section 5.1.1.2</a>. This chapter is the model as Excel-AI and CPAT Python compute it, with the places where it simplifies or departs from the methodology.</p>
+<section id="sec-di-glance" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="sec-di-glance"><span class="header-section-number">8.1</span> The module at a glance</h2>
+<p>The module works on one scenario at a time and always against scenario 1, the baseline. Every result has eleven values: the <strong>basket</strong> (the whole survey sample) and the ten consumption <strong>deciles</strong>, from the poorest (decile 1) to the wealthiest (decile 10). Most results are given for three <strong>samples</strong>: overall, urban and rural.</p>
+<p>The calculation runs in eleven steps, the sections of the Distribution sheet.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  M["Mitigation, analysis year&lt;br/&gt;prices, spending, GDP, population, revenue"] --&gt; P["2 Price changes by fuel"]
+  P --&gt; I["3 Indirect price changes&lt;br/&gt;(input-output table)"]
+  P --&gt; F["4 Price factors"]
+  I --&gt; F
+  S["5 Budget shares (survey)"] --&gt; E["6 Direct and indirect effects"]
+  F --&gt; E
+  N["7 Survey to national accounts"] --&gt; E
+  N --&gt; R["8 Revenue recycling"]
+  M --&gt; R
+  E --&gt; T["9 Net effect, compensation, Gini"]
+  R --&gt; T
+  T --&gt; C["10 Outputs for charts"]
+  I --&gt; X["11 Price changes by production sector"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>What it computes</th>
+<th>Equations</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1 Settings</td>
+<td>The scenario’s distribution options and the programmes they select</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>2 Inputs from mitigation</td>
+<td>Price changes by fuel, base-year spending, GDP, population, new revenue</td>
+<td><a href="./A_Equations.html#eqlist-D1-3">D1.3</a></td>
+</tr>
+<tr class="odd">
+<td>3 Indirect prices</td>
+<td>Price change of 14 consumption categories through the GTAP input-output table</td>
+<td><a href="./A_Equations.html#eqlist-D1-2">D1.2</a>, <a href="./A_Equations.html#eqlist-B1-1">B1.1</a></td>
+</tr>
+<tr class="even">
+<td>4 Price factors</td>
+<td>Price change with the elasticity adjustment and the cooking-fuel exemption</td>
+<td><a href="./A_Equations.html#eqlist-D1-4">D1.4</a>, <a href="./A_Equations.html#eqlist-B1-4">B1.4</a></td>
+</tr>
+<tr class="odd">
+<td>5 Budget shares</td>
+<td>Survey budget shares by sample, statistic and decile</td>
+<td><a href="./A_Equations.html#eqlist-D1-1">D1.1</a></td>
+</tr>
+<tr class="even">
+<td>6 Effects</td>
+<td>Direct, indirect and total effect in % of consumption</td>
+<td><a href="./A_Equations.html#eqlist-D1-4">D1.4</a>, <a href="./A_Equations.html#eqlist-B1-3">B1.3</a></td>
+</tr>
+<tr class="odd">
+<td>7 Rebasing</td>
+<td>Survey population and consumption scaled to national totals</td>
+<td><a href="./A_Equations.html#eqlist-B1-2">B1.2</a></td>
+</tr>
+<tr class="even">
+<td>8 Recycling</td>
+<td>Income-tax cut, public investment, current spending, targeted transfer</td>
+<td><a href="./A_Equations.html#eqlist-D1-5">D1.5</a>, <a href="./A_Equations.html#eqlist-B1-5">B1.5</a>, <a href="./A_Equations.html#eqlist-B1-6">B1.6</a></td>
+</tr>
+<tr class="odd">
+<td>9 Net effect</td>
+<td>Net effect, compensation shares, Gini before and after recycling</td>
+<td><a href="./A_Equations.html#eqlist-D1-6">D1.6</a>, <a href="./A_Equations.html#eqlist-B1-7">B1.7</a></td>
+</tr>
+<tr class="even">
+<td>10 Chart outputs</td>
+<td>Labels, amounts per person, Lorenz curves, percentile households</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>11 Production sectors</td>
+<td>Input-cost and output price change of each GTAP sector, top 20, 14 CPAT sectors</td>
+<td><a href="./A_Equations.html#eqlist-B1-8">B1.8</a></td>
+</tr>
+</tbody>
+</table>
+<p>Budget shares (section 5) come before the price factors (section 4) in the code, because the weighted summary of the price factors uses them; the rebasing (section 7) comes before the effects (section 6), because the mitigation adjustment of section 6 needs national consumption. The order of the sections in the sheet is kept for reading.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> sheet <code>Distribution</code>, sections 1-11, one row group per scenario; data on <code>DistMapping</code> and the data tabs <code>HHSurvey</code>, <code>HH_Elast</code> and the GTAP input-output table; settings on <code>ScenarioDefinition</code> rows 197-205 and 304-320; inputs from Mitigation through the export block of section 19a (defined name <code>ExportDistn</code>). Built by <code>build.py</code> (<code>build_distribution</code>, <code>build_distribution_data</code>, <code>build_mto_distribution</code>); the data by <code>extract_distn.py</code> (<code>data/distn_*.csv</code>).</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/distribution/mapping.py</code> (the data step, sheet <code>DistMapping</code>: <code>country_data</code>, <code>io_tables</code>, <code>survey</code>, <code>programmes</code>, <code>passthrough</code>, <code>aspire</code>, <code>gini_weights</code>) and <code>cpat_model/distribution/incidence.py</code> (<code>group</code>, one scenario group, sections 1-11; <code>run</code>, every scenario of every country against scenario 1). The rows are returned by output code (<code>core/excel_ai/distribution_rows.csv</code>) and stored in <code>Results.distribution</code>. See the <a href="../CPAT_coded_documentation_html/02_How_it_works.html#sec-blocks">blocks of CPAT Python</a>.</li>
+<li><strong>Equations:</strong> D1.1-D1.6 (<a href="./A_Equations.html#eqlist-D1-1">list</a>) and B1.1-B1.8 (<a href="./A_Equations.html#eqlist-B1-1">list</a>); code names in <a href="B_Equations_codes.html" class="quarto-xref"><span>Appendix B</span></a>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI: the layout of the Distribution sheet">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI: the layout of the Distribution sheet
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Rows 1-12 (header).</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Row</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>0 (shown as <code>Basket</code>) and the deciles 1-10</td>
+</tr>
+<tr class="even">
+<td>4-5</td>
+<td>Scenario name and number, formatted as on Mitigation (frozen with rows 1-3)</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>Position of the group</td>
+</tr>
+<tr class="even">
+<td>7-8</td>
+<td>Mitigation column of the analysis year in group 1 and in this group</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>Statistic (mean, median, p25, p75)</td>
+</tr>
+<tr class="even">
+<td>10-11</td>
+<td>Survey code parts</td>
+</tr>
+<tr class="odd">
+<td>12</td>
+<td>Analysis year (the summary of section 0)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Columns.</strong> A variable, B item, C sample (<code>ove</code>, <code>urb</code>, <code>rur</code>), D-E parameters (data variable, sample label), H description, I unit, J source (legacy rows). Columns C:G and I:K are one column group each, rolled up, as on Mitigation; zoom 75. Each scenario group has 13 columns from K: a code column, the basket, the deciles 1-10 and a spacer. Decile columns are 9 wide; totals in local currency are shown in billions and population in millions (the values are unchanged).</p>
+<p><strong>Groups.</strong> Group 1 is scenario 1 (levels; effects 0). Group 2 is the policy scenario. Group 3 is the LAMBDA test group: it runs group 2’s scenario and reads Mitigation’s LAMBDA group. Pasting group 2 to the right adds scenarios 3-6.</p>
+<p><strong>Row kinds.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Kind</th>
+<th>Layout</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Settings and one-value rows</td>
+<td>The value in the basket column, repeated across the deciles, so every cell refers to its own column</td>
+</tr>
+<tr class="even">
+<td>Decile rows</td>
+<td>One formula across basket and deciles</td>
+</tr>
+<tr class="odd">
+<td>Decile-only rows (recycling)</td>
+<td>The basket column is blank</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Roll-up.</strong> One row group per section: the band and, below the hidden rows, the summary row (last in its section) and one blank row stay visible. The summaries, all for the overall sample:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>Analysis year</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Options check</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Revenue</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Average indirect price change of the consumption categories (budget-share weighted)</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Average price factor of the household fuels (budget-share weighted)</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>Energy budget share (fuels and biomass)</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>Total effect</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>Total consumption</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>Recycling gain</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>Net effect after recycling</td>
+</tr>
+</tbody>
+</table>
+<p>Sections 6-9 list urban and rural first and overall last.</p>
+<p><strong>Codes.</strong> <code>iso.distn.&lt;variable&gt;[.&lt;item&gt;][.dec.&lt;sample&gt;].&lt;scenario&gt;</code>. MTOutputs reads them in each scenario block (deciles 1-10 in K:T); its column F gives the legacy code (without the scenario suffix, as legacy). The legacy distribution charts of the Dashboard are drawn from group 2 on sheet <code>Charts</code>, below the mitigation charts.</p>
+<p><strong>Standalone workbook.</strong> The same sheet also runs as a standalone Distribution workbook fed by an <em>Update from Mitigation</em> button; see the <a href="../CPAT_ai_documentation_html/03_Other_Modules.html">Excel-AI user guide</a>.</p>
+</div>
+</div>
+</div>
+<section id="sec-di-notation" class="level3" data-number="8.1.1">
+<h3 data-number="8.1.1" class="anchored" data-anchor-id="sec-di-notation"><span class="header-section-number">8.1.1</span> Notation</h3>
+<p>The module uses the indices of methodology chapter 5. Every equation holds for one country, one scenario and the analysis year <span class="math inline">\(y\)</span>; these indices are omitted.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(d\)</span></td>
+<td>Decile, 1 (poorest) to 10; the basket is written <span class="math inline">\(d = 0\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(s\)</span></td>
+<td>Sample: overall, urban, rural (in <a href="#sec-di-sectors" class="quarto-xref"><span>Section 8.12</span></a>: CPAT sector)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(f\)</span></td>
+<td>Household fuel: coal, electricity, natural gas, other oil products, gasoline, diesel, kerosene, LPG</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(g\)</span></td>
+<td>Consumption category (14, <a href="#tbl-di-categories" class="quarto-xref">Table&nbsp;<span>8.2</span></a>)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(i\)</span></td>
+<td>Item: a fuel or a category; in <a href="#sec-di-io" class="quarto-xref"><span>Section 8.5</span></a> and <a href="#sec-di-sectors" class="quarto-xref"><span>Section 8.12</span></a>, a GTAP sector</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(k\)</span></td>
+<td>GTAP fuel group: coal, electricity, gas, crude oil, petroleum and coke products</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(y\)</span></td>
+<td>Analysis year, input <code>YearDistn</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(B\)</span>, <span class="math inline">\(P\)</span></td>
+<td>Scenario 1 (baseline), the scenario under study</td>
+</tr>
+</tbody>
+</table>
+<p>Price changes are fractions (0.18 is 18%). Budget shares, effects and recycling gains are in percent of consumption. Amounts are in local currency.</p>
+</section>
+</section>
+<section id="sec-di-settings" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="sec-di-settings"><span class="header-section-number">8.2</span> Settings</h2>
+<p>Each scenario carries its own distribution settings. They choose the analysis year, the survey statistic, the optional adjustments of the price effect and how the revenue is recycled.</p>
+<div id="tbl-di-settings" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-di-settings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8.1: Distribution settings (ScenarioDefinition)
+</figcaption>
+<div aria-describedby="tbl-di-settings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Setting</th>
+<th>Meaning</th>
+<th>Default</th>
+<th>Section</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>YearDistn</code></td>
+<td>Analysis year</td>
+<td>2030</td>
+<td>all</td>
+</tr>
+<tr class="even">
+<td><code>QuantilesStatistic</code></td>
+<td>Survey statistic of the budget shares: mean, median, p25, p75</td>
+<td>mean</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td><code>PEDs</code></td>
+<td>Decile-specific price elasticities</td>
+<td>Yes</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td><code>ScaleGTAP</code></td>
+<td>Scale GTAP-implied revenue to CPAT’s</td>
+<td>Yes</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td><code>InferredDist</code></td>
+<td>Adjust for behavioural and structural change</td>
+<td>No</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td><code>DWLs</code></td>
+<td>Adjust for deadweight losses</td>
+<td>No</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td><code>ExemptMostCook</code></td>
+<td>Exempt the most-used cooking fossil fuel</td>
+<td>No</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td><code>ExemptCookDeciles</code></td>
+<td>… for the bottom deciles</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td><code>EXPLabortax</code></td>
+<td>Share of revenue to labour-tax (income-tax) reductions</td>
+<td>30%</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td><code>EXPCapex</code></td>
+<td>Share to public investment</td>
+<td>50%</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td><code>EXPGoodsandserv</code></td>
+<td>Share to current spending</td>
+<td>0%</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td><code>EXPTransfers</code></td>
+<td>Share to targeted transfers</td>
+<td>20%</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td><code>PITReductionType</code></td>
+<td>Personal Allowance, Proportional Compensation or Targeted Exemption</td>
+<td>Personal Allowance</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td><code>DistExcCfDec</code></td>
+<td>Targeted exemption for the bottom deciles</td>
+<td>4</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td><code>MissingDataReplacement</code></td>
+<td>Fill missing income-tax shares by income group or region</td>
+<td>income</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td><code>TransferType</code></td>
+<td>Cash, or an ASPIRE programme</td>
+<td>Cash</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td><code>TargetBelow</code></td>
+<td>Target households below a poverty line (USD a day), or No</td>
+<td>No</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td><code>TargettedPercentile</code></td>
+<td>Bottom share of the population targeted</td>
+<td>40%</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td><code>CoverageRate</code></td>
+<td>Share of the targeted who receive</td>
+<td>100%</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td><code>LeakageRate</code></td>
+<td>Share of the untargeted who receive</td>
+<td>0%</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td><code>PublicInfrastructureInvType</code></td>
+<td>Infrastructure of the public investment</td>
+<td>All Infr.</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td><code>CurrentSpendingType</code></td>
+<td>ASPIRE programme scaled up by current spending</td>
+<td>All Social Protection and Labor</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td><code>PassthroughDist</code></td>
+<td>Imperfect pass-through</td>
+<td>No</td>
+<td>11</td>
+</tr>
+<tr class="even">
+<td><code>QuantilesLCU</code></td>
+<td>Decile labels in local currency</td>
+<td>No</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The percentages are entered in percent (30 means 30%) and divided by 100 where they are used.</p>
+<p>Four values are <strong>derived</strong> from the settings:</p>
+<ul>
+<li><strong>Infrastructure-access variable</strong>, from <code>PublicInfrastructureInvType</code>: All Infr. (<code>all_acs_share</code>), ICT (<code>ICT_acs_share</code>), Electricity (<code>ely_acs_share</code>), Water (<code>wtr_acs_share</code>), Sanitation (<code>sani_acs_share</code>), Public Transport (<code>transp_pub_acs_share</code>).</li>
+<li><strong>ASPIRE programme code</strong>, from <code>CurrentSpendingType</code> and from <code>TransferType</code>: Active Labor Market, All Labor Market, All Social Assistance, All Social Insurance, All Social Protection and Labor, Cash Transfers, Conditional Cash Transfers, Contributory Pensions, Fee waivers and targeted subsidies, In-Kind, Other Social Assistance, Other Social Insurance, Passive Labor Market, Public Works, School Feeding, Social Pensions.</li>
+<li><strong>Most-used cooking fuel</strong> of the country, from the WHO Household Energy Database (the fossil fuel with the largest share of the population cooking with it).</li>
+<li><strong>Targeting mode</strong> of the transfer: <em>ASPIRE</em> when <code>TransferType</code> names a programme with data for the country; <em>Cash</em> when it is Cash (or a programme without data) and <code>TargetBelow</code> is No; <em>PL</em> (poverty line) when it is Cash and <code>TargetBelow</code> names a line.</li>
+</ul>
+<p>A <strong>support check</strong> reports <code>OK</code>, or names the option that falls back: “TransferType: no ASPIRE data, cash used”.</p>
+</section>
+<section id="sec-di-inputs" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="sec-di-inputs"><span class="header-section-number">8.3</span> Inputs from mitigation</h2>
+<p>The module needs five things from mitigation: the price change of each household fuel, the economy-wide price change of each fuel, what the economy spent on each fuel, GDP and population, and the revenue to recycle. All are read for the analysis year, in the scenario and in scenario 1. The methodology describes the link in <a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_3_1">section 5.3.1</a>.</p>
+<section id="sec-di-dpr" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="sec-di-dpr"><span class="header-section-number">8.3.1</span> Household price change by fuel</h3>
+<p>The direct effect uses the residential price, the price households pay (<a href="./A_Equations.html#eqlist-M2-5">M2.5</a>, <a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a>):</p>
+<p><span id="eq-di-dpr"><span class="math display">\[
+t_f = \frac{p^{P}_{f,\text{res},y}}{p^{B}_{f,\text{res},y}} - 1
+\tag{8.1}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(t_f\)</span> is the household price change of fuel <span class="math inline">\(f\)</span> (fraction; code <code>dpr.&lt;f&gt;.res</code>);</li>
+<li><span class="math inline">\(p_{f,\text{res},y}\)</span> is the residential after-tax price <code>atp</code> of fuel <span class="math inline">\(f\)</span> in the analysis year (local unit); for electricity, the residential retail price <code>rp.res.ecy</code>;</li>
+<li><span class="math inline">\(P\)</span> and <span class="math inline">\(B\)</span> mark the scenario and scenario 1.</li>
+</ul>
+<p>This is <a href="./A_Equations.html#eqlist-D1-3">D1.3</a>. Oil (<code>oil</code> in the survey) takes the price of other oil products (<code>oop</code>).</p>
+</section>
+<section id="sec-di-dpa" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="sec-di-dpa"><span class="header-section-number">8.3.2</span> Economy-wide price change and spending</h3>
+<p>The indirect effect uses the price that producers pay. It is the change in the average price over sectors (<code>rpn</code>, <a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a>):</p>
+<p><span id="eq-di-dpa"><span class="math display">\[
+t^{a}_f = \frac{\bar{p}^{P}_{f,y}}{\bar{p}^{B}_{f,y}} - 1
+\tag{8.2}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(t^{a}_f\)</span> is the economy-wide price change of fuel <span class="math inline">\(f\)</span> (code <code>dpa.&lt;f&gt;</code>);</li>
+<li><span class="math inline">\(\bar{p}_{f,y}\)</span> is the average price <code>rpn</code> of the <strong>industry</strong> sector for coal and natural gas, of <strong>all sectors</strong> for other oil products, gasoline, diesel, LPG and kerosene, and the industrial retail price <code>rp.ind.ecy</code> for electricity.</li>
+</ul>
+<p>Each fuel is weighted by what the economy spent on it, in scenario 1 and in the base year:</p>
+<p><span id="eq-di-spend"><span class="math display">\[
+S_f = \text{pav.sp}^{B}_{f,t_0} \times
+\begin{cases} 0.041868 &amp; f \neq \text{electricity} \\ 1 &amp; f = \text{electricity} \end{cases}
+\tag{8.3}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(S_f\)</span> is the base-year spending on fuel <span class="math inline">\(f\)</span> (USD million; code <code>spend.&lt;f&gt;</code>);</li>
+<li><span class="math inline">\(\text{pav.sp}\)</span> is the economy-wide spending on the fuel, all sectors, from the price block (<a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a>);</li>
+<li><span class="math inline">\(0.041868\)</span> is PJ per ktoe, which turns the fuels’ spending into USD million (electricity’s already is);</li>
+<li><span class="math inline">\(t_0\)</span> is the base year. The spending of the base year is paired with the price changes of the analysis year (issue I76, below).</li>
+</ul>
+</section>
+<section id="sec-di-macro" class="level3" data-number="8.3.3">
+<h3 data-number="8.3.3" class="anchored" data-anchor-id="sec-di-macro"><span class="header-section-number">8.3.3</span> Macro inputs</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Input</th>
+<th>Formula</th>
+<th>Code</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>GDP</td>
+<td><span class="math inline">\(GDP_y\)</span> = scenario <code>gdp.lcu</code> × <span class="math inline">\(10^9\)</span> (local currency)</td>
+<td><code>gdp</code></td>
+</tr>
+<tr class="even">
+<td>Population</td>
+<td><span class="math inline">\(POP_y\)</span> = scenario <code>pop</code> × 1000</td>
+<td><code>pop</code></td>
+</tr>
+<tr class="odd">
+<td>Revenue to recycle</td>
+<td><span class="math inline">\(R\)</span> = scenario <code>rnew</code> × <span class="math inline">\(10^6\)</span> × <code>xr</code> (local currency)</td>
+<td><code>rev</code></td>
+</tr>
+</tbody>
+</table>
+<p>The revenue is the <strong>revenue from new policies</strong> (<a href="./A_Equations.html#eqlist-M6-1">M6.1</a>, <a href="07_Revenues_GDP_welfare.html" class="quarto-xref"><span>Chapter 7</span></a>): carbon tax, the VAT on it and auctioned ETS permits. It stands for legacy’s carbon-pricing revenue (issue I80).</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: inputs from mitigation">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: inputs from mitigation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>y = YearDistn
+for f in [coa, ely, nga, oop, gso, die, ker, lpg]:          # household fuels
+    v = 'rp' if f == 'ely' else 'atp'                        # electricity: retail price
+    dpr[f] = P[v, 'res', f][y] / B[v, 'res', f][y] - 1
+for f, var, sector, group in [(coa, rpn, ind, coa), (nga, rpn, ind, nga),
+                              (oop, rpn, all, oil), (gso, rpn, all, p_c),
+                              (die, rpn, all, p_c), (lpg, rpn, all, p_c),
+                              (ker, rpn, all, p_c), (ecy, rp,  ind, ely)]:
+    dpa[f]   = P[var, sector, f][y] / B[var, sector, f][y] - 1
+    spend[f] = B['pav.sp', 'all', f][base_year] * (1 if f == ecy else PJ_PER_KTOE)
+gdp = P['gdp.lcu'][y] * 1e9
+pop = P['pop'][y] * 1e3
+rev = P['rnew'][y] * 1e6 * P['xr'][y]</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-di-bsh" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="sec-di-bsh"><span class="header-section-number">8.4</span> Budget shares</h2>
+<p>A household loses more from a price rise the more of its budget goes to the good. The budget shares come from household budget surveys, prepared as the methodology describes in <a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_2_1">section 5.2.1</a> (<a href="../CPAT_full_documentation_html/05_Distribution.html#eq-5_1">eq-5_1</a>):</p>
+<p><span id="eq-di-bsh"><span class="math display">\[
+\pi^{g}_{j} = \frac{C^{g}_{j}}{C_j}, \qquad
+\pi^{dg} = \underset{j \in d}{\text{mean, median, p25 or p75}}\ \pi^{g}_{j}
+\tag{8.4}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(\pi^{g}_{j}\)</span> is household <span class="math inline">\(j\)</span>’s share of its consumption <span class="math inline">\(C_j\)</span> spent on item <span class="math inline">\(g\)</span>;</li>
+<li><span class="math inline">\(\pi^{dg}\)</span> is the population-weighted statistic over the households of decile <span class="math inline">\(d\)</span> (percent; code <code>bsh.&lt;g&gt;.dec.&lt;s&gt;</code>).</li>
+</ul>
+<p>This is <a href="./A_Equations.html#eqlist-D1-1">D1.1</a>. The survey tables (<code>HHSurvey</code>) already hold the decile statistics; the model reads them by sample (overall, urban, rural), by the statistic <code>QuantilesStatistic</code> and by decile. The basket reads the whole-sample row (quantile code 9999).</p>
+<p>The items are the eight household fuels, the 14 consumption categories and, in the overall sample, three biomass fuels (charcoal, ethanol, firewood). Biomass has a budget share but no price change. The <strong>energy budget share</strong>, fuels plus biomass, is the summary row of the section.</p>
+<div id="tbl-di-categories" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-di-categories-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8.2: The 14 consumption categories
+</figcaption>
+<div aria-describedby="tbl-di-categories-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Code</th>
+<th>Category</th>
+<th>Code</th>
+<th>Category</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>app</code></td>
+<td>Appliances</td>
+<td><code>hou</code></td>
+<td>Housing</td>
+</tr>
+<tr class="even">
+<td><code>che</code></td>
+<td>Chemicals</td>
+<td><code>oth</code></td>
+<td>Other</td>
+</tr>
+<tr class="odd">
+<td><code>clo</code></td>
+<td>Clothing</td>
+<td><code>pap</code></td>
+<td>Paper</td>
+</tr>
+<tr class="even">
+<td><code>com</code></td>
+<td>Communications</td>
+<td><code>pha</code></td>
+<td>Pharmaceuticals</td>
+</tr>
+<tr class="odd">
+<td><code>edu</code></td>
+<td>Education</td>
+<td><code>ret</code></td>
+<td>Recreation and tourism</td>
+</tr>
+<tr class="even">
+<td><code>food</code></td>
+<td>Food</td>
+<td><code>teq</code></td>
+<td>Transport equipment</td>
+</tr>
+<tr class="odd">
+<td><code>hea</code></td>
+<td>Health services</td>
+<td><code>tpu</code></td>
+<td>Public transport</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Not every survey row follows the chosen statistic. Population weights, consumption per person, infrastructure access and the poverty-line shares are always read from the <strong>mean</strong> rows; income-tax shares and the PIT-to-GDP ratio follow the statistic.</p>
+</section>
+<section id="sec-di-io" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="sec-di-io"><span class="header-section-number">8.5</span> Indirect price changes through the input-output table</h2>
+<p>A carbon price also raises the price of food, transport and everything else made with energy. The module finds these indirect price changes with the GTAP input-output table of the country: how much of each fuel group is embedded, directly and upstream, in one unit of each sector’s output. The methodology describes the approach in <a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_3_1">section 5.3.1</a> (<a href="../CPAT_full_documentation_html/05_Distribution.html#eq-5_3">eq-5_3</a>) and the scaling in <a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_3_2_4">section 5.3.2.4</a>.</p>
+<p>The table has 64 GTAP sectors: five fuel groups and 59 non-fuel sectors, which map to the 14 categories. CPAT’s eight fuels map to the five GTAP fuel groups:</p>
+<div id="tbl-di-groups" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-di-groups-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8.3: CPAT fuels and GTAP fuel groups
+</figcaption>
+<div aria-describedby="tbl-di-groups-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>GTAP group <span class="math inline">\(k\)</span></th>
+<th>CPAT fuels</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Coal (<code>coa</code>)</td>
+<td>coal</td>
+</tr>
+<tr class="even">
+<td>Electricity (<code>ely</code>)</td>
+<td>electricity</td>
+</tr>
+<tr class="odd">
+<td>Gas (<code>nga</code>)</td>
+<td>natural gas</td>
+</tr>
+<tr class="even">
+<td>Crude oil (<code>oil</code>)</td>
+<td>other oil products</td>
+</tr>
+<tr class="odd">
+<td>Petroleum and coke products (<code>p_c</code>)</td>
+<td>gasoline, diesel, LPG, kerosene</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<section id="sec-di-gfac" class="level3" data-number="8.5.1">
+<h3 data-number="8.5.1" class="anchored" data-anchor-id="sec-di-gfac"><span class="header-section-number">8.5.1</span> Step 1: the price factor of each fuel group</h3>
+<p>First, the spending-weighted price change of each group, and the group’s total use:</p>
+<p><span id="eq-di-grev"><span class="math display">\[
+R_k = \sum_{f \in k} S_f\, t^{a}_f
+\tag{8.5}\]</span></span></p>
+<p><span id="eq-di-gtot"><span class="math display">\[
+U_k = \frac{D_{t_R}}{D_{GTAP}} \Big( \sum_{i \notin \text{fuels}} (TD_i + X_i)\, L_{i,k} + TD_k \Big)
+\tag{8.6}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(R_k\)</span> is the extra cost of group <span class="math inline">\(k\)</span> at base-year spending (USD million; code <code>grev.&lt;k&gt;</code>);</li>
+<li><span class="math inline">\(U_k\)</span> is the total use of group <span class="math inline">\(k\)</span>: embedded in the total demand <span class="math inline">\(TD_i\)</span> and exports <span class="math inline">\(X_i\)</span> of the non-fuel sectors, plus the group’s own demand <span class="math inline">\(TD_k\)</span> (USD million; code <code>gtot.&lt;k&gt;</code>, <code>DIOTot</code> on <code>DistMapping</code>);</li>
+<li><span class="math inline">\(L_{i,k}\)</span> is GTAP’s total-requirement (Leontief) coefficient of group <span class="math inline">\(k\)</span> in sector <span class="math inline">\(i\)</span>;</li>
+<li><span class="math inline">\(D_{t_R} / D_{GTAP}\)</span> is the WEO GDP deflator of the results year over that of the GTAP year (issue I77).</li>
+</ul>
+<p><a href="#eq-di-gtot" class="quarto-xref">Equation&nbsp;<span>8.6</span></a> is <a href="./A_Equations.html#eqlist-B1-1">B1.1</a>. The price factor of the group is</p>
+<p><span id="eq-di-gfac"><span class="math display">\[
+\phi_k =
+\begin{cases}
+R_k / U_k &amp; \texttt{ScaleGTAP} = \text{Yes} \\[2pt]
+R_k / \sum_{f \in k} S_f &amp; \texttt{ScaleGTAP} = \text{No}\ (0 \text{ without spending})
+\end{cases}
+\tag{8.7}\]</span></span></p>
+<p>where <span class="math inline">\(\phi_k\)</span> is the factor applied to the Leontief coefficients of group <span class="math inline">\(k\)</span> (code <code>gfac.&lt;k&gt;</code>).</p>
+<p>With <code>ScaleGTAP</code> = Yes the extra cost CPAT computes for the fuels is spread over everything the group is used for. With <code>ScaleGTAP</code> = No, <span class="math inline">\(\phi_k\)</span> is simply the spending-weighted economy-wide price change of the group’s fuels.</p>
+</section>
+<section id="sec-di-cat" class="level3" data-number="8.5.2">
+<h3 data-number="8.5.2" class="anchored" data-anchor-id="sec-di-cat"><span class="header-section-number">8.5.2</span> Step 2: the price change of each category</h3>
+<p><span id="eq-di-cat"><span class="math display">\[
+t_g = \sum_k \bar{L}_{g,k}\, \phi_k, \qquad
+\bar{L}_{g,k} = \frac{\sum_{i \in g} H_i\, L_{i,k}}{\sum_{i \in g} H_i}
+\tag{8.8}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(t_g\)</span> is the price change of category <span class="math inline">\(g\)</span> (fraction; code <code>dpr.&lt;g&gt;</code>);</li>
+<li><span class="math inline">\(\bar{L}_{g,k}\)</span> is the household-demand weighted Leontief coefficient of the category (<code>DLcat</code> on <code>DistMapping</code>);</li>
+<li><span class="math inline">\(H_i\)</span> is GTAP household demand for the output of sector <span class="math inline">\(i\)</span>.</li>
+</ul>
+<p>This is <a href="./A_Equations.html#eqlist-D1-2">D1.2</a>. The summary row of the section is the budget-share weighted average of <span class="math inline">\(t_g\)</span> over the categories, overall sample.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: indirect price changes">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: indirect price changes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code># data step (once per country)
+ratio = weo_deflator[results_year] / weo_deflator[gtap_year]
+for k in [coa, ely, nga, oil, p_c]:
+    gtot[k] = ratio * (sum((TD[i] + X[i]) * L[i, k] for i in nonfuel_sectors) + TD[k])
+    for g in categories:
+        DLcat[g, k] = sum(H[i] * L[i, k] for i in g) / sum(H[i] for i in g)
+
+# each scenario
+for k in groups:
+    grev[k]   = sum(spend[f] * dpa[f] for f in fuels_of[k])
+    gspend[k] = sum(spend[f] for f in fuels_of[k])
+    if ScaleGTAP == 'Yes':
+        gfac[k] = grev[k] / gtot[k]
+    else:
+        gfac[k] = grev[k] / gspend[k] if gspend[k] &gt; 0 else 0
+for g in categories:
+    dpr[g] = sum(DLcat[g, k] * gfac[k] for k in groups)</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Why one factor per fuel group is legacy's rescaling">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Why one factor per fuel group is legacy’s rescaling
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Legacy CPAT (with <code>ScaleGTAP</code> = Yes, its default) rescales the raw price change of each GTAP sector <span class="math inline">\(s\)</span> by</p>
+<p><span class="math display">\[
+\kappa_s = \frac{\sum_k \sigma_{k,s}\, R_k}{\sum_k Emb_{k,s}\, t_{k,s}},
+\]</span></p>
+<p>where <span class="math inline">\(Emb_{k,s}\)</span> is the use of group <span class="math inline">\(k\)</span> embedded in sector <span class="math inline">\(s\)</span>, <span class="math inline">\(\sigma_{k,s}\)</span> its share in the group’s total use and <span class="math inline">\(t_{k,s}\)</span> the price change of the fuel for that sector. With <span class="math inline">\(Emb_{k,s} = Y_s L_{s,k}\)</span> and <span class="math inline">\(\sigma_{k,s} = Emb_{k,s} / U_k\)</span>, the sector’s adjusted price change becomes</p>
+<p><span class="math display">\[
+\kappa_s \sum_k L_{s,k}\, t_{k,s} = \sum_k L_{s,k}\, \frac{R_k}{U_k} = \sum_k L_{s,k}\, \phi_k .
+\]</span></p>
+<p>The sector-specific fuel prices cancel. The model therefore keeps one factor per group. Checked on legacy’s cache: all 59 sectors agree to 4e-16, and the 14 categories to 3e-6 (legacy prints six digits).</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-di-fac" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="sec-di-fac"><span class="header-section-number">8.6</span> Price factors</h2>
+<p>A price change costs a household its budget share times the change, if it buys the same quantities. When it buys less, the cost is smaller. The <strong>price factor</strong> carries this behavioural response; it is the methodology’s decile-specific price elasticity of demand (<a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_3_2_2">section 5.3.2.2</a>, <a href="../CPAT_full_documentation_html/05_Distribution.html#eq-5_7">eq-5_7</a>):</p>
+<p><span id="eq-di-fac"><span class="math display">\[
+\psi_{d,i} =
+\begin{cases}
+t_i\, (1 + t_i)^{\epsilon_{d,i}} &amp; \texttt{PEDs} = \text{Yes} \\
+t_i &amp; \texttt{PEDs} = \text{No}
+\end{cases}
+\tag{8.9}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(\psi_{d,i}\)</span> is the price factor of item <span class="math inline">\(i\)</span> in decile <span class="math inline">\(d\)</span> (fraction; code <code>fac.&lt;i&gt;</code>);</li>
+<li><span class="math inline">\(t_i\)</span> is the household price change of a fuel (<a href="#eq-di-dpr" class="quarto-xref">Equation&nbsp;<span>8.1</span></a>) or of a category (<a href="#eq-di-cat" class="quarto-xref">Equation&nbsp;<span>8.8</span></a>);</li>
+<li><span class="math inline">\(\epsilon_{d,i}\)</span> is the decile’s own-price elasticity of item <span class="math inline">\(i\)</span> (<code>HH_Elast</code>; code <code>eps.&lt;i&gt;</code>). The basket uses the basket elasticity.</li>
+</ul>
+<p><span class="math inline">\(t_i (1 + t_i)^{\epsilon}\)</span> is the price change times the quantity the household still buys: with a negative elasticity the factor is below <span class="math inline">\(t_i\)</span>.</p>
+<section id="sec-di-exempt" class="level3" data-number="8.6.1">
+<h3 data-number="8.6.1" class="anchored" data-anchor-id="sec-di-exempt"><span class="header-section-number">8.6.1</span> Cooking-fuel exemption</h3>
+<p>To keep the poorest households from switching back to firewood or charcoal, the scenario can exempt their main cooking fuel (<a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_3_2_5">section 5.3.2.5</a>). In policy terms it is a rebate: the household pays the tax and gets it back.</p>
+<p><span id="eq-di-exempt"><span class="math display">\[
+\psi_{d,f^c} = 0 \qquad \text{for } 1 \le d \le \bar{d}, \text{ when } \texttt{ExemptMostCook} = \text{Yes}
+\tag{8.10}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(f^c\)</span> is the country’s most-used fossil cooking fuel (WHO Household Energy Database; LPG for Egypt);</li>
+<li><span class="math inline">\(\bar{d}\)</span> is <code>ExemptCookDeciles</code> (default 4).</li>
+</ul>
+<p>This is <a href="./A_Equations.html#eqlist-B1-4">B1.4</a>. The basket is never exempt. The summary row of the section is the budget-share weighted average of the fuel price factors, overall sample.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: price factors">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: price factors
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>for i in fuels + categories:
+    dp = dpr[i + '.res'] if i in fuels else dpr[i]       # oil reads dpr['oop.res']
+    for d in [basket, 1, ..., 10]:
+        fac[i][d] = dp * (1 + dp) ** eps[i][d] if PEDs == 'Yes' else dp
+        if i == cooking_fuel and ExemptMostCook == 'Yes' and 1 &lt;= d &lt;= ExemptCookDeciles:
+            fac[i][d] = 0
+facw = sum(fac[f] * bsh[f, 'ove'] for f in fuels) / sum(bsh[f, 'ove'] for f in fuels)   # summary</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-di-rebase" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="sec-di-rebase"><span class="header-section-number">8.7</span> Rebasing the survey to national accounts</h2>
+<p>Survey totals rarely match national accounts, and the survey year is not the analysis year. The module scales the survey population to the projected population and survey consumption to private consumption in national accounts (<a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_3_2_1">section 5.3.2.1</a>, <a href="../CPAT_full_documentation_html/05_Distribution.html#eq-5_5">eq-5_5</a>, <a href="../CPAT_full_documentation_html/05_Distribution.html#eq-5_11">eq-5_11</a>).</p>
+<p><span id="eq-di-nacons"><span class="math display">\[
+C^{NA}_y = GDP_y \times \frac{\theta_c}{100}
+\tag{8.11}\]</span></span></p>
+<p><span id="eq-di-rebase"><span class="math display">\[
+N_{d,s} = n_{d,s}\, \frac{POP_y}{n_0}, \qquad
+c_{d,s} = c^{svy}_{d,s}\, \frac{C^{NA}_y}{c^{svy}_0\, POP_y}, \qquad
+X_{d,s} = c_{d,s}\, N_{d,s}
+\tag{8.12}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(C^{NA}_y\)</span> is national private consumption in the analysis year (local currency; code <code>nacons</code>);</li>
+<li><span class="math inline">\(\theta_c\)</span> is households’ final consumption in % of GDP, WDI <code>NE.CON.PRVT.ZS</code>, in its latest year (code <code>consgdp</code>; Egypt: 82.6% in 2023);</li>
+<li><span class="math inline">\(n_{d,s}\)</span> is the survey population weight of decile <span class="math inline">\(d\)</span> in sample <span class="math inline">\(s\)</span> (<code>popw</code>), <span class="math inline">\(n_0\)</span> that of the whole overall sample;</li>
+<li><span class="math inline">\(c^{svy}_{d,s}\)</span> is survey consumption per person including actual rent (<code>cons_pc_acrent</code>), <span class="math inline">\(c^{svy}_0\)</span> that of the overall basket;</li>
+<li><span class="math inline">\(N_{d,s}\)</span>, <span class="math inline">\(c_{d,s}\)</span> and <span class="math inline">\(X_{d,s}\)</span> are the decile’s population, consumption per person and total consumption, scaled (codes <code>pop_tot_adj</code>, <code>cons_pc_na</code>, <code>tot_cons_na</code>).</li>
+</ul>
+<p>This is <a href="./A_Equations.html#eqlist-B1-2">B1.2</a>. The two scaling factors (codes <code>popadj</code> and <code>consadj</code>) come from the overall sample and apply to urban and rural alike. The summary row of the section is total consumption.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: survey to national accounts">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: survey to national accounts
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>nacons  = gdp * consgdp / 100
+popadj  = pop / popw['ove'][basket]
+consadj = nacons / cons_pc_svy['ove'][basket] / pop
+for s in [ove, urb, rur]:
+    for d in [basket, 1, ..., 10]:
+        pop_tot_adj[s][d] = popw[s][d] * popadj
+        cons_pc_na[s][d]  = cons_pc_svy[s][d] * consadj
+        tot_cons_na[s][d] = cons_pc_na[s][d] * pop_tot_adj[s][d]</code></pre>
+</div>
+</div>
+</section>
+<section id="sec-di-effects" class="level2" data-number="8.8">
+<h2 data-number="8.8" class="anchored" data-anchor-id="sec-di-effects"><span class="header-section-number">8.8</span> Direct, indirect and total effect</h2>
+<p>The effect of the price changes on a decile is the budget-share weighted sum of its price factors, as a loss (negative) in percent of consumption. Fuels give the <strong>direct</strong> effect, categories the <strong>indirect</strong> effect (<a href="../CPAT_full_documentation_html/05_Distribution.html#eq-5_2">eq-5_2</a>). The methodology’s corrections of 2026-10-31 (DOC16) make the direct effect refer to eq-5_2, with <span class="math inline">\(f \in g\)</span>.</p>
+<p><span id="eq-di-effect"><span class="math display">\[
+e^{dir}_{d,s} = -\lambda \sum_{f} \psi_{d,f}\, \pi^{df}_s, \qquad
+e^{ind}_{d,s} = -\lambda \sum_{g} \psi_{d,g}\, \pi^{dg}_s, \qquad
+e_{d,s} = e^{dir}_{d,s} + e^{ind}_{d,s}
+\tag{8.13}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(e^{dir}\)</span>, <span class="math inline">\(e^{ind}\)</span>, <span class="math inline">\(e\)</span> are the direct, indirect and total effect (percent of consumption, a loss is negative; codes <code>def.tot</code>, <code>ief.tot</code>, <code>tef.tot</code>; by item <code>def.&lt;f&gt;</code>, <code>ief.&lt;g&gt;</code>);</li>
+<li><span class="math inline">\(\pi^{di}_s\)</span> is the budget share of item <span class="math inline">\(i\)</span> in decile <span class="math inline">\(d\)</span> of sample <span class="math inline">\(s\)</span> (<a href="#eq-di-bsh" class="quarto-xref">Equation&nbsp;<span>8.4</span></a>);</li>
+<li><span class="math inline">\(\lambda\)</span> is the loss scale (<a href="#eq-di-lscale" class="quarto-xref">Equation&nbsp;<span>8.15</span></a>), 1 unless an adjustment is chosen.</li>
+</ul>
+<p>This is <a href="./A_Equations.html#eqlist-D1-4">D1.4</a> (there written as the burden <span class="math inline">\(p_d = -e_d\)</span>). The urban and rural samples use their own budget shares with the overall price factors. Without <code>PEDs</code> these are Laspeyres (upper-bound) estimates: households keep their quantities.</p>
+<section id="sec-di-lscale" class="level3" data-number="8.8.1">
+<h3 data-number="8.8.1" class="anchored" data-anchor-id="sec-di-lscale"><span class="header-section-number">8.8.1</span> Mitigation adjustment and deadweight loss</h3>
+<p>The input-output effect assumes that households and firms keep buying the same quantities. Mitigation, which lets them adjust, raises less revenue. With <code>InferredDist</code> the effect is scaled down to the revenue mitigation actually raises (<a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_3_2_1">section 5.3.2.1</a>, <a href="../CPAT_full_documentation_html/05_Distribution.html#eq-5_4">eq-5_4</a>, <a href="../CPAT_full_documentation_html/05_Distribution.html#eq-5_6">eq-5_6</a>). First, the revenue the household effect implies:</p>
+<p><span id="eq-di-revimpl"><span class="math display">\[
+P_D = \sum_{d=1}^{10} \Big( \sum_i \psi_{d,i}\, \pi^{di} \Big) \frac{X_d}{100}
+\tag{8.14}\]</span></span></p>
+<p>Then the share mitigation raises, and the loss scale:</p>
+<p><span id="eq-di-lscale"><span class="math display">\[
+\beta =
+\begin{cases}
+\min\!\big(1, \max(0, R / P_D)\big) &amp; \texttt{InferredDist} = \text{Yes} \\
+1 &amp; \text{otherwise}
+\end{cases}
+\qquad
+\lambda = \beta + \begin{cases} \tfrac{1}{2}(1 - \beta) &amp; \texttt{DWLs} = \text{Yes} \\ 0 &amp; \text{otherwise} \end{cases}
+\tag{8.15}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(P_D\)</span> is the implied revenue, overall sample (local currency; code <code>revimpl</code>);</li>
+<li><span class="math inline">\(R\)</span> is the new revenue of mitigation (<a href="#sec-di-macro" class="quarto-xref"><span>Section 8.3.3</span></a>);</li>
+<li><span class="math inline">\(\beta\)</span> is the behavioural factor (code <code>badj</code>), <span class="math inline">\(1 - p_{Adj}\)</span> in the methodology’s terms;</li>
+<li><span class="math inline">\(\tfrac{1}{2}\)</span> is the Harberger triangle (constant <code>DWLTri</code>): the deadweight loss is half the lost demand times the price change, added back to the households’ loss;</li>
+<li><span class="math inline">\(\lambda\)</span> is the loss scale (code <code>lscale</code>).</li>
+</ul>
+<p>This is <a href="./A_Equations.html#eqlist-B1-3">B1.3</a>. Since the deadweight loss is a share of the gap <span class="math inline">\(1 - \beta\)</span>, <code>DWLs</code> has no effect unless <code>InferredDist</code> is Yes.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: effects">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: effects
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>for s in [ove, urb, rur]:
+    uloss[s] = sum(fac[i] * bsh[i, s] for i in fuels + categories)
+revimpl = sum(uloss['ove'][d] * tot_cons_na['ove'][d] for d in 1..10) / 100
+badj    = min(1, max(0, rev / revimpl)) if InferredDist == 'Yes' else 1
+lscale  = badj + (DWLTri * (1 - badj) if DWLs == 'Yes' else 0)
+for s in [ove, urb, rur]:
+    for f in fuels:      def[f, s] = -fac[f] * bsh[f, s] * lscale
+    for g in categories: ief[g, s] = -fac[g] * bsh[g, s] * lscale
+    def['tot', s] = sum(def[f, s] for f in fuels)
+    ief['tot', s] = sum(ief[g, s] for g in categories)
+    tef['tot', s] = def['tot', s] + ief['tot', s]                     # = -uloss[s] * lscale</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-di-recycling" class="level2" data-number="8.9">
+<h2 data-number="8.9" class="anchored" data-anchor-id="sec-di-recycling"><span class="header-section-number">8.9</span> Revenue recycling</h2>
+<p>The revenue <span class="math inline">\(R\)</span> goes back to households in four ways, each with its share of the revenue. The methodology describes them in <a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_4">section 5.4</a>. All four are computed as an amount per person by decile, in local currency, then turned into percent of each sample’s consumption.</p>
+<p><span id="eq-di-shares"><span class="math display">\[
+R_{PIT} = R\,\frac{\sigma_{PIT}}{100}, \quad
+R_{PUI} = R\,\frac{\sigma_{PUI}}{100}, \quad
+R_{CTS} = R\,\frac{\sigma_{CTS}}{100}, \quad
+R_{T} = R\,\frac{\sigma_{T}}{100}
+\tag{8.16}\]</span></span></p>
+<p>where <span class="math inline">\(\sigma_{PIT}\)</span>, <span class="math inline">\(\sigma_{PUI}\)</span>, <span class="math inline">\(\sigma_{CTS}\)</span>, <span class="math inline">\(\sigma_T\)</span> are <code>EXPLabortax</code>, <code>EXPCapex</code>, <code>EXPGoodsandserv</code> and <code>EXPTransfers</code> (percent; defaults 30, 50, 0, 20) and <span class="math inline">\(R_{\cdot}\)</span> the amounts (codes <code>rpit</code>, <code>rpui</code>, <code>rcts</code>, <code>rtgt</code>). Let <span class="math inline">\(N = \sum_{d=1}^{10} N_d\)</span> be the overall population (code <code>poptot</code>).</p>
+<p>The amounts per person come from the overall sample; urban and rural deciles receive the same amount per person, except for public investment, which follows each sample’s access (issue I78).</p>
+<section id="sec-di-pit" class="level3" data-number="8.9.1">
+<h3 data-number="8.9.1" class="anchored" data-anchor-id="sec-di-pit"><span class="header-section-number">8.9.1</span> Personal income-tax cut</h3>
+<p>Part of the revenue can cut the personal income tax (PIT) households pay (<a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_4_3">section 5.4.3</a>). First, the PIT each decile pays per person:</p>
+<p><span id="eq-di-pitpc"><span class="math display">\[
+B = GDP_y\, \frac{\tau_{PIT}}{100}, \qquad
+\ell_d = \frac{B\, s_d}{\sum_{d'} s_{d'}\; N_d}
+\tag{8.17}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(B\)</span> is economy-wide PIT (local currency; code <code>pitbase</code>);</li>
+<li><span class="math inline">\(\tau_{PIT}\)</span> is the PIT-to-GDP ratio of the country (percent; survey variable <code>indv</code>, code <code>pitind</code>);</li>
+<li><span class="math inline">\(s_d\)</span> is the decile’s share of PIT paid (survey variable <code>pit_share_income</code> or <code>pit_share_region</code> by <code>MissingDataReplacement</code>; code <code>pitsh</code>);</li>
+<li><span class="math inline">\(\ell_d\)</span> is PIT paid per person in decile <span class="math inline">\(d\)</span> (code <code>pitpc</code>).</li>
+</ul>
+<p>Then one of three cuts, chosen by <code>PITReductionType</code>:</p>
+<p><span id="eq-di-pit"><span class="math display">\[
+PIT_d =
+\begin{cases}
+\min(\bar{r}, \ell_d) + \dfrac{1}{N}\sum_{d'} (\bar{r} - \ell_{d'})^{+} N_{d'} &amp; \text{PA} \\[8pt]
+\ell_d\, \dfrac{R_{PIT}}{B} &amp; \text{PC} \\[8pt]
+\min\!\Big(\ell_d, \dfrac{(R_{PIT} - \Lambda_{d-1})^{+}}{N_d}\Big)\ (d \le \bar{d}_{PIT}),\ 0 \text{ above} &amp; \text{TE}
+\end{cases}
+\tag{8.18}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(PIT_d\)</span> is the PIT cut per person in decile <span class="math inline">\(d\)</span> (local currency; code <code>pit</code>); PA is Personal Allowance (code <code>pitpa</code>), PC Proportional Compensation (<code>pitprop</code>), TE Targeted Exemption (<code>pitte</code>);</li>
+<li><span class="math inline">\(\bar{r} = R_{PIT} / N\)</span> is the most each person can get under the allowance (code <code>pitmax</code>); the second term shares out equally what the deciles that pay less than <span class="math inline">\(\bar{r}\)</span> leave over (code <code>pitextra</code>);</li>
+<li><span class="math inline">\(\Lambda_{d-1} = \sum_{d' &lt; d} \ell_{d'} N_{d'}\)</span> is the PIT paid by the deciles below <span class="math inline">\(d\)</span> (code <code>pitcum</code>);</li>
+<li><span class="math inline">\(\bar{d}_{PIT}\)</span> is <code>DistExcCfDec</code> (default 4): the exemption works from the bottom up while revenue lasts.</li>
+</ul>
+<p>This is <a href="./A_Equations.html#eqlist-B1-5">B1.5</a>. The personal allowance is like a lump sum to taxpayers and is progressive; the proportional cut follows the PIT schedule and is relatively regressive.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: income-tax cut">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: income-tax cut
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>rpit    = rev * EXPLabortax / 100
+poptot  = sum(N[d] for d in 1..10)
+pitbase = gdp * pitind / 100
+for d in 1..10:
+    pitpc[d] = pitbase * pitsh[d] / sum(pitsh) / N[d]
+pitmax   = rpit / poptot
+pitextra = sum(max(pitmax - pitpc[d], 0) * N[d] for d in 1..10) / poptot
+cum = 0
+for d in 1..10:
+    pitpa[d]   = min(pitmax, pitpc[d]) + pitextra
+    pitprop[d] = pitpc[d] * rpit / pitbase
+    pitte[d]   = min(pitpc[d], max(rpit - cum, 0) / N[d]) if d &lt;= DistExcCfDec else 0
+    cum += pitpc[d] * N[d]
+    pit[d] = {'Personal Allowance': pitpa, 'Proportional Compensation': pitprop}.get(
+                 PITReductionType, pitte)[d]</code></pre>
+</div>
+</div>
+</section>
+<section id="sec-di-transfer" class="level3" data-number="8.9.2">
+<h3 data-number="8.9.2" class="anchored" data-anchor-id="sec-di-transfer"><span class="header-section-number">8.9.2</span> Targeted transfers</h3>
+<p>A targeted transfer goes to the bottom of the distribution. The scenario sets the targeted percentile, how many of the targeted receive (coverage) and how many of the others receive by mistake (leakage) (<a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_4_1">section 5.4.1</a>, <a href="../CPAT_full_documentation_html/05_Distribution.html#eq-5_9">eq-5_9</a> to <a href="../CPAT_full_documentation_html/05_Distribution.html#eq-5_12">eq-5_12</a>). The model builds it in three steps.</p>
+<p><strong>The targeted share of each decile.</strong> Deciles are not exactly 10% of the population once weighted, so the share of each decile inside the bottom percentile follows the cumulative population:</p>
+<p><span id="eq-di-tgtsh"><span class="math display">\[
+n^{sh}_d = \frac{N_d}{N}, \qquad
+\tau_d = \max\!\Big(0,\ \min\big(n^{sh}_d,\ \tfrac{p_T}{100} - \textstyle\sum_{d' \le d} n^{sh}_{d'} + n^{sh}_d\big)\Big)
+\tag{8.19}\]</span></span></p>
+<p>where <span class="math inline">\(n^{sh}_d\)</span> is the decile’s population share (code <code>popsh</code>), <span class="math inline">\(p_T\)</span> the targeted percentile <code>TargettedPercentile</code> (percent; default 40) and <span class="math inline">\(\tau_d\)</span> the targeted share of the population, in the decile (code <code>tgtsh</code>).</p>
+<p><strong>The share of the decile that receives.</strong></p>
+<p><span id="eq-di-recv"><span class="math display">\[
+r_d = \frac{\tau_d\, cov + (n^{sh}_d - \tau_d)\, leak}{100\; n^{sh}_d}
+\tag{8.20}\]</span></span></p>
+<p>where <span class="math inline">\(cov\)</span> and <span class="math inline">\(leak\)</span> are <code>CoverageRate</code> and <code>LeakageRate</code> (percent; defaults 100 and 0) and <span class="math inline">\(r_d\)</span> the share of the decile that receives (code <code>recv</code>).</p>
+<p><strong>The transfer.</strong> One formula serves the three targeting modes, through a weight <span class="math inline">\(w_d\)</span>:</p>
+<p><span id="eq-di-tgt"><span class="math display">\[
+T_d = T\, r_d\, w_d\, \mu_d, \qquad
+T = \frac{R_T}{\sum_{d=1}^{10} r_d\, w_d\, N_d}
+\tag{8.21}\]</span></span></p>
+<p><span id="eq-di-tgtw"><span class="math display">\[
+w_d =
+\begin{cases}
+1 &amp; \text{Cash} \\
+\min(10\, b^{PL}_d,\ 100) / 100 &amp; \text{PL (poverty line)} \\
+A_{\lceil d/2 \rceil} &amp; \text{ASPIRE}
+\end{cases}
+\tag{8.22}\]</span></span></p>
+<p><span id="eq-di-medflag"><span class="math display">\[
+\mu_d =
+\begin{cases}
+0 &amp; \text{median statistic and } r_d\, w^{PL}_d \le \tfrac{1}{2} \\
+1 &amp; \text{otherwise}
+\end{cases}
+\tag{8.23}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(T_d\)</span> is the transfer per person in decile <span class="math inline">\(d\)</span> (local currency; code <code>tgt</code>) and <span class="math inline">\(T\)</span> the amount per weighted recipient (code <code>tgtamt</code>);</li>
+<li><span class="math inline">\(b^{PL}_d\)</span> is the percentage of decile <span class="math inline">\(d\)</span> below the poverty line <code>TargetBelow</code> (survey <code>pct_belowpl_215</code>, <code>pct_belowpl_365</code> or <code>pct_belowpl_685</code>: lines of 2.15, 3.65 and 6.85 USD a day); times 10 it is the share of the decile below the line if deciles hold 10% of the sample (constant <code>PlDecScale</code>), capped at 100% (code <code>plsh</code>);</li>
+<li><span class="math inline">\(A_q\)</span> is the ASPIRE benefit per person of the <code>TransferType</code> programme in quintile <span class="math inline">\(q = \lceil d/2 \rceil\)</span> (constant <code>DecPerQuint</code> = 2; PPP USD a day, as in the data; 0 when absent; code <code>aspt</code>);</li>
+<li><span class="math inline">\(w^{PL}_d\)</span> is the poverty-line share (1 outside PL mode) and <span class="math inline">\(r_d w^{PL}_d\)</span> the share of the decile that receives (code <code>rshare</code>);</li>
+<li><span class="math inline">\(\mu_d\)</span> is the median flag (code <code>medflag</code>): with the median statistic the representative household of a decile receives the transfer only if more than half the decile receives.</li>
+</ul>
+<p>This is <a href="./A_Equations.html#eqlist-D1-5">D1.5</a>. The denominator makes the payout equal the revenue share exactly, in every mode, except that money the median flag withholds is not redistributed (as legacy). Poverty-line targeting works only with <code>TransferType</code> = Cash. A programme without ASPIRE data for the country falls back to cash, and the support check says so.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: targeted transfer">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: targeted transfer
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>rtgt = rev * EXPTransfers / 100
+popcum = 0
+for d in 1..10:
+    popsh[d] = N[d] / poptot
+    popcum  += popsh[d]
+    tgtsh[d] = max(0, min(popsh[d], TargettedPercentile / 100 - popcum + popsh[d]))
+    recv[d]  = (tgtsh[d] * CoverageRate + (popsh[d] - tgtsh[d]) * LeakageRate) / 100 / popsh[d]
+    q        = ceil(d / DecPerQuint)
+    aspt[d]  = aspire.get(f'{iso}.{tgtcode}{q}_preT_tot', 0)
+    plsh[d]  = min(PlDecScale * pct_belowpl[d], 100) / 100 if tgtmode == 'PL' else 1
+    tgtw[d]  = aspt[d] if tgtmode == 'ASPIRE' else plsh[d]
+    rshare   = recv[d] * plsh[d]
+    medflag[d] = 0 if QuantilesStatistic == 'median' and rshare &lt;= 1 - rshare else 1
+den    = sum(recv[d] * tgtw[d] * N[d] for d in 1..10)
+tgtamt = rtgt / den if den else 0
+for d in 1..10:
+    tgt[d] = tgtamt * recv[d] * tgtw[d] * medflag[d]</code></pre>
+</div>
+</div>
+</section>
+<section id="sec-di-pui" class="level3" data-number="8.9.3">
+<h3 data-number="8.9.3" class="anchored" data-anchor-id="sec-di-pui"><span class="header-section-number">8.9.3</span> Public investment and current spending</h3>
+<p><strong>Public investment</strong> reaches the people who lack the chosen infrastructure: water, sanitation, electricity, ICT, public transport, or all of them (<a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_2_2">section 5.2.2</a>, <a href="../CPAT_full_documentation_html/05_Distribution.html#eq-5_13">eq-5_13</a>). Its value is counted as cash. <strong>Current spending</strong> scales up an existing social-protection programme in proportion to what each quintile receives from it today (<a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_4_2">section 5.4.2</a>, <a href="../CPAT_full_documentation_html/05_Distribution.html#eq-5_14">eq-5_14</a>).</p>
+<p><span id="eq-di-pui"><span class="math display">\[
+PUI_{d,s} = \frac{R_{PUI}}{\sum_{d'} (1 - a_{d'})\, N_{d'}}\,(1 - a_{d,s}), \qquad
+CTS_d = \frac{R_{CTS}}{\sum_{d'} b_{d'}\, N_{d'}}\, b_d
+\tag{8.24}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(PUI_{d,s}\)</span> is public investment per person in decile <span class="math inline">\(d\)</span> of sample <span class="math inline">\(s\)</span>, <span class="math inline">\(CTS_d\)</span> current spending per person (local currency; codes <code>pui</code>, <code>cts</code>);</li>
+<li><span class="math inline">\(a_{d,s}\)</span> is the share of the decile with access to the infrastructure <code>PublicInfrastructureInvType</code> (survey, percent / 100; code <code>acs</code>); <span class="math inline">\(1 - a\)</span> is code <code>noacc</code>;</li>
+<li><span class="math inline">\(b_d\)</span> is the ASPIRE benefit per person of the <code>CurrentSpendingType</code> programme in quintile <span class="math inline">\(\lceil d/2 \rceil\)</span> (code <code>aspbase</code>; 0 if absent);</li>
+<li>the sums run over the overall deciles; the amount per person without access (code <code>puiamt</code>) is then applied to each sample’s own access.</li>
+</ul>
+<p>This is <a href="./A_Equations.html#eqlist-B1-6">B1.6</a>. Both are independent of the transfer settings and carry no median flag.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: public investment and current spending">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: public investment and current spending
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>rpui = rev * EXPCapex / 100
+rcts = rev * EXPGoodsandserv / 100
+for s in [ove, urb, rur]:
+    noacc[s] = [1 - acs[s][d] / 100 for d in 1..10]       # access variable of the chosen type
+puiamt = rpui / sum(noacc['ove'][d] * N[d] for d in 1..10)
+for s in [ove, urb, rur]:
+    pui[s] = [puiamt * noacc[s][d] for d in 1..10]
+aspbase = [aspire.get(f'{iso}.{aspcode}{ceil(d / 2)}_preT_tot', 0) for d in 1..10]
+ctsamt  = rcts / sum(aspbase[d] * N[d] for d in 1..10)
+cts     = [ctsamt * aspbase[d] for d in 1..10]</code></pre>
+</div>
+</div>
+</section>
+<section id="sec-di-rec" class="level3" data-number="8.9.4">
+<h3 data-number="8.9.4" class="anchored" data-anchor-id="sec-di-rec"><span class="header-section-number">8.9.4</span> Recycling gain in percent of consumption</h3>
+<p>Each amount per person is divided by the consumption per person of the sample’s decile:</p>
+<p><span id="eq-di-rec"><span class="math display">\[
+G_{d,s} = \frac{PIT_d + PUI_{d,s} + CTS_d + T_d}{c_{d,s}} \times 100
+\tag{8.25}\]</span></span></p>
+<p>where <span class="math inline">\(G_{d,s}\)</span> is the recycling gain (percent of consumption; code <code>rec.tot</code>; its parts <code>pit.tot</code>, <code>pui.tot</code>, <code>cts.tot</code>, <code>tgt.tot</code>) and <span class="math inline">\(c_{d,s}\)</span> consumption per person (<a href="#eq-di-rebase" class="quarto-xref">Equation&nbsp;<span>8.12</span></a>). Recycling rows have deciles only; the basket is blank.</p>
+</section>
+</section>
+<section id="sec-di-net" class="level2" data-number="8.10">
+<h2 data-number="8.10" class="anchored" data-anchor-id="sec-di-net"><span class="header-section-number">8.10</span> Net effect, compensation and inequality</h2>
+<p>The net effect is what each decile gains or loses once the revenue comes back (<a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_4">section 5.4</a>):</p>
+<p><span id="eq-di-net"><span class="math display">\[
+net_{d,s} = e_{d,s} + G_{d,s}
+\tag{8.26}\]</span></span></p>
+<p>where <span class="math inline">\(net_{d,s}\)</span> is the net effect (percent of consumption; code <code>net.tot</code>). This is <a href="./A_Equations.html#eqlist-D1-6">D1.6</a>.</p>
+<section id="sec-di-comp" class="level3" data-number="8.10.1">
+<h3 data-number="8.10.1" class="anchored" data-anchor-id="sec-di-comp"><span class="header-section-number">8.10.1</span> Compensation shares</h3>
+<p>How much of the revenue would it take to make each decile whole? The share of the total loss each decile bears:</p>
+<p><span id="eq-di-comp"><span class="math display">\[
+\chi_{d,s} = \frac{e_{d,s}\, X_{d,s}}{\sum_{d'} e_{d',s}\, X_{d',s}} \times 100
+\tag{8.27}\]</span></span></p>
+<p>where <span class="math inline">\(\chi_{d,s}\)</span> is the compensation share of decile <span class="math inline">\(d\)</span> (percent; code <code>pctrev_comp</code>; 0 when there is no loss). In each sample the shares sum to 100.</p>
+</section>
+<section id="sec-di-gini" class="level3" data-number="8.10.2">
+<h3 data-number="8.10.2" class="anchored" data-anchor-id="sec-di-gini"><span class="header-section-number">8.10.2</span> Gini coefficient</h3>
+<p>Inequality is measured three times: on consumption before the scenario, after the price effects, and after recycling.</p>
+<p><span id="eq-di-post"><span class="math display">\[
+X^{x}_{d,s} = X_{d,s}\Big(1 + \frac{e_{d,s}}{100}\Big), \qquad
+X^{i}_{d,s} = X_{d,s}\Big(1 + \frac{net_{d,s}}{100}\Big)
+\tag{8.28}\]</span></span></p>
+<p><span id="eq-di-gini"><span class="math display">\[
+G(x) = 1 - \frac{\sum_{d=1}^{10} x_d\, W_d}{\sum_{d=1}^{10} x_d}
+\tag{8.29}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(X^{x}\)</span> and <span class="math inline">\(X^{i}\)</span> are decile consumption after the price effects and after recycling (codes <code>postx</code>, <code>posti</code>);</li>
+<li><span class="math inline">\(G\)</span> is the Gini coefficient of the decile totals <span class="math inline">\(x_d\)</span>; <span class="math inline">\(G_0 = G(X)\)</span>, <span class="math inline">\(G_x = G(X^x)\)</span>, <span class="math inline">\(G_i = G(X^i)\)</span> (codes <code>gini.g0</code>, <code>gini.gx</code>, <code>gini.gi</code>);</li>
+<li><span class="math inline">\(W_d\)</span> are fixed weights (<code>DGiniW</code> on <code>DistMapping</code>).</li>
+</ul>
+<p>This is <a href="./A_Equations.html#eqlist-B1-7">B1.7</a>. The weights come from legacy’s Lorenz fit: a quadratic <span class="math inline">\(L(q) = a q^2 + b q\)</span> through the origin fitted by least squares to the ten cumulative shares at <span class="math inline">\(q = 1, \dots, 10\)</span>, with <span class="math inline">\(G = (5 - \text{area under } L) / 5\)</span>. The fit is linear in the shares, so</p>
+<p><span id="eq-di-giniw"><span class="math display">\[
+W_d = \frac{2}{n} \sum_{q \ge d} \omega_q, \qquad
+\omega_q = \frac{\tfrac{n^3}{3}(S_2 q^2 - S_3 q) + \tfrac{n^2}{2}(S_4 q - S_3 q^2)}{S_4 S_2 - S_3^2}, \qquad
+S_m = \sum_{q=1}^{n} q^m
+\tag{8.30}\]</span></span></p>
+<p>with <span class="math inline">\(n = 10\)</span>. The weights are:</p>
+<div id="tbl-di-giniw" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-di-giniw-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8.4: Gini weights
+</figcaption>
+<div aria-describedby="tbl-di-giniw-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(d\)</span></th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(W_d\)</span></td>
+<td>1.78715</td>
+<td>1.70902</td>
+<td>1.56797</td>
+<td>1.37921</td>
+<td>1.15797</td>
+<td>0.91944</td>
+<td>0.67884</td>
+<td>0.45138</td>
+<td>0.25228</td>
+<td>0.09675</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The reported changes:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>pct_gini_norec</code>, <code>pct_gini_rec</code></td>
+<td><span class="math inline">\((G_x / G_0 - 1) \times 100\)</span> and <span class="math inline">\((G_i / G_0 - 1) \times 100\)</span>: percent change</td>
+</tr>
+<tr class="even">
+<td><code>gini.ptx</code>, <code>gini.pti</code></td>
+<td><span class="math inline">\(G_x - G_0\)</span> and <span class="math inline">\(G_i - G_0\)</span>: change in Gini points</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: net effect, compensation and Gini">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: net effect, compensation and Gini
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>W = gini_weights()                                           # tbl-di-giniw
+gini = lambda x: 1 - sum(x[d] * W[d] for d in 1..10) / sum(x[d] for d in 1..10)
+for s in [ove, urb, rur]:
+    for d in 1..10:
+        net[s][d] = tef[s][d] + rec[s][d]
+    compden = sum(tef[s][d] * tot_cons_na[s][d] for d in 1..10)
+    for d in 1..10:
+        pctrev_comp[s][d] = 0 if compden == 0 else tef[s][d] * tot_cons_na[s][d] / compden * 100
+        postx[s][d] = tot_cons_na[s][d] * (1 + tef[s][d] / 100)
+        posti[s][d] = tot_cons_na[s][d] * (1 + net[s][d] / 100)
+    g0, gx, gi = gini(tot_cons_na[s]), gini(postx[s]), gini(posti[s])
+    pct_gini_norec[s] = (gx / g0 - 1) * 100
+    pct_gini_rec[s]   = (gi / g0 - 1) * 100
+    gini_ptx[s], gini_pti[s] = gx - g0, gi - g0</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-di-charts" class="level2" data-number="8.11">
+<h2 data-number="8.11" class="anchored" data-anchor-id="sec-di-charts"><span class="header-section-number">8.11</span> Outputs for charts</h2>
+<p>Section 10 prepares what the distribution charts show. It adds no new economics; each row is a rearrangement of the results above.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Output</th>
+<th>Content</th>
+<th>Codes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Decile names</td>
+<td>Poorest, Decile 2 … Decile 9, Wealthiest</td>
+<td><code>dname</code></td>
+</tr>
+<tr class="even">
+<td>Decile brackets</td>
+<td>Lowest and highest consumption per person of each decile (survey p1 and p99) × <code>consadj</code>: real local currency of the analysis year</td>
+<td><code>dbr.p1</code>, <code>dbr.p99</code></td>
+</tr>
+<tr class="odd">
+<td>Decile labels</td>
+<td>The names, or the brackets in local currency when <code>QuantilesLCU</code> = Yes</td>
+<td><code>dlab</code></td>
+</tr>
+<tr class="even">
+<td>Budget shares by group</td>
+<td>Fossil fuels, biomass, non-fuel categories</td>
+<td><code>bshg.fos</code>, <code>bshg.bio</code>, <code>bshg.nfu</code></td>
+</tr>
+<tr class="odd">
+<td>Urban and rural effects by item</td>
+<td>Direct effect by fuel, indirect by category, for each sample</td>
+<td><code>def.&lt;f&gt;</code>, <code>ief.&lt;g&gt;</code></td>
+</tr>
+<tr class="even">
+<td>Amounts per person</td>
+<td>Budget, direct and indirect effect by item; total, net effect: <span class="math inline">\(c_{d,s} \times\)</span> the percentage / 100</td>
+<td><code>abud</code>, <code>adef</code>, <code>aief</code>, <code>atef</code>, <code>anet</code></td>
+</tr>
+<tr class="odd">
+<td>Lorenz curves</td>
+<td>Cumulative share of population, of consumption before, after the price effects and after recycling</td>
+<td><code>lzp</code>, <code>lz0</code>, <code>lzx</code>, <code>lzi</code></td>
+</tr>
+<tr class="even">
+<td>Cumulative compensation</td>
+<td>Running sum of the compensation shares</td>
+<td><code>ccomp</code></td>
+</tr>
+<tr class="odd">
+<td>Percentile households</td>
+<td>The 25th and 75th percentile households of each decile: their effect (decile price factors × their own budget shares × <span class="math inline">\(\lambda\)</span>), consumption, recycling gain and net effect</td>
+<td><code>hrow</code>, <code>htef</code>, <code>hcpc</code>, <code>hrec</code>, <code>hnet</code></td>
+</tr>
+<tr class="even">
+<td>Gini change</td>
+<td>In Gini points, by sample</td>
+<td><code>gini.ptx</code>, <code>gini.pti</code></td>
+</tr>
+</tbody>
+</table>
+<p>The equality line of the Lorenz chart is the cumulative population share, not steps of 10%. The percentile households give the horizontal spread: how different two households of the same decile fare.</p>
+</section>
+<section id="sec-di-sectors" class="level2" data-number="8.12">
+<h2 data-number="8.12" class="anchored" data-anchor-id="sec-di-sectors"><span class="header-section-number">8.12</span> Price changes by production sector</h2>
+<p>The same input-output factors tell how much each producing sector’s costs rise. Section 11 lists the sectors hit hardest and summarises them by CPAT sector. The methodology treats pass-through in <a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_3_2_3">section 5.3.2.3</a> (<a href="../CPAT_full_documentation_html/05_Distribution.html#eq-5_8">eq-5_8</a>).</p>
+<p><span id="eq-di-dps"><span class="math display">\[
+t_i = \begin{cases} \sum_k L_{i,k}\, \phi_k &amp; i \notin \text{fuels} \\ 0 &amp; i \in \text{fuels} \end{cases}
+\qquad
+t^{*}_i = t_i\, \gamma_{s(i)}
+\tag{8.31}\]</span></span></p>
+<p><span id="eq-di-ppic"><span class="math display">\[
+\bar{t}_s = \frac{\sum_{i \in s} Q_i\, t^{*}_i}{\sum_{i \in s} Q_i}
+\tag{8.32}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(t_i\)</span> is the input-cost price change of GTAP sector <span class="math inline">\(i\)</span> (code <code>dps.&lt;i&gt;</code>);</li>
+<li><span class="math inline">\(\gamma_{s(i)}\)</span> is the pass-through of the CPAT sector <span class="math inline">\(s\)</span> that sector <span class="math inline">\(i\)</span> belongs to, when <code>PassthroughDist</code> = Yes (1 otherwise; <a href="#tbl-di-passthrough" class="quarto-xref">Table&nbsp;<span>8.5</span></a>);</li>
+<li><span class="math inline">\(t^{*}_i\)</span> is the output price change after pass-through (code <code>dpsp.&lt;i&gt;</code>);</li>
+<li><span class="math inline">\(Q_i\)</span> is GTAP output; <span class="math inline">\(\bar{t}_s\)</span> the output-weighted price change of CPAT sector <span class="math inline">\(s\)</span>.</li>
+</ul>
+<p>This is <a href="./A_Equations.html#eqlist-B1-8">B1.8</a>.</p>
+<div id="tbl-di-passthrough" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-di-passthrough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8.5: Pass-through coefficients (Ganapati 2019; Abdallah and others 2020)
+</figcaption>
+<div aria-describedby="tbl-di-passthrough-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>CPAT sector</th>
+<th><span class="math inline">\(\gamma\)</span></th>
+<th>CPAT sector</th>
+<th><span class="math inline">\(\gamma\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Electricity production (<code>pow</code>)</td>
+<td>1</td>
+<td>Mining and chemicals (<code>mch</code>)</td>
+<td>0.711</td>
+</tr>
+<tr class="even">
+<td>Rail (<code>ral</code>)</td>
+<td>0.905</td>
+<td>Iron and steel (<code>irn</code>)</td>
+<td>0.711</td>
+</tr>
+<tr class="odd">
+<td>Road (<code>rod</code>)</td>
+<td>0.905</td>
+<td>Non-ferrous metals (<code>nfm</code>)</td>
+<td>0.711</td>
+</tr>
+<tr class="even">
+<td>Domestic aviation (<code>avi</code>)</td>
+<td>0.905</td>
+<td>Machinery (<code>mac</code>)</td>
+<td>0.692</td>
+</tr>
+<tr class="odd">
+<td>Domestic navigation (<code>nav</code>)</td>
+<td>0.905</td>
+<td>Cement (<code>cem</code>)</td>
+<td>0.775</td>
+</tr>
+<tr class="even">
+<td>Residential (<code>res</code>)</td>
+<td>0.905</td>
+<td>Other manufacturing (<code>omn</code>)</td>
+<td>0.692</td>
+</tr>
+<tr class="odd">
+<td>Food and forestry (<code>foo</code>)</td>
+<td>0.681</td>
+<td>Construction (<code>cst</code>)</td>
+<td>0.692</td>
+</tr>
+<tr class="even">
+<td>Services (<code>srv</code>)</td>
+<td>0.963</td>
+<td>Fuel transformation and transport (<code>ftr</code>)</td>
+<td>0.327</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The outputs:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Output</th>
+<th>Content</th>
+<th>Codes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rank</td>
+<td>Rank of each GTAP sector by <span class="math inline">\(t^*_i\)</span>, largest first; ties broken by sheet order</td>
+<td><code>dprk</code></td>
+</tr>
+<tr class="even">
+<td>Top 20</td>
+<td>Code, name and price change of the 20 sectors with the largest <span class="math inline">\(t^*_i\)</span></td>
+<td><code>rks</code>, <code>rkn</code>, <code>rkp</code></td>
+</tr>
+<tr class="odd">
+<td>Sector shares</td>
+<td>Share of each of the 14 CPAT sectors in household demand and in output</td>
+<td><code>secshh</code>, <code>secsout</code></td>
+</tr>
+<tr class="even">
+<td>Sector prices</td>
+<td>Output-weighted <span class="math inline">\(t_i\)</span> (before pass-through), output-weighted <span class="math inline">\(t^*_i\)</span>, household-demand weighted <span class="math inline">\(t^*_i\)</span></td>
+<td><code>ppici</code>, <code>ppic</code>, <code>outpriin</code></td>
+</tr>
+<tr class="odd">
+<td>Whole economy</td>
+<td>Output-weighted <span class="math inline">\(t^*_i\)</span> over all sectors</td>
+<td><code>ppic.all</code></td>
+</tr>
+</tbody>
+</table>
+<p>The 14 CPAT sectors are aviation, navigation, food, services, mining and chemicals, iron and steel, non-ferrous metals, machinery, cement, other manufacturing, construction, fuel transformation, residential and power. MTOutputs reads <code>ppic</code>, <code>ppici</code> and <code>outpriin</code> by sector code.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: production sectors">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: production sectors
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>for i in gtap_sectors:
+    dps[i]  = 0 if i in fuel_sectors else sum(L[i, k] * gfac[k] for k in groups)
+    gamma   = passthrough.get(cpat_of[i], 1) if PassthroughDist == 'Yes' else 1
+    dpsp[i] = dps[i] * gamma
+for n, i in enumerate(gtap_sectors):                         # rank, ties by order
+    dprk[i] = 1 + count(dpsp &gt; dpsp[i]) + count(dpsp[j] == dpsp[i] for j before n)
+for r in 1..20:
+    i = the sector with dprk == r
+    rks[r], rkn[r], rkp[r] = i, name[i], dpsp[i]
+for s in cpat_sectors:
+    m = [i for i in gtap_sectors if cpat_of[i] == s]
+    secshh[s]   = sum(H[m]) / sum(H)
+    secsout[s]  = sum(Q[m]) / sum(Q)
+    ppici[s]    = sum(Q[m] * dps[m])  / sum(Q[m])
+    ppic[s]     = sum(Q[m] * dpsp[m]) / sum(Q[m])
+    outpriin[s] = sum(H[m] * dpsp[m]) / sum(H[m])
+ppic['all'] = sum(Q * dpsp) / sum(Q)</code></pre>
+</div>
+</div>
+</section>
+<section id="sec-di-departures" class="level2" data-number="8.13">
+<h2 data-number="8.13" class="anchored" data-anchor-id="sec-di-departures"><span class="header-section-number">8.13</span> Where the model departs from the methodology</h2>
+<p>The model follows the methodology’s chapter 5 with these simplifications and choices. The legacy-specific items are in the next box.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Topic</th>
+<th>Methodology</th>
+<th>Model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mitigation adjustment (<a href="../CPAT_full_documentation_html/05_Distribution.html#eq-5_6">eq-5_6</a>)</td>
+<td>Downward factor <span class="math inline">\(p_{Adj} = (P_D - P_M)/P_D\)</span></td>
+<td>Scale <span class="math inline">\(\beta = R / P_D = 1 - p_{Adj}\)</span>, bounded to [0, 1]; <span class="math inline">\(P_M\)</span> is the new-policy revenue <code>rnew</code>; optional deadweight triangle</td>
+</tr>
+<tr class="even">
+<td>Elasticities (<a href="../CPAT_full_documentation_html/05_Distribution.html#eq-5_7">eq-5_7</a>)</td>
+<td>Quantity changes by <span class="math inline">\((p_t / p_{t-1})^{\epsilon}\)</span></td>
+<td>Price factor <span class="math inline">\(t (1+t)^{\epsilon}\)</span>; the overall-sample mean elasticities for every sample and statistic</td>
+</tr>
+<tr class="odd">
+<td>Pass-through (<a href="../CPAT_full_documentation_html/05_Distribution.html#eq-5_8">eq-5_8</a>)</td>
+<td>Applied to the tax rate; coefficients 0.7-0.9, average 0.8</td>
+<td>Applied only to the production-sector prices of section 11; coefficients 0.327-1 by CPAT sector</td>
+</tr>
+<tr class="even">
+<td>Indirect prices (<a href="../CPAT_full_documentation_html/05_Distribution.html#eq-5_3">eq-5_3</a>)</td>
+<td>Energy intensities times fuel price changes</td>
+<td>GTAP Leontief coefficients times one factor per fuel group; with <code>ScaleGTAP</code> the factor spreads CPAT’s extra fuel cost over the group’s total use</td>
+</tr>
+<tr class="odd">
+<td>ASPIRE scaling (<a href="../CPAT_full_documentation_html/05_Distribution.html#eq-5_14">eq-5_14</a>)</td>
+<td>Quintile amounts × a fifth of the population</td>
+<td>Quintile amounts × each decile’s scaled population</td>
+</tr>
+<tr class="even">
+<td>Poverty lines (<a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_2_1">section 5.2.1</a>)</td>
+<td>1.9 and 3.2 USD a day (2011 PPP)</td>
+<td>The survey data hold 2.15, 3.65 and 6.85 USD a day</td>
+</tr>
+<tr class="odd">
+<td>PIT base (<a href="../CPAT_full_documentation_html/05_Distribution.html#sec-5_4_3_1">section 5.4.3.1</a>)</td>
+<td>Average PIT-to-GDP ratio × real GDP (constant 2021 local currency)</td>
+<td>PIT-to-GDP ratio of the survey table × the scenario’s GDP in local currency (<code>gdp.lcu</code>) in the analysis year</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT: bugs fixed">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT: bugs fixed
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Legacy bugs are never replicated. The register codes (L, with the former distribution codes D) and the legacy cells:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Code</th>
+<th>Legacy</th>
+<th>Bug</th>
+<th>Model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>L138 (D1)</td>
+<td>R2562:Z2562</td>
+<td>Targeted share of a decile capped at 10 points, not its population share: 105.6% of decile 2 receives</td>
+<td>Capped at the decile’s population share (<a href="#eq-di-tgtsh" class="quarto-xref">Equation&nbsp;<span>8.19</span></a>)</td>
+</tr>
+<tr class="even">
+<td>L139 (D2)</td>
+<td>C.V, C.VI basket (e.g.&nbsp;Q1607)</td>
+<td>Basket uses decile 1’s elasticity adjustment and exemption test</td>
+<td>Basket elasticity; the basket is never exempt</td>
+</tr>
+<tr class="odd">
+<td>L140 (D3)</td>
+<td>Q2633</td>
+<td>Current spending tests the ASPIRE flag of the targeted transfer (I213), not of current spending (I214)</td>
+<td>No flag: the ASPIRE programme of the chosen type, 0 if absent</td>
+</tr>
+<tr class="even">
+<td>L141 (D4)</td>
+<td>rows 2701-2707</td>
+<td>Public investment and current spending are 0 when the transfer coverage or percentile is 0</td>
+<td>Independent of the transfer settings</td>
+</tr>
+<tr class="odd">
+<td>L142 (D5)</td>
+<td>Q2749</td>
+<td>Targeted exemption capped by all carbon-pricing revenue (I154), not the PIT share (I163); urban and rural values not per capita</td>
+<td>Capped by the PIT revenue; per capita in every sample</td>
+</tr>
+<tr class="even">
+<td>L143 (D6)</td>
+<td>Q3259, Q3263</td>
+<td>Urban and rural compensation shares divide by overall weights (they sum to 52 and 47)</td>
+<td>Each sample’s own weights; each sums to 100</td>
+</tr>
+<tr class="odd">
+<td>L144 (D7)</td>
+<td>rows 859-883</td>
+<td>Deadweight loss is a price fraction subtracted from a % of consumption</td>
+<td><code>DWLTri</code> × (1 − factor) × the effect, same units (<a href="#eq-di-lscale" class="quarto-xref">Equation&nbsp;<span>8.15</span></a>)</td>
+</tr>
+<tr class="even">
+<td>L145 (D8)</td>
+<td>MTOutputs 1001-1002</td>
+<td><code>dist.year</code> and <code>dist.stat</code> read ScenarioDefinition column D (0 in dashboard mode)</td>
+<td>The analysis year and statistic of the group</td>
+</tr>
+<tr class="odd">
+<td>L146 (D9)</td>
+<td>H2417, H2422; row 746</td>
+<td>Rural rows labelled Urban; fuel code <code>oil</code> against price rows <code>oop</code></td>
+<td>Own labels; rows by key; one code <code>oop</code> for the price</td>
+</tr>
+<tr class="even">
+<td>L147 (D10)</td>
+<td>row 2629</td>
+<td>ASPIRE transfer pays out 125-129% of the revenue</td>
+<td>Payout = revenue (<a href="#eq-di-tgt" class="quarto-xref">Equation&nbsp;<span>8.21</span></a>)</td>
+</tr>
+<tr class="odd">
+<td>L148 (D11)</td>
+<td>row 2617, I213</td>
+<td>ASPIRE programme without country data: the transfer vanishes</td>
+<td>Cash used; the support check says so</td>
+</tr>
+<tr class="even">
+<td>L149 (D12)</td>
+<td>row 2697</td>
+<td>ASPIRE branch skips the median flag and the zero-coverage test</td>
+<td>One formula for every targeting mode</td>
+</tr>
+<tr class="odd">
+<td>L150 (D13)</td>
+<td>rows 2701-2707</td>
+<td>Public investment and current spending use the targeted-transfer median flag</td>
+<td>The flag applies to the targeted transfer only</td>
+</tr>
+<tr class="even">
+<td>L151 (D14)</td>
+<td>row 2679</td>
+<td>Poverty targeting: the share receiving ignores targeting, coverage and leakage</td>
+<td>Share receiving = receiving × below the line</td>
+</tr>
+<tr class="odd">
+<td>L152 (D15)</td>
+<td>rows 2650-2674</td>
+<td>Poverty targeting: urban and rural pay out about half the funds</td>
+<td>Urban and rural per person = overall per person (I78)</td>
+</tr>
+<tr class="even">
+<td>L154 (D17)</td>
+<td>row 2618, I220-I223</td>
+<td>ASPIRE values converted without a PPP factor</td>
+<td>Labelled PPP USD a day; no conversion</td>
+</tr>
+<tr class="odd">
+<td>L155 (D18)</td>
+<td>rows 3188-3206</td>
+<td>Horizontal p25/p75 effects inflated</td>
+<td>Price factors × the percentile’s budget shares × loss scale</td>
+</tr>
+<tr class="even">
+<td>L156 (D19)</td>
+<td>rows 3193, 3201, 3209</td>
+<td>Horizontal recycling of the chosen statistic divides by median consumption</td>
+<td>The recycling row of the chosen statistic</td>
+</tr>
+<tr class="odd">
+<td>L157 (D20)</td>
+<td>row 2774</td>
+<td>Decile brackets always divided by 1000</td>
+<td>No scaling; brackets in local currency</td>
+</tr>
+<tr class="even">
+<td>L158 (D21)</td>
+<td>rows 2775-2784</td>
+<td>Decile bracket labels unusable</td>
+<td>Real local currency of the analysis year, full numbers</td>
+</tr>
+<tr class="odd">
+<td>L159 (D22)</td>
+<td>rows 3300-3310</td>
+<td>Sector table “ordered by demand” sorts each column independently</td>
+<td>One rank per sector; values read by rank</td>
+</tr>
+<tr class="even">
+<td>L160 (D23)</td>
+<td>rows 3300-3323</td>
+<td>Ordered sector tables show 11 of 12 sectors</td>
+<td>Every sector listed</td>
+</tr>
+<tr class="odd">
+<td>L161 (D24)</td>
+<td>rows 3285-3296</td>
+<td>Chemicals and power missing from the CPAT-sector table</td>
+<td>14 sectors, chemicals and power included</td>
+</tr>
+<tr class="even">
+<td>L162 (D25)</td>
+<td>row 3313</td>
+<td>Chart 19 labels ranked separately from their values; ties</td>
+<td>One ranking; ties broken by order</td>
+</tr>
+<tr class="odd">
+<td>L163 (D26)</td>
+<td>G659:BR659</td>
+<td>Pass-through coefficients one row off</td>
+<td>Coefficient of the sector’s own row; power 1</td>
+</tr>
+<tr class="even">
+<td>L164 (D27)</td>
+<td>MTOutputs K1048:L1058</td>
+<td><code>outpriin</code> labels do not match their values</td>
+<td><code>outpriin</code> by sector code</td>
+</tr>
+<tr class="odd">
+<td>L165 (D28)</td>
+<td>MTOutputs E1006, E1013</td>
+<td>Codes without a dot</td>
+<td>Not replicated: the right codes</td>
+</tr>
+<tr class="even">
+<td>L166 (D29)</td>
+<td>MTOutputs K1046</td>
+<td><code>ppic.fuel</code> empty</td>
+<td>The fuel transformation sector is read (0)</td>
+</tr>
+<tr class="odd">
+<td>L167 (D30)</td>
+<td>rows 2455-2457, 3109</td>
+<td>Lorenz equality line in 10% steps</td>
+<td>Equality line = cumulative population share</td>
+</tr>
+<tr class="even">
+<td>L168 (D31)</td>
+<td>L3036:L3043</td>
+<td>Absolute overall rows carry wrong codes</td>
+<td>Codes built from the row ids</td>
+</tr>
+</tbody>
+</table>
+<p>One legacy bug is <strong>kept</strong>, as a data limitation: L153 (D16), the poverty share × 10 assumes deciles of 10%; the model caps the result at 100% (<a href="#eq-di-tgtw" class="quarto-xref">Equation&nbsp;<span>8.22</span></a>).</p>
+<p>One <strong>prototype</strong> bug was fixed in both models: M22, the percentile-household recycling rows added a percentage row to amounts in local currency (public investment); now every part is per person in local currency before the division.</p>
+<p>The bug fixes move Egypt’s legacy numbers only a little: the targeted transfer in deciles 1-4 by up to 0.13 points of consumption and the Gini change with recycling by 0.0006 points. The urban and rural compensation shares move most, because each now sums to 100.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT: issues replicated">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT: issues replicated
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Legacy issues are replicated and tracked: legacy does what it means to, but the choice is open to question.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Code</th>
+<th>Issue</th>
+<th>What the model does</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>I76</td>
+<td>Spending year</td>
+<td>Fuel spending of the base year (legacy’s first calculation year), with the analysis year’s price changes (<a href="#eq-di-spend" class="quarto-xref">Equation&nbsp;<span>8.3</span></a>)</td>
+</tr>
+<tr class="even">
+<td>I77</td>
+<td>Deflator</td>
+<td>GTAP values (USD) converted with the local GDP deflator (legacy I244; <a href="#eq-di-gtot" class="quarto-xref">Equation&nbsp;<span>8.6</span></a>)</td>
+</tr>
+<tr class="odd">
+<td>I96</td>
+<td>Elasticities</td>
+<td>Always overall, mean: the data have no other</td>
+</tr>
+<tr class="even">
+<td>I78</td>
+<td>Recycled amounts</td>
+<td>Per person from the overall sample, applied to urban and rural consumption (public investment follows each sample’s access)</td>
+</tr>
+<tr class="odd">
+<td>I79</td>
+<td>Gini</td>
+<td>From the fitted quadratic Lorenz curve, not the trapezoid rule (<a href="#eq-di-gini" class="quarto-xref">Equation&nbsp;<span>8.29</span></a>)</td>
+</tr>
+<tr class="even">
+<td>I80</td>
+<td>Revenue</td>
+<td>Revenue from new policies (<code>rnew</code>) stands for legacy’s carbon-pricing revenue (carbon tax, VAT on it, auctioned ETS)</td>
+</tr>
+<tr class="odd">
+<td>I81</td>
+<td>ASPIRE-targeted transfers</td>
+<td><code>TransferType</code> other than Cash weights the transfer by the programme’s benefit</td>
+</tr>
+<tr class="even">
+<td>I82</td>
+<td>Poverty-line targeting</td>
+<td><code>TargetBelow</code> works with Cash only; poverty share from the mean rows</td>
+</tr>
+<tr class="odd">
+<td>I83</td>
+<td>Pass-through</td>
+<td><code>PassthroughDist</code> changes the production-sector prices only, not the household effects</td>
+</tr>
+<tr class="even">
+<td>I84</td>
+<td>Median statistic</td>
+<td>The targeted transfer reaches only deciles where more than half receive; the money withheld is not redistributed</td>
+</tr>
+</tbody>
+</table>
+<p><strong>A simplification.</strong> With <code>ScaleGTAP</code> = No the model uses the economy-wide price change of each fuel group (<a href="#eq-di-gfac" class="quarto-xref">Equation&nbsp;<span>8.7</span></a>). Legacy uses the price change of each GTAP sector’s CPAT sector. The difference is recorded.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-di-checks" class="level2" data-number="8.14">
+<h2 data-number="8.14" class="anchored" data-anchor-id="sec-di-checks"><span class="header-section-number">8.14</span> Checks</h2>
+<div class="callout callout-style-default callout-note callout-titled" title="Check: how the module is verified">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Check: how the module is verified
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Check</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Python reference <code>distribution_ref.py</code>, fed with legacy’s cached Egypt inputs</td>
+<td>Reproduces legacy’s outputs to the precision of the cache: effects, recycling, net effect and compensation to 4e-4, Gini changes to 7e-6</td>
+</tr>
+<tr class="even">
+<td>Excel-AI quick check</td>
+<td>Group 2 equals the reference fed with the sheet’s own inputs; the LAMBDA group equals group 2; no error values; scenario numbers align with Mitigation group by group</td>
+</tr>
+<tr class="odd">
+<td>Excel-AI paste test (<code>check_paste.py</code>)</td>
+<td>Distribution groups 4-7 are pasted with Mitigation’s</td>
+</tr>
+<tr class="even">
+<td>CPAT Python against Excel-AI (<code>test_distribution_incidence.py</code>)</td>
+<td>Every code of sections 1-11, basket and deciles, for Egypt scenario groups 1 and 2, equal within 1e-9</td>
+</tr>
+<tr class="odd">
+<td>CPAT Python against <code>distribution_ref.py</code> (<code>check_recomputations.py</code>)</td>
+<td>Same household results with the same mitigation inputs</td>
+</tr>
+<tr class="even">
+<td>Indirect-price identity</td>
+<td>All 59 sectors to 4e-16, the 14 categories to 3e-6</td>
+</tr>
+<tr class="odd">
+<td>Switch tests (Egypt, targeted transfer, decile 1 = 1)</td>
+<td>Cash Transfers programme: 1, 1, 0.691, 0.691, 0.047; poverty line 6.85: 1, 1, 1, 0.507, 0.003; as the legacy formulas with the fixes applied to legacy’s cached inputs</td>
+</tr>
+<tr class="even">
+<td>Baseline Lorenz curve</td>
+<td>4.016, 9.045, 16.106 (first three deciles), as legacy</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Check: results for Egypt">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Check: results for Egypt
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Scenario 2 (carbon price of USD 20 per tCO2 from 2027) against scenario 1, analysis year 2030, default settings, overall sample. Revenue to recycle <span class="math inline">\(R\)</span> = 74.4 billion local currency; the implied revenue <span class="math inline">\(P_D\)</span> = 125.7 billion, so <span class="math inline">\(\beta\)</span> would be 0.59 with <code>InferredDist</code> (it is off: <span class="math inline">\(\lambda\)</span> = 1).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Decile</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Total effect <span class="math inline">\(e_d\)</span> (%)</td>
+<td>−1.67</td>
+<td>−1.52</td>
+<td>−1.51</td>
+<td>−1.41</td>
+<td>−1.39</td>
+<td>−1.39</td>
+<td>−1.42</td>
+<td>−1.46</td>
+<td>−1.41</td>
+<td>−1.49</td>
+</tr>
+<tr class="even">
+<td>Recycling gain <span class="math inline">\(G_d\)</span> (%)</td>
+<td>4.33</td>
+<td>3.02</td>
+<td>1.86</td>
+<td>1.47</td>
+<td>1.03</td>
+<td>0.58</td>
+<td>0.37</td>
+<td>0.28</td>
+<td>0.34</td>
+<td>0.13</td>
+</tr>
+<tr class="odd">
+<td>Net effect (%)</td>
+<td>2.67</td>
+<td>1.50</td>
+<td>0.35</td>
+<td>0.06</td>
+<td>−0.37</td>
+<td>−0.81</td>
+<td>−1.05</td>
+<td>−1.18</td>
+<td>−1.07</td>
+<td>−1.36</td>
+</tr>
+<tr class="even">
+<td>Compensation share (%)</td>
+<td>4.6</td>
+<td>5.3</td>
+<td>7.3</td>
+<td>7.3</td>
+<td>7.8</td>
+<td>9.1</td>
+<td>10.9</td>
+<td>13.4</td>
+<td>14.2</td>
+<td>20.1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Basket: direct effect −1.30%, indirect −0.16%, total −1.46%.</li>
+<li>Household price changes: electricity +18.4%, natural gas +61.8%, LPG +33.6%, diesel +21.4%, gasoline +14.9%.</li>
+<li>Targeted transfer: 314 local currency per person in deciles 1-4, 14 in decile 5 (the 40% line falls inside it).</li>
+<li>Gini: 0.2538 before, 0.2538 after the price effects (+0.00009 points, +0.03%), 0.2489 after recycling (−0.0049 points, −1.93%). The trapezoid rule would give 0.2506 for the baseline (issue I79).</li>
+<li>Top production sectors: air transport +0.75%, chemicals +0.69%, water transport +0.67%, other mining +0.60%, land transport +0.57%.</li>
+<li>In the urban sample, the survey gives an access share above 100% in deciles 3 and 9, so their public-investment gain is slightly negative; the model takes the data as they are.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./07_Revenues_GDP_welfare.html" class="pagination-link" aria-label="Revenues, GDP and welfare">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Revenues, GDP and welfare</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./A_Equations.html" class="pagination-link" aria-label="Equation list: methodology notation">
+        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Equation list: methodology notation</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool. The model shared by Excel-AI 1.1.0 and CPAT Python 1.1.0p1.3; data edition Public01</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

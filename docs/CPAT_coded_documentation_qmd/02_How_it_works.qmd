@@ -1,0 +1,114 @@
+# How it works {#sec-how}
+
+The structure of the code: how a run goes, the mitigation blocks, the distribution module, the app and the versions.
+
+## Architecture {#sec-architecture}
+
+### A run
+
+`cpat_model.run(scenarios, settings)` (`core/loop.py`):
+
+1. **Settings.** The database, countries and years (2022-2041), and the global inputs taken from scenario 1.
+2. **Scenario 1 (the baseline) first, then each policy scenario** (D15). Each scenario runs in three stages over the blocks of `mitigation/chain.py`:
+
+| Stage | When | Blocks |
+|---|---|---|
+| Prepare | Once, all years at once: nothing here depends on a model quantity | Module values, header (macro series), policies, prices before new policies, power costs, fuel prices by subsector, Pigouvian taxes, road data |
+| Year loop | For t = 2022 ... 2041, every year block in order | GDP level, power, fuel use, totals, price averages, CO2, other GHGs, local pollutants, revenues, carbon-pricing indicators, module inputs, GDP effects, external balance, road engineer model, transport externalities, welfare |
+| Finish | Once, after the year loop | NDC rows (they read the baseline at the target year) |
+
+3. **Distribution.** Each scenario against scenario 1 in the analysis year.
+4. **Results.** The states of all scenarios, read by `Results`.
+
+The only link from one year to the next, apart from a block's own lagged rows, is the GDP effect: revenue of year t moves GDP from t+1.
+
+### Rows and the state
+
+- **A row** is one Excel-AI row: variable, sector, fuel; values by country and year.
+- **`Rows`** (`core/rows.py`) holds a block's rows as numpy arrays while it computes them: `put` (all years), `set` (one year), `at`, `of`; `finish` stores them in the state. All year blocks share one `Rows` (`gdp.year_rows`).
+- **`State`** is one scenario's rows. Block rows stay numpy arrays; `state[var]` builds a labelled xarray array (dimensions sector, fuel, country, year) only when something outside the blocks reads it. Entries starting with `_` are working data, not results.
+- **Data steps** (`*_data.py`) compute what Excel-AI computes on its Inputs sheet, per country, from the tidy tables.
+
+### Caching and speed
+
+| Cache | Key | Effect |
+|---|---|---|
+| Baseline run | Scenario-1 inputs, database folder, settings | A run with the same baseline does not recompute it |
+| Data steps (`rows.cached`) | The same, plus the step | Shared by every scenario of that baseline |
+| Scenario runs | Baseline, scenario number, inputs | A rerun computes only the scenarios that changed |
+| Database tables | The folder | Each table read once per session |
+
+One country and two scenarios run in under a second once the baseline is cached; six unchanged scenarios rerun in about 0.15 s. The caches live for the Python session: a changed data file needs a new session. Do not modify the arrays of a cached state.
+
+## The mitigation blocks {#sec-blocks}
+
+Each block replicates one part of Excel-AI's Mitigation sheet. The order of the run is `mitigation/chain.py`; the method of each block, with its equations and pseudocode, is explained in the [CPAT-AI Model](../CPAT_model_documentation_html/index.html) tab (shared with Excel-AI) and every equation is in its [equation list](../CPAT_model_documentation_html/A_Equations.html); the test of each block is a `BUILT` entry of `cpat_testing/test_mitigation.py`.
+
+| Block (module.function) | Excel-AI section | What it computes | Equations | Test block |
+|---|---|---|---|---|
+| `header.prepare` | 0 Header | Macro series: deflators, GDP (USD, LCU), exchange rate, baseline growth | M0 | 3.1 header |
+| `policies.prepare` | 1 Policies | Policy paths: carbon tax, ETS, excise, subsidy reforms, regulations, feebates, social cost of carbon | M1, A1 | 3.2 policies |
+| `pigouvian.prepare` | 1 (rows 185-418) | Pigouvian taxes: air pollution, climate and road transport costs per unit; existing carbon pricing | A1.2 | 3.2 policies |
+| `prices.prepare` | 2 Prices | International prices, supply prices, taxes and subsidies before new policies | M2, A2 | 3.3 prices |
+| `power.prepare` | 3 Power (costs) | Power data steps, levelised costs, investment and fixed-cost rows | M4, A4 | 3.4 power costs |
+| `fuel_use.prepare` | 5-8 (price rows) | New taxes, ETS cost, after-tax price and shadow price by subsector and fuel | M2.x, A2.x | 3.7a fuel prices |
+| `road.prepare`, `road.step` | 5b Road engineer model | Vehicle stocks, purchases and retirements, TCO and EV choice, fuel economy, distance, road fuel use | A3.5-A3.9 | 3.6 road engineer model |
+| `gdp.start` | 16 (GDP level) | GDP level factor and growth of year t | M8.3 | 3.11 GDP effects |
+| `power.step` | 3 Power (year) | Demand, generation dispatch, capacity, prices, power revenues | M4, A4 | 3.8 power year step |
+| `fuel_use.step` | 5-8, 6b | Fuel use (elasticity model), biofuels, leakage to biomass, emissions and revenues by subsector | M3.1, M3.2, A3.3, A3.4, M6, M7.1 | 3.7b fuel use |
+| `totals.energy` | 11 | Energy totals by sector group and fuel, change against the baseline | M3.3 | 3.9a energy totals |
+| `prices.averages` | 2 (averages) | Prices averaged over fuel use, price indices | A2.6 | 3.3b price averages |
+| `emissions.co2`, `.ghg`, `.kaya` | 13, 14 | CO2 and ETS check, other gases and methane, Kaya indices | M7, A7.2-A7.5 | 3.10 CO2, GHG, NDC |
+| `emissions.pollutants` | 15 | Local air pollutants by subsector and source | A7.6 | 3.10b local pollutants |
+| `totals.revenues` | 12 | Revenue totals, revenue in % of GDP | M6, A6.2 | 3.9b revenue totals |
+| `emissions.carbon_pricing` | 17 | Carbon-pricing indicators: coverage, effective rates | A7.x | 3.12a carbon pricing |
+| `externalities.air` | 17b | Air pollution costs weighted by fuel use, PM2.5 by source | A8.3 | 3.12b air pollution inputs |
+| `gdp.effects`, `gdp.external` | 16, 16b | Fiscal impulse, multipliers, GDP effect; external balance | M8.1, M8.2, A8.1, A8.2 | 3.11 GDP effects, 3.11b external balance |
+| `externalities.transport` | 17b | Accident, congestion and road-damage costs per unit of road fuel | A8.4 | 3.12c transport externalities |
+| `welfare.step` | 18 | Welfare gains, fossil fuel subsidies, efficient prices | A8.5, A8.6 | 3.12d welfare |
+| `emissions.ndc` | 14 (NDC) | NDC targets and the gap | A7.x | 3.10 CO2, GHG, NDC |
+
+Data steps: `power_data.py`, `prices_data.py`, `fuel_data.py`, `elasticity_data.py`, `ef_data.py`, `ghg_data.py`, `road_data.py` (tested in `test_data_steps.py`).
+
+## The distribution module {#sec-distribution}
+
+`cpat_model/distribution/` replicates Excel-AI's Distribution prototype (version 0.1.3): the effect of each scenario on households by decile, in the analysis year (input `YearDistn`), against scenario 1.
+
+| Module | Replicates | What |
+|---|---|---|
+| `mapping.py` | Sheet DistMapping, the data tabs | Survey and elasticities, the input-output data of the country (fuel-group use, category coefficients), programmes, pass-through, ASPIRE, Gini weights |
+| `incidence.py` | Sheet Distribution, sections 1-11 | Settings; price changes from mitigation; indirect price changes through the input-output table; price factors, budget shares, direct and indirect effects; survey to national accounts; revenue recycling (income-tax cut, public investment, current spending, targeted transfers); net effect and Gini; chart rows; price changes by production sector |
+
+Every row has 11 columns: 0 the basket (all households) and 1-10 the deciles. `incidence.run` returns the rows by output code; the run stores them in `Results.distribution`. The equations are D1.1-D1.6 and B1.1-B1.8 ([the equation list](../CPAT_model_documentation_html/A_Equations.html)).
+
+## The app {#sec-app}
+
+`shiny run app.py` from `coded/`. The app (`cpat_shiny/`) builds carbon-tax scenarios, runs them through `cpat_model.run` and shows the results.
+
+| Section | What it does |
+|---|---|
+| Manual inputs | A scenario: name, countries (only those with data), carbon tax start and target year and level, after the target year, international price source, fuels and sectors covered |
+| Scenarios | The scenarios built so far; load or save them as CSV; run them |
+| Raw results | Rows of chosen variables (energy use, CO2, retail prices, taxes, subsidies, supply price) by country, sector, fuel and scenario; download as a workbook |
+| Indicators | Carbon price, CO2, energy use, revenue, real GDP, against the baseline; download |
+| Visualizations | Energy use by sector and by fuel, change by fuel, domestic prices, emissions by sector, net effect on households by decile |
+| Documentation | The method notes |
+
+**How the app's inputs reach the model** (`cpat_shiny/server_logic/run_model.py`): scenario 1 is Excel-AI's baseline column; each app scenario is a copy of Excel-AI's carbon-tax column with the form's values written over it.
+
+| App input | Model input |
+|---|---|
+| Carbon tax start, target year | `CPIntro`, `CPOutro` |
+| Carbon tax start, target level | `CPLevelStart`, `CPLevelTarget` |
+| After the target year | `ExtendCarbonPriceBeyondOutro` |
+| International price source | `IntEnerPricForeSource` (baseline too) |
+| Fuels, sectors covered | `MCov<Fuel>`, `MCov<Sector>` (none selected: Excel-AI's coverage) |
+
+The scenarios of one run share their baseline, so they must share countries and price source. The app has no controls yet for fuel subsidies, ETS or feebates.
+
+## Versions and releases {#sec-versions}
+
+- **Version number** (D14): `<Excel-AI version>p<Python version>`. `1.0.0p1.0`, the first full release, is Python version 1.0 of the replication of Excel-AI 1.0.0 (and Distribution 1.0.0). The current version, `1.1.0p1.3` (2026-10-30), is Python version 1.3 of the replication of Excel-AI 1.1.0 (and Distribution 1.1.0): it reads data edition Public01 (the six proprietary tables perturbed), with the reference values re-extracted from Excel-AI 1.1.0. `cpat_model.__version__` holds it; `EXCEL_AI_VERSION` and `DISTRIBUTION_VERSION` (`cpat_model/__init__.py`) name the workbooks the reference values come from.
+- **Changelog**: `coded/CHANGELOG.md`, one row per release (version, date, what changed, the largest difference against Excel-AI).
+- **A release**: all tests pass; the comparison with the Excel-AI version named in the number is complete (known differences listed); `CHANGELOG.md` row; `CAVEATS.md` entry; this book and the Word copies regenerated; git tag `coded-v<version>`.
+- **When Excel-AI releases**: re-extract the reference values, align Python with the prototype's bug fixes (delete their known differences), run the tests, and release `<new Excel-AI version>p1.0` (the Python part counts Python-only changes within one Excel-AI version).

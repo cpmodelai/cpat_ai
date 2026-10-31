@@ -1,0 +1,2964 @@
+# Power {#sec-power}
+
+The power block is CPAT's techno-economic ("engineer") power model. Every year it works out how much electricity the
+economy needs, which plants generate it, which plants retire, what is built to replace them, what it all costs and
+what electricity users pay.
+
+It is the largest block of the model and the one where most of the sector's policy effects arise: a carbon price
+changes the cost of each generation type, which changes dispatch and investment, which changes the generation mix,
+emissions, the cost of supply and, a year later, electricity prices and demand.
+
+The methodology describes the power models in
+[section 3.4](../CPAT_full_documentation_html/03_Mitigation.html#power-sector-models): power prices and generation costs
+in [3.4.1](../CPAT_full_documentation_html/03_Mitigation.html#sec-PowerPrices), the engineer model in
+[3.4.2](../CPAT_full_documentation_html/03_Mitigation.html#sec-EngineerModel), and the data in
+[3.4.4](../CPAT_full_documentation_html/03_Mitigation.html#sec-PowerDataSources). The methodology also has an
+elasticity-based power model ([3.4.3](../CPAT_full_documentation_html/03_Mitigation.html#sec-ElasticityModel)) and,
+for it, the "old" generation costs of
+[Appendix C](../CPAT_full_documentation_html/03_Mitigation.html#power-generation-costs). Excel-AI and CPAT Python
+implement the engineer model only; the elasticity model is not part of this book. (The methodology's corrections of
+2026-10-31 to these two parts, DOC5 and DOC15, therefore have no counterpart here; the corrections that concern the
+engineer model are linked in the sections below:
+[corrections](../CPAT_full_documentation_html/08_Corrections.html#corrections-of-2026-10-31).)
+
+The chapter follows the order of the calculation:
+
+| Section | What it computes | Legacy sub-table |
+|---|---|---|
+| [Order of the calculation](#sec-pw-order) | Which quantity of which year feeds which | - |
+| [Electricity demand](#sec-pw-demand) | Demand by subsector, required generation | H |
+| [Generation costs](#sec-pw-costs) | Inputs of the scenario, fixed, levelised and variable costs, total costs, memos | A, B, C, D, E, F |
+| [Dispatch](#sec-pw-dispatch) | Generation by type, fuel use, CO2 | I |
+| [Capacity and retirement](#sec-pw-capacity) | Capacity, retirement, early coal retirement, capacity needed | K |
+| [Investment](#sec-pw-investment) | New capacity by type and its cost | L |
+| [Storage](#sec-pw-storage) | Systems integration cost of renewables | J |
+| [End-user prices](#sec-pw-prices) | Residential and industrial electricity prices, subsidies | G |
+| [Power revenues](#sec-pw-revenues) | Revenue by user group and by generation type | G4, M |
+| [Coal implicit cost](#sec-pw-coalic) | The calibrated extra cost of coal | D3 |
+| [Reforms, floor, subsidies](#sec-pw-reforms) | Fuel price reform, price floor, renewable subsidies in real terms | - |
+| [Power data](#sec-pw-data) | How the country inputs are derived | A1-A7, power tabs |
+
+## The power block at a glance {#sec-pw-glance}
+
+### Generation types {#sec-pw-types}
+
+The model has nine generation types. Two of them, coal and gas, are dispatched by cost. The other seven run at their
+capacity factor whenever they exist.
+
+| Type $f$ | Code | Dispatch | Variable renewable (VRE) | Fuel price used | Legacy code |
+|---|---|---|---|---|---|
+| Coal | `coa` | by cost (CG) | no | coal for power (`coa.pow`) | `coa` |
+| Natural gas | `nga` | by cost (CG) | no | gas for power (`nga.pow`) | `nga` |
+| Oil | `oop` | fixed output | no | other oil products (`oop.all`) | `oil` |
+| Nuclear | `nuc` | fixed output | no | none (fixed fuel cost) | `nuc` |
+| Wind | `wnd` | fixed output | yes | none | `wnd` |
+| Solar | `sol` | fixed output | yes | none | `sol` |
+| Hydro | `hyd` | fixed output | no | none | `hyd` |
+| Other renewables | `ore` | fixed output | yes | none | `ore` |
+| Biomass | `bio` | fixed output | no | biomass (`bio.all`) | `bio` |
+
+$CG = \{\text{coal}, \text{gas}\}$ is the set of dispatchable types. The VRE set is wind, solar and other renewables:
+it sets the storage cost ([Storage](#sec-pw-storage)). Oil generation sums the energy-balance fuels other oil
+products, gasoline, diesel, kerosene, LPG and jet fuel.
+
+### Notation {#sec-pw-notation}
+
+The chapter uses the notation of the methodology where it has a symbol, and the symbol of the equation list
+(@sec-eqlist) otherwise.
+
+- **Indices.** Generation type $f$; user group $g \in \{\text{res}, \text{ind}\}$ (residential, industry); demand
+  group $d \in \{\text{tra}, \text{res}, \text{ind}, \text{srv}\}$ (transport, residential, industry, services);
+  subsector $s$; year $t$. Every equation holds for each scenario $o$ and country $c$; these two indices are omitted.
+  A value of the baseline in the same year carries the superscript $B$.
+- **Years.** $t_0$ is the base year (first year of calculations, 2022), $L$ the last historical price year (2024 for
+  the current data), $T = 2041$ the last model year.
+- **Units.** Generation and capacity in MW (generation as MWy, i.e. average MW over the year); demand in ktoe; costs
+  in real US dollars of the results year (2026) per kWh (USD/kWh); capital costs in USD/kW; money flows in USD million.
+- **Constants.** $H = 8{,}760$ hours per year; $\theta_e = 0.0036$ GJ per kWh; 8.76 million kWh per MWy (`MWyMkWh`);
+  $\theta_g = 11.63$ GWh per ktoe (`KtoeGWh`); 0.041868 PJ per ktoe.
+- **Minimum cost.** $c_{min}$ = `MinPostSubsidyPowerPrice` (default 0.01 USD/kWh) is the floor on costs that
+  enter a ratio (dispatch and investment logits) and on end-user prices.
+
+The CPAT variable code of each quantity is given in code font (`cap`, `tic`, ...): it is the row code of Excel-AI and
+the variable of CPAT Python.
+
+### Inputs by scenario {#sec-pw-inputs-by-scenario}
+
+Every power input of the scenario sheet is read in the scenario's own column. This covers capacity-factor and
+efficiency bounds, WACC options, discounted lifetimes, investment permissions and start years, scale-up and
+retirement rates, the early-retirement factor, the capex decline scenario, storage, PPAs, renewable subsidies,
+rebates and excises. The sub-table A0 ([Inputs of the scenario](#sec-pw-a0)) applies them to the power data of the
+country.
+
+Scenario 1 is the baseline of every scenario. A technical input (logit constants, WACC, capacity-factor bounds,
+storage, cost decline) changed in a policy scenario therefore changes that scenario only, and its difference from
+scenario 1 mixes the input change with the policy. Technical inputs are not usually changed across scenarios.
+
+Not read, because the model has no such feature: `CostBreakdownYear` (the cost breakdown is computed for every year
+instead), `ElasticityModel`, `PowGenCostsOldNew`, `UseElasticityModelPowerDemandInEngineerModel`. The final deficit
+to gas ([Investment](#sec-pw-deficit-gas)) is a global setting, not a scenario input.
+
+### Links with the rest of the model {#sec-pw-links}
+
+| From / to | What flows | Where |
+|---|---|---|
+| Prices (@sec-prices) to power | Fuel prices before new policies of coal and gas for power, oil, biomass; existing carbon pricing | [Variable costs](#sec-pw-vc) |
+| Policies (@sec-model-overview) to power | Carbon tax and ETS rates of power, fuel coverage, shadow price, fuel price reform, carbon price path | [Variable costs](#sec-pw-vc), [Prices](#sec-pw-prices) |
+| GDP (@sec-fiscal) to power | GDP growth after the feedback, of the year | [Demand](#sec-pw-demand) |
+| Road transport (@sec-transport) to power | Road electricity demand, where the road engineer model is on | [Demand](#sec-pw-demand) |
+| Power to fuel totals (@sec-demand) | Generation fuel use of coal, gas, oil and biomass (nuclear, wind, solar, hydro and other renewables use no fuel) | [Dispatch](#sec-pw-dispatch) |
+| Power to emissions (@sec-emissions) | Power CO2 by fuel, and as ETS sector power | [Dispatch](#sec-pw-dispatch) |
+| Power to revenues (@sec-fiscal) | Taxes and subsidies on generation fuels, existing carbon pricing, electricity VAT and subsidy gap, new policies | [Power revenues](#sec-pw-revenues) |
+| Power to road transport (@sec-transport) | Electricity prices of last year | [Prices](#sec-pw-prices) |
+
+Power demand follows its own elasticities. Sector policies (carbon tax, ETS, feebates, fuel price reform) act on the
+fuel blocks; they reach power demand only through the electricity price. Electricity demand by sector is a memo in the
+sector blocks, not part of the fuel totals, so nothing is counted twice.
+
+Power CO2 enters the CO2 totals by fuel and as the ETS sector power, so an ETS covering power sees it, and the
+baseline CO2 data include it. Existing carbon pricing changes the variable cost before new policies
+([Variable costs](#sec-pw-vc)).
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 3 (sub-tables A0, B, C, D, E, E2, F, G, H, I, J, K, L, M, in the order of the
+  rows). Country data on sheet Inputs: blocks `Inputs_pset` (settings, defined names `Ps...`), `Inputs_ptech` (one row
+  per generation type), `Inputs_ppath` (year paths), `Inputs_ppar` (parameters) and Inputs rows 204-270 (generation
+  types, user groups, demand groups and subsectors as read by section 3). Settings: C19 (apply the 2023-2024 demand
+  shock), C21 `SpotPow`, C45 `PwDeficitGas`, C66 `PwCoalICTariff`. Every formula is listed in `Formulas.md`
+  section 3 (equations E282-E445).
+- **CPAT Python:** `cpat_model/mitigation/power.py`: `country_data()` (the data steps of one country),
+  `prepare()` (every row that reads no quantity of the year loop: equations M4.3, A4.5-A4.7) and `step()` (one year:
+  M4.1, M4.2, M4.4-M4.7, A4.8, A4.9 and the power revenues, A6.1). Data steps in
+  `cpat_model/mitigation/power_data.py` (A4.1-A4.4). The order is in `mitigation/chain.py`: `power.prepare` runs with
+  the other prepare steps, `power.step` right after `gdp.start` in each year. See the
+  [block table](../CPAT_coded_documentation_html/02_How_it_works.html#sec-blocks) of the CPAT Python tab and the
+  [user guide](../CPAT_ai_documentation_html/02_Mitigation_Prototype.html) of the Excel-AI tab.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: the block as a whole"}
+- **Reference.** Legacy CPAT section 4 of the Mitigation sheet ("Technoeconomic ('engineer') power model") of
+  `CPAT 1.0pre_456_NoPropData.xlsb` (and 465): rows 2954-4297 for the baseline, rows 9285-10628 for the carbon-tax run
+  (offset +6331 in 456; +6316 in 465). The price rows are 2954-3672 and 3867-3927. The model keeps legacy's
+  sub-table letters (A inputs, B amortised costs, C levelised costs, D variable costs, E total costs, F memos,
+  G end-user prices, H demand, I dispatch, J storage, K capacity, L investment, plus M revenues by type).
+- **Alignment (LD22).** The model follows legacy formula by formula, year by year, except for the legacy bugs it fixes.
+  The method test (`power_model_ref.py`, one switch per bug) reproduces 208 cached legacy rows of the baseline and the
+  carbon-tax run to 1e-13 with every bug switched on.
+- **Bugs fixed (LD23):** L1-L10 and L12 (listed in the sections below), plus later ones (L52-L56 in the data,
+  L67, L107, L108, L109/LD79, L110, L111, L113, L114, L118, L126, L129). Bugs are never replicated; legacy issues are.
+- **Inputs by scenario (LD74).** Every power input of legacy ScenarioDefinition section 1, "Power sector settings"
+  (rows 242, 262, 340-415 and 482) is read in the scenario's own column, as legacy runs each column with its own
+  inputs.
+- **Features not built (LD28):** the elasticity power model, the old IMF generation costs, the demand-side power
+  feebate (the rebate covers it). Built later: PPAs, deficit to gas, renewable subsidies, rebate, electricity excise,
+  every power input by scenario, manual capacity and investment, the coal implicit cost, the cost memos.
+- **Planned retirement** is available for every generation type; legacy offers it for coal only (LD26).
+- **One formula per quantity.** Legacy's duplicates and partial tables are merged (S1-S3 in
+  [Generation costs](#sec-pw-costs)): the price chain of one scenario has about 330 rows in legacy (A5-G4, J1-J3) and
+  about 140 in the model.
+:::
+
+## Order of the calculation within a year and across years {#sec-pw-order}
+
+The power block runs once per year, inside the year loop, after the GDP level of the year and before fuel use. A few
+rows that depend only on prices and policies are computed for all years before the loop. Everything else is computed
+year by year, and the chain is free of circular references because two links are lagged by one year.
+
+The methodology summarises the algorithm in
+[section 3.4.2.1](../CPAT_full_documentation_html/03_Mitigation.html#overview-2).
+
+```{mermaid}
+%%| fig-width: 5
+flowchart TD
+  H["H demand, required generation"] --> I["K1, I capacity of the year, dispatch"]
+  I --> J["J storage: VRE share, storage cost"]
+  J --> E["B, C, E costs: fixed, levelised, average"]
+  E --> K["K retirement, early coal, capacity needed"]
+  E -. "next year" .-> G["G prices"]
+  K --> L["L investment"]
+  L -. "next year: capacity" .-> I
+  G -. "next year" .-> H
+```
+
+Solid arrows run within year $t$; dotted arrows carry a value of year $t$ into year $t+1$: investment becomes
+capacity, the average generation cost becomes the supply cost of next year's prices, and the prices drive next year's
+demand.
+
+Within year $t$ the order is:
+
+1. **Demand (H).** Electricity demand of year $t$ from last year's demand, this year's GDP growth and the change in
+   last year's electricity prices. Required generation follows.
+2. **Capacity (K1).** Capacity of year $t$ = capacity of $t-1$ less retirement of $t-1$ plus investment of $t-1$.
+   Capacity bought in year $t$ is available in $t+1$.
+3. **Dispatch (I).** Generation by type from capacity, required generation and the variable costs of year $t$.
+4. **Storage (J).** The VRE share of generation sets the marginal storage cost of year $t$.
+5. **Costs (B, C, E).** Fixed costs of the existing stock (vintages) and of new plants; the average generation cost
+   and the average policy cost per kWh.
+6. **Prices (G).** End-user prices of year $t$ use the average generation cost of $t-1$.
+7. **Retirement (K).** Retirement of year $t$, including early coal retirement, which compares the coal variable cost
+   with the wind and solar investment costs of year $t$.
+8. **Investment (L).** Investment of year $t$ fills the gap between expected requirement and capacity after
+   retirement, allocated by a logit over the levelised costs of year $t$. Its share in the stock, $\Phi$, feeds the
+   vintage averages of $t+1$.
+9. **Revenues (M).** Power revenues of year $t$.
+
+The levelised variable cost of year $t$ averages the variable cost from $t$ to the end of the horizon. Variable costs
+depend only on prices and policies, not on the generation mix, so it is computed before the year loop, backwards from
+the last year.
+
+The table lists every link of the block with the rest of the model and how the loop is broken.
+
+| # | From | To | What flows | How the loop is broken |
+|---|---|---|---|---|
+| I1 | Fuel prices (coal and gas for power, oil, biomass) | D variable costs | Fuel price before new policies | One way |
+| I2 | Policies (carbon price, ETS power coverage, fuel price reform) | D policy cost; G end-user prices; revenues | Carbon cost per kWh by type | One way |
+| I3 | Generation mix (dispatch I, investment L) | E average generation cost; J storage (via the VRE share) | Generation shares by type | Dispatch uses current variable costs, which do not depend on the average cost; prices use last year's average cost (I5) |
+| I4 | Investment (L) | B vintage averages of capex and storage cost | New investment as a share of remaining capacity $\Phi$ | B uses last year's $\Phi$ |
+| I5 | E average generation cost | G end-user prices | Supply cost = average generation cost + transmission | **Lagged one year**: the price in $t$ uses the cost of $t-1$ |
+| I6 | G end-user prices | Demand, generation, I3 | Residential and industrial prices | Through I5's lag; demand uses last year's prices, by demand group |
+| I7 | J storage | B (vintage storage cost) and C (levelised cost, for investment) | Marginal storage cost of wind, solar, other renewables | Uses the current VRE share from dispatch |
+| I8 | C levelised costs, D levelised variable costs | Investment logit; switching carbon prices | Levelised investment cost by type | Investment only: not in end-user prices |
+| I9 | G and M revenues | Revenue totals | USD million | One way |
+
+Two consequences shape the design:
+
+1. **End-user prices depend on generation costs only through the weighted average** (E) and the transmission
+   add-on. Variable, amortised and storage costs matter for prices only as far as they enter that average.
+2. **The systems cost of renewables is an interaction inside the block.** The VRE share sets the marginal storage
+   cost, which enters the cost of wind, solar and other renewables twice: *amortised*, through vintages, in the cost
+   of the existing stock (B), which reaches end-user prices; and *levelised*, in the cost of new plants (C), which
+   drives investment. A scenario that adds renewables therefore raises their storage cost per kWh, which feeds back
+   into the average generation cost and, a year later, into prices.
+
+::: {.callout-tip icon=false title="Pseudocode: the power block"}
+```
+# before the year loop (power.prepare)
+for t in years:
+    settings of the scenario: cfu, nuu, wac, dlf, perm, start, rate, rr, erf, ppa, rns, rbs, exs
+    for f in types:
+        cax[f,t] = cax0[f] * tcf[f,t]
+        tvc[f,t] = vbc[f,t] + xac[f,t] + shk[f,t] + reb[t]      # variable cost incl. policies
+for f in types:                                                   # backwards from the last year
+    lvc[f,:] = discounted average of tvc[f, t..2041]
+
+# the year loop (power.step), t = 2022 .. 2041
+for t in years:
+    dem, req          = demand(rp[:, t-1], gdp growth[t])          # H
+    cap[:, t]         = cap[:, t-1] - ret[:, t-1] + nim[:, t-1]     # K1
+    gen, shr, pe, co2 = dispatch(cap, req, tvc[:, t])               # I
+    vre, msc          = storage(shr)                                 # J
+    fix, lfx, gnc     = costs(phi[:, t-1], msc)                      # B, C, E
+    gncav, ccpav, tic = averages(shr), lfx + lvc                     # E
+    rp                = prices(gncav[t-1], ccpav)                    # G (supply cost lagged)
+    ret, early        = retirement(cap, tvc, tic)                    # K
+    nim, phi          = investment(req, cap, ret, tic)               # L
+    revenues                                                         # G4, M
+```
+:::
+
+::: {.callout-note collapse="true" title="Check: properties that hold in every run"}
+These properties are tested on every build (`check_report`, check section 5d), in the baseline and in every policy
+scenario:
+
+- generation = required generation (where capacity allows);
+- the capacity balance holds: $cap_t = cap_{t-1} - ret_{t-1} + inv_{t-1}$;
+- investment is at most the capacity needed (scale-up limits can leave part unplaced);
+- the supply cost lag holds: the price of $t$ uses the cost of $t-1$;
+- a carbon price raises the VRE share and lowers power CO2, as checked in the test scenarios; it is not a property of
+  every year (in Egypt's scenario 2 the VRE share is below the baseline's from 2030, see [Storage](#sec-pw-storage));
+- the memo lines equal power demand by subsector and add up by sector and in total;
+- fuel use, revenue and CO2 totals with power equal the Python reference; with non-zero existing carbon pricing test
+  data, the power variable cost, revenues by type and totals match too; check rows confirm that the totals equal
+  their sector, power and fuel parts.
+
+Further checks:
+
+- **Method = legacy.** The Python reference of the method, fed with the cached legacy inputs and the bugs switched on,
+  reproduces 208 legacy rows of the baseline and the carbon-tax run.
+- **Workbook = Python reference.** With all bugs fixed and the model's inputs, the workbook matches the Python
+  reference for every power row, in every scenario test.
+- **Planned retirement.** With the switch on for gas and oil and test data, the workbook matches the Python reference,
+  and retirement equals the data.
+- **Power features.** One test scenario per feature: `MaximumGasCF` and long-term storage; the power inputs of the
+  scenario (two scenarios with many inputs changed, including WACC options, capacity-factor and efficiency bounds,
+  permits, scale-up categories, decline options, storage, logit constants, pass-through, spot prices); PPAs;
+  renewable subsidies; the rebate; the electricity excise and the manual excise; the final deficit to gas with tight
+  scale-up limits. Each matches the Python reference.
+- **CPAT Python = Excel-AI.** Every output code of Excel-AI's stored values for Egypt, scenarios 1 and 2, 2022-2041,
+  matches within 1e-9.
+:::
+
+## Electricity demand and required generation {#sec-pw-demand}
+
+Electricity demand grows with GDP, falls with efficiency gains and responds to the electricity price of the previous
+year. It is computed for 15 subsectors, grouped into four demand groups that share elasticities and a price. Required
+generation adds what the grid needs on top of final demand: net exports, losses, own use and statistical differences.
+
+The methodology describes this in
+[section 3.4.2.3](../CPAT_full_documentation_html/03_Mitigation.html#power-demand), with the general fuel-demand
+equation of [section 3.3.3](../CPAT_full_documentation_html/03_Mitigation.html#sec-FuelConsumptionDynamics). The model
+follows the corrected form: the GDP elasticity is $\epsilon_Y$, adjusted for the income level
+([corrections, DOC4](../CPAT_full_documentation_html/08_Corrections.html#corrections-of-2026-10-31)).
+
+### Demand groups and the demand price {#sec-pw-demand-price}
+
+Each subsector belongs to one demand group. The group's price is a blend of last year's residential and industrial
+end-user prices:
+
+$$
+\bar{p}_{d,t} = w_d\, p^T_{res,t-1} + (1 - w_d)\, p^T_{ind,t-1}
+$$ {#eq-pw-demand-price}
+
+where
+
+- $\bar{p}_{d,t}$ is the electricity price seen by demand group $d$ in year $t$ (USD/kWh; `pdem`);
+- $p^T_{g,t-1}$ is the end-user price of user group $g$ of the previous year (USD/kWh; `rp`,
+  [End-user prices](#sec-pw-prices));
+- $w_d$ is the weight of the residential price: 0.5 for transport, 1 for residential, 0 for industry and services.
+
+In the base year the price is that of the year before (2021) from the price data. Using last year's price is what
+keeps demand free of a circular reference with this year's price (link I6).
+
+| Demand group $d$ | Subsectors $s$ | Weight $w_d$ |
+|---|---|---|
+| Transport (`tra`) | road, rail, domestic aviation, domestic navigation | 0.5 |
+| Residential (`res`) | residential | 1 |
+| Industry (`ind`) | food and forestry, mining and chemicals, iron and steel, non-ferrous metals, machinery, cement, other manufacturing, construction, other energy use | 0 |
+| Services (`srv`) | services | 0 |
+
+### The demand multiple {#sec-pw-demand-multiple}
+
+Demand grows each year by a multiple of four factors: efficiency, GDP, price and an optional shock. It is built in two
+steps.
+
+The efficiency multiple combines the autonomous efficiency gain of the group and any additional efficiency gain of the
+scenario:
+
+$$
+a_{d} = \left(\frac{1}{1 + \alpha_d + \alpha^{+}}\right)^{1 + \epsilon_{U,d}}
+$$ {#eq-pw-aeef}
+
+The demand multiple of year $t$ is then
+
+$$
+M_{d,t} = a_{d}\,
+\left(1 + \gamma_t\right)^{\epsilon_{Y,d}\, inc_t}\,
+\left(\frac{\bar{p}_{d,t}}{\bar{p}_{d,t-1}}\right)^{\epsilon_{U,d} + \epsilon_{F,d} + \epsilon_{U,d}\epsilon_{F,d}}\,
+\left(1 + \Psi_t\, \sigma\, \psi\right)
+$$ {#eq-pw-mult}
+
+where
+
+- $a_d$ is the efficiency multiple (`aeef`);
+- $\alpha_d$ is the autonomous annual efficiency improvement of electricity in group $d$ (share per year) and
+  $\alpha^{+}$ the additional efficiency gain of the scenario (`AdditionalEfficiencyPower`, default 0);
+- $\epsilon_{Y,d}$, $\epsilon_{U,d}$, $\epsilon_{F,d}$ are the income, usage and efficiency elasticities of electricity
+  demand of the group (the country's elasticities, @sec-demand);
+- $\gamma_t$ is real GDP growth of year $t$ after the GDP feedback (`gdp.pos.pct`, @sec-fiscal);
+- $inc_t$ is the income factor on the GDP elasticity (`inc.ela.adj`; [Year paths](#sec-pw-data-paths)), 1 if
+  `IncElAdj` is not Yes;
+- $\Psi_t$ is the exogenous demand shock (`shock`): the legacy calibration for 2023 and 2024, 0 in other years;
+- $\sigma$ is the global switch that applies the shock (Excel-AI Settings C19, on by default) and $\psi$ the scenario
+  input `EngineerModelProportionOfCovidFactor`.
+
+The multiple is 1 in the base year. The price term uses the total price elasticity
+$\epsilon_{U} + \epsilon_{F} + \epsilon_{U}\epsilon_{F}$, the product of the usage and efficiency responses. This is
+the methodology's equation with its two price terms combined:
+$(p_t/p_{t-1})^{\epsilon_U}\,(p_t/p_{t-1})^{\epsilon_F(1+\epsilon_U)}$. The equation list has it as
+([M4.1](A_Equations.qmd#eqlist-M4-1)).
+
+### Demand by subsector {#sec-pw-demand-subsector}
+
+Each subsector's demand grows with the multiple of its group:
+
+$$
+E_{s,t} = E_{s,t-1}\, M_{d(s),t}, \qquad E_{s,t_0} = \text{base-year data}
+$$ {#eq-pw-demand}
+
+where $E_{s,t}$ is electricity demand of subsector $s$ (ktoe; `dem`) and $d(s)$ its demand group. Total demand is
+$E_t = \sum_s E_{s,t}$ (`demtot`), and demand by group (`demg`) is a memo.
+
+- **Base year.** Demand by subsector comes from the energy balance (flow `ecy` of the subsector's balance flow) or,
+  if `BalancesOrConsumption` is Consumption, from the CPAT energy consumption data.
+- **Road.** Where the road engineer model is on (@sec-transport), road electricity demand is taken from it instead
+  of the multiple.
+- **Memo lines.** Electricity demand by subsector, by sector and in total is shown in the sector blocks; it is not
+  part of the fuel totals.
+
+### Required generation {#sec-pw-required}
+
+Generation must cover final demand plus net exports, transmission and distribution losses, statistical differences
+and transfers, and the energy industry's own use. The model holds each of these at its base-year share of final
+demand:
+
+$$
+req_t = \rho\, E_t, \qquad
+\rho = \left(1 + s_{nxp} + s_{tsd} + s_{eou} + s_{add}\right) \frac{\theta_g \cdot 1000}{H}
+$$ {#eq-pw-req}
+
+where
+
+- $req_t$ is required generation (MWy; `req`);
+- $\rho$ is MWy of generation per ktoe of final demand (`req_factor`; $\theta_g \cdot 1000/H = 1.3276$ MWy per ktoe);
+- $s_{nxp}$, $s_{tsd}$, $s_{eou}$ are the base-year shares of net exports, of transmission, distribution and
+  statistical differences, and of own use in final electricity demand; $s_{add}$ is the residual that makes the sum
+  equal base-year generation over base-year demand ([Parameters](#sec-pw-data-params)).
+
+In the base year, required generation is actual generation, $req_{t_0} = \sum_f gen_{f,t_0}$. Because
+$1 + s_{nxp} + s_{tsd} + s_{eou} + s_{add}$ is base-year generation over base-year demand, the two definitions agree in
+the base year. The equation list has this as ([M4.2](A_Equations.qmd#eqlist-M4-2)).
+
+::: {.callout-tip icon=false title="Pseudocode: electricity demand and required generation"}
+```
+for t in years:
+    for d in ['tra', 'res', 'ind', 'srv']:
+        if t == base_year:
+            pdem[d,t] = wres[d] * rp2021['res'] + (1 - wres[d]) * rp2021['ind']
+            mult[d,t] = 1
+        else:
+            pdem[d,t] = wres[d] * rp['res',t-1] + (1 - wres[d]) * rp['ind',t-1]
+            aeef[d]   = (1 / (1 + alpha[d] + AdditionalEfficiencyPower)) ** (1 + eps_u[d])
+            mult[d,t] = (aeef[d] * (1 + gdp_growth[t]) ** (eps_y[d] * inc_ela_adj[t])
+                         * (pdem[d,t] / pdem[d,t-1]) ** (eps_u[d] + eps_f[d] + eps_u[d] * eps_f[d])
+                         * (1 + shock[t] * apply_shock * EngineerModelProportionOfCovidFactor))
+    for s in subsectors:
+        if t == base_year:            dem[s,t] = dem0[s]                     # Balances or EnergyCons
+        elif s == 'rod' and road_engineer_model_on:  dem[s,t] = road_electricity[t]
+        else:                         dem[s,t] = dem[s,t-1] * mult[group[s],t]
+    demtot[t] = sum(dem[s,t] for s in subsectors)
+    req[t] = sum(gen0[f] for f in types) if t == base_year else demtot[t] * req_factor
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 3, sub-table H: rows `pdem`, `aeef`, `mult` (LAMBDA `DEMANDMULT` in 2041),
+  `dem`, `demg`, `demtot`, `req` (Formulas.md E384-E390). Elasticities and weights on Inputs rows 231-234 (demand
+  groups), base-year demand on Inputs (subsectors), the MWy per ktoe factor on Inputs B261. Scenario inputs
+  `AdditionalEfficiencyPower`, `IncElAdj`, `EngineerModelProportionOfCovidFactor`; Settings C19 for the shock.
+- **CPAT Python:** `power.step()`, block "demand" (EQ-M4.1, EQ-M4.2); data in `power_data.demand_groups()`,
+  `demand_subsectors()`, `system_params()` (`req_factor`).
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: demand"}
+- **L1 (fixed).** Legacy grows services electricity demand with the industrial multiple after 2023; the model uses the
+  services multiple in every year.
+- **L2 (fixed).** Legacy raises the autonomous efficiency term to the power of the efficiency elasticity; the model
+  uses the usage elasticity, $1 + \epsilon_U$, as the methodology.
+- **L3 (fixed).** Legacy applies the income factor on the GDP elasticity twice and anchors it to 2023; the model
+  applies it once.
+- **L95.** In legacy the efficiency increment of power demand sits on the net-exports row (legacy bug register).
+- **LD21, LD24 (same as legacy).** The 2023-2024 shock is applied as legacy, to fuels and power alike (Settings C19,
+  on by default; issue I92). The methodology calls it a Covid adjustment calibrated for 2020-2021
+  ([section 3.3.4.4](../CPAT_full_documentation_html/03_Mitigation.html#sec-CalibrationCovid)); the model uses
+  legacy's stored shocks for 2023 and 2024 (GHGs data, [Year paths](#sec-pw-data-paths)).
+- **LD25.** Sector policies act on power demand only through the price; electricity demand is a memo line in the
+  sector blocks and section 11.
+- **LD27.** Road electricity comes from the road engineer model where it is on; otherwise it grows with the transport
+  multiple, as legacy.
+- **Not built.** The option to take power demand from the elasticity model
+  (`UseElasticityModelPowerDemandInEngineerModel`).
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Data edition Public01, scenario 1 (baseline) and scenario 2 (carbon price 20 USD/tCO2 from 2027).
+
+| | 2022 | 2023 | 2024 | 2026 | 2030 | 2041 |
+|---|---|---|---|---|---|---|
+| Shock $\Psi_t$ | 0 | -0.208 | 0.092 | 0 | 0 | 0 |
+| Income factor $inc_t$ | 1.027 | 1.027 | 1.021 | 1.008 | 0.970 | 0.946 |
+| Multiple, residential | 1 | 0.971 | 1.180 | 1.042 | 1.027 | 1.037 |
+| Total demand $E_t$ (ktoe), scenario 1 | 14,392 | 14,024 | | 18,869 | 21,857 | 34,836 |
+| Total demand $E_t$ (ktoe), scenario 2 | 14,392 | 14,024 | | 18,869 | 19,910 | 32,919 |
+| Required generation (MWy), scenario 1 | 24,192 | 23,574 | | 31,718 | 36,741 | 58,557 |
+
+Worked example, residential multiple of 2023: efficiency $0.9965$, GDP growth 3.76% with $\epsilon_Y\,inc = 0.8 \times
+1.027$, price falling from 0.0914 to 0.0611 USD/kWh with total price elasticity $-0.44$, shock $-0.208$:
+$0.9965 \times 1.0376^{0.822} \times (0.0611/0.0914)^{-0.44} \times (1 - 0.208) = 0.971$.
+
+Egypt's factor $\rho$ is 1.681 MWy per ktoe: generation is 1.266 times final demand (shares: net exports 0.009,
+losses and statistical differences 0.217, own use 0.040, residual 0). The elasticities of the demand groups:
+transport $\epsilon_Y = 1.2$, $\epsilon_U = \epsilon_F = -0.2$, $\alpha = 0.01$; residential and industry
+$0.8$, $-0.3$, $-0.2$, $0.005$; services $1.1$, $-0.5$, $-0.4$, $0.005$.
+:::
+
+## Generation costs {#sec-pw-costs}
+
+What a kWh costs depends on the question asked. The methodology therefore uses four cost concepts
+([section 3.4.1.3](../CPAT_full_documentation_html/03_Mitigation.html#power-generation-cost-and-price-concepts)), and
+the model computes each of them by generation type:
+
+| Concept | Used for | Model quantity | Methodology |
+|---|---|---|---|
+| 1. Current variable cost | Dispatch between coal and gas; early coal retirement | $tvc_{f,t}$ (`tvc`) | [3.4.1.4](../CPAT_full_documentation_html/03_Mitigation.html#concept-1-current-variable-costs) |
+| 2. Levelised (forward-looking) cost | Investment | $tic_{f,t}$ (`tic`) | [3.4.1.5](../CPAT_full_documentation_html/03_Mitigation.html#concept-2-levelized-costs-of-generation-forward-looking) |
+| 3. Cost-recovery generation cost | Average cost of supply, and so prices | $gnc_{f,t}$ (`gnc`), $gnc^{av}_t$ (`gncav`) | [3.4.1.6](../CPAT_full_documentation_html/03_Mitigation.html#concept-3-cost-recovery-estimated-total-cost-of-generation) |
+| 4. End-user price | Demand, revenues, distribution | $p^T_{g,t}$ (`rp`) | [3.4.1.7](../CPAT_full_documentation_html/03_Mitigation.html#concept-4-end-user-prices); [End-user prices](#sec-pw-prices) |
+
+The first three are built from a few blocks, each computed once: the inputs of the scenario (A0), the capital cost
+path, the amortised fixed cost of the existing stock (B), the levelised fixed cost of new plants (C) and the current
+variable cost (D). Their combinations are the total costs (E). Memo rows (F) report switching carbon prices and a cost
+breakdown.
+
+### Inputs of the scenario {#sec-pw-a0}
+
+Sub-table A0 applies the power inputs of the scenario to the power data of the country
+([Power data](#sec-pw-data)). The results are constant over the years of a scenario.
+
+**Capacity factor.** The actual base-year capacity factor is used when it lies strictly inside the bounds of the
+scenario; otherwise the value of the studies is used:
+
+$$
+cf_f = \begin{cases} cf^{a}_f & \text{if } cf^{lo}_f < cf^{a}_f < cf^{hi} \\ cf^{s}_f & \text{otherwise} \end{cases}
+$$ {#eq-pw-cf}
+
+where $cf^a_f$ is base-year generation over base-year installed capacity, $cf^s_f$ the studies value, $cf^{lo}_f$ =
+`CFOverrideIfBelowWndSol` (default 0.1) for wind and solar and `CFOverrideIfBelowFosOth` (0.01) for the others, and
+$cf^{hi}$ = `CFOverrideIfAbove` (1). Code `cfu`.
+
+**Efficiency.** The actual efficiency (base-year output over input) is used unless it is below
+`MinimumThermalEfficiency` (default 0.1) or there is no input; then the studies value is used. Wind, solar, hydro and
+other renewables have efficiency 1 by convention. Code $\nu_f$, `nuu`.
+
+**WACC.** The option `WACCSource` of the scenario chooses the discount rate:
+
+$$
+wacc_f = \begin{cases}
+w_c + adj_{coal,i(c)} & \text{Country*} \\
+w_c + adj_{f,i(c)} & \text{Tech} \\
+\max\left(w^{user}, w^{min}\right) & \text{User} \\
+\max\left(w_{i(c)}, w^{min}\right) & \text{Income*} \\
+\max\left(w^{s}_f, w^{min}\right) & \text{otherwise (studies)}
+\end{cases}
+$$ {#eq-pw-wacc}
+
+where $w_c$ is the country's real WACC (cost-of-capital data, 2022), $adj_{f,i}$ the technology premium of type $f$
+for the country's income group $i(c)$, $w^{user}$ = `WACCUserGlobal` (default 0.075), $w_i$ the WACC of the income
+group (HIC 0.075, UMIC 0.10, LMIC 0.125, LIC 0.15), $w^s_f$ the studies value and $w^{min}$ = `MinimumWACC` (0.01).
+The default is Tech. Note that Country* adds the coal premium to every type. Code `wac`; the WACC is constant over
+time ([WACC](#sec-pw-data-wacc)).
+
+**Discounted lifetime.** The annuity factor turns a capital cost into a cost per year of life:
+
+$$
+dlf_f = \frac{1 - (1 + wacc_f)^{-N_f}}{1 - (1 + wacc_f)^{-1}} = \sum_{k=0}^{N_f - 1} (1 + wacc_f)^{-k}
+$$ {#eq-pw-dlf}
+
+where $N_f$ is the lifetime (years; the methodology's $lif_f$). Code `dlf`. Renewables' storage costs use
+$dlf_{ren} = (dlf_{wnd} + dlf_{sol})/2$ (`dlfr`).
+
+**Fuel per kWh.** $k_f = \theta_e/\nu_f$ GJ of fuel per kWh generated for types with a fuel price (coal, gas, oil,
+biomass), 0 for the others (`kwh`). The CO2 intensity of generation is $e_f k_f$ tCO2 per kWh, with $e_f$ the
+calibrated CO2 emission factor of the fuel in power (tCO2/GJ, @sec-emissions).
+
+**Base-year capacity.** $cap_{f,t_0} = gen_{f,t_0}/cf_f$ (MW; `cap0`): the capacity consistent with base-year
+generation at the capacity factor used.
+
+**Investment rules, rates and factors.** The remaining settings of the scenario:
+
+| Setting | Rule | Code |
+|---|---|---|
+| Investment permitted | `NewInv<type>`: Yes, No, Manual, or If Present* = Yes when the type has more than `InvPresentShare` (0.1%) of base-year capacity | `perm` |
+| First year of investment | `NewInv<type>Year`; hydro from the base year when its base-year generation share is above `HydInvShare` (50%) | `start` |
+| Permit of the year $\zeta_{f,t}$ | 1 if permitted and $t \ge$ first year, else 0 | `permit` |
+| Scale-up rate $q_f$ | coal, gas, hydro: `MaxNonVREAsPCOfTotalGen` (0.05); oil, nuclear, other renewables, biomass: `MaxNonNucOreBioAsPCOfTotalGen` (0.02); wind and solar: by `MaxScaleUpRateCategory`, see below | `rate` |
+| Wind and solar rate | CtryDefault*: the country's historical maximum (default 0.02; China and India 0.03); UserDefined: `MaxWindSolarScaleup` (0.05); Low 0.01, Medium* 0.02, High 0.03, Vhigh 0.04 | `scv`, `scat` |
+| Retirement rate $r_f$ | $1/N_f$; hydro 0 if `HydroDoesntRetire` = Yes (default Yes) | `rr` |
+| Early-retirement factor $f^{early}$ | `MaxCostBasedEarlyRetirement` (0.8); in scenario 1 only if `EarlyRetirementInBaseline` = Yes (default Yes), else 0 | `erf` |
+| Spot fuel prices | 1 if Settings `SpotPow` or the scenario's `UseSpotFuelPricesInEngineerModel` is Yes | `spot` |
+| Capex decline scenario | `RenewableCostDeclineRate`: low, med (Medium*), hgh, vhg | `ctf` |
+| Storage factors | $a_{st} \cdot 2 \cdot h_{100}$ and $a_{lt}\, u_{lt}$ ([Storage](#sec-pw-storage)) | `stm`, `ltu` |
+| PPA share $\omega_t$ | [Dispatch](#sec-pw-ppa) | `ppa` |
+| Renewable subsidy | [Renewable subsidies](#sec-pw-rns) | `rnsp`, `rns` |
+| Rebate switch, electricity excise | [End-user prices](#sec-pw-excise) | `rbs`, `exs` |
+
+::: {.callout-tip icon=false title="Pseudocode: inputs of the scenario (A0)"}
+```
+for f in types:
+    low      = CFOverrideIfBelowWndSol if f in ('wnd', 'sol') else CFOverrideIfBelowFosOth
+    cfu[f]   = cfa[f] if low < cfa[f] < CFOverrideIfAbove else cfs[f]
+    nuu[f]   = nus[f] if nua[f] < MinimumThermalEfficiency else nua[f]     # nua = -1 without input
+    wac[f]   = {'Country*': w_cty + adj['coa', inc], 'Tech': w_cty + adj[f, inc]}.get(WACCSource,
+               max(WACCUserGlobal if WACCSource == 'User' else
+                   w_income[inc] if WACCSource == 'Income*' else w_studies[f], MinimumWACC))
+    dlf[f]   = (1 - (1 + wac[f]) ** -life[f]) / (1 - (1 + wac[f]) ** -1)
+    kwh[f]   = GJperkWh / nuu[f] if f has a fuel price else 0
+    cap0[f]  = gen0[f] / cfu[f]
+for f in types:
+    perm[f]  = NewInv[f] if NewInv[f] != 'If Present*' else ('Yes' if cap0[f] / sum(cap0) > 0.001 else 'No')
+    start[f] = base_year if f == 'hyd' and shr0['hyd'] > 0.5 else NewInvYear[f]
+    for t in years:
+        permit[f,t] = 1 if perm[f] == 'Yes' and t >= start[f] else 0
+    rate[f]  = MaxNonVRE if f in ('coa','nga','hyd') else (scv if f in ('wnd','sol') else MaxNonNucOreBio)
+    rr[f]    = 0 if f == 'hyd' and HydroDoesntRetire == 'Yes' else 1 / life[f]
+erf = MaxCostBasedEarlyRetirement if scenario > 1 or EarlyRetirementInBaseline == 'Yes' else 0
+```
+:::
+
+### Capital cost of new plants {#sec-pw-cax}
+
+The capital cost of a new plant follows the capex time factor of its type:
+
+$$
+cax_{f,t} = cax^0_f\, \tau_{f,t}
+$$ {#eq-pw-cax}
+
+where $cax^0_f$ is the capital cost at time factor 1 (USD/kW) and $\tau_{f,t}$ the capex time factor of the decline
+scenario (`tcf`): falling for wind and solar, 1 for coal, gas, oil and nuclear (medium scenario), and the scenario's
+path for hydro, other renewables and biomass ([Capex time factors](#sec-pw-data-ctf)). Code `cax`.
+
+### Amortised fixed costs of the existing stock {#sec-pw-fix}
+
+The existing stock is a mix of plants built in different years at different capital costs. The model tracks the
+average capital cost of the stock, and the average storage cost attached to it, as vintage averages: each year the
+new plants of last year enter the average with their share in the stock.
+
+$$
+cax^{av}_{f,t} = cax^{av}_{f,t-1}\,(1 - \Phi_{f,t-1}) + cax_{f,t-1}\, \Phi_{f,t-1},
+\qquad cax^{av}_{f,t_0} = cax_{f,t_0}
+$$ {#eq-pw-caxav}
+
+$$
+sto^{av}_{f,t} = sto^{av}_{f,t-1}\,(1 - \Phi_{f,t-1}) + \ell_f\, msc_t\, \Phi_{f,t-1},
+\qquad sto^{av}_{f,t_0} = \ell_f\, msc_{t_0}
+$$ {#eq-pw-stoav}
+
+where
+
+- $cax^{av}_{f,t}$ is the weighted average capital cost of the stock (USD/kW; `caxav`);
+- $sto^{av}_{f,t}$ the weighted average storage cost of the stock (USD/kWh; `stoav`);
+- $\Phi_{f,t-1}$ the new investment of last year as a share of the stock after retirements (`phi`,
+  @eq-pw-phi);
+- $\ell_f$ the VRE flag (1 for wind, solar, other renewables);
+- $msc_t$ the marginal storage cost of the current year (@eq-pw-msc). New vintages take the storage cost of the year
+  they join the stock.
+
+The amortised fixed cost per kWh then adds capital amortisation, average interest, decommissioning, storage and fixed
+O&M:
+
+$$
+fix_{f,t} = \underbrace{\frac{cax^{av}_{f,t}}{cf_f\,H\,N_f}}_{\text{amortisation}}
++ \underbrace{\frac{\bar{s}\; cax^{av}_{f,t}\; wacc_f}{cf_f\,H}}_{\text{interest}}
++ \underbrace{\frac{dtc_f}{cf_f\,H\,N_f}}_{\text{decommissioning}}
++ sto^{av}_{f,t} + opf_f
+$$ {#eq-pw-fix}
+
+where
+
+- $fix_{f,t}$ is the amortised fixed cost (USD/kWh; `fix`);
+- $\bar{s} = 0.5$ is the average outstanding share of capital under straight-line repayment (`CapAvgShr`), so the
+  interest term is the methodology's $0.5\, cax^{av}\, wacc/(cf \cdot 8760)$;
+- $dtc_f$ the decommissioning (and, for nuclear, waste disposal) cost (USD/kW), not discounted;
+- $opf_f$ the fixed O&M cost per kWh, fixed O&M per kW-year over $cf_f H$.
+
+This is the methodology's $fix_B = acc + int + dec + sto + opf$
+([section 3.4.1.6](../CPAT_full_documentation_html/03_Mitigation.html#concept-3-cost-recovery-estimated-total-cost-of-generation)).
+
+### Levelised fixed costs of new plants {#sec-pw-lfx}
+
+A new plant's fixed costs are levelised over its discounted lifetime. The levelised fixed cost adds the capital cost,
+decommissioning and a share of transmission capex, all annuitised, plus fixed O&M, the renewable subsidy and the
+current marginal storage cost:
+
+$$
+fix^{fl}_{f,t} = \frac{cax_{f,t} + dtc_f + \kappa\, tcx_f}{cf_f\,H\,dlf_f} + opf_f + rns_{f,t} + \ell_f\, msc_t
+$$ {#eq-pw-lfx}
+
+where
+
+- $fix^{fl}_{f,t}$ is the forward-looking levelised fixed cost (USD/kWh; `lfx`);
+- $tcx_f$ the levelised transmission capex (USD/kW) and $\kappa$ = `TransmissionCostShare` the share of it included
+  (default 1; legacy `IncludeTransmissionCostsInGenerationCostsPercent`);
+- $rns_{f,t}$ the renewable subsidy per kWh, negative for a subsidy (@eq-pw-rns).
+
+This is the methodology's $fix^{fl}$ with $sto = msc$, $pusRen = rns$ and the levelised transmission cost as the
+$tcx$ term ([section 3.4.1.5](../CPAT_full_documentation_html/03_Mitigation.html#concept-2-levelized-costs-of-generation-forward-looking)).
+Because every component is constant in real terms over the plant's life, the levelised cost is the cost of one year
+divided by one year's output: the methodology's constant-growth simplification
+([3.4.1.5.2](../CPAT_full_documentation_html/03_Mitigation.html#lcoe-methodology-simplification)) with $\tau = 0$.
+
+### Renewable subsidies {#sec-pw-rns}
+
+A scenario can pay a subsidy per kWh to renewable generation. A base subsidy applies in every scenario; an additional
+subsidy applies in policy scenarios from its own start year and phases out linearly:
+
+$$
+rns_t = -\left( s^{BL} + \mathbb{1}[o \ne B,\ t \ge T_s]\; s^{add} \max\left(0,\ 1 - \frac{t - T_s}{n_s}\right)\right) \iota_t
+$$ {#eq-pw-rns}
+
+$$
+rns_{f,t} = h_f\, rns_t
+$$ {#eq-pw-rnsf}
+
+where
+
+- $rns_t$ is the subsidy per kWh (USD/kWh, negative = subsidy; `rnsp`) and $rns_{f,t}$ by type (`rns`);
+- $h_f$ is 1 for wind, solar, other renewables and biomass; for hydro 1 if `RenewableSubsidyHydro` = Yes, else 0;
+  0 for the other types;
+- $s^{BL}$ = `RenewableSubsidyBL` (default 0), $s^{add}$ = `RenSubsidyAddUSDkwh`, $T_s$ = `RenSubsidyAddStartYear`
+  (default 2027), $n_s$ = `RenSubsidyAddPhaseoutYrs`;
+- $\iota_t$ the CPI index: the inputs are nominal and are converted to real
+  ([Reforms](#sec-pw-reforms)).
+
+The subsidy enters the levelised fixed cost (investment), not the cost of the existing stock and not the end-user
+price. Its fiscal cost is $rns_{f,t}$ times generation by type ([Power revenues](#sec-pw-revenues)). The equation list
+has it in ([A4.7](A_Equations.qmd#eqlist-A4-7)).
+
+### Current variable costs {#sec-pw-vc}
+
+The variable cost is what a kWh costs to run: fuel, variable O&M, existing carbon pricing, and the new policies of
+the scenario. It drives dispatch and, levelised, investment. Variable costs depend only on prices and policies, so they
+are computed for all years before the year loop. The methodology describes them in
+[section 3.4.1.4](../CPAT_full_documentation_html/03_Mitigation.html#concept-1-current-variable-costs), with the fuel
+price before new policies as in the corrected text
+([corrections, DOC12](../CPAT_full_documentation_html/08_Corrections.html#corrections-of-2026-10-31)).
+
+**Fuel price for power.** The price is the retail price before new policies of the type's price fuel, averaged over
+the year and the four years before, within the model's years:
+
+$$
+\bar{p}_{f,t} = \frac{1}{t - \max(t_0, t - 4) + 1} \sum_{\tau = \max(t_0,\,t-4)}^{t} p_{f,\tau}
+$$ {#eq-pw-fpp}
+
+where $p_{f,t}$ is the retail price before new policies of the price fuel of type $f$ (USD/GJ; `fpn`; @sec-prices)
+and $\bar{p}_{f,t}$ the price used (`fpp`). The average spans one year in 2022 and five from 2026. With spot prices
+switched on, $\bar{p}_{f,t} = p_{f,t}$.
+
+**Change in existing carbon pricing.** The price data already contain the existing carbon tax and ETS price of the
+data year. A change in either after that year changes the cost per kWh:
+
+$$
+\Delta xcp_{f,t} = e_f\, k_f \left( XCT_{f,t}\,\phi^{ct}_t + XETS_{f,t}\,\phi^{ets}_t - XCP^0_f \right)
+$$ {#eq-pw-xck}
+
+where $XCT$ and $XETS$ are the existing carbon tax and ETS price of power and the type's fuel (USD/tCO2), weighted by
+their coverage, $\phi^{ct}$, $\phi^{ets}$ their factors of the year, and $XCP^0_f$ the existing pricing embedded in the
+price data (@sec-prices). Code `xck`; 0 for Egypt.
+
+**Variable cost before new policies.**
+
+$$
+vc_{f,t} = vop_f + ffx_f + \bar{p}_{f,t}\, k_f + \Delta xcp_{f,t} + \mathbb{1}[f = \text{coal}]\; ipc_t
+$$ {#eq-pw-vbc}
+
+where $vop_f$ is variable O&M (USD/kWh), $ffx_f$ the fixed fuel cost (nuclear 0.004 USD/kWh, others 0), and $ipc_t$
+the coal implicit cost ([Coal implicit cost](#sec-pw-coalic)). Code `vbc`. This is the methodology's
+$vc = vop + p/\nu + ipc$.
+
+**New policy cost per kWh.** The carbon tax, the ETS and the fuel price reform of the scenario, per kWh generated:
+
+$$
+ncp_{f,t} = e_f\, k_f \left( T_{pow,t}\; cov_{f,t} + A_{pow,t} \right) + \frac{F_{f,t}\, k_f}{u_f}
+$$ {#eq-pw-ncp}
+
+where
+
+- $T_{pow,t}$ is the carbon tax rate of power (carbon price × sector coverage × (1 − ETS coverage), USD/tCO2; `ctr`)
+  and $cov_{f,t}$ the fuel coverage of the carbon tax;
+- $A_{pow,t}$ the ETS cost rate of power (tax-equivalent ETS price × ETS coverage × (1 − OBR share); `etr`);
+- $F_{f,t}$ the new tax of the fuel price reform of the type's price fuel (price units; `ntxb`), $u_f$ GJ per price
+  unit.
+
+Code `xac`. The policy rates are those of @sec-model-overview; the same rates apply to the fuel blocks.
+
+**Shadow price and rebate.** Feebates on power and the output-based part of an ETS act as a shadow price: they change
+the choice between generation types without raising the average cost. The shadow price per kWh is
+
+$$
+sh_{f,t} = \Sigma_{pow,t}\; e_f\, k_f
+$$ {#eq-pw-shk}
+
+where $\Sigma_{pow,t}$ is the shadow price of power (feebate rate × share impacting efficiency + tax-equivalent ETS
+price × ETS coverage × OBR share; `shpx`). The rebate returns it in proportion to base-year generation shares, per kWh
+generated:
+
+$$
+reb_t = -\sum_f sh_{f,t}\; s_{f,t_0}, \qquad reb_{t_0} = 0
+$$ {#eq-pw-reb}
+
+where $s_{f,t_0}$ is the base-year generation share. Codes `shk`, `reb`.
+
+**Total variable cost.** Dispatch uses
+
+$$
+tvc_{f,t} = vc_{f,t} + ncp_{f,t} + sh_{f,t} + reb_t
+$$ {#eq-pw-tvc}
+
+(USD/kWh; `tvc`). It is the methodology's $vc_P = vc_B + ncp$, plus the shadow price and its rebate.
+
+**Levelised variable cost.** Investment needs the expected variable cost over a plant's life. The model takes the
+discounted average of the total variable cost from the year to the end of the horizon:
+
+$$
+\overline{vc}_{f,t} = \frac{\sum_{\tau = t}^{T} \beta_{f,\tau}\, tvc_{f,\tau}}{\sum_{\tau = t}^{T} \beta_{f,\tau}},
+\qquad \beta_{f,\tau} = (1 + wacc_f)^{-(\tau - t_0)}
+$$ {#eq-pw-lvc}
+
+(USD/kWh; `lvc`). It is computed backwards from $T$ with the sum of discount factors
+$D_{f,t} = \sum_{\tau \ge t} \beta_{f,\tau}$ (`dsum`):
+
+$$
+\overline{vc}_{f,t} = \frac{\beta_{f,t}\, tvc_{f,t} + \left(D_{f,t} - \beta_{f,t}\right)\overline{vc}_{f,t+1}}{D_{f,t}}
+$$ {#eq-pw-lvc-rec}
+
+This is the methodology's levelised variable cost with the corrected discount factor
+([corrections, DOC3](../CPAT_full_documentation_html/08_Corrections.html#corrections-of-2026-10-31)); the capacity
+factor of the methodology's weights is constant and cancels.
+
+**Levelised investment cost.**
+
+$$
+tic_{f,t} = \max\left(fix^{fl}_{f,t} + \overline{vc}_{f,t},\ c_{min}\right)
+$$ {#eq-pw-tic}
+
+(USD/kWh; `tic`). The equation list has $vc$ and $tic$ as ([M4.3](A_Equations.qmd#eqlist-M4-3)) and the full variable
+cost as ([A4.5](A_Equations.qmd#eqlist-A4-5)).
+
+### Total costs {#sec-pw-total}
+
+The cost-recovery generation cost of a type adds its amortised fixed cost and its variable cost before new policies:
+
+$$
+gnc_{f,t} = fix_{f,t} + vc_{f,t} - \mathbb{1}[f = \text{coal},\ \texttt{PwCoalICTariff} = \text{No}]\; ipc_t
+$$ {#eq-pw-gnc}
+
+The average generation cost weights it by generation shares, and the average new policy cost per kWh *consumed* adds
+the losses and other uses between generation and consumption:
+
+$$
+gnc^{av}_t = \sum_f s_{f,t}\, gnc_{f,t},
+\qquad
+ncp^{av}_t = \frac{G_{t_0}}{D_{t_0}} \sum_f s_{f,t}\, ncp_{f,t}
+$$ {#eq-pw-gncav}
+
+where
+
+- $gnc_{f,t}$ is the generation cost before new policies (USD/kWh; `gnc`), the methodology's $gnc_B = vc_B + fix$;
+- $s_{f,t}$ the generation share of type $f$ ([Dispatch](#sec-pw-dispatch));
+- $gnc^{av}_t$ the average generation cost (`gncav`);
+- $ncp^{av}_t$ the average new policy cost per kWh consumed (`ccpav`), with $G_{t_0}/D_{t_0}$ base-year generation
+  over base-year final demand (`gen_per_cons`, Egypt 1.266).
+
+Carbon and other new policy costs are kept out of the average generation cost and added separately to end-user
+prices. This lets a rebate be computed against them (methodology
+[3.4.1.7](../CPAT_full_documentation_html/03_Mitigation.html#concept-4-end-user-prices)).
+
+### Memos {#sec-pw-memos}
+
+Memo rows report quantities that no other row reads.
+
+| Memo | Equation | Code |
+|---|---|---|
+| Post-tax fuel cost per kWh | $\bar{p}_{f,t}\, k_f$ | `fce` |
+| Carbon intensity (tCO2/kWh) | $e_f\, k_f$ | `cik` |
+| Switching carbon price, gas over coal, investment (USD/tCO2) | $(tic_{gas} - tic_{coal}) / (cik_{coal} - cik_{gas})$ | `swi` |
+| Switching carbon price, gas over coal, dispatch | $(tvc_{gas} - tvc_{coal}) / (cik_{coal} - cik_{gas})$ | `swd` |
+| Current total cost | $\max(fix^{fl}_{f,t} + tvc_{f,t},\ c_{min})$ | `cur` |
+| System cost | $(dtc_f + \kappa\,tcx_f)/(cf_f H dlf_f) + \ell_f\, msc_t + \mathbb{1}[\text{coal}]\, ipc_t$ | `sys` |
+| Breakdown: capital | $cax_{f,t}/(cf_f H dlf_f)$ | `pcbcap` |
+| Breakdown: O&M | $opf_f + vop_f$ | `pcbom` |
+| Breakdown: fuel | $ffx_f + \bar{p}_{f,t} k_f + \Delta xcp_{f,t}$ | `pcbfu` |
+| Breakdown: new carbon price | $ncp_{f,t}$ | `pcbcp` |
+| Breakdown: renewable subsidy | $rns_{f,t}$ | `pcbrns` |
+| Breakdown check | capital + O&M + fuel + system + carbon + subsidy − current total cost | `pcbchk` |
+| Carbon tax of the scenario | $\tau_t\, \mathbb{1}[o \ne B]$ | `pcbct` |
+
+A switching carbon price is the carbon price at which gas becomes as cheap as coal; a negative value means gas is
+already cheaper. The breakdown check is zero unless the shadow price, the rebate or the floor $c_{min}$ act: they are not
+columns of the breakdown (issue I142). The breakdown is computed for every year; legacy computes it for one
+`CostBreakdownYear`. The equation list has it as ([A4.6](A_Equations.qmd#eqlist-A4-6)).
+
+::: {.callout-tip icon=false title="Pseudocode: generation costs"}
+```
+# before the year loop
+for f in types:
+    for t in years:
+        cax[f,t]  = cax0[f] * tcf[f,t]
+        fpn[f,t]  = rpb[price_fuel[f], t]                          # retail price before new policies
+        fpp[f,t]  = fpn[f,t] if spot else mean(fpn[f, max(base_year, t-4) .. t])
+        xck[f,t]  = ef[f] * kwh[f] * (xct[f,t] * xct_p[t] + xets[f,t] * xets_p[t] - xcp0[f])
+        vbc[f,t]  = vop[f] + ffix[f] + fpp[f,t] * kwh[f] + xck[f,t] + (cic[t] if f == 'coa' else 0)
+        xac[f,t]  = ef[f] * kwh[f] * (ctr['pow',t] * ctcov[fuel[f],t] + etr['pow',t]) + ntxb[price_fuel[f],t] * kwh[f] / gj[f]
+        shk[f,t]  = shpx['pow',t] * ef[f] * kwh[f]
+    for t in years:
+        reb[t] = 0 if t == base_year else -sum(shk[f,t] * shr0[f] for f in types)
+        tvc[f,t] = vbc[f,t] + xac[f,t] + shk[f,t] + reb[t]
+    lvc_next = 0
+    for t in reversed(years):                                       # backwards from 2041
+        beta = (1 + wac[f]) ** (base_year - t)
+        dsum[f,t] = beta + (dsum[f,t+1] if t < 2041 else 0)
+        lvc[f,t]  = (beta * tvc[f,t] + (dsum[f,t] - beta) * lvc_next) / dsum[f,t]
+        lvc_next  = lvc[f,t]
+
+# in year t, after dispatch and storage (phi of t-1, msc of t)
+for f in types:
+    if t == base_year:
+        caxav[f,t] = cax[f,t];  stoav[f,t] = vre_flag[f] * msc[t]
+    else:
+        caxav[f,t] = caxav[f,t-1] * (1 - phi[f,t-1]) + cax[f,t-1] * phi[f,t-1]
+        stoav[f,t] = stoav[f,t-1] * (1 - phi[f,t-1]) + vre_flag[f] * msc[t] * phi[f,t-1]
+    fix[f,t] = (caxav[f,t] * (1/life[f] + wac[f] * 0.5) + dtc[f]/life[f] + opfx[f]) / (cfu[f] * 8760) + stoav[f,t]
+    lfx[f,t] = (cax[f,t] + dtc[f] + TransmissionCostShare * tcx[f]) / (cfu[f] * 8760 * dlf[f]) \
+               + opfx[f] / (cfu[f] * 8760) + rns[f,t] + vre_flag[f] * msc[t]
+    gnc[f,t] = fix[f,t] + vbc[f,t] - (cic[t] if f == 'coa' and PwCoalICTariff == 'No' else 0)
+    tic[f,t] = max(lfx[f,t] + lvc[f,t], MinPostSubsidyPowerPrice)
+gncav[t] = sum(shr[f,t] * gnc[f,t] for f in types)
+ccpav[t] = sum(shr[f,t] * xac[f,t] for f in types) * gen_per_cons
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 3: A0 rows `cfu` to `ltu`, `ppa`, `rnsp`, `rns`, `rbs`, `exs`
+  (Formulas.md E282-E307; LAMBDAs `CFUSED`, `EFFUSED`, `WACCCODE`, `WACCFIXED`, `WACCUSED`, `INVPRESENT`, `INVSTART`,
+  `SCALECAT`, `SCALEVRE`, `SCALETYPE`, `RETIRERATE`, `EARLYFACTOR`, `SPOTSWITCH`, `DECLINECODE`); A paths `tcf` to
+  `shock` (E308-E319); B and C rows `cax`, `caxav`, `stoav`, `fix`, `lfx` (E320-E324); D rows `cics` to `lvc`
+  (E325-E338; `BLOCKPRICE`); E rows `gnc`, `gncav`, `ccpav`, `tic` (E339-E342); memos E343-E355 (sub-table E2:
+  `INVCOST`, `SYSCOST`, `LEVCAPEX`, `OMCOST`, `VARCOST`). Constants `CapAvgShr`, `PwAvgLag` (4), `InvPresentShare`,
+  `HydInvShare`, `UraniumFuel`; derived constants of each type on Inputs rows 207-215.
+- **CPAT Python:** `power.prepare()` (A0, capital costs, variable and levelised variable costs, memos that read no
+  quantity of the year; EQ-M4.3, EQ-A4.5, EQ-A4.6, EQ-A4.7); `power.step()`, block "costs of the year" (`caxav`,
+  `stoav`, `fix`, `lfx`, `gnc`, `gncav`, `ccpav`, `tic`, `cur`, `swi`, `sys`, `pcbchk`). Derived constants in
+  `power_data.power_types()` (A4.4: `acap`, `afix`, `lcap`, `lfix`, `vfix`, `afx`, `dtx`).
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: generation costs"}
+**Simplifications (same numbers as legacy).**
+
+| # | Legacy | Model | Same numbers? |
+|---|---|---|---|
+| S1 | Five amortised-cost tables (B3 capital, B4 interest, B5 decommissioning, B6 storage, B7 fixed O&M) summed in B8 | One amortised fixed cost per type (@eq-pw-fix) | Yes (algebraically identical) |
+| S2 | Six levelised tables (C1-C6) summed in C7; discount-factor tables A5, A6 | One levelised fixed cost per type (@eq-pw-lfx), discounted lifetime in closed form | Yes |
+| S3 | Duplicates: A16 = B7 = C4 (fixed O&M), D7 = D8 (variable cost), E1 = E4 (investment cost), F2/F3 (fuel prices and fuel cost), E2 (cost before storage), E5 (breakdown memo) | Each quantity once | n/a |
+| S6 | Coal implicit cost (D3) and the additional shadow price (D6) not built in the first build | Both built since ([Coal implicit cost](#sec-pw-coalic); @eq-pw-shk) | Yes |
+
+**Fuel price for power (S5, L126, LD31).** Legacy averages the fuel price over $t-2 .. t+2$ (A18, rows 3155-3163),
+which reads later years. The model averages $t-4 .. t$ within the scenario's own years (bug L126 fixed, user decision
+2026-10-20); price changes reach power costs about two years later. The price row `fpn` holds this year's price, so the
+average reads one row. Spot prices are a switch (Settings `SpotPow`, legacy dashboard option).
+
+**Vintage averages.** The weighted average capex and storage cost of the stock match legacy exactly (B2, B6), with
+last year's $\Phi$; new vintages take the current-year marginal storage cost.
+
+**Rebate (L9, fixed).** Legacy adds the feebate rebate per kWh *consumed* to the cost per kWh *generated*. The model
+returns it per kWh generated with fixed base-year shares (rows 3407-3409).
+
+**Levelised variable cost (LD29).** The window runs to the last model year, 2041, as legacy; where the host cannot
+evaluate the 2041 LAMBDA cell, the 2041 cost is last year's (`tvcx`). The legacy register also lists L127, "levelised
+variable cost reads the variable cost to 2041".
+
+**Existing carbon pricing (LD38).** The change in existing carbon pricing against the price data is a separate term
+(`xck`); in legacy, existing pricing is part of the taxes of the power fuels.
+
+**Cost memos (LD87, L222).** The memo tables E4 (current total cost), E5 (breakdown) and F1 (system cost) are computed
+for every year; legacy computes the breakdown for `CostBreakdownYear`. The carbon tax of the breakdown reads the
+block's own scenario (bug L222 fixed). F2-F4, F7 are `fce`, `cik`, `swi`, `swd`; F1, F5 and F6 are `sys`/`lfx`, `tic`
+and `tvc`.
+
+**Methodology.** The methodology's levelised cost discounted with $1 + wacc^{t - t_0}$ and lacked the sums over years;
+both corrected (DOC3). The fuel price of the text and the equation now agree (DOC12). The units of $opf$ (USD/kWh) and
+$dtc$ (USD/kW) are corrected (DOC13), and $opv$ is now $vop$ (DOC14). The methodology states that transmission costs
+in % of capex are "not currently used"; the model includes them in the levelised cost at `TransmissionCostShare`
+(default 1), as legacy does.
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Data edition Public01, scenario 1 unless stated (USD/kWh).
+
+| | Gas | Oil | Wind | Solar | Hydro |
+|---|---|---|---|---|---|
+| Capacity factor $cf_f$ | 0.368 | 0.134 | 0.406 | 0.322 | 0.606 |
+| Efficiency $\nu_f$ | 0.505 | 0.338 | 1 | 1 | 1 |
+| WACC (Tech) | 0.124 | 0.124 | 0.129 | 0.129 | 0.127 |
+| Discounted lifetime $dlf_f$ | 8.79 | 8.91 | 8.53 | 8.34 | 8.87 |
+| Amortised fixed cost, 2022 | 0.0486 | 0.1247 | 0.0548 | 0.0584 | 0.0637 |
+| Levelised fixed cost, 2022 | 0.0699 | 0.1947 | 0.0765 | 0.0818 | 0.1096 |
+| Total variable cost, 2027 (scenario 1 / 2) | 0.0236 / 0.0315 | 0.0502 / 0.0664 | 0 | 0 | 0.001 |
+| Levelised investment cost $tic$, 2030 (scenario 1 / 2) | 0.0937 / 0.1016 | 0.2445 / 0.2607 | 0.0795 / 0.0783 | 0.0700 / 0.0687 | 0.1106 |
+
+- Solar's capital cost falls with its time factor (1.05 in 2022, 0.565 in 2041): 1,284 USD/kW in 2022, 691 in 2041;
+  the average of the stock falls more slowly (823 in 2041).
+- The carbon price of 20 USD/tCO2 adds 0.0079 USD/kWh to gas ($ncp$) from 2027; the levelised variable cost of gas
+  rises from 2022 already (0.0283 against 0.0243), because it looks ahead.
+- Wind and solar levelised costs are lower in scenario 2 from 2030: the scenario has a smaller VRE share and so a
+  lower marginal storage cost.
+- Switching carbon prices are negative (2022: −112 USD/tCO2 for investment, −200 for dispatch): gas is cheaper than
+  coal without any carbon price.
+- The coal implicit cost, existing carbon pricing, shadow price, rebate and renewable subsidy are 0 for Egypt.
+:::
+
+## Dispatch {#sec-pw-dispatch}
+
+Dispatch decides how much each plant generates this year. Plants that cannot or need not follow costs (renewables,
+nuclear, oil, biomass) run at their capacity factor. Coal and gas, the flexible plants, cover the rest, shared by
+their variable costs. Contracts that oblige coal and gas plants to run (PPAs) override part of that choice.
+
+The methodology describes this in
+[section 3.4.2.4.2](../CPAT_full_documentation_html/03_Mitigation.html#dispatch-decision), with the logit function of
+[3.4.2.4.1](../CPAT_full_documentation_html/03_Mitigation.html#logit-function).
+
+### Capacity of the year {#sec-pw-capacity-year}
+
+Capacity is the stock of the previous year, less its retirements, plus its investment:
+
+$$
+cap_{f,t} = cap_{f,t-1} - ret_{f,t-1} + inv_{f,t-1}, \qquad cap_{f,t_0} = gen_{f,t_0}/cf_f
+$$ {#eq-pw-cap}
+
+where $cap_{f,t}$ is nameplate capacity (MW; `cap`), $ret$ retirement and $inv$ new nameplate investment (MW;
+[Capacity and retirement](#sec-pw-capacity), [Investment](#sec-pw-investment)). Effective capacity, the generation the
+capacity is expected to deliver, is
+
+$$
+cap^e_{f,t} = cf_f\, cap_{f,t}
+$$ {#eq-pw-effcap}
+
+(MW; `effcap`). This is the methodology's stock equation in capacity, with no sum over types
+([corrections, DOC11](../CPAT_full_documentation_html/08_Corrections.html#corrections-of-2026-10-31)) and the equation
+list's ([M4.5](A_Equations.qmd#eqlist-M4-5)).
+
+### Fixed-output types and the coal and gas requirement {#sec-pw-fixed-output}
+
+Wind, solar, hydro, other renewables, oil, nuclear and biomass generate their effective capacity:
+$gen_{f,t} = cap^e_{f,t}$ for $f \notin CG$. Coal and gas must cover what is left of required generation:
+
+$$
+req^{cg}_t = \max\left(req_t - \sum_{f \notin CG} cap^e_{f,t},\ 0\right)
+$$ {#eq-pw-reqcg}
+
+(MWy; `reqcg`).
+
+### Minimum runs and the logit share {#sec-pw-logit}
+
+Each of coal and gas can generate at most its capacity at the maximum capacity factor:
+
+$$
+g^{max}_{f,t} = \mu_f\, cap_{f,t}, \qquad f \in CG
+$$ {#eq-pw-gmax}
+
+where $\mu_{coal}$ = `MaximumCoalCF` and $\mu_{gas}$ = `MaximumGasCF` (both 0.9 by default). Code `gmx`. Note that the
+maximum applies to nameplate capacity: it lets coal and gas run above their base-year capacity factor when needed.
+
+Each type first gets the minimum it must supply when the other runs at its maximum:
+
+$$
+g^{min}_{f,t} = \min\left(\max\left(req^{cg}_t - \sum_{j \in CG,\ j \ne f} g^{max}_{j,t},\ 0\right),\ g^{max}_{f,t}\right)
+$$ {#eq-pw-gmin}
+
+(`gmin`). The remainder is shared by a logit on relative variable costs:
+
+$$
+rem_t = \max\left(req^{cg}_t - \sum_{f \in CG} g^{min}_{f,t},\ 0\right)
+$$ {#eq-pw-rem}
+
+$$
+\begin{aligned}
+\lambda_{f,t} &= \frac{e^{-K_{dispatch} H_{f,t}}}{\sum_{j \in CG} e^{-K_{dispatch} H_{j,t}}} \\
+H_{f,t} &= \frac{\max(tvc_{f,t},\ c_{min})}{vc^{lc}_t},
+\qquad vc^{lc}_t = \max\left(\min_{j \in CG} tvc_{j,t},\ c_{min}\right)
+\end{aligned}
+$$ {#eq-pw-lambda}
+
+where
+
+- $rem_t$ is coal and gas generation left after the minima (MWy; `rem`);
+- $\lambda_{f,t}$ the logit share of type $f$ (`lgd` is its weight $e^{-K H}$);
+- $K_{dispatch}$ = `kDispatch` (default 2) the steepness of the logit;
+- $H_{f,t}$ the variable cost relative to the cheapest of coal and gas, $vc^{lc}_t$ (`vcmin`).
+
+The equation list has it as ([M4.4](A_Equations.qmd#eqlist-M4-4)). Generation before PPAs is the minimum plus the
+logit share of the remainder, capped at the maximum:
+
+$$
+gen^{l}_{f,t} = \min\left(g^{max}_{f,t},\ g^{min}_{f,t} + \lambda_{f,t}\, rem_t\right), \qquad f \in CG
+$$ {#eq-pw-glg}
+
+(`glg`).
+
+### Power purchase agreements {#sec-pw-ppa}
+
+A share of coal and gas generation can be under power purchase agreements (PPAs): it runs at its capacity factor,
+scaled to the need, whatever its cost. The PPA share of the year phases out linearly after a start year if the
+scenario says so:
+
+$$
+\begin{aligned}
+\omega_t &= \omega^0\, \phi^{ppa}_t \\
+\phi^{ppa}_t &= \begin{cases}
+\max\left(0,\ 1 - \max(0,\ t - T_p)/n_p\right) & \text{phase-out switch Yes or Yes*} \\
+1 & \text{otherwise}
+\end{cases}
+\end{aligned}
+$$ {#eq-pw-ppa}
+
+where $\phi^{ppa}_t$ is the phase-out factor, $\omega^0$ = `PPAProportionCoalGas` (default 0), $T_p$ = `YearPPACoalGas`, $n_p$ = `YearsToPhaseOutPPAs`,
+and the switch is `PhaseOutCoalAndGasPPAsBaseline` in scenario 1 and `PhaseOutCoalAndGasPPAsPolicy` in the other
+scenarios. Code `ppa`.
+
+The PPA part runs at effective capacity scaled by the ratio of the coal and gas need to their effective capacity:
+
+$$
+\Omega_t = \begin{cases} \dfrac{req^{cg}_t}{\sum_{j \in CG} cap^e_{j,t}} & \sum_{j \in CG} cap^e_{j,t} > 0 \\ 1 & \text{otherwise} \end{cases}
+$$ {#eq-pw-omega}
+
+$$
+gen_{f,t} = (1 - \omega_t)\, gen^l_{f,t} + \omega_t\, \Omega_t\, cap^e_{f,t}, \qquad f \in CG
+$$ {#eq-pw-gen}
+
+where $\Omega_t$ is the downscaling factor (`ppr`) and $gen_{f,t}$ generation (MWy; `gen_mwy`). In the base year
+generation is the data: $gen_{f,t_0}$ = base-year output of the energy balance. This is the methodology's
+$\gamma = (1-\omega)\tilde\gamma + \omega\,\Omega\,(cap \cdot cf)$.
+
+PPAs also protect coal plants from early retirement ([Early coal retirement](#sec-pw-early)).
+
+### Generation shares, fuel use and CO2 {#sec-pw-fuel-use}
+
+Total generation, shares, fuel use and CO2 follow:
+
+$$
+\begin{aligned}
+G_t &= \sum_f gen_{f,t}, \qquad s_{f,t} = \frac{gen_{f,t}}{G_t} \\
+FU_{f,t} &= \frac{8.76\; gen_{f,t}}{\theta_g\, \nu_f}, \qquad CO2_{f,t} = 0.041868\; FU_{f,t}\, EF_f
+\end{aligned}
+$$ {#eq-pw-fu}
+
+where
+
+- $G_t$ is total generation (MWy; `gtot`) and $s_{f,t}$ the generation share (`shr`);
+- $FU_{f,t}$ fuel use (primary energy) of generation (ktoe; `pe`): MWy × 8.76 gives GWh, divided by 11.63 GWh per
+  ktoe and by the efficiency;
+- $CO2_{f,t}$ CO2 from combustion (MtCO2; `co2`), with $EF_f$ the calibrated emission factor (tCO2/GJ; @sec-emissions).
+
+Only coal, gas, oil and biomass enter the fuel totals (`pet`); nuclear, wind, solar, hydro and other renewables have
+no fuel. The increase in total generation, $\Delta G_t = \max(0, G_t - G_{t-1})$ (0 in the base year; `dgen`), is used,
+lagged, by early coal retirement.
+
+::: {.callout-tip icon=false title="Pseudocode: dispatch"}
+```
+for t in years:
+    for f in types:
+        cap[f,t]    = cap0[f] if t == base_year else cap[f,t-1] - ret[f,t-1] + nim[f,t-1]
+        effcap[f,t] = cap[f,t] * cfu[f]
+    reqcg[t] = max(req[t] - sum(effcap[f,t] for f not in CG), 0)
+    vcmin[t] = max(min(tvc[f,t] for f in CG), MinPostSubsidyPowerPrice)
+    for f in CG:
+        gmx[f,t] = cap[f,t] * (MaximumCoalCF if f == 'coa' else MaximumGasCF)
+    for f in CG:
+        other    = sum(gmx[j,t] for j in CG if j != f)
+        gmin[f,t] = min(max(reqcg[t] - other, 0), gmx[f,t])
+    rem[t] = max(reqcg[t] - sum(gmin[f,t] for f in CG), 0)
+    for f in CG:
+        lgd[f,t] = exp(-kDispatch * max(tvc[f,t], MinPostSubsidyPowerPrice) / vcmin[t])
+    for f in types:
+        if f in CG:
+            glg[f,t] = min(gmx[f,t], gmin[f,t] + rem[t] * lgd[f,t] / sum(lgd[j,t] for j in CG))
+        else:
+            glg[f,t] = effcap[f,t]
+    cg_cap = sum(effcap[f,t] for f in CG)
+    ppr[t] = 1 if cg_cap == 0 else reqcg[t] / cg_cap
+    for f in types:
+        if t == base_year:  gen[f,t] = gen0[f]
+        elif f in CG:       gen[f,t] = glg[f,t] + ppa[t] * (effcap[f,t] * ppr[t] - glg[f,t])
+        else:               gen[f,t] = glg[f,t]
+    gtot[t] = sum(gen[f,t] for f in types)
+    dgen[t] = 0 if t == base_year else max(0, gtot[t] - gtot[t-1])
+    for f in types:
+        shr[f,t] = gen[f,t] / gtot[t]
+        pe[f,t]  = gen[f,t] * 8.76 / 11.63 / nuu[f]               # ktoe
+        co2[f,t] = pe[f,t] * 0.041868 * ef[f]                      # MtCO2
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 3, sub-tables K1 (rows `cap`, `captot`, `effcap`) and I (rows `reqcg`,
+  `vcmin`, `rem`, `gmx`, `gmin`, `lgd`, `glg`, `ppr`, `gen_mwy`, `gtot`, `dgen`, `shr`, `pe`, `co2`; Formulas.md
+  E391-E404, E408-E410; LAMBDAs `DISPATCH`, `LOGITW`). PPA row `ppa` in A0 (E303). Scenario inputs `MaximumCoalCF`,
+  `MaximumGasCF`, `kDispatch`, `PPAProportionCoalGas`, `YearPPACoalGas`, `YearsToPhaseOutPPAs`,
+  `PhaseOutCoalAndGasPPAsBaseline`, `PhaseOutCoalAndGasPPAsPolicy`.
+- **CPAT Python:** `power.step()`, block "capacity and dispatch" (EQ-M4.4); `ppa` in `power.prepare()`.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: dispatch"}
+- **L11.** Legacy's dispatch formula has a stray reference; the model's has none.
+- **Gas maximum (LD78).** Gas has its own maximum capacity factor `MaximumGasCF`; earlier prototype versions used
+  `MaximumCoalCF` for both (legacy rows 3783-3786).
+- **PPAs (LD75, issue I54).** As legacy (rows 3794-3805): the PPA part runs at its capacity factor scaled to the need.
+  The phase-out switch accepts Yes or Yes*; legacy acts only on "Yes*", and its share to phase out is typed 1
+  (issue I54). Legacy's scale-down row is not used.
+- **Methodology.** The methodology's notation now writes the dispatch sums over one index with costs $c_f$ and the
+  constant $K_{dispatch}$ (DOC14). It sets the maximum capacity factor at 90% "for coal and gas"; the model has one
+  input per fuel.
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Egypt has no coal capacity, so gas covers all of $req^{cg}$ as its minimum run ($rem_t = 0$ every year). Data edition
+Public01:
+
+| | 2022 | 2023 | 2026 | 2030 | 2035 | 2041 |
+|---|---|---|---|---|---|---|
+| Gas generation (MWy), scenario 1 | 19,165 | 18,094 | 23,712 | 22,498 | 23,610 | 26,785 |
+| Gas generation (MWy), scenario 2 | 19,165 | 18,080 | 23,699 | 21,265 | 22,845 | 26,060 |
+| Gas share, scenario 1 | 0.792 | 0.768 | 0.748 | 0.612 | 0.525 | 0.457 |
+| Wind share, scenario 1 | 0.028 | 0.040 | 0.057 | 0.107 | 0.154 | 0.192 |
+| Solar share, scenario 1 | 0.023 | 0.034 | 0.052 | 0.101 | 0.149 | 0.184 |
+| Gas CO2 (MtCO2), scenario 1 | 66.4 | 62.7 | 82.2 | 78.0 | 81.9 | 92.9 |
+| Gas CO2 (MtCO2), scenario 2 | 66.4 | 62.7 | 82.2 | 73.7 | 79.2 | 90.3 |
+
+Gas maximum generation in 2022 is $0.9 \times 52{,}020 = 46{,}818$ MWy, well above its need. The PPA share is 0.
+:::
+
+## Capacity, retirement and capacity needed {#sec-pw-capacity}
+
+Each year part of the stock retires: plants reach the end of their lives, coal plants may follow a closure schedule,
+and coal plants may close early when wind and solar are cheaper than running them. What retires, together with growth
+in demand, sets how much new capacity is needed.
+
+The methodology describes this in
+[section 3.4.2.4.3](../CPAT_full_documentation_html/03_Mitigation.html#retirement-and-capacity-needed). The capacity
+stock itself is @eq-pw-cap.
+
+### Retirement {#sec-pw-retirement}
+
+Retirement of a type is either its planned retirement (data) or a fixed share of its capacity; coal adds early
+retirement; and nothing retires beyond the capacity there is:
+
+$$
+\begin{aligned}
+ret_{f,t} &= \min\left(b_{f,t} + \mathbb{1}[f = \text{coal}]\; early_t,\ cap_{f,t}\right) \\
+b_{f,t} &= \begin{cases} pret_{f,t} & \text{planned retirement used for } f \\ r_f\, cap_{f,t} & \text{otherwise} \end{cases}
+\end{aligned}
+$$ {#eq-pw-ret}
+
+where
+
+- $ret_{f,t}$ is retirement of nameplate capacity (MW; `ret`);
+- $pret_{f,t}$ the planned retirement of the data, in nameplate MW per year (`pret`), used where the type's
+  planned-retirement switch is Yes;
+- $r_f = 1/N_f$ the retirement rate (0 for hydro if `HydroDoesntRetire` = Yes): retirement is exponential;
+- $early_t$ early coal retirement (@eq-pw-early).
+
+Effective retirement is $ret^e_{f,t} = cf_f\, ret_{f,t}$ (`rec`), so it is capped like the nameplate retirement. The
+equation list has the rate-based form in ([M4.5](A_Equations.qmd#eqlist-M4-5)).
+
+The planned-retirement data come from the coal plant tracker (plant-level retirement years, plants cancelled, shelved
+or mothballed removed), averaged over five years ([Year paths](#sec-pw-data-paths)). The data exist for coal only; the
+switch exists for every type. Coal is switched on where its averaged planned retirement over 2020-2030 is at least
+0.1 MW per year (the data flag of the country).
+
+### Early coal retirement {#sec-pw-early}
+
+Coal plants may retire before the end of their lives when the variable cost of running them exceeds the full cost of
+replacing them with new wind and solar. The model builds this in three steps: how much coal wind and solar could
+replace this year, what share of it the costs favour, and the resulting nameplate retirement.
+
+**Step 1: room for early retirement.** Wind and solar can grow by at most their scale-up limits
+(@eq-pw-maxinv). Part of that growth is already needed for last year's increase in generation and to replace last
+year's retirements of the other types. What is left is the room for replacing coal:
+
+$$
+\begin{aligned}
+room_t &= \max\left(0,\ iv^{max}_{wnd,t} + iv^{max}_{sol,t} - \Delta G_{t-1} - \sum_{f \ne \text{coal}} ret^e_{f,t-1}\right) \\
+room_{t_0} &= \max\left(0,\ iv^{max}_{wnd,t_0} + iv^{max}_{sol,t_0}\right)
+\end{aligned}
+$$ {#eq-pw-room}
+
+where
+
+- $room_t$ is the room for early coal retirement (effective MW; `egrow`);
+- $iv^{max}_{f,t}$ the maximum effective investment (scale-up limit) of wind and solar (@eq-pw-maxinv);
+- $\Delta G_{t-1}$ the increase in total generation of last year (`dgen`);
+- $ret^e_{f,t-1}$ last year's effective retirements of the types other than coal.
+
+**Step 2: the share that costs favour.** A logit compares the coal variable cost with the levelised investment costs
+of wind and solar, each relative to the lowest of the three:
+
+$$
+\begin{aligned}
+s^{ec}_t &= \frac{e^{-K_i\, tvc_{coal,t}/c^{lo}_t}}
+{e^{-K_i\, tvc_{coal,t}/c^{lo}_t} + e^{-K_i\, tic_{wnd,t}/c^{lo}_t} + e^{-K_i\, tic_{sol,t}/c^{lo}_t}} \\
+c^{lo}_t &= \min\left(tvc_{coal,t},\ tic_{wnd,t},\ tic_{sol,t}\right)
+\end{aligned}
+$$ {#eq-pw-ecshr}
+
+where
+
+- $s^{ec}_t$ is the coal share of the logit (`ecshr`): high when running coal is cheap compared with building wind
+  and solar;
+- $K_i$ = `kInvestment` (default 2);
+- $c^{lo}_t$ the lowest of the three costs (`ecmin`).
+
+Equivalently, $s^{ec}_t = 1/\left(1 + e^{-K_i(tic_{wnd} - tvc_{coal})/c^{lo}} + e^{-K_i(tic_{sol} - tvc_{coal})/c^{lo}}\right)$,
+the form of the workbook. The share replaced, $1 - s^{ec}_t$, is the methodology's $rep_{coa}$.
+
+**Step 3: early retirement.** At most a fixed share $\bar{e}$ of coal's effective capacity can be replaced in a year.
+The replaced effective capacity is converted to nameplate MW and scaled by the early-retirement factor; plants under
+PPA do not retire early:
+
+$$
+early_t = \frac{\max\left(0,\ \min\left(\bar{e}\, cap^e_{coal,t},\ room_t\right)\left(1 - s^{ec}_t\right)\right)}{cf_{coal}}\;
+f^{early}\,(1 - \omega_t)
+$$ {#eq-pw-early}
+
+where
+
+- $early_t$ is cost-based early coal retirement (nameplate MW; `early`);
+- $\bar{e}$ = 0.8 the maximum share of coal effective capacity (`EarlyMaxShare`);
+- $cf_{coal}$ the coal capacity factor, which turns effective MW into nameplate MW;
+- $f^{early}$ the early-retirement factor of the scenario (`erf`: `MaxCostBasedEarlyRetirement`, default 0.8, and 0 in
+  scenario 1 unless `EarlyRetirementInBaseline` = Yes);
+- $\omega_t$ the PPA share (@eq-pw-ppa).
+
+Early retirement enters coal retirement in @eq-pw-ret. The equation list has it as
+([A4.9](A_Equations.qmd#eqlist-A4-9)).
+
+### Capacity needed {#sec-pw-need}
+
+Capacity bought in year $t$ comes online in $t+1$. The investment of year $t$ must therefore cover next year's
+requirement. The model estimates it from this year's growth, so that no later year is read, and subtracts the
+effective capacity left after this year's retirements:
+
+$$
+K^{after}_t = \sum_f cap^e_{f,t} - \sum_f ret^e_{f,t}
+$$ {#eq-pw-kafter}
+
+$$
+need_t = \max\left(req_t\, \frac{req_t}{req_{t-1}} - K^{after}_t,\ 0\right)
+$$ {#eq-pw-need}
+
+where $K^{after}_t$ is effective capacity after this year's retirements (MW; `kafter`) and $need_t$ the effective
+capacity investment needed (MW; `need`). In the base year the growth ratio is 1. Investment is sized on this need
+([Investment](#sec-pw-investment)).
+
+::: {.callout-tip icon=false title="Pseudocode: retirement, early coal retirement and capacity needed"}
+```
+for t in years:
+    maxinv = {f: rate[f] * sum(effcap[j,t] for j in types) * permit[f,t] for f in types}
+    if t == base_year:
+        egrow[t] = max(0, maxinv['wnd'] + maxinv['sol'])
+    else:
+        rec_other = sum(rec[f,t-1] for f in types if f != 'coa')
+        egrow[t]  = max(0, maxinv['wnd'] + maxinv['sol'] - dgen[t-1] - rec_other)
+    ecmin[t] = min(tvc['coa',t], tic['wnd',t], tic['sol',t])
+    ecshr[t] = 1 / (1 + exp(-kInvestment * (tic['wnd',t] - tvc['coa',t]) / ecmin[t])
+                      + exp(-kInvestment * (tic['sol',t] - tvc['coa',t]) / ecmin[t]))
+    early[t] = max(0, min(effcap['coa',t] * 0.8, egrow[t]) * (1 - ecshr[t])) / cfu['coa'] * erf * (1 - ppa[t])
+    for f in types:
+        base_ret = pret[f,t] if planned_used[f] else cap[f,t] * rr[f]
+        ret[f,t] = min(base_ret + (early[t] if f == 'coa' else 0), cap[f,t])
+        rec[f,t] = ret[f,t] * cfu[f]
+    kafter[t] = sum(effcap[f,t] for f in types) - sum(rec[f,t] for f in types)
+    growth    = 1 if t == base_year else req[t] / req[t-1]
+    need[t]   = max(req[t] * growth - kafter[t], 0)
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 3, sub-table K: rows `pret`, `ret`, `rec` (K5, K6), `egrow`, `ecmin`, `ecshr`,
+  `early` (K4), `kafter`, `need` (Formulas.md E411-E419). Constant `EarlyMaxShare` (0.8). Scenario inputs
+  `kInvestment`, `MaxCostBasedEarlyRetirement`, `EarlyRetirementInBaseline`, `HydroDoesntRetire`; planned retirement
+  from `Inputs_ppath` (rows `pret|<type>`) and the switch from `Inputs_ptech`.
+- **CPAT Python:** `power.step()`, block "retirement and investment" (EQ-M4.5, EQ-A4.9); `rr`, `erf`, `pret` in
+  `power.prepare()`; planned retirement in `power_data.power_paths()` and `power_tech()` (`planned`).
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: retirement and capacity needed"}
+- **L7 (fixed).** Legacy's early coal retirement mixes nameplate and effective capacity (rows 3975-3993). The model
+  keeps them apart: the room and the cap are effective MW, divided by the coal capacity factor to give nameplate MW.
+- **L8 (fixed).** Legacy does not cap effective coal retirement like the nameplate retirement (rows 4009-4019). The
+  model derives effective retirement from the capped nameplate retirement.
+- **Room (fixed).** The room for early retirement subtracts last year's *effective* retirements of the other types
+  (legacy rows 3970-3974).
+- **PPAs (LD75).** Plants under PPA do not retire early (legacy rows 3987, 3993).
+- **Early-retirement factor.** As legacy F3993: `MaxCostBasedEarlyRetirement`, and 0 in scenario 1 unless
+  `EarlyRetirementInBaseline` = Yes. Legacy's maximum share 0.8 (J3975) is typed and not linked to
+  `MaxCostBasedEarlyRetirement` (also 0.8); the model keeps it as the constant `EarlyMaxShare`.
+- **L10 (fixed).** Legacy computes the capacity needed from last year's plan; the model from actual capacity after
+  this year's retirements (row 4026).
+- **L67 (fixed).** Legacy buys capacity for this year's requirement (row 4027-4028, labelled "Next Year Demand"),
+  although it comes online next year. The model sizes it for next year's requirement, estimated with this year's
+  growth so that no later year is read.
+- **Planned retirement (LD26).** Every type has the switch and data rows; legacy offers it for coal only (K5).
+  Legacy's "Use Data?" flag is `IF(AVERAGE(Z:AJ) < 0.1, "No", "Yes")` over the five-year averaged retirements of
+  2020-2030 (Power F1750:F1857).
+- **Methodology.** The methodology's early-retirement logit compares variable costs of coal, wind and solar; the
+  model, as legacy, compares the coal variable cost with the levelised investment costs of wind and solar (the
+  "total cost of wind and solar" of the methodology's text). The stock equation is in MW
+  ([corrections, DOC11](../CPAT_full_documentation_html/08_Corrections.html#corrections-of-2026-10-31)).
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Egypt has no coal, so early retirement is 0 although the factor is 0.8 in both scenarios (`EarlyRetirementInBaseline`
+= Yes). The legacy data have no planned retirement for Egypt, so every switch is No. Data edition Public01,
+scenario 1:
+
+| | 2022 | 2023 | 2024 | 2026 | 2030 | 2041 |
+|---|---|---|---|---|---|---|
+| Room $room_t$ (MW) | 968 | 225 | 193 | 0 | 0 | 0 |
+| Coal share of the logit $s^{ec}_t$ | 0.084 | 0.188 | 0.237 | 0.319 | 0.455 | 0.448 |
+| Gas retirement (MW) | 1,734 | 1,693 | 1,637 | 1,746 | 2,055 | 2,427 |
+| Capacity after retirement $K^{after}$ (MW) | 23,450 | 23,448 | 22,728 | 26,457 | 35,780 | 56,798 |
+| Capacity needed $need_t$ (MW) | 743 | 0 | | 6,798 | 2,073 | 4,270 |
+
+No capacity is needed in 2023, when the demand shock lowers required generation. In scenario 2 the coal share of the
+logit falls to 0.30 from 2027 (the carbon price raises the coal variable cost).
+:::
+
+## Investment {#sec-pw-investment}
+
+Investment fills the capacity needed with new plants. The cheapest types by levelised cost take most of it, but
+no type can grow faster than its scale-up limit, and only types the scenario permits are built. What the first,
+cost-weighted round cannot place goes, in a second round, to the cheapest types with room left.
+
+The methodology describes this in
+[section 3.4.2.4.4](../CPAT_full_documentation_html/03_Mitigation.html#investment-decision-and-non-vre-and-vre-scale-up-limitations).
+
+### Investment permitted and scale-up limits {#sec-pw-scaleup}
+
+A type can be built in year $t$ when the scenario permits it and $t$ has reached its first year of investment
+($\zeta_{f,t}$, [Inputs of the scenario](#sec-pw-a0)). The options of `NewInv<type>` are:
+
+| Option | Meaning |
+|---|---|
+| If Present* (default) | Permitted if the type has more than 0.1% of base-year capacity |
+| Yes | Permitted from the year `NewInv<type>Year` |
+| No | Never built |
+| Manual | Built along a capacity path typed by the user ([Manual capacity](#sec-pw-manual)); no logit investment |
+
+The scale-up limit caps each type's new effective capacity at a share of total effective capacity:
+
+$$
+iv^{max}_{f,t} = q_f\, \zeta_{f,t} \sum_j cap^e_{j,t}
+$$ {#eq-pw-maxinv}
+
+where $iv^{max}_{f,t}$ is the maximum effective investment (MW; `maxinv`) and $q_f$ the scale-up rate: 5% of total
+for coal, gas and hydro, 2% for oil, nuclear, other renewables and biomass, and the wind and solar rate of the
+scenario (country default 2%) ([Inputs of the scenario](#sec-pw-a0)). The limit is linear: it is a share of the
+system's total, in gross additions, not net of retirements.
+
+### First round: the logit {#sec-pw-first-round}
+
+The need, net of any manual investment, is shared among the permitted types by a logit on levelised investment costs
+relative to the cheapest permitted type:
+
+$$
+\lambda^{i}_{f,t} = \frac{\zeta_{f,t}\, e^{-K_i\, tic_{f,t}/tic^{lc}_t}}{\sum_j \zeta_{j,t}\, e^{-K_i\, tic_{j,t}/tic^{lc}_t}},
+\qquad
+tic^{lc}_t = \max\left(\min_{j:\ \zeta_{j,t} = 1} tic_{j,t},\ c_{min}\right)
+$$ {#eq-pw-lgi}
+
+$$
+inv^{(1)}_{f,t} = \min\left(iv^{max}_{f,t},\ need^m_t\, \lambda^i_{f,t}\right)
+$$ {#eq-pw-first}
+
+where
+
+- $\lambda^i_{f,t}$ is the investment share of type $f$ (`pni`; its weight is `lgi`);
+- $tic^{lc}_t$ the lowest levelised investment cost of the permitted types (`cmin`);
+- $K_i$ = `kInvestment` (default 2);
+- $need^m_t$ the need net of manual investment (@eq-pw-needm);
+- $inv^{(1)}_{f,t}$ new effective investment of the first round (MW; `first`).
+
+This is the methodology's $ivp_f/\sum ivp = \zeta_f\, e^{-K_i H_i}/\sum e^{-K_i H_i}$ with
+$H_i = tic/tic^{lc}$, and the equation list's ([M4.6](A_Equations.qmd#eqlist-M4-6)).
+
+### Second round: cheapest first {#sec-pw-second-round}
+
+What the scale-up limits leave unplaced is the deficit. It goes to the types with space left under their limits,
+cheapest first, each taking as much as its space allows:
+
+$$
+\begin{aligned}
+deficit_t &= \max\left(need^m_t - \sum_f inv^{(1)}_{f,t},\ 0\right) \\
+space_{f,t} &= \left(iv^{max}_{f,t} - inv^{(1)}_{f,t}\right) \zeta_{f,t}
+\end{aligned}
+$$ {#eq-pw-deficit}
+
+$$
+\begin{aligned}
+inv^{(2)}_{f,t} &= \zeta_{f,t}\, \max\left(0,\ \min\left(space_{f,t},\ deficit_t - S_{f,t}\right)\right) \\
+S_{f,t} &= \sum_{j:\ tic_{j,t} + tb_j\, <\, tic_{f,t} + tb_f} space_{j,t}
+\end{aligned}
+$$ {#eq-pw-second}
+
+where
+
+- $deficit_t$ is investment left for the second round (MW; `deficit`);
+- $space_{f,t}$ the remaining space under the scale-up limit (MW; `space`);
+- $S_{f,t}$ the space of all cheaper types;
+- $tb_f$ a tie breaker, $1.356 \times 10^{-6}$ USD/kWh times the type's position minus one (coal 0, ..., biomass 8),
+  so that two types of equal cost are ranked in the type order (`TieBreak`);
+- $inv^{(2)}_{f,t}$ new effective investment of the second round (MW; `second`).
+
+A type takes what is left of the deficit after all cheaper types have filled their space.
+
+### Final deficit to gas {#sec-pw-deficit-gas}
+
+If even the second round cannot place the whole need (all permitted types at their limits), the rest is unplaced,
+unless the global setting `PwDeficitGas` is Yes (default No). Then it goes to gas:
+
+$$
+d^{gas}_t = \mathbb{1}[\texttt{PwDeficitGas} = \text{Yes}] \left(deficit_t - \sum_f inv^{(2)}_{f,t}\right)
+$$ {#eq-pw-dgas}
+
+(MW; `dgas`).
+
+### Manual capacity and investment {#sec-pw-manual}
+
+Where a scenario sets `NewInv<type>` = Manual, the type follows a capacity path typed by the user on the sheet
+'Manual inputs' (one block for scenario 1, one for the other scenarios). It gets no logit investment (its permit is 0),
+and its investment replaces next year's increase in the path plus this year's retirement:
+
+$$
+inv^{m}_{f,t} = \max\left(0,\ cap^{man}_{f,t+1} - cap^{man}_{f,t} + ret_{f,t}\right) cf_f, \qquad inv^m_{f,T} = 0
+$$ {#eq-pw-mani}
+
+$$
+need^m_t = \max\left(need_t - \sum_f inv^m_{f,t},\ 0\right)
+$$ {#eq-pw-needm}
+
+where $cap^{man}_{f,t}$ is the manual capacity path (MW; `mancap`; blank = 0), $inv^m_{f,t}$ manual new effective
+investment (MW; `mani`) and $need^m_t$ the need left for the logit and second rounds (`needm`). The methodology
+describes the option as "New Nameplate Investments = Capacity data entered by the user + Planned Retirement".
+
+### New investment, its cost and its share in the stock {#sec-pw-nim}
+
+New effective investment sums the rounds; nameplate investment divides by the capacity factor:
+
+$$
+\begin{aligned}
+inv^e_{f,t} &= inv^{(1)}_{f,t} + inv^{(2)}_{f,t} + \mathbb{1}[f = \text{gas}]\; d^{gas}_t + inv^m_{f,t} \\
+inv_{f,t} &= inv^e_{f,t}/cf_f
+\end{aligned}
+$$ {#eq-pw-nim}
+
+The spending and the share of new plants in next year's stock follow:
+
+$$
+Inv^{USD}_{f,t} = \frac{inv_{f,t}\, cax_{f,t}}{1000},
+\qquad
+\Phi_{f,t} = \frac{inv_{f,t}}{cap_{f,t} + inv_{f,t} - ret_{f,t}}
+$$ {#eq-pw-phi}
+
+where
+
+- $inv^e_{f,t}$ is new effective investment (MW; `nei`) and $inv_{f,t}$ new nameplate investment (MW; `nim`), which
+  becomes capacity in $t+1$ (@eq-pw-cap);
+- $Inv^{USD}_{f,t}$ investment spending (USD million; `nid`) at the capital cost of the year;
+- $\Phi_{f,t}$ new investment as a share of the stock after retirements (`phi`), used by the vintage averages of
+  $t+1$ (@eq-pw-caxav).
+
+Totals over types are `nimtot` and `usdtot`. The equation list has the second round in
+([A4.9](A_Equations.qmd#eqlist-A4-9)).
+
+### PPAs and investment {#sec-pw-ppa-investment}
+
+PPAs do not enter the investment rounds directly. They act on the year's dispatch (@eq-pw-gen) and keep coal plants
+from retiring early (@eq-pw-early); the PPA share $\omega_t$ is defined in @eq-pw-ppa.
+
+::: {.callout-tip icon=false title="Pseudocode: investment"}
+```
+for t in years:
+    for f in types:
+        mancap[f,t] = manual_path[f,t] if any else 0
+        mani[f,t]   = (max(0, mancap[f,t+1] - mancap[f,t] + ret[f,t]) * cfu[f]
+                       if invs[f] == 'Manual' and t < 2041 else 0)
+    needm[t] = max(need[t] - sum(mani[f,t] for f in types), 0)
+    cmin[t]  = max(min(tic[f,t] for f in types if permit[f,t] == 1), MinPostSubsidyPowerPrice)
+    for f in types:
+        lgi[f,t] = permit[f,t] * exp(-kInvestment * tic[f,t] / cmin[t])
+    for f in types:
+        pni[f,t]   = lgi[f,t] / sum(lgi[j,t] for j in types)
+        first[f,t] = min(maxinv[f,t], needm[t] * pni[f,t])
+    deficit[t] = max(needm[t] - sum(first[f,t] for f in types), 0)
+    for f in types:
+        space[f,t] = (maxinv[f,t] - first[f,t]) * permit[f,t]
+    for f in types:
+        cheaper     = sum(space[j,t] for j in types if tic[j,t] + tb[j] < tic[f,t] + tb[f])
+        second[f,t] = permit[f,t] * max(0, min(space[f,t], deficit[t] - cheaper))
+    dgas[t] = deficit[t] - sum(second[f,t] for f in types) if PwDeficitGas == 'Yes' else 0
+    for f in types:
+        nei[f,t] = first[f,t] + second[f,t] + (dgas[t] if f == 'nga' else 0) + mani[f,t]
+        nim[f,t] = nei[f,t] / cfu[f]
+        nid[f,t] = nim[f,t] * cax[f,t] / 1000                          # USD million
+        phi[f,t] = nim[f,t] / (cap[f,t] + nim[f,t] - ret[f,t])
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 3, sub-table L: rows `mancap`, `mani`, `needm`, `cmin`, `deficit`, `permit`,
+  `maxinv`, `lgi`, `pni`, `first`, `space`, `second`, `dgas`, `nei`, `nim`, `nimtot`, `nid`, `usdtot`, `phi`
+  (Formulas.md E420-E438; LAMBDAs `FIRSTROUND`, `CHEAPFILL`). Manual capacity on 'Manual inputs' rows 349-357
+  (scenario 1) and 363-371 (other scenarios), names `ManCapVal`, `ManCapYr`; scenario inputs `NewInv<type>`,
+  `NewInv<type>Year`, `kInvestment`; Settings C45 `PwDeficitGas`; constant `TieBreak`.
+- **CPAT Python:** `power.step()`, block "retirement and investment" (EQ-M4.6, EQ-A4.9). The manual capacity rows
+  `mancap` and `mani` are set to 0: the 'Manual inputs' capacity block is empty in the data, and CPAT Python does not
+  read a manual capacity path.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: investment"}
+- **L6 (fixed).** Legacy normalises the investment logit by the cheapest type including types that may not be built
+  (row 4046); the model by the cheapest permitted type.
+- **L5 (fixed).** Legacy values investment spending at the capital cost at time factor 1; the model at the capital
+  cost of the year (rows 4276-4284).
+- **L12 (fixed).** Legacy's total nameplate investment row is zero; the model sums the types.
+- **L118 (fixed).** Legacy computes the need net of manual investment (row 4108) but never uses it, so its logit
+  investment comes on top of the manual one. The model sizes the logit and second-round investment on the net need.
+- **Second round.** Legacy uses rows 4169-4246 (L11-L17); the model computes it in one row per type with the tie
+  breaker.
+- **Deficit to gas (LD78, issue I57).** A global setting (Settings C45), as legacy's typed switch E4248 (No), row 4252.
+- **Methodology.** The methodology caps investment at total *generation* times the rate; the model, as legacy, at
+  total *effective capacity* times the rate. The methodology says that, *in extremis*, the model overrides the VRE
+  limits and the permitted types and invests in proportion to current capacity; the model does not: an unplaced
+  deficit stays unplaced unless `PwDeficitGas` sends it to gas. The methodology quotes the CountrySpecific VRE rate as
+  2% except China 2.5%; the data give 3% for China and India.
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Egypt permits gas, oil, wind, solar and hydro (hydro from 2030); coal, nuclear, other renewables and biomass are not
+present and so not permitted. Data edition Public01:
+
+| New nameplate investment (MW) | 2022 | 2023 | 2026 | 2030 | 2035 | 2041 |
+|---|---|---|---|---|---|---|
+| Gas, scenario 1 | 506 | 0 | 3,706 | 1,104 | 3,657 | 3,965 |
+| Gas, scenario 2 | 467 | 0 | 3,706 | 1,342 | 3,659 | 3,798 |
+| Wind, scenario 1 | 728 | 0 | 1,346 | 1,652 | 2,217 | 2,889 |
+| Solar, scenario 1 | 800 | 0 | 1,697 | 2,296 | 2,793 | 3,641 |
+| Hydro, scenario 1 | 0 | 0 | 0 | 414 | 717 | 754 |
+
+- Solar's first-round investment equals its scale-up limit in most years (2026: 546 effective MW): the logit wants
+  more solar than the limit allows. Wind and gas are also at their limits (gas: 5% of total effective capacity,
+  1,365 effective MW). Of the deficit of 4,312 effective MW in 2026, the second round places 517 MW (oil, the only
+  type with space left); the rest stays unplaced (`PwDeficitGas` = No). Dispatch absorbs the shortfall: gas runs
+  above its base-year capacity factor, up to its maximum of 0.9.
+- In 2023 the demand shock leaves no need, so nothing is built.
+- Scenario test (manual capacity, scenario 2, nuclear 2,400 MW from 2030): 2,400 MW nameplate is built in 2029, then
+  the retirements are replaced.
+- Final deficit to gas: tested with tight scale-up limits; the workbook matches the Python reference.
+:::
+
+## Systems integration cost of renewables: storage {#sec-pw-storage}
+
+The model has no hourly profiles, so it cannot see when wind and solar fall short. Instead it charges variable
+renewables a systems integration cost that rises with their share of generation: the cost of the storage the system
+needs at the margin. Short-term storage (batteries) is needed at any share; long-term storage (electrolysers and
+hydrogen tanks) only above a threshold, and it is costly.
+
+The methodology describes this in
+[section 3.4.2.5](../CPAT_full_documentation_html/03_Mitigation.html#sec-StorageDecision): short-term storage in
+[3.4.2.5.1](../CPAT_full_documentation_html/03_Mitigation.html#short-term-storage), long-term storage in
+[3.4.2.5.2](../CPAT_full_documentation_html/03_Mitigation.html#long-term-storage), and its levelised cost in
+[3.4.2.5.3](../CPAT_full_documentation_html/03_Mitigation.html#levelized-cost-of-storage).
+
+### VRE share {#sec-pw-vre}
+
+$$
+v_t = \sum_f \ell_f\, s_{f,t} = s_{wnd,t} + s_{sol,t} + s_{ore,t}
+$$ {#eq-pw-vre}
+
+(`vre`): the share of wind, solar and other renewables in generation of the year, from dispatch. Hydro and biomass
+are not variable renewables.
+
+### Short-term storage {#sec-pw-storage-short}
+
+Total short-term storage is a quadratic function of the VRE share, $sst = h_{100}\, v^2$ hours of storage per kW of
+average generation, with $h_{100}$ = 9 hours for a 100% VRE system. The marginal need is its derivative,
+$d\,sst/dv = 2\, h_{100}\, v = 18\, v$ ([corrections, DOC6](../CPAT_full_documentation_html/08_Corrections.html#corrections-of-2026-10-31)).
+A share $a_{st}$ of it is allocated to the power system. The cost of one marginal hour per kWh is
+
+$$
+c^{ph}_t = \frac{c^{bat}_t + c^{int}_t / r_{st}}{dlf_{ren}\, H} + \frac{o^{bat}_t}{H}
+$$ {#eq-pw-cph}
+
+where
+
+- $c^{ph}_t$ is the short-term storage cost per marginal hour (USD/kWh; `cph`);
+- $c^{bat}_t$ the battery capital cost (USD/kWh of storage), $c^{int}_t$ the battery interface capital cost (USD/kW),
+  $o^{bat}_t$ the battery fixed operating cost (USD/kWh/year) ([Year paths](#sec-pw-data-paths));
+- $r_{st}$ = `StorageToInterfaceRatioSTStorage` (default 2 hours): kWh of storage per kW of interface, a low,
+  conservative ratio;
+- $dlf_{ren}$ the discounted lifetime of renewables (average of wind and solar).
+
+### Long-term storage {#sec-pw-storage-long}
+
+Long-term storage is measured by its interface, the electrolysers (kW per kW of average generation). It is zero below
+a VRE share $x$ and rises quadratically to $u_{lt}$ at 100% VRE:
+
+$$
+slt = u_{lt}\left(\frac{\max(0,\ v - x)}{1 - x}\right)^2,
+\qquad
+\frac{d\,slt}{dv} = u_{lt}\, \frac{2 \max(0,\ v - x)}{(1 - x)^2}
+$$ {#eq-pw-slt}
+
+where $x$ = `StartingPointWhenLTStorageIsNeeded` (default 0.75) and $u_{lt}$ = `LongTermStorageFor100pcVRE`
+(default 1). With the defaults the marginal units needed are:
+
+| VRE share $v$ | 75% or less | 85% | 90% | 95% | 100% |
+|---|---|---|---|---|---|
+| Marginal kW of electrolysers per kW | 0 | 3.2 | 4.8 | 6.4 | 8.0 |
+
+([corrections, DOC7](../CPAT_full_documentation_html/08_Corrections.html#corrections-of-2026-10-31)). The cost of one
+marginal unit is
+
+$$
+c^{el}_t = \frac{c^{elx}_t + c^{tank}_t\, h_{lt}}{dlf_{ren}\, H} + \frac{o^{el}_t}{H} + v^{el}_t
+$$ {#eq-pw-cel}
+
+where
+
+- $c^{el}_t$ is the long-term storage cost per marginal unit (USD/kWh; `cel`);
+- $c^{elx}_t$ the electrolyser capital cost (USD/kW), $c^{tank}_t$ the storage tank capital cost (USD/kWh),
+  $o^{el}_t$ the electrolyser fixed opex (USD/kW/year), $v^{el}_t$ its variable opex (USD/kWh);
+- $h_{lt}$ = `StorageHoursForLTStorage` (default 1,000 hours of storage per kW).
+
+### Marginal storage cost {#sec-pw-msc}
+
+The marginal storage cost of variable renewables adds the two:
+
+$$
+msc_t = a_{st}\, 2\, h_{100}\, v_t\; c^{ph}_t
++ \frac{2 \max(0,\ v_t - x)}{(1 - x)^2}\; c^{el}_t\; a_{lt}\, u_{lt}
+$$ {#eq-pw-msc}
+
+where
+
+- $msc_t$ is the marginal storage cost (USD/kWh; `msc`), charged to wind, solar and other renewables, 0 for the other
+  types;
+- $a_{st}$ = `AllocateSTStorageToVRE` (default 1) and $h_{100}$ = `TotalHoursStorageFor100pcVRE` (default 9); their
+  product with 2 is the row `stm`;
+- $a_{lt}$ = `AllocateLTStorageToVRE` (default 0.33), the share of long-term storage allocated to the power system
+  (batteries and hydrogen have other uses); $a_{lt} u_{lt}$ is the row `ltu`.
+
+The marginal storage cost enters the cost of renewables in two places: the vintage storage cost of the existing stock
+(@eq-pw-stoav), which reaches the average generation cost and prices, and the levelised fixed cost of new plants
+(@eq-pw-lfx), which drives investment. The storage-inclusive cost of renewables can therefore rise over time as their
+share grows, even while their capital cost falls. The system is assumed to have invested optimally in the storage of
+the current VRE share.
+
+::: {.callout-tip icon=false title="Pseudocode: storage"}
+```
+# before the year loop
+for t in years:
+    dlfr     = (dlf['wnd'] + dlf['sol']) / 2
+    cph[t]   = (cbat[t] + cint[t] / StorageToInterfaceRatioSTStorage) / (dlfr * 8760) + obat[t] / 8760
+    cel[t]   = (elcx[t] + eltk[t] * StorageHoursForLTStorage) / (dlfr * 8760) + elof[t] / 8760 + elov[t]
+    stm      = AllocateSTStorageToVRE * 2 * TotalHoursStorageFor100pcVRE
+    ltu      = AllocateLTStorageToVRE * LongTermStorageFor100pcVRE
+# in year t, after dispatch
+    vre[t] = shr['wnd',t] + shr['sol',t] + shr['ore',t]
+    x      = StartingPointWhenLTStorageIsNeeded
+    msc[t] = stm * vre[t] * cph[t] + 2 * max(0, vre[t] - x) / (1 - x) ** 2 * cel[t] * ltu
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 3, sub-table J: rows `cbat`, `cint`, `obat`, `elcx`, `eltk`, `elof`, `elov`,
+  `cel` (paths, Formulas.md E309-E316), `stm`, `ltu` (A0, E301-E302), `vre`, `cph`, `msc` (E405-E407). Scenario inputs
+  `AllocateSTStorageToVRE`, `TotalHoursStorageFor100pcVRE`, `StorageToInterfaceRatioSTStorage`,
+  `AllocateLTStorageToVRE`, `StartingPointWhenLTStorageIsNeeded`, `LongTermStorageFor100pcVRE`,
+  `StorageHoursForLTStorage`; constant `StMargFactor` (2).
+- **CPAT Python:** `power.prepare()` (`stm`, `ltu`, `cel`, `cph`); `power.step()` (`vre`, `msc`); paths in
+  `power_data.power_paths()`.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: storage"}
+- **L4 (fixed).** Legacy applies the 33% allocation of long-term storage twice (rows 3911 and 3912); the model once.
+- **Long-term units (LD78).** `LongTermStorageFor100pcVRE` (legacy row 3909) is wired in; before, the factor was 1.
+- **M3, M4 (prototype bugs, fixed).** An earlier prototype left out the long-term allocation and the other renewables
+  in the VRE share.
+- **Scenario settings.** The storage cost per hour and per unit use the ratio, hours and renewables' WACC of the
+  scenario (legacy row 3905, J2).
+- **Methodology.** The derivative of short-term storage is $18v$ (DOC6) and the long-term table follows the formula
+  (DOC7). The methodology states that VRE includes "solar and wind but not hydro (other renewables are neglected)" in
+  the short-term subsection, and wind, solar and other renewables elsewhere; the model includes other renewables.
+  The methodology's text assumes "a standard 4-hour ratio" for short-term storage in one place and 2 hours in another;
+  the model's default is 2.
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Data edition Public01:
+
+| | 2022 | 2023 | 2027 | 2030 | 2035 | 2041 |
+|---|---|---|---|---|---|---|
+| VRE share, scenario 1 | 0.050 | 0.073 | 0.134 | 0.208 | 0.303 | 0.376 |
+| VRE share, scenario 2 | 0.050 | 0.074 | 0.135 | 0.188 | 0.284 | 0.361 |
+| Cost per marginal hour $c^{ph}$ (USD/kWh) | 0.0062 | 0.0057 | 0.0042 | 0.0035 | | 0.0021 |
+| Marginal storage cost $msc$ (USD/kWh), scenario 1 | 0.0056 | 0.0075 | 0.0101 | 0.0129 | 0.0152 | 0.0142 |
+
+Egypt's VRE share stays below 75%, so there is no long-term storage cost. The renewables' discounted lifetime is
+8.435 years.
+
+In scenario 2 the VRE share is lower than in the baseline from 2030: the carbon price lowers electricity demand and
+so the need for new capacity, of which wind and solar are a large part.
+:::
+
+## End-user electricity prices {#sec-pw-prices}
+
+Electricity prices start from observed retail prices and then move with the modelled cost of supply. Up to the last
+historical price year $L$ the price is the data. After $L$, the price before new policies changes year by year with
+the supply cost and with the subsidy components the model tracks, passed through to users at the scenario's
+pass-through rate. New policy costs and excises are then added on top, with VAT.
+
+The methodology describes this as concept 4 in
+[section 3.4.1.7](../CPAT_full_documentation_html/03_Mitigation.html#concept-4-end-user-prices). Its markup
+$mu^T = hrp - gnc^{av} - tmc$, with the corrected sign
+([corrections, DOC2](../CPAT_full_documentation_html/08_Corrections.html#corrections-of-2026-10-31)), is the gap that
+the model holds through the subsidy components below, so that the base-year price equals the historical price.
+
+There are two user groups, residential and industry; industry stands for all non-residential users.
+
+### Consumption and supply cost {#sec-pw-supply-cost}
+
+Consumption of each group is its electricity demand in GWh:
+
+$$
+cons_{res,t} = \theta_g\, E_{res,t}, \qquad cons_{ind,t} = \theta_g \left(E_t - E_{res,t}\right)
+$$ {#eq-pw-cons}
+
+(GWh; `cons`). The supply cost adds a transmission and distribution allowance to *last year's* average generation
+cost:
+
+$$
+sp^T_{g,t} = gnc^{av}_{t-1} + tmc_g, \qquad sp^T_{g,t_0} = gnc^{av}_{t_0} + tmc_g
+$$ {#eq-pw-sc}
+
+where $sp^T_{g,t}$ is the supply cost (USD/kWh; `sc`) and $tmc_g$ the transmission and distribution allowance: 0.040
+USD/kWh for residential and 0.015 for industrial users (IEA). The one-year lag (link I5) keeps prices free of a
+circular reference with dispatch.
+
+### Historical price components {#sec-pw-components}
+
+Up to $L$, the observed price is split into the supply cost and the components that explain the rest. All are held
+after $L$, except where stated.
+
+| Component | Definition up to $L$ | After $L$ | Code |
+|---|---|---|---|
+| Price before VAT $\tilde{p}_{g,t}$ | $hrp_{g,t}/(1 + vatrate_g)$, the retail price of the data × CPI index | held | `rpnv` |
+| Price gap $x^{g}_{g,t}$ | $\tilde{p}_{g,t} - sp^T_{g,t} - entx_{g,t}$ | same formula | `txg` |
+| Consumer tax or subsidy $x_{g,t}$ | the data's excise and other taxes on electricity × CPI index; without data, $x^{g}_{g,t}$ if `SupplyCostDeltaSubsidy` = Yes, else 0 | held | `txe` |
+| Capped supply cost $sp^{cap}_{g,t}$ | $sp^T_{g,t}$ | $\min(sp^T_{g,t},\ sp^{cap}_{g,L})$ | `scl` |
+| Producer subsidy per kWh $ps_{g,t}$ | @eq-pw-pseu | $ps_{g,L}\, \phi^{ps}_t$ | `pseu` |
+| Consumer subsidy phase-out $cs_{g,t}$ | 0 | @eq-pw-csd | `csd` |
+| Residual $ores_{g,t}$ | $x^{g}_{g,t} - x_{g,t} - ps_{g,t}$ | held; a negative one scaled by $sp^{cap}_{g,t}/sp^{cap}_{g,t-1}$ | `ores` |
+
+where $hrp_{g,t}$ is the historical retail price including VAT, $vatrate_g$ the electricity VAT rate of the group (of
+the last historical year), $entx_{g,t}$ the manual electricity excise (@eq-pw-entx) and $\phi^{ps}_t$ the phase-out
+factor of producer subsidies (`psf`; [M1.7](A_Equations.qmd#eqlist-M1-7)). The residual is the methodology's
+"correction for under- or over-estimated transmission and distribution costs".
+
+**Producer subsidy.** The electricity producer subsidy of the data, $PROS_t$ (USD million, positive), is allocated to
+the user groups by their pre-tax gap, the amount by which the supply cost exceeds the price before taxes:
+
+$$
+a_{g,t} = \frac{\max\left(0,\ sp^T_{g,t} - (\tilde{p}_{g,t} - x_{g,t})\right) cons_{g,t}}
+{\sum_{g'} \max\left(0,\ sp^T_{g',t} - (\tilde{p}_{g',t} - x_{g',t})\right) cons_{g',t}}
+$$ {#eq-pw-psesh}
+
+$$
+ps_{g,t} = \max\left(\underline{ps},\ -\frac{PROS_t\; a_{g,t}}{cons_{g,t}}\right), \qquad t \le L
+$$ {#eq-pw-pseu}
+
+where $a_{g,t}$ is the share of group $g$ (`psesh`; if the gaps are all zero, its share of consumption; if that fails,
+1 for residential), held after $L$, and $\underline{ps} = -0.3$ USD/kWh the floor (`PsElFloor`). The part beyond the
+floor is a memo outside prices, $-PROS_t - \sum_g cons_{g,t}\, ps_{g,t}$ (USD million; `pser`), scaled by
+$\phi^{ps}_t$ after $L$. The rows `psegap` and `psegs` hold the numerator and denominator of @eq-pw-psesh.
+
+**Consumer subsidy phase-out.** Where the consumer tax is a subsidy ($x_{g,L} < 0$) and the scenario's
+`PowerSubsidyExemptInclude` is Include (the indicator "Include" below), it phases out with the consumer-subsidy
+factor $\phi^{cs}_t$ (`pof.cs`):
+
+$$
+cs_{g,t} = \mathbb{1}\left[t > L,\ x_{g,t} < 0,\ \text{Include}\right]\; x_{g,t}\left(\phi^{cs}_t - 1\right)
+$$ {#eq-pw-csd}
+
+### Price before new policies {#sec-pw-price-before}
+
+Up to $L$ the price is the data; after $L$ it moves with the change in the supply cost and the subsidy components:
+
+$$
+\begin{aligned}
+p^{0,T}_{g,t} &= \begin{cases}
+hrp_{g,t} & t \le L \\
+p^{0,T}_{g,t-1} + \pi \left(X_{g,t} - X_{g,t-1}\right)(1 + vatrate_g) & t > L
+\end{cases} \\
+X_{g,t} &= sp^T_{g,t} + ps_{g,t} + cs_{g,t} + ores_{g,t}
+\end{aligned}
+$$ {#eq-pw-rppre}
+
+where $p^{0,T}_{g,t}$ is the price before new policies including VAT (USD/kWh real; `rppre`) and $\pi$ =
+`PowerSectorPriceChangePassOn` the pass-through of cost changes (default 1). This telescoped form is the legacy price
+sum (supply cost + producer subsidy + other tax + residual, then VAT) written as changes; components held at their
+last historical values cancel out of the change.
+
+### Excises and the rebate switch {#sec-pw-excise}
+
+Three settings of the scenario add to the price.
+
+**Electricity excise.** In the scenario "Electricity excise" of the scenario table, a per-kWh excise equal to the
+carbon price times the grid's base-year CO2 intensity:
+
+$$
+\begin{aligned}
+x^{e}_t &= \mathbb{1}[\text{policy scenario with electricity excise}]\; \epsilon^{grid}\, \tau_t \\
+\epsilon^{grid} &= \frac{\sum_f in_{f,t_0}\, 0.041868\, EF_f}{\sum_f out_{f,t_0}}
+\end{aligned}
+$$ {#eq-pw-exs}
+
+where $\tau_t$ is the carbon price (USD/tCO2; `cptraj`), $in_{f,t_0}$ the fuel input to power and $out_{f,t_0}$
+power output of the base-year energy balance (ktoe, GWh), and $\epsilon^{grid}$ the grid's CO2 intensity (tCO2/kWh;
+Egypt 0.00038). Code `exs`.
+
+**Manual excise.** In policy scenarios with `AdditionalExcise` = Yes, the new electricity excise typed on 'Manual
+inputs' (real, or nominal × the deflator index if `NomorReal` is not Real), plus the electricity fuel price reform
+of the scenario:
+
+$$
+entx_{g,t} = \mathbb{1}[o \ne B]\left(\chi^{ae}\; x^{man}_{g,t}\, \delta_t + FPR_{ecy,g,t}\right)
+$$ {#eq-pw-entx}
+
+where $\chi^{ae}$ is 1 if `AdditionalExcise` = Yes, else 0, $x^{man}_{g,t}$ the typed excise (`entxd`), $\delta_t$ 1
+or the deflator index, and $FPR_{ecy,g,t}$ the fuel
+price reform path of electricity for the group ([Reforms](#sec-pw-reforms)). Code `entx`. Like legacy, it enters the
+price as part of the price before policy: up to $L$ the price data absorb it, and afterwards its change is passed
+through. The excise in the price, before VAT, is
+
+$$
+pex_{g,t} = x^e_t + \mathbb{1}[t > L]\; \pi\left(entx_{g,t} - entx_{g,L}\right), \qquad pex_{g,t_0} = x^e_{t_0}
+$$ {#eq-pw-pex}
+
+(`pex`).
+
+**Rebate switch.** In policy scenarios with `PowerRebates` = Yes (or Yes*), or in a feebate scenario of the scenario
+table (Feebates, Power Supply Feebates, Power feebate), the carbon cost is not passed to electricity users:
+$rb = 1$ (`rbs`); otherwise $rb = 0$.
+
+### End-user price {#sec-pw-enduser}
+
+The end-user price adds the new policy cost passed through (unless rebated) and the excise, with VAT, and is floored:
+
+$$
+p^T_{g,t} = \max\left(p^{0,T}_{g,t} + \left(ncp^{av}_t\, \pi\, (1 - rb) + pex_{g,t}\right)(1 + vatrate_g),\ c_{min}\right)
+$$ {#eq-pw-rp}
+
+where $p^T_{g,t}$ is the end-user price (USD/kWh real; `rp`), $ncp^{av}_t$ the average new policy cost per kWh
+consumed (@eq-pw-gncav) and $c_{min}$ = `MinPostSubsidyPowerPrice` (0.01). VAT is charged on the new policy terms, as
+for fuels. The equation list has the price as ([M4.7](A_Equations.qmd#eqlist-M4-7)) and with the subsidy components
+and floor as ([A4.8](A_Equations.qmd#eqlist-A4-8)).
+
+### Subsidy gap and the supply cost of the subsidy lines {#sec-pw-sgap}
+
+The subsidy gap compares the price before VAT with the modelled supply cost; a negative gap means the price is below
+cost, a subsidy:
+
+$$
+gap_{g,t} = \frac{p^{0,T}_{g,t}}{1 + vatrate_g} - sp^T_{g,t}
+$$ {#eq-pw-sgap}
+
+(USD/kWh; `sgap`). The supply cost read by the subsidy and efficient-price lines of the welfare block (@sec-fiscal)
+removes the residual and adds the policy terms:
+
+$$
+sp^{e}_{g,t} = sp^T_{g,t} + ores_{g,t} + ncp^{av}_t\, \pi\, (1 - rb) + pex_{g,t}
+$$ {#eq-pw-spe}
+
+(`spe`).
+
+::: {.callout-tip icon=false title="Pseudocode: end-user prices"}
+```
+for t in years:
+    cons['res',t] = dem['res',t] * 11.63;  cons['ind',t] = (demtot[t] - dem['res',t]) * 11.63
+    for g in ['res', 'ind']:
+        sc[g,t]   = (gncav[t] if t == base_year else gncav[t-1]) + tmc[g]
+        pex[g,t]  = exs[t] + (pass_on * (entx[g,t] - entx[g,L]) if t > L else 0)
+        rpnv[g,t] = rp_data[g,t] / (1 + vat[g]) if t <= L else rpnv[g,t-1]
+        txg[g,t]  = rpnv[g,t] - sc[g,t] - entx[g,t]
+        txe[g,t]  = (tx_data[g,t] if has data else txg[g,t] * (SupplyCostDeltaSubsidy == 'Yes')) if t <= L else txe[g,t-1]
+        scl[g,t]  = sc[g,t] if t <= L else min(sc[g,t], scl[g,L])
+        psegap[g,t] = max(0, sc[g,t] - (rpnv[g,t] - txe[g,t])) * cons[g,t]
+    for g in ['res', 'ind']:
+        if t <= L:
+            psesh[g,t] = psegap[g,t] / sum(psegap) or cons[g,t] / sum(cons) or (1 if g == 'res' else 0)
+            pseu[g,t]  = max(PsElFloor, -pros_ecy[t] * psesh[g,t] / cons[g,t])
+        else:
+            psesh[g,t] = psesh[g,t-1];  pseu[g,t] = pseu[g,L] * psf[t]
+    pser[t] = -pros_ecy[t] - sum(cons[g,t] * pseu[g,t]) if t <= L else pser[L] * psf[t]
+    for g in ['res', 'ind']:
+        csd[g,t]  = txe[g,t] * (pof_cs[t] - 1) if t > L and txe[g,t] < 0 and PowerSubsidyExemptInclude == 'Include' else 0
+        if t <= L:  ores[g,t] = txg[g,t] - txe[g,t] - pseu[g,t]
+        else:       ores[g,t] = ores[g,t-1] * scl[g,t] / scl[g,t-1] if ores[g,t-1] < 0 else ores[g,t-1]
+        X = lambda k: sc[g,k] + pseu[g,k] + csd[g,k] + ores[g,k]
+        rppre[g,t] = rp_data[g,t] if t <= L else rppre[g,t-1] + pass_on * (X(t) - X(t-1)) * (1 + vat[g])
+        rp[g,t]    = max(rppre[g,t] + (ccpav[t] * pass_on * (1 - rbs) + pex[g,t]) * (1 + vat[g]), MinPostSubsidyPowerPrice)
+        sgap[g,t]  = rppre[g,t] / (1 + vat[g]) - sc[g,t]
+        spe[g,t]   = sc[g,t] + ores[g,t] + ccpav[t] * pass_on * (1 - rbs) + pex[g,t]
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 3, sub-table G: rows `cons`, `sc`, `rppre`, `entxd`, `entx`, `pex`, `rp`,
+  `sgap`, `rpnv`, `txg`, `txe`, `scl`, `psegap`, `psegs`, `psesh`, `pseu`, `pser`, `csd`, `ores`, `spe` (Formulas.md
+  E356-E363, E372-E383; LAMBDAs `HISTHOLD`, `PRICEGAP`, `ELTAXBASE`, `CAPLAST`, `PREGAP`, `PSALLOC`, `PSELEC`,
+  `PSERESID`, `CSELEC`, `ORESID`, `ELSUPPLY`); `rbs`, `exs` in A0. User groups on Inputs rows 220-222 (weights,
+  transmission cost, VAT rate, historical prices 2021-2024), grid intensity `PwGInt`, constant `PsElFloor`. Scenario
+  inputs `PowerSectorPriceChangePassOn`, `MinPostSubsidyPowerPrice`, `PowerRebates`, `AdditionalExcise`,
+  `NomorReal`, `SupplyCostDeltaSubsidy`, `PowerSubsidyExemptInclude`; the scenario table (`ScnReb`, `ScnElx`).
+- **CPAT Python:** `power.step()`, block "end-user prices and subsidies" (EQ-M4.7, EQ-A4.8); `rbs`, `exs`, `entxd`,
+  `entx` in `power.prepare()` (EQ-A4.7); user groups in `power_data.user_groups()`.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: end-user prices"}
+- **S4, LD32 (same numbers).** Legacy computes the residential and industrial price as supply cost + producer subsidy
+  + other tax + "over/under-estimated costs" residual, then VAT (rows 3600-3617 and 3629-3646). The model telescopes
+  it: after the last historical year the price changes by pass-through × the change in (supply cost + producer
+  subsidy + consumer-subsidy phase-out + residual) × (1 + VAT); the held components cancel. The residual is held, a
+  negative one scaled by the capped supply cost, as legacy 465 rows 3607 and 3636 (O3607: `MIN(0, O3600 - $J3600)`).
+- **Pass-through.** Legacy hardcodes the pass-through of the price chain to 1 in places; the model uses
+  `PowerSectorPriceChangePassOn` of the scenario (default 1) throughout. The price-control factor of the fuel blocks
+  does not act on electricity prices; the methodology's text says price-control settings diminish all price changes.
+- **Producer subsidies (LD19, R7).** As legacy: allocation by the pre-tax gap (rows 3587-3589), per kWh floored at
+  −0.3 USD/kWh (rows 3590-3591; issue I146), residual memo (row 3592), passed through in the price before policies
+  (rows 3601, 3630). Legacy bugs not reproduced: **L83** (the producer subsidy compounds the factor and lags a year),
+  **L86** (no manual override for the electricity producer subsidy).
+- **Consumer subsidy (R9).** As legacy O3606, O3635; legacy bugs not reproduced: **L84** (consumer subsidy phased with
+  the price-control factor; option text mismatch), **L85** (info row subtracts industry).
+- **Subsidy gap (S7).** Legacy holds producer-side subsidies and the residual as rows; the model also reports one
+  subsidy gap, price before VAT − supply cost, for revenue analysis.
+- **VAT on the policy terms (decision 2).** Legacy charges VAT on the new policy terms (row 3614); the model does too,
+  as for fuels.
+- **Rebate (LD77).** Legacy rows 261, 2188, J3595. Switches accept Yes or Yes* (bug L113 / issue I58: legacy tests the
+  exact "Yes").
+- **Excises (LD77, I59).** The electricity excise as legacy rows 2190, 2253; the manual excise as legacy rows 195-217,
+  3602, 3631. The fuel price reform of electricity enters the manual excise (issue I59, replicated).
+- **Floor (I60).** End-user prices are floored at `MinPostSubsidyPowerPrice` as legacy rows 3617 and 3646 (issue I60,
+  replicated; not binding for Egypt).
+- **Historical prices (decision 3, LD33).** The model uses the corrected price data block. For Egypt the earlier
+  prototype data had residential prices of 0.054, 0.048, 0.043 USD/kWh nominal (2022-2024) where legacy 456's vintage
+  had 0.097 in 2022; with the legacy 465 data the prices are the same as legacy (LD33).
+- **Producer subsidy data (decision 4).** The earlier corrected block had no electricity producer subsidy where legacy
+  456 used −9.2 bn USD in 2022; the model reports the modelled subsidy gap in any case (S7).
+- **Methodology.** Markup sign corrected (DOC2). The methodology's end-user price adds the generation cost of the year;
+  the model, as legacy, the cost of the previous year.
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Data edition Public01; $L$ = 2024; VAT on electricity 0; electricity producer subsidy 0 (USD/kWh).
+
+| | 2022 | 2023 | 2024 | 2026 | 2027 | 2030 | 2041 |
+|---|---|---|---|---|---|---|---|
+| Supply cost, residential | 0.1226 | 0.1226 | | 0.1192 | 0.1197 | 0.1213 | 0.1119 |
+| Price before new policies, residential | 0.0611 | 0.0532 | | 0.0440 | 0.0444 | 0.0459 | 0.0379 |
+| End-user price, residential, scenario 2 | 0.0611 | 0.0532 | | 0.0440 | 0.0536 | 0.0544 | 0.0432 |
+| End-user price, industry, scenario 1 | 0.0623 | 0.0635 | 0.0531 | 0.0518 | 0.0523 | 0.0539 | 0.0445 |
+| Average policy cost $ncp^{av}$, scenario 2 | 0 | 0 | 0 | 0 | 0.0092 | 0.0089 | 0.0059 |
+| Subsidy gap, residential, scenario 1 | −0.061 | −0.069 | | −0.075 | −0.075 | −0.075 | −0.074 |
+| Residual $ores$, residential | −0.064 | −0.071 | −0.020 | −0.020 | −0.020 | −0.020 | −0.018 |
+
+- The consumer tax of 2024 is a subsidy (−0.056 USD/kWh residential), so most of the 2024 gap is explained by it and
+  the residual shrinks.
+- The carbon price passes through in full (no rebate, no VAT): the residential price of 2027 rises by 0.0092 USD/kWh.
+- Method test (first build): a Python reference fed with legacy's inputs reproduces the cached legacy rows B2, B6, B8,
+  C7, D4, E3, the weighted average, J storage and the G1/G2 supply cost and prices to a relative error below 1e-6
+  (80 legacy rows, largest relative difference 5.6e-17); all 28 power variables equal the Python reference in every
+  scenario test (largest relative difference about 5e-15); one formula per block; 3,642 codes unchanged against the
+  previous version.
+:::
+
+## Power revenues {#sec-pw-revenues}
+
+The power sector adds to government revenue in two ways: through the electricity bills of users (VAT, excises, the
+carbon cost passed through, rebates, the subsidy gap) and through the fuels and emissions of generation (taxes and
+subsidies on generation fuels, existing carbon pricing, new policies, renewable subsidies). Both are computed here, in
+USD million real, and added to the revenue totals in @sec-fiscal.
+
+### By user group {#sec-pw-revenues-users}
+
+Each term is a per-kWh amount times consumption $cons_{g,t}$ (GWh; GWh × USD/kWh = USD million):
+
+| Revenue | Per kWh | Code |
+|---|---|---|
+| VAT on the price before new policies | $p^{0,T}_{g,t}\, vatrate_g/(1 + vatrate_g)$ | `rvat` |
+| VAT on the new-policy cost and excise passed through | $\left(ncp^{av}_t\, \pi\, (1 - rb) + pex_{g,t}\right) vatrate_g$ | `rnvat` |
+| Rebate (negative): the carbon cost returned to users | $-rb\; ncp^{av}_t\, \pi$ | `rreb` |
+| Excise | $pex_{g,t}$; of which carbon-based excise $x^e_t$ (`rexs`, all users) and manual excise (`rexm` = total − `rexs`) | `rpex` |
+| Subsidy gap (signed: negative = fiscal cost) | $gap_{g,t}$ | `rgap` |
+| New-policy cost (memo, ETS at the tax-equivalent price) | $ncp^{av}_t$ | `rcarb` |
+
+The VAT on a rebated carbon cost is not collected.
+
+### By generation type {#sec-pw-revenues-types}
+
+With a fuel flag $\chi_f$ = 1 for coal, gas, oil and biomass and 0 otherwise:
+
+$$
+\begin{aligned}
+R^{tax}_{f,t} &= \chi_f\, FU_{f,t}\, \kappa_{PJ}\, (etx + vat)_{c(f),t} \\
+R^{sub}_{f,t} &= \chi_f\, FU_{f,t}\, \kappa_{PJ}\, esub_{c(f),t} \\
+R^{xc}_{f,t} &= 8.76\; gen_{f,t}\; \Delta xcp_{f,t} \\
+R^{new}_{f,t} &= 8.76\; gen_{f,t}\; ncp_{f,t} - CO2_{f,t}\, A_{pow,t}\, (1 - \rho^{ets}_t) \\
+R^{xl}_{f,t} &= CO2_{f,t} \left(XCT_{f,t}\,\phi^{ct}_t + XETS_{f,t}\,\phi^{ets}_t\right) \\
+R^{rns}_{f,t} &= 8.76\; gen_{f,t}\; rns_{f,t}
+\end{aligned}
+$$ {#eq-pw-revenues}
+
+where
+
+- $R^{tax}$ are existing taxes on generation fuels (excise and other taxes plus VAT of the price fuel $c(f)$, USD/GJ;
+  `prtx`) and $R^{sub}$ existing subsidies (negative; `prsub`), with $\kappa_{PJ}$ = 0.041868 PJ per ktoe;
+- $R^{xc}$ the change in existing carbon pricing against the price data (`prxc`);
+- $R^{new}$ new-policy revenue (`prnew`): carbon tax, ETS and fuel price reform per kWh times generation, less the
+  part of the ETS cost not collected, so that the ETS is valued at the permit price as in the subsectors; $\rho^{ets}_t$
+  is the ETS revenue factor (`ets.rf`, @sec-emissions);
+- $R^{xl}$ the level of existing carbon pricing (memo; `prxl`);
+- $R^{rns}$ renewable subsidies (negative; `prrns`).
+
+Fuel use of generation, $\sum_f \chi_f FU_{f,t}$, is the power row of the fuel totals (`pet`). The equation list has
+the revenues by type as ([A6.1](A_Equations.qmd#eqlist-A6-1)).
+
+### Into the revenue totals {#sec-pw-revenues-totals}
+
+The revenue totals (@sec-fiscal) add a power row:
+
+| Total | Power part |
+|---|---|
+| Existing taxes | fuel taxes $R^{tax}$ + change in existing carbon pricing $R^{xc}$ + electricity VAT `rvat` |
+| Subsidies | fuel subsidies $R^{sub}$ + subsidy gap `rgap` + renewable subsidies $R^{rns}$ |
+| New policies | new-policy revenue $R^{new}$ + VAT on new policies `rnvat` + rebate `rreb` + excise `rpex` |
+| Existing carbon pricing level | the memo $R^{xl}$ |
+
+In the revenue by policy, the rebate and the carbon-based excise count with the carbon tax, the manual excise with the
+excise, and the renewable subsidies in their own row (the base subsidy once). The fuel subsidy and the subsidy gap do
+not overlap: the supply cost already uses the subsidised fuel price, so the gap is what remains between that cost and
+the tariff.
+
+::: {.callout-tip icon=false title="Pseudocode: power revenues"}
+```
+for t in years:
+    for g in ['res', 'ind']:
+        passed     = ccpav[t] * pass_on * (1 - rbs)
+        rvat[g,t]  = rppre[g,t] * vat[g] / (1 + vat[g]) * cons[g,t]
+        rnvat[g,t] = (passed + pex[g,t]) * vat[g] * cons[g,t]
+        rreb[g,t]  = -rbs * ccpav[t] * pass_on * cons[g,t]
+        rpex[g,t]  = pex[g,t] * cons[g,t]
+        rgap[g,t]  = sgap[g,t] * cons[g,t]
+        rcarb[g,t] = ccpav[t] * cons[g,t]
+    rexs[t] = exs[t] * sum(cons[g,t]);  rexm[t] = sum(rpex[g,t]) - rexs[t]
+    for f in types:
+        c = price_fuel[f]
+        prtx[f,t]  = fflag[f] * pe[f,t] * 0.041868 * (etx[c,t] + vat_fuel[c,t])
+        prsub[f,t] = fflag[f] * pe[f,t] * 0.041868 * esub[c,t]
+        prxc[f,t]  = xck[f,t] * 8.76 * gen[f,t]
+        prnew[f,t] = gen[f,t] * 8.76 * xac[f,t] - co2[f,t] * etr['pow',t] * (1 - ets_rf[t])
+        prxl[f,t]  = co2[f,t] * (xct[f,t] * xct_p[t] + xets[f,t] * xets_p[t])
+        prrns[f,t] = rns[f,t] * 8.76 * gen[f,t]
+    pet[t] = sum(pe[f,t] * fflag[f] for f in types)
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 3, sub-tables G4 (rows `rcarb`, `rexs`, `rexm`, `rvat`, `rnvat`, `rreb`,
+  `rpex`, `rgap`; Formulas.md E364-E371) and M (rows `prtx`, `prsub`, `prxc`, `prnew`, `prxl`, `prrns`, `pet`;
+  E439-E445). The revenue totals in section 12 and the revenue by policy in block 12e.
+- **CPAT Python:** `power.step()`, blocks "end-user prices" (user groups) and "revenues of the power sector"
+  (EQ-A6.1); totals in `totals.revenues`.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: power revenues"}
+- **M6, LD35 (fixed).** An earlier prototype valued the power ETS revenue at the tax-equivalent price; the model values
+  it at the permit price, as the subsectors (`rcarb`, at the tax-equivalent price, is kept as a memo).
+- **M2 (fixed).** An earlier prototype left out the VAT on the policy term.
+- **L110 (fixed).** Legacy's power revenue rebate counts VAT that was never collected (row 3663); in the model the
+  rebate is the carbon cost × pass-through, and its VAT falls out of `rnvat`.
+- **L111 (fixed).** Legacy's manual electricity excise revenue counts the whole excise, also where the price does not
+  include it (rows 3660, 7762); the model counts the excise in the price × consumption.
+- **L108, L129 (fixed).** Legacy's cost of renewable subsidies counts the base subsidy twice, ignores the hydro switch
+  and omits biomass (rows 3665-3669, 7897-7903); the model counts subsidy × generation by type, the base subsidy once.
+- **Revenue by policy.** The rebate and the carbon-based excise count with the carbon tax, the manual excise with the
+  excise, the renewable subsidies in their own row, as legacy rows 7749, 7762, 7903.
+- **New rows.** Taxes and subsidies on generation fuels, the change in existing carbon pricing, VAT, VAT on new
+  policies and the subsidy gap are new (legacy has no such power revenue rows). Revenue structure as legacy (LD37),
+  power in the totals (LD39).
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Data edition Public01 (USD million real):
+
+| | 2022 | 2026 | 2027 | 2030 | 2041 |
+|---|---|---|---|---|---|
+| New-policy revenue, gas, scenario 2 | 0 | 0 | 1,631 | 1,475 | 1,807 |
+| Subsidy gap, residential, scenario 1 | −4,127 | −6,686 | −6,927 | −7,642 | −11,225 |
+| Subsidy gap, residential, scenario 2 | −4,127 | −6,685 | −6,926 | −7,001 | −10,627 |
+
+VAT on electricity is 0 in Egypt's data, so `rvat` and `rnvat` are 0.
+:::
+
+## The coal implicit cost {#sec-pw-coalic}
+
+A model with one period per year cannot see why many countries burn less coal than its cost advantage suggests:
+environmental regulation of coal plants, and the flexibility gas offers. CPAT therefore adds an implicit cost to coal,
+calibrated so that the model reproduces observed coal shares.
+
+The methodology describes the calibration in
+[section 3.4.2.4.5](../CPAT_full_documentation_html/03_Mitigation.html#calibration-and-systems-costs) and writes the
+cost $ipc$ ([corrections, DOC12](../CPAT_full_documentation_html/08_Corrections.html#corrections-of-2026-10-31)).
+
+The cost moves linearly from a short-term value in the base year to a long-term value in 2030:
+
+$$
+ipc_t = ipc^{S} + \left(ipc^{L} - ipc^{S}\right) \min\left(1,\ \frac{t - t_0}{T_{ic} - t_0}\right)
+$$ {#eq-pw-cic}
+
+where
+
+- $ipc_t$ is the coal implicit cost (USD/kWh; `cic`);
+- $ipc^{S}$ and $ipc^{L}$ are the short-term and long-term values (`cics`, `cicl`), chosen by the scenario input
+  `AdditionalCoalIntangibleCost`: No gives 0; Manual gives `ManualCoalIntangibleCostST` and
+  `ManualCoalIntangibleCostLT`; otherwise the country's values in the GoalSeekCoal table (85 countries; 0 if the
+  country is absent, as for Egypt);
+- $T_{ic}$ = 2030 (`CoalICYr`).
+
+The cost is added to the coal variable cost (@eq-pw-vbc), so it acts on dispatch, on the levelised variable cost and
+so on investment, and on early coal retirement. It is also part of the generation cost and so of tariffs, unless the
+setting `PwCoalICTariff` is No (default Yes, as legacy; @eq-pw-gnc). It appears in the system cost memo.
+
+The methodology's calibration minimises the squared difference between modelled and observed (IEA) coal shares in
+2019 and 2020, raising the coal price where the model overestimates the coal share (only positive values); the
+GoalSeekCoal table reports the results for both years, and IEA's 2030 projection of the coal share is reported for
+information. The model uses legacy's stored results; the calibration itself (a goal seek) is not part of the model.
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 3, sub-table D: rows `cics`, `cicl`, `cic` (Formulas.md E325-E327; names
+  `CoalICSTc`, `CoalICLTc` on the GoalSeekCoal tab, columns B and C); Settings C66 `PwCoalICTariff`; constant
+  `CoalICYr`.
+- **CPAT Python:** `power.prepare()` (table `coal_implicit_price`, columns `first_year`, `year_2030`); the tariff
+  switch is the module constant `COAL_IC_TARIFF` (Yes).
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: coal implicit cost"}
+- **As legacy (LD34).** Rows 3360-3363 (D3), with J89:K90 choosing the short- and long-term values and K88 the year
+  2030. Legacy ScenarioDefinition rows 369-371 hold the option and the manual values.
+- **Not built.** The calibration script (goal seek) that fills GoalSeekCoal: the stored legacy values are used.
+:::
+
+## Fuel price reform, price floor and renewable subsidies in real terms {#sec-pw-reforms}
+
+Four smaller rules complete the price side. Each is described where it acts; this section collects them.
+
+| Rule | What it does | Where |
+|---|---|---|
+| Electricity fuel price reform | The fuel price reform path of electricity of the scenario, by user group (`fpr.ecy.res`, `fpr.ecy.ind`), enters the manual excise of policy scenarios (issue I59, replicated) | @eq-pw-entx |
+| Price floor | End-user electricity prices are floored at `MinPostSubsidyPowerPrice` (0.01 USD/kWh; issue I60, replicated; not binding for Egypt) | @eq-pw-rp |
+| Renewable subsidies in real terms | The renewable subsidy inputs, labelled nominal, are converted to real with the CPI factor of the year (row `rnsp`; legacy bug L114 fixed) | @eq-pw-rns |
+| Transmission cost share | The levelised cost includes `TransmissionCostShare` (default 1) of the transmission capex | @eq-pw-lfx |
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: reforms and subsidies"}
+- **Fuel price reform (I59).** As legacy row 216; inputs in the fuel price reform block of the scenario sheet (legacy
+  ScenarioDefinition rows 148-149, 162-163).
+- **Floor (I60).** As legacy rows 3617 and 3646.
+- **Renewable subsidies (L114, L107, LD76).** Legacy uses the nominal inputs (ScenarioDefinition 354-355) as real
+  (L114, was issue I55): fixed. Legacy's additional subsidy starts in the consumer-subsidy phase-out year (L107):
+  the model uses its own start year `RenSubsidyAddStartYear` (default 2027, the default of the consumer-subsidy year).
+- **Transmission share.** Legacy `IncludeTransmissionCostsInGenerationCostsPercent`; the model reads
+  `TransmissionCostShare` from the scenario sheet's appendix block B.
+:::
+
+## Power data: how the inputs are derived {#sec-pw-data}
+
+Before the year loop, a data step derives the power inputs of the country from the reference tables: the technology
+data of the legacy Power tab, the cost-of-capital (CoC) tab, the energy balance, installed capacity, the GHGs tab
+(demand shock), WEO (income factor) and the scenario settings. Excel-AI computes them with formulas on its Inputs
+sheet; CPAT Python computes the same in `power_data.py`. Nothing is copied from a legacy run.
+
+The methodology describes the data in
+[section 3.4.4](../CPAT_full_documentation_html/03_Mitigation.html#sec-PowerDataSources): the sources, the data
+approach of the engineer model
+([3.4.4.1.2](../CPAT_full_documentation_html/03_Mitigation.html#data-approach-for-the-power-prices-and-engineer-power-model)),
+the variables ([3.4.4.2](../CPAT_full_documentation_html/03_Mitigation.html#description-and-definition-of-the-variables))
+and the estimation of the power-sector characteristics
+([3.4.4.4](../CPAT_full_documentation_html/03_Mitigation.html#sec-PowerCharacteristics)).
+
+The inputs fall into three groups, named after the tables they once were:
+
+| Group | Contents | Excel-AI block | Python function |
+|---|---|---|---|
+| Generation-type items (PowerTech) | One row per type: costs, lifetime, efficiency, capacity factor, WACC, base-year capacity and generation, retirement, investment and scale-up rules | `Inputs_ptech` | `power_tech()` |
+| Year paths (PowerPaths) | Capex time factors, storage costs, income factor, demand shock, planned retirement | `Inputs_ppath` | `power_paths()` |
+| Parameters (PowerParams) | Transmission costs, pass-through, storage settings, shares of the energy balance, logit constants and other settings | `Inputs_ppar` | `power_params()` |
+
+The settings of scenario 1 and values derived from them are a fourth, small block (`Inputs_pset`, names `Ps...`;
+`power_settings()`). The derived constants that section 3 reads (Inputs rows 207-215, 220-234, 254-263) follow
+(`power_types()`, `user_groups()`, `demand_groups()`, `demand_subsectors()`, `system_params()`). The equation list
+has the data steps as ([A4.1](A_Equations.qmd#eqlist-A4-1)) to ([A4.4](A_Equations.qmd#eqlist-A4-4)).
+
+Five rules of the data step depart from legacy CPAT, which has bugs in these chains (register L52-L56): the country
+value is used for every type where it exists (L52), the actual capacity factor is used within its bounds (L53), hydro
+invests from the base year only above a 50% hydro share (L54), country rows are looked up in the country block (L55),
+and countries without cost-of-capital risk data take the default WACC (L56). The legacy chains, cell by cell, are in
+the collapsed boxes at the end of this section.
+
+### Technoeconomic parameters {#sec-pw-data-tech}
+
+The study data of the Power tab give, for each type, a world value and, for some countries, a country value. The
+country value is used where it is positive; otherwise the world value ("rule C"):
+
+$$
+x_f = \begin{cases} x^{country}_f & \text{if } x^{country}_f > 0 \\ x^{world}_f & \text{otherwise} \end{cases}
+$$ {#eq-pw-rulec}
+
+for $x$ in: capacity factor of the studies, capital cost (USD/kW), efficiency (net calorific value) of the studies,
+fixed O&M (USD/kW/year), variable O&M (USD/kWh), WACC of the studies and lifetime (years). The country rows have codes
+`<iso>.mpp.<type>` (63 countries), the world rows `wld.mpp.<type>`; the regional rows are not used. Wind, solar, hydro
+and other renewables have a studies efficiency of 1 by convention.
+
+Decommissioning cost and transmission capex are world shares of the capital cost:
+$dtc_f = \delta^{dtc}_f\, cax^0_f$ and $tcx_f = \delta^{tcx}_f\, cax^0_f$, with $\delta$ from the world rows
+`wld.dtc.<type>` (the shares of biomass and other renewables are averages of the others). Fixed O&M per kWh is
+$opf_f = opf^{kW}_f/(H\, cf_f)$. Nuclear has a fixed fuel cost of 0.004 USD/kWh (`UraniumFuel`).
+
+Values for Egypt (data edition Public01):
+
+| | Coal | Gas | Oil | Nuclear | Wind | Solar | Hydro | Other ren. | Biomass |
+|---|---|---|---|---|---|---|---|---|---|
+| Capital cost $cax^0$ (USD/kW) | 2,000 | 1,304.2 | 1,345.4 | 4,000 | 1,300 | 1,222.7 | 3,300 | 3,500 | 2,000 |
+| Lifetime (years) | 30 | 30 | 35 | 50 | 30 | 25 | 50 | 30 | 30 |
+| Fixed O&M (USD/kW/year) | 60 | 32.05 | 23.525 | 150 | 40 | 11.831 | 50 | 100 | 100 |
+| Variable O&M (USD/kWh) | 0.003 | 0.004 | 0.00517 | 0.004 | 0 | 0 | 0.001 | 0 | 0.003 |
+| Studies capacity factor | 0.535 | 0.566 | 0.134 | 0.934 | 0.3 | 0.18 | 0.432 | 0.751 | 0.686 |
+| Studies efficiency | 0.344 | 0.594 | 0.377 | 0.38 | 1 | 1 | 1 | 1 | 0.253 |
+| Decommissioning $dtc$ (USD/kW) | 100 | 13.04 | 33.02 | 532.13 | 39 | 73.36 | 660 | 253.79 | 145.02 |
+| Transmission $tcx$ (USD/kW) | 597.47 | 382.18 | 447.88 | 449.43 | 405.47 | 335.33 | 756.53 | 347.66 | 267.62 |
+
+Gas (row `egy.mpp.nga`) and solar (`egy.mpp.sol`) have country values; the country gas row has no capacity factor,
+WACC or lifetime, so those fall back to the world.
+
+### Energy balance: generation, efficiency, capacity factor and capacity {#sec-pw-data-balance}
+
+Base-year generation, fuel input and installed capacity give the actual efficiency and capacity factor
+([methodology, 3.4.4.1.2](../CPAT_full_documentation_html/03_Mitigation.html#data-approach-for-the-power-prices-and-engineer-power-model)):
+
+$$
+\begin{aligned}
+gen_{f,t_0} &= out_f\, \frac{1000}{H}, \qquad & \nu^{a}_f &= \frac{out_f}{in_f\, \theta_g} \\
+cf^{a}_f &= \frac{gen_{f,t_0}}{IC_f}, \qquad & cap_{f,t_0} &= \frac{gen_{f,t_0}}{cf_f}
+\end{aligned}
+$$ {#eq-pw-balance}
+
+where
+
+- $out_f$ is power output of the energy balance (GWh, flow `eloutput`) and $in_f$ fuel input to power (ktoe, minus the
+  flow `power`), for the type's fuels (oil: other oil products, gasoline, diesel, kerosene, LPG, jet fuel);
+- $gen_{f,t_0}$ base-year generation (MWy);
+- $\nu^a_f$ the actual efficiency, used unless below the minimum or without input (@sec-pw-a0);
+- $IC_f$ installed capacity of the base year (MW, Power tab installed-capacity block);
+- $cf^a_f$ the actual capacity factor, used within its bounds (@eq-pw-cf);
+- $cap_{f,t_0}$ base-year capacity at the capacity factor used.
+
+Values for Egypt (data edition Public01, base year 2022):
+
+| | Gas | Oil | Wind | Solar | Hydro |
+|---|---|---|---|---|---|
+| Base-year generation (MWy) | 19,165 | 2,089 | 666 | 555 | 1,717 |
+| Installed capacity $IC$ (MW) | 52,020 | 1,330 | 1,643 | 1,724 | 2,832 |
+| Actual capacity factor | 0.368 | 1.571 | 0.406 | 0.322 | 0.606 |
+| Capacity factor used | 0.368 | 0.134 (studies) | 0.406 | 0.322 | 0.606 |
+| Efficiency used | 0.505 | 0.338 | 1 | 1 | 1 |
+| Base-year capacity (MW) | 52,020 | 15,590 | 1,643 | 1,724 | 2,832 |
+
+Coal (10 MW installed), nuclear, other renewables and biomass (123 MW installed) generate nothing in the base year.
+Oil's actual capacity factor is above 1, outside the bounds, so the studies value is used and the base-year oil
+capacity is the generation-consistent 15,590 MW, not the installed 1,330 MW.
+
+### Capex time factors {#sec-pw-data-ctf}
+
+The capital cost path of each type is its world capex time factor, by year (for wind and solar 1.05 in 2022 and 1 in
+2023). Renewables (wind, solar, hydro, other renewables, biomass) take the series of the
+decline scenario `RenewableCostDeclineRate` (low, medium*, high, very high); coal, gas, oil and nuclear take the
+medium series. Where the Power tab has no series for the option (low and very high for wind and solar, very high
+for the others), wind and solar take the older series of the same option (`wld.ctf.old<scen>.<type>`) and the others
+the medium series (LD79). The country never matters: there are no country series.
+
+For Egypt (medium), wind falls from 1.05 (2022) to 0.918 (2041) and solar from 1.05 to 0.565; the other types stay at 1.
+
+### WACC {#sec-pw-data-wacc}
+
+The country WACC is the real WACC of the CoC tab for 2022 (constant over time). It is computed by the WACC
+calculator: the cost of equity $r_f + \beta (ERP_{US} + CRP)$ weighted by the equity share, plus the cost of debt
+$(r_f + \text{default spread} + \text{lender margin})(1 - \text{tax})(1 - \text{equity share})$, with $r_f$ the real
+risk-free rate. A country missing from CoC, or without CoC risk data (rating "Not Found"), takes the default 0.075
+(`WaccDefault`; L56).
+
+The technology premium depends on the type and the World Bank income group of the country:
+
+| Type | bio | nga | coa | ore | hyd | sol | oil | nuc | wnd |
+|---|---|---|---|---|---|---|---|---|---|
+| Premium, LMIC | 0.03215 | 0.02465 | 0.02465 | 0.04425 | 0.02725 | 0.02935 | 0.02465 | 0.02725 | 0.02935 |
+
+(columns HIC, UMIC, LMIC, LIC in the CoC table). The income-group WACC of the option Income* is HIC 0.075, UMIC 0.10,
+LMIC 0.125, LIC 0.15.
+
+For Egypt (LMIC, $w_c$ = 0.0994764, option Tech): coal, gas and oil 0.12413; nuclear and hydro 0.12673; wind and solar
+0.12883; other renewables 0.14373; biomass 0.13163.
+
+### Generation-type items {#sec-pw-data-types}
+
+| Item | Meaning | Rule | Country-specific? |
+|---|---|---|---|
+| `cax0` | Capital cost at time factor 1 (USD/kW) | rule C on the capital cost | yes, via a country row |
+| `life` | Lifetime (years) | rule C | where the country row has it |
+| `eff` | Efficiency | actual from the balance, else studies (rule C; 1 for wind, solar, hydro, other renewables) | yes (balance) |
+| `cf` | Capacity factor | actual within the bounds, else studies (rule C) | yes (balance, installed capacity) |
+| `wacc` | WACC | by `WACCSource` (@eq-pw-wacc) | yes (CoC) |
+| `dtc`, `tcx` | Decommissioning, transmission capex (USD/kW) | world share × capital cost | via the capital cost |
+| `opf` | Fixed O&M per kWh | fixed O&M / (8,760 × capacity factor) | via O&M and capacity factor |
+| `vop` | Variable O&M (USD/kWh) | rule C | where the country row has it |
+| `ffix` | Fixed fuel cost (USD/kWh) | nuclear 0.004, others 0 | no |
+| `cap0`, `gen0` | Base-year capacity (MW), generation (MWy) | @eq-pw-balance | yes |
+| `rr` | Retirement rate | $1/N$; hydro 0 if `HydroDoesntRetire` = Yes | via lifetime |
+| `permitted`, `start` | Investment permitted, first year | [Inputs of the scenario](#sec-pw-a0) | yes (capacity and generation shares) |
+| `scaleup` | Scale-up rate | [Inputs of the scenario](#sec-pw-a0) | wind and solar under CtryDefault* |
+| `planned` | Planned retirement used | coal: the country flag of the Power tab; others No | yes (coal) |
+| `rns` | Renewable subsidy | 0 (the subsidy is a scenario input) | no |
+| `price_code`, `vre`, `vre_share`, `dispatch` | Price fuel (`coa.pow`, `nga.pow`, `oop.all`, `bio.all`), VRE flags (wind, solar, other renewables), dispatch group (coal, gas) | constants of the type table | no |
+
+### Year paths {#sec-pw-data-paths}
+
+| Path | Meaning | Source and rule |
+|---|---|---|
+| `tcf\|<type>` | Capex time factor | [Capex time factors](#sec-pw-data-ctf) |
+| `cbat`, `cint`, `obat` | Battery capex (USD/kWh), battery interface capex (USD/kW), battery fixed opex (USD/kWh/year) | Power tab battery block, the latest year not after the model year; EUR converted to USD at 1.18 (2021) |
+| `elcx`, `eltk`, `elof`, `elov` | Electrolyser capex (USD/kW), storage tank capex (USD/kWh), electrolyser fixed and variable opex | as above |
+| `cel` | Long-term storage cost per marginal unit | @eq-pw-cel, with `StorageHoursForLTStorage` and the renewables' discounted lifetime (country WACC) |
+| `incf` | Income factor on the GDP elasticities | @eq-pw-incf |
+| `shock` | Exogenous shock on energy demand | GHGs tab: 2023 and 2024 values of the country; 0 in other years |
+| `pret\|<type>` | Planned retirement (nameplate MW) | coal: the Power tab averaged block where the country flag is Yes; otherwise 0 |
+
+**Income factor.** The GDP elasticity of demand falls with income. The factor is a quartic polynomial in log GDP per
+capita, normalised:
+
+$$
+\begin{aligned}
+inc_t &= \frac{\max\left(0,\ P_4(x_t)\right)}{0.74}, \qquad x_t = \min\left(10,\ \ln y^{pc}_{t-1}\right) \\
+P_4(x) &= 0.012019x^4 - 0.365464x^3 + 4.011846x^2 \\
+&\quad - 18.722243x + 31.75949
+\end{aligned}
+$$ {#eq-pw-incf}
+
+where $y^{pc}_{t-1}$ is GDP per capita of the previous year (USD; the base year uses its own year), from the macro
+series. The factor applies if `IncElAdj` is Yes (default Yes*), else 1. It is used by power demand and by fuel use.
+For Egypt it falls from 1.027 (2022) to 0.946 (2041).
+
+**Demand shock.** For Egypt, −0.2081 in 2023 and +0.0924 in 2024.
+
+### Parameters {#sec-pw-data-params}
+
+| Parameter | Meaning | Source | Egypt |
+|---|---|---|---|
+| `tmc\|res`, `tmc\|ind` | Transmission and distribution allowance (USD/kWh) | Power tab G20, G21 | 0.04, 0.015 |
+| `pass` | Pass-through of cost changes | `PowerSectorPriceChangePassOn` | 1 |
+| `gen_per_cons` | Generation / final demand of the base year | energy balance | 1.266 |
+| `dlf_ren` | Discounted lifetime of renewables | average of wind and solar | 8.435 |
+| `st_alloc`, `st_marg_hours`, `st_ratio` | Short-term storage allocation, marginal hours (2 × hours for 100% VRE), kWh per kW | settings | 1, 18, 2 |
+| `lt_start`, `lt_alloc` | Long-term storage threshold, allocation | settings | 0.75, 0.33 |
+| `sh_nxp`, `sh_tsd`, `sh_eou`, `sh_add` | Shares of final demand (@eq-pw-shares) | energy balance | 0.0094, 0.2168, 0.0400, 0 |
+| `extra_eff` | Additional efficiency gain | `AdditionalEfficiencyPower` | 0 |
+| `maxcf_cg` | Maximum capacity factor of coal (gas has its own input) | `MaximumCoalCF` | 0.9 |
+| `k_dispatch`, `k_invest` | Logit constants | `kDispatch`, `kInvestment` | 2, 2 |
+| `min_cost` | Minimum cost and price | `MinPostSubsidyPowerPrice` | 0.01 |
+| `early_max` | Maximum early coal retirement share | constant `EarlyMaxShare` | 0.8 |
+| `early_factor` | Early-retirement factor of the baseline | `MaxCostBasedEarlyRetirement` if `EarlyRetirementInBaseline` = Yes, else 0 | 0.8 |
+| `ktoe_gwh` | GWh per ktoe | constant | 11.63 |
+
+The shares of final demand come from the base-year energy balance of electricity:
+
+$$
+\begin{aligned}
+s_{nxp} &= -\frac{M + X}{D}, \qquad s_{tsd} = -\frac{SD + TR + DL}{D}, \qquad s_{eou} = -\frac{OU}{D} \\
+s_{add} &= \frac{G}{D} - 1 - s_{nxp} - s_{tsd} - s_{eou}
+\end{aligned}
+$$ {#eq-pw-shares}
+
+where $M$, $X$, $SD$, $TR$, $DL$, $OU$ are imports, exports, statistical differences, transfers, distribution losses
+and own use of electricity (ktoe, with the energy balance's signs), $G = \sum_f gen_{f,t_0} \cdot 8.76/11.63$ base-year
+generation (ktoe) and $D$ final electricity demand (ktoe): the sum over the flows road, rail, domestic aviation,
+domestic navigation, residential, food and forestry, services, mining and chemicals, iron and steel, non-ferrous
+metals, machinery, cement, other manufacturing, construction and other non-specified (fuel transformation, own use and
+non-energy use excluded). So $1 + s_{nxp} + s_{tsd} + s_{eou} + s_{add} = G/D$ exactly. The equation list has them
+as ([A4.3](A_Equations.qmd#eqlist-A4-3)).
+
+The grid CO2 intensity of the electricity excise (@eq-pw-exs) and the required-generation factor (@eq-pw-req) are
+derived from these parameters.
+
+::: {.callout-tip icon=false title="Pseudocode: the power data of a country"}
+```
+bal = energy_balance(country, base_year)
+for f in types:
+    w, c = world_row[f], country_row[f] or w
+    pick = lambda col: c[col] if c[col] > 0 else w[col]                 # rule C
+    cax0[f], life[f], opfx[f], vop[f] = pick('CapEx'), pick('Lifetime'), pick('OpexFixed'), pick('OpexVariable')
+    cf_studies[f], wacc_studies[f]   = pick('CapacityFactor'), pick('WACC')
+    eff_studies[f] = 1 if f in ('wnd','sol','hyd','ore') else pick('Efficiency')
+    out[f] = sum(bal['eloutput'][x] for x in fuels[f]);  inp[f] = -sum(bal['power'][x] for x in fuels[f])
+    eff_act  = out[f] / (inp[f] * 11.63) if inp[f] else None
+    eff[f]   = eff_studies[f] if eff_act is None or eff_act < MinimumThermalEfficiency else eff_act
+    gen0[f]  = out[f] * 1000 / 8760
+    cf_act   = gen0[f] / installed_capacity[f] if installed_capacity[f] else 0
+    cf[f]    = cf_act if cf_min[f] < cf_act < CFOverrideIfAbove else cf_studies[f]
+    wacc[f]  = (w_cty + adj['coa', inc] if WACCSource == 'Country*' else
+                w_cty + adj[f, inc] if WACCSource == 'Tech' else
+                max(WACCUserGlobal if WACCSource == 'User' else w_income[inc] if WACCSource == 'Income*'
+                    else wacc_studies[f], MinimumWACC))
+    dtc[f], tcx[f] = dtc_share[f] * cax0[f], tcx_share[f] * cax0[f]
+    opf[f]   = opfx[f] / (8760 * cf[f]);  cap0[f] = gen0[f] / cf[f]
+    dlf[f]   = (1 - (1 / (1 + wacc[f])) ** life[f]) / (1 - 1 / (1 + wacc[f]))
+for t in years:
+    x = min(10, ln(gdppc[t-1 if t > base_year else t]))
+    incf[t] = max(0, P4(x)) / 0.74 if IncElAdj starts with 'Yes' else 1
+D = sum(bal[flow]['ecy'] for flow in demand_flows);  G = sum(gen0) * 8760 / 1000 / 11.63
+gen_per_cons = G / D
+sh_nxp = -(bal['imports']['ecy'] + bal['exports']['ecy']) / D
+sh_tsd = -(bal['statdiff']['ecy'] + bal['transfer']['ecy'] + bal['distloss']['ecy']) / D
+sh_eou = -bal['ownuse']['ecy'] / D
+sh_add = gen_per_cons - 1 - sh_nxp - sh_tsd - sh_eou
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Inputs, blocks `Inputs_pset`, `Inputs_ptech`, `Inputs_ppath`, `Inputs_ppar` (formulas on the
+  legacy tabs Power, CoC, Balances, Countries, GHGs, WEO, kept at legacy addresses), and Inputs rows 204-270; the
+  energy balance is read through legacy's flow mapping (Mapping columns J-M), as legacy with
+  `BalancesOrConsumption` = Balances. Constants `InvPresentShare`, `HydInvShare`, `WaccDefault`, `UraniumFuel`,
+  `StMargFactor`, `EarlyMaxShare`, `KtoeGWh`, `Incf*`.
+- **CPAT Python:** `cpat_model/mitigation/power_data.py`: `power_settings()`, `power_tech()`, `power_paths()`,
+  `power_params()`, `power_types()`, `user_groups()`, `demand_groups()`, `demand_subsectors()`, `system_params()`;
+  called by `power.country_data()` and tested in `test_data_steps.py`. Tables of the database: `power_mpp_world`,
+  `power_mpp_country`, `power_decom_transmission`, `power_installed_capacity`, `power_capex_time_factor` (and `_2`),
+  `power_storage_usd`, `power_coal_retirement`, `power_coal_retirement_avg_flag`, `power_re_max_scaleup`,
+  `power_re_scaleup_rates`, `power_wacc_by_income`, `power_misc_parameters`, `coc_real_wacc`, `coc_rating`,
+  `coc_tech_adjustment`, `energy_balances`, `ghg_shock`, `coal_implicit_price`.
+:::
+
+### Legacy power-input chains {#sec-pw-data-legacy}
+
+The boxes below record, cell by cell, how legacy CPAT derives each power input (`CPAT 1.0pre_456_NoPropData.xlsb`,
+cached run: Egypt, EGY, baseline). They are the specification from which the data step was rebuilt with formulas,
+and they document legacy as it is, bugs included; the model departs from them in the five places listed above (L52-L56).
+The items are every column of the former PowerTech table, every key of PowerPaths and of PowerParams.
+
+::: {.callout-note collapse="true" title="Check: the legacy chains recomputed"}
+Every copied cell was recomputed from the cached Mitigation values (the `v_Mitigation` dump) and compared with the
+three tables: **0 mismatches** (relative tolerance 1e-12). This covers all 9 types × 17 traced type columns, all 37
+path rows × 20 years, and all 22 parameters. When the data step was rebuilt with formulas, the Egypt values reproduced
+legacy's cached values (macro series to 1e-15; power data to 1e-12), apart from the wind and solar capex time factors
+for 2039-2041, where the model follows the Power tab cells legacy references (2041: legacy cached
+solar 0.533 and wind 0.909; the Power tab 0.565 and 0.918).
+:::
+
+::: {.callout-warning collapse="true" title="Legacy chains: conventions of the legacy workbook"}
+- **Year columns on Mitigation:** K = 2021, **L = 2022** (= `FirstYearCalculations`), M = 2023 … AE = 2041. Row 1
+  holds the year headers (`L1 = FirstYearCalculations`, `K1 = L1-1`).
+- **Type row order** in every engineer-model table: coa, nga, oil/oop, nuc, wnd, sol, hyd, ore, bio (row offset
+  0..8). Tables A2, A4, A7 and A14/A15 use the code `oil` (column B); A16, B*, D* and later use `oop`. The Power and
+  CoC tabs use `oil`.
+- **Defined names:** the workbook-level names (sheet index −1 in `names.tsv`). The sheet-index-17 copies (sheet ECP)
+  point one row higher in ScenarioDefinition (e.g. `CFOverrideIfAbove` → F376 instead of F377) and do not apply to
+  Mitigation formulas. pyxlsb2 decoding confirms: `FirstYearCalculations` → `ScenarioDefinition!$F$232`.
+- **ScenarioDefinition column F = Dashboard.** Every setting is
+  `F<r> = IF($C$5, D<r>, IF($F$16="Default", IF(I<r>="Y", E<r>, G<r>), E<r>))` with `C5 = FALSE` ("MT is active")
+  and `F16 = "Manual*"`, so F = E = a Dashboard cell (`E<r> = Dashboard!<cell>`).
+- **XLOOKUP caveat in the `f_` dumps:** the LibreOffice conversion drops the first argument of every `_xlfn.XLOOKUP`
+  (the dump shows `XLOOKUP(CoC!$B$202:$B$390,CoC!$D$202:$D$390,0.075)`; the true formula, decoded with pyxlsb2, is
+  `XLOOKUP(G2988, CoC!$B$202:$B$390, CoC!$D$202:$D$390, 0.075)`). The WACC box gives the corrected formulas, which the
+  cached values confirm.
+- **Scenario index:** `Mitigation!C2173` = 1 in the baseline block (rows 2954-4300), from
+  `INDEX($N$224:$AC$224, MATCH(B2173,$N$223:$AC$223,0))`. The carbon-tax copy sits at rows +6331 (from row 9285) with
+  index > 1.
+- **Country:** `_Countryname = ScenarioDefinition!F8 = Dashboard!E2` ("Egypt");
+  `_Country_code = Dashboard!D644 = VLOOKUP(_Countryname, Countries!$C$6:$D$227, 2, FALSE)` ("EGY"). Formulas use
+  `LOWER(_Country_code)` ("egy") for the Power codes; MATCH and XLOOKUP are case-insensitive.
+- **Constants:** `_conv_ktoe_to_gwh = Mitigation!E1033 = 11.63` (typed); `_conv_gwh_to_mwy = E1044 = 1000/(365*24)`;
+  `_conv_ktoe_to_mwy = E1034 = E1033*E1044 = 1.32762557…`; `_conv_kWh_to_GJ = E1045 = 0.0036`.
+:::
+
+::: {.callout-warning collapse="true" title="Legacy chains: A2 technoeconomic lookup (rows 2976-2985)"}
+Row $r = 2977 + i$, type code `B<r>` ∈ {coa, nga, oil, nuc, wnd, sol, hyd, ore, bio}.
+
+| Cell | Formula (names restored) | Meaning |
+|---|---|---|
+| E | `="wld.mpp."&B<r>` | world code |
+| G | `=LOWER(_Country_code)&".mpp."&B<r>` | country code, e.g. `egy.mpp.coa` |
+| L | `=IFERROR(MATCH(E<r>,Power!$A$25:$A$356,0),0)` | world index |
+| K | `=IFERROR(MATCH(G<r>,Power!$A$25:$A$356,0),L<r>)` | country index, falls back to world |
+| M | `=L<r>` | "3rd helper" = world |
+| N (CapacityFactor) | `=IF(INDEX(Power!E$25:E$355,$K)>0, INDEX(..,$K), IF(INDEX(..,$L)>0, INDEX(..,$L), INDEX(..,$M)))` | country if > 0, else world (all 9 types) |
+| O (CapEx USD/kW) | same on `Power!F$25:F$356` | country if > 0, else world (all types) |
+| P..T, rows 2977-2980 (coa, nga, oil, nuc) | same "> 0" pattern on Power G (Efficiency.NCV), H (OpexFixed USD/kW/y), I (OpexVariable USD/kWh), J (WACC), K (TotalLifetime) | country if > 0, else world |
+| P..T, rows 2981-2985 (wnd, sol, hyd, ore, bio) | `=IFERROR(IF(ISERROR(INDEX(Power!G$25:G$356,$K)), INDEX(..,$K), IF(ISERROR(INDEX(..,$L)), INDEX(..,$L), INDEX(..,$M))),0)` | **bug (L52):** inverted ISERROR logic, always the world value; country data ignored |
+
+- The index is relative to Power row 25 (Power row = 24 + index). MATCH searches `Power!A25:A356`, which spans the
+  world, regional, country, ctf and dtc blocks; the regional block is never looked up deliberately.
+- Egypt indices: coa 4 (row 28), nga **142 (row 166, `egy.mpp.nga`)**, oil 6 (30), nuc 7 (31), wnd 9 (33), sol **206
+  (row 230, `egy.mpp.sol`)**, hyd 8 (32), ore 11 (35), bio 12 (36). The world rows are 28-36, in the order coa nga oil
+  nuc hyd wnd sol ore bio.
+- For nga the country row 166 has blank E, J and K, which fall back to world row 29. Column S (Power J) is not used
+  under the WACC setting Tech.
+
+Egypt results (legacy):
+
+| Column | coa | nga | oil | nuc | wnd | sol | hyd | ore | bio |
+|---|---|---|---|---|---|---|---|---|---|
+| N (CF) | .535 | .566 | .134 | .934 | .3 | .18 | .43229 | .75120 | .68577 |
+| O (capex) | 2000 | **1304.195** (country) | 1345.38 | 4000 | 1300 | **1222.683** (country) | 3300 | 3500 | 2000 |
+| P (eff.) | .34354 | **.594** (country) | .37660 | .38 | 0 | 0 | 0 | .38142 | .25275 |
+| Q (opex fix) | 60 | **32.05** (country) | 23.525 | 150 | 40 | **15** (world; country H230 = 11.831 ignored) | 50 | 100 | 100 |
+| R (opex var) | .003 | **.004** | .00517 | .004 | 0 | 0 | .001 | 0 | .003 |
+| S (WACC) | .08039 | .07710 | .07757 | .07397 | .06877 | .07478 | .08295 | .09869 | .07106 |
+| T (life) | 30 | 30 | 35 | 50 | 30 | 25 | 50 | 30 | 30 |
+:::
+
+::: {.callout-warning collapse="true" title="Legacy chains: A1 / A4 energy-balance block"}
+1. **Mitigation rows 503-520** (fuels `C503:C520` = ecy coa nga oop gso die ker lpg jfu wnd sol hyd ore nuc bio bgs
+   bdi obf; flows `E501:W501` = imports production exports stockcha worldav worldnav tes · statdiff transfer ownuse
+   distloss tottranf power tfc · eloutput info_agrc):
+   `X<r> = INDEX(_balances, MATCH($C$501&X$501, _bal_countries&_bal_flows, 0), MATCH($C<r>, _bal_fuels, 0))`, an array
+   MATCH on a concatenated key; `_balances = Balances!A13:Z4044`, `_bal_countries = Balances!A13:A4044`,
+   `_bal_flows = Balances!E13:E4044`, `_bal_fuels = Balances!A13:Z13`, `C501 = _Country_code`. **The year is not part
+   of the key**, so the Balances tab must hold a single year per country (this file: EGY 2022 only, rows 14-50).
+2. **Rows 584-597** (coa nga oop gso die ker lpg jfu wnd sol hyd ore nuc bio), with
+   `C578 = (BalancesOrConsumption="Balances")` = TRUE: `E<r> = IF($C$578, V<r−80>, …EnergyCons…)` power output (GWh,
+   flow `eloutput`); `F<r> = IF($C$578, −S<r−80>, …)` fuel input (ktoe, minus flow `power`). Example: `E584 = V504`,
+   `F584 = −S504`.
+3. **A1 rows 2959-2973:** `L<r> = $F$<584+k>` (input ktoe), `M<r> = $E$<584+k>` (output GWh), k = 0..13. Row 2973
+   "All oil products" (`oil`): `L2973 = SUM(L2961:L2966)`, `M2973 = SUM(M2961:M2966)` (oop gso die ker lpg jfu).
+4. **A4 rows 2999-3007:**
+
+| Cell | Formula |
+|---|---|
+| K | `=MATCH(B,$B2959:$B2973,0)` (oil → row 2973) |
+| L (primary energy MWy) | `=INDEX(L2959:L2973,$K,0)*_conv_ktoe_to_mwy` |
+| M (power output MWy) | `=INDEX(M2959:M2973,$K,0)*_conv_gwh_to_mwy` |
+| N (capacity actual MW) | `=INDEX(Power!$F$358:$Y$1635, MATCH(LOWER(_Country_code)&"."&B, Power!$C$358:$C$1635,0), MATCH(FirstYearCalculations, Power!$F$357:$Y$357,0))` → **#N/A** (bug L53: 2022 is column AB, outside F:Y = 2000-2019) |
+| O (eff. actual) | `=M/L` (#DIV/0! without input) |
+| P (eff. studies) | coa, nga, oil, nuc, bio: `=P<A2 row>`; wnd, sol, hyd, ore: typed **1.0** |
+| Q (CF actual) | `=IFERROR(M/N,0)` → 0 (N is #N/A) |
+| R (CF studies) | `=N<A2 row>` |
+| S (min CF) | wnd, sol: `CFOverrideIfBelowWndSol` (ScenarioDefinition F375 = Dashboard G196 = 0.1); others `CFOverrideIfBelowFosOth` (F376 = G197 = 0.01) |
+| T (max CF) | `CFOverrideIfAbove` (F377 = G198 = 1) |
+| **V (eff. used)** | `=IFERROR(IF(O<MinimumThermalEfficiency,P,O),P)`, MinimumThermalEfficiency = F380 = Dashboard G194 = 0.1 |
+| **W (CF used)** | `=IFERROR(IF(AND(Q<T,Q>S),Q,R),R)` → always R, because Q = 0 |
+| X | `=1/W` |
+| **Y (capacity used, MW)** | `=M*X` |
+:::
+
+::: {.callout-warning collapse="true" title="Legacy chains: A7 capex time factors (rows 3036-3046)"}
+- `L3036 = FirstYearCalculations`; `L3037 = MATCH(L3036, CapexTimeFactorYearRange, 0)` with
+  `CapexTimeFactorYearRange = Power!F302:BD302` (2000..2050), so 2022 → 23 → Power column AB.
+- Row r = 3038 + i:
+  - `E = "wld.ctf."&scen&"."&B`; scen = `"med"` (typed) for coa, nga, oil, nuc; for wnd, sol, hyd, ore, bio
+    `IF(RenewableCostDeclineRate="Low","low",IF(RenewableCostDeclineRate="Medium*","med",IF(RenewableCostDeclineRate="High","hgh","vhg")))`,
+    with `RenewableCostDeclineRate` = ScenarioDefinition F367 = Dashboard G52 = "Medium*".
+  - `F = LOWER(_Country_code)&"."&scen&".ctf."&B` (`egy.med.ctf.coa`): the segment order differs from the world codes
+    and the Power tab has no country ctf rows, so it **never matches**.
+  - `I = IFERROR(MATCH(E,Power!$A$25:$A$356,0),0)`, `J = IFERROR(MATCH(F,Power!$A$25:$A$356,0),I)`.
+  - `L..AE = INDEX(Power!F$25:$BE$597, $J, L$3037)`.
+- Egypt indices → Power rows: coa 283 → 307, nga 288 → 312, oil 290 → 314, nuc 289 → 313, wnd 296 → 320, sol 295 →
+  319, hyd 285 → 309, ore 292 → 316 (`wld.ctf.med.ore` also at row 318; the first match wins), bio 280 → 304.
+:::
+
+::: {.callout-warning collapse="true" title="Legacy chains: A3 WACC (rows 2987-2996) and the CoC tab"}
+Rows 2988-2996 = coa … bio.
+
+| Cell | Formula (first XLOOKUP argument restored) | Egypt |
+|---|---|---|
+| G | `=LOWER(_Country_code)` | egy |
+| AA | `=INDEX(Countries!$H$6:$H$227, MATCH(_Countryname, Countries!$C$6:$C$227,0),1)`, income code (Countries H = IF(G="Low income","LIC",…,"HIC")) | LMIC (Countries row 65) |
+| AC | typed type code | |
+| AB ("Tech") | `=IFERROR(XLOOKUP(G, CoC!$B$202:$B$390, CoC!$D$202:$D$390, 0.075), 0.075) + XLOOKUP(AC, CoC!$X$203:$X$211, XLOOKUP(AA, CoC!$Y$202:$AB$202, CoC!$Y$203:$AB$211))` | .0994764 + premium |
+| I ("Country*") | `=IFERROR(XLOOKUP(G, CoC!$B$202:$B$390, CoC!$D$202:$D$390, 0.075), 0.075) + XLOOKUP(AA, CoC!$Y$202:$AB$202, CoC!$Y$205:$AB$205)` (coal premium, row 205, for all types) | .124126 |
+| Q | `=S<A2 row>` (Power J) | |
+| R | `=IF(WACCSource="User", WACCUserGlobal, IF(WACCSource="Income*", IncomeDepWACC, Q))`, `IncomeDepWACC = Mitigation!S82 = INDEX(Power!$N$20:$N$23, MATCH(S81, Power!$M$20:$M$23,0))` | |
+| S, T, U, V, W | `S = IF(L="Yes",M,R)`; `T = IF(C2173>1, N, "No*")`; `U = IF(T="Delta",O,0)`; `V = IF(T="Override",P,"")`; `W = MinimumWACC` (F348 = Dashboard Q193 = 0.01) | |
+| **X (Final WACC)** | `=IF(D_WACCSource="Country*", I, IF(D_WACCSource="Tech", AB, MAX(IF(T="Override",V,S+U),W)))`, `D_WACCSource = Dashboard!Q191` = **"Tech"** (`WACCSource` = F365, same cell) | = AB |
+| Y | `=1/(1+X)` | |
+
+- Only CoC column **D (2022)** is used: WACC is constant over time.
+- Tech adjustment table (X203:X211 × Y..AB = HIC/UMIC/LMIC/LIC), LMIC column AA: bio .03215 (row 203), nga .02465
+  (204), coa .02465 (205), ore .04425 (206), hyd .02725 (207), sol .02935 (208), oil .02465 (209), nuc .02725 (210),
+  wnd .02935 (211). `CoC!D253` (EGY) = 0.09947642998297449.
+
+**The CoC tab (rows 200-390).** Title A200 ">>> Real WACC"; header row 201: A Country, B Country_Code, C S&P,
+**D201:V201 = 2022..2040**, X201 "Tech Adjustment". Rows 202-390 (189 countries, alphabetical): A name, **B ISO3
+upper-case (lookup key)**, C rating (or "Not Found"). D..V: real WACC by year (only D used; Egypt row **253**).
+These are `LET` formulas (the WACC calculator): `rf + β·(ERP_US + CRP)` weighted by the equity share, plus
+`(rf + default spread + lender margin)·(1−tax)·(1−equity share)`; rf = `XLOOKUP(year, A24:A34, C24:C34)` (real
+risk-free rate); β, CRP, default spread, tax, equity weight, lender margin = `XLOOKUP(code, B41:B197, H/F/D/G/I/J41:197,
+<row 172>)`; ERP_US = E192. Countries missing from the fixed data (65 rows, C = "Not Found") get **row 172 (Sri
+Lanka)** through the if_not_found argument (e.g. AFG = LKA = 0.177883…; bug L56). From M (2031) the values repeat
+the previous year. Tech adjustment table: X202 "(CPAT) Tech", Y202:AB202 = HIC, UMIC, LMIC, LIC; X203:X211 = bio, nga,
+coa, ore, hyd, sol, oil, nuc, wnd; **Y203:AB211** typed additive premiums. Lookups: country
+`XLOOKUP(LOWER(iso), CoC!$B$202:$B$390, CoC!$D$202:$D$390, 0.075)` (0.075 if missing); premium
+`XLOOKUP(tech, CoC!$X$203:$X$211, XLOOKUP(income, CoC!$Y$202:$AB$202, CoC!$Y$203:$AB$211))`; Country* uses
+`CoC!$Y$205:$AB$205` (coal row) for every type. Calculator inputs: rows 22-36 time data (A year, B nominal yield,
+C real rf = `EXP(LN(1+B)−LN(1+$F$24))−1`, D US deflator, F24 = `(D31/D24)^(1/7)−1`); rows 40-197 fixed data (A
+country, B code, C region/income, D default spread, E ERP, F CRP, G tax, H β, I equity weight, J lender margin; some
+B/C/H/I cells are `=#N/A`).
+:::
+
+::: {.callout-warning collapse="true" title="Legacy chains: A5 / A6 discounted lifetime"}
+`G3026+i = (1-$Y<2988+i>^$G<3012+i>)/(1-$Y<2988+i>)`, where `G3012+i = T<2977+i>` (lifetime) and $Y = 1/(1+wacc)$:
+the sum over k = 0..n−1 of $(1+wacc)^{-k}$. Egypt: wnd G3030 = 8.531278484, sol G3031 = 8.338794967. Used by
+`dlf_ren` and `cel`.
+:::
+
+::: {.callout-warning collapse="true" title="Legacy chains: generation-type items (PowerTech)"}
+Notation: i = type offset (coa 0 … bio 8). "Rule-C" = country Power row if > 0, else world. "Rule-W" = world row
+only (bug L52).
+
+| Item | Copied cell | Chain | Country-specific? | Egypt (legacy) |
+|---|---|---|---|---|
+| `cax0_usd_per_kw` | `Mitigation!H(3181+i) / L(3038+i)` | `H3181 = L3099` (B2, "assumed capex for existing capital stock"); `L3099 = $O2977*L3038` (A13: capex × time factor); so cax0 = O(2977+i), A2 CapEx (Power F, Rule-C for all types) | yes, via `iso.mpp.<t>` (Egypt: nga row 166, sol row 230); else world rows 28-36 | 2000, 1304.195, 1345.38, 4000, 1300, 1222.683, 3300, 3500, 2000 |
+| `life_years` | `Mitigation!T(2977+i)` | Power K; coa..nuc Rule-C, wnd..bio Rule-W | coa..nuc only, if the country row has K (Egypt's have none) | 30, 30, 35, 50, 30, 25, 50, 30, 30 |
+| `efficiency` | `Mitigation!L(3061+i)` (A9; `L3061 = V2999`, later = L) | `V = IFERROR(IF(O<MinimumThermalEfficiency, P, O), P)`; O = eloutput (GWh × 1000/8760) / (−power (ktoe) × 11.63 × 1000/8760), oil sums oop..jfu; fallback P = A2 P (Power G: Rule-C coa..nuc, Rule-W bio) or 1.0 for wnd, sol, hyd, ore; minimum 0.1 (Dashboard G194) | yes (Balances); fallback Power G | coa .343545 (no input → world G28), nga .4749917 (175,355.62 GWh / 31,743.44 ktoe), oop .3214695, nuc .38, wnd 1.0038548, sol 1.0261872, hyd .9374616, ore 1.0, bio .2527459 |
+| `capacity_factor` | `Mitigation!L(3049+i)` (A8; `L3049 = W2999`) | `W = IFERROR(IF(AND(Q<T,Q>S),Q,R),R)`; Q is always 0 (bug L53), so CF = R = A2 N = Power E, Rule-C; the CFOverride bounds never act | only via a country E (Egypt has none) | .535, .566, .134, .934, .3, .18, .4322928214, .7512024819, .6857673941 |
+| `wacc` | `Mitigation!H(3203+i)` (B4 "Final WACC"; `H3203 = X2988`) | A3 with D_WACCSource = Tech | yes (CoC 2022 + income-group premium) | coa/nga/oop .12412642998, nuc/hyd .12672642998, wnd/sol .12882642998, ore .14372642998, bio .13162642998 |
+| `dtc_usd_per_kw` | `Mitigation!L(3110+i)` (A14) | `L3110 = INDEX(Power!$E$25:$E$355, $K3110)*$O2977`, `K3110 = IFERROR(MATCH("wld.dtc."&B3110, Power!$A$25:$A$356,0),0)` (rows 346-354): world share × capex | via capex | 100, 13.04195, 33.0210467, 532.133695, 39, 73.36098, 660, 253.788727, 145.02213 |
+| `tcx_usd_per_kw` | `Mitigation!L(3121+i)` (A15, labelled "not used in the model at all") | `L3121 = INDEX(Power!$F$25:$F$355, $K3110)*$O2977`, reusing A14's helper K3110 (same value as K3121): world transmission share (Power F346:F354) × capex | via capex | 597.474101, 382.180237, 447.878551, 449.426341, 405.468607, 335.334508, 756.528401, 347.657362, 267.624027 |
+| `opf_usd_per_kwh` | `Mitigation!L(3132+i)` (A16) | `L3132 = $Q2977/(365*24*L3049)`: Power H (Rule-C coa..nuc, Rule-W wnd..bio) / (8760 × CF used) | via H and CF; nga country H166 = 32.05; **sol world 15, not country 11.831 (bug)** | .0128024581, .0064640915, .0200410618, .0183332844, .0152207002, .0095129376, .0132034637, .0151963357, .0166463515 |
+| `vop_usd_per_kwh` | `Mitigation!L(3339+i)` (D1) | `L3339 = $R2977` (Power I; Rule-C coa..nuc, Rule-W wnd..bio); the code in H (`egy.mit.vro.pow.<t>.t.1`) is a label only | coa..nuc (Egypt nga .004 from row 166; world .002) | .003, .004, .00517, .004, 0, 0, .001, 0, .003 |
+| `fuel_fixed_usd_per_kwh` | `Mitigation!L3353` (D2, nuclear row); 0 for the others by script (their D2 rows are fuel prices) | `L3353 = K2727` (**column shift**: the 2022 cell takes the 2021 value; `M3353 = L2727`); `K2727 = K$710`; `Mitigation!K710:AE710` = typed 0.004 ("Uranium Fuel Cost", USD/kWhe). Power G22 = 0.004 is the documented source but not linked | no | nuc 0.004, others 0 |
+| `cap0_mw` | `Mitigation!Y<A4 row>` (oop → `oil` row 3001) | `Y = M*(1/W)` = gen0 / CF used | yes (Balances) | 0, 35367.0761395, 15765.4362799, 0, 2387.25143731, 3326.62425071, 3879.79648188, 0, 0 |
+| `gen0_mwy` | `Mitigation!M<A4 row>` | `M = INDEX(M2959:M2973,K,0)*_conv_gwh_to_mwy`, M2959.. = E584.. = Balances `eloutput` (GWh); oil = oop..jfu | yes (Balances) | 0, 20017.765095, 2112.5684615, 0, 716.17543119, 598.79236513, 1677.2081677, 0, 0 |
+| `retire_rate` | `Mitigation!J(4011+i)` (K6) | `J = 1/I`, `I(4011+i) = T(2977+i)`; hydro `J4017 = IF(HydroDoesntRetire="Yes",0,1/I4017)` (F350 = Dashboard V198 = "Yes") | via lifetime only | 1/30, 1/30, 1/35, 1/50, 1/30, 1/25, 0, 1/30, 1/30 |
+| `invest_permitted` | `Mitigation!G(4061+i)` (L3) | `G = IF(E="If Present*", F, E)`; `E = ScenarioDefinition!F$397..F$405` (NewInvCoa..NewInvBio = Dashboard U51:U59; Egypt "If Present*" except wnd, sol "Yes"); `F = IF(OR(_Country_code="WAV",_Country_code="WMR"),"Yes", IF(L(3932+i)/L3941>0.001,"Yes","No"))`, `L3932+i = Y(A4)` = cap0, `L3941 = SUM(L3932:L3940)` | yes (capacity share), unless the Dashboard overrides | No, Yes, Yes, No, Yes, Yes, Yes, No, No |
+| `invest_start` | `Mitigation!H(4061+i)` | `H = NewInv<Tech>Year` (F407..F415 = Dashboard V51:V59: 2022, 2022, 2022, 2030, 2022, 2022, 2030, 2030, 2022). **Hydro bug (L54):** `H4067 = IF($L$3827>50%, FirstYearCalculations, NewInvHydYear)`; L3827 is the year header of table I5 (2022), so hydro always starts in 2022 (probably intended: the hydro generation share L3846) | no | 2022, 2022, 2022, 2030, 2022, 2022, **2022**, 2030, 2022 |
+| `scaleup_rate` | `Mitigation!G(4130+i)` | coa, nga, hyd: `MaxNonVREAsPCOfTotalGen` (F359 = Dashboard Q194 = 0.05); oop, nuc, ore, bio: `MaxNonNucOreBioAsPCOfTotalGen` (F360 = Q195 = 0.02); wnd, sol: `VREMaxPercentagePointofTotalGen = Mitigation!S91 = INDEX(S85:S90, MATCH($O91, O85:O90, 0))`, `O91 = ScenarioDefinition!F362` (MaxScaleUpRateCategory = Dashboard G53 = "CtryDefault*"): CtryDefault* → `S85 = INDEX(Power!$C$2349:$C$2570, MATCH(LOWER(_Country_code), Power!$B$2349:$B$2570, 0))`; Low → Power J20 (.01); Medium → J21 (.02); High → J22 (.03); Vhigh → J23 (.04); UserDefined → MaxWindSolarScaleup (F361 = Q196 = .05) | wnd and sol under CtryDefault* (Power B2349:C2570; EGY row 2408 = 0.02) | .05, .05, .02, .02, .02, .02, .05, .02, .02 |
+| `planned_retirement` | `Mitigation!J3991` (K5 "Use Data?"); "No" for the others by script | `J3991 = INDEX(Power!$F$1750:$F$1857, I3992)`, `I3992 = MATCH(_Country_code, Power!$D$1750:$D$1878, 0)` = 25 → Power row 1774 (EGY); `Power!F1750.. = IF(AVERAGE(Z:AJ)<0.1,"No","Yes")` over the five-year-averaged retirements; use: `L3991 = IFERROR(IF(OR(ISNA(INDEX(Power!$D$1749:$BD$1878,$I3992,L3990)), $J3991="No"),"DoNotUse","UseData"),"DoNotUse")` (the ISNA probe is offset by one row and three columns: bug, harmless) | yes (Power planned-retirement block) | No (all 9) |
+| Script constants | none | `code`, `name` (labels); `price_code` (coa.pow, nga.pow, oop.all, bio.all: the section-2 price rows D2 uses); `vre` (wnd, sol, ore = 1) and `vre_share` (sets of legacy C3, rows 3851/3907); `dispatch` (coa, nga = cg); `rns_usd_per_kwh = 0` (nearest legacy analogue: RenewableSubsidyBL = F354 = Dashboard L55 = 0); `source` | no | |
+
+Every Egypt value matches the copied table.
+:::
+
+::: {.callout-warning collapse="true" title="Legacy chains: year paths (PowerPaths; years 2022-2041 = Mitigation L..AE)"}
+| Path | Copied cells | Chain | Country-specific? | Egypt (legacy) |
+|---|---|---|---|---|
+| `tcf\|<t>` | `Mitigation!L..AE(3038+i)` (A7) | `INDEX(Power!F$25:$BE$597, MATCH("wld.ctf."&scen&"."&t, Power!$A$25:$A$356,0), MATCH(year, Power!$F$302:$BD$302,0))` | no (world rows); depends on the decline scenario (Dashboard G52) for renewables | coa, nga, oop, nuc, hyd, ore, bio 1.0 every year; wnd (Power row 320): 1.05 (2022), 1.0, .993, … .909 (2041); sol (row 319): 1.05, 1.0, .955, … .533 |
+| `cbat`, `cint`, `obat` | `Mitigation!L..AE 3887 / 3888 / 3891` (J2) | `L3882 = MATCH(L3881, Power!$F$1883:$BD$1883)` (**approximate** match, years ascending; L3881 = FirstYearCalculations + k); `L3887 = INDEX(Power!$F$1899:$BD$1899,1,L3882)` (Battery Capex USD/kWh); `L3888 = INDEX(Power!$F$1903:$BD$1903,1,L3882)` (Batteryinterface Capex USD/kW); `L3891 = INDEX(Power!$F$1900:$BD$1900,1,L3882)` (Battery OpexFix USD/kWh/y). Power rows 1899-1911 are EUR rows 1884-1895 × 1.18 (2021 EUR→USD, Power D1897) | no | cbat 300.61444 (2022) …; cint 150.30722 …; obat 9.47422 … |
+| `cel` | `Mitigation!L3900 + L3901 + L3902` | `L3900 = L3897/L3885`, `L3897 = INDEX(Power!$F$1907:$BD$1907,1,L3882) + L3896` (electrolyser capex), `L3896 = L3895*L3894`, `L3895 = INDEX(Power!$F$1911:$BD$1911,1,L3882)` (storage tank USD/kWh), `L3894 = $E3879 = StorageHoursForLTStorage` (F395 = Dashboard V196 = 1000); `L3885 = L3883*365*24`, `L3883 = AVERAGE($G3030:$G3031)` (dlf_ren); `L3901 = L3898/L3884`, `L3898 = INDEX(Power!$F$1908:$BD$1908,…)` (opex fixed), `L3884 = 8760`; `L3902 = L3899 = INDEX(Power!$F$1909:$BD$1909,…)` (variable opex) | **yes**, through dlf_ren (country WACC of wind and solar, their lifetimes) | 0.0698625848 (2022), 0.0675552617, … |
+| `incf` | `Mitigation!L..AE2433` | `L2433 = IF($E2425, L2432/$G2432, 1)`, `E2425 = IF(D2425="Yes*",1,0)`, `D2425 = IncElAdj` (F262 = Dashboard L24 = "Yes*"), `G2432 = 0.74`; `L2432 = MAX(0, 0.012019x⁴ − 0.365464x³ + 4.011846x² − 18.722243x + 31.59949 + 0.16)`, `x = L2431 = MIN(10, LN(L2429))`; GDP per capita 2022 `L2429 = L2442/L2428*10^3` (not lagged), later `M2429 = L2443/L2428*10^3` (last year's post-policy GDP / last year's population); `L2443 = K2442*(1+L2446)`, `L2446 = L2444 + L2445` (row 480 = row 463 × F287; endogenous change K8288, 0 in the baseline); `L2442 = L$465`; row 465 (USD bn, ResultsYear prices): J, K (2020-2021) `= CHOOSE($E$460, J423, J423, J443)` = row 422 × row 467, row 422 = WEO NGDP (LCU bn, row 424) / WEO XDC_USD.PA_RT (row 432), row 467 = CHOOSE(H467, row 453, row 418), with DfSelection "World" row 453 = USA NGDP_D(ResultsYear)/USA NGDP_D(y); from L `= K465*(1+L463)`, `L463 = CHOOSE($E$460, L420, 'Manual inputs'!J231, L441)`, E460 = MATCH(GDPScenario "WEO*", {"WEO","Manual","SSPs"}, 0) = 1; row 420 = WEO NGDP_RPCH/100 to the WEO last year (2031), extrapolated after; `F287 = CHOOSE(MATCH(GdpAdj,{"Low","Base","High"},0), 50%, 100%, 150%)` = 1 (GdpAdj = Dashboard V20 = "Base*"; the * acts as a wildcard); row 428 population = WEO LP.A (millions), extrapolated `prev*(1+growth)`; WEO lookups `INDEX(WEO!$C$9:$AU$3333, MATCH(iso&"."&code, WEO!$D$9:$D$3333, 0), MATCH(year, WEO!$C$9:$AU$9, 0))` | yes (WEO GDP and population) | 1.0271517247 (2022), 1.0271517247 (2023), 1.0205698359, …, 0.9460252655 (2041) |
+| `shock` | `Mitigation!L..AE2439` (`= L$483`) | row 483: L (2022) empty (0), M483 = E478 (2023), N483 = F478 (2024), O onwards empty; `E478 = IF(M479=FirstYearCalculations+1, IFERROR(INDEX(GHGs!$G$1202:$G$1388, MATCH(_Country_code, GHGs!$B$1202:$B$1388,0)),"0%"), 0)` (the test is always true; the fallback is the text "0%"); `F478 = IF(N479=FirstYearCalculations+2, IFERROR(INDEX(GHGs!$H$1202:$H$1388, …),0%),0)`; GHGs G1202:H1388 typed calibration values, key GHGs B = ISO (`INDEX(Countries!D, MATCH(name D, Countries!C))`); Egypt row 1224: G = −0.2081330830, H = 0.0923714286 | yes (GHGs) | 0, −0.20813308302, 0.09237142857, then 0 |
+| `pret\|<t>` | coal only, `Mitigation!L..3992`; zeros for all types by script | `L3992 = IF(L3991="DoNotUse", L3932*$J4011, INDEX(Power!$G$1750:$BD$1878, $I3992, L3990))`, `L3990 = MATCH(L3989, Power!$G$1749:$BD$1749, 0)` (2022 → 22 → column AB); data = Power averaged block 1750-1857 (5-year centred mean of the raw block 1639-1746: `H1750 = AVERAGE(F1639:J1639)` …). When the data are not used, row 3992 holds the exponential retirement (capacity × rate), not a planned-retirement series | yes (coal only) | Power row 1774 all 0; row 3992 0 (coal capacity 0); the table 0 everywhere, consistent |
+:::
+
+::: {.callout-warning collapse="true" title="Legacy chains: parameters (PowerParams)"}
+| Key | Copied cell | Chain | Country? | Egypt |
+|---|---|---|---|---|
+| `tmc\|res` | Mitigation!L3599 | `=ResidentialTransmissionCost` = **Power!G20** | no | 0.04 |
+| `tmc\|ind` | Mitigation!L3628 | `=IndustrialTransmissionCost` = **Power!G21** | no | 0.015 |
+| `pass` | Mitigation!L3596 | `=$J3596`; `J3596 = PowerSectorPriceChangePassOn` = F343 = **Dashboard!L51** | no | 1.0 |
+| `gen_per_cons` | Mitigation!I3723 | `=1+SUM(I3719:I3722)`, telescoping to **L3748/L3741** = generation / final power demand (ktoe) | yes (Balances) | 1.2211686765 |
+| `dlf_ren` | Mitigation!L3883 | `=AVERAGE($G3030:$G3031)` (wind and solar annuity sums at the country WACC) | yes (CoC) | 8.4350367257 |
+| `st_alloc` | Mitigation!E3871 | `=ScenarioDefinition!F$388` (AllocateSTStorageToVRE) = **Dashboard!V190** | no | 1.0 |
+| `st_marg_hours` | Mitigation!E3873 | `=2*E3872`; `E3872 = F$389` (TotalHoursStorageFor100pcVRE) = **Dashboard!V191** (9) | no | 18 |
+| `st_ratio` | Mitigation!E3874 | `=F$390` (StorageToInterfaceRatioSTStorage) = **Dashboard!V192** | no | 2 |
+| `lt_start` | Mitigation!E3877 | `=StartingPointWhenLTStorageIsNeeded` = F393 = **Dashboard!V194** | no | 0.75 |
+| `lt_alloc` | Mitigation!E3876 | `=F$392` (AllocateLTStorageToVRE) = **Dashboard!V193** | no | 0.33 |
+| `sh_nxp` | Mitigation!I3719 | `=IF(L3741=0,0,L3742/L3741)`; `L3742 = F3719 = −SUM($E$503,$G$503)` = −(imports + exports), `ecy` | yes | 0.0092445306 |
+| `sh_tsd` | Mitigation!I3720 | `=L3743/L3741`; `L3743 = F3720 = −SUM($N$503,$O$503,$Q$503)` = −(statdiff + transfer + distloss) | yes | 0.1899579758 |
+| `sh_eou` | Mitigation!I3721 | `=L3744/L3741`; `L3744 = F3721 = −$P$503` = −ownuse | yes | 0.0381940028 |
+| `sh_add` | Mitigation!I3722 | `=L3745/L3741`; `L3745 = L3748 − SUM(L3741:L3744)` (residual) | yes | −0.0162278327 |
+| `extra_eff` | Mitigation!M3719 | `=M2198`; `M2198 = ScenarioDefinition!$F$242` (AdditionalEfficiencyPower) = **Dashboard!L134** | no | 0 |
+| `maxcf_cg` | Mitigation!L3783 | `=MaximumCoalCF` = F372 = **Dashboard!G192**; gas has `L3784 = MaximumGasCF` (F373 = G193, also 0.9); the table keeps one value | no | 0.9 |
+| `k_dispatch` | Mitigation!M3720 | `=kDispatch` = F346 = **Dashboard!G190** | no | 2 |
+| `k_invest` | Mitigation!M3721 | `=kInvestment` = F347 = **Dashboard!Q190** | no | 2 |
+| `min_cost` | Mitigation!K3463 | `=MinPostSubsidyPowerPrice` = F351 = **Dashboard!L192** | no | 0.01 |
+| `early_max` | Mitigation!J3975 | **typed 0.8** (not linked to MaxCostBasedEarlyRetirement) | no | 0.8 |
+| `early_factor` | Mitigation!F3993 | `=IF(C2173=1, IF(EarlyRetirementInBaseline="Yes", MaxCostBasedEarlyRetirement, 0%), MaxCostBasedEarlyRetirement)`; F379 = **Dashboard!Q52** ("Yes"), F378 = **Dashboard!Q51** (0.8) | no | 0.8 |
+| `ktoe_gwh` | script constant | `_conv_ktoe_to_gwh` = Mitigation!E1033 = 11.63 (typed) | no | 11.63 |
+
+**`gen_per_cons` and the shares (base year L = 2022).**
+
+- **L3741, total final power demand (ktoe):** `=SUM(L3725:L3739)`, `L37xx = E37xx`;
+  `D3725:E3738 = TRANSPOSE(_Power_Use_Formatted)`, `_Power_Use_Formatted = Mitigation!G582:T583`; `E3739 = $V$583`;
+  `G583..T583 = IF($C$578, E531..R531, …)`, `V583 = T531`; row 531 = Balances `ecy` (C503) for the flows in
+  `E529:R529, T529`: road, rail, domesair, domesnav, resident, food_forest, services, mining_chemicals, ironstl,
+  nonferrmet, machinery, cement, other_manufact, construc, plus ononspec. Excluded: U583 (fuel transformation / own
+  use) and nonenuse. Egypt: 15495.7198104.
+- **L3748, actual generation (ktoe):** `=L3751/_conv_ktoe_to_gwh`; `L3751 = L3754/_conv_gwh_to_mwy`;
+  `L3754 = L3813 = SUM(L3804:L3812)`; `L3804+i = M(A4 row)` (gen0): Σ gen0 (MWy) × 8.76 / 11.63. Egypt:
+  18922.8876526.
+- `I3722 = (L3748 − L3741 − L3742 − L3743 − L3744)/L3741`, so `I3723 = L3748/L3741` exactly.
+- With `BalancesOrConsumption` = "Consumption" (ScenarioDefinition F234 = Dashboard G136; Egypt "Balances") the
+  shares come from `J3719:J3721 = $H$573:$H$575` instead.
+:::
+
+::: {.callout-warning collapse="true" title="Legacy chains: layout of the Power tab"}
+Values are typed except where noted. Code keys are in **column A** (lower case); a copy of old data sits to the right
+(columns Q/R..AA, "OLD DATA"; not used). The lookups of A2, A7 and A14 use `MATCH(code, Power!$A$25:$A$356, 0)` with
+`INDEX(Power!<col>$25:<col>$356, idx)`, so rows 25-356 must keep their positions, **including the regional block and
+the order of duplicates**.
+
+| Block | Rows | Header | Key and code pattern | Values | Used by |
+|---|---|---|---|---|---|
+| Year header | 1 | F1:BD1 = 2000..2050 | - | - | - |
+| Overview | 2-14 | text (A data section, C method, K unit, N level, P source) | - | - | - |
+| Misc. parameters | 15-23 | A15 title, A16 "Global level", header row 19 (B Quantity, D Sector, E Source, F Unit, G Value) | rows 20-23 by position | G20 residential T&D 0.04 (`ResidentialTransmissionCost`); G21 industrial 0.015 (`IndustrialTransmissionCost`); G22 nuclear fuel 0.004 (not linked); G23 `=ROUND(AVERAGE(#REF!),2)` (broken, unused) | `tmc` |
+| RE scale-up categories | 19-23 | I19; I20:I23 = Low, Medium*, High, Vhigh | position | J20:J23 = .01 .02 .03 .04 | wind and solar rate if the category is not CtryDefault |
+| WACC by income | 18-23 | M18 "WACC Assumptions (user set)", M19/N19 | M20:M23 = HIC, UMIC, LMIC, LIC | N20:N23 = .075 .1 .125 .15 | `IncomeDepWACC` (Mitigation!S82), only with Income* |
+| mpp world | 25-39 | A25 title, A26 "Global level", **header row 27**: B Item Code, C CPAT World Code, D Tech, E CapacityFactor, F CapEx.USD_kW, G Efficiency.NCV, H OpexFixed.USD_kW_y, I OpexVariable.USD_kWh, J WACC, K TotalLifetime, L Construction | A28:A39 `wld.mpp.<t>`, t = coa nga oil nuc hyd wnd sol ore bio eys bat bat-int | E..L | A2 (L, M indices) |
+| mpp regional | 40-109 | A40 "Regional level", header row 41 (C CPAT Region Code; E..J) | A42:A109 `<reg>.mpp.<t>`, reg ∈ {nac, chn, eas, ecs, jpn, kor, lcn, mea, sas, ssf} (name `reg_mpp` = A41:BD109) | E..J | not deliberately; **shadows** the country codes chn, jpn, kor (bug L55) |
+| mpp country | 110-294 | A110 "Country level", header row 111 (C CPAT Country Code; J "WACC (Not used)", K "TotalLifetime (Not used)") | A112:A294 `<iso3>.mpp.<t>` (63 countries; name `mpp_cntr` = A112:BD299); Egypt A166 `egy.mpp.nga`, A230 `egy.mpp.sol` | E..K (sparse; blank or 0 = use world) | A2 (K index) |
+| Capex time factor (ctf) | 300-330 | A300 title, row 301 "Global level", **header row 302**: B Item Code, C world, D Scenarios, E tech, **F302:BD302 = 2000..2050** (`CapexTimeFactorYearRange`) | A303:A330 `=C&"."&B&"."&D&"."&E` → `wld.ctf.<scen>.<t>`, scen ∈ {low, med, hgh, vhg, oldlow, oldmed, oldhgh, oldvhg}; `wld.ctf.med.ore` duplicated (316, 318); name `reg_ctf` = A302:BE343 | F..BD by year (index 2020 = 1) | A7 |
+| Yearly change sol/wnd | 331-340 | helper (D category, E tech, F historical average, G.. formulas) | - | - | feeds the ctf rows |
+| Decommissioning and transmission (dtc) | 344-354 | A344 title, **header row 345**: B Item Code, C world, D tech, E decommissioning (share of capex), F transmission (share of capex) | A346:A354 `wld.dtc.<t>`, t = coa nga oil nuc wnd sol hyd ore bio; E353:E354 `=AVERAGE(E346:E352)` | E, F | A14, A15 |
+| Installed capacity | 355-1635 | A355 title, **header row 357**: B "ic", C Code, D CountryCode, E FuelType, **F357:AC357 = 2000..2023** | **column C** `<iso3>.<t>` (9 rows per country; Egypt C691:C699); name `instcap_cntr` = A358:BD1635 | F..AC MW | A4 column N (broken: range F:Y) |
+| Planned retirement, raw (coal) | 1636-1746 | A1636 title, A1637 source, **header row 1638**: D CountryCode, E CountryName, F1638:AT1638 = 2000..2040 | **column D** ISO3 upper case (Egypt D1663); name `cpp_retir` = A1639:BD1746 | F..AT MW/y | the averaged block |
+| Planned retirement, averaged | 1748-1857 | A1748 title, **header row 1749**: D CountryCode, E CountryName, **F DataAvailable**, G1749:AT1749 = 2001..2040 | **column D** ISO3 (Egypt D1774); all formulas: `D=D1639`, `F=IF(AVERAGE(Z:AJ)<0.1,"No","Yes")`, `H1750=AVERAGE(F1639:J1639)` … (G typed 0); name `avg_data_cntr` = A1750:BD1857 | F flag; G..AT MW/y | K5 |
+| Battery storage | 1882-1911 | A1882 title; **row 1883 years F:BD** (`Z1883 = 2020` typed, the rest ±1 formulas); rows 1884-1895 EUR values (C tech, D item, E unit); D1896 2015 EUR→USD 1.085, D1897 2021 EUR→USD 1.18; row 1898 years; rows 1899-1911 USD values (formulas) | by **position**: 1899 Battery Capex USD/kWh, 1900 Battery OpexFix, 1901 OpexVar, 1902 Lifetime, 1903 Batteryinterface Capex USD/kW, 1904-1906 its OpexFix, OpexVar, Lifetime, 1907 WaterElectrolysis Capex, 1908 OpexFix, 1909 VariableOpex, 1910 Lifetime, 1911 StorageTank Capex USD/kWh | F..BD by year | J2 |
+| Max/avg RE growth | 1917-2335 | header row 1921: A Code, B CountryCode, C FuelType, D AveGrowthMW, E MaxGrowthMW, F TotalCap, G..J rates; H1919 = `MinimumGrowthRateRenewables` | A `=B&"."&C` → `<iso>.<sol\|wnd>`; `wld.sol`, `wld.wnd` at 2334-2335 (`_AvGrowthRate_World_*`); name `max_avg_cap_inc` = A1921:BD2335 | D..J | engine scale-up (not one of these items) |
+| VRE max investment | 2343-2570 | A2343, A2344 titles; header row 2348: A Economy, B Code (ISO3 upper), C historical country maximum RE scale-up rate | **column B** ISO3 (Egypt row 2408) | C (0.02 default; CHN and IND 0.03) | wind and solar rate (CtryDefault*) |
+| sol_wind by carbon-price band | 2572-4792 | header row 2572: A Code, B CountryCode, C FuelType, D CarbonPriceLevel, E2572:Z2572 = 2019..2040 | A `=LOWER(B)&"."&C&"."&D` → `<iso>.<sol\|wnd>.<band>`; name `sol_wind` = A2573:BD4792 | E..Z | Mitigation L4126:L4127 (dead code for these items) |
+| Previous WACC | 4795-4985 | A4796 Country, B Region, C Default WACC | name | C | unused |
+:::
+
+::: {.callout-warning collapse="true" title="Legacy chains: other tabs and the Dashboard settings"}
+- **Balances** (copied as is): A13:Z13 header (country_code, country, year, measure, flow_code, ecy, coa, nga, oop,
+  gso, die, ker, lpg, jfu, wnd, sol, hyd, ore, nuc, bio, hea, totren, bgs, bdi, obf, total); data rows 14..4044, keyed
+  by **A (ISO3) & E (flow_code)**; one year per country; ktoe, except `eloutput` (GWh). Flows used: imports, exports,
+  statdiff, transfer, ownuse, distloss, power, eloutput, and the 15 demand flows.
+- **Countries:** C6:C227 name, D6:D227 ISO3, F region, G World Bank income group, **H6:H227 income code** (formula
+  from G), N GHG region, P euro flag.
+- **GHGs:** rows 1201-1388; B ISO3 (formula), G1201 = first year + 1 (2023), H1201 = 2024; **G1202:H1388 typed
+  shocks**.
+- **WEO:** row 9 header (A last year, B ISO, C dataset, D series code `ISO.INDICATOR`, E country, F indicator,
+  G9:… = 2000..); data rows 10..3333. Used for the income factor: LP.A, NGDP.A, NGDP_D.A, NGDP_R.A, NGDP_RPCH.A,
+  XDC_USD.PA_RT.A, and usa.NGDP_D.A.
+- **Mitigation constants used:** K710:AE710 (uranium 0.004), E1033 (11.63), E1044, E1045, J3975 (0.8), G2432 (0.74),
+  A4 P3003:P3006 (1.0).
+
+Dashboard settings in the chains (ScenarioDefinition F = E = Dashboard; cached values):
+
+| Name (ScenarioDefinition row) | Dashboard cell | Value |
+|---|---|---|
+| _Countryname (F8) | E2 | Egypt |
+| _Country_code | D644 (`VLOOKUP(_Countryname, Countries!$C$6:$D$227,2,FALSE)`) | EGY |
+| FirstYearCalculations (F232) | G134 | 2022 |
+| BalancesOrConsumption (F234) | G136 | Balances |
+| AdditionalEfficiencyPower (F242) | L134 | 0 |
+| GdpAdj (F259) | V20 | Base* |
+| IncElAdj (F262) | L24 | Yes* |
+| GDPScenario (F222) | Q20 | WEO* |
+| ResultsYear (F233) | G135 | 2026 |
+| DfSelection (F296) | G142 | World |
+| PowerSectorPriceChangePassOn (F343) | L51 | 1 |
+| kDispatch (F346), kInvestment (F347) | G190, Q190 | 2, 2 |
+| MinimumWACC (F348) | Q193 | 0.01 |
+| HydroDoesntRetire (F350) | V198 | Yes |
+| MinPostSubsidyPowerPrice (F351) | L192 | 0.01 |
+| RenewableSubsidyBL (F354) | L55 | 0 |
+| MaxNonVREAsPCOfTotalGen (F359), MaxNonNucOreBioAsPCOfTotalGen (F360), MaxWindSolarScaleup (F361) | Q194, Q195, Q196 | .05, .02, .05 |
+| MaxScaleUpRateCategory (F362) | G53 | CtryDefault* |
+| WACCSource (F365) / D_WACCSource | Q191 | Tech |
+| WACCUserGlobal (F366) | Q192 | 0.075 |
+| RenewableCostDeclineRate (F367) | G52 | Medium* |
+| MaximumCoalCF (F372), MaximumGasCF (F373) | G192, G193 | .9, .9 |
+| CFOverrideIfBelowWndSol (F375), …FosOth (F376), CFOverrideIfAbove (F377) | G196, G197, G198 | .1, .01, 1 |
+| MaxCostBasedEarlyRetirement (F378), EarlyRetirementInBaseline (F379) | Q51, Q52 | 0.8, Yes |
+| MinimumThermalEfficiency (F380) | G194 | 0.1 |
+| AllocateSTStorageToVRE (F388), TotalHoursStorageFor100pcVRE (F389), StorageToInterfaceRatioSTStorage (F390) | V190, V191, V192 | 1, 9, 2 |
+| AllocateLTStorageToVRE (F392), StartingPointWhenLTStorageIsNeeded (F393), LongTermStorageFor100pcVRE (F394), StorageHoursForLTStorage (F395) | V193, V194, V195, V196 | .33, .75, 1, 1000 |
+| NewInvCoa..NewInvBio (F397:F405) | U51:U59 | If Present* (wnd, sol: Yes) |
+| NewInvCoaYear..NewInvBioYear (F407:F415) | V51:V59 | 2022 2022 2022 2030 2022 2022 2030 2030 2022 |
+:::
+
+::: {.callout-warning collapse="true" title="Legacy chains: bugs and oddities"}
+The model fixes the bugs (register codes in brackets) and keeps nothing of the oddities that affect numbers.
+
+1. **A2 rows 2981-2985 (wnd, sol, hyd, ore, bio), columns P..T (L52):** the inverted ISERROR logic returns the world
+   value; country efficiency, fixed and variable O&M, WACC and lifetime of these types are ignored. Egypt: solar fixed
+   O&M 15 instead of the country 11.831, which changes `opf|sol`.
+2. **A4 column N, installed capacity (L53):** the range `Power!$F$357:$Y$357` (2000-2019) does not contain 2022
+   (column AB), so N = #N/A; actual capacity factors are never used, the study values are, and the CFOverride bounds
+   are dead. With the fix, Egypt's actual capacity factors (legacy 456 data: gas 0.385, wind 0.436, solar 0.347,
+   hydro 0.592) are used and base-year gas capacity is 52 GW instead of 35.
+3. **Hydro investment start, H4067 (L54):** `IF($L$3827>50%, …)` tests a year header (2022 > 0.5), so hydro always
+   starts in the first year (2022 instead of 2030). The model starts hydro in the base year only if its generation
+   share is above 50% (Egypt: from 2030).
+4. **Regional and country code shadowing (L55):** MATCH over `Power!A25:A356` finds the regional rows (42-109) first
+   for `chn.mpp.*`, `jpn.mpp.*` and `kor.mpp.*`: for China, Japan and Korea, region data replace country data (18
+   codes). The model looks up the country block.
+5. **A7 country ctf code:** `iso.med.ctf.t` has a different segment order from `wld.ctf.med.t`, and there are no
+   country or regional ctf rows, so the country branch is dead.
+6. **D2 nuclear fuel:** `L3353 = K2727` is shifted one column (2022 takes the 2021 value); the value is the typed
+   Mitigation!K710:AE710 = 0.004, not Power!G22. No numeric effect.
+7. **A15 (tcx)** uses A14's helper `$K3110` instead of `$K3121` (same value). A15 is labelled "not used in the model
+   at all".
+8. **K5 planned-retirement probe:** `INDEX(Power!$D$1749:$BD$1878,$I3992,L3990)` is offset by one row and three
+   columns from the data range `G1750:BD1878`; the flag J3991 uses `F1750:F1857` while the MATCH uses `D1750:D1878`.
+   Harmless today.
+9. **CoC (L56):** countries without fixed data silently get Sri Lanka's parameters (row 172) as the XLOOKUP
+   if_not_found; countries absent from CoC rows 202-390 get 0.075 + the premium. The model gives every country
+   without risk data the default WACC, flagged.
+10. **WACC is time-invariant:** only CoC column D (2022) is used, although D:V hold 2022-2040 (kept in the model).
+11. **"Country*" WACC option** applies the coal premium (CoC row 205) to every type (kept in the model).
+12. **`early_max` (J3975 = 0.8) is typed**, not linked to `MaxCostBasedEarlyRetirement` (0.8 today); the label says
+    "80%".
+13. **Power!G23** `=ROUND(AVERAGE(#REF!),2)` is broken (unused).
+14. **shock:** the IFERROR fallback in E478 is the text `"0%"`; the test `M479=FirstYearCalculations+1` is always
+    true.
+15. **incf:** the 2022 GDP per capita uses the current year (`L2429 = L2442/L2428`) while later years are lagged.
+    Post-policy GDP `L2443 = K2442*(1+L2446)` rebases on the previous **pre-policy** level, so endogenous GDP changes
+    do not accumulate (zero in the baseline).
+16. **The Balances lookup ignores the year column:** one year per country only.
+17. **A2 column N range** `Power!E$25:E$355`, while the other columns use `:356`. No effect.
+:::
+
+::: {.callout-warning collapse="true" title="Legacy chains: formula sketches of every item"}
+Notation: `iso` = LOWER(country code); `idxC(t)` = `IFERROR(MATCH(iso&".mpp."&t, Power!$A$25:$A$356,0), idxW(t))`;
+`idxW(t)` = `MATCH("wld.mpp."&t, Power!$A$25:$A$356,0)`; `PC(col,t)` =
+`IF(INDEX(Power!col$25:col$356,idxC)>0, INDEX(..,idxC), INDEX(..,idxW))`; `PW(col,t)` = `INDEX(Power!col$25:col$356,
+idxW)`; `P*(col,t)` = PC for coa, nga, oil, nuc and PW for wnd, sol, hyd, ore, bio (legacy bug);
+`BAL(flow,fuel)` = `INDEX(Balances!$A$13:$Z$4044, MATCH(ISO&flow, Balances!$A$13:$A$4044&Balances!$E$13:$E$4044,0),
+MATCH(fuel, Balances!$A$13:$Z$13,0))`; D = total final power demand (ktoe) = Σ Balances `ecy` over road, rail,
+domesair, domesnav, resident, food_forest, services, mining_chemicals, ironstl, nonferrmet, machinery, cement,
+other_manufact, construc, ononspec.
+
+| Item | Data source | Country-specific? | Formula sketch |
+|---|---|---|---|
+| cax0_usd_per_kw | Power F (mpp) | yes (country row, else world) | `PC("F",t)` |
+| life_years | Power K | coa..nuc only | `P*("K",t)` |
+| efficiency | Balances, fallback Power G | yes | `IFERROR(IF(g/i<MinTE, P, g/i), P)`; g = BAL("eloutput",f)·1000/8760, i = −BAL("power",f)·11.63·1000/8760 (oil = Σ oop..jfu); P = P*("G",t) for coa, nga, oil, nuc, bio and 1.0 for wnd, sol, hyd, ore |
+| capacity_factor | Power E | only via a country E | `PC("E",t)` (actual-CF branch dead) |
+| wacc | CoC D202:D390 + Y203:AB211, Countries H | yes | `IFERROR(XLOOKUP(iso,CoC!$B$202:$B$390,CoC!$D$202:$D$390,0.075),0.075)+XLOOKUP(t,CoC!$X$203:$X$211,XLOOKUP(inc,CoC!$Y$202:$AB$202,CoC!$Y$203:$AB$211))` |
+| dtc_usd_per_kw | Power E346:E354 × capex | via capex | `INDEX(Power!$E$25:$E$355,MATCH("wld.dtc."&t,Power!$A$25:$A$356,0))*cax0` |
+| tcx_usd_per_kw | Power F346:F354 × capex | via capex | same with column F |
+| opf_usd_per_kwh | Power H, CF | via H (coa..nuc) and CF | `P*("H",t)/(8760*CF)` |
+| vop_usd_per_kwh | Power I | coa..nuc | `P*("I",t)` |
+| fuel_fixed_usd_per_kwh | Mitigation K710 (typed) | no | nuc 0.004; others 0 |
+| rns_usd_per_kwh | script | no | 0 |
+| cap0_mw | Balances, CF | yes | `gen0/CF` |
+| gen0_mwy | Balances eloutput | yes | `BAL("eloutput",f)*1000/8760` |
+| retire_rate | lifetime | effectively no | `1/life`; hyd `IF(HydroDoesntRetire="Yes",0,1/life)` |
+| invest_permitted | Dashboard U51:U59, cap0 shares | yes | `IF(set="If Present*",IF(cap0/SUM(cap0)>0.001,"Yes","No"),set)` |
+| invest_start | Dashboard V51:V59 | no | `NewInv<T>Year`; hyd = FirstYearCalculations (bug) |
+| scaleup_rate | Dashboard Q194/Q195/G53, Power B2349:C2570 | wnd/sol (CtryDefault*) | coa, nga, hyd: Q194; oil, nuc, ore, bio: Q195; wnd, sol: `INDEX(Power!$C$2349:$C$2570,MATCH(iso,Power!$B$2349:$B$2570,0))` (or J20:J23 / Q196 per G53) |
+| planned_retirement | Power F1750:F1857 | yes (coal) | coa: `INDEX(Power!$F$1750:$F$1857,MATCH(ISO,Power!$D$1750:$D$1878,0))`; others "No" |
+| price_code, vre, vre_share, dispatch, code, name | script | no | constants |
+| tcf\|t (path) | Power ctf F303:BD330 | no | `INDEX(Power!$F$25:$BE$597,MATCH("wld.ctf."&scen&"."&t,Power!$A$25:$A$356,0),MATCH(y,Power!$F$302:$BD$302,0))` |
+| cbat / cint / obat | Power 1899 / 1903 / 1900 | no | `INDEX(Power!$F$1899:$BD$1899,1,MATCH(y,Power!$F$1883:$BD$1883))` etc. |
+| cel | Power 1907, 1908, 1909, 1911; dlf | yes (via WACC) | `(P1907(y)+P1911(y)*StorageHoursForLTStorage)/(dlf*8760)+P1908(y)/8760+P1909(y)` |
+| incf | WEO (GDP, population) | yes | `IF(IncElAdj="Yes*",MAX(0,poly(MIN(10,LN(gdppc))))/0.74,1)`; gdppc = USD GDP (row 465 chain) / population, lagged one year from 2023 |
+| shock | GHGs G1202:H1388 | yes | 2023: `IFERROR(INDEX(GHGs!$G$1202:$G$1388,MATCH(ISO,GHGs!$B$1202:$B$1388,0)),0)`; 2024: column H; else 0 |
+| pret\|t | Power G1750:BD1878 (coal) | yes | coa: `INDEX(Power!$G$1750:$BD$1878,MATCH(ISO,Power!$D$1750:$D$1878,0),MATCH(y,Power!$G$1749:$BD$1749,0))` when used; others 0 |
+| tmc\|res, tmc\|ind | Power G20, G21 | no | `=Power!G20`, `=Power!G21` |
+| pass | Dashboard L51 | no | setting |
+| gen_per_cons | Balances | yes | `(SUM(gen0)*8.76/11.63)/SUM(BAL(demand flows,"ecy"))` |
+| dlf_ren | CoC (WACC), lifetimes | yes | `AVERAGE over t∈{wnd,sol} of (1-(1/(1+wacc_t))^life_t)/(1-1/(1+wacc_t))` |
+| st_alloc, st_ratio, lt_alloc, lt_start | Dashboard V190, V192, V193, V194 | no | settings |
+| st_marg_hours | Dashboard V191 | no | `2*V191` |
+| sh_nxp | Balances ecy | yes | `-(BAL("imports","ecy")+BAL("exports","ecy"))/D` |
+| sh_tsd | Balances ecy | yes | `-(BAL("statdiff")+BAL("transfer")+BAL("distloss"))/D` |
+| sh_eou | Balances ecy | yes | `-BAL("ownuse","ecy")/D` |
+| sh_add | Balances | yes | `gen_per_cons-1-sh_nxp-sh_tsd-sh_eou` |
+| extra_eff | Dashboard L134 | no | setting |
+| maxcf_cg | Dashboard G192 (gas G193) | no | setting |
+| k_dispatch, k_invest | Dashboard G190, Q190 | no | settings |
+| min_cost | Dashboard L192 | no | setting |
+| early_max | Mitigation J3975 (typed) | no | 0.8 |
+| early_factor | Dashboard Q51, Q52 | no | `IF(baseline,IF(Q52="Yes",Q51,0),Q51)` |
+| ktoe_gwh | constant | no | 11.63 |
+:::

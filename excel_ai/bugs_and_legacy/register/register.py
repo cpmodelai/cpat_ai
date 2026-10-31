@@ -33,7 +33,7 @@ LEGACY_FILE = 'CPAT 1.0pre_465_NoPropData.xlsb'
 KINDS = {  # prefix: (kind, plural, where the full entry is)
     'L': ('Legacy bug', 'Legacy bugs', 'Legacy CPAT bugs document'),
     'M': ('Prototype bug', 'Prototype bugs', 'Documentation, appendix'),
-    'DOC': ('Documentation bug', 'Documentation bugs', 'Register; methodology documentation (docs/01_MainDocumentation)'),
+    'DOC': ('Documentation bug', 'Documentation bugs', 'Register; methodology documentation (docs/CPAT_full_documentation_qmd)'),
     'I': ('Issue', 'Issues', 'Documentation, appendix'),
     'LD': ('Departure', 'Departures (LegacyDiff)', 'Documentation, appendix'),
     'U': ('Upgrade', 'Upgrades', 'Documentation, appendix')}
@@ -210,7 +210,7 @@ def records():
                         status='Withdrawn'))
     for c, title, where, what, fx, pr in R.DOC_BUGS:                          # user 2026-10-29
         out.append(_rec(id=c, title=title, where=where, description=what, fix=fx, priority=pr,
-                        prototype='Not affected', status=R.DOC_STATUS))
+                        prototype='Not affected', status=R.DOC_STATUS_BY_CODE.get(c, R.DOC_STATUS)))
     for k, (area, legacy, model, why, effect, typ) in enumerate(B.LEGACY_DIFFS, 1):
         if typ == 'Same':
             continue

@@ -1,6 +1,6 @@
 # Excel-AI: the CPAT prototypes in Excel
 
-New here? Read the human quick start first: [`../QuickStart.docx`](../QuickStart.docx). The full documentation is the website's **CPAT-AI tab: <https://cpmodelai.github.io/cpat_ai/#cpat-ai>** (sources: [`../docs/CPAT_ai_documentation_qmd/`](../docs/CPAT_ai_documentation_qmd/); offline: `../docs/index.html#cpat-ai`). AI agents: [`core/AGENTS.md`](core/AGENTS.md).
+New here? Read the human quick start first: [`../QuickStart.docx`](../QuickStart.docx). The full documentation is the website's **CPAT Excel-AI tab: <https://cpmodelai.github.io/cpat_ai/#excel-ai>** (sources: [`../docs/CPAT_ai_documentation_qmd/`](../docs/CPAT_ai_documentation_qmd/); offline: `../docs/index.html#excel-ai`). AI agents: [`core/AGENTS.md`](core/AGENTS.md).
 
 ## The workbooks
 
