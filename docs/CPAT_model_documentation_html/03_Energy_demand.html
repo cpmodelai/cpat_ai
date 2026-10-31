@@ -76,7 +76,39 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -130,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01_Overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview and notation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview, notation and policies</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -200,7 +232,29 @@ ul.task-list li input[type="checkbox"] {
   </li>
     </ul>
     </div>
-    
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title"><strong><em>Chapter Contents</em></strong></h2>
+   
+  <ul>
+  <li><a href="#sec-dm-overview" id="toc-sec-dm-overview" class="nav-link active" data-scroll-target="#sec-dm-overview"><span class="header-section-number">3.1</span> Overview</a></li>
+  <li><a href="#sec-dm-fueluse" id="toc-sec-dm-fueluse" class="nav-link" data-scroll-target="#sec-dm-fueluse"><span class="header-section-number">3.2</span> The fuel-use equation</a>
+  <ul class="collapse">
+  <li><a href="#sec-dm-aeei" id="toc-sec-dm-aeei" class="nav-link" data-scroll-target="#sec-dm-aeei"><span class="header-section-number">3.2.1</span> Autonomous and additional efficiency</a></li>
+  <li><a href="#sec-dm-income" id="toc-sec-dm-income" class="nav-link" data-scroll-target="#sec-dm-income"><span class="header-section-number">3.2.2</span> Income term, income-level adjustment and GDP feedback</a></li>
+  <li><a href="#sec-dm-price" id="toc-sec-dm-price" class="nav-link" data-scroll-target="#sec-dm-price"><span class="header-section-number">3.2.3</span> Price terms: usage, efficiency and rebound</a></li>
+  <li><a href="#sec-dm-shadow" id="toc-sec-dm-shadow" class="nav-link" data-scroll-target="#sec-dm-shadow"><span class="header-section-number">3.2.4</span> Shadow prices of non-pricing policies</a></li>
+  <li><a href="#sec-dm-shock" id="toc-sec-dm-shock" class="nav-link" data-scroll-target="#sec-dm-shock"><span class="header-section-number">3.2.5</span> Exogenous demand shock</a></li>
+  <li><a href="#sec-dm-data" id="toc-sec-dm-data" class="nav-link" data-scroll-target="#sec-dm-data"><span class="header-section-number">3.2.6</span> Elasticities and base-year fuel use</a></li>
+  </ul></li>
+  <li><a href="#sec-dm-biofuels" id="toc-sec-dm-biofuels" class="nav-link" data-scroll-target="#sec-dm-biofuels"><span class="header-section-number">3.3</span> Biofuels, jet fuel and self-generated renewables</a></li>
+  <li><a href="#sec-dm-leakage" id="toc-sec-dm-leakage" class="nav-link" data-scroll-target="#sec-dm-leakage"><span class="header-section-number">3.4</span> Residential leakage to biomass</a></li>
+  <li><a href="#sec-dm-exempt" id="toc-sec-dm-exempt" class="nav-link" data-scroll-target="#sec-dm-exempt"><span class="header-section-number">3.5</span> Exempt residential cooking fuel</a></li>
+  <li><a href="#sec-dm-ener" id="toc-sec-dm-ener" class="nav-link" data-scroll-target="#sec-dm-ener"><span class="header-section-number">3.6</span> Fuel use used by the rest of the model</a></li>
+  <li><a href="#sec-dm-electricity" id="toc-sec-dm-electricity" class="nav-link" data-scroll-target="#sec-dm-electricity"><span class="header-section-number">3.7</span> Electricity demand</a></li>
+  <li><a href="#sec-dm-totals" id="toc-sec-dm-totals" class="nav-link" data-scroll-target="#sec-dm-totals"><span class="header-section-number">3.8</span> Energy totals and changes against the baseline</a></li>
+  <li><a href="#sec-dm-variables" id="toc-sec-dm-variables" class="nav-link" data-scroll-target="#sec-dm-variables"><span class="header-section-number">3.9</span> Summary of variables</a></li>
+  </ul>
+</nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -228,9 +282,1743 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>(To be written.)</p>
+<p>This chapter explains how the model projects the use of each fuel in each sector of the economy, year by year. Fuel use is the quantity at the heart of the model: emissions, revenues, the GDP effect and the household effects are all fuel use multiplied by something else.</p>
+<p>The core is one behavioural equation, the same for every sector and fuel: last year’s use grows with GDP, shrinks with autonomous efficiency gains, and responds to the after-tax price through two margins, how much the equipment is used and how efficient it is. A handful of special cases sit around it: biofuels blended into road fuels, renewables used outside the power sector, a possible shift of households from modern cooking fuels to biomass, and cooking fuel that is initially exempt from price increases.</p>
+<p>The chapter also computes electricity demand by sector, which it hands to the power model (<a href="04_Power.html" class="quarto-xref"><span>Chapter 4</span></a>), and it closes with the energy totals by sector group and fuel and their change against the baseline.</p>
+<p>The methodology describes this block in <a href="../CPAT_full_documentation_html/03_Mitigation.html#sec-FuelConsumption">methodology, section 3.3</a>. The prices that drive it are built in <a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a>; road fuel use under the engineer model is in <a href="05_Road_transport.html" class="quarto-xref"><span>Chapter 5</span></a>; the GDP growth that feeds the income term comes from <a href="07_Revenues_GDP_welfare.html" class="quarto-xref"><span>Chapter 7</span></a>.</p>
+<p><strong>Indices.</strong> Every equation holds for each scenario <span class="math inline">\(o\)</span> and country <span class="math inline">\(c\)</span>, which are omitted. Sector (subsector) <span class="math inline">\(s\)</span>, fuel <span class="math inline">\(f\)</span>, sector group <span class="math inline">\(g\)</span> and year <span class="math inline">\(t\)</span> are shown where they matter; electricity demand uses the demand group <span class="math inline">\(d\)</span>. A value of the baseline (scenario 1) in the same year carries the superscript <span class="math inline">\(B\)</span>.</p>
+<section id="sec-dm-overview" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="sec-dm-overview"><span class="header-section-number">3.1</span> Overview</h2>
+<p>The model distinguishes 16 sectors (Excel-AI calls them subsectors) in four groups, and 9 fuels. Power generation is a fifth group whose fuel input comes from <a href="04_Power.html" class="quarto-xref"><span>Chapter 4</span></a>. The tables below give, for each sector and fuel, the keys that the fuel-use equation reads: which row of the elasticity table applies, which additional efficiency input applies, and which electricity demand group the sector belongs to.</p>
+<div id="tbl-dm-sectors" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dm-sectors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.1: Sectors, their groups and the keys of the fuel-use equation
+</figcaption>
+<div aria-describedby="tbl-dm-sectors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Code</th>
+<th>Sector</th>
+<th>Group <span class="math inline">\(g\)</span></th>
+<th>Elasticity sector</th>
+<th>Additional efficiency group</th>
+<th>Electricity demand group <span class="math inline">\(d\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>rod</code></td>
+<td>Road</td>
+<td>transport (<code>tra</code>)</td>
+<td>transport</td>
+<td>road vehicles</td>
+<td>transport</td>
+</tr>
+<tr class="even">
+<td><code>ral</code></td>
+<td>Rail</td>
+<td>transport</td>
+<td>transport</td>
+<td>road vehicles</td>
+<td>transport</td>
+</tr>
+<tr class="odd">
+<td><code>avi</code></td>
+<td>Domestic aviation</td>
+<td>transport</td>
+<td>transport</td>
+<td>road vehicles</td>
+<td>transport</td>
+</tr>
+<tr class="even">
+<td><code>nav</code></td>
+<td>Domestic navigation</td>
+<td>transport</td>
+<td>transport</td>
+<td>road vehicles</td>
+<td>transport</td>
+</tr>
+<tr class="odd">
+<td><code>res</code></td>
+<td>Residential</td>
+<td>buildings (<code>bld</code>)</td>
+<td>residential</td>
+<td>residential</td>
+<td>residential</td>
+</tr>
+<tr class="even">
+<td><code>foo</code></td>
+<td>Food &amp; forestry</td>
+<td>buildings</td>
+<td>industry</td>
+<td>industrial</td>
+<td>industry</td>
+</tr>
+<tr class="odd">
+<td><code>srv</code></td>
+<td>Services (public &amp; private)</td>
+<td>buildings</td>
+<td>services</td>
+<td>industrial</td>
+<td>services</td>
+</tr>
+<tr class="even">
+<td><code>mch</code></td>
+<td>Mining &amp; chemicals</td>
+<td>industry (<code>ind</code>)</td>
+<td>industry</td>
+<td>industrial</td>
+<td>industry</td>
+</tr>
+<tr class="odd">
+<td><code>irn</code></td>
+<td>Iron &amp; steel</td>
+<td>industry</td>
+<td>industry</td>
+<td>industrial</td>
+<td>industry</td>
+</tr>
+<tr class="even">
+<td><code>nfm</code></td>
+<td>Other metals</td>
+<td>industry</td>
+<td>industry</td>
+<td>industrial</td>
+<td>industry</td>
+</tr>
+<tr class="odd">
+<td><code>mac</code></td>
+<td>Machinery</td>
+<td>industry</td>
+<td>industry</td>
+<td>industrial</td>
+<td>industry</td>
+</tr>
+<tr class="even">
+<td><code>cem</code></td>
+<td>Cement</td>
+<td>industry</td>
+<td>industry</td>
+<td>industrial</td>
+<td>industry</td>
+</tr>
+<tr class="odd">
+<td><code>omn</code></td>
+<td>Other manufacturing</td>
+<td>industry</td>
+<td>industry</td>
+<td>industrial</td>
+<td>industry</td>
+</tr>
+<tr class="even">
+<td><code>cst</code></td>
+<td>Construction</td>
+<td>industry</td>
+<td>industry</td>
+<td>industrial</td>
+<td>industry</td>
+</tr>
+<tr class="odd">
+<td><code>ftr</code></td>
+<td>Fuel transformation</td>
+<td>industry</td>
+<td>industry</td>
+<td>industrial</td>
+<td>(no electricity demand)</td>
+</tr>
+<tr class="even">
+<td><code>oen</code></td>
+<td>Other energy use</td>
+<td>other (<code>oen</code>)</td>
+<td>industry</td>
+<td>industrial</td>
+<td>industry</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="tbl-dm-fuels" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dm-fuels-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.2: Fuels and their keys
+</figcaption>
+<div aria-describedby="tbl-dm-fuels-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Code</th>
+<th>Fuel</th>
+<th>Elasticity fuel</th>
+<th>Autonomous efficiency fuel</th>
+<th>Price fuel</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>coa</code></td>
+<td>Coal</td>
+<td>coal</td>
+<td>coal</td>
+<td>coal of the sector’s price group</td>
+</tr>
+<tr class="even">
+<td><code>nga</code></td>
+<td>Natural gas</td>
+<td>gas</td>
+<td>gas</td>
+<td>gas of the sector’s price group</td>
+</tr>
+<tr class="odd">
+<td><code>gso</code></td>
+<td>Gasoline</td>
+<td>gasoline</td>
+<td>oil</td>
+<td>gasoline</td>
+</tr>
+<tr class="even">
+<td><code>die</code></td>
+<td>Diesel</td>
+<td>diesel</td>
+<td>oil</td>
+<td>diesel</td>
+</tr>
+<tr class="odd">
+<td><code>lpg</code></td>
+<td>LPG</td>
+<td>oil products</td>
+<td>oil</td>
+<td>LPG</td>
+</tr>
+<tr class="even">
+<td><code>ker</code></td>
+<td>Kerosene</td>
+<td>oil products</td>
+<td>oil</td>
+<td>kerosene</td>
+</tr>
+<tr class="odd">
+<td><code>jfu</code></td>
+<td>Jet fuel</td>
+<td>oil products</td>
+<td>oil</td>
+<td>kerosene</td>
+</tr>
+<tr class="even">
+<td><code>oop</code></td>
+<td>Other oil products</td>
+<td>oil products</td>
+<td>oil</td>
+<td>other oil products</td>
+</tr>
+<tr class="odd">
+<td><code>bio</code></td>
+<td>Biomass</td>
+<td>biomass</td>
+<td>biomass</td>
+<td>biomass</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Two more “fuels” appear outside this grid: renewables used directly in aviation and navigation (<a href="#sec-dm-biofuels" class="quarto-xref"><span>Section 3.3</span></a>), and electricity, whose demand by sector is computed here but which is supplied by the power model (<a href="#sec-dm-electricity" class="quarto-xref"><span>Section 3.7</span></a>).</p>
+<p>Within one year the block runs in a fixed order. GDP growth is known first, because the GDP effect of a policy enters one year later; electricity demand reads last year’s power price; fuel use reads this year’s after-tax prices, which were computed for all years before the year loop.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A["GDP growth g(t)&lt;br/&gt;after the feedback"] --&gt; B["Electricity demand&lt;br/&gt;by sector"]
+  A --&gt; C["Fuel use&lt;br/&gt;elasticity model"]
+  P["After-tax and&lt;br/&gt;shadow prices"] --&gt; C
+  C --&gt; D["Biofuels, renewables,&lt;br/&gt;leakage, exempt use"]
+  D --&gt; E["Fuel use&lt;br/&gt;used (ener)"]
+  B --&gt; W["Power model"]
+  W --&gt; T["Totals and change&lt;br/&gt;against the baseline"]
+  E --&gt; T
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-dm-fueluse" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="sec-dm-fueluse"><span class="header-section-number">3.2</span> The fuel-use equation</h2>
+<p>Each year, fuel use in a sector is last year’s use multiplied by five growth factors. This is the constant-elasticity form of the methodology (<a href="../CPAT_full_documentation_html/03_Mitigation.html#sec-FuelConsumptionDynamics">methodology, section 3.3.3</a>), with three additions: the shadow price of non-pricing policies acts on the efficiency margin only, an additional policy-induced efficiency gain joins the autonomous one, and the income elasticity is adjusted to the country’s income level.</p>
+<p>In full (<a href="./A_Equations.html#eqlist-M3-1">M3.1</a>):</p>
+<p><span id="eq-dm-fueluse"><span class="math display">\[
+\frac{F^{e}_{s,f,t}}{F^{e}_{s,f,t-1}} =
+\left(\frac{1}{1 + \alpha_{s,f} + \alpha^{+}_{g(s)}}\right)^{1 + \epsilon_{U}}
+\;\Psi_t\;
+\left(1 + g_t\right)^{\epsilon_{Y}\, inc_t}
+\left(\frac{p_{s,f,t}}{p_{s,f,t-1}}\right)^{\epsilon_{U}}
+\left(\frac{p_{s,f,t} + sh_{s,f,t}}{p_{s,f,t-1} + sh_{s,f,t-1}}\right)^{\epsilon_{F}(1 + \epsilon_{U})}
+\tag{3.1}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(F^{e}_{s,f,t}\)</span> is fuel use by the elasticity model (ktoe; code <code>enel</code>); in the base year <span class="math inline">\(t_0\)</span> it is the base-year use of the energy data (<a href="#sec-dm-data" class="quarto-xref"><span>Section 3.2.6</span></a>);</li>
+<li><span class="math inline">\(\epsilon_Y\)</span>, <span class="math inline">\(\epsilon_U\)</span>, <span class="math inline">\(\epsilon_F\)</span> are the income, usage and efficiency elasticities of the fuel in the sector (they depend on the country, the fuel and the sector; the indices are dropped);</li>
+<li><span class="math inline">\(\alpha_{s,f}\)</span> is the autonomous energy efficiency improvement (share per year) and <span class="math inline">\(\alpha^{+}_{g(s)}\)</span> the additional policy-induced efficiency gain of the sector’s efficiency group (<a href="#sec-dm-aeei" class="quarto-xref"><span>Section 3.2.1</span></a>);</li>
+<li><span class="math inline">\(\Psi_t\)</span> is the exogenous demand shock factor (<a href="#sec-dm-shock" class="quarto-xref"><span>Section 3.2.5</span></a>);</li>
+<li><span class="math inline">\(g_t\)</span> is real GDP growth after the GDP feedback and <span class="math inline">\(inc_t\)</span> the income-level factor on the GDP elasticities (<a href="#sec-dm-income" class="quarto-xref"><span>Section 3.2.2</span></a>);</li>
+<li><span class="math inline">\(p_{s,f,t}\)</span> is the after-tax price of the fuel in the sector (USD per GJ, real; code <code>atp</code>) and <span class="math inline">\(sh_{s,f,t}\)</span> the shadow price of non-pricing policies (USD per GJ; code <code>shp</code>), both from <a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a> (<a href="#sec-dm-shadow" class="quarto-xref"><span>Section 3.2.4</span></a>).</li>
+</ul>
+<p>The methodology writes the GDP term as <span class="math inline">\((Y_t / Y_{t-1})^{\epsilon_Y}\)</span>, total real GDP (not per capita). The model writes the same ratio as <span class="math inline">\(1 + g_t\)</span>.</p>
+<p>The equation is easier to read as a product of named factors. Each is one idea:</p>
+<p><span id="eq-dm-factors"><span class="math display">\[
+F^{e}_{s,f,t} = F^{e}_{s,f,t-1} \cdot A_{s,f} \cdot \Psi_t \cdot G_{s,f,t} \cdot U_{s,f,t} \cdot E_{s,f,t}
+\tag{3.2}\]</span></span></p>
+<div id="tbl-dm-factors" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dm-factors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.3: The five growth factors of fuel use
+</figcaption>
+<div aria-describedby="tbl-dm-factors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Factor</th>
+<th>Formula</th>
+<th>What it captures</th>
+<th>Code</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Efficiency factor <span class="math inline">\(A\)</span></td>
+<td><span class="math inline">\(\left(1 / (1 + \alpha + \alpha^{+})\right)^{1+\epsilon_U}\)</span></td>
+<td>autonomous and additional efficiency gains, net of their rebound</td>
+<td><code>aef</code></td>
+</tr>
+<tr class="even">
+<td>Shock <span class="math inline">\(\Psi\)</span></td>
+<td><span class="math inline">\(1 + \text{shock}_t \cdot \text{switch}\)</span></td>
+<td>the legacy 2023-2024 calibration shock</td>
+<td><code>SHOCK</code></td>
+</tr>
+<tr class="odd">
+<td>Income term <span class="math inline">\(G\)</span></td>
+<td><span class="math inline">\((1 + g_t)^{\epsilon_Y inc_t}\)</span></td>
+<td>GDP growth, adjusted to the income level</td>
+<td><code>GDPI</code> holds <span class="math inline">\((1+g_t)^{inc_t} - 1\)</span></td>
+</tr>
+<tr class="even">
+<td>Usage term <span class="math inline">\(U\)</span></td>
+<td><span class="math inline">\((p_t / p_{t-1})^{\epsilon_U}\)</span></td>
+<td>how intensively existing equipment is used</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Efficiency term <span class="math inline">\(E\)</span></td>
+<td><span class="math inline">\(\left((p_t + sh_t)/(p_{t-1} + sh_{t-1})\right)^{\epsilon_F(1+\epsilon_U)}\)</span></td>
+<td>how efficient the equipment is, net of rebound</td>
+<td><code>eff_exp</code> <span class="math inline">\(= \epsilon_F(1+\epsilon_U)\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The methodology assumes that all effects take place within the year: the elasticities are long-term elasticities applied in one step. CPAT is therefore better suited to anticipated and progressively phased policies over the medium term than to sudden shocks.</p>
+<section id="sec-dm-aeei" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="sec-dm-aeei"><span class="header-section-number">3.2.1</span> Autonomous and additional efficiency</h3>
+<p>Equipment becomes more efficient over time even without new policies. The autonomous energy efficiency improvement <span class="math inline">\(\alpha\)</span> captures this; the methodology sets it between 0.5% and 1% per year depending on the fuel and sector (<a href="../CPAT_full_documentation_html/03_Mitigation.html#rates-of-technological-change-and-exogenous-rebound-effects">methodology, section 3.3.5.6</a>).</p>
+<p>A scenario can add a policy-induced gain <span class="math inline">\(\alpha^{+}\)</span> for three groups of sectors:</p>
+<p><span id="eq-dm-aef"><span class="math display">\[
+A_{s,f} = \left(\frac{1}{1 + \alpha_{s,f} + \alpha^{+}_{g(s)}}\right)^{1 + \epsilon_{U}}
+\tag{3.3}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(\alpha_{s,f}\)</span> is the autonomous efficiency gain of the sector’s elasticity sector and the fuel’s autonomous efficiency fuel (<a href="#tbl-dm-sectors" class="quarto-xref">Table&nbsp;<span>3.1</span></a>, <a href="#tbl-dm-fuels" class="quarto-xref">Table&nbsp;<span>3.2</span></a>); gasoline and diesel take the oil value;</li>
+<li><span class="math inline">\(\alpha^{+}_{g(s)}\)</span> is the scenario input of the sector’s additional efficiency group (share per year, default 0).</li>
+</ul>
+<div id="tbl-dm-addeff" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dm-addeff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.4: Additional policy-induced efficiency gains
+</figcaption>
+<div aria-describedby="tbl-dm-addeff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Additional efficiency group</th>
+<th>Sectors</th>
+<th>Scenario input (ScenarioDefinition row)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Road vehicles</td>
+<td>road, rail, domestic aviation, domestic navigation</td>
+<td><code>AdditionalEfficiencyRoadVehicle</code> (243)</td>
+</tr>
+<tr class="even">
+<td>Residential</td>
+<td>residential</td>
+<td><code>AdditionalEfficiencyResidential</code> (244)</td>
+</tr>
+<tr class="odd">
+<td>Industrial</td>
+<td>every other sector: food &amp; forestry, services, the industry sectors, fuel transformation, other energy use</td>
+<td><code>AdditionalEfficiencyIndustrial</code> (245)</td>
+</tr>
+<tr class="even">
+<td>Power demand</td>
+<td>electricity demand of every sector (<a href="#sec-dm-electricity" class="quarto-xref"><span>Section 3.7</span></a>)</td>
+<td><code>AdditionalEfficiencyPower</code> (242)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The exponent <span class="math inline">\(1 + \epsilon_U\)</span> (with <span class="math inline">\(\epsilon_U &lt; 0\)</span>) is the rebound: more efficient equipment makes each unit of service cheaper, so part of the saving is used up by more use. The methodology puts this rebound from exogenous efficiency between 20% and 60% across fuels and sectors.</p>
+</section>
+<section id="sec-dm-income" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="sec-dm-income"><span class="header-section-number">3.2.2</span> Income term, income-level adjustment and GDP feedback</h3>
+<p>Energy demand grows with the economy. The income term raises GDP growth to the power of the income elasticity, and the income elasticity is scaled by a factor that depends on the country’s GDP per capita:</p>
+<p><span id="eq-dm-income"><span class="math display">\[
+G_{s,f,t} = \left(1 + g_t\right)^{\epsilon_{Y}\, inc_t}
+\tag{3.4}\]</span></span></p>
+<p>where <span class="math inline">\(\epsilon_Y\)</span> is the income (GDP) elasticity of the fuel in the sector, <span class="math inline">\(g_t\)</span> real GDP growth after the feedback, and <span class="math inline">\(inc_t\)</span> the income-level factor.</p>
+<p><strong>The income-level factor.</strong> The literature finds that income elasticities rise as countries leave low income, peak around lower-middle income (about USD 3,000 per capita) and then decline towards the level of developed countries (<a href="../CPAT_full_documentation_html/03_Mitigation.html#income-elasticities">methodology, section 3.3.5.2</a>). The model draws this reverse-U as a polynomial in log GDP per capita:</p>
+<p><span id="eq-dm-incfactor"><span class="math display">\[
+x_t = \min\left(\bar{x},\ \ln y_{t-1}\right), \qquad
+inc_t = \begin{cases}
+\dfrac{\max\left(0,\ a x_t^4 + b x_t^3 + c x_t^2 + d x_t + e\right)}{n} &amp; \text{if IncElAdj is Yes} \\[1ex]
+1 &amp; \text{otherwise}
+\end{cases}
+\tag{3.5}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(y_{t-1}\)</span> is baseline real GDP per capita of the previous year (USD; in the base year, the base year’s own value), from the macro series (real GDP over population);</li>
+<li><span class="math inline">\(\bar{x} = 10\)</span> caps log GDP per capita (about USD 22,000, the methodology’s “developed country” level);</li>
+<li><span class="math inline">\(a, \dots, e\)</span> and <span class="math inline">\(n\)</span> are fixed constants (table below), <span class="math inline">\(n = 0.74\)</span> normalising the factor to the global average income elasticity of Burke and Csereklyei (2016);</li>
+<li>IncElAdj is the scenario switch “Adjust income elasticities for GDP levels?” (default <code>Yes*</code>; a starred Yes counts as Yes).</li>
+</ul>
+<div id="tbl-dm-incf" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dm-incf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.5: Constants of the income-level factor (sheet Constants; legacy Mitigation rows 2431-2433)
+</figcaption>
+<div aria-describedby="tbl-dm-incf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Constant</th>
+<th>Value</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(a\)</span> (<code>IncfA</code>)</td>
+<td>0.012019</td>
+<td>coefficient of <span class="math inline">\(x^4\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(b\)</span> (<code>IncfB</code>)</td>
+<td>−0.365464</td>
+<td>coefficient of <span class="math inline">\(x^3\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(c\)</span> (<code>IncfC</code>)</td>
+<td>4.011846</td>
+<td>coefficient of <span class="math inline">\(x^2\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(d\)</span> (<code>IncfD</code>)</td>
+<td>−18.722243</td>
+<td>coefficient of <span class="math inline">\(x\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(e\)</span> (<code>IncfE</code>)</td>
+<td>31.75949</td>
+<td>constant (31.59949 + 0.16, as legacy)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\bar{x}\)</span> (<code>IncfLnCap</code>)</td>
+<td>10</td>
+<td>cap on log GDP per capita</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(n\)</span> (<code>IncfNorm</code>)</td>
+<td>0.74</td>
+<td>divisor</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The factor is a data path: it is computed from baseline GDP per capita before the year loop (code <code>incp</code>, then <code>inc.ela.adj</code> after the switch), so it is the same in every scenario. The same factor multiplies the GDP elasticities of electricity demand (<a href="#sec-dm-electricity" class="quarto-xref"><span>Section 3.7</span></a>).</p>
+<p><strong>The GDP feedback.</strong> <span class="math inline">\(g_t\)</span> is not the baseline growth rate but growth after the effect of the policy’s revenue use on GDP (<a href="../CPAT_full_documentation_html/04_Multipliers.html#sec-GDPFeedback">methodology, section 4.7</a>). The effect is computed in <a href="07_Revenues_GDP_welfare.html" class="quarto-xref"><span>Chapter 7</span></a> and enters with a lag of one year, as a change in the GDP level:</p>
+<p><span id="eq-dm-gdpfeedback"><span class="math display">\[
+\ell_t = 1 + \epsilon^{GDP}_{t-1}, \qquad 1 + g_t = \left(1 + g^{0}_t\right)\frac{\ell_t}{\ell_{t-1}}
+\tag{3.6}\]</span></span></p>
+<p>where <span class="math inline">\(g^{0}_t\)</span> is baseline real GDP growth (IMF WEO), <span class="math inline">\(\epsilon^{GDP}_{t-1}\)</span> last year’s GDP effect (share of GDP; 0 when endogenous GDP effects are switched off) and <span class="math inline">\(\ell_t\)</span> the GDP level factor (<span class="math inline">\(\ell_{t_0} = 1\)</span>; code <code>gdp.lvl</code>). The baseline has no fiscal space of its own, so its growth is <span class="math inline">\(g^{0}_t\)</span>. Because the effect is lagged, fuel use in year <span class="math inline">\(t\)</span> never depends on revenue in year <span class="math inline">\(t\)</span>: there is no circular reference. This is the “rebound” through GDP that Appendix E of the methodology mentions under “Include endogenous GDP effects?”.</p>
+<p><strong>Residential biomass.</strong> Residential biomass is treated as an inferior good by default: its income elasticity is set to 0 unless the setting <code>BiomassNormal</code> (“Biomass is a normal good”, read from the baseline column; default No) is Yes.</p>
+</section>
+<section id="sec-dm-price" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="sec-dm-price"><span class="header-section-number">3.2.3</span> Price terms: usage, efficiency and rebound</h3>
+<p>A higher price reduces fuel use through two margins (<a href="../CPAT_full_documentation_html/03_Mitigation.html#price-elasticities">methodology, section 3.3.5.3</a>):</p>
+<ul>
+<li>the <strong>usage</strong> (intensive) margin: existing equipment is used less (fewer kilometres driven), elasticity <span class="math inline">\(\epsilon_U\)</span>;</li>
+<li>the <strong>efficiency</strong> (extensive) margin: equipment is replaced by more efficient equipment, elasticity <span class="math inline">\(\epsilon_F\)</span>.</li>
+</ul>
+<p><span id="eq-dm-priceterms"><span class="math display">\[
+U_{s,f,t} = \left(\frac{p_{s,f,t}}{p_{s,f,t-1}}\right)^{\epsilon_{U}}, \qquad
+E_{s,f,t} = \left(\frac{p_{s,f,t} + sh_{s,f,t}}{p_{s,f,t-1} + sh_{s,f,t-1}}\right)^{\epsilon_{F}(1 + \epsilon_{U})}
+\tag{3.7}\]</span></span></p>
+<p>where <span class="math inline">\(p\)</span> is the after-tax price and <span class="math inline">\(sh\)</span> the shadow price, both per GJ. The after-tax price (<a href="./A_Equations.html#eqlist-M2-5">M2.5</a>) includes existing taxes and subsidies, the new carbon tax, the auctioned ETS cost, the new excise, the change in existing carbon pricing, the subsidy and price-control phase-outs, and VAT on all of them; it has a floor of USD 0.01 per GJ. It is built in <a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a>.</p>
+<p><strong>Rebound.</strong> When the shadow price is zero the two price terms combine into one:</p>
+<p><span id="eq-dm-rebound"><span class="math display">\[
+U_{s,f,t}\,E_{s,f,t} = \left(\frac{p_{s,f,t}}{p_{s,f,t-1}}\right)^{\epsilon_{U} + \epsilon_{F} + \epsilon_{U}\epsilon_{F}}
+\tag{3.8}\]</span></span></p>
+<p>The cross term <span class="math inline">\(\epsilon_U \epsilon_F\)</span> is positive (both elasticities are negative): it is the direct rebound, the extra use of equipment that has become cheaper to run (<a href="../CPAT_full_documentation_html/03_Mitigation.html#rebound-effect">methodology, section 3.3.5.4</a>). With <span class="math inline">\(\epsilon_U = \epsilon_F = -0.3\)</span> the combined exponent is <span class="math inline">\(-0.51\)</span> instead of <span class="math inline">\(-0.6\)</span>, so the rebound offsets about 15% of the price response (the methodology quotes 15.5%, against 26-29% in a meta-analysis of 74 studies).</p>
+</section>
+<section id="sec-dm-shadow" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="sec-dm-shadow"><span class="header-section-number">3.2.4</span> Shadow prices of non-pricing policies</h3>
+<p>Some policies do not raise the fuel price but push towards more efficient equipment: feebates, efficiency regulations, vehicle fuel-economy standards, and the free (output-based) allocation of an ETS. The model expresses each as a <strong>shadow price</strong> per tonne of CO2, which enters the efficiency term only (<a href="#eq-dm-priceterms" class="quarto-xref">Equation&nbsp;<span>3.7</span></a>) and raises no revenue. A regulation does not make fuel dearer to use, so it has no usage effect; it changes which equipment is bought.</p>
+<p>Demand reads the shadow price per GJ (<a href="./A_Equations.html#eqlist-M2-6">M2.6</a>):</p>
+<p><span id="eq-dm-shp"><span class="math display">\[
+sh_{s,f,t} = \Sigma_{s,t}\; ef_{s,f}
+\tag{3.9}\]</span></span></p>
+<p>where <span class="math inline">\(ef_{s,f}\)</span> is the calibrated CO2 emission factor (tCO2 per GJ; <a href="06_Emissions_and_ETS.html" class="quarto-xref"><span>Chapter 6</span></a>) and <span class="math inline">\(\Sigma_{s,t}\)</span> the shadow price of the sector (USD per tCO2; code <code>shpx</code>; <a href="./A_Equations.html#eqlist-M1-4">M1.4</a>), built in <a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a> from three parts:</p>
+<p><span id="eq-dm-shpx"><span class="math display">\[
+\Sigma_{s,t} = \underbrace{b_{g(s),t}\, a_{s}}_{\text{feebate}} \;+\; \underbrace{reg_{s,t}}_{\text{regulation}} \;+\; \underbrace{\tilde{p}^{E}_t\, \kappa_{s,t}\, \omega_{s,t}}_{\text{ETS free allocation}}
+\tag{3.10}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(b_{g,t}\)</span> is the feebate rate of the sector’s feebate group (USD per tCO2) and <span class="math inline">\(a_s = \mathbb{1}[\text{feebate covers } s] \times\)</span> <code>SPPEffAdjFeebates</code> the share of the feebate on the efficiency margin (code <code>ssc</code>; ScenarioDefinition row 251, default 1);</li>
+<li><span class="math inline">\(reg_{s,t}\)</span> is the regulation shadow price (below);</li>
+<li><span class="math inline">\(\tilde{p}^{E}_t\)</span> is the tax-equivalent ETS price, <span class="math inline">\(\kappa_{s,t}\)</span> the new ETS coverage and <span class="math inline">\(\omega_{s,t}\)</span> the share allocated free (output-based) (<a href="06_Emissions_and_ETS.html" class="quarto-xref"><span>Chapter 6</span></a>).</li>
+</ul>
+<p><strong>Regulations as shadow prices.</strong> The scenario’s main policy (<code>ScenarioSelected</code>, ScenarioDefinition row 13) picks a row of the legacy table of main scenarios. Explicit-pricing scenarios (carbon tax, total carbon price, coal excise, road fuel tax, electricity emissions tax and excise) use the carbon price path as the carbon tax. Shadow-pricing scenarios (feebates, power supply feebates, energy efficiency regulations, power feebate, vehicle fuel economy, residential and industrial efficiency regulations, and “Baseline”) have no explicit carbon tax; the carbon price path becomes a shadow price:</p>
+<p><span id="eq-dm-reg"><span class="math display">\[
+reg_{s,t} = \left(\tau_t - \tau^{x}_t\right) \cdot r \cdot \mathbb{1}[\text{the scenario covers } s]
+\tag{3.11}\]</span></span></p>
+<p>where <span class="math inline">\(\tau_t\)</span> is the carbon price path (code <code>cptraj</code>), <span class="math inline">\(\tau^{x}_t\)</span> the explicit carbon price (equal to <span class="math inline">\(\tau_t\)</span> in an explicit scenario and 0 otherwise; code <code>cpx</code>), so the bracket is the shadow carbon price (code <code>cp.shd</code>); <span class="math inline">\(r\)</span> is the efficiency adjustment of the scenario (code <code>regadj</code>) and the coverage comes from the scenario table (code <code>regc</code>).</p>
+<div id="tbl-dm-regadj" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dm-regadj-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.6: Efficiency adjustments of shadow-pricing scenarios
+</figcaption>
+<div aria-describedby="tbl-dm-regadj-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Efficiency adjustment</th>
+<th>ScenarioDefinition row</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>SPPEffAdjEnergyEfficiencyRegulations</code></td>
+<td>247</td>
+<td>0.7</td>
+</tr>
+<tr class="even">
+<td><code>SPPEffAdjVehicleFuelEconomy</code></td>
+<td>248</td>
+<td>0.7</td>
+</tr>
+<tr class="odd">
+<td><code>SPPEffAdjRes</code> (residential efficiency regulations)</td>
+<td>249</td>
+<td>0.7</td>
+</tr>
+<tr class="even">
+<td><code>SPPEffAdjInd</code> (industrial efficiency regulations)</td>
+<td>250</td>
+<td>0.7</td>
+</tr>
+<tr class="odd">
+<td><code>SPPEffAdjFeebates</code></td>
+<td>251</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>A text that is not in the scenario table counts as explicit pricing (the shipped scenarios use <code>" - Carbon tax"</code>). Power demand responds to the same shadow prices through the costs of the power model (<a href="04_Power.html" class="quarto-xref"><span>Chapter 4</span></a>). The shadow price is not removed for exempt residential LPG and kerosene (<a href="#sec-dm-exempt" class="quarto-xref"><span>Section 3.5</span></a>), as legacy.</p>
+</section>
+<section id="sec-dm-shock" class="level3" data-number="3.2.5">
+<h3 data-number="3.2.5" class="anchored" data-anchor-id="sec-dm-shock"><span class="header-section-number">3.2.5</span> Exogenous demand shock</h3>
+<p>Legacy CPAT calibrates the first projection years to observed emissions with a one-off shock on energy demand. The model keeps it as a factor:</p>
+<p><span id="eq-dm-shock"><span class="math display">\[
+\Psi_t = 1 + \text{shock}_t \cdot \text{switch}
+\tag{3.12}\]</span></span></p>
+<p>where <span class="math inline">\(\text{shock}_t\)</span> is the country’s shock (share; code <code>shock</code>) and the switch is the setting “Fuel use and power demand: apply the legacy 2023-2024 shock” (Settings C19; 1 = on, the default, as legacy).</p>
+<p>The shock values are typed calibration values of the legacy GHGs tab (rows 1202-1388, columns G and H), by country, for the first two projection years (2023 and 2024) and 0 afterwards; a country without a value gets 0. For Egypt they are −20.8% in 2023 and +9.2% in 2024. The same shock multiplies electricity demand, scaled there by <code>EngineerModelProportionOfCovidFactor</code> (<a href="#sec-dm-electricity" class="quarto-xref"><span>Section 3.7</span></a>).</p>
+<p>The methodology describes the shock as a Covid adjustment of 2020 and 2021, calibrated to emissions outturns (<a href="../CPAT_full_documentation_html/03_Mitigation.html#sec-CalibrationCovid">methodology, section 3.3.4.4</a>). The model’s base year is 2022, so the shock that remains is legacy’s 2023-2024 calibration.</p>
+</section>
+<section id="sec-dm-data" class="level3" data-number="3.2.6">
+<h3 data-number="3.2.6" class="anchored" data-anchor-id="sec-dm-data"><span class="header-section-number">3.2.6</span> Elasticities and base-year fuel use</h3>
+<p>Every fuel and sector pair reads its parameters from one table, the fuel | subsector table (Excel-AI sheet Inputs rows 5-148; <a href="./A_Equations.html#eqlist-A3-2">A3.2</a>).</p>
+<p><strong>Elasticities</strong> (<a href="./A_Equations.html#eqlist-A3-1">A3.1</a>). Legacy CPAT holds income, usage and efficiency elasticities for 8 elasticity fuels (coal, natural gas, gasoline, diesel, oil products, biomass, renewables, electricity) in 4 elasticity sectors (transport, residential, industry, services), and autonomous efficiency gains for 6 fuels (coal, gas, oil, biomass, renewables, electricity) in the same sectors. The country’s value is read from the legacy Elasticities table (column “Elasticity use”; Excel-AI sheet Inputs_ela). A fuel and sector pair takes the values of its elasticity fuel and elasticity sector (<a href="#tbl-dm-sectors" class="quarto-xref">Table&nbsp;<span>3.1</span></a>, <a href="#tbl-dm-fuels" class="quarto-xref">Table&nbsp;<span>3.2</span></a>). A blank cell reads as 0.</p>
+<p>The methodology explains how these values were chosen (<a href="../CPAT_full_documentation_html/03_Mitigation.html#income-and-price-elasticities-of-demand">methodology, section 3.3.5</a>): 32 base income elasticities from Burke and Csereklyei (2016), adjusted for income levels after Gertler and others (2016); price elasticities from the meta-study of Labandeira and others (2017), split into the usage and efficiency margins and raised slightly for developing countries; all checked against in-house databases and other models.</p>
+<p><strong>Base-year fuel use.</strong> <span class="math inline">\(F^{e}_{s,f,t_0}\)</span> comes from one of two sources, chosen by <code>BalancesOrConsumption</code> (ScenarioDefinition row 234; default Balances):</p>
+<ul>
+<li><strong>Balances:</strong> the IEA energy balance flow of the sector, plus a second signed flow where there is one. Fuel transformation is the negative of own use plus heat (both flows with sign −1), so the residual between primary and final consumption becomes an additional industrial sector (<a href="../CPAT_full_documentation_html/03_Mitigation.html#fuel-transformation">methodology, section 3.3.4.5</a>).</li>
+<li><strong>EnergyCons:</strong> the CPAT energy consumption table (<code>enc.&lt;fuel&gt;</code> of the sector; blank or missing is 0).</li>
+</ul>
+<p><strong>Other energy use</strong> contains principally military fuel use; it follows the same equation (<a href="../CPAT_full_documentation_html/03_Mitigation.html#other-energy-use">methodology, section 3.3.4.6</a>). Whether it is taxed is a matter of coverage (<a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a>).</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: fuel use by the elasticity model">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: fuel use by the elasticity model
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code># before the year loop (prices are known for every year)
+for s in sectors:
+    for f in fuels:
+        # additional efficiency group: road vehicles / residential / industrial
+        alpha_add = AdditionalEfficiency[eff_group[s]]
+        aef[s,f] = (1 / (1 + alpha[s,f] + alpha_add)) ** (1 + eu[s,f])
+        eff_exp[s,f] = ef[s,f] * (1 + eu[s,f])
+
+# year loop
+for t in years:
+    g = gdp.pos.pct[t]                     # growth after the GDP feedback (lag 1)
+    GDPI = (1 + g) ** inc.ela.adj[t] - 1   # income-level factor on the elasticity
+    SHOCK = 1 + shock[t] * ApplyDemandShock
+    for s in sectors:
+        for f in fuels:
+            if t == t0:
+                enel[s,f,t] = ener0[s,f]   # energy balance or EnergyCons
+                continue
+            usage = (atp[s,f,t] / atp[s,f,t-1]) ** eu[s,f]
+            effic = ((atp[s,f,t] + shp[s,f,t])
+                     / (atp[s,f,t-1] + shp[s,f,t-1])) ** eff_exp[s,f]
+            # ey = 0 for residential biomass unless BiomassNormal
+            enel[s,f,t] = (enel[s,f,t-1] * aef[s,f] * (1 + GDPI) ** ey[s,f]
+                           * usage * effic * SHOCK)</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> sheet Mitigation, sections 5-8, one block per sector with one row per fuel: rows <code>aef</code> (efficiency factor), <code>enel</code> (fuel use, elasticity model), <code>ener</code> (fuel use). The GDP growth raised to the income factor and the shock factor are helper rows of the section-0 header. Parameters: sheet Inputs rows 5-148 (the fuel | subsector table: elasticities, AEEI, additional efficiency group, efficiency exponent, base-year use), sheet Inputs_ela (elasticities of the country). Rows <code>incp</code>, <code>inc.ela.adj</code>, <code>shock</code> in section 3 (from the power paths, sheet Inputs_ppath). Inputs on ScenarioDefinition: <code>AdditionalEfficiencyRoadVehicle</code>, <code>AdditionalEfficiencyResidential</code>, <code>AdditionalEfficiencyIndustrial</code> (rows 243-245), <code>IncElAdj</code> (262), <code>GDPEndogenous</code> (267), <code>BalancesOrConsumption</code> (234), <code>ElPrcMainSrc</code>, <code>ElIncMainSrc</code> (223-224), <code>BiomassNormal</code> (326, baseline column); Settings C19 (shock switch).</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/fuel_use.py</code>: <code>prepare()</code> computes <code>aef</code> (with the price rows <code>atp</code>, <code>shp</code>), <code>step()</code> computes <code>enel</code>; <code>fuel_data.fuel_table()</code> builds the fuel | subsector table and <code>elasticity_data.elasticities()</code> reads the elasticities; <code>gdp.start()</code> computes <code>GDPI</code> and <code>SHOCK</code>; <code>power_data.power_paths()</code> the income factor path <code>incp</code>, and <code>power.prepare()</code> applies the switch (<code>inc.ela.adj</code>). Equations M3.1, A3.1, A3.2. Manual elasticities (<code>ElIncMainSrc</code> or <code>ElPrcMainSrc</code> = Manual) are not in CPAT Python yet; the run stops with a message.</li>
+<li>Order of calculation: <a href="../CPAT_coded_documentation_html/02_How_it_works.html#sec-blocks">the blocks of CPAT Python</a> (<code>gdp.start</code>, <code>power.step</code>, <code>fuel_use.step</code>, <code>totals.energy</code>).</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>LD21 (same as legacy, kept on purpose):</strong> the fuel-use equation is CPAT equation 3.3.3 times the shock factor (switch Settings C19 on, as legacy; issue I92). GDP growth enters with the income factor (was issue I23). The additional policy efficiency gains are by scenario, as legacy, in three groups (road vehicles; residential; industrial = every other sector).</li>
+<li><strong>L66 (legacy bug, replicated):</strong> other energy use belongs to the industrial group, so it takes the additional industrial efficiency gain; legacy applies no additional policy efficiency gain to its fossil fuels.</li>
+<li><strong>I24:</strong> residential biomass has an income elasticity of 0 unless <code>BiomassNormal</code> = Yes (legacy row 5567).</li>
+<li><strong>LD1:</strong> food &amp; forestry uses the industry elasticities, the same as legacy (earlier prototype versions used the services elasticities).</li>
+<li><strong>Shadow prices (LD9; legacy bugs L87, L88 fixed):</strong> in legacy the regulation share is 0 and the scenario’s efficiency adjustments are read but never used, so regulations never act, and never reach power. The model applies them as in <a href="#eq-dm-reg" class="quarto-xref">Equation&nbsp;<span>3.11</span></a>, including power. The feebate share on the efficiency margin is <code>SPPEffAdjFeebates</code> (was the constant 1).</li>
+<li><strong>M13 (prototype bug, fixed):</strong> the road vehicle feebate of the engineer road model adds the road regulation shadow price, not the carbon price, which is already in the fuel price.</li>
+<li><strong>Methodology:</strong> the methodology’s equation has one price ratio for both margins; the model puts the shadow price in the efficiency margin only, which the methodology also describes in words.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-dm-biofuels" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="sec-dm-biofuels"><span class="header-section-number">3.3</span> Biofuels, jet fuel and self-generated renewables</h2>
+<p>A few fuels do not fit the grid of 9 fuels by 16 sectors (<a href="../CPAT_full_documentation_html/03_Mitigation.html#biofuels-and-jet-fuel">methodology, section 3.3.4.1</a>). Jet fuel is a fuel of its own, used in domestic aviation; it follows the fuel-use equation with the oil-products elasticities and is priced at the kerosene price. Road biomass is split into three biofuels, and aviation and navigation can use renewables directly (<a href="./A_Equations.html#eqlist-A3-3">A3.3</a>).</p>
+<p><strong>Blended biofuels.</strong> Bioethanol and biodiesel are blended into gasoline and diesel, so they follow the road use of the fossil fuel they are blended into:</p>
+<p><span id="eq-dm-blend"><span class="math display">\[
+B^{bgs}_t = B^{bgs}_{t-1}\,\frac{F^{e}_{rod,gso,t}}{F^{e}_{rod,gso,t-1}}, \qquad
+B^{bdi}_t = B^{bdi}_{t-1}\,\frac{F^{e}_{rod,die,t}}{F^{e}_{rod,die,t-1}}
+\tag{3.13}\]</span></span></p>
+<p>where <span class="math inline">\(B^{bgs}\)</span> and <span class="math inline">\(B^{bdi}\)</span> are road bioethanol and biodiesel (ktoe; code <code>trbe</code>). Where last year’s fossil use is 0 the biofuel holds its value.</p>
+<p><strong>Other biofuels</strong> follow the fuel-use equation with the oil | transport elasticities and autonomous efficiency, the road vehicles additional efficiency, and the road biomass price:</p>
+<p><span id="eq-dm-obf"><span class="math display">\[
+B^{obf}_t = B^{obf}_{t-1}\,
+\left(\frac{1}{1 + \alpha^{oil,tra} + \alpha^{+}_{rod}}\right)^{1 + \epsilon_{U}}
+\Psi_t \left(1 + g_t\right)^{\epsilon_{Y}\,inc_t}
+\left(\frac{p_{rod,bio,t}}{p_{rod,bio,t-1}}\right)^{\epsilon_{U}}
+\left(\frac{p_{rod,bio,t} + sh_{rod,bio,t}}{p_{rod,bio,t-1} + sh_{rod,bio,t-1}}\right)^{\epsilon_{F}(1+\epsilon_{U})}
+\tag{3.14}\]</span></span></p>
+<p>with <span class="math inline">\(\epsilon_Y, \epsilon_U, \epsilon_F\)</span> of oil products in transport (code <code>trp.bfe</code>; efficiency factor code <code>trbea</code>). Road biomass is the sum of the three:</p>
+<p><span id="eq-dm-roadbio"><span class="math display">\[
+F^{e}_{rod,bio,t} = B^{bgs}_t + B^{bdi}_t + B^{obf}_t
+\tag{3.15}\]</span></span></p>
+<p>The base-year biofuels are the road flows of the energy balance (bioethanol, biodiesel, other biofuels) or the EnergyCons values, following <code>BalancesOrConsumption</code>.</p>
+<p><strong>Self-generated renewables.</strong> Renewable energy used directly in domestic aviation and navigation (base year: the EnergyCons value <code>enc.ren</code> of the sector) follows the fuel-use equation with the renewables | transport elasticities, the road vehicles additional efficiency and, as its price, the levelised investment cost of solar power from <a href="04_Power.html" class="quarto-xref"><span>Chapter 4</span></a> (<a href="../CPAT_full_documentation_html/03_Mitigation.html#self-generated-renewables">methodology, section 3.3.4.2</a>):</p>
+<p><span id="eq-dm-ren"><span class="math display">\[
+R_{s,t} = R_{s,t-1}
+\left(\frac{1}{1 + \alpha^{ren,tra} + \alpha^{+}_{rod}}\right)^{1 + \epsilon_{U}}
+\Psi_t \left(1 + g_t\right)^{\epsilon_{Y}\,inc_t}
+\left(\frac{tic^{sol}_t}{tic^{sol}_{t-1}}\right)^{\epsilon_{U} + \epsilon_{F}(1+\epsilon_{U})},
+\qquad s \in \{avi, nav\}
+\tag{3.16}\]</span></span></p>
+<p>where <span class="math inline">\(R_{s,t}\)</span> is renewable use (ktoe; code <code>ener</code> with fuel <code>ren</code>), <span class="math inline">\(tic^{sol}_t\)</span> the levelised investment cost of solar (USD per kWh; code <code>trpren</code>) and the elasticities those of renewables in transport (code <code>trp.rne</code>; efficiency factor code <code>trrena</code>). There is no shadow price on this price. Renewables count in the sector, group and grand totals, but not in any fuel total (<a href="#sec-dm-totals" class="quarto-xref"><span>Section 3.8</span></a>).</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: biofuels and self-generated renewables">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: biofuels and self-generated renewables
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>for t in years:
+    # blended biofuels follow the fossil fuel they are blended into
+    for b, fossil in (("bgs", "gso"), ("bdi", "die")):
+        if t == t0:
+            trbe[rod,b,t] = road_biofuel_base[b]       # balance or EnergyCons
+        elif enel[rod,fossil,t-1] == 0:
+            trbe[rod,b,t] = trbe[rod,b,t-1]
+        else:
+            growth = enel[rod,fossil,t] / enel[rod,fossil,t-1]
+            trbe[rod,b,t] = trbe[rod,b,t-1] * growth
+
+    # other biofuels: oil | transport elasticities, road biomass price
+    add = AdditionalEfficiencyRoadVehicle
+    trbea = (1 / (1 + aei[oil,tra] + add)) ** (1 + usg[oil,tra])
+    if t == t0:
+        trbe[rod,obf,t] = road_biofuel_base["obf"]
+    else:
+        usage = (atp[rod,bio,t] / atp[rod,bio,t-1]) ** usg[oil,tra]
+        effic = ((atp[rod,bio,t] + shp[rod,bio,t])
+                 / (atp[rod,bio,t-1] + shp[rod,bio,t-1])) \
+                ** (eff[oil,tra] * (1 + usg[oil,tra]))
+        trbe[rod,obf,t] = (trbe[rod,obf,t-1] * trbea
+                           * (1 + GDPI) ** inc[oil,tra] * usage * effic * SHOCK)
+    trbe[rod,bio,t] = trbe[rod,bgs,t] + trbe[rod,bdi,t] + trbe[rod,obf,t]
+
+    # renewables in aviation and navigation: price = solar investment cost
+    trpren[t] = tic[pow,sol,t]
+    trrena = (1 / (1 + aei[ren,tra] + add)) ** (1 + usg[ren,tra])
+    for s in ("avi", "nav"):
+        if t == t0:
+            ener[s,ren,t] = enc_ren[s]
+            continue
+        r = trpren[t] / trpren[t-1]
+        price = r ** usg[ren,tra] * r ** (eff[ren,tra] * (1 + usg[ren,tra]))
+        ener[s,ren,t] = (ener[s,ren,t-1] * trrena
+                         * (1 + GDPI) ** inc[ren,tra] * price * SHOCK)</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> sheet Mitigation, section 5b (rows <code>trp.eb2</code> base-year road biofuels, <code>trbe</code>, <code>trbea</code>, <code>trp.bfe</code>, <code>trpren</code>, <code>trrena</code>, <code>trp.rne</code>, <code>trp.rn0</code>), and the rows <code>ener</code> of renewables in the aviation and navigation blocks (section 5).</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/fuel_use.py</code>, <code>step()</code> (block “biofuels in road transport, aviation and navigation”), with <code>_road_biofuel()</code> and <code>_renewable_use()</code> for the base year. Equation A3.3.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>I143, I144:</strong> the elasticities of other road biofuels (oil | transport) and of self-generated renewables (renewables | transport) are read as legacy rows 5392, 5406 and 5491, 5516 do.</li>
+<li><strong>Methodology:</strong> the methodology places self-generated renewables in the buildings and industry sectors; the model, like legacy, has them only in domestic aviation and navigation, where the EnergyCons data hold them.</li>
+<li>Under the engineer road model (<code>TrModel</code> = Engineer) road biofuels come from <a href="05_Road_transport.html" class="quarto-xref"><span>Chapter 5</span></a> instead.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-dm-leakage" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="sec-dm-leakage"><span class="header-section-number">3.4</span> Residential leakage to biomass</h2>
+<p>When modern cooking fuels become dearer, some households may switch back to traditional biomass. This “leakage” reduces the emission savings and worsens household air pollution (<a href="../CPAT_full_documentation_html/03_Mitigation.html#biomass-substitution-in-the-residential-sector">methodology, section 3.3.4.3</a>; air pollution effects in <a href="../CPAT_full_documentation_html/06_Air_pollution.html#leakage-to-biomass">methodology, section 6.6.5</a>).</p>
+<p>The option is off by default. It is switched on by <code>BiomassLeakage</code> (“Include leakage to biomass in residential sector”, ScenarioDefinition row 325, read from the baseline column; on when it starts with “Yes”). It applies only to the country’s most-used cooking fuel, and only if that fuel is natural gas, LPG or kerosene (<a href="./A_Equations.html#eqlist-A3-4">A3.4</a>).</p>
+<p>The calculation runs in five steps for each leaking fuel <span class="math inline">\(m \in \{nga, lpg, ker\}\)</span> in the residential sector, from the first projection year (all flows are 0 in the base year).</p>
+<p><strong>Step 1: the new policy in the price.</strong> Only new policies cause leakage, not movements of the international price:</p>
+<p><span id="eq-dm-lkt"><span class="math display">\[
+W_{m,t} = N_{res,m,t}\left(1 + v_m\right)
+\tag{3.17}\]</span></span></p>
+<p>where <span class="math inline">\(N_{res,m,t}\)</span> is the total new policy per GJ of the residential row (new carbon tax, ETS cost and new excise; code <code>nce</code>) and <span class="math inline">\(v_m\)</span> its VAT rate. An exempt fuel (<a href="#sec-dm-exempt" class="quarto-xref"><span>Section 3.5</span></a>) has no new policy, so it does not leak.</p>
+<p><strong>Step 2: the share that leaks.</strong> A rise in the new policy relative to last year’s price moves a share of the fuel to biomass:</p>
+<p><span id="eq-dm-lkp"><span class="math display">\[
+\pi_{m,t} = \mathbb{1}[\text{on},\ m = m^{*}] \cdot
+\min\left( \left(1 + \frac{W_{m,t} - W_{m,t-1}}{p_{res,m,t-1}}\right)^{\sigma \eta_{bio} / (\eta_m L)} - 1,\ 1 \right)
+\tag{3.18}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(m^{*}\)</span> is the country’s most-used cooking fuel (WHO cooking data, overall sample; LPG if the country has no entry);</li>
+<li><span class="math inline">\(\sigma\)</span> is the cross-price elasticity of biomass with respect to LPG (default 0.25; legacy Elasticities C131, legacy row 360);</li>
+<li><span class="math inline">\(\eta_m\)</span>, <span class="math inline">\(\eta_{bio}\)</span> are the cookstove efficiencies of the fuel and of biomass (table below);</li>
+<li><span class="math inline">\(L\)</span> is the substitution lag (1 year, sheet Constants; it divides the exponent);</li>
+<li><span class="math inline">\(p_{res,m,t-1}\)</span> is last year’s after-tax price of the fuel.</li>
+</ul>
+<p><strong>Step 3: the change in fossil use.</strong> The share is read as a share of useful energy, so it is weighted by the stove efficiency of the fuel:</p>
+<p><span id="eq-dm-lkd"><span class="math display">\[
+d_{m,t} = -\left(F_{res,m,t-1} - X_{m,t-1}\right)\eta_m\,\pi_{m,t}
+\tag{3.19}\]</span></span></p>
+<p>where <span class="math inline">\(F_{res,m,t-1}\)</span> is last year’s actual fuel use (which already includes earlier leakage) and <span class="math inline">\(X_{m,t-1}\)</span> the initially exempt use (<a href="#sec-dm-exempt" class="quarto-xref"><span>Section 3.5</span></a>; 0 unless that option is on), which does not leak.</p>
+<p><strong>Step 4: the biomass that replaces it.</strong> Biomass supplies the same useful energy:</p>
+<p><span id="eq-dm-lkb"><span class="math display">\[
+b_{m,t} = -d_{m,t}\,\frac{\eta_m}{\eta_{bio}}, \qquad \text{so that}\quad \eta_m d_{m,t} + \eta_{bio} b_{m,t} = 0
+\tag{3.20}\]</span></span></p>
+<p><strong>Step 5: cumulative changes.</strong> The yearly changes add up to level shifts that are added to residential fuel use:</p>
+<p><span id="eq-dm-lkc"><span class="math display">\[
+Lk_{m,t} = Lk_{m,t-1} + d_{m,t} + \left(X^{a}_{m,t} - X^{a}_{m,t-1}\right), \qquad
+Lk_{bio,t} = Lk_{bio,t-1} + \sum_{m} b_{m,t}
+\tag{3.21}\]</span></span></p>
+<p>where <span class="math inline">\(X^{a}\)</span> is the adjustment for initially exempt use (<a href="#eq-dm-exempt-adj" class="quarto-xref">Equation&nbsp;<span>3.24</span></a>; 0 unless that option is on), and <span class="math inline">\(Lk_{t_0} = 0\)</span>. The net change <span class="math inline">\(\sum_m Lk_m + Lk_{bio}\)</span> is reported as a memo row (code <code>lks</code>).</p>
+<div id="tbl-dm-leak" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dm-leak-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.7: Parameters of residential leakage (efficiencies from Malla and Timilsina, 2014)
+</figcaption>
+<div aria-describedby="tbl-dm-leak-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Symbol</th>
+<th>Default</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Natural gas cookstove efficiency</td>
+<td><span class="math inline">\(\eta_{nga}\)</span></td>
+<td>0.58</td>
+<td><code>NatGasEff</code> (ScenarioDefinition row 301, baseline column)</td>
+</tr>
+<tr class="even">
+<td>LPG cookstove efficiency</td>
+<td><span class="math inline">\(\eta_{lpg}\)</span></td>
+<td>0.56</td>
+<td><code>LPGEff</code> (row 298)</td>
+</tr>
+<tr class="odd">
+<td>Kerosene cookstove efficiency</td>
+<td><span class="math inline">\(\eta_{ker}\)</span></td>
+<td>0.45</td>
+<td><code>KerEff</code> (row 299)</td>
+</tr>
+<tr class="even">
+<td>Biomass cookstove efficiency</td>
+<td><span class="math inline">\(\eta_{bio}\)</span></td>
+<td>0.20</td>
+<td><code>BioEff</code> (row 300)</td>
+</tr>
+<tr class="odd">
+<td>Cross-price elasticity of biomass w.r.t. LPG</td>
+<td><span class="math inline">\(\sigma\)</span></td>
+<td>0.25</td>
+<td>Elasticities table (global)</td>
+</tr>
+<tr class="even">
+<td>Substitution lag</td>
+<td><span class="math inline">\(L\)</span></td>
+<td>1 year</td>
+<td>sheet Constants (<code>ResSubstLag</code>)</td>
+</tr>
+<tr class="odd">
+<td>Most-used cooking fuel</td>
+<td><span class="math inline">\(m^{*}\)</span></td>
+<td>country data</td>
+<td>WHO cooking table</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>How the leakage behaves:</p>
+<ul>
+<li>A <strong>fall</strong> in the new policy moves fuel back from biomass (<span class="math inline">\(\pi &lt; 0\)</span>). The share is capped at 1.</li>
+<li>A policy that rises and then stays flat moves fuel only in the years it rises. The shift then stays as a level shift: <span class="math inline">\(Lk\)</span> is not grown with GDP.</li>
+<li>With natural gas and a 10% rise in its price from new policies, the exponent is <span class="math inline">\(0.25 \times 0.20 / 0.58 \approx 0.086\)</span>, so <span class="math inline">\(\pi \approx 0.8\%\)</span>; the fossil change is <span class="math inline">\(\pi \eta_{nga} \approx 0.5\%\)</span> of gas use, replaced by <span class="math inline">\(0.5\% \times 0.58/0.20 \approx 1.4\%\)</span> of gas use in biomass (in ktoe).</li>
+<li>Every product of residential fuel use follows the leakage: CO2, CH4, local pollutants, revenues, the weights of the average prices and the distribution module. <span class="math inline">\(F^{e}\)</span> stays the elasticity model.</li>
+</ul>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: residential leakage to biomass">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: residential leakage to biomass
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>on = BiomassLeakage.startswith("Yes")
+LEAK = ("nga", "lpg", "ker")
+for t in years:
+    for m in LEAK:
+        lkt[m,t] = nce[res,m,t] * (1 + vat[res,m])    # new policy, with VAT
+        if t == t0:
+            lkp[m,t] = 0
+            lkd[m,t] = 0
+        else:
+            expo = sigma * BioEff / Eff[m] / ResSubstLag
+            active = 1 if (on and m == CookFuel) else 0
+            rise = (lkt[m,t] - lkt[m,t-1]) / atp[res,m,t-1]
+            lkp[m,t] = active * min((1 + rise) ** expo - 1, 1)
+            not_exempt = ener[res,m,t-1] - lkx[m,t-1]
+            lkd[m,t] = -not_exempt * Eff[m] * lkp[m,t]
+        lkb[m,t] = -lkd[m,t] * Eff[m] / BioEff
+    for m in LEAK:
+        if t == t0:
+            lkc[m,t] = 0
+        else:
+            lkc[m,t] = (lkc[m,t-1] + lkd[m,t]
+                        + (lkxa[m,t] - lkxa[m,t-1]))  # exempt-use adjustment
+    lkcb[t] = 0 if t == t0 else lkcb[t-1] + sum(lkb[m,t] for m in LEAK)
+    lks[t] = sum(lkc[m,t] for m in LEAK) + lkcb[t]</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> sheet Mitigation, section 6b, rows <code>lkt</code>, <code>lkp</code>, <code>lkd</code>, <code>lkb</code>, <code>lkc</code>, <code>lkcb</code>, <code>lkz</code> (a row of zeros for the sectors and fuels that do not leak), <code>lks</code>. The leakage rows are added to <code>ener</code> through the leakage position of the fuel | subsector table (Inputs column BF). Settings C59-C89 hold the switch, the cooking fuel, the stove efficiencies and the substitution elasticity.</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/fuel_use.py</code>, <code>leakage_settings()</code> (switch, most-used cooking fuel, efficiencies, elasticity) and <code>step()</code> (block “residential leakage to biomass”). Equation A3.4.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>L45 (legacy bug, fixed):</strong> legacy’s leakage is inconsistent; the model gives kerosene its own price and share and computes the change on actual use, including earlier leakage.</li>
+<li><strong>L90 (legacy bug, fixed):</strong> legacy multiplies the biomass replacement by the biomass efficiency again, which breaks the balance of useful energy; the model keeps <span class="math inline">\(\eta_m d + \eta_{bio} b = 0\)</span>.</li>
+<li><strong>L91 (legacy bug, fixed):</strong> in legacy an exempt residential fuel still leaks; the model reads the row’s own new policy, which is 0 for an exempt fuel.</li>
+<li><strong>I138:</strong> initially exempt use does not leak (the change is computed on use net of the exempt part).</li>
+<li><strong>I137:</strong> LPG is the cooking fuel when the WHO code of the country is missing.</li>
+<li><strong>Methodology:</strong> the methodology’s example says a 10% price change moves 0.9% of natural gas use to biomass; with the defaults the leaked share <span class="math inline">\(\pi\)</span> is about 0.8%, and the model applies it to useful energy.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-dm-exempt" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="sec-dm-exempt"><span class="header-section-number">3.5</span> Exempt residential cooking fuel</h2>
+<p>Two options protect households’ cooking fuel from new policies. Both act through the price or the quantity of the residential rows.</p>
+<p><strong>Always exempt residential LPG and kerosene.</strong> With <code>AlwaysExemptResLPGKer</code> (ScenarioDefinition row 268, by scenario; default <code>No*</code>; a starred <code>Yes*</code> counts as Yes) the new carbon tax, the new ETS cost and the new excise of the residential LPG and kerosene rows are 0 (exemption factor, code <code>exf</code>; <a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a>). Their after-tax price then keeps only existing taxes, the change in existing carbon pricing and the subsidy phase-outs, so their demand responds only to those. The shadow price stays, and so does their place in ETS-covered emissions where the residential sector is in an ETS. Exempt fuels do not leak to biomass. Exemptions are introduced in <a href="../CPAT_full_documentation_html/01_User_Guide.html#exemptions">user guide, section 1.2.4</a>.</p>
+<p><strong>Initially exempt demand of the most-used cooking fuel.</strong> With <code>ExemptMostCook</code> = Yes (row 312), the use of the most-used cooking fuel by the bottom deciles of households is initially shielded from the price response, which is phased in later. The shielded share <span class="math inline">\(\chi\)</span> is the spending of the bottom <code>ExemptCookDeciles</code> deciles (row 313, default 4) on the fuel, over the economy-wide spending on it: household survey budget share times consumption per capita times the weight of each decile (Settings C83, <code>ExemptCookShare</code>).</p>
+<p>The exempt use starts as a share of base-year use and then grows with the elasticity model, but with the usage response to the price removed until the phase-in:</p>
+<p><span id="eq-dm-exempt"><span class="math display">\[
+X_{m,t_0} = \chi\,F^{e}_{res,m,t_0}, \qquad
+X_{m,t} = X_{m,t-1}\;\frac{F^{e}_{res,m,t}}{F^{e}_{res,m,t-1}}\;\left(\frac{p_{res,m,t}}{p_{res,m,t-1}}\right)^{\epsilon_U(\phi_t - 1)}
+\tag{3.22}\]</span></span></p>
+<p>where <span class="math inline">\(m\)</span> is the most-used cooking fuel (<span class="math inline">\(\chi = 0\)</span> for the other fuels), <span class="math inline">\(\epsilon_U\)</span> its residential usage elasticity, and <span class="math inline">\(\phi_t\)</span> the phase-in of the usage response:</p>
+<p><span id="eq-dm-phasein"><span class="math display">\[
+\phi_t = \begin{cases}
+\min\left(\max\left(\dfrac{t + 1 - T^{pha}}{N^{pha}},\ 0\right),\ 1\right) &amp; \text{if ExemptPhaseout} \\[1ex]
+0 &amp; \text{otherwise}
+\end{cases}
+\tag{3.23}\]</span></span></p>
+<p>with <span class="math inline">\(T^{pha}\)</span> = <code>YearPha</code> (row 50, default 2027), <span class="math inline">\(N^{pha}\)</span> = <code>ExemptPhaseoutPeriod</code> (row 51, default 5 years) and <code>ExemptPhaseout</code> (row 49, default FALSE). Where last year’s use or price is 0, the ratio is taken as 1.</p>
+<p><span class="math inline">\(F^{e}\)</span> already contains the usage term <span class="math inline">\((p_t/p_{t-1})^{\epsilon_U}\)</span>; the last factor multiplies it by <span class="math inline">\((p_t/p_{t-1})^{-\epsilon_U(1-\phi_t)}\)</span>, which takes out the share <span class="math inline">\(1 - \phi_t\)</span> of it. Before the phase-in the exempt use keeps only the income, efficiency and shock terms; once <span class="math inline">\(\phi_t = 1\)</span> it responds like the rest.</p>
+<p>The difference with the share of the elasticity model is added to residential fuel use through the leakage rows (<a href="#eq-dm-lkc" class="quarto-xref">Equation&nbsp;<span>3.21</span></a>):</p>
+<p><span id="eq-dm-exempt-adj"><span class="math display">\[
+X^{a}_{m,t} = X_{m,t} - \chi\,F^{e}_{res,m,t}, \qquad X^{a}_{m,t_0} = 0
+\tag{3.24}\]</span></span></p>
+<p>So residential use of the cooking fuel is <span class="math inline">\((1-\chi)F^{e} + X\)</span> plus the leakage, and the leakage is computed on the use that is not exempt.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: initially exempt cooking fuel">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: initially exempt cooking fuel
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>for t in years:
+    if ExemptPhaseout:
+        lkxp[t] = clip((t + 1 - YearPha) / ExemptPhaseoutPeriod, 0, 1)
+    else:
+        lkxp[t] = 0
+    for m in ("nga", "lpg", "ker"):
+        share = ExemptCookShare if m == CookFuel else 0
+        if t == t0:
+            lkx[m,t] = share * enel[res,m,t]
+            lkxa[m,t] = 0
+            continue
+        lkxe = ratio(enel[res,m,t], enel[res,m,t-1])   # 1 if last year is 0
+        lkxr = ratio(atp[res,m,t], atp[res,m,t-1])     # 1 if last year is 0
+        lkx[m,t] = lkx[m,t-1] * lkxe * lkxr ** (eu[res,m] * (lkxp[t] - 1))
+        lkxa[m,t] = lkx[m,t] - share * enel[res,m,t]   # enters lkc, so ener</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> exemption factor rows <code>exf</code> (section 1); sheet Mitigation, section 6b, rows <code>lkxp</code>, <code>lkxe</code>, <code>lkxr</code>, <code>lkx</code>, <code>lkxa</code>, entering <code>lkc</code>. Inputs on ScenarioDefinition: <code>AlwaysExemptResLPGKer</code> (268), <code>ExemptMostCook</code> (312), <code>ExemptCookDeciles</code> (313), <code>ExemptPhaseout</code>, <code>YearPha</code>, <code>ExemptPhaseoutPeriod</code> (49-51); Settings C83 (<code>ExemptCookShare</code>, from the household survey).</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/fuel_use.py</code>: <code>prepare()</code> applies <code>exf</code>; <code>step()</code> computes <code>lkxp</code> to <code>lkxa</code>. The share needs the household survey deciles, which CPAT Python does not read yet: with <code>ExemptMostCook</code> = Yes the run stops with a message, and the share is 0 otherwise. Equation A3.4.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>LD67 (same as legacy):</strong> the initially exempt residential demand of the most-used cooking fuel is built as legacy rows 5568-5570; v0.9.0 (R6) takes the share over the economy-wide basket spend (I136), uses LPG if the WHO cooking code is missing (I137) and computes leakage on the use that is not exempt (I138).</li>
+<li><strong>L48 (legacy bug, fixed):</strong> legacy’s initially exempt rows have no income factor, and its exemption test misses a starred <code>Yes*</code>; the model grows the exempt use with the row’s own elasticity path, income factor included.</li>
+<li><strong>L94 (legacy bug, fixed):</strong> legacy’s phase-in rules differ between rows; the model uses one rule (that of legacy rows 2259-2265) everywhere.</li>
+<li>Always exempt LPG and kerosene: as legacy rows 5546-5547 (<code>IF(AlwaysExemptResLPGKer="Yes", 0, ...)</code>); the shadow price is not exempted, as legacy.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-dm-ener" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="sec-dm-ener"><span class="header-section-number">3.6</span> Fuel use used by the rest of the model</h2>
+<p>The elasticity model <span class="math inline">\(F^{e}\)</span> is not always the fuel use that the rest of the model reads. Two things can replace or adjust it: the road engineer model, and the residential adjustments above. The result is the fuel use <span class="math inline">\(F\)</span> (code <code>ener</code>) used everywhere else (<a href="./A_Equations.html#eqlist-M3-2">M3.2</a>):</p>
+<p><span id="eq-dm-ener"><span class="math display">\[
+F_{s,f,t} = \begin{cases}
+F^{T}_{f,t} &amp; s = \text{road},\ f \in \{gso, die, lpg, nga, bio\},\ \text{TrModel} = \text{Engineer} \\
+F^{e}_{s,f,t} + Lk_{s,f,t} &amp; \text{otherwise}
+\end{cases}
+\tag{3.25}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(F^{T}_{f,t}\)</span> is road fuel use from the engineer road model, calibrated to the energy balance in the base year (<a href="05_Road_transport.html" class="quarto-xref"><span>Chapter 5</span></a>); it covers gasoline, diesel, LPG, natural gas and biofuels;</li>
+<li><span class="math inline">\(F^{e}\)</span> is the elasticity model (<a href="#eq-dm-fueluse" class="quarto-xref">Equation&nbsp;<span>3.1</span></a>), with road biomass from <a href="#eq-dm-roadbio" class="quarto-xref">Equation&nbsp;<span>3.15</span></a>;</li>
+<li><span class="math inline">\(Lk_{s,f,t}\)</span> is the cumulative residential leakage and exempt-use adjustment (<a href="#eq-dm-lkc" class="quarto-xref">Equation&nbsp;<span>3.21</span></a>) for residential natural gas, LPG, kerosene and biomass, and 0 for every other pair.</li>
+</ul>
+<p><code>TrModel</code> (ScenarioDefinition row 338) is Elasticity by default; then road fuel use stays the elasticity model’s and the engineer model’s results go only to the transport co-benefits.</p>
+<p>Everything downstream reads <span class="math inline">\(F\)</span>: CO2 and other emissions (<a href="06_Emissions_and_ETS.html" class="quarto-xref"><span>Chapter 6</span></a>), revenues and the GDP effect (<a href="07_Revenues_GDP_welfare.html" class="quarto-xref"><span>Chapter 7</span></a>), the price averages and indices (<a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a>) and the distribution module (<a href="08_Distribution.html" class="quarto-xref"><span>Chapter 8</span></a>).</p>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> sheet Mitigation, sections 5-8, row <code>ener</code> of each fuel: <code>IF(engineer road row × tr.sw &gt; 0, trkt, enel) + leakage row</code>; road biomass reads <code>trbe</code> instead of <code>enel</code>. The engineer road row and the leakage row are positions in the fuel | subsector table (Inputs columns AF and BF).</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/fuel_use.py</code>, <code>step()</code> (block “fuel use, emissions and revenues”). The engineer road model as the source of road fuel use is not in CPAT Python yet: with <code>TrModel</code> = Engineer the run stops with a message (<code>road.prepare</code>). Equation M3.2.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-dm-electricity" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="sec-dm-electricity"><span class="header-section-number">3.7</span> Electricity demand</h2>
+<p>Electricity demand by sector follows the same logic as fuel use, with its own elasticities by demand group. It is computed at the start of the year, before the power model, which turns it into the generation required (<a href="04_Power.html" class="quarto-xref"><span>Chapter 4</span></a>). The methodology describes it in <a href="../CPAT_full_documentation_html/03_Mitigation.html#power-demand">methodology, section 3.4.2.3</a> (<a href="./A_Equations.html#eqlist-M4-1">M4.1</a>).</p>
+<p>Sector policies (carbon tax, ETS, feebates, fuel price reform) act on electricity demand only through the electricity price, which carries the policy cost of power generation. The demand price is a blend of last year’s end-user prices, so demand never depends on this year’s power price:</p>
+<p><span id="eq-dm-pdem"><span class="math display">\[
+\bar{p}_{d,t} = w_d\,p^{res}_{t-1} + \left(1 - w_d\right) p^{ind}_{t-1}
+\tag{3.26}\]</span></span></p>
+<p>where <span class="math inline">\(p^{res}\)</span> and <span class="math inline">\(p^{ind}\)</span> are the residential and industrial end-user electricity prices (USD per kWh, real; <a href="04_Power.html" class="quarto-xref"><span>Chapter 4</span></a>) and <span class="math inline">\(w_d\)</span> the weight of the residential price in demand group <span class="math inline">\(d\)</span>. In the base year the demand price is the price of the year before (data).</p>
+<p>The demand multiple of each group combines the same terms as fuel use:</p>
+<p><span id="eq-dm-mult"><span class="math display">\[
+M_{d,t} = \left(\frac{1}{1 + \alpha_d + \alpha^{+}_{pow}}\right)^{1 + \epsilon_{U,d}}
+\left(1 + g_t\right)^{\epsilon_{Y,d}\,inc_t}
+\left(\frac{\bar{p}_{d,t}}{\bar{p}_{d,t-1}}\right)^{\epsilon_{U,d} + \epsilon_{F,d} + \epsilon_{U,d}\epsilon_{F,d}}
+\left(1 + \text{shock}_t \cdot \text{switch} \cdot \kappa^{cov}\right)
+\tag{3.27}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(\alpha_d\)</span>, <span class="math inline">\(\epsilon_{Y,d}\)</span>, <span class="math inline">\(\epsilon_{U,d}\)</span>, <span class="math inline">\(\epsilon_{F,d}\)</span> are the electricity elasticities and autonomous efficiency gain of the group (electricity row of the elasticity table, in the group’s elasticity sector);</li>
+<li><span class="math inline">\(\alpha^{+}_{pow}\)</span> is <code>AdditionalEfficiencyPower</code> (ScenarioDefinition row 242, by scenario, default 0);</li>
+<li><span class="math inline">\(\kappa^{cov}\)</span> is <code>EngineerModelProportionOfCovidFactor</code>, the share of the shock passed on to power demand (ScenarioDefinition row 372, default 1);</li>
+<li>there is no shadow price term: the shadow prices reach power through its own costs (<a href="04_Power.html" class="quarto-xref"><span>Chapter 4</span></a>).</li>
+</ul>
+<p>Demand of each sector is last year’s demand times its group’s multiple:</p>
+<p><span id="eq-dm-dem"><span class="math display">\[
+E_{s,t} = \begin{cases}
+E^{T}_{t} &amp; s = \text{road and TrModel} = \text{Engineer} \\
+E_{s,t-1}\,M_{d(s),t} &amp; \text{otherwise}
+\end{cases}
+\qquad E_{s,t_0} = \text{data}
+\tag{3.28}\]</span></span></p>
+<p>where <span class="math inline">\(E_{s,t}\)</span> is electricity demand (ktoe; code <code>dem</code>), <span class="math inline">\(E^{T}\)</span> road electricity from the engineer road model (<a href="05_Road_transport.html" class="quarto-xref"><span>Chapter 5</span></a>) and <span class="math inline">\(d(s)\)</span> the demand group of the sector (<a href="#tbl-dm-sectors" class="quarto-xref">Table&nbsp;<span>3.1</span></a>). Demand covers 15 sectors (fuel transformation has none). The base-year demand comes from the energy balance.</p>
+<div id="tbl-dm-elgroups" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dm-elgroups-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.8: Electricity demand groups
+</figcaption>
+<div aria-describedby="tbl-dm-elgroups-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Demand group <span class="math inline">\(d\)</span></th>
+<th>Sectors</th>
+<th>Weight <span class="math inline">\(w_d\)</span> on the residential price</th>
+<th>Elasticity sector</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Transport</td>
+<td>road, rail, aviation, navigation</td>
+<td>0.5</td>
+<td>transport</td>
+</tr>
+<tr class="even">
+<td>Residential</td>
+<td>residential</td>
+<td>1</td>
+<td>residential</td>
+</tr>
+<tr class="odd">
+<td>Industry</td>
+<td>food &amp; forestry, the industry sectors, other energy use</td>
+<td>0</td>
+<td>industry</td>
+</tr>
+<tr class="even">
+<td>Services</td>
+<td>services</td>
+<td>0</td>
+<td>services</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>The power model (<a href="04_Power.html" class="quarto-xref"><span>Chapter 4</span></a>) adds up demand, <span class="math inline">\(E_t = \sum_s E_{s,t}\)</span>, converts it into required generation and splits consumption into residential and industrial users.</p>
+<p><strong>A memo, not a fuel.</strong> Electricity demand is shown in the sector blocks and summed by sector group (code <code>eldem</code>), but it is not part of the fuel totals: the fuels burnt to generate it are (<a href="#sec-dm-totals" class="quarto-xref"><span>Section 3.8</span></a>). Nothing is counted twice.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: electricity demand">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: electricity demand
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>for t in years:
+    for d in ("tra", "res", "ind", "srv"):
+        if t == t0:
+            pdem[d,t] = p2021[d]
+        else:
+            pdem[d,t] = w[d] * rp[res,t-1] + (1 - w[d]) * rp[ind,t-1]
+        add = AdditionalEfficiencyPower
+        aeef = (1 / (1 + alpha[ecy,d] + add)) ** (1 + eu[ecy,d])
+        eps = eu[ecy,d] + ef[ecy,d] + eu[ecy,d] * ef[ecy,d]
+        shock_d = shock[t] * ApplyDemandShock * EngineerModelProportionOfCovidFactor
+        if t == t0:
+            mult[d,t] = 1
+        else:
+            mult[d,t] = (aeef
+                         * (1 + gdp.pos.pct[t]) ** (ey[ecy,d] * inc.ela.adj[t])
+                         * (pdem[d,t] / pdem[d,t-1]) ** eps
+                         * (1 + shock_d))
+    for s in demand_sectors:                 # 15 sectors, no fuel transformation
+        if t == t0:
+            dem[s,t] = dem0[s]
+        elif s == "rod" and TrModel == "Engineer":
+            dem[s,t] = trkte[t]               # road electricity, engineer model
+        else:
+            dem[s,t] = dem[s,t-1] * mult[group[s],t]
+    demtot[t] = sum(dem[s,t] for s in demand_sectors)   # -&gt; power model
+    for s in sectors:                                    # memo rows
+        eldem[s,t] = dem[s,t] if s in demand_sectors else 0</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> sheet Mitigation, section 3, part H: rows <code>pdem</code>, <code>aeef</code>, <code>mult</code>, <code>dem</code>, <code>demg</code>, <code>demtot</code>; memo rows <code>eldem</code> in the sector blocks and in section 11. Parameters: sheet Inputs rows 231-234 (demand groups: price weight, elasticities, base prices) and 238-252 (sectors: demand group, base-year demand, road flag).</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/power.py</code>, <code>step()</code> (block “demand”); memo rows <code>eldem</code> in <code>fuel_use.step()</code> and <code>totals.energy()</code>. Equation M4.1.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>L1 (legacy bug, fixed):</strong> in legacy, services electricity demand grows with the industrial multiple after 2023; here services keep the services multiple in every year.</li>
+<li><strong>L2 (legacy bug, fixed):</strong> legacy’s autonomous efficiency gain uses the efficiency elasticity in the exponent; here it uses the usage elasticity, as fuel use.</li>
+<li><strong>L3 (legacy bug, fixed):</strong> legacy applies the income factor twice and anchors it to 2023; here it multiplies the GDP elasticity once.</li>
+<li><strong>LD24 (same as legacy):</strong> the 2023-2024 demand shock applies to power demand too, switch Settings C19, on by default.</li>
+<li><strong>LD21:</strong> power demand takes <code>AdditionalEfficiencyPower</code> of its own scenario, like every power input.</li>
+<li><strong>Methodology:</strong> the methodology writes a GDP elasticity <span class="math inline">\(\epsilon_G\)</span> that it does not define; the model uses <span class="math inline">\(\epsilon_Y\)</span> with the income factor. The demand price is lagged one year on purpose (legacy rows 3687-3689).</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-dm-totals" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="sec-dm-totals"><span class="header-section-number">3.8</span> Energy totals and changes against the baseline</h2>
+<p>The last step adds fuel use up by sector group and by fuel, adds the fuels burnt in power plants, and compares every total with the baseline of the same year (<a href="./A_Equations.html#eqlist-M3-3">M3.3</a>).</p>
+<p><strong>By sector.</strong> The total of a sector is the sum over its fuels, plus renewables in aviation and navigation:</p>
+<p><span id="eq-dm-sectortotal"><span class="math display">\[
+F_{s,t} = \sum_{f} F_{s,f,t} + R_{s,t}\,\mathbb{1}[s \in \{avi, nav\}], \qquad
+F_{g,t} = \sum_{s \in g} F_{s,t}
+\tag{3.29}\]</span></span></p>
+<p>for the sector groups <span class="math inline">\(g\)</span> transport, buildings, industry and other energy use (<a href="#tbl-dm-sectors" class="quarto-xref">Table&nbsp;<span>3.1</span></a>).</p>
+<p><strong>Power.</strong> The power group is the fuel input of power generation, coal, gas, oil and biomass (code <code>pet</code>; <a href="04_Power.html" class="quarto-xref"><span>Chapter 4</span></a>):</p>
+<p><span id="eq-dm-powtotal"><span class="math display">\[
+F_{pow,t} = \sum_{k \in \{coa,\, nga,\, oop,\, bio\}} F^{pow}_{k,t}
+\tag{3.30}\]</span></span></p>
+<p>Nuclear, wind, solar, hydro and other renewables have no fuel input in this total.</p>
+<p><strong>By fuel and in total.</strong></p>
+<p><span id="eq-dm-fueltotal"><span class="math display">\[
+F_{f,t} = \sum_{s} F_{s,f,t} + F^{pow}_{f,t}, \qquad
+F_t = \sum_{s} F_{s,t} + F_{pow,t}
+\tag{3.31}\]</span></span></p>
+<p>where <span class="math inline">\(F^{pow}_{f,t}\)</span> is the generation fuel use of the type that burns fuel <span class="math inline">\(f\)</span> (0 for the other fuels). Renewables in aviation and navigation are in <span class="math inline">\(F_t\)</span> but in no fuel total. A check row confirms that the totals agree:</p>
+<p><span id="eq-dm-check"><span class="math display">\[
+\left|\sum_{s} F_{s,t} + F_{pow,t} - F_t\right| + \left|\sum_{f} F_{f,t} + R_{avi,t} + R_{nav,t} - F_t\right| = 0
+\tag{3.32}\]</span></span></p>
+<p><strong>Change against the baseline.</strong> Each total <span class="math inline">\(x\)</span> (the 9 fuel totals, the 4 sector groups, power and the grand total) is compared with the baseline value of the same year:</p>
+<p><span id="eq-dm-change"><span class="math display">\[
+\Delta F_{x,t} = F_{x,t} - F^{B}_{x,t}, \qquad
+\%\Delta F_{x,t} = \begin{cases} \dfrac{\Delta F_{x,t}}{F_{x,t} - \Delta F_{x,t}} &amp; F_{x,t} - \Delta F_{x,t} \ne 0 \\[1ex] 0 &amp; \text{otherwise} \end{cases}
+\tag{3.33}\]</span></span></p>
+<p>where <span class="math inline">\(F^{B}_{x,t}\)</span> is scenario 1’s value in the same year (codes <code>echg</code> and <code>epct</code>). In the baseline itself the change is 0. The grand total also has its baseline value and percentage change as rows (<code>ener.ref</code>, <code>ener.pct</code> <span class="math inline">\(= F_t / F^{B}_t - 1\)</span>).</p>
+<p><strong>Electricity totals.</strong> Electricity demand (memo) is summed by sector group and in total: <span class="math inline">\(E_{g,t} = \sum_{s \in g} E_{s,t}\)</span>, <span class="math inline">\(E_t = \sum_g E_{g,t}\)</span> (code <code>eldem</code>).</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: totals and change against the baseline">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: totals and change against the baseline
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>GROUPS = ("tra", "bld", "ind", "oen")
+for t in years:
+    for s in sectors:
+        ren = ener[s,ren,t] if s in ("avi", "nav") else 0
+        ener[s,all,t] = sum(ener[s,f,t] for f in fuels) + ren
+    for g in GROUPS:
+        ener[g,all,t] = sum(ener[s,all,t] for s in sectors if group[s] == g)
+    ener[pow,all,t] = pet[t]          # coal, gas, oil, biomass burnt in power
+    for f in fuels:
+        burnt = pe[pow,f,t] if f in power_types else 0
+        ener[all,f,t] = sum(ener[s,f,t] for s in sectors) + burnt
+    total = sum(ener[s,all,t] for s in sectors) + ener[pow,all,t]
+    ener[all,all,t] = total
+    by_sector = sum(ener[s,all,t] for s in sectors) + ener[pow,all,t]
+    by_fuel = (sum(ener[all,f,t] for f in fuels)
+               + ener[avi,ren,t] + ener[nav,ren,t])
+    ener.chk[t] = abs(by_sector - total) + abs(by_fuel - total)
+    ener.ref[t] = baseline.ener[all,all,t]
+    ener.pct[t] = total / ener.ref[t] - 1
+    rows = ([(all,f) for f in fuels] + [(g,all) for g in GROUPS + ("pow",)]
+            + [(all,all)])
+    for x in rows:
+        echg[x,t] = ener[x,t] - baseline.ener[x,t]
+        level = ener[x,t] - echg[x,t]
+        epct[x,t] = 0 if level == 0 else echg[x,t] / level
+    for g in GROUPS:
+        eldem[g,t] = sum(eldem[s,t] for s in sectors if group[s] == g)
+    eldem[all,t] = sum(eldem[g,t] for g in GROUPS)</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> sheet Mitigation, section 11 (rows <code>ener</code> by group, fuel and in total, <code>eldem</code>, <code>ener.chk</code>, <code>ener.ref</code>, <code>ener.pct</code>) and sub-block 11b (rows <code>echg</code>, <code>epct</code>). The baseline value is read through a helper row that finds scenario 1’s column of the same year (REFCOL). Section 11 ends with two summary rows: total energy use and its change against scenario 1 (<code>echg.all</code>). The energy-balance matrix of legacy (block G) is not built as rows: it is a rearrangement of section 11.</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/totals.py</code>, <code>energy()</code>, with <code>reference()</code> for the baseline value; the sector and group totals of the four groups are set at the end of <code>fuel_use.step()</code>. Equation M3.3. In the results the code <code>ener.all.all</code> is written as Excel-AI’s <code>ener.tot.tot</code>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>LD39 (same as legacy):</strong> generation fuel use (coal, gas, oil, biomass) is in the fuel totals; electricity final demand is a memo.</li>
+<li>The change against the baseline replaces legacy’s post-processing block F7.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Check: results for Egypt">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Check: results for Egypt
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Values of Excel-AI 1.1.0 for Egypt (<code>coded/cpat_testing/compare/reference/excel_ai_1.1.0.csv</code>), which CPAT Python reproduces (test “fuel use by subsector”: pass). Scenario 1 is the baseline; scenario 2 a carbon tax of USD 20 per tCO2 from 2027. Leakage to biomass and the exemptions are off.</p>
+<p><strong>Baseline energy use (ktoe).</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Group</th>
+<th>2022</th>
+<th>2023</th>
+<th>2030</th>
+<th>2041</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Transport</td>
+<td>18,799</td>
+<td>19,280</td>
+<td>27,128</td>
+<td>34,169</td>
+</tr>
+<tr class="even">
+<td>Buildings</td>
+<td>7,283</td>
+<td>7,815</td>
+<td>10,023</td>
+<td>11,412</td>
+</tr>
+<tr class="odd">
+<td>Industry</td>
+<td>21,715</td>
+<td>20,178</td>
+<td>28,784</td>
+<td>40,075</td>
+</tr>
+<tr class="even">
+<td>Other energy use</td>
+<td>96</td>
+<td>83</td>
+<td>117</td>
+<td>165</td>
+</tr>
+<tr class="odd">
+<td>Power (fuel input)</td>
+<td>33,221</td>
+<td>31,499</td>
+<td>44,396</td>
+<td>47,996</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td><strong>81,114</strong></td>
+<td><strong>78,856</strong></td>
+<td><strong>110,448</strong></td>
+<td><strong>133,816</strong></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The 2023 shock (−20.8%) outweighs GDP growth (3.8%) and the fall in prices: total energy use falls 2.8% in 2023, then rises 17% in 2024 (shock +9.2%) to 92,610 ktoe.</li>
+<li>The income-level factor is 1.027 in 2022 and 2023, 0.970 in 2030 and 0.946 in 2041: Egypt’s GDP per capita is past the peak of the reverse-U.</li>
+<li>Residential biomass declines from 1,495 ktoe (2022) to 1,210 (2041): its income elasticity is 0.</li>
+<li>Electricity demand of buildings rises from 10,743 ktoe (2022) to 16,868 (2030); industry from 3,606 to 4,924; transport from 43 to 66.</li>
+</ul>
+<p><strong>Change against the baseline in 2030, carbon tax scenario.</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Total</th>
+<th>Change (ktoe)</th>
+<th>Change (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Transport</td>
+<td>−2,601</td>
+<td>−9.6</td>
+</tr>
+<tr class="even">
+<td>Buildings</td>
+<td>−1,861</td>
+<td>−18.6</td>
+</tr>
+<tr class="odd">
+<td>Industry</td>
+<td>−4,601</td>
+<td>−16.0</td>
+</tr>
+<tr class="even">
+<td>Other energy use</td>
+<td>−0.1</td>
+<td>−0.06</td>
+</tr>
+<tr class="odd">
+<td>Power (fuel input)</td>
+<td>−3,370</td>
+<td>−7.6</td>
+</tr>
+<tr class="even">
+<td>Coal</td>
+<td>−284</td>
+<td>−13.3</td>
+</tr>
+<tr class="odd">
+<td>Natural gas</td>
+<td>−4,938</td>
+<td>−9.7</td>
+</tr>
+<tr class="even">
+<td>Gasoline</td>
+<td>−988</td>
+<td>−8.3</td>
+</tr>
+<tr class="odd">
+<td>Diesel</td>
+<td>−2,865</td>
+<td>−12.9</td>
+</tr>
+<tr class="even">
+<td>LPG</td>
+<td>−1,120</td>
+<td>−16.2</td>
+</tr>
+<tr class="odd">
+<td>Other oil products</td>
+<td>−2,149</td>
+<td>−14.9</td>
+</tr>
+<tr class="even">
+<td>Biomass</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td><strong>−12,432</strong></td>
+<td><strong>−11.3</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Before 2027 the two scenarios differ by about 22 ktoe, all in power fuel use; sector demand is identical. GDP growth after the feedback is 4.70% in 2030 against 4.84% in the baseline.</p>
+<p><strong>Against legacy CPAT (Egypt baseline, 129 fuel-use rows).</strong> In 2022 81% of the rows are within 1% of legacy and 91% within 5%; from 2025 about 80% are within 1%. The largest gap in 2030 is fuel transformation diesel (legacy 883, model 1,386 ktoe). The gaps follow the newer price data (prices from 2024 instead of 2022) and the fixed fuel-use bugs; the base year uses the same energy balance.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-dm-variables" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="sec-dm-variables"><span class="header-section-number">3.9</span> Summary of variables</h2>
+<div id="tbl-dm-variables" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-dm-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3.9: Variables of the energy demand block
+</figcaption>
+<div aria-describedby="tbl-dm-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Meaning</th>
+<th>Unit</th>
+<th>Code</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(F^{e}_{s,f}\)</span></td>
+<td>fuel use, elasticity model</td>
+<td>ktoe</td>
+<td><code>enel</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(F_{s,f}\)</span></td>
+<td>fuel use used by the rest of the model</td>
+<td>ktoe</td>
+<td><code>ener</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(A_{s,f}\)</span></td>
+<td>efficiency factor (autonomous and additional)</td>
+<td>factor</td>
+<td><code>aef</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\alpha_{s,f}\)</span>, <span class="math inline">\(\alpha^{+}_{g}\)</span></td>
+<td>autonomous and additional efficiency gains</td>
+<td>share per year</td>
+<td><code>alpha</code>; <code>AdditionalEfficiency*</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\epsilon_Y, \epsilon_U, \epsilon_F\)</span></td>
+<td>income, usage and efficiency elasticities</td>
+<td></td>
+<td><code>ey</code>, <code>eu</code>, <code>ef</code> (Python); Inputs columns</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(inc_t\)</span></td>
+<td>income-level factor on the GDP elasticities</td>
+<td>factor</td>
+<td><code>incp</code>, <code>inc.ela.adj</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\((1+g_t)^{inc_t} - 1\)</span></td>
+<td>GDP growth raised to the income factor</td>
+<td>share</td>
+<td><code>GDPI</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(g_t\)</span>, <span class="math inline">\(\ell_t\)</span></td>
+<td>GDP growth after the feedback, GDP level factor</td>
+<td>share, factor</td>
+<td><code>gdp.pos.pct</code>, <code>gdp.lvl</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\Psi_t\)</span>, <span class="math inline">\(\text{shock}_t\)</span></td>
+<td>demand shock factor, shock</td>
+<td>factor, share</td>
+<td><code>SHOCK</code>, <code>shock</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(p_{s,f}\)</span>, <span class="math inline">\(sh_{s,f}\)</span></td>
+<td>after-tax price, shadow price</td>
+<td>USD/GJ</td>
+<td><code>atp</code>, <code>shp</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\Sigma_s\)</span>, <span class="math inline">\(reg_s\)</span>, <span class="math inline">\(a_s\)</span></td>
+<td>shadow price by sector, regulation part, feebate share</td>
+<td>USD/tCO2, share</td>
+<td><code>shpx</code>, <code>reg</code>, <code>ssc</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\tau_t - \tau^{x}_t\)</span>, <span class="math inline">\(r\)</span></td>
+<td>shadow carbon price, efficiency adjustment</td>
+<td>USD/tCO2, share</td>
+<td><code>cp.shd</code>, <code>regadj</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(B^{bgs}, B^{bdi}, B^{obf}\)</span></td>
+<td>road biofuels</td>
+<td>ktoe</td>
+<td><code>trbe</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(R_{s}\)</span>, <span class="math inline">\(tic^{sol}\)</span></td>
+<td>renewables in aviation and navigation, their price</td>
+<td>ktoe, USD/kWh</td>
+<td><code>ener</code> (fuel <code>ren</code>), <code>trpren</code></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(W_m\)</span>, <span class="math inline">\(\pi_m\)</span>, <span class="math inline">\(d_m\)</span>, <span class="math inline">\(b_m\)</span></td>
+<td>leakage: new policy in the price, leaked share, fossil change, biomass</td>
+<td>USD/GJ, share, ktoe</td>
+<td><code>lkt</code>, <code>lkp</code>, <code>lkd</code>, <code>lkb</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(Lk_m\)</span>, <span class="math inline">\(Lk_{bio}\)</span></td>
+<td>cumulative leakage added to fuel use</td>
+<td>ktoe</td>
+<td><code>lkc</code>, <code>lkcb</code> (none: <code>lkz</code>; net: <code>lks</code>)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\phi_t\)</span>, <span class="math inline">\(X_m\)</span>, <span class="math inline">\(X^{a}_m\)</span></td>
+<td>exempt use: phase-in, exempt use, adjustment</td>
+<td>share, ktoe</td>
+<td><code>lkxp</code>, <code>lkx</code>, <code>lkxa</code> (ratios <code>lkxe</code>, <code>lkxr</code>)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\bar{p}_d\)</span>, <span class="math inline">\(M_d\)</span></td>
+<td>electricity demand price, demand multiple</td>
+<td>USD/kWh, factor</td>
+<td><code>pdem</code>, <code>mult</code> (efficiency <code>aeef</code>)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(E_s\)</span>, <span class="math inline">\(E\)</span></td>
+<td>electricity demand by sector, total</td>
+<td>ktoe</td>
+<td><code>dem</code>, <code>demtot</code>; memo <code>eldem</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(F_g\)</span>, <span class="math inline">\(F_f\)</span>, <span class="math inline">\(F\)</span></td>
+<td>totals by group, by fuel, grand total</td>
+<td>ktoe</td>
+<td><code>ener</code> (<code>all</code> rows)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(F_{pow}\)</span></td>
+<td>fuel input of power generation</td>
+<td>ktoe</td>
+<td><code>pet</code></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\Delta F\)</span>, <span class="math inline">\(\%\Delta F\)</span></td>
+<td>change against the baseline</td>
+<td>ktoe, %</td>
+<td><code>echg</code>, <code>epct</code>; <code>ener.ref</code>, <code>ener.pct</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

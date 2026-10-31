@@ -800,11 +800,10 @@ where $gdpy = N$.
   year), L69 (the first cohort's excise drag is lost).
 - **Scenario-1 lookups stop at the current year**, which avoids a circular reference with the GDP feedback. Values are
   unchanged.
-- **Methodology ([section 4.7](../CPAT_full_documentation_html/04_Multipliers.html#sec-GDPFeedback)).** The methodology
-  writes the fiscal space on the revenue of the new policies and the impulse as $fs_t - fs_{t-1}$. The model uses total
-  revenue (as legacy), scales last year's fiscal space by the GDP ratio $Y^{0}_{t-1}/Y^{0}_t$ (the change in USD over
-  this year's GDP), starts the impulse in `GDPStartYear` and starts the revenue uses in `CPIntro`. The feedback
-  equations (@eq-fi-lvl, @eq-fi-growth) are the methodology's.
+- **Methodology ([section 4.7](../CPAT_full_documentation_html/04_Multipliers.html#sec-GDPFeedback)).** The section
+  was added to the methodology on 2026-10-31 (correction DOC1) and follows this model: fiscal space on total revenue
+  (as legacy), the impulse scaled by the GDP ratio $Y^{0}_{t-1}/Y^{0}_t$, from `GDPStartYear`, the revenue uses from
+  `CPIntro`, and the same feedback equations (@eq-fi-lvl, @eq-fi-growth).
 - **CPAT Python:** the Estimated and Manual multiplier sources are not implemented yet (`multipliers()` raises
   `NotImplementedError`); Global and the income groups are.
 - **Memo rows:** legacy rows 16166-16175 add the effects to growth every year (L24), so its channel contributions are

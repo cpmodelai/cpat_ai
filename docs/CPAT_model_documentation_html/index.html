@@ -129,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01_Overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview and notation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview, notation and policies</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -236,7 +236,116 @@ ul.task-list li input[type="checkbox"] {
 <section id="book-home" class="level1 unnumbered">
 <h1 class="unnumbered">CPAT-AI Model</h1>
 <style>#book-home > h1 { display: none; }</style>
-<p>(To be written.)</p>
+<p>The CPAT-AI model is one model in two forms. <strong>Excel-AI</strong> computes it in the rows of a workbook; <strong>CPAT Python</strong> computes it in small functions, one per equation. Both use the same equations, the same variable codes and the same order of calculation, and they agree number for number. This book explains that shared model, block by block, as the <a href="../CPAT_full_documentation_html/index.html">Methodology</a> explains legacy CPAT, and links to the methodology wherever the model follows it, simplifies it or departs from it.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Chapter</th>
+<th>What it computes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="./01_Overview.html">1 Overview, notation and policies</a></td>
+<td>How a run is organised, the indices and units, the policy instruments and their paths</td>
+</tr>
+<tr class="even">
+<td><a href="./02_Prices.html">2 Energy prices</a></td>
+<td>International prices, supply costs, taxes and subsidies, the price including new policies</td>
+</tr>
+<tr class="odd">
+<td><a href="./03_Energy_demand.html">3 Energy demand</a></td>
+<td>Fuel use by sector and fuel: elasticities, efficiency, biomass, totals</td>
+</tr>
+<tr class="even">
+<td><a href="./04_Power.html">4 Power</a></td>
+<td>Generation costs, dispatch, capacity and retirement, investment, storage, electricity prices</td>
+</tr>
+<tr class="odd">
+<td><a href="./05_Road_transport.html">5 Road transport</a></td>
+<td>The engineer road model: vehicles, choice of technology, fuel economy, fuel use</td>
+</tr>
+<tr class="even">
+<td><a href="./06_Emissions_and_ETS.html">6 Emissions and emissions trading</a></td>
+<td>CO2 and other gases, local pollutants, the NDC, the ETS</td>
+</tr>
+<tr class="odd">
+<td><a href="./07_Revenues_GDP_welfare.html">7 Revenues, GDP and welfare</a></td>
+<td>Revenues, the GDP effect of their use, carbon pricing indicators, welfare</td>
+</tr>
+<tr class="even">
+<td><a href="./08_Distribution.html">8 Distribution</a></td>
+<td>The effect on households by decile, and the recycling of revenues</td>
+</tr>
+<tr class="odd">
+<td><a href="./A_Equations.html">Appendix A</a>, <a href="./B_Equations_codes.html">Appendix B</a></td>
+<td>Every equation, in the methodology’s notation and with the CPAT code names</td>
+</tr>
+</tbody>
+</table>
+<p><strong>How to read a chapter.</strong> Each section explains in words what the block computes, then gives its equations, numbered and with every symbol defined. Four kinds of box follow the equations:</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The computation step by step, with the CPAT variable codes. Open by default; written once for both Excel-AI and CPAT Python.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Where the equations live: the workbook section, rows and inputs, and the Python module and function. Collapsed by default.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The legacy bugs fixed, the issues replicated and the departures decided, with their register codes. Collapsed by default.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Check: results for Egypt">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Check: results for Egypt
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Validation: comparisons with legacy runs and independent recomputations. Collapsed by default.</p>
+</div>
+</div>
+</div>
+<p><em>The chapters are written in <code>docs/CPAT_model_documentation_qmd/</code>; the appendices are generated from <code>coded/cpat_documentation/equations/equations.yaml</code> by <code>make_qmd.py</code>.</em></p>
 
 
 </section>
@@ -646,8 +755,8 @@ ul.task-list li input[type="checkbox"] {
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01_Overview.html" class="pagination-link" aria-label="Overview and notation">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview and notation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./01_Overview.html" class="pagination-link" aria-label="Overview, notation and policies">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview, notation and policies</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

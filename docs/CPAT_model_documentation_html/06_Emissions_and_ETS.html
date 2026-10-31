@@ -76,7 +76,39 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -130,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./01_Overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview and notation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview, notation and policies</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -200,7 +232,71 @@ ul.task-list li input[type="checkbox"] {
   </li>
     </ul>
     </div>
-    
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title"><strong><em>Chapter Contents</em></strong></h2>
+   
+  <ul>
+  <li><a href="#sec-em-overview" id="toc-sec-em-overview" class="nav-link active" data-scroll-target="#sec-em-overview"><span class="header-section-number">6.1</span> Overview</a>
+  <ul class="collapse">
+  <li><a href="#sec-em-order" id="toc-sec-em-order" class="nav-link" data-scroll-target="#sec-em-order"><span class="header-section-number">6.1.1</span> Order of calculation</a></li>
+  <li><a href="#sec-em-notation" id="toc-sec-em-notation" class="nav-link" data-scroll-target="#sec-em-notation"><span class="header-section-number">6.1.2</span> Notation and units</a></li>
+  </ul></li>
+  <li><a href="#sec-em-co2" id="toc-sec-em-co2" class="nav-link" data-scroll-target="#sec-em-co2"><span class="header-section-number">6.2</span> Energy CO2</a>
+  <ul class="collapse">
+  <li><a href="#sec-em-ef" id="toc-sec-em-ef" class="nav-link" data-scroll-target="#sec-em-ef"><span class="header-section-number">6.2.1</span> Emission factors</a></li>
+  <li><a href="#sec-em-calib" id="toc-sec-em-calib" class="nav-link" data-scroll-target="#sec-em-calib"><span class="header-section-number">6.2.2</span> Calibration to the GHG inventory</a></li>
+  <li><a href="#sec-em-co2-totals" id="toc-sec-em-co2-totals" class="nav-link" data-scroll-target="#sec-em-co2-totals"><span class="header-section-number">6.2.3</span> CO2 by subsector, fuel and coverage sector</a></li>
+  </ul></li>
+  <li><a href="#sec-em-methane" id="toc-sec-em-methane" class="nav-link" data-scroll-target="#sec-em-methane"><span class="header-section-number">6.3</span> Methane by source and the methane fee</a>
+  <ul class="collapse">
+  <li><a href="#sec-em-ch4-data" id="toc-sec-em-ch4-data" class="nav-link" data-scroll-target="#sec-em-ch4-data"><span class="header-section-number">6.3.1</span> Data</a></li>
+  <li><a href="#sec-em-mfee" id="toc-sec-em-mfee" class="nav-link" data-scroll-target="#sec-em-mfee"><span class="header-section-number">6.3.2</span> The methane fee</a></li>
+  <li><a href="#sec-em-ch4-alloc" id="toc-sec-em-ch4-alloc" class="nav-link" data-scroll-target="#sec-em-ch4-alloc"><span class="header-section-number">6.3.3</span> Allocation of inventory methane to sources</a></li>
+  <li><a href="#sec-em-ch4-activity" id="toc-sec-em-ch4-activity" class="nav-link" data-scroll-target="#sec-em-ch4-activity"><span class="header-section-number">6.3.4</span> Activity</a></li>
+  <li><a href="#sec-em-ch4-abt" id="toc-sec-em-ch4-abt" class="nav-link" data-scroll-target="#sec-em-ch4-abt"><span class="header-section-number">6.3.5</span> Abatement and emissions</a></li>
+  <li><a href="#sec-em-ch4-rev" id="toc-sec-em-ch4-rev" class="nav-link" data-scroll-target="#sec-em-ch4-rev"><span class="header-section-number">6.3.6</span> Flaring and the fee revenue</a></li>
+  </ul></li>
+  <li><a href="#sec-em-energy-ghg" id="toc-sec-em-energy-ghg" class="nav-link" data-scroll-target="#sec-em-energy-ghg"><span class="header-section-number">6.4</span> Energy GHGs: combustion methane, N2O and F-gases</a>
+  <ul class="collapse">
+  <li><a href="#sec-em-ch4comb" id="toc-sec-em-ch4comb" class="nav-link" data-scroll-target="#sec-em-ch4comb"><span class="header-section-number">6.4.1</span> Combustion methane</a></li>
+  <li><a href="#sec-em-ch4enr" id="toc-sec-em-ch4enr" class="nav-link" data-scroll-target="#sec-em-ch4enr"><span class="header-section-number">6.4.2</span> Energy methane, calibrated to the inventory</a></li>
+  <li><a href="#sec-em-enr-other" id="toc-sec-em-enr-other" class="nav-link" data-scroll-target="#sec-em-enr-other"><span class="header-section-number">6.4.3</span> Energy CO2, N2O and F-gases</a></li>
+  </ul></li>
+  <li><a href="#sec-em-other" id="toc-sec-em-other" class="nav-link" data-scroll-target="#sec-em-other"><span class="header-section-number">6.5</span> Other inventory categories</a>
+  <ul class="collapse">
+  <li><a href="#sec-em-drivers" id="toc-sec-em-drivers" class="nav-link" data-scroll-target="#sec-em-drivers"><span class="header-section-number">6.5.1</span> Drivers</a></li>
+  <li><a href="#sec-em-categories" id="toc-sec-em-categories" class="nav-link" data-scroll-target="#sec-em-categories"><span class="header-section-number">6.5.2</span> Projection by category and gas</a></li>
+  <li><a href="#sec-em-totals" id="toc-sec-em-totals" class="nav-link" data-scroll-target="#sec-em-totals"><span class="header-section-number">6.5.3</span> Totals</a></li>
+  </ul></li>
+  <li><a href="#sec-em-ndc" id="toc-sec-em-ndc" class="nav-link" data-scroll-target="#sec-em-ndc"><span class="header-section-number">6.6</span> NDC comparison</a>
+  <ul class="collapse">
+  <li><a href="#sec-em-ndc-data" id="toc-sec-em-ndc-data" class="nav-link" data-scroll-target="#sec-em-ndc-data"><span class="header-section-number">6.6.1</span> Data and choices</a></li>
+  <li><a href="#sec-em-ndc-target" id="toc-sec-em-ndc-target" class="nav-link" data-scroll-target="#sec-em-ndc-target"><span class="header-section-number">6.6.2</span> Target level</a></li>
+  <li><a href="#sec-em-ndc-gap" id="toc-sec-em-ndc-gap" class="nav-link" data-scroll-target="#sec-em-ndc-gap"><span class="header-section-number">6.6.3</span> Progress against the NDC</a></li>
+  </ul></li>
+  <li><a href="#sec-em-ap" id="toc-sec-em-ap" class="nav-link" data-scroll-target="#sec-em-ap"><span class="header-section-number">6.7</span> Local air pollutants</a>
+  <ul class="collapse">
+  <li><a href="#sec-em-ap-data" id="toc-sec-em-ap-data" class="nav-link" data-scroll-target="#sec-em-ap-data"><span class="header-section-number">6.7.1</span> Data and factor lookup</a></li>
+  <li><a href="#sec-em-ap-method" id="toc-sec-em-ap-method" class="nav-link" data-scroll-target="#sec-em-ap-method"><span class="header-section-number">6.7.2</span> Emissions and totals</a></li>
+  <li><a href="#sec-em-ap-sectors" id="toc-sec-em-ap-sectors" class="nav-link" data-scroll-target="#sec-em-ap-sectors"><span class="header-section-number">6.7.3</span> Sectors of the air-pollution module</a></li>
+  </ul></li>
+  <li><a href="#sec-em-results" id="toc-sec-em-results" class="nav-link" data-scroll-target="#sec-em-results"><span class="header-section-number">6.8</span> Changes against the baseline, grid intensity and the Kaya identity</a>
+  <ul class="collapse">
+  <li><a href="#sec-em-change" id="toc-sec-em-change" class="nav-link" data-scroll-target="#sec-em-change"><span class="header-section-number">6.8.1</span> CO2 and GHG change</a></li>
+  <li><a href="#sec-em-grid" id="toc-sec-em-grid" class="nav-link" data-scroll-target="#sec-em-grid"><span class="header-section-number">6.8.2</span> Grid emission intensity</a></li>
+  <li><a href="#sec-em-kaya" id="toc-sec-em-kaya" class="nav-link" data-scroll-target="#sec-em-kaya"><span class="header-section-number">6.8.3</span> Kaya identity</a></li>
+  </ul></li>
+  <li><a href="#sec-em-ets" id="toc-sec-em-ets" class="nav-link" data-scroll-target="#sec-em-ets"><span class="header-section-number">6.9</span> The new emissions trading system</a>
+  <ul class="collapse">
+  <li><a href="#sec-em-ets-inputs" id="toc-sec-em-ets-inputs" class="nav-link" data-scroll-target="#sec-em-ets-inputs"><span class="header-section-number">6.9.1</span> Inputs</a></li>
+  <li><a href="#sec-em-ets-cap" id="toc-sec-em-ets-cap" class="nav-link" data-scroll-target="#sec-em-ets-cap"><span class="header-section-number">6.9.2</span> Coverage, benchmarks and the cap</a></li>
+  <li><a href="#sec-em-ets-price" id="toc-sec-em-ets-price" class="nav-link" data-scroll-target="#sec-em-ets-price"><span class="header-section-number">6.9.3</span> Fast price estimate and the permit price</a></li>
+  <li><a href="#sec-em-ets-effect" id="toc-sec-em-ets-effect" class="nav-link" data-scroll-target="#sec-em-ets-effect"><span class="header-section-number">6.9.4</span> Effect on fuel use and revenue</a></li>
+  <li><a href="#sec-em-ets-meet" id="toc-sec-em-ets-meet" class="nav-link" data-scroll-target="#sec-em-ets-meet"><span class="header-section-number">6.9.5</span> Meeting the cap</a></li>
+  <li><a href="#sec-em-ets-limits" id="toc-sec-em-ets-limits" class="nav-link" data-scroll-target="#sec-em-ets-limits"><span class="header-section-number">6.9.6</span> Limits</a></li>
+  </ul></li>
+  </ul>
+</nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -228,9 +324,2172 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>(To be written.)</p>
+<p>This chapter turns the fuel use of <a href="03_Energy_demand.html" class="quarto-xref"><span>Chapter 3</span></a>, <a href="04_Power.html" class="quarto-xref"><span>Chapter 4</span></a> and <a href="05_Road_transport.html" class="quarto-xref"><span>Chapter 5</span></a> into emissions. It covers carbon dioxide from fuel combustion, the other greenhouse gases of the national inventory, methane by source with the methane fee, the comparison with the country’s NDC, and the local air pollutants. It closes with the new emissions trading system (ETS): how its cap becomes a permit price, and how that price enters fuel prices and revenue.</p>
+<p>Emissions matter twice in the model. They are an output (the GHG path of each scenario, the change against the baseline, the gap to the NDC) and they feed back: CO2 emission factors convert every carbon price into a price per unit of fuel (<a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a>), and covered emissions set the ETS price. The carbon pricing indicators (coverage of the carbon tax and the ETS, effective carbon rates, revenue per tonne) are described with the revenues in <a href="07_Revenues_GDP_welfare.html" class="quarto-xref"><span>Chapter 7</span></a>.</p>
+<p>The methodology describes emissions in <a href="../CPAT_full_documentation_html/03_Mitigation.html#emissions">methodology, section 3.5</a>, the local pollutants in <a href="../CPAT_full_documentation_html/06_Air_pollution.html#sec-calc_em">methodology, section 6.4</a> and the ETS price in <a href="../CPAT_full_documentation_html/03_Mitigation.html#sec-PricesForecastedYears">methodology, section 3.2.4</a> and <a href="../CPAT_full_documentation_html/03_Mitigation.html#sec-Appendix_C_Prices">Appendix C</a>.</p>
+<section id="sec-em-overview" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="sec-em-overview"><span class="header-section-number">6.1</span> Overview</h2>
+<section id="sec-em-order" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="sec-em-order"><span class="header-section-number">6.1.1</span> Order of calculation</h3>
+<p>The ETS price is set before the year loop, with the other policies: it depends only on inputs and on stored baseline emissions, never on the fuel use of the year. Inside each year, the emission blocks run after fuel use and power, in this order.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  P["Policies (all years):&lt;br/&gt;ETS cap and price,&lt;br/&gt;methane fee"] --&gt; F["Year t: power,&lt;br/&gt;fuel use"]
+  F --&gt; C["CO2 by sector, fuel,&lt;br/&gt;ETS sector; ETS check"]
+  C --&gt; G["Methane by source,&lt;br/&gt;GHG inventory categories"]
+  G --&gt; A["Local air&lt;br/&gt;pollutants"]
+  A --&gt; K["Kaya identity"]
+  K --&gt; N["After the last year:&lt;br/&gt;NDC comparison"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>The CO2 of each subsector and fuel is computed inside the fuel-use block (<a href="03_Energy_demand.html" class="quarto-xref"><span>Chapter 3</span></a>), and the CO2 of each generation type inside the power block (<a href="04_Power.html" class="quarto-xref"><span>Chapter 4</span></a>); this chapter gives the equation once and builds the totals. The NDC rows run after the year loop because they read the baseline in the NDC target year.</p>
+</section>
+<section id="sec-em-notation" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="sec-em-notation"><span class="header-section-number">6.1.2</span> Notation and units</h3>
+<p>Every equation holds for each scenario <span class="math inline">\(o\)</span> and country <span class="math inline">\(c\)</span>; these indices are omitted. A value of the baseline (scenario 1) in the same year carries the superscript <span class="math inline">\(B\)</span>; the previous year carries <span class="math inline">\(t-1\)</span>. Other indices:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Index</th>
+<th>Set</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(s\)</span></td>
+<td>subsector (16; <a href="03_Energy_demand.html" class="quarto-xref"><span>Chapter 3</span></a>), or a coverage sector <span class="math inline">\(e\)</span> (power and the 16 subsectors, 17 in all)</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(f\)</span></td>
+<td>fuel (8, plus jet fuel for CO2), or generation type <span class="math inline">\(k\)</span> (9; <a href="04_Power.html" class="quarto-xref"><span>Chapter 4</span></a>)</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(u\)</span></td>
+<td>UNFCCC inventory category: energy, industrial processes (IPPU), agriculture, LULUCF, waste, other</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(p\)</span></td>
+<td>gas: CO2, CH4, N2O, F-gases; or local pollutant: PM2.5, NOx, SO2, VOC, BC, OC, CO</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(j\)</span></td>
+<td>methane source: oil and gas, downstream gas, coal mining, biomass, livestock, rice, waste</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(t\)</span></td>
+<td>year, from the base year <span class="math inline">\(t_0\)</span> to 2041; <span class="math inline">\(Y\)</span> is the last year of the country’s GHG inventory</td>
+</tr>
+</tbody>
+</table>
+<p>Units: CO2 in Mt; other greenhouse gases in Mt CO2e with the IPCC AR6 GWP100 (fossil methane 29.8, non-fossil methane 27.2); methane by source in kt CH4; local pollutants in kt; fuel use in ktoe. <span class="math inline">\(\theta\)</span> is PJ per ktoe (0.041868), so fuel use (ktoe) <span class="math inline">\(\times\ \theta\ \times\)</span> a factor in t CO2 per GJ gives Mt CO2. For Egypt <span class="math inline">\(Y\)</span> = 2024.</p>
+</section>
+</section>
+<section id="sec-em-co2" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="sec-em-co2"><span class="header-section-number">6.2</span> Energy CO2</h2>
+<p>Energy CO2 is fuel use times an emission factor, for every subsector, fuel and generation type. The factors are those of the country, scaled once so that the model’s base year matches the national inventory. The methodology describes this in <a href="../CPAT_full_documentation_html/03_Mitigation.html#carbon-dioxide-co_2">methodology, sections 3.5.3 and 3.5.4.1</a>.</p>
+<section id="sec-em-ef" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="sec-em-ef"><span class="header-section-number">6.2.1</span> Emission factors</h3>
+<p>Each fuel and EF sector has one CO2 factor. The EF sectors are power, road, residential and industry; every subsector reads one of them:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>EF sector</th>
+<th>Subsectors</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>power</td>
+<td>power generation (by generation type)</td>
+</tr>
+<tr class="even">
+<td>road</td>
+<td>road, rail, domestic aviation, domestic navigation</td>
+</tr>
+<tr class="odd">
+<td>residential</td>
+<td>residential, food &amp; forestry, services</td>
+</tr>
+<tr class="even">
+<td>industry</td>
+<td>the eight industrial subsectors and other energy use</td>
+</tr>
+</tbody>
+</table>
+<p>The factor is looked up in the IIASA (GAINS) table of the country, else of its World Bank region, else of the world:</p>
+<p><span id="eq-em-ef"><span class="math display">\[
+ef^{0}_{s,f} = \begin{cases}
+ef^{IIASA}_{c \to r \to w}(f', s') / 1000 &amp; \text{fossil fuels} \\
+ef^{IEA}_{jet} &amp; f = \text{jet fuel, in every sector} \\
+0 &amp; f = \text{biomass}
+\end{cases}
+\tag{6.1}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(ef^{0}_{s,f}\)</span> is the CO2 factor before calibration, t CO2 per GJ;</li>
+<li><span class="math inline">\(ef^{IIASA}_{c \to r \to w}\)</span> is the factor of sheet EF_GHG in kg CO2 per GJ, for the country <span class="math inline">\(c\)</span>, else its World Bank region <span class="math inline">\(r\)</span>, else the world <span class="math inline">\(w\)</span> (0 if none), divided by 1000 kg per t;</li>
+<li><span class="math inline">\((f', s')\)</span> is the fuel and EF sector the row reads: the row’s own, except for the substitutions below;</li>
+<li><span class="math inline">\(ef^{IEA}_{jet}\)</span> = 0.0715 t CO2 per GJ (IEA, 19.5 tC per TJ <span class="math inline">\(\times\)</span> 44/12), used for jet fuel in every sector and in domestic aviation.</li>
+</ul>
+<p>Some fuel and sector pairs have no factor of their own. They read another, as the methodology’s table of missing factors:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Fuel and sector</th>
+<th>Factor used</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>coal in road</td>
+<td>coal in power</td>
+</tr>
+<tr class="even">
+<td>LPG in power</td>
+<td>LPG in industry</td>
+</tr>
+<tr class="odd">
+<td>LPG in road</td>
+<td>LPG in residential</td>
+</tr>
+<tr class="even">
+<td>kerosene in power and in road</td>
+<td>kerosene in residential</td>
+</tr>
+<tr class="odd">
+<td>other oil products in road</td>
+<td>diesel in road</td>
+</tr>
+<tr class="even">
+<td>biomass, every sector</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>The factors of this table are the model’s data step (<a href="./A_Equations.html#eqlist-A7-1">A7.1</a>). The local-pollutant and combustion-methane factors follow a different chain, described in <a href="#sec-em-ap-data" class="quarto-xref"><span>Section 6.7.1</span></a>.</p>
+</section>
+<section id="sec-em-calib" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="sec-em-calib"><span class="header-section-number">6.2.2</span> Calibration to the GHG inventory</h3>
+<p>The IIASA factors include some process and fugitive emissions, and fuel-use data differ between sources. The model therefore scales every CO2 factor by one number, so that modelled base-year CO2 equals the inventory. This is legacy CPAT’s rule (issue I32, replicated by user decision).</p>
+<p><span id="eq-em-calib"><span class="math display">\[
+\chi = \frac{CO2^{inv}_{t_0 - 1}}{CO2^{B,raw}_{t_0}}, \qquad ef_{s,f} = \chi\, ef^{0}_{s,f}, \qquad ef_k = \chi\, ef^{0}_k
+\tag{6.2}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(\chi\)</span> (<code>EFCalib</code>) is the calibration factor, 1 when the switch is off;</li>
+<li><span class="math inline">\(CO2^{inv}_{t_0 - 1}\)</span> is the inventory energy CO2 of the year before the base year (Mt);</li>
+<li><span class="math inline">\(CO2^{B,raw}_{t_0}\)</span> is scenario-1 energy CO2 of the base year with the uncalibrated factors: the base-year energy balance times <span class="math inline">\(ef^{0}\)</span> (Mt);</li>
+<li><span class="math inline">\(ef_{s,f}\)</span>, <span class="math inline">\(ef_k\)</span> are the calibrated factors of subsectors and generation types.</li>
+</ul>
+<p>The switch is on by default (<code>Yes*</code>), as legacy, whose two switches <code>EFsAdjustmentAnnexI</code> and <code>EFsAdjustmentNonAnnexI</code> are both <code>Yes*</code>. The model has one switch for all countries.</p>
+<p><strong>Why the baseline value is data.</strong> A live formula for <span class="math inline">\(CO2^{B,raw}\)</span> would be circular: the factors feed the carbon prices, which feed fuel use. The uncalibrated scenario-1 CO2 is therefore stored as data, keyed by country, and refreshed by the build, like the ETS baseline (<a href="#sec-em-ets-cap" class="quarto-xref"><span>Section 6.9.2</span></a>). This is exact: scenario-1 fuel use does not depend on the factors (there is no new carbon price in the baseline, and existing carbon pricing changes only after the historical years), so the calibrated baseline is the uncalibrated one times <span class="math inline">\(\chi\)</span>. Another country finds no stored rows until the build has been run for it.</p>
+<p><strong>What follows from <span class="math inline">\(\chi\)</span>.</strong> Everything downstream uses the calibrated factors: CO2 by subsector, fuel and generation type; the carbon tax, the ETS cost and existing carbon pricing per unit of fuel and their revenue; the ETS baseline; energy CO2 in the GHG totals. Scenario-1 fuel use and prices do not change. In policy scenarios, carbon prices per unit of fuel change by the factor (7% lower for Egypt), so fuel use, revenue and the GDP effect change too.</p>
+</section>
+<section id="sec-em-co2-totals" class="level3" data-number="6.2.3">
+<h3 data-number="6.2.3" class="anchored" data-anchor-id="sec-em-co2-totals"><span class="header-section-number">6.2.3</span> CO2 by subsector, fuel and coverage sector</h3>
+<p>With the factors in hand, CO2 is fuel use times the factor (<a href="./A_Equations.html#eqlist-M7-1">M7.1</a>):</p>
+<p><span id="eq-em-co2"><span class="math display">\[
+em_{s,f,CO_2} = \theta\, F_{s,f}\, ef_{s,f}, \qquad em_{k,CO_2} = \theta\, PE_k\, ef_k
+\tag{6.3}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(em_{s,f,CO_2}\)</span> is the CO2 of subsector <span class="math inline">\(s\)</span> and fuel <span class="math inline">\(f\)</span> (Mt), <code>co2</code>;</li>
+<li><span class="math inline">\(F_{s,f}\)</span> is fuel use (ktoe), <code>ener</code> (<a href="03_Energy_demand.html" class="quarto-xref"><span>Chapter 3</span></a>);</li>
+<li><span class="math inline">\(PE_k\)</span> is the fuel input of generation type <span class="math inline">\(k\)</span> (ktoe), <code>pe</code> (<a href="04_Power.html" class="quarto-xref"><span>Chapter 4</span></a>), and <span class="math inline">\(ef_k\)</span> its factor.</li>
+</ul>
+<p>The totals sum over fuels, subsectors and generation types:</p>
+<p><span id="eq-em-co2tot"><span class="math display">\[
+em_{CO_2} = \sum_{s}\sum_{f} em_{s,f,CO_2} + \sum_{k} em_{k,CO_2}
+\tag{6.4}\]</span></span></p>
+<p>The block also reports CO2 by sector group (transport, buildings, industry, other energy use, power), by fuel (power fuels included), the baseline value of the same year (<code>co2.ref</code>), the change against it (<code>co2.pct</code>, <code>co2.chg</code>) and a check that the totals by group and by fuel both equal the total (<code>co2.chk</code> = 0). CO2 by coverage sector (<code>co2.sec</code>) feeds the ETS check of <a href="#sec-em-ets-cap" class="quarto-xref"><span>Section 6.9.2</span></a>:</p>
+<p><span id="eq-em-co2sec"><span class="math display">\[
+em_{e} = \sum_{f} em_{e,f,CO_2} \ (e \ne \text{power}), \qquad em_{pow} = \sum_k em_{k,CO_2}
+\tag{6.5}\]</span></span></p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: energy CO2">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: energy CO2
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code># data step, once per country
+for (f, s) in co2_ef_rows:                      # fuel x EF sector (pow, rod, res, ind)
+    if f == "jfu":   ef0[f, s] = EFJetIEA        # 0.0715 tCO2/GJ
+    elif f == "bio": ef0[f, s] = 0
+    else:            ef0[f, s] = pick(country, region, world, source_fuel(f, s), source_sector(f, s)) / 1000
+EFCalib = inv_energy_co2[base_year - 1] / stored_raw_co2_s1[base_year] if calibrate else 1
+ef = EFCalib * ef0
+
+for t in years:
+    for s in subsectors:
+        for f in fuels:
+            co2[s, f][t] = ener[s, f][t] * PJ_PER_KTOE * ef[f, ef_sector(s)]
+    for k in gen_types:
+        co2["pow", k][t] = pe[k][t] * PJ_PER_KTOE * ef[k]
+    co2_total[t] = sum(co2[s, f][t] for s, f) + sum(co2["pow", k][t] for k)
+    co2_sec[e][t] = sum over fuels of co2[e, f][t]    # power: sum over types
+    co2_ref[t] = co2_total_baseline[t]
+    co2_pct[t] = co2_total[t] / co2_ref[t] - 1
+    co2_chk[t] = |co2_total - sum by group| + |co2_total - sum by fuel|    # 0</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> factors on sheet Inputs (CO2 factor rows, <code>EFSel</code>), calibration switch Settings C27 (<code>Yes*</code>), factor Settings C29 (<code>EFCalib</code>); stored uncalibrated scenario-1 CO2 on sheet BaselineCO2 (keys <code>EGY|raw</code>, <code>EGY|pow</code>, …). Rows <code>co2</code> in sections 5-8 (subsectors) and 3 (generation types); totals in section 13 (<code>co2</code>, <code>co2.ref</code>, <code>co2.pct</code>, <code>co2.sec</code>, <code>co2.chk</code>, <code>co2.chg</code>).</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/ef_data.py</code>, <code>co2_efs()</code> and <code>co2_calibration()</code> (EQ-A7.1); <code>fuel_use.py</code> (CO2 of subsectors, EQ-M7.1), <code>power.py</code> (CO2 of generation types); totals in <code>emissions.py</code>, <code>co2()</code>. The calibration reads Excel-AI’s stored scenario-1 CO2. See the <a href="../CPAT_coded_documentation_html/02_How_it_works.html#sec-blocks">blocks of CPAT Python</a>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Calibration (issue I32, replicated).</strong> As legacy (Mitigation rows 623, 839, 976-977): the inventory year before the base year against the base-year estimate, switch on. Earlier versions of the prototype used the last inventory year and had the switch off; the user decided to follow legacy.</li>
+<li><strong>One switch.</strong> Legacy reads one switch for Annex I countries (ScenarioDefinition row 237) and one for the others, both <code>Yes*</code>. The model has one switch.</li>
+<li><strong>Scope.</strong> Inventory energy CO2 includes fugitive CO2 (Egypt: 7.1 Mt in 2024), which the model does not compute separately. The factor absorbs it, as in legacy.</li>
+<li><strong>Inventory break (I91).</strong> Egypt’s inventory jumps 19% from 2021 to 2022. Legacy’s rule carries this break into every year: calibrated CO2 is 16-29% below the 2022-2024 inventory.</li>
+<li><strong>Methodology.</strong> The methodology scales to the inventory of 2019 and offers global IEA factors as an option. The model uses the IIASA factors (IEA only for jet fuel) and the year before the base year.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Check: results for Egypt">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Check: results for Egypt
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>With the shipped data, the 2021 inventory is 211.05 Mt against the 2022 estimate of 226.97 Mt: <span class="math inline">\(\chi\)</span> = 0.930 (legacy: 0.930).</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Year</th>
+<th>Inventory</th>
+<th>Uncalibrated</th>
+<th>Calibrated (<span class="math inline">\(\times\)</span> 0.930)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2022</td>
+<td>252.2</td>
+<td>227.0</td>
+<td>211.1</td>
+</tr>
+<tr class="even">
+<td>2023</td>
+<td>267.4</td>
+<td>196.7</td>
+<td>182.9</td>
+</tr>
+<tr class="odd">
+<td>2024</td>
+<td>285.3</td>
+<td>218.9</td>
+<td>203.5</td>
+</tr>
+</tbody>
+</table>
+<p>Energy CO2, scenario 1, Mt. The calibrated base year equals the 2021 inventory (211.1), as legacy. The 2023 dip is the fuel-use shock of legacy row 483 (issue I92, replicated; <a href="03_Energy_demand.html" class="quarto-xref"><span>Chapter 3</span></a>).</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-em-methane" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="sec-em-methane"><span class="header-section-number">6.3</span> Methane by source and the methane fee</h2>
+<p>Methane is the second greenhouse gas of most inventories and the one a methane fee targets. The model splits the inventory’s methane between seven sources, projects each with its own activity, lets the fee abate it along the source’s cost curve, and collects the fee revenue. The methodology describes this in <a href="../CPAT_full_documentation_html/03_Mitigation.html#methane-ch_4">methodology, section 3.5.4.2</a> (energy methane) and <a href="../CPAT_full_documentation_html/03_Mitigation.html#agriculture">sections 3.5.5.2 and 3.5.5.3.1</a> (agriculture and waste).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Source <span class="math inline">\(j\)</span></th>
+<th>Category</th>
+<th>GWP</th>
+<th>Activity</th>
+<th>Curve</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>oil and gas extraction (<code>og</code>)</td>
+<td>energy</td>
+<td>fossil</td>
+<td>oil and gas production</td>
+<td>oil and gas</td>
+</tr>
+<tr class="even">
+<td>downstream gas (<code>dg</code>)</td>
+<td>energy</td>
+<td>fossil</td>
+<td>gas use</td>
+<td>oil and gas</td>
+</tr>
+<tr class="odd">
+<td>coal mining (<code>cm</code>)</td>
+<td>energy</td>
+<td>fossil</td>
+<td>coal production</td>
+<td>coal</td>
+</tr>
+<tr class="even">
+<td>biomass use (<code>bm</code>)</td>
+<td>energy</td>
+<td>fossil</td>
+<td>biomass use</td>
+<td>oil and gas</td>
+</tr>
+<tr class="odd">
+<td>livestock (<code>liv</code>)</td>
+<td>agriculture</td>
+<td>non-fossil</td>
+<td>index of income and population</td>
+<td>livestock</td>
+</tr>
+<tr class="even">
+<td>rice (<code>ric</code>)</td>
+<td>agriculture</td>
+<td>non-fossil</td>
+<td>index of income and population</td>
+<td>rice</td>
+</tr>
+<tr class="odd">
+<td>waste (<code>wst</code>)</td>
+<td>waste</td>
+<td>non-fossil</td>
+<td>index of income and population</td>
+<td>waste</td>
+</tr>
+</tbody>
+</table>
+<p>Biomass and downstream gas use the oil-and-gas curve, as legacy. The four energy sources together are the <strong>fuel-supply methane</strong> (<code>ch4.sup</code>).</p>
+<section id="sec-em-ch4-data" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="sec-em-ch4-data"><span class="header-section-number">6.3.1</span> Data</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sheet</th>
+<th>Content</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>GHGs</td>
+<td>Inventory by country, year, category (energy, industrial processes, agriculture, LULUCF, waste, other) and gas (CO2, CH4, N2O, F-gases), Mt CO2e</td>
+<td>Legacy sheet GHGs</td>
+</tr>
+<tr class="even">
+<td>CH4Inputs</td>
+<td>Methane abatement curves (<span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>) by country and source, with an average (<code>AVG</code>) row; shares that split inventory methane by source; flared share</td>
+<td>Legacy sheet CH4Inputs</td>
+</tr>
+<tr class="odd">
+<td>EF_NonCO2</td>
+<td>Combustion factors (kt per PJ) by country or region, subsector, fuel and pollutant, base year and final</td>
+<td>Legacy sheet EF_PM (GAINS; all countries and World Bank regions)</td>
+</tr>
+<tr class="even">
+<td>UNPop</td>
+<td>Population by country and year (thousands)</td>
+<td>Legacy sheet UNPop (UN WPP)</td>
+</tr>
+<tr class="odd">
+<td>Balances</td>
+<td>Base-year production of gas, oil and coal</td>
+<td>Legacy Mitigation rows 503-509</td>
+</tr>
+<tr class="even">
+<td>Prices_int</td>
+<td>World production of oil, coal and gas, Mtoe, by IEA scenario</td>
+<td>Legacy rows 717-719</td>
+</tr>
+</tbody>
+</table>
+<p>The other methane inputs are on sheet <code>Manual inputs</code>, at the legacy addresses:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Cell</th>
+<th>Input</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>J185</td>
+<td>Intensity decline, oil and natural gas (also downstream gas and biomass)</td>
+<td>0.25% per year</td>
+</tr>
+<tr class="even">
+<td>J186</td>
+<td>Intensity decline, coal</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>J187</td>
+<td>Intensity decline, agriculture (livestock, rice)</td>
+<td>0.47% per year</td>
+</tr>
+<tr class="even">
+<td>J188</td>
+<td>Intensity decline, waste</td>
+<td>0.5% per year</td>
+</tr>
+<tr class="odd">
+<td>J190:J192</td>
+<td>Price elasticity of production: oil, coal, natural gas</td>
+<td>−0.30, −0.43, −0.46</td>
+</tr>
+<tr class="even">
+<td>J194</td>
+<td>Pass-through of the methane fee on fossil fuels to consumers</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>J196:J200</td>
+<td>Fee applies to: biomass, downstream gas, fossil fuel production (oil, gas, coal), agriculture (livestock, rice), waste</td>
+<td>No, Yes, Yes, Yes, Yes</td>
+</tr>
+</tbody>
+</table>
+<p>The decline rates are calibrated on US EPA data (legacy notes). The fee switches are named <code>MFeeBio</code>, <code>MFeeDG</code>, <code>MFeeFF</code>, <code>MFeeAgr</code>, <code>MFeeWst</code> and shown on sheet Settings. They are legacy inputs outside ScenarioDefinition: the main inputs are on ScenarioDefinition, <code>Manual inputs</code> is the second source.</p>
+</section>
+<section id="sec-em-mfee" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="sec-em-mfee"><span class="header-section-number">6.3.2</span> The methane fee</h3>
+<p>The fee is a price per tonne of CO2-equivalent methane. It follows a linear path that keeps its slope after the target year, applies only in policy scenarios, and can add the carbon price (<a href="./A_Equations.html#eqlist-M1-8">M1.8</a>):</p>
+<p><span id="eq-em-mfee"><span class="math display">\[
+MF_t = \Lambda(t;\, T^{m}_0, T^{m}_1, x^{m}_0, x^{m}_1)\ \mathbb{1}[o \ne B] \;+\; NCT_t\ \mathbb{1}[\texttt{CTforMethane} = \text{Yes}]
+\tag{6.6}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(MF_t\)</span> is the methane fee (USD per t CO2e, real), <code>mfee</code>;</li>
+<li><span class="math inline">\(\Lambda\)</span> is the linear policy path of <a href="01_Overview.html" class="quarto-xref"><span>Chapter 1</span></a>, from <code>MPLevelStart</code> in <code>MPIntro</code> to <code>MPLevelTarget</code> in <code>MPOutro</code>, <strong>continued linearly</strong> after <code>MPOutro</code> (as legacy);</li>
+<li><span class="math inline">\(\mathbb{1}[o \ne B]\)</span> is 1 in policy scenarios (scenario number above 1, legacy row 2238);</li>
+<li><span class="math inline">\(NCT_t\)</span> is the carbon price (USD per t CO2), added when <code>CTforMethane</code> = Yes. This part has no scenario condition, as legacy row 2239.</li>
+</ul>
+</section>
+<section id="sec-em-ch4-alloc" class="level3" data-number="6.3.3">
+<h3 data-number="6.3.3" class="anchored" data-anchor-id="sec-em-ch4-alloc"><span class="header-section-number">6.3.3</span> Allocation of inventory methane to sources</h3>
+<p>The inventory reports methane by category, not by source. The model splits the methane of the last inventory year <span class="math inline">\(Y\)</span> between the sources of each category. For the four energy sources, each source’s input share is capped by ten times its share of energy activity, and the capped weights are normalised:</p>
+<p><span id="eq-em-ch4share"><span class="math display">\[
+w_j = \min\!\left(\mu\,\frac{X^{0}_j}{\sum_{i \in \text{fossil}} X^{0}_i},\ sh_j\right), \qquad
+\pi_j = \frac{w_j}{\sum_{i \in \text{fossil}} w_i} \quad (j \in \text{fossil})
+\tag{6.7}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(sh_j\)</span> is the country’s input share of source <span class="math inline">\(j\)</span> (CH4Inputs: oil row <code>per_upstream_og</code>, <code>per_downstream_g</code>, <code>per_biomass</code>; coal row <code>per_upstream_c</code>), 0 if missing;</li>
+<li><span class="math inline">\(X^{0}_j\)</span> is the base-year activity of the source (data): oil plus gas production and coal production from Balances; gas and biomass use from the energy-consumption data of the first year (every column but electricity);</li>
+<li><span class="math inline">\(\mu\)</span> = 10 (<code>MethShareCap</code>, legacy row 899);</li>
+<li><span class="math inline">\(\pi_j\)</span> is the share of energy methane allocated to source <span class="math inline">\(j\)</span>.</li>
+</ul>
+<p>Livestock and rice take their input shares of agricultural methane (<span class="math inline">\(\pi_j = sh_j\)</span>, rows <code>per_livestock</code>, <code>per_rice</code>); waste takes all waste methane (<span class="math inline">\(\pi_{wst} = 1\)</span>). The base emissions of each source, in kt CH4, are then</p>
+<p><span id="eq-em-ch4base"><span class="math display">\[
+M_{j,0} = M^{inv}_{u(j),Y}\ \pi_j\ \frac{1000}{GWP_j}
+\tag{6.8}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(M^{inv}_{u(j),Y}\)</span> is the inventory methane of the source’s category (energy, agriculture or waste) in year <span class="math inline">\(Y\)</span>, Mt CO2e (<code>ghg.invb</code>);</li>
+<li><span class="math inline">\(GWP_j\)</span> is 29.8 for the fossil sources and 27.2 for livestock, rice and waste.</li>
+</ul>
+<p>The shares and base emissions are data of the country: they are the same in every scenario, so the calibration is to the observed inventory.</p>
+</section>
+<section id="sec-em-ch4-activity" class="level3" data-number="6.3.4">
+<h3 data-number="6.3.4" class="anchored" data-anchor-id="sec-em-ch4-activity"><span class="header-section-number">6.3.4</span> Activity</h3>
+<p>Each source has an activity that moves its emissions. Downstream gas and biomass follow the scenario’s total use of the fuel (power included), so fuel switching changes their methane. Livestock, rice and waste follow an index driven by income and population:</p>
+<p><span id="eq-em-ch4act"><span class="math display">\[
+X_j(t) = X_j(t-1)\,(1 + g^{pc}_t)^{\epsilon^{Y}_{u(j)}}\,(1 + n_t)^{\epsilon^{N}_{u(j)}}, \qquad X_j(t_0) = 1 \qquad (j \in \{\text{liv}, \text{ric}, \text{wst}\})
+\tag{6.9}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(g^{pc}_t\)</span> is GDP per capita growth and <span class="math inline">\(n_t\)</span> population growth (<a href="#eq-em-drivers" class="quarto-xref">Equation&nbsp;<span>6.24</span></a>);</li>
+<li><span class="math inline">\(\epsilon^{Y}\)</span>, <span class="math inline">\(\epsilon^{N}\)</span> are the income and population elasticities of the category: agriculture 0.15 and 0.9, waste 0 and 1 (<a href="#sec-em-other" class="quarto-xref"><span>Section 6.5</span></a>).</li>
+</ul>
+<p>The two extraction sources follow fuel production, <span class="math inline">\(X_{og} = Prd_{oil} + Prd_{gas}\)</span> and <span class="math inline">\(X_{cm} = Prd_{coal}\)</span>, described next.</p>
+<section id="sec-em-ch4-prod" class="level4">
+<h4 class="anchored" data-anchor-id="sec-em-ch4-prod">Fuel production for supply methane</h4>
+<p>The model has no production model for fossil fuels. Production follows world demand of the global demand scenario, and responds to the producer price change that the methane fee causes, as legacy rows 6132-6149 (issue I66). First, the fee per ktoe produced, after abatement:</p>
+<p><span id="eq-em-ch4fk"><span class="math display">\[
+fk_j(t) = MF_t\, GWP_j\, \iota_j \cdot 1000 \cdot \frac{M_{j,0}}{X^{0}_j}\,(1 - a_j(t)), \qquad fk_j(t_0) = 0 \qquad (j \in \{\text{og}, \text{cm}\})
+\tag{6.10}\]</span></span></p>
+<p>where <span class="math inline">\(\iota_j\)</span> is 1 if the fee applies to the source (fossil fuel production switch), else 0, and <span class="math inline">\(a_j\)</span> the abatement share of <a href="#eq-em-ch4abt" class="quarto-xref">Equation&nbsp;<span>6.13</span></a>. <span class="math inline">\(fk_j\)</span> is in USD per ktoe. Its change raises the producer price index:</p>
+<p><span id="eq-em-ch4pi"><span class="math display">\[
+\Pi_f(t) = 1 + \frac{fk_{j(f)}(t) - fk_{j(f)}(t-1)}{p^{int}_f(t)\ \gamma_f}\ \phi^{pass}, \qquad \Pi_f(t_0) = 1
+\tag{6.11}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(j(f)\)</span> is the oil-and-gas source for oil and gas, coal mining for coal;</li>
+<li><span class="math inline">\(p^{int}_f\)</span> is the international price of the fuel in its own unit (oil per barrel, gas per MMBtu, coal per tonne; <a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a>);</li>
+<li><span class="math inline">\(\gamma_f\)</span> is price units per ktoe: 41,868 GJ per ktoe divided by 6.1408 GJ per barrel, 1.055056 GJ per MMBtu or 29.3076 GJ per tonne;</li>
+<li><span class="math inline">\(\phi^{pass}\)</span> is the pass-through (Manual inputs J194, default 0, so <span class="math inline">\(\Pi_f = 1\)</span> by default).</li>
+</ul>
+<p>Production holds the base-year value in the base year and the next, then grows with the price response and with world demand of the year before:</p>
+<p><span id="eq-em-ch4prd"><span class="math display">\[
+Prd_f(t) = \begin{cases}
+Prd^{0}_f &amp; t \le t_0 + 1 \\
+Prd_f(t-1)\ \Pi_f(t)^{\varepsilon_f}\ \dfrac{WD_f(t-1)}{WD_f(t-2)} &amp; \text{otherwise}
+\end{cases}
+\tag{6.12}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(Prd^{0}_f\)</span> is base-year production of oil products, coal and gas (Balances, ktoe);</li>
+<li><span class="math inline">\(\varepsilon_f\)</span> is the price elasticity of production (Manual inputs J190:J192);</li>
+<li><span class="math inline">\(WD_f\)</span> is world production of the fuel in the IEA scenario <code>GlobalEnergyDemand</code> of scenario 1 (Stated Policies, Announced Pledges, Sustainable Development, Net Zero), Mtoe. As legacy, the third and fourth options both read the Net Zero row.</li>
+</ul>
+<p>The source shares use base-year production as their activity, so the shares do not depend on this projection (no loop).</p>
+</section>
+</section>
+<section id="sec-em-ch4-abt" class="level3" data-number="6.3.5">
+<h3 data-number="6.3.5" class="anchored" data-anchor-id="sec-em-ch4-abt"><span class="header-section-number">6.3.5</span> Abatement and emissions</h3>
+<p>The fee abates methane along a power-function cost curve of the source (<a href="./A_Equations.html#eqlist-A7-3">A7.3</a>):</p>
+<p><span id="eq-em-ch4abt"><span class="math display">\[
+a_j(t) = \min\!\Big(1,\ \max\!\big(0,\ A_j\,(MF_t\, GWP_j\, \iota_j)^{B_j}\big)\Big)
+\tag{6.13}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(a_j\)</span> is the abatement share (<code>ch4.abt</code>);</li>
+<li><span class="math inline">\(MF_t\,GWP_j\)</span> is the fee per tonne of CH4 (USD);</li>
+<li><span class="math inline">\(A_j\)</span>, <span class="math inline">\(B_j\)</span> are the curve coefficients of CH4Inputs (<code>avg_pow_a</code>, <code>avg_pow_b</code>) for the country and the source’s curve row; where the country value is 0 or missing, the CH4Inputs average (<code>AVG</code>) is used, as legacy (issue I152);</li>
+<li><span class="math inline">\(\iota_j\)</span> is the fee switch of the source (<a href="#sec-em-ch4-data" class="quarto-xref"><span>Section 6.3.1</span></a>).</li>
+</ul>
+<p>Methane intensity also declines on its own, from the last inventory year:</p>
+<p><span id="eq-em-ch4int"><span class="math display">\[
+I_j(t) = (1 - \delta_j)^{\max(0,\ t - Y)}
+\tag{6.14}\]</span></span></p>
+<p>where <span class="math inline">\(I_j\)</span> is the intensity index (<code>ch4.int</code>) and <span class="math inline">\(\delta_j\)</span> the source’s rate of autonomous technological improvement (Manual inputs J185:J188; oil and gas also for downstream gas and biomass, issue I141). The emissions of each source combine base emissions, activity, intensity and abatement:</p>
+<p><span id="eq-em-ch4em"><span class="math display">\[
+M_j(t) = M_{j,0}\ \frac{X_j(t)}{X^{0}_j}\ I_j(t)\ \big(1 - a_j(t)\big)
+\tag{6.15}\]</span></span></p>
+<p>where <span class="math inline">\(M_j(t)\)</span> is the methane of source <span class="math inline">\(j\)</span> in kt CH4 (<code>ch4.em</code>), 0 if <span class="math inline">\(X^{0}_j = 0\)</span>. For livestock, rice and waste <span class="math inline">\(X^{0}_j = 1\)</span>. Fuel-supply methane is <span class="math inline">\(M^{sup}(t) = \sum_{j \in \text{fossil}} M_j(t)\)</span>.</p>
+</section>
+<section id="sec-em-ch4-rev" class="level3" data-number="6.3.6">
+<h3 data-number="6.3.6" class="anchored" data-anchor-id="sec-em-ch4-rev"><span class="header-section-number">6.3.6</span> Flaring and the fee revenue</h3>
+<p>Part of the abated oil-and-gas methane is flared: it burns to CO2 and is reported as energy CO2.</p>
+<p><span id="eq-em-flare"><span class="math display">\[
+CO2^{flr}_t = r_{fl}\ \phi_{fl}\ M_{og,0}\ \frac{X_{og}(t)}{X^{0}_{og}}\ a_{og}(t)\ /\ 1000
+\tag{6.16}\]</span></span></p>
+<p>where <span class="math inline">\(CO2^{flr}\)</span> is in Mt (<code>ghg.flr</code>), <span class="math inline">\(r_{fl}\)</span> = 44/16 = 2.75 t CO2 per t CH4 and <span class="math inline">\(\phi_{fl}\)</span> the flared share (CH4Inputs oil row <code>per_flare</code>). The fee raises revenue on the methane that remains:</p>
+<p><span id="eq-em-mfrev"><span class="math display">\[
+R^{mf}_t = MF_t \sum_j M_j(t)\, GWP_j\, \iota_j\ \frac{1000}{10^{6}}
+\tag{6.17}\]</span></span></p>
+<p>where <span class="math inline">\(R^{mf}\)</span> is in USD million (<code>ch4.rev</code>), part of total revenue (<a href="07_Revenues_GDP_welfare.html" class="quarto-xref"><span>Chapter 7</span></a>).</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: methane by source and the methane fee">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: methane by source and the methane fee
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code># data step, once per country
+for j in SOURCES:                                  # og, dg, cm, bm, liv, ric, wst
+    A[j], B[j] = curve(country, j) or curve("AVG", j)          # 0 or missing: the average
+    gwp[j] = GWPCH4F if j in FOSSIL else GWPCH4NF
+    fee_on[j] = 1 if fee_switch[j] == "Yes" else 0
+act0 = {og: prod0[oil] + prod0[gas], cm: prod0[coal], dg: cons0[gas], bm: cons0[bio], liv: 1, ric: 1, wst: 1}
+for j in FOSSIL:
+    w[j] = min(MethShareCap * act0[j] / sum(act0[i] for i in FOSSIL), share_input[j])
+for j in SOURCES:
+    pi[j] = w[j] / sum(w[i] for i in FOSSIL) if j in FOSSIL else (1 if j == wst else share_input[j])
+    em0[j] = inv[Y][category(j), "ch4"] * pi[j] * 1000 / gwp[j]          # kt CH4
+
+for t in years:
+    mfee[t] = path(t, MPIntro, MPOutro, MPLevelStart, MPLevelTarget, continue_linear=True) * (scenario &gt; 1) \
+              + (cptraj[t] if CTforMethane == "Yes" else 0)
+    for j in SOURCES:
+        abt[j][t] = min(1, max(0, A[j] * (mfee[t] * gwp[j] * fee_on[j]) ** B[j]))
+    for j in (og, cm):
+        fk[j][t] = 0 if t == t0 else mfee[t] * gwp[j] * fee_on[j] * 1000 * em0[j] / act0[j] * (1 - abt[j][t])
+    for f in (oil, gas, coal):
+        pidx[f][t] = 1 if t == t0 else 1 + (fk[j(f)][t] - fk[j(f)][t-1]) / (gp_int[f][t] * units_per_ktoe[f]) * pass_through
+        prd[f][t] = prod0[f] if t &lt;= t0 + 1 else prd[f][t-1] * pidx[f][t] ** elast[f] * wd[f][t-1] / wd[f][t-2]
+    act = {og: prd[oil][t] + prd[gas][t], cm: prd[coal][t], dg: ener["all", gas][t], bm: ener["all", bio][t]}
+    for j in (liv, ric, wst):
+        act[j] = 1 if t == t0 else act_prev[j] * (1 + gdppc_g[t]) ** el_inc[cat(j)] * (1 + pop_g[t]) ** el_pop[cat(j)]
+    for j in SOURCES:
+        intensity[j][t] = (1 - decline[j]) ** max(0, t - Y)
+        ch4_em[j][t] = em0[j] * act[j] / act0[j] * intensity[j][t] * (1 - abt[j][t]) if act0[j] else 0
+    ch4_sup[t] = sum(ch4_em[j][t] for j in FOSSIL)
+    flr[t] = FlareCO2perCH4 * flared_share * em0[og] * act[og] / act0[og] * abt[og][t] / 1000     # Mt CO2
+    ch4_rev[t] = mfee[t] * sum(ch4_em[j][t] * gwp[j] * fee_on[j] for j) * 1000 / 1e6           # USD m</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> methane fee rows <code>mfee.p</code>, <code>mfee</code> in section 1 (ScenarioDefinition <code>MPIntro</code>, <code>MPOutro</code>, <code>MPLevelStart</code>, <code>MPLevelTarget</code>, <code>CTforMethane</code>); section 14 rows <code>ghg.invb</code>, <code>ch4.src</code>, <code>ch4.wd</code>, <code>ch4.fk</code>, <code>ch4.pi</code>, <code>ch4.prd</code>, <code>ch4.act</code>, <code>ch4.abc</code>, <code>ch4.abt</code>, <code>ch4.int</code>, <code>ch4.em</code>, <code>ch4.sup</code>, <code>ghg.flr</code>, <code>ch4.rev</code>. Constants <code>MethShareCap</code>, <code>GWPCH4F</code>, <code>GWPCH4NF</code>, <code>FlareCO2perCH4</code>, <code>MethGJperKtoe</code>, <code>MethGJperBbl</code>, <code>MethGJperMMBtu</code>, <code>MethGJperT</code>. Manual inputs J185:J200.</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/policies.py</code>, <code>prepare()</code> (methane fee, EQ-M1.8); <code>ghg_data.py</code> (<code>inventory()</code>, <code>methane()</code>, <code>world_demand()</code>, <code>methane_inputs()</code>, <code>production()</code>) and <code>emissions.py</code>, <code>country_data()</code>, <code>curve_coefficient()</code> and <code>ghg()</code> (EQ-A7.3).</li>
+<li><strong>Fiscal space.</strong> Since issue I47 was settled, the fiscal space of the GDP feedback counts the fee revenue on the scenario’s own activity (<code>ch4.rev</code>), as legacy (row 8024). The memo rows <code>ch4.emf</code> and <code>ch4.revf</code> (the same sum with the stored scenario-1 activity for downstream gas and biomass, sheet BaselineCO2 rows <code>dg</code>, <code>bm</code>, check <code>ch4bs.chk</code> = 0 in scenario 1) are kept but no longer used. See <a href="07_Revenues_GDP_welfare.html" class="quarto-xref"><span>Chapter 7</span></a>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>L18, fixed.</strong> Legacy holds non-energy methane constant and does not apply the abatement. Here livestock, rice and waste grow with income and population and the fee abates them (LD43).</li>
+<li><strong>L19, fixed.</strong> Legacy counts the flaring CO2 as methane. Here it is energy CO2 (LD44).</li>
+<li><strong>L20, fixed.</strong> Legacy’s population growth path differs from UN WPP; the model uses UN WPP.</li>
+<li><strong>L21, fixed.</strong> Legacy abates waste with the livestock curve. Each source uses its own curve.</li>
+<li><strong>L135, fixed.</strong> Legacy applies the autonomous intensity decline to the energy sources only. Here livestock, rice and waste decline too. Legacy keeps the index at 1 up to 2023 and declines from 2024; the model declines from the last inventory year (I141).</li>
+<li><strong>I152, as legacy.</strong> Where the country’s curve coefficient is 0 or missing, the average curve is used (legacy Mitigation L6084:M6084).</li>
+<li><strong>LD46, as legacy.</strong> The fee path applies only in policy scenarios; a switch per source decides where the fee applies, in the abatement and the revenue.</li>
+<li><strong>Production (I66).</strong> Oil, gas and coal production follow legacy rows 6132-6149: world demand of the year before and the producer price response.</li>
+<li><strong>Methodology.</strong> The methodology defines the fee per tonne of CH4 and describes the agriculture and waste “production” as also responding to oil producer prices; the model applies the fee per tonne of CO2e and the price response only to fossil fuel production.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-em-energy-ghg" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="sec-em-energy-ghg"><span class="header-section-number">6.4</span> Energy GHGs: combustion methane, N2O and F-gases</h2>
+<p>The energy category of the inventory holds CO2, methane, N2O and F-gases. CO2 comes from <a href="#sec-em-co2" class="quarto-xref"><span>Section 6.2</span></a> plus flaring. Methane combines combustion and fuel supply and is scaled to the inventory. N2O and F-gases follow simple rules. The methodology describes these in <a href="../CPAT_full_documentation_html/03_Mitigation.html#nitrous-oxide-n_2o-and-flourinated-gases-f-gases">methodology, sections 3.5.4.2 and 3.5.4.3</a>.</p>
+<section id="sec-em-ch4comb" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="sec-em-ch4comb"><span class="header-section-number">6.4.1</span> Combustion methane</h3>
+<p>Every fuel burnt emits some methane. The factor moves on a straight line from its base-year value towards its final value in <code>EFEndYear</code>, and the line continues after that year, as legacy:</p>
+<p><span id="eq-em-efw"><span class="math display">\[
+w_t = \omega\ \frac{t - t_0}{T^{EF} - t_0}
+\tag{6.18}\]</span></span></p>
+<p><span id="eq-em-ch4c"><span class="math display">\[
+CH4_{s,f}(t) = F_{s,f}(t)\ \frac{e^{0}_{s,f} + (e^{1}_{s,f} - e^{0}_{s,f})\, w_t}{1000}, \qquad CH4_k(t) = PE_k(t)\ \frac{e^{0}_{k} + (e^{1}_{k} - e^{0}_{k})\, w_t}{1000}
+\tag{6.19}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(w_t\)</span> is the weight of the final factor, 0 in the base year;</li>
+<li><span class="math inline">\(\omega\)</span> (<code>EFFinShare</code>) follows the factor selection <code>EFSel</code>: Constant 0, Variable 1, Average 0.5;</li>
+<li><span class="math inline">\(T^{EF}\)</span> = 2039 (<code>EFEndYear</code>, the legacy column of the final factor; later years extrapolate the line);</li>
+<li><span class="math inline">\(e^{0}\)</span>, <span class="math inline">\(e^{1}\)</span> are the GAINS CH4 factors of the base year and the final year, t per ktoe, looked up as for the local pollutants (<a href="#sec-em-ap-data" class="quarto-xref"><span>Section 6.7.1</span></a>);</li>
+<li><span class="math inline">\(CH4_{s,f}\)</span>, <span class="math inline">\(CH4_k\)</span> are in kt CH4 (<code>ch4</code>); power uses the fuel input of the coal, gas, oil and biomass types.</li>
+</ul>
+<p>The combustion methane of all subsectors and power is <span class="math inline">\(CH4^{c}(t)\)</span> (<code>ch4.c</code>), also reported by sector group.</p>
+</section>
+<section id="sec-em-ch4enr" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="sec-em-ch4enr"><span class="header-section-number">6.4.2</span> Energy methane, calibrated to the inventory</h3>
+<p>Combustion plus supply methane, in CO2e, is scaled by one factor so that it equals the inventory in the last inventory year:</p>
+<p><span id="eq-em-kch4"><span class="math display">\[
+k_{CH_4} = \frac{M^{inv}_{enr,Y}}{\big(CH4^{c,B}_{Y} + M^{sup,B}_{Y}\big)\, GWP_F / 1000}
+\tag{6.20}\]</span></span></p>
+<p><span id="eq-em-ch4enr"><span class="math display">\[
+E_{enr,CH_4}(t) = k_{CH_4}\ \big(CH4^{c}(t) + M^{sup}(t)\big)\ \frac{GWP_F}{1000}
+\tag{6.21}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(k_{CH_4}\)</span> is the calibration factor (<code>ghg.k</code>);</li>
+<li><span class="math inline">\(M^{inv}_{enr,Y}\)</span> is the inventory energy methane in year <span class="math inline">\(Y\)</span> (Mt CO2e);</li>
+<li><span class="math inline">\(CH4^{c,B}_{Y}\)</span>, <span class="math inline">\(M^{sup,B}_{Y}\)</span> are the scenario-1 combustion and supply methane of year <span class="math inline">\(Y\)</span> (kt), stored as data (sheet BaselineCO2 rows <code>ch4c</code>, <code>ch4sup</code>, refreshed by the build), so that the factor, used in every year, reads no later model year (no circular reference);</li>
+<li><span class="math inline">\(GWP_F\)</span> = 29.8, the fossil GWP;</li>
+<li><span class="math inline">\(E_{enr,CH_4}\)</span> is energy methane in Mt CO2e.</li>
+</ul>
+<p>Energy methane thus equals the inventory in <span class="math inline">\(Y\)</span> and then moves with fuel use, supply activity and abatement.</p>
+</section>
+<section id="sec-em-enr-other" class="level3" data-number="6.4.3">
+<h3 data-number="6.4.3" class="anchored" data-anchor-id="sec-em-enr-other"><span class="header-section-number">6.4.3</span> Energy CO2, N2O and F-gases</h3>
+<p><span id="eq-em-enrco2"><span class="math display">\[
+E_{enr,CO_2}(t) = em_{CO_2}(t) + CO2^{flr}_t
+\tag{6.22}\]</span></span></p>
+<p>Energy CO2 is always the model’s (fuel combustion, power included, plus flaring), also in inventory years. Energy N2O and F-gases take the inventory while it has the year; after it, N2O moves with energy CO2 and F-gases are held:</p>
+<p><span id="eq-em-enrn2o"><span class="math display">\[
+E_{enr,N_2O}(t) = E_{enr,N_2O}(t-1)\ \frac{em_{CO_2}(t)}{em_{CO_2}(t-1)}, \qquad E_{enr,F}(t) = E_{enr,F}(t-1)
+\tag{6.23}\]</span></span></p>
+<p>(the ratio is 1 if last year’s CO2 is 0).</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: energy GHGs">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: energy GHGs
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>for t in years:
+    w = EFFinShare * (t - t0) / (EFEndYear - t0)              # continues after EFEndYear
+    for s, f: ch4[s, f][t] = ener[s, f][t] * (ef0_ch4[s, f] + (ef1_ch4[s, f] - ef0_ch4[s, f]) * w) / 1000
+    for k in (coal, gas, oil, bio): ch4["pow", k][t] = pe[k][t] * (e0[k] + (e1[k] - e0[k]) * w) / 1000
+    ch4_c[t] = sum(ch4[s, f][t]) + sum(ch4["pow", k][t])
+    k_ch4 = inv[Y]["enr", "ch4"] / ((stored_ch4c_s1[Y] + stored_ch4sup_s1[Y]) * GWPCH4F / 1000)
+    ghg["enr", "co2"][t] = co2_total[t] + flr[t]
+    ghg["enr", "ch4"][t] = k_ch4 * (ch4_c[t] + ch4_sup[t]) * GWPCH4F / 1000
+    if t in inventory:
+        ghg["enr", "n2o"][t], ghg["enr", "fga"][t] = inv[t]["enr", "n2o"], inv[t]["enr", "fga"]
+    else:
+        ghg["enr", "n2o"][t] = ghg["enr", "n2o"][t-1] * (co2_total[t] / co2_total[t-1] if co2_total[t-1] else 1)
+        ghg["enr", "fga"][t] = ghg["enr", "fga"][t-1]</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> combustion CH4 rows <code>ch4</code> of sections 5-8 (LAMBDA <code>NONCO2</code>, weight <code>EFWEIGHT</code>) and of section 14 (power); <code>ch4.c</code>, <code>ghg.k</code>, <code>ghg</code> (energy rows) in section 14; stored values on sheet BaselineCO2; factors on sheet Inputs_nc (table by legacy EF code).</li>
+<li><strong>CPAT Python:</strong> <code>fuel_use.py</code> (combustion CH4 of subsectors), <code>emissions.py</code>, <code>ghg()</code> (power CH4, <code>ch4.c</code>, <code>ghg.k</code>, energy rows; EQ-A7.2). The factor reads Excel-AI’s stored scenario-1 values.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>I34.</strong> Legacy 465 has the CH4 factor lookups but leaves the factors blank, so its combustion methane is zero. The model fills them from GAINS (country, else World Bank region, else world).</li>
+<li><strong>Factor path (LD47, I98).</strong> As legacy: linear from the base year to the final factor in 2039, continued after it. Only the base and final GAINS values are used: the yearly legacy paths are proprietary.</li>
+<li><strong>Methodology.</strong> The methodology calibrates energy methane on 2019 and sets energy F-gases to zero after 2018. The model calibrates on the last inventory year and holds the inventory’s last F-gas value.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Check: energy methane for Egypt">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Check: energy methane for Egypt
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Combustion methane exceeds inventory energy methane, so <span class="math inline">\(k_{CH_4}\)</span> is about 0.25 for Egypt.</li>
+<li><strong>Open issue I91.</strong> Egypt’s inventory breaks after 2021: energy CH4 is 21.9 Mt CO2e in 2021 and 1.9-2.0 in 2022-2024, while the fugitive-emissions memo alone is 20.3 in 2023. Calibrating to 2024, as legacy, may understate energy methane by about 19 Mt CO2e.</li>
+<li>Oil, gas and coal production have no production model: they follow world demand from the base year.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-em-other" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="sec-em-other"><span class="header-section-number">6.5</span> Other inventory categories</h2>
+<p>The non-energy categories take the inventory while it has the year. After that, each grows with its own driver: industrial energy CO2 for industrial processes, income and population for agriculture, waste and other, an exogenous decline for LULUCF. The methodology describes these in <a href="../CPAT_full_documentation_html/03_Mitigation.html#non-energy-related-emissions">methodology, section 3.5.5</a> (<a href="./A_Equations.html#eqlist-A7-2">A7.2</a>, <a href="./A_Equations.html#eqlist-M7-2">M7.2</a>).</p>
+<section id="sec-em-drivers" class="level3" data-number="6.5.1">
+<h3 data-number="6.5.1" class="anchored" data-anchor-id="sec-em-drivers"><span class="header-section-number">6.5.1</span> Drivers</h3>
+<p><span id="eq-em-drivers"><span class="math display">\[
+n_t = \frac{pop_t}{pop_{t-1}} - 1, \qquad g^{pc}_t = \frac{1 + g_t}{1 + n_t} - 1, \qquad
+\psi_t = \begin{cases} em_{CO_2}(t) / em^{B}_{CO_2}(t) &amp; \texttt{AdditionMitigationPoliciesNonEnergy} = \text{Yes} \\ 1 &amp; \text{otherwise} \end{cases}
+\tag{6.24}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(pop_t\)</span> is UN WPP population (thousands), <span class="math inline">\(n_t\)</span> its growth (<code>pop.g</code>);</li>
+<li><span class="math inline">\(g_t\)</span> is real GDP growth after the GDP feedback (<a href="07_Revenues_GDP_welfare.html" class="quarto-xref"><span>Chapter 7</span></a>), <span class="math inline">\(g^{pc}_t\)</span> GDP per capita growth (<code>gdppc.g</code>);</li>
+<li><span class="math inline">\(\psi_t\)</span> is the mitigation effort in non-energy sectors (<code>ghg.m</code>): the scenario’s energy CO2 over the baseline’s, if the scenario’s switch is on. This option, in effect, extends the carbon price’s effect to non-energy GHGs.</li>
+</ul>
+<p>The growth factor of a category is</p>
+<p><span id="eq-em-dr"><span class="math display">\[
+d_{u,t} = (1 + g^{pc}_t)^{\epsilon^{Y}_u}\,(1 + n_t)^{\epsilon^{N}_u}\ \frac{\psi_t}{\psi_{t-1}}, \qquad d_{u,t_0} = 1
+\tag{6.25}\]</span></span></p>
+<p>with the elasticities of sheet <code>Manual inputs</code> K325:M327, at the legacy addresses (a text entry such as “na” counts as 0):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Category <span class="math inline">\(u\)</span></th>
+<th>Income elasticity <span class="math inline">\(\epsilon^{Y}\)</span> (row 327)</th>
+<th>Population elasticity <span class="math inline">\(\epsilon^{N}\)</span> (row 326)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Agriculture</td>
+<td>0.15</td>
+<td>0.9</td>
+</tr>
+<tr class="even">
+<td>Waste</td>
+<td>0 (“na”)</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Other</td>
+<td>0 (“na”)</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>These values reproduce the cached results of the legacy run exactly. Legacy Mitigation uses the same values; it never reads the manual cells, whose formula is broken (<code>#REF!</code>).</p>
+</section>
+<section id="sec-em-categories" class="level3" data-number="6.5.2">
+<h3 data-number="6.5.2" class="anchored" data-anchor-id="sec-em-categories"><span class="header-section-number">6.5.2</span> Projection by category and gas</h3>
+<p>Each category <span class="math inline">\(u\)</span> and gas <span class="math inline">\(p\)</span> takes the inventory value while the inventory has the year:</p>
+<p><span id="eq-em-ghg"><span class="math display">\[
+E_{u,p}(t) = \begin{cases} \text{inventory}_{u,p,t} &amp; t \le Y \\ \text{projection of the table below} &amp; t &gt; Y \end{cases}
+\tag{6.26}\]</span></span></p>
+<p>(energy CO2 and energy methane excepted: they are always modelled, <a href="#sec-em-energy-ghg" class="quarto-xref"><span>Section 6.4</span></a>).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Category and gas</th>
+<th>Projection after the inventory</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Industrial processes, all gases</td>
+<td><span class="math inline">\(E(t-1)\,(1 + \Delta_t)\)</span> with <span class="math inline">\(\Delta_t\)</span> the growth of industrial energy CO2 (<code>ghg.gi</code>), if <code>IndustrialProcessEmissionsScaleEner</code> = Yes; else held</td>
+</tr>
+<tr class="even">
+<td>Agriculture CO2, N2O, F-gases</td>
+<td><span class="math inline">\(E(t-1)\, d_{agr,t}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Agriculture CH4</td>
+<td>livestock and rice methane: <span class="math inline">\((M_{liv} + M_{ric})\, GWP_{NF} / 1000\)</span></td>
+</tr>
+<tr class="even">
+<td>Waste CO2, N2O, F-gases</td>
+<td><span class="math inline">\(E(t-1)\, d_{wst,t}\)</span></td>
+</tr>
+<tr class="odd">
+<td>Waste CH4</td>
+<td>waste methane: <span class="math inline">\(M_{wst}\, GWP_{NF} / 1000\)</span></td>
+</tr>
+<tr class="even">
+<td>Other, all gases</td>
+<td><span class="math inline">\(E(t-1)\, d_{oth,t}\)</span></td>
+</tr>
+<tr class="odd">
+<td>LULUCF CO2</td>
+<td><a href="#eq-em-lulucf" class="quarto-xref">Equation&nbsp;<span>6.27</span></a></td>
+</tr>
+<tr class="even">
+<td>LULUCF CH4, N2O, F-gases</td>
+<td>held</td>
+</tr>
+</tbody>
+</table>
+<p>The industrial growth may be negative: process emissions decline with industrial CO2, as legacy rows 7553 and 7566-7569.</p>
+<p>LULUCF CO2 declines by a share of the last inventory value while it is a source, and is held while it is a sink:</p>
+<p><span id="eq-em-lulucf"><span class="math display">\[
+E_{lucf,CO_2}(t) = \begin{cases}
+E_{lucf,CO_2}(t-1) &amp; E_{lucf,CO_2}(t-1) &lt; 0 \\
+E_{lucf,CO_2}(t-1)\ \dfrac{\psi_t}{\psi_{t-1}} - \delta_{lu}\, \big|E^{inv}_{lucf,CO_2,Y}\big| &amp; \text{otherwise}
+\end{cases}
+\tag{6.27}\]</span></span></p>
+<p>where <span class="math inline">\(\delta_{lu}\)</span> is <code>LULUCFAnnualEmissionsDecline</code> (ScenarioDefinition, share per year of the last inventory value; the methodology’s default is 2.5%) and <span class="math inline">\(E^{inv}_{lucf,CO_2,Y}\)</span> the inventory value of year <span class="math inline">\(Y\)</span>.</p>
+</section>
+<section id="sec-em-totals" class="level3" data-number="6.5.3">
+<h3 data-number="6.5.3" class="anchored" data-anchor-id="sec-em-totals"><span class="header-section-number">6.5.3</span> Totals</h3>
+<p><span id="eq-em-ghgtot"><span class="math display">\[
+GHG_t = \sum_{u \ne \text{LULUCF}} \sum_{p} E_{u,p}(t), \qquad GHG^{inc}_t = GHG_t + \sum_p E_{lucf,p}(t)
+\tag{6.28}\]</span></span></p>
+<p>The block reports totals by gas and by category, GHG emissions excluding (<code>ghg</code>) and including LULUCF (<code>ghg.inc</code>), the baseline value (<code>ghg.ref</code>) and the change against it (<code>ghg.pct</code>, <code>ghg.chg</code>).</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: other inventory categories">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: other inventory categories
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>for t in years:
+    pop_g[t] = pop[t] / pop[t-1] - 1
+    gdppc_g[t] = (1 + gdp_growth[t]) / (1 + pop_g[t]) - 1
+    m[t] = co2_total[t] / co2_ref[t] if AdditionMitigationPoliciesNonEnergy == "Yes" and co2_ref[t] &gt; 0 else 1
+    gi[t] = 0 if t == t0 else co2["ind"][t] / co2["ind"][t-1] - 1      # 0 if last year's is 0
+    for u in (agr, wst, oth):
+        dr[u][t] = 1 if t == t0 else (1 + gdppc_g[t]) ** el_inc[u] * (1 + pop_g[t]) ** el_pop[u] * m[t] / m[t-1]
+    for u in (ipr, agr, lucf, wst, oth):
+        for p in (co2, ch4, n2o, fga):
+            if t in inventory: ghg[u, p][t] = inv[t][u, p]; continue
+            prev = ghg[u, p][t-1]
+            if u == ipr:   ghg[u, p][t] = prev * (1 + (gi[t] if IndustrialProcessEmissionsScaleEner == "Yes" else 0))
+            elif (u, p) == (agr, ch4): ghg[u, p][t] = (ch4_em[liv][t] + ch4_em[ric][t]) * GWPCH4NF / 1000
+            elif (u, p) == (wst, ch4): ghg[u, p][t] = ch4_em[wst][t] * GWPCH4NF / 1000
+            elif (u, p) == (lucf, co2):
+                ghg[u, p][t] = prev if prev &lt; 0 else prev / m[t-1] * m[t] - abs(inv[Y][lucf, co2]) * LULUCFAnnualEmissionsDecline
+            elif u == lucf: ghg[u, p][t] = prev
+            else:          ghg[u, p][t] = prev * dr[u][t]
+    ghg_total[t] = sum(ghg[u, p][t] for u != lucf, p)
+    ghg_inc[t] = ghg_total[t] + sum(ghg[lucf, p][t] for p)</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> section 14 rows <code>pop</code>, <code>pop.g</code>, <code>gdppc.g</code>, <code>ghg.h</code> (row of the year on sheet GHGs, 0 if none), <code>ghg.m</code>, <code>ghg.gi</code>, <code>ghg.dr</code>, <code>ghg</code>, <code>ghg.inc</code>, <code>ghg.ref</code>, <code>ghg.pct</code>, <code>ghg.chg</code>. ScenarioDefinition <code>AdditionMitigationPoliciesNonEnergy</code>, <code>IndustrialProcessEmissionsScaleEner</code>, <code>LULUCFAnnualEmissionsDecline</code>; elasticities Manual inputs K325:M327 (names <code>GhgElCat</code>, <code>GhgElPop</code>, <code>GhgElInc</code>).</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/ghg_data.py</code>, <code>inventory()</code>, <code>population()</code>, <code>nonenergy_elasticities()</code>; <code>emissions.py</code>, <code>ghg()</code> (EQ-M7.2, EQ-A7.2).</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT and the methodology">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT and the methodology
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Industrial processes.</strong> The model lets process emissions decline with industrial CO2 in every year (as legacy rows 7553, 7566-7569). The methodology floors the growth at 0 in its first projection year only.</li>
+<li><strong>LULUCF.</strong> The model holds sinks (negative values) and holds LULUCF CH4, N2O and F-gases. The methodology also subtracts the annual decline from sinks, scales CH4 and N2O by the effort and grows N2O and F-gases with population.</li>
+<li><strong>Population (L20).</strong> UN WPP population, not legacy’s growth path.</li>
+<li><strong>Validation.</strong> When the block was introduced, every earlier output was unchanged (the methane fee is 0 in the shipped scenarios). The check recomputes every GHG and combustion-methane row in Python from the data files (scenarios 1 and 2, every year). Sheet LegacyDiff lists the remaining differences.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-em-ndc" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="sec-em-ndc"><span class="header-section-number">6.6</span> NDC comparison</h2>
+<p>The NDC rows translate the country’s nationally determined contribution into a target for GHG emissions including LULUCF and measure how far each scenario goes towards it. They compare only: there is no goal seek on the NDC (user decision). The methodology describes the NDC types in <a href="../CPAT_full_documentation_html/03_Mitigation.html#national-determined-contributions">methodology, section 3.5.6</a>, with worked examples in <a href="../CPAT_full_documentation_html/03_Mitigation.html#sec-AppendixD">Appendix D</a> (<a href="./A_Equations.html#eqlist-A7-4">A7.4</a>).</p>
+<section id="sec-em-ndc-data" class="level3" data-number="6.6.1">
+<h3 data-number="6.6.1" class="anchored" data-anchor-id="sec-em-ndc-data"><span class="header-section-number">6.6.1</span> Data and choices</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sheet</th>
+<th>Content</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>NDCs</td>
+<td>NDC table by country and round (latest, second, first): type, target years, reference year, unconditional and conditional values, LULUCF and gas coverage; key ISO | round</td>
+<td>Legacy NDCs rows 48-242 (latest), 250-444 (second), 451-644 (first), columns C-P</td>
+</tr>
+<tr class="even">
+<td>GHGHist</td>
+<td>Historical GHGs excluding and including LULUCF, CO2 excluding LULUCF, energy CO2, by year; key group | year</td>
+<td>Legacy GHGs rows 954-1189</td>
+</tr>
+</tbody>
+</table>
+<p>Three choices, read from scenario 1 as legacy:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Input</th>
+<th>Options</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>NDCs</code></td>
+<td>First round, Second round, else the latest (<code>Latest*</code>)</td>
+</tr>
+<tr class="even">
+<td><code>NDCTargetYear</code></td>
+<td><code>Main*</code> = the first target year; otherwise the second, where given</td>
+</tr>
+<tr class="odd">
+<td><code>Conditionality</code></td>
+<td>Unconditional, Conditional, else the average of the two</td>
+</tr>
+</tbody>
+</table>
+<p>The target year is at most 2035 (<code>NDCYrCap</code>): later targets are compared in that year. A country without an NDC row is Unquantifiable.</p>
+</section>
+<section id="sec-em-ndc-target" class="level3" data-number="6.6.2">
+<h3 data-number="6.6.2" class="anchored" data-anchor-id="sec-em-ndc-target"><span class="header-section-number">6.6.2</span> Target level</h3>
+<p>The target is first built on the NDC’s own basis (gases CO2 or GHGs; LULUCF included or excluded), against the modelled BAU <span class="math inline">\(B_{ty}\)</span>: scenario 1 on that basis in the target year <span class="math inline">\(ty\)</span>. With <span class="math inline">\(x\)</span> the target value as given (a reduction is negative; Fixed targets in Mt CO2e), the level <span class="math inline">\(\ell\)</span> is:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Target level <span class="math inline">\(\ell\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>BAU</td>
+<td><span class="math inline">\(B_{ty}\,(1 + x)\)</span></td>
+</tr>
+<tr class="even">
+<td>Fixed</td>
+<td><span class="math inline">\(x\)</span></td>
+</tr>
+<tr class="odd">
+<td>Historical</td>
+<td><span class="math inline">\(H\,(1 + x)\)</span>, with <span class="math inline">\(H\)</span> the emissions of the reference year</td>
+</tr>
+<tr class="even">
+<td>Intensity</td>
+<td><span class="math inline">\(H\ \dfrac{GDP_{ty}}{GDP_{ref}}\ (1 + x)\)</span>, real GDP of WEO</td>
+</tr>
+<tr class="odd">
+<td>Unquantifiable</td>
+<td><span class="math inline">\(B_{ty}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(H\)</span> is scenario 1 when the reference year is modelled (from the base year), else the GHGs inventory (2021-2024, rows <code>ndc.hc</code>, <code>ndc.hv</code>), else GHGHist. The reduction against the BAU and the target in GHGs including LULUCF are</p>
+<p><span id="eq-em-ndcr"><span class="math display">\[
+r = 1 - \frac{\ell}{B_{ty}}, \qquad L^{NDC} = \min\!\big(B^{inc}_{ty},\ B^{inc}_{ty}\,(1 - r)\big)
+\tag{6.29}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(r\)</span> is computed for the unconditional (<span class="math inline">\(u\)</span>) and conditional (<span class="math inline">\(c\)</span>) values; <span class="math inline">\(r_a\)</span> is their average (the one given if only one; 0 if none); <span class="math inline">\(r_{sel}\)</span> is the <code>Conditionality</code> choice (<span class="math inline">\(r_a\)</span> if the chosen one is not given);</li>
+<li><span class="math inline">\(B^{inc}_{ty}\)</span> is scenario-1 GHGs including LULUCF in the target year;</li>
+<li><span class="math inline">\(L^{NDC}\)</span> is the target (<code>ndc.lvl</code>), for <span class="math inline">\(u\)</span>, <span class="math inline">\(c\)</span> and <span class="math inline">\(sel\)</span>, as legacy rows 18494-18496.</li>
+</ul>
+</section>
+<section id="sec-em-ndc-gap" class="level3" data-number="6.6.3">
+<h3 data-number="6.6.3" class="anchored" data-anchor-id="sec-em-ndc-gap"><span class="header-section-number">6.6.3</span> Progress against the NDC</h3>
+<p>For every scenario and year:</p>
+<p><span id="eq-em-ndcgap"><span class="math display">\[
+red_t = 1 - \frac{GHG^{inc}_t}{GHG^{inc,B}_t}, \qquad gap_t = \frac{red_t}{r_{sel}}, \qquad over_t = GHG^{inc}_t - L^{NDC}_{sel}
+\tag{6.30}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(red_t\)</span> is the reduction of GHGs including LULUCF against scenario 1 (<code>ndc.red</code>);</li>
+<li><span class="math inline">\(gap_t\)</span> is the share of the NDC reduction achieved (<code>ndc.gap</code>, legacy “Gap to NDC”; 1 if no reduction is required);</li>
+<li><span class="math inline">\(over_t\)</span> is the excess over the chosen target (<code>ndc.over</code>); in the target year it is the legacy goal-seek difference (G18501).</li>
+</ul>
+<p>The rows also give the target against base-year GHGs including LULUCF (<code>ndc.idx</code>).</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: NDC comparison (after the year loop)">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: NDC comparison (after the year loop)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>row = ndc_table[country, round(NDCs)]                       # None: Unquantifiable
+alt = NDCTargetYear != "Main*" and row.ty2 &gt; 0
+ty = min(NDCYrCap, row.ty2 if alt else row.ty1)
+basis = ghg_co2 (+ lulucf_co2 if LULUCF included) if gases == "CO2" else (ghg_inc if LULUCF included else ghg)
+B_ty, Binc_ty = basis_s1[ty], ghg_inc_s1[ty]
+H = basis_s1[ref] if ref modelled else inventory[ref] if ref in 2021..2024 else ghghist[ref]
+for v in (u, c):
+    f = 1 + x[v]                                            # N/A if not given
+    level[v] = {BAU: B_ty*f, Fixed: f-1, Historical: H*f, Intensity: H*gdp[ty]/gdp[ref]*f, Unq: B_ty}[type]
+    r[v] = 1 - level[v] / B_ty
+r[a] = mean of the given r[u], r[c] (0 if none)
+r[sel] = r[Conditionality] if given else r[a]
+for v in (u, c, sel): target[v] = min(Binc_ty, Binc_ty * (1 - r[v]))
+for t in years:
+    red[t] = 1 - ghg_inc[t] / ghg_inc_s1[t]
+    gap[t] = red[t] / r[sel] if r[sel] &gt; 0 else 1
+    over[t] = ghg_inc[t] - target[sel]</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> section 14 NDC rows (<code>ndc.key</code> to <code>ndc.over</code>); sheets NDCs and GHGHist, both built by <code>extract_legacy_tables.py ndc</code>; choices on ScenarioDefinition scenario 1 (<code>NDCs</code>, <code>NDCTargetYear</code>, <code>Conditionality</code>); constant <code>NDCYrCap</code>.</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/emissions.py</code>, <code>ndc()</code> (EQ-A7.4), in the finish blocks of <code>chain.py</code>. Text rows and N/A are not compared numerically (N/A is NaN).</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Legacy F12 rows 18403-18518. Bugs fixed:</p>
+<ul>
+<li><strong>L119.</strong> Legacy applies the year adjustment twice for BAU targets and never for Fixed or Historical. The model compares in the target year.</li>
+<li><strong>L120.</strong> Legacy’s index rows invert the unconditional and conditional ratios against the average.</li>
+<li><strong>L121.</strong> For Historical targets legacy takes the cut as the target “level”.</li>
+<li><strong>L122.</strong> Intensity targets including LULUCF add a blank cell instead of LULUCF emissions.</li>
+<li><strong>L123.</strong> Intensity targets read the reference-year GDP from a fixed cell.</li>
+</ul>
+<p>Issues: <strong>L169</strong>, China’s CO2 is hard-coded in legacy (not replicated); <strong>I95</strong>, reference years outside the data give N/A. The 2021-2024 inventory now covers some of them; 2018-2020 need data.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Check: Egypt's NDC">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Check: Egypt’s NDC
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Latest NDC: BAU type, 2030, −27% unconditional, GHGs excluding LULUCF. Target 344.3 Mt CO2e (legacy 355.7 = its BAU 487.2 <span class="math inline">\(\times\)</span> 0.73; the model’s BAU is 471.7, the known baseline GHG difference). Scenario 2 achieves 21% of the required reduction in 2030 (legacy 51% for its cached policy scenario, which is not the model’s scenario 2).</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-em-ap" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="sec-em-ap"><span class="header-section-number">6.7</span> Local air pollutants</h2>
+<p>The model computes seven local air pollutants from the fuel use of every subsector and of power generation: fine particulate matter (PM2.5), nitrogen oxides (NOx), sulphur dioxide (SO2), volatile organic compounds (VOC), black carbon (BC), organic carbon (OC) and carbon monoxide (CO). They are not part of the GHG totals; a memo converts them to CO2 equivalents. They are also grouped into the sectors of the air-pollution module, which reads them. The methodology describes the emissions in <a href="../CPAT_full_documentation_html/06_Air_pollution.html#emission-factors-from-gains">methodology, sections 6.4.2 and 6.4.3</a> (<a href="./A_Equations.html#eqlist-A7-6">A7.6</a>).</p>
+<p>Units: emissions in kt; factors in t per ktoe; forcing in Mt CO2e (GWP100).</p>
+<section id="sec-em-ap-data" class="level3" data-number="6.7.1">
+<h3 data-number="6.7.1" class="anchored" data-anchor-id="sec-em-ap-data"><span class="header-section-number">6.7.1</span> Data and factor lookup</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Sheet</th>
+<th>Content</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>EF_NonCO2</td>
+<td>Combustion factors by country or World Bank region, GAINS subsector, fuel and pollutant, base year and final, kt per PJ</td>
+<td>Legacy sheet EF_PM (GAINS, all countries and regions); also used for combustion CH4</td>
+</tr>
+<tr class="even">
+<td>GWP_AP</td>
+<td>GWP100 of the pollutants by GAINS region</td>
+<td>Legacy GWP table of the pollutant forcing</td>
+</tr>
+<tr class="odd">
+<td>Countries (column O)</td>
+<td>GAINS region of every country (Egypt: <code>afr</code>)</td>
+<td>Legacy Countries tab</td>
+</tr>
+</tbody>
+</table>
+<p>The factors are those of legacy 465 (Mitigation rows 1052-1663), in a table by legacy EF code. Each factor is chosen in three steps:</p>
+<ol type="1">
+<li><strong>EF subsector.</strong> Road, rail, aviation (jet fuel), residential, services, construction, other manufacturing, food &amp; forestry and other energy keep their own code. Mining &amp; chemicals, iron &amp; steel, other metals, machinery, cement and fuel transformation take manufacturing (<code>mnf</code>, legacy rows 6388-6395). Navigation, which legacy leaves out (bug L22), takes its own GAINS code <code>nav</code>.</li>
+<li><strong>Country, region, world.</strong> The factor of the country (<code>egy.mit.ef.&lt;sub&gt;.&lt;fuel&gt;.&lt;pollutant&gt;</code>), else of its World Bank region (<code>CtryReg</code>, Egypt <code>mea</code>), else of the world (<code>wld</code>, absent from the data), else 0. The kt per PJ values are converted to t per ktoe (factor 41.868).</li>
+<li><strong>Other energy</strong> (<code>oen</code>) takes, for each fuel and pollutant, the maximum factor across the other legacy subsectors (power included), as the legacy note says (issue I147).</li>
+</ol>
+<p>Only the fuel and subsector pairs of the legacy table have factors: power (coal, gas, oil, biomass); road (gasoline, diesel, LPG, kerosene, gas); rail (diesel); aviation (jet fuel); residential (no gasoline or diesel). A pair or pollutant with no factor in the chain gives 0, as legacy: for example power biomass, road kerosene, residential oil, construction coal, gas, oil and biomass, services and other manufacturing coal, organic carbon and SO2 of LPG. None of these pairs burns fuel in Egypt.</p>
+</section>
+<section id="sec-em-ap-method" class="level3" data-number="6.7.2">
+<h3 data-number="6.7.2" class="anchored" data-anchor-id="sec-em-ap-method"><span class="header-section-number">6.7.2</span> Emissions and totals</h3>
+<p>The factor path is that of combustion methane (<a href="#eq-em-efw" class="quarto-xref">Equation&nbsp;<span>6.18</span></a>). Emissions are fuel use times the weighted factor, summed over fuels:</p>
+<p><span id="eq-em-ap"><span class="math display">\[
+AP_{p,s}(t) = \sum_f F_{s,f}(t)\ \frac{(1 - w_t)\, e^{0}_{p,s,f} + w_t\, e^{1}_{p,s,f}}{1000}, \qquad
+AP_{p,pow}(t) = \sum_k PE_k(t)\ \frac{(1 - w_t)\, e^{0}_{p,k} + w_t\, e^{1}_{p,k}}{1000}
+\tag{6.31}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(AP_{p,s}\)</span> is the emission of pollutant <span class="math inline">\(p\)</span> by subsector <span class="math inline">\(s\)</span> (kt), <code>ap</code>;</li>
+<li><span class="math inline">\(e^{0}\)</span>, <span class="math inline">\(e^{1}\)</span> are the base-year and final factors (t per ktoe);</li>
+<li>fuel use is the modelled one, so prices, policies and scenarios carry through.</li>
+</ul>
+<p>Transport, buildings and industry sum their subsectors, navigation included. A pollutant’s total is all subsectors plus power: <span class="math inline">\(AP_p = \sum_s AP_{p,s} + AP_{p,pow}\)</span>.</p>
+<p>The <strong>forcing memo</strong> converts the emissions with the GWP100 of the country’s GAINS region:</p>
+<p><span id="eq-em-apf"><span class="math display">\[
+F^{ap}_p = AP_p\ GWP_{p,r} / 1000, \qquad F^{ap} = \sum_{p \in \{BC, OC, NOx, SO2, VOC, CO\}} F^{ap}_p
+\tag{6.32}\]</span></span></p>
+<p>in Mt CO2e (<code>apf</code>). Cooling pollutants (OC, SO2, NOx) have a negative GWP, so the net forcing can be negative. Energy GHGs including the forcing are <span class="math inline">\(E_{enr} + F^{ap}\)</span> (<code>ghg.enrp</code>, legacy “Total GHGs and PM”, rows 18310 and 18321).</p>
+</section>
+<section id="sec-em-ap-sectors" class="level3" data-number="6.7.3">
+<h3 data-number="6.7.3" class="anchored" data-anchor-id="sec-em-ap-sectors"><span class="header-section-number">6.7.3</span> Sectors of the air-pollution module</h3>
+<p>The air-pollution module reads the emissions grouped in seven sectors, which add up to each pollutant’s total:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module sector</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>coal power plants</td>
+<td>fuel use of the coal type <span class="math inline">\(\times\)</span> the power factors</td>
+</tr>
+<tr class="even">
+<td>gas power plants</td>
+<td>fuel use of the gas type <span class="math inline">\(\times\)</span> the power factors</td>
+</tr>
+<tr class="odd">
+<td>other power plants</td>
+<td>power less coal and gas plants</td>
+</tr>
+<tr class="even">
+<td>ground level road</td>
+<td>road</td>
+</tr>
+<tr class="odd">
+<td>ground level other</td>
+<td>residential, services, construction</td>
+</tr>
+<tr class="even">
+<td>other</td>
+<td>rail, aviation, navigation, industry without construction, other energy use</td>
+</tr>
+<tr class="odd">
+<td>food &amp; forestry</td>
+<td>food &amp; forestry</td>
+</tr>
+</tbody>
+</table>
+<p>In each sector, primary organic matter and the rest of PM2.5 are derived:</p>
+<p><span id="eq-em-pom"><span class="math display">\[
+POM = 1.3\ OC, \qquad PM^{oth} = \max(0,\ PM2.5 - BC - POM)
+\tag{6.33}\]</span></span></p>
+<p>The table follows the layout of the legacy input table (Mitigation rows 15859-15961): one block per module sector and one for all sectors; in each, ten pollutants in legacy order: NOx, SO2, BC, POM, other PM2.5, VOC, CH4, CO, PM2.5, OC; codes <code>aps.&lt;pollutant&gt;.&lt;sector&gt;</code>, in kt (legacy: tonnes). The module reads these rows directly. Methane in the table, as legacy (issue I34):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module sector</th>
+<th>CH4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>coal, gas, other power plants</td>
+<td>combustion CH4 of the generation types</td>
+</tr>
+<tr class="even">
+<td>road, ground level other</td>
+<td>combustion CH4 of their subsectors</td>
+</tr>
+<tr class="odd">
+<td>other</td>
+<td>combustion CH4 of its subsectors plus fuel-supply methane (legacy: oil and gas extraction only)</td>
+</tr>
+<tr class="even">
+<td>food &amp; forestry</td>
+<td>combustion CH4 plus livestock, rice and waste methane</td>
+</tr>
+</tbody>
+</table>
+<p>This methane is not calibrated: it is not scaled by <span class="math inline">\(k_{CH_4}\)</span>.</p>
+<p>Food &amp; forestry is also split into food and forestry/agriculture, as legacy (LD53): the food share of each fuel is <code>info_food</code> over the four <code>info_</code> flows of the processed Balances (legacy rows 501-504, 1666-1673). Rows <code>apfd</code> (food fuel use) and <code>ap.&lt;pollutant&gt;.fod</code>, <code>.fag</code> are memo rows, not in the totals. The share is 0 for Egypt. The module also reads power and residential fuel use (<code>apen</code>) and energy CO2 (<code>apco2</code>).</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: local air pollutants">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: local air pollutants
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>for t in years:
+    w = EFFinShare * (t - t0) / (EFEndYear - t0)
+    for p in (pm2, nox, so2, voc, bc, oc, co):
+        for s in subsectors:
+            ap[p, s][t] = sum(ener[s, f][t] * ((1 - w) * e0[p, s, f] + w * e1[p, s, f]) / 1000 for f in fuels)
+        ap[p, "pow"][t] = sum(pe[k][t] * ((1 - w) * e0[p, k] + w * e1[p, k]) / 1000 for k in gen_types)
+        ap[p, "all"][t] = sum(ap[p, s][t] for s) + ap[p, "pow"][t]
+    for p in (bc, oc, nox, so2, voc, co):
+        apf[p][t] = ap[p, "all"][t] * gwp100[gains_region, p] / 1000
+    ghg_enrp[t] = ghg["enr", "all"][t] + sum(apf[p][t] for p)
+    for p in (nox, so2, bc, voc, co, pm2, oc):
+        aps["cpp", p] = pe[coal] * ef_pow(coal, p, w);   aps["gpp", p] = pe[gas] * ef_pow(gas, p, w)
+        aps["opp", p] = ap[p, "pow"] - aps["cpp", p] - aps["gpp", p]
+        aps["rod", p] = ap[p, rod];   aps["gro", p] = ap[p, res] + ap[p, srv] + ap[p, cst]
+        aps["oth", p] = sum(ap[p, s] for s in (ral, avi, nav, mch, irn, nfm, mac, cem, omn, ftr, oen))
+        aps["foo", p] = ap[p, foo]
+    for m in module_sectors:
+        aps[m, "pom"] = PomPerOC * aps[m, "oc"]
+        aps[m, "opm"] = max(0, aps[m, "pm2"] - aps[m, "bc"] - aps[m, "pom"])</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> section 15 rows <code>ap.w</code>, <code>apfd</code>, <code>ap</code>, <code>apf</code>, <code>aps</code>, <code>apen</code>, <code>apco2</code>; <code>ghg.enrp</code> in section 14b; factor table on sheet Inputs_nc (Inputs, merged view); constants <code>EFEndYear</code>, <code>PomPerOC</code>, <code>EFtPerKtoe</code>. MTOutputs reports total PM2.5, NOx, SO2, black carbon and the forcing for every scenario; the Charts sheet plots PM2.5 and SO2.</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/ef_data.py</code>, <code>nonco2_efs()</code> and <code>region()</code> (EQ-A7.1); <code>emissions.py</code>, <code>pollutants()</code> and <code>gwp_region()</code> (EQ-A7.6).</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>L22, fixed.</strong> Legacy omits navigation from the pollutant totals. It is included here.</li>
+<li><strong>L23, fixed.</strong> Legacy leaves services and food &amp; forestry out of each pollutant’s total, although its air-pollution sectors include them. Here the total is the sum of the sectors.</li>
+<li><strong>L58, L59.</strong> Subsectors and fuels without a GAINS factor got zero factors in legacy; the CPAT team fixed both in 465 (country, else region, else world). The model follows 465 and keeps 0 where the 465 chain has no factor, as no such pair burns fuel in Egypt. Egypt 2022: food &amp; forestry diesel, residential and fuel-transformation LPG, other-manufacturing diesel and LPG take the Middle East &amp; North Africa factors, as legacy.</li>
+<li><strong>I147.</strong> Other energy takes the maximum factor of the fuel across the other subsectors. Legacy takes the maximum year by year; the model the maximum of the base and of the final factors, with the line between them. The two agree where one subsector holds the maximum throughout (Egypt: other oil products, the only fuel of other energy).</li>
+<li><strong>Factor paths.</strong> Legacy reads factor paths by year, which are proprietary and empty in the NoPropData file. The model draws a line between the base and final factors (as for CH4).</li>
+<li><strong>NH3.</strong> Legacy has no ammonia from fuel combustion, so neither does the model.</li>
+<li><strong>Not built.</strong> The health part of the air-pollution module that uses these sectors.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Check: results for Egypt (scenario 1)">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Check: results for Egypt (scenario 1)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>In 2022 every module sector equals the legacy input table (rows 15844-16053, tonnes) for every pollutant, except “other”, which adds navigation (L22: NOx +14.8 kt, SO2 +13.7 kt, BC +0.6 kt, PM2.5 +1.5 kt), and CH4 (combustion CH4 and all fuel-supply methane, I34).</li>
+<li>Gas power plants’ NOx is 96,931 t, road NOx 557,470 t, food &amp; forestry black carbon 3.8 t, in both.</li>
+<li>Modelled ambient PM2.5 in 2022 is 33.06 µg/m3 against legacy 30.17; the difference is navigation’s (2.89).</li>
+<li>In 2030 the sectors differ from legacy by the fuel-use paths (gas plants 0.88, other plants 0.62, road 0.70-0.77, food &amp; forestry 0.58 of legacy), not by the factors.</li>
+<li>The net forcing is about −17.5 Mt CO2e in 2022.</li>
+<li>The check recomputes all rows of the block in Python for scenarios 1 and 2.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-em-results" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="sec-em-results"><span class="header-section-number">6.8</span> Changes against the baseline, grid intensity and the Kaya identity</h2>
+<p>A few result rows summarise the emissions of each scenario: the change against scenario 1, the carbon intensity of the grid and a Kaya decomposition of CO2.</p>
+<section id="sec-em-change" class="level3" data-number="6.8.1">
+<h3 data-number="6.8.1" class="anchored" data-anchor-id="sec-em-change"><span class="header-section-number">6.8.1</span> CO2 and GHG change</h3>
+<p><span id="eq-em-chg"><span class="math display">\[
+\Delta em_{CO_2,x}(t) = em_{CO_2,x}(t) - em^{B}_{CO_2,x}(t), \qquad \Delta E_{x}(t) = E_{x}(t) - E^{B}_{x}(t)
+\tag{6.34}\]</span></span></p>
+<p><code>cchg</code> is the change of CO2 from fuel combustion by fuel and by sector group, power included (Mt CO2). <code>gchg</code> is the change of GHGs by inventory category (energy, industrial processes, agriculture, LULUCF, waste, other) and by gas (Mt CO2e). Legacy’s “GHG by broad sector” (rows 18229-18243) is the inventory categories, so no allocation of CH4 and N2O to sectors is needed.</p>
+</section>
+<section id="sec-em-grid" class="level3" data-number="6.8.2">
+<h3 data-number="6.8.2" class="anchored" data-anchor-id="sec-em-grid"><span class="header-section-number">6.8.2</span> Grid emission intensity</h3>
+<p><span id="eq-em-grid"><span class="math display">\[
+EI^{grid}_t = \frac{em_{pow,CO_2}(t) \cdot 10^{6}}{G^{tot}_t \cdot H}
+\tag{6.35}\]</span></span></p>
+<p>where <span class="math inline">\(EI^{grid}\)</span> is in t CO2 per MWh (<code>co2.grid</code>, 0 if there is no generation), <span class="math inline">\(G^{tot}\)</span> total generation in MW years (<a href="04_Power.html" class="quarto-xref"><span>Chapter 4</span></a>) and <span class="math inline">\(H\)</span> = 8760 hours per year. Egypt: 0.41 in 2022 (legacy 0.38) and 0.33 in 2030.</p>
+</section>
+<section id="sec-em-kaya" class="level3" data-number="6.8.3">
+<h3 data-number="6.8.3" class="anchored" data-anchor-id="sec-em-kaya"><span class="header-section-number">6.8.3</span> Kaya identity</h3>
+<p>The Kaya identity splits CO2 into population, income, energy intensity and carbon intensity:</p>
+<p><span id="eq-em-kaya"><span class="math display">\[
+CO2 = POP \times \frac{GDP}{POP} \times \frac{TPES}{GDP} \times \frac{CO2}{TPES}
+\tag{6.36}\]</span></span></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Row</th>
+<th>Content</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>kaya.pop</code></td>
+<td>Population</td>
+<td>million</td>
+</tr>
+<tr class="even">
+<td><code>kaya.gpc</code></td>
+<td>GDP per capita: baseline real GDP (the header row, in every scenario) / population</td>
+<td>thousand USD</td>
+</tr>
+<tr class="odd">
+<td><code>kaya.tpes</code></td>
+<td>Total primary energy supply</td>
+<td>ktoe</td>
+</tr>
+<tr class="even">
+<td><code>kaya.ei</code></td>
+<td>Energy intensity: TPES / GDP</td>
+<td>ktoe per USD bn</td>
+</tr>
+<tr class="odd">
+<td><code>kaya.ci</code></td>
+<td>Carbon intensity: total CO2 including industrial processes (<code>ghg</code> CO2) <span class="math inline">\(\times\)</span> 1000 / TPES</td>
+<td>kt CO2 per ktoe</td>
+</tr>
+</tbody>
+</table>
+<p>Total primary energy supply is the fuel use of all sectors (fuels burnt in power plants and biomass included) plus primary electricity, the energy input of nuclear, wind, solar, hydro and other renewables:</p>
+<p><span id="eq-em-tpes"><span class="math display">\[
+TPES_t = \sum_{s,f} F_{s,f}(t) + \sum_{k \in \{nuc, wnd, sol, hyd, orn\}} PE_k(t)
+\tag{6.37}\]</span></span></p>
+<p>The input of a primary type is its generation divided by its efficiency (physical energy content method: nuclear at 38%, renewables at about 1). Each factor is also indexed to the base year of the scenario (<code>kidx</code>: population, GDP, GDP per capita, energy intensity, carbon intensity, CO2). The check <code>kidx.chk</code>, the product of the four factors, equals the CO2 index exactly. Ratios use <code>SAFEDIV</code> (0 when the divisor is 0).</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: result rows">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: result rows
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code>for t in years:
+    for x in fuels + sector_groups + ["pow"]:
+        cchg[x][t] = co2[x][t] - co2_baseline[x][t]
+    for u in categories:  gchg[u][t] = ghg[u, "all"][t] - ghg_baseline[u, "all"][t]
+    for p in gases:       gchg[p][t] = ghg["all", p][t] - ghg_baseline["all", p][t]
+    co2_grid[t] = safediv(co2["pow"][t] * 1e6, gtot[t] * 8760)
+    kaya_pop[t]  = pop[t] / 1000
+    kaya_gpc[t]  = safediv(gdp_usd[t], kaya_pop[t])
+    kaya_tpes[t] = ener["all", "all"][t] + sum(pe[k][t] for k in (nuc, wnd, sol, hyd, orn))
+    kaya_ei[t]   = safediv(kaya_tpes[t], gdp_usd[t])
+    kaya_ci[t]   = safediv(ghg["all", "co2"][t] * 1000, kaya_tpes[t])
+    for x in (pop, gdp, gpc, ei, ci, co2): kidx[x][t] = safediv(level[x][t], level[x][t0])
+    kidx_chk[t] = kidx[pop][t] * kidx[gpc][t] * kidx[ei][t] * kidx[ci][t]      # = kidx[co2][t]</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> section 13 rows <code>cchg</code>, <code>co2.grid</code>, <code>kaya</code>, <code>kidx</code>, <code>co2.chg</code> (13b); section 14 rows <code>gchg</code>, <code>ghg.enrp</code> (14b). LAMBDA <code>SAFEDIV</code>.</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/emissions.py</code>, <code>co2()</code> (<code>cchg</code>, <code>co2.grid</code>), <code>ghg()</code> (<code>gchg</code>), <code>kaya()</code>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-25" class="callout-25-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Kaya identity as legacy (rows 18877-18893). An earlier version used fuel use only for TPES (2.6% lower in 2022); it was corrected to include primary electricity at the user’s request. Legacy’s broken “simplified Kaya” row (18931, −97%) is a different row and is not used.</li>
+<li>The efficiencies of wind (1.004), solar (1.026) and hydro (0.937) are legacy’s power data, kept (issue I93).</li>
+<li>Population is the UN series, 111.7 million in 2022 against legacy’s 103.6 million (bug L20, fixed). GDP per capita is therefore lower than in legacy; the identity still holds.</li>
+<li>Grid intensity: legacy Mitigation row 6582.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Check: Kaya identity for Egypt">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Check: Kaya identity for Egypt
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-26" class="callout-26-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>TPES 2022: 89,471 ktoe = legacy 89,471. Energy intensity 163.57 ktoe per USD bn = legacy.</li>
+<li>2030, baseline: CO2 <span class="math inline">\(\times\)</span> 1.17, with energy intensity 0.81 and carbon intensity 1.03.</li>
+<li>2030, carbon tax: energy intensity 0.74, CO2 <span class="math inline">\(\times\)</span> 1.10.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-em-ets" class="level2" data-number="6.9">
+<h2 data-number="6.9" class="anchored" data-anchor-id="sec-em-ets"><span class="header-section-number">6.9</span> The new emissions trading system</h2>
+<p>A new ETS caps the CO2 of the sectors it covers. The model does not solve for the market price inside the year loop. It sets a permit price from the cap with a closed-form estimate, lets that price act on fuel use like a carbon tax (for the auctioned part) or like a feebate (for the part allocated free), and then reports how close covered emissions come to the cap, with the price that would close the gap. The methodology treats the new ETS price with the carbon prices in <a href="../CPAT_full_documentation_html/03_Mitigation.html#sec-PricesForecastedYears">methodology, section 3.2.4</a> and its goal seek in <a href="../CPAT_full_documentation_html/03_Mitigation.html#new-price-target-goal-seek">section 3.9.3.5</a>; the user guide in <a href="../CPAT_full_documentation_html/01_User_Guide.html#emission-trading-systems">section 1.3.2.4.2</a>.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  I["Cap, coverage,&lt;br/&gt;benchmarks, volatility"] --&gt; E["Fast estimate&lt;br/&gt;(or override)"]
+  E --&gt; P["Permit price p,&lt;br/&gt;tax-equivalent p·V"]
+  P --&gt; W["Auctioned part:&lt;br/&gt;price wedge"]
+  P --&gt; S["Free part:&lt;br/&gt;shadow price"]
+  W --&gt; U["Fuel use, CO2"]
+  S --&gt; U
+  U --&gt; K["Covered vs cap,&lt;br/&gt;next price"]
+  K -. "goal seek" .-&gt; E
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<section id="sec-em-ets-inputs" class="level3" data-number="6.9.1">
+<h3 data-number="6.9.1" class="anchored" data-anchor-id="sec-em-ets-inputs"><span class="header-section-number">6.9.1</span> Inputs</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Input</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Apply new ETS (<code>NewETS</code>); start year <code>ETSIntro</code>, target year <code>ETSOutro</code></td>
+<td>ScenarioDefinition</td>
+</tr>
+<tr class="even">
+<td>Cap change against baseline covered emissions at start and target (<code>ETSChangeRelStart</code>, <code>ETSChangeRelTarget</code>); continuation (<code>ETSCapCont</code>)</td>
+<td><code>Constant</code> keeps the cap level after the target year; any other value keeps the relative change</td>
+</tr>
+<tr class="odd">
+<td>Price override switch (<code>ETSPriceOverride</code>)</td>
+<td><code>Yes</code>: the permit price comes from the override row of prices</td>
+</tr>
+<tr class="even">
+<td>Volatility (<code>ETSVolatility</code>), impact of volatility (<code>ETSVolImpact</code>), carbon tax policy risk (<code>ETSCTRisk</code>)</td>
+<td>Labels Medium, High, Low, Zero; values from legacy sheet ETS+LTS</td>
+</tr>
+<tr class="odd">
+<td>Sector coverage (<code>etscov</code>)</td>
+<td>17 ETS sectors: power and the 16 subsectors</td>
+</tr>
+<tr class="even">
+<td>Auctioned proportion at start and target (<code>ETSAuctStart</code>, <code>ETSAuctTarget</code>)</td>
+<td>ScenarioDefinition rows 90-91; benchmark = 1 − auctioned proportion</td>
+</tr>
+<tr class="odd">
+<td>Semi-elasticities by ETS sector</td>
+<td>Legacy ETS+LTS table by country and sector group (sheet ETSSemi); used only by the fast estimate</td>
+</tr>
+<tr class="even">
+<td>Baseline CO2 by ETS sector</td>
+<td>Scenario-1 CO2 by ETS sector, stored as data and refreshed by the build (check <code>bco2.chk</code> = 0)</td>
+</tr>
+<tr class="odd">
+<td>Effectiveness of output-based allocation <span class="math inline">\(\vartheta\)</span>; convergence exponent <span class="math inline">\(\beta\)</span></td>
+<td>Settings C14 and C15: 0.5 and 0.5 (legacy hardcodes)</td>
+</tr>
+</tbody>
+</table>
+<p>The volatility labels map to values as follows:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Label</th>
+<th>Medium</th>
+<th>High</th>
+<th>Low</th>
+<th>Zero</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Annual price volatility <span class="math inline">\(vol\)</span></td>
+<td>0.42</td>
+<td>0.63</td>
+<td>0.28</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Abatement cost increase per unit of volatility <span class="math inline">\(imp\)</span></td>
+<td>0.5</td>
+<td>0.75</td>
+<td>0.333</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>The sector groups of the ETS benchmarks are power, transport (road, rail, aviation, navigation), residential (residential, food &amp; forestry, services) and industry (the industrial subsectors and other energy use). The semi-elasticity groups are the same, except that food &amp; forestry and services use the industry value. Egypt’s semi-elasticities, per USD per t CO2: power −0.00279, transport −0.00283, residential −0.00386, industry −0.00549.</p>
+</section>
+<section id="sec-em-ets-cap" class="level3" data-number="6.9.2">
+<h3 data-number="6.9.2" class="anchored" data-anchor-id="sec-em-ets-cap"><span class="header-section-number">6.9.2</span> Coverage, benchmarks and the cap</h3>
+<p>The ETS is on from its start year, and a sector counts once it is covered and the ETS is on (<a href="./A_Equations.html#eqlist-M1-3">M1.3</a>):</p>
+<p><span id="eq-em-etson"><span class="math display">\[
+on_t = \mathbb{1}[\texttt{NewETS} = \text{Yes and } t \ge T^{E}_0], \qquad \kappa_{e,t} = on_t\ \mathbb{1}[\text{sector } e \text{ covered}]
+\tag{6.38}\]</span></span></p>
+<p>The benchmark is the share of a sector’s emission intensity allocated free. It runs linearly from the start to the target year and is flat after; the output-based (OBR) share of a sector is its group’s benchmark, bounded to 0-1:</p>
+<p><span id="eq-em-obr"><span class="math display">\[
+b_{G,t} = \bar\Lambda\big(t;\, T^{E}_0, T^{E}_1,\, 1 - \alpha_0,\, 1 - \alpha_1\big), \qquad \omega_{e,t} = \min\!\big(1, \max(0, b_{G(e),t})\big)
+\tag{6.39}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(b_{G,t}\)</span> is the benchmark of group <span class="math inline">\(G\)</span> (<code>etsb</code>), 0 before the start year;</li>
+<li><span class="math inline">\(\bar\Lambda\)</span> is the linear path held flat after the target year (<a href="01_Overview.html" class="quarto-xref"><span>Chapter 1</span></a>);</li>
+<li><span class="math inline">\(\alpha_0\)</span>, <span class="math inline">\(\alpha_1\)</span> are the auctioned proportions at the start and target year, the same for every group, as legacy (issue I21). The default is <span class="math inline">\(\alpha = 0\)</span>: nothing auctioned, benchmark 1, as legacy;</li>
+<li><span class="math inline">\(\omega_{e,t}\)</span> is the OBR share (<code>obr</code>); the auctioned share is <span class="math inline">\(1 - \omega_{e,t}\)</span>.</li>
+</ul>
+<p>The cap is a change against baseline covered emissions:</p>
+<p><span id="eq-em-bce"><span class="math display">\[
+bce_t = \sum_e CO2^{B}_{e,t}\ \kappa_{e,t}, \qquad chg_t = \bar\Lambda\big(t;\, T^{E}_0, T^{E}_1, chg_0, chg_1\big)
+\tag{6.40}\]</span></span></p>
+<p><span id="eq-em-cap"><span class="math display">\[
+cap_t = \begin{cases}
+on_t\ cap_{t-1} &amp; t &gt; T^{E}_1 \text{ and } \texttt{ETSCapCont} = \text{Constant} \\
+on_t\ bce_t\,(1 + chg_t) &amp; \text{otherwise}
+\end{cases}
+\tag{6.41}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(CO2^{B}_{e,t}\)</span> is the stored scenario-1 CO2 of ETS sector <span class="math inline">\(e\)</span> (<code>bco2</code>, Mt), <span class="math inline">\(bce_t\)</span> baseline covered emissions (<code>ets.bce</code>);</li>
+<li><span class="math inline">\(chg_t\)</span> is the cap change (<code>ets.chg</code>, negative for a cut), held at <span class="math inline">\(chg_1\)</span> after the target year, so that “any other” continuation keeps the relative change;</li>
+<li><span class="math inline">\(cap_t\)</span> is the cap (<code>ets.cap</code>, Mt).</li>
+</ul>
+</section>
+<section id="sec-em-ets-price" class="level3" data-number="6.9.3">
+<h3 data-number="6.9.3" class="anchored" data-anchor-id="sec-em-ets-price"><span class="header-section-number">6.9.3</span> Fast price estimate and the permit price</h3>
+<p>Price volatility makes an ETS less effective than a tax at the same price. The model expresses this as a volatility adjustment, the tax-equivalent value of one dollar of permit price:</p>
+<p><span id="eq-em-vadj"><span class="math display">\[
+V = \frac{1 + risk \cdot imp}{1 + vol \cdot imp}
+\tag{6.42}\]</span></span></p>
+<p>where <span class="math inline">\(V\)</span> is <code>ets.vadj</code>, <span class="math inline">\(risk\)</span> the carbon tax policy risk and <span class="math inline">\(vol\)</span>, <span class="math inline">\(imp\)</span> the values of the labels above. At Medium: <span class="math inline">\((1 + 0.2 \times 0.5)/(1 + 0.42 \times 0.5) = 1/1.1\)</span>.</p>
+<p>The covered semi-elasticity weights each covered sector’s semi-elasticity by its baseline emissions and discounts the free part by the effectiveness of output-based allocation:</p>
+<p><span id="eq-em-se"><span class="math display">\[
+\bar\sigma_t = \frac{\sum_e CO2^{B}_{e,t}\ \kappa_{e,t}\ \sigma_e\ \big(1 - (1 - \vartheta)\,\omega_{e,t}\big)}{bce_t}
+\tag{6.43}\]</span></span></p>
+<p>where <span class="math inline">\(\bar\sigma_t\)</span> is <code>ets.se</code> (0 if <span class="math inline">\(bce_t = 0\)</span>), <span class="math inline">\(\sigma_e\)</span> the semi-elasticity of the sector’s group (per USD per t CO2) and <span class="math inline">\(\vartheta\)</span> = 0.5 the effectiveness of output-based allocation (auctioned allowances count fully).</p>
+<p>If emissions respond to the price as <span class="math inline">\(\ln(\text{covered}/bce) = \bar\sigma\, V\, p\)</span>, the price that meets the cap is (<a href="./A_Equations.html#eqlist-A1-1">A1.1</a>):</p>
+<p><span id="eq-em-est"><span class="math display">\[
+\hat p^{E}_t = \begin{cases}
+\dfrac{\ln(cap_t / bce_t)}{\bar\sigma_t\ V} &amp; on_t = 1,\ 0 &lt; cap_t &lt; bce_t,\ \bar\sigma_t &lt; 0,\ V &gt; 0 \\
+0 &amp; \text{otherwise}
+\end{cases}
+\tag{6.44}\]</span></span></p>
+<p>The permit price used is the override row if the switch is on, else the fast estimate:</p>
+<p><span id="eq-em-pe"><span class="math display">\[
+p^{E}_t = on_t \times \begin{cases}
+ovr_t \ (\text{blank: the carbon price path } NCT_t) &amp; \texttt{ETSPriceOverride} = \text{Yes} \\
+\hat p^{E}_t &amp; \text{otherwise}
+\end{cases}
+\tag{6.45}\]</span></span></p>
+<p><span id="eq-em-ptilde"><span class="math display">\[
+\tilde p^{E}_t = p^{E}_t\, V, \qquad \rho = 1 / V
+\tag{6.46}\]</span></span></p>
+<p>where <span class="math inline">\(\tilde p^{E}\)</span> is the tax-equivalent price (<code>ets.pe</code>) and <span class="math inline">\(\rho\)</span> the revenue factor (<code>ets.rf</code>), the permit price per dollar of tax-equivalent price. All prices are USD per t CO2, real.</p>
+</section>
+<section id="sec-em-ets-effect" class="level3" data-number="6.9.4">
+<h3 data-number="6.9.4" class="anchored" data-anchor-id="sec-em-ets-effect"><span class="header-section-number">6.9.4</span> Effect on fuel use and revenue</h3>
+<p>The ETS replaces the carbon tax in covered sectors: the new carbon tax applies only where <span class="math inline">\(\kappa_{e,t} = 0\)</span> (<a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a>). The tax-equivalent price splits by the OBR share (<a href="./A_Equations.html#eqlist-M1-3">M1.3</a>, <a href="./A_Equations.html#eqlist-M1-4">M1.4</a>):</p>
+<p><span id="eq-em-split"><span class="math display">\[
+A_{e,t} = \tilde p^{E}_t\ \kappa_{e,t}\ (1 - \omega_{e,t}), \qquad
+\Sigma_{e,t} = \big(b^{fb}_{G(e),t} + reg_{e,t}\big)\, a\ \mathbb{1}[\text{feebate covers } e] + \tilde p^{E}_t\ \kappa_{e,t}\ \omega_{e,t}
+\tag{6.47}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(A_{e,t}\)</span> is the <strong>price wedge</strong>, the auctioned part (<code>etr</code>, USD per t CO2). Times the CO2 factor of each fuel, it enters the after-tax fuel price, so usage and efficiency both respond, as for a carbon tax (<a href="02_Prices.html" class="quarto-xref"><span>Chapter 2</span></a>, <a href="03_Energy_demand.html" class="quarto-xref"><span>Chapter 3</span></a>);</li>
+<li><span class="math inline">\(\Sigma_{e,t}\)</span> is the <strong>shadow price</strong> (<code>shpx</code>): the ETS part, the free (OBR) share, is added to the feebate and regulation shadow price. It acts only on the efficiency margin of fuel use, as feebates do, and raises no revenue.</li>
+</ul>
+<p>New-policy revenue includes the price wedge times the revenue factor <span class="math inline">\(\rho\)</span>: the permit price on the auctioned part of covered emissions. In power, the new-policy revenue deducts <span class="math inline">\(em_{k,CO_2}\, A_{pow}\, (1 - \rho)\)</span>. VAT on new policies is levied on the tax-equivalent ETS cost. The revenue equations are in <a href="07_Revenues_GDP_welfare.html" class="quarto-xref"><span>Chapter 7</span></a>.</p>
+</section>
+<section id="sec-em-ets-meet" class="level3" data-number="6.9.5">
+<h3 data-number="6.9.5" class="anchored" data-anchor-id="sec-em-ets-meet"><span class="header-section-number">6.9.5</span> Meeting the cap</h3>
+<p>The fast estimate uses one semi-elasticity, so the full model, where the response comes from prices and elasticities by fuel and subsector, does not hit the cap exactly. After CO2 is known, the model reports covered emissions, the gap and a proposed price for the next iteration:</p>
+<p><span id="eq-em-gap"><span class="math display">\[
+cov_t = \sum_e em_{e,t}\ \kappa_{e,t}, \qquad gap_t = \frac{cov_t}{cap_t} - 1
+\tag{6.48}\]</span></span></p>
+<p><span id="eq-em-next"><span class="math display">\[
+lr_t = \frac{\ln(cap_t / bce_t)}{\ln(cov_t / bce_t)}, \qquad
+p^{next}_t = \begin{cases} \hat p^{E}_t &amp; p^{E}_t \le 0 \text{ or } lr_t = 0 \\ p^{E}_t\ lr_t^{\,\beta} &amp; \text{otherwise} \end{cases}
+\tag{6.49}\]</span></span></p>
+<p>where</p>
+<ul>
+<li><span class="math inline">\(cov_t\)</span> is covered CO2 (<code>co2.ets</code>), <span class="math inline">\(em_{e,t}\)</span> the CO2 of ETS sector <span class="math inline">\(e\)</span> (<a href="#eq-em-co2sec" class="quarto-xref">Equation&nbsp;<span>6.5</span></a>);</li>
+<li><span class="math inline">\(gap_t\)</span> is <code>co2.gap</code> (0 if there is no cap), 0 when the cap is met;</li>
+<li><span class="math inline">\(lr_t\)</span> is the log ratio (<code>ets.lr</code>), 0 if <span class="math inline">\(cap_t \le 0\)</span>, <span class="math inline">\(cap_t \ge bce_t\)</span> or <span class="math inline">\(cov_t \ge bce_t\)</span> (the cap does not bind);</li>
+<li><span class="math inline">\(\beta\)</span> = 0.5 is the convergence exponent (Settings C15), as legacy’s <code>PricesAdjustedByErrorFactor</code>;</li>
+<li><span class="math inline">\(p^{next}_t\)</span> is the proposed price (<code>ets.next</code>).</li>
+</ul>
+<p>To meet the cap, the proposed prices are fed back into the override row (with the override switch on) and the model is run again. The goal seek automates this with legacy’s damped log-space step:</p>
+<ol type="1">
+<li>start from the fast estimate, or from the override row if it holds prices (setting <code>ETSStartFreshContinue</code>: StartFresh always starts from the fast estimate);</li>
+<li>step <span class="math inline">\(p \leftarrow p\,(p^{next}/p)^{\alpha}\)</span> (a linear step if a price is 0);</li>
+<li>mix with the previous iterate (weight 0.3) from the second iteration;</li>
+<li>smooth lightly: 5% weight on a centred 3-year moving average;</li>
+<li>negative or invalid values keep the current price;</li>
+<li>halve <span class="math inline">\(\alpha\)</span> when the worst error grows (minimum 0.0625), multiply it by 1.2 when the error more than halves (maximum 1);</li>
+<li>stop when the worst yearly <span class="math inline">\(|cov_t/cap_t - 1|\)</span> over the ETS years is below the maximum error, or after the maximum number of iterations.</li>
+</ol>
+<p>The goal-seek settings are on sheet <code>Manual inputs</code> at their legacy addresses, one value for all scenarios:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Cell</th>
+<th>Name</th>
+<th>Setting</th>
+<th>Value</th>
+<th>Legacy default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>E10</td>
+<td><code>ETSMaxIterations</code></td>
+<td>Maximum number of iterations</td>
+<td>20</td>
+<td>30</td>
+</tr>
+<tr class="even">
+<td>E11</td>
+<td><code>ETSStartFreshContinue</code></td>
+<td>StartFresh: start from the fast estimate; Continue: start from the override row if it holds prices</td>
+<td>Continue</td>
+<td>Continue</td>
+</tr>
+<tr class="odd">
+<td>E12</td>
+<td><code>ETSErrorTolerance</code></td>
+<td>Maximum error: the worst yearly <span class="math inline">\(\lvert cov/cap - 1 \rvert\)</span></td>
+<td>0.005</td>
+<td>0.001</td>
+</tr>
+</tbody>
+</table>
+<p>The values are those the goal seek has always used in Excel-AI; the legacy defaults are for reference (legacy measures the error on its own criterion). A cell that is not a positive number falls back to 20 iterations and 0.005.</p>
+<div class="callout callout-style-default callout-tip no-icon callout-titled" title="Pseudocode: the new ETS">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pseudocode: the new ETS
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<pre><code># policies, all years (before the year loop)
+for t in years:
+    on[t] = NewETS == "Yes" and t &gt;= ETSIntro
+    for e in ets_sectors: etsc[e][t] = 1 if on[t] and etscov[e] else 0
+    for G in (pow, tra, res, ind):
+        etsb[G][t] = 0 if t &lt; ETSIntro else lin(min(t, ETSOutro), ETSIntro, ETSOutro, 1 - ETSAuctStart, 1 - ETSAuctTarget)
+    for e in ets_sectors: obr[e][t] = min(1, max(0, etsb[group(e)][t]))
+vadj = (1 + ETSCTRisk * imp[ETSVolImpact]) / (1 + vol[ETSVolatility] * imp[ETSVolImpact])
+for t in years:
+    bce[t] = sum(bco2[e][t] * etsc[e][t] for e)                   # stored scenario-1 CO2
+    chg[t] = lin(min(t, ETSOutro), ETSIntro, ETSOutro, ETSChangeRelStart, ETSChangeRelTarget)
+    if not on[t]: cap[t] = 0
+    elif t &gt; ETSOutro and ETSCapCont == "Constant": cap[t] = cap[t-1]
+    else: cap[t] = bce[t] * (1 + chg[t])
+    se[t] = sum(bco2[e][t] * etsc[e][t] * semi[e] * (1 - (1 - OBREff) * obr[e][t]) for e) / bce[t] if bce[t] &gt; 0 else 0
+    est[t] = log(cap[t] / bce[t]) / (se[t] * vadj) if on[t] and 0 &lt; cap[t] &lt; bce[t] and se[t] &lt; 0 and vadj &gt; 0 else 0
+    p[t] = 0 if not on[t] else ((ovr[t] if ovr[t] != blank else cptraj[t]) if ETSPriceOverride == "Yes" else est[t])
+    pe[t], rf = p[t] * vadj, 1 / vadj
+    for e in ets_sectors:
+        etr[e][t]  = pe[t] * etsc[e][t] * (1 - obr[e][t])                       # price wedge
+        shpx[e][t] = fb[group(e)][t] * ssc[e] + reg[e][t] + pe[t] * etsc[e][t] * obr[e][t]
+
+# year loop, after CO2
+for t in years:
+    covered[t] = sum(co2_sec[e][t] * etsc[e][t] for e)
+    gap[t] = covered[t] / cap[t] - 1 if cap[t] &gt; 0 else 0
+    lr[t] = 0 if cap[t] &lt;= 0 or cap[t] &gt;= bce[t] or covered[t] &gt;= bce[t] else log(cap[t]/bce[t]) / log(covered[t]/bce[t])
+    next_p[t] = est[t] if p[t] &lt;= 0 or lr[t] == 0 else p[t] * lr[t] ** ETSNextPriceExponent</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="In Excel-AI and CPAT Python">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>In Excel-AI and CPAT Python
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-28" class="callout-28-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Excel-AI:</strong> section 1 rows <code>ets.on</code>, <code>etscov</code>, <code>etsc</code>, <code>etsb.s</code>, <code>etsb.t</code>, <code>etsb</code>, <code>obr</code>, <code>bco2</code>, <code>ets.vol</code>, <code>ets.imp</code>, <code>ets.vadj</code>, <code>ets.bce</code>, <code>ets.chg</code>, <code>ets.cap</code>, <code>ets.se</code>, <code>ets.est</code>, <code>ets.ovr</code> (pasted values), <code>ets.p</code>, <code>ets.pe</code>, <code>ets.rf</code>, <code>ctr</code>, <code>etr</code>, <code>shpx</code>; section 13 rows <code>co2.sec</code>, <code>co2.ets</code>, <code>co2.cap</code>, <code>co2.gap</code>, <code>ets.lr</code>, <code>ets.next</code>, <code>bco2.chk</code>. Inputs on ScenarioDefinition (<code>NewETS</code>, <code>ETSIntro</code>, <code>ETSOutro</code>, <code>ETSChangeRelStart</code>, <code>ETSChangeRelTarget</code>, <code>ETSCapCont</code>, <code>ETSAuctStart</code>, <code>ETSAuctTarget</code>, <code>ETSPriceOverride</code>, <code>ETSVolatility</code>, <code>ETSVolImpact</code>, <code>ETSCTRisk</code>, coverage rows 99-115); volatility table on Settings rows 16-18; Settings C14 (<code>ETSOBREffectiveness</code>), C15 (<code>ETSNextPriceExponent</code>); semi-elasticities on sheet ETSSemi; baseline CO2 on sheet BaselineCO2. The goal seek is the macro <code>SolveETSLive</code> (the live scenario; <code>RunAllScenarios</code> runs it for every definition with a new ETS and no override) or the script <code>ets_goalseek.py WORKBOOK.xlsx &lt;scenario&gt;</code>, which writes the prices to <code>ets_override_s&lt;scenario&gt;.csv</code> for pasting into the override row.</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/policies.py</code>, <code>prepare()</code> (ETS block, EQ-M1.3, EQ-M1.4, EQ-A1.1); <code>emissions.py</code>, <code>co2()</code> (covered CO2, gap, <code>ets.lr</code>, <code>ets.next</code>). The baseline CO2 by ETS sector is read from Excel-AI’s stored scenario-1 values. CPAT Python has no override row (<code>ets.ovr</code> is blank), so with <code>ETSPriceOverride</code> = Yes the permit price is the carbon price path, and it has no goal seek of its own.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-em-ets-limits" class="level3" data-number="6.9.6">
+<h3 data-number="6.9.6" class="anchored" data-anchor-id="sec-em-ets-limits"><span class="header-section-number">6.9.6</span> Limits</h3>
+<ul>
+<li>Power is covered like any other sector: the power model gives its emissions, and the ETS cost enters its generation cost (<a href="04_Power.html" class="quarto-xref"><span>Chapter 4</span></a>).</li>
+<li>Benchmarks are relative to current emission intensity, and output is proxied by fuel use. Free allocation therefore moves with emissions, and the OBR share equals the benchmark. Benchmarks by sector are not built yet: every group takes the scenario’s auctioned proportion.</li>
+<li>The volatility adjustment scales behaviour (the tax-equivalent price), not the permit price.</li>
+<li>No banking, borrowing, price floors or ceilings, and no CBAM process emissions (the legacy CBAM block is placed but not read; industrial process CO2 of the inventory is separate and untaxed).</li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled" title="Differences from legacy CPAT">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-29-contents" aria-controls="callout-29" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Differences from legacy CPAT
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-29" class="callout-29-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>LD6, L15, L16.</strong> The fast estimate is in log form, <span class="math inline">\(\ln(cap/bce)/(\bar\sigma V)\)</span>; legacy’s quick estimate is linear in the semi-elasticity (L16) and uses a hardcoded relative price of 1.1 (L15), which <span class="math inline">\(V\)</span> replaces. The override row is pasted from a Python goal seek with the same damped log-space step, no VBA. Baseline covered emissions are data from scenario 1 (<code>bco2</code>).</li>
+<li><strong>LD7, issue I21 (as legacy).</strong> One auctioned share of the scenario for every sector; benchmark = 1 − auctioned share, linear from the start to the target year, held after; the sector groups are kept for benchmarks by sector later.</li>
+<li><strong>L78, fixed.</strong> After the target year legacy drops the auctioned share to 0 unless the continuation is Constant. The model holds the target share.</li>
+<li><strong>LD8.</strong> The volatility adjustment <span class="math inline">\((1 + risk \cdot imp)/(1 + vol \cdot imp)\)</span> from MTInputs rows 95-97 (1/1.1 at Medium) applies to the tax-equivalent price and in the fast estimate (legacy row 2191 applies 1/1.1).</li>
+<li><strong>Methodology.</strong> The methodology describes the ETS as a price set by the user and penalised to a tax-equivalent value; the model derives the price from the cap.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Legacy ETS algorithm: inputs and fast estimate">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-30-contents" aria-controls="callout-30" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Legacy ETS algorithm: inputs and fast estimate
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-30" class="callout-30-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Source: <code>CPAT 1.0pre_456_NoPropData.xlsb</code>, sheet Mitigation rows 1797-1969 and 2244-2425, sheet Manual inputs O15:AB15 and VBA Module1 (<code>OverrideETSFast</code>, <code>SolveFast</code>). Row numbers are legacy rows. Formulas not stored in the dump are inferred from the row labels and cached values and marked <em>(inferred)</em>.</p>
+<p><strong>Inputs.</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rows</th>
+<th>Item</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1800-1809</td>
+<td>Apply ETS; cap change at start and target (% vs baseline); cap continuation; start and target years; auction proportion at start and target; continuation; override switch</td>
+</tr>
+<tr class="even">
+<td>1811-1813</td>
+<td>Risk premium inputs: price volatility 0.42, impact 0.5, policy risk 0.2</td>
+</tr>
+<tr class="odd">
+<td>1815-1836</td>
+<td>Sector table: included flag, baseline emissions, semi-elasticity of emissions to the carbon price (power −0.00279, transport −0.00283, residential −0.00386, industry −0.00549, CBAM −0.001 per USD per t), generic proportions</td>
+</tr>
+<tr class="even">
+<td>1843</td>
+<td>Relative price of an auctioned ETS against a tax for the same emissions target: 1.1</td>
+</tr>
+<tr class="odd">
+<td>1846-1847</td>
+<td>Relative effectiveness, hardcoded: auctioning 1.0, output-based allocation (OBA/OBR) 0.5</td>
+</tr>
+</tbody>
+</table>
+<p>Allocation is one time path of the auctioned share <span class="math inline">\(a\)</span> (rows 1863-1864; OBA share <span class="math inline">\(1 - a\)</span>), the same for every covered sector.</p>
+<p><strong>Fast estimate (no iteration).</strong></p>
+<ol type="1">
+<li>Covered semi-elasticity (row 1845): coverage-weighted average of the sector semi-elasticities, <span class="math inline">\(\varepsilon\)</span> = −0.00288 in the cached run. The all-sector average used for the carbon tax (row 1844) is −0.00371.</li>
+<li>Reduction left for the ETS (rows 1858-1860): the reduction the cap needs minus that of other policies, counted as an effective carbon price times <span class="math inline">\(\varepsilon_{tax}\)</span> (row 1859; for example 50 USD per t <span class="math inline">\(\times\)</span> −0.00371 = −18.6%).</li>
+<li>Effectiveness of the allocation mix (row 1866): <span class="math inline">\(e = a \times 1.0 + (1 - a) \times 0.5\)</span>.</li>
+<li>Adjusted semi-elasticity (row 1867): <span class="math inline">\(\varepsilon_{adj} = \varepsilon\, e\)</span>. With full OBA, −0.00288 <span class="math inline">\(\times\)</span> 0.5 = −0.00144, matching the cached value.</li>
+<li>Estimated price (row 1868, <code>QuickEstimateOfETSPrices</code>): <span class="math inline">\(p \approx\)</span> (reduction left for the ETS) / <span class="math inline">\(\varepsilon_{adj}\)</span> <em>(inferred: linear semi-elasticity form)</em>.</li>
+</ol>
+<p>This closed-form estimate ignores the full fuel-demand model, where the response comes from prices and elasticities by fuel and subsector, not from one semi-elasticity.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Legacy ETS algorithm: override and goal seek (VBA)">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Legacy ETS algorithm: override and goal seek (VBA)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-31" class="callout-31-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>Row 1872 reads override prices from Manual inputs O15:AB15 (<code>OverrideOfETSPrices</code>); row 1873 uses them when the override switch is on.</li>
+<li>The full model computes covered emissions with the ETS (rows 1888-1953) and compares the actual reduction with the cap (rows 1956-1963: actual, cap, difference, ratio, error per year; maximum error in J1963).</li>
+<li>The workbook proposes a corrected price per year (<code>PricesAdjustedByErrorFactor</code>): <span class="math inline">\(p \times\)</span> (target log-reduction / actual log-reduction)<span class="math inline">\(^{0.5}\)</span> (convergence factor 0.5, row 1966).</li>
+<li><code>OverrideETSFast</code> switches the ETS and the override on and calls <code>SolveFast</code>, a damped fixed-point iteration in log space:
+<ol type="1">
+<li>if StartFresh, seed the override row from the quick estimate;</li>
+<li>step <span class="math inline">\(p \leftarrow p\,(r/p)^{\alpha}\)</span>, with <span class="math inline">\(r\)</span> the workbook’s proposal;</li>
+<li>Anderson-style mixing: 0.7 new + 0.3 previous iterate;</li>
+<li>smoothing: 5% weight on a centred 3-year moving average;</li>
+<li>negative or invalid values keep the old price;</li>
+<li>write back, recalculate, take the worst-year error over all 14 years (the named <code>WorstYearlyETSError</code> averages only 9 years, so the macro bypasses it);</li>
+<li>halve <span class="math inline">\(\alpha\)</span> if the error got worse (minimum 0.0625); multiply it by 1.2 if the error more than halved (maximum 1);</li>
+<li>stop when the worst error is below <code>ETSErrorTolerance</code> or after <code>ETSMaxIterations</code>.</li>
+</ol></li>
+<li>The cached run has override prices of about 22-28 USD per t for 2028-2038, with jumps (1.5 in 2027, 13.8 in 2040) and a maximum error of 0.33. It had not converged; the cap rows are 0 in the cached state.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Legacy ETS algorithm: split of the price">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Legacy ETS algorithm: split of the price
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-32" class="callout-32-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The same split is used in both parts of the legacy model:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Part</th>
+<th>Legacy rows</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Auctioned</td>
+<td>1875-1879, 2252 (<code>egy.mit.etstraj</code>)</td>
+<td><span class="math inline">\(p \times a\)</span> enters fuel prices as a <strong>price wedge</strong>, like a carbon tax: fuel switching, efficiency and usage all respond. It raises revenue.</td>
+</tr>
+<tr class="even">
+<td>OBA / OBR</td>
+<td>1881-1885, 2343-2349 (“Feebate plus non-auctioned ETS”), 2402-2419</td>
+<td><span class="math inline">\(p \times (1 - a)\)</span> enters as a <strong>shadow price on the efficiency margin only</strong>, like a feebate: no pass-through to consumer prices, no revenue.</td>
+</tr>
+</tbody>
+</table>
+<p>The legacy note on rows 1875-1885 says “Arguably this should be an exp/ln function TBC”: the split is linear in <span class="math inline">\(p\)</span>. This is also why the OBA effectiveness is 0.5: only the efficiency share of the response is triggered, about half of the total with the default elasticities.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Design note: benchmarks instead of one auction share">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-33-contents" aria-controls="callout-33" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Design note: benchmarks instead of one auction share
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-33" class="callout-33-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This note records the design proposed for the model’s ETS. Today the model uses legacy’s one auctioned share per scenario (LD7); the benchmark-based design below is the intended extension. Everything after the split stays as in the legacy split.</p>
+<ul>
+<li><strong>Inputs</strong> per subsector: the covered flag and a benchmark path <span class="math inline">\(b(t)\)</span>, a share of the subsector’s base-year emission intensity (for example 0.9: free allocation at 90% of base-year intensity; a declining path tightens it).</li>
+<li><strong>Shares.</strong> Free allocation <span class="math inline">\(FA = b \times\)</span> base-year intensity <span class="math inline">\(\times\)</span> output, with output proxied by baseline fuel use (the model has no output variable). OBR share <span class="math inline">\(s = \min(FA / \text{covered emissions}, 1)\)</span>; auctioned share <span class="math inline">\(a = 1 - s\)</span>. To first order <span class="math inline">\(s \approx b\)</span> (intensity unchanged). Using actual covered emissions would be circular through fuel use, so the recommendation is scenario-1 (baseline) covered emissions (option A of the cap design note); <span class="math inline">\(s\)</span> is then a data-driven input.</li>
+<li><strong>Then as legacy.</strong> Effectiveness <span class="math inline">\(e = a + 0.5\, s\)</span> per subsector; the auctioned part <span class="math inline">\(p \times a\)</span> is a price wedge (revenue = <span class="math inline">\(p \times\)</span> (covered emissions − FA)); the OBR part <span class="math inline">\(p \times s\)</span> joins the sector shadow price (the feebate channel); the fast estimate <span class="math inline">\(p\)</span> = (reduction left for the ETS) / <span class="math inline">\((\varepsilon\, e)\)</span>, with <span class="math inline">\(\varepsilon\)</span> and <span class="math inline">\(e\)</span> weighted by covered baseline emissions.</li>
+<li><strong>Override.</strong> An offline goal seek (a Python script with the same damped log-space step) writes a row of prices to paste. No VBA and no circular reference.</li>
+</ul>
+<p>Without benchmarks the ETS is fully effective (permit price = carbon price path <span class="math inline">\(\times\)</span> coverage, as effective as a carbon tax, per an earlier user decision), and the auction share only affects revenue. With benchmarks, the OBR part moves from the price wedge to the shadow price, so emissions fall less for the same <span class="math inline">\(p\)</span>, and revenue falls. A benchmark of 0 (full auctioning) reproduces the fully effective case exactly.</p>
+<p><strong>Open points.</strong></p>
+<ol type="1">
+<li>The fast estimate uses legacy’s sector semi-elasticities. The model could derive them from its own elasticities (a one-off calibration run) to keep them consistent.</li>
+<li>Legacy’s linear split (<span class="math inline">\(p \times a\)</span>) against a log form (legacy’s own TBC note).</li>
+<li>Legacy’s relative price 1.1 (auctioned ETS against tax) and the risk-premium inputs (rows 1811-1813) are not used by the legacy fast estimate as cached; the model uses them through <span class="math inline">\(V\)</span> (LD8).</li>
+<li>The CBAM sector semi-elasticity (−0.001) is not modelled.</li>
+</ol>
+</div>
+</div>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
