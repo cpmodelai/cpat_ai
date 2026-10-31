@@ -648,7 +648,7 @@ The design choices behind these rules (D1-D16) were decided by the user on 2026-
 | 9 | Task completion and bookkeeping |
 | 10 | Python conventions |
 
-### 0. The overriding norm: follow Excel-AI
+### The overriding norm: follow Excel-AI
 
 1. **Excel-AI is the specification.** Coded CPAT replicates the mitigation and distribution modules of Excel-AI (`../excel_ai/CPAT-AI-Mitigation-Prototype_v<version>.xlsm`, `../excel_ai/CPAT-AI-Distribution-Prototype_v<version>.xlsm`) number for number. When the methodology (`../docs/01_MainDocumentation/`), legacy CPAT and Excel-AI disagree, the code follows Excel-AI and the difference is already, or is then, in the register.
 2. **Which version (D14).** The version of Coded CPAT is `<Excel-AI version>p<Python version>`, e.g. `1.0.0p1.0`: Python version 1.0 of the replication of Excel-AI 1.0.0 (Excel-AI's numbering was rebased on 2026-10-29: mitigation 9.0 is 0.9.0, distribution 1.3 is 0.1.3). The package states both (`EXCEL_AI_VERSION`, `__version__`), and each module docstring the Excel-AI version it replicates. Moving to a new Excel-AI version is a task of its own: port the changed rows (the Excel version log and `../excel_ai/core/CAVEATS.md` list them), then rerun the comparison.
@@ -656,7 +656,7 @@ The design choices behind these rules (D1-D16) were decided by the user on 2026-
 4. **Codes are shared.** Variable codes, input names (`NameOfParameter`) and output codes are those of Excel-AI and the codes map `../excel_ai/CPAT-AI_CodesMap_v<version>.xlsx`. Python never invents a second name for a quantity that has a code.
 5. **One register.** Bugs and issues found while porting go in the one register (`../excel_ai/bugs_and_legacy/register/issues_register.py`; root `NORMS.md` section 0 rule 3), with module "Coded CPAT" where only Python is affected. Coded CPAT keeps no list of its own.
 
-### 1. Readability: equations, names, comments
+### Readability: equations, names, comments
 
 The purpose of the code is that a person with the equation list open can find, read and check every equation.
 
@@ -678,7 +678,7 @@ The purpose of the code is that a person with the equation list open can find, r
 6. **Short and flat.** A function that needs scrolling is split. No clever one-liners, no metaprogramming in model code, no inheritance deeper than one level. Prefer explicit arguments to reading a global state.
 7. **Comments say why, not what.** The docstring says what; a comment explains a choice, an Excel-AI quirk (with its register code, e.g. `# I85: percentages typed as whole numbers, as legacy`) or a unit.
 
-### 2. Where things go (folders and files)
+### Where things go (folders and files)
 
 1. **The layout** is in [`README.md`](https://github.com/cpmodelai/cpat_ai/blob/main/coded/README.md) and in the spec, section 3. Code goes in `cpat_model/` (the model), `cpat_shiny/` (the app), `cpat_testing/` (tests); documents in `cpat_documentation/`. The top of `coded/` holds only the entry points (`run_model.py`, `app.py`), configuration (`.env`, environment files; the settings are `cpat_model/settings.py`) and the three guides (`README.md`, `NORMS.md`, `TODO.md`).
 2. **No working files in the core folders.** Scratch scripts, notebooks, exports and one-off comparisons do not go in `cpat_model/`, `cpat_shiny/` or `cpat_testing/`. Comparison scripts that are kept go in `cpat_testing/compare/`; run outputs go in `coded/outputs/` (git-ignored); anything else temporary stays outside the repository.
@@ -687,7 +687,7 @@ The purpose of the code is that a person with the equation list open can find, r
 5. **No `Old/`, `tmp_`, `new_`, `_v2` files.** Git keeps the history; a replaced file is deleted in the task that replaces it.
 6. **Data never in `coded/`.** All data are in `../data/` (root `NORMS.md` section 8); test fixtures with their tests (`cpat_testing/**/data_expected/`).
 
-### 3. Model structure: dimensions, the year loop, modules, equation forms
+### Model structure: dimensions, the year loop, modules, equation forms
 
 1. **Labelled arrays (D2).** Model quantities are labelled arrays (`xarray`) with named dimensions: `country`, `year`, and the dimensions of the quantity (`fuel`, `sector`, `tech`, `user`, `decile`, ...), using the index names of the equation list. Equations broadcast by name; no positional axis arithmetic in model code.
 2. **Baseline first, then scenario by scenario; three stages (D1, D15).** A run takes any number of scenarios. The baseline (scenario 1) runs first, then each policy scenario in turn, reading the baseline values it needs (as Excel-AI's `BaselineCO2` and `.ref`). Each scenario run has three stages: **prepare** (everything that depends on no model quantity, for all years at once: policy paths, international prices and the price chain, power cost paths including the levelised variable cost, exogenous drivers, the module values that feed Pigouvian taxes), the **year loop** (for each year t, every block in the order of `chain.py`, each reading only year t and earlier years: all of mitigation, then the air-pollution and transport co-benefit modules for year t, then the GDP effect that reaches t+1), and **finish** (all-year results: carbon-pricing indicators, welfare, exports; then distribution in its analysis year). No equation reads a later model year (root `NORMS.md` 5c, circular references, rule 1); a look-ahead on exogenous paths belongs in prepare.
@@ -696,24 +696,24 @@ The purpose of the code is that a person with the equation list open can find, r
 5. **Switchable equation forms (D4).** The demand equations (fuel demand, electricity demand, the CES service price) are called through the slots of `cpat_model/forms/`, never directly. The form is a **scenario input, `ModelForm`**, the last MTInputs row, set up the same way in Excel-AI and Python; the default, `CPAT`, is the Excel-AI form and the only one built until the user asks for another. `ModelForm` does not override the existing engineer-or-elasticity selectors of road transport and power (power always uses the engineer model). A new form never changes the numbers of `CPAT`, and is added to Excel-AI and Python in the same release.
 6. **Placeholder modules (D10).** Air pollution and transport co-benefits each have `prepare` (Excel-AI's typed module values, which feed the Pigouvian taxes) and `step(t)` (in the year loop after the local pollutants; empty until the module is built).
 
-### 4. Inputs: scenarios and advanced inputs
+### Inputs: scenarios and advanced inputs
 
 1. **Scenario inputs are MTInputs (D5).** A scenario set is a table with the rows of legacy MTInputs (`NameOfParameter`, root `NORMS.md` section 4; the Excel-AI additions, `ModelForm` last, below them) and one column per scenario, each scenario run for a list of countries; the Shiny app builds the same table. Input keys are the `NameOfParameter` names, in legacy units (I85).
 2. **Advanced inputs** (time series and longer-form inputs, the legacy `Manual inputs` tab and Excel-AI `Settings`) come from one advanced-inputs workbook per run (a tab per kind: time series, `Manual inputs` blocks, `Settings`, `Constants`; D5), with defaults from Excel-AI. Input files live in `../data/inputs/` (D6).
 3. **Validated once.** Inputs are read and checked (names known, types, ranges, option values as legacy) in `cpat_model/inputs/` before the model runs; model code never reads a raw input file.
 
-### 5. Data: databases
+### Data: databases
 
 1. **Databases (D6; user 2026-10-29: tidy CSV).** Coded CPAT reads **tidy CSV** (`../data/Public01/tidy/`: one table per file, long, standard keys, `country` ISO3 upper case), converted both ways from the legacy layout Excel-AI reads by `../data/scripts/tidy_convert.py` (exact round trip, tested). A database is a folder of tidy tables with its `_layout/`, in the structure of `../data/` (input files under `../data/inputs/`). Two exist: `full` (every table with its real values, including the six proprietary tables `Balances`, `EnergyCons`, `Prices_dom`, `IO_GTAP`, `HHSurvey`, `Tran_Scatter`; edition Full01, a private repository, never this one) and `dummy` (an edition of this repository, `../data/<edition>/tidy/`, the default `../data/Public01/tidy/`: the public tables, with the six proprietary tables perturbed within +-3%, identities kept; [`../data/README.md`](https://github.com/cpmodelai/cpat_ai/blob/main/data/README.md)). The code interface (each table the model reads) is the edition's tidy manifest (`../data/Public01/tidy/_manifest.csv`), and a loader reads nothing it does not list. The choice is a setting (`Settings.database`; the edition: `CPAT_DATA_EDITION`, else the default of `../data/editions.csv`; `full`: `FULL_DATA_PATH`, the tidy folder of the full database outside the repository). The systematic comparisons use `full` where it is available, with `dummy` as the option that always works (user 2026-10-29); every model in a comparison reads the same database.
 2. **Never commit proprietary data,** nor results computed from them (root `NORMS.md` section 8).
 3. **Loaders read, never compute.** `cpat_model/data/` loads and reshapes tables to the model's dimensions; any calculation on data is a model equation with an id.
 
-### 6. Results and codes
+### Results and codes
 
 1. **Results are keyed by Excel-AI output codes** (`<variable>.<sector>.<fuel>` as the prototype) and dimensions `country`, `scenario`, `year`, so every Python result can be set against the Excel-AI row with the same code.
 2. **Results belong to the scenario; differences as Excel-AI** (root `NORMS.md` section 3c: `x.ref`, `x.chg`, `x.pct` only for strictly positive quantities; price changes are price indices; ratios from summed levels).
 
-### 7. Tests and comparisons
+### Tests and comparisons
 
 1. **Three levels.** Unit tests per equation (small hand-checked cases); block tests against reference values by code for one country: first the existing Python recomputations of Excel-AI (`../excel_ai/mitigation/checks/check_full.py`, `power_model_ref.py`, `transport_model_ref.py`, `distribution_ref.py`; D8), then values extracted from the recalculated Excel-AI workbook (directly for the rows the recomputations lack); end-to-end comparisons (all codes, then all countries).
 2. **Tolerance.** Python equals Excel-AI to a relative difference of 1e-9 (absolute 1e-9 near zero) unless a difference is explained and registered.
@@ -721,19 +721,19 @@ The purpose of the code is that a person with the equation list open can find, r
 4. **Speed (D11).** One country with two scenarios runs in under 1 second for the user interface (data and the baseline run cached). Speed never costs readability: it comes from array operations and caching.
 5. **`pytest` passes before every commit.** A failing comparison is not skipped or loosened to pass; it is fixed or registered.
 
-### 8. Documents: qmd, Word, the website
+### Documents: qmd, Word, the website
 
 1. **qmd is the source.** Documents for people (spec, plan, design choices, equation list, method notes) are Quarto markdown (`.qmd`) in `cpat_documentation/`; Word copies (`.docx`) are generated from them (`cpat_documentation/make_docs.py`), never edited by hand. Guides for agents and developers (`README.md`, `NORMS.md`, `TODO.md`) stay `.md`: GitHub shows them formatted, every tool reads them, and Quarto renders `.md` as well as `.qmd`, so they can join the website unchanged.
 2. **Diagrams** are mermaid blocks in the qmd (Quarto draws them); `make_docs.py` renders them to PNG for Word.
 3. **Notation.** The equation list uses the Greek letters and index letters of the methodology (`../docs/01_MainDocumentation/`); where the methodology has none, it says so and uses the Excel-AI note (`../excel_ai/mitigation/docs/Equations.md`). Its code version uses the codes map.
 4. **Methodology, not history** (root `NORMS.md` section 7): the equation list and method notes describe the current model only.
-5. **The documentation book (user 2026-10-29).** The Coded CPAT documentation is a Quarto book, the website's Coded CPAT tab, in the style of the methodology documentation: Part I what you need to know (concise: quick start, the database first, scenarios, results, editing, testing), Part II how it works, the complete reference in appendices. Chapters are written in `../docs/CPAT_coded_documentation_qmd/` (index, 01-11, J; since 2026-10-30, was `cpat_documentation/guide/`); the appendices are generated from the code and data (`../docs/CPAT_coded_documentation_qmd/make_qmd.py`). A task that changes how to run, edit or test the model, the database, the inputs or the results updates its chapter the same day; a task that changes the tests reruns `make_qmd.py --tests` (the test status) before `quarto render`.
+5. **The documentation book (user 2026-10-29; restructured 2026-10-31).** The Coded CPAT documentation is a Quarto book, the website's **CPAT Python** tab (`#python`), in the style of the methodology documentation: few chapters, each with many sections (user 2026-10-31). Chapter 1 *Using the model* (concise: quick start, the database first, scenarios, results, editing, testing), chapter 2 *How it works*, and three appendices: A equations, B data, inputs and variables (with the glossary), C project documents (bugs, spec, norms, plan). The chapters are written in `../docs/CPAT_coded_documentation_qmd/` (`index.qmd`, `01_Using_the_model.qmd`, `02_How_it_works.qmd`, `_glossary.md`; was `cpat_documentation/guide/` until 2026-10-30); the appendices are generated from the code and data (`../docs/CPAT_coded_documentation_qmd/make_qmd.py`). New material goes into a section of these chapters, not a new chapter. The latest Coded CPAT deck is `../docs/presentations/03_Coded-CPAT_Overview_latest.pptx`, written by `cpat_documentation/presentation/build_deck.js` and linked at the top of the tab. A task that changes how to run, edit or test the model, the database, the inputs or the results updates its chapter the same day; a task that changes the tests reruns `make_qmd.py --tests` (the test status) before `quarto render`.
 
-### 9. Task completion and bookkeeping
+### Task completion and bookkeeping
 
 As root `NORMS.md` section 6: every finished task gets a `../excel_ai/core/CAVEATS.md` entry; open work is in [`TODO.md`](https://github.com/cpmodelai/cpat_ai/blob/main/coded/TODO.md) (tick it, add the follow-ups); a lesson with a cause that can repeat becomes a norm here, with its check (root section 6b).
 
-### 10. Python conventions
+### Python conventions
 
 - Python 3.12, pandas, numpy, xarray (`environment.yml`, `requirements.txt`); new dependencies only with a reason in the task's `CAVEATS.md` entry.
 - Type hints on public functions; `ruff` for lint and format.
@@ -762,7 +762,8 @@ Status key: ☐ not started · ◐ in progress · ☑ done · ☒ closed without
 - ☑ D1-D16 decided by the user (2026-10-29): spec section 10; `NORMS.md` rules made final.
 - ☑ Detailed plan: spec section 11 (the tasks below, each with its check).
 - ☐ Correct `../QuickStart.docx` when it is next regenerated: the data are now edition Public01 (`../data/Public01/`): the public tables, and the six proprietary tables perturbed within +-3% (user 2026-10-30; the earlier wording, every table dummy or four proprietary tables, no longer holds).
-- ☐ Send the documentation bugs DOC1-DOC20 (`../excel_ai/core/BUGS.md` section 3) to the CPAT team with the next tracker release.
+- ☐ Send the documentation bugs DOC1-DOC20 (`../excel_ai/core/BUGS.md` section 3) to the CPAT team with the next tracker release. (Corrected in the website's methodology on 2026-10-31; its chapter Corrections lists them.)
+- ☑ (2026-10-31) Website: the book is the CPAT Python tab (`#python`), restructured to 2 chapters and 3 appendices (NORMS 8.5); deck permalink `../docs/presentations/03_Coded-CPAT_Overview_latest.pptx`.
 
 ### Phase 2 - Foundations (spec 11, phase 2)
 - ◐ 2.9 After the data rebuild (2026-10-30, `excel_ai/core/CAVEATS.md`): ☑ the scenario set and Excel-AI's stored values in `data/inputs/`; ☑ `legacy_comparison.py` reads `data/Public01/tidy/xai_legacy_cached_baseline.csv`; ☐ its legacy 456 workbook: port to the new legacy workbook when it comes (user 2026-10-30).

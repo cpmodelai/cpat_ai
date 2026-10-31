@@ -14,9 +14,10 @@ Excel-AI is CPAT rebuilt as readable Excel workbooks, generated and checked by A
 | Chapter | What it covers |
 |---|---|
 | [1 Overview](01_Overview.qmd) | Excel-AI, legacy CPAT as the reference, status, and the rule on bugs and issues |
-| [2 The mitigation prototype](02_Mitigation_Prototype.qmd) | The user guide: opening, scenarios, results, limits |
-| [3 Methods](03_Methods.qmd) | Every block: prices, power, road transport, emissions, ETS, macro and results, distribution, data tabs |
-| [4 Other modules](04_Other_Modules.qmd) | The standalone distribution and air-pollution workbooks |
-| [5 Data and working practice](05_Data_and_Working.qmd) | The data editions, files and releases, checks, the repository |
+| [2 The mitigation prototype](02_Mitigation_Prototype.qmd) | The workbook: opening, the blocks in brief, results, limits, many scenarios, the data tabs |
+| [3 Other modules](03_Other_Modules.qmd) | The standalone distribution and air-pollution workbooks |
+| [4 Data and working practice](04_Data_and_Working.qmd) | The data editions, files and releases, checks, the repository |
 
-*Chapters 2 and 3 are generated from the documents kept beside the code (`excel_ai/mitigation/docs/`) by `make_qmd.py`.*
+The method of every block (prices, demand, power, road transport, emissions and the ETS, revenues and GDP, distribution), with its equations and pseudocode, is in the **CPAT-AI Model** tab, shared with CPAT Python: [open it](../CPAT_model_documentation_html/index.html).
+
+*Chapter 2 is generated from the documents kept beside the code (`excel_ai/mitigation/docs/`) by `make_qmd.py`.*

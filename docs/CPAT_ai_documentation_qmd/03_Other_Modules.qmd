@@ -4,7 +4,7 @@ The mitigation prototype is the integrated model. Two further modules are standa
 
 ## Distribution module
 
-The standalone distribution module (`excel_ai/CPAT-AI-Distribution-Prototype_v<version>.xlsm`) computes the household effects by decile of a mitigation scenario: price changes, budget shares, direct and indirect effects, revenue recycling and welfare. Its method is the Distribution tab of the mitigation prototype (@sec-distribution-tab).
+The standalone distribution module (`excel_ai/CPAT-AI-Distribution-Prototype_v<version>.xlsm`) computes the household effects by decile of a mitigation scenario: price changes, budget shares, direct and indirect effects, revenue recycling and welfare. Its method is the Distribution tab of the mitigation prototype, explained in the CPAT-AI Model tab ([Distribution](../CPAT_model_documentation_html/08_Distribution.html)).
 
 **One copy of the formulas.** The module is cut from the built mitigation prototype: its Distribution and FromMitigation tabs, the distribution data tabs, `ScenarioDefinition` (distribution rows shown) and `Settings`. To change a formula, change the mitigation builder, rebuild the prototype, then rebuild the module.
 

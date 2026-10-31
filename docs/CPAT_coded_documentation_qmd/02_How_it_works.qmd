@@ -42,7 +42,7 @@ One country and two scenarios run in under a second once the baseline is cached;
 
 ## The mitigation blocks {#sec-blocks}
 
-Each block replicates one part of Excel-AI's Mitigation sheet. The order of the run is `mitigation/chain.py`; the equations are in [Appendix A](A_Equations.qmd#sec-app-eq); the test of each block is a `BUILT` entry of `cpat_testing/test_mitigation.py`.
+Each block replicates one part of Excel-AI's Mitigation sheet. The order of the run is `mitigation/chain.py`; the method of each block, with its equations and pseudocode, is explained in the [CPAT-AI Model](../CPAT_model_documentation_html/index.html) tab (shared with Excel-AI) and every equation is in its [equation list](../CPAT_model_documentation_html/A_Equations.html); the test of each block is a `BUILT` entry of `cpat_testing/test_mitigation.py`.
 
 | Block (module.function) | Excel-AI section | What it computes | Equations | Test block |
 |---|---|---|---|---|
@@ -79,7 +79,7 @@ Data steps: `power_data.py`, `prices_data.py`, `fuel_data.py`, `elasticity_data.
 | `mapping.py` | Sheet DistMapping, the data tabs | Survey and elasticities, the input-output data of the country (fuel-group use, category coefficients), programmes, pass-through, ASPIRE, Gini weights |
 | `incidence.py` | Sheet Distribution, sections 1-11 | Settings; price changes from mitigation; indirect price changes through the input-output table; price factors, budget shares, direct and indirect effects; survey to national accounts; revenue recycling (income-tax cut, public investment, current spending, targeted transfers); net effect and Gini; chart rows; price changes by production sector |
 
-Every row has 11 columns: 0 the basket (all households) and 1-10 the deciles. `incidence.run` returns the rows by output code; the run stores them in `Results.distribution`. The equations are D1.1-D1.6 and B1.1-B1.8 ([Appendix A](A_Equations.qmd#sec-app-eq)).
+Every row has 11 columns: 0 the basket (all households) and 1-10 the deciles. `incidence.run` returns the rows by output code; the run stores them in `Results.distribution`. The equations are D1.1-D1.6 and B1.1-B1.8 ([the equation list](../CPAT_model_documentation_html/A_Equations.html)).
 
 ## The app {#sec-app}
 

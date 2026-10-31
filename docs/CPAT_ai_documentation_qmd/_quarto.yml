@@ -12,9 +12,8 @@ book:
     - index.qmd
     - 01_Overview.qmd
     - 02_Mitigation_Prototype.qmd
-    - 03_Methods.qmd
-    - 04_Other_Modules.qmd
-    - 05_Data_and_Working.qmd
+    - 03_Other_Modules.qmd
+    - 04_Data_and_Working.qmd
 
 format:
   html:

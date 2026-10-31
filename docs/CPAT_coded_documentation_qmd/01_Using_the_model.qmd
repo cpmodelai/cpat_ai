@@ -7,9 +7,9 @@ Everything you need to run Coded CPAT, find your way in its data and results, ch
 ### What Coded CPAT is
 
 - **A replication.** Coded CPAT computes what the Excel-AI prototypes compute: the mitigation model (prices, power, fuel use, emissions, revenues, GDP effects, welfare, for 2022-2041) and the household distribution module (incidence by decile). The tests check every output code against Excel-AI's values.
-- **Readable code.** Each equation of the [equation list](A_Equations.qmd#sec-app-eq) is one small function or one marked line, with the code names of the Excel models (`ener` energy use, `atp` after-tax price, `co2` emissions, ...).
+- **Readable code.** Each equation of the [equation list](../CPAT_model_documentation_html/A_Equations.html) is one small function or one marked line, with the code names of the Excel models (`ener` energy use, `atp` after-tax price, `co2` emissions, ...).
 - **One entry point.** `cpat_model.run(scenarios, settings)` serves the command line, the Shiny app and the tests.
-- **Bugs are not copied.** Where Excel-AI has a bug, Coded CPAT fixes it and registers it ([Appendix C](C_Project.qmd#sec-app-bugs)); everything else follows Excel-AI exactly.
+- **Bugs are not copied.** Where Excel-AI has a bug, Coded CPAT fixes it and registers it ([Appendix B](B_Project.qmd#sec-app-bugs)); everything else follows Excel-AI exactly.
 
 ### Install
 
@@ -67,7 +67,7 @@ A first run in a session takes about 3 seconds (reading the data and the baselin
 - **Format: tidy CSV.** One table per file; long format, one observation per row; standard keys first, then `value` (or one column per variable). Country codes are ISO3 in upper case (`EGY`).
 - **Where: `data/Public01/tidy/`** in this repository: the **dummy** database. It is data edition Public01 (`data/editions.csv`): the public data, and Egypt's rows of the six proprietary tables perturbed within ±3% (identities kept); every country can be added. The **full** database (every country, the proprietary tables) lives in a private repository, never in this one.
 - **Choosing a database:** `Settings(database='dummy')` (default) reads `data/Public01/tidy/`; `Settings(database='full')` reads the folder named by the environment variable `FULL_DATA_PATH` (set it in `coded/.env` or your shell). Command line: `--database full`.
-- **One table list:** `data/Public01/tidy/_manifest.csv` lists every table (218 tables, plus the layout entries of the 13 tabs kept at their cell addresses), its kind, its legacy source, its keys, rows and whether it is proprietary. [Appendix B](B_Reference.qmd#sec-app-tables) shows them all with their columns.
+- **One table list:** `data/Public01/tidy/_manifest.csv` lists every table (218 tables, plus the layout entries of the 13 tabs kept at their cell addresses), its kind, its legacy source, its keys, rows and whether it is proprietary. [Appendix A](A_Reference.qmd#sec-app-tables) shows them all with their columns.
 - **Tidy is the source of truth.** The legacy-compatible workbook `data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx` is written from it by `data/scripts/tidy_convert.py` (tested round trip), for pasting into legacy CPAT and for Excel-AI.
 - **Master table:** `data/catalog.csv` lists every data table: tidy file, Excel tab, proprietary or not, provenance, and the legacy data sources.
 
@@ -118,7 +118,7 @@ Every data table, with its proprietary status and provenance: `data/catalog.csv`
 ### In short
 
 - **A scenario set is one CSV file**: one row per input, one column per scenario. Scenario 1, the **baseline**, comes first; every other scenario is compared with it.
-- **Inputs are named as in Excel-AI** (`NameOfParameter`, the ScenarioDefinition sheet): `CPLevelTarget`, `CPIntro`, `IntEnerPricForeSource`, ... Every input is listed in [Appendix B](B_Reference.qmd#sec-app-inputs).
+- **Inputs are named as in Excel-AI** (`NameOfParameter`, the ScenarioDefinition sheet): `CPLevelTarget`, `CPIntro`, `IntEnerPricForeSource`, ... Every input is listed in [Appendix A](A_Reference.qmd#sec-app-inputs).
 - **The example** is Excel-AI's own set, `data/inputs/scenarios_excel_ai.csv` (six scenarios for Egypt). Copy it and change the values to make your own.
 
 ### The file
@@ -166,7 +166,7 @@ To add a carbon tax of 50 USD/tCO2 by 2035 starting in 2027: copy the column of 
 |---|---|---|
 | Country | `egy` | ISO3, lower case |
 | Module | `mit`, `distn` | Mitigation or distribution |
-| Variable | `co2`, `ener`, `atp`, `rnew` | What it is ([Appendix B](B_Reference.qmd#sec-app-variables) lists every variable with its description and unit) |
+| Variable | `co2`, `ener`, `atp`, `rnew` | What it is ([Appendix A](A_Reference.qmd#sec-app-variables) lists every variable with its description and unit) |
 | Sector | `rod`, `res`, `pow`, `tot` | Subsector, sector group, or the total |
 | Fuel | `gso`, `nga`, `ecy`, `tot` | Fuel, or all fuels |
 | Scenario | `1`, `2` | The scenario's column number |
@@ -197,10 +197,10 @@ r.states[2]['co2']                                                       # the s
 
 ### The rules in ten lines
 
-The full rules are the Python norms ([Appendix C](C_Project.qmd#sec-app-norms)); these are the ones you need first.
+The full rules are the Python norms ([Appendix B](B_Project.qmd#sec-app-norms)); these are the ones you need first.
 
 1. **Excel-AI is the specification.** Python computes what Excel-AI computes, row for row, except Excel-AI's bugs.
-2. **Bugs are not copied; issues are.** A bug (Excel-AI does not compute what it means to) is fixed in Python and registered the same day; an issue (a potential improvement) is logged and copied as it is ([Appendix C](C_Project.qmd#sec-app-bugs)).
+2. **Bugs are not copied; issues are.** A bug (Excel-AI does not compute what it means to) is fixed in Python and registered the same day; an issue (a potential improvement) is logged and copied as it is ([Appendix B](B_Project.qmd#sec-app-bugs)).
 3. **Codes are shared.** Inputs, variables and outputs carry Excel-AI's names; never invent a second name.
 4. **One equation, one function.** Each equation of the equation list is a small function or one marked line, citing its id (`EQ-M3.1`).
 5. **The order is written once**, in `cpat_model/mitigation/chain.py`.
@@ -256,7 +256,7 @@ Write the block in its module (sheet order, equation ids), add it to `chain.py`,
 
 - **Run `pytest` from `coded/`** before every commit (about one minute). Everything must pass.
 - **The main test is the comparison with Excel-AI**: every output code of every built block, for Egypt's scenarios 1 and 2, every year 2022-2041, must equal Excel-AI's stored value within 1e-9 (relative where the value is above 1). The distribution sheet is compared the same way, basket and deciles.
-- **Known differences** are the codes where Coded CPAT fixes an Excel-AI bug that is still open in the prototype; the tests leave them out of the match and check that they do differ ([Appendix C](C_Project.qmd#sec-app-bugs)).
+- **Known differences** are the codes where Coded CPAT fixes an Excel-AI bug that is still open in the prototype; the tests leave them out of the match and check that they do differ ([Appendix B](B_Project.qmd#sec-app-bugs)).
 - **The status below is generated**: `python make_qmd.py --tests` (in `docs/CPAT_coded_documentation_qmd/`) runs the tests and rewrites it.
 
 ### Current status

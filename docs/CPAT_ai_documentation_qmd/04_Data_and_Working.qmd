@@ -85,17 +85,18 @@ A methodology describes the method as it is now, for a reader who has never seen
 
 | Folder | Contents |
 |---|---|
-| `docs/index.html` | The website ([https://cpmodelai.github.io/cpat_ai/](https://cpmodelai.github.io/cpat_ai/)): Home, then three tabs: Methodology (`#methodology`), CPAT Excel-AI (`#excel-ai`, this book) and CPAT Python (`#python`) |
+| `docs/index.html` | The website ([https://cpmodelai.github.io/cpat_ai/](https://cpmodelai.github.io/cpat_ai/)): Home, then four tabs: Methodology (`#methodology`), CPAT-AI Model (`#model`, the model shared by Excel-AI and Python), CPAT Excel-AI (`#excel-ai`, this book) and CPAT Python (`#python`) |
 | `docs/presentations/` | The latest version of each slide deck, numbered, as `<nn>_<Name>_latest.pptx` (permalinks) |
 | `docs/CPAT_full_documentation_qmd/`, `docs/CPAT_full_documentation_html/` | The methodology (CPAT documentation): Quarto sources and built pages |
 | `docs/CPAT_ai_documentation_qmd/`, `docs/CPAT_ai_documentation_html/` | This documentation: Quarto sources and built pages |
+| `docs/CPAT_model_documentation_qmd/`, `docs/CPAT_model_documentation_html/` | CPAT-AI Model: the method of every block, with equations and pseudocode, written by hand; the equation list (appendices) generated from `coded/cpat_documentation/equations/equations.yaml` |
 | `docs/CPAT_coded_documentation_qmd/`, `docs/CPAT_coded_documentation_html/` | CPAT Python (Coded CPAT): Quarto sources (the guide chapters are written there) and built pages |
 
-Each book has few chapters, each with many sections (user 2026-10-31): new material goes into a section of an existing chapter. The latest slide decks are in `docs/presentations/` and linked at the top of each tab. The chapters on the mitigation prototype are generated from the documents beside the code by `make_qmd.py`; edit those sources, not the generated chapters. GitHub builds and publishes the website on every push to `main` that changes the documentation (`.github/workflows/pages.yml`). To rebuild by hand:
+Each book has few chapters, each with many sections (user 2026-10-31): new material goes into a section of an existing chapter. The latest slide decks are in `docs/presentations/` and linked at the top of each tab. Chapter 2 is generated from the documents beside the code by `make_qmd.py`; edit those sources, not the generated chapter. A change to the method of a block updates its chapter in the CPAT-AI Model book the same day (and the compact method note in `excel_ai/mitigation/docs/methods/`). GitHub builds and publishes the website on every push to `main` that changes the documentation (`.github/workflows/pages.yml`). To rebuild by hand:
 
 ```
 cd docs/CPAT_ai_documentation_qmd
-python make_qmd.py     # regenerate chapters 2 and 3 from excel_ai/mitigation/docs/
+python make_qmd.py     # regenerate chapter 2 from excel_ai/mitigation/docs/
 quarto render          # write ../CPAT_ai_documentation_html/
 ```
 

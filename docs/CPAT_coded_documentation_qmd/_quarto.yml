@@ -13,9 +13,8 @@ book:
     - 01_Using_the_model.qmd
     - 02_How_it_works.qmd
   appendices:
-    - A_Equations.qmd
-    - B_Reference.qmd
-    - C_Project.qmd
+    - A_Reference.qmd
+    - B_Project.qmd
 
 format:
   html:

@@ -7,8 +7,9 @@ the generated chapters.
     quarto render                 the HTML book in ../CPAT_coded_documentation_html/
 
 The guide chapters (index, 01 Using the model, 02 How it works, and `_glossary.md`, which appendix B includes) are
-written here, in this folder (since 2026-10-30; merged into two chapters 2026-10-31). Three appendices: A equations,
-B data, inputs and variables, C project documents. Sources of the appendices: the equation lists, `data/Public01/tidy/_manifest.csv`
+written here, in this folder (since 2026-10-30; merged into two chapters 2026-10-31). Two appendices: A data, inputs
+and variables, B project documents. The equation list is in the CPAT-AI Model book (../CPAT_model_documentation_qmd/,
+since 2026-10-31), shared with Excel-AI. Sources of the appendices: the equation lists, `data/Public01/tidy/_manifest.csv`
 (database tables), `data/inputs/scenarios_excel_ai.csv` (inputs), `coded/cpat_model/core/variables.csv` (variables),
 `coded/cpat_testing/compare/known_differences.py` and the bugs section of `coded/TODO.md` (bugs), the spec, the norms
 and the plan.
@@ -29,7 +30,7 @@ import make_qmd as ai                                    # noqa: E402  (the CPAT
 REPO = ai.REPO
 CODED = os.path.join(REPO, 'coded')
 DOC = 'coded/cpat_documentation'
-GENERATED = ['A_Equations.qmd', 'B_Reference.qmd', 'C_Project.qmd',          # the three appendices; the older
+GENERATED = ['A_Reference.qmd', 'B_Project.qmd', 'A_Equations.qmd', 'B_Reference.qmd', 'C_Project.qmd',   # the appendices; the older
              'B_Equations_codes.qmd', 'C_Database_tables.qmd', 'D_Inputs.qmd', 'E_Variables.qmd',   # one-per-part
              'F_Bugs.qmd', 'G_Spec.qmd', 'H_Norms.qmd', 'I_Plan.qmd']                               # files are removed
 
@@ -164,22 +165,15 @@ def main():
     for old in GENERATED:                                     # the appendices are rewritten; the guide chapters
         if os.path.exists(os.path.join(HERE, old)):           # (index, 01, 02, _glossary.md) are written here by hand
             os.remove(os.path.join(HERE, old))
-    eq = f'{DOC}/equations'
     with open(os.path.join(HERE, '_glossary.md'), encoding='utf-8') as f:
         glossary = f.read()
     out = {
-        'A_Equations.qmd': appendix(
-            'Equations', 'sec-app-equations',
-            'Every equation of the model, twice: in the notation of the CPAT methodology, then with the code names of '
-            'the Excel models.',
-            [convert_qmd(f'{eq}/Equations.qmd', 'Equation list: methodology notation', 'sec-app-eq'),
-             convert_qmd(f'{eq}/Equations_codes.qmd', 'Equation list: CPAT code names', 'sec-app-eq-codes')]),
-        'B_Reference.qmd': appendix(
+        'A_Reference.qmd': appendix(
             'Data, inputs and variables', 'sec-app-reference',
             'The database tables, the scenario inputs and the result variables, generated from the data and the code; '
             'then the glossary.',
             [database_tables(), inputs(), variables(), glossary]),
-        'C_Project.qmd': appendix(
+        'B_Project.qmd': appendix(
             'Project documents', 'sec-app-project',
             'The bugs found in Excel-AI, the specification, the norms and the plan of Coded CPAT.',
             [bugs(),

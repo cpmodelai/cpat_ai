@@ -1,6 +1,6 @@
 # The documentation website on GitHub Pages: https://cpmodelai.github.io/cpat_ai/
-# (Home, then tabs #methodology, #excel-ai, #python). On every push to main that changes the documentation, or by hand
-# (Actions > Documentation website > Run workflow): the CPAT Excel-AI and CPAT Python books are regenerated from their
+# (Home, then tabs #methodology, #model, #excel-ai, #python). On every push to main that changes the documentation, or by hand
+# (Actions > Documentation website > Run workflow): the CPAT-AI Model, CPAT Excel-AI and CPAT Python books are regenerated from their
 # sources (make_qmd.py) and rendered with Quarto; the methodology book and the slide decks (docs/presentations/) are
 # published as committed.
 # One-off setting by a repository admin: Settings > Pages > Build and deployment > Source: GitHub Actions.
@@ -47,15 +47,17 @@ jobs:
         run: |
           cd docs/CPAT_ai_documentation_qmd && python make_qmd.py
           cd ../CPAT_coded_documentation_qmd && python make_qmd.py
-      - name: Render the CPAT Excel-AI and CPAT Python books
+          cd ../CPAT_model_documentation_qmd && python make_qmd.py
+      - name: Render the CPAT-AI Model, CPAT Excel-AI and CPAT Python books
         run: |
           quarto render docs/CPAT_ai_documentation_qmd --to html
           quarto render docs/CPAT_coded_documentation_qmd --to html
+          quarto render docs/CPAT_model_documentation_qmd --to html
       - name: Assemble the site
         run: |
           mkdir _site
           cp docs/index.html _site/
-          cp -r docs/CPAT_full_documentation_html docs/CPAT_ai_documentation_html docs/CPAT_coded_documentation_html _site/
+          cp -r docs/CPAT_full_documentation_html docs/CPAT_model_documentation_html docs/CPAT_ai_documentation_html docs/CPAT_coded_documentation_html _site/
           cp -r docs/presentations _site/
           touch _site/.nojekyll
       - uses: actions/upload-pages-artifact@v3

@@ -69,6 +69,7 @@
     .topbar { gap: 8px; padding: 0 12px; }
     .brand span, .newwin { display: none; }
     .tab { padding: 0 8px; font-size: .95rem; }
+    .tabs { overflow-x: auto; scrollbar-width: none; }
   }
 </style>
 </head>
@@ -79,6 +80,7 @@
   <nav class="tabs" role="tablist">
     <a class="tab" role="tab" id="tab-home" href="#home" aria-controls="panel-home">Home</a>
     <a class="tab" role="tab" id="tab-methodology" href="#methodology" aria-controls="panel-methodology">Methodology</a>
+    <a class="tab" role="tab" id="tab-model" href="#model" aria-controls="panel-model">CPAT-AI Model</a>
     <a class="tab" role="tab" id="tab-excel-ai" href="#excel-ai" aria-controls="panel-excel-ai">CPAT Excel-AI</a>
     <a class="tab" role="tab" id="tab-python" href="#python" aria-controls="panel-python">CPAT Python</a>
   </nav>
@@ -96,16 +98,20 @@
     <p>CPAT is a large spreadsheet model, hard to read, slow to open and hard to change. The <b>CPAT-AI project</b> rebuilds
       its engine with AI coding agents, under written norms, in two forms that share one set of equations, inputs, codes and
       data: readable Excel workbooks (<b>Excel-AI</b>) and a Python model (<b>CPAT Python</b>). Every number is checked by
-      independent recomputation, and every difference from legacy CPAT is either a fixed bug or a tracked issue.</p>
+      independent recomputation, and every difference from legacy CPAT is either a fixed bug or a tracked issue.
+      The two forms are one model: its equations and pseudocode are written once, in the CPAT-AI Model tab.</p>
 
-    <h2>The three parts of this site</h2>
+    <h2>The four parts of this site</h2>
     <div class="cards">
       <a class="card" href="#methodology"><h3>Methodology</h3>
         <p>The CPAT documentation: the methods of the mitigation, multipliers, distribution, air-pollution and road-transport
           modules, with the corrections the project has made to it.</p></a>
+      <a class="card" href="#model"><h3>CPAT-AI Model</h3>
+        <p>The model that Excel-AI and CPAT Python share: the method of every block, from prices to distribution, with its
+          equations, pseudocode and the full equation list.</p></a>
       <a class="card" href="#excel-ai"><h3>CPAT Excel-AI</h3>
-        <p>The Excel prototypes: the mitigation prototype and its user guide, the method of every block, the distribution and
-          air-pollution modules, the legacy bugs and issues, the data.</p></a>
+        <p>The Excel prototypes: the mitigation prototype and how to use it, the distribution and air-pollution modules,
+          the legacy bugs and issues, the data.</p></a>
       <a class="card" href="#python"><h3>CPAT Python</h3>
         <p>Coded CPAT, the Python model: how to run, edit and test it, how it works, and every equation, table, input and
           variable.</p></a>
@@ -128,6 +134,9 @@
 
     <h2>Recent changes</h2>
     <ul>
+      <li><b>2026-10-31 (later).</b> New tab <b>CPAT-AI Model</b>: the method of every block rewritten in full, with
+        equations, pseudocode and links to the methodology, shared by Excel-AI and CPAT Python (it replaces the dense
+        Methods chapter of the Excel-AI book); the equation list moved there from the Python book.</li>
       <li><b>2026-10-31.</b> Methodology: twenty errors corrected (DOC1-DOC20), listed in its chapter
         <a href="#methodology" onclick="openPage('methodology', 'CPAT_full_documentation_html/08_Corrections.html'); return false;">Corrections</a>.
         Site: this home page; tabs renamed (Methodology, CPAT Excel-AI, CPAT Python); the two project books regrouped into
@@ -139,23 +148,28 @@
 
 <!-- Methodology: the CPAT documentation (Quarto book, sources in CPAT_full_documentation_qmd) -->
 <section class="panel" id="panel-methodology" role="tabpanel" aria-labelledby="tab-methodology" hidden>
-  <iframe data-src="CPAT_full_documentation_html/index.html?v=20261031b" title="Methodology"></iframe>
+  <iframe data-src="CPAT_full_documentation_html/index.html?v=20261031c" title="Methodology"></iframe>
+</section>
+
+<!-- CPAT-AI Model: the model shared by Excel-AI and CPAT Python (Quarto book, sources in CPAT_model_documentation_qmd) -->
+<section class="panel" id="panel-model" role="tabpanel" aria-labelledby="tab-model" hidden>
+  <iframe data-src="CPAT_model_documentation_html/index.html?v=20261031c" title="CPAT-AI Model"></iframe>
 </section>
 
 <!-- CPAT Excel-AI (Quarto book, sources in CPAT_ai_documentation_qmd) -->
 <section class="panel" id="panel-excel-ai" role="tabpanel" aria-labelledby="tab-excel-ai" hidden>
-  <iframe data-src="CPAT_ai_documentation_html/index.html?v=20261031b" title="CPAT Excel-AI"></iframe>
+  <iframe data-src="CPAT_ai_documentation_html/index.html?v=20261031c" title="CPAT Excel-AI"></iframe>
 </section>
 
 <!-- CPAT Python (Quarto book, sources in CPAT_coded_documentation_qmd) -->
 <section class="panel" id="panel-python" role="tabpanel" aria-labelledby="tab-python" hidden>
-  <iframe data-src="CPAT_coded_documentation_html/index.html?v=20261031b" title="CPAT Python"></iframe>
+  <iframe data-src="CPAT_coded_documentation_html/index.html?v=20261031c" title="CPAT Python"></iframe>
 </section>
 
 <script>
-  // Hash routing: #home (default), #methodology, #excel-ai or #python; each book loads the first time its tab is shown.
+  // Hash routing: #home (default), #methodology, #model, #excel-ai or #python; each book loads the first time its tab is shown.
   // The earlier names (#documentation, #cpat-ai, #coded) still work.
-  var tabs = ['home', 'methodology', 'excel-ai', 'python'];
+  var tabs = ['home', 'methodology', 'model', 'excel-ai', 'python'];
   var aliases = { documentation: 'methodology', 'cpat-ai': 'excel-ai', coded: 'python' };
 
   function route() {

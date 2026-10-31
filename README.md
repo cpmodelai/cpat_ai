@@ -11,7 +11,7 @@ Workspace for the World Bank **Climate Policy Assessment Tool (CPAT)**: models o
 | **See what differs from legacy CPAT** | [`excel_ai/core/BUGS.md`](excel_ai/core/BUGS.md) (legacy bugs, all fixed) and [`excel_ai/core/ISSUES.md`](excel_ai/core/ISSUES.md) (legacy issues, replicated and tracked) |
 | **Work on the data** | [`data/`](data/README.md): the data editions (`Public01` here), the catalogue of every table, the legacy workbook shell |
 | **Work on the Python model** (Coded CPAT) | [`coded/`](coded/README.md); its documentation book: the CPAT Python tab of the website (`docs/`) |
-| **Read the documentation** (website) | <https://cpmodelai.github.io/cpat_ai/>: Home, then tabs Methodology (`#methodology`), CPAT Excel-AI (`#excel-ai`), CPAT Python (`#python`); the latest slide decks in `docs/presentations/`; offline: `docs/index.html` |
+| **Read the documentation** (website) | <https://cpmodelai.github.io/cpat_ai/>: Home, then tabs Methodology (`#methodology`), CPAT-AI Model (`#model`: the model Excel-AI and Python share, block by block), CPAT Excel-AI (`#excel-ai`), CPAT Python (`#python`); the latest slide decks in `docs/presentations/`; offline: `docs/index.html` |
 | **Work as an AI agent** | [`AGENTS.md`](AGENTS.md) |
 
 ## Layout
@@ -26,8 +26,8 @@ excel_ai/                         The Excel prototypes (Excel-AI): active_workbo
                                   bugs_and_legacy/ (bug book, tracker, register, fix plans, legacy reference)
 data/                             All data, as editions (data/Public01/), the catalogue, the legacy shell, scripts
 coded/                            The Python model (Coded CPAT) and its Shiny app
-docs/                             Documentation website: index.html (Home; tabs Methodology, CPAT Excel-AI,
-                                  CPAT Python); CPAT_full_, CPAT_ai_ and CPAT_coded_documentation_qmd/ (Quarto
+docs/                             Documentation website: index.html (Home; tabs Methodology, CPAT-AI Model,
+                                  CPAT Excel-AI, CPAT Python); CPAT_full_, CPAT_model_, CPAT_ai_, CPAT_coded_documentation_qmd/ (Quarto
                                   sources) and the matching _html/ folders (built pages); presentations/ (latest decks)
 other/                            Research papers, other decks, earlier prototypes and notes
 users/                            Personal folders

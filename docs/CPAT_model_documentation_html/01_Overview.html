@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Other modules – CPAT Excel-AI</title>
+<title>1&nbsp; Overview and notation – CPAT-AI Model</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -36,8 +36,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./05_Data_and_Working.html" rel="next">
-<link href="./03_Methods.html" rel="prev">
+<link href="./02_Prices.html" rel="next">
+<link href="./index.html" rel="prev">
 <link href="././00/media/image1.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -89,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04_Other_Modules.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Other modules</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_Overview.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview and notation</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -104,7 +104,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">CPAT Excel-AI</a> 
+      <a href="./">CPAT-AI Model</a> 
         <div class="sidebar-tools-main">
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
@@ -124,50 +124,83 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">CPAT Excel-AI</span></a>
+ <span class="menu-text">CPAT-AI Model</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_Overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview</span></span></a>
+  <a href="./01_Overview.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview and notation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_Mitigation_Prototype.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The mitigation prototype</span></span></a>
+  <a href="./02_Prices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Energy prices</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_Methods.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Methods of the mitigation prototype</span></span></a>
+  <a href="./03_Energy_demand.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Energy demand</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_Other_Modules.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Other modules</span></span></a>
+  <a href="./04_Power.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Power</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_Data_and_Working.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data and working practice</span></span></a>
+  <a href="./05_Road_transport.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Road transport</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_Emissions_and_ETS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Emissions and emissions trading</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_Revenues_GDP_welfare.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Revenues, GDP and welfare</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_Distribution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Distribution</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A_Equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Equation list: methodology notation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./B_Equations_codes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Equation list: CPAT code names</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title"><strong><em>Chapter Contents</em></strong></h2>
-   
-  <ul>
-  <li><a href="#distribution-module" id="toc-distribution-module" class="nav-link active" data-scroll-target="#distribution-module"><span class="header-section-number">4.1</span> Distribution module</a></li>
-  <li><a href="#air-pollution-module" id="toc-air-pollution-module" class="nav-link" data-scroll-target="#air-pollution-module"><span class="header-section-number">4.2</span> Air-pollution module</a></li>
-  <li><a href="#road-transport-co-benefits" id="toc-road-transport-co-benefits" class="nav-link" data-scroll-target="#road-transport-co-benefits"><span class="header-section-number">4.3</span> Road transport co-benefits</a></li>
-  </ul>
-</nav>
+    
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -178,7 +211,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-modules" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Other modules</span></span></h1>
+<h1 class="title"><span id="sec-model-overview" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Overview and notation</span></span></h1>
 </div>
 
 
@@ -195,32 +228,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>The mitigation prototype is the integrated model. Two further modules are standalone workbooks that take their inputs from it: the distribution module and the air-pollution module. Every module is published under <code>&lt;Name&gt;_latest</code> in <code>excel_ai/active_workbooks/</code>, through which the modules link to each other.</p>
-<section id="distribution-module" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="distribution-module"><span class="header-section-number">4.1</span> Distribution module</h2>
-<p>The standalone distribution module (<code>excel_ai/CPAT-AI-Distribution-Prototype_v&lt;version&gt;.xlsm</code>) computes the household effects by decile of a mitigation scenario: price changes, budget shares, direct and indirect effects, revenue recycling and welfare. Its method is the Distribution tab of the mitigation prototype (<a href="03_Methods.html#sec-distribution-tab" class="quarto-xref"><span>Section 3.7</span></a>).</p>
-<p><strong>One copy of the formulas.</strong> The module is cut from the built mitigation prototype: its Distribution and FromMitigation tabs, the distribution data tabs, <code>ScenarioDefinition</code> (distribution rows shown) and <code>Settings</code>. To change a formula, change the mitigation builder, rebuild the prototype, then rebuild the module.</p>
-<p><strong>One input tab.</strong> Its only input from Mitigation is the tab <code>FromMitigation</code>: the values of the prototype’s export block (section 19a, defined name <code>ExportDistn</code>), in the Mitigation column layout. The button <em>Update from Mitigation</em> on <code>Cover</code> copies those values from the mitigation workbook named on <code>Cover</code>. If that workbook is open, its current values are used; otherwise it is opened read-only, without macros or recalculation. The module runs one scenario at a time.</p>
-<p><strong>Build and check.</strong></p>
-<pre><code>cd excel_ai/distribution
-python build_distribution.py    # the module, about 1 minute
-python check_distribution.py    # about 4 minutes</code></pre>
-<p>The check confirms that the Distribution tab equals the prototype’s cell for cell, that <code>FromMitigation</code> equals section 19a through the macro’s row mapping, that no formula reads a dropped tab or an undefined name, and, end to end, that a carbon price changed in the prototype and carried over by the update gives the same Distribution.</p>
-</section>
-<section id="air-pollution-module" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="air-pollution-module"><span class="header-section-number">4.2</span> Air-pollution module</h2>
-<p>The air-pollution module (<code>excel_ai/air_pollution/</code>) is a standalone rebuild of the Air Pollution module of legacy CPAT 1.0pre_459. It starts from the pollutant emissions produced by Mitigation and does not recalculate fuel use or emissions.</p>
-<p><strong>Boundary.</strong> The inputs are the baseline and policy emission series keyed by the codes <code>aps.&lt;pollutant&gt;.&lt;sector&gt;</code>, with year, country, unit, scenario and source traceability. In legacy 459 the handoff is <code>country.mit.em.&lt;pollutant&gt;.&lt;sector&gt;.&lt;scenario&gt;</code> in tonnes per year; the current Mitigation outputs are in kt, so units are converted explicitly at the boundary. Once the input block is filled, the workbook runs without links to another workbook.</p>
-<p><strong>Scope.</strong> The module reproduces the calculations and options of legacy 459: emissions to concentrations, exposure and health burden, and economic outputs, for baseline and policy scenarios and their difference. Fuel externalities are reported as outputs only and are not fed back into Mitigation prices.</p>
-<p><strong>Status.</strong> The current workbook holds the scaffold: Cover, Data Sources, Mitigation Inputs and the nine public reference tables extracted from legacy 459 (the <code>ap459_*</code> tables of <code>data/Public01/tidy/</code>). The calculations, unit conversion, outputs and the numerical regression are open. The first regression case is Senegal, the country selected in the legacy NoPropData dashboard.</p>
-<p><strong>Validation.</strong> Each selected output is compared with legacy 459 by scenario and year, and every difference is classified as a confirmed bug fix, a replicated issue, or unresolved. Numerical equivalence is not claimed until the selected country has populated, reproducible inputs.</p>
-</section>
-<section id="road-transport-co-benefits" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="road-transport-co-benefits"><span class="header-section-number">4.3</span> Road transport co-benefits</h2>
-<p>The prototype reads the road-transport co-benefits as values typed on its tab <code>FromTransportCB</code>, as it reads the air-pollution marginal damages on <code>FromAirPollution</code> (both 0 for countries without values). They feed the Pigouvian components of the prototype. A standalone transport co-benefits module is planned to supply them.</p>
+<p>(To be written.)</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -625,13 +635,13 @@ python check_distribution.py    # about 4 minutes</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./03_Methods.html" class="pagination-link" aria-label="Methods of the mitigation prototype">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Methods of the mitigation prototype</span></span>
+      <a href="./index.html" class="pagination-link" aria-label="CPAT-AI Model">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">CPAT-AI Model</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./05_Data_and_Working.html" class="pagination-link" aria-label="Data and working practice">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data and working practice</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./02_Prices.html" class="pagination-link" aria-label="Energy prices">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Energy prices</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -642,7 +652,7 @@ python check_distribution.py    # about 4 minutes</code></pre>
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool. Documentation release 1.1.0 (2026-10-30): Excel-AI 1.1.0, Coded CPAT 1.1.0p1.3, data edition Public01</p>
+<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool. The model shared by Excel-AI 1.1.0 and CPAT Python 1.1.0p1.3; data edition Public01</p>
 </div>
     <div class="nav-footer-right">
       &nbsp;

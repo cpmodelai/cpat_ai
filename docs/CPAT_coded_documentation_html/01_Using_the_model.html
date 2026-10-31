@@ -185,20 +185,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./A_Equations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Equations</span></span></a>
+  <a href="./A_Reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Data, inputs and variables</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./B_Reference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Data, inputs and variables</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./C_Project.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Project documents</span></span></a>
+  <a href="./B_Project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Project documents</span></span></a>
   </div>
 </li>
       </ul>
@@ -292,9 +286,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="1.1.1" class="anchored" data-anchor-id="what-coded-cpat-is"><span class="header-section-number">1.1.1</span> What Coded CPAT is</h3>
 <ul>
 <li><strong>A replication.</strong> Coded CPAT computes what the Excel-AI prototypes compute: the mitigation model (prices, power, fuel use, emissions, revenues, GDP effects, welfare, for 2022-2041) and the household distribution module (incidence by decile). The tests check every output code against Excel-AI’s values.</li>
-<li><strong>Readable code.</strong> Each equation of the <a href="./A_Equations.html#sec-app-eq">equation list</a> is one small function or one marked line, with the code names of the Excel models (<code>ener</code> energy use, <code>atp</code> after-tax price, <code>co2</code> emissions, …).</li>
+<li><strong>Readable code.</strong> Each equation of the <a href="../CPAT_model_documentation_html/A_Equations.html">equation list</a> is one small function or one marked line, with the code names of the Excel models (<code>ener</code> energy use, <code>atp</code> after-tax price, <code>co2</code> emissions, …).</li>
 <li><strong>One entry point.</strong> <code>cpat_model.run(scenarios, settings)</code> serves the command line, the Shiny app and the tests.</li>
-<li><strong>Bugs are not copied.</strong> Where Excel-AI has a bug, Coded CPAT fixes it and registers it (<a href="./C_Project.html#sec-app-bugs">Appendix C</a>); everything else follows Excel-AI exactly.</li>
+<li><strong>Bugs are not copied.</strong> Where Excel-AI has a bug, Coded CPAT fixes it and registers it (<a href="./B_Project.html#sec-app-bugs">Appendix B</a>); everything else follows Excel-AI exactly.</li>
 </ul>
 </section>
 <section id="install" class="level3" data-number="1.1.2">
@@ -373,7 +367,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Format: tidy CSV.</strong> One table per file; long format, one observation per row; standard keys first, then <code>value</code> (or one column per variable). Country codes are ISO3 in upper case (<code>EGY</code>).</li>
 <li><strong>Where: <code>data/Public01/tidy/</code></strong> in this repository: the <strong>dummy</strong> database. It is data edition Public01 (<code>data/editions.csv</code>): the public data, and Egypt’s rows of the six proprietary tables perturbed within ±3% (identities kept); every country can be added. The <strong>full</strong> database (every country, the proprietary tables) lives in a private repository, never in this one.</li>
 <li><strong>Choosing a database:</strong> <code>Settings(database='dummy')</code> (default) reads <code>data/Public01/tidy/</code>; <code>Settings(database='full')</code> reads the folder named by the environment variable <code>FULL_DATA_PATH</code> (set it in <code>coded/.env</code> or your shell). Command line: <code>--database full</code>.</li>
-<li><strong>One table list:</strong> <code>data/Public01/tidy/_manifest.csv</code> lists every table (218 tables, plus the layout entries of the 13 tabs kept at their cell addresses), its kind, its legacy source, its keys, rows and whether it is proprietary. <a href="./B_Reference.html#sec-app-tables">Appendix B</a> shows them all with their columns.</li>
+<li><strong>One table list:</strong> <code>data/Public01/tidy/_manifest.csv</code> lists every table (218 tables, plus the layout entries of the 13 tabs kept at their cell addresses), its kind, its legacy source, its keys, rows and whether it is proprietary. <a href="./A_Reference.html#sec-app-tables">Appendix A</a> shows them all with their columns.</li>
 <li><strong>Tidy is the source of truth.</strong> The legacy-compatible workbook <code>data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx</code> is written from it by <code>data/scripts/tidy_convert.py</code> (tested round trip), for pasting into legacy CPAT and for Excel-AI.</li>
 <li><strong>Master table:</strong> <code>data/catalog.csv</code> lists every data table: tidy file, Excel tab, proprietary or not, provenance, and the legacy data sources.</li>
 </ul>
@@ -490,7 +484,7 @@ EGY,2022,ktoe,cement,coa,1422.24         EGY,2019,mit.sp.coa.pow,3.88</code></pr
 <h3 data-number="1.3.1" class="anchored" data-anchor-id="in-short-1"><span class="header-section-number">1.3.1</span> In short</h3>
 <ul>
 <li><strong>A scenario set is one CSV file</strong>: one row per input, one column per scenario. Scenario 1, the <strong>baseline</strong>, comes first; every other scenario is compared with it.</li>
-<li><strong>Inputs are named as in Excel-AI</strong> (<code>NameOfParameter</code>, the ScenarioDefinition sheet): <code>CPLevelTarget</code>, <code>CPIntro</code>, <code>IntEnerPricForeSource</code>, … Every input is listed in <a href="./B_Reference.html#sec-app-inputs">Appendix B</a>.</li>
+<li><strong>Inputs are named as in Excel-AI</strong> (<code>NameOfParameter</code>, the ScenarioDefinition sheet): <code>CPLevelTarget</code>, <code>CPIntro</code>, <code>IntEnerPricForeSource</code>, … Every input is listed in <a href="./A_Reference.html#sec-app-inputs">Appendix A</a>.</li>
 <li><strong>The example</strong> is Excel-AI’s own set, <code>data/inputs/scenarios_excel_ai.csv</code> (six scenarios for Egypt). Copy it and change the values to make your own.</li>
 </ul>
 </section>
@@ -582,7 +576,7 @@ EGY,2022,ktoe,cement,coa,1422.24         EGY,2019,mit.sp.coa.pow,3.88</code></pr
 <tr class="odd">
 <td>Variable</td>
 <td><code>co2</code>, <code>ener</code>, <code>atp</code>, <code>rnew</code></td>
-<td>What it is (<a href="./B_Reference.html#sec-app-variables">Appendix B</a> lists every variable with its description and unit)</td>
+<td>What it is (<a href="./A_Reference.html#sec-app-variables">Appendix A</a> lists every variable with its description and unit)</td>
 </tr>
 <tr class="even">
 <td>Sector</td>
@@ -664,10 +658,10 @@ EGY,2022,ktoe,cement,coa,1422.24         EGY,2019,mit.sp.coa.pow,3.88</code></pr
 <h2 data-number="1.5" class="anchored" data-anchor-id="sec-editing"><span class="header-section-number">1.5</span> Editing the model</h2>
 <section id="the-rules-in-ten-lines" class="level3" data-number="1.5.1">
 <h3 data-number="1.5.1" class="anchored" data-anchor-id="the-rules-in-ten-lines"><span class="header-section-number">1.5.1</span> The rules in ten lines</h3>
-<p>The full rules are the Python norms (<a href="./C_Project.html#sec-app-norms">Appendix C</a>); these are the ones you need first.</p>
+<p>The full rules are the Python norms (<a href="./B_Project.html#sec-app-norms">Appendix B</a>); these are the ones you need first.</p>
 <ol type="1">
 <li><strong>Excel-AI is the specification.</strong> Python computes what Excel-AI computes, row for row, except Excel-AI’s bugs.</li>
-<li><strong>Bugs are not copied; issues are.</strong> A bug (Excel-AI does not compute what it means to) is fixed in Python and registered the same day; an issue (a potential improvement) is logged and copied as it is (<a href="./C_Project.html#sec-app-bugs">Appendix C</a>).</li>
+<li><strong>Bugs are not copied; issues are.</strong> A bug (Excel-AI does not compute what it means to) is fixed in Python and registered the same day; an issue (a potential improvement) is logged and copied as it is (<a href="./B_Project.html#sec-app-bugs">Appendix B</a>).</li>
 <li><strong>Codes are shared.</strong> Inputs, variables and outputs carry Excel-AI’s names; never invent a second name.</li>
 <li><strong>One equation, one function.</strong> Each equation of the equation list is a small function or one marked line, citing its id (<code>EQ-M3.1</code>).</li>
 <li><strong>The order is written once</strong>, in <code>cpat_model/mitigation/chain.py</code>.</li>
@@ -760,7 +754,7 @@ EGY,2022,ktoe,cement,coa,1422.24         EGY,2019,mit.sp.coa.pow,3.88</code></pr
 <ul>
 <li><strong>Run <code>pytest</code> from <code>coded/</code></strong> before every commit (about one minute). Everything must pass.</li>
 <li><strong>The main test is the comparison with Excel-AI</strong>: every output code of every built block, for Egypt’s scenarios 1 and 2, every year 2022-2041, must equal Excel-AI’s stored value within 1e-9 (relative where the value is above 1). The distribution sheet is compared the same way, basket and deciles.</li>
-<li><strong>Known differences</strong> are the codes where Coded CPAT fixes an Excel-AI bug that is still open in the prototype; the tests leave them out of the match and check that they do differ (<a href="./C_Project.html#sec-app-bugs">Appendix C</a>).</li>
+<li><strong>Known differences</strong> are the codes where Coded CPAT fixes an Excel-AI bug that is still open in the prototype; the tests leave them out of the match and check that they do differ (<a href="./B_Project.html#sec-app-bugs">Appendix B</a>).</li>
 <li><strong>The status below is generated</strong>: <code>python make_qmd.py --tests</code> (in <code>docs/CPAT_coded_documentation_qmd/</code>) runs the tests and rewrites it.</li>
 </ul>
 </section>

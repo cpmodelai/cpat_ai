@@ -1,0 +1,37 @@
+# CPAT-AI Model {.unnumbered #book-home}
+
+<style>#book-home > h1 { display: none; }</style>
+
+The CPAT-AI model is one model in two forms. **Excel-AI** computes it in the rows of a workbook; **CPAT Python** computes it in small functions, one per equation. Both use the same equations, the same variable codes and the same order of calculation, and they agree number for number. This book explains that shared model, block by block, as the [Methodology](../CPAT_full_documentation_html/index.html) explains legacy CPAT, and links to the methodology wherever the model follows it, simplifies it or departs from it.
+
+| Chapter | What it computes |
+|---|---|
+| [1 Overview, notation and policies](01_Overview.qmd) | How a run is organised, the indices and units, the policy instruments and their paths |
+| [2 Energy prices](02_Prices.qmd) | International prices, supply costs, taxes and subsidies, the price including new policies |
+| [3 Energy demand](03_Energy_demand.qmd) | Fuel use by sector and fuel: elasticities, efficiency, biomass, totals |
+| [4 Power](04_Power.qmd) | Generation costs, dispatch, capacity and retirement, investment, storage, electricity prices |
+| [5 Road transport](05_Road_transport.qmd) | The engineer road model: vehicles, choice of technology, fuel economy, fuel use |
+| [6 Emissions and emissions trading](06_Emissions_and_ETS.qmd) | CO2 and other gases, local pollutants, the NDC, the ETS |
+| [7 Revenues, GDP and welfare](07_Revenues_GDP_welfare.qmd) | Revenues, the GDP effect of their use, carbon pricing indicators, welfare |
+| [8 Distribution](08_Distribution.qmd) | The effect on households by decile, and the recycling of revenues |
+| [Appendix A](A_Equations.qmd), [Appendix B](B_Equations_codes.qmd) | Every equation, in the methodology's notation and with the CPAT code names |
+
+**How to read a chapter.** Each section explains in words what the block computes, then gives its equations, numbered and with every symbol defined. Four kinds of box follow the equations:
+
+::: {.callout-tip icon=false title="Pseudocode"}
+The computation step by step, with the CPAT variable codes. Open by default; written once for both Excel-AI and CPAT Python.
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+Where the equations live: the workbook section, rows and inputs, and the Python module and function. Collapsed by default.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+The legacy bugs fixed, the issues replicated and the departures decided, with their register codes. Collapsed by default.
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Validation: comparisons with legacy runs and independent recomputations. Collapsed by default.
+:::
+
+*The chapters are written in `docs/CPAT_model_documentation_qmd/`; the appendices are generated from `coded/cpat_documentation/equations/equations.yaml` by `make_qmd.py`.*
