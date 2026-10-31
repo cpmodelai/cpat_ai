@@ -616,5 +616,6 @@ pres.addSection({ title: "Next steps" });
     if (/^CPAT-AI_Overview_v[\d.]+\.pptx$/.test(f) && path.join(path.dirname(OUT), f) !== OUT)
       fs.renameSync(path.join(path.dirname(OUT), f), path.join(RELEASES, f));
   fs.copyFileSync(OUT, LATEST);
+  require("child_process").execFileSync("python3", [path.join(path.dirname(LATEST), "make_thumbnails.py")]);   // preview image for the website
   console.log("wrote", OUT, "and", LATEST);
 })();

@@ -15,8 +15,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, '..', '..'))
 GITHUB = 'https://github.com/cpmodelai/cpat_ai/blob/main/'
 
-DECK = ('::: {.callout-note appearance="simple"}\n**Slides:** [CPAT-AI overview: the mitigation prototype]'
-        '(../presentations/01_CPAT-AI_Overview_latest.pptx) (PowerPoint, latest version)\n:::\n')
+DECK = '```{=html}\n<div class="decks">\n<a class="deck-card" href="../presentations/01_CPAT-AI_Overview_latest.pptx" style="display:flex;gap:14px;align-items:center;text-decoration:none;border:1px solid #dee2e6;border-radius:6px;padding:10px;margin:0 0 12px;max-width:640px;color:inherit"><img src="../presentations/thumbs/01_CPAT-AI_Overview_latest.png" alt="First slide of CPAT-AI overview: the mitigation prototype" style="width:200px;border-radius:4px;border:1px solid #dee2e6;margin:0"><span><b style="color:#2780e3">CPAT-AI overview: the mitigation prototype</b><br><span style="font-size:.9em;color:#6c757d">Status, user guide, results · PowerPoint, latest version</span></span></a>\n</div>\n```\n'
 
 # The generated chapters: (chapter file, chapter title, section id, lead text, parts). A chapter of one part is that
 # source; a chapter of several parts has one section per source, (source relative to the repository, section title or

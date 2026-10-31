@@ -237,5 +237,6 @@ s.addText([
 pres.writeFile({ fileName: OUT }).then(async () => {
   await applyTheme(OUT, THEME);
   fs.copyFileSync(OUT, LATEST);
+  require("child_process").execFileSync("python3", [path.join(path.dirname(LATEST), "make_thumbnails.py")]);   // preview image for the website
   console.log("wrote " + OUT + " and " + LATEST);
 });

@@ -2,9 +2,11 @@
 
 <style>#book-home > h1 { display: none; }</style>
 
-::: {.callout-note appearance="simple"}
-**Slides:** [Coded CPAT overview](../presentations/03_Coded-CPAT_Overview_latest.pptx) (PowerPoint, latest version)
-:::
+```{=html}
+<div class="decks">
+<a class="deck-card" href="../presentations/03_Coded-CPAT_Overview_latest.pptx" style="display:flex;gap:14px;align-items:center;text-decoration:none;border:1px solid #dee2e6;border-radius:6px;padding:10px;margin:0 0 12px;max-width:640px;color:inherit"><img src="../presentations/thumbs/03_Coded-CPAT_Overview_latest.png" alt="First slide of Coded CPAT overview" style="width:200px;border-radius:4px;border:1px solid #dee2e6;margin:0"><span><b style="color:#2780e3">Coded CPAT overview</b><br><span style="font-size:.9em;color:#6c757d">Status, how a run works, testing, ways in · PowerPoint, latest version</span></span></a>
+</div>
+```
 
 CPAT Python (Coded CPAT) is the Python model of CPAT. It reproduces the Excel-AI prototypes number for number (every result code within 1e-9), runs one country and two scenarios in under a second, and is written to be read: one small function per equation, named with the codes of the Excel models. It runs from the command line, from Python or in a Shiny app.
 
