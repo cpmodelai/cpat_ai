@@ -4,7 +4,8 @@
 
 Excel-AI is the Excel side of the CPAT-AI project: Excel prototypes of legacy CPAT, written by Python builders (openpyxl) and checked by LibreOffice recalculation and independent Python recomputation, for modellers and reviewers who work in Excel and for the CPAT team. Its files are in `excel_ai/`.
 
-- **Modules.** The mitigation prototype (the integrated model, with the distribution tab), the standalone distribution module and the standalone air-pollution module.
+- **Modules.** One workbook per module, without macros (since 1.2.0): mitigation (the integrated model), distribution and air pollution.
+- **The Master workbook.** `excel_ai/active_workbooks/CPAT-AI-Master_UserGuide.xlsm` is the user guide and holds every macro: it activates the modules (formulas to 2041, saved as `.xlsb`), updates their data and the distribution inputs, and stores and compares scenarios (@sec-workbooks).
 - **Inputs.** The policy and parameter inputs are the rows and names of the legacy `MTInputs` sheet (`NameOfParameter`), in legacy units. The codes map (`docs/CPAT-AI_CodesMap_v<version>.xlsx`, tab Inputs) lists every input with its row, its name, its legacy name and its Python key.
 - **Codes and data.** Input codes, output codes and the sector and fuel vocabularies are shared with the Python model (the *CPAT Python* tab), which replicates Excel-AI number for number. Both read the root folder `data/` (@sec-data).
 - **The rule** on bugs and issues (@sec-bugs).
@@ -33,11 +34,25 @@ The legacy workbook is never edited or re-saved; work is done on copies in scrat
 | Module | Status |
 |---|---|
 | Mitigation: prices, power, transport, buildings, industry, emissions, ETS, revenues, GDP, welfare | Integrated prototype, released |
-| Distribution: household effects by decile | Tab of the prototype and standalone module, released |
+| Distribution: household effects by decile | Standalone module, released (its formulas cut from the mitigation builder) |
 | Air pollution | Standalone workbook: data scaffold built, calculations open |
 | Road transport co-benefits | Values typed into the prototype from the module |
 
-The current workbooks are in `excel_ai/active_workbooks/`; every version is in the module's `releases/` folder, and the release notes are in the task log (`excel_ai/core/CAVEATS.md`).
+## How the workbooks work {#sec-workbooks}
+
+| File | What it is |
+|---|---|
+| `excel_ai/active_workbooks/CPAT-AI-Master_UserGuide.xlsm` | **The Master**: open it first (Excel 365, macros on). The user guide, the module table (latest version, the `.xlsx`, its GitHub link, the `.xlsb` it writes) and every macro |
+| `excel_ai/<module>/<Name>_latest.xlsx` | The latest **unactivated** module: no macros, formulas to 2035 (small, quick to open), with the values of the full model |
+| `excel_ai/active_workbooks/<Name>_latest.xlsb` | The **activated** module, written by the Master: formulas to 2041, recalculated. Work here |
+| `excel_ai/<module>/releases/<Name>_v<version>.xlsx` | Every version (to 1.1.0: `<Name>-Prototype_v<version>.xlsm`, with macros) |
+
+1. **Activate.** The Master's *Activate* buttons open each module's `.xlsx` (from the clone, else GitHub), copy the 2035 column across to 2041 in every scenario group of `Mitigation` and `MTOutputs`, note the activation on the module's tab `FromMaster`, recalculate and save `<Name>_latest.xlsb` next to the Master.
+2. **Work in the `.xlsb`.** Scenarios on `ScenarioDefinition` (J baseline, K live scenario, L onwards definitions); F9 recalculates (manual calculation); results on `MTOutputs` (scenarios side by side) and `ScenarioCompare` (the dashboard).
+3. **Feed it from the Master.** *Update data tables* (data source and rows, one country or all, on the Master's `Settings`; Power Query); *Update Distribution from Mitigation* (section 19a into the distribution workbook).
+4. **Store and compare** in the Master: *Store live scenarios*, *Run stored scenarios* (the batch run, ETS goal seek included), `StoredScenarios` (ten slots, values) and `CompareStored`.
+
+The `.xlsb` are generated files: on a git conflict take either side and activate again; never merge them, and never commit Excel's `~$` lock files. A workbook run with real data stays on your local drive. The release notes are in the task log (`excel_ai/core/CAVEATS.md`). Details: @sec-mitigation and @sec-many-scenarios.
 
 ## Bugs and issues {#sec-bugs}
 

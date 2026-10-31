@@ -25,7 +25,7 @@ DECK = '```{=html}\n<div class="decks">\n<a class="deck-card" href="../presentat
 METHODS = 'excel_ai/mitigation/docs/methods/'
 MODEL = '../CPAT_model_documentation_html/'
 CHAPTERS = [
-    ('02_Mitigation_Prototype.qmd', 'The mitigation prototype', 'sec-mitigation',
+    ('02_Mitigation_Prototype.qmd', 'The mitigation module', 'sec-mitigation',
      DECK + '\n::: {.callout-tip appearance="simple"}\nThe method of every block, with its equations and pseudocode, is '
      f'in the **CPAT-AI Model** tab ([open it]({MODEL}index.html)), shared by Excel-AI and CPAT Python. This chapter '
      'is the workbook: how to open and use it, its sections, many scenarios, and its data tabs.\n:::\n',

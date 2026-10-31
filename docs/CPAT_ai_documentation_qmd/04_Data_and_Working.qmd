@@ -42,7 +42,7 @@ The project works under written norms (`excel_ai/core/NORMS.md`). They bind peop
 
 ### Files, versions and releases
 
-**Where the files are.** People open the workbooks in `excel_ai/active_workbooks/` (`<Name>_latest`, the permalinked copies the modules link to). Every version of a module workbook, the current one included, is in the module's `releases/` folder as `<Name>_v<version>.<ext>` (for example `excel_ai/mitigation/releases/CPAT-AI-Mitigation-Prototype_v1.1.0.xlsm`). The documents:
+**Where the files are.** People open the Master and the activated modules in `excel_ai/active_workbooks/` (@sec-workbooks); the latest unactivated module is `excel_ai/<module>/<Name>_latest.xlsx`. Every version of a module workbook, the current one included, is in the module's `releases/` folder as `<Name>_v<version>.<ext>` (for example `excel_ai/mitigation/releases/CPAT-AI-Mitigation_v1.2.0.xlsx`; to 1.1.0 `CPAT-AI-Mitigation-Prototype_v1.1.0.xlsm`). The documents:
 
 | File | Where | What it is |
 |---|---|---|

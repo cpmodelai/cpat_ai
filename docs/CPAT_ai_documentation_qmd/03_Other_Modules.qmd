@@ -1,24 +1,24 @@
 # Other modules {#sec-modules}
 
-The mitigation prototype is the integrated model. Two further modules are standalone workbooks that take their inputs from it: the distribution module and the air-pollution module. Every module is published under `<Name>_latest` in `excel_ai/active_workbooks/`, through which the modules link to each other.
+The mitigation module is the integrated model. Two further modules are standalone workbooks that take their inputs from it: the distribution module and the air-pollution module. Like Mitigation they have no macros: the Master workbook activates them into `excel_ai/active_workbooks/` and carries values between them (@sec-workbooks).
 
 ## Distribution module
 
-The standalone distribution module (`excel_ai/CPAT-AI-Distribution-Prototype_v<version>.xlsm`) computes the household effects by decile of a mitigation scenario: price changes, budget shares, direct and indirect effects, revenue recycling and welfare. Its method is the Distribution tab of the mitigation prototype, explained in the CPAT-AI Model tab ([Distribution](../CPAT_model_documentation_html/08_Distribution.html)).
+The distribution module (`excel_ai/distribution/CPAT-AI-Distribution_latest.xlsx`, activated as `excel_ai/active_workbooks/CPAT-AI-Distribution_latest.xlsb`; every version in `excel_ai/distribution/releases/`) computes the household effects by decile of a mitigation scenario: price changes, budget shares, direct and indirect effects, revenue recycling and welfare. Its method is explained in the CPAT-AI Model tab ([Distribution](../CPAT_model_documentation_html/08_Distribution.html)).
 
-**One copy of the formulas.** The module is cut from the built mitigation prototype: its Distribution and FromMitigation tabs, the distribution data tabs, `ScenarioDefinition` (distribution rows shown) and `Settings`. To change a formula, change the mitigation builder, rebuild the prototype, then rebuild the module.
+**One copy of the formulas.** The mitigation workbook no longer holds the Distribution tab (1.2.0). The module is cut from a full build of the mitigation builder (`CPAT_WITH_DIST=1`): its Distribution and FromMitigation tabs, the distribution data tabs, `ScenarioDefinition` (distribution rows shown), `FromMaster` and `Constants and Mappings`. To change a formula, change the mitigation builder, then rebuild Mitigation and the module.
 
-**One input tab.** Its only input from Mitigation is the tab `FromMitigation`: the values of the prototype's export block (section 19a, defined name `ExportDistn`), in the Mitigation column layout. The button *Update from Mitigation* on `Cover` copies those values from the mitigation workbook named on `Cover`. If that workbook is open, its current values are used; otherwise it is opened read-only, without macros or recalculation. The module runs one scenario at a time.
+**One input tab.** Its only input from Mitigation is the tab `FromMitigation`: the values of the mitigation export block (section 19a, defined name `ExportDistn`), in the Mitigation column layout. The Master's *Update Distribution from Mitigation* copies them from the activated mitigation workbook into the activated distribution workbook, by code (it stops if the rows do not match, for example two different versions), recalculates and saves it. The module runs one scenario at a time.
 
 **Build and check.**
 
 ```
 cd excel_ai/distribution
-python build_distribution.py    # the module, about 1 minute
+python build_distribution.py    # the module, about 4 minutes
 python check_distribution.py    # about 4 minutes
 ```
 
-The check confirms that the Distribution tab equals the prototype's cell for cell, that `FromMitigation` equals section 19a through the macro's row mapping, that no formula reads a dropped tab or an undefined name, and, end to end, that a carbon price changed in the prototype and carried over by the update gives the same Distribution.
+The check confirms that the Distribution tab equals a full build of the mitigation builder cell for cell, that `FromMitigation` equals section 19a through the macro's row mapping, that no formula reads a dropped tab or an undefined name, and, end to end, that a carbon price changed in Mitigation and carried over by the update gives the same Distribution.
 
 ## Air-pollution module
 
@@ -34,4 +34,4 @@ The air-pollution module (`excel_ai/air_pollution/`) is a standalone rebuild of 
 
 ## Road transport co-benefits
 
-The prototype reads the road-transport co-benefits as values typed on its tab `FromTransportCB`, as it reads the air-pollution marginal damages on `FromAirPollution` (both 0 for countries without values). They feed the Pigouvian components of the prototype. A standalone transport co-benefits module is planned to supply them.
+The mitigation module reads the road-transport co-benefits as values typed on its tab `FromTransportCB`, as it reads the air-pollution marginal damages on `FromAirPollution` (both 0 for countries without values). They feed the Pigouvian components of Mitigation. A standalone transport co-benefits module is planned to supply them.

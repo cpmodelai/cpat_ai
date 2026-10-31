@@ -9,12 +9,12 @@
 </div>
 ```
 
-Excel-AI is CPAT rebuilt as readable Excel workbooks, generated and checked by AI. The mitigation prototype covers the CPAT mitigation and distribution chain with plain formulas (one formula per block, none over 100 characters), recalculates in about half the time of legacy CPAT, and is checked number for number by independent Python recomputation. Rebuilding it found 228 bugs in legacy CPAT, each fixed in the prototype and written up with a cell-level fix plan; every open modelling question is replicated and tracked.
+Excel-AI is CPAT rebuilt as readable Excel workbooks, generated and checked by AI. The modules (mitigation, distribution, air pollution; one workbook each, run from a Master workbook that holds every macro) cover the CPAT mitigation and distribution chain with plain, short formulas (one formula per block), recalculates in about half the time of legacy CPAT, and is checked number for number by independent Python recomputation. Rebuilding it found 228 bugs in legacy CPAT, each fixed in the prototype and written up with a cell-level fix plan; every open modelling question is replicated and tracked.
 
 | Chapter | What it covers |
 |---|---|
 | [1 Overview](01_Overview.qmd) | Excel-AI, legacy CPAT as the reference, status, and the rule on bugs and issues |
-| [2 The mitigation prototype](02_Mitigation_Prototype.qmd) | The workbook: opening, the blocks in brief, results, limits, many scenarios, the data tabs |
+| [2 The mitigation module](02_Mitigation_Prototype.qmd) | The workbook: the Master and activation, the blocks in brief, results, limits, many scenarios, the data tabs |
 | [3 Other modules](03_Other_Modules.qmd) | The standalone distribution and air-pollution workbooks |
 | [4 Data and working practice](04_Data_and_Working.qmd) | The data editions, files and releases, checks, the repository |
 

@@ -20,3 +20,7 @@ coded/cpat_documentation/**/tmp*.md
 
 # archive of the earlier data folder (removed 2026-10-30; the user keeps it locally)
 data_old/
+
+# Excel and LibreOffice lock files (written while a workbook is open; never committed)
+~$*
+.~lock.*#
