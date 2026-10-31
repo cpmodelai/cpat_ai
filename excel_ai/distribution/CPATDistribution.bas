@@ -23,7 +23,7 @@ Private Const FM_FIRST As Long = 8            ' first data row of FromMitigation
 Private Const FM_LAST As Long = 35            ' last data row (the builder asserts it)
 Private Const FM_COL_FIRST As Long = 11       ' K: code column of scenario group 1
 Private Const FM_COL_LAST As Long = 260       ' IZ: last column Distribution can read
-Private Const MIT_FILE As String = "CPAT-AI-Mitigation-Prototype_latest.xlsm"
+Private Const MIT_FILE As String = "CPAT-AI-Mitigation-Prototype_latest.xlsx"
 Private Const AUTOSEC_FORCE_DISABLE As Long = 3   ' msoAutomationSecurityForceDisable (Office library not referenced)
 
 '---------------------------------------------------------------- public macros

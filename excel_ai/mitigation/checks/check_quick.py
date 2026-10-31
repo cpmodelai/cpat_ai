@@ -143,9 +143,10 @@ def tabs(wb):
                   if c.font and c.font.b and rgb(c) == 'EBF1DE']
     log(f'tab title bars and sub-heading bars of equal width on every tab: exceptions {bad[:5]}', not bad)
     log(f'table headers without the input fill: exceptions {heads[:5]}', not heads)
-    log(f'v0.6.7: front tabs Cover, ScenarioCompare, ScenarioDefinition, then the MAIN divider and Mitigation: '
-        f'{wb.sheetnames[:5]}', wb.sheetnames[:5] == ['Cover', 'ScenarioCompare', 'ScenarioDefinition', 'MAIN->>',
-                                                       'Mitigation'])
+    log(f'v1.2.0: front tabs Cover, ScenarioDefinition, then MAIN (Mitigation) and OUTPUT (MTOutputs, '
+        f'ScenarioCompare): {wb.sheetnames[:7]}', wb.sheetnames[:7] == ['Cover', 'ScenarioDefinition', 'MAIN->>',
+                                                                         'Mitigation', 'OUTPUT->>', 'MTOutputs',
+                                                                         'ScenarioCompare'])
 
 
 def style(wb):
@@ -336,22 +337,49 @@ def protocol(wbf, data):
 
 
 def stored_complete(path):
-    """v0.6.7: every stored scenario (StoredOutputs, values written by the build's emulation of the batch run) has its
-    indicator rows found and numeric (v0.6.6 shipped the definitions empty: the batch copy blanked the live group)."""
-    ws = openpyxl.load_workbook(path, read_only=True, data_only=True)['StoredOutputs']
-    ids, bad = {}, []
-    for r in ws.iter_rows(min_row=B.SR_FIRST, values_only=True):
-        if r[2] is None:
-            continue
-        ids[r[0]] = ids.get(r[0], 0) + 1
-        if r[4] == 'code not found' or not any(isinstance(v, (int, float)) or (isinstance(v, str) and v)
-                                               for v in r[B.SR_Y0 - 1:]):   # v1.0.4: a text result (N/A) is a value
-            bad.append((r[0], r[2]))
-    if not ids and os.environ.get('QUICK'):      # v0.7.2: the quick build runs no batch (StoredOutputs empty)
-        lines.append('- StoredOutputs: empty in the quick build (no batch run): skipped')
+    """v0.6.7: every stored scenario of the build's emulation of the batch run has its indicator rows found and
+    numeric (v0.6.6 shipped the definitions empty). v1.2.0: the stored scenarios are in stored_scenarios.csv (read by
+    the Master workbook's builder), no longer a tab of the workbook."""
+    import csv as _csv
+    if os.environ.get('QUICK') or not os.path.exists(B.STORED_CSV):   # the quick build runs no batch
+        lines.append('- stored scenarios: none in the quick build (no batch run): skipped')
         print(lines[-1])
         return
-    log(f'StoredOutputs: rows by scenario ID {ids}; rows without values {len(bad)} {bad[:4]}', ids and not bad)
+    ids, bad = {}, []
+    with open(B.STORED_CSV, encoding='utf-8') as f:
+        rd = _csv.reader(f)
+        next(rd)
+        for r in rd:
+            ids[r[0]] = ids.get(r[0], 0) + 1
+            if r[4] == 'code not found' or not any(v not in ('', 'None') for v in r[B.SR_Y0 - 1:]):
+                bad.append((r[0], r[2]))
+    log(f'stored scenarios (stored_scenarios.csv): rows by scenario ID {ids}; rows without values {len(bad)} '
+        f'{bad[:4]}', ids and not bad)
+
+
+def live_outputs(data):
+    """v1.2.0: MTOutputs shows Mitigation's values: in every scenario group of Mitigation, each output row equals the
+    Mitigation cell of its row (column J) in the same column; ScenarioCompare has a scenario ID and values in every
+    slot that has a Mitigation group (no empty second slot)."""
+    mo, mi, sc = data['MTOutputs'], data['Mitigation'], data['ScenarioCompare']
+    n, bad = 0, []
+    groups = [g for g in B.mto_cols() if mi.cell(5, g[0]).value not in (None, '')]
+    for r in range(B.MTO_R0, B.MTO_LAST + 1):
+        j = mo.cell(r, 10).value
+        if not isinstance(j, (int, float)):
+            continue
+        for c0, c1 in groups:
+            for c in range(c0, c1 + 1):
+                a, b = mo.cell(r, c).value, mi.cell(int(j), c).value
+                n += 1
+                if a != b and not (a in (None, '') and b in (None, '')):
+                    bad.append((r, c, a, b))
+    log(f'MTOutputs equals Mitigation in its {len(groups)} scenario groups ({n} cells): differences {len(bad)} '
+        f'{bad[:3]}', n > 0 and not bad)
+    filled = [k for k in range(len(groups)) if isinstance(sc.cell(B.SC_R_ID, B.SC_C0 + k).value, (int, float))
+              and isinstance(sc.cell(B.SC_KEY_R0, B.SC_C0 + k).value, (int, float))]
+    log(f'ScenarioCompare: slots with a scenario and a key result {filled} of the {len(groups)} groups',
+        filled == list(range(len(groups))))
 
 
 def lambda_group(data):
@@ -495,7 +523,7 @@ def excel_open():
             return
         xl.CalculateFull()
         errs = []
-        for name in ('Mitigation', 'MTOutputs', 'ScenarioCompare', 'StoredOutputs'):
+        for name in ('Mitigation', 'MTOutputs', 'ScenarioCompare'):
             vals = wb.Worksheets(name).UsedRange.Value or ()
             errs += [(name, i, j) for i, row in enumerate(vals, 1) for j, v in enumerate(row, 1)
                      if isinstance(v, int) and v < -2146820000]                 # COM error values (#NAME? etc.)
@@ -585,7 +613,7 @@ def main():
     t0 = time.time()
     stage = lambda what: print(f'[{time.time() - t0:5.0f} s] {what}', flush=True)   # v0.4.9: stage timings
     wait = LO.start_values(LO.expanded_zip(B.OUT, C.LAMBDA_CALL, C.expand),   # v0.4.9: recalculated meanwhile
-                           ['Mitigation', 'Distribution', 'DistMapping'])
+                           ['Mitigation', 'Distribution', 'DistMapping', 'MTOutputs', 'ScenarioCompare'])
     stage('expanded copy written, LibreOffice session started')
     wbf = openpyxl.load_workbook(B.OUT)
     structure(wbf)
@@ -598,6 +626,7 @@ def main():
         f'data of empty ScenarioCompare slots, {gaps[:2]})', not errs)
     lambda_group(data)
     distribution(data)
+    live_outputs(data)
     stored_complete(B.OUT)
     vba_names()
     protocol(wbf, data)                            # v0.7.2 (codes R9)
