@@ -218,8 +218,7 @@ def step(state, db, inputs, settings, baseline, t):
     x = {var: F[var][..., k] for var in ('xcpd', 'nce', 'csw', 'pcw', 'ctxnew', 'ntx', 'ets', 'xcp', 'etx.p', 'vat.p',
                                          'esub.p')}
     leak_now = {name: at(name.split('.')[0], 'res', name.split('.')[1]) for name in leak_rows}
-    use = np.array([[at('trbe', 'rod', 'bio') if (s, f) == ('rod', 'bio') else at('enel', s, f) for f in FUELS]
-                    for s in SECTORS])
+    use = np.array([[_use(at, s, f) for f in FUELS] for s in SECTORS])
     lk = np.array([[leak_now[f'{v}.{fu}'] for v, fu in row] for row in F['leak']])
     ener = use + lk
     vat = F['vat']
@@ -240,6 +239,18 @@ def step(state, db, inputs, settings, baseline, t):
     for grp, subs in GROUP_TOTALS.items():
         extra = at('ener', 'avi', 'ren') + at('ener', 'nav', 'ren') if grp == 'tra' else 0.0
         R.set('ener', k, sum(at('ener', s, f) for s in subs for f in FUELS) + extra, grp, 'all')
+
+
+ROAD_ENGINEER = {'gso': 'trkt', 'die': 'trkt', 'lpg': 'trkt', 'nga': 'trkt', 'bio': 'trbio'}   # Inputs AF (trpos)
+
+
+def _use(at, s, f):
+    """EQ-M3.2: fuel use before leakage. Road gasoline, diesel, LPG, gas and biofuels from the engineer road model
+    where TrModel = Engineer (tr.sw = 1, Excel-AI ROADSWITCH), else the elasticity model (road biofuels: trbe)."""
+    elastic = at('trbe', 'rod', 'bio') if (s, f) == ('rod', 'bio') else at('enel', s, f)
+    if s != 'rod' or f not in ROAD_ENGINEER:
+        return elastic
+    return np.where(at('tr.sw', 'all', 'all') > 0, at(ROAD_ENGINEER[f], 'rod', f), elastic)
 
 
 def safe(a, b):

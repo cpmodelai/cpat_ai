@@ -110,10 +110,13 @@ for t in years:
   (1 for road). The elasticity fuel use is the variable `enel` (the former `ener` formula, `FUELUSE`, base year from
   Inputs); with `TrModel` = Elasticity `ener` = `enel` everywhere, so every elasticity-model output is unchanged
   (regression 0).
-- **CPAT Python:** `cpat_model/mitigation/road.py`, `prepare()` and `step()` (equations A3.5-A3.9). Python computes
-  the engineer model in every scenario for the transport co-benefits module, but `TrModel` = Engineer is **not yet
-  supported**: `road.prepare` raises `NotImplementedError` ("road fuel use of sections 3 and 5 from the engineer
-  model"). See the [CPAT Python blocks](../CPAT_coded_documentation_html/02_How_it_works.html#sec-blocks).
+- **CPAT Python:** `cpat_model/mitigation/road.py`, `prepare()`, `step()` and `results()` (equations A3.5-A3.9);
+  the switch in `fuel_use._use` (road fuel use, M3.2) and `power.step` (road electricity demand, M4.1). In the year
+  loop the road model runs before power, and again after power in the years it reads that year's electricity price
+  (the base year and the transport data years, with power once more where that changes road electricity); its result
+  rows for the co-benefits module run after fuel use. With `TrModel` = Engineer the whole scenario equals Excel-AI
+  recalculated the same way, every code and year within 1e-9 (`cpat_testing/test_road_engineer.py`). See the
+  [CPAT Python blocks](../CPAT_coded_documentation_html/02_How_it_works.html#sec-blocks).
 :::
 
 ## The engineer model at a glance {#sec-tr-glance}
@@ -1124,7 +1127,7 @@ model is switched on (`ener`, electricity `eldem`) and its share of total use.
 
 - **The engineer model is off by default.** It is a calibration that has not been reviewed for every country; results
   are the elasticity model's unless a scenario sets `TrModel` = Engineer.
-- **CPAT Python** computes the engineer model for the co-benefits module but cannot yet run with it switched on.
+- **CPAT Python** runs it either way, equal to Excel-AI (`test_road_engineer.py`).
 - **Calibration factors are large** where Transport1 explains only part of road fuel use (for Egypt 30-60%:
   passenger distance × 2.67, then gasoline × 1.23). Review the data before using the engineer results.
 - **Range anxiety** is fitted to one year (2025) of observed EV sales in scenario 1; it is the main lever on the EV
@@ -1478,8 +1481,9 @@ to row 8000 (`MIT_MAX`, macro `MIT_MAX_ROW`).
 - **Biofuels:** road biofuels = base year × engine use / base-year use (@eq-tr-bio).
 - **No circular reference:** last year's power price (base year: the same year's), last year's GDP growth, the GDP
   level after the feedback (which uses last year's effect); fuel prices do not depend on fuel use.
-- **CPAT Python:** the switch is not wired; `road.prepare` refuses `TrModel` = Engineer. In the Python chain the road
-  block runs in the year loop and feeds the transport externalities (`externalities.transport`) and welfare.
+- **CPAT Python:** the switch is wired as in Excel-AI (`fuel_use._use`, `power.step`); the road block runs early in
+  the year loop (after the GDP level and population) and feeds fuel use, power demand, the transport externalities
+  (`externalities.transport`) and welfare.
 :::
 
 ::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: deviations from the reference engine"}

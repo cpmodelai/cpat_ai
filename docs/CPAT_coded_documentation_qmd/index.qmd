@@ -19,4 +19,4 @@ CPAT Python (Coded CPAT) is the Python model of CPAT. It reproduces the Excel-AI
 | Understand the method of a block, with its equations | The [CPAT-AI Model](../CPAT_model_documentation_html/index.html) tab, shared with Excel-AI |
 | Look up a table, input or variable | [Appendix A](A_Reference.qmd) |
 
-*Version `1.1.0p1.3` (replicates Excel-AI 1.1.0 and Distribution 1.1.0; data edition Public01). Chapters 1-2 and the glossary are written in `docs/CPAT_coded_documentation_qmd/`; appendices A-B are generated from the code and data by `make_qmd.py`.*
+*Version `1.1.0p1.4` (replicates Excel-AI 1.1.0 and Distribution 1.1.0; data edition Public01). Chapters 1-2 and the glossary are written in `docs/CPAT_coded_documentation_qmd/`; appendices A-B are generated from the code and data by `make_qmd.py`.*

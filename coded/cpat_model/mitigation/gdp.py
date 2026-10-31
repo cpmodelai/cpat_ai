@@ -19,7 +19,7 @@ def year_rows(state, settings):
 
 
 def start(state, db, inputs, settings, baseline, t):
-    """EQ-M8.3: gdp.lvl, gdp.pos.pct, GDPI (GDP growth raised to the income factor), SHOCK."""
+    """EQ-M8.3: gdp.lvl, gdp.pos.pct, gdp.pos.usd, GDPI (GDP growth raised to the income factor), SHOCK."""
     R = year_rows(state, settings)
     k = settings.years.index(t)
     base = R.at('gdp.base', k, 'all', 'all')
@@ -30,6 +30,7 @@ def start(state, db, inputs, settings, baseline, t):
         eff = R.at('gdp.eff', k - 1, 'all', 'all')
         lvl = R.set('gdp.lvl', k, 1 + eff, 'all', 'all')
         growth = R.set('gdp.pos.pct', k, (1 + base) * lvl / R.at('gdp.lvl', k - 1, 'all', 'all') - 1)
+    R.set('gdp.pos.usd', k, R.at('gdp.usd', k, 'all', 'all') * lvl, 'all', 'all')   # EQ-M8.3; the road model reads it
     R.set('GDPI', k, (1 + growth) ** R.at('inc.ela.adj', k) - 1)
     R.set('SHOCK', k, 1 + R.at('shock', k) * settings.global_settings.get('ApplyDemandShock', 1))
 
@@ -100,8 +101,7 @@ def effects(state, db, inputs, settings, baseline, t):
     eff = {'exc': R.set('fis.eff', k, -np.sum(imps * mult('exc'), axis=0), 'all', 'exc')}
     for inst, share in SPENDING:
         eff[inst] = R.set('fis.eff', k, inp(share) / c('PctPerUnit') * np.sum(impps * mult(inst), axis=0), 'all', inst)
-    lvl = at('gdp.lvl', 'all', 'all')
-    R.set('gdp.pos.usd', k, gdp() * lvl, 'all', 'all')
+    lvl = at('gdp.lvl', 'all', 'all')                  # gdp.pos.usd = gdp.usd x lvl: set in start()
     def growth(var, fuel):                       # contribution to GDP growth: last year's change in the effect
         if k == 0:
             return 0.0

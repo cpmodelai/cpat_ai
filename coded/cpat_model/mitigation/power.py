@@ -256,6 +256,18 @@ def prepare(state, db, inputs, settings, baseline):
 
 
 # ---- the year loop
+def step_after_road(state, db, inputs, settings, baseline, t):
+    """Power once more in a transport data year after the base year where TrModel = Engineer: road electricity demand
+    (trkte) reads this year's industry electricity price, which does not depend on this year's demand, so the second
+    run is exact (Excel-AI has no circular reference)."""
+    from cpat_model.mitigation import road
+    from cpat_model.mitigation.gdp import year_rows
+    R = year_rows(state, settings)
+    k = settings.years.index(t)
+    if t > settings.base_year and road.rerun(state, settings, t) and np.any(R.at('tr.sw', k, 'all', 'all') > 0):
+        step(state, db, inputs, settings, baseline, t)
+
+
 def step(state, db, inputs, settings, baseline, t):
     """EQ-M4.1, EQ-M4.2, EQ-M4.4 to EQ-M4.7, EQ-A4.8, EQ-A4.9: power demand, dispatch, generation, capacity,
     investment, end-user prices, subsidies and revenues of year t."""
@@ -296,9 +308,9 @@ def step(state, db, inputs, settings, baseline, t):
         if k == 0:
             R.set('dem', k, col(lambda x: x['subs'][s]['d0']), s, 'ecy')
         else:
-            road = subs[s]['tr'] * at('tr.sw', 'all', 'all') > 0 if 'tr.sw' in state else False
-            R.set('dem', k, at('trkte', 'rod', 'ecy') if np.any(road) else
-                  at('dem', s, 'ecy', k - 1) * at('mult', subs[s]['group'], 'ecy'), s, 'ecy')
+            road = subs[s]['tr'] * at('tr.sw', 'all', 'all') > 0         # road under TrModel = Engineer (road.step ran)
+            R.set('dem', k, np.where(road, at('trkte', 'rod', 'ecy'),
+                                     at('dem', s, 'ecy', k - 1) * at('mult', subs[s]['group'], 'ecy')), s, 'ecy')
     for d in GROUPS:
         R.set('demg', k, sum(at('dem', s, 'ecy') for s in power_data.DEMAND_SUBSECTORS if subs[s]['group'] == d),
               d, 'ecy')

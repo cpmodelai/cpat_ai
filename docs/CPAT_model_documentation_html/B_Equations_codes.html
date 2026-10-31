@@ -564,7 +564,7 @@ window.Quarto = {
 </section>
 <section id="adjustments-mitigation" class="level2" data-number="B.3">
 <h2 data-number="B.3" class="anchored" data-anchor-id="adjustments-mitigation"><span class="header-section-number">B.3</span> Adjustments: mitigation</h2>
-<p>Started; completed block by block before each block is coded (coded/TODO.md phase 0). Sources for each block: <code>excel_ai/mitigation/docs/Equations.md</code>, <code>Equations_addendum.md</code> and <code>Formulas.md</code> (the workbook formulas), and the Methods chapters in <code>excel_ai/mitigation/docs/methods/</code>.</p>
+<p>Started; completed block by block before each block is coded (coded/TODO.md phase 0). Sources for each block: <code>excel_ai/mitigation/Equations.md</code>, <code>Equations_addendum.md</code> and <code>Formulas.md</code> (the workbook formulas), and the Methods chapters in <code>excel_ai/mitigation/docs/methods/</code>.</p>
 <section id="a1-policies" class="level3" data-number="B.3.1">
 <h3 data-number="B.3.1" class="anchored" data-anchor-id="a1-policies"><span class="header-section-number">B.3.1</span> A1 Policies</h3>
 <p>To complete: ETS (coverage, benchmarks, cap, semi-elasticity, fast price estimate, override, volatility adjustment: E4-E13); fuel-price reform path (E2); feebates (E3); existing carbon pricing growth (E17); methane fee (E18); exemptions (E18a); subsidy and price-control phase-outs; Pigouvian components (R3).</p>
@@ -660,7 +660,7 @@ window.Quarto = {
 <p><span class="math display">\[
 \mathtt{trcf2}, \mathtt{trcf2e}, \mathtt{trkt}_f, \mathtt{trbio}, \mathtt{trkte}, \mathtt{trsum}; \ \mathtt{trkmp}, \mathtt{trfcp}, \mathtt{trafg}, \mathtt{trafo}, \mathtt{trafe}, \mathtt{trvht}; \ \mathtt{trrafp}, \mathtt{trraff}, \mathtt{trrafc}; \ \mathtt{trq}, \mathtt{tran.rsh}
 \]</span></p>
-<p>Over road fuels <span class="math inline">\(f\)</span>, years <span class="math inline">\(t\)</span>. Excel-AI notation. Road fuel use of the engineer model in ktoe, calibrated to the base-year balance (electricity only if recon_ele); it would replace road fuel use of sections 3 and 5 with TrModel = Engineer (not in Coded CPAT: tr.sw = 0 in Egypt’s scenarios). Distance, fuel use and stock-average fuel economy by vehicle class, the range-anxiety fit targets of the data years, and road fuel use with its share of total use (trq, tran.rsh) go to the transport co-benefits module. Source: Excel-AI: Mitigation section 5b rows 4525-4616.</p>
+<p>Over road fuels <span class="math inline">\(f\)</span>, years <span class="math inline">\(t\)</span>. Excel-AI notation. Road fuel use of the engineer model in ktoe, calibrated to the base-year balance (electricity only if recon_ele); it replaces road fuel use of section 5 and road electricity demand of section 3 where TrModel = Engineer (tr.sw = 1; Coded CPAT since 1.1.0p1.4; Egypt’s shipped scenarios use the elasticity model). Distance, fuel use and stock-average fuel economy by vehicle class, the range-anxiety fit targets of the data years, and road fuel use with its share of total use (trq, tran.rsh) go to the transport co-benefits module. Source: Excel-AI: Mitigation section 5b rows 4525-4616.</p>
 </section>
 <section id="a4-power" class="level3" data-number="B.3.4">
 <h3 data-number="B.3.4" class="anchored" data-anchor-id="a4-power"><span class="header-section-number">B.3.4</span> A4 Power</h3>
@@ -1556,7 +1556,7 @@ window.Quarto = {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool. The model shared by Excel-AI 1.1.0 and CPAT Python 1.1.0p1.3; data edition Public01</p>
+<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool. The model shared by Excel-AI 1.1.0 and CPAT Python 1.1.0p1.4; data edition Public01</p>
 </div>
     <div class="nav-footer-right">
       &nbsp;

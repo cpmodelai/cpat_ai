@@ -4,7 +4,7 @@
 title: "CPAT-AI: Quick Start for People"
 ---
 
-A short, human-readable orientation to the cpat_ai repository, mostly about the Excel prototypes (Excel-AI). Written 2026-10-29, updated 2026-10-30 for release 1.1.0: Excel-AI 1.1.0 (Mitigation and Distribution), Coded CPAT 1.1.0p1.3, documentation 1.1.0, data edition Public01. The detail lives in the documents listed in section 1; this guide only points to them.
+A short, human-readable orientation to the cpat_ai repository, mostly about the Excel prototypes (Excel-AI). Written 2026-10-29, updated 2026-10-30 for release 1.1.0: Excel-AI 1.1.0 (Mitigation and Distribution), Coded CPAT 1.1.0p1.4, documentation 1.1.0, data edition Public01. The detail lives in the documents listed in section 1; this guide only points to them.
 
 # 1. Key documents (start here)
 
@@ -57,7 +57,7 @@ The World Bank/IMF **Climate Policy Assessment Tool (CPAT)** models the fiscal, 
 ## The plan
 
 1. **Replicate CPAT-legacy in Excel.** Match legacy results, but without its bugs (every bug is fixed). Issues are replicated as legacy has them, not yet upgraded: improvements are proposed and tracked, then decided later.
-2. **Make Python replicate the Excel prototype** (`coded/`, the Coded CPAT and its Shiny app), using the same codes and input names, so the two can be compared number for number. Done for 1.1.0: Coded CPAT 1.1.0p1.3 matches Excel-AI Mitigation and Distribution 1.1.0 on Public01 within 1e-9.
+2. **Make Python replicate the Excel prototype** (`coded/`, the Coded CPAT and its Shiny app), using the same codes and input names, so the two can be compared number for number. Done for 1.1.0: Coded CPAT 1.1.0p1.4 matches Excel-AI Mitigation and Distribution 1.1.0 on Public01 within 1e-9.
 
 ## Key improvements over legacy
 
@@ -189,5 +189,5 @@ Getting set up and a short guide to git are in `other/SetupGuide.docx`. In short
 - How-to guides: the setup and tools guide `other/SetupGuide.docx`; the quick start in the mitigation Documentation; the data editions and scripts in `data/README.md`; module guides and prompts in `excel_ai/core/prompts/`.
 - Supporting material in `other/`: research papers, decks (`other/presentations/`), distribution notes and earlier prototypes.
 - Plans: `excel_ai/core/plans/` (e.g. `Modules.md` for the modular design).
-- Python model (Coded CPAT 1.1.0p1.3): `coded/README.md` (`run_model.py`, the Shiny app `app.py`, tests in `coded/cpat_testing/`), its deck and the Coded CPAT tab of the website.
+- Python model (Coded CPAT 1.1.0p1.4): `coded/README.md` (`run_model.py`, the Shiny app `app.py`, tests in `coded/cpat_testing/`), its deck and the Coded CPAT tab of the website.
 - Personal working folders: `users/`.
