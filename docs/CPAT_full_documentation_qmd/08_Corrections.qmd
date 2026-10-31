@@ -12,7 +12,7 @@ The downloadable PDF is the 2023 edition, without these corrections. Read the we
 
 | Date | Version | Changes |
 |---|---|---|
-| 2026-10-31 | 2023 edition, corrected | Twenty documentation errors corrected (DOC1-DOC20, below): 14 in full, 6 in part. New section [GDP feedback in CPAT](04_Multipliers.qmd#sec-GDPFeedback). |
+| 2026-10-31 | 2023 edition, corrected | Twenty documentation errors corrected (DOC1-DOC20, below): 14 in full, 6 in part. New section [GDP feedback in CPAT](04_Multipliers.qmd#sec-GDPFeedback). New section [Techno-economic ('engineer') road transport model](07_Road_Transport.qmd#sec-EngineerTransport), from the CPAT team's methodology note on road transport, with a chapter scope note and links from Mitigation. |
 | 2023 | 2023 edition | The CPAT team's methodology. |
 
 ## Corrections of 2026-10-31

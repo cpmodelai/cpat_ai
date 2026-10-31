@@ -15,13 +15,14 @@ year (@sec-tr-ownership to @sec-tr-results), its caveats (@sec-tr-caveats), and 
 (@sec-tr-legacy). The implementation in Excel-AI and CPAT Python closes the chapter (@sec-tr-impl).
 
 The CPAT methodology describes the elasticity approach in
-[section 3.3.3](../CPAT_full_documentation_html/03_Mitigation.html#sec-FuelConsumptionDynamics); it has no chapter on
-the engineer road model, whose source is the legacy CPAT workbook and its methodology note
-(`Transportation_methodology.docx`). The methodology's road transport module
+[section 3.3.3](../CPAT_full_documentation_html/03_Mitigation.html#sec-FuelConsumptionDynamics), and the engineer road
+model in [section 7.1](../CPAT_full_documentation_html/07_Road_Transport.html#sec-EngineerTransport), from the CPAT
+team's methodology note (`Transportation_methodology.docx`); the legacy CPAT workbook is the source of the
+implementation. The methodology's road transport co-benefits module
 ([chapter 7](../CPAT_full_documentation_html/07_Road_Transport.html#summary)) is related but different: it projects
 vehicle-kilometres, congestion, accidents and road damage from fuel prices with estimated elasticities
-([section 7.3.1](../CPAT_full_documentation_html/07_Road_Transport.html#vehicle-kilometers-traveled-vkt),
-[section 7.3.8](../CPAT_full_documentation_html/07_Road_Transport.html#sec-methodo)), for the co-benefits of the
+([section 7.4.1](../CPAT_full_documentation_html/07_Road_Transport.html#vehicle-kilometers-traveled-vkt),
+[section 7.4.8](../CPAT_full_documentation_html/07_Road_Transport.html#sec-methodo)), for the co-benefits of the
 welfare results (@sec-fiscal). The engineer model sends its road fuel use to that module (@sec-tr-results).
 
 ## Two road models and the switch {#sec-tr-what}
@@ -149,8 +150,10 @@ flowchart TD
   K --> L[Road fuel and electricity use, results]
 ```
 
-**Notation.** The methodology has no symbols for the road model, so this chapter uses its own (Excel-AI notation,
-as the equation list, [M5](A_Equations.qmd#eqlist-M5-1)). Every equation holds for each scenario and country; the
+**Notation.** This chapter uses the Excel-AI notation of the equation list ([M5](A_Equations.qmd#eqlist-M5-1)). The
+methodology's engineer road section
+([notation](../CPAT_full_documentation_html/07_Road_Transport.html#sec-EngTrNotation)) uses symbols aligned with its
+Mitigation chapter, so some differ (e.g. vehicle class $m$ there, $k$ here; shares $\sigma$ there, $s$ here). Every equation holds for each scenario and country; the
 indices $o$ and $c$ are omitted. Vehicle class is $k$, ICE fuel $f$, year $t$, base year $t_0$.
 
 | Symbol | Meaning | Unit | Code |
@@ -1110,7 +1113,7 @@ $$ {#eq-tr-bio}
 
 The **transport co-benefits module** (accidents, congestion, road damage; methodology
 [section 3.7.1.4](../CPAT_full_documentation_html/03_Mitigation.html#co-benefits) and
-[section 7.7.5](../CPAT_full_documentation_html/07_Road_Transport.html#sec-extcost)) reads road fuel use of whichever
+[section 7.8.5](../CPAT_full_documentation_html/07_Road_Transport.html#sec-extcost)) reads road fuel use of whichever
 model is switched on (`ener`, electricity `eldem`) and its share of total use.
 
 ::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: results"}

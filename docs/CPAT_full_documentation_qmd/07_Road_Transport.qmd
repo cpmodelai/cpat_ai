@@ -2,9 +2,416 @@
 
 # Road Transport Module
 
+## Scope of this chapter {.unnumbered #sec-TransportScope}
+
+This chapter documents both parts of CPAT's road transport modelling: **the transport part of mitigation** and **the co-benefits piece**.
+
+| Part | What it computes | Sections |
+|---|---|---|
+| Mitigation: the techno-economic ('engineer') road transport model | Vehicle ownership and purchases, the choice between electric and combustion vehicles, fuel economy, distance driven, and from them road fuel and electricity use, emissions and the effect of transport policies. When selected, it replaces the elasticity equation of the Mitigation chapter for road fuels | @sec-EngineerTransport |
+| Co-benefits: the Road Transport Module | Vehicle-kilometers traveled, congestion, road accident fatalities and road damage, and their externality cost per liter of motor fuel, projected from fuel prices with econometrically estimated elasticities | From [Summary](#summary) to the Appendices |
+
+The Mitigation chapter describes the default elasticity approach to road fuel use (@sec-FuelConsumptionDynamics) and links to this chapter for the engineer model ([Road transport: the engineer model](03_Mitigation.qmd#sec-RoadEngineerLink)). The co-benefits part is the 2023 text. Where it says that CPAT does not cover electric vehicles (Caveats, Status of upgrades), that applies to the co-benefits elasticities: electric vehicles are now modelled explicitly in the engineer model.
+
+## Techno-economic ('engineer') road transport model {#sec-EngineerTransport}
+
+### Overview {#sec-EngTrOverview}
+
+A techno-economic ('engineer') model forecasts vehicle and driving demand, road transport energy use and emissions under various policies. It complements the engineer power model (see [the Mitigation chapter](03_Mitigation.qmd#sec-EngineerModel)), and like it, it models the capital stock explicitly: vehicles last ten to twenty years, and the choice between a combustion and an electric vehicle is made once, at purchase.
+
+The model makes separate projections for:
+
+- **two-three wheelers** (motorcycles);
+- **light-duty vehicles** (LDVs: cars and commercial vehicles below 3.5 tons), with **new and used** vehicles separated, because purchase prices and fuel economy differ and countries rely on used-vehicle markets to very different degrees;
+- **heavy-duty vehicles** (HDVs: medium- and heavy-duty freight);
+- **public transport** (buses), with a simplified approach.
+
+The classes differ in fuel pricing policies, economics and abatement pathways. For example, HDVs depreciate faster, have lower fuel economy, drive more vehicle-kilometers (VKT) and are more costly to electrify. The model covers road use of gasoline, diesel, natural gas, LPG, biofuels and electricity. Other road energy sources (e.g., coal, kerosene) and rail, aviation and navigation follow the elasticity approach of the Mitigation chapter.
+
+**The steps.** Historical data up to the latest data year (2024-2025) are assembled first (@sec-EngTrData). From then on, each year:
+
+1. Road transport demand, split between the size of the vehicle fleet and the distance driven per vehicle, adjusts to income, population and fuel costs, and existing vehicles depreciate and retire (@sec-EngTrDemand).
+2. New vehicles are split between battery electric vehicles (BEVs) and internal combustion engine vehicles (ICEVs) according to their relative total cost of ownership (TCO) (@sec-EngTrTCO, @sec-EngTrBEV), and ICEVs between fuels (@sec-EngTrICEFuel).
+3. The fuel economy of new ICEVs responds to fuel prices and policies, such as fuel taxes, feebates and fuel economy standards. Distance driven responds to the cost per kilometer (@sec-EngTrDistance).
+4. Vehicles, distance and fuel economy give fuel use, calibrated to the energy balance, and with it emissions, fiscal impacts and externalities (@sec-EngTrFuelUse, @sec-EngTrLinks).
+
+Externality calculations follow Black and others (2025), and the price inputs are those of the Mitigation chapter (@sec-PricesAndTaxes).
+
+### Notation {#sec-EngTrNotation}
+
+Every variable holds for a scenario $o$ and a country $c$; these indices are omitted. Where a symbol exists in the Mitigation chapter, it keeps its meaning there: $F$ fuel use, $p$ retail price, $\alpha$ autonomous efficiency improvement, $\epsilon_U$ usage elasticity, $\epsilon_F$ efficiency price elasticity, $ef$ emission factor, $K$ logit shape parameter, $t_0$ base year. $g^{GDP}$ is the GDP growth rate as in @eq-basefor. Elasticities are written $\epsilon$ with a subscript. They are distinct from the regression error term $\epsilon_{ct}$ and from the outcome elasticities $\eta$ of the co-benefits estimation.
+
+| **Index** | **Meaning** |
+|---|---|
+| $m$ | Vehicle class: new passenger and light vehicles (PN), used passenger and light vehicles (PU), freight vehicles (FR), two-three wheelers (TW), buses (BU) |
+| $h$ | Powertrain: ICE or BEV |
+| $f$ | Fuel of an ICEV: gasoline (GSO), diesel (DIE), LPG, natural gas (NGA: CNG for cars, LNG for trucks); plug-in hybrids (PHV) are treated as a fuel of passenger ICEVs |
+| $t$ | Year; $t_0$ the base year, $t_1$ the last year with vehicle data |
+
+P denotes all passenger and light vehicles, new and used (PN + PU).
+
+| **Notation** | **Variable** | **Unit** |
+|---|---|---|
+| $y_t$ | Real GDP per capita | thousand US\$ |
+| $N_t$ | Population | million |
+| $O_{m,t}$, $O^{*}_{m,t}$ | Vehicle ownership; its target (desired) level | vehicles per 1,000 people |
+| $\overline{O}$ | Saturation level of ownership | vehicles per 1,000 people |
+| $\kappa_1$, $\kappa_2$ | Gompertz shape and income parameters | -, per thousand US\$ |
+| $\Lambda_m$ | Calibration factor of ownership to the latest observed level | - |
+| $\chi_t$ | Freight share of four-wheel vehicle ownership | \% |
+| $\rho$ | Partial adjustment speed of ownership | \% |
+| $\overline{g}^{+}$, $\overline{g}^{-}$ | Maximum annual growth and decline of ownership | \% |
+| $S_{m,h,t}$, $R_{m,h,t}$, $Q_{m,t}$ | Vehicle stock, retirements, purchases | vehicles per 1,000 people |
+| $L_m$, $n_m$ | Useful life; years a vehicle is owned by its buyer | years |
+| $\sigma^{U}_t$ | Share of used vehicles in passenger purchases | \% |
+| $\sigma^{BEV}_{m,t}$, $\sigma_{m,f,t}$ | BEV share of purchases; share of fuel $f$ in ICEV purchases | \% |
+| $r_t$ | Consumer discount rate | \% |
+| $D_{m,h,t}$, $\overline{D}_{m,h,t}$ | Distance driven per vehicle; discounted over the ownership period | km per year; km |
+| $fe^{new}$, $fe^{stk}$ | Fuel economy of new vehicles; of the stock | km per liter (BEV: km per kWh) |
+| $P^{0}_{m,h,t}$, $P_{m,h,t}$ | Vehicle retail price before taxes; purchase price after taxes and policies | US\$ |
+| $TCO_{m,h,t}$, $c_{m,h,t}$ | Total cost of ownership; per kilometer | US\$; US\$/km |
+| $\delta$ | First-year depreciation | \% |
+| $mc_{m,h}$, $ins$ | Maintenance cost; insurance rate | US\$/km; \% of value per year |
+| $p_{f,t}$, $p^{EV}_t$ | Fuel price per liter incl. taxes and new policies; electricity price for EV charging | US\$/liter; US\$/kWh |
+| $mku_t$ | Charging infrastructure mark-up on the electricity price | US\$/kWh |
+| $CS_t$, $C^{CS}_t$ | Charging stations; cost per charging port | number; US\$ |
+| $RA_{m,t}$ | Range anxiety cost of a BEV | US\$ per vehicle |
+| $\epsilon_{I,m}$ | Income elasticity of distance driven | - |
+| $\epsilon_{CS,V}$, $\epsilon_{CS,C}$, $\epsilon_{RA}$ | Elasticities of charging stations to the BEV stock and to their cost; of range anxiety to charging stations | - |
+| $\epsilon_{own}$, $\epsilon_{cross}$ | Own- and cross-TCO elasticities of the ICEV fuel shares | - |
+| $fbr_{m,t}$ | Feebate rate (shadow carbon price of a feebate or a fuel economy standard) | US\$/tCO$_2$ |
+| $I_{m,h,t}$, $I^{piv}_{m,t}$ | CO$_2$ intensity of a vehicle; feebate pivot point | tCO$_2$/km |
+| $FB_{m,h,t}$, $sub_{m,t}$, $dtx_{m,t}$ | Vehicle feebate (fee $>0$, rebate $<0$); EV purchase subsidy ($\le 0$); distance-based tax | US\$; US\$; US\$/km |
+| $vat_m$, $du_{m,h}$, $\mu^{imp}_m$, $adv_{m,h}$ | VAT, import duty, share of imports, ad valorem purchase tax | \% |
+| $bl_f$ | Biofuel blending ratio of gasoline or diesel | \% |
+| $\Theta_f$ | Calibration factor of road fuel use to the energy balance | - |
+| $F^{T}_{f,t}$, $E^{T}_t$ | Road fuel use and road electricity use of the engineer model | ktoe |
+
+### Data sources for historical data {#sec-EngTrData}
+
+Historical data on fuel demand, fuel economy, vehicle ownership, and BEV and plug-in hybrid (PHEV) shares come from several sources: the OECD's International Transport Forum ([ITF](http://www.itf-oecd.org/)), the IRF's World Road Statistics ([WRS](https://worldroadstatistics.org/)), the IEA's Electric Vehicles Initiative ([EVI](http://www.iea.org/programmes/electric-vehicles-initiative)), [Global EV Data Explorer](https://www.iea.org/data-and-statistics/data-tools/global-ev-data-explorer) (the best global source) and [Energy Efficiency Indicators](https://www.iea.org/data-and-statistics/data-product/energy-efficiency-indicators), [Statista](https://www.statista.com/topics/1487/automotive-industry/#topicOverview), the European Environment Agency ([EEA](https://www.eea.europa.eu/en/analysis/indicators/new-registrations-of-electric-vehicles)), and the International Organization of Motor Vehicle Manufacturers ([OICA](https://www.oica.net/category/sales-statistics/)). Where data are not available, they are estimated from related data (e.g., vehicle ownership to estimate disaggregated fuel consumption) and from regional and income-group averages. Much of the data is estimated, especially for developing countries, so country teams should request data on the key variables (details of the vehicle stock, the share of EV sales and more). All results are benchmarked to the latest energy balances, which limits the size of errors.
+
+- **Fuel use by vehicle type.** The IEA, Enerdata, the UN and the US EIA provide fuel use for road transport as a whole (the energy balances). It is disaggregated by vehicle type (e.g., how much diesel LDVs, HDVs and buses use) from observed IEA data for about 40 countries, and from vehicle ownership and fuel economy for the others.[^7_eng1]
+- **Vehicle ownership by vehicle type.** The IEA and IRF provide it for around 100 countries, supplemented by other sources such as CEIC. Elsewhere it comes from OICA and manual online collection, or is estimated with the Gompertz function (@sec-EngTrDemand).
+- **Fuel economy by vehicle type.** The IEA provides it for around 40 countries, plus some one-off studies.[^7_eng2] More has been collected manually and from ICCT total cost of ownership studies. A quick online search for such a study is worthwhile before a mission.
+- **Distance driven by vehicle type.** VKT per vehicle is estimated so that the product of fuel economy, vehicle ownership and VKT per vehicle matches observed road fuel consumption (IEA or Enerdata). If the resulting VKT per vehicle is well above what is expected for the income level, vehicle ownership is adjusted upward to reach the observed fuel consumption with a lower VKT, and vice versa.
+- **Share of EVs in the stock and in sales.** The IEA, Statista and the EEA provide BEV and PHEV purchases for around 100 countries, supplemented by manual collection from online sources for another 10-20 countries.
+- **Share of new and used vehicles.** The shares of used and new vehicles in sales are calculated from the shares of new and used vehicle imports (IRF and country-specific sources).
+- **Purchase prices of EVs and ICEVs.** From country-specific studies (e.g., ICCT studies on [China](https://theicct.org/sites/default/files/publications/ze-hdvs-china-tco-EN-nov21.pdf), [Europe](https://theicct.org/sites/default/files/publications/TCO-BETs-Europe-white-paper-v4-nov21.pdf), the [United States](https://theicct.org/wp-content/uploads/2023/04/tco-alt-powertrain-long-haul-trucks-us-apr23.pdf) and its [meta-analysis](https://theicct.org/wp-content/uploads/2022/02/purchase-cost-ze-trucks-feb22-1.pdf)), extrapolated to other countries by income level.
+
+[^7_eng1]: Datasets define freight or commercial vehicles differently: IEA Energy Efficiency Indicators and OICA count all goods vehicles as freight (including light commercial vehicles), while IEA EVI and IRF WRS count only vehicles above 3.5 tons. Light- and heavy-duty fuel economy and VKT are used to calculate the share of commercial diesel used by each vehicle type; all commercial gasoline is allocated to LDVs. Commercial vehicle fuel use is split between light and medium/heavy-duty vehicles based on ownership (IRF WRS), fuel economy and VKT.
+
+[^7_eng2]: The average fuel economy of new ICEV purchases is not available in cross-country datasets, except for the EU. It is calculated by assuming that the annual change in average fuel economy comes from new vehicles entering the market, and that the LDV and HDV fleets turn over every 15 and eight years respectively. The LDV value is also used for motorcycles.
+
+**Data years.** In the years with vehicle data (up to $t_1$), the model takes ownership, stocks, EV shares, fuel economy and distance from the data. It projects from the following year.
+
+### Vehicle demand {#sec-EngTrDemand}
+
+Total passenger vehicle demand follows a Gompertz function of income (e.g., Dargay and others 2006). The function captures (i) the saturation point of vehicle ownership, i.e. ownership if the country were as wealthy as the United States, which depends on urbanization and population density, and (ii) the income elasticity of ownership, whose main feature is the large increase as countries move from lower-middle to upper-middle income. For passenger and light vehicles and for freight vehicles, the target ownership is
+
+$$
+O^{*}_{m,t} = \overline{O}\,\chi_{m,t}\,\Lambda_m\,\exp\!\left(\kappa_1\, e^{\kappa_2\, y_t}\right), \qquad \chi_{PN,t} = 1 - \chi_t,\quad \chi_{FR,t} = \chi_t
+$$ {#eq-EngTrGompertz}
+
+where $\kappa_1 < 0$ and $\kappa_2 < 0$ shape the S-curve. The calibration factor $\Lambda_m$ makes the curve pass through the latest observed ownership, and is then held constant:
+
+$$
+\Lambda_m = \frac{O^{obs}_{m,t_1}}{\overline{O}\,\chi_{m,t_1}\exp\!\left(\kappa_1\, e^{\kappa_2\, y_{t_1}}\right)}
+$$ {#eq-EngTrGompertzCalib}
+
+A country below the curve therefore stays proportionally below it. **Short- and long-run responses** are captured by partial adjustment: desired ownership moves a share $\rho$ of the way to the target each year, and actual ownership may grow or fall only within limits:
+
+$$
+O_{m,t} = \max\!\Big(O_{m,t-1}\,(1 - \overline{g}^{-}),\ \min\big(O_{m,t-1}\,(1 + \overline{g}^{+}),\ \rho\, O^{*}_{m,t} + (1 - \rho)\, O_{m,t-1}\big)\Big)
+$$ {#eq-EngTrOwnership}
+
+**Freight and two-three wheelers** are expressed relative to passenger vehicles. The share of goods vehicles declines with income (a simple regression), from its latest observed value towards a high-income target $\chi^{*}$ reached at income $y^{*}$:
+
+$$
+\chi_t = \min\!\left(\chi_{t_1},\ \max\!\left(\chi^{*},\ \chi_{t_1} - (\chi_{t_1} - \chi^{*})\,\frac{y_t}{y^{*}}\right)\right)
+$$ {#eq-EngTrFreightShare}
+
+Two-three wheelers show an inverted-U shape in income ([Law and others 2015](https://www.sciencedirect.com/science/article/pii/S0966692315000976)). Ownership peaks at income $y^{pk}$, with $\Lambda_{TW}$ the peak level calibrated to the latest observation:
+
+$$
+O^{*}_{TW,t} = \frac{2\,\Lambda_{TW}\, y^{pk}\, y_t}{y_t^{2} + (y^{pk})^{2}}
+$$ {#eq-EngTrHump}
+
+The shares of HDVs among new vehicles, and of used among passenger vehicles, gradually converge to those of high-income countries (low-income countries have a greater share of HDVs and of used vehicles). The share of used vehicles that were previously new, domestically owned vehicles is held constant.
+
+**The stock and purchases.** Each year a share of the stock retires: the average stock of the past years over the useful life, at most the stock itself,
+
+$$
+R_{m,h,t} = \min\!\left(\frac{1}{L_m}\cdot\frac{1}{\tau}\sum_{j=0}^{\tau-1} S_{m,h,t-1-j},\ \ S_{m,h,t-1}\right), \qquad \tau = \min(L_m,\ t - t_0 + 1)
+$$ {#eq-EngTrRetire}
+
+For new passenger vehicles the "life" is the ownership period $n_{PN}$, after which they move to the used market. Purchases equal the gap between desired ownership and the stock remaining after retirement. Purchases of passenger vehicles are split between new and used vehicles:
+
+$$
+Q_{m,t} = O_{m,t} - \sum_{h}\big(S_{m,h,t-1} - R_{m,h,t}\big), \qquad Q_{PN,t} = (1 - \sigma^{U}_t)\,Q_{P,t}, \quad Q_{PU,t} = \sigma^{U}_t\,Q_{P,t}
+$$ {#eq-EngTrPurchases}
+
+and the stock is updated with the purchases of each powertrain, whose shares come from the choice below:
+
+$$
+S_{m,h,t} = S_{m,h,t-1} - R_{m,h,t} + \sigma_{m,h,t}\,Q_{m,t}, \qquad \sigma_{m,BEV,t} = \sigma^{BEV}_{m,t},\quad \sigma_{m,ICE,t} = 1 - \sigma^{BEV}_{m,t}
+$$ {#eq-EngTrStock}
+
+In data years the stock is set to the data.
+
+### Total cost of ownership {#sec-EngTrTCO}
+
+The BEV share of purchases is driven by the total cost of ownership (TCO) of each vehicle type (see @tbl-EngTrTCO for the assumptions). The TCO is the net present value of the cost of using a vehicle over its ownership period, expressed per kilometer driven. It is made up of the purchase price (net of depreciation and resale value), insurance, maintenance, fuel costs and taxes on driving.
+
+**Discounting.** With the annuity factor $a(r, N) = \big(1 - (1+r)^{-N}\big)/r$, the discounted distance over the ownership period is
+
+$$
+\overline{D}_{m,h,t} = D_{m,h,t}\; a(r_t, n_m)
+$$ {#eq-EngTrDiscKm}
+
+Generally, BEVs have higher upfront costs (retail prices) but lower future costs (fuel and maintenance) than ICEVs. A higher discount rate, which reduces the value of future savings, therefore raises the relative cost of BEVs. The discount rate reflects financing costs rather than a social discount rate, to better reflect consumer purchasing decisions. It falls with income, linearly between an income $y^{lo}$ and an income $y^{hi}$:
+
+$$
+r_t = \min\!\left(r^{max},\ \max\!\left(r^{min},\ r^{max} - \frac{y_t - y^{lo}}{y^{hi} - y^{lo}}\,(r^{max} - r^{min})\right)\right)
+$$ {#eq-EngTrDisc}
+
+The methodology note assumes 10 percent in high-income countries rising to 30 percent in low-income countries. These values are still to be reviewed; see @sec-EngTrParams for the values in the workbook.
+
+**Purchase price.** The purchase price of a new vehicle depends on:
+
+- *Retail prices.* For ICEVs they stay constant in the baseline for a given income level but rise with income (an income elasticity of prices based on a survey of countries). Retail prices of BEVs fall steeply with battery costs, for light- and heavy-duty EVs alike, and rise with income with the same elasticity as ICEVs (@fig-EngTrPrices).
+- *Depreciation.* It is faster for freight vehicles, with their much higher annual mileage, and faster in the first year of ownership, reflecting the sharp fall in resale value after purchase (Argonne 2021). Depreciation rates are the same for BEVs and ICEVs.
+- *Salvage or resale value.* The vehicle's estimated market value at the end of the ownership period, i.e. its depreciated value. It reduces the TCO.
+- *Policies affecting purchase prices.* Modelled subsidies and feebates, and existing country-specific VAT and customs duties on passenger vehicles.[^7_eng3] Fuel efficiency standards are modelled as a shadow carbon price.
+- *Range anxiety.* An additional cost for BEVs, reflecting concern over charging availability and range, which declines over time (@sec-EngTrCharging).
+
+[^7_eng3]: The six-digit HS codes under 8703 and 8704 give the customs duties for LDV and HDV EVs and ICEVs. Non-tariff policies have been collected manually for a subset of large countries.
+
+The purchase price after taxes and policies is
+
+$$
+P_{m,h,t} = P^{0}_{m,h,t}\,\big(1 + du_{m,h}\,\mu^{imp}_m\big)\big(1 + adv_{m,h,t}\big)\big(1 + vat_{m}\big) + FB_{m,h,t} + \mathbb{1}[h = \text{BEV}]\; sub_{m,t}
+$$ {#eq-EngTrPrice}
+
+with the feebate $FB$ of @eq-EngTrFeebate and the EV subsidy $sub \le 0$.
+
+**The TCO.** With $\delta$ the first-year depreciation and the rest of the value depreciated linearly over the remaining life:
+
+$$
+\begin{aligned}
+TCO_{m,h,t} = \; & \underbrace{\delta P + \frac{(1-\delta)P}{L_m - 1}\,a(r_t, L_m - 1)}_{\text{depreciation}} \; - \; \underbrace{P\,(1-\delta)\,\frac{L_m - n_m}{L_m}\,(1+r_t)^{-n_m}}_{\text{salvage value}} \\
+& + \; \underbrace{\theta^{ins}\, ins\; P\; a(r_t, n_m + 1)}_{\text{insurance}} \; + \; \underbrace{mc_{m,h}\,\overline{D}_{m,h,t}}_{\text{maintenance}} \; + \; \underbrace{\left(\frac{p_{h,t}}{fe^{new}_{m,h,t}} + dtx_{m,t}\right)\overline{D}_{m,h,t}}_{\text{fuel and distance tax}} \; + \; \mathbb{1}[h = \text{BEV}]\, RA_{m,t}
+\end{aligned}
+$$ {#eq-EngTrTCO}
+
+where $P = P_{m,h,t}$, $\theta^{ins}$ is an insurance factor, $p_{ICE,t}$ is the average ICE fuel price over the fuel mix, and $p_{BEV,t} = p^{EV}_t$. The salvage value applies to passenger vehicles. The TCO per kilometer is
+
+$$
+c_{m,h,t} = \frac{TCO_{m,h,t}}{\overline{D}_{m,h,t}}
+$$ {#eq-EngTrTCOkm}
+
+- **Maintenance** costs vary with labor costs (wage rates). They are lower for BEVs than for ICEVs, which have more moving parts.
+- **Insurance** is the same share of value for BEVs and ICEVs.
+- **Fuel costs** (gasoline, diesel or electricity) depend on VKT, fuel economy and fuel prices. The calculation is done separately for gasoline and diesel LDVs, and the results are averaged with ownership shares as weights.
+  - *Fuel prices* follow the price module (@sec-PricesAndTaxes). Electricity prices for charging include a mark-up for charging infrastructure, which falls with technology and EV deployment (@eq-EngTrMarkup).
+  - *Fuel economy* of new vehicles (@eq-EngTrFENew).
+  - *VKT* for the purchase decision adjusts to income and, in the methodology, to fuel prices (@eq-EngTrDistNew). VKT per vehicle is assumed identical for BEVs and ICEVs in the TCO, because the evidence on driving differences is mixed.[^7_eng4]
+- **Used vehicles** follow the same calculation, with the purchase price equal to the resale value of a new vehicle, no first-year depreciation, and the fuel economy of the year in which the vehicle was first sold. A used BEV carries range anxiety in proportion to its price.
+- **Plug-in hybrids** take the capital cost of a BEV and the fuel cost of a mix of gasoline and electricity. They carry no range anxiety.
+
+[^7_eng4]: Evidence on whether EVs are driven more than ICEVs is largely mixed for studies of the US (e.g., [Zhao et al. 2023](https://www.cell.com/joule/abstract/S2542-4351(23)00404-X), [Burlig et al. 2021](https://www.aeaweb.org/articles?id=10.1257/pandp.20211088), [Chakraborty et al. 2021](https://its.ucdavis.edu/blog-post/no-electric-vehicles-arent-driven-less-than-gas-cars/), [EPA 2023](https://nepis.epa.gov/Exe/ZyPDF.cgi?Dockey=P10175J2.pdf), [Metcalf and Doshi 2023](https://ceepr.mit.edu/workingpaper/how-much-are-electric-vehicles-driven-depends-on-the-ev/)). A Norwegian study finds EVs are driven about 10 percent more than ICEVs ([Bloomberg 2022](https://www.bloomberg.com/news/articles/2022-07-20/electric-cars-start-covering-more-ground-than-combustion-counterparts), [Rystad 2023](https://www.rystadenergy.com/news/norway-fuel-demand-electric-car-bus-truck-gasoline-diesel)), which may be more relevant for countries with high EV uptake and charging availability.
+
+| | **ICEV LDV** | **BEV LDV** | **ICEV heavy duty** | **BEV heavy duty** | **ICEV motorcycle** | **BEV motorcycle** |
+|---|---|---|---|---|---|---|
+| New vehicle purchase price | [IEA](https://www.iea.org/data-and-statistics/data-tools/electric-vehicles-total-cost-of-ownership-tool) and Argonne (@fig-EngTrPrices) | as ICEV LDV | ICCT | ICCT | IEA | IEA |
+| Depreciation | 30% in the first year, then linear over 19 years; new cars resold at 10 years | as ICEV LDV | 30% in the first year, then linear over 7 years; resold at 5 years | as ICEV heavy duty | Linear over 5 years (ICCT) | as ICEV motorcycle |
+| Energy cost | Country-specific (see [Black and others 2023](https://www.imf.org/en/Publications/WP/Issues/2023/08/22/IMF-Fossil-Fuel-Subsidies-Data-2023-Update-537281) for sources); EVs pay an additional charge, declining with EV penetration, to recover charging infrastructure costs (ICCT) | | | | | |
+| Fuel or energy efficiency | Country-specific for around 30 countries (IEA), extrapolated for others; 1% annual improvement | | 32-63 liters per 100 km (various) | 150-100 kWh per 100 km, 2.5% annual decline 2020-2030 (ICCT), continued decline | 1-3 liters per 100 km | 4 kWh per 100 km (ICCT) |
+| Maintenance | \$0.03-\$0.12 per km (Argonne, ICCT) | 1/3 of ICEV (Argonne) | \$0.045-\$0.135 per km (Argonne, ICCT) | 1/3 of ICEV (Argonne) | \$0.01-\$0.04 per km (ICCT) | 1/3 of ICEV (ICCT) |
+| Insurance | 1.5% of vehicle value (Argonne) | | | | | |
+| VKT per year | Country-specific, around 10,000 km | | Country-specific, around 80,000 km | | Country-specific | |
+
+: Total cost of ownership parameters. ICCT refers to the average of ICCT studies for [China](https://theicct.org/sites/default/files/publications/ze-hdvs-china-tco-EN-nov21.pdf), [Europe](https://theicct.org/sites/default/files/publications/TCO-BETs-Europe-white-paper-v4-nov21.pdf), the [United States](https://theicct.org/wp-content/uploads/2023/04/tco-alt-powertrain-long-haul-trucks-us-apr23.pdf), its [meta-analysis](https://theicct.org/wp-content/uploads/2022/02/purchase-cost-ze-trucks-feb22-1.pdf) of ZEV purchase costs, or a study on [Vietnam](https://theicct.org/wp-content/uploads/2023/01/vietnam-E2W-TCO_feb23.pdf) for two-three wheelers. Argonne refers to its [2021 TCO review](https://publications.anl.gov/anlpubs/2021/05/167399.pdf) and [AFLEET 2024](https://afleet.esia.anl.gov/afleet/total-cost-ownership-calculator). All prices are in 2023 real terms. VKT is calculated from vehicle ownership, fuel consumption and fuel economy for ICEVs, and scaled for EVs by the difference in cost per km and an assumed driving elasticity. For freight purchase costs, the average of straight trucks and tractor trailers is used. {#tbl-EngTrTCO}
+
+![Vehicle purchase price, passenger vehicles, ICEV and EV, 2020-2040 (US\$). Source: IMF staff estimates using Argonne and ICCT. The methodology note shows the same chart for freight vehicles and two-three wheelers.](./07/media/engineer_price_passenger.png){#fig-EngTrPrices width=45%}
+
+#### Charging and range anxiety {#sec-EngTrCharging}
+
+**Charging mark-up.** The electricity price for EV charging is the previous year's end-user electricity price (residential for passenger vehicles and two-three wheelers, industrial for freight; lagged to avoid a circular reference with the power model) plus a mark-up that recovers the fixed cost of charging infrastructure:
+
+$$
+p^{EV}_t = p^{ele}_{t-1} + mku_t, \qquad mku_t = \varsigma\,\max\!\left(mku^{min},\ mku^{max}\,\frac{\bar{e} - e_t}{1 - \bar{e}}\right)
+$$ {#eq-EngTrMarkup}
+
+where $e_t$ is the EV share of the passenger stock, $\bar{e}$ the EV share at which the mark-up reaches its minimum, and $\varsigma$ the share of public charging. As charging utilization rises from low levels to those reached in Europe by 2030 (around 50 percent BEV penetration), the cost of covering the fixed cost of charging falls from about US\$0.10 to US\$0.02 per kWh (following [ICCT 2021](https://theicct.org/sites/default/files/publications/TCO-BETs-Europe-white-paper-v4-nov21.pdf)).
+
+**Charging stations** grow with the BEV stock $V^{BEV}$ (a network effect: more EVs bring more stations, and vice versa) and fall with their cost, which a charging-station subsidy lowers:
+
+$$
+CS_t = CS_{t-1}\left(\frac{V^{BEV}_t}{V^{BEV}_{t-1}}\right)^{\epsilon_{CS,V}}\left(\frac{C^{CS}_t}{C^{CS}_{t-1}}\right)^{\epsilon_{CS,C}}
+$$ {#eq-EngTrStations}
+
+**Range anxiety** falls as charging stations spread:
+
+$$
+RA_{m,t} = RA_{m,t-1}\left(\frac{CS_t}{CS_{t-1}}\right)^{\epsilon_{RA}}
+$$ {#eq-EngTrRA}
+
+The elasticities mimic [Cole and others (2021)](https://scholar.harvard.edu/files/stock/files/policies_for_electrifying_the_light-duty_vehicle_fleet_in_the_united_states.pdf): a 10 percent increase in charging availability raises EV uptake by 3.7 percent at relatively low levels of availability, and the elasticity of charging station supply to its cost is $\epsilon_{CS,C} = -0.67$. **Calibration.** The starting value $RA_{m,t_0}$ is set so that modelled new BEV sales in the latest data year match actual sales. Sales here are the vehicles new to the road: new vehicles and imported used vehicles, excluding second-hand sales of vehicles already owned domestically.
+
+#### Fuel economy of new vehicles {#sec-EngTrFENew}
+
+In the baseline, fuel economy improves exogenously with technology for all vehicles, and additionally with learning-by-doing and economies of scale for BEVs. Light- and heavy-duty ICEVs and light BEVs improve by about one percent a year, while heavy-duty BEVs improve from 0.7 km per kWh in 2020 to 1.5 km per kWh in 2050 ([ICCT 2021](https://theicct.org/sites/default/files/publications/TCO-BETs-Europe-white-paper-v4-nov21.pdf)). The fuel economy of new ICEVs also rises with fuel prices, as manufacturers modify technology and buyers shift to more efficient models. This is the efficiency margin of the Mitigation chapter, with the same elasticity $\epsilon_F$ (around $-0.4$ for light-duty and $-0.3$ for heavy-duty ICEVs, with some country variation; see [Black and others 2023](https://www.imf.org/en/Publications/WP/Issues/2023/06/22/The-IMF-World-Bank-Climate-Policy-Assessment-Tool-CPAT-A-Model-to-Help-Countries-Mitigate-535096)):
+
+$$
+fe^{new}_{m,f,t} = fe^{new}_{m,f,t-1}\,(1 + \alpha_f)\left(\frac{p_{f,t} + fb_{m,f,t}}{p_{f,t-1} + fb_{m,f,t-1}}\right)^{-\epsilon_{F,f}}, \qquad fb_{m,f,t} = fbr_{m,t}\; ef_f\,(1 - bl_f)
+$$ {#eq-EngTrFENew}
+
+where $fb$ is the feebate (or fuel economy standard) expressed per liter: the feebate rate times the fossil CO$_2$ per liter of fuel ($ef_f$ in tCO$_2$ per liter, net of the biofuel blend). Since $\epsilon_F < 0$, fuel economy (km per liter) rises with the price. The fuel economy of BEVs is assumed not to respond to electricity prices, given their high energy efficiency and the low share of fuel in their costs.
+
+### BEV shares {#sec-EngTrBEV}
+
+A logit function of the relative TCO of ICEVs and BEVs determines the share of vehicle demand met by each. It is computed separately for new and used passenger vehicles, freight vehicles and two-three wheelers. It is the two-option form of the multilogit of the engineer power model (see [Logit function](03_Mitigation.qmd#logit-function)), applied to the cost per km relative to its average $\bar{c}_{m,t}$:
+
+$$
+\sigma^{BEV}_{m,t} = \frac{e^{-K_m c_{m,BEV,t}/\bar{c}_{m,t}}}{e^{-K_m c_{m,BEV,t}/\bar{c}_{m,t}} + e^{-K_m c_{m,ICE,t}/\bar{c}_{m,t}}}, \qquad \bar{c}_{m,t} = (1 - \sigma^{BEV}_{m,t-1})\,c_{m,ICE,t} + \sigma^{BEV}_{m,t-1}\,c_{m,BEV,t}
+$$ {#eq-EngTrLogit}
+
+The shape parameter $K_m$ is 3 for passenger vehicles, 2 for freight and 4 for two-three wheelers. It is fitted to minimize the difference between modelled and actual EV sales between 2015 and 2024 for selected economies. In data years the observed shares are used.
+
+Used vehicles are split between imported used vehicles and used vehicles previously owned domestically. The supply of both, imported and second-hand domestic used BEVs, is limited by the global and domestic EV purchases of 10 years before (the assumed ownership period) for passenger vehicles, and of 4 years before for freight.
+
+The resulting BEV shares are similar to other forecasts at the global and country level (@fig-EngTrEVGlobal, @fig-EngTrEVMarkets).
+
+::: {#fig-EngTrEVGlobal layout-ncol=3}
+
+![Passenger](./07/media/engineer_evshare_passenger.png){#fig-EngTrEVGlobalPas}
+
+![Freight](./07/media/engineer_evshare_freight.png){#fig-EngTrEVGlobalFre}
+
+![Two-three wheelers](./07/media/engineer_evshare_23wheeler.png){#fig-EngTrEVGlobalTW}
+
+EV sales shares, global, 2030 and 2035. Source: IMF staff estimates using [IEA Global EV Outlook 2025](https://www.iea.org/reports/global-ev-outlook-2025), [BNEF Electric Vehicle Outlook 2024](https://assets.bbhub.io/professional/sites/24/847354_BNEF_EVO2024_ExecutiveSummary.pdf), [ICCT Vision 2050](https://theicct.org/publication/vision-2050-global-zev-transition-2024-jan25/) and Goldman Sachs Research.
+:::
+
+![EV sales shares, passenger vehicles, selected markets, 2030 and 2035. Source: as @fig-EngTrEVGlobal. The methodology note shows the same comparison for freight vehicles.](./07/media/engineer_evshare_markets.png){#fig-EngTrEVMarkets width=60%}
+
+### Share of ICEVs by fuel type {#sec-EngTrICEFuel}
+
+Once total ICEV purchases are known, they are split by fuel: gasoline, diesel, LPG, CNG and PHEVs for passenger vehicles; diesel, LPG and LNG for freight; gasoline for two-three wheelers. Each fuel's share moves with the change in its own TCO and in the TCO of the other fuels, with own- and cross-price elasticities from a study of how the Norwegian vehicle fleet responds to changes in total cost of ownership ([Fridstrøm and Østli 2021](https://trid.trb.org/View/1762174)):
+
+$$
+\tilde{\sigma}_{m,f,t} = \tilde{\sigma}_{m,f,t-1}\left(\frac{TCO_{m,f,t}}{TCO_{m,f,t-1}}\right)^{\epsilon_{own}}\left(\frac{\sum_{f' \ne f}\tilde{\sigma}_{m,f',t-1}\,TCO_{m,f',t}/TCO_{m,f',t-1}}{\sum_{f' \ne f}\tilde{\sigma}_{m,f',t-1}}\right)^{\epsilon_{cross}}, \qquad \sigma_{m,f,t} = \frac{\tilde{\sigma}_{m,f,t}}{\sum_{f'}\tilde{\sigma}_{m,f',t}}\,\big(1 - \sigma^{BEV}_{m,t}\big)
+$$ {#eq-EngTrICESplit}
+
+The fuel shares of the stock turn over slowly, replacing one ownership period's share each year.
+
+### Distance driven per vehicle and fuel economy {#sec-EngTrDistance}
+
+**Distance in the purchase decision.** The VKT a buyer expects from a new vehicle grows with income and, in the methodology, responds to the cost per km through the driving (usage) elasticity $\epsilon_U$ (around $-0.3$ for LDVs and two-three wheelers and $-0.2$ for HDVs):
+
+$$
+D^{new}_{m,f,t} = D^{new}_{m,f,t-1}\left(\frac{p_{f,t}/fe^{new}_{m,f,t} + dtx_{m,t}}{p_{f,t-1}/fe^{new}_{m,f,t-1} + dtx_{m,t-1}}\right)^{\epsilon_{U,f}}\big(1 + g^{GDP}_{t-1}\big)^{\epsilon_{I,m}}
+$$ {#eq-EngTrDistNew}
+
+**Distance driven by the stock.** Distance per vehicle responds to any fiscal instrument that changes the marginal cost per kilometer (fuel or carbon taxes, distance-based taxes) and to income. It differs between ICEVs and EVs through their cost per km:
+
+$$
+D_{m,f,t} = D_{m,f,t-1}\left(\frac{c^{km}_{m,f,t}}{c^{km}_{m,f,t-1}}\right)^{\epsilon_{U,f}}\left(\frac{y_t}{y_{t-1}}\right)^{\epsilon_{I,m}}, \qquad c^{km}_{m,f,t} = \frac{p_{f,t}}{fe^{stk}_{m,f,t-1}} + dtx_{m,t}
+$$ {#eq-EngTrDist}
+
+**Fuel economy of the stock** turns over with purchases, with $\overline{L}_m$ the average holding period:
+
+$$
+fe^{stk}_{m,f,t} = \frac{1}{\overline{L}_m}\, fe^{new}_{m,f,t} + \left(1 - \frac{1}{\overline{L}_m}\right) fe^{stk}_{m,f,t-1}
+$$ {#eq-EngTrFEStock}
+
+### Fuel use, buses and biofuels {#sec-EngTrFuelUse}
+
+Combining the number of vehicles, the distance driven and the fuel economy gives fuel use, and with it emissions and the fiscal effects of road decarbonization policies. With $S_{m,f,t}$ the stock of class $m$ using fuel $f$ (per 1,000 people):
+
+$$
+F^{T}_{f,t} = \Theta_f\,\sum_{m}\frac{N_t\, S_{m,f,t}}{1000}\cdot\frac{D_{m,f,t}}{fe^{stk}_{m,f,t}}, \qquad \Theta_f = \frac{F^{bal}_{ROD,f,t_0}}{\left.\sum_{m}\frac{N\,S_{m,f}}{1000}\cdot\frac{D_{m,f}}{fe^{stk}_{m,f}}\right|_{t_0}}
+$$ {#eq-EngTrFuel}
+
+Liters are converted to ktoe. The factor $\Theta_f$ calibrates the bottom-up fleet to road fuel use in the energy balance $F^{bal}_{ROD,f,t_0}$ in the base year and is then held. In practice it is applied in two steps: a distance factor by vehicle class, then a residual factor by fuel. A factor far from one signals that the vehicle data explain only part of road fuel use. PHEV distance is split between gasoline and electricity. Road electricity $E^{T}_t$ is computed in the same way from the BEV stock, its distance and its fuel economy (km per kWh).
+
+**Public transport.** Buses are covered with a simplified approach (rail and air are not). Bus fuel and electricity use change at the same rate as passenger vehicle energy use, so buses electrify at roughly the same rate as passenger vehicles:
+
+$$
+F_{BU,f,t} = F_{BU,f,t_0}\;\frac{F_{P,t}}{F_{P,t_0}}
+$$ {#eq-EngTrBus}
+
+where $F_{P,t}$ is the energy use (fuel and electricity, ktoe) of passenger vehicles. Bus electricity grows with passenger electricity in the same way.
+
+**Biofuels.** The blending ratio $bl_f$ comes from the IEA energy balances and is held constant, so biofuel use changes in proportion to gasoline and diesel:
+
+$$
+F^{T}_{BGS,t} = F_{ROD,BGS,t_0}\,\frac{F^{T}_{GSO,t}}{F_{ROD,GSO,t_0}}, \qquad F^{T}_{BDI,t} = F_{ROD,BDI,t_0}\,\frac{F^{T}_{DIE,t}}{F_{ROD,DIE,t_0}}
+$$ {#eq-EngTrBio}
+
+Blending enters the emission intensities of gasoline and diesel, which matters for CO$_2$-based policies such as feebates and carbon taxes (@eq-EngTrFENew, @eq-EngTrFeebate).
+
+### Modelled policies {#sec-EngTrPolicies}
+
+A range of policies work through separate channels.
+
+- **Policies that change fuel prices**, such as carbon taxes and fuel excises, act through three channels: the fuel economy of newly purchased ICEVs, through the efficiency elasticity $\epsilon_F$ (around $-0.3$ for freight and $-0.4$ for passenger vehicles and two-three wheelers; @eq-EngTrFENew); the distance driven by all ICEVs, through the intensive-margin elasticity $\epsilon_U$ (around $-0.2$ for freight and $-0.3$ for passenger vehicles and two-three wheelers; @eq-EngTrDist); and a larger EV share of new purchases, because ICEVs become relatively more expensive (@eq-EngTrLogit).
+- **Feebates** improve the fuel economy of new ICEVs (as fuel price policies do) and raise the EV share of purchases, through higher ICEV purchase taxes and EV subsidies (with the pivot point set above zero). The effect on the purchase price of a vehicle is the product of (i) the net present value of kilometers driven over its life, (ii) the difference between its CO$_2$ intensity and that of all new vehicle purchases (the pivot), and (iii) the shadow carbon price:
+
+  $$
+  FB_{m,h,t} = \big(I_{m,h,t} - I^{piv}_{m,t}\big)\; fbr_{m,t}\; \overline{D}_{m,h,t}
+  $$ {#eq-EngTrFeebate}
+
+  The EV rebate follows from the same equation with $I_{m,BEV,t} = 0$, which makes the first term negative. Fuel economy standards are modelled the same way, as a shadow carbon price added to $fbr$. The carbon price itself is not added, since it is already in the fuel price.
+- **Distance-based taxes** $dtx$ reduce distance driven, like the driving part of carbon taxes (@eq-EngTrDist), and raise the TCO of all vehicles (@eq-EngTrTCO).
+- **EV purchase subsidies, ad valorem purchase taxes, VAT and customs duties on BEVs** change the purchase price (@eq-EngTrPrice). **Charging-station subsidies** lower the cost of a charging port, which adds stations and reduces range anxiety (@eq-EngTrStations, @eq-EngTrRA).
+
+### Links to the mitigation and co-benefits results {#sec-EngTrLinks}
+
+**Mitigation.** The model user chooses, by scenario, whether road fuel use comes from the elasticity approach of the Mitigation chapter (@sec-FuelConsumptionDynamics) or from the engineer model. With the engineer model selected, road use of gasoline, diesel, LPG, natural gas and biofuels is $F_{o,c,s=ROD,f,t} = F^{T}_{f,t}$ (@eq-EngTrFuel, @eq-EngTrBio). Road electricity demand in the power sector is $E^{T}_t$ after the base year. CO$_2$ and other emissions, local air pollutants, fiscal revenues and all totals then follow the engineer road fuel use. The engineer model reads the fuel prices including new policies (@sec-PricesAndTaxes), GDP and population, and the previous year's electricity price, so it adds no circular reference.
+
+**Co-benefits.** The co-benefits part of this chapter projects congestion, accidents and road damage from the change in road fuel prices (@eq-policy). Their externality cost per liter of motor fuel divides the change in their value by the change in road fuel use from the Mitigation module (@sec-extcost), which is the engineer model's road fuel use when it is selected.
+
+### Parameters: methodology and workbook {#sec-EngTrParams}
+
+The CPAT workbook does not yet use all of the methodology note's parameter values. The values below are those of the workbook (legacy CPAT, kept in CPAT-AI), next to the note's where they differ. The full parameter list, and the implementation in Excel-AI and CPAT Python, are in the CPAT-AI Model book ([Road transport](../CPAT_model_documentation_html/05_Road_transport.html#sec-tr-params)).
+
+| **Parameter** | **Symbol** | **Workbook** | **Methodology note** |
+|---|---|---|---|
+| Consumer discount rate, low / high income | $r^{max}$, $r^{min}$ | 15% at US\$1,000 / 5% at US\$50,000 | 30% / 10% |
+| Gompertz parameters | $\kappa_1$, $\kappa_2$ | $-5.897$; $-0.23$ per thousand US\$ | |
+| Partial adjustment speed; maximum growth / decline of ownership | $\rho$; $\overline{g}^{+}$, $\overline{g}^{-}$ | 0.09; 7.5% / 10% a year | |
+| Two-three wheeler peak income | $y^{pk}$ | US\$7,000 | |
+| Freight share target; income at the target | $\chi^{*}$; $y^{*}$ | 0.0236; US\$87,398 | |
+| Useful life: passenger, freight, two-three wheeler | $L_m$ | 20, 10, 7 years | |
+| Ownership period of a new passenger vehicle | $n_{PN}$ | 7 years | 10 years |
+| First-year depreciation; insurance; insurance factor | $\delta$; $ins$; $\theta^{ins}$ | 30%; 1.5%; 0.5 | |
+| EV maintenance | $mc_{m,BEV}$ | ICEV × 2/3 | ICEV × 1/3 |
+| Driving (usage) elasticity, light / heavy vehicles | $\epsilon_U$ | $-0.4$ / $-0.3$ (road gasoline / diesel of the Mitigation chapter) | $-0.3$ / $-0.2$ |
+| Income elasticity of distance | $\epsilon_{I,m}$ | 0.1 (two-three wheelers $-0.4$) | 0.05 |
+| Distance of new vehicles responds to fuel prices | | No | Yes |
+| BEV / ICEV distance in the TCO | | BEV capped at 1.2 × ICEV | identical |
+| Logit shape parameter: passenger, freight, two-three wheeler | $K_m$ | 3, 2, 4 | |
+| Own / cross TCO elasticity of ICEV fuel shares | $\epsilon_{own}$, $\epsilon_{cross}$ | $-1.265$ / $0.5725$ | |
+| Charging stations to the BEV stock; to their cost | $\epsilon_{CS,V}$, $\epsilon_{CS,C}$ | 0.3; $-0.67$ | |
+| Range anxiety to charging stations | $\epsilon_{RA}$ | $-0.5$ | |
+| Charging mark-up maximum / minimum; EV share at the minimum; public share | $mku^{max}$, $mku^{min}$; $\bar{e}$; $\varsigma$ | US\$0.30 / 0.02 per kWh; 0.5; 0.2 | US\$0.10 / 0.02 per kWh |
+| Maintenance cost | | Fixed US\$ per km | Rises with wages |
+| ICEV retail prices | $P^{0}$ | Price path by country | Rise with income |
+
+: Parameters of the engineer road transport model {#tbl-EngTrParams}
+
+### Caveats {#sec-EngTrCaveats}
+
+- **Data.** Much of the vehicle data is estimated, especially for developing countries. The calibration to the energy balance (@eq-EngTrFuel) ensures base-year fuel use is right, but large calibration factors show that the fleet data explain only part of road fuel use.
+- **Range anxiety** is calibrated to one year of observed EV sales and is the main lever on the EV share. Its path depends on assumed elasticities.
+- **Parameters** of the note and the workbook differ (@tbl-EngTrParams); several values, including the discount rates, are still to be reviewed.
+- **Public transport** is scaled with passenger vehicles; mode shift (to public transport, rail or non-motorized transport) is not modelled.
+- **The co-benefits elasticities** (from [Summary](#summary) onward) are estimated on historical data and do not yet reflect the engineer model's fleet composition, e.g. a large EV share.
 
 
-## Summary
+## Co-benefits: summary {#summary}
 
 Carbon taxes impact fuel prices and thereby shape driving behavior. In
 particular, carbon taxes increase incentives to substitute away from
@@ -53,6 +460,8 @@ trips.
 
 ## List of acronyms 
 
+BEV Battery electric vehicle
+
 CCKP Climate Change Knowledge Portal (from the World Bank)
 
 FAD IMF’s Fiscal Affairs Department
@@ -62,9 +471,15 @@ GHO Global Health Observatory (from the World Health Organization)
 GIZ Gesellschaft für Internationale Zusammenarbeit (German development
 agency)
 
+HDV Heavy-duty vehicle (medium- and heavy-duty freight)
+
+ICEV Internal combustion engine vehicle
+
 IEA International Energy Agency
 
 IMF International Monetary Fund
+
+LDV Light-duty vehicle (cars and commercial vehicles below 3.5 tons)
 
 NCEI National Centers for Environmental Information (United States)
 
@@ -72,9 +487,13 @@ OECD Organisation for Economic Co-operation and Development
 
 OLS Ordinary Least Squares (econometric estimation method)
 
+PHEV Plug-in hybrid electric vehicle
+
 SDG Sustainable Development Goals
 
 SDR Sustainable Development Report (@Sachs2019)
+
+TCO Total cost of ownership
 
 UNECE United Nations Economic Commission for Europe
 

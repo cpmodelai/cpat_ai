@@ -80,7 +80,7 @@ The general approach to determining baseline fuel consumption and the response t
 
 [^03_mitigation-5]: Income and price elasticities are based on a literature review. Income elasticities might depend (implicitly) on the level of GDP per capita (user option).
 
-The mitigation module comprises two power sector models and simple models for industry, transport, and buildings. The two power models, the 'elasticity-based' model and the hybrid techno-economic dynamic model ('engineer model') of the power sector with explicit capital stock use identical power demand elasticities and separately consider power generation's costs by type. For 'off-the-shelf' usage of CPAT, we recommend an average of the two models. For more tailored work, we recommend using the engineer model.
+The mitigation module comprises two power sector models and simple models for industry, transport, and buildings. For road transport, a techno-economic ('engineer') model of the vehicle fleet can replace the elasticity approach; it is documented in the Road Transport chapter ([Techno-economic ('engineer') road transport model](07_Road_Transport.qmd#sec-EngineerTransport)). The two power models, the 'elasticity-based' model and the hybrid techno-economic dynamic model ('engineer model') of the power sector with explicit capital stock use identical power demand elasticities and separately consider power generation's costs by type. For 'off-the-shelf' usage of CPAT, we recommend an average of the two models. For more tailored work, we recommend using the engineer model.
 
 The elasticity-based model requires only minor tailoring and checking. As a result, it makes no distinction between short-term and long-term behavior. It also fails to distinguish between dispatchable and non-dispatchable generation types. The engineer power model fills this gap by separating investments, retirement, and dispatch decisions. It includes countries' generation capacities and makes it possible to investigate the radically different power systems compatible with high carbon prices. However, the model still cannot account for inflexibility, off-price policies, and local price variation (e.g., coal). Due to the constraints of Excel, it can only approximate the temporal match between electricity supply and demand.
 
@@ -861,6 +861,7 @@ Energy use is aggregated into five main sector groupings: Transport, Buildings, 
 Few specific cases slightly affect the energy use equation described above or the energy composition, that is:
 
 -   The breakdown of biofuels and existence of jet fuel in the transport sectors;
+-   Road transport, which can be modelled with the engineer road transport model instead;
 -   Self-generated renewables in the building and industry sectors;
 -   The substitution between biomass and LPG/kerosene/natural gas in the residential sector;
 -   For the year 2020-21, energy use is calibrated with a Covid adjustment;
@@ -870,6 +871,10 @@ Few specific cases slightly affect the energy use equation described above or th
 #### Biofuels and jet fuel
 
 In the transport sector, for road transport only, biomass is further broken down into Bioethanol, Biodiesel and Other Biofuels. In addition, domestic aviation jet fuel is a fuel type not seen in other sectors.
+
+#### Road transport: the engineer model {#sec-RoadEngineerLink}
+
+Road fuel use can be projected in two ways, chosen by scenario. By default it follows the elasticity equation of @sec-FuelConsumptionDynamics, like every other sector. Alternatively, a techno-economic ('engineer') road transport model projects the vehicle fleet itself: vehicle ownership and purchases, the choice between combustion and battery electric vehicles on their total cost of ownership, fuel economy and distance driven. Road use of gasoline, diesel, LPG, natural gas, biofuels and electricity then follows from vehicles, distance and fuel economy, calibrated to the energy balance in the base year. The engineer model also captures transport policies that act on vehicle purchases (feebates, EV subsidies, vehicle taxes, distance-based taxes, charging infrastructure). It is documented, with its links to emissions, revenues and the transport co-benefits, in the Road Transport chapter: [Techno-economic ('engineer') road transport model](07_Road_Transport.qmd#sec-EngineerTransport).
 
 #### Self-generated renewables
 
@@ -2709,6 +2714,8 @@ Where the first term $\frac{\left( ncp_{ft} - xcp_{ft} \right)}{2}$ represents h
 #### Co-benefits
 
 If it is now supposed that there are also local air pollution or other domestic environmental costs associated with use of the fuel product as indicated in @fig-EffCostsandCoben. The reduction in fuel use from the carbon charge reduces these costs by rectangle *ncfo*, which corresponds to the domestic environmental co-benefits. In short, the area *acfg* is presumably due to the externality created from fossil fuel use in the first place -- and hence that is why the entire *ncfo* area could be a benefit. The net economic benefit is defined as the domestic environmental co-benefits---excluding global climate benefits---less efficiency costs. This is shown by trapezoid *noga*, as the co-benefits exceed the efficiency cost. More generally co-benefits might offset a portion of (rather than more than offsetting) efficiency costs in which case net economic benefits are negative.
+
+The road transport co-benefits (congestion, accidents and road damage) are documented in the Road Transport chapter, together with the engineer road transport model (see its [scope](07_Road_Transport.qmd#sec-TransportScope)).
 
 ### Energy externalities costs
 
