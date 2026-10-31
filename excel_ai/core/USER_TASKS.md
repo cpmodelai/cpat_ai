@@ -47,3 +47,10 @@ what to tell the agent afterwards. Source: `TODO.md` (sections 5 and "Open at th
     `data/Public01/tidy/xai_mtoutputs_map_465.csv` (column `reason`); confirm or correct, or ask the agent to propose.
 14. **MTOutputs scenarios side by side** (TODO E2): confirm the layout before it is built (scenario groups across the
     sheet as on Mitigation, the scenario number at the top of each group driving every lookup).
+
+## E. Added 2026-10-31
+
+15. **QuickStart master**: you edited `QuickStart.docx` directly; decide whether the .docx is now the master (the agent
+    deletes `docs/QuickStart.md`) or the agent folds your edits back into the .md.
+16. **After release 1.1.1** (shared formulas): open `active_workbooks/CPAT-AI-Mitigation-Prototype_latest.xlsm` once in
+    Excel to confirm no repair and the faster opening; press Ctrl+Alt+F9 the first time (NORMS 3k.5).

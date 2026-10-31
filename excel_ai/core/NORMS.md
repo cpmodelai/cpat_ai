@@ -7,7 +7,7 @@ Rules for every task in this repository. Sections 0-5: the Excel prototypes (`ex
 | 0 | **Replication rule: never replicate bugs, always replicate issues (and track them)** |
 | 1 | Column norms |
 | 2 | Visual style guide |
-| 3, 3b-3j | Formulas, codes, encoding and LAMBDA rules, results, names, copy-paste, overnight runs, Excel repair prompts, VBA, LibreOffice testing, lessons register |
+| 3, 3b-3k | Formulas, codes, encoding and LAMBDA rules, results, names, copy-paste, overnight runs, Excel repair prompts, VBA, LibreOffice testing, lessons register, shared formulas and opening speed |
 | 4 | Policy and parameter inputs (ScenarioDefinition) |
 | 5 | Versions, releases and documents |
 | 6, 6b | Task completion (CAVEATS.md) and norms that follow the lessons |
@@ -394,7 +394,8 @@ in the file itself.
    - cell formulas at most 8,192 characters; cell text at most 32,767 characters; in-cell list validations at most
      255 characters;
    - sheet names: at most 31 characters, none of `[]:*?/\`, no leading or trailing apostrophe, unique
-     case-insensitively.
+     case-insensitively;
+   - shared formulas: none names another sheet, holds an array constant or a newer function (section 3k).
    The LAMBDA rules (sections 3b and 3d: `_xlfn.`/`_xlpm.` prefixes, reserved names) stay with the quick check of the
    prototype.
 3. **When Excel repairs a file anyway:** ask for the repair log (the XML Excel offers to show). It names the package
@@ -468,8 +469,41 @@ LibreOffice evaluates neither named LAMBDAs nor, reliably, a workbook on loading
 | v0.7.0-v0.7.1 | LibreOffice: wrong values on load, errors up to 2.4e-3 after one `calculateAll` (stored results of IDs 3-5) | 3i.2-3i.3 | `Session.calc` = two `calculateAll`; full check stored results vs Python |
 | v0.7.0 | regression against an unexpanded earlier release | 3i.1 | quick check (`recalc_values` expands) |
 | v0.7.0 | tests pasting into group 4 with group 3 empty | 3i.5 | full check (exemption, leakage) |
+| 1.1.0 test copies | shared formula naming another sheet (removed by Excel on open) | 3k.2 | `excel_lint.py`; `shared_formulas.NOT_SHARED` |
+| 1.1.0 test copies | shared formula with an array constant (file not savable as .xlsb) | 3k.2 | `excel_lint.py`; `shared_formulas.NOT_SHARED` |
 
 Add a row in the task that finds a new issue (root `NORMS.md` section 6b).
+
+## 3k. Shared formulas and opening speed (user 2026-10-30/31)
+
+The prototype is large (about 500,000 formulas, 120 MB of XML): opening it costs Excel the parsing of every formula
+and the building of its dependency tree, even in manual calculation.
+
+1. **Repeated formulas are written as shared formulas** (`core/tools/shared_formulas.py`, called by both builders after
+   the values are stored; `SHARED_FORMULAS=0` turns it off). A run of a row's cells whose formulas are the first one's
+   shifted (a fill) is written once: the first cell holds the formula with `t="shared"`, the range and an index, the
+   others only the index. Results do not change; the round trip is exact. User test 2026-10-31: the file opens about
+   50% faster (15.1 MB to 13.5 MB; about half the formulas shared).
+2. **Never shared** (user tests 2026-10-30, each found by bisecting test copies in Excel 365):
+   - a formula that names another sheet (`Settings!$C$4`, `'ETS+LTS'!E6`): Excel removed every such shared formula on
+     open ("Removed Records: Shared formula from /xl/worksheets/sheetN.xml");
+   - a formula with an array constant (`{"T","R","M"}`): Excel opened the file but could not save it as .xlsb
+     ("errors were detected", nothing listed);
+   - a formula with a newer function (`_xlfn.MINIFS`): kept in full as a precaution (the binary format stores those
+     as external names).
+   `excel_lint.py` fails on any shared formula that breaks these rules.
+3. **Scripts that edit formulas in the XML** (`lo_session.expanded_zip`, `make_variants.py`) call
+   `shared_formulas.unshare` first; openpyxl reads shared formulas in full by itself.
+4. **A new opening-speed or format test** goes through Excel on Windows (the cloud has no Excel): test copies made from
+   the shipped file, one suspect each (a sheet, a kind of formula), opened, saved as .xlsm and as .xlsb, and timed against
+   the shipped file. Files downloaded from the internet may have their macros blocked; that did not cause the .xlsb
+   error (test F, 2026-10-30).
+5. **Recalculation in Excel** (the file ships with LibreOffice's values, manual calculation and no calculation chain):
+   the first recalculation after opening is a full one (Ctrl+Alt+F9, or the button *Recalculate now*), as F9 finds
+   nothing marked to recalculate; after that F9 (`Application.Calculate`) recalculates what changed. Ctrl+Shift+Alt+F9
+   rebuilds the dependency tree first (when results look stale). Saving once from Excel stores its calculation chain.
+6. **.xlsb** holds everything the prototype uses (macros, Power Query links, LAMBDAs, tables, charts) and opens faster,
+   but only Excel writes it: the build ships .xlsm; a binary copy is saved from Excel when wanted.
 
 ## 4. Policy and parameter input norms (ScenarioDefinition)
 

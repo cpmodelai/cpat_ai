@@ -95,6 +95,21 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
 - ☑ **History rewrite**: done 2026-10-30 (above).
 - ☐ **Release 1.1 follow-ups** (2026-10-30, CAVEATS): (a) enable the website: Settings > Pages > Source: GitHub Actions (admin), then run the workflow *Documentation website*; (b) open `data/Public01/legacy/CPAT 1.0pre_465_Public01.xlsb` in Excel, recalculate, save, and rebuild the five derived-real `xai_legacy_*` tables from it; (c) regenerate the two decks; (d) freeze Public01 in `data/editions.csv` once 1.1 is accepted; (e) delete the seven old branches and ask GitHub Support to purge the old pull-request refs (user); (f) the full check beyond the partial set (section 5 on: one LibreOffice recalculation ran over 40 minutes) and section 4b after (b).
 
+## Opening speed (2026-10-31; NORMS 3k)
+
+- ☑ **Shared formulas** in the builds (`core/tools/shared_formulas.py`, on by default): test copy of 1.1.0 opens about
+  50% faster, no repair, saves as .xlsb (user tests 2026-10-30/31). Not shared: formulas naming another sheet, with an
+  array constant or a newer function; `excel_lint.py` checks it.
+- ☐ **Release 1.1.1** with shared formulas: rebuild Mitigation and Distribution, quick, distribution, link and paste
+  checks, changelogs, CAVEATS, Coded references (values unchanged), push to `main`.
+- ☐ **Recalculate now**: a full recalculation (Ctrl+Alt+F9) the first time after opening, then `Application.Calculate`
+  (F9: only what changed); today every press is a full recalculation.
+- ☐ **More opening speed**, measured in Excel each time: the data tabs cut to the rows the model reads (EF_PM 16 MB,
+  WEO 7 MB, Power 6 MB, all countries); share the formulas naming another sheet by other means (a defined name for the
+  other sheet's range, if Excel accepts that shared); an .xlsb copy saved from Excel after each release (user's choice).
+- ☐ **QuickStart**: the user edited `QuickStart.docx` on `main` (2026-10-31); its source `docs/QuickStart.md` is now
+  older: fold the edits back into the source, or make the .docx the master and delete the .md (user's choice).
+
 ## Later (not now)
 
 - Power engineer model: final deficit to gas, MaximumGasCF, storage factor; planned retirement data; elasticity-based power model.

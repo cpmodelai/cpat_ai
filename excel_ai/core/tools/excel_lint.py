@@ -125,6 +125,9 @@ def lint(path):
             f = c.find('m:f', NS)
             if f is not None and f.text and len(f.text) > 8192:
                 p.append(f'{sname}!{r}: formula longer than 8192 characters')
+            if f is not None and f.get('t') == 'shared' and f.text \
+                    and any(x in f.text for x in ('!', '{', '_xl')):   # NORMS 3k: Excel rejects these shared
+                p.append(f'{sname}!{r}: shared formula with a sheet reference, an array constant or a newer function')
             txt = _cell_text(c, sst)
             if txt is not None and c.get('t') in ('s', 'inlineStr', 'str') and len(txt) > 32767:
                 p.append(f'{sname}!{r}: text longer than 32767 characters')
