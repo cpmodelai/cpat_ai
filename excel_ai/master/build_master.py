@@ -1,7 +1,7 @@
 """CPAT-AI Master workbook (user 2026-10-31, v1.2.0): the user guide of the CPAT-AI workbooks and the only workbook with
 macros. It lists the modules (version, where the latest unactivated .xlsx is, locally and on GitHub, and the activated
 .xlsb it writes in active_workbooks), activates them, updates their data tables and the distribution inputs, and
-stores scenario results as values (StoredScenarios, ten slots, MTOutputs' rows) with their comparison (CompareStored).
+stores scenario results as values (StoredScenarios, ten slots, Outputs' rows) with their comparison (CompareStored).
 
     python build_master.py      # master/releases/CPAT-AI-Master_UserGuide_v<version>.xlsm and its copy
                                 # active_workbooks/CPAT-AI-Master_UserGuide.xlsm (after the mitigation build: it
@@ -44,7 +44,7 @@ def module_version(path, pattern):
 
 
 MODULES = [  # module, version, unactivated file (relative to excel_ai), sheets filled on activation
-    ('Mitigation', P.VERSION, os.path.relpath(P.LATEST, P.REL.XL).replace(os.sep, '/'), 'Mitigation,MTOutputs'),
+    ('Mitigation', P.VERSION, os.path.relpath(P.LATEST, P.REL.XL).replace(os.sep, '/'), 'Mitigation,Outputs'),
     ('Distribution', module_version(os.path.join(P.REL.XL, 'distribution', 'build_distribution.py'),
                                     r"^VERSION = '([^']+)'"),
      os.path.relpath(P.REL.permalink('CPAT-AI-Distribution', 'xlsx'), P.REL.XL).replace(os.sep, '/'), ''),
@@ -54,17 +54,23 @@ MOD_HEAD = ['Module', 'Latest version', 'Unactivated workbook (.xlsx, in the rep
             'GitHub link (the same file)', 'Activated workbook (.xlsb, next to this workbook)',
             'Filled on activation (sheets)', 'Last activated (here)']
 COL_FILE, COL_URL, COL_ACT, COL_FILL, COL_LAST = 3, 4, 5, 6, 7
-BUTTONS = [('Activate all modules', 'ActivateAll'), ('Activate Mitigation', 'ActivateMitigation'),
-           ('Activate Distribution', 'ActivateDistribution'), ('Activate Air pollution', 'ActivateAirPollution'),
-           ('Update data tables', 'UpdateDataTables'), ('Update Distribution from Mitigation',
-                                                        'UpdateDistributionFromMitigation'),
-           ('Store live scenarios', 'StoreLiveScenarios'), ('Run stored scenarios', 'RunStoredScenarios'),
-           ('Clear stored scenarios', 'ClearStoredScenarios')]
-BTN_ROW0, BTN_COL0 = 4, 4                           # 0-based anchors: right of the guide text
+ACTIONS = [  # v1.2.0 (user 2026-10-31): a small action area at the top, one row per step (label, buttons)
+    ('1. Activate', [('Activate all modules', 'ActivateAll'), ('Mitigation only', 'ActivateMitigation'),
+                     ('Distribution only', 'ActivateDistribution'), ('Air pollution only', 'ActivateAirPollution')]),
+    ('2. Update', [('Data tables', 'UpdateDataTables'), ('Distribution from Mitigation',
+                                                         'UpdateDistributionFromMitigation')]),
+    ('3. Scenarios', [('Store live scenarios', 'StoreLiveScenarios'), ('Run stored scenarios', 'RunStoredScenarios'),
+                      ('Clear stored scenarios', 'ClearStoredScenarios')])]
+BUTTONS = [b for _l, bs in ACTIONS for b in bs]
+ACT_R0 = 6                                          # first row of the action area (1-based)
+BTN_W, BTN_H = 2, 2                                 # a button: two columns wide, two rows high
+GUIDE_W = {'A': 16, **{c: 13 for c in 'BCDEFGHI'}}  # narrow columns (the long texts wrap)
 VERSION_LOG = [('1.2.0', '2026-10-31', 'First version (user 2026-10-31): user guide, module table, activation (fill '
                                        f'{P.SHIP_LAST_YEAR} across to {P.LAST_YEAR}, recalculate, save as .xlsb), '
                                        'every macro of CPAT-AI (data tables, distribution from mitigation, batch runs), '
-                                       'stored scenarios (ten slots) and their comparison.')]
+                                       'stored scenarios (ten slots) and their comparison.'),
+               ('1.2.1', '2026-10-31', 'A compact action area at the top (three rows of small buttons: activate, update, '
+                                       'scenarios); narrower columns; the module tabs renamed (Scenarios, Outputs).')]
 
 
 def bar(ws, row, text, width, fill_, font):
@@ -72,63 +78,78 @@ def bar(ws, row, text, width, fill_, font):
 
 
 def build_guide(wb):
+    """UserGuide (v1.2.0, user 2026-10-31): the action area at the top (three rows of small buttons: activate,
+    update, scenarios), then how to use it, the module table, storage and the version log; narrow columns."""
     ws = wb.active
     ws.title = 'UserGuide'
-    w = 7
-    bar(ws, 2, f'{NAME} v{VERSION}: the user guide of the CPAT-AI workbooks, and their macros', w, P.F_TITLE, P.FONT_T)
-    P.put(ws, 'A3', 'The Climate Policy Assessment Tool in Excel (CPAT-AI): one workbook per module, without macros; '
-                    'this Master opens them, activates them, feeds them and stores their results. Buttons on the right.')
-    r = 5
-    bar(ws, r, 'How to use it', 3, P.F_BAND, P.FONT_SUBBAR)
+    w = 9
+    bar(ws, 2, f'{NAME} v{VERSION}: the CPAT-AI workbooks, their macros and the stored scenarios', w, P.F_TITLE, P.FONT_T)
+    P.put(ws, 'A3', 'One workbook per module, without macros; this Master activates them, feeds them and stores their '
+                    'results. Start with 1, then 2 when you need it, then 3.')
+    bar(ws, ACT_R0 - 1, 'Actions', w, P.F_BAND, P.FONT_SUBBAR)
+    for k, (lab, _bs) in enumerate(ACTIONS):
+        c = P.put(ws, f'A{ACT_R0 + k * BTN_H}', lab, P.FONT_B)
+        c.alignment = Alignment(vertical='center')
+        ws.merge_cells(f'A{ACT_R0 + k * BTN_H}:A{ACT_R0 + k * BTN_H + 1}')
+    r = ACT_R0 + len(ACTIONS) * BTN_H + 1
+    bar(ws, r, 'How to use it', w, P.F_BAND, P.FONT_SUBBAR)
     steps = [
         'Keep this workbook in excel_ai/active_workbooks of the repository (git clone or the SyncRepo script); the '
         'modules are then found locally, else downloaded from GitHub (the links below).',
-        f'Activate: the module\'s .xlsx ships with formulas to {P.SHIP_LAST_YEAR} (smaller, faster to open). Activation '
-        f'copies the {P.SHIP_LAST_YEAR} column across to {P.LAST_YEAR}, recalculates and saves the module as .xlsb next '
-        'to this workbook. Work in the .xlsb.',
-        'Scenarios: in the mitigation workbook, MTInputs (ScenarioDefinition): J = baseline, K = the live policy '
-        'scenario, L onwards = definitions (Run? = Yes for the batch run). Results: MTOutputs (scenarios side by '
-        'side) and ScenarioCompare. F9 recalculates.',
-        'Data: choose the data source and the rows (one country or all countries) on tab Settings, then Update '
-        'data tables (Power Query; the mitigation workbook keeps the source on its tab FromMaster).',
-        'Distribution: Update Distribution from Mitigation copies the exports of Mitigation (section 19a) into the '
+        f'Activate: each module ships with formulas to {P.SHIP_LAST_YEAR} (smaller, faster to open). Activation copies '
+        f'the {P.SHIP_LAST_YEAR} column across to {P.LAST_YEAR}, recalculates and saves the module as .xlsb next to '
+        'this workbook. Work in the .xlsb.',
+        'Scenarios: in the mitigation workbook, tab Scenarios: G = baseline, H = the live policy scenario, I onwards = '
+        'definitions (Run? = Yes for the batch run). Results: Outputs (scenarios side by side) and ScenarioCompare. '
+        'F9 recalculates.',
+        'Update: Data tables loads the linked data tabs (tab Settings here: the source; one country or all '
+        'countries). Distribution from Mitigation copies the exports of Mitigation (section 19a) into the '
         'distribution workbook.',
-        'Store: Store live scenarios copies the scenario groups of MTOutputs into StoredScenarios (values); Run '
-        'stored scenarios runs every definition through the live column and stores each. CompareStored compares '
-        'the stored scenarios.']
-    for k, s in enumerate(steps, r + 1):
-        P.put(ws, f'A{k}', f'{k - r}.', P.FONT_B)
-        c = P.put(ws, f'B{k}', s)
+        'Store: Store live scenarios copies the scenario groups of Outputs into StoredScenarios (values); Run stored '
+        'scenarios runs every definition through the live column and stores each; CompareStored compares them.']
+    for k, s_ in enumerate(steps, r + 1):
+        P.put(ws, f'A{k}', f'{k - r}.', P.FONT_B).alignment = Alignment(vertical='top')
+        c = P.put(ws, f'B{k}', s_)
         c.alignment = Alignment(wrap_text=True, vertical='top')
-        ws.row_dimensions[k].height = 42
+        ws.merge_cells(f'B{k}:{P.L(w)}{k}')
+        ws.row_dimensions[k].height = 30
     r += len(steps) + 2
     bar(ws, r, 'The modules: latest version and where to find them', w, P.F_BAND, P.FONT_SUBBAR)
     for j, h in enumerate(MOD_HEAD, 1):
-        P.put(ws, f'{P.L(j)}{r + 1}', h, P.FONT_B).border = Border(bottom=P.THIN)
+        c = P.put(ws, f'{P.L(j)}{r + 1}', h, P.FONT_B)
+        c.border, c.alignment = Border(bottom=P.THIN), Alignment(wrap_text=True, vertical='top')
+    ws.row_dimensions[r + 1].height = 42
     for k, (mod, ver, rel, fill_) in enumerate(MODULES, r + 2):
         url = f'{REPO_RAW}/{rel}'
         act = os.path.basename(rel).replace('.xlsx', '.xlsb')
         for j, v in enumerate([mod, ver, rel, url, act, fill_, ''], 1):
             c = P.put(ws, f'{P.L(j)}{k}', v)
+            c.alignment = Alignment(wrap_text=True, vertical='top')
             if j == COL_URL:
                 c.hyperlink = url
                 c.style = 'Hyperlink'
+                c.alignment = Alignment(wrap_text=True, vertical='top')
+        ws.row_dimensions[k].height = 54
     wb.defined_names['ModTable'] = DefinedName('ModTable', attr_text=f'UserGuide!$A${r + 2}:$G${r + 1 + len(MODULES)}')
     r += len(MODULES) + 3
-    bar(ws, r, 'Storage (NORMS 5a)', 3, P.F_BAND, P.FONT_SUBBAR)
-    for k, s in enumerate([
-            'excel_ai/<module>/<name>_latest.xlsx: the latest unactivated module (built by its builder; versions in '
-            '<module>/releases/).',
-            'excel_ai/active_workbooks/: this Master (.xlsm) and the activated modules (<name>_latest.xlsb). The .xlsb '
-            'are generated files: on a git conflict take either side and activate again; never merge them.'], r + 1):
-        P.put(ws, f'B{k}', s)
+    bar(ws, r, 'Storage (NORMS 5a)', w, P.F_BAND, P.FONT_SUBBAR)
+    for k, s_ in enumerate([
+            'excel_ai/<module>/<name>_latest.xlsx: the latest unactivated module (versions in <module>/releases/).',
+            'excel_ai/active_workbooks/: this Master (.xlsm) and the activated modules (<name>_latest.xlsb), generated '
+            'files: on a git conflict take either side and activate again; never merge them.'], r + 1):
+        c = P.put(ws, f'A{k}', s_)
+        c.alignment = Alignment(wrap_text=True, vertical='top')
+        ws.merge_cells(f'A{k}:{P.L(w)}{k}')
+        ws.row_dimensions[k].height = 30
     r += 4
-    bar(ws, r, 'Version log', 3, P.F_BAND, P.FONT_SUBBAR)
-    for k, (v, d, s) in enumerate(VERSION_LOG, r + 1):
-        P.put(ws, f'A{k}', v)
-        P.put(ws, f'B{k}', s).alignment = Alignment(wrap_text=True, vertical='top')
-        P.put(ws, f'C{k}', d)
-    for col, wd in {'A': 16, 'B': 90, 'C': 46, 'D': 70, 'E': 42, 'F': 22, 'G': 18}.items():
+    bar(ws, r, 'Version log', w, P.F_BAND, P.FONT_SUBBAR)
+    for k, (v, d, s_) in enumerate(VERSION_LOG, r + 1):
+        P.put(ws, f'A{k}', f'{v} ({d})').alignment = Alignment(vertical='top')
+        c = P.put(ws, f'B{k}', s_)
+        c.alignment = Alignment(wrap_text=True, vertical='top')
+        ws.merge_cells(f'B{k}:{P.L(w)}{k}')
+        ws.row_dimensions[k].height = 54
+    for col, wd in GUIDE_W.items():
         ws.column_dimensions[col].width = wd
     ws.sheet_view.zoomScale = ZOOM
     ws.sheet_properties.tabColor = P.F_TABDIV
@@ -190,17 +211,17 @@ SS_ROW_NAME, SS_ROW_ID, SS_ROW_META = 4, 5, 6
 
 
 def build_stored(wb):
-    """StoredScenarios: the rows of MTOutputs (the same row numbers, so a group is copied in one block), ten slots in
+    """StoredScenarios: the rows of Outputs (the same row numbers, so a group is copied in one block), ten slots in
     the columns of Mitigation's scenario groups; values only. Filled by the build with the baseline and the
     definitions of its batch run (Python emulation of RunAllScenarios)."""
     ws = wb.create_sheet('StoredScenarios')
     last = slot_col(SS_SLOTS) + P.NY + 1
-    bar(ws, 2, 'StoredScenarios: scenario results stored as values (the rows of MTOutputs; one slot per scenario)', last,
+    bar(ws, 2, 'StoredScenarios: scenario results stored as values (the rows of Outputs; one slot per scenario)', last,
         P.F_TITLE, P.FONT_T)
     P.put(ws, 'A3', 'Values only. Store live scenarios and Run stored scenarios (UserGuide) write the slots; row 5 '
                     'the scenario ID, row 4 its name, row 6 when and from which file. CompareStored compares them.')
     for j, h in enumerate(P.MTO_HEAD, 1):
-        if h and j != 10:
+        if h and j in (1, 2, 3, 8, 9):
             P.put(ws, f'{P.L(j)}1', h, P.FONT_B)
     P.put(ws, 'H4', 'Scenario name', P.FONT_B)
     P.put(ws, 'H5', 'Scenario ID', P.FONT_B)
@@ -407,8 +428,8 @@ def vba_source():
         ('COL_FILE', COL_FILE, 'Long'), ('COL_URL', COL_URL, 'Long'), ('COL_ACT', COL_ACT, 'Long'),
         ('COL_FILL', COL_FILL, 'Long'), ('COL_LAST', COL_LAST, 'Long'), ('XL_XLSB', 50, 'Long'),
         ('AUTOSEC_FORCE_DISABLE', 3, 'Long'), ('DATA_FILE', '"CPAT_LegacyData.xlsx"', 'String'),
-        ('DL_MAXROWS', 60000, 'Long'), ('SH_MT', '"ScenarioDefinition"', 'String'), ('SH_MIT', '"Mitigation"', 'String'),
-        ('SH_OUT', '"MTOutputs"', 'String'), ('SH_SS', '"StoredScenarios"', 'String'),
+        ('DL_MAXROWS', 60000, 'Long'), ('SH_MT', '"Scenarios"', 'String'), ('SH_MIT', '"Mitigation"', 'String'),
+        ('SH_OUT', '"Outputs"', 'String'), ('SH_SS', '"StoredScenarios"', 'String'),
         ('SH_FM', '"FromMitigation"', 'String'), ('EXPORT_NAME', '"ExportDistn"', 'String'),
         ('FM_FIRST', P.FM_R0, 'Long'), ('FM_LAST', fm_last, 'Long'), ('FM_COL_FIRST', P.COL_G0, 'Long'),
         ('FM_COL_LAST', P.CI_('IZ'), 'Long'),
@@ -418,7 +439,7 @@ def vba_source():
         ('SS_ROW_META', SS_ROW_META, 'Long'),
         ('MT_ROW_RUN', 4, 'Long'), ('MT_ROW_NUM', P.MT_ROW_SCEN, 'Long'), ('MT_ROW_NAME', P.MT_ROW_NAME, 'Long'),
         ('MT_FIRST', 8, 'Long'), ('MT_LAST', P.MT_END, 'Long'), ('MT_ROW_ID', 10, 'Long'), ('MT_ROW_IDNAME', 12, 'Long'),
-        ('MT_COL_PARAM', 8, 'Long'), ('MT_COL_FIRST', P.MT_COL0, 'Long'), ('MIT_ROW_SCEN', P.R_SCEN, 'Long'),
+        ('MT_COL_PARAM', P.MT_COL_PARAM, 'Long'), ('MT_COL_FIRST', P.MT_COL0, 'Long'), ('MIT_ROW_SCEN', P.R_SCEN, 'Long'),
         ('MIT_COL_FIRST', P.COL_G0, 'Long'), ('MIT_MAX_ROW', P.MIT_MAX, 'Long'), ('LIVE_SCEN', 2, 'Long'),
         ('BASE_SCEN', 1, 'Long'), ('ETS_TOL', 0.005, 'Double'), ('ETS_MAXITER', 20, 'Long')]
     block = '\n'.join(f'Private Const {n} As {t} = {v}' for n, v, t in consts)
@@ -456,7 +477,9 @@ def main():
     wb.save(tmp)
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     embed_vba(tmp, OUT, {'CPATMaster': vba_source()})
-    P.add_macro_buttons(OUT, 'UserGuide', BUTTONS, col0=BTN_COL0, row0=BTN_ROW0, colour='00B050', across=1)
+    for k, (_lab, bs) in enumerate(ACTIONS):        # v1.2.0: one row of small buttons per step (0-based anchors)
+        P.add_macro_buttons(OUT, 'UserGuide', bs, col0=1, row0=ACT_R0 - 1 + k * BTN_H, colour='00B050',
+                            across=len(bs), w=BTN_W, h=BTN_H, size=800)
     P.store_values(OUT)                             # the values of the comparison (LibreOffice)
     import excel_lint
     problems = excel_lint.lint(OUT)

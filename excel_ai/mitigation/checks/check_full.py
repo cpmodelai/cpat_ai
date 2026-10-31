@@ -172,7 +172,7 @@ def recalc_wb(path):
 
 def add_mto_blocks(wb, groups):
     """Add MTOutputs blocks as a user would: copy the last block (header to blank row) directly below."""
-    ws = wb['MTOutputs']
+    ws = wb['Outputs']
     for g in groups:
         s0, d0 = B.mto_row(g - 1, 0) - 1, B.mto_row(g, 0) - 1
         for k in range(B.MTO_BLOCK):
@@ -186,7 +186,7 @@ def add_mto_blocks(wb, groups):
 
 def check_mto(wbv, groups, label):
     """Every MTOutputs indicator cell equals the Mitigation cell of its output code (searched in Python)."""
-    wm, wo = wbv['Mitigation'], wbv['MTOutputs']
+    wm, wo = wbv['Mitigation'], wbv['Outputs']
     found, worst, n, missing = {}, 0.0, 0, []
     for g in groups:
         code, base, years = B.group_cols(g)
@@ -2039,7 +2039,7 @@ def check_shipped(ws_x):
     last = {B.group_cols(g)[2][-1] for g, *_ in B.SCENARIOS}
     ok, parts, n41 = True, [], 0
     for wsx in wbv.worksheets:
-        y41 = {c.column for c in wsx[4] if c.value == B.LAST_YEAR} if wsx.title == 'MTOutputs' else set()
+        y41 = {c.column for c in wsx[4] if c.value == B.LAST_YEAR} if wsx.title == 'Outputs' else set()
         errs, lam3 = [], lam_cols(wsx.title)
         for row in wsx.iter_rows():
             for c in row:
@@ -2324,7 +2324,7 @@ def add_scenario(wb, src_g, dst_g, name, edits, mit_edits=None, mt_g=None):
     """Copy MTInputs column of src_g to dst_g's column (keeping the auto number) and the Mitigation group. v0.5.1: mt_g =
     the MTInputs column (scenario number) the pasted group reads when it differs from dst_g (a group pasted right of the
     LAMBDA test group, which repeats the scenario on its left)."""
-    ws, wsm = wb['Mitigation'], wb['ScenarioDefinition']
+    ws, wsm = wb['Mitigation'], wb['Scenarios']
     ms, md = B.MT_COL0 + src_g - 1, B.MT_COL0 + (mt_g or dst_g) - 1
     for r in range(1, B.MT_END + 1):
         v = wsm.cell(r, ms).value
@@ -2664,8 +2664,8 @@ def check_results_memos(ws):
     ok5 = w5 < 1e-9
     # v0.3.17: section 18 from the settings, the data and the source rows
     w6, n6, at6 = 0.0, 0, None
-    st = ws.parent[B.TAB_CM]                         # v1.2.0: the Settings block, rows as before
-    sv = lambda r: st.cell(r, 3).value
+    st = ws.parent[B.TAB_CONST]                      # v1.2.0: the settings moved (B.settings_cell)
+    sv = lambda r: st[B.settings_cell(f'C{r}')].value
     tgt, tyr, gr, nsrc, gsrc, rho, eta, epa = (sv(r) for r in range(33, 41))
     rk = {r['code']: float(r['central_usd_per_tco2']) for r in read('scc.csv')}
     rho = int(rho) if isinstance(rho, float) and rho.is_integer() else rho
@@ -2843,7 +2843,7 @@ def check_leakage():
     residential fuel use; useful energy conserved (sum of efficiency x cumulative change = 0); an exempt fuel does not
     leak; the 2027 effect in the $20 scenario."""
     wb = openpyxl.load_workbook(B.OUT)
-    mt_set(wb['ScenarioDefinition'], B.MT_COL0, 'BiomassLeakage', 'Yes')
+    mt_set(wb['Scenarios'], B.MT_COL0, 'BiomassLeakage', 'Yes')
     add_scenario(wb, 2, 3, 'Test: leakage, carbon price $20, residential LPG and kerosene exempt', EXEMPT_TEST)
     GLOBAL_MT['BiomassLeakage'] = 'Yes'
     try:
@@ -2965,10 +2965,10 @@ def check_power_features():
         f'revenue 2030: carbon-based {cell(("rexs", ""), 9, 2030):,.1f}, manual {cell(("rexm", ""), 9, 2030):,.1f} USD m')
     # the global switch PwDeficitGas (Settings C45) with tight scale-up limits in scenarios 1 and 2
     wb = openpyxl.load_workbook(B.OUT)
-    wb[B.TAB_CM]['C45'].value = 'Yes'                 # v1.2.0: Settings block of Constants and Mappings
+    wb[B.TAB_CONST][B.settings_cell('C45')].value = 'Yes'   # v1.2.0: the setting PwDeficitGas (moved)
     for g in (1, 2):
         for k, v in PW_GLOBAL.items():
-            mt_set(wb['ScenarioDefinition'], B.MT_COL0 + g - 1, k, v)
+            mt_set(wb['Scenarios'], B.MT_COL0 + g - 1, k, v)
     DEFICIT_GAS['on'] = True
     GLOBAL_MT.update(PW_GLOBAL)              # both columns edited: scenario 1 is also the reference run (section 14)
     try:
@@ -3120,7 +3120,7 @@ def check_scenarios():
         f'{"OK" if chk < 1e-9 else "FAIL"}')
     for controls in ('None', 'Manual'):          # global setting: MTInputs scenario-1 column
         wbc = openpyxl.load_workbook(B.OUT)
-        wbc['ScenarioDefinition'].cell(B.MT_NAMES['GovPriceControls'], B.MT_COL0).value = controls
+        wbc['Scenarios'].cell(B.MT_NAMES['GovPriceControls'], B.MT_COL0).value = controls
         wsc = recalc(variant(wbc, 'expand'))
         for g in (1, 2):
             ok &= compare(wsc, g, recompute(scenario_mt(g), controls),
@@ -3528,11 +3528,11 @@ def check_outline(wsf):
     log(f'- opens rolled up: every grouped row hidden; collapsed flag on the row after each group '
         f'{"OK" if rolled and flags else "FAIL"}')
     wbf = openpyxl.load_workbook(B.OUT)
-    first = (wbf.sheetnames[:5] == ['Cover', 'ScenarioCompare', 'ScenarioDefinition', 'MAIN->>', 'Mitigation']
+    first = (wbf.sheetnames[:5] == ['Cover', 'ScenarioCompare', 'Scenarios', 'MAIN->>', 'Mitigation']
              and wbf.active.title == 'ScenarioCompare')   # v0.4.2; v0.6.7: the front tabs, opens on the dashboard
     zoom = wbf['Mitigation'].sheet_view.zoomScale == 75
     ok &= first and zoom
-    log(f'- front tabs Cover, ScenarioCompare, ScenarioDefinition, then MAIN->> and Mitigation; opens on '
+    log(f'- front tabs Cover, ScenarioCompare, Scenarios, then MAIN->> and Mitigation; opens on '
         f'ScenarioCompare: {"OK" if first else "FAIL"}; Mitigation zoom 75%: '
         f'{"OK" if zoom else "FAIL"}')
     want = B.TAB_ORDER                                   # v0.3.6: consolidated tabs; reference group last
@@ -3550,7 +3550,7 @@ def check_outline(wsf):
 
 def check_mtinputs():
     tpl = openpyxl.load_workbook(B.MT_TEMPLATE)['MTInputs']
-    ws = openpyxl.load_workbook(B.OUT)['ScenarioDefinition']
+    ws = openpyxl.load_workbook(B.OUT)['Scenarios']
     diffs = [f'{L(c)}{r}' for r in range(1, tpl.max_row + 1) for c in range(1, 9)
              if tpl.cell(r, c).value != ws.cell(r, c).value
              and (r, c) != (B.MT_ROW_SHORT, 8)]          # v0.6.7: H2 labels the short names (legends) of row 2
@@ -3802,7 +3802,7 @@ def check_formula_length():
                         continue
                     if k > worst[0]:
                         worst = (k, f'{ws.title}!{c.coordinate}')
-                    if k > 100:
+                    if k > B.FORMULA_HARD:            # v1.2.0: NORMS 3 hard limit 115
                         over.append(f'{ws.title}!{c.coordinate}')
     ok = not over and not misplaced and lam_calls > 0
     names = [d for d in wb.defined_names if d not in B.LAMBDAS]
@@ -4111,7 +4111,7 @@ def rel(a, b):
 
 
 def check_definitions():
-    ws = openpyxl.load_workbook(B.OUT, read_only=True)['ScenarioDefinition']     # v0.6.0: read-only (memory)
+    ws = openpyxl.load_workbook(B.OUT, read_only=True)['Scenarios']     # v0.6.0: read-only (memory)
     ok = True
     for n, nm, run, edits in B.DEFINITIONS:
         c = B.MT_COL0 + n - 1
@@ -4154,7 +4154,7 @@ def check_stored(ws_vals):
         all(len(v) == len(MTO_STORED) for v in st.values())
     log(f'- StoredResults: scenario IDs {sorted(st)}, {len(MTO_STORED)} rows each; values only: '
         f'{"OK" if ok else "FAIL"}')
-    mo = ws_vals['MTOutputs']
+    mo = ws_vals['Outputs']
     for sid, src in ((1, 1), (3, 2)):
         h = B.MTO_R0 + (src - 1) * B.MTO_BLOCK
         d = max(rel(st[sid][stem][j], mo.cell(h + 1 + k, B.MTO_C0 + j).value)
@@ -4192,7 +4192,7 @@ def check_stored(ws_vals):
 
 
 def check_compare():
-    """v0.7.0: the dashboard (Stored by default): slot IDs and short names follow ScenarioDefinition; the key table
+    """v0.7.0: the dashboard (Stored by default): slot IDs and short names follow Scenarios; the key table
     (level, difference, % difference vs the baseline) and the time series equal StoredOutputs by output code; a slot
     without stored results is blank in the table and #N/A in the chart data."""
     wbf = openpyxl.load_workbook(B.OUT)
@@ -4207,13 +4207,13 @@ def check_compare():
     ok = wv.cell(B.SC_R_SRC, 3).value == 'Stored'
     if not ok:                             # v0.7.2: every failing condition is logged (NORMS 3b.4)
         log(f'- ScenarioCompare source switch: {wv.cell(B.SC_R_SRC, 3).value!r}, expected Stored FAIL')
-    sdv = vals['ScenarioDefinition']
+    sdv = vals['Scenarios']
     exp_ids = [sdv.cell(B.MT_ROW_SCEN, B.MT_COL0 + k).value if sdv.cell(B.MT_ROW_NAME, B.MT_COL0 + k).value else ''
                for k in range(B.SC_SLOTS)]
     good = [i if i is not None else '' for i in ids] == [i if i is not None else '' for i in exp_ids]
     ok &= good
     if not good:
-        log(f'- ScenarioCompare slot IDs {ids}, expected the ScenarioDefinition IDs {exp_ids} FAIL')
+        log(f'- ScenarioCompare slot IDs {ids}, expected the Scenarios IDs {exp_ids} FAIL')
     worst, blanks, nonblank = 0.0, 0, []
     base = st.get(ids[0], {})
     for k, c in enumerate(cols):
@@ -4283,7 +4283,7 @@ def check_macro():
             c.value = None
     for num, _n, _r, e in B.DEFINITIONS:   # v0.6.0 (NORMS 5): no goal seek in the macro run: new-ETS definitions at the
         if str(e.get('NewETS', '')).startswith('Yes'):                    # override (not compared, as before)
-            wb['ScenarioDefinition'].cell(B.MT_NAMES['ETSPriceOverride'], B.MT_COL0 + num - 1).value = 'Yes'
+            wb['Scenarios'].cell(B.MT_NAMES['ETSPriceOverride'], B.MT_COL0 + num - 1).value = 'Yes'
     xlsx = variant(wb, 'expand')
     xlsm = xlsx[:-5] + '.xlsm'
     embed_vba(xlsx, xlsm, {'CPATScenarios': B.vba_module_source()})
@@ -4317,7 +4317,7 @@ def check_macro():
         f'macro goal seek, a memo: the build stores them at the fast estimate) {"OK" if good else "FAIL"}')
     orig = openpyxl.load_workbook(B.OUT)
     live = B.MT_COL0 + 1
-    mt_o, mt_r = orig['ScenarioDefinition'], openpyxl.load_workbook(out)['ScenarioDefinition']
+    mt_o, mt_r = orig['Scenarios'], openpyxl.load_workbook(out)['Scenarios']
     lo_bool = {'=TRUE()': True, '=FALSE()': False}         # LibreOffice saves boolean cells as =TRUE() / =FALSE()
     norm = lambda v: lo_bool.get(v, v) if isinstance(v, str) else v
     diffs = [r for r in range(1, B.MT_END + 1) if r != B.MT_ROW_SCEN and mt_o.cell(r, live).value != norm(mt_r.cell(r, live).value)

@@ -81,7 +81,7 @@ class V71(dict):
 def model(last_hist):
     wb = openpyxl.load_workbook(B.OUT)
     if last_hist != B.LAST_HIST:
-        wb[B.TAB_CM]['C10'] = last_hist                # v1.2.0: Settings block
+        wb[B.TAB_CONST][B.settings_cell('C10')] = last_hist   # v1.2.0: the setting LastHist (moved)
         path = C.variant(wb, 'everywhere')       # LAMBDA over whole rows, expanded: the switch follows C10
     else:
         path = C.variant(wb, 'expand')

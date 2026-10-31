@@ -55,10 +55,11 @@ def end_to_end(mf, mv, pf, price=60):
     import tempfile
     import check_full as C
     import lo_session as LO
-    sd = pf['ScenarioDefinition']
-    rows = [r for r in range(1, sd.max_row + 1) if sd.cell(r, 8).value in ('CPLevelStart', 'CPLevelTarget')]
+    sd = pf['Scenarios']
+    rows = [r for r in range(1, sd.max_row + 1) if sd.cell(r, P.MT_COL_PARAM).value in ('CPLevelStart', 'CPLevelTarget')]
+    assert rows, 'carbon price rows not found on Scenarios'
     for r in rows:
-        sd.cell(r, 11).value = price                   # column K: the live scenario (Mitigation group 2)
+        sd.cell(r, P.MT_COL0 + 1).value = price        # the live scenario column (Mitigation group 2; v1.2.1: H)
     tmp = tempfile.mkdtemp()
     proto = os.path.join(tmp, 'proto.xlsx')
     pf.save(proto)
@@ -85,7 +86,7 @@ def end_to_end(mf, mv, pf, price=60):
             if not same(x, y):
                 diff.append((s0.cell(r, c).coordinate, x, y))
             moved += isinstance(x, (int, float)) and not same(x, s0.cell(r, c).value)
-    log(f'- end to end (live carbon price {price} USD/t on rows {rows} of ScenarioDefinition): module updated from '
+    log(f'- end to end (live carbon price {price} USD/t on rows {rows} of Scenarios): module updated from '
         f'the recalculated prototype = the prototype\'s Distribution: {len(diff)} differ {diff[:5]}; {moved} values '
         'moved from the shipped ones', not diff and moved > 100)
 
@@ -146,7 +147,7 @@ def main():
                         continue
                     if not re.search(rf'(?<![\w.]){re.escape(tok)}\s*\(', v):
                         missing.add(tok)
-                if t not in ('Cover', P.TAB_CM, 'FromMitigation', 'FromMaster') and pf[t][c.coordinate].value != v:
+                if t not in ('Cover', P.TAB_CONST, P.TAB_MAP, 'FromMitigation', 'FromMaster') and pf[t][c.coordinate].value != v:
                     changed.append(f'{t}!{c.coordinate}')
     log(f'- kept tabs (but Cover, Constants and Mappings, FromMitigation, FromMaster): formulas as the prototype\'s: {len(changed)} differ '
         f'{changed[:5]}', not changed)

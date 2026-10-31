@@ -1,9 +1,9 @@
-# Quick check, CPAT-AI-Mitigation v1.2.0
+# Quick check, CPAT-AI-Mitigation v1.2.1
 
-**PASS** (311 s; the full check is check_full.py, run on request). Changes of output codes are reported, not failed: compare them with what the change intended.
+**PASS** (282 s; the full check is check_full.py, run on request). Changes of output codes are reported, not failed: compare them with what the change intended.
 
-- tab order (main, inputs, data, reference last; 51 tabs): OK
-- 369632 formulas; plain formulas over 100 characters: []: OK
+- tab order (main, inputs, data, reference last; 50 tabs): OK
+- 370703 formulas; plain formulas over 115 characters (hard limit): []; over the target 90 (reported, not failed): 19083: OK
 - numeric literals in formulas: {}: OK
 - 787 defined names; names or LAMBDA parameters that read like cells: []: OK
 - reserved names (Excel functions, keywords, names Excel rejected; NORMS 3d) used: []: OK
@@ -23,11 +23,11 @@
 - body font sizes on Mitigation (sample): [10.0]: OK
 - tab title bars and sub-heading bars of equal width on every tab: exceptions []: OK
 - table headers without the input fill: exceptions []: OK
-- v1.2.0: front tabs Cover, ScenarioDefinition, then MAIN (Mitigation) and OUTPUT (MTOutputs, ScenarioCompare): ['Cover', 'ScenarioDefinition', 'MAIN->>', 'Mitigation', 'OUTPUT->>', 'MTOutputs', 'ScenarioCompare']: OK
+- v1.2.0: front tabs Cover, Scenarios, Mitigation, Outputs, ScenarioCompare (no MAIN/OUTPUT dividers): ['Cover', 'Scenarios', 'Mitigation', 'Outputs', 'ScenarioCompare']: OK
 - recalculated in LibreOffice (LAMBDAs expanded): error values 0 [] (accepted: the chart data of empty ScenarioCompare slots, []): OK
 - LAMBDA group 2 (the live scenario, LAMBDAs base year to 2041): 146278 numeric cells; tested against plain formulas by the output-code regression (last release) and the Distribution reference: OK
 - Distribution: not in the mitigation workbook (checked by distribution/check_distribution.py): OK
-- MTOutputs equals Mitigation in its 2 scenario groups (32214 cells): differences 0 []: OK
+- Outputs equals Mitigation in its 2 scenario groups (32214 cells): differences 0 []: OK
 - ScenarioCompare: slots with a scenario and a key result [0, 1] of the 2 groups: OK
 - stored scenarios (stored_scenarios.csv): rows by scenario ID {'1': 708, '3': 708, '4': 708, '5': 708, '6': 708}; rows without values 0 []: OK
 - VBA module CPATMaster.bas (the Master workbook): identifiers not declared, not VBA, Excel or a known constant: none: OK
@@ -36,4 +36,4 @@
 - code protocol C10 (unique in a scenario group): 0 duplicates []: OK
 - code protocol C5 (a total row writes tot): 0 explicit-sum rows write all [] (a row whose code the rename map code_renames_v0_7_2.csv writes is decided): OK
 - Excel open and recalculation: skipped (no Excel here: ModuleNotFoundError)
-- output codes vs CPAT-AI-Mitigation-Prototype_v1.1.0.xlsm: 15100 shared, 0 new, 0 gone; 0 change (max abs diff 0); largest: []; other than bco2 (with max abs diff): []
+- output codes vs CPAT-AI-Mitigation_v1.2.0.xlsx: 15100 shared, 0 new, 0 gone; 0 change (max abs diff 0); largest: []; other than bco2 (with max abs diff): []

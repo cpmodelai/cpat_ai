@@ -217,12 +217,12 @@ def main():
     render(f'{PFX}_05_compare', 'ScenarioCompare', values, f'A1:{last_c}{k1}', rows=rows, hide_cols=['A'],
            widths={'B': 40, 'C': 12, **{L(B.SC_C0 + j): 13 for j in range(6)}}, heights={B.SC_R_NAME: 52})
 
-    # 6. ScenarioDefinition: short names, Run?, scenario definitions J:O
+    # 6. Scenarios: short names, Run?, scenario definitions J:O
     n = B.MT_NAMES
     keys = ['CPIntro', 'CPLevelStart', 'CPLevelTarget', 'CPOutro', 'Feb_Level_Start_Trans',
             'Feb_Level_Target_Trans', 'NewETS', 'ETSChangeRelStart', 'ETSChangeRelTarget']
     rows = {B.MT_ROW_SHORT, 4, 5, 6} | {n[k] for k in keys}
-    render(f'{PFX}_06_definitions', 'ScenarioDefinition', values, f'B1:O{max(rows)}', rows=rows,
+    render(f'{PFX}_06_definitions', 'Scenarios', values, f'B1:O{max(rows)}', rows=rows,
            hide_cols=list('CDEFGHI'), widths={'B': 40, **{c: 15 for c in 'JKLMNO'}}, heights={6: 64, 4: 26})
 
     # 8. Distribution: the sheet as shipped (rolled up), groups 1 and 2

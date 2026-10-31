@@ -103,12 +103,12 @@ def new_errors(vals, shipped):
     """Error cells in group 1 (2022-2040) of Mitigation and in MTOutputs block 1 that the shipped file has not."""
     _c, b, ys = B.group_cols(1)
     errs = []
-    for sheet, cols in (('Mitigation', [b] + ys[:-1]), ('MTOutputs', None)):
+    for sheet, cols in (('Mitigation', [b] + ys[:-1]), ('Outputs', None)):
         ws, w0 = vals[sheet], shipped[sheet]
         for row in ws.iter_rows():
             for c in row:
                 if (cols is None or c.column in cols) and C.is_err(c.value) and not C.is_err(w0[c.coordinate].value):
-                    if sheet == 'MTOutputs' and not (B.MTO_R0 <= c.row < B.MTO_R0 + B.MTO_BLOCK):
+                    if sheet == 'Outputs' and not (B.MTO_R0 <= c.row < B.MTO_R0 + B.MTO_BLOCK):
                         continue
                     errs.append(f'{sheet}!{c.coordinate}')
     return errs
@@ -193,7 +193,7 @@ def main():
     log(f'- the {len(links)} links {"without " + ", ".join(sorted(skip)) if skip else ""} updated, recalculated in '
         f'LibreOffice: new error values in group 1 (2022-2040) and MTOutputs block 1: {len(errs)} {errs[:10]} '
         f'{"OK" if good else "FAIL"}')
-    lo, lo0 = vals['MTOutputs'], shipped['MTOutputs']
+    lo, lo0 = vals['Outputs'], shipped['Outputs']
     log('- key results of the baseline (MTOutputs block 1, 2030), shipped data -> the data workbook:')
     y = B.MTO_C0 + 2030 - B.BASE_YEAR
     for r in range(B.MTO_R0 + 1, B.MTO_R0 + B.MTO_BLOCK):

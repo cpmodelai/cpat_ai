@@ -88,7 +88,7 @@ Open **`excel_ai/active_workbooks/CPAT-AI-Master_UserGuide.xlsm`** first (Excel 
 - Mitigation is the hub. The blocks other modules read are named in their section bands: section 19a for Distribution, section 15 for Air Pollution, section 5b for Transport Co-benefits.
 - Distribution receives its block from the Master: **Update Distribution from Mitigation** copies section 19a of the activated mitigation workbook into the activated distribution workbook, by code.
 - Data tables: the Master's **Update data tables** loads them from the data workbook `data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx` (or GitHub, or another data repository) into the module's data tabs by Power Query, for the module's country or all countries (tab Settings of the Master).
-- Results: MTOutputs in the mitigation workbook shows the live scenarios side by side; the Master stores them as values (StoredScenarios) and compares them (CompareStored).
+- Results: Outputs in the mitigation workbook shows the live scenarios side by side; the Master stores them as values (StoredScenarios) and compares them (CompareStored).
 
 # 4. Data and information security
 

@@ -155,7 +155,7 @@ from openpyxl.utils import get_column_letter as L, column_index_from_string as C
 from openpyxl.utils.cell import coordinate_from_string
 from openpyxl.workbook.defined_name import DefinedName
 
-VERSION = '1.2.0'   # also in version.json (read by the deck builder)
+VERSION = '1.2.1'   # also in version.json (read by the deck builder)
 SCRIPTS_TAG = None   # v0.8.0: scripts and notes have stable names (releases are git tags); v0.7.1: a point release renames only the builder, VBA module, workbook and reports; the scripts and
                       # notes keep the tag of the full release (NORMS.md section 5)
 # v1.2.0 (user 2026-10-31): the mitigation workbook holds no other module. The Distribution tab, its input tab
@@ -272,7 +272,11 @@ DEFINITIONS = [  # scenario definitions on MTInputs (columns after the live scen
 ]
 MT_ROW_RUN = 4                          # MTInputs: Run? flag of a scenario definition
 MT_TEMPLATE = os.path.join(xlpaths.TOOLS, 'MTInputs_template.xlsx')   # excel_ai/core/tools/ (2026-10-30; was templates/)
-MT_COL0 = 10                            # J: first scenario column on MTInputs
+MT_COL0 = 7                             # G: first scenario column on MTInputs (v1.2.0: legacy columns D-F dropped)
+MT_COL_PARAM = 5                        # E: NameOfParameter (v1.2.0; legacy H)
+MT_COL_DEF = 4                          # D: Defaults (v1.2.0; legacy G)
+MT_TPL_COLS = {2: 2, 3: 3, 7: MT_COL_DEF, 8: MT_COL_PARAM}   # v1.2.0: template column -> Scenarios column (A: X flags,
+#                                         D-E hidden placeholders and F Used for calculation dropped, user 2026-10-31)
 MT_ROW_SCEN, MT_ROW_NAME = 5, 6
 MT_ROW_SHORT = 2                        # v0.6.7: short name of each scenario (the chart legends)
 MT_LAST = 'AZ'
@@ -922,7 +926,32 @@ NAMED_CONSTANTS += [
 NAMED_CONSTANTS += [
     ('PsElFloor', -0.3, 'USD/kWh', 'Floor of the electricity producer subsidy per kWh (the part beyond it is the '
      'residual pser, outside prices; v0.9.0, R7.6, I146)', 'Legacy Mitigation H3590:H3591')]
-CONST_ROW = {k: CONST_R0 + i for i, (k, *_r) in enumerate(NAMED_CONSTANTS + POLICY_CONSTANTS)}
+CONST_THEMES = [  # v1.2.0 (user 2026-10-31): the constants grouped by area of the model (tab Constants)
+    ('Units and conversion factors', ['HoursYr', 'kWperMW', 'USDperM', 'MWyMkWh', 'tPerKt', 'EFtPerKtoe', 'ktPerMt',
+                                      'KtoeGWh', 'KgPerT', 'MperBn', 'PctPerUnit', 'GJperkWh', 'Thousand', 'Million',
+                                      'Billion', 'LitersPerKtoeOil', 'LitersPerBbl', 'MethGJperKtoe', 'MethGJperBbl',
+                                      'MethGJperT', 'MethGJperMMBtu']),
+    ('Prices and pass-through', ['PriceFloor', 'PassLo', 'PassMid', 'PassHi', 'exf|all|all', 'gp.hi|oil', 'gp.hi|coa',
+                                 'gp.hi|nga', 'gp.hi|one', 'gp.lo|oil', 'gp.lo|coa', 'gp.lo|nga', 'gp.lo|one']),
+    ('Energy demand', ['IncfA', 'IncfB', 'IncfC', 'IncfD', 'IncfE', 'IncfLnCap', 'IncfNorm', 'ResSubstLag']),
+    ('Power', ['CoalICYr', 'PwAvgLag', 'WaccDefault', 'HydInvShare', 'UraniumFuel', 'InvPresentShare', 'StMargFactor',
+               'EarlyMaxShare', 'CapAvgShr', 'TieBreak', 'PsElFloor', 'pw.c|gncav', 'pw.c|rcarb', 'pw.c|rgap',
+               'pw.c|vre']),
+    ('Road transport', ['TrRALag', 'TrPivotLag', 'TrOwnDecline', 'TrFEWGso', 'TrFEWHalf', 'TrFEWEvP', 'TrFEWEvO']),
+    ('Emissions', ['GWPCH4F', 'GWPCH4NF', 'EFOilIEA', 'EFJetIEA', 'FlareCO2perCH4', 'EFEndYear', 'MethShareCap',
+                   'PomPerOC', 'ApCoalResMin']),
+    ('Macroeconomy, fiscal and welfare', ['GdpExtHalf', 'MultLastLag', 'DWLTri', 'NDCYrCap']),
+    ('Distribution', ['BasketQ', 'DecPerQuint', 'PlDecScale']),
+    ('Workbook layout', ['ManCapOff', 'MitGW'])]
+_all_c = [k for k, *_r in NAMED_CONSTANTS + POLICY_CONSTANTS]
+assert sorted(k for _t, ks in CONST_THEMES for k in ks) == sorted(_all_c), set(_all_c) ^ {k for _t, ks in CONST_THEMES for k in ks}
+CONST_ROW, CONST_THEME_ROWS = {}, {}
+_r = CONST_R0
+for _t, _ks in CONST_THEMES:              # a heading row per theme, then its constants, then a blank row
+    CONST_THEME_ROWS[_t] = _r
+    for _i, _k in enumerate(_ks, 1):
+        CONST_ROW[_k] = _r + _i
+    _r += len(_ks) + 2
 COV_LOOKUP = {  # v0.4.2: Mitigation D:E of the obr and shpx rows: Mapping table of coverage sectors; ETSSemi data
     'ets.grp': '=INDEX(CovEtsPos,MATCH($C{r},CovKey,0))', 'fb.grp': '=INDEX(CovFbPos,MATCH($C{r},CovKey,0))',
     'ets.semi': '=INDEX(ETSSemiVal,MATCH(CtryCode,ETSSemiKey,0),INDEX(CovSemiPos,MATCH($C{r},CovKey,0)))',
@@ -6799,24 +6828,26 @@ def build_mtinputs(wb):
     from copy import copy
     import openpyxl
     src = openpyxl.load_workbook(MT_TEMPLATE)['MTInputs']
-    ws = wb.create_sheet('ScenarioDefinition')
+    ws = wb.create_sheet('Scenarios')
     for row in src.iter_rows(min_row=1, max_row=src.max_row, max_col=8):
         for c in row:
-            d = ws.cell(c.row, c.column, c.value)
+            if c.column not in MT_TPL_COLS:            # v1.2.0: no X flags, no D-F placeholder columns
+                continue
+            d = ws.cell(c.row, MT_TPL_COLS[c.column], c.value)
             if c.has_style:
                 d.font, d.fill, d.border = copy(c.font), copy(c.fill), copy(c.border)
                 d.alignment, d.number_format = copy(c.alignment), c.number_format
-    for col, dim in src.column_dimensions.items():
-        ws.column_dimensions[col].width = dim.width
-        ws.column_dimensions[col].hidden = dim.hidden
+    for col, wd in {'A': 2, 'B': 28, 'C': 14, 'D': 18, 'E': 22, 'F': 3}.items():   # v1.2.0: B half its legacy width
+        ws.column_dimensions[col].width = wd
+    for col in 'CEF':                              # v1.2.0 (user): unit, name and spacer in a column group
+        ws.column_dimensions[col].outline_level = 1
     unit_fix = {}                                          # v0.8.3: legacy bug L134, price-increase unit labels
     for r in range(8, src.max_row + 1):
         lab = str(src.cell(r, 2).value or '')
         for k, u in L134_UNITS.items():
             if lab.startswith(k):
                 unit_fix[r] = u
-                for j in (6, 7):
-                    ws.cell(r, j).value = u
+                ws.cell(r, MT_COL_DEF).value = u        # v1.2.0: Defaults (Used for calculation dropped)
     assert len(unit_fix) == len(L134_UNITS), unit_fix
     names = {src.cell(r, 8).value: r for r in range(8, src.max_row + 1) if src.cell(r, 8).value}
     rows_ = [(r, src.cell(r, 8).value, unit_fix.get(r, src.cell(r, 6).value)) for r in range(8, src.max_row + 1)]
@@ -6833,8 +6864,8 @@ def build_mtinputs(wb):
         elif e[0] == 'row':
             n = e[1]
             lab, unit, v, like = spec[n]
-            for j, x in zip(range(2, 9), (lab, unit, None, None, v, v, n)):
-                d = ws.cell(r, j, x)
+            for j, x in zip(MT_TPL_COLS, (lab, unit, v, n)):     # v1.2.0: B label, C unit, D default, E name
+                d = ws.cell(r, MT_TPL_COLS[j], x)
                 t = src.cell(MT_NAMES[like], j)
                 d.font, d.fill, d.border, d.alignment = copy(t.font), copy(t.fill), copy(t.border), copy(t.alignment)
                 d.number_format = '0' if unit == 'year' else 'General'
@@ -6870,19 +6901,19 @@ def build_mtinputs(wb):
             fnt = Font(name='Arial', size=10, bold=True, color='C00000') if (name in edits or r in edits) else FONT
             put(ws, f'{cl}{r}', val, fnt, F_INPUT)
         ws.column_dimensions[cl].width = 16
-    ws.column_dimensions['I'].width = 3
-    put(ws, f'H{MT_ROW_SHORT}', 'Short name (chart legends)', FONT_B)
+    put(ws, f'{L(MT_COL_PARAM)}{MT_ROW_SHORT}', 'Short name (chart legends)', FONT_B)
+    ws.sheet_view.zoomScale = 70                   # v1.2.0 (user 2026-10-31): zoomed out further
     put(ws, f'{L(MT_COL0)}3', 'Scenario columns: short name in row 2, number in row 5, name in row 6; red = changed '
-                              'from the template value. J = baseline, K = live policy scenario (Mitigation group 2).',
+                              'from the template value. G = baseline, H = live policy scenario (Mitigation group 2).',
         FONT_B)
     put(ws, f'{L(MT_COL0 + 2)}3', 'Scenario definitions: row 4 Run? = Yes for the batch run (the Master workbook '
-                                  'copies each into column K, runs it and stores the results). Copy the last '
+                                  'copies each into column H, runs it and stores the results). Copy the last '
                                   'definition one column to the right to add one.', FONT_B)
     last_def = MT_COL0 + len(columns) - 1          # v0.6.7: blank scenario columns grouped and collapsed
     for c_ in range(last_def + 1, CI_(MT_LAST) + 1):
         ws.column_dimensions[L(c_)].outline_level = 1
         ws.column_dimensions[L(c_)].hidden = True
-    ws.freeze_panes = 'D8'
+    ws.freeze_panes = f'{L(MT_COL0)}8'           # v1.2.0: descriptors frozen, scenarios scroll
 
 
 def fix_outline_levels(path):
@@ -7041,10 +7072,10 @@ MT_APPX_CONST = ['PassLo', 'PassMid', 'PassHi', 'PriceFloor', 'EFEndYear', 'Meth
 
 def append_mt_appendix(wb):
     """v0.5.6: the global inputs appended below the last MTInputs row; values in every scenario column (J typed, others
-    = J: global rows); the old cells become =ScenarioDefinition!$J$row. v1.2.0 (user 2026-10-31): part of the Model
+    = J: global rows); the old cells become =Scenarios!$G$row. v1.2.0 (user 2026-10-31): part of the Model
     settings, ordered general (country, years, prices, ETS, SCC), power, road engineer model, choices of the constants;
     the country code, base year and the spot-price override move here from Settings."""
-    mt, n_sc = wb['ScenarioDefinition'], len(SCENARIOS) + len(DEFINITIONS)
+    mt, n_sc = wb['Scenarios'], len(SCENARIOS) + len(DEFINITIONS)
     r = MT_END + 1
     put(mt, f'B{r + 1}', 'Global model settings: one value for every scenario (type it in column J; the other columns '
                          'repeat it)', FONT_B)
@@ -7052,12 +7083,13 @@ def append_mt_appendix(wb):
     def row(name, lab, unit, val, src, where):
         nonlocal r
         r += 1
-        for j, x in zip(range(2, 9), (lab, unit, None, f'global; {src}; read by {where}', val, val, name)):
-            mt.cell(r, j, x).font = FONT
+        for j, x in ((2, lab), (3, unit), (MT_COL_DEF, val), (MT_COL_PARAM, name), (MT_COL_PARAM + 1, None)):
+            mt.cell(r, j, x).font = FONT                  # v1.2.0 columns (the note: column B's comment below)
+        mt.cell(r, 2).value = f'{lab} (global; {src}; read by {where})'
         mt.cell(r, MT_COL0, val).fill = F_INPUT
         for k in range(1, n_sc):
             mt.cell(r, MT_COL0 + k, f'=${L(MT_COL0)}{r}').font = FONT_HELP
-        return f'=ScenarioDefinition!${L(MT_COL0)}${r}'
+        return f'=Scenarios!${L(MT_COL0)}${r}'
     def head(t):
         nonlocal r
         r += 2
@@ -7106,6 +7138,208 @@ def append_mt_appendix(wb):
     return r
 
 
+# ---------------------------------------------------------------- v1.2.0: the Settings block in the constants format
+# User 2026-10-31: tab Constants in the format of the main constants table (name, value, unit, description, source),
+# grouped by area of the model. build_settings writes the cells at their historic addresses (value in C, label in B;
+# every reference of the builder uses them); restructure_settings then moves them into themes and re-points every
+# formula and defined name of the workbook (SETTINGS_MAP: old cell -> new cell). Rows that are small tables keep their
+# columns (only their row moves).
+SET_THEMES = [  # theme, old rows: a number is a single setting (moves to the constants format), (r0, r1) a table
+    ('Country and years', [4, 5, 6, 7, 10, 8, 22, 23, 20, 24, 25, 43, 44]),
+    ('Prices', [9, 11, 12, 54, 13]),
+    ('Energy demand and households', [19, 31, 53, 59, 65, (60, 64), (68, 83)]),
+    ('Power', [21, 45, 66]),
+    ('Emissions, calibration and the methane fee', [26, (27, 27), 28, 29, 30, 47, 48, 49, 50, 51]),
+    ('Emissions trading (ETS)', [14, 15, (16, 18)]),
+    ('Fiscal multipliers', [(55, 58)]),
+    ('Social cost of carbon', [33, 34, 35, 36, 37, 38, 39, 40, 41, 42]),
+    ('Manual inputs in use', [86, 87, 88, 89])]
+SET_DROPPED = {32, 46, 85}               # old heading rows: the theme headings replace them
+SET_HEAD = ['Name', 'Value', 'Unit', 'Description', 'Source', 'Check']
+SETTINGS_MAP = {}                        # (old row, old column) -> (new row, new column) on sheet Settings
+SET_THEME_ROWS = {}                      # theme -> its heading row on sheet Settings (contents of tab Constants)
+S1_THEME = 'Inputs read from scenario 1 for every scenario (to be made per scenario: TODO)'
+
+
+def settings_cell(old, merged=True):
+    """v1.2.0: the address of a historic Settings cell ('C4'): on sheet Settings, or (merged) on tab Constants."""
+    c, r = coordinate_from_string(old)
+    nr, nc = SETTINGS_MAP[(r, CI_(c))]
+    if merged:
+        nr += tab_map()['Settings'][1]
+    return f'{L(nc)}{nr}'
+
+
+def _unit_of(label):
+    """The unit of a setting, from its label (blank when the label does not say it plainly)."""
+    t = label.lower()
+    for k, u in (('yes / no', 'Yes / No'), ('(1 / 0', '1 / 0'), ('(1 = yes', '1 / 0'), ('(mt co2', 'Mt CO2'),
+                 ('usd per tco2', 'USD/tCO2'), (' row of the country', 'row')):
+        if k in t:
+            return u
+    if t.startswith(('base year', 'last historical price year', 'year of', 'results in real usd of year',
+                     'last ghg inventory year')):
+        return 'year'
+    return ''
+
+
+def _source_of(v, wb):
+    """Where a setting comes from, and the MTInputs row read from scenario 1 (or None)."""
+    if not (isinstance(v, str) and v.startswith('=')):
+        return 'typed here', None
+    m = re.search(r'MATCH\("(\w+)",SDParam', v)
+    if m:
+        return f'MTInputs {m.group(1)}, read from scenario 1 (the default scenario) for every scenario', m.group(1)
+    m = re.match(rf"=Scenarios!\$[A-Z]+\$(\d+)$", v)
+    if m:
+        nm = wb['Scenarios'].cell(int(m.group(1)), MT_COL_PARAM).value
+        return f'MTInputs Model settings (global, one value): {nm}', None
+    m = re.match(r"='Manual inputs'!(\w+)$", v)
+    if m:
+        return f'Manual inputs {m.group(1)}', None
+    return 'derived (formula)', None
+
+
+def s1_check(name):
+    """'same' when every scenario column of MTInputs row `name` holds the scenario-1 value (else the other values are
+    ignored: TODO, scenario-1 inputs)."""
+    r = MT_NAMES[name]
+    rng = f'Scenarios!${L(MT_COL0)}${r}:${MT_LAST}${r}'
+    return (f'=IF(COUNTIF({rng},"<>"&Scenarios!${L(MT_COL0)}${r})-COUNTBLANK({rng})>0,"DIFFERS: scenario 1 used",'
+            f'"same")')
+
+
+def scenario1_names(wb):
+    """The MTInputs names the workbook reads from scenario 1 only (names SDBase/SDParam, column G lookups)."""
+    pat = re.compile(r'MATCH\("(\w+)",(?:SDParam|Scenarios!\$[A-Z]+:\$[A-Z]+)')
+    found = set()
+    for ws in wb.worksheets:
+        for row in ws.iter_rows():
+            for c in row:
+                if isinstance(c.value, str) and c.value.startswith('='):
+                    found |= set(pat.findall(c.value))
+    for d in wb.defined_names.values():
+        found |= set(pat.findall(d.attr_text or ''))
+    return sorted(n for n in found if n in MT_NAMES)
+
+
+def restructure_settings(wb):
+    """v1.2.0: sheet Settings in the constants format, by theme (see SET_THEMES), every reference re-pointed."""
+    from copy import copy
+    old = wb['Settings']
+    used = {r for r in range(4, old.max_row + 1) if any(old.cell(r, c).value is not None for c in range(1, 9))}
+    placed = {x for _t, items in SET_THEMES for x in items if isinstance(x, int)}
+    placed |= {r for _t, items in SET_THEMES for x in items if isinstance(x, tuple) for r in range(x[0], x[1] + 1)}
+    assert used - SET_DROPPED <= placed, sorted(used - SET_DROPPED - placed)
+    names = {}
+    for n, d in wb.defined_names.items():
+        m = re.fullmatch(r"Settings!\$([A-Z]+)\$(\d+)", d.attr_text or '')
+        if m:
+            names[(int(m.group(2)), CI_(m.group(1)))] = n
+    new = wb.create_sheet('Settings_v12')
+    title(new, 'Settings: global settings by area of the model (name, value, unit, description, source)', 6)
+    put(new, 'A1', 'Values in column B. Source: where each value comes from; Check: for the MTInputs rows read from '
+                   'scenario 1 only, whether another scenario column differs (it would be ignored).', FONT)
+    for j, h in enumerate(SET_HEAD, 1):
+        put(new, f'{L(j)}3', h, FONT_B).border = Border(bottom=THIN)
+
+    def copy_cell(src, dst):
+        dst.value = src.value
+        if src.has_style:
+            dst._style = copy(src._style)
+    r = 4
+    for theme, items in SET_THEMES:
+        r += 1
+        put(new, f'A{r}', theme, FONT_B)
+        SET_THEME_ROWS[theme] = r
+        r += 1
+        for x in items:
+            if isinstance(x, int):
+                v, lab = old.cell(x, 3).value, str(old.cell(x, 2).value or '')
+                src, s1 = _source_of(v, wb)
+                copy_cell(old.cell(x, 3), new.cell(r, 2))
+                put(new, f'A{r}', names.get((x, 3), ''), FONT_B if (x, 3) in names else FONT)
+                put(new, f'C{r}', _unit_of(lab))
+                put(new, f'D{r}', lab)
+                put(new, f'E{r}', src, FONT_NOTE)
+                if s1:
+                    put(new, f'F{r}', s1_check(s1), FONT)
+                SETTINGS_MAP[(x, 3)] = (r, 2)
+                SETTINGS_MAP[(x, 2)] = (r, 4)
+                r += 1
+            else:
+                for xr in range(x[0], x[1] + 1):
+                    for c in range(1, 9):
+                        if old.cell(xr, c).value is not None or old.cell(xr, c).has_style:
+                            copy_cell(old.cell(xr, c), new.cell(r, c))
+                        SETTINGS_MAP[(xr, c)] = (r, c)
+                    r += 1
+    r += 1
+    put(new, f'A{r}', S1_THEME, FONT_B)
+    SET_THEME_ROWS[S1_THEME] = r
+    for j, h in enumerate(['MTInputs name', 'Scenarios row', '', 'Scenario 1 value', '', 'Check'], 1):
+        if h:
+            put(new, f'{L(j)}{r + 1}', h, FONT_B).border = Border(bottom=THIN)
+    for k, nm in enumerate(scenario1_names(wb), r + 2):
+        put(new, f'A{k}', nm)
+        put(new, f'B{k}', MT_NAMES[nm], FONT, None, '0')
+        put(new, f'D{k}', f'=Scenarios!${L(MT_COL0)}${MT_NAMES[nm]}')
+        put(new, f'F{k}', s1_check(nm))
+    for ws in wb.worksheets:                       # re-point every reference to the old cells
+        if ws.title in ('Settings', 'Settings_v12'):   # the moved cells: below, with Settings as their host
+            continue
+        for row in ws.iter_rows():
+            for c in row:
+                if isinstance(c.value, str) and c.value.startswith('='):
+                    c.value = remap_settings(c.value, False)
+    for (orow, ocol), (nrow, ncol) in SETTINGS_MAP.items():   # the moved cells' own formulas (host Settings)
+        c = new.cell(nrow, ncol)
+        if isinstance(c.value, str) and c.value.startswith('='):
+            c.value = remap_settings(c.value, True)
+    for n, d in list(wb.defined_names.items()):
+        if d.attr_text and 'Settings!' in d.attr_text:
+            d.attr_text = remap_settings('=' + d.attr_text, False)[1:]
+    idx = wb.sheetnames.index('Settings')
+    del wb['Settings']
+    new.title = 'Settings'
+    wb._sheets.insert(idx, wb._sheets.pop(wb.sheetnames.index('Settings')))
+    return len(SETTINGS_MAP)
+
+
+def _map_ref(ref):
+    """'$C$4' or '$C$16:$F$16' on old Settings -> the same on the new sheet (absolute markers kept)."""
+    def one(a):
+        m = re.fullmatch(r'(\$?)([A-Z]{1,3})(\$?)(\d+)', a)
+        assert m, a
+        nr, nc = SETTINGS_MAP[(int(m.group(4)), CI_(m.group(2)))]
+        return f'{m.group(1)}{L(nc)}{m.group(3)}{nr}', (nr, nc), (int(m.group(4)), CI_(m.group(2)))
+    parts = ref.split(':')
+    if len(parts) == 1:
+        return one(parts[0])[0]
+    (a, (r0, c0), (or0, oc0)), (b, (r1, c1), (or1, oc1)) = one(parts[0]), one(parts[1])
+    assert (r1 - r0, c1 - c0) == (or1 - or0, oc1 - oc0), f'a Settings range would not stay a block: {ref}'
+    return f'{a}:{b}'
+
+
+def remap_settings(formula, host_is_settings):
+    """A formula with every reference to the old sheet Settings re-pointed (SETTINGS_MAP); unqualified references
+    too when the formula sits on Settings."""
+    from openpyxl.formula.tokenizer import Tokenizer
+    if 'Settings' not in formula and not host_is_settings:
+        return formula
+    tok = Tokenizer(formula)
+    for t in tok.items:
+        if t.type != 'OPERAND' or t.subtype != 'RANGE':
+            continue
+        if '!' in t.value:
+            sh, ref = t.value.rsplit('!', 1)
+            if sh.strip("'") == 'Settings':
+                t.value = f'{sh}!{_map_ref(ref)}'
+        elif host_is_settings and re.fullmatch(r'\$?[A-Z]{1,3}\$?\d+(:\$?[A-Z]{1,3}\$?\d+)?', t.value):
+            t.value = _map_ref(t.value)
+    return tok.render()
+
+
 def build_constants(wb):
     """v0.2.4: sheet Constants: named constants used in Mitigation formulas and the policy assumptions without an
     MTInputs row (looked up by key); nothing is typed on Mitigation."""
@@ -7115,6 +7349,8 @@ def build_constants(wb):
                   'key = variable|fuel|sector (Mitigation columns A|B|C) or by the key in the row description.', FONT)
     for j, h in enumerate(['Key / defined name', 'Value', 'Unit', 'Description', 'Source'], 1):
         put(ws, f'{L(j)}{CONST_R0 - 1}', h, FONT_B, F_INPUT)
+    for t, r in CONST_THEME_ROWS.items():         # v1.2.0: theme headings (bold in A, nothing in B)
+        put(ws, f'A{r}', t, FONT_B)
     for key, val, unit, desc, src in NAMED_CONSTANTS + POLICY_CONSTANTS:
         r = CONST_ROW[key]
         put(ws, f'A{r}', key, FONT_B if key in dict((n[0], 1) for n in NAMED_CONSTANTS) else FONT)
@@ -7159,7 +7395,7 @@ SET_LOG = 3                             # v0.3.6: version log title row on sheet
 
 def mt_setting(name):
     """Global setting read from MTInputs scenario 1 (column J) by NameOfParameter."""
-    return f'=INDEX(SDBase,MATCH("{name}",SDParam,0))'   # v0.6.7: names (the sheet name grew to ScenarioDefinition)
+    return f'=INDEX(SDBase,MATCH("{name}",SDParam,0))'   # v0.6.7: names (the sheet name grew to Scenarios)
 
 
 def build_settings(wb):
@@ -7366,7 +7602,7 @@ def build_settings(wb):
          '0 (all codes vs v0.0.15)'),
         ('0.1.00', '2026-10-09', 'Renamed CPAT-AI-Mitigation-Prototype and upgraded to v0.1.00 (content as v0.0.16).',
          '0 (all codes vs v0.0.16)'),
-        ('0.1.01', '2026-10-09', 'MTOutputs sheet: key results per scenario by output code (copy-pasteable row blocks); '
+        ('0.1.01', '2026-10-09', 'Outputs sheet: key results per scenario by output code (copy-pasteable row blocks); '
                                'Charts sheet.', '0 (all Mitigation codes vs v0.1.00)'),
         ('0.1.02', '2026-10-09', 'New ETS with a cap: baseline covered emissions (data from scenario 1), fast price '
                                'estimate, override row and goal-seek script; benchmarks replace the auction share '
@@ -7571,7 +7807,7 @@ def build_settings(wb):
                               '(prices from Mitigation, indirect prices from GTAP, effects, rebasing, recycling, net '
                               'effect, compensation, Gini) with legacy bugs fixed; data tabs HHSurvey, HH_Elast, '
                               'IO_GTAP, ASPIRE, WHOCooking, GDPRatios, DistMapping (divider DATA_DISTRIBUTION); '
-                              'MTOutputs distribution block with legacy codes. Scenario capacity (user rule): five '
+                              'Outputs distribution block with legacy codes. Scenario capacity (user rule): five '
                               'policy scenarios can be pasted (definition 6 added; paste test groups 4-7).',
          '0 on shared codes; Distribution = Python reference (6e-13)'),
         ('0.4.5', '2026-10-17', 'Data tabs aligned with legacy (user request): grouped and ordered as legacy '
@@ -7740,7 +7976,7 @@ def build_settings(wb):
                               'DataLinks), ScenarioCompare (every user entry: Live or Stored results, year, data '
                               'source; key results vs the baseline, one bar chart, time series with their chart '
                               'beside them, indicator dropdowns, no indices; core and other buttons) and '
-                              'ScenarioDefinition (was MTInputs; short names in row 2 for the legends, blank '
+                              'Scenarios (was MTInputs; short names in row 2 for the legends, blank '
                               'scenario columns grouped). MTOutputs renamed LiveOutputs (room for 12 scenario '
                               'blocks), StoredResults renamed StoredOutputs (sorted, like variables together; '
                               'every lookup by output code). Charts tab removed. Macros RefreshDashboard, '
@@ -7778,11 +8014,11 @@ def build_settings(wb):
                               '2 not fixed); '
                               'register v0.8.2 with the status in legacy of every bug (Appendices B and C); tracker tabs '
                               'BUGS and ISSUES-OTHER. Workbook formulas unchanged; results unchanged.'),
-        ('0.8.3', '2026-10-23', 'Legacy bug L134 fixed: ScenarioDefinition price-increase unit labels $/bbl (other oil '
+        ('0.8.3', '2026-10-23', 'Legacy bug L134 fixed: Scenarios price-increase unit labels $/bbl (other oil '
                               'products, was $/bbn) and $/GJ (biomass), defaults included (were $/liter). Register '
                               'v0.8.3 (L134); register spreadsheet built from the register itself; Excel lint in every '
                               'writer. Results unchanged.'),
-        ('0.8.4', '2026-10-28', 'Inputs on legacy 465: ScenarioDefinition has the rows of the 465 MTInputs (456 rows '
+        ('0.8.4', '2026-10-28', 'Inputs on legacy 465: Scenarios has the rows of the 465 MTInputs (456 rows '
                               '329-330 gone, later rows 2 higher) and a complete set of names (legacy bug L137: no '
                               'D_ prefix, no trailing space; issue I87: 87 names added). One register for every '
                               'module (codes L, DB, M, I, DI, LD, U); files named <name>_v0.8.4 at the top of '
@@ -7837,7 +8073,7 @@ def build_settings(wb):
                               'abatement curves take the CH4Inputs average where the country coefficient is 0 or missing, '
                               'as legacy (issue I152; helper rows ch4.abc); the vehicle stocks are coded tot '
                               '(pass/fre/motor.own.tot, tot.own.tot; were *.own.all); input row ModelForm (default CPAT) in '
-                              'ScenarioDefinition. Scope: CBAM process emissions, green public investment, emissions '
+                              'Scenarios. Scope: CBAM process emissions, green public investment, emissions '
                               'intensity of industrial output and the air pollution and transport co-benefits modules are '
                               'upgrades (U15-U19), out of scope. Egypt values unchanged.'),
         ('1.0.3', '2026-10-29', 'Data links: new data source "Dummy - GitHub (public repository)" (the data workbook read '
@@ -7865,7 +8101,14 @@ def build_settings(wb):
                               'side); ScenarioCompare live only; StoredOutputs moved to the Master; Settings and Inputs '
                               'merged into Constants and Mappings, the user settings on MTInputs (new policies, existing '
                               'policies, model settings); data tables marked; EF_PM and CH4Inputs linked. Results '
-                              'unchanged.')]
+                              'unchanged.'),
+        ('1.2.1', '2026-10-31', 'User feedback on 1.2.0: tabs renamed Scenarios (was ScenarioDefinition; legacy columns '
+                              'D-F and the X flags dropped, scenarios from column G) and Outputs (was MTOutputs; the '
+                              'code in A built from the module and the code parts D:G; B:G and I:J grouped, hidden); '
+                              'no MAIN and OUTPUT divider tabs; Constants and Mappings split into two tabs, each with a '
+                              'table of contents; the settings in the constants format by area of the model, with '
+                              'their source and a check that inputs read from scenario 1 are the same in every '
+                              'scenario; constants grouped by area; fixed column widths. Results unchanged.')]
     for i, row in enumerate(log, SET_LOG + 2):
         for j, v in enumerate(row, 1):
             c_ = put(ws, f'{L(j)}{i}', v)
@@ -9856,8 +10099,18 @@ MTO_INDICATORS = [  # code stem after the country code (scenario number appended
 # row 1, scenario names in row 4, scenario numbers in row 5; rows in legacy MTOutputs order (one row per quantity).
 MTO_R0 = 7                              # first item row
 MTO_GROUPS = 4                          # scenario groups (Mitigation ships 2; groups 3-4 fill when pasted there)
-MTO_HEAD = ['Output (code stem)', 'Module', 'Legacy CPAT code', '', '', '', '', 'Indicator', 'Unit',
-            'Mitigation row']           # D:G empty: room for charts
+MTO_HEAD = ['Output code (from B and D:G)', 'Module', 'Legacy CPAT code', 'Variable', 'Sector', 'Fuel',
+            'Pollutant or suffix', 'Indicator', 'Unit', 'Mitigation row']   # v1.2.0 (user): A built from the parts
+
+
+def code_parts(var):
+    """v1.2.0 (user 2026-10-31): the code after the module, in four parts for Outputs D:G (variable, sector, fuel,
+    pollutant or suffix), by position: a code of more than four parts keeps the leading ones together as the
+    variable. Joined with dots (blanks skipped) the parts give the code back (asserted)."""
+    t = var.split('.')
+    parts = (['.'.join(t[:len(t) - 3])] + t[-3:]) if len(t) > 4 else t + [''] * (4 - len(t))
+    assert '.'.join(p for p in parts if p) == var, (var, parts)
+    return parts
 MTO_MAP_CSV = os.path.join(legacy_dir(), 'mtoutputs_map_465.csv')
 MIT_MAX = 12000                         # v0.3.5: last Mitigation row searched (was 5000; section 5b); v0.5.6: 9000 (P3, P5 rows); v0.9.0: 12000 (17b, 18)
 MIT_RANGE = f'$A$1:$ZZ${MIT_MAX}'       # search area on Mitigation (room for copied scenario groups)
@@ -9954,26 +10207,27 @@ def mto_spec():
 
 
 def mto_cols():
-    """v1.2.0: (code column, last year column) of each MTOutputs scenario group: the columns of Mitigation's groups."""
+    """v1.2.0: (code column, last year column) of each Outputs scenario group: the columns of Mitigation's groups."""
     return [(group_cols(g)[0], group_cols(g)[2][-1]) for g in range(1, MTO_GROUPS + 1)]
 
 
 def build_mtoutputs(wb):
-    """MTOutputs (v1.2.0, user 2026-10-31): the key results of the scenarios, side by side, in the column layout of
+    """Outputs (v1.2.0, user 2026-10-31): the key results of the scenarios, side by side, in the column layout of
     Mitigation: A the output code stem, B the module, C the legacy code, D:G empty (room for charts), H indicator,
     I unit, J the Mitigation row of the output (found once by its code in scenario group 1); then one column group
     per scenario in the same columns as Mitigation's (so each value is Mitigation's cell in the same column of row J).
     Rows: legacy MTOutputs (465) in legacy order, one per quantity (a quantity the prototype lacks keeps its row, with
     the reason in J and no values), then the outputs legacy does not list, by topic. A group is filled when the
     Mitigation group exists (row 5): copy a group to the right, as on Mitigation, for more scenarios."""
-    ws = wb.create_sheet('MTOutputs')
+    ws = wb.create_sheet('Outputs')
     groups = mto_cols()
     last = groups[-1][1] + 1
-    title(ws, 'MTOutputs - key results of the scenarios, side by side (read from Mitigation by output code)', last)
+    title(ws, 'Outputs - key results of the scenarios, side by side (read from Mitigation by output code)', last)
     put(ws, 'A3', 'Rows as legacy MTOutputs (465), then the outputs legacy does not list. One column group per scenario '
                   'in the columns of Mitigation\'s groups (row 5: scenario number; more scenarios: copy the last group '
-                  'to the right, here and on Mitigation). Column J: the Mitigation row of the output, or why the '
-                  'prototype has no value. Columns D:G are left free for charts.', FONT)
+                  'to the right, here and on Mitigation). Column A: the output code, built from the module (B) and its '
+                  'parts (D:G); J: the Mitigation row of the output, or why the prototype has no value. B:G and I:J '
+                  'are grouped (+ above the columns to show them).', FONT)
     for j, h in enumerate(MTO_HEAD, 1):
         if h:
             put(ws, f'{L(j)}1', h, FONT_B)
@@ -9996,15 +10250,18 @@ def build_mtoutputs(wb):
         put(ws, f'B{r}', it['tab'] or '', FONT)
         put(ws, f'C{r}', it['legacy_body'] or None, FONT_CODE_IT)
         live = it['var'] and (it['tab'] == 'mit' or WITH_DIST)
+        if it['var']:                                           # v1.2.0: the code from its parts (B, D:G)
+            for j, p_ in enumerate(code_parts(it['var']), 4):
+                put(ws, f'{L(j)}{r}', p_ or None, FONT)
+            put(ws, f'A{r}', f'=$B{r}&"."&$D{r}' + ''.join(f'&IF(${c}{r}="","","."&${c}{r})' for c in 'EFG'),
+                FONT_CODE_IT if live else FONT_NOTE, F_CODE if live else None)
         if not live:                                            # legacy only: its text and unit, the reason
-            put(ws, f'A{r}', f"{it['tab']}.{it['var']}" if it['var'] else None, FONT_NOTE)
             put(ws, f'H{r}', it['indicator'] or it['var'], FONT_NOTE)
             put(ws, f'I{r}', it['unit'], FONT_NOTE)
             why = ('distribution module' if it['var'] else
                    f"not in the prototype{': ' + it['reason'] if it['reason'] else ''}")
             put(ws, f'J{r}', why, FONT_NOTE)
             continue
-        put(ws, f'A{r}', f"{it['tab']}.{it['var']}", FONT_CODE_IT, F_CODE)
         put(ws, f'J{r}', f'=IFERROR(MATCH(LOWER(CtryCode)&"."&$A{r}&"."&{k0}$5,MitCode,0),"code not found")', FONT,
             None, '0')
         put(ws, f'H{r}', f'=IF(ISNUMBER($J{r}),INDEX(MitDesc,$J{r}),"")', FONT)
@@ -10016,8 +10273,11 @@ def build_mtoutputs(wb):
                     FONT_CODE_IT if c == c0 else FONT, F_CODE if c == c0 else (F_BASE if c == c0 + 1 else None),
                     None if c == c0 else it['fmt'])
     ws.freeze_panes = f'{L(groups[0][0] + 1)}6'
-    for col, w in {'A': 26, 'B': 7, 'C': 22, 'D': 4, 'E': 4, 'F': 4, 'G': 4, 'H': 52, 'I': 14, 'J': 12}.items():
+    for col, w in {'A': 26, 'B': 7, 'C': 22, 'D': 14, 'E': 9, 'F': 9, 'G': 12, 'H': 52, 'I': 14, 'J': 12}.items():
         ws.column_dimensions[col].width = w
+    for col in 'BCDEFGIJ':                         # v1.2.0 (user): B:G and I:J grouped, hidden by default
+        ws.column_dimensions[col].outline_level = 1
+        ws.column_dimensions[col].hidden = True
     for c0, c1 in groups:
         ws.column_dimensions[L(c0)].width = 26
         for c in range(c0 + 1, c1 + 1):
@@ -10187,7 +10447,7 @@ def build_variables(wb):
         for j, x in enumerate(v, 1):
             if x == '=MT':  # label / unit of an MTInputs parameter: looked up there by NameOfParameter
                 src = 'B' if j == 2 else 'C'
-                x = f'=INDEX(ScenarioDefinition!${src}$8:${src}${MT_END},MATCH($A{i},ScenarioDefinition!$H$8:$H${MT_END},0))&""'
+                x = f'=INDEX(Scenarios!${src}$8:${src}${MT_END},MATCH($A{i},Scenarios!$E$8:$E${MT_END},0))&""'
             put(ws, f'{L(j)}{i}', x, FONT, F_INPUT if j < 6 and not str(x).startswith('=') else None)
     for col, w in {'A': 14, 'B': 46, 'C': 9, 'D': 9, 'E': 34, 'F': 60, 'G': 16, 'H': 16, 'I': 16, 'J': 16,
                    'K': 12, 'L': 16}.items():
@@ -10491,7 +10751,7 @@ def defined_names():
         'PIntManYear': "'Manual inputs'!$J$220:$AF$220",
         'SCCManVal': "'Manual inputs'!$J$237:$AF$237", 'SCCManYear': "'Manual inputs'!$J$236:$AF$236",   # v0.5.2
         'WDData': 'Prices_int!$A$323:$BZ$333', 'WDYear': 'Prices_int!$A$322:$BZ$322',   # v0.5.6 (I66): world demand
-        'WDIdx': ('MIN(IFERROR(MATCH(INDEX(ScenarioDefinition!$J:$J,MATCH("GlobalEnergyDemand",ScenarioDefinition!$H:$H,0)),{"Stated Policies*",'
+        'WDIdx': ('MIN(IFERROR(MATCH(INDEX(Scenarios!$G:$G,MATCH("GlobalEnergyDemand",Scenarios!$E:$E,0)),{"Stated Policies*",'
                   '"Announced Pledges","Sustainable Development","Net Zero"},0),1),3)'),
         'ManCapVal': "'Manual inputs'!$J$349:$AO$371", 'ManCapYr': "'Manual inputs'!$J$348:$AO$348",   # v0.5.6 P3
         'BEVFEVal': "'Manual inputs'!$J$375:$AC$377", 'BEVFEYr': "'Manual inputs'!$J$374:$AC$374",
@@ -10512,15 +10772,15 @@ def defined_names():
         'ScnElx': f'Mapping!${L(6 + len(COV_SECTORS))}${MAP_SCN0}:${L(6 + len(COV_SECTORS))}${MAP_SCN0 + len(SCN_TABLE) - 1}',
         'PwDeficitGas': 'Settings!$C$45',
         'PwCoalICTariff': 'Settings!$C$66', 'ExemptCookShare': 'Settings!$C$83',   # v0.5.6 (12b)
-        'TrCostShare': 'INDEX(ScenarioDefinition!$J:$J,MATCH("TransmissionCostShare",ScenarioDefinition!$H:$H,0))',   # v0.5.6 appendix B
+        'TrCostShare': 'INDEX(Scenarios!$G:$G,MATCH("TransmissionCostShare",Scenarios!$E:$E,0))',   # v0.5.6 appendix B
         'NDCTab': 'NDCs!$A$4:$O$699', 'NDCKey': 'NDCs!$P$4:$P$699', 'NDCHdr': 'NDCs!$A$3:$O$3',   # v0.5.7 (8B)
         'GHHTab': 'GHGHist!$C$4:$AP$299', 'GHHIso': 'GHGHist!$B$4:$B$299', 'GHHHdr': 'GHGHist!$C$3:$AP$3',
         'NDCTypes': '{' + ','.join(f'"{t}"' for t in NDC_TYPES) + '}',
-        'NDCSub': 'INDEX(ScenarioDefinition!$J:$J,MATCH("NDCs",ScenarioDefinition!$H:$H,0))',
-        'EFFinShare': ('IF(INDEX(ScenarioDefinition!$J:$J,MATCH("EFSel",ScenarioDefinition!$H:$H,0))="constant",0,'   # v0.8.4 (I98):
-                       'IF(INDEX(ScenarioDefinition!$J:$J,MATCH("EFSel",ScenarioDefinition!$H:$H,0))="Variable",1,0.5))'),   # legacy AC1052
-        'NDCTyr': 'INDEX(ScenarioDefinition!$J:$J,MATCH("NDCTargetYear",ScenarioDefinition!$H:$H,0))',
-        'NDCCond': 'INDEX(ScenarioDefinition!$J:$J,MATCH("Conditionality",ScenarioDefinition!$H:$H,0))',
+        'NDCSub': 'INDEX(Scenarios!$G:$G,MATCH("NDCs",Scenarios!$E:$E,0))',
+        'EFFinShare': ('IF(INDEX(Scenarios!$G:$G,MATCH("EFSel",Scenarios!$E:$E,0))="constant",0,'   # v0.8.4 (I98):
+                       'IF(INDEX(Scenarios!$G:$G,MATCH("EFSel",Scenarios!$E:$E,0))="Variable",1,0.5))'),   # legacy AC1052
+        'NDCTyr': 'INDEX(Scenarios!$G:$G,MATCH("NDCTargetYear",Scenarios!$E:$E,0))',
+        'NDCCond': 'INDEX(Scenarios!$G:$G,MATCH("Conditionality",Scenarios!$E:$E,0))',
         'CoalICKey': 'GoalSeekCoal!$E$4:$E$200', 'CoalICST': 'GoalSeekCoal!$B$4:$B$200',
         'CoalICLT': 'GoalSeekCoal!$C$4:$C$200',
         'CoalICSTc': 'IFERROR(INDEX(GoalSeekCoal!$B$4:$B$200,MATCH(Settings!$C$4,GoalSeekCoal!$E$4:$E$200,0)),0)',
@@ -10578,11 +10838,11 @@ def defined_names():
         **{f'IP{v_}Y': f'Inputs_prices!${IPC[v_ + str(HIST_YEARS[0])]}${IP_HDR}:${IPC[v_ + str(HIST_YEARS[-1])]}${IP_HDR}'
            for v_ in ('sp', 'txo')},
         'VarP1': v('G'), 'VarP2': v('H'), 'VarP3': v('I'), 'VarP4': v('J'),
-        'ConstKey': f'Constants!$A${CONST_R0}:$A${CONST_R0 + 200}', 'ConstVal': f'Constants!$B${CONST_R0}:$B${CONST_R0 + 200}',
+        'ConstKey': f'Constants!$A${CONST_R0}:$A${CONST_R0 + 250}', 'ConstVal': f'Constants!$B${CONST_R0}:$B${CONST_R0 + 250}',
         **{n: f'Constants!$B${CONST_ROW[n]}' for n, *_r in NAMED_CONSTANTS},
         'MTRowKey': f'Mapping!$A${MAP_MT0}:$A${MAP_MT0 + len(MT_KEYS) + 50}',
         'MTRowNum': f'Mapping!$F${MAP_MT0}:$F${MAP_MT0 + len(MT_KEYS) + 50}',
-        'MTDesc': f'ScenarioDefinition!$B$1:$B${MT_END}', 'MTName': f'ScenarioDefinition!$H$1:$H${MT_END}', 'MTEnd': f'ScenarioDefinition!$B${MT_END}',
+        'MTDesc': f'Scenarios!$B$1:$B${MT_END}', 'MTName': f'Scenarios!$E$1:$E${MT_END}', 'MTEnd': f'Scenarios!$B${MT_END}',
         'BaseCO2Key': 'BaselineCO2!$A$4:$A$6000', 'BaseCO2Val': f'BaselineCO2!$D$4:${L(3 + NY)}$6000',
         'BaseCO2Year': f'BaselineCO2!$D$3:${L(3 + NY)}$3'}
 
@@ -11313,8 +11573,8 @@ def ref_formula(col, rr):
 
 def mt_lookup(r, col):
     """Section-1 input: MTInputs row (column D) for this column's scenario (row 5)."""
-    return (f'=INDEX(ScenarioDefinition!${L(MT_COL0)}$1:${MT_LAST}${MT_END},$D{r},'
-            f'MATCH({col}${R_SCEN},ScenarioDefinition!${L(MT_COL0)}${MT_ROW_SCEN}:${MT_LAST}${MT_ROW_SCEN},0))')
+    return (f'=INDEX(Scenarios!${L(MT_COL0)}$1:${MT_LAST}${MT_END},$D{r},'
+            f'MATCH({col}${R_SCEN},Scenarios!${L(MT_COL0)}${MT_ROW_SCEN}:${MT_LAST}${MT_ROW_SCEN},0))')
 
 
 def path_formula(col, y0, y1, start, target, linear_ext=None):
@@ -11836,8 +12096,8 @@ def build_mitigation(wb):
         cc = L(code)
         put(ws, f'{cc}1', 'Scenario: output code', FONT_B)    # v0.4.1: same text in every group (copy-pasteable)
         put(ws, f'{cc}{R_SCEN}', f'=COUNTIF(${L(COL_G0)}$1:{cc}$1,"Scenario*")', FONT_B, None, '0')   # v0.4.1: n-th group
-        put(ws, f'{L(base)}{R_NAME}', (f'=INDEX(ScenarioDefinition!${L(MT_COL0)}${MT_ROW_NAME}:${MT_LAST}${MT_ROW_NAME},'
-                                       f'MATCH({L(base)}${R_SCEN},ScenarioDefinition!${L(MT_COL0)}${MT_ROW_SCEN}:'
+        put(ws, f'{L(base)}{R_NAME}', (f'=INDEX(Scenarios!${L(MT_COL0)}${MT_ROW_NAME}:${MT_LAST}${MT_ROW_NAME},'
+                                       f'MATCH({L(base)}${R_SCEN},Scenarios!${L(MT_COL0)}${MT_ROW_SCEN}:'
                                        f'${MT_LAST}${MT_ROW_SCEN},0))'), FONT_B)
 
     def top(c, is_base, is_last):
@@ -13849,7 +14109,7 @@ def about_rows(B):
                               'fee, existing carbon pricing. Prices by fuel and sector; power engineer model; fuel '
                               'use of 16 subsectors and 8 fuels; road engineer model (switch); revenue, CO2, GHGs, '
                               'local air pollutants, GDP effects, external balance, carbon pricing and welfare.'),
-        ('About', 'Tabs', 'Cover and MTInputs (scenarios) first. MAIN: Mitigation. OUTPUT: MTOutputs (the scenarios '
+        ('About', 'Tabs', 'Cover and MTInputs (scenarios) first. MAIN: Mitigation. OUTPUT: Outputs (the scenarios '
                           'side by side), ScenarioCompare (the dashboard). INPUTS: Manual inputs, Settings, Inputs '
                           '(data step). OTHER MODULES: the inputs from the other modules. DATA: mitigation data as '
                           'legacy, then other data. REF: this tab, and Variables and Lambdas. Each divider tab lists '
@@ -13870,7 +14130,7 @@ def about_rows(B):
                                      f'Mitigation: copy columns {L(code2)}:{L(code2 + S.GW - 1)} and paste at '
                                      f'{L(code2 + S.GW)}; the scenario number, codes, inputs and differences follow.'),
         ('Layout', 'Codes', 'country.mit.<variable>.<sector>.<fuel>.<suffix>.<scenario> in the code column of each '
-                            'group (e.g. egy.mit.ener.rod.gso.e.1); MTOutputs and the macros find results by code.'),
+                            'group (e.g. egy.mit.ener.rod.gso.e.1); Outputs and the macros find results by code.'),
         ('Layout', 'Data tabs', 'Grouped and ordered as legacy (DATA_MITIGATION, DATA_DISTN, DATA_TRAN, DATA_OUTPUT; '
                                 'DATA_OTHER last). Tabs that match a legacy data table hold it unchanged from A4 '
                                 '(header row 3; key formula column right of the table where needed): paste the full '
@@ -13921,8 +14181,8 @@ def about_rows(B):
         ('Algorithm', 'Distribution', 'In the distribution workbook (its own module): it reads Mitigation section '
                                      '19a (the exports to modules).'),
         ('Use', 'More scenarios', 'Copy scenario group 2 of Mitigation into the next free group, and the matching '
-                                  'group of MTOutputs; each numbers itself and reads its MTInputs definition. '
-                                  'ScenarioCompare shows every group of MTOutputs.'),
+                                  'group of Outputs; each numbers itself and reads its MTInputs definition. '
+                                  'ScenarioCompare shows every group of Outputs.'),
         ('Use', 'Stored scenarios', 'The Master workbook runs the definitions (MTInputs L onwards, Run? = Yes), '
                                     'stores their results as values and compares them.'),
         ('Version notes', 'Version log', 'Table above: one row per version, newest last; each task is also logged in '
@@ -14005,13 +14265,14 @@ def fast_batch(wb, log=print, sessions=LO_SESSIONS):
     _, base, years = group_cols(1)
     c0, c1 = base, years[-1]
     live = MT_COL0 + 1
-    runs = [(None, [])] + [((num, name), [('ScenarioDefinition', r0, r1, MT_COL0 + num - 1, live) for r0, r1 in
+    runs = [(None, [])] + [((num, name), [('Scenarios', r0, r1, MT_COL0 + num - 1, live) for r0, r1 in
                                           ((8, 9), (11, 11), (13, MT_END), (MT_ROW_NAME, MT_ROW_NAME))])
                            for num, name, run, _e in DEFINITIONS if run == 'Yes']      # None: the baseline
-    spec = {'first': [('Settings', 26, 3, 29, 3)] + [('Mitigation', R_EMI[f'co2.sec.{x}'], c0, R_EMI[f'co2.sec.{x}'], c1)
+    s_rows = [SETTINGS_MAP[(r_, 3)][0] for r_ in (26, 27, 28, 29)]   # v1.2.0: the settings moved (restructure)
+    spec = {'first': [('Settings', min(s_rows), 1, max(s_rows), 6)] + [('Mitigation', R_EMI[f'co2.sec.{x}'], c0, R_EMI[f'co2.sec.{x}'], c1)
                                                        for x in COV_SECTORS]
                      + [('Mitigation', R_GHG[k_], c0, R_GHG[k_], c1) for _j, k_, _l in CH4S_STORE],
-            'read': ('MTOutputs', 1, 1, MTO_LAST, mto_cols()[1][1]),   # v1.2.0: groups 1-2, side by side
+            'read': ('Outputs', 1, 1, MTO_LAST, mto_cols()[1][1]),   # v1.2.0: groups 1-2, side by side
             'plan': [runs[k::sessions] for k in range(sessions)]}
     ctx = mp.get_context('spawn')
     outbox, inboxes = ctx.Queue(), [ctx.Queue() for _ in range(sessions)]
@@ -14021,8 +14282,9 @@ def fast_batch(wb, log=print, sessions=LO_SESSIONS):
         p_.start()
 
     def baseline_co2(data):
-        st = LO.Grid(26, 3, data[0])
-        assert abs(st.cell(29, 3).value - 1) < 1e-12, st.cell(29, 3).value
+        st0 = LO.Grid(min(s_rows), 1, data[0])
+        sv = lambda r_: st0.cell(*SETTINGS_MAP[(r_, 3)]).value     # a historic Settings cell C<r_>
+        assert abs(sv(29) - 1) < 1e-12, sv(29)
         n4 = 1 + len(COV_SECTORS) + len(CH4S_STORE)
         for j, row in zip([x[0] for x in CH4S_STORE], data[1 + len(COV_SECTORS):n4]):  # v0.6.2 (I47, ghg.k)
             for c, v in zip(range(c0, c1 + 1), row[0]):
@@ -14034,8 +14296,8 @@ def fast_batch(wb, log=print, sessions=LO_SESSIONS):
                 DATA_VALUES[(f'bco2.{x}', year_of(c))] = v
         raw = {y: sum(DATA_VALUES[(f'bco2.{x}', y)] for x in COV_SECTORS) for y in [BASE_YEAR] + YEARS}
         gy = BASE_YEAR                           # v0.4.11: legacy calibrates the base-year estimate (C30, C28)
-        k = st.cell(28, 3).value / raw[gy] if str(st.cell(27, 3).value)[:3] == 'Yes' else 1.0
-        CALIB['k'], CALIB['raw'], CALIB['year'], CALIB['inv'] = k, raw[gy], gy, st.cell(28, 3).value
+        k = sv(28) / raw[gy] if str(sv(27))[:3] == 'Yes' else 1.0
+        CALIB['k'], CALIB['raw'], CALIB['year'], CALIB['inv'] = k, raw[gy], gy, sv(28)
         for key in list(DATA_VALUES):
             if key[0].startswith('bco2.'):
                 DATA_VALUES[key] *= k
@@ -14056,7 +14318,7 @@ def fast_batch(wb, log=print, sessions=LO_SESSIONS):
                     for q in inboxes:
                         q.put(('set', cells))
                 elif msg[0] == 'grid':
-                    key, vals = msg[1], {'MTOutputs': LO.Grid(1, 1, msg[2])}
+                    key, vals = msg[1], {'Outputs': LO.Grid(1, 1, msg[2])}
                     out[key] = (stored_rows(vals, 1, 1, None, stamp) if key is None
                                 else stored_rows(vals, key[0], 2, key[1], stamp))
                 elif msg[0] == 'done':
@@ -14125,7 +14387,7 @@ def write_bco2(wb, raw):
 SR_HEAD, SR_FIRST, SR_Y0 = 5, 6, 8      # StoredResults: header row, first data row, first year column (H)
 SR_LAST = 20000                         # v1.0.4: about 1,000 MTOutputs rows per stored scenario
 SR_COLS = ['Scenario ID', 'Scenario name', 'Code stem', 'Output code', 'Description', 'Unit', 'Stored']
-SC_SLOTS = MTO_GROUPS                   # v1.2.0: one slot per MTOutputs scenario group (was 10, ScenarioDefinition)
+SC_SLOTS = MTO_GROUPS                   # v1.2.0: one slot per MTOutputs scenario group (was 10, Scenarios)
 SC_YEAR = 2030
 SC_KEY = [  # v0.6.7: key results table (code stem, label); level, difference and % difference vs the baseline
     ('mit.co2.all.all.e', 'Energy CO2 emissions'), ('mit.ghg.all.all', 'GHG emissions excluding LULUCF'),
@@ -14148,7 +14410,7 @@ SHORT_NAMES = {1: 'Base', 2: 'CP20', 3: 'CP20-b', 4: 'PkgA', 5: 'PkgB', 6: 'CP50
 
 
 def sc_catalog_rows():
-    """v0.6.7: (row of the indicator list, code stem, MTOutputs row) of every listed indicator (no indices)."""
+    """v0.6.7: (row of the indicator list, code stem, Outputs row) of every listed indicator (no indices)."""
     r0 = SC_TS_R0 + len(SC_TS) * SC_TS_H + 2
     rows, k = [], 0
     row_of = {f"{it['tab']}.{it['var']}": mto_row(i) for i, (kind, it) in reversed(list(enumerate(MTO_ITEMS)))
@@ -14183,18 +14445,18 @@ def cmp_na_only(sheet, ranges):
 
 
 def build_scenario_compare(wb):
-    """v0.6.7 (user 2026-10-20): the dashboard. v1.2.0 (user 2026-10-31): live results only, read from MTOutputs
-    (stored results are kept and compared in the Master workbook). One slot per MTOutputs scenario group (ID from its
-    row 5, short name and name from ScenarioDefinition), the year, the data source of the linked tables. A key table
+    """v0.6.7 (user 2026-10-20): the dashboard. v1.2.0 (user 2026-10-31): live results only, read from Outputs
+    (stored results are kept and compared in the Master workbook). One slot per Outputs scenario group (ID from its
+    row 5, short name and name from Scenarios), the year, the data source of the linked tables. A key table
     (level, difference and % difference vs the first slot, the baseline) and time-series tables with their line chart
-    beside them; the title of each block is a dropdown of the indicator list (no indices). Each value: the MTOutputs
+    beside them; the title of each block is a dropdown of the indicator list (no indices). Each value: the Outputs
     row of its code stem, the column of its scenario group plus the year."""
     from openpyxl.worksheet.datavalidation import DataValidation
     from openpyxl.formatting.rule import FormulaRule
     ws = wb.create_sheet('ScenarioCompare')
     last = SC_CHART_COL + 9
-    title(ws, 'ScenarioCompare - the dashboard: the live scenarios against the baseline (from MTOutputs)', last)
-    put(ws, 'A3', 'The scenario groups of MTOutputs (the scenario groups of Mitigation). Choose the year, then '
+    title(ws, 'ScenarioCompare - the dashboard: the live scenarios against the baseline (from Outputs)', last)
+    put(ws, 'A3', 'The scenario groups of Outputs (the scenario groups of Mitigation). Choose the year, then '
                   'recalculate (F9; the workbook is in manual calculation). Charts show only the scenarios with '
                   'results. Indicator of each time series: the dropdown in its title. Stored scenarios and the data '
                   'source: the Master workbook.', FONT)
@@ -14254,8 +14516,8 @@ def build_scenario_compare(wb):
     band(ws, cr0 - 1, 'Indicator list (the time-series dropdowns; code stem, description, unit)', 3)
     for r_, stem, lo in cat:
         put(ws, f'A{r_}', stem, FONT_HELP)
-        put(ws, f'B{r_}', f'=MTOutputs!$H${lo}', FONT)     # v1.2.0: H indicator, I unit
-        put(ws, f'C{r_}', f'=MTOutputs!$I${lo}', FONT)
+        put(ws, f'B{r_}', f'=Outputs!$H${lo}', FONT)     # v1.2.0: H indicator, I unit
+        put(ws, f'C{r_}', f'=Outputs!$I${lo}', FONT)
     for nm, col in (('SCCatStem', 'A'), ('SCCatLab', 'B'), ('SCCatUnit', 'C')):
         wb.defined_names[nm] = DefinedName(nm, attr_text=f'ScenarioCompare!${col}${cr0}:${col}${cr1}')
     catrow = {stem: r_ for r_, stem, _lo in cat}
@@ -14308,16 +14570,16 @@ def build_scenario_compare(wb):
     names = {'SCYc': f'$C${SC_R_YC}'}
     for nm, ref in names.items():
         wb.defined_names[nm] = DefinedName(nm, attr_text=f'ScenarioCompare!{ref}')
-    g_last = L(mto_cols()[-1][1] + 1)               # v1.2.0: MTOutputs names (rows to MTO_LAST, every group)
+    g_last = L(mto_cols()[-1][1] + 1)               # v1.2.0: Outputs names (rows to MTO_LAST, every group)
     for nm, ref in (('MTOAll', f'$A$1:${g_last}${MTO_LAST}'), ('MTOStem', f'$A$1:$A${MTO_LAST}'),
                     ('MTOUnit', f'$I$1:$I${MTO_LAST}'), ('MTOScen', f'$A$5:${g_last}$5'),
                     ('SCYear', f'${L(COL_G0 + 1)}$1:${L(COL_G0 + NY)}$1')):
-        wb.defined_names[nm] = DefinedName(nm, attr_text=f'MTOutputs!{ref}')
+        wb.defined_names[nm] = DefinedName(nm, attr_text=f'Outputs!{ref}')
     mt_last = L(MT_COL0 + max(SC_SLOTS, len(SCENARIOS) + len(DEFINITIONS)) - 1)
-    wb.defined_names['SDBase'] = DefinedName('SDBase', attr_text=f'ScenarioDefinition!${L(MT_COL0)}$8:${L(MT_COL0)}${MT_END}')
-    wb.defined_names['SDParam'] = DefinedName('SDParam', attr_text=f'ScenarioDefinition!$H$8:$H${MT_END}')
+    wb.defined_names['SDBase'] = DefinedName('SDBase', attr_text=f'Scenarios!${L(MT_COL0)}$8:${L(MT_COL0)}${MT_END}')
+    wb.defined_names['SDParam'] = DefinedName('SDParam', attr_text=f'Scenarios!$E$8:$E${MT_END}')
     for nm, row in (('SDId', MT_ROW_SCEN), ('SDName', MT_ROW_NAME), ('SDShort', MT_ROW_SHORT)):
-        wb.defined_names[nm] = DefinedName(nm, attr_text=f'ScenarioDefinition!${L(MT_COL0)}${row}:${mt_last}${row}')
+        wb.defined_names[nm] = DefinedName(nm, attr_text=f'Scenarios!${L(MT_COL0)}${row}:${mt_last}${row}')
 
 
 def build_compare_charts(ws, cfg):
@@ -14412,9 +14674,9 @@ def write_stored(rows):
 
 
 def stored_rows(vals, sid, src, name, stamp):
-    """Stored rows of MTOutputs scenario group src (values workbook), under scenario ID sid (v1.2.0: written to
+    """Stored rows of Outputs scenario group src (values workbook), under scenario ID sid (v1.2.0: written to
     stored_scenarios.csv for the Master workbook)."""
-    mo = vals['MTOutputs']
+    mo = vals['Outputs']
     c0 = mto_cols()[src - 1][0]
     assert mo.cell(5, c0).value == src                     # v1.2.0: row 5, scenario number of the group
     name = name or mo.cell(4, c0 + 1).value
@@ -14535,7 +14797,7 @@ def _dist_layout(mitrow):
     # 1. Settings
     band('1. Settings (MTInputs, distributional module assumptions)')
     for n in DIST_MT:
-        row('set', n, n, '', '', f'MTInputs: {n}', '', 'ScenarioDefinition', 'MT', fmt='General')
+        row('set', n, n, '', '', f'MTInputs: {n}', '', 'Scenarios', 'MT', fmt='General')
     gap()
     row('scal', 'acsvar', 'acsvar', '', '', 'Infrastructure access variable of the public investment type', 'variable',
         'DistMapping (legacy rows 184-189)', '=INDEX(DProgCode,MATCH("infra|"&{c}${PublicInfrastructureInvType},'
@@ -15199,8 +15461,8 @@ def build_distribution(wb):
         cc = L(code)
         put(ws, f'{cc}1', 'Scenario: output code', FONT_B)
         put(ws, f'{cc}5', f'=COUNTIF(${L(COL_G0)}$1:{cc}$1,"Scenario*")', FONT_B, None, '0')
-        put(ws, f'{L(base)}4', f'=INDEX(ScenarioDefinition!${L(MT_COL0)}${MT_ROW_NAME}:${MT_LAST}${MT_ROW_NAME},'
-                               f'MATCH({L(base)}$5,ScenarioDefinition!${L(MT_COL0)}${MT_ROW_SCEN}:${MT_LAST}${MT_ROW_SCEN},0))',
+        put(ws, f'{L(base)}4', f'=INDEX(Scenarios!${L(MT_COL0)}${MT_ROW_NAME}:${MT_LAST}${MT_ROW_NAME},'
+                               f'MATCH({L(base)}$5,Scenarios!${L(MT_COL0)}${MT_ROW_SCEN}:${MT_LAST}${MT_ROW_SCEN},0))',
             FONT_B)
         for k, c in enumerate([base] + decs):
             col, prev = L(c), L(c - 1)
@@ -15694,7 +15956,7 @@ ALIAS_HEAD = 'Code stem v0.7.1 (alias)'
 
 
 def apply_stem_renames():
-    """The code stems the build writes (MTOutputs, StoredOutputs, ScenarioCompare, charts), renamed in place."""
+    """The code stems the build writes (Outputs, StoredOutputs, ScenarioCompare, charts), renamed in place."""
     global SC_PCT_KEYS, SC_TS
     MTO_ALIAS.update({rn_stem(st): st for st, _f in MTO_INDICATORS if rn_stem(st) != st})
     MTO_INDICATORS[:] = [(rn_stem(st), f) for st, f in MTO_INDICATORS]
@@ -15820,9 +16082,11 @@ def generate():
     assert not clash, f'defined names clash with LAMBDA names (case-insensitive): {clash}'
     for name, ref in {**defined_names(), **dnames}.items():
         wb.defined_names[name] = DefinedName(name, attr_text=ref)
-    order = (FRONT_TABS + ['Settings', 'Inputs', 'Inputs_prices', 'Inputs_power', 'Inputs_ef', 'Inputs_ela', 'Inputs_mult',
-                           'Inputs_macro', 'Inputs_pint', 'Inputs_ecp', 'Inputs_pset', 'Inputs_ptech', 'Inputs_ppath',
-                           'Inputs_ppar', 'Inputs_nc', 'Mapping', 'Constants']
+    restructure_settings(wb)                       # v1.2.0: the constants format, by theme (references re-pointed)
+    build_contents_blocks(wb)                      # v1.2.0: room for the contents tables of Constants and Mappings
+    order = (FRONT_TABS + ['ConstContents', 'Settings', 'Constants', 'MapContents', 'Mapping', 'Inputs', 'Inputs_prices',
+                           'Inputs_power', 'Inputs_ef', 'Inputs_ela', 'Inputs_mult', 'Inputs_macro', 'Inputs_pint',
+                           'Inputs_ecp', 'Inputs_pset', 'Inputs_ptech', 'Inputs_ppath', 'Inputs_ppar', 'Inputs_nc']
              + MODULE_TABS + ['REF->>', 'VersionLog', 'ReadMe', 'LegacyDiff', 'Lambdas', 'Variables']
              + [t for div, tabs in DATA_GROUPS for t in [div] + tabs])   # v0.4.5: data tabs grouped as legacy
     assert set(order) == set(wb.sheetnames), set(wb.sheetnames) ^ set(order)   # v0.3.17: no sheet dropped silently
@@ -15902,14 +16166,14 @@ def share_formulas(path):
 CALC_PR = '<calcPr calcId="191029" calcMode="manual" calcOnSave="0"/>'   # Excel 365 engine: no full calc on open
 
 
-FILL_SHEETS = ['Mitigation', 'MTOutputs']   # v1.2.0: the sheets whose year columns the activation fills
+FILL_SHEETS = ['Mitigation', 'Outputs']   # v1.2.0: the sheets whose year columns the activation fills
 
 
 def fill_columns(ws):
     """v1.2.0: (column of SHIP_LAST_YEAR, columns of the later years) of each scenario group of a sheet with the
-    Mitigation column layout (Mitigation, MTOutputs)."""
+    Mitigation column layout (Mitigation, Outputs)."""
     out = []
-    for c0, _c1 in (mto_cols() if ws.title == 'MTOutputs' else
+    for c0, _c1 in (mto_cols() if ws.title == 'Outputs' else
                     [(group_cols(g)[0], group_cols(g)[2][-1]) for g in range(1, len(SCENARIOS) + 1)]):
         k = c0 + 1 + (SHIP_LAST_YEAR - BASE_YEAR)
         out.append((k, list(range(k + 1, k + 1 + LAST_YEAR - SHIP_LAST_YEAR))))
@@ -15918,7 +16182,7 @@ def fill_columns(ws):
 
 def ship_years(wb):
     """v1.2.0 (user 2026-10-31): the module ships with formulas to SHIP_LAST_YEAR in every scenario group of
-    Mitigation and MTOutputs; the later years are emptied (the Master's activation copies the SHIP_LAST_YEAR column
+    Mitigation and Outputs; the later years are emptied (the Master's activation copies the SHIP_LAST_YEAR column
     across). Returns the number of cells emptied."""
     n = 0
     for name in FILL_SHEETS:
@@ -15935,13 +16199,13 @@ def ship_years(wb):
 
 def activated_copy(path, out=None):
     """v1.2.0: what the Master's activation does, in Python (for the checks): every formula of the SHIP_LAST_YEAR
-    column of each scenario group of Mitigation and MTOutputs copied across to LAST_YEAR (references shifted as
+    column of each scenario group of Mitigation and Outputs copied across to LAST_YEAR (references shifted as
     Excel's fill right does). Returns the path of the activated copy."""
     import tempfile
     import openpyxl
     from openpyxl.formula.translate import Translator
     wb = openpyxl.load_workbook(path)
-    for name in FILL_SHEETS:
+    for name in [n for n in FILL_SHEETS if n in wb.sheetnames]:   # (an older release: MTOutputs, not Outputs)
         ws = wb[name]
         for k, later in fill_columns(ws):
             for r in range(1, ws.max_row + 1):
@@ -16021,11 +16285,12 @@ def store_values(path, values_from=None):
 # ---------------------------------------------------------------- v0.3.6: consolidated tabs
 TAB_REF = 'Version Log, About, and Diff'          # v0.4.2
 TAB_CHECK = 'Variables and Lambdas'         # v0.4.2; v1.2.0: no MacroCheck block
-TAB_CM = 'Constants and Mappings'         # v1.2.0 (user 2026-10-31): Settings and Inputs in one tab
-MERGES = [(TAB_CM, ['Settings', 'Constants', 'Mapping', 'Inputs', 'Inputs_prices', 'Inputs_power', 'Inputs_ef',
-                    'Inputs_ela', 'Inputs_mult', 'Inputs_macro', 'Inputs_pint', 'Inputs_ecp', 'Inputs_pset',
-                    'Inputs_ptech', 'Inputs_ppath', 'Inputs_ppar', 'Inputs_nc']),   # target tab, blocks top to bottom
-          # (the user settings are on MTInputs; Settings keeps the derived global values and the links to them)
+TAB_CONST, TAB_MAP = 'Constants', 'Mappings'   # v1.2.0 (user 2026-10-31): Constants and Mappings split (two tabs)
+MAP_BLOCKS = ['Mapping', 'Inputs', 'Inputs_prices', 'Inputs_power', 'Inputs_ef', 'Inputs_ela', 'Inputs_mult',
+              'Inputs_macro', 'Inputs_pint', 'Inputs_ecp', 'Inputs_pset', 'Inputs_ptech', 'Inputs_ppath', 'Inputs_ppar',
+              'Inputs_nc']
+MERGES = [(TAB_CONST, ['ConstContents', 'Settings', 'Constants']),   # target tab, blocks top to bottom: a contents
+          (TAB_MAP, ['MapContents'] + MAP_BLOCKS),                   # block first (filled after the merge)
           (TAB_REF, ['VersionLog', 'ReadMe', 'LegacyDiff']),
           (TAB_CHECK, ['Variables', 'Lambdas'])]   # v1.2.0: MacroCheck gone with the macros (the Master holds them)
 MERGE_GAP = 3
@@ -16034,11 +16299,13 @@ REF_TABS = [TAB_REF, TAB_CHECK]          # the reference tabs, last
 # with the other modules), then the data groups and REF. Distribution and FromMitigation only in the distribution build.
 # ScenarioCompare reads the live results: after Mitigation and MTOutputs (LibreOffice calculates in tab order and
 # fails with Err:522 when a front tab pulls the whole Mitigation chain through MTOutputs)
-FRONT_TABS = (['Cover', 'ScenarioDefinition', 'MAIN->>', 'Mitigation']
+FRONT_TABS = (['Cover', 'Scenarios', 'Mitigation']           # v1.2.0 (user): no MAIN and OUTPUT divider tabs
               + (['FromMitigation', 'Distribution'] if WITH_DIST else [])
-              + ['OUTPUT->>', 'MTOutputs', 'ScenarioCompare', 'INPUTS->>', 'Manual inputs'])
+              + ['Outputs', 'ScenarioCompare', 'INPUTS->>', 'Manual inputs'])
+NODIV_COLOUR = {'Mitigation': '00AE49', 'FromMitigation': '00AE49', 'Distribution': '00AE49', 'Outputs': '00AE49',
+                'ScenarioCompare': '00AE49'}     # v1.2.0: the main and output tabs keep their colour without a divider
 MODULE_TABS = ['OTHER MODULES->>', 'FromMaster', 'FromAirPollution', 'FromTransportCB']
-TAB_ORDER = FRONT_TABS + [TAB_CM] + MODULE_TABS + ['DATA_MITIGATION->>']   # then the data tabs, REF
+TAB_ORDER = FRONT_TABS + [TAB_CONST, TAB_MAP] + MODULE_TABS + ['DATA_MITIGATION->>']   # then the data tabs, REF
 # v0.4.5 (user request 2026-10-17): data tabs grouped by module and ordered as legacy CPAT (DATA_MITIGATION->,
 # DATA_DISTN->, DATA_TRAN->, DATA_OUTPUT->); tabs with no legacy data tab last (DATA_OTHER)
 DATA_MIT = ['Power', 'GHGs', 'GHGHist', 'NDCs', 'Countries', 'GoalSeekCoal', 'ECP', 'Balances',
@@ -16085,6 +16352,61 @@ def translate(formula, host, tmap):
     return tok.render() if changed else formula
 
 
+CONTENTS_OF = {'ConstContents': TAB_CONST, 'MapContents': TAB_MAP}
+FIXED_WIDTHS = {'A': 26, 'B': 16, 'C': 14, 'D': 70, 'E': 40, 'F': 22}   # v1.2.0 (user): Constants and Mappings
+FIXED_W = 12                                     # every other column of those two tabs
+
+
+def table_titles(ws):
+    """(row, title) of the tables of a block: a bold text in column A with nothing in column B (rows 4 on)."""
+    return [(r, ws.cell(r, 1).value) for r in range(3, ws.max_row + 1)
+            if isinstance(ws.cell(r, 1).value, str) and ws.cell(r, 1).font and ws.cell(r, 1).font.b
+            and ws.cell(r, 2).value is None]
+
+
+def contents_entries(wb, target):
+    """(block, row in the block, title) of every table listed in the contents of a merged tab."""
+    blocks = dict(MERGES)[target][1:]
+    out = []
+    for b in blocks:
+        ws = wb[b]
+        if b == 'Settings' or b == 'Constants' or b == 'Mapping':
+            out += [(b, r, t) for r, t in table_titles(ws)]
+        else:
+            out.append((b, 2, ws['A2'].value or b))
+    return out
+
+
+def build_contents_blocks(wb):
+    """v1.2.0 (user 2026-10-31): the first block of tabs Constants and Mappings: room for a table of contents (one row
+    per table, with a link), written after the merge (write_contents)."""
+    for sheet, target in CONTENTS_OF.items():
+        ws = wb.create_sheet(sheet)
+        n = len(contents_entries(wb, target))
+        title(ws, TAB_EXPL[target], 6)
+        put(ws, 'A3', 'Contents (click a table to go to it)', FONT_B)
+        for j, h in enumerate(['Table', 'Block', 'Row'], 1):
+            put(ws, f'{L(j)}4', h, FONT_B).border = Border(bottom=THIN)
+        put(ws, f'A{5 + n}', '(the tables follow)', FONT_NOTE)
+
+
+def write_contents(wb, tmap):
+    """v1.2.0: the contents of tabs Constants and Mappings, rows after the merge, with links."""
+    for sheet, target in CONTENTS_OF.items():
+        ws = wb[target]
+        for k, (b, r, t) in enumerate(contents_entries_merged.get(target, []), 5):
+            row = tmap[b][1] + r
+            c = put(ws, f'A{k}', str(t).split(' (')[0][:90], FONT)
+            c.style = 'Hyperlink'
+            from openpyxl.worksheet.hyperlink import Hyperlink
+            c.hyperlink = Hyperlink(ref=c.coordinate, location=f"'{target}'!A{row}", display=c.value)
+            put(ws, f'B{k}', b, FONT_NOTE)
+            put(ws, f'C{k}', row, FONT_NOTE, None, '0')
+
+
+contents_entries_merged = {}
+
+
 def merge_tabs(wb):
     """v0.3.6 (user request): stack the blocks of each merged tab top to bottom (MERGE_GAP blank rows between them),
     re-point every formula and defined name, put the reference tabs last and write the tab map (old sheet -> tab,
@@ -16092,6 +16414,8 @@ def merge_tabs(wb):
     from copy import copy
     import json
     tmap = {}
+    for target in (TAB_CONST, TAB_MAP):             # v1.2.0: the tables of the blocks, before they are merged
+        contents_entries_merged[target] = contents_entries(wb, target)
     for target, blocks in MERGES:
         off = 0
         for b in blocks:
@@ -16148,6 +16472,11 @@ def merge_tabs(wb):
                   + ['REF->>']
                   + REF_TABS]
     style_tabs(wb, tmap)                             # v0.4.2: title bars, sub-heading bars, header fills, widths
+    write_contents(wb, tmap)                         # v1.2.0: contents of Constants and Mappings
+    for t_ in (TAB_CONST, TAB_MAP):                  # v1.2.0 (user): fixed column widths on both tabs
+        w_ = wb[t_]
+        for c_ in range(1, w_.max_column + 1):
+            w_.column_dimensions[L(c_)].width = FIXED_WIDTHS.get(L(c_), FIXED_W)
     wb.active = wb.sheetnames.index('ScenarioCompare')
     if WITH_DIST:                                    # v1.2.0: the tab map is the mitigation workbook's
         return
@@ -16160,28 +16489,31 @@ DIST_ONLY = [t for t in DIST_DATA if t not in ('HHSurvey', 'WHOCooking')]   # v1
 DATA_GROUPS = ([('DATA_MITIGATION->>', DATA_MIT), ('DATA_DISTN->>', DIST_DATA)] if WITH_DIST else
                [('DATA_MITIGATION->>', DATA_MIT + ['HHSurvey', 'WHOCooking'])]) + [
     ('DATA_TRAN->>', DATA_TRAN), ('DATA_OUTPUT->>', DATA_OUTPUT), ('DATA_OTHER->>', DATA_OTHER)]
-DIVIDERS = ['MAIN->>', 'OUTPUT->>', 'INPUTS->>', 'OTHER MODULES->>'] + [d for d, _t in DATA_GROUPS] + ['REF->>']
+DIVIDERS = ['INPUTS->>', 'OTHER MODULES->>'] + [d for d, _t in DATA_GROUPS] + ['REF->>']
+COVER_GROUPS = ['START', 'MAIN->>', 'OUTPUT->>'] + DIVIDERS   # v1.2.0: the Cover lists MAIN and OUTPUT (no divider tabs)
 TAB_INFO = [  # divider, tab, content, in legacy CPAT (Yes / Partly / No), legacy tab or note
     ('MAIN->>', 'Mitigation', 'The mitigation module: policies, prices, power, sector fuel use, results', 'Yes',
      'Mitigation (same section numbers; rebuilt formulas)'),
     ('MAIN->>', 'Distribution', 'The distribution module: household incidence by decile in the analysis year, '
      'recycling, Gini, compensation (scenario groups as Mitigation)', 'Yes',
      'Distribution (legacy sections B-D; one analysis year, deciles across)'),
-    ('OUTPUT->>', 'MTOutputs', 'Key results of the live scenarios side by side (the scenario groups of Mitigation, in '
+    ('OUTPUT->>', 'Outputs', 'Key results of the live scenarios side by side (the scenario groups of Mitigation, in '
      'the same columns), rows as legacy MTOutputs then the outputs legacy does not list', 'Partly',
-     'MTOutputs (legacy: outputs for the Dashboard)'),
+     'Outputs (legacy: outputs for the Dashboard)'),
     ('START', 'Cover', 'Linked data tables (status), contents, colours, abbreviations', 'Yes', 'Cover'),
-    ('OUTPUT->>', 'ScenarioCompare', 'The dashboard: the live scenarios of MTOutputs against the baseline (year, data '
+    ('OUTPUT->>', 'ScenarioCompare', 'The dashboard: the live scenarios of Outputs against the baseline (year, data '
      'source), key results, time series and charts', 'Partly', 'Dashboard'),
-    ('START', 'ScenarioDefinition', 'Scenario inputs: one column per scenario (ID, short name, name), rows exactly as '
+    ('START', 'Scenarios', 'Scenario inputs: one column per scenario (ID, short name, name), rows exactly as '
      'legacy', 'Yes', 'MTInputs'),
     ('INPUTS->>', 'Manual inputs', 'User inputs outside MTInputs: the whole legacy tab at the legacy addresses (17 '
      'blocks); read: ETS goal-seek settings, price controls, methane fee scope, manual international prices, fiscal '
      'multipliers, non-energy GHG elasticities, BEV fuel economy of new vehicles (the note on each block)', 'Yes',
      'Manual inputs (same addresses)'),
-    ('INPUTS->>', TAB_CM, 'Derived global settings (their inputs are on MTInputs, Model settings), named constants, '
-     'mappings, and the data step: every lookup Mitigation reads, by fuel | subsector, price fuel and power type',
-     'Partly', 'Dashboard and Manual inputs settings; Mapping; legacy reads the data tabs inside Mitigation'),
+    ('INPUTS->>', TAB_CONST, 'Global settings (name, value, unit, description, source; by area of the model) and the '
+     'named constants; contents at the top', 'Partly', 'Dashboard and Manual inputs settings; typed constants'),
+    ('INPUTS->>', TAB_MAP, 'Mappings (subsectors, fuels, policy keys, MTInputs rows) and the data step: every lookup '
+     'Mitigation reads, by fuel | subsector, price fuel and power type; contents at the top', 'Partly',
+     'Mapping; legacy reads the data tabs inside Mitigation'),
     ('OTHER MODULES->>', 'FromMaster', 'What the Master workbook wrote here: activation, data source of the linked '
      'tables (values; read by the Cover)', 'No', ''),
     ('OTHER MODULES->>', 'FromAirPollution', 'Outputs of the air pollution module that Mitigation reads, by country: value of '
@@ -16277,11 +16609,11 @@ DIVIDER_TITLE = {'START': 'Start: the cover and the scenario definitions',
                  'DATA_OTHER->>': 'Other data: tables with no legacy data tab (side tables, derived values)',
                  'REF->>': 'Reference: version log, about, differences with legacy, checks, variables, LAMBDAs'}
 TAB_EXPL = {  # v0.4.2: tab -> explanation in the title bar (merged tabs and the input tabs)
-    TAB_CM: 'Constants and Mappings: global settings (from MTInputs), named constants, mappings, the data step (every '
-            'lookup Mitigation reads)',
+    TAB_CONST: 'Constants: global settings and named constants, by area of the model (contents below)',
+    TAB_MAP: 'Mappings: mapping tables and the data step, the country lookups Mitigation reads (contents below)',
     TAB_REF: 'Version Log, About, and Diff: what changed, what the workbook is, how it differs from legacy CPAT',
     TAB_CHECK: 'Variables and Lambdas: variable dictionary, LAMBDA formulas'}
-BLOCK1_BAR = {'VersionLog': 'Version log', 'Settings': 'Global settings (inputs: MTInputs, Model settings)'}
+BLOCK1_BAR = {'VersionLog': 'Version log'}
 TAB_WIDTHS = {TAB_REF: {'A': 14, 'B': 28, 'C': 90, 'D': 40, 'E': 6, 'F': 40, 'G': 30, 'H': 14, 'I': 16, 'J': 22},
               TAB_CHECK: {'A': 30, 'B': 50, 'C': 90, 'D': 24, 'E': 34, 'F': 50, 'G': 16, 'H': 16, 'I': 16, 'J': 16,
                           'K': 12}}
@@ -16304,14 +16636,14 @@ def build_cover(wb):
     w = 4
     bar(ws, 2, f'{NAME} v{VERSION}: Cover page', w, F_TITLE, FONT_T)
     put(ws, 'A3', 'The mitigation module of the Climate Policy Assessment Tool (CPAT), rebuilt as one readable, '
-                  'copy-pasteable workbook. Scenarios on ScenarioDefinition; results on MTOutputs and ScenarioCompare (the dashboard).')
+                  'copy-pasteable workbook. Scenarios on Scenarios; results on Outputs and ScenarioCompare (the dashboard).')
     r = data_link_status(ws, 5)                      # v0.6.7: the linked data tables first (was sheet DataLinks)
     bar(ws, r, 'Contents', w, F_BAND, FONT_SUBBAR)
     for j, h in enumerate(['Tab', 'Content', 'In legacy CPAT', 'Legacy tab'], 1):
         put(ws, f'{L(j)}{r + 1}', h, FONT_B).border = Border(bottom=THIN)
     r += 2
-    for div in ['START'] + DIVIDERS:                 # v0.6.7: the front tabs (no divider tab) first
-        put(ws, f'A{r}', div if div != 'START' else 'Start', FONT_B)
+    for div in COVER_GROUPS:                         # v0.6.7: the front tabs (no divider tab) first
+        put(ws, f'A{r}', {'START': 'Start', 'MAIN->>': 'Main', 'OUTPUT->>': 'Output'}.get(div, div), FONT_B)
         put(ws, f'B{r}', DIVIDER_TITLE[div], FONT_B)
         r += 1
         for d_, tab, content, leg, ltab in TAB_INFO:
@@ -16387,7 +16719,11 @@ def fill_divider(ws):
 
 
 ZOOM = 80                               # v1.2.0 (user 2026-10-31): every tab at 80%
+ZOOM_TAB = {'Scenarios': 70}            # v1.2.0 (user 2026-10-31): the scenario tab zoomed out further
 _SHEET_Q = re.compile(r"(?:'(?:[^']|'')+'|[A-Za-z_][\w.]*)!")
+
+
+FORMULA_TARGET, FORMULA_HARD = 90, 115     # NORMS 3 (user 2026-10-31): target (soft) and hard limit of a formula
 
 
 def formula_len(v):
@@ -16418,7 +16754,7 @@ def style_tabs(wb, tmap, only=None):
     """v0.4.2 (NORMS 2.7): every tab but Mitigation, MTInputs and Prices_dom (legacy layouts): a dark green title bar
     in row 2 with what the tab is about, light green sub-heading bars for the blocks of a merged tab, all across the
     same width (the tab's used columns); table headers bold with a bottom border and no fill; tab colours."""
-    keep_layout = {'Mitigation', 'Distribution', 'ScenarioDefinition', 'Prices_dom', 'Cover'}
+    keep_layout = {'Mitigation', 'Distribution', 'Scenarios', 'Prices_dom', 'Cover'}
     merged = {t: blocks for t, blocks in MERGES}
     group_col = {}
     cur = None
@@ -16432,11 +16768,13 @@ def style_tabs(wb, tmap, only=None):
     for ws in wb.worksheets:
         if only is not None and ws.title not in only:   # v0.4.9: one tab rebuilt after the merge (StoredResults)
             continue
-        ws.sheet_view.zoomScale = ZOOM
+        ws.sheet_view.zoomScale = ZOOM_TAB.get(ws.title, ZOOM)
         if ws.title in DIVIDERS:
             fill_divider(ws)
             continue
-        if group_col.get(ws.title):
+        if ws.title in NODIV_COLOUR:
+            ws.sheet_properties.tabColor = NODIV_COLOUR[ws.title]
+        elif group_col.get(ws.title):
             ws.sheet_properties.tabColor = colours[group_col[ws.title]]
         if ws.title in keep_layout:
             if ws.title in _GROUP_OF:
@@ -16464,7 +16802,7 @@ def style_tabs(wb, tmap, only=None):
             mark_data_tables(ws)
         if blocks[0] in BLOCK1_BAR:
             bar(ws, 3, BLOCK1_BAR[blocks[0]], width, F_BAND, FONT_SUBBAR)
-        if ws.title == TAB_CM:                       # mapping tables are structure, not inputs: no fill
+        if ws.title == TAB_MAP:                      # mapping tables are structure, not inputs: no fill
             _t, off, h = tmap['Mapping']
             for row in ws.iter_rows(min_row=off + 1, max_row=off + h):
                 for c in row:
@@ -16531,7 +16869,7 @@ BTN_ROW0 = 3                             # v0.6.7: first row (0-based) of the co
 
 
 def add_macro_buttons(path, sheet='ScenarioCompare', buttons=None, col0=BTN_COL0, row0=BTN_ROW0, colour='00B050',
-                      across=None):
+                      across=None, w=None, h=None, size=900):
     """v0.2.7: add one rounded-rectangle shape per macro to the sheet (DrawingML shapes with macro="[0]!Name", as Excel
     writes an Insert > Shape with Assign Macro). openpyxl cannot write shapes, so the drawing part is added to the
     saved file: drawing XML, its content type, the sheet relationship and the <drawing> element of the sheet. v0.6.4:
@@ -16560,21 +16898,22 @@ def add_macro_buttons(path, sheet='ScenarioCompare', buttons=None, col0=BTN_COL0
     ns = ('xmlns:xdr="http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing" '
           'xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"')
     anchors = []
-    w = BTN_COL1 - BTN_COL0
+    w = w or BTN_COL1 - BTN_COL0                 # v1.2.0: size in columns and rows, and the font size, settable
+    h = h or BTN_ROWS
     across = across or BTN_ACROSS
     for k, (label, macro) in enumerate(buttons):
-        c0, r0 = col0 + (k % across) * w, row0 + (k // across) * BTN_ROWS
+        c0, r0 = col0 + (k % across) * w, row0 + (k // across) * h
         anchors.append(
             f'<xdr:twoCellAnchor {ns} editAs="absolute"><xdr:from><xdr:col>{c0}</xdr:col>'
             f'<xdr:colOff>38100</xdr:colOff><xdr:row>{r0}</xdr:row><xdr:rowOff>19050</xdr:rowOff></xdr:from><xdr:to>'
-            f'<xdr:col>{c0 + w}</xdr:col><xdr:colOff>0</xdr:colOff><xdr:row>{r0 + BTN_ROWS}</xdr:row><xdr:rowOff>0'
+            f'<xdr:col>{c0 + w}</xdr:col><xdr:colOff>0</xdr:colOff><xdr:row>{r0 + h}</xdr:row><xdr:rowOff>0'
             f'</xdr:rowOff></xdr:to><xdr:sp macro="[0]!{macro}" textlink=""><xdr:nvSpPr><xdr:cNvPr '
             f'id="{1001 + k + (0 if colour == "00B050" else 100)}" name="btn{macro}"/>'
             f'<xdr:cNvSpPr/></xdr:nvSpPr><xdr:spPr><a:prstGeom prst="roundRect"><a:avLst/></a:prstGeom>'
             f'<a:solidFill><a:srgbClr val="{colour}"/></a:solidFill><a:ln><a:noFill/></a:ln></xdr:spPr>'
             f'<xdr:txBody><a:bodyPr vertOverflow="clip" horzOverflow="clip" lIns="0" tIns="0" rIns="0" bIns="0" '
             f'rtlCol="0" anchor="ctr"/><a:lstStyle/>'
-            f'<a:p><a:pPr algn="ctr"/><a:r><a:rPr lang="en-GB" sz="900" b="1"><a:solidFill><a:srgbClr val="FFFFFF"/>'
+            f'<a:p><a:pPr algn="ctr"/><a:r><a:rPr lang="en-GB" sz="{size}" b="1"><a:solidFill><a:srgbClr val="FFFFFF"/>'
             f'</a:solidFill><a:latin typeface="Arial"/></a:rPr><a:t>{escape(label)}</a:t></a:r></a:p></xdr:txBody>'
             f'</xdr:sp><xdr:clientData/></xdr:twoCellAnchor>')
     if old:

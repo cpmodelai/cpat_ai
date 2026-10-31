@@ -2,7 +2,7 @@
 
 The codes map of v0.7.1 (excel_ai/bugs_and_legacy/reference/codes_v0_7_1/CPAT_CodesMap_v0_7_1.xlsx: protocol, vocabularies, variables, crosswalk;
 built by legacy/codes/make_codes_map_v0_7_1.py) with the current state added in front:
-  - Inputs: every row of ScenarioDefinition (legacy MTInputs 465 rows 8-413, then the inputs the prototype adds): row,
+  - Inputs: every row of Scenarios (legacy MTInputs 465 rows 8-413, then the inputs the prototype adds): row,
     label, unit, the name (NameOfParameter, the code of the input in Excel and Python), the legacy name and what changed
     with its register code (bug L137, issue I87), the Name Manager names, the Dashboard twin and the Python key;
   - CodeRenames: the code renames applied since v0.7.2 (the legacy-form cache (data/scripts/legacy_csv.py) code_renames_v0_7_2.csv);
@@ -81,7 +81,7 @@ def input_rows():
                     r['register'], r['name_manager_F'], r['name_manager_other'], r['dashboard_twin'], py,
                     'legacy MTInputs 465'])
     wb = openpyxl.load_workbook(B.OUT, read_only=True)
-    ws = wb['ScenarioDefinition']
+    ws = wb['Scenarios']
     for i, row in enumerate(ws.iter_rows(min_row=414, max_col=8, values_only=True), 414):
         if row[7]:
             out.append([i, 'Prototype additions', row[1], row[2], row[7], '', 'input the prototype adds', '', '', '',
@@ -91,7 +91,7 @@ def input_rows():
 
 def output_rows():
     wb = openpyxl.load_workbook(B.OUT, read_only=True, data_only=True)
-    ws = wb['MTOutputs']                                   # v1.0.4: legacy layout, E code, D description
+    ws = wb['Outputs']                                   # v1.0.4: legacy layout, E code, D description
     out = []
     for row in ws.iter_rows(min_row=B.MTO_R0, values_only=True):
         code = row[4] if len(row) > 4 else None
@@ -103,7 +103,7 @@ def output_rows():
 def main():
     wb = openpyxl.load_workbook(BASE)
     inputs = input_rows()
-    sheet(wb, 'Inputs', ['Row (ScenarioDefinition = MTInputs 465)', 'Section', 'Label', 'Unit',
+    sheet(wb, 'Inputs', ['Row (Scenarios = MTInputs 465)', 'Section', 'Label', 'Unit',
                          'Name (NameOfParameter: Excel and Python)', 'Legacy name (MTInputs H)', 'Change',
                          'Register', 'Name Manager (value cell F)', 'Name Manager (other cells)', 'Dashboard twin',
                          'Python key (coded)', 'Source'], inputs, [9, 22, 50, 12, 30, 30, 26, 9, 26, 30, 18, 30, 22],
@@ -120,7 +120,7 @@ def main():
              f'Built by excel_ai/mitigation/docs/make_codesmap.py from the v0.7.1 codes map (legacy/codes/CPAT_CodesMap_v0_7_1.xlsx), '
              f'the input names (the legacy-form cache (data/scripts/legacy_csv.py) mtinputs_465.csv, extract_inputs.py), the code renames since '
              f'v0.7.2 and the workbook. Do not edit: change the scripts or their sources.', None, 'Sheets',
-             f'Inputs - every input row of ScenarioDefinition ({len(inputs)}): legacy MTInputs 465 rows, then the '
+             f'Inputs - every input row of Scenarios ({len(inputs)}): legacy MTInputs 465 rows, then the '
              'inputs the prototype adds. Name = the code of the input in Excel (column H) and Python. Orange rows: a '
              'name that changed or was added (register: bug L137, issue I87). Legacy inconsistencies kept as issues: '
              'I85 (percentages typed as whole numbers), I86 (spelling), I88 (one Dashboard cell for two inputs).',

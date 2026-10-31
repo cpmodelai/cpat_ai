@@ -67,7 +67,7 @@ def recalc_with(wb_path, groups, prices):
     """Working copy with the prices in the override rows of the groups and the override switched on, recalculated
     (LAMBDAs expanded, LibreOffice). Returns the values workbook."""
     wb = openpyxl.load_workbook(wb_path)
-    ws, wsm = wb['Mitigation'], wb['ScenarioDefinition']
+    ws, wsm = wb['Mitigation'], wb['Scenarios']
     for g in groups:
         wsm.cell(B.MT_NAMES['ETSPriceOverride'], B.MT_COL0 + g - 1).value = 'Yes'
         _, base, years = B.group_cols(g)
@@ -80,7 +80,7 @@ def _evaluate(wb_path, groups, prices):
     """Write prices into the override rows of a working copy, switch the override on, recalculate.
     Returns {g: (next proposal, gap, cap)} lists over the base year + projection years."""
     wb = openpyxl.load_workbook(wb_path)
-    ws, wsm = wb['Mitigation'], wb['ScenarioDefinition']
+    ws, wsm = wb['Mitigation'], wb['Scenarios']
     for g in groups:
         wsm.cell(B.MT_NAMES['ETSPriceOverride'], B.MT_COL0 + g - 1).value = 'Yes'
         _, base, years = B.group_cols(g)

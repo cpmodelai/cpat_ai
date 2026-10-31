@@ -65,7 +65,7 @@ SETTINGS = {}
 
 def load():
     wb = openpyxl.load_workbook(B.OUT, read_only=True)
-    for i, row in enumerate(wb[B.TAB_CM].iter_rows(max_col=2, max_row=90, values_only=True), 1):
+    for i, row in enumerate(wb[B.TAB_CONST].iter_rows(max_col=2, max_row=90, values_only=True), 1):   # TODO: v1.2.0 layout
         if isinstance(row[1], str):
             SETTINGS[i] = row[1].split(' (')[0][:50]
     rows = [list(r) for r in wb['Mitigation'].iter_rows(max_col=YCOLS[-1] + 1, values_only=True)]
@@ -186,7 +186,7 @@ def symbolic(rows, r, c, f):
             return rangesym(rows, r, c, a, b)
         return cellsym(rows, r, c, ref)
     g = REF.sub(sub, g)
-    g = re.sub(rf'INDEX\(ScenarioDefinition!J1:AZ{B.MT_END},<MTInputs row[^>]*>,MATCH\(scenario\(t\),ScenarioDefinition!J5:AZ5,0\)\)',
+    g = re.sub(rf'INDEX\(Scenarios!J1:AZ{B.MT_END},<MTInputs row[^>]*>,MATCH\(scenario\(t\),Scenarios!J5:AZ5,0\)\)',
                'MTInputs[code](scenario)', g)
     # INDEX(block starting at variable X, position p) picks variable X of block p: X[p]
     g = re.sub(r'INDEX\(block@([\w.]+)\{[^}]*\}(\([^)]*\)),(<[^>]*>)(?:,0)?\)', r'\1[\3]\2', g)

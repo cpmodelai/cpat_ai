@@ -6,7 +6,7 @@ the Distribution tab, so this builder runs the mitigation builder with CPAT_WITH
 and the distribution data tabs included), takes the baseline CO2 values from the mitigation workbook
 (../active_workbooks/), recalculates it in LibreOffice and keeps the tabs the Distribution tab reads, turns every formula that reads a dropped tab into its value (FromMitigation
 entirely: the Master workbook's Update Distribution from Mitigation refreshes it), keeps the defined names and LAMBDAs still used, shows only
-the distribution rows of ScenarioDefinition, and adds a Cover with the link to the mitigation workbook and the VBA
+the distribution rows of Scenarios, and adds a Cover with the link to the mitigation workbook and the VBA
 module CPATDistribution.bas. Then, as the prototype: shipped with its values (LibreOffice), manual calculation,
 linted.
 
@@ -34,7 +34,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 os.environ['CPAT_WITH_DIST'] = '1'                     # v1.2.0: the full build, with the Distribution tabs
 import build as P                                      # noqa: E402  the prototype builder (helpers, layout)
 
-VERSION = '1.2.0'
+VERSION = '1.2.1'
 NAME = 'CPAT-AI-Distribution'   # v1.2.0 (user 2026-10-31): was CPAT-AI-Distribution-Prototype
 OUT = P.REL.versioned(NAME, VERSION, 'xlsx')     # distribution/releases/<name>_v<version>.xlsx (v1.2.0: no macros)
 SOURCE = P.LATEST                                     # the mitigation workbook (baseline CO2 values, its name)
@@ -43,9 +43,9 @@ MIT_FILE = os.path.basename(P.LATEST)
 VERSION_LOG = [  # version, date, change
     ('0.1.0', '2026-10-22', f'First standalone module, cut from the mitigation prototype v{P.VERSION}: its Distribution '
                           'and FromMitigation tabs, the distribution data tabs, the distribution rows of '
-                          'ScenarioDefinition and Settings. Inputs from Mitigation by the button Update from '
+                          'Scenarios and Settings. Inputs from Mitigation by the button Update from '
                           'Mitigation (section 19a, defined name ExportDistn).'),
-    ('0.1.1', '2026-10-28', f'Cut from the mitigation prototype v{P.VERSION}: ScenarioDefinition on the rows of legacy '
+    ('0.1.1', '2026-10-28', f'Cut from the mitigation prototype v{P.VERSION}: Scenarios on the rows of legacy '
                           '465 with a complete set of names (bug L137, issue I87); the mitigation workbook is looked '
                           'for in permalink/ too; file named _v0.1.1 at the top of excel_ai/ (NORMS 5a).'),
     ('0.1.2', '2026-10-29', f'Cut from the mitigation prototype v{P.VERSION} (combustion emission factors as legacy, '
@@ -58,7 +58,7 @@ VERSION_LOG = [  # version, date, change
     ('1.0.0', '2026-10-29', f'First full release (user 2026-10-29), cut from the mitigation prototype v{P.VERSION}: '
                           'Distribution 0.1.4 as released. Replicated number for number by Coded CPAT 1.0.0p1.0.'),
     ('1.0.2', '2026-10-29', f'Cut from the mitigation prototype v{P.VERSION} (version aligned with Mitigation and Coded '
-                          'CPAT; ScenarioDefinition has the input row ModelForm). The Distribution method unchanged.'),
+                          'CPAT; Scenarios has the input row ModelForm). The Distribution method unchanged.'),
     ('1.0.3', '2026-10-29', f'Cut from the mitigation prototype v{P.VERSION}. Update from Mitigation also looks in '
                           'permalink_countryeditable\\ (next to this workbook and one folder up) before permalink\\. '
                           'The Distribution method unchanged.'),
@@ -71,20 +71,22 @@ VERSION_LOG = [  # version, date, change
                           f'workbook v{P.VERSION} (which no longer holds Distribution); .xlsx without macros: the Master '
                           'workbook activates it and updates FromMitigation; tab FromMaster. The Distribution method and '
                           'values unchanged.'),
+    ('1.2.1', '2026-10-31', f'Cut from the mitigation workbook v{P.VERSION}: tabs Scenarios (was ScenarioDefinition), '
+                          'Constants and Mappings. The Distribution method and values unchanged.'),
 ]
 
 # the tabs of the module, in order (Cover is added); everything else of the prototype is dropped
-TABS = ['ScenarioDefinition', 'FromMaster', 'FromMitigation', 'Distribution', P.TAB_CM, 'DATA_DISTN->>', 'DistMapping',
+TABS = ['Scenarios', 'FromMaster', 'FromMitigation', 'Distribution', P.TAB_CONST, P.TAB_MAP, 'DATA_DISTN->>', 'DistMapping',
         'IO_GTAP', 'HHSurvey', 'HH_Elast', 'ASPIRE', 'WHOCooking', 'GDPRatios', 'WEO']
 TAB_INFO = [  # tab, content
     ('Cover', 'This page: what the module is, the link to the mitigation workbook'),
-    ('ScenarioDefinition', 'The distribution settings of each scenario (the other rows, set in the mitigation '
+    ('Scenarios', 'The distribution settings of each scenario (the other rows, set in the mitigation '
                            'workbook, are hidden)'),
     ('FromMaster', 'What the Master workbook wrote here (activation, data source): values'),
     ('FromMitigation', 'The inputs from Mitigation (section 19a of the mitigation workbook): values, refreshed by '
                        'the Master workbook (Update Distribution from Mitigation)'),
     ('Distribution', 'The model: household incidence by decile in the analysis year, one column group per scenario'),
-    (P.TAB_CM, 'Settings, constants, mappings and the data step of the mitigation workbook (those Mitigation reads are '
+    (P.TAB_CONST + ', ' + P.TAB_MAP, 'Settings, constants, mappings and the data step of the mitigation workbook (those Mitigation reads are '
                'values here)'),
     ('DistMapping ... WEO', 'The data tabs: mappings, input-output table, household survey, elasticities, ASPIRE, '
                             'cooking fuels, GDP ratios, WEO'),
@@ -160,8 +162,8 @@ def cut(wb, wbv, log=print):
 
 
 def show_distribution_rows(ws, wsd, wsdv):
-    """ScenarioDefinition: rows 1-8 (headings, scenario numbers and names, country) and the rows Distribution reads
-    (its column D: the ScenarioDefinition row of each setting), each under its heading row; the rest hidden."""
+    """Scenarios: rows 1-8 (headings, scenario numbers and names, country) and the rows Distribution reads
+    (its column D: the Scenarios row of each setting), each under its heading row; the rest hidden."""
     rows = {wsdv.cell(r, 4).value for r in range(1, wsd.max_row + 1)
             if isinstance(wsd.cell(r, 4).value, str) and 'MTRowNum' in wsd.cell(r, 4).value}
     assert rows and all(isinstance(r, (int, float)) and r == int(r) for r in rows), rows
@@ -169,12 +171,12 @@ def show_distribution_rows(ws, wsd, wsdv):
     show = set(range(1, 9)) | rows
     for r in rows:
         h = r
-        while h > 8 and not (ws.cell(h, 2).value and not ws.cell(h, 8).value):
+        while h > 8 and not (ws.cell(h, 2).value and not ws.cell(h, P.MT_COL_PARAM).value):
             h -= 1
         show.add(h)
     for r in range(9, ws.max_row + 1):
         ws.row_dimensions[r].hidden = r not in show
-    P.put(ws, 'J1', 'Distribution module: only the distribution rows are shown (the other rows are set in the '
+    P.put(ws, f'{P.L(P.MT_COL0)}1', 'Distribution module: only the distribution rows are shown (the other rows are set in the '
                     'mitigation workbook). Scenario numbers (row 5) as in the mitigation workbook.', P.FONT_B)
     return sorted(rows)
 
@@ -191,7 +193,7 @@ def build_cover(wb):
              'In the Master workbook (CPAT-AI-Master_UserGuide.xlsm, active_workbooks): Update Distribution from '
              'Mitigation. It copies section 19a of the mitigation workbook into FromMitigation here and recalculates.',
              'Read the results on Distribution (one column group per scenario, deciles across).',
-             'Distribution settings of a scenario (analysis year, revenue recycling, targeting): ScenarioDefinition, '
+             'Distribution settings of a scenario (analysis year, revenue recycling, targeting): Scenarios, '
              'then recalculate (F9).']
     for k, s in enumerate(steps, 1):
         P.put(ws, f'A{r + k}', f'{k}.', P.FONT_B)
@@ -223,7 +225,7 @@ def build_cover(wb):
     for k, s in enumerate([f'The data tabs and the Settings lookups are those of the prototype v{P.VERSION} '
                            '(Egypt). Another country needs its own data tabs; its Mitigation inputs come from the '
                            'mitigation workbook of that country.',
-                           'The scenario columns of ScenarioDefinition must carry the scenario numbers of the '
+                           'The scenario columns of Scenarios must carry the scenario numbers of the '
                            'mitigation workbook (FromMitigation row 5).'], r + 1):
         P.put(ws, f'B{k}', s)
     r += 4
@@ -267,8 +269,8 @@ def main():
     wb = openpyxl.load_workbook(full)
     wbv = openpyxl.load_workbook(full, data_only=True)
     stage(f'loaded the full build {os.path.basename(full)}')
-    sd_rows = show_distribution_rows(wb['ScenarioDefinition'], wb['Distribution'], wbv['Distribution'])
-    print(f'  ScenarioDefinition rows read by Distribution: {len(sd_rows)} ({sd_rows[0]}-{sd_rows[-1]})')
+    sd_rows = show_distribution_rows(wb['Scenarios'], wb['Distribution'], wbv['Distribution'])
+    print(f'  Scenarios rows read by Distribution: {len(sd_rows)} ({sd_rows[0]}-{sd_rows[-1]})')
     cut(wb, wbv)
     build_cover(wb)
     wb._sheets = [wb[n] for n in ['Cover'] + TABS]

@@ -16,7 +16,7 @@ Option Explicit
 '   UpdateDistributionFromMitigation
 '                         copies section 19a (ExportDistn) of the activated mitigation workbook into FromMitigation
 '                         of the activated distribution workbook, recalculates and saves it.
-'   StoreLiveScenarios    copies every scenario group of MTOutputs of the activated mitigation workbook into the
+'   StoreLiveScenarios    copies every scenario group of Outputs of the activated mitigation workbook into the
 '                         next free slots of StoredScenarios (values).
 '   RunStoredScenarios    batch run: the baseline (if not stored), then every definition of MTInputs with Run? =
 '                         Yes, through the live column K of the mitigation workbook (ETS goal seek where needed);
@@ -482,8 +482,8 @@ Public Sub ClearStoredScenarios()
 End Sub
 
 Private Function StoreGroup(ByVal scen As Long, ByVal nm As String, Optional ByVal id As Long = 0) As Long
-    ' the MTOutputs group of scenario scen (module ModWb) into the slot of the ID (replaced), else the next free slot;
-    ' the rows of StoredScenarios are those of MTOutputs (checked on the code stems). Returns the slot, 0 if full.
+    ' the Outputs group of scenario scen (module ModWb) into the slot of the ID (replaced), else the next free slot;
+    ' the rows of StoredScenarios are those of Outputs (checked on the code stems). Returns the slot, 0 if full.
     Dim mo As Worksheet, ss As Worksheet, c0 As Long, k As Long, s0 As Long, v As Variant, r As Long
     Set mo = ModWb.Worksheets(SH_OUT)
     Set ss = ThisWorkbook.Worksheets(SH_SS)
@@ -491,10 +491,10 @@ Private Function StoreGroup(ByVal scen As Long, ByVal nm As String, Optional ByV
     For c0 = OUT_COL_G0 To OUT_COL_G0 + 40 * GW Step GW
         If Num(mo.Cells(OUT_ROW_SCEN, c0).Value) = scen Then Exit For
     Next c0
-    If Num(mo.Cells(OUT_ROW_SCEN, c0).Value) <> scen Then Err.Raise vbObjectError + 6, , "No MTOutputs group " & scen
+    If Num(mo.Cells(OUT_ROW_SCEN, c0).Value) <> scen Then Err.Raise vbObjectError + 6, , "No Outputs group " & scen
     For r = SS_FIRST To SS_LAST Step 50
         If CStr(mo.Cells(r, 1).Value) <> CStr(ss.Cells(r, 1).Value) Then _
-            Err.Raise vbObjectError + 7, , "MTOutputs row " & r & " is not the row of " & SH_SS & " (other version?)"
+            Err.Raise vbObjectError + 7, , "Outputs row " & r & " is not the row of " & SH_SS & " (other version?)"
     Next r
     k = SlotOfId(id)
     If k = 0 Then k = FreeSlot()

@@ -60,7 +60,7 @@ def structure(wb):
     tail = ['REF->>'] + B.REF_TABS
     log(f'tab order (main, inputs, data, reference last; {len(wb.sheetnames)} tabs)',
         wb.sheetnames[:len(B.TAB_ORDER)] == B.TAB_ORDER and wb.sheetnames[-len(tail):] == tail)
-    long_, lits, missing = [], {}, set()
+    long_, over90, lits, missing = [], 0, {}, set()
     sheets = set(wb.sheetnames)
     n = 0
     for ws in wb.worksheets:
@@ -71,8 +71,10 @@ def structure(wb):
                     continue
                 n += 1
                 if not C.LAMBDA_CALL.search(v):
-                    if B.formula_len(v) > 100:                  # v1.2.0: sheet qualifiers not counted
+                    k_ = B.formula_len(v)                       # v1.2.0: sheet qualifiers not counted
+                    if k_ > B.FORMULA_HARD:                     # NORMS 3: hard limit 115, target 90 (reported)
                         long_.append(f'{ws.title}!{c.coordinate}')
+                    over90 += k_ > B.FORMULA_TARGET
                     x = v
                     for rx, _w in C.ALLOWED:
                         x = rx.sub('', x)
@@ -85,7 +87,8 @@ def structure(wb):
                     for m in re.finditer(r'(?<![A-Za-z_\d.])(\d+\.?\d*)', x):
                         if m.group(1) not in ('0', '1'):
                             lits.setdefault(m.group(1), f'{ws.title}!{c.coordinate}')
-    log(f'{n} formulas; plain formulas over 100 characters: {long_[:5]}', not long_)
+    log(f'{n} formulas; plain formulas over {B.FORMULA_HARD} characters (hard limit): {long_[:5]}; over the target '
+        f'{B.FORMULA_TARGET} (reported, not failed): {over90}', not long_)
     log(f'numeric literals in formulas: {dict(list(lits.items())[:6])}', not lits)
     z = zipfile.ZipFile(B.OUT)
     wbx = z.read('xl/workbook.xml').decode()
@@ -123,7 +126,7 @@ def tabs(wb):
     rgb = lambda c: str(c.fill.fgColor.rgb)[-6:] if c.fill and c.fill.fill_type else ''
     bad, heads = [], []
     for ws in wb.worksheets:
-        if ws.title in ('Mitigation', 'ScenarioDefinition', 'Prices_dom', 'Cover'):
+        if ws.title in ('Mitigation', 'Scenarios', 'Prices_dom', 'Cover'):
             continue
         w = max(c for c in range(1, ws.max_column + 1) if rgb(ws.cell(2, c)) == dark) if rgb(ws['A2']) == dark else 0
         if w < min(ws.max_column, 4):
@@ -143,10 +146,9 @@ def tabs(wb):
                   if c.font and c.font.b and rgb(c) == 'EBF1DE']
     log(f'tab title bars and sub-heading bars of equal width on every tab: exceptions {bad[:5]}', not bad)
     log(f'table headers without the input fill: exceptions {heads[:5]}', not heads)
-    log(f'v1.2.0: front tabs Cover, ScenarioDefinition, then MAIN (Mitigation) and OUTPUT (MTOutputs, '
-        f'ScenarioCompare): {wb.sheetnames[:7]}', wb.sheetnames[:7] == ['Cover', 'ScenarioDefinition', 'MAIN->>',
-                                                                         'Mitigation', 'OUTPUT->>', 'MTOutputs',
-                                                                         'ScenarioCompare'])
+    want = ['Cover', 'Scenarios', 'Mitigation', 'Outputs', 'ScenarioCompare']
+    log(f'v1.2.0: front tabs Cover, Scenarios, Mitigation, Outputs, ScenarioCompare (no MAIN/OUTPUT dividers): '
+        f'{wb.sheetnames[:5]}', wb.sheetnames[:5] == want)
 
 
 def style(wb):
@@ -307,7 +309,7 @@ def protocol(wbf, data):
     if not hasattr(B, 'rn_body'):
         return
     wf, wv = wbf['Mitigation'], data['Mitigation']
-    sd = wbf['ScenarioDefinition']                 # C1 exception: pass-through rows of an input use its NameOfParameter
+    sd = wbf['Scenarios']                 # C1 exception: pass-through rows of an input use its NameOfParameter
     params = {sd.cell(r, B.MT_COL_PARAM if hasattr(B, 'MT_COL_PARAM') else 8).value for r in range(1, sd.max_row + 1)}
     bad1, bad7, bad5, dup = [], [], [], []
     for g, *_r in B.SCENARIOS:
@@ -362,10 +364,10 @@ def stored_complete(path):
 
 
 def live_outputs(data):
-    """v1.2.0: MTOutputs shows Mitigation's values: in every scenario group of Mitigation, each output row equals the
+    """v1.2.0: Outputs shows Mitigation's values: in every scenario group of Mitigation, each output row equals the
     Mitigation cell of its row (column J) in the same column; ScenarioCompare has a scenario ID and values in every
     slot that has a Mitigation group (no empty second slot)."""
-    mo, mi, sc = data['MTOutputs'], data['Mitigation'], data['ScenarioCompare']
+    mo, mi, sc = data['Outputs'], data['Mitigation'], data['ScenarioCompare']
     n, bad = 0, []
     groups = [g for g in B.mto_cols() if mi.cell(5, g[0]).value not in (None, '')]
     for r in range(B.MTO_R0, B.MTO_LAST + 1):
@@ -378,7 +380,7 @@ def live_outputs(data):
                 n += 1
                 if a != b and not (a in (None, '') and b in (None, '')):
                     bad.append((r, c, a, b))
-    log(f'MTOutputs equals Mitigation in its {len(groups)} scenario groups ({n} cells): differences {len(bad)} '
+    log(f'Outputs equals Mitigation in its {len(groups)} scenario groups ({n} cells): differences {len(bad)} '
         f'{bad[:3]}', n > 0 and not bad)
     filled = [k for k in range(len(groups)) if isinstance(sc.cell(B.SC_R_ID, B.SC_C0 + k).value, (int, float))
               and isinstance(sc.cell(B.SC_KEY_R0, B.SC_C0 + k).value, (int, float))]
@@ -527,7 +529,7 @@ def excel_open():
             return
         xl.CalculateFull()
         errs = []
-        for name in ('Mitigation', 'MTOutputs', 'ScenarioCompare'):
+        for name in ('Mitigation', 'Outputs', 'ScenarioCompare'):
             vals = wb.Worksheets(name).UsedRange.Value or ()
             errs += [(name, i, j) for i, row in enumerate(vals, 1) for j, v in enumerate(row, 1)
                      if isinstance(v, int) and v < -2146820000]                 # COM error values (#NAME? etc.)
@@ -618,7 +620,7 @@ def main():
     stage = lambda what: print(f'[{time.time() - t0:5.0f} s] {what}', flush=True)   # v0.4.9: stage timings
     src = B.OUT if os.environ.get('QUICK') else B.activated_copy(B.OUT)   # v1.2.0: shipped to 2035, activated here
     wait = LO.start_values(LO.expanded_zip(src, C.LAMBDA_CALL, C.expand),   # v0.4.9: recalculated meanwhile
-                           ['Mitigation', 'Distribution', 'DistMapping', 'MTOutputs', 'ScenarioCompare'])
+                           ['Mitigation', 'Distribution', 'DistMapping', 'Outputs', 'ScenarioCompare'])
     stage('expanded copy written, LibreOffice session started')
     wbf = openpyxl.load_workbook(B.OUT)
     structure(wbf)
@@ -648,7 +650,8 @@ def main():
     if os.path.exists(cfile) and os.path.getmtime(cfile) > os.path.getmtime(rel):
         old = json.load(open(cfile))
     else:
-        old = codes(rel, recalc_values(rel))
+        act = B.activated_copy(rel) if rel.endswith('.xlsx') else rel   # v1.2.x: releases ship to 2035: activate
+        old = codes(rel, recalc_values(act))
         json.dump(old, open(cfile, 'w'))
     if re.search(r'-v7\.[01]\.xlsm$', rel) or re.search(r'-v[1-6]\.\d+\.xlsm$', rel):   # releases before the codes map
         old = {rename_code(k): v for k, v in old.items()}   # v0.7.2: the last release's codes through the rename map

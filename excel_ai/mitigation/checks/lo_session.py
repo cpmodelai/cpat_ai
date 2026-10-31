@@ -8,7 +8,7 @@ LibreOffice job.
     with Session() as s:
         doc = s.load(path)
         s.calc(doc)
-        g = s.grid(doc, 'MTOutputs', r0, c0, r1, c1)    # g.cell(r, c).value, 1-based like openpyxl
+        g = s.grid(doc, 'Outputs', r0, c0, r1, c1)    # g.cell(r, c).value, 1-based like openpyxl
 """
 import os as _os, sys as _sys  # the excel_ai code folders and data/scripts on the path (core/tools/xlpaths.py)
 _xl = _os.path.dirname(_os.path.abspath(__file__))

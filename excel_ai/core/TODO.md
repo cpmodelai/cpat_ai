@@ -120,11 +120,23 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
   macros; then commit the activated `.xlsb`.
 - ☐ **Checks to bring in line** with 1.2.0: `check_full.py` (VBA, StoredOutputs, MacroCheck, the bar chart and the old
   MTOutputs sections; run it on `activated_copy`), `check_paste.py`, `check_links.py` (MTOutputs helper columns),
-  `docs/make_codesmap.py` (MTOutputs columns); the formula-length checks to 115 (hard) / 90 (reported) (NORMS 3).
+  `docs/make_codesmap.py` and `docs/make_equations.py` (Outputs columns, the Constants layout); the formula-length checks
+  to 115 (hard) / 90 (reported): done in `check_quick.py` and `check_full.py` (1.2.1).
 - ☐ **Coded CPAT** references to Excel-AI 1.2.0 (`coded/cpat_testing/compare/extract_excel_ai.py`: new names, .xlsx,
   MTOutputs layout; values unchanged).
 - ☐ **Air-pollution module**: a FromMaster tab; its next build under the new name.
-- ☐ **Tab name** `Constants and Mappings` (USER_TASKS 20).
+- ☑ **Tab names** (user 2026-10-31, 1.2.1): `Scenarios`, `Outputs`, `Constants` and `Mappings` (two tabs).
+- ☐ **MTInputs rows read from scenario 1 only** (user 2026-10-31: "update this later"). About 70 rows of MTInputs are read
+  from the scenario-1 column (names `SDBase`/`SDParam`, `mt_setting`, `INDEX(Scenarios!$G:$G, ...)`) and applied to every
+  scenario: a definition that changes them has no effect (legacy runs each scenario through its own column). Plan:
+  (a) model-wide rows become one global value in Model settings, the other columns linked and greyed: ResultsYear,
+  BalancesOrConsumption, IntEnerPricForeSource, EFSel, GlobalEnergyDemand, EFsAdjustmentAnnexI, the SCC rows
+  (SCCTargetConsistentCP, SCCRise, NSCCSource, GSCCSource, NSCCDiscountRate, NSCCMargUtilofCons), TransmissionCostShare;
+  (b) policy and assumption rows read per scenario from a table at the top of each Mitigation scenario group (section 0),
+  formulas reading their own group: GovPriceControls, BiomassNormal, BiomassLeakage, ExemptMostCook, ExemptCookDeciles,
+  NatGasEff/LPGEff/KerEff/BioEff, DomPrTax, ElIncMainSrc, ElPrcMainSrc, IncElAdj, NDCs, NDCTargetYear, Conditionality,
+  the power settings of Inputs_pset (PS_SETTINGS, 27 rows) and the new-investment overrides (NewInv<tech>, NewInv<tech>Year).
+  Until then the Constants tab labels these rows and checks that every scenario column holds the scenario-1 value.
 
 ## Later (not now)
 

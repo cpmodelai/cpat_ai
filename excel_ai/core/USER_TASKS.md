@@ -58,7 +58,7 @@ what to tell the agent afterwards. Source: `TODO.md` (sections 5 and "Open at th
 ## F. Added 2026-10-31 (restructure 1.2.0)
 
 17. **First run of the Master in Excel** (`excel_ai/active_workbooks/CPAT-AI-Master_UserGuide.xlsm`, macros on): Debug >
-    Compile VBAProject; *Activate all modules* (it opens the three `.xlsx`, fills Mitigation and MTOutputs from 2035 to
+    Compile VBAProject; *Activate all modules* (it opens the three `.xlsx`, fills Mitigation and Outputs from 2035 to
     2041, recalculates, saves the `.xlsb` next to the Master). Check that the mitigation `.xlsb` shows 2036-2041 and the
     same results as the release values. Then commit the `.xlsb` files (they are generated; never merged).
 18. **The other Master macros in Excel:** *Update data tables* (choose Public01 - GitHub and Country, then All
@@ -66,5 +66,4 @@ what to tell the agent afterwards. Source: `TODO.md` (sections 5 and "Open at th
     *Clear stored scenarios*; CompareStored after storing. Report anything odd, with a screenshot.
 19. **QuickStart.docx**: `docs/QuickStart.md` has the 1.2.0 changes (Master, activation, names); the .docx was left as
     you edited it (item 15): fold the changes in, or tell the agent which file is the master.
-20. **Tab name `Constants and Mappings`**: the new NORMS rule asks for concise tab names; confirm the name or choose a
-    shorter one (e.g. `ConstMaps`).
+20. ☑ **Tab names**: done in 1.2.1 (Scenarios, Outputs, Constants, Mappings).
