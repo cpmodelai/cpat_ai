@@ -496,11 +496,11 @@ $n_{i}$: number of precursors $i$
 
 $n_{x}$: number of source regions $x$
 
-$E_{i}(x)$: emission rate (kg/yr) of precursor I at source x
+$E_{i}(x)$: emission rate (kg/yr) of precursor $i$ at source $x$
 
-$C_{j,\ base}\left( y \right)$: constant for pollutant $j$ and location $y$
+$C_{j,\ base}\left( y \right)$: constant for component $j$ and location $y$
 
-$k$: pollutant
+$k$: index of the source regions $x_{k}$
 
 The precursors for PM<sub>2.5</sub> included are BC, POM, SO2, NOx and
 OPM (other particulate matter). Notice that NH3 emissions are not
@@ -521,12 +521,12 @@ of the method described in  @aleluia is low.
 
 $$A_{i,j,country} = A_{i,j,region}*\frac{\text{Population}_{\text{region}}}{\text{Population}_{\text{country}}}$$ {#eq-downscale}
 
-If we multiply the emissions $j$ from the modeled sectors by the
+If we multiply the emissions of precursor $i$ from the modeled sectors $s$ by the
 corresponding $A_{i,j}$ coefficients, we obtain the `modeled'
-contribution to $i$(where $i$ is PM<sub>2.5</sub> or O3)
+contribution to $j$ (where $j$ is PM<sub>2.5</sub> or O3)
 in CPAT, using expression @eq-modeled.
 
-$$\text{Modeled\ }i_{t,s} = \sum_{j}^{}{\sum_{s}^{}{A_{i,j}*Emissions_{j,s,t}}}$$ {#eq-modeled} 
+$$\text{Modeled\ }j_{t} = \sum_{i}^{}{\sum_{s}^{}{A_{i,j}*Emissions_{i,s,t}}}$$ {#eq-modeled} 
 
 #### From FASST spreadsheet to CPAT
 
@@ -572,7 +572,7 @@ incremental factor.
 
 $$d_{BC,1} = delta_{BC,1}*urbIncfactor$$ {#eq-bcincfactor}
 
-$$d_{POM,2} = delta_{POM,1}*urbIncfactor$$ {#eq-pomincfactor}
+$$d_{POM,1} = delta_{POM,1}*urbIncfactor$$ {#eq-pomincfactor}
 
 And the following aggregations among deltas are made:
 
@@ -1200,7 +1200,7 @@ $${iF}_{p,\ j,\ l} = \sum_{i = 1}^{4}{\beta_{i,j}*{P\text{op}}_{i,\ l} + \beta_{
 
 Where:
 
-${iF}_{p,\ j,\ c}$: Intake fraction for power plant $p$, pollutant
+${iF}_{p,\ j,\ l}$: Intake fraction for power plant $p$, pollutant
 $j$, location $l$
 
 ${P\text{op}}_{i,\ l}$: Population at distance $i$, location $l$

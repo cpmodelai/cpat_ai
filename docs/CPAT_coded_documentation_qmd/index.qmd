@@ -1,18 +1,19 @@
-![](./00/media/image1.png){fig-align="center" width="40%"}
+# CPAT Python {.unnumbered #book-home}
 
-# **Coded CPAT** {.unnumbered}
+<style>#book-home > h1 { display: none; }</style>
 
-Coded CPAT is the Python model of CPAT, the World Bank-IMF Climate Policy Assessment Tool. It reproduces the Excel-AI prototypes (the mitigation prototype and the distribution module) number for number, and it is written to be read: one small function per equation, named with the codes the Excel models use.
+::: {.callout-note appearance="simple"}
+**Slides:** [Coded CPAT overview](../presentations/03_Coded-CPAT_Overview_latest.pptx) (PowerPoint, latest version)
+:::
 
-**How to read this book.** Part I is what you need to know, short enough to read before you start: how to run the model, where the data are and in what format, how scenarios and results work, how to edit the model and how to test it. Part II explains how the model works. The appendices hold the complete reference material (every equation, table, input, variable and rule); most of them are generated from the code and data, so they stay current.
+CPAT Python (Coded CPAT) is the Python model of CPAT. It reproduces the Excel-AI prototypes number for number (every result code within 1e-9), runs one country and two scenarios in under a second, and is written to be read: one small function per equation, named with the codes of the Excel models. It runs from the command line, from Python or in a Shiny app.
 
 | If you want to | Read |
 |---|---|
-| Run the model | [Quick start](01_Quick_start.qmd) |
-| Know where the data are and what they look like | [The database](02_Database.qmd) |
-| Define your own scenarios | [Scenarios and inputs](03_Scenarios.qmd) |
-| Find a number in the results | [Results](04_Results.qmd) |
-| Change or extend the model | [Editing the model](05_Editing.qmd), then [Architecture](07_Architecture.qmd) |
-| Check that the model still matches Excel-AI | [Testing](06_Testing.qmd) |
+| Run the model | [Quick start](01_Using_the_model.qmd#sec-quick-start) |
+| Know where the data are | [The database](01_Using_the_model.qmd#sec-database) |
+| Define scenarios, read results | [Scenarios](01_Using_the_model.qmd#sec-scenarios), [Results](01_Using_the_model.qmd#sec-results) |
+| Change or test the model | [Editing](01_Using_the_model.qmd#sec-editing), [Testing](01_Using_the_model.qmd#sec-testing), [How it works](02_How_it_works.qmd) |
+| Look up an equation, table, input or variable | Appendices [A](A_Equations.qmd) and [B](B_Reference.qmd) |
 
-*Version `1.1.0p1.3` (replicates Excel-AI 1.1.0 and Distribution 1.1.0; data edition Public01). The guide chapters (this page, chapters 1-11 and the glossary) are written in this folder, `docs/CPAT_coded_documentation_qmd/`; only the appendices A-I are generated from the code and data by `make_qmd.py`: edit their sources, never the generated appendices.*
+*Version `1.1.0p1.3` (replicates Excel-AI 1.1.0 and Distribution 1.1.0; data edition Public01). Chapters 1-2 and the glossary are written in `docs/CPAT_coded_documentation_qmd/`; appendices A-C are generated from the code and data by `make_qmd.py`.*

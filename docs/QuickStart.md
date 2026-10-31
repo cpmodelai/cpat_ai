@@ -10,7 +10,7 @@ A short, human-readable orientation to the cpat_ai repository, mostly about the 
 
 Paths are relative to the repository root. Files named `_v<version>` carry the current version (today 1.1.0); older versions are kept with their module (`releases/` folders).
 
-**The website** <https://cpmodelai.github.io/cpat_ai/> has three tabs: CPAT documentation (`#documentation`, the CPAT methodology), CPAT-AI (`#cpat-ai`, the Excel prototypes) and Coded CPAT (`#coded`, the Python model). Offline: `docs/index.html`.
+**The website** <https://cpmodelai.github.io/cpat_ai/> has a home page and three tabs: Methodology (`#methodology`, the CPAT methodology), CPAT Excel-AI (`#excel-ai`, the Excel prototypes) and CPAT Python (`#python`, the Python model). Offline: `docs/index.html`.
 
 ## Human-readable documents
 

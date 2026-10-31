@@ -160,7 +160,7 @@ Schularick, and Taylor (2015) and Jordà, Schularick, and Taylor (2020).
 As in Dabla-Norris and Lima (2018), we estimate for every horizon
 $h = 0,1,\ldots,H - 1$,
 
-$y_{i,t + h} - y_{i,t - 1} = \alpha_{i,h} + \delta_{t,h} + \text{Δs}_{i,t}\beta_{h} + \Delta x_{i,t}\gamma_{h} + \epsilon_{t,i,h}$
+$y_{i,t + h} - y_{i,t - 1} = \alpha_{i,h} + \delta_{t,h} + \text{Δs}_{i,t}\beta_{h} + \Delta x_{i,t}\gamma_{h} + \varepsilon_{t,i,h}$
 
 where $y_{i,t}$ is the dependent variable. We are interested in
 explaining 100 times the log of real per-capita GDP in percent. Note
@@ -641,6 +641,60 @@ level, region, debt level or trade openness estimates**
 
 Finally, the energy excise tax multipliers are approximated by the means
 of the EGT and EVT multipliers.
+
+## GDP feedback in CPAT {#sec-GDPFeedback}
+
+When endogenous GDP effects are switched on (setting "Include endogenous
+GDP effects?", Appendix E of the Mitigation chapter), CPAT applies the
+multipliers of the selected source to the additional fiscal revenues of
+the policy scenario, year by year from the base year $t_{0}$. The
+notation follows the Mitigation chapter: $c$ is the country, $t$ the
+year, and the subscripts $B$ and $P$ denote the baseline and the policy
+scenario.
+
+**Fiscal space**: the additional revenues of the policies in the policy
+scenario relative to the baseline, as a share of baseline real GDP,
+
+$$fs_{ct} = \frac{rev_{P,ct} - rev_{B,ct}}{Y_{B,ct}}$$
+
+where $rev$ is the fiscal revenue raised by the new policies (see the
+Fiscal revenues section of the Mitigation chapter) and $Y_{B,ct}$ is
+baseline real GDP, in the same units.
+
+**Fiscal impulse**: the change in fiscal space from the previous year,
+
+$$imp_{ct} = fs_{ct} - fs_{c,t - 1}, \qquad imp_{ct_{0}} = fs_{ct_{0}}$$
+
+**Effect of each use of the revenue**: for each use $i$ (cuts in labour
+taxes, cuts in corporate income taxes, public investment, public
+consumption and transfers), with share $sh_{ci}$ (in \%) of the revenue
+allocated to it by the user and multiplier $m_{ci,h}$ of instrument $i$
+at horizon $h$ (in \% of GDP per 1\% of GDP),
+
+$$eff_{cit} = \frac{sh_{ci}}{100}\sum_{h = 0}^{19}imp_{c,t - h}\, m_{ci,h}$$
+
+Multipliers beyond the last horizon reported keep the value of that
+horizon. The revenue itself enters as one more use, with share
+$- 100\%$ and the energy excise tax (EET) multipliers: it captures the
+effect of the higher energy taxes themselves.
+
+**GDP effect**: the sum over the uses, zero when endogenous GDP effects
+are switched off,
+
+$$eff_{ct} = \sum_{i}^{}eff_{cit}$$
+
+**Feedback on GDP, one year later**: the effect raises the level of real
+GDP in the following year,
+
+$$lvl_{ct} = 1 + eff_{c,t - 1}, \qquad lvl_{ct_{0}} = 1$$
+
+$$Y_{P,ct} = Y_{B,ct}\, lvl_{ct}, \qquad 1 + g_{P,ct} = \left( 1 + g_{B,ct} \right)\frac{lvl_{ct}}{lvl_{c,t - 1}}$$
+
+where $g$ is the growth rate of real GDP. The policy-scenario GDP
+$Y_{P,ct}$ then drives fuel and power demand through the GDP-elasticities
+$\epsilon_{Y}$ of the Mitigation chapter, which closes the second channel
+described in the Introduction. In the baseline the fiscal space is zero,
+so baseline GDP is unchanged.
 
 ## References
 

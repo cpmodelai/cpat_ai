@@ -16,7 +16,8 @@ Status key: ☐ not started · ◐ in progress · ☑ done · ☒ closed without
 - ☑ D1-D16 decided by the user (2026-10-29): spec section 10; `NORMS.md` rules made final.
 - ☑ Detailed plan: spec section 11 (the tasks below, each with its check).
 - ☐ Correct `../QuickStart.docx` when it is next regenerated: the data are now edition Public01 (`../data/Public01/`): the public tables, and the six proprietary tables perturbed within +-3% (user 2026-10-30; the earlier wording, every table dummy or four proprietary tables, no longer holds).
-- ☐ Send the documentation bugs DOC1-DOC20 (`../excel_ai/core/BUGS.md` section 3) to the CPAT team with the next tracker release.
+- ☐ Send the documentation bugs DOC1-DOC20 (`../excel_ai/core/BUGS.md` section 3) to the CPAT team with the next tracker release. (Corrected in the website's methodology on 2026-10-31; its chapter Corrections lists them.)
+- ☑ (2026-10-31) Website: the book is the CPAT Python tab (`#python`), restructured to 2 chapters and 3 appendices (NORMS 8.5); deck permalink `../docs/presentations/03_Coded-CPAT_Overview_latest.pptx`.
 
 ## Phase 2 - Foundations (spec 11, phase 2)
 - ◐ 2.9 After the data rebuild (2026-10-30, `excel_ai/core/CAVEATS.md`): ☑ the scenario set and Excel-AI's stored values in `data/inputs/`; ☑ `legacy_comparison.py` reads `data/Public01/tidy/xai_legacy_cached_baseline.csv`; ☐ its legacy 456 workbook: port to the new legacy workbook when it comes (user 2026-10-30).

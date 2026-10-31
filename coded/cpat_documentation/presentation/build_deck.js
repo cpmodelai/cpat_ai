@@ -11,6 +11,7 @@ const { applyTheme } = require(process.env.PPTX_SKILL + "/scripts/apply_theme.js
 const HERE = __dirname;
 const F = JSON.parse(fs.readFileSync(path.join(HERE, "facts.json"), "utf8"));
 const OUT = path.join(HERE, "..", `Coded-CPAT_Overview_v${F.version}.pptx`);
+const LATEST = path.join(HERE, "..", "..", "..", "docs", "presentations", "03_Coded-CPAT_Overview_latest.pptx");   // website permalink
 const fmt = (x) => x.toLocaleString("en-US");
 
 const THEME = {
@@ -235,5 +236,6 @@ s.addText([
 
 pres.writeFile({ fileName: OUT }).then(async () => {
   await applyTheme(OUT, THEME);
-  console.log("wrote " + OUT);
+  fs.copyFileSync(OUT, LATEST);
+  console.log("wrote " + OUT + " and " + LATEST);
 });

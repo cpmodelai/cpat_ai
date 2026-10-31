@@ -1,0 +1,2346 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Appendix C — Project documents – CPAT Python</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./B_Reference.html" rel="prev">
+<link href="././00/media/image1.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d8e5dfa8330daa7b2a69354212dbf2ec.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./A_Equations.html">Appendices</a></li><li class="breadcrumb-item"><a href="./C_Project.html"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Project documents</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">CPAT Python</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CPAT Python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_Using_the_model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Using the model</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_How_it_works.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">How it works</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A_Equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Equations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./B_Reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Data, inputs and variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C_Project.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Project documents</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title"><strong><em>Chapter Contents</em></strong></h2>
+   
+  <ul>
+  <li><a href="#sec-app-bugs" id="toc-sec-app-bugs" class="nav-link active" data-scroll-target="#sec-app-bugs"><span class="header-section-number">C.1</span> Excel-AI bugs and known differences</a>
+  <ul class="collapse">
+  <li><a href="#the-bugs-coded-cpat-found" id="toc-the-bugs-coded-cpat-found" class="nav-link" data-scroll-target="#the-bugs-coded-cpat-found"><span class="header-section-number">C.1.1</span> The bugs Coded CPAT found</a></li>
+  <li><a href="#known-differences" id="toc-known-differences" class="nav-link" data-scroll-target="#known-differences"><span class="header-section-number">C.1.2</span> Known differences</a></li>
+  </ul></li>
+  <li><a href="#sec-app-spec" id="toc-sec-app-spec" class="nav-link" data-scroll-target="#sec-app-spec"><span class="header-section-number">C.2</span> Specification and design decisions</a>
+  <ul class="collapse">
+  <li><a href="#the-request-user-2026-10-29-cleaned-up" id="toc-the-request-user-2026-10-29-cleaned-up" class="nav-link" data-scroll-target="#the-request-user-2026-10-29-cleaned-up"><span class="header-section-number">C.2.1</span> 1. The request (user, 2026-10-29), cleaned up</a></li>
+  <li><a href="#principles" id="toc-principles" class="nav-link" data-scroll-target="#principles"><span class="header-section-number">C.2.2</span> 2. Principles</a></li>
+  <li><a href="#folder-structure" id="toc-folder-structure" class="nav-link" data-scroll-target="#folder-structure"><span class="header-section-number">C.2.3</span> 3. Folder structure</a></li>
+  <li><a href="#how-a-run-works" id="toc-how-a-run-works" class="nav-link" data-scroll-target="#how-a-run-works"><span class="header-section-number">C.2.4</span> 4. How a run works</a></li>
+  <li><a href="#data-databases-1" id="toc-data-databases-1" class="nav-link" data-scroll-target="#data-databases-1"><span class="header-section-number">C.2.5</span> 5. Data: databases</a></li>
+  <li><a href="#inputs" id="toc-inputs" class="nav-link" data-scroll-target="#inputs"><span class="header-section-number">C.2.6</span> 6. Inputs</a></li>
+  <li><a href="#switchable-equation-forms" id="toc-switchable-equation-forms" class="nav-link" data-scroll-target="#switchable-equation-forms"><span class="header-section-number">C.2.7</span> 7. Switchable equation forms</a></li>
+  <li><a href="#tests-and-comparisons" id="toc-tests-and-comparisons" class="nav-link" data-scroll-target="#tests-and-comparisons"><span class="header-section-number">C.2.8</span> 8. Tests and comparisons</a></li>
+  <li><a href="#documents-and-the-website" id="toc-documents-and-the-website" class="nav-link" data-scroll-target="#documents-and-the-website"><span class="header-section-number">C.2.9</span> 9. Documents and the website</a></li>
+  <li><a href="#design-choices-decided-user-2026-10-29" id="toc-design-choices-decided-user-2026-10-29" class="nav-link" data-scroll-target="#design-choices-decided-user-2026-10-29"><span class="header-section-number">C.2.10</span> 10. Design choices: decided (user 2026-10-29)</a></li>
+  <li><a href="#the-plan" id="toc-the-plan" class="nav-link" data-scroll-target="#the-plan"><span class="header-section-number">C.2.11</span> 11. The plan</a></li>
+  <li><a href="#excel-ai-choices-to-flag" id="toc-excel-ai-choices-to-flag" class="nav-link" data-scroll-target="#excel-ai-choices-to-flag"><span class="header-section-number">C.2.12</span> 12. Excel-AI choices to flag</a></li>
+  </ul></li>
+  <li><a href="#sec-app-norms" id="toc-sec-app-norms" class="nav-link" data-scroll-target="#sec-app-norms"><span class="header-section-number">C.3</span> Python norms</a>
+  <ul class="collapse">
+  <li><a href="#the-overriding-norm-follow-excel-ai" id="toc-the-overriding-norm-follow-excel-ai" class="nav-link" data-scroll-target="#the-overriding-norm-follow-excel-ai"><span class="header-section-number">C.3.1</span> 0. The overriding norm: follow Excel-AI</a></li>
+  <li><a href="#readability-equations-names-comments" id="toc-readability-equations-names-comments" class="nav-link" data-scroll-target="#readability-equations-names-comments"><span class="header-section-number">C.3.2</span> 1. Readability: equations, names, comments</a></li>
+  <li><a href="#where-things-go-folders-and-files" id="toc-where-things-go-folders-and-files" class="nav-link" data-scroll-target="#where-things-go-folders-and-files"><span class="header-section-number">C.3.3</span> 2. Where things go (folders and files)</a></li>
+  <li><a href="#model-structure-dimensions-the-year-loop-modules-equation-forms" id="toc-model-structure-dimensions-the-year-loop-modules-equation-forms" class="nav-link" data-scroll-target="#model-structure-dimensions-the-year-loop-modules-equation-forms"><span class="header-section-number">C.3.4</span> 3. Model structure: dimensions, the year loop, modules, equation forms</a></li>
+  <li><a href="#inputs-scenarios-and-advanced-inputs" id="toc-inputs-scenarios-and-advanced-inputs" class="nav-link" data-scroll-target="#inputs-scenarios-and-advanced-inputs"><span class="header-section-number">C.3.5</span> 4. Inputs: scenarios and advanced inputs</a></li>
+  <li><a href="#data-databases-2" id="toc-data-databases-2" class="nav-link" data-scroll-target="#data-databases-2"><span class="header-section-number">C.3.6</span> 5. Data: databases</a></li>
+  <li><a href="#results-and-codes" id="toc-results-and-codes" class="nav-link" data-scroll-target="#results-and-codes"><span class="header-section-number">C.3.7</span> 6. Results and codes</a></li>
+  <li><a href="#tests-and-comparisons-1" id="toc-tests-and-comparisons-1" class="nav-link" data-scroll-target="#tests-and-comparisons-1"><span class="header-section-number">C.3.8</span> 7. Tests and comparisons</a></li>
+  <li><a href="#documents-qmd-word-the-website" id="toc-documents-qmd-word-the-website" class="nav-link" data-scroll-target="#documents-qmd-word-the-website"><span class="header-section-number">C.3.9</span> 8. Documents: qmd, Word, the website</a></li>
+  <li><a href="#task-completion-and-bookkeeping" id="toc-task-completion-and-bookkeeping" class="nav-link" data-scroll-target="#task-completion-and-bookkeeping"><span class="header-section-number">C.3.10</span> 9. Task completion and bookkeeping</a></li>
+  <li><a href="#python-conventions" id="toc-python-conventions" class="nav-link" data-scroll-target="#python-conventions"><span class="header-section-number">C.3.11</span> 10. Python conventions</a></li>
+  </ul></li>
+  <li><a href="#sec-app-plan" id="toc-sec-app-plan" class="nav-link" data-scroll-target="#sec-app-plan"><span class="header-section-number">C.4</span> The plan and open work</a>
+  <ul class="collapse">
+  <li><a href="#phase-0---planning-documents-the-steps-requested-first" id="toc-phase-0---planning-documents-the-steps-requested-first" class="nav-link" data-scroll-target="#phase-0---planning-documents-the-steps-requested-first"><span class="header-section-number">C.4.1</span> Phase 0 - Planning documents (the steps requested first)</a></li>
+  <li><a href="#phase-1---design-choices-with-the-user-done" id="toc-phase-1---design-choices-with-the-user-done" class="nav-link" data-scroll-target="#phase-1---design-choices-with-the-user-done"><span class="header-section-number">C.4.2</span> Phase 1 - Design choices with the user: done</a></li>
+  <li><a href="#phase-2---foundations-spec-11-phase-2" id="toc-phase-2---foundations-spec-11-phase-2" class="nav-link" data-scroll-target="#phase-2---foundations-spec-11-phase-2"><span class="header-section-number">C.4.3</span> Phase 2 - Foundations (spec 11, phase 2)</a></li>
+  <li><a href="#phase-3---mitigation-block-by-block-each-equation-list-appendix-functions-unit-tests-comparison-for-egypt-register-differences" id="toc-phase-3---mitigation-block-by-block-each-equation-list-appendix-functions-unit-tests-comparison-for-egypt-register-differences" class="nav-link" data-scroll-target="#phase-3---mitigation-block-by-block-each-equation-list-appendix-functions-unit-tests-comparison-for-egypt-register-differences"><span class="header-section-number">C.4.4</span> Phase 3 - Mitigation, block by block (each: equation list appendix, functions, unit tests, comparison for Egypt, register differences)</a></li>
+  <li><a href="#phase-4---distribution" id="toc-phase-4---distribution" class="nav-link" data-scroll-target="#phase-4---distribution"><span class="header-section-number">C.4.5</span> Phase 4 - Distribution</a></li>
+  <li><a href="#phase-5---systematic-comparisons" id="toc-phase-5---systematic-comparisons" class="nav-link" data-scroll-target="#phase-5---systematic-comparisons"><span class="header-section-number">C.4.6</span> Phase 5 - Systematic comparisons</a></li>
+  <li><a href="#phase-6---running-the-model" id="toc-phase-6---running-the-model" class="nav-link" data-scroll-target="#phase-6---running-the-model"><span class="header-section-number">C.4.7</span> Phase 6 - Running the model</a></li>
+  <li><a href="#excel-ai-bugs-root-norms-0-rule-6-coded-norms-0.3" id="toc-excel-ai-bugs-root-norms-0-rule-6-coded-norms-0.3" class="nav-link" data-scroll-target="#excel-ai-bugs-root-norms-0-rule-6-coded-norms-0.3"><span class="header-section-number">C.4.8</span> Excel-AI bugs (root NORMS 0 rule 6; coded NORMS 0.3)</a></li>
+  <li><a href="#later-not-now" id="toc-later-not-now" class="nav-link" data-scroll-target="#later-not-now"><span class="header-section-number">C.4.9</span> Later (not now)</a></li>
+  <li><a href="#existing-open-items-before-the-project-to-be-absorbed-by-the-phases-above" id="toc-existing-open-items-before-the-project-to-be-absorbed-by-the-phases-above" class="nav-link" data-scroll-target="#existing-open-items-before-the-project-to-be-absorbed-by-the-phases-above"><span class="header-section-number">C.4.10</span> Existing open items (before the project; to be absorbed by the phases above)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./A_Equations.html">Appendices</a></li><li class="breadcrumb-item"><a href="./C_Project.html"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Project documents</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-app-project" class="quarto-section-identifier">Appendix C — Project documents</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- Generated by make_qmd.py: edit the sources, then run python make_qmd.py -->
+<p>The bugs found in Excel-AI, the specification, the norms and the plan of Coded CPAT.</p>
+<!-- Generated by make_qmd.py from coded/TODO.md, known_differences.py: edit the source, then run python make_qmd.py -->
+<section id="sec-app-bugs" class="level2" data-number="C.1">
+<h2 data-number="C.1" class="anchored" data-anchor-id="sec-app-bugs"><span class="header-section-number">C.1</span> Excel-AI bugs and known differences</h2>
+<p><strong>The rule</strong> (user 2026-10-29): a bug in the prototype (Excel-AI does not compute what it means to) is not copied: Coded CPAT fixes it and it is registered (<code>excel_ai/core/BUGS.md</code>, prototype bugs M); an issue (a potential improvement) is logged and copied as it is for now.</p>
+<section id="the-bugs-coded-cpat-found" class="level3" data-number="C.1.1">
+<h3 data-number="C.1.1" class="anchored" data-anchor-id="the-bugs-coded-cpat-found"><span class="header-section-number">C.1.1</span> The bugs Coded CPAT found</h3>
+<p>Prototype bugs found by Coded CPAT (<code>../excel_ai/core/BUGS.md</code> section 2). Bugs are never replicated: Coded CPAT fixes them where the fix is obvious and lists the codes that then differ from Excel-AI in <code>cpat_testing/compare/known_differences.py</code> until Excel-AI ships the fix; otherwise it follows the prototype’s fixed version. When Excel-AI ships a fix: a line here with its version, Python aligned with the prototype’s fix, the known differences deleted.</p>
+<p><strong>All closed (2026-10-29): Excel-AI 0.9.2 and Distribution 0.1.4 fixed M15-M17 and M19-M22; M18 withdrawn. Coded CPAT 0.9.2p0.1 aligned with them, and 1.0.0p1.0 (the first full release) replicates Excel-AI 1.0.0 and Distribution 1.0.0; no known differences remain; every reference code of scenarios 1 and 2 matches.</strong></p>
+<ul>
+<li>☑ M15 VAT of the year in section 18: Python and Excel-AI 0.9.2 (row <code>vatgen</code>: VAT_WEO to LastHistPriceYear, then held).</li>
+<li>☑ M16 freight BEV feebate at the BEV distance: Python and Excel-AI 0.9.2.</li>
+<li>☑ M17 plug-in hybrid: insurance on the BEV price, ICE maintenance (row <code>trimphv.pas.phv</code>): Python aligned with Excel-AI 0.9.2.</li>
+<li><label><input type="checkbox" checked="">M18 bus electricity: withdrawn (not a bug: all base-year bus energy electrifies with the passenger share, as legacy).</label></li>
+<li>☑ M19 <code>gdpn</code> in bn: Python and Excel-AI 0.9.2.</li>
+<li>☑ M20 gas series read by position, LNG and Europe swapped: World Bank and IEA blocks (Excel-AI 0.9.2); Python reads the IEA block by its World Bank labels (its own gas labels are swapped).</li>
+<li>☑ M21 methane fee: no cap where b &lt;= 0 or the cap overflows: Python aligned with Excel-AI 0.9.2.</li>
+<li>☑ M22 Distribution percentile recycling rows: Python and Distribution 0.1.4.</li>
+</ul>
+</section>
+<section id="known-differences" class="level3" data-number="C.1.2">
+<h3 data-number="C.1.2" class="anchored" data-anchor-id="known-differences"><span class="header-section-number">C.1.2</span> Known differences</h3>
+<p>The codes where Coded CPAT differs from Excel-AI’s stored values because it fixes a bug still open in the prototype (<code>coded/cpat_testing/compare/known_differences.py</code>); the tests check that they differ, and the entry is deleted when Excel-AI ships the fix.</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bug</th>
+<th>Codes that differ from Excel-AI (country prefix and scenario left out)</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<!-- Generated by make_qmd.py from coded/cpat_documentation/project/Spec.qmd: edit the source, then run python make_qmd.py -->
+</section>
+</section>
+<section id="sec-app-spec" class="level2" data-number="C.2">
+<h2 data-number="C.2" class="anchored" data-anchor-id="sec-app-spec"><span class="header-section-number">C.2</span> Specification and design decisions</h2>
+<p><em>Source: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/project/Spec.qmd"><code>coded/cpat_documentation/project/Spec.qmd</code></a>.</em></p>
+<p><strong>Status (2026-10-29).</strong> Phases 0-4 done and phase 5.4 (speed): the mitigation and distribution modules match Excel-AI’s stored values for Egypt, scenarios 1 and 2 (every output code, within 1e-9); phase 6 done (command line, app, website, first release <code>0.9.1p0.1</code>); phases 5.0-5.3 (systematic comparisons) next. The design choices of section 10 are decided and <code>coded/NORMS.md</code> states the rules that follow; section 11 is the detailed plan, its checklist <code>coded/TODO.md</code>. Companion documents: the equation list (<a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/equations/Equations.qmd"><code>../equations/Equations.qmd</code></a>, code-name version <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/equations/Equations_codes.qmd"><code>Equations_codes.qmd</code></a>), the checklist of the plan (<a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/TODO.md"><code>coded/TODO.md</code></a>).</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>The request, cleaned up</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Principles</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Folder structure</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>How a run works (box diagrams)</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Data: databases</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Inputs</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Switchable equation forms</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Tests and comparisons</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>Documents and the website</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>Design choices for the user</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>The plan</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>Excel-AI choices to flag</td>
+</tr>
+</tbody>
+</table>
+<section id="the-request-user-2026-10-29-cleaned-up" class="level3" data-number="C.2.1">
+<h3 data-number="C.2.1" class="anchored" data-anchor-id="the-request-user-2026-10-29-cleaned-up"><span class="header-section-number">C.2.1</span> 1. The request (user, 2026-10-29), cleaned up</h3>
+<section id="goal" class="level4">
+<h4 class="anchored" data-anchor-id="goal">1.1 Goal</h4>
+<p>Build the full Python model (“Coded CPAT”) that <strong>directly replicates the mitigation and distribution modules of Excel-AI</strong> (<code>excel_ai/CPAT-AI-Mitigation-Prototype_v&lt;version&gt;.xlsm</code>, <code>CPAT-AI-Distribution-Prototype_v&lt;version&gt;.xlsm</code>). The numbers must match Excel-AI. The overall norm is: <strong>always follow Excel-AI.</strong> Where an Excel-AI choice looks strange or wrong, report it to the user rather than silently departing; known departures from legacy CPAT are already tracked in the register (bugs <code>L</code>, issues <code>I</code>, departures <code>LD</code>, upgrades <code>U</code>).</p>
+<p>The purpose of the code is <strong>full human readability</strong>: a reader with the methodology in one hand should be able to find each equation in the code in the other.</p>
+</section>
+<section id="ways-the-model-is-run" class="level4">
+<h4 class="anchored" data-anchor-id="ways-the-model-is-run">1.2 Ways the model is run</h4>
+<ol type="1">
+<li><strong>From saved scenarios</strong>: a table of scenario inputs in the MTInputs form (one row per <code>NameOfParameter</code>, one column per scenario), as legacy CPAT and Excel-AI <code>ScenarioDefinition</code>.</li>
+<li><strong>From a reactive Shiny user interface</strong> (later), which populates the same inputs dynamically.</li>
+<li>Both use an <strong>advanced inputs file</strong> as well: time series and longer-form inputs of different types (the legacy <code>Manual inputs</code> tab).</li>
+</ol>
+<p>The code runs <strong>many countries and many scenarios</strong> in one call (batch, comparisons), and <strong>one country with two or more scenarios</strong> (the main user interface).</p>
+</section>
+<section id="data-databases" class="level4">
+<h4 class="anchored" data-anchor-id="data-databases">1.3 Data: databases</h4>
+<p>Python and Excel-AI both run from the same <strong>databases</strong>. A database holds two or more complete sets of data:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Set</th>
+<th>Contents</th>
+<th>Where</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Full</strong></td>
+<td>Every table, including the six proprietary tables</td>
+<td>A separate, private repository (never this one)</td>
+</tr>
+<tr class="even">
+<td><strong>Public</strong></td>
+<td>Every table except the six proprietary tables: energy balances (<code>Balances</code>), energy consumption (<code>EnergyCons</code>), domestic prices (<code>Prices_dom</code>), the GTAP input-output table (<code>IO_GTAP</code>), the household survey (<code>HHSurvey</code>) and the transport scatter data (<code>Tran_Scatter</code>)</td>
+<td>This repository (<code>data/</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>This mirrors how Excel-AI and legacy CPAT work (legacy <code>NoPropData</code> workbooks lack the same four tables).</p>
+</section>
+<section id="testing" class="level4">
+<h4 class="anchored" data-anchor-id="testing">1.4 Testing</h4>
+<ul>
+<li>Compare <strong>Python with Excel-AI</strong> systematically.</li>
+<li>Compare <strong>Python or Excel-AI with legacy CPAT</strong>.</li>
+<li>In each case first for one country, then for all.</li>
+<li>For these comparisons use a <strong>systematic dataset</strong>: the public set (full except the six proprietary tables), with the six tables filled the same way in every model.</li>
+</ul>
+</section>
+<section id="documentation-and-readability" class="level4">
+<h4 class="anchored" data-anchor-id="documentation-and-readability">1.5 Documentation and readability</h4>
+<ul>
+<li>The methodology is in <code>docs/01_MainDocumentation/*.qmd</code>. A website will be built from qmd (to HTML), with tabs for Excel-AI and for Python.</li>
+<li>Plan the Python project in a human-readable way too, in qmd (markdown with extras) that can be built into the website and into Word.</li>
+<li>An <strong>equation list</strong>: an executive summary with the core equations of each part, and appendices with all the adjustments. It uses the Greek letters and index letters of the methodology documentation; indices are shown only where they add clarity (otherwise the text says which indices an equation ranges over).</li>
+<li>A <strong>parallel version with code names</strong> instead of Greek letters, using the authoritative list of CPAT variable codes (e.g.&nbsp;<code>ener</code>), the codes map in <code>excel_ai/</code>.</li>
+<li><strong>Box diagrams</strong> of the modular structure.</li>
+<li>A separate <strong>NORMS</strong> and <strong>TODO</strong> for the Python project. Most Excel norms (formatting) do not apply; the overriding norm is to follow Excel-AI.</li>
+</ul>
+</section>
+<section id="structure" class="level4">
+<h4 class="anchored" data-anchor-id="structure">1.6 Structure</h4>
+<ul>
+<li>Decide up front whether the model computes <strong>everything for year t</strong> (all modules, including air pollution and transport co-benefits) before moving to year t+1.</li>
+<li><strong>Placeholder modules</strong> for air pollution and transport co-benefits, with their imports and exports defined now. Transport co-benefits will later be related to the transport (engineer) mitigation model.</li>
+<li><strong>Switchable core equations.</strong> The structure must allow later switching between forms of the core equations through one global switch: simple-CPAT (basic CPAT equations for every sector, power included), standard-CPAT (engineering power and transport models on), CPAT partial adjustment, CES partial adjustment (taking the CES-compatible price of the energy service), and CDPM (SISEPUEDE) plus FTT-like. Excel-AI implements its core equations as LAMBDA formulas; the Python forms play the same role. Only the Excel-AI form is built now.</li>
+<li>Keep the existing, clean folder structure of <code>coded/</code> as the starting point; do not clutter the core folders with working files; prefer a subfolder (with one pointer file at the top) over more than three new files in a folder. Recommend improvements to the structure, then make them.</li>
+</ul>
+</section>
+<section id="sequence-of-work" class="level4">
+<h4 class="anchored" data-anchor-id="sequence-of-work">1.7 Sequence of work</h4>
+<ol type="1">
+<li>Plan the folder and code structure for readability (this document, <code>NORMS.md</code>, the diagrams).</li>
+<li>The equation list (Greek letters) and its parallel version with code names.</li>
+<li><strong>Design choices</strong>: documented here (section 10) and gone through with the user, question by question.</li>
+<li>The detailed plan (section 11 and <code>coded/TODO.md</code>), then the build.</li>
+</ol>
+</section>
+</section>
+<section id="principles" class="level3" data-number="C.2.2">
+<h3 data-number="C.2.2" class="anchored" data-anchor-id="principles"><span class="header-section-number">C.2.2</span> 2. Principles</h3>
+<ol type="1">
+<li><strong>Follow Excel-AI.</strong> The numbers of Coded CPAT equal Excel-AI’s, code by code, year by year; a difference is a defect of one of the two, found and registered. Through Excel-AI, Coded CPAT inherits the replication rule (never replicate a legacy bug; replicate and track every legacy issue).</li>
+<li><strong>Readable first.</strong> One equation, one function, with the equation in the docstring as in the equation list; names from the codes map; no hidden constants; the model order written once (<code>mitigation/chain.py</code>). Speed comes second, and is reached by working on whole arrays of countries and scenarios at once, not by obscure code.</li>
+<li><strong>One model, many front ends.</strong> One entry point, <code>cpat_model.run(scenarios, database, settings)</code>, used by the command line (scenario files, many countries and scenarios), the Shiny app (one country, two or more scenarios, reactive) and the tests.</li>
+<li><strong>Same inputs, same data, same codes as Excel-AI.</strong> Scenario inputs are MTInputs rows by <code>NameOfParameter</code>; advanced inputs are the legacy <code>Manual inputs</code>, <code>Settings</code> and <code>Constants</code>; data come from the same databases; results carry the Excel-AI output codes.</li>
+<li><strong>Structure that allows change.</strong> The core demand equations sit behind slots that the scenario input <code>ModelForm</code> can fill with other forms (D4); downstream modules (distribution, air pollution, transport co-benefits) talk to mitigation through declared interfaces.</li>
+<li><strong>Documents from one source.</strong> qmd for people, generated Word copies, md for guides; the equation list in one source file for both of its versions.</li>
+</ol>
+</section>
+<section id="folder-structure" class="level3" data-number="C.2.3">
+<h3 data-number="C.2.3" class="anchored" data-anchor-id="folder-structure"><span class="header-section-number">C.2.3</span> 3. Folder structure</h3>
+<section id="principles-1" class="level4">
+<h4 class="anchored" data-anchor-id="principles-1">3.1 Principles</h4>
+<ol type="1">
+<li><strong>Keep what is clean.</strong> The top level of <code>coded/</code> stays as it is: <code>cpat_model/</code> (the model), <code>cpat_shiny/</code> (the app), <code>cpat_testing/</code> (tests), <code>cpat_documentation/</code> (documents), and the entry points and configuration files. Only <code>NORMS.md</code> is added at the top.</li>
+<li><strong>The package reads like the model.</strong> Inside <code>cpat_model/</code>, one subpackage per block of Excel-AI, named for what it computes, and one file, <code>mitigation/chain.py</code>, that lists the blocks in the order they run. A reader learns the model by reading <code>chain.py</code>, then each block in turn.</li>
+<li><strong>Shared machinery in one place</strong> (<code>core/</code>), the switchable equation forms in another (<code>forms/</code>), so model blocks hold only equations.</li>
+<li><strong>Inputs and data at the edge.</strong> Only <code>inputs/</code> reads scenario files and only <code>data/</code> reads databases; model code receives arrays.</li>
+<li><strong>Documents in <code>cpat_documentation/</code></strong>, one subfolder per kind (project, equations, developer, user), with qmd sources and generated Word copies.</li>
+<li><strong>No working files in the core folders</strong> (NORMS 2.2): kept comparison scripts in <code>cpat_testing/compare/</code>, run outputs in <code>coded/outputs/</code> (git-ignored).</li>
+</ol>
+</section>
+<section id="target-layout" class="level4">
+<h4 class="anchored" data-anchor-id="target-layout">3.2 Target layout</h4>
+<pre><code>coded/
+  README.md                 What Coded CPAT is, how to run it, map of the folders
+  NORMS.md                  Python norms (adds to the root NORMS.md)
+  TODO.md                   Open work: the plan (section 11)
+  run_model.py              Command line: run a scenario set, write results
+  app.py                    Shiny app
+  .env                      Settings (cpat_model/settings.py): database, paths
+  environment.yml, requirements*.txt
+
+  cpat_model/               THE MODEL
+    __init__.py             run(scenarios, database, settings) -&gt; Results   (the one entry point)
+    settings.py             Run settings: database, countries, years, global switches (D16)
+    core/                   Shared machinery
+      dims.py               Index sets: fuels i, sectors j, years t, technologies, deciles (names as the methodology)
+      variables.py          Variable registry: code -&gt; description, unit, dimensions, symbol (from the codes map)
+      paths.py              Policy paths (linear start-target paths), deflators
+      loop.py               The three stages: prepare, year loop, finish
+      units.py, constants.py
+    inputs/                 Scenario inputs (MTInputs table), advanced inputs, validation, defaults
+    data/                   Database access: full / public / dummy, loaders, reshaping to dims
+    forms/                  Switchable demand equations, chosen by the scenario input ModelForm:
+                            CPAT (Excel-AI), later CPAT and CES partial adjustment, CDPM-FTT
+    mitigation/             The mitigation module, one subpackage per Excel-AI block
+      chain.py              The order of the blocks in one year (and in prepare / finish)
+      policies/  prices/  power/  transport/  buildings/  industry/  fuel_use/
+      revenues/  emissions/  ghg/  air_pollutants/  gdp/  carbon_pricing/  welfare/
+    air_pollution/          Placeholder module: declared inputs and outputs
+    transport_cobenefits/   Placeholder module: declared inputs and outputs
+    distribution/           The distribution module (analysis year, deciles)
+    results/                Results by Excel-AI output code; indicators; exports (Excel layout)
+
+  cpat_shiny/               The app (unchanged structure); calls cpat_model.run
+  cpat_testing/             Tests mirroring cpat_model/
+    compare/                Comparisons with Excel-AI and legacy CPAT (scripts and fixtures)
+  cpat_documentation/
+    make_docs.py            qmd -&gt; Word
+    project/                Spec.qmd (this document) and its Word copy, figures/
+    equations/              The equation list: Greek and code-name versions (qmd, Word)
+    developer/              Developer guide
+    user/                   User pages (read by the Shiny app)</code></pre>
+</section>
+<section id="changes-to-the-existing-structure" class="level4">
+<h4 class="anchored" data-anchor-id="changes-to-the-existing-structure">3.3 Changes to the existing structure</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Change</th>
+<th>Why</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Add <code>coded/NORMS.md</code>; rewrite <code>coded/TODO.md</code> as the plan</td>
+<td>Requested: own norms and TODO for the Python project</td>
+<td>Now</td>
+</tr>
+<tr class="even">
+<td>Add <code>cpat_documentation/project/</code> and <code>equations/</code>, <code>make_docs.py</code></td>
+<td>Planning documents and the equation list, in qmd with Word copies, ready for the website</td>
+<td>Now</td>
+</tr>
+<tr class="odd">
+<td>Rename <code>developer/dev_documetation.md</code> to <code>dev_documentation.md</code> (done; the website builder <code>docs/CPAT_ai_documentation_qmd/make_qmd.py</code> updated)</td>
+<td>Typo in a file name others link to</td>
+<td>Now</td>
+</tr>
+<tr class="even">
+<td>Add <code>core/</code>, <code>inputs/</code>, <code>forms/</code>, <code>results/</code>, <code>air_pollution/</code>, <code>transport_cobenefits/</code> in <code>cpat_model/</code></td>
+<td>Section 3.2</td>
+<td>Phase 2 (after D1-D7 are decided)</td>
+</tr>
+<tr class="odd">
+<td>Rebuild <code>mitigation/</code> in Excel-AI block order; retire <code>mitigation/methan_fee/</code> (typo), <code>fiscal_revenues/tmp_logic.py</code>, <code>indicators/</code> into <code>results/</code>, <code>dashboard_inputs.py</code> and <code>distribution_inputs.py</code> into <code>inputs/</code>, <code>data_read/</code> into <code>data/</code></td>
+<td>One subpackage per block; no working files; inputs and data at the edge</td>
+<td>Phases 3-5, block by block (D7)</td>
+</tr>
+<tr class="even">
+<td><code>cpat_testing/compare/</code></td>
+<td>Kept comparison scripts out of the model</td>
+<td>Phase 2</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="how-a-run-works" class="level3" data-number="C.2.4">
+<h3 data-number="C.2.4" class="anchored" data-anchor-id="how-a-run-works"><span class="header-section-number">C.2.4</span> 4. How a run works</h3>
+<section id="from-inputs-to-results" class="level4">
+<h4 class="anchored" data-anchor-id="from-inputs-to-results">4.1 From inputs to results</h4>
+<div class="cell" data-fig-name="run-overview" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  subgraph IN[Inputs]
+    SC["Scenario set&lt;br/&gt;(MTInputs rows x scenarios)"]
+    UI["Shiny app&lt;br/&gt;(same table, in memory)"]
+    ADV["Advanced inputs&lt;br/&gt;(time series, Manual inputs, Settings)"]
+  end
+  subgraph DB[Databases]
+    FULL["full&lt;br/&gt;(private repository)"]
+    PUB["public&lt;br/&gt;(no proprietary tables)"]
+    DUM["dummy"]
+  end
+  RUN["cpat_model.run()&lt;br/&gt;countries x scenarios"]
+  RES["Results&lt;br/&gt;by Excel-AI output code&lt;br/&gt;country x scenario x year"]
+  OUT1["Shiny charts and tables"]
+  OUT2["Excel-style export"]
+  OUT3["Comparisons&lt;br/&gt;Excel-AI, legacy CPAT"]
+  SC --&gt; RUN
+  UI --&gt; RUN
+  ADV --&gt; RUN
+  FULL -.-&gt; RUN
+  PUB --&gt; RUN
+  DUM -.-&gt; RUN
+  RUN --&gt; RES
+  RES --&gt; OUT1
+  RES --&gt; OUT2
+  RES --&gt; OUT3
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="two-passes-three-stages-d1-d15-recommended-options" class="level4">
+<h4 class="anchored" data-anchor-id="two-passes-three-stages-d1-d15-recommended-options">4.2 Two passes, three stages (D1, D15: recommended options)</h4>
+<p>Excel-AI computes year by year with no circular reference: year t reads year t-1 and earlier (the GDP feedback reaches year t+1; power demand reads last year’s electricity price; capacity, vintages and vehicle stocks are recursions on t-1), and its only look-aheads read exogenous paths (the levelised variable cost of power over [t, 2041], built from prices and policies; next year’s manual capacity input). Policy scenarios also read scenario-1 values: stored ones (sheet <code>BaselineCO2</code>: CO2 by ETS sector, the calibration values in the GHG inventory year) and same-year ones (<code>.ref</code>, which reach the model only through the fiscal space and so GDP of t+1). Coded CPAT therefore runs the <strong>baseline first, then each policy scenario in turn</strong> (any number of scenarios; D15), each run in three stages:</p>
+<div class="cell" data-fig-name="run-stages" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+  subgraph PASS1["First the baseline (scenario 1), all countries"]
+    direction TB
+    P1["PREPARE"] --&gt; L1["YEAR LOOP"] --&gt; F1["FINISH"]
+  end
+  STORE["Baseline values the policy scenarios read&lt;br/&gt;(CO2 by ETS sector, calibration in the inventory year,&lt;br/&gt;.ref values of each year)"]
+  subgraph PASS2["Then each policy scenario 2..n in turn, all countries"]
+    direction TB
+    P2["PREPARE"] --&gt; L2["YEAR LOOP"] --&gt; F2["FINISH"]
+  end
+  D["Distribution&lt;br/&gt;(analysis year, deciles; every scenario against the baseline)"]
+  R["Results by output code"]
+  PASS1 --&gt; STORE --&gt; PASS2 --&gt; D --&gt; R
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Stage</th>
+<th>What</th>
+<th>Excel-AI blocks</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Prepare</strong> (all years at once; nothing here depends on a quantity of the model)</td>
+<td>Years, CPI and deflator indices, baseline GDP growth, income factor, shock path; policy paths (carbon tax, ETS, feebates, excises, subsidy reform, methane fee, Pigouvian components from the module values); international prices and the retail-price chain before and after policies; power cost paths incl.&nbsp;the levelised variable cost</td>
+<td>0, 1, 2, power costs of 3</td>
+</tr>
+<tr class="even">
+<td><strong>Year loop</strong> (t = base year + 1 … last year; each block reads year t and earlier)</td>
+<td>GDP level of t (from the effect of t-1); road engineer model; fuel demand by sector and fuel (the core-equation slot); residential leakage and the exempt split; power demand, dispatch, retirement, investment, electricity prices; energy totals; revenues; CO2 (and the ETS check); other GHGs and methane; local air pollutants; <strong>air-pollution and transport co-benefit modules for year t</strong>; GDP effect of t</td>
+<td>16 (level), 5b, 5-8, 6b, 3 (quantities), 11, 12, 13, 14, 15, modules, 16</td>
+</tr>
+<tr class="odd">
+<td><strong>Finish</strong> (all years)</td>
+<td>Carbon-pricing indicators; inputs from the modules (modelled concentration, per-litre externalities); welfare, externalities, subsidies, efficient prices; exports to distribution</td>
+<td>17, 17b, 18, 19</td>
+</tr>
+</tbody>
+</table>
+<p>Outside the passes: the ETS goal seek (iterates whole runs until emissions meet the cap; run only on request, root NORMS 5c) and the range-anxiety fit (offline, stored as data), as in Excel-AI.</p>
+<p>Every function works on all countries at once (an array dimension); scenarios run one after another, and their results are joined along a scenario dimension.</p>
+</section>
+<section id="one-year-of-the-loop-the-chain" class="level4">
+<h4 class="anchored" data-anchor-id="one-year-of-the-loop-the-chain">4.3 One year of the loop (the chain)</h4>
+<div class="cell" data-fig-name="year-chain" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+  PRE["From PREPARE: prices after policies, shadow prices,&lt;br/&gt;power cost paths, policy paths (all years)"]
+  LVL["GDP level and growth of year t&lt;br/&gt;(from the GDP effect of t-1)"]
+  ROAD["5b Road engineer model&lt;br/&gt;(vehicle stocks, choice, fuel economy, vehicle-km)"]
+  FUEL["5-8 Fuel demand by sector and fuel&lt;br/&gt;CORE SLOT: fuel demand"]
+  LEAK["6b Residential leakage to biomass,&lt;br/&gt;initially exempt use"]
+  POW["3 Power: demand (last year's price), dispatch,&lt;br/&gt;retirement, investment, electricity prices"]
+  TOT["11 Energy totals"]
+  REV["12 Revenues"]
+  CO2["13 CO2 (and ETS check)"]
+  GHG["14 Other GHGs, methane"]
+  LAP["15 Local air pollutants"]
+  APM["Air-pollution module, year t (placeholder)"]
+  TCM["Transport co-benefits module, year t (placeholder)"]
+  GDP["16 GDP effect of year t"]
+  PRE --&gt; LVL --&gt; ROAD --&gt; FUEL --&gt; LEAK --&gt; POW --&gt; TOT --&gt; REV --&gt; CO2 --&gt; GHG --&gt; LAP --&gt; APM --&gt; TCM --&gt; GDP
+  GDP -. "year t+1" .-&gt; LVL
+  POW -. "electricity price, capacity: year t+1" .-&gt; POW
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><code>mitigation/chain.py</code> holds exactly this list, so the order is written once.</p>
+</section>
+<section id="switchable-core-equations-d4" class="level4">
+<h4 class="anchored" data-anchor-id="switchable-core-equations-d4">4.4 Switchable core equations (D4)</h4>
+<div class="cell" data-fig-name="equation-forms" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  S["Scenario input ModelForm&lt;br/&gt;(new last MTInputs row,&lt;br/&gt;Excel-AI and Python)"]
+  subgraph FORMS["forms/ registry"]
+    F1["CPAT&lt;br/&gt;(Excel-AI; default)"]
+    F2["CPAT partial adjustment"]
+    F3["CES partial adjustment"]
+    F4["CDPM-FTT"]
+  end
+  subgraph SLOTS["Slots called by the blocks"]
+    A["fuel demand"]
+    B["electricity demand"]
+    C["service price&lt;br/&gt;(CES-compatible)"]
+  end
+  SEL["Existing selectors, unchanged:&lt;br/&gt;road TrModel (engineer or elasticity),&lt;br/&gt;power (engineer)"]
+  S --&gt; FORMS --&gt; SLOTS
+  SEL -.-&gt; SLOTS
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Each form provides a function for every slot with the same signature; a block calls the slot, never a form directly. Only <code>CPAT</code> is built now; the others must not change its numbers (section 7).</p>
+</section>
+<section id="modules-and-their-interfaces" class="level4">
+<h4 class="anchored" data-anchor-id="modules-and-their-interfaces">4.5 Modules and their interfaces</h4>
+<div class="cell" data-fig-name="modules" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  AP["Air pollution&lt;br/&gt;(placeholder)"]
+  MIT["Mitigation"]
+  TCB["Transport co-benefits&lt;br/&gt;(placeholder)"]
+  DIS["Distribution"]
+  MIT -- "section 15: emissions" --&gt; AP
+  AP -- "FromAirPollution" --&gt; MIT
+  MIT -- "section 5b: road model" --&gt; TCB
+  TCB -- "FromTransportCB" --&gt; MIT
+  MIT -- "section 19a" --&gt; DIS
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Module</th>
+<th>Reads from mitigation</th>
+<th>Returns to mitigation</th>
+<th>Used in mitigation</th>
+<th>Placeholder behaviour now</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Distribution</td>
+<td>Section 19a (about 29 rows, both scenario groups)</td>
+<td>nothing</td>
+<td>-</td>
+<td>Built (to be moved onto the new structure)</td>
+</tr>
+<tr class="even">
+<td>Air pollution</td>
+<td>Section 15 (<code>aps.&lt;pollutant&gt;.&lt;module sector&gt;</code>), energy use of power and residential by fuel, CO2, GDP, population</td>
+<td><code>air.vpm</code> (value of averted PM2.5, by year), concentration coefficients by module sector and pollutant</td>
+<td>Pigouvian tax (prepare stage: exogenous, I151) and welfare, subsidies, efficient prices (finish)</td>
+<td>Returns Excel-AI’s typed values (<code>FromAirPollution</code>: Egypt from the legacy 465 run; 0 elsewhere, I106) in <strong>prepare</strong>; its year-t step records its inputs and computes nothing</td>
+</tr>
+<tr class="odd">
+<td>Transport co-benefits</td>
+<td>Section 5b (road fuel use by class, fuel economy, vehicle-km by class, road share)</td>
+<td><code>tran.acc.km</code>, <code>tran.con.km</code>, <code>tran.rdm.km</code> (cost per vehicle-km)</td>
+<td>Pigouvian tax (prepare) and road welfare (finish)</td>
+<td>As air pollution, from <code>FromTransportCB</code></td>
+</tr>
+</tbody>
+</table>
+<p>Why the module values enter in <strong>prepare</strong>, not in the loop: in Excel-AI the Pigouvian tax uses them, the tax enters the power policy cost and so the forward-looking levelised cost; a damage that depended on this year’s emissions would make the model circular (issue I151). Each placeholder module therefore has two hooks: <code>prepare</code> (exogenous values, used now) and <code>step(t)</code> (the live module, later). If a live module’s damages are to feed back into prices, that needs an outer iteration or a one-year lag: a decision for when the module is built.</p>
+</section>
+</section>
+<section id="data-databases-1" class="level3" data-number="C.2.5">
+<h3 data-number="C.2.5" class="anchored" data-anchor-id="data-databases-1"><span class="header-section-number">C.2.5</span> 5. Data: databases</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Database</th>
+<th>Contents</th>
+<th>Where</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>full</code></td>
+<td>Every table, including the six proprietary tables</td>
+<td>Private repository, cloned outside this one; path in <code>.env</code></td>
+<td>Real runs (Coded CPAT, Excel-AI and legacy CPAT alike)</td>
+</tr>
+<tr class="even">
+<td><code>dummy</code></td>
+<td>Edition Public01 (2026-10-30): the public tables with their values, the six proprietary tables perturbed within +-3% (identities kept); earlier every table dummy</td>
+<td><code>data/Public01/tidy/</code> (<code>data/README.md</code>)</td>
+<td>Development, tests, the shipped Excel files, everything that may be shared; the comparisons where <code>full</code> is not available</td>
+</tr>
+</tbody>
+</table>
+<p>The six proprietary tables (user 2026-10-30; was four, with Balances and EnergyCons counted as one), with their tidy and legacy names (master list: <code>data/catalog.csv</code>):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Table</th>
+<th>Tidy file (<code>data/Public01/tidy/</code>)</th>
+<th>Legacy tab</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Energy balances</td>
+<td><code>energy_balances.csv</code></td>
+<td><code>Balances</code></td>
+</tr>
+<tr class="even">
+<td>Energy consumption</td>
+<td><code>energy_consumption.csv</code></td>
+<td><code>EnergyCons</code> (derived from Balances)</td>
+</tr>
+<tr class="odd">
+<td>Domestic prices</td>
+<td><code>prices_domestic.csv</code></td>
+<td><code>Prices_dom</code></td>
+</tr>
+<tr class="even">
+<td>GTAP input-output</td>
+<td><code>io_gtap.csv</code></td>
+<td><code>IO_GTAP</code></td>
+</tr>
+<tr class="odd">
+<td>Household survey</td>
+<td><code>hh_survey.csv</code></td>
+<td><code>HHSurvey</code></td>
+</tr>
+<tr class="even">
+<td>Transport scatter (IRF World Road Statistics)</td>
+<td><code>tran_scatter.csv</code></td>
+<td><code>Tran_Scatter</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>One database, every model.</strong> Excel-AI’s data workbook (<code>data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx</code>) is written from the same tidy tables (<code>data/scripts/tidy_convert.py</code>), and the legacy workbook’s six proprietary tabs are filled from them (<code>data/scripts/legacy_proprietary.py</code>), so the three models read identical numbers.</li>
+<li><strong>The systematic dataset</strong> for comparisons is the private <code>full</code> database where it is available, with <code>dummy</code> as the option that always works (user 2026-10-29); every model in a comparison reads the same one.</li>
+<li><strong>Storage (D6):</strong> CSV folders in the current <code>data/</code> structure; the model’s input files (scenario sets, advanced inputs) are kept there too (<code>data/inputs/</code>). <strong>The code interface</strong> (every table, column, key and unit the model reads) is the edition’s tidy manifest (<code>data/Public01/tidy/_manifest.csv</code>; <code>data/README.md</code> and <code>data/catalog.csv</code> for the data person).</li>
+<li><strong>The loader layer</strong> (<code>cpat_model/data/</code>) reads a database into labelled arrays (country, year, fuel, sector, …) once per session and caches it; the Shiny app keeps it in memory.</li>
+<li>The rules of root <code>NORMS.md</code> section 8 stand: only <code>public</code> and <code>dummy</code> data are committed; nothing computed from <code>full</code> is committed either.</li>
+</ul>
+</section>
+<section id="inputs" class="level3" data-number="C.2.6">
+<h3 data-number="C.2.6" class="anchored" data-anchor-id="inputs"><span class="header-section-number">C.2.6</span> 6. Inputs</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Input</th>
+<th>Form</th>
+<th>Read by</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Scenario set</strong></td>
+<td>The rows of legacy MTInputs (465 rows 8-413, then the Excel-AI additions), keyed by <code>NameOfParameter</code>, one column per scenario (column 1 the baseline), plus the countries each scenario runs for. The Excel-AI <code>ScenarioDefinition</code> columns paste into it unchanged</td>
+<td><code>inputs/scenarios.py</code></td>
+</tr>
+<tr class="even">
+<td><strong>Advanced inputs</strong></td>
+<td>Time series and longer-form inputs: the legacy <code>Manual inputs</code> blocks Excel-AI reads (manual international prices, fiscal multipliers by lag, manual capacity paths, BEV fuel economy, manual elasticities, ETS override prices, …), and the global switches and constants of Excel-AI <code>Settings</code> and <code>Constants</code></td>
+<td><code>inputs/advanced.py</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Run settings</strong></td>
+<td>Database, countries, years, the inputs Excel-AI reads from the baseline column for every scenario (D16), output options</td>
+<td><code>settings.py</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The Shiny app builds the same scenario set in memory (one country, two or more scenarios); <code>run_model.py</code> reads it from a file (many countries, many scenarios). Both call <code>cpat_model.run</code>.</li>
+<li>Defaults are Excel-AI’s (<code>ScenarioDefinition</code> column G, <code>Settings</code>, <code>Constants</code>). Values keep legacy units (percentages typed as whole numbers where legacy does, issue I85).</li>
+<li>Every input is validated once, before the run: unknown names, wrong types, option values that legacy does not have.</li>
+</ul>
+</section>
+<section id="switchable-equation-forms" class="level3" data-number="C.2.7">
+<h3 data-number="C.2.7" class="anchored" data-anchor-id="switchable-equation-forms"><span class="header-section-number">C.2.7</span> 7. Switchable equation forms</h3>
+<p>The behavioural core of CPAT is a small number of equations: fuel demand by sector and fuel, electricity demand, power supply (dispatch and investment) and road transport. Excel-AI implements each as a named LAMBDA (<code>FUELUSE</code> and <code>AEEIFACTOR</code> for fuel demand, <code>DEMANDMULT</code> for electricity, <code>DISPATCH</code>, <code>LOGITW</code>, <code>FIRSTROUND</code>, <code>CHEAPFILL</code>, <code>LEVELISED</code> for power, <code>ROADSWITCH</code>, <code>DEMROAD</code>, <code>OWNDEM</code>, <code>GOMPTGT</code> for road transport).</p>
+<p><strong>The switch is a scenario input (D4).</strong> A new input <code>ModelForm</code> is added at the end of the MTInputs rows (below the last legacy row, in the block of prototype additions, root NORMS section 4), the same in Excel-AI’s <code>ScenarioDefinition</code> and in Coded CPAT’s scenario sets, one value per scenario. In Excel-AI the LAMBDA of each core equation reads it; in Python the block calls a <strong>slot</strong> in <code>cpat_model/forms/</code>, and <code>ModelForm</code> decides which implementation fills it.</p>
+<p><strong>The existing selectors stay as they are.</strong> The engineer-or-elasticity selectors of power and road transport (<code>TrModel</code>, and the power model choice) are unchanged and are not overridden by <code>ModelForm</code>; power always uses the engineer model. <code>ModelForm</code> chooses the form of the demand equations:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><code>ModelForm</code></th>
+<th>Fuel and electricity demand</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>CPAT</code> (default)</td>
+<td>CPAT constant elasticities (Excel-AI <code>FUELUSE</code>, <code>DEMANDMULT</code>)</td>
+<td><strong>Built first: replicates Excel-AI</strong></td>
+</tr>
+<tr class="even">
+<td><code>CPAT partial adjustment</code></td>
+<td>Partial adjustment towards the CPAT long-run level (issue I62)</td>
+<td>Later</td>
+</tr>
+<tr class="odd">
+<td><code>CES partial adjustment</code></td>
+<td>CES demand for energy services with partial adjustment, taking the CES-compatible price of each service</td>
+<td>Later</td>
+</tr>
+<tr class="even">
+<td><code>CDPM-FTT</code></td>
+<td>CDPM (SISEPUEDE)-like stock model with FTT-like technology diffusion</td>
+<td>Later</td>
+</tr>
+</tbody>
+</table>
+<p>“Simple-CPAT” and “standard-CPAT” of the original request are then the CPAT form with the elasticity or engineer selectors of road transport (and, if it is ever built, of power).</p>
+<p>Rules: every implementation of a slot has the same signature (year t and t-1 values in, year t values out); a new form never changes the numbers of <code>CPAT</code>; a form that needs new parameters takes them from the advanced inputs, with defaults that leave <code>CPAT</code> unchanged; the row is added to Excel-AI and Python in the same release.</p>
+</section>
+<section id="tests-and-comparisons" class="level3" data-number="C.2.8">
+<h3 data-number="C.2.8" class="anchored" data-anchor-id="tests-and-comparisons"><span class="header-section-number">C.2.8</span> 8. Tests and comparisons</h3>
+<div class="cell" data-fig-name="comparisons" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  DS["Systematic dataset&lt;br/&gt;(public + one fixed fill&lt;br/&gt;of the four tables)"]
+  PY["Coded CPAT"]
+  XA["Excel-AI"]
+  LG["Legacy CPAT"]
+  DS --&gt; PY
+  DS --&gt; XA
+  DS --&gt; LG
+  PY &lt;-- "1. every code, every year:&lt;br/&gt;Egypt, then all countries" --&gt; XA
+  XA &lt;-- "2. Egypt, then all countries&lt;br/&gt;(differences = registered bugs and issues)" --&gt; LG
+  PY &lt;-. "3. as 2, through Excel-AI" .-&gt; LG
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Level</th>
+<th>What</th>
+<th>Reference</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Unit</td>
+<td>One equation, small hand-checked cases</td>
+<td>Hand calculation</td>
+<td>Every equation as it is written</td>
+</tr>
+<tr class="even">
+<td>Block</td>
+<td>One block of mitigation, all its codes, Egypt</td>
+<td>First the existing Python recomputations of Excel-AI (<code>check_full.py</code>, <code>power_model_ref.py</code>, <code>transport_model_ref.py</code>, <code>distribution_ref.py</code>; D8), then Excel-AI values by code from the recalculated release workbook</td>
+<td>Every block of phase 3</td>
+</tr>
+<tr class="odd">
+<td>End to end</td>
+<td>Every code, both scenario groups, every year</td>
+<td>Excel-AI; then legacy CPAT through the LegacyDiff register</td>
+<td>Phase 5; at every Excel-AI release</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Tolerance: relative 1e-9 (absolute 1e-9 near zero). A larger difference is a defect in one of the models: found, fixed or registered, never loosened.</li>
+<li><code>check_full.py</code> does not yet recompute the newest rows of Excel-AI 0.9.0 (sections 17b and 18, the Pigouvian netting, R6, R10, the power memos): for those blocks the comparison uses Excel-AI values directly.</li>
+<li>Every Python-Excel-AI difference report lists codes by block and the first year and largest difference, so the cause is found from the top of the chain.</li>
+</ul>
+</section>
+<section id="documents-and-the-website" class="level3" data-number="C.2.9">
+<h3 data-number="C.2.9" class="anchored" data-anchor-id="documents-and-the-website"><span class="header-section-number">C.2.9</span> 9. Documents and the website</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Document</th>
+<th>Source</th>
+<th>Generated</th>
+<th>Audience</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>This spec and plan</td>
+<td><code>cpat_documentation/project/Spec.qmd</code></td>
+<td><code>Spec.docx</code></td>
+<td>People: the team, reviewers</td>
+</tr>
+<tr class="even">
+<td>Equation list (methodology notation)</td>
+<td><code>cpat_documentation/equations/equations.yaml</code></td>
+<td><code>Equations.qmd</code>, <code>Equations.docx</code></td>
+<td>People</td>
+</tr>
+<tr class="odd">
+<td>Equation list (code names)</td>
+<td>the same yaml</td>
+<td><code>Equations_codes.qmd</code>, <code>Equations_codes.docx</code></td>
+<td>People and developers</td>
+</tr>
+<tr class="even">
+<td>Norms, open work, layout</td>
+<td><code>coded/NORMS.md</code>, <code>TODO.md</code>, <code>README.md</code></td>
+<td>-</td>
+<td>Developers and AI agents</td>
+</tr>
+<tr class="odd">
+<td>Developer guide</td>
+<td><code>cpat_documentation/developer/</code></td>
+<td>-</td>
+<td>Developers</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>qmd or md?</strong> A <code>.qmd</code> file is markdown plus a YAML header and optional executable cells; any tool reads it as text, so it is as code-readable as <code>.md</code>. GitHub, however, shows <code>.md</code> formatted and <code>.qmd</code> as plain text, and agents look for <code>NORMS.md</code>, <code>TODO.md</code>, <code>README.md</code> by name. So the guides stay <code>.md</code> and the documents for people are <code>.qmd</code>. Quarto renders both, so all of them can join the website.</li>
+<li><strong>Word copies</strong> are generated by <code>cpat_documentation/make_docs.py</code> (pandoc; diagrams pre-rendered to PNG) or by <code>quarto render &lt;file&gt; --to docx</code>; never edited by hand.</li>
+<li><strong>The website</strong> (D12): one Quarto site, tabs CPAT methodology (the existing book in <code>docs/01_MainDocumentation/</code>), Excel-AI and Coded CPAT; the Coded CPAT tab lists the qmd files above.</li>
+</ul>
+</section>
+<section id="design-choices-decided-user-2026-10-29" class="level3" data-number="C.2.10">
+<h3 data-number="C.2.10" class="anchored" data-anchor-id="design-choices-decided-user-2026-10-29"><span class="header-section-number">C.2.10</span> 10. Design choices: decided (user 2026-10-29)</h3>
+<p>The user went through the choices on 2026-10-29. The table gives each decision; the options considered follow it, for the record. <code>coded/NORMS.md</code> states the rules that follow.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Choice</th>
+<th>Decision (user 2026-10-29)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>D1</td>
+<td>Order of computation</td>
+<td><strong>Year by year</strong>: prepare (quantity-free, all years) → year loop (every mitigation block, then the air-pollution and transport co-benefit modules, then GDP) → finish</td>
+</tr>
+<tr class="even">
+<td>D2</td>
+<td>How quantities are held</td>
+<td><strong>xarray</strong> labelled arrays (country, year, fuel, sector, …)</td>
+</tr>
+<tr class="odd">
+<td>D3</td>
+<td>Variable names</td>
+<td><strong>CPAT code stems</strong> (<code>ener</code>, <code>atp</code>, …), with a registry from the codes map</td>
+</tr>
+<tr class="even">
+<td>D4</td>
+<td>Switch between equation forms</td>
+<td><strong>A new scenario input <code>ModelForm</code>, added at the end of the MTInputs rows, set up the same way in Excel-AI and Python.</strong> It does not affect or override the existing engineer-or-elasticity selectors of power and transport (power always uses the engineer model)</td>
+</tr>
+<tr class="odd">
+<td>D5</td>
+<td>Input files</td>
+<td><strong>Scenario set as an MTInputs table</strong> (rows by <code>NameOfParameter</code>, a column per scenario, each scenario for a list of countries) <strong>plus an advanced-inputs workbook</strong></td>
+</tr>
+<tr class="even">
+<td>D6</td>
+<td>Databases</td>
+<td><strong>CSV folders in the current <code>data/</code> structure, augmented by the input files; Coded CPAT reads tidy CSV (<code>data/Public01/tidy/</code>), with two-way converters to and from the legacy layout Excel-AI reads (user 2026-10-29)</strong>; document the code interface (the tables, columns and keys the model reads, not a user interface) for the data person. Databases: <code>full</code> (private repository; used for comparisons where available) and <code>dummy</code> (<code>data_old/dummy/</code>, every table dummy)</td>
+</tr>
+<tr class="odd">
+<td>D7</td>
+<td>Existing code</td>
+<td><strong>Rebuild inside <code>coded/</code>, block by block</strong>; delete each old part when its replacement passes</td>
+</tr>
+<tr class="even">
+<td>D8</td>
+<td>Comparison source</td>
+<td><strong>The existing Python recomputations first</strong> (<code>excel_ai/mitigation/checks/check_full.py</code>, <code>power_model_ref.py</code>, <code>transport_model_ref.py</code>, <code>distribution_ref.py</code>), then Excel-AI values by code</td>
+</tr>
+<tr class="odd">
+<td>D9</td>
+<td>Time window</td>
+<td><strong>As Excel-AI, as run settings</strong> (base year, last year 2041)</td>
+</tr>
+<tr class="even">
+<td>D10</td>
+<td>Placeholder modules</td>
+<td><strong>Two hooks</strong>: <code>prepare</code> (Excel-AI’s typed values, which feed the Pigouvian taxes) and <code>step(t)</code> in the year loop (empty until the module is built)</td>
+</tr>
+<tr class="odd">
+<td>D11</td>
+<td>Performance</td>
+<td><strong>Under 1 second</strong> for the user interface (one country, two scenarios)</td>
+</tr>
+<tr class="even">
+<td>D12</td>
+<td>Website</td>
+<td><strong>One Quarto site at <code>docs/</code></strong>, tabs CPAT methodology, Excel-AI, Coded CPAT</td>
+</tr>
+<tr class="odd">
+<td>D13</td>
+<td>Equation list source</td>
+<td><strong>One source</strong> (<code>equations.yaml</code>), both versions generated</td>
+</tr>
+<tr class="even">
+<td>D14</td>
+<td>Versioning</td>
+<td><strong>Based on Excel-AI</strong>: <code>&lt;Excel-AI version&gt;p&lt;Python version&gt;</code>, e.g.&nbsp;<code>0.9.1p0.1</code> = Python version 0.1 of the replication of Excel-AI 0.9.1. Excel-AI’s numbering was rebased on 2026-10-29 (mitigation 9.0 is now 0.9.0, distribution 1.3 is 0.1.3), so the first release replicating today’s Excel-AI is <code>0.9.0p0.1</code></td>
+</tr>
+<tr class="odd">
+<td>D15</td>
+<td>Baseline values read by policy scenarios</td>
+<td><strong>n scenarios, run scenario by scenario: the baseline pass first</strong>, then each policy scenario in turn, reading the baseline values it needs</td>
+</tr>
+<tr class="even">
+<td>D16</td>
+<td>Scenario inputs acting as global settings</td>
+<td><strong>Run settings</strong>, taken from the baseline column, with a check that warns when another scenario column differs</td>
+</tr>
+</tbody>
+</table>
+<section id="structure-and-computation" class="level4">
+<h4 class="anchored" data-anchor-id="structure-and-computation">Structure and computation</h4>
+<p><strong>D1. Order of computation: year by year, or module by module?</strong> <em>(decided: see the table)</em></p>
+<ul>
+<li><strong>A. Year by year, all modules within the year (recommended).</strong> Three stages: <em>prepare</em> (all years at once, for everything without feedback: policy paths, international prices, deflators, exogenous drivers, base-year calibration), the <em>year loop</em> (for t = base year + 1 … last year, every block of mitigation, then air pollution and transport co-benefits, for year t; GDP of year t feeds year t+1), <em>finish</em> (all-year results, welfare, indicators; distribution in its analysis year). This is how Excel-AI computes (years across, each year reads the year before; GDP feedback one year later, NORMS 5c), so the numbers match by construction, and later modules with feedback (Pigouvian taxes from air-pollution damages, endogenous transport) fit without restructuring.</li>
+<li>B. Module by module, each over all years at once (vectorised in time). Simpler for blocks without feedback, but the GDP feedback and the lagged price terms force iterations over the whole model until convergence; harder to match Excel-AI exactly.</li>
+<li>C. Hybrid by module: modules without feedback over all years, the rest year by year. Two styles in one code base; less readable.</li>
+</ul>
+<p><strong>D2. How quantities are held in the code</strong> <em>(decided: see the table)</em></p>
+<ul>
+<li><strong>A. Labelled arrays, <code>xarray</code> (recommended).</strong> Each quantity is an array with named dimensions (<code>country</code>, <code>scenario</code>, <code>year</code>, <code>fuel</code>, <code>sector</code>, …). Equations read like the equation list (<code>ener = ener_prev * (atp / atp_prev) ** eps_u</code>), broadcasting by name; many countries and scenarios cost nothing extra. One added dependency.</li>
+<li>B. pandas DataFrames with a MultiIndex (today’s <code>coded/</code>): familiar, but index alignment and year columns as strings make equations long.</li>
+<li>C. numpy arrays with axis conventions: fastest, least readable.</li>
+</ul>
+<p><strong>D3. Variable names in the code</strong> <em>(decided: see the table)</em></p>
+<ul>
+<li><strong>A. CPAT code stems (recommended):</strong> <code>ener</code>, <code>atp</code>, <code>ctx</code>, with <code>_prev</code>, <code>_ref</code>, <code>_chg</code> suffixes; a generated variable registry (from the codes map) gives description, unit, dimensions and Greek symbol. Matches Excel-AI and the outputs one to one; the codes are short but documented in every docstring.</li>
+<li>B. Descriptive English names (<code>fuel_use</code>, <code>after_tax_price</code>) with the code as metadata: easier for a newcomer, but two vocabularies to keep aligned.</li>
+</ul>
+<p><strong>D4. The switch between equation forms</strong> <em>(decided: see the table)</em></p>
+<ul>
+<li><strong>A. One global setting <code>model_form</code>, mapped to a form for each core-equation slot (recommended).</strong> Slots: fuel demand, electricity demand, power supply, road transport, service price (CES-compatible price). Forms: <code>simple_cpat</code> (elasticity equations for every sector, power and road included), <code>standard_cpat</code> (Excel-AI: engineering power and road models on; default), <code>cpat_partial_adjustment</code>, <code>ces_partial_adjustment</code>, <code>cdpm_ftt</code> (SISEPUEDE-like stock model plus FTT-like technology diffusion). Each form is a function with the same signature, registered in <code>cpat_model/forms/</code>, as Excel-AI’s LAMBDAs. Only <code>standard_cpat</code> (and the switches Excel-AI already has, e.g.&nbsp;<code>TrModel</code>) is built now.</li>
+<li>B. As A, plus an override per slot or per sector (e.g.&nbsp;CES in buildings only). Can be added later without changing A.</li>
+<li>Question: should the scenario inputs that already switch models in Excel-AI and legacy (road transport <code>TrModel</code>, power) stay per-scenario inputs, with <code>model_form</code> only setting their defaults? (recommended: yes)</li>
+</ul>
+<p><strong>D5. Input files</strong> <em>(decided: see the table)</em></p>
+<ul>
+<li><strong>A. Scenario set: one table</strong> (xlsx or CSV), rows = the legacy MTInputs rows in order (<code>NameOfParameter</code>), columns = scenarios, plus a row per scenario for the country (or “all”); Excel-AI’s <code>ScenarioDefinition</code> pastes into it. <strong>Advanced inputs: one workbook</strong> with one tab per kind (time series by year, tables by fuel and sector, settings), defaults from Excel-AI <code>Settings</code>, <code>Manual inputs</code> and <code>Constants</code>. The Shiny app writes the same structures in memory.</li>
+<li>B. YAML/JSON scenario files (one per scenario). Readable for programmers, but not the MTInputs form people use.</li>
+<li>Question: can one scenario set mix countries (scenario x country pairs), or is a scenario always “these inputs for every listed country”? (recommended: inputs per scenario, applied to a list of countries; country-specific values through the advanced inputs)</li>
+</ul>
+<p><strong>D6. Databases</strong> <em>(decided: see the table)</em></p>
+<ul>
+<li><strong>A. A database is a folder of CSV tables plus a manifest</strong> (<code>datapackage.json</code>: tables, columns, source, licence class, proprietary or not). <code>public</code> in this repository (<code>data/</code>), <code>full</code> in the private repository (same layout, the four proprietary tables added), <code>dummy</code> as today. The model reads <code>DATA_ENVIRONMENT</code> (<code>public</code>, <code>full</code>, <code>dummy</code>) and the path of the private repository from <code>.env</code>. Excel-AI’s data workbook is built from the same database (<code>data_old/scripts/build_data_workbook.py</code>), so both models read identical numbers.</li>
+<li>B. A single database file (SQLite or DuckDB) per set. One file to move, fast queries; but binary, not diff-able in git.</li>
+<li>Answered (user 2026-10-29): (i) the four proprietary tables are <code>EnergyCons</code>/<code>Balances</code>, <code>Prices_dom</code>, <code>IO_GTAP</code> and <code>HHSurvey</code> (2026-10-30: six, Balances and EnergyCons separately, plus <code>Tran_Scatter</code>); (ii) the systematic comparisons use the <strong>private full</strong> database where it is available, and the code must also allow <strong>dummy</strong> as an option; (iii) every table in <code>data_old/dummy/</code> is dummy (not only the four), so a real <code>public</code> set (full minus the four tables) is not yet in this repository. Still open: where the <code>public</code> set lives and whether it is needed beyond <code>full</code> and <code>dummy</code> (see the design questions).</li>
+</ul>
+<p><strong>D7. The existing code in <code>coded/</code></strong> <em>(decided: see the table)</em></p>
+<ul>
+<li><strong>A. Keep the folders, rebuild the model inside them block by block (recommended).</strong> <code>cpat_shiny/</code>, <code>cpat_testing/</code>, <code>cpat_documentation/</code> and the data loaders stay; <code>cpat_model/mitigation/</code> is rebuilt in Excel-AI block order on the new structure (D1-D4); each old subpackage is deleted when its replacement passes the Excel-AI comparison. Distribution (validated against Excel, 48 tests) is moved onto the new structure with its tests unchanged.</li>
+<li>B. A new package next to the old one (e.g.&nbsp;<code>cpat/</code>), switch over at the end. Clean start, but two models in the repository for months.</li>
+<li>C. Refactor the existing components in place. Least churn, but the existing design (pandas, component classes, input keys) shapes the new code.</li>
+</ul>
+<p><strong>D8. Excel-AI as the comparison source</strong> <em>(decided: see the table)</em></p>
+<ul>
+<li><strong>A. Extract Excel-AI values by code</strong> (all codes, both scenario groups, every year) from the recalculated release workbook into a fixture table, one per release and country set, with a script in <code>cpat_testing/compare/</code> (LibreOffice recalculation, as the Excel checks). Python compares code by code, tolerance 1e-9.</li>
+<li>B. Compare against the existing Python recomputations of <code>excel_ai/mitigation/checks/check_full.py</code>. Faster to start, but it is a second implementation, not Excel-AI itself.</li>
+<li>Question: which countries for “all countries”: every country in the data, or a fixed test set?</li>
+</ul>
+</section>
+<section id="scope-and-behaviour" class="level4">
+<h4 class="anchored" data-anchor-id="scope-and-behaviour">Scope and behaviour</h4>
+<p><strong>D9. The time window and base year</strong> <em>(decided: see the table)</em>: base year and last year (2041) as settings, the same for all countries in a run.</p>
+<p><strong>D10. Placeholders for air pollution and transport co-benefits</strong> <em>(decided: see the table)</em></p>
+<ul>
+<li><strong>A.</strong> Each module is a package with declared inputs (the codes it reads from mitigation: section 15 for air pollution, section 5b for transport co-benefits) and outputs (the codes it returns: <code>air.vpm</code> and concentration coefficients; <code>tran.acc.km</code>, <code>tran.con.km</code>, <code>tran.rdm.km</code>), and two hooks: <code>prepare</code> returns Excel-AI’s typed values (<code>FromAirPollution</code>, <code>FromTransportCB</code>), which feed the Pigouvian taxes before the year loop as in Excel-AI (I151); <code>step(t)</code> runs inside the year loop after the local pollutants and computes nothing until the module is built (section 4.5).</li>
+<li>B. Post-processing only, after the run. Simpler, but the Pigouvian taxes need the values before the loop, and a later live module would need restructuring.</li>
+<li>Question for later: when a live module’s damages depend on the scenario’s own emissions, should they feed prices with a one-year lag (acyclic, simple) or through an outer iteration (exact, slower)?</li>
+</ul>
+<p><strong>D11. Performance target for the Shiny app</strong> <em>(decided: see the table)</em>: one country, two scenarios in about 1-2 seconds; all countries, a few scenarios, in minutes. Acceptable?</p>
+<p><strong>D12. The website</strong> <em>(decided: see the table)</em></p>
+<ul>
+<li><strong>A.</strong> One Quarto website at <code>docs/</code> with tabs: CPAT methodology (the existing book), Excel-AI (method notes, register), Coded CPAT (spec, equation list, developer guide). The Python pages stay in <code>coded/cpat_documentation/</code> and the website lists them; Word copies are generated.</li>
+<li>B. A separate website per project.</li>
+</ul>
+<p><strong>D13. Equation list source</strong> <em>(decided: see the table)</em></p>
+<ul>
+<li><strong>A. One source, two documents.</strong> The equations are written once in <code>equations/equations.yaml</code> (id, part, core or adjustment, Greek form, code form, indices, meaning, methodology reference, Excel-AI reference); a script writes the Greek and the code-name qmd from it, so the two never drift apart, and the tests check that every id has a function.</li>
+<li>B. Two hand-written qmd files.</li>
+</ul>
+<p><strong>D14. Release and versioning of Coded CPAT</strong> <em>(decided: see the table)</em>: version numbers follow the Excel-AI version replicated (e.g.&nbsp;Coded CPAT 9.0 = Excel-AI 9.0), or an own version with the Excel-AI version stated?</p>
+<p><strong>D15. Baseline values read by policy scenarios</strong> <em>(decided: see the table)</em></p>
+<ul>
+<li><strong>A. Two passes:</strong> run the baseline (scenario 1) for all years first, then every policy scenario together, reading the baseline values they need (CO2 by ETS sector, the calibration values in the GHG inventory year, the same-year <code>.ref</code> values). Numbers equal Excel-AI’s as long as its stored values are current (section 12, item 1); the comparison reports it if not.</li>
+<li>B. Read Excel-AI’s stored values (sheet <code>BaselineCO2</code>) as data. Matches the shipped workbook exactly even when it is stale, but ties Python to a workbook.</li>
+<li>C. One pass, all scenarios together, with stored values from a previous run (as Excel). Fastest, least transparent.</li>
+</ul>
+<p><strong>D16. Scenario inputs that act as global settings</strong> <em>(decided: see the table)</em>: inputs that Excel-AI reads from the scenario-1 column for every scenario (<code>BiomassLeakage</code>, <code>BiomassNormal</code>, cooking exemption, cookstove efficiencies) become <strong>run settings</strong> (A), checked to agree across the scenario columns; or (B) stay per-scenario inputs with the baseline value used for all, as Excel-AI.</p>
+</section>
+</section>
+<section id="the-plan" class="level3" data-number="C.2.11">
+<h3 data-number="C.2.11" class="anchored" data-anchor-id="the-plan"><span class="header-section-number">C.2.11</span> 11. The plan</h3>
+<p>The plan in words; <code>coded/TODO.md</code> is its checklist and the record of status. Each task is a day or less of work and ends with its check, a <code>CAVEATS.md</code> entry and a commit. Phases 0 (planning documents) and 1 (design choices) are done (2026-10-29).</p>
+<section id="phase-2-foundations" class="level4">
+<h4 class="anchored" data-anchor-id="phase-2-foundations">Phase 2: foundations</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th>What</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2.1 Data interface</td>
+<td><code>data_old/INTERFACE.md</code>, for the data person: every table the model reads, its file, columns, keys (codes protocol C9), units, years, which are proprietary, the layout of <code>full</code> and <code>dummy</code>, and where the input files go (<code>data/inputs/</code>)</td>
+<td>Every loader reads only what the document lists (a test)</td>
+</tr>
+<tr class="even">
+<td>2.2 Package skeleton</td>
+<td><code>cpat_model/</code> folders of spec section 3.2, <code>run()</code> entry point, <code>settings.py</code>; version constants <code>EXCEL_AI_VERSION</code> and <code>__version__</code> (<code>&lt;Excel-AI&gt;p&lt;Python&gt;</code>, D14)</td>
+<td>Imports; <code>run()</code> returns empty results</td>
+</tr>
+<tr class="odd">
+<td>2.3 Index sets</td>
+<td><code>core/dims.py</code> from the codes map vocabularies: fuels, sectors and groups, generation types, vehicle classes, pollutants, UNFCCC categories, deciles</td>
+<td>Equal to the codes map</td>
+</tr>
+<tr class="even">
+<td>2.4 Variable registry</td>
+<td><code>core/variables.py</code> generated from the codes map (stem, template, unit, description) with the symbols of <code>equations.yaml</code>; resolve the 33 names marked † in the equation list</td>
+<td>Every code name in the equation list is in the registry</td>
+</tr>
+<tr class="odd">
+<td>2.5 Loop</td>
+<td><code>core/loop.py</code>: baseline first, then each scenario (D15); prepare, year loop, finish; <code>mitigation/chain.py</code> with empty blocks; <code>core/paths.py</code> (policy paths, CPI and deflator indices)</td>
+<td>A run over dummy data gives arrays with the right dimensions; paths equal hand cases</td>
+</tr>
+<tr class="even">
+<td>2.6 Data layer</td>
+<td><code>data/</code>: database choice (<code>.env</code>: <code>DATA_ENVIRONMENT</code> = <code>full</code> or <code>dummy</code>, path of the private repository), loaders to labelled arrays, exact float parsing, a cache for the app</td>
+<td>Dummy loads; values equal the CSV text</td>
+</tr>
+<tr class="odd">
+<td>2.7 Inputs</td>
+<td><code>inputs/</code>: scenario-set table (rows from <code>data_old/mvp_legacy_extracts/mtinputs_465.csv</code> plus the Excel-AI additions and the new <code>ModelForm</code> row; a column per scenario; countries per scenario), the advanced-inputs workbook (Manual inputs blocks, Settings, Constants), validation; global settings with their agreement check (D16)</td>
+<td>Excel-AI <code>ScenarioDefinition</code> columns J and K read back unchanged</td>
+</tr>
+<tr class="even">
+<td>2.8 Forms</td>
+<td><code>forms/</code>: the registry, the slots (fuel demand, electricity demand, service price), the <code>CPAT</code> form; with Excel-AI, the <code>ModelForm</code> row added to <code>ScenarioDefinition</code> (default CPAT, no value change)</td>
+<td>Slot dispatch test; Excel-AI quick check unchanged</td>
+</tr>
+<tr class="odd">
+<td>2.9 Results</td>
+<td><code>results/</code>: results by Excel-AI output code (country, scenario, year); export in the Excel layout</td>
+<td>Round trip code to array to code</td>
+</tr>
+<tr class="even">
+<td>2.10 Placeholder modules</td>
+<td><code>air_pollution/</code>, <code>transport_cobenefits/</code>: declared inputs and outputs; <code>prepare</code> returns the <code>FromAirPollution</code> and <code>FromTransportCB</code> values (extracted to <code>data/</code>), <code>step(t)</code> empty (D10)</td>
+<td>Values equal the Excel-AI tabs</td>
+</tr>
+<tr class="odd">
+<td>2.11 Comparison harness</td>
+<td><code>cpat_testing/compare/</code>: reference values by code for Egypt from the existing Python recomputations (D8), later from the recalculated Excel-AI workbook; a report by block, first year and largest difference</td>
+<td>Harness runs on one block of reference values</td>
+</tr>
+<tr class="even">
+<td>2.12 Equation-id test</td>
+<td>Every equation id in <code>equations.yaml</code> has a function citing it, and every cited id exists</td>
+<td>Test passes on the skeleton (ids marked pending)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="phase-3-mitigation-block-by-block-chain-order" class="level4">
+<h4 class="anchored" data-anchor-id="phase-3-mitigation-block-by-block-chain-order">Phase 3: mitigation, block by block (chain order)</h4>
+<p>For every block: (a) complete its equations in the equation list (appendix A), (b) write the functions, (c) unit tests, (d) compare with the reference for Egypt, (e) register every difference (L, M, I, DOC) and fix it in the model at fault.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th>Block (Excel-AI section)</th>
+<th>Stage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3.1</td>
+<td>Header: years, CPI and deflator indices, baseline GDP growth, income factor, demand shock (0)</td>
+<td>Prepare</td>
+</tr>
+<tr class="even">
+<td>3.2</td>
+<td>Policies: carbon tax, ETS (coverage, cap, price estimate, override), feebates, excise reform, subsidy and price-control phase-outs, existing carbon pricing, methane fee, exemptions, Pigouvian components (1)</td>
+<td>Prepare</td>
+</tr>
+<tr class="odd">
+<td>3.3</td>
+<td>Prices: international prices, supply cost, taxes and subsidies, VAT, new policies, after-tax and shadow prices (2)</td>
+<td>Prepare</td>
+</tr>
+<tr class="even">
+<td>3.4</td>
+<td>Power costs: capital cost paths, levelised fixed and variable costs, variable and policy costs (3, cost rows)</td>
+<td>Prepare</td>
+</tr>
+<tr class="odd">
+<td>3.5</td>
+<td>GDP level of the year (16, level rows)</td>
+<td>Loop</td>
+</tr>
+<tr class="even">
+<td>3.6</td>
+<td>Road engineer model, in three tasks: ownership and stocks; total cost of ownership and choice; fuel economy, vehicle-km, road fuel use (5b)</td>
+<td>Loop</td>
+</tr>
+<tr class="odd">
+<td>3.7</td>
+<td>Fuel demand through the slot, road switch, biofuels (5-8); residential leakage and initially exempt use (6b)</td>
+<td>Loop</td>
+</tr>
+<tr class="even">
+<td>3.8</td>
+<td>Power quantities, in three tasks: demand; dispatch, VRE and storage; retirement, investment, electricity prices (3)</td>
+<td>Loop</td>
+</tr>
+<tr class="odd">
+<td>3.9</td>
+<td>Energy totals (11) and revenues (12)</td>
+<td>Loop</td>
+</tr>
+<tr class="even">
+<td>3.10</td>
+<td>CO2 and the ETS check (13); other GHGs and methane (14); local air pollutants (15)</td>
+<td>Loop</td>
+</tr>
+<tr class="odd">
+<td>3.11</td>
+<td>Module steps (placeholders) and GDP effects (16, 16b)</td>
+<td>Loop</td>
+</tr>
+<tr class="even">
+<td>3.12</td>
+<td>Carbon-pricing indicators (17, 17b); welfare, externalities, subsidies, efficient prices (18); exports to distribution (19a)</td>
+<td>Finish</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="phase-4-distribution" class="level4">
+<h4 class="anchored" data-anchor-id="phase-4-distribution">Phase 4: distribution</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th>What</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>4.1</td>
+<td>The validated distribution package on the new inputs, data and results; it reads the 19a results of the run</td>
+<td>Its 48 tests unchanged</td>
+</tr>
+<tr class="even">
+<td>4.2</td>
+<td>Fix the open items of the old TODO that the move touches (revenue units, national totals, projected electricity price)</td>
+<td>Against <code>distribution_ref.py</code>, then Excel-AI Distribution</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="phase-5-systematic-comparisons" class="level4">
+<h4 class="anchored" data-anchor-id="phase-5-systematic-comparisons">Phase 5: systematic comparisons</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th>What</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5.1</td>
+<td>Excel-AI values by code (both groups, every year) from the recalculated release workbook; Python against them, Egypt</td>
+</tr>
+<tr class="even">
+<td>5.2</td>
+<td>The same for every country (<code>full</code> where available, else <code>dummy</code>)</td>
+</tr>
+<tr class="odd">
+<td>5.3</td>
+<td>Python or Excel-AI against legacy CPAT: Egypt, then every country, through the LegacyDiff register</td>
+</tr>
+<tr class="even">
+<td>5.4</td>
+<td>Speed: profile against the target of under 1 second for one country and two scenarios (D11); cache the data and the baseline run in the app</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="phase-6-running-the-model" class="level4">
+<h4 class="anchored" data-anchor-id="phase-6-running-the-model">Phase 6: running the model</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Task</th>
+<th>What</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>6.1</td>
+<td><code>run_model.py</code>: a scenario-set file in, results out (many countries, many scenarios)</td>
+</tr>
+<tr class="even">
+<td>6.2</td>
+<td>Shiny: builds the scenario set, calls <code>cpat_model.run</code>, reruns only changed scenarios</td>
+</tr>
+<tr class="odd">
+<td>6.3</td>
+<td>Retire the replaced code (old <code>mitigation/</code> subpackages, <code>dashboard_inputs.py</code>, <code>distribution_inputs.py</code>, <code>data_read/</code>, <code>indicators/</code>)</td>
+</tr>
+<tr class="even">
+<td>6.4</td>
+<td>Website: the Coded CPAT tab of the Quarto site at <code>docs/</code> (D12)</td>
+</tr>
+<tr class="odd">
+<td>6.5</td>
+<td>First release, <code>&lt;Excel-AI version&gt;p0.1</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="later" class="level4">
+<h4 class="anchored" data-anchor-id="later">Later</h4>
+<p>The other demand forms (<code>CPAT partial adjustment</code>, <code>CES partial adjustment</code>, <code>CDPM-FTT</code>), each added to Excel-AI and Python together; the air-pollution and transport co-benefit modules (the transport module linked to the road engineer model).</p>
+</section>
+</section>
+<section id="excel-ai-choices-to-flag" class="level3" data-number="C.2.12">
+<h3 data-number="C.2.12" class="anchored" data-anchor-id="excel-ai-choices-to-flag"><span class="header-section-number">C.2.12</span> 12. Excel-AI choices to flag</h3>
+<p>The overriding norm is to replicate Excel-AI. These choices are replicated as they are, but they are unusual enough that the user should know of them before the build; each is already in the register or proposed for it.</p>
+<ol type="1">
+<li><strong>Stored scenario-1 values.</strong> Policy scenarios read baseline values stored on sheet <code>BaselineCO2</code> and refreshed by the build (CO2 by ETS sector for the ETS cap and price estimate; the CO2 calibration factor and the energy-methane calibration in the GHG inventory year, 2024, which is after the base year). In Excel the results therefore depend on values stored by the last build, not on the current inputs. Coded CPAT computes them in its baseline pass (D15); the two agree only while Excel-AI’s stored values are current, which the comparison checks.</li>
+<li><strong>Scenario inputs that act as global settings.</strong> Some inputs are read from the scenario-1 column for every scenario (<code>BiomassLeakage</code>, <code>BiomassNormal</code>, the cooking-exemption inputs, cookstove efficiencies). In Coded CPAT they become run settings (D16), with a check that every scenario column agrees.</li>
+<li><strong>The road engineer model runs in every scenario whatever <code>TrModel</code></strong> (issue I100); its outputs feed the transport co-benefit interface even when the elasticity form drives fuel use.</li>
+<li><strong>Module values typed for Egypt only.</strong> The air-pollution and transport co-benefit values (<code>FromAirPollution</code>, <code>FromTransportCB</code>) are typed from the legacy 465 run for Egypt; every other country reads 0 (I106), so Pigouvian taxes and those welfare terms are zero outside Egypt.</li>
+<li><strong>Pigouvian taxes by proxy</strong> (I151): marginal air-pollution damages use base-year fuel-use weights and typed values, so they do not respond to the scenario; this keeps the model acyclic (the tax enters the forward-looking power cost) and is the reason the placeholder modules feed the model in the prepare stage.</li>
+<li><strong>Fuel demand has no partial adjustment</strong> (I62): the full response to a price change happens in the year of the change. The <code>cpat_partial_adjustment</code> form addresses this later.</li>
+<li><strong>Investment need extrapolates</strong> required generation as Req(t)²/Req(t−1) instead of reading next year (L67 fix), and the levelised variable cost of power looks forward to 2041: both are exogenous, so they sit in the prepare stage.</li>
+<li><strong>ETS price by goal seek.</strong> The ETS permit price is found by an outer iteration over whole runs (run only on request); between runs it is a stored override row per scenario. Coded CPAT keeps the override as an advanced input and offers the iteration as a separate function.</li>
+</ol>
+<section id="b.-apparent-errors-in-the-methodology-documentation" class="level4">
+<h4 class="anchored" data-anchor-id="b.-apparent-errors-in-the-methodology-documentation">12b. Apparent errors in the methodology documentation</h4>
+<p>Registered as documentation bugs <strong>DOC1-DOC20</strong> (new code <code>DOC</code>, root NORMS section 0; <code>excel_ai/core/BUGS.md</code> section 3). Found while extracting the notation (full list: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/equations/reference/notation_from_methodology.md"><code>../equations/reference/notation_from_methodology.md</code></a> section 4). They do not change Coded CPAT, which follows Excel-AI, but the methodology should be corrected:</p>
+<ul>
+<li><strong>No in-model GDP equation:</strong> neither the multipliers chapter nor the mitigation chapter gives the GDP feedback; the equation list takes it from Excel-AI.</li>
+<li><strong>Undefined symbols:</strong> <span class="math inline">\(\epsilon_G\)</span> in both power-demand equations (presumably <span class="math inline">\(\epsilon_Y\)</span>); <span class="math inline">\(tex\)</span> in Appendix C.</li>
+<li><strong>Markup sign:</strong> <span class="math inline">\(mu^T = gnc^{av} + tmc - hrp\)</span> is then added to the price; to reproduce historical prices it must be <span class="math inline">\(hrp - gnc^{av} - tmc\)</span>.</li>
+<li><strong>Storage:</strong> the derivative of <span class="math inline">\(sst = 9v^2\)</span> is written <span class="math inline">\(18v^2\)</span> (should be <span class="math inline">\(18v\)</span>); the long-term storage table does not match its formula.</li>
+<li><strong>Welfare:</strong> <span class="math inline">\(ddw\)</span> uses <span class="math inline">\(nc\)</span> for <span class="math inline">\(ncp\)</span>, and the text calls half the difference of the taxes their average.</li>
+<li><strong>Supply price:</strong> producer subsidies added in Appendix C, subtracted in the main text; base-year window 2019-2021 in one place, 2018-2022 in another.</li>
+<li><strong>Overloaded letters:</strong> <span class="math inline">\(g\)</span> (sector group, generation, growth rate, consumption category, PIT gain), <span class="math inline">\(\gamma\)</span> (six meanings), <span class="math inline">\(E\)</span>, <span class="math inline">\(p\)</span>/<span class="math inline">\(P\)</span>, <span class="math inline">\(j\)</span>, <span class="math inline">\(i\)</span>; electricity coded <code>ecy</code> in mitigation and <code>ely</code> in distribution. The equation list fixes one meaning per letter within each part (its symbol appendix).</li>
+</ul>
+<!-- Generated by make_qmd.py from coded/NORMS.md: edit the source, then run python make_qmd.py -->
+</section>
+</section>
+</section>
+<section id="sec-app-norms" class="level2" data-number="C.3">
+<h2 data-number="C.3" class="anchored" data-anchor-id="sec-app-norms"><span class="header-section-number">C.3</span> Python norms</h2>
+<p><em>Source: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/NORMS.md"><code>coded/NORMS.md</code></a>.</em></p>
+<p>Rules for every task in <code>coded/</code>. They add to the repository-wide <a href="https://github.com/cpmodelai/cpat_ai/blob/main/excel_ai/core/NORMS.md"><code>../excel_ai/core/NORMS.md</code></a>, of which these sections apply to Python as written: <strong>0</strong> (never replicate a legacy bug; always replicate a legacy issue, and track it), <strong>4</strong> (inputs: MTInputs rows and <code>NameOfParameter</code> names), <strong>6, 6b</strong> (task completion: <code>CAVEATS.md</code>; norms follow the lessons), <strong>7</strong> (methodology and version notes are different documents) and <strong>8</strong> (data). Its Excel sections (1-3, 5: columns, style, LAMBDA encoding, releases) do not apply, except where this file points to them.</p>
+<p>The design choices behind these rules (D1-D16) were decided by the user on 2026-10-29: spec <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/project/Spec.qmd"><code>cpat_documentation/project/Spec.qmd</code></a> section 10. A rule citing Dn follows that decision.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>The overriding norm: follow Excel-AI</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Readability: equations, names, comments</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>Where things go (folders and files)</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>Model structure: dimensions, the year loop, modules, equation forms</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>Inputs: scenarios and advanced inputs</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>Data: databases</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>Results and codes</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>Tests and comparisons</td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td>Documents: qmd, Word, the website</td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td>Task completion and bookkeeping</td>
+</tr>
+<tr class="odd">
+<td>10</td>
+<td>Python conventions</td>
+</tr>
+</tbody>
+</table>
+<section id="the-overriding-norm-follow-excel-ai" class="level3" data-number="C.3.1">
+<h3 data-number="C.3.1" class="anchored" data-anchor-id="the-overriding-norm-follow-excel-ai"><span class="header-section-number">C.3.1</span> 0. The overriding norm: follow Excel-AI</h3>
+<ol type="1">
+<li><strong>Excel-AI is the specification.</strong> Coded CPAT replicates the mitigation and distribution modules of Excel-AI (<code>../excel_ai/CPAT-AI-Mitigation-Prototype_v&lt;version&gt;.xlsm</code>, <code>../excel_ai/CPAT-AI-Distribution-Prototype_v&lt;version&gt;.xlsm</code>) number for number. When the methodology (<code>../docs/01_MainDocumentation/</code>), legacy CPAT and Excel-AI disagree, the code follows Excel-AI and the difference is already, or is then, in the register.</li>
+<li><strong>Which version (D14).</strong> The version of Coded CPAT is <code>&lt;Excel-AI version&gt;p&lt;Python version&gt;</code>, e.g.&nbsp;<code>1.0.0p1.0</code>: Python version 1.0 of the replication of Excel-AI 1.0.0 (Excel-AI’s numbering was rebased on 2026-10-29: mitigation 9.0 is 0.9.0, distribution 1.3 is 0.1.3). The package states both (<code>EXCEL_AI_VERSION</code>, <code>__version__</code>), and each module docstring the Excel-AI version it replicates. Moving to a new Excel-AI version is a task of its own: port the changed rows (the Excel version log and <code>../excel_ai/core/CAVEATS.md</code> list them), then rerun the comparison.</li>
+<li><strong>Bugs are not replicated; issues are (user rules 2026-10-29; root <code>NORMS.md</code> section 0 rule 6).</strong> Coded CPAT follows Excel-AI everywhere except in its bugs. A prototype bug (<code>M</code>: Excel-AI does not compute what it means to) is never replicated: register it the same day (<code>OPEN_PROTO_BUGS</code> in <code>../excel_ai/bugs_and_legacy/register/issues_register.py</code>), add its fix to the Excel-AI TODO list (<code>../excel_ai/core/TODO.md</code>), fix it here where the fix is obvious (a comment <code># bug M&lt;n&gt; fixed (Excel-AI: ...)</code> at the line), list the codes that then differ from Excel-AI in <code>cpat_testing/compare/known_differences.py</code> (the tests check they differ), note it on <code>TODO.md</code> (section “Excel-AI bugs”) and tell the user. Where the fix is not obvious, keep Excel-AI’s formula (<code># Excel-AI bug M&lt;n&gt;, replicated until ...</code>) and follow the prototype’s fixed version. An issue (a potential improvement) is logged for later and replicated for now. Never change Excel-AI’s behaviour silently.</li>
+<li><strong>Codes are shared.</strong> Variable codes, input names (<code>NameOfParameter</code>) and output codes are those of Excel-AI and the codes map <code>../excel_ai/CPAT-AI_CodesMap_v&lt;version&gt;.xlsx</code>. Python never invents a second name for a quantity that has a code.</li>
+<li><strong>One register.</strong> Bugs and issues found while porting go in the one register (<code>../excel_ai/bugs_and_legacy/register/issues_register.py</code>; root <code>NORMS.md</code> section 0 rule 3), with module “Coded CPAT” where only Python is affected. Coded CPAT keeps no list of its own.</li>
+</ol>
+</section>
+<section id="readability-equations-names-comments" class="level3" data-number="C.3.2">
+<h3 data-number="C.3.2" class="anchored" data-anchor-id="readability-equations-names-comments"><span class="header-section-number">C.3.2</span> 1. Readability: equations, names, comments</h3>
+<p>The purpose of the code is that a person with the equation list open can find, read and check every equation.</p>
+<ol type="1">
+<li><p><strong>One equation, one function.</strong> Each equation of the equation list (<a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/equations"><code>cpat_documentation/equations/</code></a>) is one small function (or one clearly marked line in a short function), named after the quantity it computes. Its docstring starts with the equation id and the equation in the notation of the equation list, then the Excel-AI rows it replicates:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ener(ener_prev, atp, atp_prev, ...):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""EQ-M4.1  Fuel use, CPAT constant-elasticity form.</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Q_t = Q_{t-1} * (1 + g_t)^(eps_Y) * (P_t / P_{t-1})^(eps_U) * ...      (over fuels i, sectors j)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Excel-AI: Mitigation section 6, code ener.&lt;sector&gt;.&lt;fuel&gt;; Equations.md E69.</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div></li>
+<li><p><strong>Names are CPAT codes (D3).</strong> A variable that has a code in the codes map is called by its code stem in the code (<code>ener</code>, <code>atp</code>, <code>ctx</code>); the previous year adds <code>_prev</code>, the baseline (scenario 1) value adds <code>_ref</code>, a change against the baseline <code>_chg</code> (as Excel-AI <code>.ref</code>, <code>.chg</code>). The variable registry (<code>cpat_model/core/variables.py</code>, generated from the codes map) gives each code its description, unit, dimensions and Greek symbol. Names without a code (local helpers) are plain English words in <code>snake_case</code>, never single letters other than the index letters of the equation list.</p></li>
+<li><p><strong>The equation list and the code agree.</strong> An equation added, removed or changed in the code is changed in the equation list in the same task, and the other way round. A test lists every equation id and fails if one has no function or one function cites an unknown id.</p></li>
+<li><p><strong>No hard-coded numbers.</strong> Apart from 0, 1 and array positions, every number comes from the inputs, the data or a named constant in <code>cpat_model/core/constants.py</code> with its source and unit (as root <code>NORMS.md</code> section 3, “No hard-coded constants”).</p></li>
+<li><p><strong>Units in the registry, conversions in one place.</strong> Money units follow the Excel-AI vocabulary (<code>USD m</code>, <code>LCU bn</code>, <code>USD/GJ</code>, real or nominal; root <code>NORMS.md</code> section 3, “Money units”). A function body does not multiply by <code>1e3</code>, <code>1e6</code> or <code>1e9</code>; it calls a named conversion.</p></li>
+<li><p><strong>Short and flat.</strong> A function that needs scrolling is split. No clever one-liners, no metaprogramming in model code, no inheritance deeper than one level. Prefer explicit arguments to reading a global state.</p></li>
+<li><p><strong>Comments say why, not what.</strong> The docstring says what; a comment explains a choice, an Excel-AI quirk (with its register code, e.g.&nbsp;<code># I85: percentages typed as whole numbers, as legacy</code>) or a unit.</p></li>
+</ol>
+</section>
+<section id="where-things-go-folders-and-files" class="level3" data-number="C.3.3">
+<h3 data-number="C.3.3" class="anchored" data-anchor-id="where-things-go-folders-and-files"><span class="header-section-number">C.3.3</span> 2. Where things go (folders and files)</h3>
+<ol type="1">
+<li><strong>The layout</strong> is in <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/README.md"><code>README.md</code></a> and in the spec, section 3. Code goes in <code>cpat_model/</code> (the model), <code>cpat_shiny/</code> (the app), <code>cpat_testing/</code> (tests); documents in <code>cpat_documentation/</code>. The top of <code>coded/</code> holds only the entry points (<code>run_model.py</code>, <code>app.py</code>), configuration (<code>.env</code>, environment files; the settings are <code>cpat_model/settings.py</code>) and the three guides (<code>README.md</code>, <code>NORMS.md</code>, <code>TODO.md</code>).</li>
+<li><strong>No working files in the core folders.</strong> Scratch scripts, notebooks, exports and one-off comparisons do not go in <code>cpat_model/</code>, <code>cpat_shiny/</code> or <code>cpat_testing/</code>. Comparison scripts that are kept go in <code>cpat_testing/compare/</code>; run outputs go in <code>coded/outputs/</code> (git-ignored); anything else temporary stays outside the repository.</li>
+<li><strong>Folders, not long lists.</strong> A folder gets at most three new files in one task; more become a subfolder with one pointer file (a <code>README.md</code> or <code>__init__.py</code> that says what is inside).</li>
+<li><strong>The package follows the model.</strong> <code>cpat_model/mitigation/</code> has one subpackage per Excel-AI block, named for what it computes (<code>policies</code>, <code>prices</code>, <code>power</code>, <code>fuel_use</code>, <code>revenues</code>, <code>emissions</code>, <code>gdp</code>, …), and one file, <code>chain.py</code>, that lists the order in which the blocks run (spec section 3). A reader learns the model order from that one file.</li>
+<li><strong>No <code>Old/</code>, <code>tmp_</code>, <code>new_</code>, <code>_v2</code> files.</strong> Git keeps the history; a replaced file is deleted in the task that replaces it.</li>
+<li><strong>Data never in <code>coded/</code>.</strong> All data are in <code>../data/</code> (root <code>NORMS.md</code> section 8); test fixtures with their tests (<code>cpat_testing/**/data_expected/</code>).</li>
+</ol>
+</section>
+<section id="model-structure-dimensions-the-year-loop-modules-equation-forms" class="level3" data-number="C.3.4">
+<h3 data-number="C.3.4" class="anchored" data-anchor-id="model-structure-dimensions-the-year-loop-modules-equation-forms"><span class="header-section-number">C.3.4</span> 3. Model structure: dimensions, the year loop, modules, equation forms</h3>
+<ol type="1">
+<li><strong>Labelled arrays (D2).</strong> Model quantities are labelled arrays (<code>xarray</code>) with named dimensions: <code>country</code>, <code>year</code>, and the dimensions of the quantity (<code>fuel</code>, <code>sector</code>, <code>tech</code>, <code>user</code>, <code>decile</code>, …), using the index names of the equation list. Equations broadcast by name; no positional axis arithmetic in model code.</li>
+<li><strong>Baseline first, then scenario by scenario; three stages (D1, D15).</strong> A run takes any number of scenarios. The baseline (scenario 1) runs first, then each policy scenario in turn, reading the baseline values it needs (as Excel-AI’s <code>BaselineCO2</code> and <code>.ref</code>). Each scenario run has three stages: <strong>prepare</strong> (everything that depends on no model quantity, for all years at once: policy paths, international prices and the price chain, power cost paths including the levelised variable cost, exogenous drivers, the module values that feed Pigouvian taxes), the <strong>year loop</strong> (for each year t, every block in the order of <code>chain.py</code>, each reading only year t and earlier years: all of mitigation, then the air-pollution and transport co-benefit modules for year t, then the GDP effect that reaches t+1), and <strong>finish</strong> (all-year results: carbon-pricing indicators, welfare, exports; then distribution in its analysis year). No equation reads a later model year (root <code>NORMS.md</code> 5c, circular references, rule 1); a look-ahead on exogenous paths belongs in prepare.</li>
+<li><strong>Countries together, scenarios in turn.</strong> Every function works for any number of countries at once (an array dimension); nothing loops over countries in model code. Scenarios run one after another (<code>core/loop.py</code> is the only scenario loop) and their results are joined along a <code>scenario</code> dimension. Scenario 1 is the baseline; <code>_ref</code> values are read from the baseline run in the same year, as Excel-AI’s <code>ref_formula</code>. Inputs that Excel-AI reads from the baseline column for every scenario are run settings, checked for agreement (D16).</li>
+<li><strong>Modules talk through declared interfaces.</strong> Each module declares what it reads and what it writes (codes). Downstream modules (distribution, air pollution, transport co-benefits) read only their declared inputs, as the Excel modules read only <code>FromMitigation</code> (root <code>NORMS.md</code> section 3, “Exports to modules”).</li>
+<li><strong>Switchable equation forms (D4).</strong> The demand equations (fuel demand, electricity demand, the CES service price) are called through the slots of <code>cpat_model/forms/</code>, never directly. The form is a <strong>scenario input, <code>ModelForm</code></strong>, the last MTInputs row, set up the same way in Excel-AI and Python; the default, <code>CPAT</code>, is the Excel-AI form and the only one built until the user asks for another. <code>ModelForm</code> does not override the existing engineer-or-elasticity selectors of road transport and power (power always uses the engineer model). A new form never changes the numbers of <code>CPAT</code>, and is added to Excel-AI and Python in the same release.</li>
+<li><strong>Placeholder modules (D10).</strong> Air pollution and transport co-benefits each have <code>prepare</code> (Excel-AI’s typed module values, which feed the Pigouvian taxes) and <code>step(t)</code> (in the year loop after the local pollutants; empty until the module is built).</li>
+</ol>
+</section>
+<section id="inputs-scenarios-and-advanced-inputs" class="level3" data-number="C.3.5">
+<h3 data-number="C.3.5" class="anchored" data-anchor-id="inputs-scenarios-and-advanced-inputs"><span class="header-section-number">C.3.5</span> 4. Inputs: scenarios and advanced inputs</h3>
+<ol type="1">
+<li><strong>Scenario inputs are MTInputs (D5).</strong> A scenario set is a table with the rows of legacy MTInputs (<code>NameOfParameter</code>, root <code>NORMS.md</code> section 4; the Excel-AI additions, <code>ModelForm</code> last, below them) and one column per scenario, each scenario run for a list of countries; the Shiny app builds the same table. Input keys are the <code>NameOfParameter</code> names, in legacy units (I85).</li>
+<li><strong>Advanced inputs</strong> (time series and longer-form inputs, the legacy <code>Manual inputs</code> tab and Excel-AI <code>Settings</code>) come from one advanced-inputs workbook per run (a tab per kind: time series, <code>Manual inputs</code> blocks, <code>Settings</code>, <code>Constants</code>; D5), with defaults from Excel-AI. Input files live in <code>../data/inputs/</code> (D6).</li>
+<li><strong>Validated once.</strong> Inputs are read and checked (names known, types, ranges, option values as legacy) in <code>cpat_model/inputs/</code> before the model runs; model code never reads a raw input file.</li>
+</ol>
+</section>
+<section id="data-databases-2" class="level3" data-number="C.3.6">
+<h3 data-number="C.3.6" class="anchored" data-anchor-id="data-databases-2"><span class="header-section-number">C.3.6</span> 5. Data: databases</h3>
+<ol type="1">
+<li><strong>Databases (D6; user 2026-10-29: tidy CSV).</strong> Coded CPAT reads <strong>tidy CSV</strong> (<code>../data/Public01/tidy/</code>: one table per file, long, standard keys, <code>country</code> ISO3 upper case), converted both ways from the legacy layout Excel-AI reads by <code>../data/scripts/tidy_convert.py</code> (exact round trip, tested). A database is a folder of tidy tables with its <code>_layout/</code>, in the structure of <code>../data/</code> (input files under <code>../data/inputs/</code>). Two exist: <code>full</code> (every table with its real values, including the six proprietary tables <code>Balances</code>, <code>EnergyCons</code>, <code>Prices_dom</code>, <code>IO_GTAP</code>, <code>HHSurvey</code>, <code>Tran_Scatter</code>; edition Full01, a private repository, never this one) and <code>dummy</code> (an edition of this repository, <code>../data/&lt;edition&gt;/tidy/</code>, the default <code>../data/Public01/tidy/</code>: the public tables, with the six proprietary tables perturbed within +-3%, identities kept; <a href="https://github.com/cpmodelai/cpat_ai/blob/main/data/README.md"><code>../data/README.md</code></a>). The code interface (each table the model reads) is the edition’s tidy manifest (<code>../data/Public01/tidy/_manifest.csv</code>), and a loader reads nothing it does not list. The choice is a setting (<code>Settings.database</code>; the edition: <code>CPAT_DATA_EDITION</code>, else the default of <code>../data/editions.csv</code>; <code>full</code>: <code>FULL_DATA_PATH</code>, the tidy folder of the full database outside the repository). The systematic comparisons use <code>full</code> where it is available, with <code>dummy</code> as the option that always works (user 2026-10-29); every model in a comparison reads the same database.</li>
+<li><strong>Never commit proprietary data,</strong> nor results computed from them (root <code>NORMS.md</code> section 8).</li>
+<li><strong>Loaders read, never compute.</strong> <code>cpat_model/data/</code> loads and reshapes tables to the model’s dimensions; any calculation on data is a model equation with an id.</li>
+</ol>
+</section>
+<section id="results-and-codes" class="level3" data-number="C.3.7">
+<h3 data-number="C.3.7" class="anchored" data-anchor-id="results-and-codes"><span class="header-section-number">C.3.7</span> 6. Results and codes</h3>
+<ol type="1">
+<li><strong>Results are keyed by Excel-AI output codes</strong> (<code>&lt;variable&gt;.&lt;sector&gt;.&lt;fuel&gt;</code> as the prototype) and dimensions <code>country</code>, <code>scenario</code>, <code>year</code>, so every Python result can be set against the Excel-AI row with the same code.</li>
+<li><strong>Results belong to the scenario; differences as Excel-AI</strong> (root <code>NORMS.md</code> section 3c: <code>x.ref</code>, <code>x.chg</code>, <code>x.pct</code> only for strictly positive quantities; price changes are price indices; ratios from summed levels).</li>
+</ol>
+</section>
+<section id="tests-and-comparisons-1" class="level3" data-number="C.3.8">
+<h3 data-number="C.3.8" class="anchored" data-anchor-id="tests-and-comparisons-1"><span class="header-section-number">C.3.8</span> 7. Tests and comparisons</h3>
+<ol type="1">
+<li><strong>Three levels.</strong> Unit tests per equation (small hand-checked cases); block tests against reference values by code for one country: first the existing Python recomputations of Excel-AI (<code>../excel_ai/mitigation/checks/check_full.py</code>, <code>power_model_ref.py</code>, <code>transport_model_ref.py</code>, <code>distribution_ref.py</code>; D8), then values extracted from the recalculated Excel-AI workbook (directly for the rows the recomputations lack); end-to-end comparisons (all codes, then all countries).</li>
+<li><strong>Tolerance.</strong> Python equals Excel-AI to a relative difference of 1e-9 (absolute 1e-9 near zero) unless a difference is explained and registered.</li>
+<li><strong>Comparison order:</strong> Python against Excel-AI, one country (Egypt), then all countries; Python or Excel-AI against legacy CPAT, one country, then all; always on the systematic dataset (section 5).</li>
+<li><strong>Speed (D11).</strong> One country with two scenarios runs in under 1 second for the user interface (data and the baseline run cached). Speed never costs readability: it comes from array operations and caching.</li>
+<li><strong><code>pytest</code> passes before every commit.</strong> A failing comparison is not skipped or loosened to pass; it is fixed or registered.</li>
+</ol>
+</section>
+<section id="documents-qmd-word-the-website" class="level3" data-number="C.3.9">
+<h3 data-number="C.3.9" class="anchored" data-anchor-id="documents-qmd-word-the-website"><span class="header-section-number">C.3.9</span> 8. Documents: qmd, Word, the website</h3>
+<ol type="1">
+<li><strong>qmd is the source.</strong> Documents for people (spec, plan, design choices, equation list, method notes) are Quarto markdown (<code>.qmd</code>) in <code>cpat_documentation/</code>; Word copies (<code>.docx</code>) are generated from them (<code>cpat_documentation/make_docs.py</code>), never edited by hand. Guides for agents and developers (<code>README.md</code>, <code>NORMS.md</code>, <code>TODO.md</code>) stay <code>.md</code>: GitHub shows them formatted, every tool reads them, and Quarto renders <code>.md</code> as well as <code>.qmd</code>, so they can join the website unchanged.</li>
+<li><strong>Diagrams</strong> are mermaid blocks in the qmd (Quarto draws them); <code>make_docs.py</code> renders them to PNG for Word.</li>
+<li><strong>Notation.</strong> The equation list uses the Greek letters and index letters of the methodology (<code>../docs/01_MainDocumentation/</code>); where the methodology has none, it says so and uses the Excel-AI note (<code>../excel_ai/mitigation/docs/Equations.md</code>). Its code version uses the codes map.</li>
+<li><strong>Methodology, not history</strong> (root <code>NORMS.md</code> section 7): the equation list and method notes describe the current model only.</li>
+<li><strong>The documentation book (user 2026-10-29).</strong> The Coded CPAT documentation is a Quarto book, the website’s Coded CPAT tab, in the style of the methodology documentation: Part I what you need to know (concise: quick start, the database first, scenarios, results, editing, testing), Part II how it works, the complete reference in appendices. Chapters are written in <code>../docs/CPAT_coded_documentation_qmd/</code> (index, 01-11, J; since 2026-10-30, was <code>cpat_documentation/guide/</code>); the appendices are generated from the code and data (<code>../docs/CPAT_coded_documentation_qmd/make_qmd.py</code>). A task that changes how to run, edit or test the model, the database, the inputs or the results updates its chapter the same day; a task that changes the tests reruns <code>make_qmd.py --tests</code> (the test status) before <code>quarto render</code>.</li>
+</ol>
+</section>
+<section id="task-completion-and-bookkeeping" class="level3" data-number="C.3.10">
+<h3 data-number="C.3.10" class="anchored" data-anchor-id="task-completion-and-bookkeeping"><span class="header-section-number">C.3.10</span> 9. Task completion and bookkeeping</h3>
+<p>As root <code>NORMS.md</code> section 6: every finished task gets a <code>../excel_ai/core/CAVEATS.md</code> entry; open work is in <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/TODO.md"><code>TODO.md</code></a> (tick it, add the follow-ups); a lesson with a cause that can repeat becomes a norm here, with its check (root section 6b).</p>
+</section>
+<section id="python-conventions" class="level3" data-number="C.3.11">
+<h3 data-number="C.3.11" class="anchored" data-anchor-id="python-conventions"><span class="header-section-number">C.3.11</span> 10. Python conventions</h3>
+<ul>
+<li>Python 3.12, pandas, numpy, xarray (<code>environment.yml</code>, <code>requirements.txt</code>); new dependencies only with a reason in the task’s <code>CAVEATS.md</code> entry.</li>
+<li>Type hints on public functions; <code>ruff</code> for lint and format.</li>
+<li>Functions are pure: inputs in, results out, no file or global state inside model code. Reading files happens in <code>cpat_model/data/</code> and <code>cpat_model/inputs/</code> only.</li>
+<li>The one public entry point is <code>cpat_model.run(...)</code> (spec section 3); <code>run_model.py</code>, the Shiny app and the tests all call it.</li>
+</ul>
+<!-- Generated by make_qmd.py from coded/TODO.md: edit the source, then run python make_qmd.py -->
+</section>
+</section>
+<section id="sec-app-plan" class="level2" data-number="C.4">
+<h2 data-number="C.4" class="anchored" data-anchor-id="sec-app-plan"><span class="header-section-number">C.4</span> The plan and open work</h2>
+<p><em>Source: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/TODO.md"><code>coded/TODO.md</code></a>.</em></p>
+<p>Status key: ☐ not started · ◐ in progress · ☑ done · ☒ closed without doing (superseded) (ticked items leave at the next update; their record is <a href="https://github.com/cpmodelai/cpat_ai/blob/main/excel_ai/core/CAVEATS.md"><code>../excel_ai/core/CAVEATS.md</code></a>). Excel work: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/excel_ai/core/TODO.md"><code>../excel_ai/core/TODO.md</code></a>. Rules: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/NORMS.md"><code>NORMS.md</code></a>.</p>
+<p><strong>The project (user 2026-10-29): the full build of Coded CPAT</strong>, a human-readable Python model that replicates the mitigation and distribution modules of Excel-AI number for number. Specification, design choices and the plan in words: <a href="https://github.com/cpmodelai/cpat_ai/blob/main/coded/cpat_documentation/project/Spec.qmd"><code>cpat_documentation/project/Spec.qmd</code></a> (Word copy <code>Spec.docx</code>). The phases below are the plan’s checklist; section numbers refer to the spec.</p>
+<section id="phase-0---planning-documents-the-steps-requested-first" class="level3" data-number="C.4.1">
+<h3 data-number="C.4.1" class="anchored" data-anchor-id="phase-0---planning-documents-the-steps-requested-first"><span class="header-section-number">C.4.1</span> Phase 0 - Planning documents (the steps requested first)</h3>
+<ul>
+<li>☑ Folder and code structure for readability: spec sections 3-4; <code>NORMS.md</code>; six box diagrams (spec section 4, mermaid, rendered to <code>project/figures/</code> for Word). Draft for the user’s review.</li>
+<li>☑ Spec: the request cleaned up (section 1), principles, structure, data, inputs, equation forms, tests, documents, design choices, plan, Excel-AI choices to flag and methodology errata (sections 2-12), as qmd with a Word copy (<code>cpat_documentation/make_docs.py</code>). Draft for the user’s review.</li>
+<li>☑ Equation list (complete 2026-10-29: 91 equations, every one with its function; appendices A and B done): executive summary of the core equations (M1 policies to M8 GDP, D distribution: 36 equations; 3 adjustments started) in the notation of the methodology, Greek and code-name versions generated from one source (<code>cpat_documentation/equations/equations.yaml</code>, D13). Next: (1) complete appendices A (mitigation adjustments) and B (distribution) from <code>../excel_ai/mitigation/docs/Equations.md</code>, <code>Equations_addendum.md</code>, <code>Formulas.md</code> and the Methods chapters, block by block (can run alongside phase 2; each block’s equations before its code); (2) confirm the code names marked † in the codes map (or propose codes for them).</li>
+<li>☑ Design choices written up with options and recommendations (spec section 10): D1-D16.</li>
+</ul>
+</section>
+<section id="phase-1---design-choices-with-the-user-done" class="level3" data-number="C.4.2">
+<h3 data-number="C.4.2" class="anchored" data-anchor-id="phase-1---design-choices-with-the-user-done"><span class="header-section-number">C.4.2</span> Phase 1 - Design choices with the user: done</h3>
+<ul>
+<li>☑ D1-D16 decided by the user (2026-10-29): spec section 10; <code>NORMS.md</code> rules made final.</li>
+<li>☑ Detailed plan: spec section 11 (the tasks below, each with its check).</li>
+<li><label><input type="checkbox">Correct <code>../QuickStart.docx</code> when it is next regenerated: the data are now edition Public01 (<code>../data/Public01/</code>): the public tables, and the six proprietary tables perturbed within +-3% (user 2026-10-30; the earlier wording, every table dummy or four proprietary tables, no longer holds).</label></li>
+<li><label><input type="checkbox">Send the documentation bugs DOC1-DOC20 (<code>../excel_ai/core/BUGS.md</code> section 3) to the CPAT team with the next tracker release.</label></li>
+</ul>
+</section>
+<section id="phase-2---foundations-spec-11-phase-2" class="level3" data-number="C.4.3">
+<h3 data-number="C.4.3" class="anchored" data-anchor-id="phase-2---foundations-spec-11-phase-2"><span class="header-section-number">C.4.3</span> Phase 2 - Foundations (spec 11, phase 2)</h3>
+<ul>
+<li><p>◐ 2.9 After the data rebuild (2026-10-30, <code>excel_ai/core/CAVEATS.md</code>): ☑ the scenario set and Excel-AI’s stored values in <code>data/inputs/</code>; ☑ <code>legacy_comparison.py</code> reads <code>data/Public01/tidy/xai_legacy_cached_baseline.csv</code>; ☐ its legacy 456 workbook: port to the new legacy workbook when it comes (user 2026-10-30).</p></li>
+<li><p>☑ 2.1 Data interface for the data person: <code>../data_old/INTERFACE.md</code> and <code>../data_old/interface_manifest.csv</code> (41 files in three groups; legacy layout as Excel-AI; <code>full</code> and <code>dummy</code>; input files in <code>../data/inputs/</code>; 8 open points). The check (loaders read only what the manifest lists) comes with the loaders (2.6).</p></li>
+<li><p>☑ Tidy CSV as the input of Coded CPAT, with two-way converters legacy layout &lt;-&gt; tidy (<code>../data_old/scripts/</code>, <code>../data/Public01/tidy/</code>; user 2026-10-29). Domestic prices cut to Egypt (user 2026-10-29).</p></li>
+<li><p><label><input type="checkbox">Data, from 2.1: assemble the <code>dummy</code> database (public files plus dummy Balances, EnergyCons, Prices_dom in the 99-column layout, HHSurvey, IO_GTAP); bring ASPIRE and WHOCooking back whole; extract the FromAirPollution and FromTransportCB values from <code>build.py</code> to a data file (2.10).</label></p></li>
+<li><p>☑ 2.2 Package skeleton (<code>cpat_model/</code> folders, <code>run()</code>, <code>settings.py</code>), versions <code>EXCEL_AI_VERSION</code> and <code>__version__</code> = <code>&lt;Excel-AI&gt;p&lt;Python&gt;</code> (D14; Excel-AI numbering rebased 2026-10-29: 0.9.0, distribution 0.1.3).</p></li>
+<li><p>☑ 2.3 Index sets (<code>core/dims.py</code>) from the codes map. Check: equal to the codes map.</p></li>
+<li><p>☑ 2.4 Variable registry (<code>core/variables.py</code>, <code>core/variables.csv</code>: 7,541 coded rows, 1,255 stems with description and unit, from Excel-AI’s Mitigation sheet). Of the 33 names marked † in the equation list, 4 are stems (cons, pop, reg, trown); the rest are parameters or data and are settled block by block in phase 3.</p></li>
+<li><p>☑ 2.5 Loop (<code>core/loop.py</code>): baseline first, then each scenario (D15); prepare, year loop, finish; <code>mitigation/chain.py</code>; policy paths and price indices (<code>core/paths.py</code>).</p></li>
+<li><p>☑ 2.6 Data layer (<code>data/</code>): reads the tidy tables of <code>../data/Public01/tidy/</code> (<code>DATA_ENVIRONMENT</code> = <code>full</code> or <code>dummy</code>, path of the private tidy folder); loaders to labelled arrays; exact float parsing; cache. The old Python-format data (<code>../data_old/dummy/</code>, <code>convert_data_workbook.py</code>, <code>export_to_legacy.py</code>) serve the old code only and retire with it (6.3).</p></li>
+<li><p>☑ 2.7 Inputs (<code>inputs/</code>): scenario-set table (MTInputs rows + Excel-AI additions + <code>ModelForm</code>), advanced-inputs workbook, validation, global-settings check (D16). Check: Excel-AI <code>ScenarioDefinition</code> J, K read back unchanged.</p></li>
+<li><p>☑ 2.8 Forms (<code>forms/</code>): registry, slots, the <code>CPAT</code> form (its equations come with phase 3); <code>ModelForm</code> in the Python scenario set. ☑ The <code>ModelForm</code> row is in Excel-AI’s <code>ScenarioDefinition</code> since 1.0.2; <code>PYTHON_ROWS</code> is empty.</p></li>
+<li><p>☑ 2.9 Results (<code>results/</code>) by output code; export in the Excel layout.</p></li>
+<li><p>☑ 2.10 Placeholder modules <code>air_pollution/</code>, <code>transport_cobenefits/</code>: <code>prepare</code> (FromAirPollution, FromTransportCB values) and empty <code>step(t)</code> (D10).</p></li>
+<li><p>☑ 2.11 Comparison harness (<code>cpat_testing/compare/</code>): reference values by code from the stored values of Excel-AI 0.9.1 (user 2026-10-29): <code>compare.py</code>, <code>reference/excel_ai_0.9.1.csv</code>.</p></li>
+<li><p>☑ 2.12 Equation-id test (every id has a function and every cited id exists).</p></li>
+</ul>
+</section>
+<section id="phase-3---mitigation-block-by-block-each-equation-list-appendix-functions-unit-tests-comparison-for-egypt-register-differences" class="level3" data-number="C.4.4">
+<h3 data-number="C.4.4" class="anchored" data-anchor-id="phase-3---mitigation-block-by-block-each-equation-list-appendix-functions-unit-tests-comparison-for-egypt-register-differences"><span class="header-section-number">C.4.4</span> Phase 3 - Mitigation, block by block (each: equation list appendix, functions, unit tests, comparison for Egypt, register differences)</h3>
+<p>Decided 2026-10-29 (user): a block that still differs after a reasonable effort is logged (codes, years, suspected cause; <code>CAVEATS.md</code>), marked ◐, and the next block follows. Stored scenario-1 values of Excel-AI (ETS baseline CO2 <code>bco2</code>, methane activity <code>ch4bs</code>, goal-seek ETS prices <code>ets.ovr</code>) are read as data for now; once emissions are built, a check that the baseline run reproduces them. Done 2026-10-29: the baseline run reproduces them (check rows <code>bco2.chk</code> about 1e-13, <code>ch4bs.chk</code> about 5e-11; <code>test_stored_outputs.py</code>); <code>ets.ovr</code> is blank (no override). Phase 4: reference = stored values of Excel-AI Distribution 0.1.3, open items fixed as that workbook does. Phase 5 for now: 5.4 speed only (5.1-5.3 need heavy recalculations: later).</p>
+<ul>
+<li>☑ 3.1 Header (0; macro series, matches Excel-AI) · ☑ 3.2 Policies (1; matches Excel-AI incl.&nbsp;the Pigouvian rows and producer subsidies) · ☑ 3.3 Prices (2; build-up and the averages over fuel use match Excel-AI) · ☑ 3.4 Power costs incl.&nbsp;levelised costs (3; data steps and the 722 quantity-free rows match Excel-AI) · ☑ 3.5 GDP level (16; matches Excel-AI) · ◐ 3.6 Road engineer model (5b; matches Excel-AI, scenarios 1-2; TrModel = Engineer, road fuel use of sections 3 and 5 from 5b, not yet: NotImplementedError) · ☑ 3.7 Fuel demand (5-8) and leakage, exempt use (6b; fuel | subsector table, price rows and the year step incl.&nbsp;biofuels and leakage match Excel-AI, scenarios 1-2) · ☑ 3.8 Power quantities and prices (3; matches Excel-AI, scenarios 1-2) · ☑ 3.9 Totals and revenues (11, 12; match Excel-AI, scenarios 1-2) · ☑ 3.10 CO2 and ETS check, other GHGs, local pollutants (13-15; match Excel-AI, scenarios 1-2) · ☑ 3.11 Module steps and GDP effects (16; GDP effects and external balance match Excel-AI, scenarios 1-2; module inputs with 3.12) · ☑ 3.12 Indicators, welfare, exports (17, 17b, 18, 19a; match Excel-AI, scenarios 1-2: every reference code of scenarios 1 and 2 is produced and matches).</li>
+</ul>
+</section>
+<section id="phase-4---distribution" class="level3" data-number="C.4.5">
+<h3 data-number="C.4.5" class="anchored" data-anchor-id="phase-4---distribution"><span class="header-section-number">C.4.5</span> Phase 4 - Distribution</h3>
+<ul>
+<li>☑ 4.1 Excel-AI Distribution 0.1.3 replicated on the new inputs, data and results (<code>cpat_model/distribution/mapping.py</code>, <code>incidence.py</code>; run by <code>run</code>, <code>Results.distribution_by_code</code>): every code of the Distribution sheet matches for Egypt, scenario groups 1 and 2 (1,684 codes, basket and deciles; <code>test_distribution_incidence.py</code>). The old package (<code>distribution.py</code> and its steps) and its tests are unchanged; to retire once the app reads the new results.</li>
+<li>☑ 4.2 The open distribution items, fixed as Distribution 0.1.3 does: revenue = rnew x Million x xr (local currency); national totals = the scenario’s population and GDP (LCU) in YearDistn with WDI private consumption in % of GDP; electricity price change = the full end-user price <code>rp</code> (residential; industrial for the indirect effect).</li>
+</ul>
+</section>
+<section id="phase-5---systematic-comparisons" class="level3" data-number="C.4.6">
+<h3 data-number="C.4.6" class="anchored" data-anchor-id="phase-5---systematic-comparisons"><span class="header-section-number">C.4.6</span> Phase 5 - Systematic comparisons</h3>
+<ul>
+<li>◐ 5.0 Against the Python recomputations written for Excel-AI (spec D8), done 2026-10-29 where they run: Distribution: <code>distribution_ref.py</code> given Coded CPAT’s mitigation inputs equals Coded CPAT’s household results within 1e-13 (<code>test_recomputations.py</code>, <code>compare/check_recomputations.py</code>). Mitigation: <code>check_full.recompute</code> (with <code>power_model_ref</code>, <code>transport_model_ref</code>) does not run on Excel-AI 0.9.2 (KeyError ‘cur’: the power recomputation lacks rows added after v0.8; the full check last ran on 0.8.0): Excel-AI to repair (<code>../excel_ai/core/TODO.md</code>).</li>
+<li>☑ 5.1 Excel-AI values by code, Egypt (2026-10-29): the stored values of the release workbook (D8): every output code of the live groups 1 and 2 (7,472 reference codes per scenario, 7,458 with values, <code>test_mitigation.py</code>) and the key output codes of every stored scenario, 1 and 3-6 (123 each, sheet StoredOutputs, <code>test_stored_outputs.py</code>): all within 1e-9. A recalculation of the workbook in LibreOffice is Excel-AI’s own check (<code>check_quick.py</code>, <code>check_full.py</code>).</li>
+<li>◐ 5.2 Every country (2026-10-29): only Egypt has its base tables (energy balances, domestic prices; proprietary) in the dummy database, so only Egypt runs here; another country stops with a clear error naming the missing tables (<code>missing_country_data</code>, <code>test_run_model.py</code>). Left: every country on the full (private) database.</li>
+<li>◐ 5.3 Against legacy CPAT (2026-10-29): Egypt baseline against legacy 456’s cached run (fuel use, after-tax prices, CO2 by subsector; 272 rows): <code>compare/legacy_comparison.py</code> writes <code>compare/legacy_comparison.md</code> (base-year energy use 91% of rows within 5%, CO2 all within 5%; prices differ by data vintage and the last historical price year, and the fixed legacy bugs). Left: legacy 465, and every country (full database).</li>
+<li>☑ 5.4 Speed: under 1 second for one country and two scenarios (D11); cache data and the baseline run. Done 2026-10-29: 0.8 s with the baseline and the data steps cached (first run of a session about 3.3 s); <code>test_speed.py</code>.</li>
+</ul>
+</section>
+<section id="phase-6---running-the-model" class="level3" data-number="C.4.7">
+<h3 data-number="C.4.7" class="anchored" data-anchor-id="phase-6---running-the-model"><span class="header-section-number">C.4.7</span> Phase 6 - Running the model</h3>
+<ul>
+<li>☑ 6.1 <code>run_model.py</code> for scenario-set files (many countries, many scenarios): <code>python run_model.py [set.csv] --countries --scenarios --database --out --xlsx</code>; writes <code>mitigation_&lt;ISO&gt;.csv</code> (code, variable, sector, fuel, description, unit, years) and <code>distribution_&lt;ISO&gt;.csv</code>; <code>test_run_model.py</code>.</li>
+<li>☑ 6.2 Shiny on <code>cpat_model.run</code>: done 2026-10-29 (<code>cpat_shiny/server_logic/run_model.py</code>: the app’s scenarios over Excel-AI’s carbon-tax column, scenario 1 = Excel-AI’s baseline; raw results, five indicators, six graphs incl.&nbsp;the net effect by decile, from <code>Results</code>; countries with data only; <code>test_shiny_app.py</code>; HTTP 200). Reruns compute only changed scenarios (<code>core/loop.py</code> caches each scenario run by its inputs and baseline). Left: a faster <code>Results.by_code</code> (1-2 s for three scenarios); no fuel-subsidy, ETS or feebate controls in the app.</li>
+<li>☑ 6.3 Retire the replaced code: done 2026-10-29: the earlier distribution package (<code>distribution.py</code>, <code>budget_shares.py</code>, <code>effects.py</code>, <code>price_changes.py</code>, <code>rebasing.py</code>, <code>recycling.py</code>, <code>welfare.py</code>, <code>sectoral.py</code>, <code>data.py</code>) and its 13 tests, <code>distribution_inputs.py</code>, <code>constants.py</code>, <code>config.py</code> (the old mitigation subpackages, <code>dashboard_inputs.py</code>, <code>data_read/</code>, <code>indicators/</code> went at the phase-2 clean break). Left for the data person: the old Python-format data <code>../data_old/dummy/</code> and its scripts (<code>convert_data_workbook.py</code>, <code>export_to_legacy.py</code>) serve no Coded CPAT code now; retire them with the data tests (<code>../data_old/tests</code>) or keep them as the legacy-layout converters.</li>
+<li>☑ 6.4 Website: the Coded CPAT tab of the Quarto site at <code>../docs/</code> (D12). Rewritten the same day as the full documentation book (user 2026-10-29): Part I what you need to know (quick start, the database, scenarios, results, editing, testing with the generated test status), Part II how it works, appendices A-J (equations, database tables, inputs, variables, bugs, spec, norms, plan, glossary); chapters in <code>cpat_documentation/guide/</code>, generated by <code>../docs/CPAT_coded_documentation_qmd/make_qmd.py</code> (<code>--tests</code> updates the status). First version: a third book <code>../docs/CPAT_coded_documentation_qmd/</code> (generated from <code>coded/</code> by its <code>make_qmd.py</code>: overview, developer guide, spec, equation lists, norms, plan), rendered to <code>../docs/CPAT_coded_documentation_html/</code>, tab <code>#coded</code> in <code>../docs/index.html</code>.</li>
+<li>☑ 6.5 First release <code>0.9.1p0.1</code> (2026-10-29): <code>CHANGELOG.md</code>, git tag <code>coded-v0.9.1p0.1</code> on commit 36a7c9d (the cloud session could not push tags: push it from a checkout, <code>git tag -a coded-v0.9.1p0.1 36a7c9d -m "Coded CPAT 0.9.1p0.1" &amp;&amp; git push origin coded-v0.9.1p0.1</code>).</li>
+</ul>
+</section>
+<section id="excel-ai-bugs-root-norms-0-rule-6-coded-norms-0.3" class="level3" data-number="C.4.8">
+<h3 data-number="C.4.8" class="anchored" data-anchor-id="excel-ai-bugs-root-norms-0-rule-6-coded-norms-0.3"><span class="header-section-number">C.4.8</span> Excel-AI bugs (root NORMS 0 rule 6; coded NORMS 0.3)</h3>
+<p>Prototype bugs found by Coded CPAT (<code>../excel_ai/core/BUGS.md</code> section 2). Bugs are never replicated: Coded CPAT fixes them where the fix is obvious and lists the codes that then differ from Excel-AI in <code>cpat_testing/compare/known_differences.py</code> until Excel-AI ships the fix; otherwise it follows the prototype’s fixed version. When Excel-AI ships a fix: a line here with its version, Python aligned with the prototype’s fix, the known differences deleted.</p>
+<p><strong>All closed (2026-10-29): Excel-AI 0.9.2 and Distribution 0.1.4 fixed M15-M17 and M19-M22; M18 withdrawn. Coded CPAT 0.9.2p0.1 aligned with them, and 1.0.0p1.0 (the first full release) replicates Excel-AI 1.0.0 and Distribution 1.0.0; no known differences remain; every reference code of scenarios 1 and 2 matches.</strong></p>
+<ul>
+<li>☑ M15 VAT of the year in section 18: Python and Excel-AI 0.9.2 (row <code>vatgen</code>: VAT_WEO to LastHistPriceYear, then held).</li>
+<li>☑ M16 freight BEV feebate at the BEV distance: Python and Excel-AI 0.9.2.</li>
+<li>☑ M17 plug-in hybrid: insurance on the BEV price, ICE maintenance (row <code>trimphv.pas.phv</code>): Python aligned with Excel-AI 0.9.2.</li>
+<li><label><input type="checkbox" checked="">M18 bus electricity: withdrawn (not a bug: all base-year bus energy electrifies with the passenger share, as legacy).</label></li>
+<li>☑ M19 <code>gdpn</code> in bn: Python and Excel-AI 0.9.2.</li>
+<li>☑ M20 gas series read by position, LNG and Europe swapped: World Bank and IEA blocks (Excel-AI 0.9.2); Python reads the IEA block by its World Bank labels (its own gas labels are swapped).</li>
+<li>☑ M21 methane fee: no cap where b &lt;= 0 or the cap overflows: Python aligned with Excel-AI 0.9.2.</li>
+<li>☑ M22 Distribution percentile recycling rows: Python and Distribution 0.1.4.</li>
+</ul>
+</section>
+<section id="later-not-now" class="level3" data-number="C.4.9">
+<h3 data-number="C.4.9" class="anchored" data-anchor-id="later-not-now"><span class="header-section-number">C.4.9</span> Later (not now)</h3>
+<ul class="task-list">
+<li><label><input type="checkbox">Demand forms through <code>ModelForm</code>: <code>CPAT partial adjustment</code>, <code>CES partial adjustment</code> (CES-compatible service prices), <code>CDPM-FTT</code> (SISEPUEDE-like and FTT-like); each added to Excel-AI and Python together.</label></li>
+<li><label><input type="checkbox" checked="">Air-pollution and transport co-benefits modules: out of scope (user 2026-10-29; Excel-AI upgrades U18, U19). Coded CPAT keeps the typed legacy values of FromAirPollution and FromTransportCB, as Excel-AI. CBAM process emissions, green public investment and the emissions intensity of industrial output are out of scope too (U15-U17).</label></li>
+</ul>
+</section>
+<section id="existing-open-items-before-the-project-to-be-absorbed-by-the-phases-above" class="level3" data-number="C.4.10">
+<h3 data-number="C.4.10" class="anchored" data-anchor-id="existing-open-items-before-the-project-to-be-absorbed-by-the-phases-above"><span class="header-section-number">C.4.10</span> Existing open items (before the project; to be absorbed by the phases above)</h3>
+<p>Status (user 2026-10-20): the Python part was about 40% complete. Most items below are resolved by the rebuild (phases 2-4) rather than fixed in the old code; each is closed with a note when its phase is done.</p>
+<ul>
+<li>☑ <strong>Distribution: carbon-pricing revenue units.</strong> (closed by phase 4.2, 2026-10-29: the new distribution module.) <code>derive_cp_revenue_from_scenarios</code> multiplies the carbon price (USD/t) by emissions (Mt), i.e.&nbsp;USD million, while the recycling steps treat it as local currency against household consumption in LCU; convert (exchange rate, millions) and validate against the Excel <code>MTOutputs</code> revenue. Until then recycling effects from a model run are far too small (the tests use the Excel revenue, so they are not affected).</li>
+<li>☑ <strong>Distribution: national totals.</strong> (closed by phase 4.2, 2026-10-29: the new distribution module.) <code>run_distribution</code> passes <code>national_totals=None</code> (the survey’s own population and consumption); wire population and household consumption (GDP x <code>distn_gdp_ratios</code>) once GDP exposes a real consumption series.</li>
+<li>☑ <strong>Distribution: projected electricity price.</strong> (closed by phase 4.2, 2026-10-29: the new distribution module.) It now uses the power model’s simplified price (last historical price + carbon price x emission intensity, <code>power.demand.rp_demand</code>); switch to the full electricity price build-up (legacy G1, G2) when it is ported. <code>EnergyPrices.ele_prices['rp']</code> holds historical years only.</li>
+<li>☑ <strong>Distribution in the Shiny app and the indicators</strong> (closed 2026-10-29 by 6.2: the app shows the household effect by decile and five indicators) (results tables by decile).</li>
+<li><label><input type="checkbox" checked=""><strong>Data: other oil products</strong> (closed 2026-10-29: about the old sample data (retired with the old code); Coded CPAT reads the tidy data and matches Excel-AI) fall to the 0.01 price floor in the sample data (negative retail price in 2024), so their price change is 0; check the data.</label></li>
+<li><label><input type="checkbox" checked=""><strong>Data loaders</strong> (closed 2026-10-29: superseded by D6, tidy CSV (<code>cpat_model/data/</code>)): the target format is <code>.pkl.bz2</code> (developer guide); the policies, GHGs and CH4 loaders read CSV from <code>DATA_PATH</code> until the pickles exist there.</label></li>
+<li>☑ Port the validated mitigation logic of the Excel prototype, CPAT-AI-Mitigation-Prototype (<code>../excel_ai/mitigation/</code>; methods in <code>docs/methods/</code>), keeping the codes identical; the prototype’s Python recomputations (<code>check_full.py</code>, <code>power_model_ref.py</code>, <code>transport_model_ref.py</code>, <code>distribution_ref.py</code>) are a starting point. (closed 2026-10-29 by phase 3: every Mitigation section replicated)</li>
+<li><label><input type="checkbox"><strong>Legacy export: missing price columns and Balances.</strong> <code>export_to_legacy.py</code> (archived with <code>data_old/</code> on 2026-10-30; the legacy layout now comes from <code>../data/scripts/tidy_convert.py</code> and <code>legacy_proprietary.py</code>: check whether this item still holds) left 48 <code>Prices_dom</code> columns blank (source/reliability flags, <code>taxa</code>, <code>sub.or</code>, production, spot prices) and cannot write the IEA flow-level <code>Balances</code> sheet; add them to the real data (or a second source) if legacy runs need them. Confirm a paste into the full legacy workbook in Excel.</label></li>
+<li><label><input type="checkbox"><strong>Data workbook, CPAT format: the multi-table legacy tabs.</strong> <code>convert_data_workbook.py</code> (archived with <code>data_old/</code> on 2026-10-30; <code>../data/scripts/tidy_blocks.py</code> now keeps the multi-table legacy tabs at their addresses: check whether this item still holds) wrote 17 legacy data sheets; 21 tables are still carried in the Python layout (<code>py_</code> sheets) because their legacy tab holds several tables at fixed addresses: ECP (<code>existing_ct</code>, <code>existing_ets_nat</code>, <code>existing_ets_reg</code>, <code>do_ct_ets_exist</code>), Power (<code>mpp</code>, <code>lcoe_tmp</code>), Prices_int (<code>prices_int</code>), Elasticities (<code>elasticities</code>), Mapping (the five <code>distn_mapping_*</code>), the GHG shocks block of GHGs (<code>ghg_adjustments</code>) and tables with no legacy sheet (<code>co2_efs_global</code>, <code>co_benefits_ffs</code>, <code>fuel_carbon_price_inclusion</code>, <code>sectors_carbon_price_inclusion</code>, <code>global_fuel_demand</code>, <code>ic</code>, <code>int_prices_reg_assumptions</code>). Map each to its legacy block (<code>legacy_&lt;Tab&gt;_cells.csv</code> in the legacy-form cache <code>.buildcache/legacy_csv/&lt;edition&gt;/</code>, <code>../data/scripts/legacy_csv.py</code>, give the addresses). Also confirm the four WEO code renames (BCA_BP6, BCA_GDP_BP6, ENDA, PCPI_PCH) with the team.</label></li>
+<li>☑ <strong>Data loaders: CSV float precision.</strong> (closed 2026-10-29: <code>cpat_model/data/database.py</code> <code>to_float</code> parses exactly (pandas missed the last digit of about a third of values)) pandas’ default float parser can be up to about 1e-12 off the CSV text (e.g.&nbsp;<code>0.0001198124434142994</code> reads as <code>0.0001198124434142</code>); <code>export_to_legacy.py</code> now reads with <code>float_precision='round_trip'</code>; the model’s loaders still use the default.</li>
+<li><label><input type="checkbox" checked=""><strong>Input keys: the rest of the names.</strong> (closed 2026-10-29: the old input dictionaries are retired; scenario sets use the ScenarioDefinition names (<code>NameOfParameter</code>)) v0.8.4 renamed the input keys to the ScenarioDefinition names (<code>NameOfParameter</code>, codes map tab Inputs). Still to do: split the keys that stand for a policy input and its baseline twin (<code>energy_sector_reform</code>: ProdSubPh / ProdSubPhaBaseline, FFSProdPhaseoutPeriod / FFSProdPhaseoutPeriodBA, ShareofProdSubPha / ShareOfProdSubPhaBA, ConsSubPha / ConsSubPhaBaseline, FFPhaseOut / FFSConsPhaseoutPeriodBA, ShareOfConsSubPha / ShareofConsSubPhaBA; CTaxTrajectoryType / ExtendCarbonPriceBeyondOutro), flatten the groups <code>adj_eff_margins_shadow_pricing</code> (SPPEffAdj<em>) and <code>additional_eff_gains</code> (AdditionalEfficiency</em>), use legacy option values (ScenarioSelected ’ - Carbon tax’, AddEfficientTaxes, PublicInfrastructureInvType), and read the inputs from a ScenarioDefinition sheet. Python-only inputs without a legacy row: behavioral_response_adj_factor, exempt_cooking_fuel_code, exempt_cooking_fuel_share, labor_tax_cut_coefficient.</label></li>
+<li>☑ <strong>Port the remaining functionality of v0.9.0</strong> (closed 2026-10-29: Coded CPAT replicates Excel-AI 0.9.2, which holds them; R4, R5, R12 stay deferred in Excel-AI as well) (Excel built R1-R3, R6-R11, R13 and the reverts LD1, LD10, I47, LD16, LD80 on 2026-10-29; R4, R5, R12 deferred by the user, branch <code>wip-r4-r5-r12</code>): port the new rows from <code>../excel_ai/mitigation/docs/Equations_addendum.md</code> (A reverts and R13, B R1-R2, C R3, D R11, E R6-R10, F output blocks), next to <code>Equations.md</code>, keeping the codes of the prototype (<code>&lt;variable&gt;.&lt;sector&gt;.&lt;fuel&gt;</code>; deviations from the addendum codes in <code>../CAVEATS.md</code> 2026-10-29). Data: <code>../data_old/range_anxiety_fit/</code> (range-anxiety start values fitted on the prototype). Not to port yet: R4, R5, R12.</li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./B_Reference.html" class="pagination-link" aria-label="Data, inputs and variables">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Data, inputs and variables</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool. Documentation release 1.1.0 (2026-10-30): Excel-AI 1.1.0, Coded CPAT 1.1.0p1.3, data edition Public01</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

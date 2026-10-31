@@ -366,7 +366,7 @@ determined by the tax-induced price changes of fossil fuels, as well as
 by the direct and indirect energy consumption bundles of households;
 that is, by households' direct fuel combustion or use of electricity,
 and the indirect consumption of energy embedded in other goods and
-services. Thus, the proportion of additional expenditures *P* of
+services. Thus, the proportion of additional expenditures $p_{j}$ of
 individual *j* after the policy intervention is a multiplicative
 function of (i) average energy intensities $\overline{e_{\text{fg}}}$
 (USD/USD) of fuel *f* of consumption items from each sector *g (note
@@ -381,7 +381,7 @@ $$p_{j} = \sum_{\text{fg}}p_{\text{fgj}}  = \frac{\sum_{\text{fg}}{\overline{e_{
 
 The **tax-induced price changes of fossil fuels** (c.f. @tbl-5_1 for a
 list of fuels), which determine households' additional expenditures on
-direct fuel consumption (for f=g, in @eq-5_3), are a function of fuels'
+direct fuel consumption (for $f \in g$, in @eq-5_2), are a function of fuels'
 carbon intensities, $e_{f}$, measured by emissions factors, and
 pre-existing price distortions in the Mitigation Module. For each
 user-defined carbon fiscal scenario, price changes are obtained from the
@@ -441,7 +441,7 @@ the economy-wide fuel use volumes of these products (in ktoe from IEA
 +--------------------------+-----------------------+
 | Coal (coa)               | coa                   |
 +--------------------------+-----------------------+
-| Electricity (ely)        | ely                   |
+| Electricity (ecy)        | ely                   |
 +--------------------------+-----------------------+
 | Natural gas (nga)        | gas/gdt               |
 +--------------------------+-----------------------+

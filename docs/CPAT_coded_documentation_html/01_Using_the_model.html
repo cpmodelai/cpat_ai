@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1&nbsp; Using the model – CPAT Python</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./02_How_it_works.html" rel="next">
+<link href="./index.html" rel="prev">
+<link href="././00/media/image1.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-d8e5dfa8330daa7b2a69354212dbf2ec.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01_Using_the_model.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Using the model</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">CPAT Python</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CPAT Python</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_Using_the_model.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Using the model</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_How_it_works.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">How it works</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A_Equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Equations</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./B_Reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Data, inputs and variables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C_Project.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Project documents</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title"><strong><em>Chapter Contents</em></strong></h2>
+   
+  <ul>
+  <li><a href="#sec-quick-start" id="toc-sec-quick-start" class="nav-link active" data-scroll-target="#sec-quick-start"><span class="header-section-number">1.1</span> Quick start</a>
+  <ul class="collapse">
+  <li><a href="#what-coded-cpat-is" id="toc-what-coded-cpat-is" class="nav-link" data-scroll-target="#what-coded-cpat-is"><span class="header-section-number">1.1.1</span> What Coded CPAT is</a></li>
+  <li><a href="#install" id="toc-install" class="nav-link" data-scroll-target="#install"><span class="header-section-number">1.1.2</span> Install</a></li>
+  <li><a href="#run-it" id="toc-run-it" class="nav-link" data-scroll-target="#run-it"><span class="header-section-number">1.1.3</span> Run it</a></li>
+  <li><a href="#speed" id="toc-speed" class="nav-link" data-scroll-target="#speed"><span class="header-section-number">1.1.4</span> Speed</a></li>
+  <li><a href="#where-things-are" id="toc-where-things-are" class="nav-link" data-scroll-target="#where-things-are"><span class="header-section-number">1.1.5</span> Where things are</a></li>
+  </ul></li>
+  <li><a href="#sec-database" id="toc-sec-database" class="nav-link" data-scroll-target="#sec-database"><span class="header-section-number">1.2</span> The database</a>
+  <ul class="collapse">
+  <li><a href="#in-short" id="toc-in-short" class="nav-link" data-scroll-target="#in-short"><span class="header-section-number">1.2.1</span> In short</a></li>
+  <li><a href="#what-a-table-looks-like" id="toc-what-a-table-looks-like" class="nav-link" data-scroll-target="#what-a-table-looks-like"><span class="header-section-number">1.2.2</span> What a table looks like</a></li>
+  <li><a href="#the-tables-by-group" id="toc-the-tables-by-group" class="nav-link" data-scroll-target="#the-tables-by-group"><span class="header-section-number">1.2.3</span> The tables, by group</a></li>
+  <li><a href="#adding-or-updating-data" id="toc-adding-or-updating-data" class="nav-link" data-scroll-target="#adding-or-updating-data"><span class="header-section-number">1.2.4</span> Adding or updating data</a></li>
+  </ul></li>
+  <li><a href="#sec-scenarios" id="toc-sec-scenarios" class="nav-link" data-scroll-target="#sec-scenarios"><span class="header-section-number">1.3</span> Scenarios and inputs</a>
+  <ul class="collapse">
+  <li><a href="#in-short-1" id="toc-in-short-1" class="nav-link" data-scroll-target="#in-short-1"><span class="header-section-number">1.3.1</span> In short</a></li>
+  <li><a href="#the-file" id="toc-the-file" class="nav-link" data-scroll-target="#the-file"><span class="header-section-number">1.3.2</span> The file</a></li>
+  <li><a href="#rules" id="toc-rules" class="nav-link" data-scroll-target="#rules"><span class="header-section-number">1.3.3</span> Rules</a></li>
+  <li><a href="#making-a-scenario" id="toc-making-a-scenario" class="nav-link" data-scroll-target="#making-a-scenario"><span class="header-section-number">1.3.4</span> Making a scenario</a></li>
+  </ul></li>
+  <li><a href="#sec-results" id="toc-sec-results" class="nav-link" data-scroll-target="#sec-results"><span class="header-section-number">1.4</span> Results</a>
+  <ul class="collapse">
+  <li><a href="#in-short-2" id="toc-in-short-2" class="nav-link" data-scroll-target="#in-short-2"><span class="header-section-number">1.4.1</span> In short</a></li>
+  <li><a href="#reading-a-code" id="toc-reading-a-code" class="nav-link" data-scroll-target="#reading-a-code"><span class="header-section-number">1.4.2</span> Reading a code</a></li>
+  <li><a href="#common-results" id="toc-common-results" class="nav-link" data-scroll-target="#common-results"><span class="header-section-number">1.4.3</span> Common results</a></li>
+  <li><a href="#in-python" id="toc-in-python" class="nav-link" data-scroll-target="#in-python"><span class="header-section-number">1.4.4</span> In Python</a></li>
+  </ul></li>
+  <li><a href="#sec-editing" id="toc-sec-editing" class="nav-link" data-scroll-target="#sec-editing"><span class="header-section-number">1.5</span> Editing the model</a>
+  <ul class="collapse">
+  <li><a href="#the-rules-in-ten-lines" id="toc-the-rules-in-ten-lines" class="nav-link" data-scroll-target="#the-rules-in-ten-lines"><span class="header-section-number">1.5.1</span> The rules in ten lines</a></li>
+  <li><a href="#the-code-map" id="toc-the-code-map" class="nav-link" data-scroll-target="#the-code-map"><span class="header-section-number">1.5.2</span> The code map</a></li>
+  <li><a href="#how-a-block-looks" id="toc-how-a-block-looks" class="nav-link" data-scroll-target="#how-a-block-looks"><span class="header-section-number">1.5.3</span> How a block looks</a></li>
+  <li><a href="#changing-an-equation" id="toc-changing-an-equation" class="nav-link" data-scroll-target="#changing-an-equation"><span class="header-section-number">1.5.4</span> Changing an equation</a></li>
+  <li><a href="#adding-a-block" id="toc-adding-a-block" class="nav-link" data-scroll-target="#adding-a-block"><span class="header-section-number">1.5.5</span> Adding a block</a></li>
+  </ul></li>
+  <li><a href="#sec-testing" id="toc-sec-testing" class="nav-link" data-scroll-target="#sec-testing"><span class="header-section-number">1.6</span> Testing</a>
+  <ul class="collapse">
+  <li><a href="#in-short-3" id="toc-in-short-3" class="nav-link" data-scroll-target="#in-short-3"><span class="header-section-number">1.6.1</span> In short</a></li>
+  <li><a href="#current-status" id="toc-current-status" class="nav-link" data-scroll-target="#current-status"><span class="header-section-number">1.6.2</span> Current status</a></li>
+  <li><a href="#the-tests" id="toc-the-tests" class="nav-link" data-scroll-target="#the-tests"><span class="header-section-number">1.6.3</span> The tests</a></li>
+  <li><a href="#when-to-run-what" id="toc-when-to-run-what" class="nav-link" data-scroll-target="#when-to-run-what"><span class="header-section-number">1.6.4</span> When to run what</a></li>
+  <li><a href="#the-comparison-with-excel-ai" id="toc-the-comparison-with-excel-ai" class="nav-link" data-scroll-target="#the-comparison-with-excel-ai"><span class="header-section-number">1.6.5</span> The comparison with Excel-AI</a></li>
+  <li><a href="#known-differences" id="toc-known-differences" class="nav-link" data-scroll-target="#known-differences"><span class="header-section-number">1.6.6</span> Known differences</a></li>
+  <li><a href="#systematic-comparisons-phase-5" id="toc-systematic-comparisons-phase-5" class="nav-link" data-scroll-target="#systematic-comparisons-phase-5"><span class="header-section-number">1.6.7</span> Systematic comparisons (phase 5)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-using" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Using the model</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Everything you need to run Coded CPAT, find your way in its data and results, change it and test it.</p>
+<section id="sec-quick-start" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="sec-quick-start"><span class="header-section-number">1.1</span> Quick start</h2>
+<section id="what-coded-cpat-is" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="what-coded-cpat-is"><span class="header-section-number">1.1.1</span> What Coded CPAT is</h3>
+<ul>
+<li><strong>A replication.</strong> Coded CPAT computes what the Excel-AI prototypes compute: the mitigation model (prices, power, fuel use, emissions, revenues, GDP effects, welfare, for 2022-2041) and the household distribution module (incidence by decile). The tests check every output code against Excel-AI’s values.</li>
+<li><strong>Readable code.</strong> Each equation of the <a href="./A_Equations.html#sec-app-eq">equation list</a> is one small function or one marked line, with the code names of the Excel models (<code>ener</code> energy use, <code>atp</code> after-tax price, <code>co2</code> emissions, …).</li>
+<li><strong>One entry point.</strong> <code>cpat_model.run(scenarios, settings)</code> serves the command line, the Shiny app and the tests.</li>
+<li><strong>Bugs are not copied.</strong> Where Excel-AI has a bug, Coded CPAT fixes it and registers it (<a href="./C_Project.html#sec-app-bugs">Appendix C</a>); everything else follows Excel-AI exactly.</li>
+</ul>
+</section>
+<section id="install" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="install"><span class="header-section-number">1.1.2</span> Install</h3>
+<p>Python 3.12 (3.13 works), from the <code>coded/</code> folder of the repository:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">-f</span> environment.yml <span class="kw">&amp;&amp;</span> <span class="ex">conda</span> activate cpat_p</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or, without conda:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-r</span> requirements.txt <span class="at">-r</span> dev-requirements.txt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="run-it" class="level3" data-number="1.1.3">
+<h3 data-number="1.1.3" class="anchored" data-anchor-id="run-it"><span class="header-section-number">1.1.3</span> Run it</h3>
+<p><strong>Command line</strong>: a scenario-set file in, results out.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> run_model.py                                      <span class="co"># Excel-AI's six scenarios for Egypt</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> run_model.py my_set.csv <span class="at">--scenarios</span> 1 2 <span class="at">--xlsx</span>    <span class="co"># your own scenario set; also one workbook</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Results go to <code>coded/outputs/</code> (or <code>--out</code>): <code>mitigation_EGY.csv</code> (one row per output code, years 2022-2041) and <code>distribution_EGY.csv</code> (basket and ten deciles).</p>
+<p><strong>From Python:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cpat_model</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cpat_model.inputs <span class="im">import</span> read_scenario_set</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> cpat_model.run(read_scenario_set())                   <span class="co"># dummy database, Egypt</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>results.by_code(<span class="st">'EGY'</span>).loc[<span class="st">'egy.mit.co2.tot.tot.2'</span>]             <span class="co"># CO2 of scenario 2, by year</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>results.distribution_by_code(<span class="st">'EGY'</span>).loc[<span class="st">'egy.distn.net.tot.dec.ove.2'</span>]   <span class="co"># net effect by decile</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>The app:</strong> <code>shiny run app.py</code> (from <code>coded/</code>), then open the address it prints. Build carbon-tax scenarios, run them, and look at tables and graphs.</p>
+</section>
+<section id="speed" class="level3" data-number="1.1.4">
+<h3 data-number="1.1.4" class="anchored" data-anchor-id="speed"><span class="header-section-number">1.1.4</span> Speed</h3>
+<p>A first run in a session takes about 3 seconds (reading the data and the baseline). After that, a run of one country and two scenarios takes under a second: the baseline, the data steps and every scenario already run are cached, so only changed scenarios are computed.</p>
+</section>
+<section id="where-things-are" class="level3" data-number="1.1.5">
+<h3 data-number="1.1.5" class="anchored" data-anchor-id="where-things-are"><span class="header-section-number">1.1.5</span> Where things are</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Path</th>
+<th>What</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>coded/cpat_model/</code></td>
+<td>The model</td>
+</tr>
+<tr class="even">
+<td><code>coded/run_model.py</code>, <code>coded/app.py</code>, <code>coded/cpat_shiny/</code></td>
+<td>Command line and app</td>
+</tr>
+<tr class="odd">
+<td><code>coded/cpat_testing/</code></td>
+<td>Tests and the comparison with Excel-AI</td>
+</tr>
+<tr class="even">
+<td><code>data/Public01/tidy/</code></td>
+<td>The database (tidy CSV)</td>
+</tr>
+<tr class="odd">
+<td><code>data/inputs/scenarios_excel_ai.csv</code></td>
+<td>Excel-AI’s scenario set (the example)</td>
+</tr>
+<tr class="even">
+<td><code>coded/NORMS.md</code>, <code>coded/TODO.md</code></td>
+<td>The rules for working on the code; the plan</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="sec-database" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="sec-database"><span class="header-section-number">1.2</span> The database</h2>
+<section id="in-short" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="in-short"><span class="header-section-number">1.2.1</span> In short</h3>
+<ul>
+<li><strong>Format: tidy CSV.</strong> One table per file; long format, one observation per row; standard keys first, then <code>value</code> (or one column per variable). Country codes are ISO3 in upper case (<code>EGY</code>).</li>
+<li><strong>Where: <code>data/Public01/tidy/</code></strong> in this repository: the <strong>dummy</strong> database. It is data edition Public01 (<code>data/editions.csv</code>): the public data, and Egypt’s rows of the six proprietary tables perturbed within ±3% (identities kept); every country can be added. The <strong>full</strong> database (every country, the proprietary tables) lives in a private repository, never in this one.</li>
+<li><strong>Choosing a database:</strong> <code>Settings(database='dummy')</code> (default) reads <code>data/Public01/tidy/</code>; <code>Settings(database='full')</code> reads the folder named by the environment variable <code>FULL_DATA_PATH</code> (set it in <code>coded/.env</code> or your shell). Command line: <code>--database full</code>.</li>
+<li><strong>One table list:</strong> <code>data/Public01/tidy/_manifest.csv</code> lists every table (218 tables, plus the layout entries of the 13 tabs kept at their cell addresses), its kind, its legacy source, its keys, rows and whether it is proprietary. <a href="./B_Reference.html#sec-app-tables">Appendix B</a> shows them all with their columns.</li>
+<li><strong>Tidy is the source of truth.</strong> The legacy-compatible workbook <code>data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx</code> is written from it by <code>data/scripts/tidy_convert.py</code> (tested round trip), for pasting into legacy CPAT and for Excel-AI.</li>
+<li><strong>Master table:</strong> <code>data/catalog.csv</code> lists every data table: tidy file, Excel tab, proprietary or not, provenance, and the legacy data sources.</li>
+</ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Proprietary data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Six tables are proprietary: energy balances (<code>energy_balances</code>), energy consumption (<code>energy_consumption</code>), domestic prices (<code>prices_domestic</code>), the GTAP input-output tables (<code>io_gtap</code>), the household survey (<code>hh_survey</code>) and the transport scatter data (<code>tran_scatter</code>). Their full versions, and anything computed from them, are <strong>never committed to this repository</strong>. The repository holds them only perturbed (Egypt’s rows within ±3%, identities kept; <code>data/README.md</code>).</p>
+</div>
+</div>
+</section>
+<section id="what-a-table-looks-like" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="what-a-table-looks-like"><span class="header-section-number">1.2.2</span> What a table looks like</h3>
+<pre class="text"><code>data/Public01/tidy/energy_balances.csv            data/Public01/tidy/prices_domestic.csv
+country,year,unit,flow,fuel,value        country,year,code,value
+EGY,2022,ktoe,cement,ecy,1158.39         EGY,2019,VAT_WEO,0.14
+EGY,2022,ktoe,cement,coa,1422.24         EGY,2019,mit.sp.coa.pow,3.88</code></pre>
+<p>Keys come first (country, year, codes), then the value. Years, fuels, sectors and price codes are columns of keys, not column headers. A blank is a missing value.</p>
+</section>
+<section id="the-tables-by-group" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3" class="anchored" data-anchor-id="the-tables-by-group"><span class="header-section-number">1.2.3</span> The tables, by group</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Group</th>
+<th>Examples</th>
+<th>What for</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Energy</td>
+<td><code>energy_balances</code>, <code>energy_consumption</code></td>
+<td>Base-year fuel use by sector and fuel</td>
+</tr>
+<tr class="even">
+<td>Prices</td>
+<td><code>prices_domestic</code>, <code>pint_imf</code>, <code>pint_wb</code>, <code>pint_iea</code></td>
+<td>Domestic price build-up; international price forecasts</td>
+</tr>
+<tr class="odd">
+<td>Macro</td>
+<td><code>weo</code>, <code>gdp_ratios</code>, <code>un_population</code></td>
+<td>GDP, deflators, exchange rates, population</td>
+</tr>
+<tr class="even">
+<td>Power</td>
+<td><code>power_*</code></td>
+<td>Power plants, costs, capacity paths</td>
+</tr>
+<tr class="odd">
+<td>Elasticities</td>
+<td><code>ela_*</code></td>
+<td>Price, income and efficiency elasticities</td>
+</tr>
+<tr class="even">
+<td>Emissions</td>
+<td><code>ef_ghg</code>, <code>ef_local_pollutants</code>, <code>ghg_*</code>, <code>ch4_inputs</code></td>
+<td>Emission factors, other gases, methane</td>
+</tr>
+<tr class="odd">
+<td>Carbon pricing</td>
+<td><code>ecp_*</code>, <code>ets_assumptions</code></td>
+<td>Existing carbon taxes and ETSs</td>
+</tr>
+<tr class="even">
+<td>Transport</td>
+<td><code>transport_*</code></td>
+<td>The road engineer model</td>
+</tr>
+<tr class="odd">
+<td>Distribution</td>
+<td><code>hh_survey</code>, <code>hh_elasticities</code>, <code>io_gtap</code>, <code>aspire</code>, <code>who_cooking</code>, <code>distn_*</code></td>
+<td>Household survey, input-output, social programmes</td>
+</tr>
+<tr class="even">
+<td>Modules</td>
+<td><code>air_*</code>, <code>transport_cost_per_km</code></td>
+<td>Values from the air-pollution and transport co-benefits modules</td>
+</tr>
+<tr class="odd">
+<td>Manual inputs</td>
+<td><code>mi_*</code></td>
+<td>Excel-AI’s Manual inputs tab</td>
+</tr>
+</tbody>
+</table>
+<p><code>data/Public01/tidy/_layout/</code> holds what is not data (legacy headers, row order, notes) so the legacy form can be rebuilt; never edit it.</p>
+</section>
+<section id="adding-or-updating-data" class="level3" data-number="1.2.4">
+<h3 data-number="1.2.4" class="anchored" data-anchor-id="adding-or-updating-data"><span class="header-section-number">1.2.4</span> Adding or updating data</h3>
+<ol type="1">
+<li><strong>Edit the tidy table</strong> (add the country’s rows with the same keys), then rewrite the legacy workbook (<code>python data/scripts/tidy_convert.py to-xlsx</code>, see <code>data/README.md</code>).</li>
+<li><strong>Run the data tests</strong>: <code>python -m pytest data/tests</code> (the round trip tidy to workbook to tidy must give every value back, and the committed workbook must be current).</li>
+<li><strong>Run the model</strong> for the country (<code>python run_model.py --countries XXX</code>). A country needs at least its energy balance and domestic prices; the app offers only countries that have both.</li>
+</ol>
+<p>Every data table, with its proprietary status and provenance: <code>data/catalog.csv</code> (<code>data/README.md</code>).</p>
+</section>
+</section>
+<section id="sec-scenarios" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="sec-scenarios"><span class="header-section-number">1.3</span> Scenarios and inputs</h2>
+<section id="in-short-1" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="in-short-1"><span class="header-section-number">1.3.1</span> In short</h3>
+<ul>
+<li><strong>A scenario set is one CSV file</strong>: one row per input, one column per scenario. Scenario 1, the <strong>baseline</strong>, comes first; every other scenario is compared with it.</li>
+<li><strong>Inputs are named as in Excel-AI</strong> (<code>NameOfParameter</code>, the ScenarioDefinition sheet): <code>CPLevelTarget</code>, <code>CPIntro</code>, <code>IntEnerPricForeSource</code>, … Every input is listed in <a href="./B_Reference.html#sec-app-inputs">Appendix B</a>.</li>
+<li><strong>The example</strong> is Excel-AI’s own set, <code>data/inputs/scenarios_excel_ai.csv</code> (six scenarios for Egypt). Copy it and change the values to make your own.</li>
+</ul>
+</section>
+<section id="the-file" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="the-file"><span class="header-section-number">1.3.2</span> The file</h3>
+<pre class="text"><code>row,name,label,unit,1,2,3
+,_ScenarioName,Scenario name,,Baseline (no carbon price),Carbon price 20/tCO2 from 2027,...
+,_Countries,Countries,ISO3,EGY,EGY,EGY
+...,CPIntro,Year the carbon price starts,year,2027,2027,...
+...,CPLevelTarget,Carbon price in the target year,USD/tCO2,0,20,...</code></pre>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>row</code></td>
+<td>The input’s row in Excel-AI’s ScenarioDefinition (blank for meta rows and Python additions)</td>
+</tr>
+<tr class="even">
+<td><code>name</code></td>
+<td>The input’s name (<code>NameOfParameter</code>); rows starting with <code>_</code> are meta rows (scenario name, countries)</td>
+</tr>
+<tr class="odd">
+<td><code>label</code>, <code>unit</code></td>
+<td>What it is and its unit, for people</td>
+</tr>
+<tr class="even">
+<td><code>1</code>, <code>2</code>, …</td>
+<td>The value in each scenario</td>
+</tr>
+</tbody>
+</table>
+<p>Values are as in Excel-AI: numbers, or the options of Excel-AI’s drop-down lists as text (<code>Yes*</code>, <code>Linear*</code>, <code>IMF</code>). A star marks Excel-AI’s default option.</p>
+</section>
+<section id="rules" class="level3" data-number="1.3.3">
+<h3 data-number="1.3.3" class="anchored" data-anchor-id="rules"><span class="header-section-number">1.3.3</span> Rules</h3>
+<ol type="1">
+<li><strong>Scenario 1 is the baseline</strong> and must be the first column. It is run first; the policy scenarios read their baseline values from it.</li>
+<li><strong>Global inputs come from scenario 1</strong> (D16): a few inputs hold for the whole run (results year, last historical price year, social cost of carbon settings, price controls, …; <code>GLOBAL_INPUTS</code> in <code>cpat_model/inputs/scenarios.py</code>). If another scenario sets a different value, the run warns and uses the baseline’s, as Excel-AI does.</li>
+<li><strong>Countries</strong> come from <code>--countries</code> on the command line, else from the <code>_Countries</code> row, else Egypt. All scenarios of a run use the same countries.</li>
+<li><strong>An unknown input name is an error</strong> (<code>inputs['X']</code> raises), so a typo cannot pass silently.</li>
+</ol>
+</section>
+<section id="making-a-scenario" class="level3" data-number="1.3.4">
+<h3 data-number="1.3.4" class="anchored" data-anchor-id="making-a-scenario"><span class="header-section-number">1.3.4</span> Making a scenario</h3>
+<p>To add a carbon tax of 50 USD/tCO2 by 2035 starting in 2027: copy the column of scenario 2, give it a new number and name, and set <code>CPIntro</code> = 2027, <code>CPOutro</code> = 2035, <code>CPLevelTarget</code> = 50. The app does the same from its form: its scenarios are copies of Excel-AI’s carbon-tax column with the form’s values written over them (<a href="./02_How_it_works.html#sec-app">The app</a>).</p>
+</section>
+</section>
+<section id="sec-results" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="sec-results"><span class="header-section-number">1.4</span> Results</h2>
+<section id="in-short-2" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="in-short-2"><span class="header-section-number">1.4.1</span> In short</h3>
+<ul>
+<li><strong>Every result has an output code</strong>, the same as Excel-AI’s: <code>&lt;country&gt;.mit.&lt;variable&gt;.&lt;sector&gt;.&lt;fuel&gt;.&lt;scenario&gt;</code> for mitigation (e.g.&nbsp;<code>egy.mit.co2.tot.tot.2</code>: total CO2 of scenario 2) and <code>&lt;country&gt;.distn.&lt;variable&gt;....&lt;group&gt;</code> for distribution.</li>
+<li><strong><code>results.by_code(country)</code></strong>: a table of every mitigation row, index = output code, columns = years 2022-2041.</li>
+<li><strong><code>results.distribution_by_code(country)</code></strong>: every row of the Distribution sheet, columns 0 (the basket, all households) and 1-10 (the deciles, poorest first).</li>
+<li><strong><code>run_model.py</code> writes both</strong> as CSV, the mitigation table with each row’s variable, sector, fuel, description and unit.</li>
+</ul>
+</section>
+<section id="reading-a-code" class="level3" data-number="1.4.2">
+<h3 data-number="1.4.2" class="anchored" data-anchor-id="reading-a-code"><span class="header-section-number">1.4.2</span> Reading a code</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Part</th>
+<th>Example</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Country</td>
+<td><code>egy</code></td>
+<td>ISO3, lower case</td>
+</tr>
+<tr class="even">
+<td>Module</td>
+<td><code>mit</code>, <code>distn</code></td>
+<td>Mitigation or distribution</td>
+</tr>
+<tr class="odd">
+<td>Variable</td>
+<td><code>co2</code>, <code>ener</code>, <code>atp</code>, <code>rnew</code></td>
+<td>What it is (<a href="./B_Reference.html#sec-app-variables">Appendix B</a> lists every variable with its description and unit)</td>
+</tr>
+<tr class="even">
+<td>Sector</td>
+<td><code>rod</code>, <code>res</code>, <code>pow</code>, <code>tot</code></td>
+<td>Subsector, sector group, or the total</td>
+</tr>
+<tr class="odd">
+<td>Fuel</td>
+<td><code>gso</code>, <code>nga</code>, <code>ecy</code>, <code>tot</code></td>
+<td>Fuel, or all fuels</td>
+</tr>
+<tr class="even">
+<td>Scenario</td>
+<td><code>1</code>, <code>2</code></td>
+<td>The scenario’s column number</td>
+</tr>
+</tbody>
+</table>
+<p>Some rows have no sector or fuel (<code>egy.mit.cptraj.2</code>, the carbon price path). A few Excel-AI rows have a different code from their variable (totals use <code>tot</code>, revenue rows <code>rev.usd</code>): <code>core/variables.csv</code> gives the code of every row.</p>
+</section>
+<section id="common-results" class="level3" data-number="1.4.3">
+<h3 data-number="1.4.3" class="anchored" data-anchor-id="common-results"><span class="header-section-number">1.4.3</span> Common results</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>What</th>
+<th>Code (scenario n)</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CO2 emissions, total</td>
+<td><code>egy.mit.co2.tot.tot.n</code></td>
+<td>MtCO2</td>
+</tr>
+<tr class="even">
+<td>Energy use, total</td>
+<td><code>egy.mit.ener.tot.tot.n</code></td>
+<td>ktoe</td>
+</tr>
+<tr class="odd">
+<td>Carbon price</td>
+<td><code>egy.mit.cptraj.n</code></td>
+<td>USD/tCO2 real</td>
+</tr>
+<tr class="even">
+<td>New revenue</td>
+<td><code>egy.mit.rnew.tot.tot.n</code></td>
+<td>USD m real</td>
+</tr>
+<tr class="odd">
+<td>Real GDP</td>
+<td><code>egy.mit.gdp.pos.usd.all.all.n</code></td>
+<td>USD bn</td>
+</tr>
+<tr class="even">
+<td>Net effect on households, by decile</td>
+<td><code>egy.distn.net.tot.dec.ove.n</code></td>
+<td>% of consumption</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="in-python" class="level3" data-number="1.4.4">
+<h3 data-number="1.4.4" class="anchored" data-anchor-id="in-python"><span class="header-section-number">1.4.4</span> In Python</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> cpat_model.run(read_scenario_set())</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> r.by_code(<span class="st">'EGY'</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>t.loc[<span class="st">'egy.mit.co2.tot.tot.2'</span>] <span class="op">/</span> t.loc[<span class="st">'egy.mit.co2.tot.tot.1'</span>] <span class="op">-</span> <span class="dv">1</span>     <span class="co"># CO2 change against the baseline</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>r.states[<span class="dv">2</span>][<span class="st">'co2'</span>]                                                       <span class="co"># the same row as a labelled array</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="sec-editing" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="sec-editing"><span class="header-section-number">1.5</span> Editing the model</h2>
+<section id="the-rules-in-ten-lines" class="level3" data-number="1.5.1">
+<h3 data-number="1.5.1" class="anchored" data-anchor-id="the-rules-in-ten-lines"><span class="header-section-number">1.5.1</span> The rules in ten lines</h3>
+<p>The full rules are the Python norms (<a href="./C_Project.html#sec-app-norms">Appendix C</a>); these are the ones you need first.</p>
+<ol type="1">
+<li><strong>Excel-AI is the specification.</strong> Python computes what Excel-AI computes, row for row, except Excel-AI’s bugs.</li>
+<li><strong>Bugs are not copied; issues are.</strong> A bug (Excel-AI does not compute what it means to) is fixed in Python and registered the same day; an issue (a potential improvement) is logged and copied as it is (<a href="./C_Project.html#sec-app-bugs">Appendix C</a>).</li>
+<li><strong>Codes are shared.</strong> Inputs, variables and outputs carry Excel-AI’s names; never invent a second name.</li>
+<li><strong>One equation, one function.</strong> Each equation of the equation list is a small function or one marked line, citing its id (<code>EQ-M3.1</code>).</li>
+<li><strong>The order is written once</strong>, in <code>cpat_model/mitigation/chain.py</code>.</li>
+<li><strong>Data only through <code>cpat_model/data/</code></strong>, inputs only through <code>cpat_model/inputs/</code>.</li>
+<li><strong>Every change is tested</strong> against Excel-AI’s values (<a href="./01_Using_the_model.html#sec-testing">Testing</a>) before it is committed.</li>
+<li><strong>Never commit proprietary data</strong> or anything computed from them.</li>
+<li><strong>Log every finished task</strong> in <code>CAVEATS.md</code> (what, outputs, checks, caveats) and tick <code>coded/TODO.md</code>.</li>
+<li><strong>Readability first</strong>: short functions, Excel-AI’s names, a comment wherever Python departs from the obvious.</li>
+</ol>
+</section>
+<section id="the-code-map" class="level3" data-number="1.5.2">
+<h3 data-number="1.5.2" class="anchored" data-anchor-id="the-code-map"><span class="header-section-number">1.5.2</span> The code map</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Folder</th>
+<th>What</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>cpat_model/__init__.py</code></td>
+<td><code>run()</code>: the entry point; the version</td>
+</tr>
+<tr class="even">
+<td><code>cpat_model/settings.py</code></td>
+<td>Run settings: database, countries, years</td>
+</tr>
+<tr class="odd">
+<td><code>cpat_model/core/</code></td>
+<td>The run loop (<code>loop.py</code>), rows of a block (<code>rows.py</code>), index sets, the variable registry (<code>variables.csv</code>), Excel-AI constants and tables</td>
+</tr>
+<tr class="even">
+<td><code>cpat_model/data/</code></td>
+<td>Reads the tidy tables</td>
+</tr>
+<tr class="odd">
+<td><code>cpat_model/inputs/</code></td>
+<td>Reads scenario sets</td>
+</tr>
+<tr class="even">
+<td><code>cpat_model/mitigation/</code></td>
+<td>The blocks of Excel-AI’s Mitigation sheet (<a href="./02_How_it_works.html#sec-blocks">The mitigation blocks</a>); <code>*_data.py</code> are the data steps</td>
+</tr>
+<tr class="odd">
+<td><code>cpat_model/distribution/</code></td>
+<td>The distribution module (<a href="./02_How_it_works.html#sec-distribution">The distribution module</a>)</td>
+</tr>
+<tr class="even">
+<td><code>cpat_model/results/</code></td>
+<td><code>Results</code></td>
+</tr>
+<tr class="odd">
+<td><code>cpat_model/air_pollution/</code>, <code>transport_cobenefits/</code></td>
+<td>Placeholder modules (Excel-AI’s typed values)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="how-a-block-looks" class="level3" data-number="1.5.3">
+<h3 data-number="1.5.3" class="anchored" data-anchor-id="how-a-block-looks"><span class="header-section-number">1.5.3</span> How a block looks</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> step(state, db, inputs, settings, baseline, t):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""EQ-M3.2: fuel use, emissions and revenues of every fuel block in year t."""</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    R <span class="op">=</span> year_rows(state, settings)                   <span class="co"># the rows of the year loop</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    k <span class="op">=</span> settings.years.index(t)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    at <span class="op">=</span> <span class="kw">lambda</span> var, sector<span class="op">=</span><span class="va">None</span>, fuel<span class="op">=</span><span class="va">None</span>: R.at(var, k, sector, fuel)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    ...</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    ener <span class="op">=</span> R.<span class="bu">set</span>(<span class="st">'ener'</span>, k, use <span class="op">+</span> leak, s, f)        <span class="co"># row ener.&lt;s&gt;.&lt;f&gt;, year t</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    R.<span class="bu">set</span>(<span class="st">'co2'</span>, k, ener <span class="op">*</span> pj <span class="op">*</span> co2ef, s, f)         <span class="co"># row co2.&lt;s&gt;.&lt;f&gt;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A row is set with <code>R.set(variable, year index, values, sector, fuel)</code> and read with <code>R.at(...)</code>; values are arrays by country. The baseline’s value of a row (Excel-AI’s <code>REFCOL</code>) is <code>reference(R, baseline, k, var, sector, fuel)</code>.</p>
+</section>
+<section id="changing-an-equation" class="level3" data-number="1.5.4">
+<h3 data-number="1.5.4" class="anchored" data-anchor-id="changing-an-equation"><span class="header-section-number">1.5.4</span> Changing an equation</h3>
+<ol type="1">
+<li>Find the Excel-AI rows (the formulas: <code>excel_ai/mitigation/docs/Formulas.md</code>; the variable’s rows: <code>core/variables.csv</code>).</li>
+<li>Change the function; keep the equation id.</li>
+<li>Update the equation in <code>cpat_documentation/equations/equations.yaml</code> and run <code>python make_equations.py</code>.</li>
+<li>Run the tests. If Excel-AI changed too, re-extract the reference values first (<a href="./01_Using_the_model.html#sec-testing">Testing</a>).</li>
+</ol>
+</section>
+<section id="adding-a-block" class="level3" data-number="1.5.5">
+<h3 data-number="1.5.5" class="anchored" data-anchor-id="adding-a-block"><span class="header-section-number">1.5.5</span> Adding a block</h3>
+<p>Write the block in its module (sheet order, equation ids), add it to <code>chain.py</code>, add its variables to <code>BUILT</code> in <code>cpat_testing/test_mitigation.py</code>, add the equations, run the tests, log the task. <a href="./02_How_it_works.html#sec-architecture">Architecture</a> explains the stages a block can run in.</p>
+</section>
+</section>
+<section id="sec-testing" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="sec-testing"><span class="header-section-number">1.6</span> Testing</h2>
+<section id="in-short-3" class="level3" data-number="1.6.1">
+<h3 data-number="1.6.1" class="anchored" data-anchor-id="in-short-3"><span class="header-section-number">1.6.1</span> In short</h3>
+<ul>
+<li><strong>Run <code>pytest</code> from <code>coded/</code></strong> before every commit (about one minute). Everything must pass.</li>
+<li><strong>The main test is the comparison with Excel-AI</strong>: every output code of every built block, for Egypt’s scenarios 1 and 2, every year 2022-2041, must equal Excel-AI’s stored value within 1e-9 (relative where the value is above 1). The distribution sheet is compared the same way, basket and deciles.</li>
+<li><strong>Known differences</strong> are the codes where Coded CPAT fixes an Excel-AI bug that is still open in the prototype; the tests leave them out of the match and check that they do differ (<a href="./C_Project.html#sec-app-bugs">Appendix C</a>).</li>
+<li><strong>The status below is generated</strong>: <code>python make_qmd.py --tests</code> (in <code>docs/CPAT_coded_documentation_qmd/</code>) runs the tests and rewrites it.</li>
+</ul>
+</section>
+<section id="current-status" class="level3" data-number="1.6.2">
+<h3 data-number="1.6.2" class="anchored" data-anchor-id="current-status"><span class="header-section-number">1.6.2</span> Current status</h3>
+<!-- Generated by make_qmd.py --tests -->
+<p><em>Last run: 2026-10-29 16:00, commit <code>d372466</code>: <strong>64 passed, 0 failed</strong>. Regenerate with <code>python make_qmd.py --tests</code>.</em></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Test file</th>
+<th>Passed</th>
+<th>Failed</th>
+<th>Seconds</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>test_compare.py</code></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><code>test_data_steps.py</code></td>
+<td>4</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td><code>test_distribution_incidence.py</code></td>
+<td>10</td>
+<td>0</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td><code>test_equation_ids.py</code></td>
+<td>2</td>
+<td>0</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td><code>test_foundations.py</code></td>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><code>test_mitigation.py</code></td>
+<td>20</td>
+<td>0</td>
+<td>26</td>
+</tr>
+<tr class="odd">
+<td><code>test_recomputations.py</code></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><code>test_run_model.py</code></td>
+<td>2</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td><code>test_shiny_app.py</code></td>
+<td>12</td>
+<td>0</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td><code>test_speed.py</code></td>
+<td>1</td>
+<td>0</td>
+<td>9</td>
+</tr>
+<tr class="odd">
+<td><code>test_stored_outputs.py</code></td>
+<td>6</td>
+<td>0</td>
+<td>10</td>
+</tr>
+</tbody>
+</table>
+<p>Mitigation blocks against Excel-AI (Egypt, scenarios 1 and 2, every code and year):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Block</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3.1 header</td>
+<td>pass</td>
+</tr>
+<tr class="even">
+<td>3.2 policies</td>
+<td>pass</td>
+</tr>
+<tr class="odd">
+<td>3.3 prices</td>
+<td>pass</td>
+</tr>
+<tr class="even">
+<td>3.4 power costs</td>
+<td>pass</td>
+</tr>
+<tr class="odd">
+<td>3.7a fuel prices by subsector</td>
+<td>pass</td>
+</tr>
+<tr class="even">
+<td>3.8 power year step</td>
+<td>pass</td>
+</tr>
+<tr class="odd">
+<td>3.6 road engineer model</td>
+<td>pass</td>
+</tr>
+<tr class="even">
+<td>3.7b fuel use by subsector</td>
+<td>pass</td>
+</tr>
+<tr class="odd">
+<td>3.3b price averages</td>
+<td>pass</td>
+</tr>
+<tr class="even">
+<td>3.9a energy totals</td>
+<td>pass</td>
+</tr>
+<tr class="odd">
+<td>3.9b revenue totals</td>
+<td>pass</td>
+</tr>
+<tr class="even">
+<td>3.10 CO2, other GHGs, NDC</td>
+<td>pass</td>
+</tr>
+<tr class="odd">
+<td>3.10b local air pollutants</td>
+<td>pass</td>
+</tr>
+<tr class="even">
+<td>3.12b air pollution inputs (17b)</td>
+<td>pass</td>
+</tr>
+<tr class="odd">
+<td>3.12a carbon pricing indicators</td>
+<td>pass</td>
+</tr>
+<tr class="even">
+<td>3.12c transport externalities (17b)</td>
+<td>pass</td>
+</tr>
+<tr class="odd">
+<td>3.12d welfare and externalities (18)</td>
+<td>pass</td>
+</tr>
+<tr class="even">
+<td>3.11 GDP effects</td>
+<td>pass</td>
+</tr>
+<tr class="odd">
+<td>3.11b external balance</td>
+<td>pass</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-tests" class="level3" data-number="1.6.3">
+<h3 data-number="1.6.3" class="anchored" data-anchor-id="the-tests"><span class="header-section-number">1.6.3</span> The tests</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Test file</th>
+<th>What it checks</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>test_mitigation.py</code></td>
+<td>Every mitigation block against Excel-AI’s stored values, scenarios 1 and 2 (one test per block, <a href="./02_How_it_works.html#sec-blocks">The mitigation blocks</a>); the known differences</td>
+</tr>
+<tr class="even">
+<td><code>test_distribution_incidence.py</code></td>
+<td>The Distribution sheet by section, scenario groups 1 and 2; the known differences</td>
+</tr>
+<tr class="odd">
+<td><code>test_data_steps.py</code></td>
+<td>The data steps (what Excel-AI computes on its Inputs sheet: prices, power, elasticities, emission factors)</td>
+</tr>
+<tr class="even">
+<td><code>test_foundations.py</code></td>
+<td>Index sets, the variable registry, inputs, the run loop</td>
+</tr>
+<tr class="odd">
+<td><code>test_compare.py</code></td>
+<td>The comparison harness itself (codes, years, tolerance)</td>
+</tr>
+<tr class="even">
+<td><code>test_equation_ids.py</code></td>
+<td>Every equation id cited in the code exists in the equation list</td>
+</tr>
+<tr class="odd">
+<td><code>test_speed.py</code></td>
+<td>A cached two-scenario run is under 2 s and equal to a fresh run</td>
+</tr>
+<tr class="even">
+<td><code>test_run_model.py</code></td>
+<td>The command line writes the result files</td>
+</tr>
+<tr class="odd">
+<td><code>test_shiny_app.py</code></td>
+<td>The app imports; its scenarios become a scenario set; its tables and graphs have data</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="when-to-run-what" class="level3" data-number="1.6.4">
+<h3 data-number="1.6.4" class="anchored" data-anchor-id="when-to-run-what"><span class="header-section-number">1.6.4</span> When to run what</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>When</th>
+<th>Run</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Any change to the code</td>
+<td><code>pytest</code> (from <code>coded/</code>)</td>
+</tr>
+<tr class="even">
+<td>A change to one block</td>
+<td><code>pytest cpat_testing/test_mitigation.py -k "&lt;block name&gt;"</code> first, then everything</td>
+</tr>
+<tr class="odd">
+<td>Data changed</td>
+<td><code>cd data &amp;&amp; pytest tests</code>, then <code>pytest</code> in <code>coded/</code></td>
+</tr>
+<tr class="even">
+<td>Excel-AI has a new version</td>
+<td>Re-extract the reference values (below), then <code>pytest</code></td>
+</tr>
+<tr class="odd">
+<td>Before a release</td>
+<td>Everything, plus <code>python run_model.py</code> and <code>shiny run app.py</code> by hand</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-comparison-with-excel-ai" class="level3" data-number="1.6.5">
+<h3 data-number="1.6.5" class="anchored" data-anchor-id="the-comparison-with-excel-ai"><span class="header-section-number">1.6.5</span> The comparison with Excel-AI</h3>
+<p>The reference values are Excel-AI’s stored values, extracted from the workbooks into CSV files:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> cpat_testing/compare/extract_excel_ai.py                  <span class="co"># mitigation: reference/excel_ai_&lt;version&gt;.csv</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> cpat_testing/compare/extract_excel_ai.py <span class="at">--distribution</span>   <span class="co"># reference/excel_ai_distribution_&lt;version&gt;.csv</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>cpat_testing/compare/compare.py</code> compares a results table with them code by code and year by year and reports the first year that differs. For a quick look while working:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> cpat_testing.compare.compare <span class="im">import</span> compare, reference, summary</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>report <span class="op">=</span> compare(results.by_code(<span class="st">'EGY'</span>), ref<span class="op">=</span>reference())</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>summary(report[report.first_bad.notna()])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="known-differences" class="level3" data-number="1.6.6">
+<h3 data-number="1.6.6" class="anchored" data-anchor-id="known-differences"><span class="header-section-number">1.6.6</span> Known differences</h3>
+<p><code>cpat_testing/compare/known_differences.py</code> lists, by Excel-AI bug, the codes where Python differs on purpose. When Excel-AI ships the fix of a bug, delete its entry: the codes must then match again. A test fails if a listed code matches Excel-AI (the entry is out of date) or if an unlisted code differs.</p>
+</section>
+<section id="systematic-comparisons-phase-5" class="level3" data-number="1.6.7">
+<h3 data-number="1.6.7" class="anchored" data-anchor-id="systematic-comparisons-phase-5"><span class="header-section-number">1.6.7</span> Systematic comparisons (phase 5)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Against</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5.0</td>
+<td>The Python recomputations written for Excel-AI</td>
+<td>Distribution: equal to <code>distribution_ref.py</code> within 1e-13, given the same mitigation inputs (<code>test_recomputations.py</code>). Mitigation: Excel-AI’s full-check recomputation does not run on the current prototype yet (Excel-AI to repair)</td>
+</tr>
+<tr class="even">
+<td>5.1</td>
+<td>Excel-AI’s release workbook, every scenario</td>
+<td>Live groups 1 and 2: every output code; stored scenarios 1 and 3-6: the 123 key codes each (<code>test_stored_outputs.py</code>); all within 1e-9</td>
+</tr>
+<tr class="odd">
+<td>5.2</td>
+<td>Every country</td>
+<td>Only Egypt has its base tables in the dummy database; other countries need the full database (a run stops with a clear message)</td>
+</tr>
+<tr class="even">
+<td>5.3</td>
+<td>Legacy CPAT</td>
+<td>Egypt baseline against legacy 456’s cached run: <code>python cpat_testing/compare/legacy_comparison.py</code> writes <code>legacy_comparison.md</code> (base-year energy use and CO2 close; prices differ by data vintage and the fixed legacy bugs)</td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="CPAT Python">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">CPAT Python</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./02_How_it_works.html" class="pagination-link" aria-label="How it works">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">How it works</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool. Documentation release 1.1.0 (2026-10-30): Excel-AI 1.1.0, Coded CPAT 1.1.0p1.3, data edition Public01</p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

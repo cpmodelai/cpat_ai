@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6&nbsp; Air pollution module – CPAT Documentation</title>
+<title>6&nbsp; Air pollution module – CPAT Methodology</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -152,7 +152,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">CPAT Documentation</a> 
+      <a href="./">CPAT Methodology</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/wb-mrio/cpat_public" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <a href="./CPAT-Documentation.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
@@ -174,7 +174,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><strong>Cover</strong></span></a>
+ <span class="menu-text">CPAT Methodology</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -217,6 +217,12 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./07_Road_Transport.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Road Transport Module</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_Corrections.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Corrections</span></span></a>
   </div>
 </li>
     </ul>
@@ -1264,16 +1270,16 @@ Figure&nbsp;6.8: The 56 continental emission source regions in TM5-FASST
 <p><span class="math inline">\(A_{\text{ij}}\)</span>: source-receptor matrix coefficient (annual mean responses)</p>
 <p><span class="math inline">\(n_{i}\)</span>: number of precursors <span class="math inline">\(i\)</span></p>
 <p><span class="math inline">\(n_{x}\)</span>: number of source regions <span class="math inline">\(x\)</span></p>
-<p><span class="math inline">\(E_{i}(x)\)</span>: emission rate (kg/yr) of precursor I at source x</p>
-<p><span class="math inline">\(C_{j,\ base}\left( y \right)\)</span>: constant for pollutant <span class="math inline">\(j\)</span> and location <span class="math inline">\(y\)</span></p>
-<p><span class="math inline">\(k\)</span>: pollutant</p>
+<p><span class="math inline">\(E_{i}(x)\)</span>: emission rate (kg/yr) of precursor <span class="math inline">\(i\)</span> at source <span class="math inline">\(x\)</span></p>
+<p><span class="math inline">\(C_{j,\ base}\left( y \right)\)</span>: constant for component <span class="math inline">\(j\)</span> and location <span class="math inline">\(y\)</span></p>
+<p><span class="math inline">\(k\)</span>: index of the source regions <span class="math inline">\(x_{k}\)</span></p>
 <p>The precursors for PM<sub>2.5</sub> included are BC, POM, SO2, NOx and OPM (other particulate matter). Notice that NH3 emissions are not included in the analysis and are assumed to be constant over time.</p>
 <p>The precursors of ozone considered are NOx, NMVOC, SO2 and CH4.</p>
 <p>As mentioned, FASST contains results for 56 regions only. To produce source-receptor coefficients for every country inside those regions, we applied a down-scaling of FASST to produce country level coefficients. The methods are described in <span class="citation" data-cites="aleluia">Aleluia Reis (<a href="#ref-aleluia" role="doc-biblioref">2020</a>)</span>.</p>
 <p>In addition to the country down-scaling from <span class="citation" data-cites="aleluia">Aleluia Reis (<a href="#ref-aleluia" role="doc-biblioref">2020</a>)</span>, we produced a downscale based in the population in the FASST regions and in the countries inside those regions, as presented in expression <a href="#eq-downscale" class="quarto-xref">Equation&nbsp;<span>6.4</span></a>. In some cases, we applied the population downscale, when the performance of the method described in <span class="citation" data-cites="aleluia">Aleluia Reis (<a href="#ref-aleluia" role="doc-biblioref">2020</a>)</span> is low.</p>
 <p><span id="eq-downscale"><span class="math display">\[A_{i,j,country} = A_{i,j,region}*\frac{\text{Population}_{\text{region}}}{\text{Population}_{\text{country}}} \tag{6.4}\]</span></span></p>
-<p>If we multiply the emissions <span class="math inline">\(j\)</span> from the modeled sectors by the corresponding <span class="math inline">\(A_{i,j}\)</span> coefficients, we obtain the `modeled’ contribution to <span class="math inline">\(i\)</span>(where <span class="math inline">\(i\)</span> is PM<sub>2.5</sub> or O3) in CPAT, using expression <a href="#eq-modeled" class="quarto-xref">Equation&nbsp;<span>6.5</span></a>.</p>
-<p><span id="eq-modeled"><span class="math display">\[\text{Modeled\ }i_{t,s} = \sum_{j}^{}{\sum_{s}^{}{A_{i,j}*Emissions_{j,s,t}}} \tag{6.5}\]</span></span></p>
+<p>If we multiply the emissions of precursor <span class="math inline">\(i\)</span> from the modeled sectors <span class="math inline">\(s\)</span> by the corresponding <span class="math inline">\(A_{i,j}\)</span> coefficients, we obtain the `modeled’ contribution to <span class="math inline">\(j\)</span> (where <span class="math inline">\(j\)</span> is PM<sub>2.5</sub> or O3) in CPAT, using expression <a href="#eq-modeled" class="quarto-xref">Equation&nbsp;<span>6.5</span></a>.</p>
+<p><span id="eq-modeled"><span class="math display">\[\text{Modeled\ }j_{t} = \sum_{i}^{}{\sum_{s}^{}{A_{i,j}*Emissions_{i,s,t}}} \tag{6.5}\]</span></span></p>
 <section id="from-fasst-spreadsheet-to-cpat" class="level4" data-number="6.5.2.1">
 <h4 data-number="6.5.2.1" class="anchored" data-anchor-id="from-fasst-spreadsheet-to-cpat"><span class="header-section-number">6.5.2.1</span> From FASST spreadsheet to CPAT</h4>
 <p>In the spreadsheet version of FASST (provided by Rita Van Dingenen), there are two emission scenarios and each of them is compared to FASST baseline scenario (there are three scenarios in total). In CPAT, we do not use the FASST baseline scenario, but only two scenarios: baseline (as in CPAT) and carbon price (as in CPAT). We do not need to include the FASST baseline scenario in CPAT because to quantify the changes in PM<sub>2.5</sub> (or in O3), attributed to the carbon tax, we subtract the results from the baseline and the carbon tax. In that operation, FASST baseline would be eliminated anyways and because of that is not needed.</p>
@@ -1366,7 +1372,7 @@ Table&nbsp;6.7: CPAT adaptations of TM5-FASST, spreadsheet version
 <p>Where <span class="math inline">\(\text{EmFASST}\)</span> are FASST base emissions and <span class="math inline">\(Em_{p,1}\)</span> are emissions from pollutant <span class="math inline">\(p\)</span> in scenario 1.</p>
 <p>In the tab <strong><em>USER_CALC_1,</em></strong> <span class="math inline">\(\text{delta}_{\text{BC}}\)</span> and <span class="math inline">\(\text{delta}_{\text{POM}}\)</span> are then multiplied by the urban incremental factor.</p>
 <p><span id="eq-bcincfactor"><span class="math display">\[d_{BC,1} = delta_{BC,1}*urbIncfactor \tag{6.6}\]</span></span></p>
-<p><span id="eq-pomincfactor"><span class="math display">\[d_{POM,2} = delta_{POM,1}*urbIncfactor \tag{6.7}\]</span></span></p>
+<p><span id="eq-pomincfactor"><span class="math display">\[d_{POM,1} = delta_{POM,1}*urbIncfactor \tag{6.7}\]</span></span></p>
 <p>And the following aggregations among deltas are made:</p>
 <p><span id="eq-so4agg"><span class="math display">\[d_{SO4,1} = delta_{SO2 \rightarrow SO4,1} + delta_{NOx - &gt; SO4,1} + delta_{NH3 - SO4,1} \tag{6.8}\]</span></span> <span id="eq-no3agg"><span class="math display">\[d_{NO3,1} = delta_{SO2 - &gt; NO3,1} + delta_{NOX - &gt; NO3,1} + delta_{NH3 - &gt; NO3,1} \tag{6.9}\]</span></span><br>
 <span id="eq-nh4agg"><span class="math display">\[d_{NH4,1} = delta_{SO2 - &gt; NH4,1} + delta_{NOx - &gt; NH4,1} + delta_{NH3 - &gt; NH4,1} \tag{6.10}\]</span></span><br>
@@ -2131,7 +2137,7 @@ Table&nbsp;6.11: Coefficients for intake fractions from <span class="citation" d
 <p>The intake fraction for each power plant is calculated according to <a href="#eq-ifeach" class="quarto-xref">Equation&nbsp;<span>6.39</span></a>, using the coefficients from <a href="#tbl-coefzhou" class="quarto-xref">Table&nbsp;<span>6.11</span></a>.</p>
 <p><span id="eq-ifeach"><span class="math display">\[{iF}_{p,\ j,\ l} = \sum_{i = 1}^{4}{\beta_{i,j}*{P\text{op}}_{i,\ l} + \beta_{5,\ j}*{P\text{recipitation}}_{p}} \tag{6.39}\]</span></span></p>
 <p>Where:</p>
-<p><span class="math inline">\({iF}_{p,\ j,\ c}\)</span>: Intake fraction for power plant <span class="math inline">\(p\)</span>, pollutant <span class="math inline">\(j\)</span>, location <span class="math inline">\(l\)</span></p>
+<p><span class="math inline">\({iF}_{p,\ j,\ l}\)</span>: Intake fraction for power plant <span class="math inline">\(p\)</span>, pollutant <span class="math inline">\(j\)</span>, location <span class="math inline">\(l\)</span></p>
 <p><span class="math inline">\({P\text{op}}_{i,\ l}\)</span>: Population at distance <span class="math inline">\(i\)</span>, location <span class="math inline">\(l\)</span></p>
 <p><span class="math inline">\({P\text{recipitation}}_{p}\)</span>: Precipitations around plant <span class="math inline">\(p\)</span></p>
 <p><span class="math inline">\(\beta_{i,j}\)</span>: Regression coefficients for pollutant <span class="math inline">\(j\)</span>, location <span class="math inline">\(l\)</span></p>
@@ -5564,7 +5570,7 @@ Zhou, Ying, Jonathan I Levy, John S Evans, and James K Hammitt. 2006. <span>“T
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>WB-IMF Climate Policy Assessment Tool, 2023</p>
+<p>WB-IMF Climate Policy Assessment Tool, 2023; corrections 2026-10-31 (see Corrections)</p>
 <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/wb-mrio/cpat_public/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;

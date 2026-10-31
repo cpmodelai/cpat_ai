@@ -587,7 +587,7 @@ USD United States dollar
 
 ### Overview {#sec-PricesOVerview}
 
-At the time of writing, the base year for CPAT is 2019. The base year plus the next two years (2020 and 2021) are considered the 'historical price years' for CPAT. The algorithm for the historical price years and the future price years is different; we use historical price information in the historical price years and a forecast approach for the future price years.
+At the time of writing, the base year for CPAT, $t_{0}$, is 2022. The base year and the four years before it (2018 to 2022) are considered the 'historical price years' for CPAT; prices are forecast from 2023. The algorithm for the historical price years and the future price years is different; we use historical price information in the historical price years and a forecast approach for the future price years.
 
 Domestic price information for historical time periods comes from a dataset created by the IMF side of the joint WB-IMF team. We refer to this dataset as the 'IMF dataset'. Information about this dataset is available from the IMF and is not part of this documentation. The user can supplement these data with specifically-sourced data ('manual inputs').
 
@@ -646,7 +646,7 @@ The table below presents the notations used in the section and the name of the v
 +-------------------------------------+----------------------------------------------------------------------+----------------------------------------------------------------+
 | $fltsp$                             | Floating portion of supply price                                     | US\$/Gj                                                        |
 +-------------------------------------+----------------------------------------------------------------------+----------------------------------------------------------------+
-| $ps$                                | Producer-side subsidy                                                | US\$/Gj                                                        |
+| $ps$                                | Producer-side subsidy (negative)                                     | US\$/Gj                                                        |
 +-------------------------------------+----------------------------------------------------------------------+----------------------------------------------------------------+
 | $vat$                               | Value added tax                                                      | US\$/Gj                                                        |
 +-------------------------------------+----------------------------------------------------------------------+----------------------------------------------------------------+
@@ -690,9 +690,13 @@ The table below presents the notations used in the section and the name of the v
 +-------------------------------------+----------------------------------------------------------------------+----------------------------------------------------------------+
 | $NETSP$                             | National price per ton of $CO2$ under an ETS                         | US\$/ton of CO2                                                |
 +-------------------------------------+----------------------------------------------------------------------+----------------------------------------------------------------+
+| $XCT$                               | Existing national carbon tax per ton of $CO2$                        | US\$/ton of CO2                                                |
++-------------------------------------+----------------------------------------------------------------------+----------------------------------------------------------------+
+| $XETSP$                             | Existing national ETS permit price per ton of $CO2$                  | US\$/ton of CO2                                                |
++-------------------------------------+----------------------------------------------------------------------+----------------------------------------------------------------+
 | $ef$                                | Emission factors                                                     | $\text{tC}O_{2}e$/ktoe                                         |
 +-------------------------------------+----------------------------------------------------------------------+----------------------------------------------------------------+
-| $\varphi_{\text{NCT} / \text{ETS}}$ | Sector-fuel coverage for the new policies (Carbon tax or ETS)        | \%                                                             |
+| $\varphi_{\text{NCT}/\text{NETS}}$  | Sector-fuel coverage for the new policies (Carbon tax or ETS)        | \%                                                             |
 +-------------------------------------+----------------------------------------------------------------------+----------------------------------------------------------------+
 | $F$                                 | Use of fuel                                                          | ktoe                                                           |
 +-------------------------------------+----------------------------------------------------------------------+----------------------------------------------------------------+
@@ -734,7 +738,7 @@ The IMF dataset on prices and subsidies includes data for supply costs, producer
 
 **Retail price:** Computed as the addition of the supply price, the excise and other taxes, and the VAT payment.
 
-**Supply price:** Computed as the sum of the fixed and floating portions of the supply price, minus any remaining producer subsidies.
+**Supply price:** Computed as the sum of the fixed and floating portions of the supply price and any remaining producer subsidies ($ps$, negative where a subsidy lowers the price).
 
 **Producer Subsidy:** Obtained by adjusting the producer subsidy observed in t-1 with the phase-out factor for producer subsidies. The latter is built based on user-defined parameters specifying the year in which the phase-out starts and the number of years for it to be completed.
 
@@ -975,7 +979,7 @@ When prices change, energy consumers also shift to more efficient energy-consumi
 
 The energy use equation outlined in Section 3.3 allows rebound effects, $\left( 1 + \epsilon_{U} \right),$ to be captured and compared to econometric estimates of rebound. Broadly, these align with the empirical literature. More specifically, the rebound effect is defined as the product of the energy efficiency elasticity and the usage elasticity, $\epsilon_{F}*\epsilon_{U}$, as follows in the term affecting prices change:
 
-$\left( \frac{P_{t}}{P_{t - 1}} \right)^{\epsilon_{F} + \epsilon_{U} + \epsilon_{F}*\epsilon_{U}}$
+$\left( \frac{p_{t}}{p_{t - 1}} \right)^{\epsilon_{F} + \epsilon_{U} + \epsilon_{F}*\epsilon_{U}}$
 
 With $\epsilon_{F} = \epsilon_{U} = - 0.3$, the rebound effect represents 15.5% (i.e. the rebound effect reduces the total price elasticity by 15.5%). This result is lower, but seems more reasonable, than the estimates in a meta-analysis of 74 studies in @dimitropoulos2018rebound (26-29% rebound effect, 2018).
 
@@ -1100,7 +1104,7 @@ The first table gives overarching concepts relating to power generation.
 +---------------------+--------------------------------------------------------------------------------------+-----------+
 | $\text{cf}$         | Capacity factor                                                                      | \%        |
 +---------------------+--------------------------------------------------------------------------------------+-----------+
-| $\text{cap}$        | Capacity                                                                             | MWy       |
+| $\text{cap}$        | Capacity                                                                             | MW        |
 +---------------------+--------------------------------------------------------------------------------------+-----------+
 | $\text{PV}$         | Present value of costs                                                               |           |
 +---------------------+--------------------------------------------------------------------------------------+-----------+
@@ -1124,19 +1128,19 @@ This table denotes variables used to calculate the levelized cost of investment 
 +=================+=====================================================+=============+
 | $\text{fc}$     | Projected unit fuel costs                           | US\$/kWh    |
 +-----------------+-----------------------------------------------------+-------------+
-| $\text{opv}$    | Variable costs for operating and maintenance (OpEx) | US\$/kWh    |
+| $\text{vop}$    | Variable costs for operating and maintenance (OpEx) | US\$/kWh    |
 +-----------------+-----------------------------------------------------+-------------+
 | $\text{vc}$     | Current variable costs                              | US\$/kWh    |
 +-----------------+-----------------------------------------------------+-------------+
 | $\text{cax}$    | Capital cost (CapEx)                                | US\$/kW     |
 +-----------------+-----------------------------------------------------+-------------+
-| $\text{opf}$    | Fixed costs for operating and maintenance (OpEx)    | US\$/kW     |
+| $\text{opf}$    | Fixed costs for operating and maintenance (OpEx)    | US\$/kWh    |
 +-----------------+-----------------------------------------------------+-------------+
 | $\text{tfc}$    | Fixed OpEx                                          | US\$/kWy    |
 +-----------------+-----------------------------------------------------+-------------+
 | $\text{sto}$    | Storage cost                                        | US\$/kWh    |
 +-----------------+-----------------------------------------------------+-------------+
-| $\text{dtc}$    | Decommissioning costs                               | US\$/kWh    |
+| $\text{dtc}$    | Decommissioning costs                               | US\$/kW     |
 +-----------------+-----------------------------------------------------+-------------+
 | $\text{ipc}$    | Implicit price component for coal                   | US\$/kWh    |
 +-----------------+-----------------------------------------------------+-------------+
@@ -1194,12 +1198,12 @@ Variable costs are used in the dispatch decision directly between gas and coal.[
 
 Current variable costs are defined as the sum of the following cost components:
 
-$vc_{\text{ocft}} = \text{vo}p_{\text{ocft}} + fc_{\text{ocft}} + ip_{\text{cft}} = \text{vo}p_{\text{ocft}} + \frac{p_{\text{ocft}}}{\nu_{\text{cf}}} + ip_{\text{cft}}$
+$vc_{\text{ocft}} = \text{vo}p_{\text{ocft}} + fc_{\text{ocft}} + \text{ip}c_{\text{cft}} = \text{vo}p_{\text{ocft}} + \frac{p_{\text{ocft}}}{\nu_{\text{cf}}} + \text{ip}c_{\text{cft}}$
 
 where:
 
 -   $\text{vop}$ represents variable costs for operating and maintenance, that is variable OpEx in USD per kWh.
--   $\text{fc}$ denotes projected unit fuel costs before the introduction of the carbon pricing policy. These costs are calculated as the ratio of pre-tax prices (including producer-side subsidies) $\text{ps}$ and thermal efficiency $\nu$: $\frac{ps_{\text{cft}}}{\nu_{\text{cf}}}$. It is worth noting that no improvements in time is currently modeled. By default, fuel costs are considered as a moving average over a 5-year window. The option to use spot prices can be enabled in the dashboard:
+-   $\text{fc}$ denotes projected unit fuel costs before the introduction of the carbon pricing policy. These costs are calculated as the ratio of the retail fuel price before the new policies, $p$, and thermal efficiency $\nu$: $\frac{p_{\text{ocft}}}{\nu_{\text{cf}}}$. It is worth noting that no improvements in time is currently modeled. By default, fuel costs are considered as a moving average over a 5-year window. The option to use spot prices can be enabled in the dashboard:
 
 ![Dashboard: Use Spot Fuel Prices in Engineer Power Model](./03/media/image17.png)
 
@@ -1250,13 +1254,13 @@ The WACC can also be technology-dependent, i.e. it can be specified for each te
 
 The levelized total investment costs is defined as:
 
-$\text{ti}c_{P,\text{cf}} = \frac{vc_{P,\text{cft}}*cf_{\text{cf}}*\text{df}c_{\text{cft}}}{cf_{\text{cf}}*\text{df}c_{\text{cft}}} + \text{fi}x_{\text{cft}}^{\text{fl}}$
+$\text{ti}c_{P,\text{cf}} = \frac{\sum_{t}^{}vc_{P,\text{cft}}*cf_{\text{cf}}*\text{df}c_{\text{cft}}}{\sum_{t}^{}cf_{\text{cf}}*\text{df}c_{\text{cft}}} + \text{fi}x_{\text{cft}}^{\text{fl}}$
 
-where $\text{df}c_{\text{cft}}$ is the discount factor $1 + \text{wac}c_{\text{cft}}^{t - t_{0}}$ and $\text{fi}x^{\text{fl}}$ denotes the forward-looking levelized fixed costs, which is calculated as:
+where $\text{df}c_{\text{cft}}$ is the discount factor $\left( 1 + \text{wac}c_{\text{cft}} \right)^{- \left( t - t_{0} \right)}$, the sums run over the years of operation, and $\text{fi}x^{\text{fl}}$ denotes the forward-looking levelized fixed costs, which is calculated as:
 
 $\text{fi}x_{\text{cft}}^{\text{fl}} = \frac{\text{ca}x_{\text{cft}}}{cf_{\text{cf}}*365*24*\text{dl}f_{\text{cft}}} + \frac{\text{dt}c_{\text{cft}}}{cf_{\text{cf}}*365*24*\text{dl}f_{\text{cft}}} + \text{st}o_{\text{cft}} + \text{op}f_{\text{cft}} + \text{pusRe}n_{\text{cft}} + tmc_{fct}$
 
-where $\text{cax}$ is the capital cost, $\text{dtc}$ is th decommissioning total cost, $\text{sto}$ is the cost of storage, $\text{fro}$ correspond to fixed costs for operating and maintenance, $\text{dl}f_{\text{cft}}$ denoting the discounted lifetime of each generation type $f$, $\text{re}s_{\text{cft}}$ reflects the per-unit renewable subsidies (if added), and $tmc_{fct}$ the levelized transmission costs.
+where $\text{cax}$ is the capital cost, $\text{dtc}$ is th decommissioning total cost, $\text{sto}$ is the cost of storage, $\text{opf}$ correspond to fixed costs for operating and maintenance, $\text{dl}f_{\text{cft}}$ denoting the discounted lifetime of each generation type $f$, $\text{pusRe}n_{\text{cft}}$ reflects the per-unit renewable subsidies (if added), and $tmc_{fct}$ the levelized transmission costs.
 
 The Levelised Transmission Costs can be taken to a defined percentage in the dashboard:
 
@@ -1276,11 +1280,11 @@ where $vc_{P,\text{cft}} = vc_{B,\text{cft}} + \text{nc}p_{\text{cft}}$.
 
 As mentioned in the main text:
 
-$\text{LCO}E_{q} = \frac{PV_{q}}{g} = \frac{\sum_{t = 0}^{N - 1}C_{q,t}e^{- \text{rt}}}{\sum_{t = 0}^{N - 1}g_{t}e^{- \text{rt}}}$
+$\text{LCO}E_{q} = \frac{PV_{q}}{\text{dem}} = \frac{\sum_{t = 0}^{N - 1}C_{q,t}e^{- \text{rt}}}{\sum_{t = 0}^{N - 1}g_{t}e^{- \text{rt}}}$
 
-where $PV_{q}$ is the present value of costs, $g$ is the discounted power produced, $g_{t}$ is the power produced at time $t$ and $C_{q,t}$ is the $q$ component of costs at time $t$, breaking down into various components described in the above section.
+where $PV_{q}$ is the present value of costs, $\text{dem}$ is the discounted power produced, $g_{t}$ is the power produced at time $t$ and $C_{q,t}$ is the $q$ component of costs at time $t$, breaking down into various components described in the above section.
 
-There is a simplification in the case of **constant growth rates**. If at and after time $n$ the residual components of the cashflow have consistent real (logarithmic) growth rate $\tau$, i.e., $C_{t} = C_{n}e^{g\left( t - n \right)}$, then they form a geometric series, which can be summed analytically:
+There is a simplification in the case of **constant growth rates**. If at and after time $n$ the residual components of the cashflow have consistent real (logarithmic) growth rate $\tau$, i.e., $C_{t} = C_{n}e^{\tau\left( t - n \right)}$, then they form a geometric series, which can be summed analytically:
 
 $\begin{matrix} \text{PVofCosts} & = \sum_{t = 0}^{n - 1}C_{t}e^{- \text{rt}} + \sum_{t = n}^{N - 1}C_{n}e^{- \text{rn}}\left( e^{\tau - r} \right)^{t - n} & & & \\ \end{matrix}$
 
@@ -1349,9 +1353,9 @@ An allowance of \$15/MWh and \$40/MWh was added to account for transmission and 
 
 [^03_mitigation-19]: See <https://www.iea.org/topics/energy-subsidies#methodology-and-assumptions>
 
-A markup $\text{mu}$ is then calculated specifically for residential and industrial electricity prices to equalize the starting year price (i.e. historical retail prices in the electricity sector, $\text{hr}p_{\text{cg}}$), as follows:
+A markup $mu^{T}$ is then calculated specifically for residential and industrial electricity prices to equalize the starting year price (i.e. historical retail prices in the electricity sector, $\text{hr}p_{\text{cg}}$), as follows:
 
-$mu_{B,\text{cgt}}^{T} = \text{gn}c_{B,\text{ct}}^{\text{av}} + \text{tmc} - \text{hr}p_{\text{cg}}.$
+$mu_{B,\text{cgt}}^{T} = \text{hr}p_{\text{cg}} - \text{gn}c_{B,\text{ct}}^{\text{av}} - \text{tmc}.$
 
 It is worth noting that when the markup is negative (i.e. retail prices are lower than modeled supply prices), the model captures a subsidy.
 
@@ -1436,7 +1440,7 @@ The table below presents the notations used in the section and the name of the v
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
 | $g$                                       | Electricity generation                                                                                                                                             | GWh                                 |
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
-| $E$                                       | Total quantity of power demanded by sector                                                                                                                         | GWh                                 |
+| $E$                                       | Total quantity of power demanded by sector                                                                                                                         | ktoe                                |
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
 | $\text{net}$                              | Net exports (imports)                                                                                                                                              | ktoe                                |
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
@@ -1456,7 +1460,7 @@ The table below presents the notations used in the section and the name of the v
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
 | $\text{maxC}f_{\text{GAS},\text{COA}}$    | Maximum capacity for coal/gas                                                                                                                                      | GWh                                 |
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
-| $\lambda_{f}$                             | Proportion of the residual generation (after the 'minimum coal' and minimum gas' allocation given limited capacity of the other) allocated to each of coal and gas | GWh                                 |
+| $\lambda_{f}$                             | Proportion of the residual generation (after the 'minimum coal' and minimum gas' allocation given limited capacity of the other) allocated to each of coal and gas | \%                                  |
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
 | $\text{vc}$                               | Current variable costs                                                                                                                                             | US\$/kWh                            |
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
@@ -1464,7 +1468,7 @@ The table below presents the notations used in the section and the name of the v
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
 | $\text{cf}$                               | Capacity factor                                                                                                                                                    | \%                                  |
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
-| $\text{cap}$                              | Capacity                                                                                                                                                           | MWy                                 |
+| $\text{cap}$                              | Capacity                                                                                                                                                           | MW                                  |
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
 | $\nu$                                     | Thermal efficiency                                                                                                                                                 | \%                                  |
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
@@ -1476,15 +1480,15 @@ The table below presents the notations used in the section and the name of the v
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
 | $\Omega$                                  | Downscaling factor if needed generation is different from that which is determined by the raw capacity factors                                                     | \%                                  |
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
-| $\text{inv}$                              | Generation investments                                                                                                                                             | MWh                                 |
+| $\text{inv}$                              | Generation investments                                                                                                                                             | MW                                  |
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
-| $\text{ret}$                              | Generation retirements                                                                                                                                             | MWh                                 |
+| $\text{ret}$                              | Generation retirements                                                                                                                                             | MW                                  |
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
 | $\text{lif}$                              | Lifetime                                                                                                                                                           | Years                               |
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
 | $\text{re}p_{\text{COA}}$                 | Proportion of coal replacement                                                                                                                                     | \%                                  |
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
-| $\zeta$                                   | New investments permitted                                                                                                                                          | MWh                                 |
+| $\zeta$                                   | New investments permitted                                                                                                                                          | \%                                  |
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
 | $\text{ivp}$                              | Proportion of new investments                                                                                                                                      | \%                                  |
 +-------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------+
@@ -1503,9 +1507,9 @@ The table below presents the notations used in the section and the name of the v
 
 The power demand, $E_{\text{cgt}}$, determines the total quantity of power demanded by sector. At present, our power demand is determined the same way as the equations outlined in @sec-FuelConsumptionDynamics, with fuel type equal to power (electricity) ($f = P$):
 
-$\frac{E_{\text{ocsf},t}}{E_{\text{ocsf},t - 1}} = \left( \frac{1}{1 + \alpha_{\text{sf}}} \right)^{1 + \epsilon_{U,\text{sf}}}\Psi_{\text{ct}}\left( \frac{Y_{c,t}}{Y_{c,t - 1}} \right)^{\epsilon_{G,\text{csf}}}\left( \frac{p_{\text{ocsf},t}}{p_{\text{ocsf},t - 1}} \right)^{\epsilon_{U,\text{csf}}}\left( \frac{p_{\text{ocsf},t}}{p_{\text{ocsf},t - 1}} \right)^{\epsilon_{F,\text{csf}}\left( 1 + \epsilon_{U,\text{csf}} \right)}$
+$\frac{E_{\text{ocsf},t}}{E_{\text{ocsf},t - 1}} = \left( \frac{1}{1 + \alpha_{\text{sf}}} \right)^{1 + \epsilon_{U,\text{sf}}}\Psi_{\text{ct}}\left( \frac{Y_{c,t}}{Y_{c,t - 1}} \right)^{\epsilon_{Y,\text{csf}}}\left( \frac{p_{\text{ocsf},t}}{p_{\text{ocsf},t - 1}} \right)^{\epsilon_{U,\text{csf}}}\left( \frac{p_{\text{ocsf},t}}{p_{\text{ocsf},t - 1}} \right)^{\epsilon_{F,\text{csf}}\left( 1 + \epsilon_{U,\text{csf}} \right)}$
 
-where $E$ is expressed in ktoe, $Y$ is the total real GDP, $\alpha$, the autonomous annual energy efficiency improvement. The prices $p$ correspond to total (industrial and residential) power prices, as in @sec-FuelConsumptionDynamics). These prices respond to changes in weighted total generation cost, which is lagged by one year to avoid circularity issue.
+where $E$ is expressed in ktoe, $Y$ is the total real GDP, $\epsilon_{Y}$ is the real GDP-elasticity of power demand (varying with the income level, see Income elasticities), $\alpha$, the autonomous annual energy efficiency improvement. The prices $p$ correspond to total (industrial and residential) power prices, as in @sec-FuelConsumptionDynamics). These prices respond to changes in weighted total generation cost, which is lagged by one year to avoid circularity issue.
 
 A Covid adjustment factor to power demand $\Psi$ can be taken into account (see @sec-CalibrationCovid - note this is specifically calibrated for the engineer model). Note that additional policies affecting the parameter $\alpha$ can be manually added.
 
@@ -1527,9 +1531,9 @@ Two different cost-based decisions are considered in the engineer model: the dis
 
 The formula of the multilogit is as follows:
 
-$\frac{x_{\text{ocft}}}{\sum_{f}^{}x_{\text{ocft}}} = \frac{e^{- K.c}}{\sum_{i}^{}e^{- K.c}}$
+$\frac{x_{\text{ocft}}}{\sum_{i}^{}x_{\text{ocit}}} = \frac{e^{- K.c_{f}}}{\sum_{i}^{}e^{- K.c_{i}}}$
 
-where $\frac{x_{\text{ocft}}}{\sum_{f}^{}x_{\text{ocft}}}$ is the proportion (i.e. investment, $x = \text{inv}$, or generation $x = \text{gen}$) allocated to generation type $f$, and $c_{i}$ is the relative cost of generation type $f$ (i.e. the total levelized cost of electricity in the case of investment or variable costs $i$.
+where $\frac{x_{\text{ocft}}}{\sum_{i}^{}x_{\text{ocit}}}$ is the proportion (i.e. investment, $x = \text{inv}$, or generation $x = \text{gen}$) allocated to generation type $f$, $i$ ranges over the generation types, and $c_{f}$ is the relative cost of generation type $f$ (i.e. the total levelized cost of electricity in the case of investment or variable costs in the case of dispatch).
 
 ##### Dispatch decision
 
@@ -1541,7 +1545,7 @@ In the case of renewables, they are assumed to be non-dispatchable meaning their
 
 Then, residual energy demand is determined by an explicit choice between coal and gas based on the variable cost of each (including the carbon tax). In other words, the remaining generation needed after nuclear, renewables, biomass and oil generation are subtracted, is allocated to coal and gas.
 
-$\text{reqge}n_{\text{oc},\text{COA} + \text{GAS},t} = g_{\text{oc},t} - \sum_{\text{fϵ}\left( \text{RE},\text{NUC} \right)}^{}cap_{f}*cf_{f}$
+$\text{reqge}n_{\text{oc},\text{COA} + \text{GAS},t} = g_{\text{oc},t} - \sum_{f \in \left( \text{RE},\text{NUC} \right)}^{}cap_{f}*cf_{f}$
 
 First, we determine the minimum coal needed assuming gas runs at maximum capacity and vice versa for coal. The maximum capacity is by default set to 90%, but the user can adjust it in the dashboard:
 
@@ -1549,23 +1553,23 @@ First, we determine the minimum coal needed assuming gas runs at maximum capacit
 
 For example, for coal:
 
-$\text{minge}n_{\text{oc},\text{COA},t} = \text{reqge}n_{\text{oc},\text{COAL} + \text{GAS},t} - \text{ca}p_{\text{GAS}}*\text{maxC}f_{\text{GAS}}$
+$\text{minge}n_{\text{oc},\text{COA},t} = \text{reqge}n_{\text{oc},\text{COA} + \text{GAS},t} - \text{ca}p_{\text{GAS}}*\text{maxC}f_{\text{GAS}}$
 
 Then, the remaining required generation after these minima are allocated to coal and natural gas, $g_{f}$, is determined based on their relative marginal costs, using the logit formulation:
 
 $\lambda_{f} = \frac{e^{- K_{\text{dispatch}}.H_{f}}}{\sum_{f}^{}e^{- K_{\text{dispatch}}.H_{f}}}$
 
-where $f$ is restricted to coal or natural gas and $\lambda_{f}$ is the proportion of the residual generation (after the 'minimum coal' and minimum gas' allocation given limited capacity of the other) allocated to each of coal and gas. The term $H_{g}$ is the ratio $\frac{vc_{P,\text{cft}}}{vc_{P,\text{cft}}^{\text{lc}}}$, where the (marginal) variable cost is given by $vc_{P,\text{cft}}$ and $vc_{P,\text{cft}}^{\text{lc}}$ is the variable cost of the lowest cost option between coal and natural gas, i.e. $f \in \left\{ \text{coal},\text{naturalgas} \right\}$, and $K_{g}$ is the K parameter specific to generation.
+where $f$ is restricted to coal or natural gas and $\lambda_{f}$ is the proportion of the residual generation (after the 'minimum coal' and minimum gas' allocation given limited capacity of the other) allocated to each of coal and gas. The term $H_{f}$ is the ratio $\frac{vc_{P,\text{cft}}}{vc_{P,\text{cft}}^{\text{lc}}}$, where the (marginal) variable cost is given by $vc_{P,\text{cft}}$ and $vc_{P,\text{cft}}^{\text{lc}}$ is the variable cost of the lowest cost option between coal and natural gas, i.e. $f \in \left\{ \text{coal},\text{naturalgas} \right\}$, and $K_{\text{dispatch}}$ is the K parameter specific to dispatch.
 
 Power generation for coal thus becomes:
 
-$g_{\text{oc},\text{COA},t} = \text{minge}n_{\text{oc},\text{COA},t} + \lambda_{f}*\text{residualreqge}n_{\text{oc},\frac{\text{COA}}{\text{GAS}},t}$
+$g_{\text{oc},\text{COA},t} = \text{minge}n_{\text{oc},\text{COA},t} + \lambda_{\text{COA}}*\text{residualreqge}n_{\text{oc},\text{COA} + \text{GAS},t}$
 
 where $\text{residualreqgen}$ denotes the residual power generation from coal and gas.
 
 This procedure gives overall raw generation shares (assuming no PPAs), ${\widetilde{\gamma}}_{\text{ocf},t}$. It is worth noting that to the extent PPAs exist, a fixed capacity factor is used. Therefore, the latter is downscaled if the 'needed' coal and gas generation is less than what is implied by their default capacity factors. The total generation mix becomes:
 
-$\gamma_{\text{ocf},t} = \left( 1 - \omega_{\text{oct}} \right)*{\widetilde{\gamma}}_{\text{ocf},t} + \omega_{\text{oct}}*\Omega*\left( \text{ca}p_{\text{ocft}}*CF_{\text{cft}} \right)$
+$\gamma_{\text{ocf},t} = \left( 1 - \omega_{\text{oct}} \right)*{\widetilde{\gamma}}_{\text{ocf},t} + \omega_{\text{oct}}*\Omega*\left( \text{ca}p_{\text{ocft}}*cf_{\text{cf}} \right)$
 
 where $\gamma_{\text{ocf},t}$ is the generation share after PPAs $\omega$ denotes the percentage PPAs and $\Omega$ a downscaling factor if needed generation is different from that which is determined by the raw capacity factors.
 
@@ -1577,9 +1581,9 @@ The economic system is expected to plan ahead a few years in advance so that inv
 
 For the following years, new capacity is thus equal to the old capacity, less retirements, and plus any new investments needed. The total required generation capacity is given by the expected power demand minus the generation capacity (last year's capacity less retirements):
 
-$g_{\text{ocft}} = g_{\text{ocf},t - 1} - \sum_{f}^{}ret_{ocf,t - 1} + inv_{ofc,t - 1}$
+$\text{ca}p_{\text{ocft}} = \text{ca}p_{\text{ocf},t - 1} - \text{re}t_{\text{ocf},t - 1} + \text{in}v_{\text{ocf},t - 1}$
 
-It is assumed that a generation dependent proportion, $\text{ret}$, of all generation assets retire each year, equal to the reciprocal of the average lifetime $\text{lif}$ of that generation type.
+where capacity, retirements and investments are in MW. It is assumed that a generation dependent proportion, $\text{ret}$, of all generation assets retire each year, equal to the reciprocal of the average lifetime $\text{lif}$ of that generation type.
 
 $\text{re}t_{\text{ocft}} = \frac{1}{\text{lif}}*\text{ca}p_{\text{ocft}}$
 
@@ -1681,7 +1685,7 @@ By default, the adjustment factor is set to 0. However, the user can rely on the
 
 ![Dashboard: Covid Adjustment](./03/media/image27.png){#fig-3_20}
 
-Second, **systems costs are currently inferred by using a calibration on the share of coal in the electricity generation.** This exercise is carried out using observed data in 2019 based on observed data from the IEA and consists of matching observed data for the coal share in the electricity generation. Systerms costs are equivalent to an additional implicit price for coal, $\text{im}p_{c,\text{coa},t}$. Inferred value for system costs are thus used for the years after 2019, with the exception of the year 2020. The latter is considered as exceptional because of the Covid shock. Therefore, the exercise is repeated for this year, as systems costs could be higher. IEA's forecasts on the share of coal in total electricity generation for the year 2030 are also reported for information only.
+Second, **systems costs are currently inferred by using a calibration on the share of coal in the electricity generation.** This exercise is carried out using observed data in 2019 based on observed data from the IEA and consists of matching observed data for the coal share in the electricity generation. Systerms costs are equivalent to an additional implicit price for coal, $\text{ip}c_{c,\text{coa},t}$. Inferred value for system costs are thus used for the years after 2019, with the exception of the year 2020. The latter is considered as exceptional because of the Covid shock. Therefore, the exercise is repeated for this year, as systems costs could be higher. IEA's forecasts on the share of coal in total electricity generation for the year 2030 are also reported for information only.
 
 ![Dashboard: Covid Adjustment](./03/media/image28.png){#fig-3_21}
 
@@ -1727,7 +1731,7 @@ By way of example, for a 50% VRE system, the hours needed are $9*{0.5}^{2} = 2.2
 Therefore, the marginal storage needed is:
 
 $$
-\frac{\text{dsst}}{\text{dv}} = 18v^{2}
+\frac{\text{dsst}}{\text{dv}} = 18v
 $$
 
 The system has assumed to already have invested optimally in the existing storage at current VRE.
@@ -1757,13 +1761,13 @@ Long term storage requirements are measured in MW/MW, i.e. dimensionless units 
 +-----------------------+---------------------------------------------+
 | > **VRE penetration** | > **Marginal MW of electrolyzers required** |
 +=======================+=============================================+
-| > 85%                 | > 2.5                                       |
+| > 85%                 | > 3.2                                       |
 +-----------------------+---------------------------------------------+
-| > 90%                 | > 5.0                                       |
+| > 90%                 | > 4.8                                       |
 +-----------------------+---------------------------------------------+
-| > 95%                 | > 7.5                                       |
+| > 95%                 | > 6.4                                       |
 +-----------------------+---------------------------------------------+
-| > 100%                | > 10.0                                      |
+| > 100%                | > 8.0                                       |
 +-----------------------+---------------------------------------------+
 
 ##### Levelized cost of storage
@@ -1847,10 +1851,10 @@ For the base year, energy consumption is extracted from energy balances, express
 For 2020, estimates are based on the previous year's data adjusted for a one-time exogenous shock, i.e., Covid (see @sec-CalibrationCovid).
 
 $$
-\frac{E_{\text{oct}}}{E_{\text{oc},t - 1}} = \left( 1 + \alpha \right)^{- \left( 1 + \epsilon_{U} \right)}\left( 1 + 0.5*\Psi_{\text{ct}} \right)\left( \frac{p_{\text{cEt}}}{p_{\text{cE},t - 1}} \right)^{\epsilon_{U,\text{cE}}}\left( \frac{p_{\text{cEt}}}{p_{\text{cE},t - 1}} \right)^{\epsilon_{F,\text{cE}}}\left( \frac{Y_{\text{ct}}}{Y_{c,t - 1}} \right)^{\epsilon_{G,\text{cE}}}
+\frac{E_{\text{oct}}}{E_{\text{oc},t - 1}} = \left( 1 + \alpha \right)^{- \left( 1 + \epsilon_{U} \right)}\left( 1 + 0.5*\Psi_{\text{ct}} \right)\left( \frac{p_{\text{cEt}}}{p_{\text{cE},t - 1}} \right)^{\epsilon_{U,\text{cE}}}\left( \frac{p_{\text{cEt}}}{p_{\text{cE},t - 1}} \right)^{\epsilon_{F,\text{cE}}}\left( \frac{Y_{\text{ct}}}{Y_{c,t - 1}} \right)^{\epsilon_{Y,\text{cE}}}
 $$
 
-In the elasticity model, half the usual Covid adjustment is employed as power demand does not fall as far as other energy types.
+where $\epsilon_{Y,\text{cE}}$ is the real GDP-elasticity of power demand (with the same income-level adjustment). In the elasticity model, half the usual Covid adjustment is employed as power demand does not fall as far as other energy types.
 
 #### Total power supply
 
@@ -1874,22 +1878,22 @@ $$
 
 where $i$ and $j$ are bound variables ranging over the same range as $f$ (i.e., OIL, NGA, COA, NUC, WND, SOL, BIO, REN, HYD). In addition, $\text{gn}c_{\text{ocft}}^{*}$ denotes the total unit cost adjusted of thermal efficiency and $\epsilon_{\widetilde{E}} < 0$ is the conditional own-price elasticity of generation from fuel $f$ with respect to generation cost. Conditional (indicated by $\\tilde$) here means the elasticity reflects the percent reduction in use of fuel $f$ due to switching from that fuel to other generation fuels, per one-percent increase in generation cost for fuel $f$, holding total electricity generation fixed. Generation cost elasticities are larger than corresponding fuel price elasticities as an incremental increase in fuel and non-fuel generation costs has a bigger impact than an incremental increase in fuel costs alone.
 
-From the above equation, fuel $f$'s generation share decreases in own generation cost. It also increases in the generation cost of fuel $i \neq f$, where the increase in fuel $f$'s generation share is the reduced share fuel $i$ (i.e., $\Phi_{\text{ocft}}$ times the term in square brackets) multiplied by the (initial) share of fuel $f$ in generation from all fuel alternatives to $i$ (i.e., $\frac{\Phi_{\text{ocf},t - 1}}{\sum_{f \neq i}^{}\Phi_{\text{ocf},t - 1}}$:
+From the above equation, fuel $f$'s generation share decreases in own generation cost. It also increases in the generation cost of fuel $i \neq f$, where the increase in fuel $f$'s generation share is the reduced share fuel $i$ (i.e., $\Phi_{\text{ocft}}$ times the term in square brackets) multiplied by the (initial) share of fuel $f$ in generation from all fuel alternatives to $i$ (i.e., $\frac{\Phi_{\text{ocf},t - 1}}{\sum_{j \neq f}^{}\Phi_{\text{ocj},t - 1}}$):
 
 NB: The actual equation in CPAT also reflects that nuclear and hydro should normally not grow beyond current levels. Therefore the model reallocates any excess growth for nuclear and hydro to other generation types. The equation above thus becomes:
 
 $$
-\Phi_{\text{ocft}} = \Phi_{\text{ocf},t - 1}\left( \frac{\text{gn}c_{\text{ocft}}^{*}}{\text{gn}c_{\text{ocf},t - 1}^{*}} \right)^{\epsilon_{\widetilde{E}}} + \frac{\Phi_{\text{ocf},t - 1}\sum_{f \neq i}^{}\left\lbrack 1 - \iota_{\text{cft}} \right\rbrack^{\epsilon_{\widetilde{E}}}}{\sum_{f \neq i}^{}\Phi_{\text{ocf},t - 1}}*\delta^{\text{add}}
+\Phi_{\text{ocft}} = \Phi_{\text{ocf},t - 1}\iota_{\text{ocft}}^{\epsilon_{\widetilde{E}}} + \frac{\Phi_{\text{ocf},t - 1}\sum_{i \neq f}^{}\left\lbrack 1 - \iota_{\text{ocit}} \right\rbrack^{\epsilon_{\widetilde{E}}}}{\sum_{j \neq f}^{}\Phi_{\text{ocj},t - 1}}*\delta_{\text{oct}}^{\text{add}}
 $$
 
-where $\iota_{\text{cft}} = \frac{\text{gn}c_{\text{ocft}}^{*}}{\text{gn}c_{\text{ocf},t - 1}^{*}}$ and $\delta_{\text{oct}}^{\text{add}} = \frac{\text{TotExces}s_{\text{oc},\text{NUC} + \text{HYD},t}}{\left( 1 - \Phi_{\text{oc},\text{HYD},t} - \Phi_{\text{oc},\text{NUC},t} \right)}$
+where $\iota_{\text{ocft}} = \frac{\text{gn}c_{\text{ocft}}^{*}}{\text{gn}c_{\text{ocf},t - 1}^{*}}$ and $\delta_{\text{oct}}^{\text{add}} = \frac{\text{TotExces}s_{\text{oc},\text{NUC} + \text{HYD},t}}{\left( 1 - \Phi_{\text{oc},\text{HYD},t} - \Phi_{\text{oc},\text{NUC},t} \right)}$
 
 **The energy used of each technology** $f$ **in electricity production**
 
 Similarly, to electricity output, the base year corresponds to observed data, with the exception of wind, hydropower, solar and other renewables which are equal to electricity output. Therefore, for the following years, the energy used in electricity production is expressed as follows:
 
 $$
-F_{\text{ocft}} = E_{\text{ocft}}*\left( \frac{1}{1 + \alpha_{f}} \right)^{t}\frac{F_{\text{ocf},0}}{E_{\text{ocf},0}}
+F_{\text{ocft}} = g_{\text{ocft}}*\left( \frac{1}{1 + \alpha_{f}} \right)^{t - t_{0}}\frac{F_{\text{ocf},t_{0}}}{g_{\text{ocf},t_{0}}}
 $$
 
 The fuel use is equal to the electricity generated multiplied by an efficiency improvement over time $\alpha_{f}$ specific to the generation type $f$.
@@ -2232,7 +2236,7 @@ The table below presents the notations used in the section and the name of the v
 +------------------------------+----------------------------------------------------------------------+-----------------------------------------------+
 | **Notation**                 | **Variable**                                                         | **Unit**                                      |
 +==============================+======================================================================+===============================================+
-| $\text{em}$                  | Emissions                                                            | $\text{tC}O_{2}$/GJ                           |
+| $\text{em}$                  | Emissions                                                            | $\text{tC}O_{2}e$                             |
 +------------------------------+----------------------------------------------------------------------+-----------------------------------------------+
 | $\text{Δe}m_{\text{LUCF},t}$ | LULUCF emissions decline                                             | \% per annual in absolute value of start year |
 +------------------------------+----------------------------------------------------------------------+-----------------------------------------------+
@@ -2377,7 +2381,7 @@ In the industrial processes and product use sector, the growth rate is based on 
 
 In what follows, the index $u = I$, standing for Industrial Processes and Product Use.
 
-Non-energy-related industrial $CO_{2}$ emissions are forecasted based on an industrial energy-related $CO_{2}$ emissions rate ($\text{Δe}m_{ocP,CO_{2},t + 1}$). Therefore:
+Non-energy-related industrial $CO_{2}$ emissions are forecasted based on an industrial energy-related $CO_{2}$ emissions rate ($\text{Δe}m_{ocI,CO_{2},t + 1}$). Therefore:
 
 $$ 
 \Delta em_{ocI,CO_{2},t + 1} =
@@ -2406,7 +2410,7 @@ In addition, the user has the option to assume that non-$CO_{2}$ GHGs scale with
 For each pollutant (except methane) and for $t > 2019$:
 
 $$
-em_{\text{ocApt}} = \frac{em_{\text{ocAp},t - 1}}{\text{am}e_{A,t - 1}}(1 + Y_{\text{growth}})^{\epsilon_{Y}}*\left( 1 + lp_{\text{grow}} \right)^{\epsilon_{\text{lp}}}*\text{am}e_{\text{At}}
+em_{\text{ocApt}} = \frac{em_{\text{ocAp},t - 1}}{\text{am}e_{A,t - 1}}(1 + Y_{\text{grow}})^{\epsilon_{Y}}*\left( 1 + lp_{\text{grow}} \right)^{\epsilon_{\text{lp}}}*\text{am}e_{\text{At}}
 $$
 
 In the case of non-energy agriculture methane emissions, we can have a change in the agriculture and waste production if there is a pass-through of the methane fee. Unlike the oil/natural gas/coal production function explained in the energy-related methane emissions section, the production function for agriculture takes into account the effect of poppulation and GDP growth. We also consider the percentage change of oil producer prices caused by the methane fee. Then, the agricultural sector has its own inputs for the abatement curve in order to obtain the associated emission factor.
@@ -2431,8 +2435,8 @@ For $t > 2019$:
 
 $$
 em_{\text{ocLpt}} = \begin{cases}
-em_{ocLp,t - 1} - \left\| em_{\text{ocLp},2019}\cdot\Delta em_{L,t} \right\| & \text{if }em_{ocLp,t - 1} < 0 \\
-\frac{em_{ocLp,t - 1}}{ame_{cLp,t - 1}}\cdot ame_{cLpt} - \left\| em_{\text{ocL},2019}\cdot\Delta em_{L,t} \right\| & \text{if }em_{ocLp,t - 1} \geq 0 \\
+em_{ocLp,t - 1} - \left| em_{\text{ocLp},2019}\cdot\Delta em_{L,t} \right| & \text{if }em_{ocLp,t - 1} < 0 \\
+\frac{em_{ocLp,t - 1}}{ame_{cLp,t - 1}}\cdot ame_{cLpt} - \left| em_{\text{ocLp},2019}\cdot\Delta em_{L,t} \right| & \text{if }em_{ocLp,t - 1} \geq 0 \\
 \end{cases}
 $$
 
@@ -2549,7 +2553,7 @@ The remaining of the section presents the calculations of revenues and its break
 +-------------+------------------------------------------------+------------------------------------------------------------------------------------+
 | $\varphi$   | Sector-fuel coverage                           | \%                                                                                 |
 +-------------+------------------------------------------------+------------------------------------------------------------------------------------+
-| $ncp$       | New Carbon Price                               | US\$/ton of CO2                                                                    |
+| $ncp$       | New Carbon Price                               | US\$/Gj                                                                            |
 +-------------+------------------------------------------------+------------------------------------------------------------------------------------+
 | $revExi$    | Revenues from existing excises and other taxes | Real 2021 US\$bn                                                                   |
 +-------------+------------------------------------------------+------------------------------------------------------------------------------------+
@@ -2589,7 +2593,7 @@ Fiscal revenues are calculated according to the selected power model (Elasticity
 
 For each fuel, we multiply the fuel consumption (minus the other energy use part, which is assumed not to be covered by excises) by the sum of all the current excises. If the existing ETS is EU ETS, then the excise and other taxes from current ETS permit price are not taken into account. It is worth noting that for coal and natural gas, the formula below is used across sectors as these fuels are broken down per data on excise taxes in the sector groupings (i.e., industry, buildings and power sectors).
 
-Revenues from existing excises and other taxes, $revEx_{ft}$, are thus estimated as follows:
+Revenues from existing excises and other taxes, $revExi_{ft}$, are thus estimated as follows:
 
 $$
 revExi_{ft} = \left\{
@@ -2656,7 +2660,7 @@ Revenue or losses from price controls and total fuel expenditures can also be fo
 
 #### Revenues/losses from price controls
 
-Revenues/losses from price controls, $ct_{ocft}$, are calculated by multiplying fuel consumption across sectors (minus the other energy use part, on which price control does not apply) by the difference in fuel's international prices from the current year to the previous one, $pInt_{ocft} - pInt_{ocf,t - 1}$, and by the portion of global energy price changes not passed-through into domestic prices, $pth_{ocft} - 1$.
+Revenues/losses from price controls, $ctr_{ocft}$, are calculated by multiplying fuel consumption across sectors (minus the other energy use part, on which price control does not apply) by the difference in fuel's international prices from the current year to the previous one, $pInt_{ocft} - pInt_{ocf,t - 1}$, and by the portion of global energy price changes not passed-through into domestic prices, $pth_{ocft} - 1$.
 
 $$
 ctr_{ocft} = (F_{ocft} - F_{oc,oen,ft}) * (pth_{ocft}-1) * (pInt_{ocft} - pInt_{ocf,t-1})
@@ -2698,9 +2702,9 @@ The efficiency cost can be (approximately) computed by the 'Harberger triangle',
 
 In CPAT, the efficiency costs follow the Harberger methodology, i.e., efficiency costs are treated as deadweight costs, $ddw$. These costs correspond to the area of the trapezoid described above, which is expressed as follows:
 
-$ddw_{ft} = \frac{\left( nc_{ft} - xcp_{ft} \right)}{2}*(F_{P,ft} - F_{B,ft})$
+$ddw_{ft} = \frac{\left( ncp_{ft} - xcp_{ft} \right)}{2}*(F_{P,ft} - F_{B,ft})$
 
-Where the first term $\frac{\left( ncp_{ft} - xcp_{ft} \right)}{2}$ represents the average of new and pre-existing tax, respectively denoted $ncp_{ft}$ and $xcp_{ft}$, and $F_{P,ft} - F_{B,ft}$ corresponds to the change in fuel consumption from the baseline to the policy scenario.
+Where the first term $\frac{\left( ncp_{ft} - xcp_{ft} \right)}{2}$ represents half the difference between the new and the pre-existing tax, respectively denoted $ncp_{ft}$ and $xcp_{ft}$, and $F_{P,ft} - F_{B,ft}$ corresponds to the change in fuel consumption from the baseline to the policy scenario.
 
 #### Co-benefits
 
@@ -3722,9 +3726,9 @@ The table below provides indications on the code names used in CPAT.
 +=================+======================================================+
 | > bio           | > Biomass                                            |
 +-----------------+------------------------------------------------------+
-| > bgs           | > \- in which: biodiesel                             |
+| > bgs           | > \- in which: biogasoline                           |
 +-----------------+------------------------------------------------------+
-| > bdi           | > \- in which: biogasoline                           |
+| > bdi           | > \- in which: biodiesel                             |
 +-----------------+------------------------------------------------------+
 | > obf           | > \- in which: other liquid biofuels                 |
 +-----------------+------------------------------------------------------+
@@ -4007,10 +4011,10 @@ where $ttx$ stands for the total net taxes (or net subsidy if negative), $p$ is 
 **VAT payment**: it is computed by obtaining the portion of the retail price that corresponds to VAT payment given a known country-or-sector-specific VAT rate. For the forecasting period, the VAT payment is calculated as VAT base (price before tax plus all other taxes except VAT) multiplied by the VAT rate.
 
 $$
-vat_{c,f,g,t} = \left( sp_{c,f,g,t} + txo_{c,f,g,t} \right)*vatrate_{c,f,g,t}
+vat_{cgf,t} = \left( sp_{cgf,t} + txo_{cgf,t} \right)*vatrate_{cgf,t}
 $$
 
-where $VAT$ is the VAT payment per energy unit, $txo$ represents the excise and other taxes/subsidies and $VATrate$ is the VAT rate.
+where $vat$ is the VAT payment per energy unit, $txo$ represents the excise and other taxes/subsidies and $vatrate$ is the VAT rate.
 
 The VAT rate is assumed to be 0 for industrial and power generation users since these users receive a credit on their input VAT. Similarly, for fuels for which a unique price is reported for all sectors, the VAT payment obtained above is adjusted by the share of residential over total consumption to ensure only final purchases are charged. 
 
@@ -4067,7 +4071,7 @@ For the forecasted years, instead, it is computed as the sum of its projected co
 **Current carbon tax and ETS permit price**: Uses CPAT generated prices if the data exist.
 
 
-#### Forecasted prices (after 2021)
+#### Forecasted prices (after 2022)
 
 ##### Calculations: Modeling assumptions
 
@@ -4085,13 +4089,13 @@ $$
 $$
 sp_{cgf,t} = fixsp_{cgf} + fltsp_{cgf,t} + ps_{cgf,t}
 $$
-where $fixsp$ and $fltsp$ stand for the fixed and floating portions of the supply price, respectively, and $ps$ represents the outstanding producer-side subsidy
+where $fixsp$ and $fltsp$ stand for the fixed and floating portions of the supply price, respectively, and $ps$ represents the outstanding producer-side subsidy (negative where a subsidy lowers the price, as in the main text)
 
 
-**Fixed portion of supply price** represents the margins charged on top of international prices or production costs. They are set to remain at the average value observed during the historical years $t_0$ (2018-2022):
+**Fixed portion of supply price** represents the margins charged on top of international prices or production costs. They are set to remain at the average value observed during the historical years (2018-2022):
 
 $$
-fixsp_{cgf} = \frac{1}{n_{t_0}} \sum_{t_0 = 2018}^{2022} fixsp_{cgf,t_0} 
+fixsp_{cgf} = \frac{1}{n} \sum_{\tau = 2018}^{2022} fixsp_{cgf,\tau} 
 $$
 **Floating portion of supply price** represents all fluctuations of the supply price during the historical years (2018-2022) that are not explained by the fixed portion nor by the producer-side subsidy. For the forecasted period, they are assumed to be evolve at the same pace as the international prices ($gp$):
 
@@ -4109,10 +4113,10 @@ where $\phi_{\text{PS},t}$ is the phase-out factor for period $t$, corresponding
 **VAT payment**, as for the historical years, is obtained by the product of the VAT base (supply cost plus excise and other taxes), and the VAT rate
 
 $$
-vat_{cfg,t} = \left( sp_{cfg,t} + txo_{cfg,t} \right)*vatrate_{cfg,t}
+vat_{cgf,t} = \left( sp_{cgf,t} + txo_{cgf,t} \right)*vatrate_{cgf,t}
 $$
 
-where $VAT$ is the VAT payment per energy unit, $txo$ represents the excise and other taxes/subsidies and $VATrate$ is the VAT rate.
+where $vat$ is the VAT payment per energy unit, $txo$ represents the excise and other taxes/subsidies and $vatrate$ is the VAT rate.
 
 The VAT rate is assumed to be 0 for industrial and power generation users since these users receive a credit on their input VAT. Similarly, for fuels for which a unique price is reported for all sectors, the VAT payment obtained above is adjusted by the share of residential over total consumption to ensure only final purchases are charged.
 
@@ -4142,18 +4146,18 @@ where $\phi_{\text{CS}, t}$ stands for the phase-out factor for consumer-side su
 **Floating portion of subsidy/tax** is forecasted based on the observed average for the historical years, adjusted by the gap between the current supply price and its own average during historical years. This is then adjusted by the phase-out factor for price controls:
 
 $$
-flts_{cgf,t} = \left( \frac{\sum_{t_0 = 2018}^{2022} flts_{cgf,t_0}}{n_{t_0}} + \frac{\sum_{t_0 = 2018}^{2022} sp_{cgf,t_0}}{n_{t_0}} - sp_{cgf,t} \right) \times \left(1 - pcc \right) \times \phi_{\text{PC}_t}
+flts_{cgf,t} = \left( \frac{\sum_{\tau = 2018}^{2022} flts_{cgf,\tau}}{n} + \frac{\sum_{\tau = 2018}^{2022} sp_{cgf,\tau}}{n} - sp_{cgf,t} \right) \times \left(1 - pcc \right) \times \phi_{\text{PC}_t}
 $$
 
-where $pcc$ represents the price control coefficient, and $\phi_{\text{PC}_t}$ stands for the phase out factor for existing price controls. 
+where $n = 5$ is the number of historical years, $pcc$ represents the price control coefficient, and $\phi_{\text{PC}_t}$ stands for the phase out factor for existing price controls. 
 
 
-**Current carbon tax and ETS permit price** are read from the historical dataset and adjusted based on user-defined options. If the user decides to apply existing carbon pricing mechanisms, the values will be calculated based on historical values and planned policies. If a country's carbon pricing policy is not specified for years after 2020, the current carbon tax / ETS permit price per energy unit, $xcp$, is calculated as:
+**Current carbon tax and ETS permit price** are read from the historical dataset and adjusted based on user-defined options. If the user decides to apply existing carbon pricing mechanisms, the values will be calculated based on historical values and planned policies. If a country's carbon pricing policy is not specified for years after the base year $t_{0}$, the current carbon tax / ETS permit price per energy unit, $xcp$, is calculated as:
 
 $$
 \begin{align*}
 xcp_{cgf,t} = \; &xct_{cgf,t} + xetsp_{cgf,t} \\
-            = \; &xct_{cgf,t_0}*(1 + \delta_{CT})^{t-t0} \; + \; xetsp_{cgf,t_0}*(1+\delta_{ETS})^{t-t_0} \\
+            = \; &xct_{cgf,t_0}*(1 + \delta_{CT})^{t-t_0} \; + \; xetsp_{cgf,t_0}*(1+\delta_{ETS})^{t-t_0} \\
             = \; &XCT_{c,t_0}*ef_{cgf}*\varphi_{XCT,cgf,t_0}*(1 + \delta_{CT})^{t-t_0} \; + \\
               \; &XETSP_{c,t_0}*ef_{cgf}*\varphi_{XETS,cgf,t_0}*(1 + \delta_{ETS})^{t-t_0}
 \end{align*}
@@ -4222,7 +4226,7 @@ Please note that the 'old' cost model from IMF paper is used only in the elastic
 
 Elasticity-based generation costs are defined as follows. The total unit costs of generation (i.e. for each fuel type considered), $gnc_{ocft}$, is estimated as:
 
-$gnc_{ocft} = efc_{ocft} + nfc_{ocft} + rps_{o,cgft} + nct_{P,cgft}*\left( 1 - tex_{P,tcft} \right)$
+$gnc_{ocft} = efc_{ocft} + nfc_{ocft} + rps_{o,cgft} + nct_{P,cgft}*\left( 1 - tex_{P,cft} \right)$
 
 where:
 
@@ -4236,6 +4240,8 @@ $$
 |   For the following years, effective non-fuel unit costs are equal to effective non-fuel costs from the previous year, adjusted from the autonomous efficiency improvement.
 
 -   $rps_{o,cgft}$ denotes the renewable producer subsidies, which only apply to wind, solar, hydro and other renewables.
+
+-   $nct_{P,cgft}$ is the new carbon tax per energy unit in the policy scenario and $tex_{P,cft}$ the share of fuel $f$ used in power generation that is exempted from it (so that $1 - tex_{P,cft}$ is the policy coverage).
 
 #### New price target: Goal seek
 
@@ -4470,7 +4476,7 @@ This tables presents the **general settings**.
 +--------------------------------------------------------+--------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | > **Miscellaneous**                                    |                                            |                                                                                                                                                                                                                                                                                                                                             |
 +--------------------------------------------------------+--------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| > Include endogenous GDP effects?                      | > Yes\*/No                                 | > Use fiscal multipliers to model effects on GDP, which increases projected energy demand ('rebound effect')                                                                                                                                                                                                                                |
+| > Include endogenous GDP effects?                      | > Yes\*/No                                 | > Use fiscal multipliers to model effects on GDP, which increases projected energy demand ('rebound effect'); see @sec-GDPFeedback                                                                                                                                                                                                          |
 +--------------------------------------------------------+--------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | > Residential LPG/kerosene always exempted             | > No\*/Yes                                 | > Exempts LPG/kerosene used in residential sector in all scenarios                                                                                                                                                                                                                                                                          |
 +--------------------------------------------------------+--------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -4762,9 +4768,9 @@ This table presents the types of fuels used in CPAT and corresponding fuel codes
 +======================================================+================+==========================+
 | > Biomass                                            | > bio          |                          |
 +------------------------------------------------------+----------------+--------------------------+
-| > in which: biodiesel                                |                | > bgs                    |
+| > in which: biogasoline                              |                | > bgs                    |
 +------------------------------------------------------+----------------+--------------------------+
-| > in which: biogasoline                              |                | > bdi                    |
+| > in which: biodiesel                                |                | > bdi                    |
 +------------------------------------------------------+----------------+--------------------------+
 | > in which: other liquid biofuels                    |                | > obf                    |
 +------------------------------------------------------+----------------+--------------------------+

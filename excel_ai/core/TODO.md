@@ -118,3 +118,4 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
 - AP and TCB models ([`Air_pollution.md`](plans/Air_pollution.md), [`Transport_cobenefits.md`](plans/Transport_cobenefits.md)) beyond the data parts.
 
 Dropped by the user: engineer road model follow-ups (I61), demand on real local-currency prices (I63).
+- ☐ **Methodology follow-ups** (2026-10-31, CAVEATS): (a) regenerate `docs/CPAT_full_documentation_html/CPAT-Documentation.pdf` with the corrections (needs TinyTeX: `quarto render docs/CPAT_full_documentation_qmd --to pdf`); (b) the open parts of DOC10, DOC13, DOC14, DOC15, DOC17, DOC20 (BUGS.md section 3, Status); (c) the codes map: `bgs` biogasoline, `bdi` biodiesel (DOC17).

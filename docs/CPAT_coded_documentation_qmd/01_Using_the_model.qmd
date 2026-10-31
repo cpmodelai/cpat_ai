@@ -1,0 +1,318 @@
+# Using the model {#sec-using}
+
+Everything you need to run Coded CPAT, find your way in its data and results, change it and test it.
+
+## Quick start {#sec-quick-start}
+
+### What Coded CPAT is
+
+- **A replication.** Coded CPAT computes what the Excel-AI prototypes compute: the mitigation model (prices, power, fuel use, emissions, revenues, GDP effects, welfare, for 2022-2041) and the household distribution module (incidence by decile). The tests check every output code against Excel-AI's values.
+- **Readable code.** Each equation of the [equation list](A_Equations.qmd#sec-app-eq) is one small function or one marked line, with the code names of the Excel models (`ener` energy use, `atp` after-tax price, `co2` emissions, ...).
+- **One entry point.** `cpat_model.run(scenarios, settings)` serves the command line, the Shiny app and the tests.
+- **Bugs are not copied.** Where Excel-AI has a bug, Coded CPAT fixes it and registers it ([Appendix C](C_Project.qmd#sec-app-bugs)); everything else follows Excel-AI exactly.
+
+### Install
+
+Python 3.12 (3.13 works), from the `coded/` folder of the repository:
+
+```bash
+conda env create -f environment.yml && conda activate cpat_p
+# or, without conda:
+pip install -r requirements.txt -r dev-requirements.txt
+```
+
+### Run it
+
+**Command line**: a scenario-set file in, results out.
+
+```bash
+python run_model.py                                      # Excel-AI's six scenarios for Egypt
+python run_model.py my_set.csv --scenarios 1 2 --xlsx    # your own scenario set; also one workbook
+```
+
+Results go to `coded/outputs/` (or `--out`): `mitigation_EGY.csv` (one row per output code, years 2022-2041) and `distribution_EGY.csv` (basket and ten deciles).
+
+**From Python:**
+
+```python
+import cpat_model
+from cpat_model.inputs import read_scenario_set
+
+results = cpat_model.run(read_scenario_set())                   # dummy database, Egypt
+results.by_code('EGY').loc['egy.mit.co2.tot.tot.2']             # CO2 of scenario 2, by year
+results.distribution_by_code('EGY').loc['egy.distn.net.tot.dec.ove.2']   # net effect by decile
+```
+
+**The app:** `shiny run app.py` (from `coded/`), then open the address it prints. Build carbon-tax scenarios, run them, and look at tables and graphs.
+
+### Speed
+
+A first run in a session takes about 3 seconds (reading the data and the baseline). After that, a run of one country and two scenarios takes under a second: the baseline, the data steps and every scenario already run are cached, so only changed scenarios are computed.
+
+### Where things are
+
+| Path | What |
+|---|---|
+| `coded/cpat_model/` | The model |
+| `coded/run_model.py`, `coded/app.py`, `coded/cpat_shiny/` | Command line and app |
+| `coded/cpat_testing/` | Tests and the comparison with Excel-AI |
+| `data/Public01/tidy/` | The database (tidy CSV) |
+| `data/inputs/scenarios_excel_ai.csv` | Excel-AI's scenario set (the example) |
+| `coded/NORMS.md`, `coded/TODO.md` | The rules for working on the code; the plan |
+
+## The database {#sec-database}
+
+### In short
+
+- **Format: tidy CSV.** One table per file; long format, one observation per row; standard keys first, then `value` (or one column per variable). Country codes are ISO3 in upper case (`EGY`).
+- **Where: `data/Public01/tidy/`** in this repository: the **dummy** database. It is data edition Public01 (`data/editions.csv`): the public data, and Egypt's rows of the six proprietary tables perturbed within ±3% (identities kept); every country can be added. The **full** database (every country, the proprietary tables) lives in a private repository, never in this one.
+- **Choosing a database:** `Settings(database='dummy')` (default) reads `data/Public01/tidy/`; `Settings(database='full')` reads the folder named by the environment variable `FULL_DATA_PATH` (set it in `coded/.env` or your shell). Command line: `--database full`.
+- **One table list:** `data/Public01/tidy/_manifest.csv` lists every table (218 tables, plus the layout entries of the 13 tabs kept at their cell addresses), its kind, its legacy source, its keys, rows and whether it is proprietary. [Appendix B](B_Reference.qmd#sec-app-tables) shows them all with their columns.
+- **Tidy is the source of truth.** The legacy-compatible workbook `data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx` is written from it by `data/scripts/tidy_convert.py` (tested round trip), for pasting into legacy CPAT and for Excel-AI.
+- **Master table:** `data/catalog.csv` lists every data table: tidy file, Excel tab, proprietary or not, provenance, and the legacy data sources.
+
+::: {.callout-warning}
+### Proprietary data
+Six tables are proprietary: energy balances (`energy_balances`), energy consumption (`energy_consumption`), domestic prices (`prices_domestic`), the GTAP input-output tables (`io_gtap`), the household survey (`hh_survey`) and the transport scatter data (`tran_scatter`). Their full versions, and anything computed from them, are **never committed to this repository**. The repository holds them only perturbed (Egypt's rows within ±3%, identities kept; `data/README.md`).
+:::
+
+### What a table looks like
+
+```text
+data/Public01/tidy/energy_balances.csv            data/Public01/tidy/prices_domestic.csv
+country,year,unit,flow,fuel,value        country,year,code,value
+EGY,2022,ktoe,cement,ecy,1158.39         EGY,2019,VAT_WEO,0.14
+EGY,2022,ktoe,cement,coa,1422.24         EGY,2019,mit.sp.coa.pow,3.88
+```
+
+Keys come first (country, year, codes), then the value. Years, fuels, sectors and price codes are columns of keys, not column headers. A blank is a missing value.
+
+### The tables, by group
+
+| Group | Examples | What for |
+|---|---|---|
+| Energy | `energy_balances`, `energy_consumption` | Base-year fuel use by sector and fuel |
+| Prices | `prices_domestic`, `pint_imf`, `pint_wb`, `pint_iea` | Domestic price build-up; international price forecasts |
+| Macro | `weo`, `gdp_ratios`, `un_population` | GDP, deflators, exchange rates, population |
+| Power | `power_*` | Power plants, costs, capacity paths |
+| Elasticities | `ela_*` | Price, income and efficiency elasticities |
+| Emissions | `ef_ghg`, `ef_local_pollutants`, `ghg_*`, `ch4_inputs` | Emission factors, other gases, methane |
+| Carbon pricing | `ecp_*`, `ets_assumptions` | Existing carbon taxes and ETSs |
+| Transport | `transport_*` | The road engineer model |
+| Distribution | `hh_survey`, `hh_elasticities`, `io_gtap`, `aspire`, `who_cooking`, `distn_*` | Household survey, input-output, social programmes |
+| Modules | `air_*`, `transport_cost_per_km` | Values from the air-pollution and transport co-benefits modules |
+| Manual inputs | `mi_*` | Excel-AI's Manual inputs tab |
+
+`data/Public01/tidy/_layout/` holds what is not data (legacy headers, row order, notes) so the legacy form can be rebuilt; never edit it.
+
+### Adding or updating data
+
+1. **Edit the tidy table** (add the country's rows with the same keys), then rewrite the legacy workbook (`python data/scripts/tidy_convert.py to-xlsx`, see `data/README.md`).
+2. **Run the data tests**: `python -m pytest data/tests` (the round trip tidy to workbook to tidy must give every value back, and the committed workbook must be current).
+3. **Run the model** for the country (`python run_model.py --countries XXX`). A country needs at least its energy balance and domestic prices; the app offers only countries that have both.
+
+Every data table, with its proprietary status and provenance: `data/catalog.csv` (`data/README.md`).
+
+## Scenarios and inputs {#sec-scenarios}
+
+### In short
+
+- **A scenario set is one CSV file**: one row per input, one column per scenario. Scenario 1, the **baseline**, comes first; every other scenario is compared with it.
+- **Inputs are named as in Excel-AI** (`NameOfParameter`, the ScenarioDefinition sheet): `CPLevelTarget`, `CPIntro`, `IntEnerPricForeSource`, ... Every input is listed in [Appendix B](B_Reference.qmd#sec-app-inputs).
+- **The example** is Excel-AI's own set, `data/inputs/scenarios_excel_ai.csv` (six scenarios for Egypt). Copy it and change the values to make your own.
+
+### The file
+
+```text
+row,name,label,unit,1,2,3
+,_ScenarioName,Scenario name,,Baseline (no carbon price),Carbon price 20/tCO2 from 2027,...
+,_Countries,Countries,ISO3,EGY,EGY,EGY
+...,CPIntro,Year the carbon price starts,year,2027,2027,...
+...,CPLevelTarget,Carbon price in the target year,USD/tCO2,0,20,...
+```
+
+| Column | Meaning |
+|---|---|
+| `row` | The input's row in Excel-AI's ScenarioDefinition (blank for meta rows and Python additions) |
+| `name` | The input's name (`NameOfParameter`); rows starting with `_` are meta rows (scenario name, countries) |
+| `label`, `unit` | What it is and its unit, for people |
+| `1`, `2`, ... | The value in each scenario |
+
+Values are as in Excel-AI: numbers, or the options of Excel-AI's drop-down lists as text (`Yes*`, `Linear*`, `IMF`). A star marks Excel-AI's default option.
+
+### Rules
+
+1. **Scenario 1 is the baseline** and must be the first column. It is run first; the policy scenarios read their baseline values from it.
+2. **Global inputs come from scenario 1** (D16): a few inputs hold for the whole run (results year, last historical price year, social cost of carbon settings, price controls, ...; `GLOBAL_INPUTS` in `cpat_model/inputs/scenarios.py`). If another scenario sets a different value, the run warns and uses the baseline's, as Excel-AI does.
+3. **Countries** come from `--countries` on the command line, else from the `_Countries` row, else Egypt. All scenarios of a run use the same countries.
+4. **An unknown input name is an error** (`inputs['X']` raises), so a typo cannot pass silently.
+
+### Making a scenario
+
+To add a carbon tax of 50 USD/tCO2 by 2035 starting in 2027: copy the column of scenario 2, give it a new number and name, and set `CPIntro` = 2027, `CPOutro` = 2035, `CPLevelTarget` = 50. The app does the same from its form: its scenarios are copies of Excel-AI's carbon-tax column with the form's values written over them ([The app](02_How_it_works.qmd#sec-app)).
+
+## Results {#sec-results}
+
+### In short
+
+- **Every result has an output code**, the same as Excel-AI's: `<country>.mit.<variable>.<sector>.<fuel>.<scenario>` for mitigation (e.g. `egy.mit.co2.tot.tot.2`: total CO2 of scenario 2) and `<country>.distn.<variable>....<group>` for distribution.
+- **`results.by_code(country)`**: a table of every mitigation row, index = output code, columns = years 2022-2041.
+- **`results.distribution_by_code(country)`**: every row of the Distribution sheet, columns 0 (the basket, all households) and 1-10 (the deciles, poorest first).
+- **`run_model.py` writes both** as CSV, the mitigation table with each row's variable, sector, fuel, description and unit.
+
+### Reading a code
+
+| Part | Example | Meaning |
+|---|---|---|
+| Country | `egy` | ISO3, lower case |
+| Module | `mit`, `distn` | Mitigation or distribution |
+| Variable | `co2`, `ener`, `atp`, `rnew` | What it is ([Appendix B](B_Reference.qmd#sec-app-variables) lists every variable with its description and unit) |
+| Sector | `rod`, `res`, `pow`, `tot` | Subsector, sector group, or the total |
+| Fuel | `gso`, `nga`, `ecy`, `tot` | Fuel, or all fuels |
+| Scenario | `1`, `2` | The scenario's column number |
+
+Some rows have no sector or fuel (`egy.mit.cptraj.2`, the carbon price path). A few Excel-AI rows have a different code from their variable (totals use `tot`, revenue rows `rev.usd`): `core/variables.csv` gives the code of every row.
+
+### Common results
+
+| What | Code (scenario n) | Unit |
+|---|---|---|
+| CO2 emissions, total | `egy.mit.co2.tot.tot.n` | MtCO2 |
+| Energy use, total | `egy.mit.ener.tot.tot.n` | ktoe |
+| Carbon price | `egy.mit.cptraj.n` | USD/tCO2 real |
+| New revenue | `egy.mit.rnew.tot.tot.n` | USD m real |
+| Real GDP | `egy.mit.gdp.pos.usd.all.all.n` | USD bn |
+| Net effect on households, by decile | `egy.distn.net.tot.dec.ove.n` | % of consumption |
+
+### In Python
+
+```python
+r = cpat_model.run(read_scenario_set())
+t = r.by_code('EGY')
+t.loc['egy.mit.co2.tot.tot.2'] / t.loc['egy.mit.co2.tot.tot.1'] - 1     # CO2 change against the baseline
+r.states[2]['co2']                                                       # the same row as a labelled array
+```
+
+## Editing the model {#sec-editing}
+
+### The rules in ten lines
+
+The full rules are the Python norms ([Appendix C](C_Project.qmd#sec-app-norms)); these are the ones you need first.
+
+1. **Excel-AI is the specification.** Python computes what Excel-AI computes, row for row, except Excel-AI's bugs.
+2. **Bugs are not copied; issues are.** A bug (Excel-AI does not compute what it means to) is fixed in Python and registered the same day; an issue (a potential improvement) is logged and copied as it is ([Appendix C](C_Project.qmd#sec-app-bugs)).
+3. **Codes are shared.** Inputs, variables and outputs carry Excel-AI's names; never invent a second name.
+4. **One equation, one function.** Each equation of the equation list is a small function or one marked line, citing its id (`EQ-M3.1`).
+5. **The order is written once**, in `cpat_model/mitigation/chain.py`.
+6. **Data only through `cpat_model/data/`**, inputs only through `cpat_model/inputs/`.
+7. **Every change is tested** against Excel-AI's values ([Testing](01_Using_the_model.qmd#sec-testing)) before it is committed.
+8. **Never commit proprietary data** or anything computed from them.
+9. **Log every finished task** in `CAVEATS.md` (what, outputs, checks, caveats) and tick `coded/TODO.md`.
+10. **Readability first**: short functions, Excel-AI's names, a comment wherever Python departs from the obvious.
+
+### The code map
+
+| Folder | What |
+|---|---|
+| `cpat_model/__init__.py` | `run()`: the entry point; the version |
+| `cpat_model/settings.py` | Run settings: database, countries, years |
+| `cpat_model/core/` | The run loop (`loop.py`), rows of a block (`rows.py`), index sets, the variable registry (`variables.csv`), Excel-AI constants and tables |
+| `cpat_model/data/` | Reads the tidy tables |
+| `cpat_model/inputs/` | Reads scenario sets |
+| `cpat_model/mitigation/` | The blocks of Excel-AI's Mitigation sheet ([The mitigation blocks](02_How_it_works.qmd#sec-blocks)); `*_data.py` are the data steps |
+| `cpat_model/distribution/` | The distribution module ([The distribution module](02_How_it_works.qmd#sec-distribution)) |
+| `cpat_model/results/` | `Results` |
+| `cpat_model/air_pollution/`, `transport_cobenefits/` | Placeholder modules (Excel-AI's typed values) |
+
+### How a block looks
+
+```python
+def step(state, db, inputs, settings, baseline, t):
+    """EQ-M3.2: fuel use, emissions and revenues of every fuel block in year t."""
+    R = year_rows(state, settings)                   # the rows of the year loop
+    k = settings.years.index(t)
+    at = lambda var, sector=None, fuel=None: R.at(var, k, sector, fuel)
+    ...
+    ener = R.set('ener', k, use + leak, s, f)        # row ener.<s>.<f>, year t
+    R.set('co2', k, ener * pj * co2ef, s, f)         # row co2.<s>.<f>
+```
+
+A row is set with `R.set(variable, year index, values, sector, fuel)` and read with `R.at(...)`; values are arrays by country. The baseline's value of a row (Excel-AI's `REFCOL`) is `reference(R, baseline, k, var, sector, fuel)`.
+
+### Changing an equation
+
+1. Find the Excel-AI rows (the formulas: `excel_ai/mitigation/docs/Formulas.md`; the variable's rows: `core/variables.csv`).
+2. Change the function; keep the equation id.
+3. Update the equation in `cpat_documentation/equations/equations.yaml` and run `python make_equations.py`.
+4. Run the tests. If Excel-AI changed too, re-extract the reference values first ([Testing](01_Using_the_model.qmd#sec-testing)).
+
+### Adding a block
+
+Write the block in its module (sheet order, equation ids), add it to `chain.py`, add its variables to `BUILT` in `cpat_testing/test_mitigation.py`, add the equations, run the tests, log the task. [Architecture](02_How_it_works.qmd#sec-architecture) explains the stages a block can run in.
+
+## Testing {#sec-testing}
+
+### In short
+
+- **Run `pytest` from `coded/`** before every commit (about one minute). Everything must pass.
+- **The main test is the comparison with Excel-AI**: every output code of every built block, for Egypt's scenarios 1 and 2, every year 2022-2041, must equal Excel-AI's stored value within 1e-9 (relative where the value is above 1). The distribution sheet is compared the same way, basket and deciles.
+- **Known differences** are the codes where Coded CPAT fixes an Excel-AI bug that is still open in the prototype; the tests leave them out of the match and check that they do differ ([Appendix C](C_Project.qmd#sec-app-bugs)).
+- **The status below is generated**: `python make_qmd.py --tests` (in `docs/CPAT_coded_documentation_qmd/`) runs the tests and rewrites it.
+
+### Current status
+
+{{< include _test_status.md >}}
+
+### The tests
+
+| Test file | What it checks |
+|---|---|
+| `test_mitigation.py` | Every mitigation block against Excel-AI's stored values, scenarios 1 and 2 (one test per block, [The mitigation blocks](02_How_it_works.qmd#sec-blocks)); the known differences |
+| `test_distribution_incidence.py` | The Distribution sheet by section, scenario groups 1 and 2; the known differences |
+| `test_data_steps.py` | The data steps (what Excel-AI computes on its Inputs sheet: prices, power, elasticities, emission factors) |
+| `test_foundations.py` | Index sets, the variable registry, inputs, the run loop |
+| `test_compare.py` | The comparison harness itself (codes, years, tolerance) |
+| `test_equation_ids.py` | Every equation id cited in the code exists in the equation list |
+| `test_speed.py` | A cached two-scenario run is under 2 s and equal to a fresh run |
+| `test_run_model.py` | The command line writes the result files |
+| `test_shiny_app.py` | The app imports; its scenarios become a scenario set; its tables and graphs have data |
+
+### When to run what
+
+| When | Run |
+|---|---|
+| Any change to the code | `pytest` (from `coded/`) |
+| A change to one block | `pytest cpat_testing/test_mitigation.py -k "<block name>"` first, then everything |
+| Data changed | `cd data && pytest tests`, then `pytest` in `coded/` |
+| Excel-AI has a new version | Re-extract the reference values (below), then `pytest` |
+| Before a release | Everything, plus `python run_model.py` and `shiny run app.py` by hand |
+
+### The comparison with Excel-AI
+
+The reference values are Excel-AI's stored values, extracted from the workbooks into CSV files:
+
+```bash
+python cpat_testing/compare/extract_excel_ai.py                  # mitigation: reference/excel_ai_<version>.csv
+python cpat_testing/compare/extract_excel_ai.py --distribution   # reference/excel_ai_distribution_<version>.csv
+```
+
+`cpat_testing/compare/compare.py` compares a results table with them code by code and year by year and reports the first year that differs. For a quick look while working:
+
+```python
+from cpat_testing.compare.compare import compare, reference, summary
+report = compare(results.by_code('EGY'), ref=reference())
+summary(report[report.first_bad.notna()])
+```
+
+### Known differences
+
+`cpat_testing/compare/known_differences.py` lists, by Excel-AI bug, the codes where Python differs on purpose. When Excel-AI ships the fix of a bug, delete its entry: the codes must then match again. A test fails if a listed code matches Excel-AI (the entry is out of date) or if an unlisted code differs.
+
+### Systematic comparisons (phase 5)
+
+| | Against | Status |
+|---|---|---|
+| 5.0 | The Python recomputations written for Excel-AI | Distribution: equal to `distribution_ref.py` within 1e-13, given the same mitigation inputs (`test_recomputations.py`). Mitigation: Excel-AI's full-check recomputation does not run on the current prototype yet (Excel-AI to repair) |
+| 5.1 | Excel-AI's release workbook, every scenario | Live groups 1 and 2: every output code; stored scenarios 1 and 3-6: the 123 key codes each (`test_stored_outputs.py`); all within 1e-9 |
+| 5.2 | Every country | Only Egypt has its base tables in the dummy database; other countries need the full database (a run stops with a clear message) |
+| 5.3 | Legacy CPAT | Egypt baseline against legacy 456's cached run: `python cpat_testing/compare/legacy_comparison.py` writes `legacy_comparison.md` (base-year energy use and CO2 close; prices differ by data vintage and the fixed legacy bugs) |

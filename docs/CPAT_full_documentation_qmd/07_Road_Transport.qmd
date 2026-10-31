@@ -1386,7 +1386,7 @@ follows the following structure:
         population growth using the estimated elasticity of the outcome
         wrt population.
 
-$$Y_{t}^{\text{baseline}} = \left( \frac{\text{GDP}_{t}}{\text{GDP}_{t - 1}} - \overline{g^{\text{GDP}}} \right)^{\eta_{\text{GDP}}}{\left( \frac{\text{pop}_{t}}{\text{pop}_{t - 1}} - \overline{g^{\text{pop}}} \right)^{\eta_{\text{pop}}}Y}_{t}^{\text{simple}}$$ {#eq-basefor}
+$$Y_{t}^{\text{baseline}} = \left( 1 + g_{t}^{\text{GDP}} - \overline{g^{\text{GDP}}} \right)^{\eta_{\text{GDP}}}\left( 1 + g_{t}^{\text{pop}} - \overline{g^{\text{pop}}} \right)^{\eta_{\text{pop}}}Y_{t}^{\text{simple}}$$ {#eq-basefor}
 
 where:
 
@@ -1396,28 +1396,28 @@ where:
   - $Y_{t}^{\text{simple}}$ is the “naïve” linear forecast based only
     on past observed values of $Y$,
 
-  - $\text{GDP}_{t}$ and $\text{GDP}_{t - 1}$ are the contemporary
-    and previous GDP (GDP growth forecast for coming years from IMF
+  - $g_{t}^{\text{GDP}} = \frac{\text{GDP}_{t}}{\text{GDP}_{t - 1}} - 1$ is the GDP growth rate,
+    from the contemporary and previous GDP (GDP growth forecast for coming years from IMF
     World Economic Outlook),
 
-  - $\overline{g^{\text{GDP}}}$ is the expected GDP growth (geometric
-    average growth over past years),
+  - $\overline{g^{\text{GDP}}}$ is the expected GDP growth rate (geometric
+    average growth rate over past years, a net rate like $g_{t}^{\text{GDP}}$),
 
   - $\eta_{\text{GDP}}$ is the elasticity of the outcome wrt GDP,
 
-  - $\text{pop}_{t}$ and $\text{pop}_{t - 1}$ are the contemporary
-    and previous population sizes (WB Population Estimates and
+  - $g_{t}^{\text{pop}} = \frac{\text{pop}_{t}}{\text{pop}_{t - 1}} - 1$ is the population growth rate,
+    from the contemporary and previous population sizes (WB Population Estimates and
     Projections),
 
-  - $\overline{g^{\text{pop}}}$ is the expected population growth
-    (geometric average growth over past years),
+  - $\overline{g^{\text{pop}}}$ is the expected population growth rate
+    (geometric average growth rate over past years, a net rate like $g_{t}^{\text{pop}}$),
 
   - and $\eta_{\text{pop}}$ is the elasticity of the outcome wrt
     population size.
 
 We need to subtract expected GDP/population growth from the actual
 (forecasted) GDP/population growth, as the past growth rates are
-implicitly included in the linear forecast $Y_{t}^{f}$.
+implicitly included in the linear forecast $Y_{t}^{\text{simple}}$.
 
 Adjusting for GDP growth in this way should allow us to account for
 booms and recessions, as for example the graphically impressive drop

@@ -3,43 +3,25 @@ project:
   output-dir: ../CPAT_ai_documentation_html
 
 book:
-  title: "CPAT-AI Documentation"
-  subtitle: "The CPAT-AI project: the Excel prototypes (Excel-AI)"
-  author: "CPAT-AI Team"
-  date: last-modified
+  title: "CPAT Excel-AI"
   favicon: ./00/media/image1.png
   search: true
   reader-mode: true
   page-footer: "CPAT-AI: WB-IMF Climate Policy Assessment Tool. Documentation release 1.1.0 (2026-10-30): Excel-AI 1.1.0, Coded CPAT 1.1.0p1.3, data edition Public01"
   chapters:
     - index.qmd
-    - 01_Project_Overview.qmd
-    - 02_Bugs_and_Issues.qmd
-    - part: "Excel-AI: the mitigation prototype"
-      chapters:
-        - 03_Mitigation_Prototype.qmd
-        - 04_Prices.qmd
-        - 05_Power.qmd
-        - 06_Transport.qmd
-        - 07_Emissions.qmd
-        - 08_ETS.qmd
-        - 09_Macro_and_Results.qmd
-        - 10_Distribution_Tab.qmd
-        - 11_Data_Tabs.qmd
-    - part: "Excel-AI: other modules"
-      chapters:
-        - 12_Other_Excel_Modules.qmd
-    - part: "Data and working practice"
-      chapters:
-        - 15_Data.qmd
-        - 16_Working_in_the_Repository.qmd
+    - 01_Overview.qmd
+    - 02_Mitigation_Prototype.qmd
+    - 03_Methods.qmd
+    - 04_Other_Modules.qmd
+    - 05_Data_and_Working.qmd
 
 format:
   html:
     toc-depth: 4
     toc-location: left
     toc-title: "***Chapter Contents***"
-    number-depth: 1
+    number-depth: 3
     theme: cosmo
 
 editor: source

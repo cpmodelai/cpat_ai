@@ -72,9 +72,11 @@ def bugs_md():
                    [(r['id'], r['priority'], r['title'], r['where'], r['fix'] if r['status'] == 'Open' else '',
                      r['prototype']) for r in M])
     lines += ['## 3. Documentation bugs (DOC)', '', 'Errors in the CPAT methodology documentation '
-              '(`docs/01_MainDocumentation/`); no model is affected, the documentation is to be corrected.', '']
-    lines += table(['Code', 'Priority', 'Bug', 'Where', 'Correction'],
-                   [(r['id'], r['priority'], r['title'], r['where'], r['fix']) for r in G.by_kind('DOC')])
+              '(`docs/CPAT_full_documentation_qmd/`, the Methodology tab of the website); no model is affected. Corrected in '
+              'the documentation on 2026-10-31 (its chapter Corrections lists each change); the status says what is '
+              'left.', '']
+    lines += table(['Code', 'Priority', 'Bug', 'Where', 'Correction', 'Status'],
+                   [(r['id'], r['priority'], r['title'], r['where'], r['fix'], r['status']) for r in G.by_kind('DOC')])
     return lines
 
 
