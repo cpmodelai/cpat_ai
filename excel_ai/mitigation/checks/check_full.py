@@ -3201,7 +3201,7 @@ def _prev_version():
     """v0.5.2: the previous version = the highest build_v<major>_<minor>.py in Old/ below this version (v0.3.13: minor - 1,
     which gave 5.-1 after v0.4.16); minor - 1 when Old/ has none."""
     cur = tuple(int(x) for x in B.VERSION.split('.'))
-    vs = [tuple(int(x) for x in re.search(r'_v(\d+(?:\.\d+)*)\.xlsm$', f).group(1).split('.'))   # v0.8.4: top and releases/
+    vs = [tuple(int(x) for x in re.search(r'_v(\d+(?:\.\d+)*)\.xls[mx]$', f).group(1).split('.'))   # v1.2.0: .xlsx too
           for f in B.REL.all_versions(B.NAME, 'xlsm')]
     below = [v for v in vs if v < cur]
     return '.'.join(map(str, max(below or [v for v in vs if v == cur] or [cur[:-1] + (cur[-1] - 1,)])))

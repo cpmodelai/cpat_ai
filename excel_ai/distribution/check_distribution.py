@@ -141,7 +141,7 @@ def main():
                     continue
                 if D.sheets_in(v) - keep:
                     reads.append(f'{t}!{c.coordinate}')
-                for tok in D.tokens(v):
+                for tok in D.tokens(P._SHEET_Q.sub('', v)):   # v1.2.0: quoted sheet names are not names
                     if re.fullmatch(r'[A-Z]{1,3}\d*|_xlfn\.\w+|_xlws\.\w+', tok) or tok in names or tok in known:
                         continue
                     if not re.search(rf'(?<![\w.]){re.escape(tok)}\s*\(', v):

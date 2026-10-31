@@ -467,7 +467,7 @@ def last_release():
     """The last released workbook in excel_ai/<module>/releases/ before this version (restructure 2026-10-22: was Old/); the
     release of this version itself while it is the only one."""
     files = B.REL.all_versions(B.NAME, 'xlsm')             # v0.8.4: current at the top, older in releases/
-    ver = lambda f: tuple(int(x) for x in re.search(r'_v(\d+(?:\.\d+)*)\.xlsm$', f).group(1).split('.'))
+    ver = lambda f: tuple(int(x) for x in re.search(r'_v(\d+(?:\.\d+)*)\.xls[mx]$', f).group(1).split('.'))   # v1.2.0
     cur = tuple(int(x) for x in B.VERSION.split('.'))
     before = [f for f in files if ver(f) < cur]
     return max(before or [f for f in files if ver(f) == cur], key=ver)
