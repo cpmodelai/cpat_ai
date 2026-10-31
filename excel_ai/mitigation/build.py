@@ -15525,7 +15525,9 @@ DATA_LINKS = [  # prototype tab, table in the data workbook (data/Public01/legac
     ('HH_Elast', 'L_HH_Elast', 'A3', 31, 'country'),
     ('WEO', 'L_WEO', 'A3', 47, 'all'),                      # US CPI and other countries' series
     ('GDPRatios', 'L_GDPRatios', 'A3', 69, 'all'),          # regional fallbacks; column BR (key) is a formula
-    ('UNPop', 'L_UNPop', 'B3', 35, 'all')]                  # column A is blank
+    ('UNPop', 'L_UNPop', 'B3', 35, 'all'),                  # column A is blank
+    ('EF_PM', 'L_EF_PM', 'A3', 7, 'all'),                   # v1.2.0 (user 2026-10-31): large tables linked too; all
+    ('CH4Inputs', 'L_CH4Inputs', 'A3', 12, 'all')]          # rows: lookups fall back to regions, world, AVG rows
 FILTER_COL = 'FilterISO3'                                    # the country column of every data-workbook table
 
 
