@@ -1029,13 +1029,13 @@ switch is on (and, in the baseline, the baseline switch too), and they use the c
 **Scope by fuel and sector.** Scope switches let a reform cover some price blocks or fuels only:
 
 $$
-cs_{g,f,t} = 1 - i^{cs}_{g,f}\,(1 - \phi_{cs,t}), \qquad pc_{g,f,t} = 1 - i^{pc}_{g,f}\,(1 - \phi_{pc,t}), \qquad \mathit{ps}_{f,t} = 1 - i^{ps}_{f}\,(1 - \phi_{ps,t})
+\psi^{cs}_{g,f,t} = 1 - i^{cs}_{g,f}\,(1 - \phi_{cs,t}), \qquad \psi^{pc}_{g,f,t} = 1 - i^{pc}_{g,f}\,(1 - \phi_{pc,t}), \qquad \psi^{ps}_{f,t} = 1 - i^{ps}_{f}\,(1 - \phi_{ps,t})
 $$ {#eq-ov-scope}
 
 where
 
-- $cs$ (`csf`), $pc$ (`pcf`) are the consumer-subsidy and price-control factors of each of the 12 fuel price
-  blocks, and $ps$ (`psf`) the producer-subsidy factor of each producer fuel (coal, gas, oil, biomass,
+- $\psi^{cs}$ (`csf`), $\psi^{pc}$ (`pcf`) are the consumer-subsidy and price-control factors of each of the 12
+  fuel price blocks, and $\psi^{ps}$ (`psf`) the producer-subsidy factor of each producer fuel (coal, gas, oil, biomass,
   electricity);
 - $i^{cs}$, $i^{pc}$, $i^{ps}$ (`csi`, `pci`, `psi`) are the scope switches (`ConsSubPhaseScope_<fuel>_<sector>`,
   `PriceCtrlPhaseScope_<fuel>_<sector>`, `ProdSubPhaseScope_<fuel>`), 1 where the reform applies.
@@ -1073,7 +1073,7 @@ spreads it over the demand it supports to get a subsidy per unit, and lowers it 
 after the last historical price year ([A2.5](A_Equations.qmd#eqlist-A2-5)):
 
 $$
-\mathit{ps}_{f,t} = \begin{cases} -\dfrac{\mathit{PROS}_{f,t}}{D_{f,t}} & t \le L \\[8pt] \mathit{ps}_{f,L}\;\mathit{ps}^{\phi}_{f,t} & t > L \end{cases}
+\mathit{ps}_{f,t} = \begin{cases} -\dfrac{\mathit{PROS}_{f,t}}{D_{f,t}} & t \le L \\[8pt] \mathit{ps}_{f,L}\;\psi^{ps}_{f,t} & t > L \end{cases}
 $$ {#eq-ov-producer}
 
 where
@@ -1085,7 +1085,7 @@ where
 - $D_{f,t}$ (`psd`) is the demand that carries the subsidy: world demand times liters per ktoe for oil; the average
   of world demand and domestic consumption (excluding electricity and heat) times GJ per ktoe for coal and gas;
   domestic consumption times GJ per ktoe for biomass;
-- $\mathit{ps}^{\phi}_{f,t}$ is the producer-subsidy factor `psf` of @eq-ov-scope.
+- $\psi^{ps}_{f,t}$ is the producer-subsidy factor `psf` of @eq-ov-scope.
 
 The per-unit subsidy enters the supply cost of each price block of the fuel, so the floating taxes and price controls
 absorb part of a phase-out, as in legacy (@sec-prices). The subsidy itself is a fiscal line (`rpsu`, @sec-fiscal).
