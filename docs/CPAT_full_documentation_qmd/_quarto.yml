@@ -12,7 +12,7 @@ book:
   repo-actions: [issue]
   downloads: [pdf]
   reader-mode: true
-  page-footer: "WB-IMF Climate Policy Assessment Tool, 2023; corrections 2026-10-31 (see Corrections)"
+  page-footer: "WB-IMF Climate Policy Assessment Tool, 2023; corrections and additions 2026-10-31 (see Corrections)"
   chapters:
     - index.qmd
     - 01_User_Guide.qmd

@@ -824,7 +824,7 @@ The table below presents the notations used in the section and the name of the v
 
 ### Fuel Consumption Dynamics {#sec-FuelConsumptionDynamics}
 
-The fuel use for fuel type $f$ and sector $s$ can be related to the fuel use in the previous year as follows:
+The fuel use for fuel type $f$ and sector $s$ can be related to the fuel use in the previous year as follows (road transport can instead use the engineer road model of the vehicle fleet, @sec-RoadMitigation):
 
 $\frac{F_{\text{ocsf},t}}{F_{\text{ocsf},t - 1}} = \left( \frac{1}{1 + \alpha_{\text{sf}}} \right)^{1 + \epsilon_{U,c\text{sf}}}\Psi_{\text{ct}}\left( \frac{Y_{c,t}}{Y_{c,t - 1}} \right)^{\epsilon_{Y,\text{csf}}}\left( \frac{p_{\text{ocsf},t}}{p_{\text{ocsf},t - 1}} \right)^{\epsilon_{U,\text{csf}}}\left( \frac{p_{\text{ocsf},t}}{p_{\text{ocsf},t - 1}} \right)^{\epsilon_{F,\text{csf}}\left( 1 + \epsilon_{U,\text{csf}} \right)}$
 

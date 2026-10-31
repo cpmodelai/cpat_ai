@@ -14,14 +14,15 @@ This chapter describes the engineer model: what it is (@sec-tr-what), its data (
 year (@sec-tr-ownership to @sec-tr-results), its caveats (@sec-tr-caveats), and how it compares with legacy CPAT
 (@sec-tr-legacy). The implementation in Excel-AI and CPAT Python closes the chapter (@sec-tr-impl).
 
-The CPAT methodology describes the elasticity approach in
-[section 3.3.3](../CPAT_full_documentation_html/03_Mitigation.html#sec-FuelConsumptionDynamics); it has no chapter on
-the engineer road model, whose source is the legacy CPAT workbook and its methodology note
-(`Transportation_methodology.docx`). The methodology's road transport module
-([chapter 7](../CPAT_full_documentation_html/07_Road_Transport.html#summary)) is related but different: it projects
-vehicle-kilometres, congestion, accidents and road damage from fuel prices with estimated elasticities
-([section 7.3.1](../CPAT_full_documentation_html/07_Road_Transport.html#vehicle-kilometers-traveled-vkt),
-[section 7.3.8](../CPAT_full_documentation_html/07_Road_Transport.html#sec-methodo)), for the co-benefits of the
+The mathematics of both road models is in the CPAT methodology, chapter 7 *Road transport*: the elasticity approach in
+[section 3.3.3](../CPAT_full_documentation_html/03_Mitigation.html#sec-FuelConsumptionDynamics) and the engineer road
+model in [section 7.1](../CPAT_full_documentation_html/07_Road_Transport.html#sec-RoadMitigation), whose source is the
+legacy CPAT workbook and its methodology note (`Transportation_methodology.docx`). This chapter repeats the equations,
+adds the pseudocode of every step and shows how CPAT-AI implements it. The methodology's transport co-benefits module
+([section 7.2](../CPAT_full_documentation_html/07_Road_Transport.html#sec-RoadCobenefits)) is related but different: it
+projects vehicle-kilometres, congestion, accidents and road damage from fuel prices with estimated elasticities
+([section 7.2.3.1](../CPAT_full_documentation_html/07_Road_Transport.html#vehicle-kilometers-traveled-vkt),
+[section 7.2.3.8](../CPAT_full_documentation_html/07_Road_Transport.html#sec-methodo)), for the co-benefits of the
 welfare results (@sec-fiscal). The engineer model sends its road fuel use to that module (@sec-tr-results).
 
 ## Two road models and the switch {#sec-tr-what}
@@ -1110,7 +1111,7 @@ $$ {#eq-tr-bio}
 
 The **transport co-benefits module** (accidents, congestion, road damage; methodology
 [section 3.7.1.4](../CPAT_full_documentation_html/03_Mitigation.html#co-benefits) and
-[section 7.7.5](../CPAT_full_documentation_html/07_Road_Transport.html#sec-extcost)) reads road fuel use of whichever
+[section 7.2.7.5](../CPAT_full_documentation_html/07_Road_Transport.html#sec-extcost)) reads road fuel use of whichever
 model is switched on (`ener`, electricity `eldem`) and its share of total use.
 
 ::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: results"}

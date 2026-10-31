@@ -1,6 +1,6 @@
 # Corrections {#sec-corrections}
 
-This edition of the methodology is the CPAT team's 2023 text with errors corrected in place. The errors were found by the CPAT-AI project while it rebuilt CPAT in Excel and Python and wrote out every equation (the *Documentation bugs* DOC1-DOC20 of its register, `excel_ai/core/BUGS.md`). No model changes: CPAT, Excel-AI and CPAT Python already compute what the corrected text says.
+This edition of the methodology is the CPAT team's 2023 text with errors corrected in place. The errors were found by the CPAT-AI project while it rebuilt CPAT in Excel and Python and wrote out every equation (the *Documentation bugs* DOC1-DOC20 of its register, `excel_ai/core/BUGS.md`). No model changes: CPAT, Excel-AI and CPAT Python already compute what the corrected text says. One addition: the engineer road model of the mitigation module, which the 2023 text did not describe (@sec-RoadMitigation).
 
 ::: {.callout-note}
 #### The PDF download
@@ -12,6 +12,7 @@ The downloadable PDF is the 2023 edition, without these corrections. Read the we
 
 | Date | Version | Changes |
 |---|---|---|
+| 2026-10-31 | Road transport | Chapter 7 now covers road transport in the mitigation module (new section @sec-RoadMitigation: the engineer road model of legacy CPAT, as CPAT-AI implements it, with the legacy bugs fixed) and the transport co-benefits module (@sec-RoadCobenefits, the former chapter). |
 | 2026-10-31 | 2023 edition, corrected | Twenty documentation errors corrected (DOC1-DOC20, below): 14 in full, 6 in part. New section [GDP feedback in CPAT](04_Multipliers.qmd#sec-GDPFeedback). |
 | 2023 | 2023 edition | The CPAT team's methodology. |
 

@@ -1234,7 +1234,7 @@ coefficient (µg/m³ per t; NOx, SO2, BC, POM, other PM, VOC, CH4, CO, PM2.5, OC
 The transport co-benefits module gives the cost of accidents, congestion and road damage per vehicle-km. The model turns
 them into a cost per litre (or kWh) of road fuel, using the road engineer model (@sec-transport) for fuel economy and the
 split between passenger and freight use ([A8.4](A_Equations.qmd#eqlist-A8-4)). The methodology describes these costs in
-[chapter 7, section 7.7.5](../CPAT_full_documentation_html/07_Road_Transport.html#sec-extcost).
+[chapter 7, section 7.2.7.5](../CPAT_full_documentation_html/07_Road_Transport.html#sec-extcost).
 
 A change in fuel use comes partly from driving less and partly from more efficient vehicles. Only the driving part
 changes the externalities. Its share, for road fuel $f$ (gasoline, diesel, LPG, gas, electricity), is:
