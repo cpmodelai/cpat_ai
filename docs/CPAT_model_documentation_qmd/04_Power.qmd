@@ -1208,8 +1208,8 @@ equation list has the rate-based form in ([M4.5](A_Equations.qmd#eqlist-M4-5)).
 
 The planned-retirement data come from the coal plant tracker (plant-level retirement years, plants cancelled, shelved
 or mothballed removed), averaged over five years ([Year paths](#sec-pw-data-paths)). The data exist for coal only; the
-switch exists for every type. A type is switched on where its average planned retirement over the data years is at
-least 0.1 MW per year.
+switch exists for every type. Coal is switched on where its averaged planned retirement over 2020-2030 is at least
+0.1 MW per year (the data flag of the country).
 
 ### Early coal retirement {#sec-pw-early}
 
@@ -1340,8 +1340,8 @@ for t in years:
   although it comes online next year. The model sizes it for next year's requirement, estimated with this year's
   growth so that no later year is read.
 - **Planned retirement (LD26).** Every type has the switch and data rows; legacy offers it for coal only (K5).
-  Legacy's "Use Data?" flag is `IF(AVERAGE(...) < 0.1, "No", "Yes")` over the five-year averaged retirements
-  (Power F1750:F1857).
+  Legacy's "Use Data?" flag is `IF(AVERAGE(Z:AJ) < 0.1, "No", "Yes")` over the five-year averaged retirements of
+  2020-2030 (Power F1750:F1857).
 - **Methodology.** The methodology's early-retirement logit compares variable costs of coal, wind and solar; the
   model, as legacy, compares the coal variable cost with the levelised investment costs of wind and solar (the
   "total cost of wind and solar" of the methodology's text). The stock equation is in MW

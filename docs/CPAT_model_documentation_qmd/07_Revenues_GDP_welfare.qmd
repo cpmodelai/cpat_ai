@@ -179,14 +179,15 @@ for t in years:
     for s in subsectors:
         for f in fuels:
             c = price_fuel[f, s]; q = ener[f, s, t] * PJ_PER_KTOE
-            rtx[f, s, t]  = q * (etx[c, t] + vat[c, t] + xcpd[f, s, t] * (1 + vat_rate[f, s]))
+            v = vat_rate[f, s]
+            rtx[f, s, t]  = q * (etx[c, t] + vat[c, t] + xcpd[f, s, t] * (1 + v))
             rsub[f, s, t] = q * esub[c, t]                               # negative
             rnew[f, s, t] = q * (ctxnew[f, s, t] + ntx[f, s, t] + ets[f, s, t] * ets_rf[t]
-                                 + nce[f, s, t] * vat_rate[f, s])
-            rsr[f, s, t]  = q * (csw[f, s, t] + pcw[f, s, t]) * (1 + vat_rate[f, s])
+                                 + nce[f, s, t] * v)
+            rsr[f, s, t]  = q * (csw[f, s, t] + pcw[f, s, t]) * (1 + v)
             rex[f, s, t]  = q * ntx[f, s, t]
-            rvt[f, s, t]  = q * (vat[c, t] + (xcpd[f, s, t] + nce[f, s, t] + csw[f, s, t] + pcw[f, s, t])
-                                 * vat_rate[f, s])
+            wedge = xcpd[f, s, t] + nce[f, s, t] + csw[f, s, t] + pcw[f, s, t]
+            rvt[f, s, t]  = q * (vat[c, t] + wedge * v)
             rxcp[f, s, t] = q * xcp[f, s, t]                             # memo
 ```
 :::
@@ -307,8 +308,10 @@ use) and given for power.
 ```
 for t in years:
     power = {
-        'rtx':  sum(prtx[k, t] + prxc[k, t] for k in types) + sum(rvat[u, t] for u in users),
-        'rsub': sum(prsub[k, t] + prrns[k, t] for k in types) + sum(rgap[u, t] for u in users),
+        'rtx':  sum(prtx[k, t] + prxc[k, t] for k in types)
+                + sum(rvat[u, t] for u in users),
+        'rsub': sum(prsub[k, t] + prrns[k, t] for k in types)
+                + sum(rgap[u, t] for u in users),
         'rnew': sum(prnew[k, t] for k in types)
                 + sum(rnvat[u, t] + rreb[u, t] + rpex[u, t] for u in users),
         'rxcp': sum(prxl[k, t] for k in types),
@@ -396,9 +399,10 @@ $$ {#eq-fi-rpct}
 ```
 for t in years:
     for f in fuels:
-        rfu[f, t] = sum(rtx[f, s, t] + rsub[f, s, t] + rnew[f, s, t] + rsr[f, s, t] for s in subsectors)
-    rfu['ecy', t] = sum(rvat[u, t] + rnvat[u, t] + rreb[u, t] + rpex[u, t] + rgap[u, t] for u in users) \
-                    + sum(prrns[k, t] for k in types)
+        rfu[f, t] = sum(rtx[f, s, t] + rsub[f, s, t] + rnew[f, s, t] + rsr[f, s, t]
+                        for s in subsectors)
+    rfu['ecy', t] = sum(rvat[u, t] + rnvat[u, t] + rreb[u, t] + rpex[u, t] + rgap[u, t]
+                        for u in users) + sum(prrns[k, t] for k in types)
     for k in ['coa', 'nga', 'oop', 'bio']:
         rfg[k, t] = prtx[k, t] + prxc[k, t] + prsub[k, t] + prnew[k, t]
 
@@ -407,19 +411,20 @@ for t in years:
         covct[e, t] = sum(co2[f, e, t] * ctcov[f, t] for f in fuels_e) * (ctr[e, t] > 0)
     ctp = covct['pow', t] * ctr['pow', t]
     etp = co2_sec['pow', t] * etr['pow', t] * ets_rf[t]
-    rpol['ct']  = sum(covct[e, t] * ctr[e, t] for e in coverage_sectors) + sum(rreb[u, t]) + rexs[t]
+    rpol['ct']  = sum(covct[e, t] * ctr[e, t] for e in coverage_sectors) \
+                  + sum(rreb[u, t] for u in users) + rexs[t]
     rpol['exc'] = sum(rex[f, s, t]) + sum(prnew[k, t]) - ctp - etp + rexm[t]
     rpol['vat'] = sum(rvt[f, s, t]) + sum(rvat[u, t] + rnvat[u, t] for u in users)
     rpol['ets'] = sum(co2_sec[e, t] * etr[e, t] for e in coverage_sectors) * ets_rf[t]
     rpol['psu'] = sum(rgap[u, t] for u in users) + rpsu[t]
     rpol['ren'] = sum(prrns[k, t] for k in types)
     rpol['mf'], rpol['trs'] = rmf[t], 0.0
-    rpol['exi'] = rtot[t] - rmf[t] - rpol['ct'] - rpol['exc'] - rpol['vat'] - rpol['ets'] \
-                  - rpol['psu'] - rpol['ren']
+    rpol['exi'] = rtot[t] - rmf[t] - rpol['ct'] - rpol['exc'] - rpol['vat'] \
+                  - rpol['ets'] - rpol['psu'] - rpol['ren']
 
     rbe[t] = rnet[t] - baseline.rnet[t]
-    for key, x in [('tot', rtot), ('net', rnet), ('sub', rsub['all']), ('new', rnew['all']),
-                   ('chg', rtot_chg), ('be', rbe)]:
+    for key, x in [('tot', rtot), ('net', rnet), ('sub', rsub['all']),
+                   ('new', rnew['all']), ('chg', rtot_chg), ('be', rbe)]:
         rpct[key, t] = x[t] / (gdp_usd[t] * M_PER_BN)
 ```
 :::
@@ -693,14 +698,16 @@ def gdp_effects(t):
 
     group = multiplier_group(MultipliersSource, income_group)
     sign  = {'Base': 0, 'Low': -1, 'High': +1}[FmAdj]
-    def m(i, k):                                              # k = 0..19, held after lag 11
+    def m(i, k):                                  # k = 0..19, held after lag 11
         kk = min(k, 11)
         return median[group, i, kk] + sign * sd[income_group, i, kk]
 
-    eff = {'exc': -sum(fis_imp[t - k] * m('exc', k) for k in range(20) if t - k >= t0)}
+    eff = {'exc': -sum(fis_imp[t - k] * m('exc', k)
+                       for k in range(20) if t - k >= t0)}
     for i, share in [('pit', EXPLabortax), ('cit', EXPCIT), ('capt', EXPCapex),
                      ('gnfs', EXPGoodsandserv), ('trns', EXPTransfers)]:
-        eff[i] = share / 100 * sum(fis_impp[t - k] * m(i, k) for k in range(20) if t - k >= t0)
+        eff[i] = share / 100 * sum(fis_impp[t - k] * m(i, k)
+                                   for k in range(20) if t - k >= t0)
     gdp_eff[t] = sum(eff.values()) if GDPEndogenous == 'Yes' else 0.0
     gdp_pos_usd[t] = gdp_usd[t] * gdp_lvl[t]
 ```
@@ -914,16 +921,21 @@ where
 ::: {.callout-tip icon=false title="Pseudocode: external balance"}
 ```
 for t in years:
-    for f, g in [('coa', 'coa'), ('nga', 'nga'), ('gso', 'oil'), ('die', 'oil'), ('lpg', 'oil'),
-                 ('ker', 'oil'), ('jfu', 'oil'), ('oop', 'oil')]:
-        price = sp['ind', f, t] if f in ('coa', 'nga') else sp['all', 'ker' if f == 'jfu' else f, t]
+    for f, g in [('coa', 'coa'), ('nga', 'nga'), ('gso', 'oil'), ('die', 'oil'),
+                 ('lpg', 'oil'), ('ker', 'oil'), ('jfu', 'oil'), ('oop', 'oil')]:
+        if f in ('coa', 'nga'):
+            price = sp['ind', f, t]
+        else:
+            price = sp['all', 'ker' if f == 'jfu' else f, t]
         xnim[f, t] = echg[f, t] * PJ_PER_KTOE * price * ts[g] / M_PER_BN
     for g in ['oil', 'nga', 'coa']:
         xnim_grp[g, t] = sum(xnim[f, t] for f in fuels_of(g))
-        xtb[g, t] = -(imports[g] + exports[g]) * PJ_PER_KTOE / M_PER_BN * p_int[g, t] / gj_per_unit[g]
+        xtb[g, t] = -(imports[g] + exports[g]) * PJ_PER_KTOE / M_PER_BN \
+                    * p_int[g, t] / gj_per_unit[g]
     xnim_all[t] = sum(xnim_grp[g, t] for g in groups)
     xtbp[t]     = sum(xtb[g, t] for g in groups) - xnim_all[t]
-    xtb_pct[t]  = safe_div(xtbp[t], gdp_usd[t]);  xnim_pct[t] = safe_div(xnim_all[t], gdp_usd[t])
+    xtb_pct[t]  = safe_div(xtbp[t], gdp_usd[t])
+    xnim_pct[t] = safe_div(xnim_all[t], gdp_usd[t])
 
     bca_r[t] = bca[t] * infl[t]
     bca_p[t] = bca_r[t] - sum(xnim_grp[g, t] for g in groups)
@@ -1030,8 +1042,8 @@ for t in years:
     for f in ['coa', 'nga', 'gso', 'die', 'lpg', 'ker', 'jfu', 'oop']:
         rev = rfu[f, t] + (rfg[f, t] if f in ('coa', 'nga', 'oop') else 0.0)
         tcp[f, t] = rev / co2[f, t] if co2[f, t] != 0 else 0.0
-    tcp['all', t] = safe_div(sum(rfu[f, t] for f in fossil) + sum(rfg[k, t] for k in ('coa', 'nga', 'oop')),
-                             co2_all[t])
+    rev_all = sum(rfu[f, t] for f in fossil) + sum(rfg[k, t] for k in ('coa', 'nga', 'oop'))
+    tcp['all', t] = safe_div(rev_all, co2_all[t])
     for g in groups + ['pow']:
         cov_ct[g, t] = safe_div(sum(covct[e, t] for e in sectors_of(g)), co2_all[t])
     cov_ct['all', t] = safe_div(sum(covct[e, t] for e in coverage_sectors), co2_all[t])
@@ -1271,35 +1283,41 @@ $$ {#eq-fi-totext}
 ```
 for t in years:
     # air pollution cost per unit, weighted by this year's fuel use
-    for (S, f, subsectors) in cost_rows:                 # coa|nga x ind|res|pow, gso|die|lpg|ker, oop x pow|ind
+    # cost rows: coal, gas x ind, res, pow; gso, die, lpg, ker; oop x pow, ind
+    for (S, f, subsectors) in cost_rows:
         u = gj_per_unit[f] if S == 'all' else 1.0
         if subsectors is None:                           # power: the plant's own value
             cost = airpol_mc['pow', f, t]
         else:
             w = sum(ener[f, s, t] for s in subsectors)
-            cost = (sum(airpol_mc[s, f, t] * ener[f, s, t] for s in subsectors) / w if w > 0
-                    else mean(airpol_mc[s, f, t] for s in subsectors))
+            if w > 0:
+                cost = sum(airpol_mc[s, f, t] * ener[f, s, t] for s in subsectors) / w
+            else:
+                cost = mean(airpol_mc[s, f, t] for s in subsectors)
         airpol_cost[S, f, t] = cost * u
         airpol_cost_gj[S, f, t] = cost
-    airpol_cost_gj['res', 'coa', t] *= (fuq['bld', 'coa', t] > ApCoalResMin * ener['bld', 'all', t])
-    for m in sources:                                    # cpp, gpp, opp, rod, gro, oth, foo
+    coal_res_on = fuq['bld', 'coa', t] > ApCoalResMin * ener['bld', 'all', t]
+    airpol_cost_gj['res', 'coa', t] *= coal_res_on
+    for m in sources:                           # cpp, gpp, opp, rod, gro, oth, foo
         pm2[m, t] = sum(aps[m, p, t] * kappa[m, p] for p in pollutants) * T_PER_KT
     pm2['mod', t] = sum(pm2[m, t] for m in sources)
 
     # road transport externalities per unit of fuel
     for f in ['gso', 'die', 'lpg', 'nga', 'ecy']:
-        wcl = 1.0 if f == 'gso' else 1 - safe_div(baseline.freight_use[f, t], baseline.class_use[f, t])
-        mrg = 0.0 if baseline.class_use[f, t] == 0 else \
-              (eU['die'] + wcl * (eU['gso'] - eU['die'])) / \
-              (eU['die'] + eF['die'] + wcl * (eU['gso'] + eF['gso'] - eU['die'] - eF['die']))
+        cls0, fre0 = baseline.class_use[f, t], baseline.freight_use[f, t]
+        wcl = 1.0 if f == 'gso' else 1 - safe_div(fre0, cls0)
+        num = eU['die'] + wcl * (eU['gso'] - eU['die'])
+        den = eU['die'] + eF['die'] + wcl * (eU['gso'] + eF['gso'] - eU['die'] - eF['die'])
+        mrg = 0.0 if cls0 == 0 else num / den
         fsh = safe_div(freight_use[f, t], class_use[f, t])
         acc_cost[f, t] = acc_km[t] * avg_fe[f, t] * mrg * road_share[f, t]
         con_cost[f, t] = con_km[t] * avg_fe[f, t] * mrg * road_share[f, t]
         if f != 'gso':
             rdm_cost[f, t] = rdm_km[t] * avg_fe[f, t] * mrg * fsh * road_share[f, t]
-    tot_ext['gso', t] = airpol_cost_gj['all', 'gso', t] + acc_cost['gso', t] / gj['gso'] + con_cost['gso', t] / gj['gso']
-    tot_ext['die', t] = airpol_cost_gj['all', 'die', t] + (acc_cost['die', t] + con_cost['die', t]
-                                                           + rdm_cost['die', t]) / gj['die']
+    tot_ext['gso', t] = airpol_cost_gj['all', 'gso', t] \
+                        + (acc_cost['gso', t] + con_cost['gso', t]) / gj['gso']
+    tot_ext['die', t] = airpol_cost_gj['all', 'die', t] \
+                        + (acc_cost['die', t] + con_cost['die', t] + rdm_cost['die', t]) / gj['die']
 ```
 :::
 
@@ -1356,12 +1374,13 @@ for t in years:
         wdg[f, t] = safe_div(tax, ener['all', f, t])
         eff[f, t] = -(wdg[f, t] + baseline.wdg[f, t]) / 2 * echg[f, t] / M_PER_BN
     wdg['ecy', t] = safe_div(rfu['ecy', t], eldem[t])
-    eff['ecy', t] = -(wdg['ecy', t] + baseline.wdg['ecy', t]) / 2 * (eldem[t] - baseline.eldem[t]) / M_PER_BN
+    d_ecy = eldem[t] - baseline.eldem[t]
+    eff['ecy', t] = -(wdg['ecy', t] + baseline.wdg['ecy', t]) / 2 * d_ecy / M_PER_BN
     eff_all = sum(eff[f, t] for f in fuels + ['ecy'])
 
     for j in methane_sources:
         fee = mfee[t] * gwp[j] * fee_applies[j]
-        cap = a[j] ** (-1 / b[j]) if b[j] != 0 else fee      # no cap where b = 0 or it overflows
+        cap = a[j] ** (-1 / b[j]) if b[j] != 0 else fee     # no cap where b = 0
         mfp[j, t] = 0.0 if a[j] == 0 else min(fee, cap)
         unabated = safe_div(em0[j] * ch4_act[j, t], act0[j])
         mfc[j, t] = unabated * ch4_abt[j, t] * mfp[j, t] * b[j] / (1 + b[j]) / MILLION
@@ -1369,7 +1388,8 @@ for t in years:
 
     wel_air = air_vpm[t] * (baseline.pm2['mod', t] - pm2['mod', t])
     dkm = baseline.trkmt[t] - trkmt[t]
-    wel_rod = acc_km[t] * dkm + con_km[t] * dkm + rdm_km[t] * (baseline.trkmf[t] - trkmf[t])
+    dkm_fre = baseline.trkmf[t] - trkmf[t]
+    wel_rod = acc_km[t] * dkm + con_km[t] * dkm + rdm_km[t] * dkm_fre
     wel_usd[t] = wcli['nat', t] + wel_air + wel_rod - eff_all - mfc_all
     wel_pct[t] = safe_div(wel_usd[t], gdp_usd[t])
 ```
@@ -1497,12 +1517,14 @@ for t in years:
         vatext[s, f]  = (supcost[s, f] + extcost[s, f]) * vat_base(s, f) * vatgen[t]
         effprice[s, f] = supcost[s, f] + extcost[s, f] + vatext[s, f]
         rpsub[s, f]   = rp[s, t] if f == 'ecy' else rpn[s, f, t]
-    for f in ['nga', 'coa', 'ecy']:                       # 'oth' lines: weighted by consumption
+    for f in ['nga', 'coa', 'ecy']:             # 'oth' lines: weighted by consumption
         for var in [supcost, extcost, vatext, effprice, rpsub]:
-            var['oth', f] = weighted_mean(var[s, f] for s in sectors_of(f), weights=con[s, f])
+            var['oth', f] = weighted_mean([var[s, f] for s in sectors_of(f)],
+                                          weights=[con[s, f] for s in sectors_of(f)])
     for j in sub_lines:
         expsub[j] = max(0, supcost[j] - rpsub[j]) * con[j] / M_PER_BN
-        impsub[j] = (rpsub[j] <= effprice[j]) * (effprice[j] - max(rpsub[j], supcost[j])) * con[j] / M_PER_BN
+        gap = effprice[j] - max(rpsub[j], supcost[j])
+        impsub[j] = (rpsub[j] <= effprice[j]) * gap * con[j] / M_PER_BN
     expsubgdp[t] = sum(expsub.values()) / gdp_usd[t]
     impsubgdp[t] = sum(impsub.values()) / gdp_usd[t]
 
