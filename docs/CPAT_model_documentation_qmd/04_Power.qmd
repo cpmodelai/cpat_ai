@@ -1364,3 +1364,228 @@ scenario 1:
 No capacity is needed in 2023, when the demand shock lowers required generation. In scenario 2 the coal share of the
 logit falls to 0.30 from 2027 (the carbon price raises the coal variable cost).
 :::
+
+## Investment {#sec-pw-investment}
+
+Investment fills the capacity needed with new plants. The cheapest types by levelised cost take most of it, but
+no type can grow faster than its scale-up limit, and only types the scenario permits are built. What the first,
+cost-weighted round cannot place goes, in a second round, to the cheapest types with room left.
+
+The methodology describes this in
+[section 3.4.2.4.4](../CPAT_full_documentation_html/03_Mitigation.html#investment-decision-and-non-vre-and-vre-scale-up-limitations).
+
+### Investment permitted and scale-up limits {#sec-pw-scaleup}
+
+A type can be built in year $t$ when the scenario permits it and $t$ has reached its first year of investment
+($\zeta_{f,t}$, [Inputs of the scenario](#sec-pw-a0)). The options of `NewInv<type>` are:
+
+| Option | Meaning |
+|---|---|
+| If Present* (default) | Permitted if the type has more than 0.1% of base-year capacity |
+| Yes | Permitted from the year `NewInv<type>Year` |
+| No | Never built |
+| Manual | Built along a capacity path typed by the user ([Manual capacity](#sec-pw-manual)); no logit investment |
+
+The scale-up limit caps each type's new effective capacity at a share of total effective capacity:
+
+$$
+iv^{max}_{f,t} = q_f\, \zeta_{f,t} \sum_j cap^e_{j,t}
+$$ {#eq-pw-maxinv}
+
+where $iv^{max}_{f,t}$ is the maximum effective investment (MW; `maxinv`) and $q_f$ the scale-up rate: 5% of total
+for coal, gas and hydro, 2% for oil, nuclear, other renewables and biomass, and the wind and solar rate of the
+scenario (country default 2%) ([Inputs of the scenario](#sec-pw-a0)). The limit is linear: it is a share of the
+system's total, in gross additions, not net of retirements.
+
+### First round: the logit {#sec-pw-first-round}
+
+The need, net of any manual investment, is shared among the permitted types by a logit on levelised investment costs
+relative to the cheapest permitted type:
+
+$$
+\lambda^{i}_{f,t} = \frac{\zeta_{f,t}\, e^{-K_i\, tic_{f,t}/tic^{lc}_t}}{\sum_j \zeta_{j,t}\, e^{-K_i\, tic_{j,t}/tic^{lc}_t}},
+\qquad
+tic^{lc}_t = \max\left(\min_{j:\ \zeta_{j,t} = 1} tic_{j,t},\ c_{min}\right)
+$$ {#eq-pw-lgi}
+
+$$
+inv^{(1)}_{f,t} = \min\left(iv^{max}_{f,t},\ need^m_t\, \lambda^i_{f,t}\right)
+$$ {#eq-pw-first}
+
+where
+
+- $\lambda^i_{f,t}$ is the investment share of type $f$ (`pni`; its weight is `lgi`);
+- $tic^{lc}_t$ the lowest levelised investment cost of the permitted types (`cmin`);
+- $K_i$ = `kInvestment` (default 2);
+- $need^m_t$ the need net of manual investment (@eq-pw-needm);
+- $inv^{(1)}_{f,t}$ new effective investment of the first round (MW; `first`).
+
+This is the methodology's $ivp_f/\sum ivp = \zeta_f\, e^{-K_i H_i}/\sum e^{-K_i H_i}$ with
+$H_i = tic/tic^{lc}$, and the equation list's ([M4.6](A_Equations.qmd#eqlist-M4-6)).
+
+### Second round: cheapest first {#sec-pw-second-round}
+
+What the scale-up limits leave unplaced is the deficit. It goes to the types with space left under their limits,
+cheapest first, each taking as much as its space allows:
+
+$$
+deficit_t = \max\left(need^m_t - \sum_f inv^{(1)}_{f,t},\ 0\right),
+\qquad
+space_{f,t} = \left(iv^{max}_{f,t} - inv^{(1)}_{f,t}\right) \zeta_{f,t}
+$$ {#eq-pw-deficit}
+
+$$
+inv^{(2)}_{f,t} = \zeta_{f,t}\, \max\left(0,\ \min\left(space_{f,t},\
+deficit_t - \sum_{j:\ tic_{j,t} + tb_j < tic_{f,t} + tb_f} space_{j,t}\right)\right)
+$$ {#eq-pw-second}
+
+where
+
+- $deficit_t$ is investment left for the second round (MW; `deficit`);
+- $space_{f,t}$ the remaining space under the scale-up limit (MW; `space`);
+- $tb_f$ a tie breaker, $1.356 \times 10^{-6}$ USD/kWh times the type's position minus one (coal 0, ..., biomass 8),
+  so that two types of equal cost are ranked in the type order (`TieBreak`);
+- $inv^{(2)}_{f,t}$ new effective investment of the second round (MW; `second`).
+
+A type takes what is left of the deficit after all cheaper types have filled their space.
+
+### Final deficit to gas {#sec-pw-deficit-gas}
+
+If even the second round cannot place the whole need (all permitted types at their limits), the rest is unplaced,
+unless the global setting `PwDeficitGas` is Yes (default No). Then it goes to gas:
+
+$$
+d^{gas}_t = \mathbb{1}[\texttt{PwDeficitGas} = \text{Yes}] \left(deficit_t - \sum_f inv^{(2)}_{f,t}\right)
+$$ {#eq-pw-dgas}
+
+(MW; `dgas`).
+
+### Manual capacity and investment {#sec-pw-manual}
+
+Where a scenario sets `NewInv<type>` = Manual, the type follows a capacity path typed by the user on the sheet
+'Manual inputs' (one block for scenario 1, one for the other scenarios). It gets no logit investment (its permit is 0),
+and its investment replaces next year's increase in the path plus this year's retirement:
+
+$$
+inv^{m}_{f,t} = \max\left(0,\ cap^{man}_{f,t+1} - cap^{man}_{f,t} + ret_{f,t}\right) cf_f, \qquad inv^m_{f,T} = 0
+$$ {#eq-pw-mani}
+
+$$
+need^m_t = \max\left(need_t - \sum_f inv^m_{f,t},\ 0\right)
+$$ {#eq-pw-needm}
+
+where $cap^{man}_{f,t}$ is the manual capacity path (MW; `mancap`; blank = 0), $inv^m_{f,t}$ manual new effective
+investment (MW; `mani`) and $need^m_t$ the need left for the logit and second rounds (`needm`). The methodology
+describes the option as "New Nameplate Investments = Capacity data entered by the user + Planned Retirement".
+
+### New investment, its cost and its share in the stock {#sec-pw-nim}
+
+New effective investment sums the rounds; nameplate investment divides by the capacity factor:
+
+$$
+inv^e_{f,t} = inv^{(1)}_{f,t} + inv^{(2)}_{f,t} + \mathbb{1}[f = \text{gas}]\; d^{gas}_t + inv^m_{f,t},
+\qquad
+inv_{f,t} = \frac{inv^e_{f,t}}{cf_f}
+$$ {#eq-pw-nim}
+
+The spending and the share of new plants in next year's stock follow:
+
+$$
+Inv^{USD}_{f,t} = \frac{inv_{f,t}\, cax_{f,t}}{1000},
+\qquad
+\Phi_{f,t} = \frac{inv_{f,t}}{cap_{f,t} + inv_{f,t} - ret_{f,t}}
+$$ {#eq-pw-phi}
+
+where
+
+- $inv^e_{f,t}$ is new effective investment (MW; `nei`) and $inv_{f,t}$ new nameplate investment (MW; `nim`), which
+  becomes capacity in $t+1$ (@eq-pw-cap);
+- $Inv^{USD}_{f,t}$ investment spending (USD million; `nid`) at the capital cost of the year;
+- $\Phi_{f,t}$ new investment as a share of the stock after retirements (`phi`), used by the vintage averages of
+  $t+1$ (@eq-pw-caxav).
+
+Totals over types are `nimtot` and `usdtot`. The equation list has the second round in
+([A4.9](A_Equations.qmd#eqlist-A4-9)).
+
+### PPAs and investment {#sec-pw-ppa-investment}
+
+PPAs do not enter the investment rounds directly. They act on the year's dispatch (@eq-pw-gen) and keep coal plants
+from retiring early (@eq-pw-early); the PPA share $\omega_t$ is defined in @eq-pw-ppa.
+
+::: {.callout-tip icon=false title="Pseudocode: investment"}
+```
+for t in years:
+    for f in types:
+        mancap[f,t] = manual_path[f,t] if any else 0
+        mani[f,t]   = (max(0, mancap[f,t+1] - mancap[f,t] + ret[f,t]) * cfu[f]
+                       if invs[f] == 'Manual' and t < 2041 else 0)
+    needm[t] = max(need[t] - sum(mani[f,t] for f in types), 0)
+    cmin[t]  = max(min(tic[f,t] for f in types if permit[f,t] == 1), MinPostSubsidyPowerPrice)
+    for f in types:
+        lgi[f,t] = permit[f,t] * exp(-kInvestment * tic[f,t] / cmin[t])
+    for f in types:
+        pni[f,t]   = lgi[f,t] / sum(lgi[j,t] for j in types)
+        first[f,t] = min(maxinv[f,t], needm[t] * pni[f,t])
+    deficit[t] = max(needm[t] - sum(first[f,t] for f in types), 0)
+    for f in types:
+        space[f,t] = (maxinv[f,t] - first[f,t]) * permit[f,t]
+    for f in types:
+        cheaper     = sum(space[j,t] for j in types if tic[j,t] + tb[j] < tic[f,t] + tb[f])
+        second[f,t] = permit[f,t] * max(0, min(space[f,t], deficit[t] - cheaper))
+    dgas[t] = deficit[t] - sum(second[f,t] for f in types) if PwDeficitGas == 'Yes' else 0
+    for f in types:
+        nei[f,t] = first[f,t] + second[f,t] + (dgas[t] if f == 'nga' else 0) + mani[f,t]
+        nim[f,t] = nei[f,t] / cfu[f]
+        nid[f,t] = nim[f,t] * cax[f,t] / 1000                          # USD million
+        phi[f,t] = nim[f,t] / (cap[f,t] + nim[f,t] - ret[f,t])
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 3, sub-table L: rows `mancap`, `mani`, `needm`, `cmin`, `deficit`, `permit`,
+  `maxinv`, `lgi`, `pni`, `first`, `space`, `second`, `dgas`, `nei`, `nim`, `nimtot`, `nid`, `usdtot`, `phi`
+  (Formulas.md E420-E438; LAMBDAs `FIRSTROUND`, `CHEAPFILL`). Manual capacity on 'Manual inputs' rows 349-357
+  (scenario 1) and 363-371 (other scenarios), names `ManCapVal`, `ManCapYr`; scenario inputs `NewInv<type>`,
+  `NewInv<type>Year`, `kInvestment`; Settings C45 `PwDeficitGas`; constant `TieBreak`.
+- **CPAT Python:** `power.step()`, block "retirement and investment" (EQ-M4.6, EQ-A4.9). The manual capacity rows
+  `mancap` and `mani` are set to 0: the 'Manual inputs' capacity block is empty in the data, and CPAT Python does not
+  read a manual capacity path.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: investment"}
+- **L6 (fixed).** Legacy normalises the investment logit by the cheapest type including types that may not be built
+  (row 4046); the model by the cheapest permitted type.
+- **L5 (fixed).** Legacy values investment spending at the capital cost at time factor 1; the model at the capital
+  cost of the year (rows 4276-4284).
+- **L12 (fixed).** Legacy's total nameplate investment row is zero; the model sums the types.
+- **L118 (fixed).** Legacy computes the need net of manual investment (row 4108) but never uses it, so its logit
+  investment comes on top of the manual one. The model sizes the logit and second-round investment on the net need.
+- **Second round.** Legacy uses rows 4169-4246 (L11-L17); the model computes it in one row per type with the tie
+  breaker.
+- **Deficit to gas (LD78, issue I57).** A global setting (Settings C45), as legacy's typed switch E4248 (No), row 4252.
+- **Methodology.** The methodology caps investment at total *generation* times the rate; the model, as legacy, at
+  total *effective capacity* times the rate. The methodology says that, *in extremis*, the model overrides the VRE
+  limits and the permitted types and invests in proportion to current capacity; the model does not: an unplaced
+  deficit stays unplaced unless `PwDeficitGas` sends it to gas. The methodology quotes the CountrySpecific VRE rate as
+  2% except China 2.5%; the data give 3% for China and India.
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Egypt permits gas, oil, wind, solar and hydro (hydro from 2030); coal, nuclear, other renewables and biomass are not
+present and so not permitted. Data edition Public01:
+
+| New nameplate investment (MW) | 2022 | 2023 | 2026 | 2030 | 2035 | 2041 |
+|---|---|---|---|---|---|---|
+| Gas, scenario 1 | 506 | 0 | 3,706 | 1,104 | 3,657 | 3,965 |
+| Gas, scenario 2 | 467 | 0 | 3,706 | 1,342 | 3,659 | 3,798 |
+| Wind, scenario 1 | 728 | 0 | 1,346 | 1,652 | 2,217 | 2,889 |
+| Solar, scenario 1 | 800 | 0 | 1,697 | 2,296 | 2,793 | 3,641 |
+| Hydro, scenario 1 | 0 | 0 | 0 | 414 | 717 | 754 |
+
+- Solar's first-round investment equals its scale-up limit in most years (2026: 546 effective MW): the logit wants
+  more solar than the limit allows, and the deficit (2026: 4,312 MW) goes to the second round.
+- In 2023 the demand shock leaves no need, so nothing is built.
+- Scenario test (manual capacity, scenario 2, nuclear 2,400 MW from 2030): 2,400 MW nameplate is built in 2029, then
+  the retirements are replaced.
+- Final deficit to gas: tested with tight scale-up limits; the workbook matches the Python reference.
+:::
