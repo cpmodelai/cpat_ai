@@ -182,8 +182,8 @@ for t in years:
             v = vat_rate[f, s]
             rtx[f, s, t]  = q * (etx[c, t] + vat[c, t] + xcpd[f, s, t] * (1 + v))
             rsub[f, s, t] = q * esub[c, t]                               # negative
-            rnew[f, s, t] = q * (ctxnew[f, s, t] + ntx[f, s, t] + ets[f, s, t] * ets_rf[t]
-                                 + nce[f, s, t] * v)
+            rnew[f, s, t] = q * (ctxnew[f, s, t] + ntx[f, s, t]
+                                 + ets[f, s, t] * ets_rf[t] + nce[f, s, t] * v)
             rsr[f, s, t]  = q * (csw[f, s, t] + pcw[f, s, t]) * (1 + v)
             rex[f, s, t]  = q * ntx[f, s, t]
             wedge = xcpd[f, s, t] + nce[f, s, t] + csw[f, s, t] + pcw[f, s, t]
@@ -321,7 +321,8 @@ for t in years:
         for g in groups:                                  # tra, bld, ind, oen
             var[g, t] = sum(var[f, s, t] for s in subsectors_of(g) for f in fuels)
         var['pow', t] = power[var]
-        var['all', t] = sum(var[f, s, t] for s in subsectors for f in fuels) + power[var]
+        var['all', t] = sum(var[f, s, t] for s in subsectors for f in fuels) \
+                        + power[var]
     rmf[t]  = ch4_rev[t]
     rpsu[t] = -sum(pros[f, t] * psf[f, t] for f in ['coa', 'nga', 'oil', 'bio', 'ecy'])
     rnet[t] = rtx['all', t] + rsub['all', t]
@@ -1042,7 +1043,8 @@ for t in years:
     for f in ['coa', 'nga', 'gso', 'die', 'lpg', 'ker', 'jfu', 'oop']:
         rev = rfu[f, t] + (rfg[f, t] if f in ('coa', 'nga', 'oop') else 0.0)
         tcp[f, t] = rev / co2[f, t] if co2[f, t] != 0 else 0.0
-    rev_all = sum(rfu[f, t] for f in fossil) + sum(rfg[k, t] for k in ('coa', 'nga', 'oop'))
+    rev_all = sum(rfu[f, t] for f in fossil) \
+              + sum(rfg[k, t] for k in ('coa', 'nga', 'oop'))
     tcp['all', t] = safe_div(rev_all, co2_all[t])
     for g in groups + ['pow']:
         cov_ct[g, t] = safe_div(sum(covct[e, t] for e in sectors_of(g)), co2_all[t])
@@ -1307,7 +1309,8 @@ for t in years:
         cls0, fre0 = baseline.class_use[f, t], baseline.freight_use[f, t]
         wcl = 1.0 if f == 'gso' else 1 - safe_div(fre0, cls0)
         num = eU['die'] + wcl * (eU['gso'] - eU['die'])
-        den = eU['die'] + eF['die'] + wcl * (eU['gso'] + eF['gso'] - eU['die'] - eF['die'])
+        den = eU['die'] + eF['die'] \
+              + wcl * (eU['gso'] + eF['gso'] - eU['die'] - eF['die'])
         mrg = 0.0 if cls0 == 0 else num / den
         fsh = safe_div(freight_use[f, t], class_use[f, t])
         acc_cost[f, t] = acc_km[t] * avg_fe[f, t] * mrg * road_share[f, t]
@@ -1317,7 +1320,8 @@ for t in years:
     tot_ext['gso', t] = airpol_cost_gj['all', 'gso', t] \
                         + (acc_cost['gso', t] + con_cost['gso', t]) / gj['gso']
     tot_ext['die', t] = airpol_cost_gj['all', 'die', t] \
-                        + (acc_cost['die', t] + con_cost['die', t] + rdm_cost['die', t]) / gj['die']
+                        + (acc_cost['die', t] + con_cost['die', t]
+                           + rdm_cost['die', t]) / gj['die']
 ```
 :::
 
