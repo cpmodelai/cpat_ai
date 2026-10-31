@@ -1,4 +1,4 @@
-"""Quick check of CPAT-AI-Mitigation-Prototype (a few minutes): run after every change. The full check (check_full.py,
+"""Quick check of CPAT-AI-Mitigation (a few minutes): run after every change. The full check (check_full.py,
 about an hour) runs only when the user asks (milestones, end of the day): user rule 2026-10-15.
 
 1. Structure of the shipped file (no recalculation): tab order; every plain formula at most 100 characters; no
@@ -57,7 +57,7 @@ def log(msg, ok=True):
 
 
 def structure(wb):
-    tail = ['REF->>'] + [t for t, _b in B.MERGES[2:]]
+    tail = ['REF->>'] + B.REF_TABS
     log(f'tab order (main, inputs, data, reference last; {len(wb.sheetnames)} tabs)',
         wb.sheetnames[:len(B.TAB_ORDER)] == B.TAB_ORDER and wb.sheetnames[-len(tail):] == tail)
     long_, lits, missing = [], {}, set()
@@ -71,7 +71,7 @@ def structure(wb):
                     continue
                 n += 1
                 if not C.LAMBDA_CALL.search(v):
-                    if len(v) > 100:
+                    if B.formula_len(v) > 100:                  # v1.2.0: sheet qualifiers not counted
                         long_.append(f'{ws.title}!{c.coordinate}')
                     x = v
                     for rx, _w in C.ALLOWED:
@@ -129,6 +129,11 @@ def tabs(wb):
         if w < min(ws.max_column, 4):
             bad.append(f'{ws.title}: title bar {w} of {ws.max_column} columns')
             continue
+        if ws.title in B._GROUP_OF:                  # v1.2.0: data tabs: a light green header per table (below)
+            if not any(rgb(ws.cell(r, c)) == light for r in range(3, min(ws.max_row, 400) + 1)
+                       for c in range(1, min(ws.max_column, 60) + 1)):
+                bad.append(f'{ws.title}: no light green table header')
+            continue
         for r in range(3, ws.max_row + 1):
             if rgb(ws.cell(r, 1)) == light:
                 wl = max(c for c in range(1, ws.max_column + 1) if rgb(ws.cell(r, c)) == light)
@@ -138,9 +143,10 @@ def tabs(wb):
                   if c.font and c.font.b and rgb(c) == 'EBF1DE']
     log(f'tab title bars and sub-heading bars of equal width on every tab: exceptions {bad[:5]}', not bad)
     log(f'table headers without the input fill: exceptions {heads[:5]}', not heads)
-    log(f'v0.6.7: front tabs Cover, ScenarioCompare, ScenarioDefinition, then the MAIN divider and Mitigation: '
-        f'{wb.sheetnames[:5]}', wb.sheetnames[:5] == ['Cover', 'ScenarioCompare', 'ScenarioDefinition', 'MAIN->>',
-                                                       'Mitigation'])
+    log(f'v1.2.0: front tabs Cover, ScenarioDefinition, then MAIN (Mitigation) and OUTPUT (MTOutputs, '
+        f'ScenarioCompare): {wb.sheetnames[:7]}', wb.sheetnames[:7] == ['Cover', 'ScenarioDefinition', 'MAIN->>',
+                                                                         'Mitigation', 'OUTPUT->>', 'MTOutputs',
+                                                                         'ScenarioCompare'])
 
 
 def style(wb):
@@ -238,10 +244,11 @@ vartype typename chr chrw asc ascw space string dir environ vbcr vblf vbcrlf vbt
 vbinformation vbexclamation vbcritical vbokonly vbokcancel vbstring vbempty vbdouble vblong vbinteger vbboolean vbdate
 vbnewline application thisworkbook worksheets workbooks sheets activesheet activeworkbook range cells rows columns
 selection rgb filter datediff dateadd year month day hour minute second weekday dateserial timeserial nz
-optionbase'''.split())
+optionbase empty filedatetime'''.split())
 VBA_NAMED_TYPES = {'after', 'backgroundquery', 'destination', 'key', 'order', 'shift', 'source', 'sourcetype', 'chart',
                    'listobject', 'series', 'worksheet', 'range', 'workbook', 'shape', 'chartobject', 'name',
-                   'collection'}                         # v1.0.4: VBA's built-in Collection (store macro)
+                   'collection',                         # v1.0.4: VBA's built-in Collection (store macro)
+                   'filename', 'fileformat', 'updatelinks', 'readonly', 'savechanges'}   # v1.2.0: Open/SaveAs/Close args
 VBA_CONSTS = {'vbcrlf', 'vbexclamation', 'vbinformation', 'vblf', 'vbobjecterror', 'vbquestion', 'vbstring', 'vbyes',
               'vbyesno', 'xlascending', 'xlcalculationautomatic', 'xlcalculationmanual', 'xlcmdsql', 'xlmarkerstylenone',
               'xlno', 'xlup', 'xldescending', 'xltoleft', 'xldown', 'xlvalues', 'xlpart', 'xlwhole', 'xlnone'}
@@ -253,7 +260,9 @@ def vba_names():
     Excel library and stdole, so an Office constant (msoTrue: v0.7.0) is "Variable not defined" under Option Explicit;
     LibreOffice Basic does not report it."""
     lines = []
-    for ln in open(B.BAS, encoding='utf-8', errors='ignore').read().splitlines():
+    sys.path.insert(0, os.path.join(xlpaths.XL, 'master'))
+    import build_master                              # v1.2.0: the Master's module, with the constants the build writes
+    for ln in build_master.vba_source().splitlines():
         out, ins = '', False
         for ch in ln:
             if ch == '"':
@@ -280,9 +289,10 @@ def vba_names():
             if nm:
                 declared.add(nm.group(1).lower())
     declared |= {m.group(1).lower() for m in re.finditer(r'^\s*(\w+):', code, re.M)}
+    declared |= {m.group(1).lower() for m in re.finditer(r'^\s*(?:Private|Public)\s+(\w+)\s+As\b', code, re.M | re.I)}
     bad = sorted({w for w in re.findall(r'(?<![.\w])([A-Za-z_]\w*)', code)
                   if w.lower() not in VBA_KNOWN | VBA_NAMED_TYPES | VBA_CONSTS | declared})
-    log(f'VBA module {os.path.basename(B.BAS)}: identifiers not declared, not VBA, Excel or a known constant: '
+    log(f'VBA module CPATMaster.bas (the Master workbook): identifiers not declared, not VBA, Excel or a known constant: '
         f'{bad or "none"}', not bad)
 
 
@@ -331,22 +341,49 @@ def protocol(wbf, data):
 
 
 def stored_complete(path):
-    """v0.6.7: every stored scenario (StoredOutputs, values written by the build's emulation of the batch run) has its
-    indicator rows found and numeric (v0.6.6 shipped the definitions empty: the batch copy blanked the live group)."""
-    ws = openpyxl.load_workbook(path, read_only=True, data_only=True)['StoredOutputs']
-    ids, bad = {}, []
-    for r in ws.iter_rows(min_row=B.SR_FIRST, values_only=True):
-        if r[2] is None:
-            continue
-        ids[r[0]] = ids.get(r[0], 0) + 1
-        if r[4] == 'code not found' or not any(isinstance(v, (int, float)) or (isinstance(v, str) and v)
-                                               for v in r[B.SR_Y0 - 1:]):   # v1.0.4: a text result (N/A) is a value
-            bad.append((r[0], r[2]))
-    if not ids and os.environ.get('QUICK'):      # v0.7.2: the quick build runs no batch (StoredOutputs empty)
-        lines.append('- StoredOutputs: empty in the quick build (no batch run): skipped')
+    """v0.6.7: every stored scenario of the build's emulation of the batch run has its indicator rows found and
+    numeric (v0.6.6 shipped the definitions empty). v1.2.0: the stored scenarios are in stored_scenarios.csv (read by
+    the Master workbook's builder), no longer a tab of the workbook."""
+    import csv as _csv
+    if os.environ.get('QUICK') or not os.path.exists(B.STORED_CSV):   # the quick build runs no batch
+        lines.append('- stored scenarios: none in the quick build (no batch run): skipped')
         print(lines[-1])
         return
-    log(f'StoredOutputs: rows by scenario ID {ids}; rows without values {len(bad)} {bad[:4]}', ids and not bad)
+    ids, bad = {}, []
+    with open(B.STORED_CSV, encoding='utf-8') as f:
+        rd = _csv.reader(f)
+        next(rd)
+        for r in rd:
+            ids[r[0]] = ids.get(r[0], 0) + 1
+            if r[4] == 'code not found' or not any(v not in ('', 'None') for v in r[B.SR_Y0 - 1:]):
+                bad.append((r[0], r[2]))
+    log(f'stored scenarios (stored_scenarios.csv): rows by scenario ID {ids}; rows without values {len(bad)} '
+        f'{bad[:4]}', ids and not bad)
+
+
+def live_outputs(data):
+    """v1.2.0: MTOutputs shows Mitigation's values: in every scenario group of Mitigation, each output row equals the
+    Mitigation cell of its row (column J) in the same column; ScenarioCompare has a scenario ID and values in every
+    slot that has a Mitigation group (no empty second slot)."""
+    mo, mi, sc = data['MTOutputs'], data['Mitigation'], data['ScenarioCompare']
+    n, bad = 0, []
+    groups = [g for g in B.mto_cols() if mi.cell(5, g[0]).value not in (None, '')]
+    for r in range(B.MTO_R0, B.MTO_LAST + 1):
+        j = mo.cell(r, 10).value
+        if not isinstance(j, (int, float)):
+            continue
+        for c0, c1 in groups:
+            for c in range(c0, c1 + 1):
+                a, b = mo.cell(r, c).value, mi.cell(int(j), c).value
+                n += 1
+                if a != b and not (a in (None, '') and b in (None, '')):
+                    bad.append((r, c, a, b))
+    log(f'MTOutputs equals Mitigation in its {len(groups)} scenario groups ({n} cells): differences {len(bad)} '
+        f'{bad[:3]}', n > 0 and not bad)
+    filled = [k for k in range(len(groups)) if isinstance(sc.cell(B.SC_R_ID, B.SC_C0 + k).value, (int, float))
+              and isinstance(sc.cell(B.SC_KEY_R0, B.SC_C0 + k).value, (int, float))]
+    log(f'ScenarioCompare: slots with a scenario and a key result {filled} of the {len(groups)} groups',
+        filled == list(range(len(groups))))
 
 
 def lambda_group(data):
@@ -367,6 +404,9 @@ def distribution(data):
     """v0.4.4: Distribution (NORMS 1.1b): group 2 (v0.6.6: the LAMBDA group) equals the
     Python reference (distribution_ref.run) fed with the sheet's own section-1 settings and section-2 inputs."""
     import distribution_ref as DR
+    if 'Distribution' not in data:                  # v1.2.0: not in the mitigation workbook (distribution/ checks it)
+        log('Distribution: not in the mitigation workbook (checked by distribution/check_distribution.py)')
+        return
     ws = data['Distribution']
     if not B.DSPEC:                                 # the row plan, as the build made it (Mitigation row keys)
         wm, mitrow = data['Mitigation'], {}
@@ -427,7 +467,7 @@ def last_release():
     """The last released workbook in excel_ai/<module>/releases/ before this version (restructure 2026-10-22: was Old/); the
     release of this version itself while it is the only one."""
     files = B.REL.all_versions(B.NAME, 'xlsm')             # v0.8.4: current at the top, older in releases/
-    ver = lambda f: tuple(int(x) for x in re.search(r'_v(\d+(?:\.\d+)*)\.xlsm$', f).group(1).split('.'))
+    ver = lambda f: tuple(int(x) for x in re.search(r'_v(\d+(?:\.\d+)*)\.xls[mx]$', f).group(1).split('.'))   # v1.2.0
     cur = tuple(int(x) for x in B.VERSION.split('.'))
     before = [f for f in files if ver(f) < cur]
     return max(before or [f for f in files if ver(f) == cur], key=ver)
@@ -487,7 +527,7 @@ def excel_open():
             return
         xl.CalculateFull()
         errs = []
-        for name in ('Mitigation', 'MTOutputs', 'ScenarioCompare', 'StoredOutputs'):
+        for name in ('Mitigation', 'MTOutputs', 'ScenarioCompare'):
             vals = wb.Worksheets(name).UsedRange.Value or ()
             errs += [(name, i, j) for i, row in enumerate(vals, 1) for j, v in enumerate(row, 1)
                      if isinstance(v, int) and v < -2146820000]                 # COM error values (#NAME? etc.)
@@ -576,8 +616,9 @@ def forward_reads(ws):
 def main():
     t0 = time.time()
     stage = lambda what: print(f'[{time.time() - t0:5.0f} s] {what}', flush=True)   # v0.4.9: stage timings
-    wait = LO.start_values(LO.expanded_zip(B.OUT, C.LAMBDA_CALL, C.expand),   # v0.4.9: recalculated meanwhile
-                           ['Mitigation', 'Distribution', 'DistMapping'])
+    src = B.OUT if os.environ.get('QUICK') else B.activated_copy(B.OUT)   # v1.2.0: shipped to 2035, activated here
+    wait = LO.start_values(LO.expanded_zip(src, C.LAMBDA_CALL, C.expand),   # v0.4.9: recalculated meanwhile
+                           ['Mitigation', 'Distribution', 'DistMapping', 'MTOutputs', 'ScenarioCompare'])
     stage('expanded copy written, LibreOffice session started')
     wbf = openpyxl.load_workbook(B.OUT)
     structure(wbf)
@@ -590,6 +631,7 @@ def main():
         f'data of empty ScenarioCompare slots, {gaps[:2]})', not errs)
     lambda_group(data)
     distribution(data)
+    live_outputs(data)
     stored_complete(B.OUT)
     vba_names()
     protocol(wbf, data)                            # v0.7.2 (codes R9)
@@ -622,7 +664,7 @@ def main():
                  f'{max(diff.values(), default=0):.4g}); largest: {changed[:8]}; other than bco2 (with max abs diff): '
                  f'{[(k, round(diff[k], 6)) for k in changed if ".bco2." not in k][:40]}')
     print(lines[-1])
-    head = [f'# Quick check, CPAT-AI-Mitigation-Prototype v{B.VERSION}', '',
+    head = [f'# Quick check, CPAT-AI-Mitigation v{B.VERSION}', '',
             f'**{"PASS" if not fails else "FAIL"}** ({time.time() - t0:.0f} s; the full check is check_full.py, run '
             f'on request). Changes of output codes are reported, not failed: compare them with what the change '
             f'intended.', '']

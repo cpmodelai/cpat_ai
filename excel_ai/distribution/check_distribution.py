@@ -1,13 +1,15 @@
 """Check of the standalone distribution module (Plan_Modules M3). Report: check_distribution_report.md.
 
-1. Distribution: every cell of the module (recalculated by LibreOffice when it was built) equals the prototype's
-   Distribution tab (its shipped values): same formulas, same values.
+1. Distribution: every cell of the module (recalculated by LibreOffice when it was built) equals the Distribution tab
+   of a full build of the mitigation builder (v1.2.0: CPAT_WITH_DIST=1, as the module's builder): same formulas,
+   same values.
 2. FromMitigation = the prototype's section 19a (ExportDistn) as Update from Mitigation copies it (the macro's row
    mapping emulated: years to row 1, scenario numbers to row 5, the data rows from row 8), and the variables of
    column A match row by row (the macro's layout check).
 3. The kept tabs other than FromMitigation and Settings have the prototype's formulas; no formula reads a dropped tab;
    every defined name a formula reads exists.
-4. The VBA project: module CPATDistribution = CPATDistribution.bas; identifiers declared (as the prototype's check).
+4. No VBA project (v1.2.0: the Master workbook updates FromMitigation; the copy is emulated here as the Master's
+   UpdateDistributionFromMitigation does it).
 5. Lint (Excel would not repair the file).
 6. End to end: the live scenario of the prototype changed (carbon price 60 USD/t instead of 20), the prototype
    recalculated (LibreOffice), the module updated from it (the macro's copy, emulated) and recalculated: the module's
@@ -90,10 +92,12 @@ def end_to_end(mf, mv, pf, price=60):
 
 def main():
     log(f'# Check of {D.NAME} v{D.VERSION}')
-    log(f'Module `{os.path.basename(D.OUT)}`; prototype `{os.path.basename(D.SOURCE)}` v{P.VERSION}.')
+    log(f'Module `{os.path.basename(D.OUT)}`; full build of the mitigation builder v{P.VERSION} (baseline CO2 of '
+        f'`{os.path.basename(D.SOURCE)}`).')
     log('')
+    full = D.full_source(lambda what: print(what, flush=True))     # v1.2.0: the mitigation workbook has no Distribution
     mf, mv = openpyxl.load_workbook(D.OUT), openpyxl.load_workbook(D.OUT, data_only=True)
-    pf, pv = openpyxl.load_workbook(D.SOURCE), openpyxl.load_workbook(D.SOURCE, data_only=True)
+    pf, pv = openpyxl.load_workbook(full), openpyxl.load_workbook(full, data_only=True)
     log(f'- tabs: {", ".join(mf.sheetnames)}', mf.sheetnames == ['Cover'] + D.TABS)
     # 1. Distribution values
     a, b = mv['Distribution'], pv['Distribution']
@@ -137,39 +141,22 @@ def main():
                     continue
                 if D.sheets_in(v) - keep:
                     reads.append(f'{t}!{c.coordinate}')
-                for tok in D.tokens(v):
+                for tok in D.tokens(P._SHEET_Q.sub('', v)):   # v1.2.0: quoted sheet names are not names
                     if re.fullmatch(r'[A-Z]{1,3}\d*|_xlfn\.\w+|_xlws\.\w+', tok) or tok in names or tok in known:
                         continue
                     if not re.search(rf'(?<![\w.]){re.escape(tok)}\s*\(', v):
                         missing.add(tok)
-                if t not in ('Cover', 'Settings', 'FromMitigation') and pf[t][c.coordinate].value != v:
+                if t not in ('Cover', P.TAB_CM, 'FromMitigation', 'FromMaster') and pf[t][c.coordinate].value != v:
                     changed.append(f'{t}!{c.coordinate}')
-    log(f'- kept tabs (but Cover, Settings, FromMitigation): formulas as the prototype\'s: {len(changed)} differ '
+    log(f'- kept tabs (but Cover, Constants and Mappings, FromMitigation, FromMaster): formulas as the prototype\'s: {len(changed)} differ '
         f'{changed[:5]}', not changed)
     log(f'- formulas reading a dropped tab: {len(reads)} {reads[:5]}', not reads)
     lam = set(P.LAMBDAS)
     missing = {t for t in missing if t not in lam and not t.lower().startswith(('lambda', 'let'))}
     log(f'- names read by formulas and not defined: {sorted(missing) or "none"}', not missing)
-    # 4. VBA
-    from oletools.olevba import VBA_Parser
-    vp = VBA_Parser(D.OUT)
-    mods = {nm.rsplit('.', 1)[0]: code for (_f, _s, nm, code) in vp.extract_macros()}
-    src = open(D.BAS, encoding='cp1252').read().replace('\r\n', '\n')
-    got = mods.get('CPATDistribution', '').replace('\r\n', '\n')
-    codes = {w.sheet_properties.codeName for w in mf.worksheets}
-    log(f'- VBA project: module CPATDistribution = CPATDistribution.bas ({len(src.splitlines())} lines), document '
-        f'modules match the sheet code names:', got.strip() == src.strip() and codes | {'ThisWorkbook'} ==
-        set(mods) - {'CPATDistribution'})
-    import check_quick as Q
-    Q.B.BAS, Q.log = D.BAS, log
-    Q.VBA_KNOWN |= {'empty', 'filedatetime'}             # VBA built-ins the prototype's module does not use
-    Q.VBA_NAMED_TYPES |= {'filename', 'readonly', 'savechanges', 'updatelinks'}   # named arguments
-    Q.vba_names()
-    procs = re.findall(r'^Public (?:Sub|Function) (\w+)', src, flags=re.M)
-    vbanames = set(re.findall(r'Names\("(\w+)"\)', src))
-    log(f'- public macros: {", ".join(procs)}; workbook names the macros read ({", ".join(sorted(vbanames))}) '
-        'defined:', vbanames <= names)
-    log(f'- buttons on Cover call public macros:', {m_ for _l, m_ in D.MACRO_BUTTONS} <= set(procs))
+    # 4. no VBA (v1.2.0: every macro is in the Master workbook; its Distribution update is emulated below)
+    log(f'- no VBA project (macros in the Master workbook):', 'xl/vbaProject.bin' not in
+        __import__('zipfile').ZipFile(D.OUT).namelist())
     end_to_end(mf, mv, pf)
     # 5. lint
     import excel_lint

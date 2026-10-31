@@ -154,7 +154,8 @@ for _s in ASIS.values():
 # column holding the country. In the workbook each is an Excel table L_<tab> over its legacy range, with a last column
 # FilterISO3 (ISO3 upper case, from that column) the queries filter on; a blank legacy header is named Column<n> there.
 LINKS = {'Balances': 'country_code', 'EnergyCons': 'CPAT Code', 'Prices_dom': 'countrycode', 'HHSurvey': 'iso3',
-         'IO_GTAP': 'iso3', 'HH_Elast': 'iso3', 'WEO': 'countrycode', 'GDPRatios': 'Country Code', 'UNPop': 'ISO'}
+         'IO_GTAP': 'iso3', 'HH_Elast': 'iso3', 'WEO': 'countrycode', 'GDPRatios': 'Country Code', 'UNPop': 'ISO',
+         'EF_PM': 'Country Code', 'CH4Inputs': 'cpat_ccode3'}   # v1.2.0 (user 2026-10-31): the large tables linked
 FILTER_COL = 'FilterISO3'
 
 CELLS = {}     # filled from tidy_blocks.py (legacy tabs at their addresses)

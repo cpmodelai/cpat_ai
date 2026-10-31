@@ -22,7 +22,7 @@ what to tell the agent afterwards. Source: `TODO.md` (sections 5 and "Open at th
    automatic (or press Ctrl+Alt+F9), let it finish, save (keep .xlsb), and push it (or send it). Its stored results
    still come from the real data. Then tell the agent "rebuild the legacy references": it re-extracts the five
    `xai_legacy_*` tables, and the full check's section 4b can pass.
-6. **Excel 365 review of the prototype** (`excel_ai/active_workbooks/CPAT-AI-Mitigation-Prototype_latest.xlsm`):
+6. **Excel 365 review of the prototype** (1.1.0 and earlier: `CPAT-AI-Mitigation-Prototype_latest.xlsm`; from 1.2.0 see item 17):
    opens without a repair prompt, no circular-reference warning, macros run (CheckBatchRun, the store macros, the
    dashboard buttons), LAMBDAs live, ETS goal seek (issue I30). Report anything odd, with a screenshot.
 7. **Distribution module** (`CPAT-AI-Distribution-Prototype_latest.xlsm`, same folder): press *Update from
@@ -54,3 +54,17 @@ what to tell the agent afterwards. Source: `TODO.md` (sections 5 and "Open at th
     deletes `docs/QuickStart.md`) or the agent folds your edits back into the .md.
 16. **After release 1.1.1** (shared formulas): open `active_workbooks/CPAT-AI-Mitigation-Prototype_latest.xlsm` once in
     Excel to confirm no repair and the faster opening; press Ctrl+Alt+F9 the first time (NORMS 3k.5).
+
+## F. Added 2026-10-31 (restructure 1.2.0)
+
+17. **First run of the Master in Excel** (`excel_ai/active_workbooks/CPAT-AI-Master_UserGuide.xlsm`, macros on): Debug >
+    Compile VBAProject; *Activate all modules* (it opens the three `.xlsx`, fills Mitigation and MTOutputs from 2035 to
+    2041, recalculates, saves the `.xlsb` next to the Master). Check that the mitigation `.xlsb` shows 2036-2041 and the
+    same results as the release values. Then commit the `.xlsb` files (they are generated; never merged).
+18. **The other Master macros in Excel:** *Update data tables* (choose Public01 - GitHub and Country, then All
+    countries), *Update Distribution from Mitigation*, *Store live scenarios*, *Run stored scenarios* (ETS goal seek),
+    *Clear stored scenarios*; CompareStored after storing. Report anything odd, with a screenshot.
+19. **QuickStart.docx**: `docs/QuickStart.md` has the 1.2.0 changes (Master, activation, names); the .docx was left as
+    you edited it (item 15): fold the changes in, or tell the agent which file is the master.
+20. **Tab name `Constants and Mappings`**: the new NORMS rule asks for concise tab names; confirm the name or choose a
+    shorter one (e.g. `ConstMaps`).

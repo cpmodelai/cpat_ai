@@ -1,4 +1,4 @@
-"""Workbook formulas of CPAT-AI-Mitigation-Prototype, generated from the workbook (Formulas.md): the implementation
+"""Workbook formulas of CPAT-AI-Mitigation, generated from the workbook (Formulas.md): the implementation
 reference. The model equations in mathematical form are in Equations.md (written by hand, no cell detail).
 
 Every equation is read from the Mitigation sheet itself (scenario 1, years 2022-2041), so the list always matches
@@ -65,7 +65,7 @@ SETTINGS = {}
 
 def load():
     wb = openpyxl.load_workbook(B.OUT, read_only=True)
-    for i, row in enumerate(wb['Settings'].iter_rows(max_col=2, values_only=True), 1):
+    for i, row in enumerate(wb[B.TAB_CM].iter_rows(max_col=2, max_row=90, values_only=True), 1):
         if isinstance(row[1], str):
             SETTINGS[i] = row[1].split(' (')[0][:50]
     rows = [list(r) for r in wb['Mitigation'].iter_rows(max_col=YCOLS[-1] + 1, values_only=True)]
@@ -251,7 +251,7 @@ def mods_of(code):
 
 
 def write(sections, eqs):
-    lines = [f'# Workbook formulas of CPAT-AI-Mitigation-Prototype v{B.VERSION} (implementation reference)', '',
+    lines = [f'# Workbook formulas of CPAT-AI-Mitigation v{B.VERSION} (implementation reference)', '',
              'Generated from the workbook by `make_equations.py` (do not edit by hand): every formula of the '
              'Mitigation sheet, scenario 1, with cell references replaced by variable codes, the changes against '
              'legacy CPAT (section B) and the LAMBDA library (section C). For the model itself read the equations in '

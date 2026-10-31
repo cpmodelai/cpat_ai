@@ -1,4 +1,4 @@
-"""Screenshots of the current CPAT-AI-Mitigation-Prototype workbook for the core deck (presentation/img/v<version>_*.png,
+"""Screenshots of the current CPAT-AI-Mitigation workbook for the core deck (presentation/img/v<version>_*.png,
 e.g. v0_7_1_) and the deck's numbers (img/v0_7_1_data.json, v0_7_1_facts.json with the register counts, v0_7_1_transport.json). Every view is rendered from the real
 workbook: recalculated in LibreOffice (LAMBDA calls expanded), one sheet turned into a values copy (chosen cells show
 their formula text), rows / columns / print area set, printed to PDF by LibreOffice and cut to a PNG. The legacy-bug

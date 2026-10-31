@@ -1,6 +1,6 @@
-# Mitigation prototype: sources
+# Mitigation module (CPAT-AI-Mitigation): sources
 
-The sources of the mitigation prototype: every version in [`releases/`](releases/) (`CPAT-AI-Mitigation-Prototype_v<version>.xlsm`), the permalinked copy in [`../active_workbooks/`](../active_workbooks/) (`CPAT-AI-Mitigation-Prototype_latest.xlsm`, the copy people open and other modules link to). Rules: [`../core/NORMS.md`](../core/NORMS.md). Open work: [`../core/TODO.md`](../core/TODO.md).
+The sources of the mitigation module: every version in [`releases/`](releases/) (`CPAT-AI-Mitigation_v<version>.xlsx`; to 1.1.0 `CPAT-AI-Mitigation-Prototype_v<version>.xlsm`), the latest unactivated copy here (`CPAT-AI-Mitigation_latest.xlsx`), activated by the Master workbook into [`../active_workbooks/`](../active_workbooks/) (`CPAT-AI-Mitigation_latest.xlsb`). Rules: [`../core/NORMS.md`](../core/NORMS.md). Open work: [`../core/TODO.md`](../core/TODO.md).
 
 ## Read
 
@@ -16,8 +16,9 @@ The sources of the mitigation prototype: every version in [`releases/`](releases
 Python 3, openpyxl, LibreOffice (no Excel needed). Run from `excel_ai/mitigation/`.
 
 ```
-python build.py                       # releases/CPAT-AI-Mitigation-Prototype_v<version>.xlsm and ../active_workbooks/..._latest.xlsm (about 8 min)
-QUICK=1 python build.py               # quick build, no batch (CPAT-AI-Mitigation-Prototype_quick.xlsx)
+python build.py                       # releases/CPAT-AI-Mitigation_v<version>.xlsx, CPAT-AI-Mitigation_latest.xlsx, stored_scenarios.csv (about 8 min)
+QUICK=1 python build.py               # quick build, no batch, formulas to 2041 (CPAT-AI-Mitigation_quick.xlsx)
+python ../distribution/build_distribution.py && python ../master/build_master.py   # then the distribution module and the Master
 python checks/check_quick.py          # after every change (about 2 min)
 python checks/check_paste.py <file>   # copy-paste test, at every release (about 3.5 min)
 python checks/check_full.py           # full check, at a milestone (several hours with the macro tests)

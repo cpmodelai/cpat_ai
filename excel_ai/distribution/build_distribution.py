@@ -1,14 +1,16 @@
 """CPAT-AI Distribution Prototype: the standalone distribution module (Plan_Modules M3).
 
-The module is cut from the built mitigation prototype (one source of truth: the prototype builder's Distribution,
-FromMitigation and data tabs, not a second copy of them). From ../active_workbooks/CPAT-AI-Mitigation-Prototype_latest.xlsm it keeps
-the tabs the Distribution tab reads, turns every formula that reads a dropped tab into its value (FromMitigation
-entirely: the button Update from Mitigation refreshes it), keeps the defined names and LAMBDAs still used, shows only
+The module is cut from a full build of the mitigation prototype (one source of truth: the prototype builder's
+Distribution, FromMitigation and data tabs, not a second copy of them). v1.2.0: the mitigation workbook no longer holds
+the Distribution tab, so this builder runs the mitigation builder with CPAT_WITH_DIST=1 (Distribution, FromMitigation
+and the distribution data tabs included), takes the baseline CO2 values from the mitigation workbook
+(../active_workbooks/), recalculates it in LibreOffice and keeps the tabs the Distribution tab reads, turns every formula that reads a dropped tab into its value (FromMitigation
+entirely: the Master workbook's Update Distribution from Mitigation refreshes it), keeps the defined names and LAMBDAs still used, shows only
 the distribution rows of ScenarioDefinition, and adds a Cover with the link to the mitigation workbook and the VBA
 module CPATDistribution.bas. Then, as the prototype: shipped with its values (LibreOffice), manual calculation,
 linted.
 
-    python build_distribution.py       # writes ../CPAT-AI-Distribution-Prototype_v<version>.xlsm (older versions to
+    python build_distribution.py       # writes releases/CPAT-AI-Distribution_v<version>.xlsx and distribution/CPAT-AI-Distribution_latest.xlsx (older versions to
                                        # ../releases/; NORMS 5a; about 2 min)
 """
 import os as _os, sys as _sys  # the excel_ai code folders and data/scripts on the path (core/tools/xlpaths.py)
@@ -29,13 +31,13 @@ from openpyxl.styles import Alignment, Border
 from openpyxl.workbook.defined_name import DefinedName
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+os.environ['CPAT_WITH_DIST'] = '1'                     # v1.2.0: the full build, with the Distribution tabs
 import build as P                                      # noqa: E402  the prototype builder (helpers, layout)
 
-VERSION = '1.1.0'
-NAME = 'CPAT-AI-Distribution-Prototype'
-OUT = P.REL.versioned(NAME, VERSION, 'xlsm')     # distribution/releases/<name>_v<version>.xlsm (_latest copy: active_workbooks/)
-SOURCE = P.LATEST                                     # the mitigation prototype the module is cut from
-BAS = os.path.join(HERE, 'CPATDistribution.bas')
+VERSION = '1.2.0'
+NAME = 'CPAT-AI-Distribution'   # v1.2.0 (user 2026-10-31): was CPAT-AI-Distribution-Prototype
+OUT = P.REL.versioned(NAME, VERSION, 'xlsx')     # distribution/releases/<name>_v<version>.xlsx (v1.2.0: no macros)
+SOURCE = P.LATEST                                     # the mitigation workbook (baseline CO2 values, its name)
 MIT_FILE = os.path.basename(P.LATEST)
 
 VERSION_LOG = [  # version, date, change
@@ -65,24 +67,28 @@ VERSION_LOG = [  # version, date, change
     ('1.1.0', '2026-10-30', f'Cut from the mitigation prototype v{P.VERSION}: data edition Public01 (perturbed proprietary '
                           'tables); Update from Mitigation looks next to this workbook, then in active_workbooks\\ (one '
                           'or two folders up). The Distribution method unchanged.'),
+    ('1.2.0', '2026-10-31', f'Renamed CPAT-AI-Distribution (user 2026-10-31); cut from a full build of the mitigation '
+                          f'workbook v{P.VERSION} (which no longer holds Distribution); .xlsx without macros: the Master '
+                          'workbook activates it and updates FromMitigation; tab FromMaster. The Distribution method and '
+                          'values unchanged.'),
 ]
 
 # the tabs of the module, in order (Cover is added); everything else of the prototype is dropped
-TABS = ['ScenarioDefinition', 'FromMitigation', 'Distribution', 'Settings', 'DATA_DISTN->>', 'DistMapping',
+TABS = ['ScenarioDefinition', 'FromMaster', 'FromMitigation', 'Distribution', P.TAB_CM, 'DATA_DISTN->>', 'DistMapping',
         'IO_GTAP', 'HHSurvey', 'HH_Elast', 'ASPIRE', 'WHOCooking', 'GDPRatios', 'WEO']
 TAB_INFO = [  # tab, content
-    ('Cover', 'This page: what the module is, the link to the mitigation workbook, the buttons'),
+    ('Cover', 'This page: what the module is, the link to the mitigation workbook'),
     ('ScenarioDefinition', 'The distribution settings of each scenario (the other rows, set in the mitigation '
                            'workbook, are hidden)'),
+    ('FromMaster', 'What the Master workbook wrote here (activation, data source): values'),
     ('FromMitigation', 'The inputs from Mitigation (section 19a of the mitigation workbook): values, refreshed by '
-                       'Update from Mitigation'),
+                       'the Master workbook (Update Distribution from Mitigation)'),
     ('Distribution', 'The model: household incidence by decile in the analysis year, one column group per scenario'),
-    ('Settings', 'Constants and lookups (the mitigation ones are values here)'),
+    (P.TAB_CM, 'Settings, constants, mappings and the data step of the mitigation workbook (those Mitigation reads are '
+               'values here)'),
     ('DistMapping ... WEO', 'The data tabs: mappings, input-output table, household survey, elasticities, ASPIRE, '
                             'cooking fuels, GDP ratios, WEO'),
 ]
-MACRO_BUTTONS = [('Update from Mitigation', 'UpdateFromMitigation'), ('Recalculate now', 'RecalculateNow'),
-                 ('Recalculation on/off', 'ToggleRecalculation')]
 
 SHEET_REF = re.compile(r"'((?:[^']|'')+)'!|([A-Za-z_][\w.]*(?:->>)?)!")
 TOKEN = re.compile(r'(?<![\w.])([A-Za-z_][\w.]*)')
@@ -181,24 +187,24 @@ def build_cover(wb):
                     'scenarios of the mitigation prototype on households, by decile, in one analysis year.')
     r = 5
     P.bar(ws, r, 'How to use it (one scenario at a time)', w, P.F_BAND, P.FONT_SUBBAR)
-    steps = ['In the mitigation workbook: define the scenario, Recalculate now, save (or leave it open).',
-             'Here: click Update from Mitigation. It copies section 19a of the mitigation workbook into '
-             'FromMitigation and recalculates.',
+    steps = ['In the mitigation workbook: define the scenario, recalculate (F9), save.',
+             'In the Master workbook (CPAT-AI-Master_UserGuide.xlsm, active_workbooks): Update Distribution from '
+             'Mitigation. It copies section 19a of the mitigation workbook into FromMitigation here and recalculates.',
              'Read the results on Distribution (one column group per scenario, deciles across).',
              'Distribution settings of a scenario (analysis year, revenue recycling, targeting): ScenarioDefinition, '
-             'then Recalculate now.']
+             'then recalculate (F9).']
     for k, s in enumerate(steps, 1):
         P.put(ws, f'A{r + k}', f'{k}.', P.FONT_B)
         P.put(ws, f'B{r + k}', s)
     r += len(steps) + 2
     P.bar(ws, r, 'Link to the mitigation workbook', w, P.F_BAND, P.FONT_SUBBAR)
     lines = [('Mitigation workbook (input)', MIT_FILE, 'MitSource', P.F_INPUT),
-             ('', 'A name alone is looked for next to this workbook, in active_workbooks\\ and one or two folders up, '
-                  'then the same one folder up; or a full path or web address', None, None),
+             ('', 'The Master workbook copies section 19a of this mitigation workbook into FromMitigation (the '
+                  'activated .xlsb in active_workbooks, else the .xlsx in excel_ai\\mitigation)', None, None),
              ('File used by the last update', 'none (shipped values)', 'MitUsed', None),
              ('Last update', f'shipped: values of {MIT_FILE} v{P.VERSION}', 'MitLastUpdate', None),
              ('Country (Settings C4)', '=CtryCode', None, None),
-             ('Calculation', 'Shipped with its values, manual calculation: Recalculate now, or Recalculation on/off',
+             ('Calculation', 'Shipped with its values, manual calculation: F9 recalculates; the Master workbook activates it',
               None, None)]
     for k, (lab, v, nm, f_) in enumerate(lines, r + 1):
         P.put(ws, f'A{k}', lab, P.FONT_B)
@@ -234,24 +240,33 @@ def build_cover(wb):
     return ws
 
 
-def vba_source():
-    text = open(BAS, encoding='cp1252').read()
-    assert text.startswith('Attribute VB_Name = "CPATDistribution"')
-    for const, want in (('FM_FIRST', P.FM_R0), ('FM_LAST', max(P.FM_ROW.values())),
-                        ('FM_COL_FIRST', P.COL_G0), ('FM_COL_LAST', P.CI_('IZ'))):
-        m = re.search(rf'Private Const {const} As Long = (\d+)', text)
-        assert m and int(m.group(1)) == want, f'CPATDistribution {const} {m and m.group(1)} differs from {want}'
-    m = re.search(r'Private Const MIT_FILE As String = "([^"]*)"', text)
-    assert m and m.group(1) == MIT_FILE, (m and m.group(1), MIT_FILE)
-    return text.split('\n', 1)[1]
+def full_source(stage):
+    """v1.2.0: the mitigation prototype with its Distribution tabs, built here (CPAT_WITH_DIST=1): tabs merged, the
+    baseline CO2 values copied from the mitigation workbook (the batch result), values stored by LibreOffice."""
+    wb = P.generate()
+    P.merge_tabs(wb)
+    src = openpyxl.load_workbook(SOURCE, data_only=True)['BaselineCO2']
+    ws = wb['BaselineCO2']
+    for row in src.iter_rows():
+        for c in row:
+            if isinstance(c.value, (int, float)) and not isinstance(ws.cell(c.row, c.column).value, str):
+                ws.cell(c.row, c.column).value = c.value
+    stage('full mitigation build (with Distribution) generated')
+    path = os.path.join(tempfile.mkdtemp(), 'mitigation_full.xlsx')
+    wb.save(path)
+    P.fix_outline_levels(path)
+    P.store_values(path)
+    stage('full build recalculated (LibreOffice)')
+    return path
 
 
 def main():
     t0 = time.time()
     stage = lambda what: print(f'[{time.time() - t0:5.0f} s] {what}', flush=True)
-    wb = openpyxl.load_workbook(SOURCE)
-    wbv = openpyxl.load_workbook(SOURCE, data_only=True)
-    stage(f'loaded {os.path.basename(SOURCE)}')
+    full = full_source(stage)
+    wb = openpyxl.load_workbook(full)
+    wbv = openpyxl.load_workbook(full, data_only=True)
+    stage(f'loaded the full build {os.path.basename(full)}')
     sd_rows = show_distribution_rows(wb['ScenarioDefinition'], wb['Distribution'], wbv['Distribution'])
     print(f'  ScenarioDefinition rows read by Distribution: {len(sd_rows)} ({sd_rows[0]}-{sd_rows[-1]})')
     cut(wb, wbv)
@@ -261,24 +276,17 @@ def main():
     for w in wb.worksheets:
         w.sheet_view.tabSelected = w.title == 'Cover'
     wb.calculation.fullCalcOnLoad = False
-    wb.code_name = 'ThisWorkbook'
-    for k, w in enumerate(wb.worksheets, 1):
-        w.sheet_properties.codeName = f'Sheet{k}'
-    from vba_project import embed_vba
-    tmp = os.path.join(tempfile.mkdtemp(), f'{NAME}-v{VERSION}.xlsx')
-    wb.save(tmp)
-    P.fix_outline_levels(tmp)
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    embed_vba(tmp, OUT, {'CPATDistribution': vba_source()})
-    P.add_macro_buttons(OUT, 'Cover', MACRO_BUTTONS, col0=2, row0=5, across=3)
-    stage('saved, macros and buttons added')
+    os.makedirs(os.path.dirname(OUT), exist_ok=True)   # v1.2.0: no macros (the Master workbook holds them)
+    wb.save(OUT)
+    P.fix_outline_levels(OUT)
+    stage('saved (no macros)')
     P.store_values(OUT)
     stage(P.share_formulas(OUT))                       # 1.1.1: repeated formulas stored once (results unchanged)
     import excel_lint
     problems = excel_lint.lint(OUT)
     if problems:
         raise SystemExit(f'{OUT}: Excel would repair it:\n  ' + '\n  '.join(problems))
-    P.REL.publish(OUT, link=True)                      # the _latest copy in active_workbooks/
+    P.REL.publish(OUT, link=True)                      # the _latest copy in the module folder (v1.2.0)
     stage(f'calculated values stored, linted; saved {OUT}')
 
 

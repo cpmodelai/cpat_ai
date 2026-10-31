@@ -110,6 +110,22 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
 - ☐ **QuickStart**: the user edited `QuickStart.docx` on `main` (2026-10-31); its source `docs/QuickStart.md` is now
   older: fold the edits back into the source, or make the .docx the master and delete the .md (user's choice).
 
+## Restructure 1.2.0 (2026-10-31; plan `prompts/Master_restructure_prompt.md`)
+
+- ☑ Stages A-F: one module per workbook, tab groups, data-table headers, zoom 80%; MTOutputs side by side and
+  ScenarioCompare live only; Constants and Mappings and the MTInputs additions in three parts; the Master workbook (user
+  guide, every macro, activation to .xlsb, stored scenarios); all-countries data refresh, EF_PM and CH4Inputs linked;
+  names without Prototype/Standalone; version 1.2.0.
+- ☐ **Excel tests of the Master** (USER_TASKS 17-18): activation, data update, distribution update, store and batch
+  macros; then commit the activated `.xlsb`.
+- ☐ **Checks to bring in line** with 1.2.0: `check_full.py` (VBA, StoredOutputs, MacroCheck, the bar chart and the old
+  MTOutputs sections; run it on `activated_copy`), `check_paste.py`, `check_links.py` (MTOutputs helper columns),
+  `docs/make_codesmap.py` (MTOutputs columns); the formula-length checks to 115 (hard) / 90 (reported) (NORMS 3).
+- ☐ **Coded CPAT** references to Excel-AI 1.2.0 (`coded/cpat_testing/compare/extract_excel_ai.py`: new names, .xlsx,
+  MTOutputs layout; values unchanged).
+- ☐ **Air-pollution module**: a FromMaster tab; its next build under the new name.
+- ☐ **Tab name** `Constants and Mappings` (USER_TASKS 20).
+
 ## Later (not now)
 
 - Power engineer model: final deficit to gas, MaximumGasCF, storage factor; planned retirement data; elasticity-based power model.

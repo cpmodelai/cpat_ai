@@ -1,98 +1,98 @@
 {
- "Inputs": [
-  "Inputs",
-  0,
-  148
- ],
- "Inputs_prices": [
-  "Inputs",
-  151,
-  48
- ],
- "Inputs_power": [
-  "Inputs",
-  202,
-  66
- ],
- "Inputs_ef": [
-  "Inputs",
-  271,
-  51
- ],
- "Inputs_ela": [
-  "Inputs",
-  325,
-  124
- ],
- "Inputs_mult": [
-  "Inputs",
-  452,
-  34
- ],
- "Inputs_macro": [
-  "Inputs",
-  489,
-  41
- ],
- "Inputs_pint": [
-  "Inputs",
-  533,
-  66
- ],
- "Inputs_ecp": [
-  "Inputs",
-  602,
-  137
- ],
- "Inputs_pset": [
-  "Inputs",
-  742,
-  44
- ],
- "Inputs_ptech": [
-  "Inputs",
-  789,
-  13
- ],
- "Inputs_ppath": [
-  "Inputs",
-  805,
-  71
- ],
- "Inputs_ppar": [
-  "Inputs",
-  879,
-  49
- ],
- "Inputs_nc": [
-  "Inputs",
-  931,
-  540
- ],
  "Settings": [
-  "Settings",
+  "Constants and Mappings",
   0,
   89
  ],
  "Constants": [
-  "Settings",
+  "Constants and Mappings",
   92,
   86
  ],
  "Mapping": [
-  "Settings",
+  "Constants and Mappings",
   181,
   1291
+ ],
+ "Inputs": [
+  "Constants and Mappings",
+  1475,
+  148
+ ],
+ "Inputs_prices": [
+  "Constants and Mappings",
+  1626,
+  48
+ ],
+ "Inputs_power": [
+  "Constants and Mappings",
+  1677,
+  66
+ ],
+ "Inputs_ef": [
+  "Constants and Mappings",
+  1746,
+  51
+ ],
+ "Inputs_ela": [
+  "Constants and Mappings",
+  1800,
+  124
+ ],
+ "Inputs_mult": [
+  "Constants and Mappings",
+  1927,
+  34
+ ],
+ "Inputs_macro": [
+  "Constants and Mappings",
+  1964,
+  41
+ ],
+ "Inputs_pint": [
+  "Constants and Mappings",
+  2008,
+  66
+ ],
+ "Inputs_ecp": [
+  "Constants and Mappings",
+  2077,
+  137
+ ],
+ "Inputs_pset": [
+  "Constants and Mappings",
+  2217,
+  44
+ ],
+ "Inputs_ptech": [
+  "Constants and Mappings",
+  2264,
+  13
+ ],
+ "Inputs_ppath": [
+  "Constants and Mappings",
+  2280,
+  71
+ ],
+ "Inputs_ppar": [
+  "Constants and Mappings",
+  2354,
+  49
+ ],
+ "Inputs_nc": [
+  "Constants and Mappings",
+  2406,
+  540
  ],
  "VersionLog": [
   "Version Log, About, and Diff",
   0,
-  108
+  109
  ],
  "ReadMe": [
   "Version Log, About, and Diff",
-  111,
-  33
+  112,
+  32
  ],
  "LegacyDiff": [
   "Version Log, About, and Diff",
@@ -100,18 +100,13 @@
   95
  ],
  "Variables": [
-  "Check, Variables, Lambdas",
+  "Variables and Lambdas",
   0,
   1261
  ],
  "Lambdas": [
-  "Check, Variables, Lambdas",
+  "Variables and Lambdas",
   1264,
   1157
- ],
- "MacroCheck": [
-  "Check, Variables, Lambdas",
-  2424,
-  307
  ]
 }
