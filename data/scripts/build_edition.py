@@ -32,7 +32,7 @@ FOLDERS = ['tidy', 'legacy_xlsx', 'legacy', 'inputs']
 # public-perturbed: the tables perturbed (the six proprietary ones and Excel-AI's copies of them)
 PERTURBED = {'energy_balances.csv', 'energy_consumption.csv', 'prices_domestic.csv', 'prices_domestic_corrections.csv',
              'hh_survey.csv', 'io_gtap.csv', 'tran_scatter.csv', 'xai_energy_balance.csv', 'xai_energy_use.csv',
-             'xai_power_demand.csv'}
+             'xai_power_demand.csv', 'xai_cooking_fuel.csv'}   # 1.2.2: cooking_fuel derived from hh_survey
 # Public01: tables computed from the real data before the perturbation (empty once rebuilt on the perturbed data)
 DERIVED_REAL = {'Public01': {'xai_legacy_cached_baseline.csv', 'xai_legacy_engineer_reference.csv',
                              'xai_legacy_power_reference.csv', 'xai_legacy_transport_reference.csv',

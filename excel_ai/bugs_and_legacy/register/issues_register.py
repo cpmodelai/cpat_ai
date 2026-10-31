@@ -215,8 +215,9 @@ LEGACY += [
      'up INDEX(WEO,...); the cell plan L50 was built from texts the LibreOffice conversion truncated and is to be '
      'redone); the policy rows lag one '
      'column; the sign of policy net imports looks reversed.', 'Fixed (v0.9.0, R11): current account in section 16b from '
-     'the corrected WEO values typed for Egypt (EGY.BCA.A, EGY.BCA_NGDPD.A; held at 2031 by legacy\'s own rule; other '
-     'countries 0, issue I148); the column lag not replicated (16b xtb, since v0.3.16).'),
+     'the corrected WEO codes (BCA, BCA_NGDPD; held at the last data year by legacy\'s own rule; typed for Egypt until '
+     '1.2.2, now looked up for every country, issue I148 resolved); the column lag not replicated (16b xtb, since '
+     'v0.3.16).'),
     ('L51', 'Energy trade balance of coal valued at the oil price', 'Mitigation row 743',
      'The coal trade balance multiplies coal net imports by the crude oil price per GJ (row 731) instead of the coal '
      'price (row 732); Egypt 2022: -1.4 bn USD instead of about -0.5.',
@@ -1385,9 +1386,10 @@ ISSUE_LEGACY.update({'I147': 'Open: cause not found (prototype or legacy)', 'I14
 ISSUE_STATUS.update({
     'I147': ('Major', 'Open', 'Reconcile the section-15 food & forestry emissions with the legacy AP input (a bug of '
              'the prototype or of legacy, or a data difference); read wel.air with this caveat until then.'),
-    'I148': ('Extremely high', 'Open', 'No cell plan possible (the data are missing): Egypt typed, as legacy\'s '
-             'corrected values. Plan: the data team adds the current account (BCA, BCA_NGDPD) to the WEO table for '
-             'every country; then read it instead of the typed values.')})
+    'I148': ('Extremely high', 'Resolved', '1.2.2 (user 2026-10-31, hard-coded countries): the WEO table already holds '
+             'BCA and BCA_NGDPD for every country; Mitigation looks them up for the country of the model (Mappings, '
+             'Inputs_macro rows country|bca*), held at the last data year as legacy. Egypt: the same numbers as the '
+             'typed values.')})
 
 # v0.9.0 (user 2026-10-29): the last historical price year is 2024, as legacy 456 and 465 (I89 closed)
 ISSUE_LEGACY.update({'I89': 'replicated'})

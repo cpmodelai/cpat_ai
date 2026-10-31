@@ -8,8 +8,8 @@ can be copied in. Then (same day): align more fully, going with the recommendati
 
 ### Summary
 
-- **Order.** The data tabs sit under the legacy dividers in legacy order: `DATA_MITIGATION->>`, `DATA_DISTN->>`,
-  `DATA_TRAN->>`, `DATA_OUTPUT->>`; tabs without a legacy data tab come last under `DATA_OTHER->>` (BaselineCO2 only).
+- **Order.** The data tabs sit under the legacy dividers in legacy order: `DATA_MITIGATION->>` (the tables derived for Mitigation last:
+  CookingFuel, Multipliers, BaselineCO2; 1.2.2), `DATA_DISTN->>` (the distribution workbook), `DATA_TRAN->>`.
 - **Copy-in rules (NORMS 1.5).**
   - **L, a single legacy table:** the table itself, unchanged (same columns, column letters and codes; header row 3,
     data from A4; a key formula column right of the table where legacy has no unique key). Paste the legacy data rows

@@ -25,14 +25,15 @@ ROW_INDEX = ('.ghg.h.',)     # outputs that are row numbers of a data table (the
                              # whether a row was found (> 0) must agree
 ERRORS = ('#DIV/0!', '#N/A', '#NAME?', '#NULL!', '#NUM!', '#REF!', '#VALUE!', 'Err:')
 CLONE = {'EGY': 'XEG', 'egy': 'xeg'}
+MODULE_TABS = ['FromAP', 'FromTrans']   # 1.2.2: the module tabs are keyed by country too (typed for Egypt): cloned
 IN_PLACE = {'Countries', 'Elasticities', 'ETS+LTS', 'Multipliers', 'Prices_int', 'ECP', 'Transport3', 'Power', 'CoC',
             'GHGs'}   # v0.4.6; v0.4.7: Power, CoC, GHGs
 
 
 def data_tabs(wb):
     names = wb.sheetnames
-    a, b = names.index('DATA_MITIGATION->>'), names.index('REF->>')
-    return [n for n in names[a:b] if n not in B.DIVIDERS]
+    a = names.index('DATA_MITIGATION->>')          # 1.2.2: the data tabs are last (no REF group)
+    return [n for n in names[a:] if n not in B.DIVIDERS]
 
 
 def rename_rows(ws):
@@ -73,6 +74,8 @@ def outputs(data):
     out = {}
     for name, cols in (('Mitigation', [B.group_cols(g)[0] for g in (1, 2, 3)]),
                        ('Distribution', [B.dist_group_cols(g)[0] for g in (1, 2, 3)])):
+        if name not in data.sheetnames:            # 1.2.2: Distribution is its own workbook since 1.2.0
+            continue
         ws = data[name]
         for c in cols:
             for r in range(1, ws.max_row + 1):
@@ -86,7 +89,7 @@ def main(path):
     base = C.recalc(C.variant(openpyxl.load_workbook(path), 'expand')).parent
     egy = outputs(base)
     wb = openpyxl.load_workbook(path)
-    n = {t: rename_rows(wb[t]) if t in IN_PLACE else clone_rows(wb[t]) for t in data_tabs(wb)}
+    n = {t: rename_rows(wb[t]) if t in IN_PLACE else clone_rows(wb[t]) for t in data_tabs(wb) + MODULE_TABS}
     wb[B.TAB_CONST][B.settings_cell('C4')] = 'XEG'   # v1.2.0: the country setting (the link to MTInputs overridden)
     data = C.recalc(C.variant(wb, 'expand')).parent
     errs = [(ws.title, c.coordinate) for ws in data.worksheets for row in ws.iter_rows() for c in row

@@ -244,6 +244,7 @@ who_cooking,legacy_WHOCooking.csv,table,WHOCooking,code,3,no
 xai_ch4_inputs,ch4_inputs.csv,as is,xai_ch4_inputs,,1105,no
 xai_code_renames_v0_7_2,code_renames_v0_7_2.csv,as is,xai_code_renames_v0_7_2,,269,no
 xai_codes_crosswalk_v0_7_1,codes_crosswalk_v0_7_1.csv,as is,xai_codes_crosswalk_v0_7_1,,233,no
+xai_cooking_fuel,cooking_fuel.csv,as is,xai_cooking_fuel,,4,no
 xai_countries,countries.csv,as is,xai_countries,,222,no
 xai_ecp,ecp.csv,as is,xai_ecp,,857,no
 xai_ef_co2,ef_co2.csv,as is,xai_ef_co2,,37,no

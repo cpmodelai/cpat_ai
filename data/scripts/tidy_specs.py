@@ -137,7 +137,7 @@ LAYOUT_FILES = {'prices_dom_header.csv': 'prices_dom.csv'}
 # Tables kept as they are (already long or keyed; derived by Excel-AI's extract scripts, or legacy references): file name
 # -> tidy name. Stored unchanged in tidy/<tidy>.csv; in the workbook on a sheet of the same name, header in row 1 (not a
 # legacy address). Excel-AI reads them in this form (data/scripts/legacy_csv.py).
-_XAI = ['ch4_inputs', 'code_renames_v0_7_2', 'codes_crosswalk_v0_7_1', 'countries', 'ecp', 'ef_co2', 'ef_nonco2',
+_XAI = ['ch4_inputs', 'code_renames_v0_7_2', 'codes_crosswalk_v0_7_1', 'cooking_fuel', 'countries', 'ecp', 'ef_co2', 'ef_nonco2',
         'elasticities', 'energy_balance', 'energy_use', 'ets_semi', 'gains_region', 'gdp_level', 'ghg_inventory',
         'gwp_pollutants', 'legacy_GHGs', 'legacy_WEO_NGDP_D', 'legacy_cached_baseline', 'legacy_engineer_reference',
         'legacy_mtoutputs_465', 'legacy_power_reference', 'legacy_transport_reference', 'mtinputs_465',
@@ -155,7 +155,8 @@ for _s in ASIS.values():
 # FilterISO3 (ISO3 upper case, from that column) the queries filter on; a blank legacy header is named Column<n> there.
 LINKS = {'Balances': 'country_code', 'EnergyCons': 'CPAT Code', 'Prices_dom': 'countrycode', 'HHSurvey': 'iso3',
          'IO_GTAP': 'iso3', 'HH_Elast': 'iso3', 'WEO': 'countrycode', 'GDPRatios': 'Country Code', 'UNPop': 'ISO',
-         'EF_PM': 'Country Code', 'CH4Inputs': 'cpat_ccode3'}   # v1.2.0 (user 2026-10-31): the large tables linked
+         'EF_PM': 'Country Code', 'CH4Inputs': 'cpat_ccode3',   # v1.2.0 (user 2026-10-31): the large tables linked
+         'xai_cooking_fuel': 'country'}   # 1.2.2: a derived (as-is) table linked too: header in row 1, L_xai_cooking_fuel
 FILTER_COL = 'FilterISO3'
 
 CELLS = {}     # filled from tidy_blocks.py (legacy tabs at their addresses)

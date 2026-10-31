@@ -34,4 +34,4 @@ The air-pollution module (`excel_ai/air_pollution/`) is a standalone rebuild of 
 
 ## Road transport co-benefits
 
-The mitigation module reads the road-transport co-benefits as values typed on its tab `FromTransportCB`, as it reads the air-pollution marginal damages on `FromAirPollution` (both 0 for countries without values). They feed the Pigouvian components of Mitigation. A standalone transport co-benefits module is planned to supply them.
+The mitigation module reads the road-transport co-benefits as values typed on its tab `FromTrans`, as it reads the air-pollution marginal damages on `FromAP` (both typed for Egypt only: 0 for other countries, and row 1 of each tab says whether it has rows for the country). They feed the Pigouvian components of Mitigation. A standalone transport co-benefits module is planned to supply them.

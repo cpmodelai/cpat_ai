@@ -100,7 +100,7 @@ def build_guide(wb):
         f'the {P.SHIP_LAST_YEAR} column across to {P.LAST_YEAR}, recalculates and saves the module as .xlsb next to '
         'this workbook. Work in the .xlsb.',
         'Scenarios: in the mitigation workbook, tab Scenarios: G = baseline, H = the live policy scenario, I onwards = '
-        'definitions (Run? = Yes for the batch run). Results: Outputs (scenarios side by side) and ScenarioCompare. '
+        'definitions (Run? = Yes for the batch run). Results: Outputs (scenarios side by side); CompareStored here. '
         'F9 recalculates.',
         'Update: Data tables loads the linked data tabs (tab Settings here: the source; one country or all '
         'countries). Distribution from Mitigation copies the exports of Mitigation (section 19a) into the '
@@ -293,7 +293,7 @@ CS_Y1 = CS_C0 + P.NY - 1
 
 def build_compare(wb):
     """CompareStored: the stored scenarios against the first slot (the baseline), as ScenarioCompare in the module
-    compares the live ones: the year, a key table (level, difference and % difference), time series with their line
+    compared the live ones (that tab was deleted in 1.2.2: this is the comparison): the year, a key table (level, difference and % difference), time series with their line
     chart (the indicator of each block: the dropdown in its title)."""
     from openpyxl.chart import LineChart, Reference, Series
     from openpyxl.chart.series import SeriesLabel
@@ -460,6 +460,7 @@ def compile_test(path):
 
 
 def main():
+    P.REL.guard_release(OUT)                       # 1.2.2 (lesson 3j): a committed release is never rewritten
     wb = Workbook()
     build_guide(wb)
     build_settings(wb)

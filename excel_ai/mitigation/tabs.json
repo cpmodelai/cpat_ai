@@ -1,16 +1,16 @@
 {
  "ConstContents": [
-  "Constants",
+  "Settings",
   0,
   24
  ],
  "Settings": [
-  "Constants",
+  "Settings",
   27,
   177
  ],
  "Constants": [
-  "Constants",
+  "Settings",
   207,
   103
  ],
@@ -95,28 +95,28 @@
   540
  ],
  "VersionLog": [
-  "Version Log, About, and Diff",
+  "Documentation",
   0,
-  110
+  111
  ],
  "ReadMe": [
-  "Version Log, About, and Diff",
-  113,
+  "Documentation",
+  114,
   32
  ],
  "LegacyDiff": [
-  "Version Log, About, and Diff",
-  148,
+  "Documentation",
+  149,
   95
  ],
  "Variables": [
-  "Variables and Lambdas",
-  0,
+  "Documentation",
+  247,
   1261
  ],
  "Lambdas": [
-  "Variables and Lambdas",
-  1264,
+  "Documentation",
+  1511,
   1157
  ]
 }

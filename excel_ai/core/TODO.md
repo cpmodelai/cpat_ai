@@ -127,6 +127,17 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
   MTOutputs layout; values unchanged).
 - ☐ **Air-pollution module**: a FromMaster tab; its next build under the new name.
 - ☑ **Tab names** (user 2026-10-31, 1.2.1): `Scenarios`, `Outputs`, `Constants` and `Mappings` (two tabs).
+- ☑ **Tab layout** (user 2026-10-31, 1.2.2): `Documentation` first (one tab, columns 35 wide), the four front tabs one
+  colour, ScenarioCompare deleted, `Settings` (was Constants), `FromAP`, `FromTrans`, Multipliers and BaselineCO2 under
+  `DATA_MITIGATION->>`, HHSurvey and WHOCooking replaced by the derived tab `CookingFuel`.
+- ☐ **Hard-coded countries, what is left** (user 2026-10-31): the typed module outputs on FromAP and FromTrans are
+  Egypt's only (legacy 465 run; issue I106: other countries read 0, row 1 of each tab now says so) until the air
+  pollution and transport co-benefits modules write them; BaselineCO2 holds the build country's scenario-1 values
+  (rebuild or paste for another country). `checks/check_allcountry.py` (the XEG clone test) brought up to the
+  one-module layout in 1.2.2 (no Distribution tab; FromAP and FromTrans cloned too) but did not finish in 30 minutes on
+  1.2.2 (a Python step at full CPU, no LibreOffice running): make it fast enough, then run it at each release.
+- ☐ **Coded CPAT and the cooking table**: Python's mitigation reads `who_cooking` (`mitigation/fuel_use.py`) for the
+  cooking fuel; it may read `xai_cooking_fuel` instead, as Excel-AI does since 1.2.2 (values the same).
 - ☐ **MTInputs rows read from scenario 1 only** (user 2026-10-31: "update this later"). About 70 rows of MTInputs are read
   from the scenario-1 column (names `SDBase`/`SDParam`, `mt_setting`, `INDEX(Scenarios!$G:$G, ...)`) and applied to every
   scenario: a definition that changes them has no effect (legacy runs each scenario through its own column). Plan:
@@ -137,7 +148,7 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
   formulas reading their own group: GovPriceControls, BiomassNormal, BiomassLeakage, ExemptMostCook, ExemptCookDeciles,
   NatGasEff/LPGEff/KerEff/BioEff, DomPrTax, ElIncMainSrc, ElPrcMainSrc, IncElAdj, NDCs, NDCTargetYear, Conditionality,
   the power settings of Inputs_pset (PS_SETTINGS, 27 rows) and the new-investment overrides (NewInv<tech>, NewInv<tech>Year).
-  Until then the Constants tab labels these rows and checks that every scenario column holds the scenario-1 value.
+  Until then the Settings tab (was Constants) labels these rows and checks that every scenario column holds the scenario-1 value.
 - ☐ **Methodology chapter 7 Road transport** (2026-10-31): section 7.1 (engineer road model) moved from the CPAT-AI
   Model chapter 5 as a first cut; to do: structure the chapter as a whole (7.1 and 7.2 in one style, the co-benefits
   acronyms and Excel implementation sections), slim the Model chapter's repetition, the methodology PDF (TinyTeX).

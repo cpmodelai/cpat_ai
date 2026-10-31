@@ -69,6 +69,8 @@ PROVENANCE = {
                              'and Prices_dom',
     'module_FromAirPollution_cells.csv': 'Excel-AI tab FromAirPollution: typed module values (Egypt, legacy 465 run)',
     'module_FromTransportCB_cells.csv': 'Excel-AI tab FromTransportCB: typed module values',
+    'cooking_fuel.csv': 'derived from HHSurvey and WHOCooking (Excel-AI extract_cooking.py): most-used cooking fuel '
+                        'and the decile shares of its spend, the only household data Mitigation reads (1.2.2)',
 }
 
 # The legacy 459 air-pollution tables kept as they are (tidy ap459_<name>) -> their legacy tab.
@@ -130,8 +132,9 @@ def main():
                     'legacy 459 NoPropData: list of the air-pollution extracts')
         elif r['kind'] == 'as is':
             src = ''
-            prov = (f"Excel-AI table {r['legacy_source']} (written by the extract scripts in excel_ai/mitigation/ "
-                    'from the legacy workbook, or by the Excel-AI checks), kept as it is')
+            prov = PROVENANCE.get(r['legacy_source'],
+                                  f"Excel-AI table {r['legacy_source']} (written by the extract scripts in excel_ai/"
+                                  'mitigation/ from the legacy workbook, or by the Excel-AI checks), kept as it is')
         else:
             src = tab
             prov = PROVENANCE.get(r['legacy_source'], f'legacy 465 NoPropData, {tab}')

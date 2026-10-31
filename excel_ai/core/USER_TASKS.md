@@ -27,7 +27,7 @@ what to tell the agent afterwards. Source: `TODO.md` (sections 5 and "Open at th
    dashboard buttons), LAMBDAs live, ETS goal seek (issue I30). Report anything odd, with a screenshot.
 7. **Distribution module** (`CPAT-AI-Distribution-Prototype_latest.xlsm`, same folder): press *Update from
    Mitigation* with the prototype beside it; the Distribution tab should change with the prototype's scenario.
-8. **Data link test in Excel** (Power Query does not run here): on ScenarioCompare choose the source
+8. **Data link test in Excel** (Power Query does not run here): in the Master, tab Settings, choose the source
    "Public01 - GitHub (public repository)", press *Update data tables* on Cover; the key results should not change
    (the shipped data are Public01's).
 

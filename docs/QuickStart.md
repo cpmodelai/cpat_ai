@@ -66,7 +66,7 @@ The World Bank/IMF **Climate Policy Assessment Tool (CPAT)** models the fiscal, 
 - Readable: formulas are short (target 90 characters, at most 115) and one formula serves a whole block; sections follow legacy's section numbers.
 - Any country: formulas contain no country numbers; all country data come from the data tabs, chosen by the country code on ScenarioDefinition (MTInputs, Model settings).
 - Linked data: the data tables refresh from a data workbook (Power Query) instead of being pasted in.
-- Scenarios: MTOutputs shows the live scenarios side by side and a dashboard (ScenarioCompare) compares them; the Master stores up to 10 as values and compares them (CompareStored); every output has a code shared with Python (e.g. `egy.mit.co2.tot.tot.2`).
+- Scenarios: Outputs shows the live scenarios side by side; the Master stores up to 10 as values and compares them (CompareStored); every output has a code shared with Python (e.g. `egy.mit.co2.tot.tot.2`).
 - Modular: one workbook per module (Mitigation, Distribution, Air Pollution; Transport Co-benefits to follow), without macros; one Master workbook holds every macro.
 - Checked: an independent Python model (Coded CPAT), a quick check after every change, and a full check at milestones.
 

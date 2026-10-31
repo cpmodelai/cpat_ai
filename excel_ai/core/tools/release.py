@@ -46,6 +46,19 @@ def versioned(name, version, ext):
     return os.path.join(_dirs(name)[0], f'{name}_v{version}.{ext}')
 
 
+def guard_release(path):
+    """1.2.2 (lesson 3j: the distribution builder, whose version is its own, rewrote its released 1.2.1 file): called by
+    a builder before it builds: refused when the release it would write is already committed (a released workbook is
+    never rewritten: raise the version). CPAT_REBUILD_RELEASE=1 overrides it (a deliberate rebuild, said in CAVEATS)."""
+    import subprocess
+    if os.path.exists(path) and not os.environ.get('CPAT_REBUILD_RELEASE'):
+        tracked = subprocess.run(['git', 'ls-files', '--error-unmatch', os.path.basename(path)], cwd=os.path.dirname(path),
+                                 capture_output=True).returncode == 0
+        if tracked:
+            raise SystemExit(f'{path} is a committed release: raise the version (VERSION) or set CPAT_REBUILD_RELEASE=1')
+    return path
+
+
 MODULE_DIR = {'CPAT-AI-Mitigation': 'mitigation', 'CPAT-AI-Distribution': 'distribution',
               'CPAT-AI-AirPollution': 'air_pollution'}
 OLD_NAMES = {'CPAT-AI-Mitigation': 'CPAT-AI-Mitigation-Prototype', 'CPAT-AI-Distribution': 'CPAT-AI-Distribution-Prototype',

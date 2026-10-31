@@ -48,7 +48,7 @@ The legacy workbook is never edited or re-saved; work is done on copies in scrat
 | `excel_ai/<module>/releases/<Name>_v<version>.xlsx` | Every version (to 1.1.0: `<Name>-Prototype_v<version>.xlsm`, with macros) |
 
 1. **Activate.** The Master's *Activate* buttons open each module's `.xlsx` (from the clone, else GitHub), copy the 2035 column across to 2041 in every scenario group of `Mitigation` and `Outputs`, note the activation on the module's tab `FromMaster`, recalculate and save `<Name>_latest.xlsb` next to the Master.
-2. **Work in the `.xlsb`.** Scenarios on `Scenarios` (G baseline, H live scenario, I onwards definitions); F9 recalculates (manual calculation); results on `Outputs` (scenarios side by side) and `ScenarioCompare` (the dashboard).
+2. **Work in the `.xlsb`.** Scenarios on `Scenarios` (G baseline, H live scenario, I onwards definitions); F9 recalculates (manual calculation); results on `Outputs` (scenarios side by side); the Master compares stored scenarios (`CompareStored`).
 3. **Feed it from the Master.** *Update data tables* (data source and rows, one country or all, on the Master's `Settings`; Power Query); *Update Distribution from Mitigation* (section 19a into the distribution workbook).
 4. **Store and compare** in the Master: *Store live scenarios*, *Run stored scenarios* (the batch run, ETS goal seek included), `StoredScenarios` (ten slots, values) and `CompareStored`.
 

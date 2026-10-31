@@ -303,7 +303,6 @@ The model calculates a few scenarios at a time: the baseline and the live policy
 | ScenarioDefinition, columns L onwards | **Scenario definitions**, one full column each: short name (row 2, the legend in the charts), Run? (Yes/No), number, name, then the inputs. Red cells differ from the template. To add one, copy the last definition one column to the right and edit it. |
 | Mitigation | Scenario groups: 1 = the baseline (plain formulas), 2 = the live scenario (every calculated cell calls its named LAMBDA). More live scenarios: copy group 2 to the right and set its scenario number. |
 | MTOutputs | The key results of every scenario group **side by side**, in the columns of Mitigation's groups (room for four): columns A:J code stem, module, legacy code, indicator, unit, Mitigation row; row 5 the scenario number of each group; rows as legacy MTOutputs, then the outputs legacy does not list, by topic. Each cell is Mitigation's cell of its row in the same column. |
-| ScenarioCompare | The **dashboard**, live results only (from MTOutputs): one slot per scenario group, the year, a key table and four time series with their line charts. |
 | FromMaster | What the Master wrote here (values): activation, the data source of the linked tables, the rows loaded. |
 | Master: StoredScenarios | Results as **values only**: MTOutputs' rows at the same row numbers, ten slots (slot 1 the baseline), each with its scenario ID, name and when and from which file it was stored. |
 | Master: CompareStored | The stored scenarios against the first slot (the baseline), for a chosen year. |
@@ -361,12 +360,12 @@ The Master and its VBA were built without Excel; the build checks that the VBA c
 
 ### 5. Comparing and keeping results
 
-- **Live** (in the mitigation workbook): ScenarioCompare reads MTOutputs. Choose the year, then F9. Each value is the MTOutputs row of its code stem, in the column of its scenario group plus the year, so the order of the rows never matters. A scenario group without results is left out of the charts.
+- **Live** (in the mitigation workbook): Outputs (was MTOutputs) holds every live scenario group side by side; the dashboard tab ScenarioCompare was deleted in 1.2.2 (user 2026-10-31): the Master compares.
 - **Key table.** Energy CO2 emissions, GHG emissions excluding LULUCF, revenue as a share of GDP, the GDP effect of the revenue use and the net welfare effect: level, difference from the baseline, and % difference for the two emission levels.
 - **Time series.** Four tables (default: energy CO2, GHGs, revenue, GDP effect), scenarios down and years across, each with its line chart beside it. The title of each table is a dropdown of the indicator list: every MTOutputs indicator except the price and Kaya indices.
 - **Stored** (in the Master): StoredScenarios keeps up to ten scenarios as values, so results of other runs (another country, another version) can sit side by side, as long as the rows are those of the same MTOutputs version (the store macros check the code stems). CompareStored compares them with slot 1.
 
 ### 6. Limits
 
-- The batch run calculates one policy scenario at a time, through the live column K. Further scenario groups of Mitigation (copies of group 2) show on MTOutputs and ScenarioCompare, and Store live scenarios stores them.
+- The batch run calculates one policy scenario at a time, through the live column K. Further scenario groups of Mitigation (copies of group 2) show on Outputs, and Store live scenarios stores them.
 - MTOutputs defines what is stored: its rows, each code once. To store more, add rows to MTOutputs first (in the builder).

@@ -57,9 +57,8 @@ def log(msg, ok=True):
 
 
 def structure(wb):
-    tail = ['REF->>'] + B.REF_TABS
-    log(f'tab order (main, inputs, data, reference last; {len(wb.sheetnames)} tabs)',
-        wb.sheetnames[:len(B.TAB_ORDER)] == B.TAB_ORDER and wb.sheetnames[-len(tail):] == tail)
+    log(f'tab order (Documentation, main, inputs, modules, data; {len(wb.sheetnames)} tabs)',   # 1.2.2: no REF group
+        wb.sheetnames[:len(B.TAB_ORDER)] == B.TAB_ORDER and wb.sheetnames[-1] == B.DATA_GROUPS[-1][1][-1])
     long_, over90, lits, missing = [], 0, {}, set()
     sheets = set(wb.sheetnames)
     n = 0
@@ -146,9 +145,16 @@ def tabs(wb):
                   if c.font and c.font.b and rgb(c) == 'EBF1DE']
     log(f'tab title bars and sub-heading bars of equal width on every tab: exceptions {bad[:5]}', not bad)
     log(f'table headers without the input fill: exceptions {heads[:5]}', not heads)
-    want = ['Cover', 'Scenarios', 'Mitigation', 'Outputs', 'ScenarioCompare']
-    log(f'v1.2.0: front tabs Cover, Scenarios, Mitigation, Outputs, ScenarioCompare (no MAIN/OUTPUT dividers): '
-        f'{wb.sheetnames[:5]}', wb.sheetnames[:5] == want)
+    want = [B.TAB_DOC, 'Cover', 'Scenarios', 'Mitigation', 'Outputs']     # 1.2.2 (user): no ScenarioCompare
+    col = {w.title: str(w.sheet_properties.tabColor.rgb if w.sheet_properties.tabColor else '')[-6:]
+           for w in wb.worksheets[1:5]}
+    log(f'1.2.2: front tabs {want} (no dividers), the four after Documentation one colour {col}; opens on '
+        f'{wb.active.title}', wb.sheetnames[:5] == want and len(set(col.values())) == 1 and wb.active.title == 'Cover')
+    log('1.2.2: no ScenarioCompare, no REF, DATA_OUTPUT or DATA_OTHER divider, no HHSurvey or WHOCooking (Mitigation)',
+        not {'ScenarioCompare', 'REF->>', 'DATA_OUTPUT->>', 'DATA_OTHER->>', 'HHSurvey', 'WHOCooking'} & set(wb.sheetnames)
+        or 'Distribution' in wb.sheetnames)
+    dw = {c: wb[B.TAB_DOC].column_dimensions[c].width for c in 'ABCDEFGHIJ'}
+    log(f'1.2.2: Documentation columns {B.DOC_W} wide {set(dw.values())}', set(dw.values()) == {B.DOC_W})
 
 
 def style(wb):
@@ -365,9 +371,8 @@ def stored_complete(path):
 
 def live_outputs(data):
     """v1.2.0: Outputs shows Mitigation's values: in every scenario group of Mitigation, each output row equals the
-    Mitigation cell of its row (column J) in the same column; ScenarioCompare has a scenario ID and values in every
-    slot that has a Mitigation group (no empty second slot)."""
-    mo, mi, sc = data['Outputs'], data['Mitigation'], data['ScenarioCompare']
+    Mitigation cell of its row (column J) in the same column (1.2.2: ScenarioCompare deleted)."""
+    mo, mi = data['Outputs'], data['Mitigation']
     n, bad = 0, []
     groups = [g for g in B.mto_cols() if mi.cell(5, g[0]).value not in (None, '')]
     for r in range(B.MTO_R0, B.MTO_LAST + 1):
@@ -382,10 +387,6 @@ def live_outputs(data):
                     bad.append((r, c, a, b))
     log(f'Outputs equals Mitigation in its {len(groups)} scenario groups ({n} cells): differences {len(bad)} '
         f'{bad[:3]}', n > 0 and not bad)
-    filled = [k for k in range(len(groups)) if isinstance(sc.cell(B.SC_R_ID, B.SC_C0 + k).value, (int, float))
-              and isinstance(sc.cell(B.SC_KEY_R0, B.SC_C0 + k).value, (int, float))]
-    log(f'ScenarioCompare: slots with a scenario and a key result {filled} of the {len(groups)} groups',
-        filled == list(range(len(groups))))
 
 
 def lambda_group(data):
@@ -529,7 +530,7 @@ def excel_open():
             return
         xl.CalculateFull()
         errs = []
-        for name in ('Mitigation', 'Outputs', 'ScenarioCompare'):
+        for name in ('Mitigation', 'Outputs'):
             vals = wb.Worksheets(name).UsedRange.Value or ()
             errs += [(name, i, j) for i, row in enumerate(vals, 1) for j, v in enumerate(row, 1)
                      if isinstance(v, int) and v < -2146820000]                 # COM error values (#NAME? etc.)
@@ -620,17 +621,14 @@ def main():
     stage = lambda what: print(f'[{time.time() - t0:5.0f} s] {what}', flush=True)   # v0.4.9: stage timings
     src = B.OUT if os.environ.get('QUICK') else B.activated_copy(B.OUT)   # v1.2.0: shipped to 2035, activated here
     wait = LO.start_values(LO.expanded_zip(src, C.LAMBDA_CALL, C.expand),   # v0.4.9: recalculated meanwhile
-                           ['Mitigation', 'Distribution', 'DistMapping', 'Outputs', 'ScenarioCompare'])
+                           ['Mitigation', 'Distribution', 'DistMapping', 'Outputs'])
     stage('expanded copy written, LibreOffice session started')
     wbf = openpyxl.load_workbook(B.OUT)
     structure(wbf)
     stage('structure checked')
     data, errs = wait()                            # LAMBDA calls expanded, so every cell is evaluated
     stage('recalculated values read')
-    gaps = [e for e in errs if B.cmp_na_only(*e)]  # v0.6.4: #N/A of the empty dashboard slots (chart gaps)
-    errs = [e for e in errs if e not in gaps]
-    log(f'recalculated in LibreOffice (LAMBDAs expanded): error values {len(errs)} {errs[:6]} (accepted: the chart '
-        f'data of empty ScenarioCompare slots, {gaps[:2]})', not errs)
+    log(f'recalculated in LibreOffice (LAMBDAs expanded): error values {len(errs)} {errs[:6]}', not errs)
     lambda_group(data)
     distribution(data)
     live_outputs(data)

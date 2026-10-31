@@ -34,7 +34,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 os.environ['CPAT_WITH_DIST'] = '1'                     # v1.2.0: the full build, with the Distribution tabs
 import build as P                                      # noqa: E402  the prototype builder (helpers, layout)
 
-VERSION = '1.2.1'
+VERSION = '1.2.2'
 NAME = 'CPAT-AI-Distribution'   # v1.2.0 (user 2026-10-31): was CPAT-AI-Distribution-Prototype
 OUT = P.REL.versioned(NAME, VERSION, 'xlsx')     # distribution/releases/<name>_v<version>.xlsx (v1.2.0: no macros)
 SOURCE = P.LATEST                                     # the mitigation workbook (baseline CO2 values, its name)
@@ -71,8 +71,10 @@ VERSION_LOG = [  # version, date, change
                           f'workbook v{P.VERSION} (which no longer holds Distribution); .xlsx without macros: the Master '
                           'workbook activates it and updates FromMitigation; tab FromMaster. The Distribution method and '
                           'values unchanged.'),
-    ('1.2.1', '2026-10-31', f'Cut from the mitigation workbook v{P.VERSION}: tabs Scenarios (was ScenarioDefinition), '
+    ('1.2.1', '2026-10-31', 'Cut from the mitigation workbook v1.2.1: tabs Scenarios (was ScenarioDefinition), '
                           'Constants and Mappings. The Distribution method and values unchanged.'),
+    ('1.2.2', '2026-10-31', f'Cut from the mitigation workbook v{P.VERSION}: tab Constants renamed Settings. The '
+                          'Distribution method and values unchanged.'),
 ]
 
 # the tabs of the module, in order (Cover is added); everything else of the prototype is dropped
@@ -265,6 +267,7 @@ def full_source(stage):
 def main():
     t0 = time.time()
     stage = lambda what: print(f'[{time.time() - t0:5.0f} s] {what}', flush=True)
+    P.REL.guard_release(OUT)                       # 1.2.2 (lesson 3j): a committed release is never rewritten
     full = full_source(stage)
     wb = openpyxl.load_workbook(full)
     wbv = openpyxl.load_workbook(full, data_only=True)

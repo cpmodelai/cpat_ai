@@ -1,7 +1,7 @@
-# Check of CPAT-AI-Distribution v1.2.1
-Module `CPAT-AI-Distribution_v1.2.1.xlsx`; full build of the mitigation builder v1.2.1 (baseline CO2 of `CPAT-AI-Mitigation_latest.xlsx`).
+# Check of CPAT-AI-Distribution v1.2.2
+Module `CPAT-AI-Distribution_v1.2.2.xlsx`; full build of the mitigation builder v1.2.2 (baseline CO2 of `CPAT-AI-Mitigation_latest.xlsx`).
 
-- tabs: Cover, Scenarios, FromMaster, FromMitigation, Distribution, Constants, Mappings, DATA_DISTN->>, DistMapping, IO_GTAP, HHSurvey, HH_Elast, ASPIRE, WHOCooking, GDPRatios, WEO OK
+- tabs: Cover, Scenarios, FromMaster, FromMitigation, Distribution, Settings, Mappings, DATA_DISTN->>, DistMapping, IO_GTAP, HHSurvey, HH_Elast, ASPIRE, WHOCooking, GDPRatios, WEO OK
 - Distribution: 25190 cells, values equal to the prototype's: 0 differ [] OK
 - FromMitigation = ExportDistn (Mitigation!$A$9430:$BB$9459, 30 rows) through the macro's row mapping: 0 differ [] OK
 - FromMitigation holds values only: 0 formulas OK

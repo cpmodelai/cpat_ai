@@ -37,14 +37,14 @@ Since 1.2.0 the module workbooks have **no macros**. Every macro is in the **Mas
 3. **Activate:** click *Activate Mitigation* (or *Activate all modules*). The Master opens the `.xlsx`, copies the 2035 column of each scenario group of `Mitigation` and `Outputs` across to 2041, records the activation on the module's tab `FromMaster`, recalculates fully and saves `CPAT-AI-Mitigation_latest.xlsb` next to itself. The workbook stays open. Activate again whenever a new `.xlsx` arrives; the `.xlsb` is a generated file (never merge it on a git conflict: take either side and activate again).
 4. **Work in the `.xlsb`.** It is in manual calculation: **press F9 after any change** (Ctrl+Alt+F9 for a full recalculation).
 5. **Change a policy** on `Scenarios` (the legacy MTInputs rows). Column G is the baseline, column H the live policy scenario: for example change `CPLevelTarget` (the carbon price in the target year), then F9. Columns L onwards are scenario definitions for the batch run.
-6. **Read the results** on `Outputs` (every scenario group side by side, by output code) and `ScenarioCompare` (the dashboard: choose the year; key table and time-series charts of the live scenarios against the baseline).
+6. **Read the results** on `Outputs` (every scenario group side by side, by output code). Comparisons with charts are in the Master (`CompareStored`).
 7. **Store and compare scenarios** in the Master: *Store live scenarios* copies the scenario groups of `Outputs` into its `StoredScenarios` (values, ten slots); *Run stored scenarios* runs every definition with Run? = Yes through the live column K (ETS goal seek where needed) and stores each; `CompareStored` compares them. *Clear stored scenarios* empties every slot but the baseline.
 8. **Update the data** in the Master: choose the data source and the rows (one country or all countries) on its tab `Settings`, then *Update data tables* (Power Query). The mitigation workbook records the source on `FromMaster`; the status is on its `Cover`.
 9. **Distribution:** activate the distribution module too, then *Update Distribution from Mitigation* copies section 19a of the activated mitigation workbook into it, recalculates and saves it.
 
 Run a module for a particular country on your local drive; a workbook holding real data is never committed.
 
-The tabs, left to right: `Cover`, `Scenarios`, `Mitigation`, `Outputs`, `ScenarioCompare` (no divider tabs before them), `INPUTS->>` (`Manual inputs`, `Constants`, `Mappings`), `OTHER MODULES->>` (`FromMaster`, `FromAirPollution`, `FromTransportCB`), the data tabs (`DATA_MITIGATION->>`, `DATA_TRAN->>`, `DATA_OUTPUT->>`, `DATA_OTHER->>`: legacy tables, unchanged) and `REF->>` (version log, differences with legacy, variable dictionary and LAMBDAs).
+The tabs, left to right: `Documentation` (version log, about, differences with legacy, variable dictionary and LAMBDAs), `Cover`, `Scenarios`, `Mitigation`, `Outputs` (no divider tabs before them; one colour), `INPUTS->>` (`Manual inputs`, `Settings`, `Mappings`), `OTHER MODULES->>` (`FromMaster`, `FromAP`, `FromTrans`), the data tabs (`DATA_MITIGATION->>`: legacy tables, unchanged, then the tables derived for Mitigation, `CookingFuel`, `Multipliers`, `BaselineCO2`; `DATA_TRAN->>`).
 
 ## How it works
 
@@ -160,10 +160,9 @@ Section 19 holds what the other modules read, by code: section 19a (defined name
 
 *Details: CPAT-AI Model, chapter Distribution; `excel_ai/distribution/README.md`.*
 
-## Results and the dashboard
+## Results
 
 - **Outputs** shows the key results of every live scenario side by side, in the columns of the scenario groups of `Mitigation` (row 5: the scenario number; rows as legacy MTOutputs, then the outputs legacy does not list, by topic). Every row carries a code (for example `egy.mit.co2.tot.tot.2`: country, module, variable, sector, fuel, scenario), the same codes as the Python model.
-- **ScenarioCompare** (the dashboard) reads Outputs only (live results): one slot per scenario group, the year, a key table (energy CO₂, GHGs, revenue, GDP effect and welfare: level, difference and % difference from the baseline) and four time series with their line charts; the title of each is a dropdown of indicators.
 - **Stored results** are in the Master: `StoredScenarios` (values, Outputs' rows, ten slots) and `CompareStored` (the stored scenarios against the baseline, for a chosen year).
 
 ## Limits and differences from legacy
@@ -193,7 +192,6 @@ The model calculates a few scenarios at a time: the baseline and the live policy
 | Scenarios, columns I onwards | **Scenario definitions**, one full column each: short name (row 2, the legend in the charts), Run? (Yes/No), number, name, then the inputs. Red cells differ from the template. To add one, copy the last definition one column to the right and edit it. |
 | Mitigation | Scenario groups: 1 = the baseline (plain formulas), 2 = the live scenario (every calculated cell calls its named LAMBDA). More live scenarios: copy group 2 to the right and set its scenario number. |
 | Outputs | The key results of every scenario group **side by side**, in the columns of Mitigation's groups (room for four): columns A:J code stem, module, legacy code, indicator, unit, Mitigation row; row 5 the scenario number of each group; rows as legacy MTOutputs, then the outputs legacy does not list, by topic. Each cell is Mitigation's cell of its row in the same column. |
-| ScenarioCompare | The **dashboard**, live results only (from Outputs): one slot per scenario group, the year, a key table and four time series with their line charts. |
 | FromMaster | What the Master wrote here (values): activation, the data source of the linked tables, the rows loaded. |
 | Master: StoredScenarios | Results as **values only**: Outputs' rows at the same row numbers, ten slots (slot 1 the baseline), each with its scenario ID, name and when and from which file it was stored. |
 | Master: CompareStored | The stored scenarios against the first slot (the baseline), for a chosen year. |
@@ -251,14 +249,14 @@ The Master and its VBA were built without Excel; the build checks that the VBA c
 
 ### Comparing and keeping results
 
-- **Live** (in the mitigation workbook): ScenarioCompare reads Outputs. Choose the year, then F9. Each value is the Outputs row of its code stem, in the column of its scenario group plus the year, so the order of the rows never matters. A scenario group without results is left out of the charts.
-- **Key table.** Energy CO2 emissions, GHG emissions excluding LULUCF, revenue as a share of GDP, the GDP effect of the revenue use and the net welfare effect: level, difference from the baseline, and % difference for the two emission levels.
+- **Live** (in the mitigation workbook): Outputs holds every live scenario group side by side (the dashboard tab ScenarioCompare was deleted in 1.2.2; the Master compares).
+- **Key table** (CompareStored, in the Master). Energy CO2 emissions, GHG emissions excluding LULUCF, revenue as a share of GDP, the GDP effect of the revenue use and the net welfare effect: level, difference from the baseline, and % difference for the two emission levels.
 - **Time series.** Four tables (default: energy CO2, GHGs, revenue, GDP effect), scenarios down and years across, each with its line chart beside it. The title of each table is a dropdown of the indicator list: every Outputs indicator except the price and Kaya indices.
 - **Stored** (in the Master): StoredScenarios keeps up to ten scenarios as values, so results of other runs (another country, another version) can sit side by side, as long as the rows are those of the same Outputs version (the store macros check the code stems). CompareStored compares them with slot 1.
 
 ### Limits
 
-- The batch run calculates one policy scenario at a time, through the live column H. Further scenario groups of Mitigation (copies of group 2) show on Outputs and ScenarioCompare, and Store live scenarios stores them.
+- The batch run calculates one policy scenario at a time, through the live column H. Further scenario groups of Mitigation (copies of group 2) show on Outputs, and Store live scenarios stores them.
 - Outputs defines what is stored: its rows, each code once. To store more, add rows to Outputs first (in the builder).
 
 ## The data tabs {#sec-data-tabs}
@@ -272,8 +270,8 @@ can be copied in. Then (same day): align more fully, going with the recommendati
 
 ### Summary
 
-- **Order.** The data tabs sit under the legacy dividers in legacy order: `DATA_MITIGATION->>`, `DATA_DISTN->>`,
-  `DATA_TRAN->>`, `DATA_OUTPUT->>`; tabs without a legacy data tab come last under `DATA_OTHER->>` (BaselineCO2 only).
+- **Order.** The data tabs sit under the legacy dividers in legacy order: `DATA_MITIGATION->>` (the tables derived for Mitigation last:
+  CookingFuel, Multipliers, BaselineCO2; 1.2.2), `DATA_DISTN->>` (the distribution workbook), `DATA_TRAN->>`.
 - **Copy-in rules (NORMS 1.5).**
   - **L, a single legacy table:** the table itself, unchanged (same columns, column letters and codes; header row 3,
     data from A4; a key formula column right of the table where legacy has no unique key). Paste the legacy data rows

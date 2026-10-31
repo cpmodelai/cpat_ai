@@ -285,6 +285,9 @@ def read_legacy(src):
         if spec['sheet'] not in wb.sheetnames:
             continue
         vals = [_rstrip([cell_text(v) for v in r]) for r in wb[spec['sheet']].iter_rows(values_only=True)]
+        if spec['sheet'] in LINKS and vals and vals[0] and vals[0][-1] == FILTER_COL:   # 1.2.2: a linked as-is table
+            n = len(vals[0]) - 1
+            vals = [_rstrip(r[:n]) for r in vals]
         found[name] = (vals[0], vals[1:])         # ragged as the CSV may be: trailing blanks dropped
     for name, spec in CELLS.items():
         if spec['sheet'] not in wb.sheetnames:
@@ -346,6 +349,8 @@ def write_legacy_xlsx(path, tables):
                 for j, v in enumerate(r, 1):
                     if v != '':
                         ws.cell(i, j, v if i == 1 else cell_value(v))
+            if ASIS[name]['sheet'] in LINKS:          # 1.2.2: a derived table the prototype links (header in row 1)
+                link_table(ws, ASIS[name]['sheet'], 1, head, [(r + [''] * len(head))[:len(head)] for r in rows])
         elif name in CELLS:
             ws = wb.create_sheet(CELLS[name]['sheet'])
             for c in rows:
