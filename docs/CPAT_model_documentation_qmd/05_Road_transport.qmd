@@ -1,3 +1,1536 @@
 # Road transport {#sec-transport}
 
-(To be written.)
+Road transport is the largest user of oil products in most countries, and the place where carbon pricing meets a
+slow-moving capital stock: cars, trucks and motorcycles last ten or twenty years, and the choice between a petrol car
+and an electric one is made once, at purchase. The model offers two ways to project road fuel use.
+
+- **The elasticity model** (the default). Road gasoline, diesel, LPG and natural gas follow the same constant-elasticity
+  fuel-use equation as every other sector and fuel ([M3.1](A_Equations.qmd#eqlist-M3-1)); it is described in
+  @sec-demand.
+- **The engineer road model** (switched on per scenario with `TrModel`). It projects the vehicle fleet itself:
+  how many vehicles people own, how many they buy and scrap, whether they buy electric, how efficient the new vehicles
+  are and how far they are driven. Fuel use follows from vehicles, distance and fuel economy.
+
+This chapter describes the engineer model: what it is (@sec-tr-what), its data (@sec-tr-data), how it computes one
+year (@sec-tr-ownership to @sec-tr-results), its caveats (@sec-tr-caveats), and how it compares with legacy CPAT
+(@sec-tr-legacy). The implementation in Excel-AI and CPAT Python closes the chapter (@sec-tr-impl).
+
+The CPAT methodology describes the elasticity approach in
+[section 3.3.3](../CPAT_full_documentation_html/03_Mitigation.html#sec-FuelConsumptionDynamics); it has no chapter on
+the engineer road model, whose source is the legacy CPAT workbook and its methodology note
+(`Transportation_methodology.docx`). The methodology's road transport module
+([chapter 7](../CPAT_full_documentation_html/07_Road_Transport.html#summary)) is related but different: it projects
+vehicle-kilometres, congestion, accidents and road damage from fuel prices with estimated elasticities
+([section 7.3.1](../CPAT_full_documentation_html/07_Road_Transport.html#vehicle-kilometers-traveled-vkt),
+[section 7.3.8](../CPAT_full_documentation_html/07_Road_Transport.html#sec-methodo)), for the co-benefits of
+@sec-fiscal. The engineer model sends its road fuel use to that module (@sec-tr-results).
+
+## Two road models and the switch {#sec-tr-what}
+
+The two road models are computed side by side in every scenario. The switch only decides which one the rest of the
+model reads.
+
+| | Elasticity model (default) | Engineer road model |
+|---|---|---|
+| Unit of analysis | Fuel use by fuel | Vehicles by class and powertrain |
+| Behaviour | Income, price and efficiency elasticities, autonomous efficiency gain | Ownership in income, total cost of ownership (TCO), logit choice of EVs, fuel economy, distance driven |
+| Electric vehicles | Road electricity grows with the transport demand multiple of the power model | Explicit: BEV and PHEV stocks, their electricity use |
+| Policies that act | Carbon tax, excise, fuel price reform, regulations (through prices and shadow prices) | The same through fuel prices, plus feebates, distance tax, EV subsidy, purchase taxes, VAT and customs on BEVs, charging-station subsidy |
+| Chapter | @sec-demand | This chapter |
+
+**The switch.** `TrModel` on ScenarioDefinition (one value per scenario, default `Elasticity`). The flag
+
+$$
+sw^{T} = \begin{cases} 1 & \text{TrModel starts with "Engineer"} \\ 0 & \text{otherwise} \end{cases}
+$$ {#eq-tr-switch}
+
+decides, in every year, which fuel use the rest of the model reads ([M3.2](A_Equations.qmd#eqlist-M3-2)):
+
+$$
+F_{rod,f,t} = \begin{cases} F^{T}_{f,t} & sw^T = 1 \text{ and } f \in \{\text{gasoline, diesel, LPG, natural gas, biofuels}\} \\ F^{e}_{rod,f,t} & \text{otherwise} \end{cases}
+$$ {#eq-tr-fuelswitch}
+
+where
+
+- $F^{T}_{f,t}$ is road fuel use of the engineer model (ktoe, @eq-tr-ktoe and @eq-tr-bio), `trkt`, `trbio`;
+- $F^{e}_{rod,f,t}$ is road fuel use of the elasticity model (ktoe), `enel` (biofuels: `trbe`);
+- $F_{rod,f,t}$ is the road fuel use used everywhere else, `ener`.
+
+Road electricity enters power demand ([M4.1](A_Equations.qmd#eqlist-M4-1), @sec-power) the same way:
+
+$$
+E_{rod,t} = \begin{cases} E^{T}_{t} & sw^T = 1,\ t > t_0 \\ E_{rod,t-1}\, m_{tra,t} & \text{otherwise} \end{cases}
+$$ {#eq-tr-elswitch}
+
+where $E^{T}_{t}$ is road electricity of the engineer model (ktoe, `trkte`, @eq-tr-ktoe-el), $m_{tra,t}$ the growth
+multiple of the transport demand group in the power model, and $t_0$ the base year (2022). In the base year road
+electricity is the data under both models.
+
+With the engineer model on, CO2, methane, local air pollutants, revenues and all totals follow the engineer road fuel
+use, because they are computed from $F_{rod,f,t}$. With the default, every result is exactly the elasticity model's.
+
+**What the engineer model covers.** Road gasoline, diesel, LPG, natural gas (CNG and LNG) and electricity, and the road
+biofuels, which follow gasoline and diesel (@eq-tr-bio). Coal, kerosene and other oil products in road, and rail,
+aviation and navigation, stay on the elasticity model whatever the switch says.
+
+**No circular reference.** The engineer model reads last year's power price, last year's GDP growth and this year's
+GDP level after the GDP feedback (which uses last year's effect); fuel prices do not depend on fuel use. So switching it
+on adds no loop to the year.
+
+```{mermaid}
+flowchart LR
+  P[Fuel prices and taxes<br/>section 2, sections 5-8] --> E[Engineer road model<br/>section 5b]
+  W[Last year's power price<br/>section 3] --> E
+  G[GDP per capita, population] --> E
+  E -->|TrModel = Engineer| F[Road fuel use ener]
+  L[Elasticity model enel] -->|TrModel = Elasticity| F
+  E -->|TrModel = Engineer, t > base year| D[Road electricity demand<br/>power model]
+  E --> C[Transport co-benefits<br/>always]
+  F --> R[CO2, pollutants, revenues, totals]
+```
+
+::: {.callout-tip icon=false title="Pseudocode: the road switch"}
+```
+for t in years:
+    tr_sw = 1 if TrModel[scenario].startswith("Engineer") else 0
+    for f in ["gso", "die", "lpg", "nga", "bio"]:
+        ener[rod, f, t] = trkt_or_trbio[f, t] if tr_sw == 1 else enel_or_trbe[rod, f, t]
+    if tr_sw == 1 and t > base_year:
+        dem[rod, t] = trkte[t]                      # road electricity of the engineer model
+    else:
+        dem[rod, t] = dem[rod, t-1] * mult[transport group, t]
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: the switch"}
+- **Excel-AI:** `TrModel` is ScenarioDefinition row 338 (legacy MTInputs F340, Dashboard G61). Mitigation row `tr.sw`
+  (`ENGINEERON`). Section 5: `ener` = `ROADSWITCH($D, tr.sw, result rows trkt/trbio, enel)`, where column D is the
+  Inputs column `trpos`: the position of the fuel in `TrFuelKey` for road (gasoline 1, diesel 2, LPG 3, gas 4,
+  biofuels 6), 0 elsewhere. `ROADSWITCH` also adds the cumulative residential leakage to biomass of section 6b.
+  Section 3 H: `dem` = `DEMROAD($F, tr.sw, trkte, previous, multiple)`, where F is the Inputs_power column `tr`
+  (1 for road). The elasticity fuel use is the variable `enel` (the former `ener` formula, `FUELUSE`, base year from
+  Inputs); with `TrModel` = Elasticity `ener` = `enel` everywhere, so every elasticity-model output is unchanged
+  (regression 0).
+- **CPAT Python:** `cpat_model/mitigation/road.py`, `prepare()` and `step()` (equations A3.5-A3.9). Python computes
+  the engineer model in every scenario for the transport co-benefits module, but `TrModel` = Engineer is **not yet
+  supported**: `road.prepare` raises `NotImplementedError` ("road fuel use of sections 3 and 5 from the engineer
+  model"). See the [CPAT Python blocks](../CPAT_coded_documentation_html/02_How_it_works.html#sec-blocks).
+:::
+
+## The engineer model at a glance {#sec-tr-glance}
+
+The engineer model is the "technoeconomic" road model of legacy CPAT. It works in vehicles per thousand people, one
+year at a time, for four vehicle classes and two powertrain families.
+
+| Class | Code | Powertrains | Notes |
+|---|---|---|---|
+| Passenger and light vehicles, bought new | `pas` | Gasoline, diesel, LPG, CNG ICEVs; PHEVs; BEVs | Cars and light vehicles blended by their ownership shares |
+| Passenger and light vehicles, bought used | `pau` | ICEV, BEV | Imported or second-hand; their own TCO and choice |
+| Freight vehicles | `fre` | Diesel, LPG, LNG trucks; BEV trucks | No VAT on the purchase price (as legacy) |
+| 2-3 wheelers | `cyc` | Gasoline; BEV | Ownership follows a hump in income |
+| Buses | `bus` | Diesel, LPG, gas; electricity | Fuel use only: scaled with passenger fuel use |
+
+**One year of the model** runs in this order. Each step has its section below.
+
+```{mermaid}
+flowchart TD
+  A[Prices, income, discount rate] --> B[Opening stock, retirements]
+  B --> C[Charging stations, mark-up, range anxiety]
+  C --> D[Fuel economy of new vehicles, feebate per liter]
+  D --> E[Distance for the purchase decision]
+  E --> F[Total cost of ownership per km]
+  F --> G[Ownership demand, purchases]
+  G --> H[EV choice logit, ICE fuel split]
+  H --> I[Closing stock, vehicles by fuel]
+  I --> J[Stock fuel economy, distance, fuel use]
+  J --> K[Calibration to the energy balance, buses]
+  K --> L[Road fuel and electricity use, results]
+```
+
+**Notation.** The methodology has no symbols for the road model, so this chapter uses its own (Excel-AI notation,
+as the equation list, [M5](A_Equations.qmd#eqlist-M5-1)). Every equation holds for each scenario and country; the
+indices $o$ and $c$ are omitted. Vehicle class is $k$, ICE fuel $f$, year $t$, base year $t_0$.
+
+| Symbol | Meaning | Unit | Code |
+|---|---|---|---|
+| $y_t$ | GDP per capita (real GDP after the GDP feedback / population) | USD | `trgpc` |
+| $N_t$ | Population | million | `trpop` |
+| $O_{k,t}$ | Vehicle ownership | per 1,000 people | `trdmcp`, `trdmcf`, `trdmcc` |
+| $S^{o}, S^{a}, S^{cl}$ | Opening stock, stock after retirement, closing stock | per 1,000 people | `trop*`, `traft*`, `trclo*` |
+| $u_t$ | Share of used vehicles in passenger purchases | share | `trush` |
+| $L_k$ | Useful life: passenger 20, freight 10, 2-3 wheeler 7 | years | `trp.life` |
+| $n$ | Years a new passenger vehicle is owned before resale (7) | years | `trp.life` |
+| $fe$ | Fuel economy | km per liter (BEV: km per kWh) | `trfn`, `trfsc` |
+| $v$ | Distance per vehicle | km a year | `trvkn`, `trvkc` |
+| $p_f$ | Fuel price incl. all taxes and new policies | USD per liter | `trprl` |
+| $r_t$ | Consumer discount rate | share | `trdisc` |
+| $K$ | Discounted distance over the ownership period | km | `trdkm*` |
+| $TCO$, $c$ | Total cost of ownership; TCO per km | USD; USD per km | `trto*`, `trpk*` |
+| $s^{EV}$ | EV share of purchases | share | `trevsh`, `trshfb`, `trshcb` |
+| $B$ | Distance driven | billion km | `trbkm` |
+| $F$ | Fuel use | billion liters (results: ktoe) | `trfup`, `trkt` |
+
+## Data {#sec-tr-data}
+
+The engineer model needs much more data than the elasticity model: the size and make-up of the fleet, the fuel
+economy and distance of each vehicle type, vehicle prices and taxes. All of it is held for every country and looked up
+by the country code, so changing the country changes the whole road model.
+
+| Data | Content | Lookup | Legacy source |
+|---|---|---|---|
+| Transport1 | 220 countries, data years 2022-2025: shares of road fuel use by vehicle type, fuel economy, ownership, EV shares of purchases and of the stock, distance per vehicle, used-vehicle share, import duties and shares, charging stations, ownership saturation | ISO code and variable (`TrKey` = country\|variable) | Transport1 (`transport_data.csv`) |
+| Transport2 | Purchase prices of ICEVs and EVs (passenger, freight, 2-3 wheeler), 2022-2040; a year without a price holds the last one | ISO code | Transport2 (`vehicle_prices.csv`) |
+| Transport3 | Range anxiety by class, the start value of @eq-tr-ra (fitted, @sec-tr-charging), with the actual and calculated EV shares of the fit year; 194 countries | Country name; the average of the table if the country has no value | Transport3 (`range_anxiety.csv`) |
+| TransportParams | Lifetimes, depreciation, insurance, maintenance, elasticities, logit $k$, ownership (Gompertz, adjustment, limits), charging, discount rate, data years; the methodology note's alternative values (not used) | Key | Legacy side tables and Dashboard (`transport_params.csv`) |
+| TransportPaths | BEV fuel economy of the stock (light, freight, 2-3 wheeler), charging cost per port, 2022-2041 | Key and year | Legacy Mitigation rows 2051, 2095, 2122, 2170 (`transport_paths.csv`) |
+| Manual inputs J374:AC377 | BEV fuel economy of new vehicles (km per kWh; passenger and light, freight, 2-3 wheeler; 2022-2041), read by label (D375:D377) and year (row 374) | Label and year | Legacy Manual inputs, same cells |
+| Fuel table (Inputs) | GJ per liter, CO2 per GJ, road usage and efficiency elasticities, autonomous efficiency gain, base-year road fuel use (energy balance), road biofuels and electricity | Fuel and subsector | Inputs, energy balance |
+
+**Data years.** A year is a *data year* when Transport1 has it (2022-2025). In data years the model takes the data
+(ownership, stocks, EV shares, fuel economy, distance) wherever legacy has `IF(ISNUMBER(data), data, model)`; from
+2026 it projects. A blank Transport1 cell counts as no data.
+
+**Base-year split of road fuel.** Transport1 gives, for each fuel, the share used by each vehicle type in the first
+data year. Light vehicles take the rest
+([A3.5](A_Equations.qmd#eqlist-A3-5)):
+
+$$
+Q_{k,f} = sh_{k,f}\, F^{bal}_{f,t_0}, \qquad L_{k,f} = Q_{k,f}\, \lambda_f / 10^{9}, \qquad sh_{lgt,f} = 1 - \sum_{k \ne lgt} sh_{k,f}
+$$ {#eq-tr-split}
+
+where
+
+- $sh_{k,f}$ is the share of fuel $f$ used by vehicle type $k$ (passenger, 2-3 wheeler, bus, freight), `trshf`;
+- $F^{bal}_{f,t_0}$ is base-year road use of the fuel in the energy balance (ktoe), `trp.eb`;
+- $\lambda_f$ is liters per ktoe (natural gas counted in liters of gasoline equivalent, as legacy), `trp.lpk`;
+- $Q_{k,f}$ and $L_{k,f}$ are the base-year fuel use of the type in ktoe and billion liters, `trp.bsh`.
+
+Gasoline is split between passenger vehicles, 2-3 wheelers and light vehicles; diesel, LPG and gas between passenger,
+bus, freight and light vehicles.
+
+**Purchase taxes from the data.** VAT on vehicles is the general VAT rate of the customs data year (`VAT_WEO`, from
+the domestic price data); freight vehicles pay no VAT, as legacy. Import duties on ICEVs and BEVs are those of the
+customs data year (2024), import shares those of the import data year (2022); 2-3 wheelers use the passenger import
+share. **Bus electricity** in the base year is the passenger EV stock share of 2024 times base-year bus fuel.
+
+### Inputs from the rest of the model {#sec-tr-inputs}
+
+The engineer model reads prices and income from the other blocks.
+
+| Input | Definition | Code |
+|---|---|---|
+| Road fuel price | After-tax road price incl. new policies (USD per GJ, @sec-prices) × GJ per liter | `trprl` |
+| Road gas price | After-tax road gas price per GJ / 26 liters per GJ (USD per liter equivalent) | `trprg` |
+| PHEV price | $\phi\, p_{gso} + (1 - \phi)\, p^{EV}_{res} \times 9$ kWh per liter, $\phi$ the gasoline share of PHEV distance | `trpphv` |
+| Industrial gas (LNG trucks) | Industrial gas price before new policies + the road new policies × (1 + VAT), at least the price floor (USD per GJ) | `trpri` |
+| Freight fuel prices | Road prices net of VAT (LNG: industrial gas net of VAT / 26) | `trprn`, `trprm` |
+| GDP per capita | Real GDP after the GDP feedback (@sec-fiscal) / population | `trgpc` |
+| Lagged GDP growth | GDP growth of the previous year (base year: WEO growth of the year before) | `trgdl` |
+| Electricity price | End-user price of the previous year, residential and industrial (@sec-power) | `rp` |
+| Regulation shadow price | Road regulation shadow price (USD per tCO2) | `reg.rod` |
+
+The **consumer discount rate** falls linearly with income between two thresholds:
+
+$$
+r_t = \min\!\left(r^{max},\ \max\!\left(r^{min},\ r^{max} - \frac{y_t - y^{lo}}{y^{hi} - y^{lo}}\,(r^{max} - r^{min})\right)\right)
+$$ {#eq-tr-disc}
+
+where $r^{max} = 15\%$ at $y^{lo} = 1{,}000$ USD and $r^{min} = 5\%$ at $y^{hi} = 50{,}000$ USD (`disc_max`,
+`disc_inc_low`, `disc_min`, `disc_inc_high`). It discounts passenger, freight and 2-3 wheeler costs alike.
+
+### Parameters {#sec-tr-params}
+
+All parameters are named; no literal sits in a formula. Defaults are the legacy values.
+
+| Parameter | Passenger | Freight | 2-3 wheeler | Key |
+|---|---:|---:|---:|---|
+| Useful life (years) | 20 | 10 | 7 | `life` |
+| Years owned when bought new | 7 | | | `own_years` |
+| First-year depreciation | 0.30 | 0.30 | 0.30 | `dep1` |
+| Insurance (share of value a year) | 0.015 | 0.015 | 0.015 | `ins` |
+| Insurance factor | 0.5 | 0.5 | 0.5 | `ins_factor` |
+| ICEV maintenance (USD per km) | 0.0709 | 0.09 | 0.025 | `maint_ice` |
+| EV maintenance (USD per km; ICEV × 2/3) | 0.0473 | 0.06 | 0.0167 | `maint_ev` |
+| Income elasticity of distance | 0.1 | 0.1 | −0.4 | `inc_el_vkt` |
+| New fuel economy above the stock average (data years) | 0.05 | 0.05 | 0.05 | `fe_gap` |
+| Logit $k$ of the EV choice | 3 | 2 | 4 | `k` |
+| Ownership adjustment speed | 0.09 | 0.09 | (none) | `own_adj` |
+| Gompertz income coefficient $b$ (per 1,000 USD) | −0.23 | −0.23 | | `own_gomp_b` |
+| Gompertz constant $a$ | −5.897 | −5.897 | | `gomp_a` |
+| Maximum ownership growth a year | 0.075 | 0.075 | 0.075 | `own_max_growth` |
+| Maximum ownership decline a year | 0.10 | 0.10 | 0.10 | `TrOwnDecline`, `own_max_decline` |
+| Cap on BEV / ICEV distance (data years) | 1.2 | 1.0 | 1.0 | `bev_vkt_cap` |
+
+| Parameter | Value | Key |
+|---|---:|---|
+| Freight distance in the TCO, minimum and maximum (km) | 50,000; 120,000 | `fre_vkt_min`, `fre_vkt_max` |
+| TCO distance of new vehicles responds to prices | No | `vkt_new_price` |
+| Charging stations: elasticity to the BEV stock; to their cost | 0.3; −0.67 | `ch_el_stock`, `ch_el_cost` |
+| Charging mark-up: maximum, minimum (USD per kWh); EV share at the minimum; public share | 0.3; 0.02; 0.5; 0.2 | `ch_cost_max`, `ch_cost_min`, `ch_sat`, `ch_public` |
+| Range anxiety: elasticity to stations; annual decline | −0.5; 0 | `ra_el_stations`, `ra_decline` |
+| Range anxiety held at its start value (years from the base year) | 3 | `TrRALag` |
+| Feebate pivot blank (years from the base year) | 2 | `TrPivotLag` |
+| ICE fuel split: own-TCO elasticity; cross-TCO elasticity | −1.265; 0.5725 | `own_price_el`, `cross_price_el` |
+| Gas liters per GJ; PHEV kWh per liter | 26; 9 | `gas_l_per_gj`, `phev_l_per_kwh` |
+| 2-3 wheeler hump: peak income (USD); scale | 7,000; 0.737 | `cyc_peak_inc`, `cyc_scale` |
+| Freight share of ownership: target; income at the target (USD) | 0.0236; 87,398 | `fre_share_target`, `fre_inc_target` |
+| Data years: customs, import shares, bus electricity | 2024; 2022; 2024 | `customs_year`, `import_year`, `bus_ele_year` |
+| Reconcile road electricity with the energy balance | No | `recon_ele` |
+
+The own- and cross-TCO elasticities are legacy literals: the averages of (−1.72, −1.27, −1.08, −0.99) and
+(0.71, 0.43, 0.51, 0.64). The distance (usage) and new-fuel-economy (efficiency) elasticities, and the autonomous
+efficiency gain, are the road gasoline and diesel values of the fuel table (@sec-demand): passenger vehicles and
+2-3 wheelers use gasoline's, freight diesel's.
+
+**The methodology note's alternatives** are stored with the parameters but not used; they are candidates for a later
+review.
+
+| Parameter | Legacy (used) | Methodology note |
+|---|---|---|
+| Consumer discount rate, low / high income | 15% / 5% | 30% / 10% |
+| Income elasticity of distance | 0.1 (2-3 wheeler −0.4) | 0.05 |
+| Driving elasticity, light vehicles and 2-3 wheelers | −0.4 (road gasoline) | −0.3 |
+| Driving elasticity, heavy vehicles | −0.3 (road diesel) | −0.2 |
+| EV maintenance | ICEV × 2/3 | ICEV × 1/3 |
+| BEV / ICEV distance in the TCO | cap 1.2 | identical |
+| Maximum charging mark-up | 0.3 USD per kWh | 0.10 USD per kWh |
+| Maintenance cost | fixed USD per km | rises with wages |
+| ICEV prices | Transport2 path | rise with income |
+
+### Data-year quantities {#sec-tr-datayears}
+
+In the data years the model turns the Transport1 data into the quantities it needs. Passenger cars and light vehicles
+are blended by the passenger share of their ownership,
+
+$$
+\sigma = \frac{O^{data}_{pas}}{O^{data}_{pas} + O^{data}_{lgt}}, \qquad x_{mix} = \sigma\, x_{pas} + (1 - \sigma)\, x_{lgt}
+$$ {#eq-tr-blend}
+
+which gives the blended fuel economy (LPG and CNG light vehicles scaled by $fe_{pas,f}/fe_{pas,gso}$), BEV fuel
+economy, distance, and EV shares of the stock and of purchases (`trsps`, `trfem`, `trfem2`, `trfebm`, `trvkm`,
+`trevom`, `trevpm`). From them:
+
+- **PHEV distance share** $\phi = fe_{gso}/fe_{phv}$, the share of PHEV distance on gasoline; PHEV share of distance
+  = (EV − BEV stock share) × $\phi$ × $\sigma$.
+- **Distance by fuel** = fuel economy × base-year fuel (billion liters, @eq-tr-split), held from the base year; the
+  **vehicle shares by fuel** are this distance split × (1 − EV stock share). The base-year split is used in every
+  data year.
+- **BEV distance**: ICEV distance × $\min\!\big(cap, (c^{BEV}/c^{ICE})^{\epsilon_U}\big)$, the cost-per-km ratio of a
+  BEV to a gasoline car (prices before new policies; last year's residential power price) raised to the usage
+  elasticity, capped (`trbvu`).
+- **Freight distance per vehicle** in the base year = diesel freight distance / (diesel vehicle share × freight
+  ownership × population); in later data years it moves with the passenger distance ratio (`trvkfd`).
+- **Stocks** by class and powertrain = ownership × (1 − BEV stock share) for ICEVs, the rest for BEVs (`trstd`).
+- **Ownership years** of a passenger vehicle $= u\,L_{pas} + (1-u)\,n$ (`trowny`), with $u$ the used share (data,
+  then held).
+
+The **freight share of ownership** is freight ownership over passenger and light ownership in data years; after the
+last data year it falls with income towards its target, capped at the last-data-year value $\nu$:
+
+$$
+\phi^{fre}_t = \min\!\left(\nu,\ \max\!\left(\phi^{*},\ \nu - (\nu - \phi^{*})\,\frac{y_t}{y^{*}}\right)\right)
+$$ {#eq-tr-fsh}
+
+where $\phi^{*} = 0.0236$ is the target share and $y^{*} = 87{,}398$ USD the income at which it is reached.
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: data"}
+- **Excel-AI:** data sheets in the DATA group: Transport1 (`TrKey`, `TrVal`, `TrYr`), Transport2 (`VPKey`, `VPVal`,
+  `VPYr`), Transport3 (`RAKey`, `RAPas`, `RAFre`, `RACyc`, `RAPasA`, `RAPasC`, `RAFreA`, `RAFreC`, `RACycA`,
+  `RACycC`), TransportParams (`TrParKey`, `TrParVal`), TransportPaths (`TrPathKey`, `TrPathVal`, `TrPathYr`); Manual
+  inputs J374:AC377 (rows `trfen`). Mitigation section 5b: parameter rows `trp.*` (D:G), key inputs `trshf` ...
+  `trvp` (Transport1 lookups, blank = 0; paths; vehicle prices, last price carried), derived parameters `trp.bsh`,
+  `trp.tax`, `trp.bus`, inputs from the model `trprl` ... `trdisc`, data-year derivations `trsps` ... `trstdc`
+  (held values `trnc`, `trjc`: the last data year). The data come from `extract_transport.py`, which reads the legacy
+  workbook. Equations [A3.5](A_Equations.qmd#eqlist-A3-5).
+- **CPAT Python:** `cpat_model/mitigation/road_data.py`: `params`, `data_years`, `country_rows`, `path_rows`,
+  `vehicle_prices`, `range_anxiety`, `country_params`; called by `road.prepare`.
+:::
+
+## Vehicle ownership and its calibration {#sec-tr-ownership}
+
+Ownership is the backbone of the model: how many vehicles per thousand people a country wants at its income. It
+follows an S-shaped Gompertz curve in GDP per capita, scaled so that it passes through the observed ownership, and
+the fleet moves only part of the way towards it each year
+([M5.1](A_Equations.qmd#eqlist-M5-1), [A3.6](A_Equations.qmd#eqlist-A3-6)).
+
+**The Gompertz target** for passenger and light vehicles:
+
+$$
+O^{*}_{pas,t} = \overline{S}\,(1 - \phi^{fre}_t)\; e^{\,a\, e^{\,b\, y_t/1000}}\; J_{pas}
+$$ {#eq-tr-gompertz}
+
+where
+
+- $\overline{S}$ is the ownership saturation point (vehicles per 1,000 people, Transport1, held after the data years),
+  `trsat`;
+- $\phi^{fre}_t$ is the freight share of ownership (@eq-tr-fsh);
+- $a = -5.897$ and $b = -0.23$ per 1,000 USD are the Gompertz constants;
+- $J_{pas}$ is the calibration factor (@eq-tr-calib), `trjjp`.
+
+Freight uses the same curve with $\overline{S}\,\phi^{fre}_t$ in place of $\overline{S}\,(1-\phi^{fre}_t)$ and its own
+$J_{fre}$.
+
+**Calibration to observed ownership.** In each data year the model compares actual ownership with the curve; the
+factor of the last data year is held for all later years:
+
+$$
+J_k = \frac{O^{data}_{k,T}}{\overline{S}\,(1 - \phi^{fre}_{T})\, e^{\,a\, e^{\,b\, y_{T}/1000}}}, \qquad T = \text{last data year (2025)}
+$$ {#eq-tr-calib}
+
+The factor works both ways: a country below the curve stays below it. For Egypt, ownership was 55 per 1,000 in 2025
+against a Gompertz level of 152, so $J = 0.36$.
+
+**Partial adjustment and limits.** Desired ownership moves a fraction $\mu$ of the way to the target, and actual
+ownership may grow or fall only within limits:
+
+$$
+\tilde{O}_{k,t} = \mu\, O^{*}_{k,t} + (1 - \mu)\, O_{k,t-1}
+$$ {#eq-tr-partial}
+
+$$
+O_{k,t} = \begin{cases} S^{data}_{k,ICE,t} + S^{data}_{k,BEV,t} & \text{data year} \\ \max\!\Big(O_{k,t-1}(1 - d_k),\ \min\big(O_{k,t-1}(1 + g_k),\ \tilde{O}_{k,t}\big)\Big) & \text{otherwise} \end{cases}
+$$ {#eq-tr-own}
+
+where $\mu = 0.09$ (`own_adj`), $g_k = 7.5\%$ the maximum annual growth and $d_k = 10\%$ the maximum annual decline
+(`TrOwnDecline` for passenger and freight, `own_max_decline` for 2-3 wheelers). This is the only partial-adjustment
+equation of the model.
+
+**2-3 wheelers** follow a hump in income instead of a Gompertz curve, without partial adjustment ($\mu = 1$). With
+$H = 7{,}000$ USD the income of the peak and $\kappa = 0.737$ a scale factor:
+
+$$
+J^{cyc} = O^{data}_{cyc,T}\left(1 + \kappa\Big(1 - \frac{y_T}{H}\Big)\right), \qquad O^{*}_{cyc,t} = \frac{2\, J^{cyc}}{y_t/H + H/y_t} = \frac{2\,J^{cyc}\,H\,y_t}{y_t^2 + H^2}
+$$ {#eq-tr-hump}
+
+$J^{cyc}$ is the peak level, set from the last data year $T$ and held. The target then enters @eq-tr-own with the
+2-3 wheeler limits.
+
+::: {.callout-tip icon=false title="Pseudocode: ownership"}
+```
+for t in years:
+    if data_year(t):
+        J_pas = own_data[pas, t] / (sat * (1 - fsh[t]) * exp(a * exp(b_pas * gpc[t] / 1000)))
+        J_fre = own_data[fre, t] / (sat * fsh[t] * exp(a * exp(b_fre * gpc[t] / 1000)))
+        J_cyc = own_data[cyc, t] * (1 + scale * (1 - gpc[t] / peak))
+    # (held after the last data year)
+    target[pas] = sat * (1 - fsh[t]) * exp(a * exp(b_pas * gpc[t] / 1000)) * J_pas_prev
+    target[fre] = sat * fsh[t] * exp(a * exp(b_fre * gpc[t] / 1000)) * J_fre_prev
+    target[cyc] = 2 * J_cyc_prev / (gpc[t] / peak + peak / gpc[t])
+    for k in ["pas", "fre", "cyc"]:
+        if stock_data[k, t] > 0:
+            own[k, t] = stock_data[k, ICE, t] + stock_data[k, BEV, t]
+        else:
+            adj = 1 if k == "cyc" else own_adj[k]
+            desired = adj * target[k] + (1 - adj) * own[k, t-1]
+            own[k, t] = max(own[k, t-1] * (1 - decline[k]),
+                            min(own[k, t-1] * (1 + max_growth[k]), desired))
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: ownership"}
+- **Excel-AI:** Mitigation section 5b, demand block: `trjhp`, `trjip`, `trjjp` (passenger expected, actual,
+  factor, held), `trjhf`, `trjif`, `trjjf` (freight), `trsatp`, `trsatq`, `trgtp` (`GOMPTGT`), `trdemp` (`OWNDEM`),
+  `trdmcp` (`CLAMPOWN`); freight `trsatf`, `trsatg`, `trgtf`, `trdemf`, `trdmcf`; 2-3 wheelers `trjc`, `trcyh`
+  (`CYCHUMP`), `trdmcc`; freight share `trnc`, `trfsh` (`FRESHARE`). Parameters `trp.own`, `trp.ogr`, `trp.odc`
+  (decline: named constant `TrOwnDecline` = 0.1), `trp.frs`.
+- **CPAT Python:** `road.py`, `_year()`, block "vehicle ownership" (`demand()`); equation M5.1, A3.6.
+:::
+
+## The stock: retirements, purchases and the closing stock {#sec-tr-stock}
+
+Each year some vehicles are scrapped and new ones are bought to reach the ownership of @eq-tr-own. The stock is
+followed separately for new and used passenger vehicles, freight vehicles and 2-3 wheelers, each split into ICEVs and
+BEVs ([A3.6](A_Equations.qmd#eqlist-A3-6)).
+
+**Opening stock.** In a data year it is the data (passenger: × the new or used share); otherwise last year's closing
+stock:
+
+$$
+S^{o}_{k,v,t} = \begin{cases} S^{data}_{k,v,t}\, w_k & \text{data year} \\ S^{cl}_{k,v,t-1} & \text{otherwise} \end{cases}
+$$ {#eq-tr-open}
+
+where $v$ is ICE or BEV and $w_{pas} = 1 - u_t$, $w_{pau} = u_t$, $w_{fre} = w_{cyc} = 1$.
+
+**Retirement** is the average opening stock of the last years over the life, at most the stock itself:
+
+$$
+R_{k,v,t} = \min\!\left(\frac{1}{L_k}\cdot\frac{1}{m}\sum_{j=0}^{m-1} S^{o}_{k,v,t-j},\ \ S^{o}_{k,v,t}\right), \qquad m = \min(L_k,\ t - t_0 + 1)
+$$ {#eq-tr-retire}
+
+with lives $L_{pas} = n = 7$ (a new passenger vehicle is resold after seven years), $L_{pau} = 20 - 7 = 13$,
+$L_{fre} = 10$ and $L_{cyc} = 7$. The stock after retirement is $S^{a} = S^{o} - R$.
+
+**Purchases** fill the gap between ownership and the stock that remains; passenger purchases are split between new
+and used vehicles by the used share:
+
+$$
+P_{k,t} = O_{k,t} - \sum_{v} S^{a}_{k,v,t}, \qquad P_{pas,t}^{new} = (1 - u_t)\, P_{pas,t}, \qquad P_{pau,t} = u_t\, P_{pas,t}
+$$ {#eq-tr-purchase}
+
+The purchases of each powertrain are the class purchases × its share from the choice of @sec-tr-choice.
+
+**Closing stock.** In data years a balancing item makes the closing stock equal the data; afterwards it is zero:
+
+$$
+S^{cl}_{k,v,t} = S^{a}_{k,v,t} + s_{k,v,t}\, P_{k,t} + \Delta_{k,v,t}, \qquad \Delta_{k,v,t} = \begin{cases} S^{data}_{k,v,t}\, w_k - S^{a}_{k,v,t} - s_{k,v,t}\, P_{k,t} & \text{data year} \\ 0 & \text{otherwise} \end{cases}
+$$ {#eq-tr-close}
+
+where $s_{k,v,t}$ is the purchase share of the powertrain. The BEV stock in million vehicles,
+$\sum_k S^{o}_{k,BEV}\,N/1000$, drives the charging stations of @sec-tr-charging; the EV share of the opening passenger
+stock drives the charging mark-up.
+
+::: {.callout-tip icon=false title="Pseudocode: the stock"}
+```
+for t in years:
+    for k in ["pas", "pau", "fre", "cyc"]:
+        for v in ["ice", "bev"]:
+            if stock_data[k, v, t] > 0:
+                opening[k, v, t] = stock_data[k, v, t] * share_of_class[k]
+            else:
+                opening[k, v, t] = closing[k, v, t-1]
+            m = min(life[k], t - base_year + 1)
+            retired[k, v, t] = min(mean(opening[k, v, t-m+1 : t+1]) / life[k], opening[k, v, t])
+            after[k, v, t] = opening[k, v, t] - retired[k, v, t]
+    # ... ownership (previous section) and choice (below) ...
+    buy[pas] = own[pas, t] - sum(after[pas|pau, :, t]);  buy_new = (1 - used_share) * buy[pas]
+    buy_used = buy[pas] - buy_new;  buy[fre] = own[fre, t] - sum(after[fre, :, t]);  ...
+    for k, v:
+        purchases[k, v, t] = share[k, v, t] * buy[k]
+        plug = stock_data[k, v, t] * share_of_class[k] - after[k, v, t] - purchases[k, v, t] if data else 0
+        closing[k, v, t] = after[k, v, t] + purchases[k, v, t] + plug
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: the stock"}
+- **Excel-AI:** Mitigation section 5b, stock block: `tropn`, `tropu`, `tropf`, `tropc` (`OPENING`), `travn` ...
+  `travc` (`TRAILAVG`), `trretn` ... `trretc` (`RETIRED`), `traftn` ... `traftc`, `trbuyn` ... `trbuyc`,
+  `trplgn` ... `trplgc` (`PLUG`), `trclon` ... `trcloc`; `trstt`, `trevst`, `trevsf`, `trevsc`, `trafts`, `traftsf`,
+  `traftsc`, `trbevm`; purchases `trbyt`, `trbytn`, `trbytu`, `trbytf`, `trbytc`.
+- **CPAT Python:** `road.py`, `_year()`, blocks "the stock at the start of the year" and "purchases, the gap to the data
+  stock, closing stock".
+:::
+
+## Charging, the charging mark-up and range anxiety {#sec-tr-charging}
+
+Electric vehicles face two costs that petrol cars do not: a mark-up for public charging, and *range anxiety*, the
+money-equivalent of the fear of running out of charge. Both fall as electric vehicles spread and charging stations are
+built.
+
+**Charging-station subsidy** (policy scenarios only): zero before its start year, linear to the target level, then
+constant:
+
+$$
+\varsigma_t = \pi_t \cdot \begin{cases} 0 & t < t^{cs}_{0} \\ \varsigma_0 + (\varsigma_1 - \varsigma_0)\min\!\left(1,\ \dfrac{t - t^{cs}_0}{\max(1,\ t^{cs}_1 - t^{cs}_0)}\right) & \text{otherwise} \end{cases}
+$$ {#eq-tr-cssub}
+
+where $\pi_t$ is 1 in a policy scenario (scenario number above 1) and 0 in the baseline, $t^{cs}_0, \varsigma_0$ the
+start year and level, $t^{cs}_1, \varsigma_1$ the target year and level (`TrCsStartYear`, `TrCsStartLevel`,
+`TrCsTargetYear`, `TrCsTargetLevel`). The cost per charging port after the subsidy is $C_t = C^{port}_t(1-\varsigma_t)$.
+
+**Charging stations** are the data in data years, then grow with the BEV stock and fall with their cost:
+
+$$
+H_t = H_{t-1}\left(\frac{V^{BEV}_t}{V^{BEV}_{t-1}}\right)^{0.3}\left(\frac{C_t}{C_{t-1}}\right)^{-0.67}
+$$ {#eq-tr-stations}
+
+where $V^{BEV}$ is the BEV stock (million vehicles).
+
+**Charging mark-up** on the electricity price falls with the EV share of the passenger stock $e_t$:
+
+$$
+mku_t = \max\!\left(0.02,\ 0.3\,\frac{0.5 - e_t}{1 - 0.5}\right)\times 0.2
+$$ {#eq-tr-markup}
+
+(minimum and maximum mark-up in USD per kWh, the EV share where the minimum is reached, the share of public charging).
+The **EV electricity price** is last year's end-user price plus the mark-up, $p^{EV}_{u,t} = p^{T}_{u,t-1} + mku_t$,
+for residential ($u = res$: passenger vehicles, 2-3 wheelers, PHEVs) and industrial users ($u = ind$: freight). Using
+last year's price avoids a circular reference with the power model.
+
+**Range anxiety** (USD per vehicle, by class) keeps its start value for the first three years, then falls with the
+growth of charging stations:
+
+$$
+RA_{k,t} = \begin{cases} RA^{0}_k & t - t_0 + 1 \le 3 \\ RA_{k,t-1} & RA_{k,t-1} < 0 \\ \max\!\left(0,\ RA_{k,t-1}\,(1 - \delta_k)\left(\dfrac{H_t}{H_{t-1}}\right)^{-0.5}\right) & \text{otherwise} \end{cases}
+$$ {#eq-tr-ra}
+
+where $\delta_k$ is an annual decline (default 0) and $RA^0_k$ the start value from Transport3.
+
+**The start value is fitted.** $RA^0_k$ is the value that makes the model's EV share of purchases in the fit year
+(2025, scenario 1) equal the observed share:
+
+$$
+r_k(RA^0_k) = s^{EV}_{k}(2025;\ RA^0_k) - s^{EV,data}_{k}(2025) = 0
+$$ {#eq-tr-rafit}
+
+The root is found offline by a goal seek on this model and stored by country (negative values allowed, issue I145);
+countries without a fitted value use the legacy Transport3 value, and countries without either the Transport3
+average. The fit is reported in the rows "EV sales share calculated − actual" of the data years (@sec-tr-results).
+For the data edition Public01 the fitted values for Egypt are 64,064 USD (passenger), 469,574 USD (freight) and
+1,027 USD (2-3 wheeler). Legacy also allowed a Dashboard source of 10,000 USD for every class (`ra_source`,
+`ra_dash`); the model uses the per-country values.
+
+::: {.callout-tip icon=false title="Pseudocode: charging and range anxiety"}
+```
+for t in years:
+    cs_sub = 0 if t < TrCsStartYear else \
+             TrCsStartLevel + (TrCsTargetLevel - TrCsStartLevel) * min(1, (t - TrCsStartYear) / max(1, TrCsTargetYear - TrCsStartYear))
+    cs_sub *= is_policy_scenario
+    port_cost[t] = trcpp[t] * (1 - cs_sub)
+    stations[t] = trchs[t] if data_year(t) else \
+                  stations[t-1] * (bev_stock[t] / bev_stock[t-1]) ** 0.3 * (port_cost[t] / port_cost[t-1]) ** -0.67
+    markup[t] = max(0.02, 0.3 * (0.5 - ev_share_stock[t]) / (1 - 0.5)) * 0.2
+    pev[res, t] = rp[res, t-1] + markup[t];  pev[ind, t] = rp[ind, t-1] + markup[t]
+    for k in ["pas", "fre", "cyc"]:
+        if t - base_year + 1 <= TrRALag:  ra[k, t] = ra_start[k]          # fitted (goal seek)
+        elif ra[k, t-1] < 0:              ra[k, t] = ra[k, t-1]
+        else: ra[k, t] = max(ra[k, t-1] * (1 - ra_decline[k]) * (stations[t] / stations[t-1]) ** -0.5, 0)
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: charging"}
+- **Excel-AI:** Mitigation section 5b: `trcss` (`CSRAMP`), `trcsc`, `trsta` (`STATIONS`), `trmku` (`MARKUP`),
+  `trpev` (residential and industrial), `trra` (`RANGEANX`; start values from Transport3 by `CtryName`, the fitted
+  values written over the country's Transport3 cells in bright yellow; `IFERROR(..., AVERAGE(RAPas))` fallback).
+  Named constant `TrRALag` = 3. Parameters `trp.chs`, `trp.mku`. Fit: `extract/ra_goalseek.py` (scenario 1, 2025),
+  stored in `data/<edition>/tidy/range_anxiety_fit.csv`.
+- **CPAT Python:** `road.py`, `_year()`, block "charging stations, charging mark-up, range anxiety";
+  `road_data.range_anxiety` (fitted value, else Transport3, else the Transport3 average).
+:::
+
+## Fuel economy of new vehicles and the feebate {#sec-tr-fenew}
+
+New vehicles become more efficient over time, and faster when fuel is dear. A vehicle feebate (a fee on
+high-emission vehicles and a rebate on low-emission ones) acts as if it raised the fuel price
+([A3.8](A_Equations.qmd#eqlist-A3-8)). The methodology describes this efficiency margin of the price response in
+[section 3.3.5.3](../CPAT_full_documentation_html/03_Mitigation.html#price-elasticities).
+
+**The feebate rate** (USD per tCO2) is the scenario's vehicle feebate from its introduction year, plus the road
+regulation shadow price; it applies in policy scenarios only:
+
+$$
+\beta_{k,t} = \pi_t\left(\mathbb{1}[t \ge t^{fb}_k]\,\beta^{0}_k + reg_{rod,t}\right)
+$$ {#eq-tr-fbrate}
+
+where $\beta^0_k$ is `TrFbRate<k>`, $t^{fb}_k$ is `TrFbYear<k>` and $reg_{rod,t}$ the road regulation shadow price
+(@sec-model-overview). The carbon price is not added: it is in the fuel price already.
+
+**Feebate per liter** is the rate × the fossil CO2 per liter of the fuel:
+
+$$
+fb_{k,f,t} = \beta_{k,t}\, \varepsilon_f\, \theta_f
+$$ {#eq-tr-fbl}
+
+where $\varepsilon_f$ is the CO2 emission factor (tCO2 per liter) and $\theta_f$ the fossil share of road gasoline
+and diesel in the base year (base-year fossil use / (fossil + bioethanol or biodiesel); 1 for LPG and gas).
+
+**New fuel economy** is the data × (1 + gap) in data years, then responds to the price incl. the feebate and gains an
+autonomous efficiency improvement:
+
+$$
+fe^{new}_{k,f,t} = \begin{cases} fe^{data}_{k,f,t}\,(1 + \gamma_k) & \text{data year} \\ fe^{new}_{k,f,t-1}\left(\dfrac{p_{f,t} + fb_{k,f,t}}{p_{f,t-1} + fb_{k,f,t-1}}\right)^{|\epsilon_{F}|}(1 + \alpha) & \text{otherwise} \end{cases}
+$$ {#eq-tr-fenew}
+
+where
+
+- $\gamma_k = 0.05$ is how much better new vehicles are than the stock average (`fe_gap`);
+- $\epsilon_F$ is the road efficiency elasticity (passenger and 2-3 wheeler: gasoline's for every fuel; freight:
+  diesel's);
+- $\alpha$ is the autonomous efficiency gain of road oil;
+- $p_{f,t}$ is the fuel price (freight: net of VAT; PHEV: the PHEV price, its ratio taken on the average passenger
+  price).
+
+The **average new ICEV** fuel economy and CO2 intensity weight the fuels by last year's stock shares (data years: the
+vehicle shares); CO2 intensity of a fuel is $\varepsilon_f \cdot 10^6 / fe$ (gCO2 per km). **Used vehicles** carry
+the past: their fuel economy is the average new fuel economy of the last $\min(n, t - t_0 + 1)$ years, their CO2
+intensity and their BEV fuel economy those of new vehicles $n - 1$ years earlier.
+
+::: {.callout-tip icon=false title="Pseudocode: new fuel economy"}
+```
+for t in years:
+    for k in ["pas", "fre", "cyc"]:
+        fb_rate[k, t] = ((TrFbRate[k] if t >= TrFbYear[k] else 0) + reg[rod, t]) * is_policy_scenario
+        for f in fuels[k]:
+            fb_l[k, f, t] = fb_rate[k, t] * ef[f] * fossil_share[f]
+            if data_year(t):
+                fe_new[k, f, t] = fe_data[k, f, t] * (1 + fe_gap[k])
+            else:
+                ratio = (price[f, t] + fb_l[k, f, t]) / (price[f, t-1] + fb_l[k, f, t-1])
+                fe_new[k, f, t] = fe_new[k, f, t-1] * ratio ** abs(ela_eff[k]) * (1 + aeei)
+            intensity[k, f, t] = ef[f] * 1e6 / fe_new[k, f, t]
+        weights = vehicle_share_data if data_year(t) else stock_share[k, :, t-1]
+        fe_new_avg[k, t] = weighted_average(fe_new[k, :, t], weights)
+    m = min(own_years, t - base_year + 1)
+    fe_used[t] = mean(fe_new_avg[pas, t-m+1 : t+1])
+    intensity_used[t] = intensity_avg[pas, t-m+1];  fe_used_bev[t] = fe_new_bev[pas, t-m+1]
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: new fuel economy"}
+- **Excel-AI:** Mitigation section 5b, new fuel economy block: `trfew`, `trphg`, `trpav`, `trfbtp`/`trfbtf`/`trfbtc`,
+  `trfbl` (`FEEBATE`), `trfbr`, `trfbr5`, `trfn`, `trfnp` (`NEWFE`), `trfna`, `trint`, `trinta`, `trfeu`, `trintu`,
+  `trfeub`, `tricl`, `triclu`, `trints`; freight `trfewf` ... `trintsf`; 2-3 wheelers `trfblc` ... `trintsc`.
+  Parameters `trp.gap`, `trp.ela`, `trp.mod`, `trp.ef`, `trp.efa`.
+- **CPAT Python:** `road.py`, `_year()`, block "fuel economy of new vehicles and the feebate".
+:::
+
+## Distance for the purchase decision {#sec-tr-disttco}
+
+A buyer values a vehicle by the distance they expect to drive it. This distance per new vehicle is the data in data
+years, then follows income and, if switched on, the cost per km:
+
+$$
+v^{new}_{k,f,t} = v^{new}_{k,f,t-1}\left(\frac{c^{km}_{k,f,t}}{c^{km}_{k,f,t-1}}\right)^{\epsilon_U \cdot \chi}(1 + g_{t-1})^{\eta_k}, \qquad c^{km}_{k,f,t} = \frac{p_{f,t}}{fe^{new}_{k,f,t}} + \tau^{km}_{k,t}
+$$ {#eq-tr-vktco}
+
+where
+
+- $c^{km}$ is the cost per km of a new vehicle (BEV: EV electricity price / new BEV fuel economy), USD per km;
+- $\tau^{km}_{k,t}$ is the distance tax (@eq-tr-dtax), USD per km;
+- $\epsilon_U$ is the road usage elasticity (gasoline for passenger and 2-3 wheelers, diesel for freight);
+- $\chi$ is 1 if the TCO distance responds to prices (`vkt_new_price`), 0 by default (legacy Dashboard Q551);
+- $g_{t-1}$ is last year's GDP growth and $\eta_k$ the income elasticity of distance.
+
+Freight distance is kept between 50,000 and 120,000 km. Used vehicles drive in proportion to their relative fuel
+economy, $v^{used} = \bar{v}^{new}\,(\bar{fe}^{new}/fe^{used})^{\epsilon_U}$ (BEVs likewise with BEV fuel economy).
+
+**The distance tax** (policy scenarios only) starts at its first-year amount and rises linearly to its target, then
+stays there:
+
+$$
+\tau^{km}_{k,t} = \pi_t\, \mathbb{1}[t \ge t^{dt}_0] \cdot \begin{cases} \tau_0 & t = t^{dt}_0 \\ \min\!\left(\tau_1,\ \tau^{km}_{k,t-1} + \dfrac{\tau_1 - \tau_0}{t^{dt}_1 - t^{dt}_0}\right) & t > t^{dt}_0 \end{cases}
+$$ {#eq-tr-dtax}
+
+with `TrDtYear<k>`, `TrDtStart<k>`, `TrDtTargetYear<k>`, `TrDtTarget<k>`.
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: distance for the TCO"}
+- **Excel-AI:** Mitigation section 5b, purchase-distance block: `trdtxp`, `trdtxf`, `trdtxc` (`DISTTAX`), `trckm`,
+  `trckr`, `trvkn` (`GROWVKT`), `trvkna`, `trckbp`, `trckbr`, `trckbf`, `trckbc`, `trvknb`, `trvku`, `trvkub`
+  (`USEDVKT`), `trckf`, `trckfr`, `trvknf`, `trvknaf`, `trvknbf` (`CLAMPVKT`), `trckc`, `trckcr`, `trvkncg`,
+  `trvkncb`. The price-response switch is a 0/1 parameter (`trp.vkt` G).
+- **CPAT Python:** `road.py`, `_year()`, block "distance tax, cost per km and distance driven" (`driven()`).
+:::
+
+## Total cost of ownership {#sec-tr-tco}
+
+The choice between an ICEV and a BEV is made on the total cost of ownership per km: what the vehicle costs to buy,
+insure, maintain and fuel over the years it is owned, discounted, divided by the discounted distance it is driven
+([A3.7](A_Equations.qmd#eqlist-A3-7)).
+
+### Discounted distance and purchase price {#sec-tr-price}
+
+**Discounted distance** over the ownership period is the present value of the yearly distance:
+
+$$
+K_{k,v,t} = v_{k,v,t}\,\frac{(1 + r_t)^{N_k} - 1}{r_t\,(1 + r_t)^{N_k}}
+$$ {#eq-tr-dkm}
+
+with $N_{pas} = 7$, $N_{pau} = 13$, $N_{fre} = 10$, $N_{cyc} = 7$ and $r_t$ the consumer discount rate
+(@eq-tr-disc).
+
+**Purchase price after policies.** For an ICEV and a BEV of class $k$:
+
+$$
+\begin{aligned}
+P^{ICE}_{k,t} &= P^{0,ICE}_{k,t}\,(1 + du^{ICE}_k\, m_k)(1 + adv^{ICE}_{k,t})(1 + vat_k) + FB^{ICE}_{k,t} \\
+P^{BEV}_{k,t} &= P^{0,BEV}_{k,t}\,(1 + du^{BEV}_{k,t}\, m_k)(1 + vat^{BEV}_{k,t})(1 + adv^{BEV}_{k,t}) + FB^{BEV}_{k,t} + sub_{k,t}
+\end{aligned}
+$$ {#eq-tr-price}
+
+where
+
+- $P^{0}$ is the vehicle price before taxes (Transport2), USD;
+- $du_k$ the import duty and $m_k$ the share of imports (customs and import data years);
+- $adv$ the ad-valorem purchase tax: the baseline rate, or the policy rate from `TrAdvYear<k>` in policy scenarios
+  (`TrAdvIceBase`, `TrAdvBevBase`, `TrAdvIcePol`, `TrAdvBevPol`);
+- $vat_k$ the VAT on vehicles (0 for freight); for BEVs the policy rate (baseline × `TrVatPolFactor`) applies from
+  `TrVatYear<k>`, and the policy BEV duty (baseline × `TrCustPolFactor`) from `TrCustYear<k>`;
+- $FB$ the vehicle feebate (@eq-tr-fbveh);
+- $sub_{k,t}$ the EV purchase subsidy (negative), @eq-tr-sub.
+
+**The vehicle feebate** charges the CO2 intensity above a pivot, at the feebate rate, over the discounted distance:
+
+$$
+FB^{v}_{k,t} = \left(I^{v}_{k,t} - I^{piv}_{k,t}\right)\frac{\beta_{k,t}}{10^6}\, K_{k,v,t}
+$$ {#eq-tr-fbveh}
+
+where $I^{v}$ is the CO2 intensity of the vehicle (gCO2 per km; BEVs 0; used ICEVs the used intensity) and $I^{piv}$
+the pivot. Below the pivot the feebate is a rebate. The pivot is blank in the first two years, then either
+
+- **Average:** last year's sales-weighted intensity extrapolated by its own trend,
+  $I^{piv}_t = \bar{I}_{t}\,\bar{I}_{t}/\bar{I}_{t-1}$, where $\bar{I}_t$ is the intensity of last year's sales
+  (new and used, weighted by their ICE shares); or
+- **Manual:** `TrFbPivot<k>` in the feebate year, then lower by `TrFbPivotChg<k>` gCO2 per km each year, at least 0
+  (0 before the feebate year).
+
+The **EV subsidy** (policy scenarios only) is $-$`TrSubAmount<k>` in its year, then changes by `TrSubChg<k>` a year,
+never positive:
+
+$$
+sub_{k,t} = \pi_t \cdot \begin{cases} -A_k & t = t^{sub}_k \\ \min(0,\ sub_{k,t-1} - \Delta_k) & t > t^{sub}_k \\ 0 & t < t^{sub}_k \end{cases}
+$$ {#eq-tr-sub}
+
+### Cost components {#sec-tr-costs}
+
+The TCO of a new vehicle adds five parts. With $P$ the price after policies, $d = 0.30$ the first-year depreciation,
+$L$ the useful life, $n$ the ownership period and $r$ the discount rate:
+
+$$
+\begin{aligned}
+D^{1} &= d\,P && \text{first-year depreciation} \\
+D^{ann} &= \frac{P - dP}{L - 1}\cdot\frac{1 - (1 + r)^{-(L-1)}}{r} && \text{depreciation annuity of the rest} \\
+SV &= \min\!\left(0,\ -P\,\frac{(L - n)/L\,(1 - d)}{(1 + r)^{n}}\right) && \text{salvage value (passenger only)} \\
+IM &= \frac{P\,\iota}{r}\left(1 - (1 + r)^{-(n+1)}\right)\theta + m^{v}\,K && \text{insurance and maintenance} \\
+FU &= \left(\frac{p}{fe^{new}} + \tau^{km}\right)K && \text{fuel or electricity and distance tax}
+\end{aligned}
+$$ {#eq-tr-parts}
+
+where $\iota = 1.5\%$ is the insurance rate, $\theta = 0.5$ the insurance factor, $m^{v}$ the maintenance cost per km
+(ICEV or EV), $p$ the average ICE fuel price over the fuel mix and $fe^{new}$ the average new fuel economy (BEVs: the
+EV electricity price and new BEV fuel economy). Then
+
+$$
+TCO^{v}_{k,t} = D^1 + D^{ann} + SV + IM + FU + \mathbb{1}[v = BEV]\,RA_{k,t}, \qquad c^{v}_{k,t} = \frac{TCO^{v}_{k,t}}{K_{k,v,t}}
+$$ {#eq-tr-tco}
+
+**Used passenger vehicles** are bought at their resale price after taxes,
+$P^{res} = P^{0}\left(1 - \big(d + \frac{n - 1}{L - 1}(1 - d)\big)\right) \times$ (the same tax factors) + the feebate
+(BEV: + the subsidy). Their TCO has no first-year depreciation and no salvage value: the annuity is over the used
+ownership period less one year, $13 - 1 = 12$ years, for ICEVs and BEVs alike; insurance runs over 13 years; fuel uses
+the used fuel economy. A used BEV carries range anxiety scaled by its price, $RA^{used} = RA\,P^{used}/P^{new}$.
+
+**Freight vehicles and 2-3 wheelers** have no salvage term; freight pays no VAT and charges at the industrial EV
+price, 2-3 wheelers at the residential one.
+
+**Per-fuel ICE TCO** (for the fuel split of @sec-tr-choice) uses the cost per km of each fuel and shares the feebate
+by intensity:
+$TCO_f = K\,c^{km}_f + (D^1 + D^{ann} + SV) + IM + FB\,(I_f/\bar{I})$.
+
+**Plug-in hybrids** take the BEV's capital cost (no PHEV price exists in the data): BEV depreciation and salvage,
+insurance on the BEV price, ICEV maintenance over the ICEV distance, and the PHEV fuel cost; they carry **no range
+anxiety**, since they refuel with gasoline.
+
+::: {.callout-tip icon=false title="Pseudocode: TCO of a new passenger ICEV and BEV"}
+```
+for t in years:
+    r = disc[t]
+    K_ice = v_new_avg * ((1 + r) ** own_years - 1) / (r * (1 + r) ** own_years)
+    K_bev = v_new_bev * ((1 + r) ** own_years - 1) / (r * (1 + r) ** own_years)
+    fb_ice = (intensity_avg[t] - pivot[t]) * fb_rate[t] / 1e6 * K_ice      # blank in the base year
+    fb_bev = (0 - pivot[t]) * fb_rate[t] / 1e6 * K_bev
+    P_ice = price0_ice[t] * (1 + duty_ice * imp) * (1 + adv_ice[t]) * (1 + vat) + fb_ice
+    P_bev = price0_bev[t] * (1 + cust_bev[t]) * (1 + vat_bev[t]) * (1 + adv_bev[t]) + subsidy[t] + fb_bev
+    for v, P, K, maint, fuel_km in [("ice", P_ice, K_ice, maint_ice, p_avg / fe_new_avg + dtax),
+                                    ("bev", P_bev, K_bev, maint_ev, pev[res] / fe_new_bev + dtax)]:
+        dep1 = dep * P
+        ann = (P - dep1) / (life - 1) / r * (1 - (1 + r) ** -(life - 1))
+        salv = min(0, -P * ((life - own_years) / life * (1 - dep)) / (1 + r) ** own_years)
+        ins_m = P * ins / r * (1 - (1 + r) ** -(own_years + 1)) * ins_factor + maint * K
+        tco[v] = dep1 + ann + salv + ins_m + fuel_km * K + (ra[pas, t] if v == "bev" else 0)
+        tco_km[v] = tco[v] / K
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: TCO"}
+- **Excel-AI:** Mitigation section 5b, TCO block: discounted km `trdkm*` (`DISCKM`, Excel `-PV`); pivots `trpva*`,
+  `trpvm*`, `trpv*` (`PIVOTAVG`, `PIVOTMAN`, `PIVOTPICK`; named constant `TrPivotLag` = 2); feebates `trfbv*`
+  (`FBVEH`); taxes `tradv*` (`POLPICK`), `trcue*`, `trvatb*`; subsidies `trsub*` (`EVSUB`); prices `trpp*`
+  (`GROSSUP`); depreciation `trdp*`, `tran*` (`ANNUITY`), `trsv*` (`SALVAGE`), resale `trres*` (`RESALE`); insurance
+  and maintenance `trim*` (`INSMAINT`), PHEV `trimphv`; fuel `trfu*` (`FUELKM`); totals `trto*` (`TOTAL`,
+  `TOTALRA`); per km `trpk*`; per-fuel TCO `trtcf`, `trtcfp`, `trtcff` (`TCOFUEL`).
+- **CPAT Python:** `road.py`, `_year()`, blocks "discounted lifetime distance", "feebate pivot and the vehicle taxes
+  and subsidies", "TCO of a new passenger ICEV and BEV, of a used one", "TCO of freight vehicles", "TCO of 2-3
+  wheelers"; helpers `pv()`, `annuity()`.
+:::
+
+## Choice: the EV share and the ICE fuel split {#sec-tr-choice}
+
+Buyers choose between an ICEV and a BEV by their TCO per km. The model uses a binary logit, as the power model does
+for dispatch and investment (methodology
+[section 3.4.2.4.1](../CPAT_full_documentation_html/03_Mitigation.html#logit-function)); among ICEVs, the fuel mix
+shifts with the relative TCO of each fuel ([M5.2](A_Equations.qmd#eqlist-M5-2),
+[A3.7](A_Equations.qmd#eqlist-A3-7)).
+
+**EV share of purchases.** For each class (new passenger, used passenger, freight, 2-3 wheelers):
+
+$$
+s^{ICE}_{k,t} = \frac{1}{1 + \exp\!\left(-k_k\,\dfrac{c^{BEV}_{k,t} - c^{ICE}_{k,t}}{\bar{c}_{k,t}}\right)}, \qquad s^{BEV}_{k,t} = 1 - s^{ICE}_{k,t}, \qquad \bar{c}_{k,t} = s^{ICE}_{k,t-1}\,c^{ICE}_{k,t} + (1 - s^{ICE}_{k,t-1})\,c^{BEV}_{k,t}
+$$ {#eq-tr-logit}
+
+where $k_k$ is the logit parameter (3 passenger, 2 freight, 4 2-3 wheelers) and $\bar{c}$ the average TCO per km
+weighted by last year's ICE share (base year: 1 − the data EV share). This is the two-option form of the equation
+list's multinomial logit. In data years the actual shares replace the logit. The passenger EV share of purchases is
+$u\,s^{BEV}_{pau} + (1 - u)\,s^{BEV}_{pas}$, the actual share where there is one.
+
+**ICE fuel split of passenger purchases.** In data years the shares are the base-year distance split scaled to the ICE
+total; the PHEV share is (EV − BEV purchase share) × the passenger share $\sigma$, at least 0. Afterwards each fuel's
+share moves with its own TCO change and the TCO change of the other fuels:
+
+$$
+\tilde{s}_{f,t} = \tilde{s}_{f,t-1}\left(\frac{TCO_{f,t}}{TCO_{f,t-1}}\right)^{-1.265}\left(\frac{\sum_{g \ne f}\tilde{s}_{g,t-1}\,TCO_{g,t}/TCO_{g,t-1}}{\sum_{g \ne f}\tilde{s}_{g,t-1}}\right)^{0.5725}
+$$ {#eq-tr-icesplit}
+
+over $f, g \in$ {gasoline, diesel, LPG, CNG, PHEV}. If no other fuel has a share the share is held. The shares are
+then scaled to the ICE part of purchases, $s_{f,t} = \tilde{s}_{f,t} / \sum_g \tilde{s}_{g,t}\,(1 - s^{EV}_t)$.
+
+**Stock shares** turn over slowly: each year the ownership period's share of the stock is replaced,
+
+$$
+s^{stock}_{f,t} = s^{stock}_{f,t-1}\,\frac{Y - 1}{Y} + \frac{s_{f,t}}{Y}
+$$ {#eq-tr-stockshare}
+
+with $Y$ the ownership years ($u\,L_{pas} + (1-u)\,n$; 13.57 for Egypt) for passenger vehicles and $L_{fre} = 10$ for
+freight; data years take the data. Divided by their sum plus the EV stock share, they give the vehicles by fuel
+(million) = passenger stock × share × population / 1,000.
+
+Freight follows the same steps with diesel, LPG and LNG, scaled to $1 - s^{BEV}_{fre}$. 2-3 wheelers have only
+gasoline ICEVs.
+
+::: {.callout-tip icon=false title="Pseudocode: EV choice and ICE fuel split"}
+```
+for t in years:
+    for k in ["pas", "pau", "fre", "cyc"]:
+        avg = ice_share[k, t-1] * tco_km[k, ice] + (1 - ice_share[k, t-1]) * tco_km[k, bev]
+        logit_ice = 1 / (1 + exp(-k_par[k] * (tco_km[k, bev] - tco_km[k, ice]) / avg))
+        ice_share[k, t] = 1 - ev_share_data[k, t] if data_year(t) else logit_ice
+    for f in ["gso", "die", "lpg", "nga", "phv"]:
+        if data_year(t):
+            s[f, t] = data_split[f, t]
+        else:
+            ratio = tco_f[f, t] / tco_f[f, t-1]
+            others = [g for g in fuels if g != f]
+            cross = sum(s[g, t-1] * tco_f[g, t] / tco_f[g, t-1] for g in others) / sum(s[g, t-1] for g in others)
+            s[f, t] = s[f, t-1] * ratio ** own_price_el * cross ** cross_price_el
+    for f: s_new[f, t] = s[f, t] if data_year(t) else s[f, t] / sum(s[:, t]) * (1 - ev_share[pas, t])
+    for f: s_stock[f, t] = data if data_year(t) else s_stock[f, t-1] * (Y - 1) / Y + s_new[f, t] / Y
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: choice"}
+- **Excel-AI:** Mitigation section 5b, demand and choice block: `trtcav`, `trlgn` (`LOGITICE`), `trlgnb`, `trevac`
+  (`ACTSHARE`), `trshn`, `trshnb`, `trtcau`, `trlgu`, `trlgub`, `trshu`, `trshub`, `trevcc`, `trevsh` (`ACTORCALC`),
+  `trtrn`, `trnwbn`, `trnwbu`; ICE split `trics`, `trtcr`, `tricd`, `tricdp`, `trcrs` (`CROSSRATIO`; IFERROR for
+  "other fuels without share"), `tricp` (`ICESPLIT`), `tricn` (`NORMSH`), `trico` (`OWNSH`), `tricw`, `trveh`,
+  `trvehb`; freight `trtcaf` ... `trvehfb`; 2-3 wheelers `trtcac` ... `trvehc`.
+- **CPAT Python:** `road.py`, `_year()`, block "EV choice", and `_ice_shares()`.
+:::
+
+## Stock fuel economy, distance driven and fuel use {#sec-tr-fuel}
+
+Fuel use is vehicles × distance per vehicle / fuel economy of the stock
+([M5.3](A_Equations.qmd#eqlist-M5-3), [A3.8](A_Equations.qmd#eqlist-A3-8)). Each factor is projected separately.
+
+**Stock fuel economy** turns over with the purchases: the data in data years, then
+
+$$
+fe^{stock}_{k,f,t} = \tau_k\, fe^{new}_{k,f,t} + (1 - \tau_k)\, fe^{stock}_{k,f,t-1}
+$$ {#eq-tr-festock}
+
+with the turnover share $\tau_{pas} = 1/\big(u\,n + (1-u)\,L_{pas}\big)$ (7 years used, 20 new), $\tau_{fre} = 1/10$,
+$\tau_{cyc} = 1/7$. The opening value is last year's closing value. The BEV stock fuel economy turns over in the same
+way, with the share of this year's BEV purchases in the closing BEV stock and the new BEV fuel economy (passenger: new
+and used BEVs weighted by their purchases).
+
+**Distance per vehicle** is the data in data years (times the calibration factor of @eq-tr-distfactor), then responds
+to the cost per km of the stock and to income:
+
+$$
+v_{k,f,t} = v_{k,f,t-1}\left(\frac{c^{stock}_{k,f,t}}{c^{stock}_{k,f,t-1}}\right)^{\epsilon_U}\left(\frac{y_t}{y_{t-1}}\right)^{\eta_k}, \qquad c^{stock}_{k,f,t} = \frac{p_{f,t}}{fe^{stock,o}_{k,f,t}} + \tau^{km}_{k,t}
+$$ {#eq-tr-vkt}
+
+where $fe^{stock,o}$ is the opening stock fuel economy, $\epsilon_U$ the usage elasticity and $\eta_k$ the income
+elasticity of distance (2-3 wheelers: −0.4, so they are driven less as income rises). The base distance is the
+Transport1 average distance (passenger and light blended; freight from the fuel shares, @sec-tr-datayears; BEVs with
+their uplift).
+
+**Distance driven and fuel use:**
+
+$$
+B_{k,f,t} = \frac{V_{k,f,t}\, v_{k,f,t}}{1000}, \qquad F_{k,f,t} = \frac{B_{k,f,t}}{fe^{stock}_{k,f,t}}
+$$ {#eq-tr-fueluse}
+
+where $V$ is vehicles (million), $B$ billion km and $F$ billion liters (BEVs: billion kWh). Here $fe$ is km per
+liter, so the equation list's $F = \sum VKT \cdot FE$ ([M5.3](A_Equations.qmd#eqlist-M5-3)) reads with $FE = 1/fe$.
+PHEV distance is split: gasoline use $B_{phv}/fe_{phv}$ is added to gasoline, electricity use is
+$B_{phv}(1 - \phi)/fe^{BEV}$. CO2 by class is fuel use × the emission factor.
+
+::: {.callout-tip icon=false title="Pseudocode: fuel use by class"}
+```
+for t in years:
+    for k, f in classes_and_fuels:
+        fe_open[k, f, t] = fe_data[k, f, t] if data_year(t) else fe_stock[k, f, t-1]
+        fe_stock[k, f, t] = fe_data[k, f, t] if data_year(t) else \
+                            turnover[k] * fe_new[k, f, t] + (1 - turnover[k]) * fe_open[k, f, t]
+        cost_km[k, f, t] = price[f, t] / fe_open[k, f, t] + dtax[k, t]
+        if data_year(t):
+            v[k, f, t] = v_data[k, t] * dist_factor[k]
+        else:
+            v[k, f, t] = v[k, f, t-1] * (cost_km[k, f, t] / cost_km[k, f, t-1]) ** ela_usage[k] \
+                         * (gpc[t] / gpc[t-1]) ** inc_el[k]
+        bkm[k, f, t] = vehicles[k, f, t] * v[k, f, t] / 1000           # billion km
+        fuel[k, f, t] = bkm[k, f, t] / fe_stock[k, f, t]               # billion liters
+    fuel[pas, gso, t] += bkm[pas, phv, t] / fe_stock[pas, phv, t]
+    elec[pas, t] = bkm[pas, bev, t] / fe_bev_stock[t] + bkm[pas, phv, t] / fe_bev_stock[t] * (1 - phev_gso_share)
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: fuel use"}
+- **Excel-AI:** Mitigation section 5b: stock fuel economy and uncalibrated use `trfso`, `trfsop`, `trfsc`, `trfscp`
+  (`OPENFE`, `STOCKFE`), `trcks`, `trcksr`, `trgpcr`, `trvku0`, `trbkm0`, `trfu0g`, `trfu0` (`VKTFUEL`,
+  `TWOFUEL`), freight `trfsof` ... `trfu0f`, 2-3 wheelers `trfsoc` ... `trfu0c`; calibrated `trvkc`, `trbkm`,
+  `trfup`, `trco2p` (`EMITFUEL`), `trfebn` (`BEVFENEW`), `trfebo` (`BEVFEOPEN`), `trfebs`, `trckb2`, `trckb2r`,
+  `trvkcb`, `trbkmb`, `trelph` (`PHEVELE`), `trelp`, `trbkmt`, `trintp` (`INTENSITY`); freight `trvkcf` ...
+  `trintf2` (`INTENS0`); 2-3 wheelers `trvkcc` ... `trintc2`.
+- **CPAT Python:** `road.py`, `_fuel_use()`.
+:::
+
+## Calibration to the energy balance {#sec-tr-calibration}
+
+The bottom-up fleet (Transport1 ownership × distance / fuel economy) rarely adds up to the road fuel use of the energy
+balance. Two calibration steps close the gap in the base year; their factors are then held
+([A3.8](A_Equations.qmd#eqlist-A3-8), [A3.9](A_Equations.qmd#eqlist-A3-9)).
+
+**Step 1: distance factors by class.** The bottom-up base-year fuel use, grossed up for buses, is compared with the
+energy balance fuel by fuel:
+
+$$
+Q^{bu}_{f} = \frac{F^{0}_{f,t_0}\, 10^9 / \lambda_f}{1 - b_f}, \qquad q_f = \frac{F^{bal}_{f,t_0}}{Q^{bu}_f}
+$$ {#eq-tr-cq}
+
+where $F^{0}_{f,t_0}$ is uncalibrated fuel use (billion liters: gasoline = passenger + 2-3 wheelers; diesel, LPG and gas
+= passenger + freight), $b_f$ the bus share of the fuel (gasoline 0), and $q_f = 1$ when either is zero. The distance
+factor of a class is the fuel-use-weighted average of the $q_f$:
+
+$$
+\kappa_{pas} = \frac{\sum_f F^{0}_{pas,f}\, q_f}{\sum_f F^{0}_{pas,f}}, \qquad \kappa_{fre} = \frac{\sum_f F^{0}_{fre,f}\, q_f}{\sum_f F^{0}_{fre,f}}, \qquad \kappa_{cyc} = q_{gso}
+$$ {#eq-tr-distfactor}
+
+The factors multiply the data distance of each class in @eq-tr-vkt (BEVs too) and are held after the base year.
+
+**Step 2: a residual factor by fuel.** After buses (@sec-tr-buses) the calibrated total still differs from the energy
+balance, because a class factor averages over fuels. A second factor by fuel closes it:
+
+$$
+\gamma_f = \frac{F^{bal}_{f,t_0}}{F_{f,t_0}\,10^9/\lambda_f}, \qquad F^{T}_{f,t} = F_{f,t}\,\frac{10^9}{\lambda_f}\,\gamma_f
+$$ {#eq-tr-ktoe}
+
+where $F_{f,t}$ is road use of the fuel (billion liters: gasoline = passenger + 2-3 wheelers; diesel, LPG and gas =
+passenger + freight + buses) and $F^{T}_{f,t}$ the result in ktoe. In the base year $F^{T}$ equals the energy balance.
+Electricity has a factor only if `recon_ele` = Yes (default No, factor 1):
+
+$$
+E^{T}_t = E_t\,\frac{1000}{\omega}\,\gamma_{e}
+$$ {#eq-tr-ktoe-el}
+
+with $E_t$ road electricity (billion kWh: buses, 2-3 wheelers, freight, passenger), $\omega$ GWh per ktoe.
+
+The factors are large where the data explain little of road fuel use: for Egypt, passenger distance × 2.67 (freight
+1.70, 2-3 wheelers 3.30), then gasoline × 1.23 (diesel 0.86, gas 1.14). The workbook reports them.
+
+::: {.callout-tip icon=false title="Pseudocode: calibration"}
+```
+if t == base_year:
+    for f in ["gso", "die", "lpg", "nga"]:
+        liters = fuel0[pas, gso] + fuel0[cyc, gso] if f == "gso" else fuel0[pas, f] + fuel0[fre, f]
+        bottom_up[f] = liters / liters_per_ktoe[f] * 1e9 / (1 - bus_share[f])
+        q[f] = 1 if bottom_up[f] == 0 or eb[f] == 0 else eb[f] / bottom_up[f]
+    dist_factor[pas] = sum(fuel0[pas, f] * q[f]) / sum(fuel0[pas, f])
+    dist_factor[fre] = sum(fuel0[fre, f] * q[f]) / sum(fuel0[fre, f])
+    dist_factor[cyc] = q["gso"]
+    # ... calibrated fuel use and buses ...
+    for f: cf2[f] = 1 if road_liters[f] == 0 or eb[f] == 0 else eb[f] / (road_liters[f] / liters_per_ktoe[f] * 1e9)
+    cf2[ecy] = 1 if recon_ele == "No" or elec == 0 or eb[ecy] == 0 else eb[ecy] / (elec / gwh_per_ktoe * 1000)
+# held after the base year
+trkt[f, t] = road_liters[f, t] / liters_per_ktoe[f] * 1e9 * cf2[f]
+trkte[t] = elec[t] * 1000 / gwh_per_ktoe * cf2[ecy]
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: calibration"}
+- **Excel-AI:** Mitigation section 5b: step 1 `trbu`, `trcq`, `trdfp`, `trdff`, `trdfc` (`HOLD`); step 2 `trcf2`,
+  `trcf2e`; results `trkt` (`KTOE`), `trkte` (`KTOEELE`).
+- **CPAT Python:** `road.py`, `_fuel_use()`, blocks "calibration of distance" and "totals, the calibration to the
+  energy balance".
+:::
+
+## Buses {#sec-tr-buses}
+
+Buses are not modelled as a fleet. Their base-year fuel use (from the Transport1 fuel shares) moves with passenger
+energy use:
+
+$$
+F_{bus,f,t} = F_{bus,f,t_0}\,\frac{\sum_g F^{kt}_{pas,g,t}}{U_{t_0}}, \qquad E_{bus,t} = \Big(\sum_f F^{kt}_{bus,f,t_0} + E^{kt}_{bus,t_0}\Big)\frac{E^{kt}_{pas,t}}{U_{t_0}}
+$$ {#eq-tr-bus}
+
+where
+
+- $F_{bus,f,t_0}$ is base-year bus use of diesel, LPG and gas (billion liters);
+- $F^{kt}_{pas,g,t}$ is passenger fuel use in ktoe and $E^{kt}_{pas,t}$ passenger electricity in ktoe;
+- $U_{t_0}$ is base-year passenger fuel and electricity use (ktoe, held);
+- $E^{kt}_{bus,t_0}$ is base-year bus electricity: the passenger EV stock share of 2024 × base-year bus fuel.
+
+Bus electricity is converted to billion kWh. All base-year bus energy electrifies with passenger electricity, as
+legacy.
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: buses"}
+- **Excel-AI:** Mitigation section 5b, buses: `trbusp`, `trbuse`, `trbus0`, `trbusf` (`BUSFUEL`), `trbusel`
+  (`BUSELE`); parameter `trp.bus`.
+- **CPAT Python:** `road.py`, `_fuel_use()`, block "buses".
+:::
+
+## Results and links to the rest of the model {#sec-tr-results}
+
+The engineer model delivers road fuel and electricity use in ktoe, and a set of fleet indicators
+([A3.9](A_Equations.qmd#eqlist-A3-9)).
+
+**Road biofuels** follow the engineer gasoline and diesel: bioethanol and other biofuels with gasoline, biodiesel with
+diesel, as legacy:
+
+$$
+F^{T}_{bio,t} = \big(F^{bal}_{bgs,t_0} + F^{bal}_{obf,t_0}\big)\frac{F^{T}_{gso,t}}{F^{bal}_{gso,t_0}} + F^{bal}_{bdi,t_0}\,\frac{F^{T}_{die,t}}{F^{bal}_{die,t_0}}
+$$ {#eq-tr-bio}
+
+(base-year value held where base-year gasoline or diesel is zero). Base-year biofuels come from Balances or EnergyCons
+(`BalancesOrConsumption`). Under the elasticity model road biofuels follow the elasticity gasoline and diesel instead
+(@sec-demand).
+
+| Result | Unit | Code | Used by |
+|---|---|---|---|
+| Road gasoline, diesel, LPG, gas | ktoe | `trkt` | Fuel use when switched on (@eq-tr-fuelswitch) |
+| Road biofuels | ktoe | `trbio` | Fuel use when switched on |
+| Road electricity | ktoe | `trkte` | Power demand when switched on, from the year after the base year (@eq-tr-elswitch) |
+| Road fuel and electricity use, total | ktoe | `trsum` | Summary row |
+| Distance driven by class, total | billion km | `trkmp`, `trkmf`, `trkmc`, `trkmt` | Indicator (× the gasoline factor for passenger and 2-3 wheelers, the diesel factor for freight) |
+| Fuel and electricity use by class (calibrated) | billion liters, billion kWh | `trfcp`, `trfcf`, `trfcc`, `trfcep`, `trfcef`, `trfcec` | Indicator |
+| Average fuel economy: gasoline; diesel, LPG, gas; EVs | km per liter, km per kWh | `trafg`, `trafo`, `trafe` | Indicator (weighted by fuel use; fixed weights `TrFEW*` when there is no use) |
+| Vehicles by class, total | million | `trvht`, `trvhtf`, `trvhtc`, `trvhta` | Indicator |
+| EV sales share, calculated − actual (data years) | share | `trrafp`, `trraff`, `trrafc` | Range-anxiety fit (@eq-tr-rafit) |
+| Road and total fuel use of the switched model; road share | ktoe; share | `trq`, `tran.rsh` | Transport co-benefits module (@sec-fiscal) |
+
+The **transport co-benefits module** (accidents, congestion, road damage; methodology
+[section 3.7.1.4](../CPAT_full_documentation_html/03_Mitigation.html#co-benefits) and
+[section 7.7.5](../CPAT_full_documentation_html/07_Road_Transport.html#sec-extcost)) reads road fuel use of whichever
+model is switched on (`ener`, electricity `eldem`) and its share of total use.
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: results"}
+- **Excel-AI:** Mitigation section 5b ("5b. Road transport: engineer model and outputs to the transport co-benefits
+  module"): `trfua`, `trfub`, `trelt`, `trcf2`, `trcf2e`, `trkt`, `trbio` (road biofuels), `trkte`, `trkmp` ...
+  `trkmt`, `trfcp` ... `trfcc`, `trafg`, `trafo` (`AVGFE`), `trafen` (helper row), `trafe` (`AVGFEEV`), `trvht` ...
+  `trvhta`, `trrafp`, `trraff`, `trrafc`, `trq`, `tran.rsh`; summary row `trsum` (visible when the section is rolled
+  up). Named constants `TrFEWGso`, `TrFEWHalf`, `TrFEWEvP`, `TrFEWEvO` (fixed weights of the average fuel economy
+  without fuel use).
+- **CPAT Python:** `road.py`, `_fuel_use()` (totals) and `_results()`.
+:::
+
+## Caveats {#sec-tr-caveats}
+
+- **The engineer model is off by default.** It is a calibration that has not been reviewed for every country; results
+  are the elasticity model's unless a scenario sets `TrModel` = Engineer.
+- **CPAT Python** computes the engineer model for the co-benefits module but cannot yet run with it switched on.
+- **Calibration factors are large** where Transport1 explains only part of road fuel use (for Egypt 30-60%:
+  passenger distance × 2.67, then gasoline × 1.23). Review the data before using the engineer results.
+- **Range anxiety** is fitted to one year (2025) of observed EV sales in scenario 1; it is the main lever on the EV
+  share and absorbs whatever the TCO misses.
+- **Freight distance** in the TCO is the Transport1 average (Egypt 48,630 km), floored at 50,000 km, which binds in
+  every projection year; fuel use uses the distance derived from fuel shares (Egypt 8,091 km × 1.70). Kept as legacy
+  (open question B14, @sec-tr-open).
+- **Data years of inputs** are kept as legacy: VAT on vehicles and customs duties of 2024, import shares of 2022, bus
+  electricity from the 2024 EV share.
+- **The ownership decline limit** of 10% a year is a placeholder.
+- **Not built:** mode shift, and the road externalities of legacy sheet `Transport` driven by the engineer model's
+  distance and fuel economy (the co-benefits module works from fuel use instead).
+- **Parameters** are legacy values; the methodology note proposes others (@sec-tr-params).
+
+## Comparison with legacy CPAT {#sec-tr-legacy}
+
+The rule is to match legacy CPAT except where legacy has a bug; every difference is listed here. Where a choice was
+needed, the recommendation of the transport plan or of the open questions was taken (user decisions of 2026-10-14).
+
+**Sources.** Legacy `CPAT 1.0pre_456_NoPropData.xlsb`: Mitigation key inputs 15 (rows 2015-2171), section 5 (rows
+4302-5378; policy copy at +6331), sheets Transport1-3, Dashboard, Manual inputs; the methodology note
+`Transportation_methodology.docx`; the map of legacy in `Transport_Legacy_Survey.md`.
+
+**Legacy match.** A Python reference engine (`transport_model_ref.py`) reproduces the cached legacy engineer run with
+every fix off, and the workbook is checked against the same engine with every fix on.
+
+::: {.callout-note collapse="true" title="Check: the reference reproduces legacy"}
+`legacy_test(run)` drives the engine from the cached legacy inputs with no fix and compares every cached numeric row
+4334-5378, the key-input rows 2034-2171 (934 year rows) and 157 side-table scalars, 2022-2041 (relative difference to
+max(1e-6, |legacy|)).
+
+| Run | Series compared | Max relative difference | Where |
+|---|---:|---:|---|
+| Baseline (C2173 = 1) | 1,091 | 3.8e-14 | r5222 (PHEV electricity), 2037 |
+| Carbon tax (C8504 = 2) | 1,091 | 1.6e-14 | r4817 (used BEV choice), 2025 |
+
+No residual: the differences are floating-point rounding. The legacy range-anxiety start values equal the cached
+N4354:N4356 exactly.
+:::
+
+### Scope {#sec-tr-scope}
+
+| Topic | Legacy | This model |
+|---|---|---|
+| Model choice | Switch `TrModel` (MTInputs F340, from the Dashboard): Engineer or Elasticity; the Egypt run uses Elasticity | Same switch, default Elasticity; the engineer model is computed in every run and replaces road gasoline, diesel, LPG, gas and biofuels (and road electricity in power demand) when switched on |
+| Coverage | Road only: passenger and light (new and used), freight, 2-3 wheelers, buses (scaled); coal, kerosene and other oil products in road, rail, aviation and navigation by elasticities | Same |
+| Externalities | Sheet `Transport` (accidents, congestion, road damage) reads the engineer distance and fuel economy even under Elasticity (survey B16) | Not built; the co-benefits module reads fuel use |
+| Mode shift | None | None |
+
+### Decisions relative to legacy {#sec-tr-decisions}
+
+| Topic | Legacy | This model | Reason |
+|---|---|---|---|
+| Default model | Template default Engineer; Egypt run Elasticity | Elasticity by default, Engineer by switch | Results unchanged until the engineer run is reviewed; a calibration that is not general stays off by default |
+| Bugs | As found | All fixed (@sec-tr-bugs); legacy behaviour kept as switches in the Python reference only | Same approach as the power model; the reference reproduces legacy to 4e-14 with the switches off |
+| Parameters | Side-table and Dashboard values; the methodology note differs | Legacy values; the note's values stored as alternatives (use = note) | Match legacy; switch after review |
+| Range anxiety | Transport3: stored per-country solver results from another vintage | Fitted by goal seek on this model (scenario 1, 2025), stored per country; the fit is reported | The stored values did not fit the corrected model (legacy 0.35%, all fixes 0.09%, actual 0.15% for Egypt passenger, before the refit) |
+| Calibration to the energy balance | Step 1 distance factors by class; step 2 residual factor by fuel | Same, live formulas; factors reported | General (from data); large factors flag data problems |
+| Used vehicle depreciation (B20) | Used ICEV annuity over 6 years, used BEV over 12 | 12 years for both (used ownership period − 1) | User confirmation 2026-10-14 |
+| Ownership decline (B4) | Passenger and freight ownership cannot fall | May fall by up to 10% a year (the legacy 2-3 wheeler value) | Placeholder; no effect for Egypt |
+| PHEV range anxiety (B23) | PHEV TCO carries the full BEV range anxiety (about 100,000 USD) | None for PHEVs | PHEVs refuel with gasoline; user decision 2026-10-14 |
+| Freight distance (survey B14) | TCO uses Transport1 average freight distance (48,630 km, floored at 50,000 km, binding every year); fuel use the derived 8,091 km × calibration | Kept as legacy | Needs a data decision; not a clear bug |
+| Data years of inputs | VAT on vehicles and customs from 2024, import shares 2022, bus electricity 2024 | Kept as legacy (parameters) | Legacy input choices, not bugs |
+| Policy inputs | Dashboard rows 61-98, 540-558 (outside MTInputs) | ScenarioDefinition rows (scenario-specific, run by the batch macro) | Scenarios must carry the transport policies |
+| Hardcoded literals | Gompertz −5.897, gas /26, PHEV × 9, insurance × 0.5, station life /15, BEV distance caps, own and cross price elasticities, BEV fuel-economy and charging-cost paths | Named parameters and data, same values | No literal in a formula |
+| Inputs from the rest of the model (LD61) | 2-3 wheeler gasoline price before new policies (row 4438); VAT on vehicles from N726 (Egypt 0.1531) | 2-3 wheelers at the road gasoline price incl. new policies, as passenger (so carbon pricing reaches them); VAT_WEO of the customs year (Egypt 0.14) | Consistency; one VAT source |
+| Industrial gas for LNG trucks | Legacy industrial price block | Industrial price + the road new policies | Policies reach LNG trucks |
+| Vehicle feebate rate (M13) | Feebate + carbon price × road feebate coverage | Feebate + road regulation shadow price | The carbon price is in the fuel price already |
+| Biofuels (LD62) | Engineer: bioethanol and other biofuels with gasoline, biodiesel with diesel; the feebate CO2 per liter × the fossil share (E2146:E2147, issue I40) | Same | Match legacy |
+
+### Legacy bugs fixed {#sec-tr-bugs}
+
+Seventeen legacy bugs of the engineer road model are fixed, plus three of an earlier prototype version. Each legacy
+fix is a switch of the Python reference (`FIXES`; `ALL_FIXES` is the corrected model). The B codes follow the survey
+of legacy (B1-B17) and continue for bugs found while building the reference (B19-B23); the L codes are those of the
+bug register.
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: the bugs fixed"}
+| Register | Survey | Legacy rows | Bug | Fix |
+|---|---|---|---|---|
+| L25 | B1 | 4451, 4720 | Passenger distance tax and 2-3 wheeler EV subsidy test `$C2227>1`; the text "res" > 1 is TRUE, so they apply in the baseline too | Scenario number > 1 |
+| L26 | B2 | 4487 AB:AE, 4501 | Freight and 2-3 wheeler income growth read row 2455 (coal producer subsidies) from 2038 | Lagged GDP growth (row 2446) in all years |
+| L27 | B3 | H:J4787, H:J4903 | Ownership calibration MAX(1, actual/expected) at 2024 (column N): scales up only | Actual/expected both ways at the last data year in the data (2025) |
+| L28 | B3b | $N2168, J2169 | Freight-share cap and 2-3 wheeler peak read 2024 | Last data year |
+| L29 | B4 | T4328, U4328 | Passenger and freight ownership cannot fall (maximum decrease 0) | Decrease of up to 10% a year (the legacy 2-3 wheeler value) |
+| L30 | B6 | 5310-5314, 5318 | Bus fuel scaled by the wrong rows (LPG, gas and PHEV distance, BEV vehicles); bus electricity from a sum of liters and kWh | Passenger fuel use in ktoe and passenger electricity; base bus energy in ktoe |
+| L31 | B6b | O5171:O5173 | Bus share added as × (1 + share) | / (1 − share) |
+| L32 | B7 | G4376-G4378, G4419-G4421 | Stale emission-factor names: diesel and LPG use industry EFs, CNG/LNG the residential gas EF | Road EFs |
+| L33 | B8 | M5261, M5295, M5232, M4646 | BEV freight distance with the 2-3 wheeler income elasticity; BEV 2-3 wheeler distance with the cost ratio twice and no income term; LPG freight base row; freight ICE depreciation switching to the passenger discount rate from 2023 | As the sibling rows |
+| L34 | B8w | K4329 | Freight discounted at the average power-sector WACC | The consumer discount rate (row 4531) |
+| L35 | B9 | 4850 L:O | PHEV sales share = passenger EV share − blended passenger/light BEV share (negative) | (EV − BEV passenger share) × passenger share; ICE shares scaled to the rest |
+| L36 | B10 | 4343 | Charging-station subsidy ramp accumulates before the start year and is not capped at the target year | 0 before the start year, linear to the target level, then constant |
+| L37 | B19 | 4573 | New BEV maintenance at the ICEV rate (J4327) | EV maintenance (J4328) |
+| L38 | B20 | 4598 | Used ICEV depreciation annuity over own_years − 1 (6) years, used BEV over 12 | Used ownership period − 1 (J4323 − 1) for both |
+| L39 | B21 | 5267 | Freight distance output omits LPG and LNG trucks | All fuels |
+| L40 | B22 | 5368, 5373 | Average gas fuel economy weights freight by LPG freight fuel (5244 for 5245); the EV fuel-economy fallback tests diesel (5326) | The right rows |
+| L41 | B23 | 4555 | PHEV TCO includes the full BEV range anxiety (about 100,000 USD per vehicle), so PHEV sales vanish | No range anxiety for PHEVs (user decision 2026-10-14) |
+| M13 (L-) | | 2404, 4374 | Prototype: the vehicle feebate counted the carbon price twice (carbon price × coverage on top of a fuel price that holds it) | Feebate + road regulation shadow price |
+| M16 (L226) | | 4637 (policy copy 10953) | Freight BEV feebate valued at the ICEV truck's discounted distance (same values in legacy) | Its own distance |
+| M17 (L227) | | 4555 (policy copy 10871) | PHEV TCO mixed BEV capital cost with insurance and maintenance on the ICEV price | Insurance on the BEV price, ICEV maintenance per km over the ICEV distance |
+
+**B4** is a parameter choice treated as a fix. **Survey items kept as legacy** (not bugs, or not in scope):
+
+| Survey | Item | Why kept |
+|---|---|---|
+| B5 | Large calibration factors | A data issue; reported |
+| B11 | Lags: EV electricity price of the previous year, lagged feebate intensities, ICE mix from last year's ownership | Intended: legacy avoids a circular reference |
+| B12 | Literals in formulas | Now named parameters |
+| B13 | Row 2171 (change in ownership) | Unused row |
+| B14 | Freight distance | Open question 1 (@sec-tr-open) |
+| B15 | Unused inputs (e.g. `vkt_disc_gap`, vehicle purchases data and anchor) | No effect |
+| B16 | Externality sheet reading the engineer model | Out of scope |
+| B17 | Key-input layout (share, ktoe, liter in year columns) | Layout only |
+
+Related, in the elasticity road model (@sec-demand): **L46**, legacy other road biofuels with a wrong price and
+terms, built as legacy 465 instead (issue I143, LD62).
+:::
+
+### Effects of the fixes for Egypt {#sec-tr-effects}
+
+The effects below come from the reference engine on the legacy Egypt inputs (legacy data, legacy range-anxiety
+values), with legacy behaviour and with all fixes, in 2030, 2035 and 2041. Fuel use and vehicles change in %, EV sales
+shares in percentage points.
+
+::: {.callout-note collapse="true" title="Check: effects of the fixes for Egypt, baseline"}
+| Series | Legacy 2030 | All fixes 2030 | Legacy 2035 | All fixes 2035 | Legacy 2041 | All fixes 2041 |
+|---|---:|---:|---:|---:|---:|---:|
+| LPG ktoe | 0 | 0 | 0 | 0 | 0 | 0 |
+| Gasoline ktoe | 10,157 | 8,219 | 16,286 | 11,181 | 25,754 | 14,593 |
+| Diesel ktoe | 14,282 | 10,978 | 22,912 | 14,553 | 36,357 | 18,354 |
+| Gas ktoe | 738 | 586 | 1,199 | 798 | 1,926 | 1,039 |
+| Electricity ktoe | 126 | 22 | 1,471 | 290 | 8,065 | 1,752 |
+| EV sales share passenger | 5.0% | 1.0% | 21.2% | 9.3% | 41.0% | 27.6% |
+| EV sales share freight | 3.2% | 1.7% | 22.2% | 15.6% | 36.6% | 31.1% |
+| EV sales share 2-3 wheeler | 18.8% | 16.0% | 46.2% | 41.5% | 61.6% | 56.7% |
+| Vehicles passenger mln | 8.93 | 7.11 | 15.98 | 10.11 | 32.30 | 15.31 |
+| Vehicles freight mln | 1.58 | 1.17 | 2.81 | 1.63 | 5.55 | 2.38 |
+| Vehicles 2-3 wheeler mln | 0.53 | 0.50 | 0.65 | 0.61 | 0.81 | 0.77 |
+
+Change from each fix alone (2030 / 2035 / 2041):
+
+| Fix | Gasoline | Diesel | Gas | Electricity | EV share pass (pp) | EV share freight (pp) | EV share 2-3w (pp) | Vehicles pass | Vehicles freight | Vehicles 2-3w |
+|---|---|---|---|---|---|---|---|---|---|---|
+| B1, B4, B7, B10, B21, B22 | no effect | | | | | | | | | |
+| B2 | 0 / 0 / 0 | 0 / 0 / −0.03 | 0 / 0 / 0 | 0 / 0 / +0.06 | 0 / 0 / 0 | 0 / 0 / +0.23 | 0 / 0 / −0.61 | 0 / 0 / 0 | 0 / 0 / +0.03 | 0 / 0 / 0 |
+| B3 | −19.41 / −33.93 / −48.12 | −23.21 / −37.92 / −52.10 | −19.65 / −34.17 / −48.30 | −42.78 / −52.44 / −61.84 | −0.77 / −2.63 / −4.56 | −0.50 / −2.64 / −3.35 | −1.00 / −2.01 / −2.59 | −20.05 / −36.01 / −51.88 | −25.89 / −41.94 / −57.02 | 0 / 0 / 0 |
+| B3b | −0.06 / +0.01 / +0.04 | +0.01 / +0.05 / +0.05 | +0.02 / +0.05 / +0.06 | −1.75 / −0.59 / −0.21 | −0.08 / −0.05 / −0.03 | −0.05 / −0.05 / −0.02 | −0.10 / −0.04 / −0.01 | −0.01 / −0.01 / −0.01 | −0.01 / 0 / 0 | −6.07 / −6.07 / −6.07 |
+| B6 | 0 / 0 / 0 | −0.16 / −0.27 / −0.43 | −1.67 / −2.79 / −4.41 | −18.12 / −16.78 / −16.60 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 |
+| B6b | 0 / 0 / −0.01 | +0.01 / +0.01 / +0.01 | +0.01 / +0.01 / +0.02 | −0.27 / −0.27 / −0.27 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 |
+| B8 | 0 / −0.02 / −0.03 | −0.02 / −0.21 / −0.42 | 0 / −0.02 / −0.03 | +2.65 / +4.01 / +4.06 | +0.01 / +0.03 / +0.02 | +0.24 / +0.68 / +0.65 | +0.02 / +0.02 / +0.01 | 0 / +0.01 / +0.01 | +0.03 / +0.07 / +0.07 | 0 / 0 / 0 |
+| B8w | 0 / +0.02 / +0.03 | +0.03 / +0.20 / +0.26 | 0 / +0.02 / +0.03 | −1.63 / −0.99 / −0.37 | −0.02 / −0.03 / −0.02 | −0.25 / −0.51 / −0.22 | −0.02 / −0.02 / −0.01 | 0 / −0.01 / 0 | −0.03 / −0.04 / −0.02 | 0 / 0 / 0 |
+| B9 | −0.01 / −0.03 / −0.05 | +0.05 / +0.14 / +0.29 | +0.67 / +1.67 / +3.36 | +0.49 / +0.18 / +0.09 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 |
+| B19 | 0 / −0.10 / −0.73 | 0 / −0.05 / −0.34 | 0 / −0.09 / −0.72 | +0.24 / +1.21 / +2.33 | +0.02 / +0.50 / +1.33 | 0 / +0.04 / +0.12 | 0 / +0.03 / +0.08 | 0 / +0.07 / +0.23 | 0 / +0.01 / +0.01 | 0 / 0 / 0 |
+| B20 | +0.71 / +5.06 / +10.51 | +0.35 / +3.14 / +6.09 | +0.70 / +5.02 / +10.43 | −66.91 / −50.69 / −31.54 | −3.77 / −9.96 / −9.59 | −0.99 / −3.52 / −2.01 | −2.12 / −2.60 / −1.45 | −0.61 / −1.56 / −2.19 | −0.14 / −0.34 / −0.19 | 0 / 0 / 0 |
+| B23 | 0 / 0 / 0 | 0 / +0.01 / +0.01 | +0.01 / +0.06 / +0.16 | +0.01 / +0.01 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 |
+| All | −19.08 / −31.34 / −43.34 | −23.14 / −36.48 / −49.52 | −20.60 / −33.48 / −46.03 | −82.94 / −80.29 / −78.28 | −3.95 / −11.86 / −13.38 | −1.45 / −6.55 / −5.54 | −2.85 / −4.67 / −4.87 | −20.38 / −36.71 / −52.60 | −25.97 / −42.14 / −57.09 | −6.07 / −6.07 / −6.07 |
+:::
+
+::: {.callout-note collapse="true" title="Check: effects of the fixes for Egypt, carbon tax"}
+Scenario 2 of the legacy run.
+
+| Series | Legacy 2030 | All fixes 2030 | Legacy 2035 | All fixes 2035 | Legacy 2041 | All fixes 2041 |
+|---|---:|---:|---:|---:|---:|---:|
+| LPG ktoe | 0 | 0 | 0 | 0 | 0 | 0 |
+| Gasoline ktoe | 9,362 | 7,584 | 13,486 | 9,310 | 18,931 | 10,729 |
+| Diesel ktoe | 12,881 | 9,937 | 18,068 | 11,582 | 24,689 | 12,496 |
+| Gas ktoe | 605 | 498 | 822 | 572 | 1,134 | 622 |
+| Electricity ktoe | 147 | 26 | 1,608 | 357 | 7,965 | 1,866 |
+| EV sales share passenger | 6.0% | 1.4% | 23.3% | 11.6% | 43.2% | 30.7% |
+| EV sales share freight | 4.6% | 2.6% | 28.1% | 21.8% | 43.6% | 38.7% |
+| EV sales share 2-3 wheeler | 19.6% | 16.6% | 47.4% | 43.0% | 62.8% | 58.1% |
+| Vehicles passenger mln | 8.94 | 7.11 | 16.04 | 10.14 | 32.48 | 15.37 |
+| Vehicles freight mln | 1.58 | 1.17 | 2.83 | 1.64 | 5.60 | 2.40 |
+| Vehicles 2-3 wheeler mln | 0.53 | 0.50 | 0.65 | 0.61 | 0.81 | 0.77 |
+
+Change from each fix alone (2030 / 2035 / 2041):
+
+| Fix | Gasoline | Diesel | Gas | Electricity | EV share pass (pp) | EV share freight (pp) | EV share 2-3w (pp) | Vehicles pass | Vehicles freight | Vehicles 2-3w |
+|---|---|---|---|---|---|---|---|---|---|---|
+| B1, B4, B7, B10, B21, B22 | no effect | | | | | | | | | |
+| B2 | 0 / 0 / 0 | 0 / 0 / −0.05 | 0 / 0 / 0 | 0 / 0 / +0.07 | 0 / 0 / 0 | 0 / 0 / +0.32 | 0 / 0 / −0.75 | 0 / 0 / 0 | 0 / 0 / +0.04 | 0 / 0 / 0 |
+| B3 | −19.38 / −33.82 / −48.08 | −23.22 / −37.78 / −52.05 | −19.62 / −34.05 / −48.26 | −43.03 / −51.79 / −61.10 | −0.90 / −2.68 / −4.43 | −0.68 / −2.57 / −3.07 | −1.04 / −1.95 / −2.48 | −20.09 / −36.07 / −51.94 | −25.93 / −41.97 / −57.07 | 0 / 0 / 0 |
+| B3b | −0.05 / +0.01 / +0.03 | +0.01 / +0.05 / +0.05 | +0.02 / +0.05 / +0.05 | −1.58 / −0.48 / −0.16 | −0.08 / −0.05 / −0.02 | −0.06 / −0.04 / −0.02 | −0.09 / −0.03 / −0.01 | −0.01 / −0.01 / −0.01 | −0.01 / 0 / 0 | −6.07 / −6.07 / −6.07 |
+| B6 | 0 / 0 / 0 | +0.16 / +0.08 / −0.25 | +1.88 / +1.05 / −2.97 | −18.52 / −17.81 / −18.67 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 |
+| B6b | 0 / 0 / −0.01 | +0.01 / +0.01 / +0.01 | +0.01 / +0.03 / +0.05 | −0.26 / −0.25 / −0.24 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 |
+| B8 | 0 / −0.02 / −0.03 | −0.03 / −0.22 / −0.39 | 0 / −0.02 / −0.03 | +2.94 / +4.26 / +4.34 | +0.02 / +0.03 / +0.02 | +0.29 / +0.60 / +0.53 | +0.02 / +0.02 / +0.01 | 0 / 0 / +0.01 | +0.04 / +0.06 / +0.07 | 0 / 0 / 0 |
+| B8w | 0 / +0.02 / +0.03 | +0.04 / +0.26 / +0.35 | 0 / +0.02 / +0.03 | −1.80 / −1.04 / −0.42 | −0.02 / −0.03 / −0.02 | −0.36 / −0.59 / −0.34 | −0.02 / −0.02 / −0.01 | 0 / −0.01 / −0.01 | −0.05 / −0.05 / −0.04 | 0 / 0 / 0 |
+| B9 | −0.01 / −0.03 / −0.04 | +0.06 / +0.17 / +0.39 | +0.79 / +2.27 / +5.08 | +0.41 / +0.14 / +0.08 | 0 / 0 / −0.01 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 |
+| B19 | 0 / −0.11 / −0.77 | 0 / −0.05 / −0.35 | 0 / −0.11 / −0.76 | +0.23 / +1.17 / +2.12 | +0.02 / +0.56 / +1.34 | 0 / +0.04 / +0.11 | 0 / +0.03 / +0.08 | 0 / +0.08 / +0.24 | 0 / 0 / +0.01 | 0 / 0 / 0 |
+| B20 | +0.81 / +5.41 / +10.27 | +0.41 / +3.35 / +5.82 | +0.80 / +5.38 / +10.18 | −64.72 / −44.86 / −27.04 | −4.41 / −9.61 / −8.89 | −1.34 / −3.05 / −1.66 | −2.17 / −2.24 / −1.24 | −0.71 / −1.54 / −2.17 | −0.18 / −0.28 / −0.19 | 0 / 0 / 0 |
+| B23 | 0 / 0 / 0 | 0 / +0.01 / +0.02 | +0.02 / +0.09 / +0.25 | +0.01 / +0.01 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 |
+| All | −18.99 / −30.97 / −43.32 | −22.86 / −35.90 / −49.39 | −17.63 / −30.44 / −45.17 | −82.26 / −77.77 / −76.57 | −4.67 / −11.73 / −12.53 | −2.01 / −6.33 / −4.92 | −2.97 / −4.33 / −4.67 | −20.48 / −36.77 / −52.67 | −26.04 / −42.16 / −57.15 | −6.07 / −6.07 / −6.07 |
+:::
+
+**Reading the effects.**
+
+- **B3 (two-sided ownership calibration) dominates.** Egypt's ownership was 55 per 1,000 in 2025 against a Gompertz
+  level of 152, so the calibration factor is 0.36 instead of legacy's floor of 1. Passenger ownership reaches 82 per
+  1,000 in 2041 instead of 173, and road fuel use is a third lower by 2035.
+- **B20 is the largest choice-side fix.** Legacy front-loads used ICEV depreciation, which raises used ICEV costs and
+  the EV share; the fix lowers the passenger EV sales share by about 10 points in 2035.
+- **B4 has no effect for Egypt**, because ownership still rises after B3.
+- **Fixes with no effect for Egypt** (B1, B7, B10, B21, B22) act through policies or fuels that are zero in both Egypt
+  runs: distance tax, EV subsidies, charging subsidy, LPG and LNG trucks. The carbon tax does not enter the legacy
+  feebate because the road feebate coverage (row 2404) is 0. They matter for other countries and scenarios.
+
+### Open questions and their decisions {#sec-tr-open}
+
+Decided on 2026-10-14 (user: "Go with suggestions and always try to match existing except where there are bugs").
+
+| # | Question | Decision |
+|---|---|---|
+| 1 | **B14 freight distance.** The TCO uses Transport1 `average vkt freight` (48,630 km, clamped to at least 50,000 km, binding in every projection year), while fuel use uses 8,091 km (from fuel shares) × 1.70. Which freight distance is right; should the clamp stay? | Kept as legacy; a data decision for later |
+| 2 | **B20 direction.** The fix uses the used ownership period (13 years) for the used ICEV depreciation annuity, as legacy does for used BEVs and for used insurance | Confirmed: 12 years for both |
+| 3 | **Range anxiety after the fixes.** Transport3 values were solved in another vintage: the calculated 2025 passenger EV share was 0.35% against 0.15% actual (Transport3 records 0.24%); with all fixes 0.09% (B20) | Stored values kept at first, mismatch reported; since then re-solved by goal seek on this model (@eq-tr-rafit, LD63) |
+| 4 | **B4 value.** 10% (the legacy 2-3 wheeler value) is a placeholder; no effect for Egypt | Kept |
+| 5 | **PHEV TCO** includes the full BEV range anxiety (about 100,000 USD per vehicle), so PHEV sales vanish | No range anxiety for PHEVs (new fix B23) |
+| 6 | **Data years.** VAT on vehicles is the 2024 rate, customs the 2024 duties, import shares 2022, bus electricity the 2024 EV stock share. Use the last data year instead? | Kept as legacy |
+| 7 | **Calibration factors** (passenger distance × 2.67, then gasoline × 1.23): Transport1 ownership × distance / fuel economy explains only 30-60% of Egypt's road fuel | Reported in the workbook; review the data |
+| 8 | **Bus electricity (B6).** The fix scales bus electricity with passenger electricity relative to base passenger energy; an explicit bus EV share may be preferable | As implemented |
+
+**Still open:** the freight distance (B14) and the data years of customs, VAT and import shares (data decisions);
+the 10% ownership decline limit; a review of the methodology-note parameters against the legacy values.
+
+### Corrections to the survey of legacy {#sec-tr-survey}
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: corrections to the survey"}
+- Transport1 holds 220 countries (880 rows of 4 years), not 221; Transport3 has stored values for 194 countries.
+- **B4:** the 2026 jump (P4787 = 59.25 against O = 55.12) is the 7.5% growth cap binding (55.12 × 1.075), not a
+  closing-stock mismatch.
+- **B2** also hits 2-3 wheelers (4501 = 4487). For freight it has no effect on the TCO distance because the 50,000 km
+  minimum binds; the effect shows only through 2-3 wheelers and BEV freight from 2038.
+- **B6** also mixes units in bus electricity (5318 adds billion liters of diesel, LPG and gas to billion kWh).
+- **B3:** with the data to 2025, actual/expected is 55.1/152.1 = 0.36 (the survey's 57.8/138.9 is the 2024 column used
+  by legacy).
+- **Not in the survey:** B19 (new BEV maintenance at the ICEV rate), B20 (used ICEV and BEV depreciation periods
+  differ), B21 (freight distance output omits LPG and LNG), B22 (gas fuel-economy weights use LPG freight; the EV
+  fallback tests diesel); the BEV freight feebate (4637) uses ICEV discounted km (same values in legacy; fixed as
+  M16); vehicle shares 2078-2081 use the 2022 distance split in every data year; the Transport3 calibration does not
+  hold in this file (open question 3).
+- **Dashboard labels:** the charging-station subsidy cells G95:G98 are labelled one row off (start level labelled
+  "start year", target level "start level", start year "target year", target year "target level"); the model reads
+  them by meaning.
+:::
+
+## Implementation in Excel-AI and CPAT Python {#sec-tr-impl}
+
+The engineer model is section 5b of the Excel-AI Mitigation sheet and the block `road` of CPAT Python. The boxes
+below hold the implementation notes; the user guides are the
+[Excel-AI tab](../CPAT_ai_documentation_html/02_Mitigation_Prototype.html) and the
+[CPAT Python blocks](../CPAT_coded_documentation_html/02_How_it_works.html#sec-blocks).
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: section 5b layout"}
+Section 5b sits directly after section 5 (Transport), headed "5b. Road transport: engineer model and outputs to the
+transport co-benefits module", with the summary row `trsum` (road fuel and electricity use of the engineer model, ktoe)
+visible when the section is rolled up. When it was built it held 855 rows with year values or parameters, 75 label
+rows (a label row names the D:G parameters above every run of rows of one variable that has D:G values; the
+ScenarioDefinition rows share one) and 19 heading rows. Row keys are the legacy row numbers (baseline numbering) where
+a row reproduces one; other keys name helper rows (`R_TR` in the builder; layout `TR_LAYOUT`). Current row ranges (in
+the order of the year):
+
+| Rows | Block | What it computes |
+|---|---|---|
+| 3539-3542 | Switch and timing | `TrModel`, `tr.sw` (`ENGINEERON`), `tr.dk` data year (Transport1 has the year), `tr.col` years from the base year, `tr.pol` policy scenario (scenario number > 1, fix B1) |
+| (after) | Policies | 62 ScenarioDefinition rows by class |
+| 3611-3695 | Parameters (D:G) | `trp.*`: lifetimes, depreciation, insurance, maintenance, elasticities, logit $k$, ownership (adjustment, Gompertz, limits, decline), freight distance limits, charging and range anxiety, discount rate, ICE split elasticities, data years, road elasticities and AEI (Inputs), GWh per ktoe, VAT on vehicles, GJ and liters per ktoe, EFs (road, fix B7), base-year energy balance, biofuels, fossil shares |
+| 3699-3790 | Key inputs | Transport1 lookups (data years, blank = 0), BEV fuel-economy and charging-cost paths, new BEV fuel economy (Manual inputs), vehicle prices (Transport2, last price carried) |
+| 3794-3816 | Derived parameters | Base-year split of road fuel by vehicle type (share, ktoe, billion liters), purchase taxes (customs year), bus fuel of the base year |
+| 3820-3836 | Inputs from the model | Road prices incl. new policies (USD per liter), gas, PHEV and freight prices (net of VAT), industrial gas price, population, GDP per capita, lagged GDP growth (fix B2), consumer discount rate |
+| 3839-3923 | Data-year derivations | Legacy rows 2038-2137: blends, distance and vehicle shares, freight share and the 2-3 wheeler hump (held `trnc`, `trjc`: last data year, fix B3b) |
+| 3924-3989 | Stocks | Opening, trailing average, retirement, after retirement, purchases, data-year adjustment, closing |
+| 3990-4000 | Charging and range anxiety | BEV stock, charging subsidy (fix B10), stations, mark-up, EV electricity price, range anxiety |
+| 4003-4078 | New fuel economy | Fuel mix, prices incl. the feebate per liter, new fuel economy, CO2 intensity; used vehicles |
+| 4081-4123 | Distance for the purchase | Distance tax (fix B1), cost per km, distance per new and used vehicle |
+| 4126-4233 | TCO | Discounted km, feebate pivots, taxes (`POLPICK`), subsidies, prices after taxes, depreciation (fixes B8, B8w, B20), insurance and maintenance (B19, M17), fuel, range anxiety (none for PHEVs, B23), TCO per km |
+| 4236-4311 | Demand and choice | Gompertz demand with two-sided calibration at the last data year (B3), purchases, logit EV choice, ICE fuel split (B9), vehicles |
+| 4363-4428 | Stock fuel economy, uncalibrated use | Opening and closing stock fuel economy, cost per km, distance per vehicle, fuel use before calibration |
+| 4429-4441 | Calibration step 1 | Bottom-up base-year use incl. buses (/(1 − bus share), B6b), factor by fuel, distance factors by class (held) |
+| 4444-4505 | Calibrated distance and fuel | Distance per vehicle, fuel use, CO2, BEV stock fuel economy, electricity (B8, B21) |
+| 4509-4522 | Buses | Passenger fuel and electricity in ktoe, bus fuel and electricity (B6) |
+| 4525-4573 | Step 2 and results | Calibration factors by fuel (held), road fuel use by fuel (ktoe), biofuels, electricity, distance, fuel use by class, average fuel economy (B22), vehicles |
+| 4576-4616 | Fit and co-benefits | EV sales share calculated − actual (data years); `trq`, `tran.rsh`, other road biofuels and self-generated renewables of the elasticity model |
+
+**Formula rules.** Every calculated row has one formula per row for the base year, 2023-2040 and 2041; 2041 calls a
+named LAMBDA (light beige), 2023-2040 hold its body with the arguments substituted (at most 100 characters). Rows whose
+base year is data or a held base-year value have their own base-year formula (95 rows); base-year values that a
+formula reads from the previous column (the code column) are guarded by `IF` or `N()`. Held values (calibration
+factors, base-year distance split, last-data-year values) carry forward from the previous column, so no cell reads a
+later column. References are relative in the row (column-relative copy across years and scenario groups).
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: names, LAMBDAs and constants"}
+- **LAMBDAs** (80 new; `TR_LAMBDAS`, notes in `TR_LAMBDA_NOTES`): ENGINEERON, TRDATA, TRBLEND, OPENING, TRAILAVG,
+  LAGVALUE, RETIRED, MARKUP, STATIONS, RANGEANX, NEWFE, FEEBATE, RATIO, WAVG, MIXTWO, GROWVKT, CLAMPVKT, USEDVKT,
+  DISCKM, COSTKM, DISTTAX, CSRAMP, PIVOTAVG, PIVOTMAN, PIVOTPICK, FBVEH, GROSSUP, POLPICK, EVSUB, ANNUITY, SALVAGE,
+  RESALE, INSMAINT, FUELKM, TOTAL, TOTALRA, TCOFUEL, LOGITICE, ACTSHARE, REST, ACTORCALC, OWNEXP, GOMPTGT, OWNDEM,
+  CLAMPOWN, PLUG, ADDTHREE, TURNOVER, NEWINSTOCK, CROSSRATIO, ICESPLIT, NORMSH, OWNSH, PERTH, OPENFE, STOCKFE, VKTFUEL,
+  TWOFUEL, BEVFENEW, BEVFEOPEN, PHEVELE, EMITFUEL, INTENSITY, INTENS0, KTOE, KTOEELE, BUSFUEL, BUSELE, AVGFE,
+  AVGFEEV, PROD3SUM, BIOSCALE, HOLD, DISCRATE, FRESHARE, CYCHUMP, BEVUPLIFT, INTAVG, ROADSWITCH, DEMROAD. Reused:
+  SCALEBY, DIFF, SHAREOF, ADDED, POSTTAX.
+- **Named constants** (sheet Constants): `Thousand`, `Million`, `Billion`, `TrRALag` (3: range anxiety holds its
+  start value for three years), `TrPivotLag` (2: feebate pivot blank in the first two years), `TrOwnDecline` (0.1,
+  fix B4), `TrFEWGso`, `TrFEWHalf`, `TrFEWEvP`, `TrFEWEvO` (fixed weights of the average fuel economy without fuel
+  use).
+- **Data names:** see the data box of @sec-tr-data; `TrFuelKey` = column B of the result rows (position of a fuel for
+  the switch).
+- **Mapping:** sector labels `pas`, `pau`, `lgt`, `fre`, `cyc`, `bus`; fuel labels `phv`, `bev`, `ev`, `ice`.
+  Variables: 552 entries at the build (550 section-5b variables, `trsum`, `enel`).
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: ScenarioDefinition rows"}
+The transport policies are 62 scenario rows after the template (rows 416-477, heading above; every scenario column
+gets them; Mitigation finds them through the Mapping table like the other ScenarioDefinition rows). NameOfParameter
+`Tr<Stem><Pas|Fre|Cyc>`; defaults are the legacy Dashboard values, all policies off.
+
+| Stem | Meaning | Unit | Default Pas / Fre / Cyc |
+|---|---|---|---|
+| `TrFbYear` | Vehicle feebate: year of introduction | year | 2027 / 2028 / 2026 |
+| `TrFbRate` | Vehicle feebate: rate | USD per tCO2 | 0 / 0 / 0 |
+| `TrFbPivotType` | Pivot type (Average or Manual) | option | Manual / Average / Average |
+| `TrFbPivot` | Manual pivot point | gCO2 per km | 0 / 500 / 50 |
+| `TrFbPivotChg` | Annual decline of the manual pivot | gCO2 per km | 5 / 5 / 5 |
+| `TrDtYear` | Distance tax: year of introduction | year | 2027 / 2027 / 2027 |
+| `TrDtStart` | Distance tax: amount in the first year | USD per km | 0 / 0 / 0 |
+| `TrDtTargetYear` | Distance tax: target year | year | 2030 / 2030 / 2030 |
+| `TrDtTarget` | Distance tax: amount in the target year | USD per km | 0 / 0 / 0 |
+| `TrSubYear` | EV purchase subsidy: year of introduction | year | 2030 / 2030 / 2030 |
+| `TrSubAmount` | EV purchase subsidy: amount | USD per vehicle | 0 / 0 / 0 |
+| `TrSubChg` | EV purchase subsidy: annual change | USD per vehicle | 0 / 0 / 0 |
+| `TrAdvIceBase`, `TrAdvBevBase` | Ad-valorem purchase tax, baseline, ICEV and BEV | share | 0 |
+| `TrAdvIcePol`, `TrAdvBevPol` | Ad-valorem purchase tax, policy, ICEV and BEV | share | 0 |
+| `TrAdvYear` | Year of the policy ad-valorem rate | year | 2026 / 2028 / 2030 |
+| `TrCustYear` | Year of the policy customs duty on BEVs | year | 2026 / 2026 / 2026 |
+| `TrVatYearPas`, `TrVatYearCyc` | Year of the policy VAT on BEVs | year | 2026 / (none) / 2026 |
+| `TrVatPolFactor`, `TrCustPolFactor` | Policy VAT and customs on BEVs: factor on the baseline | factor | 1, 1 |
+| `TrCsStartYear`, `TrCsStartLevel` | Charging-station subsidy: start year and share of the cost | year, share | 2026, 0 |
+| `TrCsTargetYear`, `TrCsTargetLevel` | Charging-station subsidy: target year and share | year, share | 2035, 0 |
+
+All ScenarioDefinition ranges end at the last transport row (`MT_END`: Mapping, Variables lookups, `mt_lookup`,
+`mt_setting`, the batch emulation; macro constant `MT_LAST` in `CPATScenarios.bas`). The Mitigation search range grows
+to row 8000 (`MIT_MAX`, macro `MIT_MAX_ROW`).
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: switch wiring"}
+- **Section 5:** the elasticity fuel use is the variable `enel`. `ener` = `ROADSWITCH($D, tr.sw, result rows, enel)`;
+  D = Inputs column `trpos` (gasoline 1, diesel 2, LPG 3, gas 4, biofuels 6; 0 elsewhere). With Engineer, road
+  gasoline, diesel, LPG, gas and biofuels of section 5 are those of section 5b in every year (base year: the
+  calibrated value = the energy balance); CO2, revenues, CH4, air pollutants and the totals follow.
+- **Section 3 H:** `dem` = `DEMROAD($F, tr.sw, road electricity, previous, multiple)`; F = Inputs_power column `tr`
+  (1 for road). From 2023 road electricity demand is the engineer value when switched on (base year: the data).
+- **Biofuels:** road biofuels = base year × engine use / base-year use (@eq-tr-bio).
+- **No circular reference:** last year's power price (base year: the same year's), last year's GDP growth, the GDP
+  level after the feedback (which uses last year's effect); fuel prices do not depend on fuel use.
+- **CPAT Python:** the switch is not wired; `road.prepare` refuses `TrModel` = Engineer. In the Python chain the road
+  block runs in the year loop and feeds the transport externalities (`externalities.transport`) and welfare.
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python: deviations from the reference engine"}
+The workbook reproduces the Python reference engine (`transport_model_ref.engine(..., fix=ALL_FIXES)`) exactly; the
+deviations are in the inputs it receives from the rest of the model:
+
+- **2-3 wheeler gasoline price:** the road gasoline price incl. new policies (as passenger); legacy row 4438 uses the
+  price before new policies, so carbon pricing did not reach 2-3 wheelers.
+- **VAT on vehicles:** `VAT_WEO` of the customs year from the domestic price data (Egypt 0.14; the legacy run had
+  0.1531).
+- **Industrial gas price for LNG trucks:** section 2 industrial price + the road new policies (`POSTTAX`).
+- **Biofuels:** biofuels stay a fuel; the engineer emission-factor adjustment for blending is 1, and road biofuels
+  scale with engineer gasoline and diesel.
+- **Formulas written for the 100-character limit, values identical:** the charging-subsidy ramp as
+  start + (target − start) × MIN(1, (year − start year) / MAX(1, target year − start year)) (no division by zero when
+  the two years are equal); the cross-TCO ratio of the ICE split uses IFERROR for "other fuels without share" (blank,
+  as the reference's guard); the average EV fuel economy uses a helper row (`trafen`); the price-response switch of
+  the purchase distance is a 0/1 parameter.
+- **Road electricity in the base year** of section 3 H stays the data (the engineer value replaces it from 2023).
+- **Python interface:** for the check, `power_model_ref.engine` takes an optional `inp['dem_fixed']` (road demand
+  from the engineer model; default behaviour unchanged).
+:::
+
+::: {.callout-note collapse="true" title="Check: the workbook against the reference, and the engineer model switched on for Egypt"}
+`check_full.py`:
+
+- **Section 5b against the reference engine** (all fixes), with inputs from an independent Python recomputation of the
+  input mapping (`tr_inputs`): every row with year values and the side-table parameters (base-year split, purchase
+  taxes, bus fuel), scenarios 1 and 2, as shipped and with the Lambdas library over every row: max relative difference
+  about 4e-14. With the fitted range-anxiety start values in the check's engine inputs, as in the build: max 8e-14
+  (reading legacy Transport3 instead, 272 rows differed by up to 61%).
+- **Copied scenarios with `TrModel` = Engineer** (11: copy of 1; 12: copy of 2, carbon tax; 13: + EV subsidy; 14: +
+  distance tax; 15: + subsidy, distance tax, feebates, charging subsidy): section 5b against the engine (max 5e-14)
+  and the whole model against the Python recomputation with the engine's road fuels and road electricity (iterated to
+  the fixed point; max 7e-12). Road fuels of section 5 = section 5b; road electricity demand = section 5b from 2023.
+- **Regression:** 0 on every shared output code with the default (Elasticity); new variables reported as added.
+- **The scenario-copy test** (copy of scenario 2 with carbon price 0 = scenario 1) skips the row `tr.pol`, as it
+  skips the scenario number itself.
+- **`trq`, `tran.rsh`** (read by the co-benefits module) compared with the cells they read.
+- **CPAT Python** `road.step` matches Excel-AI for scenarios 1 and 2 (test block 3.6).
+
+**Directions for Egypt** (engineer model switched on, scenarios 11-15; 2035 unless noted):
+
+| Scenario | Road fuel use 2035 (ktoe) |
+|---|---:|
+| Baseline (no carbon price) | 24,580 |
+| Carbon tax (scenario 2 settings) | 22,564 |
+| Carbon tax + EV subsidy, distance tax, feebates, charging subsidy | 14,177 |
+
+- The EV subsidy raises the passenger EV sales share in 2030 from 0.55% to 3.3%.
+- The distance tax cuts passenger distance in 2035 from 285 to 183 billion km.
+- The legacy engineer run, with its bugs, gives road fuel use a third higher by 2035 (@sec-tr-effects).
+:::

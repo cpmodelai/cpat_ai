@@ -1,3 +1,1382 @@
 # Energy prices {#sec-prices}
 
-(To be written.)
+This chapter explains how the model builds the price of every fuel in every sector, year by year. Prices are the
+first link of the model's chain: a carbon tax, an ETS, an excise reform or a subsidy reform changes fuel use, power
+dispatch, emissions and revenue only through the prices computed here.
+
+The chapter follows the order of the calculation. It starts with international prices, builds the domestic price
+before new policies (supply cost, excise and other taxes, VAT), adds the existing carbon pricing, the subsidy and
+price-control reforms and the new policies, and ends with the average prices and price indices that the model
+reports. The welfare use of the Pigouvian prices and the revenue raised at these prices belong to
+@sec-fiscal; electricity prices belong to @sec-power.
+
+The methodology describes prices in
+[methodology, section 3.2](../CPAT_full_documentation_html/03_Mitigation.html#sec-PricesAndTaxes) and, in more
+detail, in [Appendix C](../CPAT_full_documentation_html/03_Mitigation.html#sec-Appendix_C_Prices). This chapter
+says where the model follows, simplifies or departs from it.
+
+**Assumptions you need here.** The notation, dimensions and policy paths are set out in @sec-model-overview. Four
+of them matter for every equation of this chapter:
+
+- Every price, tax and policy value is in **real USD of the results year** $R$ (`ResultsYear`, 2026), per GJ unless
+  stated. A constant real price is a constant number; fuel use responds only to real price changes.
+- Prices up to the **last historical price year** $L$ (Settings `LastHistPriceYear`, default 2024, as legacy) are
+  data; later years are projected. Fuel use is data in the base year $t_0 = 2022$ and modelled from 2023.
+- Each equation holds for every scenario $o$ and country $c$; both indices are omitted. Scenario 1 is the baseline.
+- Prices are quantity-free: everything up to the after-tax price is computed for all years before the year loop.
+  Only the averages of @sec-pr-averages read fuel use, and they are computed inside the year loop.
+
+## The price chain at a glance {#sec-pr-overview}
+
+A fuel price is built in layers. The first layers are prices **before new policies**: what the country pays today,
+projected forward with the international price. The last layers are **wedges** that policies add, each passed
+through to the consumer with VAT.
+
+```{mermaid}
+flowchart LR
+    GP["International price gp"] --> SP["Supply cost sp"]
+    PS["Producer subsidy ps"] --> SP
+    SP --> TXO["Excise and other taxes txo<br/>(pass-through pcc)"]
+    TXO --> PBC["Price before new policies pbc<br/>(sp + txo) x (1 + VAT)"]
+    PBC --> ATP["After-tax price atp"]
+    NCE["New policies nce<br/>carbon tax, ETS cost, excise"] --> ATP
+    XCP["Change in existing<br/>carbon pricing xcpd"] --> ATP
+    W["Subsidy and price-control<br/>wedges csw, pcw"] --> ATP
+    ATP --> D["Fuel use (sec-demand)"]
+    SHP["Shadow price shp"] --> D
+```
+
+| Step | Computes | Codes | By | Equations | Section |
+|---|---|---|---|---|---|
+| 1 | International price of each commodity | `gpn`, `gp` | commodity | A2.3 | @sec-pr-international |
+| 2 | Historical domestic prices and forecasting coefficients | `sp`, `txo` ($t \le L$), `spf`, `pcc`, VAT rate | price block | A2.4 | @sec-pr-history |
+| 3 | Producer subsidy per unit | `pros`, `psd`, `psu`, `ps` | fuel, price block | A2.5 | @sec-pr-producer |
+| 4 | Supply cost | `sp` | price block | M2.1 | @sec-pr-supply |
+| 5 | Excise and other taxes | `txf`, `txo` | price block | M2.2, A2.1 | @sec-pr-txo |
+| 6 | VAT and the price before new policies; existing taxes and subsidies | `vat`, `pbc`, `etx`, `esub`, `esubpu`, `fadtx`, `cs` | price block | M2.3 | @sec-pr-pbc |
+| 7 | Subsidy and price-control wedges | `pof`, `csf`, `pcf`, `pcsw`, `ppcw` | price block | M1.7 | @sec-pr-phaseouts |
+| 8 | Existing carbon pricing | `xcp`, `xcpd` | subsector and fuel | A2.2 | @sec-pr-ecp |
+| 9 | New policies, after-tax price, shadow price | `ctxnew`, `ets`, `ntx`, `nce`, `atp`, `shp` | subsector and fuel | M2.4-M2.6 | @sec-pr-atp, @sec-pr-shadow |
+| 10 | Pigouvian components | `pig.*`, `cc.code`, `pigx`, `ntxb` | price block | A1.2 | @sec-pr-pigou |
+| 11 | Averages and price indices (year loop) | `pnq` ... `rpn`, `pav.*`, `rpe` | price block, fuel | A2.6 | @sec-pr-averages |
+
+The methodology writes the same identity in its own terms:
+retail price = supply price + VAT + excise and other taxes, with the excise term holding every carbon price and
+subsidy ([methodology, section 3.2.1](../CPAT_full_documentation_html/03_Mitigation.html#sec-PricesOVerview)). The
+model keeps the same identity but stores the pieces separately: `txo` holds only the existing taxes and subsidies,
+and the carbon prices and reforms are wedges on top (@sec-pr-atp).
+
+## Price blocks: fuels and price sectors {#sec-pr-blocks}
+
+Prices are kept by **price block**: a fuel and a price sector, as in the IMF price dataset. There are 12 blocks.
+Coal and natural gas have one block each for power, residential and industry; the oil products and biomass have a
+single block for all sectors. Electricity prices are left to the power module (@sec-power), but the electricity
+rows `ecy.res` and `ecy.ind` appear where a policy path is set per price fuel (fuel price reform, Pigouvian taxes),
+which makes 14 policy rows.
+
+| Block | Fuel | Price unit | GJ per price unit $u$ | International commodity (`gp` position) | VAT where the data are blank |
+|---|---|---|---|---|---|
+| `coa.pow`, `coa.res`, `coa.ind` | Coal | USD/GJ | 1 | coal (2) | general rate for `coa.res`; 0 for power and industry |
+| `nga.pow`, `nga.res`, `nga.ind` | Natural gas | USD/GJ | 1 | gas of the country's market (3) | general rate for `nga.res`; 0 for power and industry |
+| `gso.all` | Gasoline | USD/liter | 0.03497 | crude oil (1) | general rate × household share |
+| `die.all` | Diesel | USD/liter | 0.03730 | crude oil (1) | general rate × household share |
+| `lpg.all` | LPG | USD/liter | 0.02578 | crude oil (1) | general rate × household share |
+| `ker.all` | Kerosene (also jet fuel) | USD/liter | 0.03775 | crude oil (1) | general rate × household share |
+| `oop.all` | Other oil products | USD/bbl | 6.12 | crude oil (1) | general rate |
+| `bio.all` | Biomass | USD/GJ | 1 | flat 1 (4) | 0 |
+
+: The 12 price blocks {#tbl-pr-blocks}
+
+Each of the 16 subsectors takes the price of its **price sector**. Coal and gas use the block of that price sector;
+every other fuel uses its `.all` block, whatever the subsector. Jet fuel is priced at the kerosene block (with its own
+GJ per liter, 0.03486).
+
+| Subsectors | Price sector for coal and gas |
+|---|---|
+| Road, residential | residential (`res`) |
+| Rail, domestic aviation, domestic navigation | industry (`ind`) |
+| Food and forestry, services | industry (`ind`) |
+| Mining and chemicals, iron and steel, other metals, machinery, cement, other manufacturing, construction, fuel transformation, other energy use | industry (`ind`) |
+| Power generation (power module) | power (`pow`) |
+
+: Price sector of each subsector {#tbl-pr-subsectors}
+
+The road and residential sectors therefore pay the residential coal and gas prices; food, services and the transport
+modes other than road pay the industry prices.
+
+**Layout of a block, as a model concept.** Each block is a small stack of rows that reads from top to bottom:
+
+1. its settings: the pass-through, the VAT rate, GJ per price unit and the position of its international price;
+2. the international reference price `gpi`, the fixed supply cost `spf`, the producer subsidy `ps`;
+3. the build-up before new policies: `sp`, `txf`, `txo`, `fadtx`, `cs`, `etx`, `esub`, `esubpu`, `vat`, ending
+   with `pbc`, the retail price before new policies;
+4. the subsidy-reform wedges `pcsw` and `ppcw`;
+5. the new policies averaged over the subsectors priced by the block (`pnq`, `pctx`, `etsnew`, `pntx`, `pxcd`,
+   `pvatn`, `pnce`) and the retail price including new policies `rpn` (@sec-pr-averages).
+
+New policies themselves act by subsector and fuel (rows 9 of the chain), because coverage, exemptions and emission
+factors differ by subsector. The block shows their fuel-use weighted averages.
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 2: one block of rows per price fuel | sector (Formulas E236-E281); the
+  block parameters (`pset`, E242) come from sheet Inputs_prices (Inputs rows 158-169: pass-through K, VAT rate V,
+  GJ per price unit G, international price position F). The subsector rows (sections 5-8) find their block by the
+  price position in Inputs column U.
+- **CPAT Python:** `cpat_model/mitigation/prices_data.py` (`PRICES`, the 12 blocks), `core/excel_ai/fuels.csv`
+  (units, GJ per unit, price fuel) and `subsectors.csv` (price sector, ECP sector); the fuel | subsector table is
+  `fuel_data.fuel_table()`.
+:::
+
+## Units, real values and the two indices {#sec-pr-units}
+
+All money values are converted to real USD of the results year as soon as they are read. Two different indices do the
+conversion, both equal to 1 in the results year:
+
+$$
+\iota_t = \frac{\text{CPI}^{US}_R}{\text{CPI}^{US}_t}, \qquad \delta_t = \frac{\text{Defl}^{US}_R}{\text{Defl}^{US}_t}
+$$ {#eq-pr-indices}
+
+where
+
+- $\iota_t$ is the **CPI index** (code `infl`; US CPI from the IMF WEO), used for nominal *domestic* values: the IMF
+  price dataset, margins and production costs, producer subsidies, existing carbon tax rates and permit prices, and a
+  nominal carbon price;
+- $\delta_t$ is the **deflator index** (code `defl`; US GDP deflator, WEO), used for nominal *international* prices;
+- $R$ is the results year (2026).
+
+This is the legacy split (legacy rows 456/725 for the CPI index, 467 for the deflator). The two differ by up to 1.2%
+before 2030 (2022: 1.137 against 1.124; 2030: 0.918 against 0.929), so one index alone would not reproduce legacy. The
+CPI index is held flat after 2031 (the WEO horizon); the deflator is not.
+
+**Where each input comes from, and in what units.**
+
+| Input | Stored as | Converted with |
+|---|---|---|
+| Domestic prices (IMF dataset `Prices_dom`: supply cost, excise and other taxes, retail price) | nominal USD of their own year, per price unit | CPI index of that year, then ÷ GJ per price unit |
+| Margins over international prices, domestic production costs | nominal USD of their data year | CPI index of their data year, then held constant in real terms |
+| International prices (by source) | nominal, source units (USD/bbl, USD/t, USD/MMBtu) | deflator index; only their year-on-year ratio is used, so units drop out |
+| Policy inputs on ScenarioDefinition (carbon price, feebates, fuel price reform) | real USD of the results year, in price units | none; only the carbon price has a nominal option (`NomorReal` = Nominal, then × CPI index; legacy row 2249) |
+| Existing carbon tax rates and ETS prices (sheet ECP) | nominal USD of the data year | CPI index of the data year |
+| Producer subsidies (`mit.pros.<fuel>.all`) | USD billion nominal | CPI index of the year, × 1000 (USD million) |
+
+The model computes to 2041 (the legacy horizon of the power block). Values after 2030 are not compared with legacy:
+the legacy CPI is flat after 2031 and some legacy rules misbehave over long horizons.
+
+## International prices {#sec-pr-international}
+
+International prices drive the projection of every supply cost. The model reads a forecast of each commodity from the
+source chosen for the scenario, converts it to real terms and applies the High or Low adjustment. The methodology
+describes the sources in
+[Appendix C, choices of the sources](../CPAT_full_documentation_html/03_Mitigation.html#choices-of-the-sources-for-key-inputs).
+
+$$
+gp_{m,t} = gpn_{m,t}\;\delta_t\;h_{m,t}, \qquad
+h_{m,t} = \begin{cases} 1 & t \le L \text{ or Base} \\ h^{High}_m \text{ or } h^{Low}_m & t > L \end{cases}
+$$ {#eq-pr-gp}
+
+where
+
+- $gp_{m,t}$ is the real international price of commodity $m$ (code `gp`, source units);
+- $gpn_{m,t}$ is the nominal price of $m$ from the chosen source (code `gpn`; equation list
+  [A2.3](A_Equations.qmd#eqlist-A2-3)); it is 1 for biomass, whose "commodity" is a flat line;
+- $\delta_t$ is the deflator index (@eq-pr-indices);
+- $h_{m,t}$ is the adjustment factor (code `gp.adj` holds the choice: 1 none, 2 High, 3 Low).
+
+The commodity $m$ of a block is crude oil for the five oil products, coal for coal, the gas of the **country's gas
+market** for natural gas, and the flat line for biomass. The block reads its commodity's price as its reference
+price `gpi`.
+
+| Commodity | High factor | Low factor |
+|---|---|---|
+| Crude oil | 1.5 | 0.5 |
+| Coal | 1.25 | 0.75 |
+| Natural gas (country's market) | 1.25 | 0.75 |
+| Flat (biomass) | 1 | 1 |
+
+: High / Low adjustments after the last historical year (sheet Constants `gp.hi`, `gp.lo`) {#tbl-pr-highlow}
+
+**Choice of source.** ScenarioDefinition `IntEnerPricForeSource` names the source; the asterisk of a default
+option is dropped (`IMF-WB*` is the average of IMF and WB). `IntEnerPricForecastAdjustment` chooses Base, High or
+Low. Both are per scenario. The Egypt runs use IMF.
+
+**The series by source.** Each series covers 2021-2045. Up to a source's last data year the series is data; after
+it the series is extended by one of two rules.
+
+| Source | Oil | Coal | Gas: LNG | Gas: North America | Gas: Europe | Extended from | Extension rule |
+|---|---|---|---|---|---|---|---|
+| IMF | POILBRE | PCOALAU | PNGASJP | PNGASUS | PNGASEU | 2032 | × (1 + US GDP deflator inflation) |
+| WB | Crude oil, Brent | Coal, Australia | LNG, Japan | Natural gas, US | Natural gas, Europe | 2027 | × (1 + US GDP deflator inflation) |
+| IEA | Crude oil, avg | Coal, Australia | LNG, Japan | Natural gas, US | Natural gas, Europe | coal 2031; others beyond the horizon | × (1 + US GDP deflator inflation) |
+| EIA | Brent | Coal (metric ton) | the IEA series | Henry hub | the IEA series | coal 2041; oil and gas beyond the horizon | × last growth factor $P_{t-1}/P_{t-2}$ |
+| AVG | average of EIA, IEA, WB, IMF | same | IEA, WB, IMF | EIA, IEA, WB, IMF | IEA, WB, IMF | | |
+| IMF-IEA, IMF-WB | average of the two | | | | | | |
+| Manual | IMF before 2026, then sheet `Manual inputs` D221:AF225 (legacy addresses, by label and year) | | | | | | |
+
+: International price series (Excel-AI sheet Inputs_pint; legacy Mitigation rows 633-695) {#tbl-pr-sources}
+
+In words: the extension keeps a series constant in real terms (growth with US inflation), except EIA, which continues
+its own last trend. Averages skip a missing source. A blank data cell reads as 0; a year past a series' data and before
+its extension year reads as missing. The **global gas** price is the average of LNG, North America and Europe (under
+Manual, the IMF global price before 2026).
+
+**The country's gas market** comes from sheet Prices_int (regional assumptions, "Natural gas market assumption"):
+*LNG* reads the LNG series, *Europe* the Europe series shifting to LNG (@sec-pr-lng), *North Am* the North American
+series, and any other value the global average. Egypt's market is *Global*.
+
+::: {.callout-tip icon=false title="Pseudocode: international prices"}
+```
+src = IntEnerPricForeSource.replace('*', '')
+adj = 'High' / 'Low' / none                       # IntEnerPricForecastAdjustment
+for m in ['oil', 'coa', 'nga', 'one']:
+    for t in years:
+        if m == 'one':
+            gp[m][t] = 1.0
+            continue
+        com = gas_market if m == 'nga' else m     # lng, eus, nam or glo
+        gpn[m][t] = series[src][com][t]           # nominal, extended past the data
+        factor = gp_hi[m] if adj == 'High' else gp_lo[m] if adj == 'Low' else 1
+        gp[m][t] = gpn[m][t] * defl[t] * (factor if t > L else 1)
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Inputs_pint (the series by source; `build_inputs_pint`), sheet Prices_int (regional
+  assumptions, gas market; Settings C12 = `eus` for Europe markets); sheet Mitigation section 2 rows `gp.src`,
+  `gp.adj`, `gpn`, `gp`, `gpi` (Formulas E238-E243). Inputs: ScenarioDefinition `IntEnerPricForeSource` (MTInputs
+  row 220), `IntEnerPricForecastAdjustment` (row 258); sheet Constants `gp.hi|<m>`, `gp.lo|<m>`.
+- **CPAT Python:** `cpat_model/mitigation/prices_data.py`, `international_prices()` and `gas_market()`;
+  `prices.py`, `prepare()` (first part); equation A2.3.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **M20 (prototype bug, fixed in Excel-AI 0.9.2).** The World Bank and IEA LNG and Europe gas series were read by
+  position, so LNG and Europe were swapped. Each series is now read by its name; the IEA block is read by its World
+  Bank labels because its own gas labels are swapped (the values under "Natural Gas - LNG" are the European price,
+  IMF PNGASEU).
+- **Past the IEA data (2041 on).** Excel-AI reads a misaligned cell there (equation list: issue I152); CPAT Python
+  leaves the value missing. No effect within the model horizon.
+:::
+
+## Europe gas market: shift to LNG {#sec-pr-lng}
+
+For countries in the European gas market the model follows Europe's move away from Russian pipeline gas. The gas
+price these countries face moves from the European hub price towards the LNG price as the share of gas from outside
+Russia grows.
+
+$$
+gpn^{eus}_t = gpn^{eur}_t\,(1 - s_t) + gpn^{lng}_t\,s_t
+$$ {#eq-pr-lng}
+
+where
+
+- $gpn^{eus}_t$ is the gas price of the European market (series `nga.eus`, by source);
+- $gpn^{eur}_t$, $gpn^{lng}_t$ are the Europe and LNG series of the same source;
+- $s_t$ is the share of gas from outside Russia (Inputs_pint row 3; legacy rows 699, 706).
+
+| Year | before 2022 | 2022 | 2023 | 2024 | 2025 and after |
+|---|---|---|---|---|---|
+| $s_t$ | 0 | 0.58 | 0.603 | 0.734 | 0.834 |
+
+The 2024 value is $1 - (0.303 + 0.229)/2$ and the 2025 value adds 0.1 to it; the share is held from 2025.
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Inputs_pint, series `nga.eus` by source, share path in row 3; the country's market from
+  Prices_int (Settings C12).
+- **CPAT Python:** `prices_data.py`, `EU_LNG` and the last loop of `international_prices()`.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+As legacy (LD20, "Same"). The shift was first left out and is now built as legacy's rows 699 and 706.
+:::
+
+## Historical domestic prices and forecasting coefficients {#sec-pr-history}
+
+Up to the last historical year the domestic price of each block is data: the IMF price dataset gives the supply cost,
+the excise and other taxes, the VAT rate and the retail price. The same data step also sets the coefficients the
+projection uses: the pass-through, the fixed part of the supply cost and the VAT rate. The methodology describes the
+data in [section 3.2.3](../CPAT_full_documentation_html/03_Mitigation.html#sec-PriceHistoricalYears) and
+[Appendix C, price reconstruction](../CPAT_full_documentation_html/03_Mitigation.html#assumptions-used-for-price-reconstruction-and-projections).
+
+### Supply cost and taxes in the historical years {#sec-pr-history-data}
+
+For each historical year $y$ (data 2021 to $L$):
+
+$$
+sp_y = \frac{sp^{n}_y\,\iota_y}{u}, \qquad
+txo_y = \frac{\iota_y}{u}\begin{cases} \dfrac{rp^{n}_y}{1 + vatrate_y} - sp^{n}_y & \text{coal, gas, biomass} \\[2mm] txo^{n}_y & \text{oil products} \end{cases}
+$$ {#eq-pr-hist}
+
+where
+
+- $sp^n_y$, $rp^n_y$, $txo^n_y$ are the dataset's supply cost, retail price and excise and other taxes, nominal USD
+  per price unit (`mit.sp.<block>`, `mit.rp.<block>`, `mit.txo.<block>`);
+- $vatrate_y$ is the VAT rate of the year (below);
+- $\iota_y$ is the CPI index of the year and $u$ GJ per price unit ([A2.4](A_Equations.qmd#eqlist-A2-4)).
+
+So for coal, gas and biomass the taxes are the residual of the dataset's retail price after VAT and supply cost; for
+the oil products they are the dataset's own tax column, and the retail price is rebuilt as
+$(sp + txo)(1 + vatrate)$, as legacy does.
+
+**Manual values.** Where Settings `DomPrTax` is on, a value typed in the manual price tables replaces the dataset
+value for the codes `sp`, `vatrate`, `txo`, `rp` and `pros`. A blank dataset cell reads as 0.
+
+### Pass-through (price controls) {#sec-pr-passthrough}
+
+The **pass-through** $pcc$ says how much of a change in the supply cost reaches the consumer: 1 in a liberalised
+market, 0 where the government fixes the retail price. It is set once per block. Settings `GovPriceControls` chooses
+how:
+
+| Option | Pass-through |
+|---|---|
+| *Bucketed* (default) | the dataset's base-year value (`mit.ps.<block>`; blank = 0; biomass 1), bucketed: up to `PassLo` (0.25) → 0; up to `PassHi` (0.5) → `PassMid` (0.5); above → 1 |
+| *Manual* | the retail price control of the block from sheet `Manual inputs` J167:J180 (legacy addresses), by the code in column G (`mit.rp.<fuel>.<sector>.ctrl`; legacy default 0.8 for every block); a blank cell gives 1, as legacy rows 747-760. The electricity rows J178:J179 are not read: electricity prices come from @sec-power |
+| *None* | 1 for every block |
+
+Egypt, bucketed: coal 1; gas 0; gasoline, diesel, LPG, kerosene and other oil products 0; biomass 1.
+
+### Fixed part of the supply cost {#sec-pr-fixsp}
+
+The supply cost has a fixed part (margins over the international price and, for coal and gas, the cost of domestic
+production) and a part that floats with the international price. The fixed part is set once:
+
+$$
+fixsp = \frac{mar\;\iota_{y^m} + dsh\;pcost\;\iota_{t_0}}{u}
+$$ {#eq-pr-fixsp}
+
+where
+
+- $fixsp$ is the fixed part of the supply cost (code `spf`, USD/GJ real, constant over the years);
+- $mar$ is the margin over international prices (`mit.mar.<block>`, nominal USD per price unit) read in year $y^m$:
+  2024 for coal and gas (a typed year, as legacy: issue I101), the base year for the oil products; 0 for biomass;
+- $dsh$ is the share of the fuel produced domestically (`mit.coa.prod`, `mit.nga.prod` in the base year, clipped to
+  $[0, 1]$; 0 for the other fuels);
+- $pcost$ is the domestic production cost (`mit.coa.prod.cost`, `mit.nga.prod.cost`, base year; 0 for the other
+  fuels);
+- $\iota_{y^m}$, $\iota_{t_0}$ are the CPI indices of the margin year and of the base year.
+
+Other oil products take their pass-through and margin from the dataset like the other oil products (Egypt: 0 and
+7.95 USD/bbl).
+
+### VAT rate {#sec-pr-vatrate}
+
+The VAT rate of a block is the dataset's rate where it is filled. Where the cell is blank, consumers pay the general
+VAT rate of the country (`VAT_WEO` of the year; Egypt 14%) and firms pay none:
+
+| Block | VAT rate where the data are blank |
+|---|---|
+| `coa.res`, `nga.res`; `gso.all`, `die.all`, `lpg.all`, `ker.all`, `oop.all` | general rate |
+| `coa.pow`, `coa.ind`, `nga.pow`, `nga.ind` | 0 (VAT is credited to firms) |
+| `bio.all` | 0 (largely informal) |
+
+The rate used in the projection is the rate of year $L$. For gasoline, diesel, LPG and kerosene it is then multiplied
+by the **household share** of the product (sheet OilProductShares; a blank share counts as 1), because only households
+pay VAT on the product; firms reclaim it:
+
+$$
+vatrate = vatrate_L \times hsh
+$$ {#eq-pr-vatrate}
+
+where $hsh$ is the household share of the oil product (Egypt: gasoline 1, diesel 0.03, LPG 0.99, kerosene 0.39).
+Other oil products and the other fuels take the full rate.
+
+::: {.callout-tip icon=false title="Pseudocode: historical prices and coefficients of a block"}
+```
+for block in PRICES:                              # 12 blocks
+    u = gj_per_unit[fuel]
+    pcc_raw = 1.0 if fuel == 'bio' else data(t0, 'mit.ps.' + block)
+    pcc_bucket = 0 if pcc_raw <= PassLo else (PassMid if pcc_raw <= PassHi else 1)
+    pcc = {'Bucketed': pcc_bucket, 'Manual': manual_ctrl[block] or 1, 'None': 1}[GovPriceControls]
+    mar_year = 2024 if fuel in ('coa', 'nga') else t0
+    mar = 0 if fuel == 'bio' else data(mar_year, 'mit.mar.' + block)
+    dsh = clip(data(t0, 'mit.' + fuel + '.prod'), 0, 1) if fuel in ('coa', 'nga') else 0
+    pcost = data(t0, 'mit.' + fuel + '.prod.cost') if fuel in ('coa', 'nga') else 0
+    spf = (mar * infl[mar_year] + dsh * pcost * infl[t0]) / u
+    for y in hist_years:                          # 2021 .. L
+        vr_y = data(y, 'mit.vatrate.' + block)
+        if blank(vr_y):
+            vr_y = VAT_WEO[y] if block in VAT_CONSUMER else 0
+        sp[y] = data(y, 'mit.sp.' + block) * infl[y] / u
+        if fuel in ('coa', 'nga', 'bio'):
+            txo[y] = (data(y, 'mit.rp.' + block) / (1 + vr_y) - data(y, 'mit.sp.' + block)) * infl[y] / u
+        else:
+            txo[y] = data(y, 'mit.txo.' + block) * infl[y] / u
+    vr = vr_L * (household_share[fuel] if block in OIL_SHARE else 1)
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Inputs_prices (`build_inputs_prices`; Inputs rows 158-169) from sheet Prices_dom (or the manual
+  tables where `DomPrTax` is on); Settings `GovPriceControls`, `PassLo`, `PassMid`, `PassHi`; sheet `Manual inputs`
+  J167:J180; sheet OilProductShares.
+- **CPAT Python:** `cpat_model/mitigation/prices_data.py`, `domestic_prices()` and `DomesticData`; equation A2.4.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **LD2 (decision), L13.** Legacy hardcodes the pass-through of other oil products to 1 and their margin to 0. The
+  model takes both from the dataset. Under the legacy rule their retail price fell with the oil price to the 0.01
+  floor (3.79 USD/GJ in 2024, 0.23 in 2030) and their fuel use rose tenfold by 2030.
+- **LD3 (VAT where the data are blank).** The general VAT rate for residential coal and gas and the all-sector oil
+  products; 0 for power, industry and biomass. Only blank cells are filled (user decision).
+- **LD5, issue I39 (household share).** VAT on gasoline, diesel, LPG and kerosene is charged on the household share
+  only, as legacy rows 797-816.
+- **LD16, L172 (margins and production cost in real terms).** Legacy adds the margin and the production cost in
+  nominal USD to real prices. The model converts each with the CPI index of the year it is read.
+- **LD80 (production-cost weight, as legacy).** The production cost is weighted by the share produced domestically
+  (legacy P747:P752), not by the bucketed pass-through (an earlier prototype rule).
+- **I101.** Coal and gas margins are read at the typed year 2024, as legacy.
+- **LD4, I150 (Egypt data).** The Egypt price data equal legacy's cell by cell, except the spot coal and gas cells,
+  which legacy 465 fills with a year and 0; the model keeps the module values (no effect unless the spot option is
+  chosen).
+- **I89 (price vintage).** The last historical price year is 2024, as legacy 456/465 (price data through 2024,
+  projection from 2025).
+:::
+
+## Producer subsidies {#sec-pr-producer}
+
+A producer subsidy lowers the cost at which a fuel is supplied, so it sits inside the supply cost, before any tax. The
+dataset gives each producer subsidy as a total amount; the model spreads it over the demand that carries it, to get a
+subsidy per unit. The methodology treats producer subsidies as part of the supply price
+([section 3.2.4](../CPAT_full_documentation_html/03_Mitigation.html#sec-PricesForecastedYears)).
+
+**Amount.** For each producer fuel (coal, gas, oil, biomass, electricity):
+
+$$
+pros_{f,t} = \begin{cases} PROS^{n}_{f,t}\;\iota_t \times 1000 & t \le L \\ pros_{f,t-1} & t > L \end{cases}
+$$ {#eq-pr-pros}
+
+where $pros_{f,t}$ is the producer subsidy before the phase-out (USD million real) and $PROS^n_{f,t}$ the dataset
+value (`mit.pros.<fuel>.all`, USD billion nominal, or a manual value).
+
+**Demand that carries it.** The subsidy is spread over:
+
+| Fuel | Demand $D_f$ (code `psd`) | Unit |
+|---|---|---|
+| Oil | world demand × liters per ktoe (1,108,792) | liters |
+| Coal | average of world demand and domestic consumption × GJ per ktoe (41,868) | GJ |
+| Gas | average of world demand and domestic consumption × GJ per ktoe | GJ |
+| Biomass | domestic consumption × GJ per ktoe | GJ |
+
+World demand is the global production of the fuel in the IEA scenario chosen by `GlobalEnergyDemand` (stated
+policies, announced pledges or sustainable development; Mtoe × 1000). Domestic consumption is the energy use of the
+fuel in sheet EnergyCons, excluding electricity output and international bunkers.
+
+**Per unit, after the phase-out.**
+
+$$
+psu_{f,t} = \begin{cases} -\dfrac{pros_{f,t} \times 10^6}{D_{f,t}} & t \le L \\[2mm] psu_{f,L}\;psf_{f,t} & t > L \end{cases}
+$$ {#eq-pr-psu}
+
+where
+
+- $psu_{f,t}$ is the producer subsidy per unit after the phase-out (negative; USD per liter for oil, USD/GJ for coal,
+  gas and biomass);
+- $psf_{f,t}$ is the producer subsidy factor of the fuel: the share of the subsidy kept (@eq-pr-incl; 1 without a
+  reform).
+
+**Per block.** Each block reads the subsidy of its international-price commodity and converts it to USD/GJ:
+
+$$
+ps_{g,f,t} = \frac{psu_{m(f),t} \times (\text{liters per barrel if } f = \text{oop})}{u}
+$$ {#eq-pr-ps}
+
+where $m(f)$ is oil for the five oil products, coal, gas, or biomass, and liters per barrel = 158.987. The producer
+subsidy enters the supply cost (@eq-pr-sp), so its phase-out raises the supply cost; the floating taxes then absorb
+$(1 - pcc)$ of the rise, as for any other change in the supply cost
+([A2.5](A_Equations.qmd#eqlist-A2-5)).
+
+The fiscal cost of producer subsidies after the phase-out, $-\sum_f pros_f\,psf_f$ (code `rpsu`), is in the revenue
+totals (@sec-fiscal). The electricity producer subsidy is allocated in the power module (@sec-power). Egypt has no
+producer subsidy data, so $ps = 0$.
+
+::: {.callout-tip icon=false title="Pseudocode: producer subsidies"}
+```
+for f in ['coa', 'nga', 'oil', 'bio', 'ecy']:
+    for t in years:
+        pros[f][t] = data(t, 'mit.pros.' + f + '.all') * infl[t] * 1000 if t <= L else pros[f][t-1]
+for f in ['oil', 'coa', 'nga', 'bio']:
+    for t in years:
+        psd[f][t] = {'oil': world[f][t] * 1000 * LitersPerKtoeOil,
+                     'coa': (world[f][t] * 1000 + cons[f]) / 2 * GJperKtoe,
+                     'nga': (world[f][t] * 1000 + cons[f]) / 2 * GJperKtoe,
+                     'bio': cons[f] * GJperKtoe}[f]
+        psu[f][t] = -pros[f][t] * 1e6 / psd[f][t] if t <= L else psu[f][L] * psf[f][t]
+for block in PRICES:
+    for t in years:
+        ps[block][t] = psu[commodity[block]][t] * (LitersPerBbl if fuel == 'oop' else 1) / u[block]
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation section 1 rows `pros`, `psd`, `psu` (Formulas E150-E152), section 2 row `ps`
+  (E246); revenue row `rpsu` (E1051, section 12).
+- **CPAT Python:** `prices.py`, `prepare()` (producer subsidies), `world_demand()`, `domestic_use()`; equation A2.5.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **LD19, I49 (as legacy).** Producer subsidies are spread over world or domestic demand and kept in the supply cost
+  (legacy rows 825-829 and the "in which: producer-side subsidies" rows 2455-2708); the phase-out multiplies the
+  per-unit subsidy by the factor, as legacy O2455 = J2456 × O2213. Earlier prototype versions held them as a fiscal
+  line only, then as a separate wedge (`psw`, `ppsw`, `psr`; removed).
+- **L124, L82 (fixed).** Legacy's residential gas block reads the oil producer subsidy.
+- **L125 (fixed).** Legacy's other oil products add a per-liter subsidy to a per-barrel price.
+:::
+
+## Supply cost {#sec-pr-supply}
+
+After the last historical year the supply cost moves with the international price. Only its floating part moves: the
+fixed part (margins, production cost) stays, and the producer subsidy is added back at its current level.
+
+$$
+sp_{t} = fixsp + \left(sp_{t-1} - fixsp - ps_{t-1}\right)\frac{gp_t}{gp_{t-1}} + ps_t, \qquad t > L
+$$ {#eq-pr-sp}
+
+where
+
+- $sp_t$ is the supply cost of the block (code `sp`, USD/GJ real; data up to $L$, @eq-pr-hist);
+- $fixsp$ is its fixed part (@eq-pr-fixsp);
+- $gp_t$ is the block's international reference price (`gpi`, @eq-pr-gp);
+- $ps_t$ is the producer subsidy of the block (@eq-pr-ps).
+
+This is the equation list's [M2.1](A_Equations.qmd#eqlist-M2-1). The methodology writes it as three parts,
+$sp = fixsp + fltsp + ps$ with $fltsp_t = fltsp_{t-1}\,gp_t / gp_{t-1}$
+([Appendix C, calculations](../CPAT_full_documentation_html/03_Mitigation.html#calculations-modeling-assumptions));
+the model's equation is the same with $fltsp_{t-1} = sp_{t-1} - fixsp - ps_{t-1}$.
+
+Biomass has a flat international price, so its supply cost stays at its value of year $L$.
+
+## Excise and other taxes: pass-through {#sec-pr-txo}
+
+The excise and other taxes `txo` are the net of every existing tax and consumer subsidy other than VAT. Their
+projection carries the **price control**: the share of a supply-cost change that is not passed through is absorbed by
+the taxes (or by the subsidy, which then floats). The methodology calls this the floating portion of taxes and
+subsidies ([Appendix C, price liberalization](../CPAT_full_documentation_html/03_Mitigation.html#price-liberalization)).
+
+**Floating taxes.** Each year the taxes absorb $(1 - pcc)$ of the change in the supply cost:
+
+$$
+\widetilde{txo}_t = \widetilde{txo}_{t-1} - \left(sp_t - sp_{t-1}\right)\left(1 - pcc\right), \qquad \widetilde{txo}_t = txo_t \text{ for } t \le L
+$$ {#eq-pr-txf}
+
+which adds up to $\widetilde{txo}_t = txo_L + (sp_L - sp_t)(1 - pcc)$
+([M2.2](A_Equations.qmd#eqlist-M2-2)).
+
+**Floor on a positive tax.** A tax that was positive in year $L$ does not fall below that level; a subsidy floats
+freely:
+
+$$
+txo_t = \begin{cases} \max\left(txo_L,\ \widetilde{txo}_t\right) & txo_L \ge 0 \\ \widetilde{txo}_t & txo_L < 0 \end{cases}
+$$ {#eq-pr-txo}
+
+where $\widetilde{txo}_t$ is the floating value (code `txf`) and $txo_t$ the excise and other taxes before new
+policies (code `txo`, USD/GJ real; [A2.1](A_Equations.qmd#eqlist-A2-1)).
+
+The two extreme cases make the rule clear:
+
+- **$pcc = 1$ (liberalised).** Supply-cost changes are passed on in full; the taxes stay at $txo_L$.
+- **$pcc = 0$ (fixed price).** The price before new policies stays at its value of year $L$; the subsidy (or the tax)
+  absorbs every change in the supply cost. For Egypt's gas and oil products, a fall in the oil price shrinks the
+  subsidy and a rise widens it.
+
+Here `txo` holds existing taxes and subsidies only. The methodology's $txo$ also holds the existing and new carbon
+prices and the new excise; the model keeps those apart as wedges (@sec-pr-ecp, @sec-pr-atp).
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **L14 (fixed).** With a pass-through of 0.5 or 0.8, legacy applies $(1 - pcc)$ twice in the first projected year
+  (the floating subsidy is multiplied by $(1 - pcc)$ a second time), so other taxes jump. The model applies it once.
+  No effect for Egypt (pass-through 0 or 1).
+- **Methodology.** The methodology averages the fixed and floating portions over five historical years (2018-2022)
+  and multiplies the floating part by the price-control phase-out factor. The model, as legacy, projects from the
+  single year $L$ and keeps the phase-out as a separate wedge (@sec-pr-phaseouts).
+:::
+
+## VAT, the price before new policies and existing taxes {#sec-pr-pbc}
+
+VAT is charged on the supply cost plus the other taxes. With it the block reaches its **retail price before new
+policies**, the price a consumer would pay if no new policy were introduced.
+
+$$
+vat_t = \left(sp_t + txo_t\right) vatrate, \qquad p^{0}_t = \left(sp_t + txo_t\right)\left(1 + vatrate\right)
+$$ {#eq-pr-pbc}
+
+where
+
+- $vat_t$ is the VAT payment before new policies (code `vat`, USD/GJ real);
+- $vatrate$ is the block's VAT rate (@eq-pr-vatrate; code `vr` in CPAT Python);
+- $p^0_t$ is the retail price before new policies (code `pbc`; [M2.3](A_Equations.qmd#eqlist-M2-3)).
+
+**Existing taxes and subsidies.** The net `txo` is split by sign, so that taxes and subsidies can be reported and
+reformed separately. Subsidies are negative throughout the model.
+
+| Item | Code | Formula | Use |
+|---|---|---|---|
+| VAT before new policies | `vat` | $(sp + txo)\,vatrate$ | VAT revenue |
+| Existing excise and other taxes | `etx` | $\max(txo, 0)$ | existing-tax revenue |
+| Existing consumer subsidy | `esub` | $\min(txo, 0)$ | existing subsidies (negative) |
+| Subsidy per price unit | `esubpu` | $esub \times u$ | in ScenarioDefinition price units (USD/liter, USD/bbl, USD/GJ), the units of the fuel price reform inputs, so a per-fuel subsidy reform can be typed there |
+| Fixed part of `txo` | `fadtx` | $pcc \times txo_t$ for $t \le L$; $pcc \times txo_L$ after | the part that does not float; subsidy reform (@sec-pr-phaseouts) |
+| Floating part of `txo` | `cs` | $txo - fadtx$ | absorbs the supply-cost changes not passed through; price-control phase-out |
+
+Revenue at these rates (fuel use in PJ × the rate) is in @sec-fiscal: existing taxes = excise + VAT + the change in
+existing carbon pricing with its VAT; existing subsidies = the subsidy (negative); net existing = taxes + subsidies.
+
+::: {.callout-tip icon=false title="Pseudocode: the build-up of a block before new policies"}
+```
+for block in PRICES:
+    txf[:L], txo[:L] = txo_hist, txo_hist        # data years
+    for t in years after L:
+        sp[t] = spf + (sp[t-1] - spf - ps[t-1]) * gpi[t] / gpi[t-1] + ps[t]
+        txf[t] = txf[t-1] - (sp[t] - sp[t-1]) * (1 - pcc)
+        txo[t] = max(txo[L], txf[t]) if txo[L] >= 0 else txf[t]
+    for t in years:
+        fadtx[t] = pcc * (txo[t] if t <= L else txo[L])
+        cs[t] = txo[t] - fadtx[t]
+        etx[t], esub[t] = max(txo[t], 0), min(txo[t], 0)
+        esubpu[t] = esub[t] * u
+        vat[t] = (sp[t] + txo[t]) * vr
+        pbc[t] = (sp[t] + txo[t]) * (1 + vr)
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation section 2 rows `spf`, `ps`, `sp`, `txf`, `txo`, `fadtx`, `cs`, `etx`, `esub`,
+  `esubpu`, `vat`, `pbc` (Formulas E244-E255).
+- **CPAT Python:** `cpat_model/mitigation/prices.py`, `prepare()` (the loop over `pdx.PRICES`); equations M2.1-M2.3,
+  A2.1.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **LD17 (Same), LD14 (decision).** Legacy splits `txo` into a fixed tax, a fixed subsidy and a floating part; the
+  model splits it by sign, which gives the same totals. Subsidies are negative (`esub`, `esubpu`, `rsub`).
+- **L60 (fixed).** Legacy computes the VAT payment of oil products by dividing the retail price by 1 + the full VAT
+  rate; the model uses $(sp + txo) \times$ rate $\times$ household share.
+- **Ad-valorem taxes.** Legacy reads a per-country ad-valorem flag for baseline taxes (Prices_int H, Mitigation F77)
+  but no formula uses it: taxes are fixed in both (LD20).
+:::
+
+## Subsidy and price-control phase-outs {#sec-pr-phaseouts}
+
+Two reforms remove the existing consumer support. The **consumer subsidy reform** removes the fixed subsidy; the
+**price-control phase-out** (price liberalisation) removes the floating part, so the consumer comes to pay the
+supply-cost changes. Both are separate policy lines, by price block: the price before new policies `pbc` is not
+changed, and the reforms are wedges added to the after-tax price like the new policies. The methodology describes them
+in [Appendix C, fossil fuel subsidies reform](../CPAT_full_documentation_html/03_Mitigation.html#fossil-fuel-subsidies-reform)
+and [price liberalization](../CPAT_full_documentation_html/03_Mitigation.html#price-liberalization).
+
+### Phase-out factors {#sec-pr-pof}
+
+There is one factor per reform $k$: producer subsidies (`ps`), consumer subsidies (`cs`) and price controls (`pc`).
+Each is the share of the original support still kept, the same in every year for every line:
+
+$$
+pof_{k,t} = \begin{cases} \max\!\left(1 - \bar{s}_k,\ 1 - \bar{s}_k\,\dfrac{t - T_k}{\max(N_k, 1)}\right) & \text{the reform is on and } t > T_k \\[2mm] 1 & \text{otherwise} \end{cases}
+$$ {#eq-pr-pof}
+
+where
+
+- $pof_{k,t}$ is the phase-out factor (code `pof`; [M1.7](A_Equations.qmd#eqlist-M1-7));
+- $\bar{s}_k$ is the share to phase out (`po.sh`), $T_k$ the start year and $N_k$ the period in years (`po.n`).
+
+The inputs come from ScenarioDefinition. Scenario 1 reads the baseline switch, period and share; the other scenarios
+read the policy switch and period, with the share the larger of the baseline and the policy share (legacy rows
+264-274). The price-control phase-out applies only if its policy switch is on and either the scenario is a policy
+scenario or its baseline switch is on. It uses the consumer-subsidy shares (issue I48) and the same period in every
+scenario. A switch counts as on if it is TRUE or starts with "Yes".
+
+| Reform | Switch (policy / baseline) | Start year | Period (policy / baseline) | Share (policy / baseline) |
+|---|---|---|---|---|
+| Producer subsidies | `ProdSubPh` / `ProdSubPhaBaseline` | `YearProdSubPha` | `FFSProdPhaseoutPeriod` / `FFSProdPhaseoutPeriodBA` | `ShareofProdSubPha` / `ShareOfProdSubPhaBA` |
+| Consumer subsidies | `ConsSubPha` / `ConsSubPhaBaseline` | `YearConsSubPha` | `FFPhaseOut` / `FFSConsPhaseoutPeriodBA` | `ShareOfConsSubPha` / `ShareofConsSubPhaBA` |
+| Price controls | `PrcContPha` / `PrcContPhaBaseline` | `YearPrcContPha` | `PrcControlPhaseout` (both) | the consumer shares |
+
+: Phase-out inputs (ScenarioDefinition rows 123-137 and 191-195) {#tbl-pr-pof}
+
+**Which blocks and fuels a reform covers.** Inclusion switches on ScenarioDefinition, per scenario, let a reform cover
+some fuels and sectors only: `ConsSubPhaseScope_<block>` ($csi$) and `PriceCtrlPhaseScope_<block>` ($pci$) for the
+12 price blocks, and `ProdSubPhaseScope_<fuel>` ($psi$) for coal, gas, oil, biomass and electricity. Each turns the
+reform factor into the factor of its line:
+
+$$
+csf = 1 - csi\,(1 - pof_{cs}), \qquad pcf = 1 - pci\,(1 - pof_{pc}), \qquad psf_f = 1 - psi_f\,(1 - pof_{ps})
+$$ {#eq-pr-incl}
+
+### The wedges {#sec-pr-wedges}
+
+Each block splits its taxes into the fixed part `fadtx` and the floating part `cs` (@sec-pr-pbc). The consumer
+subsidy reform removes the share $(1 - csf)$ of a fixed subsidy; the price-control phase-out removes the share
+$(1 - pcf)$ of the floating part, whether that is a subsidy or a tax:
+
+$$
+pcsw_t = -\left(1 - csf_t\right)\min\left(fadtx_t,\ 0\right), \qquad
+ppcw_t = -\left(1 - pcf_t\right) cs_t
+$$ {#eq-pr-wedges}
+
+where
+
+- $pcsw_t$ is the consumer subsidy reform wedge of the block (USD/GJ, before VAT);
+- $ppcw_t$ is the price-control phase-out wedge of the block (USD/GJ, before VAT).
+
+Because the two wedges act on different parts of `txo`, using both reforms does not count a subsidy twice. For Egypt
+every subsidised fuel has pass-through 0, so its whole subsidy floats: only the price-control phase-out removes it, as
+in legacy.
+
+Every subsector reads the wedges of its block as `csw` and `pcw` and adds them, with VAT, to its after-tax price
+(@eq-pr-atp). The revenue of the reforms, $F\,\theta\,(csw + pcw)(1 + vatrate)$ (code `rsr`: the subsidy saved plus the
+VAT on it), and the producer-subsidy line `rpsu` are in @sec-fiscal; the net existing revenue `rnet` stays the
+pre-reform one.
+
+::: {.callout-tip icon=false title="Pseudocode: phase-outs and wedges"}
+```
+for k in ['ps', 'cs', 'pc']:
+    on, start, period, share = phaseout_inputs(k, scenario)    # baseline or policy columns
+    for t in years:
+        pof[k][t] = max(1 - share, 1 - share * (t - start) / max(period, 1)) if on and t > start else 1
+for block in PRICES:
+    for t in years:
+        csf[block][t] = 1 - csi[block] * (1 - pof['cs'][t])
+        pcf[block][t] = 1 - pci[block] * (1 - pof['pc'][t])
+        pcsw[block][t] = -(1 - csf[block][t]) * min(fadtx[block][t], 0)
+        ppcw[block][t] = -(1 - pcf[block][t]) * cs[block][t]
+for f in ['coa', 'nga', 'oil', 'bio', 'ecy']:
+    for t in years:
+        psf[f][t] = 1 - psi[f] * (1 - pof['ps'][t])
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation section 1 rows `po.on`, `po.n`, `po.sh`, `pof`, `csi`, `csf`, `pci`, `pcf`, `psi`,
+  `psf` (Formulas E140-E149); section 2 rows `pcsw`, `ppcw` (E261, E262); subsector rows `csw`, `pcw` (E454, E455).
+- **CPAT Python:** `cpat_model/mitigation/policies.py`, `prepare()` (phase-outs, equation M1.7); `prices.py`,
+  `prepare()` (`pcsw`, `ppcw`); `fuel_use.py`, `prepare()` (`csw`, `pcw`).
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **LD18 (as legacy, user decision).** Separate policy lines, not meshed with the pre-policy build-up: `sp`, `txo` and
+  `pbc` are unchanged and the reforms are wedges. Legacy multiplies the fixed subsidy and the floating part by the
+  factors inside its price rows (legacy rows 2597-2599 of each block, 2211-2218 for the factors); the prices are the
+  same.
+- **L81 (fixed).** Legacy lags the consumer phase-out of the fixed subsidy by a year; the model uses the same year
+  for every line.
+- **I48 (replicated).** The price-control phase-out uses the consumer-subsidy share.
+- **Methodology note.** The methodology advises not to combine price liberalisation with the subsidy phase-out to
+  avoid double counting; in the model the two act on disjoint parts of `txo`.
+:::
+
+## Existing carbon pricing {#sec-pr-ecp}
+
+Some countries already price carbon, with a carbon tax, a national ETS or the EU ETS. The IMF retail prices already
+contain whatever existing carbon pricing a country had, so the model adds only the **change** against that level:
+growth after the last data year, new data, or a scheme switched off. A country's history is never counted twice. The
+methodology describes existing carbon pricing in
+[section 3.2.4](../CPAT_full_documentation_html/03_Mitigation.html#sec-PricesForecastedYears) and
+[Appendix C, policy options](../CPAT_full_documentation_html/03_Mitigation.html#policy-options-existing-carbon-pricing-policies).
+
+### Data and tables {#sec-pr-ecp-data}
+
+The data are the World Bank Carbon Pricing Dashboard and ICAP data of sheet ECP (as of 1 April 2025; 52 countries;
+Egypt has none), read at their legacy addresses. Each code is looked up in its own legacy block (sheet Inputs_ecp,
+columns K:L give each block's first and last row):
+
+| Scheme | Codes | Legacy rows of sheet ECP |
+|---|---|---|
+| Carbon tax | single rate `ecr.all`, fuel rates `ecr.<fuel>`, sector coverage `ecs.<sector>`, fuel coverage `ecf.<fuel>` | 69-559 |
+| National ETS | price `eer.all`, coverage `ees.<sector>`, `eef.<fuel>` | 600-615, 619-737, 1040-1093 |
+| EU ETS (regional) | the EU price (row 616), the country's regional coverage | 738-1036, 1094-1223 |
+
+- Prices are made real with the CPI index of the data year.
+- Coverage is that of each data year (2021-2025; blank = 0, as legacy); the last data year holds after it.
+- The carbon tax rate of a fuel is the fuel rate where the country has one and no "single price" flag (general
+  information, column E); otherwise the single rate (legacy rows 1752-1764).
+- The EU ETS counts where the country's "EU ETS?" flag (general information, column K) is Yes or Both (legacy row 1695).
+
+From these the model builds two tables by ECP sector $j$ (power, transport, buildings, industry), fuel $f$ and data
+year $y$, in USD/tCO2:
+
+$$
+XT_{j,f,y} = rate_{f,y}\;scov_{j,y}\;fcov_{f,y}, \qquad
+XE_{j,f,y} = p^{nat}_y\;ncov_{j,y}\;nfcov_{f,y} + p^{EU}_y\;rcov_{j,y}\;rfcov_{f,y}
+$$ {#eq-pr-ecptables}
+
+where $XT$ is the existing carbon tax and $XE$ the existing ETS price of the sector and fuel. The national and the EU
+schemes add up, as legacy. Existing coverage is fractional; coverage of the new policies is a yes/no switch.
+
+**ECP sector of a price.** Coal and gas take their price sector (power, residential, industry); the oil products,
+biomass and jet fuel take transport; other oil products take industry; power takes power.
+
+### Factors, level and change {#sec-pr-ecp-change}
+
+ScenarioDefinition decides, per scenario, whether each scheme applies and how its real price grows after the last
+data year $T_x$ (2025):
+
+$$
+\varphi^{ct}_t = \mathbb{1}[\texttt{ExistingCTApply}]\,(1 + \gamma^{ct})^{\max(0,\,t - T_x)}, \qquad
+\varphi^{ets}_t = \mathbb{1}[\texttt{ExistingETSApply}]\,(1 + \gamma^{ets})^{\max(0,\,t - T_x)}
+$$ {#eq-pr-ecpfactor}
+
+where $\gamma^{ct}$ is `ExistingCTGrowth` and $\gamma^{ets}$ is `ExistingETSGrowth` (real growth per year; codes
+`xct.p`, `xets.p`).
+
+Then, per subsector and fuel:
+
+$$
+xcp_{s,f,t} = ef_{s,f}\left(XT_{j,f,t^*}\,\varphi^{ct}_t + XE_{j,f,t^*}\,\varphi^{ets}_t\right), \qquad
+\Delta xcp_{s,f,t} = xcp_{s,f,t} - ef_{s,f}\,XCP^{0}_{j,f}
+$$ {#eq-pr-xcp}
+
+where
+
+- $xcp_{s,f,t}$ is the level of existing carbon pricing (code `xcp`, USD/GJ);
+- $\Delta xcp_{s,f,t}$ is its change against the price data (code `xcpd`, USD/GJ;
+  [A2.2](A_Equations.qmd#eqlist-A2-2));
+- $ef_{s,f}$ is the calibrated CO2 emission factor (tCO2/GJ; @sec-emissions);
+- $t^* = \min(t, T_x)$ is the data column of the year (code `xct.c`), $j = j(s,f)$ the ECP sector;
+- $XCP^0_{j,f} = XT_{j,f,y_e} + XE_{j,f,y_e}$ is the existing carbon pricing embedded in the price data, the tables in
+  the year $y_e = \min(L, T_x)$ (2024).
+
+Only $\Delta xcp$ enters the after-tax price (@eq-pr-atp). Switching a scheme off therefore lowers the price by its
+embedded level; growth or new data raise it.
+
+**Power.** The same change per kWh (the power row of the tables) is part of the variable cost before new policies,
+so dispatch, investment and electricity prices respond (@sec-power).
+
+**New carbon tax beside an existing ETS.** If `CTaxComplimentaryToETS` = Yes (legacy rows 2270-2288), the new carbon
+tax of a sector covers 1 − the national ETS sector coverage of the year (@sec-model-overview). Otherwise new
+instruments add to existing ones.
+
+**Revenue.** The existing-tax revenue includes $\Delta xcp\,(1 + vatrate)$; a memo shows the level, fuel use ×
+$xcp$. Existing ETS revenue is valued at the full permit price, as legacy; legacy's free-allocation and revenue data
+(ECP rows 560-597, 1225-1322) are not used, in legacy's model either (@sec-fiscal).
+
+::: {.callout-tip icon=false title="Pseudocode: existing carbon pricing"}
+```
+Tx = 2025                                         # last ECP data year
+y_e = min(L, Tx)                                  # year embedded in the price data
+for t in years:
+    col = min(t, Tx)
+    xct_p[t] = (1 + ExistingCTGrowth) ** max(0, t - Tx) if ExistingCTApply == 'Yes' else 0
+    xets_p[t] = (1 + ExistingETSGrowth) ** max(0, t - Tx) if ExistingETSApply == 'Yes' else 0
+for s in subsectors:
+    for f in fuels:
+        j = ecp_sector(s, f)
+        xcp0 = XT[j, f, y_e] + XE[j, f, y_e]
+        for t in years:
+            level = XT[j, f, col] * xct_p[t] + XE[j, f, col] * xets_p[t]
+            xcp[s, f, t] = ef[s, f] * level
+            xcpd[s, f, t] = ef[s, f] * (level - xcp0)
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet ECP (data), sheet Inputs_ecp (tables `XCTVal`, `XETSVal`; Inputs rows 611-739); sheet
+  Mitigation section 1 rows `xct.c`, `xct.p`, `xets.p` (Formulas E119-E121); subsector rows `xcp`, `xcpd` (E452,
+  E453). Inputs: ScenarioDefinition `ExistingCTApply`, `ExistingCTGrowth`, `ExistingETSApply`,
+  `ExistingETSGrowth`, `CTaxComplimentaryToETS` (MTInputs rows 208-214).
+- **CPAT Python:** `cpat_model/mitigation/policies.py`, `ecp_table()`, `ecp_embedded_year()` and `prepare()`
+  (factors); `fuel_data.fuel_table()` (`ecpk`, `xcp0`); `fuel_use.py`, `prepare()` (`xcp`, `xcpd`); equation A2.2.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **LD38.** Legacy adds existing carbon taxes and ETS from its sheet ECP as parts of `txo` (Mitigation rows
+  1675-1764, 1711-1723 for the ETS, 1752-1764 for the tax). The model follows legacy with several schemes (user
+  decision 2026-10-18), but adds only the change against the level in the price data; legacy subtracts the same level
+  from the fixed part of `txo`, which gives the same numbers.
+- **L61 (fixed).** Legacy grows the EU ETS price with the carbon-tax growth.
+- **L62 (fixed).** Legacy's transport diesel, LPG and kerosene take the rate row as coverage.
+- **L63 (fixed).** Legacy's fuel-coverage lookup stops at row 403 of a block that ends at 425.
+- **L64 (fixed).** Legacy has no ETS on other oil products outside power.
+- **L65 (fixed).** Legacy's complementary new tax uses the previous year's ETS coverage.
+- **Methodology.** The methodology grows the existing price from the base year $t_0$; the model uses the data of each
+  year to 2025 and grows it from there.
+:::
+
+## New policies and the after-tax price {#sec-pr-atp}
+
+The new policies of a scenario act per subsector and fuel, because coverage, exemptions and emission factors differ
+by subsector. Each policy is turned into a cost per GJ and added, with VAT, to the price before new policies of the
+subsector's block. The result is the **after-tax price**, the price that drives fuel use. The methodology describes
+the new carbon price and the new excise in
+[section 3.2.4](../CPAT_full_documentation_html/03_Mitigation.html#sec-PricesForecastedYears) and in
+[Appendix C, policy coverage and exemptions](../CPAT_full_documentation_html/03_Mitigation.html#policy-coverage-and-exemptions).
+
+### New carbon tax, ETS cost and excise per GJ {#sec-pr-new}
+
+$$
+nct_{s,f} = NCT_s\;ef_{s,f}\;\varphi_{NCT,f}\;x_{s,f}, \qquad
+netsp_{s,f} = NETSP_s\;ef_{s,f}\;x_{s,f}, \qquad
+nexc_{s,f} = \frac{F^{x}_{c(s,f)}}{u_f}\;x_{s,f}
+$$ {#eq-pr-new}
+
+where
+
+- $nct_{s,f}$, $netsp_{s,f}$, $nexc_{s,f}$ are the new carbon tax, the new ETS cost and the new excise (codes
+  `ctxnew`, `ets`, `ntx`; USD/GJ; [M2.4](A_Equations.qmd#eqlist-M2-4));
+- $NCT_s$ is the new carbon tax rate of the sector (USD/tCO2; code `ctr`): the explicit carbon price where the sector
+  is covered and not in a new ETS (@sec-model-overview);
+- $NETSP_s$ is the ETS cost in the price of the sector (code `etr`): the tax-equivalent permit price × ETS coverage ×
+  the auctioned share (@sec-emissions);
+- $ef_{s,f}$ is the calibrated CO2 emission factor (tCO2/GJ);
+- $\varphi_{NCT,f}$ is the carbon-tax coverage of the fuel (code `ctcov`: 1 if covered, else the exemption phase-out
+  path; biomass is covered with emission factor 0);
+- $F^x_c$ is the new excise of the price fuel $c(s,f)$ in price units (code `ntxb`; @eq-pr-ntxb), and $u_f$ GJ per
+  price unit of the fuel row;
+- $x_{s,f}$ is the exemption factor (code `exf`, below).
+
+**The new excise.** The fuel price reform path `fpr` (@sec-model-overview, [M1.5](A_Equations.qmd#eqlist-M1-5)) is
+set per price fuel in price units (USD/liter, USD/bbl, USD/GJ). It acts **only in the policy scenarios**:
+
+$$
+F^x_{c,t} = \mathbb{1}[o \ne B]\;ntxg_{c,t}, \qquad ntxg_{c,t} = fpr_{c,t} + \mathbb{1}[\texttt{AddEfficientTaxes}]\;pigx_{c,t}
+$$ {#eq-pr-ntxb}
+
+where $ntxg$ is the gross new excise (code `ntxg`) and $pigx$ the Pigouvian tax (@sec-pr-pigou; with
+`AddEfficientTaxes` = Yes the formula of $F^x$ changes, @eq-pr-pigntx). Jet fuel reads the kerosene reform per
+liter and divides it by its own GJ per liter.
+
+**Total new policy:**
+
+$$
+nce_{s,f} = nct_{s,f} + netsp_{s,f} + nexc_{s,f}
+$$ {#eq-pr-nce}
+
+**Residential LPG and kerosene always exempted.** ScenarioDefinition `AlwaysExemptResLPGKer` (row 268, by scenario;
+default No*) exempts these two rows from every new policy. If the switch starts with "Yes" (Yes or Yes*), the
+exemption factor of the residential LPG and kerosene rows is 0; every other row has factor 1:
+
+$$
+x_{s,f} = \begin{cases} 0 & f \in \{\text{LPG, kerosene}\},\ s = \text{residential},\ \texttt{AlwaysExemptResLPGKer} \text{ starts with "Yes"} \\ 1 & \text{otherwise} \end{cases}
+$$ {#eq-pr-exf}
+
+Their new carbon tax, ETS cost and new excise are then 0, so neither is the VAT on them, nor their new-policy revenue
+(`rnew`, the excise revenue `rex` and the VAT on new policies in `rvt`). Existing taxes, the change in existing
+carbon pricing and the subsidy phase-outs stay, as legacy (row 2651, the price before new policies). The shadow price
+is not exempted, as legacy. ETS-covered emissions still count them where the residential sector is in an ETS
+(@sec-emissions), and the residential leakage to biomass reads the row's own `nce`, so an exempt fuel does not leak
+(@sec-demand).
+
+### The after-tax price {#sec-pr-atp-eq}
+
+$$
+p_{s,f} = \max\!\Big(p^{0}_{g,f} + \big(nce_{s,f} + \Delta xcp_{s,f} + csw_{s,f} + pcw_{s,f}\big)\left(1 + vatrate_{g,f}\right),\ \underline{p}\Big)
+$$ {#eq-pr-atp}
+
+where
+
+- $p_{s,f}$ is the after-tax price of fuel $f$ in subsector $s$ (code `atp`, USD/GJ real;
+  [M2.5](A_Equations.qmd#eqlist-M2-5));
+- $g$ is the price sector of $(s,f)$, so $p^0_{g,f}$ is the price before new policies of the block (@eq-pr-pbc) and
+  $vatrate_{g,f}$ its VAT rate;
+- $\Delta xcp_{s,f}$ is the change in existing carbon pricing (@eq-pr-xcp);
+- $csw_{s,f}$, $pcw_{s,f}$ are the subsidy and price-control wedges of the block (@eq-pr-wedges);
+- $\underline{p}$ is the price floor (`PriceFloor`, 0.01 USD/GJ, legacy's).
+
+New policies are passed through in full and pay VAT, as legacy's VAT on `txo` with `nce` inside it. With the
+exemption, the residential LPG and kerosene price is
+$\max(p^0 + (\Delta xcp + csw + pcw)(1 + vatrate), \underline{p})$.
+
+::: {.callout-tip icon=false title="Pseudocode: new policies and the after-tax price"}
+```
+for c in price_fuels_14:                         # 12 blocks + ecy.res, ecy.ind
+    for t in years:
+        ntxg[c][t] = fpr[c][t] + (pigx[c][t] if AddEfficientTaxes == 'Yes' else 0)
+        ntxb[c][t] = ntxg[c][t] if scenario > 1 else 0          # (Pigouvian netting: see below)
+for s in subsectors:
+    for f in fuels:
+        block = price_block(s, f)                # e.g. ('nga', 'res') for road gas
+        x = exf['res'] if (s, f) in [('res', 'lpg'), ('res', 'ker')] else exf['all']
+        for t in years:
+            ctxnew[s, f, t] = ctr[s][t] * ef[s, f] * ctcov[f][t] * x
+            ets[s, f, t] = etr[s][t] * ef[s, f] * x
+            ntx[s, f, t] = ntxb[price_fuel(s, f)][t] / u[f] * x
+            nce[s, f, t] = ctxnew[s, f, t] + ets[s, f, t] + ntx[s, f, t]
+            csw[s, f, t], pcw[s, f, t] = pcsw[block][t], ppcw[block][t]
+            atp[s, f, t] = max(pbc[block][t]
+                               + (nce[s, f, t] + xcpd[s, f, t] + csw[s, f, t] + pcw[s, f, t]) * (1 + vr[block]),
+                               PriceFloor)
+            shp[s, f, t] = shpx[s][t] * ef[s, f]
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation section 1 rows `fpr` (E28), `ntxg` (E54), `ntxb` (E57), `exf` (E157); subsector
+  rows of sections 5-8: `ctxnew`, `ets`, `ntx`, `nce`, `xcp`, `xcpd`, `csw`, `pcw`, `atp`, `shp` (Formulas
+  E448-E457). Lookups on sheet Inputs (rows 5-148): emission factor W, fuel position L, sector position M, price-fuel
+  position N, GJ per unit K, price position U, VAT rate V, exemption group BE. Inputs: ScenarioDefinition
+  `AlwaysExemptResLPGKer` (row 268), sheet Constants `exf|all|all`, `PriceFloor`.
+- **CPAT Python:** `cpat_model/mitigation/policies.py`, `prepare()` (`fpr`, `ntxg`, `ntxb`, `exf`);
+  `fuel_use.py`, `prepare()` (the price rows of every fuel block); equations M2.4, M2.5, M2.6.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **Legacy structure.** Legacy keeps the new carbon tax, ETS cost and excise inside `txo` (legacy Mitigation rows
+  2510, 2512, 2514); the model keeps them as separate rows and adds them with VAT, which gives the same price.
+- **Exemption (legacy rows 5546-5547).** Legacy: IF(`AlwaysExemptResLPGKer` = "Yes", 0, new policy × coverage). The
+  model reads the first three letters, so a starred "Yes*" also counts.
+- **LD57.** The new carbon tax and ETS cost use the calibrated emission factors (@sec-emissions).
+- **LD10, L171, L173 (fixed).** The fuel price reform path holds the target level after the target year under option
+  No (legacy drops it to 0), and its Percentage continuation grows at (1 + rate) (legacy multiplies by the rate).
+:::
+
+## The shadow price {#sec-pr-shadow}
+
+Some policies change behaviour without changing what consumers pay: feebates, efficiency regulations and the part of
+a new ETS that is allocated free. The model represents them as a **shadow price** per GJ. Demand responds to it on the
+efficiency margin only, and it raises no revenue.
+
+$$
+sh_{s,f} = \Sigma_s\;ef_{s,f}
+$$ {#eq-pr-shp}
+
+where
+
+- $sh_{s,f}$ is the shadow price per GJ (code `shp`; [M2.6](A_Equations.qmd#eqlist-M2-6));
+- $\Sigma_s$ is the shadow price of sector $s$ per tonne (code `shpx`;
+  [M1.4](A_Equations.qmd#eqlist-M1-4)): the feebate rate × the share of the feebate on the efficiency margin, plus the
+  shadow price of regulations, plus the tax-equivalent ETS price × ETS coverage × the share allocated free
+  (@sec-model-overview).
+
+The demand equation uses the after-tax price twice: alone in the usage term, and with the shadow price in the
+efficiency term, $\big((p + sh)_t / (p + sh)_{t-1}\big)^{\varepsilon_F (1 + \varepsilon_U)}$ (@sec-demand). The
+shadow price is not exempted by `AlwaysExemptResLPGKer`, as legacy.
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** section 1 row `shpx` (Formulas E113), subsector rows `shp` (E457; legacy row 2377).
+- **CPAT Python:** `policies.py` (`shpx`), `fuel_use.py`, `prepare()` (`shp`).
+:::
+
+## Pigouvian components {#sec-pr-pigou}
+
+The model can compute an efficient (Pigouvian) tax per price unit: the cost of the local air pollution, the climate
+damage and the road-transport externalities of one more unit of the fuel. Here they are prices; their welfare use and
+the efficient prices of the subsidy estimates are in @sec-fiscal. The methodology describes the external costs in
+[section 3.7.2](../CPAT_full_documentation_html/03_Mitigation.html#energy-externalities-costs).
+
+The components are computed in every run; they enter prices only if ScenarioDefinition `AddEfficientTaxes` = Yes,
+which CPAT Python does not support yet (@sec-pr-leftout). All are by price code $c$ (the 12 blocks and the two
+electricity rows) in USD per price unit ([A1.2](A_Equations.qmd#eqlist-A1-2)).
+
+### Phase-in {#sec-pr-pigphase}
+
+$$
+\phi_t = \min\!\left(\frac{\max(t - T_0 + 1,\ 0)}{\max(n,\ 1)},\ 1\right)
+$$ {#eq-pr-pigphi}
+
+where $\phi_t$ is the phase-in share (code `pig.phi`), $T_0$ the carbon-pricing start year (`CPIntro`) and $n$
+`AddEfficientTaxesPhaseInYears`.
+
+### Air pollution {#sec-pr-pigap}
+
+The marginal damage of air pollution per GJ of fuel $f$ in subsector $s$ is the value of averted PM2.5 times the PM2.5
+concentration one GJ adds:
+
+$$
+mc^{ap}_{s,f,t} = v_t\;\Big[(1 - w_t)\,d^{(0)}_{s,f} + w_t\,d^{(1)}_{s,f}\Big]\;\frac{10^9}{\theta \cdot 10^6}
+$$ {#eq-pr-apmc}
+
+where
+
+- $mc^{ap}_{s,f,t}$ is the marginal air-pollution damage (code `airpol.mc`, USD/GJ; power: by plant type);
+- $v_t$ is the value of averted modelled ambient PM2.5 (code `pig.vpm`, USD billion per µg/m³, from the air pollution
+  module, typed FromAirPollution; the base year reads the next year, because legacy has no change in PM2.5 in 2022);
+- $d^{(0)}$, $d^{(1)}$ are the µg/m³ per ktoe of the fuel: the module's concentration coefficients $\kappa$ of the
+  source (road, ground level for residential, services and construction, food, other; coal, gas and other power
+  plants) times the combustion emission factors of each pollutant, with base-year and final (`EFEndYear`, 2039)
+  factors;
+- $w_t$ is the weight of the final factors (code `pig.efw`): `EFFinShare` × $(t - t_0)/(\text{EFEndYear} - t_0)$,
+  with `EFFinShare` 0 for constant factors, 1 for variable and 0.5 otherwise;
+- $\theta$ is PJ per ktoe.
+
+By price code (code `pig.ap`), the subsector damages are averaged with base-year fuel use as weights (the plain
+average where all weights are 0) and converted to price units:
+
+| Price code | Average over | Notes |
+|---|---|---|
+| `coa.pow`, `nga.pow` | the power plant type | per GJ |
+| `coa.res` | residential, food, services | only if base-year coal use of buildings exceeds `ApCoalResMin` (0.001) × all buildings fuel use |
+| `nga.res` | residential, food, services | |
+| `coa.ind`, `nga.ind` | the 8 industry subsectors | |
+| `gso.all`, `die.all`, `lpg.all`, `ker.all` | the 16 oil-using subsectors (road, rail, aviation, navigation, residential, food, services, 8 industry, other energy use) | × GJ per liter |
+| `oop.all` | other-oil power plants | × GJ per barrel (L194 fixed) |
+| `ecy.res`, `ecy.ind`, `bio.all` | | 0 (issue I119) |
+
+### Climate {#sec-pr-pigclimate}
+
+$$
+cc_{c,t} = SCC^{nat}_t\;\overline{ef}_{f(c)}\;u_c
+$$ {#eq-pr-pigcc}
+
+where $cc_{c,t}$ is the climate damage per price unit (code `cc.code`), $SCC^{nat}_t$ the national social cost of
+carbon ([M1.6](A_Equations.qmd#eqlist-M1-6)) and $\overline{ef}_f$ the generic, uncalibrated CO2 factor of the fuel
+(averaged over its emission-factor sectors; IEA for other oil products; issue I116).
+
+### Road transport {#sec-pr-pigtr}
+
+Accidents, congestion and road damage are costs per vehicle-km. The model turns them into costs per liter with the
+base-year kilometres driven per liter of the fuel's total use, then lets them grow with the cost per km:
+
+$$
+tr_{c,t} = \sum_{k} cost^{km}_{k,t_0}\;kpl_f\;\big(1 - \omega_f\big)^{[k = rdm]}\;\frac{cost^{km}_{k,t}}{cost^{km}_{k,t_0}}, \qquad kpl_f = \overline{fe}_f\;\mu_f\;\rho_f
+$$ {#eq-pr-pigtr}
+
+where
+
+- $tr_{c,t}$ is the road-transport cost per liter (code `pig.tr`; gasoline: accidents and congestion; diesel: also
+  road damage, for the freight share only, issue I118; 0 for the other price codes);
+- $cost^{km}_{k,t}$ is the cost per vehicle-km of kind $k$ (accidents, congestion, road damage) from the transport
+  co-benefits module (typed FromTransportCB); the ratio is the growth against the base year (codes `pig.trg.*`);
+  the products $cost^{km}_{k,t_0}\,kpl_f$ are the base-year costs per liter (codes `pig.trb.*`);
+- $\overline{fe}_f$ is the base-year fuel economy (code `pig.fe0`, km/liter): passenger and light vehicles weighted by
+  ownership, then mixed with 2-3 wheelers (gasoline) or freight (diesel) by the share $\omega_f$;
+- $\omega_f$ is the passenger and light share of the road use of the fuel (code `pig.wsh`): gasoline 1 − the cycle
+  share; diesel 1 − freight / (1 − bus);
+- $\mu_f$ is the driving share of the fuel's response (code `pig.mu0`): gasoline
+  $\varepsilon_U / (\varepsilon_U + \varepsilon_F)$; diesel
+  $(\varepsilon^{die}_U + \omega(\varepsilon^{gso}_U - \varepsilon^{die}_U)) / (\varepsilon^{die}_U + \varepsilon^{die}_F + \omega(\varepsilon^{gso}_U + \varepsilon^{gso}_F - \varepsilon^{die}_U - \varepsilon^{die}_F))$;
+- $\rho_f$ is the base-year road share of the fuel's use over all subsectors (code `pig.rsh0`).
+
+### The Pigouvian tax and its netting {#sec-pr-pignet}
+
+$$
+pigx_{c,t} = \phi_t\left(ap_{c,t} + \mathbb{1}[\texttt{ClimateEffTax}]\;cc_{c,t} + tr_{c,t}\right)
+$$ {#eq-pr-pigx}
+
+where $ap_{c,t}$ is the air-pollution cost per price unit (`pig.ap`). With `AddEfficientTaxes` = Yes the gross new
+excise $ntxg = fpr + pigx$ (@eq-pr-ntxb) is netted against the existing taxes, so the Pigouvian tax tops up what is
+already there:
+
+$$
+F^x_{c,t} = \mathbb{1}[o \ne B]\;\min\!\Big(ntxg_{c,t},\ \max\big(0,\ ntxg_{c,t} - xpre_{c,t}\,u_c\big)\Big), \qquad
+xpre_{c,t} = txo_{c,t} + pcsw_{c,t} + ppcw_{c,t} + xcpb_{c,t}
+$$ {#eq-pr-pigntx}
+
+where
+
+- $xpre_{c,t}$ is the existing taxes before new policy of the block (code `xpre`, USD/GJ; 0 for electricity);
+- $xcpb_{c,t} = \overline{ef}_f\,(XT\,\varphi^{ct}_t + XE\,\varphi^{ets}_t - XCP^0)$ is the change in existing carbon
+  pricing of the block, at the generic emission factor and the block's own ECP sector and fuel (code `xcpb`; 0 for
+  electricity).
+
+The block's ECP key for `xcpb`: coal and gas by price sector; gasoline and diesel transport; LPG, kerosene and
+biomass buildings; other oil products industry.
+
+::: {.callout-tip icon=false title="Pseudocode: Pigouvian components"}
+```
+for t in years:
+    phi[t] = min(max(t - CPIntro + 1, 0) / max(PhaseInYears, 1), 1)
+    w[t] = EFFinShare * (t - t0) / (EFEndYear - t0)
+    vpm = air_vpm[max(t, t0 + 1)]
+    for (s, f) in airpol_rows:
+        mc[s, f, t] = vpm * ((1 - w[t]) * d0[s, f] + w[t] * d1[s, f]) * 1e9 / PJperKtoe / 1e6
+for c in price_codes_14:
+    for t in years:
+        ap = weighted_average(mc[rows_of(c), t], weights=ener0) * u[c]     # table above
+        cc = scc_nat[t] * ef_generic[fuel(c)] * u[c]
+        tr = sum(trb[k, fuel(c)] * trg[k][t] for k in kinds(c))            # gso, die only
+        pigx[c][t] = phi[t] * (ap + (cc if ClimateEffTax == 'Yes' else 0) + tr)
+        xcpb[c][t] = ef_generic[fuel(c)] * (XT[c][col] * xct_p[t] + XE[c][col] * xets_p[t] - XCP0[c])
+        xpre[c][t] = txo[c][t] + pcsw[c][t] + ppcw[c][t] + xcpb[c][t]
+        ntxg[c][t] = fpr[c][t] + (pigx[c][t] if AddEfficientTaxes == 'Yes' else 0)
+        if AddEfficientTaxes == 'Yes':
+            ntxb[c][t] = min(ntxg[c][t], max(0, ntxg[c][t] - xpre[c][t] * u[c]))
+        else:
+            ntxb[c][t] = ntxg[c][t]
+        ntxb[c][t] *= (scenario > 1)
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation section 1, rows 185-418: `pig.phi`, `pig.efw`, `pig.vpm`, `airpol.mc`, `pig.trk`,
+  `pig.fe0`, `pig.wsh`, `pig.mu0`, `pig.rsh0`, `pig.kpl`, `pig.trg.*`, `pig.trb.*`, `pig.ap`, `cc.code`, `pig.tr`,
+  `pigx`, `ntxg`, `xcpb`, `xpre`, `ntxb` (Formulas E34-E57). Inputs: ScenarioDefinition `AddEfficientTaxes` (MTInputs
+  row 217), `ClimateEffTax` (216), `AddEfficientTaxesPhaseInYears` (212), `ExternalityAddVAT` (218, used by the
+  efficient prices of @sec-fiscal).
+- **CPAT Python:** `cpat_model/mitigation/pigouvian.py`, `prepare()` (all rows but `ntxg`, `ntxb`); `policies.py`
+  (`ntxg`, `ntxb`); equation A1.2. `AddEfficientTaxes` = Yes raises `NotImplementedError`.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **I104 (departs, user decision).** Legacy's air-pollution unit costs are average damages; the model uses marginal
+  damages from the module's concentration coefficients.
+- **I113 (replicated).** The Pigouvian tax tops up existing taxes, and the climate component can be charged on top of a
+  carbon tax (climate charged twice), as legacy (legacy rows 8782, 8805, ... 9012).
+- **I116 (replicated).** Climate damage per unit is the national SCC × a generic emission factor.
+- **I118, I119 (replicated).** Road damage only for diesel; the electricity Pigouvian tax is always 0.
+- **I151 (departs, user decision).** The road-transport component is the base-year value × the growth of the per-km
+  costs, a proxy of scenario 1.
+- **L194 (fixed).** Legacy adds an air-pollution cost in USD/GJ to the per-barrel price of other oil products.
+- **L195, L196 (fixed).** Legacy has no phase-in in 2022-2024 and divides by 0 when the phase-in years are 0; one
+  formula now holds in every year with $\max(n, 1)$.
+:::
+
+## Average prices and price indices {#sec-pr-averages}
+
+Prices differ by subsector, so a single price per fuel needs weights. The model reports two kinds of averages: the
+average new-policy wedges of each price block, and average prices and price indices by fuel. Both are computed in the
+year loop, because they read fuel use. The methodology's aggregate price is the fuel-use weighted average
+([section 3.2.5](../CPAT_full_documentation_html/03_Mitigation.html#sec-PricesAggregation)).
+
+### New policies by price block {#sec-pr-blockavg}
+
+Over the subsectors $s \in c$ priced by block $c$, weighted by their fuel use $F_{s,f}$ (ktoe):
+
+$$
+\bar{p}_c = \frac{\sum_{s \in c} p_{s,f}\,F_{s,f}}{\sum_{s \in c} F_{s,f}}
+$$ {#eq-pr-rpn}
+
+where $\bar{p}_c$ is the retail price including new taxes and subsidies of the block (code `rpn`; $p^0_c$ where the
+subsectors use none; [A2.6](A_Equations.qmd#eqlist-A2-6)). The block also shows:
+
+| Code | Meaning |
+|---|---|
+| `pnq` | $\sum_{s \in c} F_{s,f}$, the weights (ktoe) |
+| `pctx`, `etsnew`, `pntx`, `pxcd` | fuel-use weighted averages of `ctxnew`, `ets`, `ntx`, `xcpd` |
+| `pnce` | $\bar{p}_c - p^0_c$, the total new policy including VAT |
+| `pvatn` | `pnce` − (`pctx` + `etsnew` + `pntx` + `pxcd` + `pcsw` + `ppcw`): the VAT on the new policies and wedges, and the effect of the price floor |
+
+These are weighted averages with each scenario's own quantities, not price indices.
+
+### Average prices and indices by fuel {#sec-pr-indices}
+
+For each fuel (coal, gas, gasoline, diesel, LPG, kerosene, jet fuel, other oil products, biomass), for electricity
+and for all energy, the model sums over the 16 subsectors (electricity: the residential and industry user groups).
+Subscript 1 is scenario 1 in the same year; subscript 0 is the base year, whose quantities and prices are data and so
+equal in every scenario.
+
+| Code | Formula | Meaning |
+|---|---|---|
+| `pav.sp` | $\sum_s p\,F$ | spending, own quantities |
+| `pav.q` | $\sum_s F$ | fuel use |
+| `pav.uv` | $\sum p\,F / \sum F$ | average price (unit value) |
+| `pav.spr` | $\sum_s p\,F_1$ | spending at scenario-1 quantities |
+| `pav.las` | $\sum p\,F_1 / \sum p_1 F_1$ | **price index against scenario 1** (Laspeyres; scenario 1 = 1) |
+| `pav.sp0` | $\sum_s p\,F_0$ | spending at base-year quantities |
+| `pav.time` | $\sum p\,F_0 / \sum p_0 F_0$ | **price index over time** (base year = 1) |
+| `pav.mix` | $(uv / uv_1) / las$ | mix effect: what the unit-value ratio adds to the price index |
+| `pav.leg` | below | average price as legacy |
+| `pav.lidx` | $leg / leg_1$ | legacy average price against scenario 1 (`pav.las` for fuels without a legacy average) |
+| `pav.idx` | Settings `AveragePriceMethod` | **price index reported** (MTOutputs `mit.pav.idx`): *Legacy\** = `pav.lidx` (default), *Laspeyres* = `pav.las` |
+| `rpe` | `pav.uv` of all energy | average retail energy price |
+
+: Average prices and price indices by fuel {#tbl-pr-pav}
+
+The unit-value ratio against scenario 1 equals the price index times the mix effect. Legacy reports the unit-value
+ratio as the price change (issue I31); here the two parts are separate.
+
+$$
+\frac{uv}{uv_1} = las \times mix, \qquad las = \frac{\sum_s p_s\,F_{1,s}}{\sum_s p_{1,s}\,F_{1,s}}, \qquad time = \frac{\sum_s p_s\,F_{0,s}}{\sum_s p_{0,s}\,F_{0,s}}
+$$ {#eq-pr-las}
+
+**Units.** Fuels: USD/GJ × ktoe for spending, USD/GJ for the unit value. Electricity: USD/kWh and GWh. All energy:
+spending in USD million (fuel spending × PJ per ktoe, plus electricity spending USD/kWh × GWh), fuel use in ktoe with
+electricity converted (GWh × GJ per kWh / PJ per ktoe), so its unit value is in USD million per ktoe.
+
+**The legacy average** (`pav.leg`, legacy rows 16293-16405):
+
+- **Coal and gas** average three sector prices with **scenario-1 quantities of the same year**: residential `rpn`
+  (weight: scenario-1 residential subsector use, `pavl.qr`), industry `rpn` (the 8 industry subsectors, `pavl.qi`),
+  and power (weight: scenario-1 power generation fuel use, `pavl.qp`). The power price is the pre-policy price plus
+  the policy cost per GJ of the power type:
+  $pp = p^0_{pow} + G \cdot M \cdot pc / (FU \cdot \theta)$ (code `pavl.pp`; $G$ generation in MWy, $M$ million kWh per
+  MWy, $pc$ the new policy cost per kWh `xac`, $FU$ the power fuel use). This is a Laspeyres index on three sectors; it
+  falls back to the unit value where the weights are 0.
+- **Oil products** take the single price `rpn` of their `.all` block.
+- **Electricity** averages residential and industry with each scenario's own consumption (= `pav.uv`).
+- **Biomass, jet fuel and all energy** have no legacy average: their unit value, and their reported index is the
+  Laspeyres one.
+
+::: {.callout-tip icon=false title="Pseudocode: averages (year loop, year t)"}
+```
+for c in PRICES:
+    rows = [(s, f) for (s, f) in fuel_rows if price_block(s, f) == c]
+    pnq[c] = sum(ener[s, f] for (s, f) in rows)
+    wavg = lambda v: sum(v[s, f] * ener[s, f] for (s, f) in rows) / pnq[c] if pnq[c] else 0
+    pctx[c], etsnew[c], pntx[c], pxcd[c] = wavg(ctxnew), wavg(ets), wavg(ntx), wavg(xcpd)
+    rpn[c] = wavg(atp) if pnq[c] else pbc[c]
+    pnce[c] = rpn[c] - pbc[c]
+    pvatn[c] = pnce[c] - (pctx[c] + etsnew[c] + pntx[c] + pxcd[c] + pcsw[c] + ppcw[c])
+for f in PAV_FUELS:                               # coa, nga, gso, die, lpg, ker, jfu, oop, bio
+    sp  = sum(atp[s, f] * ener[s, f] for s in subsectors)
+    q   = sum(ener[s, f] for s in subsectors)
+    spr = sum(atp[s, f] * ener_scen1[s, f] for s in subsectors)
+    sp0 = sum(atp[s, f] * ener_base_year[s, f] for s in subsectors)
+    uv = sp / q;  las = spr / sp_scen1[f];  time = sp0 / sp_base_year[f]
+    mix = (uv / uv_scen1[f]) / las
+    leg = legacy_average(f)                       # coal, gas: res, ind, power at scenario-1 quantities
+    lidx = leg / leg_scen1[f]
+    idx = lidx if AveragePriceMethod.startswith('Leg') else las
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation section 2, rows `pnq` ... `rpn` by block and `pav.*`, `pavl.*`, `rpe` (Formulas
+  E256-E281). Scenario-1 quantities are a lookup through header row 10 (the column of scenario 1 for each year,
+  `INDEX(...,0,row 10)`). Settings C54 `AveragePriceMethod`.
+- **CPAT Python:** `cpat_model/mitigation/prices.py`, `averages()` (block `prices.averages` of the year loop, after
+  `totals.energy`); equation A2.6.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **I31 (accepted).** Legacy's average prices mix price and composition changes (legacy F5c). The model reports the
+  unit value, a Laspeyres index, a time index and the mix effect separately, and reports the legacy average as the
+  default index (user decision 2026-10-18).
+- **L77 (fixed).** Legacy's index rows read the wrong fuels, and its gas test reads the policy total.
+:::
+
+## What is left out {#sec-pr-leftout}
+
+| Left out | Where it stands |
+|---|---|
+| Pigouvian taxes in the price (`AddEfficientTaxes` = Yes) | built in Excel-AI; CPAT Python stops with `NotImplementedError` |
+| Manual per-unit excise on fossil fuels (methodology: "Add additional excise") | not built; `AdditionalExcise` adds the manual excise to electricity only (@sec-power) |
+| Ad-valorem baseline taxes | taxes are fixed in both legacy and the model; legacy's flag is unused |
+| Methodology option to remove existing excise taxes from the policy year | not in the model |
+| Methodology VAT options (same VAT rate in residential and transport; externalities in the VAT base for the price) | not in the price build-up; `ExternalityAddVAT` is used by the efficient prices only (@sec-fiscal) |
+| Fixed and floating portions averaged over five historical years (methodology) | the model, as legacy, projects from the single year $L$ |
+| Total carbon price memo of the methodology (direct and indirect elements) | the model reports an implicit carbon price by fuel (`tcp`) with the revenues (@sec-fiscal) |
+| Electricity prices, the electricity subsidy gap, its producer subsidy allocation and consumer subsidy options | power module (@sec-power) |
+| Price of road CNG and the engineer road model's fuel prices | road transport (@sec-transport) |
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Excel-AI 1.1.0 reference run (CPAT Python matches it: test blocks 3.3 prices, 3.7a fuel prices by subsector and 3.3b
+price averages pass). Source IMF, Base adjustment, gas market Global, $L = 2024$. Scenario 1 is the baseline;
+scenario 2 has a carbon price of 20 USD/tCO2 in 2030. USD/GJ real 2026 unless stated.
+
+**International prices (scenario 1).**
+
+| | 2022 | 2024 | 2025 | 2030 |
+|---|---|---|---|---|
+| Crude oil, USD/bbl | 111.29 | 84.53 | 70.28 | 64.42 |
+| Coal, USD/t | 431.88 | 151.85 | 115.66 | 133.23 |
+| Gas (global), USD/MMBtu | 28.98 | 8.82 | 9.48 | 6.01 |
+
+**Price blocks before new policies (scenario 1).**
+
+| Block | Item | 2022 | 2024 | 2025 | 2030 |
+|---|---|---|---|---|---|
+| Coal, power ($pcc = 1$) | `sp` = `pbc` | 13.46 | 5.81 | 4.75 | 5.26 |
+| Coal, residential ($pcc = 1$) | `sp` | 20.50 | 12.70 | 11.66 | 12.16 |
+| | `txo` (floor at $txo_L$) | 0.18 | 0.003 | 0.003 | 0.003 |
+| | `vat` (14%) | 2.90 | 1.78 | 1.63 | 1.70 |
+| | `pbc` | 23.58 | 14.48 | 13.29 | 13.87 |
+| Gas, power ($pcc = 0$) | `sp` | 11.60 | 8.89 | 8.90 | 8.84 |
+| | `txo` | −8.45 | −6.11 | −6.13 | −6.06 |
+| | `pbc` (held from $L$) | 3.15 | 2.78 | 2.78 | 2.78 |
+| Gas, industry ($pcc = 0$) | `txo` = `cs` (all floating) | −7.08 | −4.54 | −4.51 | −4.64 |
+| Gasoline ($pcc = 0$) | `sp` | 28.18 | 21.55 | 18.60 | 17.39 |
+| | `txo` | −10.07 | −12.40 | −9.46 | −8.25 |
+| | `pbc` (held from $L$) | 18.11 | 9.15 | 9.15 | 9.15 |
+| Diesel ($pcc = 0$) | `pbc` | 11.23 | 6.83 | 6.83 | 6.83 |
+| LPG ($pcc = 0$) | `pbc` | 5.93 | 4.07 | 4.07 | 4.07 |
+| Biomass (flat) | `sp` = `pbc` | 14.80 | 14.78 | 14.78 | 14.78 |
+
+The pass-through rule is visible: with $pcc = 1$ coal follows the coal price; with $pcc = 0$ the gas and oil-product
+prices before new policies stay at their 2024 level while the subsidy absorbs the supply cost. The VAT of the oil
+products is 0 in the 2024 data for Egypt. Producer subsidies, existing carbon pricing and the reform wedges are 0
+in both scenarios.
+
+**New policies (scenario 2, 2030).** Road gasoline: new carbon tax `ctxnew` = 1.318 USD/GJ (20 USD/tCO2 × the
+calibrated emission factor), so `atp` = 9.145 + 1.318 = 10.463. Block prices including new policies `rpn`: gasoline
+10.46, diesel 8.25, LPG 5.43, kerosene 8.50, other oil products 5.64, residential coal 16.01, industry coal 9.17,
+residential gas 2.91 (scenario 1: 9.15, 6.83, 4.07, 7.08, 4.19, 13.87, 7.18, 1.80).
+
+**Price indices against scenario 1, 2030 (`pav.idx`, legacy method).** Coal 1.277, gasoline 1.144, all energy 1.191.
+Average energy price `rpe` 0.344 (scenario 1) and 0.417 (scenario 2) USD million per ktoe.
+:::

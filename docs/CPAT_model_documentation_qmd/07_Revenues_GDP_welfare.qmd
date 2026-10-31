@@ -1,3 +1,1601 @@
 # Revenues, GDP and welfare {#sec-fiscal}
 
-(To be written.)
+This chapter follows the money. Once the model knows how much of each fuel is used and how much electricity is
+generated in a year, it can say what the government collects and what it pays out, how spending that revenue moves
+GDP, how the energy import bill changes, how heavily carbon is priced in effect, and what the policy is worth to
+society once climate damages, air pollution, road externalities and efficiency costs are counted.
+
+The blocks of the chapter, in the order the model computes them within a year:
+
+```{mermaid}
+flowchart LR
+  A["Fuel use, power"] --> R["Revenues<br/>by fuel, sector, instrument"]
+  R --> C["Carbon pricing<br/>indicators"]
+  R --> F["Fiscal space,<br/>impulse, GDP effect"]
+  F -- "next year" --> G["GDP level and growth"]
+  G --> A
+  A --> X["External balance"]
+  A --> W["Welfare and<br/>externalities"]
+  E["Emissions"] --> W
+  E --> C
+```
+
+The GDP effect of a year acts on GDP only in the following year. That one-year lag is the only link from year $t$ to
+year $t+1$ in this chapter, and it is what keeps the model free of circular references (@sec-fi-timing).
+
+**Notation.** Every equation holds for each scenario $o$ and country $c$; these indices are omitted. The year $t$ is
+shown only where an equation reaches into another year. A superscript $B$ marks the value of the baseline (scenario 1)
+in the same year, and $\Delta x = x - x^{B}$. Subsector $s$, sector group $g$ (transport, buildings, industry, other
+energy use, power) and fuel $f$ follow @sec-model-overview. Equation ids in brackets, such as
+([M6.1](A_Equations.qmd#eqlist-M6-1)), point to the equation list.
+
+| Symbol | Meaning | Unit or value |
+|---|---|---|
+| $\theta$ | PJ per ktoe (`PJ per ktoe`) | fuel use in ktoe times $\theta$ times USD/GJ gives USD million |
+| $F_{s,f}$ | fuel use of fuel $f$ in subsector $s$ (`ener`) | ktoe |
+| $Y^{0}$ | baseline real GDP (`gdp.usd`) | USD bn |
+| $M$ | million per billion (`MperBn`) | 1000 |
+| money | real USD of the results year | USD million for revenues, USD bn for GDP, trade and welfare |
+
+## Header and summary rows {#sec-fi-header}
+
+A handful of macro rows sit at the top of every scenario: they give the GDP against which revenues, trade and welfare
+are scaled. Every section of the model also ends with a summary row, so the results can be read at a glance.
+
+### GDP rows of the header {#sec-fi-header-gdp}
+
+Baseline real GDP comes from the IMF World Economic Outlook, extended past its last data year as described in
+([M0.1](A_Equations.qmd#eqlist-M0-1)). The exchange rate is the one implied by real GDP in the two currencies, so it is
+constant in real terms:
+
+$$
+e = \frac{Y^{LCU}}{Y^{0}}
+$$ {#eq-fi-xr}
+
+where
+
+- $Y^{LCU}$ is baseline real GDP in local currency (`gdp.lcu`), bn;
+- $Y^{0}$ is baseline real GDP in USD (`gdp.usd`), bn;
+- $e$ is the exchange rate (`xr`), local currency per USD (Egypt: 14.34 EGP per USD).
+
+| Code | Content | Source |
+|---|---|---|
+| `gdp.usd` | Real GDP, baseline, USD bn | WEO; every "% of GDP" row of this chapter divides by it |
+| `gdp.lcu` | Real GDP, baseline, local currency bn | WEO |
+| `xr` | Exchange rate implied by real GDP (@eq-fi-xr) | computed |
+| `gdp.pos.pct` | Real GDP growth after the GDP feedback (@eq-fi-growth) | computed; the summary row of the header |
+| `gdpn.lcu`, `gdpn.usd` | Nominal GDP in local currency and in USD, bn | WEO `NGDP` and `NGDPD`, extended with the last nominal growth rate |
+
+Baseline real GDP is data, not a model result, so dividing by it never creates a circular reference.
+
+### Summary rows {#sec-fi-summary}
+
+Every section of the model ends with its summary row: the one row shown when the section is rolled up. Four sections
+have a second summary row, the change against the baseline. Sub-blocks (11b, 12d, 13b, 14b, 16b) sit inside their
+section, before its notes and summary.
+
+| Section | Summary row | Change against the baseline |
+|---|---|---|
+| 0 Header | `gdp.pos.pct` real GDP growth after the feedback | |
+| 2 Prices | `rpe` average retail energy price, all energy (USD/GJ) | |
+| 11 Energy use | total energy use | `echg.all` |
+| 12 Revenues | `rtot` total revenue | `rtot.chg` |
+| 13 CO2 | energy CO2 | `co2.chg` |
+| 14 GHGs | total GHG emissions | `ghg.chg` |
+| 17 Carbon pricing | `ecr` effective carbon rate | |
+| 18 Welfare | `wel.usd` national welfare gain | |
+
+Every "change against the baseline" reads scenario 1 in the same year only. The lookup stops at the current year, so
+it can never reach a later year of scenario 1 (@sec-fi-timing).
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 0 (rows 11-14: `gdp.usd`, `gdp.lcu`, `xr`, `gdp.pos.pct`; rows 1-5 hold the
+  years, title, band, scenario name and number and are frozen); `gdpn` in section 12. The baseline value of the same
+  year is read through helper row 10 (`INDEX` of scenario 1 up to this column at the position of this year).
+- **CPAT Python:** `cpat_model/mitigation/header.py`, `prepare()` (equations M0.1, M0.2); the baseline value of the same
+  year is `totals.reference()`.
+:::
+
+## Revenues {#sec-fi-revenues}
+
+Revenue is computed fuel by fuel and subsector by subsector: fuel use times a tax, subsidy or policy rate per GJ. The
+model keeps three separate lines (existing taxes, existing subsidies, new policies), adds the power sector, subsidy
+reforms, producer subsidies and the methane fee, and then rearranges the same money by fuel and by policy instrument.
+The methodology describes this in
+[section 3.6, Fiscal revenues](../CPAT_full_documentation_html/03_Mitigation.html#fiscal-revenues).
+
+All revenue rows are in USD million, real. A negative number is a fiscal cost (a subsidy).
+
+### Revenue of each fuel and subsector {#sec-fi-rev-pair}
+
+For each subsector $s$ and fuel $f$, the price block of the fuel (@sec-prices) gives the components of the retail
+price per GJ. Revenue multiplies them by fuel use.
+
+**Existing taxes** include excise and other taxes, the VAT payment, and the change in existing carbon pricing against
+the year embedded in the price data, with VAT on that change
+([M6.2](A_Equations.qmd#eqlist-M6-2)):
+
+$$
+revExi_{s,f} = \theta\,F_{s,f}\left(txo^{+}_{c} + vat_{c} + \Delta xcp_{s,f}\,(1 + v_{s,f})\right)
+$$ {#eq-fi-rtx}
+
+**Existing consumer subsidies** are the negative part of the existing taxes:
+
+$$
+cs_{s,f} = \theta\,F_{s,f}\,txo^{-}_{c}
+$$ {#eq-fi-rsub}
+
+**New policies** are the new carbon tax, the new excise (fuel price reform, and Pigouvian taxes where they are switched
+on), the ETS cost on the auctioned part, and VAT on all of them ([M6.1](A_Equations.qmd#eqlist-M6-1)):
+
+$$
+rev^{new}_{s,f} = \theta\,F_{s,f}\left(nct_{s,f} + nexc_{s,f} + \rho\,nets_{s,f} + v_{s,f}\,nce_{s,f}\right)
+$$ {#eq-fi-rnew}
+
+**Subsidy reform** removes consumer subsidies and price controls as separate policy lines; its revenue includes VAT:
+
+$$
+rev^{sr}_{s,f} = \theta\,F_{s,f}\,(csw_{s,f} + pcw_{s,f})\,(1 + v_{s,f})
+$$ {#eq-fi-rsr}
+
+where
+
+- $c = c(s,f)$ is the price fuel of the pair (its price position in the price blocks);
+- $txo^{+}_{c}$, $txo^{-}_{c}$ are the positive part (taxes, `etx`) and negative part (subsidies, `esub`) of excise and
+  other taxes, USD/GJ;
+- $vat_{c}$ is the VAT payment on the price before new policies (`vat`), USD/GJ;
+- $\Delta xcp_{s,f}$ is the change in existing carbon pricing against the price data (`xcpd`), USD/GJ;
+- $v_{s,f}$ is the VAT rate of the pair (Inputs), share;
+- $nct$, $nexc$, $nets$ are the new carbon tax (`ctxnew`), new excise (`ntx`) and ETS cost (`ets`), USD/GJ, and
+  $nce$ their total (`nce`);
+- $\rho$ is the ETS revenue factor, the auctioned share (`ets.rf`); feebates are revenue-neutral and raise nothing;
+- $csw$, $pcw$ are the consumer subsidy reform wedge and the price-control phase-out wedge of the subsector
+  (`csw`, `pcw`; @sec-prices), USD/GJ.
+
+Two splits of the same money are kept per pair for the report by instrument (@sec-fi-reports): the new excise and the
+VAT.
+
+$$
+rev^{exc}_{s,f} = \theta\,F_{s,f}\,nexc_{s,f}, \qquad
+rev^{vat}_{s,f} = \theta\,F_{s,f}\left(vat_{c} + (\Delta xcp_{s,f} + nce_{s,f} + csw_{s,f} + pcw_{s,f})\,v_{s,f}\right)
+$$ {#eq-fi-rex}
+
+A memo row gives the level of existing carbon pricing, $rev^{xcp}_{s,f} = \theta\,F_{s,f}\,xcp_{s,f}$ (`rxcp`). Only
+its change against the price data is revenue (inside @eq-fi-rtx); the part embedded in the price data is already in
+the excise.
+
+| Row | Content | Equation |
+|---|---|---|
+| `rtx` | Existing taxes (excise and other taxes, VAT, change in existing carbon pricing) | @eq-fi-rtx |
+| `rsub` | Existing consumer subsidies (negative) | @eq-fi-rsub |
+| `rnew` | New policies (carbon tax, excise, auctioned ETS, VAT on them) | @eq-fi-rnew |
+| `rsr` | Subsidy reform (consumer subsidy and price-control phase-outs, VAT included) | @eq-fi-rsr |
+| `rex`, `rvt` | New excise; VAT (parts of the rows above, for the report by instrument) | @eq-fi-rex |
+| `rxcp` | Existing carbon pricing, level (memo) | |
+
+::: {.callout-tip icon=false title="Pseudocode: revenue of each fuel and subsector"}
+```
+for t in years:
+    for s in subsectors:
+        for f in fuels:
+            c = price_fuel[f, s]; q = ener[f, s, t] * PJ_PER_KTOE
+            rtx[f, s, t]  = q * (etx[c, t] + vat[c, t] + xcpd[f, s, t] * (1 + vat_rate[f, s]))
+            rsub[f, s, t] = q * esub[c, t]                               # negative
+            rnew[f, s, t] = q * (ctxnew[f, s, t] + ntx[f, s, t] + ets[f, s, t] * ets_rf[t]
+                                 + nce[f, s, t] * vat_rate[f, s])
+            rsr[f, s, t]  = q * (csw[f, s, t] + pcw[f, s, t]) * (1 + vat_rate[f, s])
+            rex[f, s, t]  = q * ntx[f, s, t]
+            rvt[f, s, t]  = q * (vat[c, t] + (xcpd[f, s, t] + nce[f, s, t] + csw[f, s, t] + pcw[f, s, t])
+                                 * vat_rate[f, s])
+            rxcp[f, s, t] = q * xcp[f, s, t]                             # memo
+```
+:::
+
+### Power-sector revenues {#sec-fi-rev-power}
+
+The power sector raises revenue in two places: on the fuels burnt in power plants, and on the electricity sold to
+users. Both are computed in the power block (@sec-power) and summed here
+([A6.1](A_Equations.qmd#eqlist-A6-1)).
+
+**By generation type $k$** (coal, gas, oil, nuclear, wind, solar, hydro, other renewables, biomass):
+
+$$
+\begin{aligned}
+rev^{tx}_{k}  &= \delta_k\,\theta\,PE_k\,(txo^{+} + vat)_{c(k)} && \text{existing fuel taxes }(\texttt{prtx})\\
+rev^{sub}_{k} &= \delta_k\,\theta\,PE_k\,txo^{-}_{c(k)} && \text{existing fuel subsidies }(\texttt{prsub})\\
+rev^{xc}_{k}  &= xc_k\,H\,G_k && \text{change in existing carbon pricing }(\texttt{prxc})\\
+rev^{new}_{k} &= pc_k\,H\,G_k - CO2_k\,A_{pow}\,(1 - \rho) && \text{new policies }(\texttt{prnew})\\
+rev^{rns}_{k} &= rns_k\,H\,G_k && \text{renewable subsidies }(\texttt{prrns}\text{, negative})
+\end{aligned}
+$$ {#eq-fi-prev}
+
+where
+
+- $\delta_k$ is 1 for a type that burns a fuel (coal, gas, oil, biomass), else 0;
+- $PE_k$ is the fuel use of type $k$ (`pe`), ktoe, and $c(k)$ its price fuel;
+- $G_k$ is generation (`gen_mwy`), MW-years, and $H$ converts MW-years to million kWh (`MWyMkWh`, 8.76);
+- $xc_k$, $pc_k$ are the existing carbon cost and the new policy cost per kWh of the type (`xck`, `xac`), USD/kWh;
+- $CO2_k$ is the CO2 of the type, MtCO2, and $A_{pow}$ the ETS cost rate of power (`etr`), USD/tCO2: the free part of
+  the ETS, $1-\rho$, is not revenue, so the ETS counts at the permit price on the auctioned part only;
+- $rns_k$ is the renewable subsidy per kWh (`rns`), USD/kWh.
+
+A memo row gives the level of existing carbon pricing of each type, `prxl` = $CO2_k$ times the existing carbon tax and
+ETS prices of the price data year.
+
+**By electricity user group $u$** (residential, industry):
+
+$$
+\begin{aligned}
+rev^{vat}_{u}  &= pp_u\,\frac{v_u}{1+v_u}\,cons_u && \text{VAT on electricity }(\texttt{rvat})\\
+rev^{nvat}_{u} &= \left(\overline{pc}\,\pi\,(1 - rb) + x_u\right) v_u\,cons_u && \text{VAT on the policy cost passed through }(\texttt{rnvat})\\
+rev^{reb}_{u}  &= -\,rb\,\overline{pc}\,\pi\,cons_u && \text{rebate of the carbon cost }(\texttt{rreb}\text{, negative})\\
+rev^{x}_{u}    &= x_u\,cons_u && \text{electricity excise }(\texttt{rpex})\\
+rev^{gap}_{u}  &= gap_u\,cons_u && \text{electricity subsidy gap }(\texttt{rgap}\text{, negative})
+\end{aligned}
+$$ {#eq-fi-uelec}
+
+where $pp_u$ is the electricity price before policies (`rppre`), $\overline{pc}$ the average policy cost of
+generation (`ccpav`), $\pi$ the pass-through of the power-sector price change (`PowerSectorPriceChangePassOn`),
+$rb$ the rebate switch (`rbs`), $x_u$ the electricity excise (`pex`), $gap_u$ the subsidy gap (`sgap`), all per kWh,
+$v_u$ the VAT rate and $cons_u$ consumption in million kWh. The excise splits into the excise of the scenario
+"Electricity excise" (`rexs` = `exs` times total consumption) and the manual excise (`rexm`, the rest).
+
+The power sector's lines of the three revenue totals are then:
+
+$$
+\begin{aligned}
+rev^{tx}_{pow}  &= \textstyle\sum_k (rev^{tx}_{k} + rev^{xc}_{k}) + \sum_u rev^{vat}_{u}\\
+rev^{sub}_{pow} &= \textstyle\sum_k (rev^{sub}_{k} + rev^{rns}_{k}) + \sum_u rev^{gap}_{u}\\
+rev^{new}_{pow} &= \textstyle\sum_k rev^{new}_{k} + \sum_u (rev^{nvat}_{u} + rev^{reb}_{u} + rev^{x}_{u})
+\end{aligned}
+$$ {#eq-fi-powtot}
+
+Subsidy reform raises nothing in power (`rsr.pow` = 0).
+
+### Producer subsidies and the methane fee {#sec-fi-rev-other}
+
+**Producer subsidies** are a fiscal cost outside the fuel and subsector pairs. For each fuel group $f$ (coal, gas, oil,
+biomass, electricity), the subsidy before any phase-out is scaled by the phase-out factor:
+
+$$
+rev^{psu} = -\sum_{f} pros_f\,psf_f, \qquad psf_f = 1 - \psi_f\,(1 - pof)
+$$ {#eq-fi-rpsu}
+
+where
+
+- $pros_f$ is the producer subsidy before the phase-out (`pros`), USD million: price data (USD bn nominal) times the
+  CPI factor up to the last price year, then held;
+- $\psi_f$ is the inclusion switch of the fuel and $pof$ the phase-out factor of producer subsidies (@sec-prices);
+- $psf_f$ is the share that remains (`psf`).
+
+The phase-out also lowers the supply cost and so the prices (@sec-prices); this row is its fiscal line (`rpsu`).
+
+**The methane fee** raises $rev^{mf}$ (`rmf` = `ch4.rev`): methane emissions of the sources the fee covers, times their
+global warming potential, times the fee. It is computed with the methane block (@sec-emissions). It is not a fuel
+revenue, so it appears in the totals and in the report by instrument, not in the report by fuel.
+
+### Totals {#sec-fi-rev-totals}
+
+The totals add the pairs over subsectors and fuels and add the power line. Net revenue from existing taxes and
+subsidies, and total revenue ([M6.3](A_Equations.qmd#eqlist-M6-3)):
+
+$$
+rev^{net} = \sum_{s,f} (revExi_{s,f} + cs_{s,f}) + rev^{tx}_{pow} + rev^{sub}_{pow}
+$$ {#eq-fi-rnet}
+
+$$
+rev = rev^{net} + rev^{new} + rev^{sr} + rev^{psu} + rev^{mf}
+$$ {#eq-fi-rtot}
+
+$$
+\Delta rev = rev - rev^{B}
+$$ {#eq-fi-rchg}
+
+where $rev^{new} = \sum_{s,f} rev^{new}_{s,f} + rev^{new}_{pow}$ and $rev^{sr} = \sum_{s,f} rev^{sr}_{s,f}$. The lines
+`rtx`, `rsub`, `rnew`, `rxcp` and `rsr` are also summed by sector group (transport, buildings, industry, other energy
+use) and given for power.
+
+| Row | Content | Unit |
+|---|---|---|
+| `rnet` | Net revenue from existing taxes and subsidies (@eq-fi-rnet) | USD m |
+| `rtot` | Total revenue (@eq-fi-rtot); summary row of section 12 | USD m |
+| `rtot.ref` | Total revenue of scenario 1, same year | USD m |
+| `rtot.chg` | Change in total revenue against scenario 1 (@eq-fi-rchg); second summary row | USD m |
+| `rev.chk` | Check: totals of `rtx`, `rsub`, `rnew` minus the sum of their sector and power rows (0) | USD m |
+
+::: {.callout-tip icon=false title="Pseudocode: revenue totals"}
+```
+for t in years:
+    power = {
+        'rtx':  sum(prtx[k, t] + prxc[k, t] for k in types) + sum(rvat[u, t] for u in users),
+        'rsub': sum(prsub[k, t] + prrns[k, t] for k in types) + sum(rgap[u, t] for u in users),
+        'rnew': sum(prnew[k, t] for k in types)
+                + sum(rnvat[u, t] + rreb[u, t] + rpex[u, t] for u in users),
+        'rxcp': sum(prxl[k, t] for k in types),
+        'rsr':  0.0,
+    }
+    for var in ['rtx', 'rsub', 'rnew', 'rxcp', 'rsr']:
+        for g in groups:                                  # tra, bld, ind, oen
+            var[g, t] = sum(var[f, s, t] for s in subsectors_of(g) for f in fuels)
+        var['pow', t] = power[var]
+        var['all', t] = sum(var[f, s, t] for s in subsectors for f in fuels) + power[var]
+    rmf[t]  = ch4_rev[t]
+    rpsu[t] = -sum(pros[f, t] * psf[f, t] for f in ['coa', 'nga', 'oil', 'bio', 'ecy'])
+    rnet[t] = rtx['all', t] + rsub['all', t]
+    rtot[t] = rnet[t] + rnew['all', t] + rsr['all', t] + rpsu[t] + rmf[t]
+    rtot_chg[t] = rtot[t] - baseline.rtot[t]              # scenario 1, same year
+```
+:::
+
+### Fiscal reports {#sec-fi-reports}
+
+The fiscal reports (block 12d) rearrange the same revenue three ways: by fuel, by policy instrument, and against GDP.
+Each report has a check row that must be 0, because it splits the totals exactly.
+
+**Revenue by fuel, net of subsidies.** For each final-use fuel, the existing taxes, subsidies, new policies and subsidy
+reform over all subsectors. Electricity collects its VAT, subsidy gap, VAT on the policy cost, rebates, excise and
+renewable subsidies. Fuels burnt in power plants have their own rows:
+
+$$
+rfu_{f} = \sum_{s} \left(revExi_{s,f} + cs_{s,f} + rev^{new}_{s,f} + rev^{sr}_{s,f}\right), \qquad
+rfu_{ecy} = \sum_u \left(rev^{vat}_u + rev^{nvat}_u + rev^{reb}_u + rev^{x}_u + rev^{gap}_u\right) + \sum_k rev^{rns}_k
+$$ {#eq-fi-rfu}
+
+$$
+rfg_{k} = rev^{tx}_{k} + rev^{xc}_{k} + rev^{sub}_{k} + rev^{new}_{k}, \qquad k \in \{\text{coal, gas, oil, biomass}\}
+$$ {#eq-fi-rfg}
+
+The check `rfu.chk` = $\left|\sum_f rfu_f + rfu_{ecy} + \sum_k rfg_k - rev^{net} - rev^{new} - rev^{sr}\right|$ is 0.
+The methane fee and producer subsidies are not fuel revenues and are not in these rows.
+
+**Total revenue by policy instrument** (block 12e, [A6.2](A_Equations.qmd#eqlist-A6-2)). The same total, split by the
+instrument that raises it:
+
+| Row | Instrument | Definition |
+|---|---|---|
+| `rpol.ct` | New carbon tax | $\sum_e CO2^{cov}_e\,ct_e$ over the 17 coverage sectors $e$ (power included) + electricity rebates `rreb` + electricity excise of the scenario `rexs` |
+| `rpol.ets` | Auctioned ETS | $\rho \sum_e CO2_e\,etr_e$ |
+| `rpol.exc` | New excise (fuel price reform) | $\sum_{s,f} rev^{exc}_{s,f} + \sum_k rev^{new}_k$ − `rpol.ctp` − `rpol.etp` + manual electricity excise `rexm` |
+| `rpol.vat` | VAT | $\sum_{s,f} rev^{vat}_{s,f} + \sum_u (rev^{vat}_u + rev^{nvat}_u)$ |
+| `rpol.psu` | Producer subsidies | electricity subsidy gap $\sum_u rev^{gap}_u$ + $rev^{psu}$ |
+| `rpol.ren` | Renewable subsidies | $\sum_k rev^{rns}_k$ |
+| `rpol.mf` | Methane fee | $rev^{mf}$ |
+| `rpol.trs` | Transport revenues | 0 (not modelled) |
+| `rpol.exi` | Existing taxes and subsidies | the remainder: $rev$ − `rpol.mf` − `ct` − `exc` − `vat` − `ets` − `psu` − `ren` |
+| `rpol.tot` | Total | sum of the rows above; equals $rev$ (check `rpol.chk` = 0) |
+| `rpol.ctp`, `rpol.etp` | Of which power: carbon tax, ETS | $CO2^{cov}_{pow}\,ct_{pow}$; $CO2_{pow}\,etr_{pow}\,\rho$ (memo, not in the total) |
+
+Here $CO2^{cov}_e$ is the CO2 covered by the new carbon tax in sector $e$ (`covct`, @eq-fi-covct), $ct_e$ the
+sector's carbon tax rate (`ctr`), $CO2_e$ the sector's CO2 (`co2.sec`) and $etr_e$ its ETS cost rate. "Existing taxes
+and subsidies" is the remainder: fuel use times excise and the change in existing carbon pricing, consumer subsidies,
+subsidy reform, and the taxes and subsidies on power fuels.
+
+**Base erosion and shares of GDP.** A policy that lowers fuel use also changes what the existing taxes raise and what
+the existing subsidies cost. Base erosion measures that change:
+
+$$
+rbe = rev^{net} - rev^{net,B}
+$$ {#eq-fi-rbe}
+
+Each total is also given as a share of baseline real GDP:
+
+$$
+rpct_{x} = \frac{x}{Y^{0}\,M}, \qquad x \in \{rev,\ rev^{net},\ rev^{sub},\ rev^{new},\ \Delta rev,\ rbe\}
+$$ {#eq-fi-rpct}
+
+| Row | Content |
+|---|---|
+| `rfu.<fuel>`, `rfu.ecy` | Revenue by final-use fuel and electricity, net of subsidies (@eq-fi-rfu) |
+| `rfg.<type>` | Revenue from fuels burnt in power generation (@eq-fi-rfg) |
+| `rfu.chk` | Check of the report by fuel (0) |
+| `rpol.<instrument>` | Total revenue by policy instrument (table above); `rpol.chk` its check (0) |
+| `rbe` | Base erosion (@eq-fi-rbe) |
+| `rpct.tot`, `.net`, `.sub`, `.new`, `.chg`, `.be` | Total, net existing, subsidies, new policies, change against scenario 1, base erosion, as shares of GDP (@eq-fi-rpct) |
+
+::: {.callout-tip icon=false title="Pseudocode: fiscal reports"}
+```
+for t in years:
+    for f in fuels:
+        rfu[f, t] = sum(rtx[f, s, t] + rsub[f, s, t] + rnew[f, s, t] + rsr[f, s, t] for s in subsectors)
+    rfu['ecy', t] = sum(rvat[u, t] + rnvat[u, t] + rreb[u, t] + rpex[u, t] + rgap[u, t] for u in users) \
+                    + sum(prrns[k, t] for k in types)
+    for k in ['coa', 'nga', 'oop', 'bio']:
+        rfg[k, t] = prtx[k, t] + prxc[k, t] + prsub[k, t] + prnew[k, t]
+
+    for e in coverage_sectors:                       # 17: power and the 16 subsectors
+        fuels_e = ['coa', 'nga', 'oop'] if e == 'pow' else fuels
+        covct[e, t] = sum(co2[f, e, t] * ctcov[f, t] for f in fuels_e) * (ctr[e, t] > 0)
+    ctp = covct['pow', t] * ctr['pow', t]
+    etp = co2_sec['pow', t] * etr['pow', t] * ets_rf[t]
+    rpol['ct']  = sum(covct[e, t] * ctr[e, t] for e in coverage_sectors) + sum(rreb[u, t]) + rexs[t]
+    rpol['exc'] = sum(rex[f, s, t]) + sum(prnew[k, t]) - ctp - etp + rexm[t]
+    rpol['vat'] = sum(rvt[f, s, t]) + sum(rvat[u, t] + rnvat[u, t] for u in users)
+    rpol['ets'] = sum(co2_sec[e, t] * etr[e, t] for e in coverage_sectors) * ets_rf[t]
+    rpol['psu'] = sum(rgap[u, t] for u in users) + rpsu[t]
+    rpol['ren'] = sum(prrns[k, t] for k in types)
+    rpol['mf'], rpol['trs'] = rmf[t], 0.0
+    rpol['exi'] = rtot[t] - rmf[t] - rpol['ct'] - rpol['exc'] - rpol['vat'] - rpol['ets'] \
+                  - rpol['psu'] - rpol['ren']
+
+    rbe[t] = rnet[t] - baseline.rnet[t]
+    for key, x in [('tot', rtot), ('net', rnet), ('sub', rsub['all']), ('new', rnew['all']),
+                   ('chg', rtot_chg), ('be', rbe)]:
+        rpct[key, t] = x[t] / (gdp_usd[t] * M_PER_BN)
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** the pair rows `rtx`, `rsub`, `rnew`, `rxcp`, `rsr`, `rex`, `rvt` sit in every subsector block of
+  sections 5-8; the power rows `prtx` ... `prrns` in section 3 (block M) and `rvat` ... `rgap` in section 3 (block G);
+  `pros`, `psf` in section 2. Sheet Mitigation, section 12: the totals (`rmf`, `rpsu`, `rnet`, `rtot`, `rtot.ref`,
+  `rtot.chg`, `rev.chk`), block 12d (`rfu`, `rfg`, `rfu.chk`, `rbe`, `rpct`, `gdpn`) and block 12e (`rpol`,
+  `rpol.chk`). Sums over subsectors use `SUMIFS` on the block columns `SecVar` and `SecFuel`; shares of GDP call the
+  LAMBDA `GDPSHARE` in the LAMBDA column.
+- **CPAT Python:** the pair rows in `cpat_model/mitigation/fuel_use.py`, `step()`; the power rows in
+  `cpat_model/mitigation/power.py`, `step()`; totals and reports in `cpat_model/mitigation/totals.py`, `revenues()`
+  (equations M6.1-M6.3, A6.1, A6.2).
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **Revenue structure (LD37), as legacy:** the three calculations per subsector and fuel (existing taxes with VAT,
+  consumer subsidies, new policies), power as before, plus block 12e, total revenue by policy as legacy rows
+  8016-8027. Legacy bugs L70 (industry gas excise uses the coal rate and coal use), L71 (biomass taxes, subsidies and
+  VAT divided by the unit conversion), L72 (next-year references), L73 (wrong coverage shares) and L75 (revenue reports:
+  hard-coded row and mixed totals) do not arise: each pair takes its own rates, use and coverage.
+- **Subsidy and price-control phase-outs (LD18):** separate policy lines as in legacy, with their revenue `rsr`.
+- **Producer subsidies (LD19):** in the supply cost as in legacy, with the fiscal line `rpsu` by fuel.
+- **Power:** the ETS revenue of power is valued at the permit price on the auctioned part (prototype bug M6 fixed); VAT
+  on the policy term of electricity is included (M2 fixed); the renewable subsidy counts the base subsidy once (legacy
+  bug L108 fixed).
+- **Transport revenues** (`rpol.trs`) are 0: the vehicle revenues of the road engineer model are not modelled (issue
+  I46).
+- **Not built.** Revenue lost to price controls (the methodology's memo,
+  [section 3.6.4.1](../CPAT_full_documentation_html/03_Mitigation.html#revenueslosses-from-price-controls)): legacy
+  holds only pass-through coefficients (rows 746-760, 2216-2220), not a revenue row. Total fuel expenditures
+  ([section 3.6.4.2](../CPAT_full_documentation_html/03_Mitigation.html#total-fuel-expenditures)) are the spending
+  rows of the price memo (`pav.sp`, @sec-prices) and are not repeated here.
+- **Methodology.** The methodology's revenue from existing taxes and VAT leaves out the other energy use sector and
+  treats existing ETS permits differently when the existing ETS is the EU ETS
+  ([section 3.6.3](../CPAT_full_documentation_html/03_Mitigation.html#total-revenues-raised-by-policy)). The model
+  follows legacy's revenue rows: each pair takes its own price components, and existing carbon pricing enters through
+  its change against the price data.
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Carbon tax scenario, 2030, revenue by policy: carbon tax 4.2 bn USD (of which power 1.8), existing taxes and subsidies
+−10.3 bn, electricity subsidy gap −10.0 bn, total −16.1 bn.
+
+Base erosion, same scenario, 2030: about +1.5 bn USD. Fuel use falls, so subsidies (negative) shrink more than
+existing taxes do.
+
+Total revenue in 2022 is −8.6% of GDP, because consumer subsidies exceed taxes.
+
+`rfu.chk`, `rpol.chk` and `rev.chk` are 0 in every year and scenario. Every row is recomputed independently in Python
+in every scenario group.
+:::
+
+## GDP effects {#sec-fi-gdp}
+
+The policies change what the government collects. The model assumes that the extra revenue is spent, in shares the
+user chooses, on tax cuts, investment, current spending or transfers. Fiscal multipliers translate each use into a
+change in GDP over the following years. The higher energy taxes themselves weigh on GDP too, at the excise multiplier.
+The resulting change in the GDP level then feeds back into GDP growth, which drives fuel use, power demand and the
+non-energy GHG drivers.
+
+The methodology describes the multipliers in
+[chapter 4](../CPAT_full_documentation_html/04_Multipliers.html#introduction) and the feedback in
+[section 4.7, GDP feedback in CPAT](../CPAT_full_documentation_html/04_Multipliers.html#sec-GDPFeedback). The model
+follows legacy CPAT section 17, with legacy bug L24 fixed.
+
+```{mermaid}
+flowchart LR
+  R["Total revenue,<br/>scenario and baseline"] --> FS["Fiscal space fs(t)"]
+  FS --> IM["Impulse imp(t)"]
+  IM --> EX["Excise drag<br/>share −1"]
+  IM --> US["Revenue uses<br/>pit, cit, capt, gnfs, trns"]
+  M["Multipliers m_i(k),<br/>lags 0-19"] --> EX
+  M --> US
+  EX --> EF["GDP effect ε(t)"]
+  US --> EF
+  EF -- "t + 1" --> LV["GDP level lvl(t+1)"]
+```
+
+### Inputs and defaults {#sec-fi-gdp-inputs}
+
+| Input | Code | Egypt default |
+|---|---|---|
+| Revenue use: labour tax cuts | `EXPLabortax` | 30% |
+| Revenue use: corporate tax cuts | `EXPCIT` | 0% |
+| Revenue use: public investment | `EXPCapex` | 50% |
+| Revenue use: current spending (goods and services) | `EXPGoodsandserv` | 0% |
+| Revenue use: targeted transfers | `EXPTransfers` | 20% |
+| Multiplier source: Global, income group, Estimated or Manual | `MultipliersSource` | income group (LMIC) |
+| Multiplier range: Base, Low or High | `FmAdj` | Base |
+| Start year for GDP calculations | `GDPStartYear` | 2025 |
+| Include endogenous GDP effects? | `GDPEndogenous` | Yes |
+| Baseline real GDP growth | `gdp.base` | WEO |
+| Baseline real GDP | `gdp.usd` | WEO (Egypt: 547 USD bn in 2022) |
+
+The shares are in percent of the revenue gained.
+
+### Fiscal multipliers {#sec-fi-multipliers}
+
+A multiplier says by how many percent GDP responds, in the year of a fiscal change and in each later year, to a change
+of a fiscal instrument by 1% of GDP. The model holds one multiplier per instrument $i$ and lag $k = 0, \dots, 19$
+([A8.1](A_Equations.qmd#eqlist-A8-1)):
+
+$$
+m_{i}(k) = \bar{m}_{G,i}\big(\min(k, k^{last})\big) + \sigma\,s_{G,i}\big(\min(k, k^{last})\big)
+$$ {#eq-fi-mult}
+
+where
+
+- $G$ is the multiplier group (`fis.grp`): global, the country's income group (HIC, UMIC, LMIC, LIC), the country's
+  estimated table, or the manual table;
+- $\bar{m}_{G,i}(k)$ is the multiplier of the group at lag $k$: for global and income groups, the median of the World
+  Bank's MFMod ([methodology 4.3](../CPAT_full_documentation_html/04_Multipliers.html#income-group-specific-multipliers),
+  [4.4](../CPAT_full_documentation_html/04_Multipliers.html#global-multipliers));
+- $s_{G,i}(k)$ is the standard deviation of the income group, and $\sigma$ is 0 for Base, −1 for Low, +1 for High;
+- $k^{last}$ is the last lag with data (11): lags 12-19 hold the lag-11 value, as in legacy.
+
+| Source (`MultipliersSource`, first three letters) | Group used | Note |
+|---|---|---|
+| `Glo...` | global | MFMod medians averaged over all countries |
+| `Est...` | the country's table of the legacy Multipliers tab | exact match of the country code; the income group where the country is missing, and for CIT and WAGE, whose legacy tables are empty or wrong ([methodology 4.6](../CPAT_full_documentation_html/04_Multipliers.html#estimated-multipliers)) |
+| `Man...` | sheet Manual inputs J261:U268 | legacy addresses; lags 0-11; blank = 0 ([methodology 4.5](../CPAT_full_documentation_html/04_Multipliers.html#manual-multipliers)) |
+| any other text | the country's income group | |
+
+For Estimated and Manual, Low and High also add or subtract the income group's standard deviation, as legacy does
+(issue I44).
+
+The revenue uses map to the instruments of the multiplier tables:
+
+| Use | Instrument | Share |
+|---|---|---|
+| The revenue itself (higher energy taxes) | `exc` energy excise | −1 |
+| Labour tax cuts | `pit` personal income tax | `EXPLabortax` / 100 |
+| Corporate tax cuts | `cit` corporate income tax | `EXPCIT` / 100 |
+| Public investment | `capt` capital spending | `EXPCapex` / 100 |
+| Current spending | `gnfs` goods and services | `EXPGoodsandserv` / 100 |
+| Targeted transfers | `trns` transfers | `EXPTransfers` / 100 |
+
+The tables also hold `vat` and `wage`, which no revenue use reads.
+
+### Fiscal space {#sec-fi-fiscal-space}
+
+The fiscal space is the revenue the scenario gains over the baseline, as a share of baseline GDP. It is total revenue:
+existing taxes net of subsidies (power included), new policies, subsidy reform, producer subsidies and the methane fee
+([M8.1](A_Equations.qmd#eqlist-M8-1)):
+
+$$
+rev^{fis} = rev^{net} + rev^{new} + rev^{sr} + rev^{psu} + rev^{mf}
+$$ {#eq-fi-fisrev}
+
+$$
+fs_t = \frac{rev^{fis}_t - rev^{fis,B}_t}{Y^{0}_t\,M}
+$$ {#eq-fi-fs}
+
+where $rev^{fis}$ is in USD million (`fis.rev`; equal to $rev$ of @eq-fi-rtot), $rev^{fis,B}$ is that of scenario 1 in
+the same year (`fis.ref`), and $fs$ is the fiscal space (`fis.sp`), share of GDP.
+
+Lower fuel use also lowers the cost of existing subsidies (base erosion, @eq-fi-rbe), and that counts. The methane fee
+counts on the scenario's own methane activity. In the baseline, $fs = 0$, so scenario 1 has no GDP effect.
+
+### Fiscal impulse {#sec-fi-impulse}
+
+The impulse of a year is the new revenue gain of that year: the change in the gain in USD, over this year's GDP. It is
+0 before the start year of the GDP calculations:
+
+$$
+imp_t =
+\begin{cases}
+0 & t < t^{GDP}\\[2pt]
+fs_{t} & t = t_0 \ge t^{GDP}\\[2pt]
+fs_t - fs_{t-1}\,\dfrac{Y^{0}_{t-1}}{Y^{0}_t} & \text{otherwise}
+\end{cases}
+$$ {#eq-fi-imp}
+
+where $t^{GDP}$ is `GDPStartYear`, $t_0$ the base year and $imp_t$ the impulse (`fis.imp`), share of GDP.
+
+The revenue uses take the impulse only from the year the carbon price starts, as legacy does (it sets the revenue-use
+shares to 0 before then):
+
+$$
+imp^{p}_t = \begin{cases} 0 & t < T^{ct}_0\\ imp_t & \text{otherwise}\end{cases}
+$$ {#eq-fi-impp}
+
+where $T^{ct}_0$ is the carbon pricing start year (`CPIntro`) and $imp^{p}$ is `fis.impp`. Earlier impulses still act
+through the excise drag.
+
+Each impulse starts a cohort that acts for 20 years. The rows `fis.lag.l1` ... `fis.lag.l19` (and `fis.lagp.l1` ...
+`fis.lagp.l19` for $imp^{p}$) hold the impulses of the 19 earlier years: each is the previous year's value of the row
+above it, and 0 in the base year.
+
+### GDP effect of each use {#sec-fi-effects}
+
+The effect of each use is its share times the sum, over the 20 lags, of the impulse of that cohort times the multiplier
+at that lag. The impulse of year $t$ counts at lag 0 in year $t$ ([M8.2](A_Equations.qmd#eqlist-M8-2)):
+
+$$
+eff_{exc,t} = -\sum_{k=0}^{19} imp_{t-k}\; m_{exc}(k)
+$$ {#eq-fi-effexc}
+
+$$
+eff_{i,t} = \frac{sh_i}{100}\sum_{k=0}^{19} imp^{p}_{t-k}\; m_{i}(k), \qquad i \in \{pit, cit, capt, gnfs, trns\}
+$$ {#eq-fi-effuse}
+
+$$
+\varepsilon_t = \mathbb{1}[\text{GDPEndogenous} = \text{Yes}]\;\Big(eff_{exc,t} + \sum_{i} eff_{i,t}\Big)
+$$ {#eq-fi-eps}
+
+where
+
+- $sh_i$ is the revenue share of use $i$, percent;
+- $eff_{i,t}$ is the GDP effect of use $i$ (`fis.eff.<i>`), share of GDP;
+- $\varepsilon_t$ is the GDP effect (`gdp.eff`): the change of the GDP level against the baseline, as a share of GDP; 0
+  if endogenous GDP effects are off.
+
+The revenue itself counts as an energy tax increase: share −1 at the excise multipliers.
+
+### GDP level and growth: the feedback {#sec-fi-feedback}
+
+The GDP effect of year $t$ raises the level of real GDP from year $t+1$ ([M8.3](A_Equations.qmd#eqlist-M8-3)):
+
+$$
+lvl_t = \begin{cases} 1 & t = t_0 \\ 1 + \varepsilon_{t-1} & t > t_0 \end{cases}
+$$ {#eq-fi-lvl}
+
+$$
+Y_t = Y^{0}_t\; lvl_t
+$$ {#eq-fi-gdppos}
+
+$$
+1 + g_t = (1 + g^{0}_t)\,\frac{lvl_t}{lvl_{t-1}}, \qquad g_{t_0} = g^{0}_{t_0}
+$$ {#eq-fi-growth}
+
+where
+
+- $lvl_t$ is the GDP level factor used this year (`gdp.lvl`);
+- $Y_t$ is real GDP after the feedback (`gdp.pos.usd`), USD bn;
+- $g^{0}_t$ is baseline real GDP growth (`gdp.base`) and $g_t$ real GDP growth after the feedback (`gdp.pos.pct`).
+
+A steady effect therefore raises the level once and leaves growth unchanged afterwards; it does not compound.
+
+Growth after the feedback is what drives demand in the year: it is computed at the very start of year $t$, before the
+power and fuel-use blocks. The fuel-use block reads it raised to the income factor of the elasticities (Python
+`GDPI` = $(1+g_t)^{\,inc}-1$, with $inc$ = `inc.ela.adj`), together with the demand shock factor `SHOCK`; see
+@sec-demand. The road engineer model reads GDP after the feedback too (@sec-transport), and the non-energy GHG drivers
+read GDP growth (@sec-emissions).
+
+::: {.callout-tip icon=false title="Pseudocode: GDP effects and feedback"}
+```
+# start of year t (before power and fuel use)
+def gdp_start(t):
+    if t == t0:
+        gdp_lvl[t] = 1.0
+        gdp_pos_pct[t] = gdp_base[t]
+    else:
+        gdp_lvl[t] = 1 + gdp_eff[t - 1]                       # last year's effect
+        gdp_pos_pct[t] = (1 + gdp_base[t]) * gdp_lvl[t] / gdp_lvl[t - 1] - 1
+    GDPI[t] = (1 + gdp_pos_pct[t]) ** inc_ela_adj[t] - 1      # read by fuel use
+
+# end of year t (after revenues)
+def gdp_effects(t):
+    fis_rev[t] = rnet[t] + rnew[t] + rsr[t] + rpsu[t] + ch4_rev[t]
+    fis_sp[t]  = (fis_rev[t] - baseline.fis_rev[t]) / (gdp_usd[t] * M_PER_BN)
+    if t < GDPStartYear:
+        fis_imp[t] = 0.0
+    elif t == t0:
+        fis_imp[t] = fis_sp[t]
+    else:
+        fis_imp[t] = fis_sp[t] - fis_sp[t - 1] * gdp_usd[t - 1] / gdp_usd[t]
+    fis_impp[t] = 0.0 if t < CPIntro else fis_imp[t]
+
+    group = multiplier_group(MultipliersSource, income_group)
+    sign  = {'Base': 0, 'Low': -1, 'High': +1}[FmAdj]
+    def m(i, k):                                              # k = 0..19, held after lag 11
+        kk = min(k, 11)
+        return median[group, i, kk] + sign * sd[income_group, i, kk]
+
+    eff = {'exc': -sum(fis_imp[t - k] * m('exc', k) for k in range(20) if t - k >= t0)}
+    for i, share in [('pit', EXPLabortax), ('cit', EXPCIT), ('capt', EXPCapex),
+                     ('gnfs', EXPGoodsandserv), ('trns', EXPTransfers)]:
+        eff[i] = share / 100 * sum(fis_impp[t - k] * m(i, k) for k in range(20) if t - k >= t0)
+    gdp_eff[t] = sum(eff.values()) if GDPEndogenous == 'Yes' else 0.0
+    gdp_pos_usd[t] = gdp_usd[t] * gdp_lvl[t]
+```
+:::
+
+### The timing rule {#sec-fi-timing}
+
+**Revenue of year $t$ changes GDP only from year $t+1$.** GDP growth after the feedback reads the level of the
+current year, which holds the effect of the previous year. The rule has three consequences, kept as rules of the
+model:
+
+1. The fiscal space of year $t$ reads revenue of year $t$ only: no later year, no lookup over a whole row.
+2. A same-year GDP effect never reaches same-year demand. The impulse of year $t$ counts at lag 0 in $\varepsilon_t$,
+   which acts on GDP from $t+1$.
+3. No other block reads a later year. With this lag, no revenue line can close a circular reference, whatever it reads
+   (fuel use, power, methane).
+
+```{mermaid}
+flowchart LR
+  subgraph Y1["year t"]
+    direction TB
+    a1["GDP level, growth<br/>(from ε of t−1)"] --> b1["power, fuel use"] --> c1["revenues"] --> d1["fiscal space,<br/>impulse, ε(t)"]
+  end
+  subgraph Y2["year t + 1"]
+    direction TB
+    a2["GDP level = 1 + ε(t)"] --> b2["power, fuel use"]
+  end
+  d1 --> a2
+```
+
+This lag is what makes the whole model computable year by year: GDP growth depends only on earlier years.
+
+### Memo rows {#sec-fi-gdp-memo}
+
+Three memo rows report the GDP effects in other forms.
+
+**Contribution of each use to GDP growth.** The change in the use's effect over the previous year, on the level:
+
+$$
+gdpg_{i,t} = \mathbb{1}[\text{GDPEndogenous} = \text{Yes}]\;(1 + g^{0}_t)\,\frac{eff_{i,t-1} - eff_{i,t-2}}{lvl_{t-1}}
+$$ {#eq-fi-gdpg}
+
+with $eff_{i,t-2} = 0$ in the first projection year and $gdpg = 0$ in the base year. The total $gdpg_{all}$ uses
+$\varepsilon$ in place of $eff_i$ and equals $g_t - g^{0}_t$: the channels sum to it.
+
+**Year of the reform.** $gdpy_t = t - t^{GDP} + 1$. The growth effect of reform year $N$ is $gdpg_{all}$ in the year
+where $gdpy = N$.
+
+**Change in real GDP.** $\Delta Y_t = Y_t - Y^{0}_t$ (`gdp.chg.usd`), USD bn.
+
+| Row | Content | Unit |
+|---|---|---|
+| `fis.rev`, `fis.ref` | Total revenue of the scenario and of scenario 1 (@eq-fi-fisrev) | USD m |
+| `fis.sp` | Fiscal space (@eq-fi-fs) | share of GDP |
+| `fis.imp`, `fis.impp` | Impulse; impulse used by the revenue uses (@eq-fi-imp, @eq-fi-impp) | share of GDP |
+| `fis.lag.l1`-`l19`, `fis.lagp.l1`-`l19` | Impulses 1 to 19 years back | share of GDP |
+| `fis.grp`, `fis.key` | Multiplier group; key (group, range) into sheet Multipliers | text |
+| `fis.eff.<i>` | GDP effect of each use and of the excise drag (@eq-fi-effexc, @eq-fi-effuse) | share of GDP |
+| `gdp.eff` | GDP effect (@eq-fi-eps) | share of GDP |
+| `gdp.lvl` | GDP level factor (@eq-fi-lvl) | factor |
+| `gdp.pos.usd` | Real GDP after the feedback (@eq-fi-gdppos) | USD bn |
+| `gdp.pos.pct` | Real GDP growth after the feedback (@eq-fi-growth) | % |
+| `gdpg.<i>`, `gdpg.all` | Contribution to GDP growth (@eq-fi-gdpg) | share |
+| `gdpy` | Year of the reform | number |
+| `gdp.chg.usd` | Change in real GDP against the baseline | USD bn |
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 16 "GDP effects and external balance" (`fis.*`, `gdp.*`, `gdpg`, `gdpy`), with
+  `gdp.pos.pct` in the header (section 0). Inputs on ScenarioDefinition: `EXPLabortax`, `EXPCIT`, `EXPCapex`,
+  `EXPGoodsandserv`, `EXPTransfers`, `MultipliersSource` (row 226), `GDPStartYear` (row 236), `FmAdj` (row 263),
+  `GDPEndogenous`. Multipliers on sheet Multipliers (from the legacy sheet: MFMod medians and standard deviations by
+  group, instrument and lag), looked up by `fis.key` & instrument in `MultVal`; manual multipliers on sheet Manual
+  inputs J261:U268. The lag rows are "previous column of the row above".
+- **CPAT Python:** `cpat_model/mitigation/gdp.py`: `start()` at the start of the year (equation M8.3; also `GDPI`,
+  `SHOCK`), `effects()` at the end (M8.1, M8.2), `multipliers()` (A8.1, tables `mult_mfmod_median_<group>`,
+  `mult_mfmod_sd_<group>`). In the chain, `gdp.start` is the first block of the year and `gdp.effects` follows the
+  revenues (`chain.py`).
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT and from the methodology"}
+- **L24 fixed (LD54):** the effect raises the GDP level once, one year later ($lvl_t = 1 + \varepsilon_{t-1}$). Legacy
+  adds the effect to the growth rate every year, so a steady effect compounds. The one-year lag also avoids a circular
+  reference (revenue depends on fuel use, which depends on growth).
+- **Revenue (LD55), as legacy:** total revenue (legacy's `rev.new.usd`, row 8026, the total of all instruments), not
+  new-policy revenue only. The methane fee counts on the scenario's own activity, as legacy (issue I47). Before the
+  revenue was summed from its parts, a form `rtot − rmf` still referenced the methane fee and LibreOffice reported a
+  circular reference (Err:522) on a full recalculation: the fiscal revenue is therefore written as the sum of its parts
+  (@eq-fi-fisrev).
+- **Impulse and start year, as legacy** (legacy row 14356; issues I41, I42). The revenue uses take the impulse only
+  from `CPIntro`, as legacy sets the revenue-use shares to 0 before then (issue I43); earlier impulses count only as an
+  excise drag (tiny for Egypt).
+- **Multipliers (LD56), as legacy:** Global, income group, Estimated or Manual; Base, Low and High with the income
+  group's standard deviation (I44). Legacy bug L76 fixed: legacy's CIT table is empty, WAGE reads the GNFS table, the
+  country match is approximate and the source defaults to Estimated.
+- **Legacy bugs fixed:** L68 (legacy applies the lag-1 multiplier in the impulse year; here lag 0 acts in the impulse
+  year), L69 (the first cohort's excise drag is lost).
+- **Scenario-1 lookups stop at the current year**, which avoids a circular reference with the GDP feedback. Values are
+  unchanged.
+- **Methodology ([section 4.7](../CPAT_full_documentation_html/04_Multipliers.html#sec-GDPFeedback)).** The methodology
+  writes the fiscal space on the revenue of the new policies and the impulse as $fs_t - fs_{t-1}$. The model uses total
+  revenue (as legacy), scales last year's fiscal space by the GDP ratio $Y^{0}_{t-1}/Y^{0}_t$ (the change in USD over
+  this year's GDP), starts the impulse in `GDPStartYear` and starts the revenue uses in `CPIntro`. The feedback
+  equations (@eq-fi-lvl, @eq-fi-growth) are the methodology's.
+- **CPAT Python:** the Estimated and Manual multiplier sources are not implemented yet (`multipliers()` raises
+  `NotImplementedError`); Global and the income groups are.
+- **Memo rows:** legacy rows 16166-16175 add the effects to growth every year (L24), so its channel contributions are
+  not comparable with `gdpg`. Legacy shifts a row to later columns for the year of the reform; that row read forward
+  through the GDP chain and made a circular reference, so `gdpy` is a number row instead.
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Scenario 2 of the shipped file:
+
+| | 2027 | 2030 | 2035 | 2040 |
+|---|---|---|---|---|
+| Fiscal space (share of GDP) | 0.74% | 0.75% | 0.65% | 0.57% |
+| GDP effect (level) | 0.00% | −0.02% | 0.17% | 0.39% |
+
+The fiscal space jumps to about 0.75% of GDP when the policies start. With new-policy revenue only, as in earlier
+versions, it was 0.55% in 2030. The revenue first lowers GDP: the excise multiplier peaks two years after the impulse.
+From the early 2030s public investment and transfers outweigh it, and GDP ends about 0.4% above the baseline. The
+effect raises fuel use a little through the income elasticities.
+
+**Legacy benchmark.** The legacy file without proprietary data sets the baseline GDP-effect rows to 0, but its policy
+rows 14584-14607 hold the cached values of a carbon-tax run: GDP effect −0.07% in 2030, +0.34% in 2035, +1.22% in
+2040. Its carbon price rises to about 175 USD/t in 2041, so it is not the prototype's scenario. The comparison is
+therefore against an independent Python recomputation that iterates the whole model on the growth path until it
+converges; growth depends only on earlier years. A second benchmark is legacy's cached Egypt policy run (carbon tax 0
+to 5 USD/t, linear 2026-2040): compare $\varepsilon$ (`gdp.eff`) with legacy row 14592 and the fiscal space with row
+14336, not GDP growth (which differs because of L24).
+:::
+
+## External balance {#sec-fi-external}
+
+Lower fossil fuel use means lower imports, or more exports, of oil, gas and coal. Block 16b values the change in fuel
+use at the supply price and scales it by the share of each fuel group that is traded, then adds it to the energy trade
+balance and to the current account of the baseline. All rows are in USD bn, real
+([A8.2](A_Equations.qmd#eqlist-A8-2)).
+
+### Trade data {#sec-fi-trade-data}
+
+For each trade group $g$ (oil products, gas, coal) the base-year energy balance gives imports $M_g$, production $P_g$
+and exports $X_g$ (exports are negative in the balance). From them:
+
+$$
+ts_g = \frac{M_g - X_g}{M_g + P_g - X_g} \quad (1 \text{ where the denominator is } 0)
+$$ {#eq-fi-ts}
+
+$$
+TB_{g,t} = -(M_g + X_g)\,\theta\,\frac{p^{int}_{g,t}}{u_g}\,\frac{1}{M}
+$$ {#eq-fi-tb}
+
+where
+
+- $ts_g$ is the share traded of the group (`ts_<group>`); Egypt: gas 0.19, oil products 0.47, coal 1.0;
+- $TB_{g,t}$ is the baseline energy trade balance, exports minus imports (`xtb.<group>`);
+- $p^{int}_{g,t}$ is the real international price of scenario 1's price source (oil per barrel, gas per MMBtu on the
+  country's gas market, coal per tonne), and $u_g$ the GJ per unit (6.12 GJ per barrel, 1.055056 GJ per MMBtu, 25.14 GJ
+  per tonne).
+
+The oil group holds gasoline, diesel, LPG, kerosene, jet fuel and other oil products.
+
+### Change in net imports {#sec-fi-xnim}
+
+For each fossil fuel, the change in use against the baseline is valued at the supply price and scaled by the share
+traded of its group:
+
+$$
+\Delta NIM_{f,t} = \Delta F_{f,t}\;\theta\;sp_{f,t}\;ts_{g(f)}\;\frac{1}{M}
+$$ {#eq-fi-xnim}
+
+where
+
+- $\Delta F_{f,t}$ is the change in total use of the fuel against scenario 1 (`echg`, block 11b, @sec-demand), ktoe;
+- $sp_{f,t}$ is the supply price (`sp`, @sec-prices), USD/GJ;
+- $\Delta NIM_{f,t}$ is the change in net energy imports (`xnim.<fuel>`), positive for more imports.
+
+| Fuel | Supply price used | Trade group |
+|---|---|---|
+| Coal | industry supply price of coal | coal |
+| Natural gas | industry supply price of gas | gas |
+| Jet fuel | kerosene | oil |
+| Gasoline, diesel, LPG, kerosene, other oil products | the fuel's own price | oil |
+
+The fuel rows are summed by group (`xnim.grp.oil`, `.nga`, `.coa`) and in total (`xnim.all`).
+
+### Trade balance and current account {#sec-fi-ca}
+
+The scenario's energy trade balance is the baseline balance less the change in net imports:
+
+$$
+TB^{P}_t = \sum_g TB_{g,t} - \sum_f \Delta NIM_{f,t}
+$$ {#eq-fi-xtbp}
+
+Both, and the change in net imports, are also given as shares of baseline real GDP (`xtb.pct` = $TB^P/Y^0$,
+`xnim.pct` = $\Delta NIM/Y^0$; 0 where GDP is 0).
+
+The current account starts from the WEO series and adds the change in net imports, in USD and in percent of GDP:
+
+$$
+\begin{aligned}
+CA^{r}_t &= CA_t\,\nu_t && \text{real current account, pre-policy }(\texttt{bca.r})\\
+\Delta CA_{g,t} &= -\Delta NIM_{g,t} && \text{change by fuel group }(\texttt{bca.d})\\
+CA^{P}_t &= CA^{r}_t + \textstyle\sum_g \Delta CA_{g,t} && \text{after the policy }(\texttt{bca.p})\\
+\hat{Y}_t &= \left|CA^{r}_t / ca_t\right| && \text{implied GDP / 100 }(\texttt{bca.y}\text{; 0 if }ca_t = 0)\\
+ca^{P}_t &= ca_t + \textstyle\sum_g \Delta CA_{g,t} / \hat{Y}_t && \text{after the policy, percent of GDP }(\texttt{bca.pp})
+\end{aligned}
+$$ {#eq-fi-bca}
+
+where
+
+- $CA_t$ is the current account balance (WEO `BCA`, `bca`), USD bn nominal, held after its last data year;
+- $ca_t$ is the current account in percent of GDP (WEO `BCA_NGDPD`, `bca.gdp`), held likewise;
+- $\nu_t$ is the US CPI index (`infl`, 1 in the results year);
+- `bca.dp.<group>` = $\Delta CA_{g,t}/\hat{Y}_t$; the memo `bca.n` is the current account in current prices, 0 after
+  the last data year.
+
+::: {.callout-tip icon=false title="Pseudocode: external balance"}
+```
+for t in years:
+    for f, g in [('coa', 'coa'), ('nga', 'nga'), ('gso', 'oil'), ('die', 'oil'), ('lpg', 'oil'),
+                 ('ker', 'oil'), ('jfu', 'oil'), ('oop', 'oil')]:
+        price = sp['ind', f, t] if f in ('coa', 'nga') else sp['all', 'ker' if f == 'jfu' else f, t]
+        xnim[f, t] = echg[f, t] * PJ_PER_KTOE * price * ts[g] / M_PER_BN
+    for g in ['oil', 'nga', 'coa']:
+        xnim_grp[g, t] = sum(xnim[f, t] for f in fuels_of(g))
+        xtb[g, t] = -(imports[g] + exports[g]) * PJ_PER_KTOE / M_PER_BN * p_int[g, t] / gj_per_unit[g]
+    xnim_all[t] = sum(xnim_grp[g, t] for g in groups)
+    xtbp[t]     = sum(xtb[g, t] for g in groups) - xnim_all[t]
+    xtb_pct[t]  = safe_div(xtbp[t], gdp_usd[t]);  xnim_pct[t] = safe_div(xnim_all[t], gdp_usd[t])
+
+    bca_r[t] = bca[t] * infl[t]
+    bca_p[t] = bca_r[t] - sum(xnim_grp[g, t] for g in groups)
+    bca_y[t] = abs(bca_r[t] / bca_gdp[t]) if bca_gdp[t] != 0 else 0.0
+    bca_pp[t] = bca_gdp[t] + sum(safe_div(-xnim_grp[g, t], bca_y[t]) for g in groups)
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, block 16b inside section 16 (`xnim`, `xtb`, `xtbp`, `xtb.pct`, `xnim.pct`, `bca*`).
+  The share traded and the trade balance are data on sheet WEO (keys `<country>|ts_<group>`, `<country>|tb_<group>`,
+  from the data step `extract_gdp`; legacy Mitigation rows 741-743); the current account is typed for Egypt
+  (`bca`, `bca_gdp`, `bca_n`; other countries 0).
+- **CPAT Python:** `cpat_model/mitigation/gdp.py`, `trade_data()` (share traded and trade balance from the energy
+  balance and the international prices; WEO current account for any country) and `external()` (equation A8.2).
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **L49 fixed:** legacy leaves the share traded out for oil, so its oil effect is about twice as large.
+- **L50 fixed:** legacy's balance-of-payments panel (rows 18160-18204) has a pre-policy current account of `#NAME?`
+  (stale WEO codes), rows that lag one column (it shows the 2021 balance, −5.85, in 2022), and a sign of the policy
+  net imports that looks reversed.
+- **L214 fixed:** legacy's current account after the policy in % of GDP leaves coal out.
+- **L215 not replicated:** legacy values the gas import bill with a unit error (USD per MMBtu on GJ); here every fuel is
+  valued at its supply price in USD/GJ.
+- **As legacy:** the implied GDP of the % of GDP rows (issue I129); the current account in current prices is 0 after
+  the last data year (issue I130).
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Carbon tax of 20 USD, 2030: change in net imports −1.2 bn USD, of which oil −0.93 bn. Baseline energy trade balance
+2022: −6.7 bn USD.
+:::
+
+## Carbon pricing indicators {#sec-fi-carbon-pricing}
+
+How heavily is carbon priced, once every tax and subsidy on energy is counted? Section 17 answers with revenue per
+tonne of CO2, by fuel and for the economy, and with the share of emissions the new carbon tax and ETS cover
+([A7.5](A_Equations.qmd#eqlist-A7-5)). The methodology discusses coverage in
+[section 3.9.3.1.1](../CPAT_full_documentation_html/03_Mitigation.html#policy-coverage-and-exemptions).
+
+### Implicit carbon price and effective carbon rate {#sec-fi-tcp}
+
+**Implicit carbon price by fuel.** The revenue net of subsidies of the fuel, final use and power generation, divided by
+its CO2:
+
+$$
+tcp_f = \frac{rfu_f + rfg_f}{CO2_f}, \qquad
+tcp_{all} = \frac{\sum_{f \in \text{fossil}} rfu_f + \sum_{k \in \{coal,gas,oil\}} rfg_k}{CO2}
+$$ {#eq-fi-tcp}
+
+where $CO2_f$ is the CO2 of the fuel (power included; @sec-emissions), MtCO2, $rfg_f$ applies to coal, gas and other
+oil products only, and $tcp$ is in USD/tCO2 (`tcp`; 0 where the CO2 is 0). Biomass is left out: it has no CO2.
+
+This is the tax-and-subsidy wedge per GJ divided by the emission factor. A carbon tax of $\tau$ USD/t raises every fuel's
+implicit price by about $\tau$.
+
+**Effective carbon rate.** All revenue net of subsidies, per tonne of energy CO2:
+
+$$
+ecr = \frac{rev^{net} + rev^{new} + rev^{sr}}{CO2}
+$$ {#eq-fi-ecr}
+
+so VAT, the electricity subsidy gap and electricity VAT count. `ecr` is the summary row of section 17.
+
+### Coverage {#sec-fi-coverage}
+
+**CO2 covered by the new carbon tax** in each of the 17 coverage sectors $e$ (power and the 16 subsectors): the CO2 of
+the fuels whose coverage switch is on, counted only where the sector's carbon tax rate is above 0:
+
+$$
+CO2^{cov}_e = \mathbb{1}[ct_e > 0]\sum_{f} CO2_{e,f}\;\kappa^{ct}_f
+$$ {#eq-fi-covct}
+
+where $\kappa^{ct}_f$ is the fuel's carbon tax coverage switch (`ctcov`). Power uses the CO2 of coal, gas and oil
+generation. A sector in a non-complementary ETS has a carbon tax rate of 0 and so no covered CO2.
+
+**Coverage shares and effective carbon tax:**
+
+$$
+cov^{ct}_G = \frac{\sum_{e \in G} CO2^{cov}_e}{CO2}, \qquad
+cov^{ets} = \frac{CO2^{ets}}{CO2}, \qquad
+cov = cov^{ct}_{all} + cov^{ets}, \qquad
+p^{eff} = \tau\;cov^{ct}_{all}
+$$ {#eq-fi-cov}
+
+where $G$ is a sector group (transport, buildings, industry, other energy use, power) or all sectors, $CO2^{ets}$ the
+CO2 covered by the new ETS (`co2.ets`, @sec-emissions), $\tau$ the carbon price (`cptraj`) and $p^{eff}$ the effective
+carbon tax (`cpeff`), USD/tCO2.
+
+| Row | Content | Unit |
+|---|---|---|
+| `tcp.<fuel>`, `tcp.all` | Implicit carbon price (@eq-fi-tcp) | USD/tCO2 |
+| `ecr` | Effective carbon rate (@eq-fi-ecr); summary row | USD/tCO2 |
+| `covct.<sector>` | CO2 covered by the new carbon tax (@eq-fi-covct) | MtCO2 |
+| `cov.ct.<group>`, `cov.ct.all` | Shares of energy CO2 covered by the carbon tax | % |
+| `cov.ets` | Share covered by the new ETS | % |
+| `cov.all` | Covered by the carbon tax or the ETS | % |
+| `cpeff` | Effective carbon tax (@eq-fi-cov) | USD/tCO2 |
+
+::: {.callout-tip icon=false title="Pseudocode: carbon pricing indicators"}
+```
+for t in years:
+    for f in ['coa', 'nga', 'gso', 'die', 'lpg', 'ker', 'jfu', 'oop']:
+        rev = rfu[f, t] + (rfg[f, t] if f in ('coa', 'nga', 'oop') else 0.0)
+        tcp[f, t] = rev / co2[f, t] if co2[f, t] != 0 else 0.0
+    tcp['all', t] = safe_div(sum(rfu[f, t] for f in fossil) + sum(rfg[k, t] for k in ('coa', 'nga', 'oop')),
+                             co2_all[t])
+    for g in groups + ['pow']:
+        cov_ct[g, t] = safe_div(sum(covct[e, t] for e in sectors_of(g)), co2_all[t])
+    cov_ct['all', t] = safe_div(sum(covct[e, t] for e in coverage_sectors), co2_all[t])
+    cov_ets[t] = safe_div(co2_ets[t], co2_all[t])
+    cov_all[t] = cov_ct['all', t] + cov_ets[t]
+    cpeff[t]   = cptraj[t] * cov_ct['all', t]
+    ecr[t]     = safe_div(rnet[t] + rnew['all', t] + rsr['all', t], co2_all[t])
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 17 (`tcp`, `cpeff`, `covct`, `cov.ct`, `cov.ets`, `cov.all`, `ecr`); the
+  shares call `SAFEDIV` and `SCALEBY` in the LAMBDA column.
+- **CPAT Python:** `cpat_model/mitigation/emissions.py`, `carbon_pricing()` (equation A7.5); `covct` is computed with
+  the report by instrument in `totals.revenues()`.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **Implicit carbon price:** legacy's "total carbon price" by fuel (F5d). Biomass is left out; legacy gives `#DIV/0!`.
+- **Effective carbon rate** (legacy row 16662), as legacy: VAT, the electricity subsidy gap and electricity VAT count.
+  The OECD's effective carbon rate counts carbon taxes, excises and permit prices only (issue I36).
+- **Coverage** shares as legacy rows 16152-16157; the effective carbon tax as legacy row 16137.
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Implicit carbon price in 2022 (subsidies make it negative): gas −151, diesel −249, LPG −280, all fossil fuels −179
+USD/tCO2. A carbon tax of 20 USD raises every fuel by about 20.
+
+Effective carbon rate 2022: −207 USD/tCO2 (legacy −122; the price data differ).
+
+Coverage of the carbon tax, carbon tax scenario, 2030: 99.8% of energy CO2 (legacy 98.8%), of which power 41%.
+:::
+
+## Welfare and externalities {#sec-fi-welfare}
+
+Section 18 puts a money value on what the policy does to society. It values climate damages at the social cost of
+carbon, air pollution and road transport externalities with the inputs of the two co-benefit modules, and efficiency
+(deadweight) costs with the tax wedges. From the same building blocks it computes fossil fuel subsidies, explicit and
+implicit, and efficient prices. The methodology describes the framework in
+[section 3.7, Monetized social costs and benefits](../CPAT_full_documentation_html/03_Mitigation.html#monetized-social-costs-and-benefits).
+
+Results are in USD bn, real, unless stated.
+
+### Social cost of carbon {#sec-fi-scc}
+
+The social cost of carbon (SCC) values a tonne of CO2. The model offers five paths and picks one for the national
+value and one for the global value ([M1.6](A_Equations.qmd#eqlist-M1-6)):
+
+$$
+\begin{aligned}
+SCC^{tgt}_t &= SCC^{*}\,(1 + g^{scc})^{\,t - T^{*}}\\
+SCC^{Rn}_t &= SCC^{R}_{c}\,(1 + g^{scc})^{\,t - t_0}, \qquad SCC^{Rg}_t = SCC^{R}_{world}\,(1 + g^{scc})^{\,t - t_0}\\
+SCC^{EPA}_t &= SCC^{EPA}\,(1 + g^{scc})^{\,t - t_0}\\
+SCC^{man}_t &= \text{manual path}
+\end{aligned}
+$$ {#eq-fi-scc}
+
+where $SCC^{R}_c$ is the national value of Ricke et al. (2018) for the chosen pure rate of time preference and
+elasticity of marginal utility (sheet SCC, key `<country>.<rate>.<elasticity>`), $SCC^{R}_{world}$ the global value
+(key `wld.<rate>.<elasticity>`), and $t_0$ the base year. The national SCC ($SCC^{nat}$, `scc.nat`) and the global SCC
+($SCC^{glo}$, `scc.glo`) take the path chosen by `NSCCSrc` and `GSCCSrc` (first letter: T, R, M, U or E).
+
+| Setting | Code | Default |
+|---|---|---|
+| Target-consistent price $SCC^{*}$ | `SCCTgt` | 75 USD/tCO2, real |
+| Its year $T^{*}$ | `SCCTgtYr` | 2030 |
+| Real growth $g^{scc}$ | `SCCGr` | 4% a year |
+| National and global SCC source | `NSCCSrc`, `GSCCSrc` | Target (choices: Target, Ricke, Manual, EPA) |
+| Ricke et al. (2018) settings | | pure rate of time preference 2, elasticity 1.5 |
+| US EPA SCC in the base year | | 62 USD/tCO2 |
+| Manual path | Manual inputs row 237 | |
+
+**Climate cost per GJ** of each fossil fuel, with the generic CO2 factor of the fuel (not calibrated):
+
+$$
+cc^{nat}_f = SCC^{nat}\,EF_f, \qquad cc^{glo}_f = SCC^{glo}\,EF_f
+$$ {#eq-fi-cc}
+
+for coal, gas, other oil products, gasoline, diesel, LPG and kerosene, where $EF_f$ is the generic emission factor
+(tCO2/GJ) and $cc$ is in USD/GJ (`cc.nat`, `cc.glo`).
+
+### Climate damages {#sec-fi-climate}
+
+Climate damages are the SCC times GHG emissions excluding LULUCF (@sec-emissions); the welfare gain is the damage
+avoided against the baseline:
+
+$$
+D^{x} = \frac{SCC^{x}\;GHG}{M}, \qquad W^{cli,x} = D^{x,B} - D^{x}, \qquad x \in \{nat, glo\}
+$$ {#eq-fi-dmg}
+
+where $GHG$ is in Mt CO2e, $D$ the climate damage (`dmg.nat`, `dmg.glo`) and $W^{cli}$ the damage avoided (`wcli.nat`,
+`wcli.glo`), USD bn.
+
+### Efficiency costs {#sec-fi-efficiency}
+
+A tax or subsidy drives a wedge between what users pay and what supply costs. When a policy changes fuel use, the
+welfare cost is the wedge times the change in use: a Harberger triangle plus, with a prior tax, a rectangle
+([methodology 3.7.1.3](../CPAT_full_documentation_html/03_Mitigation.html#efficiency-costs-in-cpat)). The model takes
+the average of the wedges of the scenario and the baseline (a trapezoid).
+
+**The wedge** is revenue net of subsidies per unit of use:
+
+$$
+w_f = \frac{rfu_f + rfg_f}{F_f}, \qquad w_{ecy} = \frac{rfu_{ecy}}{F_{ecy}}
+$$ {#eq-fi-wdg}
+
+where $F_f$ is total use of the fuel (`ener`, section 11), $F_{ecy}$ electricity demand (`eldem`), both ktoe, $rfg$
+applies to coal, gas, other oil products and biomass, and $w$ is in USD million per ktoe (`wdg`; 0 where use is 0).
+
+**The efficiency cost** of each fuel (biomass and the power fuels included) and of electricity:
+
+$$
+EC_f = -\,\frac{w_f + w^{B}_f}{2}\;\frac{\Delta F_f}{M}, \qquad EC = \sum_f EC_f + EC_{ecy}
+$$ {#eq-fi-eff}
+
+where $\Delta F_f$ is the change in use against the baseline (`echg`; electricity: `eldem` − `eldem`$^B$) and $EC$ is
+the efficiency cost (`eff`), USD bn: positive is a cost. With subsidies (negative wedges), a fall in use is a gain.
+
+**Efficiency cost of the methane fee.** For each methane source $j$ (oil and gas upstream, downstream gas, coal mines,
+biomass, livestock, rice, waste), the abatement curve gives the abated share $a_j\,p^{b_j}$ at a fee $p$ per tonne of
+CH4. The fee used on the curve is capped where abatement reaches 1:
+
+$$
+p^{mf}_j = \begin{cases} 0 & a_j = 0\\ \min\!\left(m\,GWP_j\,\delta^{mf}_j,\ a_j^{-1/b_j}\right) & \text{otherwise}\end{cases}
+$$ {#eq-fi-mfp}
+
+$$
+MC_j = E^{0}_j\,\frac{Act_j}{Act^{0}_j}\;abt_j\;p^{mf}_j\;\frac{b_j}{1+b_j}\;\frac{1}{10^{6}}, \qquad MC = \sum_j MC_j
+$$ {#eq-fi-mfc}
+
+where
+
+- $m$ is the methane fee (`mfee`), USD/tCO2e, $GWP_j$ the global warming potential and $\delta^{mf}_j$ 1 if the fee
+  applies to the source;
+- $a_j$, $b_j$ are the parameters of the abatement curve (country, else average); where $b_j = 0$ or the cap
+  overflows, there is no cap;
+- $E^{0}_j$ is the source's emissions in the inventory year (kt CH4), $Act_j / Act^{0}_j$ its activity against the base
+  year, and $abt_j$ its abated share (@sec-emissions);
+- $p^{mf}_j$ is `mfp` (USD/tCH4) and $MC$ the methane fee cost (`mfc`), USD bn: the area under the abatement curve.
+
+### Air pollution costs {#sec-fi-airpol}
+
+The air pollution module provides two things (@sec-emissions gives the pollutant emissions it reads): the marginal
+damage of each fuel in each subsector, and the value of a change in modelled PM2.5 concentration
+([A8.3](A_Equations.qmd#eqlist-A8-3)). The methodology describes the economic valuation in
+[chapter 6, section 6.7](../CPAT_full_documentation_html/06_Air_pollution.html#sec-eco_ap).
+
+**Cost per unit of fuel, by price code.** The marginal damage per GJ of each subsector (`airpol.mc`, computed before the
+year loop with the Pigouvian taxes, [A1.2](A_Equations.qmd#eqlist-A1-2)) is averaged over the subsectors of the price
+code, weighted by the scenario's own fuel use of the year:
+
+$$
+ap_{c} = u_c\;\frac{\sum_{s \in c} mc^{ap}_{s,f}\,F_{s,f}}{\sum_{s \in c} F_{s,f}}
+\quad \Big(\text{the plain average where } \textstyle\sum_{s \in c} F_{s,f} = 0\Big)
+$$ {#eq-fi-apc}
+
+where $u_c$ is the GJ per price unit (litres for gasoline, diesel, LPG and kerosene; 1 for coal, gas and other oil
+products, which are in USD/GJ) and $ap_c$ is `airpol.cost`. The price codes are coal and gas for industry, residential
+(buildings subsectors) and power (the plant's own value), the four road and household oil products over all oil-using
+subsectors, and other oil products for power and industry. Per GJ, $ap^{gj}_c = ap_c / u_c$ (`airpol.cost.gj`).
+Residential coal counts only where buildings' coal use exceeds `ApCoalResMin` (0.1%) of buildings' total fuel use.
+
+**Averages for other uses** (block 18), weighted by the use of the year (`apq`): coal and gas "other" average industry,
+residential (buildings use) and power (power fuel use); "other oil and diesel" (`odo`) averages diesel in transport and
+other oil products in power and industry (0 where all three are 0); `oop.avg` averages other oil products in power and
+industry.
+
+**Air pollution cost of electricity** (memo), USD/kWh:
+
+$$
+ap_{ecy} = \frac{\sum_{k \in \{coal, gas, oil\}} ap^{gj}_{pow,k}\;PE_k\;\theta}{G^{tot}\,H}
+$$ {#eq-fi-apecy}
+
+**Modelled PM2.5 concentration** by module source $m$ (coal, gas and other power plants, road, ground level, other,
+food), from the pollutant emissions of section 15:
+
+$$
+PM_m = 1000 \sum_p AP_{m,p}\;\kappa_{m,p}, \qquad PM = \sum_m PM_m
+$$ {#eq-fi-pm}
+
+where $AP_{m,p}$ is the emission of pollutant $p$ by source $m$ (`aps`), kt, $\kappa_{m,p}$ the module's concentration
+coefficient (µg/m³ per t; NOx, SO2, BC, POM, other PM, VOC, CH4, CO, PM2.5, OC) and $PM$ the modelled ambient PM2.5
+(`air.con.pm2.mod`), µg/m³.
+
+### Road transport externalities {#sec-fi-roadext}
+
+The transport co-benefits module gives the cost of accidents, congestion and road damage per vehicle-km. The model turns
+them into a cost per litre (or kWh) of road fuel, using the road engineer model (@sec-transport) for fuel economy and the
+split between passenger and freight use ([A8.4](A_Equations.qmd#eqlist-A8-4)). The methodology describes these costs in
+[chapter 7, section 7.7.5](../CPAT_full_documentation_html/07_Road_Transport.html#sec-extcost).
+
+A change in fuel use comes partly from driving less and partly from more efficient vehicles. Only the driving part
+changes the externalities. Its share, for road fuel $f$ (gasoline, diesel, LPG, gas, electricity), is:
+
+$$
+w_f = 1 - \frac{Q^{fre,B}_f}{Q^{cls,B}_f} \;(w_{gso} = 1), \qquad
+\mu_f = \frac{\epsilon^{U}_{die} + w_f\,(\epsilon^{U}_{gso} - \epsilon^{U}_{die})}
+{\epsilon^{U}_{die} + \epsilon^{F}_{die} + w_f\,(\epsilon^{U}_{gso} + \epsilon^{F}_{gso} - \epsilon^{U}_{die} - \epsilon^{F}_{die})}
+$$ {#eq-fi-mrg}
+
+where
+
+- $Q^{cls}_f$ is the road fuel use of the vehicle classes of the fuel (`tran.cls`: passenger and freight; gasoline:
+  passenger and two-three wheelers; electricity: all three), bn litres or kWh, and $Q^{fre}_f$ its freight part;
+- $w_f$ is the passenger weight of the fuel in the baseline (`tran.wcl`);
+- $\epsilon^{U}$, $\epsilon^{F}$ are the road usage and efficiency elasticities of gasoline and diesel;
+- $\mu_f$ is the driving share of the response (`tran.mrg`), 0 where the baseline class use is 0.
+
+The cost per unit of fuel, for each kind of externality:
+
+$$
+\begin{aligned}
+acc_f &= a^{km}\;\overline{fe}_f\;\mu_f\;\rho_f && \text{accidents }(\texttt{tran.acc.cost})\\
+con_f &= k^{km}\;\overline{fe}_f\;\mu_f\;\rho_f && \text{congestion }(\texttt{tran.con.cost})\\
+rdm_f &= r^{km}\;\overline{fe}_f\;\mu_f\;\phi_f\;\rho_f && \text{road damage, not gasoline }(\texttt{tran.rdm.cost})
+\end{aligned}
+$$ {#eq-fi-trcost}
+
+where
+
+- $a^{km}$, $k^{km}$, $r^{km}$ are the accident, congestion and road-damage costs per vehicle-km of the module
+  (`tran.acc.km`, `tran.con.km`, `tran.rdm.km`), USD/km; road damage is per freight vehicle-km;
+- $\overline{fe}_f$ is the average fuel economy of the stock (`trafg`, `trafo`, `trafe`), km per litre or kWh;
+- $\phi_f = Q^{fre}_f / Q^{cls}_f$ is the freight share of the scenario (`tran.fsh`);
+- $\rho_f$ is the road share of the fuel's total use (`tran.rsh`; electricity: road demand over total demand);
+- the costs are in USD per litre (USD per kWh for electricity).
+
+Per GJ, for gasoline, diesel and LPG, divide by the GJ per litre (`tran.acc.gj`, `tran.con.gj`, `tran.rdm.gj`). The
+**total road externality excluding climate**, USD/GJ (`tot.ext`):
+
+$$
+ext_{gso} = ap^{gj}_{gso} + acc^{gj}_{gso} + con^{gj}_{gso}, \qquad
+ext_{die} = ap^{gj}_{die} + acc^{gj}_{die} + con^{gj}_{die} + rdm^{gj}_{die}
+$$ {#eq-fi-totext}
+
+::: {.callout-tip icon=false title="Pseudocode: air pollution and road transport externalities"}
+```
+for t in years:
+    # air pollution cost per unit, weighted by this year's fuel use
+    for (S, f, subsectors) in cost_rows:                 # coa|nga x ind|res|pow, gso|die|lpg|ker, oop x pow|ind
+        u = gj_per_unit[f] if S == 'all' else 1.0
+        if subsectors is None:                           # power: the plant's own value
+            cost = airpol_mc['pow', f, t]
+        else:
+            w = sum(ener[f, s, t] for s in subsectors)
+            cost = (sum(airpol_mc[s, f, t] * ener[f, s, t] for s in subsectors) / w if w > 0
+                    else mean(airpol_mc[s, f, t] for s in subsectors))
+        airpol_cost[S, f, t] = cost * u
+        airpol_cost_gj[S, f, t] = cost
+    airpol_cost_gj['res', 'coa', t] *= (fuq['bld', 'coa', t] > ApCoalResMin * ener['bld', 'all', t])
+    for m in sources:                                    # cpp, gpp, opp, rod, gro, oth, foo
+        pm2[m, t] = sum(aps[m, p, t] * kappa[m, p] for p in pollutants) * T_PER_KT
+    pm2['mod', t] = sum(pm2[m, t] for m in sources)
+
+    # road transport externalities per unit of fuel
+    for f in ['gso', 'die', 'lpg', 'nga', 'ecy']:
+        wcl = 1.0 if f == 'gso' else 1 - safe_div(baseline.freight_use[f, t], baseline.class_use[f, t])
+        mrg = 0.0 if baseline.class_use[f, t] == 0 else \
+              (eU['die'] + wcl * (eU['gso'] - eU['die'])) / \
+              (eU['die'] + eF['die'] + wcl * (eU['gso'] + eF['gso'] - eU['die'] - eF['die']))
+        fsh = safe_div(freight_use[f, t], class_use[f, t])
+        acc_cost[f, t] = acc_km[t] * avg_fe[f, t] * mrg * road_share[f, t]
+        con_cost[f, t] = con_km[t] * avg_fe[f, t] * mrg * road_share[f, t]
+        if f != 'gso':
+            rdm_cost[f, t] = rdm_km[t] * avg_fe[f, t] * mrg * fsh * road_share[f, t]
+    tot_ext['gso', t] = airpol_cost_gj['all', 'gso', t] + acc_cost['gso', t] / gj['gso'] + con_cost['gso', t] / gj['gso']
+    tot_ext['die', t] = airpol_cost_gj['all', 'die', t] + (acc_cost['die', t] + con_cost['die', t]
+                                                           + rdm_cost['die', t]) / gj['die']
+```
+:::
+
+### Welfare gains {#sec-fi-welfare-gains}
+
+The national welfare gain adds the climate damages avoided at the national SCC, the air pollution and road transport
+co-benefits, and subtracts the efficiency costs ([A8.5](A_Equations.qmd#eqlist-A8-5),
+[methodology 3.7.3](../CPAT_full_documentation_html/03_Mitigation.html#monetized-welfare-benefits)).
+
+**Air pollution.** The value of a change in modelled PM2.5:
+
+$$
+W^{air} = v^{PM}\,\left(PM^{B} - PM\right)
+$$ {#eq-fi-welair}
+
+where $v^{PM}$ is the value of averted modelled ambient PM2.5 (`air.vpm`), USD bn per µg/m³, from the air pollution
+module.
+
+**Road transport.** The per-km costs times the change in vehicle-km of the road engineer model:
+
+$$
+W^{acc} = a^{km}\,(VKT^{B} - VKT), \qquad W^{con} = k^{km}\,(VKT^{B} - VKT), \qquad W^{rdm} = r^{km}\,(VKT^{fre,B} - VKT^{fre})
+$$ {#eq-fi-welrod}
+
+where $VKT$ is total road vehicle-km (`trkmt`) and $VKT^{fre}$ freight vehicle-km (`trkmf`), bn km, from the road
+engineer model whatever road model is selected (@sec-transport).
+
+**National welfare gain**, the summary row of section 18:
+
+$$
+W = W^{cli,nat} + W^{air} + W^{acc} + W^{con} + W^{rdm} - EC - MC
+$$ {#eq-fi-wel}
+
+and its parts as shares of baseline real GDP:
+
+| Row | Content | Definition |
+|---|---|---|
+| `wel.usd` | National welfare gain, USD bn | @eq-fi-wel |
+| `wel.pct` | Same, share of GDP | $W / Y^{0}$ |
+| `wel.cli` | Climate, share of GDP | $W^{cli,nat} / Y^{0}$ |
+| `wel.air.usd`, `wel.air.pct` | Air pollution | @eq-fi-welair; $W^{air} / Y^{0}$ |
+| `wel.rod.aci`, `.con`, `.dmg`; `wel.rod.pct` | Accidents, congestion, road damage | @eq-fi-welrod; their sum over $Y^{0}$ |
+| `wel.eff` | Efficiency costs, share of GDP | $(EC + MC) / Y^{0}$ |
+
+::: {.callout-tip icon=false title="Pseudocode: climate damages, efficiency costs and welfare"}
+```
+for t in years:
+    for x in ['nat', 'glo']:
+        dmg[x, t]  = scc[x, t] * ghg_excl_lulucf[t] / M_PER_BN
+        wcli[x, t] = baseline.dmg[x, t] - dmg[x, t]
+
+    for f in ['coa', 'nga', 'gso', 'die', 'lpg', 'ker', 'jfu', 'oop', 'bio']:
+        tax = rfu[f, t] + (rfg[f, t] if f in ('coa', 'nga', 'oop', 'bio') else 0.0)
+        wdg[f, t] = safe_div(tax, ener['all', f, t])
+        eff[f, t] = -(wdg[f, t] + baseline.wdg[f, t]) / 2 * echg[f, t] / M_PER_BN
+    wdg['ecy', t] = safe_div(rfu['ecy', t], eldem[t])
+    eff['ecy', t] = -(wdg['ecy', t] + baseline.wdg['ecy', t]) / 2 * (eldem[t] - baseline.eldem[t]) / M_PER_BN
+    eff_all = sum(eff[f, t] for f in fuels + ['ecy'])
+
+    for j in methane_sources:
+        fee = mfee[t] * gwp[j] * fee_applies[j]
+        cap = a[j] ** (-1 / b[j]) if b[j] != 0 else fee      # no cap where b = 0 or it overflows
+        mfp[j, t] = 0.0 if a[j] == 0 else min(fee, cap)
+        unabated = safe_div(em0[j] * ch4_act[j, t], act0[j])
+        mfc[j, t] = unabated * ch4_abt[j, t] * mfp[j, t] * b[j] / (1 + b[j]) / MILLION
+    mfc_all = sum(mfc[j, t] for j in methane_sources)
+
+    wel_air = air_vpm[t] * (baseline.pm2['mod', t] - pm2['mod', t])
+    dkm = baseline.trkmt[t] - trkmt[t]
+    wel_rod = acc_km[t] * dkm + con_km[t] * dkm + rdm_km[t] * (baseline.trkmf[t] - trkmf[t])
+    wel_usd[t] = wcli['nat', t] + wel_air + wel_rod - eff_all - mfc_all
+    wel_pct[t] = safe_div(wel_usd[t], gdp_usd[t])
+```
+:::
+
+### Benefits of fossil fuel subsidy reform {#sec-fi-ffs}
+
+A second welfare measure, kept separate from the national welfare gain, values the environmental gain of the change in
+fossil fuel use at the global climate cost plus the local costs (a Harberger rectangle,
+[methodology 3.7.1.4](../CPAT_full_documentation_html/03_Mitigation.html#co-benefits)). For each of 16 lines $j$:
+
+$$
+B^{ffs}_j = -\left(cc^{glo}_{f(j)} + ext_j\right)\;\Delta q_j\;\frac{\theta}{M}, \qquad
+W^{ffs} = \sum_j B^{ffs}_j - EC - MC
+$$ {#eq-fi-ffs}
+
+where $q_j$ is the fuel use of the line (`ffs.q`), ktoe, $ext_j$ its local external cost per GJ, and $B^{ffs}_j$ is
+`env.ffs.cost` (USD bn); $W^{ffs}$ is `wel.ffs`.
+
+| Line | Quantity $q_j$ | Climate fuel | Local cost $ext_j$ |
+|---|---|---|---|
+| coal, gas × industry | industry use | coal, gas | `airpol.cost.gj` industry |
+| coal, gas × residential | buildings use | coal, gas | `airpol.cost.gj` residential |
+| coal, gas × power | power fuel use | coal, gas | `airpol.cost.gj` power |
+| gasoline, road | transport use | gasoline | `tot.ext` gasoline |
+| diesel, road | transport use | diesel | `tot.ext` diesel |
+| LPG | total use | LPG | `airpol.cost.gj` LPG |
+| kerosene | total use of kerosene and jet fuel | kerosene | `airpol.cost.gj` kerosene |
+| other oil, power | power fuel use | other oil | `airpol.cost.gj` other oil, power |
+| other oil, industry | industry use of other oil and diesel | other oil | `airpol.cost.gj` other oil, industry |
+| coal, gas, other | transport and other energy use | coal, gas | `airpol.cost.gj` "other" average |
+| gasoline, other | total use less transport | gasoline | `airpol.cost.gj` gasoline |
+| diesel, other | diesel in buildings and other energy, other oil in transport, buildings and other energy | other oil | `airpol.cost.gj` `odo` |
+
+### Fossil fuel subsidies {#sec-fi-subsidies}
+
+Explicit subsidies are the gap between the supply cost and the retail price, where users pay less than supply costs.
+Implicit subsidies are the further gap up to the efficient price: the supply cost plus external costs plus the VAT
+consumers would pay on both ([A8.6](A_Equations.qmd#eqlist-A8-6)). They are computed for 16 lines $j$: gasoline,
+diesel, LPG, kerosene and other oil products; gas and coal for industry, residential, power and "other"; electricity for
+industry, residential and "other".
+
+$$
+p^{*}_j = sc_j + ext_j + vat_j, \qquad vat_j = (sc_j + ext_j)\;\eta_j\;\bar{v}_t
+$$ {#eq-fi-effprice}
+
+$$
+S^{exp}_j = \max(0,\ sc_j - p_j)\;\frac{Q_j}{M}, \qquad
+S^{imp}_j = \mathbb{1}[p_j \le p^{*}_j]\;\left(p^{*}_j - \max(p_j, sc_j)\right)\frac{Q_j}{M}
+$$ {#eq-fi-subs}
+
+where
+
+- $sc_j$ is the supply cost of the scenario (`supcost`: `sp`; electricity `spe`), USD/GJ or USD/kWh;
+- $ext_j$ is the external cost (`extcost`): global climate cost plus `tot.ext` for gasoline and diesel; plus the air
+  pollution cost for LPG, kerosene, other oil products (the `oop.avg` average) and coal and gas lines; 0 for
+  electricity;
+- $\eta_j$ is the VAT base flag: the household share of the oil product for gasoline, diesel, LPG and kerosene, 1 for
+  residential lines, 0 for other oil products, industry and power;
+- $\bar{v}_t$ is the general VAT rate of the year (`vatgen`): the WEO VAT rate up to the last historical price year,
+  then held;
+- $p_j$ is the retail price of the scenario (`rpsub`: `rpn`; electricity `rp`);
+- $Q_j$ is consumption (`con`), PJ (GWh for electricity): total use for oil products (kerosene with jet fuel), sector
+  use for coal and gas (residential = buildings; power = power fuel use; other = transport and other energy use),
+  electricity demand of industry, buildings, and transport with other energy use;
+- the "other" lines of coal, gas and electricity take the consumption-weighted averages of $sc$, $ext$, $vat$ and $p$
+  of the lines above them (the plain average where consumption is 0);
+- $S^{exp}$, $S^{imp}$ are the explicit and implicit subsidies (`expsub.con`, `impsub.con`), USD bn; their totals are
+  also given as shares of GDP (`expsubgdp.con`, `impsubgdp.con`).
+
+### Efficient prices {#sec-fi-efficient}
+
+The efficient price of a fuel is what it would cost with every externality priced: the supply cost, the Pigouvian
+taxes (air pollution, climate, road transport) and VAT. The tax gap compares it with the retail price
+([methodology 3.7.2](../CPAT_full_documentation_html/03_Mitigation.html#energy-externalities-costs)). It is computed per
+price unit (USD per litre for oil products, USD/GJ for coal and gas, USD/kWh for electricity) for 12 price codes $c$:
+gasoline, diesel, LPG, kerosene; coal and gas for industry, residential and power; electricity for industry and
+residential.
+
+$$
+pig_c = ap_c + cd_c + acc_c + con_c + rdm_c
+$$ {#eq-fi-pig}
+
+$$
+p^{eff}_c = sc^{B}_c\,u_c + pig_c + \left(sc^{B}_c\,u_c + \chi\,pig_c\right)\eta_c\,\bar{v}_t, \qquad
+tg_c = p_c\,u_c - p^{eff}_c
+$$ {#eq-fi-effp}
+
+where
+
+- $ap_c$ is the air pollution cost (`airpol.cost.s`): `airpol.cost` for oil products, `airpol.cost.gj` for coal and gas,
+  and for electricity the baseline value of the generation-weighted cost $\sum_k ap^{gj}_{pow,k} G_k / G^{tot}$ converted
+  to USD/kWh (`airpol.ecy.g`);
+- $cd_c$ is the climate damage per unit at the national SCC (`scc.cost` = `cc.code` = $SCC^{nat}\,EF_c\,u_c$), 0 for
+  electricity;
+- $acc_c$, $con_c$ (gasoline and diesel) and $rdm_c$ (diesel) are the road externalities per litre of the scenario
+  (@eq-fi-trcost); 0 for other codes;
+- $sc^{B}_c$ is the baseline supply cost per GJ (electricity per kWh), $u_c$ the GJ per price unit;
+- $\chi$ is 1 if `ExternalityAddVAT` = Yes (externalities are part of the VAT base), else 0; $\eta_c$ is 1 for
+  consumer codes (oil products and residential), else 0;
+- $p_c$ is the retail price of the scenario (`rpn`; electricity `rp`), so $p_c u_c$ is `rp.eff`;
+- $pig_c$ is the Pigouvian tax (`pig`), $p^{eff}_c$ the efficient price (`eff.price`; its VAT part is `vat.cost`) and
+  $tg_c$ the tax gap (`tgap`).
+
+**Per tonne of CO2.** The Pigouvian tax and its air pollution part are also expressed per tonne of CO2, and the
+baseline excise likewise:
+
+$$
+pig^{CO2}_c = pig_c\,\frac{SCC^{glo}}{cd_c}, \qquad app_c = pig^{CO2}_c\,\frac{ap_c}{pig_c}, \qquad
+txo^{CO2}_c = txo^{B}_c\,u_c\,\frac{SCC^{glo}}{cd_c}
+$$ {#eq-fi-pigco2}
+
+each 0 where its denominator is 0 (and $txo^{CO2} = 0$ for electricity). The averages `pig.co2e.avg` and `app.avg`
+weight the ten fossil codes by fuel use (`effp.q`: total use for oil products, kerosene with jet fuel; industry,
+buildings and power use for coal and gas).
+
+::: {.callout-tip icon=false title="Pseudocode: fossil fuel subsidies and efficient prices"}
+```
+for t in years:
+    vatgen[t] = VAT_WEO[min(t, LastHistPriceYear)]
+    # subsidies, 16 lines
+    for (s, f) in sub_lines_without_other:
+        supcost[s, f] = spe[s, t] if f == 'ecy' else sp[s, f, t]
+        extcost[s, f] = 0.0 if f == 'ecy' else cc_glo[f, t] + local_cost(s, f)
+        vatext[s, f]  = (supcost[s, f] + extcost[s, f]) * vat_base(s, f) * vatgen[t]
+        effprice[s, f] = supcost[s, f] + extcost[s, f] + vatext[s, f]
+        rpsub[s, f]   = rp[s, t] if f == 'ecy' else rpn[s, f, t]
+    for f in ['nga', 'coa', 'ecy']:                       # 'oth' lines: weighted by consumption
+        for var in [supcost, extcost, vatext, effprice, rpsub]:
+            var['oth', f] = weighted_mean(var[s, f] for s in sectors_of(f), weights=con[s, f])
+    for j in sub_lines:
+        expsub[j] = max(0, supcost[j] - rpsub[j]) * con[j] / M_PER_BN
+        impsub[j] = (rpsub[j] <= effprice[j]) * (effprice[j] - max(rpsub[j], supcost[j])) * con[j] / M_PER_BN
+    expsubgdp[t] = sum(expsub.values()) / gdp_usd[t]
+    impsubgdp[t] = sum(impsub.values()) / gdp_usd[t]
+
+    # efficient prices, 12 price codes, per price unit
+    for c in price_codes:
+        u = 1.0 if c.fuel == 'ecy' else gj_per_unit[c]
+        sup = baseline.supply_cost[c, t] * u
+        pig = airpol_cost_s[c, t] + scc_cost[c, t] + acc[c, t] + con[c, t] + rdm[c, t]
+        vat = (sup + pig * (ExternalityAddVAT == 'Yes')) * consumer[c] * vatgen[t]
+        eff_price[c, t] = sup + pig + vat
+        tgap[c, t] = retail_price[c, t] * u - eff_price[c, t]
+        pig_co2e[c, t] = safe_div(pig * scc_glo[t], scc_cost[c, t])
+        app[c, t] = safe_div(pig_co2e[c, t] * airpol_cost_s[c, t], pig)
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation. The SCC rows and `cc.code` are in section 1 (with the Pigouvian taxes); the settings
+  `SCCTgt`, `SCCTgtYr`, `SCCGr`, `NSCCSrc`, `GSCCSrc` and the Ricke and EPA settings are on the settings rows of the
+  scenario (legacy rows 17671-17677); the Ricke values on sheet SCC; the manual path on sheet Manual inputs, row 237.
+  Section 17b holds the inputs from the co-benefit modules (`airpol.cost`, `fus`, `airpol.cost.gj`, `fuq`,
+  `air.con.pm2`, `air.vpm`, `tran.*`), typed for Egypt on the tabs FromAirPollution and FromTransportCB (other
+  countries 0). Section 18 holds the rest: `dmg`, `wcli`, `wdg`, `eff` (LAMBDA `TRAPEZOID`), `mfp` (`MFEEPRICE`),
+  `mfc` (`MFEECOST`), `cc.nat`, `cc.glo`, `airpol.ecy`, `apq`, `tot.ext`, `wel`, `wel.rod`, `ffs.q`, `env.ffs.cost`,
+  `wel.ffs`, `vatgen`, the subsidy block and the efficient price block.
+- **CPAT Python:** SCC in `cpat_model/mitigation/policies.py`, `prepare()` (equation M1.6); the module inputs in
+  `cpat_model/air_pollution/` and `cpat_model/transport_cobenefits/` (`prepare()`); section 17b in
+  `cpat_model/mitigation/externalities.py`, `air()` (A8.3) and `transport()` (A8.4); section 18 in
+  `cpat_model/mitigation/welfare.py`, `step()` (A8.5, A8.6).
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **SCC:** all options equal legacy. The manual SCC reads Manual inputs row 237; legacy reads a path typed on Mitigation
+  row 17683 (bug L103 fixed).
+- **Climate damages** use GHG excluding LULUCF of section 14.
+- **Efficiency costs:** legacy's trapezoid (Harberger triangle plus rectangle), rows 17636-17648. Legacy bugs not
+  replicated: the LPG pre-existing tax row is empty (the LPG average tax is halved); diesel and kerosene are converted
+  with the wrong factors; the coal row is offset; non-road oil is `#N/A`.
+- **Methane fee cost:** legacy's integral (rows 17628-17634). Prototype bug M21 fixed: the cap divided by zero where the
+  curve exponent is 0.
+- **Welfare (LD81):** legacy takes `wel.air` and the road co-benefits from the Air pollution and Transport sheets' own
+  runs. Here the air pollution welfare follows the model's own emissions (the module's concentration coefficients and
+  value per µg/m³, issue I105) and the road co-benefits follow the road engineer model's vehicle-km (issue I100, for
+  every road model). Legacy's per-fuel unit costs are average, not marginal, damages and cannot reproduce its `wel.air`
+  (issue I104): the model uses marginal damages (L224). Legacy unit-cost bugs L189-L193 fixed (L192: the residential
+  coal switch tested a typed total; L193: the driving share without class use).
+- **Transport co-benefits (issue I111), as legacy:** margins from scenario 1, per-km costs independent of the scenario
+  (congestion does not respond to the policy), welfare a rectangle, road damage only for freight; the road damage cost
+  of 0.12 USD/km is not deflated. Average fuel economy of passenger and freight vehicles, as legacy.
+- **Social costs, FFS and subsidies (LD82):** legacy bugs fixed: L176 (other oil products: climate cost per barrel added
+  to costs per GJ), L177 (air pollution cost of electricity), L178 (other-use averages), L179 (FFS coal and gas lines
+  take another sector's change in use), L180 (FFS conversion and road damage), L181-L182 (retail price of the subsidy
+  lines), L183 (climate cost on gas for power), L184-L185 (VAT base of the subsidy lines), L186 (consumption of the
+  lines), L187 (other-line averages), L188 (GDP of the year in the shares). Replicated issues: I107 (FFS lines value
+  diesel in industry, power and "other" at oil-product costs; FFS uses the global SCC; FFS welfare is a separate measure,
+  not in `wel.usd`), I108 (electricity external cost 0), I109 (VAT base). Explicit and implicit subsidies are computed
+  in every scenario group with the scenario's own prices and use; legacy computes scenario 1 only (I110).
+- **VAT of the year:** the general VAT rate follows the WEO rate of the year up to the last historical price year
+  (prototype bug M15 fixed: the 2022 rate in every year).
+- **Efficient prices (LD83):** as legacy, with the road externalities of the scenario (I118), electricity air
+  pollution from the baseline generation mix (I121), electricity Pigouvian tax 0 (I119), potential VAT on the
+  externalities when `ExternalityAddVAT` = Yes (I120); `txo.co2e` is 0 where the climate cost is 0 (L203).
+- **Methodology.** The methodology's efficiency cost is $\tfrac{1}{2}(ncp - xcp)(F_P - F_B)$; the model uses the
+  average wedge of all taxes and subsidies in the scenario and the baseline, so subsidies count too. The methodology's
+  footnote says road damage is not in the welfare benefits; the model includes it.
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+SCC options in 2022 (all equal legacy):
+
+| Option | Egypt 2022, USD/tCO2 |
+|---|---|
+| Target-consistent | 54.8 |
+| Ricke national (key `egy.2.1p5`) | 6.87 |
+| Ricke global (key `wld.2.1p5`) | 462 |
+| Manual | 50.0 in 2025, +4% a year |
+| US EPA | 62 |
+
+Climate damages 2022 at the national SCC: 22.9 bn USD, against legacy's 22.0, because the inventories differ slightly.
+
+Efficiency costs, carbon tax of 20 USD, 2031: −1.25 bn USD (a gain), mostly electricity and diesel, because they are
+subsidised.
+
+Methane fee: the fee is 0 in the shipped scenarios. A test with a fee of 50 USD per tCO2e agrees with the Python
+recomputation.
+
+Welfare, carbon tax of 20 USD, 2031, climate and efficiency parts only: +3.2 bn USD (0.39% of GDP). The air pollution
+and road co-benefits come on top of this.
+:::

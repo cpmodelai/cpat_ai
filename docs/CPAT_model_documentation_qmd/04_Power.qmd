@@ -1,3 +1,459 @@
 # Power {#sec-power}
 
-(To be written.)
+The power block is CPAT's techno-economic ("engineer") power model. Every year it works out how much electricity the
+economy needs, which plants generate it, which plants retire, what is built to replace them, what it all costs and
+what electricity users pay.
+
+It is the largest block of the model and the one where most of the sector's policy effects arise: a carbon price
+changes the cost of each generation type, which changes dispatch and investment, which changes the generation mix,
+emissions, the cost of supply and, a year later, electricity prices and demand.
+
+The methodology describes the power models in
+[section 3.4](../CPAT_full_documentation_html/03_Mitigation.html#power-sector-models): power prices and generation costs
+in [3.4.1](../CPAT_full_documentation_html/03_Mitigation.html#sec-PowerPrices), the engineer model in
+[3.4.2](../CPAT_full_documentation_html/03_Mitigation.html#sec-EngineerModel), and the data in
+[3.4.4](../CPAT_full_documentation_html/03_Mitigation.html#sec-PowerDataSources). The methodology also has an
+elasticity-based power model ([3.4.3](../CPAT_full_documentation_html/03_Mitigation.html#sec-ElasticityModel)) and,
+for it, the "old" generation costs of
+[Appendix C](../CPAT_full_documentation_html/03_Mitigation.html#power-generation-costs). Excel-AI and CPAT Python
+implement the engineer model only; the elasticity model is not part of this book.
+
+The chapter follows the order of the calculation:
+
+| Section | What it computes | Legacy sub-table |
+|---|---|---|
+| [Order of the calculation](#sec-pw-order) | Which quantity of which year feeds which | - |
+| [Electricity demand](#sec-pw-demand) | Demand by subsector, required generation | H |
+| [Generation costs](#sec-pw-costs) | Inputs of the scenario, fixed, levelised and variable costs, total costs, memos | A, B, C, D, E, F |
+| [Dispatch](#sec-pw-dispatch) | Generation by type, fuel use, CO2 | I |
+| [Capacity and retirement](#sec-pw-capacity) | Capacity, retirement, early coal retirement, capacity needed | K |
+| [Investment](#sec-pw-investment) | New capacity by type and its cost | L |
+| [Storage](#sec-pw-storage) | Systems integration cost of renewables | J |
+| [End-user prices](#sec-pw-prices) | Residential and industrial electricity prices, subsidies | G |
+| [Power revenues](#sec-pw-revenues) | Revenue by user group and by generation type | G4, M |
+| [Coal implicit cost](#sec-pw-coalic) | The calibrated extra cost of coal | D3 |
+| [Reforms, floor, subsidies](#sec-pw-reforms) | Fuel price reform, price floor, renewable subsidies in real terms | - |
+| [Power data](#sec-pw-data) | How the country inputs are derived | A1-A7, power tabs |
+
+## The power block at a glance {#sec-pw-glance}
+
+### Generation types {#sec-pw-types}
+
+The model has nine generation types. Two of them, coal and gas, are dispatched by cost. The other seven run at their
+capacity factor whenever they exist.
+
+| Type $f$ | Code | Dispatch | Variable renewable (VRE) | Fuel price used | Legacy code |
+|---|---|---|---|---|---|
+| Coal | `coa` | by cost (CG) | no | coal for power (`coa.pow`) | `coa` |
+| Natural gas | `nga` | by cost (CG) | no | gas for power (`nga.pow`) | `nga` |
+| Oil | `oop` | fixed output | no | other oil products (`oop.all`) | `oil` |
+| Nuclear | `nuc` | fixed output | no | none (fixed fuel cost) | `nuc` |
+| Wind | `wnd` | fixed output | yes | none | `wnd` |
+| Solar | `sol` | fixed output | yes | none | `sol` |
+| Hydro | `hyd` | fixed output | no | none | `hyd` |
+| Other renewables | `ore` | fixed output | yes | none | `ore` |
+| Biomass | `bio` | fixed output | no | biomass (`bio.all`) | `bio` |
+
+$CG = \{\text{coal}, \text{gas}\}$ is the set of dispatchable types. The VRE set is wind, solar and other renewables:
+it sets the storage cost ([Storage](#sec-pw-storage)). Oil generation sums the energy-balance fuels other oil
+products, gasoline, diesel, kerosene, LPG and jet fuel.
+
+### Notation {#sec-pw-notation}
+
+The chapter uses the notation of the methodology where it has a symbol, and the symbol of the equation list
+(@sec-eqlist) otherwise.
+
+- **Indices.** Generation type $f$; user group $g \in \{\text{res}, \text{ind}\}$ (residential, industry); demand
+  group $d \in \{\text{tra}, \text{res}, \text{ind}, \text{srv}\}$ (transport, residential, industry, services);
+  subsector $s$; year $t$. Every equation holds for each scenario $o$ and country $c$; these two indices are omitted.
+  A value of the baseline in the same year carries the superscript $B$.
+- **Years.** $t_0$ is the base year (first year of calculations, 2022), $L$ the last historical price year (2024 for
+  the current data), $T = 2041$ the last model year.
+- **Units.** Generation and capacity in MW (generation as MWy, i.e. average MW over the year); demand in ktoe; costs
+  in real US dollars of the results year per kWh (USD/kWh); capital costs in USD/kW; money flows in USD million.
+- **Constants.** $H = 8{,}760$ hours per year; $\theta_e = 0.0036$ GJ per kWh; 8.76 million kWh per MWy (`MWyMkWh`);
+  $\theta_g = 11.63$ GWh per ktoe (`KtoeGWh`); 0.041868 PJ per ktoe.
+- **Minimum cost.** $c_{min}$ = `MinPostSubsidyPowerPrice` (default 0.01 USD/kWh) is the floor on costs that
+  enter a ratio (dispatch and investment logits) and on end-user prices.
+
+The CPAT variable code of each quantity is given in code font (`cap`, `tic`, ...): it is the row code of Excel-AI and
+the variable of CPAT Python.
+
+### Inputs by scenario {#sec-pw-inputs-by-scenario}
+
+Every power input of the scenario sheet is read in the scenario's own column. This covers capacity-factor and
+efficiency bounds, WACC options, discounted lifetimes, investment permissions and start years, scale-up and
+retirement rates, the early-retirement factor, the capex decline scenario, storage, PPAs, renewable subsidies,
+rebates and excises. The sub-table A0 ([Inputs of the scenario](#sec-pw-a0)) applies them to the power data of the
+country.
+
+Scenario 1 is the baseline of every scenario. A technical input (logit constants, WACC, capacity-factor bounds,
+storage, cost decline) changed in a policy scenario therefore changes that scenario only, and its difference from
+scenario 1 mixes the input change with the policy. Technical inputs are not usually changed across scenarios.
+
+Not read, because the model has no such feature: `CostBreakdownYear` (the cost breakdown is computed for every year
+instead), `ElasticityModel`, `PowGenCostsOldNew`, `UseElasticityModelPowerDemandInEngineerModel`. The final deficit
+to gas ([Investment](#sec-pw-deficit-gas)) is a global setting, not a scenario input.
+
+### Links with the rest of the model {#sec-pw-links}
+
+| From / to | What flows | Where |
+|---|---|---|
+| Prices (@sec-prices) to power | Fuel prices before new policies of coal and gas for power, oil, biomass; existing carbon pricing | [Variable costs](#sec-pw-vc) |
+| Policies (@sec-model-overview) to power | Carbon tax and ETS rates of power, fuel coverage, shadow price, fuel price reform, carbon price path | [Variable costs](#sec-pw-vc), [Prices](#sec-pw-prices) |
+| GDP (@sec-fiscal) to power | GDP growth after the feedback, of the year | [Demand](#sec-pw-demand) |
+| Road transport (@sec-transport) to power | Road electricity demand, where the road engineer model is on | [Demand](#sec-pw-demand) |
+| Power to fuel totals (@sec-demand) | Generation fuel use of coal, gas, oil and biomass (nuclear, wind, solar, hydro and other renewables use no fuel) | [Dispatch](#sec-pw-dispatch) |
+| Power to emissions (@sec-emissions) | Power CO2 by fuel, and as ETS sector power | [Dispatch](#sec-pw-dispatch) |
+| Power to revenues (@sec-fiscal) | Taxes and subsidies on generation fuels, existing carbon pricing, electricity VAT and subsidy gap, new policies | [Power revenues](#sec-pw-revenues) |
+| Power to road transport (@sec-transport) | Electricity prices of last year | [Prices](#sec-pw-prices) |
+
+Power demand follows its own elasticities. Sector policies (carbon tax, ETS, feebates, fuel price reform) act on the
+fuel blocks; they reach power demand only through the electricity price. Electricity demand by sector is a memo in the
+sector blocks, not part of the fuel totals, so nothing is counted twice.
+
+Power CO2 enters the CO2 totals by fuel and as the ETS sector power, so an ETS covering power sees it, and the
+baseline CO2 data include it. Existing carbon pricing changes the variable cost before new policies
+([Variable costs](#sec-pw-vc)).
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 3 (sub-tables A0, B, C, D, E, E2, F, G, H, I, J, K, L, M, in the order of the
+  rows). Country data on sheet Inputs: blocks `Inputs_pset` (settings, defined names `Ps...`), `Inputs_ptech` (one row
+  per generation type), `Inputs_ppath` (year paths), `Inputs_ppar` (parameters) and Inputs rows 204-270 (generation
+  types, user groups, demand groups and subsectors as read by section 3). Settings: C19 (apply the 2023-2024 demand
+  shock), C21 `SpotPow`, C45 `PwDeficitGas`, C66 `PwCoalICTariff`. Every formula is listed in `Formulas.md`
+  section 3 (equations E282-E445).
+- **CPAT Python:** `cpat_model/mitigation/power.py`: `country_data()` (the data steps of one country),
+  `prepare()` (every row that reads no quantity of the year loop: equations M4.3, A4.5-A4.7) and `step()` (one year:
+  M4.1, M4.2, M4.4-M4.7, A4.8, A4.9 and the power revenues, A6.1). Data steps in
+  `cpat_model/mitigation/power_data.py` (A4.1-A4.4). The order is in `mitigation/chain.py`: `power.prepare` runs with
+  the other prepare steps, `power.step` right after `gdp.start` in each year. See the
+  [block table](../CPAT_coded_documentation_html/02_How_it_works.html#sec-blocks).
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: the block as a whole"}
+- **Reference.** Legacy CPAT section 4 of the Mitigation sheet ("Technoeconomic ('engineer') power model") of
+  `CPAT 1.0pre_456_NoPropData.xlsb` (and 465): rows 2954-4297 for the baseline, rows 9285-10628 for the carbon-tax run
+  (offset +6331 in 456; +6316 in 465). The price rows are 2954-3672 and 3867-3927. The model keeps legacy's
+  sub-table letters (A inputs, B amortised costs, C levelised costs, D variable costs, E total costs, F memos,
+  G end-user prices, H demand, I dispatch, J storage, K capacity, L investment, plus M revenues by type).
+- **Alignment (LD22).** The model follows legacy formula by formula, year by year, except for the legacy bugs it fixes.
+  The method test (`power_model_ref.py`, one switch per bug) reproduces 208 cached legacy rows of the baseline and the
+  carbon-tax run to 1e-13 with every bug switched on.
+- **Bugs fixed (LD23):** L1-L10 and L12 (listed in the sections below), plus later ones (L52-L56 in the data,
+  L67, L107, L108, L109/LD79, L110, L111, L113, L114, L118, L126, L129). Bugs are never replicated; legacy issues are.
+- **Inputs by scenario (LD74).** Every power input of legacy ScenarioDefinition section 1, "Power sector settings"
+  (rows 242, 262, 340-415 and 482) is read in the scenario's own column, as legacy runs each column with its own
+  inputs.
+- **Features not built (LD28):** the elasticity power model, the old IMF generation costs, the demand-side power
+  feebate (the rebate covers it). Built later: PPAs, deficit to gas, renewable subsidies, rebate, electricity excise,
+  every power input by scenario, manual capacity and investment, the coal implicit cost, the cost memos.
+- **Planned retirement** is available for every generation type; legacy offers it for coal only (LD26).
+- **One formula per quantity.** Legacy's duplicates and partial tables are merged (S1-S3 in
+  [Generation costs](#sec-pw-costs)): the price chain of one scenario has about 330 rows in legacy (A5-G4, J1-J3) and
+  about 140 in the model.
+:::
+
+## Order of the calculation within a year and across years {#sec-pw-order}
+
+The power block runs once per year, inside the year loop, after the GDP level of the year and before fuel use. A few
+rows that depend only on prices and policies are computed for all years before the loop. Everything else is computed
+year by year, and the chain is free of circular references because two links are lagged by one year.
+
+The methodology summarises the algorithm in
+[section 3.4.2.1](../CPAT_full_documentation_html/03_Mitigation.html#overview-2).
+
+```{mermaid}
+flowchart TD
+  P["Before the year loop:<br/>A0 settings, variable costs,<br/>levelised variable cost"] --> I
+  H["H demand (t)<br/>uses prices of t-1"] --> I["I dispatch (t)"]
+  K1["capacity (t) = capacity (t-1)<br/>- retirement (t-1) + investment (t-1)"] --> I
+  I --> J["J VRE share, storage cost (t)"]
+  J --> BC["B, C fixed costs (t)"]
+  BC --> E["E average generation cost (t)"]
+  E -. "next year" .-> G["G prices (t+1)"]
+  G -. "next year" .-> H
+  BC --> K["K retirement (t), early coal"]
+  K --> L["L investment (t)"]
+  L -. "next year" .-> K1
+```
+
+Within year $t$ the order is:
+
+1. **Demand (H).** Electricity demand of year $t$ from last year's demand, this year's GDP growth and the change in
+   last year's electricity prices. Required generation follows.
+2. **Capacity (K1).** Capacity of year $t$ = capacity of $t-1$ less retirement of $t-1$ plus investment of $t-1$.
+   Capacity bought in year $t$ is available in $t+1$.
+3. **Dispatch (I).** Generation by type from capacity, required generation and the variable costs of year $t$.
+4. **Storage (J).** The VRE share of generation sets the marginal storage cost of year $t$.
+5. **Costs (B, C, E).** Fixed costs of the existing stock (vintages) and of new plants; the average generation cost
+   and the average policy cost per kWh.
+6. **Prices (G).** End-user prices of year $t$ use the average generation cost of $t-1$.
+7. **Retirement (K).** Retirement of year $t$, including early coal retirement, which compares the coal variable cost
+   with the wind and solar investment costs of year $t$.
+8. **Investment (L).** Investment of year $t$ fills the gap between expected requirement and capacity after
+   retirement, allocated by a logit over the levelised costs of year $t$. Its share in the stock, $\Phi$, feeds the
+   vintage averages of $t+1$.
+9. **Revenues (M).** Power revenues of year $t$.
+
+The levelised variable cost of year $t$ averages the variable cost from $t$ to the end of the horizon. Variable costs
+depend only on prices and policies, not on the generation mix, so it is computed before the year loop, backwards from
+the last year.
+
+The table lists every link of the block with the rest of the model and how the loop is broken.
+
+| # | From | To | What flows | How the loop is broken |
+|---|---|---|---|---|
+| I1 | Fuel prices (coal and gas for power, oil, biomass) | D variable costs | Fuel price before new policies | One way |
+| I2 | Policies (carbon price, ETS power coverage, fuel price reform) | D policy cost; G end-user prices; revenues | Carbon cost per kWh by type | One way |
+| I3 | Generation mix (dispatch I, investment L) | E average generation cost; J storage (via the VRE share) | Generation shares by type | Dispatch uses current variable costs, which do not depend on the average cost; prices use last year's average cost (I5) |
+| I4 | Investment (L) | B vintage averages of capex and storage cost | New investment as a share of remaining capacity $\Phi$ | B uses last year's $\Phi$ |
+| I5 | E average generation cost | G end-user prices | Supply cost = average generation cost + transmission | **Lagged one year**: the price in $t$ uses the cost of $t-1$ |
+| I6 | G end-user prices | Demand, generation, I3 | Residential and industrial prices | Through I5's lag; demand uses last year's prices, by demand group |
+| I7 | J storage | B (vintage storage cost) and C (levelised cost, for investment) | Marginal storage cost of wind, solar, other renewables | Uses the current VRE share from dispatch |
+| I8 | C levelised costs, D levelised variable costs | Investment logit; switching carbon prices | Levelised investment cost by type | Investment only: not in end-user prices |
+| I9 | G and M revenues | Revenue totals | USD million | One way |
+
+Two consequences shape the design:
+
+1. **End-user prices depend on generation costs only through the weighted average** (E) and the transmission
+   add-on. Variable, amortised and storage costs matter for prices only as far as they enter that average.
+2. **The systems cost of renewables is an interaction inside the block.** The VRE share sets the marginal storage
+   cost, which enters the cost of wind, solar and other renewables twice: *amortised*, through vintages, in the cost
+   of the existing stock (B), which reaches end-user prices; and *levelised*, in the cost of new plants (C), which
+   drives investment. A scenario that adds renewables therefore raises their storage cost per kWh, which feeds back
+   into the average generation cost and, a year later, into prices.
+
+::: {.callout-tip icon=false title="Pseudocode: the power block"}
+```
+# before the year loop (power.prepare)
+for t in years:
+    settings of the scenario: cfu, nuu, wac, dlf, perm, start, rate, rr, erf, ppa, rns, rbs, exs
+    for f in types:
+        cax[f,t] = cax0[f] * tcf[f,t]
+        tvc[f,t] = vbc[f,t] + xac[f,t] + shk[f,t] + reb[t]      # variable cost incl. policies
+for f in types:                                                   # backwards from the last year
+    lvc[f,:] = discounted average of tvc[f, t..2041]
+
+# the year loop (power.step), t = 2022 .. 2041
+for t in years:
+    dem, req          = demand(rp[:, t-1], gdp growth[t])          # H
+    cap[:, t]         = cap[:, t-1] - ret[:, t-1] + nim[:, t-1]     # K1
+    gen, shr, pe, co2 = dispatch(cap, req, tvc[:, t])               # I
+    vre, msc          = storage(shr)                                 # J
+    fix, lfx, gnc     = costs(phi[:, t-1], msc)                      # B, C, E
+    gncav, ccpav, tic = averages(shr), lfx + lvc                     # E
+    rp                = prices(gncav[t-1], ccpav)                    # G (supply cost lagged)
+    ret, early        = retirement(cap, tvc, tic)                    # K
+    nim, phi          = investment(req, cap, ret, tic)               # L
+    revenues                                                         # G4, M
+```
+:::
+
+::: {.callout-note collapse="true" title="Check: properties that hold in every run"}
+These properties are tested on every build (`check_report`, check section 5d), in the baseline and in every policy
+scenario:
+
+- generation = required generation (where capacity allows);
+- the capacity balance holds: $cap_t = cap_{t-1} - ret_{t-1} + inv_{t-1}$;
+- investment is at most the capacity needed (scale-up limits can leave part unplaced);
+- the supply cost lag holds: the price of $t$ uses the cost of $t-1$;
+- in the check's carbon-price test scenario, the carbon price raises the VRE share and lowers power CO2;
+- the memo lines equal power demand by subsector and add up by sector and in total;
+- fuel use, revenue and CO2 totals with power equal the Python reference; with non-zero existing carbon pricing test
+  data, the power variable cost, revenues by type and totals match too; check rows confirm that the totals equal
+  their sector, power and fuel parts.
+:::
+
+## Electricity demand and required generation {#sec-pw-demand}
+
+Electricity demand grows with GDP, falls with efficiency gains and responds to the electricity price of the previous
+year. It is computed for 15 subsectors, grouped into four demand groups that share elasticities and a price. Required
+generation adds what the grid needs on top of final demand: net exports, losses, own use and statistical differences.
+
+The methodology describes this in
+[section 3.4.2.3](../CPAT_full_documentation_html/03_Mitigation.html#power-demand), with the general fuel-demand
+equation of [section 3.3.3](../CPAT_full_documentation_html/03_Mitigation.html#sec-FuelConsumptionDynamics). The model
+follows the corrected form: the GDP elasticity is $\epsilon_Y$, adjusted for the income level
+([corrections, DOC4](../CPAT_full_documentation_html/08_Corrections.html#corrections-of-2026-10-31)).
+
+### Demand groups and the demand price {#sec-pw-demand-price}
+
+Each subsector belongs to one demand group. The group's price is a blend of last year's residential and industrial
+end-user prices:
+
+$$
+\bar{p}_{d,t} = w_d\, p^T_{res,t-1} + (1 - w_d)\, p^T_{ind,t-1}
+$$ {#eq-pw-demand-price}
+
+where
+
+- $\bar{p}_{d,t}$ is the electricity price seen by demand group $d$ in year $t$ (USD/kWh; `pdem`);
+- $p^T_{g,t-1}$ is the end-user price of user group $g$ of the previous year (USD/kWh; `rp`,
+  [End-user prices](#sec-pw-prices));
+- $w_d$ is the weight of the residential price: 0.5 for transport, 1 for residential, 0 for industry and services.
+
+In the base year the price is that of the year before (2021) from the price data. Using last year's price is what
+keeps demand free of a circular reference with this year's price (link I6).
+
+| Demand group $d$ | Subsectors $s$ | Weight $w_d$ |
+|---|---|---|
+| Transport (`tra`) | road, rail, domestic aviation, domestic navigation | 0.5 |
+| Residential (`res`) | residential | 1 |
+| Industry (`ind`) | food and forestry, mining and chemicals, iron and steel, non-ferrous metals, machinery, cement, other manufacturing, construction, other energy use | 0 |
+| Services (`srv`) | services | 0 |
+
+### The demand multiple {#sec-pw-demand-multiple}
+
+Demand grows each year by a multiple of four factors: efficiency, GDP, price and an optional shock. It is built in two
+steps.
+
+The efficiency multiple combines the autonomous efficiency gain of the group and any additional efficiency gain of the
+scenario:
+
+$$
+a_{d} = \left(\frac{1}{1 + \alpha_d + \alpha^{+}}\right)^{1 + \epsilon_{U,d}}
+$$ {#eq-pw-aeef}
+
+The demand multiple of year $t$ is then
+
+$$
+M_{d,t} = a_{d}\,
+\left(1 + \gamma_t\right)^{\epsilon_{Y,d}\, inc_t}\,
+\left(\frac{\bar{p}_{d,t}}{\bar{p}_{d,t-1}}\right)^{\epsilon_{U,d} + \epsilon_{F,d} + \epsilon_{U,d}\epsilon_{F,d}}\,
+\left(1 + \Psi_t\, \sigma\, \psi\right)
+$$ {#eq-pw-mult}
+
+where
+
+- $a_d$ is the efficiency multiple (`aeef`);
+- $\alpha_d$ is the autonomous annual efficiency improvement of electricity in group $d$ (share per year) and
+  $\alpha^{+}$ the additional efficiency gain of the scenario (`AdditionalEfficiencyPower`, default 0);
+- $\epsilon_{Y,d}$, $\epsilon_{U,d}$, $\epsilon_{F,d}$ are the income, usage and efficiency elasticities of electricity
+  demand of the group (the country's elasticities, @sec-demand);
+- $\gamma_t$ is real GDP growth of year $t$ after the GDP feedback (`gdp.pos.pct`, @sec-fiscal);
+- $inc_t$ is the income factor on the GDP elasticity (`inc.ela.adj`; [Year paths](#sec-pw-data-paths)), 1 if
+  `IncElAdj` is not Yes;
+- $\Psi_t$ is the exogenous demand shock (`shock`): the legacy calibration for 2023 and 2024, 0 in other years;
+- $\sigma$ is the global switch that applies the shock (Excel-AI Settings C19, on by default) and $\psi$ the scenario
+  input `EngineerModelProportionOfCovidFactor`.
+
+The multiple is 1 in the base year. The price term uses the total price elasticity
+$\epsilon_{U} + \epsilon_{F} + \epsilon_{U}\epsilon_{F}$, the product of the usage and efficiency responses. This is
+the methodology's equation with its two price terms combined:
+$(p_t/p_{t-1})^{\epsilon_U}\,(p_t/p_{t-1})^{\epsilon_F(1+\epsilon_U)}$. The equation list has it as
+([M4.1](A_Equations.qmd#eqlist-M4-1)).
+
+### Demand by subsector {#sec-pw-demand-subsector}
+
+Each subsector's demand grows with the multiple of its group:
+
+$$
+E_{s,t} = E_{s,t-1}\, M_{d(s),t}, \qquad E_{s,t_0} = \text{base-year data}
+$$ {#eq-pw-demand}
+
+where $E_{s,t}$ is electricity demand of subsector $s$ (ktoe; `dem`) and $d(s)$ its demand group. Total demand is
+$E_t = \sum_s E_{s,t}$ (`demtot`), and demand by group (`demg`) is a memo.
+
+- **Base year.** Demand by subsector comes from the energy balance (flow `ecy` of the subsector's balance flow) or,
+  if `BalancesOrConsumption` is Consumption, from the CPAT energy consumption data.
+- **Road.** Where the road engineer model is on (@sec-transport), road electricity demand is taken from it instead
+  of the multiple.
+- **Memo lines.** Electricity demand by subsector, by sector and in total is shown in the sector blocks; it is not
+  part of the fuel totals.
+
+### Required generation {#sec-pw-required}
+
+Generation must cover final demand plus net exports, transmission and distribution losses, statistical differences
+and transfers, and the energy industry's own use. The model holds each of these at its base-year share of final
+demand:
+
+$$
+req_t = \rho\, E_t, \qquad
+\rho = \left(1 + s_{nxp} + s_{tsd} + s_{eou} + s_{add}\right) \frac{\theta_g \cdot 1000}{H}
+$$ {#eq-pw-req}
+
+where
+
+- $req_t$ is required generation (MWy; `req`);
+- $\rho$ is MWy of generation per ktoe of final demand (`req_factor`; $\theta_g \cdot 1000/H = 1.3276$ MWy per ktoe);
+- $s_{nxp}$, $s_{tsd}$, $s_{eou}$ are the base-year shares of net exports, of transmission, distribution and
+  statistical differences, and of own use in final electricity demand; $s_{add}$ is the residual that makes the sum
+  equal base-year generation over base-year demand ([Parameters](#sec-pw-data-params)).
+
+In the base year, required generation is actual generation, $req_{t_0} = \sum_f gen_{f,t_0}$. Because
+$1 + s_{nxp} + s_{tsd} + s_{eou} + s_{add}$ is base-year generation over base-year demand, the two definitions agree in
+the base year. The equation list has this as ([M4.2](A_Equations.qmd#eqlist-M4-2)).
+
+::: {.callout-tip icon=false title="Pseudocode: electricity demand and required generation"}
+```
+for t in years:
+    for d in ['tra', 'res', 'ind', 'srv']:
+        if t == base_year:
+            pdem[d,t] = wres[d] * rp2021['res'] + (1 - wres[d]) * rp2021['ind']
+            mult[d,t] = 1
+        else:
+            pdem[d,t] = wres[d] * rp['res',t-1] + (1 - wres[d]) * rp['ind',t-1]
+            aeef[d]   = (1 / (1 + alpha[d] + AdditionalEfficiencyPower)) ** (1 + eps_u[d])
+            mult[d,t] = (aeef[d] * (1 + gdp_growth[t]) ** (eps_y[d] * inc_ela_adj[t])
+                         * (pdem[d,t] / pdem[d,t-1]) ** (eps_u[d] + eps_f[d] + eps_u[d] * eps_f[d])
+                         * (1 + shock[t] * apply_shock * EngineerModelProportionOfCovidFactor))
+    for s in subsectors:
+        if t == base_year:            dem[s,t] = dem0[s]                     # Balances or EnergyCons
+        elif s == 'rod' and road_engineer_model_on:  dem[s,t] = road_electricity[t]
+        else:                         dem[s,t] = dem[s,t-1] * mult[group[s],t]
+    demtot[t] = sum(dem[s,t] for s in subsectors)
+    req[t] = sum(gen0[f] for f in types) if t == base_year else demtot[t] * req_factor
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 3, sub-table H: rows `pdem`, `aeef`, `mult` (LAMBDA `DEMANDMULT` in 2041),
+  `dem`, `demg`, `demtot`, `req` (Formulas.md E384-E390). Elasticities and weights on Inputs rows 231-234 (demand
+  groups), base-year demand on Inputs (subsectors), the MWy per ktoe factor on Inputs B261. Scenario inputs
+  `AdditionalEfficiencyPower`, `IncElAdj`, `EngineerModelProportionOfCovidFactor`; Settings C19 for the shock.
+- **CPAT Python:** `power.step()`, block "demand" (EQ-M4.1, EQ-M4.2); data in `power_data.demand_groups()`,
+  `demand_subsectors()`, `system_params()` (`req_factor`).
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: demand"}
+- **L1 (fixed).** Legacy grows services electricity demand with the industrial multiple after 2023; the model uses the
+  services multiple in every year.
+- **L2 (fixed).** Legacy raises the autonomous efficiency term to the power of the efficiency elasticity; the model
+  uses the usage elasticity, $1 + \epsilon_U$, as the methodology.
+- **L3 (fixed).** Legacy applies the income factor on the GDP elasticity twice and anchors it to 2023; the model
+  applies it once.
+- **L95.** In legacy the efficiency increment of power demand sits on the net-exports row (legacy bug register).
+- **LD21, LD24 (same as legacy).** The 2023-2024 shock is applied as legacy, to fuels and power alike (Settings C19,
+  on by default; issue I92). The methodology calls it a Covid adjustment calibrated for 2020-2021
+  ([section 3.3.4.4](../CPAT_full_documentation_html/03_Mitigation.html#sec-CalibrationCovid)); the model uses
+  legacy's stored shocks for 2023 and 2024 (GHGs data, [Year paths](#sec-pw-data-paths)).
+- **LD25.** Sector policies act on power demand only through the price; electricity demand is a memo line in the
+  sector blocks and section 11.
+- **LD27.** Road electricity comes from the road engineer model where it is on; otherwise it grows with the transport
+  multiple, as legacy.
+- **Not built.** The option to take power demand from the elasticity model
+  (`UseElasticityModelPowerDemandInEngineerModel`).
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Data edition Public01, scenario 1 (baseline) and scenario 2 (carbon price 20 USD/tCO2 from 2027).
+
+| | 2022 | 2023 | 2024 | 2026 | 2030 | 2041 |
+|---|---|---|---|---|---|---|
+| Shock $\Psi_t$ | 0 | -0.208 | 0.092 | 0 | 0 | 0 |
+| Income factor $inc_t$ | 1.027 | 1.027 | 1.021 | 1.008 | 0.970 | 0.946 |
+| Multiple, residential | 1 | 0.971 | 1.180 | 1.042 | 1.027 | 1.037 |
+| Total demand $E_t$ (ktoe), scenario 1 | 14,392 | 14,024 | | 18,869 | 21,857 | 34,836 |
+| Total demand $E_t$ (ktoe), scenario 2 | 14,392 | 14,024 | | 18,869 | 19,910 | 32,919 |
+| Required generation (MWy), scenario 1 | 24,192 | 23,574 | | 31,718 | 36,741 | 58,557 |
+
+Worked example, residential multiple of 2023: efficiency $0.9965$, GDP growth 3.76% with $\epsilon_Y\,inc = 0.8 \times
+1.027$, price falling from 0.0914 to 0.0611 USD/kWh with total price elasticity $-0.44$, shock $-0.208$:
+$0.9965 \times 1.0376^{0.822} \times (0.0611/0.0914)^{-0.44} \times (1 - 0.208) = 0.971$.
+
+Egypt's factor $\rho$ is 1.681 MWy per ktoe: generation is 1.266 times final demand (shares: net exports 0.009,
+losses and statistical differences 0.217, own use 0.040, residual 0). The elasticities of the demand groups:
+transport $\epsilon_Y = 1.2$, $\epsilon_U = \epsilon_F = -0.2$, $\alpha = 0.01$; residential and industry
+$0.8$, $-0.3$, $-0.2$, $0.005$; services $1.1$, $-0.5$, $-0.4$, $0.005$.
+:::

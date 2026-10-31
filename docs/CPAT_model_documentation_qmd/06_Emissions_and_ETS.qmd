@@ -1,3 +1,1557 @@
 # Emissions and emissions trading {#sec-emissions}
 
-(To be written.)
+This chapter turns the fuel use of @sec-demand, @sec-power and @sec-transport into emissions. It covers carbon
+dioxide from fuel combustion, the other greenhouse gases of the national inventory, methane by source with the
+methane fee, the comparison with the country's NDC, and the local air pollutants. It closes with the new emissions
+trading system (ETS): how its cap becomes a permit price, and how that price enters fuel prices and revenue.
+
+Emissions matter twice in the model. They are an output (the GHG path of each scenario, the change against the
+baseline, the gap to the NDC) and they feed back: CO2 emission factors convert every carbon price into a price per
+unit of fuel (@sec-prices), and covered emissions set the ETS price. The carbon pricing indicators (coverage of the
+carbon tax and the ETS, effective carbon rates, revenue per tonne) are described with the revenues in @sec-fiscal.
+
+The methodology describes emissions in
+[methodology, section 3.5](../CPAT_full_documentation_html/03_Mitigation.html#emissions), the local pollutants in
+[methodology, section 6.4](../CPAT_full_documentation_html/06_Air_pollution.html#sec-calc_em) and the ETS price in
+[methodology, section 3.2.4](../CPAT_full_documentation_html/03_Mitigation.html#sec-PricesForecastedYears) and
+[Appendix C](../CPAT_full_documentation_html/03_Mitigation.html#sec-Appendix_C_Prices).
+
+## Overview {#sec-em-overview}
+
+### Order of calculation {#sec-em-order}
+
+The ETS price is set before the year loop, with the other policies: it depends only on inputs and on stored
+baseline emissions, never on the fuel use of the year. Inside each year, the emission blocks run after fuel use and
+power, in this order.
+
+```{mermaid}
+flowchart LR
+  P["Policies (all years):<br/>ETS cap and price,<br/>methane fee"] --> F["Year t: power,<br/>fuel use"]
+  F --> C["CO2 by sector, fuel,<br/>ETS sector; ETS check"]
+  C --> G["Methane by source,<br/>GHG inventory categories"]
+  G --> A["Local air<br/>pollutants"]
+  A --> K["Kaya identity"]
+  K --> N["After the last year:<br/>NDC comparison"]
+```
+
+The CO2 of each subsector and fuel is computed inside the fuel-use block (@sec-demand), and the CO2 of each
+generation type inside the power block (@sec-power); this chapter gives the equation once and builds the totals.
+The NDC rows run after the year loop because they read the baseline in the NDC target year.
+
+### Notation and units {#sec-em-notation}
+
+Every equation holds for each scenario $o$ and country $c$; these indices are omitted. A value of the baseline
+(scenario 1) in the same year carries the superscript $B$; the previous year carries $t-1$. Other indices:
+
+| Index | Set |
+|---|---|
+| $s$ | subsector (16; @sec-demand), or a coverage sector $e$ (power and the 16 subsectors, 17 in all) |
+| $f$ | fuel (8, plus jet fuel for CO2), or generation type $k$ (9; @sec-power) |
+| $u$ | UNFCCC inventory category: energy, industrial processes (IPPU), agriculture, LULUCF, waste, other |
+| $p$ | gas: CO2, CH4, N2O, F-gases; or local pollutant: PM2.5, NOx, SO2, VOC, BC, OC, CO |
+| $j$ | methane source: oil and gas, downstream gas, coal mining, biomass, livestock, rice, waste |
+| $t$ | year, from the base year $t_0$ to 2041; $Y$ is the last year of the country's GHG inventory |
+
+Units: CO2 in Mt; other greenhouse gases in Mt CO2e with the IPCC AR6 GWP100 (fossil methane 29.8, non-fossil
+methane 27.2); methane by source in kt CH4; local pollutants in kt; fuel use in ktoe. $\theta$ is PJ per ktoe
+(0.041868), so fuel use (ktoe) $\times\ \theta\ \times$ a factor in t CO2 per GJ gives Mt CO2. For Egypt $Y$ = 2024.
+
+## Energy CO2 {#sec-em-co2}
+
+Energy CO2 is fuel use times an emission factor, for every subsector, fuel and generation type. The factors are
+those of the country, scaled once so that the model's base year matches the national inventory. The methodology
+describes this in
+[methodology, sections 3.5.3 and 3.5.4.1](../CPAT_full_documentation_html/03_Mitigation.html#carbon-dioxide-co_2).
+
+### Emission factors {#sec-em-ef}
+
+Each fuel and EF sector has one CO2 factor. The EF sectors are power, road, residential and industry; every
+subsector reads one of them:
+
+| EF sector | Subsectors |
+|---|---|
+| power | power generation (by generation type) |
+| road | road, rail, domestic aviation, domestic navigation |
+| residential | residential, food & forestry, services |
+| industry | the eight industrial subsectors and other energy use |
+
+The factor is looked up in the IIASA (GAINS) table of the country, else of its World Bank region, else of the
+world:
+
+$$
+ef^{0}_{s,f} = \begin{cases}
+ef^{IIASA}_{c \to r \to w}(f', s') / 1000 & \text{fossil fuels} \\
+ef^{IEA}_{jet} & f = \text{jet fuel, in every sector} \\
+0 & f = \text{biomass}
+\end{cases}
+$$ {#eq-em-ef}
+
+where
+
+- $ef^{0}_{s,f}$ is the CO2 factor before calibration, t CO2 per GJ;
+- $ef^{IIASA}_{c \to r \to w}$ is the factor of sheet EF_GHG in kg CO2 per GJ, for the country $c$, else its World Bank
+  region $r$, else the world $w$ (0 if none), divided by 1000 kg per t;
+- $(f', s')$ is the fuel and EF sector the row reads: the row's own, except for the substitutions below;
+- $ef^{IEA}_{jet}$ = 0.0715 t CO2 per GJ (IEA, 19.5 tC per TJ $\times$ 44/12), used for jet fuel in every sector
+  and in domestic aviation.
+
+Some fuel and sector pairs have no factor of their own. They read another, as the methodology's table of missing
+factors:
+
+| Fuel and sector | Factor used |
+|---|---|
+| coal in road | coal in power |
+| LPG in power | LPG in industry |
+| LPG in road | LPG in residential |
+| kerosene in power and in road | kerosene in residential |
+| other oil products in road | diesel in road |
+| biomass, every sector | 0 |
+
+The factors of this table are the model's data step ([A7.1](A_Equations.qmd#eqlist-A7-1)). The local-pollutant
+and combustion-methane factors follow a different chain, described in @sec-em-ap-data.
+
+### Calibration to the GHG inventory {#sec-em-calib}
+
+The IIASA factors include some process and fugitive emissions, and fuel-use data differ between sources. The model
+therefore scales every CO2 factor by one number, so that modelled base-year CO2 equals the inventory. This is
+legacy CPAT's rule (issue I32, replicated by user decision).
+
+$$
+\chi = \frac{CO2^{inv}_{t_0 - 1}}{CO2^{B,raw}_{t_0}}, \qquad ef_{s,f} = \chi\, ef^{0}_{s,f}, \qquad ef_k = \chi\, ef^{0}_k
+$$ {#eq-em-calib}
+
+where
+
+- $\chi$ (`EFCalib`) is the calibration factor, 1 when the switch is off;
+- $CO2^{inv}_{t_0 - 1}$ is the inventory energy CO2 of the year before the base year (Mt);
+- $CO2^{B,raw}_{t_0}$ is scenario-1 energy CO2 of the base year with the uncalibrated factors: the base-year
+  energy balance times $ef^{0}$ (Mt);
+- $ef_{s,f}$, $ef_k$ are the calibrated factors of subsectors and generation types.
+
+The switch is on by default (`Yes*`), as legacy, whose two switches `EFsAdjustmentAnnexI` and
+`EFsAdjustmentNonAnnexI` are both `Yes*`. The model has one switch for all countries.
+
+**Why the baseline value is data.** A live formula for $CO2^{B,raw}$ would be circular: the factors feed the carbon
+prices, which feed fuel use. The uncalibrated scenario-1 CO2 is therefore stored as data, keyed by country, and
+refreshed by the build, like the ETS baseline (@sec-em-ets-cap). This is exact: scenario-1 fuel use does not depend
+on the factors (there is no new carbon price in the baseline, and existing carbon pricing changes only after the
+historical years), so the calibrated baseline is the uncalibrated one times $\chi$. Another country finds no stored
+rows until the build has been run for it.
+
+**What follows from $\chi$.** Everything downstream uses the calibrated factors: CO2 by subsector, fuel and
+generation type; the carbon tax, the ETS cost and existing carbon pricing per unit of fuel and their revenue; the
+ETS baseline; energy CO2 in the GHG totals. Scenario-1 fuel use and prices do not change. In policy scenarios,
+carbon prices per unit of fuel change by the factor (7% lower for Egypt), so fuel use, revenue and the GDP effect
+change too.
+
+### CO2 by subsector, fuel and coverage sector {#sec-em-co2-totals}
+
+With the factors in hand, CO2 is fuel use times the factor ([M7.1](A_Equations.qmd#eqlist-M7-1)):
+
+$$
+em_{s,f,CO_2} = \theta\, F_{s,f}\, ef_{s,f}, \qquad em_{k,CO_2} = \theta\, PE_k\, ef_k
+$$ {#eq-em-co2}
+
+where
+
+- $em_{s,f,CO_2}$ is the CO2 of subsector $s$ and fuel $f$ (Mt), `co2`;
+- $F_{s,f}$ is fuel use (ktoe), `ener` (@sec-demand);
+- $PE_k$ is the fuel input of generation type $k$ (ktoe), `pe` (@sec-power), and $ef_k$ its factor.
+
+The totals sum over fuels, subsectors and generation types:
+
+$$
+em_{CO_2} = \sum_{s}\sum_{f} em_{s,f,CO_2} + \sum_{k} em_{k,CO_2}
+$$ {#eq-em-co2tot}
+
+The block also reports CO2 by sector group (transport, buildings, industry, other energy use, power), by fuel
+(power fuels included), the baseline value of the same year (`co2.ref`), the change against it (`co2.pct`, `co2.chg`)
+and a check that the totals by group and by fuel both equal the total (`co2.chk` = 0). CO2 by coverage sector
+(`co2.sec`) feeds the ETS check of @sec-em-ets-cap:
+
+$$
+em_{e} = \sum_{f} em_{e,f,CO_2} \ (e \ne \text{power}), \qquad em_{pow} = \sum_k em_{k,CO_2}
+$$ {#eq-em-co2sec}
+
+::: {.callout-tip icon=false title="Pseudocode: energy CO2"}
+```
+# data step, once per country
+for (f, s) in co2_ef_rows:                      # fuel x EF sector (pow, rod, res, ind)
+    if f == "jfu":   ef0[f, s] = EFJetIEA        # 0.0715 tCO2/GJ
+    elif f == "bio": ef0[f, s] = 0
+    else:            ef0[f, s] = pick(country, region, world, source_fuel(f, s), source_sector(f, s)) / 1000
+EFCalib = inv_energy_co2[base_year - 1] / stored_raw_co2_s1[base_year] if calibrate else 1
+ef = EFCalib * ef0
+
+for t in years:
+    for s in subsectors:
+        for f in fuels:
+            co2[s, f][t] = ener[s, f][t] * PJ_PER_KTOE * ef[f, ef_sector(s)]
+    for k in gen_types:
+        co2["pow", k][t] = pe[k][t] * PJ_PER_KTOE * ef[k]
+    co2_total[t] = sum(co2[s, f][t] for s, f) + sum(co2["pow", k][t] for k)
+    co2_sec[e][t] = sum over fuels of co2[e, f][t]    # power: sum over types
+    co2_ref[t] = co2_total_baseline[t]
+    co2_pct[t] = co2_total[t] / co2_ref[t] - 1
+    co2_chk[t] = |co2_total - sum by group| + |co2_total - sum by fuel|    # 0
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** factors on sheet Inputs (CO2 factor rows, `EFSel`), calibration switch Settings C27 (`Yes*`), factor
+  Settings C29 (`EFCalib`); stored uncalibrated scenario-1 CO2 on sheet BaselineCO2 (keys `EGY|raw`, `EGY|pow`, ...).
+  Rows `co2` in sections 5-8 (subsectors) and 3 (generation types); totals in section 13 (`co2`, `co2.ref`,
+  `co2.pct`, `co2.sec`, `co2.chk`, `co2.chg`).
+- **CPAT Python:** `cpat_model/mitigation/ef_data.py`, `co2_efs()` and `co2_calibration()` (EQ-A7.1);
+  `fuel_use.py` (CO2 of subsectors, EQ-M7.1), `power.py` (CO2 of generation types); totals in
+  `emissions.py`, `co2()`. The calibration reads Excel-AI's stored scenario-1 CO2. See the
+  [blocks of CPAT Python](../CPAT_coded_documentation_html/02_How_it_works.html#sec-blocks).
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **Calibration (issue I32, replicated).** As legacy (Mitigation rows 623, 839, 976-977): the inventory year before
+  the base year against the base-year estimate, switch on. Earlier versions of the prototype used the last
+  inventory year and had the switch off; the user decided to follow legacy.
+- **One switch.** Legacy reads one switch for Annex I countries (ScenarioDefinition row 237) and one for the others,
+  both `Yes*`. The model has one switch.
+- **Scope.** Inventory energy CO2 includes fugitive CO2 (Egypt: 7.1 Mt in 2024), which the model does not compute
+  separately. The factor absorbs it, as in legacy.
+- **Inventory break (I91).** Egypt's inventory jumps 19% from 2021 to 2022. Legacy's rule carries this break into
+  every year: calibrated CO2 is 16-29% below the 2022-2024 inventory.
+- **Methodology.** The methodology scales to the inventory of 2019 and offers global IEA factors as an option. The
+  model uses the IIASA factors (IEA only for jet fuel) and the year before the base year.
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+With the shipped data, the 2021 inventory is 211.05 Mt against the 2022 estimate of 226.97 Mt:
+$\chi$ = 0.930 (legacy: 0.930).
+
+| Year | Inventory | Uncalibrated | Calibrated ($\times$ 0.930) |
+|---|---|---|---|
+| 2022 | 252.2 | 227.0 | 211.1 |
+| 2023 | 267.4 | 196.7 | 182.9 |
+| 2024 | 285.3 | 218.9 | 203.5 |
+
+Energy CO2, scenario 1, Mt. The calibrated base year equals the 2021 inventory (211.1), as legacy. The 2023 dip is
+the fuel-use shock of legacy row 483 (issue I92, replicated; @sec-demand).
+:::
+
+## Methane by source and the methane fee {#sec-em-methane}
+
+Methane is the second greenhouse gas of most inventories and the one a methane fee targets. The model splits the
+inventory's methane between seven sources, projects each with its own activity, lets the fee abate it along the
+source's cost curve, and collects the fee revenue. The methodology describes this in
+[methodology, section 3.5.4.2](../CPAT_full_documentation_html/03_Mitigation.html#methane-ch_4) (energy methane) and
+[sections 3.5.5.2 and 3.5.5.3.1](../CPAT_full_documentation_html/03_Mitigation.html#agriculture) (agriculture and
+waste).
+
+| Source $j$ | Category | GWP | Activity | Curve |
+|---|---|---|---|---|
+| oil and gas extraction (`og`) | energy | fossil | oil and gas production | oil and gas |
+| downstream gas (`dg`) | energy | fossil | gas use | oil and gas |
+| coal mining (`cm`) | energy | fossil | coal production | coal |
+| biomass use (`bm`) | energy | fossil | biomass use | oil and gas |
+| livestock (`liv`) | agriculture | non-fossil | index of income and population | livestock |
+| rice (`ric`) | agriculture | non-fossil | index of income and population | rice |
+| waste (`wst`) | waste | non-fossil | index of income and population | waste |
+
+Biomass and downstream gas use the oil-and-gas curve, as legacy. The four energy sources together are the
+**fuel-supply methane** (`ch4.sup`).
+
+### Data {#sec-em-ch4-data}
+
+| Sheet | Content | Source |
+|---|---|---|
+| GHGs | Inventory by country, year, category (energy, industrial processes, agriculture, LULUCF, waste, other) and gas (CO2, CH4, N2O, F-gases), Mt CO2e | Legacy sheet GHGs |
+| CH4Inputs | Methane abatement curves ($A$, $B$) by country and source, with an average (`AVG`) row; shares that split inventory methane by source; flared share | Legacy sheet CH4Inputs |
+| EF_NonCO2 | Combustion factors (kt per PJ) by country or region, subsector, fuel and pollutant, base year and final | Legacy sheet EF_PM (GAINS; all countries and World Bank regions) |
+| UNPop | Population by country and year (thousands) | Legacy sheet UNPop (UN WPP) |
+| Balances | Base-year production of gas, oil and coal | Legacy Mitigation rows 503-509 |
+| Prices_int | World production of oil, coal and gas, Mtoe, by IEA scenario | Legacy rows 717-719 |
+
+The other methane inputs are on sheet `Manual inputs`, at the legacy addresses:
+
+| Cell | Input | Default |
+|---|---|---|
+| J185 | Intensity decline, oil and natural gas (also downstream gas and biomass) | 0.25% per year |
+| J186 | Intensity decline, coal | 0 |
+| J187 | Intensity decline, agriculture (livestock, rice) | 0.47% per year |
+| J188 | Intensity decline, waste | 0.5% per year |
+| J190:J192 | Price elasticity of production: oil, coal, natural gas | −0.30, −0.43, −0.46 |
+| J194 | Pass-through of the methane fee on fossil fuels to consumers | 0 |
+| J196:J200 | Fee applies to: biomass, downstream gas, fossil fuel production (oil, gas, coal), agriculture (livestock, rice), waste | No, Yes, Yes, Yes, Yes |
+
+The decline rates are calibrated on US EPA data (legacy notes). The fee switches are named `MFeeBio`, `MFeeDG`,
+`MFeeFF`, `MFeeAgr`, `MFeeWst` and shown on sheet Settings. They are legacy inputs outside ScenarioDefinition: the
+main inputs are on ScenarioDefinition, `Manual inputs` is the second source.
+
+### The methane fee {#sec-em-mfee}
+
+The fee is a price per tonne of CO2-equivalent methane. It follows a linear path that keeps its slope after the
+target year, applies only in policy scenarios, and can add the carbon price
+([M1.8](A_Equations.qmd#eqlist-M1-8)):
+
+$$
+MF_t = \Lambda(t;\, T^{m}_0, T^{m}_1, x^{m}_0, x^{m}_1)\ \mathbb{1}[o \ne B] \;+\; NCT_t\ \mathbb{1}[\texttt{CTforMethane} = \text{Yes}]
+$$ {#eq-em-mfee}
+
+where
+
+- $MF_t$ is the methane fee (USD per t CO2e, real), `mfee`;
+- $\Lambda$ is the linear policy path of @sec-model-overview, from `MPLevelStart` in `MPIntro` to `MPLevelTarget` in
+  `MPOutro`, **continued linearly** after `MPOutro` (as legacy);
+- $\mathbb{1}[o \ne B]$ is 1 in policy scenarios (scenario number above 1, legacy row 2238);
+- $NCT_t$ is the carbon price (USD per t CO2), added when `CTforMethane` = Yes. This part has no scenario
+  condition, as legacy row 2239.
+
+### Allocation of inventory methane to sources {#sec-em-ch4-alloc}
+
+The inventory reports methane by category, not by source. The model splits the methane of the last inventory year
+$Y$ between the sources of each category. For the four energy sources, each source's input share is capped by ten
+times its share of energy activity, and the capped weights are normalised:
+
+$$
+w_j = \min\!\left(\mu\,\frac{X^{0}_j}{\sum_{i \in \text{fossil}} X^{0}_i},\ sh_j\right), \qquad
+\pi_j = \frac{w_j}{\sum_{i \in \text{fossil}} w_i} \quad (j \in \text{fossil})
+$$ {#eq-em-ch4share}
+
+where
+
+- $sh_j$ is the country's input share of source $j$ (CH4Inputs: oil row `per_upstream_og`, `per_downstream_g`,
+  `per_biomass`; coal row `per_upstream_c`), 0 if missing;
+- $X^{0}_j$ is the base-year activity of the source (data): oil plus gas production and coal production from
+  Balances; gas and biomass use from the energy-consumption data of the first year (every column but electricity);
+- $\mu$ = 10 (`MethShareCap`, legacy row 899);
+- $\pi_j$ is the share of energy methane allocated to source $j$.
+
+Livestock and rice take their input shares of agricultural methane ($\pi_j = sh_j$, rows `per_livestock`,
+`per_rice`); waste takes all waste methane ($\pi_{wst} = 1$). The base emissions of each source, in kt CH4, are then
+
+$$
+M_{j,0} = M^{inv}_{u(j),Y}\ \pi_j\ \frac{1000}{GWP_j}
+$$ {#eq-em-ch4base}
+
+where
+
+- $M^{inv}_{u(j),Y}$ is the inventory methane of the source's category (energy, agriculture or waste) in year $Y$,
+  Mt CO2e (`ghg.invb`);
+- $GWP_j$ is 29.8 for the fossil sources and 27.2 for livestock, rice and waste.
+
+The shares and base emissions are data of the country: they are the same in every scenario, so the calibration is
+to the observed inventory.
+
+### Activity {#sec-em-ch4-activity}
+
+Each source has an activity that moves its emissions. Downstream gas and biomass follow the scenario's total use of
+the fuel (power included), so fuel switching changes their methane. Livestock, rice and waste follow an index
+driven by income and population:
+
+$$
+X_j(t) = X_j(t-1)\,(1 + g^{pc}_t)^{\epsilon^{Y}_{u(j)}}\,(1 + n_t)^{\epsilon^{N}_{u(j)}}, \qquad X_j(t_0) = 1 \qquad (j \in \{\text{liv}, \text{ric}, \text{wst}\})
+$$ {#eq-em-ch4act}
+
+where
+
+- $g^{pc}_t$ is GDP per capita growth and $n_t$ population growth (@eq-em-drivers);
+- $\epsilon^{Y}$, $\epsilon^{N}$ are the income and population elasticities of the category: agriculture 0.15 and
+  0.9, waste 0 and 1 (@sec-em-other).
+
+The two extraction sources follow fuel production, $X_{og} = Prd_{oil} + Prd_{gas}$ and $X_{cm} = Prd_{coal}$,
+described next.
+
+#### Fuel production for supply methane {#sec-em-ch4-prod}
+
+The model has no production model for fossil fuels. Production follows world demand of the global demand scenario,
+and responds to the producer price change that the methane fee causes, as legacy rows 6132-6149 (issue I66). First,
+the fee per ktoe produced, after abatement:
+
+$$
+fk_j(t) = MF_t\, GWP_j\, \iota_j \cdot 1000 \cdot \frac{M_{j,0}}{X^{0}_j}\,(1 - a_j(t)), \qquad fk_j(t_0) = 0 \qquad (j \in \{\text{og}, \text{cm}\})
+$$ {#eq-em-ch4fk}
+
+where $\iota_j$ is 1 if the fee applies to the source (fossil fuel production switch), else 0, and $a_j$ the
+abatement share of @eq-em-ch4abt. $fk_j$ is in USD per ktoe. Its change raises the producer price index:
+
+$$
+\Pi_f(t) = 1 + \frac{fk_{j(f)}(t) - fk_{j(f)}(t-1)}{p^{int}_f(t)\ \gamma_f}\ \phi^{pass}, \qquad \Pi_f(t_0) = 1
+$$ {#eq-em-ch4pi}
+
+where
+
+- $j(f)$ is the oil-and-gas source for oil and gas, coal mining for coal;
+- $p^{int}_f$ is the international price of the fuel in its own unit (oil per barrel, gas per MMBtu, coal per
+  tonne; @sec-prices);
+- $\gamma_f$ is price units per ktoe: 41,868 GJ per ktoe divided by 6.1408 GJ per barrel, 1.055056 GJ per MMBtu or
+  29.3076 GJ per tonne;
+- $\phi^{pass}$ is the pass-through (Manual inputs J194, default 0, so $\Pi_f = 1$ by default).
+
+Production holds the base-year value in the base year and the next, then grows with the price response and with
+world demand of the year before:
+
+$$
+Prd_f(t) = \begin{cases}
+Prd^{0}_f & t \le t_0 + 1 \\
+Prd_f(t-1)\ \Pi_f(t)^{\varepsilon_f}\ \dfrac{WD_f(t-1)}{WD_f(t-2)} & \text{otherwise}
+\end{cases}
+$$ {#eq-em-ch4prd}
+
+where
+
+- $Prd^{0}_f$ is base-year production of oil products, coal and gas (Balances, ktoe);
+- $\varepsilon_f$ is the price elasticity of production (Manual inputs J190:J192);
+- $WD_f$ is world production of the fuel in the IEA scenario `GlobalEnergyDemand` of scenario 1 (Stated Policies,
+  Announced Pledges, Sustainable Development, Net Zero), Mtoe. As legacy, the third and fourth options both read the
+  Net Zero row.
+
+The source shares use base-year production as their activity, so the shares do not depend on this projection (no
+loop).
+
+### Abatement and emissions {#sec-em-ch4-abt}
+
+The fee abates methane along a power-function cost curve of the source ([A7.3](A_Equations.qmd#eqlist-A7-3)):
+
+$$
+a_j(t) = \min\!\Big(1,\ \max\!\big(0,\ A_j\,(MF_t\, GWP_j\, \iota_j)^{B_j}\big)\Big)
+$$ {#eq-em-ch4abt}
+
+where
+
+- $a_j$ is the abatement share (`ch4.abt`);
+- $MF_t\,GWP_j$ is the fee per tonne of CH4 (USD);
+- $A_j$, $B_j$ are the curve coefficients of CH4Inputs (`avg_pow_a`, `avg_pow_b`) for the country and the source's
+  curve row; where the country value is 0 or missing, the CH4Inputs average (`AVG`) is used, as legacy
+  (issue I152);
+- $\iota_j$ is the fee switch of the source (@sec-em-ch4-data).
+
+Methane intensity also declines on its own, from the last inventory year:
+
+$$
+I_j(t) = (1 - \delta_j)^{\max(0,\ t - Y)}
+$$ {#eq-em-ch4int}
+
+where $I_j$ is the intensity index (`ch4.int`) and $\delta_j$ the source's rate of autonomous technological
+improvement (Manual inputs J185:J188; oil and gas also for downstream gas and biomass, issue I141). The emissions of
+each source combine base emissions, activity, intensity and abatement:
+
+$$
+M_j(t) = M_{j,0}\ \frac{X_j(t)}{X^{0}_j}\ I_j(t)\ \big(1 - a_j(t)\big)
+$$ {#eq-em-ch4em}
+
+where $M_j(t)$ is the methane of source $j$ in kt CH4 (`ch4.em`), 0 if $X^{0}_j = 0$. For livestock, rice and waste
+$X^{0}_j = 1$. Fuel-supply methane is $M^{sup}(t) = \sum_{j \in \text{fossil}} M_j(t)$.
+
+### Flaring and the fee revenue {#sec-em-ch4-rev}
+
+Part of the abated oil-and-gas methane is flared: it burns to CO2 and is reported as energy CO2.
+
+$$
+CO2^{flr}_t = r_{fl}\ \phi_{fl}\ M_{og,0}\ \frac{X_{og}(t)}{X^{0}_{og}}\ a_{og}(t)\ /\ 1000
+$$ {#eq-em-flare}
+
+where $CO2^{flr}$ is in Mt (`ghg.flr`), $r_{fl}$ = 44/16 = 2.75 t CO2 per t CH4 and $\phi_{fl}$ the flared share
+(CH4Inputs oil row `per_flare`). The fee raises revenue on the methane that remains:
+
+$$
+R^{mf}_t = MF_t \sum_j M_j(t)\, GWP_j\, \iota_j\ \frac{1000}{10^{6}}
+$$ {#eq-em-mfrev}
+
+where $R^{mf}$ is in USD million (`ch4.rev`), part of total revenue (@sec-fiscal).
+
+::: {.callout-tip icon=false title="Pseudocode: methane by source and the methane fee"}
+```
+# data step, once per country
+for j in SOURCES:                                  # og, dg, cm, bm, liv, ric, wst
+    A[j], B[j] = curve(country, j) or curve("AVG", j)          # 0 or missing: the average
+    gwp[j] = GWPCH4F if j in FOSSIL else GWPCH4NF
+    fee_on[j] = 1 if fee_switch[j] == "Yes" else 0
+act0 = {og: prod0[oil] + prod0[gas], cm: prod0[coal], dg: cons0[gas], bm: cons0[bio], liv: 1, ric: 1, wst: 1}
+for j in FOSSIL:
+    w[j] = min(MethShareCap * act0[j] / sum(act0[i] for i in FOSSIL), share_input[j])
+for j in SOURCES:
+    pi[j] = w[j] / sum(w[i] for i in FOSSIL) if j in FOSSIL else (1 if j == wst else share_input[j])
+    em0[j] = inv[Y][category(j), "ch4"] * pi[j] * 1000 / gwp[j]          # kt CH4
+
+for t in years:
+    mfee[t] = path(t, MPIntro, MPOutro, MPLevelStart, MPLevelTarget, continue_linear=True) * (scenario > 1) \
+              + (cptraj[t] if CTforMethane == "Yes" else 0)
+    for j in SOURCES:
+        abt[j][t] = min(1, max(0, A[j] * (mfee[t] * gwp[j] * fee_on[j]) ** B[j]))
+    for j in (og, cm):
+        fk[j][t] = 0 if t == t0 else mfee[t] * gwp[j] * fee_on[j] * 1000 * em0[j] / act0[j] * (1 - abt[j][t])
+    for f in (oil, gas, coal):
+        pidx[f][t] = 1 if t == t0 else 1 + (fk[j(f)][t] - fk[j(f)][t-1]) / (gp_int[f][t] * units_per_ktoe[f]) * pass_through
+        prd[f][t] = prod0[f] if t <= t0 + 1 else prd[f][t-1] * pidx[f][t] ** elast[f] * wd[f][t-1] / wd[f][t-2]
+    act = {og: prd[oil][t] + prd[gas][t], cm: prd[coal][t], dg: ener["all", gas][t], bm: ener["all", bio][t]}
+    for j in (liv, ric, wst):
+        act[j] = 1 if t == t0 else act_prev[j] * (1 + gdppc_g[t]) ** el_inc[cat(j)] * (1 + pop_g[t]) ** el_pop[cat(j)]
+    for j in SOURCES:
+        intensity[j][t] = (1 - decline[j]) ** max(0, t - Y)
+        ch4_em[j][t] = em0[j] * act[j] / act0[j] * intensity[j][t] * (1 - abt[j][t]) if act0[j] else 0
+    ch4_sup[t] = sum(ch4_em[j][t] for j in FOSSIL)
+    flr[t] = FlareCO2perCH4 * flared_share * em0[og] * act[og] / act0[og] * abt[og][t] / 1000     # Mt CO2
+    ch4_rev[t] = mfee[t] * sum(ch4_em[j][t] * gwp[j] * fee_on[j] for j) * 1000 / 1e6           # USD m
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** methane fee rows `mfee.p`, `mfee` in section 1 (ScenarioDefinition `MPIntro`, `MPOutro`,
+  `MPLevelStart`, `MPLevelTarget`, `CTforMethane`); section 14 rows `ghg.invb`, `ch4.src`, `ch4.wd`, `ch4.fk`,
+  `ch4.pi`, `ch4.prd`, `ch4.act`, `ch4.abc`, `ch4.abt`, `ch4.int`, `ch4.em`, `ch4.sup`, `ghg.flr`, `ch4.rev`.
+  Constants `MethShareCap`, `GWPCH4F`, `GWPCH4NF`, `FlareCO2perCH4`, `MethGJperKtoe`, `MethGJperBbl`,
+  `MethGJperMMBtu`, `MethGJperT`. Manual inputs J185:J200.
+- **CPAT Python:** `cpat_model/mitigation/policies.py`, `prepare()` (methane fee, EQ-M1.8);
+  `ghg_data.py` (`inventory()`, `methane()`, `world_demand()`, `methane_inputs()`, `production()`) and
+  `emissions.py`, `country_data()`, `curve_coefficient()` and `ghg()` (EQ-A7.3).
+- **Fiscal space.** Since issue I47 was settled, the fiscal space of the GDP feedback counts the fee revenue on the
+  scenario's own activity (`ch4.rev`), as legacy (row 8024). The memo rows `ch4.emf` and `ch4.revf` (the same sum
+  with the stored scenario-1 activity for downstream gas and biomass, sheet BaselineCO2 rows `dg`, `bm`, check
+  `ch4bs.chk` = 0 in scenario 1) are kept but no longer used. See @sec-fiscal.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **L18, fixed.** Legacy holds non-energy methane constant and does not apply the abatement. Here livestock, rice
+  and waste grow with income and population and the fee abates them (LD43).
+- **L19, fixed.** Legacy counts the flaring CO2 as methane. Here it is energy CO2 (LD44).
+- **L20, fixed.** Legacy's population growth path differs from UN WPP; the model uses UN WPP.
+- **L21, fixed.** Legacy abates waste with the livestock curve. Each source uses its own curve.
+- **L135, fixed.** Legacy applies the autonomous intensity decline to the energy sources only. Here livestock, rice
+  and waste decline too. Legacy keeps the index at 1 up to 2023 and declines from 2024; the model declines from the
+  last inventory year (I141).
+- **I152, as legacy.** Where the country's curve coefficient is 0 or missing, the average curve is used (legacy
+  Mitigation L6084:M6084).
+- **LD46, as legacy.** The fee path applies only in policy scenarios; a switch per source decides where the fee
+  applies, in the abatement and the revenue.
+- **Production (I66).** Oil, gas and coal production follow legacy rows 6132-6149: world demand of the year before
+  and the producer price response.
+- **Methodology.** The methodology defines the fee per tonne of CH4 and describes the agriculture and waste
+  "production" as also responding to oil producer prices; the model applies the fee per tonne of CO2e and the price
+  response only to fossil fuel production.
+:::
+
+## Energy GHGs: combustion methane, N2O and F-gases {#sec-em-energy-ghg}
+
+The energy category of the inventory holds CO2, methane, N2O and F-gases. CO2 comes from @sec-em-co2 plus
+flaring. Methane combines combustion and fuel supply and is scaled to the inventory. N2O and F-gases follow simple
+rules. The methodology describes these in
+[methodology, sections 3.5.4.2 and 3.5.4.3](../CPAT_full_documentation_html/03_Mitigation.html#nitrous-oxide-n_2o-and-flourinated-gases-f-gases).
+
+### Combustion methane {#sec-em-ch4comb}
+
+Every fuel burnt emits some methane. The factor moves on a straight line from its base-year value towards its final
+value in `EFEndYear`, and the line continues after that year, as legacy:
+
+$$
+w_t = \omega\ \frac{t - t_0}{T^{EF} - t_0}
+$$ {#eq-em-efw}
+
+$$
+CH4_{s,f}(t) = F_{s,f}(t)\ \frac{e^{0}_{s,f} + (e^{1}_{s,f} - e^{0}_{s,f})\, w_t}{1000}, \qquad CH4_k(t) = PE_k(t)\ \frac{e^{0}_{k} + (e^{1}_{k} - e^{0}_{k})\, w_t}{1000}
+$$ {#eq-em-ch4c}
+
+where
+
+- $w_t$ is the weight of the final factor, 0 in the base year;
+- $\omega$ (`EFFinShare`) follows the factor selection `EFSel`: Constant 0, Variable 1, Average 0.5;
+- $T^{EF}$ = 2039 (`EFEndYear`, the legacy column of the final factor; later years extrapolate the line);
+- $e^{0}$, $e^{1}$ are the GAINS CH4 factors of the base year and the final year, t per ktoe, looked up as for the
+  local pollutants (@sec-em-ap-data);
+- $CH4_{s,f}$, $CH4_k$ are in kt CH4 (`ch4`); power uses the fuel input of the coal, gas, oil and biomass types.
+
+The combustion methane of all subsectors and power is $CH4^{c}(t)$ (`ch4.c`), also reported by sector group.
+
+### Energy methane, calibrated to the inventory {#sec-em-ch4enr}
+
+Combustion plus supply methane, in CO2e, is scaled by one factor so that it equals the inventory in the last
+inventory year:
+
+$$
+k_{CH_4} = \frac{M^{inv}_{enr,Y}}{\big(CH4^{c,B}_{Y} + M^{sup,B}_{Y}\big)\, GWP_F / 1000}
+$$ {#eq-em-kch4}
+
+$$
+E_{enr,CH_4}(t) = k_{CH_4}\ \big(CH4^{c}(t) + M^{sup}(t)\big)\ \frac{GWP_F}{1000}
+$$ {#eq-em-ch4enr}
+
+where
+
+- $k_{CH_4}$ is the calibration factor (`ghg.k`);
+- $M^{inv}_{enr,Y}$ is the inventory energy methane in year $Y$ (Mt CO2e);
+- $CH4^{c,B}_{Y}$, $M^{sup,B}_{Y}$ are the scenario-1 combustion and supply methane of year $Y$ (kt), stored as
+  data (sheet BaselineCO2 rows `ch4c`, `ch4sup`, refreshed by the build), so that the factor, used in every year,
+  reads no later model year (no circular reference);
+- $GWP_F$ = 29.8, the fossil GWP;
+- $E_{enr,CH_4}$ is energy methane in Mt CO2e.
+
+Energy methane thus equals the inventory in $Y$ and then moves with fuel use, supply activity and abatement.
+
+### Energy CO2, N2O and F-gases {#sec-em-enr-other}
+
+$$
+E_{enr,CO_2}(t) = em_{CO_2}(t) + CO2^{flr}_t
+$$ {#eq-em-enrco2}
+
+Energy CO2 is always the model's (fuel combustion, power included, plus flaring), also in inventory years. Energy
+N2O and F-gases take the inventory while it has the year; after it, N2O moves with energy CO2 and F-gases are held:
+
+$$
+E_{enr,N_2O}(t) = E_{enr,N_2O}(t-1)\ \frac{em_{CO_2}(t)}{em_{CO_2}(t-1)}, \qquad E_{enr,F}(t) = E_{enr,F}(t-1)
+$$ {#eq-em-enrn2o}
+
+(the ratio is 1 if last year's CO2 is 0).
+
+::: {.callout-tip icon=false title="Pseudocode: energy GHGs"}
+```
+for t in years:
+    w = EFFinShare * (t - t0) / (EFEndYear - t0)              # continues after EFEndYear
+    for s, f: ch4[s, f][t] = ener[s, f][t] * (ef0_ch4[s, f] + (ef1_ch4[s, f] - ef0_ch4[s, f]) * w) / 1000
+    for k in (coal, gas, oil, bio): ch4["pow", k][t] = pe[k][t] * (e0[k] + (e1[k] - e0[k]) * w) / 1000
+    ch4_c[t] = sum(ch4[s, f][t]) + sum(ch4["pow", k][t])
+    k_ch4 = inv[Y]["enr", "ch4"] / ((stored_ch4c_s1[Y] + stored_ch4sup_s1[Y]) * GWPCH4F / 1000)
+    ghg["enr", "co2"][t] = co2_total[t] + flr[t]
+    ghg["enr", "ch4"][t] = k_ch4 * (ch4_c[t] + ch4_sup[t]) * GWPCH4F / 1000
+    if t in inventory:
+        ghg["enr", "n2o"][t], ghg["enr", "fga"][t] = inv[t]["enr", "n2o"], inv[t]["enr", "fga"]
+    else:
+        ghg["enr", "n2o"][t] = ghg["enr", "n2o"][t-1] * (co2_total[t] / co2_total[t-1] if co2_total[t-1] else 1)
+        ghg["enr", "fga"][t] = ghg["enr", "fga"][t-1]
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** combustion CH4 rows `ch4` of sections 5-8 (LAMBDA `NONCO2`, weight `EFWEIGHT`) and of section 14
+  (power); `ch4.c`, `ghg.k`, `ghg` (energy rows) in section 14; stored values on sheet BaselineCO2; factors on sheet
+  Inputs_nc (table by legacy EF code).
+- **CPAT Python:** `fuel_use.py` (combustion CH4 of subsectors), `emissions.py`, `ghg()` (power CH4, `ch4.c`,
+  `ghg.k`, energy rows; EQ-A7.2). The factor reads Excel-AI's stored scenario-1 values.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **I34.** Legacy 465 has the CH4 factor lookups but leaves the factors blank, so its combustion methane is zero.
+  The model fills them from GAINS (country, else World Bank region, else world).
+- **Factor path (LD47, I98).** As legacy: linear from the base year to the final factor in 2039, continued after it.
+  Only the base and final GAINS values are used: the yearly legacy paths are proprietary.
+- **Methodology.** The methodology calibrates energy methane on 2019 and sets energy F-gases to zero after 2018.
+  The model calibrates on the last inventory year and holds the inventory's last F-gas value.
+:::
+
+::: {.callout-note collapse="true" title="Check: energy methane for Egypt"}
+- Combustion methane exceeds inventory energy methane, so $k_{CH_4}$ is about 0.25 for Egypt.
+- **Open issue I91.** Egypt's inventory breaks after 2021: energy CH4 is 21.9 Mt CO2e in 2021 and 1.9-2.0 in
+  2022-2024, while the fugitive-emissions memo alone is 20.3 in 2023. Calibrating to 2024, as legacy, may understate
+  energy methane by about 19 Mt CO2e.
+- Oil, gas and coal production have no production model: they follow world demand from the base year.
+:::
+
+## Other inventory categories {#sec-em-other}
+
+The non-energy categories take the inventory while it has the year. After that, each grows with its own driver:
+industrial energy CO2 for industrial processes, income and population for agriculture, waste and other, an
+exogenous decline for LULUCF. The methodology describes these in
+[methodology, section 3.5.5](../CPAT_full_documentation_html/03_Mitigation.html#non-energy-related-emissions)
+([A7.2](A_Equations.qmd#eqlist-A7-2), [M7.2](A_Equations.qmd#eqlist-M7-2)).
+
+### Drivers {#sec-em-drivers}
+
+$$
+n_t = \frac{pop_t}{pop_{t-1}} - 1, \qquad g^{pc}_t = \frac{1 + g_t}{1 + n_t} - 1, \qquad
+\psi_t = \begin{cases} em_{CO_2}(t) / em^{B}_{CO_2}(t) & \texttt{AdditionMitigationPoliciesNonEnergy} = \text{Yes} \\ 1 & \text{otherwise} \end{cases}
+$$ {#eq-em-drivers}
+
+where
+
+- $pop_t$ is UN WPP population (thousands), $n_t$ its growth (`pop.g`);
+- $g_t$ is real GDP growth after the GDP feedback (@sec-fiscal), $g^{pc}_t$ GDP per capita growth (`gdppc.g`);
+- $\psi_t$ is the mitigation effort in non-energy sectors (`ghg.m`): the scenario's energy CO2 over the baseline's,
+  if the scenario's switch is on. This option, in effect, extends the carbon price's effect to non-energy GHGs.
+
+The growth factor of a category is
+
+$$
+d_{u,t} = (1 + g^{pc}_t)^{\epsilon^{Y}_u}\,(1 + n_t)^{\epsilon^{N}_u}\ \frac{\psi_t}{\psi_{t-1}}, \qquad d_{u,t_0} = 1
+$$ {#eq-em-dr}
+
+with the elasticities of sheet `Manual inputs` K325:M327, at the legacy addresses (a text entry such as "na" counts
+as 0):
+
+| Category $u$ | Income elasticity $\epsilon^{Y}$ (row 327) | Population elasticity $\epsilon^{N}$ (row 326) |
+|---|---|---|
+| Agriculture | 0.15 | 0.9 |
+| Waste | 0 ("na") | 1 |
+| Other | 0 ("na") | 1 |
+
+These values reproduce the cached results of the legacy run exactly. Legacy Mitigation uses the same values; it
+never reads the manual cells, whose formula is broken (`#REF!`).
+
+### Projection by category and gas {#sec-em-categories}
+
+Each category $u$ and gas $p$ takes the inventory value while the inventory has the year:
+
+$$
+E_{u,p}(t) = \begin{cases} \text{inventory}_{u,p,t} & t \le Y \\ \text{projection of the table below} & t > Y \end{cases}
+$$ {#eq-em-ghg}
+
+(energy CO2 and energy methane excepted: they are always modelled, @sec-em-energy-ghg).
+
+| Category and gas | Projection after the inventory |
+|---|---|
+| Industrial processes, all gases | $E(t-1)\,(1 + \Delta_t)$ with $\Delta_t$ the growth of industrial energy CO2 (`ghg.gi`), if `IndustrialProcessEmissionsScaleEner` = Yes; else held |
+| Agriculture CO2, N2O, F-gases | $E(t-1)\, d_{agr,t}$ |
+| Agriculture CH4 | livestock and rice methane: $(M_{liv} + M_{ric})\, GWP_{NF} / 1000$ |
+| Waste CO2, N2O, F-gases | $E(t-1)\, d_{wst,t}$ |
+| Waste CH4 | waste methane: $M_{wst}\, GWP_{NF} / 1000$ |
+| Other, all gases | $E(t-1)\, d_{oth,t}$ |
+| LULUCF CO2 | @eq-em-lulucf |
+| LULUCF CH4, N2O, F-gases | held |
+
+The industrial growth may be negative: process emissions decline with industrial CO2, as legacy rows 7553 and
+7566-7569.
+
+LULUCF CO2 declines by a share of the last inventory value while it is a source, and is held while it is a sink:
+
+$$
+E_{lucf,CO_2}(t) = \begin{cases}
+E_{lucf,CO_2}(t-1) & E_{lucf,CO_2}(t-1) < 0 \\
+E_{lucf,CO_2}(t-1)\ \dfrac{\psi_t}{\psi_{t-1}} - \delta_{lu}\, \big|E^{inv}_{lucf,CO_2,Y}\big| & \text{otherwise}
+\end{cases}
+$$ {#eq-em-lulucf}
+
+where $\delta_{lu}$ is `LULUCFAnnualEmissionsDecline` (ScenarioDefinition, share per year of the last inventory
+value; the methodology's default is 2.5%) and $E^{inv}_{lucf,CO_2,Y}$ the inventory value of year $Y$.
+
+### Totals {#sec-em-totals}
+
+$$
+GHG_t = \sum_{u \ne \text{LULUCF}} \sum_{p} E_{u,p}(t), \qquad GHG^{inc}_t = GHG_t + \sum_p E_{lucf,p}(t)
+$$ {#eq-em-ghgtot}
+
+The block reports totals by gas and by category, GHG emissions excluding (`ghg`) and including LULUCF (`ghg.inc`),
+the baseline value (`ghg.ref`) and the change against it (`ghg.pct`, `ghg.chg`).
+
+::: {.callout-tip icon=false title="Pseudocode: other inventory categories"}
+```
+for t in years:
+    pop_g[t] = pop[t] / pop[t-1] - 1
+    gdppc_g[t] = (1 + gdp_growth[t]) / (1 + pop_g[t]) - 1
+    m[t] = co2_total[t] / co2_ref[t] if AdditionMitigationPoliciesNonEnergy == "Yes" and co2_ref[t] > 0 else 1
+    gi[t] = 0 if t == t0 else co2["ind"][t] / co2["ind"][t-1] - 1      # 0 if last year's is 0
+    for u in (agr, wst, oth):
+        dr[u][t] = 1 if t == t0 else (1 + gdppc_g[t]) ** el_inc[u] * (1 + pop_g[t]) ** el_pop[u] * m[t] / m[t-1]
+    for u in (ipr, agr, lucf, wst, oth):
+        for p in (co2, ch4, n2o, fga):
+            if t in inventory: ghg[u, p][t] = inv[t][u, p]; continue
+            prev = ghg[u, p][t-1]
+            if u == ipr:   ghg[u, p][t] = prev * (1 + (gi[t] if IndustrialProcessEmissionsScaleEner == "Yes" else 0))
+            elif (u, p) == (agr, ch4): ghg[u, p][t] = (ch4_em[liv][t] + ch4_em[ric][t]) * GWPCH4NF / 1000
+            elif (u, p) == (wst, ch4): ghg[u, p][t] = ch4_em[wst][t] * GWPCH4NF / 1000
+            elif (u, p) == (lucf, co2):
+                ghg[u, p][t] = prev if prev < 0 else prev / m[t-1] * m[t] - abs(inv[Y][lucf, co2]) * LULUCFAnnualEmissionsDecline
+            elif u == lucf: ghg[u, p][t] = prev
+            else:          ghg[u, p][t] = prev * dr[u][t]
+    ghg_total[t] = sum(ghg[u, p][t] for u != lucf, p)
+    ghg_inc[t] = ghg_total[t] + sum(ghg[lucf, p][t] for p)
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** section 14 rows `pop`, `pop.g`, `gdppc.g`, `ghg.h` (row of the year on sheet GHGs, 0 if none),
+  `ghg.m`, `ghg.gi`, `ghg.dr`, `ghg`, `ghg.inc`, `ghg.ref`, `ghg.pct`, `ghg.chg`. ScenarioDefinition
+  `AdditionMitigationPoliciesNonEnergy`, `IndustrialProcessEmissionsScaleEner`, `LULUCFAnnualEmissionsDecline`;
+  elasticities Manual inputs K325:M327 (names `GhgElCat`, `GhgElPop`, `GhgElInc`).
+- **CPAT Python:** `cpat_model/mitigation/ghg_data.py`, `inventory()`, `population()`,
+  `nonenergy_elasticities()`; `emissions.py`, `ghg()` (EQ-M7.2, EQ-A7.2).
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT and the methodology"}
+- **Industrial processes.** The model lets process emissions decline with industrial CO2 in every year (as legacy
+  rows 7553, 7566-7569). The methodology floors the growth at 0 in its first projection year only.
+- **LULUCF.** The model holds sinks (negative values) and holds LULUCF CH4, N2O and F-gases. The methodology also
+  subtracts the annual decline from sinks, scales CH4 and N2O by the effort and grows N2O and F-gases with
+  population.
+- **Population (L20).** UN WPP population, not legacy's growth path.
+- **Validation.** When the block was introduced, every earlier output was unchanged (the methane fee is 0 in the
+  shipped scenarios). The check recomputes every GHG and combustion-methane row in Python from the data files
+  (scenarios 1 and 2, every year). Sheet LegacyDiff lists the remaining differences.
+:::
+
+## NDC comparison {#sec-em-ndc}
+
+The NDC rows translate the country's nationally determined contribution into a target for GHG emissions including
+LULUCF and measure how far each scenario goes towards it. They compare only: there is no goal seek on the NDC (user
+decision). The methodology describes the NDC types in
+[methodology, section 3.5.6](../CPAT_full_documentation_html/03_Mitigation.html#national-determined-contributions),
+with worked examples in
+[Appendix D](../CPAT_full_documentation_html/03_Mitigation.html#sec-AppendixD)
+([A7.4](A_Equations.qmd#eqlist-A7-4)).
+
+### Data and choices {#sec-em-ndc-data}
+
+| Sheet | Content | Source |
+|---|---|---|
+| NDCs | NDC table by country and round (latest, second, first): type, target years, reference year, unconditional and conditional values, LULUCF and gas coverage; key ISO \| round | Legacy NDCs rows 48-242 (latest), 250-444 (second), 451-644 (first), columns C-P |
+| GHGHist | Historical GHGs excluding and including LULUCF, CO2 excluding LULUCF, energy CO2, by year; key group \| year | Legacy GHGs rows 954-1189 |
+
+Three choices, read from scenario 1 as legacy:
+
+| Input | Options |
+|---|---|
+| `NDCs` | First round, Second round, else the latest (`Latest*`) |
+| `NDCTargetYear` | `Main*` = the first target year; otherwise the second, where given |
+| `Conditionality` | Unconditional, Conditional, else the average of the two |
+
+The target year is at most 2035 (`NDCYrCap`): later targets are compared in that year. A country without an NDC row
+is Unquantifiable.
+
+### Target level {#sec-em-ndc-target}
+
+The target is first built on the NDC's own basis (gases CO2 or GHGs; LULUCF included or excluded), against the
+modelled BAU $B_{ty}$: scenario 1 on that basis in the target year $ty$. With $x$ the target value as given
+(a reduction is negative; Fixed targets in Mt CO2e), the level $\ell$ is:
+
+| Type | Target level $\ell$ |
+|---|---|
+| BAU | $B_{ty}\,(1 + x)$ |
+| Fixed | $x$ |
+| Historical | $H\,(1 + x)$, with $H$ the emissions of the reference year |
+| Intensity | $H\ \dfrac{GDP_{ty}}{GDP_{ref}}\ (1 + x)$, real GDP of WEO |
+| Unquantifiable | $B_{ty}$ |
+
+$H$ is scenario 1 when the reference year is modelled (from the base year), else the GHGs inventory (2021-2024,
+rows `ndc.hc`, `ndc.hv`), else GHGHist. The reduction against the BAU and the target in GHGs including LULUCF are
+
+$$
+r = 1 - \frac{\ell}{B_{ty}}, \qquad L^{NDC} = \min\!\big(B^{inc}_{ty},\ B^{inc}_{ty}\,(1 - r)\big)
+$$ {#eq-em-ndcr}
+
+where
+
+- $r$ is computed for the unconditional ($u$) and conditional ($c$) values; $r_a$ is their average (the one given if
+  only one; 0 if none); $r_{sel}$ is the `Conditionality` choice ($r_a$ if the chosen one is not given);
+- $B^{inc}_{ty}$ is scenario-1 GHGs including LULUCF in the target year;
+- $L^{NDC}$ is the target (`ndc.lvl`), for $u$, $c$ and $sel$, as legacy rows 18494-18496.
+
+### Progress against the NDC {#sec-em-ndc-gap}
+
+For every scenario and year:
+
+$$
+red_t = 1 - \frac{GHG^{inc}_t}{GHG^{inc,B}_t}, \qquad gap_t = \frac{red_t}{r_{sel}}, \qquad over_t = GHG^{inc}_t - L^{NDC}_{sel}
+$$ {#eq-em-ndcgap}
+
+where
+
+- $red_t$ is the reduction of GHGs including LULUCF against scenario 1 (`ndc.red`);
+- $gap_t$ is the share of the NDC reduction achieved (`ndc.gap`, legacy "Gap to NDC"; 1 if no reduction is
+  required);
+- $over_t$ is the excess over the chosen target (`ndc.over`); in the target year it is the legacy goal-seek
+  difference (G18501).
+
+The rows also give the target against base-year GHGs including LULUCF (`ndc.idx`).
+
+::: {.callout-tip icon=false title="Pseudocode: NDC comparison (after the year loop)"}
+```
+row = ndc_table[country, round(NDCs)]                       # None: Unquantifiable
+alt = NDCTargetYear != "Main*" and row.ty2 > 0
+ty = min(NDCYrCap, row.ty2 if alt else row.ty1)
+basis = ghg_co2 (+ lulucf_co2 if LULUCF included) if gases == "CO2" else (ghg_inc if LULUCF included else ghg)
+B_ty, Binc_ty = basis_s1[ty], ghg_inc_s1[ty]
+H = basis_s1[ref] if ref modelled else inventory[ref] if ref in 2021..2024 else ghghist[ref]
+for v in (u, c):
+    f = 1 + x[v]                                            # N/A if not given
+    level[v] = {BAU: B_ty*f, Fixed: f-1, Historical: H*f, Intensity: H*gdp[ty]/gdp[ref]*f, Unq: B_ty}[type]
+    r[v] = 1 - level[v] / B_ty
+r[a] = mean of the given r[u], r[c] (0 if none)
+r[sel] = r[Conditionality] if given else r[a]
+for v in (u, c, sel): target[v] = min(Binc_ty, Binc_ty * (1 - r[v]))
+for t in years:
+    red[t] = 1 - ghg_inc[t] / ghg_inc_s1[t]
+    gap[t] = red[t] / r[sel] if r[sel] > 0 else 1
+    over[t] = ghg_inc[t] - target[sel]
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** section 14 NDC rows (`ndc.key` to `ndc.over`); sheets NDCs and GHGHist, both built by
+  `extract_legacy_tables.py ndc`; choices on ScenarioDefinition scenario 1 (`NDCs`, `NDCTargetYear`,
+  `Conditionality`); constant `NDCYrCap`.
+- **CPAT Python:** `cpat_model/mitigation/emissions.py`, `ndc()` (EQ-A7.4), in the finish blocks of `chain.py`.
+  Text rows and N/A are not compared numerically (N/A is NaN).
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+Legacy F12 rows 18403-18518. Bugs fixed:
+
+- **L119.** Legacy applies the year adjustment twice for BAU targets and never for Fixed or Historical. The model
+  compares in the target year.
+- **L120.** Legacy's index rows invert the unconditional and conditional ratios against the average.
+- **L121.** For Historical targets legacy takes the cut as the target "level".
+- **L122.** Intensity targets including LULUCF add a blank cell instead of LULUCF emissions.
+- **L123.** Intensity targets read the reference-year GDP from a fixed cell.
+
+Issues: **L169**, China's CO2 is hard-coded in legacy (not replicated); **I95**, reference years outside the data
+give N/A. The 2021-2024 inventory now covers some of them; 2018-2020 need data.
+:::
+
+::: {.callout-note collapse="true" title="Check: Egypt's NDC"}
+Latest NDC: BAU type, 2030, −27% unconditional, GHGs excluding LULUCF. Target 344.3 Mt CO2e (legacy 355.7 = its
+BAU 487.2 $\times$ 0.73; the model's BAU is 471.7, the known baseline GHG difference). Scenario 2 achieves 21% of
+the required reduction in 2030 (legacy 51% for its cached policy scenario, which is not the model's scenario 2).
+:::
+
+## Local air pollutants {#sec-em-ap}
+
+The model computes seven local air pollutants from the fuel use of every subsector and of power generation: fine
+particulate matter (PM2.5), nitrogen oxides (NOx), sulphur dioxide (SO2), volatile organic compounds (VOC), black
+carbon (BC), organic carbon (OC) and carbon monoxide (CO). They are not part of the GHG totals; a memo converts them
+to CO2 equivalents. They are also grouped into the sectors of the air-pollution module, which reads them. The
+methodology describes the emissions in
+[methodology, sections 6.4.2 and 6.4.3](../CPAT_full_documentation_html/06_Air_pollution.html#emission-factors-from-gains)
+([A7.6](A_Equations.qmd#eqlist-A7-6)).
+
+Units: emissions in kt; factors in t per ktoe; forcing in Mt CO2e (GWP100).
+
+### Data and factor lookup {#sec-em-ap-data}
+
+| Sheet | Content | Source |
+|---|---|---|
+| EF_NonCO2 | Combustion factors by country or World Bank region, GAINS subsector, fuel and pollutant, base year and final, kt per PJ | Legacy sheet EF_PM (GAINS, all countries and regions); also used for combustion CH4 |
+| GWP_AP | GWP100 of the pollutants by GAINS region | Legacy GWP table of the pollutant forcing |
+| Countries (column O) | GAINS region of every country (Egypt: `afr`) | Legacy Countries tab |
+
+The factors are those of legacy 465 (Mitigation rows 1052-1663), in a table by legacy EF code. Each factor is chosen
+in three steps:
+
+1. **EF subsector.** Road, rail, aviation (jet fuel), residential, services, construction, other manufacturing, food
+   & forestry and other energy keep their own code. Mining & chemicals, iron & steel, other metals, machinery,
+   cement and fuel transformation take manufacturing (`mnf`, legacy rows 6388-6395). Navigation, which legacy leaves
+   out (bug L22), takes its own GAINS code `nav`.
+2. **Country, region, world.** The factor of the country (`egy.mit.ef.<sub>.<fuel>.<pollutant>`), else of its World
+   Bank region (`CtryReg`, Egypt `mea`), else of the world (`wld`, absent from the data), else 0. The kt per PJ values
+   are converted to t per ktoe (factor 41.868).
+3. **Other energy** (`oen`) takes, for each fuel and pollutant, the maximum factor across the other legacy
+   subsectors (power included), as the legacy note says (issue I147).
+
+Only the fuel and subsector pairs of the legacy table have factors: power (coal, gas, oil, biomass); road (gasoline,
+diesel, LPG, kerosene, gas); rail (diesel); aviation (jet fuel); residential (no gasoline or diesel). A pair or
+pollutant with no factor in the chain gives 0, as legacy: for example power biomass, road kerosene, residential oil,
+construction coal, gas, oil and biomass, services and other manufacturing coal, organic carbon and SO2 of LPG. None
+of these pairs burns fuel in Egypt.
+
+### Emissions and totals {#sec-em-ap-method}
+
+The factor path is that of combustion methane (@eq-em-efw). Emissions are fuel use times the weighted factor,
+summed over fuels:
+
+$$
+AP_{p,s}(t) = \sum_f F_{s,f}(t)\ \frac{(1 - w_t)\, e^{0}_{p,s,f} + w_t\, e^{1}_{p,s,f}}{1000}, \qquad
+AP_{p,pow}(t) = \sum_k PE_k(t)\ \frac{(1 - w_t)\, e^{0}_{p,k} + w_t\, e^{1}_{p,k}}{1000}
+$$ {#eq-em-ap}
+
+where
+
+- $AP_{p,s}$ is the emission of pollutant $p$ by subsector $s$ (kt), `ap`;
+- $e^{0}$, $e^{1}$ are the base-year and final factors (t per ktoe);
+- fuel use is the modelled one, so prices, policies and scenarios carry through.
+
+Transport, buildings and industry sum their subsectors, navigation included. A pollutant's total is all subsectors
+plus power: $AP_p = \sum_s AP_{p,s} + AP_{p,pow}$.
+
+The **forcing memo** converts the emissions with the GWP100 of the country's GAINS region:
+
+$$
+F^{ap}_p = AP_p\ GWP_{p,r} / 1000, \qquad F^{ap} = \sum_{p \in \{BC, OC, NOx, SO2, VOC, CO\}} F^{ap}_p
+$$ {#eq-em-apf}
+
+in Mt CO2e (`apf`). Cooling pollutants (OC, SO2, NOx) have a negative GWP, so the net forcing can be negative.
+Energy GHGs including the forcing are $E_{enr} + F^{ap}$ (`ghg.enrp`, legacy "Total GHGs and PM", rows 18310 and
+18321).
+
+### Sectors of the air-pollution module {#sec-em-ap-sectors}
+
+The air-pollution module reads the emissions grouped in seven sectors, which add up to each pollutant's total:
+
+| Module sector | Content |
+|---|---|
+| coal power plants | fuel use of the coal type $\times$ the power factors |
+| gas power plants | fuel use of the gas type $\times$ the power factors |
+| other power plants | power less coal and gas plants |
+| ground level road | road |
+| ground level other | residential, services, construction |
+| other | rail, aviation, navigation, industry without construction, other energy use |
+| food & forestry | food & forestry |
+
+In each sector, primary organic matter and the rest of PM2.5 are derived:
+
+$$
+POM = 1.3\ OC, \qquad PM^{oth} = \max(0,\ PM2.5 - BC - POM)
+$$ {#eq-em-pom}
+
+The table follows the layout of the legacy input table (Mitigation rows 15859-15961): one block per module sector
+and one for all sectors; in each, ten pollutants in legacy order: NOx, SO2, BC, POM, other PM2.5, VOC, CH4, CO, PM2.5,
+OC; codes `aps.<pollutant>.<sector>`, in kt (legacy: tonnes). The module reads these rows directly. Methane in the
+table, as legacy (issue I34):
+
+| Module sector | CH4 |
+|---|---|
+| coal, gas, other power plants | combustion CH4 of the generation types |
+| road, ground level other | combustion CH4 of their subsectors |
+| other | combustion CH4 of its subsectors plus fuel-supply methane (legacy: oil and gas extraction only) |
+| food & forestry | combustion CH4 plus livestock, rice and waste methane |
+
+This methane is not calibrated: it is not scaled by $k_{CH_4}$.
+
+Food & forestry is also split into food and forestry/agriculture, as legacy (LD53): the food share of each fuel is
+`info_food` over the four `info_` flows of the processed Balances (legacy rows 501-504, 1666-1673). Rows `apfd` (food
+fuel use) and `ap.<pollutant>.fod`, `.fag` are memo rows, not in the totals. The share is 0 for Egypt. The module also
+reads power and residential fuel use (`apen`) and energy CO2 (`apco2`).
+
+::: {.callout-tip icon=false title="Pseudocode: local air pollutants"}
+```
+for t in years:
+    w = EFFinShare * (t - t0) / (EFEndYear - t0)
+    for p in (pm2, nox, so2, voc, bc, oc, co):
+        for s in subsectors:
+            ap[p, s][t] = sum(ener[s, f][t] * ((1 - w) * e0[p, s, f] + w * e1[p, s, f]) / 1000 for f in fuels)
+        ap[p, "pow"][t] = sum(pe[k][t] * ((1 - w) * e0[p, k] + w * e1[p, k]) / 1000 for k in gen_types)
+        ap[p, "all"][t] = sum(ap[p, s][t] for s) + ap[p, "pow"][t]
+    for p in (bc, oc, nox, so2, voc, co):
+        apf[p][t] = ap[p, "all"][t] * gwp100[gains_region, p] / 1000
+    ghg_enrp[t] = ghg["enr", "all"][t] + sum(apf[p][t] for p)
+    for p in (nox, so2, bc, voc, co, pm2, oc):
+        aps["cpp", p] = pe[coal] * ef_pow(coal, p, w);   aps["gpp", p] = pe[gas] * ef_pow(gas, p, w)
+        aps["opp", p] = ap[p, "pow"] - aps["cpp", p] - aps["gpp", p]
+        aps["rod", p] = ap[p, rod];   aps["gro", p] = ap[p, res] + ap[p, srv] + ap[p, cst]
+        aps["oth", p] = sum(ap[p, s] for s in (ral, avi, nav, mch, irn, nfm, mac, cem, omn, ftr, oen))
+        aps["foo", p] = ap[p, foo]
+    for m in module_sectors:
+        aps[m, "pom"] = PomPerOC * aps[m, "oc"]
+        aps[m, "opm"] = max(0, aps[m, "pm2"] - aps[m, "bc"] - aps[m, "pom"])
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** section 15 rows `ap.w`, `apfd`, `ap`, `apf`, `aps`, `apen`, `apco2`; `ghg.enrp` in section 14b;
+  factor table on sheet Inputs_nc (Inputs, merged view); constants `EFEndYear`, `PomPerOC`, `EFtPerKtoe`. MTOutputs
+  reports total PM2.5, NOx, SO2, black carbon and the forcing for every scenario; the Charts sheet plots PM2.5 and
+  SO2.
+- **CPAT Python:** `cpat_model/mitigation/ef_data.py`, `nonco2_efs()` and `region()` (EQ-A7.1);
+  `emissions.py`, `pollutants()` and `gwp_region()` (EQ-A7.6).
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **L22, fixed.** Legacy omits navigation from the pollutant totals. It is included here.
+- **L23, fixed.** Legacy leaves services and food & forestry out of each pollutant's total, although its
+  air-pollution sectors include them. Here the total is the sum of the sectors.
+- **L58, L59.** Subsectors and fuels without a GAINS factor got zero factors in legacy; the CPAT team fixed both in
+  465 (country, else region, else world). The model follows 465 and keeps 0 where the 465 chain has no factor, as no
+  such pair burns fuel in Egypt. Egypt 2022: food & forestry diesel, residential and fuel-transformation LPG,
+  other-manufacturing diesel and LPG take the Middle East & North Africa factors, as legacy.
+- **I147.** Other energy takes the maximum factor of the fuel across the other subsectors. Legacy takes the maximum
+  year by year; the model the maximum of the base and of the final factors, with the line between them. The two agree
+  where one subsector holds the maximum throughout (Egypt: other oil products, the only fuel of other energy).
+- **Factor paths.** Legacy reads factor paths by year, which are proprietary and empty in the NoPropData file. The
+  model draws a line between the base and final factors (as for CH4).
+- **NH3.** Legacy has no ammonia from fuel combustion, so neither does the model.
+- **Not built.** The health part of the air-pollution module that uses these sectors.
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt (scenario 1)"}
+- In 2022 every module sector equals the legacy input table (rows 15844-16053, tonnes) for every pollutant, except
+  "other", which adds navigation (L22: NOx +14.8 kt, SO2 +13.7 kt, BC +0.6 kt, PM2.5 +1.5 kt), and CH4 (combustion
+  CH4 and all fuel-supply methane, I34).
+- Gas power plants' NOx is 96,931 t, road NOx 557,470 t, food & forestry black carbon 3.8 t, in both.
+- Modelled ambient PM2.5 in 2022 is 33.06 µg/m3 against legacy 30.17; the difference is navigation's (2.89).
+- In 2030 the sectors differ from legacy by the fuel-use paths (gas plants 0.88, other plants 0.62, road
+  0.70-0.77, food & forestry 0.58 of legacy), not by the factors.
+- The net forcing is about −17.5 Mt CO2e in 2022.
+- The check recomputes all rows of the block in Python for scenarios 1 and 2.
+:::
+
+## Changes against the baseline, grid intensity and the Kaya identity {#sec-em-results}
+
+A few result rows summarise the emissions of each scenario: the change against scenario 1, the carbon intensity of
+the grid and a Kaya decomposition of CO2.
+
+### CO2 and GHG change {#sec-em-change}
+
+$$
+\Delta em_{CO_2,x}(t) = em_{CO_2,x}(t) - em^{B}_{CO_2,x}(t), \qquad \Delta E_{x}(t) = E_{x}(t) - E^{B}_{x}(t)
+$$ {#eq-em-chg}
+
+`cchg` is the change of CO2 from fuel combustion by fuel and by sector group, power included (Mt CO2). `gchg` is the
+change of GHGs by inventory category (energy, industrial processes, agriculture, LULUCF, waste, other) and by gas
+(Mt CO2e). Legacy's "GHG by broad sector" (rows 18229-18243) is the inventory categories, so no allocation of CH4
+and N2O to sectors is needed.
+
+### Grid emission intensity {#sec-em-grid}
+
+$$
+EI^{grid}_t = \frac{em_{pow,CO_2}(t) \cdot 10^{6}}{G^{tot}_t \cdot H}
+$$ {#eq-em-grid}
+
+where $EI^{grid}$ is in t CO2 per MWh (`co2.grid`, 0 if there is no generation), $G^{tot}$ total generation in MW
+years (@sec-power) and $H$ = 8760 hours per year. Egypt: 0.41 in 2022 (legacy 0.38) and 0.33 in 2030.
+
+### Kaya identity {#sec-em-kaya}
+
+The Kaya identity splits CO2 into population, income, energy intensity and carbon intensity:
+
+$$
+CO2 = POP \times \frac{GDP}{POP} \times \frac{TPES}{GDP} \times \frac{CO2}{TPES}
+$$ {#eq-em-kaya}
+
+| Row | Content | Unit |
+|---|---|---|
+| `kaya.pop` | Population | million |
+| `kaya.gpc` | GDP per capita: baseline real GDP (the header row, in every scenario) / population | thousand USD |
+| `kaya.tpes` | Total primary energy supply | ktoe |
+| `kaya.ei` | Energy intensity: TPES / GDP | ktoe per USD bn |
+| `kaya.ci` | Carbon intensity: total CO2 including industrial processes (`ghg` CO2) $\times$ 1000 / TPES | kt CO2 per ktoe |
+
+Total primary energy supply is the fuel use of all sectors (fuels burnt in power plants and biomass included) plus
+primary electricity, the energy input of nuclear, wind, solar, hydro and other renewables:
+
+$$
+TPES_t = \sum_{s,f} F_{s,f}(t) + \sum_{k \in \{nuc, wnd, sol, hyd, orn\}} PE_k(t)
+$$ {#eq-em-tpes}
+
+The input of a primary type is its generation divided by its efficiency (physical energy content method: nuclear at
+38%, renewables at about 1). Each factor is also indexed to the base year of the scenario (`kidx`: population, GDP,
+GDP per capita, energy intensity, carbon intensity, CO2). The check `kidx.chk`, the product of the four factors,
+equals the CO2 index exactly. Ratios use `SAFEDIV` (0 when the divisor is 0).
+
+::: {.callout-tip icon=false title="Pseudocode: result rows"}
+```
+for t in years:
+    for x in fuels + sector_groups + ["pow"]:
+        cchg[x][t] = co2[x][t] - co2_baseline[x][t]
+    for u in categories:  gchg[u][t] = ghg[u, "all"][t] - ghg_baseline[u, "all"][t]
+    for p in gases:       gchg[p][t] = ghg["all", p][t] - ghg_baseline["all", p][t]
+    co2_grid[t] = safediv(co2["pow"][t] * 1e6, gtot[t] * 8760)
+    kaya_pop[t]  = pop[t] / 1000
+    kaya_gpc[t]  = safediv(gdp_usd[t], kaya_pop[t])
+    kaya_tpes[t] = ener["all", "all"][t] + sum(pe[k][t] for k in (nuc, wnd, sol, hyd, orn))
+    kaya_ei[t]   = safediv(kaya_tpes[t], gdp_usd[t])
+    kaya_ci[t]   = safediv(ghg["all", "co2"][t] * 1000, kaya_tpes[t])
+    for x in (pop, gdp, gpc, ei, ci, co2): kidx[x][t] = safediv(level[x][t], level[x][t0])
+    kidx_chk[t] = kidx[pop][t] * kidx[gpc][t] * kidx[ei][t] * kidx[ci][t]      # = kidx[co2][t]
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** section 13 rows `cchg`, `co2.grid`, `kaya`, `kidx`, `co2.chg` (13b); section 14 rows `gchg`,
+  `ghg.enrp` (14b). LAMBDA `SAFEDIV`.
+- **CPAT Python:** `cpat_model/mitigation/emissions.py`, `co2()` (`cchg`, `co2.grid`), `ghg()` (`gchg`), `kaya()`.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- Kaya identity as legacy (rows 18877-18893). An earlier version used fuel use only for TPES (2.6% lower in 2022);
+  it was corrected to include primary electricity at the user's request. Legacy's broken "simplified Kaya" row
+  (18931, −97%) is a different row and is not used.
+- The efficiencies of wind (1.004), solar (1.026) and hydro (0.937) are legacy's power data, kept (issue I93).
+- Population is the UN series, 111.7 million in 2022 against legacy's 103.6 million (bug L20, fixed). GDP per capita
+  is therefore lower than in legacy; the identity still holds.
+- Grid intensity: legacy Mitigation row 6582.
+:::
+
+::: {.callout-note collapse="true" title="Check: Kaya identity for Egypt"}
+- TPES 2022: 89,471 ktoe = legacy 89,471. Energy intensity 163.57 ktoe per USD bn = legacy.
+- 2030, baseline: CO2 $\times$ 1.17, with energy intensity 0.81 and carbon intensity 1.03.
+- 2030, carbon tax: energy intensity 0.74, CO2 $\times$ 1.10.
+:::
+
+## The new emissions trading system {#sec-em-ets}
+
+A new ETS caps the CO2 of the sectors it covers. The model does not solve for the market price inside the year
+loop. It sets a permit price from the cap with a closed-form estimate, lets that price act on fuel use like a carbon
+tax (for the auctioned part) or like a feebate (for the part allocated free), and then reports how close covered
+emissions come to the cap, with the price that would close the gap. The methodology treats the new ETS price with
+the carbon prices in
+[methodology, section 3.2.4](../CPAT_full_documentation_html/03_Mitigation.html#sec-PricesForecastedYears) and its
+goal seek in [section 3.9.3.5](../CPAT_full_documentation_html/03_Mitigation.html#new-price-target-goal-seek); the
+user guide in [section 1.3.2.4.2](../CPAT_full_documentation_html/01_User_Guide.html#emission-trading-systems).
+
+```{mermaid}
+flowchart LR
+  I["Cap, coverage,<br/>benchmarks, volatility"] --> E["Fast estimate<br/>(or override)"]
+  E --> P["Permit price p,<br/>tax-equivalent p·V"]
+  P --> W["Auctioned part:<br/>price wedge"]
+  P --> S["Free part:<br/>shadow price"]
+  W --> U["Fuel use, CO2"]
+  S --> U
+  U --> K["Covered vs cap,<br/>next price"]
+  K -. "goal seek" .-> E
+```
+
+### Inputs {#sec-em-ets-inputs}
+
+| Input | Notes |
+|---|---|
+| Apply new ETS (`NewETS`); start year `ETSIntro`, target year `ETSOutro` | ScenarioDefinition |
+| Cap change against baseline covered emissions at start and target (`ETSChangeRelStart`, `ETSChangeRelTarget`); continuation (`ETSCapCont`) | `Constant` keeps the cap level after the target year; any other value keeps the relative change |
+| Price override switch (`ETSPriceOverride`) | `Yes`: the permit price comes from the override row of prices |
+| Volatility (`ETSVolatility`), impact of volatility (`ETSVolImpact`), carbon tax policy risk (`ETSCTRisk`) | Labels Medium, High, Low, Zero; values from legacy sheet ETS+LTS |
+| Sector coverage (`etscov`) | 17 ETS sectors: power and the 16 subsectors |
+| Auctioned proportion at start and target (`ETSAuctStart`, `ETSAuctTarget`) | ScenarioDefinition rows 90-91; benchmark = 1 − auctioned proportion |
+| Semi-elasticities by ETS sector | Legacy ETS+LTS table by country and sector group (sheet ETSSemi); used only by the fast estimate |
+| Baseline CO2 by ETS sector | Scenario-1 CO2 by ETS sector, stored as data and refreshed by the build (check `bco2.chk` = 0) |
+| Effectiveness of output-based allocation $\vartheta$; convergence exponent $\beta$ | Settings C14 and C15: 0.5 and 0.5 (legacy hardcodes) |
+
+The volatility labels map to values as follows:
+
+| Label | Medium | High | Low | Zero |
+|---|---|---|---|---|
+| Annual price volatility $vol$ | 0.42 | 0.63 | 0.28 | 0 |
+| Abatement cost increase per unit of volatility $imp$ | 0.5 | 0.75 | 0.333 | 0 |
+
+The sector groups of the ETS benchmarks are power, transport (road, rail, aviation, navigation), residential
+(residential, food & forestry, services) and industry (the industrial subsectors and other energy use). The
+semi-elasticity groups are the same, except that food & forestry and services use the industry value. Egypt's
+semi-elasticities, per USD per t CO2: power −0.00279, transport −0.00283, residential −0.00386, industry −0.00549.
+
+### Coverage, benchmarks and the cap {#sec-em-ets-cap}
+
+The ETS is on from its start year, and a sector counts once it is covered and the ETS is on
+([M1.3](A_Equations.qmd#eqlist-M1-3)):
+
+$$
+on_t = \mathbb{1}[\texttt{NewETS} = \text{Yes and } t \ge T^{E}_0], \qquad \kappa_{e,t} = on_t\ \mathbb{1}[\text{sector } e \text{ covered}]
+$$ {#eq-em-etson}
+
+The benchmark is the share of a sector's emission intensity allocated free. It runs linearly from the start to the
+target year and is flat after; the output-based (OBR) share of a sector is its group's benchmark, bounded to 0-1:
+
+$$
+b_{G,t} = \bar\Lambda\big(t;\, T^{E}_0, T^{E}_1,\, 1 - \alpha_0,\, 1 - \alpha_1\big), \qquad \omega_{e,t} = \min\!\big(1, \max(0, b_{G(e),t})\big)
+$$ {#eq-em-obr}
+
+where
+
+- $b_{G,t}$ is the benchmark of group $G$ (`etsb`), 0 before the start year;
+- $\bar\Lambda$ is the linear path held flat after the target year (@sec-model-overview);
+- $\alpha_0$, $\alpha_1$ are the auctioned proportions at the start and target year, the same for every group, as
+  legacy (issue I21). The default is $\alpha = 0$: nothing auctioned, benchmark 1, as legacy;
+- $\omega_{e,t}$ is the OBR share (`obr`); the auctioned share is $1 - \omega_{e,t}$.
+
+The cap is a change against baseline covered emissions:
+
+$$
+bce_t = \sum_e CO2^{B}_{e,t}\ \kappa_{e,t}, \qquad chg_t = \bar\Lambda\big(t;\, T^{E}_0, T^{E}_1, chg_0, chg_1\big)
+$$ {#eq-em-bce}
+
+$$
+cap_t = \begin{cases}
+on_t\ cap_{t-1} & t > T^{E}_1 \text{ and } \texttt{ETSCapCont} = \text{Constant} \\
+on_t\ bce_t\,(1 + chg_t) & \text{otherwise}
+\end{cases}
+$$ {#eq-em-cap}
+
+where
+
+- $CO2^{B}_{e,t}$ is the stored scenario-1 CO2 of ETS sector $e$ (`bco2`, Mt), $bce_t$ baseline covered emissions
+  (`ets.bce`);
+- $chg_t$ is the cap change (`ets.chg`, negative for a cut), held at $chg_1$ after the target year, so that "any
+  other" continuation keeps the relative change;
+- $cap_t$ is the cap (`ets.cap`, Mt).
+
+### Fast price estimate and the permit price {#sec-em-ets-price}
+
+Price volatility makes an ETS less effective than a tax at the same price. The model expresses this as a volatility
+adjustment, the tax-equivalent value of one dollar of permit price:
+
+$$
+V = \frac{1 + risk \cdot imp}{1 + vol \cdot imp}
+$$ {#eq-em-vadj}
+
+where $V$ is `ets.vadj`, $risk$ the carbon tax policy risk and $vol$, $imp$ the values of the labels above. At
+Medium: $(1 + 0.2 \times 0.5)/(1 + 0.42 \times 0.5) = 1/1.1$.
+
+The covered semi-elasticity weights each covered sector's semi-elasticity by its baseline emissions and discounts the
+free part by the effectiveness of output-based allocation:
+
+$$
+\bar\sigma_t = \frac{\sum_e CO2^{B}_{e,t}\ \kappa_{e,t}\ \sigma_e\ \big(1 - (1 - \vartheta)\,\omega_{e,t}\big)}{bce_t}
+$$ {#eq-em-se}
+
+where $\bar\sigma_t$ is `ets.se` (0 if $bce_t = 0$), $\sigma_e$ the semi-elasticity of the sector's group (per USD
+per t CO2) and $\vartheta$ = 0.5 the effectiveness of output-based allocation (auctioned allowances count fully).
+
+If emissions respond to the price as $\ln(\text{covered}/bce) = \bar\sigma\, V\, p$, the price that meets the cap is
+([A1.1](A_Equations.qmd#eqlist-A1-1)):
+
+$$
+\hat p^{E}_t = \begin{cases}
+\dfrac{\ln(cap_t / bce_t)}{\bar\sigma_t\ V} & on_t = 1,\ 0 < cap_t < bce_t,\ \bar\sigma_t < 0,\ V > 0 \\
+0 & \text{otherwise}
+\end{cases}
+$$ {#eq-em-est}
+
+The permit price used is the override row if the switch is on, else the fast estimate:
+
+$$
+p^{E}_t = on_t \times \begin{cases}
+ovr_t \ (\text{blank: the carbon price path } NCT_t) & \texttt{ETSPriceOverride} = \text{Yes} \\
+\hat p^{E}_t & \text{otherwise}
+\end{cases}
+$$ {#eq-em-pe}
+
+$$
+\tilde p^{E}_t = p^{E}_t\, V, \qquad \rho = 1 / V
+$$ {#eq-em-ptilde}
+
+where $\tilde p^{E}$ is the tax-equivalent price (`ets.pe`) and $\rho$ the revenue factor (`ets.rf`), the permit
+price per dollar of tax-equivalent price. All prices are USD per t CO2, real.
+
+### Effect on fuel use and revenue {#sec-em-ets-effect}
+
+The ETS replaces the carbon tax in covered sectors: the new carbon tax applies only where $\kappa_{e,t} = 0$
+(@sec-prices). The tax-equivalent price splits by the OBR share ([M1.3](A_Equations.qmd#eqlist-M1-3),
+[M1.4](A_Equations.qmd#eqlist-M1-4)):
+
+$$
+A_{e,t} = \tilde p^{E}_t\ \kappa_{e,t}\ (1 - \omega_{e,t}), \qquad
+\Sigma_{e,t} = \big(b^{fb}_{G(e),t} + reg_{e,t}\big)\, a\ \mathbb{1}[\text{feebate covers } e] + \tilde p^{E}_t\ \kappa_{e,t}\ \omega_{e,t}
+$$ {#eq-em-split}
+
+where
+
+- $A_{e,t}$ is the **price wedge**, the auctioned part (`etr`, USD per t CO2). Times the CO2 factor of each fuel, it
+  enters the after-tax fuel price, so usage and efficiency both respond, as for a carbon tax (@sec-prices,
+  @sec-demand);
+- $\Sigma_{e,t}$ is the **shadow price** (`shpx`): the ETS part, the free (OBR) share, is added to the feebate and
+  regulation shadow price. It acts only on the efficiency margin of fuel use, as feebates do, and raises no revenue.
+
+New-policy revenue includes the price wedge times the revenue factor $\rho$: the permit price on the auctioned
+part of covered emissions. In power, the new-policy revenue deducts $em_{k,CO_2}\, A_{pow}\, (1 - \rho)$. VAT on new
+policies is levied on the tax-equivalent ETS cost. The revenue equations are in @sec-fiscal.
+
+### Meeting the cap {#sec-em-ets-meet}
+
+The fast estimate uses one semi-elasticity, so the full model, where the response comes from prices and elasticities
+by fuel and subsector, does not hit the cap exactly. After CO2 is known, the model reports covered emissions, the
+gap and a proposed price for the next iteration:
+
+$$
+cov_t = \sum_e em_{e,t}\ \kappa_{e,t}, \qquad gap_t = \frac{cov_t}{cap_t} - 1
+$$ {#eq-em-gap}
+
+$$
+lr_t = \frac{\ln(cap_t / bce_t)}{\ln(cov_t / bce_t)}, \qquad
+p^{next}_t = \begin{cases} \hat p^{E}_t & p^{E}_t \le 0 \text{ or } lr_t = 0 \\ p^{E}_t\ lr_t^{\,\beta} & \text{otherwise} \end{cases}
+$$ {#eq-em-next}
+
+where
+
+- $cov_t$ is covered CO2 (`co2.ets`), $em_{e,t}$ the CO2 of ETS sector $e$ (@eq-em-co2sec);
+- $gap_t$ is `co2.gap` (0 if there is no cap), 0 when the cap is met;
+- $lr_t$ is the log ratio (`ets.lr`), 0 if $cap_t \le 0$, $cap_t \ge bce_t$ or $cov_t \ge bce_t$ (the cap does not
+  bind);
+- $\beta$ = 0.5 is the convergence exponent (Settings C15), as legacy's `PricesAdjustedByErrorFactor`;
+- $p^{next}_t$ is the proposed price (`ets.next`).
+
+To meet the cap, the proposed prices are fed back into the override row (with the override switch on) and the model
+is run again. The goal seek automates this with legacy's damped log-space step:
+
+1. start from the fast estimate, or from the override row if it holds prices (setting `ETSStartFreshContinue`:
+   StartFresh always starts from the fast estimate);
+2. step $p \leftarrow p\,(p^{next}/p)^{\alpha}$ (a linear step if a price is 0);
+3. mix with the previous iterate (weight 0.3) from the second iteration;
+4. smooth lightly: 5% weight on a centred 3-year moving average;
+5. negative or invalid values keep the current price;
+6. halve $\alpha$ when the worst error grows (minimum 0.0625), multiply it by 1.2 when the error more than halves
+   (maximum 1);
+7. stop when the worst yearly $|cov_t/cap_t - 1|$ over the ETS years is below the maximum error, or after the
+   maximum number of iterations.
+
+The goal-seek settings are on sheet `Manual inputs` at their legacy addresses, one value for all scenarios:
+
+| Cell | Name | Setting | Value | Legacy default |
+|---|---|---|---|---|
+| E10 | `ETSMaxIterations` | Maximum number of iterations | 20 | 30 |
+| E11 | `ETSStartFreshContinue` | StartFresh: start from the fast estimate; Continue: start from the override row if it holds prices | Continue | Continue |
+| E12 | `ETSErrorTolerance` | Maximum error: the worst yearly $\lvert cov/cap - 1 \rvert$ | 0.005 | 0.001 |
+
+The values are those the goal seek has always used in Excel-AI; the legacy defaults are for reference (legacy
+measures the error on its own criterion). A cell that is not a positive number falls back to 20 iterations and
+0.005.
+
+::: {.callout-tip icon=false title="Pseudocode: the new ETS"}
+```
+# policies, all years (before the year loop)
+for t in years:
+    on[t] = NewETS == "Yes" and t >= ETSIntro
+    for e in ets_sectors: etsc[e][t] = 1 if on[t] and etscov[e] else 0
+    for G in (pow, tra, res, ind):
+        etsb[G][t] = 0 if t < ETSIntro else lin(min(t, ETSOutro), ETSIntro, ETSOutro, 1 - ETSAuctStart, 1 - ETSAuctTarget)
+    for e in ets_sectors: obr[e][t] = min(1, max(0, etsb[group(e)][t]))
+vadj = (1 + ETSCTRisk * imp[ETSVolImpact]) / (1 + vol[ETSVolatility] * imp[ETSVolImpact])
+for t in years:
+    bce[t] = sum(bco2[e][t] * etsc[e][t] for e)                   # stored scenario-1 CO2
+    chg[t] = lin(min(t, ETSOutro), ETSIntro, ETSOutro, ETSChangeRelStart, ETSChangeRelTarget)
+    if not on[t]: cap[t] = 0
+    elif t > ETSOutro and ETSCapCont == "Constant": cap[t] = cap[t-1]
+    else: cap[t] = bce[t] * (1 + chg[t])
+    se[t] = sum(bco2[e][t] * etsc[e][t] * semi[e] * (1 - (1 - OBREff) * obr[e][t]) for e) / bce[t] if bce[t] > 0 else 0
+    est[t] = log(cap[t] / bce[t]) / (se[t] * vadj) if on[t] and 0 < cap[t] < bce[t] and se[t] < 0 and vadj > 0 else 0
+    p[t] = 0 if not on[t] else ((ovr[t] if ovr[t] != blank else cptraj[t]) if ETSPriceOverride == "Yes" else est[t])
+    pe[t], rf = p[t] * vadj, 1 / vadj
+    for e in ets_sectors:
+        etr[e][t]  = pe[t] * etsc[e][t] * (1 - obr[e][t])                       # price wedge
+        shpx[e][t] = fb[group(e)][t] * ssc[e] + reg[e][t] + pe[t] * etsc[e][t] * obr[e][t]
+
+# year loop, after CO2
+for t in years:
+    covered[t] = sum(co2_sec[e][t] * etsc[e][t] for e)
+    gap[t] = covered[t] / cap[t] - 1 if cap[t] > 0 else 0
+    lr[t] = 0 if cap[t] <= 0 or cap[t] >= bce[t] or covered[t] >= bce[t] else log(cap[t]/bce[t]) / log(covered[t]/bce[t])
+    next_p[t] = est[t] if p[t] <= 0 or lr[t] == 0 else p[t] * lr[t] ** ETSNextPriceExponent
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** section 1 rows `ets.on`, `etscov`, `etsc`, `etsb.s`, `etsb.t`, `etsb`, `obr`, `bco2`, `ets.vol`,
+  `ets.imp`, `ets.vadj`, `ets.bce`, `ets.chg`, `ets.cap`, `ets.se`, `ets.est`, `ets.ovr` (pasted values), `ets.p`,
+  `ets.pe`, `ets.rf`, `ctr`, `etr`, `shpx`; section 13 rows `co2.sec`, `co2.ets`, `co2.cap`, `co2.gap`, `ets.lr`,
+  `ets.next`, `bco2.chk`. Inputs on ScenarioDefinition (`NewETS`, `ETSIntro`, `ETSOutro`, `ETSChangeRelStart`,
+  `ETSChangeRelTarget`, `ETSCapCont`, `ETSAuctStart`, `ETSAuctTarget`, `ETSPriceOverride`, `ETSVolatility`,
+  `ETSVolImpact`, `ETSCTRisk`, coverage rows 99-115); volatility table on Settings rows 16-18; Settings C14
+  (`ETSOBREffectiveness`), C15 (`ETSNextPriceExponent`); semi-elasticities on sheet ETSSemi; baseline CO2 on sheet
+  BaselineCO2. The goal seek is the macro `SolveETSLive` (the live scenario; `RunAllScenarios` runs it for every
+  definition with a new ETS and no override) or the script `ets_goalseek.py WORKBOOK.xlsx <scenario>`, which writes
+  the prices to `ets_override_s<scenario>.csv` for pasting into the override row.
+- **CPAT Python:** `cpat_model/mitigation/policies.py`, `prepare()` (ETS block, EQ-M1.3, EQ-M1.4, EQ-A1.1);
+  `emissions.py`, `co2()` (covered CO2, gap, `ets.lr`, `ets.next`). The baseline CO2 by ETS sector is read from
+  Excel-AI's stored scenario-1 values. CPAT Python has no override row (`ets.ovr` is blank), so with
+  `ETSPriceOverride` = Yes the permit price is the carbon price path, and it has no goal seek of its own.
+:::
+
+### Limits {#sec-em-ets-limits}
+
+- Power is covered like any other sector: the power model gives its emissions, and the ETS cost enters its
+  generation cost (@sec-power).
+- Benchmarks are relative to current emission intensity, and output is proxied by fuel use. Free allocation
+  therefore moves with emissions, and the OBR share equals the benchmark. Benchmarks by sector are not built yet:
+  every group takes the scenario's auctioned proportion.
+- The volatility adjustment scales behaviour (the tax-equivalent price), not the permit price.
+- No banking, borrowing, price floors or ceilings, and no CBAM process emissions (the legacy CBAM block is placed
+  but not read; industrial process CO2 of the inventory is separate and untaxed).
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT"}
+- **LD6, L15, L16.** The fast estimate is in log form, $\ln(cap/bce)/(\bar\sigma V)$; legacy's quick estimate is
+  linear in the semi-elasticity (L16) and uses a hardcoded relative price of 1.1 (L15), which $V$ replaces. The
+  override row is pasted from a Python goal seek with the same damped log-space step, no VBA. Baseline covered
+  emissions are data from scenario 1 (`bco2`).
+- **LD7, issue I21 (as legacy).** One auctioned share of the scenario for every sector; benchmark = 1 − auctioned
+  share, linear from the start to the target year, held after; the sector groups are kept for benchmarks by sector
+  later.
+- **L78, fixed.** After the target year legacy drops the auctioned share to 0 unless the continuation is Constant.
+  The model holds the target share.
+- **LD8.** The volatility adjustment $(1 + risk \cdot imp)/(1 + vol \cdot imp)$ from MTInputs rows 95-97 (1/1.1 at
+  Medium) applies to the tax-equivalent price and in the fast estimate (legacy row 2191 applies 1/1.1).
+- **Methodology.** The methodology describes the ETS as a price set by the user and penalised to a tax-equivalent
+  value; the model derives the price from the cap.
+:::
+
+::: {.callout-note collapse="true" title="Legacy ETS algorithm: inputs and fast estimate"}
+Source: `CPAT 1.0pre_456_NoPropData.xlsb`, sheet Mitigation rows 1797-1969 and 2244-2425, sheet Manual inputs
+O15:AB15 and VBA Module1 (`OverrideETSFast`, `SolveFast`). Row numbers are legacy rows. Formulas not stored in the
+dump are inferred from the row labels and cached values and marked *(inferred)*.
+
+**Inputs.**
+
+| Rows | Item |
+|---|---|
+| 1800-1809 | Apply ETS; cap change at start and target (% vs baseline); cap continuation; start and target years; auction proportion at start and target; continuation; override switch |
+| 1811-1813 | Risk premium inputs: price volatility 0.42, impact 0.5, policy risk 0.2 |
+| 1815-1836 | Sector table: included flag, baseline emissions, semi-elasticity of emissions to the carbon price (power −0.00279, transport −0.00283, residential −0.00386, industry −0.00549, CBAM −0.001 per USD per t), generic proportions |
+| 1843 | Relative price of an auctioned ETS against a tax for the same emissions target: 1.1 |
+| 1846-1847 | Relative effectiveness, hardcoded: auctioning 1.0, output-based allocation (OBA/OBR) 0.5 |
+
+Allocation is one time path of the auctioned share $a$ (rows 1863-1864; OBA share $1 - a$), the same for every
+covered sector.
+
+**Fast estimate (no iteration).**
+
+1. Covered semi-elasticity (row 1845): coverage-weighted average of the sector semi-elasticities, $\varepsilon$ =
+   −0.00288 in the cached run. The all-sector average used for the carbon tax (row 1844) is −0.00371.
+2. Reduction left for the ETS (rows 1858-1860): the reduction the cap needs minus that of other policies, counted
+   as an effective carbon price times $\varepsilon_{tax}$ (row 1859; for example 50 USD per t $\times$ −0.00371 =
+   −18.6%).
+3. Effectiveness of the allocation mix (row 1866): $e = a \times 1.0 + (1 - a) \times 0.5$.
+4. Adjusted semi-elasticity (row 1867): $\varepsilon_{adj} = \varepsilon\, e$. With full OBA,
+   −0.00288 $\times$ 0.5 = −0.00144, matching the cached value.
+5. Estimated price (row 1868, `QuickEstimateOfETSPrices`): $p \approx$ (reduction left for the ETS) /
+   $\varepsilon_{adj}$ *(inferred: linear semi-elasticity form)*.
+
+This closed-form estimate ignores the full fuel-demand model, where the response comes from prices and elasticities
+by fuel and subsector, not from one semi-elasticity.
+:::
+
+::: {.callout-note collapse="true" title="Legacy ETS algorithm: override and goal seek (VBA)"}
+- Row 1872 reads override prices from Manual inputs O15:AB15 (`OverrideOfETSPrices`); row 1873 uses them when the
+  override switch is on.
+- The full model computes covered emissions with the ETS (rows 1888-1953) and compares the actual reduction with the
+  cap (rows 1956-1963: actual, cap, difference, ratio, error per year; maximum error in J1963).
+- The workbook proposes a corrected price per year (`PricesAdjustedByErrorFactor`):
+  $p \times$ (target log-reduction / actual log-reduction)$^{0.5}$ (convergence factor 0.5, row 1966).
+- `OverrideETSFast` switches the ETS and the override on and calls `SolveFast`, a damped fixed-point iteration in
+  log space:
+  1. if StartFresh, seed the override row from the quick estimate;
+  2. step $p \leftarrow p\,(r/p)^{\alpha}$, with $r$ the workbook's proposal;
+  3. Anderson-style mixing: 0.7 new + 0.3 previous iterate;
+  4. smoothing: 5% weight on a centred 3-year moving average;
+  5. negative or invalid values keep the old price;
+  6. write back, recalculate, take the worst-year error over all 14 years (the named `WorstYearlyETSError` averages
+     only 9 years, so the macro bypasses it);
+  7. halve $\alpha$ if the error got worse (minimum 0.0625); multiply it by 1.2 if the error more than halved
+     (maximum 1);
+  8. stop when the worst error is below `ETSErrorTolerance` or after `ETSMaxIterations`.
+- The cached run has override prices of about 22-28 USD per t for 2028-2038, with jumps (1.5 in 2027, 13.8 in 2040)
+  and a maximum error of 0.33. It had not converged; the cap rows are 0 in the cached state.
+:::
+
+::: {.callout-note collapse="true" title="Legacy ETS algorithm: split of the price"}
+The same split is used in both parts of the legacy model:
+
+| Part | Legacy rows | What it does |
+|---|---|---|
+| Auctioned | 1875-1879, 2252 (`egy.mit.etstraj`) | $p \times a$ enters fuel prices as a **price wedge**, like a carbon tax: fuel switching, efficiency and usage all respond. It raises revenue. |
+| OBA / OBR | 1881-1885, 2343-2349 ("Feebate plus non-auctioned ETS"), 2402-2419 | $p \times (1 - a)$ enters as a **shadow price on the efficiency margin only**, like a feebate: no pass-through to consumer prices, no revenue. |
+
+The legacy note on rows 1875-1885 says "Arguably this should be an exp/ln function TBC": the split is linear in $p$.
+This is also why the OBA effectiveness is 0.5: only the efficiency share of the response is triggered, about half of
+the total with the default elasticities.
+:::
+
+::: {.callout-note collapse="true" title="Design note: benchmarks instead of one auction share"}
+This note records the design proposed for the model's ETS. Today the model uses legacy's one auctioned share per
+scenario (LD7); the benchmark-based design below is the intended extension. Everything after the split stays as in
+the legacy split.
+
+- **Inputs** per subsector: the covered flag and a benchmark path $b(t)$, a share of the subsector's base-year
+  emission intensity (for example 0.9: free allocation at 90% of base-year intensity; a declining path tightens it).
+- **Shares.** Free allocation $FA = b \times$ base-year intensity $\times$ output, with output proxied by baseline
+  fuel use (the model has no output variable). OBR share $s = \min(FA / \text{covered emissions}, 1)$; auctioned
+  share $a = 1 - s$. To first order $s \approx b$ (intensity unchanged). Using actual covered emissions would be
+  circular through fuel use, so the recommendation is scenario-1 (baseline) covered emissions (option A of the cap
+  design note); $s$ is then a data-driven input.
+- **Then as legacy.** Effectiveness $e = a + 0.5\, s$ per subsector; the auctioned part $p \times a$ is a price
+  wedge (revenue = $p \times$ (covered emissions − FA)); the OBR part $p \times s$ joins the sector shadow price (the
+  feebate channel); the fast estimate $p$ = (reduction left for the ETS) / $(\varepsilon\, e)$, with $\varepsilon$
+  and $e$ weighted by covered baseline emissions.
+- **Override.** An offline goal seek (a Python script with the same damped log-space step) writes a row of prices
+  to paste. No VBA and no circular reference.
+
+Without benchmarks the ETS is fully effective (permit price = carbon price path $\times$ coverage, as effective as a
+carbon tax, per an earlier user decision), and the auction share only affects revenue. With benchmarks, the OBR part
+moves from the price wedge to the shadow price, so emissions fall less for the same $p$, and revenue falls. A
+benchmark of 0 (full auctioning) reproduces the fully effective case exactly.
+
+**Open points.**
+
+1. The fast estimate uses legacy's sector semi-elasticities. The model could derive them from its own elasticities
+   (a one-off calibration run) to keep them consistent.
+2. Legacy's linear split ($p \times a$) against a log form (legacy's own TBC note).
+3. Legacy's relative price 1.1 (auctioned ETS against tax) and the risk-premium inputs (rows 1811-1813) are not used
+   by the legacy fast estimate as cached; the model uses them through $V$ (LD8).
+4. The CBAM sector semi-elasticity (−0.001) is not modelled.
+:::
