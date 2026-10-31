@@ -33,7 +33,7 @@ projected forward with the international price. The last layers are **wedges** t
 through to the consumer with VAT.
 
 ```{mermaid}
-flowchart LR
+flowchart TD
     GP["International price gp"] --> SP["Supply cost sp"]
     PS["Producer subsidy ps"] --> SP
     SP --> TXO["Excise and other taxes txo<br/>(pass-through pcc)"]

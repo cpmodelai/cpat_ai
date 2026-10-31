@@ -5,8 +5,7 @@ slow-moving capital stock: cars, trucks and motorcycles last ten or twenty years
 and an electric one is made once, at purchase. The model offers two ways to project road fuel use.
 
 - **The elasticity model** (the default). Road gasoline, diesel, LPG and natural gas follow the same constant-elasticity
-  fuel-use equation as every other sector and fuel ([M3.1](A_Equations.qmd#eqlist-M3-1)); it is described in
-  @sec-demand.
+  fuel-use equation as every other sector and fuel ([M3.1](A_Equations.qmd#eqlist-M3-1)); it is described in @sec-demand.
 - **The engineer road model** (switched on per scenario with `TrModel`). It projects the vehicle fleet itself:
   how many vehicles people own, how many they buy and scrap, whether they buy electric, how efficient the new vehicles
   are and how far they are driven. Fuel use follows from vehicles, distance and fuel economy.
@@ -22,8 +21,8 @@ the engineer road model, whose source is the legacy CPAT workbook and its method
 ([chapter 7](../CPAT_full_documentation_html/07_Road_Transport.html#summary)) is related but different: it projects
 vehicle-kilometres, congestion, accidents and road damage from fuel prices with estimated elasticities
 ([section 7.3.1](../CPAT_full_documentation_html/07_Road_Transport.html#vehicle-kilometers-traveled-vkt),
-[section 7.3.8](../CPAT_full_documentation_html/07_Road_Transport.html#sec-methodo)), for the co-benefits of
-@sec-fiscal. The engineer model sends its road fuel use to that module (@sec-tr-results).
+[section 7.3.8](../CPAT_full_documentation_html/07_Road_Transport.html#sec-methodo)), for the co-benefits of the
+welfare results (@sec-fiscal). The engineer model sends its road fuel use to that module (@sec-tr-results).
 
 ## Two road models and the switch {#sec-tr-what}
 
@@ -565,7 +564,7 @@ $$ {#eq-tr-rafit}
 The root is found offline by a goal seek on this model and stored by country (negative values allowed, issue I145);
 countries without a fitted value use the legacy Transport3 value, and countries without either the Transport3
 average. The fit is reported in the rows "EV sales share calculated − actual" of the data years (@sec-tr-results).
-For the data edition Public01 the fitted values for Egypt are 64,064 USD (passenger), 469,574 USD (freight) and
+For the data edition Public01 the fitted values (Egypt, the only country fitted so far) are 64,064 USD (passenger), 469,574 USD (freight) and
 1,027 USD (2-3 wheeler). Legacy also allowed a Dashboard source of 10,000 USD for every class (`ra_source`,
 `ra_dash`); the model uses the per-country values.
 
@@ -1223,7 +1222,7 @@ bug register.
 | L39 | B21 | 5267 | Freight distance output omits LPG and LNG trucks | All fuels |
 | L40 | B22 | 5368, 5373 | Average gas fuel economy weights freight by LPG freight fuel (5244 for 5245); the EV fuel-economy fallback tests diesel (5326) | The right rows |
 | L41 | B23 | 4555 | PHEV TCO includes the full BEV range anxiety (about 100,000 USD per vehicle), so PHEV sales vanish | No range anxiety for PHEVs (user decision 2026-10-14) |
-| M13 (L-) | | 2404, 4374 | Prototype: the vehicle feebate counted the carbon price twice (carbon price × coverage on top of a fuel price that holds it) | Feebate + road regulation shadow price |
+| M13 | | 2404, 4374 | Prototype: the vehicle feebate counted the carbon price twice (carbon price × coverage on top of a fuel price that holds it) | Feebate + road regulation shadow price |
 | M16 (L226) | | 4637 (policy copy 10953) | Freight BEV feebate valued at the ICEV truck's discounted distance (same values in legacy) | Its own distance |
 | M17 (L227) | | 4555 (policy copy 10871) | PHEV TCO mixed BEV capital cost with insurance and maintenance on the ICEV price | Insurance on the BEV price, ICEV maintenance per km over the ICEV distance |
 
@@ -1390,7 +1389,7 @@ the order of the year):
 | Rows | Block | What it computes |
 |---|---|---|
 | 3539-3542 | Switch and timing | `TrModel`, `tr.sw` (`ENGINEERON`), `tr.dk` data year (Transport1 has the year), `tr.col` years from the base year, `tr.pol` policy scenario (scenario number > 1, fix B1) |
-| (after) | Policies | 62 ScenarioDefinition rows by class |
+| between | Policies | 62 ScenarioDefinition rows by class, between the switch rows and the parameters |
 | 3611-3695 | Parameters (D:G) | `trp.*`: lifetimes, depreciation, insurance, maintenance, elasticities, logit $k$, ownership (adjustment, Gompertz, limits, decline), freight distance limits, charging and range anxiety, discount rate, ICE split elasticities, data years, road elasticities and AEI (Inputs), GWh per ktoe, VAT on vehicles, GJ and liters per ktoe, EFs (road, fix B7), base-year energy balance, biofuels, fossil shares |
 | 3699-3790 | Key inputs | Transport1 lookups (data years, blank = 0), BEV fuel-economy and charging-cost paths, new BEV fuel economy (Manual inputs), vehicle prices (Transport2, last price carried) |
 | 3794-3816 | Derived parameters | Base-year split of road fuel by vehicle type (share, ktoe, billion liters), purchase taxes (customs year), bus fuel of the base year |
@@ -1401,7 +1400,7 @@ the order of the year):
 | 4003-4078 | New fuel economy | Fuel mix, prices incl. the feebate per liter, new fuel economy, CO2 intensity; used vehicles |
 | 4081-4123 | Distance for the purchase | Distance tax (fix B1), cost per km, distance per new and used vehicle |
 | 4126-4233 | TCO | Discounted km, feebate pivots, taxes (`POLPICK`), subsidies, prices after taxes, depreciation (fixes B8, B8w, B20), insurance and maintenance (B19, M17), fuel, range anxiety (none for PHEVs, B23), TCO per km |
-| 4236-4311 | Demand and choice | Gompertz demand with two-sided calibration at the last data year (B3), purchases, logit EV choice, ICE fuel split (B9), vehicles |
+| 4236-4362 | Demand and choice | Gompertz demand with two-sided calibration at the last data year (B3), purchases, logit EV choice, ICE fuel split (B9), vehicles |
 | 4363-4428 | Stock fuel economy, uncalibrated use | Opening and closing stock fuel economy, cost per km, distance per vehicle, fuel use before calibration |
 | 4429-4441 | Calibration step 1 | Bottom-up base-year use incl. buses (/(1 − bus share), B6b), factor by fuel, distance factors by class (held) |
 | 4444-4505 | Calibrated distance and fuel | Distance per vehicle, fuel use, CO2, BEV stock fuel economy, electricity (B8, B21) |

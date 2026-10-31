@@ -386,25 +386,27 @@ taxed is a matter of coverage (@sec-prices).
 # before the year loop (prices are known for every year)
 for s in sectors:
     for f in fuels:
-        alpha_add = AdditionalEfficiency[eff_group[s]]              # road vehicles / residential / industrial
-        aef[s,f]     = (1 / (1 + alpha[s,f] + alpha_add)) ** (1 + eu[s,f])
+        # additional efficiency group: road vehicles / residential / industrial
+        alpha_add = AdditionalEfficiency[eff_group[s]]
+        aef[s,f] = (1 / (1 + alpha[s,f] + alpha_add)) ** (1 + eu[s,f])
         eff_exp[s,f] = ef[s,f] * (1 + eu[s,f])
 
 # year loop
 for t in years:
-    g     = gdp.pos.pct[t]                                         # growth after the GDP feedback (lag 1)
-    GDPI  = (1 + g) ** inc.ela.adj[t] - 1                          # income-level factor on the GDP elasticity
+    g = gdp.pos.pct[t]                     # growth after the GDP feedback (lag 1)
+    GDPI = (1 + g) ** inc.ela.adj[t] - 1   # income-level factor on the elasticity
     SHOCK = 1 + shock[t] * ApplyDemandShock
     for s in sectors:
         for f in fuels:
             if t == t0:
-                enel[s,f,t] = ener0[s,f]                           # energy balance or EnergyCons
-            else:
-                enel[s,f,t] = (enel[s,f,t-1] * aef[s,f]
-                               * (1 + GDPI) ** ey[s,f]             # ey = 0 for residential biomass unless BiomassNormal
-                               * (atp[s,f,t] / atp[s,f,t-1]) ** eu[s,f]
-                               * ((atp[s,f,t] + shp[s,f,t]) / (atp[s,f,t-1] + shp[s,f,t-1])) ** eff_exp[s,f]
-                               * SHOCK)
+                enel[s,f,t] = ener0[s,f]   # energy balance or EnergyCons
+                continue
+            usage = (atp[s,f,t] / atp[s,f,t-1]) ** eu[s,f]
+            effic = ((atp[s,f,t] + shp[s,f,t])
+                     / (atp[s,f,t-1] + shp[s,f,t-1])) ** eff_exp[s,f]
+            # ey = 0 for residential biomass unless BiomassNormal
+            enel[s,f,t] = (enel[s,f,t-1] * aef[s,f] * (1 + GDPI) ** ey[s,f]
+                           * usage * effic * SHOCK)
 ```
 :::
 
@@ -507,28 +509,41 @@ but not in any fuel total (@sec-dm-totals).
 ::: {.callout-tip icon=false title="Pseudocode: biofuels and self-generated renewables"}
 ```
 for t in years:
+    # blended biofuels follow the fossil fuel they are blended into
     for b, fossil in (("bgs", "gso"), ("bdi", "die")):
-        if t == t0:   trbe[rod,b,t] = road_biofuel_base[b]            # balance or EnergyCons
-        elif enel[rod,fossil,t-1] == 0:   trbe[rod,b,t] = trbe[rod,b,t-1]
-        else:         trbe[rod,b,t] = trbe[rod,b,t-1] * enel[rod,fossil,t] / enel[rod,fossil,t-1]
-    trbea = (1 / (1 + aei[oil,tra] + AdditionalEfficiencyRoadVehicle)) ** (1 + usg[oil,tra])
-    if t == t0:   trbe[rod,obf,t] = road_biofuel_base["obf"]
+        if t == t0:
+            trbe[rod,b,t] = road_biofuel_base[b]       # balance or EnergyCons
+        elif enel[rod,fossil,t-1] == 0:
+            trbe[rod,b,t] = trbe[rod,b,t-1]
+        else:
+            growth = enel[rod,fossil,t] / enel[rod,fossil,t-1]
+            trbe[rod,b,t] = trbe[rod,b,t-1] * growth
+
+    # other biofuels: oil | transport elasticities, road biomass price
+    add = AdditionalEfficiencyRoadVehicle
+    trbea = (1 / (1 + aei[oil,tra] + add)) ** (1 + usg[oil,tra])
+    if t == t0:
+        trbe[rod,obf,t] = road_biofuel_base["obf"]
     else:
-        trbe[rod,obf,t] = (trbe[rod,obf,t-1] * trbea * (1 + GDPI) ** inc[oil,tra]
-                           * (atp[rod,bio,t] / atp[rod,bio,t-1]) ** usg[oil,tra]
-                           * ((atp[rod,bio,t] + shp[rod,bio,t]) / (atp[rod,bio,t-1] + shp[rod,bio,t-1]))
-                             ** (eff[oil,tra] * (1 + usg[oil,tra]))
-                           * SHOCK)
+        usage = (atp[rod,bio,t] / atp[rod,bio,t-1]) ** usg[oil,tra]
+        effic = ((atp[rod,bio,t] + shp[rod,bio,t])
+                 / (atp[rod,bio,t-1] + shp[rod,bio,t-1])) \
+                ** (eff[oil,tra] * (1 + usg[oil,tra]))
+        trbe[rod,obf,t] = (trbe[rod,obf,t-1] * trbea
+                           * (1 + GDPI) ** inc[oil,tra] * usage * effic * SHOCK)
     trbe[rod,bio,t] = trbe[rod,bgs,t] + trbe[rod,bdi,t] + trbe[rod,obf,t]
 
+    # renewables in aviation and navigation: price = solar investment cost
     trpren[t] = tic[pow,sol,t]
-    trrena = (1 / (1 + aei[ren,tra] + AdditionalEfficiencyRoadVehicle)) ** (1 + usg[ren,tra])
+    trrena = (1 / (1 + aei[ren,tra] + add)) ** (1 + usg[ren,tra])
     for s in ("avi", "nav"):
-        if t == t0:   ener[s,ren,t] = enc_ren[s]
-        else:
-            r = trpren[t] / trpren[t-1]
-            ener[s,ren,t] = (ener[s,ren,t-1] * trrena * (1 + GDPI) ** inc[ren,tra]
-                             * r ** usg[ren,tra] * r ** (eff[ren,tra] * (1 + usg[ren,tra])) * SHOCK)
+        if t == t0:
+            ener[s,ren,t] = enc_ren[s]
+            continue
+        r = trpren[t] / trpren[t-1]
+        price = r ** usg[ren,tra] * r ** (eff[ren,tra] * (1 + usg[ren,tra]))
+        ener[s,ren,t] = (ener[s,ren,t-1] * trrena
+                         * (1 + GDPI) ** inc[ren,tra] * price * SHOCK)
 ```
 :::
 
@@ -642,21 +657,29 @@ How the leakage behaves:
 ::: {.callout-tip icon=false title="Pseudocode: residential leakage to biomass"}
 ```
 on = BiomassLeakage.startswith("Yes")
+LEAK = ("nga", "lpg", "ker")
 for t in years:
-    for m in ("nga", "lpg", "ker"):
-        lkt[m,t] = nce[res,m,t] * (1 + vat[res,m])            # new policy in the price, with VAT
+    for m in LEAK:
+        lkt[m,t] = nce[res,m,t] * (1 + vat[res,m])    # new policy, with VAT
         if t == t0:
-            lkp[m,t] = 0;  lkd[m,t] = 0
+            lkp[m,t] = 0
+            lkd[m,t] = 0
         else:
             expo = sigma * BioEff / Eff[m] / ResSubstLag
             active = 1 if (on and m == CookFuel) else 0
-            lkp[m,t] = active * min((1 + (lkt[m,t] - lkt[m,t-1]) / atp[res,m,t-1]) ** expo - 1, 1)
-            lkd[m,t] = -(ener[res,m,t-1] - lkx[m,t-1]) * Eff[m] * lkp[m,t]
+            rise = (lkt[m,t] - lkt[m,t-1]) / atp[res,m,t-1]
+            lkp[m,t] = active * min((1 + rise) ** expo - 1, 1)
+            not_exempt = ener[res,m,t-1] - lkx[m,t-1]
+            lkd[m,t] = -not_exempt * Eff[m] * lkp[m,t]
         lkb[m,t] = -lkd[m,t] * Eff[m] / BioEff
-    for m in ("nga", "lpg", "ker"):
-        lkc[m,t] = 0 if t == t0 else lkc[m,t-1] + lkd[m,t] + (lkxa[m,t] - lkxa[m,t-1])
-    lkcb[t] = 0 if t == t0 else lkcb[t-1] + sum(lkb[m,t] for m in ("nga", "lpg", "ker"))
-    lks[t]  = sum(lkc[m,t] for m in ("nga", "lpg", "ker")) + lkcb[t]
+    for m in LEAK:
+        if t == t0:
+            lkc[m,t] = 0
+        else:
+            lkc[m,t] = (lkc[m,t-1] + lkd[m,t]
+                        + (lkxa[m,t] - lkxa[m,t-1]))  # exempt-use adjustment
+    lkcb[t] = 0 if t == t0 else lkcb[t-1] + sum(lkb[m,t] for m in LEAK)
+    lks[t] = sum(lkc[m,t] for m in LEAK) + lkcb[t]
 ```
 :::
 
@@ -739,16 +762,20 @@ that is not exempt.
 ::: {.callout-tip icon=false title="Pseudocode: initially exempt cooking fuel"}
 ```
 for t in years:
-    lkxp[t] = clip((t + 1 - YearPha) / ExemptPhaseoutPeriod, 0, 1) if ExemptPhaseout else 0
+    if ExemptPhaseout:
+        lkxp[t] = clip((t + 1 - YearPha) / ExemptPhaseoutPeriod, 0, 1)
+    else:
+        lkxp[t] = 0
     for m in ("nga", "lpg", "ker"):
         share = ExemptCookShare if m == CookFuel else 0
         if t == t0:
-            lkx[m,t] = share * enel[res,m,t];   lkxa[m,t] = 0
-        else:
-            lkxe = 1 if enel[res,m,t-1] == 0 else enel[res,m,t] / enel[res,m,t-1]
-            lkxr = 1 if atp[res,m,t-1] == 0 else atp[res,m,t] / atp[res,m,t-1]
-            lkx[m,t]  = lkx[m,t-1] * lkxe * lkxr ** (eu[res,m] * (lkxp[t] - 1))
-            lkxa[m,t] = lkx[m,t] - share * enel[res,m,t]      # enters lkc, so ener
+            lkx[m,t] = share * enel[res,m,t]
+            lkxa[m,t] = 0
+            continue
+        lkxe = ratio(enel[res,m,t], enel[res,m,t-1])   # 1 if last year is 0
+        lkxr = ratio(atp[res,m,t], atp[res,m,t-1])     # 1 if last year is 0
+        lkx[m,t] = lkx[m,t-1] * lkxe * lkxr ** (eu[res,m] * (lkxp[t] - 1))
+        lkxa[m,t] = lkx[m,t] - share * enel[res,m,t]   # enters lkc, so ener
 ```
 :::
 
@@ -881,18 +908,31 @@ but it is not part of the fuel totals: the fuels burnt to generate it are (@sec-
 ```
 for t in years:
     for d in ("tra", "res", "ind", "srv"):
-        pdem[d,t] = p2021[d] if t == t0 else w[d] * rp[res,t-1] + (1 - w[d]) * rp[ind,t-1]
-        aeef = (1 / (1 + alpha[ecy,d] + AdditionalEfficiencyPower)) ** (1 + eu[ecy,d])
-        mult[d,t] = 1 if t == t0 else (aeef
-                     * (1 + gdp.pos.pct[t]) ** (ey[ecy,d] * inc.ela.adj[t])
-                     * (pdem[d,t] / pdem[d,t-1]) ** (eu[ecy,d] + ef[ecy,d] + eu[ecy,d] * ef[ecy,d])
-                     * (1 + shock[t] * ApplyDemandShock * EngineerModelProportionOfCovidFactor))
-    for s in demand_sectors:                                   # 15 sectors, no fuel transformation
-        if t == t0:                          dem[s,t] = dem0[s]
-        elif s == "rod" and TrModel == "Engineer":  dem[s,t] = trkte[t]
-        else:                                dem[s,t] = dem[s,t-1] * mult[group[s],t]
-    demtot[t] = sum(dem[s,t] for s in demand_sectors)          # -> power: required generation
-    for s in sectors: eldem[s,t] = dem[s,t] if s in demand_sectors else 0     # memo rows
+        if t == t0:
+            pdem[d,t] = p2021[d]
+        else:
+            pdem[d,t] = w[d] * rp[res,t-1] + (1 - w[d]) * rp[ind,t-1]
+        add = AdditionalEfficiencyPower
+        aeef = (1 / (1 + alpha[ecy,d] + add)) ** (1 + eu[ecy,d])
+        eps = eu[ecy,d] + ef[ecy,d] + eu[ecy,d] * ef[ecy,d]
+        shock_d = shock[t] * ApplyDemandShock * EngineerModelProportionOfCovidFactor
+        if t == t0:
+            mult[d,t] = 1
+        else:
+            mult[d,t] = (aeef
+                         * (1 + gdp.pos.pct[t]) ** (ey[ecy,d] * inc.ela.adj[t])
+                         * (pdem[d,t] / pdem[d,t-1]) ** eps
+                         * (1 + shock_d))
+    for s in demand_sectors:                 # 15 sectors, no fuel transformation
+        if t == t0:
+            dem[s,t] = dem0[s]
+        elif s == "rod" and TrModel == "Engineer":
+            dem[s,t] = trkte[t]               # road electricity, engineer model
+        else:
+            dem[s,t] = dem[s,t-1] * mult[group[s],t]
+    demtot[t] = sum(dem[s,t] for s in demand_sectors)   # -> power model
+    for s in sectors:                                    # memo rows
+        eldem[s,t] = dem[s,t] if s in demand_sectors else 0
 ```
 :::
 
@@ -970,24 +1010,34 @@ $E_{g,t} = \sum_{s \in g} E_{s,t}$, $E_t = \sum_g E_{g,t}$ (code `eldem`).
 
 ::: {.callout-tip icon=false title="Pseudocode: totals and change against the baseline"}
 ```
+GROUPS = ("tra", "bld", "ind", "oen")
 for t in years:
     for s in sectors:
-        ener[s,all,t] = sum(ener[s,f,t] for f in fuels) + (ener[s,ren,t] if s in ("avi", "nav") else 0)
-    for g in ("tra", "bld", "ind", "oen"):
+        ren = ener[s,ren,t] if s in ("avi", "nav") else 0
+        ener[s,all,t] = sum(ener[s,f,t] for f in fuels) + ren
+    for g in GROUPS:
         ener[g,all,t] = sum(ener[s,all,t] for s in sectors if group[s] == g)
-    ener[pow,all,t] = pet[t]                                     # coal, gas, oil, biomass burnt in power plants
+    ener[pow,all,t] = pet[t]          # coal, gas, oil, biomass burnt in power
     for f in fuels:
-        ener[all,f,t] = sum(ener[s,f,t] for s in sectors) + (pe[pow,f,t] if f in power_types else 0)
-    ener[all,all,t] = sum(ener[s,all,t] for s in sectors) + ener[pow,all,t]
-    ener.chk[t] = (abs(sum(ener[s,all,t] for s in sectors) + ener[pow,all,t] - ener[all,all,t])
-                   + abs(sum(ener[all,f,t] for f in fuels) + ener[avi,ren,t] + ener[nav,ren,t] - ener[all,all,t]))
-    ener.ref[t] = baseline.ener[all,all,t];   ener.pct[t] = ener[all,all,t] / ener.ref[t] - 1
-    for x in [(all,f) for f in fuels] + [(g,all) for g in ("tra","bld","ind","oen","pow")] + [(all,all)]:
+        burnt = pe[pow,f,t] if f in power_types else 0
+        ener[all,f,t] = sum(ener[s,f,t] for s in sectors) + burnt
+    total = sum(ener[s,all,t] for s in sectors) + ener[pow,all,t]
+    ener[all,all,t] = total
+    by_sector = sum(ener[s,all,t] for s in sectors) + ener[pow,all,t]
+    by_fuel = (sum(ener[all,f,t] for f in fuels)
+               + ener[avi,ren,t] + ener[nav,ren,t])
+    ener.chk[t] = abs(by_sector - total) + abs(by_fuel - total)
+    ener.ref[t] = baseline.ener[all,all,t]
+    ener.pct[t] = total / ener.ref[t] - 1
+    rows = ([(all,f) for f in fuels] + [(g,all) for g in GROUPS + ("pow",)]
+            + [(all,all)])
+    for x in rows:
         echg[x,t] = ener[x,t] - baseline.ener[x,t]
-        epct[x,t] = 0 if ener[x,t] - echg[x,t] == 0 else echg[x,t] / (ener[x,t] - echg[x,t])
-    for g in ("tra", "bld", "ind", "oen"):
+        level = ener[x,t] - echg[x,t]
+        epct[x,t] = 0 if level == 0 else echg[x,t] / level
+    for g in GROUPS:
         eldem[g,t] = sum(eldem[s,t] for s in sectors if group[s] == g)
-    eldem[all,t] = sum(eldem[g,t] for g in ("tra", "bld", "ind", "oen"))
+    eldem[all,t] = sum(eldem[g,t] for g in GROUPS)
 ```
 :::
 

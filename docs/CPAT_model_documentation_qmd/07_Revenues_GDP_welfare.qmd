@@ -720,15 +720,8 @@ model:
 
 ```{mermaid}
 flowchart LR
-  subgraph Y1["year t"]
-    direction TB
-    a1["GDP level, growth<br/>(from ε of t−1)"] --> b1["power, fuel use"] --> c1["revenues"] --> d1["fiscal space,<br/>impulse, ε(t)"]
-  end
-  subgraph Y2["year t + 1"]
-    direction TB
-    a2["GDP level = 1 + ε(t)"] --> b2["power, fuel use"]
-  end
-  d1 --> a2
+  a1["Year t: GDP level<br/>1 + ε(t−1)"] --> b1["Year t: power,<br/>fuel use"] --> c1["Year t:<br/>revenues"] --> d1["Year t: fiscal space,<br/>impulse, ε(t)"]
+  d1 --> a2["Year t+1: GDP level<br/>1 + ε(t)"] --> b2["Year t+1: power,<br/>fuel use"]
 ```
 
 This lag is what makes the whole model computable year by year: GDP growth depends only on earlier years.
