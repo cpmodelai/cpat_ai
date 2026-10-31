@@ -1592,3 +1592,158 @@ present and so not permitted. Data edition Public01:
   the retirements are replaced.
 - Final deficit to gas: tested with tight scale-up limits; the workbook matches the Python reference.
 :::
+
+## Systems integration cost of renewables: storage {#sec-pw-storage}
+
+The model has no hourly profiles, so it cannot see when wind and solar fall short. Instead it charges variable
+renewables a systems integration cost that rises with their share of generation: the cost of the storage the system
+needs at the margin. Short-term storage (batteries) is needed at any share; long-term storage (electrolysers and
+hydrogen tanks) only above a threshold, and it is costly.
+
+The methodology describes this in
+[section 3.4.2.5](../CPAT_full_documentation_html/03_Mitigation.html#sec-StorageDecision): short-term storage in
+[3.4.2.5.1](../CPAT_full_documentation_html/03_Mitigation.html#short-term-storage), long-term storage in
+[3.4.2.5.2](../CPAT_full_documentation_html/03_Mitigation.html#long-term-storage), and its levelised cost in
+[3.4.2.5.3](../CPAT_full_documentation_html/03_Mitigation.html#levelized-cost-of-storage).
+
+### VRE share {#sec-pw-vre}
+
+$$
+v_t = \sum_f \ell_f\, s_{f,t} = s_{wnd,t} + s_{sol,t} + s_{ore,t}
+$$ {#eq-pw-vre}
+
+(`vre`): the share of wind, solar and other renewables in generation of the year, from dispatch. Hydro and biomass
+are not variable renewables.
+
+### Short-term storage {#sec-pw-storage-short}
+
+Total short-term storage is a quadratic function of the VRE share, $sst = h_{100}\, v^2$ hours of storage per kW of
+average generation, with $h_{100}$ = 9 hours for a 100% VRE system. The marginal need is its derivative,
+$d\,sst/dv = 2\, h_{100}\, v = 18\, v$ ([corrections, DOC6](../CPAT_full_documentation_html/08_Corrections.html#corrections-of-2026-10-31)).
+A share $a_{st}$ of it is allocated to the power system. The cost of one marginal hour per kWh is
+
+$$
+c^{ph}_t = \frac{c^{bat}_t + c^{int}_t / r_{st}}{dlf_{ren}\, H} + \frac{o^{bat}_t}{H}
+$$ {#eq-pw-cph}
+
+where
+
+- $c^{ph}_t$ is the short-term storage cost per marginal hour (USD/kWh; `cph`);
+- $c^{bat}_t$ the battery capital cost (USD/kWh of storage), $c^{int}_t$ the battery interface capital cost (USD/kW),
+  $o^{bat}_t$ the battery fixed operating cost (USD/kWh/year) ([Year paths](#sec-pw-data-paths));
+- $r_{st}$ = `StorageToInterfaceRatioSTStorage` (default 2 hours): kWh of storage per kW of interface, a low,
+  conservative ratio;
+- $dlf_{ren}$ the discounted lifetime of renewables (average of wind and solar).
+
+### Long-term storage {#sec-pw-storage-long}
+
+Long-term storage is measured by its interface, the electrolysers (kW per kW of average generation). It is zero below
+a VRE share $x$ and rises quadratically to $u_{lt}$ at 100% VRE:
+
+$$
+slt = u_{lt}\left(\frac{\max(0,\ v - x)}{1 - x}\right)^2,
+\qquad
+\frac{d\,slt}{dv} = u_{lt}\, \frac{2 \max(0,\ v - x)}{(1 - x)^2}
+$$ {#eq-pw-slt}
+
+where $x$ = `StartingPointWhenLTStorageIsNeeded` (default 0.75) and $u_{lt}$ = `LongTermStorageFor100pcVRE`
+(default 1). With the defaults the marginal units needed are:
+
+| VRE share $v$ | 75% or less | 85% | 90% | 95% | 100% |
+|---|---|---|---|---|---|
+| Marginal kW of electrolysers per kW | 0 | 3.2 | 4.8 | 6.4 | 8.0 |
+
+([corrections, DOC7](../CPAT_full_documentation_html/08_Corrections.html#corrections-of-2026-10-31)). The cost of one
+marginal unit is
+
+$$
+c^{el}_t = \frac{c^{elx}_t + c^{tank}_t\, h_{lt}}{dlf_{ren}\, H} + \frac{o^{el}_t}{H} + v^{el}_t
+$$ {#eq-pw-cel}
+
+where
+
+- $c^{el}_t$ is the long-term storage cost per marginal unit (USD/kWh; `cel`);
+- $c^{elx}_t$ the electrolyser capital cost (USD/kW), $c^{tank}_t$ the storage tank capital cost (USD/kWh),
+  $o^{el}_t$ the electrolyser fixed opex (USD/kW/year), $v^{el}_t$ its variable opex (USD/kWh);
+- $h_{lt}$ = `StorageHoursForLTStorage` (default 1,000 hours of storage per kW).
+
+### Marginal storage cost {#sec-pw-msc}
+
+The marginal storage cost of variable renewables adds the two:
+
+$$
+msc_t = a_{st}\, 2\, h_{100}\, v_t\; c^{ph}_t
++ \frac{2 \max(0,\ v_t - x)}{(1 - x)^2}\; c^{el}_t\; a_{lt}\, u_{lt}
+$$ {#eq-pw-msc}
+
+where
+
+- $msc_t$ is the marginal storage cost (USD/kWh; `msc`), charged to wind, solar and other renewables, 0 for the other
+  types;
+- $a_{st}$ = `AllocateSTStorageToVRE` (default 1) and $h_{100}$ = `TotalHoursStorageFor100pcVRE` (default 9); their
+  product with 2 is the row `stm`;
+- $a_{lt}$ = `AllocateLTStorageToVRE` (default 0.33), the share of long-term storage allocated to the power system
+  (batteries and hydrogen have other uses); $a_{lt} u_{lt}$ is the row `ltu`.
+
+The marginal storage cost enters the cost of renewables in two places: the vintage storage cost of the existing stock
+(@eq-pw-stoav), which reaches the average generation cost and prices, and the levelised fixed cost of new plants
+(@eq-pw-lfx), which drives investment. The storage-inclusive cost of renewables can therefore rise over time as their
+share grows, even while their capital cost falls. The system is assumed to have invested optimally in the storage of
+the current VRE share.
+
+::: {.callout-tip icon=false title="Pseudocode: storage"}
+```
+# before the year loop
+for t in years:
+    dlfr     = (dlf['wnd'] + dlf['sol']) / 2
+    cph[t]   = (cbat[t] + cint[t] / StorageToInterfaceRatioSTStorage) / (dlfr * 8760) + obat[t] / 8760
+    cel[t]   = (elcx[t] + eltk[t] * StorageHoursForLTStorage) / (dlfr * 8760) + elof[t] / 8760 + elov[t]
+    stm      = AllocateSTStorageToVRE * 2 * TotalHoursStorageFor100pcVRE
+    ltu      = AllocateLTStorageToVRE * LongTermStorageFor100pcVRE
+# in year t, after dispatch
+    vre[t] = shr['wnd',t] + shr['sol',t] + shr['ore',t]
+    x      = StartingPointWhenLTStorageIsNeeded
+    msc[t] = stm * vre[t] * cph[t] + 2 * max(0, vre[t] - x) / (1 - x) ** 2 * cel[t] * ltu
+```
+:::
+
+::: {.callout-note collapse="true" title="In Excel-AI and CPAT Python"}
+- **Excel-AI:** sheet Mitigation, section 3, sub-table J: rows `cbat`, `cint`, `obat`, `elcx`, `eltk`, `elof`, `elov`,
+  `cel` (paths, Formulas.md E309-E316), `stm`, `ltu` (A0, E301-E302), `vre`, `cph`, `msc` (E405-E407). Scenario inputs
+  `AllocateSTStorageToVRE`, `TotalHoursStorageFor100pcVRE`, `StorageToInterfaceRatioSTStorage`,
+  `AllocateLTStorageToVRE`, `StartingPointWhenLTStorageIsNeeded`, `LongTermStorageFor100pcVRE`,
+  `StorageHoursForLTStorage`; constant `StMargFactor` (2).
+- **CPAT Python:** `power.prepare()` (`stm`, `ltu`, `cel`, `cph`); `power.step()` (`vre`, `msc`); paths in
+  `power_data.power_paths()`.
+:::
+
+::: {.callout-warning collapse="true" title="Differences from legacy CPAT: storage"}
+- **L4 (fixed).** Legacy applies the 33% allocation of long-term storage twice (rows 3911 and 3912); the model once.
+- **Long-term units (LD78).** `LongTermStorageFor100pcVRE` (legacy row 3909) is wired in; before, the factor was 1.
+- **M3, M4 (prototype bugs, fixed).** An earlier prototype left out the long-term allocation and the other renewables
+  in the VRE share.
+- **Scenario settings.** The storage cost per hour and per unit use the ratio, hours and renewables' WACC of the
+  scenario (legacy row 3905, J2).
+- **Methodology.** The derivative of short-term storage is $18v$ (DOC6) and the long-term table follows the formula
+  (DOC7). The methodology states that VRE includes "solar and wind but not hydro (other renewables are neglected)" in
+  the short-term subsection, and wind, solar and other renewables elsewhere; the model includes other renewables.
+  The methodology's text assumes "a standard 4-hour ratio" for short-term storage in one place and 2 hours in another;
+  the model's default is 2.
+:::
+
+::: {.callout-note collapse="true" title="Check: results for Egypt"}
+Data edition Public01:
+
+| | 2022 | 2023 | 2027 | 2030 | 2035 | 2041 |
+|---|---|---|---|---|---|---|
+| VRE share, scenario 1 | 0.050 | 0.073 | 0.134 | 0.208 | 0.303 | 0.376 |
+| VRE share, scenario 2 | 0.050 | 0.074 | 0.135 | 0.188 | 0.284 | 0.361 |
+| Cost per marginal hour $c^{ph}$ (USD/kWh) | 0.0062 | 0.0057 | 0.0042 | 0.0035 | | 0.0021 |
+| Marginal storage cost $msc$ (USD/kWh), scenario 1 | 0.0056 | 0.0075 | 0.0101 | 0.0129 | 0.0152 | 0.0142 |
+
+Egypt's VRE share stays below 75%, so there is no long-term storage cost. The renewables' discounted lifetime is
+8.435 years.
+
+In scenario 2 the VRE share is lower than in the baseline from 2030: the carbon price lowers electricity demand and
+so the need for new capacity, of which wind and solar are a large part.
+:::

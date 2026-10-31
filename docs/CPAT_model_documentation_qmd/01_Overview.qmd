@@ -1124,16 +1124,16 @@ by its embedded level, growth or new data raise it. The data are the World Bank 
 data year $y$ (2021 to $T_x = 2025$), in real USD/tCO2:
 
 $$
-XT_{j,f,y} = r_{f,y}\; sc_{j,y}\; fc_{f,y}, \qquad XE_{j,f,y} = p^{nat}_y\; n_{j,y}\; nf_{f,y} \;+\; p^{EU}_y\; e_{j,y}\; ef^{EU}_{f,y}
+\mathit{XT}_{j,f,y} = r_{f,y}\; k^{T}_{j,y}\; l^{T}_{f,y}, \qquad \mathit{XE}_{j,f,y} = p^{nat}_y\; k^{N}_{j,y}\; l^{N}_{f,y} \;+\; p^{EU}_y\; k^{EU}_{j,y}\; l^{EU}_{f,y}
 $$ {#eq-ov-ecp-data}
 
 where
 
-- $XT$ is the existing carbon tax and $XE$ the existing ETS price of the sector and fuel;
+- $\mathit{XT}$ is the existing carbon tax and $\mathit{XE}$ the existing ETS price of the sector and fuel;
 - $r_{f,y}$ is the carbon tax rate of the fuel where the country has fuel rates and no "single price" flag,
-  otherwise the single rate; $sc$, $fc$ its sector and fuel coverage;
-- $p^{nat}$ is the national ETS price with coverage $n$, $nf$; $p^{EU}$ the EU ETS price with the country's
-  regional coverage $e$, $ef^{EU}$, counted only if the country is in the EU ETS (flag Yes or Both);
+  otherwise the single rate; $k^{T}$, $l^{T}$ its sector and fuel coverage;
+- $p^{nat}$ is the national ETS price with sector and fuel coverage $k^{N}$, $l^{N}$; $p^{EU}$ the EU ETS price with
+  the country's regional coverage $k^{EU}$, $l^{EU}$, counted only if the country is in the EU ETS (flag Yes or Both);
 - prices are made real with the CPI index of the data year; blank coverage is 0.
 
 **Scenario factors.** Each scheme can be switched off or grown after the last data year:
@@ -1144,7 +1144,7 @@ $$ {#eq-ov-ecp-factors}
 
 where $\phi^{ct}$ (`xct.p`), $\phi^{ets}$ (`xets.p`) multiply the data of year $t^* = \min(t, T_x)$ (`xct.c`), and
 $\gamma^{ct}$, $\gamma^{ets}$ are `ExistingCTGrowth`, `ExistingETSGrowth`. The level per GJ is then the emission
-factor times $XT\,\phi^{ct} + XE\,\phi^{ets}$; the price block takes the change against the level embedded in the
+factor times $\mathit{XT}\,\phi^{ct} + \mathit{XE}\,\phi^{ets}$; the price block takes the change against the level embedded in the
 price data, of year $\min(L, T_x)$ ([A2.2](A_Equations.qmd#eqlist-A2-2), @sec-prices). The change also enters the
 variable cost of power plants (@sec-power).
 
