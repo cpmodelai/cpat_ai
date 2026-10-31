@@ -6,8 +6,10 @@ prepare  the data rows by year (country data, paths, vehicle prices) and the par
 step     one year t: stock and ownership (EQ-A3.6), TCO and EV choice (EQ-A3.7), fuel economy, distance and
          fuel use (EQ-A3.8), results for the transport co-benefits module (EQ-A3.9).
 
-The model runs whatever TrModel says; with TrModel = Elasticity (tr.sw = 0, as Egypt) fuel use of sections 5-8 stays
-the elasticity model's and the results here go only to the transport co-benefits module (sections 17b and 18).
+The model runs whatever TrModel says. With TrModel = Elasticity (tr.sw = 0, as Egypt) fuel use of sections 5-8 stays
+the elasticity model's and the results here go only to the transport co-benefits module (sections 17b and 18). With
+TrModel = Engineer (tr.sw = 1) road gasoline, diesel, LPG, gas and biofuels take trkt and trbio (fuel_use.step, EQ-M3.2)
+and road electricity demand after the base year takes trkte (power.step, EQ-M4.1); so step runs before them in the year.
 Rows are named as Excel-AI's (variable.sector.fuel, sector = column C, fuel = column B); "" cells are NaN.
 
 Vehicle classes: pas new passenger vehicles (cars and light vehicles), pau used passenger vehicles, fre freight,
@@ -27,8 +29,6 @@ FRE_FUELS = ['die', 'lpg', 'nga']
 def prepare(state, db, inputs, settings, baseline):
     """EQ-A3.5: the data rows of section 5b by year and the parameters of the road model."""
     from cpat_model.mitigation.fuel_use import _road_biofuel
-    if str(inputs['TrModel'])[:8].lower() == 'engineer':
-        raise NotImplementedError('TrModel = Engineer: road fuel use of sections 3 and 5 from the engineer model')
     countries, years = list(settings.countries), settings.years
     R = Rows(state, countries, years)
     par = road_data.params(db)
@@ -97,7 +97,37 @@ def annuity(value, rate, n):
 
 
 def step(state, db, inputs, settings, baseline, t):
-    """EQ-A3.6, EQ-A3.7, EQ-A3.8, EQ-A3.9: the road engineer model in year t."""
+    """EQ-A3.6, EQ-A3.7, EQ-A3.8: the road engineer model in year t, before power (power demand reads trkte where
+    TrModel = Engineer). It reads last year's electricity price, except in the base year, which runs after power
+    (step_after_power)."""
+    if t > settings.base_year:
+        _run(state, inputs, settings, t)
+
+
+def rerun(state, settings, t):
+    """The years the road model reads this year's electricity price: the base year (rp, rppre) and the transport data
+    years (rppre.ind.ecy of the freight and 2-3 wheeler BEV usage)."""
+    return t == settings.base_year or t in state['_road']['tryr']
+
+
+def step_after_power(state, db, inputs, settings, baseline, t):
+    """The road engineer model again after power where it reads this year's electricity price (rerun). In Excel-AI
+    that price does not depend on this year's power demand, so there is no circular reference: with TrModel = Engineer
+    road electricity (trkte) of a data year after the base year then changes, and power runs once more
+    (power.step_after_road)."""
+    if rerun(state, settings, t):
+        _run(state, inputs, settings, t)
+
+
+def results(state, db, inputs, settings, baseline, t):
+    """EQ-A3.9: the rows of section 5b that read this year's fuel use (after fuel_use.step)."""
+    R = year_rows(state, settings)
+    k = settings.years.index(t)
+    with np.errstate(divide='ignore', invalid='ignore', over='ignore'):
+        _results(_Year(R, k), *state['_road']['results'])
+
+
+def _run(state, inputs, settings, t):
     R = year_rows(state, settings)
     k = settings.years.index(t)
     x = _Year(R, k)
@@ -657,7 +687,7 @@ def _year(x, state, inputs, settings, k, y):
 
     road_use = _fuel_use(x, k, par, p, prl, prn, pev, dtx, fn, fnf, fnc, trn, veh, vehb, vehf, vehfb, vehc, vehcb,
                          gpc, nwbn, nwbu, phg, life_fre, life_cyc, c)
-    _results(x, dk, evac, evcc, lgfb, evaf, lgcb, evacc, road_use)
+    state['_road']['results'] = (dk, evac, evcc, lgfb, evaf, lgcb, evacc, road_use)   # for results(), after fuel use
 
 
 def _ice_shares(x, k, crs_row, icp_row, data, tcr, fuels, par):

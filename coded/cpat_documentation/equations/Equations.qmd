@@ -14,7 +14,7 @@ format:
 ## How to read this list
 
 - **What it is.** The equations Coded CPAT implements, in the order the model computes them. Coded CPAT replicates Excel-AI (`excel_ai/CPAT-AI-Mitigation-Prototype_v<version>.xlsm`); where the methodology and Excel-AI differ, the equation is Excel-AI's and the note says so. Each equation has an id (`M3.1`, ...) that the code cites (`EQ-M3.1`).
-- **Notation** follows the CPAT methodology (`docs/01_MainDocumentation/03_Mitigation.qmd`, `05_Distribution.qmd`). Where the methodology has no symbol for a quantity, the symbol of the Excel-AI equation note (`excel_ai/mitigation/docs/Equations.md`) is used and marked *(Excel-AI notation)*.
+- **Notation** follows the CPAT methodology (`docs/01_MainDocumentation/03_Mitigation.qmd`, `05_Distribution.qmd`). Where the methodology has no symbol for a quantity, the symbol of the Excel-AI equation note (`excel_ai/mitigation/Equations.md`) is used and marked *(Excel-AI notation)*.
 - **Indices** (methodology, "Dimensions"): scenario $o$ (baseline $B$, policy $P$), country $c$, UNFCCC sector $u$, sector group $g$, sector $s$, fuel or generation type $f$, pollutant $p$, year $t$. **Indices are omitted where they add nothing:** every mitigation equation holds for each scenario $o$ and country $c$, and for each year $t$ unless $t$ is shown; the line "Over ..." under an equation lists the other indices it ranges over. A previous-year value carries $t-1$; a baseline value of the same year carries the superscript $B$.
 - **Distribution** uses its own indices (methodology chapter 5): household $j$, decile $d$, consumption category $g$, fuel $f$ (with $f \in g$), analysis year $y$.
 - **Core and adjustments.** The first part is the executive summary: the core equations of each block. The appendices hold the adjustments (exceptions, floors, switches, calibration, memo items).
@@ -408,7 +408,7 @@ Over deciles $d$, samples. Per person, in % of consumption per person scaled to 
 
 # Appendix A: mitigation adjustments
 
-Started; completed block by block before each block is coded (coded/TODO.md phase 0). Sources for each block: `excel_ai/mitigation/docs/Equations.md`, `Equations_addendum.md` and `Formulas.md` (the workbook formulas), and the Methods chapters in `excel_ai/mitigation/docs/methods/`.
+Started; completed block by block before each block is coded (coded/TODO.md phase 0). Sources for each block: `excel_ai/mitigation/Equations.md`, `Equations_addendum.md` and `Formulas.md` (the workbook formulas), and the Methods chapters in `excel_ai/mitigation/docs/methods/`.
 
 ## A1 Policies
 
@@ -556,7 +556,7 @@ $$
 F^{rod}_{f,t} = F_{f,t}\,\gamma_f \ (\gamma_f = F^{bal}_{f,t_0} / F_{f,t_0}), \quad F^{rod}_{bio,t} = B^{g}_{t_0} \frac{F^{rod}_{gso,t}}{F^{bal}_{gso,t_0}} + B^{d}_{t_0} \frac{F^{rod}_{die,t}}{F^{bal}_{die,t_0}}, \quad r_{f,t} = \frac{F_{rod,f,t}}{F_{all,f,t}}
 $$
 
-Over road fuels $f$, years $t$. Excel-AI notation. Road fuel use of the engineer model in ktoe, calibrated to the base-year balance (electricity only if recon_ele); it would replace road fuel use of sections 3 and 5 with TrModel = Engineer (not in Coded CPAT: tr.sw = 0 in Egypt's scenarios). Distance, fuel use and stock-average fuel economy by vehicle class, the range-anxiety fit targets of the data years, and road fuel use with its share of total use (trq, tran.rsh) go to the transport co-benefits module. Source: Excel-AI: Mitigation section 5b rows 4525-4616.
+Over road fuels $f$, years $t$. Excel-AI notation. Road fuel use of the engineer model in ktoe, calibrated to the base-year balance (electricity only if recon_ele); it replaces road fuel use of section 5 and road electricity demand of section 3 where TrModel = Engineer (tr.sw = 1; Coded CPAT since 1.1.0p1.4; Egypt's shipped scenarios use the elasticity model). Distance, fuel use and stock-average fuel economy by vehicle class, the range-anxiety fit targets of the data years, and road fuel use with its share of total use (trq, tran.rsh) go to the transport co-benefits module. Source: Excel-AI: Mitigation section 5b rows 4525-4616.
 
 ## A4 Power
 

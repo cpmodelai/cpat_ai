@@ -405,7 +405,7 @@ Over deciles $d$, samples. Per person, in % of consumption per person scaled to 
 
 # Appendix A: mitigation adjustments
 
-Started; completed block by block before each block is coded (coded/TODO.md phase 0). Sources for each block: `excel_ai/mitigation/docs/Equations.md`, `Equations_addendum.md` and `Formulas.md` (the workbook formulas), and the Methods chapters in `excel_ai/mitigation/docs/methods/`.
+Started; completed block by block before each block is coded (coded/TODO.md phase 0). Sources for each block: `excel_ai/mitigation/Equations.md`, `Equations_addendum.md` and `Formulas.md` (the workbook formulas), and the Methods chapters in `excel_ai/mitigation/docs/methods/`.
 
 ## A1 Policies
 
@@ -553,7 +553,7 @@ $$
 \mathtt{trcf2}, \mathtt{trcf2e}, \mathtt{trkt}_f, \mathtt{trbio}, \mathtt{trkte}, \mathtt{trsum}; \ \mathtt{trkmp}, \mathtt{trfcp}, \mathtt{trafg}, \mathtt{trafo}, \mathtt{trafe}, \mathtt{trvht}; \ \mathtt{trrafp}, \mathtt{trraff}, \mathtt{trrafc}; \ \mathtt{trq}, \mathtt{tran.rsh}
 $$
 
-Over road fuels $f$, years $t$. Excel-AI notation. Road fuel use of the engineer model in ktoe, calibrated to the base-year balance (electricity only if recon_ele); it would replace road fuel use of sections 3 and 5 with TrModel = Engineer (not in Coded CPAT: tr.sw = 0 in Egypt's scenarios). Distance, fuel use and stock-average fuel economy by vehicle class, the range-anxiety fit targets of the data years, and road fuel use with its share of total use (trq, tran.rsh) go to the transport co-benefits module. Source: Excel-AI: Mitigation section 5b rows 4525-4616.
+Over road fuels $f$, years $t$. Excel-AI notation. Road fuel use of the engineer model in ktoe, calibrated to the base-year balance (electricity only if recon_ele); it replaces road fuel use of section 5 and road electricity demand of section 3 where TrModel = Engineer (tr.sw = 1; Coded CPAT since 1.1.0p1.4; Egypt's shipped scenarios use the elasticity model). Distance, fuel use and stock-average fuel economy by vehicle class, the range-anxiety fit targets of the data years, and road fuel use with its share of total use (trq, tran.rsh) go to the transport co-benefits module. Source: Excel-AI: Mitigation section 5b rows 4525-4616.
 
 ## A4 Power
 

@@ -4,7 +4,7 @@ New here? Read the human quick start first: [`../QuickStart.docx`](../QuickStart
 
 ## The workbooks
 
-Start with the **Master workbook, [`active_workbooks/CPAT-AI-Master_UserGuide.xlsm`](active_workbooks/)** (Excel 365, macros on): the user guide, the list of the modules (latest version, where they are), and every macro. It **activates** each module: opens its `.xlsx`, fills the formulas from 2035 to 2041, recalculates and saves `<Name>_latest.xlsb` next to itself. Work in the `.xlsb`. (v1.2.0, user 2026-10-31.)
+Start with the **Master workbook, [`active_workbooks/CPAT-AI-Master_UserGuide.xlsm`](active_workbooks/)** (Excel 365, macros on): the user guide, the list of the modules (latest version, where they are), and every macro. It **activates** each module: opens its `.xlsx`, fills the formulas from 2035 to 2041, recalculates and saves `<Name>_latest.xlsb` next to itself. Work in the `.xlsb` (manual calculation: F9 after a change). Today `active_workbooks/` holds the Master and the activated mitigation workbook (activated in Excel 2026-10-31); activate Distribution from the Master before using it. Scenarios, results, data updates and stored scenarios, step by step: the website's Excel-AI tab, *How the workbooks work*, or [`mitigation/docs/Documentation.md`](mitigation/docs/Documentation.md) section 2. (v1.2.0, user 2026-10-31.)
 
 | File | What it is |
 |---|---|

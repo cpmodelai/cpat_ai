@@ -57,7 +57,9 @@ what to tell the agent afterwards. Source: `TODO.md` (sections 5 and "Open at th
 
 ## F. Added 2026-10-31 (restructure 1.2.0)
 
-17. **First run of the Master in Excel** (`excel_ai/active_workbooks/CPAT-AI-Master_UserGuide.xlsm`, macros on): Debug >
+17. ◐ **Done for Mitigation (2026-10-31):** activated and committed (`active_workbooks/CPAT-AI-Mitigation_latest.xlsb`; MTOutputs
+    equals the release to 2035, 0 of 22,161 values differ; 2036-2041 filled). Still to do: activate Distribution (and
+    Air pollution), commit their `.xlsb`, without the `~$` lock files. **First run of the Master in Excel** (`excel_ai/active_workbooks/CPAT-AI-Master_UserGuide.xlsm`, macros on): Debug >
     Compile VBAProject; *Activate all modules* (it opens the three `.xlsx`, fills Mitigation and Outputs from 2035 to
     2041, recalculates, saves the `.xlsb` next to the Master). Check that the mitigation `.xlsb` shows 2036-2041 and the
     same results as the release values. Then commit the `.xlsb` files (they are generated; never merged).

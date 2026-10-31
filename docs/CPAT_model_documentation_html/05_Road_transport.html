@@ -426,7 +426,7 @@ E_{rod,t} = \begin{cases} E^{T}_{t} &amp; sw^T = 1,\ t &gt; t_0 \\ E_{rod,t-1}\,
 <div class="callout-body-container callout-body">
 <ul>
 <li><strong>Excel-AI:</strong> <code>TrModel</code> is ScenarioDefinition row 338 (legacy MTInputs F340, Dashboard G61). Mitigation row <code>tr.sw</code> (<code>ENGINEERON</code>). Section 5: <code>ener</code> = <code>ROADSWITCH($D, tr.sw, result rows trkt/trbio, enel)</code>, where column D is the Inputs column <code>trpos</code>: the position of the fuel in <code>TrFuelKey</code> for road (gasoline 1, diesel 2, LPG 3, gas 4, biofuels 6), 0 elsewhere. <code>ROADSWITCH</code> also adds the cumulative residential leakage to biomass of section 6b. Section 3 H: <code>dem</code> = <code>DEMROAD($F, tr.sw, trkte, previous, multiple)</code>, where F is the Inputs_power column <code>tr</code> (1 for road). The elasticity fuel use is the variable <code>enel</code> (the former <code>ener</code> formula, <code>FUELUSE</code>, base year from Inputs); with <code>TrModel</code> = Elasticity <code>ener</code> = <code>enel</code> everywhere, so every elasticity-model output is unchanged (regression 0).</li>
-<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/road.py</code>, <code>prepare()</code> and <code>step()</code> (equations A3.5-A3.9). Python computes the engineer model in every scenario for the transport co-benefits module, but <code>TrModel</code> = Engineer is <strong>not yet supported</strong>: <code>road.prepare</code> raises <code>NotImplementedError</code> (“road fuel use of sections 3 and 5 from the engineer model”). See the <a href="../CPAT_coded_documentation_html/02_How_it_works.html#sec-blocks">CPAT Python blocks</a>.</li>
+<li><strong>CPAT Python:</strong> <code>cpat_model/mitigation/road.py</code>, <code>prepare()</code>, <code>step()</code> and <code>results()</code> (equations A3.5-A3.9); the switch in <code>fuel_use._use</code> (road fuel use, M3.2) and <code>power.step</code> (road electricity demand, M4.1). In the year loop the road model runs before power, and again after power in the years it reads that year’s electricity price (the base year and the transport data years, with power once more where that changes road electricity); its result rows for the co-benefits module run after fuel use. With <code>TrModel</code> = Engineer the whole scenario equals Excel-AI recalculated the same way, every code and year within 1e-9 (<code>cpat_testing/test_road_engineer.py</code>). See the <a href="../CPAT_coded_documentation_html/02_How_it_works.html#sec-blocks">CPAT Python blocks</a>.</li>
 </ul>
 </div>
 </div>
@@ -1884,7 +1884,7 @@ F^{T}_{bio,t} = \big(F^{bal}_{bgs,t_0} + F^{bal}_{obf,t_0}\big)\frac{F^{T}_{gso,
 <h2 data-number="5.15" class="anchored" data-anchor-id="sec-tr-caveats"><span class="header-section-number">5.15</span> Caveats</h2>
 <ul>
 <li><strong>The engineer model is off by default.</strong> It is a calibration that has not been reviewed for every country; results are the elasticity model’s unless a scenario sets <code>TrModel</code> = Engineer.</li>
-<li><strong>CPAT Python</strong> computes the engineer model for the co-benefits module but cannot yet run with it switched on.</li>
+<li><strong>CPAT Python</strong> runs it either way, equal to Excel-AI (<code>test_road_engineer.py</code>).</li>
 <li><strong>Calibration factors are large</strong> where Transport1 explains only part of road fuel use (for Egypt 30-60%: passenger distance × 2.67, then gasoline × 1.23). Review the data before using the engineer results.</li>
 <li><strong>Range anxiety</strong> is fitted to one year (2025) of observed EV sales in scenario 1; it is the main lever on the EV share and absorbs whatever the TCO misses.</li>
 <li><strong>Freight distance</strong> in the TCO is the Transport1 average (Egypt 48,630 km), floored at 50,000 km, which binds in every projection year; fuel use uses the distance derived from fuel shares (Egypt 8,091 km × 1.70). Kept as legacy (open question B14, <a href="#sec-tr-open" class="quarto-xref"><span>Section 5.16.5</span></a>).</li>
@@ -3444,7 +3444,7 @@ F^{T}_{bio,t} = \big(F^{bal}_{bgs,t_0} + F^{bal}_{obf,t_0}\big)\frac{F^{T}_{gso,
 <li><strong>Section 3 H:</strong> <code>dem</code> = <code>DEMROAD($F, tr.sw, road electricity, previous, multiple)</code>; F = Inputs_power column <code>tr</code> (1 for road). From 2023 road electricity demand is the engineer value when switched on (base year: the data).</li>
 <li><strong>Biofuels:</strong> road biofuels = base year × engine use / base-year use (<a href="#eq-tr-bio" class="quarto-xref">Equation&nbsp;<span>5.44</span></a>).</li>
 <li><strong>No circular reference:</strong> last year’s power price (base year: the same year’s), last year’s GDP growth, the GDP level after the feedback (which uses last year’s effect); fuel prices do not depend on fuel use.</li>
-<li><strong>CPAT Python:</strong> the switch is not wired; <code>road.prepare</code> refuses <code>TrModel</code> = Engineer. In the Python chain the road block runs in the year loop and feeds the transport externalities (<code>externalities.transport</code>) and welfare.</li>
+<li><strong>CPAT Python:</strong> the switch is wired as in Excel-AI (<code>fuel_use._use</code>, <code>power.step</code>); the road block runs early in the year loop (after the GDP level and population) and feeds fuel use, power demand, the transport externalities (<code>externalities.transport</code>) and welfare.</li>
 </ul>
 </div>
 </div>
@@ -3954,7 +3954,7 @@ F^{T}_{bio,t} = \big(F^{bal}_{bgs,t_0} + F^{bal}_{obf,t_0}\big)\frac{F^{T}_{gso,
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool. The model shared by Excel-AI 1.1.0 and CPAT Python 1.1.0p1.3; data edition Public01</p>
+<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool. The model shared by Excel-AI 1.1.0 and CPAT Python 1.1.0p1.4; data edition Public01</p>
 </div>
     <div class="nav-footer-right">
       &nbsp;

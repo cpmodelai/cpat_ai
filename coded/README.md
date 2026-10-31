@@ -2,7 +2,7 @@
 
 The Python model of CPAT (Coded CPAT): it replicates Excel-AI's mitigation and distribution modules number for number, readable first; the one entry point is `cpat_model.run`. This page is for Python developers; the full documentation (quick start, the database, scenarios, results, editing, testing with the current status, architecture, and appendices with every equation, table, input and variable) is the website's **Coded CPAT tab: <https://cpmodelai.github.io/cpat_ai/#coded>** (sources: [`../docs/CPAT_coded_documentation_qmd/`](../docs/CPAT_coded_documentation_qmd/); offline: `../docs/index.html#coded`). Excel work is in [`../excel_ai/`](../excel_ai/README.md); rules for every task (logging in `CAVEATS.md`, method vs version notes) are in [`../excel_ai/core/NORMS.md`](../excel_ai/core/NORMS.md).
 
-**Status (2026-10-30).** Version `1.1.0p1.3` ([`CHANGELOG.md`](CHANGELOG.md)): Python version 1.3 of the replication of Excel-AI 1.1.0 (mitigation) and Distribution 1.1.0, on data edition Public01 (first full release 1.0.0p1.0).
+**Status (2026-10-31).** Version `1.1.0p1.4` ([`CHANGELOG.md`](CHANGELOG.md)): Python version 1.4 of the replication of Excel-AI 1.1.0 (mitigation) and Distribution 1.1.0, on data edition Public01 (first full release 1.0.0p1.0).
 
 - **Mitigation** (plan phase 3): every output code of Excel-AI's stored values for Egypt, scenarios 1 and 2, is produced and matches within 1e-9, 2022-2041 (7,472 reference codes per scenario, 7,458 with values).
 - **Distribution** (phase 4): every code of Excel-AI Distribution 1.0.0 matches for Egypt, scenario groups 1 and 2 (1,684 codes, basket and deciles).

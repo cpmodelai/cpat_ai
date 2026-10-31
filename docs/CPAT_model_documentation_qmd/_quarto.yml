@@ -7,7 +7,7 @@ book:
   favicon: ./00/media/image1.png
   search: true
   reader-mode: true
-  page-footer: "CPAT-AI: WB-IMF Climate Policy Assessment Tool. The model shared by Excel-AI 1.1.0 and CPAT Python 1.1.0p1.3; data edition Public01"
+  page-footer: "CPAT-AI: WB-IMF Climate Policy Assessment Tool. The model shared by Excel-AI 1.1.0 and CPAT Python 1.1.0p1.4; data edition Public01"
   chapters:
     - index.qmd
     - 01_Overview.qmd

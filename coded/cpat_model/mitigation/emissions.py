@@ -135,6 +135,21 @@ def country_data(db, iso, settings):
     return d
 
 
+def population(state, db, inputs, settings, baseline, t):
+    """Population of year t and its growth (Mitigation section 14 rows pop, pop.g): data, set at the start of the year
+    because the road engineer model (section 5b) reads it before power and fuel use."""
+    R = year_rows(state, settings)
+    k, y = settings.years.index(t), t
+    countries = list(settings.countries)
+    if '_ghg' not in state:
+        state['_ghg'] = {iso: cached(state, ('ghg', iso), lambda: country_data(db, iso, settings)) for iso in countries}
+    D = [state['_ghg'][iso] for iso in countries]
+    col = lambda fn: np.array([fn(d) for d in D])
+    pop = R.set('pop', k, col(lambda d: d['pop'][y]), 'all', 'all')
+    R.set('pop.g', k, pop / (col(lambda d: d['pop'][y - 1]) if k == 0 else R.at('pop', k - 1, 'all', 'all')) - 1,
+          'all', 'all')
+
+
 def ghg(state, db, inputs, settings, baseline, t):
     """EQ-M7.2, EQ-A7.2, EQ-A7.3: other greenhouse gases and methane by source (Mitigation section 14)."""
     R = year_rows(state, settings)
@@ -149,9 +164,7 @@ def ghg(state, db, inputs, settings, baseline, t):
     ref = lambda var, sector=None, fuel=None: reference(R, baseline, k, var, sector, fuel)
     first = k == 0
 
-    pop = R.set('pop', k, col(lambda d: d['pop'][y]), 'all', 'all')
-    popg = R.set('pop.g', k, pop / (col(lambda d: d['pop'][y - 1]) if first else at('pop', 'all', 'all', k - 1)) - 1,
-                 'all', 'all')
+    popg = at('pop.g', 'all', 'all')                     # set by population() at the start of the year
     gpcg = R.set('gdppc.g', k, (1 + at('gdp.pos.pct')) / (1 + popg) - 1, 'all', 'all')
     h = R.set('ghg.h', k, col(lambda d: d['pos'].get(y, 0)), 'all', 'all')
     co2, co2ref = at('co2', 'all', 'all'), at('co2.ref', 'all', 'all')

@@ -368,30 +368,30 @@ ul.task-list li input[type="checkbox"] {
 <td>3.7a fuel prices</td>
 </tr>
 <tr class="odd">
-<td><code>road.prepare</code>, <code>road.step</code></td>
-<td>5b Road engineer model</td>
-<td>Vehicle stocks, purchases and retirements, TCO and EV choice, fuel economy, distance, road fuel use</td>
-<td>A3.5-A3.9</td>
-<td>3.6 road engineer model</td>
-</tr>
-<tr class="even">
 <td><code>gdp.start</code></td>
 <td>16 (GDP level)</td>
 <td>GDP level factor and growth of year t</td>
 <td>M8.3</td>
 <td>3.11 GDP effects</td>
 </tr>
+<tr class="even">
+<td><code>road.prepare</code>, <code>road.step</code>, <code>road.results</code></td>
+<td>5b Road engineer model</td>
+<td>Vehicle stocks, purchases and retirements, TCO and EV choice, fuel economy, distance, road fuel use (step: before power, again after power in the base year and the transport data years; results: after fuel use)</td>
+<td>A3.5-A3.9</td>
+<td>3.6 road engineer model</td>
+</tr>
 <tr class="odd">
 <td><code>power.step</code></td>
 <td>3 Power (year)</td>
-<td>Demand, generation dispatch, capacity, prices, power revenues</td>
+<td>Demand (road electricity from the engineer model where <code>TrModel</code> = Engineer), generation dispatch, capacity, prices, power revenues</td>
 <td>M4, A4</td>
 <td>3.8 power year step</td>
 </tr>
 <tr class="even">
 <td><code>fuel_use.step</code></td>
 <td>5-8, 6b</td>
-<td>Fuel use (elasticity model), biofuels, leakage to biomass, emissions and revenues by subsector</td>
+<td>Fuel use (elasticity model; road from the engineer model where <code>TrModel</code> = Engineer), biofuels, leakage to biomass, emissions and revenues by subsector</td>
 <td>M3.1, M3.2, A3.3, A3.4, M6, M7.1</td>
 <td>3.7b fuel use</td>
 </tr>
@@ -588,7 +588,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="sec-versions" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="sec-versions"><span class="header-section-number">2.5</span> Versions and releases</h2>
 <ul>
-<li><strong>Version number</strong> (D14): <code>&lt;Excel-AI version&gt;p&lt;Python version&gt;</code>. <code>1.0.0p1.0</code>, the first full release, is Python version 1.0 of the replication of Excel-AI 1.0.0 (and Distribution 1.0.0). The current version, <code>1.1.0p1.3</code> (2026-10-30), is Python version 1.3 of the replication of Excel-AI 1.1.0 (and Distribution 1.1.0): it reads data edition Public01 (the six proprietary tables perturbed), with the reference values re-extracted from Excel-AI 1.1.0. <code>cpat_model.__version__</code> holds it; <code>EXCEL_AI_VERSION</code> and <code>DISTRIBUTION_VERSION</code> (<code>cpat_model/__init__.py</code>) name the workbooks the reference values come from.</li>
+<li><strong>Version number</strong> (D14): <code>&lt;Excel-AI version&gt;p&lt;Python version&gt;</code>. <code>1.0.0p1.0</code>, the first full release, is Python version 1.0 of the replication of Excel-AI 1.0.0 (and Distribution 1.0.0). The current version, <code>1.1.0p1.4</code> (2026-10-31), is Python version 1.4 of the replication of Excel-AI 1.1.0 (and Distribution 1.1.0): it reads data edition Public01 (the six proprietary tables perturbed), with the reference values re-extracted from Excel-AI 1.1.0, and runs the engineer road model switched on (<code>TrModel</code> = Engineer) as Excel-AI does. <code>cpat_model.__version__</code> holds it; <code>EXCEL_AI_VERSION</code> and <code>DISTRIBUTION_VERSION</code> (<code>cpat_model/__init__.py</code>) name the workbooks the reference values come from.</li>
 <li><strong>Changelog</strong>: <code>coded/CHANGELOG.md</code>, one row per release (version, date, what changed, the largest difference against Excel-AI).</li>
 <li><strong>A release</strong>: all tests pass; the comparison with the Excel-AI version named in the number is complete (known differences listed); <code>CHANGELOG.md</code> row; <code>CAVEATS.md</code> entry; this book and the Word copies regenerated; git tag <code>coded-v&lt;version&gt;</code>.</li>
 <li><strong>When Excel-AI releases</strong>: re-extract the reference values, align Python with the prototype’s bug fixes (delete their known differences), run the tests, and release <code>&lt;new Excel-AI version&gt;p1.0</code> (the Python part counts Python-only changes within one Excel-AI version).</li>
@@ -1017,7 +1017,7 @@ ul.task-list li input[type="checkbox"] {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool. Documentation release 1.1.0 (2026-10-30): Excel-AI 1.1.0, Coded CPAT 1.1.0p1.3, data edition Public01</p>
+<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool. Documentation release 1.1.0 (2026-10-30): Excel-AI 1.1.0, Coded CPAT 1.1.0p1.4, data edition Public01</p>
 </div>
     <div class="nav-footer-right">
       &nbsp;

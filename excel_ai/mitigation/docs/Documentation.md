@@ -1,4 +1,4 @@
-# CPAT-AI Mitigation Prototype
+# CPAT-AI Mitigation
 
 *The short guide. Details of every block: the Methods volume. Every legacy bug and issue: the bug-fix register.*
 
@@ -9,26 +9,32 @@ The mitigation module of the IMF/World Bank **Climate Policy Assessment Tool (CP
 It answers: **what do carbon pricing and related policies do to energy prices, energy use, emissions, government revenue and GDP, year by year to 2041?**
 
 - **Policies in:** carbon tax, a new emissions trading system (ETS) with a cap, feebates, fuel excises, fuel subsidy reform, a methane fee, existing carbon pricing, power-sector policies.
-- **Results out:** retail energy prices, fuel use in 16 sectors and 8 fuels, electricity generation and prices, revenue, CO₂ and other greenhouse gases, local air pollutants, GDP effects, the gap to the country's NDC, and household effects by decile (Distribution tab).
-- **One country, any country:** formulas contain no country numbers. Every country value comes from the data tabs, looked up by the country code on `Settings` (C4). The shipped data are complete for Egypt.
+- **Results out:** retail energy prices, fuel use in 16 sectors and 8 fuels, electricity generation and prices, revenue, CO₂ and other greenhouse gases, local air pollutants, GDP effects, the gap to the country's NDC, and and the exports the other modules read (section 19; household effects by decile are the separate Distribution module).
+- **One country, any country:** formulas contain no country numbers. Every country value comes from the data tabs, looked up by the country code on `ScenarioDefinition` (MTInputs, Model settings). The shipped data are complete for Egypt.
 - **Same as legacy, minus its bugs:** it follows legacy CPAT except where legacy has a bug (all fixed) or an open question that we track (issues). See section 5.
-- **Readable and checked:** every formula is at most 100 characters and one formula serves a whole block of cells. An independent Python recomputation checks every number.
+- **Readable and checked:** every formula is short (target 90 characters, at most 115) and one formula serves a whole block of cells. An independent Python recomputation checks every number.
 
 # 2. Quick start
 
-1. **Open** `CPAT-AI-Mitigation-Prototype_v<version>.xlsm` (in `excel_ai/`; the same file as `excel_ai/active_workbooks//CPAT-AI-Mitigation-Prototype_latest.xlsm`) in Excel 365 with macros enabled. It opens on `ScenarioCompare`, the dashboard, **without recalculating**: the file ships with its values, in manual calculation.
-2. **After any change, click Recalculate now** (or switch automatic calculation on with Recalculation on/off).
-3. **Read the results on ScenarioCompare.** Choose Live or Stored results and the year. The key table shows CO₂, GHGs, revenue, the GDP effect and welfare against the baseline; the charts show them over time.
-4. **Change a policy** on `ScenarioDefinition`. Column K is the live scenario: for example change `CPLevelTarget` (carbon price in the target year), then Recalculate now.
-5. **Store several scenarios:** copy a definition one column to the right, give it a short name (row 2) and Run? = Yes (row 4), then click Run stored scenarios. Results go to `StoredOutputs`; the dashboard compares up to 10.
-6. **Update the data** from the data workbook: choose the source on `ScenarioCompare`, click Update data tables. The status is on `Cover`.
-7. **First time only:** click First-run test (grey buttons). The check table must show PASS.
+Since 1.2.0 the module workbooks have **no macros**. Every macro is in the **Master workbook**, `excel_ai/active_workbooks/CPAT-AI-Master_UserGuide.xlsm`, which is also the user guide. The mitigation module ships as `excel_ai/mitigation/CPAT-AI-Mitigation_latest.xlsx` (every version in `excel_ai/mitigation/releases/`) with formulas to 2035, so it is small and quick to open; the Master **activates** it into the workbook you work in, `excel_ai/active_workbooks/CPAT-AI-Mitigation_latest.xlsb`, with formulas to 2041.
 
-The tabs, left to right: the front (`Cover`, `ScenarioCompare`, `ScenarioDefinition`), the model (`Mitigation`, `Distribution`, `MTOutputs`, `StoredOutputs`), the inputs (`Manual inputs`, `Settings`, `Inputs`), the data tabs (legacy tables, unchanged), and the reference tabs (version log, differences with legacy, variable dictionary).
+1. **Get the files.** Keep the repository clone up to date (git, or the SyncRepo script). The Master finds the modules in the clone (else it downloads them from GitHub, the links of its module table).
+2. **Open the Master** (`active_workbooks/CPAT-AI-Master_UserGuide.xlsm`) in Excel 365 and enable macros (if the file was downloaded, unblock it first: file Properties > Unblock). Its tab `UserGuide` lists each module (latest version, the `.xlsx`, its GitHub link, the `.xlsb` it writes, when it was last activated) and has the buttons.
+3. **Activate:** click *Activate Mitigation* (or *Activate all modules*). The Master opens the `.xlsx`, copies the 2035 column of each scenario group of `Mitigation` and `MTOutputs` across to 2041, records the activation on the module's tab `FromMaster`, recalculates fully and saves `CPAT-AI-Mitigation_latest.xlsb` next to itself. The workbook stays open. Activate again whenever a new `.xlsx` arrives; the `.xlsb` is a generated file (never merge it on a git conflict: take either side and activate again).
+4. **Work in the `.xlsb`.** It is in manual calculation: **press F9 after any change** (Ctrl+Alt+F9 for a full recalculation).
+5. **Change a policy** on `ScenarioDefinition` (the legacy MTInputs rows). Column J is the baseline, column K the live policy scenario: for example change `CPLevelTarget` (the carbon price in the target year), then F9. Columns L onwards are scenario definitions for the batch run.
+6. **Read the results** on `MTOutputs` (every scenario group side by side, by output code) and `ScenarioCompare` (the dashboard: choose the year; key table and time-series charts of the live scenarios against the baseline).
+7. **Store and compare scenarios** in the Master: *Store live scenarios* copies the scenario groups of `MTOutputs` into its `StoredScenarios` (values, ten slots); *Run stored scenarios* runs every definition with Run? = Yes through the live column K (ETS goal seek where needed) and stores each; `CompareStored` compares them. *Clear stored scenarios* empties every slot but the baseline.
+8. **Update the data** in the Master: choose the data source and the rows (one country or all countries) on its tab `Settings`, then *Update data tables* (Power Query). The mitigation workbook records the source on `FromMaster`; the status is on its `Cover`.
+9. **Distribution:** activate the distribution module too, then *Update Distribution from Mitigation* copies section 19a of the activated mitigation workbook into it, recalculates and saves it.
+
+Run a module for a particular country on your local drive; a workbook holding real data is never committed.
+
+The tabs, left to right: the front (`Cover`, `ScenarioDefinition`), `MAIN->>` (`Mitigation`), `OUTPUT->>` (`MTOutputs`, `ScenarioCompare`), `INPUTS->>` (`Manual inputs`, `Constants and Mappings`), `OTHER MODULES->>` (`FromMaster`, `FromAirPollution`, `FromTransportCB`), the data tabs (`DATA_MITIGATION->>`, `DATA_TRAN->>`, `DATA_OUTPUT->>`, `DATA_OTHER->>`: legacy tables, unchanged) and `REF->>` (version log, differences with legacy, variable dictionary and LAMBDAs).
 
 # 3. How it works
 
-The `Mitigation` tab runs top to bottom, one section per step, with the section numbers of legacy CPAT. The method of each block, with its equations and pseudocode, is in the website's CPAT-AI Model tab (<https://cpmodelai.github.io/cpat_ai/#model>; sources `docs/CPAT_model_documentation_qmd/`), shared with CPAT Python; the Word Methods volume (`docs/methods/`) is the compact version. Each scenario is a group of columns: group 1 is the baseline, group 2 the live scenario. Years run across, 2022 to 2041.
+The `Mitigation` tab runs top to bottom, one section per step, with the section numbers of legacy CPAT. The method of each block, with its equations and pseudocode, is in the website's CPAT-AI Model tab (<https://cpmodelai.github.io/cpat_ai/#model>; sources `docs/CPAT_model_documentation_qmd/`), shared with CPAT Python; the Word Methods volume (`docs/methods/`) is the compact version. Each scenario is a group of columns: group 1 is the baseline, group 2 the live scenario (further groups: copy group 2 to the right; MTOutputs has room for four). Years run across, 2022 to 2041.
 
 | Section | Step | Methods chapter |
 |---|---|---|
@@ -134,21 +140,17 @@ Section 17 reports carbon prices and coverage; section 18 the welfare effects an
 
 *Details: Methods, chapter Macro and results.*
 
-## 3.9 Distribution (tab Distribution)
+## 3.9 Exports to the other modules (section 19)
 
-Household effects by decile in one analysis year: price changes reach households directly (energy) and indirectly (other goods, through the input-output table); revenue recycling (transfers, targeted by ASPIRE or the poverty line) offsets them.
+Section 19 holds what the other modules read, by code: section 19a (defined name `ExportDistn`) is the input of the Distribution module (household effects by decile in one analysis year: price changes reach households directly and indirectly, revenue recycling offsets them). The Master copies it into the distribution workbook (*Update Distribution from Mitigation*).
 
-*Details: Methods, chapter Distribution.*
+*Details: CPAT-AI Model, chapter Distribution; `excel_ai/distribution/README.md`.*
 
 # 4. Results and the dashboard
 
-**ScenarioCompare** is the place to read results:
-
-- **Choices:** Live (the scenario groups of `Mitigation`) or Stored (every stored scenario), and the year.
-- **Key table:** energy CO₂, GHGs, revenue, GDP effect and welfare, as levels and differences from the baseline.
-- **Charts:** one bar chart of CO₂ and four time-series charts; the title of each is a dropdown of indicators.
-
-**MTOutputs** lists the key indicators of each live scenario by output code; **StoredOutputs** keeps the stored scenarios as values. Every row carries a code (for example `egy.mit.co2.tot.tot.2`: country, module, variable, sector, fuel, scenario), the same codes as the Python model.
+- **MTOutputs** shows the key results of every live scenario side by side, in the columns of the scenario groups of `Mitigation` (row 5: the scenario number; rows as legacy MTOutputs, then the outputs legacy does not list, by topic). Every row carries a code (for example `egy.mit.co2.tot.tot.2`: country, module, variable, sector, fuel, scenario), the same codes as the Python model.
+- **ScenarioCompare** (the dashboard) reads MTOutputs only (live results): one slot per scenario group, the year, a key table (energy CO₂, GHGs, revenue, GDP effect and welfare: level, difference and % difference from the baseline) and four time series with their line charts; the title of each is a dropdown of indicators.
+- **Stored results** are in the Master: `StoredScenarios` (values, MTOutputs' rows, ten slots) and `CompareStored` (the stored scenarios against the baseline, for a chosen year).
 
 # 5. Limits and differences from legacy
 

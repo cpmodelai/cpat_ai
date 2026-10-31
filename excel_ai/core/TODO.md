@@ -116,8 +116,9 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
   ScenarioCompare live only; Constants and Mappings and the MTInputs additions in three parts; the Master workbook (user
   guide, every macro, activation to .xlsb, stored scenarios); all-countries data refresh, EF_PM and CH4Inputs linked;
   names without Prototype/Standalone; version 1.2.0.
-- ☐ **Excel tests of the Master** (USER_TASKS 17-18): activation, data update, distribution update, store and batch
-  macros; then commit the activated `.xlsb`.
+- ◐ **Excel tests of the Master** (USER_TASKS 17-18): ☑ activation of Mitigation (user 2026-10-31; the `.xlsb` committed,
+  equal to the release values); ☐ activation of Distribution and Air pollution, data update, distribution update, store
+  and batch macros.
 - ☐ **Checks to bring in line** with 1.2.0: `check_full.py` (VBA, StoredOutputs, MacroCheck, the bar chart and the old
   MTOutputs sections; run it on `activated_copy`), `check_paste.py`, `check_links.py` (MTOutputs helper columns),
   `docs/make_codesmap.py` and `docs/make_equations.py` (Outputs columns, the Constants layout); the formula-length checks
@@ -137,6 +138,12 @@ Air Pollution recovery (2026-10-27): the v0.3 input/data scaffold is restored un
   NatGasEff/LPGEff/KerEff/BioEff, DomPrTax, ElIncMainSrc, ElPrcMainSrc, IncElAdj, NDCs, NDCTargetYear, Conditionality,
   the power settings of Inputs_pset (PS_SETTINGS, 27 rows) and the new-investment overrides (NewInv<tech>, NewInv<tech>Year).
   Until then the Constants tab labels these rows and checks that every scenario column holds the scenario-1 value.
+- ☐ **Methodology chapter 7 Road transport** (2026-10-31): section 7.1 (engineer road model) moved from the CPAT-AI
+  Model chapter 5 as a first cut; to do: structure the chapter as a whole (7.1 and 7.2 in one style, the co-benefits
+  acronyms and Excel implementation sections), slim the Model chapter's repetition, the methodology PDF (TinyTeX).
+- ☐ **Documents still on 1.1.0** (2026-10-31 documentation pass): `docs/make_formulas`/`make_docs.py` read the unactivated
+  `.xlsx` (formulas to 2035), so `Formulas.md` was left at 1.1.0: make it read `activated_copy` (to 2041), then
+  regenerate; the deck, the codes map and the bug book and tracker (1.1.0); `QuickStart.docx` (USER_TASKS 15, 19).
 
 ## Later (not now)
 

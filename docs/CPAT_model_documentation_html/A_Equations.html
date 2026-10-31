@@ -301,7 +301,7 @@ window.Quarto = {
 <h2 data-number="A.1" class="anchored" data-anchor-id="how-to-read-this-list"><span class="header-section-number">A.1</span> How to read this list</h2>
 <ul>
 <li><strong>What it is.</strong> The equations Coded CPAT implements, in the order the model computes them. Coded CPAT replicates Excel-AI (<code>excel_ai/CPAT-AI-Mitigation-Prototype_v&lt;version&gt;.xlsm</code>); where the methodology and Excel-AI differ, the equation is Excel-AI’s and the note says so. Each equation has an id (<code>M3.1</code>, …) that the code cites (<code>EQ-M3.1</code>).</li>
-<li><strong>Notation</strong> follows the CPAT methodology (<code>docs/01_MainDocumentation/03_Mitigation.qmd</code>, <code>05_Distribution.qmd</code>). Where the methodology has no symbol for a quantity, the symbol of the Excel-AI equation note (<code>excel_ai/mitigation/docs/Equations.md</code>) is used and marked <em>(Excel-AI notation)</em>.</li>
+<li><strong>Notation</strong> follows the CPAT methodology (<code>docs/01_MainDocumentation/03_Mitigation.qmd</code>, <code>05_Distribution.qmd</code>). Where the methodology has no symbol for a quantity, the symbol of the Excel-AI equation note (<code>excel_ai/mitigation/Equations.md</code>) is used and marked <em>(Excel-AI notation)</em>.</li>
 <li><strong>Indices</strong> (methodology, “Dimensions”): scenario <span class="math inline">\(o\)</span> (baseline <span class="math inline">\(B\)</span>, policy <span class="math inline">\(P\)</span>), country <span class="math inline">\(c\)</span>, UNFCCC sector <span class="math inline">\(u\)</span>, sector group <span class="math inline">\(g\)</span>, sector <span class="math inline">\(s\)</span>, fuel or generation type <span class="math inline">\(f\)</span>, pollutant <span class="math inline">\(p\)</span>, year <span class="math inline">\(t\)</span>. <strong>Indices are omitted where they add nothing:</strong> every mitigation equation holds for each scenario <span class="math inline">\(o\)</span> and country <span class="math inline">\(c\)</span>, and for each year <span class="math inline">\(t\)</span> unless <span class="math inline">\(t\)</span> is shown; the line “Over …” under an equation lists the other indices it ranges over. A previous-year value carries <span class="math inline">\(t-1\)</span>; a baseline value of the same year carries the superscript <span class="math inline">\(B\)</span>.</li>
 <li><strong>Distribution</strong> uses its own indices (methodology chapter 5): household <span class="math inline">\(j\)</span>, decile <span class="math inline">\(d\)</span>, consumption category <span class="math inline">\(g\)</span>, fuel <span class="math inline">\(f\)</span> (with <span class="math inline">\(f \in g\)</span>), analysis year <span class="math inline">\(y\)</span>.</li>
 <li><strong>Core and adjustments.</strong> The first part is the executive summary: the core equations of each block. The appendices hold the adjustments (exceptions, floors, switches, calibration, memo items).</li>
@@ -568,7 +568,7 @@ net_d = p_d + \frac{PIT_d + PUI_d + CTS_d + T_d}{c_d}
 </section>
 <section id="adjustments-mitigation" class="level2" data-number="A.3">
 <h2 data-number="A.3" class="anchored" data-anchor-id="adjustments-mitigation"><span class="header-section-number">A.3</span> Adjustments: mitigation</h2>
-<p>Started; completed block by block before each block is coded (coded/TODO.md phase 0). Sources for each block: <code>excel_ai/mitigation/docs/Equations.md</code>, <code>Equations_addendum.md</code> and <code>Formulas.md</code> (the workbook formulas), and the Methods chapters in <code>excel_ai/mitigation/docs/methods/</code>.</p>
+<p>Started; completed block by block before each block is coded (coded/TODO.md phase 0). Sources for each block: <code>excel_ai/mitigation/Equations.md</code>, <code>Equations_addendum.md</code> and <code>Formulas.md</code> (the workbook formulas), and the Methods chapters in <code>excel_ai/mitigation/docs/methods/</code>.</p>
 <section id="a1-policies" class="level3" data-number="A.3.1">
 <h3 data-number="A.3.1" class="anchored" data-anchor-id="a1-policies"><span class="header-section-number">A.3.1</span> A1 Policies</h3>
 <p>To complete: ETS (coverage, benchmarks, cap, semi-elasticity, fast price estimate, override, volatility adjustment: E4-E13); fuel-price reform path (E2); feebates (E3); existing carbon pricing growth (E17); methane fee (E18); exemptions (E18a); subsidy and price-control phase-outs; Pigouvian components (R3).</p>
@@ -664,7 +664,7 @@ fe^{new}_t = fe^{new}_{t-1}\left(\frac{p_t + \beta_t e}{p_{t-1} + \beta_{t-1} e}
 <p><span class="math display">\[
 F^{rod}_{f,t} = F_{f,t}\,\gamma_f \ (\gamma_f = F^{bal}_{f,t_0} / F_{f,t_0}), \quad F^{rod}_{bio,t} = B^{g}_{t_0} \frac{F^{rod}_{gso,t}}{F^{bal}_{gso,t_0}} + B^{d}_{t_0} \frac{F^{rod}_{die,t}}{F^{bal}_{die,t_0}}, \quad r_{f,t} = \frac{F_{rod,f,t}}{F_{all,f,t}}
 \]</span></p>
-<p>Over road fuels <span class="math inline">\(f\)</span>, years <span class="math inline">\(t\)</span>. Excel-AI notation. Road fuel use of the engineer model in ktoe, calibrated to the base-year balance (electricity only if recon_ele); it would replace road fuel use of sections 3 and 5 with TrModel = Engineer (not in Coded CPAT: tr.sw = 0 in Egypt’s scenarios). Distance, fuel use and stock-average fuel economy by vehicle class, the range-anxiety fit targets of the data years, and road fuel use with its share of total use (trq, tran.rsh) go to the transport co-benefits module. Source: Excel-AI: Mitigation section 5b rows 4525-4616.</p>
+<p>Over road fuels <span class="math inline">\(f\)</span>, years <span class="math inline">\(t\)</span>. Excel-AI notation. Road fuel use of the engineer model in ktoe, calibrated to the base-year balance (electricity only if recon_ele); it replaces road fuel use of section 5 and road electricity demand of section 3 where TrModel = Engineer (tr.sw = 1; Coded CPAT since 1.1.0p1.4; Egypt’s shipped scenarios use the elasticity model). Distance, fuel use and stock-average fuel economy by vehicle class, the range-anxiety fit targets of the data years, and road fuel use with its share of total use (trq, tran.rsh) go to the transport co-benefits module. Source: Excel-AI: Mitigation section 5b rows 4525-4616.</p>
 </section>
 <section id="a4-power" class="level3" data-number="A.3.4">
 <h3 data-number="A.3.4" class="anchored" data-anchor-id="a4-power"><span class="header-section-number">A.3.4</span> A4 Power</h3>
@@ -1563,7 +1563,7 @@ t_i = \sum_k L_{i,k}\,\phi_k\ (i \notin fuels), \qquad t^{*}_i = t_i\,\gamma_{s(
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool. The model shared by Excel-AI 1.1.0 and CPAT Python 1.1.0p1.3; data edition Public01</p>
+<p>CPAT-AI: WB-IMF Climate Policy Assessment Tool. The model shared by Excel-AI 1.1.0 and CPAT Python 1.1.0p1.4; data edition Public01</p>
 </div>
     <div class="nav-footer-right">
       &nbsp;

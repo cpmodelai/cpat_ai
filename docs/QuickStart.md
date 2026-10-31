@@ -4,11 +4,11 @@
 title: "CPAT-AI: Quick Start for People"
 ---
 
-A short, human-readable orientation to the cpat_ai repository, mostly about the Excel prototypes (Excel-AI). Written 2026-10-29, updated 2026-10-30 for release 1.1.0: Excel-AI 1.1.0 (Mitigation and Distribution), Coded CPAT 1.1.0p1.3, documentation 1.1.0, data edition Public01. The detail lives in the documents listed in section 1; this guide only points to them.
+A short, human-readable orientation to the cpat_ai repository, mostly about the Excel prototypes (Excel-AI). Written 2026-10-29, updated 2026-10-31 for release 1.2.0: Excel-AI 1.2.0 (the Master workbook; Mitigation and Distribution without macros, activated by the Master), Coded CPAT 1.1.0p1.4, data edition Public01. The detail lives in the documents listed in section 1; this guide only points to them.
 
 # 1. Key documents (start here)
 
-Paths are relative to the repository root. Files named `_v<version>` carry the current version (today 1.1.0); older versions are kept with their module (`releases/` folders).
+Paths are relative to the repository root. Files named `_v<version>` carry the current version (today 1.2.0 for the workbooks; 1.1.0 for the bug book, tracker, codes map and deck); older versions are kept with their module (`releases/` folders).
 
 **The website** <https://cpmodelai.github.io/cpat_ai/> has a home page and three tabs: Methodology (`#methodology`, the CPAT methodology), CPAT Excel-AI (`#excel-ai`, the Excel prototypes) and CPAT Python (`#python`, the Python model). Offline: `docs/index.html`.
 
@@ -17,7 +17,8 @@ Paths are relative to the repository root. Files named `_v<version>` carry the c
 | **Document** | **What it is for** |
 |---|---|
 | `QuickStart.docx` | This guide (root folder). |
-| `excel_ai/mitigation/docs/CPAT-AI-Mitigation_Documentation.docx` | Short documentation of the mitigation prototype: what it is, quick start, how it works, limits. |
+| `excel_ai/active_workbooks/CPAT-AI-Master_UserGuide.xlsm` | The Master workbook: the user guide inside Excel (tab UserGuide) and every macro. |
+| `excel_ai/mitigation/docs/CPAT-AI-Mitigation_Documentation.docx` | Short documentation of the mitigation module: what it is, quick start, how it works, limits. |
 | `excel_ai/mitigation/docs/CPAT-AI-Mitigation_Methods.docx` | Methods volume: one chapter per block, with equations. |
 | `excel_ai/bugs_and_legacy/Tracking_Legacy_Bugs_v<version>.xlsx` | **The master list of bugs and issues**, every module, with the CPAT team's own tabs. |
 | `excel_ai/bugs_and_legacy/Legacy_CPAT_Bugs_v<version>.docx` | Every legacy bug found, with its cell-level fix plan for legacy CPAT. |
@@ -57,16 +58,16 @@ The World Bank/IMF **Climate Policy Assessment Tool (CPAT)** models the fiscal, 
 ## The plan
 
 1. **Replicate CPAT-legacy in Excel.** Match legacy results, but without its bugs (every bug is fixed). Issues are replicated as legacy has them, not yet upgraded: improvements are proposed and tracked, then decided later.
-2. **Make Python replicate the Excel prototype** (`coded/`, the Coded CPAT and its Shiny app), using the same codes and input names, so the two can be compared number for number. Done for 1.1.0: Coded CPAT 1.1.0p1.3 matches Excel-AI Mitigation and Distribution 1.1.0 on Public01 within 1e-9.
+2. **Make Python replicate the Excel prototype** (`coded/`, the Coded CPAT and its Shiny app), using the same codes and input names, so the two can be compared number for number. Done for 1.1.0: Coded CPAT 1.1.0p1.4 matches Excel-AI Mitigation and Distribution 1.1.0 on Public01 within 1e-9.
 
 ## Key improvements over legacy
 
 - Every known legacy bug fixed, and documented with a fix plan the CPAT team can apply to legacy.
-- Readable: each formula is at most 100 characters and one formula serves a whole block; sections follow legacy's section numbers.
-- Any country: formulas contain no country numbers; all country data come from the data tabs, chosen by the country code on Settings.
+- Readable: formulas are short (target 90 characters, at most 115) and one formula serves a whole block; sections follow legacy's section numbers.
+- Any country: formulas contain no country numbers; all country data come from the data tabs, chosen by the country code on ScenarioDefinition (MTInputs, Model settings).
 - Linked data: the data tables refresh from a data workbook (Power Query) instead of being pasted in.
-- Scenarios: a dashboard (ScenarioCompare) compares up to 10 scenarios; every output has a code shared with Python (e.g. `egy.mit.co2.tot.tot.2`).
-- Modular: separate Distribution and Air Pollution files (Transport Co-benefits to follow).
+- Scenarios: MTOutputs shows the live scenarios side by side and a dashboard (ScenarioCompare) compares them; the Master stores up to 10 as values and compares them (CompareStored); every output has a code shared with Python (e.g. `egy.mit.co2.tot.tot.2`).
+- Modular: one workbook per module (Mitigation, Distribution, Air Pollution; Transport Co-benefits to follow), without macros; one Master workbook holds every macro.
 - Checked: an independent Python model (Coded CPAT), a quick check after every change, and a full check at milestones.
 
 # 3. The modules and who is responsible
@@ -81,7 +82,7 @@ The World Bank/IMF **Climate Policy Assessment Tool (CPAT)** models the fiscal, 
 
 ## The active workbooks
 
-Open **`excel_ai/active_workbooks/CPAT-AI-Master_UserGuide.xlsm`** first (Excel 365, macros on). It is the user guide and the only workbook with macros. Its module table lists each module's latest version, its `.xlsx` in the repository and its GitHub link. **Activate** a module there: the Master opens the `.xlsx` (shipped with formulas to 2035, so it is small and quick to open), fills the formulas across to 2041, recalculates and saves `<Name>_latest.xlsb` next to itself in `active_workbooks/`. Work in the `.xlsb`. The `.xlsb` are generated: on a git conflict take either side and activate again. Run a module for a particular country there, on your local drive; keep copies holding real data local and never commit them. Every version is kept in the module's `releases/` folder (`excel_ai/mitigation/releases/`, ...) as `<Name>_v<version>`.
+Open **`excel_ai/active_workbooks/CPAT-AI-Master_UserGuide.xlsm`** first (Excel 365, macros on). It is the user guide and the only workbook with macros. Its module table lists each module's latest version, its `.xlsx` in the repository and its GitHub link. **Activate** a module there: the Master opens the `.xlsx` (shipped with formulas to 2035, so it is small and quick to open), fills the formulas across to 2041, recalculates and saves `<Name>_latest.xlsb` next to itself in `active_workbooks/`. Work in the `.xlsb` (manual calculation: press F9 after a change). The `.xlsb` are generated: on a git conflict take either side and activate again; never commit the `~$` lock files Excel writes while a workbook is open (`.gitignore` skips them). Run a module for a particular country there, on your local drive; keep copies holding real data local and never commit them. Every version is kept in the module's `releases/` folder (`excel_ai/mitigation/releases/`, ...) as `<Name>_v<version>`.
 
 ## How the modules connect and how data flow
 
@@ -101,13 +102,13 @@ Open **`excel_ai/active_workbooks/CPAT-AI-Master_UserGuide.xlsm`** first (Excel 
 
 ## Loading data into the mitigation module
 
-On ScenarioCompare choose the data source, then click **Update data tables** (status shown on Cover):
+In the Master, tab **Settings**: choose the data source and the rows to load (the module's country, or all countries), then click **Update data tables** on UserGuide. The activated mitigation workbook records the choice on its tab FromMaster; the status is on its Cover.
 
 | **Source** | **What it does** |
 |---|---|
 | Embedded (shipped data, no update) | Uses the data shipped inside the workbook (Public01); the default. |
 | Public01 - GitHub (public repository) | Reads `data/Public01/legacy_xlsx/CPAT_LegacyData.xlsx` from the public repository. |
-| Public01 - local file | Reads `CPAT_LegacyData.xlsx` next to the workbook or in your clone's `data/Public01/legacy_xlsx/` (or a path you type). |
+| Public01 - local file | Reads `CPAT_LegacyData.xlsx` in your clone's `data/Public01/legacy_xlsx/` (or a path you type). |
 | Data repository (type its URL) | Reads a data workbook from a separate data repository; a workbook you then save with real data must not be committed. |
 | SharePoint (type its URL) | Reads a data workbook from SharePoint. |
 
@@ -191,5 +192,5 @@ Getting set up and a short guide to git are in `other/SetupGuide.docx`. In short
 - How-to guides: the setup and tools guide `other/SetupGuide.docx`; the quick start in the mitigation Documentation; the data editions and scripts in `data/README.md`; module guides and prompts in `excel_ai/core/prompts/`.
 - Supporting material in `other/`: research papers, decks (`other/presentations/`), distribution notes and earlier prototypes.
 - Plans: `excel_ai/core/plans/` (e.g. `Modules.md` for the modular design).
-- Python model (Coded CPAT 1.1.0p1.3): `coded/README.md` (`run_model.py`, the Shiny app `app.py`, tests in `coded/cpat_testing/`), its deck and the Coded CPAT tab of the website.
+- Python model (Coded CPAT 1.1.0p1.4): `coded/README.md` (`run_model.py`, the Shiny app `app.py`, tests in `coded/cpat_testing/`), its deck and the Coded CPAT tab of the website.
 - Personal working folders: `users/`.
