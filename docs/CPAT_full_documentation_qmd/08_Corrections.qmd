@@ -2,6 +2,8 @@
 
 This edition of the methodology is the CPAT team's 2023 text with errors corrected in place. The errors were found by the CPAT-AI project while it rebuilt CPAT in Excel and Python and wrote out every equation (the *Documentation bugs* DOC1-DOC20 of its register, `excel_ai/core/BUGS.md`). No model changes: CPAT, Excel-AI and CPAT Python already compute what the corrected text says.
 
+This edition also adds a section on the engineer road transport model ([7.1](07_Road_Transport.qmd#sec-EngineerTransport)). It describes the model as implemented in CPAT-AI; how that differs from the CPAT team's methodology note and from legacy CPAT is set out in the [errata](#sec-ErrataEngineerRoad) at the end of this chapter.
+
 ::: {.callout-note}
 #### The PDF download
 
@@ -12,7 +14,7 @@ The downloadable PDF is the 2023 edition, without these corrections. Read the we
 
 | Date | Version | Changes |
 |---|---|---|
-| 2026-10-31 | 2023 edition, corrected | Twenty documentation errors corrected (DOC1-DOC20, below): 14 in full, 6 in part. New section [GDP feedback in CPAT](04_Multipliers.qmd#sec-GDPFeedback). New section [Techno-economic ('engineer') road transport model](07_Road_Transport.qmd#sec-EngineerTransport), from the CPAT team's methodology note on road transport, with a chapter scope note and links from Mitigation. |
+| 2026-10-31 | 2023 edition, corrected | Twenty documentation errors corrected (DOC1-DOC20, below): 14 in full, 6 in part. New section [GDP feedback in CPAT](04_Multipliers.qmd#sec-GDPFeedback). New section [Techno-economic ('engineer') road transport model](07_Road_Transport.qmd#sec-EngineerTransport), from the CPAT team's methodology note on road transport, with a chapter scope note and links from Mitigation; its values are those implemented in CPAT-AI, and its differences from the note and from legacy CPAT are in the [errata](#sec-ErrataEngineerRoad). |
 | 2023 | 2023 edition | The CPAT team's methodology. |
 
 ## Corrections of 2026-10-31
@@ -39,3 +41,99 @@ The downloadable PDF is the 2023 edition, without these corrections. Read the we
 | DOC18 | Air pollution, eq-deltae, eq-ifeach, eq-pomincfactor, eq-modeled | Index definitions corrected ($k$ source regions, $i$ precursor, $j$ component, $iF_{p,j,l}$, $d_{POM,1}$); eq-modeled uses $i$ and $j$ as eq-sourcerecep does. | Fixed |
 | DOC19 | Road transport, eq-basefor | Growth terms on one basis: $(1 + g^{GDP}_t - \overline{g^{GDP}})$ with net growth rates; $Y^f_t$ → $Y^{simple}_t$. | Fixed |
 | DOC20 | All chapters | Clashes within a chapter removed where clear-cut (Mitigation: $g$ as growth rate → $\tau$, $P_t$ → $p_t$ in the rebound term; Multipliers: error term $\varepsilon$; Distribution: $p_j$; Air pollution and Road transport as DOC18, DOC19). | Partly fixed: letters reused across chapters, and $g$ as both sector group and generation in Mitigation, remain |
+
+## Errata: engineer road transport model {#sec-ErrataEngineerRoad}
+
+Section [7.1](07_Road_Transport.qmd#sec-EngineerTransport), the techno-economic ('engineer') road transport model, was added in this edition. It draws on three sources, which do not agree everywhere:
+
+- **The methodology note** (`Transportation_methodology.docx`, the CPAT team): the method in words, with sources and proposed parameter values, but no equations.
+- **Legacy CPAT** (the CPAT workbook, `CPAT 1.0pre_456`): the implemented model, with its parameters on the Dashboard and in side tables.
+- **CPAT-AI**: Excel-AI and CPAT Python, which compute the same model and agree to within $10^{-9}$ in every code and year. A Python reference engine reproduces the cached legacy run to within $4 \times 10^{-14}$ with every fix switched off, so every difference from legacy below is deliberate.
+
+**Section 7.1 follows CPAT-AI**: its equations and its parameter values. This errata lists the choices made in writing it, where the implementation (legacy CPAT and CPAT-AI alike) differs from the methodology note, and where CPAT-AI differs from legacy CPAT. The implementation, with every bug fix and its legacy cells, is documented in the CPAT-AI Model book ([Road transport: comparison with legacy CPAT](../CPAT_model_documentation_html/05_Road_transport.html#sec-tr-legacy)).
+
+### Choices made in writing section 7.1
+
+| Topic | Choice |
+|---|---|
+| Parameter values | Throughout 7.1 the values are those implemented in CPAT-AI (@tbl-EngTrParams). The note's values appear only in this errata. |
+| Equations | The note has none. They are written from the implementation, in the Methodology's notation. |
+| Notation | Symbols of the Mitigation chapter keep their meaning ($F$, $p$, $\alpha$, $\epsilon_U$, $\epsilon_F$, $ef$, $t_0$; the logit parameter $K$ of the engineer power model), as does $g^{GDP}$ of chapter 7. Elasticities are $\epsilon$ with a subscript, distinct from the outcome elasticities $\eta$ and the regression terms ($\alpha$, $\beta$, $\gamma$, $\mu$, $\epsilon_{ct}$) of the co-benefits estimation. New symbols use letters not used elsewhere in the book ($\kappa$, $\Lambda$, $\chi$, $\rho$, $\sigma$, $\Theta$, $\varsigma$, $\psi$). The CPAT-AI Model book uses the Excel-AI notation instead (e.g. vehicle class $k$ there, $m$ here). |
+| Draft text in the note | Not carried over: the maintenance range "\$0.03-\$0.012 per km" (a typo, presumably \$0.03-\$0.12; replaced by the implemented values), motorcycle VKT "around X", the discount-rate source "a quick AI search (needs to be reviewed)", "to be updated in the future" (buses) and the link to a data request form. |
+| Claims of the note not implemented | Left out of the method text and listed in the next table: a limited supply of used EVs, ICEV and BEV prices rising with income, maintenance costs rising with wages, distance of new vehicles responding to fuel prices. |
+| Implemented features not in the note | Added to the method text: the insurance factor 0.5, the bounds on freight distance in the TCO, the cap on BEV distance, the three years of constant range anxiety, the two-step calibration to the energy balance, the feebate pivot options. The note gives no rationale for them; none is invented. |
+| Figures | The note's charts are EMF files. Its freight and two-three wheeler purchase-price charts and its freight select-markets chart render identically to the passenger ones, so only the passenger panels are shown, with captions that say so. |
+| Chapter structure | 7.1 is placed first, and an unnumbered scope note says the chapter documents both the transport part of mitigation and the co-benefits. The later sections of chapter 7 move down by one number; their link anchors are unchanged. The co-benefits Summary is retitled *Co-benefits: summary*. |
+
+### Where the implementation differs from the methodology note
+
+Legacy CPAT and CPAT-AI agree in every row except where the CPAT-AI column says otherwise.
+
+| Item | Methodology note | Legacy CPAT | CPAT-AI (Excel-AI, CPAT Python) |
+|---|---|---|---|
+| Consumer discount rate | 30% in low-income, 10% in high-income countries | 15% at US\$1,000 per capita or less, falling linearly to 5% at US\$50,000 | As legacy (freight too: see the next table) |
+| Ownership period of a new passenger vehicle | Resold at 10 years | 7 years (used: 13) | As legacy |
+| Freight depreciation and resale | 30% in the first year, then linear over 7 years; sold at year 5 | 30% in the first year, then linear over the remaining 9 years of a 10-year life; no resale | As legacy |
+| Two-three wheeler depreciation | Linear over 5 years | 30% in the first year, then linear over the remaining 6 years of a 7-year life | As legacy |
+| ICEV maintenance | \$0.03-\$0.12 (LDV), \$0.045-\$0.135 (HDV), \$0.01-\$0.04 (motorcycle) per km, rising with wages | Fixed: \$0.071, \$0.09, \$0.025 per km | As legacy |
+| EV maintenance | 1/3 of ICEV | 2/3 of ICEV | As legacy (with the new passenger BEV bug fixed: next table) |
+| Driving (usage) elasticity | $-0.3$ (LDV, two-three wheeler), $-0.2$ (HDV) | $-0.4$, $-0.3$: the road gasoline and diesel usage elasticities of the Mitigation chapter | As legacy |
+| Income elasticity of distance | 0.05 | 0.1; two-three wheelers $-0.4$ | As legacy |
+| Distance of new vehicles in the TCO | Responds to fuel prices and income | Income only (the price response is a switch, off) | As legacy |
+| BEV and ICEV distance in the TCO | Identical | BEV = ICEV × (relative cost per km)$^{\epsilon_U}$, at most 1.2 (passenger) or 1.0 (freight, two-three wheeler) | As legacy |
+| Freight distance in the TCO | Country-specific, around 80,000 km | Transport data average, kept between 50,000 and 120,000 km | As legacy |
+| Charging mark-up | Falls from about US\$0.10 to 0.02 per kWh | Maximum US\$0.30, minimum 0.02 per kWh, times the public charging share 0.2 (US\$0.06 to 0.004 per kWh on all charging) | As legacy |
+| Range anxiety and charging stations | A 10% rise in charging availability raises EV uptake by 3.7% | Range anxiety falls with stations, elasticity $-0.5$, after three years at its start value; stations grow with the BEV stock (0.3) and fall with their cost ($-0.67$) | As legacy |
+| ICEV and BEV retail prices | Rise with income (ICEVs constant at a given income level) | Country price paths 2022-2040, no link to income | As legacy |
+| Supply of used EVs | Limited by global and domestic EV purchases 10 years (passenger) or 4 years (freight) before | Not implemented | Not implemented |
+| Imported and domestic used vehicles | Separated | One used-vehicle class, with the used share of purchases | As legacy |
+| Discounting of freight | Financing cost, by income level | Average power-sector WACC (a bug) | The consumer discount rate |
+| Range anxiety calibration | To EV sales in the latest year | Stored per-country solver values of an earlier vintage | Refitted by goal seek to the 2025 EV share of purchases, baseline, by country |
+| Ownership dynamics | Short- and long-run elasticities | Partial adjustment 0.09, growth at most 7.5% a year; passenger and freight ownership cannot fall | May fall by up to 10% a year |
+
+The efficiency elasticities ($-0.4$ passenger and two-three wheelers, $-0.3$ freight), the 1% autonomous efficiency improvement, the logit parameters (3, 2, 4), the own- and cross-TCO elasticities of the fuel split, the first-year depreciation of 30%, insurance at 1.5% of value, buses scaled with passenger energy use, and constant biofuel blending agree in all three.
+
+### Where CPAT-AI differs from legacy CPAT
+
+**Decisions.** Where a choice was needed, CPAT-AI took the recommendation of its transport plan (user decisions of 2026-10-14).
+
+| Topic | Legacy CPAT | CPAT-AI |
+|---|---|---|
+| Default road model | Engineer in the template; the Egypt run uses Elasticity | Elasticity by default; Engineer by a switch per scenario (`TrModel`) |
+| Range anxiety start values | Stored per-country solver results of another vintage, which do not fit the corrected model | Refitted by goal seek (2025, baseline), stored per country; otherwise the stored value, otherwise the average |
+| Ownership decline | Passenger and freight ownership cannot fall | May fall by up to 10% a year (the legacy two-three wheeler value); a placeholder |
+| Depreciation of used vehicles | Used ICEVs over 6 years, used BEVs over 12 | 12 years for both (the used ownership period less one) |
+| PHEV range anxiety | The full BEV range anxiety (about US\$100,000), so PHEV sales vanish | None: PHEVs refuel with gasoline |
+| Vehicle feebate rate | Feebate + carbon price × road feebate coverage, counting the carbon price twice | Feebate + the road regulation shadow price; the carbon price is in the fuel price already |
+| Two-three wheeler fuel price | Gasoline price before new policies | Road gasoline price including new policies, as for passenger vehicles, so carbon pricing reaches two-three wheelers |
+| LNG trucks | Industrial gas price before the road policies | Industrial gas price + the road new policies |
+| Policy inputs | Dashboard cells, one set for all scenarios | Scenario definitions, one set per scenario |
+| Hardcoded constants | Literals in formulas (Gompertz constant, gas liters per GJ, PHEV kWh per liter, insurance factor, distance caps, fuel split elasticities) | Named parameters with the same values |
+| Road externalities from the engineer model | Sheet `Transport` reads the engineer distance and fuel economy, even under Elasticity | Not built; the co-benefits read road fuel use of the selected model |
+
+Kept as legacy: the freight distance in the TCO (the Transport data average, floored at 50,000 km), the data years of inputs (VAT and customs duties of 2024, import shares of 2022, bus electricity of 2024), and the calibration factors to the energy balance, which are reported.
+
+**Legacy bugs fixed.** Codes of the CPAT-AI bug register (`excel_ai/core/BUGS.md`).
+
+| Code | Legacy bug | Fix |
+|---|---|---|
+| L25 | Passenger distance tax and two-three wheeler EV subsidy apply in the baseline too (a text compared with a number) | Policy scenarios only |
+| L26 | Freight and two-three wheeler income growth read coal producer subsidies from 2038 | Lagged GDP growth in all years |
+| L27 | Ownership calibration scales up only, at 2024 | Actual over expected, both ways, at the last data year (2025) |
+| L28 | Freight share cap and two-three wheeler peak read 2024 | The last data year |
+| L29 | Passenger and freight ownership cannot fall | Decline of up to 10% a year |
+| L30 | Bus fuel scaled by the wrong rows; bus electricity from a sum of liters and kWh | Passenger fuel use in ktoe and passenger electricity |
+| L31 | Bus share added as × (1 + share) | / (1 − share) |
+| L32 | Diesel and LPG use industry emission factors, CNG/LNG the residential gas factor | Road emission factors |
+| L33 | Freight BEV distance with the two-three wheeler income elasticity; two-three wheeler BEV distance with the cost ratio twice and no income term; other row errors | The right rows and terms |
+| L34 | Freight discounted at the average power-sector WACC | The consumer discount rate |
+| L35 | PHEV share of purchases negative | (EV − BEV share) × the passenger share; ICE shares scaled to the rest |
+| L36 | Charging-station subsidy ramp accumulates before its start year, uncapped | Zero before the start year, linear to the target, then constant |
+| L37 | New passenger BEV maintenance at the ICEV rate | The EV rate |
+| L38 | Used ICEV depreciation over 6 years, used BEV over 12 | 12 years for both |
+| L39 | Freight distance omits LPG and LNG trucks | All fuels |
+| L40 | Average gas fuel economy and the EV fuel-economy fallback read the wrong rows | The right rows |
+| L41 | PHEV TCO includes the full BEV range anxiety | No range anxiety for PHEVs |
+| M13 | Vehicle feebate counts the carbon price twice | Feebate + road regulation shadow price |
+| M16 | Freight BEV feebate valued at the ICEV truck's discounted distance | Its own distance |
+| M17 | PHEV TCO mixes BEV capital cost with insurance on the ICEV price | Insurance on the BEV price, ICEV maintenance over the ICEV distance |
