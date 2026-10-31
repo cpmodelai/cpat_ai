@@ -1,8 +1,10 @@
 """CPAT-AI Distribution Prototype: the standalone distribution module (Plan_Modules M3).
 
-The module is cut from the built mitigation prototype (one source of truth: the prototype builder's Distribution,
-FromMitigation and data tabs, not a second copy of them). From ../active_workbooks/CPAT-AI-Mitigation-Prototype_latest.xlsm it keeps
-the tabs the Distribution tab reads, turns every formula that reads a dropped tab into its value (FromMitigation
+The module is cut from a full build of the mitigation prototype (one source of truth: the prototype builder's
+Distribution, FromMitigation and data tabs, not a second copy of them). v1.2.0: the mitigation workbook no longer holds
+the Distribution tab, so this builder runs the mitigation builder with CPAT_WITH_DIST=1 (Distribution, FromMitigation
+and the distribution data tabs included), takes the baseline CO2 values from the mitigation workbook
+(../active_workbooks/), recalculates it in LibreOffice and keeps the tabs the Distribution tab reads, turns every formula that reads a dropped tab into its value (FromMitigation
 entirely: the button Update from Mitigation refreshes it), keeps the defined names and LAMBDAs still used, shows only
 the distribution rows of ScenarioDefinition, and adds a Cover with the link to the mitigation workbook and the VBA
 module CPATDistribution.bas. Then, as the prototype: shipped with its values (LibreOffice), manual calculation,
@@ -29,12 +31,13 @@ from openpyxl.styles import Alignment, Border
 from openpyxl.workbook.defined_name import DefinedName
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+os.environ['CPAT_WITH_DIST'] = '1'                     # v1.2.0: the full build, with the Distribution tabs
 import build as P                                      # noqa: E402  the prototype builder (helpers, layout)
 
 VERSION = '1.1.0'
 NAME = 'CPAT-AI-Distribution-Prototype'
 OUT = P.REL.versioned(NAME, VERSION, 'xlsm')     # distribution/releases/<name>_v<version>.xlsm (_latest copy: active_workbooks/)
-SOURCE = P.LATEST                                     # the mitigation prototype the module is cut from
+SOURCE = P.LATEST                                     # the mitigation workbook (baseline CO2 values, its name)
 BAS = os.path.join(HERE, 'CPATDistribution.bas')
 MIT_FILE = os.path.basename(P.LATEST)
 
@@ -246,12 +249,33 @@ def vba_source():
     return text.split('\n', 1)[1]
 
 
+def full_source(stage):
+    """v1.2.0: the mitigation prototype with its Distribution tabs, built here (CPAT_WITH_DIST=1): tabs merged, the
+    baseline CO2 values copied from the mitigation workbook (the batch result), values stored by LibreOffice."""
+    wb = P.generate()
+    P.merge_tabs(wb)
+    src = openpyxl.load_workbook(SOURCE, data_only=True)['BaselineCO2']
+    ws = wb['BaselineCO2']
+    for row in src.iter_rows():
+        for c in row:
+            if isinstance(c.value, (int, float)) and not isinstance(ws.cell(c.row, c.column).value, str):
+                ws.cell(c.row, c.column).value = c.value
+    stage('full mitigation build (with Distribution) generated')
+    path = os.path.join(tempfile.mkdtemp(), 'mitigation_full.xlsx')
+    wb.save(path)
+    P.fix_outline_levels(path)
+    P.store_values(path)
+    stage('full build recalculated (LibreOffice)')
+    return path
+
+
 def main():
     t0 = time.time()
     stage = lambda what: print(f'[{time.time() - t0:5.0f} s] {what}', flush=True)
-    wb = openpyxl.load_workbook(SOURCE)
-    wbv = openpyxl.load_workbook(SOURCE, data_only=True)
-    stage(f'loaded {os.path.basename(SOURCE)}')
+    full = full_source(stage)
+    wb = openpyxl.load_workbook(full)
+    wbv = openpyxl.load_workbook(full, data_only=True)
+    stage(f'loaded the full build {os.path.basename(full)}')
     sd_rows = show_distribution_rows(wb['ScenarioDefinition'], wb['Distribution'], wbv['Distribution'])
     print(f'  ScenarioDefinition rows read by Distribution: {len(sd_rows)} ({sd_rows[0]}-{sd_rows[-1]})')
     cut(wb, wbv)

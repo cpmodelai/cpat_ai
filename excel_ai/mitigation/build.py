@@ -158,6 +158,10 @@ from openpyxl.workbook.defined_name import DefinedName
 VERSION = '1.1.0'   # also in version.json (read by the deck builder)
 SCRIPTS_TAG = None   # v0.8.0: scripts and notes have stable names (releases are git tags); v0.7.1: a point release renames only the builder, VBA module, workbook and reports; the scripts and
                       # notes keep the tag of the full release (NORMS.md section 5)
+# v1.2.0 (user 2026-10-31): the mitigation workbook holds no other module. The Distribution tab, its input tab
+# FromMitigation and its data tabs are built only for the distribution builder, which sets CPAT_WITH_DIST=1 before
+# importing this module (distribution/build_distribution.py).
+WITH_DIST = os.environ.get('CPAT_WITH_DIST') == '1'
 COUNTRY = 'EGY'   # v0.3.3: default of Settings C4 (user input); country data only in the data sheets, by this key
 LAMBDA_ROWS = []                        # v0.2.3: LAMBDA year 2041; v0.1.08: (row, variable, fuel, sector, LAMBDA formula of the scenario-1 right
                                         # column) - the optional LAMBDA library, written to sheet Lambdas, not to cells
@@ -9899,6 +9903,12 @@ def build_mtoutputs(wb):
             put(ws, f'{hm}{r}', it['match'] + (f': {it["reason"]}' if it['reason'] else ''), FONT)
             put(ws, f'F{r}', f'=IF(${hb}{r}="","",LOWER(CtryCode)&"."&${hb}{r}&IF($G{r}="distn","","."&$J{r}))',
                 FONT, F_CODE)
+            if dist and not WITH_DIST:                          # v1.2.0: an output of the distribution module
+                put(ws, f'A{r}', 'No', FONT)
+                put(ws, f'D{r}', it['indicator'] or it['var'], FONT)
+                put(ws, f'I{r}', it['unit'], FONT)
+                put(ws, f'{hm}{r}', 'distribution module: its MTOutputs', FONT)
+                continue
             if not it['var']:                                   # legacy only: its text and unit, no values
                 put(ws, f'D{r}', it['indicator'], FONT)
                 put(ws, f'I{r}', it['unit'], FONT)
@@ -13872,8 +13882,8 @@ def expand_save(wb):
     # v0.4.9: blanked in the copy, as the stored results do not read it: the Distribution sheet (no MTOutputs
     # indicator reads it). v0.6.7: group 2 is the live scenario (LAMBDAs), so it is kept (v0.4.9-v0.6.5 blanked the LAMBDA
     # test group 3; v0.6.6 blanked group 2 by mistake, so its stored definitions were empty)
-    ws_d = wb['Distribution']
-    for ws, c0, c1 in ((ws_d, 1, ws_d.max_column),):
+    dist_tabs = [wb['Distribution']] if 'Distribution' in wb.sheetnames else []   # v1.2.0: none in Mitigation
+    for ws, c0, c1 in ((w, 1, w.max_column) for w in dist_tabs):
         for row in ws.iter_rows(min_col=c0, max_col=c1):
             for cell in row:
                 if cell.value is not None:
@@ -14173,11 +14183,6 @@ def build_scenario_compare(wb):
                 if f:
                     put(ws, f'{cl}{rr}', f, FONT_B if j == 0 else FONT, F_BASE if k == 0 else None, f_)
             border_bottom(ws, r + 2, 2, SC_C0 + SC_SLOTS - 1)
-    r = SC_BAR_R                                   # chart data of the bar chart: #N/A where there is no result
-    put(ws, f'B{r}', 'Chart data: energy CO2, % difference vs Base (#N/A = no result)', FONT_HELP)
-    for k in range(1, SC_SLOTS):
-        cl = L(SC_C0 + k)
-        put(ws, f'{cl}{r}', f'=IF({cl}{SC_KEY_R0 + 2}="",NA(),{cl}{SC_KEY_R0 + 2})', FONT_HELP, None, '0.0%')
     band(ws, SC_TS_R0 - 1, 'Time series (choose the indicator in the dropdown of each title; chart beside each table)',
          SC_Y1)
     cat = sc_catalog_rows()
@@ -14190,7 +14195,7 @@ def build_scenario_compare(wb):
     for nm, col in (('SCCatStem', 'A'), ('SCCatLab', 'B'), ('SCCatUnit', 'C')):
         wb.defined_names[nm] = DefinedName(nm, attr_text=f'ScenarioCompare!${col}${cr0}:${col}${cr1}')
     catrow = {stem: r_ for r_, stem, _lo in cat}
-    cfg = [('bar', SC_BAR_R, SC_BAR_R, SC_R_SHORT, SC_C0 + 1, SC_C0 + SC_SLOTS - 1, SC_KEY_R0)]
+    cfg = []                                       # v1.2.0: the bar chart beside the key table removed (user)
     cf_cells = []
     for i, stem in enumerate(SC_TS):
         h, yr, s0, s1 = sc_ts_rows(i)
@@ -14217,7 +14222,7 @@ def build_scenario_compare(wb):
                                     f'MATCH({cl}${yr},SCYear,0)),NA())', FONT, None, '#,##0.00')
         cf_cells.append(f'{L(SC_C0)}{s0}:{L(SC_Y1)}{s1}')
         cfg.append(('line', s0, s1, yr, SC_C0, SC_Y1, h))
-    for rng in cf_cells + [f'{L(SC_C0 + 1)}{SC_BAR_R}:{lastk}{SC_BAR_R}']:   # #N/A (no result) not shown
+    for rng in cf_cells:                           # #N/A (no result) not shown
         top = rng.split(':')[0]
         ws.conditional_formatting.add(rng, FormulaRule(formula=[f'ISNA({top})'], font=Font(color='FFFFFF')))
     c0 = SC_TS_R0 + len(SC_TS) * SC_TS_H + len(cat) + 4     # chart configuration for the macro RefreshDashboard
@@ -14258,8 +14263,8 @@ def build_scenario_compare(wb):
 
 
 def build_compare_charts(ws, cfg):
-    """v0.6.7: one bar chart (energy CO2, % difference vs the baseline, by scenario) right of the key table and one line
-    chart per time-series block right of its table. Series: the scenarios with results when built (the macro
+    """v0.6.7: one line chart per time-series block right of its table (v1.2.0: the bar chart beside the key table
+    removed, user 2026-10-31). Series: the scenarios with results when built (the macro
     RefreshDashboard rebuilds them for the chosen source); short names in the legend, the baseline dashed grey, one
     colour per scenario slot everywhere; no axis titles (the unit is in the title), legend at the bottom."""
     from openpyxl.chart import BarChart, LineChart, Reference, Series
@@ -14272,21 +14277,7 @@ def build_compare_charts(ws, cfg):
     def small(sz=800):
         return RichText(p=[Paragraph(pPr=ParagraphProperties(defRPr=CharacterProperties(sz=sz)), endParaRPr=
                                      CharacterProperties(sz=sz))])
-    _k, r0, _r1, hr, c0, c1, _t = cfg[0]
-    bc = BarChart()
-    bc.type, bc.title, bc.legend = 'col', 'Energy CO2 emissions: % difference vs Base', None
-    ser = Series(Reference(ws, min_col=c0, max_col=c1, min_row=r0, max_row=r0))
-    ser.graphicalProperties.solidFill = SC_COLOURS[1]
-    bc.series.append(ser)
-    bc.set_categories(Reference(ws, min_col=c0, max_col=c1, min_row=hr, max_row=hr))
-    bc.y_axis.numFmt = '0%'
-    bc.y_axis.majorGridlines = None
-    bc.x_axis.delete = bc.y_axis.delete = False
-    bc.x_axis.tickLblPos = 'low'
-    bc.x_axis.txPr, bc.y_axis.txPr = small(), small()
-    bc.height, bc.width = 7.0, 13.0
-    ws.add_chart(bc, f'{L(SC_C0 + SC_SLOTS + 1)}{SC_KEY_R0 - 1}')
-    for kind, s0, s1, yr, c0, c1, h in cfg[1:]:
+    for kind, s0, s1, yr, c0, c1, h in cfg:
         ch = LineChart()
         ch.title = 'time series'
         for j in range(s1 - s0 + 1):
@@ -15154,6 +15145,9 @@ def build_from_mitigation(wb):
 def build_distribution(wb):
     """v0.4.4: sheet Distribution (NORMS 1.1b): sections 1-9; v0.6.6: group 1 plain formulas, group 2 (the live scenario)
     named LAMBDAs; more groups by copy-paste of group 2."""
+    if not WITH_DIST:                              # v1.2.0: the mitigation workbook keeps only its exports (19a)
+        build_exports(wb)
+        return None
     ws = wb.create_sheet('Distribution')
     build_exports(wb)                              # v0.8.1: Mitigation section 19a and tab FromMitigation
     build_from_mitigation(wb)
@@ -15321,6 +15315,12 @@ def build_distribution_data(wb):
     country). DistMapping holds the recycling choices, the IO fuel groups, the Gini weights, the input-output tables of
     the selected country (formulas; legacy Distribution C.I) and, at the bottom, the GDP deflator rows of legacy WEO."""
     src = 'extract_legacy_tables.py'
+    if not WITH_DIST:                              # v1.2.0: Mitigation reads only HHSurvey and WHOCooking (ExemptCookShare,
+        legacy_table(wb, 'HHSurvey', 'HHSurvey - household budget survey by sample, statistic and decile (shares in %, '
+                     'population, consumption)', f'legacy sheet HHSurvey, {src}')     # CookFuel)
+        legacy_table(wb, 'WHOCooking', 'WHOCooking - main cooking fuel and its share by sample',
+                     f'legacy sheet WHOCooking, {src}')
+        return
     legacy_table(wb, 'IO_GTAP', 'IO_GTAP - GTAP input-output data by series (rows) and sector (columns), USD m, GTAP '
                  'year', f'legacy sheet IO_GTAP, {src}')
     legacy_table(wb, 'HHSurvey', 'HHSurvey - household budget survey by sample, statistic and decile (shares in %, '
@@ -15463,6 +15463,9 @@ MAPPOS = {}
 
 def dist_names():
     """v0.4.5: defined names of the distribution data (legacy tables; room for every country) and of Distribution."""
+    if not WITH_DIST:                                  # v1.2.0: the two distribution tabs Mitigation reads
+        return {'DHHKey': 'HHSurvey!$A$4:$A$40000', 'DHHVal': 'HHSurvey!$A$4:$BP$40000', 'DHHVar': 'HHSurvey!$A$3:$BP$3',
+                'DCookKey': 'WHOCooking!$A$4:$A$2000', 'DCookFuel': 'WHOCooking!$E$4:$E$2000'}
     m = MAPPOS
     return {
         'DHHKey': 'HHSurvey!$A$4:$A$40000', 'DHHVal': 'HHSurvey!$A$4:$BP$40000', 'DHHVar': 'HHSurvey!$A$3:$BP$3',
@@ -15731,10 +15734,9 @@ def drop_copy_codes(wb):
 apply_stem_renames()                      # v0.7.2: at import, so the checks see the stems too
 
 
-def main():
-    import time
-    t0 = time.time()
-    stage = lambda what: print(f'[{time.time() - t0:5.0f} s] {what}', flush=True)   # v0.4.9: build timings
+def generate():
+    """v1.2.0: the workbook in memory, every tab built and in order, before the merge of tabs (the mitigation build
+    below; the distribution builder with CPAT_WITH_DIST=1)."""
     wb = Workbook()
     build_settings(wb)
     build_constants(wb)
@@ -15781,20 +15783,30 @@ def main():
         # Excel repairs the workbook ("Named range from /xl/workbook.xml") when a name comment exceeds 255 characters
         assert len(LAMBDA_NOTES[name]) <= 255, (name, len(LAMBDA_NOTES[name]))
         wb.defined_names[name] = DefinedName(name, attr_text=lambda_xml(name), comment=LAMBDA_NOTES[name])
-    clash = {n.upper() for n in {**defined_names(), **dist_names()}} & {n.upper() for n in LAMBDAS}
+    dnames = {n: ref for n, ref in dist_names().items()    # v1.2.0: only the names of the tabs built
+              if ref.split('!')[0].strip("'") in wb.sheetnames}
+    clash = {n.upper() for n in {**defined_names(), **dnames}} & {n.upper() for n in LAMBDAS}
     assert not clash, f'defined names clash with LAMBDA names (case-insensitive): {clash}'
-    for name, ref in {**defined_names(), **dist_names()}.items():
+    for name, ref in {**defined_names(), **dnames}.items():
         wb.defined_names[name] = DefinedName(name, attr_text=ref)
-    order = (['Cover', 'ScenarioCompare', 'ScenarioDefinition', 'MAIN->>', 'Mitigation', 'FromMitigation', 'Distribution', 'MTOutputs',
-              'StoredOutputs', 'INPUTS->>', 'Manual inputs', 'Settings', 'Inputs', 'Inputs_prices', 'Inputs_power', 'Inputs_ef', 'Inputs_ela', 'Inputs_mult', 'Inputs_macro', 'Inputs_pint', 'Inputs_ecp', 'Inputs_pset',
-              'Inputs_ptech', 'Inputs_ppath', 'Inputs_ppar', 'Inputs_nc', 'FromAirPollution', 'FromTransportCB', 'Mapping',
-              'Constants', 'REF->>', 'VersionLog', 'ReadMe', 'LegacyDiff', 'Lambdas', 'Variables', 'MacroCheck']
+    order = (FRONT_TABS + ['Settings', 'Inputs', 'Inputs_prices', 'Inputs_power', 'Inputs_ef', 'Inputs_ela', 'Inputs_mult',
+                           'Inputs_macro', 'Inputs_pint', 'Inputs_ecp', 'Inputs_pset', 'Inputs_ptech', 'Inputs_ppath',
+                           'Inputs_ppar', 'Inputs_nc', 'Mapping', 'Constants']
+             + MODULE_TABS + ['REF->>', 'VersionLog', 'ReadMe', 'LegacyDiff', 'Lambdas', 'Variables', 'MacroCheck']
              + [t for div, tabs in DATA_GROUPS for t in [div] + tabs])   # v0.4.5: data tabs grouped as legacy
     assert set(order) == set(wb.sheetnames), set(wb.sheetnames) ^ set(order)   # v0.3.17: no sheet dropped silently
     wb._sheets = [wb[n] for n in order]
     wb.active = wb.sheetnames.index('ScenarioCompare')   # v0.6.7: opens on the dashboard (v0.6.5-v0.6.6: DataLinks)
     for w in wb.worksheets:
         w.sheet_view.tabSelected = w.title == 'ScenarioCompare'
+    return wb
+
+
+def main():
+    import time
+    t0 = time.time()
+    stage = lambda what: print(f'[{time.time() - t0:5.0f} s] {what}', flush=True)   # v0.4.9: build timings
+    wb = generate()
     if os.environ.get('QUICK'):                    # debugging: no baseline-CO2 refresh, no batch emulation
         if not os.environ.get('NOMERGE'):         # v0.3.6: the quick file has the consolidated tabs too
             merge_tabs(wb)
@@ -15940,9 +15952,13 @@ MERGES = [('Inputs', ['Inputs', 'Inputs_prices', 'Inputs_power', 'Inputs_ef', 'I
           (TAB_REF, ['VersionLog', 'ReadMe', 'LegacyDiff']),
           (TAB_CHECK, ['Variables', 'Lambdas', 'MacroCheck'])]   # v0.5.3 (user): MacroCheck last, so the 300 rows the
 MERGE_GAP = 3                                                    # macro clears below its report end the tab
-TAB_ORDER = ['Cover', 'ScenarioCompare', 'ScenarioDefinition', 'MAIN->>', 'Mitigation', 'FromMitigation', 'Distribution', 'MTOutputs',
-             'StoredOutputs', 'INPUTS->>', 'Manual inputs', 'Settings', 'Inputs', 'FromAirPollution', 'FromTransportCB',
-             'DATA_MITIGATION->>']   # v0.4.2: then the data tabs, REF (v0.9.0 PIGAP: module tabs after Inputs)
+# v1.2.0 (user 2026-10-31): tab groups MAIN (the model), OUTPUT (its results), INPUTS, OTHER MODULES (the interfaces
+# with the other modules), then the data groups and REF. Distribution and FromMitigation only in the distribution build.
+FRONT_TABS = (['Cover', 'ScenarioCompare', 'ScenarioDefinition', 'MAIN->>', 'Mitigation']
+              + (['FromMitigation', 'Distribution'] if WITH_DIST else [])
+              + ['OUTPUT->>', 'MTOutputs', 'StoredOutputs', 'INPUTS->>', 'Manual inputs'])
+MODULE_TABS = ['OTHER MODULES->>', 'FromAirPollution', 'FromTransportCB']
+TAB_ORDER = FRONT_TABS + ['Settings', 'Inputs'] + MODULE_TABS + ['DATA_MITIGATION->>']   # then the data tabs, REF
 # v0.4.5 (user request 2026-10-17): data tabs grouped by module and ordered as legacy CPAT (DATA_MITIGATION->,
 # DATA_DISTN->, DATA_TRAN->, DATA_OUTPUT->); tabs with no legacy data tab last (DATA_OTHER)
 DATA_MIT = ['Power', 'GHGs', 'GHGHist', 'NDCs', 'Countries', 'GoalSeekCoal', 'ECP', 'Balances',
@@ -16048,29 +16064,33 @@ def merge_tabs(wb):
             and w.title not in {t for t, _b in MERGES}]
     tabs = [t for _d, tabs_ in DATA_GROUPS for t in tabs_]
     assert set(data) == set(tabs), set(data) ^ set(tabs)          # v0.4.2: every data tab in a group
-    wb._sheets = [wb[n] for n in TAB_ORDER + DATA_MIT + [t for div, tabs_ in DATA_GROUPS[1:] for t in [div] + tabs_]
+    wb._sheets = [wb[n] for n in TAB_ORDER + DATA_GROUPS[0][1] + [t for div, tabs_ in DATA_GROUPS[1:] for t in [div] + tabs_]
                   + ['REF->>']
                   + [t for t, _b in MERGES[2:]]]
     style_tabs(wb, tmap)                             # v0.4.2: title bars, sub-heading bars, header fills, widths
     wb.active = wb.sheetnames.index('ScenarioCompare')
+    if WITH_DIST:                                    # v1.2.0: the tab map is the mitigation workbook's
+        return
     with open(TABMAP_FILE, 'w', encoding='utf-8') as f:
         json.dump(tmap, f, indent=1)
 
 
 # ---------------------------------------------------------------- v0.4.2: Cover, divider tabs, tab styling
-DATA_GROUPS = [('DATA_MITIGATION->>', DATA_MIT), ('DATA_DISTN->>', DIST_DATA), ('DATA_TRAN->>', DATA_TRAN),
-               ('DATA_OUTPUT->>', DATA_OUTPUT), ('DATA_OTHER->>', DATA_OTHER)]
-DIVIDERS = ['MAIN->>', 'INPUTS->>'] + [d for d, _t in DATA_GROUPS] + ['REF->>']
+DIST_ONLY = [t for t in DIST_DATA if t not in ('HHSurvey', 'WHOCooking')]   # v1.2.0: Mitigation reads these two
+DATA_GROUPS = ([('DATA_MITIGATION->>', DATA_MIT), ('DATA_DISTN->>', DIST_DATA)] if WITH_DIST else
+               [('DATA_MITIGATION->>', DATA_MIT + ['HHSurvey', 'WHOCooking'])]) + [
+    ('DATA_TRAN->>', DATA_TRAN), ('DATA_OUTPUT->>', DATA_OUTPUT), ('DATA_OTHER->>', DATA_OTHER)]
+DIVIDERS = ['MAIN->>', 'OUTPUT->>', 'INPUTS->>', 'OTHER MODULES->>'] + [d for d, _t in DATA_GROUPS] + ['REF->>']
 TAB_INFO = [  # divider, tab, content, in legacy CPAT (Yes / Partly / No), legacy tab or note
     ('MAIN->>', 'Mitigation', 'The mitigation module: policies, prices, power, sector fuel use, results', 'Yes',
      'Mitigation (same section numbers; rebuilt formulas)'),
     ('MAIN->>', 'Distribution', 'The distribution module: household incidence by decile in the analysis year, '
      'recycling, Gini, compensation (scenario groups as Mitigation)', 'Yes',
      'Distribution (legacy sections B-D; one analysis year, deciles across)'),
-    ('MAIN->>', 'MTOutputs', 'Key results of the live scenarios (the scenario groups of Mitigation), found by '
+    ('OUTPUT->>', 'MTOutputs', 'Key results of the live scenarios (the scenario groups of Mitigation), found by '
      'output code', 'Partly',
      'MTOutputs (legacy: outputs for the Dashboard)'),
-    ('MAIN->>', 'StoredOutputs', 'Scenario results stored as values by the macros (sorted: like variables '
+    ('OUTPUT->>', 'StoredOutputs', 'Scenario results stored as values by the macros (sorted: like variables '
      'together)', 'No', ''),
     ('START', 'Cover', 'Linked data tables (status), contents, colours, abbreviations', 'Yes', 'Cover'),
     ('START', 'ScenarioCompare', 'The dashboard: every user entry of the front (Live or Stored results, year, data '
@@ -16085,10 +16105,10 @@ TAB_INFO = [  # divider, tab, content, in legacy CPAT (Yes / Partly / No), legac
      'Dashboard and Manual inputs settings; Mapping'),
     ('INPUTS->>', 'Inputs', 'Data step: every lookup Mitigation reads, by fuel | subsector, price fuel and power type',
      'No', 'Legacy reads the data tabs inside Mitigation'),
-    ('INPUTS->>', 'FromAirPollution', 'Outputs of the air pollution module that Mitigation reads, by country: value of '
+    ('OTHER MODULES->>', 'FromAirPollution', 'Outputs of the air pollution module that Mitigation reads, by country: value of '
      'averted PM2.5, concentration coefficients (typed Egypt values of legacy 465 until the module writes them); memo: '
      'legacy average unit costs', 'Partly', 'Air pollution sheet (rows 442-522, 974-981, 1814, 3217, 3731-4378)'),
-    ('INPUTS->>', 'FromTransportCB', 'Outputs of the transport co-benefits module that Mitigation reads, by country: '
+    ('OTHER MODULES->>', 'FromTransportCB', 'Outputs of the transport co-benefits module that Mitigation reads, by country: '
      'accident, congestion and road-damage costs per vehicle-km (typed Egypt values of legacy 465)', 'Partly',
      'Transport sheet (rows 185, 220, 232)'),
     ('DATA_MITIGATION->>', 'Countries', 'Country list: name, code, region, income group, GAINS region; region codes '
@@ -16158,14 +16178,18 @@ TAB_INFO = [  # divider, tab, content, in legacy CPAT (Yes / Partly / No), legac
      '(register code, bug or issue, status)', 'Partly', 'VersionTracker'),
     ('REF->>', 'Check, Variables, Lambdas', 'First-run test of the macros, the variable dictionary, the LAMBDA '
      'formula of every calculated row', 'No', 'Glossary and Meta_mit cover part of the dictionary')]
+TAB_INFO = [x for x in TAB_INFO if WITH_DIST or x[1] not in ['Distribution', 'FromMitigation'] + DIST_ONLY]
 _GROUP_OF = {t: d for d, tabs_ in DATA_GROUPS for t in tabs_}     # v0.4.5: each data tab's group, in tab order
 _POS = {t: k for k, t in enumerate([t for _d, tabs_ in DATA_GROUPS for t in tabs_])}
 TAB_INFO = ([x for x in TAB_INFO if x[1] not in _GROUP_OF]
             + sorted([(_GROUP_OF[t], t, *rest) for _d, t, *rest in TAB_INFO if t in _GROUP_OF], key=lambda x: _POS[x[1]]))
 TAB_INFO = [x for x in TAB_INFO if x[0] != 'REF->>'] + [x for x in TAB_INFO if x[0] == 'REF->>']
 DIVIDER_TITLE = {'START': 'Start: the dashboard and the scenario definitions',
-                 'MAIN->>': 'Main tabs: the model and its results',
+                 'MAIN->>': 'Main tab: the mitigation model',
+                 'OUTPUT->>': 'Outputs: the results of the scenarios',
                  'INPUTS->>': 'Inputs: scenarios, settings and the data step',
+                 'OTHER MODULES->>': 'Other modules: what Mitigation reads from the other CPAT modules (its exports '
+                                     'to them: Mitigation section 19)',
                  'DATA_MITIGATION->>': 'Mitigation data: the data tabs of legacy CPAT used by the mitigation module',
                  'DATA_DISTN->>': 'Distribution data: the data tabs of legacy CPAT used by the distribution module (DATA_DISTN)',
                  'DATA_TRAN->>': 'Transport data: the data tabs of legacy CPAT used by the road transport model '
@@ -16184,7 +16208,8 @@ TAB_WIDTHS = {TAB_REF: {'A': 14, 'B': 28, 'C': 90, 'D': 40, 'E': 6, 'F': 40, 'G'
                           'K': 12}}
 FONT_SUBBAR = Font(name='Arial', size=11, bold=True, color='FFFFFF')
 F_TABDIV = '808080'                     # tab colours (Cover legend)
-TAB_COLOURS = [('Results and model (MAIN)', '00AE49'), ('Inputs (INPUTS)', '92D050'), ('Data (DATA_...)', 'DCE6F1'),
+TAB_COLOURS = [('Model and results (MAIN, OUTPUT)', '00AE49'), ('Inputs and other modules (INPUTS, OTHER MODULES)',
+                                                                  '92D050'), ('Data (DATA_...)', 'DCE6F1'),
                ('Reference (REF)', 'F2F2F2'), ('Divider (table of contents)', F_TABDIV)]
 
 
@@ -16282,6 +16307,27 @@ def fill_divider(ws):
     ws.sheet_properties.tabColor = F_TABDIV
 
 
+ZOOM = 80                               # v1.2.0 (user 2026-10-31): every tab at 80%
+
+
+def mark_data_tables(ws):
+    """v1.2.0 (user 2026-10-31; NORMS 2.7): on a data tab the dark green bar (row 2) describes the tab and each table
+    it holds is marked by a light green header row. Tabs at legacy addresses: the tables of data/scripts/tidy_blocks.py
+    (header = label row, from the first key column to the last data column); one-table tabs: the header in row 3."""
+    import tidy_blocks as TB
+    blocks = TB.BLOCKS.get(f'legacy_{ws.title}_cells.csv')
+    hr = {'Prices_dom': 5}.get(ws.title, 3)            # Prices_dom keeps the legacy header rows 1-4
+    spans = ([(b['label_row'], min(b['key_cols'] + [b['cols'][0]]), b['cols'][1]) for b in blocks] if blocks else
+             [(hr, 1, ws.max_column)] if sum(c.value is not None for c in ws[hr]) >= 2 else [])
+    for r, c0, c1 in spans:
+        if r < 3:
+            continue
+        for c in range(c0, c1 + 1):
+            cell = ws.cell(r, c)
+            cell.fill, cell.font = F_BAND, FONT_BAND
+    return len(spans)
+
+
 def style_tabs(wb, tmap, only=None):
     """v0.4.2 (NORMS 2.7): every tab but Mitigation, MTInputs and Prices_dom (legacy layouts): a dark green title bar
     in row 2 with what the tab is about, light green sub-heading bars for the blocks of a merged tab, all across the
@@ -16294,18 +16340,21 @@ def style_tabs(wb, tmap, only=None):
         if ws.title in DIVIDERS:
             cur = ws.title
         group_col[ws.title] = cur
-    colours = {'MAIN->>': '00AE49', 'INPUTS->>': '92D050', 'DATA_MITIGATION->>': 'DCE6F1', 'DATA_DISTN->>': 'DCE6F1',
+    colours = {'MAIN->>': '00AE49', 'OUTPUT->>': '00AE49', 'INPUTS->>': '92D050', 'OTHER MODULES->>': '92D050', 'DATA_MITIGATION->>': 'DCE6F1', 'DATA_DISTN->>': 'DCE6F1',
                'DATA_TRAN->>': 'DCE6F1', 'DATA_OUTPUT->>': 'DCE6F1',
                'DATA_OTHER->>': 'DCE6F1', 'REF->>': 'F2F2F2'}
     for ws in wb.worksheets:
         if only is not None and ws.title not in only:   # v0.4.9: one tab rebuilt after the merge (StoredResults)
             continue
+        ws.sheet_view.zoomScale = ZOOM
         if ws.title in DIVIDERS:
             fill_divider(ws)
             continue
         if group_col.get(ws.title):
             ws.sheet_properties.tabColor = colours[group_col[ws.title]]
         if ws.title in keep_layout:
+            if ws.title in _GROUP_OF:
+                mark_data_tables(ws)
             continue
         width = max(ws.max_column, 4)
         for row in ws.iter_rows():                   # table headers: bold, no fill (inputs keep the light green)
@@ -16325,6 +16374,8 @@ def style_tabs(wb, tmap, only=None):
             if a.fill and a.fill.fill_type and str(a.fill.fgColor.rgb).endswith('92D050'):
                 for j in range(1, width + 1):
                     ws.cell(r, j).fill = F_BAND
+        if ws.title in _GROUP_OF:                    # v1.2.0: a light green header on each data table
+            mark_data_tables(ws)
         if blocks[0] in BLOCK1_BAR:
             bar(ws, 3, BLOCK1_BAR[blocks[0]], width, F_BAND, FONT_SUBBAR)
         if ws.title == 'Settings':                   # mapping tables are structure, not inputs: no fill

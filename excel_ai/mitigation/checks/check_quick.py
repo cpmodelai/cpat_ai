@@ -129,6 +129,11 @@ def tabs(wb):
         if w < min(ws.max_column, 4):
             bad.append(f'{ws.title}: title bar {w} of {ws.max_column} columns')
             continue
+        if ws.title in B._GROUP_OF:                  # v1.2.0: data tabs: a light green header per table (below)
+            if not any(rgb(ws.cell(r, c)) == light for r in range(3, min(ws.max_row, 400) + 1)
+                       for c in range(1, min(ws.max_column, 60) + 1)):
+                bad.append(f'{ws.title}: no light green table header')
+            continue
         for r in range(3, ws.max_row + 1):
             if rgb(ws.cell(r, 1)) == light:
                 wl = max(c for c in range(1, ws.max_column + 1) if rgb(ws.cell(r, c)) == light)
@@ -367,6 +372,9 @@ def distribution(data):
     """v0.4.4: Distribution (NORMS 1.1b): group 2 (v0.6.6: the LAMBDA group) equals the
     Python reference (distribution_ref.run) fed with the sheet's own section-1 settings and section-2 inputs."""
     import distribution_ref as DR
+    if 'Distribution' not in data:                  # v1.2.0: not in the mitigation workbook (distribution/ checks it)
+        log('Distribution: not in the mitigation workbook (checked by distribution/check_distribution.py)')
+        return
     ws = data['Distribution']
     if not B.DSPEC:                                 # the row plan, as the build made it (Mitigation row keys)
         wm, mitrow = data['Mitigation'], {}
